@@ -660,18 +660,24 @@ theorem twinFree_mem {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1 / 2) (hA : A₀ �
 
 /-! ## D4-c — the final wave: THE GAP THEOREM (L3) and the demand lemma (L5) -/
 
-/-- **L3 — THE GAP THEOREM [B].**  A twin-sufficient, true, parity-invariant
-    completion predicate CANNOT exist at Brun grade (`θ ∈ (0,1/2)`, `A₀ ≤ 2`).
+/-- **L3 — THE GAP THEOREM [B].**  A twin-sufficient, parity-invariant completion
+    predicate CANNOT exist at Brun grade (`θ ∈ (0,1/2)`, `A₀ ≤ 2`).
     Route: `ParityInv` carries `E` off `oneWeight`'s cone onto the twin-free
     witness `twinFree` (itself a completion, `L2`); `TwinSufficient` then forces
     `twinMass twinFree` unbounded, contradicting `twinFree_twinMass` (it is `≡ 0`).
-    This is the parity barrier's formal content as a demand on `E`: every true
-    twin-sufficient estimate must break parity-invariance. -/
+    This is the parity barrier's formal content as a demand on `E`: every
+    twin-sufficient estimate must break parity-invariance.
+
+    ⭐ **RE-CUT 2026-08-11 (Captain's ruling (a) at council; amendment J6 SPENT).**
+    Two hypotheses were previously carried and provably unused: `h1 : 1 ≤ A₀` and
+    `ht : E oneWeight`.  They are now **dropped**, so this statement is *strictly
+    stronger* than the one held before — the barrier needs neither a lower bound on
+    `A₀` nor truth of `E` at `oneWeight`.  The name is KEPT: strengthening preserves
+    a name's meaning (every prior citation remains true of the new statement);
+    weakening would not.  Found by writing `Salt/Certs/ParityGap.lean`. -/
 theorem sufficient_true_not_parityInv {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1 / 2)
-    (h1 : 1 ≤ A₀) (h2 : A₀ ≤ 2) {E}
-    (hs : TwinSufficient θ A₀ E) (ht : E oneWeight) : ¬ ParityInv θ A₀ E := by
-  have _ := h1  -- frozen hypothesis (amendment J6); unused in the proof
-  have _ := ht  -- frozen hypothesis; the gap uses ParityInv, not `E oneWeight`
+    (h2 : A₀ ≤ 2) {E}
+    (hs : TwinSufficient θ A₀ E) : ¬ ParityInv θ A₀ E := by
   intro hinv
   have htf_comp : Completion θ A₀ twinFree := twinFree_mem h0 h h2
   have htf_E : E twinFree := hinv twinFree htf_comp

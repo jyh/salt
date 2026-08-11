@@ -37,23 +37,22 @@ contradicting `0`. **The witness is the twin-free completion; that is the whole 
 `cert_parity_gap` is the **same proposition** as the landed theorem, restated with
 its binders named in plain terms, proved by `exact`. **No generality is traded.**
 
-## ⚠️ TWO HYPOTHESES ARE CARRIED BUT **NOT USED** — reported, not altered
-The landed proof opens by discharging two binders as deliberately frozen:
-```
-have _ := h1  -- frozen hypothesis (amendment J6); unused in the proof
-have _ := ht  -- frozen hypothesis; the gap uses ParityInv, not `E oneWeight`
-```
-* `h1 : 1 ≤ A₀` — **half of what the paper calls "the certified `A₀` range"**
-  (Appendix A decodes that phrase as `h1 ∧ h2`, i.e. `1 ≤ A₀ ≤ 2`). Only `h2` is used.
-* `ht : E oneWeight` — **the paper's "true (`E(𝟏}`)" conjunct.** Unused.
+## ⭐ THIS CERTIFIES THE **RE-CUT** STATEMENT (2026-08-11)
+Writing the first version of this file surfaced that the landed theorem carried **two
+hypotheses its proof never used** — `h1 : 1 ≤ A₀` (half of what the paper called "the
+certified `A₀` range") and `ht : E oneWeight` (the paper's "true, `E(𝟏)`" conjunct) —
+so the kernel held **strictly more** than the statement said. That first cert stated the
+theorem *as landed*, because rule 3 forbids a cert from strengthening: a stronger
+statement cannot be proved from a weaker theorem by `exact`.
 
-⇒ ***The landed result is therefore STRICTLY STRONGER than the statement it is
-written as: it holds without `1 ≤ A₀` and without `E oneWeight`.*** This certificate
-states the theorem **as landed** (rule 3 forbids strengthening: a stronger cert cannot
-be proved from a weaker theorem by `exact`). **Whether to drop the frozen binders is a
-statement decision and belongs to the design desk under iron rule 1 — flagged here, not
-taken.** *A reader of the paper should know that two of the four stated conditions are
-not load-bearing in the proof.*
+**The Captain ruled the re-cut at council** (ruling (a); amendment J6's flags-wording
+guard read and spent), the two binders were dropped from
+`sufficient_true_not_parityInv`, and **this certificate now certifies the stronger
+form.** The barrier needs neither a lower bound on `A₀` nor truth of `E` at `oneWeight`.
+
+*The theorem's NAME is unchanged, deliberately: strengthening preserves a name's meaning
+— every citation written against the old statement is still true of the new one —
+whereas weakening would have required a rename under the restatement law.*
 
 ## AXIOMS
 `[propext, Classical.choice, Quot.sound]` — the standard three; verified at landing.
@@ -63,18 +62,17 @@ namespace Salt.Certs
 
 open Salt.Parity
 
-/-- **THE CERTIFICATE.** On the certified window, no predicate `E` on completions is
-at once true at `𝟏`, twin-sufficient, and parity-invariant.
+/-- **THE CERTIFICATE.** On the certified window `0 < θ < 1/2`, `A₀ ≤ 2`: **no
+predicate `E` on completions is both twin-sufficient and parity-invariant.**
 
-`hA_lo` and `hE_one` are carried because the landed statement carries them; **neither
-is used by the proof** — see the module docstring. -/
+Note what is *absent*: no lower bound on `A₀`, and no assumption that `E` holds at
+`oneWeight`. The barrier does not need them. -/
 theorem cert_parity_gap {θ A₀ : ℝ}
-    (hθ_pos : 0 < θ) (hθ_half : θ < 1 / 2)
-    (hA_lo : 1 ≤ A₀) (hA_hi : A₀ ≤ 2)
+    (hθ_pos : 0 < θ) (hθ_half : θ < 1 / 2) (hA_hi : A₀ ≤ 2)
     {E : (ℕ → ℝ) → Prop}
-    (hSuff : TwinSufficient θ A₀ E) (hE_one : E oneWeight) :
+    (hSuff : TwinSufficient θ A₀ E) :
     ¬ ParityInv θ A₀ E :=
-  sufficient_true_not_parityInv hθ_pos hθ_half hA_lo hA_hi hSuff hE_one
+  sufficient_true_not_parityInv hθ_pos hθ_half hA_hi hSuff
 
 #print axioms cert_parity_gap
 

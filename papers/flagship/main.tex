@@ -642,9 +642,8 @@ sieve tracks, checkable by its import list alone.
 \end{definition}
 
 \begin{theorem}[The gap theorem]\label{thm:gap}
-For $0 < \theta < \tfrac12$ and the certified $A_0$ range, no predicate
-$E$ is simultaneously true ($E(\mathbf{1})$), twin-sufficient, and
-parity-invariant. The witness is the twin-free weighting
+For $0 < \theta < \tfrac12$ and $A_0 \le 2$, no predicate $E$ is both
+twin-sufficient and parity-invariant. The witness is the twin-free weighting
 $a^-(n) = 0$ if $n, n+2$ are both prime and $1$ otherwise: a
 Brun-grade argument (using the corpus's explicit
 $\pi_2(x) \ll x/\log^2 x$ bound) places $a^- \in
@@ -1262,13 +1261,16 @@ def Z (θ A₀ : ℝ) : Prop :=
 \end{alltt}}
 
 \medskip\noindent\textbf{Theorem~\ref{thm:gap}} (the gap theorem). Source
-\leaninline{Salt/Parity/Z.lean:670}; audit \leaninline{Salt/Parity/All.lean:22}.
-The paper's ``certified $A_0$ range'' is the pair of binders \leaninline{h1} and
-\leaninline{h2}: $1 \le A_0 \le 2$.
+\leaninline{Salt/Parity/Z.lean:678}; audit \leaninline{Salt/Parity/All.lean:22}.
+The grade condition is the single binder \leaninline{h2}: $A_0 \le 2$. Until
+2026-08-11 this theorem also carried \leaninline{h1} ($1 \le A_0$) and
+\leaninline{ht} ($E(\mathbf{1})$); writing its comprehensibility certificate showed
+both were unused by the proof, and they were dropped --- the kernel had been holding
+a strictly stronger statement than the one displayed.
 {\footnotesize\begin{alltt}
 theorem sufficient_true_not_parityInv \{θ A₀ : ℝ\} (h0 : 0 < θ) (h : θ < 1 / 2)
-    (h1 : 1 ≤ A₀) (h2 : A₀ ≤ 2) \{E\}
-    (hs : TwinSufficient θ A₀ E) (ht : E oneWeight) : ¬ ParityInv θ A₀ E
+    (h2 : A₀ ≤ 2) \{E\}
+    (hs : TwinSufficient θ A₀ E) : ¬ ParityInv θ A₀ E
 \end{alltt}}
 
 \medskip\noindent\textbf{Theorem~\ref{thm:ziff}} ($Z$ is exactly the demand).
