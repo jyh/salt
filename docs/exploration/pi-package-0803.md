@@ -820,3 +820,47 @@ this addendum fixes is the *pointer* rot, not the policy.
   decisions*. Nothing in this addendum touches either.
 - **Unchanged from §8's ordered residue:** one `pdflatex` run; the six uncited
   bibliography entries (JYH's voice call); `Littlewood1922`'s page range.
+
+## A5. THE NUMBER SWEEP — evidence's 18:05 amendment, executed
+
+*Their correction, adopted: a phrase-shaped staleness sweep covers only claims
+that **announce their tense** ("remains", "not yet"). An asserted NUMBER
+announces nothing, and it fails toward OVER-claiming — which is the direction
+that propagates, because a reader who trusts it carries it onward. The target
+list is enumerable: every exponent, constant, arm count and shape word the
+prose asserts about an object the corpus owns.*
+
+| Asserted | Site | Re-derived at the source today |
+|---|---|---|
+| $b = 680$, $k = 14$ | Thm 3.3 | ✅ both towers' witness is `⟨680, c, 14, …⟩` (`TBalR8:1921`, `TBalTall:2194`) |
+| $c = c_1^8$ | Thm 3.3 | ⛔ **FALSIFIED** by TS-2's per-row Hölder floors — struck today (A1) |
+| $\|Im\ ρ\| \le 1$ | Thm 3.3 | ⛔ **RETIRED** by `dh_repulsion_tall` — hypothesis removed today (A1) |
+| $2^{31}$ | Thm 6.1 | ✅ `noncomputable def L2cCmain : ℝ := 2 ^ 31` (`L2cMaster.lean:356`) |
+| the master's three rows | Thm 6.1 | ✅ shape matches the statement at `L2cMasterUncond.lean:85-92` term for term: $x/z_0$ · $(x/\log x)e^{5z_0}\mathrm{PS}$ · $e^{2z_0}(xz^{-1/8}+x^{9/10})L^3$ |
+| ten parity instances | §8 | ✅ **10** (comment-masked extractor, `Salt/Parity/Instances.lean`) |
+| 59 sign-function declarations | §7 | ⚠️ **the extractor reads 60** — structure 1 / def 11 / lemma 42 / theorem 6. **The file has ZERO commits since the 8/3 verification, so this is an INSTRUMENT delta, not rot.** $60 - 1$ structure $= 59$, which is very likely what the 8/3 count measured. **Flagged, not silently changed:** this document's own rule is that counts come from the comment-masked extractor, so either the number becomes 60 or the sentence names which 59. **A verified claim is not re-verified by a second instrument disagreeing with it once.** |
+| 19 `ChowlaRegime` fields | App. A | covered — `Regime.lean` unchanged since the verification |
+
+**THE ZERO-COMMIT COVER, and its honest limit.** Every other numeric claim in
+the paper rests on a file that has **not moved since 2026-08-03**:
+```
+Salt/Fulcrum 0 · Salt/Parity 0 · Salt/Vk 0 · Salt/TwinBar 0 · Salt/Entropy (proofs) 0
+L2cMasterUncond 0 · L2cGlue 0 · CZeroNumeral 0 · Vk/Core 0 · Regime 0 · Parity/Z 0
+MOVED: Salt/SW 22 commits (TAU-EXT + TAU-SHARP) · Salt/HB (the WEIL-TRIO wave + HSIGMA-COMP)
+```
+⚠️ ***Zero commits proves NO ROT SINCE THE LAST CHECK. It does not re-verify a
+number.*** Two were re-derived at the source anyway ($2^{31}$, the ten
+instances); the rest inherit the 8/3 gate, and that inheritance is stated here
+rather than presented as a fresh pass.
+
+⛔ **THE CLASS THIS SWEEP STRUCTURALLY CANNOT COVER, named so a green is not
+read as clean:** the priority claims — *"the first formalization of any
+zero-free region of Littlewood strength"*, *"none had been formalized
+before"*, *"to our knowledge a new mode of discovery"*. **They are claims about
+the literature, and no instrument inside this repository can check them.** They
+were not touched today and they want a reader, not a script.
+
+**SPINE UNMOVED, CONFIRMED BY MEASUREMENT, NOT BY MEMORY:** `Salt/MR/` and
+`Salt/Entropy/` carry no proof-content commits since 08-03 (two commits, both
+comment-only), so §8's door and the conditional table's second row stand
+exactly as written.
