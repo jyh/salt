@@ -151,11 +151,21 @@ receipt = the elaboration output quoted in flags/bus; the scratch is never commi
 land proved, the top statement lands WITH its proof).
 (iii) NO track branch: the checkout is cross-seat with no lock, and a branch switch would
 move the tree under three other seats. Iron rule 2 stands unamended.
-(iv) THE CONFINEMENT AUDIT (evidence, 10:28): `Scratch*.lean` is GITIGNORED (.gitignore:2),
-so this shell's `grep` (a function honoring .gitignore) and `git grep` are BOTH BLIND to it —
-their zero is compatible with any number of sorries. Audit with `command grep -rFn sorry`,
-and publish the bracketing nonzero ("N Scratch files carry sorry, 0 tracked files do") so the
-query is proven to fire. A bare "0 on main" proves nothing.]**
+(iv) THE CONFINEMENT AUDIT (evidence 10:28; premise CORRECTED math 10:32): the gitignore glob
+this clause relied on existed only in SALTWORKS — salt carried anchored names, no glob, and a
+ruling-compliant per-agent scratch turned up STAGED in the shared index with 3 sorries; only
+the pathspec-only commit law kept them off main. REPAIRED at `24fbad6`: salt now carries the
+`Scratch*.lean` glob (any depth), verified by `git check-ignore`. The working-tree audit form:
+`command grep -rFn sorry` (this shell's `grep` and recursive greps honor .gitignore and are
+BLIND to scratch — their zero proves nothing), publishing the bracketing nonzero ("N Scratch
+files carry sorry, 0 tracked files do").
+(v) THE REF AUDIT (compiler 10:32): "no `sorry` on MAIN" is a claim about a REF, so the
+instrument reads THE REF, never the disk — `git show origin/main:<path> | command grep -c
+sorry` per path, or `git grep -Fn sorry origin/main -- '*.lean'` ref-wide. Immune to both
+hazards: .gitignore cannot hide a named blob, and the working tree cannot contaminate it (a
+tree-audit mid-proof reports a sorry that never reaches main — a false alarm; a clean-tree
+green says nothing about what was pushed). Term-shaped hits only: prose docstrings saying
+"sorry-free" are noise, `:= sorry` / `by sorry` / bare-`sorry` lines are the signal.]**
 
 **This block supersedes nothing in the dossier except its pins** — the dossier remains the
 reference for the mathematics; this gate is the executable form of its recommendations.
