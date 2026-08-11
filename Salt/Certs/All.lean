@@ -7,6 +7,8 @@ import Salt.Certs.Vaughan
 import Salt.Certs.ParityGap
 import Salt.Certs.ZetaPowRegion
 import Salt.Certs.ChowlaSpine
+import Salt.Certs.BoundedGaps
+import Salt.Certs.Chen
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -56,12 +58,32 @@ its docstring exactly what, if anything, was traded for readability.
   `thm:spine` names two declarations under one label, and evidence's adequacy arm caught
   that the first version covered only one.
 
-## OWED (target list v1, ≈14 salt files)
-`bounded_gaps_unconditional` · `chen_headline` · `chen_goldbach` · `gaps_le_twelve`
-· `siegelWalfisz_holds` · `analytic_LS + char_LS` ·
+* `Salt/Certs/BoundedGaps.lean` — `cert_bounded_gaps` (+ `_iff`,
+  `_infinitely_many`, `_infinitely_many_iff`), certifying
+  `Salt.SW.bounded_gaps_unconditional`. Direction: **implication from the landed
+  theorem, with the no-trade claim KERNEL-PROVED** — `cert_bounded_gaps_iff` states
+  the landed matrix verbatim as its LHS, so the type-check itself certifies the
+  paraphrase; the `Set.Infinite` rendering is likewise tied by a proved iff (the
+  executor's own first draft called it "genuinely weaker" — false, caught by rule 2,
+  repaired by proof rather than rewording). Zero hypotheses, stated as such.
+  (W-CERT-1 executor draft; landed at the helm.)
+
+* `Salt/Certs/Chen.lean` — `cert_chen` + `cert_chen_omega`, certifying
+  `Salt.Chen.chen_headline` and `Salt.Fulcrum.chen_omega_prod_le_three` (one paper
+  phrase, three declarations — the header carries the phrase→declaration map;
+  the Goldbach half is row 6, NOT certified here). Direction: **same proposition**
+  both (set equality; Ω rendered as `primeFactorsList.length`, bridged by mathlib's
+  `cardFactors_apply`). The `IsP2 2` threshold clauses are vacuous and their
+  omission is kernel-checked (the reverse inclusion rebuilds them from primality).
+  The one-directional superset transport behind the Ω-corollary is FENCED in the
+  docstring: the `Ω(p+2) ≤ 2` reading is a reader's gloss, its converse unproved
+  in this corpus. (W-CERT-1 executor draft; landed at the helm.)
+
+## OWED (target list v1, anchored rows remaining)
+`chen_goldbach` (row 6) · `siegelWalfisz_holds` · `analytic_LS + char_LS` ·
 `vmvt` (the likely class-C translation; maestro owns it) ·
-`norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` ·
-`sufficient_true_not_parityInv` · `psiTot_pnt`.
+`norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` (THE WALL,
+anchor = Pi's `neutrality_rate` :1173) · `psiTot_pnt` [parked pending anchor ruling].
 
 ✅ **ROOTED.** `Salt.lean:31` imports `Salt.Certs.All` (maestro, 2026-08-11, at the
 first cert's seal), so the hub build replays this tree: full `../saltbuild.sh` green at
@@ -76,3 +98,9 @@ open Salt.Tactic in
   Salt.Certs.cert_zeta_zero_free_pow
   Salt.Certs.cert_log_chowla_door_only
   Salt.Certs.cert_log_chowla_budget_head
+  Salt.Certs.cert_bounded_gaps
+  Salt.Certs.cert_bounded_gaps_iff
+  Salt.Certs.cert_bounded_gaps_infinitely_many
+  Salt.Certs.cert_bounded_gaps_infinitely_many_iff
+  Salt.Certs.cert_chen
+  Salt.Certs.cert_chen_omega
