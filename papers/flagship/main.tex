@@ -885,7 +885,7 @@ Statement & Declaration & Axioms \\
 \midrule
 Thm~\ref{thm:litt} & \leaninline{zeta\_zero\_free\_region\_littlewood} & the three \\
 Thm~\ref{thm:pow} & \leaninline{zeta\_zero\_free\_region\_pow} & the three \\
-Thm~\ref{thm:rep} & \leaninline{dh\_repulsion\_ordered} & the three \\
+Thm~\ref{thm:rep} & \leaninline{dh\_repulsion\_tall} & the three \\
 Def~\ref{def:fulcrum} & \leaninline{FulcrumQualityMin} & --- \\
 Thm~\ref{thm:fulcrumreal} & \leaninline{fulcrum\_zero\_real} & the three \\
 Thm~\ref{thm:dich} & \leaninline{fulcrum\_dichotomy} & the three \\
@@ -946,19 +946,25 @@ theorem zeta_zero_free_region_pow :
 \end{alltt}}
 
 \medskip\noindent\textbf{Theorem~\ref{thm:rep}} (Deuring--Heilbronn repulsion,
-contract form). Source \leaninline{Salt/SW/TBalR8.lean:1752}; audit
-\leaninline{Salt/SW/All.lean:124}. The three constants are bound existentially in
-the statement; the witnesses are supplied at \leaninline{Salt/SW/TBalR8.lean:1836}
-as $\langle 680, c, 14, \ldots \rangle$, with $c$ the explicit minimum set at
-\leaninline{:1776}. The paper's $b = 680$ and $k = 14$ are therefore proof data,
-not statement data, and a reader checking the display of \S\ref{sec:banners}
-against the declaration should read them there.
+contract form). Source \leaninline{Salt/SW/TBalTall.lean:2090}; audit
+\leaninline{Salt/SW/All.lean:132}, the track's roll-call invocation, which names
+this declaration at \leaninline{:346}. The three constants are bound
+existentially in the statement; the witnesses are supplied at
+\leaninline{Salt/SW/TBalTall.lean:2194} as $\langle 680, c, 14, \ldots \rangle$,
+with $c$ the explicit ten-arm minimum set at \leaninline{:2137}. The paper's
+$b = 680$ and $k = 14$ are therefore proof data, not statement data, and a
+reader checking the display of \S\ref{sec:banners} against the declaration
+should read them there. The height-bounded twin of
+Remark~\ref{rem:repc} is \leaninline{Salt/SW/TBalR8.lean:1813} (witness
+\leaninline{:1921}, minimum \leaninline{:1861}): the same $b$ and $k$ over an
+eleven-arm tower whose extra arm carries the auxiliary $\zeta$-growth constant,
+which is why that form does not price numerically and this one does.
 {\footnotesize\begin{alltt}
-theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
+theorem dh_repulsion_tall : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
       χ.IsPrimitive → χ ≠ 1 → χ ^ 2 = 1 → 2 ≤ q →
       ∀ β₀ : ℝ, DirichletCharacter.LFunction χ (β₀ : ℂ) = 0 → 1 / 2 < β₀ → β₀ < 1 →
-      ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 → ρ.im ≠ 0 → |ρ.im| ≤ 1 →
+      ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 → ρ.im ≠ 0 →
         16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
         (1 - β₀) ≥ c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(b * (1 - ρ.re)))
           / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ k
