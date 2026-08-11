@@ -864,3 +864,50 @@ were not touched today and they want a reader, not a script.
 `Salt/Entropy/` carry no proof-content commits since 08-03 (two commits, both
 comment-only), so §8's door and the conditional table's second row stand
 exactly as written.
+
+## A6. THE PIN GATE — every `file:line` in the paper, checked at the live tree
+
+*Appendix A stakes the paper's strongest procedural sentence on these pins —
+"reducing the entire correctness question of the corpus to a finite, public,
+refereeable translation audit". A pin is a claim about a file that kept moving,
+and two had already rotted before this gate existed. So it is now a gate.*
+
+**Method** (reproducible from this description; the script is kept out of the
+repo): pull every `Salt/….lean:NNN` out of `main.tex`; at each, read the cited
+line and the two above it (a `theorem` can sit under an attribute); call it
+SOUND if that window carries a declaration keyword or an audit macro, SUSPECT
+otherwise — **and print the actual text either way, so the classifier is never
+the last word.**
+
+```
+41 pins cited · 39 SOUND · 2 SUSPECT — and BOTH suspects are the classifier's
+  limit, not the paper's error.  I read them rather than reporting them:
+    TBalTall.lean:2194   `refine ⟨680, c, 14, …⟩`  — the paper cites it AS the
+                         witness line, which is precisely what it is.  ✅
+    L2cMasterUncond:41   `variable {q : ℕ}`        — the paper cites it AS the
+                         section variable supplying the modulus.  ✅
+```
+
+⛔ **ONE REAL ROT, FOUND AND FIXED — and it was cited THREE times.**
+```
+Salt/HB/All.lean:54   the audit site for Thm 6.1, Thm 7.2 and Thm 7.3
+  WAS the #audit_axioms invocation; is now `import Salt.HB.CharTrio`.
+  The file has exactly ONE audit invocation and it sits at :71, whose
+  roll-call names all four cited declarations (:110, :113, :116, :135).
+  Rotted by HSIGMA-COMP (`8b5998d`, 08-07) adding imports above it.
+⇒ corrected to `Salt/HB/All.lean:71` at all three sites.
+```
+🔑 ***THE PATTERN, now three for three: every pin that rotted this week rotted
+because a file grew ABOVE the cited line — Appendix A's Unicode preamble pushed
+§4's number sites down by 47, CHAR-TRIO's import pushed HB's audit site down by
+17, and the SW wave moved the repulsion source by 61. **Nothing was deleted and
+nothing was renamed; the pins broke because the files got taller.*** *That is
+the failure mode a name-based check cannot see and a line-based check cannot
+survive — which is the argument for citing NAMES in the prose and verifying
+LINES by gate at posting, exactly as §6 step 1 is scheduled.*
+
+📌 **STANDING PRACTICE PROPOSED (cheap, one command):** run this gate and the
+name gate together **at posting time**, after the `pdflatex` run and before the
+form opens. Neither takes a minute, and between them they cover the two ways
+Appendix A can lie: a name that no longer exists, and a line that no longer
+holds what it claims.

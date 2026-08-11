@@ -1090,7 +1090,7 @@ theorem fulcrum_dichotomy \{C : ℝ\} (hC : 0 < C)
 
 \medskip\noindent\textbf{Theorem~\ref{thm:master}} (the master estimate). Source
 \leaninline{Salt/HB/L2cMasterUncond.lean:85}; audit
-\leaninline{Salt/HB/All.lean:54}. The modulus is supplied by the section
+\leaninline{Salt/HB/All.lean:71}. The modulus is supplied by the section
 \leaninline{variable} at \leaninline{Salt/HB/L2cMasterUncond.lean:41}. The
 hypothesis packet is four items and nothing else --- \leaninline{hsq},
 \leaninline{hz100}, \leaninline{hz8}, \leaninline{hzx} --- which is the sense in
@@ -1144,7 +1144,7 @@ structure IsSignFunction (f : ℕ → ℝ) : Prop where
 \medskip\noindent\textbf{Theorem~\ref{thm:wall}} (neutrality and the rate).
 Sources \leaninline{Salt/HB/SignChain.lean:511} (the unconditional leg),
 \leaninline{Salt/HB/SignRate.lean:42} (the budget shape) and \leaninline{:53}
-(the rate); audit \leaninline{Salt/HB/All.lean:54}. The split the paper states is
+(the rate); audit \leaninline{Salt/HB/All.lean:71}. The split the paper states is
 the split in the signature: \leaninline{S1\_le\_S2Gen} carries no hypothesis
 beyond \leaninline{hf}, and the upper bound consumes \leaninline{hbudget} ---
 Table~\ref{tab:conditional}'s third row.
@@ -1167,7 +1167,7 @@ theorem neutrality_rate (f : ℕ → ℝ) (hf : IsSignFunction f) (z x : ℕ) (C
 
 \medskip\noindent\textbf{Theorem~\ref{thm:liouville}} (the neutrality point).
 Source \leaninline{Salt/HB/SignLiouville.lean:93, 97, 103, 109}; audit
-\leaninline{Salt/HB/All.lean:54}. Four statements, four lines;
+\leaninline{Salt/HB/All.lean:71}. Four statements, four lines;
 \leaninline{lamR} is the real-valued Liouville function.
 {\footnotesize\begin{alltt}
 theorem LamTildeGen_lamR_eq_vonMangoldt (n : ℕ) : LamTildeGen lamR n = Λ n
