@@ -20761,7 +20761,9 @@ owns that file. Note (ii) interacts with K3's finding: the `250 ≤ Real.log q` 
 
 **THE D2 PRE-FLIGHT, BYTE-CHECKED AT THE SOURCE PDF, VERDICT: PASS.** Read at 400-dpi page images
 of the staged PDF (`~/Downloads/Proceedings of London Math Soc - September 1983 - Heath-Brown -
-Prime Twins and Siegel Zeros.pdf`; journal page = PDF page + 192), journal pp.194 and 211–215. The
+Prime Twins and Siegel Zeros.pdf` — *path repointed 2026-08-11: the durable copy is
+`${LOCAL_SOURCES}/sources/hb1983-prime-twins-siegel-zeros.pdf`, local-only by the Captain's
+copyright ruling*; journal page = PDF page + 192), journal pp.194 and 211–215. The
 four bytes the design turns on are all there and all governing. **(1.5), p.194**: the standing
 normalisation is `2 | α_i (i = 1,2)` — *both* forms have even leading coefficient, so
 `α = (α₁, α₂)` is even. **(5.1), p.211**: `S(δ₁,δ₂;V₁,V₂)` "is clearly zero unless

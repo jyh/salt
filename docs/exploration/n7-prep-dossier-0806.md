@@ -368,7 +368,9 @@ match, not a proof.
 same transcription's §5 was found to sit on **two errata in one printed sentence** of the paper
 (`b25d8aa`). The block N7 must formalize therefore deserved a direct read. The PDF is staged at
 `~/Downloads/Proceedings of London Math Soc - September 1983 - Heath-Brown - Prime Twins and
-Siegel Zeros.pdf`. Read-only, no Lean.
+Siegel Zeros.pdf`. *(Path repointed 2026-08-11: the durable copy is
+`${LOCAL_SOURCES}/sources/hb1983-prime-twins-siegel-zeros.pdf` — local-only by the Captain's
+copyright ruling, never in the repo; the Downloads original may vanish.)* Read-only, no Lean.
 
 ## A.1 — WHAT VERIFIED CLEAN ✅
 
