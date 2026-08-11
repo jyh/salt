@@ -22775,3 +22775,52 @@ three waves on this road (`5(1 + log K)` at §22218, row B's constant `1` at §2
 ASSEMBLED — it is the CAPTAIN'S CLICK, one click since 16:06"*, and `:55` still carries (7.3) as
 not-landed. Both are now false. Named here rather than silently edited, because this executor's
 brief fenced the commit to the module + `All.lean` + this file.
+
+## ✅ (2026-08-11, morning) ⟦N7 WAVE A — THE OFF-BY-ONE CHECK OWED SINCE 8/06 IS DISCHARGED, AND THE ANSWER IS "DO NOT HAND-ROLL IT"⟧
+
+**Opus (MATH seat, life 10).** The gate block's first mechanical act
+(`n7-assembly-gate-0811.md` Wave A; dossier FINDING #3 / A.3, *"nobody has checked that
+`I₀ ⊆ (E,2E]` maps onto a `Finset.Ioc M₁ M₂` without an off-by-one"*). **Verdict: THE
+OFF-BY-ONE IS REAL, and the repair is a FORMULATION, not a guard.**
+
+### THE DEFECT, exhibited
+The naive ℕ reindex `n = b + q·m` onto `Ioc ((A-b)/q) ((B-b)/q)` is **FALSE**. Smallest
+witness, found by sweep and `decide`-confirmed:
+```
+q=2, b=1, A=0, B=4
+  true set   {n ∈ Ioc 0 4 | n ≡ 1 [MOD 2]} = {1, 3}     card 2
+  reindexed  (Ioc ((0-1)/2) ((4-1)/2)).image (1+2·)      card 1   ⛔ = {3}
+  cause      ℕ TRUNCATED SUBTRACTION: `0 - 1 = 0` lifts M₁ from "−1" to 0,
+             and the m = 0 term is LOST.
+```
+⚠️ ***It UNDER-counts, which is the UNSOUND direction for an upper bound: bounding the
+smaller set does not bound the real sum.*** Not a cosmetic off-by-one.
+Sweep result: **every** failure is the `b > A` truncation case; `b < q` is NOT the
+discriminator (0 failures with `b ≤ A` even for `b ≥ q`).
+
+### 🔑 THE ANSWER — MATHLIB ALREADY STATES IT CORRECTLY, AND ITS SHAPE IS *WHY* IT IS CORRECT
+`Nat.Ioc_filter_modEq_card` (`Mathlib/Data/Int/CardIntervalMod.lean:121`):
+```
+#{x ∈ Ioc a b | x ≡ v [MOD r]} = max (⌊(b - v)/(r:ℚ)⌋ - ⌊(a - v)/(r:ℚ)⌋) 0
+```
+**Stated over ℚ with `Int.floor` and `max … 0`, so the truncation trap cannot arise —
+and it carries NO hypothesis beyond `0 < r`.** Verified at the counterexample under
+`../saltbuild.sh` EXIT=0: naive ℕ formula → **1**, mathlib formula → **2**, truth → **2**.
+`#print axioms` (literally, not `#audit_axioms`): `[propext, Classical.choice, Quot.sound]`.
+
+⇒ **WAVE A CONSUMES `Nat.Ioc_filter_modEq_card`. It does NOT hand-roll the reindex.**
+*I proved a hand-rolled version first (`ioc_filter_mod_eq_image`, guarded by `b ≤ A` ∧
+`b < q`, axioms clean) and then found mathlib's — which is unconditional and therefore
+strictly better. **The hand-rolled one is DISCARDED, not landed.** My own banked law fired
+exactly as written: GREP THE LIKELY NAMES FIRST — every time, it existed.*
+
+### CONSEQUENCE FOR THE W5 RE-PRICE (what the check was owed for)
+**The re-price SURVIVES.** The reindex onto `geom_phase_bound`'s `Ioc M₁ M₂` shape is
+clean **provided `M₁`/`M₂` are the ℚ/floor endpoints, never ℕ `(A-b)/q`**. A Wave-A
+statement that computes the endpoints by ℕ subtraction would be *provable-looking and
+unsound at the lower edge*.
+📌 **THE ONE THING STILL OWED, and it is a claim about the SOURCE, not about Lean:** the
+naive form is safe when `b ≤ A`, which holds whenever `q ≤ E`. **Whether HB's (7.7b)
+application supplies `q ≤ E` is unverified here and wants a reader of the source.** Moot
+if Wave A quotes the mathlib lemma (it needs no such hypothesis) — recorded so the
+question is not silently inherited as an assumption.
