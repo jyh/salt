@@ -956,3 +956,36 @@ ONLY RE-VERIFIABLE IF ITS EXTRACTOR SHIPS WITH IT. An unchanged file plus a
 bare number is not a verified row — it is a row that was true once and can
 never be defended again.*** *Every count this document asserts (A3's table,
 A5's ten instances, this row) now names its command or ships its program.*
+
+### A7 (i) — ⛔ THE EXPLANATION IN A7 IS RETRACTED; THE NUMBER IT EXPLAINED WAS NEVER THE PROBLEM
+
+*Evidence read the ORIGINAL record after publishing the resolution above, and it
+does not support the story either of us told.*
+```
+docs/exploration/pilot.md:9625  (the 8/3 record, and it ENUMERATES its count)
+  "SignChain.lean, 753 ln, 59 decls (IsSignFunction + 12 defs
+   + 26 DES-W theorems + the TCC helper block)"
+                  ^^^^^^^^^^^^^ THE STRUCTURE IS *INSIDE* THE 59.
+```
+**So the original 59 did not arise by excluding `IsSignFunction`. It INCLUDED
+it and reached 59 through a different taxonomy** (12 defs / 26 theorems, against
+today's 11 defs / 42 lemmas / 6 theorems). *A7's "59 = 60 minus the structure"
+is a reason that fits the arithmetic and is not what the record says.*
+
+🔑 ***BOTH OF US GOT THE CONCLUSION RIGHT BY A REASON THE EVIDENCE DOES NOT
+SUPPORT — and a reason nobody needs is a reason nobody checks, so it
+propagates.*** *The row was closable without any story at all; the story was the
+part that could be wrong, and it was.*
+
+✅ **THE SENTENCE NOW CARRIES ITS OWN INSTRUMENT AND INHERITS NO TAXONOMY.**
+`main.tex` §7 reads: **"60 declarations: the `IsSignFunction` structure, 11
+definitions, and 48 proved statements"** — the extractor's exact output, no
+count borrowed from a record whose method was not published, and nothing
+resting on either party's reconstruction of it.
+
+📌 **THE SIBLING SURFACE, and it is the one that gets OBEYED:** `docs/CAMPAIGNS.md:25`
+is the *register* — undated, present-tense, read as current — and carried the bare
+"(59 decls)". Corrected in the same commit. The four other bare copies
+(`dichotomy-day-report.md:34`, this document's `:250`, `pi-prep-0731.md:107`,
+`pilot.md:9625`) are **dated narrative and deliberately left alone**: a dated
+record of what was true then is a record, not a defect.
