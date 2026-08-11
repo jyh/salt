@@ -26,3 +26,7 @@ docs/sources/*.txt
 docs/sources/*.pdf
 articles/*.pdf
 /ScratchW45.lean
+
+# Scratch elaboration space (the N7 sorry ruling, 8/11): per-agent-named
+# Scratch*.lean files are NEVER tracked — glob, any depth, matching saltworks.
+Scratch*.lean
