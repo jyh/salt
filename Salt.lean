@@ -28,3 +28,4 @@ import Salt.Fulcrum.All
 import Salt.Tactic.All
 import Salt.Keller.All
 import Salt.Parity.All
+import Salt.Certs.All
