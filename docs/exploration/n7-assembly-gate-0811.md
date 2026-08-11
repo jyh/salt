@@ -141,5 +141,16 @@ seal. First landing of Wave A = Lemma 10's statement compiling against the suppl
 the off-by-one check discharged; its seal = the full (7.5)–(7.8) chain, saltbuild EXIT=0,
 axioms clean, guide/flags updated in the same commit.
 
+**[AMENDED 8/11 10:2x, at math's question from inside the wave — the criterion above collided
+with iron rule 2 (no `sorry` on `main`), and the repair is a MECHANISM, not a relaxation:
+(i) the "statement compiling" check is discharged in `Scratch.lean` — the house's own
+uncommitted elaboration space (CLAUDE.md build commands) — with `sorry` allowed THERE ONLY;
+receipt = the elaboration output quoted in flags/bus; the scratch is never committed.
+(ii) every COMMIT stays sorry-free: build bottom-up so each landing is a proved piece
+(compiler's L2 shape, tested last night, re-verified at the bytes this morning — sub-lemmas
+land proved, the top statement lands WITH its proof).
+(iii) NO track branch: the checkout is cross-seat with no lock, and a branch switch would
+move the tree under three other seats. Iron rule 2 stands unamended.]**
+
 **This block supersedes nothing in the dossier except its pins** — the dossier remains the
 reference for the mathematics; this gate is the executable form of its recommendations.
