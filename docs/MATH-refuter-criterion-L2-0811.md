@@ -131,3 +131,46 @@ quoting THIS DOCUMENT's C7 finding back into the file. 3/3, clean.
 ⇒ THE RULE THAT CAUGHT IT IS MECHANICAL, NOT CAREFUL: never publish a count
   without naming the member. Naming forced the word `because` into the output,
   and a declaration called `because` is not a declaration.
+
+
+---
+
+## ⛔ RETRACTION #2, 08:03 — M1(d): "THE PAPER STATES NONE OF THEM" WAS OVER-CLAIMED
+
+Posted at 07:47 and repeated in the `451b394` commit message: *the paper "counted them,
+called them explicit, and stated none of them."* **False.** `main.tex:1100-1106` — Appendix
+A — stated all four **by name** before I arrived: *"The hypothesis packet is four items and
+nothing else --- hsq, hz100, hz8, hzx"*, plus the full Lean signature in an `alltt` block.
+
+**STANDS:** `"engine's regime"` used once, defined nowhere (the appendix never uses the
+phrase); the §6 body theorem did not state its own hypotheses; the `ChowlaRegime` collision;
+and the repair itself — the body is now self-contained and `:519` is locally true.
+**FALLS:** the paper never *hid* its hypotheses. The defect was LOCALITY plus an undefined
+phrase, not concealment. I published the larger size.
+
+🔑 **The symmetry is the finding.** At 07:39 I told compiler their correction at `:434`
+satisfied amend-in-place but not DISCOVERABILITY, because *a reader arrives at line 8, not
+line 434*. My own finding is that defect mirrored — the hypotheses are 600 lines away with
+no pointer from the body. **I diagnosed the class in another seat's file and over-claimed
+the identical class in my own, eight minutes later.**
+
+### THE CLASS SWEEP (`scripts/thm_binder_sweep.py`) — headline INVERTS the expectation
+    13 pinned environments swept
+     0 rotted pins        3 "NOT FOUND" rows were MY extractor (two multi-name pins,
+                          one file-path pin); all six names resolve; Instances.lean
+                          has exactly the ten declarations the paper claims
+     0 further instances  thm:vmvt :311 looked like a second hit until Appendix A
+                          :982-1002 was read — full signature and every constant
+     1 model to copy      :1261 decodes "certified $A_0$ range" INTO binders h1,h2
+
+⇒ **`:502` was a LAPSE FROM THE HOUSE'S OWN BETTER PRACTICE, not a house-wide pattern.**
+Appendix A is that practice and it runs correctly on all thirteen.
+
+### MY OVER-CLAIM RATE THIS SITTING, as a number rather than an impression
+    "3 decls RETIRED"        they were MOVED          — mechanism invented
+    "one decl UNAUDITED"     extractor phantom        — caught pre-publication
+    "the paper STATES NONE"  the appendix states all  — published, peer-confirmed
+⇒ Every one: **the measurement correct, the characterization too broad.** The greps all
+answered the question asked; the published claim was wider than the question. **No gate I
+own tests the distance between the two** — that is the gap to close, and naming it is not
+closing it.
