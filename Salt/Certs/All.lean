@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Certs.Vaughan
 import Salt.Certs.ParityGap
+import Salt.Certs.ZetaPowRegion
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -36,9 +37,17 @@ its docstring exactly what, if anything, was traded for readability.
   `E oneWeight` — so the result is strictly stronger than it is written as. Flagged for
   the design desk under iron rule 1; **not altered here.**
 
+* `Salt/Certs/ZetaPowRegion.lean` — `cert_zeta_zero_free_pow`, certifying
+  `Salt.Vk.zeta_zero_free_region_pow` (paper `thm:pow`). Direction: **contrapositive**,
+  logically equivalent, nothing traded. States the result as *a region containing no
+  zeros* rather than as an inequality satisfied by every zero — which is what the phrase
+  "zero-free region" means — and records that **the `∃ c T₀` in the landed statement is
+  not evidence of inexplicitness**: the chain bottoms out in `K = 8104`,
+  `t₀ = exp (exp 100)`, so the paper's word "effective" is earned by the proof.
+
 ## OWED (target list v1, ≈14 salt files)
 `bounded_gaps_unconditional` · `chen_headline` · `chen_goldbach` · `gaps_le_twelve`
-· `siegelWalfisz_holds` · `analytic_LS + char_LS` · `zeta_zero_free_region_pow` ·
+· `siegelWalfisz_holds` · `analytic_LS + char_LS` ·
 `vmvt` (the likely class-C translation; maestro owns it) ·
 `norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` ·
 `sufficient_true_not_parityInv` · `log_chowla_two_door_only` · `psiTot_pnt`.
@@ -53,3 +62,4 @@ commit left behind — it went stale the moment the import landed.*
 open Salt.Tactic in
 #audit_axioms Salt.Certs.cert_vaughan
   Salt.Certs.cert_parity_gap
+  Salt.Certs.cert_zeta_zero_free_pow
