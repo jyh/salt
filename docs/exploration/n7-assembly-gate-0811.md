@@ -100,6 +100,40 @@ Statement-design constraints, each AT its site (all from the source sweep — do
   `factorization_two_roadModulus_le` + `structure_of_isPrimitive`'s `a ∈ {0,2,3}` — the
   numeric collapse `2^{v₂(D)/2} ≤ 2^{3/2}` is now class A/B, all links named above.
 
+**STATEMENT-DESIGN RULINGS for (7.5)–(7.8) [maestro sitting, 8/11 11:3x — at math's
+three-for-three escalation; source re-read at hb1983-notes.md:805-861. Iron rule 1: these are
+the statement authorities; math counter-proposes at the seam where elaboration friction
+contradicts one, and the change comes back to this desk]:**
+- **R-A1 (E's type — the escalated axis):** the analytic statements bound by CARDINALITY, not
+  by `E`: (7.5) is `‖S_m‖ ≤ (I.card : ℝ)` — exact, type-free. `E : ℝ` with `1 ≤ E` enters only
+  through a separate card lemma (`n ∈ I → E < (n:ℝ) ∧ (n:ℝ) ≤ 2*E` ⟹ `I.card ≤ E + 1 ≤ 2*E`).
+  The type question evaporates from the chain; the `E+1 ≤ 2E` slack is absorbed by explicit
+  constants downstream.
+- **R-A2 (the interval):** `I : Finset ℤ` with the membership hypothesis of R-A1; `I₀ ⊆ I` as
+  `Finset` subset with its own Ioc-form hypothesis (A.3's genuine-subinterval fact). Coprimality
+  `(n,k)=1` carried as a filter INSIDE the local sum def, matching Sawtooth.lean's ℤ-indexed
+  `congrExpSum` idiom so the supply rows compose without casts (the (7.7b) lesson: match the
+  supply's index type at the statement).
+- **R-A3 ((7.6)'s variation):** abstract the Abel/partial-summation hypothesis — the statement
+  takes the phase-variation bound (`m|T|/(Ek)`-shaped) as a HYPOTHESIS; the two f-shapes
+  (`(T−Cn̄)/k` and `(T/n−Cn̄)/k`) discharge it in two small lemmas. No calculus of `T/n` inside
+  the main chain. `T : ℝ` free — the `T ≪ x/δ₂` bound is §5's, never Lemma 10's.
+- **R-A4 (rendering):** `d(k)` is `(k.divisors.card : ℝ)` everywhere (the supply's own form,
+  EstermannGlobal.lean:318); norms are `‖·‖` on ℂ; `k₀ = k / q` by Nat division under explicit
+  `q ∣ k`; gcds as `Nat.gcd` casts. `2 ≤ k` is a standing hypothesis on the chain (kills the
+  k=1 log edge; free at consumption, `k = Dδ₁w₁ ≥ 4`).
+- **R-A5 (the recovered intermediate):** the p.222 intermediate `S_m` step is its OWN lemma —
+  `d(k)²`, `log(2k₀)`, and the explicit spend of `(C,k₀) = 1` (Lemma 10's `(C,k)=1` via
+  `k₀ ∣ k`). (7.8) proper is stated at ONE log (the sharp intermediate; the cube arrives only
+  at the p.223 assembly with `log K` + the dyadic log).
+- **R-A6 (dyadic m and the ± bridge):** dyadic workhorses over `m : ℕ`, `m ∈ Ioc M (2M)`; the
+  final assembly sums over ℤ to match `majorantCoeff`'s index, with one explicit `±m`
+  conjugation bridge lemma. Never mix the index types inside a single statement.
+- **R-A7 (Lemma 10's final form):** `K = 2 + k^{1/4}` INLINED (never a free variable — HB's
+  choice is part of the theorem), bound rendered `d(k)³(log 2k)³` literally with one explicit
+  numeral constant (the freeze rule + the 2.39 row's `2 ≤ k`), consumer-facing shape matching
+  the §2 substitution table.
+
 ### WAVE B — §5: Lemmas 9 + 11, (5.1)–(5.19) (opens on Wave A's seal)
 CRT gymnastics + the four-congruence collapse to (5.11) + the (5.17) application of Lemma 10.
 Estimate 3,000–6,000 ln. Application-site constraints: the substitution table of dossier §2
