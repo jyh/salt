@@ -52,7 +52,9 @@ its docstring exactly what, if anything, was traded for readability.
   `MRTUniformity` becomes the explicit log-averaged bound over every window length and
   every frequency, and `¬ logChowla2Fails` becomes the Chowla bound
   `|∑ λ(n)λ(n+1)/n| ≤ ε·log ω` itself. *That the unfolded form closes by `exact` is the
-  proof the unfolding is definitional, not merely plausible.*
+  proof the unfolding is definitional, not merely plausible.* **TWO certs in this file** —
+  `thm:spine` names two declarations under one label, and evidence's adequacy arm caught
+  that the first version covered only one.
 
 ## OWED (target list v1, ≈14 salt files)
 `bounded_gaps_unconditional` · `chen_headline` · `chen_goldbach` · `gaps_le_twelve`
@@ -73,3 +75,4 @@ open Salt.Tactic in
   Salt.Certs.cert_parity_gap
   Salt.Certs.cert_zeta_zero_free_pow
   Salt.Certs.cert_log_chowla_door_only
+  Salt.Certs.cert_log_chowla_budget_head

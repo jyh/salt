@@ -6,11 +6,19 @@ Authors: Jason Hickey, Claude
 import Salt.Entropy.Chowla.SpineFinal
 
 /-!
-# COMPREHENSIBILITY CERTIFICATE — log-Chowla, door-only (the single-hypothesis reduction)
+# COMPREHENSIBILITY CERTIFICATE — log-Chowla: BOTH declarations under `thm:spine`
 
 Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
-Landed theorem certified: `Salt.Entropy.Chowla.log_chowla_two_door_only`
-(`Salt/Entropy/Chowla/SpineFinal.lean:981`).
+Landed theorems certified — **`thm:spine` names TWO declarations under one label, and
+this file covers BOTH**:
+* `Salt.Entropy.Chowla.log_chowla_two_door_only` (`SpineFinal.lean:981`) — the reduction.
+* `Salt.Entropy.Chowla.log_chowla_two_budget_head` (`SpineFinal.lean:750`) — the
+  ∀-quantified head, the paper's second sentence.
+
+⚠️ *The first version of this file certified only the reduction. **Evidence's adequacy arm
+caught the gap** — a certificate must state no less than its anchor quotes, and the anchor
+is the whole theorem. This is the "one paper phrase, several declarations" shape recorded
+as row 11's hazard in `docs/CERT-ANCHORS-0811.md`; it turned out to apply here too.*
 **Anchor** (`docs/CERT-ANCHORS-0811.md`, row 12): Pi `thm:spine` — *"a single
 hypothesis … implies the logarithmic two-point Chowla statement at `R`"*.
 
@@ -75,5 +83,40 @@ theorem cert_log_chowla_door_only :
   log_chowla_two_door_only
 
 #print axioms cert_log_chowla_door_only
+
+/-! ## The second declaration under `thm:spine` — the ∀-quantified head
+
+The paper's second sentence: *"A `∀`-quantified head version places the regime floor above
+any prescribed threshold."* That is `log_chowla_two_budget_head`, and it differs from the
+reduction in three ways a reader should see:
+
+1. **`ε` and `δ₀` are fixed FIRST**, before the regime — so they are uniform across every
+   floor, not chosen per regime.
+2. **For EVERY prescribed `extraFloor : ℕ` there is a regime `R` with
+   `extraFloor ≤ R.Hlo`** — this is the "floor above any threshold" clause, and it is why
+   the head version is stronger than picking one regime.
+3. **It consumes the Ξ-RESTRICTED door `MRTUniformityXi`, not the full `∀ α` door.** The
+   restricted door quantifies only over frequencies `ξ ∈ bigXi R.eps H` at
+   `α = −ξ/H`, so it is a **weaker hypothesis** — and a weaker hypothesis makes the
+   theorem **stronger**. (`mrtUniformity_implies_xi` is the landed bridge.)
+-/
+
+/-- **THE CERTIFICATE, second declaration.** Fixed `ε > 0` and `δ₀ > 0` such that for
+**every** prescribed floor there is a regime whose window floor exceeds it, and on which
+the Ξ-restricted uniformity door still yields the two-point Chowla bound. -/
+theorem cert_log_chowla_budget_head :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∀ extraFloor : ℕ, ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ →
+          (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ ξ ∈ bigXi R.eps H,
+              (∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖
+                ∂(logMeasure R.x R.ω)) ≤ δ * (H : ℝ)) →
+          ¬ ((R.eps : ℝ) * Real.log (R.ω : ℝ) <
+              |∑ n ∈ Finset.Ioc (R.x / R.ω) R.x,
+                (ArithmeticFunction.liouville n : ℝ)
+                  * (ArithmeticFunction.liouville (n + 1) : ℝ) / (n : ℝ)|) :=
+  log_chowla_two_budget_head
+
+#print axioms cert_log_chowla_budget_head
 
 end Salt.Certs
