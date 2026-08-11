@@ -911,3 +911,48 @@ name gate together **at posting time**, after the `pdflatex` run and before the
 form opens. Neither takes a minute, and between them they cover the two ways
 Appendix A can lie: a name that no longer exists, and a line that no longer
 holds what it claims.
+
+## A7. THE 59/60 ROW — CLOSED, AND THE FIX WAS UPSTREAM OF THE NUMBER
+
+*A5 flagged this rather than settling it. Evidence settled it read-only at salt
+HEAD `0892d47` by counting the file BOTH ways, and the result retires the
+hypothesis A5 offered:*
+```
+                  structure def lemma theorem  TOTAL   minus structure
+RAW (unmasked)        1      11    42     6  =  60          59
+COMMENT-MASKED        1      11    42     6  =  60          59
+```
+⭐ **The two readings are IDENTICAL — comment-masking is not the discriminator on
+this file. The entire delta is the one `structure`,** which is
+`IsSignFunction` itself: the definition the chain is re-typed *onto*, not one
+of the re-typed statements.
+
+⛔ **THE ACTUAL DEFECT, and it is not arithmetic: the 8/3 "59" WAS PUBLISHED AS A
+BARE NUMBER WITH NO INVOCATION.** `CAMPAIGNS.md:25` carries "(59 decls)" and
+commit `884c876` carries "59 decls axioms-clean"; **neither carries the program
+that produced it.** So the 8/3 verification could not be re-run — not because
+the file moved (it has zero commits since), but because nobody could recover
+what was counted. **Four figures were exchanged on one unchanged file — 48, 59,
+60, 60 — before anyone published a program.**
+
+✅ **ADOPTED IN `main.tex` (§7): "59 proof-carrying declarations, or 60 counting
+the `IsSignFunction` structure itself".** Both numbers true, the discriminator
+named in the sentence, and immune to the next reader's grep.
+
+**THE EXTRACTOR, shipped so the row is closable by anyone at any ref:**
+```python
+import subprocess, re
+src = subprocess.run(["git","show","HEAD:Salt/HB/SignChain.lean"],
+                     capture_output=True, text=True).stdout
+m = re.sub(r"/-.*?-/", "", src, flags=re.S)
+m = "\n".join(re.sub(r"--.*$", "", l) for l in m.splitlines())
+KINDS = ("structure","def","lemma","theorem","abbrev","instance")
+print({k: len(re.findall(
+    rf"^\s*(?:@\[[^\]]*\]\s*)?(?:private\s+|protected\s+|noncomputable\s+|partial\s+)*{k}\b",
+    m, re.M)) for k in KINDS})
+```
+🔑 ***THE LAW THIS ROW BOUGHT, and it generalises past this paper: A COUNT IS
+ONLY RE-VERIFIABLE IF ITS EXTRACTOR SHIPS WITH IT. An unchanged file plus a
+bare number is not a verified row — it is a row that was true once and can
+never be defended again.*** *Every count this document asserts (A3's table,
+A5's ten instances, this row) now names its command or ships its program.*
