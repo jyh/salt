@@ -84,7 +84,11 @@ Statement-design constraints, each AT its site (all from the source sweep — do
   `(log 2k)³` would be provable-but-blunt; state the sharp intermediate.
 - The `d(k)²` intermediate and the **explicit spend of `(C,k₀) = 1`** (a hypothesis of
   Lemma 10 consumed via `k₀ ∣ k`) are steps the notes omit — plan them (A.2).
-- The `(log Kk)³ ≤ 2.39·(log 2k)³` conversion is one explicit-constant line and is Wave A's.
+- The `(log Kk)³ ≤ 2.39·(log 2k)³` conversion is Wave A's — **with `2 ≤ k` STATED (math 10:36,
+  in-wave): FALSE at `k = 1`, and at `k = 2` it holds by 0.09%** — the binding case is the
+  SMALLEST k, not the asymptotics, so the proof splits (near-equality at k=2; comfortable
+  beyond). The dossier carried the `sup_{k≥2}` scope; this block's original line dropped it.
+  At the consumption site `k = Dδ₁w₁ ≥ D ≥ 4`, so the hypothesis discharges where it is spent.
 - The `d(k)³` divisor bookkeeping (`d(k)·d(k₀)·d(·) ≤ d(k)³`, gap row 4's open half) is
   elementary and Wave A's own; `sum_sqrt_gcd_dyadic_le_of_dvd` already carries the `k₀ ∣ k`
   gcd average.
