@@ -499,13 +499,15 @@ classified, and eleven family estimates (each with explicit absolute
 constants; nine landed at first attempt) price every class.
 
 \begin{theorem}[The master estimate, unconditional]\label{thm:master}
-With $W$ the sifted window at parameters $(z,x)$ in the engine's regime:
+Write $L = \log(2x+2)$. Let $\chi$ be a Dirichlet character with
+$\chi^2 = 1$, let $100^{16} \le z$ and $L^8 \le z$, let $z^3 \le x$, and let
+$W$ be the sifted window at parameters $(z,x)$. Then
 \[
 S_2(\chi, W) - S_1(W) \;\le\; 2^{31}\Bigl(\frac{x}{z_0}
 + \frac{x}{\log x}\,e^{5 z_0}\,\mathrm{PS}_\chi
 + e^{2 z_0}\bigl(x z^{-1/8} + x^{9/10}\bigr) L^3\Bigr),
 \]
-where $z_0 = \log(2x+2)/\log z$, $L = \log(2x+2)$, and
+where $z_0 = \log(2x+2)/\log z$ and
 $\mathrm{PS}_\chi$ is the pretense sum of $\chi$.
 \leanname{Salt.HB.hb\_l2c\_master\_unconditional}
 \end{theorem}
