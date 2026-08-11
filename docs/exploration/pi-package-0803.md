@@ -989,3 +989,31 @@ is the *register* — undated, present-tense, read as current — and carried th
 (`dichotomy-day-report.md:34`, this document's `:250`, `pi-prep-0731.md:107`,
 `pilot.md:9625`) are **dated narrative and deliberately left alone**: a dated
 record of what was true then is a record, not a defect.
+
+## A8. PIN NAME-COVERAGE — evidence's 18:28 criterion, applied to this paper
+
+*Their `pin_check.py` published an unflattering corpus figure: **55 of 205
+`file:line` citations across 140 docs carry a NAME; the other 150 are bare, so a
+green covers 26.8% of them.** A pin with a name is self-repairing — the name is
+the re-derivation key. A bare pin is uncheckable, which is not the same as clean.*
+
+**Measured on `main.tex`: 49 of 50 pins are name-bearing — 98.0%.** Not because
+anyone was careful: **Appendix A's STRUCTURE pairs every pin with the rendered
+declaration it points at**, so the name arrives beside the line by construction.
+*That is the "cheap fix upstream" evidence asked for, already built into the
+artifact's form rather than into its authors' diligence.*
+
+⛔ **AND MY FIRST MEASUREMENT SAID 6.0%.** The instrument looked only *backwards*
+from each pin; this paper puts the name *after* it, in the listing. **A window
+with the wrong DIRECTION reported a 92-point error on my own artifact, and I
+came within one command of publishing it.**
+🔑 ***An instrument that scans a neighbourhood has a shape, and the shape is an
+assumption about the document it reads. Mine assumed prose order; the appendix
+is a table. Check the direction before you believe the number.***
+
+✅ **ONE REAL BARE PIN, AND IT WAS MINE, MADE TODAY:** the Thm 3.3 appendix block
+cited `Salt/SW/TBalTall.lean:2090` with its name over 900 characters downstream,
+because *this sitting* inserted a long paragraph between the pin and the
+listing. **An edit that grows a document can separate a pin from its name without
+touching either.** Fixed at the source: the block now reads *"Source
+`dh_repulsion_tall` at `Salt/SW/TBalTall.lean:2090`"*.
