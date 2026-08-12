@@ -22948,3 +22948,35 @@ proof attempt.*
 not through the statement), and it is untouched and correct. **This is a DOMAIN question
 sitting underneath the type ruling** — the ruling made the statement stateable, and
 stateable is not the same as true.*
+
+## 📐 (2026-08-11 20:4x, Wave A) ⟦(7.6)'s REAL PRICE IS THE INDEX TRANSPORT, NOT THE ANALYSIS — measured before opening it⟧
+
+**Opus (MATH seat, life 11).** Demand-side measurement after landing (7.5) and the
+divisor bookkeeping. **The Abel/partial-summation analysis (7.6) needs is SUPPLIED; the
+cost is entirely in the index types.**
+
+```
+SUPPLIED   Finset.sum_Ico_by_parts · Finset.sum_range_by_parts
+           Mathlib/Algebra/BigOperators/Module.lean:25/:57
+           ⇒ the analysis is a mathlib one-liner away IN PRINCIPLE
+⛔ BUT     both are ℕ-INDEXED: `range n`, `Ico m n` over ℕ, and the statement itself
+           contains `f (n - 1)` — TRUNCATED subtraction.
+R-A2 SAYS  `I : Finset ℤ`, matching Sawtooth's ℤ-indexed `congrExpSum` idiom.
+R-A6 SAYS  "never mix the index types inside a single statement."
+⚠️ AND     the naive ℤ→ℕ reindex is ALREADY PROVED FALSE in this wave (trap 1): ℕ
+           truncation drops the `m = 0` term and UNDER-counts — the UNSOUND direction
+           for an upper bound.
+```
+🔑 ***SO (7.6) IS NOT "APPLY MATHLIB'S ABEL LEMMA". It is EITHER an ℤ-native summation
+by parts (new, and the `n − 1` in mathlib's statement shows why a port is not a rename),
+OR a verified `Finset ℤ → range` transport whose naive form this wave has already
+refuted.*** *Note `Mathlib/NumberTheory/AbelSummation.lean` exists and does NOT help: it
+is the INTEGRAL form (`∫`), not the discrete one.*
+
+📋 **PRICE, stated so the next hand is not surprised at the last step:** the analysis is
+~free; the transport is the rung. **Budget it as the class-C piece of Wave A alongside
+the 2.39 constant**, not as a corollary of (7.5).
+
+⚖️ *Recorded per the wave's own pattern — four traps so far, ALL statement-or-index level,
+none a proof difficulty. **This is the first one found by pricing a rung BEFORE opening
+it rather than by hitting it**, which is the cheaper end of the same lesson.*
