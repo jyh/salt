@@ -31,7 +31,7 @@ Sources: Pi = `papers/flagship/main.tex`. Nature = `${SEAT_DIR}/briefs/2026-08-1
 | 6 | `chen_goldbach` | **Nature :201** — same *"Chen's theorem"* class enumeration. ⚠️ *shares row 5's anchor; confirm the two decls are distinct claims before writing two files* | open |
 | 7 | `siegelWalfisz_holds` | **Nature :200** *"the Siegel–Walfisz theorem"*; **Pi :321** *"an unconditional Siegel–Walfisz theorem"* (prose, no pin) | open |
 | 8 | `analytic_LS` + `char_LS` | **Nature :200** — *"the large sieve inequality"*; and :204, the adversary sentence (*the two live external BV projects take SW and the large sieve as axioms*) | open |
-| 9 | `vmvt` | **Pi `thm:vmvt`** (:311) + Appendix A :982–1002; **Nature :201** *"the Vinogradov mean value theorem"* | open — **maestro's** (likely class C) |
+| 9 | `vmvt` | **Pi `thm:vmvt`** (:311) + Appendix A :982–1002; **Nature :201** *"the Vinogradov mean value theorem"* | ✅ `cert_vmvt` (+ unconditional `_iff`), `Salt/Certs/Vmvt.lean` — maestro, landed 8/11 (actual class B: the decode was definitional + `pow_mul` + `ring`; the C-grade was priced for a semantic gap that did not exist) |
 | 10 | `norm_kloosterman_estermann` | **Nature :202** — *"the Weil bound for Kloosterman sums"* | open |
 | 11 | THE WALL — `twin_bar` · `no_twin_weight` · `least_k_theorem` | **Pi `neutrality_rate`** :1173 (the wall's Pi-side decl is **not** any of the three target names); **Nature :217** *"relevant Maynard-class can cross the twin gate (M₂ ≤ 2 log 2 < 2), that the least k …"* | open — **one file, three decls** |
 | 12 | `log_chowla_two_door_only` | **Pi `thm:spine`** — the logarithmic two-point Chowla reduction to a single named hypothesis | open |

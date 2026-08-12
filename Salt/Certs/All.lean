@@ -9,6 +9,7 @@ import Salt.Certs.ZetaPowRegion
 import Salt.Certs.ChowlaSpine
 import Salt.Certs.BoundedGaps
 import Salt.Certs.Chen
+import Salt.Certs.Vmvt
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -79,9 +80,19 @@ its docstring exactly what, if anything, was traded for readability.
   docstring: the `Ω(p+2) ≤ 2` reading is a reader's gloss, its converse unproved
   in this corpus. (W-CERT-1 executor draft; landed at the helm.)
 
+* `Salt/Certs/Vmvt.lean` — `cert_vmvt` (+ `_iff`), certifying `Salt.Vmvt.vmvt`
+  (paper `thm:vmvt`; the Appendix A decode finished to primitive vocabulary).
+  Direction: **same proposition, kernel-tied by an UNCONDITIONAL iff** — the solution
+  count becomes a literal set-builder count (`Set.ncard`, no `Salt.*` name survives),
+  the constant collapses to the single power `k^(24k²r)` (⚠️ house-RE-GRADED, generous
+  by design — the header forbids reading it as sharp), and the exponent
+  `2rk − k(k+1)/2 + (k²/2)(1−1/k)^r` is inlined (the load-bearing half; matches
+  Vaughan 24.5 exactly). **First hypothesis-carrying cert**, so rule 6's vacuity
+  control debuts: satisfiability witnessed in-file at `(k,r,x) = (2,1,1)`.
+  (Maestro's row, landed at the helm.)
+
 ## OWED (target list v1, anchored rows remaining)
 `chen_goldbach` (row 6) · `siegelWalfisz_holds` · `analytic_LS + char_LS` ·
-`vmvt` (the likely class-C translation; maestro owns it) ·
 `norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` (THE WALL,
 anchor = Pi's `neutrality_rate` :1173) · `psiTot_pnt` [parked pending anchor ruling].
 
@@ -104,3 +115,5 @@ open Salt.Tactic in
   Salt.Certs.cert_bounded_gaps_infinitely_many_iff
   Salt.Certs.cert_chen
   Salt.Certs.cert_chen_omega
+  Salt.Certs.cert_vmvt_iff
+  Salt.Certs.cert_vmvt
