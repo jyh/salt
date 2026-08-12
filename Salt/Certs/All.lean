@@ -12,6 +12,7 @@ import Salt.Certs.Chen
 import Salt.Certs.Vmvt
 import Salt.Tactic.AuditAxioms
 import Salt.Certs.Kloosterman
+import Salt.Certs.SiegelWalfisz
 
 /-!
 # `Salt/Certs/` — the comprehensibility-certificate layer, roll-call
@@ -122,4 +123,8 @@ open Salt.Tactic in
   -- ESTERMANN's composite-modulus form; the cert closes the NAME gap by DERIVING the
   -- classical Weil bound 2√p at odd primes, where all three correction factors are one
   Salt.Certs.cert_kloosterman_estermann Salt.Certs.cert_weil_bound_prime
+  -- row 7 (Nature :200 + Pi :322, "an unconditional Siegel–Walfisz theorem"): the landed
+  -- statement is TWO opaque names deep (SiegelWalfisz, then psiAP); the cert unfolds BOTH
+  -- and closes by `exact`, so the kernel certifies the paraphrase
+  Salt.Certs.cert_siegel_walfisz
 
