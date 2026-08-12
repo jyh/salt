@@ -78,7 +78,10 @@ theorem cert_siegel_walfisz :
         ≤ K * x / (Real.log x) ^ A :=
   Salt.SW.siegelWalfisz_holds
 
-/-! ### Rule 6 — EXEMPT, stated rather than assumed
+/-! ### Rule 6 — WITNESS KIND: EXEMPT (no hypotheses), stated rather than assumed
+
+*Declared per the 2026-08-12 council amendment: "not every cert needs a deep witness; every
+cert must say what its witness proves." This one carries no witness, and says so.*
 
 `cert_siegel_walfisz` carries **no hypotheses**: its type is a closed proposition, which
 the signature above shows directly. A closed false proposition cannot be proved at all,

@@ -104,11 +104,21 @@ theorem cert_weil_bound_prime {p : ℕ} (hp : p.Prime) (hodd : p ≠ 2) [NeZero 
   rw [h2, hd, hg] at h
   simpa using h
 
-/-- ⛔ **RULE 6 — VACUITY CONTROL.** `cert_weil_bound_prime` carries hypotheses, so they
-must be shown SATISFIABLE: a green build plus a clean audit over contradictory hypotheses
-is a certificate that says nothing, and no pipeline instrument reaches it.
+/-- ⛔ **RULE 6 — WITNESS KIND: SATISFIABILITY, and non-degenerate at the point that
+matters** (declared per the 2026-08-12 amendment).
 
-Witness at `p = 3`, `a = b = 1`: prime, odd, and `3 ∤ gcd(1,1) = 1`. -/
+**What this witness proves:** that `cert_weil_bound_prime`'s hypotheses are jointly
+inhabited — a green build plus a clean audit over CONTRADICTORY hypotheses is a certificate
+that says nothing, and no pipeline instrument reaches it.
+
+Witness at `p = 3`, `a = b = 1`: prime, odd, and `3 ∤ gcd(1,1) = 1`.
+
+📌 **On non-degeneracy, since the amendment asks for it explicitly:** the degenerate point
+for this hypothesis set is `a = b = 0`, where `gcd(p, 0, 0) = p` and the coprimality
+hypothesis FAILS — so the binder is not inhabited only by degenerate points, and `a = b = 1`
+sits on the live side of exactly that boundary. *`p = 3` is the smallest odd prime, which
+makes it the extreme rather than a degenerate case: at `p = 2` the theorem's `hodd` binder
+excludes it.* -/
 example : (3 : ℕ).Prime ∧ (3 : ℕ) ≠ 2 ∧ ¬ ((3 : ℕ) ∣ Nat.gcd (1 : ℕ) (1 : ℕ)) := by
   refine ⟨by norm_num, by norm_num, ?_⟩
   decide +kernel
