@@ -13,6 +13,7 @@ import Salt.Certs.Vmvt
 import Salt.Tactic.AuditAxioms
 import Salt.Certs.Kloosterman
 import Salt.Certs.SiegelWalfisz
+import Salt.Certs.LargeSieve
 
 /-!
 # `Salt/Certs/` — the comprehensibility-certificate layer, roll-call
@@ -127,4 +128,8 @@ open Salt.Tactic in
   -- statement is TWO opaque names deep (SiegelWalfisz, then psiAP); the cert unfolds BOTH
   -- and closes by `exact`, so the kernel certifies the paraphrase
   Salt.Certs.cert_siegel_walfisz
+  -- row 8 (Nature :201 + :205, the adversary sentence): the anchor's point is that the
+  -- external BV projects take the large sieve as an AXIOM, so both certs carry their
+  -- CONSTANTS in the statement — δ⁻¹ + 13N and Q² + 13N, explicit, no O(·)
+  Salt.Certs.cert_analytic_large_sieve Salt.Certs.cert_char_large_sieve
 
