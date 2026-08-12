@@ -40,10 +40,11 @@ its binders named in plain terms, proved by `exact`. **No generality is traded.*
 ## ⭐ THIS CERTIFIES THE **RE-CUT** STATEMENT (2026-08-11)
 Writing the first version of this file surfaced that the landed theorem carried **two
 hypotheses its proof never used** — `h1 : 1 ≤ A₀` (half of what Pi's PRE-RE-CUT
-display called "the certified `A₀` range") and `ht : E oneWeight` (that display's
-"true, `E(𝟏)`" conjunct) — both phrases were DROPPED from Pi in the same re-cut
-(salt `8680167`; the quotes here are HISTORICAL and correctly absent from today's
-`main.tex`) —
+display called "the certified $A_0$ range", `8680167^:main.tex:645` verbatim) and
+`ht : E oneWeight` (that display's "true ($E(\mathbf{1})$)" conjunct,
+`8680167^:main.tex:646` verbatim) — both phrases were DROPPED from Pi in the
+re-cut `8680167`; the quotes here are HISTORICAL, pinned to the pre-re-cut
+revision, and correctly absent from today's `main.tex` —
 so the kernel held **strictly more** than the statement said. That first cert stated the
 theorem *as landed*, because rule 3 forbids a cert from strengthening: a stronger
 statement cannot be proved from a weaker theorem by `exact`.
