@@ -13,9 +13,10 @@ Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
 Landed theorem certified: `Salt.Vmvt.vmvt` (`Salt/Vmvt/Summit2.lean:151`); audit
 `Salt/Vmvt/All.lean:39`. Paper anchors (`docs/CERT-ANCHORS-0811.md`, row 9):
 **Pi `thm:vmvt`** (`main.tex:311`) with the Appendix A decode (`:986–1002`), and
-**Nature draft :201** (the census row — *"the Vinogradov
+**Nature draft :202–203** (the census row — *"the Vinogradov
 mean value theorem"*; the quote is the renumber-proof half of a line pin in a
-label-free markdown draft). The Appendix A decode stops at the *named*
+label-free markdown draft, and the phrase WRAPS across the two lines, so a
+single-line grep false-negatives on it — probe by either half). The Appendix A decode stops at the *named*
 definitions (`VmvtBound`, `JkI`, `vmvtExp`, `vmvtEta`); this certificate finishes the
 decode — every corpus name is replaced by primitive vocabulary, and the replacement is
 kernel-proved, not asserted.

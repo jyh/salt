@@ -10,7 +10,7 @@ import Salt.SW.Gate
 
 Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
 Landed theorem certified: `Salt.SW.bounded_gaps_unconditional` (`Salt/SW/Gate.lean:376`).
-Paper anchor (`docs/CERT-ANCHORS-0811.md`, row 4): **Nature draft :238** — *"unconditional
+Paper anchor (`docs/CERT-ANCHORS-0811.md`, row 4): **Nature draft :239** — *"unconditional
 bounded prime gaps on day 8"*. **No Pi anchor**: the Pi flagship never states this claim.
 
 ## WHAT THE THEOREM SAYS, in one sentence
