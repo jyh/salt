@@ -78,6 +78,22 @@ theorem cert_parity_gap {θ A₀ : ℝ}
     ¬ ParityInv θ A₀ E :=
   sufficient_true_not_parityInv hθ_pos hθ_half hA_hi hSuff
 
+/-- **Rule-6 witness (kind: SATISFIABILITY — DEGENERATE ON THE `E` AXIS, DECLARED;
+retrofitted at the 8/12 council amendment).** The packet is satisfiable at
+`θ = 1/4`, `A₀ = 2`, `E := fun _ => False`: the degenerate `E` is vacuously
+`TwinSufficient` because no completion satisfies it, so the sufficiency
+implication never fires. This is the amendment's own case, stated rather than
+papered over: **a NON-DEGENERATE witness — a substantive twin-sufficient `E` —
+is NOT exhibited in this corpus**, and exhibiting one is research-adjacent
+(near the sufficiency side of the conjecture itself). The certificate's force
+is unaffected: it is a negative, holding for EVERY `E`, degenerate or not.
+(Degenerate-`E` instantiation is landed corpus practice, not an invention of this
+witness — see `Z_trivial_of_not_completion`, `Salt/Parity/Z.lean:125`, and its
+escape at L1 `:457`.) -/
+example : ¬ ParityInv (1/4) 2 (fun _ => False) :=
+  cert_parity_gap (by norm_num) (by norm_num) (by norm_num)
+    (fun _ _ h => h.elim)
+
 #print axioms cert_parity_gap
 
 end Salt.Certs

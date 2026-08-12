@@ -81,6 +81,14 @@ theorem cert_vaughan (hU : 1 ≤ U) (hV : 1 ≤ V) (hn : V < n) :
     vonMangoldt n = typeI U n - cross U V n + typeII U V n :=
   Salt.LS.vaughan hU hV hn
 
+/-- **Rule-6 witness (kind: SATISFIABILITY, NON-DEGENERATE; retrofitted at the 8/12
+council amendment — this cert predates the witness practice).** The packet is
+satisfiable at the smallest admissible point `(U, V, n) = (1, 1, 2)`, and no point
+in range is degenerate: the constraints are ranges, and every admissible triple
+exercises the identity's full three-summand content. -/
+example : vonMangoldt 2 = typeI 1 2 - cross 1 1 2 + typeII 1 1 2 :=
+  cert_vaughan 1 1 2 (by norm_num) (by norm_num) (by norm_num)
+
 #print axioms cert_vaughan
 
 end Salt.Certs
