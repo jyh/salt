@@ -23,7 +23,7 @@ class enumeration and :238 *"Chen's theorem on day 10"*; Pi :324
 many primes p"*.
 
 ## THE PHRASE → DECLARATION MAP
-The papers say *"Chen's theorem"* once; the corpus proves it in three declarations, and a
+The anchor papers (Pi and the Nature draft) each say *"Chen's theorem"* once; the corpus proves it in three declarations, and a
 reader is owed the correspondence:
 
 1. **The twin form** — infinitely many primes `p` with `p + 2` a `P₂`.
@@ -93,7 +93,7 @@ rests on.
   qualifies: in the semiprime alternative the factors are counted **with multiplicity**
   (`Ω(p + 2) = 2`), and in the prime alternative `Ω(p + 2) = 1`.
 * **No priority claim.** The mathematics is Chen's (1973); this corpus claims only a
-  machine-checked formalization of it, and the paper's own priority language governs.
+  machine-checked formalization of it, and the anchor papers' own surveyed as-of language governs.
 * **Not the `Ω`-corollary.** Pi :324 pins the *distinct* declaration
   `Salt.Fulcrum.chen_omega_prod_le_three`; that is **Part 2 below**, `cert_chen_omega`,
   a separate theorem — `cert_chen` alone does not state it.

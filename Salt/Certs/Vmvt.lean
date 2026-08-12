@@ -30,7 +30,7 @@ value is the *saving* in the exponent — as `r` grows, `η → 0` and the bound
 `x^{2rk − k(k+1)/2}`, a saving of nearly `x^{k(k+1)/2}` over trivial. This is
 Theorem 24.5 of Vaughan's notes (the Linnik–Karatsuba elementary induction), the
 classical form of the VMVT — the engine behind the corpus's Weyl-sum estimates
-(paper `thm:pow` consumes it).
+(Pi `thm:pow` consumes it).
 
 ## THE VOCABULARY, unfolded (and kernel-tied by `cert_vmvt_iff`)
 * `JkI k (k·r) x` — the interval solution count — becomes a literal set-builder count:
@@ -67,7 +67,7 @@ certificate itself at the smallest admissible point `(k, r, x) = (2, 1, 1)`.
   upper bound the induction affords, not a measured quantity.
 * **Not the main-conjecture VMVT.** The exponent carries the classical Linnik–Karatsuba
   decay `η(k,r) = (k²/2)(1−1/k)^r`, **not** the `ε`-form of the resolved main
-  conjecture (Bourgain–Demeter–Guth / Wooley). The paper's claim is the explicit
+  conjecture (Bourgain–Demeter–Guth / Wooley). Pi `thm:vmvt`'s claim is the explicit
   classical theorem, and that is what is certified.
 * **Interval form only.** The count is over the interval `{1, …, x}` (the consumer's
   `JkI`), exactly as the landed theorem states it; the corpus's general-set `Jk` API

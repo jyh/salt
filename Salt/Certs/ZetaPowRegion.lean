@@ -30,12 +30,12 @@ satisfied by zeros.
 `Re s > 1 − c / ( (log|t|)^{3/4} · (log log|t|)^3 )`, `|t| = |Im s|`.
 * The exponent **`3/4` is the power saving** — a Vinogradov–Korobov-type region. The
   classical (de la Vallée Poussin) region has `1 − c/log|t|`; this one is wider.
-* The secondary factor `(log log|t|)^3` is the paper's `(log log|t|)^{−O(1)}` **pinned
+* The secondary factor `(log log|t|)^3` is Pi's `(log log|t|)^{−O(1)}` **pinned
   at exponent 3** (Appendix A records this; the `O(1)` is not left open in Lean).
 
 ## ⭐ THE CONSTANTS ARE EFFECTIVE — and the statement alone does not show it
 The landed statement begins `∃ c T₀ : ℝ`, which on its face says only that *some*
-constants exist. **The paper calls them "effective", and that is correct**: the proof
+constants exist. **Pi calls them "effective", and that is correct**: the proof
 constructs them, and the chain bottoms out in explicit numbers.
 ```
 zeta_growth_pow  supplies  K = 8104,  t₀ = exp (exp 100)     (GrowthPow.lean:978)
@@ -53,7 +53,7 @@ equivalent, proved from it. **No generality is traded.**
 ## WHAT THIS CERTIFICATE DOES NOT CLAIM
 * **Not a claim that `c` and `T₀` are small or optimal.** `t₀ = exp(exp 100)` is enormous;
   the theorem is qualitative in reach, effective in principle.
-* **Not a priority claim.** Priority statements about this result live in the paper under
+* **Not a priority claim.** Priority statements about this result live in the Pi flagship under
   the surveyed as-of form; this file asserts none.
 
 ## AXIOMS

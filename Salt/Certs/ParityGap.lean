@@ -39,8 +39,8 @@ its binders named in plain terms, proved by `exact`. **No generality is traded.*
 
 ## ⭐ THIS CERTIFIES THE **RE-CUT** STATEMENT (2026-08-11)
 Writing the first version of this file surfaced that the landed theorem carried **two
-hypotheses its proof never used** — `h1 : 1 ≤ A₀` (half of what the paper called "the
-certified `A₀` range") and `ht : E oneWeight` (the paper's "true, `E(𝟏)`" conjunct) —
+hypotheses its proof never used** — `h1 : 1 ≤ A₀` (half of what Pi called "the
+certified `A₀` range") and `ht : E oneWeight` (Pi's "true, `E(𝟏)`" conjunct) —
 so the kernel held **strictly more** than the statement said. That first cert stated the
 theorem *as landed*, because rule 3 forbids a cert from strengthening: a stronger
 statement cannot be proved from a weaker theorem by `exact`.

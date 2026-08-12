@@ -71,7 +71,7 @@ not stand on it. **Unconditional means unconditional: zero binders.**
   claimed to be consecutive primes, and nothing is claimed about the primes between them.
 * **No effectivity claim.** Whether a particular `C` can be read off is a property of the
   proof, not of this proposition; this file asserts nothing either way.
-* **No priority language.** The mathematics is classical (Zhang; Maynard–Tao); the paper
+* **No priority language.** The mathematics is classical (Zhang; Maynard–Tao); the Nature draft — this cert's one anchor —
   makes its own claims under its surveyed as-of form, and **this certificate claims
   nothing about priority, novelty, or firsts** — its whole content is: this proposition
   is proved, from nothing.

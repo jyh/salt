@@ -13,7 +13,7 @@ Landed theorems certified — **`thm:spine` names TWO declarations under one lab
 this file covers BOTH**:
 * `Salt.Entropy.Chowla.log_chowla_two_door_only` (`SpineFinal.lean:981`) — the reduction.
 * `Salt.Entropy.Chowla.log_chowla_two_budget_head` (`SpineFinal.lean:750`) — the
-  ∀-quantified head, the paper's second sentence.
+  ∀-quantified head, the second sentence of Pi's `thm:spine`.
 
 ⚠️ *The first version of this file certified only the reduction. **Evidence's adequacy arm
 caught the gap** — a certificate must state no less than its anchor quotes, and the anchor
@@ -56,7 +56,7 @@ two opaque predicates replaced by their definitions at the statement. Proved by 
 * **Not a claim that the regime `R` is unique or optimal** — `R` is existentially bound,
   as is `δ₀`. The companion `log_chowla_two_budget_head` supplies the `∀`-quantified head
   that places the regime floor above a prescribed threshold; that is a *different* theorem.
-* **Not a priority claim.** The paper's priority language governs; this file asserts none.
+* **Not a priority claim.** Pi's priority language (surveyed as-of form) governs; this file asserts none.
 
 ## AXIOMS
 `[propext, Classical.choice, Quot.sound]` — the standard three; verified at landing.
@@ -86,7 +86,7 @@ theorem cert_log_chowla_door_only :
 
 /-! ## The second declaration under `thm:spine` — the ∀-quantified head
 
-The paper's second sentence: *"A `∀`-quantified head version places the regime floor above
+The second sentence of Pi's `thm:spine`: *"A `∀`-quantified head version places the regime floor above
 any prescribed threshold."* That is `log_chowla_two_budget_head`, and it differs from the
 reduction in three ways a reader should see:
 
