@@ -28,22 +28,22 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 
 ---
 
-## ANCHORED — 12 rows (7 landed, 5 open)
+## ANCHORED — 12 rows (10 landed, 2 open)
 
 | # | target | anchor: paper · site · the paper's own phrase | state |
 |---|---|---|---|
 | 1 | `vaughan` | **Nature :209** — *"Vaughan's identity"*, in the **independent-formalizations** sentence (not a firsts claim) | ✅ `cert_vaughan` |
 | 2 | `sufficient_true_not_parityInv` | **Pi `thm:gap`** (:644) — *"no predicate `E` is both twin-sufficient and parity-invariant"*; Nature :219 *"a formal gap theorem for parity-invariant sieve certificates"* | ✅ `cert_parity_gap` |
 | 3 | `zeta_zero_free_region_pow` | **Pi `thm:pow`** (:257) — *"the first power-saving region"*; **Nature :203** *"a zero-free region beyond de la Vallée Poussin strength"*, :240 *"the [θ = 3/4-power] zero-free region on day 13"* | ✅ `cert_zeta_zero_free_pow` |
-| 4 | `bounded_gaps_unconditional` | **Nature :239** — *"unconditional bounded prime gaps on day 8"*. **No Pi anchor** (Pi never states it) | open |
-| 5 | `chen_headline` / `chen_omega_prod_le_three` | **Nature :202** *"Chen's theorem"*, :239 *"Chen's theorem on day 10"*; **Pi :324** `\leaninline{chen_omega_prod_le_three}` with *"Ω(p(p+2)) ≤ 3 for infinitely many primes"* | open |
-| 6 | `chen_goldbach` | **Nature :202** — same *"Chen's theorem"* class enumeration. ⚠️ *shares row 5's anchor; confirm the two decls are distinct claims before writing two files* | open |
+| 4 | `bounded_gaps_unconditional` | **Nature :239** — *"unconditional bounded prime gaps on day 8"*. **No Pi anchor** (Pi never states it) | ✅ `Salt/Certs/BoundedGaps.lean` — `cert_bounded_gaps` +3 companions (maestro, W-CERT-1) |
+| 5 | `chen_headline` / `chen_omega_prod_le_three` | **Nature :202** *"Chen's theorem"*, :239 *"Chen's theorem on day 10"*; **Pi :324** `\leaninline{chen_omega_prod_le_three}` with *"Ω(p(p+2)) ≤ 3 for infinitely many primes"* | ✅ `Salt/Certs/Chen.lean` — `cert_chen` + `cert_chen_omega` (maestro, W-CERT-1) |
+| 6 | `chen_goldbach` | **Nature :202** — same *"Chen's theorem"* class enumeration. ⚠️ *shares row 5's anchor; confirm the two decls are distinct claims before writing two files* | open — ARM5-READ: `Chen.lean` names `chen_goldbach` only at :90 to EXCLUDE it ("that is the separate declaration ... not this file"); the Goldbach half is genuinely uncertified, so this OPEN mark is correct and the name-hit is not coverage |
 | 7 | `siegelWalfisz_holds` | **Nature :201** *"the Siegel–Walfisz theorem"*; **Pi :322** *"an unconditional Siegel–Walfisz theorem"* (prose, no pin — line re-pinned 321→322 at the cert) | ✅ `Salt/Certs/SiegelWalfisz.lean` — unfolds BOTH opaque names (SiegelWalfisz, psiAP), closes by `exact` |
 | 8 | `analytic_LS` + `char_LS` | **Nature :201** — *"the large sieve inequality"*; and :205, the adversary sentence (*the two live external BV projects take SW and the large sieve as axioms*) | ✅ `Salt/Certs/LargeSieve.lean` — both forms, constants IN the statement (δ⁻¹+13N, Q²+13N) because the anchor is about axiom-vs-proof |
 | 9 | `vmvt` | **Pi `thm:vmvt`** (:316) + Appendix A :982–1002; **Nature :202** *"the Vinogradov mean value theorem"* | ✅ `cert_vmvt` (+ unconditional `_iff`), `Salt/Certs/Vmvt.lean` — maestro, landed 8/11 (actual class B: the decode was definitional + `pow_mul` + `ring`; the C-grade was priced for a semantic gap that did not exist) |
 | 10 | `norm_kloosterman_estermann` | **Nature :203** — *"the Weil bound for Kloosterman sums"* | ✅ `Salt/Certs/Kloosterman.lean` — the paper says WEIL, the kernel holds ESTERMANN; cert derives `2√p` at odd primes to close the name gap |
 | 11 | THE WALL — `twin_bar` · `no_twin_weight` · `least_k_theorem` | **Pi `neutrality_rate`** :1173 (the wall's Pi-side decl is **not** any of the three target names); **Nature :218** *"relevant Maynard-class can cross the twin gate (M₂ ≤ 2 log 2 < 2), that the least k …"* | open — **one file, three decls** |
-| 12 | `log_chowla_two_door_only` | **Pi `thm:spine`** — the logarithmic two-point Chowla reduction to a single named hypothesis | open |
+| 12 | `log_chowla_two_door_only` | **Pi `thm:spine`** — the logarithmic two-point Chowla reduction to a single named hypothesis | ✅ `Salt/Certs/ChowlaSpine.lean` — `cert_log_chowla_door_only` + `cert_log_chowla_budget_head` (the adequacy-gap catch: one label, TWO decls) |
 
 ## ⛔ PARKED — NO ANCHOR IN EITHER PAPER (measured, not assumed)
 
@@ -59,8 +59,8 @@ rely on either, the row re-enters with its anchor.*
 
 ## COUNT
 ```
-14 target rows · 12 ANCHORED · 2 PARKED · **7 LANDED · 5 OPEN** for the wave
-LANDED = rows 1, 2, 3, 7, 8, 9, 10   ·   OPEN = rows 4, 5, 6, 11, 12
+14 target rows · 12 ANCHORED · 2 PARKED · **10 LANDED · 2 OPEN** for the wave
+LANDED = rows 1, 2, 3, 4, 5, 7, 8, 9, 10, 12   ·   OPEN = rows 6, 11
 
 ⚠️ **THIS COUNT IS DERIVED FROM THE ROWS ABOVE AND WENT STALE TWICE.** First it read
 "3 LANDED · 9 OPEN" while the table showed five ✅ (rows 1, 2, 3, 9, 10) — caught by a
@@ -74,6 +74,20 @@ marks and matches each one **to its noun** — an earlier cut of that arm compar
 of numbers and passed "5 LANDED · 7 OPEN" as clean, because 5 and 7 are both true numbers
 about this table and only their ASSIGNMENT was wrong.* **The members are listed above so
 the count can be checked, not just read.**
+
+⛔ **AND A THIRD STALENESS, FOUND 20 MINUTES AFTER ARM 3 DECLARED THIS BLOCK CLEAN — the
+one the arm was structurally incapable of seeing.** ARM 3 derives LANDED/OPEN from the ✅
+MARKS, so it is only ever as true as the marks are. Rows 4, 5 and 12 had been certified in
+`Salt/Certs/` and **nobody re-marked their rows**, so the arm certified a stale total
+against a stale list and reported clean — *and its author published the member list under
+the words "so the count can be checked".*
+🔑 ***A VERIFIED TOTAL OVER AN UNVERIFIED LIST IS THE SAME DEFECT AS A VERIFIED LIST UNDER
+AN UNVERIFIED TOTAL, and it reads as MORE trustworthy because it shows its work.*** **ARM 5
+now checks the marks against the corpus itself.** *It deliberately does NOT auto-correct:
+`Chen.lean` names `chen_goldbach` only to say "not this file", so row 6's OPEN mark is
+RIGHT and a name-hit would have overwritten it. The arm prints the mentioning lines and
+asks for a read — **name-presence is not coverage, which is this table's own founding rule
+run backwards.***
 ```
 📌 **For the wave brief:** each cert's docstring maps **paper-phrase → kernel declarations**,
 following the `main.tex:1265` model — Pi's own sentence there is *"The grade condition is

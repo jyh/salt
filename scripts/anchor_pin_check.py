@@ -18,7 +18,19 @@ unqualified has already sent a seat searching the wrong file.
   ARM 3  DERIVED COUNTS.  Recompute LANDED/OPEN/ANCHORED/PARKED from the rows
          and check each count-shaped sentence BY LABEL.
 
-Four disciplines this script is built around, every one of them paid for:
+  ARM 4  PINS IN PROSE.  Pins written in paragraphs, which ARM 1 (which walks
+         table ROWS) structurally cannot see.  A green ARM 1 would otherwise
+         license "the pins are swept" while a whole class went unread.
+
+  ARM 5  ROW MARKS vs THE CORPUS.  ARM 3 derives its totals from the table's own
+         ✅ marks, so it is internally consistent and can still be externally
+         wrong -- three rows were marked open while their certs sat in
+         Salt/Certs/, and ARM 3 reported clean.  This arm reads the corpus.
+         It does NOT auto-correct: mention is not coverage (Chen.lean names
+         chen_goldbach only to EXCLUDE it), so it prints the mentioning lines
+         and a human records the resolution in the row as `ARM5-READ: ...`.
+
+Five disciplines this script is built around, every one of them paid for:
 
   * NEVER A SILENT SKIP.  Everything extracted is printed with a verdict; what
     cannot be checked prints as SKIP **with its reason**.  The predecessor
@@ -37,6 +49,10 @@ Four disciplines this script is built around, every one of them paid for:
   * A NUMBER'S LABEL IS PART OF THE NUMBER.  Checking that the right *set* of
     numbers appears passes an inverted "5 LANDED / 7 OPEN" when the truth is
     7 and 5.  Counts are matched to their nouns.
+
+  * A VERIFIED TOTAL OVER AN UNVERIFIED LIST is the same defect as a verified
+    list under an unverified total, and reads as MORE trustworthy because it
+    shows its work.  ARM 3 alone was exactly that; ARM 5 is why it isn't now.
 
   ARM 3's sentence hunt is a QUERY, not a RULE, so its list is a FLOOR: it
   prints every candidate line considered.  ARMs 1-2 are rules over table rows.
@@ -534,6 +550,78 @@ def self_test() -> int:
     return 0 if npass == len(cases) else 1
 
 
+CERTS = REPO / "Salt" / "Certs"
+AGGREGATE = "All.lean"      # roll-call/import hub, NOT a certificate
+
+
+def arm5(doc_text: str) -> int:
+    """The row MARKS against the CORPUS — the check ARM 3 structurally cannot do.
+
+    ARM 3 derives LANDED/OPEN from the table's own ✅ marks, so it is internally
+    consistent and can still be externally wrong: if a cert lands and nobody
+    re-marks its row, ARM 3 certifies a stale total against a stale list and
+    reports clean.  That is exactly what happened -- rows 4, 5 and 12 were
+    marked open while their certs sat in Salt/Certs/.
+
+    Mention is NOT coverage, and this arm refuses to guess: `Chen.lean` names
+    `chen_goldbach` only to say "not this file".  So it prints the mentioning
+    LINES and asks for a read, rather than converting a name-hit into a verdict.
+    """
+    print()
+    print("=" * 78)
+    print("ARM 5 — ROW MARKS vs THE CORPUS (mention is not coverage: read the lines)")
+    print("=" * 78)
+    if not CERTS.is_dir():
+        print(f"  SKIP: {CERTS} not a directory — cannot check marks against corpus")
+        return 0
+    files = sorted(p for p in CERTS.glob("*.lean") if p.name != AGGREGATE)
+    print(f"  cert corpus: {len(files)} file(s), excluding the aggregate {AGGREGATE}")
+    bodies = {p: p.read_text(encoding="utf-8", errors="replace").splitlines()
+              for p in files}
+    disagree = 0
+    for rownum, line in table_rows(doc_text):
+        cs = cells(line)
+        if len(cs) < 4:
+            continue
+        landed_mark = cs[-1].startswith("✅")
+        names = [n for n in _LABEL.findall(cs[1]) if len(n) > 3]
+        hits: dict[str, list[str]] = {}
+        for n in names:
+            for p, ls in bodies.items():
+                for j, l in enumerate(ls, 1):
+                    if n in l:
+                        hits.setdefault(n, []).append(f"{p.name}:{j}")
+        covered = bool(hits)
+        if covered == landed_mark:
+            state = "✅ landed" if landed_mark else "open"
+            print(f"   ok row {rownum:<3} mark={state:<9} corpus agrees")
+            continue
+        # A recorded READ resolves the row.  The tool never decides coverage --
+        # it surfaces the disagreement and a human writes the resolution INTO
+        # the doc, where the next reader sees it.  Suppressing it in the script
+        # instead would hide the reasoning in the one place nobody opens, and a
+        # permanently-red arm trains its readers to ignore it.
+        m = re.search(r"ARM5-READ:\s*([^|]+)", cs[-1])
+        if m:
+            print(f"   ok row {rownum:<3} mark differs from the name-hit, RESOLVED by a"
+                  f" recorded read:\n        {m.group(1).strip()[:88]}")
+            continue
+        disagree += 1
+        print(f"\n   !! row {rownum:<3} mark={'✅ landed' if landed_mark else 'open':<9}"
+              f" but corpus says {'covered' if covered else 'NO cert file mentions it'}")
+        for n, where in hits.items():
+            print(f"        `{n}` mentioned at {', '.join(where[:4])}")
+            for w in where[:2]:
+                fn, ln = w.rsplit(":", 1)
+                src = bodies[CERTS / fn][int(ln) - 1].strip()
+                print(f"           {w}  {src[:64]}")
+        if not hits:
+            print(f"        no cert file mentions {names}")
+    print(f"\n  ARM 5: {disagree} row(s) whose mark and corpus disagree"
+          " — each needs a READ, not a rewrite by this tool")
+    return disagree
+
+
 _PROSE_PIN = re.compile(r"`?([\w./-]+\.(?:tex|md|lean)):(\d{1,5})`?")
 
 
@@ -636,11 +724,12 @@ def main() -> int:
     _, drift, _ = arms_1_and_2(text, papers, args.show_normalised)
     bad = arm3(text)
     prose = arm4(text)
+    marks = arm5(text)
 
     print("\n" + "=" * 78)
-    if drift or bad or prose:
+    if drift or bad or prose or marks:
         print(f"RESULT: NOT CLEAN — {drift} pin drift · {bad} count mismatch"
-              f" · {prose} prose pin")
+              f" · {prose} prose pin · {marks} stale mark")
         return 1
     print("RESULT: clean")
     return 0
