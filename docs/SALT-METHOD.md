@@ -37,6 +37,19 @@ articles. Amendments are Captain-tier.**
 - **R5 — Irreversible acts are human.** A small class of irreversible, outward-facing
   acts — submissions, purchases, publications — is reserved to human hands; the
   system's job is to reduce each to a prepared click, and stop.
+- **R6 — Conditional objectives** *(added at the Captain's word, 8/12)*. Conditional
+  objectives are allowed: a statement may name hypotheses it does not discharge,
+  provided every hypothesis is named in the statement itself — never carried
+  silently — and each carries one of two declared dispositions: (a) TO BE
+  DISCHARGED — the hypothesis sits on the program's ledger as owed, with the
+  expectation of a future kernel proof; or (b) OUT OF DOMAIN — the hypothesis marks
+  a declared trust boundary with another discipline (for example, semiconductor
+  physics, or a vendor's cell library), where the method's writ ends and the
+  boundary is stated rather than owed. A program's final deliverable carries no
+  undischarged in-domain hypotheses; conditionals are waypoints. (The closing
+  sentence is the Captain's standing no-lingering-hypotheses law of 2026-07-26,
+  folded in. Demonstrated instance: the bounded-gaps chain was built on a named
+  Siegel–Walfisz hypothesis and the hypothesis was discharged the next day.)
 
 ## ADVISORY (the reference configuration — what this program ran and measured)
 
