@@ -50,7 +50,13 @@ rely on either, the row re-enters with its anchor.*
 
 ## COUNT
 ```
-14 target rows · 12 ANCHORED · 2 PARKED · 3 LANDED · 9 OPEN for the wave
+14 target rows · 12 ANCHORED · 2 PARKED · **5 LANDED · 7 OPEN** for the wave
+
+⚠️ **THIS COUNT IS DERIVED FROM THE ROWS ABOVE AND WENT STALE ONCE ALREADY** — it read
+"3 LANDED · 9 OPEN" while the table showed five ✅ (rows 1, 2, 3, 9, 10), because the
+primary rows moved and the derived line did not. Caught by a reader (maestro, 20:51), not
+by its author. **Re-derive it from the ✅ marks before quoting it; do not trust this line
+against the rows.**
 ```
 📌 **For the wave brief:** each cert's docstring maps **paper-phrase → kernel declarations**,
 following the `main.tex:1261` model (which decodes *"the certified `A₀` range"* into the
