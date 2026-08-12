@@ -92,9 +92,20 @@ Statement-design constraints, each AT its site (all from the source sweep — do
 - The `d(k)³` divisor bookkeeping (`d(k)·d(k₀)·d(·) ≤ d(k)³`, gap row 4's open half) is
   elementary and Wave A's own; `sum_sqrt_gcd_dyadic_le_of_dvd` already carries the `k₀ ∣ k`
   gcd average.
-- **First mechanical act before any proof: the ~20-line `I₀ ⊆ (E,2E] ↦ Finset.Ioc` off-by-one
+- ~~**First mechanical act before any proof: the ~20-line `I₀ ⊆ (E,2E] ↦ Finset.Ioc` off-by-one
   scratch check** owed since 8/06 (FINDING #3 / A.3 leaves it explicitly unproved). If it
-  fails, STOP and flag — the W5 re-price rests on it.
+  fails, STOP and flag — the W5 re-price rests on it.~~
+  ✅ **DISCHARGED 2026-08-12** — and NOT as a scratch check: it landed as the kernel theorem
+  `Salt.N7.card_le_of_mem_Ioc` (`Salt/HB/Lemma10.lean:78`), `[3 axioms]`, in the module audit.
+  It did NOT fail, so the W5 re-price stands on a proof rather than on an unproved step.
+  ⛔ **BUT IT CAME BACK STRONGER THAN THIS LINE ASKED, and the difference is load-bearing:
+  the statement is FALSE without `1 ≤ E`.** Witness `E = -5`, `I = ∅` — the interval
+  hypothesis holds VACUOUSLY, `#I = 0`, and `E + 1 = -4`. *The empty set is the
+  counterexample, so no amount of reasoning about the interval finds it.* HB states `E ≥ 1`
+  on p.213 and it is **not** decoration. This bullet described the check as an off-by-one on
+  the interval; **the falsity was never in the interval.**
+  📌 *Left struck-through rather than deleted: an item that was owed for six days and came
+  back with a hypothesis nobody had asked for is worth seeing in both states.*
 - The `j = e` vacuity constraint (`weil-trio-audit-0806.md` §2) is untouched and owed here.
 - 2-adic constant: quote `norm_kloosterman_estermann_road`, discharge its `v₂(D)` factor via
   `factorization_two_roadModulus_le` + `structure_of_isPrimitive`'s `a ∈ {0,2,3}` — the
