@@ -154,9 +154,15 @@ theorem cert_vmvt (k r x : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 ≤ x) :
 
 /-- **Rule-6 vacuity control** (first hypothesis-carrying certificate): the hypothesis
 packet is satisfiable — the certificate instantiates at `(k, r, x) = (2, 1, 1)`. -/
-example := cert_vmvt 2 1 1 (by norm_num) (by norm_num) (by norm_num)
+theorem cert_vmvt_witness : Salt.Vmvt.VmvtBound 2 1 1 :=
+  Salt.Vmvt.vmvt 2 1 1 (by norm_num) (by norm_num) (by norm_num)
+
+/-- The cert-form instantiation follows by `(cert_vmvt_iff 2 1 1).mp
+cert_vmvt_witness`; the named theorem above is what the axiom census reads. -/
+example := (cert_vmvt_iff 2 1 1).mp cert_vmvt_witness
 
 #print axioms cert_vmvt_iff
 #print axioms cert_vmvt
+#print axioms cert_vmvt_witness
 
 end Salt.Certs

@@ -127,6 +127,9 @@ open Salt.Tactic in
   Salt.Certs.cert_chen_omega
   Salt.Certs.cert_vmvt_iff
   Salt.Certs.cert_vmvt
+  Salt.Certs.cert_vaughan_witness
+  Salt.Certs.cert_parity_gap_witness
+  Salt.Certs.cert_vmvt_witness
   -- row 10 (Nature :202, "the Weil bound for Kloosterman sums"): the landed bound is
   -- ESTERMANN's composite-modulus form; the cert closes the NAME gap by DERIVING the
   -- classical Weil bound 2√p at odd primes, where all three correction factors are one

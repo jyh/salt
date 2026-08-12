@@ -90,9 +90,11 @@ and at `d = 2` the inner set is nonempty). The smallest ADMISSIBLE triple
 is the singleton `{2}` and the inner set there is EMPTY, so `typeII 1 1 2 = 0`.
 **Forced is not non-degenerate** (the amendment's distinction): smallest-admissible
 and non-degenerate are DIFFERENT searches, and this witness runs the second. -/
-example : vonMangoldt 4 = typeI 1 4 - cross 1 1 4 + typeII 1 1 4 :=
+theorem cert_vaughan_witness :
+    vonMangoldt 4 = typeI 1 4 - cross 1 1 4 + typeII 1 1 4 :=
   cert_vaughan 1 1 4 (by norm_num) (by norm_num) (by norm_num)
 
 #print axioms cert_vaughan
+#print axioms cert_vaughan_witness
 
 end Salt.Certs

@@ -94,10 +94,11 @@ escape at L1 `:457`.) AND THE WITNESS IS NOT CONTENT-FREE [math's mirror case,
 "no completion exists", so this example's NEGATIVE kernel-certifies that a
 completion EXISTS at `(θ, A₀) = (1/4, 2)` — degenerate on the `E` axis exactly
 as declared, substantive on the `a` axis. -/
-example : ¬ ParityInv (1/4) 2 (fun _ => False) :=
+theorem cert_parity_gap_witness : ¬ ParityInv (1/4) 2 (fun _ => False) :=
   cert_parity_gap (by norm_num) (by norm_num) (by norm_num)
     (fun _ _ h => h.elim)
 
 #print axioms cert_parity_gap
+#print axioms cert_parity_gap_witness
 
 end Salt.Certs
