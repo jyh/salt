@@ -8,20 +8,6 @@ import Salt.TwinBar.LeastK
 /-!
 # COMPREHENSIBILITY CERTIFICATE — THE WALL (the twin bar, and the least `k`)
 
-⛔ **STATUS AT WRITING — HELD BY DISCIPLINE, NOT FORGOTTEN. 2026-08-12.**
-This file is COMPLETE and GREEN (`saltbuild EXIT=0`, all four certs at the standard
-three axioms, re-verified against `08e15b2`) and is **deliberately uncommitted**:
-`salt` is on `main`, and committing to `main` needs the Captain's word. A second
-copy lives at `${SEAT_DIR}/briefs/2026-08-12-math-WALL-cert-preservation.md` (`b99a312`),
-declared there as a copy and not a source — **this file is canonical.**
-
-⚠️ ***THIS STANZA RETIRES IN THE LANDING COMMIT ITSELF*** — it is true only while the
-file is untracked, so it must be deleted by the same commit that tracks the file, or
-it becomes exactly the stale assertion it exists to prevent. *The landing set is four
-paths: this file · `Salt/Certs/All.lean` · `docs/CERT-ANCHORS-0811.md` (row 11 + the
-two derived counts) — in ONE commit, so no window exists where the anchor table and
-the corpus disagree (evidence's 14:31 point).*
-
 Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable), row 11.
 Landed theorems certified, all three in one file because they are one story:
 * `Salt.TwinBar.twin_bar` (`Salt/TwinBar/Impossibility.lean:173`)

@@ -119,9 +119,8 @@ its docstring exactly what, if anything, was traded for readability.
 ## OWED (target list v1, anchored rows remaining)
 `psiTot_pnt` [parked pending anchor ruling] — and NOTHING ELSE anchored.
 **THE WALL (`twin_bar`/`no_twin_weight`/`least_k_theorem`, anchor = Pi's `neutrality_rate`
-:1173) is WRITTEN, GREEN and HELD — `Salt/Certs/TwinBar.lean` is UNTRACKED pending the
-Captain's commit-to-`main` word, so this row is NOT yet landed and the roll-call bullet
-below carries the same marker.** ⚠️ *Both markers retire in the landing commit itself.* — re-derived from the roll-call
+:1173) LANDED at `de7429b`, 2026-08-12, and moved to the roll-call above** — re-derived
+from the roll-call per this stanza's own warning, not edited on memory. — re-derived from the roll-call
 per this stanza's own warning, not edited on memory.
 
 ⛔ **THIS LIST WENT STALE THE SAME WAY THE ANCHOR TABLE'S COUNT DID.** It named
