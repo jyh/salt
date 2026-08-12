@@ -45,6 +45,14 @@ unqualified has already sent a seat searching the wrong file.
          verifies with `git show` rather than reporting a MISS it has not
          earned: today's file cannot refute a claim about yesterday's.
 
+  ARM 7  THE OWED LIST vs the anchor table's OPEN rows.  Two documents state the
+         same derived fact -- which rows remain uncertified -- and Certs/All.lean's
+         OWED list named three rows as outstanding while their certs sat in the
+         roll-call BELOW IT IN THE SAME FILE.  ARM 5 catches a stale MARK; this
+         catches a stale LIST OF WHAT IS MISSING, the same class with the opposite
+         sign.  Positive control: set ANCHOR_ALL_LEAN to a copy with a landed name
+         re-added to OWED and the arm fires; the real file stays clean.
+
 Five disciplines this script is built around, every one of them paid for:
 
   * NEVER A SILENT SKIP.  Everything extracted is printed with a verdict; what
@@ -859,6 +867,86 @@ def arm5(doc_text: str) -> int:
     return disagree
 
 
+import os
+# Overridable so ARM 7 can be run against a PLANTED copy as a positive control;
+# an arm with no demonstrated catch is a claim, not a check.
+ALL_LEAN = Path(os.environ.get("ANCHOR_ALL_LEAN",
+                               str(REPO / "Salt" / "Certs" / "All.lean")))
+
+
+def arm7(doc_text: str) -> int:
+    """The OWED list in Certs/All.lean against the anchor table's OPEN rows.
+
+    TWO documents state the same derived fact -- which rows remain uncertified --
+    and a derived fact rots.  All.lean's OWED list named three rows as
+    outstanding while their certs sat in the roll-call BELOW IT IN THE SAME FILE.
+
+    ARM 5 catches a stale MARK; this catches a stale LIST OF WHAT IS MISSING,
+    which is the same class wearing the opposite sign: ARM 5 asks "is this row's
+    ✅ true?", ARM 7 asks "is this row's ABSENCE from the corpus true?".  A
+    cross-document check needs no corpus read at all -- if the two disagree, at
+    least one is wrong, and which one is a question for a reader.
+    """
+    print()
+    print("=" * 78)
+    print("ARM 7 — Certs/All.lean's OWED list vs the anchor table's OPEN rows")
+    print("=" * 78)
+    if not ALL_LEAN.exists():
+        print(f"  SKIP: {ALL_LEAN} not found — cross-check not run, not passed")
+        return 0
+    text = ALL_LEAN.read_text(encoding="utf-8", errors="replace")
+    m = re.search(r"^##\s*OWED[^\n]*\n(.*?)(?:\n\s*\n|\n##)", text, re.S | re.M)
+    if not m:
+        print("  SKIP: no '## OWED' section found — nothing to cross-check")
+        return 0
+    section = m.group(1)
+    # Two extraction facts this section forces, BOTH found by the arm reporting
+    # four phantom defects on its first run:
+    #   * a target may be SLASH-JOINED (`a/b/c` names three), so the label pattern
+    #     must admit '/' -- the plain one silently matched nothing here;
+    #   * a backticked name inside a PARENTHETICAL is the row's ANCHOR, not a
+    #     target ("(THE WALL, anchor = Pi's `neutrality_rate` :1173)"), so
+    #     parentheticals are stripped before extracting.
+    # Prose shaped like structure, again: the 5th instance in this script.
+    body = re.sub(r"\([^)]*\)", " ", section)
+    owed_pat = re.compile(r"`([A-Za-z][A-Za-z0-9_:./']*)`")
+    parked = {n for n in owed_pat.findall(body)
+              if re.search(re.escape("`" + n + "`") + r"\s*\[parked", body)}
+    owed = {n for n in owed_pat.findall(body) if n not in parked and len(n) > 3}
+
+    open_rows: dict[int, set[str]] = {}
+    for rownum, line in table_rows(doc_text):
+        cs = cells(line)
+        if len(cs) >= 4 and not cs[-1].startswith("✅"):
+            open_rows[rownum] = {n for n in _LABEL.findall(cs[1]) if len(n) > 3}
+    table_open = {n for names in open_rows.values() for n in names}
+
+    print(f"\n  anchor table OPEN rows : {sorted(open_rows) or 'none'}")
+    print(f"      their targets      : {sorted(table_open) or 'none'}")
+    print(f"  All.lean OWED names    : {sorted(owed) or 'none'}")
+    print(f"      parked (excluded)  : {sorted(parked) or 'none'}")
+
+    # A slash-joined OWED entry ("a/b/c") names several targets in one string.
+    expanded = set()
+    for n in owed:
+        expanded |= set(n.split("/")) if "/" in n else {n}
+    stale = expanded - table_open
+    missing = table_open - expanded
+    bad = 0
+    for n in sorted(stale):
+        print(f"\n   !! OWED names `{n}` but no OPEN anchor row targets it")
+        print("        either the row landed and this list did not follow, or the"
+              " name is not a table target")
+        bad += 1
+    for n in sorted(missing):
+        print(f"\n   !! anchor table has `{n}` OPEN but OWED does not list it")
+        bad += 1
+    if not bad:
+        print("\n   ok both documents agree on what remains uncertified")
+    print(f"\n  ARM 7: {bad} disagreement(s) between the two derived lists")
+    return bad
+
+
 _PROSE_PIN = re.compile(r"`?([\w./-]+\.(?:tex|md|lean)):(\d{1,5})`?")
 
 
@@ -962,12 +1050,14 @@ def main() -> int:
     bad = arm3(text)
     prose = arm4(text)
     marks = arm5(text)
+    owed = arm7(text)
     certs = arm6(args.show_normalised)
 
     print("\n" + "=" * 78)
-    if drift or bad or prose or marks or certs:
+    if drift or bad or prose or marks or certs or owed:
         print(f"RESULT: NOT CLEAN — {drift} pin drift · {bad} count mismatch"
-              f" · {prose} prose pin · {marks} stale mark · {certs} cert quote")
+              f" · {prose} prose pin · {marks} stale mark · {certs} cert quote"
+              f" · {owed} owed-list")
         return 1
     print("RESULT: clean")
     return 0
