@@ -11,6 +11,7 @@ import Salt.Certs.BoundedGaps
 import Salt.Certs.Chen
 import Salt.Certs.Vmvt
 import Salt.Tactic.AuditAxioms
+import Salt.Certs.Kloosterman
 
 /-!
 # `Salt/Certs/` — the comprehensibility-certificate layer, roll-call
@@ -117,3 +118,8 @@ open Salt.Tactic in
   Salt.Certs.cert_chen_omega
   Salt.Certs.cert_vmvt_iff
   Salt.Certs.cert_vmvt
+  -- row 10 (Nature :202, "the Weil bound for Kloosterman sums"): the landed bound is
+  -- ESTERMANN's composite-modulus form; the cert closes the NAME gap by DERIVING the
+  -- classical Weil bound 2√p at odd primes, where all three correction factors are one
+  Salt.Certs.cert_kloosterman_estermann Salt.Certs.cert_weil_bound_prime
+
