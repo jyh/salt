@@ -28,7 +28,7 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 
 ---
 
-## ANCHORED — 12 rows (10 landed, 2 open)
+## ANCHORED — 12 rows (11 landed, 1 open)
 
 | # | target | anchor: paper · site · the paper's own phrase | state |
 |---|---|---|---|
@@ -37,7 +37,7 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 | 3 | `zeta_zero_free_region_pow` | **Pi `thm:pow`** (:257) — *"the first power-saving region"*; **Nature :203** *"a zero-free region beyond de la Vallée Poussin strength"*, :240 *"the [θ = 3/4-power] zero-free region on day 13"* | ✅ `cert_zeta_zero_free_pow` |
 | 4 | `bounded_gaps_unconditional` | **Nature :239** — *"unconditional bounded prime gaps on day 8"*. **No Pi anchor** (Pi never states it) | ✅ `Salt/Certs/BoundedGaps.lean` — `cert_bounded_gaps` +3 companions (maestro, W-CERT-1) |
 | 5 | `chen_headline` / `chen_omega_prod_le_three` | **Nature :202** *"Chen's theorem"*, :239 *"Chen's theorem on day 10"*; **Pi :324** `\leaninline{chen_omega_prod_le_three}` with *"Ω(p(p+2)) ≤ 3 for infinitely many primes"* | ✅ `Salt/Certs/Chen.lean` — `cert_chen` + `cert_chen_omega` (maestro, W-CERT-1) |
-| 6 | `chen_goldbach` | **Nature :202** — same *"Chen's theorem"* class enumeration. ⚠️ *shares row 5's anchor; confirm the two decls are distinct claims before writing two files* | open — ARM5-READ: `Chen.lean` names `chen_goldbach` only at :90 to EXCLUDE it ("that is the separate declaration ... not this file"); the Goldbach half is genuinely uncertified, so this OPEN mark is correct and the name-hit is not coverage |
+| 6 | `chen_goldbach` | **Nature :202** — same *"Chen's theorem"* class enumeration. ⚠️ *shares row 5's anchor; confirm the two decls are distinct claims before writing two files* | ✅ `Salt/Certs/ChenGoldbach.lean` — `cert_chen_goldbach` + `_isP2_iff` (the iff PROVES the z=2 size decorations are recoverable, so dropping them is a restatement not a weakening; the ARM5-READ that held this row open is now discharged by a cert, not by a note) |
 | 7 | `siegelWalfisz_holds` | **Nature :201** *"the Siegel–Walfisz theorem"*; **Pi :322** *"an unconditional Siegel–Walfisz theorem"* (prose, no pin — line re-pinned 321→322 at the cert) | ✅ `Salt/Certs/SiegelWalfisz.lean` — unfolds BOTH opaque names (SiegelWalfisz, psiAP), closes by `exact` |
 | 8 | `analytic_LS` + `char_LS` | **Nature :201** — *"the large sieve inequality"*; and :205, the adversary sentence (*the two live external BV projects take SW and the large sieve as axioms*) | ✅ `Salt/Certs/LargeSieve.lean` — both forms, constants IN the statement (δ⁻¹+13N, Q²+13N) because the anchor is about axiom-vs-proof |
 | 9 | `vmvt` | **Pi `thm:vmvt`** (:316) + Appendix A :982–1002; **Nature :202** *"the Vinogradov mean value theorem"* | ✅ `cert_vmvt` (+ unconditional `_iff`), `Salt/Certs/Vmvt.lean` — maestro, landed 8/11 (actual class B: the decode was definitional + `pow_mul` + `ring`; the C-grade was priced for a semantic gap that did not exist) |
@@ -59,8 +59,8 @@ rely on either, the row re-enters with its anchor.*
 
 ## COUNT
 ```
-14 target rows · 12 ANCHORED · 2 PARKED · **10 LANDED · 2 OPEN** for the wave
-LANDED = rows 1, 2, 3, 4, 5, 7, 8, 9, 10, 12   ·   OPEN = rows 6, 11
+14 target rows · 12 ANCHORED · 2 PARKED · **11 LANDED · 1 OPEN** for the wave
+LANDED = rows 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12   ·   OPEN = row 11 (THE WALL)
 
 ⚠️ **THIS COUNT IS DERIVED FROM THE ROWS ABOVE AND WENT STALE TWICE.** First it read
 "3 LANDED · 9 OPEN" while the table showed five ✅ (rows 1, 2, 3, 9, 10) — caught by a

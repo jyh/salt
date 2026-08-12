@@ -14,6 +14,7 @@ import Salt.Tactic.AuditAxioms
 import Salt.Certs.Kloosterman
 import Salt.Certs.SiegelWalfisz
 import Salt.Certs.LargeSieve
+import Salt.Certs.ChenGoldbach
 
 /-!
 # `Salt/Certs/` — the comprehensibility-certificate layer, roll-call
@@ -95,9 +96,15 @@ its docstring exactly what, if anything, was traded for readability.
   (Maestro's row, landed at the helm.)
 
 ## OWED (target list v1, anchored rows remaining)
-`chen_goldbach` (row 6) · `siegelWalfisz_holds` · `analytic_LS + char_LS` ·
-`norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` (THE WALL,
-anchor = Pi's `neutrality_rate` :1173) · `psiTot_pnt` [parked pending anchor ruling].
+`twin_bar/no_twin_weight/least_k_theorem` (THE WALL, anchor = Pi's `neutrality_rate`
+:1173) — the last open anchored row. · `psiTot_pnt` [parked pending anchor ruling].
+
+⛔ **THIS LIST WENT STALE THE SAME WAY THE ANCHOR TABLE'S COUNT DID.** It named
+`siegelWalfisz_holds`, `analytic_LS + char_LS` and `norm_kloosterman_estermann` as OWED
+while their certs sat in the roll-call *below it in this same file*. **A list of what is
+missing is a derived fact and rots exactly like a count** — re-derive it from the roll-call,
+never read it. (`scripts/anchor_pin_check.py` ARM 5 checks the anchor table's marks against
+the corpus; this list is the same class of claim and is NOT yet under any arm.)
 
 ✅ **ROOTED.** `Salt.lean:31` imports `Salt.Certs.All` (maestro, 2026-08-11, at the
 first cert's seal), so the hub build replays this tree: full `../saltbuild.sh` green at
@@ -132,4 +139,9 @@ open Salt.Tactic in
   -- external BV projects take the large sieve as an AXIOM, so both certs carry their
   -- CONSTANTS in the statement — δ⁻¹ + 13N and Q² + 13N, explicit, no O(·)
   Salt.Certs.cert_analytic_large_sieve Salt.Certs.cert_char_large_sieve
+  -- row 6 (Nature :202, "Chen's theorem"): the paper's ONE phrase covers TWO theorems and
+  -- the corpus proves them as TWO declarations — the twin half is cert_chen above, this is
+  -- the GOLDBACH half; the _isP2_iff PROVES the z = 2 size decorations are recoverable, so
+  -- dropping them is a restatement and not a weakening
+  Salt.Certs.cert_chen_goldbach_isP2_iff Salt.Certs.cert_chen_goldbach
 
