@@ -54,6 +54,7 @@ import Salt.HB.HSigmaComp
 import Salt.HB.CharTrio
 import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
+import Salt.HB.Lemma10
 
 /-!
 # The Heath-Brown track (`HB`) — aggregate import
@@ -296,3 +297,8 @@ open Salt.Tactic in
   -- `hb_L1_one_sided`'s `hσ'r` — the `hσ'r` obligation ONLY (see the file's scope fence)
   Salt.HB.sqrt_quad_of_threshold Salt.HB.repulsion_floor_gives_hsigma
   Salt.HB.hb_L1_one_sided_at_repulsion_floor Salt.HB.hsigma_largeness_satisfiable
+  -- node N7 WAVE A (Salt/HB/Lemma10.lean): HB Lemma 10's rung (7.5) — the trivial
+  -- bound on `S_m`, stated EXACTLY (‖S_m‖ ≤ #I, no `≪`, no `E`) per gate ruling R-A1,
+  -- with the `E + 1` passage as its own lemma so the slack is priced in the open
+  Salt.N7.norm_lem10ExpSum_le_card Salt.N7.lem10ExpSum_attains_card
+  Salt.N7.card_le_of_mem_Ioc
