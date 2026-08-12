@@ -1,0 +1,4 @@
+# Source set for the salt cert population, graded by scripts/anchor_pin_check.py ARM 6.
+# One repo-relative path per line. Declared by this population owner (math seat).
+papers/flagship/main.tex
+${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md

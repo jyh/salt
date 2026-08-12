@@ -32,9 +32,12 @@ unqualified has already sent a seat searching the wrong file.
 
   ARM 6  EVERY QUOTED STRING IN EVERY CERTIFICATE, vs the papers.  Routed here
          by evidence: seals read ONE quote per cert, so most quoted strings had
-         never been read by any seal.  Grades the salt population only -- the
-         saltworks certs cite a brief and the bus, outside the paper set
-         (compiler), and grading them here would manufacture MISSes.
+         never been read by any seal.  Each cert population is graded against
+         the sources ITS OWNER declares in a `SOURCES.txt` beside the certs --
+         salt's are Pi and Nature; saltworks' are a brief and the bus, and
+         which documents are authoritative for another seat's tier is that
+         seat's ruling, not this script's.  An undeclared population is
+         UNGRADED (printed with the line that would close it), never passed.
          Diagnoses two classes the others cannot: an UNMARKED ELISION (words
          dropped under an em-dash, which reads as the source's own punctuation
          -- fragments split ONLY on an ellipsis, an omission marker the reader
@@ -603,6 +606,46 @@ def check_at_revision(rev: str, relpath: str, phrase: str) -> tuple[bool, str]:
                    " not rescue it")
 
 
+SOURCES_FILE = "SOURCES.txt"
+
+
+def population_sources(pop: Path) -> tuple[dict[str, list[str]], str]:
+    """The source set a cert population is graded against.
+
+    DECLARED BY THE POPULATION'S OWNER, never guessed here.  salt's certs quote
+    Pi and Nature; saltworks' quote a brief and the bus (compiler, 10:13), and
+    deciding which documents are authoritative for another seat's tier is a
+    judgement that belongs to that seat.
+
+    So the mechanism is a `SOURCES.txt` beside the certs, one path per line,
+    relative to the repo root.  Its absence is not a failure and not a pass --
+    it is an UNGRADED population, printed with the exact line that would close
+    it.  This turns a one-time hand-check (compiler's named residual at
+    9fcb575) into a standing arm WITHOUT touching their files or ruling on
+    their sources: they write one declaration when their wave comes.
+    """
+    decl = pop / SOURCES_FILE
+    if not decl.exists():
+        return {}, (f"no {SOURCES_FILE} beside these certs — UNGRADED, not passed."
+                    f"\n      To grade them, their owner drops {decl} with one repo-"
+                    "relative\n      path per line (the brief, the paper, whatever they"
+                    " actually quote).")
+    root = pop
+    while root.parent != root and not (root / ".git").exists():
+        root = root.parent
+    out: dict[str, list[str]] = {}
+    for raw in decl.read_text(encoding="utf-8").splitlines():
+        raw = raw.strip()
+        if not raw or raw.startswith("#"):
+            continue
+        f = (root / raw)
+        if f.exists():
+            out[raw] = f.read_text(encoding="utf-8", errors="replace").splitlines()
+        else:
+            out[f"{raw} (MISSING)"] = []
+    return out, f"declared in {decl.name}: {', '.join(out)}"
+
+
 def arm6(show_norm: bool) -> int:
     """Every quoted string in every certificate, checked against the papers.
 
@@ -629,24 +672,27 @@ def arm6(show_norm: bool) -> int:
     print("=" * 78)
     print("ARM 6 — EVERY QUOTED STRING IN EVERY CERTIFICATE, vs the papers")
     print("=" * 78)
-    papers = load_papers()
     files = []
+    src_of: dict[Path, dict[str, list[str]]] = {}
     for pop in CERT_POPULATIONS:
-        if pop.is_dir():
-            files += sorted(pop.glob("*.lean"))
-        else:
+        if not pop.is_dir():
             print(f"  population MISSING: {pop}")
-    print(f"  populations: {len(files)} cert file(s)")
-    print("  GRADED AGAINST: Pi + Nature. The saltworks population is counted but NOT")
-    print("  graded — compiler (10:13): its cert sources are a BRIEF and the BUS, both")
-    print("  outside the paper set, so grading them here would manufacture MISSes and")
-    print("  a green run would be SILENT about those files, not clean about them.")
+            continue
+        fs = sorted(pop.glob("*.lean"))
+        files += fs
+        sources, why = population_sources(pop)
+        src_of[pop] = sources
+        print(f"\n  POPULATION {pop}  ({len(fs)} cert files)")
+        print(f"      {'GRADED AGAINST' if sources else 'NOT GRADED'} — {why}")
+    print()
 
     total = graded = miss = elision = 0
     attrib_miss: list[str] = []
     skipped: dict[str, int] = {}
     for f in files:
-        in_scope = REPO in f.parents
+        pop = f.parent
+        papers = src_of.get(pop) or {}
+        in_scope = bool(papers)
         lines = f.read_text(encoding="utf-8", errors="replace").splitlines()
         rel = f"{f.parent.parent.parent.name}/{f.parent.name}/{f.name}"
         printed_header = False
@@ -655,8 +701,8 @@ def arm6(show_norm: bool) -> int:
                 total += 1
                 n = normalise(q)
                 if not in_scope:
-                    skipped["saltworks: sources are a brief and the bus, not the papers"] = \
-                        skipped.get("saltworks: sources are a brief and the bus, not the papers", 0) + 1
+                    k = f"{pop.parent.parent.name}: no {SOURCES_FILE} declared by its owner"
+                    skipped[k] = skipped.get(k, 0) + 1
                     continue
                 if len(n) < MIN_PHRASE:
                     skipped["too short to be evidence"] = \
