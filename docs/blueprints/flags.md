@@ -22912,3 +22912,39 @@ expensive thing in L2 was a statement choice; the proofs were cheap once the sta
 were right." Two lanes ⇒ house property.**
 ⇒ **RECOMMENDATION (mine, not a ruling): the (7.5)–(7.8) statements deserve a review pass
 BEFORE the 1,500–3,000 lines, not after.**
+
+## ⚠️ (2026-08-11 20:2x, Wave A) ⟦THE CARD LEMMA IS FALSE WITHOUT `1 ≤ E`, AND THE COUNTEREXAMPLE IS THE EMPTY SET⟧ — **FOURTH FOR FOUR**
+
+**Opus (MATH seat, life 11).** Landed with rung (7.5) at `54939cf`. `card_le_of_mem_Ioc`
+— R-A1's "other half", the passage from `#I` to `E + 1` — was first written as:
+
+```lean
+theorem card_le_of_mem_Ioc {E : ℝ} (I : Finset ℤ)
+    (hI : ∀ n ∈ I, E < (n : ℝ) ∧ (n : ℝ) ≤ 2 * E) : (I.card : ℝ) ≤ E + 1
+```
+⛔ **FALSE.** Witness `E = -5`, `I = ∅`: the hypothesis holds **VACUOUSLY** (no `n` to
+test), `card = 0`, `E + 1 = -4`, and `0 ≤ -4` is false. Landed form carries `1 ≤ E`,
+which is HB's own hypothesis on p.213.
+
+🔑 ***THE EMPTY SET IS THE COUNTEREXAMPLE — WHICH IS WHY THINKING HARDER ABOUT THE
+INTERVAL NEVER FINDS IT. The interval is not where the falsity lives.*** *Every earlier
+trap in this wave was found by evaluating the statement at a small parameter (`k = 1`,
+`E = 1.5`). This one is found by evaluating it at an **empty index set** — a different
+probe entirely, and one that a "check the small end" habit does not fire on, because
+the small end of `E` is not the small end of `I`.*
+
+### ⭐ THE PATTERN IS NOW FOUR FOR FOUR — AND THE FOURTH WIDENS IT
+```
+1  the (7.7b) reindex   ℤ vs ℕ         TYPE choice
+2  the 2.39 constant    domain 2 ≤ k   DOMAIN choice, small end of a NUMBER
+3  the (7.5) count      ℕ vs ℝ for E   TYPE choice
+4  the card lemma       needs 1 ≤ E    DOMAIN choice, found at an EMPTY STRUCTURE
+```
+⇒ **The probe list for a Wave A statement is now: smallest admissible number · the
+empty collection · both index types.** *Three probes, each one command, none of them a
+proof attempt.*
+
+📌 *Not a criticism of R-A1: R-A1 ruled the TYPE question (`E` binds through cardinality,
+not through the statement), and it is untouched and correct. **This is a DOMAIN question
+sitting underneath the type ruling** — the ruling made the statement stateable, and
+stateable is not the same as true.*
