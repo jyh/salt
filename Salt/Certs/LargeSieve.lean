@@ -79,7 +79,8 @@ genuinely separated points `{0, 1/2}` at the extreme admissible `δ = 1/2`.**
 *Recorded because the amendment postdates this file: the non-degeneracy reasoning was
 already here, but the KIND was not declared, and "every cert must say what its witness
 proves" is a claim about the docstring, not about the witness.* -/
-example : ∃ (δ : ℝ) (α : Fin 2 → ℝ), (0 < δ) ∧ (δ ≤ 1/2) ∧
+theorem cert_analytic_large_sieve_witness :
+    ∃ (δ : ℝ) (α : Fin 2 → ℝ), (0 < δ) ∧ (δ ≤ 1/2) ∧
     (∀ r s, r ≠ s → δ ≤ dist₁ (α r) (α s)) := by
   refine ⟨1/2, ![0, 1/2], by norm_num, le_refl _, ?_⟩
   intro r s hrs
@@ -136,18 +137,20 @@ reader inherits a price rather than an open question.*
 
 **None of this is a soundness question —
 `cert_char_large_sieve` holds for every `Q ≥ 2` either way.** -/
-example : (2 : ℕ) ≤ 2 := le_refl 2
+theorem cert_char_large_sieve_witness : (2 : ℕ) ≤ 2 := le_refl 2
 
 /-- **THE `Q = 2` MEASUREMENT, part 1 — level 1 DOES contribute.** Its trivial character is
 primitive, so `q = 1` is a live index of the outer sum. -/
-example : DirichletCharacter.IsPrimitive (1 : DirichletCharacter ℂ 1) :=
+theorem cert_char_large_sieve_level_one_primitive :
+    DirichletCharacter.IsPrimitive (1 : DirichletCharacter ℂ 1) :=
   DirichletCharacter.isPrimitive_one_level_one
 
 /-- **THE `Q = 2` MEASUREMENT, part 2 — level 2 does NOT.** Every character mod 2 is the
 trivial one, since `(ZMod 2)ˣ` is trivial, and the trivial character's conductor is `1`;
 primitivity at level 2 would need conductor `2`. *Hence the `q = 2` inner sum runs over an
 empty filter, and `Q = 2` leaves exactly one contributing modulus.* -/
-example (χ : DirichletCharacter ℂ 2) : ¬ DirichletCharacter.IsPrimitive χ := by
+theorem cert_char_large_sieve_level_two_not_primitive (χ : DirichletCharacter ℂ 2) :
+    ¬ DirichletCharacter.IsPrimitive χ := by
   intro h
   rw [DirichletCharacter.isPrimitive_def] at h
   have h1 : χ = 1 := by
@@ -160,5 +163,9 @@ example (χ : DirichletCharacter ℂ 2) : ¬ DirichletCharacter.IsPrimitive χ :
 
 #print axioms cert_analytic_large_sieve
 #print axioms cert_char_large_sieve
+#print axioms cert_analytic_large_sieve_witness
+#print axioms cert_char_large_sieve_witness
+#print axioms cert_char_large_sieve_level_one_primitive
+#print axioms cert_char_large_sieve_level_two_not_primitive
 
 end Salt.Certs

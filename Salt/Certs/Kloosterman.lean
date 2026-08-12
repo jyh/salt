@@ -59,9 +59,14 @@ MEASURED at the landing, not asserted — the two named declarations both read
     [propext, Classical.choice, Quot.sound]
 
 from `#print axioms` below. *An earlier draft of this line said "all three declarations";
-there are TWO named ones, the third being the anonymous rule-6 `example`. The residue was
-right and the count was not — which is the half an unmeasured axiom line always gets
-right, and the reason to print rather than recall.*
+at the time there were TWO named ones, the third being an anonymous rule-6 `example`. The
+residue was right and the count was not — which is the half an unmeasured axiom line always
+gets right, and the reason to print rather than recall.*
+📌 **AND THAT SENTENCE WENT STALE THE MOMENT ITS CAUSE WAS FIXED:** the witness is now the
+NAMED `cert_weil_bound_prime_witness` (maestro, 8/12 — *a witness the census cannot see is a
+control the census cannot vouch for*), so **all THREE declarations here are named and
+printed.** *Left visible rather than rewritten away: the count was wrong for a reason worth
+seeing twice.*
 -/
 
 open Salt.Weil
@@ -119,11 +124,13 @@ hypothesis FAILS — so the binder is not inhabited only by degenerate points, a
 sits on the live side of exactly that boundary. *`p = 3` is the smallest odd prime, which
 makes it the extreme rather than a degenerate case: at `p = 2` the theorem's `hodd` binder
 excludes it.* -/
-example : (3 : ℕ).Prime ∧ (3 : ℕ) ≠ 2 ∧ ¬ ((3 : ℕ) ∣ Nat.gcd (1 : ℕ) (1 : ℕ)) := by
+theorem cert_weil_bound_prime_witness :
+    (3 : ℕ).Prime ∧ (3 : ℕ) ≠ 2 ∧ ¬ ((3 : ℕ) ∣ Nat.gcd (1 : ℕ) (1 : ℕ)) := by
   refine ⟨by norm_num, by norm_num, ?_⟩
   decide +kernel
 
 #print axioms cert_kloosterman_estermann
 #print axioms cert_weil_bound_prime
+#print axioms cert_weil_bound_prime_witness
 
 end Salt.Certs

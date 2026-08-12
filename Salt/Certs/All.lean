@@ -134,6 +134,7 @@ open Salt.Tactic in
   -- ESTERMANN's composite-modulus form; the cert closes the NAME gap by DERIVING the
   -- classical Weil bound 2√p at odd primes, where all three correction factors are one
   Salt.Certs.cert_kloosterman_estermann Salt.Certs.cert_weil_bound_prime
+  Salt.Certs.cert_weil_bound_prime_witness
   -- row 7 (Nature :200 + Pi :322, "an unconditional Siegel–Walfisz theorem"): the landed
   -- statement is TWO opaque names deep (SiegelWalfisz, then psiAP); the cert unfolds BOTH
   -- and closes by `exact`, so the kernel certifies the paraphrase
@@ -142,6 +143,12 @@ open Salt.Tactic in
   -- external BV projects take the large sieve as an AXIOM, so both certs carry their
   -- CONSTANTS in the statement — δ⁻¹ + 13N and Q² + 13N, explicit, no O(·)
   Salt.Certs.cert_analytic_large_sieve Salt.Certs.cert_char_large_sieve
+  -- witnesses NAMED at the maestro's 11:05 ruling: a witness the census cannot see is a
+  -- control the census cannot vouch for. The two level-* rows are the Q = 2 MEASUREMENT
+  -- (level 1 primitive, level 2 not), which the docstring's thinness claim rests on
+  Salt.Certs.cert_analytic_large_sieve_witness Salt.Certs.cert_char_large_sieve_witness
+  Salt.Certs.cert_char_large_sieve_level_one_primitive
+  Salt.Certs.cert_char_large_sieve_level_two_not_primitive
   -- row 6 (Nature :202, "Chen's theorem"): the paper's ONE phrase covers TWO theorems and
   -- the corpus proves them as TWO declarations — the twin half is cert_chen above, this is
   -- the GOLDBACH half; the _isP2_iff PROVES the z = 2 size decorations are recoverable, so
