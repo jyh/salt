@@ -30,6 +30,18 @@ unqualified has already sent a seat searching the wrong file.
          chen_goldbach only to EXCLUDE it), so it prints the mentioning lines
          and a human records the resolution in the row as `ARM5-READ: ...`.
 
+  ARM 6  EVERY QUOTED STRING IN EVERY CERTIFICATE, vs the papers.  Routed here
+         by evidence: seals read ONE quote per cert, so most quoted strings had
+         never been read by any seal.  Grades the salt population only -- the
+         saltworks certs cite a brief and the bus, outside the paper set
+         (compiler), and grading them here would manufacture MISSes.
+         Diagnoses two classes the others cannot: an UNMARKED ELISION (words
+         dropped under an em-dash, which reads as the source's own punctuation
+         -- fragments split ONLY on an ellipsis, an omission marker the reader
+         can see), and a HISTORICAL PIN (`<rev>^:main.tex:645`), which it
+         verifies with `git show` rather than reporting a MISS it has not
+         earned: today's file cannot refute a claim about yesterday's.
+
 Five disciplines this script is built around, every one of them paid for:
 
   * NEVER A SILENT SKIP.  Everything extracted is printed with a verdict; what
@@ -550,6 +562,185 @@ def self_test() -> int:
     return 0 if npass == len(cases) else 1
 
 
+CERT_POPULATIONS = [
+    REPO / "Salt" / "Certs",
+    REPO.parent / "saltworks" / "SaltWorks" / "Certs",
+]
+
+_IDENTLIKE = re.compile(r"^[A-Za-z_][A-Za-z0-9_.'₁-₉]*$")
+# "8680167^:main.tex:645" — a quote pinned to a PAST revision of a named file.
+_ATTRIB = re.compile(r"\b(Pi|Nature|paper|main\.tex|flagship)\b")
+_REVPIN = re.compile(r"`?([0-9a-f]{7,40}\^*):([\w/.-]+\.(?:tex|md)):(\d+)`?")
+
+
+def check_at_revision(rev: str, relpath: str, phrase: str) -> tuple[bool, str]:
+    """Verify a historically-pinned quote against the revision it names.
+
+    "The tool cannot check a past revision" is a cop-out when `git show` can.
+    A quote pinned to a prior commit makes a claim about THAT file state, and
+    today's file can neither confirm nor refute it -- so ask the object.
+    """
+    import subprocess
+    name = Path(relpath).name
+    target = next((p for p in PAPERS.values() if p.name == name), None)
+    if target is None:
+        return False, f"pinned to {relpath}, which is not a known paper — UNRESOLVED"
+    repo = REPO if REPO in target.parents else REPO.parent
+    inrepo = target.relative_to(repo)
+    try:
+        out = subprocess.run(["git", "-C", str(repo), "show", f"{rev}:{inrepo}"],
+                             capture_output=True, text=True, timeout=20)
+    except Exception as e:                                   # noqa: BLE001
+        return False, f"could not run git show ({e}) — UNRESOLVED, not passed"
+    if out.returncode != 0:
+        return False, (f"`git show {rev}:{inrepo}` failed: "
+                       f"{out.stderr.strip()[:60]} — UNRESOLVED, not passed")
+    spans = find_span(out.stdout.splitlines(), phrase)
+    if spans:
+        return True, (f"present at {rev}:{inrepo}@{fmt_spans(spans)} — the historical"
+                      " pin is CORRECT, and correctly absent from today's file")
+    return False, (f"NOT present at {rev}:{inrepo} either — the historical pin does"
+                   " not rescue it")
+
+
+def arm6(show_norm: bool) -> int:
+    """Every quoted string in every certificate, checked against the papers.
+
+    Routed here by evidence (10:12): their seals read ONE quote per cert -- the
+    certified one -- so ~44 quoted strings across both populations had never
+    been read by any seal, and the two that a tool did read were both rotted.
+
+    This is NOT what ARM 1 does.  ARM 1 sweeps the anchor DOC; this sweeps the
+    CERT FILES.  Same kind of check, different population, and saying "the tool
+    already does it" would have left the sweep undone.
+
+    Every quoted string is printed with a verdict or a NAMED reason for not
+    grading one -- the population is the point, so nothing may vanish quietly.
+
+    UNMARKED ELISION (compiler, 10:12) is diagnosed separately: a quote whose
+    words all appear, in order, with text silently dropped under an em-dash.
+    Fragments are split ONLY on an ellipsis, which is an HONEST omission marker
+    the reader can see; an em-dash is the source's own punctuation, so splitting
+    on it would let an unmarked elision pass fragment-wise.  When the whole
+    string misses but its em-dash pieces each hit the same paper, that is the
+    signature and it is reported as such rather than as a generic MISS.
+    """
+    print()
+    print("=" * 78)
+    print("ARM 6 — EVERY QUOTED STRING IN EVERY CERTIFICATE, vs the papers")
+    print("=" * 78)
+    papers = load_papers()
+    files = []
+    for pop in CERT_POPULATIONS:
+        if pop.is_dir():
+            files += sorted(pop.glob("*.lean"))
+        else:
+            print(f"  population MISSING: {pop}")
+    print(f"  populations: {len(files)} cert file(s)")
+    print("  GRADED AGAINST: Pi + Nature. The saltworks population is counted but NOT")
+    print("  graded — compiler (10:13): its cert sources are a BRIEF and the BUS, both")
+    print("  outside the paper set, so grading them here would manufacture MISSes and")
+    print("  a green run would be SILENT about those files, not clean about them.")
+
+    total = graded = miss = elision = 0
+    attrib_miss: list[str] = []
+    skipped: dict[str, int] = {}
+    for f in files:
+        in_scope = REPO in f.parents
+        lines = f.read_text(encoding="utf-8", errors="replace").splitlines()
+        rel = f"{f.parent.parent.parent.name}/{f.parent.name}/{f.name}"
+        printed_header = False
+        for i, line in enumerate(lines, 1):
+            for q in _PHRASE.findall(line):
+                total += 1
+                n = normalise(q)
+                if not in_scope:
+                    skipped["saltworks: sources are a brief and the bus, not the papers"] = \
+                        skipped.get("saltworks: sources are a brief and the bus, not the papers", 0) + 1
+                    continue
+                if len(n) < MIN_PHRASE:
+                    skipped["too short to be evidence"] = \
+                        skipped.get("too short to be evidence", 0) + 1
+                    continue
+                if _IDENTLIKE.match(q.strip()) or ".lean" in q:
+                    skipped["a Lean identifier or path, not a quotation"] = \
+                        skipped.get("a Lean identifier or path, not a quotation", 0) + 1
+                    continue
+                graded += 1
+                hits = {p: find_span(ls, q) for p, ls in papers.items()}
+                hits = {p: s for p, s in hits.items() if s}
+                if hits:
+                    continue
+                # Not contiguous in either paper.  Is it an UNMARKED ELISION?
+                pieces = [x.strip() for x in re.split(r"\s[–—-]\s", q)
+                          if len(normalise(x)) >= MIN_PHRASE]
+                elided = None
+                if len(pieces) >= 2:
+                    for p, ls in papers.items():
+                        if all(find_span(ls, x) for x in pieces):
+                            elided = p
+                            break
+                # A quote may be pinned to a PAST revision ("8680167^:main.tex:645").
+                # Today's file cannot refute a claim about yesterday's, so the tool
+                # asks the object it names -- `git show` -- instead of reporting a
+                # MISS it has not earned.
+                rev = _REVPIN.search(line)
+                if rev:
+                    ok, note = check_at_revision(rev.group(1), rev.group(2), q)
+                    if not printed_header:
+                        print(f"\n  {rel}")
+                        printed_header = True
+                    print(f"   {'HIST-OK' if ok else 'HIST-BAD'} :{i} \"{q[:52]}\"")
+                    print(f"        {note}")
+                    if not ok:
+                        miss += 1
+                    continue
+                if not printed_header:
+                    print(f"\n  {rel}")
+                    printed_header = True
+                if elided:
+                    elision += 1
+                    print(f"   ELISION? :{i} \"{q[:60]}\"")
+                    print(f"        every em-dash piece is in {elided}, the whole string is"
+                          " not — words dropped under punctuation the reader reads as"
+                          " the source's own")
+                else:
+                    miss += 1
+                    # Tier by whether the line CLAIMS the paper. "nothing is
+                    # traded" is a cert quoting itself; "Pi's ... 'X'" claims to
+                    # be Pi's words.  Both are printed -- the tier is a reading
+                    # ORDER, not a filter, and this is a QUERY so its marker list
+                    # is a floor.
+                    # Test the line WITHOUT the quote: 'one paper phrase' has
+                    # 'paper' INSIDE the quotation, which is the quote's own
+                    # words, not an attribution.  4th instance of prose inside
+                    # a quote being read as structure -- same file, same day.
+                    attributed = bool(_ATTRIB.search(line.replace(q, " ")))
+                    if attributed:
+                        attrib_miss.append(f"{rel}:{i}  \"{q[:50]}\"")
+                    print(f"   MISS{'*' if attributed else ' '} :{i} \"{q[:60]}\"")
+                    print("        in NEITHER paper — "
+                          + ("the LINE NAMES A PAPER, so this quote claims to be its"
+                             " words: read FIRST"
+                             if attributed else
+                             "no paper named on this line; likely the cert quoting"
+                             " itself or plain emphasis"))
+                if show_norm:
+                    print(f"        normalised: {n!r}")
+
+    print(f"\n  population {total} quoted strings · {graded} graded ·"
+          f" {total - graded} not graded")
+    for reason, k in sorted(skipped.items()):
+        print(f"      {k:>3} not graded — {reason}")
+    print(f"  {miss} not found in either paper ({len(attrib_miss)} of them ATTRIBUTED) · {elision} unmarked-elision signature")
+    for a_ in attrib_miss:
+        print(f"      MISS* {a_}")
+    print("\n  NOT a defect count: a MISS may be an honest quote of the corpus or plain"
+          "\n  emphasis. It is a READ LIST, and its denominator is printed above so it"
+          "\n  can be reconciled against an independently-patterned count.")
+    return miss + elision
+
+
 CERTS = REPO / "Salt" / "Certs"
 AGGREGATE = "All.lean"      # roll-call/import hub, NOT a certificate
 
@@ -725,11 +916,12 @@ def main() -> int:
     bad = arm3(text)
     prose = arm4(text)
     marks = arm5(text)
+    certs = arm6(args.show_normalised)
 
     print("\n" + "=" * 78)
-    if drift or bad or prose or marks:
+    if drift or bad or prose or marks or certs:
         print(f"RESULT: NOT CLEAN — {drift} pin drift · {bad} count mismatch"
-              f" · {prose} prose pin · {marks} stale mark")
+              f" · {prose} prose pin · {marks} stale mark · {certs} cert quote")
         return 1
     print("RESULT: clean")
     return 0
