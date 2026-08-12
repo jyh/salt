@@ -137,8 +137,20 @@ theorem divisor_triple_le_cube {k k₀ k₁ : ℕ} (hk : k ≠ 0) (h₀ : k₀ �
     _ = (k.divisors.card : ℝ) ^ 3 := by ring
 
 /-- **THE CUBE IS ATTAINED**, at `k₀ = k₁ = k` — so the bookkeeping bound is not slack
-being hidden. *A `≤ d(k)³` that could never reach `d(k)³` would mean the freeze rule's
-literal cube is overstated, which is a claim about the PAPER, not about this file.* -/
+being hidden. A `≤ d(k)³` that could never REACH `d(k)³` would mean the literal cube is
+overstated at its source.
+
+⚠️ **THE SOURCE IS NAMED HERE ON PURPOSE: HB 1983's own (7.8)** —
+`docs/sources/hb1983-notes.md:832`, where `d(k)³` appears in HB's numbered display, the
+cube arriving (`:841`) as `d(k)²·d(k₀) ↦ d(k)³` via `k₀ ∣ k`. **NOT our flagship paper**,
+which makes no divisor-cube claim at all (`papers/flagship/main.tex`: zero hits; its only
+divisor bound is LINEAR, `S(k;u,v) ≪ d(k)k^{1/2}(k,u,v)^{1/2}`).
+
+📌 *An earlier draft of this docstring said "a claim about the PAPER", unqualified. **This
+house has TWO papers** — the SOURCE being formalized and the flagship being written — and
+the bare word sent a peer's fence check to the wrong bytes, where it correctly found
+nothing. A verdict filed against a paper that never made the claim is a phantom row that
+a successor cannot tell from a cleared one.* -/
 theorem divisor_triple_attains_cube (k : ℕ) :
     (k.divisors.card : ℝ) * (k.divisors.card : ℝ) * (k.divisors.card : ℝ)
       = (k.divisors.card : ℝ) ^ 3 := by ring
