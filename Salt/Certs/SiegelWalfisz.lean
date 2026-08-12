@@ -11,7 +11,7 @@ import Salt.SW.Gate
 **Anchor (row 7 of `docs/CERT-ANCHORS-0811.md`), and it lands in BOTH papers** — named
 by path per M0, because this house has more than one:
 
-* **Nature draft**, `${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:200` — the
+* **Nature draft**, `${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:201` — the
   surveyed-strength list: *"no public artifact in any proof assistant proves **the
   Siegel–Walfisz theorem**, …"*
 * **Pi flagship**, `papers/flagship/main.tex:322` — *"Around these sit **an

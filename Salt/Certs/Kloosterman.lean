@@ -9,7 +9,7 @@ import Salt.Weil.EstermannGlobal
 # COMPREHENSIBILITY CERTIFICATE — the Kloosterman/Weil bound
 
 **Anchor (row 10 of `docs/CERT-ANCHORS-0811.md`).** The Nature draft,
-`${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:202`, in its surveyed-strength list:
+`${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:203`, in its surveyed-strength list:
 
 > *"as of [survey date], no public artifact in any proof assistant proves … **the Weil
 > bound for Kloosterman sums** …"*
