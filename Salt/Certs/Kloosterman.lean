@@ -28,10 +28,16 @@ same object, on the strength of a shared topic.**
 
 🔑 ***SO THE GAP IS CLOSED BY DERIVATION, NOT BY PROSE: `cert_weil_bound_prime` PROVES
 the classical Weil bound `2√p` as a consequence of the landed general bound.*** At an odd
-prime the three extra factors are not "small" — they are **exactly one**: `v₂(p) = 0` so
-the 2-adic factor is `1`, `d(p) = 2` supplies precisely Weil's constant, and the gcd
-factor is `1` whenever `p ∤ (a,b)`. *The general bound does not merely imply something
-Weil-shaped; it collapses onto Weil's constant on the nose.*
+prime the three extra factors are not "small": **TWO of them are exactly one, and the
+THIRD IS WEIL'S CONSTANT.** `v₂(p) = 0` so the 2-adic factor is `1`; the gcd factor is `1`
+whenever `p ∤ (a,b)`; and `d(p) = 2` — *not* one — **is** the `2` in `2√p`. *The general
+bound does not merely imply something Weil-shaped; it lands on Weil's constant on the
+nose, and the constant arrives from the DIVISOR COUNT.*
+
+📌 *An earlier draft of this sentence said all three factors "are exactly one" and then
+named `d(p) = 2` eleven words later — self-repairing, but the bold phrase overstates in
+the CLEAN direction, and a reader who stops there loses where the `2` comes from.
+Evidence raised it at the seal (20:53).*
 
 ## Direction and scope
 
@@ -81,8 +87,8 @@ theorem cert_kloosterman_estermann {k : ℕ} [NeZero k] (a b : ZMod k) :
 `|S(a,b;p)| ≤ 2√p` for an odd prime `p` not dividing `gcd(a,b)`.
 
 **This is what "the Weil bound for Kloosterman sums" names**, and it falls out of the
-landed general bound with all three correction factors equal to one:
-`v₂(p) = 0`, `d(p) = 2` (which IS the constant 2), `gcd(p, a, b) = 1`. -/
+landed general bound: TWO correction factors are one and the third supplies the constant
+— `v₂(p) = 0`, `gcd(p, a, b) = 1`, and `d(p) = 2`, which IS the `2` in `2√p`. -/
 theorem cert_weil_bound_prime {p : ℕ} (hp : p.Prime) (hodd : p ≠ 2) [NeZero p]
     (a b : ZMod p) (hab : ¬ (p ∣ Nat.gcd a.val b.val)) :
     ‖kloosterman a b‖ ≤ 2 * Real.sqrt (p : ℝ) := by
