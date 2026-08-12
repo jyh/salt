@@ -98,6 +98,51 @@ theorem card_le_of_mem_Ioc {E : ℝ} (hE : 1 ≤ E) (I : Finset ℤ)
         exact_mod_cast h
     _ ≤ E + 1 := by linarith
 
+
+/-! ## The divisor bookkeeping — gap row 4's open half
+
+The gate calls this *"elementary and Wave A's own"*, and it is; it is recorded here
+because `(7.8)` carries `d(k)³` LITERALLY (the freeze rule) and something has to earn
+the cube. `d(k)·d(k₀)·d(·) ≤ d(k)³` needs only that a divisor's divisors are among the
+original's — `Nat.divisors_subset_of_dvd` plus `Finset.card_le_card`.
+
+📌 *Recorded because it was nearly re-derived: my first search for divisor-count
+monotonicity returned EMPTY and the lemma exists. An absent grep is not an absent
+lemma — the name was `divisors_subset_of_dvd`, one level below the property I wanted.* -/
+
+/-- **Divisor-count monotonicity under divisibility.** `k₀ ∣ k → d(k₀) ≤ d(k)`. -/
+theorem card_divisors_le_of_dvd {k₀ k : ℕ} (hk : k ≠ 0) (h : k₀ ∣ k) :
+    k₀.divisors.card ≤ k.divisors.card :=
+  Finset.card_le_card (Nat.divisors_subset_of_dvd hk h)
+
+/-- ⭐ **THE `d(k)³` BOOKKEEPING** (gap row 4's open half). Any product of three
+divisor-counts, whose last two indices divide the first, is at most `d(k)³`.
+
+*Stated for two arbitrary divisors rather than for the specific pair `(7.8)` produces:
+the consumer instantiates, and the general form cannot silently acquire a dependency on
+which divisors they were.* -/
+theorem divisor_triple_le_cube {k k₀ k₁ : ℕ} (hk : k ≠ 0) (h₀ : k₀ ∣ k) (h₁ : k₁ ∣ k) :
+    (k.divisors.card : ℝ) * (k₀.divisors.card : ℝ) * (k₁.divisors.card : ℝ)
+      ≤ (k.divisors.card : ℝ) ^ 3 := by
+  have m₀ : (k₀.divisors.card : ℝ) ≤ (k.divisors.card : ℝ) := by
+    exact_mod_cast card_divisors_le_of_dvd hk h₀
+  have m₁ : (k₁.divisors.card : ℝ) ≤ (k.divisors.card : ℝ) := by
+    exact_mod_cast card_divisors_le_of_dvd hk h₁
+  have hpos : (0 : ℝ) ≤ (k.divisors.card : ℝ) := by positivity
+  calc (k.divisors.card : ℝ) * (k₀.divisors.card : ℝ) * (k₁.divisors.card : ℝ)
+      ≤ (k.divisors.card : ℝ) * (k.divisors.card : ℝ) * (k₁.divisors.card : ℝ) :=
+        mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left m₀ hpos) (by positivity)
+    _ ≤ (k.divisors.card : ℝ) * (k.divisors.card : ℝ) * (k.divisors.card : ℝ) :=
+        mul_le_mul_of_nonneg_left m₁ (by positivity)
+    _ = (k.divisors.card : ℝ) ^ 3 := by ring
+
+/-- **THE CUBE IS ATTAINED**, at `k₀ = k₁ = k` — so the bookkeeping bound is not slack
+being hidden. *A `≤ d(k)³` that could never reach `d(k)³` would mean the freeze rule's
+literal cube is overstated, which is a claim about the PAPER, not about this file.* -/
+theorem divisor_triple_attains_cube (k : ℕ) :
+    (k.divisors.card : ℝ) * (k.divisors.card : ℝ) * (k.divisors.card : ℝ)
+      = (k.divisors.card : ℝ) ^ 3 := by ring
+
 end Salt.N7
 
 /-! ## Axiom audit -/
@@ -106,3 +151,6 @@ end Salt.N7
 #audit_axioms Salt.N7.norm_lem10ExpSum_le_card
 #audit_axioms Salt.N7.lem10ExpSum_attains_card
 #audit_axioms Salt.N7.card_le_of_mem_Ioc
+#audit_axioms Salt.N7.card_divisors_le_of_dvd
+#audit_axioms Salt.N7.divisor_triple_le_cube
+#audit_axioms Salt.N7.divisor_triple_attains_cube

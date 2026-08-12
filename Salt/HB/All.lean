@@ -302,3 +302,6 @@ open Salt.Tactic in
   -- with the `E + 1` passage as its own lemma so the slack is priced in the open
   Salt.N7.norm_lem10ExpSum_le_card Salt.N7.lem10ExpSum_attains_card
   Salt.N7.card_le_of_mem_Ioc
+  -- the divisor bookkeeping (gap row 4's open half): d(k)·d(k₀)·d(k₁) ≤ d(k)³
+  Salt.N7.card_divisors_le_of_dvd Salt.N7.divisor_triple_le_cube
+  Salt.N7.divisor_triple_attains_cube
