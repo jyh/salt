@@ -19,9 +19,12 @@ articles. Amendments are Captain-tier.**
   implementation; a specification; a proof that the implementation meets the
   specification; tests — in the sharp form of ADVERSARIAL CONTROLS that prove the
   proof has bite (a mutation is valid only if it makes the goal false; a control that
-  cannot fail is not a control); and SPECIFICATION CERTIFICATES — restatements in
-  simplified vocabulary whose equivalence to the landed statement is KERNEL-PROVED,
-  with the witness's kind declared. This holds at all levels, from project design to
+  cannot fail is not a control); and SPECIFICATION CERTIFICATES — restatements S′ in
+  simplified vocabulary whose IMPLICATION from the landed statement (⊢ S ⇒ S′) is
+  KERNEL-PROVED, with the witness's kind declared. The direction is the safety
+  property: the reader can only be reading something weaker than what was proved,
+  never stronger; equivalence is the declared no-trade case. (Direction corrected
+  from "equivalence" at the Captain's word, 8/12.) This holds at all levels, from project design to
   component design.
 - **R2 — No claim without its checker.** No claim is admitted to the record without
   its checker: the kernel for mathematics (axiom-audited; no sorry on the record);
