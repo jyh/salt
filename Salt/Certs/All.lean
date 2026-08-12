@@ -15,6 +15,7 @@ import Salt.Certs.Kloosterman
 import Salt.Certs.SiegelWalfisz
 import Salt.Certs.LargeSieve
 import Salt.Certs.ChenGoldbach
+import Salt.Certs.TwinBar
 
 /-!
 # `Salt/Certs/` — the comprehensibility-certificate layer, roll-call
@@ -95,9 +96,33 @@ its docstring exactly what, if anything, was traded for readability.
   control debuts: satisfiability witnessed in-file at `(k,r,x) = (2,1,1)`.
   (Maestro's row, landed at the helm.)
 
+* `Salt/Certs/TwinBar.lean` — `cert_twin_bar`, `cert_no_twin_weight`, `cert_least_k`
+  (+ `cert_twin_bar_witness` and its two carrier lemmas), certifying
+  `Salt.TwinBar.twin_bar`, `no_twin_weight` and `least_k_theorem` — **THE WALL**, row 11,
+  three declarations in one file because they are one story. Direction: **same
+  proposition** for all three, each proved by `exact`. The `k = 2` pair is unfolded to
+  primitive vocabulary — **no `Salt.*` name survives in `cert_twin_bar` or
+  `cert_no_twin_weight`**, only `∫`, `^`, `+`, `<`, `≤` and `Real.log`.
+  ⭐ **THE CARRIER ASYMMETRY IS THE RULE-2 TRAP HERE and the header states it rather
+  than smoothing it:** the three no-gos are about continuous real weights on the real
+  simplices, while the `k = 5` conjunct is an exact `ℚ` certificate at one explicit
+  polynomial — *"the least `k` is 5"* as plain English claims a single object the theorem
+  does not provide, and the unifying bracket is registered debt.
+  ⚠️ **Rule 1 is applied BY DOCSTRING for the `k = 3`/`k = 4` conjuncts** (unfolding them
+  yields fifteen nested integrals with no gain); declared in the header, not silent.
+  Rule 6: `cert_twin_bar` carries hypotheses ⇒ **NON-DEGENERACY witness**, and the
+  degenerate one it rejects is named — `F ≡ 0` is continuous, satisfies every hypothesis,
+  and makes the bound read `0 ≤ 0`. The witness is `F ≡ 1`, where the mass is `1/2 > 0`
+  and the bar reads `2/3 ≤ log 2` — **non-vacuous AND near-sharp, a 3.9 % margin.**
+  The other two certs are hypothesis-free ⇒ EXEMPT.
+
 ## OWED (target list v1, anchored rows remaining)
-`twin_bar/no_twin_weight/least_k_theorem` (THE WALL, anchor = Pi's `neutrality_rate`
-:1173) — the last open anchored row. · `psiTot_pnt` [parked pending anchor ruling].
+`psiTot_pnt` [parked pending anchor ruling] — and NOTHING ELSE anchored.
+**THE WALL (`twin_bar`/`no_twin_weight`/`least_k_theorem`, anchor = Pi's `neutrality_rate`
+:1173) is WRITTEN, GREEN and HELD — `Salt/Certs/TwinBar.lean` is UNTRACKED pending the
+Captain's commit-to-`main` word, so this row is NOT yet landed and the roll-call bullet
+below carries the same marker.** ⚠️ *Both markers retire in the landing commit itself.* — re-derived from the roll-call
+per this stanza's own warning, not edited on memory.
 
 ⛔ **THIS LIST WENT STALE THE SAME WAY THE ANCHOR TABLE'S COUNT DID.** It named
 `siegelWalfisz_holds`, `analytic_LS + char_LS` and `norm_kloosterman_estermann` as OWED
@@ -154,4 +179,10 @@ open Salt.Tactic in
   -- the GOLDBACH half; the _isP2_iff PROVES the z = 2 size decorations are recoverable, so
   -- dropping them is a restatement and not a weakening
   Salt.Certs.cert_chen_goldbach_isP2_iff Salt.Certs.cert_chen_goldbach
+  -- row 11 (THE WALL, anchor Pi :1173 `neutrality_rate`): the k = 2 pair is unfolded to
+  -- primitive vocabulary and closes by `exact`, so the kernel certifies the paraphrase;
+  -- the witness is NON-DEGENERACY (F ≡ 1, mass 1/2, bar within 3.9% of equality) because
+  -- the obvious F ≡ 0 satisfies every hypothesis and makes the bound read 0 ≤ 0
+  Salt.Certs.cert_twin_bar Salt.Certs.cert_no_twin_weight Salt.Certs.cert_least_k
+  Salt.Certs.cert_twin_bar_witness
 

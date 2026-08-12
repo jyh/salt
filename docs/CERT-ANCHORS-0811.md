@@ -28,7 +28,7 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 
 ---
 
-## ANCHORED — 12 rows (11 landed, 1 open)
+## ANCHORED — 12 rows (12 landed, 0 open)
 
 | # | target | anchor: paper · site · the paper's own phrase | state |
 |---|---|---|---|
@@ -42,7 +42,7 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 | 8 | `analytic_LS` + `char_LS` | **Nature :201** — *"the large sieve inequality"*; and :205, the adversary sentence (*the two live external BV projects take SW and the large sieve as axioms*) | ✅ `Salt/Certs/LargeSieve.lean` — both forms, constants IN the statement (δ⁻¹+13N, Q²+13N) because the anchor is about axiom-vs-proof |
 | 9 | `vmvt` | **Pi `thm:vmvt`** (:316) + Appendix A :982–1002; **Nature :202** *"the Vinogradov mean value theorem"* | ✅ `cert_vmvt` (+ unconditional `_iff`), `Salt/Certs/Vmvt.lean` — maestro, landed 8/11 (actual class B: the decode was definitional + `pow_mul` + `ring`; the C-grade was priced for a semantic gap that did not exist) |
 | 10 | `norm_kloosterman_estermann` | **Nature :203** — *"the Weil bound for Kloosterman sums"* | ✅ `Salt/Certs/Kloosterman.lean` — the paper says WEIL, the kernel holds ESTERMANN; cert derives `2√p` at odd primes to close the name gap |
-| 11 | THE WALL — `twin_bar` · `no_twin_weight` · `least_k_theorem` | **Pi `neutrality_rate`** :1173 (the wall's Pi-side decl is **not** any of the three target names); **Nature :218** *"relevant Maynard-class can cross the twin gate (M₂ ≤ 2 log 2 < 2), that the least k …"* | open — **one file, three decls** |
+| 11 | THE WALL — `twin_bar` · `no_twin_weight` · `least_k_theorem` | **Pi `neutrality_rate`** :1173 (the wall's Pi-side decl is **not** any of the three target names); **Nature :218** *"relevant Maynard-class can cross the twin gate (M₂ ≤ 2 log 2 < 2), that the least k …"* | ✅ `Salt/Certs/TwinBar.lean` — `cert_twin_bar` + `cert_no_twin_weight` + `cert_least_k` (+ witness), one file three decls as ruled; the two-carrier trap declared at the declaration; landed 8/12 at the Captain's word, at the helm |
 | 12 | `log_chowla_two_door_only` | **Pi `thm:spine`** — the logarithmic two-point Chowla reduction to a single named hypothesis | ✅ `Salt/Certs/ChowlaSpine.lean` — `cert_log_chowla_door_only` + `cert_log_chowla_budget_head` (the adequacy-gap catch: one label, TWO decls) |
 
 ## ⛔ PARKED — NO ANCHOR IN EITHER PAPER (measured, not assumed)
@@ -59,8 +59,8 @@ rely on either, the row re-enters with its anchor.*
 
 ## COUNT
 ```
-14 target rows · 12 ANCHORED · 2 PARKED · **11 LANDED · 1 OPEN** for the wave
-LANDED = rows 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12   ·   OPEN = row 11 (THE WALL)
+14 target rows · 12 ANCHORED · 2 PARKED · **12 LANDED · 0 OPEN — THE WAVE IS COMPLETE**
+LANDED = rows 1–12, all   ·   OPEN = none (row 11, THE WALL, landed last — 8/12, at the Captain's word)
 
 ⚠️ **THIS COUNT IS DERIVED FROM THE ROWS ABOVE AND WENT STALE TWICE.** First it read
 "3 LANDED · 9 OPEN" while the table showed five ✅ (rows 1, 2, 3, 9, 10) — caught by a
