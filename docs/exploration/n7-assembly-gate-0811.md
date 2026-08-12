@@ -108,7 +108,13 @@ contradicts one, and the change comes back to this desk]:**
   by `E`: (7.5) is `‖S_m‖ ≤ (I.card : ℝ)` — exact, type-free. `E : ℝ` with `1 ≤ E` enters only
   through a separate card lemma (`n ∈ I → E < (n:ℝ) ∧ (n:ℝ) ≤ 2*E` ⟹ `I.card ≤ E + 1 ≤ 2*E`).
   The type question evaporates from the chain; the `E+1 ≤ 2E` slack is absorbed by explicit
-  constants downstream.
+  constants downstream. ⛔ **`1 ≤ E` IS LOAD-BEARING, PROVEN AT THE LANDING (math, 20:25,
+  `54939cf`): witness `E = −5, I = ∅` — the membership hypothesis holds vacuously, card `= 0`,
+  and `0 ≤ E+1 = −4` is FALSE. The empty set is the counterexample, so interval reasoning never
+  finds it; HB p.213 states `E ≥ 1` and it is not decoration. Every remaining Wave A/B rung
+  quoting an `(E, 2E]`-shaped interval carries the hypothesis EXPLICITLY — small-end domain
+  conditions are statement material, never normalisation (third instance this week; the 2.39
+  row's `k = 1` was the second).**
 - **R-A2 (the interval):** `I : Finset ℤ` with the membership hypothesis of R-A1; `I₀ ⊆ I` as
   `Finset` subset with its own Ioc-form hypothesis (A.3's genuine-subinterval fact). Coprimality
   `(n,k)=1` carried as a filter INSIDE the local sum def, matching Sawtooth.lean's ℤ-indexed
