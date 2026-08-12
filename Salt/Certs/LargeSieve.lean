@@ -107,16 +107,45 @@ theorem cert_char_large_sieve {N Q : ℕ} (hQ : 2 ≤ Q) (c : ℕ → ℂ) :
 assume more.* Recorded even though it is trivial: **"obviously satisfiable" is the
 judgement the rule exists to replace.**
 
-⚠️ **AND A NON-DEGENERACY QUESTION I AM FLAGGING RATHER THAN ANSWERING.** The amendment
-asks for a non-degenerate witness *where a degenerate one would leave the check vacuous*.
-Here the binder is not inhabited only by degenerate points — `2 ≤ Q` admits every larger
-`Q` — so satisfiability is the right control for the HYPOTHESIS. *But the CONCLUSION's
-content at `Q = 2` depends on how many primitive characters exist for `q ≤ 2`, and **I have
-not measured that**, so I state the question instead of ruling on it: if the primitive-
-character sum is empty or near-empty at `Q = 2`, a reader would learn more from a witness
-at a `Q` where several moduli contribute.* **This is a docstring question, not a soundness
-one — `cert_char_large_sieve` holds for every `Q ≥ 2` either way.** -/
+📏 **THE NON-DEGENERACY QUESTION, NOW MEASURED — it was never a judgement.** An earlier
+version of this docstring flagged it as a sufficiency call and left it for a fresh head.
+*That was the wrong classification: "how many primitive characters exist for `q ≤ 2`" is a
+MEASUREMENT, and the two `example`s below settle it in the kernel.*
+
+**Result: at `Q = 2` exactly ONE modulus contributes.** Level 1's trivial character *is*
+primitive, and **no character mod 2 is primitive** — every `χ : DirichletCharacter ℂ 2` is
+the trivial one (the unit group `(ZMod 2)ˣ` is trivial), whose conductor is `1 ≠ 2`.
+*So the `q = 2` inner sum runs over an EMPTY filter and the `Q = 2` instance is the THIN
+END of the range.*
+
+⚖️ **The witness is kept at `Q = 2` and the thinness is RECORDED rather than hidden** —
+the same disposition the fleet settled on for `cert_vaughan`: **forced is not
+non-degenerate**, and a reader who reaches for the smallest admissible point should find
+out here why it is thin instead of rediscovering it. *A reader wanting the inequality's
+full shape should take a larger `Q`; **whether specific larger `q` contribute is NOT
+measured here** and is not asserted.* **None of this is a soundness question —
+`cert_char_large_sieve` holds for every `Q ≥ 2` either way.** -/
 example : (2 : ℕ) ≤ 2 := le_refl 2
+
+/-- **THE `Q = 2` MEASUREMENT, part 1 — level 1 DOES contribute.** Its trivial character is
+primitive, so `q = 1` is a live index of the outer sum. -/
+example : DirichletCharacter.IsPrimitive (1 : DirichletCharacter ℂ 1) :=
+  DirichletCharacter.isPrimitive_one_level_one
+
+/-- **THE `Q = 2` MEASUREMENT, part 2 — level 2 does NOT.** Every character mod 2 is the
+trivial one, since `(ZMod 2)ˣ` is trivial, and the trivial character's conductor is `1`;
+primitivity at level 2 would need conductor `2`. *Hence the `q = 2` inner sum runs over an
+empty filter, and `Q = 2` leaves exactly one contributing modulus.* -/
+example (χ : DirichletCharacter ℂ 2) : ¬ DirichletCharacter.IsPrimitive χ := by
+  intro h
+  rw [DirichletCharacter.isPrimitive_def] at h
+  have h1 : χ = 1 := by
+    ext a
+    have ha : a = 1 := Subsingleton.elim a 1
+    subst ha
+    simp
+  rw [h1, DirichletCharacter.conductor_one] at h
+  exact absurd h (by norm_num)
 
 #print axioms cert_analytic_large_sieve
 #print axioms cert_char_large_sieve
