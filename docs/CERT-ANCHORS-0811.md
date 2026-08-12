@@ -28,7 +28,7 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 
 ---
 
-## ANCHORED — 12 rows (3 landed, 9 open)
+## ANCHORED — 12 rows (7 landed, 5 open)
 
 | # | target | anchor: paper · site · the paper's own phrase | state |
 |---|---|---|---|
@@ -40,7 +40,7 @@ citing it**, and never carry a pin from this table into a landed artifact withou
 | 6 | `chen_goldbach` | **Nature :202** — same *"Chen's theorem"* class enumeration. ⚠️ *shares row 5's anchor; confirm the two decls are distinct claims before writing two files* | open |
 | 7 | `siegelWalfisz_holds` | **Nature :201** *"the Siegel–Walfisz theorem"*; **Pi :322** *"an unconditional Siegel–Walfisz theorem"* (prose, no pin — line re-pinned 321→322 at the cert) | ✅ `Salt/Certs/SiegelWalfisz.lean` — unfolds BOTH opaque names (SiegelWalfisz, psiAP), closes by `exact` |
 | 8 | `analytic_LS` + `char_LS` | **Nature :201** — *"the large sieve inequality"*; and :205, the adversary sentence (*the two live external BV projects take SW and the large sieve as axioms*) | ✅ `Salt/Certs/LargeSieve.lean` — both forms, constants IN the statement (δ⁻¹+13N, Q²+13N) because the anchor is about axiom-vs-proof |
-| 9 | `vmvt` | **Pi `thm:vmvt`** (:311) + Appendix A :982–1002; **Nature :202** *"the Vinogradov mean value theorem"* | ✅ `cert_vmvt` (+ unconditional `_iff`), `Salt/Certs/Vmvt.lean` — maestro, landed 8/11 (actual class B: the decode was definitional + `pow_mul` + `ring`; the C-grade was priced for a semantic gap that did not exist) |
+| 9 | `vmvt` | **Pi `thm:vmvt`** (:316) + Appendix A :982–1002; **Nature :202** *"the Vinogradov mean value theorem"* | ✅ `cert_vmvt` (+ unconditional `_iff`), `Salt/Certs/Vmvt.lean` — maestro, landed 8/11 (actual class B: the decode was definitional + `pow_mul` + `ring`; the C-grade was priced for a semantic gap that did not exist) |
 | 10 | `norm_kloosterman_estermann` | **Nature :203** — *"the Weil bound for Kloosterman sums"* | ✅ `Salt/Certs/Kloosterman.lean` — the paper says WEIL, the kernel holds ESTERMANN; cert derives `2√p` at odd primes to close the name gap |
 | 11 | THE WALL — `twin_bar` · `no_twin_weight` · `least_k_theorem` | **Pi `neutrality_rate`** :1173 (the wall's Pi-side decl is **not** any of the three target names); **Nature :218** *"relevant Maynard-class can cross the twin gate (M₂ ≤ 2 log 2 < 2), that the least k …"* | open — **one file, three decls** |
 | 12 | `log_chowla_two_door_only` | **Pi `thm:spine`** — the logarithmic two-point Chowla reduction to a single named hypothesis | open |
@@ -59,15 +59,38 @@ rely on either, the row re-enters with its anchor.*
 
 ## COUNT
 ```
-14 target rows · 12 ANCHORED · 2 PARKED · **5 LANDED · 7 OPEN** for the wave
+14 target rows · 12 ANCHORED · 2 PARKED · **7 LANDED · 5 OPEN** for the wave
+LANDED = rows 1, 2, 3, 7, 8, 9, 10   ·   OPEN = rows 4, 5, 6, 11, 12
 
-⚠️ **THIS COUNT IS DERIVED FROM THE ROWS ABOVE AND WENT STALE ONCE ALREADY** — it read
-"3 LANDED · 9 OPEN" while the table showed five ✅ (rows 1, 2, 3, 9, 10), because the
-primary rows moved and the derived line did not. Caught by a reader (maestro, 20:51), not
-by its author. **Re-derive it from the ✅ marks before quoting it; do not trust this line
-against the rows.**
+⚠️ **THIS COUNT IS DERIVED FROM THE ROWS ABOVE AND WENT STALE TWICE.** First it read
+"3 LANDED · 9 OPEN" while the table showed five ✅ (rows 1, 2, 3, 9, 10) — caught by a
+reader (maestro, 20:51), not by its author. **Then it went stale again, under this very
+warning**, reading "5 LANDED · 7 OPEN" against seven ✅: the same defect, one paragraph
+below the notice telling the reader to expect it.
+🔑 ***THE SECOND INSTANCE IS THE ARGUMENT AGAINST FIXING THIS WITH PROSE.*** *A warning
+label is read by whoever already doubts the number; it does nothing for the reader who
+does not. `scripts/anchor_pin_check.py` (ARM 3) now RE-DERIVES these counts from the ✅
+marks and matches each one **to its noun** — an earlier cut of that arm compared the set
+of numbers and passed "5 LANDED · 7 OPEN" as clean, because 5 and 7 are both true numbers
+about this table and only their ASSIGNMENT was wrong.* **The members are listed above so
+the count can be checked, not just read.**
 ```
 📌 **For the wave brief:** each cert's docstring maps **paper-phrase → kernel declarations**,
-following the `main.tex:1261` model (which decodes *"the certified `A₀` range"* into the
-binders `h1`,`h2`). Row 11 is the sharpest case: the paper's one phrase covers three
-declarations, and the certificate is where that correspondence becomes checkable.
+following the `main.tex:1265` model — Pi's own sentence there is *"The grade condition is
+the single binder `h2`: $A_0 \le 2$"*, which is exactly the paper-phrase → binder decode a
+cert docstring owes its reader. Row 11 is the sharpest case: the paper's one phrase covers
+three declarations, and the certificate is where that correspondence becomes checkable.
+
+⛔ **THIS PARAGRAPH CARRIED BOTH DEFECT KINDS AT ONCE, AND A TOOL FOUND THEM, NOT A READER.**
+It pinned `:1261` (which is `\end{alltt}}`) and it put *"the certified `A₀` range"* in
+quotation marks as **Pi's words**. *Pi has never contained that string.* Its actual words
+are *"the certified grade window"* (`main.tex:657`) and the binder sentence at `:1265`; the
+phrase traces to `docs/exploration/fresh-eyes-0724.md:84`, a 7/24 reading citing L533/L543
+— lines that no longer exist. **A stale pin announces nothing and a stale QUOTE announces
+less**: it looks like evidence, because quotation marks are how this table promises "the
+paper's own words".
+🔑 ***AND IT REACHED A LANDED CERTIFICATE — `Salt/Certs/ParityGap.lean:43` attributes the
+same phrase to Pi.*** *Reported to the seat that owns that file rather than edited here.
+The kernel content is untouched (the theorem closes by `exact`), so this is a docstring
+provenance defect — which is precisely the defect the cert layer exists to prevent, landing
+inside the cert layer itself.*
