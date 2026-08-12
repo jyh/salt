@@ -1,0 +1,33 @@
+# Quoted strings in this cert population that have been READ and found to be
+# self-quotes, corpus quotes, or plain emphasis -- NOT attributions to a paper.
+#
+# Read by: math seat, 2026-08-12, at a09a500.  Every entry was opened at its line
+# and classified; none claims to be Pi's or Nature's words.
+#
+# WHY THIS FILE EXISTS: scripts/anchor_pin_check.py ARM 6 flags every quoted string
+# it cannot find in the declared sources.  That is correct -- but a permanently RED
+# arm trains its readers to ignore it, so the resolution is RECORDED here rather
+# than suppressed in the script.  A string listed here is reported as a recorded
+# read; anything NEW still surfaces, which is what an alarm should mean.
+#
+# ADDING A LINE HERE IS A CLAIM THAT YOU OPENED IT AND READ IT.  It is not a
+# silencer.  If you have not read it, leave it red.
+#
+# format: <string>   # <file>:<line> -- what it actually is
+
+genuinely weaker                                  # All.lean:72 -- quotes an executor's own first draft, flagged FALSE by rule 2
+rooting is not done                               # All.lean:112 -- quotes a note this paragraph replaced
+beyond every threshold                            # BoundedGaps.lean:31 -- the cert's own rendering of "infinitely many"
+no generality is traded                           # BoundedGaps.lean:93 -- quotes this file's own header phrase
+one paper phrase, several declarations            # Chen.lean:14, ChowlaSpine.lean:20 -- fleet-coined hazard name
+ONE PAPER PHRASE, SEVERAL DECLARATIONS            # ChenGoldbach.lean:28 -- same hazard name
+it only takes a natural number                    # ChenGoldbach.lean:110 -- scare-quote of the judgement rule 6 replaces
+floor above any threshold                         # ChowlaSpine.lean:96 -- NAMES a clause ("this is the X clause"), not an attribution
+are exactly one                                   # Kloosterman.lean:37 -- quotes this file's own earlier draft, self-corrected
+all three declarations                            # Kloosterman.lean:61 -- quotes this file's own earlier line, self-corrected
+obviously satisfiable                             # LargeSieve.lean:107 -- scare-quote of the judgement rule 6 replaces
+how many primitive characters exist for `q ≤ 2`   # LargeSieve.lean:112 -- restates this file's own (now closed) question
+cannot distinguish                                # ParityGap.lean:25 -- informal gloss of ParityInv's definition
+no completion exists                              # ParityGap.lean:94 -- glosses ParityInv at E := False
+faithful in my judgement                          # SiegelWalfisz.lean:33 -- scare-quote of the standard the kernel replaces
+nothing is traded                                 # Vmvt.lean:95 -- quotes this file's own header phrase

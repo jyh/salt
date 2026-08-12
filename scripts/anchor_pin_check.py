@@ -44,6 +44,10 @@ unqualified has already sent a seat searching the wrong file.
          can see), and a HISTORICAL PIN (`<rev>^:main.tex:645`), which it
          verifies with `git show` rather than reporting a MISS it has not
          earned: today's file cannot refute a claim about yesterday's.
+         A quoted string that HAS been opened and classified is recorded in a
+         `SELF-QUOTES.txt` beside the certs and reported as a recorded read --
+         same disposition as ARM 5's `ARM5-READ:`, because a permanently red arm
+         trains its readers to ignore it.  Anything NEW still surfaces.
 
   ARM 7  THE OWED LIST vs the anchor table's OPEN rows.  Two documents state the
          same derived fact -- which rows remain uncertified -- and Certs/All.lean's
@@ -615,6 +619,30 @@ def check_at_revision(rev: str, relpath: str, phrase: str) -> tuple[bool, str]:
 
 
 SOURCES_FILE = "SOURCES.txt"
+SELFQ_FILE = "SELF-QUOTES.txt"
+
+
+def recorded_reads(pop: Path) -> dict[str, str]:
+    """Quoted strings a reader has OPENED and classified as non-attributions.
+
+    Same disposition as ARM 5's `ARM5-READ:` and for the same reason: a
+    permanently red arm trains its readers to ignore it, so the resolution is
+    RECORDED where the next reader stands rather than suppressed in the script.
+    Anything NEW still surfaces, which is what an alarm should mean.
+
+    This is a claim that someone read the line -- not a silencer.
+    """
+    f = pop / SELFQ_FILE
+    if not f.exists():
+        return {}
+    out = {}
+    for raw in f.read_text(encoding="utf-8").splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        s, _, note = raw.partition("#")
+        if s.strip():
+            out[normalise(s.strip())] = note.strip()
+    return out
 
 
 def population_sources(pop: Path) -> tuple[dict[str, list[str]], str]:
@@ -682,6 +710,7 @@ def arm6(show_norm: bool) -> int:
     print("=" * 78)
     files = []
     src_of: dict[Path, dict[str, list[str]]] = {}
+    reads: dict[Path, dict[str, str]] = {}
     for pop in CERT_POPULATIONS:
         if not pop.is_dir():
             print(f"  population MISSING: {pop}")
@@ -690,6 +719,7 @@ def arm6(show_norm: bool) -> int:
         files += fs
         sources, why = population_sources(pop)
         src_of[pop] = sources
+        reads[pop] = recorded_reads(pop)
         print(f"\n  POPULATION {pop}  ({len(fs)} cert files)")
         print(f"      {'GRADED AGAINST' if sources else 'NOT GRADED'} — {why}")
     print()
@@ -758,6 +788,12 @@ def arm6(show_norm: bool) -> int:
                     print(f"        every em-dash piece is in {elided}, the whole string is"
                           " not — words dropped under punctuation the reader reads as"
                           " the source's own")
+                elif normalise(q) in reads.get(pop, {}):
+                    if not printed_header:
+                        print(f"\n  {rel}")
+                        printed_header = True
+                    print(f'   read  :{i} "{q[:52]}"')
+                    print(f"        recorded read: {reads[pop][normalise(q)][:66]}")
                 else:
                     miss += 1
                     # Tier by whether the line CLAIMS the paper. "nothing is
