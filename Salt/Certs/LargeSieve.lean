@@ -123,7 +123,18 @@ the same disposition the fleet settled on for `cert_vaughan`: **forced is not
 non-degenerate**, and a reader who reaches for the smallest admissible point should find
 out here why it is thin instead of rediscovering it. *A reader wanting the inequality's
 full shape should take a larger `Q`; **whether specific larger `q` contribute is NOT
-measured here** and is not asserted.* **None of this is a soundness question —
+measured here** and is not asserted.*
+
+📌 **THAT REMAINING GAP IS ATTEMPTED AND PRICED, not merely flagged.** *After `Q = 2` turned
+out to be a two-`decide` MEASUREMENT rather than the judgement I had filed it as, I tried the
+same on the other side and it is genuinely harder: exhibiting a primitive character at some
+`q ≥ 3` needs a concrete nontrivial character (mathlib supplies `ZMod.χ₄`, `χ₈` as
+`MulChar _ ℤ`) transported into `ℂ`, plus a conductor computation — for `q = 4`, `conductor ∣
+4` with `≠ 1` (else the character is trivial) and `≠ 2` (else it factors through the trivial
+`(ZMod 2)ˣ`). **Class B at least, not a two-liner.** Recorded with its route so the next
+reader inherits a price rather than an open question.*
+
+**None of this is a soundness question —
 `cert_char_large_sieve` holds for every `Q ≥ 2` either way.** -/
 example : (2 : ℕ) ≤ 2 := le_refl 2
 

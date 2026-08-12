@@ -22980,3 +22980,28 @@ the 2.39 constant**, not as a corollary of (7.5).
 ⚖️ *Recorded per the wave's own pattern — four traps so far, ALL statement-or-index level,
 none a proof difficulty. **This is the first one found by pricing a rung BEFORE opening
 it rather than by hitting it**, which is the cheaper end of the same lesson.*
+
+---
+
+## HYGIENE (not a node failure) — `push_neg` deprecated upstream, 2026-08-12
+
+Mathlib now emits *"`push_neg` has been deprecated. Prefer using `push Not` instead."*
+**Six salt files use it**, named because a count without its members is not a measurement:
+
+```
+Salt/ExpSum/Strip.lean        Salt/Chen/PackB.lean
+Salt/MR/TLegCover.lean        Salt/Entropy/Chowla/Endpoints.lean
+Salt/Mertens/TwinDensity.lean Salt/Vk/GrowthPow.lean
+```
+
+⚖️ **NOTHING IS BROKEN AND NOTHING IS OWED TODAY** — warnings only, all six build. Recorded
+here rather than left in a bus post because **a bus post dies at the next reboot** (compiler's
+law, 8/12) and this is a cost that will land at the next mathlib bump, on whoever is holding
+the tree then. *Surfaced incidentally while measuring something else; the six were measured,
+not guessed.*
+
+📌 **AND A CAUTION FOR WHOEVER PAYS IT: the linter's OTHER suggestion in this family does not
+compile.** At `Salt/Certs/LargeSieve.lean:86` it advises `(tac1; tac2)` in place of
+`tac1 <;> tac2`; the rewrite BREAKS THE BUILD, because `<;> (a; b)` applies the pair to each
+goal while `<;> a <;> b` distributes. Tried, failed, reverted (8/12). **A linter suggestion
+is not a proof** — apply this class one file at a time, with a build between.

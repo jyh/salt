@@ -561,6 +561,48 @@ def self_test() -> int:
          "must SKIP WITH REASON — never vanish silently",
          lambda o: "too short to be evidence" in o),
     ]
+    # ARM 7 runs against real files, so its control is a planted COPY rather than a
+    # synthetic fixture.  Folded in here because a control that is only ever run by
+    # hand decays into a claim that it once passed.
+    import tempfile as _tf
+    import io as _io
+    import contextlib as _cl
+    arm7_pos = arm7_neg = False
+    real_all = REPO / "Salt" / "Certs" / "All.lean"
+    if real_all.exists():
+        global ALL_LEAN
+        saved_all = ALL_LEAN
+        doc_real = DEFAULT_DOC.read_text(encoding="utf-8", errors="replace")
+        try:
+            with _tf.TemporaryDirectory() as td2:
+                planted = Path(td2) / "All_planted.lean"
+                src = real_all.read_text(encoding="utf-8", errors="replace")
+                planted.write_text(
+                    src.replace("`twin_bar/no_twin_weight/least_k_theorem`",
+                                "`siegelWalfisz_holds` · `twin_bar/no_twin_weight/least_k_theorem`",
+                                1),
+                    encoding="utf-8")
+                ALL_LEAN = planted
+                b2 = _io.StringIO()
+                with _cl.redirect_stdout(b2):
+                    n_planted = arm7(doc_real)
+                arm7_pos = n_planted >= 1
+                ALL_LEAN = real_all
+                b3 = _io.StringIO()
+                with _cl.redirect_stdout(b3):
+                    n_real = arm7(doc_real)
+                arm7_neg = n_real == 0
+        finally:
+            ALL_LEAN = saved_all
+        cases = cases + [
+            ("T8 ARM 7 stale OWED list (planted copy)",
+             "must FIRE — a landed name re-added to OWED is the real 8/12 staleness",
+             lambda _o: arm7_pos),
+            ("T9 ARM 7 on the REAL file (negative control)",
+             "must stay CLEAN — else T8 proves only that the arm flags everything",
+             lambda _o: arm7_neg),
+        ]
+
     npass = 0
     for name, expect, pred in cases:
         try:
