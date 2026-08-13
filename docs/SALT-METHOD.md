@@ -53,6 +53,39 @@ articles. Amendments are Captain-tier.**
   sentence is the Captain's standing no-lingering-hypotheses law of 2026-07-26,
   folded in. Demonstrated instance: the bounded-gaps chain was built on a named
   Siegel–Walfisz hypothesis and the hypothesis was discharged the next day.)
+- **R7 — Requirements are elicited, not assumed** *(added at the Captain's word,
+  8/13; wording helm-drafted under his shape-ratification, amendable at his word)*.
+  The referee has two ends it structurally cannot check: at the back, whether a
+  proved statement means what a human thinks it means — guarded by R1's
+  certificates; at the front, whether the specification is what the human wants.
+  That front correspondence lives in the human alone, and the method is honest
+  about the boundary and disciplined about how it is worked: (1) the vague want is
+  WRITTEN DOWN FIRST, in doc form, never left in conversation; (2) the doc receives
+  a STRUCTURED ADVERSARIAL REVIEW — inconsistencies, completeness, the population
+  it covers, its negative space (what it deliberately does not do), suggestions
+  ranked with benefits and downsides; (3) an INTERVIEW follows in which the human's
+  answers are the ground truth being elicited, and the decisions are RECORDED — the
+  transcript is the requirement's birth-case; (4) the revised English doc is the
+  REQUIREMENTS ARTIFACT — the pre-registered source for specification and
+  implementation, versioned and cited, with ACCEPTANCE CRITERIA registered before
+  implementation begins; every later specification change traces to a requirement
+  change. A spec written after the code is a description; a spec written before is
+  a requirement. (The human's irreducible authority sits at exactly the two
+  human-language ends — saying what is wanted, and reading what was proved — and
+  the method's project is making everything between them run under the referee.
+  Demonstrated instance: the jas requirements ritual, transcripts on that repo's
+  record; the elicitation phrase is part of this article's record, below.)
+
+  The elicitation phrase (the Captain's, extended at council 8/13 with the
+  population, negative-space, and pre-registered-acceptance asks):
+  > "Please read and understand these requirements. Analyze them for
+  > inconsistencies and completeness. State the population this covers — the users
+  > and uses it serves — and state the negative space: what is deliberately out of
+  > scope. Propose the acceptance criteria we would register before implementation
+  > begins: how we will know it is done. Make suggestions for improvements. Rank
+  > your responses in priority from high to low, giving each a number. What are the
+  > benefits? What are the downsides? Be ready for a deep dive into any of the
+  > suggestions."
 
 ## ADVISORY (the reference configuration — what this program ran and measured)
 
