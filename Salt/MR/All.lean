@@ -362,6 +362,7 @@ import Salt.MR.RegisterInhabit
 import Salt.MR.RegisterRepair
 import Salt.MR.RegisterCompose
 import Salt.MR.V7A
+import Salt.MR.V7C
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7788,3 +7789,36 @@ Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the
   Salt.MR.capfloor_floor4_of_sharp
   Salt.MR.capfloor_floor4_of_pos
   Salt.MR.capfloor_floor4_of_design
+
+/-! ⟦V7-C `T0-ARM` — THE `T₀` RIDER DISCHARGED, AND THE MARGIN MEASURED⟧ (`V7C`)
+
+`v6`'s second inner rider is `T₀ ≤ exp(√(flatDesignBase A)/2)` — the tolerance
+`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` proved `T₀` has **no
+effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_strip_height`,
+`RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
+
+⟦THE ARM⟧ it does not have to be.  `v6` mints its six crossing constants — `T₀` among them —
+at `RegisterCompose:368`, BEFORE it chooses the design constant `A` at `:373` as a `max` over
+five absorption thresholds.  `T₀` is a fixed, `A`-independent real, so it joins that `max` as
+a **sixth arm**; then `T₀ ≤ A`, and the tolerance is a THREE-DEEP exponential tower in `A`.
+No numeric value of `T₀` is needed, wanted, or used.
+
+⟦THE MARGIN, MEASURED⟧ the design block charted "two exponential levels"; the bytes give
+three, and exactly three.  `flatDesignBase_sqrt_ge`: `√(flatDesignBase A) ≥ e^{e^{3.2A}/2}`.
+`t0_arm_two_levels`: `2·e^{e^A} ≤ e^{e^{3.2A}/2}` at `A ≥ 162`, off the inner gap
+`e^{3.2A} ≥ 357·e^{A}`.  Hence `t0_arm_three_levels` — `exp(exp(exp T₀)) ≤ exp(√(flatDesignBase
+A)/2)` for every `T₀ ≤ A`, `A ≥ 162` — and its level-0 corollary `t0_arm_le_tolerance`, which
+is the discharge.  `t0_arm_four_levels_fails` shows the height is SHARP: at the design floor
+`exp(√(flatDesignBase 162)/2) < exp(exp(exp(exp 162)))`, the gate being `e^{e^{A}}` against
+`e^{3.2A}/2` — doubly exponential against singly exponential, false at `162` and above it.
+
+⟦THE DELIVERABLE⟧ `logChowla2_ineffective_v6_T0arm` = `v6` verbatim with the `T₀` arrow GONE:
+**four** inner riders, not five (`cs`, `Ks`, `XCeilRiderStrict`, the `K_vt` cushion); outer
+still nothing.  `v6` is byte-untouched and remains citable.  This is the form V7-E's mint
+consumes; V7-E is HELD and is not minted here. -/
+#audit_axioms Salt.MR.flatDesignBase_sqrt_ge
+  Salt.MR.t0_arm_two_levels
+  Salt.MR.t0_arm_three_levels
+  Salt.MR.t0_arm_le_tolerance
+  Salt.MR.t0_arm_four_levels_fails
+  Salt.MR.logChowla2_ineffective_v6_T0arm
