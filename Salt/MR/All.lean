@@ -7808,9 +7808,9 @@ three, and exactly three.  `flatDesignBase_sqrt_ge`: `√(flatDesignBase A) ≥ 
 `t0_arm_two_levels`: `2·e^{e^A} ≤ e^{e^{3.2A}/2}` at `A ≥ 162`, off the inner gap
 `e^{3.2A} ≥ 357·e^{A}`.  Hence `t0_arm_three_levels` — `exp(exp(exp T₀)) ≤ exp(√(flatDesignBase
 A)/2)` for every `T₀ ≤ A`, `A ≥ 162` — and its level-0 corollary `t0_arm_le_tolerance`, which
-is the discharge.  `t0_arm_four_levels_fails` shows the height is SHARP: at the design floor
-`exp(√(flatDesignBase 162)/2) < exp(exp(exp(exp 162)))`, the gate being `e^{e^{A}}` against
-`e^{3.2A}/2` — doubly exponential against singly exponential, false at `162` and above it.
+is the discharge.  `t0_arm_four_levels_fails` shows the height is SHARP: for EVERY `A ≥ 162`,
+`exp(√(flatDesignBase A)/2) < exp(exp(exp(exp A)))` at the extremal admissible `T₀ = A`, the
+gate being `e^{e^{A}}` against `e^{3.2A}/2` — doubly against singly exponential.
 
 ⟦THE DELIVERABLE⟧ `logChowla2_ineffective_v6_T0arm` = `v6` verbatim with the `T₀` arrow GONE:
 **four** inner riders, not five (`cs`, `Ks`, `XCeilRiderStrict`, the `K_vt` cushion); outer

@@ -30,13 +30,14 @@ proves both halves:
 
 * `t0_arm_three_levels` — `exp(exp(exp T₀)) ≤ exp(√(flatDesignBase A)/2)` for every `T₀ ≤ A`
   and every `A ≥ 162`: **THREE exponential levels of headroom**, not two.
-* `t0_arm_four_levels_fails` — at the design floor `A = 162` the FOURTH level breaks:
-  `exp(√(flatDesignBase 162)/2) < exp(exp(exp(exp 162)))`.  So three is exact, not a floor.
+* `t0_arm_four_levels_fails` — the FOURTH level breaks, at the design floor and at every `A`
+  above it: `exp(√(flatDesignBase A)/2) < exp(exp(exp(exp A)))` for all `A ≥ 162`, witnessed
+  at the extremal admissible `T₀ = A`.  So three is exact, not a floor.
 
 The reason is visible in the arithmetic: `√(flatDesignBase A) ≥ e^{e^{3.2A}/2}`, so the
 tolerance is `≥ exp(e^{e^{3.2A}/2}/2)` — a tower of height 3 over `A` — while the demand
-`T₀ ≤ A` sits at height 0.  The fourth level asks `e^{e^{A}} ≤ e^{3.2A}/2`, doubly
-exponential against singly exponential: false at `A = 162` and at every `A` above it.
+`T₀ ≤ A` sits at height 0.  The fourth level would ask `e^{e^{A}} ≤ e^{3.2A}/2`, doubly
+exponential against singly exponential, and that is false for every `A ≥ 162`.
 
 ⟦WHAT THIS FILE DELIVERS⟧ `logChowla2_ineffective_v6_T0arm`: `v6` verbatim with the `T₀`
 arrow **GONE** from the inner list — four riders, not five.  Byte-for-byte additive: `v6`
@@ -112,40 +113,38 @@ theorem t0_arm_le_tolerance {A T : ℝ} (hA : 162 ≤ A) (hT : T ≤ A) :
   have := t0_arm_three_levels hA hT
   linarith
 
-/-- **⟦THE MARGIN IS EXACTLY THREE⟧** at the design floor `A = 162` the FOURTH exponential
-level breaks: `exp(√(flatDesignBase 162)/2) < exp(exp(exp(exp 162)))`.  The gate is
-`e^{e^{162}}` against `e^{518.4}/2` — doubly exponential against singly exponential.  So
-`t0_arm_three_levels` is sharp in tower height, not merely true. -/
-theorem t0_arm_four_levels_fails :
-    Real.exp (Real.sqrt ((flatDesignBase (162 : ℝ) : ℕ) : ℝ) / 2)
-      < Real.exp (Real.exp (Real.exp (Real.exp (162 : ℝ)))) := by
+/-- **⟦THE MARGIN IS EXACTLY THREE⟧** the FOURTH exponential level breaks — at the design
+floor AND at every `A` above it: `exp(√(flatDesignBase A)/2) < exp(exp(exp(exp A)))` for all
+`A ≥ 162`, witnessed at the extremal admissible `T₀ = A`.  The gate is `e^{e^{A}}` against
+`e^{3.2A}/2`, doubly exponential against singly exponential.  So `t0_arm_three_levels` is
+SHARP in tower height, not merely true. -/
+theorem t0_arm_four_levels_fails {A : ℝ} (hA : 162 ≤ A) :
+    Real.exp (Real.sqrt ((flatDesignBase A : ℕ) : ℝ) / 2)
+      < Real.exp (Real.exp (Real.exp (Real.exp A))) := by
   refine Real.exp_lt_exp.mpr ?_
-  -- ⟦THE CEILING, FROM ABOVE⟧ `flatDesignBase 162 = ⌈E⌉₊ ≤ E + 1 ≤ E²`, `E = e^{e^{518.4}}`
-  have hE519 : (519 : ℝ) ≤ Real.exp (3.2 * (162 : ℝ)) := by
-    have h := Real.add_one_le_exp (3.2 * (162 : ℝ)); linarith
-  have hEge : Real.exp (3.2 * (162 : ℝ)) + 1 ≤ Real.exp (Real.exp (3.2 * (162 : ℝ))) :=
-    Real.add_one_le_exp _
-  have hE2 : (2 : ℝ) ≤ Real.exp (Real.exp (3.2 * (162 : ℝ))) := by linarith
-  have hD : ((flatDesignBase (162 : ℝ) : ℕ) : ℝ)
-      ≤ Real.exp (Real.exp (3.2 * (162 : ℝ))) ^ 2 := by
+  -- ⟦THE CEILING, FROM ABOVE⟧ `flatDesignBase A = ⌈E⌉₊ ≤ E + 1 ≤ E²`, `E = e^{e^{3.2A}}`
+  have hE1 : (1 : ℝ) ≤ Real.exp (3.2 * A) := by
+    have h := Real.add_one_le_exp (3.2 * A); linarith
+  have hE2 : (2 : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
+    have h := Real.add_one_le_exp (Real.exp (3.2 * A)); linarith
+  have hD : ((flatDesignBase A : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) ^ 2 := by
     rw [flatDesignBase]
-    have h := Nat.ceil_lt_add_one (Real.exp_pos (Real.exp (3.2 * (162 : ℝ)))).le
-    nlinarith [h, hE2, sq_nonneg (Real.exp (Real.exp (3.2 * (162 : ℝ))) - 2)]
-  have hEnn : (0 : ℝ) ≤ Real.exp (Real.exp (3.2 * (162 : ℝ))) := (Real.exp_pos _).le
-  have hsqrt : Real.sqrt ((flatDesignBase (162 : ℝ) : ℕ) : ℝ)
-      ≤ Real.exp (Real.exp (3.2 * (162 : ℝ))) := by
+    have h := Nat.ceil_lt_add_one (Real.exp_pos (Real.exp (3.2 * A))).le
+    nlinarith [h, hE2, sq_nonneg (Real.exp (Real.exp (3.2 * A)) - 2)]
+  have hEnn : (0 : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := (Real.exp_pos _).le
+  have hsqrt : Real.sqrt ((flatDesignBase A : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
     have h := Real.sqrt_le_sqrt hD
     rwa [Real.sqrt_sq hEnn] at h
-  -- ⟦THE FOURTH LEVEL⟧ `e^{162} ≥ 82² = 6724 > 518.4`, so the tower outruns the tolerance
-  have h81 : (82 : ℝ) ≤ Real.exp 81 := by linarith [Real.add_one_le_exp (81 : ℝ)]
-  have hsplit : Real.exp (162 : ℝ) = Real.exp 81 * Real.exp 81 := by
-    rw [← Real.exp_add]; norm_num
-  have h162 : 3.2 * (162 : ℝ) ≤ Real.exp (162 : ℝ) := by rw [hsplit]; nlinarith [h81]
-  have hstep : Real.exp (3.2 * (162 : ℝ)) ≤ Real.exp (Real.exp (162 : ℝ)) :=
-    Real.exp_le_exp.mpr h162
-  have hstep2 : Real.exp (Real.exp (3.2 * (162 : ℝ)))
-      ≤ Real.exp (Real.exp (Real.exp (162 : ℝ))) := Real.exp_le_exp.mpr hstep
-  have hpos : (0 : ℝ) < Real.exp (Real.exp (Real.exp (162 : ℝ))) := Real.exp_pos _
+  -- ⟦THE FOURTH LEVEL⟧ `3.2A ≤ e^{A}` at `A ≥ 162`, off `e^{A} ≥ (A/2 + 1)²`
+  have hhalf : A / 2 + 1 ≤ Real.exp (A / 2) := Real.add_one_le_exp _
+  have hsplit : Real.exp A = Real.exp (A / 2) * Real.exp (A / 2) := by
+    rw [← Real.exp_add]; ring_nf
+  have hlin : 3.2 * A ≤ Real.exp A := by
+    rw [hsplit]; nlinarith [hhalf, hA, Real.exp_pos (A / 2)]
+  have hstep : Real.exp (3.2 * A) ≤ Real.exp (Real.exp A) := Real.exp_le_exp.mpr hlin
+  have hstep2 : Real.exp (Real.exp (3.2 * A)) ≤ Real.exp (Real.exp (Real.exp A)) :=
+    Real.exp_le_exp.mpr hstep
+  have hpos : (0 : ℝ) < Real.exp (Real.exp (Real.exp A)) := Real.exp_pos _
   linarith
 
 /-! ## §2 — ⟦THE `T₀`-ARMED TERMINAL⟧ `v6` with the rider gone
