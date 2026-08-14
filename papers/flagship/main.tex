@@ -104,7 +104,7 @@ demand-audited hypothesis minimization, a mode of discovery we argue is
 impossible over prose proofs. Around it we prove, kernel-checked: a
 Heath-Brown--type dichotomy (twin primes, or no Siegel zeros) with its
 engine-conditional horn stated explicitly; the first formalization, in any
-public artifact as of 2026-08-11,\footnote{Priority statements in this paper are \emph{surveyed as-of} claims, not assertions of absence. Survey: \texttt{${SEAT_DIR}/briefs/2026-08-11-priority-audit.md} (method: adversary-cited, five independent lanes, 2026-08-11); our own landing dates are given in \S\ref{sec:banners} and the results register. Salt is a private tree at the time of writing, so these are firsts \emph{in any public artifact} as of the survey date, and are re-run before submission.} of any zero-free region for
+public artifact as of 2026-08-11,\footnote{Priority statements in this paper are \emph{surveyed as-of} claims, not assertions of absence. Survey: \texttt{docs/priority-survey-2026-08-11.md} in the released repository (method: adversary-cited, five independent lanes, 2026-08-11); our own landing dates are given in \S\ref{sec:banners} and the results register. Salt is a private tree at the time of writing, so these are firsts \emph{in any public artifact} as of the survey date, and are re-run before submission.} of any zero-free region for
 $\zeta$ of Littlewood strength (1922) and the first such power-saving region
 ($\theta = 3/4$) in any proof assistant; a
 Deuring--Heilbronn repulsion contract; the exact-identity keystone of the
@@ -842,8 +842,8 @@ argument needs is kernel-checked already: the sawtooth majorant's Fourier
 expansion, for every real $\theta$ and every $K \ge 2$, with its
 coefficients bounded termwise by $K/(\pi^2 m^2)$ and in $\ell^1$ by
 $6(1 + \log K)$.
-\leanname{Salt.Weil.sawtoothMajorant\_fourier\_expansion,
-Salt.Weil.norm\_majorantCoeff\_le\_sq, Salt.Weil.tsum\_norm\_majorantCoeff\_le}
+\leanname{Salt.Weil.sawtoothMajorant\_fourier\_expansion,\allowbreak
+Salt.Weil.norm\_majorantCoeff\_le\_sq,\allowbreak Salt.Weil.tsum\_norm\_majorantCoeff\_le}
 
 \begin{table}[h]
 \centering\small
@@ -853,7 +853,7 @@ Conditional statement & Residual hypothesis & Campaign \\
 \midrule
 Thm~\ref{thm:dich}, twin horn & $h_{\mathrm{Engine}}$ & \textsc{hb-engine} \\
 Thm~\ref{thm:spine} & the MRT door & S8 / MR program \\
-Thm~\ref{thm:wall} & the overshoot budget (\texttt{hbudget}) & \S7 \\
+Thm~\ref{thm:wall} & the overshoot budget (\texttt{hbudget}) & \S\ref{sec:walls} \\
 \bottomrule
 \end{tabular}
 \caption{Every conditional in this paper, with its exact named residual.
@@ -930,8 +930,10 @@ $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$ or if the
 name does not resolve --- so \leaninline{lake build} succeeding is the audit
 passing, and each entry cites the manifest line that runs it. Names are stable
 across the corpus; line numbers are as of commit \leaninline{244ba62}
-(2026-08-03), and the source is the arbiter wherever this rendering and the
-declaration could be read apart.
+(2026-08-03), except for a minority of entries re-pinned at later commits;
+every pin re-extracts at one fresh commit at the release re-extraction, and
+the source is the arbiter wherever this rendering and the declaration could
+be read apart.
 
 \subsection{The four banners (\S\ref{sec:banners})}
 
