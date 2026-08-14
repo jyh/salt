@@ -362,6 +362,7 @@ import Salt.MR.RegisterInhabit
 import Salt.MR.RegisterRepair
 import Salt.MR.RegisterCompose
 import Salt.MR.V7A
+import Salt.MR.V7B
 import Salt.MR.V7C
 import Salt.Tactic.AuditAxioms
 
@@ -7822,3 +7823,46 @@ consumes; V7-E is HELD and is not minted here. -/
   Salt.MR.t0_arm_le_tolerance
   Salt.MR.t0_arm_four_levels_fails
   Salt.MR.logChowla2_ineffective_v6_T0arm
+
+
+/-! ⟦V7-B CS-THREAD — THE `cs` RIDER, DISCHARGED AND CARRIED⟧ (`V7B`, 2026-08-14).
+
+⟦THE FINDING⟧ `v6`'s first inner rider, `Real.exp (-100) ≤ cs`, was never a mathematical
+obstruction: `RiderTrace.cs_closed_form_ge_exp_neg_hundred` had already pinned the minted
+constant at `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10) = 3.716·10^{-11}`, thirty-three orders
+above `e^{-100}`.  What was missing was the CARRY: the closed form is visible only inside
+`PortAssembly.halaszPrimesChiGated_of_price`, and every hop above it exports `0 < cs` alone.
+
+⟦WHY A CARRY AND NOT A REWRITE⟧ every statement in the chain is ANTITONE in `cs` — the decay
+constant sits in `exp(−cs·log P/D₄)` at the bottom and in `420·L·… ≤ cs·(log Q)²` at the
+consuming `gate` field — so an `∃ cs, 0 < cs ∧ P cs` can always be re-witnessed at a SMALLER
+`cs` and never at a larger one.  A LOWER bound cannot be manufactured above the mint by any
+monotonicity argument; it has to be exported from the leaves.
+
+⟦THE THREAD, ELEVEN DECLARATIONS⟧ §1 `per_pair_contour_floored` carries `1/10^9 ≤ c₀` off
+`RiderTrace.shifted_edge_price_strip_bounded` (the last un-carried leaf).  §2
+`halaszPrimesChiGated_of_price_floored` is the mint, now asking the call site's own literal
+`1/10^8 ≤ c_vk` and exporting `e^{-100} ≤ c` through `cs_floor_of_leaves`.  §3 forwards the
+conjunct through `NumeralKq`'s six `_bounded` pass-throughs; §4 through `RegisterCompose`'s
+three `∀K`-hoisted twins, where `s15_…_khoist_csfree` SPENDS the rider at
+`s16_capGate_supply_L_gk_sharpT0` — the arrow leaves the statement there — and the flat
+terminal `…_cqhoist_csfree` forwards the hypothesis-free shape.
+
+⟦THE DELIVERABLE⟧ `logChowla2_ineffective_v6_csarm` = `v6` verbatim with the `cs` arrow GONE:
+**four** inner riders, not five (`T₀`-sharp, `Ks`, `XCeilRiderStrict`, the `K_vt` cushion);
+outer still nothing.  `v6` is byte-untouched and remains citable.  With V7-C's `_T0arm` this
+is two of the five; V7-E's mint is HELD and is not performed here. -/
+#audit_axioms Salt.MR.cs_floor_of_leaves
+  Salt.MR.per_pair_contour_floored
+  Salt.MR.halaszPrimesChiGated_of_price_floored
+  Salt.MR.halasz_primes_chi_pair_of_gates_bounded_cs
+  Salt.MR.halaszPrimesChi_holds_gated_bounded_cs
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_cs
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_cs
+  Salt.MR.m4_rowChi_capstone_perBlock_bounded_cs
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree
+  Salt.MR.logChowla2_ineffective_v6_csarm
