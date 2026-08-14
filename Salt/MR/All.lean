@@ -364,6 +364,7 @@ import Salt.MR.RegisterCompose
 import Salt.MR.V7A
 import Salt.MR.V7B
 import Salt.MR.V7C
+import Salt.MR.V7E
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7866,3 +7867,29 @@ is two of the five; V7-E's mint is HELD and is not performed here. -/
   Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree
   Salt.MR.logChowla2_ineffective_v6_csarm
+
+
+/-! ⟦V7-E THE MINT — `logChowla2_ineffective_v7`⟧ (`V7E`, 2026-08-14).
+
+⟦WHY A MINT AND NOT A COMPOSE⟧ V7-B's `_csarm` and V7-C's `_T0arm` each discharge one of
+`v6`'s five inner riders, and neither can be applied to the other from outside: `_csarm`'s
+`∃`-prefix exports `3 ≤ T₀` and nothing more, so its `T₀` arrow cannot be met by a caller,
+and symmetrically `_T0arm`'s prefix exports `0 < cs` alone.  Both discharges are facts about
+constants the terminal itself mints, so both have to happen INSIDE the construction.  `V7E`
+re-runs that construction once, with V7-C's `T₀`-armed design constant (`T₀` prepended to the
+`max` as a sixth arm; each landed absorption proof gains one `le_max_right`) wired to V7-B's
+`…_cqhoist_csfree` terminal, whose `cs` floor arrives as a conjunct rather than an arrow.
+
+⟦THE DELIVERABLE⟧ `logChowla2_ineffective_v7` — `v6` with riders 1 and 2 discharged.  Outer
+hypotheses: NOTHING.  Inner, exactly **three** items:
+
+* `Real.exp (-100) ≤ Ks`;
+* `XCeilRiderStrict ε g` — the caller's own request;
+* the `K_vt` cushion.
+
+`Real.exp (-100) ≤ cs` is not asked but DELIVERED, as a conjunct of the `∃`-prefix, carried
+from the two leaves that produce the constant; `T₀ ≤ exp(√(flatDesignBase A)/2)` is not asked
+either, cleared inside by `t0_arm_le_tolerance`.  The prefix is otherwise `v6`'s, including
+`3 ≤ T₀` and `0 < cs`.  `logChowla2_ineffective_v6`, `…_v6_csarm` and `…_v6_T0arm` are
+byte-untouched and remain citable. -/
+#audit_axioms Salt.MR.logChowla2_ineffective_v7
