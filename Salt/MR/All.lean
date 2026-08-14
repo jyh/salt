@@ -361,6 +361,7 @@ import Salt.MR.XThread
 import Salt.MR.RegisterInhabit
 import Salt.MR.RegisterRepair
 import Salt.MR.RegisterCompose
+import Salt.MR.V7A
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7751,3 +7752,39 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist
   Salt.MR.logChowla2_ineffective_v6
   Salt.MR.cs_closed_form_ge_exp_neg_hundred
+
+/-! ⟦V7-A `KS-TRACE` — THE `Ks` RIDER TRACED TO ITS LEAF AND RE-SIZED⟧ (`V7A`)
+
+`RiderTrace` did this for `cs` and `T₀`; `V7A` does it for `v6`'s third numeric rider,
+`e^{-100} ≤ Ks`.
+
+⟦THE TRACE⟧ `Ks` is minted at ONE site — `PortAssembly.siegel_real_carve (:1180)`, as
+`Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` — and travels to `v6` through nine pass-throughs
+(`NumeralKq:502 → :775 → :958 → RegisterCompose:52 → :117 → :164 → :209 → :345`).  Of the two
+leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:450` pins `1/126848 ≤ c₀`,
+so `c₀/32 ≥ 2.46·10^{-7}`) and `1/2` is a literal; the binding leaf is `Cs`, the constant of
+`Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:841`), whose own docstring reads
+"(ineffective)".  **So `e^{-100} ≤ Ks` reduces exactly to `Cs ≥ 3.72·10^{-52}` — an explicit
+numerical lower bound on Siegel's constant at `ε = 1/16`, which neither the corpus nor the
+literature supplies.  The rider is NOT provable as stated** (`docs/blueprints/flags.md`, V7-A).
+
+⟦THE RE-SIZING⟧ the numeral is SPENT at exactly ONE place, `S13CapFloor.capfloor_floor4 (:449)`
+(the two bundles only pass it through), and `S13CapFloor`'s own header (:60-62) already names
+the sharp form.  `capfloor_floor4_sharp` pins it: the `Ks` arm of `S13CapGatePerBlock` holds
+from `Ks ≥ e^{-3v/16}`, `v = log H ≥ 10^{21}` — the exact analogue of the landed
+`capfloor_T0_Tann_sharp`.  `ks_sharp_of_rider` + `capfloor_floor4_of_sharp` carry the R1
+certificate (landed rider ⟹ sharp rider ⟹ landed conclusion): **no trade**.
+
+⟦THE DISCHARGE ROUTE⟧ unlike the numeral, the sharp rider is `A`-windowed and is met by ANY
+`Ks > 0` at a large enough design base (`ks_rider_absorbed`, `capfloor_floor4_of_pos`).  Since
+the terminal mints `Ks` (`RegisterCompose:242`) BEFORE it chooses `A` (`:246`),
+`capfloor_floor4_of_design` discharges the arm against `v6`'s own exported conjunct
+`3.2·A ≤ loglog R.Hlo`, with the Siegel constant carried by name and never by numeral.
+Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the leaf. -/
+#audit_axioms Salt.MR.exp_neg_le_of_log_inv_le
+  Salt.MR.ks_rider_absorbed
+  Salt.MR.capfloor_floor4_sharp
+  Salt.MR.ks_sharp_of_rider
+  Salt.MR.capfloor_floor4_of_sharp
+  Salt.MR.capfloor_floor4_of_pos
+  Salt.MR.capfloor_floor4_of_design

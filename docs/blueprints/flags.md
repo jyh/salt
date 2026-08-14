@@ -23005,3 +23005,82 @@ compile.** At `Salt/Certs/LargeSieve.lean:86` it advises `(tac1; tac2)` in place
 `tac1 <;> tac2`; the rewrite BREAKS THE BUILD, because `<;> (a; b)` applies the pair to each
 goal while `<;> a <;> b` distributes. Tried, failed, reverted (8/12). **A linter suggestion
 is not a proof** — apply this class one file at a time, with a build between.
+
+---
+
+## 📐 (2026-08-14, MR v7 node **V7-A KS-TRACE**) ⟦`e^{-100} ≤ Ks` IS NOT PROVABLE AS STATED — it reduces exactly to an explicit lower bound on SIEGEL'S CONSTANT; the rider is nevertheless RE-SIZABLE and the sharp leaf is LANDED⟧
+
+**Opus executor, attempt 1.** Node charter: probe-wave-0814.md §3.1 (H3 `e^{-100} ≤ Ks`,
+"TO-BE-TRACED — a number with no citable trace is ABSENT; the trace IS the node"), under
+math's binding amendment 1 (R6 admits only TO-BE-DISCHARGED / OUT-OF-DOMAIN; H3 is
+TO-BE-DISCHARGED with its route ABSENT).
+
+### THE TRACE — what `Ks` IS, leaf to terminal
+
+`Ks` is minted at **ONE** site and reaches `v6` through **nine** pass-throughs:
+
+```
+PortAssembly.siegel_real_carve            :1180   K  := min (min Cs (c₀/32)) (1/2)
+NumeralKq.twisted_rect_zero_free_siegel_bounded          :502   Ks := 10^8 · K
+  (its unbounded sibling twisted_rect_zero_free_siegel  PortAssembly:1279)
+NumeralKq.usetGChi_window_meansq_gated_family_perBlock_bounded  :775   pass-through
+NumeralKq.m4_rowChi_capstone_perBlock_bounded                   :958   pass-through
+RegisterCompose.m4_hcap_at_door_perBlock_L_gk_bounded_khoist     :52   pass-through
+RegisterCompose.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist       :117   pass-through
+RegisterCompose.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist :164  pass-through
+RegisterCompose.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist :209
+RegisterCompose.logChowla2_ineffective_v6                       :345   THE RIDER
+```
+
+**`Ks = 10^8 · min(min(Cs, c₀/32), 1/2)`** at its two leaves:
+
+```
+c₀   Salt.SW.zero_free_region_all'   SW/ZeroFreeReal.lean:642
+     EFFECTIVE — the bounded twin NumeralKq.zero_free_region_all'_bounded:450 pins
+     1/126848 ≤ c₀, so c₀/32 ≥ 2.46·10^{-7}.  The 1/2 leg is a literal.
+     ⇒ NEITHER of these two legs can bind the rider.
+Cs   Salt.SW.siegel_theorem (1/16)   SW/SiegelClose.lean:841
+     INEFFECTIVE — its own docstring: "there is an (ineffective) C > 0"; the ∃-prefix
+     exports 0 < C and nothing else.
+```
+
+🔑 ***So `e^{-100} ≤ Ks` ⟺ `Cs ≥ e^{-100}/10^8 ≈ 3.72·10^{-52}` — an explicit numerical
+lower bound on Siegel's constant at `ε = 1/16`. That is the Siegel-zero ineffectivity in
+numeral form. The corpus exports no such bound and the literature has none.*** `PortAssembly`
+§7 (:1129-1176) states why the port cannot route around it: the arc's `q ≤ (log x)^{12}`
+forces `16 = 12/(3/4)`, and an effective Page-type `q^{-1/2}` loses by `(log H)^{5.25}`.
+**⛔ NOT PROVABLE AS STATED. No statement was altered (iron rule 1).**
+
+### WHAT IS PROVABLE — the numeral is MIS-SIZED, and the sharp leaf is now in the kernel
+
+The numeral is **SPENT AT EXACTLY ONE PLACE**: `S13CapFloor.capfloor_floor4:449` (the `floor4`
+field of `S13FramesB.S13CapGatePerBlock`). The two bundles `s13CapFloor_all:649` and
+`s13CapFloor_all_gk:733` only pass it through. `S13CapFloor`'s own header (:60-62) already
+names the sharp form — `Ks ≥ e^{-3v/16}`, `v = log H ≥ 10^{21}` — and calls the round `100`s
+"chosen for legibility, not for tightness".
+
+**LANDED (new file `Salt/MR/V7A.lean`, purely additive, 7 decls, all `[3 axioms]`):**
+
+```
+capfloor_floor4_sharp      floor4 from Ks ≥ e^{-3v/16}   (analogue of capfloor_T0_Tann_sharp)
+ks_sharp_of_rider          R1 certificate: landed rider ⟹ sharp rider (3v/16 ≥ 1.875·10^{20})
+capfloor_floor4_of_sharp   capfloor_floor4 RE-DERIVED from the sharp one — NO TRADE
+exp_neg_le_of_log_inv_le   the window lemma
+ks_rider_absorbed          ∀ Ks > 0, ∃ design floor past which e^{-3v/16} ≤ Ks holds
+capfloor_floor4_of_pos     floor4 from 0 < Ks + log(1/Ks) ≤ 3·log H/16 — NO NUMERAL
+capfloor_floor4_of_design  the same against 3.2·A ≤ loglog R.Hlo — v6's OWN exported conjunct
+```
+
+🔑 ***THE DISCHARGE ROUTE, NAMED: the sharp rider is `A`-WINDOWED, not numeric, and the
+terminal mints `Ks` (RegisterCompose:242) BEFORE it chooses `A` (:246). So a terminal may put
+`log(1/Ks) ≤ 3·e^{3.2A}/16` into its own `max` for `A` and read `floor4` off with no rider at
+all — Siegel's constant carried by NAME, never by NUMERAL.*** The rethread of the sharp form
+through the hops that carry the rider is **V7-E's landing, not this node's**; V7-A supplies
+the leaf it lands on. This is the same genre as `RiderTrace`'s `T₀` repair (a), and unlike
+`T₀` there is no residual open item behind it.
+
+⚖️ **DISPOSITION for the R6 column:** H3 stays **TO-BE-DISCHARGED**; "Ks untraced" comes OUT
+of the obstruction column (the trace is complete and pinned above); what replaces it in the
+obstruction column is narrower and true — ***the rider cannot be met by any numeral, only by
+the design constant.*** `saltbuild EXIT=0` (full repo, 9,737 jobs); hub-rooted audit shows all
+seven decls `[3 axioms]`.
