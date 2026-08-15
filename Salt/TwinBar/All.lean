@@ -25,6 +25,7 @@ import Salt.TwinBar.LambdaRate
 import Salt.TwinBar.ParityWall
 import Salt.TwinBar.Wall
 import Salt.TwinBar.WallUnconditional
+import Salt.TwinBar.WallCorr
 import Salt.TwinBar.SiegelTwin
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
@@ -152,3 +153,31 @@ open Salt.Tactic in
   Salt.TwinBar.twinC2_pos Salt.TwinBar.twinC2_multipliable
   Salt.TwinBar.twinB_min_implies_twins Salt.TwinBar.twin_survivor_of_pos
   Salt.TwinBar.twinTypeII_eventually_pos Salt.TwinBar.wall_or_door
+
+/-! ⟦WALL-L2 — THE WALL AT CORRELATION GRANULARITY⟧ (`WallCorr`, 2026-08-15).
+
+The landed wall caps certificates tolerant with respect to `SieveAgree` (the three
+main-term fields plus a shared Rosser budget).  `WallCorr` WIDENS that interface by
+the shift-2 correlation field `corr₂ s = ∑_{n ∈ s.support} s.weights n · s.weights
+(n+2)` and shows the cap survives: since `SieveAgreeCorr → SieveAgree`, tolerance
+with respect to the widened relation is a strictly WEAKER hypothesis on `Φ`, and
+`parity_wall_corr_stable` still delivers `parity_wall_unconditional`'s bound at
+`s₋ x`.
+
+The content is the core identity `corr2_witness_diff_Mlambda`: at the Selberg witness
+pair the `λλ` cross-term CANCELS — `(1 ± λ(n))(1 ± λ(n+2))` carries it with the same
+sign in both witnesses — leaving the one-point gap `2·(M_λ(x) + M_λ(x+2))`, which
+`corr2_witness_budget` puts at `O(x/(log x)^A)` unconditionally through the landed
+`Salt.SW.mmuRate_holds`.  So the witness pair really does agree in the widened field,
+at a sublinear budget: the strengthening is met, not evaded.
+
+Scope: a NEGATIVE theorem strengthened at the real witnesses.  No lower bound, no
+positive rung, nothing about twin primes — and nothing here escapes, crosses or
+evades the wall. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.corr2_witness_diff
+  Salt.TwinBar.corr2_witness_diff_Mlambda
+  Salt.TwinBar.corr2_witness_budget
+  Salt.TwinBar.phiLowerR_tolerant_corr
+  Salt.TwinBar.parity_wall_corr
+  Salt.TwinBar.parity_wall_corr_stable

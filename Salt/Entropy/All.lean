@@ -85,6 +85,7 @@ import Salt.Entropy.Chowla.SpineFlat
 import Salt.Entropy.Chowla.TowerFlatExport
 import Salt.Entropy.Chowla.TowerFlatBuilder
 import Salt.Entropy.Chowla.HloExportFlat
+import Salt.Entropy.Chowla.SpineEpsFence
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -396,3 +397,25 @@ TOLL), named by TROPHY's census as sorry-free but ledger-absent. -/
   Salt.Entropy.Chowla.towerWS_const
   Salt.Entropy.Chowla.towerDropSumShape_const
   Salt.Entropy.Chowla.towerShape_flat_le
+
+/-! ⟦WALL-L2 — THE ε-FLOOR CONSUMPTION FENCE⟧ (`SpineEpsFence`, 2026-08-15).
+
+`log_chowla_two_budget_head` is an existential over a SINGLE `ε : ℚ`, chosen by
+`exists_rat_btwn` strictly below the four-arm constant `min (min (min (cE/(32·log 4))
+(1/2)) (cD3/16)) (cD3/(16·C))`; every downstream terminal inherits that one margin,
+and the `MR` mint `logChowla2_ineffective_v7` carries the same shape with the explicit
+floor `1/500 ≤ ε` in its `∃`-prefix.  The margin is a CONSTANT, floored by
+construction constants.
+
+`spine_eps_constant_floor` restates the head's conclusion VERBATIM (so a change of
+shape from single-`ε` to an `∀ ε`-family would stop type-checking here) and adjoins
+the fence at that same `ε`: for any consumer demand `W z → 0` — a sieve density at
+unbounded `z`, or any rate-form saving — the demand `ε ≤ W z` fails from some scale
+on.  `margin_fails_vanishing_demand` is the reusable arrow behind it.
+
+Scope: an interface fact about a landed object's shape, frozen so no future wave
+spends a campaign wiring a constant-margin terminal into a slot that needs a rate.
+No new claim about Chowla, the door, or twins. -/
+#audit_axioms Salt.Entropy.Chowla.margin_fails_vanishing_demand
+  Salt.Entropy.Chowla.margin_not_forall_of_vanishing_demand
+  Salt.Entropy.Chowla.spine_eps_constant_floor
