@@ -7893,3 +7893,29 @@ either, cleared inside by `t0_arm_le_tolerance`.  The prefix is otherwise `v6`'s
 `3 ≤ T₀` and `0 < cs`.  `logChowla2_ineffective_v6`, `…_v6_csarm` and `…_v6_T0arm` are
 byte-untouched and remain citable. -/
 #audit_axioms Salt.MR.logChowla2_ineffective_v7
+
+
+/-! ⟦V7-D G-INSTANT — THE MINT AT `g ≡ 0`⟧ (`V7E` §2, 2026-08-15).
+
+⟦THE INSTANCE⟧ `logChowla2_ineffective_v7_g0` — a machine-checked, witnessed-scale INSTANCE of
+the logarithmically averaged two-point Chowla bound, carrying **two** named inner riders
+(`Real.exp (-100) ≤ Ks`; the Siegel-genre `K_vt` cushion), ineffective, outer hypotheses none —
+at one opaque tolerance and one produced window.
+
+⟦WHAT MOVED, AND WHAT IT COST⟧ `v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property
+of the function the CALLER supplies as its outer-scale request.  It is not discharged in
+general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
+already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1760) to read
+the `ε`-ceiling.  The price is in the conclusion: `v7`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes
+`0 ≤ R.x` and is dropped, so the instance makes NO outer-scale demand.  The `∃`-prefix is
+`v7`'s verbatim; the two surviving riders are `v7`'s unchanged.
+
+⟦SCOPE, IN THE STATEMENT'S OWN BYTES⟧ the tolerance is OPAQUE and bounded from below only
+(`1 / 500 ≤ ε`, with the regime's `ε ≤ 1/2`) — one produced `ε`, not every `ε`, and no named
+value; the window is `(x/ω, x]` weighted by `1/n` against `ε · log ω`
+(`ChowlaFailure.lean:59-63`), a windowed partial sum and not the full logarithmic average over
+`n ≤ x` against `log x`; the shift is `n + 1` (the `2` counts the factors); ineffective (`A`
+through `Classical.choice`, `Ks` carrying Siegel's constant); twins untouched — the transport
+wall stands at this rung.  `logChowla2_ineffective_v7` is byte-untouched and remains the object
+of record. -/
+#audit_axioms Salt.MR.logChowla2_ineffective_v7_g0

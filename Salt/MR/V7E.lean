@@ -183,6 +183,77 @@ theorem logChowla2_ineffective_v7 (A₀ : ℝ) :
   exact hfire2 hcofsupply
     (s16_baseScaleCap96_L_at_klevF hA26 (flatDoorM_one_le hA26) heps500 hxceil hwin)
 
+/-! ## §2 — ⟦V7-D G-INSTANT⟧ the mint read at `g ≡ 0`
+
+`v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property of the function the CALLER
+supplies as its outer-scale request.  A caller who requests nothing supplies `g ≡ 0`, and then
+the rider is met by `Real.log 0 = 0` — the same three-line discharge the corpus already runs
+inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1760) to read off the
+`ε`-ceiling.  This section states that instance as its own citable declaration.
+
+Additive: `logChowla2_ineffective_v7` is byte-untouched and remains the object of record. -/
+
+/-- **⟦THE `g ≡ 0` INSTANCE OF THE MINT⟧** (`logChowla2_ineffective_v7_g0`) — a machine-checked,
+witnessed-scale **instance** of the logarithmically averaged two-point Chowla bound, carrying
+**two named inner riders** (`Real.exp (-100) ≤ Ks`; the Siegel-genre `K_vt` cushion),
+ineffective, outer hypotheses none — at one opaque tolerance and one produced window.
+
+⟦WHAT IT IS⟧ `logChowla2_ineffective_v7` — which carries **three** named inner riders
+(`Real.exp (-100) ≤ Ks`; the caller-side scale-request property `XCeilRiderStrict ε g`; the
+`K_vt` cushion) — read at the trivial request `g ≡ 0`.  The scale-request rider is NOT
+discharged in general: it is VOID at this instance, because a caller who asks for nothing has
+nothing to prove.  The price is paid in the conclusion: `v7`'s `g R.Hhi R.ω ≤ R.x` conjunct
+becomes `0 ≤ R.x` and is dropped, so this instance makes no outer-scale demand at all.  The
+`∃`-prefix is `v7`'s verbatim, and the remaining two riders are `v7`'s unchanged.
+
+⟦THE SCOPE, STATED⟧ what the statement does and does not say, in its own bytes:
+
+* the tolerance `ε` is OPAQUE and bounded only from BELOW — all that is exported is
+  `1 / 500 ≤ ε` (with the regime's own `ε ≤ 1/2`).  The theorem is at one produced `ε`, not
+  at every `ε`, and not at any named value;
+* the window is `(x/ω, x]` weighted by `1/n` against `ε · log ω` (`logChowla2Fails`,
+  `ChowlaFailure.lean:59-63`) — a windowed partial sum, not the full logarithmic average over
+  `n ≤ x` against `log x`;
+* the shift is `n + 1` (the `2` counts the factors `λ(n)·λ(n+1)`, not the shift);
+* `ineffective`: the design constant `A` is produced by `Classical.choice` through the chain,
+  and `Ks` carries Siegel's ineffective constant, so no numerical scale is extractable;
+* nothing here bears on twin primes — the transport wall is untouched at this rung. -/
+theorem logChowla2_ineffective_v7_g0 (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ flatDoorM A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ (∀ K Qm : ℕ, 0 ≤ Kvt K Qm) ∧
+      (Real.exp (-100) ≤ Ks →
+        ∃ R : ChowlaRegime,
+          R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (32 * Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊
+              + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
+            ≤ Real.log (R.Hhi : ℝ) / 4 →
+            ¬ logChowla2Fails R.eps R.x R.ω)) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, Kvt,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hεpin, hδpin, hMflb, hβ, hA162, hA₀A, hKvt0, hmain⟩ :=
+    logChowla2_ineffective_v7 A₀
+  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, Kvt,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hεpin, hδpin, hMflb, hβ, hA162, hA₀A, hKvt0, ?_⟩
+  intro hKs
+  -- ⟦THE RIDER, VOID⟧ the caller's request is `0`, and `log 0 = 0` leaves the margin intact
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
+    intro Hhi ω hgate
+    obtain ⟨-, -, hωw⟩ := hgate
+    simp only [Nat.cast_zero, Real.log_zero]
+    linarith [Real.log_natCast_nonneg ω]
+  obtain ⟨R, hReps, hHlo, -, hRtow, hdes, hwin, hfire⟩ := hmain hKs (fun _ _ => 0) hzero
+  exact ⟨R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
+
 end Salt.MR
 
 end
