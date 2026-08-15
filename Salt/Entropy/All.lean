@@ -87,6 +87,7 @@ import Salt.Entropy.Chowla.TowerFlatBuilder
 import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.SpineEpsFence
 import Salt.Entropy.Chowla.PinDichotomy
+import Salt.Entropy.Chowla.ShiftFork
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -460,3 +461,59 @@ Scope: no new claim about twins — boundary-map completion, zero flagship inche
   Salt.Entropy.Chowla.pinned_door
   Salt.Entropy.Chowla.pin_minimal
   Salt.Entropy.Chowla.liouville_pinned
+
+/-! ⟦L3-FORK FOUNDATION⟧ — THE SHIFT-`h` DE-SPECIALIZATION (`ShiftFork`, 2026-08-15).
+
+THE FORK, NOT THE EDIT.  The landed spine is Tao 1509.05422 at `(a, b, h) = (1, 0, 1)`.
+`ShiftFork.lean` opens the `h`-family BESIDE it: `logChowlaFails`, `bigXiH`,
+`MRTUniformityXiH` are new names at new arities, and NO landed declaration changes a
+byte or an arity.  In-place generalization was priced and rejected — `logChowla2Fails`
+alone is restated across 59 files, `bigXi` across 35 — so the alongside-fork is the
+cheap arm and the compat lemmas are what make it conservative:
+`logChowla2Fails_eq_logChowlaFails_one` is `rfl`; `bigXi_eq_bigXiH_one` and
+`mrtUniformityXi_eq_xiH_one` pin the landed `Ξ`-set and the landed `Ξ`-door as the
+`h = 1` members of the new families.
+
+WHERE THE TWIST LIVES.  Tao's `Ξ_H` carries the frequency twist `−hξ/H`
+(`chowla.txt:1296-1300`), and it is INVISIBLE at `h = 1` rather than absent.  It goes
+into `bigXiH`'s membership predicate and NOWHERE ELSE: the door's `α` stays at the
+untwisted `−ξ.val/H`, because the seam consumes the circle method's surviving DFT
+factor at the untwisted `ξ` (`Theorem23Shell.lean:188-193`).  A door twisted to
+`−(h·ξ.val)/H` would elaborate cleanly and then fail to compose.
+
+THE TRIPWIRE.  No `h = 1` compat can police that spelling — at `h = 1` the twist
+vanishes under `Nat.cast_one`, so `mrtUniformityXi_eq_xiH_one` is provable either way.
+`contradiction_of_mrtDoorXiH` is the `h`-GENERAL clone of the landed seam
+`contradiction_of_mrtDoorXi` (`MRTDoor.lean:127-157`); its termwise step fires the door
+at `ξ` against the sum's own integrand, so it closes at general `h` under the untwisted
+door and cannot close under a twisted one.  It landed last, and it landed green.
+
+THE COUNT.  `bigXiH_card_le_gcd_mul` is hypothesis-free: `bigXiH h` is the
+`μ_h`-preimage of `bigXi` under `ξ ↦ (h : ZMod H)·ξ` (`mem_bigXiH_iff`), whose fibers
+are cosets of a kernel of size `gcd(h,H)`.  `bigXiH_bounded` then transfers
+`bigXi_bounded` (Tao Lemma 3.5, unconditional) to the `h`-family with the constant
+multiplied by `h`, re-deriving no restriction theorem.  `expSum_add_intCast` records the
+frequency invariance the two spellings of the twist differ by.
+
+`h = 0` IS DEGENERATE and is fenced, not hidden: `bigXiH 0` is `ξ`-independent and
+`gcd(0,H) = H`, so every statement here that manufactures an `H`-uniform constant
+(`bigXiH_card_le_mul`, `bigXiH_bounded`) carries `0 < h` explicitly.
+
+SCOPE.  Definitional/foundational only.  `MRTUniformityXiH h` is the `h`-family's OPEN
+HYPOTHESIS — for `h ≥ 2` a STRICTLY STRONGER one than the landed `Ξ`-door — and this
+file supplies no producer for it, exactly as the corpus supplies none for
+`MRTUniformity`.  No claim about Chowla, about the door, or about twins is made or moved.
+The pairing/consumer census behind the fork ruling is re-derived mechanically by
+`scripts/l3_shift_census.py`. -/
+#audit_axioms Salt.Entropy.Chowla.logChowlaFails
+  Salt.Entropy.Chowla.logChowla2Fails_eq_logChowlaFails_one
+  Salt.Entropy.Chowla.bigXiH
+  Salt.Entropy.Chowla.bigXi_eq_bigXiH_one
+  Salt.Entropy.Chowla.mem_bigXiH_iff
+  Salt.Entropy.Chowla.expSum_add_intCast
+  Salt.Entropy.Chowla.bigXiH_card_le_gcd_mul
+  Salt.Entropy.Chowla.bigXiH_card_le_mul
+  Salt.Entropy.Chowla.bigXiH_bounded
+  Salt.Entropy.Chowla.MRTUniformityXiH
+  Salt.Entropy.Chowla.mrtUniformityXi_eq_xiH_one
+  Salt.Entropy.Chowla.contradiction_of_mrtDoorXiH
