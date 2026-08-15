@@ -12,17 +12,19 @@ import Salt.MR.V7E
 ⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧
 
 `V7E.logChowla2_ineffective_v7` carries THREE inner riders (`e^{-100} ≤ Ks`,
-`XCeilRiderStrict ε g`, the `K_vt` cushion).  This file proposes the terminal with the FIRST of
-those three discharged, leaving **two**.
+`XCeilRiderStrict ε g`, the `K_vt` cushion).  This file proposes the terminal with the `Ks`
+floor rider of those three discharged, leaving **two**.
 
 ## The mechanism
 
-V7-A proved the `Ks` rider is not provable as a numeral — `e^{-100} ≤ Ks` reduces to an explicit
-lower bound on Siegel's ineffective constant at `ε = 1/16` — and supplied the leaf that replaces
-it: `capfloor_floor4_of_pos` derives the `floor4` field of `S13CapGatePerBlock` from `0 < Ks`
-plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, with no numeral anywhere.
+V7-A traced the `Ks` rider to its leaf: `e^{-100} ≤ Ks` reduces to an explicit NUMERICAL lower
+bound on Siegel's ineffective constant at `ε = 1/16`, which neither the corpus nor the
+literature supplies — so the rider is NOT provable AS STATED.  V7-A also supplied the leaf that
+replaces it: `capfloor_floor4_of_pos` derives the `floor4` field of `S13CapGatePerBlock` from
+`0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, with no numeral anywhere.
 
-The window is `A`-satisfiable and the numeral is not.  That is the whole difference: the terminal
+The numeral does not mention `A`, so enlarging `A` cannot establish it; the window, by contrast,
+is `A`-satisfiable.  That is the whole difference: the terminal
 mints `Ks` before it chooses its design constant `A`, so `A` may be chosen above `16·log(1/Ks)/3`
 — exactly the move V7-C landed for `T₀` (a new arm of `A`'s own `max`), except that here the arm
 must be met at the LEAF, so the window has to be threaded down to `capfloor_floor4`.
@@ -52,7 +54,7 @@ windowed leaf subsumes the landed one: nothing downstream weakens.
 
 **PURELY ADDITIVE.**  `logChowla2_ineffective_v7`, `logChowla2_ineffective_v6`, `…_v6_csarm`,
 `…_v6_T0arm` and every hop copied from are byte-untouched and remain citable.  A2's name is
-unchanged: the limit is still `ineffective` — the `K_vt` cushion is the honest Siegel-genre core
+unchanged: the limit is still `ineffective` — the `K_vt` cushion is the Siegel-genre core
 and this file does not touch it.
 -/
 
@@ -407,8 +409,9 @@ set_option maxHeartbeats 3200000 in
   `32·Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊ + 32·(2·log (flatDoorM A) + log 4 + 50) ≤ log R.Hhi / 4`.
 
 ⟦WHAT MOVED⟧ `Real.exp (-100) ≤ Ks` is no longer asked — and it is NOT delivered either: V7-A
-proved it is not provable as a numeral (it reduces to an explicit lower bound on Siegel's
-ineffective constant at `ε = 1/16`).  What replaces it is the WINDOW `log(1/Ks) ≤ 3·log H/16`,
+traced it to an explicit NUMERICAL lower bound on Siegel's ineffective constant at `ε = 1/16`,
+which neither the corpus nor the literature supplies, so the rider is NOT provable AS STATED.
+What replaces it is the WINDOW `log(1/Ks) ≤ 3·log H/16`,
 which `capfloor_floor4_of_pos` shows is all the `floor4` socket ever needed, and which any
 `Ks > 0` meets once the design base is large enough.  §2–§5 carry that window down the four
 hops that used to carry the numeral; §6 meets it by giving `A`'s `max` a seventh arm,
@@ -421,7 +424,13 @@ receipt that the windowed leaf subsumes the landed numeral one.
 
 ⟦STILL INEFFECTIVE⟧ the name is unchanged on purpose.  The `K_vt` cushion is the Siegel-genre
 core and this file does not touch it; only the `Ks` FLOOR rider — an artefact of the numeral
-chosen at `S13CapFloor:449` — is gone.
+chosen at `S13CapFloor:449` — is gone.  ⟦AND IT IS NOT DESTROYED, IT IS RELOCATED⟧ the
+ineffective load formerly borne by the `Ks` rider is now borne by the DESIGN CONSTANT `A`,
+through the new seventh `max` arm `16·log(1/Ks)/3`: `A` is no longer pinned by effective
+thresholds alone, so this object's ineffectivity sits in `K_vt` AND in `A`.  Note the coupling
+that follows: `A` indexes the `K_vt` cushion through `KlevF A` and `flatDoorM A`, so the
+relocation touches the cushion's INDEXING even though the cushion's statement is byte-untouched
+— the same situation V7-C created when it put `T₀` into this same `max`.
 
 `logChowla2_ineffective_v7`, `…_v6`, `…_v6_csarm` and `…_v6_T0arm` are byte-untouched and remain
 citable. -/
@@ -546,10 +555,15 @@ theorem logChowla2_ineffective_v7_ksarm (A₀ : ℝ) :
 
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 3200000 in
-/-- **⟦NO TRADE⟧** `V7E.logChowla2_ineffective_v7` re-derived from §6 by discarding the arrow
-(`fun _ => …`).  The kernel is the referee for the statement-discipline claim: this compiles
-only if §6's statement is `v7`'s with the ONE line `Real.exp (-100) ≤ Ks →` deleted and nothing
-else moved — every other conjunct is passed through by name, in order. -/
+/-- **⟦NO TRADE⟧** a HAND-RETYPED copy of `V7E.logChowla2_ineffective_v7`'s statement, re-derived
+from §6 by discarding the arrow (`fun _ => …`).  Be exact about what the kernel referees here:
+it referees §6 AGAINST THIS RESTATEMENT, not against the landed declaration — this compiles
+only if §6's statement is the restatement's with the ONE line `Real.exp (-100) ≤ Ks →` deleted
+and nothing else moved, every other conjunct passed through by name, in order.  The restatement
+is tied to the landed declaration by the `example` immediately below, whose type is exactly this
+statement and whose proof term is `logChowla2_ineffective_v7` itself; without that receipt the
+chain would stop at a retyped lookalike, and with it the copy is self-enforcing under future
+edits to either side. -/
 theorem logChowla2_ineffective_v7_of_ksarm (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
@@ -575,6 +589,37 @@ theorem logChowla2_ineffective_v7_of_ksarm (A₀ : ℝ) :
   exact ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, Kvt,
     a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14,
     a15, a16, a17, a18, a19, a20, a21, a22, fun _ => hmain⟩
+
+/-! ## §7a — ⟦THE RECEIPT⟧ the restatement IS the landed declaration's type -/
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE RESTATEMENT, TIED TO THE LANDED DECLARATION⟧** §7 retypes `v7`'s statement by hand, so
+on its own it certifies only that §6 implies THAT TEXT.  This `example` closes the gap: its type
+is §7's statement, character for character, and its proof term is the landed
+`V7E.logChowla2_ineffective_v7` itself, so the kernel must accept the landed declaration AT the
+restatement's type — i.e. the two types are the same up to defeq.  Any future drift between the
+copy and `V7E:74` — a reordered conjunct, a changed constant, a silently strengthened bound —
+fails to elaborate HERE, which is what makes §7's claim self-enforcing rather than a promise. -/
+example (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ flatDoorM A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ (∀ K Qm : ℕ, 0 ≤ Kvt K Qm) ∧
+      (Real.exp (-100) ≤ Ks →
+        ∀ g : ℕ → ℕ → ℕ, XCeilRiderStrict ε g → ∃ R : ChowlaRegime,
+          R.eps = ε ∧ R.Hlo = flatDesignBase A ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (32 * Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊
+              + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
+            ≤ Real.log (R.Hhi : ℝ) / 4 →
+            ¬ logChowla2Fails R.eps R.x R.ω)) :=
+  logChowla2_ineffective_v7 A₀
 
 end Salt.MR
 
