@@ -365,6 +365,7 @@ import Salt.MR.V7A
 import Salt.MR.V7B
 import Salt.MR.V7C
 import Salt.MR.V7E
+import Salt.MR.V7Ks
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7893,3 +7894,40 @@ either, cleared inside by `t0_arm_le_tolerance`.  The prefix is otherwise `v6`'s
 `3 ≤ T₀` and `0 < cs`.  `logChowla2_ineffective_v6`, `…_v6_csarm` and `…_v6_T0arm` are
 byte-untouched and remain citable. -/
 #audit_axioms Salt.MR.logChowla2_ineffective_v7
+
+
+/-! ⟦KS-RETHREAD — `logChowla2_ineffective_v7_ksarm`⟧ (`V7Ks`, 2026-08-14, waking review 08-15).
+
+⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A proved `Real.exp (-100) ≤ Ks` is not provable as a
+numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at `ε = 1/16` —
+and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field of
+`S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
+The window is `A`-satisfiable and the numeral is not, so the rider is not discharged where it
+stands: the window is threaded DOWN to the leaf, and met at the top by a new arm of `A`'s `max`.
+
+⟦THE THREAD, SEVEN DECLARATIONS⟧ §1 `capfloor_floor4_of_regimeWin` moves V7-A's leaf window off
+the socket's `H` and onto the regime's `R.Hlo` — the only form the hops can carry, since `R` is
+in scope at each and `H` is not.  §2–§5 re-state the four live-path hops between
+`capfloor_floor4` and the terminal with the window in place of the numeral, carried as
+`log(1/Ks) ≤ 3·log R.Hlo/16` at the three regime-scoped hops and `log(1/Ks) ≤ 3·e^{3.2A}/16` at
+the `A`-scoped one, joined by the landed body's own `flatWitFloor_log_ge`.  §6 gives `A`'s `max`
+a SEVENTH arm, `16·log(1/Ks)/3` — legal for the same reason V7-C's `T₀` arm is: `Ks` is minted at
+the crossing supply, BEFORE the lever chooses `A`.  §7 re-derives the landed `v7` from §6 by
+`fun _ => …`, so the kernel is the referee for the statement-discipline claim.
+
+⟦THE DELIVERABLE⟧ `logChowla2_ineffective_v7_ksarm` = `v7` with the ONE arrow line
+`Real.exp (-100) ≤ Ks →` deleted: **two** inner riders, not three (`XCeilRiderStrict ε g` — the
+caller's own request — and the `K_vt` cushion); outer still nothing.  No strength is traded: `A`
+now depends on `Ks`, but `A`'s only exported properties are `162 ≤ A` and the caller's own
+`A₀ ≤ A`, so the `∃`-prefix promises exactly what `v7`'s did, and `capfloor_floor4_of_sharp` is
+the standing receipt that the windowed leaf subsumes the landed numeral one.  A2's name is
+unchanged on purpose — the `K_vt` cushion is the Siegel-genre core and this file does not touch
+it.  `logChowla2_ineffective_v7`, `…_v6`, `…_v6_csarm` and `…_v6_T0arm` are byte-untouched and
+remain citable. -/
+#audit_axioms Salt.MR.capfloor_floor4_of_regimeWin
+  Salt.MR.s13CapFloor_all_L_gk_sharpT0_kswin
+  Salt.MR.s16_capGate_supply_L_gk_sharpT0_kswin
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin
+  Salt.MR.logChowla2_ineffective_v7_ksarm
+  Salt.MR.logChowla2_ineffective_v7_of_ksarm
