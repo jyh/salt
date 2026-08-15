@@ -383,6 +383,8 @@ the two spine terminals + the five tower laws (THE TOLL + THE SHAPE-FREE
 TOLL), named by TROPHY's census as sorry-free but ledger-absent. -/
 #audit_axioms Salt.Entropy.Chowla.log_chowla_two_budget_head
   Salt.Entropy.Chowla.log_chowla_two_door_only
+  Salt.Entropy.Chowla.log_chowla_two_door_only_xi -- the Ξ_H door-only surface beneath
+  -- Pi's `thm:spine` (cert: Salt/Certs/ChowlaSpine.lean:14); covered only transitively till 08/15
   Salt.Entropy.Chowla.towerDropSumFlat_ge_log_ratio
   Salt.Entropy.Chowla.towerDropSumFlat_le_log_ratio_mul
   Salt.Entropy.Chowla.towerFlat_width_ge
