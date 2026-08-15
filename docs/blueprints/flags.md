@@ -23086,3 +23086,165 @@ of the obstruction column (the trace is complete and pinned above); what replace
 obstruction column is narrower and true — ***the rider cannot be met by any numeral, only by
 the design constant.*** `saltbuild EXIT=0` (full repo, 9,737 jobs); hub-rooted audit shows all
 seven decls `[3 axioms]`.
+
+---
+
+## ✅ (2026-08-15, REGISTRY DOCS SWEEP) ⟦THE MINT ENTERS `docs/RESULTS.md` — `logChowla2_ineffective_v7` AND ITS `g ≡ 0` INSTANCE, IN THE WORDING THE RULING DETERMINED⟧
+
+**Opus executor, docs only — `docs/RESULTS.md` and this file, no Lean byte touched.**
+Authority: **T2-A Option A, the Captain's word at the 08/15 sitting** — the registry rows for
+the arms and the mint take their language from the ruling, so the wording is DETERMINED, not
+drafted. Rung 1a's law binds every row in this sweep: **the rider count LEADS.**
+
+**THE SENTENCE OF RECORD**, now the `RESULTS.md` §8 row for
+`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:74`, landed `8548842`, ledger
+`Salt/MR/All.lean:7895`):
+
+> A machine-checked, witnessed-scale instance of the logarithmically averaged two-point
+> Chowla bound, carrying **three named inner riders** (`e^{-100} ≤ Ks`; the caller-side
+> scale-request property `XCeilRiderStrict ε g`; the Siegel-genre `K_vt` cushion),
+> ineffective, outer hypotheses none — at one opaque tolerance and one produced window.
+
+🔑 ***WHAT THE WORDING FORBIDS, and what is therefore absent from every row this sweep
+wrote:*** the word "first" in any form (the register's priority language is a surveyed-as-of
+claim and no row here makes one); *"proved down to 1/500"* or any reading of `ε` as a named
+value — `1/500 ≤ ε` is a FLOOR on an OPAQUE tolerance, exported at ONE produced `ε`, not at
+every `ε`; and any sentence that survives shortest-quotation as an unconditional claim. The
+four scope fences travel with the sentence in the row itself: the window is `(x/ω, x]`
+weighted by `1/n` against `ε · log ω` (a windowed partial sum, not the full logarithmic
+average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)·λ(n+1)`); the
+constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
+constant); and **twins are untouched** — the transport wall stands at this rung.
+
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:221`,
+`82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
+outer none. The row states plainly the thing a rider count alone would hide —
+***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
+`v7`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes `0 ≤ R.x` and is dropped, so the instance makes
+no outer-scale demand at all. The `∃`-prefix is `v7`'s verbatim; `v7` is byte-untouched and
+remains the object of record.
+
+⚖️ Every row verified AT THE BYTES before it was written, not copied from the landing post:
+name, `file:line` and statement shape read from the source; date and commit by pickaxe over
+each file's own history (`git log -S"theorem <name>" --reverse`). `results_lint: OK`.
+
+---
+
+## ✅ (2026-08-15, REGISTRY DOCS SWEEP) ⟦THE TWO FOUR-RIDER ARMS REGISTERED — `_csarm` AND `_T0arm` ARE **INCOMPARABLE BY CONSTRUCTION**, AND NO ROW CALLS EITHER ONE THE STRONGEST⟧
+
+**Opus executor, docs only.** Authority: **T2-A Option A, the Captain's word at the 08/15
+sitting**. Two rows added to `RESULTS.md` §8, both dated by pickaxe rather than by the
+ceremony that followed them:
+
+```
+logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:177    2026-08-14  8b0bd31  ledger MR/All.lean:7821
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1839   2026-08-14  8b03281  ledger MR/All.lean:7856
+```
+
+**FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
+`e^{-100} ≤ cs` arrow is GONE — the floor is **delivered as a proven conjunct of the
+`∃`-prefix**, carried up all nine hops from the two leaves that mint the constant
+(`c_vk = 1/10^8`, `c₀ = 1/10^9`) — leaving `T₀`-sharp, `Ks`, `XCeilRiderStrict ε g`, the
+`K_vt` cushion. `_T0arm` (V7-C): the `T₀ ≤ exp(√(flatDesignBase A)/2)` arrow is GONE — `T₀`
+is minted before the design constant and is `A`-independent, so it joins `A`'s `max` as a
+sixth arm and the tolerance clears it by three exponential levels — leaving `cs`, `Ks`,
+`XCeilRiderStrict ε g`, the `K_vt` cushion.
+
+🔑 ***THE INCOMPARABILITY IS THE POINT, and both rows say it in their own bytes: each arm
+discharges a DIFFERENT rider of `v6`, and neither implies the other. No row calls either one
+"the strongest".*** The composition of the two is a separate object — the mint,
+`logChowla2_ineffective_v7`, registered in the entry above at three riders.
+
+**THE SHARPNESS CLAIM, stated where it is provable.** `_T0arm`'s row carries
+`t0_arm_four_levels_fails` (`V7C.lean:121`): the FOURTH exponential level fails at **every**
+`A ≥ 162`, not only at the design floor — the generalization landed at `02495bc`, after the
+arm itself. So the three-level margin is sharp in tower height rather than merely true.
+
+⚖️ Both rows carry the mint's scope fences verbatim (opaque tolerance floored at `1/500`, the
+window `(x/ω, x]`, the shift `n + 1`, ineffective constants, twins untouched), and both note
+that `v6` is byte-untouched and remains citable. No `[SUPERSEDED → …]` mark was placed on the
+`v6` row: `v6` is not retired by either arm, and this sweep is append-only by its charter.
+
+---
+
+## ✅ (2026-08-15, REGISTRY DOCS SWEEP) ⟦THE WALL-L2 PAIR REGISTERED — `parity_wall_corr_stable` (§7) AND `spine_eps_constant_floor` (§8), IN THE STRENGTHENING/CONSUMPTION-FENCE FRAME⟧
+
+**Opus executor, docs only.** Authority: **T2-A Option A, the Captain's word at the 08/15
+sitting**. Both landed together at `7c82089`.
+
+**`Salt.TwinBar.parity_wall_corr_stable`** (`Salt/TwinBar/WallCorr.lean:220`, ledger
+`Salt/TwinBar/All.lean:178`) — the row is written as a **strengthening of a NEGATIVE
+theorem**: `parity_wall_unconditional`'s cap holds VERBATIM at `s₋ x` for the strictly larger
+class of certificates that need only be tolerant with respect to `SieveAgreeCorr`, so reading
+the sieves' shift-2 correlation field on top of the three main-term fields buys a certificate
+nothing at the wall's own witnesses. The row states why it is a strengthening and not a
+restatement (`SieveAgreeCorr → SieveAgree`, so the tolerance hypothesis is WEAKER than the
+landed wall's; the content is that the witness pair really does agree in the widened field —
+the `λλ` cross-term cancels between `s₊`/`s₋` and the surviving one-point gap is
+`mmuRate`-controlled unconditionally). 🔑 ***Nothing escapes the wall, crosses it, or evades
+it: no lower bound, no positive rung, no statement about twin primes.***
+
+**`Salt.Entropy.Chowla.spine_eps_constant_floor`** (`Salt/Entropy/Chowla/SpineEpsFence.lean:102`,
+ledger `Salt/Entropy/All.lean:420`) — the row is written as a **consumption fence**. The
+certificate is a CONSTANT: `log_chowla_two_budget_head`'s conclusion is restated verbatim (so
+a change of shape from a single `ε` to an `∀ ε`-family would stop type-checking there), and
+the fence is adjoined at that same `ε` — for any consumer demand `W` with `W z → 0`, the
+demand `ε ≤ W z` fails from some scale on. 🔑 ***The fence exists to stop a future wave
+miswiring the constant-`ε` terminal (the `MR` mint's `1/500 ≤ ε` is the same shape) into a
+slot that needs a RATE.*** It is a fact about the terminal's shape, not about the strength of
+its proof.
+
+⚖️ **Zero twin claims in either row**, by the ruling and by the objects: the wall row says it
+proves no lower bound and opens no positive rung; the fence row says no claim about twins,
+about Chowla, or about the wall is made or implied.
+
+---
+
+## ✅ (2026-08-15, REGISTRY DOCS SWEEP) ⟦THE WALL-L1 FAMILY REGISTERED — FIVE §7 ROWS IN THE BOUNDARY-MAP-COMPLETION FRAME, ZERO FLAGSHIP INCHES⟧
+
+**Opus executor, docs only.** Authority: **T2-A Option A, the Captain's word at the 08/15
+sitting**. All five landed at `6332c2d` in `Salt/Entropy/Chowla/PinDichotomy.lean`, and all
+five rows sit in `RESULTS.md` §7 (TwinBar / Parity) beside the wall they complete, with the
+ledger `Salt/Entropy/All.lean:454`:
+
+```
+twinDetecting'_imp                 :82    the strength law — TwinDetecting' ⟹ TwinDetecting
+blind_iff_const_fails_unguarded    :119   the guard's necessity, read from the far side
+blind_iff_const                    :137   THE PIN DICHOTOMY
+pin_iff_detecting                  :211   the pin IS detection (pinned_door / pin_minimal)
+liouville_pinned                   :260   the class is inhabited away from the constant weight
+```
+
+🔑 ***THE EXACT DICHOTOMY, as the row states it: inside the slot class (`PmNormalized` +
+`PairCollapse`), twin-blindness is a SINGLE POINT — `¬ TwinDetecting' w` is equivalent to
+`w n = 1` for every `n ≥ 1`.*** The row carries the route in the order the proof runs it:
+global constancy of the pair correlation `k ↦ w k · w (k+2)` before anything else (both classes
+inhabited,
+at the twin start `3` and the non-twin start `1`), then the seeds `n ∈ {1, 2, 4}` pinning the
+constant to `+1` through complete multiplicativity, then the step `k ↦ k + 2` carrying `+1`
+over every index.
+
+**THE GUARD'S NECESSITY IS KERNEL-VISIBLE (T2c), and the row says so at the bytes.** The
+slack witness (`5` at `0`, `1` elsewhere) passes both slots and satisfies the landed
+unguarded `TwinDetecting` at `(m, n) = (3, 0)` while being constantly `1` on `n ≥ 1`
+(`slack_witness_twinDetecting`, :98; the guard rejects it at :110). So the `1 ≤ n` conjunct
+is necessary rather than stylistic — and re-guarding the frozen definition in place would
+make that statement unprovable and break the build. The fence is kernel-borne, not
+prose-borne. The polarity row records the other half: `TwinDetecting'` is the STRONGER
+predicate, so the landed unguarded definition carries the stronger wall and is never replaced;
+`TransportWall.lean` is byte-untouched.
+
+**THE PIN, AND THE INHABITANT.** `pin_iff_detecting` is the contrapositive — one pinned sign
+at `n ≥ 1` is exactly detection, the bottom element of the detection-sufficient hypotheses
+above the slots, dual to `no_slot_derived_twin_linkage`. `liouville_pinned` puts `λ` on the
+detecting side at the separator `(3, 7)`, so the dichotomy is vacuous on neither side; its
+descent route carries its own positive control at `scripts/l1_gf2_control.py`.
+
+⚖️ **No new claim about twins — boundary-map completion, zero flagship inches**, in every one
+of the five rows.
+
+📌 **ALSO IN THIS SWEEP, at the foot of `RESULTS.md`:** the `⚠ unaudited` standing chore (the
+audit-gap era) gained a sub-bullet pointing at ⟦CLOSED 08/15 at the sitting —
+STALE-ON-ARRIVAL⟧ in this file, with the three ledger sites and the fresh 08/15
+re-verification receipt. **No row in `RESULTS.md` carries `⚠ unaudited` today**; the register
+is 84 rows and `results_lint` is green.
