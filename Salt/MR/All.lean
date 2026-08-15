@@ -366,6 +366,7 @@ import Salt.MR.V7B
 import Salt.MR.V7C
 import Salt.MR.V7E
 import Salt.MR.V7Ks
+import Salt.MR.V7Headline
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7931,3 +7932,36 @@ remain citable. -/
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin
   Salt.MR.logChowla2_ineffective_v7_ksarm
   Salt.MR.logChowla2_ineffective_v7_of_ksarm
+
+
+/-! ⟦KSARM AT `g ≡ 0` — `logChowla2_ineffective_v7_ksarm_g0`⟧ (`V7Headline`, 2026-08-15).
+
+⟦THE INSTANCE⟧ `logChowla2_ineffective_v7_ksarm_g0` — the `ksarm` terminal read at the trivial
+outer-scale request `g ≡ 0`: **one** named inner rider (the Siegel-genre `K_vt` cushion), outer
+hypotheses none, at one opaque tolerance and one produced window.
+
+⟦WHAT MOVED, AND WHAT IT COST⟧ `…_ksarm`'s first inner rider, `XCeilRiderStrict ε g`, is a
+property of the function the CALLER supplies as its outer-scale request.  It is not discharged
+in general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
+already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1760) to read the
+`ε`-ceiling; `xceilRiderStrict_zero` names it so the terminal can cite it.  The price is in the
+conclusion: `…_ksarm`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes `0 ≤ R.x`, vacuous of every regime
+(`R.x : ℕ`), and is DROPPED, so the instance makes NO outer-scale demand.  The `∃`-prefix is
+`…_ksarm`'s verbatim; the surviving rider is `…_ksarm`'s unchanged.
+
+⟦THE RELATION TO `logChowla2_ineffective_v7_g0`⟧ this statement is `V7E`'s `_g0` minus the single
+line `Real.exp (-100) ≤ Ks →`, so `_g0` is DERIVABLE from it with the same witnesses (introduce
+the `Ks` hypothesis vacuously).  The derivation is stated, not landed — no declaration here
+discharges `_g0`.
+
+⟦SCOPE, IN THE STATEMENT'S OWN BYTES⟧ the tolerance is OPAQUE and bounded from below only
+(`1 / 500 ≤ ε`, with the regime's `ε ≤ 1/2`) — one produced `ε`, not every `ε`, and no named
+value; the window is `(x/ω, x]` weighted by `1/n` against `ε · log ω`
+(`ChowlaFailure.lean:59-63`), a windowed partial sum and not the full logarithmic average over
+`n ≤ x` against `log x`; the shift is `n + 1` (the `2` counts the factors); ineffective — `A`
+through `Classical.choice`, and after the `ksarm` rethread `A` carries Siegel's constant too,
+through its seventh `max` arm `16·log(1/Ks)/3`, alongside the `K_vt` cushion it indexes; twins
+untouched — the transport wall stands at this rung.  `logChowla2_ineffective_v7_ksarm` is
+byte-untouched and remains the object of record. -/
+#audit_axioms Salt.MR.xceilRiderStrict_zero
+  Salt.MR.logChowla2_ineffective_v7_ksarm_g0
