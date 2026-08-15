@@ -86,6 +86,7 @@ import Salt.Entropy.Chowla.TowerFlatExport
 import Salt.Entropy.Chowla.TowerFlatBuilder
 import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.SpineEpsFence
+import Salt.Entropy.Chowla.PinDichotomy
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -419,3 +420,43 @@ No new claim about Chowla, the door, or twins. -/
 #audit_axioms Salt.Entropy.Chowla.margin_fails_vanishing_demand
   Salt.Entropy.Chowla.margin_not_forall_of_vanishing_demand
   Salt.Entropy.Chowla.spine_eps_constant_floor
+
+/-! ⟦WALL-L1 — THE PIN DICHOTOMY⟧ (`PinDichotomy`, 2026-08-15).
+
+THE GUARD.  `TwinDetecting'` is `TransportWall.lean`'s `TwinDetecting` with the
+non-twin index held away from `0` (the added conjunct `1 ≤ n`).  It lands BESIDE the
+frozen definition and is used only in this file's door and dichotomy statements;
+`TransportWall.lean` is byte-untouched.
+
+THE STRENGTH LAW, WITH ITS POLARITY.  `twinDetecting'_imp` freezes the direction in
+the kernel: `TwinDetecting' w → TwinDetecting w`.  The guarded notion is the STRONGER
+predicate, so the UNGUARDED one gives the stronger wall — substituting `TwinDetecting'`
+into `orthogonality_wall` or `no_slot_derived_twin_linkage` would weaken both while
+leaving them true and green, a regression the kernel cannot see.
+
+THE ANTI-REPAIR FENCE, in three theorems.  `slack_witness_twinDetecting` exhibits a
+weight (`5` at `0`, `1` elsewhere) that passes both slots and satisfies the landed
+`TwinDetecting` at `(m, n) = (3, 0)` while detecting nothing — so re-guarding the
+landed definition in place would make that statement UNPROVABLE and break the build.
+`slack_witness_not_twinDetecting'` shows the guard rejects it, and
+`blind_iff_const_fails_unguarded` states the fence from the far side: at the landed
+unguarded definition the dichotomy below is FALSE, so the guard is necessary rather
+than stylistic.
+
+THE DICHOTOMY.  `blind_iff_const` — inside the slot class, `¬ TwinDetecting' w` iff
+`w n = 1` for all `n ≥ 1`.  `pin_iff_detecting` (with `pinned_door` / `pin_minimal`)
+is its contrapositive: one pinned sign at `n ≥ 1` is exactly detection, the bottom
+element of the detection-sufficient hypotheses above the slots.  `liouville_pinned`
+inhabits the other side at the separator `(3, 7)`.  The descent's route carries a
+`GF(2)` positive control at `scripts/l1_gf2_control.py`.
+
+Scope: no new claim about twins — boundary-map completion, zero flagship inches. -/
+#audit_axioms Salt.Entropy.Chowla.twinDetecting'_imp
+  Salt.Entropy.Chowla.slack_witness_twinDetecting
+  Salt.Entropy.Chowla.slack_witness_not_twinDetecting'
+  Salt.Entropy.Chowla.blind_iff_const_fails_unguarded
+  Salt.Entropy.Chowla.blind_iff_const
+  Salt.Entropy.Chowla.pin_iff_detecting
+  Salt.Entropy.Chowla.pinned_door
+  Salt.Entropy.Chowla.pin_minimal
+  Salt.Entropy.Chowla.liouville_pinned

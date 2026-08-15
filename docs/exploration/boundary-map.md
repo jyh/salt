@@ -192,6 +192,37 @@ refutes slot-satisfaction alone; the strong wall (no CM±1 weight
 controls the twin carrier through the spine) is the Chowla-family
 open problem, prose-only.
 
+**The satisfier class, mapped exactly (wall-L1, 2026-08-15).**
+`Salt/Entropy/Chowla/PinDichotomy.lean` completes the picture the
+wall leaves open: inside the slot class twin-blindness is a single
+point. `blind_iff_const` — for `PmNormalized` + `PairCollapse`
+weights, failing twin detection is EQUIVALENT to `w n = 1` at
+every `n ≥ 1` (the pair correlation is globally constant, the
+seeds `n ∈ {1,2,4}` pin the constant to `+1`, and the step
+`k ↦ k+2` carries `+1` over every index; the route's sufficiency
+has its own `GF(2)` control at `scripts/l1_gf2_control.py`).
+Contrapositive: `pin_iff_detecting` (with `pinned_door` /
+`pin_minimal`) makes ONE pinned sign `w n = -1`, `n ≥ 1`, exactly
+detection — the computed bottom element of the
+detection-sufficient hypotheses above the slots, dual to
+`no_slot_derived_twin_linkage`; `liouville_pinned` inhabits the
+detecting side at the separator `(3,7)`. The statements use a
+GUARDED notion `TwinDetecting'` (`TwinDetecting` plus `1 ≤ n`),
+landed BESIDE the frozen definition, never replacing it: the
+n = 0 slack in the landed definition is real, and
+`slack_witness_twinDetecting` freezes the witness — `5` at `0`,
+`1` elsewhere — which passes both slots and satisfies
+`TwinDetecting` at `(m,n) = (3,0)` while detecting nothing.
+Because `twinDetecting'_imp` runs `TwinDetecting' ⟹
+TwinDetecting`, the UNGUARDED definition is what makes
+`orthogonality_wall` and `no_slot_derived_twin_linkage` the
+stronger theorems, so `TransportWall.lean` stays byte-frozen; the
+kernel holds the fence (`blind_iff_const_fails_unguarded` shows
+the dichotomy is FALSE at the unguarded definition, and any
+in-place re-guarding would make the slack witness unprovable and
+break the build). Scope unchanged: boundary-map completion, no
+claim about twins.
+
 ## TD-R2a verdict (adjudicated): REDESIGN-VACUOUS — and THE
 ## POLARITY FINDING
 
