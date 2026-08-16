@@ -88,6 +88,7 @@ import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.SpineEpsFence
 import Salt.Entropy.Chowla.PinDichotomy
 import Salt.Entropy.Chowla.ShiftFork
+import Salt.Entropy.Chowla.SignSplit
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -578,3 +579,49 @@ moved, and no statement is made at any particular `h`. -/
   Salt.Entropy.Chowla.MRTUniformityXiL2H
   Salt.Entropy.Chowla.mrtUniformityXiL2_eq_xiL2H_one
   Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H
+
+/-! ⟦SIGN SPLIT — THE TWO-SIDED MASS FLOOR⟧ (`SignSplit`, 2026-08-15).
+
+THE OBJECTS.  `agreeMass x ω` and `disagreeMass x ω` are the `1/n`-weighted masses of
+the two `λ(n)·λ(n+1)` sign classes inside the log-Chowla window `(x/ω, x]`.  Both are
+UNCONDITIONAL in `x` and `ω` — no regime hypothesis enters the definitions or the two
+identities beneath them, and the filter predicates are integer inequalities decided by
+`Int.decLt`.  `λ` vanishes only at `0` and `window_one_le` puts every window element at
+`≥ 1`, so the two classes exhaust the window: `agreeMass_add_disagreeMass` is the
+partition `A + D = Σ 1/n`, and `agreeMass_sub_disagreeMass` identifies `A − D` with
+exactly the sum whose absolute value `logChowla2Fails` compares against `ε·log ω`.  The
+`±1` alphabet of `λ` is used in the second identity and in no other proof of the file.
+
+THE FLOOR.  `sign_split_of_not_fails` is parametric in the regime and takes the plain
+hypothesis `¬ logChowla2Fails R.eps R.x R.ω`: from the two identities plus
+`harmonic_window_bounds` alone, each mass is `≥ ((1 − ε)·log ω − 1)/2`.  There is no
+case split, no minimum lemma and no sign hypothesis — `abs_le` and `linarith` close both
+conjuncts — and the chain is NON-STRICT end to end, an equality at `A = D`.
+`sign_split_quarter_log` weakens it to the `ε`-free `(1/4)·log ω − 1/2` from `R.heps1`
+together with `0 ≤ log ω`; that second hypothesis is consumed, since the `(1 − ε) → 1/2`
+step multiplies through by `log ω` and would reverse without it.
+
+THE DOOR IT COSTS.  `sign_split_door_only` instantiates the parametric form at the
+spine's witnessed regime through `log_chowla_two_door_only_xi`, so its ONE hypothesis is
+the `Ξ_H`-restricted MRT door `MRTUniformityXi` — not the `∀ α` door, and nothing else.
+
+NON-VACUITY, IN THE KERNEL.  `regime_logOmega_ge` re-derives `129 ≤ Real.log R.ω` at
+every regime from `hωbig`, `heps1` and `hPNTwindow` — the same three ingredients
+`Salt.MR.s13_logOmega_ge` runs to the weaker `4`, repeated in the leaf because that file
+sits downstream.  Hence `sign_split_pos`: the floor is `≥ 31.75`, not an empty
+inequality.  `sign_split_fifth` restates the content against the window's own mass
+`Z = Σ 1/n` — each class carries at least `Z/5` — and the constant `5` is what this
+route yields, not a sharpness claim.
+
+SCOPE, SAID OUT LOUD.  Log-weighted, at the single `ε` the spine fixes, at ONE regime,
+conditional on the door.  It is a non-degeneracy bound: neither sign class is
+asymptotically empty in the harmonic weighting on that window.  No statement is made or
+moved about Chowla's conjecture, about the supply of the door, or about twins. -/
+#audit_axioms Salt.Entropy.Chowla.agreeMass_add_disagreeMass
+  Salt.Entropy.Chowla.agreeMass_sub_disagreeMass
+  Salt.Entropy.Chowla.regime_logOmega_ge
+  Salt.Entropy.Chowla.sign_split_of_not_fails
+  Salt.Entropy.Chowla.sign_split_door_only
+  Salt.Entropy.Chowla.sign_split_quarter_log
+  Salt.Entropy.Chowla.sign_split_pos
+  Salt.Entropy.Chowla.sign_split_fifth
