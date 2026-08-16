@@ -910,4 +910,336 @@ theorem circle_method_estimate_sq (C₀ : ℝ) (hC₀ : 0 < C₀) :
     have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
     rw [hmid]; simp
 
+/-! ### ⟦THE `h`-FAMILY ENGINE ROOM⟧ — the circle-method estimate at offset `p·h` (wave W-F2)
+
+The estimate above runs at the model offset `p` (Tao 1509.05422 at `h = 1`).  This block
+opens the same machine at the offset `p·h`, ADDITIVELY: `circle_method_estimate`,
+`fourier_split`, `T_collapse` and `periodization_total` keep every byte, and the offset-
+and frequency-general lemmas (`correlation_dft`, `expSum_eq_char_sum`,
+`perprime_diff_norm_le`, `dft_l1_reflect`, `dft_norm_le_card`, `expSum_norm_le_major`)
+are REUSED rather than cloned.
+
+WHERE THE TWIST GOES.  At offset `p·h` the character factor is
+`e(−(p·h)ξ/H) = e(−p·((h : ZMod H)·ξ)/H)` (`Nat.cast_mul` and associativity), so
+`expSum_eq_char_sum` fires at the frequency `(h : ZMod H)·ξ` while the two surviving DFT
+factors stay at the UNTWISTED `ξ` and `−ξ`.  The twist therefore lives in exactly one
+place — WHICH frequencies are large-spectrum — and `bigXiTwistFilter` is that set,
+spelled on the `ZMod` side so that the shift fork's own large-spectrum set matches it
+verbatim.
+
+WHY THE SET IS DEFINED HERE.  `Salt.Entropy.Chowla.ShiftFork` IMPORTS this module, so
+naming its objects here would be an import cycle; the wrapper that re-states the estimate
+over the fork's set lives on the ShiftFork side, and this file stays import-closed.
+
+`0 < h` is CONSUMED TWICE in `circle_method_estimate_h_core`: the constant
+`h·(1 + 2·C₀)` is positive only then, and at `H = 1` the vanishing of the window
+correlation needs `1 ≤ p·h`, which `Nat.mul_pos` supplies.  At `h = 0` the statement is
+FALSE at `H = 1`, not merely unprovable. -/
+
+/-- **The twisted large-spectrum set** — the `ξ ∈ ℤ/Hℤ` whose `h`-MULTIPLE is
+large-spectrum: `|S_H(−((h·ξ).val)/H)| ≥ ε²/log H`.  At `h = 1` this is `bigXi` up to the
+`Nat.cast_one`/`one_mul` rewrite; at general `h` it is the `μ_h`-preimage of `bigXi`
+under `ξ ↦ (h : ZMod H)·ξ`.  The `ZMod`-side spelling of the twist is deliberate: it
+makes the shift fork's set equal to this one by a filter congruence rather than by a
+periodicity argument. -/
+noncomputable def bigXiTwistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
+    Finset (ZMod H) := by
+  classical
+  exact Finset.univ.filter (fun ξ : ZMod H =>
+    (eps : ℝ) ^ 2 / Real.log (H : ℝ)
+      ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖)
+
+-- membership in the twisted large-spectrum set
+private lemma mem_bigXiTwistFilter {h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
+    ξ ∈ bigXiTwistFilter h eps H ↔
+      (eps : ℝ) ^ 2 / Real.log (H : ℝ)
+        ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ := by
+  unfold bigXiTwistFilter
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+
+-- T collapse at offset `p·h`: the DFT factors stay untwisted, the exponential moves
+private lemma T_collapse_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ₁ Φ₂ : ZMod H → ℂ) :
+    (H : ℂ) * ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        ∑ m : ZMod H, Φ₁ m * Φ₂ (m + (((p : ℕ) * h : ℕ) : ZMod H))
+      = ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+          expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ)) := by
+  have hfreq : ∀ (q : ℕ) (ξ : ZMod H),
+      -(((q * h : ℕ) : ZMod H) * ξ) = -(((q : ℕ) : ZMod H) * ((h : ZMod H) * ξ)) := by
+    intro q ξ
+    push_cast
+    ring
+  calc (H : ℂ) * ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        ∑ m : ZMod H, Φ₁ m * Φ₂ (m + (((p : ℕ) * h : ℕ) : ZMod H))
+      = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+          ((H : ℂ) * ∑ m : ZMod H, Φ₁ m * Φ₂ (m + (((p : ℕ) * h : ℕ) : ZMod H))) := by
+        rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun p _ => by ring)
+    _ = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+          ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+            ZMod.stdAddChar (-(((p : ℕ) : ZMod H) * ((h : ZMod H) * ξ))) := by
+        refine Finset.sum_congr rfl (fun p _ => ?_)
+        rw [correlation_dft Φ₁ Φ₂ (((p : ℕ) * h : ℕ) : ZMod H)]
+        congr 1
+        exact Finset.sum_congr rfl (fun ξ _ => by rw [hfreq (p : ℕ) ξ])
+    _ = ∑ p : primeWindow eps H, ∑ ξ : ZMod H, (1 / ((p : ℕ) : ℂ)) *
+          (ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+            ZMod.stdAddChar (-(((p : ℕ) : ZMod H) * ((h : ZMod H) * ξ)))) := by
+        exact Finset.sum_congr rfl (fun p _ => by rw [Finset.mul_sum])
+    _ = ∑ ξ : ZMod H, ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+          (ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+            ZMod.stdAddChar (-(((p : ℕ) : ZMod H) * ((h : ZMod H) * ξ)))) :=
+        Finset.sum_comm
+    _ = ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+          ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+            ZMod.stdAddChar (-(((p : ℕ) : ZMod H) * ((h : ZMod H) * ξ))) := by
+        refine Finset.sum_congr rfl (fun ξ _ => ?_)
+        rw [Finset.mul_sum]
+        exact Finset.sum_congr rfl (fun p _ => by ring)
+    _ = ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+          expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ)) := by
+        exact Finset.sum_congr rfl
+          (fun ξ _ => by rw [← expSum_eq_char_sum ((h : ZMod H) * ξ)])
+
+-- total periodization at offset `p·h`: the per-prime wrap is `p·h`, so the total is `h·|𝒫_H|`
+private lemma periodization_total_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) {x1 x2 : Fin H → ℤ}
+    (hx1 : ∀ i, |x1 i| ≤ 1) (hx2 : ∀ i, |x2 i| ≤ 1) :
+    ‖∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        (((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+            (windowVal H x2 (j + (p : ℕ) * h) : ℝ) : ℝ) : ℂ)
+          - ∑ m : ZMod H, ((windowVal H x1 m.val : ℤ) : ℂ) *
+              ((windowVal H x2 (m + (((p : ℕ) * h : ℕ) : ZMod H)).val : ℤ) : ℂ))‖
+      ≤ (h : ℝ) * ((primeWindow eps H).card : ℝ) := by
+  calc ‖∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        (((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+            (windowVal H x2 (j + (p : ℕ) * h) : ℝ) : ℝ) : ℂ)
+          - ∑ m : ZMod H, ((windowVal H x1 m.val : ℤ) : ℂ) *
+              ((windowVal H x2 (m + (((p : ℕ) * h : ℕ) : ZMod H)).val : ℤ) : ℂ))‖
+      ≤ ∑ p : primeWindow eps H, ‖(1 / ((p : ℕ) : ℂ)) *
+          (((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+              (windowVal H x2 (j + (p : ℕ) * h) : ℝ) : ℝ) : ℂ)
+            - ∑ m : ZMod H, ((windowVal H x1 m.val : ℤ) : ℂ) *
+                ((windowVal H x2 (m + (((p : ℕ) * h : ℕ) : ZMod H)).val : ℤ) : ℂ))‖ :=
+        norm_sum_le _ _
+    _ ≤ ∑ _p : primeWindow eps H, (h : ℝ) := by
+        refine Finset.sum_le_sum (fun p _ => ?_)
+        rw [norm_mul, norm_div, norm_one, Complex.norm_natCast]
+        have hp0 : (0 : ℝ) < ((p : ℕ) : ℝ) := by
+          exact_mod_cast (prime_of_mem_primeWindow p.2).pos
+        rw [div_mul_eq_mul_div, one_mul, div_le_iff₀ hp0]
+        refine le_trans (perprime_diff_norm_le hx1 hx2 ((p : ℕ) * h)) (le_of_eq ?_)
+        push_cast
+        ring
+    _ = (h : ℝ) * ((primeWindow eps H).card : ℝ) := by
+        rw [Finset.sum_const, Finset.card_univ, Fintype.card_coe, nsmul_eq_mul, mul_comm]
+
+/-- **The Fourier split at the twisted frequency** — the `fourier_split` clone
+(`CircleMethod.lean:378-437`) whose exponential sum sits at `−((h·ξ).val)/H` and whose
+major arm is summed over `bigXiTwistFilter h eps H`.
+
+It is a CLONE and not an instance: `fourier_split` pins its frequency at the untwisted
+`ξ.val` and its set at `bigXi`, and the reindexing `ξ ↦ h·ξ` that would relate them is
+unavailable exactly when `gcd(h,H) > 1` — the case the fiber bound
+(`bigXiH_card_le_gcd_mul`, `ShiftFork.lean`) exists for.  The two DFT factors are
+untouched: they stay at `ξ` and `−ξ`. -/
+theorem fourier_split_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ₁ Φ₂ : ZMod H → ℂ)
+    (h1 : ∀ j, ‖Φ₁ j‖ ≤ 1) (h2 : ∀ j, ‖Φ₂ j‖ ≤ 1)
+    {C₀ : ℝ} (hC₀ : 0 < C₀) (hlog : 0 < Real.log (H : ℝ))
+    (hcard : ((primeWindow eps H).card : ℝ) ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :
+    ‖∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+        expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+        + (2 * C₀ * (H : ℝ) / Real.log (H : ℝ)) *
+            ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ₁ ξ‖ := by
+  classical
+  set g : ZMod H → ℝ := fun ξ =>
+    ‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖ *
+      ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ with hg
+  have hstep1 : ‖∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+      expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ ≤ ∑ ξ : ZMod H, g ξ := by
+    refine (norm_sum_le _ _).trans (le_of_eq ?_)
+    refine Finset.sum_congr rfl (fun ξ _ => ?_)
+    rw [hg]; simp only; rw [norm_mul, norm_mul]
+  refine hstep1.trans ?_
+  rw [← Finset.sum_filter_add_sum_filter_not Finset.univ
+    (fun ξ => ξ ∈ bigXiTwistFilter h eps H) g]
+  have hfilt : Finset.univ.filter (fun ξ => ξ ∈ bigXiTwistFilter h eps H)
+      = bigXiTwistFilter h eps H := by
+    ext ξ; simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+  have hmajor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ξ ∈ bigXiTwistFilter h eps H), g ξ
+      ≤ (2 * C₀ * (H : ℝ) / Real.log (H : ℝ)) *
+          ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ₁ ξ‖ := by
+    rw [hfilt, Finset.mul_sum]
+    refine Finset.sum_le_sum (fun ξ _ => ?_)
+    rw [hg]; simp only
+    have hb2 : ‖ZMod.dft Φ₂ (-ξ)‖ ≤ (H : ℝ) := dft_norm_le_card Φ₂ h2 (-ξ)
+    have hbe : ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+        ≤ 2 * C₀ / Real.log (H : ℝ) := expSum_norm_le_major hC₀ hlog hcard _
+    calc ‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖ *
+          ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+        ≤ ‖ZMod.dft Φ₁ ξ‖ * (H : ℝ) * (2 * C₀ / Real.log (H : ℝ)) := by gcongr
+      _ = 2 * C₀ * (H : ℝ) / Real.log (H : ℝ) * ‖ZMod.dft Φ₁ ξ‖ := by ring
+  have hminor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H), g ξ
+      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by
+    have hle : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H), g ξ
+        ≤ ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
+            ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) * (‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖) := by
+      refine Finset.sum_le_sum (fun ξ hξ => ?_)
+      rw [Finset.mem_filter] at hξ
+      have hlt : ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+          < (eps : ℝ) ^ 2 / Real.log (H : ℝ) :=
+        not_le.mp (fun hle' => hξ.2 (mem_bigXiTwistFilter.mpr hle'))
+      rw [hg]; simp only
+      calc ‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖ *
+            ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+          ≤ ‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖ * ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) := by
+            gcongr
+        _ = (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖) := by ring
+    refine hle.trans ?_
+    rw [← Finset.mul_sum]
+    have hl1 : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
+        (‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖)
+          ≤ ∑ ξ : ZMod H, ‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖ :=
+      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun ξ _ _ => by positivity)
+    have hl2 := dft_l1_reflect Φ₁ Φ₂ h1 h2
+    calc (eps : ℝ) ^ 2 / Real.log (H : ℝ) *
+          ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
+            (‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖)
+        ≤ (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (H : ℝ) ^ 2 :=
+          mul_le_mul_of_nonneg_left (hl1.trans hl2) (div_nonneg (by positivity) hlog.le)
+      _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring
+  linarith [hmajor, hminor]
+
+/-- **The circle-method estimate at offset `p·h`** — the `h`-family core of Tao's Lemma 3.4
+(1509.05422 (3.18)), stated over the twisted large-spectrum set `bigXiTwistFilter h`.
+
+Everything is as in `circle_method_estimate` except the offset (`p ↦ p·h`) and the
+frequency set: the periodization's per-prime wraparound is now `p·h` places, so the total
+wrap error is `h·|𝒫_H|` rather than `|𝒫_H|`, and the output constant is
+`C = h·(1 + 2·C₀)` — the wrap multiplies the PERIODIZATION coefficient `C₀`, so the two
+binding constraints are `C ≥ 1 + h·C₀` (the `ε²` arm) and `C ≥ 2·C₀` (the Fourier arm),
+both met by `h·(1 + 2·C₀)` for `h ≥ 1` and by no constant of the form `h + 2·C₀`.
+
+`0 < h` is consumed twice and is not cosmetic: it makes the constant positive, and at
+`H = 1` it supplies `1 ≤ p·h`, without which the window correlation does not vanish and
+the statement is FALSE rather than merely unproven. -/
+theorem circle_method_estimate_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 x2 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) → (∀ i, |x2 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x2 (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiTwistFilter h eps H, (1 / (H : ℝ)) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖) := by
+  have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  refine ⟨(h : ℝ) * (1 + 2 * C₀), mul_pos hhR (by positivity), ?_⟩
+  intro eps H _ x1 x2 hx1 hx2 hcard
+  by_cases hH2 : 2 ≤ H
+  · -- main regime: H ≥ 2, so log H > 0
+    have hH1r : (1 : ℝ) < (H : ℝ) := by exact_mod_cast hH2
+    have hlog : 0 < Real.log (H : ℝ) := Real.log_pos hH1r
+    have hHpos : (0 : ℝ) < (H : ℝ) := by linarith
+    set Φ₁ : ZMod H → ℂ := fun m => ((windowVal H x1 m.val : ℤ) : ℂ) with hΦ₁
+    set Φ₂ : ZMod H → ℂ := fun m => ((windowVal H x2 m.val : ℤ) : ℂ) with hΦ₂
+    have h1 : ∀ j, ‖Φ₁ j‖ ≤ 1 := fun j => windowVal_c_norm_le hx1 j
+    have h2 : ∀ j, ‖Φ₂ j‖ ≤ 1 := fun j => windowVal_c_norm_le hx2 j
+    set S : ℝ := ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ₁ ξ‖ with hS
+    set L : ℝ := ∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+        ∑ j ∈ Finset.range H,
+          (windowVal H x1 j : ℝ) * (windowVal H x2 (j + (p : ℕ) * h) : ℝ) with hL
+    set T : ℂ := ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        ∑ m : ZMod H, Φ₁ m * Φ₂ (m + (((p : ℕ) * h : ℕ) : ZMod H)) with hT
+    set W : ℂ := ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) *
+        expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ)) with hW
+    -- collapse and split, at the twisted frequency
+    have hWT : (H : ℂ) * T = W := T_collapse_h h Φ₁ Φ₂
+    have hTnorm : (H : ℝ) * ‖T‖ = ‖W‖ := by
+      rw [← hWT, norm_mul, Complex.norm_natCast]
+    have hnormW : ‖W‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+        + (2 * C₀ * (H : ℝ) / Real.log (H : ℝ)) * S :=
+      fourier_split_h h Φ₁ Φ₂ h1 h2 hC₀ hlog hcard
+    -- cast L and periodize (the wrap is now `p·h` places per prime)
+    have hLcast : ((L : ℝ) : ℂ) = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        ((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+          (windowVal H x2 (j + (p : ℕ) * h) : ℝ) : ℝ) : ℂ) := by
+      rw [hL, Complex.ofReal_sum]
+      refine Finset.sum_congr rfl (fun p _ => ?_)
+      push_cast
+      ring
+    have hdiff : ((L : ℝ) : ℂ) - T = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        (((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+            (windowVal H x2 (j + (p : ℕ) * h) : ℝ) : ℝ) : ℂ)
+          - ∑ m : ZMod H, ((windowVal H x1 m.val : ℤ) : ℂ) *
+              ((windowVal H x2 (m + (((p : ℕ) * h : ℕ) : ZMod H)).val : ℤ) : ℂ)) := by
+      rw [hLcast, hT, ← Finset.sum_sub_distrib]
+      exact Finset.sum_congr rfl (fun p _ => by rw [mul_sub])
+    have hperiod : ‖((L : ℝ) : ℂ) - T‖ ≤ (h : ℝ) * ((primeWindow eps H).card : ℝ) := by
+      rw [hdiff]; exact periodization_total_h h hx1 hx2
+    -- assemble
+    have hLT : |L| ≤ ‖T‖ + (h : ℝ) * ((primeWindow eps H).card : ℝ) := by
+      have hna := norm_add_le T (((L : ℝ) : ℂ) - T)
+      rw [add_sub_cancel] at hna
+      calc |L| = ‖((L : ℝ) : ℂ)‖ := (Complex.norm_real L).symm
+        _ ≤ ‖T‖ + ‖((L : ℝ) : ℂ) - T‖ := hna
+        _ ≤ ‖T‖ + (h : ℝ) * ((primeWindow eps H).card : ℝ) := by linarith [hperiod]
+    have hH0 : (H : ℝ) ≠ 0 := ne_of_gt hHpos
+    have hLe0 : Real.log (H : ℝ) ≠ 0 := ne_of_gt hlog
+    have hTle : ‖T‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
+        + 2 * C₀ / Real.log (H : ℝ) * S := by
+      have hHTle : (H : ℝ) * ‖T‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+          + (2 * C₀ * (H : ℝ) / Real.log (H : ℝ)) * S := hTnorm ▸ hnormW
+      have key : (H : ℝ) * ‖T‖ ≤ (H : ℝ) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
+          + 2 * C₀ / Real.log (H : ℝ) * S) := by
+        refine hHTle.trans (le_of_eq ?_)
+        ring
+      exact le_of_mul_le_mul_left key hHpos
+    rw [← Finset.mul_sum, ← hS]
+    have hS_nn : 0 ≤ S := Finset.sum_nonneg (fun ξ _ => norm_nonneg _)
+    have hA_nn : 0 ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) := by positivity
+    have hB_nn : 0 ≤ S / Real.log (H : ℝ) := div_nonneg hS_nn hlog.le
+    have hc1 : 0 ≤ (h : ℝ) - 1 + (h : ℝ) * C₀ := by nlinarith [mul_pos hhR hC₀]
+    have hc2 : 0 ≤ (h : ℝ) + 2 * C₀ * ((h : ℝ) - 1) := by
+      nlinarith [mul_nonneg hC₀.le (by linarith : (0 : ℝ) ≤ (h : ℝ) - 1)]
+    have hrem_nn : 0 ≤ ((h : ℝ) - 1 + (h : ℝ) * C₀)
+          * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+        + ((h : ℝ) + 2 * C₀ * ((h : ℝ) - 1)) * (S / Real.log (H : ℝ)) :=
+      add_nonneg (mul_nonneg hc1 hA_nn) (mul_nonneg hc2 hB_nn)
+    have heq : (h : ℝ) * (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ))
+          * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) * S)
+        = ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) + 2 * C₀ / Real.log (H : ℝ) * S)
+          + (h : ℝ) * (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)))
+          + (((h : ℝ) - 1 + (h : ℝ) * C₀)
+                * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+              + ((h : ℝ) + 2 * C₀ * ((h : ℝ) - 1)) * (S / Real.log (H : ℝ))) := by
+      field_simp
+      ring
+    have hhcard : (h : ℝ) * ((primeWindow eps H).card : ℝ)
+        ≤ (h : ℝ) * (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :=
+      mul_le_mul_of_nonneg_left hcard hhR.le
+    calc |L| ≤ ‖T‖ + (h : ℝ) * ((primeWindow eps H).card : ℝ) := hLT
+      _ ≤ (h : ℝ) * (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ))
+            * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) * S) := by
+          rw [heq]; linarith [hTle, hhcard, hrem_nn]
+  · -- degenerate: H = 1, where `0 < h` is what makes the correlation vanish
+    have hH1 : H = 1 := by have := NeZero.pos H; omega
+    have hlog0 : Real.log (H : ℝ) = 0 := by rw [hH1]; simp
+    have hL0 : (∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+        ∑ j ∈ Finset.range H,
+          (windowVal H x1 j : ℝ) * (windowVal H x2 (j + (p : ℕ) * h) : ℝ)) = 0 := by
+      refine Finset.sum_eq_zero (fun p _ => ?_)
+      apply mul_eq_zero_of_right
+      refine Finset.sum_eq_zero (fun j hj => ?_)
+      rw [Finset.mem_range] at hj
+      have hph : 0 < (p : ℕ) * h := Nat.mul_pos (prime_of_mem_primeWindow p.2).pos hh
+      have hge : ¬ (j + (p : ℕ) * h < H) := by omega
+      have hz : windowVal H x2 (j + (p : ℕ) * h) = 0 := by rw [windowVal, dif_neg hge]
+      rw [hz]; simp
+    rw [hL0, abs_zero]
+    have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
+    rw [hmid]; simp
+
 end Salt.Entropy.Chowla

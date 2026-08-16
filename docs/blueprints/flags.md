@@ -23248,3 +23248,47 @@ audit-gap era) gained a sub-bullet pointing at ⟦CLOSED 08/15 at the sitting �
 STALE-ON-ARRIVAL⟧ in this file, with the three ledger sites and the fresh 08/15
 re-verification receipt. **No row in `RESULTS.md` carries `⚠ unaudited` today**; the register
 is 84 rows and `results_lint` is green.
+
+## ⚠️ (2026-08-15, night, wave W-F2) ⟦THE LANDED "STRICTLY STRONGER" PROSE ABOUT THE `h`-DOOR IS FALSE — THE TWO SETS ARE INCOMPARABLE; REPAIR DEFERRED, WAVE WAS ADDITIVE-ONLY⟧
+
+**Opus executor, W-F2 (the `h`-engine + the `L²` fork).** Found while writing
+`MRTUniformityXiL2H`'s docstring against the REV-2 wording the refuter pass mandated; the
+same error is already landed in two places at `e4ae954` and is recorded here rather than
+edited, because W-F2 is fenced ADDITIVE-ONLY on both `Salt/Entropy/Chowla/ShiftFork.lean`
+and `Salt/Entropy/Chowla/CircleMethod.lean` (`git diff --numstat` shows zero deletions).
+
+```
+Salt/Entropy/Chowla/ShiftFork.lean:281-284   MRTUniformityXiH's docstring
+    "**STRENGTH, WITH ITS DIRECTION NAMED.**  For `h ≥ 2` this is a STRICTLY STRONGER
+     hypothesis than the landed `MRTUniformityXi`: `bigXiH h` is the larger set …"
+Salt/Entropy/All.lean:502-505                the ⟦L3-FORK FOUNDATION⟧ stanza
+    "`MRTUniformityXiH h` is the `h`-family's OPEN HYPOTHESIS — for `h ≥ 2` a STRICTLY
+     STRONGER one than the landed `Ξ`-door —"
+```
+
+🔑 ***WHY IT IS FALSE.*** `bigXiH h eps H` is the `μ_h`-PREIMAGE of `bigXi eps H` under
+`μ_h : ξ ↦ (h : ZMod H)·ξ` (`mem_bigXiH_iff`, `ShiftFork.lean:118-122`), and a preimage is
+not a superset. Whenever `μ_h` is a BIJECTION of `ℤ/Hℤ` — i.e. whenever `gcd(h,H) = 1`,
+which includes infinitely many `(h,H)` — the preimage is a PERMUTED COPY of `Ξ_H`, of
+exactly the same cardinality, and neither set contains the other in general. The
+containment the landed prose asserts holds only in the direction the fibers run, and the
+`h`-door constrains a DIFFERENT family of frequencies, not more of them.
+
+**WHAT IS TRUE, and is what the W-F2 prose says instead:** the `h`-door binds the
+`μ_h`-preimage of `Ξ_H`, INCOMPARABLE to `Ξ_H` in general, of cardinality
+`≤ gcd(h,H)·|Ξ_H|` (`bigXiH_card_le_gcd_mul`, hypothesis-free); it is an independent open
+hypothesis, IMPLIED by the full `∀ α` door (`mrtUniformity_implies_xiH`, landed in this
+wave) and neither implying nor implied by the landed `Ξ`-door.
+
+⚖️ **NO KERNEL CONSEQUENCE, checked before filing.** The false sentence is PROSE. No Lean
+statement, no proof and no hypothesis depends on it: `MRTUniformityXiH`'s definition, the
+compat `mrtUniformityXi_eq_xiH_one`, the seam `contradiction_of_mrtDoorXiH` and the fiber
+bound are all unaffected, and nothing in the corpus cites the comparison. The cost of the
+error is a reader's false confidence about the door's strength, which is why it is filed
+loudly rather than left to a later reader.
+
+📌 **THE REPAIR IS A PROSE EDIT ON TWO DOCSTRINGS**, deferred to a wave that is licensed to
+edit landed prose (W-F2 was not). Until then the two W-F2 surfaces carry the corrected
+wording beside the stale one — `MRTUniformityXiL2H`'s docstring in `ShiftFork.lean` and
+the ⟦W-F2⟧ stanza in `Salt/Entropy/All.lean`, which flags the stale sentences at their
+line numbers and points here.

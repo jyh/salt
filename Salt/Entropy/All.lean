@@ -517,3 +517,64 @@ The pairing/consumer census behind the fork ruling is re-derived mechanically by
   Salt.Entropy.Chowla.MRTUniformityXiH
   Salt.Entropy.Chowla.mrtUniformityXi_eq_xiH_one
   Salt.Entropy.Chowla.contradiction_of_mrtDoorXiH
+
+/-! ⟦W-F2⟧ — THE `h`-ENGINE ROOM AND THE `L²` FORK (`CircleMethod` + `ShiftFork`, 2026-08-15).
+
+THE ENGINE, AT OFFSET `p·h`.  `circle_method_estimate_h_core` is Tao's Lemma 3.4 (3.18)
+run at the correlation offset `p·h`, and `circle_method_estimate_h` is the same statement
+over the fork's own set: line for line the landed `circle_method_estimate`
+(`CircleMethod.lean:574-585`) with exactly two changes — the offset `j + p` becomes
+`j + p·h`, and the Fourier mass is summed over `bigXiH h eps H` instead of `bigXi eps H`.
+The DFT factor stays at the UNTWISTED `ξ`, so the twist still lives only in the membership
+predicate, and the seam's spelling is untouched.
+
+WHERE THE OBJECTS SIT, AND WHY.  `ShiftFork` IMPORTS `CircleMethod`, so the estimate
+cannot be stated over `bigXiH` inside `CircleMethod` — that is an import cycle, and the
+build refuses it.  `bigXiTwistFilter` is therefore the same set spelled on the engine-room
+side, `bigXiH_eq_twistFilter` is the filter congruence between them, and
+`circle_method_estimate_h` is the five-line restatement across the seam.  No landed
+declaration moved and no import was added on either side.
+
+THE CONSTANT IS `h·(1 + 2·C₀)`, NOT `h + 2·C₀`.  The periodization's wraparound is `p·h`
+places per prime, so the wrap error is `h·|𝒫_H|` and the multiplier lands on the
+PERIODIZATION coefficient `C₀`: the binding constraints are `C ≥ 1 + h·C₀` and `C ≥ 2·C₀`,
+and `h + 2·C₀` fails the first from `h = 3, C₀ = 3` on.
+
+`0 < h` IS CONSUMED TWICE, and neither use is cosmetic: the constant is positive only for
+`h ≥ 1`, and at `H = 1` the window correlation vanishes only because `1 ≤ p·h`
+(`Nat.mul_pos`).  At `h = 0, H = 1` the statement is FALSE, not merely unproven.
+`liouville_collapse_h` is correctly UNFENCED in `h` — at `h = 0` it degenerates to
+`λ(p·N)² = λ(N)²`, still true — and carries only `p ≠ 0`.
+
+THE PRODUCER STORY IS UNCHANGED.  `mrtUniformity_implies_xiH` is the lemma named as
+"future" in `MRTUniformityXiH`'s docstring (`ShiftFork.lean:292-295`): it consumes the
+`∀ α` door `MRTUniformity`, which this corpus NEVER produces, so no new supply of the
+`h`-door exists.  It would hold over any `Finset (ZMod H)` whatever, which is why it
+certifies nothing about the door's spelling — `contradiction_of_mrtDoorXiH` remains the
+only tripwire that can.
+
+THE `L²` FORK.  `MRTUniformityXiL2H h` is the Ξ-summed `L²` door
+(`MRTDoor.lean:187-190`) over `bigXiH h R.eps H`, `mrtUniformityXiL2_eq_xiL2H_one` pins
+the landed door as its `h = 1` member, and `contradiction_of_mrtDoorXiL2H` is its seam
+with the lower bound transcribed from the landed one at the untwisted `−ξ.val/H`.  For
+`h ≥ 2` it binds the `μ_h`-PREIMAGE of `Ξ_H` — INCOMPARABLE to `Ξ_H` in general, of
+cardinality `≤ gcd(h,H)·|Ξ_H|` — an independent open hypothesis, implied by the `∀ α` door
+and neither implying nor implied by `MRTUniformityXiL2`.  ⚠ The landed prose at
+`ShiftFork.lean:281-284` and at `:502-505` of this file calls the `h`-door "strictly
+stronger"; that claim is WRONG for the same reason, and its repair is recorded in
+`docs/blueprints/flags.md` for a future wave (this one is additive-only).
+
+NOT IN SCOPE, said out loud: the `h`-clone of the `L²` ESTIMATE
+(`circle_method_estimate_sq_h`), any `h`-mint, any spine replay.  This wave makes them
+REACHABLE, not done.  No claim about Chowla, about the door, or about twins is made or
+moved, and no statement is made at any particular `h`. -/
+#audit_axioms Salt.Entropy.Chowla.bigXiTwistFilter
+  Salt.Entropy.Chowla.fourier_split_h
+  Salt.Entropy.Chowla.circle_method_estimate_h_core
+  Salt.Entropy.Chowla.bigXiH_eq_twistFilter
+  Salt.Entropy.Chowla.circle_method_estimate_h
+  Salt.Entropy.Chowla.liouville_collapse_h
+  Salt.Entropy.Chowla.mrtUniformity_implies_xiH
+  Salt.Entropy.Chowla.MRTUniformityXiL2H
+  Salt.Entropy.Chowla.mrtUniformityXiL2_eq_xiL2H_one
+  Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H

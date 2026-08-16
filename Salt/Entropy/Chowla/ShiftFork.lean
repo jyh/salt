@@ -367,4 +367,163 @@ theorem contradiction_of_mrtDoorXiH (h : ℕ) (R : ChowlaRegime) {δ c₀ ε K :
     le_trans hlower (le_trans hsum (le_of_eq hconst))
   linarith [h1, hcard, hsmall]
 
+/-! ## E1 — the `h`-family circle-method estimate (wave W-F2) -/
+
+/-- **The fork's large-spectrum set is the engine room's twisted filter.**
+`bigXiTwistFilter h` (`CircleMethod.lean`) is `bigXiH h` spelled on the side of the file
+that owns the circle method: `ShiftFork` IMPORTS `CircleMethod`, so the `h`-family
+estimate cannot be stated over `bigXiH` there without an import cycle.  The two sets have
+the SAME membership predicate — this lemma is a filter congruence at `Iff.rfl`, with the
+decidability misalignment (both instances are classical) absorbed by
+`Finset.filter_congr`. -/
+theorem bigXiH_eq_twistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
+    bigXiH h eps H = bigXiTwistFilter h eps H := by
+  classical
+  unfold bigXiH bigXiTwistFilter
+  exact Finset.filter_congr (fun ξ _ => Iff.rfl)
+
+/-- **The circle-method estimate at shift `h`, over the fork's own set** — the
+`bigXiH`-facing restatement of `circle_method_estimate_h_core` (`CircleMethod.lean`), the
+`h`-family twin of `circle_method_estimate` (`CircleMethod.lean:574-585`).
+
+Every byte of the conclusion matches the landed estimate's except two: the correlation's
+offset is `p·h` rather than `p`, and the Fourier mass is summed over `bigXiH h eps H`
+rather than `bigXi eps H`.  The DFT factor itself stays at the UNTWISTED `ξ` — that is the
+seam's spelling (`Theorem23Shell.lean:188-193`), and it is why the twist can live in the
+membership predicate alone.
+
+The constant is `h·(1 + 2·C₀)` and `0 < h` is consumed for it (and, at `H = 1`, for the
+vanishing of the window correlation); see `circle_method_estimate_h_core`. -/
+theorem circle_method_estimate_h (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 x2 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) → (∀ i, |x2 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x2 (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h eps H, (1 / (H : ℝ)) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖) := by
+  obtain ⟨C, hC, hest⟩ := circle_method_estimate_h_core h hh C₀ hC₀
+  refine ⟨C, hC, ?_⟩
+  intro eps H _ x1 x2 hx1 hx2 hcard
+  rw [bigXiH_eq_twistFilter]
+  exact hest eps H x1 x2 hx1 hx2 hcard
+
+/-! ## S2 — the `h`-collapse identity -/
+
+/-- `λ(p)² = 1` for `p ≠ 0`.  Re-derived locally: `DilationStability`'s own `liouville_sq`
+is `private`, and importing that module for four lines would widen this file's import
+surface for nothing. -/
+private lemma liouville_sq_shift {p : ℕ} (hp : p ≠ 0) :
+    (ArithmeticFunction.liouville p : ℝ) ^ 2 = 1 := by
+  rw [ArithmeticFunction.liouville_apply hp]; push_cast
+  rw [← pow_mul]
+  exact Even.neg_one_pow ⟨ArithmeticFunction.cardFactors p, by ring⟩
+
+/-- **The collapse identity at shift `h`** — the `h`-family replay of `collapse_identity`
+(`DilationStability.lean:53-63`): for `p ≠ 0`,
+`λ(p·N)·λ(p·N + p·h) = λ(N)·λ(N + h)`.  Both arguments carry the factor `p`
+(`p·N + p·h = p·(N + h)`), and `λ(p)² = 1` erases it.
+
+`0 < h` is NOT required and is deliberately absent: at `h = 0` the identity degenerates to
+`λ(p·N)² = λ(N)²`, which is still true.  The `p ≠ 0` fence is the only one the square
+needs. -/
+theorem liouville_collapse_h (p h : ℕ) (hp : p ≠ 0) (N : ℕ) :
+    (ArithmeticFunction.liouville (p * N) : ℝ)
+        * (ArithmeticFunction.liouville (p * N + p * h) : ℝ)
+      = (ArithmeticFunction.liouville N : ℝ)
+          * (ArithmeticFunction.liouville (N + h) : ℝ) := by
+  have hpN : p * N + p * h = p * (N + h) := by ring
+  rw [hpN, ArithmeticFunction.liouville_apply_mul, ArithmeticFunction.liouville_apply_mul]
+  have hsq := liouville_sq_shift hp
+  push_cast
+  linear_combination (ArithmeticFunction.liouville N : ℝ)
+    * (ArithmeticFunction.liouville (N + h) : ℝ) * hsq
+
+/-! ## D4 — the `∀ α` door implies the `h`-door -/
+
+/-- **The door weakening at shift `h`.**  This is the lemma named as "future" in
+`MRTUniformityXiH`'s docstring above (`ShiftFork.lean:292-295`); it consumes the
+never-produced `∀ α` door, so the producer story is UNCHANGED — no new supply of the
+`h`-door exists.
+
+The proof is `mrtUniformity_implies_xi`'s one-liner (`MRTDoor.lean:116-119`) with the
+binder ranging over `bigXiH h R.eps H`: the door is instantiated at the UNTWISTED
+`α := −ξ.val/H` for each `ξ` in the twisted set, and the frequency restriction only
+discards instances.  Which `ξ` the binder ranges over is therefore immaterial here — the
+lemma would hold over ANY `Finset (ZMod H)`, which is exactly why it certifies nothing
+about the door's spelling (that is `contradiction_of_mrtDoorXiH`'s job). -/
+theorem mrtUniformity_implies_xiH (h : ℕ) (R : ChowlaRegime) (δ : ℝ) :
+    MRTUniformity R δ → MRTUniformityXiH h R δ := by
+  intro hd H _ hlo hhi ξ _
+  exact hd H hlo hhi (-(ξ.val : ℝ) / (H : ℝ))
+
+/-! ## D5 — THE FORK OF THE `L²` DOOR -/
+
+/-- **The Ξ-summed `L²` MRT uniformity door at shift `h`** — `MRTUniformityXiL2`
+(`MRTDoor.lean:187-190`) with the summation set swapped for `bigXiH h R.eps H` and the
+frequency `α` left UNTWISTED, exactly as in the `L¹` fork `MRTUniformityXiH`.
+
+For `h ≥ 2` this binds a DIFFERENT set — the `μ_h`-preimage of `Ξ_H`, incomparable to
+`Ξ_H` in general, of cardinality `≤ gcd(h,H)·|Ξ_H|` (`bigXiH_card_le_gcd_mul`); an
+independent open hypothesis, implied by the full `∀ α` door (`mrtUniformity_implies_xiH`)
+and neither implying nor implied by `MRTUniformityXiL2`.  Nothing in the corpus produces
+it; the `h`-mint (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:206`/`:730`) and
+the `h`-`L²` estimate (`circle_method_estimate_sq_h`) are W-F3+ scope — this fork makes
+them REACHABLE, not done.  At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)`
+fiber inflation — the `K`-shed line of the `L²` restructure
+(`l3-design-block-0815.md` §1).
+
+THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL, per the REF-L2 mandate R4 restated at
+`MRTUniformityXiL2` (`MRTDoor.lean:174-182`): the frequency quantifier is a `∑` over the
+set sitting outside `∫`, and there is no `sup` anywhere inside the integral.  The
+sup-inside form is Tao 1509.05422 (4.1), which is OPEN.  The normalisation `1/H²` is the
+landed door's, unchanged. -/
+noncomputable def MRTUniformityXiL2H (h : ℕ) (R : ChowlaRegime) (ρ : ℝ) : Prop :=
+  ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+    ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ) ^ 2)
+        * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 ∂(logMeasure R.x R.ω) ≤ ρ
+
+/-- **C4 — the `h = 1` compat for the `L²` door, stated APPLIED.**  `Prop`-equality at
+each `(R, ρ)`, so a consumer can rewrite with it under the spine's binders.  It records
+that the `L²` fork is CONSERVATIVE at `h = 1`, and — like `mrtUniformityXi_eq_xiH_one` —
+nothing more: at `h = 1` the twist is invisible (`bigXi_eq_bigXiH_one`), so no `h = 1`
+compat can police a frequency spelling. -/
+theorem mrtUniformityXiL2_eq_xiL2H_one (R : ChowlaRegime) (ρ : ℝ) :
+    MRTUniformityXiL2 R ρ = MRTUniformityXiL2H 1 R ρ := by
+  apply propext
+  constructor
+  · intro hd H _ hlo hhi
+    rw [← bigXi_eq_bigXiH_one]
+    exact hd H hlo hhi
+  · intro hd H _ hlo hhi
+    rw [bigXi_eq_bigXiH_one]
+    exact hd H hlo hhi
+
+/-- **The Ξ-summed `L²` MRT seam at shift `h`** — the clone of
+`contradiction_of_mrtDoorXiL2` (`MRTDoor.lean:200-208`) with the summation set swapped for
+`bigXiH h R.eps H`.  The chain is unchanged: `c₀ε ≤ (the summed L² door object) ≤ ρ < c₀ε`.
+
+Absent here exactly as in the landed `L²` seam: no `K`, no `|Ξ| ≤ K` hypothesis, no
+`δ`-nonnegativity side condition — the door's grade `ρ` is already the total over the set,
+so the frequency count never multiplies it.  `0 < h` is not required: no `H`-uniform
+constant is manufactured in this statement.
+
+The lower bound `hlower` is TRANSCRIBED from the landed seam at the UNTWISTED
+`−ξ.val/H`, with only the `Finset` swapped — never re-derived from the definition above —
+so that `linarith`'s atom identity certifies the door's frequency spelling rather than
+assuming it. -/
+theorem contradiction_of_mrtDoorXiL2H (h : ℕ) (R : ChowlaRegime) {ρ c₀ ε : ℝ} {H : ℕ}
+    [NeZero H] (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi)
+    (hdoor : MRTUniformityXiL2H h R ρ)
+    (hsmall : ρ < c₀ * ε)
+    (hlower : c₀ * ε ≤ ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ) ^ 2)
+        * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 ∂(logMeasure R.x R.ω)) :
+    False := by
+  have hd := hdoor H hlo hhi
+  linarith
+
 end Salt.Entropy.Chowla
