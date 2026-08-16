@@ -149,6 +149,7 @@ import Salt.Chen.TwinDeficit
 import Salt.Chen.WeightFamily
 import Salt.Chen.WeightEscape
 import Salt.Chen.WeightNoGo
+import Salt.Chen.BrunEll1
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -560,3 +561,33 @@ open Salt.Tactic in
   Salt.Chen.affine_carrier_identity
   Salt.Chen.readableAffineWeight_chenWeightA
   Salt.Chen.no_affine_certificate
+
+/-! ⟦BRUN-ELL1 — THE ℓ¹ EXIT⟧ (`BrunEll1`, 2026-08-16).
+
+THE SLOT, NOT THE NUMERICS.  `brun_lower` (`Salt/BrunLower/Pair.lean`) exits H-R
+Théorème 2 through the (2.12) remainder PRODUCT, which demands a pointwise majorant
+`|R_d| ≤ ω(d)` at every modulus (`hR`, with `hA`/`hωnn`/`hωA`/`hωprod` behind it).
+`brun_lower_ell1` is the same theorem exiting through `rosserRemainder s (Q·D)` — the
+`ℓ¹` sum `Σ_{d ∣ P(z), d < Q·D} |r(d)|` — with that entire apparatus deleted from the
+hypothesis list and every surviving hypothesis carried unweakened.  The main term is
+byte-identical to `brun_lower`'s.
+
+WHAT IT IS NOT.  It is not a sharper almost-prime bound: `twin_almost_prime`
+(`Salt/BrunLower/TwinInstance.lean`) already reaches `Ω(n(n+2)) ≤ 20` off the pointwise
+route, at a higher level than this one, and nothing here improves that axis.  What the
+`ℓ¹` slot admits is an AVERAGE-dischargeable remainder — the door a BV-shaped input can
+enter, hence the door to a `λ`-twisted BV rider and to a parity-pinned survivor
+(`Ω(n)` odd), which the pointwise slot cannot serve for any choice of `ω`.  Those riders
+are NAMED and consumed NOWHERE; no such input is in the corpus and none is claimed.
+
+THE PIECES.  `blockTruncSieve₂` is `LinearSieve.lean`'s `blockTruncSieve` at `ν = 2`
+(the field lemmas were already side-generic); `blockTruncSieve₂_lam` freezes the seam
+that makes the composition bridge-free — the witness's Rosser weight is `μ·[χ₂]`, the
+weight `Salt/BrunLower`'s main-term chain is stated at, by `rfl`.  `chi_lower_lt` is the
+support bound the cut reads: it consumes the LANDED level bound `Salt.HB.chi_log_le_level`
+(`log d ≤ log z·levelExp Λ 2 b`, Abel over the ladder) rewritten as
+`2b − 1 + 2/(e^Λ−1)` in the `exp∘log` form of `remainder_upper`; the `2^{2b−2+2r−1}`
+factor is slack, carrying `≤` to the STRICT `<` that `rosserRemainder`'s `if` cuts on. -/
+open Salt.Tactic in
+#audit_axioms Salt.Chen.blockTruncSieve₂ Salt.Chen.blockTruncSieve₂_lam
+  Salt.Chen.chi_lower_lt Salt.Chen.brun_lower_ell1

@@ -23292,3 +23292,78 @@ edit landed prose (W-F2 was not). Until then the two W-F2 surfaces carry the cor
 wording beside the stale one — `MRTUniformityXiL2H`'s docstring in `ShiftFork.lean` and
 the ⟦W-F2⟧ stanza in `Salt/Entropy/All.lean`, which flags the stale sentences at their
 line numbers and points here.
+
+## ⚠️ (2026-08-16, wave BRUN-ELL1) ⟦THE `Buchstab.lean` HEADER FLAG IS STALE AT HEAD — THE `_div` LEMMAS ARE NOW EXACT DUPLICATES; DISPOSITION DEFERRED⟧
+
+**Opus executor, BRUN-ELL1 (the `ℓ¹` exit).** Found while reading the cited ground for the
+support-bound composition. Filed, not repaired: this wave is fenced to a new file plus the
+hub and this ledger, and the defect is in PROSE about landed statements.
+
+```
+Salt/Chen/Buchstab.lean:37-48   "## The structural finding on `linear_sieve_lower` (flagged)"
+    "`LinearSieve.errSum_lam_le` (hence `linear_sieve_lower`/`_chain`) demands the support
+     bound `∀ d, S.P d → (d:ℝ) < bound` **unconditionally in `d`**."
+Salt/Chen/Buchstab.lean:283-287  "## Part E — the corrected divisor-restricted lower plumbing"
+    "`errSum_lam_le` in `LinearSieve.lean` demands an *unconditional* support bound, which
+     is unsatisfiable for `side = 2` (see the header flag)."
+```
+
+🔑 ***WHY IT IS STALE.*** All three named statements are ALREADY divisor-restricted at HEAD:
+
+```
+Salt/Chen/LinearSieve.lean:313-314  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
+Salt/Chen/LinearSieve.lean:349-351  linear_sieve_lower   (same hypothesis)
+Salt/Chen/LinearSieve.lean:389-390  linear_sieve_lower_chain (same hypothesis)
+```
+
+The MATHEMATICS of the finding is untouched and still correct — the unconditional bound is
+structurally unsatisfiable at `side = 2` (`one_mem` + `add_prime` at `t = 1` force `P p` for
+every prime `p`), which is precisely why those three statements were repaired. What is false
+is the header's description of the CURRENT bytes, and the reader it misleads is the one
+choosing which lemma to call.
+
+📌 ***THE CONSEQUENCE — A DEDUP QUESTION, NOT A BUG.*** With the repair landed upstream,
+`Salt/Chen/Buchstab.lean:292` `errSum_lam_le_div` and `:310` `linear_sieve_lower_div` are
+statement-for-statement duplicates of `LinearSieve.errSum_lam_le` / `linear_sieve_lower`
+(binders, implicit/explicit split, and hypothesis text all identical; the proofs differ only
+in how `d ∣ prodPrimes` is pulled out of `Nat.mem_divisors`). Nothing is wrong with either;
+the corpus simply carries each twice. BRUN-ELL1 deliberately composed through the `_div`
+name — the one the Rosser twin `linear_sieve_lower_rosser` (`Buchstab.lean:327`) already
+uses — so that a later dedup wave has ONE call site convention to collapse.
+
+⚖️ **Disposition DEFERRED to a wave licensed to edit landed prose and to retire landed
+names.** No statement, proof, or hypothesis was touched by BRUN-ELL1; `git diff --numstat`
+shows zero deletions in `Salt/Chen/Buchstab.lean` and `Salt/Chen/LinearSieve.lean` (both
+untouched).
+
+## 📎 (2026-08-16, wave BRUN-ELL1) ⟦E2 WAS NOT NEW MATHEMATICS — THE LEVEL BOUND WAS ALREADY IN THE KERNEL AT `Salt.HB`⟧
+
+**Opus executor, BRUN-ELL1.** The design block (`ell1-design-block-0815.md`, REV-2, §2)
+classes E2 `chi_lower_lt` as **C — the only new mathematics**, and mandates a sharp
+`ω`-count/telescope derivation of the exponent `(2b−ν+1) + 2/(e^Λ−1)` with a 3-attempt
+budget and a degradation clause. That derivation is ALREADY LANDED, at general `side`:
+
+```
+Salt/HB/RosserDim4.lean:167-168  levelExp Λ ν b = 2b − ν − 1 + 2e^Λ/(e^Λ − 1)
+Salt/HB/RosserDim4.lean:186-190  chi_log_le_level : log d ≤ log z · levelExp Λ ν b
+Salt/HB/RosserDim4.lean:295-299  chi_le_rpow_level : (d:ℝ) ≤ z ^ levelExp Λ ν b
+```
+
+under exactly the hypotheses the block lists (`hLam`, `hz`, `Squarefree d`, all prime
+factors `< z`, `chi`), by Abel summation over the ladder against the restricted counts
+(`ladder_abel_le`) — the route the block re-derives. At `ν = 2` the two exponents are the
+SAME NUMBER, not merely comparable: `2e^Λ/(e^Λ−1) = 2 + 2/(e^Λ−1)`, so
+`levelExp Λ 2 b = 2b − 1 + 2/(e^Λ−1)`, which is the block's `(2b−2+1) + 2/(e^Λ−1)` at
+`b ≥ 1`. The refuters' independent double-derivation of the exponent therefore reproduced a
+landed lemma rather than a new one.
+
+📌 **WHAT THE WAVE DID.** Landed the block's mandated STATEMENT byte-for-byte (`ℕ`-cast
+convention, `exp∘log` form, strict `<`, all four hypotheses) and proved it by consuming
+`chi_log_le_level` plus the `2^{2b−2+2r−1} ≥ 2` slack that carries `≤` to `<`. Attempt 1,
+green; the degradation clause was never reached. **Actual difficulty: B**, not C.
+
+⚖️ **The lesson for the next block, not a defect in this one:** the census that found
+`twin_almost_prime` (and reframed the campaign) stopped at the `Salt/BrunLower` and
+`Salt/Chen` namespaces; `Salt/HB` holds the block predicate's own support theory, because
+that is where the dimension-4 instantiation needed it. A `grep -F chi_` across ALL namespaces
+before pricing a block-predicate node would have priced this one at a tenth of its budget.
