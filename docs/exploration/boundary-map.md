@@ -223,6 +223,50 @@ in-place re-guarding would make the slack witness unprovable and
 break the build). Scope unchanged: boundary-map completion, no
 claim about twins.
 
+**The door criterion, and which slot does the collapsing (wall-L5,
+2026-08-15).** Two readings of the wall-L1 point, both in
+`PinDichotomy.lean`.
+
+*Upward — the criterion.* `door_criterion` adjudicates a whole
+genre of proposals at once. For any family `P` of weights that
+STRENGTHENS the two slots (`hP : P w → PmNormalized w ∧
+PairCollapse w`) and is insensitive to the value at index `0`
+(`hP0`, the insensitivity the slots themselves have, since neither
+reads that index), `P` contains a twin-blind member exactly when
+`P` contains the constant weight `1`. `door_criterion_exists` is
+the hypothesis-lighter form, with "contains a weight that is
+constantly `1` on `n ≥ 1`" on the right. Testing a proposed
+slot-strengthening for blindness is thereby a question about one
+explicit weight rather than a search over the family.
+`hP0` is necessary, and the kernel says so:
+`door_criterion_needs_zero_blindness` proves the `hP0`-free
+statement FALSE, off `P := (· = slackWitness)`. So the precise
+wall-L1 statement is that the blind set is a single point IN THE
+VALUES AT `n ≥ 1`; the value at `0` is unconstrained by both
+slots, and `slackWitness` inhabits that fibre.
+
+*Outward — degenerate blindness.* Drop slot 1's `±1` alphabet and
+admit the value `0`, and the picture inverts. `corr_zero_blind`:
+every weight whose pair correlation `n ↦ w(n)·w(n+2)` vanishes
+identically fails the detection clause — that is, every weight
+whose support contains no pair `{n, n+2}`, an uncountable family,
+all of it blind, with `delta1w` (the point mass at `1`) the
+kernel-borne instance via `delta1w_corr` / `delta1w_blind`.
+Detectors live there too: `chi4w_detecting'` separates the twin
+pair `(3,5)` from the non-twin pair `(2,4)`, since
+`χ₄(3)·χ₄(5) = -1` while `χ₄(2)·χ₄(4) = 0`. Both weights satisfy
+slot 2 (`delta1w_pairCollapse`, `chi4w_pairCollapse`) and fail
+slot 1 (`delta1w_not_pmNormalized`). So slot 2 alone carries a
+detector and an uncountable blind family side by side, and slot
+1's `±1`-normalization is exactly what collapses that family to
+wall-L1's single point.
+
+*The reach, stated.* `hP` reaches only families strengthening the
+frozen sharp slots; the probe's literal candidate-3 slot 1 (the
+windowed first-moment budget, `TransportWall.lean:14-17`, which
+"does not grade `w` to `±1`") does not imply `PmNormalized`, so
+the criterion does not adjudicate candidate 3 as literally posed.
+
 ## TD-R2a verdict (adjudicated): REDESIGN-VACUOUS — and THE
 ## POLARITY FINDING
 

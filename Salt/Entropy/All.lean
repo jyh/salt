@@ -625,3 +625,52 @@ moved about Chowla's conjecture, about the supply of the door, or about twins. -
   Salt.Entropy.Chowla.sign_split_quarter_log
   Salt.Entropy.Chowla.sign_split_pos
   Salt.Entropy.Chowla.sign_split_fifth
+
+/-! ⟦WALL-L5 — THE DOOR CRITERION + DEGENERATE BLINDNESS⟧ (`PinDichotomy`, 2026-08-15).
+
+THE CRITERION.  `door_criterion` adjudicates a whole GENRE at once: for a family `P`
+of weights that strengthens the two slots (`hP`) and is insensitive to the value at
+index `0` (`hP0`), the family contains a twin-blind member exactly when it contains
+the constant weight `1`.  Testing a proposed slot-strengthening for blindness is
+therefore a question about one explicit weight, not a search over the family.
+`door_criterion_exists` is the hypothesis-lighter form — no `hP0` — whose right side
+is "the family contains a weight that is constantly `1` on `n ≥ 1`".  Both run
+through `blind_iff_const` and add no new mathematics; they package it.
+
+THE ZERO FENCE, IN THE KERNEL.  `hP0` is not decoration.
+`door_criterion_needs_zero_blindness` proves that the `hP0`-free statement is FALSE,
+off `P := (· = slackWitness)`: that weight passes both slots and fails
+`TwinDetecting'`, so the left side holds, while the right side would identify it with
+the constant weight — and it carries `5` at index `0`.  Neither slot ever reads index
+`0`, so the blind point of `blind_iff_const` is a point IN THE VALUES AT `n ≥ 1`, and
+the fibre over it is inhabited.
+
+WHICH SLOT DOES THE COLLAPSING.  Outside the `±1` alphabet the picture is the
+opposite of a single point.  `corr_zero_blind`: every weight whose pair correlation
+`n ↦ w n · w (n+2)` vanishes identically fails the detection clause — that is every
+weight whose support contains no pair `{n, n+2}`, an uncountable family, with
+`delta1w` (`delta1w_corr`, `delta1w_blind`) as the kernel-borne instance.  And
+detectors are there too: `chi4w_detecting'` separates `(3,5)` from `(2,4)`.  Both
+weights satisfy slot 2 (`delta1w_pairCollapse`, `chi4w_pairCollapse`) and fail slot 1
+(`delta1w_not_pmNormalized`) — so slot 2 alone permits a detector and an uncountable
+blind family side by side, and it is slot 1's `±1`-normalization that collapses
+WALL-L1's blind set to the single point.
+
+Scope: boundary-map completion, additive in `PinDichotomy.lean`; `TransportWall.lean`
+stays byte-frozen and no landed statement changes.  No claim about Chowla, about the
+door's supply, or about twins.  The criterion reaches only families that STRENGTHEN
+the frozen sharp slots: the probe's literal candidate-3 slot 1 (the windowed
+first-moment budget) does not imply `PmNormalized`, so `hP` is unavailable there. -/
+#audit_axioms Salt.Entropy.Chowla.chi4w
+  Salt.Entropy.Chowla.delta1w
+  Salt.Entropy.Chowla.chi4w_detecting'
+  Salt.Entropy.Chowla.chi4w_detecting
+  Salt.Entropy.Chowla.chi4w_pairCollapse
+  Salt.Entropy.Chowla.corr_zero_blind
+  Salt.Entropy.Chowla.delta1w_corr
+  Salt.Entropy.Chowla.delta1w_blind
+  Salt.Entropy.Chowla.delta1w_pairCollapse
+  Salt.Entropy.Chowla.delta1w_not_pmNormalized
+  Salt.Entropy.Chowla.door_criterion_exists
+  Salt.Entropy.Chowla.door_criterion
+  Salt.Entropy.Chowla.door_criterion_needs_zero_blindness

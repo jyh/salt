@@ -271,4 +271,143 @@ theorem liouville_pinned :
   rw [h3, h5, h7, liouville_nine]
   norm_num
 
+/-! ### Outside the slots: a detector and a degenerate blind family (wall-L5)
+
+Slot 2 alone constrains almost nothing.  Both weights below satisfy `PairCollapse`
+and fail `PmNormalized` — they take the value `0`, which slot 1 forbids — and they
+sit on opposite sides of the detection clause: `chi4w` detects, while `delta1w`
+belongs to an entire family of weights whose pair correlation vanishes identically
+and which are therefore blind.  So the collapse of the blind set to the single point
+of `blind_iff_const` is the work of slot 1's `±1`-normalization. -/
+
+/-- The real character mod `4` read as a weight: `+1` on `1 mod 4`, `-1` on
+`3 mod 4`, and `0` on the even numbers. -/
+def chi4w : ℕ → ℝ := fun n => if n % 4 = 1 then 1 else if n % 4 = 3 then -1 else 0
+
+/-- The point mass at `1`: value `1` at `n = 1` and `0` at every other index. -/
+def delta1w : ℕ → ℝ := fun n => if n = 1 then 1 else 0
+
+/-- **A detector outside slot 1.**  `chi4w` separates the twin pair `(3, 5)` from the
+non-twin pair `(2, 4)`: `χ₄(3)·χ₄(5) = (-1)·(+1) = -1`, while `χ₄(2)·χ₄(4) = 0`.  The
+witness satisfies the `1 ≤ n` guard, so this is the stronger guarded clause. -/
+theorem chi4w_detecting' : TwinDetecting' chi4w :=
+  ⟨3, 2, by norm_num, by norm_num, by norm_num, by norm_num [chi4w]⟩
+
+/-- The landed unguarded clause, for `chi4w`. -/
+theorem chi4w_detecting : TwinDetecting chi4w := twinDetecting'_imp _ chi4w_detecting'
+
+/-- **Degenerate blindness.**  A weight whose pair correlation `n ↦ w n · w (n+2)`
+vanishes at every index separates no two pairs at all, so it fails the detection
+clause.  Every weight whose support contains no pair `{n, n+2}` is of this shape —
+an uncountable family, all of it blind. -/
+theorem corr_zero_blind (w : ℕ → ℝ) (h : ∀ n, w n * w (n + 2) = 0) :
+    ¬ TwinDetecting w := by
+  rintro ⟨m, n, -, -, hne⟩
+  exact hne (by rw [h m, h n])
+
+/-- The point mass at `1` has identically vanishing pair correlation: the index
+`k + 2` is never `1`, so the second factor is `0` at every `k` (including `k = 0`,
+which the unguarded clause may read). -/
+theorem delta1w_corr (k : ℕ) : delta1w k * delta1w (k + 2) = 0 := by
+  have hk : k + 2 ≠ 1 := by omega
+  simp [delta1w, hk]
+
+/-- `delta1w` is blind, as an instance of `corr_zero_blind`. -/
+theorem delta1w_blind : ¬ TwinDetecting delta1w := corr_zero_blind _ delta1w_corr
+
+/-- `delta1w` satisfies slot 2: every index slot 2 reads on either side is `≥ 2`, so
+both products are `0 · 0`. -/
+theorem delta1w_pairCollapse : PairCollapse delta1w := by
+  intro p N hp hN
+  have hp2 : 2 ≤ p := hp.two_le
+  have hL : delta1w (p * N + p) = 0 := by
+    have h : p * N + p ≠ 1 := by omega
+    simp [delta1w, h]
+  have hR : delta1w (N + 1) = 0 := by
+    have h : N ≠ 0 := by omega
+    simp [delta1w, h]
+  rw [hL, hR, mul_zero, mul_zero]
+
+/-- `delta1w` fails slot 1: at `n = 2` its value is `0`, which is neither `1` nor
+`-1`.  So the blind family lives strictly outside the pin dichotomy's class. -/
+theorem delta1w_not_pmNormalized : ¬ PmNormalized delta1w := by
+  intro h
+  rcases h.1 2 (by norm_num) with h2 | h2 <;> norm_num [delta1w] at h2
+
+private lemma chi4w_even_eq_zero {n : ℕ} (h : n % 2 = 0) : chi4w n = 0 := by
+  have h1 : n % 4 ≠ 1 := by omega
+  have h3 : n % 4 ≠ 3 := by omega
+  simp [chi4w, h1, h3]
+
+/-- **The detector also satisfies slot 2.**  Both sides of the collapse identity
+vanish: of `N` and `N + 1` one is even, and of `p·N` and `p·N + p` one is even too
+(at `p = 2` both are).  `chi4w` is `0` on the even numbers, so each product has a
+zero factor. -/
+theorem chi4w_pairCollapse : PairCollapse chi4w := by
+  intro p N hp hN
+  have hR : chi4w N * chi4w (N + 1) = 0 := by
+    rcases (by omega : N % 2 = 0 ∨ (N + 1) % 2 = 0) with h | h
+    · rw [chi4w_even_eq_zero h, zero_mul]
+    · rw [chi4w_even_eq_zero h, mul_zero]
+  have hL : chi4w (p * N) * chi4w (p * N + p) = 0 := by
+    rcases hp.eq_two_or_odd with rfl | hodd
+    · rw [chi4w_even_eq_zero (by omega : 2 * N % 2 = 0), zero_mul]
+    · rcases (by omega : p * N % 2 = 0 ∨ (p * N + p) % 2 = 0) with h | h
+      · rw [chi4w_even_eq_zero h, zero_mul]
+      · rw [chi4w_even_eq_zero h, mul_zero]
+  rw [hL, hR]
+
+/-! ### The door criterion -/
+
+/-- **THE DOOR CRITERION, existential form.**  For any family `P` of weights that
+strengthens the two slots, the family contains a blind member exactly when it
+contains a member that is constantly `1` on `n ≥ 1`.  Adjudicating a proposed
+slot-strengthening for twin-blindness is therefore a question about one explicit
+weight class, not a search. -/
+theorem door_criterion_exists (P : (ℕ → ℝ) → Prop)
+    (hP : ∀ w, P w → PmNormalized w ∧ PairCollapse w) :
+    (∃ w, P w ∧ ¬ TwinDetecting' w) ↔ (∃ w, P w ∧ ∀ n, 1 ≤ n → w n = 1) := by
+  constructor
+  · rintro ⟨w, hw, hnd⟩
+    obtain ⟨hb, hc⟩ := hP w hw
+    exact ⟨w, hw, (blind_iff_const w hb hc).mp hnd⟩
+  · rintro ⟨w, hw, hconst⟩
+    obtain ⟨hb, hc⟩ := hP w hw
+    exact ⟨w, hw, (blind_iff_const w hb hc).mpr hconst⟩
+
+/-- **THE DOOR CRITERION.**  For a family `P` that strengthens the two slots AND is
+insensitive to the value at `0` (`hP0` — the insensitivity the slots themselves have,
+since neither reads index `0`), the family contains a blind member exactly when it
+contains the constant weight `1`.
+
+The hypothesis `hP0` is not a convenience: without it the statement is FALSE, and
+`door_criterion_needs_zero_blindness` puts that in the kernel. -/
+theorem door_criterion (P : (ℕ → ℝ) → Prop)
+    (hP : ∀ w, P w → PmNormalized w ∧ PairCollapse w)
+    (hP0 : ∀ w v, (∀ n, 1 ≤ n → w n = v n) → P w → P v) :
+    (∃ w, P w ∧ ¬ TwinDetecting' w) ↔ P (fun _ => 1) := by
+  constructor
+  · rintro ⟨w, hw, hnd⟩
+    obtain ⟨hb, hc⟩ := hP w hw
+    have hconst := (blind_iff_const w hb hc).mp hnd
+    exact hP0 w (fun _ => 1) (fun n hn => hconst n hn) hw
+  · intro hc
+    exact ⟨fun _ => 1, hc, fun h => const_twin_blind (twinDetecting'_imp _ h)⟩
+
+/-- **The zero-insensitivity hypothesis is necessary.**  Dropping `hP0` from
+`door_criterion` makes it FALSE: take `P` to be equality with `slackWitness`, which
+satisfies both slots and fails the guarded detection clause, so the left side holds —
+while the right side would force `slackWitness` to be the constant weight, and it
+carries `5` at index `0`.  The fence is a theorem, not a remark. -/
+theorem door_criterion_needs_zero_blindness :
+    ¬ ∀ P : (ℕ → ℝ) → Prop, (∀ w, P w → PmNormalized w ∧ PairCollapse w) →
+      ((∃ w, P w ∧ ¬ TwinDetecting' w) ↔ P (fun _ => 1)) := by
+  intro h
+  obtain ⟨hpm, hpc, -⟩ := slack_witness_twinDetecting
+  have hiff := h (fun w => w = slackWitness) (by rintro w rfl; exact ⟨hpm, hpc⟩)
+  have hP : (fun _ => (1 : ℝ)) = slackWitness :=
+    hiff.mp ⟨slackWitness, rfl, slack_witness_not_twinDetecting'⟩
+  have h0 := congrFun hP 0
+  norm_num [slackWitness] at h0
+
 end Salt.Entropy.Chowla
