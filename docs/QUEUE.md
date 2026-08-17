@@ -10,23 +10,44 @@
    out-of-tree (source of truth in the seat briefs, kernel-verified),
    waiting only on the post-flip re-clone. Port target per math's own
    bank: Salt/MR/Sawtooth.lean section Geometry, on a track branch.
+   **LANDED — `d9dd0a37` on `math/w1-e3-port` (08/16 night; origin/main
+   verified untouched).**
 2. **E4a** — the even-chi ladder's half-wave checkpoint (the Captain's
    call, now ripe: E3 proved 08/16). The ladder continues E4–E7 behind
-   it on math's ratified own-pace ground.
+   it on math's ratified own-pace ground. **REFUTER PASS 08/17: 3/3
+   REPAIR-THEN-FIRE — the route survives; repairs are math's at wake
+   (replace the norm-dichotomy leg with mathlib's CyclotomicUnits
+   assembly, uniform in q; restrict to (ZMod q)ˣ first; re-price the
+   Galois leg — σ_b(η)=η^{χ(b)} is real work, not a landed shape; fix
+   the exponent type + carry the second sum-vanishing Σ a·χ(a)=0).
+   PRICE MOVES DOWN: the block's census row 29 was FALSE — mathlib HAS
+   cyclotomic units (RootsOfUnity/CyclotomicUnits.lean); the grep
+   matched names, not content. Full verdicts: seat
+   briefs/2026-08-17-e4a-refuter-verdicts.md.**
 3. **W-F3 — THE h-SHELL** — the fork road's arc-finisher: the
    Theorem23Shell h-analogue consuming circle_method_estimate_h +
    contradiction_of_mrtDoorXiH, yielding the door-conditional h-family
    terminal. The byte-identity seam guarantee is already proven
    (ba20701's record). Design-block-first; one Opus executor wave.
-4. **THE λ-BV COMMISSIONING DECISION** — the parity-pin door
-   (brun_lower_ell1, d0d9097) is open; the riders (the ρ-weighted BV
-   sum · the λ-BV dispersion half) are named-not-consumed. A sitting
-   decision, not a wave: the Captain rules the campaign's shape.
+4. **THE λ-BV CAMPAIGN — COMMISSIONED WHOLE, option (a) at the
+   Captain's word (08/17 council: "Choose (a) no waiting, with your
+   proposed order for math")**. The parity-pin door (brun_lower_ell1,
+   d0d9097) is open; BOTH riders (the ρ-weighted BV sum · the λ-BV
+   dispersion half) are authorized under the standing word —
+   design-block-first still governs every wave (refuter pass before
+   any executor). Math's pen order RATIFIED: E4a (repairs, then the
+   wave) → rider 1 → thereafter the pen alternates at clean wave
+   boundaries between the even-chi ladder and λ-BV, whichever arc
+   holds a refuter-passed block taking it, λ-BV winning ready-ties.
+   Statement questions on the dispersion half remain the Captain's,
+   batched at the bells. Rider-1 design block: Fable consult
+   dispatched 08/17 (lands in seat briefs).
 
 ## P2 — THE CAMPAIGNS BEHIND THE DOORS (pulled at P1 idle)
 
-5. **The λ-BV dispersion campaign** proper (gated on P1 item 4's word)
-   — the road toward the parity-pinned survivor (Ω(n) odd).
+5. **The λ-BV dispersion campaign** proper (COMMISSIONED 08/17 — item
+   4; gated now only on its own design blocks) — the road toward the
+   parity-pinned survivor (Ω(n) odd).
 6. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
    m4_doorL2_supply_500's h-analogue) — the fork's full payoff, gated
    on W-F3.
