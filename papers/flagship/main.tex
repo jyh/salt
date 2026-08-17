@@ -104,7 +104,7 @@ demand-audited hypothesis minimization, a mode of discovery we argue is
 impossible over prose proofs. Around it we prove, kernel-checked: a
 Heath-Brown--type dichotomy (twin primes, or no Siegel zeros) with its
 engine-conditional horn stated explicitly; the first formalization, in any
-public artifact as of 2026-08-11,\footnote{Priority statements in this paper are \emph{surveyed as-of} claims, not assertions of absence. Survey: \texttt{docs/priority-survey-2026-08-11.md} in the released repository (method: adversary-cited, five independent lanes, 2026-08-11); our own landing dates are given in \S\ref{sec:banners} and the results register. Salt is a private tree at the time of writing, so these are firsts \emph{in any public artifact} as of the survey date, and are re-run before submission.} of any zero-free region for
+public artifact as of 2026-08-17,\footnote{Priority statements in this paper are \emph{surveyed as-of} claims, not assertions of absence. Surveys: \texttt{docs/priority-survey-2026-08-11.md} and the pre-submission re-run \texttt{docs/priority-survey-2026-08-17-delta.md}, both in this repository (method: adversary-cited, five independent lanes each; two of the re-run's changed verdicts rest on our own local kernel checks of competitors' public bytes, not on their claims). This repository is public as of 2026-08-16; the earliest third-party-verifiable date for its contents is 2026-08-14, the submission timestamp of the companion methods paper; internal commit dates before that are reported as internal records, never as public priority. Our own landing dates are given in \S\ref{sec:banners} and the results register; the survey re-runs once more at submission.} of any zero-free region for
 $\zeta$ of Littlewood strength (1922) and the first such power-saving region
 ($\theta = 3/4$) in any proof assistant; a
 Deuring--Heilbronn repulsion contract; the exact-identity keystone of the
@@ -113,7 +113,8 @@ wall}, a neutrality theorem over arbitrary real sign functions that prices
 every transfer-based route to twins; and the \emph{parity gap} as a
 mathematical object: a predicate $Z$ with a kernel-checked theorem that no
 twin-sufficient, parity-invariant completion exists, together with a
-census placing the entire corpus inside the parity-invariant cone. As a
+census placing ten headline theorems of the corpus inside the
+parity-invariant cone. As a
 byproduct, the logarithmic two-point Chowla statement---a theorem of
 Tao---is machine-checked conditionally on a single named uniformity
 hypothesis. The corpus is $324{,}724$ lines of Lean across
@@ -145,17 +146,19 @@ Heath-Brown--type engine, enumerated---mechanically, exhaustively---every
 site at which the Siegel-zero hypothesis is consumed and at what strength,
 and then weakened the hypothesis axis by axis to the audited demand, with
 the Lean kernel refereeing each weakening instantly. The fixed point of
-that process is the weakest twin-producing Siegel hypothesis yet
-formulated (Definition~\ref{def:fulcrum}); the process itself,
-\emph{demand-audited hypothesis minimization}, is---on the same survey, as of
-2026-08-11---a new mode of mathematical discovery, and it is the sense in which this paper's
+that process is the weakest twin-producing Siegel hypothesis in the
+surveyed record (Definition~\ref{def:fulcrum}); the process itself,
+\emph{demand-audited hypothesis minimization}, is---we
+argue---a new mode of mathematical discovery, and it is the sense in which this paper's
 formalization is an instrument rather than a notary.
 
 The results divide into four movements. First, the \emph{banners}
-(\S\ref{sec:banners}): unconditional analytic theorems formalized for the
-first time in any public artifact as of 2026-08-11, including a
+(\S\ref{sec:banners}): unconditional analytic theorems, two of them
+formalized for the first time in any public artifact as of 2026-08-17: a
 Littlewood-strength zero-free region for $\zeta$ and the first such
-power-saving region in any proof assistant. Second, the
+power-saving region in any proof assistant. (The Vinogradov mean value
+theorem that feeds the latter carries its own dated qualification, stated
+at Remark~\ref{rem:vmvtdate}.) Second, the
 \emph{fulcrum and the dichotomy} (\S\S\ref{sec:fulcrum}--\ref{sec:keystone}):
 the minimized hypothesis, the kernel-checked dichotomy it induces, and the
 exact-identity keystone of the engine, now proven unconditional. Third,
@@ -242,10 +245,20 @@ consisting of one small kernel, three axioms, and a one-page table.
 
 Four unconditional theorems anchor the corpus. We do not assert that they
 were unformalized---an absence no repository search can establish, as the
-survey behind this paper's priority statements found to its cost---and cite
-the adversaries instead: the two public Lean formalizations of
-Bombieri--Vinogradov both \emph{axiomatize} Siegel--Walfisz and the large
-sieve in their own source, and say so.
+survey behind this paper's priority statements found to its cost, twice---and
+cite the adversaries instead: the canonical public Lean formalization of
+Bombieri--Vinogradov proves its main theorem modulo a Siegel--Walfisz
+statement \emph{axiomatized} in its own source, and says so; its companion
+large-sieve input, recorded as an axiom by the 2026-08-11 survey, is
+discharged by a proof (primitive-character scope, Gallagher's route) public
+since 2026-07-09 as that repository's first pull request, merged
+2026-08-04---which the 2026-08-17 re-run kernel-checked clean from its
+public bytes, and which therefore precedes this repository's public dates.
+The two proofs live on sibling branches, not yet merged. As of 2026-08-17 no
+public artifact other than the present corpus proves unconditional
+Bombieri--Vinogradov; Siegel--Walfisz is the wall---a declared axiom on all
+four branches of the canonical repository and in a second project, a
+\texttt{sorry} or a self-described scaffold in the others the survey read.
 
 \begin{theorem}[Littlewood-strength zero-free region, 1922]\label{thm:litt}
 There exist effective constants such that $\zeta(s) \neq 0$ in a region of
@@ -254,18 +267,28 @@ $\sigma \ge 1 - c\,\frac{\log\log |t|}{\log |t|}$ for $|t|$ large.
 \leanname{Salt.Vk.zeta\_zero\_free\_region\_littlewood}
 \end{theorem}
 
-\begin{theorem}[The first power-saving region]\label{thm:pow}
+\begin{theorem}[A power-saving region, $\theta = 3/4$]\label{thm:pow}
 There exist effective constants such that $\zeta(s) \neq 0$ for
 $\sigma \ge 1 - c\,(\log|t|)^{-3/4}(\log\log|t|)^{-O(1)}$, $|t|$ large:
 a Vinogradov--Korobov--type region at exponent $\theta = 3/4$.
 \leanname{Salt.Vk.zeta\_zero\_free\_region\_pow}
 \end{theorem}
 
-As of the 2026-08-11 survey, Theorem~\ref{thm:pow} is the first zero-free
+As of the 2026-08-17 survey re-run, Theorem~\ref{thm:pow} is the first zero-free
 region with a power saving in the exponent verified in any public
 proof-assistant artifact, and Theorem~\ref{thm:litt} the first formalization
 of the 1922 Littlewood region \cite{Littlewood1922}; the strongest previously formalized regions were of classical
-de la Vall\'ee Poussin shape. The proofs formalize the Vinogradov mean
+de la Vall\'ee Poussin shape. Our exponent convention for zero-free
+regions, stated so that the
+claim is checkable: $\theta$ is the power of $\log|t|$ in the denominator of
+the zero-free width, so the de la Vall\'ee Poussin region
+$\sigma \ge 1 - c/\log|t|$ sits at $\theta = 1$, the Vinogradov--Korobov
+region of the prose literature
+$\sigma \ge 1 - c\,(\log|t|)^{-2/3}(\log\log|t|)^{-1/3}$ at $\theta = 2/3$,
+and \emph{power saving} means $\theta < 1$. Theorem~\ref{thm:pow} lands at
+$\theta = 3/4$: strictly between de la Vall\'ee Poussin and the classical
+$2/3$, which on the same survey no public proof-assistant artifact attains;
+we do not claim the $2/3$ exponent. The proofs formalize the Vinogradov mean
 value theorem (\leaninline{Salt.Vmvt.vmvt}) and route it through an
 exponential-sum-to-growth bridge (\leaninline{Salt.Vk.vk\_block\_core}),
 with an explicit strip family at absolute constant $C = 4096$.
@@ -318,6 +341,23 @@ The mean value estimate for Weyl sums in the range needed by
 Theorem~\ref{thm:pow}, with explicit constants.
 \leanname{Salt.Vmvt.vmvt}
 \end{theorem}
+
+\begin{remark}[A dated qualification]\label{rem:vmvtdate}
+For this theorem the as-of dating requires more than the survey's default
+as-of form---a dated adversary citation: the \texttt{lean-lang.org}
+evaluation board records its Vinogradov-mean-value problem---stated there
+in full main-conjecture form---as solved on 2026-08-16 by a third-party
+submission (an automated system),
+verified by the board's own same-statement comparator (kernel-accepted,
+axioms within the standard three), with the solution source private and its
+publication announced for 2026-08-31. No public artifact proves the theorem
+as of 2026-08-17, but a kernel-grade, dated counter-attestation exists and
+its artifact is expected to be public before review of this paper
+completes. We therefore attach no priority weight to
+Theorem~\ref{thm:vmvt}: it appears here as the input that
+Theorem~\ref{thm:pow} consumes, and the survey delta records the board
+entry as the adversary citation.
+\end{remark}
 
 Around these sit an unconditional Siegel--Walfisz theorem, a
 Bombieri--Vinogradov theorem, a machine-checked Chen's theorem with the
@@ -678,8 +718,8 @@ with $p$ prime and $q$ a $P_2$).
 theorem)}
 \end{proposition}
 
-The three results triangulate the frontier exactly: everything the corpus
-proves lives inside the cone (Proposition~\ref{prop:census}); the twin
+The three results triangulate the frontier exactly: the corpus's censused
+headline theorems live inside the cone (Proposition~\ref{prop:census}); the twin
 prime conjecture is equivalent to a demand $Z$
 (Theorem~\ref{thm:ziff}); and that demand cannot be met inside the cone
 (Theorem~\ref{thm:gap}). The barrier is now a boundary with coordinates.

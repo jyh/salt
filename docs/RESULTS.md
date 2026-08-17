@@ -1,6 +1,6 @@
 # THE TROPHY ROOM — the headline registry of the salt corpus
 
-> **PRIORITY LANGUAGE (2026-08-11).** Every "first" in this register is a *surveyed as-of* claim — first **in any public artifact** as of the survey date, never an assertion of absence. Survey: `${SEAT_DIR}/briefs/2026-08-11-priority-audit.md` (adversary-cited, five lanes). Salt is a private tree; re-run the survey before any of these language is published. *Absence-by-grep lost every contested row in that audit.*
+> **PRIORITY LANGUAGE (updated 2026-08-17).** Every "first" in this register is a *surveyed as-of* claim — first **in any public artifact** as of the survey date, never an assertion of absence. Surveys: `docs/priority-survey-2026-08-11.md` and the pre-submission re-run `docs/priority-survey-2026-08-17-delta.md` (adversary-cited, five lanes each). This repository is public as of 2026-08-16; the earliest third-party-verifiable date for its contents is 2026-08-14 (the companion methods paper's submission timestamp); pre-flip internal dates are internal records, never public priority. **Two claims fell at the 08-17 re-run (the large sieve inequality; Kloosterman–Weil) — read the delta before citing any row as a first.** Re-run the survey before any of this language is published. *Absence-by-grep lost every contested row in both audits.*
 
 **READ THIS BEFORE ASSERTING ABSENCE.** If a result has a row here, it is in the
 Lean kernel, on this branch, at the file and line shown. Three times in the week
@@ -172,6 +172,8 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 | `Salt.Entropy.Chowla.spine_eps_constant_floor` | **[WALL-L2 — THE ε-FLOOR CONSUMPTION FENCE]** `log_chowla_two_budget_head`'s conclusion restated VERBATIM — so a change of shape from a single `ε` to an `∀ ε`-family would stop type-checking here — with the fence adjoined at that same `ε`: for any consumer demand `W` with `W z → 0` (a sieve density at unbounded `z`, or any rate-form saving), the demand `ε ≤ W z` fails from some scale on. The spine head's margin is a CONSTANT floored by construction constants, and this is a fact about the terminal's SHAPE rather than about the strength of its proof; the `MR` mint carries the same shape with `1/500 ≤ ε` in its `∃`-prefix. The fence stops a wave from wiring a constant-`ε` terminal into a slot that needs a rate. No claim about twins, about Chowla, or about the wall is made or implied. | Salt/Entropy/Chowla/SpineEpsFence.lean:102 | 2026-08-15 | `7c82089` | 3 (Salt/Entropy/All.lean:420) |
 
 ## 9. Infrastructure firsts
+
+> **Fallen firsts (2026-08-17 delta — these rows remain as corpus records, landed and kernel-checked, with NO priority claim):** the large sieve inequality (a public PR dated 2026-07-09 precedes every salt public date; kernel-checked clean by our own re-run); Vaughan's identity (public counterexamples from 2026-03); the Kloosterman–Weil bound (an independent public artifact landed 2026-08-14 06:43 UTC, same day as the Nature submission timestamp). The linear-sieve row's "first" is scoped by the header's as-of law and survives both surveys.
 
 | Theorem (Lean name) | Plain statement (one line) | File:line | Date landed | Commit | Axioms |
 |---|---|---|---|---|---|
