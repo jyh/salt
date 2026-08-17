@@ -50,6 +50,18 @@
    consumes this with the block repairs at wake (verdicts: seat
    briefs/2026-08-17-lbv-rider1-refuter-verdicts.md).**
 
+4a. **THE X1 GLOSS ADJUDICATION (Captain-routed 08/17, "do it"; small,
+   before or beside any wave).** The saltworks board's Ruling (c) gloss
+   (saltworks `docs/QUEUE.md:1480`) says "X1's theorem class ranges
+   over programs with `poolDemand ≤ 7`" — but `poolDemand` has ZERO
+   hits in `SaltWorks/HDL/ExecutiveX1.lean` (positive control: defined
+   and consumed in `TinyRustN0.lean`). Adjudicate at the bytes: either
+   X1's actual binder provably implies the gloss (land the one-line
+   verified cross-reference), or the descriptive sentence is corrected
+   forward append-only and the property X1 DOES range over is stated.
+   The Captain's "sure N=2" ruling is UNTOUCHED in both branches.
+   Outcome posts to the saltworks register, append-only.
+
 ## P2 — THE CAMPAIGNS BEHIND THE DOORS (pulled at P1 idle)
 
 5. **The λ-BV dispersion campaign** proper (COMMISSIONED 08/17 — item
