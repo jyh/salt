@@ -41,7 +41,14 @@
    holds a refuter-passed block taking it, λ-BV winning ready-ties.
    Statement questions on the dispersion half remain the Captain's,
    batched at the bells. Rider-1 design block: Fable consult
-   dispatched 08/17 (lands in seat briefs).
+   dispatched 08/17 (lands in seat briefs). **THE CARRIER FORK RULED
+   (08/17 11:3x, the Captain: "take recommendation"): FORK 2 — rider 1
+   re-assembles at the landed twinA1Sieve (~170–260 ln, the
+   refuter-measured equal object at rider 1's weight); the pair
+   carrier and ρ's structural role DEFER to rider 2's design block,
+   where the parity-pinned weight that justifies them lives. Math
+   consumes this with the block repairs at wake (verdicts: seat
+   briefs/2026-08-17-lbv-rider1-refuter-verdicts.md).**
 
 ## P2 — THE CAMPAIGNS BEHIND THE DOORS (pulled at P1 idle)
 
