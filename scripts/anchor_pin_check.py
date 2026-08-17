@@ -101,7 +101,12 @@ DEFAULT_DOC = REPO / "docs" / "CERT-ANCHORS-0811.md"
 
 PAPERS = {
     "Pi": REPO / "papers" / "flagship" / "main.tex",
-    "Nature": REPO.parent / "seat" / "briefs" / "2026-08-11-nature-draft-v0.md",
+    # The Nature anchor source is the submission draft, which lives in the
+    # private archive and is not part of the public tree.  The pin degrades
+    # LOUDLY (an instrument that cannot find its target must say "I could
+    # not look", never return a clean zero) instead of constructing a path
+    # that does not exist here.
+    "Nature": None,
 }
 
 MIN_PHRASE = 12      # below this, a match is coincidence, not evidence
@@ -315,6 +320,10 @@ def find_label(lines: list[str], label: str) -> list[int]:
 def load_papers() -> dict[str, list[str]]:
     loaded = {}
     for name, path in PAPERS.items():
+        if path is None:
+            print(f"  !! {name}: SOURCE IN THE PRIVATE ARCHIVE — "
+                  f"pin SKIPPED, NOT verified", file=sys.stderr)
+            continue
         if not path.exists():
             print(f"  !! {name}: MISSING at {path}", file=sys.stderr)
             continue
