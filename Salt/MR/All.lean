@@ -150,6 +150,7 @@ import Salt.MR.LandauL1
 import Salt.MR.LandauDescent
 import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
+import Salt.MR.EvenChiFourier
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
