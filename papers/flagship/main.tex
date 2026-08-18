@@ -9,13 +9,20 @@
 % conditional named at the statement. No local LaTeX toolchain on the build
 % machine -- compile checks happen author-side/arXiv.
 % ============================================================================
-\documentclass[11pt]{amsart}
-\usepackage[margin=1.1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
+% Journal class: Forum of Mathematics (CUP-JNL-FMP.cls, from the official
+% author template). The compliance re-cut of 2026-08-18 changed packaging
+% only; no claim sentence was altered (receipts in the commit message).
+\documentclass{CUP-JNL-FMP}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{booktabs}
-\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage[numbers]{natbib}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
 \usepackage{microtype}
 \usepackage{xcolor}
+\usepackage[colorlinks,allcolors=weblmcolor]{hyperref}
 
 \newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
 \newcommand{\leaninline}[1]{{\small\texttt{#1}}}
@@ -30,6 +37,48 @@
 % is exhaustive and was generated from the appendix source.
 \usepackage{alltt}
 \newcommand{\lchar}[1]{\hbox to \fontcharwd\font`\M{\hss$#1$\hss}}
+% Engine guard (compliance re-cut): pdfLaTeX (arXiv/CUP) uses the original
+% \DeclareUnicodeCharacter mappings; XeTeX (local tectonic builds) maps the
+% same glyphs via newunicodechar. Identical rendering path, per-engine syntax.
+\ifdefined\XeTeXrevision
+\usepackage{newunicodechar}
+\newunicodechar{¬}{\lchar{\neg}}
+\newunicodechar{Λ}{\lchar{\Lambda}}
+\newunicodechar{α}{\lchar{\alpha}}
+\newunicodechar{β}{\lchar{\beta}}
+\newunicodechar{δ}{\lchar{\delta}}
+\newunicodechar{ε}{\lchar{\varepsilon}}
+\newunicodechar{θ}{\lchar{\theta}}
+\newunicodechar{μ}{\lchar{\mu}}
+\newunicodechar{ξ}{\lchar{\xi}}
+\newunicodechar{ρ}{\lchar{\rho}}
+\newunicodechar{χ}{\lchar{\chi}}
+\newunicodechar{ω}{\lchar{\omega}}
+\newunicodechar{‖}{\lchar{\Vert}}
+\newunicodechar{₀}{\lchar{{}_0}}
+\newunicodechar{₊}{\lchar{{}_+}}
+\newunicodechar{ℂ}{\lchar{\mathbb{C}}}
+\newunicodechar{ℕ}{\lchar{\mathbb{N}}}
+\newunicodechar{ℚ}{\lchar{\mathbb{Q}}}
+\newunicodechar{ℝ}{\lchar{\mathbb{R}}}
+\newunicodechar{ℤ}{\lchar{\mathbb{Z}}}
+\newunicodechar{→}{\lchar{\to}}
+\newunicodechar{∀}{\lchar{\forall}}
+\newunicodechar{∂}{\lchar{\partial}}
+\newunicodechar{∃}{\lchar{\exists}}
+\newunicodechar{∈}{\lchar{\in}}
+\newunicodechar{∏}{\lchar{\prod}}
+\newunicodechar{∑}{\lchar{\sum}}
+\newunicodechar{∣}{\lchar{\mid}}
+\newunicodechar{∧}{\lchar{\wedge}}
+\newunicodechar{∨}{\lchar{\vee}}
+\newunicodechar{∫}{\lchar{\int}}
+\newunicodechar{≠}{\lchar{\neq}}
+\newunicodechar{≤}{\lchar{\le}}
+\newunicodechar{≥}{\lchar{\ge}}
+\newunicodechar{⌊}{\lchar{\lfloor}}
+\newunicodechar{⌋}{\lchar{\rfloor}}
+\else
 \DeclareUnicodeCharacter{00AC}{\lchar{\neg}}
 \DeclareUnicodeCharacter{039B}{\lchar{\Lambda}}
 \DeclareUnicodeCharacter{03B1}{\lchar{\alpha}}
@@ -66,6 +115,7 @@
 \DeclareUnicodeCharacter{2265}{\lchar{\ge}}
 \DeclareUnicodeCharacter{230A}{\lchar{\lfloor}}
 \DeclareUnicodeCharacter{230B}{\lchar{\rfloor}}
+\fi
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -74,16 +124,58 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Twin Primes and Siegel Zeros: a Fulcrum}
-\author{Jason Hickey}
-\thanks{Developed in collaboration with Claude (Anthropic's Fable~5 and
-Opus models); see \S\ref{sec:method} and the repository's commit ledger,
-in which every commit is co-authored. Written in a personal capacity.}
-\date{July 19, 2026}
+\articletype{RESEARCH ARTICLE}
+\jyear{2026}
 
 \begin{document}
 
-\begin{abstract}
+\begin{Frontmatter}
+
+\title[Twin Primes and Siegel Zeros]{Twin Primes and Siegel Zeros: a Fulcrum}
+
+\author[1]{Jason Hickey}\orcid{0000-0003-0300-021X}
+
+\authormark{Jason Hickey}
+
+\address[1]{\orgname{Independent researcher}}
+
+\abstract{Every theorem in this paper is verified by the Lean~4 kernel over
+\textsf{mathlib}, with axiom base exactly
+$\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$;
+nothing rests on informal argument. We introduce the \emph{fulcrum}: a
+single hypothesis---one fixed quality constant $C^\star$, one zero per
+unbounded window---under which, together with an explicitly stated engine
+hypothesis, Siegel zeros produce infinitely many twin primes; the zero's
+reality is derived rather than assumed, and the fulcrum is proved minimal
+for the engine that consumes it. Around it we prove kernel-checked
+zero-free regions for $\zeta$, a Deuring--Heilbronn repulsion contract, an
+exchange-rate neutrality theorem pricing transfer-based routes to twins,
+and the parity gap as a mathematical object. The corpus is $324{,}724$
+lines of Lean across $751$ files, produced by the \emph{Salt method},
+which is described as a contribution in its own right.}
+
+\keywords{twin primes, Siegel zeros, zero-free regions, formal verification, Lean~4}
+
+\keywords[MSC Codes]{\codes[Primary]{11M26}; \codes[Secondary]{68V20, 11N35}}
+
+\end{Frontmatter}
+
+% ---------------------------------------------------------------------------
+% Overview (journal-required, 350--500 words). The text from the second
+% paragraph onward is the pre-recut abstract, MOVED VERBATIM -- every
+% priority-sensitive sentence and its dated footnote are byte-identical to
+% the frozen tip. Only the opening context paragraph is new.
+% ---------------------------------------------------------------------------
+\section*{Overview}
+
+Heath-Brown proved \cite{HB1983} that infinitely many Siegel zeros would
+force infinitely many twin primes; the zero-free-region landscape such
+arguments inhabit descends from Littlewood \cite{Littlewood1922}.
+Machine-checked mathematics at research scale has its landmark in the
+Kepler verification \cite{HalesKepler}, over substrates such as
+\textsf{mathlib} \cite{mathlib}. This overview places the paper in that
+context and states its results; the abstract above is a summary.
+
 Every theorem in this paper is verified by the Lean~4 kernel over
 \textsf{mathlib}, with axiom base exactly
 $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$;
@@ -121,7 +213,7 @@ hypothesis. The corpus is $324{,}724$ lines of Lean across
 $751$ files; the method that produced it---the \emph{Salt method}---kept a
 public ledger of every design error caught (256 numbered entries) against
 zero wrong proofs, and is described as a contribution in its own right.
-\end{abstract}
+
 
 \maketitle
 
@@ -1435,6 +1527,25 @@ theorem twin_almost_prime :
 
 % Ordered alphabetically by first-author surname, cited numerically, per the
 % Forum of Mathematics Pi instructions for contributors.
+% --- Journal-required statements (template backmatter form) ----------------
+\paragraph{Funding statement}
+This work received no external funding.
+
+\paragraph{Competing interests}
+The author declares none. The capacity and employer-independence
+disclosures in the Acknowledgments apply.
+
+\paragraph{Data availability statement}
+The complete Lean~4 corpus underlying every theorem, the commit ledger,
+and the priority surveys cited in the text are publicly available at
+\url{https://github.com/jyh/salt}; Appendix~A maps each stated result to
+its Lean declaration and axiom audit.
+
+\paragraph{Author contributions}
+Developed in collaboration with Claude (Anthropic's Fable~5 and
+Opus models); see \S\ref{sec:method} and the repository's commit ledger,
+in which every commit is co-authored. Written in a personal capacity.
+
 \begin{thebibliography}{99}
 \bibitem{Chen1973} J.~R. Chen, \emph{On the representation of a larger
 even integer as the sum of a prime and the product of at most two primes},
