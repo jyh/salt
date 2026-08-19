@@ -152,6 +152,7 @@ import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
 import Salt.MR.EvenChiFourier
 import Salt.MR.EvenChiCosh
+import Salt.MR.EvenChiSine
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8011,3 +8012,25 @@ end of it: an integer trace forces `y ≥ 2 log φ = 0.96242…`. -/
   Salt.MR.e4a_cosh_neg_free
   Salt.MR.e4a_cosh_of_pm
   Salt.MR.e4a_cosh_integer_of_pm
+
+/-! ### `Salt/MR/EvenChiSine.lean` — the sine bridge
+
+`‖1 − ζ^a‖ = 2 sin(πa/q)` for `0 < a < q`, and the bookkeeping that carries it through
+products, `zpow` weights, norms and real parts.  A dependency-closed unit: no cyclotomic
+field, ring of integers or Dirichlet character appears in it.  The real-part and `log`
+lemmas are stated over an ARBITRARY index type, which is why the ladder above never has to
+transport a sum across a bijection. -/
+#audit_axioms Salt.MR.e4a_step3_sin_bridge
+  Salt.MR.e4a_norm_zpow_prod
+  Salt.MR.e4a_sin_prod_eq_norm
+  Salt.MR.e4a_neg_clog_re
+  Salt.MR.e4a_sum_clog_re
+  Salt.MR.e4a_sum_clog_re_sin
+  Salt.MR.e4a_log_zpow_prod
+  Salt.MR.e4a_log_eta_eq_sum
+  Salt.MR.e4a_exp_pow_eq_exp
+  Salt.MR.e4a_unit_ne_zero_aux
+  Salt.MR.e4a_unit_neg_ne_zero
+  Salt.MR.e4a_unit_val_div_mem
+  Salt.MR.e4a_sin_ne_zero_at_unit
+  Salt.MR.e4a_sin_bridge_zmod
