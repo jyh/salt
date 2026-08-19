@@ -151,6 +151,7 @@ import Salt.MR.LandauDescent
 import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
 import Salt.MR.EvenChiFourier
+import Salt.MR.EvenChiCosh
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -7991,3 +7992,22 @@ untouched — the transport wall stands at this rung.  `logChowla2_ineffective_v
 byte-untouched and remains the object of record. -/
 #audit_axioms Salt.MR.xceilRiderStrict_zero
   Salt.MR.logChowla2_ineffective_v7_ksarm_g0
+
+/-! ### `Salt/MR/EvenChiCosh.lean` — the integrality jump and the `2 log φ` floor
+
+Ported out of the even-χ development 2026-08-19.  Self-contained real analysis: no character,
+no Gauss sum, no cyclotomic field appears in it.  `2 cosh y > 2` over the reals is compatible
+with `2 + ε` for every `ε`; **integrality turns it into `≥ 3`, a GAP rather than an epsilon**,
+and that jump is why the ladder routes through `∃ T : ℤ`.  `e4a_E5_floor` is the quantitative
+end of it: an integer trace forces `y ≥ 2 log φ = 0.96242…`. -/
+#audit_axioms Salt.MR.e4a_two_cosh_log
+  Salt.MR.e4a_cosh_integer_of_sum
+  Salt.MR.e4a_cosh_sign_free
+  Salt.MR.e4a_golden_sq
+  Salt.MR.e4a_cosh_floor
+  Salt.MR.e4a_two_lt_two_cosh
+  Salt.MR.e4a_int_ge_three_of_two_lt
+  Salt.MR.e4a_E5_floor
+  Salt.MR.e4a_cosh_neg_free
+  Salt.MR.e4a_cosh_of_pm
+  Salt.MR.e4a_cosh_integer_of_pm
