@@ -1,91 +1,95 @@
-# W-F3 WAVE B v2 — THE CONCENTRATION CONE AT SHIFT h
+# W-F3 WAVE B v3 — THE CONCENTRATION CONE AT SHIFT h
 
-**Pen:** math, 2026-08-20 15:4x. **v1 failed its gate**; all four requested changes are applied
-below and the census was re-run from scratch. ⛔ **FRESH GATE NOT YET RUN — nothing dispatches.**
-Wave A landed at `2095863e` (10 declarations, `[3 axioms]`, `Built`).
+**Pen:** math, 2026-08-20 16:3x. **v1 and v2 both failed their gates**; every finding is applied
+below and every figure re-measured. ⛔ **FRESH GATE NOT YET RUN — nothing dispatches.**
+Wave A landed `2095863e`.
 
-## §0 — WHAT THE v1 GATE ESTABLISHED (kept because the corrections ARE the design)
+## §0 — THE THREE CORRECTIONS THAT DEFINE v3
 
-1. ⛔ **`decoupledMean` IS NOT A DECLARATION** (0 hits; controls `def badSet` 1, `def fBridgeF` 1).
-   v1 listed it among the offset-baked *definitions* and briefed an executor to build
-   `decoupledMean_h`. **The real baked definitions are exactly three: `fBridgeG`, `fBridgeF`,
-   `badSet`** — Wave A ported the first two. *The object is an inline sum; Wave A already states
-   it at `h` inside `decoupledMean_h_abs_le_boxSum`.*
-2. ⭐ **B-3 IS CHEAP, MEASURED BY CONSTRUCTION.** The Hoeffding independence is over **PRIMES**
-   (CRT residue coordinates via `iIndepFun_residueProj`), not window positions; the shift lives
-   inside `G_p`, a black box to `hoeffding_residueProj`, which is generic in `G`. The v1 refuter
-   **built the whole B-2+B-3 chain** from the `h = 1` scripts with `(p) → (p)*k`: one pass,
-   `saltbuild EXIT=0`, 3 axioms. **v1's "B-3 decides wave-vs-campaign" is struck.**
-3. ⛔⛔ **THE NON-VACUITY CONSTRAINT, and it is the block's real content.** `primeWindow` is the
-   primes in `(ε²H/2, ε²H]`, so `p·h > ε²H·h/2 ≥ H` exactly when **`ε²·h ≥ 2`**. There
-   `windowVal H v (j + p·h) = 0` for all `j` ⇒ `fBridgeF_h ≡ 0`, `badSet_h = ∅`, `h211_h`
-   unsatisfiable, `outer_combine_h` vacuous. **And no hypothesis of the concentration lemma
-   mentions `h`,** so an instance valid at `h = 1` is valid at `h = 10⁶` where the conclusion is
-   true and content-free. ⇒ ***`ε²·h < 2` IS A NEW HYPOTHESIS THIS WAVE MUST INTRODUCE. No `h = 1`
-   compat can detect its absence (`ε²·1 < 2` for every `ε ≤ 1`).***
-4. 📌 **`outer_combine` has no positive lower bound to reconcile** — `c₁εH/log H` is its
-   *hypothesis* `h211`. The object at risk is **`h211_h`'s satisfiability**. (v1 said otherwise.)
-5. 📌 **The threshold's `h`-freeness is the DEFECT, not the safety.** Every prime `p ≥ H/h`
-   contributes **0** to `F_h` and its **full** `(H/p+1)²` to the Hoeffding denominator:
-   *the variance proxy does not shrink with `h`; the signal does.* **That is B-4's cost.**
+**C1 — `ε²·h < 2` IS NECESSARY AND NOT SUFFICIENT. The constraint is `ε²·h ≤ 1`.**
+v2's *"exactly when"* claimed a false iff: `primeWindow` is a set of **integers**, so the real
+interval `(ε²H/2, H/h)` being non-empty does not mean it contains a **prime**. Machine-checked
+counterexample, reproduced independently: **`ε = 0.999, H = 1000, h = 2` gives `ε²h = 1.996 < 2`,
+73 window primes, and ZERO survivors** — every hypothesis of `outer_combine` holds *including
+`hne`*, and `h211_h` is false. Two further failures at `ε²h = 1.96, 1.984`; **zero failures below
+`ε²h < 1`.** ✅ **At `ε²·h ≤ 1` the ENTIRE window survives** (40/40, 23/23, 10/10, 73/73), so the
+surviving mass equals the `h = 1` mass exactly and **the floor gets EASIER as `h` grows, since
+`ε = √(α/h)` must shrink.** ⚠️ *The Mertens continuity argument behind "≤ 1 is enough" is
+asymptotic heuristic, NOT machine-checked — the counterexample and the survivor counts are.*
+⇒ **Every object from B-2 down carries `hεh : (eps:ℝ)^2 * h ≤ 1`, acquired at `h211_h`.**
 
-## §1 — THE CENSUS, RE-RUN OVER THE WHOLE CONE (v1 looked at 3 files of 17 and did not say so)
+**C2 — B-4 IS A FIVE-LINE FIX, NOT A CAMPAIGN. v2's §0.5 was FALSE.**
+`hoeffding_residueProj` is generic in its box: `lo`/`hi` are **caller-supplied**, unified from the
+`h_bdd` argument. The **sharp** box at `p·h ≥ H` is `[0,0]` — width zero, contributing **0** to the
+denominator. **The `h`-blindness v2 called an intrinsic obstruction is an artifact of Wave A's
+deliberately loose `fBridgeG_h_abs_le`.** *I promoted a removable artifact to a wall and then
+ordered the wave around it.*
+🔑 **AND THE AXIS COLLAPSE:** `fBridge_varTerm`, `fBridge_var_le`, `fBridge_var_le_sharp` are
+offset-free **only because they hard-code the `h`-blind box.** ***The free/bound split and box
+sharpness are ONE axis, not two: B-2/B-3's byte-copies are cheap precisely because they inherit
+the looseness C2 removes.*** Sharpening the box and porting cheaply are the same decision.
 
-**Cone = `FBridge` · `Decoupled` · `Transport` · `OuterCombine`** (the span from `fBridgeG` to
-`outer_combine`). The other 13 files naming these objects are **downstream consumers** —
-`Theorem23Shell`, `SpineFinal`, `HloExport*`, `S16Uniform`, … — and belong to **Wave C**, not here.
-*Stated as a scope measurement, not an assumption.*
+**C3 — THE `h211` PRODUCER CHAIN IS IN SCOPE. v2 exiled its own object of risk.**
+`h211_of_logChowla2Fails` (`ChowlaFailure.lean:120`) **produces** `h211`; that file's own docstring
+says it is *"byte-identical to `outer_combine`'s `h211` hypothesis"* and `:173` feeds it in.
+**v2 named `h211_h`'s satisfiability as the block's object of risk and then ruled its only producer
+out of scope, making C1 unanswerable inside the block.**
+⛔ **And upstream is worse than vacuous:** `fBridge_of_singleCorr` (`Prop26.lean:160`) is an
+**∃-statement with a strictly positive floor**, consuming `hmert : cM/log H ≤ ∑_{p ∈ primeWindow} 1/p`
+over the **full** window, while at shift `h` the mass comes only from **survivors**. At C1's
+counterexample those are inconsistent ⇒ **at shift `h` that node is FALSE, not vacuous.** *The
+vacuity v2 found downstream is the shadow of an outright falsity one file up.*
 
-**45 cone declarations · 32 offset-bound · 13 free · 10 already ported by Wave A.**
-⛔ **INSTRUMENT NOTE, third correction on this block:** the first recount said **20** unported.
-Six of those were **already ported** — Wave A **infixes** `_h` after the head token
-(`fBridgeG_abs_le` → `fBridgeG_h_abs_le`) and my check looked for a **suffix**. **True figure: 14.**
-*(Control: the corrected rule finds exactly Wave A's 10 h-siblings.)*
+## §1 — THE CENSUS, over the TRUE cone
 
-| # | unported, offset-bound | site |
+**Cone = `FBridge` · `Decoupled` · `Transport` · `WindowCount` · `MarkovExtract` · `OuterCombine`.**
+v2 said four files; `OuterCombine` imports `WindowCount` and `MarkovExtract`, and `WindowCount`
+imports `FBridge`, so both sit **strictly inside** the span. *Consequence benign — both are 0
+offset-bound — but v2 asserted a scope it never measured.*
+
+**52 declarations · 32 offset-bound · 10 ported by Wave A · 14 unported.**
+⛔ **v2 counted 45 and missed the `instance` class entirely** — `neZero_primeWindow`
+(`FBridge.lean:52`). *The trap class named in v2's own instrument note, absent from v2's matcher.*
+
+| file | decls | offset-bound |
 |---|---|---|
-| 1 | `fBridgeG_sum_over_residues` | `FBridge.lean:176` |
-| 2 | `fBridgeG_mean` | `:331` |
-| 3 | `fBridge_concentration_raw` | `:261` |
-| 4 | `fBridge_concentration` | `:276` |
-| 5 | `fBridge_concentration_sharp` | `:412` |
-| 6 | `fBridge_concentration_decoupled_sharp` | `:460` |
-| 7 | `fBridgeF_mean` | `Decoupled.lean:38` |
-| 8 | `fBridge_concentration_decoupled` | `Decoupled.lean:53` |
-| 9 | `badSet` (definition) | `Transport.lean:42` |
-| 10 | `badSet_transport` | `:69` |
-| 11 | `badSet_transport_at_calibration` | `:128` |
-| 12 | `outer_badMass_eq` | `OuterCombine.lean:193` |
-| 13 | `outer_badMass_le` | `:242` |
-| 14 | `outer_combine` | `:342` |
+| `FBridge` | 27 | 16 |
+| `OuterCombine` | 13 | 11 |
+| `Transport` | 4 | 3 |
+| `Decoupled` | 2 | 2 |
+| `WindowCount` | 2 | **0** |
+| `MarkovExtract` | 4 | **0** |
 
-*Rows 3–5, 7, 8, 10 were all absent from v1's table. `Decoupled.lean` was never censused at all.*
-📌 **`Salt/Entropy/All.lean:712-713` already carried the accurate list** — *"no `fBridge_concentration*`
-at `h`"*, a **star** over raw/sharp/decoupled_sharp. v1 reduced that star to one object. **The
-corpus's own note beat my census, in the file I was censusing.**
+**The 14 unported:** `fBridgeG_sum_over_residues` · `fBridgeG_mean` · `fBridge_concentration_raw`
+· `fBridge_concentration` · `fBridge_concentration_sharp` · `fBridge_concentration_decoupled_sharp`
+· `fBridgeF_mean` · `fBridge_concentration_decoupled` · `badSet` · `badSet_transport`
+· `badSet_transport_at_calibration` · `outer_badMass_eq` · `outer_badMass_le` · `outer_combine`.
 
-## §2 — WAVE SHAPE, REORDERED (v1 had it backwards)
+## §2 — WAVE SHAPE
 
-- **B-1 — `badSet_h` + its `h = 1` compat.** The one remaining offset-baked *definition*.
-  Compat by `Nat.mul_one`, **not `rfl`** (Wave A's measured technique). **Class C, small.**
-- **B-2 + B-3 — rows 1–8, the mean and the concentration cone.** ***Byte-copies of the `h = 1`
-  scripts; already built once by the refuter.*** **ONE executor, Class C.**
-- **B-4 — rows 10–14, the calibration and the outer combine. THE CAMPAIGN.** Here the fixed
-  threshold meets the shrinking signal (§0.5), and `h211_h` must assert the same
-  `c₁·εH/log H` floor on a strictly smaller object. **Do not brief B-4 as one wave.**
-- **⛔ EVERY object from B-2 onward carries `hεh : (eps:ℝ)^2 * h < 2` EXPLICITLY.** It is
-  **acquired at `h211_h`**, which is where satisfiability is asserted, and threaded downward.
-  *Absent it, every statement below is green, compat-clean and empty.*
+- **B-0 (new, from C2) — SHARPEN THE BOX.** `fBridgeG_h_eq_zero_of_le` and a sharp
+  `fBridgeG_h_mem_Icc` giving `[0,0]` at `p·h ≥ H`. **~5 lines. Do this FIRST**: it is what makes
+  B-4 ordinary, and it is what the three variance lemmas will then need re-porting against.
+- **B-1 — `badSet_h`** + its `h = 1` compat (`Nat.mul_one`, not `rfl`). ⚠️ **Byte-identity at `h`
+  needs THREE synchronized sites, not one**: `badSet_h`'s predicate, the concentration lemma's
+  deviation set, **and `outer_combine`'s own conclusion** (`OuterCombine.lean:363-364`, which
+  spells the offset independently). Wave A already fixed the target spelling at `:150`.
+- **B-2 + B-3 — the mean and concentration cone (8 objects).** Byte-copies of the `h = 1` scripts;
+  **already built once by the v2 refuter at `EXIT=0`.** ONE executor, Class C.
+- **B-4 — calibration + outer_combine (5 objects).** Ordinary once B-0 lands.
+- **B-5 (new, from C3) — THE PRODUCER CHAIN.** `h211_of_logChowla2Fails` and
+  `fBridge_of_singleCorr` at shift `h`, carrying `hεh` and a **truncated-window** Mertens floor
+  in place of the full-window `hmert`. ⛔ **This is where `h211_h` becomes satisfiable or does
+  not. It is the wave's real question and it is no longer out of scope.**
 
-## §3 — KILL-CHECKS FOR THE FRESH GATE
+## §3 — KILL-CHECKS
 
-**L1** — is `ε²·h < 2` sufficient as well as necessary? §0.3 proves the failure at `ε²h ≥ 2`;
-**nobody has shown the surviving prime range `(ε²H/2, H/h)` carries enough mass for `h211_h`.**
-**KILL: if it does not, the arc dies inside the constraint too.**
-**L2** — does `badSet_h`'s deviation set stay byte-identical to the h-concentration lemma's, as
-`Transport.lean:39-41` asserts for `h = 1`? *(v1 misread that docstring; read the bytes.)*
-**L3** — B-4's reconciliation: state the inequality `h211_h` needs and whether the shrinking
-signal can satisfy it for any `h ≥ 2`. **This is the wave's real question.**
-**L4** — audit THIS census as v1's was audited: which member class can the corrected matcher still
-not see? *It now knows infixed `_h`, the three real baked defs, and the four cone files. It does
-not know: objects offset-bound through a def I have not listed, or proof-only sensitivity.*
+**M1** — is `ε²·h ≤ 1` sufficient **as stated in Lean**, or does the truncated-window Mertens floor
+need to be a hypothesis rather than a consequence? *C1's argument for sufficiency is heuristic.*
+**M2** — does sharpening the box (B-0) break the three variance lemmas' `h = 1` proofs? **If the
+sharp box costs more than it saves, C2 is wrong and B-4 is a campaign after all.**
+**M3** — at shift `h`, is `fBridge_of_singleCorr` repairable, or is its `∃ c > 0` genuinely FALSE
+for all `h ≥ 2`? **KILL: if false, W-F3 dies regardless of any constraint.**
+**M4** — audit this census: it now knows infixed `_h`, three baked defs, `instance`, and six files.
+**What class does it STILL miss?** *Candidates: offset-binding through a def outside the three;
+proof-only sensitivity; declarations in files that import the cone but are not consumers.*
