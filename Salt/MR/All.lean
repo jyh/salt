@@ -159,6 +159,7 @@ import Salt.MR.EvenChiTau
 import Salt.MR.EvenChiMiddle
 import Salt.MR.EvenChiAlgebra
 import Salt.MR.EvenChiEta
+import Salt.MR.EvenChiControls
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8195,3 +8196,22 @@ IN the ruled statement rather than a proof detail. -/
   Salt.MR.e4a_E5_floor_at_middle
   Salt.MR.e4a_E5_floor_unconditional
   Salt.MR.e4a_L1_lower_even
+
+/-! ### `Salt/MR/EvenChiControls.lean` — ⛔ NEGATIVE CONTROLS, NOT RESULTS
+
+**Nothing in that module is a theorem about the even-χ mathematics.** Each declaration
+refutes something, or is the positive arm that shows a refutation discriminates.
+`e4a_gaussSum_mutant_is_false` is why `heven` is load-bearing rather than decorative;
+`e4a_descent_needs_integrality` is the ℚ-witness that integrality is kernel-necessary;
+`e4a_descent_holds_when_integral` is its positive arm, because a control with one arm proves
+nothing.  **A corpus that carries a hypothesis but not the witness that the hypothesis is
+load-bearing is carrying an unfalsified claim** — that is why these are in the tree rather
+than in custody. -/
+#audit_axioms Salt.MR.e4a_descent_needs_integrality
+  Salt.MR.e4a_descent_holds_when_integral
+  Salt.MR.e4a_gaussSum_real_of_primitive
+  Salt.MR.e4a_gaussSum_odd_inv_addChar
+  Salt.MR.e4a_gaussSum_odd_re_zero
+  Salt.MR.e4a_gaussSum_mutant_is_false
+  Salt.MR.e4a_toC_vanishes_off_units
+  Salt.MR.e4a_toC_signOf_mutant_is_false
