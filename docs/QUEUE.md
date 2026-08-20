@@ -19,10 +19,10 @@
 2. **λ-BV WAVES** — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
-3. **The even-χ port tail** — EvenChiCyclotomic's ~29 algebraic
-   declarations (guide row 3); membership disciplines apply.
-4. **The Estermann 2-adic landing** — six theorems, kernel-verified at
-   three axioms, unlanded; the stated blocker (frozen main) is gone.
+3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
+   out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
+4. **The Estermann 2-adic landing** — ✅ DONE 08/20 `4efcc2b1`: HB (7.1)
+   verbatim, no 2-adic factor.
 5. **W-F3 — THE h-SHELL** — the fork road's arc-finisher: the
    Theorem23Shell h-analogue consuming circle_method_estimate_h +
    contradiction_of_mrtDoorXiH, yielding the door-conditional h-family
