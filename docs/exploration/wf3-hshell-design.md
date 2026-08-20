@@ -3,6 +3,53 @@
 # ⛔⛔ REFUTER VERDICT (lens A, 14:1x) — **J1 REFUTED. THE "ONE-PARAMETER TRANSPORT" FRAMING IS FALSE. THIS IS A BRIDGE CAMPAIGN, NOT ONE EXECUTOR.**
 *(Lens B — vacuity/interface/scope — still running; its verdict will be folded in on return.)*
 
+# ⛔⛔ REFUTER VERDICT (lens B, 14:2x) — **J3 AND J4 ALSO REFUTED. "ARC-FINISHER" IS AN OVERCLAIM AGAINST A FILE WHOSE OWN HEADER SAYS OTHERWISE.**
+
+## B1 — MY KILL-CHECK J3 IS MALFORMED AND CANNOT BE SATISFIED
+`log_chowla_two_shell_xi` concludes **`False`** — its entire content *is* that its hypotheses are
+unsatisfiable. **A "non-vacuity witness" satisfying all of them would REFUTE the landed theorem.**
+I fused two different tests: E4a's mutation control (witness against the *mutated* statement) and
+a satisfiability check. *Only the first is runnable here, and it says nothing about vacuity.*
+
+## B2 — THE DOOR HAS NO PRODUCER, AND AT `h ≥ 2` THE ROUTE IS INVERTED
+`hXi` **is** supplied — by `bigXiH_bounded` (`ShiftFork.lean:253`, landed, `K := h·C`), **which my
+block never named.** But the door is not: `mrtUniformityXi_of_absWindowBound` runs through
+`BigXiArcTight`, whose arc-tightness follows from largeness at **`ξ`**, while `bigXiH h` asserts
+largeness at **`−(h·ξ).val/H`** — the arc supply lands on the **wrong frequency**.
+🔑 ***`ShiftFork.lean:292-295` says it in its own words: "`MRTUniformityXiH h` is the `h`-family's
+OPEN HYPOTHESIS … this file adds no producer and claims none."*** ⇒ **Calling this "the fork
+road's arc-finisher" is an overclaim I made against a file that states the opposite in its header.**
+
+## B3 — THE HYPOTHESIS COUNT WAS 33% LOW, AND "EXACTLY FOUR CHANGES" IS FALSE
+I wrote *"~15 hypotheses"*. Mechanically, from the **signature** (`:242-272`): **20 Prop
+hypotheses**, 1 instance, 10 data — 30 binder groups. ⛔ **The docstring-shaped count again, third
+time today.** And **ELEVEN of the twenty** (`hne hreg hH hlog hhead ht hg hgle hI hc₁ h211`) exist
+*solely to feed `outer_combine`*, which is hard-coded at offset `j + p`. At `h > 1` their consumer
+produces the wrong object and `le_trans hoc (le_trans hB …)` will not typecheck.
+⛔ **Also false: §4's "no import is added".** `shellError` (`Theorem23Shell.lean:52`) is **not** in
+`ShiftFork`'s import cone, so stating the terminal there *does* add an import.
+
+## B4 — ⛔ AND MY SIGNATURE ERROR, COMMITTED IN A BLOCK THAT CITES THE LAW AGAINST IT
+§1's table says `log_chowla_two_shell_xi_sq` is *"consumed by `M4DoorL2.lean:408`"*.
+**`M4DoorL2.lean:408` IS PROSE inside a `/-! … -/` section-doc block, and `Salt/MR/M4DoorL2.lean`
+does not import `Theorem23Shell` at all.** ***Docstring-as-declaration — the exact defect in my own
+banked six-corrections law — written into a design block whose J-gates cite that law.***
+The real consumers: `SpineFinal.lean:1302` · `S16Uniform.lean:219` · `HloExport.lean:362` ·
+`HloExportFlat.lean:196`. And `_sq` consumes **`MRTUniformityXiL2`**, is **`K`-free**, and would
+need `MRTUniformityXiL2H`/`contradiction_of_mrtDoorXiL2H` — objects my §2 delta never mentions.
+**§1 lists the L² object as in-scope while §2 specifies only the L¹ path. Pick one.**
+
+## ⇒ SPLIT, per lens B (J6 survives: an h-terminal is strictly WEAKER, so no downstream consumer is at risk)
+**Wave A — Class C, dispatchable now:** the h-port of `fBridgeG`/`fBridgeF` and the deterministic
+`|·| ≤ 1` bounds. *Genuinely offset-agnostic; genuinely a transport.*
+**Wave B — Class C, CAMPAIGN-TIER, not one executor:** `badSet_h`, `fBridge_concentration_decoupled_sharp`
+at `h`, `badSet_transport_at_calibration`, `outer_badMass_le`, `outer_combine_h`. **This is the
+concentration/entropy heart.** Needs its own design block.
+**Wave C — Class B, gated on A+B:** the terminal + the `h = 1` compat (which is a 3-lemma rewrite
+off ALREADY-LANDED compats), plus the `Theorem23Shell` import.
+
+---
+
 ## A1 — MY KILL-CONDITION WAS A PHANTOM
 J1 asked whether the budget survives the `h·(1+2·C₀)` constant. **The constant is real**
 (`CircleMethod.lean:1139` witnesses `⟨(h:ℝ)*(1+2*C₀), …⟩`) **and INERT**: the shell takes
