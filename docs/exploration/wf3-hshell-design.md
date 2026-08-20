@@ -1,5 +1,64 @@
 # W-F3 — THE h-SHELL (P1 fill item 5). DESIGN BLOCK
 
+# ⛔⛔ REFUTER VERDICT (lens A, 14:1x) — **J1 REFUTED. THE "ONE-PARAMETER TRANSPORT" FRAMING IS FALSE. THIS IS A BRIDGE CAMPAIGN, NOT ONE EXECUTOR.**
+*(Lens B — vacuity/interface/scope — still running; its verdict will be folded in on return.)*
+
+## A1 — MY KILL-CONDITION WAS A PHANTOM
+J1 asked whether the budget survives the `h·(1+2·C₀)` constant. **The constant is real**
+(`CircleMethod.lean:1139` witnesses `⟨(h:ℝ)*(1+2*C₀), …⟩`) **and INERT**: the shell takes
+`{C : ℝ} (hC : 0 < C)` **universally** (`Theorem23Shell.lean:147, 255`) with `hcirc` as a
+hypothesis, so **the h-shell never instantiates `C`** and the budget cannot inherit anything.
+*My J1 was aimed at a step that does not occur in this object. The arithmetic, done anyway for the
+downstream instantiation, does not collapse at `h = 2` either — `h` enters linearly as a divisor
+of the admissible window.*
+
+## A2 — ⛔ THE ACTUAL KILL: THERE IS A FIFTH CHANGE, AND IT IS CAMPAIGN-SIZED
+Offending sentence: *"Everything else — the regime bounds, `hI`, `h211`, the budget arithmetic —
+is unchanged."* **`hI` is h-free; `h211` is NOT.**
+`h211` is stated over `fBridgeF = ∑_p fBridgeG ∘ residueProj`, and **`fBridgeG` bakes the offset
+multiplier 1 into its DEFINITION** (`FBridge.lean:89-92`, `windowVal H v (j + (p:ℕ))`).
+🔑 ***Its own docstring says so in as many words: "at the Liouville model (`a=1,b=0,h=1,c_p=1`)".
+The parameter I proposed to generalise is named FIXED AT 1 in the definition I proposed to reuse.***
+Machine-checked: the offset-1 and offset-`p·h` correlations are **not defeq**, so the shell's
+`have hcirc' : ∀ n, |gm n| ≤ RHS n := hcirc` cannot fire and the chain does not typecheck —
+**precisely the "kernel checks theorems, not that they compose" class this block cites in its own
+J4, walked into by §2.**
+⇒ **THE FIFTH CHANGE:** h-versions of `fBridgeG`/`fBridgeF`, hence of `outer_combine`
+(`OuterCombine.lean:281`, carries no `h`) and its whole cone — `fBridgeF_abs_le_box*`, `boxGrade`,
+`badSet*`, `fBridge_var_le`, `fBridge_concentration*`, `fBridgeG_mean`, `fBridgeF_mean`,
+`fBridge_varTerm` — plus (2.11) restated at shift `h`. **Measured: 19 `fBridge*` declarations and
+`outer_combine`, ZERO carrying an `h` today.** *That is re-deriving Tao §2's bridge at shift `h`.*
+⇒ **AND A SIXTH:** if `hcirc` really is *supplied*, the shell also acquires
+`circle_method_estimate_h`'s side hypothesis `((primeWindow eps H).card : ℝ) ≤ C₀·(ε²H/log H)`
+and the parameter `C₀`.
+
+## A3 — §2 CONTAINED AN INTERNAL CONTRADICTION AND I DID NOT SEE IT
+Change #2 says `hcirc` *"becomes supplied, not carried"*; the next line says the budget arithmetic
+*"is unchanged"*; the closing gloss says the budget *"inherits an `h` factor"*. **Those three
+cannot all hold.** *No instrument catches this — only reading my own paragraph as a reader would.*
+
+## A4 — J2 SURVIVES BUT NARROWER, AND MY CITATION WAS WRONG IN MY FAVOUR
+`h = 1` does **not** reduce definitionally (`p*1` is not defeq to `p`; `bigXi_eq_bigXiH_one`
+says of itself *"NOT `rfl`-grade"*; the door compat is proved by `propext`). It reduces by a
+**3-lemma rewrite** — cheap, and it does not fork the corpus. ⛔ **But I wrote "mirror the L² compat
+pattern, do not invent one" when the L¹ compat I actually need is ALREADY LANDED:**
+`bigXi_eq_bigXiH_one` (`ShiftFork.lean:105`) and `mrtUniformityXi_eq_xiH_one` (`:307`).
+*Nothing to mirror and nothing to invent — I sent an executor to build what exists.*
+
+## A5 — J5 SURVIVES, independently re-verified with a positive control
+No h-analogue exists; the control returns 20 `log_chowla_*` declarations across 9 files, so the
+zero is real and not a broken matcher. **The wave is not a no-op — it is bigger than stated.**
+
+## ⇒ RECLASSIFIED: **NOT Class B/C, not one executor.** Two honest exits, neither mine to choose:
+**(1) NARROW THE CLAIM** — carry `outer_combine`'s output as an explicit hypothesis at offset
+`p·h` (keep `hcirc` *carried*, not supplied). Then it genuinely is re-plumbing — **but the
+terminal becomes conditional on TWO unproduced objects**, which contradicts J6's "door-conditional",
+and §2's "`h211` unchanged" must be struck either way.
+**(2) ACCEPT THE BRIDGE CAMPAIGN** — transport the `fBridgeG → outer_combine` cone to shift `h`
+first. **That is the arc-finisher's real cost, and it was invisible in this block.**
+
+---
+
 **Pen:** math. **Drafted** 2026-08-20 13:4x. ⛔ **REFUTER PASS NOT RUN — not dispatchable yet**
 (verify-posture law; the λ-BV block failed exactly this gate three hours ago and the lesson is
 priced in below).
