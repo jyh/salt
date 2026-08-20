@@ -153,6 +153,7 @@ import Salt.MR.ThmA2Open
 import Salt.MR.EvenChiFourier
 import Salt.MR.EvenChiCosh
 import Salt.MR.EvenChiSine
+import Salt.MR.EvenChiSign
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8034,3 +8035,27 @@ transport a sum across a bijection. -/
   Salt.MR.e4a_unit_val_div_mem
   Salt.MR.e4a_sin_ne_zero_at_unit
   Salt.MR.e4a_sin_bridge_zmod
+
+/-! ### `Salt/MR/EvenChiSign.lean` — the ℤ sign map of a real Dirichlet character
+
+A real character takes values in `{0,±1}` FREE at `[NeZero q]`, so on the units it IS an
+integer sign.  `e4a_signOf_sum_eq_zero` is the integer form of the R1 amendment, and
+`e4a_card_eq_of_sum_zero` turns it into EQUAL FIBRE CARDINALITIES — which is what cancels the
+signs in the η product.  Dependency-closed and light: no cyclotomic field, no ring of
+integers anywhere in its cone. -/
+#audit_axioms Salt.MR.e4a_card_eq_of_sum_zero
+  Salt.MR.e4a_units_reindex
+  Salt.MR.e4a_prod_restrict_coprime
+  Salt.MR.e4a_char_vanishes_off_units
+  Salt.MR.e4a_fibre_swap
+  Salt.MR.E4aChiBridge.e4a_signOf_one
+  Salt.MR.E4aChiBridge.e4a_signOf_cast
+  Salt.MR.E4aChiBridge.e4a_signOf_mul
+  Salt.MR.E4aChiBridge.e4a_signOf_eq_one_or_neg_one
+  Salt.MR.E4aChiBridge.e4a_signOf_trichotomy
+  Salt.MR.E4aChiBridge.e4a_dirichletReal_values
+  Salt.MR.E4aChiBridge.e4a_signOf_cast'
+  Salt.MR.E4aChiBridge.e4a_signOf_mul'
+  Salt.MR.e4a_dirichlet_fibre_swap
+  Salt.MR.e4a_dirichlet_card_eq
+  Salt.MR.e4a_signOf_sum_eq_zero
