@@ -156,6 +156,7 @@ import Salt.MR.EvenChiSine
 import Salt.MR.EvenChiSign
 import Salt.MR.EvenChiRingBridge
 import Salt.MR.EvenChiTau
+import Salt.MR.EvenChiMiddle
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8094,3 +8095,28 @@ source of the `√q` in the ground.  The SIGN is deliberately unproved: `cosh` i
   Salt.MR.e4a_gaussSum_re_eq_pm_sqrt
   Salt.MR.e4a_gaussSum_re_ne_zero
   Salt.MR.e4a_abs_gaussSum_re
+
+/-! ### `Salt/MR/EvenChiMiddle.lean` — E3's Fourier identity reaching the real sine product
+
+    Re( τ · L(χ⁻¹,1) )  =  − log ∏_{a ∈ (ZMod q)ˣ} ( 2 sin(π·(−a).val / q) ) ^ χ(a)
+
+`e4a_norm_add_inv_int` is the step that makes the descent possible: if `w + w⁻¹` is an integer
+then so is `‖w‖ + ‖w‖⁻¹`, with NO assumption that `w` is real — either `w` is real, or it lies
+on the unit circle, and both branches land an integer.  That is why the ladder never has to
+answer the Galois question "is η real?", which the target never asks.  `e4a_signOf_neg` is
+where EVENNESS is load-bearing: E3 indexes by `(−j).val`, η by `val`, and they agree only
+because `χ(−a) = χ(a)`. -/
+#audit_axioms Salt.MR.e4a_norm_add_inv_int
+  Salt.MR.e4a_prod_units_eq_prod_Ioo
+  Salt.MR.e4a_ne_one_of_sum_zero
+  Salt.MR.e4a_fourier_signOf_form
+  Salt.MR.e4a_fourier_signOf_form_real
+  Salt.MR.e4a_witness_rhs_re
+  Salt.MR.e4a_middle_re_join
+  Salt.MR.e4a_signOf_neg
+  Salt.MR.e4a_middle_reindex
+  Salt.MR.e4a_log_eta_units
+  Salt.MR.e4a_middle_closed
+  Salt.MR.e4a_P_eq_units_prod_inv
+  Salt.MR.e4a_log_P_eq_middle
+  Salt.MR.e4a_middle_ne_zero
