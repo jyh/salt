@@ -1,8 +1,70 @@
 # λ-BV — THE DESIGN BLOCK (P1, commissioned 2026-08-20)
 
+# ⛔⛔⛔ REFUTER VERDICT 2026-08-20 13:2x — **THIS BLOCK FAILED ITS GATE. BOTH CENTRAL CLAIMS ARE REFUTED. NO WAVE IS DISPATCHABLE FROM IT.**
+
+Two adversarial refuters ran (mathematics · citation-integrity). **Both central claims fell, with
+machine-checked counterexamples at `saltbuild EXIT=0`.** The block is kept in full below because
+the refutation is the deliverable; every claim it makes is now annotated with what it actually
+survives as. **The verify-posture law worked exactly as intended: this cost two refuters and it
+stopped waves aimed at already-landed work, at an open problem, and at the wrong object.**
+
+## R1 — §1's DISCRIMINATOR TESTS THE WRONG FIELD. **Support shape is irrelevant.**
+The identity in §1 is fine — *and it is already landed verbatim*, `Salt/TwinBar/ParityWall.lean:309`
+`lambda_mult_sum`. **But the dichotomy fails three ways against the corpus's own live sieves:**
+- **It returns REGIME A on the flagship BV consumer.** `Salt/Chen/TwinA1.lean:121` has
+  `support = Icc(x/2+2, x)` — an interval — with `weights = Λ(m−2)`. K1 would say "no BV"; the
+  object is the Λ-mass in the class `n ≡ −2 (mod d)`, which is *precisely what BV exists for*.
+- **It is not invariant under a change of variable.** `Salt/Goldbach/A1.lean:51` mirrors that
+  sieve with `n ↦ N−n` and gets the OPPOSITE verdict. *A test that flips on a cosmetic
+  reparameterisation is not a discriminator.*
+- **It is not exhaustive, and the missing case is the twin case.** `Salt/Brun/Sieve.lean:85` has
+  `support = image (n ↦ n(n+2))` — neither interval nor affine. Its `d = 1` term is
+  `Σ_{n≤N} λ(n)λ(n+2)`, **the two-point Chowla conjecture — OPEN**; and `d = 1` is squarefree and
+  lies in `divisors prodPrimes` for *every* sieve, so it cannot be dropped. ⇒ **There is a THIRD
+  regime, priced neither free nor BV-class but OPEN, and this block gives no answer for it.**
+
+✅ **THE CORRECTED DISCRIMINATOR, from the refuter and adopted:** ***is `n ↦ λ(n)·w(n)` a linear
+combination of COMPLETELY MULTIPLICATIVE functions?*** Constants and λ qualify; `Λ(m−2)`, prime
+indicators and `aCount` do not. **Support shape does not enter.**
+
+## R2 — §2's μ-COLLAPSE IS A CONFLATION. **Struck.**
+Exactly the fault I named to the refuter as my own weakest paragraph. `λ(d)` occurs **nowhere** in
+`multSum`, `rem`, or `rosserRemainder` — `d` appears only inside the predicate `d ∣ n`. The twist
+is `λ(n)` **on the sifted variable**, which is not squarefree. Squarefreeness of the *index* cannot
+act on the *summand*. Machine-checked at `saltbuild EXIT=0`: `λ(4) = 1`, `μ(4) = 0`, and the two
+twists already differ at `d = 1`. **§2 survives only as `|λ(d)| = 1` on the index set — true,
+free without squarefreeness, and worth nothing. It is not a collapse candidate. K2 cannot fire in
+either direction and is struck.**
+
+## R3 — THE REGIME-A BRANCH IS **ALREADY BUILT**, and §3 called it "specified, unbuilt"
+`mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1059`, no hypotheses) · `Mlambda_rate`
+(`Salt/TwinBar/LambdaRate.lean:451`) · `rosserRemainder_sPlus_le` (`Salt/TwinBar/Wall.lean:356`),
+composed into **`parity_wall_unconditional`** (`Salt/TwinBar/WallUnconditional.lean:31`).
+⇒ **A regime-A verdict does not produce a two-node bridge; it produces NOTHING TO BUILD.**
+⛔ **And `Salt/MR/LambdaRateTwisted.lean:131` records this exact stale "unbuilt" claim having been
+STRUCK ONCE ALREADY. This block re-imported a struck claim** — the failure mode is not that I
+guessed wrong, it is that I did not grep the tree for objects a design doc told me did not exist.
+🔑 **And the sharp point: those landed objects prove the parity WALL — the OBSTRUCTION — not the
+parity-pinned survivor.** The cheap half of this campaign is not cheap; it is done, and it points
+the other way.
+
+## R4 — THREE HYPOTHESES THE BLOCK NEEDS AND NEVER STATED
+a **level cap** (`Q` is a free widening knob with only `hQ : 1 ≤ Q`; `|M_λ(⌊x/d⌋)|` is worthless
+once `x/d = O(1)` — needs `Q·D ≤ x^{1−δ}`) · **`ν = 1/d`** (Chen/Goldbach carry `nuChen = 1/φ(d)`,
+where `⌊x/d⌋ − x/φ(d)` is main-term sized, not a crumb) · and **§0's decomposition is NOT a sieve
+decomposition** — `λ·w` is signed and `BoundingSieve.weights_nonneg` forbids it; the corpus does
+it correctly as `weights := 1 ± liouville n` (`ParityWall.lean:139/152`).
+
+## R5 — SCOPING GAP, noted by the refuter outside its lens
+`1_{Ω odd} = (1−λ)/2` pins Ω **odd**, not Ω **= 1**. A parity-pinned survivor still admits
+`Ω ∈ {1,3,5,…}` up to the dimension bound. §6 disclaims the survivor, so this is a scoping note —
+but any wave list would inherit it.
+
+---
+
 **Pen:** math. **Status:** drafted 08/20 12:4x, **refuter pass NOT yet run — no wave may be
-dispatched until it is** (verify-posture law). **Door consumed:** `brun_lower_ell1`
-(`Salt/Chen/BrunEll1.lean:191`, d0d9097). **Objective:** the road toward the parity-pinned
+dispatched until it is** (verify-posture law). ⛔ **PROVENANCE CORRECTED 08/20 13:1x — the sha this block was commissioned with, `d0d9097`, IS NOT ON THE HISTORY.** It `cat-file`s clean from the local store and prints a perfect message, and `merge-base --is-ancestor` says NO — a pre-flip orphan. `5340c7ff` is the ancestor carrying the identical blob (`6a94047d`). *This seat's own fourth-direction law — a stale reference that RESOLVES — and I quoted the sha out of the queue without running the one test that catches it.* **Door consumed:** `brun_lower_ell1`
+(`Salt/Chen/BrunEll1.lean:191`, **`5340c7ff`**). **Objective:** the road toward the parity-pinned
 survivor, `Ω(n)` odd.
 
 ⛔ **SCOPE FENCE, standing beside E7 and binding on every wave below.** `l1LowerEffective_goldenGate`
@@ -14,7 +76,7 @@ boundary, not P1's, and the wave stops and reports.
 
 ## §0 — THE OBJECTS, exactly as the corpus states them
 
-From `Mathlib/NumberTheory/SelbergSieve.lean`:
+From `Mathlib/NumberTheory/SelbergSieve.lean` (`multSum`, `rem`) and **from salt's own `Salt/Chen/LinearSieve.lean:307` (`rosserRemainder` — NOT a mathlib object; this block filed all three under one mathlib heading and two of them belong there)**:
 
 ```
 multSum d      = Σ_{n ∈ s.support}  [d ∣ n] · s.weights n
@@ -27,7 +89,7 @@ and `s.prodPrimes_squarefree : Squarefree s.prodPrimes`.
 `brun_lower_ell1` leaves exactly one slot open:
 
 ```
-X·W(z)·(1 − 2λ^{2b}e^{2λ}/(1−λ²e^{2+2λ})) − rosserRemainder s (Q·D)  ≤  s.siftedSum
+X·W·(1 − 2λ^{2b}e^{2λ}/(1−λ²e^{2+2λ}))   [⚠️ the door's docstring writes `W(z)`; `Salt.BrunLower.W` takes NO `z` — an executor grepping for a z-parameterised `W` finds nothing] − rosserRemainder s (Q·D)  ≤  s.siftedSum
 ```
 
 Its own docstring is explicit that the slot is the deliverable: *"the value of this exit is the
@@ -60,10 +122,10 @@ Total multiplicativity: `n = d·m`, `λ(n) = λ(d)·λ(m)`, so
 summatory rate `|M_λ(y)| ≤ C·y/(log y)^A`. ⇒ **In regime A there is NO BV in this campaign and
 the name "λ-BV" is a misnomer.**
 
-🔑 **This is not a conjecture — it is a LANDED AMENDMENT in this repo.**
+🔑 **This is not my conjecture — it is a RECORDED AMENDMENT in this repo.** *(It is recorded in a DESIGN DOCUMENT, not in the kernel: nothing about it is machine-checked, and §3 marks its two bridge nodes "specified, unbuilt". In a repo where "landed" means IN THE KERNEL, calling it landed was the same category slip K5 exists to catch, one register up.)*
 `docs/exploration/q6a-design.md` §D3 carries *"GATE AMENDMENT: no λ-BV — the summatory rate
 suffices; the wall is UNCONDITIONAL"*, retires its `LambdaLevel` Prop **for exactly this reason**,
-and sources the rate from the **landed** `siegelWalfisz_psiTot` through two named bridge nodes:
+and sources the rate from `siegelWalfisz_psiTot` **paired with `siegelWalfisz_holds`** through two named bridge nodes *(this sentence said "the LANDED `siegelWalfisz_psiTot`" bare — the sibling surface of the very defect §3 and K5 record; fixed at one surface, left standing at the other)*:
 (i) ψ→M_μ (Tauberian, at the power-log rate), (ii) M_μ→M_λ (`λ = μ ∗ 1_squares`, the hyperbola
 fold, rate-preserving). Those two nodes are already specified and were promoted to critical path.
 
@@ -87,7 +149,7 @@ regime-B answer makes it a campaign. Nothing may be dispatched until it is settl
 `rosserRemainder` sums over `d ∈ divisors s.prodPrimes`. Since `prodPrimes` is squarefree, every
 such `d` is squarefree — and mathlib states exactly that as
 `SelbergSieve.squarefree_of_dvd_prodPrimes` (`SelbergSieve.lean:114`), so the step is a citation,
-not an argument. On squarefree `d`, `liouville d = μ d` — this is already in the corpus
+not an argument. On squarefree `d`, `liouville d = μ d` — ⚠️ **but NOT as a citable declaration: it exists only as a `have` inside `moebius_sq_mul_lamR`'s proof body (`SignLiouville.lean:82`). The consumable forms are `moebius_sq_mul_lamR` and `gGen_lamR_eq_moebius`; a K2 wave wanting the bare identity re-derives it in one line.** The corpus holds it as
 (`Salt/HB/SignLiouville.lean`, and `gGen_lamR_eq_moebius : gGen lamR = μ` states the collapse
 `μ²·λ = μ` in the form the sign-chain uses).
 
@@ -102,7 +164,7 @@ step; it cost one lemma-read and could cost a wave.*
 
 | object | where | state |
 |---|---|---|
-| `brun_lower_ell1` — the ℓ¹ exit, `rosserRemainder` slot open | `Salt/Chen/BrunEll1.lean:191` | ✅ landed d0d9097 |
+| `brun_lower_ell1` — the ℓ¹ exit, `rosserRemainder` slot open | `Salt/Chen/BrunEll1.lean:191` | ✅ landed `5340c7ff` |
 | `lamR`, `isSignFunction_lamR` — λ as a real completely-multiplicative sign function | `Salt/HB/SignLiouville.lean` | ✅ in tree |
 | `gGen_lamR_eq_moebius` — `μ²λ = μ`, the squarefree collapse | same | ✅ in tree |
 | `LamTildeGen_lamR_eq_vonMangoldt` — `Λ̃_λ = Λ` **on the nose** | same | ✅ audited |
@@ -113,10 +175,19 @@ step; it cost one lemma-read and could cost a wave.*
 
 ⚠️ **MEMBERSHIP DEFECT FOUND WHILE TAKING THIS INVENTORY, reported not repaired** (the Estermann
 executor is live in `Salt/HB/` and I will not race it): `SignLiouville.lean` is rooted at
-`Salt/HB/All.lean:20`, but **4 of its 9 declarations sit in no `#audit_axioms` block** —
-`lamR_prime`, `isSignFunction_lamR`, `moebius_sq_mul_lamR`, `gGen_lamR_eq_moebius`. That includes
-the instance the whole generic chain is instantiated at and the module's own stated "arithmetic
-heart". *Its docstring also still says "not yet in the `Salt.HB.All` manifest" — stale, and stale
+`Salt/HB/All.lean:20`, but **5 of its 9 declarations sit in no `#audit_axioms` block** — `lamR_prime`,
+`isSignFunction_lamR`, `moebius_sq_mul_lamR`, `gGen_lamR_eq_moebius`, **and `lamR` itself**.
+⛔ **THIS BLOCK FIRST SAID "4 of 9", WHICH IS NEITHER COUNT: it omitted `lamR`, a
+`noncomputable def` — the exact declaration class named in this seat's own matcher-trap warning,
+missed again in the paragraph reporting a matcher failure.**
+⛔⛔ **AND THE CHARACTERISATION WAS INVERTED IN BOTH HALVES — the corrected version is worse and
+narrower.** (a) `#audit_axioms` collects **transitive** dependencies, so
+`gGen_lamR_eq_moebius`, `moebius_sq_mul_lamR`, `lamR_prime` and `lamR` are all axiom-covered
+through the four audited theorems that consume them. The "arithmetic heart" was never uncovered.
+(b) `IsSignFunction` is a `structure` taken as an **explicit hypothesis**, *not* a typeclass —
+`isSignFunction_lamR` is not an instance, and **nothing in Lean consumes it**: outside its own
+module it appears only in design-doc prose. ⇒ **The real defect is ONE declaration, and it is
+that the λ-instantiation of the sign chain is a certificate with ZERO consumers.** *Its docstring also still says "not yet in the `Salt.HB.All` manifest" — stale, and stale
 in the safe direction, which is why nobody caught it: a claim about ANOTHER file is outside any
 self-check's subject.*
 
@@ -157,11 +228,19 @@ proving anything. *The kernel checks theorems, not that
 they compose: nine dangling interfaces were found in one file in one day on the last campaign,
 none catchable by a build.*
 
-**K6 — THE NAME IS NOT THE MEASUREMENT.** `docs/exploration/q6a-design.md` already RETIRED a
-Prop named `LambdaLevel` that looks exactly like what this campaign is called. Before writing any
-new named Prop, check it is not the retired one wearing a new label.
-
----
+**K6 — ⛔ THE NAME IS NOT RETIRED, IT IS OCCUPIED. THIS KILL-CHECK WAS FOUNDED ON A FALSE
+PREMISE AND IS REWRITTEN.** The block first claimed `LambdaLevel` was a retired Prop and warned
+against rebuilding it. **`Salt.Maynard.LambdaLevel` IS LANDED AND LOAD-BEARING** —
+`Salt/Maynard/GehVaughan.lean:60`, with `LambdaLevelU` at `:404` and
+`lambdaLevel_of_lambdaLevelU`; **43 occurrences across 5 Maynard modules.** It is the **von
+Mangoldt** level: `∑_{q ≤ x^θ/(log x)^B} seqDiscrepancy vonMangoldt x q ≤ C·x/(log x)^A`.
+⇒ **TWO consequences, and the second is the valuable one:**
+(i) a wave writing a new `LambdaLevel` walks into a namespace collision with a live declaration;
+(ii) ***that landed Prop is the CLOSEST structural template the corpus holds for the regime-B
+rider*** — §5 named the far-away `bounded_gaps_of_siegelWalfisz` and never mentioned the near one.
+**If K1 returns regime B, start from `Salt.Maynard.LambdaLevel`'s shape, not from the BV rung.**
+*(q6a retired ITS OWN λ-BV design, which is a different object from this landed Prop. The block
+read "retired" and never grepped the tree for the name — an absence assumed from a design doc.)*
 
 ## §5 — WAVE DECOMPOSITION (conditional on K1; **not dispatchable yet**)
 
