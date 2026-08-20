@@ -161,6 +161,7 @@ import Salt.MR.EvenChiAlgebra
 import Salt.MR.EvenChiEta
 import Salt.MR.EvenChiControls
 import Salt.MR.EvenChiDescent
+import Salt.MR.EvenChiCyclotomic
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8213,6 +8214,7 @@ than in custody. -/
   Salt.MR.e4a_gaussSum_real_of_primitive
   Salt.MR.e4a_gaussSum_odd_inv_addChar
   Salt.MR.e4a_gaussSum_odd_re_zero
+  Salt.MR.e4a_ruled_hypothesis_probe
 
 /-! ### `Salt/MR/EvenChiDescent.lean` — E6 + E7: the `ℂ → ℝ` down-leg and the golden gate
 
@@ -8244,3 +8246,55 @@ reach.  Point→band is a separate unpriced campaign. -/
   Salt.MR.e4a_gaussSum_mutant_is_false
   Salt.MR.e4a_toC_vanishes_off_units
   Salt.MR.e4a_toC_signOf_mutant_is_false
+
+/-! ### `Salt/MR/EvenChiCyclotomic.lean` — E4a's cyclotomic machinery, NOT consumed by the route
+
+⚠️ **NOTHING IN THIS BLOCK IS LOAD-BEARING FOR THE EVEN-χ CHAIN.** Every row is a theorem about
+the mathematics (unlike `EvenChiControls`, which refutes rather than asserts), proved during the
+E4a campaign — but the route that actually closes E4a, the η/Gauss-sum descent in `EvenChiEta`
+and `EvenChiDescent`, reaches `l1LowerEffective_goldenGate` without calling any of them. They are
+audited here because **membership is never implied by greenness**: a module that compiles but is
+neither imported nor audited is not on the corpus's audited surface, and unaudited reusable
+machinery is exactly the kind of thing that later gets cited as if it had been checked.
+
+Four groups. **The associate route** — over any domain with a primitive `n`-th root,
+`∏_{a ∈ S} (ζ^a − 1)` is associated to `(ζ − 1)^|S|` when `S` is coprime to `n`, so equal
+cardinality gives an associate relation and an explicit unit; uniform in `n`, no prime-power
+branch. **The η layer** — the ratified amendment `Σ_a f a = 0` turned into unit-ness, with
+`e4a_eta_associated_in_ring` the version that has content: in a FIELD every nonzero element is a
+unit, so the field statement says nothing, and only in `𝓞 K` is `Associated` a real constraint.
+**The `∏ 2 sin(πa/q) = √q` bridge** — reached by pairing `a` with `q − a` inside `∏ (1 − ζ^k) = q`.
+**The Galois/fibre layer** — a ring map `ζ ↦ ζ^b` FIXES the full `(ZMod q)ˣ`-indexed product but
+SWAPS the two χ-fibres when `χ(b) = −1`; that distinction is the entire content of the layer, and
+`e4a_fibres_nonempty` is what keeps the swap arm from being vacuous. -/
+#audit_axioms Salt.MR.e4a_step1_associated
+  Salt.MR.e4a_step2_unit_ratio
+  Salt.MR.e4a_prod_associated
+  Salt.MR.e4a_step4_equal_card_associated
+  Salt.MR.e4a_step5_unit_witness
+  Salt.MR.e4a_pair_mul_one
+  Salt.MR.e4a_conj_eq_pair
+  Salt.MR.e4a_step7_pair_product
+  Salt.MR.e4a_prod_associated_concrete
+  Salt.MR.e4a_prod_one_sub_eq_q
+  Salt.MR.e4a_range_pair_split
+  Salt.MR.e4a_prod_sin_sq_eq_q
+  Salt.MR.e4a_prod_sin_eq_sqrt_q
+  Salt.MR.e4a_eta_associated_of_sum_zero
+  Salt.MR.e4a_zpow_prod_split
+  Salt.MR.e4a_eta_eq_quotient
+  Salt.MR.e4a_eta_associated_in_ring
+  Salt.MR.e4a_real_char_inv
+  Salt.MR.e4a_map_prod_sub_one
+  Salt.MR.e4a_map_prod_sub_one_pow
+  Salt.MR.e4a_map_prod_sub_one_gen
+  Salt.MR.e4a_zeta_pow_mod
+  Salt.MR.e4a_zeta_pow_val_mul
+  Salt.MR.e4a_prod_units_index
+  Salt.MR.e4a_prod_units_galois
+  Salt.MR.e4a_term_bridge
+  Salt.MR.e4a_galois_fibre_swap
+  Salt.MR.e4a_galois_fibre_fix
+  Salt.MR.e4a_galois_eta_swap
+  Salt.MR.e4a_fibres_nonempty
+  Salt.MR.e4a_unit_image_isIntegral_pair
