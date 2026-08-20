@@ -480,4 +480,111 @@ theorem fBridge_concentration_decoupled_sharp
   rw [hmean] at h
   exact h
 
+/-! ## The shift-`h` family (W-F3 wave A: definitions + the offset-agnostic bounds)
+
+Tao's (3.14) carries a shift parameter `h`: the second factor is `x_{2,j+ph}`.  `fBridgeG` /
+`fBridgeF` above are that object frozen at `h = 1` (the module header and `fBridgeG`'s own
+docstring name `h = 1` among the model values).  The definitions below reopen exactly that
+parameter; the `h = 1` originals stay byte-frozen and are recovered by `fBridgeG_h_one` /
+`fBridgeF_h_one`.
+
+⚠️ **WHICH `1` IS THE SHIFT — the trap this port had to walk past.**  `fBridgeG`'s gate reads
+`((j + 1 : ℕ) : ZMod p) = -r`, and the `1` in it is NOT the shift parameter: it is the
+1-INDEXING OFFSET of the window (`windowVal H (liouvilleWindow H n) j = λ(n+j+1)`, so Tao's
+1-indexed `j` is our `j + 1`).  Tao's indicator `1_{ay+j ≡ pb (mod ap)}` contains no `h` at
+all; at `a = 1, b = 0` it is `p ∣ y + j`, a condition on the FIRST factor's argument only.
+The corpus proves this in the kernel: `fBridgeF_liouville_apply` (`Prop26.lean:87`) evaluates
+the gate to `p ∣ n + j + 1`, and it must stay there, because the whole point of the gate is to
+feed multiplicativity — with `n+j+1 = p·m` one gets `λ(p m)·λ(p m + p h) = λ(m)·λ(m + h)`,
+the shift-`h` correlation.  Gating on `p ∣ n + j + h` instead would leave `λ(n+j+1)` with no
+factor of `p` and kill the reduction.
+
+So **the gate below is `(j + 1)`, unchanged, and ONLY the second factor's index carries `h`.**
+The two spellings coincide at `h = 1`, so NO `h = 1` compat lemma can tell them apart —
+the same tripwire shape recorded for the twist in `ShiftFork`.
+
+**Scope.**  Only the DEFINITIONS and the deterministic `|windowVal| ≤ 1` triangle bounds are
+ported here, because only those are offset-agnostic: every term of the gated sum has modulus
+`≤ 1` whatever `h` is, and the gate does not mention `h`, so `card_filter_natCast_eq_le`
+applies at `-r - 1` verbatim.  The concentration/entropy cone (`fBridgeG_mean`, `badSet`,
+`outer_combine` and the sharp Hoeffding corollaries) is NOT offset-agnostic and is
+deliberately untouched. -/
+
+/-- **The per-prime component at shift `h`** — Tao's `F_p` (3.14) with the offset multiplier
+reopened: `G_{p,h}(v)(r) = ∑_j 1_{(j+1 : ZMod p) = -r} · v_j · v_{j+p·h}`.  The gate is the
+`h`-free divisibility condition on the base index (see the section note above); `fBridgeG` is
+the `h = 1` member (`fBridgeG_h_one`). -/
+noncomputable def fBridgeG_h (h : ℕ) (v : Fin H → ℤ) (p : primeWindow eps H) :
+    ZMod (p : ℕ) → ℝ :=
+  fun r => ∑ j ∈ Finset.range H,
+    if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
+      (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0
+
+/-- **The assembly at shift `h`**: `∑_{p ∈ 𝒫_H} G_{p,h}(v) ∘ residueProj p`.  Same shape as
+`fBridgeF`, so the `∑_i G_i (proj_i ·)` form `hoeffding_residueProj` centers on survives. -/
+noncomputable def fBridgeF_h (h : ℕ) (v : Fin H → ℤ) : ZMod (PH eps H) → ℝ :=
+  fun y => ∑ p : primeWindow eps H, fBridgeG_h eps H h v p (residueProj eps H p y)
+
+/-- **The `h = 1` compat for `G`.**  NOT `rfl`-grade: `(p : ℕ) * 1` whnf-reduces to `0 + p`,
+which is stuck for a variable `p` (`Nat.mul` recurses on its SECOND argument and `Nat.add` on
+its second too), so the window index needs `Nat.mul_one` to line up.  The gate is `h`-free,
+so only the product index moves — and that is also why this lemma CANNOT certify the gate's
+spelling (see the section note). -/
+theorem fBridgeG_h_one (v : Fin H → ℤ) (p : primeWindow eps H) :
+    fBridgeG_h eps H 1 v p = fBridgeG eps H v p := by
+  funext r
+  unfold fBridgeG_h fBridgeG
+  exact Finset.sum_congr rfl (fun j _ => by rw [Nat.mul_one])
+
+/-- **The `h = 1` compat for `F`.**  Termwise from `fBridgeG_h_one`. -/
+theorem fBridgeF_h_one (v : Fin H → ℤ) : fBridgeF_h eps H 1 v = fBridgeF eps H v := by
+  funext y
+  unfold fBridgeF_h fBridgeF
+  exact Finset.sum_congr rfl (fun p _ => by rw [fBridgeG_h_one])
+
+/-- **The deterministic box bound at shift `h`** — the offset-agnostic port of
+`fBridgeG_abs_le`: `|G_{p,h}(v)(r)| ≤ H/p + 1` for a `‖·‖ ≤ 1` pattern, for EVERY `h`.
+Each surviving term still has modulus `≤ 1` (`windowVal_prod_abs_le` reads no offset), and
+the gate is the same single residue class `j ≡ -r - 1 (p)` as at `h = 1`, meeting the window
+`[0,H)` in at most `H/p + 1` points.  The `h = 1` proof script survives verbatim. -/
+lemma fBridgeG_h_abs_le (h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (p : primeWindow eps H)
+    (r : ZMod (p : ℕ)) :
+    |fBridgeG_h eps H h v p r| ≤ (H : ℝ) / (p : ℝ) + 1 := by
+  classical
+  unfold fBridgeG_h
+  calc |∑ j ∈ Finset.range H, if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0|
+      ≤ ∑ j ∈ Finset.range H, |if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ j ∈ Finset.range H, if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then (1 : ℝ) else 0 := by
+        apply Finset.sum_le_sum
+        intro j _
+        split_ifs with hj
+        · exact windowVal_prod_abs_le hv j (j + (p : ℕ) * h)
+        · simp
+    _ = (((Finset.range H).filter
+          (fun j : ℕ => ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r)).card : ℝ) := by
+        rw [Finset.sum_boole]
+    _ ≤ (H : ℝ) / (p : ℝ) + 1 := by
+        have hset : (Finset.range H).filter (fun j : ℕ => ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r)
+            = (Finset.range H).filter (fun j : ℕ => (j : ZMod (p : ℕ)) = -r - 1) := by
+          apply Finset.filter_congr
+          intro j _
+          rw [Nat.cast_add, Nat.cast_one, eq_sub_iff_add_eq]
+        rw [hset]
+        have hcard := card_filter_natCast_eq_le H (-r - 1)
+        have hcast : (((Finset.range H).filter
+            (fun j : ℕ => (j : ZMod (p : ℕ)) = -r - 1)).card : ℝ)
+            ≤ ((H / (p : ℕ) + 1 : ℕ) : ℝ) := by exact_mod_cast hcard
+        have hdiv : ((H / (p : ℕ) : ℕ) : ℝ) ≤ (H : ℝ) / (p : ℝ) := Nat.cast_div_le
+        push_cast at hcast
+        linarith
+
+/-- The `[lo, hi]` box form at shift `h`: `G_{p,h}(v)(r) ∈ [-(H/p+1), H/p+1]`. -/
+lemma fBridgeG_h_mem_Icc (h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (p : primeWindow eps H)
+    (r : ZMod (p : ℕ)) :
+    fBridgeG_h eps H h v p r ∈ Set.Icc (-((H : ℝ) / (p : ℝ) + 1)) ((H : ℝ) / (p : ℝ) + 1) :=
+  Set.mem_Icc.mpr (abs_le.mp (fBridgeG_h_abs_le eps H h hv p r))
+
 end Salt.Entropy.Chowla
