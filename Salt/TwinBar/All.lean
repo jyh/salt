@@ -121,6 +121,7 @@ open Salt.Tactic in
   Salt.TwinBar.liouville_eq_chiSq_mul_moebius Salt.TwinBar.Mlambda_eq_sum_Mmu
   Salt.TwinBar.Mmu_abs_le Salt.TwinBar.Mlambda_rate
   Salt.TwinBar.LambdaSummatory_of_MmuRate
+  Salt.TwinBar.lambdaSummatory_holds
   Salt.TwinBar.rosser_floor_undershoot Salt.TwinBar.rosser_floor_vs_prime_mass
   Salt.TwinBar.parity_wall Salt.TwinBar.parity_wall_effective
   Salt.TwinBar.no_parity_beating_certificate

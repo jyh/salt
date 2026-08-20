@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Maynard.GehBridge
+import Salt.Maynard.PpAssembly
 import Salt.Maynard.GehTypeI
 import Salt.Twelve.GapsOfLevel
 
@@ -108,7 +109,6 @@ theorem geh_door_of_obligations {ε : ℝ} (hε : 0 < ε)
             seqDiscrepancy (dconv (α x) (β x)) (4 * N x * M x) q))
     (hTypeI1 : PieceObligationU (3999 / 4000) (fun x n => vP1 (cbrt x) n))
     (hTypeI2 : PieceObligationU (3999 / 4000) (fun x n => vP2 (cbrt x) (cbrt x) n))
-    (hpp : PpLevel (3999 / 4000))
     (hPNT : WindowPNT) :
     ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
       (q : ℤ) - (p : ℤ) ∈ Set.Icc (-12 : ℤ) 12 := by
@@ -116,5 +116,5 @@ theorem geh_door_of_obligations {ε : ℝ} (hε : 0 < ε)
     lambdaLevelU_of_GEH_min hε hGEH k α β N M hα hβ hSW hwin hdom
       head_obligation hTypeI1 hTypeI2
   have hHL : HasLevel (3999 / 4000) :=
-    hasLevel_of_lambdaLevelU_of_pp (by norm_num) hLLU hpp
+    hasLevel_of_lambdaLevelU_of_pp (by norm_num) hLLU Salt.Maynard.ppLevel_holds
   exact Salt.Twelve.gaps_le_twelve_of_hasLevel hPNT hHL
