@@ -49,8 +49,8 @@ into `≥ 3` — a gap, not an epsilon — and that gap is the floor's whole sou
 |---|---|---|---|---|---|
 | 1 | `EvenChiCosh` | the cosh/golden apparatus (the integrality jump) | 11 | B | ✅ in tree, audited, EXIT=0 |
 | 2 | `EvenChiSine` | the `2 sin` ↔ `‖1−ζ^a‖` bridge | 14 | B | ✅ in tree, audited, EXIT=0 |
-| 3 | `EvenChiCyclotomic` | the cyclotomic-unit machinery (fibres, mirror swap, units index, assembly) | ~70 | B/C | ⬜ the bulk |
-| 4 | `EvenChiSign` | the ℤ sign map (`E4aChiBridge`) | 12 | B | ⬜ |
+| 3 | `EvenChiCyclotomic` | the cyclotomic-unit machinery (fibres, mirror swap, units index, assembly) | **~29** | B/C | ⬜ — **RE-MEASURED 16:2x: NOT the bulk. 74 of the 103 remaining declarations have NO `K`/`𝓞_K` anywhere in their cone; only ~29 touch the algebraic layer.** |
+| 4 | `EvenChiSign` | the ℤ sign map (`E4aChiBridge`) + fibre swap | **17** | B | ✅ in tree, audited, EXIT=0 |
 | 5 | `EvenChiEta` | culmination + η-norm | ~20 | B | ⬜ |
 | 6 | `EvenChiTau` | τ real + magnitude at even real primitive χ | 9 | B | ⬜ |
 | 7 | `EvenChiRingBridge` | ℝ→ℂ transport (`ringHomComp`; helm-ruled ℝ-up) | 17 | B | ⬜ |
