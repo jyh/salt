@@ -12,7 +12,7 @@
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 1. **λ-BV DESIGN BLOCK** — math's pen: the dispersion campaign's shape
-   consuming the open parity-pin door (brun_lower_ell1, d0d9097) and the
+   consuming the open parity-pin door (brun_lower_ell1, 5340c7ff) and the
    named riders (the ρ-weighted BV sum · the λ-BV dispersion half); a
    refuter pass gates the first wave (verify-posture law). The road
    toward the parity-pinned survivor (Ω(n) odd).
@@ -27,7 +27,7 @@
    Theorem23Shell h-analogue consuming circle_method_estimate_h +
    contradiction_of_mrtDoorXiH, yielding the door-conditional h-family
    terminal. The byte-identity seam guarantee is already proven
-   (ba20701's record). Design-block-first; one Opus executor wave.
+   (5b5c0ed3's record). Design-block-first; one Opus executor wave.
    [DONE, for the record: the two ports landed 08/16–19; E4a CLOSED
    08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
 
