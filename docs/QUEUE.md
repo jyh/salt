@@ -30,6 +30,17 @@
    (5b5c0ed3's record). Design-block-first; one Opus executor wave.
    [DONE, for the record: the two ports landed 08/16–19; E4a CLOSED
    08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
+   — NEW FILLS from the 08/20 λ-dialect census (seat/briefs/
+   2026-08-20-lambda-dialect-CENSUS.md; both pre-ruled, executor-sized):
+5a. **Wire ppLevel_holds** — the landed, sorry-free, ZERO-consumer trophy
+   `Salt.Maynard.ppLevel_holds : PpLevel (3999/4000)` (PpAssembly.lean:928)
+   substituted into `geh_door_of_obligations` (GehClose.lean:96, live
+   `hpp` hypothesis): one import (no cycle, census-verified) + the
+   substitution; the GEH door's obligation count drops 15 → 14. Class A/B.
+5b. **Name the untwisted λ trophy** — one theorem composing
+   `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds` so the four inline
+   re-compositions at the wall's discharge sites consume a named constant;
+   restatement-renames law applies. Class A.
 
 ## P2 — POINT→BAND + the campaigns behind the doors (pulled at P1 idle)
 
