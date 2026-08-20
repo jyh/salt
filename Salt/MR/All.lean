@@ -160,6 +160,7 @@ import Salt.MR.EvenChiMiddle
 import Salt.MR.EvenChiAlgebra
 import Salt.MR.EvenChiEta
 import Salt.MR.EvenChiControls
+import Salt.MR.EvenChiDescent
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8212,6 +8213,34 @@ than in custody. -/
   Salt.MR.e4a_gaussSum_real_of_primitive
   Salt.MR.e4a_gaussSum_odd_inv_addChar
   Salt.MR.e4a_gaussSum_odd_re_zero
+
+/-! ### `Salt/MR/EvenChiDescent.lean` — E6 + E7: the `ℂ → ℝ` down-leg and the golden gate
+
+The helm's 2026-08-19 **ℝ-UP** ruling stated the even lane over `ℝ` and pushed up through
+`e4a_toC`, because up-transport is cheap and constructive while pulling `ℂ` down is not.  That
+ruling bought the whole E4a/E5a spine and **deferred exactly one cost to this module**: the
+corpus consumer `L1LowerEffective` quantifies over ℂ-valued `χ`, so the down-leg had to be
+built.  Neither salt nor mathlib had it (mathlib's `IsQuadratic` API is up-only; `RealPrimStructure`
+states the up-only convention in prose).  `e4a_toR` builds it on the unit group, where a
+quadratic character's values are already `±1`, and `e4a_toC_toR` identifies the round trip.
+
+⛔ **SCOPE FENCE on `l1LowerEffective_goldenGate`:** it closes the register's paper-completeness
+item and retires the `L1_lower_real_effective` Zeno.  It does **NOT** discharge `K_vt` — the live
+ineffectivity is `siegelBandB`'s EVT **band** minimum, which a **point** floor at `s = 1` does not
+reach.  Point→band is a separate unpriced campaign. -/
+#audit_axioms Salt.MR.e4a_unit_val_pm
+  Salt.MR.e4a_signRu_coe
+  Salt.MR.e4a_toC_toR
+  Salt.MR.e4a_eInt_spec
+  Salt.MR.e4a_toR_isQuadratic
+  Salt.MR.e4a_toR_even
+  Salt.MR.e4a_toR_ne_one
+  Salt.MR.e4a_toR_isPrimitive
+  Salt.MR.e4a_L1_lower_even_complex
+  Salt.MR.e4a_log_golden_le_pi
+  Salt.MR.e4a_log_golden_pos
+  Salt.MR.e4a_L1_lower_primitive_both
+  Salt.MR.l1LowerEffective_goldenGate
   Salt.MR.e4a_gaussSum_mutant_is_false
   Salt.MR.e4a_toC_vanishes_off_units
   Salt.MR.e4a_toC_signOf_mutant_is_false
