@@ -4,46 +4,55 @@
 ### P1 > P2 > P3, clean-boundary switching, a lower tier never gates a
 ### higher. The bus carries orders; this file carries STANDING work.
 
-## P1 — FINISH-FIRST (open doors of live campaigns)
+## RULED 2026-08-20 (the commissioning council): λ-BV = P1, POINT→BAND = P2.
+## The queue runs CONTINUOUSLY (no day/night): a seat pulls the moment its item
+## lands or walls; parked-with-queue-non-empty is an alarm condition; an
+## executor result is a CANDIDATE, never a landing — the seat verifies and lands.
 
-1. **THE TWO PORTS** — math's W1 (E0–E2) and E3: proved theorems held
-   out-of-tree (source of truth in the seat briefs, kernel-verified),
-   waiting only on the post-flip re-clone. Port target per math's own
-   bank: Salt/MR/Sawtooth.lean section Geometry, on a track branch.
-2. **E4a** — the even-chi ladder's half-wave checkpoint (the Captain's
-   call, now ripe: E3 proved 08/16). The ladder continues E4–E7 behind
-   it on math's ratified own-pace ground.
-3. **W-F3 — THE h-SHELL** — the fork road's arc-finisher: the
+## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
+
+1. **λ-BV DESIGN BLOCK** — math's pen: the dispersion campaign's shape
+   consuming the open parity-pin door (brun_lower_ell1, d0d9097) and the
+   named riders (the ρ-weighted BV sum · the λ-BV dispersion half); a
+   refuter pass gates the first wave (verify-posture law). The road
+   toward the parity-pinned survivor (Ω(n) odd).
+2. **λ-BV WAVES** — behind the refuter-passed block; executor-sized
+   nodes named by the block itself.
+   — P1 FILL (pull while the block cooks, any tier that fits):
+3. **The even-χ port tail** — EvenChiCyclotomic's ~29 algebraic
+   declarations (guide row 3); membership disciplines apply.
+4. **The Estermann 2-adic landing** — six theorems, kernel-verified at
+   three axioms, unlanded; the stated blocker (frozen main) is gone.
+5. **W-F3 — THE h-SHELL** — the fork road's arc-finisher: the
    Theorem23Shell h-analogue consuming circle_method_estimate_h +
    contradiction_of_mrtDoorXiH, yielding the door-conditional h-family
    terminal. The byte-identity seam guarantee is already proven
    (ba20701's record). Design-block-first; one Opus executor wave.
-4. **THE λ-BV COMMISSIONING DECISION** — the parity-pin door
-   (brun_lower_ell1, d0d9097) is open; the riders (the ρ-weighted BV
-   sum · the λ-BV dispersion half) are named-not-consumed. A sitting
-   decision, not a wave: the Captain rules the campaign's shape.
+   [DONE, for the record: the two ports landed 08/16–19; E4a CLOSED
+   08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
 
-## P2 — THE CAMPAIGNS BEHIND THE DOORS (pulled at P1 idle)
+## P2 — POINT→BAND + the campaigns behind the doors (pulled at P1 idle)
 
-5. **The λ-BV dispersion campaign** proper (gated on P1 item 4's word)
-   — the road toward the parity-pinned survivor (Ω(n) odd).
-6. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
+6. **POINT→BAND (K_vt effectivisation)** — PROMOTED P3→P2 by the
+   Captain's 08/20 ruling: effective s=1 floor ⇒ no Siegel zero ⇒
+   zero-free region ⇒ effective band floor (siegelBandB's EVT minimum).
+   Design block first; unpriced until it exists.
+7. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
    m4_doorL2_supply_500's h-analogue) — the fork's full payoff, gated
    on W-F3.
-7. **hb-engine OPENER** — the flagship's named campaign toward
+8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
    scoped; the p.217 character-sum input already a corpus theorem).
-8. **THE MRT-DOOR RECON** — a STANDING RECON LANE (not a proving wave)
+9. **THE MRT-DOOR RECON** — a STANDING RECON LANE (not a proving wave)
    on discharging MRTUniformityXi itself: the program's crown question
    stays watched, per the prime directive. Output: periodic recon
    briefs, no landings without a ruled campaign.
 
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
 
-9. TS-3 (a (b,k) wave if resumed — project_tau_sharp) · R3's refuter
-   pass (even-chi candidate doc §2) · POINT-to-BAND (band lane; priced
-   NOT-a-prerequisite 08/15, unowned) · the landed-docstring repair
+10. TS-3 (a (b,k) wave if resumed — project_tau_sharp) · R3's refuter
+   pass (even-chi candidate doc §2) · the landed-docstring repair
    wave (W-F2's flags.md row: the "strictly stronger" wording at
    ShiftFork.lean:281-284 + All.lean:503-505) · post-flip hygiene (the
    untracked root scraps; registry sweeps) · the explicit-constants
