@@ -69,8 +69,10 @@ in the custody brief as the negative-control and refutation record.
 
 ## Frontier
 
-- **Open:** modules 3–9 of the port (the bulk is №3's ~70 cyclotomic
-  declarations). Honest cost from the plan: not a single sitting.
+- **Open:** modules 3, 5–9 of the port (№4 landed 16:2x; №3 re-measured at ~29
+  algebraic declarations, NOT the bulk — 74 of the 103 remaining have no
+  `K`/`𝓞_K` in their cone). Honest cost from the plan: not a single sitting,
+  though the 16:2x re-measure shrinks it.
 - **Consumer:** E5 (`even_trace_cosh`) consumes the spine once №9 lands.
 - **No open class-C/D mathematics remains on this ground** — the mathematics is
   proved in custody; what remains is porting under the membership disciplines
