@@ -157,6 +157,7 @@ import Salt.MR.EvenChiSign
 import Salt.MR.EvenChiRingBridge
 import Salt.MR.EvenChiTau
 import Salt.MR.EvenChiMiddle
+import Salt.MR.EvenChiAlgebra
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8120,3 +8121,34 @@ because `χ(−a) = χ(a)`. -/
   Salt.MR.e4a_P_eq_units_prod_inv
   Salt.MR.e4a_log_P_eq_middle
   Salt.MR.e4a_middle_ne_zero
+
+/-! ### `Salt/MR/EvenChiAlgebra.lean` — the generic algebra beneath η
+
+Fibre swaps, the descent spine, associate-hood of weighted products, and the exponent
+arithmetic of a primitive root — all stated WITHOUT a cyclotomic field or a ring of integers,
+even though every one of them exists to serve the η that lives in one.  Porting these before
+the `𝓞_K` layer is FORCED, not preferred: the heavy set's dependency closure contains all
+twenty-three.  The generality (`CommRing` + `IsDomain`, arbitrary `Fintype` group) was chosen
+at the start of the campaign, and it is why the 𝓞_K instantiation will need no re-proof. -/
+#audit_axioms Salt.MR.e4a_zeta_isPrimitiveRoot
+  Salt.MR.e4a_fixed_isRational
+  Salt.MR.e4a_descent_to_int
+  Salt.MR.e4a_fibre_fix
+  Salt.MR.e4a_prod_fibre_swap
+  Salt.MR.e4a_prod_fibre_fix
+  Salt.MR.e4a_fibre_swap'
+  Salt.MR.e4a_prod_fibre_swap'
+  Salt.MR.e4a_eta_inverts
+  Salt.MR.e4a_sum_inv_fixed
+  Salt.MR.e4a_sum_inv_fixed_alg
+  Salt.MR.e4a_eta_sum_is_integer
+  Salt.MR.e4a_sum_isIntegral_of_both
+  Salt.MR.e4a_spine
+  Salt.MR.e4a_pow_mod_gen
+  Salt.MR.e4a_pow_val_mul_gen
+  Salt.MR.e4a_fibre_fix'
+  Salt.MR.e4a_prod_fibre_fix'
+  Salt.MR.e4a_eta_fixed
+  Salt.MR.e4a_associated_quotient_eq
+  Salt.MR.e4a_prod_associated_gen
+  Salt.MR.e4a_assoc_of_card_eq_gen
