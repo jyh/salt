@@ -25,6 +25,18 @@ namespace Salt.TwinBar
 
 open Filter
 
+/-- ⭐ **THE UNTWISTED λ TROPHY, NAMED.**  `LambdaSummatory` at every `A > 0`,
+unconditional: the `MmuRate` slot is discharged by the landed nullary
+`Salt.SW.mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1059`).
+
+Before this, the composition `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds`
+was re-spelled inline at four discharge sites (`:39`, `:50`,
+`WallCorr.lean:151`, `:227`).  Naming it once is the restatement-renames law:
+the wall's mathematics is unchanged and the constant now has a name a consumer
+can cite.  QUEUE.md P1 fill 5b. -/
+theorem lambdaSummatory_holds (A : ℝ) (hA : 0 < A) : LambdaSummatory A :=
+  LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds A hA
+
 /-- **The effective parity wall, UNCONDITIONAL.**  `parity_wall_effective`
 with the `LambdaSummatory` slot discharged by the landed
 `Salt.SW.mmuRate_holds`. -/
@@ -36,7 +48,7 @@ theorem parity_wall_unconditional (A : ℝ) (hA : 0 < A)
       Φ (sMinus x)
         ≤ 2 + 2 * ((Nat.sqrt x : ℝ) + C * x * (1 + Real.log x) / (Real.log x) ^ A) :=
   parity_wall_effective A hA
-    (LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds A hA) Φ htol hcert
+    (lambdaSummatory_holds A hA) Φ htol hcert
 
 /-- **No parity-beating certificate, UNCONDITIONAL.**  The Q6a headline with
 its last hypothesis discharged: no tolerant certificate lower-bounds a
@@ -47,6 +59,6 @@ theorem no_parity_beating_certificate_unconditional (A : ℝ) (hA : 2 < A)
     (hcert : ∀ s, Φ s ≤ s.siftedSum) :
     ¬ ∃ c : ℝ, 0 < c ∧ ∀ᶠ x in atTop, c * (sMinus x).siftedSum ≤ Φ (sMinus x) :=
   no_parity_beating_certificate A hA
-    (LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds A (by linarith)) D hD Φ htol hcert
+    (lambdaSummatory_holds A (by linarith)) D hD Φ htol hcert
 
 end Salt.TwinBar

@@ -148,7 +148,7 @@ one-point content is discharged by the landed `Salt.SW.mmuRate_holds` through
 theorem corr2_witness_budget (A : ℝ) (hA : 0 < A) :
     ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ x : ℕ, x₀ ≤ x →
       |corr2 (sPlus x) - corr2 (sMinus x)| ≤ C * x / (Real.log x) ^ A := by
-  obtain ⟨cLam, nLam, hcLam, hbd⟩ := LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds A hA
+  obtain ⟨cLam, nLam, hcLam, hbd⟩ := lambdaSummatory_holds A hA
   refine ⟨8 * cLam, max 2 nLam, by positivity, ?_⟩
   intro x hx
   have hx2 : 2 ≤ x := le_trans (le_max_left _ _) hx
@@ -224,7 +224,7 @@ theorem parity_wall_corr_stable (A : ℝ) (hA : 0 < A)
     ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ x : ℕ, x₀ ≤ x →
       Φ (sMinus x)
         ≤ 2 + 2 * ((Nat.sqrt x : ℝ) + C * x * (1 + Real.log x) / (Real.log x) ^ A) := by
-  obtain ⟨cLam, nLam, hcLam, hbd⟩ := LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds A hA
+  obtain ⟨cLam, nLam, hcLam, hbd⟩ := lambdaSummatory_holds A hA
   refine ⟨cLam * (4 : ℝ) ^ A, max 16 (nLam ^ 2), by positivity, ?_⟩
   intro x hx
   have hx16 : 16 ≤ x := le_trans (le_max_left _ _) hx
