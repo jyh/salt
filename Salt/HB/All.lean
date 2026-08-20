@@ -55,6 +55,7 @@ import Salt.HB.CharTrio
 import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
 import Salt.HB.Lemma10
+import Salt.HB.EstermannRoad
 
 /-!
 # The Heath-Brown track (`HB`) — aggregate import
@@ -305,3 +306,13 @@ open Salt.Tactic in
   -- the divisor bookkeeping (gap row 4's open half): d(k)·d(k₀)·d(k₁) ≤ d(k)³
   Salt.N7.card_divisors_le_of_dvd Salt.N7.divisor_triple_le_cube
   Salt.N7.divisor_triple_attains_cube
+  -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
+  -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
+  -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
+  Salt.HB.factorization_two_le_three_of_isPrimitive
+  Salt.HB.norm_kloosterman_estermann_road_of_isPrimitive
+  -- ⛔ NEGATIVE CONTROL — NOT A BOUND, and it must not be read as one. This row proves the
+  -- D1′ inequality `φ(2^e) ≤ d(2^e)·√(2^e)` FAILS at `e = 9`; its content is the failure of
+  -- a bound, so it can never be composed into an estimate. It is here so the `≤ 8` carried
+  -- by every row above reads as the limit of the method rather than unexamined slack.
+  Salt.HB.two_pow_totient_exceeds_estermann_at_nine
