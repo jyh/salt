@@ -674,3 +674,55 @@ first-moment budget) does not imply `PmNormalized`, so `hP` is unavailable there
   Salt.Entropy.Chowla.door_criterion_exists
   Salt.Entropy.Chowla.door_criterion
   Salt.Entropy.Chowla.door_criterion_needs_zero_blindness
+
+/-! ⟦W-F3 WAVE A⟧ — THE F-BRIDGE AT SHIFT `h`: DEFINITIONS AND THE OFFSET-AGNOSTIC BOXES
+(`FBridge` + `OuterCombine`, 2026-08-20).
+
+WHY ONLY A WAVE.  The W-F3 design block claimed the `h`-shell was a one-parameter transport;
+two refuters killed that framing.  `fBridgeG`'s own docstring names `h = 1` among the model
+values `(a,b,h,c_p) = (1,0,1,1)`, so the F-bridge BENEATH the shell is hard-coded at the
+offset the shell proposed to vary, and the offset-1 and offset-`p·h` correlations are not
+defeq.  The refuters split the work; this stanza is WAVE A, the part both agreed is genuine
+transport.
+
+⚠️ THE TWO `1`s.  The `h`-port does NOT touch the gate, and the wave brief that ordered it
+said otherwise.  `fBridgeG`'s gate `((j + 1 : ℕ) : ZMod p) = -r` carries the window's
+1-INDEXING OFFSET, not the shift: `windowVal H (liouvilleWindow H n) j = λ(n+j+1)`, so Tao's
+1-indexed `j` is our `j + 1`.  Tao's indicator `1_{ay+j ≡ pb (mod ap)}` mentions no `h`, and
+`fBridgeF_liouville_apply` (`Prop26.lean:87`) proves in the kernel that the gate evaluates to
+`p ∣ n + j + 1` — a condition on the FIRST factor's argument, which is exactly what feeds
+multiplicativity: at `n+j+1 = p·m`, `λ(p m)·λ(p m + p h) = λ(m)·λ(m + h)` is the shift-`h`
+correlation.  A gate moved to `p ∣ n + j + h` would leave `λ(n+j+1)` with no factor of `p`
+and kill the reduction Wave B has to run.  Both spellings agree at `h = 1`, so NO `h = 1`
+compat lemma can separate them — the same tripwire shape `ShiftFork` records for the twist.
+The gate here therefore stays `(j + 1)`; only the second factor's index carries `h`.
+
+WHAT LANDS.  `fBridgeG_h` / `fBridgeF_h` reopen the parameter the docstring froze: the
+product base index becomes `j + p·h`.  The four deterministic bounds follow at general `h`
+because they never read the offset: `windowVal_prod_abs_le` bounds every term by `1` blind to
+its arguments, and the gate does not mention `h`, so `card_filter_natCast_eq_le` applies at
+`-r - 1` verbatim.  `boxGrade` and `boxSum_le_grade` are statements about the window primes
+alone, so the `H/log H` grade transfers with no arithmetic changed.  MEASURED: all four
+bounds ported with their `h = 1` proof scripts intact — none was offset-sensitive.
+
+THE COMPATS ARE NOT `rfl`.  `fBridgeG_h_one` / `fBridgeF_h_one` need `Nat.mul_one`: `(p : ℕ)
+* 1` whnf-reduces to `0 + p`, stuck for a variable `p`.  Same shape as `bigXi_eq_bigXiH_one`.
+
+SCOPE — THE WAVE BOUNDARY, STATED.  NOTHING downstream of the deterministic box is ported
+here, because nothing downstream is offset-agnostic: no `badSet` at `h`, no `fBridgeG_h_mean`,
+no `fBridgeG_h_sum_over_residues`, no `fBridge_concentration*` at `h`, no `outer_combine` at
+`h`, no `(2.11)` restated at shift `h`, and no terminal.  Those are waves B (the
+concentration/entropy heart, campaign-tier, needs its own design block) and C.  Nothing in
+this wave required them — the boundary held.  Every `h = 1` declaration in both files is
+byte-frozen and keeps its proof; the new names sit BESIDE them.  No claim about Chowla, about
+the door's supply, or about twins is made or moved by this wave. -/
+#audit_axioms Salt.Entropy.Chowla.fBridgeG_h
+  Salt.Entropy.Chowla.fBridgeF_h
+  Salt.Entropy.Chowla.fBridgeG_h_one
+  Salt.Entropy.Chowla.fBridgeF_h_one
+  Salt.Entropy.Chowla.fBridgeG_h_abs_le
+  Salt.Entropy.Chowla.fBridgeG_h_mem_Icc
+  Salt.Entropy.Chowla.fBridgeF_h_abs_le_boxSum
+  Salt.Entropy.Chowla.decoupledMean_h_abs_le_boxSum
+  Salt.Entropy.Chowla.fBridgeF_h_abs_le_box
+  Salt.Entropy.Chowla.decoupledMean_h_abs_le_box

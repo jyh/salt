@@ -122,6 +122,67 @@ lemma decoupledMean_abs_le_box (eps : ℚ) (H : ℕ) {v : Fin H → ℤ} (hv : �
       ≤ boxGrade eps H :=
   (decoupledMean_abs_le_boxSum eps H hv).trans (boxSum_le_grade eps H heps hreg hH)
 
+/-! ### The same boxes at shift `h` (W-F3 wave A)
+
+`boxGrade` and `boxSum_le_grade` never read the offset — they are statements about the
+window primes alone — so the shift-`h` bridge `fBridgeF_h` and its decoupled mean inherit the
+`H/log H`-grade box verbatim, with `fBridgeG_h_abs_le` in place of `fBridgeG_abs_le` and
+`windowVal_prod_abs_le` (offset-blind) doing the inner work.  Nothing here is `h`-specific;
+that is exactly why this part of the `h`-port is a transport and not a re-derivation. -/
+
+/-- **The F-bridge box at shift `h`, raw sum form.**  `|F_h(v)(y)| ≤ Σ_{p ∈ 𝒫_H} (H/p + 1)`. -/
+lemma fBridgeF_h_abs_le_boxSum (eps : ℚ) (H h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
+    (y : ZMod (PH eps H)) :
+    |fBridgeF_h eps H h v y| ≤ ∑ p : primeWindow eps H, ((H : ℝ) / (p : ℝ) + 1) := by
+  unfold fBridgeF_h
+  calc |∑ p : primeWindow eps H, fBridgeG_h eps H h v p (residueProj eps H p y)|
+      ≤ ∑ p : primeWindow eps H, |fBridgeG_h eps H h v p (residueProj eps H p y)| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ p : primeWindow eps H, ((H : ℝ) / (p : ℝ) + 1) :=
+        Finset.sum_le_sum (fun p _ => fBridgeG_h_abs_le eps H h hv p _)
+
+/-- **The decoupled-mean box at shift `h`, raw sum form.**  The shifted two-point correlation
+`Σ_p (1/p) Σ_j v_j v_{j+p·h}` obeys the same `Σ_p (H/p + 1)` box: the inner sum still has `≤ H`
+unit-bounded terms, and the unit bound `windowVal_prod_abs_le` does not see the offset. -/
+lemma decoupledMean_h_abs_le_boxSum (eps : ℚ) (H h : ℕ) {v : Fin H → ℤ}
+    (hv : ∀ i, |v i| ≤ 1) :
+    |∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+        (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)|
+      ≤ ∑ p : primeWindow eps H, ((H : ℝ) / (p : ℝ) + 1) := by
+  refine (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum (fun p _ => ?_))
+  have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast (prime_of_mem_primeWindow p.2).pos
+  have hinner : |∑ j ∈ Finset.range H,
+      (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)| ≤ (H : ℝ) := by
+    calc |∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)|
+        ≤ ∑ j ∈ Finset.range H,
+            |(windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)| :=
+          Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ _j ∈ Finset.range H, (1 : ℝ) :=
+          Finset.sum_le_sum (fun j _ => windowVal_prod_abs_le hv j _)
+      _ = (H : ℝ) := by rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul, mul_one]
+  rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ 1 / (p : ℝ))]
+  have hstep : 1 / (p : ℝ) * |∑ j ∈ Finset.range H,
+      (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)| ≤ 1 / (p : ℝ) * (H : ℝ) :=
+    mul_le_mul_of_nonneg_left hinner (by positivity)
+  have hHp : 1 / (p : ℝ) * (H : ℝ) = (H : ℝ) / (p : ℝ) := by rw [div_mul_eq_mul_div, one_mul]
+  rw [hHp] at hstep; linarith
+
+/-- **The F-bridge box at shift `h`**: `|F_h(v)(y)| ≤ boxGrade`, the `h = 1` grade unchanged. -/
+lemma fBridgeF_h_abs_le_box (eps : ℚ) (H h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
+    (heps : 0 < eps) (hreg : Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2) (hH : 3 ≤ H)
+    (y : ZMod (PH eps H)) :
+    |fBridgeF_h eps H h v y| ≤ boxGrade eps H :=
+  (fBridgeF_h_abs_le_boxSum eps H h hv y).trans (boxSum_le_grade eps H heps hreg hH)
+
+/-- **The decoupled-mean box at shift `h`**: the shifted two-point correlation `≤ boxGrade`. -/
+lemma decoupledMean_h_abs_le_box (eps : ℚ) (H h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
+    (heps : 0 < eps) (hreg : Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2) (hH : 3 ≤ H) :
+    |∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+        (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)|
+      ≤ boxGrade eps H :=
+  (decoupledMean_h_abs_le_boxSum eps H h hv).trans (boxSum_le_grade eps H heps hreg hH)
+
 /-! ## The bad-event disintegration (design step 3) -/
 
 /-- **The outer bad-event mass disintegrates over the fibres of the window.**
