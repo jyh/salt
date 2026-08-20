@@ -57,6 +57,15 @@ into `≥ 3` — a gap, not an epsilon — and that gap is the floor's whole sou
 | 7 | `EvenChiRingBridge` | ℝ→ℂ transport (`ringHomComp`; helm-ruled ℝ-up) | **13** | B | ✅ in tree, audited, EXIT=0 |
 | 8 | `EvenChiMiddle` | E3's Fourier identity → the real sine product; the crux `e4a_norm_add_inv_int` | **14** | B | ✅ in tree, audited, EXIT=0 |
 | 9 | *(merged)* | E5a join + the floor + **the ground** `L(1,χ) ≥ 2·log φ/√q` | — | B | ✅ **MERGED INTO ROW 3b/5/9** — there is no `EvenChiFloor.lean`; the ground landed inside `EvenChiEta`. |
+| 10 | `EvenChiControls` | the four mutation controls + `e4a_gaussSum_odd_re_zero` — the corpus's own non-vacuity witnesses | ~12 | B | ⬜ **APPROVED 21:0x (helm), at math's argument** |
+
+**⚖️ PORT-RULE AMENDMENT (helm, 2026-08-19 21:0x, at math's argument):** negative controls
+and non-vacuity witnesses **PORT** — only superseded routes and dead ends stay in custody. The
+original §2 classed mutation controls as droppable scaffolding; **that classification was
+wrong: a mutation control is not scaffolding, it is the evidence that a hypothesis is
+load-bearing**, and the corpus should carry it. They land LABELLED, with a module docstring
+naming what each refutes, so no reader mistakes a control for a theorem about the mathematics.
+⇒ **Row 10 below.**
 
 Port rules (from the plan, binding): root every module in `Salt/MR/All.lean`
 (the track aggregate — executor-open; `saltworks/SaltWorks.lean` is maestro-only
