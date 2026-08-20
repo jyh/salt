@@ -154,6 +154,8 @@ import Salt.MR.EvenChiFourier
 import Salt.MR.EvenChiCosh
 import Salt.MR.EvenChiSine
 import Salt.MR.EvenChiSign
+import Salt.MR.EvenChiRingBridge
+import Salt.MR.EvenChiTau
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8059,3 +8061,36 @@ integers anywhere in its cone. -/
   Salt.MR.e4a_dirichlet_fibre_swap
   Salt.MR.e4a_dirichlet_card_eq
   Salt.MR.e4a_signOf_sum_eq_zero
+
+/-! ### `Salt/MR/EvenChiRingBridge.lean` — the ℝ→ℂ complexification (helm-ruled ℝ-up)
+
+`e4a_toC_eq_signOf` is the payload: at a unit the complexified character's value IS the
+integer sign map, which turns a ℂ-coefficient character sum into an ℤ-coefficient one.
+`e4a_toC_isPrimitive_iff` transports primitivity BOTH WAYS and collapses to one observation —
+the KERNELS ARE EQUAL — because mathlib characterises `FactorsThrough` purely by a kernel
+containment, so the conductor never has to be computed. -/
+#audit_axioms Salt.MR.e4a_toC_isQuadratic
+  Salt.MR.e4a_toC_even
+  Salt.MR.e4a_toC_ne_one
+  Salt.MR.e4a_toC_eq_signOf
+  Salt.MR.e4a_sum_units_of_vanishing
+  Salt.MR.e4a_toC_sum_eq_signOf_sum
+  Salt.MR.e4a_toC_toUnitHom_ker
+  Salt.MR.e4a_toC_factorsThrough_iff
+  Salt.MR.e4a_toC_conductorSet_eq
+  Salt.MR.e4a_toC_conductor_eq
+  Salt.MR.e4a_toC_isPrimitive_iff
+  Salt.MR.e4a_toC_isPrimitive
+
+/-! ### `Salt/MR/EvenChiTau.lean` — the Gauss sum at an even real character
+
+τ is REAL at an even QUADRATIC χ — primitivity is NOT needed for that, which is weaker than
+the ladder's design assumed.  Its MAGNITUDE `τ.re = ±√q` IS primitive-bound, and is the only
+source of the `√q` in the ground.  The SIGN is deliberately unproved: `cosh` is even. -/
+#audit_axioms Salt.MR.e4a_gaussSum_even_inv_addChar
+  Salt.MR.e4a_gaussSum_real
+  Salt.MR.e4a_gaussSum_eq_real
+  Salt.MR.e4a_gaussSum_re_sq
+  Salt.MR.e4a_gaussSum_re_eq_pm_sqrt
+  Salt.MR.e4a_gaussSum_re_ne_zero
+  Salt.MR.e4a_abs_gaussSum_re
