@@ -32,6 +32,7 @@ import Salt.Weil.Sawtooth
 import Salt.Weil.GcdDivisorSum
 import Salt.Weil.MajorantExpansion
 import Salt.Weil.RoadModulus
+import Salt.Weil.EstermannTwoAdic
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -294,3 +295,32 @@ open Salt.Tactic in
   Salt.Weil.hasSum_majorantCoeff
   Salt.Weil.sawtoothMajorant_fourier_expansion
   Salt.Weil.summable_majorantCoeff_mul_e
+/-! ### WEIL-TRIO D1–D4 — **THE ESTERMANN 2-ADIC DISCHARGE**: (7.1) with NO 2-adic factor
+(2026-08-19)
+
+`Salt.Weil.EstermannTwoAdic`.  Closes the residue `Salt/Certs/Kloosterman.lean:48` names in as
+many words: *"The 2-adic factor is stated, never discharged."*  `norm_kloosterman_estermann`
+carries `2^{v₂(k)/2}` explicitly; Heath-Brown's (7.1) has no such factor.
+
+🔑 **The 2-part needs no square-root saving at all.**  The trivial bound
+`‖S(a,b;2^e)‖ ≤ φ(2^e) = 2^{e−1}` already sits under `d(2^e)·√(2^e) = (e+1)·2^{e/2}` —
+`two_pow_totient_le_estermann` (D1′) — so the 2-part row is factor-free outright and the odd
+part already was.  CRT-gluing the two gives (7.1) verbatim, constant `1`, at every modulus with
+`v₂(k) ≤ 8` (`…_nat_of_v2_le` / `…_of_v2_le`), and at the §5 road modulus that reduces to two
+valuation bounds (`…_road_clean`), since `v₂(D·δ₁·w₁) = max (v₂ α₂) (v₂ q)`.
+
+⚠️ **`e ≤ 8` is where the METHOD stops, not where the proof got tired** — `2^{e−1}` grows
+geometrically and `(e+1)·2^{e/2}` does not, and the inequality is already false at `e = 9`.
+The witness is the fenced NEGATIVE control `Salt.HB.two_pow_totient_exceeds_estermann_at_nine`
+(`Salt/HB/EstermannRoad.lean`); it is a refutation, never a bound.
+
+📌 **The hypothesis set here is STRICTLY LARGER than the one the road consumes** — the road
+supplies only `v₂(q) ≤ 3` (`Salt.HB.factorization_two_le_three_of_isPrimitive`).  The two
+numbers are left uncollapsed on purpose: `8` is a fact about this proof, `3` a fact about
+primitive real characters, and the gap between them is the headroom of the discharge. -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.two_pow_totient_le_estermann
+  Salt.Weil.norm_kloosterman_two_pow_estermann
+  Salt.Weil.norm_kloosterman_estermann_nat_of_v2_le
+  Salt.Weil.norm_kloosterman_estermann_of_v2_le
+  Salt.Weil.norm_kloosterman_estermann_road_clean
