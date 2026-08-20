@@ -54,8 +54,8 @@ into `≥ 3` — a gap, not an epsilon — and that gap is the floor's whole sou
 | 5 | `EvenChiEta` | culmination + η-norm | ~20 | B | ⬜ |
 | 6 | `EvenChiTau` | τ real + magnitude at even real primitive χ | **7** | B | ✅ in tree, audited, EXIT=0 |
 | 7 | `EvenChiRingBridge` | ℝ→ℂ transport (`ringHomComp`; helm-ruled ℝ-up) | **13** | B | ✅ in tree, audited, EXIT=0 |
-| 8 | `EvenChiStatement` | index transport + discharge + **the statement of record** | ~13 | B | ⬜ |
-| 9 | `EvenChiFloor` | middle-closed + E5a join + nonvanishing + **the ground** `L(1,χ) ≥ 2·log φ/√q` | ~15 | B | ⬜ the objective |
+| 8 | `EvenChiMiddle` | E3's Fourier identity → the real sine product; the crux `e4a_norm_add_inv_int` | **14** | B | ✅ in tree, audited, EXIT=0 |
+| 9 | `EvenChiFloor` | E5a join + the floor + **the ground** `L(1,χ) ≥ 2·log φ/√q` | ~8 | B | ⬜ the objective — **blocked on module 5 (η) only** |
 
 Port rules (from the plan, binding): root every module in `Salt/MR/All.lean`
 (the track aggregate — executor-open; `saltworks/SaltWorks.lean` is maestro-only
