@@ -27,7 +27,7 @@ theorem exists_int_add_inv_sin_prod {q : ℕ} [NeZero q]
     (χ : DirichletCharacter ℝ q)
     (hprim : χ.IsPrimitive)
     (heven : χ (-1) = 1)
-    (hsum  : ∑ a : ZMod q, χ a = 0)
+    (hsum : ∑ a : ZMod q, χ a = 0)
     (e : ℕ → ℤ) (he : ∀ a, (e a : ℝ) = -χ a) :
     ∃ T : ℤ, (∏ a ∈ Finset.Ioo 0 q, (2 * Real.sin (Real.pi * a / q)) ^ (e a))
            + (∏ a ∈ Finset.Ioo 0 q, (2 * Real.sin (Real.pi * a / q)) ^ (e a))⁻¹ = T
@@ -90,7 +90,7 @@ in the custody brief as the negative-control and refutation record.
 
 ## History (one line each)
 
-E4a spine discharged in custody 08-18→19 (93→174 decls, every landing
+E4a spine discharged in custody 08-18→19 (92→174 decls, every landing
 first-or-second attempt) · piece (2) τ-real proved by helm executor 08-19
 07:47, grafted 10:17 · the join `e4a_middle_re_join` 08-19 11:0x · statement
 ratified with `hprim` 08-19 ~11:5x · ground landed in custody
