@@ -38,6 +38,15 @@ PORT; only superseded routes and dead ends stay in custody.)*
   costs nothing and E6 will want it.
 * `e4a_gaussSum_odd_inv_addChar` — the odd-parity engine the two odd results run on.
 * `e4a_toC_vanishes_off_units` — the positive fact the sign-bridge control is stated against.
+* `e4a_ruled_hypothesis_probe` — refutes *"E4a's route consumes `hprim` and `heven`"*. It is
+  `Salt.MR.exists_int_add_inv_sin_prod` — the RATIFIED E4a statement — **with those two
+  hypotheses deleted and nothing else changed**, and the kernel closes it anyway. So the
+  measurement is that the route uses neither. ⚠️ **THIS IS NOT AN ARGUMENT TO AMEND THE
+  RULING.** `hprim` is free at every intended call site and E5 needs it twice; `heven` is
+  load-bearing in the E5a join (E3's Fourier identity indexes by `(−j).val` and η's products
+  by `val`, and the two agree only because `χ(−a) = χ(a)`). The point is only that **the
+  record should say what was USED, not what was AVAILABLE** — a hypothesis never shown to be
+  consumed has not been shown to do anything.
 -/
 import Salt.MR.EvenChiEta
 
@@ -190,6 +199,51 @@ composition is written down and handed to the kernel.
 ⚠️ PRIMITIVITY IS TAKEN AT THE COMPLEXIFIED CHARACTER AND IS *PASSED THROUGH*, NOT PROVED
 TO TRANSPORT and NOT ADDED TO ANY STATEMENT.  It is piece (1)'s own hypothesis; whether the
 assembled E4a statement carries `hprim` is at the Captain's desk and is untouched here. -/
+
+/-! ### 🧪 HYPOTHESIS-CONSUMPTION MEASUREMENT — which ruled hypotheses did the proof USE?
+
+**NOT a new mathematical fact, and NOT a proposal.** `Salt.MR.exists_int_add_inv_sin_prod` is
+the ratified E4a statement and it stands exactly as ruled, carrying `hprim` and `heven`. This
+declaration is that statement **with those two hypotheses dropped and nothing else touched**.
+It closes. That answers, IN THE KERNEL rather than by anyone's reading of a proof script, the
+question of which hypotheses the E4a route actually consumes: neither of those two.
+
+It is filed here, with the negative controls, because it is the same speech act — a claim
+about a hypothesis's load rather than about `L(1,χ)`. A reader who cites it as a strengthening
+of E4a has misread the file: see the fence above for why both hypotheses are kept regardless.
+-/
+theorem e4a_ruled_hypothesis_probe {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℝ q)
+    (hsum : ∑ a : ZMod q, χ a = 0)
+    (e : ℕ → ℤ) (he : ∀ a, (e a : ℝ) = -χ a) :
+    ∃ T : ℤ, (∏ a ∈ Finset.Ioo 0 q, (2 * Real.sin (Real.pi * a / q)) ^ (e a))
+           + (∏ a ∈ Finset.Ioo 0 q, (2 * Real.sin (Real.pi * a / q)) ^ (e a))⁻¹ = T := by
+  classical
+  by_cases hq : 1 < q
+  · set w : ℂ := (algebraMap (e4aK q) ℂ) (e4aEta χ) with hw
+    have hwne : w ≠ 0 := by
+      rw [hw]
+      exact (map_ne_zero_iff _ (algebraMap (e4aK q) ℂ).injective).mpr (e4a_eta_ne_zero hq χ)
+    obtain ⟨z, hz⟩ :=
+      e4a_eta_sum_integer_final χ (e4a_ne_one_of_sum_zero χ hsum)
+        (e4a_fibre_prod_ne_zero hq _)
+    have hzC : w + w⁻¹ = (z : ℂ) := by
+      have := congrArg (algebraMap (e4aK q) ℂ) hz
+      rw [map_add, map_inv₀] at this
+      rw [hw, ← this]
+      simp
+    obtain ⟨T, hT⟩ := e4a_norm_add_inv_int hwne hzC
+    refine ⟨T, ?_⟩
+    rw [e4a_sin_prod_eq_eta_norm_inv hq χ e he, ← hw, inv_inv, add_comm]
+    exact hT
+  · have hq1 : q = 1 := by
+      have := Nat.pos_of_ne_zero (NeZero.ne q)
+      omega
+    subst hq1
+    have hempty : Finset.Ioo 0 1 = (∅ : Finset ℕ) := by decide
+    refine ⟨2, ?_⟩
+    rw [hempty, Finset.prod_empty]
+    norm_num
 
 end
 
