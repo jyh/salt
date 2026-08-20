@@ -52,11 +52,11 @@ into `≥ 3` — a gap, not an epsilon — and that gap is the floor's whole sou
 | 3a | `EvenChiAlgebra` | generic algebra beneath η: fibre swaps, the descent spine, associates, primitive-root exponents | **23** | B | ✅ in tree, audited, EXIT=0 |
 | 3b/5/9 | `EvenChiEta` (one unit) | the `𝓞_K` layer → η → the ruled statement → **the ground** | **35** | B/C | ✅ **in tree, audited, EXIT=0 — `e4a_L1_lower_even [3 axioms]` and `exists_int_add_inv_sin_prod [3 axioms]` are IN THE CORPUS.** 35 not 29: five declarations are reached by TYPECLASS INSTANCE RESOLUTION and are invisible to any textual cone, plus one their own closure pulled in. |
 | 4 | `EvenChiSign` | the ℤ sign map (`E4aChiBridge`) + fibre swap | **17** | B | ✅ in tree, audited, EXIT=0 |
-| 5 | `EvenChiEta` | culmination + η-norm | ~20 | B | ⬜ |
+| 5 | *(merged)* | culmination + η-norm | — | B | ✅ **MERGED INTO ROW 3b/5/9** — it is not a separate deliverable; the `𝓞_K` chain is indivisible. |
 | 6 | `EvenChiTau` | τ real + magnitude at even real primitive χ | **7** | B | ✅ in tree, audited, EXIT=0 |
 | 7 | `EvenChiRingBridge` | ℝ→ℂ transport (`ringHomComp`; helm-ruled ℝ-up) | **13** | B | ✅ in tree, audited, EXIT=0 |
 | 8 | `EvenChiMiddle` | E3's Fourier identity → the real sine product; the crux `e4a_norm_add_inv_int` | **14** | B | ✅ in tree, audited, EXIT=0 |
-| 9 | `EvenChiFloor` | E5a join + the floor + **the ground** `L(1,χ) ≥ 2·log φ/√q` | ~8 | B | ⬜ the objective — **blocked on module 5 (η) only** |
+| 9 | *(merged)* | E5a join + the floor + **the ground** `L(1,χ) ≥ 2·log φ/√q` | — | B | ✅ **MERGED INTO ROW 3b/5/9** — there is no `EvenChiFloor.lean`; the ground landed inside `EvenChiEta`. |
 
 Port rules (from the plan, binding): root every module in `Salt/MR/All.lean`
 (the track aggregate — executor-open; `saltworks/SaltWorks.lean` is maestro-only
