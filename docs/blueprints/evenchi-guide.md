@@ -52,8 +52,8 @@ into `≥ 3` — a gap, not an epsilon — and that gap is the floor's whole sou
 | 3 | `EvenChiCyclotomic` | the cyclotomic-unit machinery (fibres, mirror swap, units index, assembly) | **~29** | B/C | ⬜ — **RE-MEASURED 16:2x: NOT the bulk. 74 of the 103 remaining declarations have NO `K`/`𝓞_K` anywhere in their cone; only ~29 touch the algebraic layer.** |
 | 4 | `EvenChiSign` | the ℤ sign map (`E4aChiBridge`) + fibre swap | **17** | B | ✅ in tree, audited, EXIT=0 |
 | 5 | `EvenChiEta` | culmination + η-norm | ~20 | B | ⬜ |
-| 6 | `EvenChiTau` | τ real + magnitude at even real primitive χ | 9 | B | ⬜ |
-| 7 | `EvenChiRingBridge` | ℝ→ℂ transport (`ringHomComp`; helm-ruled ℝ-up) | 17 | B | ⬜ |
+| 6 | `EvenChiTau` | τ real + magnitude at even real primitive χ | **7** | B | ✅ in tree, audited, EXIT=0 |
+| 7 | `EvenChiRingBridge` | ℝ→ℂ transport (`ringHomComp`; helm-ruled ℝ-up) | **13** | B | ✅ in tree, audited, EXIT=0 |
 | 8 | `EvenChiStatement` | index transport + discharge + **the statement of record** | ~13 | B | ⬜ |
 | 9 | `EvenChiFloor` | middle-closed + E5a join + nonvanishing + **the ground** `L(1,χ) ≥ 2·log φ/√q` | ~15 | B | ⬜ the objective |
 
