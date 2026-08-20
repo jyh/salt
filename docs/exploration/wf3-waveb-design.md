@@ -1,5 +1,77 @@
 # W-F3 WAVE B — THE CONCENTRATION HEART AT SHIFT h. DESIGN BLOCK
 
+# ⛔⛔ REFUTER VERDICT 15:2x — **K1 AND K3 REFUTED. WAVE B IS A TRANSPORT, CHEAPER THAN THIS BLOCK CLAIMS, AND CHEAPEST EXACTLY WHERE THE BLOCK PRICES IT DEAREST — BUT THE ARC IS EMPTY UNLESS `ε²·h < 2`, A SIDE CONDITION THAT EXISTS NOWHERE.**
+
+## V1 — MY KILL-CHECK K1 WAS A PHANTOM, AND THE REFUTER PROVED IT BY BUILDING THE THING
+The independence is **over PRIMES, not window positions**: `hoeffding_residueProj` is generic in
+`G` and consumes CRT independence of residue coordinates; the shift lives inside `G_p`, which
+Hoeffding treats as a black box. *"Overlapping windows" cannot break a step that does not occur.*
+⇒ The refuter **wrote the whole B-2+B-3 chain** by copying the `h = 1` scripts with `(p) → (p)*k`:
+`fBridgeG_h_sum_over_residues`, `fBridgeG_h_mean`, `fBridge_concentration_raw_h`, `_sharp_h`,
+`_decoupled_sharp_h` — **one pass, one `omega` fix, `saltbuild EXIT=0`, 3 axioms.**
+🔑 ***B-3 IS THE CHEAPEST ITEM IN THE WAVE, NOT THE ONE THAT DECIDES WAVE-VS-CAMPAIGN. §4's
+ordering gate was built on a mismeasurement and is struck.***
+
+## V2 — ⛔ BUT THE KILL CONDITION I ASKED FOR **DOES** FIRE, AND IT IS THE REAL FINDING
+`primeWindow` is the primes in `(ε²H/2, ε²H]`, so `p·h > ε²H·h/2`, which is `≥ H` exactly when
+**`ε²·h ≥ 2`**. There, `windowVal H v (j + p·h) = 0` for all `j` ⇒ `fBridgeF_h ≡ 0`, the shifted
+decoupled mean `≡ 0`, `badSet_h = ∅`, and `h211_h` reads `c₁εH/log H ≤ 0` — **unsatisfiable**, so
+`outer_combine_h` is vacuous. ⛔ **AND NONE OF THE CONCENTRATION LEMMA'S HYPOTHESES MENTION `h`**,
+so any instance valid at `h = 1` is valid at `h = 10⁶`, where the conclusion is **true,
+satisfiable, and content-free**.
+⇒ **NON-VACUITY RANGE: `ε²·h < 2`. Nothing in the corpus states it** (`ShiftFork`'s h-family
+carries only `0 < h`). **It is a NEW HYPOTHESIS Wave B must introduce**, threaded onto every
+object downstream of the mean, with `h211_h` named as where it is acquired.
+📌 *The tower drives `ε → 0` at fixed `h`, so the constraint is compatible with intended use — a
+hypothesis to thread, not a death. But **no `h = 1` compat can detect its absence**, since
+`ε²·1 < 2` for every `ε ≤ 1`: the exact tripwire shape §2 warned about, in the parameter I did
+not check.*
+⛔ **AND I MISDESCRIBED THE OBJECT:** `outer_combine` has **no strictly positive lower bound** —
+`c₁εH/log H` is its **hypothesis** `h211`, not its conclusion. The thing needing reconciliation is
+`h211_h`'s *satisfiability*.
+
+## V3 — ⛔ K3: MY CENSUS UNDERCOUNTS BY 50%, MISSES A FILE, AND CONTAINS A PHANTOM MEMBER
+- ***`decoupledMean` IS NOT A DECLARATION.*** Zero hits (controls: `def badSet` 1, `def fBridgeF` 2).
+  It exists only in docstring prose and inside lemma *names*. **My "definition-aware" instrument
+  listed a member that does not exist, and B-1 briefed an executor to build `decoupledMean_h`.**
+  *The instrument I built to catch phantom membership invented one.*
+- **12 unported offset-bound objects, not 8.** Missing: `fBridge_concentration_raw` (`:261`),
+  `fBridge_concentration` (`:276`), **`fBridge_concentration_sharp` (`:412`) — the direct
+  antecedent of "the heart"**, and **`badSet_transport` (`Transport.lean:69`)**.
+- **A whole file was never censused:** `Decoupled.lean` (in Wave B's cone) holds `fBridgeF_mean`
+  and `fBridge_concentration_decoupled`. **17 files name these objects; I censused 3 and never
+  said so.**
+- 🔑 ***AND THE CORPUS'S OWN NOTE WAS MORE ACCURATE THAN MY CENSUS.*** `Salt/Entropy/All.lean:712-713`
+  — in the very file I was censusing — already reads *"no `fBridge_concentration*` at `h`"*, a
+  **star** covering raw/sharp/decoupled_sharp. **§1 reduced that star to one object.**
+- ✅ The two ✅ rows are correct and *stronger* than claimed (`fBridge_varTerm`/`fBridge_var_le`
+  are pattern-free — their statements contain no `v` at all), and **no object in the three files
+  is statement-free but proof-offset-sensitive.**
+- 📌 §0's "factor of three" was computed across **two different populations** (10 vs 9), unremarked.
+
+## V4 — K2 SURVIVES ON THE FACT, INVERTED IN THE FRAMING, AND MY CITATION WAS A DOCSTRING MISREAD
+The calibration constant is `h`-free and transports verbatim. ⛔ **But I wrote
+*"`badSet_transport_at_calibration` is byte-identical in shape to `badSet` per Transport's own
+docstring"* — the docstring says `badSet`'s MEMBERSHIP PREDICATE is byte-identical to the
+DEVIATION SET of the concentration lemma. Docstring-as-declaration, again.** And the framing
+inverts: **`h`-freeness is the DEFECT.** The threshold stays fixed while the signal collapses —
+every prime `p ≥ H/h` contributes 0 to `F_h` but its full `(H/p+1)²` to the Hoeffding denominator.
+***The variance proxy does not shrink with `h`; the signal does.*** **That reconciliation is
+Wave B's real cost, and it sits in B-4, not B-3.**
+
+## V5 — K4 SURVIVES; one attribution was unsourced
+Gate-`h`-freeness is confirmed independently and by consumption. ⛔ But I wrote *"from Wave A's own
+note"* for a cost claim **Wave A never made** — `FBridge.lean:513-515` says the opposite in kind.
+**My expectation happened to be right, and it was attributed rather than sourced.**
+
+## ⇒ REQUESTED CHANGES BEFORE ANY DISPATCH
+(i) **strike `decoupledMean_h`** from B-1 · (ii) add `fBridge_concentration_raw`/`_sharp` and
+`badSet_transport`; **census `Decoupled.lean`** · (iii) **add `ε²·h < 2` as an explicit hypothesis**
+on every object downstream of the mean, naming where `h211_h` acquires it · (iv) **reorder: B-3 is
+a one-executor transport; B-4's calibration-vs-shrinking-signal reconciliation is the campaign.**
+
+---
+
 **Pen:** math, 2026-08-20 15:0x. ⛔ **REFUTER PASS NOT RUN — not dispatchable.**
 Wave A landed at `2095863e` (10 declarations, `[3 axioms]`, `Built`). Wave C is gated on this.
 
