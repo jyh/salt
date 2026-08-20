@@ -158,6 +158,7 @@ import Salt.MR.EvenChiRingBridge
 import Salt.MR.EvenChiTau
 import Salt.MR.EvenChiMiddle
 import Salt.MR.EvenChiAlgebra
+import Salt.MR.EvenChiEta
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -8152,3 +8153,45 @@ at the start of the campaign, and it is why the 𝓞_K instantiation will need n
   Salt.MR.e4a_associated_quotient_eq
   Salt.MR.e4a_prod_associated_gen
   Salt.MR.e4a_assoc_of_card_eq_gen
+
+/-! ### `Salt/MR/EvenChiEta.lean` — η in `𝓞_K`, and THE GROUND
+
+The final module of the even-χ port, and the one that terminates at the objective:
+
+    L(1,χ)  ≥  log((3+√5)/2) / √q  =  2·log φ / √q  =  0.9624236501192069… / √q
+
+at even REAL PRIMITIVE nonprincipal χ.  Above it sits `exists_int_add_inv_sin_prod`, the
+Captain-ratified statement of record.  η is a ratio of cyclotomic units, hence a unit of
+`𝓞_K`, and is fixed by every Galois automorphism up to inversion — so `η + η⁻¹` is rational
+AND integral, hence an integer.  The R1 amendment `∑χ = 0` is what makes the two sign fibres
+equal in size, which is what cancels the signs in that ratio; that is why the hypothesis is
+IN the ruled statement rather than a proof detail. -/
+#audit_axioms Salt.MR.e4a_zeta_pow_q
+  Salt.MR.e4a_zeta_isAlgebraic
+  Salt.MR.e4a_route_b_isCyclotomicExtension
+  Salt.MR.e4aZetaK_isPrimitiveRoot
+  Salt.MR.e4aZetaO_isPrimitiveRoot
+  Salt.MR.e4a_ringOfIntegers_isIntegral
+  Salt.MR.e4a_sigma_to_b
+  Salt.MR.e4a_sigma_prod_reindex
+  Salt.MR.e4aEta_def
+  Salt.MR.e4a_eta_gal
+  Salt.MR.e4a_eta_sum_is_integer_concrete
+  Salt.MR.e4a_eta_isIntegral_of_associated
+  Salt.MR.e4a_eta_products_associated
+  Salt.MR.e4a_zetaO_image
+  Salt.MR.e4a_prod_image
+  Salt.MR.e4a_eta_is_unit_image
+  Salt.MR.e4a_eta_inv_is_unit_image
+  Salt.MR.e4a_eta_sum_integer_final
+  Salt.MR.e4a_fibre_prod_ne_zero
+  Salt.MR.e4a_eta_image
+  Salt.MR.e4a_eta_norm
+  Salt.MR.e4a_sin_prod_eq_eta_norm_inv
+  Salt.MR.e4a_fibre_prod_K_ne_zero
+  Salt.MR.e4a_eta_ne_zero
+  Salt.MR.exists_int_add_inv_sin_prod
+  Salt.MR.e4a_E5a_cosh_integer
+  Salt.MR.e4a_E5_floor_at_middle
+  Salt.MR.e4a_E5_floor_unconditional
+  Salt.MR.e4a_L1_lower_even
