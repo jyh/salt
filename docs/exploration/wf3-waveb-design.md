@@ -137,7 +137,36 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   `hmertTrunc` rider stays withdrawn.* ✅ **R-3 measured that B-1…B-4 carry NO `1/2` and their box
   (`OuterCombine.lean:141/:148-152`) is already at shift `h` and landed — the binder rename is the
   WHOLE of their change; no obligation is reintroduced.**
-- **B-4 — calibration + `outer_combine` (5 objects).** v3 priced this "five lines, ordinary once
+- **B-4 — calibration + `outer_combine` (5 objects).** ✅ **LANDED `4047b65b` 2026-08-21 — SITE 3
+  CLOSED, all 5 `[3 axioms]`, SEAT-VERIFIED AT A FORCED REBUILD** (three oleans deleted;
+  `Transport`, `OuterCombine`, `Entropy.All` each genuinely `Built`; zero warnings; **489 insertions,
+  0 deletions**). Landed: `badSet_transport_h`, `badSet_transport_at_calibration_h`,
+  `outer_badMass_h_eq`, `outer_badMass_h_le`, `outer_combine_h`.
+  ⛔ **CENSUS: §2's "5" WAS THE RIGHT NUMBER WITH THE WRONG MEMBERSHIP** — `boxSum_le_grade` is
+  **`h`-FREE and NOT ported** (nor `boxGrade`, `uniformOn_univ_real_coe`, `weakUniform_spine`,
+  `decrement_markov_fintype` — all reused verbatim), while **`badSet_transport` DOES need `h`** and
+  was not on the list. *A correct count can carry a wrong set; the number agreeing is not the set
+  agreeing.*
+  ⭐⭐ **AND THE WAVE'S CENTRAL FRAMING IS AN UNDERCOUNT — "THREE SYNCHRONIZED SITES" IS FIVE.**
+  Two declarations already spelled the offset at shift `h` **before wave A opened**:
+  `circle_method_estimate_h` (`ShiftFork.lean:405`) and `circle_method_estimate_h_core`
+  (`CircleMethod.lean:1133`), both in the `x1`/`x2` two-pattern family, **both already using the
+  identical literal.** ***"Three sites" counted what the entropy cone had to MOVE, not what must
+  AGREE.*** ✅ **Verified by the seat with `grep -F` on the literal `(j + (p : ℕ) * h) : ℝ)` — it is
+  byte-identical across SIX FILES** (`OuterCombine`, `Transport`, `FBridge`, `Decoupled`,
+  `ShiftFork`, `CircleMethod`). *I wrote "three synchronized sites" into three separate briefs; the
+  agreement population was always larger than the migration population.*
+  ⭐ **THE SUB-FINDING A REWRITE-COUNT WOULD HAVE HIDDEN — THE TACTIC IS NOT THE LEMMA.**
+  `badSet_h_one` closes four of the five under a plain `rw`; on `outer_badMass_h_eq` **plain `rw`
+  FAILS OUTRIGHT** — *"did not find an occurrence of the pattern"* — because **both `badSet_h`
+  occurrences sit under binders (`{n | … }` and `∫ x₀`) that `rw` cannot enter. `simp only` is
+  required.** *The executor made that its own negative control rather than reporting "one rewrite"
+  and moving on.* ⇒ **Counting REWRITE SITES misses a whole axis: the same lemma can be reachable by
+  one tactic and unreachable by another, at different occurrences of the same term.**
+  📌 *My brief located site 3 at `:363-364`. That is the **frozen `h = 1`** spelling and is correctly
+  UNTOUCHED; the shifted line is new, at `:638`. **Purely additive means a port ADDS beside the
+  frozen statement — it never edits it — so "close site 3" was the right instruction with the wrong
+  mental picture.*** v3 priced this "five lines, ordinary once
   B-0 lands"; B-0 is deleted (K3), so **that pricing is withdrawn and B-4 is UNPRICED.** *It is not
   blocked on a missing constant — that was the artifact — it is simply unmeasured.*
 - **B-5 — THE PRODUCER CHAIN. ✅ RESTORED 2026-08-21** (deleted by K4 at `ba1c3c07`; K4 refuted in
