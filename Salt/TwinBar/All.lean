@@ -31,6 +31,7 @@ import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
 import Salt.TwinBar.TwistedSieve
 import Salt.TwinBar.Separation
+import Salt.TwinBar.TwinParitySieve
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -182,3 +183,25 @@ open Salt.Tactic in
   Salt.TwinBar.phiLowerR_tolerant_corr
   Salt.TwinBar.parity_wall_corr
   Salt.TwinBar.parity_wall_corr_stable
+
+/-! ⟦λ-BV WAVE 1 — B0⟧ (`TwinParitySieve`, 2026-08-20).
+
+`twinParitySieve N P hP` is the landed twin `BoundingSieve` of `Salt/Brun/Sieve.lean`
+with ONE field changed: the weights carry the parity pin `w(m) = 1 − λ(m)`.  Support,
+modulus and the twin density `ν = ρ/·` are unchanged — the three ν obligations reuse the
+`Salt.TwinSieve` proof terms verbatim — so every main-term object that reads only
+`prodPrimes` and `nu` is definitionally the landed one, which is what the `rfl` simp
+lemmas `twinParitySieve_prodPrimes` / `twinParitySieve_nu` exist to expose.
+
+`totalMass` is pinned to the SUM FORM `∑ m ∈ support, weights m` rather than a closed
+form (F-THIRD-REGIME): `twinParitySieve_totalMass` then READS it as
+`N − ∑_{n ∈ [1,N]} λ(n(n+2))` through the `Finset.sum_image` injection idiom.  With the
+`sMinus` idiom (`totalMass := N`) the `d = 1` atom would degenerate to two-point Chowla.
+
+Scope: a DEFINITION plus three readings of it.  Nothing here bounds, signs or estimates
+the Liouville sum — no arithmetic input is claimed, and none is used. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.twinParitySieve
+  Salt.TwinBar.twinParitySieve_prodPrimes
+  Salt.TwinBar.twinParitySieve_nu
+  Salt.TwinBar.twinParitySieve_totalMass
