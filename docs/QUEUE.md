@@ -92,10 +92,22 @@ RESURRECTS THEM:**
     `MR/CapFreeAssembly.lean:408` · `docs/CAMPAIGNS.md:19` row 8). Residual: **(a)** the real-character
     arm `χ²=1` (`MR/VkTwistRegionReal.lean:210` is a HYPOTHESIS-CARRYING STONE); **(b)** the all-χ
     wiring (`lambda_nonpret`, `NonPretClose.lean:49`, is the **χ = 1 case only**). Class **B/C**.
-    ⛔⛔ **RATIFIED CONDITION, GATING THIS ITEM'S PRICING (the Captain, 11:0x): A.1's `M(f;X)` is
-    (1.6)'s — WITH NO `Q` — while the §3 demand was derived against `M(g;X,Q)`. RE-DERIVE BEFORE
-    PRICING. NO SUBSTITUTION ASSUMED.** *Owner is not open: `Salt/MR/All.lean:387-389` charters the
-    MR-gate campaign to discharge hypothesis (1.6) of Tao 1509.05422 by name.*
+    ✅⚖️ **RATIFIED CONDITION DISCHARGED 2026-08-21 11:1x — AND IT INVERTS THIS ITEM.**
+    MRT p.4: `M(g;X) := inf_{|t|≤X} D(g,n^{it};X)²` (**no character**) while `M(g;X,Q)` infs over
+    `q ≤ Q, χ` as well ⇒ `M(g;X,Q) ≤ M(g;X)`, so the substitution is safe **only** in the direction
+    A.1 wants (larger `M` ⇒ smaller `exp(−M)M`), which is why assuming it was forbidden.
+    ⭐⭐ **AND THE SUPPLY IS LANDED: `lambda_nonpret` (`MR/NonPretClose.lean:49`) IS a lower bound on
+    the (1.6) infimum** — `(1/4)loglog x − 4 logloglog(|t|+16) − C ≤ pretDistSq lam (costwist t) x`
+    for all `|t| ≤ Q·x` ⇒ **`M(λ;X) ≥ (1/4 − o(1))·loglog X`, unconditional, effective.**
+    ⛔⛔ **REVERSES A FINDING THIS QUEUE CARRIED: `lambda_nonpret` being "χ = 1 only" was banked as a
+    DANGLING INTERFACE. Against Thm 2.3's `M(g;X,Q)` that was right; against A.1's `M(f;X)` it is
+    backwards — χ = 1 is the SPECIFIED SHAPE, not a shortfall.** *A dangling-interface verdict is
+    relative to its consumer; when the consumer changes, RE-TEST it instead of carrying it forward.*
+    ⇒ **RE-PRICED: residuals (a) and (b) are NOT needed for A.1's hypothesis.** ⚠️ **But characters
+    RE-ENTER IN THE ARC** — MRT §4 p.14, `α = a/q + θ`, `q ≤ W`, treated through Dirichlet characters
+    ⇒ **`capFreeFloor_all_chi` and the `χ²=1` stone may be wanted by the MAJOR ARC, not by Block C.**
+    🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
+    hypothesis and onto the arc, where the arc block will price it.*
 
 16. **BLOCKS A / B — THE TWO ARCS. ⛔ CENSUS-FIRST, CLASSING FORBIDDEN UNTIL BOTH PROBES REPORT**
     (the Captain's ruling 2). ⛔ **THE ARCS ARE LABELLED BACKWARDS IN v1 AND IN COMMON MEMORY:
