@@ -135,8 +135,26 @@ RESURRECTS THEM:**
       Measured (`Salt/MR/` = **378 files / 314,871 lines**; control `theorem` in 376 files):
       **Halász apparatus in 65 files**, including CLOSED numeric instances —
       `halaszIntegersChiPhi_holds : HalaszIntegersChiPhi 2564`, `halasz_direct_ball_window_free`,
-      `halaszPrimesChi_holds_gated_bounded_cs`. **And the short-interval MEAN-SQUARE family, which
-      is MRT Theorem A.1's own shape** `(1/X)∫|(1/h)∑_{x≤n≤x+h}f(n)|²dx`:
+      `halaszPrimesChi_holds_gated_bounded_cs`. ⛔⛔ **CORRECTED 2026-08-21 12:3x BY THE TARGETED READ — MY OWN CLAIM, WITHDRAWN.** I wrote that
+      the short-interval mean-square family **"IS MRT Theorem A.1's own shape."** ***It is not, and I
+      claimed it from the NAME and a rough L²-over-[X,2X] resemblance without reading the
+      statement.*** `lemma14_shortInterval_meansq` is a **TWO-SCALE** inequality (`h₁` vs `h₂`,
+      bounding their DIFFERENCE), for **general complex coefficients** `a : ℕ → ℂ` on a finite
+      support, with the whole **Perron / Dirichlet-polynomial apparatus passed IN as hypotheses**
+      (`hMsup`, `hGint`, `hPerron`, `hGsq`) — and **it contains NO pretentious distance at all**
+      (`pretDist` in `PerronMeanSq.lean` = **0**, against 97 files repo-wide). MRT A.1 bounds ONE
+      scale, for a 1-bounded MULTIPLICATIVE `f`, in terms of `exp(−M(f;X))·M(f;X)`.
+      ⭐ **THE ACCURATE STATEMENT, AND IT NAMES THE SEAM RATHER THAN HAND-WAVING AT IT: salt has BOTH
+      HALVES SEPARATELY AND NOT THE JOIN.** The short-interval Perron/mean-square side is landed and
+      carries no pretentious distance; the pretentious-distance side is landed across 97 files.
+      **A.1 IS EXACTLY THE STATEMENT THAT JOINS THEM** — *"the mean value of a 1-bounded
+      NONPRETENTIOUS multiplicative function is small for most short intervals"* (`1503.05121`
+      p.20). ⇒ **THE JOIN IS THE NODE, and its cost is UNMEASURED.**
+      ⚠️ **CLASS REMAINS UNASSIGNED.** "NOT `D`" still stands on the Halász evidence below — 65
+      files with closed numeric instances is real — **but it no longer rests on a shape match, and
+      "B/C expected" was partly resting on the claim I have just withdrawn.**
+      *(The family below is real and useful; only its identification with A.1 is retracted.)*
+      The landed short-interval mean-square family:
       `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) · `_concrete` (`:1045`) ·
       `_kernel` (`KernelCarry.lean:1153`) · `shortInterval_vonMangoldt_le`
       (`ShortIntervalPsi.lean:407`).
