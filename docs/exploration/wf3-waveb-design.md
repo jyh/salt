@@ -160,9 +160,28 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   ⭐ **ONE VOICE, AND THIS IS B-5's SCOPE OF RECORD: the shift-`h` PORT of the five-file stack**
   `HBudget → HReduce → HMainAssembly → Prop26 → ChowlaFailure` (**≈1,300 lines**), with
   **`hT3`-with-`h` as its HARD STEP** (edit sites `:428-439`, `:368`/`:383-398`, `:684-689`,
-  `:607-625`) **plus ONE NEW DEFINITION** — a **gap-`h` correlation family**: `shiftCorr`'s gap is
-  hardcoded to `1`, while `corr_shift_le` is already general in both offsets, so the new definition
-  is cheap-but-nonzero. *§2 and §14.3 stated B-5's scope two incompatible ways in one document; this
+  `:607-625`) **plus ONE NEW DEFINITION** — a **gap-`h` correlation family**.
+  ✅ **VERIFIED AT THE SOURCE 2026-08-21 14:1x, AND SHARPENED THREE WAYS:**
+  ```
+    private noncomputable def shiftCorr (x ω k : ℕ) : ℝ :=            HBudget.lean:46
+      ∫ n, λ(n+k) * λ(n+k+1) ∂(logMeasure x ω)      ← k is the BASE offset; the GAP is a LITERAL 1
+    theorem corr_shift_le (a b : ℕ) …                                 ShiftCorr.lean:276
+      bounds |∫λ(n+1+a)λ(n+1+b) − ∫λ(n+a)λ(n+b)|    ← GENERAL IN BOTH OFFSETS ✅
+  ```
+  **(1) The gap IS hardcoded** — `k` telescopes, the `+1` does not; a gap-`h` family is genuinely a
+  new definition, as scoped. ⭐ **(2) AND IT IS CHEAPER THAN "cheap-but-nonzero" SAYS, FOR A NAMEABLE
+  REASON: because `corr_shift_le` takes TWO INDEPENDENT OFFSETS, the gap-`h` telescoping step is just
+  `corr_shift_le k (k+h)` — the existing general lemma, NO new analysis.** `shiftCorr_le`'s induction
+  should port with `k+1 → k+h` mechanically.
+  ⛔ **(3) A CONSTRAINT NOBODY HAD RECORDED: `shiftCorr`, `shiftCorr_le`, `shiftCorr_zero` are all
+  `private` TO `HBudget.lean`.** A gap-`h` analogue may live there as `private` too (B-5 ports that
+  file anyway) — **but nothing outside `HBudget.lean` can reference it, so if a downstream node needs
+  the family, the port must UN-PRIVATE it, which is a visibility change and not a copy.**
+  📌 *Found only because I went to check my own claim, and the checking cost two wrong reads first:
+  I looked for `shiftCorr` in `ShiftCorr.lean` (**inferring the file from the NAME** — it is in
+  `HBudget.lean`), and I looked for this very scope note in `docs/QUEUE.md` (**it is here**). **Both
+  guesses were name-shaped; the population-shaped search — `grep -F` across the directory — found
+  each immediately.** Three name-inferences failed in one beat.* *§2 and §14.3 stated B-5's scope two incompatible ways in one document; this
   is the single voice.*
   ⛔ **This is where `h211_h` becomes satisfiable, and under §14's gate it does** *(the withdrawn R2
   was cited here until 2026-08-21 11:5x)*. It remains the wave's
