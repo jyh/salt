@@ -12,28 +12,34 @@ equality:** `ε² = 1/4, H = 1996, h = 4` ⇒ `ε²h = 1`, and `499·4 = 1996 = 
 to `p·h = H` — outside the strict window. ⇒ **Every object carries `hεh : (eps:ℝ)^2 * h < 1`,
 STRICT, acquired at `h211_h`.**
 
-**K2 — ⛔⛔ THE FATAL ONE. I MEASURED THE SURVIVOR *COUNT*, AND THE COUNT IS BLIND TO THE LOSS.**
-v3's evidence for "`≤ 1` is safe" was survivor counts: 40/40, 23/23, 10/10, 73/73 — **100%
-survival**. Re-measured as *mass*, which is what the Mertens floor actually consumes:
+**K2 — ✅ RESOLVED BY MEASUREMENT, AND MY OWN CLAIM WAS WRONG IN BOTH THE PARAMETER AND THE
+DIRECTION.** I asserted all night that *"at `a = 1` the surviving MASS is 28% of the `h = 1` mass, a
+3.6× loss, while the COUNT reads 100%"*. Computed from `PrimeWindow.lean:26` (`H = 2·10⁶`, `h = 4`,
+window `(ε²H/2, ε²H]`, survivors additionally `p ≤ H/h`):
 ```
-  at a = 1 :  surviving  ∑ 1/p   =   28%  of the h = 1 mass      ⇒  a 3.6× LOSS
-              surviving  COUNT   =  100%
+   a = ε²h     surviving mass     surviving count
+     0.9          100.0%             100.0%
+     1.0          100.0%             100.0%      ← NO LOSS. Nothing for a count to be blind to.
+     1.25          68.4%              60.6%
+     1.50          42.2%              34.0%
+     1.65          28.3%              21.7%      ← the "28%" lives HERE, not at a = 1
+     1.996          0.3%               0.2%
 ```
-⛔⛔ **AND MY OWN GATE NOW CHALLENGES THAT 28%. IT IS A QUOTE, NOT A MEASUREMENT OF THIS SESSION,
-AND A MERTENS SANITY CHECK POINTS THE OTHER WAY.** The definition is
-`primeWindow eps H = { p prime : ε²H/2 < p ≤ ε²H }` (`PrimeWindow.lean:26`) — a **dyadic** window,
-`(x, 2x]`. By Mertens, `∑_{x < p ≤ 2x} 1/p → log 2` for ANY `x`, so the shift-`h` window and the
-`h = 1` window should carry **comparable** mass, not a 3.6× gap. ⇒ **Either the 28% measured
-something other than this ratio, or it is wrong.** Until it is recomputed from
-`PrimeWindow.lean:26` in a session that shows its work, **K2's factor is UNTRUSTED**; what survives
-is the weaker and still-decisive point that *a survivor COUNT cannot witness a mass claim at all.*
-⚠️ *I nearly recomputed it against `Salt/MR/HalaszPrimesCore.lean:70` — a DIFFERENT `primeWindow`,
-real-valued and Mellin-shaped. **Two definitions share the name across cones.***
+⇒ **TWO errors in one figure.** ① The 28% belongs to `a ≈ 1.65`; **at `a = 1` there is no mass loss
+at all.** ② Where count and mass DO diverge, **the count runs LOWER than the mass, not higher** —
+the survivors are the SMALL primes, which carry the most weight, so a count *understates* surviving
+mass. *My claim had the inequality backwards.*
 
-**Both numbers, as reported, describe opposite situations.** The window keeps its primes and
-loses nearly three quarters of its mass, because `ε = √(α/h)` shrinks the window from the small-`p`
-end where `1/p` is large. ⇒ **v3's headline claim — *"the floor gets EASIER as `h` grows"* — is
-FALSE and inverted. The floor gets HARDER.**
+⇒ **CONSEQUENCES FOR THIS BLOCK, both directions:**
+- **v3's original claim is RESTORED for `a < 1`:** the whole window survives, mass and all, so the
+  floor does NOT get harder. **v4's earlier "the floor gets HARDER" is WITHDRAWN — it was built on
+  the mislabelled figure.**
+- **The count/mass lesson survives, INVERTED and weaker:** a cardinality is not a mass, and here it
+  errs *pessimistically*. **`WindowCount`'s two declarations still need the M3 audit** — a count
+  standing in for a mass is still a defect even when it errs safe.
+- **`hmertTrunc` is NOT needed as a hypothesis at `a < 1`**, since the truncated window IS the
+  window there. §1's demand for it is withdrawn at `a < 1` and retained only if any node is ever
+  priced at `a ≥ 1`.
 
 **K3 — B-0 IS DEAD CODE UNDER THE WAVE'S OWN HYPOTHESIS. DELETED.**
 B-0 sharpened the box to `[0,0]` at `p·h ≥ H`. But every object from `h211_h` down now carries
