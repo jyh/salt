@@ -95,8 +95,27 @@ never rewritten** — read its erratum section, not its §5, for the VK lines.
       they coincide.**
       ⛔ **The ratified wave structure STANDS until the helm rules on this reduction; I am not
       re-cutting ratified waves on my own authority.**
-    - **PROBE 2** — salt census of `Salt/MR/` (378 files, ~315k lines of literally-MR track) against
-      **both** arcs. Read-only.
+    - **PROBE 2 — ✅ FIRED AND REPORTED 2026-08-21 10:4x. THE ARCS CANNOT BE CLASSED `D`.**
+      Measured (`Salt/MR/` = **378 files / 314,871 lines**; control `theorem` in 376 files):
+      **Halász apparatus in 65 files**, including CLOSED numeric instances —
+      `halaszIntegersChiPhi_holds : HalaszIntegersChiPhi 2564`, `halasz_direct_ball_window_free`,
+      `halaszPrimesChi_holds_gated_bounded_cs`. **And the short-interval MEAN-SQUARE family, which
+      is MRT Theorem A.1's own shape** `(1/X)∫|(1/h)∑_{x≤n≤x+h}f(n)|²dx`:
+      `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) · `_concrete` (`:1045`) ·
+      `_kernel` (`KernelCarry.lean:1153`) · `shortInterval_vonMangoldt_le`
+      (`ShortIntervalPsi.lean:407`).
+      ⛔ **No ASSEMBLED "MR short-interval mean value" statement exists** (searched
+      `MRShort`/`mrCore`/`MRgate`). ⇒ **THE PARTS ARE LANDED; THE ASSEMBLY IS NOT.**
+      **CLASS: B/C for the assembly, pending a targeted read. NOT `D`.** *v1 classed the arcs `D`
+      on mathlib-emptiness; on the right corpus that classing is refuted, not merely unsupported.*
+      ⭐⭐ **AND THE CHARTER ANSWERS THE OPEN PRECISION.** `Salt/MR/All.lean:387-389`, verbatim:
+      the MR-gate campaign *"opens the road from the landed power zero-free region
+      (`Salt.Vk.zeta_zero_free_region_pow`, θ = 3/4 < 1) toward unconditional log-Chowla-2, **by
+      discharging the pretentious non-pretentiousness hypothesis (1.6) of Tao 1509.05422 and the
+      MRT door**."* ⇒ **the `M(f;X)` = (1.6) re-derivation flagged under PROBE 1 targets a LIVE
+      CAMPAIGN OF OURS, not new ground. Still owed; no longer unowned.**
+      ✅ **BOTH PROBES HAVE REPORTED ⇒ the Captain's ruling-2 arc-classing gate is DISCHARGED and
+      the arc design block is UNBLOCKED**, on the corrected labelling and against the reduced spine.
 17. ⛔ **SCOPE OF RECORD: §§2–4 (pp.8–16) + APPENDIX A (pp.20–28), ≈18 pages + the [17] Annals
     delegation.** *`§5 is out` HOLDS (§5 ends p.20). v1's "~8 pages" omitted Appendix A, which §4
     consumes via Thm A.2 — an under-estimate, the direction that under-resources a campaign.*
