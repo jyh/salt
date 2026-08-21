@@ -8,6 +8,7 @@ import Salt.TwinBar.Wall
 import Salt.Chen.BrunEll1
 import Salt.BrunLower.MertensDischarge
 import Salt.BrunLower.TwinInstance
+import Salt.Maynard.GehPp2
 
 /-!
 # The Liouville-twisted twin sieve (λ-BV wave 1, node B0)
@@ -228,5 +229,83 @@ theorem twinParitySieve_brun_lower_ell1 {z : ℝ} (Q : ℝ) (hQ : 1 ≤ Q)
       = 2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z - 1 := by omega
   rw [e1, e2, Nat.cast_one] at h
   exact h
+
+/-! ## λ-BV wave 1, node B3 — the explicit remainder majorant and the assembly -/
+
+/-- **B3**: the explicit majorant for the UNTWISTED half of `rem_split` — the landed twin
+remainder `_root_.rem d N` summed over the divisors of `P` below a level.  It is the `2^ω`
+divisor bound `sum_two_pow_omega_le` (`Salt/Maynard/GehPp2.lean:113`, a **root-level**
+declaration: that file carries no `namespace`) read at the level's floor,
+`⌊lvl⌋₊·(1 + log ⌊lvl⌋₊)`.  No Liouville input enters here — the parity pin's entire
+contribution is the OTHER half of the split, and it is named, not bounded. -/
+noncomputable def Btwin (lvl : ℝ) : ℝ := (⌊lvl⌋₊ : ℝ) * (1 + Real.log (⌊lvl⌋₊ : ℝ))
+
+/-- **B3**: the landed twin remainder, summed over `d ∣ P` below the level, is at most
+`Btwin lvl`.  The chain is `rem_abs_le` (`Salt/Brun/M2.lean:241`, `|rem d| ≤ ρ(d)`) →
+`rho_squarefree_le` (`:206`, `ρ(d) ≤ 2^ω(d)` for squarefree `d`, and every `d ∣ P` is
+squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:209-239` (`Finset.sum_filter`, then
+`Finset.sum_le_sum_of_subset_of_nonneg` onto the level's initial segment) →
+`sum_two_pow_omega_le`.  The `2^ω` route replaces that idiom's `3^ω` constant; the N4.2 `y⁴`
+step of `M5Assembly.lean:240` is NOT used. -/
+theorem twinRem_sum_le (hPsq : Squarefree P) {lvl : ℝ} (hlvl : 1 ≤ lvl) :
+    (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0) ≤ Btwin lvl := by
+  have hfl : 1 ≤ ⌊lvl⌋₊ := Nat.le_floor (by exact_mod_cast hlvl)
+  have hsub : P.divisors.filter (fun d : ℕ => (d : ℝ) < lvl) ⊆ Finset.Icc 1 ⌊lvl⌋₊ := by
+    intro d hd
+    rw [Finset.mem_filter] at hd
+    rw [Finset.mem_Icc]
+    exact ⟨Nat.pos_of_mem_divisors hd.1, Nat.le_floor hd.2.le⟩
+  have hstep1 : (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0)
+      = ∑ d ∈ P.divisors.filter (fun d : ℕ => (d : ℝ) < lvl), |_root_.rem d N| := by
+    rw [Finset.sum_filter]
+  have hstep2 : (∑ d ∈ P.divisors.filter (fun d : ℕ => (d : ℝ) < lvl), |_root_.rem d N|)
+      ≤ ∑ d ∈ P.divisors.filter (fun d : ℕ => (d : ℝ) < lvl), (2 : ℝ) ^ _root_.omega d := by
+    refine Finset.sum_le_sum fun d hd => ?_
+    rw [Finset.mem_filter] at hd
+    have h1 : |_root_.rem d N| ≤ (rho d : ℝ) :=
+      rem_abs_le d N (Nat.pos_of_mem_divisors hd.1).ne'
+    have h2 : (rho d : ℝ) ≤ (2 : ℝ) ^ _root_.omega d := by
+      exact_mod_cast rho_squarefree_le d
+        (Squarefree.squarefree_of_dvd (Nat.dvd_of_mem_divisors hd.1) hPsq)
+    linarith
+  have hstep3 : (∑ d ∈ P.divisors.filter (fun d : ℕ => (d : ℝ) < lvl), (2 : ℝ) ^ _root_.omega d)
+      ≤ ∑ q ∈ Finset.Icc 1 ⌊lvl⌋₊, (2 : ℝ) ^ _root_.omega q := by
+    refine Finset.sum_le_sum_of_subset_of_nonneg hsub ?_
+    intro d _ _
+    positivity
+  have hstep4 : (∑ q ∈ Finset.Icc 1 ⌊lvl⌋₊, (2 : ℝ) ^ _root_.omega q) ≤ Btwin lvl := by
+    rw [Btwin]
+    exact _root_.sum_two_pow_omega_le ⌊lvl⌋₊ hfl
+  rw [hstep1]
+  linarith
+
+/-- **B3 — the assembly.**  The twisted Rosser remainder is at most `Btwin lvl + B`, for any
+`B` the named arithmetic input `LiouvilleTwinDisp` supplies.  Term-by-term through the landed
+`rem_split` (`:131`) and the triangle inequality, then `Finset.sum_le_sum` — the two sums pair
+because `LiouvilleTwinDisp` was given `rosserRemainder`'s shape verbatim (an `ite` over the
+FULL divisor index, not a `filter`).  The idiom is `goldBVSum_le_split`
+(`Salt/Goldbach/A1.lean:286`, body from `:293`); the second landed instance is
+`switchSieve_rosserRemainder_split_le` (`Salt/Chen/SwitchBV.lean:316`, body from `:321`).
+
+Scope: still a DOOR.  `Btwin` is explicit and unconditional, but `B` is a PARAMETER — wave 1
+asserts nothing about its size, and nothing here is a twin-prime claim. -/
+theorem twinParitySieve_rosserRemainder_le {lvl B : ℝ} (hlvl : 1 ≤ lvl)
+    (hdisp : LiouvilleTwinDisp N P lvl B) :
+    Salt.Chen.rosserRemainder (twinParitySieve N P hP) lvl ≤ Btwin lvl + B := by
+  have hsplit : Salt.Chen.rosserRemainder (twinParitySieve N P hP) lvl
+      ≤ (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0)
+        + ∑ d ∈ P.divisors,
+            (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0) := by
+    rw [Salt.Chen.rosserRemainder, twinParitySieve_prodPrimes, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun d _ => ?_
+    by_cases h : (d : ℝ) < lvl
+    · rw [if_pos h, if_pos h, if_pos h, rem_split d]
+      exact abs_sub _ _
+    · rw [if_neg h, if_neg h, if_neg h, add_zero]
+  have h1 : (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0) ≤ Btwin lvl :=
+    twinRem_sum_le hP hlvl
+  have h2 : (∑ d ∈ P.divisors,
+      (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0)) ≤ B := hdisp
+  linarith
 
 end Salt.TwinBar
