@@ -81,7 +81,8 @@ artifact of a mislabelled figure, and it is withdrawn in full.*
 and the table in K2 gives the loss directly (68% at 1.25, 42% at 1.5, 0.3% at 1.996). **That is a
 different wave, and it would need `cM'` measured before it could be scoped.**
 
-## §2 — WAVE SHAPE (FIVE nodes; B-0 deleted (K3), **B-5 RESTORED** under §12's R2)
+## §2 — WAVE SHAPE (FIVE nodes; B-0 deleted (K3), **B-5 RESTORED** under **§14** — ⛔ *not under
+## §12's R2, which is WITHDRAWN; this header cited it until 2026-08-21 11:5x*)
 
 - **B-1 — `badSet_h`** + its `h = 1` compat (`Nat.mul_one`, not `rfl`). ⚠️ Byte-identity at `h`
   needs **THREE synchronized sites**: `badSet_h`'s predicate, the concentration lemma's deviation
@@ -108,12 +109,27 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   the `h = 1` object (0.9998, not 1/2).** ⭐ **THE ACTUAL JOB: `hT3` (`HBudget.lean:606-624`, the
   boundary slice) RE-PROVED WITH THE FACTOR `h`, under `hεh'`.** The ramp deficit was ALWAYS a line
   item in the landed budget — `card 𝒫_H · h · |X| ≤ (1/16)·SP·H·ε` — and it scales exactly linearly
-  in `h`. **NO new constant, NO `hreduce` surgery, the `1/2` untouched.** ⇒ **B-5 shrinks to ONE
-  re-proof of a landed 19-line `calc`.**
-  ⛔ **This is where `h211_h` becomes satisfiable, and under R2 it does.** It remains the wave's
+  in `h`. **NO new constant, NO `hreduce` surgery, the `1/2` untouched.** ⛔⛔ **AND THE SCOPE SENTENCE THAT STOOD HERE IS WITHDRAWN — IT UNDERSTATED B-5 BY ~TWO ORDERS.**
+  *"One re-proof of a landed 19-line calc" was false: `hT3` is a local `have` inside the 252-line
+  `hbudget_holds` — **nothing in it is re-provable in isolation** — and the shift-h ladder is EMPTY
+  (measured: `hbudget_holds_h` · `hreduce_holds_h` · `h211_h` = **0 / 0 / 0**, control
+  `hbudget_holds` = 13).*
+  ⭐ **ONE VOICE, AND THIS IS B-5's SCOPE OF RECORD: the shift-`h` PORT of the five-file stack**
+  `HBudget → HReduce → HMainAssembly → Prop26 → ChowlaFailure` (**≈1,300 lines**), with
+  **`hT3`-with-`h` as its HARD STEP** (edit sites `:428-439`, `:368`/`:383-398`, `:684-689`,
+  `:607-625`) **plus ONE NEW DEFINITION** — a **gap-`h` correlation family**: `shiftCorr`'s gap is
+  hardcoded to `1`, while `corr_shift_le` is already general in both offsets, so the new definition
+  is cheap-but-nonzero. *§2 and §14.3 stated B-5's scope two incompatible ways in one document; this
+  is the single voice.*
+  ⛔ **This is where `h211_h` becomes satisfiable, and under §14's gate it does** *(the withdrawn R2
+  was cited here until 2026-08-21 11:5x)*. It remains the wave's
   real question and is in scope.
 
 ## §3 — KILL-CHECKS
+
+⛔ **M1 SWEPT 2026-08-21: its premise is superseded. The operative gate is `ε·h ≤ c/(32·log 4)`
+(§14), not `ε²h`; §5's answer ("K1 costs nothing") is WRONG BY A SQUARE — see §5's banner and §15.
+✅ AND THE ARITHMETIC M1 CALLED FOR IS NOW RUN: at `epsPin = 1/500` the gate gives `h ≤ 2`.**
 
 **M1 — the `a < 1` regime is now the WHOLE claim. Is `ε²h < 1` reachable at the ε the budget
 forces?** `ε` is pinned below `cE/(32·log 4)` upstream; `h` is ours. **If the budget's ε already
@@ -166,6 +182,15 @@ reachable at the ε the budget forces?) and M3 (B-4's unpriced cost) — **both 
 run**, and neither is a citation or a matcher defect.
 
 ## §5 — M1 ANSWERED, AND IT COUPLES THIS WAVE TO THE MRT DOOR (2026-08-20 23:4x)
+⛔⛔ **SWEPT 2026-08-21 11:5x — §5 IS WRONG BY A SQUARE, AND IT WAS THE LAST SECTION SWEPT.**
+Everything below reads `ε < 1/√h` and *"the door's required strength grows like √h"*, concluding
+**"K1 costs nothing."** ***All three are superseded by §14: the tree's binding gate is
+`ε·h ≤ c/(32·log 4)`, so `ε ∝ 1/h` and THE DOOR HARDENS LIKE `h`, NOT `√h`.*** And **K1 does not
+cost nothing — it costs the admissible-`h` range**, which at the pinned `ε = 1/500` is `h ≤ 2` (§15).
+🔑 *The withdrawal-sweeps-downstream law is stated in §11 and §13 of this very document, and §5 —
+the section that FIRST PUBLISHED the √h coupling — is the one I failed to sweep when §14 landed.
+**A law's own document is not exempt from it, and the section that ORIGINATES a claim is the one a
+sweep reaches last, because you remember it as settled.*** Text kept verbatim as the record.
 
 **M1 asked: is `ε²h < 1` reachable at the ε the budget forces?** ✅ **YES, for ANY `h`** — and the
 answer is structural, not numerical.
@@ -592,3 +617,73 @@ I did not reproduce those two figures, and a number I did not compute is a quote
 **the MRT door hardens like `h`, not `√h` — ruling 2's joint price is understated by a square.**
 *My own §12 R2 argued FOR R2 on cross-lane grounds — that R1 "pays for a W-F3 repair with MRT-door
 strength". The refuter's route pays nothing at all, and the coupling it removes was one I introduced.*
+
+
+## §15 — THE FOUR §14 REPAIRS, DISCHARGED (+ U-4, + two things §14 should have said)
+*(§14 gate: REPAIR-FIRST. The εh mathematics verified independently from the tree; B-5 held on four
+repairs, none analytic. Verdict: `seat/briefs/2026-08-21-wf3-s14-refuter-VERDICT.md`.)*
+
+### REPAIR 1 — ONE VOICE ON B-5's SCOPE. ✅ Applied in §2; §14.3's "one re-proof" is WITHDRAWN.
+**B-5 = the shift-`h` port of `HBudget → HReduce → HMainAssembly → Prop26 → ChowlaFailure`
+(≈1,300 lines, 5 files), hard step `hT3`-with-`h` (`:428-439`, `:368`/`:383-398`, `:684-689`,
+`:607-625`), plus ONE NEW DEFINITION — a gap-`h` correlation family** (`shiftCorr`'s gap is
+hardcoded to 1; `corr_shift_le` is already general in both offsets ⇒ cheap-but-nonzero).
+**MEASURED: the shift-h ladder is EMPTY** — `hbudget_holds_h` / `hreduce_holds_h` / `h211_h` =
+**0 / 0 / 0**, control `hbudget_holds` = **13**. ⛔ *`hT3` is a local `have` inside the 252-line
+`hbudget_holds`: **nothing in it is re-provable in isolation**, which is precisely what "one 19-line
+calc" got wrong. I priced a `calc` block; the node is a port.*
+
+### REPAIR 2 — THE `c` CEILING. ✅ "Which `c`" answered at zero cost; the ceiling itself named as A/B.
+**`cE` IS `cD3`** — `HeadPinLeaves.lean:41`, verbatim: *"`1/4 ≤ cE` (the `hreduce` carry — **the SAME
+leaf, D3's constant**)"*. ⇒ **§14.3's "a node acquiring `hεh'` must name which `c`" is answered:
+there is one leaf, two names.**
+⛔ **BUT THE CEILING IS REAL AND UNCLOSED:** the tree exposes only `0 < c` and `1/4 ≤ c` (the
+existential witness is hidden), so **`ε²h < 1` is UNDERIVED from `hεh'` as §14.2 states it** — the
+implication needs an UPPER bound on `c`. **Repair: a pinned two-sided twin, or a `c ≤ 1` rider.
+Class A/B.** *§14.2 wrote "⇒" where the tree supplies only "≥". The step is true at every `c` the
+tree will actually produce and is not currently derivable from what it EXPOSES — exactly the
+dangling-interface shape, in my own repair.*
+
+### REPAIR 3 — THE NUMERAL. ✅ `h ≤ 1` was CARRIED and is WRONG. **Computed this session: `h ≤ 2`.**
+```
+  gate ε·h ≤ c/(32 log 4),  32 log 4 = 44.361420,  ε = epsPin = 1/500  (ConstantsExposed.lean:187)
+    c = 1/4  (pinned)  ⇒ ε·h ≤ 0.00563553 ⇒ h ≤ 2.8178  ⇒  h_max = 2   ← TODAY, no change needed
+    c = ln 2 (sharp)   ⇒ ε·h ≤ 0.01562500 ⇒ h ≤ 7.8125  ⇒  h_max = 7
+```
+⛔ **`h ≥ 3` RE-OPENS THE PINNED-CONSTANTS CHAIN** — `epsPin → s13Delta0_ge → CLExpr`/`CSExpr`/`s13M`.
+**That is the concrete cross-lane price, and neither §14 nor the carried numeral named it.**
+⭐ **THREE WIDENING LEVERS, factors computed here:** `c` 1/4→ln 2 = **×2.77** (C) · card constant
+`2 log 4` → true dyadic ≈ 1/2 = **×5.55** (C) · **rebalance `hT1` 1/8 → 1/16 and `hT3` 1/16 → 1/8 =
+×2, class B, NO analytic cost.** *The third is free and nobody had named it.*
+📌 *I marked "h ≤ 1" as `[CARRIED, NOT REPRODUCED]` in §14.4 and shipped it anyway. **The carried
+label recorded the risk and did not retire it** — a quote flagged as a quote is still a quote in the
+document, and the next reader inherits the number, not the flag.*
+
+### REPAIR 4 — SWEEP §§5, 3 AND STRIKE THE DEAD CITATIONS. ✅ All applied.
+§5 and §3's M1 banners land above; **the two dead citations were both in §2** — its header and its
+B-5 bullet, each still crediting the **withdrawn R2**. *Measured first: every sha in this block is an
+ancestor of HEAD and every `file:line` resolves, so the dead references were to a RETRACTED
+ARGUMENT, not to missing code — the class a citation-lens pass cannot see.*
+
+### U-4 — **DO B-2/B-3 NEED THE GATE? NO. MEASURED, NOT ARGUED.**
+`decoupledMean_h_abs_le_boxSum (eps : ℚ) (H h : ℕ) {v} (hv : ∀ i, |v i| ≤ 1)`
+(`OuterCombine.lean:148-152`) takes **`h` as a bare `ℕ` with NO hypothesis**, and its docstring says
+why: *"the inner sum still has ≤ H unit-bounded terms, and **the unit bound `windowVal_prod_abs_le`
+does not see the offset**."* ⇒ **The box holds for EVERY `h`. §14.3's "binder rename" for B-2/B-3 is
+not a rename — it is a DELETION; they carry no ε–h coupling at all.**
+⚠️ **SCOPE OF THIS ANSWER:** the BOX is gate-free (verified). Whether all 8 objects of the B-2/B-3
+cone are likewise gate-free is a per-object check **I have not run** — do not read one lemma's
+freedom as the cone's.
+
+### TWO THINGS §14 SHOULD HAVE SAID
+1. ⛔ **THE 1/16 BUDGET LINE SURVIVES AT EXACTLY ZERO MARGIN:** `1/8 + 1/16 + 1/16 = 1/4`, closed by
+   `linarith` at `HBudget.lean:699`. **There is no slack anywhere in that sum** — which is why the
+   `hT1`/`hT3` rebalance above is a *reallocation*, not a saving, and why any future term added to
+   that ladder breaks it. §14 asserted "no new constant" without ever stating the margin was zero.
+2. ⭐⭐ **THE DEMOTION QUIETLY DEFUSES §10's FATAL 3, AND THAT IS THE STRONGEST THING IT BUYS.**
+   Fatal 3 was *"K1 acquires `hεh` at `h211_h`, and `h211_h` has ZERO hits"*. **Under §14 the binder
+   is a REGIME GATE acquired where `heps_small` already lives (`HBudget.lean:454`/`:711`,
+   `HloExport.lean:263`) — not a producer output.** ⇒ **The missing producer stops being a
+   contradiction; §11/§12's whole K4-vs-K1 fight is dissolved by changing the variable, not by
+   resolving the fight.** *I spent two sections litigating which of K1/K4 was wrong. The answer was
+   that the binder they disagreed about was the wrong binder.*
