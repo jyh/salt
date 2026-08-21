@@ -99,3 +99,36 @@ declarations are the obvious suspects. **Audit before dispatch.**
 **KILL: if B-4 needs the sharp box after all, K3 is wrong and B-0 returns.**
 **M4 — census audit.** The v3 census (52 decls · 32 offset-bound · 10 ported · 14 unported) knew
 infixed `_h`, three baked defs, `instance`, six files. **What class does it STILL miss?**
+
+## §4 — GATE RESULT (self-gate, 2026-08-20 23:1x)
+
+⚠️ **THIS IS A SELF-GATE, NOT AN INDEPENDENT REFUTER PASS.** Both lenses were run by the pen that
+wrote the block. It is weaker evidence than a peer pass and is labelled as such.
+
+**CITATION LENS — PASS, all four verified against the tree:**
+```
+  OuterCombine.lean:363-364  →  (windowVal H … j) * (windowVal H … (j + p))     NO `* h`
+                                ⇒ it DOES spell the offset independently: the third
+                                  synchronised site is real
+  OuterCombine.lean:150      →  (windowVal H v j) * (windowVal H v (j + p * h))  HAS `* h`
+                                ⇒ Wave A's fix is in place as claimed
+  Prop26.lean:160            →  theorem fBridge_of_singleCorr                    ✅
+  2095863e                   →  ancestor of HEAD                                 ✅
+```
+*First clean citation lens of this campaign — after six misses in the λ-BV block.*
+
+**MATHEMATICS LENS — K1 VERIFIED AGAINST THE SOURCE, and it corrected K2's rule on the way.**
+The survivor condition is NOT `p ≤ H/h`. `windowVal H x (j + p*h) = 0` unless `j + p*h < H`
+(`CircleMethod.lean:1238`, `dif_neg`), i.e. **STRICT**. ⇒
+- **K1 STANDS, with an exact witness:** at `ε² = 1/4, H = 1996, h = 4` the window is `(249.5, 499]`,
+  its top element `499` is prime, and `499·4 = 1996 = H`, so `p·h < H` is **false** — the prime
+  contributes ZERO at `ε²h = 1` exactly. `≤ 1` is wrong; `< 1` is required.
+- **K2's TABLE RE-RUN under the strict rule: UNCHANGED to one decimal** (100.0/100.0 · 68.4/60.6 ·
+  42.2/34.0 · 28.3/21.7 · 0.3/0.2). *Not because the rule does not matter, but because at
+  `H = 2·10⁶` the boundary needs `p = 500000`, which is not prime.* **Checked, not assumed.**
+- **K3 CONFIRMED by the same arithmetic:** at `ε²h < 1` the window top `ε²H = aH/h < H/h`, so every
+  window prime has `p·h < H` and the `p·h ≥ H` branch B-0 sharpened is unreachable. Dead code.
+
+**VERDICT: v4 SURVIVES ITS SELF-GATE.** Remaining risk is concentrated in M1 (is `ε²h < 1`
+reachable at the ε the budget forces?) and M3 (B-4's unpriced cost) — **both arithmetic nobody has
+run**, and neither is a citation or a matcher defect.
