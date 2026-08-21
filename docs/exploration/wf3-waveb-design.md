@@ -460,3 +460,59 @@ verified the count identity `{every window prime survives} = {ε²h < 1}`. That 
 exact, and pleasing — **and it answers a question K4 was not asking.** A crisp true result about the
 adjacent quantity is more dangerous than a vague one, because it terminates the search. *Ask what
 quantity the OBJECTION is about before celebrating an identity in the neighbouring one.*
+
+## §13 — THE RATIFIED §12 GATE FIRED. **R2 IS FATAL TWICE. TAKEN WITHOUT QUALIFICATION.**
+*(independent refuter, 2026-08-21 ~11:1x; verdict `seat/briefs/2026-08-21-wf3-s12-refuter-VERDICT.md`.
+Disposition: **B-5 HELD**, B-1…B-4 CLEAR and proceeding.)*
+
+**R-2 CONFIRMED-FATAL, and the kill I could not have argued with:**
+- ⛔ **THE LANDED `1/2` IS NOT A MASS RATIO. It is `1 − 2·(error budget)`** — `hmain` carries mass
+  ratio 1 (`HMainAssembly.lean:119`), `hbudget ≤ (1/4)·SP·H·ε` (`:93`), `hseed ε/2 ≤ |X|` (`:86`),
+  so `1/2 = 1 − 2·(1/4)`. ***R2 put a mass ratio into a SLACK slot.*** Replacing the `1/2` by the
+  ramp factor leaves **zero slack**: the replacement constant IS the deliverable.
+- ⛔ **AND THE ONE-LINE TEST THAT WOULD HAVE CAUGHT IT: R2 DOES NOT REDUCE TO THE `h = 1` OBJECT.**
+  At `h = 1` the formula gives **≈0.9998, not 1/2** — off by the entire error budget. *§8's own
+  table showed `0.5` vs `1.0` at `a = 0` and I called it "a looseness". It was a NORMALIZATION
+  MISMATCH, and I inherited it into §12 one section later.*
+- ⛔⛔ **THE RAMP WAS ALREADY A LINE ITEM IN THE LANDED BUDGET AND §12 NEVER OPENED THE FILE.**
+  `HBudget.lean:606-624` — **`hT3`, the boundary slice, IS the ramp deficit at `h = 1`**, and it
+  scales **exactly linearly in `h`**. The h-analogue needs **NO new constant in `hreduce`**: it
+  needs `hT3` re-proved with the factor `h`. ⇒ ***§12's threshold is IN THE WRONG VARIABLE: the
+  gate is `ε·h ≤ c/(32·log 4)` — LINEAR in `ε·h`, not `ε²·h`.***
+- **§12's `a < ln 2` is the true asymptotic threshold but is unreachable by the tree's landed
+  constants** — provable today only `a < 0.045` (pinned `c = 1/4`) to `a < 0.125` (sharp `c = ln 2`).
+
+**R-1 — my ramp arithmetic is UNFOUNDED-as-attacked, i.e. RIGHT** (normalization verified at
+`PrimeWindow.lean:26`; closed form re-derived independently; the numeric table reproduces exactly).
+⚠️ Two caveats I own: the closed form is an **asymptotic** and the measured column **exceeds it at
+every row, one-sided, ~1/log H** — *I printed the two columns as mutual confirmation without ever
+asserting the sign* · and **§8:276 drops a `1/log(ε²H)` from both sides** (ratio survives, sentence
+wrong).
+
+**R-4 — THE CROSS-LANE ARGUMENT INVERTS, AND THIS IS THE FLEET-LEVEL ITEM.** Direction and the
+`√(ln 2) ≈ 0.83` factor check out, **but I chose the expensive repair on the strength of the cheap
+one's cost**: R1 is a numeral in an already-proven theorem (`Hlo` free); R2 is a new analytic
+obligation plus a ~15-site discharge chain. ⛔⛔ **AND THE TREE'S BINDING CONSTRAINT FORCES
+`ε ∝ 1/h`, NOT `1/√h`** (`hT3`'s gate) ⇒ `δ₀ = c₀ε/4` shrinks like `1/h` ⇒ ***THE DOOR HARDENS LIKE
+`h`, NOT `√h`. The standing √h headline is understated BY A SQUARE.*** **U-5:** under the pinned
+`c = 1/4`, `εh ≤ c/(32 log 4)` admits **`h ≤ 1`** — the two constraints are ~10⁴ apart in admissible
+`h`, so my *"ε²h < 1 is reachable for any h"* was **true of the wrong constraint**.
+
+### ✅ U-3 RESOLVED BY ME: **STALE.** *(the refuter left it stale-or-live; ordered resolved first)*
+`HMainAssembly.lean:34-63`'s STOP-AND-FLAG describes the gate as `p ∣ n+j` against a product based
+at `n+j+1`. **Measured:** `b77e4172^` has `((n + j : ℕ) : ZMod p) = 0`; the LIVE
+`fBridgeF_liouville_apply` (`Prop26.lean:90`) has `((n + j + 1 : ℕ) : ZMod p) = 0` — **precisely the
+class the flag says the collapse needs.** The fix is `d5916681` *("GATE-FIX lands — fBridgeG gate
+corrected to (j+1)")*, of which the flag's commit `b77e4172` is an **ancestor**, and this file was
+**never touched again**. ⇒ **The flag is a 35-day-old fossil; `hbudget` is not blocked by it and no
+h-analogue inherits it.** *Annotated in place, text preserved; `saltbuild EXIT=0`, module **Built**.*
+🔑 **THIRD INSTANCE TODAY OF ONE SHAPE:** the bank's cut-line header · K4 vs the §1 rewrite · this.
+***A WITHDRAWAL MUST SWEEP ITS DOWNSTREAM — AND A FIX MUST SWEEP ITS UPSTREAM.*** Nothing points
+from a repair back to the prose that motivated it, so the motivation outlives the defect silently.
+
+### THE ROUTE I TAKE (the refuter's, and it is smaller than mine)
+**Keep the `1/2`. Re-prove `hT3` with the factor `h`, under `ε·h ≤ c/(32·log 4)`.** No new constant,
+no `hreduce` surgery, no cross-lane argument at all. ⛔ **But it makes K1's binder
+`hεh : ε²h < 1` NECESSARY-NOT-SUFFICIENT for B-5**, so it touches **§0/K1 and §2's shape** — above a
+§12 patch. **Design-tier, my pen, and it is next.** *§§11–12 stand as the record; R2 is withdrawn as
+the repair and survives only as the reasoning that found the ramp.*
