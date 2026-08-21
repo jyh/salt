@@ -587,4 +587,216 @@ lemma fBridgeG_h_mem_Icc (h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
     fBridgeG_h eps H h v p r ∈ Set.Icc (-((H : ℝ) / (p : ℝ) + 1)) ((H : ℝ) / (p : ℝ) + 1) :=
   Set.mem_Icc.mpr (abs_le.mp (fBridgeG_h_abs_le eps H h hv p r))
 
+/-! ## The mean and concentration cone at shift `h` (W-F3 wave B, nodes B-2/B-3)
+
+Wave A stopped at the deterministic box and said so ("no `fBridgeG_h_mean`, no
+`fBridgeG_h_sum_over_residues`, no `fBridge_concentration*` at `h`").  This section crosses
+that boundary for the mean/concentration half.
+
+WHAT IS AND IS NOT OFFSET-SENSITIVE, measured rather than assumed.  The Hoeffding substrate
+is entirely `h`-free: `residueProj_fiber_card` never mentions the pattern `v`, and
+`fBridge_varTerm` / `window_lb` / `fBridge_var_le` / `fBridge_var_le_sharp` are statements
+about the window primes and the box endpoints only.  All four are REUSED VERBATIM below —
+they need no `_h` port.  What does carry the offset is exactly the two places the product
+index is written out: `fBridgeG_sum_over_residues` (the mean's numerator) and the decoupled
+spellings of the mean.  Every proof script transfers unchanged, because the gate is `h`-free
+and `windowVal_prod_abs_le` is offset-blind.
+
+⚠️ SITE 2 OF THE THREE SYNCHRONISED SITES.  `fBridge_h_concentration_decoupled` and
+`fBridge_h_concentration_decoupled_sharp` (and `fBridgeF_h_mean` in `Decoupled`) spell the
+deviation/mean offset independently of `badSet_h`.  They use wave A's fixed target spelling
+`windowVal H v (j + (p : ℕ) * h)` verbatim.  Site 3 — `outer_combine`'s own conclusion — is
+still at `j + (p : ℕ)` and is node B-4's obligation, not this one's.
+
+THE `h = 1` RECOVERIES, MEASURED WITH NEGATIVE CONTROLS.  These are theorems, not
+definitions, so there is no compat EQUATION to state; the obligation is that the `h = 1`
+instance recovers the frozen original.  It does, and it is never `rfl`: each recovery needs
+exactly TWO rewrites, but WHICH two depends on the spelling the statement carries.
+`fBridgeG_h_sum_over_residues` / `fBridgeG_h_mean` need `fBridgeG_h_one` + `Nat.mul_one`;
+`fBridgeF_h_mean` and the decoupled concentrations need `fBridgeF_h_one` + `Nat.mul_one`;
+the UN-decoupled `fBridge_h_concentration*` carry no product index at all and instead need
+`fBridgeF_h_one` + `fBridgeG_h_one`, with `Nat.mul_one` doing nothing.  Each drop was run:
+omitting `Nat.mul_one` leaves `j + ↑p * 1` against `j + ↑p`; omitting the bridge lemma leaves
+`fBridgeG_h eps H 1 v p` (resp. `fBridgeF_h eps H 1 v`) against the frozen name. -/
+
+/-- **The residue-sum identity at shift `h`** (mean substrate).  `∑_{r ∈ ZMod p} G_{p,h}(v)(r)
+= ∑_j v_j·v_{j+p·h}` — for each `j` exactly one residue `r = -j` fires the gate, and the gate
+does not mention `h`, so the `h = 1` collapse argument applies verbatim; only the value being
+summed carries the offset.  `fBridgeG_sum_over_residues` is the `h = 1` member. -/
+lemma fBridgeG_h_sum_over_residues (h : ℕ) {v : Fin H → ℤ} (p : primeWindow eps H) :
+    ∑ r : ZMod (p : ℕ), fBridgeG_h eps H h v p r
+      = ∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) := by
+  classical
+  unfold fBridgeG_h
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  have hcond : ∀ r : ZMod (p : ℕ),
+      (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r) ↔ (r = -((j + 1 : ℕ) : ZMod (p : ℕ))) := by
+    intro r; constructor <;> (intro hh; rw [hh, neg_neg])
+  calc ∑ r : ZMod (p : ℕ), (if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0)
+      = ∑ r : ZMod (p : ℕ), (if r = -((j + 1 : ℕ) : ZMod (p : ℕ)) then
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0) := by
+        refine Finset.sum_congr rfl (fun r _ => ?_); rw [if_congr (hcond r) rfl rfl]
+    _ = (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) := by
+        rw [Finset.sum_ite_eq' Finset.univ (-((j + 1 : ℕ) : ZMod (p : ℕ)))]; simp
+
+/-- **The mean identity at shift `h`**: `E_y[G_{p,h}(v)(y mod p)] = (1/p)·∑_j v_j·v_{j+p·h}`.
+Same argument as `fBridgeG_mean` — each residue class equidistributes
+(`residueProj_fiber_card`, which never sees `v` and is reused verbatim), and summing over
+residues collapses the gate via `fBridgeG_h_sum_over_residues`. -/
+lemma fBridgeG_h_mean (h : ℕ) {v : Fin H → ℤ} (p : primeWindow eps H) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+        fBridgeG_h eps H h v p (residueProj eps H p ω)]
+      = (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) := by
+  classical
+  set μ := uniformOn (Set.univ : Set (ZMod (PH eps H))) with hμ
+  haveI : IsProbabilityMeasure μ :=
+    isProbabilityMeasure_uniformOn Set.finite_univ Set.univ_nonempty
+  have hmass : ∀ ω : ZMod (PH eps H), μ.real {ω} = ((PH eps H : ℝ))⁻¹ := by
+    intro ω
+    have hs : μ {ω} = ((PH eps H : ℝ≥0∞))⁻¹ := by
+      rw [hμ, uniformOn_univ, Measure.count_singleton, ZMod.card]; simp
+    rw [measureReal_def, hs, ENNReal.toReal_inv, ENNReal.toReal_natCast]
+  rw [integral_fintype Integrable.of_finite]
+  simp only [hmass, smul_eq_mul]
+  rw [← Finset.mul_sum]
+  have hfib : ∑ ω : ZMod (PH eps H), fBridgeG_h eps H h v p (residueProj eps H p ω)
+      = ∑ r : ZMod (p : ℕ), (PH eps H / (p : ℕ)) • fBridgeG_h eps H h v p r := by
+    rw [← Finset.sum_fiberwise_of_maps_to (t := (Finset.univ : Finset (ZMod (p : ℕ))))
+        (fun ω _ => Finset.mem_univ (residueProj eps H p ω))
+        (fun ω => fBridgeG_h eps H h v p (residueProj eps H p ω))]
+    refine Finset.sum_congr rfl (fun r _ => ?_)
+    rw [Finset.sum_congr rfl (fun ω hω =>
+      show fBridgeG_h eps H h v p (residueProj eps H p ω) = fBridgeG_h eps H h v p r by
+        rw [(Finset.mem_filter.mp hω).2]), Finset.sum_const, residueProj_fiber_card]
+  rw [hfib]
+  simp only [nsmul_eq_mul]
+  rw [← Finset.mul_sum, fBridgeG_h_sum_over_residues]
+  have hpp0 : ((p : ℕ) : ℝ) ≠ 0 := by exact_mod_cast (prime_of_mem_primeWindow p.2).pos.ne'
+  have harith : (PH eps H : ℝ)⁻¹ * ((PH eps H / (p : ℕ) : ℕ) : ℝ) = 1 / (p : ℝ) := by
+    rw [Nat.cast_div (dvd_PH eps H p) hpp0]
+    have hp0 : (PH eps H : ℝ) ≠ 0 := by exact_mod_cast (PH_pos eps H).ne'
+    field_simp
+  rw [← mul_assoc, harith]
+
+/-- **The raw concentration bound at shift `h`**: `hoeffding_residueProj` instantiated at
+`G = fBridgeG_h eps H h v` with the SAME deterministic box, which `fBridgeG_h_mem_Icc`
+(wave A) already supplies at every `h`.  `fBridgeF_h` is defeq to the `∑_i G_i (proj_i ·)`
+shape Hoeffding centers on, so the `h = 1` proof term transfers with the name changed. -/
+theorem fBridge_h_concentration_raw (h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
+    {δ : ℝ} (hδ : 0 ≤ δ) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF_h eps H h v ω - ∑ p : primeWindow eps H,
+            (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+              fBridgeG_h eps H h v p (residueProj eps H p ω)]|}
+      ≤ 2 * Real.exp (-δ ^ 2 / (2 * ((∑ p : primeWindow eps H,
+          (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ))) :=
+  hoeffding_residueProj eps H (fBridgeG_h eps H h v)
+    (fun i x => fBridgeG_h_mem_Icc eps H h hv i x) hδ
+
+/-- **The usable concentration bound at shift `h`**: the explicit exponent
+`2·exp(−δ² / (2·(ε²H+1)·(2/ε²+1)²))`, unchanged from `h = 1`.  The variance proxy is a
+statement about the window primes and the box endpoints alone, so `fBridge_var_le` is reused
+verbatim; only the bridge's name moves. -/
+theorem fBridge_h_concentration (h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (heps : 0 < eps)
+    (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF_h eps H h v ω - ∑ p : primeWindow eps H,
+            (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+              fBridgeG_h eps H h v p (residueProj eps H p ω)]|}
+      ≤ 2 * Real.exp (-δ ^ 2 /
+          (2 * (((eps : ℝ) ^ 2 * (H : ℝ) + 1) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2))) := by
+  refine le_trans (fBridge_h_concentration_raw eps H h hv hδ) ?_
+  have hSpos : 0 < ((∑ p : primeWindow eps H,
+      (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ) := by
+    rw [NNReal.coe_sum]
+    haveI : Nonempty (primeWindow eps H) := ⟨⟨hne.choose, hne.choose_spec⟩⟩
+    refine Finset.sum_pos (fun p _ => ?_) Finset.univ_nonempty
+    rw [fBridge_varTerm eps H p]; positivity
+  have hSle := fBridge_var_le eps H heps
+  refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) (by norm_num)
+  rw [neg_div, neg_div, neg_le_neg_iff,
+      div_le_div_iff₀ (by positivity) (mul_pos (by norm_num) hSpos)]
+  nlinarith [sq_nonneg δ, hSle, hSpos]
+
+/-- **The sharp concentration bound at shift `h`** (the W2-b′ one-log Tao grade, ported).
+With the PNT-grade window count `hcard` and `1 ≤ log H`, `F_h` concentrates as
+`2·exp(−δ²·log H / (2 C₀ ε²H (2/ε²+1)²))`.  `fBridge_var_le_sharp` is `v`- and `h`-free and
+is reused verbatim; the exponent is IDENTICAL to the `h = 1` one, which is the point — the
+shift costs nothing in the concentration grade. -/
+theorem fBridge_h_concentration_sharp (h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
+    (heps : 0 < eps) (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ)
+    {C₀ : ℝ} (hC₀ : 0 < C₀)
+    (hcard : ((primeWindow eps H).card : ℝ)
+        ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)))
+    (hlog : 1 ≤ Real.log (H : ℝ)) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF_h eps H h v ω - ∑ p : primeWindow eps H,
+            (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+              fBridgeG_h eps H h v p (residueProj eps H p ω)]|}
+      ≤ 2 * Real.exp (-δ ^ 2 * Real.log (H : ℝ) /
+          (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
+  refine le_trans (fBridge_h_concentration_raw eps H h hv hδ) ?_
+  set D := 2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 with hDdef
+  set S := ((∑ p : primeWindow eps H,
+      (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ) with hSdef
+  have hepsne : (eps : ℝ) ≠ 0 := by exact_mod_cast heps.ne'
+  have hlogpos : (0 : ℝ) < Real.log (H : ℝ) := zero_lt_one.trans_le hlog
+  have hlogne : Real.log (H : ℝ) ≠ 0 := hlogpos.ne'
+  have hHpos : (0 : ℝ) < (H : ℝ) := by
+    rcases Nat.eq_zero_or_pos H with hh | hh
+    · exfalso; rw [hh, Nat.cast_zero, Real.log_zero] at hlog; linarith
+    · exact_mod_cast hh
+  have hSpos : 0 < S := by
+    rw [hSdef, NNReal.coe_sum]
+    haveI : Nonempty (primeWindow eps H) := ⟨⟨hne.choose, hne.choose_spec⟩⟩
+    refine Finset.sum_pos (fun p _ => ?_) Finset.univ_nonempty
+    rw [fBridge_varTerm eps H p]; positivity
+  have hDpos : 0 < D := by rw [hDdef]; positivity
+  have hSle : S ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+      * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by
+    rw [hSdef]; exact fBridge_var_le_sharp eps H heps hcard
+  have hkey : 2 * S * Real.log (H : ℝ) ≤ D := by
+    have hmul : 2 * S * Real.log (H : ℝ)
+        ≤ 2 * (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+            * (2 / (eps : ℝ) ^ 2 + 1) ^ 2) * Real.log (H : ℝ) := by
+      apply mul_le_mul_of_nonneg_right _ hlogpos.le
+      exact mul_le_mul_of_nonneg_left hSle (by norm_num)
+    refine hmul.trans_eq ?_
+    rw [hDdef]; field_simp
+  refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) (by norm_num)
+  rw [div_le_div_iff₀ (mul_pos (by norm_num) hSpos) hDpos]
+  nlinarith [sq_nonneg δ, hkey]
+
+/-- **The sharp decoupled-mean corollary at shift `h`** — ⚠️ SITE 2 of the three synchronised
+offset spellings.  Substituting the shifted decoupled `y`-mean
+`∑_p (1/p) ∑_j v_j v_{j+p·h}` (via `fBridgeG_h_mean`) into `fBridge_h_concentration_sharp`.
+The deviation set is written with wave A's fixed spelling `windowVal H v (j + (p : ℕ) * h)`,
+byte-identical to `badSet_h`'s (site 1). -/
+theorem fBridge_h_concentration_decoupled_sharp (h : ℕ)
+    {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (heps : 0 < eps)
+    (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ)
+    {C₀ : ℝ} (hC₀ : 0 < C₀)
+    (hcard : ((primeWindow eps H).card : ℝ)
+        ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)))
+    (hlog : 1 ≤ Real.log (H : ℝ)) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF_h eps H h v ω - ∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+            ∑ j ∈ Finset.range H,
+              (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)|}
+      ≤ 2 * Real.exp (-δ ^ 2 * Real.log (H : ℝ) /
+          (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
+  have hmean : (∑ p : primeWindow eps H,
+        (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+          fBridgeG_h eps H h v p (residueProj eps H p ω)])
+      = ∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) :=
+    Finset.sum_congr rfl (fun p _ => fBridgeG_h_mean eps H h p)
+  have hq := fBridge_h_concentration_sharp eps H h hv heps hne hδ hC₀ hcard hlog
+  rw [hmean] at hq
+  exact hq
+
 end Salt.Entropy.Chowla
