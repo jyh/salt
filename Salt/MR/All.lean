@@ -379,6 +379,7 @@ import Salt.MR.V7C
 import Salt.MR.V7E
 import Salt.MR.V7Ks
 import Salt.MR.V7Headline
+import Salt.MR.MRTProp24
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8298,3 +8299,32 @@ SWAPS the two χ-fibres when `χ(b) = −1`; that distinction is the entire cont
   Salt.MR.e4a_galois_eta_swap
   Salt.MR.e4a_fibres_nonempty
   Salt.MR.e4a_unit_image_isIntegral_pair
+
+-- ⟦MRT PORT — WAVE 1a (E-1, E-2)⟧ the typical-factorization set `S` of MRT
+-- `arXiv:1503.05121v3` Definition 2.1 (p. 8) and the STATEMENT of its
+-- Proposition 2.4 (p. 10).  `Salt/MR/MRTProp24.lean`.  Definitions and their
+-- faithfulness receipts only — `MRTProp24` is a `Prop`, nothing here proves or
+-- assumes it.  The `J`-fold band intersection is NOT new: it is the corpus's own
+-- `Salt.MR.MemS` (`Sec9Glue.lean:118`, MR §2's `S`) instantiated at Definition
+-- 2.1's band sequence, so the whole `gJ`/`lemma5` inclusion–exclusion apparatus
+-- applies to `mrtS` verbatim.
+open Salt.Tactic in
+#audit_axioms Salt.MR.mrtBandP
+  Salt.MR.mrtBandQ
+  Salt.MR.mrtBandP_one
+  Salt.MR.mrtBandQ_one
+  Salt.MR.mem_mrtBand_nat
+  Salt.MR.mrtJ
+  Salt.MR.mrtS
+  Salt.MR.mem_mrtS
+  Salt.MR.zero_not_mem_mrtS
+  Salt.MR.mrtP1
+  Salt.MR.mrtQ1
+  Salt.MR.mrtSProp24
+  Salt.MR.mrtM
+  Salt.MR.mrtQuality
+  Salt.MR.MrtCompMultDatum
+  Salt.MR.mrtWindowExpSum
+  Salt.MR.mem_mrtWindow
+  Salt.MR.MRTProp24
+  Salt.MR.MRTProp24Statement
