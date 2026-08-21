@@ -31,7 +31,25 @@ content collapses onto the single error budget
 `hreduce_holds` below is stated with `hbudget` as its one hypothesis (besides the
 single-correlation floor `hseed`).  This is the honest W3E-FINAL obligation.
 
-## STOP-AND-FLAG: `hbudget` is blocked by a gate-convention off-by-one
+## ✅ STOP-AND-FLAG — **RESOLVED 2026-08-21: STALE. THE GATE-FIX LANDED IN `d5916681`.**
+##
+## ⛔ The flag below describes the world BEFORE `d5916681` ("play A: GATE-FIX lands — fBridgeG
+## gate corrected to (j+1), G12 composes at the root, 9128 green"). It was written in
+## `b77e4172`, which is an ANCESTOR of the fix, and this file has not been touched since —
+## so the text sat 35 days describing a defect that was repaired hours after it was written.
+## MEASURED: `b77e4172^` has the gate at `((n + j : ℕ) : ZMod p) = 0`; the LIVE
+## `fBridgeF_liouville_apply` (`Prop26.lean:90`) gates at `((n + j + 1 : ℕ) : ZMod p) = 0` —
+## which is *precisely the residue class the flag below says the collapse needs*. The gate index
+## and the product base index now AGREE at `n+j+1`; the off-by-one the flag is about is gone.
+## ⇒ The consequence sentence below ("`hbudget` … may be UNDISCHARGEABLE / FALSE via the
+## intended route") DOES NOT HOLD against the current tree, and no h-analogue inherits it.
+## 🔑 THIRD INSTANCE IN ONE DAY OF ONE SHAPE: a fix lands and the prose that motivated it stays.
+## (The read-first bank's cut-line header; K4 vs the §1 rewrite; this.) **A WITHDRAWAL MUST SWEEP
+## ITS DOWNSTREAM — AND A FIX MUST SWEEP ITS UPSTREAM.** Nothing points from a repair back to the
+## description that asked for it, so the description outlives it silently.
+## *Text preserved verbatim below, not rewritten — it is the record of a real catch.*
+##
+## STOP-AND-FLAG (HISTORICAL, RESOLVED): `hbudget` is blocked by a gate-convention off-by-one
 
 The intended discharge of `hbudget` is the per-pair reduction
 `∫F = ∑_{p,j} T(p,j)`, then `T(p,j) ≈ (1/p)·X` via
