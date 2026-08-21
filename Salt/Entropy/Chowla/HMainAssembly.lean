@@ -147,4 +147,82 @@ theorem hreduce_holds (eps : ℚ) (H : ℕ) {x ω : ℕ}
     mul_nonneg (by linarith [hseed]) (mul_nonneg hSPnn hHnn)
   nlinarith [hmain, hbudget, hprod]
 
+/-! ### W-F3 B-5 — the `hmain` assembly at shift `h`
+
+The reverse-triangle discharge of `hmain` is `h`-BLIND: it names the correlation once as a
+real `Xs` and never reads its index, so the gap-`h` main term
+`MAIN_h = ∑_{p ∈ 𝒫_H} (H/p)·X_h` obeys `|MAIN_h| = SP·H·|X_h|` by the same factor-pull.  The
+`h = 1` script is reused verbatim with `Xs` set to the gap-`h` correlation. -/
+
+/-- **W3-F-A at shift `h` (`hreduce_holds_h`).**  The `h`-family port of `hreduce_holds`: the
+shift-`h` frozen `hreduce` conclusion, reduced to the single error budget
+
+    hbudget : |∫F_h − ∑_{p ∈ 𝒫_H} (H/p)·X_h| ≤ (1/4)·SP·H·ε,   X_h = ∫ λ(n)λ(n+h).
+
+`hmain` is discharged FREE by the reverse triangle inequality exactly as at `h = 1`
+(`|MAIN_h| = SP·H·|X_h|` and `|MAIN_h| − |∫F_h − MAIN_h| ≤ |∫F_h|`), so `hseed + hbudget`
+compose into the target.  `hbudget` at shift `h` is `hbudget_holds_h` (`HBudget.lean`). -/
+theorem hreduce_holds_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
+    (hseed : (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|)
+    (hbudget : |(∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+              ∂(logMeasure x ω))
+          - (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ)
+              * (∫ n, (ArithmeticFunction.liouville n : ℝ)
+                  * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)))|
+        ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ)) :
+    (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+        * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+            * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|
+      ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+          ∂(logMeasure x ω)| := by
+  set SP : ℝ := ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) with hSP
+  set Xs : ℝ := ∫ n, (ArithmeticFunction.liouville n : ℝ)
+      * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)
+  set IF : ℝ := ∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+      ∂(logMeasure x ω)
+  set MAIN : ℝ := ∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ) * Xs with hMAIN
+  have hSPnn : (0 : ℝ) ≤ SP := Finset.sum_nonneg (fun p _ => by positivity)
+  have hHnn : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg H
+  have hfac : MAIN = (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ)) * Xs := by
+    rw [hMAIN, Finset.sum_mul]
+  have hsumnn : (0 : ℝ) ≤ ∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ) :=
+    Finset.sum_nonneg (fun p _ => by positivity)
+  have hSPH : (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ)) = SP * (H : ℝ) := by
+    rw [hSP, Finset.sum_mul]
+    exact Finset.sum_congr rfl (fun p _ => by rw [one_div_mul_eq_div])
+  have hMAIN_abs : |MAIN| = SP * (H : ℝ) * |Xs| := by
+    rw [hfac, abs_mul, abs_of_nonneg hsumnn, hSPH]
+  have hmain : SP * (H : ℝ) * |Xs| - |IF - MAIN| ≤ |IF| := by
+    have h1 : |MAIN| - |IF| ≤ |IF - MAIN| := by
+      rw [abs_sub_comm IF MAIN]
+      exact abs_sub_abs_le_abs_sub MAIN IF
+    have h2 := hMAIN_abs
+    linarith
+  have hprod : (0 : ℝ) ≤ (2 * |Xs| - (eps : ℝ)) * (SP * (H : ℝ)) :=
+    mul_nonneg (by linarith [hseed]) (mul_nonneg hSPnn hHnn)
+  nlinarith [hmain, hbudget, hprod]
+
+/-- **C1 — the `h = 1` compat for the assembly.**  Stated at the LANDED conclusion of
+`hreduce_holds` and discharged by `hreduce_holds_h 1`.  As in `hreduce_close_h_one`, the
+`fBridgeF_h eps H 1 …` occurrences sit under the integral binder, so the compat must be
+applied with `simp only [fBridgeF_h_one]`, not `rw`. -/
+theorem hreduce_holds_h_one (eps : ℚ) (H : ℕ) {x ω : ℕ}
+    (hseed : (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)|)
+    (hbudget : |(∫ n, fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n)
+              ∂(logMeasure x ω))
+          - (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ)
+              * (∫ n, (ArithmeticFunction.liouville n : ℝ)
+                  * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)))|
+        ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ)) :
+    (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+        * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+            * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)|
+      ≤ |∫ n, fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n)
+          ∂(logMeasure x ω)| := by
+  have := hreduce_holds_h 1 eps H hseed (by simp only [fBridgeF_h_one]; exact hbudget)
+  simp only [fBridgeF_h_one] at this
+  exact this
+
 end Salt.Entropy.Chowla

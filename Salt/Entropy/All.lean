@@ -850,6 +850,22 @@ INHERIT the agreement population — it CREATES it, and "six" becomes stale the 
 ⇒ WHEN YOU EXTEND THIS FAMILY, RE-RUN THE `grep -F` AND UPDATE THIS PARAGRAPH.  A count of a
 growing population belongs beside the command that produced it, never on its own.
 
+✅ RE-RUN AND UPDATED 2026-08-21 BY B-5 (the paragraph above is now a record of the PRE-B-5
+world; do not read its `0`/`15`/`six` as current).  Command, verbatim:
+`grep -rlF '(j + (p : ℕ) * h) : ℝ)' Salt/`.  The agreement population is now **EIGHT SOURCE
+FILES**: `CircleMethod` (8) · `Decoupled` (3) · `FBridge` (10) · `HBudget` (14) ·
+`OuterCombine` (8) · `Prop26` (1) · `ShiftFork` (1) · `Transport` (2) — plus this file's own
+prose.  B-5 added TWO members, `HBudget` and `Prop26`.
+⛔ AND THE PREDICTION WAS WRONG BY ONE, FROM ITS OWN MEASUREMENT.  The B-5 brief said "your
+landing makes it SEVEN" while the same brief's census said the frozen lines sit in TWO files
+("14 in `HBudget`, 1 at `Prop26:92`").  A stack that carries the offset in two files adds two
+members, not one.  ⇒ A POPULATION FORECAST MUST BE DERIVED FROM THE CENSUS THAT SITS BESIDE
+IT — this one contradicted its own table and nobody noticed until the grep was re-run.
+The frozen literal `(j + (p : ℕ)) : ℝ)` is UNCHANGED at 14 in `HBudget` and RISES 1 → 2 in
+`Prop26`, the new one being `fBridgeF_h_liouville_apply_one`, whose whole job is to restate
+the LANDED unshifted conclusion.  A frozen-spelling count going UP is the compat working, not
+a regression: check WHICH declaration owns the new line before reading a rise as a defect.
+
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
 `circle_method_estimate_h` (`ShiftFork.lean:397`) and `circle_method_estimate_h_core`
@@ -907,3 +923,90 @@ No claim about Chowla, about the door's supply, or about twins is made or moved 
   Salt.Entropy.Chowla.outer_badMass_h_eq
   Salt.Entropy.Chowla.outer_badMass_h_le
   Salt.Entropy.Chowla.outer_combine_h
+
+/-! ⟦W-F3 WAVE B · B-5⟧ — THE SHIFT-`h` PORT OF THE FIVE-FILE BUDGET STACK
+(`ChowlaFailure` → `Prop26` → `HReduce` → `HMainAssembly` → `HBudget`, 2026-08-21).
+⭐ THE WAVE'S LAST NODE. 16 public + 11 private declarations, ONE new definition, +1178/−0.
+
+THE ONE NEW DEFINITION.  `shiftCorrH x ω k h = ∫ λ(n+k)·λ(n+k+h)` (`HBudget`, `private`, as
+its three frozen siblings are).  `shiftCorr` hardcodes the GAP to `1`; `k` is the BASE offset
+and telescopes, `h` is the gap and does not.  `shiftCorrH_one` is `rfl`.
+⚠️ VISIBILITY IS REPORTED, NOT DECIDED: nothing outside `HBudget.lean` can name it.  That
+mirrors the frozen sibling exactly, but a downstream consumer would need it un-privated, and
+that is a visibility change for a session that owns the decision.
+
+WHERE THE SHIFT IS PAID — ONE SLICE OF THREE, AND THE GATE IS **LINEAR IN `ε·h`**.  The
+`1/8 + 1/16 + 1/16 = 1/4` budget line is UNCHANGED and carries no new term (there is no slack
+in that sum; a new term would have been a design act).  Totals 1 and 2 are `h`-FREE, and that
+is a measurement, not an assumption: `dilation_error_div` is generic in `f`,
+`dilated_window_stability` is generic in `g`, and `corr_shift_le` already takes TWO
+INDEPENDENT OFFSETS — so `perPair_collapse_h` is `corr_shift_le k (k+h)` with no new analysis
+and the `3ω/x/Z` shift constant never sees the gap.  Total 3, the boundary slice, is the whole
+cost: the boundary set becomes `{j < H : H ≤ j + p·h}`, gains exactly one factor `h`, and the
+landed gate `ε ≤ c/(32·log 4)` becomes `ε·h ≤ c/(32·log 4)`.  `hbudget_h_gate_implies_epssq_h`
+is the seam that feeds that binder — BYTE-IDENTICALLY — into the pre-landed rider
+`epsh_gate_implies_epssq_h`, yielding K1's `ε²·h < 1`.  The rider is USED, not re-derived.
+
+⛔ `0 < h` IS FORCED, AND THE BRIEF DID NOT PREDICT IT.  `per_term_h` is where: at `h = 0` the
+shifted boundary gate `j + p·h < H` degenerates to `j < H` and no longer bounds `p`, so the
+residue bound `r ≤ x/ω` — which the `h = 1` script gets FREE from `j + p < H` — fails.  This
+propagates to `hbudget_holds_h` and `hreduce_holds_final_h` as a hypothesis.  It agrees with
+`ShiftFork`'s own "`h = 0` is degenerate" note about `logChowlaFails 0`, arrived at from the
+opposite end: there it is the Prop that degenerates, here it is the PROOF that loses a bound.
+
+⭐ `boundary_card_le` NEEDED NO PORT — the brief's range list named it (`:428-439`) as part of
+the hard step, and it is stated at an ARBITRARY second argument, so `boundary_card_le H (p*h)`
+already IS the shifted count `≤ p·h`.  ⇒ A LEMMA STATED GENERICALLY IS ALREADY PORTED; check
+the statement's own generality before pricing a port.
+
+⛔ ONE DUPLICATION, DELIBERATE AND FLAGGED.  `collapse_identity_h`/`liouville_sq_h` are
+re-proved `private` in `HBudget` although `ShiftFork.lean:434` already has the identical
+public `liouville_collapse_h`, and `DilationStability` has the `h = 1` pair.  Reason:
+`DilationStability`'s are `private`, and `ShiftFork` is NOT in `HBudget`'s import closure
+(both import `ChowlaFailure`; neither imports the other), so reuse would mean ADDING AN IMPORT
+to a landed file — a structural change this node does not own.  Reported, not silently chosen.
+
+THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
+INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
+IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Verified by seam probe, not
+by eye: an `example` feeding a `logChowlaFails h eps x ω` hypothesis straight into
+`singleCorr_of_fails_h` elaborates with no coercion.
+
+THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
+GAP compat `shiftCorrH_one` is `rfl` (the gap enters as `_ + h`, and `Nat.add` recurses on its
+second argument, where a literal `1` reduces).  The OFFSET compat is not (`(p : ℕ) * 1` is
+STUCK for a variable `p`), and `fBridgeF_h_liouville_apply_one` therefore routes through the
+landed `fBridgeF_h_one` instead.  Under the `∫ n, …` binder the bridge compat needs
+`simp only`; `rw` fails outright — the same shape B-4 measured on `outer_badMass_h_eq`.
+`hbudget_holds_h_one`'s gate additionally needs `push_cast; linarith` for `ε·((1:ℕ):ℝ)`.
+
+FIVE NEGATIVE CONTROLS, ALL RUN, ALL FAILING AS REQUIRED (and three positive controls passing
+beside them, so the suite is not vacuous): `rw [fBridgeF_h_one]` under the integral binder →
+"did not find an occurrence of the pattern"; dropping `fBridgeF_h_one` → type mismatch;
+`exact heps_small` for the `ε·((1:ℕ):ℝ)` gate → type mismatch; `windowVal H v (j + p*1) =
+windowVal H v (j + p) := rfl` → type mismatch; `fBridgeF_h_liouville_apply_one := rfl` → type
+mismatch.  Passing beside them: the `logChowlaFails` seam, `simp only [fBridgeF_h_one]`, and
+`push_cast; linarith`.
+
+SCOPE, AND WHAT IS **NOT** CLAIMED.  Every `h = 1` declaration in all five files stays
+byte-frozen (+1178/−0, zero deletions).  `hbudget_holds_h` is the shift-`h` error budget and
+`hreduce_holds_final_h` its capstone; both inherit — UNCHANGED — the `h = 1` chain's standing
+conditional status.  In particular `HMainAssembly`'s resolved-stale gate-fix flag and
+`HReduce`'s CARRIER-GAP note are `h`-BLIND and neither improved nor worsened by this node.  No
+claim about Chowla, about the door's supply, or about twins is made or moved here. -/
+#audit_axioms Salt.Entropy.Chowla.singleCorr_of_fails_h
+  Salt.Entropy.Chowla.singleCorr_of_fails_h_one
+  Salt.Entropy.Chowla.h211_of_logChowla2Fails_h
+  Salt.Entropy.Chowla.fBridgeF_h_liouville_apply
+  Salt.Entropy.Chowla.fBridgeF_h_liouville_apply_one
+  Salt.Entropy.Chowla.perPair_dilation_h
+  Salt.Entropy.Chowla.fBridge_of_singleCorr_h
+  Salt.Entropy.Chowla.consumability_probe_h
+  Salt.Entropy.Chowla.hreduce_close_h
+  Salt.Entropy.Chowla.hreduce_close_h_one
+  Salt.Entropy.Chowla.hreduce_holds_h
+  Salt.Entropy.Chowla.hreduce_holds_h_one
+  Salt.Entropy.Chowla.hbudget_holds_h
+  Salt.Entropy.Chowla.hbudget_h_gate_implies_epssq_h
+  Salt.Entropy.Chowla.hbudget_holds_h_one
+  Salt.Entropy.Chowla.hreduce_holds_final_h
