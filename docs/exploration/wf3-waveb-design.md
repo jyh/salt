@@ -269,3 +269,35 @@ verdict's bound for safety anywhere below the boundary; do NOT use it to price `
 wrong" and refused to swallow the correction whole **because it had just corrected me**. That was
 right, and it paid: the answer is a THIRD thing neither framing offered — both figures are correct
 and they measure different objects, one a bound and one a value.
+
+## §9 — M4 ANSWERED: THE MISSED CLASS IS PROOF-ONLY SENSITIVITY, AND IT IS BIGGER THAN THE VISIBLE
+## SET. THE CENSUS'S OWN HEADLINE NUMBER DOES NOT REPRODUCE. (2026-08-21 00:4x)
+
+**① THE DECLARATION COUNT REPRODUCES EXACTLY.** Re-censused the six cone files with a matcher that
+knows `theorem|lemma|def|abbrev|instance|structure|class` and the `noncomputable`/`private`/
+`@[...]` prefixes: **52 total**, per-file **FBridge 27 · OuterCombine 13 · Transport 4 ·
+Decoupled 2 · WindowCount 2 · MarkovExtract 4** — v3's figures to the file. *(FBridge's 27 includes
+the `instance` v2 missed.)*
+
+**② ⛔ THE CLASS THE CENSUS STILL MISSES: PROOF-ONLY OFFSET SENSITIVITY — and there is MORE of it
+than of the visible kind.**
+```
+   STATEMENT offset-bound (what a statement census sees) : 13
+   PROOF-ONLY offset-bound — INVISIBLE to that census    : 15
+   neither                                               : 24
+```
+The fifteen: `neZero_primeWindow` · `abs_liouvilleWindow_le_one` · `fBridgeG` · `fBridgeG_abs_le` ·
+`fBridgeG_mem_Icc` · `residueProj_fiber_card` · `fBridge_concentration_sharp` · `fBridgeG_h` ·
+`fBridgeF_h` · `fBridgeF_h_one` · `fBridgeG_h_abs_le` · `fBridgeF_abs_le_boxSum` ·
+`fBridgeF_h_abs_le_boxSum` · `badSet` · `badSet_transport`.
+⇒ **A port that triages on statements alone would call these free and then break inside them.**
+*v3 listed "proof-only sensitivity" as a CANDIDATE for what M4 might find; it is not a candidate,
+it is the answer, and it is the majority of the bound set.*
+
+**③ ⛔⛔ AND THE HEADLINE NUMBER DOES NOT REPRODUCE.** v3 says **32 offset-bound**. I measure **13**
+statement-bound and **28** statement-or-proof-bound. **Neither is 32.** Since v3 never wrote down
+what "offset-bound" means operationally, the gap cannot be adjudicated from the artifact.
+⇒ **The 52 is trustworthy and the 32 is NOT — it is a number whose definition was never stated,
+and two honest matchers disagree with it in both directions.** *When two counts of one population
+differ, the gap is a finding: here the finding is a missing definition, not a wrong count.*
+**Any wave shaped by "32 of 52" is shaped by an unreproducible figure.**
