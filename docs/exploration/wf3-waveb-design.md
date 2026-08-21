@@ -198,3 +198,45 @@ LANDED and applies unchanged at `ε²h < 1`, which is precisely why no `hmertTru
 
 **REMAINING: M4 alone** — audit the census for a class it still misses. *Every other kill-check is
 answered, and all three answers went the block's way.*
+
+## §7 — ⛔⛔ COLLISION: THE INDEPENDENT GATE IS RIGHT AND §§1,4,6 ARE WRONG (2026-08-21 00:1x)
+
+**I had NOT read the 23:30 independent verdict when I wrote §4–§6.** It found the withdrawal was
+the error. **It is correct. I have now computed it myself and I confirm it against my own work.**
+
+**THE DEFECT: THE SURVIVOR RULE IS PER-INDEX, AND I COLLAPSED IT TO A BINARY.**
+`windowVal H x (j + p*h) = 0` unless `j + p*h < H` — I read this correctly at
+`CircleMethod.lean:1238`, wrote *"at j=0 that's `p*h < H`"*, and then computed as if a prime were
+IN or OUT. **It is neither.** A prime contributes over the `j ∈ range H` with `j + p·h < H`, so its
+effective weight is `(H − p·h)/H = 1 − p·h/H` — a RAMP, not a gate.
+```
+   a      weighted mass   my binary model   count      count/mass
+   0.5      64.0%            100.0%         100.0%      1.56x
+   1.0      28.1%            100.0%         100.0%      3.56x     ← the ORIGINAL 28%, vindicated
+   1.25     13.9%             68.4%          60.6%      4.35x
+   1.65      2.6%             28.3%          21.7%      8.48x
+   closed form:  mass ratio = 1 − a/(2·ln 2);  at a=1 → 27.9%, ratio 3.59x
+```
+⇒ **K2 AS ORIGINALLY STATED IS CORRECT: at `a = 1` the count reads 100% and the mass reads 28%.
+THE COUNT OVERSTATES THE MASS.** My §4/§6 reversal ("the count understates") is **WITHDRAWN**.
+
+**REINSTATED, in full:** `hmertTrunc` as an explicit hypothesis; a truncated-window constant
+distinct from `cM`; and the entry cost that §1 struck. **§1's withdrawal is void. §6's claim that
+the tree "confirms the withdrawal" is void with it.**
+
+**ON THE QUESTION PUT TO ME DIRECTLY — is "the tree separates count from mass" compatible?**
+✅ **The separation is TRUE and ORTHOGONAL.** `primeWindow_card_le_of_regime` and
+`WindowMertensLower` are genuinely different objects, and 24 consumers do respect that. **But the
+existence of a mass lemma says NOTHING about which way the inequality runs, and I used it as if it
+did** — I offered object-separation as evidence for a numerical direction. *That is a category
+error, and it is the one the collision check named before I could defend it.*
+
+⚠️ **ONE FIGURE I DO NOT YET RECONCILE, flagged rather than swallowed.** The verdict gives the entry
+cost as `cM·(1 − ε²h)/2`, which is **0 at `a = 1`**; my measurement gives **28.1%** there, and the
+closed form `1 − a/(2 ln 2)` gives 27.9%. **These disagree at the point that matters most.** Either
+the constants are differently normalised or one of the two is wrong. *Taking a correction whole
+because it corrected me is the same failure as resisting it.*
+
+**M3 SURVIVES UNCHANGED:** which box lemmas appear in which proofs is independent of the survivor
+rule — measured with a control, and no B-4 object uses one. **M2's measurement survives; only the
+inference I drew from it is withdrawn.**
