@@ -177,4 +177,42 @@ theorem badSet_transport_at_calibration (eps : ℚ) (H : ℕ) {x ω : ℕ}
   refine badSet_transport eps H hx hω hωx hx₀ heps hne hδ hC₀ hcard hlog ht hgood hg ?_
   exact hgle.trans (sub_le_sub_right hEbound (Real.log 2))
 
+/-! ### The same deviation set at shift `h` (W-F3 wave B, node B-1)
+
+`badSet` is the `h = 1` member of a family indexed by the offset multiplier: replace the
+bridge `fBridgeF` by `fBridgeF_h` (wave A) and the decoupled two-point mean's second index
+`j + p` by `j + p·h`.  Byte-identity at shift `h` is a THREE-site obligation — this
+predicate, the concentration lemma's deviation set, and `outer_combine`'s own conclusion,
+which spells the offset independently — and wave A fixed the target spelling
+`windowVal H v (j + (p : ℕ) * h)` at `OuterCombine.lean:150`.  This definition matches it
+verbatim; the other two sites are waves B-2/B-3 and B-4.
+
+Nothing about `h` is used here: the set is a filter, and the offset only rides inside the
+term being filtered on. -/
+
+/-- **The deviation event as a `Finset`, at shift `h`.**  For a fixed window pattern `x₀`,
+the residues `ω ∈ ZMod P_H` at which the shift-`h` F-bridge `fBridgeF_h eps H h x₀` deviates
+from the shifted decoupled two-point mean `∑_{p ∈ 𝒫_H} (1/p) ∑_j (x₀)_j (x₀)_{j+p·h}` by at
+least `δ`.  `badSet` is the `h = 1` member (`badSet_h_one`). -/
+noncomputable def badSet_h (eps : ℚ) (H h : ℕ) (x₀ : Fin H → ℤ) (δ : ℝ) :
+    Finset (ZMod (PH eps H)) :=
+  letI := Classical.dec
+  Finset.univ.filter fun ω =>
+    δ ≤ |fBridgeF_h eps H h x₀ ω - ∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+      ∑ j ∈ Finset.range H,
+        (windowVal H x₀ j : ℝ) * (windowVal H x₀ (j + (p : ℕ) * h) : ℝ)|
+
+/-- **The `h = 1` compat.**  NOT `rfl`-grade, and it fails on BOTH of its two sites: the
+bridge needs `fBridgeF_h_one`, and the mean's window index needs `Nat.mul_one`, because
+`(p : ℕ) * 1` is stuck for a variable `p` (`Nat.mul` recurses on its second argument).
+Measured: `rfl` reports the two sides not definitionally equal, dropping `Nat.mul_one` from
+the rewrite leaves `j + ↑p * 1` against `j + ↑p`, and dropping `fBridgeF_h_one` leaves
+`fBridgeF_h eps H 1` against `fBridgeF`. -/
+theorem badSet_h_one (eps : ℚ) (H : ℕ) (x₀ : Fin H → ℤ) (δ : ℝ) :
+    badSet_h eps H 1 x₀ δ = badSet eps H x₀ δ := by
+  classical
+  ext ω
+  simp only [badSet_h, badSet, Finset.mem_filter, Finset.mem_univ, true_and,
+    fBridgeF_h_one, Nat.mul_one]
+
 end Salt.Entropy.Chowla

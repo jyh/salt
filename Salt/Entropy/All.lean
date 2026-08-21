@@ -726,3 +726,32 @@ the door's supply, or about twins is made or moved by this wave. -/
   Salt.Entropy.Chowla.decoupledMean_h_abs_le_boxSum
   Salt.Entropy.Chowla.fBridgeF_h_abs_le_box
   Salt.Entropy.Chowla.decoupledMean_h_abs_le_box
+
+/-! ⟦W-F3 WAVE B, NODE B-1⟧ — THE DEVIATION SET AT SHIFT `h` (`Transport`, 2026-08-21).
+
+WHAT LANDS.  `badSet_h` — `badSet` with the bridge replaced by wave A's `fBridgeF_h` and the
+decoupled mean's second window index moved from `j + p` to `j + p·h` — together with its
+`h = 1` compat `badSet_h_one`.  This is the FIRST object past the deterministic box, i.e. the
+first place wave A's declared boundary ("no `badSet` at `h`") is crossed on purpose.
+
+⚠️ THE THREE SYNCHRONISED SITES.  Byte-identity at shift `h` is not a property of one
+definition.  The offset is spelled independently at three places: this predicate, the
+concentration lemma's deviation set (wave B-2/B-3), and `outer_combine`'s own conclusion
+(`OuterCombine.lean:363-364`, which today reads `j + (p : ℕ)` with NO `* h`).  Wave A fixed
+the target spelling at `OuterCombine.lean:150` as `windowVal H v (j + (p : ℕ) * h)`; `badSet_h`
+matches it verbatim, and the remaining two sites are B-2/B-3 and B-4's obligation, not this
+node's.  B-1 lands site 1 only, and says so.
+
+THE COMPAT IS NOT `rfl`, AND FAILS ON BOTH ITS SITES.  `badSet_h_one` needs `fBridgeF_h_one`
+for the bridge AND `Nat.mul_one` for the window index; `(p : ℕ) * 1` is stuck for a variable
+`p`.  MEASURED with negative controls, not assumed: bare `rfl` reports the two sides not
+definitionally equal; dropping `Nat.mul_one` from the rewrite leaves the goal `j + ↑p * 1`
+against `j + ↑p`; dropping `fBridgeF_h_one` leaves `fBridgeF_h eps H 1` against `fBridgeF`.
+Same shape as `fBridgeG_h_one` / `fBridgeF_h_one` in wave A.
+
+SCOPE.  A definition and one equation.  Nothing about the concentration exponent, the
+entropy transport, `badSet_transport`, or `outer_combine` moves; every `h = 1` declaration in
+`Transport` stays byte-frozen and the new names sit BESIDE them.  No claim about Chowla,
+about the door's supply, or about twins is made or moved by this node. -/
+#audit_axioms Salt.Entropy.Chowla.badSet_h
+  Salt.Entropy.Chowla.badSet_h_one
