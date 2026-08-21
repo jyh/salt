@@ -19,7 +19,18 @@ survival**. Re-measured as *mass*, which is what the Mertens floor actually cons
   at a = 1 :  surviving  ∑ 1/p   =   28%  of the h = 1 mass      ⇒  a 3.6× LOSS
               surviving  COUNT   =  100%
 ```
-**Both numbers are correct and they describe opposite situations.** The window keeps its primes and
+⛔⛔ **AND MY OWN GATE NOW CHALLENGES THAT 28%. IT IS A QUOTE, NOT A MEASUREMENT OF THIS SESSION,
+AND A MERTENS SANITY CHECK POINTS THE OTHER WAY.** The definition is
+`primeWindow eps H = { p prime : ε²H/2 < p ≤ ε²H }` (`PrimeWindow.lean:26`) — a **dyadic** window,
+`(x, 2x]`. By Mertens, `∑_{x < p ≤ 2x} 1/p → log 2` for ANY `x`, so the shift-`h` window and the
+`h = 1` window should carry **comparable** mass, not a 3.6× gap. ⇒ **Either the 28% measured
+something other than this ratio, or it is wrong.** Until it is recomputed from
+`PrimeWindow.lean:26` in a session that shows its work, **K2's factor is UNTRUSTED**; what survives
+is the weaker and still-decisive point that *a survivor COUNT cannot witness a mass claim at all.*
+⚠️ *I nearly recomputed it against `Salt/MR/HalaszPrimesCore.lean:70` — a DIFFERENT `primeWindow`,
+real-valued and Mellin-shaped. **Two definitions share the name across cones.***
+
+**Both numbers, as reported, describe opposite situations.** The window keeps its primes and
 loses nearly three quarters of its mass, because `ε = √(α/h)` shrinks the window from the small-`p`
 end where `1/p` is large. ⇒ **v3's headline claim — *"the floor gets EASIER as `h` grows"* — is
 FALSE and inverted. The floor gets HARDER.**
