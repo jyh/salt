@@ -143,4 +143,90 @@ term-by-term.  Wave 1 asserts nothing about `B`: it is a parameter. -/
 def LiouvilleTwinDisp (N P : ℕ) (lvl B : ℝ) : Prop :=
   ∑ d ∈ P.divisors, (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0) ≤ B
 
+/-! ## λ-BV wave 1, node B2 — the ten Props of `brun_lower_ell1` at `twinParitySieve` -/
+
+/-- **B2 (`htotalMass`)**: the twisted total mass is nonnegative.  Every weight
+`1 − λ(m)` is, because `λ(m) ≤ 1` pointwise (`liouville_real_le`,
+`Salt/TwinBar/ParityWall.lean:98`).  This is the ONLY bound wave 1 places on a Liouville
+sum, and it is the pointwise-trivial one — no sign, no size, no cancellation
+(F-THIRD-REGIME). -/
+theorem twinParitySieve_totalMass_nonneg :
+    0 ≤ (twinParitySieve N P hP).totalMass := by
+  change 0 ≤ ∑ m ∈ (Finset.Icc 1 N).image (fun n => n * (n + 2)),
+    (1 - ((ArithmeticFunction.liouville m : ℤ) : ℝ))
+  exact Finset.sum_nonneg fun m _ => by have := liouville_real_le m; linarith
+
+/-- **B2 (`hz`)**: the NAMED threshold form.  `brun_lower_ell1` asks only for `1 < z`;
+wave 1 carries the far stronger `z ≥ z₀ = exp(exp(100/λ))` of
+`Salt/BrunLower/MertensDischarge.lean:63` (at `λ = 1/4` that is `loglog z ≥ 400`), because
+`hMert_twin` needs it.  This is the one-line step down to the door's own hypothesis. -/
+theorem one_lt_of_zThresh {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
+    (hz : Salt.BrunLower.zThresh lam ≤ z) : 1 < z := by
+  have h2 := (Salt.BrunLower.zThresh_facts hlam hlam' hz).2.2.2.2.2.2
+  linarith
+
+/-- **B2 (`hMert`)**: PM2 (`hMert_twin`, `Salt/BrunLower/MertensDischarge.lean:602`) at the
+twisted sieve.  `Wratio` reads only `prodPrimes` and `nu` (`Salt/BrunLower/WRatio.lean:85`,
+`windowPrimes` at :77), and for `twinParitySieve` both are DEFINITIONALLY the landed twin
+sieve's — so the twisted statement IS the landed `hMert_twinSieve`'s (:660) after a bare
+`change` (a `show` here is defeq-only too, but trips the `linter.style.show` gate), with no
+transfer lemma, no `simp` and no re-proof.  In particular the `ν(2) ≤ 1/2` and
+`ν(p) ≤ 2/p` obligations are already discharged there. -/
+theorem twinParitySieve_hMert {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
+    (hz : Salt.BrunLower.zThresh lam ≤ z)
+    (hpz : ∀ p ∈ P.primeFactors, (p : ℝ) < z) :
+    ∀ n ∈ Finset.Icc 1 (Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin lam z) z),
+      Real.log (Salt.BrunLower.Wratio (twinParitySieve N P hP)
+          (Salt.BrunLower.LamTwin lam z) z n) ≤ (n : ℝ) * (2 * lam) := by
+  change ∀ n ∈ Finset.Icc 1 (Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin lam z) z),
+      Real.log (Salt.BrunLower.Wratio (Salt.TwinSieve.sieve N P hP)
+          (Salt.BrunLower.LamTwin lam z) z n) ≤ (n : ℝ) * (2 * lam)
+  exact Salt.BrunLower.hMert_twinSieve hP hlam hlam' hz hpz
+
+/-- **B2 — the ten Props discharged**: `Salt.Chen.brun_lower_ell1`
+(`Salt/Chen/BrunEll1.lean:191`) instantiated at `twinParitySieve`, at the primary
+operating point `b = 1`, `λ = 1/4`, `Λ = LamTwin (1/4) z`, `κ = 2λ` (F-OPERATING-POINT).
+
+Seven of the ten hypotheses are discharged in place — `hb`/`hlam` by `norm_num`,
+`h12` by the landed `Salt.HB.lam_exp_lt_one` (`Salt/HB/RosserDim4.lean:740`), `hLam` by
+`Salt.BrunLower.LamTwin_pos` (`MertensDischarge.lean:124`), `hkappa` by `le_rfl` at
+`κ = 2λ`, `htotalMass` by `twinParitySieve_totalMass_nonneg`, `hMert` by
+`twinParitySieve_hMert`.  `hQ`, `hz` and `hzprimes` stay PARAMETERS, with `hz` in the
+named `zThresh` form (it is what `hMert` consumes; `1 < z` is derived from it through
+`one_lt_of_zThresh`).  `hzprimes` passes through definitionally — the sieve's `prodPrimes`
+is `P` by `rfl`.
+
+The cut keeps its ℕ-truncated-subtraction shape and is reduced at `b = 1` by `omega`
+(F-LEVEL): `2b−2+1 = 1` and `2b−2+2r−1 = 2r−1` with `r = minLevel Λ z`.  No ℝ restatement
+of the exponent is made, and the level stays symbolic in `Q` — wave 1 pins no numeral.
+
+Scope: this is the DOOR, not a twin-prime claim.  The right-hand `siftedSum` is bounded
+BELOW by a main term minus `rosserRemainder`, and nothing here bounds that remainder. -/
+theorem twinParitySieve_brun_lower_ell1 {z : ℝ} (Q : ℝ) (hQ : 1 ≤ Q)
+    (hz : Salt.BrunLower.zThresh (1 / 4) ≤ z)
+    (hzprimes : ∀ p ∈ P.primeFactors, (p : ℝ) < z) :
+    (twinParitySieve N P hP).totalMass * Salt.BrunLower.W (twinParitySieve N P hP)
+        * (1 - 2 * (1 / 4 : ℝ) ^ (2 * 1 : ℕ) * Real.exp (2 * (1 / 4))
+            / (1 - (1 / 4 : ℝ) ^ 2 * Real.exp (2 + 2 * (1 / 4))))
+      - Salt.Chen.rosserRemainder (twinParitySieve N P hP)
+          (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+                * Real.log z)
+              * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+                  - 1 : ℕ)))
+      ≤ (twinParitySieve N P hP).siftedSum := by
+  have h := Salt.Chen.brun_lower_ell1 (twinParitySieve N P hP)
+    (lam := 1 / 4) (Lam := Salt.BrunLower.LamTwin (1 / 4) z) (z := z)
+    (kappa := 2 * (1 / 4)) (b := 1) Q hQ le_rfl (by norm_num)
+    (Salt.HB.lam_exp_lt_one (by norm_num) le_rfl)
+    (Salt.BrunLower.LamTwin_pos (by norm_num) le_rfl hz)
+    (one_lt_of_zThresh (by norm_num) le_rfl hz)
+    twinParitySieve_totalMass_nonneg (fun p hp => hzprimes p hp) le_rfl
+    (twinParitySieve_hMert (by norm_num) le_rfl hz hzprimes)
+  have e1 : (2 * 1 - 2 + 1 : ℕ) = 1 := by omega
+  have e2 : (2 * 1 - 2 + 2 * Salt.BrunLower.minLevel
+        (Salt.BrunLower.LamTwin (1 / 4) z) z - 1 : ℕ)
+      = 2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z - 1 := by omega
+  rw [e1, e2, Nat.cast_one] at h
+  exact h
+
 end Salt.TwinBar
