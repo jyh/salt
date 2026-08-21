@@ -59,6 +59,20 @@
    on discharging MRTUniformityXi itself: the program's crown question
    stays watched, per the prime directive. Output: periodic recon
    briefs, no landings without a ruled campaign.
+   ✅ **MATCH DELIVERED 08/21 08:5x (math) — DO NOT RE-RUN.** The Captain
+   COMMISSIONED the binder-by-binder match at the 08/21 council; it is
+   done: `seat/briefs/2026-08-21-mrt-match-REPORT.md` (seat `3e0be72b`).
+   **VERDICT: THE MATCH CLOSES** — every binder exact or weaker; no gap
+   is open mathematics.
+   ⛔ **AND THE ROW ABOVE IS NOW A TRAP WITHOUT THIS LINE: "the door is
+   Tao Prop 2.4, PROVEN in MRT 1503.05121" is TRUE BUT NAMES THE WRONG
+   CONSUMPTION TARGET.** There are TWO different "Proposition 2.4". The
+   door's parent is **Tao 1509.05422 p.13 (2.5)/(2.8)**, and it consumes
+   **MRT Thm 2.3 + Lemma 2.2** — MRT's own Prop 2.4 is the engine two
+   levels down, and targeting it re-incurs `1_S`, the `d`-parameter and
+   complete-multiplicativity, all discharged upstream of us.
+   Residue is formalization + thresholds, not open mathematics; the one
+   real debt is **Vinogradov–Korobov (MRT (1.12)), not in mathlib.**
 
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
 
