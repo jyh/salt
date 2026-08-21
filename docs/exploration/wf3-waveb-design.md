@@ -301,3 +301,42 @@ what "offset-bound" means operationally, the gap cannot be adjudicated from the 
 and two honest matchers disagree with it in both directions.** *When two counts of one population
 differ, the gap is a finding: here the finding is a missing definition, not a wrong count.*
 **Any wave shaped by "32 of 52" is shaped by an unreproducible figure.**
+
+## §10 — ⛔⛔ TWO INDEPENDENT-GATE FATALS ARE STILL OPEN. THE BLOCK IS **NOT** COMPLETE.
+## STANDING WORDING: "v4's OWN gate complete; independent fatals 1 and 3 OPEN." (2026-08-21 01:1x)
+
+I wrote "v4 complete" on the bus. **That was wrong.** Of the independent gate's THREE fatals,
+exactly **ONE** is resolved (the withdrawal — voided in §7, closed by §8's reconciliation).
+
+**FATAL 1 — MY HEADLINE ANCHOR IS A LOCAL `have` IN A DEGENERATE BRANCH. CONFIRMED.**
+§7 cited `CircleMethod.lean:1238` for the per-index rule. Measured, that line sits inside:
+```
+  · -- degenerate: H = 1, where `0 < h` is what makes the correlation vanish
+    have hH1 : H = 1 := by have := NeZero.pos H; omega
+    have hlog0 : Real.log (H : ℝ) = 0 := by rw [hH1]; simp
+    ...  have hge : ¬ (j + (p : ℕ) * h < H) := by omega          ← line 1238
+```
+**The file labels the branch "degenerate" in its own comment.** At `H = 1`, `omega` discharges
+`¬(j + p·h < 1)` from `j ≥ 0, p·h ≥ 1` — *it says nothing whatever about the general rule.*
+⇒ **The correct anchor is `FBridge.lean:60`**, `windowVal H v j = if j < H then v ⟨j,h⟩ else 0`,
+the junk-zero extension — which is what §8's derivation actually used. **§8's mathematics is
+unaffected; §7's citation is void and §1 needs re-deriving from `FBridge.lean:60`.**
+*I verified the RULE and then cited the wrong LINE for it — a citation defect wearing a
+mathematics result's clothes.*
+
+**FATAL 3 — K4 AND K1 CONTRADICT EACH OTHER. CONFIRMED, AND WORSE THAN A GAP.**
+K1: *"every object carries `hεh : ε²·h < 1`, acquired at `h211_h`."* Measured:
+```
+   h211_h                            → ZERO hits anywhere in Salt/
+   ε² * h < 1  (any spelling)        → ZERO hits in the Chowla cone
+   h211_of_logChowla2Fails           → EXISTS, ChowlaFailure.lean:120 — but it is the h = 1 producer
+```
+**`h211_h` does not exist**, and **K4 deleted B-5, the only node that would have built it.** No node
+in §2 produces it. ⇒ **Either B-4 ships a binder nothing can discharge — the dangling-interface
+class, which no build reports — or K4 is wrong and B-5 must be restored. THE BLOCK CANNOT HAVE
+BOTH, and it currently claims both.**
+
+**⇒ STATUS, in the wording I will use from here: v4's OWN gate is complete; INDEPENDENT FATALS 1
+AND 3 ARE OPEN.** The block is not dispatchable. *Its own gate passing is exactly the agreeing
+result the streak law says to distrust — and an independent lens found three fatals in a block that
+had just cleared both of my own lenses.*
