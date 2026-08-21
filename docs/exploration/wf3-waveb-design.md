@@ -7,9 +7,16 @@ Wave A landed `2095863e`.
 ## §0 — WHAT THE v3 GATE KILLED, AND WHAT REPLACES IT
 
 **K1 — `ε²·h ≤ 1` IS WRONG AT EQUALITY. THE CONSTRAINT IS STRICT: `ε²·h < 1`.**
+⛔⛔ **SUPERSEDED 2026-08-21 BY §14 — K1 IS TRUE AND NO LONGER THE OPERATIVE BINDER.** The gate the
+tree actually enforces is **`hεh' : ε·h ≤ c/(32·log 4)`** (`hT3`, `HBudget.lean:606-624`) — LINEAR
+in `ε·h`. With `heps1 : ε ≤ 1/2` the new gate IMPLIES `ε²h < 1`, so **K1 is a CONSEQUENCE, not a
+hypothesis.** *Its strictness witness (`ε²=1/4, H=1996, h=4`, prime `499`, `499·4 = H`) survives and
+changes role: it is why the RAMP is a ramp, not why a BINDER is strict.* **Read §14 before using K1.**
 v3 asserted `≤ 1` and claimed the entire window survives there. **A dead prime sits exactly at
 equality:** `ε² = 1/4, H = 1996, h = 4` ⇒ `ε²h = 1`, and `499·4 = 1996 = H`, so the prime `499` maps
-to `p·h = H` — outside the strict window. ⇒ **Every object carries `hεh : (eps:ℝ)^2 * h < 1`,
+to `p·h = H` — outside the strict window. ⇒ ~~**Every object carries `hεh : (eps:ℝ)^2 * h < 1`,~~
+*(⛔ SUPERSEDED by §14 — the operative binder is `hεh' : ε·h ≤ c/(32·log 4)`; what follows is the
+withdrawn wording, kept as the record.)* **Every object carries `hεh : (eps:ℝ)^2 * h < 1`,
 STRICT, acquired at `h211_h`.**
 
 **K2 — ✅ RESOLVED BY MEASUREMENT, AND MY OWN CLAIM WAS WRONG IN BOTH THE PARAMETER AND THE
@@ -64,7 +71,9 @@ of a "3.6× gap". THAT GAP DOES NOT EXIST AT `a < 1` — measured, the ratio is 
 the truncation `p ≤ H/h` does not bind at all: the window top `ε²H = aH/h` sits **below** `H/h`,
 so the truncated window IS the window and the full-window Mertens floor applies unchanged.
 
-⇒ **NO new constant. NO `cM'`. NO `hmertTrunc` rider.** Nodes carry `hεh : (eps:ℝ)^2 * h < 1`
+⇒ **NO new constant. NO `cM'`. NO `hmertTrunc` rider.** *(⛔ §14: the binder named in the next
+clause is SUPERSEDED — nodes carry `hεh' : ε·h ≤ c/(32·log 4)`. The no-new-constant verdict itself
+SURVIVES and is strengthened: `hT3` already carries the ramp.)* Nodes carry `hεh : (eps:ℝ)^2 * h < 1`
 (strict, K1) and nothing further. *The entry cost this block advertised twenty minutes ago was an
 artifact of a mislabelled figure, and it is withdrawn in full.*
 
@@ -79,22 +88,28 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   set, and `outer_combine`'s own conclusion (`OuterCombine.lean:363-364`, which spells the offset
   independently). Wave A fixed the target spelling at `:150`.
 - **B-2 + B-3 — the mean and concentration cone (8 objects).** Byte-copies of the `h = 1` scripts,
-  built once already by the v2 refuter at `EXIT=0`. ONE executor, Class C. Each acquires `hεh`
-  (strict) — **and nothing else; the `hmertTrunc` rider is withdrawn.**
+  built once already by the v2 refuter at `EXIT=0`. ONE executor, Class C. ⛔ **Each acquires
+  `hεh' : ε·h ≤ c/(32·log 4)` (§14), NOT `hεh : ε²h < 1`** — and must name which `c`. *The
+  `hmertTrunc` rider stays withdrawn.* ✅ **R-3 measured that B-1…B-4 carry NO `1/2` and their box
+  (`OuterCombine.lean:141/:148-152`) is already at shift `h` and landed — the binder rename is the
+  WHOLE of their change; no obligation is reintroduced.**
 - **B-4 — calibration + `outer_combine` (5 objects).** v3 priced this "five lines, ordinary once
   B-0 lands"; B-0 is deleted (K3), so **that pricing is withdrawn and B-4 is UNPRICED.** *It is not
   blocked on a missing constant — that was the artifact — it is simply unmeasured.*
 - **B-5 — THE PRODUCER CHAIN. ✅ RESTORED 2026-08-21** (deleted by K4 at `ba1c3c07`; K4 refuted in
   §11/§12). `h211_of_logChowla2Fails` and `fBridge_of_singleCorr` (`Prop26.lean:160`) at shift `h`,
-  **carrying `hεh : ε²h < 1` (strict) and NOTHING FURTHER** — ⛔ *the original B-5's
+  **carrying `hεh' : ε·h ≤ c/(32·log 4)` (§14; the old `hεh : ε²h < 1` is implied by it, not
+  equal to it) and NOTHING FURTHER** — ⛔ *the original B-5's
   "truncated-window Mertens floor in place of the full-window `hmert`" is NOT restored with it:
   §1's measurement showed the truncation `p ≤ H/h` never binds under `hεh`, so the full-window
   `hmert` (node D3) applies verbatim.*
-  ⭐ **THE ONE CHANGE §12 FORCES:** the h-analogue's `hreduce` must carry the **ramp factor**
-  `1 − ε²h/(2 ln 2)` where the `h = 1` statement carries `1/2`. *Every window prime survives
-  (count 100%) but delivers only `1 − a/(2 ln 2)` of the full-window mass — 28% as `a → 1` — so the
-  bare `1/2` is undischargeable above `a = ln 2`.* The safe closed form `(1−ε²h)/2` is a valid
-  lower bound (§8) and may be substituted at the cost of going vacuous at `a = 1`.
+  ⛔⛔ **§12's "ONE CHANGE" IS WITHDRAWN — see §13/§14. The `1/2` is NOT a mass ratio; it is
+  `1 − 2·(error budget)`, and putting the ramp factor there leaves ZERO SLACK and fails to reduce to
+  the `h = 1` object (0.9998, not 1/2).** ⭐ **THE ACTUAL JOB: `hT3` (`HBudget.lean:606-624`, the
+  boundary slice) RE-PROVED WITH THE FACTOR `h`, under `hεh'`.** The ramp deficit was ALWAYS a line
+  item in the landed budget — `card 𝒫_H · h · |X| ≤ (1/16)·SP·H·ε` — and it scales exactly linearly
+  in `h`. **NO new constant, NO `hreduce` surgery, the `1/2` untouched.** ⇒ **B-5 shrinks to ONE
+  re-proof of a landed 19-line `calc`.**
   ⛔ **This is where `h211_h` becomes satisfiable, and under R2 it does.** It remains the wave's
   real question and is in scope.
 
@@ -516,3 +531,64 @@ no `hreduce` surgery, no cross-lane argument at all. ⛔ **But it makes K1's bin
 `hεh : ε²h < 1` NECESSARY-NOT-SUFFICIENT for B-5**, so it touches **§0/K1 and §2's shape** — above a
 §12 patch. **Design-tier, my pen, and it is next.** *§§11–12 stand as the record; R2 is withdrawn as
 the repair and survives only as the reasoning that found the ramp.*
+
+
+## §14 — THE REDESIGN. **THE BINDER CHANGES VARIABLE: `ε·h`, NOT `ε²·h`.** (design-tier, math's pen)
+
+### 14.1 THE h-GATE, DERIVED HERE RATHER THAN TAKEN
+`hT3` (`HBudget.lean:606-624`) is the boundary slice, and its landed chain is fully visible:
+```
+  card 𝒫_H · |X|  ≤  card 𝒫_H                                   (|X| ≤ 1)
+                  ≤  (2 log 4)·(ε²H / log H)                     (hcard, the PNT window count)
+                  ≤  ((1/16)·c·H·ε) / log H                      ⟸  2·log4·ε ≤ (1/16)c
+                                                                  ⟺  ε·(32 log 4) ≤ c   ⟸ heps_small
+                  =  (1/16)·(c/log H)·H·ε  ≤  (1/16)·SP·H·ε      (hSP_lb, the Mertens floor)
+```
+⭐ **THE GATE `ε ≤ c/(32 log 4)` IS EXACTLY THE STEP WHERE ONE POWER OF `ε` CANCELS.**
+**At shift `h` the boundary deficit carries one factor `h` per prime** — the ramp loses `p·h` of `H`
+indices, so the per-prime deficit is `(1/p)·(p·h)·|X| = h·|X|`, and summing over `𝒫_H` gives
+`card 𝒫_H · h · |X|`. **That is `hT3` with an extra factor `h`, and nothing else moves.** Repeating
+the chain:
+```
+  card · h · |X|  ≤  (2 log 4)·(ε²H/log H)·h  ≤  ((1/16)·c·H·ε)/log H
+        ⟸   2·log4·ε²·h  ≤  (1/16)·c·ε      ⟺   ε·h ≤ c/(32·log 4)
+```
+✅ **`ε·h ≤ c/(32·log 4)` — LINEAR IN `ε·h`. Derived independently; it reproduces the refuter's gate
+exactly.** *This is the check I owed: I did not adopt the variable change on the refuter's word.*
+
+### 14.2 ⛔ K1 IS DEMOTED — `hεh : ε²h < 1` IS NECESSARY, NOT SUFFICIENT
+With the regime's `heps1 : ε ≤ 1/2`, the new gate **implies** the old one:
+`ε·h ≤ c/(32 log 4)` ⇒ `ε²·h = ε·(ε·h) ≤ (1/2)·c/(32 log 4) < 1`. ⇒ **K1's binder is a CONSEQUENCE
+of the operative gate, not the operative gate.** It stays TRUE and stops being LOAD-BEARING.
+🔑 **AND THE STRICTNESS ARGUMENT K1 WAS BUILT ON SURVIVES INTACT AND CHANGES ROLE:** the `p·h = H`
+corner (a window prime hitting the boundary exactly) is what forces `<` rather than `≤`. That corner
+is a statement about the RAMP, and the ramp is now carried by `hT3`. **K1 keeps its witness
+(`ε² = 1/4, H = 1996, h = 4`, prime `499`, `499·4 = 1996 = H`) as the reason the RAMP is a ramp —
+it is no longer the reason a BINDER is strict.**
+
+### 14.3 CHANGES TO §0/K1 AND §2 (the shape edits this forces)
+- **§0/K1:** the sentence *"every object carries `hεh : ε²h < 1`, acquired at `h211_h`"* is
+  **SUPERSEDED**. The operative binder is **`hεh' : (ε:ℝ)·h ≤ c/(32·Real.log 4)`**, acquired where
+  `heps_small` is today (`HBudget.lean:454`, `:711`; the spine's `hepsc` at `HloExport.lean:263`).
+  ⛔ **This is the `c`-parameterised gate, so the binder now CARRIES `c` — a node that acquires
+  `hεh'` must also name which `c`.** *That is new coupling and it is the price of the correct
+  variable.*
+- **§2, B-2 + B-3:** *"Each acquires `hεh` (strict) — and nothing else"* becomes **acquires `hεh'`**.
+  ⚠️ **R-3 measured that B-1…B-4 carry no `1/2`** and their box (`OuterCombine.lean:141/:148-152`)
+  is already at shift `h` and landed ⇒ **no obligation is reintroduced into the four free nodes; the
+  binder rename is the whole of their change.**
+- **§2, B-5:** the node is **`hT3` re-proved with the factor `h` under `hεh'`. NO new constant, NO
+  `hreduce` surgery, the `1/2` untouched.** ⇒ **B-5 shrinks from "the producer chain + a new
+  constant + a ~15-site discharge chain" to ONE re-proof of a landed 19-line calc.**
+
+### 14.4 WHAT THIS COSTS, STATED AGAINST MY OWN WITHDRAWN CLAIM
+⛔ **The admissible-`h` range collapses.** The old reading (`ε²h < 1`, "reachable for any `h`") was
+**true of the wrong constraint**. The operative gate is `ε·h ≤ c/(32 log 4)`, so **`h ≤ c/(32 log4 ·ε)`
+— `h` is bounded by a constant over `ε`, not by `1/ε²`.**
+⚠️ **[CARRIED, NOT REPRODUCED] the refuter's U-5 numerals** — that the pinned `c = 1/4` admits
+`h ≤ 1`, and that the two constraints sit ~10⁴ apart in admissible `h`. *I derived the GATE myself;
+I did not reproduce those two figures, and a number I did not compute is a quote.*
+⭐⭐ **CROSS-LANE, AND IT IS THE ITEM THAT TRAVELS:** `ε ∝ 1/h` (not `1/√h`) ⇒ `δ₀ = c₀ε/4 ∝ 1/h` ⇒
+**the MRT door hardens like `h`, not `√h` — ruling 2's joint price is understated by a square.**
+*My own §12 R2 argued FOR R2 on cross-lane grounds — that R1 "pays for a W-F3 repair with MRT-door
+strength". The refuter's route pays nothing at all, and the coupling it removes was one I introduced.*
