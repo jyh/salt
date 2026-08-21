@@ -813,3 +813,81 @@ or moved by these nodes. -/
   Salt.Entropy.Chowla.fBridge_h_concentration_sharp
   Salt.Entropy.Chowla.fBridge_h_concentration_decoupled
   Salt.Entropy.Chowla.fBridge_h_concentration_decoupled_sharp
+
+/-! ⟦W-F3 WAVE B, NODE B-4⟧ — THE OUTER ASSEMBLY AND THE CALIBRATION AT SHIFT `h`
+(`Transport`, `OuterCombine`, 2026-08-21).  ⭐ SITE 3 CLOSES; the three-site obligation is
+discharged.
+
+WHAT LANDS — FIVE OBJECTS, and the count is the design block's "5" with a DIFFERENT
+MEMBERSHIP.  `badSet_transport_h`, `badSet_transport_at_calibration_h` (`Transport`);
+`outer_badMass_h_eq`, `outer_badMass_h_le`, `outer_combine_h` (`OuterCombine`).  Wave A's
+declared boundary named `outer_combine` at `h` and `(2.11)` restated at shift `h` as its last
+two not-yet-ported items; both are now ported, and wave A's list is exhausted.
+
+⭐ SITE 3 OF THE THREE SYNCHRONISED SITES — CLOSED.  `outer_combine`'s conclusion spells the
+two-point offset INDEPENDENTLY of site 1 (`badSet_h`, `Transport`) and site 2 (the decoupled
+concentration deviation sets, `FBridge`/`Decoupled`); at `h = 1` it reads
+`windowVal H (liouvilleWindow H n) (j + (p : ℕ))`, with no `* h`.  `outer_combine_h` writes
+wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`).
+VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
+site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:789`, `Decoupled.lean:107`) and site 3
+(`OuterCombine.lean:638`); after `OuterCombine.lean:436` — the whole B-4 block — the unshifted
+literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.  All three sites agree character-for-character.
+
+⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
+defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
+`circle_method_estimate_h` (`ShiftFork.lean:397`) and `circle_method_estimate_h_core`
+(`CircleMethod.lean:1125`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
+identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
+counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
+AGREE.  A future shift-`h` port should enumerate by the literal, not by the roster.
+
+THE SHIFT COSTS NOTHING, THIRD CONFIRMATION.  The `(t + 2 log 2)/g + (κ + (log P_H − H[Y]))/t`
+mass bound, the `(2+ε²)² ≤ 9` calibration step, the sharp exponent
+`δ²·log H/(2 C₀ ε²H (2/ε²+1)²)`, its `ε⁶H/(18 C₀ log H)` lower bound and the full error term
+`ε²H/log H + 2·boxGrade·(…)` are character-for-character the `h = 1` ones.  No estimate was
+re-derived; none was weakened.  `boxGrade`, `boxSum_le_grade`, `uniformOn_univ_real_coe`,
+`weakUniform_spine` and `decrement_markov_fintype` are `h`-FREE — checked in their statements,
+not assumed from their names — and are REUSED VERBATIM with no `_h` port.
+
+THE `(2.11)` AT SHIFT `h`, STATED PRECISELY.  There is no standalone `(2.11)` declaration:
+`(2.11)` enters as `outer_combine`'s hypothesis `h211`.  `outer_combine_h` restates it at shift
+`h` by carrying `fBridgeF_h eps H h` in place of `fBridgeF` — that is the whole roster item.
+The `(2.11)` PRODUCER chain (`ChowlaFailure.lean`, including its `outer_combine` seam
+kill-check) and every `h = 1` consumer of `outer_combine` (`Theorem23Shell` ×3, `SpineClose`,
+`SpineFinal`, `HloExport*`, `S16Uniform`) are UNTOUCHED and remain at `h = 1`: door/wave-C
+surfaces, named here so the next wave does not have to rediscover them.
+
+THE `h = 1` RECOVERY IS A THIRD SHAPE — ONE REWRITE LEMMA, NOT TWO.  B-1 needed
+`fBridgeF_h_one` + `Nat.mul_one`; B-2/B-3 needed that pair or `fBridgeF_h_one` +
+`fBridgeG_h_one`.  Four of B-4's five objects mention NEITHER the bridge nor the product index
+in the clear — both are sealed inside `badSet_h` — so the entire recovery is B-1's compat
+EQUATION `badSet_h_one`, alone.  `outer_combine_h` is the exception: it carries the bridge in
+`h211` AND the product index in its conclusion, so it needs `fBridgeF_h_one` + `Nat.mul_one`,
+B-2/B-3's second pair.
+
+AND THE TACTIC IS NOT THE LEMMA — a sub-finding the count would have hidden.  `badSet_h_one`
+suffices for `badSet_transport_at_calibration_h` under a plain `rw`, but on
+`outer_badMass_h_eq` a plain `rw` FAILS OUTRIGHT with "did not find an occurrence": both of
+that statement's `badSet_h` occurrences sit UNDER BINDERS (`{n | …}` and the `∫ x₀`), which
+`rw` cannot enter.  `simp only [badSet_h_one]` is required.  Same lemma, same count, different
+tactic — because of where the occurrence sits, not what it is.
+
+FIVE NEGATIVE CONTROLS, ALL RUN, ALL FAILING AS REQUIRED (measured, never asserted):
+dropping `badSet_h_one` from `outer_badMass_h_eq`'s recovery leaves `badSet_h eps H 1` against
+`badSet` at both occurrences; using `rw` instead of `simp only` there fails to find the pattern
+at all; dropping it from `badSet_transport_at_calibration_h`'s recovery leaves the same
+residual at one occurrence; dropping `Nat.mul_one` from `outer_combine_h`'s recovery leaves
+`j + ↑p * 1` against `j + ↑p`; dropping `fBridgeF_h_one` leaves `fBridgeF_h eps H 1` against
+`fBridgeF`.  As in B-2/B-3, no compat EQUATION is landed for these five — they are theorems,
+and landing one would duplicate an already-frozen theorem.
+
+SCOPE.  Five statements, no new definitions, no new axioms, a purely additive diff.  Every
+`h = 1` declaration in `Transport` and `OuterCombine` stays byte-frozen and the new names sit
+BESIDE them.  The terminal, the `(2.11)` producer and every downstream consumer are wave C.
+No claim about Chowla, about the door's supply, or about twins is made or moved by this node. -/
+#audit_axioms Salt.Entropy.Chowla.badSet_transport_h
+  Salt.Entropy.Chowla.badSet_transport_at_calibration_h
+  Salt.Entropy.Chowla.outer_badMass_h_eq
+  Salt.Entropy.Chowla.outer_badMass_h_le
+  Salt.Entropy.Chowla.outer_combine_h
