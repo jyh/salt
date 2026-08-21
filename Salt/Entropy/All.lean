@@ -832,7 +832,23 @@ wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombin
 VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
 site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:789`, `Decoupled.lean:107`) and site 3
 (`OuterCombine.lean:638`); after `OuterCombine.lean:436` — the whole B-4 block — the unshifted
-literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.  All three sites agree character-for-character.
+literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
+
+⛔⛔ CORRECTED 2026-08-21: THIS PARAGRAPH SAID "ALL THREE SITES AGREE" AND THE AGREEMENT
+POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
+`CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
+them — `circle_method_estimate_h` (`ShiftFork.lean:405`) and `circle_method_estimate_h_core`
+(`CircleMethod.lean:1133`) — already carried the identical literal BEFORE wave A opened.
+⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
+**AGREE**.  The migration population and the agreement population are different sets, and this
+file asserted the second while enumerating the first.
+⚠️ AND THE NUMBER IS WRONG ON A SCHEDULE, NOT WRONG NOW.  Measured across B-5's five-file stack
+(`HBudget`, `HReduce`, `HMainAssembly`, `Prop26`, `ChowlaFailure`) the SHIFTED literal occurs
+**0** times, against **15** frozen offset-carrying lines (14 in `HBudget`, 1 at `Prop26:92`);
+positive control `Transport.lean` = 2 shifted, so the zero is a real zero.  ⇒ **B-5 does not
+INHERIT the agreement population — it CREATES it, and "six" becomes stale the moment B-5 lands.**
+⇒ WHEN YOU EXTEND THIS FAMILY, RE-RUN THE `grep -F` AND UPDATE THIS PARAGRAPH.  A count of a
+growing population belongs beside the command that produced it, never on its own.
 
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
