@@ -84,7 +84,20 @@ different wave, and it would need `cM'` measured before it could be scoped.**
 ## §2 — WAVE SHAPE (FIVE nodes; B-0 deleted (K3), **B-5 RESTORED** under **§14** — ⛔ *not under
 ## §12's R2, which is WITHDRAWN; this header cited it until 2026-08-21 11:5x*)
 
-- **B-1 — `badSet_h`** + its `h = 1` compat (`Nat.mul_one`, not `rfl`). ⚠️ Byte-identity at `h`
+- **B-1 — `badSet_h`** + its `h = 1` compat. ✅ **LANDED `be869e97` 2026-08-21, first attempt,
+  `[3 axioms]` both, VERIFIED BY THE SEAT AT A FORCED REBUILD** (oleans deleted; `Transport` and
+  `Entropy.All` both genuinely `Built`, not Replayed).
+  ⛔⛔ **AND THE EXECUTOR CORRECTED THIS BULLET: "(`Nat.mul_one`, not `rfl`)" UNDERSTATED THE COMPAT.
+  IT HAS TWO NON-DEFEQ SITES, NOT ONE** — the mean's window index needs **`Nat.mul_one`** (because
+  `(p:ℕ) * 1` is stuck for a variable `p`: `Nat.mul` recurses on its SECOND argument) **and the
+  bridge head needs `fBridgeF_h_one`.** *Established with three negative controls, not assumed:
+  `rfl` reports not-defeq; dropping `Nat.mul_one` leaves `j + ↑p * 1` vs `j + ↑p`; dropping
+  `fBridgeF_h_one` leaves `fBridgeF_h eps H 1` vs `fBridgeF`.*
+  🔑 ***I WROTE THIS BULLET AND I WROTE THE EXECUTOR BRIEF, AND BOTH NAMED ONE SITE.*** An executor
+  taking either literally reaches only for `Nat.mul_one`, hits an unsolved goal, and may conclude
+  the DEFINITION is mis-spelled — chasing a phantom defect in the object instead of adding the
+  second rewrite. **A trap named by ONE of its instances is more dangerous than an unnamed trap,
+  because it certifies the list as complete.** ⚠️ Byte-identity at `h`
   needs **THREE synchronized sites**: `badSet_h`'s predicate, the concentration lemma's deviation
   set, and `outer_combine`'s own conclusion (`OuterCombine.lean:363-364`, which spells the offset
   independently). Wave A fixed the target spelling at `:150`.
@@ -559,6 +572,16 @@ the repair and survives only as the reasoning that found the ramp.*
 
 
 ## §14 — THE REDESIGN. **THE BINDER CHANGES VARIABLE: `ε·h`, NOT `ε²·h`.** (design-tier, math's pen)
+
+⛔ **VERSION PROVENANCE FOR THIS DOCUMENT'S TAO CITATIONS (added 2026-08-21 13:1x).** Every page
+reference to `1509.05422` written by this seat on 08/21 (`p.12`, `p.13`, `p.15`, `fn. 5`) was read
+from **arXiv:1509.05422v4 (29 Jul 2016)** — the version this seat fetched. ⚠️ **THE TREE'S §3 LEMMA
+numbers (3.1 decrement, 3.4 circle-method) are v1/v2's and DO NOT match v4** (evidence, `seat
+9428c9a7`). ⇒ **Two citation kinds under one id, anchored to different versions: page refs here are
+v4; lemma numbers in `Salt/` are arXiv v1/v2.** *Do not blanket-stamp either onto the other — see
+`docs/QUEUE.md` P2b, which I had to amend for exactly this.* ⚠️ The **Forum of Math Pi published**
+numbering is UNVERIFIED.
+
 
 ### 14.1 THE h-GATE, DERIVED HERE RATHER THAN TAKEN
 `hT3` (`HBudget.lean:606-624`) is the boundary slice, and its landed chain is fully visible:
