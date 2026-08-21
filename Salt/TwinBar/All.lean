@@ -229,3 +229,32 @@ open Salt.Tactic in
   Salt.TwinBar.twinParitySieve_multSum
   Salt.TwinBar.rem_split
   Salt.TwinBar.LiouvilleTwinDisp
+
+/-! ⟦λ-BV WAVE 1 — B2⟧ (`TwinParitySieve`, 2026-08-20).
+
+The ten hypotheses of `Salt.Chen.brun_lower_ell1` (BrunEll1.lean:191), discharged at
+`twinParitySieve` at the primary operating point `b = 1`, `λ = 1/4`,
+`Λ = LamTwin (1/4) z`, `κ = 2λ`.
+
+`htotalMass` is the pointwise-trivial one: every weight `1 − λ(m)` is nonnegative because
+`λ(m) ≤ 1` (`liouville_real_le`, ParityWall.lean:98) — no sign, no size and no
+cancellation is claimed for any Liouville sum (F-THIRD-REGIME).  `hMert` is the landed
+`hMert_twinSieve` (MertensDischarge.lean:660) after a bare `change` — defeq only, the
+brief's `exact`-after-`show` with `show` swapped out for the linter: `Wratio` reads only
+`prodPrimes` and `nu`, and `twinParitySieve` shares both DEFINITIONALLY with the landed
+twin sieve, so the ν(2)/ν(p) obligations are already discharged there.  `h12` is
+`Salt.HB.lam_exp_lt_one` (RosserDim4.lean:740), `hLam` is `Salt.BrunLower.LamTwin_pos`
+(MertensDischarge.lean:124), `hkappa` is `le_rfl`, `hb`/`hlam` are `norm_num`.
+
+`hQ`, `hz`, `hzprimes` remain PARAMETERS, `hz` in the NAMED `zThresh (1/4) ≤ z` form
+(= `loglog z ≥ 400`, what `hMert` consumes); `one_lt_of_zThresh` is the step down to the
+door's own `1 < z`.  The cut keeps its ℕ-truncated-subtraction shape, reduced at `b = 1`
+by `omega` (F-LEVEL), and stays symbolic in `Q` — no numeral is pinned.
+
+Scope: a DOOR.  `siftedSum` is bounded BELOW by a main term minus `rosserRemainder`;
+nothing here bounds that remainder, and nothing here claims anything about twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.twinParitySieve_totalMass_nonneg
+  Salt.TwinBar.one_lt_of_zThresh
+  Salt.TwinBar.twinParitySieve_hMert
+  Salt.TwinBar.twinParitySieve_brun_lower_ell1
