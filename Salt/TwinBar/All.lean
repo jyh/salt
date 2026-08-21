@@ -205,3 +205,27 @@ open Salt.Tactic in
   Salt.TwinBar.twinParitySieve_prodPrimes
   Salt.TwinBar.twinParitySieve_nu
   Salt.TwinBar.twinParitySieve_totalMass
+
+/-! ⟦λ-BV WAVE 1 — B1⟧ (`TwinParitySieve`, 2026-08-20).
+
+`L N d` is the Liouville sum over the twin values `n(n+2)`, `n ∈ [1,N]`, that `d` divides.
+`rem_split` reads the twisted sieve's remainder as the LANDED twin remainder
+`_root_.rem d N` (M2.lean:249) minus the Liouville discrepancy `L N d − ν(d)·L N 1` — for
+EVERY `d`, with no side condition.  The `d = 0` atom is not a special case: `ν 0 = 0`,
+`L N 0 = 0` and `rem 0 N = 0`, and the proof's final `ring` closes uniformly because
+`(d : ℝ)⁻¹` is an atom to it.  `twinParitySieve_multSum` and `L_one` are its two readings.
+
+`LiouvilleTwinDisp N P lvl B` NAMES the arithmetic input — the discrepancy summed over
+`d ∣ P` below the level, bounded by `B`.  Its shape is `Salt.Chen.rosserRemainder`'s
+verbatim (`ite` over the FULL divisor index, never a `filter`) so that the assembly pairs
+the two sums term-by-term under `Finset.sum_le_sum`.
+
+Scope: ONE identity and TWO definitions.  Nothing here asserts that any `B` is small — no
+Chowla-type input is claimed, none is proved, and none is used.  `LiouvilleTwinDisp` is a
+hypothesis-shaped `Prop`, unpopulated in wave 1. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.L
+  Salt.TwinBar.L_one
+  Salt.TwinBar.twinParitySieve_multSum
+  Salt.TwinBar.rem_split
+  Salt.TwinBar.LiouvilleTwinDisp
