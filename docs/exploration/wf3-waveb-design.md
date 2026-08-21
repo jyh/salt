@@ -169,6 +169,43 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   mental picture.*** v3 priced this "five lines, ordinary once
   B-0 lands"; B-0 is deleted (K3), so **that pricing is withdrawn and B-4 is UNPRICED.** *It is not
   blocked on a missing constant — that was the artifact — it is simply unmeasured.*
+- **B-5 — ✅✅ LANDED `0bc71529` 2026-08-21 — WAVE B IS COMPLETE.** 27 declarations (16 public,
+  11 private), **+1290 / −0**, first attempt on every module, **SEAT-VERIFIED AT A FORCED REBUILD**
+  (all six oleans deleted; `ChowlaFailure`, `Prop26`, `HReduce`, `HMainAssembly`, `HBudget`,
+  `Entropy.All` each genuinely `Built`; zero warnings; 16/16 `[3 axioms]`).
+  ✅ **THE HARD STEP CONFIRMED AS DERIVED: the `1/8+1/16+1/16` line is UNTOUCHED and carries NO new
+  term.** Totals 1 and 2 are `h`-FREE *by measurement*; **total 3 gains exactly one factor `h`,
+  giving the gate `ε·h ≤ c/(32·log 4)` — LINEAR**, fed byte-identically into the pre-landed rider by
+  `hbudget_h_gate_implies_epssq_h`. ⭐ **`hbudget_holds_h_one` re-derives the landed `hbudget_holds`
+  character-for-character from the h-family — the strongest available check that nothing was
+  weakened.**
+  ⛔⛔ **AND MY CENSUS UNDERCOUNTED ON AN AXIS THE BRIEF HAD NO ROW FOR.** The brief's literal (15)
+  is right about the WINDOW OFFSET and wrong about the port's surface:
+  ```
+     brief's exact literal          15   HBudget 14 · Prop26 1
+     p-offset-carrying lines        36   HBudget 32 · Prop26 4    (18 invisible to the literal)
+     λ(n+1) → λ(n+h) CORRELATION    47   HBudget 26 · ChowlaFailure 8 · HReduce 6 ·
+                                         HMainAssembly 4 · Prop26 3
+  ```
+  ***THREE OF THE FIVE FILES CARRY ZERO OF MY 15 AND ARE PORTED ENTIRELY THROUGH THE CORRELATION
+  INDEX.*** **I censused the window offset; the stack's work is the correlation.** *And of HBudget's
+  32, only 10 fall inside the named ranges — 3 of those being `boundary_card_le`, which needed **no
+  port at all** (stated at an arbitrary second argument, so `boundary_card_le H (p*h)` already IS
+  the shifted count).*
+  ⛔ **`0 < h` IS FORCED AND I DID NOT PREDICT IT.** At `per_term_h`: with `h = 0` the gate
+  `j + p·h < H` stops bounding `p`, so `r ≤ x/ω` — free at `h = 1` — fails. Propagates to both
+  terminals. *Agrees with ShiftFork's "`h = 0` is degenerate" from the opposite end: there the PROP
+  degenerates, here the PROOF loses a bound.*
+  ⭐ **AND THE COMPAT SHAPE BROKE MY RULE IN THE GOOD DIRECTION: `shiftCorrH_one` IS `rfl` — ZERO
+  rewrites** (the gap enters as `_ + h`, `Nat.add` recurses RIGHT, so the literal `1` reduces).
+  *"Two rewrites, never the same two" was itself an over-tight rule; one of these needs none.*
+  📌 **Flagged, not hidden:** `collapse_identity_h`/`liouville_sq_h` re-proved private because
+  ShiftFork's public twin sits outside HBudget's import closure — reuse would mean adding an import
+  to a landed file, a structural act the node does not own. · An **import cycle shaped a statement**:
+  ShiftFork imports ChowlaFailure, so `singleCorr_of_fails_h` takes the inequality `logChowlaFails h`
+  unfolds to, **verified by seam probe not by eye**. · `shiftCorrH` is `private`, **visibility
+  reported, not decided.**
+
 - **B-5 — THE PRODUCER CHAIN. ✅ RESTORED 2026-08-21** (deleted by K4 at `ba1c3c07`; K4 refuted in
   §11/§12). `h211_of_logChowla2Fails` and `fBridge_of_singleCorr` (`Prop26.lean:160`) at shift `h`,
   **carrying `hεh' : ε·h ≤ c/(32·log 4)` (§14; the old `hεh : ε²h < 1` is implied by it, not

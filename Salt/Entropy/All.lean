@@ -850,6 +850,25 @@ INHERIT the agreement population — it CREATES it, and "six" becomes stale the 
 ⇒ WHEN YOU EXTEND THIS FAMILY, RE-RUN THE `grep -F` AND UPDATE THIS PARAGRAPH.  A count of a
 growing population belongs beside the command that produced it, never on its own.
 
+⛔⛔ USE THIS SCOPED ARM, NOT THE UNSCOPED ONE ABOVE — THE UNSCOPED COMMAND COUNTS THIS FILE'S
+OWN PROSE, AND IT RATCHETS: every correction that QUOTES the literal in order to explain it adds
+another hit, so the census gets one file harder to read each time somebody does the right thing.
+    grep -rlF '(j + (p : ℕ) * h) : ℝ)' Salt/Entropy/Chowla/     ⇒ EXPECT EXACTLY 8 FILES
+    If it returns more, OPEN THE EXTRA HITS BEFORE BELIEVING THEM — a quotation is not a
+    declaration.  (Scoping beats `--exclude=All.lean`, which rots the day this file carries a
+    real declaration; measured, it carries ZERO — `grep -cE '^(theorem|lemma|def|private|
+    noncomputable)[[:space:]]'` = 0 here, = 8 in `Transport.lean` as the positive control.
+    ⚠️ WITHOUT the trailing whitespace class that pattern returns 4 — `defeq`, `definition`,
+    `definitionally`, `defect`: ENGLISH PROSE AT COLUMN 0.  The word boundary is load-bearing.)
+
+⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1381`
+spells the shifted offset `(j + p * h) : ℝ)` with a BARE `p`, because it faithfully mirrors the
+FROZEN `(j + p) : ℝ)` at `HBudget:664`.  ⇒ THE FROZEN SIDE WAS NEVER BYTE-UNIFORM EITHER: this
+file holds 14 of `(j + (p : ℕ)) : ℝ)` and 1 of `(j + p) : ℝ)`.  The port was right to mirror the
+spelling it found rather than normalise it — but every "byte-identical across N files" sentence
+in this wave, including the ones above, was asserted about a population NOBODY HAD CHECKED FOR
+UNIFORMITY ON THE FROZEN SIDE.  Check the source spelling before claiming identity with it.
+
 ✅ RE-RUN AND UPDATED 2026-08-21 BY B-5 (the paragraph above is now a record of the PRE-B-5
 world; do not read its `0`/`15`/`six` as current).  Command, verbatim:
 `grep -rlF '(j + (p : ℕ) * h) : ℝ)' Salt/`.  The agreement population is now **EIGHT SOURCE
