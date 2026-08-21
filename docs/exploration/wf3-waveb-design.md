@@ -72,7 +72,7 @@ artifact of a mislabelled figure, and it is withdrawn in full.*
 and the table in K2 gives the loss directly (68% at 1.25, 42% at 1.5, 0.3% at 1.996). **That is a
 different wave, and it would need `cM'` measured before it could be scoped.**
 
-## §2 — WAVE SHAPE (four nodes; B-0 and B-5 deleted)
+## §2 — WAVE SHAPE (FIVE nodes; B-0 deleted (K3), **B-5 RESTORED** under §12's R2)
 
 - **B-1 — `badSet_h`** + its `h = 1` compat (`Nat.mul_one`, not `rfl`). ⚠️ Byte-identity at `h`
   needs **THREE synchronized sites**: `badSet_h`'s predicate, the concentration lemma's deviation
@@ -84,6 +84,19 @@ different wave, and it would need `cM'` measured before it could be scoped.**
 - **B-4 — calibration + `outer_combine` (5 objects).** v3 priced this "five lines, ordinary once
   B-0 lands"; B-0 is deleted (K3), so **that pricing is withdrawn and B-4 is UNPRICED.** *It is not
   blocked on a missing constant — that was the artifact — it is simply unmeasured.*
+- **B-5 — THE PRODUCER CHAIN. ✅ RESTORED 2026-08-21** (deleted by K4 at `ba1c3c07`; K4 refuted in
+  §11/§12). `h211_of_logChowla2Fails` and `fBridge_of_singleCorr` (`Prop26.lean:160`) at shift `h`,
+  **carrying `hεh : ε²h < 1` (strict) and NOTHING FURTHER** — ⛔ *the original B-5's
+  "truncated-window Mertens floor in place of the full-window `hmert`" is NOT restored with it:
+  §1's measurement showed the truncation `p ≤ H/h` never binds under `hεh`, so the full-window
+  `hmert` (node D3) applies verbatim.*
+  ⭐ **THE ONE CHANGE §12 FORCES:** the h-analogue's `hreduce` must carry the **ramp factor**
+  `1 − ε²h/(2 ln 2)` where the `h = 1` statement carries `1/2`. *Every window prime survives
+  (count 100%) but delivers only `1 − a/(2 ln 2)` of the full-window mass — 28% as `a → 1` — so the
+  bare `1/2` is undischargeable above `a = ln 2`.* The safe closed form `(1−ε²h)/2` is a valid
+  lower bound (§8) and may be substituted at the cost of going vacuous at `a = 1`.
+  ⛔ **This is where `h211_h` becomes satisfiable, and under R2 it does.** It remains the wave's
+  real question and is in scope.
 
 ## §3 — KILL-CHECKS
 
@@ -118,8 +131,12 @@ wrote the block. It is weaker evidence than a peer pass and is labelled as such.
 *First clean citation lens of this campaign — after six misses in the λ-BV block.*
 
 **MATHEMATICS LENS — K1 VERIFIED AGAINST THE SOURCE, and it corrected K2's rule on the way.**
-The survivor condition is NOT `p ≤ H/h`. `windowVal H x (j + p*h) = 0` unless `j + p*h < H`
-(`CircleMethod.lean:1238`, `dif_neg`), i.e. **STRICT**. ⇒
+The survivor condition is NOT `p ≤ H/h`. `windowVal H x (j + p*h) = 0` unless `j + p*h < H`,
+i.e. **STRICT**. ⛔ **CITATION CORRECTED 2026-08-21 (independent-gate fatal 1): the anchor is the
+DEFINITION `windowVal` at `FBridge.lean:60`** — `if h : j < H then v ⟨j,h⟩ else 0`, per-index, no
+case hypothesis. *The former anchor `CircleMethod.lean:1238` is a local `have` inside the branch
+the file labels `-- degenerate: H = 1` at `:1227`, where the ramp collapses to the constant 0 and
+the rule's whole content is invisible. Right rule, wrong line.* ⇒
 - **K1 STANDS, with an exact witness:** at `ε² = 1/4, H = 1996, h = 4` the window is `(249.5, 499]`,
   its top element `499` is prime, and `499·4 = 1996 = H`, so `p·h < H` is **false** — the prime
   contributes ZERO at `ε²h = 1` exactly. `≤ 1` is wrong; `< 1` is required.
@@ -342,6 +359,7 @@ result the streak law says to distrust — and an independent lens found three f
 had just cleared both of my own lenses.*
 
 ## §11 — FATAL 3 RESOLVED, IN EXACTLY ONE DIRECTION: **K4 IS WRONG. B-5 IS RESTORED.**
+## ⛔⛔ **ITS CENTRAL ARGUMENT IS WRONG — SEE §12. THE VERDICT SURVIVES, THE REASON DOES NOT.**
 *(2026-08-21 09:1x. The direction is FORCED by measurement, not chosen.)*
 
 **K4's stated reason is that `fBridge_of_singleCorr` "consumes full-window `hmert` while the mass
@@ -385,3 +403,60 @@ and 3 OPEN."** *Fatal 3's DIRECTION is now determined and fatal 1 has its deriva
 (`FBridge.lean:60`, per-index), but neither FIX is landed — fatal 1 needs the citation swap, fatal 3
 needs B-5 written back into §2. **The block remains NOT DISPATCHABLE, and declaring otherwise is a
 ruling, not mine.***
+
+
+## §12 — ⛔⛔ §11's ARGUMENT IS WRONG: I USED **COUNT** WHERE K4's PREMISE IS **MASS**.
+## THE VERDICT STANDS, THE REASON IS REPLACED, AND THE FIX NOW HAS A PRICE. (2026-08-21 09:2x)
+
+**§11 claimed the full window and the survivor set "COINCIDE" under `hεh`, hence K4's premise is
+empty. THE SETS DO COINCIDE. THE MASS DOES NOT, AND K4's PREMISE IS ABOUT MASS.** Computed this
+session (sieve to 6·10⁵, `H = 2·10⁶`, `h = 4`; control `π(10) = 4`, `π(100) = 25`):
+```
+   a=ε²h    MASS frac    COUNT frac      1 − a/(2 ln 2)
+   0.250      82.02%      100.00%           81.97%
+   0.500      64.04%      100.00%           63.93%
+   0.693      50.15%      100.00%           50.00%
+   1.000      28.06%      100.00%           27.87%
+```
+⇒ **The ramp weight `(H − p·h)/H` makes the 1/p-weighted mass `1 − a/(2 ln 2)`, NOT 1.** Every
+prime survives (count 100%) and still delivers only 28% of the full-window mass as `a → 1`. **This
+is the block's own standing fact — "a = 1.0 → mass 28.1% / count 100.0%, the COUNT OVERSTATES
+3.56×" — and I inverted it inside the section resolving the fatal, one beat after quoting it.**
+
+**WHAT §11 GOT RIGHT AND KEEPS:**
+- ✅ **The chronology and its lesson.** `ba1c3c07` (K4) is an ancestor of `0d5e1f13` (§1 rewrite);
+  K4 was never re-run against the measurement that undercut it. **A withdrawal must sweep its own
+  downstream** — unaffected by this correction, and still the most transferable part.
+- ✅ **The verdict: K4 is wrong and B-5 is restored** — but for a NARROWER reason, and at a price.
+
+**THE CORRECTED ARGUMENT.** `hreduce` demands `(1/2)·SP·H·|X| ≤ |∫ fBridgeF|` — a **1/2 slack**
+against the FULL-window sum `SP`. At shift `h` the deliverable mass is `(1 − a/(2 ln 2))·SP·H·|X|`.
+So the h-analogue is dischargeable exactly when
+```
+        1 − a/(2 ln 2)  >  1/2     ⟺     a = ε²·h  <  ln 2 ≈ 0.6931
+```
+⇒ ⛔ **`hεh : ε²h < 1` IS TOO WEAK TO RESCUE B-5. K4 is wrong on `a < ln 2` and RIGHT on
+`ln 2 ≤ a < 1`** — its vacuity is real in that upper band, which is why it read as true.
+*My §11 sentence "K4's premise is refuted by the same inequality K1 requires" is FALSE: `hεh` does
+not refute it. It is refuted only on the sub-interval `a < ln 2`.*
+
+**TWO ADMISSIBLE REPAIRS, AND I TAKE THE SECOND:**
+- **(R1) Strengthen the binder** to `ε²·h < ln 2`, keeping the `1/2`. Costs a strictly stronger
+  hypothesis on every node.
+- **(R2) Keep `hεh : ε²h < 1`, replace the `1/2`** by the measured ramp factor
+  `1 − ε²h/(2 ln 2)` (the verdict's `(1−ε²h)/2` is a VALID but lossy lower bound on it — §8 — and
+  goes vacuous exactly at `a = 1`). Costs one constant, in this lane only.
+⭐ **R2, AND THE DECIDING ARGUMENT IS CROSS-LANE.** R1 forces `ε` down by `√(ln 2) ≈ 0.83`; by the
+08/21 MRT match the door's `δ₀ = c₀ε/4` shrinks with `ε`, and a smaller `δ₀` raises the required
+`Hlo` — Tao's own `H₋ = exp(ε^{−C₁})` (`1509.05422` fn. 5, p.12). **R1 pays for a W-F3 repair with
+MRT-door strength, in the one parameter the two lanes pull opposite ways on** (`b51a71c3`). **R2
+keeps the coupling untouched.**
+
+⇒ **B-5 IS RESTORED UNDER R2**, carrying `hεh` (strict) and a ramp-factor constant in place of the
+`1/2`. **No binder is strengthened; no `hmertTrunc` rider returns.**
+
+🔑 **THE LESSON, and it is not the arithmetic:** §11 was written immediately after I had *correctly*
+verified the count identity `{every window prime survives} = {ε²h < 1}`. That identity is true,
+exact, and pleasing — **and it answers a question K4 was not asking.** A crisp true result about the
+adjacent quantity is more dangerous than a vague one, because it terminates the search. *Ask what
+quantity the OBJECTION is about before celebrating an identity in the neighbouring one.*
