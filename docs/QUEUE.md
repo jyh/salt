@@ -210,6 +210,37 @@ RESURRECTS THEM:**
    Residue is formalization + thresholds, not open mathematics; the one
    real debt is **Vinogradov–Korobov (MRT (1.12)), not in mathlib.**
 
+## P2b — CITATION HYGIENE (helm-queued 2026-08-21, no urgency, executor-class)
+
+18. **ANCHOR THE TAO CITATIONS AT `1509.05422v2`.** ⭐ **THE FINDING IS EXONERATING, AND THAT IS THE
+    POINT: salt CITES CORRECTLY.** Evidence settled it — our section numbers match **v1/v2 exactly**
+    (Lemma 3.1 / 3.4); **the renumbering arrived at v3.** ⇒ **No proof moves, no statement moves.
+    THE ONLY DEFECT IS A MISSING VERSION ANCHOR.** Comment-level throughout. Class **A**.
+    ⛔⛔ **DEFINE THE POPULATION BEFORE YOU EDIT — THREE HONEST COUNTS EXIST AND THEY ARE NESTED,
+    NOT IN CONFLICT.** Measured here (`Salt/` + `docs/`, control `1503.05121` = 34 files, matcher alive):
+    ```
+      any mention of 1509.05422 ..................... 55 files   (widest)
+      mention WITH a §/Lemma/Prop/Theorem/p.N nearby . 47 files   (my predicate, 80-char window)
+      the helm's "section-number citation" .......... 26 files   (narrowest, predicate not stated here)
+      VERSION-ANCHORED TODAY ........................  0 files   (all three populations)
+      SUBSET CHECK: 47 ⊆ 55, verified by `comm` — the counts nest.
+    ```
+    ⇒ **THE EXECUTOR MUST STATE WHICH PREDICATE IT USED AND REPORT ITS OWN COUNT.** *This is the
+    second time today that two honest counts of one population differed by their PREDICATE rather
+    than by a mistake (compiler's `into 34`: six vs four, digit-vs-spelled ALPHABET). **A count is
+    not a number, it is a number plus the predicate that produced it, and the predicate is the part
+    that goes missing.***
+    📌 **SIBLING SURFACE — MY OWN 08/21 ARTIFACTS, AND THEY ARE WORSE THAN THE TREE'S:** I read
+    **v4** (29 Jul 2016) all day and published **v4 page numbers** (`p.13`, `p.15`, `fn. 5 p.12`)
+    with no anchor, into this queue, `wf3-waveb-design.md`, `2026-08-21-mrt-port-scoping-BRIEF-v2.md`
+    and the match report's erratum. ⛔ **The tree's citations are RIGHT-but-unanchored; mine are
+    from a DIFFERENT VERSION and unanchored, which is the worse defect** — a reader resolving my
+    `p.15` against the v2 the tree assumes lands in the wrong place.
+    🔑 ***AND I SAW IT AT 08:5x AND DID NOT CHASE IT.*** I wrote, in this session, *"Tao's Prop 2.4
+    is on p13 — the docstring says p.12 … off by one, possibly a different version"* — **the correct
+    hypothesis, stated and abandoned.** *A noticed-and-unchased discrepancy is worse than an unseen
+    one: it has already spent the attention that would have caught it.*
+
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
 
 10. TS-3 (a (b,k) wave if resumed — project_tau_sharp) · R3's refuter
