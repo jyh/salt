@@ -437,6 +437,33 @@ private theorem boundary_card_le (H p : ℕ) :
     _ = H - (H - p) := Nat.card_Ico _ _
     _ ≤ p := by omega
 
+/-! ### The `c`-ceiling rider (W-F3 §15 repair 2 — lands in Lean with B-5) -/
+
+/-- **The `c`-ceiling rider.**  W-F3 §14's gate `hεh' : ε·h ≤ c/(32·log 4)` is the binder the
+tree actually enforces at shift `h` (it is `hT3`'s gate, `:607-625`, carrying one factor `h`).
+§14.2 claimed it *implies* K1's `ε²·h < 1` — but that step needs an UPPER bound on `c`, and
+`hbudget_holds` binds `c` existentially exposing only `0 < c`.  This lemma makes the implication
+explicit and honest, with the ceiling as a named hypothesis rather than an assumed one.
+
+`ε²h = ε·(ε h) ≤ ε·c/(32 log 4) ≤ (1/2)·(1/32) = 1/64 < 1`, using `1 ≤ log 4` (i.e. `e ≤ 4`).
+Any ceiling `c ≤ 88` would do; `c ≤ 1` is stated because it is the one the tree can pin cheaply. -/
+theorem epsh_gate_implies_epssq_h {eps c : ℝ} {h : ℕ}
+    (heps0 : 0 < eps) (heps1 : eps ≤ 1 / 2) (hc1 : c ≤ 1)
+    (hgate : eps * (h : ℝ) ≤ c / (32 * Real.log 4)) :
+    eps ^ 2 * (h : ℝ) < 1 := by
+  have hlog4 : (1 : ℝ) ≤ Real.log 4 := by
+    rw [Real.le_log_iff_exp_le (by norm_num)]
+    have := Real.exp_one_lt_d9
+    linarith
+  have h32 : (32 : ℝ) ≤ 32 * Real.log 4 := by nlinarith [hlog4]
+  have hcle : c / (32 * Real.log 4) ≤ 1 / 32 := by
+    calc c / (32 * Real.log 4) ≤ 1 / (32 * Real.log 4) := by gcongr
+      _ ≤ 1 / 32 := one_div_le_one_div_of_le (by norm_num) h32
+  have hepsh : eps * (h : ℝ) ≤ 1 / 32 := le_trans hgate hcle
+  have hrw : eps ^ 2 * (h : ℝ) = eps * (eps * (h : ℝ)) := by ring
+  rw [hrw]
+  nlinarith [hepsh, heps0, heps1]
+
 set_option maxHeartbeats 1600000 in
 -- The budget aggregation (∫F unfold + three window totals + double-sum reduction) is a
 -- large single elaboration; raise the heartbeat ceiling to accommodate it.
