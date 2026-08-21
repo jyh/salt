@@ -308,4 +308,73 @@ theorem twinParitySieve_rosserRemainder_le {lvl B : ℝ} (hlvl : 1 ≤ lvl)
       (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0)) ≤ B := hdisp
   linarith
 
+/-! ## λ-BV wave 1, node B4 — the level's floor and the terminal -/
+
+/-- **B4 (the glue)** — the DANGLING INTERFACE between the two green halves, which no
+build reports: B3's consumer `twinParitySieve_rosserRemainder_le` (`:292`) demands
+`1 ≤ lvl`, and B2's producer `twinParitySieve_brun_lower_ell1` (`:206`) carries the level
+`Q · (exp(…·log z) · 2^(2r−1))` — nothing in the tree supplied `1 ≤` that product.
+
+Each of the three factors is `≥ 1` on its own, so no size input is needed and `minLevel`'s
+own lower bound (`Salt/BrunLower/Defs.lean:114`) is NOT consumed: `2 ^ k ≥ 1` holds for
+every `k : ℕ`, truncation included.  `Q` is the door's own `hQ`; the exponent is
+nonnegative because `LamTwin (1/4) z > 0` (`MertensDischarge.lean:124`) makes
+`(exp Λ − 1)⁻¹ > 0`, and `1 < z` (`one_lt_of_zThresh`, `:164`) makes `log z ≥ 0`. -/
+theorem one_le_ell1_level {z : ℝ} (Q : ℝ) (hQ : 1 ≤ Q)
+    (hz : Salt.BrunLower.zThresh (1 / 4) ≤ z) :
+    1 ≤ Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+          * Real.log z)
+        * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z - 1 : ℕ)) := by
+  have hz1 : (1 : ℝ) < z := one_lt_of_zThresh (by norm_num) le_rfl hz
+  have hLam : 0 < Salt.BrunLower.LamTwin (1 / 4) z :=
+    Salt.BrunLower.LamTwin_pos (by norm_num) le_rfl hz
+  have hexpLam : 1 < Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) := by
+    have h := Real.add_one_le_exp (Salt.BrunLower.LamTwin (1 / 4) z)
+    linarith
+  have hinv : 0 < (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹ :=
+    inv_pos.mpr (by linarith)
+  have hlogz : 0 ≤ Real.log z := Real.log_nonneg hz1.le
+  have hexpE : 1 ≤ Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+      * Real.log z) := Real.one_le_exp (mul_nonneg (by linarith) hlogz)
+  have hpow : (1 : ℝ) ≤ 2 ^ (2 * Salt.BrunLower.minLevel
+      (Salt.BrunLower.LamTwin (1 / 4) z) z - 1 : ℕ) := one_le_pow₀ (by norm_num)
+  exact one_le_mul_of_one_le_of_one_le hQ (one_le_mul_of_one_le_of_one_le hexpE hpow)
+
+/-- **B4 — the terminal of λ-BV wave 1.**  Given the named arithmetic input
+`LiouvilleTwinDisp` at the ℓ¹ door's own level, EITHER the parity-pinned main term is
+capped by the explicit majorant `Btwin` plus the input's `B`, OR the twisted sifted sum is
+strictly positive.  The skeleton is `le_or_gt` on `siftedSum` and `linarith`: B2's door
+gives `mainTerm − rosserRemainder ≤ siftedSum` and B3's assembly gives
+`rosserRemainder ≤ Btwin + B`, and the glue `one_le_ell1_level` is what lets the second be
+applied at the first's level.
+
+The level is kept in the RAW ℕ-truncated form B2's door carries — no ℝ restatement of the
+exponent, no numeral pinned.  `B` is a PARAMETER: wave 1 asserts NOTHING about the size of
+the arithmetic input, so neither disjunct is a twin-prime claim.  The right disjunct is the
+survivor branch — `0 < siftedSum` with weights `1 − λ` and support `∋ m ≥ 3` yields a
+sifted `m` with `Ω(m)` odd — but that Chowla-conversion lemma is NAMED, not built here. -/
+theorem twin_parity_survivor_or_chowla_of_liouvilleTwinDisp {z B : ℝ} (Q : ℝ) (hQ : 1 ≤ Q)
+    (hz : Salt.BrunLower.zThresh (1 / 4) ≤ z)
+    (hzprimes : ∀ p ∈ P.primeFactors, (p : ℝ) < z)
+    (hdisp : LiouvilleTwinDisp N P
+      (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+            * Real.log z)
+          * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+              - 1 : ℕ))) B) :
+    (twinParitySieve N P hP).totalMass * Salt.BrunLower.W (twinParitySieve N P hP)
+          * (1 - 2 * (1 / 4 : ℝ) ^ (2 * 1 : ℕ) * Real.exp (2 * (1 / 4))
+              / (1 - (1 / 4 : ℝ) ^ 2 * Real.exp (2 + 2 * (1 / 4))))
+        ≤ Btwin (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+              * Real.log z)
+            * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+                - 1 : ℕ))) + B
+      ∨ 0 < (twinParitySieve N P hP).siftedSum := by
+  have hdoor := twinParitySieve_brun_lower_ell1 (N := N) (P := P) (hP := hP) (z := z) Q hQ hz
+    hzprimes
+  have hrem := twinParitySieve_rosserRemainder_le (N := N) (P := P) (hP := hP)
+    (one_le_ell1_level (z := z) Q hQ hz) hdisp
+  rcases le_or_gt (twinParitySieve N P hP).siftedSum 0 with hs | hs
+  · exact Or.inl (by linarith)
+  · exact Or.inr hs
+
 end Salt.TwinBar

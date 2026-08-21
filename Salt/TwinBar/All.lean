@@ -284,3 +284,29 @@ open Salt.Tactic in
 #audit_axioms Salt.TwinBar.Btwin
   Salt.TwinBar.twinRem_sum_le
   Salt.TwinBar.twinParitySieve_rosserRemainder_le
+
+/-! ⟦λ-BV WAVE 1 — B4⟧ (`TwinParitySieve`, 2026-08-20).
+
+The terminal, and the interface nobody had proved.  `one_le_ell1_level` is the DANGLING
+INTERFACE between wave 1's two green halves — a gap no build reports: B3's consumer
+`twinParitySieve_rosserRemainder_le` (TwinParitySieve.lean:292) demands `1 ≤ lvl`, B2's
+producer `twinParitySieve_brun_lower_ell1` (:206) carries the level
+`Q · (exp((1 + 2(exp Λ − 1)⁻¹)·log z) · 2^(2r−1))`, and nothing in the tree supplied
+`1 ≤` that product.  All three factors are `≥ 1` separately, so no size input is needed
+and `minLevel_mem` (BrunLower/Defs.lean:114) is NOT consumed — `2 ^ k ≥ 1` holds for every
+`k : ℕ`, ℕ-truncation included.  `Q` is `hQ`; the exponent is nonnegative because
+`LamTwin_pos` (MertensDischarge.lean:124) makes `(exp Λ − 1)⁻¹ > 0` and `one_lt_of_zThresh`
+(TwinParitySieve.lean:164) makes `Real.log z ≥ 0`.
+
+`twin_parity_survivor_or_chowla_of_liouvilleTwinDisp` is then `le_or_gt` on `siftedSum` and
+`linarith`: B2's `mainTerm − rosserRemainder ≤ siftedSum` against B3's
+`rosserRemainder ≤ Btwin + B`, at one and the same level.  The level stays in the RAW
+ℕ-truncated form the door carries — no ℝ restatement of the exponent, no numeral pinned.
+
+Scope: `B` is a PARAMETER.  Wave 1 asserts NOTHING about the size of the arithmetic input,
+so NEITHER disjunct is a twin-prime claim.  The right disjunct is the survivor branch —
+`0 < siftedSum` with weights `1 − λ` and support `∋ m ≥ 3` yields a sifted `m` with `Ω(m)`
+odd — but that Chowla-conversion lemma is NAMED, not built in wave 1. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.one_le_ell1_level
+  Salt.TwinBar.twin_parity_survivor_or_chowla_of_liouvilleTwinDisp
