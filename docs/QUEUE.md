@@ -70,6 +70,30 @@ RESURRECTS THEM:**
   shortcut requires.
 ```
 
+⭐ **WAVE-1a SURFACE CENSUS, run 2026-08-21 16:1x BEFORE writing its brief** (four W-F3 nodes each
+    returned a defect in a brief of mine, every one traceable to a surface I had not measured;
+    `Salt/MR/` = **7,647 declarations**, control alive):
+    ```
+      typical_density_le  (TypicalDensity.lean:873)  LANDED — and it IS Lemma 2.2's per-band content:
+        #{n ∈ (X, 2X] : gcd(bandProd P Q, n) = 1} ≤ C·(log P/log Q)·X
+      supporting: primeBand (:73) · bandProd (:76) · nuDens (:54) · typical_density_le_bounded
+      ⛔ THE SET S ITSELF IS NOT DEFINED. What exists is the ONE-BAND coprimality FILTER inside
+         that statement. E-1's real content = the NAMED SET + the J-FOLD intersection over bands.
+    ```
+    ⛔⛔ **NAME-COLLISION CAUGHT BY READING, NOT ASSUMING: `Salt/MR/SPartCore.lean`'s `sPart` IS NOT
+    MRT's `S`.** It is `sPart F := F ⍟ ellLinInv F`, a **smooth-part Dirichlet-convolution
+    factorization** from the S8 rescope freeze. *A brief that reached for "S-part" would have aimed
+    an executor at an unrelated object with a matching name.*
+    ⭐⭐ **AND THE REDUCTION MAY HAVE ALREADY PAID A COST PROBE 2 BOOKED AS A RESIDUAL.**
+    `typical_density_le` is stated over the **DYADIC BLOCK `Ioc X (2X)`**, while MRT's Lemma 2.2 is
+    over `1 ≤ n ≤ X` — probe 2 therefore listed "the dyadic range change" as residual work.
+    **But the reduced spine's primary, Theorem A.1, averages over `[X, 2X]` — the SAME range.**
+    ⇒ **Against the NEW primary the dyadic form is plausibly the RIGHT form, not a conversion cost.**
+    ⚠️ *Stated as a re-pricing to CHECK, not a saving to bank: probe 2 priced that residual against a
+    Lemma 2.2 the reduction then deleted, and I have not re-derived what the major arc needs.*
+    📌 **`1_S` SURVIVES THE REDUCTION even though Lemma 2.2 does not:** MRT §4 (major arc) reads
+    `∑ 1_S(n)g(n)e(αn)` — **so E-1 is still owed, for the ARC, not for the density lemma.**
+
 11. **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
     `Q₁ := H/W³`) + the Prop 2.4 statement (bound transcription verified exact by the refuters).
     Class **B**. *Shrunk by the reduction: the `g₁ * h` constructions are gone.*
