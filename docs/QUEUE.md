@@ -32,12 +32,12 @@
    08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
    — NEW FILLS from the 08/20 λ-dialect census (seat/briefs/
    2026-08-20-lambda-dialect-CENSUS.md; both pre-ruled, executor-sized):
-5a. **Wire ppLevel_holds** — the landed, sorry-free, ZERO-consumer trophy
+5a. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Wire ppLevel_holds — the landed, sorry-free, ZERO-consumer trophy
    `Salt.Maynard.ppLevel_holds : PpLevel (3999/4000)` (PpAssembly.lean:928)
    substituted into `geh_door_of_obligations` (GehClose.lean:96, live
    `hpp` hypothesis): one import (no cycle, census-verified) + the
    substitution; the GEH door's obligation count drops 15 → 14. Class A/B.
-5b. **Name the untwisted λ trophy** — one theorem composing
+5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
    `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds` so the four inline
    re-compositions at the wall's discharge sites consume a named constant;
    restatement-renames law applies. Class A.
