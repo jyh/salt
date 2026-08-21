@@ -225,7 +225,26 @@ RESURRECTS THEM:**
       VERSION-ANCHORED TODAY ........................  0 files   (all three populations)
       SUBSET CHECK: 47 ⊆ 55, verified by `comm` — the counts nest.
     ```
-    ⇒ **THE EXECUTOR MUST STATE WHICH PREDICATE IT USED AND REPORT ITS OWN COUNT.** *This is the
+    ⇒ **THE EXECUTOR MUST STATE WHICH PREDICATE IT USED AND REPORT ITS OWN COUNT.**
+    ⛔⛔ **AMENDED 2026-08-21 13:0x — DO NOT BLANKET-STAMP `v2`. THE NODE AS I FIRST WROTE IT WOULD
+    HAVE MANUFACTURED FALSE CITATIONS, AND THE TRAP IS IN MY OWN HAND.** Two different citation
+    KINDS live under one arXiv id and they anchor to DIFFERENT VERSIONS:
+    ```
+      the TREE's §3 LEMMA NUMBERS (3.1 decrement, 3.4 circle-method) → match v1 AND v2 ✅
+      MY OWN 08/21 PAGE NUMBERS (p.12/p.13/p.15, fn.5)               → are v4's ⛔ NOT v2's
+    ```
+    ⇒ **ANCHOR PER CITATION, TO THE VERSION ITS OWN NUMBERS MATCH — AND CHECK EACH ONE.** *A blanket
+    `v2` stamp would convert my unanchored-but-true-for-v4 page refs into anchored-and-FALSE ones.*
+    🔑 **This is compiler's lesson from this morning arriving in my own queued node: "paying the debt
+    would have replaced a TRUE sentence with a FALSE one." A hygiene pass that mislabels is strictly
+    worse than the unanchored state it repairs.**
+    ⚠️ **AND A RISK EVIDENCE NAMED THAT THE ANCHOR TEXT MUST CARRY (`seat 9428c9a7`): the FORUM OF
+    MATH PI PUBLISHED numbering is UNVERIFIED** — Cambridge full text was not reachable, and no
+    arXiv version carries a journal/DOI marker. **If the published article carries v3/v4 numbering,
+    a reader arriving BY THE JOURNAL mis-maps every §3 node and our citations give no warning.**
+    ⇒ **The anchor must read `arXiv:1509.05422v2` — naming arXiv explicitly — and the node should
+    leave a one-line caveat that the published numbering is unchecked.** *Anchoring to "v2" alone
+    silently asserts the arXiv line is the only one a reader travels.* *This is the
     second time today that two honest counts of one population differed by their PREDICATE rather
     than by a mistake (compiler's `into 34`: six vs four, digit-vs-spelled ALPHABET). **A count is
     not a number, it is a number plus the predicate that produced it, and the predicate is the part
