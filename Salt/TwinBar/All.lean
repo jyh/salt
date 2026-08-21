@@ -258,3 +258,29 @@ open Salt.Tactic in
   Salt.TwinBar.one_lt_of_zThresh
   Salt.TwinBar.twinParitySieve_hMert
   Salt.TwinBar.twinParitySieve_brun_lower_ell1
+
+/-! ⟦λ-BV WAVE 1 — B3⟧ (`TwinParitySieve`, 2026-08-20).
+
+The remainder majorant and the assembly.  `Btwin lvl = ⌊lvl⌋₊·(1 + log ⌊lvl⌋₊)` is the
+EXPLICIT, unconditional bound for the untwisted half of `rem_split`: `twinRem_sum_le` runs
+`rem_abs_le` (M2.lean:241, `|rem d| ≤ ρ(d)`) → `rho_squarefree_le` (M2.lean:206, `ρ ≤ 2^ω`
+on the squarefree `d ∣ P`) → the M5Assembly.lean:209-239 re-index (`Finset.sum_filter`, then
+`Finset.sum_le_sum_of_subset_of_nonneg` onto `Finset.Icc 1 ⌊lvl⌋₊`) → `sum_two_pow_omega_le`
+(GehPp2.lean:113 — a ROOT-level declaration; that file carries no `namespace`).  The `3^ω`
+constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:240)
+is NOT used.
+
+`twinParitySieve_rosserRemainder_le` is the assembly `rosserRemainder ≤ Btwin lvl + B`: the
+landed `rem_split` (TwinParitySieve.lean:131) plus the triangle inequality, term-by-term under
+`Finset.sum_le_sum` — the pairing works because B1 gave `LiouvilleTwinDisp`
+`rosserRemainder`'s shape verbatim (an `ite` over the FULL divisor index, never a `filter`).
+The idiom is `goldBVSum_le_split` (A1.lean:286, body from :293); the second landed instance is
+`switchSieve_rosserRemainder_split_le` (SwitchBV.lean:316, body from :321).
+
+Scope: a DOOR still.  `Btwin` is explicit and unconditional; `B` is a PARAMETER, and wave 1
+asserts nothing about its size.  No Liouville sum is signed, sized or cancelled anywhere in
+this stanza, and nothing here is a twin-prime claim. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.Btwin
+  Salt.TwinBar.twinRem_sum_le
+  Salt.TwinBar.twinParitySieve_rosserRemainder_le
