@@ -94,7 +94,51 @@ RESURRECTS THEM:**
     📌 **`1_S` SURVIVES THE REDUCTION even though Lemma 2.2 does not:** MRT §4 (major arc) reads
     `∑ 1_S(n)g(n)e(αn)` — **so E-1 is still owed, for the ARC, not for the density lemma.**
 
-11. **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
+11. **WAVE 1a — ✅ LANDED `e856f6c9` 2026-08-21.** New file `Salt/MR/MRTProp24.lean` (286 ln, 24
+    decls) + `MR/All.lean` import & audit block; **316 insertions, 0 deletions**; SEAT-VERIFIED at a
+    forced rebuild (`MRTProp24` and `MR.All` both `Built`, **0 warnings in the new file**, and the 2
+    in `All.lean` are at `:2836`/`:2844` — **outside wave 1a's hunks at `:379` and `:8299+`, so
+    pre-existing**). All audited names `[3 axioms]`, none otherwise.
+    **E-1:** `mrtBandP/Q`, `mrtJ`, `mrtS`, `mrtP1 = W²⁰⁰`, `mrtQ1 = H/W³`, `mrtSProp24`.
+    **E-2:** `MRTProp24Statement : Prop := ∃ C, 0 < C ∧ MRTProp24 C` — **a `Prop`, not a theorem:
+    nothing proves it and nothing assumes it.** Faithfulness *proved*: `mrtBandP_one`/`mrtBandQ_one`
+    reproduce MRT's given `P₁,Q₁` at `j = 1`, and the ceil/floor bridges are **equivalences**, so the
+    reals→naturals cost is zero.
+    ⛔⛔ **MY CENSUS WAS HALF WRONG ON THE FIFTH AXIS OF THE DAY: VOCABULARY DIALECT.** I wrote "the
+    set `S` itself is not defined." ***It was already landed:*** `Salt.MR.MemS` (`Sec9Glue.lean:118`),
+    docstring **"MR's set `S` (§2, p. 6)"**, `∀ j ∈ Icc 1 J, 1 ≤ blockOmega (Pseq j) (Qseq j) n` —
+    **literally MRT Def 2.1's membership condition**, used across **27 files**. Measured:
+    ```
+       'typical' in Sec9Glue.lean      = 0        'MemS' in TypicalDensity.lean = 0
+    ```
+    ***TWO VOCABULARIES, ZERO OVERLAP, ONE OBJECT.*** The corpus files it under **MR's** dialect
+    (`MemS`, `blockOmega`, "block") and never MRT's ("typical", "S"). ⇒ **A CENSUS INHERITS THE
+    DIALECT OF THE FILE IT STARTS FROM.** *Same class as the `cyclotomicUnit` false absence in this
+    seat's memory.* Also already landed and reused, none in my table: `blockOmega`, `pretDistSq`,
+    `costwist`, and **`chiTwist χ t n = χ(n)·n^{it}` — MRT's own UNBARRED twist, so `M(g;X,Q)` needed
+    no new datum.**
+    ⚠️ **NON-VACUITY IS OWED AND IS IN THE STATEMENT'S DOCSTRING SO IT CANNOT BE SPENT SILENTLY:**
+    Lean's Bochner integral is `0` on a non-integrable integrand, so **any proof of (2.4) must land
+    integrability of `x ↦ ‖mrtWindowExpSum …‖` first, or the door is bought with `0 ≤ RHS`.**
+    ⛔ **REGISTRY FINDING: `Salt/MR/All.lean`'s `#audit_axioms` is an EXPLICIT NAME LIST and
+    AUTO-DISCOVERS NOTHING.** A module rooted there gets **no** axiom coverage until its names are
+    added by hand. *This seat's own law — membership is never implied by greenness — found again from
+    the other side.* And the executor counted **by SOURCE LOCATION, not by name**: its first
+    name-filtered grep showed 18 and silently dropped `zero_not_mem_mrtS`.
+    ✅⛔ **THE DYADIC RE-PRICING IS NOW SETTLED — AGAINST MY HOPEFUL READING.** MRT never state the
+    typical-set density over a dyadic block: Lemma 2.2 is `1 ≤ n ≤ X` and Def 2.1's `S` is **always an
+    initial segment**; in A.2/A.3 the dyadic restriction is imposed **on the SUM**, over an
+    initial-segment `S`. ***A.1's `[X,2X]` is the `x`-AVERAGE, not the set*** — so "the dyadic form is
+    now the right form" **does not follow**. *A transfer is structurally available (`typical_density_le`'s
+    `∃ C` binds OUTSIDE `∀ P Q X`, so C is scale-uniform) but is **not free**: both side hypotheses are
+    scale-dependent and fail at small scale ⇒ a **tail** cost, not a re-proof.* ⛔ **And a separate gap
+    the range question must not absorb: `typical_density_le` is ONE BAND; Lemma 2.2's complement is the
+    union over `j ≤ J`, needing `log P_j/log Q_j = (1/j²)(log P₁/log Q₁)` and `Σ 1/j²` — unlanded
+    regardless of range.**
+
+    ⤷ ***THE ORIGINAL WAVE-1a ROW, PRESERVED BYTE-EXACT BELOW*** (annotate, never rewrite —
+      helm's process ruling). Read it as the DISPATCH, not as the record; the record is above.
+    **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
     `Q₁ := H/W³`) + the Prop 2.4 statement (bound transcription verified exact by the refuters).
     Class **B**. *Shrunk by the reduction: the `g₁ * h` constructions are gone.*
 12. **WAVE 1c — E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations: ∫→∑
