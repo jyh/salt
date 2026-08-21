@@ -51,28 +51,52 @@
 (RAW json is the authority). **Match report** `2026-08-21-mrt-match-REPORT.md` is **ANNOTATED,
 never rewritten** — read its erratum section, not its §5, for the VK lines.
 
-11. **WAVE 1a — E-1, E-2, E-5a.** `S`-set + Prop 2.4 statement + the completely-multiplicative
-    constructions (`(μ.pmul g₁) * g₁ = 1`). Class **B**. ⚠️ mathlib has NO completely-multiplicative
-    constructor for `ArithmeticFunction` and NO `pmul`↔Dirichlet-mul lemma — budget for both.
-12. **WAVE 1b — E-5b, the uniform Euler bound** `∑_d |h(d)| d^{−3/4} = O(1)` (MRT p.11, used twice).
-    **Class C — ANALYSIS. Opus tier by the Captain's ruling.** *Not a wave-1 freebie; v1 called
-    wave 1 "no analysis" and that was false.*
-13. **WAVE 1c — E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations, not three;
-    reassembly half already landed: `harmonic_window_bounds`, `LogMeasure.lean:115`) **+ the
-    thresholds** (`H₀mrt(ε)`, `H₊*(ε)`, and the missing `W ≤ H^{1/250}` ⇒ ε-free `H₋` floor).
-    ⛔ **The seam is the budget heads' `∀ extraFloor` binder — INSTANTIATE IT. ZERO edits inside
-    `SpineFinal`; `SpineFinal.lean:461` is a SUPERSEDED terminal.** Class **B/C**.
-14. **WAVE 2 — MRT Lemma 2.2** (the `1_S` removal). Head start is large: `Salt.MR.typical_density_le`
-    (`TypicalDensity.lean:873`) **IS** its per-band content, landed. Residual: the j-union, the
-    dyadic range change, two explicit gates. Class **B/C**.
-15. **BLOCK-C REWIRE** — ⛔ **NOT a campaign; the zero-free supply is ALREADY LANDED IN SALT**
+⚖️ **REDUCED SPINE RATIFIED 2026-08-21 ~11:0x (the Captain, via helm 11:04:36).** Probe 1's
+reduction is ADOPTED into the ratified structure. **PRIMARY: MRT Theorem A.1 + the major arc.**
+
+⛔⛔ **DELETED FROM THE RATIFIED WAVES — DELETED IS NOT FORGOTTEN, AND THE REASON MATTERS SO NOBODY
+RESURRECTS THEM:**
+```
+  MRT Lemma 2.2  (old WAVE 2)      ┐
+  MRT Theorem 2.3                  ├─ all four fall to ONE fact: in the Liouville case c_p = 1,
+  MRT §3, the MINOR arc            │  so Prop 2.4 is needed only at MAJOR-arc α and [23, Lemma 2.2,
+  E-5's split g = g₁ * h           ┘  Thm 2.3] is replaced by the simpler [23, Theorem A.1].
+    └─ and with it E-5b, the class-C Euler bound ∑_d|h(d)|d^{−3/4} = O(1)
+  WHY E-5 GOES: the split existed to reduce MULTIPLICATIVE to COMPLETELY multiplicative. λ already is.
+  SOURCE: Tao 1509.05422 p.15, verbatim, "however" read to its end (it explains why TAO declined the
+  shortcut — general c_p — and does NOT qualify its validity).
+  AND IT IS EXACT: our door is already stated at the major-arc frequencies — CircleMethod.lean:40,
+  our own docstring, "The major-arc frequency set Ξ_H". The Ξ-restriction we carry IS the one the
+  shortcut requires.
+```
+
+11. **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
+    `Q₁ := H/W³`) + the Prop 2.4 statement (bound transcription verified exact by the refuters).
+    Class **B**. *Shrunk by the reduction: the `g₁ * h` constructions are gone.*
+12. **WAVE 1c — E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations: ∫→∑
+    step-function identity · absolute→relative phase re-index · per-block `W`-sandwich ·
+    Definition 2.1 side conditions · the nat-division cover lemma · reassembly — **the reassembly
+    half is LANDED**, `harmonic_window_bounds`, `LogMeasure.lean:115`) **+ the thresholds**
+    (`H₀mrt(ε)` · `H₊*(ε)` · the missing `W ≤ H^{1/250}` ⇒ ε-free `H₋` floor).
+    ⛔ **SEAM: instantiate the budget heads' existing `∀ extraFloor` binder. ZERO edits inside
+    `SpineFinal`; `:461` is a SUPERSEDED terminal.** Class **B/C**.
+13. **THE NEW PRIMARY — MRT THEOREM A.1 + THE MAJOR ARC.** A.1 (`1503.05121` p.20) is the plain
+    `L²` MR short-interval mean-value theorem: **no `1_S`, no `W`, no `d`, no (2.1)/(2.3), no
+    exponential twist.** ⭐ **PARTS ARE LANDED, ASSEMBLY IS NOT** (probe 2): the short-interval
+    mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) / `_concrete`
+    (`:1045`) / `_kernel` (`KernelCarry.lean:1153`) is A.1's own shape; Halász in 65 files with
+    closed numeric instances. **CLASS: assigned after a targeted read (B/C expected). NOT `D`.**
+14. **BLOCK-C REWIRE** — ⛔ **the zero-free supply is ALREADY LANDED IN SALT**
     (`zeta_zero_free_region_pow` θ=3/4 unconditional `Vk/GrowthPow.lean:1044` ·
     `LFunction_zero_free_region_vk` χ²≠1 `MR/VkTwistRegion.lean:377` · `capFreeFloor_all_chi` all-χ
-    `MR/CapFreeAssembly.lean:408` · `docs/CAMPAIGNS.md:19` row 8). **Residual, and it is the whole
-    of Block C:** (a) the **real-character arm** `χ²=1` — `LFunction_real_zero_free_of_disc`
-    (`MR/VkTwistRegionReal.lean:210`) is a HYPOTHESIS-CARRYING STONE, not a closed theorem; (b) the
-    **all-χ wiring** — `lambda_nonpret` (`NonPretClose.lean:49`) is the **χ = 1 case only** while the
-    demand is all-χ. Class **B/C**.
+    `MR/CapFreeAssembly.lean:408` · `docs/CAMPAIGNS.md:19` row 8). Residual: **(a)** the real-character
+    arm `χ²=1` (`MR/VkTwistRegionReal.lean:210` is a HYPOTHESIS-CARRYING STONE); **(b)** the all-χ
+    wiring (`lambda_nonpret`, `NonPretClose.lean:49`, is the **χ = 1 case only**). Class **B/C**.
+    ⛔⛔ **RATIFIED CONDITION, GATING THIS ITEM'S PRICING (the Captain, 11:0x): A.1's `M(f;X)` is
+    (1.6)'s — WITH NO `Q` — while the §3 demand was derived against `M(g;X,Q)`. RE-DERIVE BEFORE
+    PRICING. NO SUBSTITUTION ASSUMED.** *Owner is not open: `Salt/MR/All.lean:387-389` charters the
+    MR-gate campaign to discharge hypothesis (1.6) of Tao 1509.05422 by name.*
+
 16. **BLOCKS A / B — THE TWO ARCS. ⛔ CENSUS-FIRST, CLASSING FORBIDDEN UNTIL BOTH PROBES REPORT**
     (the Captain's ruling 2). ⛔ **THE ARCS ARE LABELLED BACKWARDS IN v1 AND IN COMMON MEMORY:
     MR short-interval technology enters the MAJOR arc (§4, `q ≤ W`, via Appendix A); the MINOR arc
