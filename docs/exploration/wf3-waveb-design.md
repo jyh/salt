@@ -240,3 +240,32 @@ because it corrected me is the same failure as resisting it.*
 **M3 SURVIVES UNCHANGED:** which box lemmas appear in which proofs is independent of the survivor
 rule — measured with a control, and no B-4 object uses one. **M2's measurement survives; only the
 inference I drew from it is withdrawn.**
+
+## §8 — THE TWO CONSTANTS RECONCILED: NOT A CONTRADICTION, A LOOSENESS (2026-08-21 00:1x)
+
+§7 flagged that the independent verdict's entry cost `cM·(1 − ε²h)/2` reads **0 at `a = 1`** where
+I measure **28.1%**. Resolved: **they do not contradict — the verdict's figure is a valid LOWER
+BOUND on the true ratio, everywhere on `[0,1]`.**
+```
+   a      verdict (1−a)/2     true 1 − a/(2·ln 2)    verdict ≤ true
+   0.00      0.5000                1.0000                 YES
+   0.50      0.2500                0.6393                 YES
+   0.90      0.0500                0.3508                 YES
+   1.00      0.0000                0.2787                 YES
+```
+**Normalisation checked against the artifact, not assumed:** `windowVal` is the junk-zero extension
+(`FBridge.lean:60`), so the product vanishes for `j + p·h ≥ H` and a prime contributes over
+`max(0, H − p·h)` of the `H` indices; the ambient scale in `OuterCombine` is `H/log H`. Per prime
+the contribution is `H·(1/p)·(1 − p·h/H)`, and `∑` over the dyadic window gives `H·(ln 2 − a/2)`
+against `H·ln 2` at `a = 0`. ⇒ ratio `1 − a/(2·ln 2)`. **That is where my closed form comes from.**
+
+⛔ **BUT THE LOOSENESS IS NOT HARMLESS, AND THIS IS THE POINT WORTH KEEPING.** `(1 − a)/2`
+**degenerates to ZERO exactly at `a = 1`** — the boundary this wave lives against — while the true
+ratio there is **27.9%**. A floor that vanishes at the operating point does not merely lose
+sharpness: **it reports the wave as impossible where it is in fact 28% funded.** ⇒ *Use the
+verdict's bound for safety anywhere below the boundary; do NOT use it to price `a → 1`.*
+
+⭐ **AND THE METHOD NOTE:** in §7 I flagged this as "either normalisation differs or one of us is
+wrong" and refused to swallow the correction whole **because it had just corrected me**. That was
+right, and it paid: the answer is a THIRD thing neither framing offered — both figures are correct
+and they measure different objects, one a bound and one a value.
