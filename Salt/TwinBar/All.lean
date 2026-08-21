@@ -210,7 +210,7 @@ open Salt.Tactic in
 
 `L N d` is the Liouville sum over the twin values `n(n+2)`, `n ∈ [1,N]`, that `d` divides.
 `rem_split` reads the twisted sieve's remainder as the LANDED twin remainder
-`_root_.rem d N` (M2.lean:249) minus the Liouville discrepancy `L N d − ν(d)·L N 1` — for
+`_root_.rem d N` (M2.lean:236) minus the Liouville discrepancy `L N d − ν(d)·L N 1` — for
 EVERY `d`, with no side condition.  The `d = 0` atom is not a special case: `ν 0 = 0`,
 `L N 0 = 0` and `rem 0 N = 0`, and the proof's final `ring` closes uniformly because
 `(d : ℝ)⁻¹` is an atom to it.  `twinParitySieve_multSum` and `L_one` are its two readings.
