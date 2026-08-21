@@ -69,4 +69,52 @@ theorem fBridge_concentration_decoupled
   rw [hmean] at h
   exact h
 
+/-! ## The decoupling combine at shift `h` (W-F3 wave B, nodes B-2/B-3)
+
+The `h`-ports of the two statements above, against wave A's `fBridgeF_h`.  ⚠️ Both are SITE 2
+of the three synchronised offset spellings (site 1 is `badSet_h`, site 3 is `outer_combine`'s
+own conclusion, still unported): the shifted two-point correlation is written with wave A's
+fixed spelling `windowVal H v (j + (p : ℕ) * h)`. -/
+
+/-- **The decoupled y-mean at shift `h`** (the `h`-port of `fBridgeF_mean`).  The `y`-average
+of the shift-`h` F-bridge is the shifted decoupled two-point correlation
+`∑_{p ∈ 𝒫_H} (1/p) ∑_j v_j v_{j+p·h}`: linearity of the integral over the per-prime
+components plus `fBridgeG_h_mean`.  The `h = 1` original is recovered by
+`fBridgeF_h_one` + `Nat.mul_one` (both rewrites load-bearing; measured). -/
+theorem fBridgeF_h_mean (h : ℕ) (v : Fin H → ℤ) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω => fBridgeF_h eps H h v ω]
+      = ∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) := by
+  classical
+  have hpt : (fun ω => fBridgeF_h eps H h v ω)
+      = fun ω => ∑ p : primeWindow eps H,
+          fBridgeG_h eps H h v p (residueProj eps H p ω) := rfl
+  rw [hpt, integral_finsetSum Finset.univ (fun p _ => Integrable.of_finite)]
+  exact Finset.sum_congr rfl (fun p _ => fBridgeG_h_mean eps H h p)
+
+/-- **Concentration on the shifted decoupled diagonal** (the `h`-port of
+`fBridge_concentration_decoupled`): for a `‖·‖ ≤ 1` window pattern, `F_h` deviates from the
+shifted two-point correlation by `≥ δ` with probability
+`≤ 2 exp(−δ² / (2(ε²H + 1)(2/ε² + 1)²))` — the `h = 1` exponent unchanged, since the variance
+proxy never sees the offset.  Substitution of `fBridgeG_h_mean` into
+`fBridge_h_concentration`. -/
+theorem fBridge_h_concentration_decoupled (h : ℕ)
+    {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (heps : 0 < eps)
+    (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF_h eps H h v ω - ∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+            ∑ j ∈ Finset.range H,
+              (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ)|}
+      ≤ 2 * Real.exp (-δ ^ 2 /
+          (2 * (((eps : ℝ) ^ 2 * (H : ℝ) + 1) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2))) := by
+  have hmean : (∑ p : primeWindow eps H,
+        (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+          fBridgeG_h eps H h v p (residueProj eps H p ω)])
+      = ∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) :=
+    Finset.sum_congr rfl (fun p _ => fBridgeG_h_mean eps H h p)
+  have hq := fBridge_h_concentration eps H h hv heps hne hδ
+  rw [hmean] at hq
+  exact hq
+
 end Salt.Entropy.Chowla

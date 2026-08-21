@@ -755,3 +755,61 @@ entropy transport, `badSet_transport`, or `outer_combine` moves; every `h = 1` d
 about the door's supply, or about twins is made or moved by this node. -/
 #audit_axioms Salt.Entropy.Chowla.badSet_h
   Salt.Entropy.Chowla.badSet_h_one
+
+
+/-! ⟦W-F3 WAVE B, NODES B-2 + B-3⟧ — THE MEAN AND CONCENTRATION CONE AT SHIFT `h`
+(`FBridge`, `Decoupled`, 2026-08-21).
+
+WHAT LANDS.  The eight-object mean/concentration cone at shift `h`, i.e. everything between
+wave A's deterministic box and `outer_combine`.  MEAN: `fBridgeG_h_sum_over_residues` (the
+numerator), `fBridgeG_h_mean`, `fBridgeF_h_mean`.  CONCENTRATION:
+`fBridge_h_concentration_raw`, `fBridge_h_concentration`, `fBridge_h_concentration_sharp`,
+`fBridge_h_concentration_decoupled`, `fBridge_h_concentration_decoupled_sharp`.  Wave A's
+declared boundary named `fBridgeG_h_mean`, `fBridgeG_h_sum_over_residues` and
+`fBridge_concentration*` at `h` as the not-yet-ported list; all of it is now ported.
+
+THE CENSUS, AND WHAT IS *NOT* IN THE CONE.  The Hoeffding substrate is entirely
+offset-blind and needed NO `_h` port: `residueProj_fiber_card` never mentions the pattern
+`v`, and `fBridge_varTerm` / `window_lb` / `fBridge_var_le` / `fBridge_var_le_sharp` are
+statements about the window primes and the box endpoints alone.  All four are REUSED
+VERBATIM.  Consequently the shift costs NOTHING in the concentration grade: the exponents of
+`fBridge_h_concentration` and `fBridge_h_concentration_sharp` are character-for-character the
+`h = 1` exponents.  Every proof script transferred with only names and the product index
+changed; no estimate was re-derived and none was weakened.
+
+⚠️ SITE 2 OF THE THREE SYNCHRONISED SITES IS NOW LANDED.  `fBridgeF_h_mean`,
+`fBridge_h_concentration_decoupled` and `fBridge_h_concentration_decoupled_sharp` spell the
+offset independently of `badSet_h`; all three use wave A's fixed target spelling
+`windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`), byte-identical to site 1.
+SITE 3 — `outer_combine`'s own conclusion (`OuterCombine.lean:363-364`) — still reads
+`j + (p : ℕ)` with no `* h` and is UNTOUCHED: it is node B-4's obligation.
+
+THE `h = 1` RECOVERIES: EXACTLY TWO REWRITES EACH, BUT NOT THE SAME TWO.  B-2/B-3 introduce
+no new DEFINITION, so there is no compat EQUATION to state and none is landed (landing one
+would duplicate an already-frozen theorem).  The obligation that remains is that the `h = 1`
+instance recovers the frozen original, and it was MEASURED, with a negative control per
+rewrite, never asserted.  Result: never `rfl`, always exactly two rewrites, and the PAIR
+VARIES WITH THE SPELLING THE STATEMENT CARRIES —
+`fBridgeG_h_sum_over_residues` / `fBridgeG_h_mean`: `fBridgeG_h_one` + `Nat.mul_one`;
+`fBridgeF_h_mean` / `fBridge_h_concentration_decoupled`: `fBridgeF_h_one` + `Nat.mul_one`;
+the UN-decoupled `fBridge_h_concentration_raw` (and `_concentration`, `_sharp`): the
+statement carries NO product index at all, so `Nat.mul_one` does nothing and the pair is
+`fBridgeF_h_one` + `fBridgeG_h_one` instead.  Controls, all run: omitting `Nat.mul_one`
+leaves `j + ↑p * 1` against `j + ↑p`; omitting `fBridgeG_h_one` leaves
+`fBridgeG_h eps H 1 v p` against `fBridgeG eps H v p`; omitting `fBridgeF_h_one` leaves
+`fBridgeF_h eps H 1 v` against `fBridgeF eps H v`; with no rewrite at all BOTH residuals
+appear together.
+
+SCOPE.  Eight statements, no new definitions, no new axioms.  Nothing about `badSet_transport`,
+the entropy transport, `outer_combine`, `(2.11)`, or the terminal moves; those are B-4 and
+wave C.  Every `h = 1` declaration in `FBridge` and `Decoupled` stays byte-frozen and the new
+names sit BESIDE them.  No claim about Chowla, about the door's supply, or about twins is made
+or moved by these nodes. -/
+#audit_axioms Salt.Entropy.Chowla.fBridgeG_h_sum_over_residues
+  Salt.Entropy.Chowla.fBridgeG_h_mean
+  Salt.Entropy.Chowla.fBridgeF_h_mean
+  Salt.Entropy.Chowla.fBridge_h_concentration_raw
+  Salt.Entropy.Chowla.fBridge_h_concentration
+  Salt.Entropy.Chowla.fBridge_h_concentration_sharp
+  Salt.Entropy.Chowla.fBridge_h_concentration_decoupled
+  Salt.Entropy.Chowla.fBridge_h_concentration_decoupled_sharp
