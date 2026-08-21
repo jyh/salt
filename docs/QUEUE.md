@@ -212,6 +212,16 @@ RESURRECTS THEM:**
 
 ## P2b — CITATION HYGIENE (helm-queued 2026-08-21, no urgency, executor-class)
 
+⛔ **VERSION PROVENANCE FOR THIS DOCUMENT'S TAO CITATIONS (added 2026-08-21 13:1x).** Every page
+reference to `1509.05422` written by this seat on 08/21 (`p.12`, `p.13`, `p.15`, `fn. 5`) was read
+from **arXiv:1509.05422v4 (29 Jul 2016)** — the version this seat fetched. ⚠️ **THE TREE'S §3 LEMMA
+numbers (3.1 decrement, 3.4 circle-method) are v1/v2's and DO NOT match v4** (evidence, `seat
+9428c9a7`). ⇒ **Two citation kinds under one id, anchored to different versions: page refs here are
+v4; lemma numbers in `Salt/` are arXiv v1/v2.** *Do not blanket-stamp either onto the other — see
+`docs/QUEUE.md` P2b, which I had to amend for exactly this.* ⚠️ The **Forum of Math Pi published**
+numbering is UNVERIFIED.
+
+
 18. **ANCHOR THE TAO CITATIONS AT `1509.05422v2`.** ⭐ **THE FINDING IS EXONERATING, AND THAT IS THE
     POINT: salt CITES CORRECTLY.** Evidence settled it — our section numbers match **v1/v2 exactly**
     (Lemma 3.1 / 3.4); **the renumbering arrived at v3.** ⇒ **No proof moves, no statement moves.
