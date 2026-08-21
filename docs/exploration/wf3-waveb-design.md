@@ -639,8 +639,14 @@ leaf, D3's constant**)"*. ⇒ **§14.3's "a node acquiring `hεh'` must name whi
 there is one leaf, two names.**
 ⛔ **BUT THE CEILING IS REAL AND UNCLOSED:** the tree exposes only `0 < c` and `1/4 ≤ c` (the
 existential witness is hidden), so **`ε²h < 1` is UNDERIVED from `hεh'` as §14.2 states it** — the
-implication needs an UPPER bound on `c`. **Repair: a pinned two-sided twin, or a `c ≤ 1` rider.
-Class A/B.** *§14.2 wrote "⇒" where the tree supplies only "≥". The step is true at every `c` the
+implication needs an UPPER bound on `c`. ✅⭐ **LANDED IN LEAN 2026-08-21 12:0x, ahead of the wave, per the helm's rider order:
+`Salt.Entropy.Chowla.epsh_gate_implies_epssq_h` (`HBudget.lean`, immediately above `hbudget_holds`)
+— `0 < ε`, `ε ≤ 1/2`, **`c ≤ 1`**, `ε·h ≤ c/(32·log 4)` ⊢ `ε²·h < 1`.
+`saltbuild EXIT=0`, module **Built** (not Replayed), `#print axioms` =
+`[propext, Classical.choice, Quot.sound]`.** *The docstring records that any ceiling `c ≤ 88`
+suffices and `c ≤ 1` is stated only because it is the one the tree can pin cheaply — the bound is
+not load-bearing at its stated strength.* ⇒ **The gap §15 stated honestly is now CLOSED in the
+kernel, and B-5's executor inherits the implication instead of having to invent it.** *§14.2 wrote "⇒" where the tree supplies only "≥". The step is true at every `c` the
 tree will actually produce and is not currently derivable from what it EXPOSES — exactly the
 dangling-interface shape, in my own repair.*
 
