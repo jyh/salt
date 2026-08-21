@@ -340,3 +340,48 @@ BOTH, and it currently claims both.**
 AND 3 ARE OPEN.** The block is not dispatchable. *Its own gate passing is exactly the agreeing
 result the streak law says to distrust — and an independent lens found three fatals in a block that
 had just cleared both of my own lenses.*
+
+## §11 — FATAL 3 RESOLVED, IN EXACTLY ONE DIRECTION: **K4 IS WRONG. B-5 IS RESTORED.**
+*(2026-08-21 09:1x. The direction is FORCED by measurement, not chosen.)*
+
+**K4's stated reason is that `fBridge_of_singleCorr` "consumes full-window `hmert` while the mass
+comes from survivors" — a full-window-vs-survivor MISMATCH. Measured, that mismatch is EMPTY under
+the block's own retained hypothesis.**
+```
+  primeWindow eps H  =  { p prime : ε²H/2 < p ≤ ⌊ε²H⌋ }        PrimeWindow.lean:26
+  p survives shift h ⟺ p·h < H  ⟺  p < H/h                     (windowVal junk-zero, FBridge.lean:60)
+  window top ⌊ε²H⌋ ≤ ε²H,  so  EVERY window prime survives ⟺ ε²H < H/h ⟺ ε²·h < 1
+```
+⭐⭐ **THE CONDITION "EVERY WINDOW PRIME SURVIVES" IS *LITERALLY* `hεh : ε²·h < 1` — NOT
+APPROXIMATELY, IDENTICALLY.** So under the binder K1 makes mandatory, the full window and the
+survivor set **COINCIDE**, and K4's vacuity argument has nothing left to stand on. *This is also
+exactly why K1 had to be STRICT: at `ε²h = 1` a prime may hit `p·h = H` and the survivor set
+empties — the corner §K1 already flagged as "outside the strict window".*
+
+⇒ **K4's premise is not merely unproven; it is REFUTED BY THE SAME INEQUALITY K1 REQUIRES.** The
+block did not carry two independent claims that happened to clash — **it carried a hypothesis whose
+content is the negation of one of its own deletions.**
+
+**THE MECHANISM, and it is the general lesson:** K4 entered at `ba1c3c07` ("B-0 and B-5 deleted");
+§1 was rewritten at `0d5e1f13` ("the cM prime entry cost was an artifact of the mislabelled figure
+and is withdrawn"). **`ba1c3c07` is an ancestor of `0d5e1f13` — K4 PREDATES the measurement that
+destroys it, and was never re-run against it.** K4 was formed while §1 still believed the truncation
+`p ≤ H/h` bound and cost 3.6×; when that figure was withdrawn, the deletion it justified stayed.
+⛔ **A WITHDRAWAL MUST SWEEP ITS OWN DOWNSTREAM. Withdrawing a FIGURE is not local either — every
+deletion that figure justified has to be re-run, and nothing in the document points from the figure
+to the deletions it bought.** *This is the "a gate that checks each claim never checks the SET" law
+in its sharpest form: K4 alone passed, K1 alone passed, and one line of arithmetic shows the set is
+inconsistent.*
+
+**CONSEQUENCE, the single direction:** B-5 is **RESTORED** as a proving task — it is the node that
+builds `h211_h`, the h-generalized producer of `hεh` that K1 says every object acquires and that
+currently has **zero hits in the tree** (`h211_of_logChowla2Fails`, `ChowlaFailure.lean:120`, is the
+`h = 1` producer only). With B-5 restored, B-4 no longer ships an undischargeable binder.
+⛔ **The alternative direction — accept K4 and declare B-4 broken — is CLOSED, not deprioritised:
+it would require the full window to differ from the survivor set, which `hεh` forbids.**
+
+⛔⛔ **STATUS WORDING IS UNCHANGED AND STILL RULED: "v4's OWN gate complete; independent fatals 1
+and 3 OPEN."** *Fatal 3's DIRECTION is now determined and fatal 1 has its derivation
+(`FBridge.lean:60`, per-index), but neither FIX is landed — fatal 1 needs the citation swap, fatal 3
+needs B-5 written back into §2. **The block remains NOT DISPATCHABLE, and declaring otherwise is a
+ruling, not mine.***
