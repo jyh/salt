@@ -132,3 +132,38 @@ The survivor condition is NOT `p ≤ H/h`. `windowVal H x (j + p*h) = 0` unless 
 **VERDICT: v4 SURVIVES ITS SELF-GATE.** Remaining risk is concentrated in M1 (is `ε²h < 1`
 reachable at the ε the budget forces?) and M3 (B-4's unpriced cost) — **both arithmetic nobody has
 run**, and neither is a citation or a matcher defect.
+
+## §5 — M1 ANSWERED, AND IT COUPLES THIS WAVE TO THE MRT DOOR (2026-08-20 23:4x)
+
+**M1 asked: is `ε²h < 1` reachable at the ε the budget forces?** ✅ **YES, for ANY `h`** — and the
+answer is structural, not numerical.
+
+**① `ε` HAS NO LOWER BOUND BUT POSITIVITY.** `Regime.lean:77-78` gives `0 < eps`, `eps ≤ 1/2`;
+`SpineFinal.lean:413` pins `ε ≤ cE/(32·log 4)`. **Both are CEILINGS.** The only constraint pushing
+`ε` up is `hcoprime : a ≤ eps²·Hlo/2` (`Regime.lean:91`) — and it is relieved by **inflating
+`Hlo`**, which `chowlaRegime_exists_param` supplies for any threshold (MRT recon #2). ⇒ Choose
+`ε < 1/√h` and take `Hlo` large enough; `ε²h < 1` holds for any `h`. **K1 costs nothing in
+reachability.**
+
+**② ⛔ BUT IT IS NOT FREE, AND THE PRICE IS PAID IN A DIFFERENT LANE.** Every form of the door
+threshold in the spine is **LINEAR IN `ε`**:
+```
+  δ₀ = c₀·ε/4                       SpineFinal.lean:1113, :1311   (c₀ = cD3/(16·C))
+  δ₀ = ε/(2K)                       SpineFinal.lean:416, :513
+  δ₀ = (cD3/(16·C))·ε/(2K)          SpineFinal.lean:739
+```
+⇒ **Shrinking `ε` shrinks `δ₀` proportionally, and a SMALLER `δ₀` is a STRONGER MRT door.**
+With `ε < 1/√h`:
+```
+  δ₀  <  c₀ / (4·√h)        ⇒  THE DOOR'S REQUIRED STRENGTH GROWS LIKE √h IN THE SHIFT.
+```
+
+⭐⭐ **THE COUPLING, STATED PLAINLY BECAUSE NEITHER BLOCK STATES IT:** **W-F3 wants `ε` SMALL (to
+admit a larger shift `h`); the MRT door wants `ε` LARGE (to admit a weaker `δ₀`). They pull the
+same regime parameter in opposite directions.** The W-F3 block and the MRT-door recon were written
+as separate lanes and share one `ε`.
+⚠️ **NOT claimed:** that this kills either lane, or that any particular `h` is out of reach — the
+door is a *proven* theorem (recon #3), so a `√h`-stronger instance is a formalisation cost, not a
+new conjecture. **What IS claimed: any future choice of `h` in this wave is simultaneously a choice
+about how strong an MRT instance the program must eventually formalise, and that trade has been
+invisible because the two lanes were priced apart.**
