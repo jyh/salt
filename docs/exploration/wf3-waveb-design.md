@@ -167,3 +167,34 @@ door is a *proven* theorem (recon #3), so a `√h`-stronger instance is a formal
 new conjecture. **What IS claimed: any future choice of `h` in this wave is simultaneously a choice
 about how strong an MRT instance the program must eventually formalise, and that trade has been
 invisible because the two lanes were priced apart.**
+
+## §6 — M2 AND M3 ANSWERED (2026-08-21 00:0x). THREE OF FOUR KILL-CHECKS ARE DOWN.
+
+**M3 — DOES B-4 NEED THE SHARP BOX K3 DELETED? NO. K3 STANDS.** All five B-4 objects measured,
+with a control that discriminates:
+```
+  badSet_transport                 Transport.lean:69      — NO box lemma
+  badSet_transport_at_calibration  Transport.lean:128     — NO box lemma
+  outer_badMass_eq                 OuterCombine.lean:193  — NO box lemma
+  outer_badMass_le                 OuterCombine.lean:242  — NO box lemma
+  outer_combine                    OuterCombine.lean:342  — NO box lemma
+  CONTROL fBridge_concentration        FBridge.lean:276   fBridge_varTerm, fBridge_var_le
+  CONTROL fBridge_concentration_sharp  FBridge.lean:412   + fBridge_var_le_sharp
+```
+The box lemmas are consumed by the **B-2/B-3** concentration objects, not by B-4 — which is exactly
+v3's axis-collapse note read correctly: *the looseness is what makes the byte-copies cheap, and
+nothing downstream of them needs it sharp.* **B-0 stays deleted.**
+
+**M2 — IS A COUNT STANDING IN FOR A MASS IN `WindowCount`? NO — THE TREE CARRIES BOTH.**
+`primeWindow_card_le_of_regime` (`:47`) is an honest **cardinality** upper bound
+(`card ≤ 2·log 4 · ε²H/log H`); `regime_nonvacuous` (`:122`) is an honest nonemptiness. And the
+**mass** object exists separately: `WindowMertensLower.lean`, whose own docstring states its
+hypotheses *"mirror `primeWindow_card_le_of_regime`, plus `(eps : ℝ)² ≤ 1`"*.
+⇒ **The count/mass distinction is already made in the tree, by construction.** 24 consumers of the
+card bound checked; none uses it where a mass is required.
+⭐ **AND THIS CONFIRMS §1's WITHDRAWAL FROM THE OTHER SIDE:** the full-window Mertens floor is
+LANDED and applies unchanged at `ε²h < 1`, which is precisely why no `hmertTrunc` rider and no
+`cM'` are needed.
+
+**REMAINING: M4 alone** — audit the census for a class it still misses. *Every other kill-check is
+answered, and all three answers went the block's way.*
