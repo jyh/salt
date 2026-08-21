@@ -126,4 +126,93 @@ theorem hreduce_close (eps : ℚ) (H : ℕ) {x ω : ℕ}
     mul_nonneg (by linarith) (mul_nonneg hSPnn hHnn)
   nlinarith [hmain, hbudget, hprod]
 
+/-! ### W-F3 B-5 — the `hreduce` discharge at shift `h`
+
+`h` enters this file ONLY through the two carried objects: the gap-`h` correlation
+`X_h = ∫ λ(n)λ(n+h)` and the shift-`h` bridge `fBridgeF_h`.  Every inequality below is
+`h`-free arithmetic on named reals, so the `h = 1` scripts are reused verbatim — this file's
+port is the cheapest of the five and its cost is exactly the restatement. -/
+
+/-- **STEP-0 at shift `h`, machine-checked: the shift-`h` frozen `hreduce` is consumable into
+the shift-`h` `hprop26` WITHOUT re-freeze.**  The `h`-family port of `consumability_probe`,
+against `fBridge_of_singleCorr_h`.  As at `h = 1`, the single fixed term `HRED` is shared
+across all `δ`: no `δ`-dependent binder appears at any shift. -/
+theorem consumability_probe_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
+    (hlog : 1 ≤ Real.log (H : ℝ)) {cM : ℝ} (hcM : 0 < cM)
+    (hmert : cM / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
+    (HRED : (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+          * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|
+        ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+            ∂(logMeasure x ω)|) :
+    ∀ {δ : ℝ}, 0 < δ →
+        δ ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)| →
+        ∃ c : ℝ, 0 < c ∧
+          c * (δ * (H : ℝ) / Real.log (H : ℝ))
+            ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+                ∂(logMeasure x ω)| :=
+  fun {δ} hδ hseed =>
+    fBridge_of_singleCorr_h (δ := δ) h eps H hlog hcM hmert HRED hδ hseed
+
+/-- **STMT2 at shift `h`, closing arithmetic (Step 4).**  The `h`-family port of
+`hreduce_close`: from the gap-`h` seed `hseed : ε/2 ≤ |X_h|`, the total-error budget
+`hbudget : ETOT ≤ (1/4)·SP·H·ε`, and `hmain : SP·H·|X_h| − ETOT ≤ |∫F_h|`, the shift-`h`
+frozen conclusion `(1/2)·SP·H·|X_h| ≤ |∫F_h|` follows.
+
+⛔ NOTE ON THE BUDGET CONSTANT.  The `1/4` here is the SAME `1/4` as at `h = 1` and is NOT
+where the shift is paid: this lemma is `h`-free arithmetic (`nlinarith` on named reals), and
+the shift's whole cost sits upstream, inside `hbudget`'s own `1/8 + 1/16 + 1/16 = 1/4`
+decomposition (`HBudget.lean`), whose boundary slice is the one that acquires a factor `h`. -/
+theorem hreduce_close_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
+    (hseed : (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|)
+    {ETOT : ℝ}
+    (hbudget : ETOT ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
+        * (H : ℝ) * (eps : ℝ))
+    (hmain : (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+          * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)| - ETOT
+        ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+            ∂(logMeasure x ω)|) :
+    (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+        * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+            * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|
+      ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+          ∂(logMeasure x ω)| := by
+  set SP : ℝ := ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) with hSP
+  set X : ℝ := |∫ n, (ArithmeticFunction.liouville n : ℝ)
+      * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)| with hX
+  have hSPnn : (0 : ℝ) ≤ SP := Finset.sum_nonneg (fun p _ => by positivity)
+  have hHnn : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg H
+  have hprod : (0 : ℝ) ≤ (2 * X - (eps : ℝ)) * (SP * (H : ℝ)) :=
+    mul_nonneg (by linarith) (mul_nonneg hSPnn hHnn)
+  nlinarith [hmain, hbudget, hprod]
+
+/-- **C1 — the `h = 1` compat for the closing arithmetic.**  Stated at the LANDED conclusion
+of `hreduce_close` and discharged by `hreduce_close_h 1`.  The bridge object needs the
+definitional compat `fBridgeF_h_one`; the correlation index does not (`n + 1` IS the `h := 1`
+instance of `n + h`).  The rewrite is `simp only` rather than `rw`: `fBridgeF_h eps H 1 …`
+occurs under the integral binder `∫ n, …`, which `rw` cannot enter. -/
+theorem hreduce_close_h_one (eps : ℚ) (H : ℕ) {x ω : ℕ}
+    (hseed : (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)|)
+    {ETOT : ℝ}
+    (hbudget : ETOT ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
+        * (H : ℝ) * (eps : ℝ))
+    (hmain : (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+          * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)| - ETOT
+        ≤ |∫ n, fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n)
+            ∂(logMeasure x ω)|) :
+    (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+        * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+            * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)|
+      ≤ |∫ n, fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n)
+          ∂(logMeasure x ω)| := by
+  have := hreduce_close_h 1 eps H hseed hbudget (ETOT := ETOT)
+    (by simp only [fBridgeF_h_one]; exact hmain)
+  simp only [fBridgeF_h_one] at this
+  exact this
+
 end Salt.Entropy.Chowla

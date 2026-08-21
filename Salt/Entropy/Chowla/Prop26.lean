@@ -194,4 +194,127 @@ theorem fBridge_of_singleCorr (eps : ℚ) (H : ℕ) {x ω : ℕ}
     nlinarith [mul_le_mul_of_nonneg_right hkey hHnn, hHnn, hSPnn, hXnn, hlogpos.le]
   exact hle1.trans hreduce
 
+/-! ### W-F3 B-5 — Prop 2.6 at shift `h`
+
+The `h`-family beside the landed `h = 1` objects.  `windowVal_liouvilleWindow`,
+`residueProj_residueWindow` and `abs_liouville_le_one` are already offset-agnostic and are
+REUSED unchanged — the shift moves only the SECOND factor's window index, `j + p` ↦ `j + p·h`
+(wave A's fixed target spelling), and the gate `p ∣ n+j+1` is `h`-free. -/
+
+/-- **STMT2 at shift `h`, structural spine (2a): the pointwise F-bridge unfold.**  The
+`h`-family port of `fBridgeF_liouville_apply` against `fBridgeF_h` (`FBridge.lean:525`).
+For each window prime `p` and each `j < H` the SAME gate `p ∣ n+j+1` selects
+`λ(n+j+1)·(windowVal … (j + p·h))`; the second factor still carries the junk-zero boundary
+convention, now at the shifted index (`λ(n+j+p·h+1)` when `j + p·h < H`, else `0`).
+
+The `h = 1` proof script survives verbatim: it reads the gate (which is `h`-free) and the
+FIRST factor's index `j` (also `h`-free), never the second factor's offset. -/
+lemma fBridgeF_h_liouville_apply (h : ℕ) (eps : ℚ) (H n : ℕ) :
+    fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+      = ∑ p : primeWindow eps H, ∑ j ∈ Finset.range H,
+          if ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0 then
+            (ArithmeticFunction.liouville (n + j + 1) : ℝ)
+              * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ)
+          else 0 := by
+  unfold fBridgeF_h
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  rw [residueProj_residueWindow]
+  unfold fBridgeG_h
+  refine Finset.sum_congr rfl (fun j hj => ?_)
+  have hjH : j < H := Finset.mem_range.mp hj
+  have hgate : ((j + 1 : ℕ) : ZMod (p : ℕ)) = -((n : ℕ) : ZMod (p : ℕ))
+      ↔ ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0 := by
+    rw [show ((n + j + 1 : ℕ) : ZMod (p : ℕ))
+          = ((j + 1 : ℕ) : ZMod (p : ℕ)) + ((n : ℕ) : ZMod (p : ℕ)) from by push_cast; ring,
+        add_eq_zero_iff_eq_neg]
+  by_cases hc : ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0
+  · rw [if_pos (hgate.mpr hc), if_pos hc, windowVal_liouvilleWindow H n j hjH]
+  · rw [if_neg (fun hq => hc (hgate.mp hq)), if_neg hc]
+
+/-- **C1 — the `h = 1` compat for the pointwise unfold.**  Stated at the LANDED conclusion of
+`fBridgeF_liouville_apply` (offset `j + (p : ℕ)`, no `* h`) and discharged from the
+`h`-family member at `h := 1`.
+
+⚠️ THE OFFSET IS NOT `rfl`-GRADE HERE.  `(p : ℕ) * 1` is STUCK for a variable `p`
+(`Nat.mul` recurses on its SECOND argument), so the two sides differ syntactically and the
+route matters.  This proof takes the CHEAP route, through the landed definitional compat
+`fBridgeF_h_one` (`FBridge.lean:540`), which absorbs the `Nat.mul_one` once at the level of
+`fBridgeG_h` — so no rewrite under the `∑ p ∑ j` binders is needed at all. -/
+theorem fBridgeF_h_liouville_apply_one (eps : ℚ) (H n : ℕ) :
+    fBridgeF_h eps H 1 (liouvilleWindow H n) (residueWindow eps H n)
+      = ∑ p : primeWindow eps H, ∑ j ∈ Finset.range H,
+          if ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0 then
+            (ArithmeticFunction.liouville (n + j + 1) : ℝ)
+              * (windowVal H (liouvilleWindow H n) (j + (p : ℕ)) : ℝ)
+          else 0 := by
+  rw [fBridgeF_h_one, fBridgeF_liouville_apply]
+
+/-- **STMT2 at shift `h`, structural spine (2b): the per-pair dilation reduction.**  The
+`h`-family port of `perPair_dilation`: `dilation_error_div` specialized to the gap-`h`
+correlation `f_{p,j,h}(n) = λ(n+j+1)·λ(n+j+p·h+1)` at `M ↦ 1`.  `dilation_error_div` is
+GENERIC in `f`, so the shift costs nothing analytically — the only change is which function
+is fed in, and the `|f| ≤ 1` side-condition is the same two-factor triangle bound. -/
+lemma perPair_dilation_h {x ω : ℕ} (h p j rj : ℕ) (hp : 1 ≤ p) (hrj : rj ≤ x / ω)
+    {Z : ℝ} (hZ : 0 < Z) :
+    |(∑ n ∈ (Finset.Ioc (x / ω) x).filter (fun n => n % p = rj),
+        ((ArithmeticFunction.liouville (n + j + 1) : ℝ)
+          * (ArithmeticFunction.liouville (n + j + p * h + 1) : ℝ)) / (n : ℝ)) / Z
+        - 1 / (p : ℝ) *
+          ((∑ m ∈ ((Finset.Ioc (x / ω) x).filter (fun n => n % p = rj)).image (fun n => n / p),
+              ((ArithmeticFunction.liouville (p * m + rj + j + 1) : ℝ)
+                * (ArithmeticFunction.liouville (p * m + rj + j + p * h + 1) : ℝ)) / (m : ℝ))
+            / Z)|
+      ≤ 2 * 1 * (rj : ℝ) / (p : ℝ) ^ 2 / Z :=
+  dilation_error_div hp hrj
+    (f := fun n => (ArithmeticFunction.liouville (n + j + 1) : ℝ)
+        * (ArithmeticFunction.liouville (n + j + p * h + 1) : ℝ)) (M := 1)
+    (fun k => by
+      rw [abs_mul]
+      exact (mul_le_one₀ (abs_liouville_le_one _) (abs_nonneg _) (abs_liouville_le_one _)))
+    hZ
+
+/-- **STMT2 / Tao Prop 2.6 at shift `h` (frozen conclusion, `h`-family).**  The `h`-family
+port of `fBridge_of_singleCorr`: from the gap-`h` single-correlation lower bound
+`hseed : δ ≤ |X_h|` (`X_h = ∫ λ(n)λ(n+h) ∂logMeasure`, produced by `singleCorr_of_fails_h`),
+the Mertens LOWER bound `hmert` (node D3, `h`-free), and the shift-`h` reduction `hreduce`
+(the `fBridgeF_h` integral dominates half the main term `SP·H·|X_h|`), the shift-`h` F-bridge
+expectation obeys the `c·(δ·H/log H)` lower bound with `c = cM/2`.
+
+`h` enters ONLY through the two carried objects (`X_h` and `fBridgeF_h`); the constant chase
+is the `h = 1` script verbatim, which is the content of the claim that the `h`-port is free
+below the `hreduce` binder. -/
+theorem fBridge_of_singleCorr_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
+    (hlog : 1 ≤ Real.log (H : ℝ)) {cM : ℝ} (hcM : 0 < cM)
+    (hmert : cM / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
+    (hreduce : (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+          * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|
+        ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+            ∂(logMeasure x ω)|)
+    {δ : ℝ} (hδ : 0 < δ)
+    (hseed : δ ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|) :
+    ∃ c : ℝ, 0 < c ∧
+      c * (δ * (H : ℝ) / Real.log (H : ℝ))
+        ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
+            ∂(logMeasure x ω)| := by
+  set SP : ℝ := ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) with hSP
+  set X : ℝ := |∫ n, (ArithmeticFunction.liouville n : ℝ)
+      * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)| with hX
+  have hlogpos : (0 : ℝ) < Real.log (H : ℝ) := by linarith
+  have hHnn : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg H
+  have hSPnn : (0 : ℝ) ≤ SP := by
+    rw [hSP]; exact Finset.sum_nonneg (fun p hp => by positivity)
+  have hXnn : (0 : ℝ) ≤ X := abs_nonneg _
+  have hcM_le : cM ≤ SP * Real.log (H : ℝ) := (div_le_iff₀ hlogpos).mp hmert
+  have hkey : cM * δ ≤ SP * X * Real.log (H : ℝ) := by
+    calc cM * δ ≤ (SP * Real.log (H : ℝ)) * X :=
+          mul_le_mul hcM_le hseed hδ.le (mul_nonneg hSPnn hlogpos.le)
+      _ = SP * X * Real.log (H : ℝ) := by ring
+  refine ⟨cM / 2, by linarith, ?_⟩
+  have hle1 : (cM / 2) * (δ * (H : ℝ) / Real.log (H : ℝ)) ≤ (1 / 2) * SP * (H : ℝ) * X := by
+    rw [mul_div_assoc', div_le_iff₀ hlogpos]
+    nlinarith [mul_le_mul_of_nonneg_right hkey hHnn, hHnn, hSPnn, hXnn, hlogpos.le]
+  exact hle1.trans hreduce
+
 end Salt.Entropy.Chowla
