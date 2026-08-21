@@ -101,7 +101,37 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   needs **THREE synchronized sites**: `badSet_h`'s predicate, the concentration lemma's deviation
   set, and `outer_combine`'s own conclusion (`OuterCombine.lean:363-364`, which spells the offset
   independently). Wave A fixed the target spelling at `:150`.
-- **B-2 + B-3 — the mean and concentration cone (8 objects).** Byte-copies of the `h = 1` scripts,
+- **B-2 + B-3 — the mean and concentration cone (8 objects).** ✅ **LANDED `2c6c138d` 2026-08-21,
+  ALL EIGHT `[3 axioms]`, SEAT-VERIFIED AT A FORCED REBUILD** (three oleans deleted; `FBridge`,
+  `Decoupled`, `Entropy.All` each genuinely `Built`; zero warnings; **diff PURELY ADDITIVE — 318
+  insertions, 0 deletions, so every `h = 1` declaration is byte-frozen**).
+  ⛔⛔ **MY DISPATCH CENSUS WAS SHORT BY ONE, AND THE TREE HAD ALREADY NAMED THE MISSING OBJECT.**
+  The 8th is **`fBridgeG_sum_over_residues`** (`FBridge.lean:176`) → `fBridgeG_h_sum_over_residues`;
+  `fBridgeG_h_mean` **cannot be proved without it**. ***It was ALREADY LISTED in wave A's own
+  not-yet-ported roster at `All.lean:713`.*** 🔑 *I censused with a NAME filter — `concentration`,
+  `mean` — and the 8th matches NEITHER. **A name filter cannot see a conclusion property**, and the
+  tree's OWN enumeration would have handed it to me. The design block's "8" was right and my grep
+  was wrong; I flagged the 7-vs-8 gap rather than resolving it silently, which is the only reason
+  it was caught rather than shipped.*
+  ⭐ **AND TWO THINGS THE BRIEF GOT WRONG IN SHAPE, BOTH WORTH BANKING:**
+  **(a) THERE IS NO COMPAT LEMMA TO LAND HERE.** All 8 are THEOREMS — B-2/B-3 introduce no new
+  DEFINITION, so there is no compat *equation* to state; landing one would duplicate a frozen
+  theorem. *My brief assumed B-1's def+compat pattern would repeat. It does not: the compat
+  obligation here is a RECOVERY, measured in scratch, not a landing.*
+  **(b) "EXPECT MORE THAN TWO" WAS CAUTIOUS ON THE WRONG AXIS. It is always TWO — but NOT THE SAME
+  TWO.** `fBridgeG_h_sum_over_residues` / `_mean` → `fBridgeG_h_one` + `Nat.mul_one`;
+  `fBridgeF_h_mean` / `_decoupled` → `fBridgeF_h_one` + `Nat.mul_one`; **the three
+  `fBridge_h_concentration*` → `fBridgeF_h_one` + `fBridgeG_h_one`, with `Nat.mul_one` DOING
+  NOTHING — those statements carry no product index at all.** *All 7 single-drop negative controls
+  failed with the exact predicted residual. **The COUNT was stable and the IDENTITY varied — I
+  warned about the count.***
+  ⭐⭐ **THE RESULT WORTH CARRYING TO B-4/B-5: THE SHIFT COSTS NOTHING IN THE CONCENTRATION GRADE.**
+  The exponents of `fBridge_h_concentration` and `_sharp` are **character-for-character** the `h = 1`
+  exponents. And **five objects are `v`-free and `h`-free and are REUSED VERBATIM** —
+  `residueProj_fiber_card`, `fBridge_varTerm`, `window_lb`, `fBridge_var_le`, `fBridge_var_le_sharp`
+  — no `_h` port exists or is needed (measured, not assumed).
+  ✅ **SITE 2 LANDED byte-identical to wave A's target (`OuterCombine.lean:150`) and to `badSet_h`.
+  SITE 3 (`OuterCombine.lean:363-364`) UNTOUCHED, still `(j + (p : ℕ))` — B-4's.** Byte-copies of the `h = 1` scripts,
   built once already by the v2 refuter at `EXIT=0`. ONE executor, Class C. ⛔ **Each acquires
   `hεh' : ε·h ≤ c/(32·log 4)` (§14), NOT `hεh : ε²h < 1`** — and must name which `c`. *The
   `hmertTrunc` rider stays withdrawn.* ✅ **R-3 measured that B-1…B-4 carry NO `1/2` and their box
