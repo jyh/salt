@@ -1227,4 +1227,35 @@ theorem mrtA7_factors_same_norm (t t₁ X : ℝ) :
         / (1 + (((t₁ - t : ℝ) : ℂ)) * Complex.I)‖ := by
   rw [← mrtA7_factor_conj t t₁ X, RCLike.norm_conj]
 
+/-- **MRT's display (A.9) is Lemma A.6 evaluated AT THE CENTRE.**  MRT p.25 reduce
+A.6 to
+
+  `U := (1/X)|∑_{𝒥} (−1)^{#𝒥} ∑_{n≤X} g_𝒥(n)f(n)n^{−it₁}| ≪ exp(−½M(f;X)) + (log X)^{−1/16}`
+
+and that is exactly `MRTLemmaA6` at `t := t₁`: the factor `1/(1+|t−t₁|)` becomes
+`1/(1+0) = 1`, and the two-term right-hand side is unchanged otherwise.
+
+⭐ **This is what Lemma A.7 BUYS, stated as a Lean step rather than as prose: A.7
+moves the problem from EVERY `t ∈ T₀` to the SINGLE POINT `t₁`.**  The membership
+`t₁ ∈ T₀` is immediate — `|t₁ − t₁| = 0` clears the radius — but it needs `T₀`'s
+low-`M` branch, which `mrtT0` encodes by being `∅` otherwise. -/
+theorem mrtA6_at_centre {C : ℝ} (hA6 : MRTLemmaA6 C)
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (X t₁ : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) (hX : 0 < X) (hlogX : 0 ≤ Real.log X)
+    (ht₁ : |t₁| ≤ X)
+    (hlow : ¬ ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X)) :
+    ‖(1 / (X : ℂ)) * ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+        (-1 : ℂ) ^ 𝒥.card
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n‖
+      ≤ C * (Real.exp (-(1 / 2) * mrtM f X)
+              + (Real.log X) ^ (-(1 : ℝ) / 16)) := by
+  have hmem : t₁ ∈ mrtT0 (mrtM f X) t₁ X X := by
+    unfold mrtT0
+    rw [if_neg hlow]
+    refine ⟨ht₁, ?_⟩
+    simp only [sub_self, abs_zero]
+    exact Real.rpow_nonneg hlogX _
+  have h := hA6 f Pseq Qseq J X t₁ t₁ hf hX hmem
+  simpa using h
+
 end Salt.MR
