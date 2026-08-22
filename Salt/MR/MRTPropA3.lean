@@ -1942,6 +1942,49 @@ theorem mrtA3_split_bound_interval {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ
   rw [intervalIntegral.integral_of_le hle]
   exact hband
 
+/-! ### Discharging the integrability side conditions
+
+`mrtA3_band_bound_of_A6` carries two `IntegrableOn` hypotheses.  Running the standing
+check — *for every hypothesis a design carries, name the node that produces it* — over
+its own binders, those two were the only ones with **no producer anywhere**: `hf`, `hX`,
+`hlogX`, `hT` come from A.3's own statement, `hr`/`hrX` are the caller's choice, `hC`
+comes from `MRTLemmaA6Statement`'s `∃ C > 0`, and `hT1` is carried deliberately.
+
+They are not fundamental, only unproved: the integrand is a FINITE sum of continuous
+functions of `t` (`gJ` does not depend on `t` at all; `costwist` is an exponential), and
+both `T₀` and `T₁` sit inside the compact band `[−T,T]`. -/
+
+/-- `T₀` sits inside the band, on either branch — the companion to `mrtT1_subset_Icc`. -/
+theorem mrtT0_subset_band {M t₁ X T : ℝ} : mrtT0 M t₁ X T ⊆ Set.Icc (-T) T := by
+  unfold mrtT0
+  split_ifs
+  · exact Set.empty_subset _
+  · intro t ht
+    have h : |t| ≤ T := ht.1
+    rw [Set.mem_Icc, ← abs_le]
+    exact h
+
+/-- **A.6's OBJECT IS CONTINUOUS IN `t`.**  `gJ` carries no `t`; the whole `t`-dependence
+is the exponential `costwist (−t)`, and the sums are finite. -/
+theorem continuous_a3_twistedSum (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (X : ℝ) :
+    Continuous (fun t : ℝ => ‖(1 / (X : ℂ)) * ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+        (-1 : ℂ) ^ 𝒥.card
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n‖) := by
+  unfold costwist
+  continuity
+
+/-- `h0int` discharged: a continuous `F` has `F²` integrable on `T₀`. -/
+theorem integrableOn_sq_mrtT0_of_continuous {F : ℝ → ℝ} (hF : Continuous F)
+    (M t₁ X T : ℝ) :
+    MeasureTheory.IntegrableOn (fun t => F t ^ 2) (mrtT0 M t₁ X T) MeasureTheory.volume :=
+  ((hF.pow 2).continuousOn.integrableOn_compact isCompact_Icc).mono_set mrtT0_subset_band
+
+/-- `h1int` discharged: a continuous `F` has `F²` integrable on `T₁`. -/
+theorem integrableOn_sq_mrtT1_of_continuous {F : ℝ → ℝ} (hF : Continuous F)
+    (M t₁ X T : ℝ) :
+    MeasureTheory.IntegrableOn (fun t => F t ^ 2) (mrtT1 M t₁ X T) MeasureTheory.volume :=
+  ((hF.pow 2).continuousOn.integrableOn_compact isCompact_Icc).mono_set mrtT1_subset_Icc
+
 /-- **A.3's APPENDIX BRANCH, ASSEMBLED.**  The band bound over `[−T,T]`, derived from
 Lemma A.6 on the `T₀` side and an assumed `T₁` bound, for `T ≤ X`.
 

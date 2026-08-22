@@ -8425,6 +8425,10 @@ open Salt.Tactic in
   Salt.MR.mrtT1_subset_Icc
   Salt.MR.integral_sq_le_of_pointwise_on_mrtT1
   Salt.MR.mrtA3_band_bound_of_A6
+  Salt.MR.mrtT0_subset_band
+  Salt.MR.continuous_a3_twistedSum
+  Salt.MR.integrableOn_sq_mrtT0_of_continuous
+  Salt.MR.integrableOn_sq_mrtT1_of_continuous
   Salt.MR.mrtA3_split_bound
   Salt.MR.band_eq_Icc
   Salt.MR.mrtA3_split_bound_interval
