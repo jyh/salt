@@ -246,6 +246,18 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15cc. ✅ **(A.4)'s ℂ-LEVEL HALF SALVAGED — `af54accc` 2026-08-22 05:0x. THE WALL IS CONFIRMED TO BE THE
+    CAST LAYER ALONE.** `exp_add_exp_neg_eq_two_cos` + `exp_neg_avg`, both `[3 axioms]`, zero warnings,
+    `✔ Built`.
+    🔑 **After attempt 3 I CLAIMED the wall was the cast layer and not the algebra. This TESTS that
+    claim rather than repeating it:** the two ℂ-level lemmas compile on their own, first try, exactly
+    as predicted. ⇒ ***A POST-MORTEM CLAIM CONVERTED INTO A LANDED FACT.***
+    ⇒ **What `costwist_conj_avg` still needs is the cast bridge and NOTHING else** —
+    `costwist` → `starRingEnd` → `ofReal`. **Strictly smaller than the obstacle flagged an hour ago, and
+    now the only one.**
+    📌 *Salvaging the half that built is not a 4th attempt at the flagged node; it is shrinking what the
+    node needs. The node stays flagged at row 15aa.*
+
 15bb. ⭐⭐⭐ **THE MATH SEAT HAD NO MONITOR — ALONE IN THE FLEET. ARMED 2026-08-22 04:4x.**
     The helm went looking for a beat driver and found **there is no beat driver anywhere** — no cron,
     no launchd agent, no script sending keys into a pane. The `MATH CADENCE BEAT.` ghost text is the
