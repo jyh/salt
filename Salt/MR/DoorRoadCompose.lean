@@ -169,4 +169,43 @@ theorem sum_progression_le_sum_Ioc {f : ℕ → ℝ} (hf : ∀ n, 0 ≤ f n)
     _ ≤ ∑ n ∈ Finset.Ioc a b, f n :=
         Finset.sum_le_sum_of_subset_of_nonneg himg (fun n _ _ => hf n)
 
+/-! ## Seam 3, the MODULUS half — the capstone is applicable at the strata's reduced modulus
+
+Seam 3 has two independent halves, and only one of them is the index alignment above.
+
+`strataTerm` sums over `χ : DirichletCharacter ℂ (q / d)` — the **reduced** modulus, one per
+divisor `d ∣ q`.  The capstone `M4ChiDyadicRowMeanSq` quantifies `∀ q, 0 < q → (q : ℝ) ≤
+arcDen 12 H → ∀ χ : DirichletCharacter ℂ q`.  So firing it at the strata's characters means
+instantiating its `q` at `q / d`, which incurs exactly two obligations:
+`0 < q / d` and `(q / d : ℝ) ≤ arcDen 12 H`.
+
+Both are discharged below.  **The modulus half of seam 3 lines up; the index-alignment half
+(`sum_progression_le_sum_Ioc`'s `hin`) does NOT, and remains open.**
+-/
+
+/-- The reduced modulus is positive at every divisor of a nonzero modulus. -/
+theorem strata_modulus_pos {q d : ℕ} (hd : d ∈ q.divisors) : 0 < q / d := by
+  have hdvd : d ∣ q := (Nat.mem_divisors.mp hd).1
+  have hq0 : q ≠ 0 := (Nat.mem_divisors.mp hd).2
+  have hdpos : 0 < d := Nat.pos_of_mem_divisors hd
+  exact Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hq0) hdvd) hdpos
+
+/-- The reduced modulus stays inside the arc's admissible range — the cap is inherited from
+`q`, monotonically, at every `d`.  *No divisor can push a stratum outside the arc.* -/
+theorem strata_modulus_within_arc {q d H : ℕ} (hq : (q : ℝ) ≤ arcDen 12 H) :
+    ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
+  le_trans (by exact_mod_cast Nat.div_le_self q d) hq
+
+/-- **THE MODULUS HALF OF SEAM 3, ASSEMBLED** — at every divisor `d ∣ q` of an
+arc-admissible modulus, the capstone's own two side conditions hold at the reduced modulus
+`q / d`, so `M4ChiDyadicRowMeanSq` may be fired on the stratum's characters.
+
+⛔ This is **not** seam 3.  It is the half of seam 3 that is about moduli.  The other half —
+that the dyadic progression's bases land inside a ladder block — is `hin` in
+`sum_progression_le_sum_Ioc` and is **still a hypothesis**. -/
+theorem strata_capstone_applicable {q d H : ℕ} (hd : d ∈ q.divisors)
+    (hq : (q : ℝ) ≤ arcDen 12 H) :
+    0 < q / d ∧ ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
+  ⟨strata_modulus_pos hd, strata_modulus_within_arc hq⟩
+
 end Salt.MR
