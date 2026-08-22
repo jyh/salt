@@ -8389,6 +8389,9 @@ open Salt.Tactic in
   Salt.MR.mrtA8_of_mvt
   Salt.MR.mrtA8_mvt_step
   Salt.MR.mrtA8
+  Salt.MR.mrtG
+  Salt.MR.MRTLemmaA5
+  Salt.MR.MRTLemmaA5Statement
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
