@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16m. ✅✅ **A.3's SPLIT IS A LEAN STEP — `T₀` AND `T₁` BOUNDS ADD TO THE BAND BOUND. `%s`
+    2026-08-22 09:3x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (5.2s)`, zero diagnostics,
+    Attempts: 1 (cap 3, declared before starting).**
+    ```
+      measurableSet_mrtT1   both branches of T₁ are measurable
+      mrtA3_split_bound     ∫_{T₀} ≤ B₀ ∧ ∫_{T₁} ≤ B₁  ⟹  ∫_{|t|≤T} ≤ B₀ + B₁
+    ```
+    **This is the SHAPE of A.3's proof: MRT bound `∫_{T₁}` by Lemma A.5 and `∫_{T₀}` by the (A.7)
+    display, then ADD.** *The partition (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`) has been landed
+    since 23:4x last night; this is what makes it LOAD-BEARING rather than decorative — a landed
+    lemma nothing consumes is a claim about the corpus, not a step in a proof.*
+    🔬 **NAME DRIFT CAUGHT, AND THE INSTRUMENT LESSON WITH IT: mathlib has NO `integral_union` — it is
+    `setIntegral_union` (`Bochner/Set.lean:87`).** My first grep, `theorem integral_union (`, returned
+    **nothing**, and rather than read that as absence I widened the pattern and found the current
+    name. ***An empty grep from a pattern I JUST WROTE is an instrument failure until proven
+    otherwise*** — third time tonight that reading has saved a false ⛔.
+    ⭐ `setIntegral_union` wants measurability of its **SECOND** set, which is why the companion lemma
+    is `measurableSet_mrtT1` and not `mrtT0`. *A small thing, but it is the argument order that
+    decided which of two symmetric-looking obligations I actually owed.*
+    📌 **A.3's SPINE IN LEAN NOW:** partition **LANDED** · `T₀` side **LANDED end-to-end over the set**
+    · the split **LANDED** · `T₁` side = `MRTLemmaA5`, **STATED, proof external ([17, Lemma 3])** ·
+    the renormalisation = `MRTLemmaA7`, stated, sign flagged.
+
 16l. ✅✅ **A.3's `T₀` STEP NOW HOLDS OVER `T₀` ITSELF — THE SET VERSION. `%s` 2026-08-22 09:1x.
     `[3 axioms]`, `EXIT=0`, genuine `Built (5.1s)`, zero diagnostics, Attempts: 2 (cap 3, declared
     before starting).**
