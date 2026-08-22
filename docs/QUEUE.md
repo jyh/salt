@@ -179,7 +179,26 @@ RESURRECTS THEM:**
     (`H₀mrt(ε)` · `H₊*(ε)` · the missing `W ≤ H^{1/250}` ⇒ ε-free `H₋` floor).
     ⛔ **SEAM: instantiate the budget heads' existing `∀ extraFloor` binder. ZERO edits inside
     `SpineFinal`; `:461` is a SUPERSEDED terminal.** Class **B/C**.
-13. **THE NEW PRIMARY — MRT THEOREM A.1 + THE MAJOR ARC.** A.1 (`1503.05121` p.20) is the plain
+13. ✅✅ **THE PRIMARY IS NOW STATED IN LEAN — `5f8eba2b` 2026-08-21.** `Salt/MR/MRTThmA1.lean`
+    (85 ln, 4 decls), rooted with **all four names registered in the same edit**; forced build
+    `EXIT=0`, `✔ Built Salt.MR.MRTThmA1 (25s)`, zero warnings, all four `[3 axioms]`.
+    **`MRTThmA1Statement := ∃ C, 0 < C ∧ MRTThmA1 C` — a `Prop`: nothing proves it, nothing assumes it.**
+    ⭐ **TRANSCRIBED FROM `docs/sources/1503.05121v3.pdf` ITSELF**, Appendix A — *not* from
+    `docs/sources/mrt_extract.md`, this repo's own summary, which exists and was deliberately not used
+    as the authority. **THREE OPEN CAMPAIGN QUESTIONS CLOSED BY THE SOURCE TEXT:**
+    **(1)** MRT write *"let `M(f;X)` be as in **(1.6)**"* **in the statement itself** ⇒ the `M`-vs-`M(Q)`
+    separation is confirmed FROM THE SOURCE, not merely re-derived, and `lambda_nonpret`'s `χ = 1` is
+    the SPECIFIED shape. **(2)** ⭐ the `x`-integral is `(1/X)∫_X^{2X}`, **the average over the LOCATION
+    `x`**, with the short interval of length `h` ⇒ **source confirmation of the dyadic erratum: A.1's
+    `[X,2X]` is NOT a typical-set range.** **(3)** ⭐ the middle error term is `(loglog h)²`, **SQUARED**,
+    where Thm 1.7 carried `loglog h`.
+    ⭐ **A STRENGTHENING NOW IN VIEW (MRT's remark right after the statement):** *the factor
+    `exp(−M)·M` may be replaced by `exp(−M)`, per the remark following Prop A.3.* **The landed form is
+    the WEAKER as-stated one, deliberately — a door should be the weakest admissible statement.**
+    ⚠️ **NON-VACUITY OWED** (in the file's docstring so it cannot be spent silently): Lean's Bochner
+    integral is `0` on a non-integrable integrand ⇒ any proof must land integrability on `[X,2X]` FIRST.
+    *Statement below untouched — status field only.*
+    — **MRT THEOREM A.1 + THE MAJOR ARC.** A.1 (`1503.05121` p.20) is the plain
     `L²` MR short-interval mean-value theorem: **no `1_S`, no `W`, no `d`, no (2.1)/(2.3), no
     exponential twist.** ⭐ **PARTS ARE LANDED, ASSEMBLY IS NOT** (probe 2): the short-interval
     mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) / `_concrete`
