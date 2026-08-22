@@ -246,6 +246,31 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16k. ✅✅✅ **A.3's `T₀` STEP IS ASSEMBLED — MRT's "IMMEDIATELY IMPLIES", COMPOSED. `%s`
+    2026-08-22 09:0x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.0s)`, zero diagnostics, Attempts: 1
+    (cap of 3 declared before starting).**
+    `mrtA3_T0_integral_bound` : from `|F| ≤ A/(1+|t−t₁|) + B` on the centred interval,
+    **`∫_{t₁−r}^{t₁+r} F² ≤ 4A² + 4B²r`.**
+    ```
+      composed from FIVE BEATS of shape work:
+        mrtA3_T0_pointwise_sq                   the squaring
+        integral_inv_one_add_abs_sub_sq_le_two  the 1/(1+|t−t₁|)² mass, centred
+        intervalIntegral.integral_mono_on       monotonicity under the majorant
+        integral_add / integral_const / integral_const_mul   the split
+    ```
+    ⭐⭐ **AND THE CONSTANTS LAND ON MRT's:** with `A = exp(−½M)`, `B = (log X)^{−1/16}`,
+    `r = (log X)^{1/16}` this reads `4exp(−M) + 4(log X)^{−1/16}` — MRT's
+    `1/exp(M) + (log X)^{1/16−2/16}` up to the absolute constant. ***THE `+1/16` IN THEIR
+    UNSIMPLIFIED EXPONENT IS EXACTLY THE `r` IN THE SECOND TERM HERE*** — which is what made decoding
+    that exponent at 08:07 worth doing rather than simplifying it away.
+    ⚠️ **LIMITS, IN THE DOCSTRING AND NOT ONLY HERE: interval form · integrability of `F²` taken as a
+    hypothesis · `T₀` is a SET, and while `mrtT0_subset_Icc` places it inside this interval, the
+    set-integral version needs `setIntegral` monotonicity, which is NOT done.**
+    🔑 **ATTEMPTS: 1 — AND THAT IS THE RETURN ON THE SHAPE WORK, NOT LUCK.** *Five beats went into
+    turning correct mathematics into consumable form (distance→inclusion, one-sided→two-sided,
+    uncentred→centred, ∀t→point). The composition that consumed them went first try. **The cost was
+    paid in advance, and it is visible only as an absence of cost here.***
+
 16j. ✅ **THE INTEGRAL BOUND CENTRED AT `t₁` — THE LAST SHAPE CHANGE BEFORE ASSEMBLY. `%s`
     2026-08-22 09:0x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.8s)`, zero diagnostics, Attempts: 1
     (cap of 3 declared before starting).**
