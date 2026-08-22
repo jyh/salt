@@ -503,4 +503,57 @@ theorem mrtA4ii_high_M_target (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 
   have hconst := mrtA4ii_sixteenth_suffices
   nlinarith [hbranch, hconst, hLL, hε]
 
+/-! ## The `X = 1` dichotomy — the helm's paper argument, run in the kernel
+
+At `X = 1` the constraint `√X ≤ X₀ ≤ X` forces `X₀ = 1`, and **both** band bounds
+collapse to `1` by different routes: `exp (√(log 1)) = exp 0 = 1` and
+`exp ((log 1)^(1/2)) = exp 0 = 1` (the latter via `zero_rpow`, `1/2 ≠ 0`).
+The dichotomy on `J` is then exhaustive:
+
+* `J = 0` — `MRTBandCount`'s second clause at `j = 1` forces `Qseq 1 > 1`, while
+  `MRTBands`' first clause forces `Qseq 1 ≤ 1`. **Inconsistent**: nothing to
+  witness.
+* `J ≥ 1` — `1 ∈ Icc 1 J`, so `MemS` demands a prime `p ∣ n` with `p ≤ Qseq 1 ≤ 1`.
+  **No prime is `≤ 1`**, so `MemS` fails for every `n`, `S = ∅`, and both sides are
+  `0`.
+
+⭐⭐ **AND THE FINDING IS THAT THIS GUARD IS ACCIDENTAL, NOT DESIGNED.** It holds
+only because `MemS` quantifies over `Icc 1 J` **starting at `j = 1`**, and
+`MRTBands`' first clause pins **`Qseq 1` specifically** — while clauses 2 and 3 of
+`MRTBands` start at `j = 2`.  ***Had `MemS` started at `j = 2`, the guard would
+evaporate and `X = 1` would need explicit largeness exactly as `MRTLemmaA4ii`
+did.***
+
+🔑 **A.1 survives because it CARRIES `10 ≤ h ≤ X`.  A.3 survives because two
+unrelated clauses happen to pull opposite ways on one index.  Those are not the
+same kind of safe, and only the first kind survives editing.** -/
+
+/-- No prime is `≤ 1`, so a block capped at `1` contains none. -/
+theorem blockOmega_eq_zero_of_le_one {P Q n : ℕ} (hQ : Q ≤ 1) :
+    blockOmega P Q n = 0 := by
+  unfold blockOmega BlockPrimeDivs
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro p hp
+  have hp2 : 2 ≤ p := (Nat.prime_of_mem_primeFactors hp).two_le
+  omega
+
+/-- **THE `J ≥ 1` BRANCH.**  With `Qseq 1 ≤ 1`, membership of `S` is impossible. -/
+theorem memS_false_of_Qseq_one_le_one {Pseq Qseq : ℕ → ℕ} {J n : ℕ}
+    (hJ : 1 ≤ J) (hQ : Qseq 1 ≤ 1) : ¬ MemS Pseq Qseq J n := by
+  intro h
+  have h1 := h 1 (Finset.mem_Icc.mpr ⟨le_refl 1, hJ⟩)
+  rw [blockOmega_eq_zero_of_le_one hQ] at h1
+  omega
+
+/-- **THE `J = 0` BRANCH.**  At `X₀ = 1` the two band conditions contradict:
+`MRTBands` caps `Qseq 1` at `1`, `MRTBandCount` at `J = 0` forces it above `1`. -/
+theorem mrtBands_bandCount_incompatible_at_one {η : ℝ} {Pseq Qseq : ℕ → ℕ}
+    (hb : MRTBands 1 η Pseq Qseq) (hc : MRTBandCount 1 Qseq 0) : False := by
+  have hcap : ((Qseq 1 : ℕ) : ℝ) ≤ 1 := by
+    have := hb.1
+    simpa [Real.log_one, Real.sqrt_zero, Real.exp_zero] using this
+  have hgt := hc.2 1 (by norm_num)
+  refine hgt ?_
+  simpa [Real.log_one, Real.zero_rpow (by norm_num : (1:ℝ)/2 ≠ 0), Real.exp_zero] using hcap
+
 end Salt.MR
