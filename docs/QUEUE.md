@@ -246,6 +246,28 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15zz. ✅ **MRT LEMMA A.8's ELEMENTARY HALF IS LANDED, WITH THE HARD STEP NAMED RATHER THAN HIDDEN.
+    `%s` 2026-08-22 07:4x. `[3 axioms]`, `EXIT=0`, plain `✔` build tick, zero diagnostics, first attempt.**
+    ```
+      mrtA8_of_mvt (α θ : ℝ) (hα : 0 ≤ α)
+        (hmvt : exp α + (exp 1 / 2)·θ² ≤ exp (√(α² + θ²)))          ← MRT's OWN first move, p.27
+        : exp α + exp (−α) − 2·cos θ ≤ exp (√(α² + θ²))              ← Lemma A.8
+    ```
+    **The reduction, proved unconditionally:** `cos θ ≥ 1 − θ²/2` and `e^{−α} ≤ 1` collapse the claim
+    to `2 − e^{−α} + θ²(e/2 − 1) ≥ 0`, immediate from `2 ≥ e^{−α}` and `e ≥ 2`.
+    ⚠️ **THE SPLIT IS WHAT MRT's PROOF ACTUALLY CONTAINS, AND `hmvt` IS CARRIED AS A NAMED HYPOTHESIS
+    ON PURPOSE.** *I priced this lemma "class A/B, no arithmetic apparatus" from its STATEMENT before
+    opening its proof and withdrew that at 15ss. Naming the MVT step keeps the REMAINING cost visible
+    instead of absorbed into a "landed" tick* — it still needs a `deriv` computation and a
+    second-derivative minimisation of `½x^{−1/2}e^{√x}` locating `x = 1`. **Not claimed here.**
+    ⭐ **AND THE INGREDIENT CAME FROM THE CORPUS, NOT FROM GUESSING A MATHLIB NAME:**
+    `Real.one_sub_sq_div_two_le_cos` is already used at `HalaszCore.lean:110`. *My earlier
+    pattern-guess searches of mathlib for that bound returned NOTHING — the corpus knew the name and
+    my guesses did not. Ask the corpus first; it has already solved the lookup.*
+    📌 **APPENDIX-A STATE AFTER THIS:** A.4(i) proved · A.4(ii) repaired, high-M arm proved, far arm
+    open · A.5 no Prop · A.6 stated · A.7 stated **with a flagged sign discrepancy** · **A.8 half
+    proved, MVT step named.**
+
 15yy. ⛔⛔⛔ **THE VK COUNT DISAGREEMENT RESOLVES, AND IT REFUTES THE PREMISE OF BOTH SIDES' QUESTION:
     69 AND 74 WERE NOT TWO COUNTS OF ONE POPULATION. 2026-08-22 07:3x.**
     The helm decomposed their 91 (`vinogradov` 74 · `korobov` 8, inside the 74 · `van der corput` 19)
