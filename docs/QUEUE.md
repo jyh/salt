@@ -246,6 +246,25 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15n. ✅✅ **A3-2 IS LANDED — `ea499b92` 2026-08-21 23:4x.** `mrtT0`, `mrtT1`,
+    `mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1` — four names, registered in the same action, all
+    `[3 axioms]`, zero warnings.
+    **THE CONTENT IS THAT BOTH BRANCHES PARTITION `{|t| ≤ T}`.** MRT handle `T₁` first and `T₀` second;
+    *that is a proof about the whole range only if the two pieces COVER it and do not OVERLAP.* Both
+    proved, uniformly in the branch — including the degenerate high-`M` branch where `T₀ = ∅`.
+    ⭐ **The A3-0 gate was real, not bookkeeping:** every set here is written in terms of `|t − t₁|`, so
+    none of it could be STATED before `t₁` was known to exist.
+    ⛔ **NAME DEFECT: `le_or_lt` is gone from this mathlib.** Replaced with `by_cases` + `not_le.mp`.
+    *Second renamed-lemma hit tonight after `pow_le_pow_left`, and the same fix applied both times:*
+    ***prefer the TACTIC that cannot be renamed over the LEMMA that can.***
+    ⭐ **AND A CROSS-SEAT NUMBER RESOLVED RATHER THAN ARGUED:** the helm counted `isMinOn` in **8** files
+    where I counted **7**. ***Both are right.*** **My A3-0 landing at 23:16 added the eighth file, and I
+    measured at 23:13 — before committing.** 🔑 *A census of a tree you are ALSO EDITING carries a
+    timestamp: "same query, two answers" can mean **the world moved**, not that an instrument
+    disagreed — and here the world moved because I acted on the measurement.*
+    ⇒ **A.3 remaining: A3-1 (cheap, producer landed) · A3-3 (Lemma A.4, class C, `g_𝒥` landed) ·
+    A3-4 (A.5/A.6/A.7 — still unread, still unpriced).**
+
 15m. ✅✅ **A3-0 IS LANDED — `37155040` 2026-08-21 23:1x, FIRST ATTEMPT.** `exists_min_pretDistSq` +
     `continuous_pretDistSq_costwist`, registered in the same action, both `[3 axioms]`, zero warnings.
     **`∃ t₁, |t₁| ≤ X ∧ pretDistSq f (costwist t₁) X = mrtM f X`** — MRT's *"the value of `t` which
