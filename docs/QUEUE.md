@@ -246,6 +246,32 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15d. ✅✅ **PROPOSITION A.3 ITSELF IS STATED — `6159b715` 2026-08-21 19:4x.** `Salt/MR/MRTPropA3.lean`
+    (90 ln, 4 decls), all four names registered in the same edit; `✔ Built (3.1s)`, zero warnings,
+    all `[3 axioms]`. **`MRTPropA3Statement := ∃ C, 0 < C ∧ MRTPropA3 C` — a `Prop`; nothing proves it,
+    nothing assumes it.**
+    ⭐⭐ **THE CHAIN IS NOW ONE SET OF LEAN OBJECTS, NOT THREE WITH COMMENTS BETWEEN THEM:**
+    ```
+      A.3      ∫ ‖dpolyA f S t‖² ≤ C·(T/(X/Qseq 1) + 1)·( … + mrtM f X/exp(mrtM f X) + … )
+      hMsup    hMsup_of_propA3_shape   PROVED (3ec62940), Msup = 3B, integrability DERIVED
+      Block C  mrtM_lam_lower (3c6bd64f) feeds the bracket's `mrtM` term at `f = lam`
+    ```
+    *The conclusion is written with `dpolyA` and `mrtM` — the consumer's own objects — so the chain is
+    checkable by grepping ONE identifier rather than by believing a comment.*
+    ⛔ **STATED AGAINST THE ABSTRACT BAND CONDITIONS (`MRTBands`, `MRTBandCount`), NOT Definition 2.1** —
+    MRT define the appendix's `S` by the `Q₁` cap + (A.1) + (A.2), then remark Definition 2.1's sequence
+    *"can be verified to obey the above estimates"*. **Definition 2.1 is a WITNESS, not the definition;**
+    stating A.3 against it would have coupled the statement to one witness and narrowed it silently.
+    *(`mrtP1` — wave 1a's `W²⁰⁰` — has ZERO occurrences in the file: the two theorems' parameters are
+    not conflated.)*
+    ⭐ **Membership is the landed `MemS`** — MRT's *"at least one prime factor in each `[Pⱼ,Qⱼ]`, `j ≤ J`"*
+    is `∀ j ∈ Icc 1 J, 1 ≤ blockOmega (Pseq j) (Qseq j) n`, verbatim. **Third source confirmation today
+    of an object this corpus already held under MR's vocabulary.**
+    ⚠️ **OWED, NAMED IN TWO DOCSTRINGS: NON-VACUITY.** Lean's Bochner integral is `0` on a non-integrable
+    integrand ⇒ both `MRTThmA1` and `MRTPropA3` must have their integrands' integrability discharged by
+    whoever PROVES them. *Cheap on the A.3 side (`dpolyA` continuous ⇒ already derived in the bridge);
+    NOT yet done on the A.1 side, whose integrand is a STEP function in `x`, not a continuous one.*
+
 15c. ✅✅✅ **THE JOIN IS PROVED IN LEAN — `3ec62940` 2026-08-21 19:2x.** `Salt/MR/MRTPropA3Bridge.lean`
     (104 ln), rooted with its name registered in the same edit; `EXIT=0`, `✔ Built (3.8s)`, zero
     warnings, `[3 axioms]`.
