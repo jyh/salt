@@ -78,6 +78,66 @@ def MRTThmA1 (C : ℝ) : Prop :=
               + (Real.log (Real.log h)) ^ 2 / Real.log h
               + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
 
+/-! ## Non-vacuity — discharging the obligation this file's header names
+
+The integrand of `MRTThmA1` is a **step function in `x`**, not a continuous one:
+the index set `Icc ⌈x⌉₊ ⌊x+h⌋₊` jumps as `x` crosses an integer.  So the
+continuity route used in `MRTPropA3Bridge` is unavailable here, and integrability
+has to come from **measurable + bounded** instead. -/
+
+/-- The short-interval mean is measurable in `x`.  The index-set endpoints are
+measurable `ℝ → ℕ`, and **every** map out of `ℕ × ℕ` is measurable, so the sum
+factors through a discrete space. -/
+theorem measurable_mrtShortMean (f : ℕ → ℂ) (h : ℝ) :
+    Measurable (fun x : ℝ => mrtShortMean f h x) := by
+  have hpair : Measurable (fun x : ℝ => (⌈x⌉₊, ⌊x + h⌋₊)) :=
+    Measurable.prod Nat.measurable_ceil
+      (Nat.measurable_floor.comp (measurable_id.add_const h))
+  have hsum : Measurable (fun x : ℝ => ∑ n ∈ Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊, f n) :=
+    (Measurable.of_discrete (f := fun p : ℕ × ℕ => ∑ n ∈ Finset.Icc p.1 p.2, f n)).comp hpair
+  exact measurable_const.mul hsum
+
+/-- A crude but `x`-free bound on the short-interval mean over `[X, 2X]`: the
+index set has at most `⌊2X + h⌋₊ + 1` members and `f` is 1-bounded. -/
+theorem norm_mrtShortMean_le {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {h X x : ℝ}
+    (hh : 0 < h) (hx : x ≤ 2 * X) :
+    ‖mrtShortMean f h x‖ ≤ ((⌊2 * X + h⌋₊ : ℝ) + 1) / h := by
+  have hcard : ((Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).card : ℝ) ≤ (⌊2 * X + h⌋₊ : ℝ) + 1 := by
+    have h1 : (Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).card ≤ ⌊x + h⌋₊ + 1 := by
+      rw [Nat.card_Icc]; omega
+    have h2 : ⌊x + h⌋₊ ≤ ⌊2 * X + h⌋₊ := Nat.floor_le_floor (by linarith)
+    have : (Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).card ≤ ⌊2 * X + h⌋₊ + 1 := le_trans h1 (by omega)
+    exact_mod_cast this
+  have hsum : ‖∑ n ∈ Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊, f n‖ ≤ (⌊2 * X + h⌋₊ : ℝ) + 1 := by
+    refine le_trans (norm_sum_le _ _) ?_
+    refine le_trans (Finset.sum_le_card_nsmul _ _ 1 (fun n _ => hf n)) ?_
+    simpa using hcard
+  have hnorm : ‖(1 / (h : ℂ))‖ = 1 / h := by simp [abs_of_pos hh]
+  have hsplit : ((⌊2 * X + h⌋₊ : ℝ) + 1) / h = 1 / h * ((⌊2 * X + h⌋₊ : ℝ) + 1) := by ring
+  unfold mrtShortMean
+  rw [norm_mul, hnorm, hsplit]
+  exact mul_le_mul_of_nonneg_left hsum (by positivity)
+
+/-- **NON-VACUITY FOR `MRTThmA1`.**  The integrand of the statement is
+interval-integrable on `[X, 2X]`, so the bound is a real bound and not the
+Bochner integral's `0`-on-non-integrable junk value. -/
+theorem intervalIntegrable_mrtThmA1_integrand {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
+    {h X : ℝ} (hh : 0 < h) (hX : 0 ≤ X) :
+    IntervalIntegrable (fun x : ℝ => ‖mrtShortMean f h x‖ ^ 2) MeasureTheory.volume X (2 * X) := by
+  set C : ℝ := (((⌊2 * X + h⌋₊ : ℝ) + 1) / h) ^ 2 with hC
+  refine (intervalIntegrable_const (c := C)).mono_fun ?_ ?_
+  · exact ((measurable_mrtShortMean f h).norm.pow_const 2).aestronglyMeasurable
+  · filter_upwards [MeasureTheory.ae_restrict_mem measurableSet_uIoc] with x hxmem
+    have hx2 : x ≤ 2 * X := by
+      rcases Set.mem_uIoc.mp hxmem with hc | hc
+      · linarith [hc.2]
+      · linarith [hc.1, hX]
+    have hb := norm_mrtShortMean_le (X := X) hf hh hx2
+    have hnn : (0 : ℝ) ≤ ((⌊2 * X + h⌋₊ : ℝ) + 1) / h := by positivity
+    rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg (by positivity)]
+    have h0 : (0 : ℝ) ≤ ‖mrtShortMean f h x‖ := norm_nonneg _
+    nlinarith [hb, h0, hnn]
+
 /-- **The door as a `Prop`**: `∃ C > 0`, A.1 holds at `C`.  A statement, not a
 theorem — nothing in this development proves it and nothing assumes it. -/
 def MRTThmA1Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTThmA1 C

@@ -8339,6 +8339,9 @@ open Salt.Tactic in
   Salt.MR.mem_mrtShortWindow
   Salt.MR.MRTThmA1
   Salt.MR.MRTThmA1Statement
+  Salt.MR.measurable_mrtShortMean
+  Salt.MR.norm_mrtShortMean_le
+  Salt.MR.intervalIntegrable_mrtThmA1_integrand
   Salt.MR.hMsup_of_propA3_shape
   Salt.MR.MRTBands
   Salt.MR.MRTBandCount
