@@ -667,6 +667,57 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### A.6, measured against the landed Halász family — and the hit is the WRONG SHAPE
+
+The set sweep reported *"A.6's estimate — OPEN → 61 landed `halasz*` theorems"*.  That
+count is real and it is **not** evidence A.6 is servable.  Measuring the closest one shows
+why, and it corrects my own framing one beat old.
+
+`T1_pointwise_decay` (`PropA3Core.lean:330`) is the nearest landed relative:
+```
+  U ≤ (C₁+C₂)·X·( (log X)^{−1/(32e)} + (log X)^{−1/2+ε} )
+      from  Uhead ≤ C₁·X·exp(−(1/e)·M_range f X T),  Utail ≤ C₂·X·(log X)^{−1/2},
+      floor (1/32)·loglog X ≤ M_range f X T
+```
+against **A.6's** target
+`‖(1/X)·Σ_𝒥 …‖ ≤ C·( exp(−M/2)/(1+|t−t₁|) + (log X)^{−1/16} )`.
+
+⛔ **THE DECISIVE DIFFERENCE IS NOT THE CONSTANTS — IT IS THAT `T1_pointwise_decay` HAS NO
+`t₁` IN IT AT ALL.**  A.6's entire content is the `1/(1+|t−t₁|)` decay away from the
+minimiser; that factor is what makes `∫_{T₀} A²/(1+|t−t₁|)²` converge and is exactly what
+`mrtA3_T0_setIntegral_bound_onT0` consumes.  A flat Halász bound cannot supply it.
+
+⚠️ **And the exponents are weaker too, measured rather than eyeballed** — see
+`landed_halasz_exponent_weaker_than_a6` and `landed_halasz_M_rate_weaker_than_a6` below:
+`1/(32e) < 1/16` and `1/e < 1/2`, both strict.
+
+⇒ **A.6's residue is now NAMED, and it is narrower than "prove A.6": it is the
+`1/(1+|t−t₁|)` factor.**  *Correcting my own last-beat framing: "61 landed `halasz*`
+theorems" was a COUNT, and a count is not a match.  The sweep found the right family and
+the wrong shape — which is the same lesson as Turán–Kubilius vs Erdős–Turán, arriving from
+the other direction.* -/
+
+/-- The landed Halász grade `(log X)^{−1/(32e)}` is strictly weaker than A.6's
+`(log X)^{−1/16}`: `1/(32e) < 1/16`. -/
+theorem landed_halasz_exponent_weaker_than_a6 :
+    1 / (32 * Real.exp 1) < (1 : ℝ) / 16 := by
+  have h : (2 : ℝ) < Real.exp 1 := by
+    have := Real.exp_one_gt_d9
+    linarith
+  have h32 : (0 : ℝ) < 32 * Real.exp 1 := by linarith
+  rw [div_lt_div_iff₀ h32 (by norm_num : (0:ℝ) < 16)]
+  linarith
+
+/-- The landed Halász `M`-rate `exp(−M/e)` is strictly weaker than A.6's `exp(−M/2)`:
+`1/e < 1/2`, i.e. `2 < e`. -/
+theorem landed_halasz_M_rate_weaker_than_a6 : 1 / Real.exp 1 < (1 : ℝ) / 2 := by
+  have h : (2 : ℝ) < Real.exp 1 := by
+    have := Real.exp_one_gt_d9
+    linarith
+  have hpos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  rw [div_lt_div_iff₀ hpos (by norm_num : (0:ℝ) < 2)]
+  linarith
+
 /-! ## RECON — the trigger law, applied to ALL my remaining "open" claims at once
 
 Row 17k found one buried massif by asking *"have I checked my own store?"* about a single
