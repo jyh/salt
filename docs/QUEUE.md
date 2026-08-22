@@ -246,6 +246,30 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15r. ⭐⭐⭐ **A.5's `ρ`-MARGIN — MRT's "`ρ/3 > 1/50`" IS TRUE BY 0.000188, AND IT NEEDS `π > 3.125`.**
+    `b94e1212` 2026-08-22 01:0x. `mrtA5_rho_margin`, `mrtA5_epsilon_ceiling`, both `[3 axioms]`.
+    A.5 names `ρ := 1/6 − 1/(3π) − ε`; MRT remark that replacing `1/48` by *"`ρ/3 > 1/50`"* still gives
+    their bound. **That inequality is ASSERTED, NOT EVALUATED, and it is very tight:**
+    ```
+      1/6 − 1/(3π)       = 0.060563371
+      (1/6 − 1/(3π))/3   = 0.020187790
+      1/50               = 0.020000000
+      MARGIN             = 0.000187790     ⇐ 0.94% of 1/50
+      ⇒ ρ/3 > 1/50 FORCES  ε < 0.000563371
+    ```
+    ⭐⭐ **AND IT NEEDS `π > 3.125`** (`24π > 75`). ***`Real.pi_gt_three` IS INSUFFICIENT*** — where
+    `mrtA4_constant_pos`, **the same constant one theorem above**, needed only `π > 2`. *Two facts about
+    one constant with completely different `π`-requirements, and nothing on the page distinguishes them.*
+    ⛔⛔ **INSTRUMENT DEFECT, AND IT IS THE NIGHT'S THEME INSIDE A SINGLE BEAT.** I applied my own rule
+    from the previous beat — *ask the CORPUS, not my memory of mathlib* — and grepped
+    `Real.pi_gt_3141592`: **2 hits.** ***BOTH WERE MY OWN FILE*** — one the docstring I had just written,
+    one the failing line itself. **The corpus had never used it.** ⇒ *A census of a tree you are also
+    editing carries a timestamp — **THIRD instance tonight**, and this time the tree I had polluted was
+    the evidence for my own fix.* The real idiom is `Real.pi_gt_d6` (7 uses, `ThmA2Pool`/`ThmA2`).
+    📌 *Recorded rather than deleted: `0 < ε` is carried in `mrtA5_epsilon_ceiling` because MRT carry it,
+    and is **NOT USED** — the consequence follows from the ceiling alone. **A hypothesis the paper states
+    and the proof does not need is worth being able to SEE**, so it is `_hε0`, not removed.*
+
 15q. ✅ **LEMMA A.4 IS STATED, AND ITS CONSTANT IS PROVED POSITIVE — `754dfd5d` 2026-08-22 00:4x.**
     `MRTLemmaA4i`, `MRTLemmaA4ii`, `mrtA4_constant_pos` — registered in the same action, all
     `[3 axioms]`, zero warnings. A3-3's interface is pinned.
