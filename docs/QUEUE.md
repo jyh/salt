@@ -1162,6 +1162,22 @@ numbering is UNVERIFIED.
 
 ## THE MECHANICS (the saltworks board's, verbatim in spirit)
 
+- ⛔⛔ **SEARCH LAW (born 08/21–22; THREE seats hit the same defect in one night).**
+  **This corpus's identifiers carry `ω ε δ χ σ ₀₁₂` and mathlib's lemmas are
+  lowerCamel while its structures are UpperCamel.** ⇒ **every ASCII-only or
+  case-sensitive regex over `Salt/` fails SILENTLY AND PLAUSIBLY.** Measured:
+  **193 declaration names carry non-ASCII**; `isMinOn` sits in 8 files while
+  `IsMinOn` returns 0. **Rules, each earned from a specific failure the same night:**
+  · search by **BARE NAME first**, add structure only after you have hits
+  · `grep -i` unless case is the point · **never `| head`** on a search
+  underwriting an absence · **never `2>/dev/null`** on a check whose SILENCE is
+  the result · **PRINT the population, do not count it** ("counting is not
+  listing" — a 33/34 reads as a rounding artifact) · census a **SHA, not the
+  working tree** (`git grep … HEAD`) so you cannot appear in your own census and
+  the count cannot drift while you edit · when checking a peer's absence claim,
+  **DO NOT REUSE THEIR SEARCH STRING** — it is the same instrument, not a second
+  one · **record CONTROL VALUES with every instrument version**: if they move
+  when you fix something unrelated, the fix over-reached.
 - PRE-AUTH: pull at your seam without asking; one line at start, one
   at landing. GATED(x): coarse gates only. One write-pen per seat;
   read/refute/probe work floats free. Statement changes are
