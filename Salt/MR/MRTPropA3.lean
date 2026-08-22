@@ -84,7 +84,22 @@ def MRTPropA3 (C : ℝ) : Prop :=
                 + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
 
 /-- **The producer as a `Prop`**: `∃ C > 0`, A.3 holds at `C`.  A statement, not
-a theorem — nothing proves it and nothing assumes it. -/
+a theorem — nothing proves it and nothing assumes it.
+
+⚠️⚠️ **UNRESOLVED, FLAGGED 2026-08-22 04:1x, AFTER `MRTLemmaA4ii` WAS FOUND FALSE FOR
+EXACTLY THIS REASON: THIS STATEMENT MAY CARRY NO LARGENESS ON `X`.**  Its only size
+hypotheses are `√X ≤ X₀ ≤ X`, which force `X ≥ 1` and nothing more, while MRT's
+Appendix A runs under A.1's `X ≥ h ≥ 10` and A.2's *"for all `X > X(η)` large
+enough"*.  At `X = 1` every bracket term can degenerate to `0` through Lean's junk
+values — `(0:ℝ)^(1/50) = 0` so `1/(log X)^{1/50} = 0`; the primes `≤ 1` are empty so
+`mrtM = 0` and `M/exp M = 0`; and `Qseq 1 = 1` kills the first term — while the LHS
+integral of `‖dpolyA‖²` can be positive.
+
+⛔ **THIS IS A CANDIDATE, NOT A WITNESS, AND THE DIFFERENCE IS THE POINT.**  A
+counterexample must ALSO satisfy `MRTBands`' (A.1)/(A.2), and at `Qseq j = 2`,
+`Pseq 1 = 2` the (A.1) ratio is `+1.19` against a required `≤ η/16 ≈ 0.0052`.  **I
+have not constructed a consistent assignment, so I do not claim the statement is
+false — only that its guard against the `A4ii` defect is unverified.** -/
 def MRTPropA3Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTPropA3 C
 
 /-! ## A3-0 — `t₁` exists
@@ -335,6 +350,16 @@ def MRTLemmaA7 (C : ℝ) : Prop :=
               / (1 + (((t - t₁ : ℝ) : ℂ)) * Complex.I))
             * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n‖
         ≤ C * X / (Real.log X) ^ ((1 : ℝ) / 10)
+
+/-- **A.6 as a statement** — `∃ C > 0`.  *`MRTLemmaA6` is a PREDICATE ON `C`, not a
+claim; without this wrapper a reader can mistake `MRTLemmaA6 C` for the lemma and
+be asserting it for a `C` nobody chose.  `MRTThmA1Statement` and
+`MRTPropA3Statement` had this from the start; A.6 and A.7 did not, and the
+asymmetry is the kind that invites exactly that misuse.* -/
+def MRTLemmaA6Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTLemmaA6 C
+
+/-- **A.7 as a statement** — `∃ C > 0`.  See `MRTLemmaA6Statement`. -/
+def MRTLemmaA7Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTLemmaA7 C
 
 /-! ## A3-3 (i) — PROVED
 
