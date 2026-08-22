@@ -246,6 +246,31 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15m. ✅✅ **A3-0 IS LANDED — `37155040` 2026-08-21 23:1x, FIRST ATTEMPT.** `exists_min_pretDistSq` +
+    `continuous_pretDistSq_costwist`, registered in the same action, both `[3 axioms]`, zero warnings.
+    **`∃ t₁, |t₁| ≤ X ∧ pretDistSq f (costwist t₁) X = mrtM f X`** — MRT's *"the value of `t` which
+    attains the minimum"* is a THEOREM here, not a phrase.
+    ⛔⛔ **AND THE PRICING WAS WRONG IN BOTH SEATS, FOR THE SAME REASON — THE CLEANEST INSTANCE OF
+    "AN AGREEING RESULT IS THE ONE TO DOUBT" THIS SEAT HAS PRODUCED.** I reported `IsMinOn` **0 files**;
+    the helm independently reported `IsMinOn` **0** and `IsGLB` **0**; **we agreed, and we were both
+    wrong.** Mathlib's name is `IsCompact.exists_isMinOn` — ***lowercase `i`*** — so a case-sensitive
+    grep for `IsMinOn` cannot find it.
+    ```
+       IsMinOn  (capital I)   0 files
+       isMinOn  (lower i)     7 files      ⇐ the machinery, present all along
+       used at  Salt/SW/ZetaInvShallow.lean:110 · Salt/SW/ZetaZeroFree.lean:203
+                `obtain ⟨z₀, hz₀R, hz₀min⟩ := hRcompact.exists_isMinOn hRne hcont`
+    ```
+    ⇒ **Following the corpus's own idiom made the node land FIRST ATTEMPT instead of being class-B work.**
+    🔑 **WHAT EXPOSED IT WAS TWO OF MY OWN GREPS DISAGREEING** — `IsMinOn` 0 against `exists_isMinOn` 7,
+    **impossible for a substring unless the case differs.** *The agreement between two SEATS proved
+    nothing; the disagreement inside my own output was the whole signal.*
+    📌 *My earlier count was correct AS SCOPED — I wrote "measured in `Salt/MR/`" and `sInf_mem` is 0
+    there against 5 tree-wide, all `Nat.sInf_mem` where attainment is free by well-ordering. **The scope
+    was stated; the CASE was not checked.***
+    ⇒ **A3-2 IS NOW UNGATED** (it consumed A3-0). Remaining: A3-1 (cheap), A3-3 (Lemma A.4, class C,
+    `g_𝒥` landed), A3-4 (A.5/A.6/A.7, still unread and unpriced).
+
 15l. 📐 **A.3's PROOF — DECOMPOSITION FROM THE SOURCE, 2026-08-21 23:0x.** Read from
     `1503.05121v3.pdf`, Appendix A. This is the ONLY remaining gap in the A.1 chain, so here is its
     shape rather than a placeholder.
