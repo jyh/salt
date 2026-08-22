@@ -246,6 +246,42 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17i. ⭐⭐⭐ **ERDŐS–TURÁN ABSENT ON THREE *LIVE* ARMS — AND THE CORPUS HAS ROUTED AROUND IT
+    BEFORE. `969b0e5c` 2026-08-22 13:5x. Docstring-only, no declarations. `EXIT=0`, zero errors,
+    genuine `Built (6.5s)`, zero `MRTPropA3.lean` diagnostics.**
+    ```
+      ARM 1 identifier  -> 1 hit: turan_kubilius        (Turán–Kubilius, NOT Erdős–Turán)
+      ARM 2 filename    -> 1 hit: TuranKubilius.lean    (same near-miss)
+      ARM 3 prose       -> the JOINT pattern, either order: 0 hits in Salt/
+    ```
+    **ABSENCE CONFIRMED AND SHARPER than my earlier one-arm claim** — and **the near-miss is now
+    NAMED**: both non-prose arms hit **Turán–Kubilius**, a different inequality (variance, not
+    discrepancy). *A surname-only matcher would have called that a find.*
+
+    ⭐⭐ **BUT THE PROSE ARM FOUND SOMETHING BETTER THAN AN ABSENCE.** Two independent corpus records
+    (`flags.md`, `s8-freeze-0727.md`) say a prior demand **D-5 was DISSOLVED** by a route needing
+    *"no Erdős–Turán, no PNT-in-segments"*: `dist_recenter` + `dist_one_floor_pow` +
+    `dist_split_A4_frozen`, VK entering via `one_line_pow_growth`. **All four are LANDED.**
+    `dist_split_A4_frozen` (`PropA3Core.lean:172`) carries a branch-b hypothesis that is A.4(ii)'s
+    far configuration almost verbatim — `1 ≤ |t−t₁|`, `|t−t₁| ≤ X`,
+    `pretDistSq f (costwist t₁) X ≤ (1/16)·loglog X` (**exactly what this morning's
+    `mrtA4ii_far_centre_cap` supplies**) — with `W` **CARRIED, not zero**.
+
+    ⛔ **NAME COLLISION, AND IT MATTERS: this is `dist_split_A4_FROZEN`, not the `dist_split_A4` I
+    refuted earlier today.** That refutation turned on `hloss` being unsatisfiable **at `W = 0`**;
+    here `W` is free, so the obstruction does not apply. ***Two objects one underscore-suffix apart,
+    opposite verdicts*** — I would have mis-filed this as already-refuted had I matched on prefix.
+
+    ⛔ **WHAT THIS DOES NOT ESTABLISH:** `(1)` it concludes about the WINDOWED `fgJ f t₀ y Y`, not
+    `f`; `(2)` its constant is `(1/32)·loglog X` against the `(1/8)` my centre cap uses.
+    ⇒ **the far branch's price is OPEN, not settled. RECON, not a proof claim** (P2 item 9 is a
+    standing recon lane and this is that lane's work).
+
+    ⚠️ **FIFTH BUILD-LAW SLIP, PRECISE:** `saltbuild X 2>/dev/null; saltbuild X` is **NOT a pipe**,
+    so it does not break the prompt's letter, and the evidence survived. **But it breaks the
+    greppable rule I wrote THIS MORNING** — *no second `saltbuild` invocation on that line*. I broke
+    the clause I added because the original letter was not enough.
+
 17h. ✅⭐⭐⭐ **THE FLAGGED NODE IS CLOSED — `costwist_conj_avg`, FIRST ATTEMPT, ON THE NEW
     INGREDIENT. `e2d0d818` 2026-08-22 13:4x. `[3 axioms]`, `EXIT=0`, zero errors, genuine
     `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 on the new
