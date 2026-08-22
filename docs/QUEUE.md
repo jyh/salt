@@ -246,6 +246,41 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15ii. ⛔⛔⛔ **`MRTLemmaA4ii` IS *STILL* FALSE, AND THE EARLIER REPAIR NEVER TOUCHED THE ARM THAT
+    BREAKS IT — `2f62f94e` 2026-08-22 06:0x. KERNEL REFUTATION, `not_mrtLemmaA4ii` `[3 axioms]`.**
+    Row 15x-era work found A4(ii) false and repaired it by carrying `Real.exp 1 ≤ X`. **That repair
+    was NECESSARY AND INSUFFICIENT.** The statement is false again for an INDEPENDENT reason.
+    🔑 **`t₁` IS UNIVERSALLY QUANTIFIED AND APPEARS *ONLY* INSIDE THE DISJUNCT**
+    `(log X)^{1/16}/2 < |t − t₁|`. **Nothing ties it to `mrtM`.** In MRT, `t₁` is *THE MINIMISER* of
+    `𝔻²(f, n^{it}; X)` over `|t| ≤ X` — that is the entire content of *"`t` is far from the centre."*
+    Dropped, the disjunct is satisfiable AT WILL (pick `t₁` far from `t`), and the lemma then asserts
+    a POSITIVE lower bound on a distance that is EXACTLY `0`.
+    ```
+      WITNESS  f ≡ 1,  𝒥 = ∅ (so f·g_𝒥 ≡ 1),  t = 0,  X = exp(exp 1),  ε = 1/100,
+               t₁ = (log X)^{1/16}/2 + 1
+        disjunct 2   (log X)^{1/16}/2 < |0 − t₁|            TRUE by construction
+        RHS          Σ_p (1 − Re(1·conj 1))/p = 0
+        LHS          1/6 − 1/(3π) − 1/100 > 0               needs only π > 3
+      ⇒ LHS > RHS.  FALSE.
+    ```
+    ⭐⭐ **THE FIRST DISJUNCT IS IMMUNE, AND THAT IS THE STRUCTURAL POINT: `mrtM f X` PINS THE CENTRE
+    BY CONSTRUCTION**, which is exactly why `mrtA4ii_high_M_target` proved cleanly and first try.
+    ***The two arms were never equally guarded, and the missing guard is precisely the object the
+    OTHER arm names.*** *A disjunction hides this: each arm looks locally fine, and only the arm
+    that does NOT mention `mrtM` can float free.*
+    ⛔ **IRON RULE 1 OBSERVED: the statement is left AS TRANSCRIBED and the defect is carried beside
+    it in the file, so statement and refutation travel together.** The repair is to CONSTRAIN `t₁`
+    (`exists_min_pretDistSq` already supplies the minimiser), **NOT to weaken the conclusion.**
+    📌 **HOW IT WAS FOUND — and it was not by re-reading the statement:** I set out to PROVE the
+    second branch, located its true engine (`dist_one_floor_pow`, `DistHalasz.lean:179`, landed and
+    unconditional: `loglog x − (3/4)loglog(|b|+3) − 5logloglog(|b|+16) − C ≤ 𝔻²(1, n^{ib}; x)` at
+    `1 ≤ |b|`), and went to supply its hypotheses. **Asking "where does `t₁` come from?" is what
+    exposed that nothing supplies it.** *Same discipline that caught the `W = 0` gap: name the node
+    that produces each hypothesis.*
+    ⭐ **AND IT VINDICATES 15ff's PLACEMENT CONSTRUCTIVELY:** I argued `dist_recenter_sq` belongs to
+    **A.4's** world (Halász/GS), not A.7's. Its partner floor `dist_one_floor_pow` is exactly what
+    A.4(ii)'s far-branch consumes — *the refutation of the wrong home located the right one.*
+
 15hh. ⛔⛔⛔ **THE BEAT'S OWN BUS READ CAN REPORT A SILENT BUS WHILE THE BUS IS BUSY — AND MY FIX FOR IT
     WAS DEPLOYED IN THE ONE ENVIRONMENT IMMUNE TO THE BUG. 2026-08-22 05:4x.**
     ```
