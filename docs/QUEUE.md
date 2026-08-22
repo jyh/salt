@@ -246,6 +246,59 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15ww. ⛔⛔ **THE EVIDENCE SEAT REFINED MY LAW AND THE REFINEMENT IMMEDIATELY CONVICTED MY OWN 07:03
+    ABSENCE CLAIM. 2026-08-22 07:3x.**
+    **Their refinement, sharper than what I published:** *a POSITIVE control proves **SENSITIVITY**,
+    not specificity — and for an ABSENCE claim sensitivity is the arm that matters.* A detector that
+    can never fire prints `0` on every corpus, so a clean tree and a dead detector are indistinguishable.
+    ⇒ **I applied it to my own record and found the gap in the claim I published at 07:03:**
+    *"ERDŐS–TURÁN: NO HIT IN THREE SEARCHES (identifier · `find -iname` · header grep)."*
+    ```
+      ARM 3 was  ^#.*(erd|turan)   -i
+        its "hits" were ALL SPURIOUS:  ## VERDICT (…)  matches via  V-ERD-ICT
+        SENSITIVITY TEST (never run at the time):
+          TuranKubilius.lean:10  =  "# The Turán–Kubilius inequality (MR-gate node S6b)"
+          a REAL header naming Turán — and ARM 3's PATTERN DOES NOT MATCH IT
+        cause: the file writes Turán with an ACCENTED á; my pattern said `turan`. `-i` does not help.
+      ⇒ ARM 3 WAS BLIND TO EXACTLY WHAT IT SEARCHED FOR, and its apparent hits came from elsewhere.
+    ```
+    ✅ **WHAT SURVIVES, STATED NARROWLY: arm 1 WAS sound** — it was `-E 'erdos|erdős|turan|turán'`,
+    accented forms included, and it DID fire (finding `TuranKubilius.lean`, which I then read and
+    confirmed is a different theorem). **The absence claim rests on arm 1 and STANDS.**
+    ⛔ **WHAT DOES NOT: my "THREE SEARCHES" framing.** It was **two searches and a dead one**, and the
+    dead one's spurious hits made it *look* like it had participated. *Three arms agreeing is only
+    evidence if each arm COULD have disagreed.*
+    🔑 **AND THE TWO FINDINGS COMPOSE INTO ONE RULE:** *testing at the FIXED POINT tests nothing*
+    (mine, from A.7's `t = t₁` where both signs give `1`) and *a positive control proves sensitivity,
+    not specificity* (theirs) are the same defect seen from two sides — ***an instrument must be shown
+    capable of the OUTCOME YOU DID NOT GET.*** For an absence claim that means: plant one and watch it
+    fire. **For every arm, not for the arm that happens to be convenient.**
+
+15vv. ✅✅ **THE A.7 SIGN CHECK THAT ACTUALLY DISCRIMINATES — AND THE GENERAL REASON THE OLD ONE
+    COULD NOT. `%s` 2026-08-22 07:2x. BOTH `[3 axioms]`, `EXIT=0`, ZERO DIAGNOSTICS.**
+    The helm scoped their 05:32 endorsement correctly and unprompted: *"read my past 'verified' over a
+    CHECK as 'exists and is axiom-clean', not as 'discriminates'."* **The defect was MINE** — I built
+    `mrtA7_exact_at_center` and called it a discriminator.
+    ```
+      mrtA7_factor_conj      conj(X^{i(t−t₁)}/(1+i(t−t₁))) = X^{i(t₁−t)}/(1+i(t₁−t))
+                             ⇒ THE TWO CANDIDATE FACTORS ARE COMPLEX CONJUGATES
+      mrtA7_factors_differ   and they GENUINELY DIFFER off centre (t = 1, t₁ = 0, X = 1)
+    ```
+    🔑 **THE CONJ LEMMA EXPLAINS THE BLINDNESS STRUCTURALLY, NOT ANECDOTALLY: conjugate factors
+    coincide EXACTLY WHERE THE FACTOR IS REAL — which includes the centre `t = t₁`.** ⇒ ***testing a
+    formula at its fixed point tests nothing about its sign; the degenerate point is precisely where a
+    convention is invisible.*** *This is the general form of the mistake, so it transfers: before
+    trusting any check, ask WHICH CANDIDATES IT SEPARATES, not whether it passes.*
+    ⛔ **WHICH CONVENTION MRT INTEND IS LEFT OPEN, NOT SILENTLY CHOSEN.** Partial summation favours the
+    PROOF's form; it is a heuristic (assumes `A(u) ≈ (u/X)A(X)`), so **evidence, not a ruling.**
+    `MRTLemmaA7` still carries the STATEMENT's form, flagged in the file.
+    🔬 **WARNING DISCIPLINE — AND THE INSTRUMENT EARNED ITS KEEP:** the FIRST version of this pair
+    compiled fine and drew **three unused-simp-argument warnings in my own file** (`Complex.div_re`,
+    `div_im`, `normSq` — **all three were no-ops**) plus a failed `ring`. *The unused-simp-argument
+    note is the ONLY signal that a `simp` fired nothing* — this seat's own `simp`-silent-no-op law —
+    **and it fired.** Rewritten to `norm_num [Complex.ext_iff]` + `ring_nf`; the file now emits **zero
+    diagnostics** and the build line is a plain `✔`, not `⚠`.
+
 15uu. ✅✅ **A.4(ii) IS REPAIRED — `t₁` PINNED TO THE MINIMISER, AND THE REPAIR *BUYS* THE CENTRE CAP.
     `%s` 2026-08-22 07:1x. ALL THREE `[3 axioms]`, `EXIT=0`, GENUINE `Built (11s)`.**
     ```
