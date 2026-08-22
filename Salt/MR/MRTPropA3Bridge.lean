@@ -108,4 +108,77 @@ theorem hMsup_of_propA3_shape
     _ = X / h₁ / T * (2 * T / (X / h₁) + 1) * B := by ring
     _ ≤ 3 * B := hkey
 
+/-! ## Closing the threshold gap the helm found
+
+`hMsup_of_propA3_shape` concludes at `∀ T ≥ max 1 (X/h₁)`; `parseval_single_h`
+requires `∀ T ≥ X/h`.  **Those are not the same threshold** — the bridge leaves
+`T ∈ [X/h, 1)` uncovered whenever `X/h < 1`.  My "character-for-character" was
+one word too strong: the INTEGRANDS are identical, the THRESHOLDS are not.
+
+The gap closes, but on a **side condition**, not by identity: Parseval's own
+hypotheses force `1 ≤ X/h`, and then `max 1 (X/h) = X/h`.  That is worth a lemma
+rather than a remark, because a threshold that coincides only under someone
+else's hypotheses is exactly the kind of joint that goes unstated. -/
+
+/-- **Parseval's own hypotheses force `1 ≤ X / h`.**  From `exp 1 ≤ X` we get
+`log X ≥ 1`, hence `(log X)^(−1/5) ≤ 1`, hence `h ≤ X`. -/
+theorem one_le_X_div_h {X h : ℝ} (hX : Real.exp 1 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ))) : 1 ≤ X / h := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := by
+    rw [Real.le_log_iff_exp_le hXpos]; exact hX
+  have hle1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
+  have hhpos : (0 : ℝ) < h := by linarith
+  have hhle : h ≤ X := by nlinarith [hXpos, hle1, hhX]
+  rw [le_div_iff₀ hhpos]; linarith
+
+/-- **THE BRIDGE AT PARSEVAL'S OWN THRESHOLD.**  Same conclusion as
+`hMsup_of_propA3_shape`, but quantified over `T ≥ X/h` — the form
+`parseval_single_h` actually consumes — using the side condition above. -/
+theorem hMsup_of_propA3_shape_parseval
+    (a : ℕ → ℂ) (s0 : Finset ℕ) {X h B : ℝ}
+    (hpos : ∀ m ∈ s0, 0 < m) (hB : 0 ≤ B)
+    (hXe : Real.exp 1 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (hA3 : ∀ T : ℝ, 1 ≤ T →
+      (∫ t in (-T)..T, ‖dpolyA a s0 t‖ ^ 2) ≤ (T / (X / h) + 1) * B) :
+    ∀ T : ℝ, X / h ≤ T →
+      X / h / T * ((∫ t in T..(2 * T), ‖dpolyA a s0 t‖ ^ 2)
+        + ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2) ≤ 3 * B := by
+  have h1 := one_le_X_div_h hXe hh4 hhX
+  have hXh : (0 : ℝ) < X / h := lt_of_lt_of_le zero_lt_one h1
+  intro T hT
+  exact hMsup_of_propA3_shape a s0 hpos hXh hB hA3 T (by rw [max_eq_right h1]; exact hT)
+
+/-- **THE OTHER HALF OF THE COMPOSITION.**  `parseval_single_h`'s right-hand side
+carries three `dpolyA` integrals besides `Msup`: an outer two-sided block
+`[L, X/h] ∪ [−X/h, −L]` and an inner block `[−L, L]`.  **They tile
+`[−X/h, X/h]` exactly**, so A.3's bound at `T = X/h` — where `T/(X/h) = 1` —
+bounds all three together by `2B`.
+
+*This is the thread nobody had written: with it and the threshold lemma above,
+A.3's shape controls every `dpolyA` term Parseval's bound exposes.* -/
+theorem parseval_dpolyA_terms_of_propA3_shape
+    (a : ℕ → ℂ) (s0 : Finset ℕ) {X h B L : ℝ}
+    (hpos : ∀ m ∈ s0, 0 < m) (hR1 : 1 ≤ X / h)
+    (hA3 : ∀ T : ℝ, 1 ≤ T →
+      (∫ t in (-T)..T, ‖dpolyA a s0 t‖ ^ 2) ≤ (T / (X / h) + 1) * B) :
+    ((∫ t in L..(X / h), ‖dpolyA a s0 t‖ ^ 2)
+        + ∫ t in (-(X / h))..(-L), ‖dpolyA a s0 t‖ ^ 2)
+      + (∫ t in (-L)..L, ‖dpolyA a s0 t‖ ^ 2) ≤ 2 * B := by
+  have hcont : Continuous (fun t : ℝ => ‖dpolyA a s0 t‖ ^ 2) :=
+    ((dpolyA_continuous a s0 hpos).norm).pow 2
+  have hI : ∀ u v : ℝ,
+      IntervalIntegrable (fun t : ℝ => ‖dpolyA a s0 t‖ ^ 2) volume u v :=
+    fun u v => hcont.intervalIntegrable u v
+  have hadd1 := intervalIntegral.integral_add_adjacent_intervals
+    (hI (-(X / h)) (-L)) (hI (-L) L)
+  have hadd2 := intervalIntegral.integral_add_adjacent_intervals
+    ((hI (-(X / h)) (-L)).trans (hI (-L) L)) (hI L (X / h))
+  have hRpos : (0 : ℝ) < X / h := lt_of_lt_of_le zero_lt_one hR1
+  have hA := hA3 (X / h) hR1
+  rw [div_self (ne_of_gt hRpos)] at hA
+  linarith
+
 end Salt.MR
