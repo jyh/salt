@@ -587,8 +587,12 @@ numbering is UNVERIFIED.
    🔑 **This is not new badness; it is the corpus's DECLARED ineffectivity LOCATED and
    SCALED** (`V7E.lean`: *"the design constant `A` is produced by `Classical.choice`"*).
    **A declared ineffectivity with a measured rate is a map; one without is a warning.**
-   ⚠️ **Still untraced, and cheap:** the `ChowlaRegime` structure's own bounds. Not
-   expected to matter beneath a triple exponential — **but nobody has looked.**
+   ✅ **ALL ARMS NOW TRACED — nothing left open on this node.** `ChowlaRegime` was
+   checked (evidence, then helm): it is a **carrier**, but **not rate-free** —
+   `hcoprime : (a:ℚ) ≤ eps²·Hlo/2` rearranges to **`Hlo ≥ 2a/ε²`, a QUADRATIC floor**,
+   dominated flat by the triple exponential. *(Evidence's conclusion held; its claim of
+   "no ε-rate at all" did not — it enumerated constraints NAMED for ε and missed one
+   where ε sits in another field's body.)*
 
    📐 **NODE 11a AS ORIGINALLY WRITTEN (kept: it is why the measurement happened).**
    Measure how the head's OTHER constants degrade as `ε → 0`: `K` (from
