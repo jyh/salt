@@ -526,7 +526,7 @@ numbering is UNVERIFIED.
    pass (even-chi candidate doc §2) · the landed-docstring repair
    wave (W-F2's flags.md row: the "strictly stronger" wording at
    ShiftFork.lean:281-284 + All.lean:503-505) · post-flip hygiene (the
-   untracked root scraps; registry sweeps) · the explicit-constants
+   ✅ ROOT SCRAPS DONE (helm 08/21 15:5x): 155 untracked `.txt` archived intact out of the now-public root to `~/Documents/seat/archive/salt-root-scratch-2026-08-12_14/` — 155 out / 155 in, nothing deleted, porcelain 155 → 0, reversible with one `mv`; screened first and every hit was "loca" inside "locally"/"located". ⚠️ REGISTRY SWEEP REMAINS, and 08/21 gave it a number: `#audit_axioms` in `Salt/MR/All.lean` is an EXPLICIT NAME LIST that auto-discovers nothing, and **2,896 of 6,766** public decls in `Salt/MR` are named in no list. ⛔ That count is an OBSERVATION, NOT a hole — `#print axioms` is TRANSITIVE, so an audited terminal covers everything beneath it, and the dependency-closure instrument that would separate "uncovered" from "covered transitively" has never been built. **The real exposure is a NEW LEAF module — which is exactly how `mrtS_subset_Icc` slipped through, and it was caught the same day**) · the explicit-constants
    floor opener (unchampioned).
 
 11. ⚖️ **W2-0 — THE TAO-THEOREM-1.2 ∀ε CAMPAIGN. SCHEDULED AT P3 BY THE CAPTAIN
