@@ -45,6 +45,7 @@ import Mathlib
 import Salt.MR.MRTThmA1
 import Salt.MR.Sec9Glue
 import Salt.MR.Lemma14Taylor
+import Salt.MR.MVHilbertFinset
 
 namespace Salt.MR
 
@@ -1632,6 +1633,53 @@ theorem mrtA3_T0_bound_of_A6 {C : ℝ} {F : ℝ → ℝ} (hC : 0 ≤ C) (hA6 : M
       = C * Real.exp (-(1 / 2) * mrtM f X) / (1 + |t - t₁|)
         + C * (Real.log X) ^ (-(1 : ℝ) / 16) := by ring
   linarith [h, hring.symm.le, hring.le]
+
+/-! ## MRT's OTHER branch — the mean value theorem, and it is already in the corpus
+
+MRT's A.3 proof opens *"Since the mean value theorem gives the bound `O(T/X + 1)`, we
+can assume `T ≤ X/2`"*.  That disposal is not new analysis: the corpus landed the
+Montgomery–Vaughan L² mean value theorem for Finset-indexed Dirichlet polynomials as
+`dpolyS_l2_mvt_final` (`Salt/MR/MVHilbertFinset.lean`, unconditional).
+
+The only thing between it and `dpolyA` is a *shape*: `dpolyS` sums `aₙ·n^{it}`, while
+`dpolyA` sums `aₘ·m^{−1−it}`.  They are the same object at reciprocal-weighted
+coefficients and reflected `t`. -/
+
+/-- **`dpolyA` IS `dpolyS`**, at coefficients `aₙ/n` and reflected `t`:
+`∑_{m∈s} aₘ·m^{−1−it} = ∑_{m∈s} (aₘ/m)·m^{i(−t)}`. -/
+theorem dpolyA_eq_dpolyS (a : ℕ → ℂ) (s : Finset ℕ) (hs : ∀ n ∈ s, 1 ≤ n) (t : ℝ) :
+    dpolyA a s t = dpolyS s (fun n => a n / (n : ℂ)) (-t) := by
+  unfold dpolyA dpolyS
+  refine Finset.sum_congr rfl fun m hm => ?_
+  have hm0 : ((m : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by have := hs m hm; omega)
+  have key : Complex.exp (Complex.I * ((-t : ℝ) : ℂ) * ((Real.log m : ℝ) : ℂ))
+      = (Complex.exp (((Real.log m : ℝ) : ℂ) * ((t : ℂ) * Complex.I)))⁻¹ := by
+    rw [← Complex.exp_neg]
+    congr 1
+    push_cast
+    ring
+  have hE : Complex.exp (((Real.log m : ℝ) : ℂ) * ((t : ℂ) * Complex.I)) ≠ 0 :=
+    Complex.exp_ne_zero _
+  rw [Complex.cpow_add _ _ hm0, Complex.cpow_one, Complex.cpow_def_of_ne_zero hm0,
+    ← Complex.natCast_log, key]
+  field_simp
+
+/-- **THE MEAN VALUE THEOREM FOR `dpolyA`** — MRT's large-`T` branch, delivered from the
+corpus's landed Montgomery–Vaughan massif rather than from new analysis.  This is the
+estimate that lets MRT *"assume `T ≤ X/2`"*, and it is what puts the `T/(X/Q₁) + 1`
+factor in front of A.3's bracket. -/
+theorem dpolyA_l2_mvt (a : ℕ → ℂ) (s : Finset ℕ) (hs : ∀ n ∈ s, 1 ≤ n) (T : ℝ)
+    {δ : ℝ} (hδ : 0 < δ)
+    (hgap : ∀ i ∈ s, ∀ j ∈ s, i ≠ j → δ ≤ |Real.log i - Real.log j|) :
+    (∫ t in (-T)..T, ‖dpolyA a s t‖ ^ 2)
+      ≤ (2 * T + 2 * Real.pi / δ) * ∑ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 := by
+  calc (∫ t in (-T)..T, ‖dpolyA a s t‖ ^ 2)
+      = ∫ t in (-T)..T, ‖dpolyS s (fun n => a n / (n : ℂ)) (-t)‖ ^ 2 := by
+        simp only [dpolyA_eq_dpolyS a s hs]
+    _ = ∫ t in (-T)..T, ‖dpolyS s (fun n => a n / (n : ℂ)) t‖ ^ 2 :=
+        dpolyS_meanSq_reflect s (fun n => a n / (n : ℂ)) T
+    _ ≤ (2 * T + 2 * Real.pi / δ) * ∑ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 :=
+        dpolyS_l2_mvt_final s hs (fun n => a n / (n : ℂ)) T hδ hgap
 
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
