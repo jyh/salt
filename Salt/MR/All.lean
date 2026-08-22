@@ -8365,6 +8365,8 @@ open Salt.Tactic in
   Salt.MR.mrtA5_epsilon_ceiling
   Salt.MR.MRTLemmaA6
   Salt.MR.MRTLemmaA7
+  Salt.MR.MRTLemmaA6Statement
+  Salt.MR.MRTLemmaA7Statement
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
