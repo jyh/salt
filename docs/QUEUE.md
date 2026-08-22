@@ -246,6 +246,30 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16c. ✅ **A.3's ASSEMBLY — THE `T₀` POINTWISE STEP LANDED, AND MRT's UNSIMPLIFIED EXPONENT DECODED.
+    `%s` 2026-08-22 08:1x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (4.5s)`, zero diagnostics.**
+    MRT p.24 say display (A.7) *"immediately implies"* `∫_{T₀}|F|² ≪ 1/exp(M) + (log X)^{1/16−2/16}`.
+    **That step has three parts and only one is landed here, which I state rather than blur:**
+    ```
+      (a+b)² ≤ 2a² + 2b²                      LANDED  mrtA3_T0_pointwise_sq
+      ∫ dt/(1+|t−t₁|)² ≤ 2                    NOT PROVED — named, not asserted in prose
+      |T₀| ≤ 2(log X)^{1/16}                  available from abs_sub_le_of_mem_mrtT0
+    ```
+    ⭐⭐ **THE UNSIMPLIFIED EXPONENT IS THE DERIVATION, WRITTEN DOWN.** `1/16 − 2/16` **is** `−1/16`,
+    so MRT leaving it unsimplified is informative: ***`+1/16` is the LENGTH of `T₀`, `−2/16` is the
+    second term SQUARED.*** *Reading it as a single `−1/16` loses exactly the information saying where
+    each half came from — a simplification that destroys provenance.*
+    ⛔⛔ **AND A FINDING IN MY OWN STATEMENT, FOUND BY A LINTER: I FIRST WROTE THE POINTWISE LEMMA WITH
+    `0 ≤ A` AND `0 ≤ B`, AND THE UNUSED-VARIABLE LINTER SHOWED BOTH DEAD.** They are: `|F| ≥ 0`
+    already forces `A/(1+|u|) + B ≥ 0`. Dropped; the lemma is **strictly stronger**.
+    🔑 ***THIS IS THE EXACT MIRROR OF A.4(ii): there the PROOF needed a binder the STATEMENT lacked;
+    here the STATEMENT carried binders the PROOF did not.*** *A witness found that one; a linter found
+    this one. Both are the same question — does the binder set match what the mathematics uses? — and
+    it has two failure directions, not one.*
+    ⚠️ Attempts: 3, **all mechanical**: `rw … at *` rewrote two hypotheses into TAUTOLOGIES and
+    destroyed them; `2 * A²/(1+|u|)²` is a DIFFERENT `linarith` atom from `A²/(1+|u|)²`; then the dead
+    binders. *The mathematics was right from the numeric check onward.*
+
 16b. ✅ **MRT LEMMA A.5 IS STATED — THE LAST UNWRITTEN APPENDIX-A STATEMENT. `%s` 2026-08-22 08:0x.
     All three `[3 axioms]`, `EXIT=0`, genuine `Built (4.4s)`, zero diagnostics, first attempt.**
     ```
