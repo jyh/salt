@@ -8370,6 +8370,8 @@ open Salt.Tactic in
   Salt.MR.blockOmega_eq_zero_of_le_one
   Salt.MR.memS_false_of_Qseq_one_le_one
   Salt.MR.mrtBands_bandCount_incompatible_at_one
+  Salt.MR.exp_add_exp_neg_eq_two_cos
+  Salt.MR.exp_neg_avg
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le

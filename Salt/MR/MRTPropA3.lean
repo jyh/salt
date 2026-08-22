@@ -556,4 +556,45 @@ theorem mrtBands_bandCount_incompatible_at_one {η : ℝ} {Pseq Qseq : ℕ → �
   refine hgt ?_
   simpa [Real.log_one, Real.zero_rpow (by norm_num : (1:ℝ)/2 ≠ 0), Real.exp_zero] using hcap
 
+/-! ## MRT's (A.4) — the ℂ-level half, salvaged
+
+The full pointwise identity `costwist_conj_avg` hit its 3-attempt budget and is
+flagged (queue row 15aa).  **But the wall was never the algebra — it is entirely
+in the cast layer (`costwist` → `starRingEnd` → `ofReal`).**  These two lemmas are
+the part that compiled, landed on their own so the remaining obstacle is exactly
+the cast and nothing else.
+
+*Salvaging the half that built is not a fourth attempt at the node; it is
+shrinking what the node still needs.* -/
+
+/-- `e^{zI} + e^{−zI} = 2·cos z`, from Euler in both directions. -/
+theorem exp_add_exp_neg_eq_two_cos (z : ℂ) :
+    Complex.exp (z * Complex.I) + Complex.exp (-z * Complex.I)
+      = 2 * Complex.cos z := by
+  rw [Complex.exp_mul_I, Complex.exp_mul_I, Complex.cos_neg, Complex.sin_neg]
+  ring
+
+/-- **THE AVERAGING IDENTITY, IN `ℂ`.**  Two conjugate twists at `a` and `b`
+combine into one at `(a+b)/2` scaled by `cos((a−b)/2)` — MRT's (A.4), with the
+reals not yet involved. -/
+theorem exp_neg_avg (a b : ℂ) :
+    (Complex.exp (-a * Complex.I) + Complex.exp (-b * Complex.I)) / 2
+      = Complex.exp (-((a + b) / 2) * Complex.I) * Complex.cos ((a - b) / 2) := by
+  have h := exp_add_exp_neg_eq_two_cos ((a - b) / 2)
+  have e1 : Complex.exp (-((a + b) / 2) * Complex.I)
+        * Complex.exp (((a - b) / 2) * Complex.I) = Complex.exp (-b * Complex.I) := by
+    rw [← Complex.exp_add]; congr 1; ring
+  have e2 : Complex.exp (-((a + b) / 2) * Complex.I)
+        * Complex.exp (-((a - b) / 2) * Complex.I) = Complex.exp (-a * Complex.I) := by
+    rw [← Complex.exp_add]; congr 1; ring
+  calc (Complex.exp (-a * Complex.I) + Complex.exp (-b * Complex.I)) / 2
+      = (Complex.exp (-((a + b) / 2) * Complex.I) * Complex.exp (-((a - b) / 2) * Complex.I)
+          + Complex.exp (-((a + b) / 2) * Complex.I)
+              * Complex.exp (((a - b) / 2) * Complex.I)) / 2 := by rw [e1, e2]
+    _ = Complex.exp (-((a + b) / 2) * Complex.I)
+          * ((Complex.exp (((a - b) / 2) * Complex.I)
+              + Complex.exp (-((a - b) / 2) * Complex.I)) / 2) := by ring
+    _ = Complex.exp (-((a + b) / 2) * Complex.I) * Complex.cos ((a - b) / 2) := by
+        rw [h]; ring
+
 end Salt.MR
