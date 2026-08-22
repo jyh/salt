@@ -170,7 +170,9 @@ RESURRECTS THEM:**
     Lemma 2.2's complement is the union over `j ≤ J`** — needs the `(1/j²)` profile and `Σ 1/j²`.
     **Unlanded regardless.** ⇒ **RE-BRIEF BEFORE ANY EXECUTOR CONSUMES THIS ROW.** E-5c and the
     thresholds are untouched by the refutation and remain sound as written.
-    *Statement below untouched — status field only.* — **E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations: ∫→∑
+    *Statement below untouched — status field only. The bold span `**WAVE 1c — E-5c**` is restored
+    WHOLE here after the helm named its split at 17:10 — on a ratified object the standard is exactness,
+    and "close enough" is how the first real edit gets in.* — **WAVE 1c — E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations: ∫→∑
     step-function identity · absolute→relative phase re-index · per-block `W`-sandwich ·
     Definition 2.1 side conditions · the nat-division cover lemma · reassembly — **the reassembly
     half is LANDED**, `harmonic_window_bounds`, `LogMeasure.lean:115`) **+ the thresholds**
