@@ -8358,3 +8358,6 @@ open Salt.Tactic in
   Salt.MR.mrtT1
   Salt.MR.mrtT0_union_mrtT1
   Salt.MR.mrtT0_disjoint_mrtT1
+  Salt.MR.MRTLemmaA4i
+  Salt.MR.MRTLemmaA4ii
+  Salt.MR.mrtA4_constant_pos
