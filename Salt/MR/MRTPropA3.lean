@@ -993,4 +993,58 @@ theorem mrtA8_of_mvt (α θ : ℝ) (hα : 0 ≤ α)
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   nlinarith [hmvt, hcos, hexp, he2, sq_nonneg θ]
 
+/-- **A.8's MVT STEP — DISCHARGED, AND WITHOUT MRT's SECOND-DERIVATIVE MINIMISATION.**
+
+MRT reach `e^{√(α²+θ²)} ≥ e^α + (e/2)θ²` by differentiating `x ↦ e^{√x}` twice and
+minimising the derivative at `x = 1`.  That is avoidable.  With
+`r = √(α²+θ²) ≥ α` and `r² = α² + θ²`, the claim is exactly
+
+  `g α ≤ g r`   where `g x = e^x − (e/2)x²`,
+
+and `g' x = e^x − e·x ≥ 0` is **one mathlib lemma**: `Real.add_one_le_exp` at
+`x − 1` gives `x ≤ e^{x−1}`, i.e. `e·x ≤ e^x`.  Monotonicity then finishes it.
+
+*The minimum of `e^x − e·x` is `0`, attained at `x = 1` — the same `x = 1` and the
+same value `e/2` MRT locate by the second derivative.  The two routes meet at the
+same constant; this one never has to compute a second derivative.* -/
+theorem mrtA8_mvt_step (α θ : ℝ) (hα : 0 ≤ α) :
+    Real.exp α + (Real.exp 1 / 2) * θ ^ 2
+      ≤ Real.exp (Real.sqrt (α ^ 2 + θ ^ 2)) := by
+  have key : ∀ x : ℝ, Real.exp 1 * x ≤ Real.exp x := by
+    intro x
+    have h := Real.add_one_le_exp (x - 1)
+    rw [Real.exp_sub, le_div_iff₀ (Real.exp_pos 1)] at h
+    linarith
+  have hderiv : ∀ x : ℝ, HasDerivAt (fun y : ℝ => Real.exp y - (Real.exp 1 / 2) * y ^ 2)
+      (Real.exp x - Real.exp 1 * x) x := by
+    intro x
+    have ha : HasDerivAt Real.exp (Real.exp x) x := Real.hasDerivAt_exp x
+    have hb0 := (hasDerivAt_pow 2 x).const_mul (Real.exp 1 / 2)
+    have hfix : (Real.exp 1 / 2) * ((2 : ℕ) * x ^ (2 - 1)) = Real.exp 1 * x := by
+      push_cast
+      ring
+    rw [hfix] at hb0
+    exact ha.sub hb0
+  have hmono : Monotone (fun x : ℝ => Real.exp x - (Real.exp 1 / 2) * x ^ 2) := by
+    refine monotone_of_deriv_nonneg (fun x => (hderiv x).differentiableAt) (fun x => ?_)
+    rw [(hderiv x).deriv]
+    linarith [key x]
+  have hnn : (0 : ℝ) ≤ α ^ 2 + θ ^ 2 := by positivity
+  have hr2 : Real.sqrt (α ^ 2 + θ ^ 2) ^ 2 = α ^ 2 + θ ^ 2 := Real.sq_sqrt hnn
+  have hαr : α ≤ Real.sqrt (α ^ 2 + θ ^ 2) := by
+    calc α = Real.sqrt (α ^ 2) := (Real.sqrt_sq hα).symm
+      _ ≤ Real.sqrt (α ^ 2 + θ ^ 2) := Real.sqrt_le_sqrt (by nlinarith [sq_nonneg θ])
+  have hstep : Real.exp α - (Real.exp 1 / 2) * α ^ 2
+      ≤ Real.exp (Real.sqrt (α ^ 2 + θ ^ 2))
+        - (Real.exp 1 / 2) * (Real.sqrt (α ^ 2 + θ ^ 2)) ^ 2 := hmono hαr
+  rw [hr2] at hstep
+  linarith
+
+/-- **MRT LEMMA A.8, UNCONDITIONAL.**  `mrtA8_of_mvt` composed with the discharged
+MVT step: `e^α + e^{−α} − 2cos θ ≤ exp(√(α²+θ²))` for `α ≥ 0`, no hypotheses. -/
+theorem mrtA8 (α θ : ℝ) (hα : 0 ≤ α) :
+    Real.exp α + Real.exp (-α) - 2 * Real.cos θ
+      ≤ Real.exp (Real.sqrt (α ^ 2 + θ ^ 2)) :=
+  mrtA8_of_mvt α θ hα (mrtA8_mvt_step α θ hα)
+
 end Salt.MR
