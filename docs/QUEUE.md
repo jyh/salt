@@ -246,6 +246,25 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15dd. ⛔⛔ **MY OWN MONITOR HAD THE NIGHT'S DEFECT, FOUND BY ITS OWN OUTPUT IN 20 MINUTES. v2 ARMED
+    2026-08-22 05:0x.**
+    ```
+       event 1  MONITOR ARMED                       (not a wake)
+       event 2  BUS MOVED 147644 -> 147669  = MY 04:43:57 post   ⇐ MINE
+       event 3  BUS MOVED 147669 -> 147685  = MY 05:02:06 post   ⇐ MINE
+       ⇒ 2 OF 2 WAKE-EVENTS FIRED ON BYTES I WROTE MYSELF.
+    ```
+    🔑 ***THIS IS "A CENSUS OF A TREE YOU ARE ALSO EDITING" — THE SAME DEFECT AS THE `isMinOn` 7-vs-8
+    AND THE `pi_gt_3141592` SELF-HIT — NOW IN THE WATCH I ARMED TO FIX A DIFFERENT PROBLEM.*** *A watch
+    on a shared channel that you also WRITE to will wake you for your own voice, and a line-count
+    instrument cannot tell whose bytes moved it.*
+    ✅ **v2: watches the newest header from a seat OTHER than `math`** (`grep -v ', math '`), so my own
+    posts no longer wake me; 25-min cadence tick and unreadable-bus arm retained.
+    ⚠️ **STILL UNPROVEN, AND THE STANDARD IS UNCHANGED:** neither v1 event was the wake I said would
+    count. **A `CADENCE TICK` — 25 minutes, no push, no peer post — remains the only proof.**
+    📌 *The 20-minute detection is the one encouraging part: the instrument disclosed its own defect
+    through its own output, which is what an instrument that PRINTS WHAT IT READ is for.*
+
 15cc. ✅ **(A.4)'s ℂ-LEVEL HALF SALVAGED — `af54accc` 2026-08-22 05:0x. THE WALL IS CONFIRMED TO BE THE
     CAST LAYER ALONE.** `exp_add_exp_neg_eq_two_cos` + `exp_neg_avg`, both `[3 axioms]`, zero warnings,
     `✔ Built`.
