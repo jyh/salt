@@ -667,6 +667,43 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### THE DOOR'S CAPSTONE IDENTIFIED — AND THE ROAD RUNS ONE LINK FURTHER STILL
+
+Continuing the walk, under the rule set in the section below: name no frontier, keep going.
+
+**1. THE TRIVIAL SUPPLIER IS THE SMALL-LENGTH HALF, AND IT SAYS SO.**
+`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:105`) is the window-length bound
+`‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
+lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:38`, `M4Maximal.lean:1024`).
+
+**2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:530`) — the **S12** lane.  This is
+  the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1026`) — the **M4** lane, and *this* is the one the
+  door's dyadic split consumes (`M4Maximal.lean:116`, length-graded `MS j H`).
+
+**The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
+predecessor already lost a day to two different objects both called "Prop 2.4".
+
+**3. THE DOOR'S CAPSTONE IS AN L² MEAN VALUE OBLIGATION.**  `M4ChiDyadicRowMeanSq` is a `Prop`:
+`(1/X)·∫_X^{2X} ‖(1/2^j)·shortSum (doorChiCoeff χ M) … y (2^j)‖² ≤ MS j H`, graded per dyadic
+length — the same family as `dpolyS_l2_mvt_final`.  69 references, 13 files, decoy 0.
+
+**4. AND IT HAS A PRODUCER, SO THE ROAD CONTINUES.**  `m4_dyadicRow_carried`
+(`M4DoorClose.lean:535`) concludes `M4ChiDyadicRowMeanSq R M k MS` from: `1 ≤ M`; the modulus
+cap `arcDen 12 H ≤ Qm`; the trivial grade below `doorRowFloor M` (that is item 1); and
+`DoorRowCarried …` above it.  Its constants are **constructed** (`∃ Cq cq T₀ Xcap Cs Ccc …`
+via `m4_door_meansq_carried`), not assumed.
+
+⇒ **A FOURTH LINK.  I NAME NO FRONTIER AGAIN — and this beat is the evidence the rule is
+right: I was one command from calling the capstone the frontier, and the producer sits two
+files away.**  The next object is `DoorRowCarried`.
+
+⛔ **INSTRUMENT DEFECT, DISCLOSED.**  My conclusion-position probe reported 3 producer sites.
+Its control — `MRTUniformityXi`, a `Prop` I know has a producer — scored **0**.  The probe
+misses real producers, so **3 is a LOWER BOUND, not a count**, and is written here as one. -/
+
 /-! ### ⛔⛔⛔ THE DOOR'S ROAD WALKED TO ITS END — MY FRONTIER CLAIM RETRACTED, THIRD TIME
 
 I said one beat ago that the door's missing piece is *"the TERMINAL CANCELLATION."*  **That is
