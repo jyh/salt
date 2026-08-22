@@ -2015,6 +2015,40 @@ theorem mrtPropA3_in_bridge_shape {C : ℝ} (hA3 : MRTPropA3 C)
     (le_of_eq ?_)
   ring
 
+/-! ### What the binder audit CANNOT see — junk values inside definitions
+
+Rows 17a/17c/17d all came from auditing HYPOTHESES.  That instrument is blind to a whole
+class: a degeneracy that is not a hypothesis at all, but a *junk value* Lean assigns
+inside a definition.  Asking which class my own audit cannot see turns one up in A.3's
+own right-hand side.
+
+⛔ **`X / (Qseq 1 : ℝ)` AT `Qseq 1 = 0`.**  `MRTBands` bounds `Q₁` only from ABOVE
+(`Q₁ ≤ exp √(log X₀)`), so `Q₁ = 0` is admissible.  Then `X/0 = 0` and `T/0 = 0`, so A.3's
+leading factor `T/(X/Q₁) + 1` **collapses from something large to exactly `1`** — the
+bound gets STRICTLY HARDER, in the direction that would make the proposition false.
+
+✅ **AND THE SAME GUARD SAVES IT, FOR THE FOURTH TIME.**  `Q₁ = 0` means the first band is
+`[P₁, 0]`, which contains no prime, so `MemS` fails everywhere and `S = ∅`.  That is not a
+new case: it is already inside `memS_false_of_prime_free_band`, which is evidence the
+generalisation in row 16v was cut at the right level rather than at the level of the three
+examples that prompted it.
+
+*A negative result, reported as loudly as a positive one: the class my audit is blind to
+does contain a real instance here, and the instance is already covered.* -/
+
+/-- **A.3's LEADING FACTOR COLLAPSES TO `1` AT `Qseq 1 = 0`** — via `X/0 = 0` then `T/0 = 0`.
+The bound becomes strictly harder, which is why this needed checking rather than assuming. -/
+theorem mrtA3_leading_factor_of_Qseq1_zero {X T : ℝ} {Qseq : ℕ → ℕ} (hQ : Qseq 1 = 0) :
+    T / (X / (Qseq 1 : ℝ)) + 1 = 1 := by
+  rw [hQ]
+  simp
+
+/-- **AND THE SAME CONFIGURATION EMPTIES `S`** — a corollary of the general prime-free-band
+lemma, not a new case. -/
+theorem memS_false_of_Qseq1_zero {Pseq Qseq : ℕ → ℕ} {J n : ℕ} (hJ : 1 ≤ J)
+    (hQ : Qseq 1 = 0) : ¬ MemS Pseq Qseq J n :=
+  memS_false_of_Qseq_one_le_one hJ (by omega)
+
 /-! ### The bridge's binders as a SET — and the residue is largeness
 
 Rows 17a/17c closed two of `MRTPropA3Bridge`'s hypotheses one at a time.  Doing what the
