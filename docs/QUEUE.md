@@ -246,6 +246,40 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15pp. ✅ **THE QUESTION I POSED LAST BEAT IS ANSWERED, AND THE ANSWER IS "NEITHER A GAP NOR A SCOPE
+    ERROR — A TARGET NOT YET PROVEN." 2026-08-22 06:4x.**
+    **Q (15oo): is `MRTThmA1` on the critical path to the door, or is it off-scope?** Measured:
+    ```
+      M4ParsevalStone (the door's L² producer)   mentions lemma14: 0   ·  MRTThmA1: 0
+        its imports are M4Door · M4Window · Entropy.Chowla.CircleMethod
+      anything in Salt/Entropy/ consuming lemma14 :  NONE
+      CONTROL: lemma14 appears in 14 files under Salt/MR/ ⇒ the grep sees it
+    ```
+    ⇒ **as wired, A.1 is not on the door's path — BECAUSE THE DOOR HAS NO PRODUCER AT ALL** (a
+    hypothesis with 34 dependents). 🔑 ⇒ ***`MRTThmA1` has no consumer because THE THING THAT WOULD
+    CONSUME IT — A PROOF OF THE DOOR — HAS NOT BEEN WRITTEN.*** That is the EXPECTED state of a
+    formalization target: **not a wiring defect, and not a scope error.** The helm's dangling-interface
+    finding is real and correctly identified; its resolution is *"prove the door"*, which is the
+    campaign's whole point, and A.1 is its named ingredient (via the Liouville major-arc shortcut).
+    ⛔⛔ **AND I ALMOST PUBLISHED A DEAD FLAG AS THE GAP — THE FIFTH-DIRECTION TRAP, SECOND SIGHTING,
+    CAUGHT THIS TIME BEFORE PUBLICATION.** I was about to name row **15h**'s *"UNMEASURED, NAMED SO IT
+    IS NOT ABSORBED: the transport from `lemma14`'s TWO-SCALE form to A.1's SINGLE-SCALE statement"*
+    as the live gap. **It is closed TWICE OVER:**
+    ```
+      parseval_single_h   ParsevalSingle.lean:876   "S8 ladder A2-1 — THE SINGLE-h PARSEVAL"
+        landed; consumed by MY OWN MRTPropA3Bridge (6 sites) and by ThmA2Spine
+        its header states the exact mechanism: the U/V Taylor split "is what forces the
+        two-scale difference"; drop the split and run the V-argument from t = 0
+      row 15i (22:0x)  ALREADY RETRACTED 15h: "WRONG. I wrote that A.1 needed a transport from
+        lemma14's TWO-SCALE difference form to a SINGLE scale. MRT DO NOT USE A TWO-SCALE
+        DIFFERENCE FOR THIS AT ALL." — Thm A.2's proof: "The first step is a Parseval bound."
+    ```
+    ✅ **WHAT STOPPED ME WAS THE LAW I BANKED AT 05:37, AND IT FIRED IN THE RIGHT ORDER THIS TIME:**
+    I measured `parseval_single_h`'s consumers BEFORE asserting the flag was live; the file header
+    contradicted 15h, and the queue grep then produced 15i's retraction. *Last time the same trap cost
+    me two published headlines; this time it cost one measurement.* **A newest-first file makes an old
+    flag read exactly like a live one — the only defence is to check the code before quoting the row.**
+
 15oo. 🔬 **I TOOK THE HELM'S SEQUENCING (`MRTThmA1` HAS NO CONSUMER, AHEAD OF ENGINE WORK), WENT FOR
     THE A.1→DOOR BRIDGE, AND KILLED MY OWN ROUTE WITH A TYPE. 2026-08-22 06:4x. NO LEAN OBJECT
     LANDED THIS TURN — the yield is a DEAD ROUTE plus the LIVE one, and I would rather say that than
