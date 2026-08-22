@@ -369,9 +369,69 @@ theorem mrtA4i_holds (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset 
         = ((1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / 2) / (p : ℝ) := by ring
       _ ≤ (1 - 0) / (p : ℝ) := by gcongr
 
-/-- **`MRTLemmaA4i` IS DISCHARGED** — the `Prop` stated earlier is now a theorem. -/
+/-- **`MRTLemmaA4i` IS DISCHARGED** — the `Prop` stated earlier is now a theorem.
+
+⭐ Note the producer needs **one hypothesis fewer** than the `Prop` asks: `mrtA4i_holds`
+never uses `|t| ≤ X`, so it is **strictly stronger** than `MRTLemmaA4i`.  Recorded
+because a consumer wanting the weaker form should know the stronger one exists —
+and because this is the second hypothesis tonight that a statement carries and its
+proof does not need (cf. `mrtA5_epsilon_ceiling`'s `0 < ε`). -/
 theorem mrtLemmaA4i_holds : MRTLemmaA4i := by
   intro f Pseq Qseq 𝒥 X t hf _htX
   exact mrtA4i_holds f Pseq Qseq 𝒥 X t hf
+
+/-! ## A3-3 (ii), FIRST BRANCH — proved from (i)
+
+MRT: *"Notice first that when `M(f;X) ≥ ⅛ log log X`, part (i) implies that,
+whenever `|t| ≤ X`, we have `𝔻(f g_𝒥, p^{it}; X)² ≥ (1/16) log log X`, **which is
+sufficient**."*
+
+Two ingredients, both landed tonight: `mrtA4i_holds`, and the fact that `mrtM` is
+an infimum so it lies below every admissible twist.
+
+⭐ **"Which is sufficient" is a numeric claim and it is checked here:**
+`1/6 − 1/(3π) = 0.060563 < 0.0625 = 1/16`, margin `0.001937`.  ⚠️ Note this needs
+`π < 3.2` — an **UPPER** bound on `π` — where `mrtA4_constant_pos` needed `π > 2`
+and `mrtA5_rho_margin` needed `π > 3.125`.  *Three facts about one constant,
+requiring bounds on `π` from both sides.*
+
+⛔ The **second** branch (`M < ⅛loglog X` and `|t − t₁| > (log X)^{1/16}/2`) is the
+real analysis — it introduces `Y = exp((log X)^{2/3+ε})` and MRT's display (A.4) —
+and is **not** attempted here. -/
+
+/-- `mrtM` is an infimum, so it lies below the distance at every admissible twist. -/
+theorem mrtM_le (f : ℕ → ℂ) {X t : ℝ} (hX : 0 ≤ X) (htX : |t| ≤ X) :
+    mrtM f X ≤ pretDistSq f (costwist t) X := by
+  have hcont := continuous_pretDistSq_costwist f X
+  have hcompact : IsCompact (Set.Icc (-X) X) := isCompact_Icc
+  have hne : (Set.Icc (-X) X).Nonempty := ⟨0, by constructor <;> linarith⟩
+  obtain ⟨t₁, ht₁mem, ht₁min⟩ := hcompact.exists_isMinOn hne hcont.continuousOn
+  have hbdd : BddBelow {m : ℝ | ∃ s : ℝ, |s| ≤ X ∧ m = pretDistSq f (costwist s) X} := by
+    refine ⟨pretDistSq f (costwist t₁) X, ?_⟩
+    rintro b ⟨s, hsX, rfl⟩
+    exact ht₁min (by rw [Set.mem_Icc]; rw [abs_le] at hsX; exact ⟨hsX.1, hsX.2⟩)
+  exact csInf_le hbdd ⟨t, htX, rfl⟩
+
+/-- **`1/16` BEATS A.4(ii)'s TARGET CONSTANT** — this is MRT's *"which is
+sufficient"*, evaluated.  Needs `π < 3.2`, an UPPER bound. -/
+theorem mrtA4ii_sixteenth_suffices : 1 / 6 - 1 / (3 * Real.pi) < 1 / 16 := by
+  have hpi : Real.pi < 3.2 := by linarith [Real.pi_lt_d2]
+  have h3 : (0 : ℝ) < 3 * Real.pi := by nlinarith [Real.pi_gt_three]
+  have hkey : (5 : ℝ) / 48 < 1 / (3 * Real.pi) := by
+    have : (3 : ℝ) * Real.pi < 48 / 5 := by linarith
+    calc (5 : ℝ) / 48 = 1 / (48 / 5) := by norm_num
+      _ < 1 / (3 * Real.pi) := one_div_lt_one_div_of_lt h3 this
+  linarith
+
+/-- **A.4(ii), HIGH-`M` BRANCH, PROVED.**  When `M(f;X) ≥ ⅛·loglog X`, part (i)
+gives `𝔻²(f·g_𝒥, ·) ≥ (1/16)·loglog X` at every admissible twist. -/
+theorem mrtA4ii_high_M (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) (hX : 0 ≤ X) (htX : |t| ≤ X)
+    (hM : (1 / 8) * Real.log (Real.log X) ≤ mrtM f X) :
+    (1 / 16) * Real.log (Real.log X)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have h1 := mrtA4i_holds f Pseq Qseq 𝒥 X t hf
+  have h2 := mrtM_le f hX htX
+  linarith
 
 end Salt.MR
