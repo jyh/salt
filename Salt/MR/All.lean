@@ -383,6 +383,7 @@ import Salt.MR.MRTProp24
 import Salt.MR.MRTQualityLam
 import Salt.MR.MRTThmA1
 import Salt.MR.MRTPropA3Bridge
+import Salt.MR.MRTPropA3
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8339,3 +8340,7 @@ open Salt.Tactic in
   Salt.MR.MRTThmA1
   Salt.MR.MRTThmA1Statement
   Salt.MR.hMsup_of_propA3_shape
+  Salt.MR.MRTBands
+  Salt.MR.MRTBandCount
+  Salt.MR.MRTPropA3
+  Salt.MR.MRTPropA3Statement
