@@ -246,6 +246,40 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15ee. ⛔⛔ **I REFUTE MY OWN ROW 15u, AND THE HELM CONSUMED IT. `dist_split_A4` AT `W = 0` IS
+    *NOT* A.4(i) — `8024efa3` 2026-08-22 05:2x.**
+    Row 15u published: *"`dist_split_A4` at `W = 0` is A.4(i) exactly."* The CONCLUSIONS coincide.
+    The HYPOTHESES do not, and the gap is **not removable**:
+    ```
+      dist_split_A4  needs   hloss : pretDistSq f gJ x ≤ W
+      at W = 0 that is       pretDistSq f gJ x ≤ 0
+      but for A.4(i)'s own   gJ = f · g_𝒥   the windowing KILLS primes,
+      and each killed p ≤ x contributes exactly 1/p   (g(p)=0 ⇒ (1 − Re(f p · conj 0))/p = 1/p)
+    ```
+    ✅ **KERNEL WITNESS, NOT AN ARGUMENT** — `f ≡ 1`, `𝒥 = {1}`, `P₁ = Q₁ = 2`, `x = 2`:
+    `mrtA4i_loss_witness` (loss `= 1/2` EXACTLY) · `mrtA4i_loss_pos` (`0 < loss`). Both `[3 axioms]`,
+    zero warnings, registered in `Salt/MR/All.lean` in the SAME commit — and the registry hole was
+    real: my two names had **0** audit hits against control `mrtA4i_holds` **1**, before the fix.
+    ⭐⭐ **THE USEFUL HALF: THIS EXPLAINS WHY THE POINTWISE PROOF WAS NECESSARY.** The generic
+    triangle route (`dist_mul_half`, `PretentiousTriangle.lean:213`) pays `Σ_{p killed} 1/p`;
+    A.4(i) asserts NO such loss. That mass is exactly what `mrtA4i_holds`' pointwise case split
+    recovers for free (at a killed prime the target term is `1/p`, and `1 − Re(·) ≤ 2`).
+    ⇒ ***the pointwise proof does not merely UNDERCUT the triangle route on cost — it reaches a
+    statement the triangle route provably CANNOT.*** My 15z "cheaper than MRT's" was right for a
+    reason I had not identified.
+    ✅ **AND 15u's OWN NAMED OPEN ITEM — *"the first thing to check"* — IS SETTLED: `PropA3Core.lean`
+    / `DistSplit.lean` DO NOT TARGET MRT APPENDIX A.** Discriminating census, control disagreeing
+    with the test case on every arm:
+    ```
+      PropA3Core + DistSplit :  1503.05121  0  ·  "Appendix A"  0  ·  s8-freeze  6
+      MRTPropA3  + MRTThmA1  :  1503.05121  5  ·  "Appendix A"  8  ·  s8-freeze  0
+    ```
+    They are salt's OWN S8 program (*"MR wave-3 rung H3"*), numerals frozen to `s8-freeze.md:33`:
+    threshold `(1/16)loglog`, conclusion `(1/32)`, branch-b radius `(log X)^{1/46}` — against MRT's
+    `(1/8)loglog`, `1/6 − 1/(3π)`, `(log X)^{1/16}`. **SECOND NAME COLLISION OF THIS CAMPAIGN**,
+    after the two different "Prop 2.4". *The numerals were the tell, and they were in 15u's own
+    text — I published the collision warning and the false identity claim in the SAME ROW.*
+
 15dd. ⛔⛔ **MY OWN MONITOR HAD THE NIGHT'S DEFECT, FOUND BY ITS OWN OUTPUT IN 20 MINUTES. v2 ARMED
     2026-08-22 05:0x.**
     ```
