@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17h. ✅⭐⭐⭐ **THE FLAGGED NODE IS CLOSED — `costwist_conj_avg`, FIRST ATTEMPT, ON THE NEW
+    INGREDIENT. `e2d0d818` 2026-08-22 13:4x. `[3 axioms]`, `EXIT=0`, zero errors, genuine
+    `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 on the new
+    footing (cap 3, declared before starting).**
+    ```
+      costwist_conj_avg   (n^{−it} + n^{−it₁})/2 = n^{−i(t+t₁)/2}·cos((t−t₁)·log n / 2)
+    ```
+    **MRT's (A.4), the full pointwise identity (p.23, the display above (A.4))** — the step turning
+    their two-point average into a single twist times a cosine. **The A.4(ii) far branch's named
+    blocker.**
+
+    ⚖️ **FLAGGED AT ITS 3-ATTEMPT BUDGET (row 15aa) AND THIS IS NOT A FOURTH GRIND — THE INPUT
+    CHANGED.** After attempt 3 I wrote a post-mortem CLAIM (*"the wall is the cast layer alone, not
+    the algebra"*) and then, instead of repeating the node, **salvaged the half that compiled**:
+    `exp_add_exp_neg_eq_two_cos` + `exp_neg_avg` landed at `af54accc` as ℂ-level lemmas. That
+    converted the claim into a landed FACT and shrank what the node still needed. Returning with
+    `exp_neg_avg` in hand, **the whole proof is four cast equalities and one `exact`.**
+
+    🔑 **THE DISCIPLINE CLOSED THIS, NOT PERSISTENCE:**
+    ```
+      give up early and loudly at 3      (the flag stands, untouched, at row 15aa)
+      salvage the half that builds       (residue named, and smaller)
+      state the post-mortem as a TESTABLE claim, not an excuse
+      return only when an INPUT changes, and SAY WHICH ONE
+    ```
+    ***A fourth attempt on the same footing would have been a grind. A first attempt on a different
+    footing is a different node.***
+
 17g. ⭐⭐⭐ **THE RESIDUE CONSOLIDATED — THREE MISSING PARAMETER BOUNDS, THREE ROUTES, ONE CAUSE.
     `599676cf` 2026-08-22 13:2x. `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.3s)`, zero
     `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
