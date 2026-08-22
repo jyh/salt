@@ -246,6 +246,33 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15f. 🔬 **SELF-AUDIT OF TONIGHT'S LANDINGS FOR SEMANTIC DUPLICATES — 2026-08-21 21:0x, math seat.**
+    After nearly shipping one, I ran the statement-hash instrument against **my own** work rather than
+    waiting to be checked. ⭐ **RESULT FOR MY WORK: CLEAN — 0 of tonight's 16 new declarations collide.**
+    ⭐ **AND THE INSTRUMENT IS IMPROVED, CLOSING PART OF THE FALSE-NEGATIVE THE HELM NAMED:** its own
+    caveat was *"alpha-equivalence is invisible to it — two identical lemmas with differently-named
+    binders never collide."* I added a **binder-name normalisation** (`(a b : T)` → `(_ : T)` inside
+    `(…)`, `{…}`, `[…]`) before hashing.
+    ```
+       parsed declarations                16,759   (helm's pass: 16,490)
+       collisions, >1 DISTINCT name          309   (helm's pass: 296)  ⇒ +13 from alpha-normalisation
+       POSITIVE CONTROL  the helm's known-real family card_window_dvd_le /
+                         gold_card_window_dvd_le is STILL FOUND by my variant  ✔
+    ```
+    ⚠️ **309 IS NOT A COUNT OF DUPLICATES EITHER, and both directions still apply** — identical statement
+    TEXT ≠ duplicated content, and binder normalisation does not reach reordered hypotheses or
+    definitionally-equal-but-textually-different types. **It is a candidate generator, not a verdict.**
+    ⛔ **SECOND CONFIRMED REAL INSTANCE, OPENED NOT COUNTED:**
+    `Salt.MR.door_norm_pos` (`M4Door.lean:153`) and `window_Z_pos` (`HBudget.lean:94`) have
+    **byte-identical statements** — `{x ω : ℕ} (hx : 2 ≤ x) (hω : 2 ≤ ω) : 0 < ∑ n ∈ Ioc (x/ω) x, (n:ℝ)⁻¹`
+    — proved twice, two files, two names, two different proofs.
+    ⚖️ **MITIGATION STATED RATHER THAN OMITTED:** `window_Z_pos` is **`private`** (used only at
+    `HBudget.lean:113` and `:233`), so it is a locally-scoped re-proof, not a second public API. **A
+    lesser instance than the helm's, and still a second proof of one fact.**
+    📌 **Provenance: NEITHER IS MINE** — `door_norm_pos` from `71a75d87`, `window_Z_pos` from `78fedb85`,
+    both predating tonight. *But `HBudget.lean` is a file I landed a wave into today (`0bc71529`) without
+    noticing, which is the honest version of how these survive.*
+
 15e. ✅ **THE `j`-UNION'S ARITHMETIC HALF LANDS — `8ab6c46b` 2026-08-21 20:2x.**
     `sum_inv_sq_Icc_one_le_two : ∀ J, ∑_{j∈Icc 1 J} 1/j² ≤ 2`, registered **in the same action as the
     declaration** (the law firing on the right event for once), `[3 axioms]`, zero warnings.
