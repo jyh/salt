@@ -319,7 +319,30 @@ RESURRECTS THEM:**
     (`MVCore2.lean:620`) — **no hypotheses at all** beyond the data — resting on
     `mvHilbertUniform_holds` (`MVCore2.lean:575`), also hypothesis-free. **Both `[3 axioms]`, both
     audited.** *This is the Montgomery–Vaughan mean value theorem, already in the kernel.*
-    🔑 **SO THE REMAINING GAP IS A SHAPE GAP, NOT A STRENGTH GAP:** `hMsup` wants a **dyadic-block,
+    ⛔⛔ **I CORRECT MY OWN HEADLINE, 2026-08-21 18:3x — "A SHAPE GAP, NOT A STRENGTH GAP" WAS
+    OVER-STRONG, AND THE HEADLINE IS WHAT A READER TAKES.** The shape reconciliation IS elementary and
+    that half stands. **But the TRIVIAL ROUTE THROUGH IT IS NOW PRICED AND IT IS VACUOUS.**
+    Route: containment `∫_T^{2T} + ∫_{−2T}^{−T} ≤ ∫_{−2T}^{2T}`, bridge `dpolyA a s0 t = ∑ (a_m/m)·m^{−it}`
+    (`Lemma14Taylor.lean:283`, **σ = 1**) into `dpolyS`/`dpoly` (**σ = 0**, `MVHilbertFinset.lean:108`,
+    `L2MVT.lean:43`), then the unconditional MVT. With `hrange`'s `X ≤ m ≤ 4X` ⇒ `N = ⌊4X⌋`,
+    `|s0| ≤ 3X+1`, `‖a_m‖ ≤ 1` ⇒ `Σ‖a_m/m‖² ≤ (3X+1)/X²`. **Computed this session:**
+    ```
+       Msup at the WORST case T = X/h₁ (hMsup is ∀ T ≥ X/h₁, so the sup sits at the SMALLEST T):
+         X = 1e4 … 1e20,  h₁ = 1e1 … 1e6   ⇒   Msup ≈ 240.0   IN EVERY CELL
+       flat across 16 orders of magnitude in X and 5 in h₁ ⇒ Θ(1), NOT o(1)
+    ```
+    ⇒ **THE OBSTRUCTION IS NAMEABLE: it is the MVT's DIAGONAL term `20N` evaluated at `T = X/h₁`,**
+    `(X/h₁)/T · 20N · Σ‖b‖² = 20·4X·3/X = 240`. *(As `T → ∞` the diagonal's contribution decays like
+    `1/T` and the residue is `≈ 12/h₁`; the binding case is small `T`, which is exactly where `hMsup`
+    is quantified.)* ⛔ **And `Θ(1)` is VACUOUS here — lemma14's LHS is a mean square of differences of
+    1-bounded averages, so it is `≤ 4` for free.**
+    🔑🔑 **⇒ THE NODE IS HALÁSZ-CONSUMING, NOT MVT-CONSUMING. The unconditional mean value theorem
+    carries NO CANCELLATION by construction — its `20N` IS the diagonal — and a diagonal cannot decay.
+    `hMsup`'s real content is a LARGE-VALUES / Halász input.** *This is why the 65-file Halász
+    apparatus is the relevant supply and `dirichlet_poly_l2_mvt_final` is not.*
+    ⚠️ *My fence held — I wrote "sufficiency is a BOUND-vs-VALUE question and it is OPEN" and it was.
+    The defect was the HEADLINE, which a reader takes and which said something stronger than the fence.*
+    ⇒ **SUPERSEDED HEADLINE, PRESERVED:** 🔑 **SO THE REMAINING GAP IS A SHAPE GAP, NOT A STRENGTH GAP:** `hMsup` wants a **dyadic-block,
     `T`-normalised SUP uniform over `T ≥ X/h₁`** — `X/h₁/T·(∫_T^{2T} + ∫_{−2T}^{−T}) ≤ Msup` — while
     the landed MVT gives a **symmetric single interval**, `∫_{−T}^{T} ≤ (2T + 20N)·Σ‖a‖²`.
     ⚠️⚠️ **WHAT I HAVE NOT MEASURED AND WILL NOT ASSERT: WHETHER THE `Msup` OBTAINED THAT WAY IS SMALL
