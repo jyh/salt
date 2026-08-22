@@ -246,6 +246,30 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15x. ⛔⛔⛔ **I RETRACT A MATHEMATICAL CLAIM I MADE TWICE, WITH A WITNESS AGAINST IT. 2026-08-22 03:0x.**
+    I wrote, at 02:05 and again at 02:14, that **`dist_split_A4` at `W = 0` "IS A.4(i) EXACTLY"**, and
+    the helm echoed it. ***IT IS FALSE.***
+    `dist_split_A4` requires `hloss : pretDistSq f gJ x ≤ W`. For A.4(i) the second function is
+    `gJ := f·g_𝒥`, so the loss is `𝔻²(f, f·g_𝒥)`. Since `g_𝒥` is a `{0,1}` indicator,
+    `f(p)·conj(f(p)·g_𝒥(p)) = |f(p)|²·g_𝒥(p)`, and every prime where `g_𝒥` VANISHES contributes `1/p`.
+    ```
+      WITNESS   f ≡ 1,  g_𝒥 = 0 on {2,3} and 1 elsewhere
+                𝔻²(f, f·g_𝒥) = 1/2 + 1/3 = 0.833333  >  0
+      ⇒ W = 0 requires 𝔻²(f, f·g_𝒥) ≤ 0, which FAILS for ANY g_𝒥 vanishing on even one prime ≤ x —
+        AND VANISHING ON PRIMES IS EXACTLY WHAT g_𝒥 IS FOR.
+    ```
+    🔑 ⇒ **WITH THE TRUE LOSS `W₀ > 0`, `dist_split_A4` YIELDS `½·𝔻²(f,·) − W₀ ≤ 𝔻²(f·g_𝒥,·)` — STRICTLY
+    WEAKER THAN MRT's A.4(i), WHICH CARRIES NO LOSS TERM AT ALL.** ***A.4(i) IS THEREFORE **NOT**
+    REDUCIBLE TO THE LANDED `dist_split_A4`.*** MRT's own proof of (i) does a three-term decomposition
+    of `2𝔻²(f g_𝒥, p^{it}; X)` precisely to avoid paying that loss.
+    ⚠️ **RE-PRICING, AGAINST MY OWN EARLIER OPTIMISM: A3-3 IS MORE OPEN THAN I SAID.** The `g_𝒥`
+    machinery is landed (`gJ`, `gJ_mul`, `gJ_prime_pow`) and `dist_split_A4` is a genuine RELATIVE, but
+    **the reduction I claimed does not go through, and A.4(i) needs its own proof.**
+    📌 *This is the twelfth recovery's optimistic half retracted. **The FILE finding stands** —
+    `PropA3Core.lean` and `DistSplit.lean` exist and are the right neighbourhood — **but "the engines
+    transfer" was one step too strong, and I checked it only because I set out to PROVE it in Lean.***
+    ⇒ **A claim you cannot state as a Lean proof obligation is a claim you have not tested.**
+
 15w. ⛔⛔ **I CHASED THE 446-vs-487 GAP AND IT CONVICTED MY OWN INSTRUMENT TWICE. THE NUMBER IS 471.**
     2026-08-22 02:4x. *A disagreement between two counts of one population is a FINDING — this seat's own
     banked law — so I chased it instead of quoting a spread.*
