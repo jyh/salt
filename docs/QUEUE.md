@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15k. ✅✅✅ **THE COMPOSITION RUNS END TO END — `d4306085` 2026-08-21 22:4x.**
+    `parseval_bound_of_propA3_shape`, registered in the same action, `[3 axioms]`, zero warnings,
+    `✔ Built (3.0s)`. **Given A.3's shape at constant `B`, the single-`h` Parseval bound holds with every
+    `dpolyA` term replaced by its `B`-multiple** — `Msup ↦ 3B` (the bridge), the three spectral blocks
+    together `↦ 2B` (the tiling).
+    ```
+      A.3's shape ⟶ hMsup ⟶ parseval_single_h ⟶ a bound in A.3's own B
+                 ONE LEAN OBJECT, not three with prose between them
+    ```
+    ⭐ *One beat ago this row said "nobody has written that composition." It is written.*
+    ⚠️⚠️ **IT STILL DOES NOT PROVE A.3 — it takes A.3's conclusion as a HYPOTHESIS.** What it removes is
+    the ASSEMBLY step, which was the last thing between the stated door and A.2's left-hand side.
+    ⛔ **BUILD DEFECT, SECOND INSTANCE TODAY OF ONE CLASS:** `shortSum`/`parseval_single_h` unknown — **I
+    used names without importing their home**, exactly as with `dpolyA` earlier this evening. *A build
+    catches an unimported NAME instantly; it is the cheap end of the same family that hides an
+    unsupplied HYPOTHESIS forever.* Cycle checked before the import: only `All.lean` imports
+    `MRTPropA3Bridge`, so `ParsevalSingle` cannot reach it.
+    ⛔ **AND ONE WORTH THE ROW FOR ITS SHAPE:** *"No goals to be solved"* on a trailing `exact` —
+    **`gcongr` had already discharged the side goal from `hblocks` in context.** Not wrong, redundant;
+    replaced with a comment NAMING which hypothesis `gcongr` consumes, ***because a bare `gcongr` hides
+    what closed the goal, and a proof that does not say what it used is the next reader's dangling
+    interface.***
+
 15j. ✅✅ **THE THRESHOLD GAP CLOSED + THE OTHER HALF OF THE COMPOSITION — `20200e70` 2026-08-21 22:1x.**
     Three theorems, registered in the same action, all `[3 axioms]`, zero warnings, `✔ Built (3.0s)`.
     ⛔ **I WAS CORRECTED AND THE CORRECTION WAS RIGHT.** I called `parseval_single_h`'s `hMsup`
