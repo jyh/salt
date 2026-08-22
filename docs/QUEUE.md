@@ -246,6 +246,31 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15uu. ✅✅ **A.4(ii) IS REPAIRED — `t₁` PINNED TO THE MINIMISER, AND THE REPAIR *BUYS* THE CENTRE CAP.
+    `%s` 2026-08-22 07:1x. ALL THREE `[3 axioms]`, `EXIT=0`, GENUINE `Built (11s)`.**
+    ```
+      MRTLemmaA4iiFixed       A.4(ii) + hypothesis  pretDistSq f (costwist t₁) X = mrtM f X
+      mrtA4iiFixed_high_M     the high-M arm UNCHANGED (that branch never mentions t₁)
+      mrtA4ii_far_centre_cap  the far branch's CENTRE CAP is now DERIVABLE
+    ```
+    ⭐ **THE THIRD IS THE POINT, AND IT IS WHY THIS IS NOT MERELY WITNESS-PROOFING:** in the far branch
+    the first disjunct fails, so `mrtM f X < ⅛·loglog X`; **with `t₁` pinned that transfers to the
+    CENTRE DISTANCE ITSELF — exactly the `S` that `dist_recenter_sq` consumes.** *A free `t₁` could not
+    supply it at all, because a free `t₁` says nothing about `pretDistSq f (costwist t₁) X`.*
+    ⛔ **THE REFUTING WITNESS IS EXCLUDED BY THE NEW HYPOTHESIS** — it used `f ≡ 1` with `mrtM f X = 0`
+    attained at `s = 0`, while `pretDistSq f (costwist t₁) X > 0`, so that `t₁` is not a minimiser.
+    **Recorded in the file as the REASON, not as a Lean proof** (exhibiting the `> 0` needs a `cos`
+    bound at a specific argument, which is not what that section is for).
+    🔬 **WARNING DISCIPLINE, BECAUSE `EXIT=0` IS NOT A WARNING COUNT:** the build reported **2**
+    warnings in my touched files — `All.lean:2840`/`:2848`, long lines. **Measured as PRE-EXISTING and
+    not mine:** my diff is three lines at **8384**, and *the same `All.lean:2840` warning appears in an
+    EARLIER build log from before this edit.* ⇒ **zero introduced**, established by a control rather
+    than by assumption.
+    ⚠️⚠️ **STILL NOT CLOSED, AND I WILL NOT LET THE REPAIR READ AS A LANDING: the far branch needs the
+    sharper engine (priced 1.94× short at 15jj), and MRT's actual route is the (A.4) AVERAGING
+    IDENTITY (15qq), not recentring.** ***This is a repaired STATEMENT with ONE ARM closed — not a
+    closed lemma.***
+
 15tt. ⛔⛔⛔ **MRT's LEMMA A.7 AND ITS OWN PROOF CARRY OPPOSITE SIGNS — AND MY TRANSCRIPTION FOLLOWED
     THE STATEMENT. WORSE: MY OWN "TRANSCRIPTION CHECK" WAS STRUCTURALLY BLIND TO IT. 2026-08-22 07:1x.**
     ```
