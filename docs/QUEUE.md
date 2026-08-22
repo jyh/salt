@@ -11,12 +11,29 @@
 
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
-1. **λ-BV DESIGN BLOCK** — math's pen: the dispersion campaign's shape
+1. **λ-BV DESIGN BLOCK** — ✅ **BLOCK DELIVERED AND CONSUMED; WAVE 1 IS COMPLETE (08/20).**
+   ⛔ **DO NOT RE-DISPATCH.** *Statement below untouched — status field only.* — math's pen: the dispersion campaign's shape
    consuming the open parity-pin door (brun_lower_ell1, 5340c7ff) and the
    named riders (the ρ-weighted BV sum · the λ-BV dispersion half); a
    refuter pass gates the first wave (verify-posture law). The road
    toward the parity-pinned survivor (Ω(n) odd).
-2. **λ-BV WAVES** — behind the refuter-passed block; executor-sized
+2. **λ-BV WAVES** — ✅ **WAVE 1 COMPLETE, SIX NODES, ALL SEVEN COMMITS ANCESTOR-VERIFIED
+   (`merge-base --is-ancestor`, math seat 08/21 17:0x), ALL IN `Salt/TwinBar/TwinParitySieve.lean`
+   + `TwinBar/All.lean`:**
+   `c18aa287` B0 twinParitySieve · `6707f02b` B1 rem_split (+ `6aaf8705` citation fix: the rem
+   anchor is `M2.lean:236`, not `:249`) · `cb77f2e0` B2a margin_ge_b1 · `b0eecb05` B2 the ten
+   props (brun_lower_ell1 opens at twinParitySieve, b=1, λ=1/4) · `95635fca` B3 majorant +
+   assembly · **`c7ffe324` B4 THE TERMINAL** (and the dangling interface that gated it).
+   ⚠️ **ATTRIBUTION:** the forced-build and `[3 axioms]` verifications are the LANDING SEAT's,
+   reported on the bus — this stamp records what THIS seat measured (ancestry, surfaces,
+   subjects), not a re-verification it did not run.
+   ⛔ **NOTHING HERE IS DISPATCHABLE. NEXT IS λ-BV WAVE 2 — DESIGN-TIER, AND IT WAITS FOR A
+   DESIGN SESSION.** An executor pulling this item would re-run six landed nodes.
+   ⛔ **WHY THIS STAMP WAS OWED:** `5900a3b1` — cited in the standing prompt as the queue stamp
+   for this wave — is stamped **5a/5b LANDED (`c4a1a237`)** by its own subject line and touches
+   4 lines. Wave 1 had **zero** of its shas in this file. *A sha cited as covering X must be
+   opened; a commit that exists is not a commit that says what you were told it says.*
+   *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
