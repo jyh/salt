@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16i. ✅ **THE TWO-SIDED INTEGRAL BOUND — THE EXACT QUANTITY A.3's `T₀` STEP CONSUMES. `%s`
+    2026-08-22 08:5x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (4.7s)`, zero diagnostics.**
+    ```
+      integral_inv_one_sub_sq_le_one       ∫_{−r}^{0} (1−x)^{−2} ≤ 1
+      integral_inv_one_add_abs_sq_le_two   ∫_{−r}^{r} (1+|x|)^{−2} ≤ 2
+    ```
+    The 08:1x one-sided lemma was the core; **this is the form the step actually consumes after the
+    shift by `t₁`** — the same "content vs shape" point as `mrtT0_subset_Icc`, one beat later.
+    🔬 **TWO MECHANICAL FINDINGS WORTH THE ROW:**
+    ```
+      1. `fun_prop` CANNOT prove Continuous ((1+|x|)²)⁻¹ — it cannot discharge the NONZERO side
+         condition. Supplied explicitly via h1.inv₀ + positivity. (Same shape as 08:1x.)
+      2. `intervalIntegral.integral_comp_neg` WOULD NOT MATCH on `−r..0`: the pattern wants
+         `−a..−b` and the endpoint `0` is not syntactically `−0`.
+         ⇒ PROVING THE MIRROR LEMMA OUTRIGHT WAS CHEAPER THAN FIGHTING THE SUBSTITUTION.
+    ```
+    *Symmetry that is obvious on paper can be more expensive in Lean than just doing the other side;
+    "by symmetry" is a claim about mathematics, not about tactics.*
+    ⚖️ **ATTEMPTS: 2, AGAINST A CAP OF 3 DECLARED BEFORE STARTING.** *I said at the outset I would
+    publish the count whether it landed or not — the convention adopted at 08:2x had only ever been
+    exercised on successes, and a node that MIGHT fail is how it gets tested. It landed; the count is
+    here either way, which is the point.*
+
 16h. ✅ **THE `T₀` RADIUS AS A *SET INCLUSION* — THE THIRD PART OF "IMMEDIATELY IMPLIES", AND ALL
     THREE ARE NOW IN USABLE FORM. `%s` 2026-08-22 08:4x. Both `[3 axioms]`, `EXIT=0`, genuine
     `Built (4.6s)`, zero diagnostics, Attempts: 1.**
