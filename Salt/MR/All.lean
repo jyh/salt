@@ -8354,3 +8354,7 @@ open Salt.Tactic in
   Salt.MR.MRTPropA3Statement
   Salt.MR.continuous_pretDistSq_costwist
   Salt.MR.exists_min_pretDistSq
+  Salt.MR.mrtT0
+  Salt.MR.mrtT1
+  Salt.MR.mrtT0_union_mrtT1
+  Salt.MR.mrtT0_disjoint_mrtT1

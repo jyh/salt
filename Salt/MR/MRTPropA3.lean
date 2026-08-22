@@ -132,4 +132,55 @@ theorem exists_min_pretDistSq (f : ℕ → ℂ) {X : ℝ} (hX : 0 ≤ X) :
   unfold mrtM
   exact le_antisymm (le_csInf ⟨_, hmem⟩ hlb) (csInf_le ⟨_, hlb⟩ hmem)
 
+/-! ## A3-2 — the `T₀` / `T₁` dichotomy
+
+MRT's A.3 proof, verbatim: *"If `M(f;X) ≥ (1/8) log log X`, we write `T₁ := [−T,T]`
+and `T₀ := ∅`, whereas otherwise we write
+`T₀ := {|t| ≤ T : |t − t₁| ≤ (log X)^{1/16}}`,
+`T₁ := {|t| ≤ T : |t − t₁| > (log X)^{1/16}}`."*
+
+The content is that **both branches partition `{|t| ≤ T}`** — the proof handles
+`T₁` first and `T₀` second, and that is only a proof of the whole range if the
+two pieces cover it and do not overlap.  Both facts are proved below, uniformly
+in the branch.
+
+*This node was gated on A3-0: every set here is written in terms of `|t − t₁|`,
+so it could not be stated until `t₁` was known to exist.* -/
+
+/-- **MRT's `T₀`** — empty in the high-`M` branch, the near-`t₁` window otherwise. -/
+noncomputable def mrtT0 (M t₁ X T : ℝ) : Set ℝ :=
+  if (1 / 8) * Real.log (Real.log X) ≤ M then ∅
+  else {t : ℝ | |t| ≤ T ∧ |t - t₁| ≤ (Real.log X) ^ ((1 : ℝ) / 16)}
+
+/-- **MRT's `T₁`** — all of `[−T,T]` in the high-`M` branch, the far-from-`t₁`
+part otherwise. -/
+noncomputable def mrtT1 (M t₁ X T : ℝ) : Set ℝ :=
+  if (1 / 8) * Real.log (Real.log X) ≤ M then {t : ℝ | |t| ≤ T}
+  else {t : ℝ | |t| ≤ T ∧ (Real.log X) ^ ((1 : ℝ) / 16) < |t - t₁|}
+
+/-- **A3-2 (i) — the two pieces COVER `{|t| ≤ T}`, in both branches.** -/
+theorem mrtT0_union_mrtT1 (M t₁ X T : ℝ) :
+    mrtT0 M t₁ X T ∪ mrtT1 M t₁ X T = {t : ℝ | |t| ≤ T} := by
+  unfold mrtT0 mrtT1
+  split_ifs with h
+  · simp
+  · ext t
+    simp only [Set.mem_union, Set.mem_setOf_eq]
+    constructor
+    · rintro (⟨h1, _⟩ | ⟨h1, _⟩) <;> exact h1
+    · intro h1
+      by_cases hc : |t - t₁| ≤ (Real.log X) ^ ((1 : ℝ) / 16)
+      · exact Or.inl ⟨h1, hc⟩
+      · exact Or.inr ⟨h1, not_le.mp hc⟩
+
+/-- **A3-2 (ii) — the two pieces are DISJOINT, in both branches.** -/
+theorem mrtT0_disjoint_mrtT1 (M t₁ X T : ℝ) :
+    Disjoint (mrtT0 M t₁ X T) (mrtT1 M t₁ X T) := by
+  unfold mrtT0 mrtT1
+  split_ifs with h
+  · simp
+  · rw [Set.disjoint_left]
+    rintro t ⟨_, h0⟩ ⟨_, h1⟩
+    linarith
+
 end Salt.MR
