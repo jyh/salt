@@ -597,4 +597,62 @@ theorem exp_neg_avg (a b : ℂ) :
     _ = Complex.exp (-((a + b) / 2) * Complex.I) * Complex.cos ((a - b) / 2) := by
         rw [h]; ring
 
+/-! ## The salt-engine collision — `dist_split_A4` does NOT reach A.4(i)
+
+`Salt/MR/DistSplit.lean`'s `dist_split_A4` carries A.4(i)'s conclusion SHAPE at
+`W = 0`:  `(1/2)·Lf − W ≤ 𝔻²(g_J, n^{it}; x)`.  It is nevertheless **not** a route
+to `mrtA4i_holds`, and the obstruction is in its hypothesis, not its conclusion:
+
+  `hloss : pretDistSq f gJ x ≤ W`
+
+is **unsatisfiable at `W = 0`** for A.4(i)'s own `g_J = f · g_𝒥`.  Windowing kills
+primes, and each killed prime `p ≤ x` contributes exactly `1/p` to the loss, since
+`g_𝒥(p) = 0` makes the summand `(1 − Re(f p · conj 0))/p = 1/p`.
+
+`mrtA4i_loss_witness` below is a KERNEL witness, not an argument: `f ≡ 1`,
+`𝒥 = {1}`, `P₁ = Q₁ = 2`, `x = 2` — one prime in range, killed by the window —
+and the loss is exactly `1/2 > 0`.
+
+⇒ **The generic triangle route (`dist_mul_half`) pays `Σ_{p killed} 1/p`; A.4(i)
+asserts no such loss is needed.**  That mass is precisely what `mrtA4i_holds`'
+POINTWISE case split recovers for free: at a killed prime the target term is `1/p`,
+and `1/p ≥ (1/2)·(1 − Re(f p · conj (costwist t p)))/p` holds because
+`1 − Re(·) ≤ 2`.  So the pointwise proof is not merely *cheaper* than the triangle
+route — it reaches a statement the triangle route provably cannot.
+
+⛔ **THIS CORRECTS THIS SEAT'S OWN PUBLISHED CLAIM** (`QUEUE.md` row 15u,
+2026-08-22 02:0x): *"`dist_split_A4` at `W = 0` is A.4(i) exactly."*  It is not.
+The conclusions coincide; the hypotheses do not, and the gap is not removable.
+-/
+
+/-- **Witness: A.4(i)'s window loss is strictly positive**, so `dist_split_A4`'s
+`hloss` cannot be discharged at `W = 0` for `g_J = f · g_𝒥`.  Here `f ≡ 1`,
+`𝒥 = {1}`, `P₁ = Q₁ = 2`, `x = 2`: the only prime in range is `2`, the block
+`[2,2]` contains it, so `g_𝒥(2) = 0` and the loss is `1/2`. -/
+theorem mrtA4i_loss_witness :
+    pretDistSq (fun _ => (1 : ℂ))
+        (fun n => (1 : ℂ) * gJ ({1} : Finset ℕ) (fun _ => 2) (fun _ => 2) n) 2
+      = 1 / 2 := by
+  have hb : blockOmega 2 2 2 ≠ 0 := by
+    unfold blockOmega BlockPrimeDivs
+    rw [Nat.Prime.primeFactors Nat.prime_two]
+    simp
+  have hgJ2 : gJ ({1} : Finset ℕ) (fun _ => 2) (fun _ => 2) 2 = 0 := by
+    unfold gJ
+    rw [if_neg]
+    intro h
+    exact hb (h 1 (Finset.mem_singleton_self 1))
+  have hfloor : ⌊(2 : ℝ)⌋₊ = 2 := by norm_num
+  unfold pretDistSq
+  rw [hfloor, Finset.sum_filter, Finset.sum_range_succ, Finset.sum_range_succ,
+    Finset.sum_range_succ, Finset.sum_range_zero]
+  norm_num [Nat.not_prime_zero, Nat.not_prime_one, Nat.prime_two, hgJ2]
+
+/-- The loss is positive, stated as the refutation it is: no `W = 0` instance of
+`dist_split_A4` applies to A.4(i)'s windowed factor. -/
+theorem mrtA4i_loss_pos :
+    0 < pretDistSq (fun _ => (1 : ℂ))
+        (fun n => (1 : ℂ) * gJ ({1} : Finset ℕ) (fun _ => 2) (fun _ => 2) n) 2 := by
+  rw [mrtA4i_loss_witness]; norm_num
+
 end Salt.MR
