@@ -8444,6 +8444,10 @@ open Salt.Tactic in
   Salt.MR.strata_modulus_pos
   Salt.MR.strata_modulus_within_arc
   Salt.MR.strata_capstone_applicable
+  Salt.MR.progression_mem_Ioc_of_window_in_block
+  Salt.MR.sum_progression_le_sum_Ioc_of_window
+  Salt.MR.doorLadder_block_length_ge
+  Salt.MR.doorLadder_block_length_lt
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape

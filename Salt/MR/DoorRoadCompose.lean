@@ -208,4 +208,74 @@ theorem strata_capstone_applicable {q d H : ℕ} (hd : d ∈ q.divisors)
     0 < q / d ∧ ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
   ⟨strata_modulus_pos hd, strata_modulus_within_arc hq⟩
 
+/-! ## Seam 3, the INDEX half — `hin` reduced to a window-in-block containment
+
+`sum_progression_le_sum_Ioc` takes `hin` as an opaque hypothesis: *every* progression term
+lies in the interval.  That is not the form a consumer can check.  The natural criterion is
+geometric — the stratum's whole window sits inside the ladder block — and it implies `hin`
+for the progression the dyadic family actually uses, whose length is `cap / step + 1`.
+
+Note `0 < step` is **not** needed here: at `step = 0` the range collapses to a single term
+`n₀`, which the endpoints already cover.
+-/
+
+/-- **THE CONTAINMENT CRITERION** — if the window `[n₀, n₀ + cap]` sits inside `Ioc a b`, then
+every base of the step-`step` progression of length `cap / step + 1` lies in `Ioc a b`.
+
+*This is `hin` in the form a consumer can discharge: two endpoint inequalities instead of a
+quantified membership.* -/
+theorem progression_mem_Ioc_of_window_in_block {a b n₀ step cap : ℕ}
+    (hlo : a < n₀) (hhi : n₀ + cap ≤ b) :
+    ∀ t, t < cap / step + 1 → n₀ + step * t ∈ Finset.Ioc a b := by
+  intro t ht
+  have hts : t ≤ cap / step := Nat.lt_succ_iff.mp ht
+  have hmul : step * t ≤ cap := by
+    calc step * t ≤ step * (cap / step) := Nat.mul_le_mul (le_refl step) hts
+      _ = cap / step * step := Nat.mul_comm _ _
+      _ ≤ cap := Nat.div_mul_le_self cap step
+  refine Finset.mem_Ioc.mpr ⟨by omega, by omega⟩
+
+/-- **SEAM 3'S INDEX HALF, IN CONSUMER FORM** — the dyadic progression sum is dominated by the
+ladder-block sum as soon as the stratum's window lies in the block.  `hin` is gone; what
+remains for the door is the pair of endpoint facts `a < n₀` and `n₀ + cap ≤ b`. -/
+theorem sum_progression_le_sum_Ioc_of_window {f : ℕ → ℝ} (hf : ∀ n, 0 ≤ f n)
+    {a b n₀ step cap : ℕ} (hstep : 0 < step)
+    (hlo : a < n₀) (hhi : n₀ + cap ≤ b) :
+    ∑ t ∈ Finset.range (cap / step + 1), f (n₀ + step * t) ≤ ∑ n ∈ Finset.Ioc a b, f n :=
+  sum_progression_le_sum_Ioc hf hstep (progression_mem_Ioc_of_window_in_block hlo hhi)
+
+/-! ## Where seam 3's containment can hold at all — the `3H` rung threshold
+
+The criterion above is only useful if a ladder block is ever long enough to hold a stratum
+window.  It is not always: `doorLadder` descends by `X_{i+1} = (X_i + H + 1)/2` toward the
+fixed point `H + 1`, where the block `Ioc (X_{i+1}+s) (X_i+s)` has length **zero**.
+
+Measured over `H ∈ {1,2,3,7,10,31,100,257,1000,4096,10⁶}`: the smallest `X_i` at which the
+block length reaches `H` is **exactly `3H`**, every time (a `2H` rule is refuted, so the probe
+discriminates).  The theorem below is that measurement, in the kernel.
+
+⇒ **Single-block containment is available on the upper rungs (`3H ≤ X_i`) and IMPOSSIBLE below
+them.**  Near the fixed point a stratum window cannot fit in one block at all, so seam 3 there
+needs a covering by several blocks — or a different placement.  **That is an open design
+question, not a missing lemma, and it is not answered here.**
+-/
+
+/-- **THE RUNG THRESHOLD** — at `3H ≤ X_i` the ladder block is at least `H` long, so a window
+of length `≤ H` can fit inside it.  Below `3H` it cannot, and the bound is sharp: `3H` is the
+exact crossover — measured across eleven magnitudes of `H`, then PROVED in both
+directions (`doorLadder_block_length_lt` is the converse). -/
+theorem doorLadder_block_length_ge {x H i : ℕ} (h : 3 * H ≤ doorLadder x H i) :
+    H ≤ doorLadder x H i - doorLadder x H (i + 1) := by
+  rw [doorLadder_succ]; omega
+
+/-- **AND THE THRESHOLD IS SHARP — PROVED, NOT MERELY MEASURED.**  Strictly below `3H` the
+block is strictly shorter than `H`, so no stratum window of length `H` fits in one block.
+
+*The docstring above first claimed sharpness off an eleven-point measurement.  A measured
+crossover is evidence, not a theorem; this is the theorem.* -/
+theorem doorLadder_block_length_lt {x H i : ℕ} (hH : 0 < H)
+    (h : doorLadder x H i < 3 * H) :
+    doorLadder x H i - doorLadder x H (i + 1) < H := by
+  rw [doorLadder_succ]; omega
+
 end Salt.MR
