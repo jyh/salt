@@ -655,4 +655,41 @@ theorem mrtA4i_loss_pos :
         (fun n => (1 : ℂ) * gJ ({1} : Finset ℕ) (fun _ => 2) (fun _ => 2) n) 2 := by
   rw [mrtA4i_loss_witness]; norm_num
 
+/-! ## The OTHER arm of row 15u — `dist_recenter_sq` is not A.7's algebra either
+
+Row 15u made TWO identity claims. `mrtA4i_loss_witness` above refutes the first.
+The second — *"`dist_recenter_sq` (`DistSplit.lean:140`) ⇒ A.7's RECENTERING
+algebra"* — fails on TYPE, before any mathematics:
+
+  `MRTLemmaA7`        `‖ Σ_{n ∈ Icc 1 ⌊X⌋₊} … − (X^{i(t−t₁)}/(1+i(t−t₁)))·Σ_{n} … ‖ ≤ …`
+                      a ℂ-norm of a DIFFERENCE of sums over INTEGERS, with an
+                      explicit MAIN TERM, bounded ABOVE.
+  `dist_recenter_sq`  `(√L − √S)² ≤ pretDistSq f (costwist t) x`
+                      an ℝ-valued LOWER bound on a sum over PRIMES `p ≤ x`,
+                      no main term.
+
+⇒ different index set, different codomain, opposite inequality direction.
+`dist_recenter_sq` is a reverse-triangle inequality on `𝔻` — Halász /
+Granville–Soundararajan apparatus, i.e. A.4's world — whereas A.7 is a partial
+summation identity. **Both of row 15u's identifications are wrong.**
+
+⚠️ Stated as what it is: a comparison of the two STATEMENTS, checked by reading
+them, NOT a kernel refutation. The kernel object below is a different claim.
+-/
+
+/-- **A.7's transcription check — the identity is EXACT at the center.**  At
+`t = t₁` the main-term factor `X^{i(t−t₁)}/(1 + i(t−t₁))` must collapse to `1`,
+making A.7's bracketed difference identically `0`.  This tests the factor this
+seat read off the PDF: a mistranscribed exponent or denominator would NOT
+degenerate to `0` here.  (`X^{iu} = exp(i·u·log X)`, so `u = 0` gives `exp 0 = 1`
+over `1 + 0i = 1`.) -/
+theorem mrtA7_exact_at_center (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ)
+    (X t₁ : ℝ) :
+    (∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n)
+        - (Complex.exp ((((t₁ - t₁ : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+            / (1 + (((t₁ - t₁ : ℝ) : ℂ)) * Complex.I))
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n
+      = 0 := by
+  simp
+
 end Salt.MR
