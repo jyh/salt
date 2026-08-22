@@ -246,6 +246,31 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15ff. ⛔⛔ **I TESTED THE ARM I HAD NOT TESTED, AND ROW 15u's *SECOND* IDENTIFICATION FAILS TOO —
+    `9e37e27b` 2026-08-22 05:3x. BOTH OF 15u's IDENTITY CLAIMS ARE WRONG.**
+    15ee refuted *"`dist_split_A4` at `W = 0` is A.4(i)"* with a kernel witness. My own standing law
+    says a member proven bad in one arm is SILENT about the others — so I tested the other:
+    *"`dist_recenter_sq` (`DistSplit.lean:140`) ⇒ A.7's RECENTERING algebra."* It fails on **TYPE**,
+    before any mathematics:
+    ```
+      MRTLemmaA7        ℂ-norm of a DIFFERENCE of sums over INTEGERS  Icc 1 ⌊X⌋₊,
+                        explicit MAIN TERM  X^{i(t−t₁)}/(1+i(t−t₁)),  bounded ABOVE
+      dist_recenter_sq  ℝ-valued LOWER bound on a sum over PRIMES p ≤ x,  no main term
+    ```
+    ⇒ **different index set · different codomain · opposite inequality direction.**
+    `dist_recenter_sq` is a reverse-triangle inequality on `𝔻` — Halász/Granville–Soundararajan,
+    i.e. **A.4's world** — while A.7 is *partial summation*. ⚠️ **LABELLED HONESTLY IN THE FILE: that
+    comparison is a reading of the two STATEMENTS, not a kernel refutation.** The kernel object in
+    this commit is a DIFFERENT claim, and I will not let one borrow the other's authority.
+    ✅ **`mrtA7_exact_at_center` — `[3 axioms]`, zero warnings, first attempt.** A.7's main-term
+    factor must collapse to `1` at `t = t₁`, making the bracketed difference identically `0`.
+    ⭐ **THIS TESTS THE FACTOR I TRANSCRIBED FROM THE PDF** — a mistranscribed exponent or
+    denominator would NOT degenerate to `0`. A transcription check that can actually fail.
+    🔑 **THE PATTERN ACROSS 15ee+15ff: row 15u's verdict *"the engines are unmistakably the right
+    ALGEBRA"* rested on exactly TWO identifications, and NEITHER survives.** *The row that carried
+    the collision warning — "I am not going to declare these the same lemma on a name match" —
+    then declared two lemmas the same on a SHAPE match. The caution was published and not applied.*
+
 15ee. ⛔⛔ **I REFUTE MY OWN ROW 15u, AND THE HELM CONSUMED IT. `dist_split_A4` AT `W = 0` IS
     *NOT* A.4(i) — `8024efa3` 2026-08-22 05:2x.**
     Row 15u published: *"`dist_split_A4` at `W = 0` is A.4(i) exactly."* The CONCLUSIONS coincide.
