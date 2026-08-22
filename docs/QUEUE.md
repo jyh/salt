@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16l. ✅✅ **A.3's `T₀` STEP NOW HOLDS OVER `T₀` ITSELF — THE SET VERSION. `%s` 2026-08-22 09:1x.
+    `[3 axioms]`, `EXIT=0`, genuine `Built (5.1s)`, zero diagnostics, Attempts: 2 (cap 3, declared
+    before starting).**
+    **MRT integrate over the SET `T₀`, not over an interval — so the interval form landed at 09:0x was
+    ONE HOP SHORT of the real statement.** `mrtA3_T0_setIntegral_bound` closes it:
+    ```
+      ∫_{T₀} F²  ≤  ∫_{Icc} F²      setIntegral_mono_set · F² ≥ 0 · mrtT0_subset_Icc
+                 =  ∫_{Ioc} F²      integral_Icc_eq_integral_Ioc   ← the NULL-SET hop
+                 =  ∫_{t₁−r}^{t₁+r} intervalIntegral.integral_of_le
+                 ≤  4A² + 4B²r      mrtA3_T0_integral_bound
+    ```
+    ⭐ *The `Icc → Ioc` hop is bookkeeping `integral_of_le` FORCES: it yields `Ioc` while the subset
+    lemma gives `Icc`, and the two differ by a null set. Neither shape is wrong; they simply do not
+    meet without the bridge.*
+    🔬 **NAME FOUND BY READING MATHLIB's *CALLERS*, NOT BY GUESSING:** I first wrote
+    `MeasureTheory.HasSubset.Subset.eventuallyLE` and **it does not exist** — the lemma lives in
+    `Order/Filter/Basic.lean` and every caller uses dot-notation `hsub.eventuallyLE`. *Grepping for
+    how a lemma is USED beat grepping for what I assumed it was CALLED.*
+    ⚠️ **STILL ASSUMED, NAMED RATHER THAN ABSORBED: integrability of `F²` on the interval AND on the
+    `Icc`, both carried as hypotheses.** Discharging them needs measurability of `F`, which the caller
+    must supply. *Two hypotheses is the honest cost of this statement; hiding either would make the
+    theorem read stronger than it is.*
+
 16k. ✅✅✅ **A.3's `T₀` STEP IS ASSEMBLED — MRT's "IMMEDIATELY IMPLIES", COMPOSED. `%s`
     2026-08-22 09:0x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.0s)`, zero diagnostics, Attempts: 1
     (cap of 3 declared before starting).**
