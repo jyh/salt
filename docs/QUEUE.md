@@ -246,6 +246,30 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15z. ✅✅✅ **A.4(i) IS PROVED — `2a4adc8f` 2026-08-22 03:5x. THE FIRST ANALYTIC NODE OF THE A.3 CHAIN.**
+    `mrtA4i_holds` + **`mrtLemmaA4i_holds : MRTLemmaA4i`** — ***the `Prop` stated at 00:4x is now a
+    THEOREM.*** Both `[3 axioms]`, zero warnings, `✔ Built (4.1s)`.
+    ⭐⭐ **THE PROOF IS CHEAPER THAN MRT's, FOR A REASON WORTH RECORDING.** MRT expand `2𝔻²(f g_𝒥,·)`
+    into three sums so the loss appears twice with opposite signs and cancels. **In Lean the same content
+    is POINTWISE**, because `g_𝒥` is a `{0,1}` indicator and a case split does at each prime what the
+    decomposition does uniformly:
+    ```
+      g_𝒥(p) = 1 :  (1 − A)/2 ≤ 1 − A     ⟸  A ≤ 1
+      g_𝒥(p) = 0 :  (1 − A)/2 ≤ 1         ⟸  A ≥ −1
+    ```
+    ***The cancellation MRT arrange globally is, per prime, just the two ends of `|A| ≤ 1`.***
+    ⛔ **SIX ATTEMPTS, ALL MECHANICAL, NONE MATHEMATICAL — and the build taught each one:**
+    **(1)** `split_ifs` **cannot see through an unapplied lambda** ⇒ `dsimp only` first.
+    **(2)** `show … from by simp [gJ, hg]` left the side condition open — **and the build said so with an
+    "unused simp argument" warning**, *which is the simp-silent-no-op tell already in this seat's memory,
+    firing correctly and unprompted.*
+    **(3)** the negative branch then TYPE-MISMATCHED because **`simp` normalised `¬∀` before `exact hg`
+    could match it** ⇒ `if_neg` is the robust form.
+    **(4)** the positive branch drew a **flexible-tactic lint** until made symmetric with `if_pos`.
+    📌 *The mathematics was settled before the first attempt; every attempt after that was Lean's syntax,
+    and the module went from `⚠` to `✔` only on the last one — **`EXIT=0` was true from attempt 5, and
+    the warning count is what distinguished them.***
+
 15y. ⭐⭐ **THE CONSTRUCTIVE SUCCESSOR TO THE RETRACTION: I READ MRT's PROOF OF A.4(i), AND IT IS THREE
     LINES. A.4(i) RE-PRICES TO CLASS B. 2026-08-22 03:1x.** Verbatim:
     ```
