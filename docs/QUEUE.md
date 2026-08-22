@@ -246,8 +246,41 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
-15rr. 📐 **APPENDIX A's LEMMA SET READ END TO END — TWO NAMED GAPS IN MY OWN TRANSCRIPTION, AND ONE
-    OF THEM IS CHEAP. 2026-08-22 07:1x. `1503.05121v3.pdf` pp.22–25.**
+15ss. ⛔⛔ **I PRICED LEMMA A.8 BEFORE OPENING ITS PROOF, AND PUBLISHED THE PRICE. THIRD INSTANCE
+    TONIGHT OF EXACTLY THAT ERROR. 2026-08-22 07:1x — WITHDRAWN.**
+    At 07:07 I posted *"take gap 2 first, it is elementary: `Lemma A.8` … class A/B, no arithmetic
+    apparatus."* **I had read the STATEMENT and not the PROOF.** MRT p.27:
+    ```
+      By symmetry assume α, θ > 0.  x ↦ e^{√x} has derivative ½x^{−1/2}e^{√x}; differentiating
+      AGAIN, that derivative is MINIMISED AT x = 1 WITH VALUE e/2, so by the MEAN VALUE THEOREM
+            e^{√(α²+θ²)} ≥ e^α + (e/2)θ²
+      then  cos θ = 1 − 2sin²(θ/2) ≥ 1 − θ²/2
+      reduces it to  2 − e^{−α} + θ²(e/2 − 1) ≥ 0,  immediate from 2 ≥ e^{−α} and e/2 ≥ 1.
+    ```
+    ⇒ **the ELEMENTARY half is genuinely trivial; the MVT step is NOT.** In Lean it needs a `deriv`
+    computation, a SECOND-derivative minimisation of `½x^{−1/2}e^{√x}` locating `x = 1`, and MVT on
+    `[α², α²+θ²]`. **Class B at best, realistically B/C. NOT class A, and "no arithmetic apparatus"
+    was simply false.**
+    🔑 **AND I CHECKED WHETHER A SLICKER ROUTE AVOIDS IT — IT DOES NOT.** Bounding
+    `4sinh²(α/2) ≤ 2cosh r − 2` with `r = √(α²+θ²)` and `θ² ≤ r²` needs `r² + e^{−r} ≤ 2`, **FALSE for
+    large `r`**. *The `(e/2)θ²` from the MVT is exactly the sharpness the crude bound throws away.*
+    ⛔⛔⛔ **THE PATTERN, AND IT IS THE THIRD TONIGHT:**
+    ```
+      A.4(i)            priced TWICE without opening the proof — both wrong, OPPOSITE directions (15y)
+      A.4(ii) far arm   priced via the S8 route; the proof uses a different mechanism entirely (15qq)
+      A.8               priced "class A/B" from the STATEMENT'S APPEARANCE                    (here)
+    ```
+    🔑 ***A STATEMENT THAT LOOKS ELEMENTARY IS NOT EVIDENCE THAT ITS PROOF IS.*** `e^α + e^{−α} −
+    2cos θ ≤ e^{√(α²+θ²)}` takes two lines to STATE and calculus to PROVE. **In all three cases
+    reading the proof cost ONE COMMAND, and in all three I published first.** *The two earlier ones I
+    caught after the fact; this one I caught in the next beat, which is better and still not the bar.*
+    ⚠️ **A.8 REMAINS THE CHEAPEST OF THE THREE OPEN APPENDIX-A NODES** — that ordering survives; what
+    is withdrawn is "elementary/class A" and the implied one-sitting cost.
+
+15rr. 📐 **APPENDIX A's LEMMA SET READ END TO END — TWO NAMED GAPS IN MY OWN TRANSCRIPTION.
+    2026-08-22 07:1x. `1503.05121v3.pdf` pp.22–27** *(range corrected 07:1x: I wrote pp.22–25 and
+    Lemma A.8 is on p.27; the READ was right, the FIELD was wrong — see 15ss, which also withdraws
+    this row's "one of them is cheap").*
     ```
       MRT Appendix A          my Lean state
       Lemma A.4(i)            MRTLemmaA4i     PROVED (mrtA4i_holds)
