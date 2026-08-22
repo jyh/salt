@@ -1103,4 +1103,60 @@ for the lemma and assert it for a `C` nobody chose* — the defect fixed for A.6
 at 04:15, applied here at birth. -/
 def MRTLemmaA5Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTLemmaA5 C
 
+/-! ## A.3's assembly — the `T₀` step MRT call "immediately implies"
+
+MRT p.24, having stated display (A.7) `F(1+it) ≪ exp(−½M)/(1+|t−t₁|) + (log X)^{−1/16}`
+for `t ∈ T₀`, write that it *"immediately implies"*
+
+  `∫_{T₀} |F(1+it)|² dt ≪ 1/exp(M(f;X)) + (log X)^{1/16 − 2/16}`.
+
+⭐ **THE UNSIMPLIFIED EXPONENT IS THE DERIVATION, WRITTEN DOWN.** `1/16 − 2/16` is
+`−1/16`, so leaving it unsimplified is deliberate: **`+1/16` is the LENGTH of `T₀`
+(its radius is `(log X)^{1/16}`) and `−2/16` is the second term SQUARED.** Reading
+it as a single number `−1/16` loses exactly the information that says where each
+half came from.
+
+The step has three parts:
+* `(a+b)² ≤ 2a² + 2b²` — pointwise, proved below as `mrtA3_T0_pointwise_sq`;
+* `∫ dt/(1+|t−t₁|)² ≤ 2` over any interval — **NOT proved here**, and named so;
+* `|T₀| ≤ 2(log X)^{1/16}` — the radius, available from `abs_sub_le_of_mem_mrtT0`.
+
+⚠️ Only the first is landed. The integral fact is elementary (`∫₀^c (1+x)^{−2} =
+1 − 1/(1+c) ≤ 1`) but needs interval-integral machinery, and I am not claiming it
+by asserting it in prose. -/
+
+/-- **The pointwise half of MRT's "immediately implies".**  From
+`|F| ≤ A/(1+|u|) + B`, squaring costs only the factor `2` on each term:
+`F² ≤ 2A²/(1+|u|)² + 2B²`.  *This is what makes the two halves of (A.7) integrate
+separately.*
+
+⭐ **NO NONNEGATIVITY HYPOTHESES.** I first stated this with `0 ≤ A` and `0 ≤ B`;
+the unused-variable linter showed both were dead, and they are: `|F| ≥ 0` already
+forces `A/(1+|u|) + B ≥ 0`. *The mirror of A.4(ii) — there the PROOF needed a
+binder the statement lacked; here the STATEMENT carried binders the proof did not.
+The linter found this one; a witness found that one.* -/
+theorem mrtA3_T0_pointwise_sq {F A B u : ℝ}
+    (hF : |F| ≤ A / (1 + |u|) + B) :
+    F ^ 2 ≤ 2 * (A ^ 2 / (1 + |u|) ^ 2) + 2 * B ^ 2 := by
+  have hu : (0 : ℝ) < 1 + |u| := by positivity
+  have h1 : F ^ 2 ≤ (A / (1 + |u|) + B) ^ 2 := by
+    rw [← sq_abs F]
+    exact pow_le_pow_left₀ (abs_nonneg F) hF 2
+  have h2 : (A / (1 + |u|) + B) ^ 2
+      = A ^ 2 / (1 + |u|) ^ 2 + 2 * (A / (1 + |u|)) * B + B ^ 2 := by
+    field_simp
+    ring
+  have h3 : 2 * (A / (1 + |u|)) * B
+      ≤ (A / (1 + |u|)) ^ 2 + B ^ 2 := by
+    nlinarith [sq_nonneg (A / (1 + |u|) - B)]
+  have h4 : (A / (1 + |u|)) ^ 2 = A ^ 2 / (1 + |u|) ^ 2 := by
+    rw [div_pow]
+  rw [h2] at h1
+  rw [h4] at h3
+  linarith
+
+/-- **The exponent MRT leave unsimplified.**  `1/16 − 2/16 = −1/16`: the `+1/16`
+is `T₀`'s length exponent and the `−2/16` is `(log X)^{−1/16}` squared. -/
+theorem mrtA3_T0_exponent : (1 : ℝ) / 16 - 2 / 16 = -((1 : ℝ) / 16) := by norm_num
+
 end Salt.MR

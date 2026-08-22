@@ -8392,6 +8392,8 @@ open Salt.Tactic in
   Salt.MR.mrtG
   Salt.MR.MRTLemmaA5
   Salt.MR.MRTLemmaA5Statement
+  Salt.MR.mrtA3_T0_pointwise_sq
+  Salt.MR.mrtA3_T0_exponent
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
