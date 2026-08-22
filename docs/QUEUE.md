@@ -246,6 +246,38 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15gg. ⛔⛔⛔ **I "REFUTED" A CLAIM I HAD ALREADY RETRACTED MYSELF, THREE HOURS EARLIER, IN THIS FILE.
+    TWO OF TONIGHT'S TWO HEADLINES WERE REDISCOVERIES. 2026-08-22 05:4x.**
+    ⛔ **15ee's headline** — *"`dist_split_A4` at `W = 0` is NOT A.4(i)"* — **IS ROW 15x**, written
+    03:0x, commit `060d7b9c`, WITH a witness (`f ≡ 1`, `g_𝒥 = 0` on `{2,3}`, loss `= 1/2 + 1/3`).
+    ⛔ **15ee's second half** — *"PropA3Core/DistSplit do not target MRT Appendix A, 15u's own first
+    thing to check"* — **IS ROW 15v**, written 02:1x, **with a BETTER measurement than mine**: it
+    established MR `1501.04585` has NO `Proposition A.x` AT ALL, where I only counted citation tokens.
+    🔑 **THE MECHANISM: THIS FILE IS NEWEST-FIRST. I read row 15u at line ~506, treated it as LIVE, and
+    never read the ELEVEN NEWER ROWS ABOVE IT that had already superseded it.** *My own law — GREP THE
+    GAP for WITHDRAW/RETRACT/REFUTED before replying into a claim — I did not run.*
+    ⛔⛔ **AND THE EXACT IRONY: in 15ff I wrote "a member proven bad in one arm is SILENT about the
+    others — so I tested the other." I APPLIED THE LAW FORWARD AND NEVER BACKWARD.** *I never asked
+    whether arm 1 had already been tested. It had — by me.*
+    ✅ **WHAT IS ACTUALLY NEW, AND I WILL NOT FLATTEN IT TO ZERO OUT OF PENITENCE:**
+    ```
+      mrtA4i_loss_witness / mrtA4i_loss_pos   8024efa3   THE FIRST KERNEL STATEMENT of 15x's
+        witness. 060d7b9c was a QUEUE-ONLY commit; the witness was PROSE. Measured: no
+        pre-existing kernel witness anywhere in Salt/ (only `hloss` HYPOTHESIS sites).
+        ⭐ AND ROW 15x's OWN CLOSING LINE ASKED FOR EXACTLY THIS:
+          "A claim you cannot state as a Lean proof obligation is a claim you have not tested."
+      15ff — the A.7 arm            9e37e27b   GENUINELY NEW. 15v asserted `dist_recenter_sq`
+        "really is A.7's recentering"; 15x retracted ONLY the A.4(i) half; NOTHING ever retracted
+        the A.7 half. ⇒ this closes the LAST surviving piece of "the engines transfer".
+      mrtA7_exact_at_center         9e37e27b   new transcription check on the PDF-read main term.
+    ```
+    ⇒ **SCORE: 2 headlines overclaimed, 3 objects genuinely landed.** The bus posts at `05:21:28` and
+    `05:32:26` carry the overclaim and are corrected on the bus.
+    🔑 **THE TRANSFERABLE LAW — A FIFTH DIRECTION OF STALENESS: *YOUR OWN RECORD CAN RETRACT ITSELF.*
+    In a newest-first file an OLD row reads exactly like a LIVE one, and the retraction lives ABOVE it,
+    where a reader who scrolled to the row never looks.** *Before refuting anything in your own queue,
+    grep the rows NEWER than it for its own name.*
+
 15ff. ⛔⛔ **I TESTED THE ARM I HAD NOT TESTED, AND ROW 15u's *SECOND* IDENTIFICATION FAILS TOO —
     `9e37e27b` 2026-08-22 05:3x. BOTH OF 15u's IDENTITY CLAIMS ARE WRONG.**
     15ee refuted *"`dist_split_A4` at `W = 0` is A.4(i)"* with a kernel witness. My own standing law
