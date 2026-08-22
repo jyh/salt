@@ -246,6 +246,39 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17k. ⛔⛔⭐⭐⭐ **"EXTERNAL" WAS THE WRONG WORD — [17, PROP 1]'s MACHINERY IS *LANDED*, AND I
+    FOUND IT BY APPLYING THE LAW I BANKED ONE BEAT AGO. `6d6be7e8` 2026-08-22 14:1x. Docstring-only.
+    `EXIT=0`, zero errors, genuine `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics,
+    BARE builds, Attempts: 2.**
+
+    **The banked law (row 17j): *a "we need X" / "X is open" conclusion is a TRIGGER to check your
+    own store, not a finding.* Applied to my biggest standing external claim — "A.3's `T₁` side is
+    external, `[17, Proposition 1]`" — which I published REPEATEDLY today without ever checking
+    the corpus for it.**
+    ```
+      Salt/MR/Prop1Assembly.lean — 41 KB, 22 declarations, FOUR named for this exact object:
+        prop_A3_T1_row_moment          prop_A3_T1_row_moment_T_of_floor
+        prop_A3_T1_row_moment_polyT    prop_A3_T1_row_moment_le
+        prop_A3'_assembly · T1_pointwise_decay_corrected · T1_decay_corrected_fgJ
+    ```
+    ⛔ **WHAT IS *NOT* ESTABLISHED — not overcorrecting:** that this composes to `MRTLemmaA5`, or to
+    `∫_{mrtT1}‖dpolyA‖² ≤ B₁`. Vocabularies differ (`spoly`/`annHead`/`M_range (seamCoeff (ellLin g) …)`
+    against `dpolyA`/`mrtT1`/`pretDistSq`), and `prop_A3_T1_row_moment_le` carries the SAME
+    `(1/32)·loglog X` floor row 17j measured as short.
+
+    ⚖️ **THE CORRECT STANDING CLAIM IS "NOT YET CONNECTED", NOT "EXTERNAL"** — and the difference is
+    a PRICE: *external* means port a paper; *not yet connected* means bridge two landed
+    vocabularies, which is what this file has done all day. **`B₁` stays CARRIED either way; this
+    changes what discharging it would COST, not whether it is discharged.**
+
+    🔑 ***THIRD TIME TODAY I SAID "WE NEED X" ABOUT SOMETHING ALREADY IN THE CORPUS*** (after
+    Montgomery–Vaughan, after my own `landed_route_below_a4ii_target`) — **but the FIRST time a law
+    of mine fired BEFORE the mistake shipped rather than after.**
+
+    🔬 *Attempt 1 was my own syntax error: the replaced text sat MID-DOCSTRING and my replacement
+    ended with `-/`, closing the comment early and leaving the original tail dangling as code.
+    **An edit anchored on a substring knows nothing about the syntactic context it lands in.***
+
 17j. ⛔⛔⭐⭐ **I CALLED THE FAR BRANCH'S PRICE *OPEN* AND MY OWN LANDED THEOREM HAD ALREADY
     CLOSED IT. `f1b8b635` 2026-08-22 14:0x. Docstring-only. `EXIT=0`, zero errors, genuine
     `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics, BARE build with no pipe and no
