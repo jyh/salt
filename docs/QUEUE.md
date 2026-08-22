@@ -246,6 +246,47 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15qq. ⭐⭐⭐ **I OPENED MRT's ACTUAL PROOF OF A.4(ii)'s FAR BRANCH, AND IT RE-PRICES THE NODE I HAVE
+    HAD FLAGGED AT BUDGET ALL NIGHT. 2026-08-22 07:0x. READ FROM `1503.05121v3.pdf` p.22–23.**
+    🔑🔑 ***`costwist_conj_avg` — FLAGGED AT ROW 15aa, THREE ATTEMPTS, "AT BUDGET" — IS DISPLAY (A.4)
+    ITSELF, THE FAR BRANCH'S FIRST STEP.*** It is not a side lemma and never was:
+    ```
+      D(f,p^{it};X)² ≥ ½Σ_{p≤X}(1−Re f(p)p^{−it})/p + ½Σ_{p≤X}(1−Re f(p)p^{−it₁})/p
+                     = Σ_{p≤X} (1 − Re f(p)p^{−i(t+t₁)/2}·cos((t−t₁)log p/2))/p        (A.4)
+    ```
+    ⇒ **the node re-prices from "nice-to-have, flagged" to ON THE CRITICAL PATH.** *And its ℂ-level
+    half is ALREADY LANDED* (`af54accc`: `exp_add_exp_neg_eq_two_cos`, `exp_neg_avg`) — precisely the
+    `p^{−it} + p^{−it₁} = 2p^{−i(t+t₁)/2}cos((t−t₁)log p/2)` this display needs. **The remaining wall
+    is the cast layer, exactly as I recorded at 05:02 — but the node's VALUE was wrong, not its cost.**
+    ⭐⭐ **AND THE CONSTANT'S PROVENANCE IS NOW FULLY MAPPED — COMPUTED THIS SESSION, NOT QUOTED:**
+    ```
+      ∫₀¹|cos πt|dt = 2/π       = 0.6366197724
+      (A.5) factor  1 − 2/π     = 0.3633802276
+      × log(logX/logY) = (1/3−ε)loglog X   from  Y = exp((log X)^{2/3+ε})
+        ⇒ (1/3 − 2/(3π) − ε)     = 0.1211267425   ← (A.6), and 1/3−2/(3π) reproduces to 10 dp
+      halved by part (i)         = 0.0605633713
+      A.4(ii) target 1/6 − 1/(3π) = 0.0605633713   EXACT MATCH
+    ```
+    ✅ **THIS CONFIRMS 15jj's PRICING FROM THE SOURCE: MRT DO NOT RECENTRE.** My 1/32-vs-target
+    shortfall stands (recomputed: ratio **1.938**), and I now know what replaces it — *an averaging
+    identity plus an equidistribution input, not a reverse triangle inequality.*
+    📌 **THE FAR BRANCH'S INGREDIENTS, NAMED AND CENSUSED:**
+    ```
+      (A.4) averaging identity      = costwist_conj_avg   ℂ-half LANDED, cast layer open
+      short-segment Mertens split   cites [10, Proof of Lemma 2.3] — EXTERNAL, unpriced
+      Erdős–Turán + VK zero-free    for |t−t₁| > (log X)²⁰
+        VK: PRESENT (5 files: DHExtractRho · ZetaInvShallow · DHCore · Siegel · SiegelFinal)
+        ⛔ ERDŐS–TURÁN: NO HIT IN THREE SEARCHES (identifier · find -iname · header grep)
+      ∫₀¹|cos πt|dt = 2/π           trivial, not yet stated in Lean
+    ```
+    ⛔⛔ **FOURTH NAME COLLISION OF THIS CAMPAIGN, AND IT NEARLY BOUGHT A FALSE PRESENT: the only
+    `Turan` hit is `Salt/MR/TuranKubilius.lean` — TURÁN–KUBILIUS, *"the variance of `ω(n)` over
+    `n ≤ x` is `≪ x·loglog x`"* — a DIFFERENT THEOREM, with ZERO mentions of discrepancy or
+    equidistribution.** *Counting that hit would have marked an unlanded ingredient as landed.*
+    ⚠️ **NOT A FOURTH ATTEMPT ON THE FLAGGED NODE.** This is a re-pricing from the source; the
+    3-attempt budget on `costwist_conj_avg` stands untouched. *What changed is what the node is worth,
+    not my licence to keep trying it.*
+
 15pp. ✅ **THE QUESTION I POSED LAST BEAT IS ANSWERED, AND THE ANSWER IS "NEITHER A GAP NOR A SCOPE
     ERROR — A TARGET NOT YET PROVEN." 2026-08-22 06:4x.**
     **Q (15oo): is `MRTThmA1` on the critical path to the door, or is it off-scope?** Measured:
