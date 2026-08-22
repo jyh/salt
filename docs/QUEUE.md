@@ -587,12 +587,22 @@ numbering is UNVERIFIED.
    🔑 **This is not new badness; it is the corpus's DECLARED ineffectivity LOCATED and
    SCALED** (`V7E.lean`: *"the design constant `A` is produced by `Classical.choice`"*).
    **A declared ineffectivity with a measured rate is a map; one without is a warning.**
-   ✅ **ALL ARMS NOW TRACED — nothing left open on this node.** `ChowlaRegime` was
-   checked (evidence, then helm): it is a **carrier**, but **not rate-free** —
-   `hcoprime : (a:ℚ) ≤ eps²·Hlo/2` rearranges to **`Hlo ≥ 2a/ε²`, a QUADRATIC floor**,
-   dominated flat by the triple exponential. *(Evidence's conclusion held; its claim of
-   "no ε-rate at all" did not — it enumerated constraints NAMED for ε and missed one
-   where ε sits in another field's body.)*
+   ⛔⛔ **`ChowlaRegime` — CORRECTED TWICE, AND IT IS A SECOND SOURCE OF RATE, NOT A
+   CARRIER.** *Evidence first reported "no ε-rate at all"; the helm corrected that to
+   "quadratic"; **both were wrong, and for the same reason — each read only the part of
+   the structure its window happened to contain** (evidence `| head -26` inside range
+   56-100; helm `sed 56-100` on a structure ending at **:143**).* **The 43 unread lines
+   carry three more ε-constraints:**
+   ```
+     :125  hPNTwindow : √Hlo ≤ ε²·Hlo/2   ⇒  Hlo ≥ 4/ε⁴            QUARTIC
+     :116  hPHheadroom: 8·(4^⌊ε²·Hhi⌋)²·ω ≤ x , Hhi ≥ Hlo ≥ 4/ε⁴
+                                          ⇒  x ≥ 8·4^(8/ε²)·ω      EXPONENTIAL in ε⁻²
+     :141  hxbig      : ω·Hhi + 48·ω·(1+2/ε²)/ε ≤ x                ε⁻³ in x
+     :91   hcoprime   : a ≤ ε²·Hlo/2      ⇒  Hlo ≥ 2a/ε²           quadratic (weaker)
+     at the pinned ε = 1/500:  Hlo ≥ 2.5e11 ,  x ≥ 8·4^(2.0e6)·ω
+   ```
+   ⇒ **The conclusion is unchanged — none of this beats `exp∘exp∘exp(Θ(ε⁻⁸))` in `A` —
+   but anyone re-opening this must read `Regime.lean` 56–143 WHOLE.**
 
    📐 **NODE 11a AS ORIGINALLY WRITTEN (kept: it is why the measurement happened).**
    Measure how the head's OTHER constants degrade as `ε → 0`: `K` (from
