@@ -246,6 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16o. ⭐⭐⭐ **A.3's `X = 1` LARGENESS FLAG IS DISCHARGED — AND THE FLAG HAD RECORDED THE FACT
+    THAT REFUTES IT. `74cfda2e` 2026-08-22 10:0x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (5.2s)`, zero
+    diagnostics, Attempts: 1 (cap 3, declared before starting).**
+    ```
+      sifted_empty_at_one                at X = 1 the sifted set S is EMPTY
+      integral_dpolyA_eq_zero_of_empty   S = ∅  ⟹  the LHS integral is 0
+    ```
+    **`MRTPropA3Statement` carried a ⚠️⚠️ UNRESOLVED flag — it may carry NO LARGENESS ON `X`, the
+    exact defect that made `MRTLemmaA4ii` FALSE. CLOSED, and closed the SAFE way: at `X = 1` the
+    statement is VACUOUSLY TRUE, not false.**
+
+    ⛔ **BOTH BRANCHES WERE ALREADY LANDED HOURS AGO** (`mrtBands_bandCount_incompatible_at_one`
+    for `J = 0`, `memS_false_of_Qseq_one_le_one` for `J ≥ 1`). **Nothing COMPOSED them**, so the
+    flag on the campaign's PRIMARY STATEMENT still read *"unverified"* while its proof sat two
+    screens below it in the same file. *My own banked law: the kernel checks theorems, not that
+    they compose — a landed lemma nothing consumes is a claim about the corpus, not a step in a
+    proof.*
+
+    ⭐⛔ **THE KEEPER — THE OLD FLAG RECORDED THE FACT THAT REFUTES IT.** It observed that
+    *"`Qseq 1 = 1` kills the first term"* and scored that as **helping** the counterexample, since
+    it shrinks the RHS. The same `Qseq 1 ≤ 1` empties block 1, empties `S`, and kills the **LHS**
+    outright — and `0 ≤ RHS` is exactly what needed proving. ***I had the decisive fact written
+    down and read it in the direction that favoured my hypothesis.*** The original flag is kept
+    VERBATIM in the docstring, superseded but unedited, because the error is the lesson.
+
+    🔑 **THE GUARD IS ACCIDENTAL, NOT DESIGNED:** it holds only because `MemS` quantifies from
+    `j = 1` while `MRTBands`' clauses 2 and 3 start at `j = 2`. Had `MemS` started at `j = 2` the
+    guard would evaporate. **A.1 survives because it CARRIES `10 ≤ h ≤ X`; A.3 survives because two
+    unrelated clauses happen to pull opposite ways on one index. Only the first kind of safe
+    survives editing.**
+
 16n. ✅✅ **A.3's SPLIT NOW SPEAKS `MRTPropA3`'s OWN INTEGRAL — THE SPINE'S LAST SHAPE HOP. `40886aed`
     2026-08-22 09:4x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (5.1s)`, zero diagnostics,
     Attempts: 1 (cap 3, declared before starting).**
