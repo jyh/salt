@@ -288,6 +288,32 @@ RESURRECTS THEM:**
       CAMPAIGN OF OURS, not new ground. Still owed; no longer unowned.**
       ✅ **BOTH PROBES HAVE REPORTED ⇒ the Captain's ruling-2 arc-classing gate is DISCHARGED and
       the arc design block is UNBLOCKED**, on the corrected labelling and against the reduced spine.
+    ⭐⭐ **THE JOIN'S COST IS NO LONGER UNMEASURED — MEASURED 2026-08-21 18:0x, math seat.**
+    **SUPPLY SIDE, 3 OF 4 ANALYTIC HYPOTHESES ARE ALREADY DISCHARGED.** `lemma14_shortInterval_meansq`
+    (`PerronMeanSq.lean:914`) carries four — `hMsup`, `hGint`, `hPerron`, `hGsq`. The `_concrete`
+    variant (`:1045`) discharges **three**: `hGint` by `gapMaj_sq_intervalIntegrable`, `hPerron` by
+    `perron_gap_le_gapMaj` + `perron_guards_ae`, and `hGsq` by folding `Egap` into an explicit
+    `34560·δ·(…)² + 1152·(…)²` term. ⇒ **`hMsup` IS THE ONLY SURVIVOR, and ALL THREE family members
+    carry it** (`_kernel` `KernelCarry.lean:1153` too; at the live application `Eq26Compose.lean:493`
+    it is passed **upward**, not discharged).
+    ⭐ **AND `hMsup`'s PRODUCER IS LANDED AND UNCONDITIONAL:** `dirichlet_poly_l2_mvt_final`
+    (`MVCore2.lean:620`) — **no hypotheses at all** beyond the data — resting on
+    `mvHilbertUniform_holds` (`MVCore2.lean:575`), also hypothesis-free. **Both `[3 axioms]`, both
+    audited.** *This is the Montgomery–Vaughan mean value theorem, already in the kernel.*
+    🔑 **SO THE REMAINING GAP IS A SHAPE GAP, NOT A STRENGTH GAP:** `hMsup` wants a **dyadic-block,
+    `T`-normalised SUP uniform over `T ≥ X/h₁`** — `X/h₁/T·(∫_T^{2T} + ∫_{−2T}^{−T}) ≤ Msup` — while
+    the landed MVT gives a **symmetric single interval**, `∫_{−T}^{T} ≤ (2T + 20N)·Σ‖a‖²`.
+    ⚠️⚠️ **WHAT I HAVE NOT MEASURED AND WILL NOT ASSERT: WHETHER THE `Msup` OBTAINED THAT WAY IS SMALL
+    ENOUGH FOR A.1's CONCLUSION.** The interval containment is elementary; **sufficiency is a
+    BOUND-vs-VALUE question and it is OPEN.** *That distinction is exactly the one this seat was
+    caught on before, so it is named rather than glossed.*
+    ⛔⛔ **THE A.1 STATEMENT NODE IS BLOCKED ON ITS SOURCE, AND THE BLOCK IS ENVIRONMENTAL, NOT
+    MATHEMATICAL.** `1503.05121` is **NOT on this machine** — three searches (identifier · any PDF
+    named for the authors · whole-tree PDF population), **positive control: 27 PDFs DO exist under
+    `projects/claude`, so the tool sees PDFs.** The `05121`/`05422` hits are Chrome and Adobe cache
+    blobs. ⇒ **Writing A.1's statement this session would be writing it FROM MEMORY — a QUOTE on a
+    load-bearing statement, which is the one thing wave 1a's E-2 got right by refusing.** *The
+    statement node needs the PDF in hand; everything measured above did not, and was done instead.*
 17. ⛔ **SCOPE OF RECORD: §§2–4 (pp.8–16) + APPENDIX A (pp.20–28), ≈18 pages + the [17] Annals
     delegation.** *`§5 is out` HOLDS (§5 ends p.20). v1's "~8 pages" omitted Appendix A, which §4
     consumes via Thm A.2 — an under-estimate, the direction that under-resources a campaign.*
