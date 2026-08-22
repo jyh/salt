@@ -209,10 +209,30 @@ def MRTLemmaA4i : Prop :=
         ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
 
 /-- **MRT Lemma A.4 (ii)** — off the `t₁` window, or at large quality, the
-twisted distance is bounded below by `(1/6 − 1/(3π) − ε)·loglog X`. -/
+twisted distance is bounded below by `(1/6 − 1/(3π) − ε)·loglog X`.
+
+⛔⛔ **`Real.exp 1 ≤ X` IS CARRIED BECAUSE WITHOUT IT THE STATEMENT IS FALSE, AND
+THERE IS A WITNESS.**  My first transcription omitted it, lifting MRT's display out
+of the ambient largeness their Appendix A runs under (A.1's `X ≥ h ≥ 10`, A.2's
+*"for all `X > X(η)` large enough"*).  With `ε` unbounded above, the constant
+`1/6 − 1/(3π) − ε` goes **negative** past `ε > 0.060563`, and `loglog X` is
+**negative** for `1 < X < e`, so their product is **positive** while the RHS is a
+sum over an **empty** set of primes:
+
+    X = 1.5,  ε = 1,  ANY f, 𝒥, t
+      loglog X          = −0.902720            (negative)
+      1/6 − 1/(3π) − ε  = −0.939437            (negative)
+      LHS               = +0.848049            (positive)
+      RHS = pretDistSq … 1.5 : ⌊1.5⌋₊ = 1, primes in range 2 : NONE  ⇒ 0
+      ⇒ 0.848049 > 0.  FALSE.
+
+🔑 This is **not** a hypothesis added to make a route go through.  The proof's
+need for `exp 1 ≤ X` was **the statement telling the truth about itself**: when a
+proof wants a hypothesis its statement lacks, the first question is not *"how do I
+close the gap"* but ***"is the statement true without it?"*** -/
 def MRTLemmaA4ii : Prop :=
   ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ),
-    (∀ n, ‖f n‖ ≤ 1) → |t| ≤ X → 0 < ε →
+    (∀ n, ‖f n‖ ≤ 1) → Real.exp 1 ≤ X → |t| ≤ X → 0 < ε →
     ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X
       ∨ (Real.log X) ^ ((1 : ℝ) / 16) / 2 < |t - t₁|) →
       (1 / 6 - 1 / (3 * Real.pi) - ε) * Real.log (Real.log X)
