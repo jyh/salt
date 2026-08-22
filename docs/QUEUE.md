@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16t. ⭐⭐⭐ **A.3's LARGE-`T` BRANCH IS ASSEMBLED — `O(T/X+1)` WITH EVERY CONSTANT EXPLICIT, AND
+    A BUILD-LAW VIOLATION THAT ATE ITS OWN EVIDENCE. `fb7fee57` 2026-08-22 10:5x. `[3 axioms]`,
+    `EXIT=0`, genuine `Built (6.6s)` after repair, zero `MRTPropA3.lean` diagnostics,
+    Attempts: 1 for the proof (cap 3, declared before starting).**
+    ```
+      mrtA3_mvt_branch   ∫_{-T}^{T} ‖dpolyA f S‖²  ≤  (2T + 4πX)·(#S / X²),   S ⊆ [X,2X]
+    ```
+    **MRT's opening sentence, now a Lean theorem with named constants.** `N = ⌊2X⌋` makes the
+    frequency-gap constant `2πN ≤ 4πX`; `sum_sq_norm_div_le` bounds the coefficient sum by `#S/X²`.
+    ⭐ **NOTHING IN THIS BRANCH IS CONDITIONAL ON A.5, A.6 OR A.7 — it rests only on
+    Montgomery–Vaughan.** A.3 now has one branch on landed unconditional analysis and the other on
+    the appendix argument.
+
+    ⛔⛔ **BUILD-LAW VIOLATION, THIRD THIS SESSION, AND THIS ONE PRODUCED EXACTLY THE EVIDENCE GAP
+    THE LAW EXISTS TO PREVENT.** My command was
+    `../saltbuild.sh Salt.MR.MRTPropA3 2>/dev/null | tail -0; ../saltbuild.sh Salt.MR.MRTPropA3`.
+    **The PIPED first invocation did the genuine compile; the BARE second one found everything up
+    to date and printed NO `Built Salt.MR.MRTPropA3` line at all — not even a `Replayed` one.** So
+    the visible output carried `EXIT=0` and *"Build completed successfully"* while containing
+    **zero evidence about the module I had just changed.** *The documented trap verbatim, walked
+    into while writing the command to shrink output.* Repaired: olean deleted, bare run, genuine
+    `Built`.
+
+    🔑 **THE PATTERN ACROSS ALL THREE VIOLATIONS IS ONE THING: every one was me trying to shrink
+    the build output.** The law's cost is verbosity and I keep paying it back out in evidence.
+    ***Nothing about that need requires a pipe — read the persisted log FILE afterwards instead***,
+    which is what I already do for the audit builds and had not carried across to the proof builds.
+
 16s. ⭐⭐ **THE LARGE-`T` BRANCH'S TWO INPUTS — AND THE ONE NAME I DIDN'T CHECK IS THE ONE THAT
     FAILED. `8a318f7a` 2026-08-22 10:4x. Both `[3 axioms]`, `EXIT=0`, BARE builds, genuine `Built`,
     zero `MRTPropA3.lean` diagnostics, Attempts: 2 (cap 3, declared before starting).**
