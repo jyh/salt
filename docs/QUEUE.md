@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15tt. ⛔⛔⛔ **MRT's LEMMA A.7 AND ITS OWN PROOF CARRY OPPOSITE SIGNS — AND MY TRANSCRIPTION FOLLOWED
+    THE STATEMENT. WORSE: MY OWN "TRANSCRIPTION CHECK" WAS STRUCTURALLY BLIND TO IT. 2026-08-22 07:1x.**
+    ```
+      STATEMENT (A.8), p.24    Σ g_𝒥(n)f(n)n^{−it} = (X^{i(t−t₁)}/(1 + i(t−t₁)))·Σ g_𝒥(n)f(n)n^{−it₁} + O(…)
+      ITS OWN PROOF, p.24      Σ g_𝒥(n)f(n)n^{−it} = (X^{i(t₁−t)}/(1 + i(t₁−t)))·Σ g_𝒥(n)f(n)n^{−it₁} + O(…)
+                               ("We apply [10, Lemma 7.1] which gives …")
+    ```
+    **Verified through TWO extraction paths** (`pdftotext -layout` and plain), and **each display is
+    INTERNALLY consistent** — numerator and denominator flip together. *A random extraction glitch
+    would not flip both, twice, in the same direction.*
+    🔑 **THE MODEL SUPPORTS THE PROOF, NOT THE STATEMENT.** Partial summation with `s = t − t₁`:
+    `Σ_{n≤X} a(n)n^{−it} = ∫₁^X u^{−is}dA(u) = X^{−is}A(X) + is∫u^{−is−1}A(u)du`; with `A(u) ≈ (u/X)A(X)`
+    this is `X^{−is}A(X)·[1 + is/(1−is)] = X^{−is}A(X)/(1−is)` — i.e. **`X^{i(t₁−t)}/(1 + i(t₁−t))`, the
+    PROOF's form.** ⚠️ *Heuristic (it assumes linear growth of `A`), so it is strong evidence about
+    which is right and NOT certainty about MRT's intent.*
+    ⛔ **`MRTLemmaA7` TRANSCRIBED THE STATEMENT** — so it likely carries the source's typo. **FLAGGED,
+    NOT SILENTLY FLIPPED** (iron rule 1: record why, do not edit a statement to make things work).
+    ⛔⛔⛔ **AND THE PART THAT IS MINE ALONE: `mrtA7_exact_at_center` COULD NOT HAVE CAUGHT THIS.** I
+    landed it at 05:32 calling it *"a transcription check that can actually FAIL"* — it evaluates the
+    factor at **`t = t₁`**, and **at `t = t₁` BOTH candidate signs give exactly `1`.**
+    ⇒ ***I BUILT A CHECK THAT AGREES WITH BOTH CANDIDATES AND CALLED IT A DISCRIMINATOR.*** *"A control
+    must DISAGREE with the test case to discriminate" — mine agreed with the very error present, at the
+    single point where the two conventions coincide. The degenerate point is exactly where a sign
+    convention is invisible: **testing a formula at its fixed point tests nothing about its sign.***
+    ✅ **A CHECK THAT WOULD ACTUALLY DISCRIMINATE:** evaluate at `t ≠ t₁` and compare the two factors —
+    they are complex conjugates of one another, so any `t` with `t ≠ t₁` and `log X ≠ 0` separates them.
+    **Not yet written; named so it is not absorbed.**
+
 15ss. ⛔⛔ **I PRICED LEMMA A.8 BEFORE OPENING ITS PROOF, AND PUBLISHED THE PRICE. THIRD INSTANCE
     TONIGHT OF EXACTLY THAT ERROR. 2026-08-22 07:1x — WITHDRAWN.**
     At 07:07 I posted *"take gap 2 first, it is elementary: `Lemma A.8` … class A/B, no arithmetic
