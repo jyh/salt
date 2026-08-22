@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15y. ⭐⭐ **THE CONSTRUCTIVE SUCCESSOR TO THE RETRACTION: I READ MRT's PROOF OF A.4(i), AND IT IS THREE
+    LINES. A.4(i) RE-PRICES TO CLASS B. 2026-08-22 03:1x.** Verbatim:
+    ```
+      2𝔻(f g_𝒥, p^{it}; X)²
+        = Σ_{p≤X} (1 − Re f(p)g_𝒥(p)p^{−it})/p  +  Σ (1 − Re f(p)p^{−it})/p
+                                                 +  Σ Re f(p)p^{−it}(1 − g_𝒥(p))/p
+        ≥ Σ (1 − g_𝒥(p))/p  +  Σ (1 − Re f(p)p^{−it})/p  −  Σ (1 − g_𝒥(p))/p
+        ≥ 𝔻(f, p^{it}; X)²
+    ```
+    🔑 ***THE MECHANISM IS EXACT CANCELLATION: the loss `Σ(1 − g_𝒥(p))/p` appears TWICE, WITH OPPOSITE
+    SIGNS, and cancels.*** *That is precisely what my `dist_split_A4` route could not do — it pays the
+    loss ONCE, with no cancelling partner, which is why `W = 0` failed structurally.* **The paper's proof
+    is not avoiding a hard estimate; it is arranging an algebraic cancellation.**
+    ⇒ **ALL THREE STEPS ARE POINTWISE AND ELEMENTARY, over a FINITE sum of primes `≤ X`:**
+    `Re f(p)g_𝒥(p)p^{−it} ≤ g_𝒥(p)` (from `|f| ≤ 1`, `g_𝒥 ∈ {0,1}`) · `Re f(p)p^{−it} ≥ −1` · then
+    `Finset.sum_le_sum` twice and cancel.
+    ⚠️⚠️ **SO I HAVE NOW PRICED A.4(i) THREE TIMES AND THE THIRD IS THE FIRST ONE I READ THE PROOF FOR:**
+    *(1) 02:05 — "reducible to `dist_split_A4` at `W = 0`" (**FALSE**, witness at 03:0x).*
+    *(2) 03:0x — "needs its own proof", re-priced UPWARD, correct but uninformative.*
+    *(3) 03:1x — **CLASS B**: needs its own proof, and that proof is THREE POINTWISE BOUNDS AND A
+    CANCELLATION.* 🔑 ***THE FIRST TWO PRICINGS WERE BOTH GUESSES ABOUT A PROOF I HAD NOT OPENED, AND
+    THEY ERRED IN OPPOSITE DIRECTIONS.*** **Reading the proof cost one command.**
+
 15x. ⛔⛔⛔ **I RETRACT A MATHEMATICAL CLAIM I MADE TWICE, WITH A WITNESS AGAINST IT. 2026-08-22 03:0x.**
     I wrote, at 02:05 and again at 02:14, that **`dist_split_A4` at `W = 0` "IS A.4(i) EXACTLY"**, and
     the helm echoed it. ***IT IS FALSE.***
