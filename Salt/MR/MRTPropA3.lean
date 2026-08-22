@@ -1942,6 +1942,42 @@ theorem mrtA3_split_bound_interval {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ
   rw [intervalIntegral.integral_of_le hle]
   exact hband
 
+/-! ### `0 ≤ B` — the bridge's other binder, and the last one without a producer
+
+`MRTPropA3Bridge.hMsup_of_propA3_shape` also carries `hB : 0 ≤ B`.  At the identification
+`B = C · bracket` fixed by `mrtPropA3_in_bridge_shape`, that needs `0 ≤ C` (from
+`MRTLemmaA6Statement`'s `∃ C > 0`) and `0 ≤ bracket`, and the bracket's nonnegativity had
+**no producer anywhere** — `mrtM_nonneg` did not exist.
+
+⚠️ Each of the three bracket terms is nonnegative only under a side condition, and they
+are not the same one: the first needs `0 ≤ log Q₁` (an `rpow` of a possibly-negative base
+is not automatically nonnegative), the third needs `0 ≤ log X`, and the middle needs
+`0 ≤ M(f;X)` — which is an `sInf`, so it is a real obligation rather than a syntactic one. -/
+
+/-- **`M(f;X) ≥ 0`.**  The infimum of a set of pretentious distances, each of which is a
+sum of nonnegative terms.  Nonempty via `t = 0`, bounded below by `0`. -/
+theorem mrtM_nonneg (f : ℕ → ℂ) {X : ℝ} (hX : 0 ≤ X) (hf : ∀ n, ‖f n‖ ≤ 1) :
+    0 ≤ mrtM f X := by
+  unfold mrtM
+  refine le_csInf ⟨pretDistSq f (costwist 0) X, ⟨0, by simpa using hX, rfl⟩⟩ ?_
+  rintro b ⟨t, _, rfl⟩
+  exact pretDistSq_nonneg f (costwist t) X hf (norm_costwist_le t)
+
+/-- **A.3's BRACKET IS NONNEGATIVE**, which with `0 ≤ C` discharges the bridge's `hB`. -/
+theorem mrtA3_bracket_nonneg (f : ℕ → ℂ) {X η : ℝ} (Pseq Qseq : ℕ → ℕ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) (hX : 0 ≤ X)
+    (hlogQ : 0 ≤ Real.log (Qseq 1)) (hlogX : 0 ≤ Real.log X) :
+    0 ≤ (Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
+        + mrtM f X / Real.exp (mrtM f X)
+        + 1 / (Real.log X) ^ ((1 : ℝ) / 50) := by
+  have h1 : 0 ≤ (Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η) :=
+    div_nonneg (Real.rpow_nonneg hlogQ _) (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  have h2 : 0 ≤ mrtM f X / Real.exp (mrtM f X) :=
+    div_nonneg (mrtM_nonneg f hX hf) (Real.exp_nonneg _)
+  have h3 : 0 ≤ 1 / (Real.log X) ^ ((1 : ℝ) / 50) :=
+    div_nonneg zero_le_one (Real.rpow_nonneg hlogX _)
+  linarith
+
 /-! ### The connector to `MRTPropA3Bridge`
 
 `Salt/MR/MRTPropA3Bridge.lean` consumes A.3 as a hand-written hypothesis
