@@ -246,6 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15w. ⛔⛔ **I CHASED THE 446-vs-487 GAP AND IT CONVICTED MY OWN INSTRUMENT TWICE. THE NUMBER IS 471.**
+    2026-08-22 02:4x. *A disagreement between two counts of one population is a FINDING — this seat's own
+    banked law — so I chased it instead of quoting a spread.*
+    ⛔ **BOTH MY NAMED CANDIDATE CAUSES WERE REFUTED**, which is why chasing beat guessing:
+    ```
+      A  mine (^kw, skip _, theorem|lemma)   decls 17344   orphans 487
+      B  KEEP _-prefixed names               decls 17345   orphans 487   ⇐ NO CHANGE
+      C  allow INDENTED keyword              decls 17351   orphans 487   ⇐ NO CHANGE
+      D  add def/abbrev                      decls 19467   orphans 494   ⇐ +7 only
+    ```
+    ⛔⛔ **DEFECT 1 — MY TOKENISER *AND* MY DECLARATION REGEX WERE ASCII-ONLY, FOR THE THIRD TIME
+    TONIGHT.** `[A-Za-z_][A-Za-z0-9_']*` **TRUNCATES 182 declaration names** — `D₀_lt_of_prime_dvd_coord`
+    recorded as **`D`**, `H₈₃_pos` as **`H`**, `I₂_Fw` as **`I`**. ***Those single letters occur thousands
+    of times, so all 182 were silently scored NON-orphans.*** 17,345 names ASCII vs **17,547** unicode.
+    ⛔⛔ **DEFECT 2 — AND MY FIRST FIX OVERSHOT TO 894, NEARLY DOUBLE.** A unicode class that keeps `.`
+    inside tokens makes `Salt.MR.foo` ONE token, so it stops feeding bare `foo` ⇒ **massive over-count.**
+    🔑 ***THE ONLY TELL WAS THE CONTROLS MOVING: `lemma5` 13 → 9, `card_not_memS_le_sum` 9 → 8.*** *A ~90%
+    error in the headline, and the controls were the sole evidence of it.* **"A control must disagree with
+    the test case to discriminate" — here the control disagreed with ITS OWN EARLIER VALUE, and that is
+    the version that caught this.**
+    ✅ **BOTH DEFECTS ADDRESSED — unicode-tolerant AND dot-splitting:**
+    ```
+      ASCII tokens, ASCII names       487   UNDER  (182 names truncated to single letters)
+      unicode tokens, dotted          894   OVER   (qualified refs stop feeding bare names)
+      unicode tokens, dot-SPLIT       471   ⇐ THE NUMBER; all four controls back to 13 · 9 · 6 · 0,
+                                            EXACTLY their first-run values, on a complete population
+    ```
+    ⇒ **471, and it sits BETWEEN the helm's 446 and my 487 — closer to the helm's.** *The soundness
+    argument is unchanged (a token count of 1 forecloses both an audit entry and any dependent), so this
+    remains a PROVEN lower bound; only the arithmetic was wrong, twice, in opposite directions.*
+
 15v. ✅ **THE `PropA3Core` QUESTION IS SETTLED, AND THE ANSWER IS A NAME COLLISION — 2026-08-22 02:1x.**
     I would not guess it at 02:00; here is the measurement.
     ```
