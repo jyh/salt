@@ -87,4 +87,49 @@ def MRTPropA3 (C : ℝ) : Prop :=
 a theorem — nothing proves it and nothing assumes it. -/
 def MRTPropA3Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTPropA3 C
 
+/-! ## A3-0 — `t₁` exists
+
+MRT's A.3 proof says *"let `t₁` be **the value of `t` which attains the minimum**
+in `M(f;X) = inf_{|t|≤X} 𝔻(f,n^{it};X)²`"*, and everything downstream — the whole
+`T₀`/`T₁` dichotomy — is written in terms of `|t − t₁|`.
+
+In Lean `mrtM` is an `sInf` over `ℝ`, so **attainment is not free**: it is
+compactness of `[−X, X]` plus continuity of the map.  The paper's definite article
+is doing that argument's work.
+
+⭐ The idiom is the corpus's own — `IsCompact.exists_isMinOn`, as used at
+`Salt/SW/ZetaInvShallow.lean:110` and `Salt/SW/ZetaZeroFree.lean:203`. -/
+
+/-- `t ↦ 𝔻(f, n^{it}; X)²` is continuous: `pretDistSq` is a finite sum over the
+primes `≤ X`, and each term depends on `t` only through `costwist`. -/
+theorem continuous_pretDistSq_costwist (f : ℕ → ℂ) (X : ℝ) :
+    Continuous (fun t : ℝ => pretDistSq f (costwist t) X) := by
+  unfold pretDistSq costwist
+  continuity
+
+/-- **A3-0 — THE MINIMISER EXISTS.**  There is `t₁` with `|t₁| ≤ X` whose
+pretentious distance to `f` realises `mrtM f X` exactly.  This is what MRT's
+"the value of `t` which attains the minimum" asserts, and it is a theorem here
+rather than a phrase. -/
+theorem exists_min_pretDistSq (f : ℕ → ℂ) {X : ℝ} (hX : 0 ≤ X) :
+    ∃ t₁ : ℝ, |t₁| ≤ X ∧ pretDistSq f (costwist t₁) X = mrtM f X := by
+  have hcont : Continuous (fun t : ℝ => pretDistSq f (costwist t) X) :=
+    continuous_pretDistSq_costwist f X
+  have hcompact : IsCompact (Set.Icc (-X) X) := isCompact_Icc
+  have hne : (Set.Icc (-X) X).Nonempty := ⟨0, by constructor <;> linarith⟩
+  obtain ⟨t₁, ht₁mem, ht₁min⟩ := hcompact.exists_isMinOn hne hcont.continuousOn
+  have habs : |t₁| ≤ X := by
+    rw [abs_le]; exact ⟨ht₁mem.1, ht₁mem.2⟩
+  refine ⟨t₁, habs, ?_⟩
+  have hlb : ∀ b ∈ {m : ℝ | ∃ t : ℝ, |t| ≤ X ∧ m = pretDistSq f (costwist t) X},
+      pretDistSq f (costwist t₁) X ≤ b := by
+    rintro b ⟨t, htX, rfl⟩
+    have hmemt : t ∈ Set.Icc (-X) X := by
+      rw [Set.mem_Icc]; rw [abs_le] at htX; exact ⟨htX.1, htX.2⟩
+    exact ht₁min hmemt
+  have hmem : pretDistSq f (costwist t₁) X
+      ∈ {m : ℝ | ∃ t : ℝ, |t| ≤ X ∧ m = pretDistSq f (costwist t) X} := ⟨t₁, habs, rfl⟩
+  unfold mrtM
+  exact le_antisymm (le_csInf ⟨_, hmem⟩ hlb) (csInf_le ⟨_, hlb⟩ hmem)
+
 end Salt.MR
