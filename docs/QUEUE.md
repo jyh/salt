@@ -246,6 +246,36 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15h. ⭐⭐⭐ **A.1 GAP CENSUS — THE COMPLEMENT HALF IS NOT A GAP. IT IS LANDED, COMPOSED, AND
+    INSTANTIATED, OVER EXACTLY A.1's RANGE.** Measured 2026-08-21 21:3x by opening each link.
+    ```
+      card_blockfree_le        SieveGlue.lean:183   per-band count
+      card_not_memS_le_sum     Sec9Glue.lean:478    the j-union
+      hsieve_of_engine         SieveGlue.lean:438   THE COMPOSITION, explicitly
+                               "card_not_memS_le_sum ∘ card_blockfree_le", concluding
+        (1/X)·#{n ∈ Nlg : ¬MemS (calP A G) (calQK A G M) J n}
+              ≤ C·∑_{j∈Icc 1 J} log(calP j)/log(calQK j)          for Nlg ⊆ Ioc X (2X)
+      sum_ratioK_le_basel      SeamNumber.lean:264  collapses that j-sum to π²/(6M), SHARP
+      sec9_eq28_exit_calFamily SieveGlue.lean:556   capstone, carries it at 8C/δ ≤ M
+    ```
+    ⇒ ***THE COMPLEMENT DENSITY OVER `Ioc X (2X)` IS A LANDED, COMPOSED, DYADIC OBJECT.*** I had this
+    filed as the open gap two beats ago; it is not.
+    ⛔⛔ **AND THAT FORCES A CORRECTION TO A SUPPORTING CLAIM IN MY OWN DYADIC ERRATUM (17:06).** I wrote
+    *"MRT's `S` is ALWAYS an initial segment."* **That is TRUE of Definition 2.1's `S` and FALSE of the
+    APPENDIX's.** The appendix defines, verbatim: *"Let `S` be the set of integers `X ≤ n ≤ 2X` having at
+    least one prime factor in each of the intervals `[Pⱼ, Qⱼ]` for `j ≤ J`."* ***THE APPENDIX'S `S` IS
+    DYADIC.*** ⚠️ **The erratum's CONCLUSION still stands** — A.1's `[X,2X]` *in the integral* is the
+    `x`-AVERAGE, confirmed from the source at 19:41 — **but I over-generalised one of its supports from
+    §2 to the whole paper, and the over-generalisation is exactly what made the landed dyadic complement
+    bound look inapplicable.** *A correct conclusion resting on an over-general premise costs you the
+    NEXT inference, not the one you made.*
+    🔑 **⇒ THE A.1 GAP, AFTER THE CENSUS, IS ONE THING:** ⛔ **PROPOSITION A.3's PROOF** — the pretentious
+    / Granville–Soundararajan argument with `t₁` the minimiser. Everything else A.1's proof consumes is
+    landed: the `S`-split's complement side (above), `hMsup` from A.3 (`hMsup_of_propA3_shape`), the
+    `M(f;X)` input (`mrtM_lam_lower`), and non-vacuity on both statements.
+    ⚠️ **UNMEASURED, NAMED SO IT IS NOT ABSORBED:** the transport from `lemma14`'s TWO-SCALE (`h₁`,`h₂`)
+    difference form to A.1's SINGLE-SCALE statement. *Not looked at; not claimed either way.*
+
 15g. ⛔⛔ **I CORRECT MY OWN PUBLISHED NUMBER — 2026-08-21 21:1x. `309` AND `+13` WERE BOTH WRONG, AND
     WRONG IN BOTH DIRECTIONS AT ONCE.** The helm found a defect in ITS normaliser and disclosed it; **the
     same defect was in mine, plus a second one it did not have.**
