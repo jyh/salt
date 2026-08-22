@@ -1511,6 +1511,83 @@ theorem measurableSet_mrtT1 (M t₁ X T : ℝ) : MeasurableSet (mrtT1 M t₁ X T
   · exact hband
   · exact hband.inter hfar
 
+/-- `T₀` is measurable — the companion to `measurableSet_mrtT1`. -/
+theorem measurableSet_mrtT0 (M t₁ X T : ℝ) : MeasurableSet (mrtT0 M t₁ X T) := by
+  have hband : MeasurableSet {t : ℝ | |t| ≤ T} :=
+    measurableSet_le (by fun_prop) measurable_const
+  have hnear : MeasurableSet {t : ℝ | |t - t₁| ≤ (Real.log X) ^ ((1 : ℝ) / 16)} :=
+    measurableSet_le (by fun_prop) measurable_const
+  unfold mrtT0
+  split_ifs
+  · exact MeasurableSet.empty
+  · exact hband.inter hnear
+
+/-- The majorant `A/(1+|t−t₁|) + B` is continuous — its denominator is `≥ 1`, so
+there is no side condition to discharge anywhere. -/
+theorem continuous_a3_majorant (A B t₁ : ℝ) :
+    Continuous (fun t : ℝ => A / (1 + |t - t₁|) + B) := by
+  have hden : Continuous (fun t : ℝ => 1 + |t - t₁|) := by fun_prop
+  have hne : ∀ t : ℝ, (1 : ℝ) + |t - t₁| ≠ 0 := fun t => by positivity
+  exact (continuous_const.div hden hne).add continuous_const
+
+/-- **THE `T₀` INTEGRAL BOUND THAT LEMMA A.6 CAN ACTUALLY FEED.**  Identical
+conclusion to `mrtA3_T0_setIntegral_bound`, but the pointwise hypothesis is
+required **only on `T₀`** rather than on the enclosing interval.
+
+⛔ **THIS IS THE VERSION THE CHAIN NEEDS, AND THE DIFFERENCE IS NOT COSMETIC.**
+`MRTLemmaA6` bounds the twisted sum for `t ∈ mrtT0` and says *nothing whatever*
+off `T₀`; `mrtT0 ⊆ Icc (t₁−r) (t₁+r)` runs the WRONG WAY to transport a
+hypothesis, so `mrtA3_T0_setIntegral_bound`'s `hF` could never be discharged from
+A.6.  The repair is to enlarge the domain **on the majorant** — which is defined
+and nonnegative everywhere — instead of on `F`, so the pointwise bound is only
+ever used where A.6 actually supplies it.
+
+`0 ≤ A` and `0 ≤ B` are genuinely needed (the majorant must dominate itself) and
+are free in the application: A.6 delivers `A = C·exp(−M/2)`, `B = C·(log X)^{−1/16}`. -/
+theorem mrtA3_T0_setIntegral_bound_onT0 {F : ℝ → ℝ} {A B t₁ r : ℝ} {M X T : ℝ}
+    (hr : 0 ≤ r) (hrX : (Real.log X) ^ ((1 : ℝ) / 16) ≤ r)
+    (hA : 0 ≤ A) (hB : 0 ≤ B)
+    (hint : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT0 M t₁ X T) MeasureTheory.volume)
+    (hF : ∀ t ∈ mrtT0 M t₁ X T, |F t| ≤ A / (1 + |t - t₁|) + B) :
+    (∫ t in mrtT0 M t₁ X T, F t ^ 2) ≤ 4 * A ^ 2 + 4 * B ^ 2 * r := by
+  have hab : t₁ - r ≤ t₁ + r := by linarith
+  have hGcont : Continuous (fun t : ℝ => A / (1 + |t - t₁|) + B) :=
+    continuous_a3_majorant A B t₁
+  have hGnn : ∀ t : ℝ, 0 ≤ A / (1 + |t - t₁|) + B := by
+    intro t
+    have hd : (0 : ℝ) < 1 + |t - t₁| := by positivity
+    have hq : 0 ≤ A / (1 + |t - t₁|) := div_nonneg hA hd.le
+    linarith
+  have hsub : mrtT0 M t₁ X T ⊆ Set.Icc (t₁ - r) (t₁ + r) := by
+    intro t ht
+    have h := abs_sub_le_of_mem_mrtT0 ht
+    rw [abs_le] at h
+    exact ⟨by linarith [h.1, hrX], by linarith [h.2, hrX]⟩
+  have hGsqIcc : MeasureTheory.IntegrableOn (fun t => (A / (1 + |t - t₁|) + B) ^ 2)
+      (Set.Icc (t₁ - r) (t₁ + r)) MeasureTheory.volume :=
+    (hGcont.pow 2).continuousOn.integrableOn_compact isCompact_Icc
+  have hGsqT0 : MeasureTheory.IntegrableOn (fun t => (A / (1 + |t - t₁|) + B) ^ 2)
+      (mrtT0 M t₁ X T) MeasureTheory.volume := hGsqIcc.mono_set hsub
+  have h1 : (∫ t in mrtT0 M t₁ X T, F t ^ 2)
+      ≤ ∫ t in mrtT0 M t₁ X T, (A / (1 + |t - t₁|) + B) ^ 2 := by
+    refine MeasureTheory.setIntegral_mono_on hint hGsqT0 (measurableSet_mrtT0 _ _ _ _) ?_
+    intro t ht
+    have h := hF t ht
+    calc F t ^ 2 = |F t| ^ 2 := (sq_abs (F t)).symm
+      _ ≤ (A / (1 + |t - t₁|) + B) ^ 2 := by nlinarith [abs_nonneg (F t)]
+  have h2 : (∫ t in mrtT0 M t₁ X T, (A / (1 + |t - t₁|) + B) ^ 2)
+      ≤ ∫ t in Set.Icc (t₁ - r) (t₁ + r), (A / (1 + |t - t₁|) + B) ^ 2 := by
+    refine MeasureTheory.setIntegral_mono_set hGsqIcc ?_ hsub.eventuallyLE
+    filter_upwards with t using sq_nonneg _
+  have h3 : (∫ t in Set.Icc (t₁ - r) (t₁ + r), (A / (1 + |t - t₁|) + B) ^ 2)
+      ≤ 4 * A ^ 2 + 4 * B ^ 2 * r := by
+    rw [MeasureTheory.integral_Icc_eq_integral_Ioc, ← intervalIntegral.integral_of_le hab]
+    refine mrtA3_T0_integral_bound hr ((hGcont.pow 2).intervalIntegrable _ _) ?_
+    intro t _
+    exact le_of_eq (abs_of_nonneg (hGnn t))
+  linarith
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
