@@ -246,6 +246,27 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15e. ✅ **THE `j`-UNION'S ARITHMETIC HALF LANDS — `8ab6c46b` 2026-08-21 20:2x.**
+    `sum_inv_sq_Icc_one_le_two : ∀ J, ∑_{j∈Icc 1 J} 1/j² ≤ 2`, registered **in the same action as the
+    declaration** (the law firing on the right event for once), `[3 axioms]`, zero warnings.
+    *A.1's proof splits at `n ∈ S` and bounds the complement — a UNION over `j` — and with MRT's profile
+    `log Pⱼ/log Qⱼ = (1/j²)(log P₁/log Q₁)` the union bound needs exactly this.*
+    ⛔ **AND I NEARLY FILED IT AS ABSENT. TWO DEFECTS IN THE SWEEP THAT SAID SO:**
+    **(1)** `basel` matched 5 files, **ALL of them the local hypothesis name `hbaselo` (base-lo)** — a
+    substring match on a HYPOTHESIS NAME, the same class as a compliance docstring matching a policy word.
+    **(2)** the object EXISTS: **`Salt.BrunLower.sum_one_div_sq_le`** — `∑_{m∈Icc M K} 1/m² ≤ 1/(M−1)`
+    for `2 ≤ M`. ⇒ **one step on a landed lemma, not new work.**
+    🔑 **AND THE REASON THE FULL RANGE WAS GENUINELY MISSING IS THE USEFUL PART:** the landed lemma
+    **cannot be used at `M = 1`** — its bound would read `1/0`. Split off `j = 1`, apply at `M = 2` where
+    it reads `1/(2−1) = 1`, and `1 + 1 = 2`. *An absence with a REASON is a different object from an
+    absence; this one was a domain restriction, not a gap.*
+    ⛔ **BUILD DEFECT, TWICE, ONE SHAPE:** `norm_num` **reshaped terms out from under me** — `norm_num at
+    htail` rewrote `1/x²` to `(x²)⁻¹` so the hypothesis stopped matching its intended use, and a
+    `norm_num` on the goal left `linarith` unable to connect. ***A NORMALIZER IS NOT A NO-OP ON A
+    HYPOTHESIS YOU STILL INTEND TO MATCH SYNTACTICALLY.***
+    ⚠️ **STILL OPEN: the union bound ITSELF** (density of the `j`-th band's complement, then the union).
+    This lands only the arithmetic it consumes.
+
 15d. ✅✅ **PROPOSITION A.3 ITSELF IS STATED — `6159b715` 2026-08-21 19:4x.** `Salt/MR/MRTPropA3.lean`
     (90 ln, 4 decls), all four names registered in the same edit; `✔ Built (3.1s)`, zero warnings,
     all `[3 axioms]`. **`MRTPropA3Statement := ∃ C, 0 < C ∧ MRTPropA3 C` — a `Prop`; nothing proves it,
