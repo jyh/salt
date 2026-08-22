@@ -86,8 +86,24 @@ def MRTPropA3 (C : ℝ) : Prop :=
 /-- **The producer as a `Prop`**: `∃ C > 0`, A.3 holds at `C`.  A statement, not
 a theorem — nothing proves it and nothing assumes it.
 
-⚠️⚠️ **UNRESOLVED, FLAGGED 2026-08-22 04:1x, AFTER `MRTLemmaA4ii` WAS FOUND FALSE FOR
-EXACTLY THIS REASON: THIS STATEMENT MAY CARRY NO LARGENESS ON `X`.**  Its only size
+✅ **RESOLVED 2026-08-22 10:0x — THE GUARD HOLDS, AND IT IS IN THE KERNEL:
+`sifted_empty_at_one` (with `integral_dpolyA_eq_zero_of_empty`) proves that at
+`X = 1` the sifted set `S` is EMPTY and A.3's left-hand side is `0`, so the
+conclusion holds at every `C ≥ 0` — VACUOUSLY TRUE, NOT FALSE.  `MRTLemmaA4ii`'s
+defect does NOT recur here.**  The dichotomy and the sense in which this guard is
+*accidental rather than designed* are written out at the `X = 1` section below.
+
+⭐⛔ **AND THE FLAG BELOW RECORDED THE VERY FACT THAT REFUTES IT.**  It observes
+that *"`Qseq 1 = 1` kills the first term"* and counts that as HELPING a
+counterexample, because it shrinks the right-hand side.  The same `Qseq 1 ≤ 1`
+empties block 1, hence empties `S`, hence kills the LEFT-hand side outright — and
+`0 ≤ RHS` is exactly what needed proving.  ***I had the decisive fact written down
+and read it in the direction that favoured my hypothesis.***  The original
+diagnosis is kept verbatim below, unedited, because the error is the lesson:
+
+⚠️ **THE ORIGINAL FLAG, 2026-08-22 04:1x (SUPERSEDED, KEPT FOR THE RECORD):
+`MRTLemmaA4ii` WAS FOUND FALSE FOR EXACTLY THIS REASON, SO THIS STATEMENT WAS
+SUSPECTED OF CARRYING NO LARGENESS ON `X`.**  Its only size
 hypotheses are `√X ≤ X₀ ≤ X`, which force `X ≥ 1` and nothing more, while MRT's
 Appendix A runs under A.1's `X ≥ h ≥ 10` and A.2's *"for all `X > X(η)` large
 enough"*.  At `X = 1` every bracket term can degenerate to `0` through Lean's junk
@@ -555,6 +571,31 @@ theorem mrtBands_bandCount_incompatible_at_one {η : ℝ} {Pseq Qseq : ℕ → �
   have hgt := hc.2 1 (by norm_num)
   refine hgt ?_
   simpa [Real.log_one, Real.zero_rpow (by norm_num : (1:ℝ)/2 ≠ 0), Real.exp_zero] using hcap
+
+/-- **THE DICHOTOMY, COMPOSED — AT `X = 1` THE SIFTED SET IS EMPTY.**  Both branches
+were landed separately; this is the statement that consumes them, and it is the one
+`MRTPropA3Statement`'s flag was actually asking for.  `J = 0` is inconsistent with the
+two band conditions, and `J ≥ 1` empties `S` through `Qseq 1 ≤ 1`. -/
+theorem sifted_empty_at_one {η : ℝ} {Pseq Qseq : ℕ → ℕ} {J : ℕ} {S : Finset ℕ}
+    (hb : MRTBands 1 η Pseq Qseq) (hc : MRTBandCount 1 Qseq J)
+    (hS : ∀ n : ℕ, n ∈ S ↔ ((1 : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * 1 ∧ MemS Pseq Qseq J n)) :
+    S = ∅ := by
+  have hQ : Qseq 1 ≤ 1 := by
+    have h := hb.1
+    rw [Real.log_one, Real.sqrt_zero, Real.exp_zero] at h
+    exact_mod_cast h
+  rcases Nat.eq_zero_or_pos J with rfl | hJ1
+  · exact (mrtBands_bandCount_incompatible_at_one hb hc).elim
+  · refine Finset.eq_empty_iff_forall_notMem.mpr fun n hn => ?_
+    exact memS_false_of_Qseq_one_le_one hJ1 hQ ((hS n).mp hn).2.2
+
+/-- **AND THEREFORE A.3's LEFT-HAND SIDE VANISHES AT `X = 1`.**  With `S = ∅` the
+Dirichlet polynomial is identically `0`, so the integral is `0` and the conclusion
+holds at every `C ≥ 0` — *vacuously true, not false.* -/
+theorem integral_dpolyA_eq_zero_of_empty (f : ℕ → ℂ) {S : Finset ℕ} (hS : S = ∅) (T : ℝ) :
+    (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2) = 0 := by
+  subst hS
+  simp [dpolyA]
 
 /-! ## MRT's (A.4) — the ℂ-level half, salvaged
 
