@@ -246,6 +246,33 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16a. ✅✅✅ **MRT LEMMA A.8 IS CLOSED UNCONDITIONALLY — AND BY A ROUTE SIMPLER THAN THE SOURCE'S.
+    `%s` 2026-08-22 07:5x. All three names `[3 axioms]`, `EXIT=0`, zero diagnostics, GENUINE
+    `Built (4.5s)` after an olean delete.**
+    ```
+      mrtA8_mvt_step   discharges the hypothesis mrtA8_of_mvt was carrying
+      mrtA8            e^α + e^{−α} − 2cos θ ≤ exp(√(α²+θ²))  for α ≥ 0,  NO HYPOTHESES
+    ```
+    🔑 **MRT DIFFERENTIATE `x ↦ e^{√x}` TWICE AND MINIMISE THE DERIVATIVE AT `x = 1`. THAT IS
+    AVOIDABLE.** With `r = √(α²+θ²) ≥ α` and `r² = α²+θ²` the claim is *exactly* `g α ≤ g r` for
+    `g x = e^x − (e/2)x²`, and `g'(x) = e^x − e·x ≥ 0` is **ONE mathlib lemma** —
+    `Real.add_one_le_exp` at `x−1` gives `x ≤ e^{x−1}`, i.e. `e·x ≤ e^x`. Monotonicity finishes.
+    ⭐ *The minimum of `e^x − e·x` is `0` at `x = 1` — the same `x = 1` and the same constant `e/2`
+    MRT locate via the second derivative. **The two routes meet at the same constant; this one never
+    computes a second derivative.*** *A simplification of the source, not a shortcut around it.*
+    🔬 **THREE PROCESS NOTES AGAINST MYSELF, ALL CAUGHT BY CHECKING RATHER THAN ASSUMING:**
+    ```
+      1. I PIPED saltbuild a third time this session, then reran bare — and the bare rerun REPLAYED,
+         so the genuine Built line was in output I had discarded. Fixed by DELETING the olean and
+         forcing a real compile. A replayed green tick is not evidence the bytes compiled.
+      2. The first audit run showed NO lines for the two new names: I had not registered them in
+         All.lean. Found because I grepped FOR THE NAMES rather than trusting EXIT=0.
+      3. Attempts: 3 — a no-op `simp`; a bare `simp` that cannot compute the deriv; `convert`+`ring`.
+         ALL MECHANICAL, none mathematical. The mathematics was right from the numeric check.
+    ```
+    📌 **APPENDIX-A STATE:** A.4(i) proved · A.4(ii) repaired, high-`M` arm proved, far arm open ·
+    A.5 no Prop · A.6 stated · A.7 stated, sign flagged · **A.8 CLOSED.**
+
 15zz. ✅ **MRT LEMMA A.8's ELEMENTARY HALF IS LANDED, WITH THE HARD STEP NAMED RATHER THAN HIDDEN.
     `%s` 2026-08-22 07:4x. `[3 axioms]`, `EXIT=0`, plain `✔` build tick, zero diagnostics, first attempt.**
     ```
