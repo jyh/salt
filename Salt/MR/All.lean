@@ -8381,6 +8381,9 @@ open Salt.Tactic in
   Salt.MR.mrtT0_eq_empty_of_high_M
   Salt.MR.lt_of_mem_mrtT0
   Salt.MR.abs_sub_le_of_mem_mrtT0
+  Salt.MR.MRTLemmaA4iiFixed
+  Salt.MR.mrtA4iiFixed_high_M
+  Salt.MR.mrtA4ii_far_centre_cap
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le

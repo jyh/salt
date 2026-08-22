@@ -869,4 +869,54 @@ theorem abs_sub_le_of_mem_mrtT0 {M t₁ X T t : ℝ} (ht : t ∈ mrtT0 M t₁ X 
   rw [if_neg (not_le.mpr h)] at ht
   exact ht.2
 
+/-! ## The A.4(ii) repair: pin `t₁` to the minimiser
+
+`not_mrtLemmaA4ii` refuted `MRTLemmaA4ii` because `t₁` floats free. The repair
+named there — **constrain `t₁`, do not weaken the conclusion** — is carried out
+here. MRT's `t₁` is *the value attaining the minimum*, and `exists_min_pretDistSq`
+already supplies it, so the fix costs one hypothesis and no new machinery.
+
+The refuting witness is excluded by that hypothesis: it used `f ≡ 1` with
+`t₁ = (log X)^{1/16}/2 + 1`, where `mrtM f X = 0` (attained at `s = 0`, since
+`costwist 0 ≡ 1`) while `pretDistSq f (costwist t₁) X > 0` — so that `t₁` is not a
+minimiser. *(Stated as the reason, not as a Lean proof: exhibiting `> 0` needs a
+`cos` bound at a specific argument, which is not what this section is for.)*
+
+⭐ **AND THE REPAIR BUYS SOMETHING, WHICH IS THE POINT — it is not merely
+witness-proofing.** With `t₁` pinned, the far branch's *centre cap* — the `S` that
+`dist_recenter_sq` consumes — becomes DERIVABLE rather than assumed:
+`mrtA4ii_far_centre_cap` below. Free `t₁` could not supply it at all, because a
+free `t₁` says nothing about `pretDistSq f (costwist t₁) X`. -/
+
+/-- **A.4(ii), REPAIRED.**  Identical to `MRTLemmaA4ii` except that `t₁` is now
+required to attain `mrtM f X` — MRT's own reading of `t₁`. -/
+def MRTLemmaA4iiFixed : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → Real.exp 1 ≤ X → |t| ≤ X → 0 < ε →
+    |t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X →
+    ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X
+      ∨ (Real.log X) ^ ((1 : ℝ) / 16) / 2 < |t - t₁|) →
+      (1 / 6 - 1 / (3 * Real.pi) - ε) * Real.log (Real.log X)
+        ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
+
+/-- **The repaired statement's HIGH-`M` ARM still goes through unchanged** — that
+branch never mentions `t₁`, so pinning it costs nothing there. -/
+theorem mrtA4iiFixed_high_M (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ)
+    (X t ε : ℝ) (hf : ∀ n, ‖f n‖ ≤ 1) (hXe : Real.exp 1 ≤ X) (htX : |t| ≤ X)
+    (hε : 0 < ε) (hM : (1 / 8) * Real.log (Real.log X) ≤ mrtM f X) :
+    (1 / 6 - 1 / (3 * Real.pi) - ε) * Real.log (Real.log X)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X :=
+  mrtA4ii_high_M_target f Pseq Qseq 𝒥 X t ε hf hXe htX hε hM
+
+/-- ⭐ **WHAT THE REPAIR BUYS: the far branch's CENTRE CAP is now derivable.**
+In the far branch the first disjunct fails, so `mrtM f X < ⅛·loglog X`; with `t₁`
+pinned to the minimiser this transfers to the centre distance itself, which is
+exactly the `S` that `dist_recenter_sq` consumes.  **A free `t₁` could not supply
+this at all** — it says nothing about `pretDistSq f (costwist t₁) X`. -/
+theorem mrtA4ii_far_centre_cap {f : ℕ → ℂ} {X t₁ : ℝ}
+    (hmin : pretDistSq f (costwist t₁) X = mrtM f X)
+    (hlow : ¬ ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X)) :
+    pretDistSq f (costwist t₁) X < (1 / 8) * Real.log (Real.log X) := by
+  rw [hmin]; exact not_le.mp hlow
+
 end Salt.MR
