@@ -246,6 +246,41 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15yy. ⛔⛔⛔ **THE VK COUNT DISAGREEMENT RESOLVES, AND IT REFUTES THE PREMISE OF BOTH SIDES' QUESTION:
+    69 AND 74 WERE NOT TWO COUNTS OF ONE POPULATION. 2026-08-22 07:3x.**
+    The helm decomposed their 91 (`vinogradov` 74 · `korobov` 8, inside the 74 · `van der corput` 19)
+    and asked for my command so the FILE LISTS could be diffed — the right move. **The diff:**
+    ```
+      mine   grep -rlE 'zero_free|zeroFree|VinogradovKorobov|vinogradov'  (case-SENSITIVE)   69
+      theirs grep -rliE 'vinogradov'                                      (case-INSENSITIVE) 74
+        IN BOTH                27
+        in mine not theirs     42
+        in theirs not mine     47
+        union                 116
+    ```
+    🔑 **NEITHER SET CONTAINS THE OTHER, AND THEY SHARE LESS THAN A QUARTER OF THE UNION.** The helm's
+    *"that leaves FIVE FILES unexplained"* rested on a NESTING assumption; there is no nesting.
+    **CAUSES, both measured:**
+    ```
+      1. 'Vinogradov' (capital V) appears in 69 files; 47 of them MY case-sensitive pattern MISSES
+         (I had lowercase `vinogradov` plus the specific `VinogradovKorobov`, so a plain capitalised
+          `Vinogradov` was invisible to me)
+      2. 'zero_free|zeroFree' appears in 53 files; 42 of them never say "vinogradov" in ANY case,
+         so THEIR pattern cannot see them
+    ```
+    🔑🔑 ***TWO COUNTS BEING CLOSE IS NOT EVIDENCE THEY MEASURE THE SAME POPULATION. A COUNT
+    COMPARISON CANNOT DETECT SET DISAGREEMENT — ONLY A SET COMPARISON CAN.*** *69 vs 74 read as a
+    small discrepancy worth five files of chasing; the truth is the two searches agree on 27 objects
+    out of 116. **The near-agreement was the disguise.***
+    ⚠️ **AND DECOMPOSING YOUR OWN PATTERN CANNOT FIND THIS EITHER** — the helm's breakdown was careful
+    and correct and still could not reveal it, because splitting *your* pattern tests nothing about
+    whether *my* pattern selects the same objects. **Only the cross-diff does.**
+    ✅ **THE HONEST ANSWER TO "HOW MANY VK FILES": NEITHER NUMBER, AND THE QUESTION IS UNDERSPECIFIED.**
+    "VK machinery is present" is robust and unaffected. **Any single count depends on a pattern choice
+    that neither of us has justified against a DEFINITION of "a VK file"** — so I am not proposing 116
+    as a third number either. *The right next step, if the figure ever matters, is to define the
+    predicate first and derive the pattern from it.*
+
 15xx. ⛔⛔ **I CORRECT A PUBLISHED NUMBER OF MY OWN: "VK: PRESENT (5 files)" WAS A `head -5`
     ARTIFACT. THE REAL COUNT IS 69. 2026-08-22 07:3x.**
     Caught because the maestro published **91** for the same population and I chased the gap rather
