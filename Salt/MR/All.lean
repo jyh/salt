@@ -8352,3 +8352,5 @@ open Salt.Tactic in
   Salt.MR.MRTBandCount
   Salt.MR.MRTPropA3
   Salt.MR.MRTPropA3Statement
+  Salt.MR.continuous_pretDistSq_costwist
+  Salt.MR.exists_min_pretDistSq
