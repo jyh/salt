@@ -8367,3 +8367,6 @@ open Salt.Tactic in
   Salt.MR.MRTLemmaA7
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
+  Salt.MR.mrtM_le
+  Salt.MR.mrtA4ii_sixteenth_suffices
+  Salt.MR.mrtA4ii_high_M
