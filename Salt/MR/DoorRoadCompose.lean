@@ -1,5 +1,6 @@
 import Salt.MR.M4Gauss
 import Salt.MR.M4BridgePhase
+import Salt.MR.M4Maximal
 
 /-!
 # The door's road, COMPOSED across its first seam
@@ -61,5 +62,58 @@ theorem door_absWindowSum_sq_le_strata {M n H : ℕ} {B₅ α : ℝ}
           * ((∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
               * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm M q H d n) :=
         mul_le_mul_of_nonneg_left hstrata (sq_nonneg _)
+
+/-! ## Seam 2 — `strataTerm` against the aligned dyadic family
+
+`strataTerm` is *defined* as `∑_χ (doorChiSup χ M (capL L d) (n/d))²`, so the next link is not
+a definitional unfolding but a genuine estimate under the character sum: each summand is
+replaced by `M4Maximal.doorChiSup_sq_le_dyadic`'s `K`-free maximal bound, uniformly in `χ`.
+-/
+
+/-- The stratum's dyadic budget: the aligned dyadic family summed over the stratum's
+characters, at its own cap `capL L d` and dilated base `n / d`.  Named so the composition
+below reads as one line instead of three screens. -/
+noncomputable def dyadicStratumBudget (M q L d n : ℕ) : ℝ :=
+  ∑ χ : DirichletCharacter ℂ (q / d),
+    ((∑ j ∈ Finset.range (Nat.log 2 (capL L d) + 1), (3 / 2 : ℝ) ^ j)
+      * ∑ j ∈ Finset.range (Nat.log 2 (capL L d) + 1),
+          (∑ t ∈ Finset.range (capL L d / 2 ^ (j + 1) + 1),
+            ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n / d + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+            * (2 / 3 : ℝ) ^ j)
+
+/-- **SEAM 2, KERNEL-CHECKED** — the stratum budget against the aligned dyadic family.
+Uniform in `χ`, so it passes under the character sum with `Finset.sum_le_sum`. -/
+theorem strataTerm_le_dyadic (M q L d n : ℕ) :
+    strataTerm M q L d n ≤ dyadicStratumBudget M q L d n := by
+  unfold strataTerm dyadicStratumBudget
+  exact Finset.sum_le_sum fun χ _ => doorChiSup_sq_le_dyadic χ M (capL L d) (n / d)
+
+/-! ## Seams 1+2 CHAINED — the door's window sum against the dyadic mean squares
+
+The point of stating this: it is the first object in the file whose proof forces the two
+seams to hold *simultaneously*, under the divisor sum.  Each seam alone type-checks in
+isolation; a mismatch in `q`, `L` or the base would surface only here. -/
+
+/-- **THE CHAIN** — at a tight major arc, the door's sieved window sum is bounded, squared,
+by the weighted dyadic stratum budgets: `absWindowSum → subWindowSup → strata → doorChiSup →
+dyadic`, in one statement the kernel checks end to end. -/
+theorem door_absWindowSum_sq_le_dyadic {M n H : ℕ} {B₅ α : ℝ}
+    (hM : 1 ≤ M) (hH : 0 < H)
+    (hW : arcDen B₅ H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+    (hα : NearRatTight (arcDen B₅ H) H α) :
+    ∃ q : ℕ, 0 < q ∧ (q : ℝ) ≤ arcDen B₅ H ∧
+      ‖absWindowSum (doorSievedCoeff M) H n α‖ ^ 2
+        ≤ (1 + 2 * Real.pi * (arcDen B₅ H / (q : ℝ))) ^ 2
+          * ((∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+              * ∑ d ∈ q.divisors, (d : ℝ) * dyadicStratumBudget M q H d n) := by
+  obtain ⟨q, hq, hqA, hmain⟩ := door_absWindowSum_sq_le_strata (n := n) hM hH hW hα
+  refine ⟨q, hq, hqA, le_trans hmain ?_⟩
+  have hinner : ∑ d ∈ q.divisors, (d : ℝ) * strataTerm M q H d n
+      ≤ ∑ d ∈ q.divisors, (d : ℝ) * dyadicStratumBudget M q H d n :=
+    Finset.sum_le_sum fun d _ =>
+      mul_le_mul_of_nonneg_left (strataTerm_le_dyadic M q H d n) (Nat.cast_nonneg d)
+  have hharm : (0 : ℝ) ≤ ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) :=
+    Finset.sum_nonneg fun d _ => div_nonneg zero_le_one (Nat.cast_nonneg d)
+  exact mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hinner hharm) (sq_nonneg _)
 
 end Salt.MR

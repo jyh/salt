@@ -8438,6 +8438,8 @@ open Salt.Tactic in
   Salt.MR.renormalise_error_logpower_stronger
   Salt.MR.trivial_cut_needs_delta_ge_one
   Salt.MR.door_absWindowSum_sq_le_strata
+  Salt.MR.strataTerm_le_dyadic
+  Salt.MR.door_absWindowSum_sq_le_dyadic
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape
