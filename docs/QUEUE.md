@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15i. ⭐⭐⭐ **THE TRANSPORT I FLAGGED AS UNMEASURED IS LANDED — AND MY PREMISE FOR CALLING IT A GAP WAS
+    WRONG. 2026-08-21 22:0x.** I wrote that A.1 needed a transport from `lemma14`'s **TWO-SCALE**
+    difference form to a SINGLE scale. **MRT do not use a two-scale difference for this at all.**
+    Theorem A.2's proof, verbatim: *"The first step is a **Parseval bound**."*
+    ⭐ **AND THE CORPUS HAS A FILE FOR EXACTLY THAT, PINNED TO A.2's OWN PAGE:**
+    `Salt/MR/ParsevalSingle.lean` — *"S8 ladder, node A2-1 — THE SINGLE-`h` PARSEVAL … read against
+    **MRT p. 21**'s own license for the single-window form"*, whose header explicitly contrasts itself
+    with the landed Lemma-14 DIFFERENCE chain.
+    ⭐⭐ **`parseval_single_h` (`ParsevalSingle.lean:876`) CONCLUDES A.2's LEFT-HAND SIDE:**
+    `(1/X)·∫_X^{2X} ‖(1/h)·shortSum a s0 x h‖² ≤ [dpolyA integrals] + 236160π·Msup + [δ,N tail]`
+    ⇒ **SINGLE SCALE, over `[X,2X]`, bounded by exactly the objects A.3 controls.**
+    🔑🔑 **AND ITS `hMsup` IS CHARACTER-FOR-CHARACTER THE ONE `hMsup_of_propA3_shape` DISCHARGES**
+    (`∀ T ≥ X/h, (X/h)/T·(block integrals) ≤ Msup`; mine is stated at `h₁`, identical modulo the
+    binder's name, giving `Msup := 3B`). ⇒ ***THE BRIDGE I PROVED TONIGHT FEEDS THE A.1 ROAD, NOT ONLY
+    THE DIFFERENCE-FORM ROAD — which is more than I claimed for it when I landed it.***
+    ```
+      MRT Prop A.3            STATED (MRTPropA3, 6159b715)              ⛔ PROOF OPEN
+        ──[hMsup_of_propA3_shape  PROVED tonight, 3ec62940]──▶  hMsup
+        ──[parseval_single_h      LANDED, ParsevalSingle.lean:876]──▶  A.2's LHS
+        ──[hsieve_of_engine + sum_ratioK_le_basel  LANDED]──▶  the complement side
+        ──▶ MRT Theorem A.1     STATED (MRTThmA1, 5f8eba2b)
+    ```
+    ⚠️⚠️ **WHAT THIS IS AND IS NOT, STATED BEFORE ANYONE QUOTES IT: EVERY LINK IS PRESENT AS A LEAN
+    OBJECT. THE COMPOSITION IS NOT PROVED, AND A.3 ITSELF IS NOT PROVED.** *`parseval_single_h`'s RHS
+    still carries `dpolyA` integrals that A.3's bound would have to be threaded through, and nobody has
+    written that composition. "The pieces exist" is not "the chain closes" — the same distinction that
+    cost me the `Msup` headline at 18:40.*
+
 15h. ⭐⭐⭐ **A.1 GAP CENSUS — THE COMPLEMENT HALF IS NOT A GAP. IT IS LANDED, COMPOSED, AND
     INSTANTIATED, OVER EXACTLY A.1's RANGE.** Measured 2026-08-21 21:3x by opening each link.
     ```
