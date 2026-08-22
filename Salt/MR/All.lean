@@ -8347,6 +8347,7 @@ open Salt.Tactic in
   Salt.MR.one_le_X_div_h
   Salt.MR.hMsup_of_propA3_shape_parseval
   Salt.MR.parseval_dpolyA_terms_of_propA3_shape
+  Salt.MR.parseval_bound_of_propA3_shape
   Salt.MR.MRTBands
   Salt.MR.MRTBandCount
   Salt.MR.MRTPropA3
