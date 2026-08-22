@@ -919,4 +919,43 @@ theorem mrtA4ii_far_centre_cap {f : ℕ → ℂ} {X t₁ : ℝ}
     pretDistSq f (costwist t₁) X < (1 / 8) * Real.log (Real.log X) := by
   rw [hmin]; exact not_le.mp hlow
 
+/-! ## The A.7 sign: a check that actually DISCRIMINATES
+
+`mrtA7_exact_at_center` evaluates A.7's main-term factor at `t = t₁`. It is a true
+theorem and it is **not** a discriminator: MRT's Lemma A.7 statement (A.8) writes
+the factor as `X^{i(t−t₁)}/(1 + i(t−t₁))` while its own proof, same page, writes
+`X^{i(t₁−t)}/(1 + i(t₁−t))` — and **at `t = t₁` both give exactly `1`.** A control
+must disagree with the test case to discriminate; that one agreed with both.
+
+The general reason is below: **the two candidates are COMPLEX CONJUGATES of each
+other.** So they coincide exactly where the factor is real — which includes the
+centre `t = t₁` — and differ elsewhere. *Testing a formula at its fixed point
+tests nothing about its sign.*
+
+⛔ Which convention MRT intend is left OPEN here, not silently chosen. Partial
+summation with `s = t − t₁` gives `∫₁^X u^{−is}dA(u) ≈ X^{−is}A(X)/(1−is)`, i.e.
+the PROOF's form — but that is a heuristic (it assumes `A(u) ≈ (u/X)A(X)`), so it
+is evidence, not a ruling. `MRTLemmaA7` still carries the STATEMENT's form. -/
+
+/-- **The two candidate A.7 factors are complex conjugates.**  This is why any
+check at a point where the factor is real cannot tell them apart. -/
+theorem mrtA7_factor_conj (t t₁ X : ℝ) :
+    (starRingEnd ℂ)
+        (Complex.exp ((((t - t₁ : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+          / (1 + (((t - t₁ : ℝ) : ℂ)) * Complex.I))
+      = Complex.exp ((((t₁ - t : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+          / (1 + (((t₁ - t : ℝ) : ℂ)) * Complex.I) := by
+  rw [map_div₀, ← Complex.exp_conj]
+  congr 1 <;> · push_cast; simp [Complex.conj_I]; ring_nf
+
+/-- **And they genuinely DIFFER off the centre** — the concrete separation the
+degenerate check could not provide.  At `t = 1`, `t₁ = 0`, `X = 1` the exponentials
+collapse (`log 1 = 0`) and the two denominators `1 ± i` already separate. -/
+theorem mrtA7_factors_differ :
+    Complex.exp ((((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log 1 : ℝ) : ℂ))
+        / (1 + (((1 - 0 : ℝ) : ℂ)) * Complex.I)
+      ≠ Complex.exp ((((0 - 1 : ℝ) : ℂ)) * Complex.I * ((Real.log 1 : ℝ) : ℂ))
+        / (1 + (((0 - 1 : ℝ) : ℂ)) * Complex.I) := by
+  norm_num [Complex.ext_iff]
+
 end Salt.MR
