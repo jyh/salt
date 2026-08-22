@@ -1047,4 +1047,60 @@ theorem mrtA8 (α θ : ℝ) (hα : 0 ≤ α) :
       ≤ Real.exp (Real.sqrt (α ^ 2 + θ ^ 2)) :=
   mrtA8_of_mvt α θ hα (mrtA8_mvt_step α θ hα)
 
+/-! ## MRT Lemma A.5 — the `T₁` bound, stated
+
+Read from `1503.05121v3.pdf` **p.24** (not p.23; my earlier range read spanned both).
+
+> **Lemma A.5.** Let `X ≥ Q ≥ P ≥ 2`. Let `t₁` be as above, `ε > 0` and let
+> `𝒥 ⊆ {1,…,J}` and `G(s) = Σ_{X≤n≤2X} (g_𝒥(n)f(n)/nˢ)·1/(#{p ∈ [P,Q] : p ∣ n} + 1)`.
+> Then, for any `t ∈ T₁`,
+> `|G(1+it)| ≪ log Q/((log X)^{1/6−1/(3π)−ε}·log P)
+>              + log X·exp(−(log X/(3 log Q))·log(log X/log Q))`
+
+⭐ **The reciprocal block-divisor weight is the corpus's landed `blockOmega`:**
+`#{p ∈ [P,Q] : p ∣ n}` is `blockOmega P Q n` by definition (`Decomp.lean:53–57`,
+`n.primeFactors.filter (P ≤ p ∧ p ≤ Q)`), so no new counting object is needed.
+
+⛔ **`t₁` IS CARRIED AS THE MINIMISER FROM THE OUTSET.** MRT's "let `t₁` be as
+above" means the value attaining `mrtM f X`; `not_mrtLemmaA4ii` is what a free
+`t₁` costs, and that lesson is applied here rather than repeated. Membership
+`t ∈ mrtT1 …` supplies the rest of "as above".
+
+⭐ **`ρ := 1/6 − 1/(3π) − ε` IS A.4(ii)'s CONSTANT** — MRT say so explicitly
+(*"we had 1/16 in place of `ρ`"*), and their side condition `ρ/3 > 1/50` is this
+file's landed `mrtA5_rho_margin`. One constant serves both lemmas.
+
+⚠️ Nothing here proves A.5. MRT route it through **[17, Lemma 3]**, an EXTERNAL
+citation, and note this was *"the only part in the proof [17, Proposition 1] that
+needed `f` to be real-valued"* — a hypothesis this statement does NOT carry, and
+a discharger may find it necessary. Flagged, not silently added. -/
+
+/-- **MRT's `G(1+it)`** — the `T₁`-side Dirichlet sum with the reciprocal
+block-divisor weight `1/(ω(n;P,Q) + 1)`.  `1/n^{1+it} = (1/n)·n^{−it}`, and
+`n^{−it}` is the corpus's `costwist (−t)`. -/
+noncomputable def mrtG (f : ℕ → ℂ) (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ)
+    (P Q : ℕ) (X t : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc ⌈X⌉₊ ⌊2 * X⌋₊,
+    (gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n / (n : ℂ))
+      / ((blockOmega P Q n : ℂ) + 1)
+
+/-- **MRT Lemma A.5** — the `T₁` bound, as a predicate on the implied constant. -/
+def MRTLemmaA5 (C : ℝ) : Prop :=
+  ∀ (f : ℕ → ℂ) (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (P Q : ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → 2 ≤ P → P ≤ Q → (Q : ℝ) ≤ X → 0 < ε →
+    |t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X →
+    t ∈ mrtT1 (mrtM f X) t₁ X X →
+      ‖mrtG f 𝒥 Pseq Qseq P Q X t‖
+        ≤ C * (Real.log Q
+                  / ((Real.log X) ^ (1 / 6 - 1 / (3 * Real.pi) - ε) * Real.log P)
+              + Real.log X
+                  * Real.exp (-(Real.log X / (3 * Real.log Q))
+                      * Real.log (Real.log X / Real.log Q)))
+
+/-- **A.5 as a statement** — `∃ C > 0`, matching `MRTThmA1Statement` and
+`MRTPropA3Statement`.  *Without the wrapper a reader can mistake `MRTLemmaA5 C`
+for the lemma and assert it for a `C` nobody chose* — the defect fixed for A.6/A.7
+at 04:15, applied here at birth. -/
+def MRTLemmaA5Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTLemmaA5 C
+
 end Salt.MR
