@@ -667,6 +667,46 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ## RECON — the trigger law, applied to ALL my remaining "open" claims at once
+
+Row 17k found one buried massif by asking *"have I checked my own store?"* about a single
+claim.  Row 17d's lesson says sweep the SET.  Doing that to every remaining open/external
+claim in this campaign fires on **all three**:
+
+```
+  CLAIM                          SWEEP RESULT
+  A.6's estimate — "OPEN"        61 landed `halasz*` theorems in Salt/ (A.6 IS Halász-type)
+  A.7's renormalisation — "OPEN" Salt/MR/Renormalise.lean exists: renormalise_aux,
+                                 renormaliseConst, renormalise_aux_zero
+  the door — "NO PRODUCER"       FIVE landed theorems named mrtUniformityXi*
+```
+
+⛔⛔ **THE THIRD IS A RULED FIELD OF THE STANDING PROMPT AND IT IS WRONG AS STATED.**
+`MRTUniformityXi` is *not* producerless.  Measured, not quoted:
+
+```
+  mrtUniformityXi_of_absWindowBound_twelve   M4Window.lean:268   CONCLUDES MRTUniformityXi R δ
+  bigXiArcTight_twelve                       ExitClose.lean:773   NO HYPOTHESES — unconditional
+  both REGISTERED in Salt/MR/All.lean (lines 1710, 2000) ⇒ inside the axiom audit
+```
+
+The adapter reduces the door to **one** remaining hypothesis — an `L¹` bound
+`∫ ‖absWindowSum lamCoeff H n α‖ dμ ≤ δ·H` over the log-measure, uniformly on
+`R.Hlo ≤ H ≤ R.Hhi` at arc-tightness — with the arc side **already unconditional**
+(`bigXiArcTight_twelve`; the `_of_close` variant is the conditional twin, and it is a
+DIFFERENT theorem).
+
+⇒ **THE DOOR'S PRICE IS ONE NAMED ESTIMATE, NOT A FORMALISATION OF TAO PROP 2.4 FROM
+SCRATCH.**  *That is the same correction as row 17k's "external" → "not yet connected", and
+it is now the fourth time today: the corpus keeps already containing the thing I priced as
+missing.*
+
+⚠️ **This does NOT prove the door**, and nothing here is a claim that it holds.  The
+residue is real and unproved.  What changed is the PRICE and the SHAPE of the residue.
+
+📌 *Recorded here rather than in `MRTDoor.lean` because the door's file has 34 dependents
+and this is recon, not a source change.  Re-arm request posted to the bus.* -/
+
 /-! ## RECON — Erdős–Turán is absent, and the corpus has ROUTED AROUND IT BEFORE
 
 A.4(ii)'s far branch was priced as needing *Erdős–Turán + VK equidistribution*, on an
