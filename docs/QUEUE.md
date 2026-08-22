@@ -264,8 +264,26 @@ RESURRECTS THEM:**
     htail` rewrote `1/x²` to `(x²)⁻¹` so the hypothesis stopped matching its intended use, and a
     `norm_num` on the goal left `linarith` unable to connect. ***A NORMALIZER IS NOT A NO-OP ON A
     HYPOTHESIS YOU STILL INTEND TO MATCH SYNTACTICALLY.***
-    ⚠️ **STILL OPEN: the union bound ITSELF** (density of the `j`-th band's complement, then the union).
-    This lands only the arithmetic it consumes.
+    ⛔⛔ **THE LINE THAT STOOD HERE — "STILL OPEN: the union bound ITSELF" — WAS FALSE WHEN I WROTE IT,
+    AND I WROTE IT. THE UNION BOUND IS LANDED: `Salt.MR.card_not_memS_le_sum`, `Sec9Glue.lean:478`,**
+    docstring *"The union bound behind MR p. 31 (e)"*, **already used at `CgPin.lean:100` and
+    `SieveGlue.lean:460`, already audited at `All.lean:1437`.** Its statement is
+    `#(Nlg.filter ¬MemS) ≤ ∑_{j∈Icc 1 J} #(Nlg.filter (blockOmega … = 0))` — **the same statement I
+    started writing, under the same name.**
+    ⭐⭐ **AND THE WAY I FOUND OUT IS THE FINDING: THE KERNEL REFUSED THE DUPLICATE ONLY BECAUSE I HAPPENED
+    TO CHOOSE THE IDENTICAL NAME** (`has already been declared`). ***Had I called it `union_bound_memS`
+    or `card_complement_le`, it would have COMPILED CLEAN and this corpus would now hold two proofs of
+    one lemma, the second with a docstring claiming it was new.*** ⇒ **A NAME COLLISION IS A
+    DUPLICATE-DETECTOR THAT ONLY FIRES WHEN YOU GUESS THE SAME NAME. There is no general one.**
+    ⛔ **AND THE PROXIMATE CAUSE WAS TRUSTING MY OWN ROW.** I did not sweep for an existing union bound;
+    I read "STILL OPEN" in this file, which I had written an hour earlier from a sweep that had already
+    missed `Salt.BrunLower.sum_one_div_sq_le`. ***A queue row is not evidence. It is a record of an
+    earlier search, and it inherits that search's blind spots — including when the author is me.***
+    ⇒ **WHAT ACTUALLY REMAINS: the per-band DENSITY estimate** (`Sec9Glue`'s docstring names the pieces:
+    the Friedlander–Iwaniec sieve step `[8, Thm 6.17]` with its `(1 + 1/100)`, and the Mertens step
+    `∏_{Pⱼ≤p≤Qⱼ}(1−1/p) ≤ log Pⱼ/log Qⱼ`), **not the counting.** `sum_inv_sq_Icc_one_le_two` (`8ab6c46b`)
+    remains a genuine addition — verified unique by bare-name search — and is the arithmetic that
+    collapses the `Σ(1/j²)` profile once the per-band estimate is in hand.
 
 15d. ✅✅ **PROPOSITION A.3 ITSELF IS STATED — `6159b715` 2026-08-21 19:4x.** `Salt/MR/MRTPropA3.lean`
     (90 ln, 4 decls), all four names registered in the same edit; `✔ Built (3.1s)`, zero warnings,
