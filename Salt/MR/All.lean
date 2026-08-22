@@ -8372,6 +8372,8 @@ open Salt.Tactic in
   Salt.MR.mrtBands_bandCount_incompatible_at_one
   Salt.MR.exp_add_exp_neg_eq_two_cos
   Salt.MR.exp_neg_avg
+  Salt.MR.mrtA4i_loss_witness
+  Salt.MR.mrtA4i_loss_pos
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
