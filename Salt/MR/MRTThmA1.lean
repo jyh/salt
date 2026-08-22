@@ -138,6 +138,37 @@ theorem intervalIntegrable_mrtThmA1_integrand {f : ℕ → ℂ} (hf : ∀ n, ‖
     have h0 : (0 : ℝ) ≤ ‖mrtShortMean f h x‖ := norm_nonneg _
     nlinarith [hb, h0, hnn]
 
+/-! ## The `j`-union's arithmetic half
+
+A.1's proof splits the mean square at `n ∈ S` and bounds the complement — the
+integers missing a prime factor in some band `[Pⱼ, Qⱼ]`, `j ≤ J`.  That is a
+**union over `j`**, and with MRT's profile `log Pⱼ / log Qⱼ = (1/j²)(log P₁/log Q₁)`
+the union bound needs `Σ_{j≤J} 1/j²` bounded absolutely in `J`.
+
+⭐ The corpus already had the tail: `Salt.BrunLower.sum_one_div_sq_le` gives
+`Σ_{m ∈ Icc M K} 1/m² ≤ 1/(M−1)` for `2 ≤ M`.  It cannot be used at `M = 1`
+(the bound would read `1/0`), which is exactly why the full-range form was
+missing rather than merely unstated. -/
+
+/-- **`Σ_{j=1}^{J} 1/j² ≤ 2`, uniformly in `J`** — the arithmetic the `j`-union
+bound needs.  Split off the `j = 1` term and apply the landed tail bound at
+`M = 2`, where it reads `≤ 1/(2−1) = 1`. -/
+theorem sum_inv_sq_Icc_one_le_two (J : ℕ) :
+    ∑ j ∈ Finset.Icc 1 J, (1 : ℝ) / (j : ℝ) ^ 2 ≤ 2 := by
+  rcases Nat.eq_zero_or_pos J with rfl | hJ
+  · simp
+  · have hsplit : Finset.Icc 1 J = insert 1 (Finset.Icc 2 J) := by
+      ext n; simp only [Finset.mem_Icc, Finset.mem_insert]; omega
+    have hnot : (1 : ℕ) ∉ Finset.Icc 2 J := by simp
+    have htail := Salt.BrunLower.sum_one_div_sq_le (M := 2) (K := J) (by norm_num)
+    have htail' : ∑ m ∈ Finset.Icc 2 J, (1 : ℝ) / (m : ℝ) ^ 2 ≤ 1 :=
+      calc ∑ m ∈ Finset.Icc 2 J, (1 : ℝ) / (m : ℝ) ^ 2
+          ≤ 1 / (((2 : ℕ) : ℝ) - 1) := htail
+        _ = 1 := by norm_num
+    have hone : (1 : ℝ) / (((1 : ℕ) : ℝ)) ^ 2 = 1 := by norm_num
+    rw [hsplit, Finset.sum_insert hnot]
+    linarith [htail', hone]
+
 /-- **The door as a `Prop`**: `∃ C > 0`, A.1 holds at `C`.  A statement, not a
 theorem — nothing in this development proves it and nothing assumes it. -/
 def MRTThmA1Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTThmA1 C

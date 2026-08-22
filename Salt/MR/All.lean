@@ -8342,6 +8342,7 @@ open Salt.Tactic in
   Salt.MR.measurable_mrtShortMean
   Salt.MR.norm_mrtShortMean_le
   Salt.MR.intervalIntegrable_mrtThmA1_integrand
+  Salt.MR.sum_inv_sq_Icc_one_le_two
   Salt.MR.hMsup_of_propA3_shape
   Salt.MR.MRTBands
   Salt.MR.MRTBandCount
