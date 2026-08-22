@@ -246,6 +246,35 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16v. ⭐⭐⭐ **THE DEGENERACIES AS A *SET* RATHER THAN ONE AT A TIME — AND THE SET IS BIGGER THAN
+    THE THREE I FOUND. `83268b15` 2026-08-22 11:1x. All three registered, `EXIT=0`, BARE builds,
+    genuine `Built (5.8s)`, zero `MRTPropA3.lean` diagnostics, Attempts: 1 (cap 3, declared
+    before starting).**
+    ```
+      blockOmega_eq_zero_of_no_prime   a prime-free band contributes nothing
+      memS_false_of_prime_free_band    the GENERAL degeneracy, subsuming both earlier ones
+      band_8_10_prime_free             the witness that the class is strictly bigger
+    ```
+    **Three beats running I found a way `MRTPropA3` goes vacuous — `X = 1`, then `Qseq 1 ≤ 1`, then
+    `Qseq 1 < Pseq 1` — each by STUMBLING on it while doing something else.** The standing
+    instrument law says *a gate that checks each claim never checks the SET*, so I pointed it at my
+    own three findings. **They are ONE fact:** `S = ∅` whenever ANY band `[Pⱼ, Qⱼ]`, `j ≤ J`,
+    contains no prime.
+
+    ⭐ **THE WITNESS: `[8,10]`.** Non-empty, non-inverted, top far above `1` — so **NEITHER** earlier
+    lemma applies — and it contains no prime. A fourth degeneracy of the same class, and the one
+    that shows ***the class is not exhausted by inspecting endpoints***. The two earlier lemmas are
+    now corollaries of the general one rather than a list.
+
+    ⚠️ **`MRTBands` CONSTRAINS NONE OF THIS.** Its three clauses bound `Q₁` above and relate
+    consecutive bands; **nothing anywhere requires a band to CONTAIN A PRIME**, and MRT do not state
+    it either — for them it is implicit in drawing `[Pⱼ, Qⱼ]` from Definition 2.1. Recorded for a
+    design session, not repaired (Iron rule 1).
+
+    🔎 `band_8_10_prime_free` audits at **`[1 axioms]`, not `[3]` — and that is CORRECT**, the rule
+    being AT MOST three. Noted because an earlier checker of my own once flagged 1-axiom proofs as
+    failures by using exact match where the rule is a bound.
+
 16u. ⭐⭐⛔ **A TRANSCRIPTION GAP IN `MRTBands`, FOUND BY ASKING WHETHER MY OWN NEW BRANCH
     ACTUALLY CLOSES — AND THE THIRD DEGENERACY THE SAME ACCIDENTAL GUARD RESCUES. `edb1468a`
     2026-08-22 11:0x. Both `[3 axioms]`, `EXIT=0`, BARE builds, genuine `Built (8.0s)`, zero
