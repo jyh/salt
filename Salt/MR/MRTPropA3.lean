@@ -1681,6 +1681,47 @@ theorem dpolyA_l2_mvt (a : ℕ → ℂ) (s : Finset ℕ) (hs : ∀ n ∈ s, 1 �
     _ ≤ (2 * T + 2 * Real.pi / δ) * ∑ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 :=
         dpolyS_l2_mvt_final s hs (fun n => a n / (n : ℂ)) T hδ hgap
 
+/-- **THE MEAN VALUE THEOREM ON A DYADIC BLOCK.**  For `s ⊆ [1,N]` the frequency gap is
+`1/N` (`log_gap_ge`, landed in `Salt/MR/MVHilbert.lean`), so
+`∫_{-T}^{T}‖A(1+it)‖² ≤ (2T + 2πN)·∑_{n∈s}‖aₙ/n‖²`.  At A.3's `S ⊆ [X,2X]` take
+`N = ⌊2X⌋`. -/
+theorem dpolyA_l2_mvt_Icc (a : ℕ → ℂ) (s : Finset ℕ) {N : ℕ} (hN : 1 ≤ N)
+    (hs : ∀ n ∈ s, n ∈ Finset.Icc 1 N) (T : ℝ) :
+    (∫ t in (-T)..T, ‖dpolyA a s t‖ ^ 2)
+      ≤ (2 * T + 2 * Real.pi * N) * ∑ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 := by
+  have hNr : (0 : ℝ) < N := by exact_mod_cast hN
+  have hδ : (0 : ℝ) < 1 / (N : ℝ) := one_div_pos.mpr hNr
+  have hone : ∀ n ∈ s, 1 ≤ n := fun n hn => (Finset.mem_Icc.1 (hs n hn)).1
+  have hgap : ∀ i ∈ s, ∀ j ∈ s, i ≠ j → (1 : ℝ) / (N : ℝ) ≤ |Real.log i - Real.log j| :=
+    fun i hi j hj hij => log_gap_ge (hs i hi) (hs j hj) hij
+  have h := dpolyA_l2_mvt a s hone T hδ hgap
+  have hrw : 2 * Real.pi / (1 / (N : ℝ)) = 2 * Real.pi * (N : ℝ) := by
+    field_simp
+  rwa [hrw] at h
+
+/-- **THE COEFFICIENT SUM ON A.3's BLOCK.**  With `‖aₙ‖ ≤ 1` and `n ≥ X` throughout `s`,
+`∑_{n∈s}‖aₙ/n‖² ≤ #s / X²`.  Together with `dpolyA_l2_mvt_Icc` and `#S ≤ X + 1` this is
+MRT's `O(T/X + 1)`. -/
+theorem sum_sq_norm_div_le (a : ℕ → ℂ) (s : Finset ℕ) {X : ℝ} (hX : 0 < X)
+    (ha : ∀ n ∈ s, ‖a n‖ ≤ 1) (hlow : ∀ n ∈ s, X ≤ (n : ℝ)) :
+    ∑ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 ≤ (s.card : ℝ) / X ^ 2 := by
+  have hterm : ∀ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 ≤ 1 / X ^ 2 := by
+    intro n hn
+    have hnX : X ≤ (n : ℝ) := hlow n hn
+    have hnpos : (0 : ℝ) < (n : ℝ) := lt_of_lt_of_le hX hnX
+    have hX2 : (0 : ℝ) < X ^ 2 := by positivity
+    have hn2 : (0 : ℝ) < (n : ℝ) ^ 2 := by positivity
+    have h1 : ‖a n‖ ^ 2 ≤ 1 := by
+      have hle := ha n hn
+      nlinarith [norm_nonneg (a n)]
+    have h2 : X ^ 2 ≤ (n : ℝ) ^ 2 := by nlinarith
+    rw [norm_div, Complex.norm_natCast, div_pow, div_le_div_iff₀ hn2 hX2]
+    nlinarith
+  calc ∑ n ∈ s, ‖a n / (n : ℂ)‖ ^ 2 ≤ ∑ _n ∈ s, 1 / X ^ 2 := Finset.sum_le_sum hterm
+    _ = (s.card : ℝ) / X ^ 2 := by
+        rw [Finset.sum_const, nsmul_eq_mul]
+        ring
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
