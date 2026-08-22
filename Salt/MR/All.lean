@@ -8407,6 +8407,8 @@ open Salt.Tactic in
   Salt.MR.mrtA3_T0_integral_bound
   Salt.MR.mrtA3_T0_setIntegral_bound
   Salt.MR.measurableSet_mrtT0
+  Salt.MR.mrtT0_mono_T
+  Salt.MR.mrtA3_T0_bound_of_A6
   Salt.MR.continuous_a3_majorant
   Salt.MR.mrtA3_T0_setIntegral_bound_onT0
   Salt.MR.measurableSet_mrtT1

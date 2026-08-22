@@ -1588,6 +1588,51 @@ theorem mrtA3_T0_setIntegral_bound_onT0 {F : ℝ → ℝ} {A B t₁ r : ℝ} {M 
     exact le_of_eq (abs_of_nonneg (hGnn t))
   linarith
 
+/-- `T₀` grows with the band radius: `T ≤ T'` gives `mrtT0 M t₁ X T ⊆ mrtT0 M t₁ X T'`.
+The `if` condition does not mention `T`, so both branches are immediate. -/
+theorem mrtT0_mono_T {M t₁ X T T' : ℝ} (h : T ≤ T') :
+    mrtT0 M t₁ X T ⊆ mrtT0 M t₁ X T' := by
+  unfold mrtT0
+  split_ifs
+  · exact Set.Subset.rfl
+  · exact fun t ht => ⟨le_trans ht.1 h, ht.2⟩
+
+/-- **A.3's `T₀` SIDE, DERIVED FROM LEMMA A.6 RATHER THAN FROM AN ASSUMED BOUND.**
+This is the composition the chain was missing: A.6 supplies the pointwise estimate,
+`mrtA3_T0_setIntegral_bound_onT0` turns it into the integral bound, and `mrtT0_mono_T`
+carries A.6's `t ∈ mrtT0 … X X` down to the split's `t ∈ mrtT0 … X T`.
+
+⭐ **`T ≤ X` IS THE HYPOTHESIS THAT MAKES THE TRANSFER LEGAL, AND IT IS MRT's OWN.**
+Their proof opens *"Since the mean value theorem gives the bound `O(T/X + 1)`, we can
+assume `T ≤ X/2`"* (p. 23) — the large-`T` range is disposed of separately, which is
+exactly why the `T/(X/Q₁) + 1` factor stands in front of A.3's bracket.  `MRTPropA3`
+as stated quantifies `∀ T, 1 ≤ T` with **no upper bound**, so a full proof of it must
+branch: this appendix argument for `T ≤ X/2`, the mean value theorem above it. -/
+theorem mrtA3_T0_bound_of_A6 {C : ℝ} {F : ℝ → ℝ} (hC : 0 ≤ C) (hA6 : MRTLemmaA6 C)
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) {X T t₁ r : ℝ}
+    (hFdef : ∀ t : ℝ, F t = ‖(1 / (X : ℂ)) * ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+        (-1 : ℂ) ^ 𝒥.card
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n‖)
+    (hf : ∀ n, ‖f n‖ ≤ 1) (hX : 0 < X) (hlogX : 0 ≤ Real.log X) (hTX : T ≤ X)
+    (hr : 0 ≤ r) (hrX : (Real.log X) ^ ((1 : ℝ) / 16) ≤ r)
+    (hint : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT0 (mrtM f X) t₁ X T) MeasureTheory.volume) :
+    (∫ t in mrtT0 (mrtM f X) t₁ X T, F t ^ 2)
+      ≤ 4 * (C * Real.exp (-(1 / 2) * mrtM f X)) ^ 2
+        + 4 * (C * (Real.log X) ^ (-(1 : ℝ) / 16)) ^ 2 * r := by
+  refine mrtA3_T0_setIntegral_bound_onT0 hr hrX
+    (mul_nonneg hC (Real.exp_nonneg _))
+    (mul_nonneg hC (Real.rpow_nonneg hlogX _)) hint ?_
+  intro t ht
+  have hmem : t ∈ mrtT0 (mrtM f X) t₁ X X := mrtT0_mono_T hTX ht
+  have h := hA6 f Pseq Qseq J X t t₁ hf hX hmem
+  rw [hFdef t, abs_of_nonneg (norm_nonneg _)]
+  have hring : C * (Real.exp (-(1 / 2) * mrtM f X) / (1 + |t - t₁|)
+        + (Real.log X) ^ (-(1 : ℝ) / 16))
+      = C * Real.exp (-(1 / 2) * mrtM f X) / (1 + |t - t₁|)
+        + C * (Real.log X) ^ (-(1 : ℝ) / 16) := by ring
+  linarith [h, hring.symm.le, hring.le]
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
