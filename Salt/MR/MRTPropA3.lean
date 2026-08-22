@@ -1456,4 +1456,35 @@ theorem mrtA3_T0_setIntegral_bound {F : ℝ → ℝ} {A B t₁ r : ℝ} {M X T :
   rw [hIccIoc] at hstep
   linarith
 
+/-- **`T₁` is measurable.**  Both branches of `mrtT1` are: the high-`M` branch is
+the closed band `{|t| ≤ T}`, and the low-`M` branch intersects it with the open
+`{(log X)^{1/16} < |t − t₁|}`.  Needed because `setIntegral_union` asks for
+measurability of its SECOND set. -/
+theorem measurableSet_mrtT1 (M t₁ X T : ℝ) : MeasurableSet (mrtT1 M t₁ X T) := by
+  have hband : MeasurableSet {t : ℝ | |t| ≤ T} :=
+    measurableSet_le (by fun_prop) measurable_const
+  have hfar : MeasurableSet {t : ℝ | (Real.log X) ^ ((1 : ℝ) / 16) < |t - t₁|} :=
+    measurableSet_lt measurable_const (by fun_prop)
+  unfold mrtT1
+  split_ifs
+  · exact hband
+  · exact hband.inter hfar
+
+/-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
+(`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
+piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
+`∫_{T₁}` by Lemma A.5 and `∫_{T₀}` by the (A.7) display, then add.* -/
+theorem mrtA3_split_bound {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ}
+    (h0int : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT0 M t₁ X T) MeasureTheory.volume)
+    (h1int : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT1 M t₁ X T) MeasureTheory.volume)
+    (h0 : (∫ t in mrtT0 M t₁ X T, F t ^ 2) ≤ B₀)
+    (h1 : (∫ t in mrtT1 M t₁ X T, F t ^ 2) ≤ B₁) :
+    (∫ t in {t : ℝ | |t| ≤ T}, F t ^ 2) ≤ B₀ + B₁ := by
+  rw [← mrtT0_union_mrtT1 M t₁ X T,
+    MeasureTheory.setIntegral_union (mrtT0_disjoint_mrtT1 M t₁ X T)
+      (measurableSet_mrtT1 M t₁ X T) h0int h1int]
+  linarith
+
 end Salt.MR
