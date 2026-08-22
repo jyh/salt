@@ -246,6 +246,21 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15c. ✅✅✅ **THE JOIN IS PROVED IN LEAN — `3ec62940` 2026-08-21 19:2x.** `Salt/MR/MRTPropA3Bridge.lean`
+    (104 ln), rooted with its name registered in the same edit; `EXIT=0`, `✔ Built (3.8s)`, zero
+    warnings, `[3 axioms]`.
+    **`hMsup_of_propA3_shape` : A.3's shape at `2T` + block ⊆ symmetric window ⇒ `hMsup` at `Msup = 3B`.**
+    ⇒ ***THE JOIN IS NO LONGER PROSE.*** The only analytic hypothesis `_concrete` left undischarged now
+    has a machine-checked deduction from its source-identified producer.
+    ⭐ **Integrability is DERIVED, not assumed** — `dpolyA` continuous on positive `s0` ⇒ `‖·‖²`
+    interval-integrable everywhere; the idiom is the corpus's own (`SeamLemma14.lean:150`).
+    ⛔ **ONE REAL DEFECT, FOUND BY THE BUILD AND WORTH THE ROW:** `field_simp` does **NOT** close
+    `X/h₁/T * (2T/(X/h₁)) = 2` — it **SPLITS `X/h₁` into `X` and `h₁`** and then wants nonvanishing
+    facts for each, which `0 < X/h₁` does not supply separately. Fixed with `set u := X / h₁` first.
+    ***A COMPOUND DENOMINATOR IS NOT ONE SYMBOL TO `field_simp`.***
+    ⚠️ **A DEDUCTION, NOT A PROOF OF A.3** — it takes A.3's conclusion as a hypothesis and is silent on
+    whether A.3 holds. **Stating/proving A.3 itself remains open**, and needs Definition 2.1's `S`.
+
 15b. ⭐⭐⭐ **`hMsup`'s PRODUCER IS FOUND, IN MRT's OWN HAND — AND IT IS NEITHER THE MVT NOR HALÁSZ.
     MEASURED FROM THE PDF 2026-08-21 19:0x** (`docs/sources/1503.05121v3.pdf`, Appendix A).
     **IT IS PROPOSITION A.3**, and the shape match is exact:
