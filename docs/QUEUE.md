@@ -62,6 +62,17 @@
 ## P1b — THE MRT PORT CAMPAIGN (⚖️ RATIFIED 2026-08-21 by the Captain, v2 package whole)
 
 **Object:** discharge `MRTUniformityXi` — the spine door with 34 dependents and no producer.
+⚠️ **MEASUREMENT STAMP 2026-08-22 14:4x (math) — THE RATIFIED OBJECT LINE ABOVE IS NOT REWRITTEN; THIS
+IS A STAMP.** *"no producer" is wrong as measured.* `mrtUniformityXi_of_absWindowBound_twelve`
+(`Salt/MR/M4Window.lean:268`) **CONCLUDES `MRTUniformityXi R δ`** from ONE remaining hypothesis —
+the `L¹` bound `∫‖absWindowSum lamCoeff H n α‖ dμ ≤ δ·H` on `R.Hlo ≤ H ≤ R.Hhi` at
+`NearRatTight (arcDen 12 H)` — and the ARC side is already unconditional
+(`bigXiArcTight_twelve`, `Salt/MR/ExitClose.lean:773`, no hypotheses; the `_of_close` twin is a
+DIFFERENT theorem). Both registered in `Salt/MR/All.lean` (1710, 2000) ⇒ both carry the audit.
+⇒ **the door's price is ONE NAMED ESTIMATE, not a formalisation of Tao Prop 2.4 from scratch.**
+**The "34 dependents" figure is NOT disputed — I did not re-measure it.** Independently verified at
+the source by the helm (Sancho, 2026-08-22 14:4x); rows 17l/17m carry the detail. ⛔ **This does NOT prove
+the door.**
 **Ratification object:** `seat/briefs/2026-08-21-mrt-port-scoping-BRIEF-v2.md` (seat `ce767de6`).
 ⛔ **v1 (`399e40c2`) IS SUPERSEDED — DO NOT SCOPE FROM IT.** Gate passed: 5 independent refuters,
 5/5 REPAIR-THEN-FIRE, verdicts at `seat/briefs/2026-08-21-mrt-port-scoping-REFUTER-VERDICTS.md`
@@ -1619,6 +1630,9 @@ RESURRECTS THEM:**
       anything in Salt/Entropy/ consuming lemma14 :  NONE
       CONTROL: lemma14 appears in 14 files under Salt/MR/ ⇒ the grep sees it
     ```
+    ⚠️ **STAMPED 2026-08-22 14:4x — THE "NO PRODUCER" CLAUSE IN THIS ROW IS SUPERSEDED (see the P1b
+    Object stamp and rows 17l/17m): the door HAS a landed conditional producer; its residue is one
+    named `L¹` estimate. The rest of this row stands.**
     ⇒ **as wired, A.1 is not on the door's path — BECAUSE THE DOOR HAS NO PRODUCER AT ALL** (a
     hypothesis with 34 dependents). 🔑 ⇒ ***`MRTThmA1` has no consumer because THE THING THAT WOULD
     CONSUME IT — A PROOF OF THE DOOR — HAS NOT BEEN WRITTEN.*** That is the EXPECTED state of a
