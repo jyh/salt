@@ -246,6 +246,33 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17c. ⭐⭐ **THE BRIDGE'S LAST PRODUCERLESS BINDER — `0 ≤ B`, VIA `mrtM_nonneg`, WHICH DID NOT
+    EXIST. `e0f0143a` 2026-08-22 13:0x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine
+    `Built (6.2s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
+    ```
+      mrtM_nonneg            0 ≤ M(f;X), the sInf of pretentious distances
+      mrtA3_bracket_nonneg   0 ≤ A.3's bracket ⇒ with 0 ≤ C, discharges hB
+    ```
+    Having wired `MRTPropA3` to the bridge in 17b, I ran the SAME binder audit on the **BRIDGE's**
+    hypotheses. `hMsup_of_propA3_shape` carries `hB : 0 ≤ B`; at the identification
+    `B = C·bracket` fixed by `mrtPropA3_in_bridge_shape` that needs `0 ≤ C` (from
+    `MRTLemmaA6Statement`) **and `0 ≤ bracket`, which had NO PRODUCER ANYWHERE.**
+
+    ⚠️ **WHY IT WAS A NODE AND NOT A `positivity` CALL — the three terms need THREE DIFFERENT side
+    conditions:**
+    ```
+      (log Q₁)^{1/3} / P₁^{1/6−η}   needs 0 ≤ log Q₁  (an rpow of a possibly NEGATIVE
+                                                    base is NOT automatically nonneg)
+      M / exp M                       needs 0 ≤ M   (an sInf — a real obligation)
+      1 / (log X)^{1/50}              needs 0 ≤ log X
+    ```
+    The middle is the one that made it work: `mrtM` is an `sInf`, so nonnegativity needs the set
+    NONEMPTY (`t = 0`, using `0 ≤ X`) and BOUNDED BELOW by `0` (`pretDistSq_nonneg`, landed).
+
+    🔧 Nothing new imported — `pretDistSq_nonneg` and `norm_costwist_le` are already in the closure.
+    I verified reachability with a throwaway probe file that built `EXIT=0`, then removed it and
+    checked the tree clean.
+
 17b. ⭐⭐ **THE CONNECTOR TO `MRTPropA3Bridge` — TWO GREEN PIECES THAT HAD NO STATED INTERFACE,
     AND THIS TIME THE INTERFACE HOLDS. `c0147109` 2026-08-22 12:5x. `[3 axioms]`, `EXIT=0`, zero
     errors, genuine `Built (6.1s)`, zero `MRTPropA3.lean` diagnostics, BARE builds,
