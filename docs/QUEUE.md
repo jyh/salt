@@ -246,6 +246,17 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15aa. ⛔ **FLAG — MRT's (A.4) POINTWISE IDENTITY: TWO ATTEMPTS, NOT LANDED, REVERTED. 2026-08-22 04:4x.**
+    Target: `½·(conj(n^{it}) + conj(n^{it₁})) = conj(n^{i(t+t₁)/2})·cos((t−t₁)·log n / 2)` — the first
+    step of A.4(ii)'s SECOND branch, and pure algebra (no analysis, no largeness).
+    **The mathematics is settled** (`e^{-itL} + e^{-it₁L} = e^{-i(t+t₁)L/2}·2cos((t−t₁)L/2)`); **both
+    attempts died in the Lean `Complex.exp`/`starRingEnd`/`Complex.cos` manipulation**, not in the
+    argument. ⇒ **Reverted rather than left broken**, tree clean, `EXIT=0` at HEAD.
+    *Give-up-early-loudly, with the board about to sit: a broken file for the incoming session is worse
+    than an unlanded node.* **Next hand: bridge through `Complex.cos`'s exponential form FIRST and keep
+    `Real.cos` only at the statement boundary — both my attempts tried to do the cast and the
+    exponential algebra in one pass.**
+
 15z. ✅✅✅ **A.4(i) IS PROVED — `2a4adc8f` 2026-08-22 03:5x. THE FIRST ANALYTIC NODE OF THE A.3 CHAIN.**
     `mrtA4i_holds` + **`mrtLemmaA4i_holds : MRTLemmaA4i`** — ***the `Prop` stated at 00:4x is now a
     THEOREM.*** Both `[3 axioms]`, zero warnings, `✔ Built (4.1s)`.
