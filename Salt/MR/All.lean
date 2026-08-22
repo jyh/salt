@@ -384,6 +384,7 @@ import Salt.MR.MRTQualityLam
 import Salt.MR.MRTThmA1
 import Salt.MR.MRTPropA3Bridge
 import Salt.MR.MRTPropA3
+import Salt.MR.DoorRoadCompose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8436,6 +8437,7 @@ open Salt.Tactic in
   Salt.MR.mrtA3_bracket_nonneg
   Salt.MR.renormalise_error_logpower_stronger
   Salt.MR.trivial_cut_needs_delta_ge_one
+  Salt.MR.door_absWindowSum_sq_le_strata
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape
