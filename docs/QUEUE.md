@@ -246,6 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16r. ⭐⭐⭐ **MRT's LARGE-`T` BRANCH COMES FROM A *LANDED MASSIF*, NOT FROM NEW ANALYSIS — I
+    NAMED IT UNBUILT ONE BEAT AGO AND I ALREADY OWNED IT. `8ad2ed79` 2026-08-22 10:3x. Both
+    `[3 axioms]`, `EXIT=0`, BARE build, genuine `Built (5.9s)`, zero `MRTPropA3.lean`
+    diagnostics, Attempts: 1 (cap 3, declared before starting).**
+    ```
+      dpolyA_eq_dpolyS   dpolyA IS dpolyS at coefficients aₙ/n and reflected t
+      dpolyA_l2_mvt      the Montgomery–Vaughan L² mean value theorem, for dpolyA
+    ```
+    **Row 16q named MRT's opening reduction — *"the mean value theorem gives the bound `O(T/X+1)`,
+    so we can assume `T ≤ X/2`"* — as the branch a full proof still owes. IT WAS NOT UNBUILT.**
+    `dpolyS_l2_mvt_final` (`Salt/MR/MVHilbertFinset.lean`) is Montgomery–Vaughan for
+    Finset-indexed Dirichlet polynomials, **UNCONDITIONAL** (`MVHilbertUniform` discharged by
+    `mvHilbertUniform_holds`). The only thing between it and `dpolyA` was a **SHAPE**: `dpolyS`
+    sums `aₙ·n^{it}`, `dpolyA` sums `aₘ·m^{−1−it}`. Same object at reciprocal-weighted
+    coefficients and reflected `t` — and `dpolyS_meanSq_reflect` already had the reflection.
+
+    ⭐ **FOURTH SHAPE MISMATCH OF THE NIGHT, AND THE FIRST WHERE THE MISSING PIECE WAS A WHOLE
+    THEOREM I ALREADY OWNED.** The summit-map law (READ BEFORE ASSERTING ABSENCE, three searches:
+    identifier · filename · prose header) found `Salt/Vmvt`, `MVHilbert.lean`, `MVHilbertFinset.lean`
+    on the FILENAME arm immediately. ***Had I trusted my own "unbuilt", I would have re-derived
+    Montgomery–Vaughan.***
+
+    🔬 **THE CAST LAYER WENT THROUGH FIRST TRY BECAUSE I USED THE CORPUS'S OWN IDIOM** —
+    `cpow_def_of_ne_zero` + `← Complex.natCast_log` is how EIGHT landed `Salt/MR` files already
+    write `n^s` for natural `n`. *Reading how a lemma is USED beat guessing what it is called,
+    again.* Two mathlib name probes also came back from the WRONG NAMESPACE (`log_ofReal_of_pos`
+    matched ENNReal's, `exp_neg` matched EReal's) — caught before the build, not by it.
+
+    ⚠️ New import `Salt.MR.MVHilbertFinset` into `MRTPropA3.lean`; cycle-checked BEFORE adding
+    (MVHilbertFinset imports only MVCore2); module count `8976 → 8977` confirms it took.
+
 16q. ⭐⭐⭐ **A.3's `T₀` SIDE IS NOW *DERIVED FROM LEMMA A.6* — AND MRT's OWN `T ≤ X/2`
     REDUCTION, WHICH MY STATEMENT DROPS. `1fe2c6fa` 2026-08-22 10:3x. All five names of the beat
     `[3 axioms]`, `EXIT=0`, GENUINE `Built` (oleans deleted, not Replayed), zero errors, zero
