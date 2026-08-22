@@ -8422,6 +8422,8 @@ open Salt.Tactic in
   Salt.MR.continuous_a3_majorant
   Salt.MR.mrtA3_T0_setIntegral_bound_onT0
   Salt.MR.measurableSet_mrtT1
+  Salt.MR.mrtT1_subset_Icc
+  Salt.MR.integral_sq_le_of_pointwise_on_mrtT1
   Salt.MR.mrtA3_split_bound
   Salt.MR.band_eq_Icc
   Salt.MR.mrtA3_split_bound_interval

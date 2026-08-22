@@ -1847,6 +1847,59 @@ theorem band_8_10_prime_free : ∀ p : ℕ, p.Prime → ¬ (8 ≤ p ∧ p ≤ 10
   rintro p hp ⟨h8, h10⟩
   interval_cases p <;> norm_num at hp
 
+/-- `T₁` sits inside the band, whichever branch of the `M`-dichotomy it takes. -/
+theorem mrtT1_subset_Icc {M t₁ X T : ℝ} : mrtT1 M t₁ X T ⊆ Set.Icc (-T) T := by
+  unfold mrtT1
+  split_ifs
+  · intro t ht
+    have h : |t| ≤ T := ht
+    rw [Set.mem_Icc, ← abs_le]
+    exact h
+  · intro t ht
+    have h : |t| ≤ T := ht.1
+    rw [Set.mem_Icc, ← abs_le]
+    exact h
+
+/-- **THE `T₁` SIDE'S FIRST GAP, CLOSED: POINTWISE ⟹ INTEGRAL.**  A uniform bound `B`
+on `|F|` over `T₁` gives `∫_{T₁} F² ≤ 2T·B²`, because `T₁ ⊆ [−T,T]` has measure at most
+`2T`.
+
+⛔ **THIS IS ONLY THE FIRST OF TWO GAPS BETWEEN `MRTLemmaA5` AND A.3's SPLIT, AND THE
+SECOND IS NOT MINE TO CLOSE.**  A.5 bounds `‖mrtG …‖` — MRT's `G`, the Ramaré-weighted
+sum — pointwise on `T₁`, while the split consumes `∫_{T₁}‖F‖²` for A.3's `F = dpolyA`.
+This lemma performs the *pointwise → integral* half for whatever function is supplied;
+the *`G` → `F`* half is what MRT take from `[17, Proposition 1]`, and it is external.
+
+*Note the enlargement is on the CONSTANT majorant, not on `F` — the same shape as
+`mrtA3_T0_setIntegral_bound_onT0`, and for the same reason: `F`'s bound is only known
+on `T₁`.* -/
+theorem integral_sq_le_of_pointwise_on_mrtT1 {F : ℝ → ℝ} {M t₁ X T B : ℝ}
+    (hT : 0 ≤ T) (hB : 0 ≤ B)
+    (hint : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT1 M t₁ X T) MeasureTheory.volume)
+    (hF : ∀ t ∈ mrtT1 M t₁ X T, |F t| ≤ B) :
+    (∫ t in mrtT1 M t₁ X T, F t ^ 2) ≤ 2 * T * B ^ 2 := by
+  have hsub : mrtT1 M t₁ X T ⊆ Set.Icc (-T) T := mrtT1_subset_Icc
+  have hcIcc : MeasureTheory.IntegrableOn (fun _ : ℝ => B ^ 2)
+      (Set.Icc (-T) T) MeasureTheory.volume :=
+    (continuous_const.continuousOn).integrableOn_compact isCompact_Icc
+  have hcT1 : MeasureTheory.IntegrableOn (fun _ : ℝ => B ^ 2)
+      (mrtT1 M t₁ X T) MeasureTheory.volume := hcIcc.mono_set hsub
+  have h1 : (∫ t in mrtT1 M t₁ X T, F t ^ 2) ≤ ∫ _t in mrtT1 M t₁ X T, B ^ 2 := by
+    refine MeasureTheory.setIntegral_mono_on hint hcT1 (measurableSet_mrtT1 _ _ _ _) ?_
+    intro t ht
+    have h := hF t ht
+    calc F t ^ 2 = |F t| ^ 2 := (sq_abs (F t)).symm
+      _ ≤ B ^ 2 := by nlinarith [abs_nonneg (F t)]
+  have h2 : (∫ _t in mrtT1 M t₁ X T, B ^ 2) ≤ ∫ _t in Set.Icc (-T) T, B ^ 2 := by
+    refine MeasureTheory.setIntegral_mono_set hcIcc ?_ hsub.eventuallyLE
+    filter_upwards with t using (by positivity : (0 : ℝ) ≤ B ^ 2)
+  have h3 : (∫ _t in Set.Icc (-T) T, (B : ℝ) ^ 2) = 2 * T * B ^ 2 := by
+    rw [MeasureTheory.setIntegral_const,
+      Real.volume_real_Icc_of_le (by linarith : (-T : ℝ) ≤ T), smul_eq_mul]
+    ring
+  linarith [h1, h2, h3.le, h3.ge]
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
