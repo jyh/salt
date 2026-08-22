@@ -246,6 +246,42 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17a. ⭐⭐ **THE TWO INTEGRABILITY SIDE CONDITIONS DISCHARGED — FOUND BY AUDITING MY OWN
+    CAPSTONE'S BINDERS. `362112ea` 2026-08-22 12:4x. All four `[3 axioms]`, `EXIT=0`, zero errors,
+    genuine `Built (6.2s)`, zero `MRTPropA3.lean` diagnostics, BARE builds,
+    Attempts: 2 (cap 3, declared before starting).**
+    ```
+      mrtT0_subset_band                     T₀ ⊆ [−T,T], companion to mrtT1_subset_Icc
+      continuous_a3_twistedSum              A.6's object is continuous in t
+      integrableOn_sq_mrtT0_of_continuous   h0int, discharged
+      integrableOn_sq_mrtT1_of_continuous   h1int, discharged
+    ```
+    **I ran the standing check — *for every hypothesis a design carries, NAME THE NODE THAT
+    PRODUCES IT* — over `mrtA3_band_bound_of_A6`'s own binders, the theorem I landed ONE BEAT AGO:**
+    ```
+      hf, hX, hlogX, hT ... A.3's own statement
+      hr, hrX ............. the caller's choice
+      hC .................. MRTLemmaA6Statement's ∃ C > 0
+      hA6 ................. the assumption under test
+      hT1 ................. carried DELIBERATELY, provenance named ([17, Prop 1])
+      h0int, h1int ........ NO PRODUCER ANYWHERE   <- the only two
+    ```
+    Not fundamental, only unproved: `gJ` carries no `t`, `costwist` is an exponential, the sums are
+    finite, and both `T₀`/`T₁` sit in the compact band. ⇒ **`mrtA3_band_bound_of_A6` now rests on
+    exactly ONE carried hypothesis with a named provenance, plus A.6 itself.** *Auditing the SET of
+    binders rather than each as it appeared is what surfaced it — the same law that found the
+    prime-free-band class this morning.*
+
+    🔬 **THE GUARD I WROTE AFTER LAST BEAT FIRED, AND WAS WRONG, AND WAS STILL WORTH HAVING.**
+    Attempt 1 never reached Lean: my new placement guard refused to edit —
+    *"dependency not before anchor: def gJ"*. **False positive** — `gJ` is declared in
+    `Sec9Glue.lean` and IMPORTED, so file order is irrelevant, and my predicate (*"the string
+    appears earlier in this file"*) is simply wrong for imported names. The guard now **MEASURES**
+    which case each name is in (zero local declarations ⇒ imported ⇒ order-irrelevant) instead of
+    taking my word: it reported `local=4 checked, imported=2 order-irrelevant`.
+    ***It failed SAFE — refusing to write rather than silently mis-placing. A guard that errs
+    toward refusing is cheap; the absence I had yesterday errs toward a broken file.***
+
 16z. ⭐⭐⭐ **A.3's APPENDIX BRANCH IS ASSEMBLED — AND ALL THREE ATTEMPTS FAILED ON PLACEMENT,
     NONE ON MATHEMATICS. `3eac1ba8` 2026-08-22 12:3x. `[3 axioms]`, `EXIT=0`, zero errors, genuine
     `Built (5.6s)`, zero `MRTPropA3.lean` diagnostics, BARE builds throughout,
