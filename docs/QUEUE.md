@@ -514,6 +514,62 @@ numbering is UNVERIFIED.
    untracked root scraps; registry sweeps) · the explicit-constants
    floor opener (unchampioned).
 
+11. ⚖️ **W2-0 — THE TAO-THEOREM-1.2 ∀ε CAMPAIGN. SCHEDULED AT P3 BY THE CAPTAIN
+   2026-08-21 at the desk, under the INVERTED PURSE: it gets scheduled, not
+   debated.** His reason, in his words: *the fleet tends to fall idle at night when
+   he is away* — this is the item a night seat pulls instead of parking.
+   **THE QUESTION:** push salt's existing Tao-Thm-1.2 spine (`Salt/Entropy/Chowla`,
+   73 files, 66 Tao-1509 cites) from **one-produced-ε / windowed** to **∀ε /
+   full-range**.
+
+   ✅ **ESTABLISHED 08/21 — DO NOT RE-DERIVE ANY OF THIS** (helm brief:
+   `seat/briefs/2026-08-21-w20-eps-fence-READ.md`):
+   - The "ε-floor fence" is **NOT a wall.** `SpineEpsFence.lean`'s load-bearing
+     theorem is three lines of real analysis (a fixed ε > 0 is eventually exceeded
+     by nothing tending to 0) conjoined with the landed terminal. Its own docstring
+     says *"Nothing here proves anything new"* and calls itself a **TRIPWIRE**.
+   - ⭐ **compiler, independent (had not read the paper): it is `∃ε`, so a ∀ε family
+     built tomorrow leaves the theorem TRUE — it cannot forbid what it does not
+     quantify over.** Tripwire verified ARMED (`All.lean:88` imports it).
+   - ε is chosen by `exists_rat_btwn` in `HloExport.lean` under **four UPPER bounds
+     and no lower bound**; the `1/500` is a **numeral-reachability pin**
+     (`ConstantsExposed.epsPin`), stated as such in the file.
+   - `δ₀ = cD3/(16·C)·ε/4` — **LINEAR in ε. An exchange rate, not a barrier.**
+   - **42 of 51** spine statements already carry `ε` or `eps` (negative control
+     `BoundaryMap` 0/6, clean on both spellings).
+   - **THE GATE QUESTION IS ANSWERED: "is constant-ε blindness the parity wall?" →
+     NO.** Warrant agreed by two seats: **WELL-SUPPORTED, NOT KERNEL-SETTLED.**
+     *(math struck its own "kernel-settled" claim: `TransportWall` contains ZERO ε —
+     its constant is a **weight**, the question is a **tolerance**.)*
+
+   ⛔⛔ **THE PRIZE FENCE — READ BEFORE PRICING ANY EFFORT. §7 of the W2-0 block
+   found the prize OVERSTATED and NOTHING since has touched that finding.**
+   Fixed-`z` roughness leaves `Ω` unbounded (no almost-primality; orthogonal to the
+   landed `twin_almost_prime`), and **without roughness "Ω(n(n+2)) odd infinitely
+   often" is a three-line elementary theorem.** Honest statement of the prize: *for
+   every fixed z, infinitely many n with n(n+2) z-rough and Ω odd* — **real, new,
+   and NOT apex-adjacent by itself.** ⇒ **08/21 moved the ROAD'S PASSABILITY, not
+   the DESTINATION'S VALUE. A puller who forgets this will over-invest.**
+
+   📐 **NODE 11a — THE FIRST PULL, CHEAP, AND IT CAN FLIP THE WHOLE ASSESSMENT.**
+   Measure how the head's OTHER constants degrade as `ε → 0`: `K` (from
+   `bigXi_bounded ε`), `Hcap`, and the regime `R`'s own bounds. **`δ₀` is already
+   known linear; `K` and `Hcap` are UNMEASURED.** ⇒ **If they stay usable, the
+   campaign is a RESTATEMENT of the head (quantify over `ε ≤ c`), not a port — and
+   the item should be re-tiered upward.** If they collapse, the campaign is a real
+   port and P3 is right. **One computation, not a campaign. Report either way.**
+
+   ⛔ **FENCES:** (1) **salt spells epsilon TWO ways** — `Prop26` has ZERO `U+03B5`
+   and 37 ASCII `eps`; `SpineFinal`/`HloExport` carry both **in one file**. Any
+   ε-population count MUST match both or it undercounts silently in the reassuring
+   direction. (2) **`SpineEpsFence` breaking is the DESIGN, not a bug to route
+   around** — if the head's shape changes from `∃ε` to `∀ε` it stops type-checking,
+   which is the tripwire doing its job; the fix is to update it deliberately, never
+   to weaken it. (3) The frozen `h = 1` statements are **byte-frozen**; ports add
+   BESIDE, never edit (iron rule 1). (4) The sieve route is **strictly dominated** —
+   if Tao-1.2 ever lands, the **direct-Möbius** route is the consumer, not wave-1's
+   chain.
+
 ## THE MECHANICS (the saltworks board's, verbatim in spirit)
 
 - PRE-AUTH: pull at your seam without asking; one line at start, one
