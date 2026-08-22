@@ -380,6 +380,7 @@ import Salt.MR.V7E
 import Salt.MR.V7Ks
 import Salt.MR.V7Headline
 import Salt.MR.MRTProp24
+import Salt.MR.MRTQualityLam
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8329,3 +8330,5 @@ open Salt.Tactic in
   Salt.MR.mem_mrtWindow
   Salt.MR.MRTProp24
   Salt.MR.MRTProp24Statement
+  Salt.MR.log3_shift_mono
+  Salt.MR.mrtM_lam_lower
