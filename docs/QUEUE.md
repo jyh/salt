@@ -246,6 +246,35 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16q. ⭐⭐⭐ **A.3's `T₀` SIDE IS NOW *DERIVED FROM LEMMA A.6* — AND MRT's OWN `T ≤ X/2`
+    REDUCTION, WHICH MY STATEMENT DROPS. `1fe2c6fa` 2026-08-22 10:3x. All five names of the beat
+    `[3 axioms]`, `EXIT=0`, GENUINE `Built` (oleans deleted, not Replayed), zero errors, zero
+    `MRTPropA3.lean` diagnostics, Attempts: 1 (cap 3, declared before starting).**
+    ```
+      mrtT0_mono_T           T ≤ T'  ⟹  mrtT0 M t₁ X T ⊆ mrtT0 M t₁ X T'
+      mrtA3_T0_bound_of_A6   A.6  ⟹  the T₀ integral bound, with NO assumed hF
+    ```
+    **Row 16p named an open interface — A.6/A.7 quantify over `mrtT0 … X X` while the split
+    produces `mrtT0 … X T`. SETTLED FROM THE PDF, and the answer was NEITHER option I had named.**
+    MRT p.23: `T₀ := {|t| ≤ T : |t − t₁| ≤ (log X)^{1/16}}` — indexed by the **INTEGRAL's `T`** —
+    and their proof OPENS with *"Since the mean value theorem gives the bound `O(T/X + 1)`, we can
+    assume `T ≤ X/2` and `M(f;X) ≥ 1`."*
+
+    ⭐ **THE SLIVER NEVER ARISES IN MRT BECAUSE THEY DISPOSE OF LARGE `T` BEFORE THE APPENDIX
+    ARGUMENT STARTS** — which is exactly why the `T/(X/Q₁) + 1` factor stands in front of A.3's
+    bracket. Under `T ≤ X` the transfer is legal, and `mrtT0_mono_T` performs it.
+
+    ⛔ **THE STRUCTURAL FINDING: `MRTPropA3` quantifies `∀ T, 1 ≤ T` with NO UPPER BOUND and carries
+    no `T ≤ X/2` hypothesis anywhere.** Not thereby FALSE — MRT's justification for dropping the
+    range is a proof, not an omission — but a full proof of the statement AS WRITTEN must BRANCH:
+    this appendix argument for `T ≤ X/2`, the mean value theorem above it. *Named in the docstring
+    now, rather than discovered at assembly.*
+
+    ⚠️ **BUILD-LAW SLIP, SELF-REPORTED:** I piped `saltbuild.sh` into `grep` twice (this node's first
+    build, and row 16p's registration build). Re-run properly — oleans deleted, BARE invocation,
+    genuine `Built` for both modules. `Salt.MR.All`'s `⚠` tick is 2 long-line lints on comment lines
+    from `03fa8dea` (07/28), neither introduced here.
+
 16p. ⭐⭐⛔ **A DANGLING INTERFACE FOUND BY RUNNING THE CHECK *FORWARD* — THE `T₀` BOUND COULD NOT
     BE FED BY A.6, AND NOW CAN. `ebcf23c8` 2026-08-22 10:1x. All three `[3 axioms]`, `EXIT=0`, genuine
     `Built (5.3s)`, zero diagnostics, Attempts: 1 (cap 3, declared before starting).**
