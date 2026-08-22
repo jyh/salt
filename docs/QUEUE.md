@@ -246,6 +246,36 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15kk. 🔬 **SIBLING SWEEP OF THE FREE-`t₁` DEFECT — A.4(ii) IS THE ONLY FATAL ONE OF THE THREE, AND
+    THE DISCRIMINATOR IS THE INEQUALITY DIRECTION. `8aa55a16` 2026-08-22 06:0x.**
+    15ii found `MRTLemmaA4ii` false because `t₁` floats free. **`t₁` ALSO OCCURS IN `MRTLemmaA6` AND
+    `MRTLemmaA7`** — and a member proven bad in one arm is SILENT about the others, so the sweep was
+    a STEP, not an inference.
+    ```
+      A.4(ii) disjunct    (log X)^{1/16}/2 < |t − t₁|      a LOWER bound — "t is FAR"
+        a free t₁ satisfies it TRIVIALLY (choose it distant) while the conclusion
+        stays at FULL strength                                       ⇒ FATAL
+      A.6/A.7 hypothesis  t ∈ mrtT0 (mrtM f X) t₁ X X
+        unfolds to  |t − t₁| ≤ (log X)^{1/16}              an UPPER bound — "t is NEAR"
+        a free t₁ satisfies it at t₁ = t, which is each conclusion's WEAKEST
+        instance, not its strongest                        ⇒ NOT exploitable that way
+    ```
+    🔑 ⇒ ***A FREE VARIABLE IS DANGEROUS EXACTLY WHEN THE CLAUSE IT LIVES IN IS A LOWER BOUND ON A
+    DISTANCE.*** A "far" condition is free to satisfy; a "near" one costs the exploiter the very
+    strength they were trying to buy.
+    ⭐ **A.7's IMMUNITY AT THAT POINT IS KERNEL-BACKED, NOT ARGUED** — the already-landed
+    `mrtA7_exact_at_center` shows the bracketed difference is EXACTLY `0` at `t₁ = t`.
+    ⭐⭐ **AND A SECOND GUARD I HAD NOT NOTICED: `mrtT0` IS `∅` IN THE HIGH-`M` BRANCH**, so
+    `t ∈ mrtT0 (mrtM f X) t₁ X X` ***silently implies*** `mrtM f X < ⅛·loglog X`. **A.6 and A.7 carry
+    the low-`M` condition WITHOUT STATING IT.** Three lemmas make the implicit carriage explicit —
+    and they are the extraction steps any proof of A.6/A.7 will consume anyway:
+    `mrtT0_eq_empty_of_high_M` · `lt_of_mem_mrtT0` · `abs_sub_le_of_mem_mrtT0`. All `[3 axioms]`.
+    ⚠️⚠️ **HONEST LIMIT, CARRIED IN THE FILE SO IT IS NOT ABSORBED: this shows A.4(ii)'s EXPLOIT does
+    not transfer. IT DOES NOT SHOW A.6 IS SAFE.** `t₁` there may still sit at the FAR EDGE
+    `|t − t₁| = (log X)^{1/16}`, which MINIMISES A.6's RHS through the `1/(1 + |t − t₁|)` factor and
+    is therefore its STRONGEST instance. **Neither refuted nor cleared** — I checked one instance
+    (`J = 0`, `f ≡ 1`, `t = t₁ = 0`) and it holds, which is evidence about that instance ONLY.
+
 15jj. 📐 **A.4(ii)'s FAR BRANCH IS PRICED, AND THE LANDED ENGINES ARE *STRICTLY* TOO WEAK —
     `eca89216` 2026-08-22 06:0x. BOTH CONSTANTS COMPUTED IN THE KERNEL, NOT QUOTED.**
     With `t₁` repaired (15ii), the far branch has an obvious route through objects already landed:
