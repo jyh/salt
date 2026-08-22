@@ -231,4 +231,50 @@ theorem mrtA4_constant_pos : 0 < 1 / 6 - 1 / (3 * Real.pi) := by
     one_div_lt_one_div_of_lt (by norm_num) h6
   linarith
 
+/-! ## A.5's `ρ`-margin — the thinnest thing in Appendix A
+
+Lemma A.5 names `ρ := 1/6 − 1/(3π) − ε` and MRT remark that *"replacing `1/48` by
+`ρ/3 > 1/50` in the definitions of `P`, `Q` and `H` … we still obtain"* their
+bound.  **That inequality is asserted, not evaluated, and it is very tight:**
+
+```
+   1/6 − 1/(3π)          = 0.060563371
+   (1/6 − 1/(3π))/3      = 0.020187790
+   1/50                  = 0.020000000
+   MARGIN                = 0.000187790          ⇐ 0.94% of 1/50
+   ⇒ ρ/3 > 1/50 forces   ε < 0.000563371
+```
+
+⭐⭐ **And it needs `π > 3.125`.**  `1/6 − 1/(3π) > 3/50` unfolds to `24π > 75`.
+***`Real.pi_gt_three` is INSUFFICIENT here*** — 3 < 3.125 — so this needs
+`Real.pi_gt_d6` (the corpus's own sharp-π idiom, 7 uses), where
+`mrtA4_constant_pos` — the same constant, one theorem above — needed only
+`π > 2`.  **Two facts about one constant with completely
+different `π`-requirements, and nothing on the page distinguishes them.** -/
+
+/-- **A.5's MARGIN.**  `3/50 < 1/6 − 1/(3π)`, i.e. `24π > 75`, i.e. `π > 3.125`.
+This is what makes MRT's `ρ/3 > 1/50` true at all, and it needs a `π` bound
+sharper than `Real.pi_gt_three`. -/
+theorem mrtA5_rho_margin : 3 / 50 < 1 / 6 - 1 / (3 * Real.pi) := by
+  have hpi := Real.pi_gt_d6
+  have hlt : (75 : ℝ) / 8 < 3 * Real.pi := by linarith
+  have hkey : 1 / (3 * Real.pi) < 8 / 75 := by
+    calc 1 / (3 * Real.pi) < 1 / ((75 : ℝ) / 8) :=
+          one_div_lt_one_div_of_lt (by norm_num) hlt
+      _ = 8 / 75 := by norm_num
+  linarith
+
+/-- **THE `ε`-CEILING A.5 IMPLIES.**  MRT's `ρ/3 > 1/50` holds exactly when
+`ε < 1/6 − 1/(3π) − 3/50 ≈ 5.634 × 10⁻⁴`.  *The paper carries `ε > 0` as "any
+`ε`"; A.5's own remark silently bounds it.*
+
+⭐ *Note `0 < ε` is carried because MRT carry it, and is **not used** — the
+consequence follows from the ceiling alone.  Recorded rather than deleted: a
+hypothesis the paper states and the proof does not need is worth being able to
+see.* -/
+theorem mrtA5_epsilon_ceiling {ε : ℝ} (_hε0 : 0 < ε)
+    (hεlt : ε < 1 / 6 - 1 / (3 * Real.pi) - 3 / 50) :
+    1 / 50 < (1 / 6 - 1 / (3 * Real.pi) - ε) / 3 := by
+  linarith
+
 end Salt.MR
