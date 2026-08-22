@@ -246,6 +246,41 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16u. ⭐⭐⛔ **A TRANSCRIPTION GAP IN `MRTBands`, FOUND BY ASKING WHETHER MY OWN NEW BRANCH
+    ACTUALLY CLOSES — AND THE THIRD DEGENERACY THE SAME ACCIDENTAL GUARD RESCUES. `edb1468a`
+    2026-08-22 11:0x. Both `[3 axioms]`, `EXIT=0`, BARE builds, genuine `Built (8.0s)`, zero
+    `MRTPropA3.lean` diagnostics, Attempts: 1 (cap 3, declared before starting).**
+    ```
+      blockOmega_eq_zero_of_lt      Q < P  ⟹  the block holds no primes
+      memS_false_of_band_inverted   an inverted first band empties S
+    ```
+    **I built the large-`T` branch last beat, then asked whether it CLOSES against A.3's RHS. It
+    does not in general — and chasing why found a gap in MY OWN transcription.** MRT set the bands
+    up as *"Consider a sequence of **INCREASING** intervals `[Pⱼ, Qⱼ]`, `j ≥ 1`, such that …"*
+    (p.21) and then list three bullets. **`MRTBands` transcribes the three bullets and drops the
+    word "increasing": it does not carry `Pⱼ ≤ Qⱼ`.**
+
+    ⚠️ **WHY IT IS LOAD-BEARING.** A.3's RHS carries `(log Q₁)^{1/3}/P₁^{1/6−η}`. MRT's reduction
+    (MVT gives `O(T/X+1)`, so assume `T ≤ X/2`) needs that bracket bounded below once `T > X/2`:
+    the MVT delivers `≈ T/X`, the target is `≈ (T·Q₁/X)·bracket`, so the branch closes exactly when
+    `Q₁·bracket ≫ 1`. **With `P₁ ≤ Q₁` it does** (`≥ P₁^{5/6+η}(log Q₁)^{1/3}`). **With `P₁` free to
+    exceed `Q₁` it fails** — `P₁ → ∞` at fixed `Q₁ = 2` drives the bracket to `0`.
+
+    🔑 **NOT THEREBY FALSE — AND THE REASON IS THE SAME ACCIDENTAL GUARD, FOR THE THIRD TIME.**
+    `Qⱼ < Pⱼ` ⇒ block empty ⇒ `blockOmega = 0` ⇒ `MemS` fails ⇒ `S = ∅` ⇒ both sides `0`.
+    ***Three distinct degeneracies now — `X = 1`, `Qseq 1 ≤ 1`, `Qseq 1 < Pseq 1` — and `MRTPropA3`
+    survives EVERY one by emptying `S` rather than by carrying a hypothesis. That is a pattern, not
+    three coincidences, and it is worth a design session's attention.***
+
+    ⛔ **RECORDED, NOT REPAIRED:** adding `Pⱼ ≤ Qⱼ` to `MRTBands` is a STATEMENT change — Iron rule 1,
+    design-tier, not this seat's.
+
+    ✅ **ALSO VERIFIED FROM THE PDF THIS BEAT:** A.3's statement matches my Lean transcription
+    exactly, and *"S as above"* is exactly my three `MRTBands` clauses. The paper's
+    `exp(√(log X₀)) ≥ Q₁ ≥ P₁ ≥ (log Q₁)^{40/η}` line is an **EXAMPLE** that Definition 2.1's
+    intervals satisfy the bullets, **not an extra hypothesis of A.3** — so there is no missing
+    lower bound on `Q₁`.
+
 16t. ⭐⭐⭐ **A.3's LARGE-`T` BRANCH IS ASSEMBLED — `O(T/X+1)` WITH EVERY CONSTANT EXPLICIT, AND
     A BUILD-LAW VIOLATION THAT ATE ITS OWN EVIDENCE. `fb7fee57` 2026-08-22 10:5x. `[3 axioms]`,
     `EXIT=0`, genuine `Built (6.6s)` after repair, zero `MRTPropA3.lean` diagnostics,
