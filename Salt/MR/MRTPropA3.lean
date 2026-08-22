@@ -2015,6 +2015,50 @@ theorem mrtPropA3_in_bridge_shape {C : ℝ} (hA3 : MRTPropA3 C)
     (le_of_eq ?_)
   ring
 
+/-! ### The junk-value class, swept as a SET — and one site the guard does NOT cover
+
+Having named the blind spot, the lesson from row 17d says to sweep the CLASS rather than
+collect instances.  A.3's right-hand side has four junk-value sites:
+
+```
+  X / (Qseq 1 : ℝ)            division   — Q₁ = 0  ⇒ factor collapses to 1   (17e, guard covers)
+  T / (X / Qseq 1)            division   — same site, one level up            (17e, guard covers)
+  (log (Qseq 1)) ^ (1/3)      rpow       — SAFE: Real.log of a ℕ-cast is ≥ 0 always,
+                                           since log 0 = log 1 = 0 by convention
+  (Pseq 1 : ℝ) ^ (1/6 − η)    rpow       — ⛔ P₁ = 0 ⇒ base 0, exponent > 0 ⇒ 0,
+                                           and the term DIVIDES by it ⇒ term = 0
+```
+
+⛔ **THE FOURTH IS NOT COVERED BY THE EMPTY-`S` GUARD, AND THAT IS THE FINDING.**
+`MRTBands` never constrains `P₁` directly — `(A.1)`/`(A.2)` mention `P_{j−1}` only for
+`j ≥ 2`, and at `P₁ = 0` the `(A.1)` ratio at `j = 2` reads `log log Q₂ / (0 − 1)`, which
+is NEGATIVE and so satisfies the bound.  So `P₁ = 0` is admissible.  Then A.3's first
+bracket term is `(log Q₁)^{1/3} / 0 = 0` — the term MRT intend to be present simply
+vanishes, making the bound strictly harder.
+
+**And unlike every earlier degeneracy, `S` need not be empty**: the block is `[0, Q₁]`,
+which contains every prime `≤ Q₁`, so at `Q₁ ≥ 2` membership is perfectly possible.
+`memS_false_of_prime_free_band` does not apply.
+
+*This does not make A.3 false — the other two bracket terms survive — but it is the first
+degeneracy in this file that the one guard does NOT absorb, and it is a statement-level
+gap rather than a proof difficulty.  Recorded for a design session (Iron rule 1): the
+missing clause is a positive lower bound on `P₁`, which MRT supply in prose by drawing
+`[Pⱼ,Qⱼ]` from Definition 2.1.* -/
+
+/-- **A.3's FIRST BRACKET TERM VANISHES AT `Pseq 1 = 0`** — base `0`, positive exponent,
+and the term divides by it. -/
+theorem mrtA3_first_term_of_Pseq1_zero {η : ℝ} {Pseq Qseq : ℕ → ℕ}
+    (hη : η < 1 / 6) (hP : Pseq 1 = 0) :
+    (Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η) = 0 := by
+  have hne : (1 : ℝ) / 6 - η ≠ 0 := by linarith
+  rw [hP, Nat.cast_zero, Real.zero_rpow hne, div_zero]
+
+/-- **AND THE EMPTY-`S` GUARD DOES NOT FIRE THERE**: the band `[0, 2]` contains a prime,
+so `memS_false_of_prime_free_band`'s hypothesis fails. -/
+theorem band_zero_two_has_prime : ∃ p : ℕ, p.Prime ∧ 0 ≤ p ∧ p ≤ 2 :=
+  ⟨2, Nat.prime_two, by omega, by omega⟩
+
 /-! ### What the binder audit CANNOT see — junk values inside definitions
 
 Rows 17a/17c/17d all came from auditing HYPOTHESES.  That instrument is blind to a whole
