@@ -342,4 +342,46 @@ theorem sum_swap_dyadic_at_door {q : ℕ} (χ : DirichletCharacter ℂ q) (M L A
               * (2 / 3 : ℝ) ^ j :=
   sum_swap_dyadic _ _ _ _ _ _
 
+/-! ## The join to `M4ChiShiftBlockMeanSq` — it is a TRANSLATION of the index set
+
+After the swap, the innermost object is `∑_{n ∈ Ioc A B} ‖∑_{m ∈ doorSievedWindow M (2^j)
+(n + 2^(j+1)·t)} liouChi χ m‖²`.  `M4ChiShiftBlockMeanSq`'s family is
+`∑_{n ∈ Ioc (A+s) (B+s)} ‖∑_{m ∈ doorSievedWindow M (2^j) n} liouChi χ m‖²`.
+
+Same summand; the offset `2^(j+1)·t` sits on the **base** in one and on the **interval** in the
+other.  So the join is a reindexing, and `M4ChiShiftBlockMeanSq`'s `s` parameter is exactly
+that offset — which is why the family is called *shifted*.
+
+Following `Salt/ExpSum/Basic.lean:71`'s idiom (`map_add_right_Ioc` + `Finset.sum_map`) rather
+than inventing one.
+
+⛔ **AND THE CORPUS ALREADY HAS THE REINDEXING.**  I wrote it out here and the compiler
+rejected the duplicate: `M4Maximal.sum_Ioc_shift` (`:421`) is the same statement, character for
+character, **~600 lines above `M4ChiShiftBlockMeanSq` in the file I had been reading all day**.
+Its docstring reads *"THE SHIFT IS EXACT — no overhang cell is created and none is lost"*, and
+its parameter is literally named `s` — which independently confirms that
+`M4ChiShiftBlockMeanSq`'s `s` IS this offset.  My analysis was right; my lemma was redundant.
+The duplicate is deleted and the corpus's is used below.
+-/
+
+/-- **THE JOIN, AT THE DOOR'S EXACT SHAPE** — the post-swap inner sum *is* the shifted-block
+family's summand at shift `s := 2^(j+1)·t`.  Proof is the reindexing and nothing else. -/
+theorem sum_Ioc_shift_at_door {q : ℕ} (χ : DirichletCharacter ℂ q) (M j t A B : ℕ) :
+    ∑ n ∈ Finset.Ioc A B,
+        ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2
+      = ∑ n ∈ Finset.Ioc (A + 2 ^ (j + 1) * t) (B + 2 ^ (j + 1) * t),
+          ‖∑ m ∈ doorSievedWindow M (2 ^ j) n, liouChi χ m‖ ^ 2 :=
+  sum_Ioc_shift (fun n => ‖∑ m ∈ doorSievedWindow M (2 ^ j) n, liouChi χ m‖ ^ 2)
+    A B (2 ^ (j + 1) * t)
+
+/-- The shift stays inside the cap: every `t` the dyadic family ranges over gives
+`2^(j+1)·t ≤ cap`.  *This is `M4ChiShiftBlockMeanSq`'s `s ≤ H` side condition, at
+`cap := H`* — extracted here because it is the same `Nat.div_mul_le_self` step the containment
+criterion used, and it is owed to the join too. -/
+theorem shift_le_cap (step cap t : ℕ) (ht : t < cap / step + 1) : step * t ≤ cap := by
+  have hts : t ≤ cap / step := Nat.lt_succ_iff.mp ht
+  calc step * t ≤ step * (cap / step) := Nat.mul_le_mul (le_refl step) hts
+    _ = cap / step * step := Nat.mul_comm _ _
+    _ ≤ cap := Nat.div_mul_le_self cap step
+
 end Salt.MR

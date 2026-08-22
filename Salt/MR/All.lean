@@ -8450,6 +8450,8 @@ open Salt.Tactic in
   Salt.MR.doorLadder_block_length_lt
   Salt.MR.sum_swap_dyadic
   Salt.MR.sum_swap_dyadic_at_door
+  Salt.MR.sum_Ioc_shift_at_door
+  Salt.MR.shift_le_cap
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape
