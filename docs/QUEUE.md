@@ -246,6 +246,36 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17f. ⛔⭐⭐⭐ **THE JUNK-VALUE CLASS SWEPT AS A SET — AND ONE SITE THE EMPTY-`S` GUARD DOES **NOT**
+    COVER. `bda2670c` 2026-08-22 13:2x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine
+    `Built (6.5s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 2 (cap 3).**
+    ```
+      X / (Qseq 1 : ℝ)          division  — Q₁ = 0, factor → 1            COVERED (17e)
+      T / (X / Qseq 1)          division  — same site one level up       COVERED (17e)
+      (log (Qseq 1))^(1/3)      rpow      — SAFE: log of a ℕ-cast is ≥ 0 always
+      (Pseq 1 : ℝ)^(1/6 − η)     rpow      — ⛔ P₁ = 0 ⇒ base 0, exp > 0 ⇒ 0,
+                                            and the term DIVIDES by it ⇒ term = 0
+    ```
+    ⛔ **THE FOURTH IS NOT COVERED.** `MRTBands` never constrains `P₁` directly — `(A.1)`/`(A.2)`
+    mention `P_{j−1}` only for `j ≥ 2`, and at `P₁ = 0` the `(A.1)` ratio at `j = 2` reads
+    `log log Q₂ / (0 − 1)`, **NEGATIVE**, so the bound is satisfied. `P₁ = 0` is admissible, and
+    A.3's first bracket term then VANISHES — the term MRT intend to be present is simply gone and
+    the bound gets strictly harder.
+
+    ⭐ **AND UNLIKE EVERY EARLIER DEGENERACY, `S` NEED NOT BE EMPTY:** the block is `[0, Q₁]`, which
+    contains every prime `≤ Q₁`. `band_zero_two_has_prime` witnesses that
+    `memS_false_of_prime_free_band`'s hypothesis **FAILS**. ***First degeneracy in this file the
+    one guard does not absorb.***
+
+    ⚠️ Not false — the other two bracket terms survive — but a **STATEMENT-LEVEL gap**, not a proof
+    difficulty. The missing clause is a positive lower bound on `P₁`, which MRT supply in prose by
+    drawing `[Pⱼ,Qⱼ]` from Definition 2.1. **Recorded for a design session, NOT repaired (Iron rule 1).**
+
+    🔬 *Attempt 1 used `simp`; it left a disjunction AND reported my `Real.zero_rpow` argument as
+    **UNUSED** — `simp` had normalised `(1:ℝ)/6` to `6⁻¹`, so the lemma never matched. That
+    unused-argument note is the documented tell for a `simp` that fires nothing useful. Fix: an
+    explicit rewrite chain.*
+
 17e. ⭐⭐⭐ **WHAT THE BINDER AUDIT CANNOT SEE — A JUNK VALUE IN A.3's OWN RIGHT-HAND SIDE.
     `ab45d3a7` 2026-08-22 13:1x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.3s)`,
     zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
