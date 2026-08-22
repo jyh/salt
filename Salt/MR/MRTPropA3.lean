@@ -667,6 +667,42 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### ⛔⛔⛔ THE DOOR'S ROAD WALKED TO ITS END — MY FRONTIER CLAIM RETRACTED, THIRD TIME
+
+I said one beat ago that the door's missing piece is *"the TERMINAL CANCELLATION."*  **That is
+wrong, and it is wrong in the same direction as the two claims before it.**  Walking the chain:
+
+```
+  norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
+    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:577         (Gauss/strata, at doorSievedCoeff M)
+        ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
+            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:396      (DYADIC MAXIMAL INEQUALITY, K-free)
+                ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²
+```
+`subWindowSup_sq_le_strata` is stated **at the door's own coefficient** `doorSievedCoeff M`, not at
+a generic `a`.  `doorChiSup_sq_le_dyadic` is a Rademacher–Menshov-shaped maximal inequality with
+geometric weights.  **Measured: 20+ consumption sites for that one lemma across six files**
+(`M4BaseNarrow`, `M4RowLinear`, `M4ChiSummed`, `M4CoprimeSupply`, `M4RowAssemblyLinear`,
+`M4Maximal`).  This is not a frontier.  It is a highway.
+
+⛔⛔ **THREE CLAIMS, THREE BEATS, ALL ONE LINK TOO EARLY — AND ALL MINE:**
+1. *"the door has NO PRODUCER"* → `mrtUniformityXi_of_absWindowBound_twelve` produces it.
+2. *"the corpus lacks the ANALYTIC estimates"* → `drift_tight` / `class_sum_of_nearRatTight`.
+3. *"what is missing is the TERMINAL CANCELLATION"* → strata → doorChiSup → dyadic maximal.
+
+⇒ **THE DEFECT IS IN MY METHOD, NOT IN THE CORPUS.**  Each time I read to the edge of my own
+reading, found an object whose bound I had not personally seen, and published *that* as the edge of
+the CORPUS.  **"Missing" is a claim about a LEAF; I kept measuring a LINK.**
+
+⭐ **THE ONE-COMMAND TEST I HAD NEVER RUN: `grep` THE CONSUMERS.**  A frontier has few or none
+downstream; this link has twenty.  Cheap, decisive, and absent from all three of my verdicts.
+*Before calling anything a frontier, count what already depends on it.*
+
+📌 **I AM DELIBERATELY NOT NAMING A FRONTIER HERE.**  The chain bottoms out at a dyadic mean square
+of `liouChi`-twisted sieved window sums; whether THAT is supplied I have not opened
+(`norm_sum_doorSievedWindow_le` and three siblings exist, unread).  Naming it now would be the
+fourth instance of the exact error this section diagnoses. -/
+
 /-! ### The door's `absWindowSum` residue — OPENED, and it REFUTES my own generalisation
 
 Last of the four sweep rows.  Measured: **57 landed `absWindowSum` theorems across 14
