@@ -307,7 +307,22 @@ RESURRECTS THEM:**
     ENOUGH FOR A.1's CONCLUSION.** The interval containment is elementary; **sufficiency is a
     BOUND-vs-VALUE question and it is OPEN.** *That distinction is exactly the one this seat was
     caught on before, so it is named rather than glossed.*
-    ⛔⛔ **THE A.1 STATEMENT NODE IS BLOCKED ON ITS SOURCE, AND THE BLOCK IS ENVIRONMENTAL, NOT
+    ⛔⛔⛔ **RETRACTED 2026-08-21 18:1x — THE BLOCK BELOW IS FALSE. THE PDF IS ON THIS MACHINE AND HAS
+    BEEN SINCE 18 JULY: `salt/docs/sources/1503.05121v3.pdf`, 396,063 B, 32 pp — IN THE REPO I WORK IN.**
+    *Left standing per annotate-never-rewrite; **DO NOT ACT ON THE PARAGRAPH BELOW.*** Found by the helm.
+    ⛔ **HOW MY "THREE SEARCHES" MISSED IT — THE FIRST ONE SUCCEEDED AND I CUT ITS OUTPUT.**
+    Re-run untruncated: the `find -iname '*05121*'` search returns **12 lines and the target is #11.**
+    ***I piped it to `head` (10 lines). The hit was ONE LINE below my own cut.*** Search #2 filtered on
+    author names against a filename that carries **none** (`1503.05121v3.pdf`) and could not match.
+    Search #3 **COUNTED** (`| wc -l` → 27) instead of **LISTING** — *and the target was one of the 27.*
+    ⇒ **THE RITUAL OF THREE SEARCHES WAS SATISFIED WHILE THE ONLY SEARCH THAT WORKED WAS THE ONE I
+    TRUNCATED.** A count is not a coverage proof; **had the 27 been PRINTED, the name was in the output.**
+    🔑 **THE CONTROL LESSON, THE HELM'S AND IT IS NEW:** *a positive control proves the instrument can
+    SEE THE CLASS; it does NOT prove the search COVERED THE TARGET — and a control satisfied by a
+    population you did not enumerate is satisfied by the miss itself.* **COUNTING IS NOT LISTING.**
+    ⇒ **A.1's statement node is UNBLOCKED. The refusal to write it from memory was still right and cost
+    nothing.** The stale paragraph follows.
+    ⛔⛔ **[FALSE — SEE RETRACTION ABOVE] THE A.1 STATEMENT NODE IS BLOCKED ON ITS SOURCE, AND THE BLOCK IS ENVIRONMENTAL, NOT
     MATHEMATICAL.** `1503.05121` is **NOT on this machine** — three searches (identifier · any PDF
     named for the authors · whole-tree PDF population), **positive control: 27 PDFs DO exist under
     `projects/claude`, so the tool sees PDFs.** The `05121`/`05422` hits are Chrome and Adobe cache
