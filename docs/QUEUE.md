@@ -246,6 +246,40 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15b. ⭐⭐⭐ **`hMsup`'s PRODUCER IS FOUND, IN MRT's OWN HAND — AND IT IS NEITHER THE MVT NOR HALÁSZ.
+    MEASURED FROM THE PDF 2026-08-21 19:0x** (`docs/sources/1503.05121v3.pdf`, Appendix A).
+    **IT IS PROPOSITION A.3**, and the shape match is exact:
+    ```
+      A.3:  F(s) = Σ_{X≤n≤2X, n∈S} f(n)/n^s ;  for any T ≥ 1,
+            ∫_{−T}^{T} |F(1+it)|² dt  ≪  (T/(X/Q₁) + 1)·[ (log Q₁)^{1/3}/P₁^{1/6−η}
+                                                          + M(f;X)/exp(M(f;X))
+                                                          + 1/(log X)^{1/50} ]
+      hMsup wants   (X/h₁)/T · ∫ ≤ Msup .   Multiply A.3 by (X/Q₁)/T:
+            ⇒ (1 + (X/Q₁)/T)·[bracket] ≤ 2·[bracket]   for T ≥ X/Q₁ .        EXACT MATCH
+    ```
+    ⭐ **AND `F` *IS* `dpolyA`:** `F(1+it) = Σ f(n)/n^{1+it}` versus `dpolyA a s0 t = Σ_{m∈s0} a_m/m^{1+it}`
+    (`Lemma14Taylor.lean:283`) — **the same object**, with `s0` the `S`-restricted dyadic block.
+    ⭐ **`Q₁ = h`** in A.1's proof ⇒ A.3's `X/Q₁` **is** `hMsup`'s `X/h₁`. The normalisation is not
+    analogous, it is identical.
+    ⭐⭐⭐ **AND MRT'S FIRST SENTENCE OF THE A.3 PROOF IS MY 240, FROM THE OTHER SIDE — VERBATIM:**
+    *"Since the mean value theorem gives the bound `O(T/X + 1)`, we can assume `T ≤ X/2` …"*
+    ⇒ **MRT use the MVT ONLY AS A TRIVIAL-RANGE DISPOSAL, never as the engine, and they record its
+    strength as exactly `O(1)`.** *My independently-measured `Msup ≈ 240` IS that `O(T/X+1)`. The
+    trivial route did not fail — it is the source's own easy case, and the source says so in one line.*
+    ⛔ **CORRECTION TO MY OWN RE-POINTING OF ONE BEAT AGO: NOT "HALÁSZ-CONSUMING."** Appendix A contains
+    **ZERO** occurrences of `Halász` and **ZERO** of `large value`. **The engine is PRETENTIOUS —
+    Granville–Soundararajan in MRT's own words, with `t₁` the MINIMIZER of the pretentious distance.**
+    ⇒ **The relevant landed supply is `pretDistSq` (97 files), `lambda_nonpret`, `costwist` — and
+    `mrtM_lam_lower` (landed TODAY, `3c6bd64f`) is exactly the `M(f;X)` input A.3's bracket consumes.**
+    ⛔⛔ **AND A DELETION FROM THE REDUCED SPINE MUST BE NARROWED — A.1's OWN PROOF STILL BUILDS `S`.**
+    MRT's proof of A.1 opens: *"Let `η = 1/12`, `P₁ = (log h)^480`, `Q₁ = h`, let `Pⱼ` and `Qⱼ` for
+    `j ≥ 2` be as in **Definition 2.1**, and let `S` be as above,"* then splits the mean square into the
+    `n ∈ S` part and its complement. ⇒ ***The spine deleted Lemma 2.2 from the MAIN-TEXT route, NOT from
+    A.1's proof.*** Formalizing A.1 needs **Definition 2.1's `S` — LANDED as `MemS` (`Sec9Glue.lean:118`)** —
+    and the complement density, **including the `j`-union with `Σ1/j²` already flagged UNLANDED.**
+    ⚠️ **`P₁ = (log h)^480` for A.1**, against wave 1a's `mrtP1 = W²⁰⁰` for Prop 2.4 — *different
+    theorems, different parameters, now confirmed from the source rather than assumed compatible.*
+
 16. **BLOCKS A / B — THE TWO ARCS. ⛔ CENSUS-FIRST, CLASSING FORBIDDEN UNTIL BOTH PROBES REPORT**
     (the Captain's ruling 2). ⛔ **THE ARCS ARE LABELLED BACKWARDS IN v1 AND IN COMMON MEMORY:
     MR short-interval technology enters the MAJOR arc (§4, `q ≤ W`, via Appendix A); the MINOR arc
