@@ -246,6 +246,24 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15s. ✅✅✅ **A.3's LEMMA SCAFFOLDING IS COMPLETE IN LEAN — `32197e11` 2026-08-22 01:1x.**
+    `MRTLemmaA6`, `MRTLemmaA7`, both `[3 axioms]`, zero warnings, first attempt.
+    ⭐ **READ WHOLE THIS TIME.** The earlier extraction broke MRT's displays across lines and I refused
+    to state these on fragments. **`pdftotext -layout` preserves the 2-D layout and gives both entire.**
+    *A better instrument on the same source, rather than a guess about what the fragments meant.*
+    **A.6** bounds the signed subset sum for `t ∈ T₀` by `exp(−M/2)/(1+|t−t₁|) + (log X)^{−1/16}`; **its
+    inner object is exactly what `lemma5` already produces.**
+    **A.7** is the renormalization — `X^{i(t−t₁)}/(1+i(t−t₁))` times the `t₁`-twisted sum, up to
+    `O(X/(log X)^{1/10})`. ⭐ **Both stated against `mrtT0`, so A3-2's window is now the LITERAL
+    hypothesis of the two lemmas that consume it.**
+    ⚠️ **ONE SOURCE AMBIGUITY, FLAGGED NOT RESOLVED:** A.7's binder reads *"`I ⊆ {1,…,J}`"* while its
+    body sums `g_𝒥`. **Measured: `I ⊆ {1,…,J}` occurs EXACTLY ONCE in the whole appendix — at that
+    binder — and `g_I` occurs NOWHERE.** Either a typo for `𝒥`, or one symbol extracted two ways. *Both
+    readings give the same content, so it is stated with a single index and the discrepancy is recorded
+    IN THE FILE rather than hidden inside a choice.*
+    🔑🔑 **⇒ EVERY STATEMENT IN A.3's PROOF CHAIN IS NOW A LEAN OBJECT:** A.4 (i)+(ii) · A.5's two
+    constant facts · A.6 · A.7 · **plus A3-0 and A3-2 PROVED.** ***What remains is the four PROOFS.***
+
 15r. ⭐⭐⭐ **A.5's `ρ`-MARGIN — MRT's "`ρ/3 > 1/50`" IS TRUE BY 0.000188, AND IT NEEDS `π > 3.125`.**
     `b94e1212` 2026-08-22 01:0x. `mrtA5_rho_margin`, `mrtA5_epsilon_ceiling`, both `[3 axioms]`.
     A.5 names `ρ := 1/6 − 1/(3π) − ε`; MRT remark that replacing `1/48` by *"`ρ/3 > 1/50`"* still gives
