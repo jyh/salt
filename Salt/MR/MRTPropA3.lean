@@ -692,4 +692,72 @@ theorem mrtA7_exact_at_center (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 
       = 0 := by
   simp
 
+/-! ## ⛔ `MRTLemmaA4ii` IS **STILL** FALSE — the second disjunct is unguarded
+
+An earlier pass found `MRTLemmaA4ii` false and repaired it by carrying
+`Real.exp 1 ≤ X`.  That repair was necessary and insufficient: the statement is
+false again, for an independent reason, on the arm that repair never touched.
+
+**`t₁` is universally quantified and appears ONLY inside the disjunct**
+`(log X)^{1/16}/2 < |t − t₁|`.  Nothing ties it to `mrtM`.  In MRT, `t₁` is *the
+minimiser* of `𝔻²(f, n^{it}; X)` over `|t| ≤ X` — that is the whole content of
+"`t` is far from the centre".  Dropped, the disjunct becomes satisfiable at will
+(pick `t₁` far from `t`), and the lemma then asserts a positive lower bound on a
+distance that can be exactly `0`.
+
+  WITNESS   f ≡ 1,  𝒥 = ∅  (so f·g_𝒥 ≡ 1),  t = 0,  X = exp(exp 1),  ε = 1/100,
+            t₁ = (log X)^{1/16}/2 + 1
+    second disjunct  (log X)^{1/16}/2 < |0 − t₁|            TRUE by construction
+    RHS  𝔻²(1, n^{i·0}; X) = Σ_p (1 − Re(1·conj 1))/p = 0
+    LHS  (1/6 − 1/(3π) − 1/100)·loglog X = 1/6 − 1/(3π) − 1/100 > 0   (π > 3)
+  ⇒ LHS > RHS.  FALSE.
+
+⭐ Note the FIRST disjunct is immune: `mrtM f X` pins the centre by construction,
+which is why `mrtA4ii_high_M_target` proves cleanly.  **The two arms were never
+equally guarded, and the missing guard is exactly the object the other arm names.**
+
+🔑 **THE REPAIR IS TO CONSTRAIN `t₁`, NOT TO WEAKEN THE CONCLUSION** —
+`mrtM f X = pretDistSq f (costwist t₁) X` (t₁ attains the infimum), which
+`exists_min_pretDistSq` already supplies.  Recorded, not silently patched:
+`MRTLemmaA4ii` is left AS TRANSCRIBED and the defect is carried beside it, so the
+statement and its refutation travel together. -/
+
+/-- **`MRTLemmaA4ii` as transcribed is refutable.**  The second disjunct does not
+constrain `t₁` to the minimiser, so it can be satisfied while the twisted distance
+is exactly `0`. -/
+theorem not_mrtLemmaA4ii : ¬ MRTLemmaA4ii := by
+  intro h
+  have he1 : (1 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hXe : Real.exp 1 ≤ Real.exp (Real.exp 1) := Real.exp_le_exp.mpr he1
+  have hXpos : (0 : ℝ) < Real.exp (Real.exp 1) := Real.exp_pos _
+  have hlogX : Real.log (Real.exp (Real.exp 1)) = Real.exp 1 := Real.log_exp _
+  have hApos : 0 < (Real.log (Real.exp (Real.exp 1))) ^ ((1 : ℝ) / 16) := by
+    rw [hlogX]; exact Real.rpow_pos_of_pos (Real.exp_pos 1) _
+  have habs : |(0 : ℝ) - ((Real.log (Real.exp (Real.exp 1))) ^ ((1 : ℝ) / 16) / 2 + 1)|
+      = (Real.log (Real.exp (Real.exp 1))) ^ ((1 : ℝ) / 16) / 2 + 1 := by
+    rw [zero_sub, abs_neg, abs_of_pos (by linarith)]
+  have key := h (fun _ => (1 : ℂ)) (fun _ => 0) (fun _ => 0) (∅ : Finset ℕ)
+      (Real.exp (Real.exp 1)) 0
+      ((Real.log (Real.exp (Real.exp 1))) ^ ((1 : ℝ) / 16) / 2 + 1) (1 / 100)
+      (fun n => by simp) hXe (by rw [abs_zero]; linarith) (by norm_num)
+      (Or.inr (by rw [habs]; linarith))
+  -- the right-hand side is an empty cancellation: every summand vanishes
+  have hrhs : pretDistSq
+      (fun n => (1 : ℂ) * gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n)
+      (costwist 0) (Real.exp (Real.exp 1)) = 0 := by
+    unfold pretDistSq
+    refine Finset.sum_eq_zero (fun p _ => ?_)
+    have hg : gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) p = 1 := by
+      unfold gJ
+      rw [if_pos (fun j hj => absurd hj (by simp))]
+    have hcw : costwist 0 p = 1 := by unfold costwist; simp
+    -- `rw` cannot see through the beta-redex `(fun n => 1 * gJ .. n) p`; `simp` beta-reduces first
+    simp [hg, hcw]
+  rw [hrhs, hlogX, Real.log_exp] at key
+  -- and the left-hand side is positive, because `π > 3`
+  have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h9 : 1 / (3 * Real.pi) < 1 / 9 := by
+    refine one_div_lt_one_div_of_lt (by norm_num) (by linarith)
+  linarith
+
 end Salt.MR

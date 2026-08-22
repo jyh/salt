@@ -8375,6 +8375,7 @@ open Salt.Tactic in
   Salt.MR.mrtA4i_loss_witness
   Salt.MR.mrtA4i_loss_pos
   Salt.MR.mrtA7_exact_at_center
+  Salt.MR.not_mrtLemmaA4ii
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
