@@ -382,6 +382,7 @@ import Salt.MR.V7Headline
 import Salt.MR.MRTProp24
 import Salt.MR.MRTQualityLam
 import Salt.MR.MRTThmA1
+import Salt.MR.MRTPropA3Bridge
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8337,3 +8338,4 @@ open Salt.Tactic in
   Salt.MR.mem_mrtShortWindow
   Salt.MR.MRTThmA1
   Salt.MR.MRTThmA1Statement
+  Salt.MR.hMsup_of_propA3_shape
