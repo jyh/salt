@@ -246,6 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15rr. 📐 **APPENDIX A's LEMMA SET READ END TO END — TWO NAMED GAPS IN MY OWN TRANSCRIPTION, AND ONE
+    OF THEM IS CHEAP. 2026-08-22 07:1x. `1503.05121v3.pdf` pp.22–25.**
+    ```
+      MRT Appendix A          my Lean state
+      Lemma A.4(i)            MRTLemmaA4i     PROVED (mrtA4i_holds)
+      Lemma A.4(ii)           MRTLemmaA4ii    REFUTED; Fixed variant + high-M arm in flight
+      Lemma A.5               ⛔ NO Prop — only mrtA5_rho_margin / mrtA5_epsilon_ceiling (CONSTANTS)
+      Lemma A.6               MRTLemmaA6      stated, unproved
+      Lemma A.7               MRTLemmaA7      stated, unproved — TRANSCRIPTION CONFIRMED vs p.24
+      Lemma A.8               ⛔ ABSENT ENTIRELY
+    ```
+    ✅ **A.7 CHECKS OUT AT THE BYTES:** MRT p.24 gives `Σ_{n≤X} g_𝒥(n)f(n)n^{−it} =
+    (X^{i(t−t₁)}/(1+i(t−t₁)))·Σ_{n≤X} g_𝒥(n)f(n)n^{−it₁} + O(X/(log X)^{1/10})` — factor and error
+    term both match what I transcribed at 00:1x. *`mrtA7_exact_at_center` was testing a correct factor.*
+    ⛔⛔ **NUMBERING HAZARD INSIDE ONE PAPER — DISPLAY (A.7) IS NOT LEMMA A.7.** Display **(A.7)** is
+    the `T₀` bound on `F` (`F(1+it) ≪ exp(−½M(f;X))/(1+|t−t₁|) + (log X)^{−1/16}`); **Lemma A.7's own
+    content is display (A.8)**. *A citation of "A.7" is ambiguous unless it says LEMMA or DISPLAY —
+    the same collision class as the two Prop 2.4s and the two `[X,2X]`s, now WITHIN a single source.*
+    ⭐ **GAP 2 IS CHEAP AND SHOULD BE TAKEN FIRST — `Lemma A.8` IS ELEMENTARY:**
+    `e^α + e^{−α} − 2cos θ ≤ exp(√(α²+θ²))` for all real `α, θ`. Class A/B, no arithmetic apparatus.
+    **And the corpus already carries cosh machinery** (`e4a_two_cosh_log`, `e4a_two_lt_two_cosh`,
+    `EvenChiCosh.lean`), plus my own `exp_add_exp_neg_eq_two_cos` (`af54accc`) is the same family.
+    ⚠️ **GAP 1 IS NOT CHEAP: A.5's Prop is unstated and its conclusion carries `G(s)`'s RECIPROCAL
+    BLOCK-DIVISOR WEIGHT** `1/(#{p ∈ [P,Q] : p ∣ n} + 1)` — expressible from the landed `blockOmega`
+    but the lemma is new, and MRT route it through **[17, Lemma 3]**, an EXTERNAL citation.
+    📌 **AND A STRUCTURAL NOTE FROM THE SOURCE, WORTH CARRYING: A.5's `ρ` IS A.4(ii)'s CONSTANT** —
+    MRT write *"we had 1/16 in place of `ρ := 1/6 − 1/(3π) − ε`"*, and their side condition
+    `ρ/3 > 1/50` is exactly this seat's landed `mrtA5_rho_margin` (`3/50 < 1/6 − 1/(3π)`).
+    *One constant serves A.4(ii) and A.5; improving it improves both.* MRT also remark this was
+    **"the only part in the proof [17, Proposition 1] that needed `f` to be real-valued."**
+
 15qq. ⭐⭐⭐ **I OPENED MRT's ACTUAL PROOF OF A.4(ii)'s FAR BRANCH, AND IT RE-PRICES THE NODE I HAVE
     HAD FLAGGED AT BUDGET ALL NIGHT. 2026-08-22 07:0x. READ FROM `1503.05121v3.pdf` p.22–23.**
     🔑🔑 ***`costwist_conj_avg` — FLAGGED AT ROW 15aa, THREE ATTEMPTS, "AT BUDGET" — IS DISPLAY (A.4)
