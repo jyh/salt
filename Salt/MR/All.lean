@@ -8404,6 +8404,8 @@ open Salt.Tactic in
   Salt.MR.integral_inv_one_add_abs_sub_sq_le_two
   Salt.MR.mrtA3_T0_integral_bound
   Salt.MR.mrtA3_T0_setIntegral_bound
+  Salt.MR.measurableSet_mrtT1
+  Salt.MR.mrtA3_split_bound
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
