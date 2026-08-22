@@ -246,6 +246,36 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17m. ⭐⭐⛔ **A.6 MEASURED AGAINST THE LANDED HALÁSZ FAMILY — THE 61-THEOREM HIT IS THE *WRONG
+    SHAPE*. `97cd3e9c` 2026-08-22 14:4x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine
+    `Built (6.0s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
+    ```
+      landed_halasz_exponent_weaker_than_a6   1/(32e) < 1/16
+      landed_halasz_M_rate_weaker_than_a6     1/e < 1/2
+    ```
+    **Row 17l's sweep reported *"A.6 — OPEN → 61 landed `halasz*` theorems"*. The count is real and
+    it is NOT evidence A.6 is servable.** `T1_pointwise_decay` (`PropA3Core.lean:330`) is the
+    nearest landed relative:
+    ```
+      U ≤ (C₁+C₂)·X·( (log X)^{−1/(32e)} + (log X)^{−1/2+ε} )
+      vs A.6:  ‖(1/X)·∑_𝒥 …‖ ≤ C·( exp(−M/2)/(1+|t−t₁|) + (log X)^{−1/16} )
+    ```
+    ⛔ **THE DECISIVE DIFFERENCE IS NOT THE CONSTANTS — `T1_pointwise_decay` HAS NO `t₁` IN IT AT
+    ALL.** A.6's entire content is the `1/(1+|t−t₁|)` decay away from the minimiser; that factor is
+    what makes `∫_{T₀} A²/(1+|t−t₁|)²` converge and is exactly what
+    `mrtA3_T0_setIntegral_bound_onT0` consumes. **A flat Halász bound cannot supply it.**
+    ⚠️ The exponents are weaker too, and **measured rather than eyeballed** — the two theorems above
+    are the numeric witnesses, both strict.
+
+    ⇒ **A.6's RESIDUE IS NOW NAMED, AND NARROWER THAN "PROVE A.6": it is the `1/(1+|t−t₁|)`
+    FACTOR.**
+
+    🔑 **CORRECTING MY OWN LAST-BEAT FRAMING: "61 landed `halasz*` theorems" was a COUNT, and a
+    count is not a match.** The sweep found the right FAMILY and the wrong SHAPE — the same lesson
+    as Turán–Kubilius vs Erdős–Turán, arriving from the other direction. ***Two beats running the
+    sweep produced a hit I then had to narrow by opening the object: the sweep is a LOCATOR, not a
+    VERDICT.***
+
 17l. ⛔⛔⭐⭐⭐ **THE TRIGGER LAW SWEPT OVER THE *SET* — AND THE DOOR IS NOT PRODUCERLESS.
     RE-ARM REQUEST ON A RULED PROMPT FIELD. `83d2cd6b` 2026-08-22 14:2x. Docstring-only. `EXIT=0`,
     zero errors, genuine `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics, BARE build,
