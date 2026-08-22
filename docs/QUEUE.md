@@ -246,6 +246,31 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15p. 📐 **A3-4 IS PRICED — LEMMAS A.5 / A.6 / A.7 READ FROM THE PDF, 2026-08-22 00:1x.** The item I
+    flagged UNPRICED three times is discharged.
+    ⛔ **A.5 — the `t ∈ T₁` bound.** `X ≥ Q ≥ P ≥ 2`, `𝒥 ⊂ {1,…,J}`, and
+    `G(s) = Σ_{X≤n≤2X} (g_𝒥(n)f(n)/nˢ)·1/(#{p ∈ [P,Q] : p ∣ n} + 1)`. **Note the RECIPROCAL
+    BLOCK-DIVISOR WEIGHT** — expressible from the landed `blockOmega` as `1/(blockOmega P Q n + 1)`, but
+    the LEMMA is new. MRT: *"proceeding in exactly the same way as in [17, Lemma 3]"*. **CLASS C,
+    genuinely open.**
+    ⭐⭐ **A.6 — the `t ∈ T₀` bound, AND ITS COMBINATORIAL HALF IS ALREADY LANDED.** MRT reach it *"by
+    inclusion-exclusion and partial summation"*, over `Σ_{𝒥⊆{1,…,J}} (−1)^{#𝒥} Σ_{n≤X} g_𝒥(n)f(n)/n^{it}`.
+    ***`Salt.MR.lemma5` (`Sec9Glue.lean:275`) IS that inclusion–exclusion:***
+    ```
+      ∑ n ∈ N.filter (MemS Pseq Qseq J), a n
+        = ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset, (-1)^𝒥.card * ∑ n ∈ N, gJ 𝒥 Pseq Qseq n * a n
+    ```
+    labelled in the file *"S9-1 — Lemma 5 (MR p. 15), the critical stone"*, resting on
+    `prod_one_sub_gJ`. **ELEVENTH object already there.** ⇒ **only A.6's ESTIMATE is open; its
+    combinatorics is not.**
+    ⛔ **A.7 — the RENORMALIZATION**, shifting the twist from `t` to `t₁`:
+    `Σ_{n≤X} g_𝒥(n)f(n)n^{−it} = (X^{i(t−t₁)}/…)·Σ g_𝒥(n)f(n)n^{−it₁} + O(…)`.
+    ⭐ ***THIS IS WHERE A3-2's `T₀` EARNS ITS RADIUS*** — the whole point of `|t − t₁| ≤ (log X)^{1/16}`
+    is that the shift costs little. **CLASS C, genuinely open.**
+    🔑 **⇒ A.3's TRUE REMAINING WORK, AFTER ELEVEN RECOVERIES: THREE CLASS-C ANALYTIC LEMMAS —
+    A.4 (Granville–Soundararajan), A.5 (the `T₁` bound), A.7 (the renormalization) — PLUS A.6's ESTIMATE.
+    Every combinatorial and transport ingredient they consume is landed.**
+
 15o. ⭐⭐ **A3-1's INGREDIENTS ARE ALL LANDED TOO — MEASURED 2026-08-22 00:0x, NOTHING WRITTEN.** I was
     about to write the `dpolyA ↔ dpoly` transport (σ=1 to σ=0, at reflected frequency). **The corpus has
     it, and calls it "THE WORKHORSE BRIDGE":**
