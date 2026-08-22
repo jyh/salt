@@ -267,10 +267,23 @@ RESURRECTS THEM:**
     ⭐ **Membership is the landed `MemS`** — MRT's *"at least one prime factor in each `[Pⱼ,Qⱼ]`, `j ≤ J`"*
     is `∀ j ∈ Icc 1 J, 1 ≤ blockOmega (Pseq j) (Qseq j) n`, verbatim. **Third source confirmation today
     of an object this corpus already held under MR's vocabulary.**
-    ⚠️ **OWED, NAMED IN TWO DOCSTRINGS: NON-VACUITY.** Lean's Bochner integral is `0` on a non-integrable
-    integrand ⇒ both `MRTThmA1` and `MRTPropA3` must have their integrands' integrability discharged by
-    whoever PROVES them. *Cheap on the A.3 side (`dpolyA` continuous ⇒ already derived in the bridge);
-    NOT yet done on the A.1 side, whose integrand is a STEP function in `x`, not a continuous one.*
+    ✅✅ **NON-VACUITY: PAID ON BOTH SIDES — A.1's discharged `fc9aab5c` 2026-08-21 20:0x.**
+    `measurable_mrtShortMean` · `norm_mrtShortMean_le` · `intervalIntegrable_mrtThmA1_integrand`, all
+    registered, all `[3 axioms]`, zero warnings. **Lean's Bochner integral is `0` on a non-integrable
+    integrand ⇒ before this, `MRTThmA1` was a bound purchasable with `0 ≤ RHS`. It is not now.**
+    ⭐ **THE TWO SIDES NEEDED DIFFERENT ROUTES, AND NOTHING ABOUT THEIR PROXIMITY IN THE SOURCE PREDICTS
+    IT.** A.3's integrand is **continuous** (`dpolyA`) ⇒ the bridge derives it. **A.1's is a STEP
+    FUNCTION in `x`** — `Icc ⌈x⌉₊ ⌊x+h⌋₊` jumps as `x` crosses an integer ⇒ measurable-plus-bounded,
+    with measurability factoring through the **discrete space `ℕ × ℕ`**.
+    ⛔ **AND THE REGISTRY LAW GAINED ITS REAL FORM HERE, LARGER THAN THE AFTERNOON'S:** registering names
+    when a MODULE is rooted **does not cover declarations ADDED LATER to an already-rooted module.**
+    ***The law must fire on "I added a DECLARATION", not "I added a MODULE"*** — a module is rooted
+    once, declarations are added forever, so there is no event to hook. It fired tonight in a file
+    rooted correctly two hours earlier: green build, `EXIT=0`, zero warnings, **ZERO audit lines**.
+    ⛔ **INSTRUMENT: `Continuous.pow 2` AND `Measurable.pow 2` ARE THE SAME SEVEN CHARACTERS AND
+    DIFFERENT FUNCTIONS** — the first takes a numeral exponent, the second is the POINTWISE power of TWO
+    FUNCTIONS (correct name `Measurable.pow_const`). *I imported the idiom from my own file, written two
+    hours earlier, where it was correct — the provenance that feels safest.*
 
 15c. ✅✅✅ **THE JOIN IS PROVED IN LEAN — `3ec62940` 2026-08-21 19:2x.** `Salt/MR/MRTPropA3Bridge.lean`
     (104 ln), rooted with its name registered in the same edit; `EXIT=0`, `✔ Built (3.8s)`, zero
