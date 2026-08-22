@@ -10,6 +10,11 @@ Matomäki–Radziwiłł–Tao, arXiv:1503.05121 ("An averaged form of Chowla's
 conjecture"). The OPEN object is Tao's (4.1) (§4, p. 26): the sup-INSIDE-the-
 integral variant, "not currently covered by the existing literature".
 
+⚠️ **The version anchors here are arXiv's.** The Forum of Mathematics Pi PUBLISHED
+numbering is UNVERIFIED — the Cambridge full text was not reachable and no arXiv
+version carries a journal/DOI marker — so a reader arriving by the JOURNAL rather
+than by arXiv may mis-map these section and page references.
+
 This module lands two pieces of the MRT-DOOR-R0 freeze
 (`docs/exploration/s3-a3-design.md`):
 
@@ -38,7 +43,7 @@ noncomputable def windowExpSum (H n : ℕ) (α : ℝ) : ℂ :=
   ∑ i : Fin H, (liouvilleWindow H n i : ℂ) *
     Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (α : ℂ) * (((i : ℕ) : ℂ) + 1))
 
-/-- **The MRT uniformity door** (Tao 1509.05422v2, Prop 2.4, p. 12).
+/-- **The MRT uniformity door** (Tao arXiv:1509.05422v2, Prop 2.4, p. 12).
 
 THE `∀ α` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao 1509.05422
 (4.1), which is OPEN — moving this quantifier silently downgrades a theorem-door
@@ -92,7 +97,7 @@ theorem contradiction_of_mrtDoor (R : ChowlaRegime) {δ c₀ ε K : ℝ} {H : �
     le_trans hlower (le_trans hsum (le_of_eq hconst))
   linarith [h1, hcard, hsmall]
 
-/-- **The weakened MRT uniformity door** (Tao 1509.05422v2, Prop 2.4, p. 12; the
+/-- **The weakened MRT uniformity door** (Tao arXiv:1509.05422v2, Prop 2.4, p. 12; the
 Tao-faithful Ξ_H-restricted surface).
 
 THE `∀ ξ ∈ Ξ_H` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao
@@ -168,7 +173,7 @@ below reads it exactly once.
 Additive: `MRTUniformityXi` and `contradiction_of_mrtDoorXi` are untouched, and
 `mrtUniformityXiL2_of_xi` is the one-way bridge from the landed `L¹` door. -/
 
-/-- **The Ξ-summed `L²` MRT uniformity door** (Tao 1509.05422v2, Prop 2.4, p. 12;
+/-- **The Ξ-summed `L²` MRT uniformity door** (Tao arXiv:1509.05422v2, Prop 2.4, p. 12;
 the `L²` surface of the Ξ_H-restricted door).
 
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL — the same seam warning as
