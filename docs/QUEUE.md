@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17b. ⭐⭐ **THE CONNECTOR TO `MRTPropA3Bridge` — TWO GREEN PIECES THAT HAD NO STATED INTERFACE,
+    AND THIS TIME THE INTERFACE HOLDS. `c0147109` 2026-08-22 12:5x. `[3 axioms]`, `EXIT=0`, zero
+    errors, genuine `Built (6.1s)`, zero `MRTPropA3.lean` diagnostics, BARE builds,
+    Attempts: 1 (cap 3, declared before starting).**
+    ```
+      mrtPropA3_in_bridge_shape   MRTPropA3 C, restated in exactly the bridge's hA3 form
+    ```
+    **`Salt/MR/MRTPropA3Bridge.lean` consumes A.3 as a HAND-WRITTEN hypothesis** —
+    `hA3 : ∀ T, 1 ≤ T → ∫_{−T}^{T}‖dpolyA a s₀ t‖² ≤ (T/(X/h₁) + 1)·B` — **and it does NOT import
+    `MRTPropA3`.** Nothing in Lean connected the two, so the bridge's notion of *"A.3's shape"* was
+    free to drift from the actual definition with nothing to notice.
+
+    ✅ **IT HAS NOT DRIFTED.** The forms agree at `h₁ := Qseq 1` and `B := C·bracket`, differing only
+    by the association `C * (…) * bracket = (…) * (C * bracket)`. **This theorem is the object that
+    says so.** *That is the defect class this file has been finding all day — two green pieces with
+    no stated interface, invisible to any build — and this is the case where it HOLDS. Stating it
+    turns a belief into a theorem, and gives a future edit to either side something to break.*
+
+    🔧 No new import needed: the connector's statement mentions no bridge symbol, only A.3's own
+    vocabulary. The placement guard ran again and measured correctly —
+    `local=[MRTPropA3, MRTBands, MRTBandCount]` checked, `imported=[mrtM, MemS, dpolyA]`
+    order-irrelevant.
+
 17a. ⭐⭐ **THE TWO INTEGRABILITY SIDE CONDITIONS DISCHARGED — FOUND BY AUDITING MY OWN
     CAPSTONE'S BINDERS. `362112ea` 2026-08-22 12:4x. All four `[3 axioms]`, `EXIT=0`, zero errors,
     genuine `Built (6.2s)`, zero `MRTPropA3.lean` diagnostics, BARE builds,
