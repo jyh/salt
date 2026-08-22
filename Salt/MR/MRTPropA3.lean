@@ -2015,6 +2015,55 @@ theorem mrtPropA3_in_bridge_shape {C : ℝ} (hA3 : MRTPropA3 C)
     (le_of_eq ?_)
   ring
 
+/-! ### The bridge's binders as a SET — and the residue is largeness
+
+Rows 17a/17c closed two of `MRTPropA3Bridge`'s hypotheses one at a time.  Doing what the
+standing law actually asks — audit the SET, not each claim as it appears — over **all five**
+of the bridge's theorems gives a sharper answer.  Its hypotheses fall into exactly two
+groups:
+
+**PRODUCIBLE from A.3's own hypotheses** (this section proves them):
+`hpos : ∀ m ∈ s₀, 0 < m` · `ha : ∀ m ∈ s₀, ‖a m‖ ≤ 1` ·
+`hrange : ∀ m ∈ s₀, X ≤ m ≤ 4X` · `hXh : 0 < X/h₁`
+— plus `hB` (row 17c) and `hA3` itself (row 17b).
+
+⛔ **NOT PRODUCIBLE — FOUR SIZE HYPOTHESES A.3 DOES NOT CARRY:**
+```
+  hXe  : exp 1 ≤ X                          the bridge needs X ≥ e
+  hh4  : 4 ≤ h                              and h ≥ 4
+  hhX  : h ≤ X·(log X)^{−1/5}               and h not too large against X
+  hR1  : 1 ≤ X/h                            hence h ≤ X
+```
+**This is the same finding as the `X = 1` degeneracy, arriving from the other side.**
+`MRTPropA3` carries no largeness on `X` at all — that is exactly why it goes vacuous at
+`X = 1` — while its consumer needs `X ≥ e` and a two-sided constraint on `h`.  Those must
+come from Theorem A.2's context, which does say *"for all `X > X(η)` large enough"*.
+
+⇒ **The A.3 → bridge chain runs only in the regime where those four hold, and they are
+inputs to that regime rather than consequences of A.3.**  Named here so no future assembly
+mistakes them for something A.3 supplies. -/
+
+/-- **THE PRODUCIBLE HALF OF THE BRIDGE'S BINDERS**, derived from A.3's own hypotheses.
+What remains after this is exactly the four size conditions listed above. -/
+theorem bridge_side_conditions_of_mrtA3_hyps
+    {X : ℝ} (hX1 : 1 ≤ X) {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
+    {Pseq Qseq : ℕ → ℕ} {J : ℕ} {S : Finset ℕ}
+    (hS : ∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * X ∧ MemS Pseq Qseq J n))
+    (hQ1 : 0 < (Qseq 1 : ℝ)) :
+    (∀ m ∈ S, 0 < m) ∧ (∀ m ∈ S, ‖f m‖ ≤ 1)
+      ∧ (∀ m ∈ S, X ≤ (m : ℝ) ∧ (m : ℝ) ≤ 4 * X)
+      ∧ 0 < X / (Qseq 1 : ℝ) := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le zero_lt_one hX1
+  refine ⟨?_, fun m _ => hf m, ?_, div_pos hXpos hQ1⟩
+  · intro m hm
+    have h := ((hS m).mp hm).1
+    have : (1 : ℝ) ≤ (m : ℝ) := le_trans hX1 h
+    have hm1 : 1 ≤ m := by exact_mod_cast this
+    omega
+  · intro m hm
+    obtain ⟨hlo, hhi, _⟩ := (hS m).mp hm
+    exact ⟨hlo, by linarith⟩
+
 /-! ### Discharging the integrability side conditions
 
 `mrtA3_band_bound_of_A6` carries two `IntegrableOn` hypotheses.  Running the standing
