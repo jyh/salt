@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16y. ⭐⭐ **A.3's `T₁` SIDE — THE FIRST OF ITS TWO GAPS IS CLOSED. `2d9c6f01` 2026-08-22 12:2x.
+    Both `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built`, zero `MRTPropA3.lean`
+    diagnostics, Attempts: 2 (cap 3, declared before starting).**
+    ```
+      mrtT1_subset_Icc                      T₁ ⊆ [−T,T] on either branch
+      integral_sq_le_of_pointwise_on_mrtT1  |F| ≤ B on T₁  ⟹  ∫_{T₁}F² ≤ 2T·B²
+    ```
+    **The enlargement is on the CONSTANT MAJORANT, not on `F`** — same shape as
+    `mrtA3_T0_setIntegral_bound_onT0` and for the same reason: `F`'s bound is known only on `T₁`,
+    so enlarging `F`'s domain first would demand a hypothesis nothing supplies.
+
+    ⛔ **ONLY THE FIRST OF TWO GAPS, AND THE DOCSTRING SAYS SO.** `MRTLemmaA5` bounds `‖mrtG‖` —
+    MRT's Ramaré-weighted `G` — pointwise on `T₁`, while the split consumes `∫_{T₁}‖F‖²` for
+    `F = dpolyA`. This lemma does the pointwise→integral half for whatever function is supplied;
+    **the `G → F` half is `[17, Proposition 1]` and is EXTERNAL.**
+
+    ⚠️ **VERIFICATION TOOK 32 MINUTES FOR REASONS THAT WERE NOT MINE: the audit genuinely rebuilt
+    161 MODULES.** The heavy one was `Salt/MR/RegisterRepair.lean`, **a file I never touched** ⇒ the
+    width came from a SHARED-TREE UPSTREAM CHANGE, attributed by NAME rather than by plausibility
+    (my earlier guess). ⭐ **While progress sat still I measured the lean worker's CPU time
+    advancing `3:37.37 → 3:57.42` across 20 wall-seconds at ~100%** — which discriminates a SLOW
+    module from a HUNG one. *A stalled progress counter and a stalled process are identical in the
+    log and opposite in `ps`.*
+
+    🔬 Attempt 1 failed on a FORM, not a fact: this mathlib's `setIntegral_const` yields
+    `volume.real (Icc …)` — a `Measure.real` wrapper — so `Real.volume_Icc` never matched.
+    `Real.volume_real_Icc_of_le` is the form.
+
 16x. ⭐⭐⛔ **THE PULL-SIDE INSTRUMENT IS BUILT AND ARMED — AND ITS OWN DEFECTIVE DRAFT REACHED
     THE RECORD BY A NO-PATH SWEEP. seat `c7dc7abd` 2026-08-22 11:4x, five controls green.**
 
