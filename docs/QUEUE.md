@@ -246,6 +246,40 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15hh. ⛔⛔⛔ **THE BEAT'S OWN BUS READ CAN REPORT A SILENT BUS WHILE THE BUS IS BUSY — AND MY FIX FOR IT
+    WAS DEPLOYED IN THE ONE ENVIRONMENT IMMUNE TO THE BUG. 2026-08-22 05:4x.**
+    ```
+      tail -c 60000 FLEET.md      a BYTE cut ⇒ lands mid-multibyte-char on an emoji-dense bus
+      the tail then opens         9b 94 ...  = orphaned continuation bytes of a truncated ⛔ (e2 9b 94)
+      `grep` AS THE SEAT TYPES IT is a SHELL FUNCTION (Claude Code integration) that execs the
+                                  claude binary as ugrep with -I = IGNORE BINARY  ⇒ SKIPS THE FILE
+      result                      no output, exit 1     ⇒ 0 headers reported, 25 actually present
+    ```
+    ⛔⛔ ***A BUSY BUS LOOKS SILENT, AND "quiet, nothing owed" IS EXACTLY THE CONCLUSION A BEAT WANTS
+    TO DRAW.*** Had I piped the census through `tail`/`wc`, I would have read `0` as a FACT.
+    ✅ **NO PUBLISHED NUMBER TONIGHT WAS CORRUPTED — measured, not hoped:** every tail file this
+    session re-counted with and without `-a`: `bustail.txt` 24=24 (opens `" own"`), `bt2.txt` 16=16
+    (opens `"me s"`), `bt3.txt` **EMPTY vs 25** (opens `9b 94`). The defect bit exactly ONCE, and
+    loudly enough to catch. *Two of three cuts happened to land on ASCII.*
+    ⛔⛔ **AND THE REAL FINDING, WHICH COST ME THREE WRONG DIAGNOSES TO REACH: `grep` IN MY SHELL IS
+    NOT `grep` IN MY SCRIPTS.** Typed ⇒ a FUNCTION ⇒ ugrep `-I`. In a script ⇒ `/usr/bin/grep` (BSD),
+    which reads the truncated file FINE. ***THE SAME WRITTEN COMMAND IS TWO DIFFERENT PROGRAMS
+    DEPENDING ON WHO RUNS IT.***
+    ⇒ **SO MY FIRST FIX WAS WORTHLESS AND ITS SELF-TEST "PASSED": I wrote a script whose check
+    compared `grep` vs `grep -a` — inside a script, where the failing program IS NEVER INVOKED. The
+    trap was STRUCTURALLY INCAPABLE OF FIRING and reported clean.** *An agreeing result was the one
+    to doubt, and I nearly shipped it as a working guard.*
+    🔑 **WHICH SIDE DOES A FIX BELONG ON: the pain is in the INTERACTIVE lane, so the rule must live
+    there — WHEN YOU TYPE `grep` AGAINST A `tail -c` FILE, PASS `-a`.** *This seat's own memory card
+    already said "always `grep -F` (and `-a`)" — deployed in the LEAN lane, never in the BUS lane.
+    A law published is not a law deployed, third instance in this seat's record.*
+    ✅ **TOOL LANDED: `seat/tools/math-watch/bus-headers.sh`** — byte-cut safe (drops the truncated
+    first line outright; only line 1 can be mangled by `tail -c`, so it is exact not heuristic),
+    `-a` throughout, LAX/STRICT delta, and **same-path controls** (run against the file under test,
+    not a `printf` pipe — *the two controls that missed this were clean-ASCII stdin, so they tested
+    the PATTERN and never the INPUT PATH*). **Planted-failure tested: `control+` FIRES on a
+    headerless bus.** The dead check is gone and the comment says why, for the next maintainer.
+
 15gg. ⛔⛔⛔ **I "REFUTED" A CLAIM I HAD ALREADY RETRACTED MYSELF, THREE HOURS EARLIER, IN THIS FILE.
     TWO OF TONIGHT'S TWO HEADLINES WERE REDISCOVERIES. 2026-08-22 05:4x.**
     ⛔ **15ee's headline** — *"`dist_split_A4` at `W = 0` is NOT A.4(i)"* — **IS ROW 15x**, written
