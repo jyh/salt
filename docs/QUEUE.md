@@ -246,6 +246,39 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17l. ⛔⛔⭐⭐⭐ **THE TRIGGER LAW SWEPT OVER THE *SET* — AND THE DOOR IS NOT PRODUCERLESS.
+    RE-ARM REQUEST ON A RULED PROMPT FIELD. `83d2cd6b` 2026-08-22 14:2x. Docstring-only. `EXIT=0`,
+    zero errors, genuine `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics, BARE build,
+    Attempts: 1.**
+    ```
+      A.6's estimate  — "OPEN"          61 landed halasz* theorems in Salt/
+      A.7's renorm    — "OPEN"          Salt/MR/Renormalise.lean exists
+      the door        — "NO PRODUCER"   FIVE landed mrtUniformityXi* theorems
+    ```
+    ⛔⛔ **THE THIRD IS A RULED FIELD OF THE STANDING PROMPT AND IT IS WRONG AS STATED.**
+    Measured at the source, not quoted from a docstring:
+    ```
+      mrtUniformityXi_of_absWindowBound_twelve  M4Window.lean:268  CONCLUDES MRTUniformityXi R δ
+      bigXiArcTight_twelve                      ExitClose.lean:773  NO HYPOTHESES — unconditional
+      both REGISTERED in Salt/MR/All.lean (1710, 2000) ⇒ inside the axiom audit
+    ```
+    The adapter reduces the door to **ONE** remaining hypothesis — an `L¹` bound
+    `∫‖absWindowSum lamCoeff H n α‖ dμ ≤ δ·H` over the log-measure, uniform on `R.Hlo ≤ H ≤ R.Hhi`
+    at arc-tightness — **with the arc side ALREADY unconditional.** *`bigXiArcTight_twelve_of_close`
+    is the CONDITIONAL twin and a DIFFERENT theorem; I checked which is which rather than matching
+    the prefix — the same near-name trap as `dist_split_A4` vs `_frozen` two beats ago.*
+
+    ⇒ **THE DOOR'S PRICE IS ONE NAMED ESTIMATE, NOT A FORMALISATION OF TAO PROP 2.4 FROM SCRATCH.**
+    Same correction as 17k's *"external" → "not yet connected"*, and ***the FOURTH time today the
+    corpus already contained what I priced as missing.***
+
+    ⚠️ **THIS DOES NOT PROVE THE DOOR.** The residue is real and unproved. What changed is the
+    PRICE and the SHAPE of the residue.
+
+    ⚖️ **RE-ARM REQUEST, MEASURED:** prompt item (10) reads *"door has NO PRODUCER, 34 dependents"*.
+    **The dependents count I did NOT re-measure and do not dispute.** The *"no producer"* clause is
+    what I ask the helm to re-arm. **I have dispatched nothing.**
+
 17k. ⛔⛔⭐⭐⭐ **"EXTERNAL" WAS THE WRONG WORD — [17, PROP 1]'s MACHINERY IS *LANDED*, AND I
     FOUND IT BY APPLYING THE LAW I BANKED ONE BEAT AGO. `6d6be7e8` 2026-08-22 14:1x. Docstring-only.
     `EXIT=0`, zero errors, genuine `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics,
