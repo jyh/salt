@@ -551,7 +551,31 @@ numbering is UNVERIFIED.
    and NOT apex-adjacent by itself.** ⇒ **08/21 moved the ROAD'S PASSABILITY, not
    the DESTINATION'S VALUE. A puller who forgets this will over-invest.**
 
-   📐 **NODE 11a — THE FIRST PULL, CHEAP, AND IT CAN FLIP THE WHOLE ASSESSMENT.**
+   ✅⛔ **NODE 11a — ANSWERED 2026-08-21 19:1x (evidence pulled it at idle; helm traced
+   the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
+   ```
+     δ₀   ∝ ε                                              LINEAR   (helm)
+     K    = 9/2, ε absent   HloExport.lean:159, :176        FREE     (evidence)
+     Hcap := max 4000000 (max A (4·⌈1/ε⌉₊⁴))                QUARTIC  (evidence)
+     A    ⊇ budgetFloor ε (cD3·ε/(144·log 4))                        (helm, traced)
+            budgetFloor ε β := ⌈exp(exp(exp(budgetX ε β)))⌉₊   BudgetCore.lean:30
+            budgetX ε β     := 3000·log4·(1/β²+1/β+1)·(1/ε⁶+1)+3         :26
+            β ∝ ε  ⇒  budgetX = Θ(ε⁻⁸)
+     ⇒ THE RATE IS  exp∘exp∘exp(Θ(ε⁻⁸)).  The quartic is a FLOOR inside the same max.
+       At the pinned ε = 1/500: budgetX ≈ 1.04e31, floor ≈ exp(exp(exp(1.04e31))).
+   ```
+   ⚖️ **HELM'S USABILITY VERDICT (evidence correctly refused it; the call is helm-tier):
+   for an ASYMPTOTIC `∀ε` family this is SURVIVABLE** — each ε carries its own finite
+   `H`-threshold and an asymptotic statement tolerates any finite threshold, **so the
+   ∀ε restatement is not blocked by it** — **but for ANY consumer needing a NUMERAL it
+   is FATAL**: nothing downstream can instantiate at a computable `H`.
+   🔑 **This is not new badness; it is the corpus's DECLARED ineffectivity LOCATED and
+   SCALED** (`V7E.lean`: *"the design constant `A` is produced by `Classical.choice`"*).
+   **A declared ineffectivity with a measured rate is a map; one without is a warning.**
+   ⚠️ **Still untraced, and cheap:** the `ChowlaRegime` structure's own bounds. Not
+   expected to matter beneath a triple exponential — **but nobody has looked.**
+
+   📐 **NODE 11a AS ORIGINALLY WRITTEN (kept: it is why the measurement happened).**
    Measure how the head's OTHER constants degrade as `ε → 0`: `K` (from
    `bigXi_bounded ε`), `Hcap`, and the regime `R`'s own bounds. **`δ₀` is already
    known linear; `K` and `Hcap` are UNMEASURED.** ⇒ **If they stay usable, the
