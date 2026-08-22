@@ -94,9 +94,20 @@ The point of stating this: it is the first object in the file whose proof forces
 seams to hold *simultaneously*, under the divisor sum.  Each seam alone type-checks in
 isolation; a mismatch in `q`, `L` or the base would surface only here. -/
 
-/-- **THE CHAIN** — at a tight major arc, the door's sieved window sum is bounded, squared,
-by the weighted dyadic stratum budgets: `absWindowSum → subWindowSup → strata → doorChiSup →
-dyadic`, in one statement the kernel checks end to end. -/
+/-- **THE CHAIN, FOR ITS FIRST FIVE NODES** — at a tight major arc, the door's sieved window
+sum is bounded, squared, by the weighted dyadic stratum budgets:
+`absWindowSum → subWindowSup → strata → doorChiSup → dyadic`, in one statement.
+
+⛔ **THIS IS NOT THE WHOLE ROAD, AND AN EARLIER DRAFT OF THIS DOCSTRING SAID IT WAS.**  The
+statement terminates at `dyadicStratumBudget`.  The road's last two nodes —
+`M4ChiDyadicRowMeanSq` (the capstone) and `DoorRowCarried` — appear **nowhere in this file**,
+and the seams `dyadic → capstone → DoorRowCarried` remain joined by prose only.
+
+**Measured: 5 of 7 nodes; 4 of 6 seams composed; 2 seams remain.**  The overstatement was
+caught by a peer reading the banner while the body of the same report listed the remaining
+seams correctly — *the headline is the part that travels*.  See the "five links deep" section
+of `MRTPropA3.lean`: **"the road is complete" is the same mistake as "the road is broken",
+wearing the other sign**, and it must not be claimed before the last link is in the kernel. -/
 theorem door_absWindowSum_sq_le_dyadic {M n H : ℕ} {B₅ α : ℝ}
     (hM : 1 ≤ M) (hH : 0 < H)
     (hW : arcDen B₅ H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
