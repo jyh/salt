@@ -1764,6 +1764,45 @@ theorem mrtA3_mvt_branch (f : ℕ → ℂ) (S : Finset ℕ) {X T : ℝ} (hX : 1 
     nlinarith [Real.pi_pos]
   linarith [h1, hstep1, hstep2]
 
+/-! ## A transcription gap in `MRTBands`, and why it is load-bearing
+
+MRT set up A.3's bands as *"Consider a sequence of **increasing** intervals `[Pⱼ, Qⱼ]`,
+`j ≥ 1`, such that …"* (p. 21), and only then list the three bullets — `Q₁ ≤ exp(√log X₀)`,
+(A.1), (A.2).  **`MRTBands` transcribes the three bullets and drops the word "increasing":
+it does not carry `Pⱼ ≤ Qⱼ`.**
+
+⚠️ **THAT OMISSION IS NOT NEUTRAL FOR THE LARGE-`T` BRANCH.**  A.3's right-hand side
+carries the factor `(log Q₁)^{1/3}/P₁^{1/6−η}`, and MRT's reduction *"the mean value
+theorem gives `O(T/X + 1)`, so we can assume `T ≤ X/2`"* needs that bracket to be bounded
+below once `T > X/2` — the MVT delivers `≍ T/X` and the target is `≍ (T·Q₁/X)·bracket`, so
+the branch closes exactly when `Q₁·bracket ≫ 1`.  With `P₁ ≤ Q₁` that holds
+(`Q₁·(log Q₁)^{1/3}/P₁^{1/6−η} ≥ P₁^{5/6+η}(log Q₁)^{1/3}`).  **With `P₁` free to exceed
+`Q₁` it fails: `P₁ → ∞` at fixed `Q₁ = 2` drives the bracket to `0`.**
+
+🔑 **The statement is NOT thereby false — the same accidental guard rescues it a third
+time.**  If `Qⱼ < Pⱼ` the block is empty, so `blockOmega = 0`, so `MemS` fails and `S = ∅`
+and both sides are `0`.  *That is now the third distinct degeneracy (`X = 1`, `Qseq 1 ≤ 1`,
+`Qseq 1 < Pseq 1`) which `MRTPropA3` survives by emptying `S` rather than by carrying a
+hypothesis.*  Recorded, not repaired: adding `Pⱼ ≤ Qⱼ` to `MRTBands` is a statement change
+and belongs to a design session, not to this seat. -/
+
+/-- A block whose top is below its bottom contains no primes. -/
+theorem blockOmega_eq_zero_of_lt {P Q n : ℕ} (h : Q < P) : blockOmega P Q n = 0 := by
+  unfold blockOmega BlockPrimeDivs
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro p _
+  omega
+
+/-- **THE THIRD DEGENERACY.**  If the first band is inverted (`Qseq 1 < Pseq 1`) then no
+`n` can meet `MemS`, so A.3's sifted set is empty and the proposition holds vacuously —
+exactly as it does at `X = 1`. -/
+theorem memS_false_of_band_inverted {Pseq Qseq : ℕ → ℕ} {J n : ℕ}
+    (hJ : 1 ≤ J) (h : Qseq 1 < Pseq 1) : ¬ MemS Pseq Qseq J n := by
+  intro hm
+  have h1 := hm 1 (Finset.mem_Icc.mpr ⟨le_refl 1, hJ⟩)
+  rw [blockOmega_eq_zero_of_lt h] at h1
+  omega
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
