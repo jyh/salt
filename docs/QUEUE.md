@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17e. ⭐⭐⭐ **WHAT THE BINDER AUDIT CANNOT SEE — A JUNK VALUE IN A.3's OWN RIGHT-HAND SIDE.
+    `ab45d3a7` 2026-08-22 13:1x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.3s)`,
+    zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
+    ```
+      mrtA3_leading_factor_of_Qseq1_zero   T/(X/Q₁) + 1 = 1  when Q₁ = 0
+      memS_false_of_Qseq1_zero             and the same configuration empties S
+    ```
+    **Rows 17a/17c/17d all came from auditing HYPOTHESES, and three beats running confirmed that
+    instrument works — which is exactly the condition the standing law says to DISTRUST.** So this
+    beat asked the adversarial question instead: ***which class can a binder audit not see?***
+    Answer: a degeneracy that is not a hypothesis at all, but a **JUNK VALUE** Lean assigns inside
+    a definition. Binders are visible; junk values are not.
+
+    ⛔ **IT FOUND ONE, IN A.3's OWN RHS.** `MRTBands` bounds `Q₁` only from ABOVE, so **`Q₁ = 0` is
+    admissible**. Then `X/0 = 0` and `T/0 = 0`, so the leading factor `T/(X/Q₁) + 1` **collapses
+    from something large to exactly `1`** — the bound gets STRICTLY HARDER, in the direction that
+    would make the proposition FALSE.
+
+    ✅ **AND THE SAME GUARD SAVES IT, FOR THE FOURTH TIME** — `[P₁, 0]` holds no prime, so `S = ∅`.
+    **`memS_false_of_Qseq1_zero` is a TWO-LINE COROLLARY of the general prime-free-band lemma from
+    row 16v**, not a new case. *Which is itself the finding: evidence that the generalisation was
+    cut at the right level rather than at the level of the three examples that prompted it.*
+    ***A generalisation that later absorbs a case you did not have in mind is the only real test
+    one gets.***
+
+    📌 *A NEGATIVE RESULT, REPORTED AS LOUDLY AS A POSITIVE ONE: the class my audit is blind to
+    does contain a real instance here, and the instance is already covered.*
+
 17d. ⭐⭐⭐ **THE BRIDGE'S BINDERS AS A *SET* — AND THE RESIDUE IS LARGENESS, WHICH A.3 DOES NOT
     CARRY. `77dcee2b` 2026-08-22 13:0x. `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.2s)`,
     zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
