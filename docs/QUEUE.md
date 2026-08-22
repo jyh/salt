@@ -246,6 +246,45 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15u. ⭐⭐⭐ **TWELFTH — A.4(i)'s AND A.7's ALGEBRAIC CORES ARE LANDED, AND THERE IS A 346-LINE
+    `PropA3Core.lean`. 2026-08-22 02:0x. Found by an ORPHAN AUDIT, not by looking for them.**
+    ```
+      dist_split_A4      DistSplit.lean:174
+        (½)·Lf − W ≤ pretDistSq gJ (costwist t) x     given Lf ≤ 𝔻²(f,·) and 𝔻²(f,gJ) ≤ W
+        ⇒ A.4(i)'s SHAPE, in a MORE GENERAL form carrying an explicit LOSS term W
+      dist_recenter_sq   DistSplit.lean:140
+        (√L − √S)² ≤ pretDistSq f (costwist t) x      ⇒ A.7's RECENTERING algebra
+      dist_split_fgJ     DistSplit.lean:201           the f·g_𝒥 instance
+      PropA3Core.lean    346 lines, "the numeral layer on top of the abstract 𝔻-split algebra"
+    ```
+    ⚠️⚠️ **WHAT I COULD NOT SETTLE, AND WILL NOT GUESS: WHOSE `A.3` / `A.4` THESE ARE.**
+    `PropA3Core`'s frozen numerals are **`(1/16)·loglog X` threshold and `(1/32)` conclusion, cited to
+    `s8-freeze.md:33`** — ***NOT MRT Appendix A's `(1/8)·loglog X` and `1/6 − 1/(3π)`.*** `DistSplit.lean`
+    cites **no paper at all** (`1501.04585` 0 hits, `1503.05121` 0 hits, `[17]` 0 hits). ⇒ **This is
+    either MR's own A.3/A.4 or MRT's, and the numerals point AWAY from MRT.** *This seat has already
+    been burned once by TWO DIFFERENT "Prop 2.4" (the 08:5x match report); I am not going to declare
+    these the same lemma on a name match.*
+    ⇒ **The engines are unmistakably the right ALGEBRA — `dist_split_A4` at `W = 0` is A.4(i) exactly —
+    but whether `PropA3Core` targets MRT's Appendix A is UNRESOLVED and is the first thing to check.**
+    🔬 **AND THE INSTRUMENT THAT FOUND IT: AN ORPHAN AUDIT.** Tokenised the whole tree once and kept
+    declarations whose name occurs **exactly once**: ⇒ ***nothing anywhere refers to them, AND they
+    cannot be in an audit list either (that would be a second occurrence).***
+    ```
+      theorem/lemma declarations       17,344
+      ORPHANS (provably unaudited AND provably uncovered transitively)    487
+        of which in Salt/MR/                                             247
+      controls: lemma5 13 · card_not_memS_le_sum 9 · epsh_gate… 6 · zzz_not_a_lemma 0
+    ```
+    🔑 ***THIS ANSWERS THE HELM'S OPEN QUESTION FOR A SOUND SUBSET.*** It asked for an instrument
+    distinguishing "uncovered" from "covered transitively" and reported 2,896 as an OBSERVATION, not a
+    hole. **487 is not an estimate — it is PROVEN uncovered**, because a token count of 1 forecloses
+    both an audit entry and any dependent. *`T1_mass_floor` (`PropA3Core.lean:291`) is one of the 247,
+    which is how the file surfaced at all.*
+    ⛔ **MY FIRST VERSION OF THIS INSTRUMENT WAS BOTH TOO SLOW AND WRONG** — per-name `str.count` over
+    the whole corpus (O(names×bytes), killed at timeout) **AND substring-matching, so `lemma5` counted
+    every `lemma5_middle`.** *The token pass is faster AND more correct; the speed fix and the
+    correctness fix were the same fix.*
+
 15t. ⛔⛔ **END-OF-SESSION FORCED REBUILD FOUND AN UNAUDITED DECLARATION — EIGHT HOURS OLD. `40a6b566`,
     2026-08-22 01:4x.** Six modules' oleans deleted, genuine `Built` on all six, then **tonight's 34
     landings audited AS A NAMED SET rather than a count.**
