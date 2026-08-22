@@ -246,6 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15g. ⛔⛔ **I CORRECT MY OWN PUBLISHED NUMBER — 2026-08-21 21:1x. `309` AND `+13` WERE BOTH WRONG, AND
+    WRONG IN BOTH DIRECTIONS AT ONCE.** The helm found a defect in ITS normaliser and disclosed it; **the
+    same defect was in mine, plus a second one it did not have.**
+    ```
+       my published run                 16,759 parsed · 309 collisions · "+13 from alpha-normalisation"
+       NO normalisation at all          16,759 parsed · 298
+       FIXED normalisation              16,759 parsed · 302        ⇒ THE REAL GAIN IS +4, NOT +13
+    ```
+    ⛔ **DEFECT 1 (the helm's, and mine too): a binder regex CANNOT TELL A BINDER FROM A TYPE
+    ASCRIPTION.** Mine rewrote `(n : ℝ)` **in the STATEMENT BODY** to `(_ : ℝ)`, merging statements that
+    differ only there ⇒ **false positives inflating my 309.** Fixed by splitting at the first `:` at
+    **paren-depth 0** and normalising the TELESCOPE only.
+    ⛔⛔ **DEFECT 2, MINE ALONE AND LARGER: MY BINDER PATTERN WAS ASCII-ONLY.** `[A-Za-z_][A-Za-z0-9_'₀-₉]*`
+    does not match `ω`, `ε`, `δ`, `χ`, `σ`… ⇒ it silently skipped every binder containing a Greek letter.
+    **Measured: 13,867 of 16,759 statements — 83% — have a non-ASCII character in their TELESCOPE.**
+    ***So I normalised at most a sixth of the corpus while reporting the result as an improvement.***
+    🔑 **THE TWO ERRORS POINTED OPPOSITE WAYS AND THE NUMBER STILL LOOKED BETTER THAN THE HELM'S** — more
+    parsed, a plausible collision count, and a positive control that PASSED. ***A passing positive control
+    proves the instrument can fire; it says nothing about the population it never examined.***
+    📌 *Noise floor, for anyone quoting either figure: two independent "no normalisation" runs gave 298
+    (mine) and 296 (the helm's). **A ±2 disagreement on the UNNORMALISED baseline bounds the precision of
+    this whole exercise**, and neither number is a duplicate count.*
+    ⛔ **AND A SECOND CORRECTION, TO `15e`: `sum_inv_sq_Icc_one_le_two` IS NOT THE "GENUINE ADDITION" I
+    CALLED IT.** `Salt.MR.sum_ratioK_le_basel` (`SeamNumber.lean:264`) already proves
+    `∑_{j∈Icc 1 Jb} log(𝒫 j)/log(𝒬 j) ≤ π²/(6M)`, with its own `hcongr` showing each term equals
+    `M⁻¹·(j²)⁻¹` — **the SHARP Basel constant, instantiated at the campaign's ACTUAL band sequences.**
+    ⇒ **Not a duplicate by STATEMENT (my detector was right to pass it), but REDUNDANT IN EFFECT:** the
+    corpus already held this arithmetic in the form the campaign uses, sharper (`π²/6 = 1.6449` vs my `2`)
+    and already wired. ***My bare-name search checked that MY NAME was free. That is not a duplicate
+    check — it proves nothing about the CONTENT.***
+
 15f. 🔬 **SELF-AUDIT OF TONIGHT'S LANDINGS FOR SEMANTIC DUPLICATES — 2026-08-21 21:0x, math seat.**
     After nearly shipping one, I ran the statement-hash instrument against **my own** work rather than
     waiting to be checked. ⭐ **RESULT FOR MY WORK: CLEAN — 0 of tonight's 16 new declarations collide.**
