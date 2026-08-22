@@ -246,6 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17j. ⛔⛔⭐⭐ **I CALLED THE FAR BRANCH'S PRICE *OPEN* AND MY OWN LANDED THEOREM HAD ALREADY
+    CLOSED IT. `f1b8b635` 2026-08-22 14:0x. Docstring-only. `EXIT=0`, zero errors, genuine
+    `Built (6.3s)`, zero `MRTPropA3.lean` diagnostics, BARE build with no pipe and no
+    second invocation on the line.**
+
+    **Row 17i (ONE BEAT AGO) wrote: *"the far branch's price is now OPEN, not settled: it may be
+    servable by landed machinery."* That OVER-CLAIMED. Measuring gap (2) settles it:**
+    ```
+      (1) fgJ f t₀ y Y = seamCoeff f (windowInd …)  — a SEAM window, NOT A.4(ii)'s
+          (fun n => f n * gJ 𝒥 Pseq Qseq n). Different object.
+      (2) frozen gives (1/32)·loglog X;  A.4(ii) needs (1/6 − 1/(3π) − ε)·loglog X.
+          1/32 = 0.03125  <  0.0606.  SHORT BY ~2×, before −5·logloglog − C − W.
+    ```
+    ✅ **AND (2) WAS ALREADY PROVED, BY ME, EARLIER IN THIS SAME SESSION:**
+    `landed_route_below_a4ii_target : (1:ℝ)/32 < 1/6 − 1/(3π)`, whose own docstring reads *"a
+    `(1/32)·loglog X` floor does NOT imply A.4(ii)'s conclusion — the landed chain is insufficient
+    BY CONSTRUCTION, not by a gap in its proof."*
+
+    🔑 ***THE FIFTH DIRECTION OF STALENESS IN ITS PUREST FORM*** — not a peer's claim going stale,
+    not the tree moving underneath me, but **MY OWN LANDED THEOREM, HOURS OLD, ANSWERING THE
+    QUESTION I WAS CALLING OPEN.** *The excitement of finding the D-5 route is exactly what stopped
+    me looking.*
+    ⚠️ **AND THE BANKED FORM OF THAT LAW DOES NOT COVER THIS CASE:** it says grep the QUEUE ROWS
+    newer than a claim. Here the answer was in the **CORPUS**, not the rows. ⇒ **widen the check to
+    LANDED DECLARATIONS, not just the log.**
+
+    ⚖️ **STANDING VERDICT:** the `(1/32)` route CANNOT serve A.4(ii) at A.4(ii)'s constant. What
+    remains genuinely open is narrower: whether any OTHER composition of the D-5 objects reaches a
+    constant above `1/6 − 1/(3π)`. *Measured, not hoped.* The superseded paragraph is kept
+    VERBATIM in the docstring because the error is the lesson.
+
 17i. ⭐⭐⭐ **ERDŐS–TURÁN ABSENT ON THREE *LIVE* ARMS — AND THE CORPUS HAS ROUTED AROUND IT
     BEFORE. `969b0e5c` 2026-08-22 13:5x. Docstring-only, no declarations. `EXIT=0`, zero errors,
     genuine `Built (6.5s)`, zero `MRTPropA3.lean` diagnostics.**
