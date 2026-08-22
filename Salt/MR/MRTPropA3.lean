@@ -1363,4 +1363,60 @@ theorem integral_inv_one_add_abs_sub_sq_le_two {t₁ r : ℝ} (hr : 0 ≤ r) :
   rw [h]
   exact integral_inv_one_add_abs_sq_le_two hr
 
+/-- **A.3's `T₀` STEP, ASSEMBLED (interval form).**  MRT's *"immediately implies"*,
+composed from the four landed pieces: from `|F| ≤ A/(1+|t−t₁|) + B` on the centred
+interval,
+
+  `∫_{t₁−r}^{t₁+r} F² ≤ 4A² + 4B²r`.
+
+With `A = exp(−½M)`, `B = (log X)^{−1/16}` and `r = (log X)^{1/16}` this is
+`4exp(−M) + 4(log X)^{−1/16}` — MRT's `1/exp(M) + (log X)^{1/16−2/16}` up to the
+absolute constant, and **the `+1/16` in their unsimplified exponent is exactly the
+`r` in the second term here.**
+
+⚠️ Interval form, with integrability of `F²` taken as a hypothesis. `T₀` itself is
+a SET; `mrtT0_subset_Icc` places it inside this interval, and a set-integral
+version needs `setIntegral` monotonicity, which is NOT done here. -/
+theorem mrtA3_T0_integral_bound {F : ℝ → ℝ} {A B t₁ r : ℝ} (hr : 0 ≤ r)
+    (hint : IntervalIntegrable (fun t => F t ^ 2) MeasureTheory.volume (t₁ - r) (t₁ + r))
+    (hF : ∀ t ∈ Set.Icc (t₁ - r) (t₁ + r), |F t| ≤ A / (1 + |t - t₁|) + B) :
+    (∫ t in (t₁ - r)..(t₁ + r), F t ^ 2) ≤ 4 * A ^ 2 + 4 * B ^ 2 * r := by
+  have hab : t₁ - r ≤ t₁ + r := by linarith
+  have hcont : Continuous (fun t : ℝ => ((1 + |t - t₁|) ^ 2)⁻¹) := by
+    have h1 : Continuous (fun t : ℝ => (1 + |t - t₁|) ^ 2) := by fun_prop
+    refine h1.inv₀ (fun t => ?_)
+    have : (0 : ℝ) < 1 + |t - t₁| := by positivity
+    positivity
+  have h1int : IntervalIntegrable (fun t : ℝ => 2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹)
+      MeasureTheory.volume (t₁ - r) (t₁ + r) :=
+    ((hcont.const_smul (2 * A ^ 2)).intervalIntegrable _ _)
+  have h2int : IntervalIntegrable (fun _ : ℝ => 2 * B ^ 2)
+      MeasureTheory.volume (t₁ - r) (t₁ + r) :=
+    intervalIntegrable_const
+  have hGint : IntervalIntegrable
+      (fun t : ℝ => 2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹ + 2 * B ^ 2)
+      MeasureTheory.volume (t₁ - r) (t₁ + r) := h1int.add h2int
+  have hmono : (∫ t in (t₁ - r)..(t₁ + r), F t ^ 2)
+      ≤ ∫ t in (t₁ - r)..(t₁ + r), (2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹ + 2 * B ^ 2) := by
+    refine intervalIntegral.integral_mono_on hab hint hGint (fun t ht => ?_)
+    have hp := mrtA3_T0_pointwise_sq (hF t ht)
+    have : 2 * (A ^ 2 / (1 + |t - t₁|) ^ 2) = 2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹ := by
+      rw [div_eq_mul_inv]; ring
+    linarith [hp, this.ge, this.le]
+  have hsplit : (∫ t in (t₁ - r)..(t₁ + r), (2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹ + 2 * B ^ 2))
+      = (∫ t in (t₁ - r)..(t₁ + r), 2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹)
+        + ∫ _ in (t₁ - r)..(t₁ + r), (2 * B ^ 2) :=
+    intervalIntegral.integral_add h1int h2int
+  have hconst : (∫ _ in (t₁ - r)..(t₁ + r), (2 * B ^ 2)) = 2 * r * (2 * B ^ 2) := by
+    rw [intervalIntegral.integral_const]
+    simp only [smul_eq_mul]
+    ring_nf
+  have hfirst : (∫ t in (t₁ - r)..(t₁ + r), 2 * A ^ 2 * ((1 + |t - t₁|) ^ 2)⁻¹)
+      ≤ 2 * A ^ 2 * 2 := by
+    rw [intervalIntegral.integral_const_mul]
+    have hA : (0 : ℝ) ≤ 2 * A ^ 2 := by positivity
+    exact mul_le_mul_of_nonneg_left (integral_inv_one_add_abs_sub_sq_le_two hr) hA
+  rw [hsplit, hconst] at hmono
+  nlinarith [hmono, hfirst]
+
 end Salt.MR
