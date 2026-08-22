@@ -1487,4 +1487,29 @@ theorem mrtA3_split_bound {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ}
       (measurableSet_mrtT1 M t₁ X T) h0int h1int]
   linarith
 
+/-- **The band set IS the centred interval.**  `{t : |t| ≤ T} = Icc (−T) T` — the
+`abs_le` unfolding, isolated because `mrtT0_union_mrtT1` produces the SET form
+while `MRTPropA3`'s statement uses the INTERVAL form. -/
+theorem band_eq_Icc (T : ℝ) : {t : ℝ | |t| ≤ T} = Set.Icc (-T) T := by
+  ext t
+  simp only [Set.mem_setOf_eq, Set.mem_Icc, abs_le]
+
+/-- **A.3's SPLIT, delivered in `MRTPropA3`'s own integral shape.**  The split
+concludes over the SET `{|t| ≤ T}`; A.3 is stated with `∫_{−T}^{T}`.  Same bridge
+as the `T₀` set version: `band_eq_Icc`, then `Icc → Ioc` (null set), then
+`integral_of_le`. -/
+theorem mrtA3_split_bound_interval {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ} (hT : 0 ≤ T)
+    (h0int : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT0 M t₁ X T) MeasureTheory.volume)
+    (h1int : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT1 M t₁ X T) MeasureTheory.volume)
+    (h0 : (∫ t in mrtT0 M t₁ X T, F t ^ 2) ≤ B₀)
+    (h1 : (∫ t in mrtT1 M t₁ X T, F t ^ 2) ≤ B₁) :
+    (∫ t in (-T)..T, F t ^ 2) ≤ B₀ + B₁ := by
+  have hle : (-T : ℝ) ≤ T := by linarith
+  have hband := mrtA3_split_bound h0int h1int h0 h1
+  rw [band_eq_Icc T, MeasureTheory.integral_Icc_eq_integral_Ioc] at hband
+  rw [intervalIntegral.integral_of_le hle]
+  exact hband
+
 end Salt.MR
