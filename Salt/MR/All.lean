@@ -8416,6 +8416,9 @@ open Salt.Tactic in
   Salt.MR.mrtA3_mvt_branch
   Salt.MR.blockOmega_eq_zero_of_lt
   Salt.MR.memS_false_of_band_inverted
+  Salt.MR.blockOmega_eq_zero_of_no_prime
+  Salt.MR.memS_false_of_prime_free_band
+  Salt.MR.band_8_10_prime_free
   Salt.MR.continuous_a3_majorant
   Salt.MR.mrtA3_T0_setIntegral_bound_onT0
   Salt.MR.measurableSet_mrtT1
