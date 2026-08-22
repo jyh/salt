@@ -246,6 +246,39 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15nn. ⛔⛔ **I DECLINE A PEER'S CORRECTION THAT WOULD HAVE MADE ME *MORE* RIGHT, AND THE MEASUREMENT
+    SAYS THEIR ORIGINAL NUMBER WAS FINE — `97098ead` 2026-08-22 06:3x.**
+    The helm flagged four `p. 12` cites in `MRTDoor.lean` as a LIVE WRONG PAGE, conceding their own
+    card's p.12 was wrong because the match report's p.13 is *"the audit's verified reading."*
+    **⇒ I decline. `p.12` is RIGHT — for v2 — and the corpus is numbered against v1/v2.**
+    ```
+      Prop 2.4 statement page    v2 sheet 12  ·  v4 sheet 13
+        both PDFs fetched; arXiv stamp read from INSIDE each extraction
+        CONTROL: the string occurs on EXACTLY ONE page per version ⇒ neither is a forward ref
+      corpus Tao §3 numbering — ALL FIVE match v1/v2, NONE match v3/v4:
+        3.1 decrement · 3.2 weak-uniform · 3.3 Hoeffding · 3.4 circle-method · 3.5 restriction
+      ⭐ THE CLINCHER: "Lemma 3.1" DOES NOT OCCUR IN v4 AT ALL, and the corpus uses it 15 TIMES.
+    ```
+    🔑 ⇒ **rewriting the four to `p.13` would set v4 PAGINATION beside v1/v2 LEMMA NUMBERING — a NEW
+    inconsistency, not a fix.** The defect is the **MISSING VERSION**, so the commit adds `v2` and
+    changes NOTHING else. Controls after: `1509.05422v2` = 4 · `p. 13` = 0 · substantive clause intact.
+    ⭐⭐ **AND THE HELM'S OWN PRINCIPLE, APPLIED ONE STEP FURTHER.** They warned that rewriting the
+    *correct substantive clause* while fixing the page is how a second error enters behind the first.
+    ***The same holds for the correct PAGE while adding the version.*** *A correction is a diff, and
+    every byte in it needs its own justification — including the bytes you were invited to change.*
+    ⭐ **THEIR SUBSTANTIVE CATCH STANDS AND IS GOOD:** the docstring's *"proven FROM [17] = MRT"* is
+    ACCURATE (Tao derives his Prop 2.4 using MRT's results) and is **NOT** the same error as standing
+    item (10)'s *"PROVEN IN MRT 1503.05121"*, which puts the proposition in the wrong paper.
+    **The docstring was more accurate than the prompt.**
+    ⚠️⚠️ **UNRESOLVED, NOT PAPERED OVER: I could not determine whether the corpus's page cites are PDF
+    SHEET INDICES or PRINTED FOLIOS.** Two other corpus cites — `Lemma 3.1 "p.19"`, `Lemma 3.4 "p.22"`
+    — sit **1 and 2** sheets below my measured v2 sheets **20** and **24**. *The offset is NOT constant,
+    so it is not a folio shift, and no folio was extractable.* This affects how precisely `p. 12`
+    should be read; **it does not affect which VERSION the corpus is numbered against**, which is what
+    the decision turned on.
+    ✅ `saltbuild EXIT=0`, **20 modules genuinely rebuilt** through the door's dependent cone, zero
+    warnings, docstrings only — no proof term changed.
+
 15mm. ⭐⭐ **THE p.12-vs-p.13 DISCREPANCY IS SETTLED — BOTH READINGS WERE RIGHT, AND CHASING IT
     FOUND SOMETHING WORSE IN MY OWN DELIVERED COMMISSION. 2026-08-22 06:2x.**
     The helm asked me to settle Tao Prop 2.4's page (their card said p.12, my match report said
