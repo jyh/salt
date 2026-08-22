@@ -8384,6 +8384,8 @@ open Salt.Tactic in
   Salt.MR.MRTLemmaA4iiFixed
   Salt.MR.mrtA4iiFixed_high_M
   Salt.MR.mrtA4ii_far_centre_cap
+  Salt.MR.mrtA7_factor_conj
+  Salt.MR.mrtA7_factors_differ
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
