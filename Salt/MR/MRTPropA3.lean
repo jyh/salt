@@ -1803,6 +1803,50 @@ theorem memS_false_of_band_inverted {Pseq Qseq : ℕ → ℕ} {J n : ℕ}
   rw [blockOmega_eq_zero_of_lt h] at h1
   omega
 
+/-! ### The degeneracies, as a SET rather than one at a time
+
+I found three ways `MRTPropA3` goes vacuous — `X = 1`, `Qseq 1 ≤ 1`, `Qseq 1 < Pseq 1` —
+by stumbling on them one at a time, three beats running.  Checked as a *set* they are all
+the same fact, and the set is strictly larger than the three:
+
+**`S = ∅` whenever ANY band `[Pⱼ, Qⱼ]`, `j ≤ J`, contains no prime.**
+
+`Qseq 1 ≤ 1` and `Qseq 1 < Pseq 1` are two special cases of "no prime in the band", and
+they are not the only ones: `[8,10]` is non-empty, non-inverted, has top well above `1`,
+and still contains no prime (`band_8_10_prime_free`).  Neither
+`memS_false_of_Qseq_one_le_one` nor `memS_false_of_band_inverted` sees that configuration.
+
+⚠️ **`MRTBands` constrains none of this.**  Its three clauses bound `Q₁` above and relate
+consecutive bands; nothing anywhere requires a band to *contain a prime*, and MRT do not
+state it either — for them it is implicit in taking `[Pⱼ, Qⱼ]` from Definition 2.1.
+Recorded for a design session, not repaired here (Iron rule 1). -/
+
+/-- **THE SET-LEVEL FACT.**  A band containing no prime contributes nothing, whatever its
+endpoints look like. -/
+theorem blockOmega_eq_zero_of_no_prime {P Q n : ℕ}
+    (h : ∀ p : ℕ, p.Prime → ¬ (P ≤ p ∧ p ≤ Q)) : blockOmega P Q n = 0 := by
+  unfold blockOmega BlockPrimeDivs
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro p hp
+  exact h p (Nat.prime_of_mem_primeFactors hp)
+
+/-- **THE GENERAL DEGENERACY**, subsuming `memS_false_of_Qseq_one_le_one` and
+`memS_false_of_band_inverted`: if the first band holds no prime, `MemS` fails for every
+`n`, so A.3's sifted set is empty and the proposition is vacuously true. -/
+theorem memS_false_of_prime_free_band {Pseq Qseq : ℕ → ℕ} {J n : ℕ} (hJ : 1 ≤ J)
+    (h : ∀ p : ℕ, p.Prime → ¬ (Pseq 1 ≤ p ∧ p ≤ Qseq 1)) : ¬ MemS Pseq Qseq J n := by
+  intro hm
+  have h1 := hm 1 (Finset.mem_Icc.mpr ⟨le_refl 1, hJ⟩)
+  rw [blockOmega_eq_zero_of_no_prime h] at h1
+  omega
+
+/-- **THE WITNESS THAT THE CLASS IS BIGGER THAN THE THREE I FOUND.**  `[8,10]` is
+non-empty (`8 ≤ 10`), non-inverted, and its top is far above `1` — so neither earlier
+lemma applies — yet it contains no prime. -/
+theorem band_8_10_prime_free : ∀ p : ℕ, p.Prime → ¬ (8 ≤ p ∧ p ≤ 10) := by
+  rintro p hp ⟨h8, h10⟩
+  interval_cases p <;> norm_num at hp
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
