@@ -8414,6 +8414,8 @@ open Salt.Tactic in
   Salt.MR.dpolyA_l2_mvt_Icc
   Salt.MR.sum_sq_norm_div_le
   Salt.MR.mrtA3_mvt_branch
+  Salt.MR.blockOmega_eq_zero_of_lt
+  Salt.MR.memS_false_of_band_inverted
   Salt.MR.continuous_a3_majorant
   Salt.MR.mrtA3_T0_setIntegral_bound_onT0
   Salt.MR.measurableSet_mrtT1
