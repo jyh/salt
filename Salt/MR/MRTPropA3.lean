@@ -1159,4 +1159,40 @@ theorem mrtA3_T0_pointwise_sq {F A B u : ℝ}
 is `T₀`'s length exponent and the `−2/16` is `(log X)^{−1/16}` squared. -/
 theorem mrtA3_T0_exponent : (1 : ℝ) / 16 - 2 / 16 = -((1 : ℝ) / 16) := by norm_num
 
+/-- **The integral fact A.3's `T₀` step needs — one-sided core.**  `∫₀^c (1+x)^{−2}
+= 1 − 1/(1+c) ≤ 1` for `c ≥ 0`.  This is the half of MRT's *"immediately implies"*
+that `mrtA3_T0_pointwise_sq` does not supply; naming it as a gap at 08:0x and then
+closing it is the follow-through. -/
+theorem integral_inv_one_add_sq_le_one {c : ℝ} (hc : 0 ≤ c) :
+    (∫ x in (0 : ℝ)..c, ((1 + x) ^ 2)⁻¹) ≤ 1 := by
+  have hpos : ∀ x ∈ Set.uIcc (0 : ℝ) c, (0 : ℝ) < 1 + x := by
+    intro x hx
+    rw [Set.uIcc_of_le hc, Set.mem_Icc] at hx
+    linarith [hx.1]
+  have hderiv : ∀ x ∈ Set.uIcc (0 : ℝ) c,
+      HasDerivAt (fun y : ℝ => -(1 + y)⁻¹) (((1 + x) ^ 2)⁻¹) x := by
+    intro x hx
+    have hne : (1 + x) ≠ 0 := ne_of_gt (hpos x hx)
+    have h1 : HasDerivAt (fun y : ℝ => 1 + y) 1 x := by
+      simpa using (hasDerivAt_id x).const_add (1 : ℝ)
+    have h2 := h1.inv hne
+    have hEq : -(1 : ℝ) / (1 + x) ^ 2 = -(((1 + x) ^ 2)⁻¹) := by
+      rw [neg_div, one_div]
+    rw [hEq] at h2
+    have h3 := h2.neg
+    rw [neg_neg] at h3
+    exact h3
+  have hcont : ContinuousOn (fun x : ℝ => ((1 + x) ^ 2)⁻¹) (Set.uIcc (0 : ℝ) c) := by
+    intro x hx
+    have hx0 : (0 : ℝ) < 1 + x := hpos x hx
+    exact (((continuousAt_const.add continuousAt_id).pow 2).inv₀
+      (pow_ne_zero 2 (ne_of_gt hx0))).continuousWithinAt
+  have hint : IntervalIntegrable (fun x : ℝ => ((1 + x) ^ 2)⁻¹) MeasureTheory.volume 0 c :=
+    hcont.intervalIntegrable
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hint]
+  have hcpos : (0 : ℝ) < 1 + c := by linarith
+  have : (0 : ℝ) < (1 + c)⁻¹ := by positivity
+  simp only [add_zero, inv_one]
+  linarith
+
 end Salt.MR
