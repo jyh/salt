@@ -8406,6 +8406,8 @@ open Salt.Tactic in
   Salt.MR.mrtA3_T0_setIntegral_bound
   Salt.MR.measurableSet_mrtT1
   Salt.MR.mrtA3_split_bound
+  Salt.MR.band_eq_Icc
+  Salt.MR.mrtA3_split_bound_interval
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
