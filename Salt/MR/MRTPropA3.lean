@@ -434,4 +434,28 @@ theorem mrtA4ii_high_M (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finse
   have h2 := mrtM_le f hX htX
   linarith
 
+/-- **A.4(ii)'s HIGH-`M` BRANCH REACHES THE TARGET CONSTANT.**  Chaining
+`mrtA4ii_high_M` with `mrtA4ii_sixteenth_suffices`: under `M(f;X) ≥ ⅛·loglog X`,
+the twisted distance exceeds `(1/6 − 1/(3π) − ε)·loglog X`, which is exactly
+`MRTLemmaA4ii`'s conclusion.
+
+⚠️ `Real.exp 1 ≤ X` is needed and is **not** a technicality: it gives
+`log X ≥ 1`, hence `loglog X ≥ 0`, and the constant comparison only transfers
+across a **non-negative** multiplier.  *Comparing `c₁ < c₂` tells you nothing
+about `c₁·L ≤ c₂·L` when `L` may be negative — and `loglog X` IS negative for
+`1 < X < e`.* -/
+theorem mrtA4ii_high_M_target (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ)
+    (X t ε : ℝ) (hf : ∀ n, ‖f n‖ ≤ 1) (hXe : Real.exp 1 ≤ X) (htX : |t| ≤ X)
+    (hε : 0 < ε) (hM : (1 / 8) * Real.log (Real.log X) ≤ mrtM f X) :
+    (1 / 6 - 1 / (3 * Real.pi) - ε) * Real.log (Real.log X)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have hX0 : (0 : ℝ) ≤ X := hXpos.le
+  have hL1 : (1 : ℝ) ≤ Real.log X := by
+    rw [Real.le_log_iff_exp_le hXpos]; exact hXe
+  have hLL : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
+  have hbranch := mrtA4ii_high_M f Pseq Qseq 𝒥 X t hf hX0 htX hM
+  have hconst := mrtA4ii_sixteenth_suffices
+  nlinarith [hbranch, hconst, hLL, hε]
+
 end Salt.MR
