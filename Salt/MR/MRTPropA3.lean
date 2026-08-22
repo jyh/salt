@@ -1419,4 +1419,41 @@ theorem mrtA3_T0_integral_bound {F : ℝ → ℝ} {A B t₁ r : ℝ} (hr : 0 ≤
   rw [hsplit, hconst] at hmono
   nlinarith [hmono, hfirst]
 
+/-- **A.3's `T₀` STEP OVER `T₀` ITSELF — the set version.**  MRT integrate over the
+SET `T₀`, not over an interval; `mrtT0_subset_Icc` puts `T₀` inside the centred
+interval and the integrand `F²` is nonnegative, so `setIntegral_mono_set` carries
+`mrtA3_T0_integral_bound` across:
+
+  `∫_{T₀} F² ≤ ∫_{Icc} F² = ∫_{Ioc} F² = ∫_{t₁−r}^{t₁+r} F² ≤ 4A² + 4B²r`.
+
+*The `Icc → Ioc` hop is the null-set bookkeeping `intervalIntegral.integral_of_le`
+forces; `integral_Icc_eq_integral_Ioc` supplies it.* -/
+theorem mrtA3_T0_setIntegral_bound {F : ℝ → ℝ} {A B t₁ r : ℝ} {M X T : ℝ}
+    (hr : 0 ≤ r) (hrX : (Real.log X) ^ ((1 : ℝ) / 16) ≤ r)
+    (hIcc : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (Set.Icc (t₁ - r) (t₁ + r)) MeasureTheory.volume)
+    (hint : IntervalIntegrable (fun t => F t ^ 2) MeasureTheory.volume (t₁ - r) (t₁ + r))
+    (hF : ∀ t ∈ Set.Icc (t₁ - r) (t₁ + r), |F t| ≤ A / (1 + |t - t₁|) + B) :
+    (∫ t in mrtT0 M t₁ X T, F t ^ 2) ≤ 4 * A ^ 2 + 4 * B ^ 2 * r := by
+  have hab : t₁ - r ≤ t₁ + r := by linarith
+  have hsub : mrtT0 M t₁ X T ⊆ Set.Icc (t₁ - r) (t₁ + r) := by
+    intro t ht
+    have h := abs_sub_le_of_mem_mrtT0 ht
+    rw [abs_le] at h
+    exact ⟨by linarith [h.1, hrX], by linarith [h.2, hrX]⟩
+  have hstep : (∫ t in mrtT0 M t₁ X T, F t ^ 2)
+      ≤ ∫ t in Set.Icc (t₁ - r) (t₁ + r), F t ^ 2 := by
+    refine MeasureTheory.setIntegral_mono_set hIcc ?_ hsub.eventuallyLE
+    filter_upwards with t using sq_nonneg (F t)
+  have hIccIoc : (∫ t in Set.Icc (t₁ - r) (t₁ + r), F t ^ 2)
+      = ∫ t in Set.Ioc (t₁ - r) (t₁ + r), F t ^ 2 :=
+    MeasureTheory.integral_Icc_eq_integral_Ioc
+  have hIv : (∫ t in (t₁ - r)..(t₁ + r), F t ^ 2)
+      = ∫ t in Set.Ioc (t₁ - r) (t₁ + r), F t ^ 2 :=
+    intervalIntegral.integral_of_le hab
+  have hfin := mrtA3_T0_integral_bound hr hint hF
+  rw [hIv] at hfin
+  rw [hIccIoc] at hstep
+  linarith
+
 end Salt.MR
