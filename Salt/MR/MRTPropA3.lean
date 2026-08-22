@@ -316,4 +316,62 @@ def MRTLemmaA7 (C : ℝ) : Prop :=
             * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n‖
         ≤ C * X / (Real.log X) ^ ((1 : ℝ) / 10)
 
+/-! ## A3-3 (i) — PROVED
+
+MRT prove A.4(i) by expanding `2𝔻²(f g_𝒥, ·)` into three sums and arranging that
+the loss `Σ(1 − g_𝒥(p))/p` appears **twice with opposite signs**, cancelling.
+
+⭐ In Lean the same content is cheaper **pointwise**: `g_𝒥` is a `{0,1}` indicator,
+so a case split on it does at each prime what the decomposition does uniformly.
+
+    g_𝒥(p) = 1 :  need  (1 − A)/2 ≤ 1 − A     ⟸  A ≤ 1
+    g_𝒥(p) = 0 :  need  (1 − A)/2 ≤ 1         ⟸  A ≥ −1
+
+with `A := Re(f(p)·conj(costwist t p))` and `|A| ≤ 1` from `‖f‖ ≤ 1`, `‖costwist‖ ≤ 1`.
+*The cancellation MRT arrange globally is, per prime, just the two ends of `|A| ≤ 1`.* -/
+
+/-- **MRT Lemma A.4 (i), PROVED.**  Twisting by the `{0,1}` indicator `g_𝒥` costs
+at most a factor `2` in the pretentious distance. -/
+theorem mrtA4i_holds (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) :
+    (1 / 2) * pretDistSq f (costwist t) X
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  unfold pretDistSq
+  rw [Finset.mul_sum]
+  refine Finset.sum_le_sum (fun p hp => ?_)
+  dsimp only
+  have hpp : Nat.Prime p := (Finset.mem_filter.mp hp).2
+  have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+  have hcn : ‖(starRingEnd ℂ) (costwist t p)‖ ≤ 1 := by
+    simpa using norm_costwist_le t p
+  have hA : |(f p * (starRingEnd ℂ) (costwist t p)).re| ≤ 1 := by
+    refine le_trans (Complex.abs_re_le_norm _) ?_
+    rw [norm_mul]
+    nlinarith [hf p, hcn, norm_nonneg (f p),
+      norm_nonneg ((starRingEnd ℂ) (costwist t p))]
+  have hAle : (f p * (starRingEnd ℂ) (costwist t p)).re ≤ 1 := le_trans (le_abs_self _) hA
+  have hAge : -1 ≤ (f p * (starRingEnd ℂ) (costwist t p)).re := neg_le_of_abs_le hA
+  by_cases hg : ∀ j ∈ 𝒥, blockOmega (Pseq j) (Qseq j) p = 0
+  · rw [show gJ 𝒥 Pseq Qseq p = 1 from by simp only [gJ, if_pos hg]]
+    have hone : (f p * 1 * (starRingEnd ℂ) (costwist t p)).re
+        = (f p * (starRingEnd ℂ) (costwist t p)).re := by rw [mul_one]
+    rw [hone]
+    have : (1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / 2
+        ≤ 1 - (f p * (starRingEnd ℂ) (costwist t p)).re := by linarith
+    calc 1 / 2 * ((1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / (p : ℝ))
+        = ((1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / 2) / (p : ℝ) := by ring
+      _ ≤ (1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / (p : ℝ) := by gcongr
+  · rw [show gJ 𝒥 Pseq Qseq p = 0 from by simp only [gJ, if_neg hg]]
+    have hzero : (f p * 0 * (starRingEnd ℂ) (costwist t p)).re = 0 := by simp
+    rw [hzero]
+    have : (1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / 2 ≤ 1 - 0 := by linarith
+    calc 1 / 2 * ((1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / (p : ℝ))
+        = ((1 - (f p * (starRingEnd ℂ) (costwist t p)).re) / 2) / (p : ℝ) := by ring
+      _ ≤ (1 - 0) / (p : ℝ) := by gcongr
+
+/-- **`MRTLemmaA4i` IS DISCHARGED** — the `Prop` stated earlier is now a theorem. -/
+theorem mrtLemmaA4i_holds : MRTLemmaA4i := by
+  intro f Pseq Qseq 𝒥 X t hf _htX
+  exact mrtA4i_holds f Pseq Qseq 𝒥 X t hf
+
 end Salt.MR
