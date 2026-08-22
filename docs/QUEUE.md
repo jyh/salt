@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17d. ⭐⭐⭐ **THE BRIDGE'S BINDERS AS A *SET* — AND THE RESIDUE IS LARGENESS, WHICH A.3 DOES NOT
+    CARRY. `77dcee2b` 2026-08-22 13:0x. `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.2s)`,
+    zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
+    ```
+      bridge_side_conditions_of_mrtA3_hyps   the PRODUCIBLE half, from A.3's own hypotheses
+    ```
+    **Rows 17a and 17c closed two bridge binders ONE AT A TIME. Doing what the standing law
+    actually asks — audit the SET — over ALL FIVE bridge theorems partitions them:**
+    ```
+      PRODUCIBLE (proved here):  hpos · ha · hrange · hXh    (+ hB row 17c, hA3 row 17b)
+      NOT PRODUCIBLE — FOUR SIZE HYPOTHESES:
+        hXe : exp 1 ≤ X                  the bridge needs X ≥ e
+        hh4 : 4 ≤ h                       and h ≥ 4
+        hhX : h ≤ X·(log X)^{−1/5}         and h not too large against X
+        hR1 : 1 ≤ X/h                     hence h ≤ X
+    ```
+    ⭐⭐ **THIS IS THE `X = 1` DEGENERACY ARRIVING FROM THE OTHER SIDE.** `MRTPropA3` carries NO
+    largeness on `X` at all — which is exactly why it goes vacuous at `X = 1` — **while its
+    consumer needs `X ≥ e` and a two-sided constraint on `h`.** Those come from Theorem A.2's
+    context (*"for all `X > X(η)` large enough"*). ⇒ the A.3 → bridge chain runs only in that
+    regime, and the four are **INPUTS to it, not consequences of A.3.** Named in the docstring so
+    no future assembly mistakes them for something A.3 supplies.
+
+    🔬 **HOW IT WAS FOUND, and it is the law turned on myself:** I had been closing bridge binders
+    one at a time and would have gone on doing so. The SET audit took one pass and produced a
+    **partition**, not another single lemma. ***A gate that checks each claim never checks the
+    set*** — I have now been on both sides of that law in one day.
+
 17c. ⭐⭐ **THE BRIDGE'S LAST PRODUCERLESS BINDER — `0 ≤ B`, VIA `mrtM_nonneg`, WHICH DID NOT
     EXIST. `e0f0143a` 2026-08-22 13:0x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine
     `Built (6.2s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
