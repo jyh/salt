@@ -40,6 +40,7 @@ nothing assumes it globally.
 -/
 import Mathlib
 import Salt.MR.Lemma14Taylor
+import Salt.MR.ParsevalSingle
 
 namespace Salt.MR
 
@@ -180,5 +181,60 @@ theorem parseval_dpolyA_terms_of_propA3_shape
   have hA := hA3 (X / h) hR1
   rw [div_self (ne_of_gt hRpos)] at hA
   linarith
+
+/-! ## The composition, run end to end
+
+With the threshold lemma and the tiling lemma both in hand, A.3's shape controls
+every term `parseval_single_h` exposes: `Msup` via the bridge (`= 3B`), and the
+three `dpolyA` blocks via the tiling (`≤ 2B` together).  This theorem does the
+substitution, so the chain
+
+  A.3's shape  ⟶  hMsup  ⟶  parseval_single_h  ⟶  a bound in A.3's own `B`
+
+is a single Lean object rather than three with prose between them.
+
+⚠️ **This still does not prove A.3.** It takes A.3's conclusion as a hypothesis.
+What it removes is the assembly step, which was the last thing between the stated
+door and A.2's left-hand side. -/
+
+/-- **THE CHAIN, COMPOSED.**  Given A.3's shape at constant `B`, the single-`h`
+Parseval bound holds with every `dpolyA` term replaced by its `B`-multiple:
+`Msup ↦ 3B` from the bridge, and the three spectral blocks together `↦ 2B` from
+the tiling. -/
+theorem parseval_bound_of_propA3_shape
+    (a : ℕ → ℂ) (s0 : Finset ℕ) {X h B δ : ℝ} (N : ℕ)
+    (hpos : ∀ m ∈ s0, 0 < m) (hB : 0 ≤ B)
+    (hX : Real.exp 1 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (hδ0 : 0 < δ) (hδ1 : δ ≤ 1)
+    (ha : ∀ m ∈ s0, ‖a m‖ ≤ 1)
+    (hrange : ∀ m ∈ s0, X ≤ (m : ℝ) ∧ (m : ℝ) ≤ 4 * X)
+    (hA3 : ∀ T : ℝ, 1 ≤ T →
+      (∫ t in (-T)..T, ‖dpolyA a s0 t‖ ^ 2) ≤ (T / (X / h) + 1) * B) :
+    1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a s0 x h‖ ^ 2)
+      ≤ 1 / (2 * Real.pi ^ 2)
+          * ((205 * Real.pi * (2 * B) + 236160 * Real.pi * (3 * B))
+            + (34560 * δ * (Real.pi + 2 * Real.log (1 + 2 ^ N * (X / h))) ^ 2
+              + 1152 * (12 * h / (2 ^ N * δ)
+                  + (8 * h / 2 ^ N) * (1 + Real.log (3 * X))) ^ 2)) := by
+  have h1 := one_le_X_div_h hX hh4 hhX
+  have hM := hMsup_of_propA3_shape_parseval a s0 hpos hB hX hh4 hhX hA3
+  have hP := parseval_single_h a s0 N hX hh4 hhX hδ0 hδ1 ha hrange hM
+  have hterms := parseval_dpolyA_terms_of_propA3_shape a s0
+    (L := (Real.log X) ^ (1 / 45 : ℝ)) hpos h1 hA3
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hinv : (0 : ℝ) < 1 / (2 * Real.pi ^ 2) := by positivity
+  refine le_trans hP ?_
+  have hblocks : (205 : ℝ) * Real.pi
+        * ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h), ‖dpolyA a s0 t‖ ^ 2)
+          + ∫ t in (-(X / h))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+      + 205 * Real.pi
+        * (∫ t in (-((Real.log X) ^ (1 / 45 : ℝ)))..((Real.log X) ^ (1 / 45 : ℝ)),
+            ‖dpolyA a s0 t‖ ^ 2)
+      ≤ 205 * Real.pi * (2 * B) := by
+    have h205 : (0 : ℝ) ≤ 205 * Real.pi := by positivity
+    nlinarith [hterms, h205]
+  -- `gcongr` reduces to the spectral-block comparison and discharges it from `hblocks`
+  gcongr
 
 end Salt.MR
