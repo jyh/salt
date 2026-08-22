@@ -246,6 +246,38 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16z. ⭐⭐⭐ **A.3's APPENDIX BRANCH IS ASSEMBLED — AND ALL THREE ATTEMPTS FAILED ON PLACEMENT,
+    NONE ON MATHEMATICS. `3eac1ba8` 2026-08-22 12:3x. `[3 axioms]`, `EXIT=0`, zero errors, genuine
+    `Built (5.6s)`, zero `MRTPropA3.lean` diagnostics, BARE builds throughout,
+    Attempts: 3 (cap 3, declared before starting — AT the cap).**
+    ```
+      mrtA3_band_bound_of_A6   ∫_{-T}^{T} F² ≤ (4A² + 4B²r) + B₁,  for T ≤ X
+                               A = C·exp(−M/2),  B = C·(log X)^{−1/16}
+    ```
+    **The whole `T ≤ X/2` half of MRT's proof, composed from pieces that are now Lean objects:**
+    `mrtA3_T0_bound_of_A6` for the `T₀` side (A.6, with `mrtT0_mono_T` moving A.6's band radius `X`
+    down to the split's `T`), and `mrtA3_split_bound_interval` for the partition, delivered in
+    `MRTPropA3`'s own `∫_{−T}^{T}` shape. **The other branch, `T > X/2`, is `mrtA3_mvt_branch` and
+    is UNCONDITIONAL.**
+
+    ⛔ **`B₁` IS CARRIED, NOT PROVED, AND THAT IS THE HONEST STATE OF A.3.** MRT take the `T₁` bound
+    from `[17, Proposition 1]`; `MRTLemmaA5` as transcribed gives a POINTWISE bound on `‖mrtG‖`, not
+    an integral bound on `‖dpolyA‖²`, and `integral_sq_le_of_pointwise_on_mrtT1` closes only the
+    first of those two gaps. *Naming `B₁` as a hypothesis is what keeps that visible — a theorem
+    that quietly absorbed it would READ as a proof of A.3's branch and would not be one.*
+
+    🔬 **THE BUDGET WENT ENTIRELY TO PLACEMENT:**
+    ```
+      1. inserted before its own dependencies -> Unknown identifier mrtA3_split_bound_interval
+      2. appended at end of file              -> landed AFTER `end Salt.MR`; EVERY identifier
+                                                 unknown (mrtT0, mrtM, gJ, costwist)
+      3. inserted just inside the closer      -> built
+    ```
+    I had used ONE insertion anchor all session because it was stable, and this was the first node
+    whose dependencies are defined AFTER it. ***A stable anchor is not a correct anchor.*** The
+    error class is loud rather than dangerous — but it consumed a full budget the mathematics never
+    needed, and the term-mode proof was correct from the first keystroke.
+
 16y. ⭐⭐ **A.3's `T₁` SIDE — THE FIRST OF ITS TWO GAPS IS CLOSED. `2d9c6f01` 2026-08-22 12:2x.
     Both `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built`, zero `MRTPropA3.lean`
     diagnostics, Attempts: 2 (cap 3, declared before starting).**
