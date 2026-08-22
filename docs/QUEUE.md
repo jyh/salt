@@ -246,6 +246,28 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16j. ✅ **THE INTEGRAL BOUND CENTRED AT `t₁` — THE LAST SHAPE CHANGE BEFORE ASSEMBLY. `%s`
+    2026-08-22 09:0x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.8s)`, zero diagnostics, Attempts: 1
+    (cap of 3 declared before starting).**
+    `integral_inv_one_add_abs_sub_sq_le_two` : `∫_{t₁−r}^{t₁+r} (1+|t−t₁|)^{−2} dt ≤ 2` — pure
+    translation via `intervalIntegral.integral_comp_sub_right`, **whose statement I READ rather than
+    guessed** (`(d) : ∫_a^b f(x−d) = ∫_{a−d}^{b−d} f x`).
+    📌 **EVERY PIECE A.3's `T₀` STEP NEEDS IS NOW LANDED *AND* IN CENTRED, CONSUMABLE FORM:**
+    ```
+      mrtA3_T0_pointwise_sq                    (a+b)² ≤ 2a² + 2b²
+      integral_inv_one_add_abs_sub_sq_le_two   the 1/(1+|t−t₁|)² mass, ≤ 2, centred at t₁
+      mrtT0_subset_Icc / mrtT0_Icc_length      the domain, and its length 2(log X)^{1/16}
+      mrtA6_at_centre                          the quantifier collapse A.7 buys
+    ```
+    ⚠️⚠️ **THE ASSEMBLY IS STILL NOT COMPOSED — four consumable pieces is not the composition**, and
+    the remaining step needs SET-vs-INTERVAL integral plumbing I have **not attempted**. *Fifth time
+    tonight this seat has had to separate "ingredients" from "node done"; saying it before anyone
+    asks is the only version of that sentence worth writing.*
+    🔑 **THE ARC OF THE LAST FIVE ROWS IS ONE LESSON: every single step was a SHAPE change, not a
+    content change** — distance→inclusion, one-sided→two-sided, uncentred→centred, ∀t→single point.
+    ***The mathematics was in hand at 08:0x; four beats went into making it CONSUMABLE.*** *That is
+    not overhead, it is what "landed" has to mean if a later proof is going to be able to use it.*
+
 16i. ✅ **THE TWO-SIDED INTEGRAL BOUND — THE EXACT QUANTITY A.3's `T₀` STEP CONSUMES. `%s`
     2026-08-22 08:5x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (4.7s)`, zero diagnostics.**
     ```
