@@ -667,6 +667,51 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ## RECON — Erdős–Turán is absent, and the corpus has ROUTED AROUND IT BEFORE
+
+A.4(ii)'s far branch was priced as needing *Erdős–Turán + VK equidistribution*, on an
+absence claim that rested on ONE live search arm.  Re-run with three live arms, each
+carrying a positive control:
+
+```
+  ARM 1  identifier   ^(theorem|lemma|def) …(erdos|erdős|turan|turán)   1 hit: turan_kubilius
+  ARM 2  filename     find -iname *erdos*/*turan*                       1 hit: TuranKubilius.lean
+  ARM 3  prose        the JOINT pattern, either order, case-insensitive  0 hits in Salt/
+```
+
+✅ **ABSENCE CONFIRMED, AND SHARPER THAN BEFORE: no Erdős–Turán declaration, file, or
+prose mention anywhere in `Salt/`.**  ⚠️ **And the near-miss is named:** both non-prose
+arms hit **Turán–Kubilius**, a DIFFERENT inequality (variance, not discrepancy).  A
+surname-only matcher would have reported a find; the joint-pattern arm is what separates
+them.
+
+⭐⭐ **BUT THE PROSE ARM FOUND SOMETHING BETTER THAN AN ABSENCE.**  Two independent corpus
+records — `docs/blueprints/flags.md` and `docs/exploration/s8-freeze-0727.md` — say the
+same thing about a prior demand:
+
+> *"D-5 is DISSOLVED (`dist_recenter` + `dist_one_floor_pow` + `dist_split_A4_frozen` —
+> **no Erdős–Turán, no PNT-in-segments**; the VK region enters via `one_line_pow_growth`)"*
+
+**All four objects are landed.**  And `dist_split_A4_frozen` (`PropA3Core.lean:172`) has a
+branch-b hypothesis that is A.4(ii)'s far configuration almost verbatim — `1 ≤ |t−t₁|`,
+`|t−t₁| ≤ X`, and `pretDistSq f (costwist t₁) X ≤ (1/16)·loglog X`, which is the centre
+cap `mrtA4ii_far_centre_cap` supplies — with its window mass `W` **carried, not zero**.
+
+⛔ **NAME COLLISION, AND IT MATTERS:** this is `dist_split_A4_frozen`, NOT the
+`dist_split_A4` refuted in the section below.  That refutation turned on `hloss` being
+unsatisfiable **at `W = 0`**; here `W` is a free carried parameter, so the obstruction
+does not apply.  *Two objects one underscore-suffix apart, opposite verdicts.*
+
+⛔ **WHAT THIS DOES NOT ESTABLISH — stated so no one reads more into it than was
+measured.**  Two gaps remain between the frozen theorem and A.4(ii)'s far branch:
+```
+  (1) it concludes about  pretDistSq (fgJ f t₀ y Y) (costwist t) X   — the WINDOWED f
+  (2) its constant is (1/32)·loglog X, against the (1/8) this seat's centre cap uses
+```
+⇒ **The far branch's price is now OPEN, not settled: it may be servable by landed
+machinery rather than by a new Erdős–Turán port.  Checking (1) and (2) is the next
+node, and it is recon, not a proof claim.** -/
+
 /-! ## The salt-engine collision — `dist_split_A4` does NOT reach A.4(i)
 
 `Salt/MR/DistSplit.lean`'s `dist_split_A4` carries A.4(i)'s conclusion SHAPE at
