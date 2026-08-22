@@ -185,7 +185,26 @@ RESURRECTS THEM:**
     mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) / `_concrete`
     (`:1045`) / `_kernel` (`KernelCarry.lean:1153`) is A.1's own shape; Halász in 65 files with
     closed numeric instances. **CLASS: assigned after a targeted read (B/C expected). NOT `D`.**
-14. **BLOCK-C REWIRE** — ⛔ **the zero-free supply is ALREADY LANDED IN SALT**
+14. ✅✅ **BLOCK-C REWIRE — LANDED `3c6bd64f` 2026-08-21.** New file `Salt/MR/MRTQualityLam.lean`
+    (94 ln, 2 theorems), rooted in `MR/All.lean` **with both names registered in the audit list AS the
+    module was rooted** — the registry law applied FORWARD, not after a peer found the gap.
+    **`mrtM_lam_lower : ∃ x0 C, ∀ X ≥ x0, (1/4)loglog X − 4·logloglog(X+16) − C ≤ mrtM lam X`**,
+    unconditional and effective. Forced build: `EXIT=0`, genuine `✔ Built Salt.MR.MRTQualityLam (6.7s)`,
+    **zero warnings in the new file**, both names `[3 axioms]`; tree-wide `[3 axioms]` moved 6867 → **6869**,
+    exactly the two new names.
+    ⭐ **THE CONTENT WAS THE `t`-UNIFORMITY STEP AND NOTHING ELSE.** `lambda_nonpret` is a PER-`t` bound
+    whose honest correction `−4·logloglog(|t|+16)` **depends on `t`**, while `mrtM` is an **INFIMUM over
+    `|t| ≤ X`**. The correction carries a NEGATIVE coefficient ⇒ the infimum is taken against the
+    **LARGEST** admissible `|t|`, i.e. `|t| = X`. `log3_shift_mono` supplies exactly that. Result is
+    `(1/4 − o(1))·loglog X`. ⚠️ The `+16` shift is **load-bearing, not cosmetic**: it holds every
+    intermediate value where `Real.log` is monotone (`a+16 ≥ 16 > e` ⇒ `log(a+16) > 1` ⇒ `loglog > 0`).
+    ⚠️ **A SMALL-END CHECK THAT PAID BY COMING BACK CLEAN:** `lam` is `fun _ => -1` (`NonPret.lean:48`),
+    which reads as the constant `−1` rather than Liouville — until `pretDistSq` (`Dist.lean:59`) is read:
+    it **filters to `Nat.Prime`**, so it consults its arguments ONLY at primes, where `λ(p) = −1`.
+    **Faithful, and the docstring already said so.** *Recorded because a check that clears is evidence too.*
+    ⛔ **RESIDUALS (a) AND (b) REMAIN DELETED FROM THIS ITEM** and are the ARC's to price. Below: the
+    pre-landing statement, preserved. *Statement below untouched — status field only.*
+    — ⛔ **the zero-free supply is ALREADY LANDED IN SALT**
     (`zeta_zero_free_region_pow` θ=3/4 unconditional `Vk/GrowthPow.lean:1044` ·
     `LFunction_zero_free_region_vk` χ²≠1 `MR/VkTwistRegion.lean:377` · `capFreeFloor_all_chi` all-χ
     `MR/CapFreeAssembly.lean:408` · `docs/CAMPAIGNS.md:19` row 8). Residual: **(a)** the real-character
