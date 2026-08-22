@@ -246,6 +246,24 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15q. ✅ **LEMMA A.4 IS STATED, AND ITS CONSTANT IS PROVED POSITIVE — `754dfd5d` 2026-08-22 00:4x.**
+    `MRTLemmaA4i`, `MRTLemmaA4ii`, `mrtA4_constant_pos` — registered in the same action, all
+    `[3 axioms]`, zero warnings. A3-3's interface is pinned.
+    ⭐ **Both stated against the corpus's OWN `pretDistSq`, `costwist`, `gJ`** ⇒ the twisted function
+    `f·g_𝒥` is the **same Lean object** `lemma5`'s inclusion–exclusion already sums over. *Statements
+    only; nothing proves them, nothing assumes them.*
+    ⭐⭐ **`mrtA4_constant_pos : 0 < 1/6 − 1/(3π)`** — reduces to `π > 2`. ***THE SMALL-END CHECK ON
+    (ii): were that constant `≤ 0`, the bound would be VACUOUS for every `ε` and the lemma would carry
+    no content.*** *An explicit constant that happens to be positive looks identical, on the page, to one
+    that does not — so it is a theorem here, not a remark.*
+    ⛔ **A.5, A.6, A.7 DELIBERATELY NOT STATED.** Their conclusions are still only partially read, and
+    ***stating a display I have not seen whole is the exact error this seat spent the night recovering
+    from.***
+    ⛔ **NAME DEFECT, THE THIRD TONIGHT: `div_lt_div_iff` is gone.** Replaced with
+    `one_div_lt_one_div_of_lt` — **the sibling of `one_div_le_one_div_of_le`, which the corpus already
+    exercises in `LogMeasure`.** *After `pow_le_pow_left` and `le_or_lt`, the pattern is established:*
+    ***reach for the sibling the corpus has already used, not the name that reads most natural.***
+
 15p. 📐 **A3-4 IS PRICED — LEMMAS A.5 / A.6 / A.7 READ FROM THE PDF, 2026-08-22 00:1x.** The item I
     flagged UNPRICED three times is discharged.
     ⛔ **A.5 — the `t ∈ T₁` bound.** `X ≥ Q ≥ P ≥ 2`, `𝒥 ⊂ {1,…,J}`, and
