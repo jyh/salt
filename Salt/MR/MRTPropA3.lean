@@ -639,6 +639,34 @@ theorem exp_neg_avg (a b : ℂ) :
     _ = Complex.exp (-((a + b) / 2) * Complex.I) * Complex.cos ((a - b) / 2) := by
         rw [h]; ring
 
+/-- **MRT's (A.4), THE FULL POINTWISE IDENTITY — the flagged node, closed.**
+`(n^{−it} + n^{−it₁})/2 = n^{−i(t+t₁)/2}·cos((t−t₁)·log n / 2)`, which is the step
+turning MRT's two-point average into a single twist times a cosine (p. 23, the display
+above (A.4)).
+
+⚖️ **THIS IS A NEW ATTEMPT ON A NODE FLAGGED AT ITS 3-ATTEMPT BUDGET (queue row 15aa),
+AND IT IS NOT A FOURTH GRIND.** What changed is the input: `exp_neg_avg` — the ℂ-level
+half — landed at `af54accc` AFTER the flag, and the post-mortem claim that *"the wall is
+the cast layer alone"* is precisely what this tests.  The whole proof below is four cast
+equalities and one `exact`. -/
+theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
+    (costwist (-t) n + costwist (-t₁) n) / 2
+      = costwist (-((t + t₁) / 2)) n
+        * Complex.cos (((t - t₁) * Real.log n / 2 : ℝ) : ℂ) := by
+  unfold costwist
+  have e1 : (((-t) * Real.log n : ℝ) : ℂ) = -((t * Real.log n : ℝ) : ℂ) := by
+    push_cast; ring
+  have e2 : (((-t₁) * Real.log n : ℝ) : ℂ) = -((t₁ * Real.log n : ℝ) : ℂ) := by
+    push_cast; ring
+  have e3 : ((-((t + t₁) / 2) * Real.log n : ℝ) : ℂ)
+      = -((((t * Real.log n : ℝ) : ℂ) + ((t₁ * Real.log n : ℝ) : ℂ)) / 2) := by
+    push_cast; ring
+  have e4 : (((t - t₁) * Real.log n / 2 : ℝ) : ℂ)
+      = (((t * Real.log n : ℝ) : ℂ) - ((t₁ * Real.log n : ℝ) : ℂ)) / 2 := by
+    push_cast; ring
+  rw [e1, e2, e3, e4]
+  exact exp_neg_avg _ _
+
 /-! ## The salt-engine collision — `dist_split_A4` does NOT reach A.4(i)
 
 `Salt/MR/DistSplit.lean`'s `dist_split_A4` carries A.4(i)'s conclusion SHAPE at
