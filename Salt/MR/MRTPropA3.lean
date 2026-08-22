@@ -958,4 +958,39 @@ theorem mrtA7_factors_differ :
         / (1 + (((0 - 1 : ℝ) : ℂ)) * Complex.I) := by
   norm_num [Complex.ext_iff]
 
+/-! ## MRT Lemma A.8 — the elementary half, with the MVT step carried as a hypothesis
+
+`Lemma A.8` (p.27): `e^α + e^{−α} − 2cos θ ≤ exp(√(α²+θ²))` for all real `α, θ`.
+
+MRT's proof has exactly two moving parts, and only one of them is elementary:
+
+* **the MVT step** — `x ↦ e^{√x}` has derivative `½x^{−1/2}e^{√x}`, which
+  differentiated again is minimised at `x = 1` with value `e/2`; the mean value
+  theorem on `[α², α²+θ²]` then gives `e^{√(α²+θ²)} ≥ e^α + (e/2)θ²`.
+  **This needs a `deriv` computation and a second-derivative minimisation — it is
+  NOT class A, and it is carried below as the named hypothesis `hmvt`.**
+* **the reduction** — `cos θ ≥ 1 − θ²/2` and `e^{−α} ≤ 1` collapse the claim to
+  `2 − e^{−α} + θ²(e/2 − 1) ≥ 0`, immediate from `2 ≥ e^{−α}` and `e ≥ 2`.
+  **That half is proved here, unconditionally.**
+
+⚠️ I priced this lemma "class A/B, no arithmetic apparatus" from its STATEMENT
+before reading its proof, and withdrew that. The split below is what the proof
+actually contains; naming `hmvt` rather than hiding it keeps the remaining cost
+visible instead of absorbed. -/
+
+/-- **MRT Lemma A.8, reduced to its MVT step.**  Given the mean-value bound
+`e^α + (e/2)θ² ≤ exp(√(α²+θ²))` (MRT's own first move, p.27), the rest of A.8 is
+elementary: `cos θ ≥ 1 − θ²/2` and `e^{−α} ≤ 1` for `α ≥ 0`, then `e ≥ 2` makes
+the `θ²` coefficient nonnegative. -/
+theorem mrtA8_of_mvt (α θ : ℝ) (hα : 0 ≤ α)
+    (hmvt : Real.exp α + (Real.exp 1 / 2) * θ ^ 2
+              ≤ Real.exp (Real.sqrt (α ^ 2 + θ ^ 2))) :
+    Real.exp α + Real.exp (-α) - 2 * Real.cos θ
+      ≤ Real.exp (Real.sqrt (α ^ 2 + θ ^ 2)) := by
+  have hcos : 1 - θ ^ 2 / 2 ≤ Real.cos θ := Real.one_sub_sq_div_two_le_cos
+  have hexp : Real.exp (-α) ≤ 1 := by
+    rw [Real.exp_le_one_iff]; linarith
+  have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  nlinarith [hmvt, hcos, hexp, he2, sq_nonneg θ]
+
 end Salt.MR
