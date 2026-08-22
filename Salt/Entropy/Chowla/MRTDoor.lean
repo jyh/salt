@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # The MRT door (Tao 1509.05422, Prop 2.4 = Matomäki–Radziwiłł–Tao), spine node W3-e
 
 The `L¹`-uniformity door that discharges the log-Chowla-failure branch. Tao's
-Proposition 2.4 (arXiv:1509.05422, p. 12) is a THEOREM, proven from [17] =
+Proposition 2.4 (arXiv:1509.05422v2, p. 12) is a THEOREM, proven from [17] =
 Matomäki–Radziwiłł–Tao, arXiv:1503.05121 ("An averaged form of Chowla's
 conjecture"). The OPEN object is Tao's (4.1) (§4, p. 26): the sup-INSIDE-the-
 integral variant, "not currently covered by the existing literature".
@@ -38,7 +38,7 @@ noncomputable def windowExpSum (H n : ℕ) (α : ℝ) : ℂ :=
   ∑ i : Fin H, (liouvilleWindow H n i : ℂ) *
     Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (α : ℂ) * (((i : ℕ) : ℂ) + 1))
 
-/-- **The MRT uniformity door** (Tao 1509.05422, Prop 2.4, p. 12).
+/-- **The MRT uniformity door** (Tao 1509.05422v2, Prop 2.4, p. 12).
 
 THE `∀ α` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao 1509.05422
 (4.1), which is OPEN — moving this quantifier silently downgrades a theorem-door
@@ -92,7 +92,7 @@ theorem contradiction_of_mrtDoor (R : ChowlaRegime) {δ c₀ ε K : ℝ} {H : �
     le_trans hlower (le_trans hsum (le_of_eq hconst))
   linarith [h1, hcard, hsmall]
 
-/-- **The weakened MRT uniformity door** (Tao 1509.05422, Prop 2.4, p. 12; the
+/-- **The weakened MRT uniformity door** (Tao 1509.05422v2, Prop 2.4, p. 12; the
 Tao-faithful Ξ_H-restricted surface).
 
 THE `∀ ξ ∈ Ξ_H` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao
@@ -168,7 +168,7 @@ below reads it exactly once.
 Additive: `MRTUniformityXi` and `contradiction_of_mrtDoorXi` are untouched, and
 `mrtUniformityXiL2_of_xi` is the one-way bridge from the landed `L¹` door. -/
 
-/-- **The Ξ-summed `L²` MRT uniformity door** (Tao 1509.05422, Prop 2.4, p. 12;
+/-- **The Ξ-summed `L²` MRT uniformity door** (Tao 1509.05422v2, Prop 2.4, p. 12;
 the `L²` surface of the Ξ_H-restricted door).
 
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL — the same seam warning as
