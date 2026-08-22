@@ -667,6 +667,35 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
+
+Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
+populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:738`,
+`M4DoorClose.lean:{395,533,607}`, `M4Collapse.lean:216`, `M4ChiSocketWire.lean:{184,240}`.
+The capstone `M4ChiDyadicRowMeanSq` has **6** (three of them `… := by` in
+`M4DoorClose`/`M4DoorClosePool`).
+
+So the door's road runs at least five links — `absWindowSum → subWindowSup → strata →
+doorChiSup → dyadic → capstone → DoorRowCarried` — and **every link has producers.**
+
+⛔ **AND HERE IS WHERE I STOP AND DO NOT INVERT MY OWN ERROR.**  I spent three beats calling
+this road broken one link too early.  The opposite claim — *"the road is complete"* — is the
+SAME mistake wearing the other sign, and I have not earned it.  What I measured is that each
+link has producer-shaped declarations.  What I did **not** measure is whether they COMPOSE:
+whether the constants, the graded floors (`doorRowFloor M`, `j₀`), the modulus cap
+`arcDen 12 H ≤ Qm` and the regime fields line up across the seams.
+
+⇒ **THAT is the genuinely open question, and it is not "a missing lemma".**  It is the class
+my own banked law names: *the kernel checks theorems, not that they compose.*  A `lake build`
+is green on every one of these links today and would stay green with a seam that never joins.
+
+⭐ **INSTRUMENT, NOW CALIBRATED AND REUSABLE.**  Producer-probe v4: exact-name (reject
+`Name[A-Za-z_0-9']`, which kills the 24 `DoorRowCarried*` prefix twins and `MRTUniformityXiL2`),
+conclusion-shaped, binder-subtracted.  **Control: `MRTUniformityXi` → 6 real sites, 0 prefix
+twins.**  v1 scored 0 on that control (missed producers); v2 scored 15 (prefix-inflated); v3
+scored 0 on everything (an adjacency bug).  **The control caught all three defects; the probe
+caught none of them.**  *Three versions in, the control has done more work than the probe.* -/
+
 /-! ### THE DOOR'S CAPSTONE IDENTIFIED — AND THE ROAD RUNS ONE LINK FURTHER STILL
 
 Continuing the walk, under the rule set in the section below: name no frontier, keep going.
