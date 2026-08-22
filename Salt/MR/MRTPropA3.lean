@@ -667,6 +667,61 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### A.7 vs `Renormalise.lean` — OPENED, and the factor is literally the same one
+
+Second of the two rows the sweep left *named-not-opened*.  Opening it: the match is much
+closer than A.6's was.
+
+`renormalise_aux` (`Renormalise.lean:760`), with `eIu u y := exp(I·u·log y)` — i.e.
+`y^{iu}` (`Renormalise.lean:497`):
+```
+  ‖ ∑_{n≤x} f n · eIu u n  −  x·eIu u x/(1 + I·u) · ∑_{d≤x} mobDatum f d / d ‖
+      ≤ 2C₁(5 + 2 log y)·(x/log x)·∑_{d≤x} mobNorm f d/d,     y = 3 + |u|(1+log x)
+```
+against **A.7**:
+```
+  ‖ ∑_{n≤X} gJ·f·costwist(−t) n
+      − exp((t−t₁)·I·log X)/(1 + (t−t₁)·I) · ∑_{n≤X} gJ·f·costwist(−t₁) n ‖
+      ≤ C·X/(log X)^{1/10}
+```
+
+✅ **THE RENORMALISATION FACTOR IS LITERALLY THE SAME OBJECT.**  At `u := t − t₁`,
+`eIu u x = X^{i(t−t₁)}` and the denominator `1 + I·u` is A.7's `1 + (t−t₁)·I`.  *This is the
+factor whose SIGN this seat resolved at 08:2x (`mrtA7_factor_conj`,
+`mrtA7_factors_same_norm`) — it is landed machinery, not something to invent.*
+
+⛔ **TWO REAL DIFFERENCES, and they are the residue:**
+```
+  (1) TARGET.  renormalise_aux renormalises against ∑ mobDatum f d/d — a Möbius/mean-value
+      datum.  A.7 renormalises against the SAME sum at t₁.  Different right-hand object.
+  (2) ERROR.   the landed error is (x/log x)·∑ mobNorm f d/d.  Its log POWER is stronger
+      than A.7's (log X)^{−1/10} — see `renormalise_error_logpower_stronger` — but it is
+      multiplied by a weight sum that is NOT bounded by a constant.
+```
+Also: `renormalise_aux` demands `f 1 = 1` and multiplicativity (A.7 asks only 1-boundedness),
+and carries no `gJ` window.
+
+⇒ **A.7's residue is narrower than "prove A.7": RE-TARGET the right-hand object from
+`∑ mobDatum/d` to the `t₁`-twisted sum, and control `∑ mobNorm f d/d` against
+`(log X)^{−1/10}`.**  *Third sweep row opened, third time the family was right and the shape
+needed work — but this is the first where a NAMED PIECE of the target is landed verbatim
+rather than merely nearby.* -/
+
+/-- The landed renormalisation error carries `x/log x`, whose log power is **stronger** than
+A.7's `X/(log X)^{1/10}`: for `X ≥ e`, `X/log X ≤ X/(log X)^{1/10}`.  *So the log power is
+not the obstruction — the unbounded weight sum beside it is.* -/
+theorem renormalise_error_logpower_stronger {X : ℝ} (hX : Real.exp 1 ≤ X) :
+    X / Real.log X ≤ X / (Real.log X) ^ ((1 : ℝ) / 10) := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hX
+  have hLpos : (0 : ℝ) < Real.log X := lt_of_lt_of_le zero_lt_one hL1
+  have hpow : (Real.log X) ^ ((1 : ℝ) / 10) ≤ Real.log X := by
+    calc (Real.log X) ^ ((1 : ℝ) / 10)
+        ≤ (Real.log X) ^ (1 : ℝ) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+      _ = Real.log X := Real.rpow_one _
+  have hppos : (0 : ℝ) < (Real.log X) ^ ((1 : ℝ) / 10) := Real.rpow_pos_of_pos hLpos _
+  exact div_le_div_of_nonneg_left hXpos.le hppos hpow
+
 /-! ### A.6, measured against the landed Halász family — and the hit is the WRONG SHAPE
 
 The set sweep reported *"A.6's estimate — OPEN → 61 landed `halasz*` theorems"*.  That

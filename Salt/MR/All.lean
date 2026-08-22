@@ -8434,6 +8434,7 @@ open Salt.Tactic in
   Salt.MR.memS_false_of_Qseq1_zero
   Salt.MR.mrtM_nonneg
   Salt.MR.mrtA3_bracket_nonneg
+  Salt.MR.renormalise_error_logpower_stronger
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape
