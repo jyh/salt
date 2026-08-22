@@ -1963,7 +1963,35 @@ on `|F|` over `T₁` gives `∫_{T₁} F² ≤ 2T·B²`, because `T₁ ⊆ [−T
 SECOND IS NOT MINE TO CLOSE.**  A.5 bounds `‖mrtG …‖` — MRT's `G`, the Ramaré-weighted
 sum — pointwise on `T₁`, while the split consumes `∫_{T₁}‖F‖²` for A.3's `F = dpolyA`.
 This lemma performs the *pointwise → integral* half for whatever function is supplied;
-the *`G` → `F`* half is what MRT take from `[17, Proposition 1]`, and it is external.
+the *`G` → `F`* half is what MRT take from `[17, Proposition 1]`.
+
+⛔⛔ **AND "EXTERNAL" WAS THE WRONG WORD — CORRECTED 2026-08-22 14:1x.**  I published
+*"external, [17, Proposition 1]"* for A.3's `T₁` side repeatedly today without once
+checking the corpus for it.  `Salt/MR/Prop1Assembly.lean` is **41 KB and 22 declarations**,
+and four of them are named for this exact object:
+
+```
+  prop_A3_T1_row_moment            prop_A3_T1_row_moment_T_of_floor
+  prop_A3_T1_row_moment_polyT      prop_A3_T1_row_moment_le
+  prop_A3'_assembly · T1_pointwise_decay_corrected · T1_decay_corrected_fgJ
+```
+
+**[17, Proposition 1]'s machinery is LANDED.**  What is *not* established is that it
+composes to `MRTLemmaA5`, or to `∫_{mrtT1}‖dpolyA‖² ≤ B₁`: the vocabularies differ
+(`spoly` / `annHead` / `M_range (seamCoeff (ellLin g) …)` against this file's `dpolyA` /
+`mrtT1` / `pretDistSq`), and `prop_A3_T1_row_moment_le` carries the same `(1/32)·loglog X`
+floor that row 17j measured as short of A.4(ii)'s constant.
+
+⇒ **The correct standing claim is "NOT YET CONNECTED", not "external".**  The difference
+matters for pricing: *external* means port a paper; *not yet connected* means write a
+bridge between two landed vocabularies, which is the kind of work this file has been doing
+all day.  **The `B₁` hypothesis stays carried either way — this changes what it would COST
+to discharge, not whether it is discharged.**
+
+🔑 *Third time today I said "we need X" about something already in the corpus (after
+Montgomery–Vaughan, and after my own `landed_route_below_a4ii_target`).  This one I caught
+by APPLYING the law banked one beat earlier rather than by accident — which is the first
+time today a law of mine fired before the mistake shipped rather than after.*
 
 *Note the enlargement is on the CONSTANT majorant, not on `F` — the same shape as
 `mrtA3_T0_setIntegral_bound_onT0`, and for the same reason: `F`'s bound is only known
