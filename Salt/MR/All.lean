@@ -8376,6 +8376,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4i_loss_pos
   Salt.MR.mrtA7_exact_at_center
   Salt.MR.not_mrtLemmaA4ii
+  Salt.MR.recenter_then_halve_constant
+  Salt.MR.landed_route_below_a4ii_target
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le

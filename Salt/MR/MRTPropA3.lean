@@ -760,4 +760,55 @@ theorem not_mrtLemmaA4ii : ¬ MRTLemmaA4ii := by
     refine one_div_lt_one_div_of_lt (by norm_num) (by linarith)
   linarith
 
+/-! ## Pricing A.4(ii)'s far branch: the landed engines are STRICTLY too weak
+
+With `MRTLemmaA4ii`'s `t₁` repaired (constrained to the minimiser), the far
+branch has an obvious route through objects that are already landed:
+
+```
+  dist_one_floor_pow   DistHalasz.lean:179   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
+                       the 1/4-grounding: for |b| ≤ 2X the −(3/4)loglog correction
+                       eats 3/4 of the leading loglog, leaving L = (1/4)·loglog X − o(1)
+  dist_recenter_sq     DistSplit.lean:140    (√L − √S)² ≤ 𝔻²(f, n^{it}; X)
+                       at the centre cap S = (1/16)·loglog X
+  mrtA4i_holds         (this file)           halves it onto f·g_𝒥
+```
+
+**That chain terminates at `(1/32)·loglog X`** — which is exactly `PropA3Core`'s
+frozen S8 numeral, and the two lemmas below establish, by computation rather than
+by citation, that it is **strictly below** A.4(ii)'s target `1/6 − 1/(3π)`:
+
+  `(1/32) = 0.03125`   vs   `1/6 − 1/(3π) ≈ 0.06057`   — short by ~1.94×.
+
+⇒ **The landed S8 engines cannot prove MRT's A.4(ii), and the shortfall is not a
+constant one can absorb: the target is nearly twice the route's output.** MRT
+reach the larger constant by a sharper argument than recentre-then-halve.
+
+🔑 This is a PRICE, not a refutation of anything: A.4(ii)'s far branch is
+genuinely open and its cost is now measured rather than guessed. *The previous
+two prices in this campaign were guesses about proofs I had not opened, and they
+erred in opposite directions.* -/
+
+/-- **The landed route's terminal constant, COMPUTED.**  `dist_recenter_sq` at
+`L = (1/4)ℓ`, `S = (1/16)ℓ` gives `(√L − √S)² = (1/16)ℓ`; `mrtA4i_holds` halves
+it. Stated on the bare coefficients so the arithmetic is checked, not asserted. -/
+theorem recenter_then_halve_constant :
+    (Real.sqrt (1 / 4) - Real.sqrt (1 / 16)) ^ 2 / 2 = 1 / 32 := by
+  have h4 : Real.sqrt (1 / 4) = 1 / 2 := by
+    rw [show (1 : ℝ) / 4 = (1 / 2) ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+  have h16 : Real.sqrt (1 / 16) = 1 / 4 := by
+    rw [show (1 : ℝ) / 16 = (1 / 4) ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+  rw [h4, h16]; norm_num
+
+/-- **AND IT IS STRICTLY BELOW A.4(ii)'s TARGET.**  `1/32 < 1/6 − 1/(3π)`, so a
+`(1/32)·loglog X` floor does NOT imply A.4(ii)'s conclusion — the landed chain is
+insufficient by construction, not by a gap in its proof.  Needs only `π > 3`. -/
+theorem landed_route_below_a4ii_target :
+    (1 : ℝ) / 32 < 1 / 6 - 1 / (3 * Real.pi) := by
+  have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h3 : (0 : ℝ) < 3 * Real.pi := by linarith
+  have h : 1 / (3 * Real.pi) < 1 / 9 :=
+    one_div_lt_one_div_of_lt (by norm_num) (by linarith)
+  linarith
+
 end Salt.MR
