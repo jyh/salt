@@ -246,6 +246,44 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15ll. 🗺️ **THE DOOR'S PRODUCER CHAIN, MAPPED AT THE BYTES — PLUS ONE STALE FIELD IN THE STANDING
+    PROMPT AND ONE NEGATIVE RESULT I OWE OUT LOUD. 2026-08-22 06:1x.**
+    ⛔ **STALE FIELD, RE-ARM REQUESTED (remit: the prompt is mine to flag).** Item (10) reads
+    *"the door is Tao Prop 2.4, **PROVEN in MRT arXiv:1503.05121** — a FORMALIZATION target."*
+    **The second clause is wrong**, and my own commissioned match report (`briefs/2026-08-21-mrt-match-REPORT.md`
+    §0) says so: Tao's Prop 2.4 is `1509.05422` p.13; MRT's Prop 2.4 is a **DIFFERENT STATEMENT** on
+    `1503.05121` p.10. The report's own corollary: ***"do NOT target MRT Prop 2.4 as the consumption
+    surface"*** — matching the door against it *"manufactures gaps that the door's true parent has
+    already paid."* ⇒ this field would send a session at the wrong paper, so it re-arms.
+    **What MRT `1503.05121` actually supplies is THEOREM A.1.**
+    ✅ **NEGATIVE RESULT, REPORTED BECAUSE I WENT LOOKING FOR A DEFECT AND THERE ISN'T ONE.** I
+    hypothesised a producer-deletion: the report says the door consumes *MRT Thm 2.3 + Lemma 2.2*,
+    and the ratified spine **DELETED both**. That is textbook *"deleting a producer is never local."*
+    **THE BRIEF HAD ALREADY CHECKED IT AND IT IS SOUND** — Tao `1509.05422` p.15 VERBATIM: in the
+    Liouville case `c_p = 1`, *"we only need to apply Proposition 2.4 for 'major arc' values of α,
+    allowing one to replace [23, Lemma 2.2, Theorem 2.3] by the simpler [23, Theorem A.1]"* — and
+    **salt's door is already stated at major arcs** (`CircleMethod.lean:40`, `Ξ_H`). *The brief even
+    read past the "however" on purpose because it could have negated the shortcut.* **My hypothesis
+    was wrong; the chain is intact.**
+    ⭐⭐ **AND THE REPLACEMENT IS THE OBJECT I HAVE BEEN PORTING ALL NIGHT — VERIFIED TERM BY TERM**
+    against the brief's verbatim quote: `X ≥ h ≥ 10` ↔ `10 ≤ h → h ≤ X` · the `(1/X)∫_X^{2X}|(1/h)Σ|²`
+    integrand ↔ `mrtShortMean` · RHS `exp(−M)·M + (loglog h)²/log h + 1/(log X)^{1/50}` ↔ identical,
+    with `≪` made explicit as `∃C`. **`MRTThmA1` IS MRT Theorem A.1.**
+    ⛔⛔ **THE ACTIONABLE GAP — A DANGLING INTERFACE, THE CLASS A BUILD CANNOT CATCH: `MRTThmA1` HAS
+    *ZERO* REFERENCES OUTSIDE `Salt/MR/`, AND ZERO IN `Salt/Entropy/` WHERE THE DOOR LIVES.**
+    (Control: `mrtM` resolves across 6 files, so the grep sees cross-file use.) ⇒ *the door's
+    replacement ingredient is stated in Lean and NOTHING CONNECTS IT TO THE DOOR.* Neither piece is
+    defective; the INTERFACE is unstated.
+    ```
+      MRT Prop 2.4  → Salt/MR/MRTProp24.lean   e856f6c9   1503.05121×3, Tao×0   NOT the door's surface
+      Tao Prop 2.4  → MRTDoor.lean MRTUniformityXi        Tao×9, MRT×4          the door's real parent
+      MRT Thm A.1   → Salt/MR/MRTThmA1.lean               ZERO door-side links  THE MISSING EDGE
+    ```
+    ⚠️ **THE COLLISION IS NOW IN THE LEAN CORPUS, NOT JUST THE PAPERS: a reader who greps `Prop24`
+    lands on the one the report says NOT to consume.** `MRTProp24.lean` is legitimately landed
+    (wave-1a E-1's `S`-set feeds A.3, and v2 SHRINKS rather than dissolves E-1/E-2) — **the hazard is
+    the NAME, not the file.**
+
 15kk. 🔬 **SIBLING SWEEP OF THE FREE-`t₁` DEFECT — A.4(ii) IS THE ONLY FATAL ONE OF THE THREE, AND
     THE DISCRIMINATOR IS THE INEQUALITY DIRECTION. `8aa55a16` 2026-08-22 06:0x.**
     15ii found `MRTLemmaA4ii` false because `t₁` floats free. **`t₁` ALSO OCCURS IN `MRTLemmaA6` AND
