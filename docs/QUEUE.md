@@ -158,7 +158,19 @@ RESURRECTS THEM:**
     **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
     `Q₁ := H/W³`) + the Prop 2.4 statement (bound transcription verified exact by the refuters).
     Class **B**. *Shrunk by the reduction: the `g₁ * h` constructions are gone.*
-12. **WAVE 1c — E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations: ∫→∑
+12. ⛔⛔ **WAVE 1c — NOT DISPATCHABLE AS BRIEFED (08/21 17:0x, math). ITS DYADIC NODE RESTS ON A
+    PREMISE WAVE 1a REFUTED.** The v2 brief's *"NOTE FOR THE DYADIC NODE"* said A.1's `[X,2X]` is
+    "**already a dyadic block, which is the shape wave 1c's cover produces**" — ***two different
+    `[X,2X]`s.*** A.1's is the **`x`-AVERAGE (the outer location parameter)**, not the typical set's
+    range; MRT's `S` is **always an initial segment**, and A.2/A.3 impose the dyadic restriction **on
+    the SUM**. The note is annotated-in-place, left standing, and marked DO-NOT-SCOPE-FROM in the
+    brief (annotate, never rewrite). **A transfer survives but costs a TAIL** (`typical_density_le`'s
+    `∃ C` binds outside `∀ P Q X`, so C is scale-uniform; both side hypotheses fail at small scale).
+    ⛔ **Separately, and NOT absorbed by the range question: `typical_density_le` is ONE BAND, while
+    Lemma 2.2's complement is the union over `j ≤ J`** — needs the `(1/j²)` profile and `Σ 1/j²`.
+    **Unlanded regardless.** ⇒ **RE-BRIEF BEFORE ANY EXECUTOR CONSUMES THIS ROW.** E-5c and the
+    thresholds are untouched by the refutation and remain sound as written.
+    *Statement below untouched — status field only.* — **E-5c** (S-dilation identity) **+ the dyadic node** (SIX obligations: ∫→∑
     step-function identity · absolute→relative phase re-index · per-block `W`-sandwich ·
     Definition 2.1 side conditions · the nat-division cover lemma · reassembly — **the reassembly
     half is LANDED**, `harmonic_window_bounds`, `LogMeasure.lean:115`) **+ the thresholds**
