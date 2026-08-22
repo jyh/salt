@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15v. ✅ **THE `PropA3Core` QUESTION IS SETTLED, AND THE ANSWER IS A NAME COLLISION — 2026-08-22 02:1x.**
+    I would not guess it at 02:00; here is the measurement.
+    ```
+      MR 1501.04585, ALL its numbered results:  "Lemma 1 … Lemma 14", "Lemma 2.4", "Lemma 3.3"
+        Proposition A.x : NONE      Lemma A.x : NONE      "Appendix A" : NONE
+        (control: 'multiplicative' = 48 hits, so the extraction is real)
+      PropA3Core.lean:11  "MR wave-3 rung H3 — the numeral/branch completion of
+                           R3.1 + R3.2/R3.3/R3.4",  keyed to `s8-freeze.md:33`
+      docs/CAMPAIGNS.md:30  "S8 / MR-CORE … thm_A1′ → the MRT door"
+    ```
+    🔑 ⇒ ***`PropA3Core` IS A SALT-INTERNAL S8-LADDER RUNG NAME. IT CITES NO PAPER'S "Proposition A.3" —
+    MR HAS NONE, AND MRT's IS A DIFFERENT OBJECT.*** **The `A3` is salt's own ladder label, and the
+    resemblance to MRT's Appendix A numbering is a COINCIDENCE.**
+    ⇒ **That explains the numerals cleanly:** `(1/16)`/`(1/32)` are **salt's own frozen S8 choices**
+    (`s8-freeze.md`), not a mis-transcription of MRT's `(1/8)` and `1/6 − 1/(3π)`. *Nothing is wrong with
+    either; they are different objects that share three characters.*
+    ⭐ **AND THE ALGEBRA CLAIM SURVIVES INTACT:** `dist_split_A4` really is A.4(i)'s shape (at `W = 0`)
+    and `dist_recenter_sq` really is A.7's recentering — **the ENGINES transfer even though the RUNG does
+    not.** *S8 aims at `thm_A1′` and the MRT door per `CAMPAIGNS.md`, so the lineage is right; only the
+    label was a false friend.*
+    📌 ***THIRD "TWO DIFFERENT X" OF THE DAY*** — after the two `Prop 2.4`s (08:5x match report) and the
+    two `[X,2X]`s (17:06 erratum). **A name that matches a paper's numbering is not a citation of it.**
+    ⚠️ **ORPHAN COUNT, CROSS-SEAT: mine 487, the helm's 446, ALL FOUR CONTROLS MATCHING EXACTLY
+    (13·9·6·0).** *Method agrees, extraction does not.* **Candidate causes, named not chased at this
+    hour: my declaration regex requires the keyword at LINE START and skips names beginning `_`; a
+    different regex admits or drops both classes.** ⇒ **Quote it as ~450–490, method-sound,
+    implementation-spread** — the same posture as the ±2 duplicate baseline.
+
 15u. ⭐⭐⭐ **TWELFTH — A.4(i)'s AND A.7's ALGEBRAIC CORES ARE LANDED, AND THERE IS A 346-LINE
     `PropA3Core.lean`. 2026-08-22 02:0x. Found by an ORPHAN AUDIT, not by looking for them.**
     ```
