@@ -1195,4 +1195,36 @@ theorem integral_inv_one_add_sq_le_one {c : ℝ} (hc : 0 ≤ c) :
   simp only [add_zero, inv_one]
   linarith
 
+/-! ## Why MRT's A.7 sign discrepancy never bit them — and why it would bite us
+
+The statement (A.8) and its own proof carry opposite signs in the renormalization
+factor (`mrtA7_factor_conj` shows the two candidates are conjugates). **Nothing in
+the paper resolves it, and the reason is that nothing in the paper NEEDS it
+resolved.**
+
+MRT p.25: *"Hence, thanks to Lemma A.7, Lemma A.6 follows once we have shown"* —
+and the display that follows, (A.9), carries only `n^{−it₁}`: **the multiplier has
+been DISCARDED**, because `|X^{iu}/(1 + iu)| = 1/√(1+u²) ≤ 1`.  That modulus is
+**identical** under both conventions, since `u ↦ −u` leaves `u²` fixed.
+
+🔑 ***THE SOURCE CAN TOLERATE THE AMBIGUITY BECAUSE IT ONLY EVER USES THE MODULUS.
+A FORMALISATION CANNOT, BECAUSE IT STATES THE IDENTITY.*** `mrtA7_factors_differ`
+exhibits two distinct values; `MRTLemmaA7` asserts one of them. **A formal
+statement is strictly more sensitive than its source at exactly the points the
+source never leans on** — and those are precisely the points where a transcription
+error survives undetected, because the original had no reason to be careful there.
+
+⇒ The flag stands as a TRANSCRIPTION question, and is now known to be
+**immaterial to MRT's argument and material to ours.** -/
+
+/-- **The two candidate A.7 factors have equal modulus** — immediate from
+`mrtA7_factor_conj`, since conjugation is norm-preserving.  *This is exactly what
+MRT's downstream step uses, and why their sign discrepancy never propagates.* -/
+theorem mrtA7_factors_same_norm (t t₁ X : ℝ) :
+    ‖Complex.exp ((((t - t₁ : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+        / (1 + (((t - t₁ : ℝ) : ℂ)) * Complex.I)‖
+      = ‖Complex.exp ((((t₁ - t : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+        / (1 + (((t₁ - t : ℝ) : ℂ)) * Complex.I)‖ := by
+  rw [← mrtA7_factor_conj t t₁ X, RCLike.norm_conj]
+
 end Salt.MR
