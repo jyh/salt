@@ -127,4 +127,46 @@ theorem door_absWindowSum_sq_le_dyadic {M n H : ℕ} {B₅ α : ℝ}
     Finset.sum_nonneg fun d _ => div_nonneg zero_le_one (Nat.cast_nonneg d)
   exact mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hinner hharm) (sq_nonneg _)
 
+/-! ## Seam 3 — what it actually costs: an INDEX-SET ALIGNMENT, not an estimate
+
+Seam 3 joins the dyadic budget to the capstone `M4ChiDyadicRowMeanSq`, whose consumer
+`m4_chiShiftBlock_of_dyadicRow` delivers `M4ChiShiftBlockMeanSq`.  Comparing the two objects:
+
+* the capstone's family sums `‖∑_{m ∈ doorSievedWindow M (2^j) n} liouChi χ m‖²` over **every**
+  `n` in the ladder block `Ioc (doorLadder R.x H (i+1) + s) (doorLadder R.x H i + s)`;
+* `dyadicStratumBudget` sums the **same summand** over an arithmetic progression of bases
+  `n₀ + 2^(j+1)·t`.
+
+**The summands are identical — `doorSievedWindow` and `liouChi`, not lookalikes.**  What differs
+is the index set: a step-`2^(j+1)` progression versus a full interval.  So seam 3 is not a
+numerical estimate at all; it is the statement that the progression **lands inside** the block.
+That is the piece below, isolated and proved in general so the seam has nothing left to invent.
+-/
+
+/-- **THE ALIGNMENT LEMMA** — a nonnegative sum over an arithmetic progression is dominated by
+the sum over any interval containing that progression's terms.  Positive step gives
+injectivity, so no term is double-counted; nonnegativity absorbs the interval's extra cells.
+
+*This is exactly what seam 3 needs, and stating it made the seam's real cost visible: the
+dyadic family and the capstone family have the SAME summand and differ only in index set.* -/
+theorem sum_progression_le_sum_Ioc {f : ℕ → ℝ} (hf : ∀ n, 0 ≤ f n)
+    {a b n₀ step T : ℕ} (hstep : 0 < step)
+    (hin : ∀ t, t < T → n₀ + step * t ∈ Finset.Ioc a b) :
+    ∑ t ∈ Finset.range T, f (n₀ + step * t) ≤ ∑ n ∈ Finset.Ioc a b, f n := by
+  classical
+  have hinj : ∀ x ∈ Finset.range T, ∀ y ∈ Finset.range T,
+      n₀ + step * x = n₀ + step * y → x = y := by
+    intro x _ y _ hxy
+    have : step * x = step * y := by omega
+    exact Nat.eq_of_mul_eq_mul_left hstep this
+  have himg : (Finset.range T).image (fun t => n₀ + step * t) ⊆ Finset.Ioc a b := by
+    intro n hn
+    obtain ⟨t, ht, rfl⟩ := Finset.mem_image.mp hn
+    exact hin t (Finset.mem_range.mp ht)
+  calc ∑ t ∈ Finset.range T, f (n₀ + step * t)
+      = ∑ n ∈ (Finset.range T).image (fun t => n₀ + step * t), f n :=
+        (Finset.sum_image hinj).symm
+    _ ≤ ∑ n ∈ Finset.Ioc a b, f n :=
+        Finset.sum_le_sum_of_subset_of_nonneg himg (fun n _ _ => hf n)
+
 end Salt.MR

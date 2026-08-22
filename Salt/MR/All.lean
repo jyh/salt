@@ -8440,6 +8440,7 @@ open Salt.Tactic in
   Salt.MR.door_absWindowSum_sq_le_strata
   Salt.MR.strataTerm_le_dyadic
   Salt.MR.door_absWindowSum_sq_le_dyadic
+  Salt.MR.sum_progression_le_sum_Ioc
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape
