@@ -183,4 +183,52 @@ theorem mrtT0_disjoint_mrtT1 (M t₁ X T : ℝ) :
     rintro t ⟨_, h0⟩ ⟨_, h1⟩
     linarith
 
+/-! ## A3-3 — MRT Lemma A.4, stated
+
+From `1503.05121v3`, Appendix A, verbatim:
+
+> **Lemma A.4.** Let `𝒥 ⊆ {1,…,J}` and `|t| ≤ X`.
+> **(i)** One has `𝔻(f g_𝒥, p^{it}; X)² ≥ ½ 𝔻(f, p^{it}; X)²`.
+> **(ii)** If `M(f;X) ≥ (1/8) log log X` or `|t − t₁| > (log X)^{1/16}/2`, then
+> `𝔻(f g_𝒥, p^{it}; X)² ≥ (1/6 − 1/(3π) − ε) log log X` for any `ε > 0`.
+
+⭐ Both are stated against the corpus's own `pretDistSq`, `costwist` and `gJ`, so
+the twisted function `f·g_𝒥` is the same Lean object A.6's inclusion–exclusion
+(`lemma5`) already sums over.
+
+⚠️ Statements only — nothing proves them and nothing assumes them.  A.5, A.6 and
+A.7 are **not** stated here: their conclusions are still only partially read, and
+stating a display I have not seen whole is the error this seat spent the night
+recovering from. -/
+
+/-- **MRT Lemma A.4 (i)** — twisting by `g_𝒥` costs at most a factor `2`. -/
+def MRTLemmaA4i : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → |t| ≤ X →
+      (1 / 2) * pretDistSq f (costwist t) X
+        ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
+
+/-- **MRT Lemma A.4 (ii)** — off the `t₁` window, or at large quality, the
+twisted distance is bounded below by `(1/6 − 1/(3π) − ε)·loglog X`. -/
+def MRTLemmaA4ii : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → |t| ≤ X → 0 < ε →
+    ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X
+      ∨ (Real.log X) ^ ((1 : ℝ) / 16) / 2 < |t - t₁|) →
+      (1 / 6 - 1 / (3 * Real.pi) - ε) * Real.log (Real.log X)
+        ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
+
+/-- **THE CONSTANT IN (A.3) IS POSITIVE.**  `1/6 − 1/(3π) > 0`, i.e. `π > 2`.
+
+*This is the small-end check on A.4 (ii): were the constant `≤ 0`, the bound
+would be vacuous for every `ε` and the lemma would carry no content at all.* -/
+theorem mrtA4_constant_pos : 0 < 1 / 6 - 1 / (3 * Real.pi) := by
+  have hpi : (2 : ℝ) < Real.pi := by linarith [Real.pi_gt_three]
+  -- `div_lt_div_iff` is gone from this mathlib; `one_div_lt_one_div_of_lt` is the
+  -- sibling of `one_div_le_one_div_of_le`, which the corpus already uses.
+  have h6 : (6 : ℝ) < 3 * Real.pi := by linarith
+  have hinv : 1 / (3 * Real.pi) < 1 / 6 :=
+    one_div_lt_one_div_of_lt (by norm_num) h6
+  linarith
+
 end Salt.MR
