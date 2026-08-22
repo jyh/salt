@@ -246,7 +246,22 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
-16m. ✅✅ **A.3's SPLIT IS A LEAN STEP — `T₀` AND `T₁` BOUNDS ADD TO THE BAND BOUND. `%s`
+16n. ✅✅ **A.3's SPLIT NOW SPEAKS `MRTPropA3`'s OWN INTEGRAL — THE SPINE'S LAST SHAPE HOP. `40886aed`
+    2026-08-22 09:4x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (5.1s)`, zero diagnostics,
+    Attempts: 1 (cap 3, declared before starting).**
+    ```
+      band_eq_Icc                 {t : |t| ≤ T} = Icc (-T) T
+      mrtA3_split_bound_interval  the split, concluding at ∫_{-T}^{T} — not over the band SET
+    ```
+    **`mrtT0_union_mrtT1` produces the SET form; `MRTPropA3` is stated with `∫_{-T}^{T}`. Bridge:
+    `band_eq_Icc`, then `Icc → Ioc` (null set), then `integral_of_le`.**
+
+    📌 **THE FOURTH SHAPE HOP TONIGHT** — distance vs inclusion, one-sided vs two-sided,
+    uncentred vs centred, set vs interval. Every one was a TRUE statement that could not be
+    consumed until its shape matched its consumer. *When a landed lemma "should" apply and does
+    not, check the SHAPE before doubting the CONTENT.*
+
+16m. ✅✅ **A.3's SPLIT IS A LEAN STEP — `T₀` AND `T₁` BOUNDS ADD TO THE BAND BOUND. `ccb21aef`
     2026-08-22 09:3x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (5.2s)`, zero diagnostics,
     Attempts: 1 (cap 3, declared before starting).**
     ```
@@ -269,7 +284,7 @@ RESURRECTS THEM:**
     · the split **LANDED** · `T₁` side = `MRTLemmaA5`, **STATED, proof external ([17, Lemma 3])** ·
     the renormalisation = `MRTLemmaA7`, stated, sign flagged.
 
-16l. ✅✅ **A.3's `T₀` STEP NOW HOLDS OVER `T₀` ITSELF — THE SET VERSION. `%s` 2026-08-22 09:1x.
+16l. ✅✅ **A.3's `T₀` STEP NOW HOLDS OVER `T₀` ITSELF — THE SET VERSION. `9267fe3a` 2026-08-22 09:1x.
     `[3 axioms]`, `EXIT=0`, genuine `Built (5.1s)`, zero diagnostics, Attempts: 2 (cap 3, declared
     before starting).**
     **MRT integrate over the SET `T₀`, not over an interval — so the interval form landed at 09:0x was
@@ -292,7 +307,7 @@ RESURRECTS THEM:**
     must supply. *Two hypotheses is the honest cost of this statement; hiding either would make the
     theorem read stronger than it is.*
 
-16k. ✅✅✅ **A.3's `T₀` STEP IS ASSEMBLED — MRT's "IMMEDIATELY IMPLIES", COMPOSED. `%s`
+16k. ✅✅✅ **A.3's `T₀` STEP IS ASSEMBLED — MRT's "IMMEDIATELY IMPLIES", COMPOSED. `15522e04`
     2026-08-22 09:0x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.0s)`, zero diagnostics, Attempts: 1
     (cap of 3 declared before starting).**
     `mrtA3_T0_integral_bound` : from `|F| ≤ A/(1+|t−t₁|) + B` on the centred interval,
@@ -317,7 +332,7 @@ RESURRECTS THEM:**
     uncentred→centred, ∀t→point). The composition that consumed them went first try. **The cost was
     paid in advance, and it is visible only as an absence of cost here.***
 
-16j. ✅ **THE INTEGRAL BOUND CENTRED AT `t₁` — THE LAST SHAPE CHANGE BEFORE ASSEMBLY. `%s`
+16j. ✅ **THE INTEGRAL BOUND CENTRED AT `t₁` — THE LAST SHAPE CHANGE BEFORE ASSEMBLY. `80b43c0f`
     2026-08-22 09:0x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.8s)`, zero diagnostics, Attempts: 1
     (cap of 3 declared before starting).**
     `integral_inv_one_add_abs_sub_sq_le_two` : `∫_{t₁−r}^{t₁+r} (1+|t−t₁|)^{−2} dt ≤ 2` — pure
@@ -339,7 +354,7 @@ RESURRECTS THEM:**
     ***The mathematics was in hand at 08:0x; four beats went into making it CONSUMABLE.*** *That is
     not overhead, it is what "landed" has to mean if a later proof is going to be able to use it.*
 
-16i. ✅ **THE TWO-SIDED INTEGRAL BOUND — THE EXACT QUANTITY A.3's `T₀` STEP CONSUMES. `%s`
+16i. ✅ **THE TWO-SIDED INTEGRAL BOUND — THE EXACT QUANTITY A.3's `T₀` STEP CONSUMES. `f8bbdf25`
     2026-08-22 08:5x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (4.7s)`, zero diagnostics.**
     ```
       integral_inv_one_sub_sq_le_one       ∫_{−r}^{0} (1−x)^{−2} ≤ 1
@@ -363,7 +378,7 @@ RESURRECTS THEM:**
     here either way, which is the point.*
 
 16h. ✅ **THE `T₀` RADIUS AS A *SET INCLUSION* — THE THIRD PART OF "IMMEDIATELY IMPLIES", AND ALL
-    THREE ARE NOW IN USABLE FORM. `%s` 2026-08-22 08:4x. Both `[3 axioms]`, `EXIT=0`, genuine
+    THREE ARE NOW IN USABLE FORM. `df6712e7` 2026-08-22 08:4x. Both `[3 axioms]`, `EXIT=0`, genuine
     `Built (4.6s)`, zero diagnostics, Attempts: 1.**
     ```
       mrtT0_subset_Icc   T₀ ⊆ Icc (t₁ − r) (t₁ + r),  r = (log X)^{1/16}
@@ -382,7 +397,7 @@ RESURRECTS THEM:**
     four times tonight ("ingredients landed" ≠ "node done"), and I am making it before anyone asks.*
 
 16g. ✅ **MRT's DISPLAY (A.9) *IS* LEMMA A.6 AT THE CENTRE — THE STEP A.7 BUYS, NOW A LEAN OBJECT.
-    `%s` 2026-08-22 08:3x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.6s)`, zero diagnostics,
+    `fe8cf28b` 2026-08-22 08:3x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.6s)`, zero diagnostics,
     first attempt.**
     `mrtA6_at_centre` : `MRTLemmaA6 C` at `t := t₁` gives exactly MRT's (A.9) — the factor
     `1/(1+|t−t₁|)` becomes `1/(1+0) = 1` and the two-term right-hand side is otherwise unchanged.
@@ -404,7 +419,7 @@ RESURRECTS THEM:**
     ```
 
 16f. ⭐⭐⭐ **THE A.7 SIGN FLAG IS RESOLVED — INTERNALLY, WITHOUT THE EXTERNAL [10, Lemma 7.1] — AND
-    THE RESOLUTION IS A GENERAL FACT ABOUT FORMALISING. `%s` 2026-08-22 08:2x. `[3 axioms]`,
+    THE RESOLUTION IS A GENERAL FACT ABOUT FORMALISING. `6ae34a67` 2026-08-22 08:2x. `[3 axioms]`,
     `EXIT=0`, genuine `Built (4.5s)`, zero diagnostics, first attempt.**
     **MRT p.25 line 53:** *"Hence, thanks to Lemma A.7, Lemma A.6 follows once we have shown"* — and
     the display (A.9) that follows carries **only `n^{−it₁}`**. ⇒ ***THE MULTIPLIER IS DISCARDED***,
@@ -459,7 +474,7 @@ RESURRECTS THEM:**
     ⇒ **that is the practical reason case (2) deserves a STANDING check and case (1) does not: the
     benign direction has a toolchain that tells you; the dangerous one has nothing.**
 
-16d. ✅ **THE INTEGRAL GAP I NAMED AT 08:0x IS CLOSED — `%s` 2026-08-22 08:2x. `[3 axioms]`,
+16d. ✅ **THE INTEGRAL GAP I NAMED AT 08:0x IS CLOSED — `288cd832` 2026-08-22 08:2x. `[3 axioms]`,
     `EXIT=0`, genuine `Built (4.5s)`, plain `✔`, zero diagnostics.**
     `integral_inv_one_add_sq_le_one` : for `c ≥ 0`, `∫₀^c (1+x)^{−2} ≤ 1`.
     *At 08:07 I listed the three parts of MRT's "immediately implies" and named this one as **NOT
@@ -485,7 +500,7 @@ RESURRECTS THEM:**
     available from `abs_sub_le_of_mem_mrtT0`, and the assembly itself.**
 
 16c. ✅ **A.3's ASSEMBLY — THE `T₀` POINTWISE STEP LANDED, AND MRT's UNSIMPLIFIED EXPONENT DECODED.
-    `%s` 2026-08-22 08:1x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (4.5s)`, zero diagnostics.**
+    `b55149a9` 2026-08-22 08:1x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (4.5s)`, zero diagnostics.**
     MRT p.24 say display (A.7) *"immediately implies"* `∫_{T₀}|F|² ≪ 1/exp(M) + (log X)^{1/16−2/16}`.
     **That step has three parts and only one is landed here, which I state rather than blur:**
     ```
@@ -508,7 +523,7 @@ RESURRECTS THEM:**
     destroyed them; `2 * A²/(1+|u|)²` is a DIFFERENT `linarith` atom from `A²/(1+|u|)²`; then the dead
     binders. *The mathematics was right from the numeric check onward.*
 
-16b. ✅ **MRT LEMMA A.5 IS STATED — THE LAST UNWRITTEN APPENDIX-A STATEMENT. `%s` 2026-08-22 08:0x.
+16b. ✅ **MRT LEMMA A.5 IS STATED — THE LAST UNWRITTEN APPENDIX-A STATEMENT. `9b32e13a` 2026-08-22 08:0x.
     All three `[3 axioms]`, `EXIT=0`, genuine `Built (4.4s)`, zero diagnostics, first attempt.**
     ```
       mrtG                 MRT's G(1+it) — the T₁-side Dirichlet sum with the reciprocal
@@ -534,7 +549,7 @@ RESURRECTS THEM:**
     proved) · A.5 STATED · A.6 stated · A.7 stated, sign flagged · A.8 CLOSED.**
 
 16a. ✅✅✅ **MRT LEMMA A.8 IS CLOSED UNCONDITIONALLY — AND BY A ROUTE SIMPLER THAN THE SOURCE'S.
-    `%s` 2026-08-22 07:5x. All three names `[3 axioms]`, `EXIT=0`, zero diagnostics, GENUINE
+    `40a56274` 2026-08-22 07:5x. All three names `[3 axioms]`, `EXIT=0`, zero diagnostics, GENUINE
     `Built (4.5s)` after an olean delete.**
     ```
       mrtA8_mvt_step   discharges the hypothesis mrtA8_of_mvt was carrying
@@ -561,7 +576,7 @@ RESURRECTS THEM:**
     A.5 no Prop · A.6 stated · A.7 stated, sign flagged · **A.8 CLOSED.**
 
 15zz. ✅ **MRT LEMMA A.8's ELEMENTARY HALF IS LANDED, WITH THE HARD STEP NAMED RATHER THAN HIDDEN.
-    `%s` 2026-08-22 07:4x. `[3 axioms]`, `EXIT=0`, plain `✔` build tick, zero diagnostics, first attempt.**
+    `c355df69` 2026-08-22 07:4x. `[3 axioms]`, `EXIT=0`, plain `✔` build tick, zero diagnostics, first attempt.**
     ```
       mrtA8_of_mvt (α θ : ℝ) (hα : 0 ≤ α)
         (hmvt : exp α + (exp 1 / 2)·θ² ≤ exp (√(α² + θ²)))          ← MRT's OWN first move, p.27
@@ -669,7 +684,7 @@ RESURRECTS THEM:**
     fire. **For every arm, not for the arm that happens to be convenient.**
 
 15vv. ✅✅ **THE A.7 SIGN CHECK THAT ACTUALLY DISCRIMINATES — AND THE GENERAL REASON THE OLD ONE
-    COULD NOT. `%s` 2026-08-22 07:2x. BOTH `[3 axioms]`, `EXIT=0`, ZERO DIAGNOSTICS.**
+    COULD NOT. `2d729f09` 2026-08-22 07:2x. BOTH `[3 axioms]`, `EXIT=0`, ZERO DIAGNOSTICS.**
     The helm scoped their 05:32 endorsement correctly and unprompted: *"read my past 'verified' over a
     CHECK as 'exists and is axiom-clean', not as 'discriminates'."* **The defect was MINE** — I built
     `mrtA7_exact_at_center` and called it a discriminator.
@@ -694,7 +709,7 @@ RESURRECTS THEM:**
     diagnostics** and the build line is a plain `✔`, not `⚠`.
 
 15uu. ✅✅ **A.4(ii) IS REPAIRED — `t₁` PINNED TO THE MINIMISER, AND THE REPAIR *BUYS* THE CENTRE CAP.
-    `%s` 2026-08-22 07:1x. ALL THREE `[3 axioms]`, `EXIT=0`, GENUINE `Built (11s)`.**
+    `b9e8fcb5` 2026-08-22 07:1x. ALL THREE `[3 axioms]`, `EXIT=0`, GENUINE `Built (11s)`.**
     ```
       MRTLemmaA4iiFixed       A.4(ii) + hypothesis  pretDistSq f (costwist t₁) X = mrtM f X
       mrtA4iiFixed_high_M     the high-M arm UNCHANGED (that branch never mentions t₁)
