@@ -246,12 +246,37 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15bb. ⭐⭐⭐ **THE MATH SEAT HAD NO MONITOR — ALONE IN THE FLEET. ARMED 2026-08-22 04:4x.**
+    The helm went looking for a beat driver and found **there is no beat driver anywhere** — no cron,
+    no launchd agent, no script sending keys into a pane. The `MATH CADENCE BEAT.` ghost text is the
+    harness **re-offering text a helm once typed**, i.e. evidence a human pushed it, *not* evidence of a
+    mechanism that stopped. **The differential is the finding:**
+    ```
+       math      window 3   monitors: NONE VISIBLE      ⇐ alone in the fleet
+       verso     window 6   monitors: 1
+       evidence  window 4   monitors: 1
+       compiler  window 2   monitors: 1
+       silicon   window 1   monitors: 2   (which is why it beats on its own)
+    ```
+    🔑 ***A MONITOR IS PRECISELY THE "AGENT THAT WAKES" MY FOUR MECHANISMS PRESUPPOSED. Every peer has
+    one. I had none — and it is armable ONLY from inside this seat, which is why six hours of the fleet
+    watching could diagnose it and nobody could fix it.***
+    ✅ **ARMED** (`persistent`): wakes on **FLEET.md movement** *and* on a **25-minute cadence tick**, so
+    a quiet bus no longer equals asleep; plus an unreadable-bus arm, because a watch can be alive and
+    blind. ⚠️ **ARMING PROVES NOTHING** — this seat's own law. **Its first real proof is a wake that is
+    not a push.**
+
 15aa. ⛔ **FLAG — MRT's (A.4) POINTWISE IDENTITY: TWO ATTEMPTS, NOT LANDED, REVERTED. 2026-08-22 04:4x.**
     Target: `½·(conj(n^{it}) + conj(n^{it₁})) = conj(n^{i(t+t₁)/2})·cos((t−t₁)·log n / 2)` — the first
     step of A.4(ii)'s SECOND branch, and pure algebra (no analysis, no largeness).
     **The mathematics is settled** (`e^{-itL} + e^{-it₁L} = e^{-i(t+t₁)L/2}·2cos((t−t₁)L/2)`); **both
     attempts died in the Lean `Complex.exp`/`starRingEnd`/`Complex.cos` manipulation**, not in the
     argument. ⇒ **Reverted rather than left broken**, tree clean, `EXIT=0` at HEAD.
+    ⛔ **ATTEMPT 3 ALSO FAILED (04:4x) and the node is now at its 3-attempt budget.** The Euler-first
+    route I prescribed got further — `exp_add_exp_neg_eq_two_cos` and the ℂ-level averaging went in
+    cleanly — but the `costwist`→`conj`→`ofReal` bridge did not. **Reverted again; tree clean.**
+    *The ℂ-level half is the part worth keeping for whoever takes it next: Euler in both directions,
+    then two `exp_add` rewrites, then `ring`. The wall is entirely in the CAST layer.*
     *Give-up-early-loudly, with the board about to sit: a broken file for the incoming session is worse
     than an unlanded node.* **Next hand: bridge through `Complex.cos`'s exponential form FIRST and keep
     `Real.cos` only at the statement boundary — both my attempts tried to do the cast and the
