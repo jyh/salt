@@ -246,6 +246,33 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16p. ⭐⭐⛔ **A DANGLING INTERFACE FOUND BY RUNNING THE CHECK *FORWARD* — THE `T₀` BOUND COULD NOT
+    BE FED BY A.6, AND NOW CAN. `ebcf23c8` 2026-08-22 10:1x. All three `[3 axioms]`, `EXIT=0`, genuine
+    `Built (5.3s)`, zero diagnostics, Attempts: 1 (cap 3, declared before starting).**
+    ```
+      measurableSet_mrtT0               the companion to measurableSet_mrtT1
+      continuous_a3_majorant            A/(1+|t−t₁|)+B is continuous, no side condition
+      mrtA3_T0_setIntegral_bound_onT0   same conclusion, hypothesis needed ONLY on T₀
+    ```
+    **`mrtA3_T0_setIntegral_bound` demanded `|F t| ≤ A/(1+|t−t₁|) + B` on the whole enclosing
+    `Icc (t₁−r) (t₁+r)`. `MRTLemmaA6` supplies exactly that bound for `t ∈ mrtT0` and says NOTHING
+    off `T₀`. `mrtT0 ⊆ Icc` runs the WRONG WAY to transport a hypothesis ⇒ no amount of work with
+    A.6 discharges the old `hF`. The lemma was GREEN, CORRECT, AND UNUSABLE IN THE CHAIN IT WAS
+    WRITTEN FOR.**
+
+    ⭐ **THE REPAIR: ENLARGE THE DOMAIN ON THE *MAJORANT*, NOT ON `F`.** The majorant is defined and
+    nonnegative everywhere, so `∫_{T₀}F² ≤ ∫_{T₀}G² ≤ ∫_{Icc}G² ≤ 4A²+4B²r`, and the pointwise
+    bound is only ever used where A.6 actually supplies it. *The old proof enlarged FIRST, on `F` —
+    which is precisely why it needed the hypothesis on the larger set.* `0 ≤ A`, `0 ≤ B` are new,
+    genuinely needed (the majorant must dominate itself), and free in the application.
+
+    ⛔ **FOUND WHILE CHECKING, NOT YET CLOSED — THE NEXT NODE:** A.6 and A.7 both quantify over
+    `t ∈ mrtT0 (mrtM f X) t₁ X X` — band radius **`X`** — while A.3's split produces
+    `mrtT0 M t₁ X T` with the **INTEGRAL's `T`**. With `|t₁| ≤ X` and `|t−t₁| ≤ (log X)^{1/16}` a
+    point of `T₀` satisfies only `|t| ≤ X + (log X)^{1/16}`. **The interface closes when `T ≤ X`
+    and has an uncovered sliver when `T > X`, and A.3 quantifies `T` with `1 ≤ T` and NO upper
+    bound.** Named, not assumed away.
+
 16o. ⭐⭐⭐ **A.3's `X = 1` LARGENESS FLAG IS DISCHARGED — AND THE FLAG HAD RECORDED THE FACT
     THAT REFUTES IT. `74cfda2e` 2026-08-22 10:0x. Both `[3 axioms]`, `EXIT=0`, genuine `Built (5.2s)`, zero
     diagnostics, Attempts: 1 (cap 3, declared before starting).**
