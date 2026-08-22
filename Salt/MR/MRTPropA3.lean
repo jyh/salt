@@ -667,6 +667,49 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### The door's `absWindowSum` residue — OPENED, and it REFUTES my own generalisation
+
+Last of the four sweep rows.  Measured: **57 landed `absWindowSum` theorems across 14
+files.**  Opening the two that matter:
+
+```
+  integral_logMeasure_absWindowSum_le_thresh   M4Dyadic.lean:665
+      (∫ n, ‖absWindowSum a H' n α‖ ∂(logMeasure x ω)) ≤ thr      from (H' : ℝ) ≤ thr
+```
+This is the door's `hbd` shape **exactly** — and its own docstring calls it *"THE TRIVIAL
+CUT… discharged with no analysis at all… the branch the consumer takes to discard tiny
+windows."*  At the door's `thr := δ·H` its hypothesis is `H ≤ δ·H`, which forces `δ ≥ 1`
+(`trivial_cut_needs_delta_ge_one`) — **the opposite regime from the one the door needs.**
+
+⛔⛔ **BUT THE NEXT TWO REFUTE THE GENERALISATION I PUBLISHED ONE BEAT AGO.**  I wrote:
+*"the corpus consistently holds the ALGEBRAIC identities and consistently lacks the
+ANALYTIC estimates."*  That is **too strong**:
+```
+  norm_absWindowSum_le_drift_tight            M4BridgePhase.lean:310
+      at NearRatTight (arcDen B₅ H) H α  ⟹  ‖absWindowSum a H n α‖
+          ≤ (1 + 2π·(arcDen B₅ H / q))·subWindowSup a H n (b/q)
+  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:281
+      at NearRatTight Q H α  ⟹  ‖absWindowSum‖ ≤ ∑_r ‖classPhaseSum …‖
+```
+**Both are genuine ANALYTIC reductions, at the door's OWN hypothesis** — a phase-drift
+transfer from an arbitrary `α` to a rational `b/q`, and a class-sum split.  Neither is a
+trivial cut.
+
+⇒ **CORRECTED VERDICT: the corpus holds the algebra AND the analytic REDUCTIONS.  What is
+missing is the TERMINAL CANCELLATION — the estimate making `subWindowSup` / the class sums
+actually small (`≤ δ·H` at small `δ`).**  That is a strictly narrower and more useful
+statement of where the door stands than either "no producer" or "no analysis".
+
+🔑 *This came from deliberately opening the name most likely to refute me, immediately
+after my prediction was CONFIRMED by the trivial-cut theorem.  **An agreeing result is the
+one to doubt** — and here the doubt paid, in the same beat.* -/
+
+/-- The trivial cut needs `δ ≥ 1`: `H ≤ δ·H` with `H > 0` forces `1 ≤ δ`.  *So
+`integral_logMeasure_absWindowSum_le_thresh` cannot serve the door, which needs `δ` SMALL.* -/
+theorem trivial_cut_needs_delta_ge_one {H : ℕ} {δ : ℝ} (hH : 0 < (H : ℝ))
+    (h : (H : ℝ) ≤ δ * (H : ℝ)) : 1 ≤ δ := by
+  nlinarith [h, hH]
+
 /-! ### A.7 vs `Renormalise.lean` — OPENED, and the factor is literally the same one
 
 Second of the two rows the sweep left *named-not-opened*.  Opening it: the match is much
