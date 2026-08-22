@@ -8317,6 +8317,7 @@ open Salt.Tactic in
   Salt.MR.mrtJ
   Salt.MR.mrtS
   Salt.MR.mem_mrtS
+  Salt.MR.mrtS_subset_Icc
   Salt.MR.zero_not_mem_mrtS
   Salt.MR.mrtP1
   Salt.MR.mrtQ1
