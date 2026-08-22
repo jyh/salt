@@ -246,6 +246,41 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16x. ⭐⭐⛔ **THE PULL-SIDE INSTRUMENT IS BUILT AND ARMED — AND ITS OWN DEFECTIVE DRAFT REACHED
+    THE RECORD BY A NO-PATH SWEEP. seat `c7dc7abd` 2026-08-22 11:4x, five controls green.**
+
+    **Yesterday's law, deployed rather than described:** silicon's *"a queue is PULL, and an
+    instrument that only watches PUSH cannot see a pull duty"* — plus their explicit
+    *"arm 9 watches MY section only; if the same shape exists elsewhere it is not mine to
+    install."* It does, and now it is: `seat/tools/math-watch/queue-items.sh` gives every beat a
+    **`queue=` FIELD** instead of silence. Live: `queue=10 OPEN(5,16,17,6,7,8,9,18,10,11)
+    disagree=6(5,16,9,18,10,11)`.
+
+    ⛔ **THREE VERSIONS IN TWENTY MINUTES, AND THE MIDDLE ONE IS WHAT GOT COMMITTED:**
+    ```
+      v1  4-line window     FALSE OPENS  — missed item 5's "[DONE" on its 6th line
+      v2  full-item window  FALSE CLOSED — read item 18 as disposed because MY OWN
+                            partial-execution stamp on it carries a ✅. An open item WENT SILENT.
+      v3  FAIL-SAFE UNION   closed only if HEADER *and* BODY readings agree; every
+                            disagreement NAMED. Never silent.
+    ```
+    ⛔⛔ **`747e1ef7` CARRIES v2.** Its subject is another seat's work (*"watch: verso 131
+    consumed …"*), it touched 4 files, and 99 lines of mine went in whole. **A HAND commit, not the
+    bus-sync daemon** — the documented no-path sweep, this time in the seat repo with my
+    half-built instrument as the victim. *The lesson cuts BOTH ways: a file left uncommitted in a
+    shared tree is exposed to the next hand that commits without paths. Mine sat ~20 minutes and
+    that was enough.*
+
+    ⭐ **AND I OVERWROTE IT WITH `cat >` WITHOUT LOOKING** — `git status` said `M`, not `??`, which
+    is the only reason I found the sweep at all. *Check the target before overwriting; the check
+    that caught this was an accident of reading a two-character status field.*
+
+    🔬 **THE CONTROL THAT WAS EARNED:** `planted-depth` exists because v1's controls COULD NOT have
+    caught v1's bug — the mirror control put its token on the HEADER line, so it tested token
+    detection and never WINDOW WIDTH. ***A control must disagree with the test case on the axis
+    being tested.*** When the union contract landed it went red against the old expectation and was
+    UPDATED, not left red: *an expected-red control trains the reader to ignore reds.*
+
 16w. ⛔⭐⭐ **A PEER'S LAW CAUGHT A DUTY MY OWN INSTRUMENTS CANNOT SEE — AND IT FOUND MY OWN
     HALF-COMPLIANT WORK. `6061fab5` 2026-08-22 11:2x. BARE builds, genuine `Built (20s)` + 19 modules
     through the cone, `EXIT=0`, zero errors, ZERO warning ticks, Attempts: 1.**
