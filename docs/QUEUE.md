@@ -246,6 +246,31 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16b. ✅ **MRT LEMMA A.5 IS STATED — THE LAST UNWRITTEN APPENDIX-A STATEMENT. `%s` 2026-08-22 08:0x.
+    All three `[3 axioms]`, `EXIT=0`, genuine `Built (4.4s)`, zero diagnostics, first attempt.**
+    ```
+      mrtG                 MRT's G(1+it) — the T₁-side Dirichlet sum with the reciprocal
+                           block-divisor weight 1/(ω(n;P,Q) + 1)
+      MRTLemmaA5           the T₁ bound, predicate on the implied constant
+      MRTLemmaA5Statement  the ∃C wrapper
+    ```
+    ⭐ **NO NEW COUNTING OBJECT WAS NEEDED: `#{p ∈ [P,Q] : p ∣ n}` IS the landed `blockOmega P Q n`**
+    by definition (`Decomp.lean:53–57`). *Row 15p called this weight "new"; it is not.*
+    ⭐⭐ **THREE LESSONS FROM TONIGHT APPLIED AT BIRTH RATHER THAN REPAIRED LATER:**
+    ```
+      1. t₁ carried as the MINIMISER from the outset — not_mrtLemmaA4ii is what a free t₁ costs
+      2. the ∃C wrapper present from the start — the A.6/A.7 defect I had to fix at 04:15
+      3. read from p.24 with the display re-extracted, after A.7's sign discrepancy showed
+         what a hurried transcription costs
+    ```
+    ⚠️ **FLAGGED, NOT SILENTLY ADDED: MRT note A.5 was *"the only part in the proof [17, Proposition 1]
+    that needed `f` to be REAL-VALUED"*.** This statement does **not** carry a real-valuedness
+    hypothesis; **a discharger may find it necessary**, and I would rather the gap be visible than
+    guess a binder into the statement. MRT also route A.5 through **[17, Lemma 3]**, an EXTERNAL
+    citation. **Nothing here proves A.5.**
+    📌 **APPENDIX-A STATEMENT SET IS NOW COMPLETE: A.4(i) proved · A.4(ii) repaired (high-`M` arm
+    proved) · A.5 STATED · A.6 stated · A.7 stated, sign flagged · A.8 CLOSED.**
+
 16a. ✅✅✅ **MRT LEMMA A.8 IS CLOSED UNCONDITIONALLY — AND BY A ROUTE SIMPLER THAN THE SOURCE'S.
     `%s` 2026-08-22 07:5x. All three names `[3 axioms]`, `EXIT=0`, zero diagnostics, GENUINE
     `Built (4.5s)` after an olean delete.**
