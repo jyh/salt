@@ -1942,4 +1942,40 @@ theorem mrtA3_split_bound_interval {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ
   rw [intervalIntegral.integral_of_le hle]
   exact hband
 
+/-- **A.3's APPENDIX BRANCH, ASSEMBLED.**  The band bound over `[−T,T]`, derived from
+Lemma A.6 on the `T₀` side and an assumed `T₁` bound, for `T ≤ X`.
+
+This composes the whole `T ≤ X/2` half of MRT's proof out of pieces that are now Lean
+objects: `mrtA3_T0_bound_of_A6` (A.6 ⟹ the `T₀` integral bound, via `mrtT0_mono_T` to
+move A.6's band radius `X` down to the split's `T`), and `mrtA3_split_bound_interval`
+(the `T₀`/`T₁` partition, delivered in `MRTPropA3`'s own `∫_{−T}^{T}` shape).
+
+⛔ **`B₁` IS CARRIED, NOT PROVED, AND THAT IS THE HONEST STATE OF A.3.**  MRT obtain the
+`T₁` bound from `[17, Proposition 1]`, and `MRTLemmaA5` as transcribed gives a *pointwise*
+bound on `‖mrtG‖` rather than an integral bound on `‖dpolyA‖²` — two gaps, of which
+`integral_sq_le_of_pointwise_on_mrtT1` closes only the first.  Naming `B₁` as a hypothesis
+is what keeps that visible: *a theorem that quietly absorbed it would read as a proof of
+A.3's branch and would not be one.*
+
+⭐ The other branch, `T > X/2`, is `mrtA3_mvt_branch` and is UNCONDITIONAL. -/
+theorem mrtA3_band_bound_of_A6 {C : ℝ} {F : ℝ → ℝ} (hC : 0 ≤ C) (hA6 : MRTLemmaA6 C)
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) {X T t₁ r B₁ : ℝ}
+    (hFdef : ∀ t : ℝ, F t = ‖(1 / (X : ℂ)) * ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+        (-1 : ℂ) ^ 𝒥.card
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n‖)
+    (hf : ∀ n, ‖f n‖ ≤ 1) (hX : 0 < X) (hlogX : 0 ≤ Real.log X)
+    (hT : 0 ≤ T) (hTX : T ≤ X) (hr : 0 ≤ r)
+    (hrX : (Real.log X) ^ ((1 : ℝ) / 16) ≤ r)
+    (h0int : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT0 (mrtM f X) t₁ X T) MeasureTheory.volume)
+    (h1int : MeasureTheory.IntegrableOn (fun t => F t ^ 2)
+      (mrtT1 (mrtM f X) t₁ X T) MeasureTheory.volume)
+    (hT1 : (∫ t in mrtT1 (mrtM f X) t₁ X T, F t ^ 2) ≤ B₁) :
+    (∫ t in (-T)..T, F t ^ 2)
+      ≤ (4 * (C * Real.exp (-(1 / 2) * mrtM f X)) ^ 2
+          + 4 * (C * (Real.log X) ^ (-(1 : ℝ) / 16)) ^ 2 * r) + B₁ :=
+  mrtA3_split_bound_interval hT h0int h1int
+    (mrtA3_T0_bound_of_A6 hC hA6 f Pseq Qseq J hFdef hf hX hlogX hTX hr hrX h0int) hT1
+
 end Salt.MR
+
