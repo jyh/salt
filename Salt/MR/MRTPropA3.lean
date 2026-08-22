@@ -2185,6 +2185,45 @@ theorem integrableOn_sq_mrtT1_of_continuous {F : ℝ → ℝ} (hF : Continuous F
     MeasureTheory.IntegrableOn (fun t => F t ^ 2) (mrtT1 M t₁ X T) MeasureTheory.volume :=
   ((hF.pow 2).continuousOn.integrableOn_compact isCompact_Icc).mono_set mrtT1_subset_Icc
 
+/-! ### THE RESIDUE, CONSOLIDATED — three missing parameter bounds, three routes
+
+Over this session `MRTPropA3` turned out to be missing **three** parameter bounds, and
+each was found by a different instrument.  Collected here because they are one fact:
+
+```
+  X : no LOWER largeness    found by hunting the X = 1 degeneracy       (rescued by empty S)
+  T : no UPPER bound        found by an interface check against A.6/A.7 (MRT reduce to T ≤ X/2)
+  P₁: no LOWER bound        found by the junk-value sweep               ⛔ NOT rescued
+```
+
+⭐ **They are instances of ONE thing: the transcription carries MRT's explicit displayed
+inequalities and not the ambient conditions their PROSE supplies** — *"for all `X > X(η)`
+large enough"* (Thm A.2), *"since the mean value theorem gives `O(T/X+1)` we can assume
+`T ≤ X/2`"* (A.3's own opening), and *"the intervals `[Pⱼ,Qⱼ]` of Definition 2.1"*.  A
+displayed formula transcribes; a sentence of running prose does not, and all three losses
+are of the second kind.
+
+⛔ **`MRTPropA3` IS NOT EDITED** — Iron rule 1.  This is a NAMED OBJECT for a design
+session to adopt or reject, nothing more. -/
+
+/-- **THE AMBIENT HYPOTHESES `MRTPropA3` DOES NOT CARRY**, as one `Prop`.  Not wired into
+anything: a named residue, so a future repair has something to point at. -/
+def MRTPropA3Ambient (X T : ℝ) (Pseq : ℕ → ℕ) : Prop :=
+  Real.exp 1 ≤ X ∧ T ≤ X / 2 ∧ 2 ≤ Pseq 1
+
+/-- **THE AMBIENT HYPOTHESES EXCLUDE ALL THREE DEGENERACIES AT ONCE**: `X = 1` is out,
+`Pseq 1 = 0` is out, and `T ≤ X` (which is what `mrtT0_mono_T` needs to carry A.6's band
+radius down to the split's). -/
+theorem mrtA3_ambient_excludes_degeneracies {X T : ℝ} {Pseq : ℕ → ℕ}
+    (h : MRTPropA3Ambient X T Pseq) :
+    1 < X ∧ Pseq 1 ≠ 0 ∧ T ≤ X := by
+  obtain ⟨hXe, hTX, hP⟩ := h
+  have h2e : (2 : ℝ) ≤ Real.exp 1 := by
+    have := Real.add_one_le_exp (1 : ℝ)
+    linarith
+  have hX2 : (2 : ℝ) ≤ X := le_trans h2e hXe
+  refine ⟨by linarith, by omega, by linarith⟩
+
 /-- **A.3's APPENDIX BRANCH, ASSEMBLED.**  The band bound over `[−T,T]`, derived from
 Lemma A.6 on the `T₀` side and an assumed `T₁` bound, for `T ≤ X`.
 
