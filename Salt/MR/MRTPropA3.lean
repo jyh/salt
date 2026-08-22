@@ -1942,6 +1942,43 @@ theorem mrtA3_split_bound_interval {F : ℝ → ℝ} {M t₁ X T B₀ B₁ : ℝ
   rw [intervalIntegral.integral_of_le hle]
   exact hband
 
+/-! ### The connector to `MRTPropA3Bridge`
+
+`Salt/MR/MRTPropA3Bridge.lean` consumes A.3 as a hand-written hypothesis
+
+    hA3 : ∀ T, 1 ≤ T → ∫_{−T}^{T} ‖dpolyA a s₀ t‖² ≤ (T/(X/h₁) + 1) * B
+
+and it does **not import `MRTPropA3`** — so nothing in Lean connected the two, and the
+bridge's notion of "A.3's shape" was free to drift from the actual definition.  It has
+not drifted: the forms agree at `h₁ := Qseq 1` and `B := C · bracket`, differing only by
+the association `C * (…) * bracket = (…) * (C * bracket)`.
+
+This is the object that says so.  *Two green pieces with no stated interface is the
+defect class this file has been finding all day; here the interface holds, and stating it
+is what turns that from a belief into a theorem.* -/
+
+/-- **A.3, RESTATED IN THE BRIDGE'S SHAPE.**  Exactly `MRTPropA3Bridge`'s `hA3`
+hypothesis, at `h₁ = Qseq 1` and `B = C · bracket`. -/
+theorem mrtPropA3_in_bridge_shape {C : ℝ} (hA3 : MRTPropA3 C)
+    (f : ℕ → ℂ) (hf : ∀ n, ‖f n‖ ≤ 1) (hf1 : f 1 = 1)
+    (hmul : ∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n)
+    (X X₀ η : ℝ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (S : Finset ℕ)
+    (hη0 : 0 < η) (hη6 : η < 1 / 6)
+    (hX₀lo : Real.sqrt X ≤ X₀) (hX₀hi : X₀ ≤ X)
+    (hbands : MRTBands X₀ η Pseq Qseq) (hcount : MRTBandCount X₀ Qseq J)
+    (hS : ∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * X ∧ MemS Pseq Qseq J n)) :
+    ∀ T : ℝ, 1 ≤ T →
+      (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2)
+        ≤ (T / (X / (Qseq 1 : ℝ)) + 1)
+          * (C * ((Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
+                + mrtM f X / Real.exp (mrtM f X)
+                + 1 / (Real.log X) ^ ((1 : ℝ) / 50))) := by
+  intro T hT
+  refine le_trans
+    (hA3 f hf hf1 hmul X X₀ η Pseq Qseq J S hη0 hη6 hX₀lo hX₀hi hbands hcount hS T hT)
+    (le_of_eq ?_)
+  ring
+
 /-! ### Discharging the integrability side conditions
 
 `mrtA3_band_bound_of_A6` carries two `IntegrableOn` hypotheses.  Running the standing
