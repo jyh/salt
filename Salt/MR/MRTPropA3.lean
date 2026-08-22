@@ -1722,6 +1722,48 @@ theorem sum_sq_norm_div_le (a : ℕ → ℂ) (s : Finset ℕ) {X : ℝ} (hX : 0 
         rw [Finset.sum_const, nsmul_eq_mul]
         ring
 
+/-- **MRT's LARGE-`T` BRANCH, ASSEMBLED: `O(T/X + 1)` FOR A DYADIC BLOCK.**  This is the
+estimate MRT invoke in their opening sentence — *"Since the mean value theorem gives the
+bound `O(T/X + 1)`, we can assume `T ≤ X/2`"* — with every constant explicit.
+
+Taking `N = ⌊2X⌋` in `dpolyA_l2_mvt_Icc` gives the frequency-gap constant `2πN ≤ 4πX`,
+and `sum_sq_norm_div_le` bounds the coefficient sum by `#S/X²`.  With `#S ≤ X + 1` on a
+dyadic block the right-hand side is `≍ T/X + 1`, which is MRT's quote.
+
+*Nothing here is conditional on A.5, A.6 or A.7: this branch of A.3 rests only on
+Montgomery–Vaughan.* -/
+theorem mrtA3_mvt_branch (f : ℕ → ℂ) (S : Finset ℕ) {X T : ℝ} (hX : 1 ≤ X) (hT : 0 ≤ T)
+    (hf : ∀ n, ‖f n‖ ≤ 1)
+    (hSlow : ∀ n ∈ S, X ≤ (n : ℝ)) (hShigh : ∀ n ∈ S, (n : ℝ) ≤ 2 * X) :
+    (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2)
+      ≤ (2 * T + 4 * Real.pi * X) * ((S.card : ℝ) / X ^ 2) := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le zero_lt_one hX
+  have h2X : (0 : ℝ) ≤ 2 * X := by linarith
+  set N : ℕ := ⌊2 * X⌋₊ with hNdef
+  have hNle : (N : ℝ) ≤ 2 * X := Nat.floor_le h2X
+  have hN1 : 1 ≤ N := by
+    have : (1 : ℕ) ≤ ⌊2 * X⌋₊ := Nat.le_floor (by push_cast; linarith)
+    simpa [hNdef] using this
+  have hmem : ∀ n ∈ S, n ∈ Finset.Icc 1 N := by
+    intro n hn
+    refine Finset.mem_Icc.mpr ⟨?_, ?_⟩
+    · have h := hSlow n hn
+      have : (1 : ℝ) ≤ (n : ℝ) := le_trans hX h
+      exact_mod_cast this
+    · exact Nat.le_floor (hShigh n hn)
+  have h1 := dpolyA_l2_mvt_Icc f S hN1 hmem T
+  have h2 := sum_sq_norm_div_le f S hXpos (fun n _ => hf n) hSlow
+  have hcoef : (0 : ℝ) ≤ (S.card : ℝ) / X ^ 2 := by positivity
+  have hconst : (0 : ℝ) ≤ 2 * T + 2 * Real.pi * (N : ℝ) := by positivity
+  have hstep1 : (2 * T + 2 * Real.pi * (N : ℝ)) * ∑ n ∈ S, ‖f n / (n : ℂ)‖ ^ 2
+      ≤ (2 * T + 2 * Real.pi * (N : ℝ)) * ((S.card : ℝ) / X ^ 2) :=
+    mul_le_mul_of_nonneg_left h2 hconst
+  have hstep2 : (2 * T + 2 * Real.pi * (N : ℝ)) * ((S.card : ℝ) / X ^ 2)
+      ≤ (2 * T + 4 * Real.pi * X) * ((S.card : ℝ) / X ^ 2) := by
+    refine mul_le_mul_of_nonneg_right ?_ hcoef
+    nlinarith [Real.pi_pos]
+  linarith [h1, hstep1, hstep2]
+
 /-- **A.3's SPLIT, as a Lean step.**  `T₀` and `T₁` partition `{|t| ≤ T}`
 (`mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1`, both landed), so a bound on each
 piece adds to a bound on the band.  *This is the shape of A.3's proof: MRT bound
