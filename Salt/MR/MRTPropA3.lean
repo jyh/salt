@@ -811,4 +811,62 @@ theorem landed_route_below_a4ii_target :
     one_div_lt_one_div_of_lt (by norm_num) (by linarith)
   linarith
 
+/-! ## Sibling sweep: does A.6 / A.7 have A.4(ii)'s free-`t₁` defect?
+
+15ii found `MRTLemmaA4ii` false because `t₁` floats free. `t₁` also occurs in
+`MRTLemmaA6` and `MRTLemmaA7`, so finding it fatal in one says nothing about the
+others — the sweep is a step, not an inference.
+
+**Result: A.4(ii) is the only fatal one of the three, and the discriminator is the
+INEQUALITY DIRECTION of the clause `t₁` appears in.**
+
+```
+  A.4(ii)  disjunct  (log X)^{1/16}/2 < |t − t₁|    a LOWER bound — "t is FAR"
+             a free t₁ satisfies it trivially (choose t₁ distant) while the
+             conclusion stays at full strength           ⇒ FATAL (not_mrtLemmaA4ii)
+  A.6/A.7  hypothesis  t ∈ mrtT0 (mrtM f X) t₁ X X
+             unfolds to  |t − t₁| ≤ (log X)^{1/16}   an UPPER bound — "t is NEAR"
+             a free t₁ satisfies it at t₁ = t, which is each conclusion's
+             WEAKEST instance, not its strongest       ⇒ not exploitable that way
+```
+
+⭐ **A.7's immunity at that point is KERNEL-BACKED, not argued:**
+`mrtA7_exact_at_center` shows the bracketed difference is exactly `0` at `t₁ = t`.
+
+⭐ **AND `mrtT0` CARRIES A SECOND GUARD THAT IS EASY TO MISS: it is `∅` in the
+high-`M` branch**, so `t ∈ mrtT0 (mrtM f X) t₁ X X` *silently implies*
+`mrtM f X < (1/8)·loglog X`.  A.6 and A.7 therefore carry the low-`M` condition
+without stating it.  The two lemmas below make that implicit carriage explicit —
+they are also the extraction steps any proof of A.6/A.7 will need.
+
+⚠️ **HONEST LIMIT: this shows A.4(ii)'s exploit does not transfer. It does NOT
+show A.6 is safe.** `t₁` there may still sit at the far edge `|t − t₁| =
+(log X)^{1/16}`, which minimises A.6's RHS via the `1/(1 + |t − t₁|)` factor and
+is its strongest instance. I neither refuted nor cleared that; it is named here so
+it is not absorbed. -/
+
+/-- **`mrtT0` is empty in the high-`M` branch** — by definition, but worth a name:
+this is the guard that makes A.6/A.7's hypotheses carry low-`M` implicitly. -/
+theorem mrtT0_eq_empty_of_high_M {M t₁ X T : ℝ}
+    (hM : (1 / 8) * Real.log (Real.log X) ≤ M) :
+    mrtT0 M t₁ X T = ∅ := by
+  unfold mrtT0; rw [if_pos hM]
+
+/-- **Membership in `mrtT0` FORCES the low-`M` branch.**  So A.6 and A.7 carry
+`M(f;X) < ⅛·loglog X` without stating it — the hypothesis is vacuous otherwise. -/
+theorem lt_of_mem_mrtT0 {M t₁ X T t : ℝ} (ht : t ∈ mrtT0 M t₁ X T) :
+    M < (1 / 8) * Real.log (Real.log X) := by
+  by_contra h
+  rw [mrtT0_eq_empty_of_high_M (not_lt.mp h)] at ht
+  simp at ht
+
+/-- **Membership in `mrtT0` yields the near-distance bound**, the form A.6/A.7's
+proofs actually consume. -/
+theorem abs_sub_le_of_mem_mrtT0 {M t₁ X T t : ℝ} (ht : t ∈ mrtT0 M t₁ X T) :
+    |t - t₁| ≤ (Real.log X) ^ ((1 : ℝ) / 16) := by
+  have h := lt_of_mem_mrtT0 ht
+  unfold mrtT0 at ht
+  rw [if_neg (not_le.mpr h)] at ht
+  exact ht.2
+
 end Salt.MR
