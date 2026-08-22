@@ -277,4 +277,43 @@ theorem mrtA5_epsilon_ceiling {ε : ℝ} (_hε0 : 0 < ε)
     1 / 50 < (1 / 6 - 1 / (3 * Real.pi) - ε) / 3 := by
   linarith
 
+/-! ## A.6 and A.7, stated — read WHOLE, via `pdftotext -layout`
+
+The earlier extraction broke MRT's displayed equations across lines and I refused
+to state these on the fragments.  `pdftotext -layout` preserves the two-dimensional
+layout and gives both displays entire, so they are stated here.
+
+⚠️ **ONE AMBIGUITY IN THE SOURCE, FLAGGED RATHER THAN SILENTLY RESOLVED.**  A.7's
+binder reads *"Let `t ∈ T₀` and **`I ⊆ {1,…,J}`**"* while its body sums `g_𝒥`.
+Measured: **`I ⊆ {1,…,J}` occurs exactly once in the whole appendix — at that
+binder — and `g_I` occurs nowhere.**  So either the binder is a typo for `𝒥`, or
+the extraction rendered one symbol two ways.  *Both readings give the same
+mathematical content — one subset of `{1,…,J}`, and the sums taken over it — so
+it is stated with a single index and the discrepancy is recorded here rather than
+hidden in a choice.* -/
+
+/-- **MRT Lemma A.6** — for `t ∈ T₀`, the signed subset sum is small.
+The inner object is exactly what `Salt.MR.lemma5` already produces. -/
+def MRTLemmaA6 (C : ℝ) : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (X t t₁ : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → 0 < X → t ∈ mrtT0 (mrtM f X) t₁ X X →
+      ‖(1 / (X : ℂ)) * ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+          (-1 : ℂ) ^ 𝒥.card
+            * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n‖
+        ≤ C * (Real.exp (-(1 / 2) * mrtM f X) / (1 + |t - t₁|)
+                + (Real.log X) ^ (-(1 : ℝ) / 16))
+
+/-- **MRT Lemma A.7 — the renormalization.**  For `t ∈ T₀`, the `t`-twisted sum
+equals `X^{i(t−t₁)}/(1 + i(t−t₁))` times the `t₁`-twisted sum, up to
+`O(X/(log X)^{1/10})`.  *This is the consumer of `mrtT0`'s radius: the whole
+point of `|t − t₁| ≤ (log X)^{1/16}` is that this shift is cheap.* -/
+def MRTLemmaA7 (C : ℝ) : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → 0 < X → t ∈ mrtT0 (mrtM f X) t₁ X X →
+      ‖(∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n)
+          - (Complex.exp ((((t - t₁ : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+              / (1 + (((t - t₁ : ℝ) : ℂ)) * Complex.I))
+            * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n‖
+        ≤ C * X / (Real.log X) ^ ((1 : ℝ) / 10)
+
 end Salt.MR

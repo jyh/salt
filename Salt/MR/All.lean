@@ -8363,3 +8363,5 @@ open Salt.Tactic in
   Salt.MR.mrtA4_constant_pos
   Salt.MR.mrtA5_rho_margin
   Salt.MR.mrtA5_epsilon_ceiling
+  Salt.MR.MRTLemmaA6
+  Salt.MR.MRTLemmaA7
