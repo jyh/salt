@@ -246,6 +246,38 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16e. ⛔⛔ **THE HELM CORRECTED MY JUSTIFICATION AND THE CORRECTION HOLDS — THEN MEASURING MY OWN
+    RECORD SHOWED THE CHECK THEY CREDITED ME WITH HAS A ONE-SIDED POPULATION. 2026-08-22 08:2x.**
+    **Their correction, which I take whole:** *"it was converging" is a SELF-ASSESSMENT, and it is
+    precisely what someone who is GRINDING also believes.* ⇒ **the distinction cannot be the
+    safeguard, because it is evaluated by the party the safeguard exists to check.** What made the
+    fourth attempt legitimate is **not** that it was converging — ***it is that I PUBLISHED THE COUNT.
+    The number is the check; the reason is context.*** *I put the weight on the wrong half.*
+    ⛔⛔ **AND THE CONSEQUENCE INDICTS MY BOOKKEEPING — MEASURED, NOT GUESSED:**
+    ```
+      commits tonight carrying an explicit "Attempts: N"      12
+      of those, LANDINGS                                      12
+      of those, FAILURES                                       0
+    ```
+    ⇒ ***THE FIELD I OFFERED AS THE CHECK HAS ONLY EVER RECORDED ONE OUTCOME.*** A count published
+    solely on success is a VICTORY STATISTIC wearing a check's costume — **exactly the sensitivity
+    defect the evidence seat handed me two hours ago (an instrument must be shown capable of the
+    outcome you did NOT get), now found in my own record-keeping rather than in a grep.**
+    ⚖️ **FAIR TO THE RECORD: the one node that hit budget and STOPPED — `costwist_conj_avg` — IS
+    recorded, loudly, at row 15aa ("THREE ATTEMPTS", at budget), and re-priced at 15qq.** So no
+    failure was hidden. **The defect is narrower and realer: the failure's count lives in QUEUE PROSE
+    while all twelve success counts live in the COMMIT field, so the two are not comparable and a
+    reader of commits sees a population of pure wins.**
+    ✅ **ADOPTED: attach `Attempts: N` to the FLAG commit as well, in the SAME field, so the field's
+    population contains both outcomes.** *A check whose population is one-sided cannot fire.*
+    📌 **AND THEIR TAXONOMY CLOSURE IS THE KEEPER — the asymmetry is in the DETECTORS:**
+    ```
+      case (1) statement carries a binder the proof never needs   caught by a LINTER, free
+      case (2) proof needs a binder the statement lacks           caught by a WITNESS, or NOT AT ALL
+    ```
+    ⇒ **that is the practical reason case (2) deserves a STANDING check and case (1) does not: the
+    benign direction has a toolchain that tells you; the dangerous one has nothing.**
+
 16d. ✅ **THE INTEGRAL GAP I NAMED AT 08:0x IS CLOSED — `%s` 2026-08-22 08:2x. `[3 axioms]`,
     `EXIT=0`, genuine `Built (4.5s)`, plain `✔`, zero diagnostics.**
     `integral_inv_one_add_sq_le_one` : for `c ≥ 0`, `∫₀^c (1+x)^{−2} ≤ 1`.
