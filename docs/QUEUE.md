@@ -246,6 +246,32 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15l. 📐 **A.3's PROOF — DECOMPOSITION FROM THE SOURCE, 2026-08-21 23:0x.** Read from
+    `1503.05121v3.pdf`, Appendix A. This is the ONLY remaining gap in the A.1 chain, so here is its
+    shape rather than a placeholder.
+    ⭐⭐ **A3-0 — `t₁`'s ATTAINMENT. A LEAN-ONLY NODE THE PAPER'S GRAMMAR HIDES.** MRT write *"let `t₁`
+    be **the value of `t` which attains the minimum** in `M(f;X) = inf_{|t|≤X} 𝔻(f,n^{it};X)²`."*
+    ***In Lean `mrtM` is an `sInf`, and attainment is NOT free.*** It needs: continuity of
+    `t ↦ pretDistSq f (costwist t) X` (a finite sum over primes `≤ X`, each term continuous), the
+    compactness of `[−X, X]`, and `IsCompact.exists_isMinOn`. **Measured in `Salt/MR/`: `IsMinOn` 0
+    files, `sInf_mem` 0 files ⇒ this machinery is NOT present.** *The paper says "the value which
+    attains"; a formalization has to earn the phrase.* Class **B**.
+    ✅ **A3-1 — THE MVT DISPOSAL.** MRT's own opening: *"Since the mean value theorem gives the bound
+    `O(T/X + 1)`, we can assume `T ≤ X/2` and `M(f;X) ≥ 1`."* ⇒ **this is exactly the `Msup ≈ 240` I
+    measured at 18:40**, and its producer `dirichlet_poly_l2_mvt_final` (`MVCore2.lean:620`) is landed
+    unconditional. Class **A/B**.
+    ✅ **A3-2 — THE DICHOTOMY AND THE `T₀`/`T₁` SPLIT.** If `M(f;X) ≥ (1/8)loglog X` then `T₁ := [−T,T]`,
+    `T₀ := ∅`; otherwise `T₀ := {|t| ≤ T : |t−t₁| ≤ (log X)^{1/16}}` and `T₁` its complement. Definitions
+    plus a case split. Class **A** (but it CONSUMES A3-0 — `t₁` must exist first).
+    ⭐⭐ **A3-3 — LEMMA A.4, THE GRANVILLE–SOUNDARARAJAN STEP** — `𝔻(f·g_𝒥, p^{it};X)² ≥ ½·𝔻(f,p^{it};X)²`,
+    and a sharpened (ii) under `M ≥ (1/8)loglog X` or `|t−t₁| > (log X)^{1/16}/2`.
+    ⭐ ***`g_𝒥` IS ALREADY LANDED:*** `Salt.MR.gJ` (`Sec9Glue.lean`) `= if ∀ j ∈ 𝒥, blockOmega … = 0 then
+    1 else 0` — the indicator of *"no prime factor in any block indexed by `𝒥`"*, **MRT's `g_𝒥`
+    exactly**, with `gJ_mul` (complete multiplicativity) and `gJ_prime_pow` beside it. Class **C**.
+    ⛔ **A3-4 — LEMMAS A.5, A.6, A.7: UNREAD THIS BEAT, UNPRICED, AND SAID SO.** *I read A.3's proof
+    opening and A.4's statement; I did not read the other three, and I am not going to price what I have
+    not opened after the night this has been.*
+
 15k. ✅✅✅ **THE COMPOSITION RUNS END TO END — `d4306085` 2026-08-21 22:4x.**
     `parseval_bound_of_propA3_shape`, registered in the same action, `[3 axioms]`, zero warnings,
     `✔ Built (3.0s)`. **Given A.3's shape at constant `B`, the single-`h` Parseval bound holds with every
