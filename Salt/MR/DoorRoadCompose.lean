@@ -254,10 +254,30 @@ Measured over `H ∈ {1,2,3,7,10,31,100,257,1000,4096,10⁶}`: the smallest `X_i
 block length reaches `H` is **exactly `3H`**, every time (a `2H` rule is refuted, so the probe
 discriminates).  The theorem below is that measurement, in the kernel.
 
-⇒ **Single-block containment is available on the upper rungs (`3H ≤ X_i`) and IMPOSSIBLE below
-them.**  Near the fixed point a stratum window cannot fit in one block at all, so seam 3 there
-needs a covering by several blocks — or a different placement.  **That is an open design
-question, not a missing lemma, and it is not answered here.**
+⇒ **Single-block containment is available on the upper rungs (`3H ≤ X_i`) and impossible below
+them.**  That is a true statement about `doorLadder`, and both directions are proved below.
+
+⛔⛔ **BUT IT IS NOT A CONSTRAINT ON THE DOOR, AND AN EARLIER VERSION OF THIS SECTION SAID IT
+WAS.**  I wrote that seam 3 "needs a covering by several blocks" below `3H`.  That is an
+artifact of the route *I* invented, not a gap in the corpus.  **The corpus's own route never
+asks the containment question at all:**
+
+```
+  M4BaseNarrow.lean:322 / M4ChiSummed.lean:673   ⟦STEP 1⟧ then ⟦STEP 2⟧
+    ∑_{n ∈ Ioc A B} (doorChiSup χ M L n)²   ≤   ∑_{n ∈ Ioc A B} SL · ∑_j (∑_t X j t n)·(2/3)^j
+    then the sums COMMUTE:  ∑_n ∑_j ∑_t  ⟶  ∑_j ∑_t ∑_{n ∈ Ioc A B}
+```
+`n` keeps running over the **whole block** and the shift `2^(j+1)·t` rides along on every `n`;
+the result is the **shifted** block sum, which is exactly what `M4ChiShiftBlockMeanSq` is —
+hence its name.  No progression has to sit inside anything.
+
+⇒ **The real seam-3 step is the SUM SWAP, which the corpus already performs.**  The lemmas in
+this section stay true and kernel-checked, but they are **general facts, not campaign
+blockers**, and they are **not on the door's critical path**.
+
+🔑 *Lesson, and it is the second of this kind today: when you build your own route and hit a
+wall, check whether the CORPUS's route hits the same wall.  **My route's obstruction is not the
+campaign's obstruction**, and publishing it as one would have invented a blocker.*
 -/
 
 /-- **THE RUNG THRESHOLD** — at `3H ≤ X_i` the ladder block is at least `H` long, so a window
