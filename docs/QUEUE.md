@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15t. ⛔⛔ **END-OF-SESSION FORCED REBUILD FOUND AN UNAUDITED DECLARATION — EIGHT HOURS OLD. `40a6b566`,
+    2026-08-22 01:4x.** Six modules' oleans deleted, genuine `Built` on all six, then **tonight's 34
+    landings audited AS A NAMED SET rather than a count.**
+    ```
+      33 of 34 returned an audit line.
+      epsh_gate_implies_epssq_h  (the c-ceiling rider, HBudget.lean:450)   ⛔ NO AUDIT LINE
+    ```
+    🔑 ***A COUNT WOULD HAVE READ "33/34" AND I WOULD HAVE MOVED ON. THE NAMED SET IS WHAT FOUND IT.***
+    *The rider landed at 12:5x, was USED at `HBudget.lean:1475`, and nothing checked its axioms until
+    01:4x.*
+    ⛔ **AND THE NEAR-MISS IS THE DOCSTRING-AS-DECLARATION CLASS AGAIN.** A bare-name grep DOES find
+    `epsh_gate_implies_epssq_h` in `Salt/Entropy/All.lean:967` — **but that is PROSE, a docstring
+    sentence.** And `:1029` carries **`hbudget_h_gate_implies_epssq_h`**, *a different name that reads
+    almost identically.* **Either would have satisfied a careless check.**
+    ✅ Registered beside its sibling; forced rebuild, `EXIT=0`, `Built Salt.Entropy.All`,
+    `✓ Salt.Entropy.Chowla.epsh_gate_implies_epssq_h [3 axioms]`. Tree-wide: `sorryAx 0 · ofReduceBool 0
+    · nativeDecide 0`, `[3 axioms]` = **6900**.
+    ⭐⭐ **THE LESSON IS THE INSTRUMENT, NOT THE MISS: the registry law I refined TWICE tonight — *fire on
+    "I added a DECLARATION", not "I added a MODULE"* — was correct, and I still missed this, because I
+    refined it at 20:05 and the rider landed at 12:5x.** ***A LAW ADOPTED MID-SESSION DOES NOT REACH
+    BACKWARDS. The end-of-session NAMED-SET audit is what reaches backwards, and it is the only thing
+    tonight that did.***
+
 15s. ✅✅✅ **A.3's LEMMA SCAFFOLDING IS COMPLETE IN LEAN — `32197e11` 2026-08-22 01:1x.**
     `MRTLemmaA6`, `MRTLemmaA7`, both `[3 axioms]`, zero warnings, first attempt.
     ⭐ **READ WHOLE THIS TIME.** The earlier extraction broke MRT's displays across lines and I refused
