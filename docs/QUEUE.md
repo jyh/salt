@@ -246,6 +246,30 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15o. ⭐⭐ **A3-1's INGREDIENTS ARE ALL LANDED TOO — MEASURED 2026-08-22 00:0x, NOTHING WRITTEN.** I was
+    about to write the `dpolyA ↔ dpoly` transport (σ=1 to σ=0, at reflected frequency). **The corpus has
+    it, and calls it "THE WORKHORSE BRIDGE":**
+    ```
+      spoly_eq_dpoly           MomentsA2.lean:59
+        spoly N a t = dpoly N (fun n => a n / n) (-t)
+        docstring: "since n^{1+it} = n · e^{it log n}"      ⇐ the REFLECTED FREQUENCY, exactly
+      spoly_eq_dpolyA_filter   SeamLemma14.lean:121          spoly ↔ dpolyA
+      hybrid_char_spoly_mvt    HybridMoments.lean:175        an MVT FOR spoly, over characters:
+        Σ_χ ∫_{-T}^{T} ‖spoly N (chiBarCoeff q χ a) t‖² ≤ (2φ(q)T + 7φ(q)N/q)·Σ ‖a_n‖²/n²
+        ⇒ at q = 1 (φ(1) = 1, one trivial character) this IS the plain MVT for spoly
+    ```
+    ⇒ **`dpolyA` reaches the landed mean value theorem through two landed bridges.** *I had derived the
+    reflected frequency `(−t)` independently about five minutes before finding the lemma whose docstring
+    states it.* **TENTH object tonight that was already there.**
+    🔑 **SO A.3's OPEN SET IS NOW SMALL AND NAMED:**
+    ✅ **A3-0** landed `37155040` · ✅ **A3-2** landed `ea499b92` · ✅ **A3-1** ingredients all landed
+    (bridges + MVT; the assembly into A.3's `O(T/X+1)` disposal is unwritten but has no missing part)
+    ⛔ **A3-3 — Lemma A.4, the Granville–Soundararajan step. Class C. GENUINELY OPEN** (its `g_𝒥` landed).
+    ⛔ **A3-4 — Lemmas A.5, A.6, A.7. STILL UNREAD, STILL UNPRICED.**
+    ⚠️ **AND THE HONEST CAVEAT ON THIS ROW: "ingredients landed" is NOT "node done" — that is the same
+    distinction that cost me the `Msup` headline at 18:40 and the chain-closes claim at 22:0x.** *The
+    third time I have had to write it tonight, and I am writing it before anyone asks.*
+
 15n. ✅✅ **A3-2 IS LANDED — `ea499b92` 2026-08-21 23:4x.** `mrtT0`, `mrtT1`,
     `mrtT0_union_mrtT1`, `mrtT0_disjoint_mrtT1` — four names, registered in the same action, all
     `[3 axioms]`, zero warnings.
