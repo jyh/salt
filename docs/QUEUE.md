@@ -246,6 +246,34 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16w. ⛔⭐⭐ **A PEER'S LAW CAUGHT A DUTY MY OWN INSTRUMENTS CANNOT SEE — AND IT FOUND MY OWN
+    HALF-COMPLIANT WORK. `6061fab5` 2026-08-22 11:2x. BARE builds, genuine `Built (20s)` + 19 modules
+    through the cone, `EXIT=0`, zero errors, ZERO warning ticks, Attempts: 1.**
+
+    **silicon posted at 11:20:03 (body-read in full):** *"A WAKE CHANNEL AND A DISPATCH ARE PUSH;
+    A QUEUE IS PULL. AN INSTRUMENT THAT ONLY WATCHES PUSH CANNOT SEE A PULL DUTY, AND ITS SILENCE
+    IS INDISTINGUISHABLE FROM AN EMPTY QUEUE. ⇒ A LIVENESS PROOF IS NOT A COMPLETENESS PROOF."*
+    ⛔ **THAT IS MY DEFECT TOO, AND I CHECKED RATHER THAN AGREED.** My fallback watch and header
+    census both watch PUSH. For several beats I had opened `docs/QUEUE.md` only to WRITE my own
+    rows — never to re-read its open ITEMS. *"No peer post, no dispatch" was answering a question
+    the queue does not ask.*
+
+    **WHAT THE PULL-SIDE READ FOUND:** item 5's fills `5a`/`5b` LANDED (`c4a1a237`), no alarm — but
+    **item 18 is OPEN and I had executed a FRAGMENT of it this morning without recording it**, so
+    its remaining scope overstated the work. Stamped now with a measured predicate and my own
+    counts (55 mention / 1 citation site anchored / control `1503.05121` **drifted 34 → 40**, and
+    the drift is MINE — 4 files last touched 08/22).
+
+    ⛔ **WORSE, AND ONLY VISIBLE FROM THE ITEM: MY FRAGMENT WAS HALF-COMPLIANT WITH THE ITEM'S OWN
+    RULING.** It requires the anchor to read `arXiv:1509.05422v2` — *naming arXiv explicitly* — plus
+    a one-line caveat that the PUBLISHED numbering is unchecked. Measured: **1 of 4** cites named
+    arXiv, the other **3** read `Tao 1509.05422v2`, and **the caveat existed nowhere.** Repaired to
+    spec; pages and clauses untouched per the item's do-not-blanket-stamp amendment.
+
+    🔑 **THE TRANSFERABLE PART:** an absence of pushed work is not evidence about pulled work, and
+    I had been reading it as though it were. *Fifth instance today of one shape — a discipline held
+    on one surface and not its sibling — and the first that a PEER had to hand me.*
+
 16v. ⭐⭐⭐ **THE DEGENERACIES AS A *SET* RATHER THAN ONE AT A TIME — AND THE SET IS BIGGER THAN
     THE THREE I FOUND. `83268b15` 2026-08-22 11:1x. All three registered, `EXIT=0`, BARE builds,
     genuine `Built (5.8s)`, zero `MRTPropA3.lean` diagnostics, Attempts: 1 (cap 3, declared
@@ -2434,6 +2462,31 @@ numbering is UNVERIFIED.
     is on p13 — the docstring says p.12 … off by one, possibly a different version"* — **the correct
     hypothesis, stated and abandoned.** *A noticed-and-unchased discrepancy is worse than an unseen
     one: it has already spent the attention that would have caught it.*
+
+    ✅⚠️ **PARTIAL EXECUTION STAMP — math seat, 2026-08-22 11:2x. ONE FILE DONE, ITEM STAYS OPEN.**
+    `97098ead` (06:29) anchored the FOUR Prop 2.4 cites in `Salt/Entropy/Chowla/MRTDoor.lean`;
+    `6061fab5` (2026-08-22 11:2x) finished them **to this item's own spec**, which the first pass only
+    partly met. **PREDICATE AND MY OWN COUNTS, measured today, `Salt/` + `docs/`, literal-string
+    matcher with a `1509.05423` decoy returning 0:**
+    ```
+      mention 1509.05422 (any form) .... 55 files   (REPRODUCES this item's widest count)
+      carrying the v2 anchor ...........  2 files   = MRTDoor.lean + THIS FILE
+                                                     (QUEUE.md is the item text, not a cite site)
+      ⇒ citation sites anchored .........  1 of 55
+      CONTROL 1503.05121 ............... 40 files   ⚠️ this item recorded 34 on 08/21
+    ```
+    ⚠️ **THE CONTROL HAS DRIFTED, 34 → 40**, and the drift is mine: 4 of those files were last
+    touched 08/22 and 3 on 08/21, all MRT-campaign files. *It still proves the matcher ALIVE, which
+    was its job — but it is NOT a fixed baseline and must be re-measured, not quoted.*
+    ⛔ **AND THE FIRST PASS WAS ONLY PARTLY COMPLIANT WITH THIS ITEM'S OWN RULING.** Measured:
+    **1 of 4** cites read `arXiv:1509.05422v2`; the other **3** read `Tao 1509.05422v2` —
+    version-anchored but NOT arXiv-anchored — and **no published-numbering caveat existed anywhere.**
+    Both are now repaired (4 arXiv-anchored, 0 bare-v2 remaining, caveat in the header).
+    *Page numbers and the substantive clause deliberately UNTOUCHED, per this item's own
+    do-not-blanket-stamp amendment.* 19 modules genuinely rebuilt through the cone, zero warning
+    ticks. **REMAINING SCOPE: 54 files, unchanged in priority — P2b sits behind P1b and this seat
+    is not switching lanes.**
+
 
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
 
