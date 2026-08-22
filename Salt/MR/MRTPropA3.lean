@@ -1258,4 +1258,25 @@ theorem mrtA6_at_centre {C : ℝ} (hA6 : MRTLemmaA6 C)
   have h := hA6 f Pseq Qseq J X t₁ t₁ hf hX hmem
   simpa using h
 
+/-- **`T₀` sits inside the centred interval of radius `(log X)^{1/16}`.**  The
+third part of MRT's *"immediately implies"*, in the form an integral bound
+consumes: `abs_sub_le_of_mem_mrtT0` gives the DISTANCE, and an integral over `T₀`
+needs a SET INCLUSION.  *Same fact, different shape — and the shape is what makes
+it usable.* -/
+theorem mrtT0_subset_Icc {M t₁ X T : ℝ} :
+    mrtT0 M t₁ X T
+      ⊆ Set.Icc (t₁ - (Real.log X) ^ ((1 : ℝ) / 16))
+          (t₁ + (Real.log X) ^ ((1 : ℝ) / 16)) := by
+  intro t ht
+  have h := abs_sub_le_of_mem_mrtT0 ht
+  rw [abs_le] at h
+  exact ⟨by linarith [h.1], by linarith [h.2]⟩
+
+/-- **And its length.**  `|T₀| ≤ 2(log X)^{1/16}` — the factor MRT's `+1/16`
+exponent came from, now available as the measure of the enclosing interval rather
+than as a remark. -/
+theorem mrtT0_Icc_length {t₁ X : ℝ} :
+    (t₁ + (Real.log X) ^ ((1 : ℝ) / 16)) - (t₁ - (Real.log X) ^ ((1 : ℝ) / 16))
+      = 2 * (Real.log X) ^ ((1 : ℝ) / 16) := by ring
+
 end Salt.MR
