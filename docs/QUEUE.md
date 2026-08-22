@@ -257,6 +257,38 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17n. ✅⭐⭐ **A.7 vs `Renormalise.lean` OPENED — THE RENORMALISATION FACTOR IS *LITERALLY* THE SAME
+    OBJECT. `509a921d` 2026-08-22 14:5x. `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.1s)`,
+    zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
+    ```
+      renormalise_error_logpower_stronger   X/log X ≤ X/(log X)^{1/10}  for X ≥ e
+    ```
+    **Second of the two rows the sweep left named-not-opened, and the one I said was owed.** With
+    `eIu u y := exp(I·u·log y) = y^{iu}`, `renormalise_aux` (`Renormalise.lean:760`) reads
+    `‖∑f·eIu u n − x·eIu u x/(1+I·u)·∑ mobDatum f d/d‖ ≤ 2C₁(5+2 log y)(x/log x)∑ mobNorm f d/d`.
+
+    ✅ **AT `u := t − t₁`, `eIu u x = X^{i(t−t₁)}` AND `1 + I·u` IS A.7's `1 + (t−t₁)·I`.** *This is
+    the very factor whose SIGN this seat resolved at 08:2x (`mrtA7_factor_conj`,
+    `mrtA7_factors_same_norm`) — landed machinery, not something to invent.*
+
+    ⛔ **TWO REAL DIFFERENCES, AND THEY ARE THE RESIDUE:**
+    ```
+      (1) TARGET  renormalises against ∑ mobDatum f d/d (a Möbius datum);
+                  A.7 renormalises against the SAME sum at t₁.
+      (2) ERROR   landed error is (x/log x)·∑ mobNorm f d/d.  Its log POWER is STRONGER
+                  than A.7's (log X)^{−1/10} — that is the theorem landed here — but it
+                  multiplies a weight sum NOT bounded by a constant.
+    ```
+    Also `renormalise_aux` demands `f 1 = 1` + multiplicativity (A.7 asks only 1-boundedness) and
+    carries no `gJ` window.
+
+    ⇒ **A.7's RESIDUE: re-target the right-hand object, and control `∑ mobNorm f d/d` against
+    `(log X)^{−1/10}`. THE LOG POWER IS NOT THE OBSTRUCTION — the weight sum beside it is.**
+
+    📌 *Third sweep row opened; third time the family was right and the shape needed work — but the
+    FIRST where a named piece of the target is landed VERBATIM rather than merely nearby.*
+    **One row remains unopened by my own account: the door's `absWindowSum` residue.**
+
 17m. ⭐⭐⛔ **A.6 MEASURED AGAINST THE LANDED HALÁSZ FAMILY — THE 61-THEOREM HIT IS THE *WRONG
     SHAPE*. `97cd3e9c` 2026-08-22 14:4x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine
     `Built (6.0s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
