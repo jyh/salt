@@ -8374,6 +8374,7 @@ open Salt.Tactic in
   Salt.MR.integral_dpolyA_eq_zero_of_empty
   Salt.MR.exp_add_exp_neg_eq_two_cos
   Salt.MR.exp_neg_avg
+  Salt.MR.costwist_conj_avg
   Salt.MR.mrtA4i_loss_witness
   Salt.MR.mrtA4i_loss_pos
   Salt.MR.mrtA7_exact_at_center
