@@ -1348,4 +1348,19 @@ theorem integral_inv_one_add_abs_sq_le_two {r : ℝ} (hr : 0 ≤ r) :
   rw [hsplit]
   linarith
 
+/-- **Centred at `t₁`: `∫_{t₁−r}^{t₁+r} (1+|t−t₁|)^{−2} dt ≤ 2`.**  The two-sided
+bound moved onto `T₀`'s own centre — the last shape change between the landed
+integral facts and what A.3's `T₀` assembly consumes.  Pure translation:
+`intervalIntegral.integral_comp_sub_right` carries `t ↦ t − t₁` and the endpoints
+`t₁ ∓ r` become `∓r`. -/
+theorem integral_inv_one_add_abs_sub_sq_le_two {t₁ r : ℝ} (hr : 0 ≤ r) :
+    (∫ t in (t₁ - r)..(t₁ + r), ((1 + |t - t₁|) ^ 2)⁻¹) ≤ 2 := by
+  have h := intervalIntegral.integral_comp_sub_right
+    (a := t₁ - r) (b := t₁ + r) (f := fun x : ℝ => ((1 + |x|) ^ 2)⁻¹) t₁
+  have e1 : t₁ - r - t₁ = -r := by ring
+  have e2 : t₁ + r - t₁ = r := by ring
+  rw [e1, e2] at h
+  rw [h]
+  exact integral_inv_one_add_abs_sq_le_two hr
+
 end Salt.MR
