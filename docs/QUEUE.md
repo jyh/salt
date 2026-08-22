@@ -246,6 +246,42 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15mm. ⭐⭐ **THE p.12-vs-p.13 DISCREPANCY IS SETTLED — BOTH READINGS WERE RIGHT, AND CHASING IT
+    FOUND SOMETHING WORSE IN MY OWN DELIVERED COMMISSION. 2026-08-22 06:2x.**
+    The helm asked me to settle Tao Prop 2.4's page (their card said p.12, my match report said
+    p.13) and offered to take my reading. **Neither of us was wrong.**
+    ```
+      fetched both PDFs, version stamp read from INSIDE each extraction (the PIN brief's own method)
+        arXiv:1509.05422v2   Proposition 2.4 on PAGE 12
+        arXiv:1509.05422v4   Proposition 2.4 on PAGE 13
+      CONTROL: the string occurs on EXACTLY ONE page per version ⇒ neither hit is a forward reference
+    ```
+    ⇒ **A VERSION ARTIFACT — the same class the PIN brief already documented for §3 lemma numbers
+    (3.1 in v1/v2 → 3.2 in v3/v4).** *The question "which page" was ill-posed without a version, and
+    picking the more recent would have canonised a confident wrong answer — the helm was right to
+    refuse to.*
+    ✅ **AND THE CORRECTION FALLS ON MY SIDE:** salt is pinned to **v1–v2**
+    (`briefs/2026-08-21-tao-1509-05422-VERSION-PIN.md`), so **p.12 is the right page for salt's
+    citations**, and the citation that needed a version tag was **the match REPORT's** (it declares
+    Tao `v4`), not the door's docstring.
+    ⛔⛔ **THE FINDING THAT MATTERS: THE TWO VERSIONS ARE DIFFERENT *STATEMENTS*, NOT JUST DIFFERENT
+    PAGES.**
+    ```
+      v2 (2.5)   sup_α Σ (1/Hn)|Σ_{j≤H} g₁(n+j)e(jα)|  =  o_{H⁻→∞}(log ω)          QUALITATIVE
+      v4 (2.5)   sup_α Σ (1/Hn)|Σ_{j≤H} g₁(n+j)e(jα)|  ≪  (loglog H / log H)·log ω  QUANTITATIVE
+      loglog H/log H → 0  ⇒  v4 IMPLIES v2  ⇒  v4 is STRICTLY STRONGER
+    ```
+    ⛔⛔⛔ **⇒ A CAVEAT ON MY OWN COMMISSION, WHICH I DELIVERED AND THE CAPTAIN CONSUMED:** the
+    report's headline *"against Tao Prop 2.4 — the door's actual parent — the gap is ZERO"* derives
+    that from p.13 and uses **`≪ loglogH/logH` as a LOAD-BEARING term** in its cancellation
+    (`(∑1/n)⁻¹ · H · C(loglogH/logH)·log ω`). **v1–v2 DOES NOT SUPPLY THAT RATE.** ⇒ the verdict is
+    **sound against v4 and UNCHECKED against v1–v2, the version salt is pinned to.** *The door's
+    docstring (p.12 ⇒ v2) and the report (v4) are pinned to DIFFERENT VERSIONS — which is the PIN
+    brief's named residual risk, now concrete on a load-bearing line rather than abstract.*
+    ⚠️ **NOT A REFUTATION of the match: the gap may well still be zero against v2's weaker form. It
+    is UNMEASURED, and it was reported as measured.** Resolve in ONE direction: either re-pin the
+    door's parent to v4, or redo the cancellation with only `o(log ω)`.
+
 15ll. 🗺️ **THE DOOR'S PRODUCER CHAIN, MAPPED AT THE BYTES — PLUS ONE STALE FIELD IN THE STANDING
     PROMPT AND ONE NEGATIVE RESULT I OWE OUT LOUD. 2026-08-22 06:1x.**
     ⛔ **STALE FIELD, RE-ARM REQUESTED (remit: the prompt is mine to flag).** Item (10) reads
