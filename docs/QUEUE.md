@@ -246,6 +246,26 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15j. ✅✅ **THE THRESHOLD GAP CLOSED + THE OTHER HALF OF THE COMPOSITION — `20200e70` 2026-08-21 22:1x.**
+    Three theorems, registered in the same action, all `[3 axioms]`, zero warnings, `✔ Built (3.0s)`.
+    ⛔ **I WAS CORRECTED AND THE CORRECTION WAS RIGHT.** I called `parseval_single_h`'s `hMsup`
+    *"character-for-character"* the one my bridge discharges. **The INTEGRANDS are identical; the
+    THRESHOLDS are not** — mine concludes `∀ T ≥ max 1 (X/h₁)`, Parseval requires `∀ T ≥ X/h`, so the
+    bridge left `T ∈ [X/h, 1)` uncovered whenever `X/h < 1`.
+    ⭐ **`one_le_X_div_h` closes it ON A SIDE CONDITION, NOT BY IDENTITY:** Parseval's own hypotheses
+    force `1 ≤ X/h` (`exp 1 ≤ X` ⇒ `log X ≥ 1` ⇒ `(log X)^{−1/5} ≤ 1` ⇒ `h ≤ X`), and then
+    `max 1 (X/h) = X/h`. ***A threshold that coincides only under someone ELSE's hypotheses is exactly
+    the kind of joint that goes unstated*** — so it is a lemma, not a remark.
+    ⭐ **`hMsup_of_propA3_shape_parseval`** — the bridge restated at Parseval's own threshold, so the
+    consumer takes it directly.
+    ⭐⭐ **`parseval_dpolyA_terms_of_propA3_shape` — THE OTHER HALF OF THE COMPOSITION, the thread I said
+    one beat ago nobody had written.** `parseval_single_h`'s RHS carries three `dpolyA` integrals besides
+    `Msup`: an outer two-sided block `[L, X/h] ∪ [−X/h, −L]` and an inner block `[−L, L]`. **They tile
+    `[−X/h, X/h]` EXACTLY**, so A.3 at `T = X/h` — where `T/(X/h) = 1` — bounds all three by `2B`.
+    ⇒ **A.3's shape now controls EVERY `dpolyA` term Parseval's bound exposes.**
+    ⚠️ **STILL: the full composition is NOT assembled, and A.3 itself is NOT proved.** *Two joints are
+    landed; the chain is not run end to end.*
+
 15i. ⭐⭐⭐ **THE TRANSPORT I FLAGGED AS UNMEASURED IS LANDED — AND MY PREMISE FOR CALLING IT A GAP WAS
     WRONG. 2026-08-21 22:0x.** I wrote that A.1 needed a transport from `lemma14`'s **TWO-SCALE**
     difference form to a SINGLE scale. **MRT do not use a two-scale difference for this at all.**
