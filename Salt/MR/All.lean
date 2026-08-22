@@ -8426,6 +8426,8 @@ open Salt.Tactic in
   Salt.MR.integral_sq_le_of_pointwise_on_mrtT1
   Salt.MR.mrtA3_band_bound_of_A6
   Salt.MR.bridge_side_conditions_of_mrtA3_hyps
+  Salt.MR.mrtA3_first_term_of_Pseq1_zero
+  Salt.MR.band_zero_two_has_prime
   Salt.MR.mrtA3_leading_factor_of_Qseq1_zero
   Salt.MR.memS_false_of_Qseq1_zero
   Salt.MR.mrtM_nonneg
