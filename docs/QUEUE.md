@@ -246,6 +246,25 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16h. ✅ **THE `T₀` RADIUS AS A *SET INCLUSION* — THE THIRD PART OF "IMMEDIATELY IMPLIES", AND ALL
+    THREE ARE NOW IN USABLE FORM. `%s` 2026-08-22 08:4x. Both `[3 axioms]`, `EXIT=0`, genuine
+    `Built (4.6s)`, zero diagnostics, Attempts: 1.**
+    ```
+      mrtT0_subset_Icc   T₀ ⊆ Icc (t₁ − r) (t₁ + r),  r = (log X)^{1/16}
+      mrtT0_Icc_length   the enclosing interval has length 2r
+    ```
+    🔑 **`abs_sub_le_of_mem_mrtT0` ALREADY GAVE THE DISTANCE; AN INTEGRAL OVER `T₀` NEEDS A SET
+    INCLUSION. Same fact, different SHAPE — and the shape is what makes it usable.** *Third instance
+    tonight of the same lesson: the beta-redex `rw` could not see through, the `2·A²/(…)²` that was a
+    different `linarith` atom, and now a distance bound that an integral cannot consume.* ***A true
+    statement in the wrong form is not consumable, and "already have it" is a claim about content,
+    not about shape.***
+    ⭐ The length lemma names where MRT's `+1/16` exponent comes from: **it is the MEASURE of the
+    enclosing interval**, not a remark.
+    ⚠️⚠️ **ALL THREE PARTS ARE LANDED; THE ASSEMBLY ITSELF IS NOT COMPOSED — and three parts in hand
+    is not the composition.** *This is exactly the distinction the seat's own record has had to make
+    four times tonight ("ingredients landed" ≠ "node done"), and I am making it before anyone asks.*
+
 16g. ✅ **MRT's DISPLAY (A.9) *IS* LEMMA A.6 AT THE CENTRE — THE STEP A.7 BUYS, NOW A LEAN OBJECT.
     `%s` 2026-08-22 08:3x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.6s)`, zero diagnostics,
     first attempt.**
