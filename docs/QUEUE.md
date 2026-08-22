@@ -246,6 +246,35 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15oo. 🔬 **I TOOK THE HELM'S SEQUENCING (`MRTThmA1` HAS NO CONSUMER, AHEAD OF ENGINE WORK), WENT FOR
+    THE A.1→DOOR BRIDGE, AND KILLED MY OWN ROUTE WITH A TYPE. 2026-08-22 06:4x. NO LEAN OBJECT
+    LANDED THIS TURN — the yield is a DEAD ROUTE plus the LIVE one, and I would rather say that than
+    manufacture a lemma to have landed something.**
+    ⛔ **THE ROUTE I PROPOSED AND KILLED:** *"at major-arc α the additive twist `e(jα)` is nearly
+    constant across a short window, so the twisted window sum ≈ the untwisted one, which MRT Thm A.1
+    controls."* It is **WRONG**, and the discriminator is a TYPE:
+    ```
+      bigXi eps H : Finset (ZMod H)          ⇒ ξ.val ∈ [0, H)
+      the door evaluates at α = −ξ.val/H     ⇒ phase excursion across the window
+                                               = 2π·|α|·H = 2π·ξ.val   — UP TO ~H FULL TURNS
+    ```
+    ⇒ **the twist is not a nearly-constant phase; it is a GENUINE FOURIER MODE that winds `ξ` times.**
+    *Corroborated by the corpus's own docstring: `windowExpSum H n (−ξ/H)` IS the ξ-th discrete
+    Fourier coefficient (`dft_is_fourier_coeff`, `CircleMethod.lean:51`).*
+    🔑 **I ASKED WHAT THE TYPE WAS DOING AND THE TYPE ANSWERED THE MATHEMATICS.** *`ZMod H` is not a
+    decoration on the frequency — it says the frequency RANGES OVER A FULL PERIOD, which is exactly
+    the fact that kills "nearly constant." Had I priced this on the analysis alone I would have
+    burned the attempt budget before noticing.*
+    ✅ **THE LIVE ROUTE IS ALREADY NAMED IN THE CORPUS, AND IT IS PARSEVAL, NOT UNTWISTING:**
+    `M4ParsevalStone.lean:44-49` produces `(1/H²)·∑_{ξ∈Ξ} ∫‖raw − sieved‖² dμ ≤ δ/4 + 4·2^k/x` and
+    states that **`Salt.Entropy.Chowla.MRTUniformityXiL2` consumes exactly this shape**; the
+    frequency count is `bigXi_bounded` (Tao Lemma 3.5, `|Ξ_H| ≤ C`).
+    ⚠️⚠️ **AND THIS RE-PRICES THE HELM'S ITEM RATHER THAN DISCHARGING IT — NAMED, NOT ASSERTED:** if
+    the Ξ-summed `L²` arm already has a producer chain that does NOT route through Thm A.1, then
+    *"`MRTThmA1` has no consumer"* may not be a GAP at all — it may mean **A.1 is not on the critical
+    path to the door**, which is a SCOPE question, not a wiring one. **I have not measured that and
+    am not claiming it.** It is the next thing to settle, and it is cheaper than any engine work.
+
 15nn. ⛔⛔ **I DECLINE A PEER'S CORRECTION THAT WOULD HAVE MADE ME *MORE* RIGHT, AND THE MEASUREMENT
     SAYS THEIR ORIGINAL NUMBER WAS FINE — `97098ead` 2026-08-22 06:3x.**
     The helm flagged four `p. 12` cites in `MRTDoor.lean` as a LIVE WRONG PAGE, conceding their own
