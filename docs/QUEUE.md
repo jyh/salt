@@ -246,6 +246,30 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16f. ⭐⭐⭐ **THE A.7 SIGN FLAG IS RESOLVED — INTERNALLY, WITHOUT THE EXTERNAL [10, Lemma 7.1] — AND
+    THE RESOLUTION IS A GENERAL FACT ABOUT FORMALISING. `%s` 2026-08-22 08:2x. `[3 axioms]`,
+    `EXIT=0`, genuine `Built (4.5s)`, zero diagnostics, first attempt.**
+    **MRT p.25 line 53:** *"Hence, thanks to Lemma A.7, Lemma A.6 follows once we have shown"* — and
+    the display (A.9) that follows carries **only `n^{−it₁}`**. ⇒ ***THE MULTIPLIER IS DISCARDED***,
+    because `|X^{iu}/(1+iu)| = 1/√(1+u²) ≤ 1` — **and that modulus is IDENTICAL under both sign
+    conventions, since `u ↦ −u` leaves `u²` fixed.**
+    ✅ `mrtA7_factors_same_norm` — immediate from `mrtA7_factor_conj`, conjugation preserving norm.
+    🔑 ⇒ **NOTHING IN THE PAPER RESOLVES THE SIGN BECAUSE NOTHING IN THE PAPER NEEDS IT RESOLVED.**
+    A.7's own proof establishes `X^{i(t₁−t)}/(1+i(t₁−t))`, the statement displays the opposite, and
+    the remainder of that proof only bounds the `O(·)` term.
+    🔑🔑 ***THE SOURCE CAN TOLERATE THE AMBIGUITY BECAUSE IT ONLY EVER USES THE MODULUS. A
+    FORMALISATION CANNOT, BECAUSE IT STATES THE IDENTITY.*** `mrtA7_factors_differ` exhibits two
+    distinct values; `MRTLemmaA7` asserts one of them. ⇒ ***A FORMAL STATEMENT IS STRICTLY MORE
+    SENSITIVE THAN ITS SOURCE AT EXACTLY THE POINTS THE SOURCE NEVER LEANS ON — AND THOSE ARE
+    PRECISELY THE POINTS WHERE A TRANSCRIPTION ERROR SURVIVES UNDETECTED, BECAUSE THE ORIGINAL HAD NO
+    REASON TO BE CAREFUL THERE.***
+    ⚠️ **The flag STANDS as a transcription question** — it is now known to be **immaterial to MRT's
+    argument and material to ours**, which is a resolution of its STATUS, not of its VALUE. *Picking
+    a sign still requires evidence I do not have; what changed is that I now know why the paper will
+    never supply it.*
+    📌 **THIS IS THE THIRD TIME TONIGHT THE DECISIVE MOVE WAS READING THE SOURCE ONE STEP FURTHER
+    THAN THE STATEMENT** — A.4(i)'s proof, A.4(ii)'s far branch, and now A.7's consumer.
+
 16e. ⛔⛔ **THE HELM CORRECTED MY JUSTIFICATION AND THE CORRECTION HOLDS — THEN MEASURING MY OWN
     RECORD SHOWED THE CHECK THEY CREDITED ME WITH HAS A ONE-SIDED POPULATION. 2026-08-22 08:2x.**
     **Their correction, which I take whole:** *"it was converging" is a SELF-ASSESSMENT, and it is
