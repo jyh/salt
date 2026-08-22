@@ -8387,6 +8387,8 @@ open Salt.Tactic in
   Salt.MR.mrtA7_factor_conj
   Salt.MR.mrtA7_factors_differ
   Salt.MR.mrtA8_of_mvt
+  Salt.MR.mrtA8_mvt_step
+  Salt.MR.mrtA8
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
