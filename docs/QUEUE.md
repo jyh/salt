@@ -246,6 +246,33 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+17g. ⭐⭐⭐ **THE RESIDUE CONSOLIDATED — THREE MISSING PARAMETER BOUNDS, THREE ROUTES, ONE CAUSE.
+    `599676cf` 2026-08-22 13:2x. `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.3s)`, zero
+    `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 1 (cap 3).**
+    ```
+      MRTPropA3Ambient                      the ambient hypotheses A.3 does NOT carry
+      mrtA3_ambient_excludes_degeneracies   they exclude all three degeneracies at once
+    ```
+    **Over this session `MRTPropA3` turned out to be missing THREE parameter bounds, each found by
+    a DIFFERENT instrument:**
+    ```
+      X  : no LOWER largeness   the X = 1 degeneracy hunt        (rescued by empty S)
+      T  : no UPPER bound       interface check vs A.6/A.7       (MRT reduce to T ≤ X/2)
+      P₁ : no LOWER bound        the junk-value sweep              ⛔ NOT rescued
+    ```
+    ⭐⭐ **THEY ARE INSTANCES OF ONE THING: the transcription carries MRT's explicit DISPLAYED
+    inequalities and NOT the ambient conditions their PROSE supplies** — *"for all `X > X(η)` large
+    enough"* (Thm A.2), *"since the mean value theorem gives `O(T/X+1)` we can assume `T ≤ X/2`"*
+    (A.3's own opening sentence), and *"the intervals `[Pⱼ,Qⱼ]` of Definition 2.1"*.
+
+    🔑 ***A DISPLAYED FORMULA TRANSCRIBES; A SENTENCE OF RUNNING PROSE DOES NOT.*** All three losses
+    are of the second kind. *That is the transferable lesson about porting from papers: the risk is
+    not in the equations, it is in the sentences BETWEEN them.* I found each by a different
+    accident; **the pattern only became visible when I put them side by side.**
+
+    ⛔ `MRTPropA3` IS NOT EDITED (Iron rule 1). `MRTPropA3Ambient` is a NAMED OBJECT for a design
+    session to adopt or reject, wired into nothing.
+
 17f. ⛔⭐⭐⭐ **THE JUNK-VALUE CLASS SWEPT AS A SET — AND ONE SITE THE EMPTY-`S` GUARD DOES **NOT**
     COVER. `bda2670c` 2026-08-22 13:2x. Both `[3 axioms]`, `EXIT=0`, zero errors, genuine
     `Built (6.5s)`, zero `MRTPropA3.lean` diagnostics, BARE builds, Attempts: 2 (cap 3).**
