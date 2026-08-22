@@ -298,4 +298,48 @@ theorem doorLadder_block_length_lt {x H i : ℕ} (hH : 0 < H)
     doorLadder x H i - doorLadder x H (i + 1) < H := by
   rw [doorLadder_succ]; omega
 
+/-! ## Seam 3's actual step, named — the SUM SWAP
+
+The previous section withdrew a blocker that belonged to my route rather than the door's.  The
+corpus's route reaches the shifted block sum by **commuting the sums**, and it does so inline
+(`M4BaseNarrow.lean`'s `hswap`, `M4ChiSummed.lean`'s `hswap`) — the step has no name.
+
+Naming it is worth one theorem: it is the step seam 3 actually turns on, and if it is purely
+mechanical then seam 3's index half is not hard on the corpus's road.  It is, and it is.
+-/
+
+/-- **THE SUM SWAP** — the step the corpus performs inline at every dyadic site: a weight that
+rides the `j`-index only, a `t`-range that may depend on `j`, and an `n`-sum over a fixed
+block, exchanged so the `n`-sum sits innermost.  This is what turns a pointwise maximal bound
+into the *shifted block* object `M4ChiShiftBlockMeanSq` supplies.
+
+*Stated in general (`s`, `c`, `T`, `X`, `w` all free) so it is not tied to one dyadic site.* -/
+theorem sum_swap_dyadic (s : Finset ℕ) (c : ℝ) (Jr : ℕ) (T : ℕ → ℕ)
+    (X : ℕ → ℕ → ℕ → ℝ) (w : ℕ → ℝ) :
+    ∑ n ∈ s, c * ∑ j ∈ Finset.range Jr, (∑ t ∈ Finset.range (T j), X j t n) * w j
+      = c * ∑ j ∈ Finset.range Jr, (∑ t ∈ Finset.range (T j), ∑ n ∈ s, X j t n) * w j := by
+  rw [← Finset.mul_sum, Finset.sum_comm]
+  refine congrArg (c * ·) (Finset.sum_congr rfl fun j _ => ?_)
+  rw [← Finset.sum_mul]
+  exact congrArg (· * w j) Finset.sum_comm
+
+/-- **THE SWAP AT THE DOOR'S EXACT SHAPE** — `sum_swap_dyadic` instantiated at the corpus's own
+site: `s := Ioc A B`, `c := SL`, `Jr := log₂ L + 1`, `T j := L/2^(j+1) + 1`, `w j := (2/3)^j`,
+and `X j t n := ‖∑_{m ∈ doorSievedWindow M (2^j) (n + 2^(j+1)·t)} liouChi χ m‖²`.
+
+*This exists to CHECK the generalisation rather than eyeball it.  The proof is the general
+lemma applied with no glue at all, which is the kernel confirming that
+`M4BaseNarrow`/`M4ChiSummed`'s inline `hswap` is exactly this statement and nothing more.* -/
+theorem sum_swap_dyadic_at_door {q : ℕ} (χ : DirichletCharacter ℂ q) (M L A B : ℕ) (SL : ℝ) :
+    ∑ n ∈ Finset.Ioc A B, SL * ∑ j ∈ Finset.range (Nat.log 2 L + 1),
+        (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
+          ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+            * (2 / 3 : ℝ) ^ j
+      = SL * ∑ j ∈ Finset.range (Nat.log 2 L + 1),
+          (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
+            ∑ n ∈ Finset.Ioc A B,
+              ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+              * (2 / 3 : ℝ) ^ j :=
+  sum_swap_dyadic _ _ _ _ _ _
+
 end Salt.MR
