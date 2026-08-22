@@ -246,6 +246,35 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15jj. 📐 **A.4(ii)'s FAR BRANCH IS PRICED, AND THE LANDED ENGINES ARE *STRICTLY* TOO WEAK —
+    `eca89216` 2026-08-22 06:0x. BOTH CONSTANTS COMPUTED IN THE KERNEL, NOT QUOTED.**
+    With `t₁` repaired (15ii), the far branch has an obvious route through objects already landed:
+    ```
+      dist_one_floor_pow  DistHalasz.lean:179  L ≤ 𝔻²(1, n^{i(t−t₁)}; X)   UNCONDITIONAL
+        the 1/4-grounding: for |b| ≤ 2X the −(3/4)loglog correction eats 3/4 of the
+        leading loglog, leaving   L = (1/4)·loglog X − o(1)
+      dist_recenter_sq    DistSplit.lean:140   (√L − √S)² ≤ 𝔻²(f, n^{it}; X)   at S = (1/16)loglog
+      mrtA4i_holds        this file            halves it onto f·g_𝒥
+      ⇒ terminal constant (1/32)·loglog X — EXACTLY PropA3Core's frozen S8 numeral
+    ```
+    ✅ **`recenter_then_halve_constant` : `(√(1/4) − √(1/16))²/2 = 1/32`** — the route's own output,
+    COMPUTED, so `1/32` is not a quote from a docstring.
+    ✅ **`landed_route_below_a4ii_target` : `1/32 < 1/6 − 1/(3π)`** (needs only `π > 3`).
+    ```
+      route   1/32            = 0.03125
+      target  1/6 − 1/(3π)    ≈ 0.06057        SHORT BY ~1.94×
+    ```
+    🔑 ⇒ ***THE LANDED S8 ENGINES CANNOT PROVE MRT's A.4(ii), AND THE SHORTFALL IS NOT A CONSTANT
+    ONE CAN ABSORB — the target is NEARLY TWICE the route's output.*** MRT reach the larger constant
+    by a sharper argument than recentre-then-halve. **This closes the "do the engines transfer?"
+    question NUMERICALLY**, where 15ee/15ff closed it structurally: *they do not, and now by how much.*
+    ⚠️ **THIS IS A PRICE, NOT A REFUTATION.** A.4(ii)'s far branch is genuinely open; what changed is
+    that its cost is MEASURED rather than guessed. *The previous two prices in this campaign were
+    guesses about proofs I had not opened, and they erred in OPPOSITE directions — this one is
+    arithmetic the kernel checked.*
+    📌 **REMAINING OPEN AFTER TONIGHT:** A.4(ii) far branch (needs `t₁` repair + a sharper engine) ·
+    A.5 · A.6's estimate · A.7 · `costwist_conj_avg` (flagged, cast layer, at 3-attempt budget).
+
 15ii. ⛔⛔⛔ **`MRTLemmaA4ii` IS *STILL* FALSE, AND THE EARLIER REPAIR NEVER TOUCHED THE ARM THAT
     BREAKS IT — `2f62f94e` 2026-08-22 06:0x. KERNEL REFUTATION, `not_mrtLemmaA4ii` `[3 axioms]`.**
     Row 15x-era work found A4(ii) false and repaired it by carrying `Real.exp 1 ≤ X`. **That repair
