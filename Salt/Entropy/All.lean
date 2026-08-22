@@ -1027,5 +1027,6 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   Salt.Entropy.Chowla.hreduce_holds_h_one
   Salt.Entropy.Chowla.hbudget_holds_h
   Salt.Entropy.Chowla.hbudget_h_gate_implies_epssq_h
+  Salt.Entropy.Chowla.epsh_gate_implies_epssq_h
   Salt.Entropy.Chowla.hbudget_holds_h_one
   Salt.Entropy.Chowla.hreduce_holds_final_h
