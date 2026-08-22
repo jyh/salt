@@ -1279,4 +1279,73 @@ theorem mrtT0_Icc_length {t₁ X : ℝ} :
     (t₁ + (Real.log X) ^ ((1 : ℝ) / 16)) - (t₁ - (Real.log X) ^ ((1 : ℝ) / 16))
       = 2 * (Real.log X) ^ ((1 : ℝ) / 16) := by ring
 
+/-- **Mirror of `integral_inv_one_add_sq_le_one` on the left half.**
+`∫_{−r}^{0} (1−x)^{−2} = 1 − 1/(1+r) ≤ 1`.  Same antiderivative technique, with
+`(1−y)⁻¹` in place of `−(1+y)⁻¹`; proving it directly is cheaper than transporting
+the right-hand lemma across `x ↦ −x`. -/
+theorem integral_inv_one_sub_sq_le_one {r : ℝ} (hr : 0 ≤ r) :
+    (∫ x in (-r)..(0 : ℝ), ((1 - x) ^ 2)⁻¹) ≤ 1 := by
+  have hle : (-r : ℝ) ≤ 0 := by linarith
+  have hpos : ∀ x ∈ Set.uIcc (-r) (0 : ℝ), (0 : ℝ) < 1 - x := by
+    intro x hx
+    rw [Set.uIcc_of_le hle, Set.mem_Icc] at hx
+    linarith [hx.2]
+  have hderiv : ∀ x ∈ Set.uIcc (-r) (0 : ℝ),
+      HasDerivAt (fun y : ℝ => (1 - y)⁻¹) (((1 - x) ^ 2)⁻¹) x := by
+    intro x hx
+    have hne : (1 - x) ≠ 0 := ne_of_gt (hpos x hx)
+    have h1 : HasDerivAt (fun y : ℝ => 1 - y) (-1) x := by
+      simpa using (hasDerivAt_id x).const_sub (1 : ℝ)
+    have h2 := h1.inv hne
+    have hEq : -(-1 : ℝ) / (1 - x) ^ 2 = ((1 - x) ^ 2)⁻¹ := by
+      rw [neg_neg, one_div]
+    rw [hEq] at h2
+    exact h2
+  have hcont : ContinuousOn (fun x : ℝ => ((1 - x) ^ 2)⁻¹) (Set.uIcc (-r) (0 : ℝ)) := by
+    intro x hx
+    have hx0 : (0 : ℝ) < 1 - x := hpos x hx
+    exact (((continuousAt_const.sub continuousAt_id).pow 2).inv₀
+      (pow_ne_zero 2 (ne_of_gt hx0))).continuousWithinAt
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hcont.intervalIntegrable]
+  have hrp : (0 : ℝ) < 1 + r := by linarith
+  have : (0 : ℝ) < (1 + r)⁻¹ := by positivity
+  simp only [sub_zero, inv_one, sub_neg_eq_add]
+  linarith
+
+/-- **The two-sided form: `∫_{−r}^{r} (1+|x|)^{−2} ≤ 2`.**  This is the quantity
+A.3's `T₀` step actually consumes, after shifting by `t₁`.  Split at `0`: on
+`[0,r]` the integrand is `(1+x)^{−2}`, on `[−r,0]` it is `(1−x)^{−2}`, and each
+half is at most `1`. -/
+theorem integral_inv_one_add_abs_sq_le_two {r : ℝ} (hr : 0 ≤ r) :
+    (∫ x in (-r)..r, ((1 + |x|) ^ 2)⁻¹) ≤ 2 := by
+  have hcont : Continuous (fun x : ℝ => ((1 + |x|) ^ 2)⁻¹) := by
+    have h1 : Continuous (fun x : ℝ => (1 + |x|) ^ 2) := by fun_prop
+    refine h1.inv₀ (fun x => ?_)
+    have hx : (0 : ℝ) < 1 + |x| := by positivity
+    positivity
+  have hsplit : (∫ x in (-r)..r, ((1 + |x|) ^ 2)⁻¹)
+      = (∫ x in (-r)..(0 : ℝ), ((1 + |x|) ^ 2)⁻¹)
+        + ∫ x in (0 : ℝ)..r, ((1 + |x|) ^ 2)⁻¹ :=
+    (intervalIntegral.integral_add_adjacent_intervals
+      (hcont.intervalIntegrable _ _) (hcont.intervalIntegrable _ _)).symm
+  have hright : (∫ x in (0 : ℝ)..r, ((1 + |x|) ^ 2)⁻¹) ≤ 1 := by
+    have hcongr : (∫ x in (0 : ℝ)..r, ((1 + |x|) ^ 2)⁻¹)
+        = ∫ x in (0 : ℝ)..r, ((1 + x) ^ 2)⁻¹ := by
+      refine intervalIntegral.integral_congr (fun x hx => ?_)
+      rw [Set.uIcc_of_le hr, Set.mem_Icc] at hx
+      rw [abs_of_nonneg hx.1]
+    rw [hcongr]
+    exact integral_inv_one_add_sq_le_one hr
+  have hleft : (∫ x in (-r)..(0 : ℝ), ((1 + |x|) ^ 2)⁻¹) ≤ 1 := by
+    have hcongr : (∫ x in (-r)..(0 : ℝ), ((1 + |x|) ^ 2)⁻¹)
+        = ∫ x in (-r)..(0 : ℝ), ((1 - x) ^ 2)⁻¹ := by
+      refine intervalIntegral.integral_congr (fun x hx => ?_)
+      rw [Set.uIcc_of_le (by linarith : (-r : ℝ) ≤ 0), Set.mem_Icc] at hx
+      rw [abs_of_nonpos hx.2]
+      ring_nf
+    rw [hcongr]
+    exact integral_inv_one_sub_sq_le_one hr
+  rw [hsplit]
+  linarith
+
 end Salt.MR

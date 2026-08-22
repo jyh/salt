@@ -8399,6 +8399,8 @@ open Salt.Tactic in
   Salt.MR.mrtA6_at_centre
   Salt.MR.mrtT0_subset_Icc
   Salt.MR.mrtT0_Icc_length
+  Salt.MR.integral_inv_one_sub_sq_le_one
+  Salt.MR.integral_inv_one_add_abs_sq_le_two
   Salt.MR.mrtA4i_holds
   Salt.MR.mrtLemmaA4i_holds
   Salt.MR.mrtM_le
