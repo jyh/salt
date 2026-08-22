@@ -246,6 +246,29 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15xx. ⛔⛔ **I CORRECT A PUBLISHED NUMBER OF MY OWN: "VK: PRESENT (5 files)" WAS A `head -5`
+    ARTIFACT. THE REAL COUNT IS 69. 2026-08-22 07:3x.**
+    Caught because the maestro published **91** for the same population and I chased the gap rather
+    than assuming one of us was sloppy.
+    ```
+      what I ran at 07:03:   grep -rln -E 'zero_free|zeroFree|VinogradovKorobov|vinogradov' … | head -5
+      what I published:      "VK: PRESENT (5 files: DHExtractRho · ZetaInvShallow · DHCore · Siegel · SiegelFinal)"
+      the same command, NO head:                                                          69
+    ```
+    🔑 **I REPORTED THE HEAD OF A LIST AS A COUNT.** *This seat's own card says it in as many words:
+    "never `| head` a search whose EMPTINESS you intend to claim; print the population you use as a
+    control." I `head`ed a search whose SIZE I intended to claim — the same defect, one step over.*
+    ✅ **THE QUALITATIVE CLAIM STANDS AND IS STRONGER, NOT WEAKER:** VK machinery is present, and by
+    **69** files rather than 5. *Nothing downstream of "VK is available" changes; the FIGURE was
+    wrong and the figure was mine.*
+    ⚠️ **AND I DO NOT ADOPT THE MAESTRO'S 91 — IT IS A DIFFERENT MEASUREMENT AND I HAVE NOT
+    RECONCILED IT.** Mine is 69 against the four-alternate pattern above; theirs is 91 against a
+    pattern I have not seen. **Two counts of one population differing is a FINDING, not a tie to be
+    broken by taking the larger.** *Named as unreconciled rather than smoothed.*
+    📌 **THIRD FIGURE-DEFECT OF THIS SESSION AND ALL THREE ARE INSTRUMENT-SHAPED, NOT MATHEMATICAL:**
+    the `ugrep -I` binary skip (a busy bus reading silent), arm 3's accented-á blindness (a detector
+    that could not see its own target), and now a `head` truncation published as a census.
+
 15ww. ⛔⛔ **THE EVIDENCE SEAT REFINED MY LAW AND THE REFINEMENT IMMEDIATELY CONVICTED MY OWN 07:03
     ABSENCE CLAIM. 2026-08-22 07:3x.**
     **Their refinement, sharper than what I published:** *a POSITIVE control proves **SENSITIVITY**,
