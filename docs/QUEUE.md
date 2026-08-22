@@ -246,6 +246,27 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16s. ⭐⭐ **THE LARGE-`T` BRANCH'S TWO INPUTS — AND THE ONE NAME I DIDN'T CHECK IS THE ONE THAT
+    FAILED. `8a318f7a` 2026-08-22 10:4x. Both `[3 axioms]`, `EXIT=0`, BARE builds, genuine `Built`,
+    zero `MRTPropA3.lean` diagnostics, Attempts: 2 (cap 3, declared before starting).**
+    ```
+      dpolyA_l2_mvt_Icc   MVT on a dyadic block: s ⊆ [1,N] ⇒ (2T + 2πN)·∑
+      sum_sq_norm_div_le  ‖aₙ‖ ≤ 1 and n ≥ X  ⇒  ∑‖aₙ/n‖² ≤ #s / X²
+    ```
+    **`dpolyA_l2_mvt` needed an `hgap`. I did not write one:** `log_gap_ge`
+    (`Salt/MR/MVHilbert.lean:75`) already proves distinct integers in `[1,N]` have
+    `|log m − log n| ≥ 1/N`, reachable with NO new import
+    (`MRTPropA3 → MVHilbertFinset → MVCore2 → MVCore → MVHilbert`). **Second beat running where the
+    search found the piece instead of building it.** Together the two give MRT's `O(T/X + 1)` for
+    `S ⊆ [X,2X]`: `N = ⌊2X⌋` makes the MVT constant `2T + 4πX`, coefficient sum `≤ #S/X²`.
+
+    ⛔ **THE FAILED ATTEMPT IS THE ROW.** Attempt 1 died on `Unknown identifier div_le_div_iff` —
+    current mathlib spells it `div_le_div_iff₀`, **which the corpus itself uses 674 times against 1
+    for the bare name.** Last beat I grepped every mathlib name BEFORE writing and caught two
+    wrong-namespace hits without a build. This beat I grepped the lemma I was *looking for*
+    (`log_gap_ge`) and not the lemmas I was *using* — and the single unchecked name is exactly the
+    one that failed. ***The habit only pays where it is applied; having it does not deploy it.***
+
 16r. ⭐⭐⭐ **MRT's LARGE-`T` BRANCH COMES FROM A *LANDED MASSIF*, NOT FROM NEW ANALYSIS — I
     NAMED IT UNBUILT ONE BEAT AGO AND I ALREADY OWNED IT. `8ad2ed79` 2026-08-22 10:3x. Both
     `[3 axioms]`, `EXIT=0`, BARE build, genuine `Built (5.9s)`, zero `MRTPropA3.lean`
