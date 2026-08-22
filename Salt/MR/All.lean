@@ -8425,6 +8425,8 @@ open Salt.Tactic in
   Salt.MR.mrtT1_subset_Icc
   Salt.MR.integral_sq_le_of_pointwise_on_mrtT1
   Salt.MR.mrtA3_band_bound_of_A6
+  Salt.MR.mrtM_nonneg
+  Salt.MR.mrtA3_bracket_nonneg
   Salt.MR.mrtPropA3_in_bridge_shape
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
