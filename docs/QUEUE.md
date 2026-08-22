@@ -246,6 +246,28 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+16g. ✅ **MRT's DISPLAY (A.9) *IS* LEMMA A.6 AT THE CENTRE — THE STEP A.7 BUYS, NOW A LEAN OBJECT.
+    `%s` 2026-08-22 08:3x. `[3 axioms]`, `EXIT=0`, genuine `Built (4.6s)`, zero diagnostics,
+    first attempt.**
+    `mrtA6_at_centre` : `MRTLemmaA6 C` at `t := t₁` gives exactly MRT's (A.9) — the factor
+    `1/(1+|t−t₁|)` becomes `1/(1+0) = 1` and the two-term right-hand side is otherwise unchanged.
+    ⭐ **THIS STATES IN LEAN WHAT A.7 *BUYS*: it moves the problem from EVERY `t ∈ T₀` to the SINGLE
+    POINT `t₁`.** MRT p.25: *"Hence, thanks to Lemma A.7, Lemma A.6 follows once we have shown (A.9)."*
+    *Their two words "thanks to Lemma A.7" name a change of quantifier; the Lean step makes the
+    quantifier visible.*
+    ⭐ **AND IT CONSUMES A GUARD I MADE EXPLICIT EARLIER RATHER THAN DESCRIBING IT AGAIN:** membership
+    `t₁ ∈ T₀` is immediate (`|t₁ − t₁| = 0` clears the radius) **but requires `T₀`'s low-`M` branch,
+    which `mrtT0` encodes by being `∅` otherwise** — the guard `lt_of_mem_mrtT0` landed at 06:0x.
+    *A lemma landed as documentation became a lemma used as a hypothesis.*
+    📌 **A.3's SPINE, AS IT NOW STANDS IN LEAN:**
+    ```
+      T₀ ∪ T₁ = [−T,T], disjoint          mrtT0_union_mrtT1 · mrtT0_disjoint_mrtT1   LANDED
+      T₁ side                             MRTLemmaA5 (stated; [17, Lemma 3] external)
+      T₀ side, pointwise → integral       mrtA3_T0_pointwise_sq · integral_inv_one_add_sq_le_one
+      T₀ side, ∀t → single point          mrtA6_at_centre  ← this
+      the renormalisation itself          MRTLemmaA7 (stated; sign flagged, status resolved)
+    ```
+
 16f. ⭐⭐⭐ **THE A.7 SIGN FLAG IS RESOLVED — INTERNALLY, WITHOUT THE EXTERNAL [10, Lemma 7.1] — AND
     THE RESOLUTION IS A GENERAL FACT ABOUT FORMALISING. `%s` 2026-08-22 08:2x. `[3 axioms]`,
     `EXIT=0`, genuine `Built (4.5s)`, zero diagnostics, first attempt.**
