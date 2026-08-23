@@ -8457,6 +8457,7 @@ open Salt.Tactic in
   Salt.MR.mrtPropA3_in_bridge_shape
   Salt.MR.mrtA6_inner_eq_sifted
   Salt.MR.mrtA6_F_sifted
+  Salt.MR.renormalise_hyx_of_mrtT0
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

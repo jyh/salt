@@ -2844,5 +2844,33 @@ theorem mrtA3_band_bound_of_A6 {C : ℝ} {F : ℝ → ℝ} (hC : 0 ≤ C) (hA6 :
   mrtA3_split_bound_interval hT h0int h1int
     (mrtA3_T0_bound_of_A6 hC hA6 f Pseq Qseq J hFdef hf hX hlogX hTX hr hrX h0int) hT1
 
+/-- **A.7's SIDE CONDITION, WITH `t` ELIMINATED** — `renormalise_aux` (`Renormalise.lean:760`)
+demands `hyx : (3 + |u|·(1 + log x))² ≤ x`.  At A.7's `u := t − t₁` this is a condition on
+BOTH `t` and `X`; but on `T₀` the radius `|t − t₁| ≤ (log X)^{1/16}`
+(`abs_sub_le_of_mem_mrtT0`, already landed) makes it monotone in `|t − t₁|`, so it follows
+from **one inequality in `X` alone**.
+
+⇒ **The whole `t`-dependence of A.7's renormalisation side condition is discharged by `T₀`
+membership.**  What is left is a largeness threshold on `X`, and nothing about `t`.
+
+⛔ **THE THRESHOLD IS NOT SUPPLIED BY THE ADOPTED AMBIENT HYPOTHESES.**  `MRTPropA3Ambient`
+gives `exp 1 ≤ X`, which is far too weak: `(3 + (log X)^{1/16}(1+log X))²` grows like
+`(log X)^{17/8}`, so the hypothesis below holds for large `X` but needs an explicit constant
+the Captain's ruling did not (and was not asked to) provide.  **Named, not assumed.** -/
+theorem renormalise_hyx_of_mrtT0 {M t₁ X T t : ℝ} (ht : t ∈ mrtT0 M t₁ X T)
+    (hlogX : 0 ≤ Real.log X)
+    (hX : (3 + (Real.log X) ^ ((1 : ℝ) / 16) * (1 + Real.log X)) ^ 2 ≤ X) :
+    (3 + |t - t₁| * (1 + Real.log X)) ^ 2 ≤ X := by
+  have hrad : |t - t₁| ≤ (Real.log X) ^ ((1 : ℝ) / 16) := abs_sub_le_of_mem_mrtT0 ht
+  have h1 : (0 : ℝ) ≤ 1 + Real.log X := by linarith
+  have hbase : 3 + |t - t₁| * (1 + Real.log X)
+      ≤ 3 + (Real.log X) ^ ((1 : ℝ) / 16) * (1 + Real.log X) := by
+    have := mul_le_mul_of_nonneg_right hrad h1
+    linarith
+  have hnn : (0 : ℝ) ≤ 3 + |t - t₁| * (1 + Real.log X) := by
+    have : (0 : ℝ) ≤ |t - t₁| * (1 + Real.log X) := mul_nonneg (abs_nonneg _) h1
+    linarith
+  exact le_trans (pow_le_pow_left₀ hnn hbase 2) hX
+
 end Salt.MR
 
