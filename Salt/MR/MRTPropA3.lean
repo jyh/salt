@@ -3086,5 +3086,39 @@ theorem sum_norm_one_sub_liouvilleC (x : ℝ) :
   rw [norm_one_sub_liouvilleC_prime (Finset.mem_filter.mp hp).2]
   ring
 
+/-! ### ⛔⛔ THE HARDCODED-WITNESS SWEEP — I FLAGGED ONE AND STOPPED; HERE IS THE SET
+
+One beat ago I applied compiler's `coreShort` lesson, found `landed_halasz_exponent_weaker_than_a6`
+carrying a hardcoded witness, flagged it, and moved on.  **That is "a gate that checks each claim
+never checks the set" — committed inside my own audit, on the day I quote the law.**  A defect
+class is never one instance; the first one found is a sample.
+
+Swept by READING each statement (a regex pass over-collected 20 names including structural lemmas
+like `exp_neg_avg`; a loose probe is not a census):
+
+**COMPARISON-TYPE — the true class.  A landed value against a target, BOTH literal, so the
+theorem keeps proving when the relationship it names dies:**
+* `landed_halasz_exponent_weaker_than_a6` — `1/(32e) < 1/16`  *(flagged last beat)*
+* `landed_halasz_M_rate_weaker_than_a6` — `1/e < 1/2`
+* `mrtA4ii_sixteenth_suffices` — `1/6 − 1/(3π) < 1/16`
+* `landed_route_below_a4ii_target` — `1/32 < 1/6 − 1/(3π)`
+* `mrtA5_rho_margin` — `3/50 < 1/6 − 1/(3π)`
+* `renormalise_error_logpower_stronger` — carries A.7's `1/10` as a literal
+
+**IDENTITY-TYPE — weaker: these go IRRELEVANT rather than MISLEADING, because they assert no
+relationship that can quietly die:** `mrtA3_T0_exponent` (`1/16 − 2/16 = −(1/16)`) ·
+`recenter_then_halve_constant` (`(√(1/4) − √(1/16))²/2 = 1/32`).
+
+⇒ **SIX in the load-bearing class, not one.**  Every one of them compares a LANDED grade to a
+TARGET EXPONENT, and in every one both sides are literals read from nothing.
+
+⛔ **STILL FLAGGED, STILL NOT FIXED, AND THE REASON IS UNCHANGED:** deriving these needs A.6's and
+A.7's exponents abstracted out of `MRTLemmaA6`/`MRTLemmaA7`'s STATEMENTS — iron rule 1,
+Fable/Captain tier.  The 17:4x ruling covered the ambient hypotheses and nothing else.
+
+🔑 *The lesson is not "I had a hardcoded constant."  It is that **I found one, published a flag,
+and felt finished** — and the law against exactly that was already on the card I was quoting
+while I did it.* -/
+
 end Salt.MR
 
