@@ -2983,6 +2983,16 @@ RESURRECTS THEM:**
    Residue is formalization + thresholds, not open mathematics; the one
    real debt is **Vinogradov–Korobov (MRT (1.12)), not in mathlib.**
 
+⚑ **JAS — ONE FLEET-ATTENTION FLAG (added 08/22 at the fold; the ruling is the
+Captain's).** jas holds a VERIFIED GREEN-CI STACK FOR ITS PUBLIC REPO, UNPUSHED:
+jas main's CI has been red since 2026-07-30 on the public, paper-backed repo
+(origin/main = 5095060d, both workflows failing there); the landed-unpushed
+branches fix it (P1.3 kills the divergence reddening the Windows lane, P1.4
+stops the prime-directive gate silently skipping) and are git-verified. jas
+deliberately did not push — a push to a public repo is outward-facing and was
+not the seat's to authorise. ONE PUSH RULING unblocks it. Detail + branch shas:
+`seat/fleet/QUEUE-jas.md`.
+
 ## P2b — CITATION HYGIENE (helm-queued 2026-08-21, no urgency, executor-class)
 
 ⛔ **VERSION PROVENANCE FOR THIS DOCUMENT'S TAO CITATIONS (added 2026-08-21 13:1x).** Every page
@@ -3170,6 +3180,21 @@ numbering is UNVERIFIED.
    BESIDE, never edit (iron rule 1). (4) The sieve route is **strictly dominated** —
    if Tao-1.2 ever lands, the **direct-Möbius** route is the consumer, not wave-1's
    chain.
+
+12. **JAS (vector-illustration editor · public repo `github.com/jyh/jas`) — FOLDED
+   IN 08/22 on the Captain's order ("so you know about it"), executed by the
+   Phoenix fresh head; jas-b's own git-verified answer places jas at fleet-P3.**
+   The detailed board is `seat/fleet/QUEUE-jas.md` — jas seats pull from THAT
+   file, not this one; this entry exists so the fleet board is complete. State
+   at fold: P1.2/P1.3/P1.4/P1.6/P1.7 + P2.5 landed on unpushed branches (three
+   stacked, P1.3→P1.6→P1.7; P2.5 independent; all based on 5095060d); open items
+   P2.1 (next pullable) · P2.3 (gated on P1.1's local-salvage caveat) · P2.4;
+   P1.5 + P2.2 sequenced behind flask's day-1 report (flask = jas's Windows
+   seat, on remote control, reachable BY JAS only — jas relays); P2.6 blocked on
+   ONE Captain confirmation (the README arXiv-title note wording). The single
+   fleet-attention item is the P2 flag above — the unpushed green-CI stack
+   awaiting his push ruling. Standing for him at the canvas, not queue items:
+   smokes S3 TABTRUTH + S4 Painter PH2.
 
 ## THE MECHANICS (the saltworks board's, verbatim in spirit)
 
