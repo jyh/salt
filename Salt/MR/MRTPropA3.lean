@@ -67,6 +67,24 @@ def MRTBandCount (X₀ : ℝ) (Qseq : ℕ → ℕ) (J : ℕ) : Prop :=
   ((Qseq J : ℝ) ≤ Real.exp ((Real.log X₀) ^ ((1 : ℝ) / 2)))
   ∧ ∀ j : ℕ, J < j → ¬ ((Qseq j : ℝ) ≤ Real.exp ((Real.log X₀) ^ ((1 : ℝ) / 2)))
 
+/-- **THE AMBIENT HYPOTHESES OF MRT's APPENDIX A**, as one `Prop`, carried by `MRTPropA3`
+below.
+
+**ADOPTED BY CAPTAIN'S RULING, 2026-08-22 ~17:4x** (council; relayed by Sancho).  The ground
+is FIDELITY TO THE SOURCE, not a weakening: MRT supply these ambiently in prose, which
+transcribes into nothing —
+* `Real.exp 1 ≤ X` — Theorem A.2's *"for all `X > X(η)` large enough"*;
+* `T ≤ X / 2` — A.3's own opening sentence, *"we can assume `T ≤ X/2`"*;
+* `2 ≤ Pseq 1` — the intervals of Definition 2.1.
+
+*A displayed formula transcribes; a sentence of running prose does not.*  All three losses
+were of the second kind, which is why the statement went vacuous in three separate ways —
+`sifted_empty_at_one`, `memS_false_of_Qseq1_zero`, `mrtA3_first_term_of_Pseq1_zero` are the
+witnesses, kept below, and `mrtA3_ambient_excludes_degeneracies` is the proof that these three
+bounds shut all of them at once. -/
+def MRTPropA3Ambient (X T : ℝ) (Pseq : ℕ → ℕ) : Prop :=
+  Real.exp 1 ≤ X ∧ T ≤ X / 2 ∧ 2 ≤ Pseq 1
+
 /-- **MRT Proposition A.3 at an explicit constant `C`.**  The `≪` is discharged
 as a single absolute `C`, uniform in every parameter. -/
 def MRTPropA3 (C : ℝ) : Prop :=
@@ -77,7 +95,7 @@ def MRTPropA3 (C : ℝ) : Prop :=
       Real.sqrt X ≤ X₀ → X₀ ≤ X →
       MRTBands X₀ η Pseq Qseq → MRTBandCount X₀ Qseq J →
       (∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * X ∧ MemS Pseq Qseq J n)) →
-    ∀ T : ℝ, 1 ≤ T →
+    ∀ T : ℝ, 1 ≤ T → MRTPropA3Ambient X T Pseq →
       (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2)
         ≤ C * (T / (X / (Qseq 1 : ℝ)) + 1)
             * ((Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
@@ -116,7 +134,14 @@ integral of `‖dpolyA‖²` can be positive.
 counterexample must ALSO satisfy `MRTBands`' (A.1)/(A.2), and at `Qseq j = 2`,
 `Pseq 1 = 2` the (A.1) ratio is `+1.19` against a required `≤ η/16 ≈ 0.0052`.  **I
 have not constructed a consistent assignment, so I do not claim the statement is
-false — only that its guard against the `A4ii` defect is unverified.** -/
+false — only that its guard against the `A4ii` defect is unverified.**
+
+✅ **AND THE CAPTAIN'S RULING OF 2026-08-22 ~17:4x SUPERSEDES THE WHOLE QUESTION.**
+`MRTPropA3` now carries `MRTPropA3Ambient`, so `X = 1` is excluded BY HYPOTHESIS rather than
+survived by accident.  This wrapper needs no structural change — it still reads
+`∃ C > 0, MRTPropA3 C` — but the guard discussed above is no longer what protects the
+statement; `mrtA3_ambient_excludes_degeneracies` is.  *The vacuity analysis is kept because
+the reasoning, not the outcome, was the thing worth having.* -/
 def MRTPropA3Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTPropA3 C
 
 /-! ## A3-0 — `t₁` exists
@@ -2516,15 +2541,15 @@ theorem mrtPropA3_in_bridge_shape {C : ℝ} (hA3 : MRTPropA3 C)
     (hX₀lo : Real.sqrt X ≤ X₀) (hX₀hi : X₀ ≤ X)
     (hbands : MRTBands X₀ η Pseq Qseq) (hcount : MRTBandCount X₀ Qseq J)
     (hS : ∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * X ∧ MemS Pseq Qseq J n)) :
-    ∀ T : ℝ, 1 ≤ T →
+    ∀ T : ℝ, 1 ≤ T → MRTPropA3Ambient X T Pseq →
       (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2)
         ≤ (T / (X / (Qseq 1 : ℝ)) + 1)
           * (C * ((Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
                 + mrtM f X / Real.exp (mrtM f X)
                 + 1 / (Real.log X) ^ ((1 : ℝ) / 50))) := by
-  intro T hT
+  intro T hT hamb
   refine le_trans
-    (hA3 f hf hf1 hmul X X₀ η Pseq Qseq J S hη0 hη6 hX₀lo hX₀hi hbands hcount hS T hT)
+    (hA3 f hf hf1 hmul X X₀ η Pseq Qseq J S hη0 hη6 hX₀lo hX₀hi hbands hcount hS T hT hamb)
     (le_of_eq ?_)
   ring
 
@@ -2716,13 +2741,11 @@ large enough"* (Thm A.2), *"since the mean value theorem gives `O(T/X+1)` we can
 displayed formula transcribes; a sentence of running prose does not, and all three losses
 are of the second kind.
 
-⛔ **`MRTPropA3` IS NOT EDITED** — Iron rule 1.  This is a NAMED OBJECT for a design
-session to adopt or reject, nothing more. -/
-
-/-- **THE AMBIENT HYPOTHESES `MRTPropA3` DOES NOT CARRY**, as one `Prop`.  Not wired into
-anything: a named residue, so a future repair has something to point at. -/
-def MRTPropA3Ambient (X T : ℝ) (Pseq : ℕ → ℕ) : Prop :=
-  Real.exp 1 ≤ X ∧ T ≤ X / 2 ∧ 2 ≤ Pseq 1
+✅ **ADOPTED BY CAPTAIN'S RULING, 2026-08-22 ~17:4x (council, relayed by Sancho).**  The
+design session took this object up: `MRTPropA3` now CARRIES `MRTPropA3Ambient`, and the
+definition has moved ahead of `MRTPropA3` so it can be named there.  Iron rule 1 is satisfied
+by the ruling itself, not by my hand.  *The three losses recorded above are what the ruling
+repairs.* -/
 
 /-- **THE AMBIENT HYPOTHESES EXCLUDE ALL THREE DEGENERACIES AT ONCE**: `X = 1` is out,
 `Pseq 1 = 0` is out, and `T ≤ X` (which is what `mrtT0_mono_T` needs to carry A.6's band
