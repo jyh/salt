@@ -3870,5 +3870,35 @@ theorem shortWindow_closed_sub_open_norm_le {f : ℕ → ℂ} (hf : ∀ n, ‖f 
   refine le_trans (Finset.sum_le_card_nsmul _ _ 1 (fun i _ => hf i)) ?_
   simpa using (Nat.cast_le (α := ℝ)).mpr (closed_open_window_card_le_one x h)
 
+/-! ## ⭐⭐ THE LAST UNNAMED OBLIGATION — THE CONSTANT MATCH ON `A.3 ⇒ A.2`
+
+Three of the spine's four gaps now have citable names.  The fourth was still prose: the landed
+`parseval_bound_of_propA3_shape` delivers an explicit `B`-shaped bound, and `MRTThmA2` wants
+MRT's `exp(−M)M + (log h)^{1/3}/P₁^{1/6−η} + (log X)^{−1/50}`.  **Matching those two is the
+remaining analytic content of the bridge** (the assembly is landed, the endpoint is priced at
+one term by `shortWindow_closed_sub_open_norm_le`).
+
+⛔ **A STATEMENT.  NOT PROVED HERE, AND DELIBERATELY WEAK: it asks only that SOME admissible
+constant exists**, because the discharger picks it — the same shape the door's `δ` has. -/
+def MRTParsevalConstantMatch (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+  ∃ C : ℝ, 0 < C ∧ MRTThmA2 C Pseq Qseq 𝒥
+
+/-- ⭐⭐⭐ **THE WHOLE RATIFIED SPINE, CONDITIONALLY, IN ONE THEOREM.**
+
+`MRTThmA1Statement` — the campaign's PRIMARY — follows from the single named obligation
+`MRTParsevalConstantMatch` at `𝒥 = ∅`, via `mrtThmA1_of_mrtThmA2_empty`.
+
+⇒ **this is the campaign's remaining debt expressed as a Lean implication rather than a
+paragraph**: whoever discharges the constant match at the empty sieve has the primary.  The
+mid- and large-range obligations (`MRTShortSegmentSplitting`, `MRTLargeRangeEquidistribution`)
+sit beneath A.3 and feed A.4(ii), which is what supplies A.3's own hypothesis.
+
+⛔ **NOTHING HERE PROVES ANY OF IT.**  The implication is real and the antecedent is open;
+naming it is what lets a design session price the road instead of re-deriving it. -/
+theorem mrtThmA1Statement_of_constantMatch (Pseq Qseq : ℕ → ℕ)
+    (h : MRTParsevalConstantMatch Pseq Qseq ∅) : MRTThmA1Statement := by
+  obtain ⟨C, hCpos, hA2⟩ := h
+  exact ⟨C, hCpos, mrtThmA1_of_mrtThmA2_empty C Pseq Qseq hA2⟩
+
 end Salt.MR
 
