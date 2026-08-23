@@ -733,6 +733,32 @@ files away.**  The next object is `DoorRowCarried`.
 Its control — `MRTUniformityXi`, a `Prop` I know has a producer — scored **0**.  The probe
 misses real producers, so **3 is a LOWER BOUND, not a count**, and is written here as one. -/
 
+/-! ### THE DOOR'S FOUR GATES, MEASURED — TWO OF THREE REDUCE TO NAMED SMALLER THINGS
+
+`M4RowLinear.m4_hbd_of_live_L` (`:2335`) delivers the door's `hbd` from four bundles.  Probed
+each with the calibrated producer probe (control `MRTUniformityXi` → 6; decoy → 0):
+
+**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:709`)
+produces it from **two explicit inequalities and NO other gate**:
+`√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
+*It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
+
+**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:921`) — `m4_cover_assembly_L`
+(`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
+join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
+BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
+
+**`M4DoorGates_L`** (`M4LadderLinear.lean:939`) is a **structure** — a bundle of regime data, so
+its "producer" is an instance construction rather than a theorem.  Not measured here.
+
+⛔ **I AM NOT CALLING THE GATES CLOSED.**  Today I made four same-signed errors reading the
+corpus as having LESS than it does, and the correction for that is not to start reading it as
+having MORE.  What is measured: two of three gates have producers that consume no further gate
+(`M4GradeGate`) or reduce to one named object (`M4SievedDoorSq_L → M4BlockMeanSq_L`).  What is
+**NOT** measured: whether `M4BlockMeanSq_L` and the `M4DoorGates_L` instance bottom out.
+**That is the next question, and I have not answered it.** -/
+
 /-! ### ⛔⛔⛔ THE DOOR'S ROAD WALKED TO ITS END — MY FRONTIER CLAIM RETRACTED, THIRD TIME
 
 I said one beat ago that the door's missing piece is *"the TERMINAL CANCELLATION."*  **That is
