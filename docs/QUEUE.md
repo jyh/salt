@@ -3208,6 +3208,19 @@ numbering is UNVERIFIED.
     (a naive replace makes `arXiv:arXiv:`), and replace the TOKEN not a phrase (several citations span a line break).**
     ⇒ 📌 **NODE DONE TO THE LIMIT OF THIS SEAT: SAFE 14/14 ✅ · BLOCKED 30 · NO-CLAIM 11. What remains needs the source PDF
     fetched — a RESOURCE decision, not a work item.**
+    ⚡ **PRICED HANDOFF 06:1x — THE BLOCKER IS ONE DOWNLOAD, AND IT COSTS THE REPO NOTHING.** `docs/sources/` already holds
+    SIX fetched papers (`1501.04585v4`, `1503.05121v3`, `1706.03749v1`, `gs9911246`, `mv1974-hilbert`,
+    `montgomery-ten-lectures`), each carrying an embedded `/URI(http://arxiv.org/abs/…)` marker — **the recipe exists and has
+    been run six times** — and **`docs/sources/*.pdf` is GITIGNORED (`.gitignore:26`), so a fetch pollutes nothing and needs
+    no `git add`.** ⇒ **STEP 1: fetch `arXiv:1509.05422v2` → `docs/sources/1509.05422v2.pdf`.**
+    ⇒ **STEP 2: the 30 BLOCKED files become NORMAL work. The objects to verify against the source are EXACTLY these 16:**
+    `Lemma 2.2` · `Prop 2.6` · `Lemma 3.2` · `Lemma 3.3` · `Lemma 3.5` · eqs `(1.6) (2.12) (3.1) (3.7) (3.9) (3.11) (3.12)
+    (3.13) (3.14) (4.1)` · pages `pp.24-25` and `p.22`.
+    ⛔ **STEP 3, THE STANDING WARNING, WITH A LIVE SPECIMEN: ANCHOR PER CITATION TO THE VERSION ITS OWN NUMBERS MATCH.**
+    `docs/exploration/wf3-waveb-design.md` correctly anchors **v4** because it quotes v4 PAGE numbers — a blanket `v2` pass
+    would falsify the W-F3 design block itself.
+    ⚠️ **NOT DONE THIS FLIGHT, DELIBERATELY: one download is cheap; verifying 30 files against a freshly-read paper is not,
+    and beginning that near a context ceiling produces exactly the half-finished hygiene pass this node forbids.**
     ⛔ **RESOURCE REQUIREMENT, NOW EXACT: `arXiv:1509.05422` IS NOT IN `docs/sources/` (which holds `1501.04585v4`,
     `1503.05121v3`, `1706.03749v1`, `gs9911246`). WITHOUT THAT PDF, 30 OF 55 FILES CANNOT BE ANCHORED BY ANYONE** — not
     for want of care, for want of the source. **A hygiene node that assumes one verification covers all citations is
