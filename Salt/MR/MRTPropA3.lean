@@ -733,6 +733,43 @@ files away.**  The next object is `DoorRowCarried`.
 Its control — `MRTUniformityXi`, a `Prop` I know has a producer — scored **0**.  The probe
 misses real producers, so **3 is a LOWER BOUND, not a count**, and is written here as one. -/
 
+/-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
+
+Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
+`M4RowMeanSq_L` (`M4RowLinear.lean:991`) has **no producer** — established by reading **all six
+of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1392`) ·
+an enumeration entry (`:3419`) · one arrow (`:3434`).
+
+⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
+*"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
+for the two obstructions that keep it from being discharged from `m4_meansq_per_chi_gen_L`."*
+
+The pointer resolves — in the ORIGINAL module, not the `_L` twin: **`M4Join.lean:73`,
+`## ⟦THE RESIDUE⟧ — named precisely, not deferred vaguely`.**  (The `_L` file is a verbatim
+restatement of its landed original, so it inherited "the module header" pointing at `M4Join`'s.
+**I nearly published "dangling reference" and checked first.**)
+
+**THE TWO OBSTRUCTIONS, AND ONE IS ALREADY CLOSED:**
+1. **⟦THE WALL⟧ — REPAIRED** (2026-07-28, the E-wave, flags `a626571`).  `M4ErrRewire`'s
+   `ramP2massMR_direct` prices the `p²`-mass with the coefficient sequence UNCONSTRAINED, and
+   `FrameWitness.err_at_witness_mr(_end)` supersedes the old supplier with `hwin` gone.  The
+   file states it is *"no longer a blocker."*
+2. **⟦THE CLASS PRICING⟧ — OPEN.**  The route from a tight-major `α` to the *unsieved dilated*
+   datum changes the block's index set: dilation carries a `doorLadder` block `(X_{i+1}, X_i]`
+   to `(X_{i+1}/d₀ − 1, X_i/d₀]`, **which is not a `doorLadder` block of any ladder**.  So the
+   class pricing cannot be stated as `M4BlockMeanSq` at the dilated scale *"without a general
+   per-interval input"*; and the non-coprime half is not discharged by the trivial threshold at
+   small `d₀` (`trivThresh H d₀ W = H·d₀/W³` needs `d₀² ≳ W³`).  The file calls both **design
+   questions, not proof-engineering ones.**
+
+📌 **A HYPOTHESIS FOR THE NEXT BEAT, DELIBERATELY NOT A CLAIM.**  Obstruction 2's core is an
+INDEX-SET problem, and the residue asks for *"a general per-interval input"* — which is the
+shape of `sum_progression_le_sum_Ioc` / `progression_mem_Ioc_of_window_in_block`, landed in
+`DoorRoadCompose.lean` and marked there as pedagogy.  **It may be that I built the right kind of
+tool in the wrong place — at the dyadic step, where nothing needed it, rather than at the
+DILATION, where the corpus says something does.**  That is an excited conclusion, which by my
+own standing rule is a trigger to check, not a finding.  **UNTESTED.** -/
+
 /-! ### THE DOOR'S FOUR GATES, MEASURED — TWO OF THREE REDUCE TO NAMED SMALLER THINGS
 
 `M4RowLinear.m4_hbd_of_live_L` (`:2335`) delivers the door's `hbd` from four bundles.  Probed
