@@ -3125,6 +3125,24 @@ numbering is UNVERIFIED.
       SUBSET CHECK: 47 ⊆ 55, verified by `comm` — the counts nest.
     ```
     ⇒ **THE EXECUTOR MUST STATE WHICH PREDICATE IT USED AND REPORT ITS OWN COUNT.**
+    ⚠️ **MEASUREMENT STAMP 2026-08-23 04:3x (math) — CENSUS ONLY, NOTHING EDITED; THE RATIFIED NODE IS NOT REWRITTEN.**
+    **PREDICATE USED: files under `Salt/` or `docs/` containing the literal `1509.05422`.** Counts: **any mention 55**
+    (matches this node's 55 exactly) · **already version-anchored `v[0-9]` = 3** (this node records 0) · **control
+    `1503.05121` = 40** (this node records 34). ⛔ **THE CONTROL DID NOT CLOSE AND I AM NOT ROUNDING IT:** 7 of the 40
+    were touched after this node was written (08/21 13:00) — six MRT files landed since (`MRTProp24`, `MRTPropA3`,
+    `MRTPropA3Bridge`, `MRTThmA1`, `MRTDoor`, `MR/All`) plus `QUEUE.md`, two of them moved by this seat tonight —
+    which reconstructs to **33 against a recorded 34**. *Mechanism identified, residual unexplained; a control that
+    reconciles "substantially" is a control that FAILED.* ⭐⭐ **AND THE `0 ANCHORED` FIELD IS STALE, NOT WRONG:
+    `Salt/Entropy/Chowla/MRTDoor.lean` was anchored 08/22 11:25 with FOUR cites reading `arXiv:1509.05422v2, Prop 2.4,
+    p. 12`** — per the ruling already recorded at `:951`, and with the v2-correct page (this file's own `:1916-17`:
+    v2 → p.12, v4 → p.13). ⇒ **A session taking this node cold would re-anchor an already-correct file, and the
+    node's own warning is that a blanket `v2` stamp manufactures false citations: `p. 12` is exactly the value a
+    careless pass overwrites with v4's `p. 13`. THE MOST DANGEROUS EDIT HERE IS THE ONE THAT LOOKS LIKE COMPLETING
+    THE TASK.** ⛔ **INSTRUMENT FAILURE, DISCLOSED: the KIND-SPLIT arm (§/Lemma/Prop cite vs page/footnote cite —
+    the split that DETERMINES the anchor version, i.e. the whole safety property) CRASHED**: `ugrep` rejected
+    `.{0,70}` around a UTF-8 literal with *"exceeds complexity limits"*, 8×. **No kind-split count exists; it needs
+    rewriting in python before any edit is safe.** ⇒ **NOT SAFE TO EDIT: two of this node's three preconditions are
+    unmet by my own instruments (control failed, kind split unmeasured). Census stands; the edit does not begin here.**
     ⛔⛔ **AMENDED 2026-08-21 13:0x — DO NOT BLANKET-STAMP `v2`. THE NODE AS I FIRST WROTE IT WOULD
     HAVE MANUFACTURED FALSE CITATIONS, AND THE TRAP IS IN MY OWN HAND.** Two different citation
     KINDS live under one arXiv id and they anchor to DIFFERENT VERSIONS:
