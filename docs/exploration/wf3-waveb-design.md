@@ -616,7 +616,7 @@ not refute it. It is refuted only on the sub-interval `a < ln 2`.*
   goes vacuous exactly at `a = 1`). Costs one constant, in this lane only.
 ⭐ **R2, AND THE DECIDING ARGUMENT IS CROSS-LANE.** R1 forces `ε` down by `√(ln 2) ≈ 0.83`; by the
 08/21 MRT match the door's `δ₀ = c₀ε/4` shrinks with `ε`, and a smaller `δ₀` raises the required
-`Hlo` — Tao's own `H₋ = exp(ε^{−C₁})` (`1509.05422` fn. 5, p.12). **R1 pays for a W-F3 repair with
+`Hlo` — Tao's own `H₋ = exp(ε^{−C₁})` (`arXiv:1509.05422v4` fn. 5, p.12). **R1 pays for a W-F3 repair with
 MRT-door strength, in the one parameter the two lanes pull opposite ways on** (`b51a71c3`). **R2
 keeps the coupling untouched.**
 
