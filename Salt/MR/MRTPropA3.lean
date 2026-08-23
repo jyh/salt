@@ -2903,5 +2903,55 @@ built a side-condition discharge for a hypothesis the intended consumer does not
 🔑 *Fifth time today the corpus held more than I said it did — but the first caught BEFORE
 publishing the claim, by searching before composing.  The habit is worth more than the lemma.* -/
 
+/-! ### A.7's SUMMAND MATCH — the two missing pieces, and a junk-value trap in one of them
+
+`renormalise` (`Renormalise.lean:1004`) quantifies over an `f` with `f 1 = 1`, multiplicativity
+and `‖f n‖ ≤ 1`.  A.7's summand is `gJ 𝒥 Pseq Qseq n · f n · costwist (−t₁) n`, so the match
+needs those three properties for each factor.  Censused:
+
+* `gJ` — **`gJ_mul` (`Sec9Glue.lean:183`) is COMPLETE multiplicativity** (`m,n ≠ 0`, no
+  coprimality), and `norm_gJ_le_one` (`CofactorSupplier.lean:85`) bounds it.  Landed.
+* `f` — hypotheses of A.7 itself.
+* `costwist` — `costwist_norm` is landed, but **multiplicativity IN THE ARGUMENT and the value
+  at `1` were both ABSENT** (measured: 0 hits, decoy control 0).  They are below.
+
+⛔ **AND THE ABSENT ONE CARRIES A JUNK-VALUE TRAP.**  `Real.log 0 = 0`, so `costwist t 0 = 1`;
+then `costwist t (0 · n) = 1` while `costwist t 0 · costwist t n = costwist t n`.
+**Multiplicativity is FALSE at `m = 0`** — which is exactly why `gJ_mul` carries `m,n ≠ 0` too.
+*The nonzero hypotheses are load-bearing, not decoration.* -/
+
+/-- The twist is `1` at `n = 1` (`log 1 = 0`). -/
+theorem costwist_one (t : ℝ) : costwist t 1 = 1 := by
+  unfold costwist
+  simp
+
+/-- **The twist is multiplicative in its ARGUMENT** — `n ↦ n^{it}` is completely multiplicative
+away from `0`.  ⛔ `m, n ≠ 0` is REQUIRED: at `m = 0` Lean's `Real.log 0 = 0` makes the left side
+`1` and the right side `costwist t n`. -/
+theorem costwist_mul (t : ℝ) {m n : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) :
+    costwist t (m * n) = costwist t m * costwist t n := by
+  unfold costwist
+  rw [← Complex.exp_add]
+  congr 1
+  have hm0 : (m : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hm
+  have hn0 : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hn
+  have : Real.log ((m * n : ℕ) : ℝ) = Real.log (m : ℝ) + Real.log (n : ℝ) := by
+    push_cast
+    exact Real.log_mul hm0 hn0
+  rw [this]
+  push_cast
+  ring
+
+/-- **A.7'S SUMMAND IS COMPLETELY MULTIPLICATIVE AWAY FROM ZERO**, given `f`'s own
+multiplicativity in the same (complete) sense — the shape `renormalise` asks for. -/
+theorem gJ_f_costwist_mul {f : ℕ → ℂ}
+    (hfmul : ∀ a b : ℕ, a ≠ 0 → b ≠ 0 → f (a * b) = f a * f b)
+    (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (t : ℝ) {m n : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) :
+    gJ 𝒥 Pseq Qseq (m * n) * f (m * n) * costwist t (m * n)
+      = (gJ 𝒥 Pseq Qseq m * f m * costwist t m)
+        * (gJ 𝒥 Pseq Qseq n * f n * costwist t n) := by
+  rw [gJ_mul 𝒥 Pseq Qseq hm hn, hfmul m n hm hn, costwist_mul t hm hn]
+  ring
+
 end Salt.MR
 
