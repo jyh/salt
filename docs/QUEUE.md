@@ -178,7 +178,7 @@ RESURRECTS THEM:**
   E-5's split g = g₁ * h           ┘  Thm 2.3] is replaced by the simpler [23, Theorem A.1].
     └─ and with it E-5b, the class-C Euler bound ∑_d|h(d)|d^{−3/4} = O(1)
   WHY E-5 GOES: the split existed to reduce MULTIPLICATIVE to COMPLETELY multiplicative. λ already is.
-  SOURCE: Tao 1509.05422 p.15, verbatim, "however" read to its end (it explains why TAO declined the
+  SOURCE: Tao arXiv:1509.05422v4 p.15, verbatim, "however" read to its end (it explains why TAO declined the
   shortcut — general c_p — and does NOT qualify its validity).
   AND IT IS EXACT: our door is already stated at the major-arc frequencies — CircleMethod.lean:40,
   our own docstring, "The major-arc frequency set Ξ_H". The Ξ-restriction we carry IS the one the
@@ -2041,7 +2041,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ✅ **NEGATIVE RESULT, REPORTED BECAUSE I WENT LOOKING FOR A DEFECT AND THERE ISN'T ONE.** I
     hypothesised a producer-deletion: the report says the door consumes *MRT Thm 2.3 + Lemma 2.2*,
     and the ratified spine **DELETED both**. That is textbook *"deleting a producer is never local."*
-    **THE BRIEF HAD ALREADY CHECKED IT AND IT IS SOUND** — Tao `1509.05422` p.15 VERBATIM: in the
+    **THE BRIEF HAD ALREADY CHECKED IT AND IT IS SOUND** — Tao `arXiv:1509.05422v4` p.15 VERBATIM: in the
     Liouville case `c_p = 1`, *"we only need to apply Proposition 2.4 for 'major arc' values of α,
     allowing one to replace [23, Lemma 2.2, Theorem 2.3] by the simpler [23, Theorem A.1]"* — and
     **salt's door is already stated at major arcs** (`CircleMethod.lean:40`, `Ξ_H`). *The brief even
@@ -3015,7 +3015,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     (§3, `q > W`) runs on Kátai / Bourgain–Sarnak–Ziegler** (MRT p.3, verbatim). Both of v1's
     classes are VOID. **No arc design block before both probes land.**
     - **PROBE 1 — ✅ FIRED AND CONFIRMED 2026-08-21 10:4x. THE ROUTE IS REAL AND IT IS OURS.**
-      Tao `1509.05422` p.15 verbatim: in the Liouville case `c_p = 1`, *"we only need to apply
+      Tao `arXiv:1509.05422v4` p.15 verbatim: in the Liouville case `c_p = 1`, *"we only need to apply
       Proposition 2.4 for **major arc** values of α, allowing one to replace [23, Lemma 2.2,
       Theorem 2.3] by the simpler [23, **Theorem A.1**]"*. ⛔ *The trailing "however" was read to
       its end: it explains why TAO declined the shortcut (he wanted general `c_p`) and does NOT

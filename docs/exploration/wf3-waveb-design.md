@@ -572,6 +572,33 @@ and 3 OPEN."** *Fatal 3's DIRECTION is now determined and fatal 1 has its deriva
 needs B-5 written back into §2. **The block remains NOT DISPATCHABLE, and declaring otherwise is a
 ruling, not mine.***
 
+### ⚖️ EVIDENCE FILED BESIDE THE RULING — 2026-08-23 16:34, math. **THE WORDING ABOVE IS UNCHANGED AND I AM NOT TOUCHING IT.**
+
+**Both conditions that line names are now discharged, and the line predates the discharge by ~15 hours.**
+It was written 2026-08-21 **01:1x** (§10's own stamp). Measured at this hand today:
+
+- **FATAL 1 — the citation swap IS landed, in this file, at §4/`:294`:** *"CITATION CORRECTED
+  2026-08-21 (independent-gate fatal 1): the anchor is the DEFINITION `windowVal` at
+  `FBridge.lean:60`"* — per-index, no case hypothesis. I read `FBridge.lean:55–66` at the tree and
+  the definition and its named per-index lemma are both there. **Condition met.**
+- **FATAL 3 — B-5 is written back into §2 AND landed in the kernel.** §2's header carries
+  *"B-5 RESTORED under §14"*; `:209` carries the restore bullet; `:172` carries
+  **`0bc71529` — "WAVE B IS COMPLETE"**. Verified in git, not quoted from this file:
+  `0bc71529` exists, is an **ancestor of HEAD**, dated **2026-08-21 15:52:39**, subject
+  *"wf3: B-5 the five-file budget stack at shift h — WAVE B COMPLETE"*, **+1290 / −0** across six
+  modules, seat-verified at a forced rebuild, 16/16 `[3 axioms]`. `be869e97` (B-1) is likewise an
+  ancestor. **Condition met.**
+- ⭐ §14 independently **defuses** fatal 3 rather than resolving it (`:827`): the disputed binder is
+  a **regime gate** acquired where `heps_small` already lives, not a producer output — so the
+  missing `h211_h` producer stops being a contradiction. `h211_h` still measures **0 sites** in the
+  tree, exactly as §10 said; under §14 that is no longer a defect.
+
+⇒ **WHAT REMAINS IS A RULING, NOT WORK.** The status sentence is stale in the same direction and by
+the same mechanism as three other artifacts found today (item 18's queue block, 4h; the helm's
+docket row, 3h; this, 15h): ***the fix landed and the record that gates dispatch did not move.***
+**I am not self-clearing a ruled status — that refusal was right when §10 wrote it and is still
+right. The evidence is filed so the ruling costs one line.**
+
 
 ## §12 — ⛔⛔ §11's ARGUMENT IS WRONG: I USED **COUNT** WHERE K4's PREMISE IS **MASS**.
 ## THE VERDICT STANDS, THE REASON IS REPLACED, AND THE FIX NOW HAS A PRICE. (2026-08-21 09:2x)
