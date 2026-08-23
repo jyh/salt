@@ -3147,5 +3147,55 @@ Fable/Captain tier.  The 17:4x ruling covered the ambient hypotheses and nothing
 and felt finished** — and the law against exactly that was already on the card I was quoting
 while I did it.* -/
 
+/-! ### ⭐ THE `1/32` IS NOT THE LANDED FLOOR'S STRENGTH — IT IS WHAT THE RECENTERING WAS FED
+
+The narrowed question left open above was: *does any OTHER composition of the D-5 objects reach
+a constant above `1/6 − 1/(3π)`?*  A constant census answers it in one place.
+
+**`DistHalasz.dist_one_floor_pow` (`:179`) carries leading coefficient ONE:**
+```
+  log log x − (3/4)·log log(|b|+3) − 5·log log log(|b|+16) − C  ≤  𝔻²(1, n^{ib}; x)
+```
+But the recentering that produced `1/32` was fed a floor of **`1/4`**, not `1`:
+`recenter_then_halve_constant : (√(1/4) − √(1/16))²/2 = 1/32`.
+
+**Computed this session, with the landed value as a positive control:**
+```
+  (√(1/4) − √(1/16))²/2 = 0.03125   ← reproduces the landed 1/32 EXACTLY (control passes)
+  (√1     − √(1/16))²/2 = 0.28125   = 9/32
+  A.4(ii) target 1/6 − 1/(3π)       = 0.0605633…      9/32 clears it by 4.64×
+```
+⇒ **The `1/32` measures the recentering's INPUT, not the corpus's best floor.**  The two
+arithmetic halves are landed below.
+
+⛔⛔ **FENCED — THIS IS A CANDIDATE, NOT A RESULT, AND THE UNTESTED STEP IS NAMED.**  Whether
+`dist_one_floor_pow`'s coefficient-1 floor can be fed to `dist_recenter` **at A.4(ii)'s
+configuration** is **NOT** established here: its floor is stated for `𝔻²(1, n^{ib}; x)` at
+`1 ≤ |b|` with its own `−(3/4)·loglog(|b|+3) − 5·logloglog(|b|+16) − C` corrections, and those
+corrections must survive the recentering and the halving before any of this is a route.
+**I have checked the ARITHMETIC and not the SUBSTITUTION.**
+
+*An excited conclusion is a trigger to check, not a finding — and this one is exciting, which
+is exactly why it ships fenced.* -/
+
+/-- The recentering constant when the floor is `1` rather than `1/4`: `(√1 − √(1/16))²/2 = 9/32`.
+*Companion to `recenter_then_halve_constant`, which is the same computation at floor `1/4`.* -/
+theorem recenter_from_unit_floor :
+    (Real.sqrt 1 - Real.sqrt (1/16)) ^ 2 / 2 = 9/32 := by
+  have h16 : Real.sqrt (1/16) = 1/4 := by
+    rw [show (1:ℝ)/16 = (1/4)^2 by norm_num, Real.sqrt_sq (by norm_num)]
+  rw [Real.sqrt_one, h16]
+  norm_num
+
+/-- **A `9/32` floor WOULD clear A.4(ii)'s constant** — unlike the landed `1/32`
+(`landed_route_below_a4ii_target`).  ⛔ The substitution that would produce `9/32` is NOT
+established; see the fence above. -/
+theorem unit_floor_route_above_a4ii_target :
+    1/6 - 1/(3 * Real.pi) < (9:ℝ)/32 := by
+  have hpi : (0:ℝ) < Real.pi := Real.pi_pos
+  have h : 0 < 1/(3 * Real.pi) := by positivity
+  have h6 : (1:ℝ)/6 < 9/32 := by norm_num
+  linarith
+
 end Salt.MR
 
