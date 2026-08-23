@@ -59,6 +59,28 @@ else `0`.  Lets the double product `windowVal j · windowVal (j+p)` be a total f
 of `j : ℕ` that automatically vanishes when either index leaves the window. -/
 def windowVal (H : ℕ) (v : Fin H → ℤ) (j : ℕ) : ℤ := if h : j < H then v ⟨j, h⟩ else 0
 
+/-- **The junk-zero, as a citable lemma: PER INDEX.**  `windowVal` vanishes at any
+index outside `[0,H)`, with no hypothesis on `H` and no case split on the window's
+size.  The definition above already says this, but only as a `dite`; W-F3's §1 needs
+it as a NAMED fact, because the alternative is to re-derive it at each use site — and
+one such re-derivation was taken from a local `have` sitting inside a branch labelled
+`-- degenerate: H = 1`, which is evidence about that branch alone. -/
+lemma windowVal_eq_zero_of_not_lt {H : ℕ} {v : Fin H → ℤ} {j : ℕ} (hj : ¬ j < H) :
+    windowVal H v j = 0 := by
+  unfold windowVal
+  exact dif_neg hj
+
+/-- **The product form, which is what the double sum actually meets.**  The pair
+`windowVal j · windowVal (j+p)` vanishes as soon as EITHER index leaves the window —
+per index, not per branch.  This is the statement W-F3's §1 re-derives; it is now
+citable at `FBridge`, the definition's own file. -/
+lemma windowVal_prod_eq_zero_of_not_lt {H : ℕ} {v : Fin H → ℤ} {j k : ℕ}
+    (hjk : ¬ j < H ∨ ¬ k < H) :
+    windowVal H v j * windowVal H v k = 0 := by
+  rcases hjk with hj | hk
+  · rw [windowVal_eq_zero_of_not_lt hj, zero_mul]
+  · rw [windowVal_eq_zero_of_not_lt hk, mul_zero]
+
 lemma windowVal_abs_le {H : ℕ} {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (j : ℕ) :
     |(windowVal H v j : ℝ)| ≤ 1 := by
   unfold windowVal
