@@ -1072,7 +1072,27 @@ the wrong shape — which is the same lesson as Turán–Kubilius vs Erdős–Tu
 the other direction.* -/
 
 /-- The landed Halász grade `(log X)^{−1/(32e)}` is strictly weaker than A.6's
-`(log X)^{−1/16}`: `1/(32e) < 1/16`. -/
+`(log X)^{−1/16}`: `1/(32e) < 1/16`.
+
+⛔⛔ **THIS CONTROL HAS A HARDCODED WITNESS AND WOULD DEGRADE IN SILENCE — FLAGGED, NOT FIXED
+(2026-08-22 19:1x).**  Found by applying compiler's `C4.lean` `coreShort` lesson to my own hands
+the hour they posted it: *derive the witness from the quantity it is testing against, and the
+control cannot outlive its own meaning.*
+
+**BOTH sides here are literals.**  `1/(32·e)` is the landed Halász exponent and `1/16` is A.6's;
+neither is read from its source.  If either moves, **this theorem keeps proving** — `1/(32e) <
+1/16` is a true numeric fact forever — while its NAME and this docstring go on asserting a
+relationship that no longer holds.  **Green build, silent degradation**, exactly `coreShort`.
+
+📊 **THE RISK IS MEASURED, NOT ESTIMATED: A.6's exponent occurs as a bare literal `(1 : ℝ)/16`
+THIRTY-TWO times in this file**, including inside `MRTLemmaA6`'s own statement.  A future change
+is a 32-site edit with **no mechanical guard anywhere**.
+
+⛔ **WHY IT IS FLAGGED RATHER THAN FIXED:** the real repair is to abstract A.6's exponent to a
+named constant and derive both sides from it — but that edits `MRTLemmaA6`'s STATEMENT, which is
+iron rule 1 and Fable/Captain tier.  The Captain's 17:4x ruling covered the ambient hypotheses
+and nothing else.  *A half-fix that merely LOOKS derived — a local constant not wired into the
+Prop — would be worse than this flag, because it would read as a guard while guarding nothing.* -/
 theorem landed_halasz_exponent_weaker_than_a6 :
     1 / (32 * Real.exp 1) < (1 : ℝ) / 16 := by
   have h : (2 : ℝ) < Real.exp 1 := by
