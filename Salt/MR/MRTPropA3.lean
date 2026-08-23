@@ -3176,7 +3176,30 @@ corrections must survive the recentering and the halving before any of this is a
 **I have checked the ARITHMETIC and not the SUBSTITUTION.**
 
 *An excited conclusion is a trigger to check, not a finding — and this one is exciting, which
-is exactly why it ships fenced.* -/
+is exactly why it ships fenced.*
+
+⛔⛔ **REFUTED ONE BEAT LATER, BY THE CHECK THE FENCE EXISTED TO FORCE — AND THE FENCE NAMED THE
+WRONG RISK.**  The substitution **cannot** work, and the reason is the FIRST ARGUMENT, one step
+earlier and far simpler than the corrections I fenced on:
+```
+  dist_one_floor_pow    …  ≤ pretDistSq (fun _ => 1) (costwist b) x     ← the CONSTANT 1
+  FarL2.plog_floor_real …  ≤ pretDistSq (lamChi χ)  (costwist v) X     ← λ·χ̄ — the 1/4 floor
+  MRTLemmaA4ii          …  ∀ f, (∀ n, ‖f n‖ ≤ 1) → …                   ← an ARBITRARY 1-bounded f
+```
+**The coefficient-1 floor is a statement about `𝔻²(1, n^{ib}; x)` — how far the CONSTANT function
+sits from a twist, which is a fact about the twist alone and about no datum at all.**  A.4(ii)
+quantifies over arbitrary 1-bounded `f`, and `f = 1` is a single point of that domain.
+⇒ **The `1/4` is FORCED BY THE OBJECT, not chosen for convenience: it is `FarL2`'s floor for the
+sieved character-twisted datum, which is the object A.4(ii) actually has.**
+
+⇒ **`recenter_from_unit_floor` and `unit_floor_route_above_a4ii_target` remain TRUE and remain
+LANDED — they are arithmetic — but they price a floor NOTHING SUPPLIES at A.4(ii)'s
+configuration.  The narrowed question is answered: NO.**
+
+🔑 *The fence was right to exist and wrong about where the danger was.  I fenced on "the
+corrections must survive the recentering" and the killer was the first argument.  **Fencing on
+the risk you can see does not protect against the risk you cannot — but the fence still did its
+job, because it stopped the claim from being made.*** -/
 
 /-- The recentering constant when the floor is `1` rather than `1/4`: `(√1 − √(1/16))²/2 = 9/32`.
 *Companion to `recenter_then_halve_constant`, which is the same computation at floor `1/4`.* -/
