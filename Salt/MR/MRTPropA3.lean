@@ -44,6 +44,7 @@ Nothing in this file proves A.3 and nothing assumes it.
 import Mathlib
 import Salt.MR.MRTThmA1
 import Salt.MR.Sec9Glue
+import Salt.MR.CofactorSupplier
 import Salt.MR.Lemma14Taylor
 import Salt.MR.MVHilbertFinset
 
@@ -2952,6 +2953,36 @@ theorem gJ_f_costwist_mul {f : ℕ → ℂ}
         * (gJ 𝒥 Pseq Qseq n * f n * costwist t n) := by
   rw [gJ_mul 𝒥 Pseq Qseq hm hn, hfmul m n hm hn, costwist_mul t hm hn]
   ring
+
+/-- **A.7'S SUMMAND, IN `renormalise`'S OWN HYPOTHESIS FORM** — coprime multiplicativity, which
+is what `Renormalise.renormalise` (`:1004`) actually asks for (`hfmul : ∀ a b, Nat.Coprime a b →
+…`), not the complete form.
+
+The degenerate coprime pairs are the whole content: `Nat.Coprime 0 b` forces `b = 1` and
+`Nat.Coprime a 0` forces `a = 1`, and there the identity holds by the three `= 1` facts —
+`gJ_one`, `f 1 = 1`, `costwist_one`.  Off zero it is `gJ_mul` + `hfmul` + `costwist_mul`.
+
+⭐ `gJ_one` is landed (`CofactorSupplier.lean:106`) — and *finding* it required the looser probe:
+it is declared `@[simp] lemma`, so a `^(theorem|lemma)` anchor reports ZERO.  **That is the
+`@[simp] theorem` instrument trap, live**; two probes disagreed and the gap was the finding. -/
+theorem gJ_f_costwist_mul_coprime {f : ℕ → ℂ} (hf1 : f 1 = 1)
+    (hfmul : ∀ a b : ℕ, Nat.Coprime a b → f (a * b) = f a * f b)
+    (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (t : ℝ) {a b : ℕ} (hab : Nat.Coprime a b) :
+    gJ 𝒥 Pseq Qseq (a * b) * f (a * b) * costwist t (a * b)
+      = (gJ 𝒥 Pseq Qseq a * f a * costwist t a)
+        * (gJ 𝒥 Pseq Qseq b * f b * costwist t b) := by
+  rcases Nat.eq_zero_or_pos a with ha | ha
+  · subst ha
+    have hb1 : b = 1 := by simpa [Nat.coprime_zero_left] using hab
+    subst hb1
+    simp [gJ_one, hf1, costwist_one]
+  · rcases Nat.eq_zero_or_pos b with hb | hb
+    · subst hb
+      have ha1 : a = 1 := by simpa [Nat.coprime_zero_right] using hab
+      subst ha1
+      simp [gJ_one, hf1, costwist_one]
+    · rw [gJ_mul 𝒥 Pseq Qseq ha.ne' hb.ne', hfmul a b hab, costwist_mul t ha.ne' hb.ne']
+      ring
 
 end Salt.MR
 
