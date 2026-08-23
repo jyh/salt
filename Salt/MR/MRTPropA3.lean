@@ -758,6 +758,36 @@ files away.**  The next object is `DoorRowCarried`.
 Its control — `MRTUniformityXi`, a `Prop` I know has a producer — scored **0**.  The probe
 misses real producers, so **3 is a LOWER BOUND, not a count**, and is written here as one. -/
 
+/-! ### A.6's INNER OBJECT IS THE SIFTED TWISTED SUM — the docstring's pointer, cashed
+
+`MRTLemmaA6`'s docstring has said from the start that *"the inner object is exactly what
+`Salt.MR.lemma5` already produces."*  That was a claim in prose; nothing in Lean connected the
+two.  This is the connection.
+
+`lemma5` (`Sec9Glue.lean:275`) is inclusion–exclusion:
+`∑_{n ∈ N, n ∈ S} aₙ = ∑_{𝒥 ⊆ {1..J}} (−1)^{#𝒥} ∑_{n ∈ N} g_𝒥(n)·aₙ`.  At
+`N := Icc 1 ⌊X⌋₊` and `aₙ := f n · costwist (−t) n` its right-hand side **is** A.6's inner
+sum — up to the associativity of `gJ · f n · costwist`, which is the only real content of the
+proof below.
+
+⇒ **A.6 is a decay bound on the SIFTED TWISTED SUM**, not on a powerset alternating sum.  That
+matters because the sifted twisted sum is the object Halász/pretentious theory speaks about,
+and the powerset form is not.  *Restating a hypothesis in the vocabulary of the theory that
+must discharge it is not cosmetic.* -/
+
+/-- **A.6'S INNER OBJECT, REWRITTEN AS THE SIFTED SUM** — `lemma5` at `N = Icc 1 ⌊X⌋₊` and
+`a = f · costwist (−t)`.  Cashes `MRTLemmaA6`'s own docstring pointer. -/
+theorem mrtA6_inner_eq_sifted (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (X t : ℝ) :
+    ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+        (-1 : ℂ) ^ 𝒥.card
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n
+      = ∑ n ∈ (Finset.Icc 1 ⌊X⌋₊).filter (fun n => MemS Pseq Qseq J n),
+          f n * costwist (-t) n := by
+  rw [lemma5 (Finset.Icc 1 ⌊X⌋₊) Pseq Qseq J (fun n => f n * costwist (-t) n)]
+  refine Finset.sum_congr rfl (fun 𝒥 _ => ?_)
+  refine congrArg (fun z => (-1 : ℂ) ^ 𝒥.card * z) ?_
+  exact Finset.sum_congr rfl (fun n _ => (mul_assoc _ _ _))
+
 /-! ### ⛔ MY OWN HYPOTHESIS, TESTED AND REFUTED — AND THE NEEDED SHAPE, NAMED
 
 Last section fenced a hypothesis as **UNTESTED**: that obstruction 2's *"general per-interval

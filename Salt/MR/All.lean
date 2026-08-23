@@ -8455,6 +8455,7 @@ open Salt.Tactic in
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
   Salt.MR.mrtPropA3_in_bridge_shape
+  Salt.MR.mrtA6_inner_eq_sifted
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous
