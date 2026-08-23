@@ -62,6 +62,38 @@
 ##      visible ledger update, not a prose debt owed to compiler.
 ## ⇒ RE-ARM THE CRON WITH THESE TWO DELTAS when its canonical text is readable.
 
+## ✅ c4spec STEPS 1-4 LANDED (saltworks `f0aaf64`, LOCAL — freeze holds): `outMem` · `outTrap` ·
+## `C4SpecD` · `RegFieldD` · `PcFieldD` · `MemFieldD` · `TrappedFieldD`, all on `decQD`.
+## `saltbuild EXIT=0`, `[8610/8610] **Built** SaltWorks.Stack.Program (101s)` — Built not
+## Replayed — 0 errors, 0 warnings naming the file, long lines 10→10 (CHARS, the unit Lean
+## counts). Rider ① is IN the file: new names inherit nothing, C-width forms keep everything.
+##
+## 📐 STEP 5 PRICED EXACTLY 2026-08-23 11:1x — the 43-way `iff`. NINE declarations, every one
+## mirroring an existing C-side template with TWO EXTRA FIELD CASES. Nothing here is open
+## mathematics; it is a transcription with a wider case split.
+##   ALREADY EXISTS, reusable as-is:
+##     `seenWord_eq_hdl`            Program.lean:2251   (width-agnostic, `rfl`)
+##     `encDD_getD`                 StateCodecD:218     the D `encD_getD`
+##     `stBitD_at_place`            StateCodecD:189     the D `stBit_reg`/`stBit_pc`
+##     `layout_surjective_on`       StateCodecD:162     gives the 4-way `j` split
+##   NEW, trivial:
+##     `encDD_length`               mirrors Program.lean:2255 (`List.length_map`/`range`)
+##     `outs_length_of_C4SpecD`     mirrors Program.lean:2363
+##   NEW, the four field bridges (2 mirror, 2 genuinely new):
+##     `regFieldD_iff_bits` `pcFieldD_iff_bits`   mirror 2685 / 2702
+##     `memFieldD_iff_bits` `trappedFieldD_iff_bits`   NEW at D
+##   NEW, structural (mirror 2725 / 2771 / 2794):
+##     `c4SpecD_iff_bitwise` · `c4SpecD_fieldwise_of_c4SpecD` · `c4SpecD_iff_fieldwise`
+## ⭐ THE `j` CASE SPLIT IS ALREADY ENCODED: `cellOf` splits `j<1024` reg · `<1056` pc ·
+## `<1312` mem · else trap — so the 4-way analysis is `StateCodecD`'s, not new arithmetic.
+## ⭐ AND THE 08/20 IFF SPLIT (`29f6128`) LEFT A WIDTH-AGNOSTIC → HALF, `c4Spec_fieldwise_of_c4Spec`
+## (Program.lean:2771), whose own docstring says it is TRUE AT BOTH WIDTHS — the D → half
+## should follow it rather than be re-derived.
+## ⛔ STEP 7 REMAINS STRUCTURALLY BLOCKED, NOT PENDING: `core_outs_length` is kernel-checked at
+## `stWidth` = 1056 while `encDD` is 1313, so `C4SpecD core` is REFUTABLE by a length argument.
+## The cascade needs 257 more output bits in the ASSEMBLY — silicon, not Lean. Do not price it
+## as proof work.
+
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 1. **λ-BV DESIGN BLOCK** — ✅ **BLOCK DELIVERED AND CONSUMED; WAVE 1 IS COMPLETE (08/20).**
