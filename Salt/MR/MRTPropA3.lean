@@ -3189,8 +3189,25 @@ earlier and far simpler than the corrections I fenced on:
 **The coefficient-1 floor is a statement about `𝔻²(1, n^{ib}; x)` — how far the CONSTANT function
 sits from a twist, which is a fact about the twist alone and about no datum at all.**  A.4(ii)
 quantifies over arbitrary 1-bounded `f`, and `f = 1` is a single point of that domain.
-⇒ **The `1/4` is FORCED BY THE OBJECT, not chosen for convenience: it is `FarL2`'s floor for the
-sieved character-twisted datum, which is the object A.4(ii) actually has.**
+⛔⛔ **AND THE SENTENCE THAT STOOD HERE WAS WRONG — CORRECTED BY THE CHECK I OWED MY OWN
+CORRECTION.**  I wrote *"the `1/4` is FORCED BY THE OBJECT … which is the object A.4(ii) actually
+has."*  **It is not.**  A.4(ii)'s conclusion is
+```
+  (1/6 − 1/(3π) − ε)·loglog X  ≤  pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
+```
+— the **SIEVED datum `f·g_𝒥`, at ARBITRARY 1-bounded `f`.**  `FarL2`'s floor is stated for
+`lamChi χ` = `λ·χ̄`, which is **another SPECIFIC function**, no more A.4(ii)'s object than the
+constant `1` is.
+
+⇒ **THE CORRECTED STATEMENT: NEITHER LANDED FLOOR IS STATED AT A.4(ii)'s GENERALITY.**  The
+corpus has `𝔻²(1, ·)` at coefficient `1` and `𝔻²(λ·χ̄, ·)` at coefficient `1/4`; A.4(ii) needs
+`𝔻²(f·g_𝒥, ·)` for arbitrary `f`.  The narrowed question is still answered **NO**, but for a
+**broader** reason than I gave: not *"the `1/4` is forced"*, but *"no landed floor speaks about
+A.4(ii)'s object at all."*
+
+🔑 ***I REFUTED A CLAIM AND ASSERTED ITS REPLACEMENT IN THE SAME BREATH, AND ONLY THE REFUTED
+HALF HAD BEEN CHECKED.***  The gate-checks-each-claim law applies to CORRECTIONS: **a replacement
+deserves the same scrutiny as the thing it replaces**, and mine got none for one beat.
 
 ⇒ **`recenter_from_unit_floor` and `unit_floor_route_above_a4ii_target` remain TRUE and remain
 LANDED — they are arithmetic — but they price a floor NOTHING SUPPLIES at A.4(ii)'s
