@@ -3198,6 +3198,16 @@ numbering is UNVERIFIED.
     dimensions at once — other SECTIONS (§1,§2,§4) and other OBJECT KINDS (equations, pages) — with no source to check.
     That is this node's own forbidden falsification, one level up.**
     📌 **MEASURED SCOPE: SAFE 14 (3 landed `14f65a7f`, 11 remain, all `Salt/`) · BLOCKED 30 · NO-CLAIM 11 · total 55.**
+        ✅ **EXECUTED 05:5x — THE SAFE SET IS COMPLETE. `14f65a7f` (3 `docs/` files) + `16cdf37b` (11 `Salt/` files) = **14 of 14**,
+    17 citation sites, all anchored `arXiv:1509.05422v2`.** Verdict judged from the TEXT: **`saltbuild EXIT=0`, [9768/9769],
+    errors 0, 50 `⚠` lines ALL `Replayed` cache entries, NONE of the 11 files on a warning line.** In-file verify per file:
+    `anchored=N · bare-left=0 · double-prefix=0`, defects 0. **Only COVERED objects touched — `Lemma 3.1` (this node's
+    evidence) and `Prop 2.4` (number stable across versions, `:1916-17`).** ⭐ **Reading caught two the classifier passed:
+    `Invariance`/`InvarianceHead` cite *"§3, the MI-gain step of Lemma 3.…"* — the 80-char window truncated the digit that
+    decides it; read in full both are `Lemma 3.1`, covered.** ⛔ **Guards that mattered: assert `arXiv:` absent per file
+    (a naive replace makes `arXiv:arXiv:`), and replace the TOKEN not a phrase (several citations span a line break).**
+    ⇒ 📌 **NODE DONE TO THE LIMIT OF THIS SEAT: SAFE 14/14 ✅ · BLOCKED 30 · NO-CLAIM 11. What remains needs the source PDF
+    fetched — a RESOURCE decision, not a work item.**
     ⛔ **RESOURCE REQUIREMENT, NOW EXACT: `arXiv:1509.05422` IS NOT IN `docs/sources/` (which holds `1501.04585v4`,
     `1503.05121v3`, `1706.03749v1`, `gs9911246`). WITHOUT THAT PDF, 30 OF 55 FILES CANNOT BE ANCHORED BY ANYONE** — not
     for want of care, for want of the source. **A hygiene node that assumes one verification covers all citations is
