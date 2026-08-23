@@ -3537,5 +3537,44 @@ theorem mrtA4ii_high_M_sixteenth (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (�
   have h := mrtA4i_halving f Pseq Qseq 𝒥 X t hf
   linarith
 
+/-- ⭐ **THE `⅓` OF MRT'S CONSTANT — THE EXPONENT GAP AT `Y = exp((log X)^{2/3+ε})`.**
+
+Last of the three factors in `1/6 − 1/(3π) = (½)·(1 − 2/π)·(⅓)`.  MRT's display (A.5) ends
+`… ≥ (1 − 2/π)·log(log X / log Y) + O(1)`, and their `Y` is `exp((log X)^{2/3+ε})`, so the
+`log(log X / log Y)` factor is exactly `(⅓ − ε)·loglog X`.
+
+Stated first as pure algebra in `L = log X`, then at MRT's own `Y`. -/
+theorem mrt_exponent_gap (L ε : ℝ) (hL : 0 < L) :
+    Real.log (L / L ^ ((2 : ℝ) / 3 + ε)) = ((1 : ℝ) / 3 - ε) * Real.log L := by
+  rw [Real.log_div (ne_of_gt hL) (ne_of_gt (Real.rpow_pos_of_pos hL _)), Real.log_rpow hL]
+  ring
+
+/-- **The same, at MRT's `Y = exp((log X)^{2/3+ε})`.**  `hX : 1 < log X` is `X > e`, which
+`MRTPropA3Ambient` already supplies in the weak form `exp 1 ≤ X`. -/
+theorem mrt_exponent_gap_at_Y (X ε : ℝ) (hX : 1 < Real.log X) :
+    Real.log (Real.log X / Real.log (Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))))
+      = ((1 : ℝ) / 3 - ε) * Real.log (Real.log X) := by
+  rw [Real.log_exp]
+  exact mrt_exponent_gap (Real.log X) ε (by linarith)
+
+/-- ⭐⭐⭐ **A.4(ii)'S CONSTANT, DECOMPOSED — AND EVERY FACTOR IS NOW SEPARATELY LANDED.**
+
+`1/6 − 1/(3π) = (½)·(1 − 2/π)·(⅓)`, where each factor is a distinct step of MRT's own
+proof and each is in the kernel:
+
+* `½` — `mrtA4i_halving` (their display (A.3), the loss-free halving);
+* `1 − 2/π` — `integral_abs_cos_pi_unit` (`∫₀¹|cos πt| dt = 2/π`, their display (A.5));
+* `⅓` — `mrt_exponent_gap` (the gap at `Y = exp((log X)^{2/3+ε})`).
+
+⇒ **nothing about A.4(ii)'s constant is arbitrary, and nothing in it asks for a better
+floor.**  ⛔ This is an identity between real numbers, NOT a proof of A.4(ii): the analytic
+steps that PRODUCE the three factors on the road — the short-segment splitting and
+Erdős–Turán + Vinogradov–Korobov — are not attempted. -/
+theorem mrtA4ii_constant_decomposition :
+    (1 : ℝ) / 6 - 1 / (3 * Real.pi) = (1 / 2) * (1 - 2 / Real.pi) * (1 / 3) := by
+  have hpi : Real.pi ≠ 0 := ne_of_gt Real.pi_pos
+  field_simp
+  ring
+
 end Salt.MR
 

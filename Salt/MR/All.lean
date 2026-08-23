@@ -8475,6 +8475,9 @@ open Salt.Tactic in
   Salt.MR.integral_abs_cos_pi_unit
   Salt.MR.mrtA4i_halving
   Salt.MR.mrtA4ii_high_M_sixteenth
+  Salt.MR.mrt_exponent_gap
+  Salt.MR.mrt_exponent_gap_at_Y
+  Salt.MR.mrtA4ii_constant_decomposition
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous
