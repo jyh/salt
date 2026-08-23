@@ -3290,6 +3290,46 @@ numbering is UNVERIFIED.
     hypothesis, stated and abandoned.** *A noticed-and-unchased discrepancy is worse than an unseen
     one: it has already spent the attention that would have caught it.*
 
+    🔴⛔⭐⭐⭐ **AMENDMENT-TO-THE-AMENDMENT, 2026-08-23 08:1x — I FETCHED ALL FOUR arXiv VERSIONS AND MY OWN 07:4x
+    AMENDMENT BELOW IS BACKWARDS. THE CORPUS IS EXONERATED A SECOND TIME AND AT A DEEPER LEVEL: THE "SHIFTED" FILES ARE
+    CITING arXiv **v1**, CORRECTLY.** All four PDFs on disk, gitignored, **each verified by its own internal
+    `arXiv:1509.05422vN` stamp — a 4/4 control.**
+    ```
+      COORDINATE          v1      v2      v3      v4     MOVES AT
+      Lemma 3.1 decrement 3.1     3.1     3.2     3.2      v3     <- the node's sentence, CONFIRMED
+      Lemma 3.4 circle    3.4     3.4     3.6     3.6      v3
+      F_p definition     (3.14)  (3.15)  (3.15)  (3.15)    v2     <- a DIFFERENT version
+      divided MI bound   (3.11)  (3.12)  (3.12)  (3.12)    v2
+      |EF(X_H,Y_H)| >> e (2.11)  (2.12)  (2.12)  (2.12)    v2
+      Propositions 2.1/2.2/2.4/2.6 IDENTICAL in all four            never
+    ```
+    ⇒ 🔑 ***THE TWO COORDINATES MOVE AT DIFFERENT VERSIONS: EQUATIONS AT v2, LEMMAS AT v3. So the node's own phrase
+    "matches v1/v2" is TRUE AND NON-DISCRIMINATING for lemmas, and is exactly the window in which EQUATIONS DISAGREE.***
+    ⛔ **MY 07:4x FRAMING — "the finding was measured on lemma numbers and does not extend to equation numbers" — GOT THE
+    DIRECTION WRONG.** Both coordinates are version-sensitive; they simply move at different releases, and I inferred a
+    "corpus convention error" from two versions when four were one `curl` away. ⇒ ***I DIAGNOSED A DEFECT IN THE CORPUS
+    FROM AN INCOMPLETE VERSION SET. THE CORPUS WAS RIGHT AND MY EVIDENCE BASE WAS TOO SMALL.***
+    ⛔ **AND A SECOND THING I PUBLISHED AND MUST WITHDRAW: I cited `CircleMethod.lean`'s *"the v3 form"* as evidence of
+    arXiv-v3 numbering. IT IS NOT — `:202-210` read in full say "v3 re-freeze", "the v1 uniform freeze was false",
+    "Quantifier form (v3, house-ratified)": these are SALT'S OWN freeze iterations.** *I read our internal version
+    vocabulary as the source's.*
+    📌 **SO THE RESIDUE IS RE-CLASSIFIED, AND IT SHRINKS:**
+      · **TEN FILES ARE CORRECT v1 CITATIONS, NOT ERRORS** — `Step` `(3.11)` · `FBridge` `(3.14)`+`(2.12)` · `Decoupled`
+        `(3.14)/(3.15)` · `Entropy/All` `(3.18)` · `Concentration` `(3.14)` · `Prop26` `(2.12)/(3.14)` · `ChowlaFailure`
+        `(2.11)` · `SpineClose` `(2.11)` · `Theorem23Shell` `(2.11)` · **`MarkovExtract` `p.20` — and v1's PAGE 20 carries
+        the `(3.3)`+Markov+non-negative passage verbatim, while v2 puts it on p.21 and v3/v4 do not carry it at all.**
+      · ⛔ **THREE REMAIN GENUINELY WRONG AGAINST EVERY VERSION: `LargeSpectrum` · `LargeSpectrumBound` ·
+        `QuadrupleCount` cite "footnote-4 additive-energy escape". v1 HAS ONLY TWO FOOTNOTES AND NO SUCH FOOTNOTE AT ALL;
+        it is fn.7 in v2 and fn.9 in v3/v4. Matches nothing — a true erratum, not a version question.**
+    ⛔⛔ **DEFECT IN MY OWN LANDED-AND-PUSHED WORK, FOUND AND FIXED HERE: `13274034` anchored `ChowlaFailure`, `SpineClose`
+    and `Theorem23Shell` to **v2** while their `(2.11)` is **v1's**. FALSE CITATIONS, PUSHED.** Un-anchored back to bare;
+    all three now **byte-identical to `98a2b1c6` by sha256** (negative control on an untouched file DIFFERS), i.e. restored
+    to the last kernel-checked committed state. ⇒ ***MY OWN `(3.N≥11)` SCAN MISSED THEM BECAUSE IT SCANNED §3 ONLY —
+    §2 SHIFTS AT THE SAME RELEASE AND I NEVER LOOKED. A scan aimed at the section where you found the bug is not a scan.***
+    ✅ **NEXT PASS, MEASURED AND READY BUT NOT TAKEN HERE: anchor the ten v1 files to `arXiv:1509.05422v1`** — this follows
+    the node's own rule (anchor to the version its own numbers match) and needs a per-file re-verify plus a build; the three
+    footnote errata need an editorial ruling, not an anchor.
+
     ⛔⛔⭐⭐⭐ **EXECUTION STAMP — FRESH math HEAD, 2026-08-23 07:4x. TRANCHE 3 LANDED (17 files / 24 sites) AND THIS
     NODE'S FOUNDING PREMISE IS AMENDED: THE EXONERATING FINDING WAS MEASURED ON *LEMMA* NUMBERS AND DOES NOT EXTEND TO
     *EQUATION* NUMBERS.** Measured from v2's own right-margin equation labels (`pdftotext -layout`, labels READ not inferred):
