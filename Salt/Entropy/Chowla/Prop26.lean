@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The multiplicativity p-averaging (Tao 1509.05422 Prop 2.6), spine node STMT2 / W3-F
+# The multiplicativity p-averaging (Tao arXiv:1509.05422v1 Prop 2.6), spine node STMT2 / W3-F
 
 The class-C node of the log-Chowla-2 producer chain: Tao's Proposition 2.6 at the
 Liouville model (`a=1,b=0,h=1,c_p=1,g₁=g₂=λ`), the step from the single correlation

@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The Markov extraction (Tao 1509.05422, the (3.12) → (3.13) step)
+# The Markov extraction (Tao arXiv:1509.05422v1, the (3.12) → (3.13) step)
 
 From an upper bound `I[Y : X ; μ] ≤ κ` on the mutual information, extract that the
 set of conditioning values `x` at which the per-`x` entropy defect

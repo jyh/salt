@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # The (3.11) step inequality (Chowla / entropy-decrement spine, node D-e)
 
-Closes the two D-d obligations and assembles Tao 1509.05422 (3.11).
+Closes the two D-d obligations and assembles Tao arXiv:1509.05422v1 (3.11).
 
 **Obligation (1), the ℓ¹ value**: the joint pushforward laws of `(X_H, Y_H)` under
 `(T_{jH})_*μ` vs `μ` differ in `ℓ¹` by at most `8·jH·ω/x` (`joint_l1_le`) — the

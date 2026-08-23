@@ -103,7 +103,7 @@ The discrete Shannon entropy library, ported from the PFR project
 file as they land (Measure → kernel glue → Basic → Kernel).
 
 Consumer target: the entropy toolkit (3.1)–(3.7) of Tao,
-arXiv:1509.05422 (the entropy decrement argument, rung A-R2).
+arXiv:1509.05422v1 (the entropy decrement argument, rung A-R2).
 -/
 
 -- Build-time axiom audit: a stray axiom in the entropy track fails
@@ -465,7 +465,7 @@ Scope: no new claim about twins — boundary-map completion, zero flagship inche
 
 /-! ⟦L3-FORK FOUNDATION⟧ — THE SHIFT-`h` DE-SPECIALIZATION (`ShiftFork`, 2026-08-15).
 
-THE FORK, NOT THE EDIT.  The landed spine is Tao 1509.05422 at `(a, b, h) = (1, 0, 1)`.
+THE FORK, NOT THE EDIT.  The landed spine is Tao arXiv:1509.05422v1 at `(a, b, h) = (1, 0, 1)`.
 `ShiftFork.lean` opens the `h`-family BESIDE it: `logChowlaFails`, `bigXiH`,
 `MRTUniformityXiH` are new names at new arities, and NO landed declaration changes a
 byte or an arity.  In-place generalization was priced and rejected — `logChowla2Fails`

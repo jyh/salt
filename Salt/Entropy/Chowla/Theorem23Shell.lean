@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The Theorem-2.3 conditional shell (Tao 1509.05422 §2–§3), spine node W3-E-GLUE
+# The Theorem-2.3 conditional shell (Tao arXiv:1509.05422v1 §2–§3), spine node W3-E-GLUE
 
 The wave-3 capstone: compose the four landed keystones of the log-Chowla spine
 into a single contradiction theorem, with every still-unproven input threaded

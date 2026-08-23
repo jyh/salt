@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The terminal glue of the log-Chowla spine (Tao 1509.05422 §2–§3), node W3E-FINAL
+# The terminal glue of the log-Chowla spine (Tao arXiv:1509.05422v1 §2–§3), node W3E-FINAL
 
 The single theorem closing the conditional chain
 (`docs/exploration/s3-a3-design.md`, "W3-e-final — THE TERMINAL GLUE").  The four
@@ -150,7 +150,7 @@ theorem log_chowla_two_conditional (R : ChowlaRegime) {δ : ℝ}
   exact log_chowla_two_shell R hlo hhi hH3 hlogH hne hreg hhead ht hg hgle hI
     (by positivity) h211 hC hcirc hXi hdoor hbudget1 hbudget2
 
-/-- **W3E-FINAL, the quotable citation surface.**  log-Chowla-2 (Tao 1509.05422,
+/-- **W3E-FINAL, the quotable citation surface.**  log-Chowla-2 (Tao arXiv:1509.05422v1,
 the model `a=1,b=0,h=1,g₁=g₂=λ` form of Chowla's two-point conjecture) holds
 CONDITIONAL on exactly three families of inputs — this theorem certifies that if
 log-Chowla-2 FAILS on the regime then a contradiction follows, given:

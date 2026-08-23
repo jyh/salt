@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The F-function bridge (Tao 1509.05422 (2.12)/(3.14)), Chowla/entropy spine node W2-b
+# The F-function bridge (Tao arXiv:1509.05422v1 (2.12)/(3.14)), Chowla/entropy spine node W2-b
 
 This file lands the bilinear "F-function" of Tao's Chowla/Elliott paper at the
 Liouville model instantiation `a = 1, b = 0, h = 1, c_p = 1`.  Tao (3.14) reads

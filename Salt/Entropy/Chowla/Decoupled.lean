@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The decoupling combine (Tao 1509.05422 §3, toward (3.15)/(3.16)), spine nodes W3-a-1/2
+# The decoupling combine (Tao arXiv:1509.05422v1 §3, toward (3.15)/(3.16)), spine nodes W3-a-1/2
 
 The y-side decoupling of the F-function bridge.  Tao's step from (3.14) toward
 (3.15) replaces the random residue input `y` by its mean: at the Liouville model
