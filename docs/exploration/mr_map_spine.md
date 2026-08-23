@@ -60,7 +60,7 @@ and `logMeasure x ω` = the normalized 1/n measure on `Ioc (x/ω) x`
 (LogMeasure.lean:26-28).
 
 **Quantifier-position invariant (load-bearing, kernel cannot police):** the
-`∀ α` is OUTSIDE the L¹ integral — Tao 1509.05422 Prop 2.4, a THEOREM proven
+`∀ α` is OUTSIDE the L¹ integral — Tao arXiv:1509.05422v2 Prop 2.4, a THEOREM proven
 from MRT arXiv:1503.05121. The sup-INSIDE variant is Tao (4.1), OPEN
 (MRTDoor.lean:41-47 warning block; same warning at :95-108).
 

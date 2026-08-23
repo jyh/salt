@@ -64,7 +64,7 @@ The terminal surface `log_chowla_two_final`
 residuals (t, g, shellError budget). `MRTUniformity R δ`
 (G: Salt/Entropy/Chowla/MRTDoor.lean:48–50):
 `∀ H ∈ [R.Hlo, R.Hhi], ∀ α : ℝ, ∫ ‖windowExpSum H n α‖ d(logMeasure R.x R.ω) ≤ δ·H`
-— Tao 1509.05422 Prop 2.4, a THEOREM in the literature (from MRT 1503.05121),
+— Tao arXiv:1509.05422v2 Prop 2.4, a THEOREM in the literature (from MRT 1503.05121),
 OPEN in the corpus. Weakened Ξ_H-restricted form `MRTUniformityXi` +
 `mrtUniformity_implies_xi` also landed (MRTDoor.lean:109–119). Nothing in
 Salt/ proves either predicate (G: grep — consumers only, in SpineClose/
