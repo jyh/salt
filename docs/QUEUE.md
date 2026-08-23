@@ -9,6 +9,45 @@
 ## lands or walls; parked-with-queue-non-empty is an alarm condition; an
 ## executor result is a CANDIDATE, never a landing — the seat verifies and lands.
 
+## ⚖️⛔ CROSS-REPO, RULED 2026-08-23 09:45 (Captain, via helm) — c4spec OPTION A.
+## **math IS AUTHORIZED to author the D-regime flagship decomposition in SALTWORKS**
+## (`SaltWorks/Stack/Program.lean`): new `MemField`/`TrappedField` on `PcField`'s
+## pattern; `c4Spec_iff_fieldwise`/`c4Spec_of_fieldwise` RESTATED at D width; the
+## flagship ledger grows **34 → 43** (1 length + 32 regs + 1 pc + 8 mem + 1 trapped);
+## the falsity of the old ← under D EXHIBITED in-tree. RIDER ①: the growth is VISIBLE
+## in the ledger, never smoothed — restated forms must NOT inherit the old names'
+## authority. RIDER ②: the cross-glob cascade into `SaltWorks/HDL/C4Reduction.lean:64`
+## is EXPLICITLY covered. ⛔ SCOPE: c4spec ONLY; the saltworks PUSH FREEZE STANDS —
+## commits land locally, nothing to origin until the fig4 ruling.
+##
+## 🔴 BLOCKER FOUND 2026-08-23 09:57 (math), BEFORE ANY EDIT — THE 43 OBLIGATIONS HAVE
+## NO SUBJECT. `C4.lean:76` states `C4Spec c := ∀ ins, sem c ins = encD (stepT (decQ
+## ins) …)` — C-WIDTH on BOTH sides. There is NO `C4SpecD`, no `CoreConformsD`, and
+## **ZERO** definitions of the form `sem c ins = encDD (stepT …)` anywhere in
+## `SaltWorks/`. `encDD`/`decQD` have exactly 3 consumers, all in HDL. The 34-form
+## covers bits 0…1055 EXACTLY, so 9 further obligations cannot attach to it: the extra
+## 257 bits are not in its statement to be constrained. ⇒ A D-width subject must be
+## RULED into existence — (a) a new `C4SpecD` in math's glob, (b) restating `C4Spec`
+## in compiler's `C4.lean` (NOT the authorized cascade site, Iron Rule 1 territory),
+## or (c) a council intent not yet published. **math is NOT picking.**
+## ✅ UNBLOCKED MEANWHILE: `outMem`/`outTrap` + `MemField`/`TrappedField` depend only
+## on `StateCodecD`'s LANDED layout (`Cell.place`: mem w k → 1056+32w+k, trap → 1312)
+## and not on the missing subject. `St.mem : Vector (BitVec 32) 8`, so with `w : Fin 8`
+## the index is TOTAL — `.mem[w.val]`, NO bang (matches `RegField`'s `regs[r.val]`).
+##
+## ⛔ THE MATH CADENCE PROMPT (cron `5f68ad84`, `8,33,58 * * * *`) IS STALE IN TWO WAYS
+## THAT WOULD MAKE A FRESH HEAD **WRONG**, NOT MERELY SLOW — recorded here because the
+## prompt names THIS FILE as the authority, and its own text is not readable back from
+## `CronList` (truncated), so a blind rewrite risks silently losing an earned law:
+##   ① item (8) says "six stale `into 34` PROSE sites in `SaltWorks/HDL/`".
+##      MEASURED 2026-08-23 10:0x: **FOUR** occurrences in FOUR files —
+##      `C4Reduction.lean:8` · `PcFieldClosed.lean:12` · `RegField0.lean:8` ·
+##      `RegFieldSchema.lean:8`. Zero in `SaltWorks/Stack/`.
+##   ② that debt is SUPERSEDED: under the ruling those sites become **43**, so a head
+##      "repairing" them to 34 writes the dead number. They are now part of RIDER ①'s
+##      visible ledger update, not a prose debt owed to compiler.
+## ⇒ RE-ARM THE CRON WITH THESE TWO DELTAS when its canonical text is readable.
+
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 1. **λ-BV DESIGN BLOCK** — ✅ **BLOCK DELIVERED AND CONSUMED; WAVE 1 IS COMPLETE (08/20).**
