@@ -3286,5 +3286,36 @@ theorem sieved_primes_floor_le_pretDistSq_sifted
       (f p * gJ 𝒥 Pseq Qseq p * (starRingEnd ℂ) (costwist t p))).trans hnorm
     linarith
 
+/-- ⭐ **THE SIEVED-OUT PRIMES, NAMED ARITHMETICALLY.**  Companion to
+`sieved_primes_floor_le_pretDistSq_sifted`, which reduced A.4(ii)'s floor to a sum over
+the primes the sieve REMOVES.  This says which primes those are: at a prime `p`, the
+indicator `gJ` vanishes **exactly when `p` lies in one of the blocks `[Pseq j, Qseq j]`,
+`j ∈ 𝒥`** — MRT's Definition 2.1 intervals.
+
+Together the two turn A.4(ii)'s floor into `∑ 1/p` over the primes of `⋃ⱼ [Pⱼ, Qⱼ]`,
+which is a **Mertens-type block count** with no `f` and no pretentious distance in it. -/
+theorem gJ_prime_eq_zero_iff (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) {p : ℕ} (hp : p.Prime) :
+    gJ 𝒥 Pseq Qseq p = 0 ↔ ∃ j ∈ 𝒥, Pseq j ≤ p ∧ p ≤ Qseq j := by
+  have hb : ∀ j : ℕ, blockOmega (Pseq j) (Qseq j) p = 0 ↔ ¬(Pseq j ≤ p ∧ p ≤ Qseq j) := by
+    intro j
+    have h1 : blockOmega (Pseq j) (Qseq j) p
+        = if Pseq j ≤ p ∧ p ≤ Qseq j then 1 else 0 := by
+      simpa using blockOmega_prime_pow (P := Pseq j) (Q := Qseq j) (p := p) (k := 1)
+        hp one_ne_zero
+    rw [h1]; split_ifs with h <;> simp [h]
+  constructor
+  · intro h
+    by_contra hcon
+    have hall : ∀ j ∈ 𝒥, blockOmega (Pseq j) (Qseq j) p = 0 := by
+      intro j hj
+      exact (hb j).mpr (fun hc => hcon ⟨j, hj, hc⟩)
+    simp only [gJ, if_pos hall] at h
+    exact one_ne_zero h
+  · rintro ⟨j, hj, hle⟩
+    simp only [gJ]
+    rw [if_neg]
+    intro hall
+    exact ((hb j).mp (hall j hj)) hle
+
 end Salt.MR
 
