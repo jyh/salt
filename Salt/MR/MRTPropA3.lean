@@ -3411,5 +3411,60 @@ theorem pretDistSq_ge_cos_average {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1
     linarith
   linarith
 
+/-- ⭐ **`∫₀¹ |cos(πt)| dt = 2/π` — THE CONSTANT BEHIND MRT'S `(1 − 2/π)`.**
+
+Next piece of MRT's own road for A.4(ii) (source `docs/sources/1503.05121v3.pdf`, display
+(A.5)): after the averaging step eliminates `f` (`pretDistSq_ge_cos_average`), the mid range
+`(log X)^{1/16}/2 ≤ |t−t₁| ≤ (log X)^{20}` is closed by a short-segment splitting whose value
+is `1 − ∫₀¹|cos πt|dt`.  This lemma supplies that integral.
+
+`cos(πt) ≥ 0` on `[0, ½]` and `≤ 0` on `[½, 1]`, so the absolute value splits into two
+signed integrals, each equal to `1/π`.
+
+⛔ The splitting argument that CONSUMES this is not attempted here — only its constant. -/
+theorem integral_abs_cos_pi_unit :
+    (∫ t in (0:ℝ)..1, |Real.cos (Real.pi * t)|) = 2 / Real.pi := by
+  have hpi : (0:ℝ) < Real.pi := Real.pi_pos
+  have hcont : Continuous fun t : ℝ => |Real.cos (Real.pi * t)| :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id)).abs
+  have hint : ∀ a b : ℝ,
+      IntervalIntegrable (fun t : ℝ => |Real.cos (Real.pi * t)|) MeasureTheory.volume a b :=
+    fun a b => hcont.intervalIntegrable a b
+  have hsplit : (∫ t in (0:ℝ)..(1/2), |Real.cos (Real.pi * t)|)
+      + (∫ t in (1/2:ℝ)..1, |Real.cos (Real.pi * t)|)
+      = ∫ t in (0:ℝ)..1, |Real.cos (Real.pi * t)| :=
+    intervalIntegral.integral_add_adjacent_intervals (hint 0 (1/2)) (hint (1/2) 1)
+  have hcos : ∀ a b : ℝ, (∫ t in a..b, Real.cos (Real.pi * t))
+      = (Real.sin (Real.pi * b) - Real.sin (Real.pi * a)) / Real.pi := by
+    intro a b
+    rw [intervalIntegral.integral_comp_mul_left (fun x => Real.cos x) (ne_of_gt hpi),
+      integral_cos, smul_eq_mul]
+    field_simp
+  have h1 : (∫ t in (0:ℝ)..(1/2), |Real.cos (Real.pi * t)|) = 1 / Real.pi := by
+    have hc : (∫ t in (0:ℝ)..(1/2), |Real.cos (Real.pi * t)|)
+        = ∫ t in (0:ℝ)..(1/2), Real.cos (Real.pi * t) := by
+      refine intervalIntegral.integral_congr ?_
+      intro x hx
+      rw [Set.uIcc_of_le (by norm_num)] at hx
+      exact abs_of_nonneg (Real.cos_nonneg_of_mem_Icc ⟨by nlinarith [hx.1], by nlinarith [hx.2]⟩)
+    rw [hc, hcos]
+    have : Real.pi * (1/2) = Real.pi / 2 := by ring
+    rw [this, Real.sin_pi_div_two, mul_zero, Real.sin_zero]
+    ring
+  have h2 : (∫ t in (1/2:ℝ)..1, |Real.cos (Real.pi * t)|) = 1 / Real.pi := by
+    have hc : (∫ t in (1/2:ℝ)..1, |Real.cos (Real.pi * t)|)
+        = ∫ t in (1/2:ℝ)..1, -Real.cos (Real.pi * t) := by
+      refine intervalIntegral.integral_congr ?_
+      intro x hx
+      rw [Set.uIcc_of_le (by norm_num)] at hx
+      exact abs_of_nonpos (Real.cos_nonpos_of_pi_div_two_le_of_le
+        (by nlinarith [hx.1]) (by nlinarith [hx.2]))
+    rw [hc, intervalIntegral.integral_neg, hcos]
+    have : Real.pi * (1/2) = Real.pi / 2 := by ring
+    rw [this, Real.sin_pi_div_two, mul_one, Real.sin_pi]
+    ring
+  rw [← hsplit, h1, h2]
+  ring
+
 end Salt.MR
 
