@@ -30,10 +30,24 @@
 ## RULED into existence — (a) a new `C4SpecD` in math's glob, (b) restating `C4Spec`
 ## in compiler's `C4.lean` (NOT the authorized cascade site, Iron Rule 1 territory),
 ## or (c) a council intent not yet published. **math is NOT picking.**
-## ✅ UNBLOCKED MEANWHILE: `outMem`/`outTrap` + `MemField`/`TrappedField` depend only
-## on `StateCodecD`'s LANDED layout (`Cell.place`: mem w k → 1056+32w+k, trap → 1312)
-## and not on the missing subject. `St.mem : Vector (BitVec 32) 8`, so with `w : Fin 8`
-## the index is TOTAL — `.mem[w.val]`, NO bang (matches `RegField`'s `regs[r.val]`).
+## ⛔ CORRECTED 2026-08-23 10:1x — MY OWN "UNBLOCKED MEANWHILE" WAS HALF WRONG, AND THE
+## BLOCKER IS BIGGER THAN THE SUBJECT. `StateCodec.lean:154` shows `decQ` HARDCODES
+## `mem := Vector.replicate 8 0` and `trapped := false` — its own comment says `encD`
+## encodes "regs and pc ONLY" and the decoder "cannot read what was never written".
+## ⇒ `MemField` stated against `decQ` would assert the circuit's memory output equals
+## the step of an ALWAYS-ZERO-MEMORY state — a statement about one input class, not the
+## obligation. **The new predicates MUST ride `decQD`.**
+## ⇒ AND THEREFORE SO MUST `RegField`/`PcField`: a decomposition mixing `decQ` and
+## `decQD` conjuncts specifies its register outputs against a zero-mem input state while
+## specifying memory against the real one. **The ruling names MemField/TrappedField as
+## NEW and the two c4Spec theorems as RESTATED; it does not mention that the 33 LANDED
+## field predicates must migrate decoder too. That is a statement change to landed names
+## and squarely RIDER ①'s concern.** Flagged, not taken.
+## ✅ WHAT IS GENUINELY UNBLOCKED, NARROWED: the ACCESSORS ONLY — `outMem c ins w :=
+## wordOf (fun k => outBit c ins (1056 + 32*w.val + k))` and `outTrap c ins := outBit c
+## ins 1312`. **They name NO decoder and NO spec**, resting only on `Cell.place`'s landed
+## layout. The PREDICATES are blocked with the rest. `St.mem : Vector (BitVec 32) 8`, so
+## with `w : Fin 8` the index is TOTAL — `.mem[w.val]`, NO bang (matches `regs[r.val]`).
 ##
 ## ⛔ THE MATH CADENCE PROMPT (cron `5f68ad84`, `8,33,58 * * * *`) IS STALE IN TWO WAYS
 ## THAT WOULD MAKE A FRESH HEAD **WRONG**, NOT MERELY SLOW — recorded here because the
