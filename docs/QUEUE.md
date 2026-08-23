@@ -3221,6 +3221,21 @@ numbering is UNVERIFIED.
     would falsify the W-F3 design block itself.
     ⚠️ **NOT DONE THIS FLIGHT, DELIBERATELY: one download is cheap; verifying 30 files against a freshly-read paper is not,
     and beginning that near a context ceiling produces exactly the half-finished hygiene pass this node forbids.**
+    ✅⛔ **VERIFIED 06:1x — THE PDF IS FETCHED (maestro) AND I CHECKED IT AT MY OWN HAND. 15 OBJECTS ✅, ONE PAGE REF REFUTED.**
+    `docs/sources/1509.05422v2.pdf` 352,743 B, gitignored, working tree 0 dirty; `pdftotext -layout` → 86,599 B, and the
+    **printed headers self-confirm the numbering** (`22 TERENCE TAO`, `CHOWLA AND ELLIOTT CONJECTURES 25`).
+    ✅ **ALL 15 NUMBERED OBJECTS EXIST IN v2** — `Lemma 2.2` · `Prop 2.6` · `Lemma 3.2` · `3.3` · `3.5` · eqs `(1.6) (2.12)
+    (3.1) (3.7) (3.9) (3.11) (3.12) (3.13) (3.14) (4.1)` — **with a control that fires (`Lemma 9.9` → 0).**
+    ⭐ **AND A QUOTE BECAME A MEASUREMENT: `Proposition 2.4` sits on v2 PAGE 12**, confirming `:1916-17` at this seat.
+    ⛔⛔ **THE TWO PAGE REFS SPLIT — AND ONE IS REFUTED FOR v2:**
+      · `BigXiArc.lean:19` *"pp. 24–25"* for Ξ_H — v2 pp.24-25 carry the `(3.20)` expansion, sums over `ξ ∈ Z/HZ` with
+        `G1(ξ)G2(ξ')` ⇒ **SPECTRAL CONTENT, PLAUSIBLE MATCH — read the page before anchoring, do not assume.**
+      · `OuterCombine.lean:5,:326` *"p. 22, (2.11) → (3.15)/(3.16)"* — **v2's p.22 carries `(3.14)`, `(3.2)` and the
+        conditional-entropy estimate. MISMATCH ⇒ DO NOT ANCHOR v2.** Its page ref is very likely v4's, exactly like
+        `wf3-waveb-design.md`'s. **THE NODE'S WARNING NOW HAS TWO LIVE SPECIMENS.**
+    ⇒ 🔑 **OBJECT-EXISTENCE DOES NOT SETTLE A PAGE NUMBER. All 15 objects exist in v2 and that says NOTHING about which
+    version's PAGES a citation was written from — check the page, not the object.**
+    📌 **REMAINING SHAPE: 28 files anchor v2 (verified) · `BigXiArc` confirm-then-anchor · `OuterCombine` DO NOT v2.**
     ⛔ **RESOURCE REQUIREMENT, NOW EXACT: `arXiv:1509.05422` IS NOT IN `docs/sources/` (which holds `1501.04585v4`,
     `1503.05121v3`, `1706.03749v1`, `gs9911246`). WITHOUT THAT PDF, 30 OF 55 FILES CANNOT BE ANCHORED BY ANYONE** — not
     for want of care, for want of the source. **A hygiene node that assumes one verification covers all citations is
