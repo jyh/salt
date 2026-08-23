@@ -197,7 +197,7 @@ theorem regime_logOmega_ge (R : ChowlaRegime) : (129 : ℝ) ≤ Real.log (R.ω :
 /-! ### T3 · the sign-split floor -/
 
 /-- "Conditional on the MRT door (MRTUniformityXi, the Ξ_H-restricted form — Tao
-1509.05422 Prop 2.4, proved in Matomäki–Radziwiłł–Tao arXiv:1503.05121 but not yet
+arXiv:1509.05422v2 Prop 2.4, proved in Matomäki–Radziwiłł–Tao arXiv:1503.05121 but not yet
 formalized here), the log-Chowla-2 spine's ONE witnessed regime (x, ω, ε) admits a
 two-sided sign-mass floor: on the window (x/ω, x], each of the two λ(n)λ(n+1) sign
 classes carries harmonic log-mass at least ((1−ε)·log ω − 1)/2, hence at least
@@ -218,7 +218,7 @@ theorem sign_split_of_not_fails {R : ChowlaRegime}
   constructor <;> linarith
 
 /-- "Conditional on the MRT door (MRTUniformityXi, the Ξ_H-restricted form — Tao
-1509.05422 Prop 2.4, proved in Matomäki–Radziwiłł–Tao arXiv:1503.05121 but not yet
+arXiv:1509.05422v2 Prop 2.4, proved in Matomäki–Radziwiłł–Tao arXiv:1503.05121 but not yet
 formalized here), the log-Chowla-2 spine's ONE witnessed regime (x, ω, ε) admits a
 two-sided sign-mass floor: on the window (x/ω, x], each of the two λ(n)λ(n+1) sign
 classes carries harmonic log-mass at least ((1−ε)·log ω − 1)/2, hence at least
@@ -240,7 +240,7 @@ theorem sign_split_door_only :
 /-! ### T4 · the `ε`-free form -/
 
 /-- "Conditional on the MRT door (MRTUniformityXi, the Ξ_H-restricted form — Tao
-1509.05422 Prop 2.4, proved in Matomäki–Radziwiłł–Tao arXiv:1503.05121 but not yet
+arXiv:1509.05422v2 Prop 2.4, proved in Matomäki–Radziwiłł–Tao arXiv:1503.05121 but not yet
 formalized here), the log-Chowla-2 spine's ONE witnessed regime (x, ω, ε) admits a
 two-sided sign-mass floor: on the window (x/ω, x], each of the two λ(n)λ(n+1) sign
 classes carries harmonic log-mass at least ((1−ε)·log ω − 1)/2, hence at least

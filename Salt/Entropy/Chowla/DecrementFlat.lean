@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # THE FLAT ENTROPY-DECREMENT HEADLINE (freeze item F-2)
 
-The flat twin of `entropy_decrement` (Tao 1509.05422 Lemma 3.1): in a
+The flat twin of `entropy_decrement` (Tao arXiv:1509.05422v2 Lemma 3.1): in a
 `ChowlaRegimeFlat` there is an admissible window width `H ∈ [H₋, H₊]` with
 `a ∣ H` at which the Liouville/residue mutual information is below the FLAT
 decrement threshold
@@ -181,7 +181,7 @@ theorem decrement_exists_of_towerFlat (R : ChowlaRegimeFlat)
   exact ⟨chowlaTowerFlat R.A R.a R.Hlo j, (hmono j hjJ).1, (hmono j hjJ).2,
     dvd_chowlaTowerFlat R.A R.a R.Hlo j, hb⟩
 
-/-- **THE FLAT HEADLINE** (freeze F-2; Tao 1509.05422 Lemma 3.1 at the flat
+/-- **THE FLAT HEADLINE** (freeze F-2; Tao arXiv:1509.05422v2 Lemma 3.1 at the flat
     threshold).  In a flat Chowla regime there is an admissible window width
     `H ∈ [H₋, H₊]` with `a ∣ H` at which the Liouville/residue mutual information
     is below `H / (A · log H)`.

@@ -9,7 +9,7 @@ import Salt.Entropy.Basic
 /-!
 # The prime window and residue datum (Chowla/Liouville spine, sprint-3 A-R2 wave I)
 
-This file lands the modulus side of Tao 1509.05422 Lemma 3.1: the prime window
+This file lands the modulus side of Tao arXiv:1509.05422v2 Lemma 3.1: the prime window
 `𝒫_H` of primes in `(ε²H/2, ε²H]`, its product `P_H`, and the residue datum
 `Y_H = n mod P_H`.  The key export for the entropy decrement is the ceiling
 `H[Y_H ; μ] ≤ log P_H`, together with the size bound `log P_H ≤ ε²H · log 4`

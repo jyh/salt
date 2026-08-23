@@ -8,7 +8,7 @@ import Salt.Entropy.Chowla.Regime
 /-!
 # MR-gate wave 1, stone S10a — the W-headroom door discharge
 
-`regime_W_headroom_of_floor` : the `(log X)^{1/125}` arm of Tao 1509.05422
+`regime_W_headroom_of_floor` : the `(log X)^{1/125}` arm of Tao arXiv:1509.05422v2
 Prop 2.4's W-constraint `W = log⁵ H ≪ min(A, (log X)^{1/125})`, landable now
 from the EXISTING regime field `hPHheadroom` (`Regime.lean:116`).
 

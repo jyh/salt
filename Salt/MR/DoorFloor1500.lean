@@ -13,7 +13,7 @@ import Salt.MR.LandauL1
 
 `docs/exploration/s9-design-0726.md` ⟦AMENDMENT A⟧ ("The FULL 1500-sweep site list"):
 the S9 re-freeze moves the door's sieve exponent from `B₅ = 5` to `B₅ = 12`, i.e.
-`W = (log H₊)¹²`.  Tao 1509.05422 Prop. 2.4's W-constraint
+`W = (log H₊)¹²`.  Tao arXiv:1509.05422v2 Prop. 2.4's W-constraint
 `W ≪ min(A, (log X)^{1/125})` then reads
 
   `W^{125} = (log H₊)^{1500} ≤ log X_min`   (was `(log H₊)^{625}`),
@@ -240,7 +240,7 @@ theorem regime_head_W_headroom_1500 (eps : ℚ) (heps : 0 < eps) (heps1 : eps �
 
 /-! ## §2 — Prop 2.4's second arm: `W ≤ H^{1/250}` -/
 
-/-- **W-3 — the `H`-side arm of Tao 1509.05422 Prop. 2.4 at `B₅ = 12`.**  The constraint
+/-- **W-3 — the `H`-side arm of Tao arXiv:1509.05422v2 Prop. 2.4 at `B₅ = 12`.**  The constraint
 `W ≤ H^{1/250}` at `W = (log H)^{12}` is, after taking logarithms, EXACTLY the gate
 `3000·loglog H ≤ log H` — since `12·loglog H ≤ (log H)/250 ⟺ 3000·loglog H ≤ log H`.
 

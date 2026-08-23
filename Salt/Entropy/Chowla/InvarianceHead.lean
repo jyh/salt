@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # The joint-law invariance headline (Chowla / entropy-decrement spine, node D-d)
 
 The JOINT/CONDITIONAL translation invariance of the log-sampled window laws
-(Tao 1509.05422 §3, the load-bearing MI-gain step of Lemma 3.1; wave-II gate
+(Tao arXiv:1509.05422v2 §3, the load-bearing MI-gain step of Lemma 3.1; wave-II gate
 block B1).  The conditional gap `ℍ(X_H^{(j)}|Y_H) − ℍ(X_H|Y_H)` equals the
 JOINT gap `ℍ(X_H^{(j)},Y_H) − ℍ(X_H,Y_H)` (the common `ℍ(Y_H)` cancels), and the
 joint gap reduces to the SAME `ℓ¹` estimate via the exact σ-algebra relabel of
