@@ -61,7 +61,8 @@
 
 ## P1b — THE MRT PORT CAMPAIGN (⚖️ RATIFIED 2026-08-21 by the Captain, v2 package whole)
 
-**Object:** discharge `MRTUniformityXi` — the spine door with 34 dependents and no producer.
+**Object:** discharge `MRTUniformityXi` — the spine door with 34 dependents; its road is landed to a corpus-named residue (`M4RowMeanSq_L`, two obstructions: ⟦THE WALL⟧ repaired 07-28, ⟦THE CLASS PRICING⟧ open — a design question).
+  *(Clause re-armed 2026-08-22 ~17:5x, Captain's word at council: the former "no producer" was refuted five verified ways in one day — adapter concludes the door from one named L¹ estimate · arc side unconditional · the road's middle in one landed 178-line proof · `m4_hbd_of_live_L` concludes the adapter's exact shape · the residue is the corpus's own label at `M4RowLinear.lean:991` → `M4Join.lean:73`. The "34 dependents" count was never re-measured and is carried unchanged.)*
 ⚠️ **MEASUREMENT STAMP 2026-08-22 14:4x (math) — THE RATIFIED OBJECT LINE ABOVE IS NOT REWRITTEN; THIS
 IS A STAMP.** *"no producer" is wrong as measured.* `mrtUniformityXi_of_absWindowBound_twelve`
 (`Salt/MR/M4Window.lean:268`) **CONCLUDES `MRTUniformityXi R δ`** from ONE remaining hypothesis —
