@@ -3574,6 +3574,78 @@ numbering is UNVERIFIED.
     rather than assumed), each re-verified by its own embedded `arXiv:1509.05422vN` stamp — 4/4. THIS NODE IS NOT
     RE-BLOCKED.**
 
+    ✅⭐⭐⭐ **TRANCHE 6 — math seat, 2026-08-23 13:35 (`12d08e35`, pushed). SEVEN FILES ANCHORED, AND THIS NODE NOW HAS
+    A FOURTH COORDINATE AXIS THAT IS SHARPER THAN THE TWO IT WAS BUILT ON.** Six files → `arXiv:1509.05422v1` (12 sites),
+    one → `arXiv:1509.05422v4` (1 site). A 7-unit classify wave with an adversarial refuter per proposed anchor produced
+    the candidates; **every decider was re-verified at this hand from the four PDFs before anything was written** — an
+    executor result is a CANDIDATE, never a landing.
+    🔑⭐⭐ **THE NEW AXIS: TAO'S OWN BIBLIOGRAPHY REFERENCE NUMBERS, AND THEY MOVE AT *EVERY* RELEASE.**
+    ```
+      COORDINATE                                v1     v2     v3     v4    MOVES AT
+      Lemma, entropy decrement                  3.1    3.1    3.2    3.2     v3
+      Lemma, circle method                      3.4    3.4    3.6    3.6     v3
+      Equation, F_p definition                  (3.14) (3.15) (3.15) (3.15)  v2
+      Equation, S_H exponential sum             (3.17) (3.18) (3.18) (3.18)  v2
+      MRT bracket index [N, Lemma 2.2, Thm 2.3] [17]   [18]   [21]   [23]    EVERY RELEASE   <- NEW
+    ```
+    **Control: the bibliography entry at that index is Matomäki–Radziwiłł–Tao, *An averaged form of Chowla's conjecture*,
+    in all four. Negative control: v1's `[18]` is a DIFFERENT MRT paper (*Sign patterns*), so the index is not merely
+    shifting — it names a different work in each version.** ⇒ ***A QUOTED BRACKET IS A COPIED STRING, NOT A LABEL THAT CAN
+    DRIFT, AND IT PINS EXACTLY ONE VERSION.*** Where a lemma number leaves `{v1,v2}` ambiguous and an equation number
+    leaves `{v2,v3,v4}` ambiguous, a bracket index is a singleton. **Try it FIRST on any file that quotes Tao quoting
+    someone else.**
+    ⛔⭐ **AND IT REVERSED THIS ITEM'S OWN PRIOR RULING: `BigXiArc` IS v1, NOT v2.** The file quotes `[17, Lemma 2.2,
+    Theorem 2.3]` and `[17, Theorem A.1]` and **holds no bibliography of its own — its only two bracket-numbers are those
+    — so `[17]` can only be Tao's index, and it is v1's.** The prior ruling rested on *"v2 p.24 carries the `Ξ_H`
+    definition and p.23 does not"*, which is TRUE and **UNDER-DISCRIMINATING: v1 p.23 carries the definition too.** That
+    control separates `{v1,v2}` from `{v3,v4}` and I had read it as separating v1 from v2. ⇒ ***A CONTROL THAT FIRES
+    CORRECTLY CAN STILL BE ANSWERING A COARSER QUESTION THAN THE ONE YOU ASKED IT.***
+    ✅ **THE OTHER FIVE DECIDERS, EACH VERIFIED INDEPENDENTLY AT THIS HAND AND EACH v1-EXCLUSIVE** (printed page = pdftotext
+    page index in all four, header-controlled):
+    ```
+      Regime          "Lemma 3.1, p.19"    v1 p.19 · v2 p.20 · v3/v4 renumber to Lemma 3.2 at p.21
+      WindowCount     the PNT bound p.22   "From the prime number theorem we have |P_H| << eps^2 H/log H"
+                                           sits on v1 p.22 and v2 p.23
+      mr_map_sources  S_H = "(3.17)"       v1 (3.17) · v2/v3/v4 (3.18)
+      pass3_t2        "[17, Lemma 2.2 ...]" the bracket axis above
+      s3-a2-design    divided MI "(3.11)"  v1 (3.11) · v2 (3.12)
+    ```
+    ⚠️ **`wf3-waveb-design.md` IS THE ONE v4 — this node's own live specimen, now self-describing.** `exp(ε^-C1)` does not
+    exist in v1 at all, and the file states first-hand at `:693` that its references were read from `arXiv:1509.05422v4`.
+    Anchoring `:619` puts the version AT the citation instead of 70 lines away. **`:692`'s bare mention is left bare
+    DELIBERATELY and is the single bare-left in the set: it names no numbers of its own** — the numbers in it are the
+    SUBJECT of the sentence and are anchored by `:693` — **so an anchor there is the ceremony this node warns against.**
+    ⛔ **ONE RECOMMENDATION REFUTED AND NOT LANDED — `s3-a3-design.md`.** It came back v1 and was killed on the
+    second-convention check: its equation and reference numbering is v1's and only v1's, **but its footnote-4 citation is
+    to material that does not exist in v1, and its actual source is provably NONE of the four arXiv PDFs.** It is a cached
+    unstamped rendering, `chowla.txt`, which lives in `.claude/worktrees/*/docs/sources/` and **not in the main tree**.
+    ⇒ 🔑 **A PROVENANCE FINDING THIS NODE NEVER CONTEMPLATED: part of the corpus was authored against an UNSTAMPED TEXT
+    RENDERING, not against any arXiv PDF.** `mr_map_sources.md:39` names that same `chowla.txt` as *"THE primary source"*.
+    It is a v1 dump — which independently corroborates every v1 verdict above — but **it carries no version stamp, it is
+    untracked, and one `rm` of a worktree removes the thing several files cite.** HELD pending an editorial ruling; the
+    cheap repair is a tracked, stamped copy in `docs/sources/`.
+
+    📌📌 **NODE STATUS AFTER TRANCHE 6 — EVERY ONE OF THE 54 FILES IS NOW EITHER ANCHORED OR CARRIES A RECORDED REASON NOT
+    TO BE. THE HYGIENE WORK OF THIS NODE IS DONE; WHAT REMAINS NEEDS RULINGS, NOT PASSES.**
+    ```
+      any mention ............... 54 files
+      v1-anchored ............... 18 files / 28 sites
+      v2-anchored ............... 29 files / 44 sites
+      v4-anchored ................ 1 file  /  2 sites
+      bare, with a reason ........ 6 files
+      carrying TWO version anchors 0        <- checked explicitly; no file is internally inconsistent
+    ```
+    **THE SIX REMAINING, AND NOT ONE OF THEM IS UNEXAMINED:**
+      · `s3-a3-design.md` — HELD on the `chowla.txt` provenance ruling above.
+      · `CircleMethod.lean` — MIXED. It calls `S_H(α)` "(3.17)" (v1) while its two Fourier-coefficient page cites read
+        p.24 (v1 puts them on p.23). **No single anchor is true.** Cheapest repair is a TEXT edit — correct `:16` and
+        `:47` to p.23, then anchor v1 — but that is an editorial change, not an anchor.
+      · `LargeSpectrum` · `LargeSpectrumBound` · `QuadrupleCount` — the footnote ERRATUM, re-confirmed independently:
+        v1 has exactly two footnotes, the additive-energy escape is fn.7 in v2 and fn.9 in v3/v4, and v2's fn.4 is the
+        model-case remark. **Matches no version. Needs an erratum ruling, not an anchor.**
+      · `Dist.lean` — NON-DISCRIMINATING: it names no numbered Tao object, so there is nothing for a version to mis-map.
+        **Anchoring it would add ceremony, not safety** — this node's own rule, applied.
+
 
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
 
