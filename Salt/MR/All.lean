@@ -8484,6 +8484,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_far_of_cos_average
   Salt.MR.MRTShortSegmentSplitting
   Salt.MR.mrtA4ii_far_of_named_splitting
+  Salt.MR.MRTLargeRangeEquidistribution
+  Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

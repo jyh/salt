@@ -3714,8 +3714,6 @@ already-landed pieces: the splitting supplies the `f`-free sum's lower bound, an
 theorem mrtA4ii_far_of_named_splitting (hsplit : MRTShortSegmentSplitting)
     (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ)
     (hf : ∀ n, ‖f n‖ ≤ 1) (hε : 0 < ε) (hXe : Real.exp 1 ≤ X)
-    (hY : Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))
-        = Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)))
     (hlo : (Real.log X) ^ ((1 : ℝ) / 16) / 2 ≤ |t - t₁|)
     (hhi : |t - t₁| ≤ (Real.log X) ^ (20 : ℕ))
     (hmin : pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist t) X) :
@@ -3726,10 +3724,62 @@ theorem mrtA4ii_far_of_named_splitting (hsplit : MRTShortSegmentSplitting)
         ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
   obtain ⟨C, hC0, hC⟩ := hsplit
   refine ⟨C, hC0, ?_⟩
-  have hs := hC X (Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))) (t - t₁) ε hε hXe hY hlo hhi
+  have hs := hC X (Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))) (t - t₁) ε hε hXe rfl hlo hhi
   have hhalf := mrtA4i_halving f Pseq Qseq 𝒥 X t hf
   have hcos := pretDistSq_ge_cos_average_restricted
     (Y := Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))) hf hmin
+  linarith
+
+/-! ## ⭐ THE OTHER OPEN ESTIMATE, NAMED — MRT'S LARGE-`|t−t₁|` EQUIDISTRIBUTION
+
+The mid range now has a citable target (`MRTShortSegmentSplitting`).  Its sibling did not, and
+an unnamed obligation is one no brief can dispatch — so the large branch gets the same
+treatment, and A.4(ii)'s three arms become three named objects.
+
+Source, Lemma A.4(ii)'s proof: *"when `|t − t₁| > (log X)^{20}` and `|t| ≤ X`,
+`(t−t₁)·log p / 2π` is equidistributed (mod 1) by the Erdős–Turán inequality and the
+Vinogradov–Korobov"* zero-free region.
+
+⚖️ **THE PRICING IS ASYMMETRIC AND THAT IS THE USEFUL PART** (rows 19d/19j): **VK is LANDED
+UNCONDITIONALLY** in this corpus — `Salt.Vk.zeta_zero_free_region_pow`, producer
+`zeta_growth_pow : ZetaGrowthPow` taking NO hypotheses — while **Erdős–Turán is ABSENT**
+(asserted to the sibling standard: seven named `# <Name> inequality` headers answer the same
+arm, including Kusmin–Landau in the very directory the target would live in).
+
+⛔ **A STATEMENT, NOT A THEOREM.  NOTHING HERE PROVES IT** — and note the conclusion is written
+in the SAME shape as the mid-range Prop, so a discharger of either feeds the same consumer. -/
+def MRTLargeRangeEquidistribution : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u : ℝ), Real.exp 1 ≤ X → |u| ≤ 2 * X →
+    (Real.log X) ^ (20 : ℕ) < |u| →
+      (1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y) - C
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+              (fun p : ℕ => Y < (p : ℝ)),
+            (1 - |Real.cos (u * Real.log p / 2)|) / (p : ℝ)
+
+/-- ⭐⭐ **A.4(ii)'s THREE ARMS, ALL NAMED — THE CAMPAIGN'S REMAINING DEBT IN ONE STATEMENT.**
+
+* **HIGH `M`** — `mrtA4ii_high_M_sixteenth`, **LANDED** (`1/16 = 0.0625` clears the
+  `0.0605634…` target; MRT's own remark).
+* **MID RANGE** — `MRTShortSegmentSplitting`, **OPEN**, discharges via
+  `mrtA4ii_far_of_named_splitting`.
+* **LARGE RANGE** — `MRTLargeRangeEquidistribution`, **OPEN**; its heavy half (VK) is landed
+  and hypothesis-free, its light half (Erdős–Turán) is absent.
+
+This theorem is the trivial disjunction-elimination shape: **either open Prop, plus `t₁`'s
+minimality, yields the far-arm bound** — recorded so the two obligations are visibly
+interchangeable at the consumer. -/
+theorem mrtA4ii_far_of_either_estimate
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X Y t t₁ : ℝ) (C : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1)
+    (hmin : pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist t) X)
+    (hbound : (1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y) - C
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+              (fun p : ℕ => Y < (p : ℝ)),
+            (1 - |Real.cos ((t - t₁) * Real.log p / 2)|) / (p : ℝ)) :
+    (1 / 2) * ((1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y) - C)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have hhalf := mrtA4i_halving f Pseq Qseq 𝒥 X t hf
+  have hcos := pretDistSq_ge_cos_average_restricted (Y := Y) hf hmin
   linarith
 
 end Salt.MR
