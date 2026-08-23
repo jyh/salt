@@ -733,6 +733,42 @@ files away.**  The next object is `DoorRowCarried`.
 Its control — `MRTUniformityXi`, a `Prop` I know has a producer — scored **0**.  The probe
 misses real producers, so **3 is a LOWER BOUND, not a count**, and is written here as one. -/
 
+/-! ### ⛔ MY OWN HYPOTHESIS, TESTED AND REFUTED — AND THE NEEDED SHAPE, NAMED
+
+Last section fenced a hypothesis as **UNTESTED**: that obstruction 2's *"general per-interval
+input"* might be `sum_progression_le_sum_Ioc` / `progression_mem_Ioc_of_window_in_block`,
+built at the dyadic step where nothing needed them.  **Tested it.  It is REFUTED.**
+
+`M4BlockMeanSq` (`M4BridgeCover.lean:386`) reads
+```
+  ∀ H …, ∀ α, NearRatTight (arcDen 12 H) H α → ∀ i < k,
+    ∑ n ∈ Finset.Ioc (doorLadder R.x H (i+1)) (doorLadder R.x H i),
+        ‖absWindowSum (doorSievedCoeff M) H n α‖²
+      ≤ Bblk H · H² · (doorLadder R.x H (i+1) : ℝ)
+```
+**The index set is hard-wired to `doorLadder` blocks and the RHS scale is the block's own left
+endpoint.**  So *"a general per-interval input"* means **this predicate with the interval
+freed** — a STATEMENT GENERALISATION, a new Prop.
+
+⇒ **My lemmas conclude `∑_{progression} f ≤ ∑_{Ioc a b} f`: they MOVE BETWEEN INDEX SETS and
+supply NO BOUND AT ALL.**  The residue needs a *bound on* an interval sum.  Different objects;
+the resemblance was the word "interval" and nothing else.
+
+⭐ **THE SHAPE THAT IS ACTUALLY NEEDED, NAMED** (naming is my tier; deciding it is not — the
+source calls this a **design question**, and design is Fable/human-tier):
+```
+  M4IntervalMeanSq R M Bint : Prop :=
+    ∀ H …, ∀ α, NearRatTight (arcDen 12 H) H α → ∀ a b : ℕ, ⟨admissibility on (a,b]⟩ →
+      ∑ n ∈ Finset.Ioc a b, ‖absWindowSum (doorSievedCoeff M) H n α‖² ≤ Bint H a b
+```
+with `M4BlockMeanSq` recovered at `a := doorLadder R.x H (i+1)`, `b := doorLadder R.x H i`.
+**The open design content is exactly what `⟨admissibility⟩` must say and what `Bint` may
+depend on** — the dilated image `(X_{i+1}/d₀ − 1, X_i/d₀]` has to satisfy it.
+
+🔑 *Process note, and it is the first of its kind today: I fenced a claim as UNTESTED, then
+tested it, then refuted it — before it ever became a finding.  The four same-signed errors
+earlier were all published first and corrected after.  **Fencing is cheap; retraction is not.*** -/
+
 /-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
 
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
