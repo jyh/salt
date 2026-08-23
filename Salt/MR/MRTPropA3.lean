@@ -3345,5 +3345,71 @@ theorem mertens_block_difference {s t : ℝ} (hs : 2 ≤ s) (ht : 2 ≤ t) :
   rw [key]
   exact (abs_sub _ _).trans (add_le_add h1 h2)
 
+/-- ⭐⭐ **MRT'S `f`-ELIMINATION (A.4's display) — THE STEP THE WHOLE FAR ARM TURNS ON.**
+
+Read from the source (`docs/sources/1503.05121v3.pdf`, Lemma A.4(ii)'s proof): MRT do **not**
+recenter against a twist floor.  They AVERAGE the pretentious distance at `t` and at the
+minimiser `t₁`.  Since `t₁` attains the infimum, `𝔻(f,t₁)² ≤ 𝔻(f,t)²`, so
+`𝔻(f,t)² ≥ ½𝔻(f,t)² + ½𝔻(f,t₁)²`; the two twists then combine by `costwist_conj_avg` into a
+single `cos((t−t₁)·log p/2)` factor, and `‖f p‖ ≤ 1` kills `f` entirely:
+
+`ℜ(f(p)·p^{−i(t+t₁)/2}·cos θ) ≤ |cos θ|`.
+
+⇒ **the bound below carries NO `f` at all.**  This is why A.4(ii) needs no floor at
+arbitrary `f`: the averaging removes the datum before any floor is required.  What remains on
+MRT's road is the cos-average over primes (mid range) and Erdős–Turán + Vinogradov–Korobov
+(large `|t−t₁|`) — neither of which is attempted here. -/
+theorem pretDistSq_ge_cos_average {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {t t₁ X : ℝ}
+    (hmin : pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist t) X) :
+    ∑ p ∈ (Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime,
+        (1 - |Real.cos ((t - t₁) * Real.log p / 2)|) / (p : ℝ)
+      ≤ pretDistSq f (costwist t) X := by
+  have key : ∑ p ∈ (Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime,
+      (1 - |Real.cos ((t - t₁) * Real.log p / 2)|) / (p : ℝ)
+      ≤ (pretDistSq f (costwist t) X + pretDistSq f (costwist t₁) X) / 2 := by
+    unfold pretDistSq
+    rw [← Finset.sum_add_distrib, Finset.sum_div]
+    refine Finset.sum_le_sum ?_
+    intro p hp
+    have hprime : Nat.Prime p := (Finset.mem_filter.mp hp).2
+    have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hprime.pos
+    set θ : ℝ := (t - t₁) * Real.log p / 2 with hθdef
+    set w : ℂ := f p * (costwist (-((t + t₁) / 2)) p * Complex.cos ((θ : ℝ) : ℂ)) with hwdef
+    set A : ℝ := (f p * (starRingEnd ℂ) (costwist t p)).re with hAdef
+    set B : ℝ := (f p * (starRingEnd ℂ) (costwist t₁ p)).re with hBdef
+    have hid : f p * (starRingEnd ℂ) (costwist t p) + f p * (starRingEnd ℂ) (costwist t₁ p)
+        = w + w := by
+      rw [costwist_conj, costwist_conj, ← mul_add, hwdef]
+      have h2 := costwist_conj_avg t t₁ p
+      have h3 : costwist (-t) p + costwist (-t₁) p
+          = 2 * (costwist (-((t + t₁) / 2)) p * Complex.cos ((θ : ℝ) : ℂ)) := by
+        rw [hθdef]
+        field_simp at h2
+        linear_combination h2
+      rw [h3]; ring
+    have hnorm : ‖w‖ ≤ |Real.cos θ| := by
+      rw [hwdef, norm_mul, norm_mul, costwist_norm, one_mul,
+        ← Complex.ofReal_cos, Complex.norm_real, Real.norm_eq_abs]
+      calc ‖f p‖ * |Real.cos θ| ≤ 1 * |Real.cos θ| :=
+            mul_le_mul_of_nonneg_right (hf p) (abs_nonneg _)
+        _ = |Real.cos θ| := one_mul _
+    have hre : A + B ≤ 2 * |Real.cos θ| := by
+      have h := congrArg Complex.re hid
+      rw [Complex.add_re, Complex.add_re] at h
+      have hw : w.re ≤ |Real.cos θ| := (Complex.re_le_norm w).trans hnorm
+      rw [hAdef, hBdef]
+      linarith
+    have hrw : ((1 - A) / (p : ℝ) + (1 - B) / (p : ℝ)) / 2
+        = (2 - (A + B)) / (2 * (p : ℝ)) := by
+      field_simp; ring
+    have hdiff : (2 - (A + B)) / (2 * (p : ℝ)) - (1 - |Real.cos θ|) / (p : ℝ)
+        = (2 * |Real.cos θ| - (A + B)) / (2 * (p : ℝ)) := by
+      field_simp; ring
+    have hnn : (0 : ℝ) ≤ (2 * |Real.cos θ| - (A + B)) / (2 * (p : ℝ)) :=
+      div_nonneg (by linarith) (by positivity)
+    rw [hrw]
+    linarith
+  linarith
+
 end Salt.MR
 

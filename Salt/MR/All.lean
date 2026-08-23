@@ -8471,6 +8471,7 @@ open Salt.Tactic in
   Salt.MR.sieved_primes_floor_le_pretDistSq_sifted
   Salt.MR.gJ_prime_eq_zero_iff
   Salt.MR.mertens_block_difference
+  Salt.MR.pretDistSq_ge_cos_average
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous
