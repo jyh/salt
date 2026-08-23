@@ -3230,9 +3230,14 @@ numbering is UNVERIFIED.
     ⛔⛔ **THE TWO PAGE REFS SPLIT — AND ONE IS REFUTED FOR v2:**
       · `BigXiArc.lean:19` *"pp. 24–25"* for Ξ_H — v2 pp.24-25 carry the `(3.20)` expansion, sums over `ξ ∈ Z/HZ` with
         `G1(ξ)G2(ξ')` ⇒ **SPECTRAL CONTENT, PLAUSIBLE MATCH — read the page before anchoring, do not assume.**
-      · `OuterCombine.lean:5,:326` *"p. 22, (2.11) → (3.15)/(3.16)"* — **v2's p.22 carries `(3.14)`, `(3.2)` and the
-        conditional-entropy estimate. MISMATCH ⇒ DO NOT ANCHOR v2.** Its page ref is very likely v4's, exactly like
-        `wf3-waveb-design.md`'s. **THE NODE'S WARNING NOW HAS TWO LIVE SPECIMENS.**
+      · `OuterCombine.lean:5,:326` *"p. 22, (2.11) → (3.15)/(3.16)"* — ⛔⛔ **MY 06:1x "MISMATCH ⇒ DO NOT ANCHOR v2" IS
+        WITHDRAWN. IT WAS WRONG AND I HAD STAMPED IT HERE.** Located the equations instead of skimming the page:
+        **`(3.15)` is on v2 pp.22-23 · `(3.16)` on p.23 · `(2.11)` on p.15** — the citation names the COMBINE STEP taking
+        `(2.11)` into `(3.15)/(3.16)`, and **p.22 is where that combine lands. CONSISTENT WITH v2.**
+        ⛔ **MY ERROR: I read the first ~150 CHARACTERS of page 22 and called it "what page 22 carries" — I sampled the
+        page OPENING, not the page, then published a refutation from it.** ⇒ ***A PAGE IS NOT ITS FIRST LINE.***
+        ⇒ **`BigXiArc` and `OuterCombine` are BOTH plausible-to-consistent with v2; the only CONFIRMED v4 page-citation
+        remains `wf3-waveb-design.md`, which says so itself. ONE live specimen, not two.**
     ⇒ 🔑 **OBJECT-EXISTENCE DOES NOT SETTLE A PAGE NUMBER. All 15 objects exist in v2 and that says NOTHING about which
     version's PAGES a citation was written from — check the page, not the object.**
     📌 **REMAINING SHAPE: 28 files anchor v2 (verified) · `BigXiArc` confirm-then-anchor · `OuterCombine` DO NOT v2.**
