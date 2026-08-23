@@ -8479,6 +8479,8 @@ open Salt.Tactic in
   Salt.MR.mrt_exponent_gap_at_Y
   Salt.MR.mrtA4ii_constant_decomposition
   Salt.MR.pretDistSq_ge_cos_average_restricted
+  Salt.MR.abs_cos_pi_mul_eq_cos_pi_mul_dist_round
+  Salt.MR.mrtA4_summand_matches_source
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

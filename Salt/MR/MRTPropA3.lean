@@ -3599,5 +3599,54 @@ theorem pretDistSq_ge_cos_average_restricted {f : ℕ → ℂ} (hf : ∀ n, ‖f
   have hcos : |Real.cos ((t - t₁) * Real.log p / 2)| ≤ 1 := Real.abs_cos_le_one _
   exact div_nonneg (by linarith) hppos.le
 
+/-- ⭐ **`|cos(πx)| = cos(π·‖x‖)` WHERE `‖x‖` IS THE DISTANCE TO THE NEAREST INTEGER.**
+
+The bridge certifying that our landed bound is **literally** MRT's (A.4) final line rather
+than a variant of it.  MRT write the summand as `1 − cos(π‖(t−t₁)·log p/(2π)‖)`; ours is
+`1 − |cos((t−t₁)·log p/2)|`.  At `x = θ/π` this identity says they are the same number.
+
+*Checked against mathlib first — it has `abs_cos_le_one`, `abs_cos_int_mul_pi` and
+`abs_sub_round`, but no `cos`-vs-`round` identity; this is a genuine gap.* -/
+theorem abs_cos_pi_mul_eq_cos_pi_mul_dist_round (x : ℝ) :
+    |Real.cos (Real.pi * x)| = Real.cos (Real.pi * |x - round x|) := by
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  set n : ℤ := round x with hndef
+  set r : ℝ := x - (n : ℝ) with hrdef
+  have hr2 : |r| ≤ 1 / 2 := by rw [hrdef, hndef]; exact abs_sub_round x
+  have hrb := abs_le.mp hr2
+  have hx : Real.pi * x = (n : ℝ) * Real.pi + Real.pi * r := by rw [hrdef]; ring
+  have hcos : Real.cos (Real.pi * x) = (-1 : ℝ) ^ n * Real.cos (Real.pi * r) := by
+    rw [hx, Real.cos_add, Real.sin_int_mul_pi, zero_mul, sub_zero, Real.cos_int_mul_pi]
+  have hnn : 0 ≤ Real.cos (Real.pi * r) := by
+    refine Real.cos_nonneg_of_mem_Icc ⟨?_, ?_⟩
+    · nlinarith [hrb.1, hpi]
+    · nlinarith [hrb.2, hpi]
+  rw [hcos, abs_mul]
+  have hsign : |(-1 : ℝ) ^ n| = 1 := by simp
+  rw [hsign, one_mul, abs_of_nonneg hnn]
+  rcases abs_cases r with ⟨h1, _⟩ | ⟨h1, _⟩
+  · rw [h1]
+  · rw [h1, mul_neg, Real.cos_neg]
+
+/-- ⭐⭐ **OUR SUMMAND *IS* MRT'S SUMMAND — CERTIFIED, NOT ASSERTED.**
+
+MRT's (A.4) ends with `∑_{Y<p≤X} (1 − cos(π‖(t−t₁)·log p/(2π)‖))/p`, where `‖·‖` is the
+distance to the nearest integer.  Our landed bound
+(`pretDistSq_ge_cos_average_restricted`) carries `1 − |cos((t−t₁)·log p/2)|`.
+
+At `u = t − t₁` and `L = log p` these are **the same real number**.
+
+*Tonight's recurring defect was assuming an object matched a name; this is the same
+question answered in the kernel instead of by inspection.* -/
+theorem mrtA4_summand_matches_source (u L : ℝ) :
+    |Real.cos (u * L / 2)|
+      = Real.cos (Real.pi * |u * L / (2 * Real.pi)
+          - round (u * L / (2 * Real.pi))|) := by
+  have hpi : Real.pi ≠ 0 := ne_of_gt Real.pi_pos
+  have h := abs_cos_pi_mul_eq_cos_pi_mul_dist_round (u * L / (2 * Real.pi))
+  have hx : Real.pi * (u * L / (2 * Real.pi)) = u * L / 2 := by field_simp
+  rw [hx] at h
+  exact h
+
 end Salt.MR
 
