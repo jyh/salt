@@ -2980,8 +2980,12 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       ⭐⭐ **AND THE CHARTER ANSWERS THE OPEN PRECISION.** `Salt/MR/All.lean:387-389`, verbatim:
       the MR-gate campaign *"opens the road from the landed power zero-free region
       (`Salt.Vk.zeta_zero_free_region_pow`, θ = 3/4 < 1) toward unconditional log-Chowla-2, **by
-      discharging the pretentious non-pretentiousness hypothesis (1.6) of Tao 1509.05422 and the
-      MRT door**."* ⇒ **the `M(f;X)` = (1.6) re-derivation flagged under PROBE 1 targets a LIVE
+      discharging the pretentious non-pretentiousness hypothesis (1.6) of Tao arXiv:1509.05422v2 and the
+      MRT door**."* ⚠️ **QUOTE RE-SYNCED 2026-08-23 08:0x: the cited line now reads `arXiv:1509.05422v2` — item 18
+      tranche 3 (`13274034`) anchored it, and THIS NODE'S "verbatim" QUOTE WENT STALE THE MOMENT IT DID.** *Caught by
+      the anchoring seat, not by a reader of this node.* ⇒ 🔑 ***AN EDIT TO A FILE IS AN EDIT TO EVERY VERBATIM QUOTE
+      OF THAT FILE — and a quote is the one surface no build, lint, or grep-for-my-own-diff will flag.*** **The
+      substance (`(1.6)` is the target of the MR-gate campaign) is UNCHANGED; only the citation string moved.** ⇒ **the `M(f;X)` = (1.6) re-derivation flagged under PROBE 1 targets a LIVE
       CAMPAIGN OF OURS, not new ground. Still owed; no longer unowned.**
       ✅ **BOTH PROBES HAVE REPORTED ⇒ the Captain's ruling-2 arc-classing gate is DISCHARGED and
       the arc design block is UNBLOCKED**, on the corrected labelling and against the reduced spine.
@@ -3335,7 +3339,8 @@ numbering is UNVERIFIED.
     ⭐ **FOUR OBJECTS VERIFIED IN v2 THAT THIS NODE'S 15-OBJECT LIST NEVER COVERED: `(2.4)` `(3.8)` `(3.17)` `(3.18)`**,
     each with a right-margin definition line AND a back-reference.
     ⛔ **INSTRUMENT DISCLOSURES, MINE:** my equation matcher `\(([0-9]+\.[0-9]+)\)` **read the arXiv id itself as an
-    equation** (`Tao (1509.05422) §3` → "equation (1509.05422)") · **my classifier's WINDOW WAS THE WRONG UNIT** — three
+    equation** (`Windows.lean`'s PRE-ANCHOR text `Tao (1509.05422) §3` → "equation (1509.05422)"; that file now reads
+    `arXiv:1509.05422v2` and the quote here is deliberately historical) · **my classifier's WINDOW WAS THE WRONG UNIT** — three
     page claims live 8–17 lines from the id, so NO window of ANY width contains them (**a version-sensitive claim is a
     property of the FILE, not of the citation site**) · and **three self-reference false positives**: the decoy
     `1509.05423` fires on `:3286` which DESCRIBES the decoy, the guard `arXiv:arXiv:` fires on `:3208` which DESCRIBES
