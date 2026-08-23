@@ -3183,6 +3183,25 @@ numbering is UNVERIFIED.
     ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
     equation-bearing.** ⇒ **REMAINING: 26 SEC (rebuild cost) · 9 EQN · 14 MIXED (per-citation) · 1 PAGE (blocked on
     the source) · 5 genuinely none.**
+    ⛔⛔ **SCOPE CORRECTED 05:1x — THIS NODE IS *NOT* "CLASS A, COMMENT-LEVEL THROUGHOUT". IT IS CLASS A FOR 14 FILES AND
+    BLOCKED ON SOURCE VERIFICATION FOR 30.** Audited what the citations actually NAME. **The corpus cites NINE distinct
+    Tao objects; this node's evidence covers TWO.**
+    ```
+      §2   Lemma 2.2 (1) · Prop 2.4 (11) · Prop 2.6 (2)
+      §3   Lemma 3.1 (9) · Lemma 3.2 (2) · Lemma 3.3 (1) · Lemma 3.4 (2) · Lemma 3.5 (3)
+      eqs  (1.6) (2.12) (3.1) (3.7) (3.9) (3.11) (3.12) (3.13) (3.14) (4.1)
+      pages  pp.24-25 · p.22
+    ```
+    **COVERED:** `Lemma 3.1` / `Lemma 3.4` (this node's own sentence) + `Prop 2.4` (its NUMBER is stable across versions —
+    `:1916-17` records v2 p.12 / v4 p.13, same number). **NOT COVERED BY ANY EVIDENCE:** Lemma 2.2 · Prop 2.6 ·
+    Lemma 3.2/3.3/3.5 · every equation · both page refs. ⇒ **Anchoring those extends a §3-LEMMA finding across TWO
+    dimensions at once — other SECTIONS (§1,§2,§4) and other OBJECT KINDS (equations, pages) — with no source to check.
+    That is this node's own forbidden falsification, one level up.**
+    📌 **MEASURED SCOPE: SAFE 14 (3 landed `14f65a7f`, 11 remain, all `Salt/`) · BLOCKED 30 · NO-CLAIM 11 · total 55.**
+    ⛔ **RESOURCE REQUIREMENT, NOW EXACT: `arXiv:1509.05422` IS NOT IN `docs/sources/` (which holds `1501.04585v4`,
+    `1503.05121v3`, `1706.03749v1`, `gs9911246`). WITHOUT THAT PDF, 30 OF 55 FILES CANNOT BE ANCHORED BY ANYONE** — not
+    for want of care, for want of the source. **A hygiene node that assumes one verification covers all citations is
+    under-specified, and the under-specification is invisible until you ENUMERATE THE OBJECTS.**
     ⛔⛔ **AMENDED 2026-08-21 13:0x — DO NOT BLANKET-STAMP `v2`. THE NODE AS I FIRST WROTE IT WOULD
     HAVE MANUFACTURED FALSE CITATIONS, AND THE TRAP IS IN MY OWN HAND.** Two different citation
     KINDS live under one arXiv id and they anchor to DIFFERENT VERSIONS:
