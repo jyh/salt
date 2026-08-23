@@ -335,3 +335,11 @@ details = map #1.)
    §5) — designers must price the evaluation-point seam FIRST at t ≍ Ax.
 8. The Ax-vs-x^A heights discrepancy (Option-C memory vs grounded chowla.txt)
    — harmless to the arithmetic, but the freeze must cite the grounded form.
+
+
+> **PROVENANCE STAMP (2026-08-23, Captain-ratified item-18 residue A):** the `chowla.txt` this
+> file names as primary is an **unstamped v1 rendering** of arXiv:1509.05422 (content-verified by
+> the item-18 version axis). It is now durable: byte-identical copy at
+> `docs/sources/chowla-v1-textdump.txt` (local, gitignored per the release gate) with sidecar
+> `chowla-v1-textdump.PROVENANCE.md` (sha256 21ffaf5d…), tracked copy in the private seat archive.
+> Object numbers cited from it are v1's; cross-version readers use the axis table (QUEUE item 18).

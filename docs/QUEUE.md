@@ -3663,6 +3663,17 @@ numbering is UNVERIFIED.
       · `Dist.lean` — NON-DISCRIMINATING: it names no numbered Tao object, so there is nothing for a version to mis-map.
         **Anchoring it would add ceremony, not safety** — this node's own rule, applied.
 
+    ⚖️ **RATIFIED 2026-08-23 16:4x — the Captain, at the sitting: "ratify all recommendations."**
+      · (A) `s3-a3-design.md` hold LIFTED: the chowla.txt rendering is stamped+durable (sidecar
+        `docs/sources/chowla-v1-textdump.PROVENANCE.md`, sha 21ffaf5d…, tracked in the private
+        seat archive; the public-release gate barred tracking it here, mechanism adjusted, outcome
+        intact). mr_map_sources.md carries the stamp.
+      · (B) `CircleMethod.lean` page fix AUTHORIZED (p.24 → p.23 at :16 and :47, then anchor v1).
+        RIDER on item 5 — W-F3 works in that file; math applies it at first touch, no separate wave.
+      · (D) `Dist.lean` leave-bare RATIFIED as final.
+      · (C) the footnote erratum was already helm-tier by council demotion — stamps applied to the
+        three files 16:4x (APPEND-style, prose kept verbatim), build verification in flight.
+
 
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
 
