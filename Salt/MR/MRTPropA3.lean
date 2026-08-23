@@ -3680,5 +3680,57 @@ theorem mrtA4ii_far_of_cos_average
   have hcos := pretDistSq_ge_cos_average_restricted (Y := Y) hf hmin
   linarith
 
+/-! ## ⭐ THE ONE OPEN ESTIMATE, NAMED — MRT'S SHORT-SEGMENT SPLITTING (their (A.5))
+
+`mrtA4ii_far_of_cos_average` carries the splitting as an ANONYMOUS hypothesis `hsplit`.  A
+hypothesis nobody can cite is a hypothesis nobody can dispatch, so it gets a name here, in the
+file's own idiom (`MRTLemmaA6`, `MRTLemmaA7`, `MRTPropA3`).
+
+Source: `docs/sources/1503.05121v3.pdf`, display (A.5) — *"we get as in [10, Proof of Lemma 2.3]
+by splitting `p` into short segments `(y, y(1 + (log X)^{-30})]`"*.  The value MRT extract is
+`1 − ∫₀¹|cos πt| dt`, which `integral_abs_cos_pi_unit` has already reduced to `1 − 2/π`, and
+the `O(1)` is carried in-statement as an explicit `C` (the S5 law: no hidden asymptotics).
+
+⛔ **THIS IS A STATEMENT, NOT A THEOREM. NOTHING BELOW PROVES IT** — it is the exact remaining
+analytic content of A.4(ii)'s mid range, written so it can be cited, dispatched, and tracked. -/
+def MRTShortSegmentSplitting : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u ε : ℝ), 0 < ε → Real.exp 1 ≤ X →
+    Y = Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)) →
+    (Real.log X) ^ ((1 : ℝ) / 16) / 2 ≤ |u| →
+    |u| ≤ (Real.log X) ^ (20 : ℕ) →
+      (1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y) - C
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+              (fun p : ℕ => Y < (p : ℝ)),
+            (1 - |Real.cos (u * Real.log p / 2)|) / (p : ℝ)
+
+/-- ⭐⭐ **THE NAMED ESTIMATE DISCHARGES THE FAR ARM — the composition, in the kernel.**
+
+Given `MRTShortSegmentSplitting` and the minimality of `t₁`, the far arm's bound follows from
+already-landed pieces: the splitting supplies the `f`-free sum's lower bound, and
+`mrtA4ii_far_of_cos_average` turns it into a bound on `𝔻(f·g_𝒥, costwist t)²`.
+
+⇒ **the remaining analytic debt of A.4(ii)'s mid range is EXACTLY `MRTShortSegmentSplitting`**
+(the large-`|t−t₁|` branch, Erdős–Turán + VK, is a separate case and untouched here). -/
+theorem mrtA4ii_far_of_named_splitting (hsplit : MRTShortSegmentSplitting)
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) (hε : 0 < ε) (hXe : Real.exp 1 ≤ X)
+    (hY : Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))
+        = Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)))
+    (hlo : (Real.log X) ^ ((1 : ℝ) / 16) / 2 ≤ |t - t₁|)
+    (hhi : |t - t₁| ≤ (Real.log X) ^ (20 : ℕ))
+    (hmin : pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist t) X) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      (1 / 2) * ((1 - 2 / Real.pi)
+          * Real.log (Real.log X
+              / Real.log (Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)))) - C)
+        ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  obtain ⟨C, hC0, hC⟩ := hsplit
+  refine ⟨C, hC0, ?_⟩
+  have hs := hC X (Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))) (t - t₁) ε hε hXe hY hlo hhi
+  have hhalf := mrtA4i_halving f Pseq Qseq 𝒥 X t hf
+  have hcos := pretDistSq_ge_cos_average_restricted
+    (Y := Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε))) hf hmin
+  linarith
+
 end Salt.MR
 
