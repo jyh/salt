@@ -344,6 +344,23 @@ RESURRECTS THEM:**
     🔑 *The condition's yield is a SEPARATION, not a deletion: the character machinery moves off the
     hypothesis and onto the arc, where the arc block will price it.*
 
+15. ⚖️✅ **MRT PORT — AUTHORIZED AT COST (Captain, 08/23 16:3x: "#4 authorized").** The binder
+   match (seat `78120a88`, commission `96c6fc8d`) delivered three gaps, all CLOSES-AT-COST; the
+   Captain authorizes the port at those costs. Scope per the brief: (a) the measure gap at its
+   absolute factor 6 on the grade; (b)+(c) per the brief's own pricing — noting (c)'s binding
+   height demand is already repaired in-tree (`vkMidDebitSharp`, VkMidSharp.lean:270, landed and
+   assembled) and the (log H)^1500 ceiling is landed (`Salt/MR/DoorFloor1500.lean`, both arms at
+   live B₅=12). Residue rider: `doorGrade` docstring still cites retired "S7's B5=5" — repair in
+   the same wave, documentation-only. math's pen; read the brief from `1503.05121v3` directly per
+   the pen rules, never from a summary. Class C; design-block-first if the port grows a statement.
+19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
+   (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
+   (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
+   FBridge.lean:60 with `windowVal_eq_zero_of_not_lt` landed axiom-free; FATAL 3's K4 §1
+   paragraph contradicted §11's resolution). EDITS: `wf3-waveb-design.md` K4 paragraph
+   SUPERSEDED-in-place (history kept verbatim) + §10 standing wording replaced, old wording
+   preserved as superseded. **ITEM 5 IS DISPATCHABLE. The NOT-DISPATCHABLE clauses in
+   19s/19t/19u are HISTORY as of this row.**
 19u. ⛔⛔⭐⭐⭐ **W-F3 FATAL 3 — THE DIRECTION WAS NEVER MINE TO CHOOSE: THE BLOCK ALREADY RECORDS IT, AND THE SURVIVING CONTRADICTION IS A STALE PARAGRAPH.** *Census, no new Lean; block NOT edited.* Both passages are live in `docs/exploration/wf3-waveb-design.md` right now:
 ```
   §1  :59    K4 — THE PRODUCER CHAIN IS VACUOUS, NOT FALSE. B-5 DELETED.  ("⇒ B-5 DELETED as a proving task")

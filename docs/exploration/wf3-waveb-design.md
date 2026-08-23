@@ -56,7 +56,11 @@ promoted its removal to a node.* ⇒ **B-0 DELETED. C2's axis-collapse observati
 NOTE, not a task: B-2/B-3's byte-copies are cheap because the box is loose, and nothing in this
 wave needs it sharp.**
 
-**K4 — THE PRODUCER CHAIN IS VACUOUS, NOT FALSE. B-5 DELETED.**
+**K4 — ⛔ SUPERSEDED 2026-08-23 16:4x (Captain-ratified flip, Fable session): THIS PARAGRAPH IS
+THE STALE HALF OF FATAL 3. §11 below resolved it in exactly one direction — K4 IS WRONG, B-5 IS
+RESTORED (and B-5 is LANDED: `h211_of_logChowla2Fails_h`, `ChowlaFailure.lean:254`, registered
+`Entropy/All.lean:1018`). Kept verbatim below as history; do not build on it.**
+**K4 (superseded) — THE PRODUCER CHAIN IS VACUOUS, NOT FALSE. B-5 DELETED.**
 v3 claimed `fBridge_of_singleCorr` (`Prop26.lean:160`) is **FALSE** at shift `h` because its
 `∃ c > 0` floor consumes full-window `hmert` while the mass comes from survivors.
 **Wrong direction:** falsity downstream is **vacuity upstream** — an `∃`-statement whose hypothesis
@@ -487,8 +491,12 @@ and two honest matchers disagree with it in both directions.** *When two counts 
 differ, the gap is a finding: here the finding is a missing definition, not a wrong count.*
 **Any wave shaped by "32 of 52" is shaped by an unreproducible figure.**
 
-## §10 — ⛔⛔ TWO INDEPENDENT-GATE FATALS ARE STILL OPEN. THE BLOCK IS **NOT** COMPLETE.
-## STANDING WORDING: "v4's OWN gate complete; independent fatals 1 and 3 OPEN." (2026-08-21 01:1x)
+## §10 — ✅ GATE CLOSED 2026-08-23 16:4x — CAPTAIN-RATIFIED ("yes flip item 5"), FABLE SESSION.
+## STANDING WORDING NOW: "v4's gate complete; fatals 1 and 3 CLOSED BY MEASUREMENT — both were
+## stale citations over a sound corpus (QUEUE rows 19t/19u + math 16:35:26: FATAL 1's anchor is the
+## DEFINITION at FBridge.lean:60 with the general lemma `windowVal_eq_zero_of_not_lt` landed
+## axiom-free; FATAL 3's K4 paragraph superseded per §11, B-5 landed). ITEM 5 IS DISPATCHABLE."
+## (superseded wording, 2026-08-21 01:1x: "v4's OWN gate complete; independent fatals 1 and 3 OPEN.")
 
 I wrote "v4 complete" on the bus. **That was wrong.** Of the independent gate's THREE fatals,
 exactly **ONE** is resolved (the withdrawal — voided in §7, closed by §8's reconciliation).
