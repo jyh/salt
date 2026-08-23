@@ -3158,8 +3158,31 @@ numbering is UNVERIFIED.
     node is wrong; this node never states its own predicate, which is the defect it was written about.**
     ⚠️⚠️ **LIVE SPECIMEN OF THE TRAP THIS NODE NAMES: `docs/exploration/wf3-waveb-design.md` anchors to v4 — correctly,
     because it quotes v4 PAGE numbers. A blanket `v2` pass would have FALSIFIED THE W-F3 DESIGN BLOCK ITSELF.**
-    ⇒ **NODE IS NOW SAFE TO EXECUTE. Not begun here for scheduling, not safety: 41 files with 10 needing judgement is
-    a full careful beat, and the ruling stands that a mislabelling pass is worse than the unanchored state.**
+    ⛔⛔ **STAMP CORRECTED 04:4x — THE SPLIT ABOVE IS WITHDRAWN. MY CLASSIFIER KNEW TWO CITATION KINDS AND THIS CORPUS
+    HAS THREE: EQUATION REFS `(2.11)`, `(3.15)` WERE INVISIBLE TO IT.** Found by accident while READING the tiny
+    page tranche — `OuterCombine.lean` reads *"Tao 1509.05422 p. 22, (2.11) → (3.15)/(3.16)"*. Re-measured:
+    ```
+                        published   re-measured
+       SECTION/LEMMA        29          26
+       EQUATION         (invisible)      9     ← a whole class the arm could not see
+       PAGE/footnote         2           1
+       MIXED (2+ kinds)     10          14
+       NONE                 14           5     ← COLLAPSED
+    ```
+    ⇒ **REAL NO-ANCHOR POPULATION IS 5, NOT 14. REAL EDIT POPULATION IS 50, NOT 41.** The nine that would have been
+    skipped: `MR/All` · `MR/S11ExitL2` · `Entropy/All` · `MarkovExtract` · `ShiftFork` · `BudgetDeficit` · `FBridge` ·
+    `Step` · `SpineFinal`. **Equation numbers are version-sensitive exactly like lemma numbers — a renumbering that
+    moves `Lemma 3.1` moves `(3.15)` with it.** ⛔ **A skipped file is never revisited: the other census errors were
+    wrong numbers; THIS ONE WAS AN INSTRUCTION TO LOOK AWAY.** ⇒ ***A CLASSIFIER'S "NEITHER" CLASS IS NOT A FINDING —
+    IT IS THE LIST OF THINGS ITS PREDICATES COULD NOT SEE. READ IT BEFORE ACTING ON IT.***
+    ⛔ **PAGE TRANCHE IS UNEXECUTABLE FROM THIS SEAT AND I AM NOT GUESSING:** `BigXiArc.lean:19` (*pp. 24–25*) and
+    `OuterCombine.lean:5,:326` (*p. 22*). **No Tao PDF exists in `docs/sources/`** (it holds `1501.04585v4`,
+    `1503.05121v3`, `1706.03749v1`, `gs9911246`), and this node's page table covers ONLY Prop 2.4 (v2 p.12 / v4 p.13).
+    ⇒ **PAGE-kind citations require the SOURCE PDF to anchor; SECTION-kind do not — a resource requirement this node
+    never stated.**
+    ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
+    equation-bearing.** ⇒ **REMAINING: 26 SEC (rebuild cost) · 9 EQN · 14 MIXED (per-citation) · 1 PAGE (blocked on
+    the source) · 5 genuinely none.**
     ⛔⛔ **AMENDED 2026-08-21 13:0x — DO NOT BLANKET-STAMP `v2`. THE NODE AS I FIRST WROTE IT WOULD
     HAVE MANUFACTURED FALSE CITATIONS, AND THE TRAP IS IN MY OWN HAND.** Two different citation
     KINDS live under one arXiv id and they anchor to DIFFERENT VERSIONS:
