@@ -3576,5 +3576,28 @@ theorem mrtA4ii_constant_decomposition :
   field_simp
   ring
 
+/-- ⭐ **THE RESTRICTION TO `Y < p ≤ X` — THE EXACT OBJECT MRT'S (A.5) CONSUMES.**
+
+The last link of MRT's display (A.4): having eliminated `f` by averaging
+(`pretDistSq_ge_cos_average`), they DROP the primes `p ≤ Y` before applying the
+short-segment splitting.  Legitimate because every summand is `≥ 0` (`|cos| ≤ 1`), so
+restricting the index set only decreases the sum.
+
+⇒ this hands the next hand the sum over `Y < p ≤ X` that (A.5) is stated about.
+⛔ The splitting argument itself is still not attempted. -/
+theorem pretDistSq_ge_cos_average_restricted {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
+    {t t₁ X Y : ℝ}
+    (hmin : pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist t) X) :
+    ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter (fun p : ℕ => Y < (p : ℝ)),
+        (1 - |Real.cos ((t - t₁) * Real.log p / 2)|) / (p : ℝ)
+      ≤ pretDistSq f (costwist t) X := by
+  refine le_trans ?_ (pretDistSq_ge_cos_average hf hmin)
+  refine Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _) ?_
+  intro p hp _
+  have hprime : Nat.Prime p := (Finset.mem_filter.mp hp).2
+  have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hprime.pos
+  have hcos : |Real.cos ((t - t₁) * Real.log p / 2)| ≤ 1 := Real.abs_cos_le_one _
+  exact div_nonneg (by linarith) hppos.le
+
 end Salt.MR
 
