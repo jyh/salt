@@ -3466,5 +3466,76 @@ theorem integral_abs_cos_pi_unit :
   rw [← hsplit, h1, h2]
   ring
 
+/-- ⭐⭐ **MRT'S A.4(i) — THE LOSS-FREE HALVING `𝔻(f·g_𝒥, p^{it})² ≥ ½·𝔻(f, p^{it})²`.**
+
+Third piece of MRT's own road (source display (A.3)).  The corpus's `dist_split_A4`
+(`DistSplit.lean:174`) is a DIFFERENT statement: it carries a window-loss term `W` and
+concludes about `𝔻(g_𝒥, ·)`.  MRT's (i) has **no loss term at all** and is about the
+PRODUCT — which works precisely because `g_𝒥` is `0/1`-valued.
+
+Termwise, with `a = ℜ(f(p)·conj(p^{it})) ∈ [−1, 1]`:
+* where `g_𝒥(p) = 1` the summand is `(1−a)/p`, and `(1−a)/2 ≤ (1−a)` since `a ≤ 1`;
+* where `g_𝒥(p) = 0` the summand is `1/p`, and `(1−a)/2 ≤ 1` since `−1 ≤ a`.
+
+This is the `½` of `1/6 − 1/(3π) = (½)·(1 − 2/π)·(⅓)`.  Composed with `M ≥ ⅛·loglog X` it is
+MRT's high-`M` remark verbatim: `𝔻(f g_𝒥, p^{it})² ≥ (1/16)·loglog X`. -/
+theorem mrtA4i_halving (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) :
+    (1 / 2) * pretDistSq f (costwist t) X
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  unfold pretDistSq
+  rw [Finset.mul_sum]
+  refine Finset.sum_le_sum ?_
+  intro p hp
+  dsimp only
+  have hprime : Nat.Prime p := (Finset.mem_filter.mp hp).2
+  have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hprime.pos
+  set z : ℂ := f p * (starRingEnd ℂ) (costwist t p) with hzdef
+  set a : ℝ := z.re with hadef
+  have hzn : ‖z‖ ≤ 1 := by
+    rw [hzdef, costwist_conj, norm_mul, costwist_norm, mul_one]
+    exact hf p
+  have ha1 : a ≤ 1 := by
+    have := Complex.re_le_norm z
+    rw [hadef]; linarith
+  have ha2 : -1 ≤ a := by
+    have h := Complex.re_le_norm (-z)
+    rw [Complex.neg_re, norm_neg] at h
+    rw [hadef]; linarith
+  by_cases hg : ∀ j ∈ 𝒥, blockOmega (Pseq j) (Qseq j) p = 0
+  · -- the prime survives the sieve: `g_𝒥(p) = 1`, both sides share the summand
+    have h1 : gJ 𝒥 Pseq Qseq p = 1 := by simp only [gJ, if_pos hg]
+    rw [h1, mul_one, ← hzdef, ← hadef]
+    have hnn : 0 ≤ (1 - a) / (p : ℝ) := div_nonneg (by linarith) hppos.le
+    linarith
+  · -- the prime is sieved out: `g_𝒥(p) = 0`, the summand is `1/p` and `f` is annihilated
+    have h0 : gJ 𝒥 Pseq Qseq p = 0 := by simp only [gJ, if_neg hg]
+    rw [h0, mul_zero, zero_mul, Complex.zero_re]
+    have hdiff : (1 - 0) / (p : ℝ) - (1 / 2) * ((1 - a) / (p : ℝ))
+        = ((1 + a) / 2) / (p : ℝ) := by
+      field_simp; ring
+    have hnn : 0 ≤ ((1 + a) / 2) / (p : ℝ) := div_nonneg (by linarith) hppos.le
+    linarith
+
+/-- ⭐ **MRT'S HIGH-`M` REMARK, VERBATIM: `𝔻(f g_𝒥, p^{it})² ≥ (1/16)·loglog X`.**
+
+Source, Lemma A.4(ii)'s opening: *"when `M(f;X) ≥ ⅛ log log X`, part (i) implies that,
+whenever `|t| ≤ X`, we have `D(f g_𝒥, p^{it}; X)² ≥ (1/16) log log X` which is sufficient."*
+This is that sentence, composed from `mrtA4i_halving` in one step.
+
+`hinf` is the minimality of `mrtM` at the frequency `t`, supplied by the caller — the
+`|t| ≤ X` side condition of MRT's sentence lives there.
+
+⛔ `1/16 = 0.0625` clears A.4(ii)'s target `1/6 − 1/(3π) = 0.0605634…` by only `0.0019366`;
+the margin is real but thin, and it is MRT's, not a choice of ours. -/
+theorem mrtA4ii_high_M_sixteenth (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1)
+    (hM : (1 / 8) * Real.log (Real.log X) ≤ mrtM f X)
+    (hinf : mrtM f X ≤ pretDistSq f (costwist t) X) :
+    (1 / 16) * Real.log (Real.log X)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have h := mrtA4i_halving f Pseq Qseq 𝒥 X t hf
+  linarith
+
 end Salt.MR
 

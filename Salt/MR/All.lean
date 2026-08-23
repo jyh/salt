@@ -8473,6 +8473,8 @@ open Salt.Tactic in
   Salt.MR.mertens_block_difference
   Salt.MR.pretDistSq_ge_cos_average
   Salt.MR.integral_abs_cos_pi_unit
+  Salt.MR.mrtA4i_halving
+  Salt.MR.mrtA4ii_high_M_sixteenth
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous
