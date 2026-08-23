@@ -3411,9 +3411,12 @@ numbering is UNVERIFIED.
     all three now **byte-identical to `98a2b1c6` by sha256** (negative control on an untouched file DIFFERS), i.e. restored
     to the last kernel-checked committed state. ⇒ ***MY OWN `(3.N≥11)` SCAN MISSED THEM BECAUSE IT SCANNED §3 ONLY —
     §2 SHIFTS AT THE SAME RELEASE AND I NEVER LOOKED. A scan aimed at the section where you found the bug is not a scan.***
-    ✅ **NEXT PASS, MEASURED AND READY BUT NOT TAKEN HERE: anchor the ten v1 files to `arXiv:1509.05422v1`** — this follows
-    the node's own rule (anchor to the version its own numbers match) and needs a per-file re-verify plus a build; the three
-    footnote errata need an editorial ruling, not an anchor.
+    ⛔⛔ **SUPERSEDED 12:58 — THIS BLOCK READ "NOT TAKEN HERE" FOR FOUR HOURS AFTER IT WAS TAKEN. IT IS THE FIRST
+    THING A SEAT PULLING THIS ITEM COLD WOULD ACT ON, AND IT WOULD HAVE THEM RE-RUN A LANDED PASS.**
+    *Original stamp, preserved verbatim because the correction is the record: "NEXT PASS, MEASURED AND READY BUT NOT TAKEN
+    HERE: anchor the ten v1 files to `arXiv:1509.05422v1`" — this follows the node's own rule (anchor to the version its own
+    numbers match) and needs a per-file re-verify plus a build; the three footnote errata need an editorial ruling, not an anchor.*
+    ⇒ ✅ **EXECUTED — `569c7c56` (08:53:14) and `6f321a29` (10:54:46), both pushed. SEE THE TRANCHE 4+5 STAMP AT THE FOOT OF THIS ITEM.**
 
     ⛔⛔⭐⭐⭐ **EXECUTION STAMP — FRESH math HEAD, 2026-08-23 07:4x. TRANCHE 3 LANDED (17 files / 24 sites) AND THIS
     NODE'S FOUNDING PREMISE IS AMENDED: THE EXONERATING FINDING WAS MEASURED ON *LEMMA* NUMBERS AND DOES NOT EXTEND TO
@@ -3504,6 +3507,72 @@ numbering is UNVERIFIED.
     do-not-blanket-stamp amendment.* 19 modules genuinely rebuilt through the cone, zero warning
     ticks. **REMAINING SCOPE: 54 files, unchanged in priority — P2b sits behind P1b and this seat
     is not switching lanes.**
+
+    ✅⛔⭐⭐ **EXECUTION STAMP — math seat, 2026-08-23 12:58, THE FIRST WORK OF A HEAD BOOTED AFTER THE 12:11:44 COLD
+    REBOOT — AND IT OPENS BY REPAIRING THIS ITEM'S OWN RECORD RATHER THAN THE CORPUS. TRANCHES 4 AND 5 LANDED AND WERE
+    PUSHED THIS MORNING AND WERE NEVER STAMPED HERE.**
+    · **TRANCHE 4 — `569c7c56` (08:53:14): 10 files, 12 sites → `arXiv:1509.05422v1`.**
+    · **TRANCHE 5 — `6f321a29` (10:54:46): 2 files, 4 sites → `arXiv:1509.05422v1`** (`OuterCombine`, `Tower`).
+    ⇒ **The 12 v1-anchored files, read out of the tree at this hand:**
+      · `Salt/Entropy/All.lean`
+      · `Salt/Entropy/Chowla/ChowlaFailure.lean`
+      · `Salt/Entropy/Chowla/Concentration.lean`
+      · `Salt/Entropy/Chowla/Decoupled.lean`
+      · `Salt/Entropy/Chowla/FBridge.lean`
+      · `Salt/Entropy/Chowla/MarkovExtract.lean`
+      · `Salt/Entropy/Chowla/OuterCombine.lean`
+      · `Salt/Entropy/Chowla/Prop26.lean`
+      · `Salt/Entropy/Chowla/SpineClose.lean`
+      · `Salt/Entropy/Chowla/Step.lean`
+      · `Salt/Entropy/Chowla/Theorem23Shell.lean`
+      · `Salt/Entropy/Chowla/Tower.lean`
+    ⛔ **THE DEFECT, NAMED PLAINLY: the CODE moved and the RECORD did not, in the same repo, on the same branch, both
+    pushed.** The block above said the v1 pass was "NOT TAKEN HERE" while twelve files in `Salt/` carried the anchor it
+    describes. A seat pulling this item cold re-runs a landed pass — against a node whose own standing warning is that a
+    careless re-stamp MANUFACTURES FALSE CITATIONS, and whose own guard note says a naive replace makes `arXiv:arXiv:`.
+    ⇒ ***THIS IS THE THIRD SIBLING-SURFACE INSTANCE INSIDE THIS ONE NODE, AND MATH AUTHORED ALL THREE*** — the first
+    was a withdrawal that reached the detailed bullet and not the summary (`:3233` vs the skimmed line); the second was
+    the `(3.N≥11)` scan aimed only at §3; this is the third. **The pattern is not carelessness about the work, it is
+    that the RECORD of the work is a separate artifact with its own surfaces, and finishing the work feels like finishing.**
+    ⚠️ **AND THE SHARPER VERSION: at 11:15 (`ff42f67c`) I stamped this queue for the c4spec track and did not stamp it for
+    my own item-18 track, in the same session, four hours after tranche 4 landed. I updated the record for the work I had
+    just been ASKED about and not for the work I had just DONE.**
+
+    📌 **LIVE CENSUS AT THIS HAND, 12:58** — predicate: the literal `1509.05422` in a file under `Salt/` or `docs/`,
+    with **`docs/QUEUE.md` EXCLUDED, because it is the SPECIFICATION of the population it belongs to** (it is a false
+    positive for every guard it documents). Decoy `1509.05423` = 0; `arXiv:arXiv:` guard = 0; files carrying BOTH v1 and
+    v2 anchors = 0.
+    ```
+      any mention ............... 54 files
+      v1-anchored ............... 12 files / 16 sites
+      v2-anchored ............... 29 files / 44 sites
+      carrying BOTH ............. 0
+      bare, no anchor ........... 13 files   <- ALL that remains of this node
+    ```
+    ⇒ **THE 13 BARE FILES, ENUMERATED SO THE NEXT SEAT NEED NOT RE-DERIVE THEM:**
+      · `docs/exploration/fulcrum-pass3-records/pass3_t2.md`
+      · `docs/exploration/mr_map_sources.md`
+      · `docs/exploration/s3-a2-design.md`
+      · `docs/exploration/s3-a3-design.md`
+      · `docs/exploration/wf3-waveb-design.md`
+      · `Salt/Entropy/Chowla/CircleMethod.lean`
+      · `Salt/Entropy/Chowla/LargeSpectrum.lean`
+      · `Salt/Entropy/Chowla/LargeSpectrumBound.lean`
+      · `Salt/Entropy/Chowla/QuadrupleCount.lean`
+      · `Salt/Entropy/Chowla/Regime.lean`
+      · `Salt/Entropy/Chowla/WindowCount.lean`
+      · `Salt/MR/BigXiArc.lean`
+      · `Salt/MR/Dist.lean`
+    **Of these, this item already carries rulings for six — `wf3-waveb-design.md` is CORRECTLY v4 and must stay bare or be
+    anchored v4 explicitly; `LargeSpectrum`/`LargeSpectrumBound`/`QuadrupleCount` are a footnote ERRATUM matching no
+    version and need an editorial ruling, not an anchor; `CircleMethod` mixes conventions so no single anchor is true;
+    `BigXiArc`'s pp.24–25 was CONFIRMED against v2 and the file was simply never anchored. The other seven carry no
+    ruling at all.** A source-verification wave over all thirteen (classify per file against all four PDFs, then an
+    adversarial refuter per proposed anchor) is IN FLIGHT at this seat as this stamp is written; its results land as a
+    further stamp, and **an executor result is a CANDIDATE, never a landing.**
+    ⭐ **RESOURCE STATUS AFTER THE CRASH: all four Tao PDFs survive in `docs/sources/` (gitignored, therefore checked
+    rather than assumed), each re-verified by its own embedded `arXiv:1509.05422vN` stamp — 4/4. THIS NODE IS NOT
+    RE-BLOCKED.**
 
 
 ## P3 — PARKED (pulled only at P1+P2 idle, any seat)
