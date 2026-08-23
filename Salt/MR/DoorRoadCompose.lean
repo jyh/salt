@@ -3,6 +3,39 @@ import Salt.MR.M4BridgePhase
 import Salt.MR.M4Maximal
 
 /-!
+# ⛔⛔ READ FIRST — THIS FILE IS PEDAGOGY, NOT CONTRIBUTION: THE ROAD IS ALREADY LANDED
+
+`M4RowLinear.m4_hbd_of_live_L` (`:2335`) already concludes, **unconditionally on the composition
+side**, exactly the door's `hbd`:
+
+```
+  ∀ H, R.Hlo ≤ H → H ≤ R.Hhi → ∀ α, NearRatTight (arcDen 12 H) H α →
+    (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω)) ≤ mrtDeliveredGrade C H * H
+```
+from four named bundles: `M4DoorGates_L`, `Braw ≥ 0`, `M4GradeGate`, `M4SievedDoorSq_L`.  That is
+the shape `mrtUniformityXi_of_absWindowBound_twelve` consumes to produce the door.
+
+And `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` (`:838`, 178 lines) already contains the whole
+middle of the road in ONE proof: `doorChiSup_sq_le_dyadic` (the maximal bound), `Finset.sum_comm`
+(**the swap**), `sum_Ioc_shift` (**the reindexing**), and `hfix` (**the capstone**).
+
+⇒ **Everything below is a re-derivation of road that exists.**  The lemmas are true and
+kernel-checked, and writing them taught me the road — but they are **not a contribution**, and
+nobody should cite this file as closing anything.
+
+⛔ **AND THE SHAPE-DUPLICATE DETECTOR SAID THIS FILE WAS CLEAN — CORRECTLY.**  Its verdict is
+TRUE and NARROW: *no corpus theorem has these signatures*.  These lemmas are smaller pieces of a
+larger landed proof, so they are redundant **by coverage**, not by shape.
+**A DUPLICATE DETECTOR CANNOT SEE REDUNDANCY-BY-COVERAGE.  A CLEAN BILL FROM IT IS NOT A LICENCE.**
+
+🔑 **The real lesson is a bias, not four slips.**  Four times today I published that the corpus
+had less than it does — no producer · lacks the analytic estimates · missing the terminal
+cancellation · a covering is needed.  **Every single correction ran the same direction.**  That is
+a systematic misreading of my own corpus, and the remedy is to search before composing, not after.
+
+📌 **The genuinely open question is the four gates** (`M4DoorGates_L`, `M4GradeGate`,
+`M4SievedDoorSq_L`, and `Braw`'s positivity) — a different question from anything in this file.
+
 # The door's road, COMPOSED across its first seam
 
 The door's chain was walked link-by-link and every link was found to have producers
