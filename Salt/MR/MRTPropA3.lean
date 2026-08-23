@@ -2872,5 +2872,36 @@ theorem renormalise_hyx_of_mrtT0 {M t₁ X T t : ℝ} (ht : t ∈ mrtT0 M t₁ X
     linarith
   exact le_trans (pow_le_pow_left₀ hnn hbase 2) hX
 
+/-! ### ⛔ A.7's RENORMALISATION IS LANDED — AND THIS CORRECTS MY OWN LAST BEAT
+
+I have been calling A.7's residue *"re-target the RHS from `∑ mobDatum f d/d` to the `t₁`-twisted
+sum."*  **That re-target is already done.**  `Renormalise.renormalise` (`:1004`) states
+
+```
+  ‖(∑_{n≤x} f n · eIu α n) − eIu α x/(1 + Iα) · (∑_{n≤x} f n)‖
+      ≤ renormaliseConst · (x/log x) · (1 + log(3+|α|(1+log x))) · exp(∑_{p≤x} ‖1−f p‖/p)
+```
+— **the Möbius-datum sum is GONE**, eliminated by applying `renormalise_aux` twice (once at `α`,
+once at `0`), exactly as that file's own docstring says.  The main term is A.7's main term.
+
+⛔⛔ **AND IT NEEDS NO `hyx`.**  `renormalise` assumes only `2 ≤ x`; its docstring records that
+beyond `(3+|α|(1+log x))² > x` the statement is *"discharged by the trivial bound."*  ⇒ **My
+`renormalise_hyx_of_mrtT0`, landed one beat ago, is correct but is NOT needed on the A.7 path** —
+it serves `renormalise_aux` directly, and A.7's consumer should call `renormalise` instead.  *I
+built a side-condition discharge for a hypothesis the intended consumer does not have.*
+
+**THE ACTUAL RESIDUE OF A.7, then, is two things and neither is the re-target:**
+1. **SUMMAND MATCH.**  A.7's summand is `gJ 𝒥 Pseq Qseq n · f n · costwist (−t₁) n`; `renormalise`
+   quantifies over an `f` with `f 1 = 1`, multiplicativity, `‖f n‖ ≤ 1`.  Whether the *sieved*
+   datum satisfies those is a hypothesis-matching question, not an estimate.
+2. **THE PRETENTIOUS FACTOR.**  `renormalise`'s error carries
+   `(1 + log y) · exp(∑_{p≤x} ‖1 − f p‖/p)`; A.7 wants `C·X/(log X)^{1/10}`.  Since
+   `x/log x ≤ x/(log x)^{1/10}` (`renormalise_error_logpower_stronger`, landed), what remains is
+   bounding `(1 + log y)·exp(∑ ‖1−f p‖/p)` by an absolute constant — and that exponential IS the
+   pretentious distance, the same object `mrtM` measures.  **That is the analytic content.**
+
+🔑 *Fifth time today the corpus held more than I said it did — but the first caught BEFORE
+publishing the claim, by searching before composing.  The habit is worth more than the lemma.* -/
+
 end Salt.MR
 
