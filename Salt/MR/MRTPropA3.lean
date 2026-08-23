@@ -47,6 +47,7 @@ import Salt.MR.Sec9Glue
 import Salt.MR.CofactorSupplier
 import Salt.MR.Lemma14Taylor
 import Salt.MR.MVHilbertFinset
+import Salt.Mertens.Third
 
 namespace Salt.MR
 
@@ -3316,6 +3317,33 @@ theorem gJ_prime_eq_zero_iff (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) {p : 
     rw [if_neg]
     intro hall
     exact ((hb j).mp (hall j hj)) hle
+
+/-- ⭐ **THE BLOCK COUNT ITSELF, FROM SHARP MERTENS-2 — `∑ 1/p` OVER A BLOCK IS
+`loglog Q − loglog P` UP TO `12/log Q + 12/log P`.**
+
+Third of the A.4(ii) chain.  `sieved_primes_floor_le_pretDistSq_sifted` put the floor on the
+sieved-out primes uniformly in `f`; `gJ_prime_eq_zero_iff` identified those primes as the ones
+lying in the blocks `[Pⱼ, Qⱼ]`; this prices **one block**, by differencing the corpus's own
+sharp Mertens-2 (`Salt.Mertens.mertens_second_sharp_real`, explicit constant `12`) at the two
+endpoints.  The two error terms simply add — `mertensM` cancels in the difference, which is
+why no unknown constant survives.
+
+*This is the `loglog` scale A.4(ii) needs.*  It is NOT the windowed bound
+`Salt/Entropy/Chowla/WindowMertensLower.lean` proves: that one is `∑ 1/p ≥ c/log H` for a
+single short window — the right KIND at the wrong SIZE for this road. -/
+theorem mertens_block_difference {s t : ℝ} (hs : 2 ≤ s) (ht : 2 ≤ t) :
+    |(Salt.Mertens.SPartial t - Salt.Mertens.SPartial s)
+        - (Real.log (Real.log t) - Real.log (Real.log s))|
+      ≤ 12 / Real.log t + 12 / Real.log s := by
+  have h1 := Salt.Mertens.mertens_second_sharp_real ht
+  have h2 := Salt.Mertens.mertens_second_sharp_real hs
+  have key : (Salt.Mertens.SPartial t - Salt.Mertens.SPartial s)
+        - (Real.log (Real.log t) - Real.log (Real.log s))
+      = (Salt.Mertens.SPartial t - (Real.log (Real.log t) + Salt.Mertens.mertensM))
+        - (Salt.Mertens.SPartial s - (Real.log (Real.log s) + Salt.Mertens.mertensM)) := by
+    ring
+  rw [key]
+  exact (abs_sub _ _).trans (add_le_add h1 h2)
 
 end Salt.MR
 
