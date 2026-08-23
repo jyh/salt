@@ -788,6 +788,25 @@ theorem mrtA6_inner_eq_sifted (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : �
   refine congrArg (fun z => (-1 : ℂ) ^ 𝒥.card * z) ?_
   exact Finset.sum_congr rfl (fun n _ => (mul_assoc _ _ _))
 
+/-- **A.6'S `F`, IN SIFTED FORM** — `mrtA6_inner_eq_sifted` under `mrtA3_T0_bound_of_A6`'s own
+`(1/X)` normalisation.  The point is the CONSUMER: `hFdef` there is stated with the powerset
+alternating sum, and this says it may equally be stated with the sifted twisted sum.
+
+⇒ **A supplier who proves a decay bound on `∑_{n ≤ X, n ∈ S} f n · costwist (−t) n` can feed
+A.3's `T₀` side directly**, without ever meeting an inclusion–exclusion expansion.  That is
+what cashing A.6's docstring pointer buys, and it is why the rewrite was worth landing.
+
+⛔ Note what this does NOT do: it changes the VOCABULARY of A.6's hypothesis, not its
+STRENGTH.  The measured gap stands — the landed Halász exponent is `1/(32e)` against A.6's
+`1/16` (`landed_halasz_exponent_weaker_than_a6`), and no rewrite closes that. -/
+theorem mrtA6_F_sifted (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (X t : ℝ) :
+    ‖(1 / (X : ℂ)) * ∑ 𝒥 ∈ (Finset.Icc 1 J).powerset,
+        (-1 : ℂ) ^ 𝒥.card
+          * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n‖
+      = ‖(1 / (X : ℂ)) * ∑ n ∈ (Finset.Icc 1 ⌊X⌋₊).filter (fun n => MemS Pseq Qseq J n),
+            f n * costwist (-t) n‖ := by
+  rw [mrtA6_inner_eq_sifted]
+
 /-! ### ⛔ MY OWN HYPOTHESIS, TESTED AND REFUTED — AND THE NEEDED SHAPE, NAMED
 
 Last section fenced a hypothesis as **UNTESTED**: that obstruction 2's *"general per-interval
