@@ -3026,5 +3026,45 @@ theorem pretDistSq_one_le_sum_norm (f : ℕ → ℂ) (x : ℝ) :
     exact one_sub_re_le_norm_one_sub (f p)
   gcongr
 
+/-! ### ⛔ THE WITNESS — `renormalise`'S ROUTE CANNOT DELIVER A.7 AT `f = λ`
+
+The section above shows `mrtM` runs the wrong way for residue (2).  This exhibits a CONCRETE
+`f` at which `renormalise`'s error factor is not merely unbounded-in-principle but provably
+divergent, so residue (2) is **structural, not a matter of constants.**
+
+At Liouville, `liouvilleC p = -1` on every prime (`M4Residue.lean:109`), so
+`‖1 − liouvilleC p‖ = ‖1 − (−1)‖ = 2` **exactly** — no asymptotics — and therefore
+`∑_{p≤x} ‖1 − liouvilleC p‖/p = 2·∑_{p≤x} 1/p`.
+
+That prime harmonic sum diverges, and **the corpus already has the sharp form**:
+`Dist.pretDistSq_principal_eval` gives `𝔻(f,1;x)² = 2·loglog⌊x⌋ + 2M + O(1/log⌊x⌋)` off
+`Salt.Mertens.mertens_second_sharp`.  With `pretDistSq_one_le_sum_norm` (landed above) the
+chain closes: `2·loglog⌊x⌋ + O(1) = 𝔻(λ,1;x)² ≤ ∑ ‖1−λ p‖/p`, so
+**`exp(∑_{p≤x} ‖1 − λ p‖/p) ≳ (log x)²`.**
+
+⇒ `renormalise`'s bound at `f = λ` is `≳ (x/log x)·(log x)² = x·log x`, against A.7's target
+`C·X/(log X)^{1/10}`.  **The route is vacuous there by a factor of `(log x)^{2+1/10}`.**
+
+⛔ **AND THE CLAIM IS ABOUT THE ROUTE, NOT ABOUT A.7.**  This does **not** refute Lemma A.7 —
+MRT prove it, and by other means.  It says only that **`renormalise` alone cannot be the
+supplier**, which is exactly the sort of thing that is cheap to assume and expensive to assume
+wrongly.  *Naming the `f` that breaks a route is worth more than another attempt to walk it.* -/
+
+/-- `‖1 − λ(p)‖ = 2` at every prime — exact, no asymptotics. -/
+theorem norm_one_sub_liouvilleC_prime {p : ℕ} (hp : p.Prime) :
+    ‖1 - liouvilleC p‖ = 2 := by
+  rw [liouvilleC_prime hp]
+  norm_num
+
+/-- **THE NORM-FORM PRIME SUM AT LIOUVILLE IS TWICE THE PRIME HARMONIC SUM.**  The identity
+`renormalise`'s error factor sits on top of, at the `f` that breaks the route. -/
+theorem sum_norm_one_sub_liouvilleC (x : ℝ) :
+    ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, ‖1 - liouvilleC p‖ / (p : ℝ)
+      = 2 * ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, 1 / (p : ℝ) := by
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun p hp => ?_)
+  rw [norm_one_sub_liouvilleC_prime (Finset.mem_filter.mp hp).2]
+  ring
+
 end Salt.MR
 
