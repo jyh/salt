@@ -3237,5 +3237,54 @@ theorem unit_floor_route_above_a4ii_target :
   have h6 : (1:ℝ)/6 < 9/32 := by norm_num
   linarith
 
+/-! ## ⭐ A.4(ii)'S FLOOR CANNOT COME FROM `f` — IT COMES FROM THE SIEVED-OUT PRIMES
+
+The section above established that **no landed floor is stated at A.4(ii)'s
+generality**: the corpus holds `𝔻²(1, ·)` at leading coefficient `1` and
+`𝔻²(λ·χ̄, ·)` at `1/4`, and each is a floor for ONE SPECIFIC function, whereas
+A.4(ii) quantifies over an ARBITRARY 1-bounded `f`.
+
+The reduction below says that generality is **not** the obstruction it looks
+like.  `gJ` is `0/1`-valued, so at a prime where the sieve indicator VANISHES the
+summand is `(1 − Re 0)/p = 1/p` **with `f` annihilated**; at every other prime the
+summand is `≥ 0`, because `‖f p‖ ≤ 1` forces `Re(f p · gJ p · conj(costwist t p)) ≤ 1`.
+So the entire floor is carried by the sieved-out primes, uniformly in `f`.
+
+⇒ **A.4(ii) at arbitrary `f` reduces to a statement containing no `f` at all** — a
+Mertens-type lower bound for `∑ 1/p` over the primes the sieve REMOVES.  That is
+where `1/6 − 1/(3π)` has to come from, and it is sieve arithmetic, not a
+pretentious-distance estimate.  *This is the orientation the wrong reason would
+have cost: the next hand should not go hunting for a better constant inside a
+landed floor.* -/
+theorem sieved_primes_floor_le_pretDistSq_sifted
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1) :
+    ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+        (fun p => gJ 𝒥 Pseq Qseq p = 0), (1 : ℝ) / p
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  unfold pretDistSq
+  rw [Finset.sum_filter]
+  refine Finset.sum_le_sum ?_
+  intro p _hp
+  by_cases h : gJ 𝒥 Pseq Qseq p = 0
+  · simp [h]
+  · simp only [h, if_false]
+    refine div_nonneg ?_ (Nat.cast_nonneg p)
+    have h1 : ‖f p‖ ≤ 1 := hf p
+    have h2 : ‖gJ 𝒥 Pseq Qseq p‖ ≤ 1 := norm_gJ_le_one 𝒥 Pseq Qseq p
+    have h3 : ‖(starRingEnd ℂ) (costwist t p)‖ = 1 := by
+      rw [RCLike.norm_conj]; exact costwist_norm t p
+    have hnorm : ‖f p * gJ 𝒥 Pseq Qseq p * (starRingEnd ℂ) (costwist t p)‖ ≤ 1 := by
+      calc ‖f p * gJ 𝒥 Pseq Qseq p * (starRingEnd ℂ) (costwist t p)‖
+          = ‖f p‖ * ‖gJ 𝒥 Pseq Qseq p‖ * ‖(starRingEnd ℂ) (costwist t p)‖ := by
+            rw [norm_mul, norm_mul]
+        _ ≤ 1 * 1 * 1 := by
+            refine mul_le_mul (mul_le_mul h1 h2 (norm_nonneg _) (by norm_num))
+              (le_of_eq h3) (norm_nonneg _) (by norm_num)
+        _ = 1 := by norm_num
+    have hre := (Complex.re_le_norm
+      (f p * gJ 𝒥 Pseq Qseq p * (starRingEnd ℂ) (costwist t p))).trans hnorm
+    linarith
+
 end Salt.MR
 
