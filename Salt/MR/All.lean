@@ -393,7 +393,7 @@ import Salt.Tactic.AuditAxioms
 The MR-gate campaign (freeze: `docs/exploration/mr-freeze.md`) opens the road
 from the landed power zero-free region (`Salt.Vk.zeta_zero_free_region_pow`,
 θ = 3/4 < 1) toward unconditional log-Chowla-2, by discharging the pretentious
-non-pretentiousness hypothesis (1.6) of Tao 1509.05422 and the MRT door.
+non-pretentiousness hypothesis (1.6) of Tao arXiv:1509.05422v2 and the MRT door.
 
 Wave 1 (route-shared, ungated stones), in the freeze's dispatch order; status
 per stone after the MR-W1 executor wave (residual detail: the MR-W1 section of

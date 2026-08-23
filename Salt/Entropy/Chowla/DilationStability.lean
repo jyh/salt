@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The two-scale main-term carriers (Tao 1509.05422 §2, Prop 2.6), nodes W3-F-G1/G2
+# The two-scale main-term carriers (Tao arXiv:1509.05422v2 §2, Prop 2.6), nodes W3-F-G1/G2
 
 The h211 main-term identification (`docs/exploration/s3-a3-design.md`, the
 `W3-F-G-R0 ADJUDICATED` route) collapses the residue-gated Liouville

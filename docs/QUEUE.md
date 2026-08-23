@@ -3240,7 +3240,14 @@ numbering is UNVERIFIED.
         remains `wf3-waveb-design.md`, which says so itself. ONE live specimen, not two.**
     ⇒ 🔑 **OBJECT-EXISTENCE DOES NOT SETTLE A PAGE NUMBER. All 15 objects exist in v2 and that says NOTHING about which
     version's PAGES a citation was written from — check the page, not the object.**
-    📌 **REMAINING SHAPE: 28 files anchor v2 (verified) · `BigXiArc` confirm-then-anchor · `OuterCombine` DO NOT v2.**
+    📌 **REMAINING SHAPE — ⛔ CORRECTED 2026-08-23 07:2x (fresh math head): THIS LINE STILL READ `OuterCombine DO NOT v2`
+    AFTER `98a2b1c6` WITHDREW EXACTLY THAT REFUTATION TWELVE LINES ABOVE.** The withdrawal reached the detailed bullet
+    at `:3233` and NOT the summary an executor skims. ⇒ ***A RETRACTION IS A SIBLING-SURFACE PROBLEM: the stale copy
+    survived in the SUMMARY, and the summary is the surface that gets read.*** **Worse in direction, by the withdrawing
+    commit's own stated principle — the stale text is an instruction to STOP (`DO NOT`), and an instrument error
+    authorising INACTION costs more than one authorising a wrong action.**
+    ✅ **TRUE SHAPE: `OuterCombine` IS CONSISTENT WITH v2** (`(2.11)` p.15, `(3.15)` pp.22-23, `(3.16)` p.23, the combine
+    landing on p.22) · `BigXiArc` confirm-then-anchor · the SECTION/LEMMA/EQUATION population anchors v2.
     ⛔ **RESOURCE REQUIREMENT, NOW EXACT: `arXiv:1509.05422` IS NOT IN `docs/sources/` (which holds `1501.04585v4`,
     `1503.05121v3`, `1706.03749v1`, `gs9911246`). WITHOUT THAT PDF, 30 OF 55 FILES CANNOT BE ANCHORED BY ANYONE** — not
     for want of care, for want of the source. **A hygiene node that assumes one verification covers all citations is
@@ -3278,6 +3285,71 @@ numbering is UNVERIFIED.
     is on p13 — the docstring says p.12 … off by one, possibly a different version"* — **the correct
     hypothesis, stated and abandoned.** *A noticed-and-unchased discrepancy is worse than an unseen
     one: it has already spent the attention that would have caught it.*
+
+    ⛔⛔⭐⭐⭐ **EXECUTION STAMP — FRESH math HEAD, 2026-08-23 07:4x. TRANCHE 3 LANDED (17 files / 24 sites) AND THIS
+    NODE'S FOUNDING PREMISE IS AMENDED: THE EXONERATING FINDING WAS MEASURED ON *LEMMA* NUMBERS AND DOES NOT EXTEND TO
+    *EQUATION* NUMBERS.** Measured from v2's own right-margin equation labels (`pdftotext -layout`, labels READ not inferred):
+    ```
+      v2 p.19  (3.11)  ℍ(X_{H1+H2}) ≤ ℍ(X_H1)+ℍ(X_H2)+o(1)          SUBADDITIVITY
+      v2 p.19  (3.12)  ℍ(X_kH)/kH ≤ ℍ(X_H)/H − 𝕀(X_H,Y_H)/H + O(1/k)  the divided bound
+      v2 p.22  (3.15)  F_p(x,y) := c_p·1_{ay+j≡pb(ap)}·x_{1,j}·x_{2,j+ph}
+      ⇒ THE SHIFT BEGINS AFTER v2's (3.10). §1, §2, §4 and the early §3 toolkit are CLEAN.
+    ```
+    ✅ **LEMMAS VERIFIED FIVE FOR FIVE AGAINST v2 — 3.1 Entropy decrement (p.20) · 3.2 Weak uniform distribution (p.21) ·
+    3.3 Hoeffding (p.22) · 3.4 Circle method (p.24) · 3.5 Restriction theorem (p.25).** ⇒ 🔑 ***LEMMA NUMBERING AND
+    EQUATION NUMBERING ARE INDEPENDENT COORDINATES OF ONE DOCUMENT; A VERSION MAY RENUMBER ONE AND NOT THE OTHER. This
+    node's true sentence about Lemma 3.1/3.4 does not license a blanket §3 anchor, exactly as its own "TWO dimensions at
+    once" warning said — and I extended it anyway, because 15 objects had been verified to EXIST and existence felt like
+    coverage.*** ⛔⛔ ***OBJECT-EXISTENCE DOES NOT SETTLE AN EQUATION NUMBER, AND THIS IS NASTIER THAN THE PAGE CASE: a
+    wrong page sends you to the wrong page; A WRONG EQUATION NUMBER NAMES A REAL EQUATION, IN THE RIGHT SECTION, OF THE
+    RIGHT SHAPE, THAT IS A DIFFERENT THEOREM.***
+    ⛔ **SIX ANCHORS I WROTE AND THEN REVERTED BEFORE COMMIT (false citations, caught by reading the source).**
+    ⛔⛔ **AND THE SIXTH-THROUGH-FOURTH CAME FROM VIOLATING MY OWN RULE IN THE PARAGRAPH THAT STATES IT: I published
+    "the shift begins after v2's (3.10)" and, in the same breath, listed `(3.18) S_H(α)` as UNAFFECTED. `(3.18)` IS IN
+    THE SHIFTED RANGE BY THAT VERY RULE.** I matched the corpus's NUMBER to v2's LABEL — the exact existence-vs-denotation
+    error I had just written the law about. **`CircleMethod` calls `S_H(α)` "(3.17)"; v2 labels that object (3.18)** ⇒
+    the corpus's `(3.18)` is v2's `(3.19)`, and `Entropy/All.lean`'s *"`circle_method_estimate_h_core` is Tao's Lemma 3.4
+    (3.18)"* names an ESTIMATE where v2's (3.18) is a DEFINITION. **Also reverted: `Concentration` (*"the specific `F_p`
+    of Tao (3.14)"*) and `Prop26` (*"Tao's (2.12)/(3.14) shape"*) — `F_p` is v2's (3.15); both files' `(2.12)`/`Prop 2.6`
+    cites ARE v2-correct, so both carry BOTH conventions.** ⇒ 🔑 ***A LAW PUBLISHED IS NOT A LAW DEPLOYED — I wrote the
+    rule and then failed to run it over my own edit set. The scan that caught it took one command: list every `(3.N≥11)`
+    in the anchored files.***
+    ⛔ **The first three:**
+    `Step.lean` (titled "The (3.11) step inequality", decl `step_ineq_3_11`, describes the MI bound *divided by kH* = v2's
+    **(3.12)**) · `FBridge.lean` (quotes "Tao (3.14) reads `F_p(x,y) := …`" — character-for-character v2's **(3.15)**) ·
+    `Decoupled.lean` ("from (3.14) toward (3.15)" = v2's (3.15)→(3.16); ⚠️ **and its line 19 cites `(2.11) → (3.16)`
+    which IS v2-correct — ONE FILE, BOTH NUMBERINGS, so no single anchor makes it wholly true**).
+    ⛔ **FOUR MORE EXCLUDED, WITH EVIDENCE — anchoring these would CREATE a false citation:**
+    `LargeSpectrum` · `LargeSpectrumBound` · `QuadrupleCount` cite *"Lemma 3.5 …, footnote-4 additive-energy escape"*;
+    **v2 fn.4 is the MODEL-CASE remark (a=1,b=0,h=1) and v2 fn.7 is the additive-energy escape** (*"rewrite the LHS as
+    H·Σ_{p1+p2=p3+p4}…, then a standard upper bound sieve"*, attached to Lemma 3.5). `MarkovExtract` cites *"Tao (p. 20)
+    writes the decomposition … by (3.3) the summands are non-negative … then applies Markov"*; **on v2 p.20 all three
+    markers are ABSENT and on p.21 all three are PRESENT** (boundary checked — the passage does not straddle).
+    ⚠️ **LIMIT STATED: I established these are NOT v2's numbers; I did NOT establish which version they ARE.**
+    ✅ **PAGE CLAIMS CONFIRMED AGAINST v2 (this closes the node's `BigXiArc` confirm-then-anchor):** **`BigXiArc` pp.24–25 —
+    v2 p.24 reads *"and let Ξ_H denote the elements ξ ∈ ℤ/HZ for which"*, the DEFINITION, running through p.25 and Lemma
+    3.5, with p.23 carrying no `Ξ` at all as a boundary control.** Also `CircleMethod` p.24 (Lemma 3.4 + (3.17)/(3.18)) ·
+    `MRTDoor` p.12/p.24 · `OuterCombine` p.22 (**reproducing the predecessor's withdrawal at this hand, not inheriting it**) ·
+    `WeakUniform` p.21 (Lemma 3.2 there) · `Prop26` p.14–15 (Prop 2.6 there) · `Tower` p.19–20 (the concatenation/
+    subadditivity construction there). **Positive control: `Proposition 2.4` on printed p.12 ✓; decoys `(9.9)`/`(7.7)` → 0.**
+    ⭐ **FOUR OBJECTS VERIFIED IN v2 THAT THIS NODE'S 15-OBJECT LIST NEVER COVERED: `(2.4)` `(3.8)` `(3.17)` `(3.18)`**,
+    each with a right-margin definition line AND a back-reference.
+    ⛔ **INSTRUMENT DISCLOSURES, MINE:** my equation matcher `\(([0-9]+\.[0-9]+)\)` **read the arXiv id itself as an
+    equation** (`Tao (1509.05422) §3` → "equation (1509.05422)") · **my classifier's WINDOW WAS THE WRONG UNIT** — three
+    page claims live 8–17 lines from the id, so NO window of ANY width contains them (**a version-sensitive claim is a
+    property of the FILE, not of the citation site**) · and **three self-reference false positives**: the decoy
+    `1509.05423` fires on `:3286` which DESCRIBES the decoy, the guard `arXiv:arXiv:` fires on `:3208` which DESCRIBES
+    the guard, and the matcher above. ⇒ 🔑 ***A DOCUMENT THAT RECORDS ITS OWN GUARDS IS A FALSE POSITIVE FOR EVERY ONE
+    OF THEM — this node is simultaneously a MEMBER of the corpus and the SPECIFICATION for measuring it. EXCLUDE THE
+    SPECIFICATION FROM THE POPULATION IT SPECIFIES.***
+    📌 **RUNNING SCOPE: SAFE-set 14/14 (predecessor) + 17 files / 24 sites (this pass) anchored · 10 files EXCLUDED with
+    evidence (6 equation-shift, 3 footnote, 1 page) · `wf3-waveb-design.md` stays v4, correctly, untouched.**
+    ✅ **EVERY SURVIVING CITATION RE-VERIFIED BY CONTENT, NOT BY NUMBER:** `(1.6)` non-pretentiousness · `(2.4)` log-Chowla
+    failure · `(2.6)` normalised · `(2.11)` · `(3.8)` `0 ≤ ℍ(X_H) ≪ H` = the entropy ceiling · `(3.9)` `ℍ(Y_H) = log P_H − o(1)`
+    = the residue deficiency · `(4.1)` the sup-inside form · Lemmas 3.1/3.2/3.4/3.5 · Prop 2.4/2.6. **The shift rule holds on
+    the full population: every shifted cite found is `(3.11)`–`(3.18)`; every clean one is §1/§2/§4 or `≤ (3.10)`.**
+    ⛔ **REMAINING: the 10 excluded need a VERSION RULING, not a hygiene pass — and `CircleMethod` (which says of itself
+    "the v3 form") plus `Decoupled`, `Entropy/All`, `Prop26` mixing conventions mean NO SINGLE ANCHOR makes them true.**
 
     ✅⚠️ **PARTIAL EXECUTION STAMP — math seat, 2026-08-22 11:2x. ONE FILE DONE, ITEM STAYS OPEN.**
     `97098ead` (06:29) anchored the FOUR Prop 2.4 cites in `Salt/Entropy/Chowla/MRTDoor.lean`;

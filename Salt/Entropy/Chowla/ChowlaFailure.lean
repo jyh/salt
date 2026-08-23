@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The (2.4)→(2.11) producer chain, W3-F-EASY cluster (Tao 1509.05422 §2)
+# The (2.4)→(2.11) producer chain, W3-F-EASY cluster (Tao arXiv:1509.05422v2 §2)
 
 The A-grade nodes of the log-Chowla-2 *producer*: the failure hypothesis, its
 normalization to a single-correlation lower bound on the `logMeasure`

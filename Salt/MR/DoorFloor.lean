@@ -24,7 +24,7 @@ file supplies it, its API, and the kernel-checked instantiation certificate.
 
 ## The shape (why `⌈exp(δ₀^{-4/5})⌉₊`)
 
-The Matomäki–Radziwiłł–Tao short-interval door (Tao 1509.05422 Prop. 2.4, proven
+The Matomäki–Radziwiłł–Tao short-interval door (Tao arXiv:1509.05422v2 Prop. 2.4, proven
 in arXiv:1503.05121) delivers its uniformity at window length `H` with quality
 grade `(log H)^{-5/4}` — `doorGrade H` below.  The head consumes a door at any
 `δ ≤ δ₀`, so the compose must push the regime's window range up to where the MR
@@ -69,7 +69,7 @@ open Salt.Entropy.Chowla
 
 /-- **The MR door grade** at window length `H`: the uniformity quality
 `(log H)^{-5/4}` delivered by the Matomäki–Radziwiłł–Tao short-interval theorem
-(Tao 1509.05422 Prop. 2.4).  It is the `W^{-1/4}` saving of the character
+(Tao arXiv:1509.05422v2 Prop. 2.4).  It is the `W^{-1/4}` saving of the character
 expansion read at the door's own sieve parameter `W = (log H)^5` (S7's `B5 = 5`;
 `docs/exploration/chi-check-0724.md`, KILL-CHECK 2).  Decreasing in `H`
 (`doorGrade_anti`) — longer windows buy a better door. -/

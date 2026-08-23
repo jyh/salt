@@ -400,7 +400,7 @@ unsatisfiable at `c₀ = 1` (F0, catch #249); cite `log_chowla_two_door_only(_xi
 `log_chowla_two_budget_head` instead.
 
 Tao's logarithmically-averaged
-two-point Chowla theorem (Tao 1509.05422, the `a=1,b=0,h=1,g₁=g₂=λ` model form),
+two-point Chowla theorem (Tao arXiv:1509.05422v2, the `a=1,b=0,h=1,g₁=g₂=λ` model form),
 machine-checked: there is a witnessed regime `R` and a door-smallness threshold
 `δ₀ > 0` at which log-Chowla-2 does NOT fail, conditional ONLY on the
 Matomäki–Radziwiłł–Tao Fourier-uniformity theorem (arXiv:1503.05121) at any
@@ -498,7 +498,7 @@ EXACTLY ONE binder: the MR obligation is the Tao-faithful `MRTUniformityXi R δ`
 (`MRTDoor.lean`, α restricted to the ≤ K major-arc frequencies `−ξ/H`,
 `ξ ∈ Ξ_H = bigXi R.eps H`) rather than the full `∀ α`-outside `MRTUniformity R δ`.
 This is the licensed weakening for the Liouville case (`c_p = 1`, major arcs
-only; Tao 1509.05422, chowla.txt:743–750, riding [17] Theorem A.1) — it shrinks
+only; Tao arXiv:1509.05422v2, chowla.txt:743–750, riding [17] Theorem A.1) — it shrinks
 the MR SURFACE (drops the minor-arc package), not its DEPTH (`ξ = 0 ∈ Ξ_H` is
 already full short-interval strength; W4-MAJOR-R0 RED).  Every other input — the
 entropy decrement, circle method, large-spectrum bound, sieve machinery, regime
@@ -1153,7 +1153,7 @@ Three binder-list changes, all forced by the shell twin, none optional:
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL.  `MRTUniformityXiL2` is a FINITE SUM OF
 INTEGRALS — the frequency quantifier is a `∑` over `Ξ_H` sitting outside `∫`, and
 there is no `sup` anywhere inside the integral.  The sup-inside form is Tao
-1509.05422 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
+arXiv:1509.05422v2 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
 theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
 an open conjecture.  The `L²` door is SUPPLIED BY THE ROAD (`M4Window`'s adapter
 `mrtUniformityXiL2_of_absWindowSqBound`, over the socket + Parseval stone), never
@@ -1342,7 +1342,7 @@ it to `^5` for consumers wired to the landed exponent.
 the twin per the doctrine).  THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL.
 `MRTUniformityXiL2 R ρ` is a FINITE SUM OF INTEGRALS — the frequency quantifier is
 a `∑` over `Ξ_H` outside `∫`, with no `sup` inside.  The sup-inside form is Tao
-1509.05422 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
+arXiv:1509.05422v2 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
 theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
 an open conjecture.  This head does not CLAIM the `L²` door from Prop 2.4: it is
 supplied by the ROAD (`Salt.MR.mrtUniformityXiL2_of_absWindowSqBound`, over the

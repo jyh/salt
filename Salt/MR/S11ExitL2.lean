@@ -47,7 +47,7 @@ budget line above.
 ⚠ **THE SEAM WARNING** (`MRTDoor.lean:174–182`, REF-L2 mandate R4).  THE
 QUANTIFIERS STAY OUTSIDE THE INTEGRAL.  `MRTUniformityXiL2` is a finite sum of
 integrals — no `sup` inside — and is IMPLIED by the landed `L¹` theorem-door
-(`MRTDoor.mrtUniformityXiL2_of_xi`).  The sup-inside form is Tao 1509.05422 (4.1),
+(`MRTDoor.mrtUniformityXiL2_of_xi`).  The sup-inside form is Tao arXiv:1509.05422v2 (4.1),
 which is OPEN.
 -/
 

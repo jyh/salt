@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦L3-FORK FOUNDATION⟧ — the shift-`h` de-specialization, wave W-F1
 
-The landed log-Chowla spine is Tao 1509.05422 at the model point
+The landed log-Chowla spine is Tao arXiv:1509.05422v2 at the model point
 `(a, b, h) = (1, 0, 1)`.  This module opens the `h`-family **beside** the landed
 objects: `logChowlaFails`, `bigXiH`, `MRTUniformityXiH` are new names with new
 arities, and every landed declaration keeps its bytes and its arity.  Nothing
@@ -270,7 +270,7 @@ theorem bigXiH_bounded (h : ℕ) (hh : 0 < h) (eps : ℚ) (heps : 0 < eps)
 THE `∀ ξ ∈ Ξ_H(h)` STAYS OUTSIDE THE INTEGRAL, and **the frequency `α` is
 UNTWISTED**.  Both are load-bearing and neither is policed by the kernel:
 
-* the quantifier position — the sup-inside form is Tao 1509.05422 (4.1), which is
+* the quantifier position — the sup-inside form is Tao arXiv:1509.05422v2 (4.1), which is
   OPEN; moving the quantifier silently downgrades a theorem-door (Prop 2.4,
   PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open conjecture;
 * the frequency — the circle-method estimate's surviving factor is the DFT at the
@@ -480,7 +480,7 @@ fiber inflation — the `K`-shed line of the `L²` restructure
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL, per the REF-L2 mandate R4 restated at
 `MRTUniformityXiL2` (`MRTDoor.lean:174-182`): the frequency quantifier is a `∑` over the
 set sitting outside `∫`, and there is no `sup` anywhere inside the integral.  The
-sup-inside form is Tao 1509.05422 (4.1), which is OPEN.  The normalisation `1/H²` is the
+sup-inside form is Tao arXiv:1509.05422v2 (4.1), which is OPEN.  The normalisation `1/H²` is the
 landed door's, unchanged. -/
 noncomputable def MRTUniformityXiL2H (h : ℕ) (R : ChowlaRegime) (ρ : ℝ) : Prop :=
   ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →

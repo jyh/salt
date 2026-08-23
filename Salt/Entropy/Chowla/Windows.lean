@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors.
 Released under the Apache License, Version 2.0.
 
-The Liouville window pattern for the Tao (1509.05422) §3 entropy-decrement spine
+The Liouville window pattern for the Tao (arXiv:1509.05422v2) §3 entropy-decrement spine
 (sprint-3 wave I, node S3-A2-D-b). This file introduces the window random
 variable, its finite-range / measurability infrastructure, the window entropy
 ceiling (the (3.8) Liouville form), and the pointwise block-splitting identity

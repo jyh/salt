@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The bad-set transport (Tao 1509.05422 §3, Lemma 3.2 combine), spine node W3-a-3a
+# The bad-set transport (Tao arXiv:1509.05422v2 §3, Lemma 3.2 combine), spine node W3-a-3a
 
 The OUTER combine's second step (`docs/exploration/s3-a3-design.md`, node
 W3-a-3a): compose the sharp product-world concentration
