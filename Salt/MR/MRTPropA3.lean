@@ -3782,5 +3782,47 @@ theorem mrtA4ii_far_of_either_estimate
   have hcos := pretDistSq_ge_cos_average_restricted (Y := Y) hf hmin
   linarith
 
+/-! ## ⭐⭐ THE MISSING MIDDLE OF THE RATIFIED SPINE — MRT THEOREM A.2
+
+The reduced spine's PRIMARY is **A.1**, its engine is **A.3**, and MRT's own chain runs
+**A.3 ⇒ A.2 ⇒ A.1** (source line 1728: *"implies Proposition A.3 and thus also Theorem A.2"*).
+Measured with a sibling control: the corpus states **A.1** (`MRTThmA1`) and **A.3**
+(`MRTPropA3`) and has **no A.2 and no bridge** — the same description arm that finds
+`# MRT Theorem A.1`, `# MRT Proposition A.3` and `# Block C — the λ-quality supply` returns
+**nothing** for A.2. It is not in the ratified deletions (Lemma 2.2 · Thm 2.3 · the minor arc ·
+E-5's split), so it is a genuine hole in the middle of the spine.
+
+Source, extract line 1231 — A.2 is A.1's shape with the datum **SIFTED**: the mean is taken
+over `n ∈ S`, which in this development is `f · gJ 𝒥 Pseq Qseq` — **the very object A.4(ii)
+bounds.** That is why tonight's A.4(ii) work sits upstream of the primary rather than beside it.
+
+⛔ **A STATEMENT, NOT A THEOREM, AND THE BRIDGES ARE NOT ATTEMPTED.** MRT get A.3 ⇒ A.2 by a
+**Parseval bound** (*"the proof proceeds as [17, Theorem 3]; the first step is a Parseval
+bound"*, line 1243) — named here so it can be dispatched, not discharged here. -/
+def MRTThmA2 (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+    ∀ X h : ℝ, 10 ≤ h → h ≤ X →
+      (1 / X) * (∫ x in X..(2 * X),
+          ‖mrtShortMean (fun n => f n * gJ 𝒥 Pseq Qseq n) h x‖ ^ 2)
+        ≤ C * (Real.exp (-(mrtM f X)) * mrtM f X
+              + (Real.log (Real.log h)) ^ 2 / Real.log h
+              + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
+
+/-- **The spine's shape, recorded: A.2 is A.1 with the datum sifted.**
+
+Both sides quantify identically; the ONLY difference is that `MRTThmA2`'s integrand takes the
+short mean of `f · g_𝒥` where `MRTThmA1`'s takes it of `f`. ⇒ **an A.2 discharged at `𝒥 = ∅`
+IS A.1**, because `gJ ∅ Pseq Qseq n = 1` (the `∀ j ∈ ∅` is vacuous).
+
+*This is the observation that makes the sifted work load-bearing for the primary rather than a
+detour — and it is exactly the `𝒥 = ∅` degeneracy that killed my \"reduction\" three hours ago,
+used here in the direction where it is TRUE.* -/
+theorem mrtThmA1_of_mrtThmA2_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
+    (h2 : MRTThmA2 C Pseq Qseq ∅) : MRTThmA1 C := by
+  intro f hf h1 hmul X h hh hhX
+  have := h2 f hf h1 hmul X h hh hhX
+  simpa [gJ] using this
+
 end Salt.MR
 
