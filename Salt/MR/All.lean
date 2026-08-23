@@ -8462,6 +8462,8 @@ open Salt.Tactic in
   Salt.MR.costwist_mul
   Salt.MR.gJ_f_costwist_mul
   Salt.MR.gJ_f_costwist_mul_coprime
+  Salt.MR.one_sub_re_le_norm_one_sub
+  Salt.MR.pretDistSq_one_le_sum_norm
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

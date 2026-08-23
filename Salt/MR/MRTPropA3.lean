@@ -2984,5 +2984,47 @@ theorem gJ_f_costwist_mul_coprime {f : ℕ → ℂ} (hf1 : f 1 = 1)
     · rw [gJ_mul 𝒥 Pseq Qseq ha.ne' hb.ne', hfmul a b hab, costwist_mul t ha.ne' hb.ne']
       ring
 
+/-! ### ⛔ A.7's ERROR FACTOR IS **NOT** CONTROLLED BY `mrtM` — THE INEQUALITY RUNS THE WRONG WAY
+
+A.7's residue (2) is `renormalise`'s error factor `exp(∑_{p≤x} ‖1 − f p‖/p)`.  The obvious hope
+is that `mrtM` controls it, since `mrtM` is the campaign's pretentious-distance quantity.  **It
+does not, and the reason is a direction-of-inequality trap worth landing rather than recalling.**
+
+`pretDistSq f g x = ∑_{p≤x} (1 − Re(f p · conj (g p)))/p` and
+`mrtM f X = sInf {pretDistSq f (costwist t) X : |t| ≤ X}`.  Two steps, both proved below or
+immediate:
+
+* `1 − Re z ≤ ‖1 − z‖` — elementary, so **`pretDistSq f 1 x ≤ ∑_{p≤x} ‖1 − f p‖/p`**;
+* `costwist 0 = 1` and `|0| ≤ X`, so **`mrtM f X ≤ pretDistSq f 1 X`** (an `sInf` is below any
+  member).
+
+⇒ **`mrtM f X ≤ pretDistSq f 1 X ≤ ∑_{p≤x} ‖1 − f p‖/p`.  BOTH steps run FROM `mrtM` TOWARD the
+factor A.7 needs bounded ABOVE.**  A small `mrtM` therefore says **nothing** about
+`∑ ‖1 − f p‖/p`; the chain is useless in the required direction.
+
+⇒ **A.7's residue (2) needs a genuinely different input** — an upper bound on the UNTWISTED,
+NORM-form prime sum — and cannot be discharged by the `M`-smallness the rest of A.3 runs on.
+*Naming which inequality is unavailable is worth more than another attempt to use it.* -/
+
+/-- `1 − Re z ≤ ‖1 − z‖`.  The corpus proves this inline at `SW/DHBal.lean:85` for one specific
+`ρ`; this is the reusable form. -/
+theorem one_sub_re_le_norm_one_sub (z : ℂ) : 1 - z.re ≤ ‖1 - z‖ := by
+  have h := Complex.re_le_norm (1 - z)
+  simpa using h
+
+/-- **THE COMPARISON, IN THE UNUSABLE DIRECTION** — `𝔻(f,1;x)²` is BELOW the norm-form prime sum.
+Landed so the direction is a theorem rather than a memory. -/
+theorem pretDistSq_one_le_sum_norm (f : ℕ → ℂ) (x : ℝ) :
+    pretDistSq f 1 x
+      ≤ ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, ‖1 - f p‖ / (p : ℝ) := by
+  unfold pretDistSq
+  refine Finset.sum_le_sum (fun p hp => ?_)
+  have hprime : Nat.Prime p := (Finset.mem_filter.mp hp).2
+  have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hprime.pos
+  have hnum : (1 : ℝ) - (f p * (starRingEnd ℂ) ((1 : ℕ → ℂ) p)).re ≤ ‖1 - f p‖ := by
+    simp only [Pi.one_apply, map_one, mul_one]
+    exact one_sub_re_le_norm_one_sub (f p)
+  gcongr
+
 end Salt.MR
 
