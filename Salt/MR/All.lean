@@ -8488,6 +8488,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA2
   Salt.MR.mrtThmA1_of_mrtThmA2_empty
+  Salt.MR.closed_open_window_card_le_one
+  Salt.MR.shortWindow_closed_sub_open_norm_le
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

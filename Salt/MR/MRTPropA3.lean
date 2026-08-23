@@ -3824,5 +3824,51 @@ theorem mrtThmA1_of_mrtThmA2_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
   have := h2 f hf h1 hmul X h hh hhX
   simpa [gJ] using this
 
+/-! ## ⭐ THE ENDPOINT RECONCILIATION — CLOSED WINDOW vs HALF-OPEN, AT MOST ONE TERM
+
+The Parseval assembly is landed (`parseval_bound_of_propA3_shape`, `MRTPropA3Bridge.lean:204`)
+and its left-hand side is A.2's — **except for the window convention.**  `shortSum`
+(`Lemma14.lean:479`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:60`) averages
+the CLOSED `[x, x+h]` (that identification is `mem_mrtShortWindow`, already proved).
+
+The gap is exactly `x ≤ n` versus `x < n`, so the two index sets differ **only at `n = x`** — a
+natural equal to `x` on the nose, which exists for at most one `n`.  Hence for 1-bounded data
+the two sums differ by **at most one term**, and the two MEANS by at most `1/h`.
+
+⇒ this is the whole convention gap between the landed Parseval bound and `MRTThmA2`'s LHS,
+priced.  ⛔ It does not close the bridge — the constant-matching to A.2's RHS is separate and
+untouched. -/
+theorem closed_open_window_card_le_one (x h : ℝ) :
+    ((Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).filter (fun n : ℕ => ¬ (x < (n : ℝ)))).card ≤ 1 := by
+  refine Finset.card_le_one.mpr ?_
+  intro a ha b hb
+  rw [Finset.mem_filter, Finset.mem_Icc] at ha hb
+  have hxa : x ≤ (a : ℝ) := by
+    have := ha.1.1
+    exact_mod_cast (Nat.ceil_le.mp this)
+  have hxb : x ≤ (b : ℝ) := by
+    have := hb.1.1
+    exact_mod_cast (Nat.ceil_le.mp this)
+  have hax : (a : ℝ) ≤ x := not_lt.mp ha.2
+  have hbx : (b : ℝ) ≤ x := not_lt.mp hb.2
+  have : (a : ℝ) = (b : ℝ) := by linarith
+  exact_mod_cast this
+
+/-- **The two window conventions differ by at most ONE term**, hence — for 1-bounded data —
+by at most `1` in the sum and `1/h` in the mean. -/
+theorem shortWindow_closed_sub_open_norm_le {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (x h : ℝ) :
+    ‖(∑ n ∈ Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊, f n)
+        - ∑ n ∈ (Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).filter (fun n : ℕ => x < (n : ℝ)), f n‖ ≤ 1 := by
+  have hsplit := Finset.sum_filter_add_sum_filter_not
+    (Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊) (fun n : ℕ => x < (n : ℝ)) f
+  have hEq : (∑ n ∈ Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊, f n)
+      - ∑ n ∈ (Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).filter (fun n : ℕ => x < (n : ℝ)), f n
+      = ∑ n ∈ (Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).filter (fun n : ℕ => ¬ (x < (n : ℝ))), f n := by
+    rw [← hsplit]; ring
+  rw [hEq]
+  refine le_trans (norm_sum_le _ _) ?_
+  refine le_trans (Finset.sum_le_card_nsmul _ _ 1 (fun i _ => hf i)) ?_
+  simpa using (Nat.cast_le (α := ℝ)).mpr (closed_open_window_card_le_one x h)
+
 end Salt.MR
 
