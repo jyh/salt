@@ -693,6 +693,45 @@ theorem costwist_conj_avg (t t₁ : ℝ) (n : ℕ) :
   rw [e1, e2, e3, e4]
   exact exp_neg_avg _ _
 
+/-! ### ⚓ WHERE THIS FILE STANDS — 2026-08-22 19:3x (ORIENTATION, NOT LAW)
+
+*Written under the Captain's **CLEAN HOUSE** ruling: archive stale prose as history, know where
+we are now.  Measured, not recalled: **SIX section headers below mark a retraction or correction
+of my own earlier claim** — a reader arriving cold should not have to reconstruct the state from
+those six.  This block is orientation and is **not** a law; nothing below is superseded by it.*
+
+⛔ *No total-line or total-section count is quoted here ON PURPOSE.  The first draft of this
+block said "3124 lines and 23 sections" and was **stale the instant it landed** — the block is
+inside the population it measures (3158 / 24 after writing it), and every future edit would
+restale it.  **A measurement published inside the thing it measures is stale on arrival.**  The
+`six` survives because it counts a property that this block does not have.*
+
+**A.3 — the spine is complete to its boundary.**  `MRTPropA3` now CARRIES `MRTPropA3Ambient`
+(Captain's ruling, 17:4x — `exp 1 ≤ X`, `T ≤ X/2`, `2 ≤ Pseq 1`), which shuts all three
+degeneracies at once (`mrtA3_ambient_excludes_degeneracies`).  The one code consumer
+(`mrtPropA3_in_bridge_shape`) moved with it; the aggregate builds.
+
+**A.6 — vocabulary closed, strength OPEN.**  Its inner object **is** the sifted twisted sum
+(`mrtA6_inner_eq_sifted`, `mrtA6_F_sifted`), so a supplier may feed A.3's `T₀` side without
+meeting a powerset.  The exponent gap stands: landed Halász `1/(32e)` vs A.6's `1/16`.
+
+**A.7 — residue (1) CLOSED, residue (2) OPEN and STRUCTURAL.**  The renormalisation itself is
+landed in the corpus (`Renormalise.renormalise`, `:1004` — the Möbius-datum re-target was
+already done, and it needs no `hyx`).  Residue (1), the summand match, is closed in
+`renormalise`'s own coprime form (`gJ_f_costwist_mul_coprime`).  **Residue (2) needs an upper
+bound on the UNTWISTED, NORM-form prime sum**; `mrtM` provably runs the wrong way
+(`pretDistSq_one_le_sum_norm`), and at `f = λ` the route is vacuous by `(log x)^{2+1/10}`
+(`sum_norm_one_sub_liouvilleC`).
+
+**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:991`),
+labelled the wave's ⟦RESIDUE⟧ at its own definition site; of its two obstructions ⟦THE WALL⟧ is
+REPAIRED (07-28) and ⟦THE CLASS PRICING⟧ is OPEN and design-tier.
+
+⛔ **KNOWN DEBT, CARRIED DELIBERATELY:** six comparison-type controls hold hardcoded witnesses
+and would degrade in silence; the flags on them are **document-guards, not executable ones**,
+and fixing them edits A.6's/A.7's STATEMENTS (Fable/Captain tier).  `DoorRoadCompose.lean` is
+**pedagogy, not contribution** — it re-derives road that `m4_hbd_of_live_L` already carries. -/
+
 /-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
 
 Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
