@@ -3143,6 +3143,23 @@ numbering is UNVERIFIED.
     `.{0,70}` around a UTF-8 literal with *"exceeds complexity limits"*, 8×. **No kind-split count exists; it needs
     rewriting in python before any edit is safe.** ⇒ **NOT SAFE TO EDIT: two of this node's three preconditions are
     unmet by my own instruments (control failed, kind split unmeasured). Census stands; the edit does not begin here.**
+    ✅ **STAMP AMENDED 04:3x — BOTH PRECONDITIONS NOW MET; "CONTROL FAILED" IS WITHDRAWN, THE DEFECT WAS MY PREDICATE.**
+    `git grep -l 1503.05121` **at the last main rev before this node was written = 33**, matching my own touch-date
+    reconstruction of 33; today **39 git-tracked**. My filesystem walk's 40th member was **`docs/sources/1503.05121v3.pdf`
+    — THE MRT SOURCE PDF, gitignored (`.gitignore:26`)**: arXiv stamps the id in the paper's own text, so a content
+    grep hits it. ⛔ **IT IS NOT A CITATION, IT IS THE THING BEING CITED — my walk counted the source document as a
+    citation of itself, and I published that as a failure of THIS NODE.** ⭐ **The Tao population is CLEAN and I
+    measured rather than assumed it: 55 files, ZERO binary members (`docs/sources/` holds no Tao PDF).**
+    ✅ **KIND SPLIT (rewritten in python after the ugrep crash), predicate = literal `1509.05422`, 80-char window each
+    side per occurrence: SECTION/LEMMA only 29 · PAGE/footnote only 2 · BOTH 10 · NEITHER 14 · (29+2+10+14 = 55).**
+    ⇒ 📌 **REAL EDIT POPULATION IS 41, NOT 55 — the 14 carry NO §/page claim for a version to mis-map, so anchoring
+    them adds ceremony, not safety. Of the 41, TEN carry BOTH kinds and require PER-CITATION anchoring; 31 are
+    single-kind mechanical.** ⚠️ **MY 41 vs THIS NODE'S 47 — I state my predicate and my number and do NOT claim the
+    node is wrong; this node never states its own predicate, which is the defect it was written about.**
+    ⚠️⚠️ **LIVE SPECIMEN OF THE TRAP THIS NODE NAMES: `docs/exploration/wf3-waveb-design.md` anchors to v4 — correctly,
+    because it quotes v4 PAGE numbers. A blanket `v2` pass would have FALSIFIED THE W-F3 DESIGN BLOCK ITSELF.**
+    ⇒ **NODE IS NOW SAFE TO EXECUTE. Not begun here for scheduling, not safety: 41 files with 10 needing judgement is
+    a full careful beat, and the ruling stands that a mislabelling pass is worse than the unanchored state.**
     ⛔⛔ **AMENDED 2026-08-21 13:0x — DO NOT BLANKET-STAMP `v2`. THE NODE AS I FIRST WROTE IT WOULD
     HAVE MANUFACTURED FALSE CITATIONS, AND THE TRAP IS IN MY OWN HAND.** Two different citation
     KINDS live under one arXiv id and they anchor to DIFFERENT VERSIONS:
