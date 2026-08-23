@@ -1226,37 +1226,25 @@ cap `mrtA4ii_far_centre_cap` supplies — with its window mass `W` **carried, no
 unsatisfiable **at `W = 0`**; here `W` is a free carried parameter, so the obstruction
 does not apply.  *Two objects one underscore-suffix apart, opposite verdicts.*
 
-⛔⛔ **CORRECTED ONE BEAT LATER, BY MY OWN ALREADY-LANDED THEOREM.**  The paragraph
-below is kept verbatim because the error is the lesson; the verdict above it is what
-stands.
-
-⛔ **BOTH GAPS ARE REAL, AND GAP (2) IS FATAL TO THIS ROUTE AT THIS CONSTANT.**
+⛔ **THE `(1/32)` ROUTE CANNOT SERVE A.4(ii) AT A.4(ii)'s CONSTANT — two gaps, the second
+fatal:**
 ```
-  (1) fgJ f t₀ y Y = seamCoeff f (windowInd …)  — a SEAM window with t₀,y,Y,
-      NOT A.4(ii)'s (fun n => f n * gJ 𝒥 Pseq Qseq n).  Different object.
+  (1) fgJ f t₀ y Y = seamCoeff f (windowInd …) — a SEAM window with t₀,y,Y, NOT
+      A.4(ii)'s (fun n => f n * gJ 𝒥 Pseq Qseq n).  Different object.
   (2) frozen gives (1/32)·loglog X;  A.4(ii) needs (1/6 − 1/(3π) − ε)·loglog X.
-      1/32 = 0.03125  <  1/6 − 1/(3π) ≈ 0.0606.  SHORT BY ~2×, before the
-      −5·logloglog − C − W corrections are even subtracted.
+      1/32 = 0.03125 < 1/6 − 1/(3π) ≈ 0.0606 — SHORT BY ~2×, before the
+      −5·logloglog − C − W corrections are subtracted.
 ```
-✅ **AND THIS WAS ALREADY PROVED, BY ME, EARLIER IN THIS SAME SESSION:**
-`landed_route_below_a4ii_target : (1:ℝ)/32 < 1/6 − 1/(3π)`, whose own docstring reads
-*"a `(1/32)·loglog X` floor does NOT imply A.4(ii)'s conclusion — the landed chain is
-insufficient BY CONSTRUCTION, not by a gap in its proof."*
+Proved here as `landed_route_below_a4ii_target : (1:ℝ)/32 < 1/6 − 1/(3π)` — **the landed
+chain is insufficient BY CONSTRUCTION, not by a gap in its proof.**
 
-🔑 ***I PUBLISHED "THE PRICE IS OPEN" WITHOUT CHECKING MY OWN RECORD, AND MY OWN RECORD
-ALREADY CLOSED IT.***  This is the fifth direction of staleness in its purest form: not a
-peer's claim going stale, not the tree moving — *my own landed theorem, hours old,
-answering the question I was calling open.*  The excitement of finding the D-5 route is
-exactly what stopped me looking.
+⇒ **WHAT REMAINS OPEN IS NARROWER:** whether any OTHER composition of the D-5 objects
+reaches a constant above `1/6 − 1/(3π)`.  `dist_split_A4_frozen` as stated does not.
 
-⇒ **STANDING VERDICT: the `(1/32)` route CANNOT serve A.4(ii) at A.4(ii)'s constant.**
-What remains genuinely open is narrower and should be stated as such: whether any OTHER
-composition of the D-5 objects reaches a constant above `1/6 − 1/(3π)`.  `dist_split_A4_frozen`
-as stated does not, and that is now measured rather than hoped.
-
-⚠️ **THE SUPERSEDED PARAGRAPH, KEPT VERBATIM:** *"Two gaps remain … ⇒ The far branch's
-price is now OPEN, not settled: it may be servable by landed machinery rather than by a
-new Erdős–Turán port."* -/
+*(The correction narrative that stood here — I published "the price is OPEN" while my own
+landed theorem had already closed it — is in the commit record, per the Captain's CLEAN
+HOUSE ruling and compiler's law: **write the corrected FACT, not the STORY of the
+correction; the story belongs in a commit message, which has no cap.**)* -/
 
 /-! ## The salt-engine collision — `dist_split_A4` does NOT reach A.4(i)
 
