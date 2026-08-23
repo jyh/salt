@@ -8481,6 +8481,7 @@ open Salt.Tactic in
   Salt.MR.pretDistSq_ge_cos_average_restricted
   Salt.MR.abs_cos_pi_mul_eq_cos_pi_mul_dist_round
   Salt.MR.mrtA4_summand_matches_source
+  Salt.MR.mrtA4ii_far_of_cos_average
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

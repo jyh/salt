@@ -3648,5 +3648,37 @@ theorem mrtA4_summand_matches_source (u L : ℝ) :
   rw [hx] at h
   exact h
 
+/-- ⭐⭐⭐ **THE FAR ARM REDUCES TO EXACTLY ONE OPEN ESTIMATE.**
+
+Everything MRT's mid-range argument needs, *except* the short-segment splitting itself, is
+now landed — so the splitting can be carried as a single explicit hypothesis and the rest
+composes in the kernel:
+
+* `mrtA4i_halving` — `𝔻(f·g_𝒥)² ≥ ½·𝔻(f)²` (their (A.3));
+* `pretDistSq_ge_cos_average_restricted` — the `f`-free cos bound over `Y < p ≤ X` (their (A.4));
+* `hsplit` — **THE ONE OPEN PIECE**: their (A.5), the short-segment splitting, whose value is
+  `(1 − 2/π)·log(log X / log Y)`.  *Assumed here, NOT proved.*
+
+⇒ **the remaining analytic content of A.4(ii)'s far arm is `hsplit` and nothing else.**  With
+`mrt_exponent_gap_at_Y` supplying `log(log X/log Y) = (⅓ − ε)·loglog X` and
+`mrtA4ii_constant_decomposition` supplying `(½)·(1 − 2/π)·(⅓) = 1/6 − 1/(3π)`, the constant
+falls out of this bound by arithmetic alone.
+
+⛔ Stating a hypothesis is not discharging it: `hsplit` is exactly the estimate nobody has
+proved here, and the separate large-`|t−t₁|` branch (Erdős–Turán + VK) is not addressed by
+this theorem at all. -/
+theorem mrtA4ii_far_of_cos_average
+    (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ Y : ℝ)
+    (hf : ∀ n, ‖f n‖ ≤ 1)
+    (hmin : pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist t) X)
+    (hsplit : (1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y)
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter (fun p : ℕ => Y < (p : ℝ)),
+            (1 - |Real.cos ((t - t₁) * Real.log p / 2)|) / (p : ℝ)) :
+    (1 / 2) * ((1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y))
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have hhalf := mrtA4i_halving f Pseq Qseq 𝒥 X t hf
+  have hcos := pretDistSq_ge_cos_average_restricted (Y := Y) hf hmin
+  linarith
+
 end Salt.MR
 
