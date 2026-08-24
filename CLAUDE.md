@@ -101,4 +101,6 @@ If `lake` is not on PATH: `~/.elan/bin/lake`.
 
 No `Claude-Session:` trailer lines in commit messages — this repository is
 public, and the 2026-08-16 history purge's scope is the standing rule. A
-`commit-msg` hook in the shared checkout enforces it; `Co-Authored-By` is fine.
+`commit-msg` hook enforces it (tracked at `.githooks/`; a fresh clone runs
+`git config core.hooksPath .githooks` once — without that command the tracked
+claim outlives the gate); `Co-Authored-By` is fine.
