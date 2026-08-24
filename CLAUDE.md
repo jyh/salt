@@ -96,3 +96,9 @@ python3 scripts/blueprint_lint.py # docs↔code consistency + axiom audit (phase
 ```
 
 If `lake` is not on PATH: `~/.elan/bin/lake`.
+
+## Public-repo commit hygiene (ratified 2026-08-23)
+
+No `Claude-Session:` trailer lines in commit messages — this repository is
+public, and the 2026-08-16 history purge's scope is the standing rule. A
+`commit-msg` hook in the shared checkout enforces it; `Co-Authored-By` is fine.
