@@ -387,7 +387,30 @@ RESURRECTS THEM:**
    live B₅=12). Residue rider: `doorGrade` docstring still cites retired "S7's B5=5" — repair in
    the same wave, documentation-only. math's pen; read the brief from `1503.05121v3` directly per
    the pen rules, never from a summary. Class C; design-block-first if the port grows a statement.
-19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
+   ✅ **RIDER DISCHARGED 08/23 19:41 (math), `c2f48a84` — AND IT WAS A BIGGER DEFECT THAN "a
+   retired parameter".** `doorGrade`'s docstring asserted `(log H)^-5/4` was *"delivered by the
+   Matomäki–Radziwiłł–Tao short-interval theorem"*. ⛔ **IT IS NOT — that value is the PIN.** MRT's
+   own rate is `((log H)^1/4 · loglog H) / W^1/4` (`1503.05121v3` Thm 2.3 (2.2), p.9, read from the
+   PDF); **`W^-1/4` alone DROPS the `(log H)^1/4 · loglog H` numerator.** The corpus's delivered rate
+   is `mrtDeliveredGrade` (`M4Exit.lean:153`) `= C·(log H)^-11/4·loglog H`, i.e. (2.2) read at
+   `W = (log H)^12`, and `mrtGate` is the crossing where delivery falls under the pin (gap
+   `-5/4 − (−11/4) = 3/2`). ⇒ **Pin WEAKER, delivery STRONGER — the safe direction, and the reason
+   the two objects are separate.** *A docstring collapsing them invites exactly the reading a refuter
+   reached today, taking `doorGrade` for the delivered rate and concluding landed work was optimistic.*
+   `B₅ = 5` marked retired, `DoorFloor1500.lean` named as the live `B₅ = 12` sweep; **the original
+   sentence preserved inside the correction, not deleted.**
+   📐 `saltbuild EXIT=0`, `[9768/9769] Built Salt`, 0 errors, `Salt.MR.DoorFloor` **Built** (24s),
+   **0** warning lines naming it, axiom gate 7036 ✓ / 0 non-3-axiom. `def` line byte-untouched; 0
+   lines added over the 100-char limit. *Class A, cap 1, used 1.*
+   ⛔⛔ **AND A CORRECTION TO `c2f48a84`'s OWN MESSAGE, WHICH IS WRONG AND PUSHED: it states "QUEUE
+   stamped in this same commit". IT WAS NOT.** The stamping script's anchor missed by three
+   characters (the row reads *"the same wave"*, my string began *"same wave"*), the assertion threw,
+   and **I ran the commit in the same command without checking the exit status — so the stamp silently
+   did not happen while the message claimed it had.** `c2f48a84` contains exactly one file,
+   `DoorFloor.lean` (25/5). ⇒ 🔑 ***I AUTOMATED THE LAW AND SKIPPED THE LAW'S OWN VERIFY: the trigger
+   says ask which document still describes this as not-done BEFORE the commit that lands it — and a
+   guard whose failure does not stop the commit is not a guard.*** *Fourth instance today of a record
+   lagging its work, and the only one where the record actively asserted the opposite.*19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
    FBridge.lean:60 with `windowVal_eq_zero_of_not_lt` landed axiom-free; FATAL 3's K4 §1
