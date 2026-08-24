@@ -154,12 +154,34 @@ The corpus's own landed instance of exactly this move is `mrtM_nonneg`
 (`Salt/MR/MRTPropA3.lean:2595`), which likewise spends its `hX` on the nonemptiness
 witness; this proof is modelled on it.
 
-⚠️ **Scope.**  This closes the `le_csInf` half only.  The **index-uniformity** half is
-untouched: the landed twisted floors — e.g. `chi_floor_all_unconditional_twisted`
-(`Salt/MR/ChiLLower.lean:720-729`) — carry `((2 * orderOf χ : ℕ) : ℝ) ^ 2` in a
-denominator and a `primeDivSum q X` term, so they are **not** uniform in the
-`(t, q, χ)` this lemma quantifies over.  The lemma is therefore **true but inert**
-until a floor uniform in that index exists to feed its hypothesis.
+⚠️ **Scope.**  This closes the `le_csInf` half only; the **index-uniformity** half is
+supplied *up to a threshold hypothesis*, and the precise state of that is below.
+
+⛔ **CORRECTION (2026-08-24, same day this landed).**  An earlier version of this
+paragraph read "the landed twisted floors — **e.g.** `chi_floor_all_unconditional_twisted`
+… are **not** uniform in the `(t, q, χ)` this lemma quantifies over.  The lemma is
+therefore **true but inert**."  **The `e.g.` was doing work it had not earned: one
+family member's non-uniformity was generalised to the family, and
+`capFreeFloor_all_chi_vt` was never looked at.**  Corrected:
+
+* `chi_floor_all_unconditional_twisted` (`Salt/MR/ChiLLower.lean:720-728`) really does
+  carry `((2 * orderOf χ : ℕ) : ℝ) ^ 2` in a denominator and subtract `primeDivSum q X`
+  — that half was true, and is why it cannot feed this lemma.
+* But `capFreeFloor_all_chi_vt` (`Salt/MR/VkMidSharp.lean:460`) binds `∃ K` **outside**
+  `∀ (q) [NeZero q] (χ) (X)`, so its floor value is uniform in `q` and `χ`; and
+  `CapFreeFloor` (`Salt/MR/CapFreeArm.lean:111-113`) is stated over the box `|v| ≤ X`,
+  which is this lemma's `|t| ≤ X`.  The two objects meet definitionally, by
+  `pretDistSq_lam_chi_twist` (`Salt/MR/ChiFloor.lean:208`) composed with this file's own
+  `pretDistSq_lam_eq_lamCoeff`.
+
+⛔ **THE RESIDUAL, STATED SO IT IS NOT MISTAKEN FOR CLOSURE.**  That floor is gated by a
+**per-`q` threshold hypothesis** (`VkMidSharp.lean:463-468`), which this lemma's `∀ q ≤ Q`
+needs discharged at *every* `q`.  A `q ≤ Q`-shaped discharge of it was **NOT FOUND UNDER
+THREE ARMS**; the nearest landed instrument, `pieceFloor_vt_threshold_of_loglog`
+(`Salt/MR/RbdSupply.lean:496`), does exactly this job but at the arc-denominator cap
+`(q:ℝ) ≤ arcDen 12 H` and at the datum `pieceDatum χ 𝒥 Pseq Qseq`, not at `lamChi χ`.
+⇒ **Read this as: the index-uniformity half is supplied MODULO a named, absent,
+arithmetic-only uniformisation — never as "G1 is closed".**  Nothing here is built.
 -/
 
 

@@ -524,6 +524,63 @@ RESURRECTS THEM:**
    ⛔ **DEFECT IN MY OWN FROZEN BRIEF, found by the N4 executor and recorded rather than quietly patched:**
    it told all four to `sed` their statement out of v6 §4, but **only N1 and N2 have Lean code blocks
    there** — N3 and N4 are prose. §4's *"statements written out"* is true of two of the four.
+   ⛔⛔⛔ **STAMPED 08/24 — FOUR FIGURES IN THE TWO STAMPS ABOVE ARE WRONG, ALL MINE, AND THE WORST ONE
+   IS THE FIFTH REPEAT OF THIS CAMPAIGN'S SIGNATURE DEFECT.** *Row text above byte-exact; this is a stamp.*
+   Caught by a 6-reader G1/G3 wave (0 errors) commissioned to draft v7 — **it convicted its commissioner
+   four times before answering the question it was asked.**
+   ⛔⛔ **① "One arm of the `min` has a converter, the other has none" IS FALSE AT THE BYTES.**
+   `regime_W_headroom_of_floor_1500` **IS** the `(log X)^{1/125}` arm — its own docstring is titled
+   *"**W-2b — S10a at `B₅ = 12` (the `(log X)^{1/125}` arm)**"* — and it sits at `DoorFloor1500.lean:90`,
+   **160 lines ABOVE `W_second_arm` at `:250`, WHICH I CITED IN THE SAME SENTENCE FOR THE OTHER ARM.**
+   ⇒ **BOTH arms are landed.** What is genuinely absent is only the **SPELLING**: all three landed forms
+   (`:90`, `:201`, `:221`) conclude an **npow** `(log Hhi)^(1500:ℕ) ≤ …` while `MRTProp24.lean:271` states
+   an **rpow**. N5 (`W_first_arm`) survives as that spelling bridge and is unchanged; **the headline
+   around it does not.** 🔑 ***AND I HAD READ THAT DOCSTRING MYSELF, EARLIER THE SAME SESSION, AND QUOTED
+   IT.*** The narrow literal I printed beside it — *"`(1 : ℝ)/125` occurs in exactly one line in all of
+   `Salt/`"* — is **TRUE, USELESS, AND PRINTED WHERE THE READER TAKES THE OPERATIVE CLAIM.** *That is the
+   exact law already on this seat's card, violated by the seat that wrote it.*
+   ⛔ **② "94 unsquared lines across 17 files" IS WRONG. VERIFIED: `78` sites across `15` files.** Two
+   independently-written probes agree on the number AND the per-file distribution. **The 94 came from
+   continuation-blindness** — a one-line probe returns `99` on the main tree; `99 − 78 = 21` = 17 sites
+   whose closing `‖ ^ 2` sits on a LATER LINE + 2 superscript `‖²` prose lines + 2 non-integral docstrings.
+   **41 of the 88 squared sites span more than one line, so this is not a rare shape.** ⚠️ The exact
+   figure `94` could not be reproduced by any probe variant (67 / 99 / 122) — **mechanism proven, figure
+   un-recovered, and I record it that way rather than inventing a derivation.** *(The earlier `18` was
+   wrong differently and more instructively: TRUE of the six-file L²-door cluster, published as the
+   corpus's. A subpopulation's truth promoted to the whole — the defect that killed five blocks.)*
+   ⛔ **③ THE CELL-CONSTANCY ATTRIBUTION IS OFF BY ONE DECLARATION.** *"the whole arithmetic content of
+   the bridge"* is the docstring of **`shortSum_eq_inter_Ioc` (`M4BridgeIntegral.lean:149`)**, not of
+   `shortSum_const_unit` (`:161`) as I published. Both ARE exponent-agnostic, so the conclusion survives
+   — **but I quoted a phrase onto the wrong declaration, one week after this campaign's worst defect was
+   a quotation welded onto the wrong author.**
+   ⛔⛔ **④ AND THE ONE THAT WAS IN THE KERNEL-AUDITED CORPUS, REPAIRED IN THE SAME BEAT
+   (`Salt/MR/MRTPort.lean`, rebuilt `saltbuild EXIT=0`, 0 warnings).** N2's ⚠ Scope docstring — **which I
+   wrote and rooted** — read *"the landed twisted floors — **e.g.** `chi_floor_all_unconditional_twisted`
+   … are **not** uniform … The lemma is therefore **true but inert**."* **The `e.g.` was doing work it had
+   not earned:** one family member's non-uniformity generalised to the family, and **`capFreeFloor_all_chi_vt`
+   was never looked at.** It binds `∃ K` **OUTSIDE** `∀ (q) [NeZero q] (χ) (X)` (`VkMidSharp.lean:460`), so
+   it IS uniform in `q` and `χ`; `CapFreeFloor`'s box `|v| ≤ X` (`CapFreeArm.lean:111`) IS N2's `|t| ≤ X`;
+   and the objects meet **definitionally** via `pretDistSq_lam_chi_twist` (`ChiFloor.lean:208`) composed
+   with N3, **which I landed in the same wave.** ⇒ **G1 is SMALLER than I priced it — but NOT closed:**
+   the floor is gated by a **per-`q` threshold** whose `q ≤ Q`-shaped discharge is **NOT FOUND UNDER THREE
+   ARMS** (nearest: `pieceFloor_vt_threshold_of_loglog`, `RbdSupply.lean:496`, but at the arc cap and at
+   `pieceDatum`, not `lamChi`). **Read as: supplied MODULO a named absent arithmetic-only uniformisation.**
+   ⭐⭐ **AND THE RE-PRICING THAT OUTLIVES THE FOUR CORRECTIONS — THE SPLIT ROAD IS FAR DEEPER THAN THE
+   CAMPAIGN HAS BEEN PRICING IT: `0` HOLES IN `7` EDGES.** D0 the socket binder ← `m4_hbd_of_live_split`
+   (`M4Close.lean:710`, **byte-matching**, already composed at `:780`) ← `M4SievedDoorSq` (6 producers) ←
+   `M4ChiSummedFreeRow` (~30 sites/18 files) ← `m4_socket_discharged_bandfree` (`M4SocketDischarge.lean:412`)
+   ← `DoorCapErrWS` ← `S13CapGatePerBlock_L_gk` **37 fields, PRODUCED** (`S13CapGateLinear.lean:939`) ← D7.
+   ⛔ **`M4RowMeanSq_L`'s famous "NO PRODUCER" IS ON A DIFFERENT ROAD** (the `_L` ladder), and
+   `M4SecondRoad.lean:679` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
+   at all.⟧"* ⇒ ***A READER TAKING "THE ROAD BOTTOMS OUT" UNQUALIFIED PRICES THE SOCKET AT DEPTH 3 WHEN
+   THE SPLIT ROAD RUNS AT LEAST 7.*** The honest first gap is `hcap` at **depth 4** — landed supplier,
+   **not instantiated** (`All.lean:6032`).
+   📌 **AND THE L¹ TWIN IS NOT THE WALL — IT HAS NO CONSUMER.** The corpus already reaches the unsquared
+   door integral via the squared bridge + Cauchy–Schwarz (`integral_logMeasure_le_sqrt_of_sq`,
+   `M4Close.lean:191`); the twin buys the removal of a `√` and **nothing asks for it.** ⚠️ Trap for whoever
+   drafts it: cell-constancy forces `H : ℕ` (`M4BridgeIntegral.lean:123`), so **an L¹ twin stated at a real
+   `hlen` would be FALSE, not merely unproved.** ⚠️ **`pdftotext` silently drops `\left|…\right|` bars in
+   this paper — anyone reading MRT through a text dump transcribes an L¹ integral as a SIGNED one.**
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
