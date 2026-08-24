@@ -385,6 +385,7 @@ import Salt.MR.MRTThmA1
 import Salt.MR.MRTPropA3Bridge
 import Salt.MR.MRTPropA3
 import Salt.MR.DoorRoadCompose
+import Salt.MR.MRTPort
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8505,3 +8506,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_sixteenth_suffices
   Salt.MR.mrtA4ii_high_M
   Salt.MR.mrtA4ii_high_M_target
+  Salt.MR.regime_headroom_at_socket
+  Salt.MR.mrtQuality_lower_of_pointwise
+  Salt.MR.lam_eq_lamCoeff_of_prime
+  Salt.MR.pretDistSq_lam_eq_lamCoeff
+  Salt.MR.mrtCompMultDatum_lamCoeff
