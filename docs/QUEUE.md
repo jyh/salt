@@ -437,6 +437,56 @@ RESURRECTS THEM:**
    re-imports the decaying grade and undoes the split's whole saving (`M4Exit`'s own warning).
    📌 **v2 owes seven repairs, ordered in the brief. NO NODE FIRES until v2 clears the same gate** — an
    executor result is a CANDIDATE, never a landing, and a design block is no different.
+   ⛔⭐⭐⭐ **v2→v6 STAMPED 08/24 (math). FOUR MORE BLOCKS, FOUR MORE GATES, FOUR MORE KILLS — AND THE
+   ROW ABOVE WAS FOUR DOCUMENTS STALE WHEN I ARRIVED.** v2 (`2d84a815`) refuted on all three lenses ·
+   v3 (`3ff66967`) refuted at the X-scale · v4 (`4d9cbaa7`) refuted by a **category error** (I compared
+   a range on `q`-the-approximation-denominator with a range on `q`-the-Dirichlet-modulus and called it
+   containment) · **NAME-COLLISION TABLE commissioned and delivered** (`seat/34584a8c`, 9 rows at the
+   bytes, `q`·`Q`·`W`·`M`·`K`·`X`·`λ` + 2 non-collisions) · v5 refuted on **all five** lenses · **v6 =
+   v5 + the gate's eleven forced corrections, and the gate's verdict is GATE PASSES WITH CORRECTIONS.**
+   ✅ **THE MECHANISM THAT SURVIVED, verified at the bytes by the gate:** `m4_exit_socket_split`
+   (`M4Exit.lean:487`) fixes `∃ ε δ₀` BEFORE `∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ)` and DELIVERS
+   `R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x`. Firing `U1floor := max extraFloor (max
+   ⌈exp 36000000⌉₊ (epsFloor ε))` discharges `regime_hthr_of_scale_1500` (`DoorFloor1500.lean:75`) and
+   `regime_W_headroom_of_floor_1500` (`:90`) fires **on the socket's own regime**:
+   `(log R.Hhi)^1500 ≤ log(R.x/(2R.ω))`. ⇒ **The X-vs-H relation the whole campaign was pricing is
+   built from LANDED parts.** *Ingredients landed; the composition is not.*
+   ⛔⛔ **AND THE FIVE THINGS I GOT WRONG, EACH KILLED AT THE BYTES — the gate is now correcting its
+   author faster than its author corrects the design.** ① **A FABRICATED QUOTATION**: v5 printed, in
+   v3's voice and inside quote marks, a sentence spliced from the clause v3 was REBUTTING plus the
+   clause that was v3's own, order reversed — convicting v3 of asserting what it declined. **The
+   mirror error, committed one turn after I named it as the thing I was watching for.** ② **"Slack
+   2.4×"** priced row 1 at the **RETIRED `B₅ = 5`** four lines after asserting `B₅ = 12` — the exact
+   grep trap `DoorFloor.lean:86-94` warns of in the corpus's own voice; the live margin is **exactly
+   1×**. ③ **THE `K`-vs-`K` COLLISION**: I built the absorbing demand from `cffKVt` when the threshold's
+   `K` is `capFreeFloor3_margin_all_chi_vt`'s witness — the corpus calls them **siblings** at different
+   floors (`RbdSupply.lean:71-72`, `:526-527`), no landed comparison. ***The `K` row of the collision
+   table, collecting on the block that quoted the table.*** ④ **THE ARITHMETIC**: my `X0MR` left 100 of
+   slack while forcing `40·logloglog X ≥ 311` — **short by ≈211**, having quoted that very term two
+   sections earlier. ⑤ **"THE PORT'S WALL IS G3, AN L¹-vs-L² WALL"** — false: BOTH endpoints are L¹,
+   two of the five links I called L² are not (`M4Close.lean:189`, `M4BridgeCover.lean:341`), and
+   `m4_hbd_of_live` (`M4Close.lean:464`) already concludes the unsquared object I said had no landed
+   counterpart — **the very theorem I cited ten lines later.** 94 unsquared lines across 17 files.
+   ⛔ **AND THE HISTORICAL CHARGE WAS FALSE TOO:** v5 said the measure transfer *"sat unnamed in every
+   one"* of v1–v4. **v1:16-20 quotes it verbatim as its headline finding ①; v3:111-114 names it in the
+   same words; v4:94-99 carries it forward.** *Withdrawn.*
+   📌 **DISPATCHABLE (4 nodes, statements written out in v6 §4, none composing to the door):** **N1**
+   `regime_headroom_at_socket` (B) — the socket composition, floor slot kept OPEN because the socket has
+   already spent `extraFloor` at `0`; **N2** `mrtQuality_lower_of_pointwise` (A) — **v5's form was FALSE,
+   not merely unproved**: without `0 ≤ X` and `1 ≤ Q` the index set is empty, `sInf ∅ = 0`, and any
+   `c > 0` refutes it; **N3** `pretDistSq_lam_eq_lamCoeff` (A) — the `lam`/`lamCoeff` bridge open since
+   v1; **N4** `mrtCompMultDatum_lamCoeff` (A). ⛔ **NOT DISPATCHABLE:** G1 (`mrtQuality`: 3 sites, 0
+   theorems) · G2's index-uniformity half · G3 (the L¹ twin of the unit-cell bridge — **class A/B
+   restatement, NOT a research obstruction**: the bridge's content is exponent-agnostic cell-constancy)
+   · G4 · **and the `(log X)^{1/125}` rpow step, which is the most dangerous survivor**: `(1 : ℝ)/125`
+   occurs in **exactly one line in all of `Salt/`** — `MRTProp24.lean:271`, the statement being ported —
+   while the H-arm's twin IS landed (`W_second_arm`, `DoorFloor1500.lean:250`). **One arm of the `min`
+   has a converter, the other has none, and at margin 1× that step is load-bearing at equality.**
+   🔑 ***THE LESSON THE CAMPAIGN ACTUALLY TAUGHT: every one of the FIVE kills was a true LOCAL fact
+   promoted to a headline it did not carry, and every one would have been caught by reading the SECOND
+   side. All five were caught by a lens — and the fifth added a NEW SPECIES to the class: a quotation
+   I composed rather than read, about a document I convicted without re-opening.*** Blocks v1–v6 + table in `seat/briefs/`. **No node has
+   fired. No Lean written. No build run — every ruling is statement-level.**
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
