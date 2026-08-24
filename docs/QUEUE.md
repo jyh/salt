@@ -139,6 +139,34 @@
    substituted into `geh_door_of_obligations` (GehClose.lean:96, live
    `hpp` hypothesis): one import (no cycle, census-verified) + the
    substitution; the GEH door's obligation count drops 15 → 14. Class A/B.
+5c. ✅⭐⭐ **THE h-SHELL LANDS — `ced778a8` (08/23 17:45, math), item 5's named arc-finisher.**
+   `log_chowla_two_shell_xi_h` (`Theorem23Shell.lean:488`): the `Ξ_H(h)`-restricted,
+   door-conditional Theorem-2.3 shell at shift `h`. **Priced by census BEFORE any attempt and
+   the census is why it cost two: every ingredient was already landed by wave B** —
+   `outer_combine_h` · `h211_of_logChowla2Fails_h` · `fBridge_of_singleCorr_h` · `fBridgeF_h` ·
+   `bigXiH` · `MRTUniformityXiH` · `circle_method_estimate_h` · `contradiction_of_mrtDoorXiH` —
+   **and NO h-analogue of the shell existed (0 declarations).** One composition, no new mathematics.
+   ⭐ **`shellError` is REUSED UNSHIFTED and the docstring says so** — it is a function of
+   `(R,H,t,g,κ)` with no `p`-shift inside, so `outer_combine_h`'s error term is byte-identical to
+   `outer_combine`'s. *The absence of a `shellError_h` is a fact about the object, not a missing node.*
+   ⛔ **PLACEMENT DECIDED THE SHAPE:** the `windowExpSum ↔ dft` bridge is PRIVATE to that file and
+   the public `expSum_eq_dft_windowPhi` is the PRIME sum, a different object — so the theorem lives
+   there and takes one import of `ShiftFork`, **cycle-censused before writing** (ShiftFork's
+   61-module closure excludes the file). Only 3 files import it; all three rebuilt green.
+   📐 **VERDICT READ FROM THE LOG, NOT AN EXIT CODE: `saltbuild EXIT=0`, `[9768/9769] Built Salt`,
+   0 errors, 0 warning lines naming either file** (210 warnings in the run, all pre-existing and
+   elsewhere). **AXIOM-CLEAN TWICE:** a standalone audit at `[propext, Classical.choice, Quot.sound]`
+   with the landed neighbour as a same-run control, **then rolled into `#audit_axioms` in the track
+   aggregate — a BUILD-TIME gate, not documentation — which fired `✓ … [3 axioms]`, one of 7036 ✓
+   rows with 0 non-3-axiom rows.**
+   ⚠️ **BOTH ATTEMPTS WENT ON TRANSCRIPTION, NEITHER ON THE PROOF:** attempt 1 threw 20 errors, every
+   one `Unknown identifier` — *including names the file already uses freely, which is the tell* — the
+   block had been appended AFTER `end Salt.Entropy.Chowla`. Attempt 2 moved it inside and changed no
+   content. **Cap was 3; used 2.**
+   ⛔ **REPORTED, NOT FIXED: `log_chowla_two_shell_xi_sq` — a landed sibling terminal — is ABSENT from
+   that roll-call, so its axioms are gated by no build.** One line once someone measures it; rolling
+   in an unmeasured declaration would assert cleanliness I cannot back.
+
 5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
    `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds` so the four inline
    re-compositions at the wall's discharge sites consume a named constant;
