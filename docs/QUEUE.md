@@ -487,6 +487,43 @@ RESURRECTS THEM:**
    side. All five were caught by a lens — and the fifth added a NEW SPECIES to the class: a quotation
    I composed rather than read, about a document I convicted without re-opening.*** Blocks v1–v6 + table in `seat/briefs/`. **No node has
    fired. No Lean written. No build run — every ruling is statement-level.**
+   ✅✅⭐⭐ **N1–N4 LANDED 08/24, `b85006f4` — THE MRT PORT'S FIRST LEAN, FOUR NODES, FOUR PASSES,
+   ONE ATTEMPT EACH.** Helm authorized the four v6 §4 nodes for executor-tier execution; dispatched from
+   a FROZEN brief (`seat/briefs/2026-08-24-item15-N1toN4-EXECUTOR-BRIEF-FROZEN.md`, `seat/c4e6bbdc`)
+   carrying the build-wrapper law, the axiom gate, the collision table per the helm's order, and the
+   helm's new **quotation law** as rule 10. `regime_headroom_at_socket` (`MRTPortHeadroom`) ·
+   `mrtQuality_lower_of_pointwise` (`MRTPortQualityFloor`) · `lam_eq_lamCoeff_of_prime` +
+   `pretDistSq_lam_eq_lamCoeff` (`MRTPortLamBridge`) · `mrtCompMultDatum_lamCoeff` (`MRTPortDatum`).
+   📐 **RE-VERIFIED AT THE MAESTRO'S HAND, not taken on the executors' green** — *an executor result is a
+   CANDIDATE, never a landing.* All four rebuilt through the wrapper: `saltbuild EXIT=0`, a `✔ Built`
+   line per module, and **0 warning/error lines naming any of them** read from the PERSISTED LOGS.
+   Axiom sweep over all **five** declarations: `[propext, Classical.choice, Quot.sound]` each. ⭐ **AND
+   THE FILTER THAT REPORTS THAT WAS ITSELF DRIVEN AGAINST A SEEDED 4th-AXIOM DECOY — it fires. Its
+   silence is evidence, not absence of evidence.**
+   ⛔⭐ **A COLLISION I CREATED AND CAUGHT BEFORE IT LANDED — my brief chose the colliding name and the
+   executors followed it correctly.** They wrote `Salt/MR/Port*.lean`; **`Salt/MR/Port*` IS ALREADY THE
+   KMT PORT** (`PortAssembly` · `PortClose` · `PortNonVacuous`, waves P-7 and CLOSE, 2026-07-29/30).
+   Two unrelated campaigns under one prefix is **the same collision class that killed four design
+   blocks** — renamed to `MRTPort*`, matching the house `MRTProp24`/`MRTPropA3`. *Found by a glob that
+   returned more files than I expected: **when a pattern matches more than you wrote, read the excess.***
+   📌 **NOT ROOTED — decision deliberately NOT taken.** All four are imported by nothing and build only
+   under a targeted invocation, so **they are invisible to a full build and can rot silently.** That is a
+   named debt, not an oversight; rooting puts them inside the axiom audit and wants the helm's word (and
+   possibly a consolidation into one module first).
+   ⛔ **SCOPE UNCHANGED AND RESTATED SO THE LANDING DOES NOT INFLATE IT: these close named residuals and
+   DO NOT COMPOSE TO THE DOOR.** `N2` is **true but INERT** — the landed twisted floors carry
+   `((2·orderOf χ : ℕ):ℝ)^2` in a denominator (`ChiLLower.lean:720-729`) and are not uniform in the
+   `(t,q,χ)` it quantifies over, so **nothing can feed it yet.** G1, G3, G4 untouched.
+   ⭐ **AND THE "MOST DANGEROUS SURVIVOR" IS PRICED AND IS CHEAP — N5.** The gate said the next gate
+   starts at the `(log X)^{1/125}` step. `Real.le_rpow_inv_iff_of_pos` (`Mathlib/…/Pow/Real.lean:582`)
+   **is** the step; `W_first_arm` stated in the conventions of the LANDED `W_second_arm`
+   (`DoorFloor1500.lean:250`) closes **Prop 2.4's whole `min` binder under `le_min`.** ⛔ **The detail I
+   checked instead of assuming:** `W_second_arm` concludes at `Real.log H ^ (12 : ℕ)` — **npow, `H : ℝ`**
+   — while `arcDen 12 H` is `Real.log (H:ℝ) ^ (12 : ℝ)` — **rpow, `H : ℕ`.** *Same printed `(log H)^12`,
+   two elaborations, two index types.* Note: `seat/briefs/2026-08-24-item15-N5-rpow-step-PRICED.md`.
+   ⛔ **DEFECT IN MY OWN FROZEN BRIEF, found by the N4 executor and recorded rather than quietly patched:**
+   it told all four to `sed` their statement out of v6 §4, but **only N1 and N2 have Lean code blocks
+   there** — N3 and N4 are prose. §4's *"statements written out"* is true of two of the four.
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
