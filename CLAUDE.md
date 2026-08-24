@@ -88,3 +88,11 @@ python3 scripts/blueprint_lint.py # docs↔code consistency + axiom audit (phase
 ```
 
 If `lake` is not on PATH: `~/.elan/bin/lake`.
+
+## Public-repo commit hygiene (ratified 2026-08-23)
+
+No `Claude-Session:` trailer lines and no chat-session URLs in commit messages —
+this repository is public, and the 2026-08-16 history purge's scope is the
+standing rule. Enforcement: a `commit-msg` hook tracked at `.githooks/`
+(fresh clone: `git config core.hooksPath .githooks` once) and the Scrub CI
+workflow, which checks every pushed delta. `Co-Authored-By` is fine.
