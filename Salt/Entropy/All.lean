@@ -162,6 +162,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.repCount_le_siftedSum
   Salt.Entropy.Chowla.log_chowla_two_shell
   Salt.Entropy.Chowla.log_chowla_two_shell_xi
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi_h
   Salt.Entropy.Chowla.hFac_lcm_sum_le
   Salt.Entropy.Chowla.hFac_mul_of_coprime
   Salt.Entropy.Chowla.sTrunc_le_prod
