@@ -24,6 +24,11 @@ The chain lands as four pieces:
    load-bearing: mod-`H` equality of prime sums equals integer equality only
    when the sums stay below `H`.
 4. `large_spectrum_energy` (the combine): pieces 2 ∘ 1 ∘ 3.
+
+ERRATUM (2026-08-23 helm, the council-demoted repair; item-18 version axis): "footnote 4"
+matches NO arXiv version of 1509.05422 — v1 has exactly two footnotes; the additive-energy
+escape is fn. 7 in v2 and fn. 9 in v3/v4 (v2's OWN fn. 4 is the model-case remark). The prose
+above is kept verbatim; the OBJECT (the additive-energy escape) is the citation, not the number.
 -/
 import Salt.Entropy.Chowla.CircleMethod
 import Mathlib

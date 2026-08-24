@@ -28,6 +28,11 @@ of step 2 into a single hypothesis `∑_{n ∈ 𝒫_H+𝒫_H} rbound(n)² ≤ �
 analytic-sieve content lives in ONE place and the additive combinatorics is
 discharged here.  See `docs/exploration/s3-a3-design.md`, section "The
 additive-energy escape — FROZEN (W3-cd-R0)".
+
+ERRATUM (2026-08-23 helm, the council-demoted repair; item-18 version axis): "footnote 4"
+matches NO arXiv version of 1509.05422 — v1 has exactly two footnotes; the additive-energy
+escape is fn. 7 in v2 and fn. 9 in v3/v4 (v2's OWN fn. 4 is the model-case remark). The prose
+above is kept verbatim; the OBJECT (the additive-energy escape) is the citation, not the number.
 -/
 
 open scoped BigOperators Pointwise Combinatorics.Additive
