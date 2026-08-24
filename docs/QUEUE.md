@@ -410,7 +410,8 @@ RESURRECTS THEM:**
    `DoorFloor.lean` (25/5). ⇒ 🔑 ***I AUTOMATED THE LAW AND SKIPPED THE LAW'S OWN VERIFY: the trigger
    says ask which document still describes this as not-done BEFORE the commit that lands it — and a
    guard whose failure does not stop the commit is not a guard.*** *Fourth instance today of a record
-   lagging its work, and the only one where the record actively asserted the opposite.*19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
+   lagging its work, and the only one where the record actively asserted the opposite.*
+19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
    FBridge.lean:60 with `windowVal_eq_zero_of_not_lt` landed axiom-free; FATAL 3's K4 §1
