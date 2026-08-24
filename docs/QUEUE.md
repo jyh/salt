@@ -411,6 +411,32 @@ RESURRECTS THEM:**
    says ask which document still describes this as not-done BEFORE the commit that lands it — and a
    guard whose failure does not stop the commit is not a guard.*** *Fourth instance today of a record
    lagging its work, and the only one where the record actively asserted the opposite.*
+   ⛔⭐⭐ **DESIGN BLOCK v1 DELIVERED 08/24 12:21 — `seat/57933d38` — AND IT DOES NOT PASS ITS OWN
+   GATE. NOT DISPATCHABLE.** This row says *design-block-first if the port grows a statement*; it does, so
+   the block IS the deliverable, and both adversarial lenses returned **refuted** (7 agents, 0 errors).
+   ✅ **CONFIRMED, and I verified the two load-bearing claims AT THE TREE before either lens reported:**
+   the landing socket is **`m4_exit_of_hbd_split`** (`M4Exit:443`), NOT `m4_exit_of_hbd`; **`δ₀` is fixed
+   BEFORE the regime** (`M4Exit:399`, the file's own words), so the port needs a rate falling below a FIXED
+   NUMERAL rather than one decaying at MRT's own rate — its ⟦WHAT DISAPPEARS⟧ list retires
+   `mrtDeliveredGrade`, `mrtGate`, `H0scale`, `doorGrade` and the `H0door` floor; and **porting at Thm 1.7
+   deletes `1_S` from the interface** — measured in the PDF: `1_S` = **0** on v3 p.6 vs **3** on p.9, **3**
+   on p.10. *That is the match brief's gap (c), its expensive half, removed by choosing the target well.*
+   ⛔ **REFUTED — FIVE DANGLING INTERFACES:** `hleb` is unsuppliable from Thm 1.7 (which speaks only under
+   `X ≥ H ≥ 10` while `hleb` quantifies to `0 < X'`) · **the X-vs-H threshold gating the ENTIRE M-supply is
+   carried by NO node**, though the socket exposes the exact `g : ℕ → ℕ → ℕ` lever the corpus names twice
+   for it · `lam` (`NonPret.lean:48`) is the **constant −1**, not `lamCoeff`, with no bridge (three arms) ·
+   `mrtQuality` has **no** Q-monotonicity (3 sites, 0 lemmas, censused at this hand) · `MRT-P7` names two
+   undefined objects and cannot elaborate.
+   ⛔⭐ **THE COSTLIEST ERROR: v1 MISLOCATES ITS OWN HIGHEST RISK BY ONE NODE.** It would probe `MRT-P8`,
+   which has no quantifier cycle and **would come back GREEN without testing anything**. The cycle is at
+   `MRT-P9` (classed B, worth C), where Thm 1.7's **X-dependent** `Q` meets a floor carrying the
+   **ineffective Siegel constant** — exactly what MRT avoid by construction (v3 p.6: *"no use of exceptional
+   zeroes, all the implied constants in our theorems are effective"*). ⇒ **That collision and the missing
+   `g`-lever are ONE defect, not two; binding the lever closes both.**
+   ⚠️ **C-BINDER CONSTRAINT, load-bearing:** any port node carrying the `∀ (C : ℝ)` binder silently
+   re-imports the decaying grade and undoes the split's whole saving (`M4Exit`'s own warning).
+   📌 **v2 owes seven repairs, ordered in the brief. NO NODE FIRES until v2 clears the same gate** — an
+   executor result is a CANDIDATE, never a landing, and a design block is no different.
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
