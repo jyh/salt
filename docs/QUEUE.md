@@ -4,6 +4,12 @@
 ### P1 > P2 > P3, clean-boundary switching, a lower tier never gates a
 ### higher. The bus carries orders; this file carries STANDING work.
 
+
+## POINTER — saltworks debts live in SALTWORKS' QUEUE (D1, Captain-ratified 2026-08-23)
+The ruling-5 refutation-channel migration landed in `saltworks/docs/QUEUE.md` §MIGRATED
+(all its debts name saltworks objects). This queue carries salt work only; repo-qualify
+every QUEUE citation — both repos have a `docs/QUEUE.md`.
+
 ## RULED 2026-08-20 (the commissioning council): λ-BV = P1, POINT→BAND = P2.
 ## The queue runs CONTINUOUSLY (no day/night): a seat pulls the moment its item
 ## lands or walls; parked-with-queue-non-empty is an alarm condition; an
