@@ -68,11 +68,31 @@ open Salt.Entropy.Chowla
 /-! ### The two definitions -/
 
 /-- **The MR door grade** at window length `H`: the uniformity quality
-`(log H)^{-5/4}` delivered by the Matomäki–Radziwiłł–Tao short-interval theorem
-(Tao arXiv:1509.05422v2 Prop. 2.4).  It is the `W^{-1/4}` saving of the character
-expansion read at the door's own sieve parameter `W = (log H)^5` (S7's `B5 = 5`;
-`docs/exploration/chi-check-0724.md`, KILL-CHECK 2).  Decreasing in `H`
-(`doorGrade_anti`) — longer windows buy a better door. -/
+`(log H)^{-5/4}`.  It is the `W^{-1/4}` saving of the character expansion read at
+`W = (log H)^5`.  Decreasing in `H` (`doorGrade_anti`) — longer windows buy a
+better door.
+
+⛔ **THIS IS THE *PIN*, NOT WHAT MRT DELIVERS, AND THE DISTINCTION IS LOAD-BEARING.**
+An earlier wording said `(log H)^{-5/4}` was *"delivered by the Matomäki–Radziwiłł–Tao
+short-interval theorem"*.  It is not.  MRT's own rate is
+`((log H)^{1/4}·loglog H) / W^{1/4}` (`arXiv:1503.05121v3` Thm 2.3 (2.2), p.9, read from
+the PDF); `W^{-1/4}` alone DROPS the `(log H)^{1/4}·loglog H` numerator.  What the corpus
+carries as the delivered rate is `mrtDeliveredGrade` (`M4Exit.lean:153`),
+`C_MRT·(log H)^{-11/4}·loglog H`, which is (2.2) read at `W = (log H)^{12}`; `mrtGate`
+is the crossing at which delivery falls under this pin, the exponent gap being
+`-5/4 − (−11/4) = 3/2`.  **The pin is the WEAKER target and delivery is stronger — the
+safe direction, and the reason the two objects are separate.**
+
+⚠️ **`B₅` PARAMETER NOTE:** the `W = (log H)^5` above is `B₅ = 5`, **S7's value, RETIRED by
+the S9 re-freeze** (`docs/exploration/s9-design-0726.md` ⟦AMENDMENT A⟧).  The live sweep is
+`B₅ = 12` and its apparatus is `DoorFloor1500.lean`, where Tao Prop 2.4's W-constraint reads
+`W^{125} = (log H₊)^{1500} ≤ log X_min` and BOTH arms are discharged
+(`regime_W_headroom_of_floor_1500`; §2 `W_second_arm` for `W ≤ H^{1/250}`).  **The `B₅ = 5`
+forms are kept deliberately as the historical record, which is exactly why a grep finds
+`(log H)^5` here and it reads like a live constraint.**  This pin's VALUE is unaffected —
+a target computed at the old `B₅` is simply a weaker target — but do not cite `B5 = 5` as
+current.  *(Repaired 2026-08-23 under QUEUE item 15's documentation rider; the original
+sentence is preserved in this note rather than deleted.)* -/
 noncomputable def doorGrade (H : ℕ) : ℝ := Real.log (H : ℝ) ^ (-(5 / 4 : ℝ))
 
 /-- **`H₀door` — the door floor.**  The least window length at which the MR grade
