@@ -672,6 +672,63 @@ RESURRECTS THEM:**
    consumer-less — `integral_logMeasure_le_sqrt_of_sq` (`M4Close.lean:191`) — **is exactly what an
    L²-native A.1 feed would need**, so its "no consumer" status may be a statement about the OLD target,
    not the ratified one.
+   ⛔⛔⭐⭐⭐ **SUPERSEDED 08/25 — THE ROW ABOVE IS LEFT BYTE-EXACT AND ITS HEADLINE IS WITHDRAWN.
+   THE CORPUS MIS-TRANSCRIBED MRT THEOREM A.1 — THE RATIFIED PRIMARY — AND THE STAMP ABOVE PUBLISHED
+   THE MIS-TRANSCRIPTION'S RATE UNDER A.1's NAME.** Repaired: `46b7a5a9`, both sites, one commit.
+   ```
+   SOURCE  1503.05121v3 p.20 Thm A.1:  … + (log log h)^2/(log h)^2 + 1/(log X)^{1/50}
+   CORPUS  MRTThmA1.lean:78 (was):     + (Real.log (Real.log h)) ^ 2 / Real.log h
+           MRTPropA3.lean:3809 (was):  + (Real.log (Real.log h)) ^ 2 / Real.log h
+   ```
+   **THE DENOMINATOR IS SQUARED IN THE SOURCE AND WAS UNSQUARED IN OUR LEAN, AT BOTH SITES** — so our
+   `MRTThmA1` was **STRICTLY WEAKER than MRT's actual theorem**. Verified with **three instruments**
+   before a byte moved: the page image at **200 dpi**, `pdftotext`, and **our own extract
+   `docs/sources/mrt_extract.md:53`, WHICH HAD IT RIGHT ALL ALONG.** ⇒ *The defect entered at the LEAN
+   step, not the extraction step — and the extract is the artifact the 08/24 gate brief FENCED ITS
+   READERS OFF WITH "never from a summary, including our own." The instrument-scope law, confirmed
+   twelve hours later by the very document it was written about.*
+   ⛔ **WHY NOTHING CAUGHT IT: BOTH SITES CARRIED THE SAME ERROR, so `mrtThmA1_of_mrtThmA2_empty`
+   matched and elaborated. THE KERNEL CHECKS THAT A.2 IMPLIES A.1 — NOT THAT EITHER IS MRT's.** *A
+   transcription defect is invisible to every downstream check by construction; the only instrument that
+   sees it is the source.*
+   ⛔ **THE WITHDRAWAL, EXACTLY.** The row above published *"A.1 → −1 · pin → −5/4 · delivery → −11/4
+   ⇒ A.1's RATE IS ASYMPTOTICALLY WEAKER THAN THE PIN IT WOULD HAVE TO MEET."* **A.1 is −2.**
+   ```
+   A.1 BEATS the pin:    (loglog h)²(log h)^-2 / (log h)^-5/4  = (loglog h)²(log h)^-3/4 → 0
+   A.1 MISSES delivery:  (loglog h)²(log h)^-2 / [(loglog h)(log h)^-11/4] = (loglog h)(log h)^3/4 → ∞
+   ⇒ A.1 SITS BETWEEN THE PIN AND DELIVERY.
+   ```
+   **The narrow literal was true** — `MRTThmA1.lean:78` did read that — **and it was labelled "A.1's
+   middle RHS term".** ⇒ 🔑 ***A NUMBER'S LABEL IS PART OF THE NUMBER: I read our transcription and
+   published it under the source's name.*** *Fifth repeat of this campaign's signature defect — a true
+   local fact promoted to a headline about a DIFFERENT OBJECT.*
+   ✅ **WHAT SURVIVES, CHECKED RATHER THAN ASSUMED: THE CONCLUSION.** The **δ₀ split socket** is still
+   the port's target, because the decaying socket's binder demands **delivery (−11/4)**, which A.1
+   misses under *either* transcription. **The conclusion was right; the reason was wrong; the reason is
+   the part that travels.** ⚠️ **And a limit that should have been stated the first time: all three
+   comparisons are NECESSARY-condition arguments only.** A.1 bounds an *untwisted mean-square* against
+   Lebesgue on `[X,2X]`; the door binder is a *twisted L¹* against `logMeasure`. Transport can only
+   LOSE, so *"A.1 cannot meet delivery"* holds a fortiori — but ***"A.1 beats the pin" does NOT by
+   itself put A.1 on any road.***
+   ⭐ **AND IT LEAVES THE RATIFIED ROUTE STRONGER THAN WE BELIEVED AT THE PIN** — an open question the
+   live wave carries: `absWindowBound_le_pin` (`M4Exit.lean:257`) *consumes* delivery and *produces* the
+   pin, so if any landed consumer takes the **pin** directly, A.1's corrected rate may reach further
+   than the split road alone. **Not assumed either way.**
+   ⚖️ **STATEMENT CHANGE AUTHORIZED BY THE HELM (Fable) 08/25**, on the ground that *fidelity to the
+   source is the iron rule's whole purpose — the rule bars bending statements toward provability, not
+   toward truth.* Its four conditions, each discharged: **(1)** page image at 200 dpi ✅; **(2)** both
+   sites, one commit, source cited in the docstring with the corrected sentence preserved ✅;
+   **(3)** every consumer re-audited under the **rooted full build** ✅; **(4)** this supersession is
+   **append-only — the withdrawn row above is byte-exact and was not edited** ✅.
+   📐 **`saltbuild EXIT=0` · `Build completed successfully (9770 jobs)` · 0 errors · 42 warnings, ALL
+   pre-existing in `Salt/SW` + `Salt/Vk`, 0 naming either repaired module. Axiom audit ✓ 7085 / ✗ 0 —
+   DELTA EXACTLY 0 against the 08/24 baseline** (a statement's body changed; no declaration added).
+   **All six touched declarations `[3 axioms]`** (`MRTThmA1` · `MRTThmA1Statement` · `MRTThmA2` ·
+   `MRTParsevalConstantMatch` · `mrtThmA1_of_mrtThmA2_empty` · `mrtThmA1Statement_of_constantMatch`)
+   **and all eight MRTPort theorems `[3 axioms]`.** ⚠️ *The audit also carries 9 `[0 axioms]`, 34
+   `[1 axioms]` and 37 `[2 axioms]` entries — those PASS: the rule is **at most** the three, and I
+   record the distribution rather than a bare "all 3" that would misdescribe 80 of its own rows.*
+   **Oleans deleted before both builds, so each green is an ELABORATION, not a replay.**
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
