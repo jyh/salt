@@ -386,6 +386,12 @@ import Salt.MR.MRTPropA3Bridge
 import Salt.MR.MRTPropA3
 import Salt.MR.DoorRoadCompose
 import Salt.MR.MRTPort
+import Salt.MR.MRTPortA1
+import Salt.MR.MRTPortA1Tail
+import Salt.MR.MRTPortWindow
+import Salt.MR.MRTPortSocketSq
+import Salt.MR.MRTPortRowLam
+import Salt.MR.MRTPortTrivialSplit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8514,3 +8520,14 @@ open Salt.Tactic in
   Salt.MR.mrtQuality_lower_of_capFreeFloor
   Salt.MR.W_first_arm
   Salt.MR.door_contradiction_with_headroom_and_tower
+  Salt.MR.mrtM_lam_eq_lamCoeff
+  Salt.MR.lamCoeff_mul_coprime
+  Salt.MR.mrtThmA1_at_lamCoeff
+  Salt.MR.mul_exp_neg_le_two_div
+  Salt.MR.mrtA1_rhs_tail_le
+  Salt.MR.norm_sq_le_two_of_norm_sub_le
+  Salt.MR.norm_mrtShortMean_sq_le_open
+  Salt.MR.m4_exit_socket_split_of_sq
+  Salt.MR.M4RowMeanSqLam
+  Salt.MR.m4_doorSq_of_rowMeanSqLam
+  Salt.MR.m4_exit_socket_split_sq_trivial
