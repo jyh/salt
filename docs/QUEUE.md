@@ -624,6 +624,54 @@ RESURRECTS THEM:**
    drafts it: cell-constancy forces `H : ℕ` (`M4BridgeIntegral.lean:123`), so **an L¹ twin stated at a real
    `hlen` would be FALSE, not merely unproved.** ⚠️ **`pdftotext` silently drops `\left|…\right|` bars in
    this paper — anyone reading MRT through a text dump transcribes an L¹ integral as a SIGNED one.**
+   ⛔⛔⭐⭐ **DOOR-COMPOSITION GATE v1 RUN 08/24 (14 agents, 0 errors, ~2.33M subagent tokens) — IT
+   PRODUCED A COHERENT, WELL-EVIDENCED DESIGN FOR A TARGET THE CAPTAIN DELETED ON 08/21. NOT
+   DISPATCHABLE. THE FENCE WAS MINE.** The gate chose **MRT Prop 2.4** as the consumption surface.
+   `QUEUE.md:204` ratifies **PRIMARY: MRT Theorem A.1 + the major arc**, and the match report's own
+   words at `2026-08-21-mrt-match-REPORT.md:142` are *"Corollary for the port: do NOT target MRT Prop
+   2.4 as the consumption surface."* ⇒ 🔑 ***I SCOPED EVERY READER TO `salt/` AND THE RULINGS LIVE IN
+   `seat/`.*** The gate said so itself in `do_not_claim` — *"I did NOT read the design block, it is not
+   in this repository"* — and I had also fenced the PDF reader off `docs/sources/mrt_extract.md` with
+   *"NEVER from a summary, including our own"*. **The pen rule bars SUBSTITUTING a summary for the
+   source; I read it as barring OPENING one, and fenced off a pointer.** *The same defect that killed
+   eight design blocks — a true local fact promoted past its warrant — committed one level up, in the
+   DESIGN OF THE INSTRUMENT. A gate cannot refute what it was never shown.*
+   ⭐ **THE COMPLETENESS CRITIC CAUGHT IT IN ONE COMMAND, AND CAUGHT AN ELISION THAT BROKE THE GATE'S
+   OWN CHAIN:** the gate labelled its evidence *"[excerpted to the socket's single open binder,
+   :341-346]"* — **the binder runs 342-346, and `M4Exit.lean:341` is a triple of FREE conjuncts
+   (`H0door δ₀ ≤ R.Hlo ∧ 0 < doorGrade R.Hlo ∧ doorGrade R.Hlo ≤ δ₀`) that the excerpt cut while
+   claiming to start there.** Its S1 then dropped the very hypothesis its own S4 consumed, so two of
+   five statements no longer composed. *A quotation trimmed by one line. This is why the quotation law
+   is a law.*
+   ⭐⭐⭐ **AND THE FINDING THAT SURVIVES THE WRECKAGE IS THE CAMPAIGN'S — THREE RATES, READ AT THE
+   BYTES, AND THEY SETTLE WHICH SOCKET THE PORT LANDS ON.**
+   ```
+   DoorFloor.lean:96   doorGrade H           = log H ^ (-(5/4))                  ← the PIN
+   M4Exit.lean:153     mrtDeliveredGrade C H = C · log H ^ (-(11/4)) · loglog H  ← DELIVERY
+   MRTThmA1.lean:78    A.1's middle RHS term = (loglog h)² / log h               ← the RATIFIED FEED
+   ```
+   On exponents of `log H`: **A.1 → −1 · pin → −5/4 · delivery → −11/4.** ⇒ ***A.1's RATE IS
+   ASYMPTOTICALLY WEAKER THAN THE PIN IT WOULD HAVE TO MEET*** — an A.1-sourced bound can NEVER satisfy
+   the decaying road. ⭐ **THAT IS NOT A CONTRADICTION; IT IS WHY THE SPLIT ROAD EXISTS.**
+   `m4_exit_socket_split` asks only for a **fixed** `δ₀`, fixed BEFORE the regime, and hands over a free
+   lever `∀ (U1floor : ℕ)` with `U1floor ≤ R.Hlo`; `(loglog H)²/log H → 0` clears any fixed constant
+   once `H` is pushed and never clears `(log H)^{-5/4}`. ⇒ **THE SPLIT ROAD IS NOT AN OPTIMISATION —
+   IT IS THE ONLY ROAD THE RATIFIED FEED CAN WALK, AND THE HANDOFF BANK NAMED THE RIGHT SOCKET.** The
+   gate's confident *"the handoff names the wrong socket"* is **backwards under the ratified route**,
+   and instructively so: it reasoned from the corpus's rate CALIBRATION (`mrtDeliveredGrade` genuinely
+   IS MRT (2.2) at `W = (log H)^12` — that arithmetic is correct) to a TARGET, which calibration does
+   not determine. ✅ **TWO INDEPENDENT DERIVATIONS CONVERGED:** a reader reached the same wall through
+   the `6315000/h` summand and a `(log H)^14` debit; I reached it through three exponents in three
+   definitions, neither knowing of the other.
+   ⚠️ **THE REMAINING TENSION, MEASURED AND NOT RULED: the ratified route's feed is UNPROVEN and the
+   deleted route's feed is FORBIDDEN.** `MRTThmA1` is a `def … : Prop`; the stack beneath it
+   (`MRTThmA2` → `MRTParsevalConstantMatch`, `MRTPropA3.lean:3802`/`:3883`) has no producer. **GATE v2
+   IS IN FLIGHT** under the corrected two-repo scope, targeting the δ₀ split socket, to price exactly
+   that. **No node has fired. No Lean written. No build run — every ruling here is statement-level.**
+   📌 Note for v2 and for whoever reads this next: the L²→L¹ step this row's own `📌` above calls
+   consumer-less — `integral_logMeasure_le_sqrt_of_sq` (`M4Close.lean:191`) — **is exactly what an
+   L²-native A.1 feed would need**, so its "no consumer" status may be a statement about the OLD target,
+   not the ratified one.
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
