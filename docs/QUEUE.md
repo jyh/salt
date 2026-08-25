@@ -821,6 +821,61 @@ RESURRECTS THEM:**
    the register in one theorem** — if sound, GAP SIEVE disappears outright.
    ⛔ **NO NODE HAS FIRED YET. No Lean written by this stamp, no build claimed for it** — the five
    executors are in flight and **an executor result is a CANDIDATE, never a landing.**
+   ✅✅⭐⭐⭐⭐ **THE D-WAVE LANDED 08/25, `6925c4e8` — SIX NODES, SIX PASSES, ONE ATTEMPT EACH,
+   ROOTED AND KERNEL-AUDITED. EVERY STATEMENT WAS WRITTEN BY THE GATE, NOT BY PROSE.**
+   ```
+   MRTPortA1.lean           mrtM_lam_eq_lamCoeff · lamCoeff_mul_coprime · mrtThmA1_at_lamCoeff
+   MRTPortA1Tail.lean       mul_exp_neg_le_two_div · mrtA1_rhs_tail_le
+   MRTPortWindow.lean       norm_sq_le_two_of_norm_sub_le · norm_mrtShortMean_sq_le_open
+   MRTPortSocketSq.lean     m4_exit_socket_split_of_sq
+   MRTPortRowLam.lean       M4RowMeanSqLam · m4_doorSq_of_rowMeanSqLam
+   MRTPortTrivialSplit.lean m4_exit_socket_split_sq_trivial
+   ```
+   📐 **All six oleans DELETED before the build, so every green is an ELABORATION, not a replay:**
+   `saltbuild EXIT=0` · `Build completed successfully (9776 jobs)` · **0 errors** · axiom audit
+   **✓ 7096 / ✗ 0 — exactly +11 over the 7085 baseline, a positive control that every registration
+   took** · all 11 new declarations `[propext, Classical.choice, Quot.sound]` · the 8 pre-existing
+   MRTPort theorems still `[3 axioms]`. **Statements re-verified at the maestro's hand by `diff`
+   against the gate's own JSON — D1, D2, D3, D4, D7 BYTE-IDENTICAL; D8's `def` byte-INHERITED from
+   `M4Join.lean:311` with a diff showing only the two named edits.**
+   ⚠️ **THE WARNING NUMBER, CHASED RATHER THAN REPORTED: 42 → 210 total, ZERO naming any new module —
+   but TWO named `All.lean`, which I had edited.** Measured: they are the **same two pre-existing lines
+   (105 and 104 chars) at `2842`/`2850`, shifted to `2848`/`2856` by exactly 6 — my import count.**
+   Over-100-char lines in `All.lean`: **401 before, 401 after.** ⇒ 🔑 ***A WARNING COUNT IS A PROPERTY
+   OF THE BUILD, NOT OF THE CORPUS*** — it emits on elaboration and not on replay, so it measures what
+   was rebuilt. *A shifted line number is the same defect wearing a new address.*
+   ⭐⭐ **D9 ANSWERS A CAPTAIN QUESTION BY CONSTRUCTION — dispatched as a NODE so the kernel would rule
+   it, not asserted.** Firing `m4_exit_socket_split_sq_arc` (`S11ExitL2.lean:121`) at the trivial split
+   `a := lamCoeff`, `e := 0`: `hsplit` is `add_zero` · `hins` **VANISHES** (`absWindowSum 0 = 0`, so
+   `‖0‖² = 0`, `∫ = 0`, the `ξ`-sum is `0`, obligation `0 ≤ 0`) · `hρ` closes **exactly at equality**
+   at `Bsieve := δ₀/(2K)`. ⭐ *The sharpest evidence is a build that FAILED: the first attempt printed
+   `EXIT=1` with ONLY the arithmetic tail open — proving `hsplit`, `hB0`, `hsock`, `hins` had all
+   already discharged.* ⇒ **THE SIEVE, THE CLASS PRICING AND THE INSERT BUDGET ARE MACHINERY FOR A
+   SPLIT WE DO NOT HAVE TO TAKE.** The register reduces to **ONE hypothesis: an unsieved L² door bound
+   on `lamCoeff` at a fixed constant.** ✅ It also confirmed the arc socket's tower exponent is
+   `(9 : ℝ)/2`, **not** `m4_exit_socket_split`'s `5` — I flagged that I might be wrong and told it to
+   check the bytes; the two sockets genuinely differ.
+   ⛔⛔ **SCOPE, AND THE DOOR HAS NOT MOVED.** What changed is the SHAPE of the residual, not its size:
+   *before* `sieve + class pricing + insert budget + phase → the door`; *after* **`phase → the door`.**
+   `GAP α` (the datum is PHASED; A.1 has no frequency) and `GAP A.1` (`MRTThmA1` is a `def … : Prop`
+   with **no producer**) are **both class D and untouched.** ⭐ **All six executors stated that limit
+   UNPROMPTED in their own reports.** *That is worth more than the six greens.*
+   ⭐ **THREE FINDINGS WORTH MORE THAN THEIR NODES.** ① **D8: `hreach` DOES DOUBLE DUTY** — the frozen
+   statement carries no `0 ≤ MS H` and needs none, because at `k = 0` `doorLadder x H 0 = x`
+   (`M4Door.lean:287`, `rfl`) makes `hreach` read `R.x ≤ R.x / R.ω`, refuted by `R.hx`/`R.hω`; so
+   `hreach` forces `k > 0`, `hrow` becomes non-vacuous, and positivity follows. **Verified
+   independently here.** ⚠️ *Any restatement weakening `hreach` breaks the statement SILENTLY.*
+   ② **D5: the gate's PROOF SKETCH named a lemma this mathlib lacks** — bare `div_le_div_iff` is
+   **absent (677 `div_le_div_iff₀`, 144 `_of_pos_right`, 10 `_of_pos_left`, 0 bare)**. The executor
+   treated it as **proof-level, not statement-level**, fixed it with one `sed`, and flagged it.
+   ③ **D8 FOUND A DEFECT IN MY OWN FROZEN BRIEF:** line 259 **truncated mid-word** — my generator cut
+   every rationale block at 700 chars, **exactly one block exceeded it (D8, 922)**, and the 222 lost
+   characters were **precisely the gate's caveat explaining why D8 was classed C.** ⇒ 🔑 ***A TRUNCATED
+   READ LOOKS LIKE A COMPLETE ONE*** — invisible because **I never re-read the artifact I generated.**
+   Restored verbatim as an append-only erratum (`seat a58336eb`).
+   ⛔ **AND ONE EXECUTOR CLAIM I CHECKED AND KILLED:** D5 reported *"`All.lean` does not currently
+   import `Salt.MR.MRTPort`"*. **It does — line 388.** *An executor result is a CANDIDATE, never a
+   landing — and that applies to its PROSE as much as to its Lean.*
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
