@@ -893,6 +893,13 @@ RESURRECTS THEM:**
    ⭐ **THE ARC IS NOT DROPPED — IT IS CHARTERED AS ITS OWN COMMISSION TODAY.** A Fable design block
    writes its blueprint from gate-verified statements; math's waves execute the A/B nodes it
    classifies. **Carried into the commission record: the council decision register
+   ⭐ **THE BLUEPRINT LANDED 2026-08-25 (helm, Fable): `docs/blueprints/arc.md` v2 — drafted from
+   six structured surface-reads, then a 6-refuter adversarial pass (REPAIR-THEN-FIRE ×6, two
+   CONFIRMED-FATAL folded: the pad flip to PAD A and the A.1 truth defect). Its Wave H-1 is IN
+   FLIGHT at math: the A-appendix defs carry FOUR defects incl. `MRTThmA1` FALSE AS TRANSCRIBED
+   (f ≡ 1 counterexample; the source's p.21 exp(−M) remark form is the true one) and `gJ` sifting
+   the WRONG SIDE vs the source's S. D9/E4/the seal are UNAFFECTED (A.1 hypothesis-position only).
+   Next: the D-1 road-pricing wave; lane A holds for its report or the Captain's word.**
    (`seat/briefs/2026-08-25-COUNCIL-decision-register.md`), the D9 SOUND-vs-CHEAPER caveat, and BOTH
    frozen gate briefs.**
    📌 **AND THE RULING IS COMPATIBLE WITH THE REGISTER'S OWN RECOMMENDATION, WHICH I FLAG RATHER THAN
