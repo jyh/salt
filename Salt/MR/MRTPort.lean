@@ -8,6 +8,8 @@ import Salt.MR.DoorFloor1500
 import Salt.MR.MRTProp24
 import Salt.MR.RHSGrade
 import Salt.MR.NonPret
+import Salt.MR.VkMidSharp
+import Salt.MR.M4Close
 
 /-!
 # The MRT port (item 15) — the landed nodes
@@ -303,4 +305,210 @@ theorem mrtCompMultDatum_lamCoeff : MrtCompMultDatum lamCoeff := by
       map_mul := fun m n _ _ => liouvilleC_mul m n
       norm_le_one := liouvilleC_norm_le_one }
 
+/-!
+## The MRT port (item 15), node N6 — a `CapFreeFloor` producer for `mrtQuality`
+
+Dispatched from the frozen executor brief
+`seat/briefs/2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.  The statement below is
+the gate's, copied verbatim; it is **not** the maestro's paraphrase.
+
+`mrtQuality_lower_of_pointwise` (`Salt/MR/MRTPort.lean:170`, node N2) is the `le_csInf`
+half of Prop 2.4's quality bound and is inert until something supplies its pointwise
+hypothesis at every admissible `(t, q, χ)`.  This node feeds it from the cap-free arm:
+a `CapFreeFloor (lamChi χ) X` for every `χ` of every modulus `q ≤ Q` is exactly that
+hypothesis, once the χ-twist is moved from the `g`-side to the `f`-side.
+
+The chain, all three links landed:
+
+* `CapFreeFloor` (`Salt/MR/CapFreeArm.lean:111`) read at the box point `v := t` — note it
+  is **STRICT `<`**, deliberately so (its own docstring), and the conclusion here is `≤`:
+  `le_of_lt` is a required link, not a formality.
+* `pretDistSq_lam_chi_twist` (`Salt/MR/ChiFloor.lean:208`) — the EXACT twist transfer
+  `𝔻(lam, χ·n^{it}; X)² = 𝔻(lam·χ̄, n^{it}; X)²`.  It is stated at the unfolded datum
+  `fun n => χ n * costwist t n`, while the goal carries `chiTwist χ t`
+  (`Salt/MR/ChiEuler.lean:74`).  The two are delta-equal, so the link is taken as a
+  **type-ascribed `have`** — elaboration checks that at default transparency.  It is NOT
+  taken by `rw`, whose `kabstract` runs at `TransparencyMode.instances`, under which a
+  plain `noncomputable def` does not unfold.
+* `pretDistSq_lam_eq_lamCoeff` (`Salt/MR/MRTPort.lean:253`, node N3) — the `lam`/`lamCoeff`
+  bridge, legitimate because `pretDistSq` reads its left datum only at primes.
+
+⛔ **SCOPE.**  This closes the *shape* of design-block gap G1: it turns a cap-free datum
+floor into a `mrtQuality` floor.  It does **not** produce the hypothesis `hfloor`.  The
+residual named at `MRTPort.lean` — that `capFreeFloor_all_chi_vt`
+(`Salt/MR/VkMidSharp.lean:460`) is gated by a per-`q` threshold with no `q ≤ Q`-shaped
+discharge in the corpus — is untouched here and is exactly what `hfloor` still costs.
+**Read this as a producer for `mrtQuality`, never as "G1 is closed".**
+-/
+
+
+/-- **N6 — a cap-free floor at every `(q, χ)` is a floor on `mrtQuality`.**
+If every Dirichlet character of every modulus `1 ≤ q ≤ Q` has the cap-free datum floor
+`CapFreeFloor (lamChi χ) X`, then MRT's quality `M(lamCoeff; X, Q)` is bounded below by
+`(1/32)·loglog X + 25`.  `hX` and `hQ` are what `mrtQuality_lower_of_pointwise`'s
+nonemptiness witness costs. -/
+theorem mrtQuality_lower_of_capFreeFloor {X Q : ℝ}
+    (hX : 0 ≤ X) (hQ : (1 : ℝ) ≤ Q)
+    (hfloor : ∀ (q : ℕ), 1 ≤ q → (q : ℝ) ≤ Q →
+        ∀ χ : DirichletCharacter ℂ q, CapFreeFloor (lamChi χ) X) :
+    (1 / 32) * Real.log (Real.log X) + 25 ≤ mrtQuality lamCoeff X Q := by
+  refine mrtQuality_lower_of_pointwise hX hQ ?_
+  intro t q χ ht hq hqQ
+  -- The cap-free floor read at the box point `v := t`.  STRICT `<`.
+  have hstrict : (1 / 32) * Real.log (Real.log X) + 25
+      < pretDistSq (lamChi χ) (costwist t) X := hfloor q hq hqQ χ t ht
+  -- The twist transfer.  The ascribed type carries `chiTwist χ t`; the term's carries the
+  -- unfolded lambda.  Defeq by delta, checked here rather than by `kabstract`.
+  have hbridge : pretDistSq lam (chiTwist χ t) X
+      = pretDistSq (lamChi χ) (costwist t) X := pretDistSq_lam_chi_twist χ t X
+  calc (1 / 32) * Real.log (Real.log X) + 25
+      ≤ pretDistSq (lamChi χ) (costwist t) X := le_of_lt hstrict
+    _ = pretDistSq lam (chiTwist χ t) X := hbridge.symm
+    _ = pretDistSq lamCoeff (chiTwist χ t) X := pretDistSq_lam_eq_lamCoeff _ X
+
+/-!
+## Item 15 — N5: the `L`-side arm of Tao Prop. 2.4's `min` binder
+
+Executor brief: `seat/briefs/2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.
+The statement is the adversarial gate's own, frozen; it is NOT repaired here.
+
+`W_first_arm` is the companion of `W_second_arm` (`Salt/MR/DoorFloor1500.lean`): under
+`le_min` the two arms together give Prop. 2.4's whole `min` binder at `B₅ = 12`.  Where
+`W_second_arm` bounds `W = (log H)^{12}` by `H^{1/250}`, this arm bounds the same `W` by
+`L^{1/125}` off the `1500`-power headroom `(log H)^{1500} ≤ L`.
+
+⛔ **The type point, deliberate.**  This node is stated in `W_second_arm`'s conventions:
+`Real.log H ^ (12 : ℕ)` is an **npow** with `H : ℝ`.  `arcDen 12 H` (`Salt/MR/BigXiArc.lean`)
+is `Real.log (H : ℝ) ^ (12 : ℝ)` — an **rpow** with `H : ℕ`.  *Same printed symbol, two
+elaborations, two index types.*  The bridge between them is a separate named step and is
+not this node; nothing here is "simplified" toward `arcDen`.
+
+⛔ **SCOPE.**  This is one arm of a `min`, not the door.  It closes no residual on its own.
+-/
+
+
+/-- **N5 — the `L`-side arm of Tao arXiv:1509.05422v2 Prop. 2.4 at `B₅ = 12`.**  From the
+`1500`-power headroom `(log H)^{1500} ≤ L` and `1 ≤ log H`, the constraint
+`W ≤ L^{1/125}` holds at `W = (log H)^{12}`, since `((log H)^{12})^{125} = (log H)^{1500}`.
+
+The exponent bookkeeping runs through `rpow`: `le_rpow_inv_iff_of_pos` turns the goal into
+`((log H)^{12})^{125} ≤ L`, and `rpow_natCast`/`rpow_mul` collapse `12 * 125` to `1500`
+against `hpow`.  `1 ≤ log H` supplies both the `0 ≤ log H` side condition and, through
+`hpow`, the `0 ≤ L` one. -/
+theorem W_first_arm {H L : ℝ} (hH : 1 ≤ Real.log H)
+    (hpow : Real.log H ^ (1500 : ℕ) ≤ L) :
+    Real.log H ^ (12 : ℕ) ≤ L ^ ((1 : ℝ) / 125) := by
+  have hlog0 : (0 : ℝ) ≤ Real.log H := le_trans zero_le_one hH
+  have hone : (1 : ℝ) ≤ Real.log H ^ (1500 : ℕ) := one_le_pow₀ hH
+  have hL0 : (0 : ℝ) ≤ L := le_trans (le_trans zero_le_one hone) hpow
+  have h12 : (0 : ℝ) ≤ Real.log H ^ (12 : ℕ) := pow_nonneg hlog0 12
+  rw [one_div, Real.le_rpow_inv_iff_of_pos h12 hL0 (by norm_num : (0 : ℝ) < 125)]
+  calc (Real.log H ^ (12 : ℕ)) ^ (125 : ℝ)
+      = Real.log H ^ (1500 : ℕ) := by
+        rw [← Real.rpow_natCast (Real.log H) 12, ← Real.rpow_mul hlog0,
+          ← Real.rpow_natCast (Real.log H) 1500]
+        norm_num
+    _ ≤ L := hpow
+
+/-!
+## ⟦N7⟧ — the split door's exit, carrying BOTH the W-headroom and the tower
+
+Item 15 (the MRT port), node **N7**, dispatched from the frozen executor brief
+`seat/briefs/2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.
+
+`M4Exit.m4_exit_socket_split` (`M4Exit.lean:487`) delivers, alongside the regime's own
+data, the head's tower endpoint law
+
+  `50 ≤ loglog R.Hlo → loglog R.Hhi ≤ (loglog R.Hlo)^5`
+
+(⟦THE NAMED AMENDMENT⟧, the 2026-07-29 anchor ruling), which `M4Exit.lean:485-486` records
+as *"available to any of them without a re-run"*.  Two landed forwarders each keep exactly
+ONE of the socket's two optional payloads and drop the other:
+
+* `M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:771`) discards the tower with
+  a `-` in its `obtain` (`:784`) and carries no headroom conjunct at all;
+* `MRTPort.regime_headroom_at_socket` (`MRTPort.lean:99`) discards the tower with a `-`
+  (`:113`) and trades it for the `B₅ = 12` W-headroom `(log H₊)^{1500} ≤ log (x/(2ω))`, but
+  serves the SOCKET's single open binder, not the door register.
+
+This file is the join: the door register with BOTH conjuncts in one `∃ R` payload.  It is
+the genre `S11Thread.lean:29-31` states verbatim — *"the landed proofs with one extra
+component carried … No landed declaration is touched."*  Here two components are carried.
+
+## What is NEW here, and what is not
+
+📌 Neither inequality is re-proved.  The tower is the socket's own conjunct, named instead of
+discarded; the headroom is `DoorFloor1500.regime_W_headroom_of_floor_1500 ∘
+regime_hthr_of_scale_1500`, fired at the socket's regime exactly as `regime_headroom_at_socket`
+fires it, with the same three floor demands joined into the socket's last floor slot
+
+`U1floor := max U1floor (max ⌈Real.exp 36000000⌉₊ (epsFloor ε))`
+
+and the caller's own floor re-exposed as a binder.  ⛔ `m4_door_contradiction_of_live_split_tower`
+(`S11Thread.lean:49`) already carries the tower half; the CONJUNCTION with the headroom
+conjunct is what was missing, and a corpus scan on 2026-08-24 found the `^ (1500 : ℕ)`
+headroom conjunct only in `MRTPort.lean` and `DoorFloor1500.lean`, neither of which carries
+the tower.
+
+## Measured strength
+
+The register (`M4DoorGates`, `0 ≤ Braw`, `M4GradeGateSplit`, `M4SievedDoorSq`) and the
+conclusion `¬ logChowla2Fails R.eps R.x R.ω` are byte-identical to `M4Close.lean:771`'s.  The
+headroom conjunct is the **ℕ-power** form `(Real.log R.Hhi) ^ (1500 : ℕ)`; it does NOT deliver
+Tao arXiv:1509.05422v2 Prop. 2.4's `rpow` binder, exactly as `MRTPort.lean`'s N1 section
+records of its own conclusion.  `⌈Real.exp 36000000⌉₊` is a SHAPE, never evaluated.
+-/
+
+
+
+/-- **N7 — the split door's exit, with the W-headroom AND the tower.**
+`M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:771`) re-served so that its
+`∃ R` payload carries BOTH `(log H₊)^{1500} ≤ log (x/(2ω))` (the `B₅ = 12` W-headroom of
+`regime_headroom_at_socket`) and the socket's tower endpoint law
+`50 ≤ loglog H₋ → loglog H₊ ≤ (loglog H₋)^5` (⟦THE NAMED AMENDMENT⟧, named here instead of
+discarded).  Statement diff against the landed door: two extra conjuncts; the gate register
+and the conclusion are byte-identical.  No landed declaration is touched. -/
+theorem door_contradiction_with_headroom_and_tower :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (Real.log (R.Hhi : ℝ)) ^ (1500 : ℕ) ≤ Real.log ((R.x : ℝ) / (2 * (R.ω : ℝ))) ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ 5) ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) →
+            M4GradeGateSplit R δ₀ δ Braw k →
+            M4SievedDoorSq R M Braw →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, hCg, hhbd⟩ := m4_hbd_of_live_split
+  obtain ⟨ε, δ₀, hε, hδ₀, hexit⟩ := m4_exit_socket_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  -- the socket's `U1floor` is the LAST floor slot: join all three demands into it
+  -- (`MRTPort.lean:110-112`), and name ⟦THE NAMED AMENDMENT⟧ instead of discarding it
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hR⟩ :=
+    hexit (max U1floor (max ⌈Real.exp 36000000⌉₊ (epsFloor ε))) g
+  have hfloor : U1floor ≤ R.Hlo := le_trans (le_max_left _ _) hU1
+  have hceil : ⌈Real.exp 36000000⌉₊ ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hepsF : epsFloor ε ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  -- the `hbig` arm: `exp 36000000 ≤ H₊` through the ceiling, then `log`-monotonicity
+  have hbig : (36000000 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
+    have hcast : ((⌈Real.exp (36000000 : ℝ)⌉₊ : ℕ) : ℝ) ≤ (R.Hhi : ℝ) := by
+      exact_mod_cast le_trans hceil R.hHlohi
+    have hle : Real.exp (36000000 : ℝ) ≤ (R.Hhi : ℝ) := le_trans (Nat.le_ceil _) hcast
+    have hlog := Real.log_le_log (Real.exp_pos _) hle
+    rwa [Real.log_exp] at hlog
+  -- the `heps` arm composes only after `rw [hReps]` (`DoorFloor1500.lean:234-236`)
+  have hepsHhi : epsFloor R.eps ≤ R.Hhi := by
+    rw [hReps]
+    exact le_trans hepsF R.hHlohi
+  have hhead : (Real.log (R.Hhi : ℝ)) ^ (1500 : ℕ)
+      ≤ Real.log ((R.x : ℝ) / (2 * (R.ω : ℝ))) :=
+    regime_W_headroom_of_floor_1500 R
+      (regime_hthr_of_scale_1500 R hbig (heps_arm_of_epsFloor hepsHhi))
+  exact ⟨R, hReps, hfloor, hRg, hhead, hRtow,
+    fun δ Braw M k hgates hBraw0 hgrade hsock =>
+      hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
 end Salt.MR

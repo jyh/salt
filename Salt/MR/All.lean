@@ -8511,3 +8511,6 @@ open Salt.Tactic in
   Salt.MR.lam_eq_lamCoeff_of_prime
   Salt.MR.pretDistSq_lam_eq_lamCoeff
   Salt.MR.mrtCompMultDatum_lamCoeff
+  Salt.MR.mrtQuality_lower_of_capFreeFloor
+  Salt.MR.W_first_arm
+  Salt.MR.door_contradiction_with_headroom_and_tower
