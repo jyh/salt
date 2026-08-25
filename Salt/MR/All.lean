@@ -398,6 +398,7 @@ import Salt.MR.MRTPortMLower
 import Salt.MR.MRTPortExitLamGated
 import Salt.MR.MRTPortA1Const
 import Salt.MR.MRTArcRatCoprime
+import Salt.MR.XGapThread
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8549,3 +8550,6 @@ open Salt.Tactic in
   Salt.MR.m4_exit_lam_of_rowMeanSqLam_gated
   Salt.MR.mrtA1_lamCoeff_le_const
   Salt.MR.norm_absWindowSum_rat_le_coprime_head_add
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_forallX_sq_count
+  Salt.MR.m4_exit_socket_split_sq_arc_forallX
+  Salt.MR.m4_exit_socket_split_sq_trivial_forallX
