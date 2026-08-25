@@ -928,6 +928,51 @@ RESURRECTS THEM:**
    genuinely coefficient-generic exactly as the brief claimed; and "eliminate α" is accurate (the
    residual becomes `b/q`-quantified) with the `4(1+2π)²` factor absolute and absorbable. *The brief
    had answered my objection before I raised it.*
+   ✅✅⭐⭐⭐⭐ **WAVE B LANDED 08/25, `45da8f7f` — FIVE NODES, FIVE PASSES, ONE ATTEMPT EACH, ROOTED
+   AND KERNEL-AUDITED. ITEM 15's SEAL IS TIGHTENED.**
+   ```
+   MRTPortLadderGates.lean   m4_ladder_gates_lam                        (E1, B)
+   MRTPortExitLam.lean       exit_lam_tail_absorb · m4_exit_lam_of_rowMeanSqLam (E2, B — the spine)
+   MRTPortMLower.lean        log_le_div_add_const_128 · log3_shift_le_linear ·
+                             mrtM_lamCoeff_lower · _loglog_floor · _ge      (E3, C)
+   MRTPortExitLamGated.lean  m4_exit_lam_of_rowMeanSqLam_gated          (E4, B — THE SEAL)
+   MRTPortA1Const.lean       mrtA1_lamCoeff_le_const                    (E5, B)
+   ```
+   📐 **All five oleans DELETED before the build, so every green is an ELABORATION:** `saltbuild
+   EXIT=0` · `Build completed successfully (9781 jobs)` · **0 errors** · axiom audit **✓ 7106 / ✗ 0 —
+   exactly +10 over the 7096 baseline, a positive control that every registration took** · all ten new
+   declarations `[propext, Classical.choice, Quot.sound]` · **0 warnings naming any new module** ·
+   over-100-char lines in `All.lean` **401 → 401**.
+   ⭐ **THREE EXECUTOR RESULTS WORTH MORE THAN THEIR NODES.** ① **E3 ROUTED AROUND THE ONE STEP THE
+   BRIEF FLAGGED AS UNVERIFIED AND PROVED IT UNNECESSARY.** The brief's `do_not_claim` called the
+   `Real.log_le_rpow_div` / `nlinarith` absorption *"the one piece of this wave nobody has verified"*;
+   E3 used the crude linear page `log t ≤ log a + t/a − 1` instead, because a **constant** 4 against a
+   **single** `loglog` at coefficient `1/8` leaves slope `1/8 − 4/128 = 3/32 > 0`. **No rpow, no sqrt,
+   no nlinarith on the estimate.** *The wave's only unverified dependency is now not merely verified
+   but deleted.* ② **E4 CONFIRMED THE COMPLETENESS CRITIC'S DEFECT D6 WAS REAL AND PAID IT** —
+   `two_pow_le_four_mul_of_count` does conclude in ℕ against an ℝ gate; crossed with `exact_mod_cast`
+   on the landed `s13_endpoint_of_arm` idiom. *A defect found adversarially BEFORE dispatch, then met
+   in the proof.* ③ **E5 IS THE FIRST PROOF CONSUMER OF THIS MORNING'S D4/D5/D6** — verified here at
+   **0** prior consumers for each of `mrtThmA1_at_lamCoeff`, `mul_exp_neg_le_two_div`,
+   `mrtA1_rhs_tail_le`, `mrtM_lamCoeff_ge`, against a control returning **13**. **D5 is no longer
+   inert.**
+   ⛔ **AND MY OWN COMPARATOR GAVE TWO FALSE `DIFFERS` ON E3 BEFORE I CAUGHT IT** — it sliced at `:=`,
+   which sits on the conclusion line in one statement and a later line in another. **Third broken
+   instrument of the day, all three with the same signature: the failure mode agreed with what I was
+   testing for.** Re-run normalised **with a mutation control** (`1/8 → 1/9` must be caught; it was);
+   only then did the passes mean anything. ⇒ 🔑 ***AN ABSENCE OR EQUALITY RUN WITHOUT A CONTROL IN THE
+   SAME HARNESS IS NOT EVIDENCE.***
+   ⛔ **A STALE CLAIM OF MINE, SWEPT NOT SPOT-FIXED:** `MRTPortRowLam.lean:29` read *"This module is
+   NOT rooted in any aggregate"* — true when its executor wrote it, false within the hour **because I
+   rooted it**. The critic named that one file; **I swept all six I had rooted — five clean, one
+   stale.** Corrected with the original sentence preserved. *A claim invalidated by the edit that
+   consumed it.*
+   ⛔⛔ **SCOPE, AND E5 STATED IT BEST: "E5 AND E4 ARE THE TWO ENDS OF THE PORT STATED IN ONE
+   CURRENCY, NOT A CHAIN."** The wave **relocates** the open object from the door integral to the row
+   integral and prices it. Two hypotheses survive on the seal: the pricing line `6 * MS H ≤ c` at an
+   opaque `c` (what a future SUPPLY wave must meet) and `M4RowMeanSqLam` — **GAP α in the row's
+   currency**. **GAP α, GAP A.1 and GAP X all stand untouched, class D**, and **all five executors
+   said so unprompted**; E4 wrote *"the most inflatable point in the wave"* into its own docstring.
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
