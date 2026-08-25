@@ -524,6 +524,49 @@ RESURRECTS THEM:**
    ⛔ **DEFECT IN MY OWN FROZEN BRIEF, found by the N4 executor and recorded rather than quietly patched:**
    it told all four to `sed` their statement out of v6 §4, but **only N1 and N2 have Lean code blocks
    there** — N3 and N4 are prose. §4's *"statements written out"* is true of two of the four.
+   ✅✅⭐⭐⭐ **N5+N6+N7 LANDED 08/24, `0e164aba` — AND THE METHOD FINDING IS BIGGER THAN THE NODES.**
+   **Helm ruling, on the evidence: *"STOP drafting prose design blocks. DISPATCH N5, N6, N7 from the
+   gate's own verified Lean statements."*** The tally that compelled it: ***8 prose design blocks → 7
+   kills → 0 landings*** (v1 · v2 · v3 · v4 · v5 · v7 · v8 refuted; v6 landed only after the gate wrote
+   its node statements), against ***4 gate-written statements → 4 landings, one attempt each***.
+   ⇒ 🔑 ***THE GATE HAD BECOME THE AUTHOR AND THE PROSE WAS SCAFFOLDING.*** Banked as its own card,
+   `feedback_gate_became_the_author` — **count landings BY ORIGIN, not by effort.**
+   📐 **THE RESULT, RE-VERIFIED AT THE MAESTRO'S HAND AND NOT ON THE EXECUTORS' GREEN:**
+   `mrtQuality_lower_of_capFreeFloor` (N6 — *the object four refuters and the v8 gate all failed to
+   break*) · `W_first_arm` (N5) · `door_contradiction_with_headroom_and_tower` (N7). **N5 and N6 landed
+   BYTE-IDENTICAL to their frozen statements, checked by `diff` here rather than taken from the report.**
+   N7 alone had no frozen signature — the gate gave a mechanical spec — so its executor derived and
+   reported it verbatim. Consolidated into `MRTPort.lean` **by script, not retyped**; temps deleted;
+   three names registered in `All.lean`'s audit tail. **MRTPort's olean deleted before the build, so the
+   green is an ELABORATION, not a replay:** `Build completed successfully (9770 jobs)` · `saltbuild
+   EXIT=0` · `✔ Built Salt.MR.MRTPort (36s)` · **0** warnings naming it · **✗ failures 0** · total ✓
+   **7085, was 7082 — exactly +3, a positive control that the registrations took.** All **eight**
+   declarations `[propext, Classical.choice, Quot.sound]` under the rooted build.
+   ⭐ **THREE EXECUTOR FINDINGS WORTH MORE THAN THEIR NODES.** ① **N5: a harness `finished (exit 0)`
+   NOTIFICATION IS NOT THE WRAPPER'S VERDICT** — it fired while `lean` still ran and the log carried no
+   `saltbuild EXIT=` line; the executor blocked on the log marker and reports real completion ~40 s
+   later. *A task-completion signal describes the SHELL INVOCATION, not the BUILD.* Banked.
+   ② **N6 ROUTED AROUND the unsettled `rw`/`kabstract` transparency question rather than answering it,
+   AND SAID SO** — a type-ascribed `have` closes the `chiTwist` gap by elaboration-time defeq at default
+   transparency. **The transparency question is still open; the node does not decide it.** *An executor
+   declining to claim a settlement it did not reach is the whole discipline working.*
+   ③ **N7 checked the conjunction was not already landed, TWO-SIDED:** the headroom conjunct occurs in
+   **2** files, the tower conjunct in **51**, and **neither of the 2 is among the 51.** *This campaign
+   twice priced a landed object as missing; a duplicate would have been worse than a gap.*
+   ⛔⛔ **AND MY OWN `NeZero` FALSE ABSENCE WAS WRONG TWICE OVER, which N6 established:** not merely
+   present (**374** landed sites, `NeZero.of_pos`) but **NOT EVEN NEEDED HERE** — neither `hfloor` nor
+   `mrtQuality_lower_of_pointwise` carries a `[NeZero q]` binder, because `DirichletCharacter ℂ q`
+   requires none. *I corrected the absence this evening and did not notice the claim was also irrelevant.*
+   ⛔ **SCOPE, IN THE MODULE DOCSTRINGS SO IT CANNOT BE MISREAD AS CLOSURE: N6 is a producer SHAPE for
+   G1 — IT DOES NOT PRODUCE `hfloor`.** The residual is unchanged: `capFreeFloor_all_chi_vt`
+   (`VkMidSharp.lean:460`) gated by a per-`q` threshold with **no `q ≤ Q`-shaped discharge** in the
+   corpus. **Eight declarations in the kernel; the door is where it was.**
+   📌 **PROSE IS PARKED, NOT ABANDONED (helm): it survives ONLY where no verified statement exists — the
+   door composition — and that draft WAITS until these nodes re-price it.** Better founded than an hour
+   ago: the v8 gate established, and I verified, that **the door socket is `L¹`, UNSQUARED** (`∫ ‖·‖`,
+   no `^ 2` in the binder or in `absWindowSum`). ⇒ **the open question was NEVER `L¹`-vs-`L²`; it is the
+   measure/domain transport.** *Three blocks argued that framing in three directions and all three were
+   wrong — which is exactly why the door draft waits for the kernel.*
    ⛔⛔⛔ **STAMPED 08/24 — FOUR FIGURES IN THE TWO STAMPS ABOVE ARE WRONG, ALL MINE, AND THE WORST ONE
    IS THE FIFTH REPEAT OF THIS CAMPAIGN'S SIGNATURE DEFECT.** *Row text above byte-exact; this is a stamp.*
    Caught by a 6-reader G1/G3 wave (0 errors) commissioned to draft v7 — **it convicted its commissioner
