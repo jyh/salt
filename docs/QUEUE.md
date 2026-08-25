@@ -884,6 +884,50 @@ RESURRECTS THEM:**
    ⛔ **AND ONE EXECUTOR CLAIM I CHECKED AND KILLED:** D5 reported *"`All.lean` does not currently
    import `Salt.MR.MRTPort`"*. **It does — line 388.** *An executor result is a CANDIDATE, never a
    landing — and that applies to its PROSE as much as to its Lean.*
+   ⚖️✅⭐⭐⭐ **Q3 RULED BY THE CAPTAIN AT COUNCIL 08/25: THE MAJOR ARC IS *OUT OF SCOPE* FOR ITEM 15.
+   ITEM 15 SEALS ON ITS LANDED DELIVERABLE.** The citable close is
+   **`m4_exit_socket_split_sq_trivial`** (`Salt/MR/MRTPortTrivialSplit.lean:48`, rooted, `[3 axioms]`)
+   — *the implication plus a named α gap*: its ANTECEDENT is the unsieved **L²** door bound on
+   `lamCoeff` at a **fixed constant** over major-arc α, its CONSEQUENT is `¬ logChowla2Fails`, the
+   spine's terminal currency (Tao (2.4) at the Liouville model, `ChowlaFailure.lean:59`).
+   ⭐ **THE ARC IS NOT DROPPED — IT IS CHARTERED AS ITS OWN COMMISSION TODAY.** A Fable design block
+   writes its blueprint from gate-verified statements; math's waves execute the A/B nodes it
+   classifies. **Carried into the commission record: the council decision register
+   (`seat/briefs/2026-08-25-COUNCIL-decision-register.md`), the D9 SOUND-vs-CHEAPER caveat, and BOTH
+   frozen gate briefs.**
+   📌 **AND THE RULING IS COMPATIBLE WITH THE REGISTER'S OWN RECOMMENDATION, WHICH I FLAG RATHER THAN
+   MANUFACTURE A TENSION FROM.** The register's Amendment said *"if the arc is out of scope the port
+   does not need a wave, it needs a WRITE-UP"* and the completeness critic filed that against Wave B
+   as defect D2. **The helm's order does both**: seal on D9 *and* fire the composition wave — and
+   Wave B's own terminal node **E4 is literally "the seal: one pricing line left."** *The wave
+   TIGHTENS the object the item seals on; it does not compete with it.*
+   ✅ **WAVE B FIRED 08/25 — stage 1 (E1, E2, E3) dispatched in parallel from the FROZEN brief**
+   `seat/briefs/2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md` (`seat 90c161a8`). Stage 2
+   (E4, E5) follows on stage 1. **E1** `m4_ladder_gates_lam` (B) — the sieve-free door register ·
+   **E2** `m4_exit_lam_of_rowMeanSqLam` (B) — the row chain, D8 into D9, *the wave's spine* ·
+   **E3** `mrtM_lamCoeff_loglog_floor` (**C**, with an explicit give-up budget) — the quality floor at
+   `lamCoeff` · then **E4** `m4_exit_lam_of_rowMeanSqLam_gated` (B) — the seal · **E5**
+   `mrtA1_lamCoeff_le_const` (B) — A.1's whole RHS below a fixed constant.
+   ⛔⛔ **THE FROZEN BRIEF CARRIES THE COMPLETENESS CRITIC'S BINDING DEFECTS, INCLUDING TWO THAT WERE
+   MINE.** ① **`GAP X` was missing from BOTH gate briefs** — the output-side scale quantifier, named
+   in the register that morning; **the register predicted this miss verbatim** (*"invisible to anyone
+   reading the antecedent for what is missing"*) and both gates duly missed it. Added to both.
+   ② ⛔ **MY BRIEF GENERATOR WAS STILL TRUNCATING AT 700 CHARACTERS** — the same bug that destroyed
+   D8's tier rationale this morning (ERRATUM 1). The critic measured these blocks at **1296 and 1668**
+   chars: a cut would have destroyed a *"no sieve, no cover"* verification and **E3's ENTIRE
+   give-up-early instruction.** **Fixed before freezing; restoration verified by positive control.**
+   ③ **Wave B's routing of GAP α's core to `M4ChiSummedFreeRow` is FACTUALLY WRONG and struck** — it
+   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:396`,
+   `M4SocketDischarge.lean:228`) plus an unconditional witness (`M4ChiSummed.lean:217`), and its
+   integrand runs at `doorChiCoeff χ M`, i.e. **sieved**. ④ An unstated ℕ→ℝ cast in E4. ⑤ Tier
+   calibration: D8 was rated **C** for structurally the same move these rate **B**.
+   ⛔ **AND BOTH OF MY OWN CRITICISMS OF WAVE A WERE WRONG, RECORDED BECAUSE I PUBLISHED THEM.** I
+   flagged (a) road confusion — its template `m4_sievedDoorSq_of_blk2` lives on `M4SecondRoad` — and
+   (b) a headline/body gap. **Both fail on reading the bytes:** the *def* `M4SievedDoorSqBlk2`
+   hardcodes `doorSievedCoeff M` so the port is **not** a duplicate, while the *proof body* is
+   genuinely coefficient-generic exactly as the brief claimed; and "eliminate α" is accurate (the
+   residual becomes `b/q`-quantified) with the `4(1+2π)²` factor absolute and absorbable. *The brief
+   had answered my objection before I raised it.*
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
