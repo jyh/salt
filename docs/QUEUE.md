@@ -624,7 +624,7 @@ RESURRECTS THEM:**
    drafts it: cell-constancy forces `H : ℕ` (`M4BridgeIntegral.lean:123`), so **an L¹ twin stated at a real
    `hlen` would be FALSE, not merely unproved.** ⚠️ **`pdftotext` silently drops `\left|…\right|` bars in
    this paper — anyone reading MRT through a text dump transcribes an L¹ integral as a SIGNED one.**
-   ⛔⛔⭐ **WITHDRAWN 08/25 — DO NOT READ THE RATE CLAIM BELOW AS LIVE. Its headline ("A.1's rate is weaker than the pin") read a MIS-TRANSCRIPTION of MRT Thm A.1 and is superseded ~50 lines down ("SUPERSEDED 08/25"); the repair is `46b7a5a9`. THE BLOCK IS PRESERVED BYTE-EXACT BELOW ON PURPOSE — this header is an INSERTION, nothing was erased.** *Added because a preserved error whose correction lives only downstream hands each reader whichever answer their reading order reaches last.*
+   ⛔⛔⭐ **WITHDRAWN 08/25 — DO NOT READ THE RATE CLAIM BELOW AS LIVE.** Its headline ("A.1's rate is weaker than the pin") read a MIS-TRANSCRIPTION of MRT Thm A.1; superseded below at "SUPERSEDED 08/25", repair `46b7a5a9`. **THE ORIGINAL TEXT IS PRESERVED VERBATIM AND NOTHING WAS ERASED** — clearly-marked withdrawal pointers are INTERLEAVED at the rate table and at the argument's two ends, because the first cut of this header sat ~22 lines above the wrong number and **a reader arriving by grep landed on the error with no pointer in sight.** *A correction that only the top-down reader meets is not a correction.*
    ⛔⛔⭐⭐ **DOOR-COMPOSITION GATE v1 RUN 08/24 (14 agents, 0 errors, ~2.33M subagent tokens) — IT
    PRODUCED A COHERENT, WELL-EVIDENCED DESIGN FOR A TARGET THE CAPTAIN DELETED ON 08/21. NOT
    DISPATCHABLE. THE FENCE WAS MINE.** The gate chose **MRT Prop 2.4** as the consumption surface.
@@ -646,10 +646,14 @@ RESURRECTS THEM:**
    is a law.*
    ⭐⭐⭐ **AND THE FINDING THAT SURVIVES THE WRECKAGE IS THE CAMPAIGN'S — THREE RATES, READ AT THE
    BYTES, AND THEY SETTLE WHICH SOCKET THE PORT LANDS ON.**
+   ⛔⛔ **THE NEXT ~18 LINES ARE A WITHDRAWN RATE ARGUMENT — DO NOT QUOTE THEM.** Third table row and the `A.1 → −1` headline are both WRONG (see the annotation in the table and the closing pointer below).
    ```
    DoorFloor.lean:96   doorGrade H           = log H ^ (-(5/4))                  ← the PIN
    M4Exit.lean:153     mrtDeliveredGrade C H = C · log H ^ (-(11/4)) · loglog H  ← DELIVERY
    MRTThmA1.lean:78    A.1's middle RHS term = (loglog h)² / log h               ← the RATIFIED FEED
+   ⛔ ROW ABOVE IS WRONG — WITHDRAWN 08/25. The SOURCE (1503.05121v3 p.20) reads
+     (log log h)^2 / (LOG H)^2 — the denominator is SQUARED. This row quoted our own
+     mis-transcription and labelled it as A.1's. A.1's exponent is -2, not -1. Repair 46b7a5a9.
    ```
    On exponents of `log H`: **A.1 → −1 · pin → −5/4 · delivery → −11/4.** ⇒ ***A.1's RATE IS
    ASYMPTOTICALLY WEAKER THAN THE PIN IT WOULD HAVE TO MEET*** — an A.1-sourced bound can NEVER satisfy
@@ -664,6 +668,7 @@ RESURRECTS THEM:**
    not determine. ✅ **TWO INDEPENDENT DERIVATIONS CONVERGED:** a reader reached the same wall through
    the `6315000/h` summand and a `(log H)^14` debit; I reached it through three exponents in three
    definitions, neither knowing of the other.
+   ⛔⛔ **END OF THE WITHDRAWN RATE ARGUMENT (opened ~18 lines above).** Its premise — `A.1 → −1` — is a MIS-TRANSCRIPTION; **A.1 is −2**, so A.1 BEATS the pin and MISSES delivery. The conclusion it supported (the δ₀ SPLIT socket is the target) SURVIVES on a different comparison. Full supersession below at **"SUPERSEDED 08/25"**; repair `46b7a5a9`. *And gate v2 later showed the whole rate frame was malformed — the demand is a CONSTANT.*
    ⚠️ **THE REMAINING TENSION, MEASURED AND NOT RULED: the ratified route's feed is UNPROVEN and the
    deleted route's feed is FORBIDDEN.** `MRTThmA1` is a `def … : Prop`; the stack beneath it
    (`MRTThmA2` → `MRTParsevalConstantMatch`, `MRTPropA3.lean:3802`/`:3883`) has no producer. **GATE v2
