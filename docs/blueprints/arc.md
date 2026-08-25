@@ -1,12 +1,14 @@
-# THE ARC COMMISSION — blueprint v2 (post-refuter)
+# THE ARC COMMISSION — blueprint v3 (post-ruling)
 
 **Chartered by the Captain at council 2026-08-25** (QUEUE.md:893-897, verbatim: *"THE ARC IS
 NOT DROPPED — IT IS CHARTERED AS ITS OWN COMMISSION TODAY. A Fable design block writes its
 blueprint from gate-verified statements; math's waves execute the A/B nodes it classifies."*).
-Author: the helm (Fable), 2026-08-25, from six structured surface-reads. **v2 folds a 6-refuter
-adversarial pass (REPAIR-THEN-FIRE ×6, incl. two CONFIRMED-FATAL — the pad flip in §1 and the
-A.1 truth defect in §5/H-1); verdicts at the run record `wf_44c71c16-f51`.** Statement changes
-are Captain/Fable-tier; node volatile fields follow the standard blueprint workflow.
+Author: the helm (Fable), 2026-08-25, from six structured surface-reads. **v2 folded a 6-refuter
+adversarial pass (REPAIR-THEN-FIRE ×6, two CONFIRMED-FATAL); verdicts at `wf_44c71c16-f51`.
+v3 (same day, ~16:0x) folds: D-1 RULED (a) BY THE CAPTAIN · H-1 CLOSED (`salt 9d7c6843`, all
+four defects, the old A.1's falsity kernel-checked as a counterexample) · the pricing wave's
+corrected baseline · Wave 1's stand-down.** Statement changes are Captain/Fable-tier; node
+volatile fields follow the standard blueprint workflow.
 
 ## 0 · What this commission is, in one paragraph
 
@@ -49,7 +51,27 @@ close; every wave carries that sentence.
   PAD A's consumer. PAD B stays named as the stronger upstream currency, reachable only
   through a row-side supply this blueprint does not route.
 
-## 2 · D-1, the road fork — THE COMMISSION'S FIRST DESIGN DECISION (Captain-tier, apparatus attached)
+## 2 · D-1, the road fork — ⚖️ RULED (a) BY THE CAPTAIN, 2026-08-25 ~16:00
+
+**VERDICT (a): THE SIEVED ROAD.** The pricing wave's adversarial gate broke the five-reader
+default at the bytes: the sieved supply is LANDED end-to-end — `m4_doorL2_close_split_sq`
+(`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:98`,
+11-item register, ONE analytic item, that item carrying FIVE producers + an unconditional
+witness) → grade MET → `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`, no outer
+hypotheses, ONE open rider). The rider (`Kvt` cushion) measured at its flip-point: no second
+rider, genuine Skolem witness, headroom `K_vt ≤ e^518/128 ≈ 10^222` (518 re-derived from the
+terminal's own exports). Corroborated by the month-old JYH-ratified s9-freeze ⟦AMENDMENT B⟧
+("No D-node"; the A.1 route refused with arithmetic; both then-blockers landed since).
+**BASELINE CORRECTION folded: v2's premise "neither road has a supply today" was FALSE at
+tip** — the readers' census was scoped to the unprimed spelling (correct and irrelevant; the
+live spine is the `_L_gk` family; *a census is scoped by its spelling, and a spelling is a
+claim*). **The reframe, on the record:** `m4_hbd_of_live` (`M4Close.lean:461`) lands the
+UNSIEVED L¹ conclusion FROM sieved hypotheses — one object at two exponents, not two roads;
+ruling (a) is the provable route TO the unsieved target. Units fence: the roads were measured
+in different units (supply census vs demand enumeration) — "sieved = 1 class-D" reads *by
+supply census at tip*. Reversal stays cheap: lane A frozen, never burned.
+
+### The apparatus as it stood at the ruling (history, superseded by the verdict above)
 
 **The fork D9 left unpriced** (register:20-25, the gate's verbatim *"I have NOT priced which
 side is cheaper"*): supply the arc **unsieved at λ** (the trivial split's demand: full
@@ -80,7 +102,15 @@ either lane** (QUEUE:196) — neither road has a supply today.
 - *Who rules:* the Captain, on the wave's report. **This blueprint does not assume the
   trivial split is cheapest — assuming that is assuming what D9 explicitly did not settle.**
 
-## 3 · WAVE 1 — the α-eliminator (pre-built, frozen, adopted with its delta stated)
+## 3 · WAVE 1 — ⚖️ STOOD DOWN UN-BURNED under D-1's ruling (statements stay frozen)
+
+**Under verdict (a), lane A (W1→W2→W3, the unsieved α-eliminator) STANDS DOWN with zero
+tokens burned** — the hold through the fork paid in full. The six frozen statements remain
+in the brief, available at one fetch if the road ever reopens. **W4** (the one road-neutral
+node) is math's to take or leave within the ruled road. W0 is moot with lane B. The section
+below is preserved as the standing record of what was adopted and why.
+
+### The adoption as frozen (history)
 
 **Adopted from `seat/briefs/2026-08-25-item15-WAVE-A-ARC-IN-SCOPE-FROZEN.md`** — six frozen
 tier-B statements, two-lane structure, kill conditions, name-collision table, do-not-claim
@@ -113,7 +143,21 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
 - Elaboration risk priced: the brief is READ-ONLY; the six tiers are estimates; a B that
   turns out gate-heavy is treated as C — a finding, not a failure.
 
-## 4 · The frontier after Wave 1 (named, classified, NOT scheduled)
+## 4 · The frontier under the ruled road
+
+- **R-1 [the commission's NEXT WAVE] — the `Kvt` rider discharge:** prove the cushion
+  inequality at the terminal's regime (the one open item of the landed sieved chain).
+  Measured headroom `10^222`; may price B/C rather than D. Gate-written statements per §6.
+- **F-5 [B/C] GAP X — unchanged, runs PARALLEL to R-1** (the bounded `∀ X ≥ X₀` threading
+  probe; no landing may be read as closing GAP X until this node does).
+- **F-4 [D] GAP A.1 — unchanged as a SEPARATE campaign; its H-1 precondition is DISCHARGED**
+  (`salt 9d7c6843`: the primary repaired to the source's exp(−M) remark form and now TRUE as
+  stated, with the old form's falsity kernel-checked as a counterexample).
+- **F-1/F-2/F-3 stand down with lane A** (they were the unsieved road's gaps; preserved
+  below as history with their fences — the M4ChiSummedFreeRow strike remains live law for
+  any future unsieved reopening).
+
+### The frontier as drafted for the unsieved road (history)
 
 - **F-1 [D] The χ-summed supply at λ** — the analytic core of GAP α: bound `∑_χ mod q` in
   square of `∑_{m ∈ Ioc n (n+K)} liouChi χ m`, uniform in base `n`, over the door's measure,
@@ -148,8 +192,10 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
 
 ## 5 · WAVE H — housekeeping and record fidelity (H-1 is a PRECONDITION, not optional)
 
-- **H-1 [faithfulness + TRUTH, math's hand, pen rule, Captain informed — in flight, mandate
-  delivered 08/25 ~14:0x]:** ONE source session over the A-appendix defs, four defects:
+- **H-1 ✅ CLOSED (`salt 9d7c6843`, all four in one source pass, three instruments; audit
+  7146/0; the old A.1's falsity landed as a kernel-checked counterexample — its own header's
+  "weakest admissible form" rationale was the defect: exp(−M)·M vs exp(−M) INVERTS below
+  M=1). As mandated:** ONE source session over the A-appendix defs, four defects:
   **(1)** `MRTThmA1` as transcribed is **FALSE for every C** — refuter counterexample
   `f ≡ 1`: `mrtM 1 X = 0` (t = 0 gives `pretDistSq = 0`), so `exp(−M)·M = 0` and the RHS
   goes small while the LHS ≈ 1. The source's own p.21 remark (*"exp(−M(f;X))M(f;X) may be
@@ -190,7 +236,16 @@ lock-wait abort; **address audit-log runs by PATH, never position — the log is
 machine-global** (math's migration finding ③). Do-not-claim inheritance: nothing here is
 unconditional; no wave "closes the major arc"; consumer-less sockets are sockets.
 
-## 7 · Sequencing and success
+## 7 · Sequencing and success (v3)
+
+**Now:** R-1 (the rider wave, math, gate-as-author) · F-5 parallel · H-2/H-3/H-4 remain OPEN
+to any A-capable seat. **Success shape:** the rider discharged ⇒ the sieved chain stands
+whole ⇒ `¬ logChowla2Fails` at the ∃-chosen regime with GAP X the remaining gap on the
+chain; F-4 proceeds as its own campaign against the now-true primary. **Kill shape:** if
+R-1 stalls at D-with-no-progress, report with the record — (b)/(c) reopen at one fetch,
+lane A still frozen.
+
+### v2's sequencing (history)
 
 **Now:** Wave H fires (H-1 in flight at math; H-2/3/4 any A-capable seat) · the D-1 pricing
 wave fires (readers + gate, recon-fenced). **Lane A of Wave 1 waits for D-1's pricing report
