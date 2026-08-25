@@ -729,6 +729,41 @@ RESURRECTS THEM:**
    `[1 axioms]` and 37 `[2 axioms]` entries — those PASS: the rule is **at most** the three, and I
    record the distribution rather than a bare "all 3" that would misdescribe 80 of its own rows.*
    **Oleans deleted before both builds, so each green is an ELABORATION, not a replay.**
+   ⛔⭐ **AND A CORRECTION TO MY OWN NOTE OF LAST NIGHT, 4 ROWS ABOVE — I ATTACHED A PROPERTY TO THE
+   DECLARATION NEXT DOOR.** That note said *"the L²→L¹ step this row's own 📌 above calls consumer-less
+   — `integral_logMeasure_le_sqrt_of_sq`"*. **The row above calls THE L¹ TWIN consumer-less. It cites
+   `integral_logMeasure_le_sqrt_of_sq` as the MECHANISM BY WHICH the corpus already reaches the
+   unsquared integral — i.e. as the REASON the twin is not needed.** Measured:
+   ```
+   $ grep -rn -a -F 'integral_logMeasure_le_sqrt_of_sq' Salt/ --include=*.lean
+   → 8 CALL SITES: M4Close.lean:494 :740 :920 :1003 · M4RowLinear.lean:1646 :1695 :2365 :2473
+     (+ the decl at M4Close.lean:191, a docstring at M4DoorL2.lean:585, the audit roster All.lean:2364)
+   ```
+   ⇒ **THE CAUCHY–SCHWARZ STEP IS NOT CONSUMER-LESS; IT IS ONE OF THE MOST-CONSUMED BRIDGES ON THIS
+   ROAD.** *Same species as this campaign's cell-constancy defect: a phrase quoted onto the neighbouring
+   declaration. Second instance, by the seat that stamped the first one.* ✅ **AND THE CORRECTION RUNS
+   IN MY FAVOUR, WHICH IS EXACTLY WHY IT NEEDED CHECKING:** the note's point was that an L²-native A.1
+   feed would need this step — **it is landed AND consumed 8 times**, so the point is stronger, not
+   weaker. *An upgrade to your own correctness gets checked harder than a blame.*
+   ⭐⭐ **WHAT THAT OPENS, AND IT MAY MATTER MORE THAN THE L¹ SOCKET: THERE IS A FULL δ₀ L² SOCKET
+   FAMILY, AND A.1 IS L²-NATIVE.** `m4_exit_socket_split_sq` (`S11ExitL2.lean:81`) has the SAME δ₀ split
+   shape — `δ₀` fixed in the `∃`-prefix, free `∀ (U1floor : ℕ) (g)` lever — but its binder is
+   `MRTUniformityXiL2 R δ₀` (`MRTDoor.lean:192`):
+   ```
+   ∀ H, [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+     ∑ ξ ∈ bigXi R.eps H, (1/(H:ℝ)^2) * ∫ n, ‖windowExpSum H n (-(ξ.val)/H)‖^2 ∂(logMeasure R.x R.ω) ≤ ρ
+   ```
+   **NO `∀ α` and NO `NearRatTight`** — the frequencies are the finitely many `ξ ∈ bigXi`, and the
+   object is a **mean SQUARE**, which is A.1's own shape (`MRTThmA1` bounds `(1/X)∫_X^{2X}‖·‖²`).
+   `MRTUniformityXiL2` also needs **no `K` and no `|Ξ_H| ≤ K` hypothesis** — its own docstring: *"The
+   door's grade `ρ` is already the total over `Ξ_H`, so the frequency count never multiplies it."*
+   ⚠️ **NOT A CLAIM THAT THIS ROUTE CLOSES.** The twist `e(αn)` is still present (`windowExpSum` at
+   `α := -ξ.val/H`), so major-arc stripping is still owed, and I did NOT find a landed
+   `MRTUniformityXiL2 → MRTUniformityXi` implication — three searches: the identifier arm returns only
+   `S11ExitL2.lean:68` outside the def and socket; the `find` arm; the prose arm returns the `L²→L¹
+   descent` as a live consumed PROOF PATTERN in `M4RowLinear` (the `_L` ladder — **different road**).
+   ⇒ **Recorded as a STRUCTURAL MATCH worth pricing, not as a road.** The live wave was not briefed on
+   it; it is mine, found while the wave ran.
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
