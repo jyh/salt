@@ -79,6 +79,34 @@ repo at `sources/`; the four `.md` files are **salt-authored** notes and extract
 was the artifact that had MRT Theorem A.1's middle term **right** while the Lean transcription had it
 wrong. Do not treat it as disposable.
 
+## C-bis. ⛔ TWO FILES THIS RECIPE MISSED IN ITS FIRST CUT (added 2026-08-25, same day)
+
+**Found by a migration-readiness audit, not by me.** Both were missed the same way: **this recipe and
+the backup were built from the files PRESENT in `docs/sources/`, never from the files the tracked
+documents CITE.** The demand side was never enumerated.
+
+| file | where | why it was missed | sha256 |
+|---|---|---|---|
+| `articles/maynard.pdf` | `salt/articles/` | a **SEPARATE** ignore rule — `.gitignore:27  articles/*.pdf`. The "docs/sources/*.pdf" wording this file was written from does not reach it. | `dce1a7a03004186f7116efe64c1c62f0792db973cce4208ac1bfb5050d63cda9` |
+| `montgomery3.txt` | **NOT IN THE LIVE TREE** | absent from `docs/sources/` entirely; its only copies were one rescue dir and three `.claude/worktrees/` checkouts a re-clone destroys | `8af7bae87738528716b0cd747d703df6b1dcbc574ab93ccb8c370ad8d0ec01ae` |
+
+⛔ **`montgomery3.txt` IS CITED BY LINE NUMBER IN TRACKED DOCUMENTATION.**
+`docs/exploration/fulcrum-pass2.md:15-17` cites `montgomery3.txt:7576-7614`, `:7504-7537`,
+`:20087-20109`, `:23113-23124`, `:22945-22948`, `:23128-23140` as **GROUNDED-source** for effective
+Siegel–Walfisz, Gallagher and Linnik. **Those citations were unverifiable from the live tree.**
+✅ Verified before rescuing: all four on-disk copies are byte-identical, and line 7576 of the rescued
+file reads `Corollary 24.24. Let c1 be the same constant as in Corollary 24.22.` — the citations
+resolve against this exact file.
+
+**Neither is re-fetchable.** Both now live in the same-disk backup, which the math seat extended from
+16 to 18 files on 2026-08-25 (`SHA256SUMS.txt`, 18/18 verified; the helm's original manifest is
+preserved beside it as `SHA256SUMS.txt.orig-16`, and `EXTENDED-2026-08-25-math.md` records why).
+
+🔑 **THE LESSON, RECORDED HERE BECAUSE THE NEXT PERSON WILL EXTEND THIS FILE:** *when you write a
+recovery recipe, enumerate what the corpus CITES, not what the directory CONTAINS.* A file that is
+cited and absent is invisible to any `ls`-based audit — and it is exactly the file whose loss is
+silent, because the citation still looks fine.
+
 ## D. Verify a restore (with a positive control — a bare `shasum -c` proves nothing if the harness is broken)
 
 ```sh
