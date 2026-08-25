@@ -510,6 +510,7 @@ RESURRECTS THEM:**
    under a targeted invocation, so **they are invisible to a full build and can rot silently.** That is a
    named debt, not an oversight; rooting puts them inside the axiom audit and wants the helm's word (and
    possibly a consolidation into one module first).
+   ✅ **DEBT DISCHARGED — SUPERSEDED 08/24 AND AGAIN 08/25; THIS NOTE IS LEFT VERBATIM ABOVE.** The consolidation it anticipated happened (`b6d72ee3`, four modules → `MRTPort.lean`) and the port is **ROOTED**: `Salt/MR/All.lean` carries **7** `import Salt.MR.MRTPort*` lines and all 19 port declarations sit in the `#audit_axioms` tail — full rooted build 08/25, `saltbuild EXIT=0`, 9776 jobs, audit **✓ 7096 / ✗ 0**. ⛔ **NOTHING HERE WANTS THE HELM'S WORD ANY MORE.** *Repaired 08/25 because this row said "a named debt … wants the helm's word" and its correction existed only ~35 lines below as an incidental phrase ("under the rooted build"), so a reader landing here met an OPEN DECISION that had been closed for a day.*
    ⛔ **SCOPE UNCHANGED AND RESTATED SO THE LANDING DOES NOT INFLATE IT: these close named residuals and
    DO NOT COMPOSE TO THE DOOR.** `N2` is **true but INERT** — the landed twisted floors carry
    `((2·orderOf χ : ℕ):ℝ)^2` in a denominator (`ChiLLower.lean:720-729`) and are not uniform in the
