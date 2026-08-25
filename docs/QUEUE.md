@@ -624,6 +624,7 @@ RESURRECTS THEM:**
    drafts it: cell-constancy forces `H : ℕ` (`M4BridgeIntegral.lean:123`), so **an L¹ twin stated at a real
    `hlen` would be FALSE, not merely unproved.** ⚠️ **`pdftotext` silently drops `\left|…\right|` bars in
    this paper — anyone reading MRT through a text dump transcribes an L¹ integral as a SIGNED one.**
+   ⛔⛔⭐ **WITHDRAWN 08/25 — DO NOT READ THE RATE CLAIM BELOW AS LIVE. Its headline ("A.1's rate is weaker than the pin") read a MIS-TRANSCRIPTION of MRT Thm A.1 and is superseded ~50 lines down ("SUPERSEDED 08/25"); the repair is `46b7a5a9`. THE BLOCK IS PRESERVED BYTE-EXACT BELOW ON PURPOSE — this header is an INSERTION, nothing was erased.** *Added because a preserved error whose correction lives only downstream hands each reader whichever answer their reading order reaches last.*
    ⛔⛔⭐⭐ **DOOR-COMPOSITION GATE v1 RUN 08/24 (14 agents, 0 errors, ~2.33M subagent tokens) — IT
    PRODUCED A COHERENT, WELL-EVIDENCED DESIGN FOR A TARGET THE CAPTAIN DELETED ON 08/21. NOT
    DISPATCHABLE. THE FENCE WAS MINE.** The gate chose **MRT Prop 2.4** as the consumption surface.
@@ -764,6 +765,62 @@ RESURRECTS THEM:**
    descent` as a live consumed PROOF PATTERN in `M4RowLinear` (the `_L` ladder — **different road**).
    ⇒ **Recorded as a STRUCTURAL MATCH worth pricing, not as a road.** The live wave was not briefed on
    it; it is mine, found while the wave ran.
+   ✅⭐⭐⭐⭐ **GATE v2 CLOSES 08/25 — 11 AGENTS, 0 ERRORS, AND IT SETTLES THE QUESTION TWO WITHDRAWN
+   STAMPS DIED ON: THE RATE WAS NEVER THE WALL.** Run under the RATIFIED scope (A.1 + the major arc,
+   δ₀ split road) with BOTH repos in reach — five byte-readers (replayed from the quota-killed run),
+   five adversarial refuters, the gate, a completeness critic.
+   🔑 ***THE DECIDING FACT, RE-VERIFIED AT THE BYTES BY THE MAESTRO BEFORE PUBLICATION:***
+   `m4_wave_exit_split` (`M4Join.lean:533-543`) is **ALREADY A LANDED THEOREM** concluding
+   `¬ logChowla2Fails R.eps R.x R.ω`, and its **SOLE remaining analytic input** is `M4RowMeanSq`
+   (`M4Join.lean:311-319`) — which is **byte-for-byte MRT Theorem A.1's own left-hand side**: same
+   `1/X` normaliser, same dyadic `[X, 2X]`, same `(1/h)`-normalised short sum, same Lebesgue `dy`,
+   same `‖·‖²`. **And it is held to a FIXED CONSTANT: `6 * MS H ≤ (δ₀ / 2) ^ 2` (`:539`).**
+   ⇒ ***THE CAMPAIGN SPENT THREE DESIGN BLOCKS AND TWO WITHDRAWN STAMPS ASKING WHETHER A.1's RATE
+   COULD MEET THE DOOR'S DEMAND. THE DEMAND IS A CONSTANT. THE QUESTION WAS MALFORMED.***
+   ✅ **And the transports feared to eat the margin are landed and cheap:** the Lebesgue-mean-square →
+   door-`logMeasure` bridge is `sum_Ioc_absWindowSum_sq_div_le_ladder` (`M4BridgeIntegral.lean:493`) +
+   `m4_bridge_door_sq_le` (`:523`) at **absolute factor 3, no `log` and no `loglog` debit**; the
+   `L²→L¹` descent is `integral_logMeasure_le_sqrt_of_sq` (`M4Close.lean:191`).
+   ⛔ **WHAT REMAINS IS EXACTLY TWO THINGS AND NEITHER IS A RATE:** the door datum is **PHASED**
+   (`doorCoeffPhase c α`) where A.1 has no frequency, and **SIEVED** (`doorSievedCoeff M`) where A.1
+   wants a completely multiplicative `f`. `M4Join.lean:94-100` calls these *"design questions, not
+   proof-engineering ones."* **That is precisely, and only, the "+ the major arc" half of the ratified
+   primary. Class D, both.**
+   ✅ **SCOPE ADJUDICATION — THE 08/21 DELETION STRANDED NOTHING, AND THE REASON IS A DATE.**
+   `All.lean:3998-4012` declares the `mrtGate`/`H0scale`/`doorGrade` block *"⟦NATURALLY RETIRED — no
+   twins⟧ … BYPASSED, not repaired"* under the split-road freeze of **2026-07-29 — 23 days BEFORE the
+   deletion** — for an unrelated reason (δ₀ is ∃-bound before the floor lever, so the door quantifier
+   fires at `le_rfl`; verified in the PROOF TERMS at `M4Exit.lean:502`, `:506`, not just the prose).
+   **Nothing landed ASSERTS that MRT delivers `mrtDeliveredGrade`** — it occurs only in hypothesis
+   position — so no kernel object could be falsified by either event.
+   ⚠️ **ONE LIVE NAVIGATION HAZARD SURVIVES:** `seat/briefs/2026-08-21-mrt-match-REPORT.md:142-144`
+   ends *"…do NOT target MRT Prop 2.4 as the consumption surface. **Target MRT Thm 2.3 + Lemma 2.2.**"*
+   — **the prohibitive half is standing law; the prescriptive half names two objects the same day's
+   11:04 ratification deleted by name.** ⭐ *The gate corrected this seat here: erratum E-4 (`:286-289`)
+   DOES annotate that corollary's substance, so "the erratum does not annotate it" would have been
+   over-stated; the narrow survivor is only that no erratum entry cites §3(c) while correcting the
+   positive half.*
+   📌 **8 GATE-WRITTEN STATEMENTS; 5 EXECUTORS DISPATCHED** from a FROZEN brief
+   (`seat/briefs/2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, `seat b1e62c25`), one file each,
+   **one-attempt cap**, build-wrapper law + collision table + the A.1 repair attached: **D2+D3+D4** the
+   λ-instantiation chain (A) · **D5+D6** A.1's RHS tail below any fixed δ (A/B) · **D7** the
+   closed/half-open carrier glue (B) · **D1** the L²→L¹ re-serve of the split socket (B) · **D8** the
+   sieve-free row descent (C).
+   ⛔ **AND A DEFECT IN MY OWN REFEREEING, RECORDED BECAUSE IT NEARLY SHIPPED:** checking the gate's
+   names I ran `grep -E "(theorem|def|lemma)$name"` — **no space before `$name`, so it required
+   `theoremFoo`** — and got three NOT FOUND. **All three exist** (`lamCoeff_eq_liouvilleC`
+   `M4Exit.lean:99` · `liouvilleC_mul` `M4Residue.lean:103` · `pretDistSq_lam_eq_lamCoeff`
+   `MRTPort.lean:255`). *I nearly published three false absences while refereeing a gate FOR false
+   absences.* ⇒ 🔑 ***TEST A PATTERN ON A CASE YOU KNOW MATCHES BEFORE TRUSTING A ZERO*** — now rule 9
+   of the frozen brief, in my own hand, with this as the worked example.
+   ⚖️ **FIVE CAPTAIN QUESTIONS RAISED, NONE RULED HERE.** Sharpest two: **(a)** the L² socket family
+   (`m4_exit_socket_split_sq`, `S11ExitL2.lean:81`) may be a better target than the L¹ socket this gate
+   was briefed on — **A.1 is L²-native and D1 exists only to convert between them**; **(b)**
+   `m4_exit_socket_split_sq_arc` (`S11ExitL2.lean:121`) quantifies over ALL splits, so firing it at the
+   trivial `a := lamCoeff, e := 0` **would delete the sieve, the class pricing and the insert leg from
+   the register in one theorem** — if sound, GAP SIEVE disappears outright.
+   ⛔ **NO NODE HAS FIRED YET. No Lean written by this stamp, no build claimed for it** — the five
+   executors are in flight and **an executor result is a CANDIDATE, never a landing.**
 19v. ⚖️✅ **W-F3 GATE FLIPPED — CAPTAIN-RATIFIED 08/23 16:3x ("yes flip item 5"), FABLE SESSION
    (tier per 19u's own reservation).** Both fatals were stale citations over a sound corpus
    (19t/19u diagnoses + math 16:35:26 tree-read: FATAL 1's anchor is the DEFINITION at
