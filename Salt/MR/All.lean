@@ -392,6 +392,11 @@ import Salt.MR.MRTPortWindow
 import Salt.MR.MRTPortSocketSq
 import Salt.MR.MRTPortRowLam
 import Salt.MR.MRTPortTrivialSplit
+import Salt.MR.MRTPortLadderGates
+import Salt.MR.MRTPortExitLam
+import Salt.MR.MRTPortMLower
+import Salt.MR.MRTPortExitLamGated
+import Salt.MR.MRTPortA1Const
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8531,3 +8536,13 @@ open Salt.Tactic in
   Salt.MR.M4RowMeanSqLam
   Salt.MR.m4_doorSq_of_rowMeanSqLam
   Salt.MR.m4_exit_socket_split_sq_trivial
+  Salt.MR.m4_ladder_gates_lam
+  Salt.MR.exit_lam_tail_absorb
+  Salt.MR.m4_exit_lam_of_rowMeanSqLam
+  Salt.MR.log_le_div_add_const_128
+  Salt.MR.log3_shift_le_linear
+  Salt.MR.mrtM_lamCoeff_lower
+  Salt.MR.mrtM_lamCoeff_loglog_floor
+  Salt.MR.mrtM_lamCoeff_ge
+  Salt.MR.m4_exit_lam_of_rowMeanSqLam_gated
+  Salt.MR.mrtA1_lamCoeff_le_const

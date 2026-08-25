@@ -26,7 +26,15 @@ needs `0 ≤ MS H`, which the statement does not assume.  It is *derived*: `hrea
 would read `R.x ≤ R.x / R.ω`, contradicting `2 ≤ R.x` and `2 ≤ R.ω` (`doorLadder _ _ 0 = x`),
 so `0 < k`; and then `hrow` at `i = 0` bounds `MS H` below by a nonnegative integral.
 
-This module is NOT rooted in any aggregate — it must be built targeted.
+⛔ **STALE WHEN WRITTEN, CORRECTED 2026-08-25.**  The line below was true at the moment the
+executor wrote it and false within the hour: this module IS rooted — `Salt/MR/All.lean:393`
+imports it and both declarations sit in the `#audit_axioms` tail (full rooted build 08/25,
+`saltbuild EXIT=0`, ✓ 7096 / ✗ 0).  The original sentence is kept rather than deleted:
+
+> This module is NOT rooted in any aggregate — it must be built targeted.
+
+*The rooting was the maestro's own act, so this note was stale by that same hand — a claim
+invalidated by the edit that consumed it.  Found by a completeness critic, not by me.*
 -/
 
 open scoped BigOperators
