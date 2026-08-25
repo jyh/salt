@@ -397,6 +397,7 @@ import Salt.MR.MRTPortExitLam
 import Salt.MR.MRTPortMLower
 import Salt.MR.MRTPortExitLamGated
 import Salt.MR.MRTPortA1Const
+import Salt.MR.MRTArcRatCoprime
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8547,3 +8548,4 @@ open Salt.Tactic in
   Salt.MR.mrtM_lamCoeff_ge
   Salt.MR.m4_exit_lam_of_rowMeanSqLam_gated
   Salt.MR.mrtA1_lamCoeff_le_const
+  Salt.MR.norm_absWindowSum_rat_le_coprime_head_add
