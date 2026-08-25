@@ -68,14 +68,30 @@ theorem mem_mrtShortWindow {x h : ℝ} (hx : 0 ≤ x) (hh : 0 ≤ h) (n : ℕ) :
   rw [Finset.mem_Icc, Nat.ceil_le, Nat.le_floor_iff (by linarith)]
 
 /-- **MRT Theorem A.1 at an explicit constant `C`** (`1503.05121v3`, Appendix A).
-The `≪` is discharged as a single absolute `C`, uniform in `f`, `X` and `h`. -/
+The `≪` is discharged as a single absolute `C`, uniform in `f`, `X` and `h`.
+
+⛔ **FAITHFULNESS REPAIR 2026-08-25 — THE MIDDLE TERM'S DENOMINATOR WAS UNSQUARED AND
+THE SOURCE'S IS SQUARED.**  This transcription read `(loglog h)^2 / log h`; the PDF
+(`docs/sources/1503.05121v3.pdf` p. 20, read with two instruments — page image and
+`pdftotext`) states
+
+```
+  ... ≪ exp(-M(f;X))M(f;X) + (log log h)^2/(log h)^2 + 1/(log X)^{1/50}
+```
+
+so the exponent on `log h` is **-2, not -1**, and the old form was a STRICTLY WEAKER
+claim than MRT's.  Repaired here and at `MRTThmA2` (`MRTPropA3.lean`) in the same beat;
+both moved identically, so `mrtThmA1_of_mrtThmA2_empty` matches unchanged.  *Nothing
+caught this for the same reason the kernel could not: it checks that A.2 implies A.1,
+not that either is MRT's.*  Our own extract (`docs/sources/mrt_extract.md:53`) had it
+right — the defect entered at the Lean step, not the extraction step. -/
 def MRTThmA1 (C : ℝ) : Prop :=
   ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
     (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
     ∀ X h : ℝ, 10 ≤ h → h ≤ X →
       (1 / X) * (∫ x in X..(2 * X), ‖mrtShortMean f h x‖ ^ 2)
         ≤ C * (Real.exp (-(mrtM f X)) * mrtM f X
-              + (Real.log (Real.log h)) ^ 2 / Real.log h
+              + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
               + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
 
 /-! ## Non-vacuity — discharging the obligation this file's header names

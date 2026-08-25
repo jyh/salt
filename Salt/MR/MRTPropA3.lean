@@ -3806,7 +3806,7 @@ def MRTThmA2 (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
       (1 / X) * (∫ x in X..(2 * X),
           ‖mrtShortMean (fun n => f n * gJ 𝒥 Pseq Qseq n) h x‖ ^ 2)
         ≤ C * (Real.exp (-(mrtM f X)) * mrtM f X
-              + (Real.log (Real.log h)) ^ 2 / Real.log h
+              + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
               + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
 
 /-- **The spine's shape, recorded: A.2 is A.1 with the datum sifted.**
