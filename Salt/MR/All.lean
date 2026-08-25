@@ -8446,6 +8446,7 @@ open Salt.Tactic in
   Salt.MR.mrtA3_leading_factor_of_Qseq1_zero
   Salt.MR.memS_false_of_Qseq1_zero
   Salt.MR.mrtM_nonneg
+  Salt.MR.mrtM_one_eq_zero
   Salt.MR.mrtA3_bracket_nonneg
   Salt.MR.renormalise_error_logpower_stronger
   Salt.MR.trivial_cut_needs_delta_ge_one
@@ -8498,8 +8499,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_far_of_named_splitting
   Salt.MR.MRTLargeRangeEquidistribution
   Salt.MR.mrtA4ii_far_of_either_estimate
-  Salt.MR.MRTThmA2
-  Salt.MR.mrtThmA1_of_mrtThmA2_empty
+  Salt.MR.MRTThmA1GJ
+  Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty
   Salt.MR.closed_open_window_card_le_one
   Salt.MR.shortWindow_closed_sub_open_norm_le
   Salt.MR.MRTParsevalConstantMatch

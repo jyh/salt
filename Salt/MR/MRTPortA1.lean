@@ -33,7 +33,7 @@ them and are explicitly NOT closed here:
 * **GAP α — the major arc.**  The door datum is *phased* (`doorCoeffPhase c α`); A.1
   carries no frequency at all.  Class D.
 * **GAP A.1 — the primary itself.**  `MRTThmA1` is a `def … : Prop` with **no producer**;
-  the stack beneath it (`MRTThmA2` → `MRTParsevalConstantMatch`) is open.  Class D.
+  the stack beneath it (`MRTThmA1GJ` → `MRTParsevalConstantMatch`) is open.  Class D.
 
 So `mrtThmA1_at_lamCoeff` below is an *implication from* `MRTThmA1 C`, not a theorem of
 MRT A.1 at λ.  Nothing here asserts A.1 holds.
@@ -91,7 +91,7 @@ corpus, so nothing here asserts A.1 itself. -/
 theorem mrtThmA1_at_lamCoeff {C : ℝ} (hA1 : MRTThmA1 C) {X h : ℝ}
     (hh : 10 ≤ h) (hhX : h ≤ X) :
     (1 / X) * (∫ x in X..(2 * X), ‖mrtShortMean lamCoeff h x‖ ^ 2)
-      ≤ C * (Real.exp (-(mrtM lamCoeff X)) * mrtM lamCoeff X
+      ≤ C * (Real.exp (-(mrtM lamCoeff X))
             + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
             + 1 / (Real.log X) ^ ((1 : ℝ) / 50)) :=
   hA1 lamCoeff mrtCompMultDatum_lamCoeff.norm_le_one mrtCompMultDatum_lamCoeff.map_one

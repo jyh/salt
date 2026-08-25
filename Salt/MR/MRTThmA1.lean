@@ -11,7 +11,14 @@ PDF itself** rather than from any summary (including this repo's own
 > **Theorem A.1.** Let `f` be a 1-bounded multiplicative function and let
 > `M(f; X)` be as in (1.6).  Then, for `X ≥ h ≥ 10`,
 > `(1/X) ∫_X^{2X} |(1/h) Σ_{x≤n≤x+h} f(n)|² dx ≪ exp(−M(f;X))·M(f;X)
->    + (loglog h)²/(log h) + 1/(log X)^{1/50}`
+>    + (log log h)²/(log h)² + 1/(log X)^{1/50}`
+
+⛔ **ERRATUM 2026-08-25 (second pass).**  This block is introduced as *MRT's text,
+verbatim*, and until now it read `(loglog h)²/(log h)` — **unsquared**.  The `46b7a5a9`
+repair moved the STATEMENT at `:94` and `MRTPropA3.lean:3809` and left this QUOTATION
+stale, so the file convicted its own theorem of an error the quote above it still
+committed.  *A fix reaches where the pain was felt; the quotation is a separate surface
+and it was not enumerated.*  Re-read at 200 dpi from p. 20 and corrected here.
 
 ## Three things the source settles, all of which the campaign had open
 
@@ -27,11 +34,33 @@ PDF itself** rather than from any summary (including this repo's own
    1.7 carried `loglog h`.  Confirmed here so that nobody transcribes 1.7's
    shape into an A.1 proof.
 
-⭐ **And a strengthening MRT record immediately after the statement, which is
-worth having in view before anyone prices the proof:** *"The factor
-`exp(−M(f;X))M(f;X)` can be replaced by `exp(−M(f;X))`, see the remark following
-Proposition A.3."*  The form below is the WEAKER, as-stated one; that is
-deliberate, since a door should be the weakest admissible statement.
+⛔⛔ **THE REMARK IS NOT A STRENGTHENING — IT IS THE ONLY TRUE FORM, AND TAKING THE
+"AS-STATED" ONE MADE THIS DEF FALSE FOR EVERY `C`.  Repaired 2026-08-25 (second pass).**
+
+MRT record, immediately after the statement on p. 20 and again after A.2 on p. 21:
+*"The factor `exp(−M(f;X))M(f;X)` can be replaced by `exp(−M(f;X))`, see the remark
+following Proposition A.3."*
+
+This file previously took the `exp(−M)·M` form and justified it: *"the form below is the
+WEAKER, as-stated one; that is deliberate, since a door should be the weakest admissible
+statement."*  **That rationale is the defect.**  `exp(−M)·M ≤ exp(−M) ⟺ M ≤ 1`, so the
+`·M` form is weaker only for `M > 1` and **inverts below it** — at `M = 0` it is the
+STRONGEST possible first term, namely `0`.
+
+⛔ **COUNTEREXAMPLE, and it kills every `C`.**  Take `f ≡ 1`: it is 1-bounded, `f 1 = 1`,
+and multiplicative, so it satisfies all three hypotheses.  `pretDistSq 1 (costwist 0) X`
+sums `(1 − Re(1 · conj 1))/p = 0` over `p ≤ X`, and every term of `pretDistSq` is `≥ 0`,
+so the infimum is attained: **`mrtM 1 X = 0`**.  The old first term was then
+`exp(−0) · 0 = 0`.  Meanwhile `mrtShortMean 1 h x = (⌊x+h⌋ − ⌈x⌉ + 1)/h ≥ (h−1)/h ≥ 0.9`
+for `h ≥ 10`, so the LHS is `≥ 0.81`, while the two remaining terms `→ 0` as `h, X → ∞`.
+For any fixed `C`, choose `h` and `X` large: RHS `< 0.81 ≤` LHS.  **`MRTThmA1 C` was false
+for every `C`, hence `MRTThmA1Statement` too** — and every consumer taking `hA1 : MRTThmA1 C`
+was VACUOUSLY true, which is why nothing was red.
+
+⇒ the def below takes **`exp(−M(f;X))`**, the remark's form, which at `M = 0` gives `1` and
+correctly refuses to promise cancellation for a pretentious `f`.  Statement change under the
+`46b7a5a9` faithfulness protocol: fidelity to the source is the iron rule's purpose, and the
+remark IS the source.
 
 ## Multiplicativity is stated inline, on purpose
 
@@ -81,7 +110,10 @@ THE SOURCE'S IS SQUARED.**  This transcription read `(loglog h)^2 / log h`; the 
 
 so the exponent on `log h` is **-2, not -1**, and the old form was a STRICTLY WEAKER
 claim than MRT's.  Repaired here and at `MRTThmA2` (`MRTPropA3.lean`) in the same beat;
-both moved identically, so `mrtThmA1_of_mrtThmA2_empty` matches unchanged.  *Nothing
+both moved identically, so `mrtThmA1_of_mrtThmA2_empty` matches unchanged.
+*(2026-08-25 second pass: those two names are now `MRTThmA1GJ` and
+`mrtThmA1_of_mrtThmA1GJ_empty` — the record above is left as written, with the pointers
+annotated here so they still resolve.  See that file's erratum for why the `A.2` name went.)*  *Nothing
 caught this for the same reason the kernel could not: it checks that A.2 implies A.1,
 not that either is MRT's.*  Our own extract (`docs/sources/mrt_extract.md:53`) had it
 right — the defect entered at the Lean step, not the extraction step. -/
@@ -90,7 +122,7 @@ def MRTThmA1 (C : ℝ) : Prop :=
     (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
     ∀ X h : ℝ, 10 ≤ h → h ≤ X →
       (1 / X) * (∫ x in X..(2 * X), ‖mrtShortMean f h x‖ ^ 2)
-        ≤ C * (Real.exp (-(mrtM f X)) * mrtM f X
+        ≤ C * (Real.exp (-(mrtM f X))
               + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
               + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
 

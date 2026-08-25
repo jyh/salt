@@ -2599,6 +2599,36 @@ theorem mrtM_nonneg (f : ℕ → ℂ) {X : ℝ} (hX : 0 ≤ X) (hf : ∀ n, ‖f
   rintro b ⟨t, _, rfl⟩
   exact pretDistSq_nonneg f (costwist t) X hf (norm_costwist_le t)
 
+/-- ⛔⭐ **`M(1; X) = 0` — THE CRUX OF THE COUNTEREXAMPLE THAT FORCED A.1's FIRST TERM TO THE
+SOURCE'S REMARK FORM (2026-08-25).**
+
+`MRTThmA1` previously read `exp(−M)·M` for its first summand, justified as "the weakest
+admissible statement".  At `f ≡ 1` that summand is `exp(0)·0 = 0` — the STRONGEST possible —
+while the short mean is `≈ 1`, so the old def was **false for every `C`**.  The repair takes
+MRT's own remark (p. 20 and p. 21: *"the factor `exp(−M(f;X))M(f;X)` can be replaced by
+`exp(−M(f;X))`"*), which gives `1` at `M = 0` and correctly declines to promise cancellation
+for a pretentious `f`.
+
+This lemma is the one step of that argument that is not elementary — it is an `sInf`, so
+`M = 0` is an obligation, not a syntactic fact.  **Stated here so the erratum's central claim
+is kernel-checked rather than asserted in a docstring.**  The rest of the counterexample is
+arithmetic on `mrtShortMean` and is left in prose in `MRTThmA1.lean`. -/
+theorem mrtM_one_eq_zero {X : ℝ} (hX : 0 ≤ X) :
+    mrtM (fun _ => (1 : ℂ)) X = 0 := by
+  have hf : ∀ n : ℕ, ‖(fun _ => (1 : ℂ)) n‖ ≤ 1 := fun _ => by norm_num
+  refine le_antisymm ?_ (mrtM_nonneg _ hX hf)
+  have hle : mrtM (fun _ => (1 : ℂ)) X ≤ pretDistSq (fun _ => (1 : ℂ)) (costwist 0) X :=
+    mrtM_le _ hX (by simpa using hX)
+  have hzero : pretDistSq (fun _ => (1 : ℂ)) (costwist 0) X = 0 := by
+    unfold pretDistSq
+    refine Finset.sum_eq_zero ?_
+    intro q _
+    have hc : costwist 0 q = 1 := by simp [costwist]
+    rw [hc]
+    norm_num
+  rw [hzero] at hle
+  exact hle
+
 /-- **A.3's BRACKET IS NONNEGATIVE**, which with `0 ≤ C` discharges the bridge's `hB`. -/
 theorem mrtA3_bracket_nonneg (f : ℕ → ℂ) {X η : ℝ} (Pseq Qseq : ℕ → ℕ)
     (hf : ∀ n, ‖f n‖ ≤ 1) (hX : 0 ≤ X)
@@ -3792,34 +3822,63 @@ Measured with a sibling control: the corpus states **A.1** (`MRTThmA1`) and **A.
 **nothing** for A.2. It is not in the ratified deletions (Lemma 2.2 · Thm 2.3 · the minor arc ·
 E-5's split), so it is a genuine hole in the middle of the spine.
 
-Source, extract line 1231 — A.2 is A.1's shape with the datum **SIFTED**: the mean is taken
-over `n ∈ S`, which in this development is `f · gJ 𝒥 Pseq Qseq` — **the very object A.4(ii)
-bounds.** That is why tonight's A.4(ii) work sits upstream of the primary rather than beside it.
+⛔⛔ **ERRATUM 2026-08-25 (second pass) — THIS BLOCK PREVIOUSLY MADE TWO FALSE CLAIMS ABOUT
+THE SOURCE, AND THE DEF BELOW IS RENAMED BECAUSE OF THEM.**  It read: *"Source, extract line
+1231 — A.2 is A.1's shape with the datum SIFTED: the mean is taken over `n ∈ S`, which in this
+development is `f · gJ 𝒥 Pseq Qseq`."*  Both halves are wrong, and the citation dangles.
+
+**① A.2 IS NOT A.1's SHAPE.**  Read at 200 dpi from `1503.05121v3` p. 21, confirmed by
+`pdftotext` and by our own `docs/sources/mrt_extract.md:200-201`, MRT's Theorem A.2 is
+
+> `f` 1-bounded mult, `S` as above with `η ∈ (0,1/6)`, `[P₁,Q₁] ⊂ [1,h]`; for `X > X(η)` and
+> `h ≥ 3`: `(1/X)∫_X^{2X}|(1/h)Σ_{x≤n≤x+h, n∈S} f(n)|² dx ≪ exp(−M)M + (log h)^{1/3}/P₁^{1/6−η}
+> + 1/(log X)^{1/50}`
+
+so its middle term is **`(log h)^{1/3}/P₁^{1/6−η}`**, NOT A.1's `(log log h)²/(log h)²`, and it
+carries four hypotheses this file never had: `η ∈ (0,1/6)`, `[P₁,Q₁] ⊂ [1,h]`, `X > X(η)`,
+`h ≥ 3`.  *This file already knew: `MRTParsevalConstantMatch`'s docstring below states A.2's true
+RHS correctly.  The def and the prose disagreed sixty-six lines apart.*
+
+**② `gJ` IS NOT `S` — IT IS ITS OPPOSITE ON EVERY NONEMPTY `𝒥`.**  `MemS` (`Sec9Glue.lean:118`)
+is `∀ j ∈ Icc 1 J, 1 ≤ blockOmega …` — **at least one** prime factor in **every** block, which is
+p. 21's `S`.  `gJ` (`Sec9Glue.lean:134`) is `if ∀ j ∈ 𝒥, blockOmega … = 0 then 1 else 0` — the
+indicator of **NO** prime factor in any `𝒥`-block.  So for nonempty `𝒥` the mean below runs over
+the COMPLEMENT of the kind of set A.2 averages.  **`gJ` is not at fault** — it is faithfully MR
+p. 15's `g_𝒥` and its own docstring says so.  The defect was welding the two names together here.
+
+⇒ **The def below is therefore NOT MRT's Theorem A.2 and no longer claims to be.**  It is a
+genuine object — A.1's bound for the `g_𝒥`-restricted datum — and it is what the `𝒥 = ∅` bridge
+needs, so it is kept and renamed `MRTThmA1GJ` rather than deleted.  The `A.2` slot in the spine
+`A.3 ⇒ A.2 ⇒ A.1` is **still empty**; that hole is now honestly visible instead of being papered
+over by a name.
 
 ⛔ **A STATEMENT, NOT A THEOREM, AND THE BRIDGES ARE NOT ATTEMPTED.** MRT get A.3 ⇒ A.2 by a
 **Parseval bound** (*"the proof proceeds as [17, Theorem 3]; the first step is a Parseval
 bound"*, line 1243) — named here so it can be dispatched, not discharged here. -/
-def MRTThmA2 (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+def MRTThmA1GJ (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
   ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
     (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
     ∀ X h : ℝ, 10 ≤ h → h ≤ X →
       (1 / X) * (∫ x in X..(2 * X),
           ‖mrtShortMean (fun n => f n * gJ 𝒥 Pseq Qseq n) h x‖ ^ 2)
-        ≤ C * (Real.exp (-(mrtM f X)) * mrtM f X
+        ≤ C * (Real.exp (-(mrtM f X))
               + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
               + 1 / (Real.log X) ^ ((1 : ℝ) / 50))
 
 /-- **The spine's shape, recorded: A.2 is A.1 with the datum sifted.**
 
-Both sides quantify identically; the ONLY difference is that `MRTThmA2`'s integrand takes the
-short mean of `f · g_𝒥` where `MRTThmA1`'s takes it of `f`. ⇒ **an A.2 discharged at `𝒥 = ∅`
-IS A.1**, because `gJ ∅ Pseq Qseq n = 1` (the `∀ j ∈ ∅` is vacuous).
+Both sides quantify identically; the ONLY difference is that `MRTThmA1GJ`'s integrand takes the
+short mean of `f · g_𝒥` where `MRTThmA1`'s takes it of `f`. ⇒ **`MRTThmA1GJ` discharged at
+`𝒥 = ∅` IS A.1**, because `gJ ∅ Pseq Qseq n = 1` (the `∀ j ∈ ∅` is vacuous).
+
+📌 This implication is TRUE and unaffected by the erratum above — it never depended on the
+`A.2` name, only on `gJ ∅ = 1`.
 
 *This is the observation that makes the sifted work load-bearing for the primary rather than a
 detour — and it is exactly the `𝒥 = ∅` degeneracy that killed my \"reduction\" three hours ago,
 used here in the direction where it is TRUE.* -/
-theorem mrtThmA1_of_mrtThmA2_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
-    (h2 : MRTThmA2 C Pseq Qseq ∅) : MRTThmA1 C := by
+theorem mrtThmA1_of_mrtThmA1GJ_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
+    (h2 : MRTThmA1GJ C Pseq Qseq ∅) : MRTThmA1 C := by
   intro f hf h1 hmul X h hh hhX
   have := h2 f hf h1 hmul X h hh hhX
   simpa [gJ] using this
@@ -3835,7 +3894,7 @@ The gap is exactly `x ≤ n` versus `x < n`, so the two index sets differ **only
 natural equal to `x` on the nose, which exists for at most one `n`.  Hence for 1-bounded data
 the two sums differ by **at most one term**, and the two MEANS by at most `1/h`.
 
-⇒ this is the whole convention gap between the landed Parseval bound and `MRTThmA2`'s LHS,
+⇒ this is the whole convention gap between the landed Parseval bound and `MRTThmA1GJ`'s LHS,
 priced.  ⛔ It does not close the bridge — the constant-matching to A.2's RHS is separate and
 untouched. -/
 theorem closed_open_window_card_le_one (x h : ℝ) :
@@ -3873,7 +3932,7 @@ theorem shortWindow_closed_sub_open_norm_le {f : ℕ → ℂ} (hf : ∀ n, ‖f 
 /-! ## ⭐⭐ THE LAST UNNAMED OBLIGATION — THE CONSTANT MATCH ON `A.3 ⇒ A.2`
 
 Three of the spine's four gaps now have citable names.  The fourth was still prose: the landed
-`parseval_bound_of_propA3_shape` delivers an explicit `B`-shaped bound, and `MRTThmA2` wants
+`parseval_bound_of_propA3_shape` delivers an explicit `B`-shaped bound, and MRT's REAL A.2 wants
 MRT's `exp(−M)M + (log h)^{1/3}/P₁^{1/6−η} + (log X)^{−1/50}`.  **Matching those two is the
 remaining analytic content of the bridge** (the assembly is landed, the endpoint is priced at
 one term by `shortWindow_closed_sub_open_norm_le`).
@@ -3881,12 +3940,12 @@ one term by `shortWindow_closed_sub_open_norm_le`).
 ⛔ **A STATEMENT.  NOT PROVED HERE, AND DELIBERATELY WEAK: it asks only that SOME admissible
 constant exists**, because the discharger picks it — the same shape the door's `δ` has. -/
 def MRTParsevalConstantMatch (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
-  ∃ C : ℝ, 0 < C ∧ MRTThmA2 C Pseq Qseq 𝒥
+  ∃ C : ℝ, 0 < C ∧ MRTThmA1GJ C Pseq Qseq 𝒥
 
 /-- ⭐⭐⭐ **THE WHOLE RATIFIED SPINE, CONDITIONALLY, IN ONE THEOREM.**
 
 `MRTThmA1Statement` — the campaign's PRIMARY — follows from the single named obligation
-`MRTParsevalConstantMatch` at `𝒥 = ∅`, via `mrtThmA1_of_mrtThmA2_empty`.
+`MRTParsevalConstantMatch` at `𝒥 = ∅`, via `mrtThmA1_of_mrtThmA1GJ_empty`.
 
 ⇒ **this is the campaign's remaining debt expressed as a Lean implication rather than a
 paragraph**: whoever discharges the constant match at the empty sieve has the primary.  The
@@ -3898,7 +3957,7 @@ naming it is what lets a design session price the road instead of re-deriving it
 theorem mrtThmA1Statement_of_constantMatch (Pseq Qseq : ℕ → ℕ)
     (h : MRTParsevalConstantMatch Pseq Qseq ∅) : MRTThmA1Statement := by
   obtain ⟨C, hCpos, hA2⟩ := h
-  exact ⟨C, hCpos, mrtThmA1_of_mrtThmA2_empty C Pseq Qseq hA2⟩
+  exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty C Pseq Qseq hA2⟩
 
 end Salt.MR
 

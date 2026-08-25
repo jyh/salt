@@ -71,39 +71,39 @@ theorem mrtA1_lamCoeff_le_const {C c : ℝ} (hC : 0 < C) (hA1 : MRTThmA1 C) (hc 
   have h2C : (0 : ℝ) < 2 * C := by linarith
   -- D6 at `δ := c / (2C)`: the middle and last A.1 summands.
   obtain ⟨h₁, hh₁pos, htail⟩ := mrtA1_rhs_tail_le (δ := c / (2 * C)) (div_pos hc h2C)
-  -- E3 at `B := 4C/c`: the quality floor that makes D5's `2/M` small — and `0 < M`.
-  obtain ⟨X₁, hX₁pos, hM⟩ := mrtM_lamCoeff_ge (4 * C / c)
+  -- E3 at `B := log(2C/c)`: the quality floor that makes `exp(−M)` itself small.
+  -- ⛔ 2026-08-25: the old route went through D5 (`exp(−M)·M ≤ 2/M`) at `B := 4C/c`.
+  -- That step consumed the `· M` factor which A.1 no longer carries — the source's
+  -- remark form is `exp(−M)` alone (see `MRTThmA1.lean`'s erratum: the `· M` form is
+  -- FALSE for every `C`, by `f ≡ 1` at `M = 0`).  E3 holds for ANY `B`, so the floor
+  -- can be placed where it kills `exp(−M)` directly, and the route gets shorter.
+  obtain ⟨X₁, hX₁pos, hM⟩ := mrtM_lamCoeff_ge (Real.log (2 * C / c))
   refine ⟨max h₁ 10, X₁, lt_of_lt_of_le hh₁pos (le_max_left _ _), hX₁pos, ?_⟩
   intro h X hh hX hhX
   have hh10 : (10 : ℝ) ≤ h := le_trans (le_max_right _ _) hh
   have hh1 : h₁ ≤ h := le_trans (le_max_left _ _) hh
-  -- The quality at this `X`, and its two consequences.
-  have hMge : 4 * C / c ≤ mrtM lamCoeff X := hM X hX
-  have hMpos : (0 : ℝ) < mrtM lamCoeff X :=
-    lt_of_lt_of_le (div_pos (by linarith) hc) hMge
-  -- FIRST SUMMAND: `exp(−M)·M ≤ 2/M ≤ c/(2C)`.
-  have hD5 : Real.exp (-(mrtM lamCoeff X)) * mrtM lamCoeff X ≤ 2 / mrtM lamCoeff X :=
-    mul_exp_neg_le_two_div hMpos
-  have hinv : 2 / mrtM lamCoeff X ≤ c / (2 * C) := by
-    rw [div_le_div_iff₀ hMpos h2C]
-    have hmul : c * (4 * C / c) ≤ c * mrtM lamCoeff X :=
-      mul_le_mul_of_nonneg_left hMge hc.le
-    have hcancel : c * (4 * C / c) = 4 * C := by field_simp
-    linarith
-  have hfirst : Real.exp (-(mrtM lamCoeff X)) * mrtM lamCoeff X ≤ c / (2 * C) :=
-    le_trans hD5 hinv
+  -- FIRST SUMMAND: `exp(−M) ≤ exp(−log(2C/c)) = c/(2C)`.
+  have hMge : Real.log (2 * C / c) ≤ mrtM lamCoeff X := hM X hX
+  have hratio : (0 : ℝ) < 2 * C / c := div_pos h2C hc
+  have hfirst : Real.exp (-(mrtM lamCoeff X)) ≤ c / (2 * C) := by
+    have hstep : Real.exp (-(mrtM lamCoeff X)) ≤ Real.exp (-(Real.log (2 * C / c))) :=
+      Real.exp_le_exp.mpr (by linarith)
+    have hval : Real.exp (-(Real.log (2 * C / c))) = c / (2 * C) := by
+      rw [Real.exp_neg, Real.exp_log hratio]
+      field_simp
+    linarith [hstep, hval.le, hval.ge]
   -- THE OTHER TWO SUMMANDS, jointly, from D6.
   have hrest : Real.log (Real.log h) ^ 2 / Real.log h ^ 2
       + 1 / Real.log X ^ ((1 : ℝ) / 50) ≤ c / (2 * C) := htail h X hh1 hhX
   -- D4: A.1 at `lamCoeff`.
   have hA := mrtThmA1_at_lamCoeff hA1 hh10 hhX
   -- Sum the three, multiply by `C`.
-  have hsum : Real.exp (-(mrtM lamCoeff X)) * mrtM lamCoeff X
+  have hsum : Real.exp (-(mrtM lamCoeff X))
       + Real.log (Real.log h) ^ 2 / Real.log h ^ 2
       + 1 / Real.log X ^ ((1 : ℝ) / 50) ≤ c / C := by
     have htwo : c / (2 * C) + c / (2 * C) = c / C := by field_simp; ring
     linarith
-  have hscale : C * (Real.exp (-(mrtM lamCoeff X)) * mrtM lamCoeff X
+  have hscale : C * (Real.exp (-(mrtM lamCoeff X))
       + Real.log (Real.log h) ^ 2 / Real.log h ^ 2
       + 1 / Real.log X ^ ((1 : ℝ) / 50)) ≤ C * (c / C) :=
     mul_le_mul_of_nonneg_left hsum hC.le
