@@ -654,6 +654,7 @@ RESURRECTS THEM:**
    ⛔ ROW ABOVE IS WRONG — WITHDRAWN 08/25. The SOURCE (1503.05121v3 p.20) reads
      (log log h)^2 / (LOG H)^2 — the denominator is SQUARED. This row quoted our own
      mis-transcription and labelled it as A.1's. A.1's exponent is -2, not -1. Repair 46b7a5a9.
+     ⚠️ The address drifted too: post-repair the statement is at :88 and this term at :94.
    ```
    On exponents of `log H`: **A.1 → −1 · pin → −5/4 · delivery → −11/4.** ⇒ ***A.1's RATE IS
    ASYMPTOTICALLY WEAKER THAN THE PIN IT WOULD HAVE TO MEET*** — an A.1-sourced bound can NEVER satisfy
@@ -684,6 +685,7 @@ RESURRECTS THEM:**
    ```
    SOURCE  1503.05121v3 p.20 Thm A.1:  … + (log log h)^2/(log h)^2 + 1/(log X)^{1/50}
    CORPUS  MRTThmA1.lean:78 (was):     + (Real.log (Real.log h)) ^ 2 / Real.log h
+   ⚠️ **AND THE `:78` ADDRESS ITSELF DRIFTED — MY OWN REPAIR MOVED IT.** Adding the repair docstring pushed the statement to **`MRTThmA1.lean:88`** and the middle term to **`:94`**; **`:78` is now a fence inside that docstring.** The three `:78` citations in this row are HISTORICAL addresses — true of what the file said before `46b7a5a9`, not directions to anything now. *I repaired the number and did not chase the citations pointing at it — the sibling-surface law, and the surface I missed was the one my own edit created.*
            MRTPropA3.lean:3809 (was):  + (Real.log (Real.log h)) ^ 2 / Real.log h
    ```
    **THE DENOMINATOR IS SQUARED IN THE SOURCE AND WAS UNSQUARED IN OUR LEAN, AT BOTH SITES** — so our
