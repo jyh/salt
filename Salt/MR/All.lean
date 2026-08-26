@@ -486,10 +486,12 @@ open Salt.Tactic in
   Salt.MR.euler_osc_bridge
   Salt.MR.log_euler_osc_zeta
   Salt.MR.euler_osc_bridge_le
+  Salt.MR.cpeel_le_two
   Salt.MR.halasz_cosh_ineq
   Salt.MR.halasz_cosh_ineq_complex
   Salt.MR.offdiag_int_bound
   Salt.MR.prime_tail_shift
+  Salt.MR.primeTailConst_le_27
   Salt.MR.log_euler_osc_zeta_unconditional
   Salt.MR.euler_osc_bridge_unconditional
   Salt.MR.one_line_pow_growth
