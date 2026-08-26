@@ -25,6 +25,22 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## authority. RIDER ②: the cross-glob cascade into `SaltWorks/HDL/C4Reduction.lean:64`
 ## is EXPLICITLY covered. ⛔ SCOPE: c4spec ONLY; the saltworks PUSH FREEZE STANDS —
 ## commits land locally, nothing to origin until the fig4 ruling.
+## ✅⛔ **DISCHARGED 2026-08-26 00:5x BY ITS OWN TERMS — helm ruling, execution not amendment.**
+## The hold was CONDITIONAL on "the fig4 ruling"; that ruling came at the 08/25 08:3x council
+## (CommsEng all six ruled, ADOPT 214 two-predicate), the pair was delivered 08:4x, and the arc
+## closed end to end at 15:5x. **A conditional hold whose condition is satisfied is discharged by
+## its own terms and needs no further word.** `saltworks c1340ca` pushed under it.
+## ⛔⛔ **AND THE COST WAS SILENT AND MINE: I WAS THE ONLY SEAT STILL PAYING IT.** saltworks took
+## pushes all day from other hands (silicon `e31728b` 08:4x, evidence `a17c764`, silicon
+## `c4328b31`) — SIX in the five hours before I checked. ⇒ ***THE DE FACTO TEST IS ONE COMMAND AND
+## SETTLES IT: is anyone else behaving as if this holds?*** *Nobody was.*
+## 🔑 **THE ASYMMETRY THAT LET IT SURVIVE, recorded because it is the reusable half: THE SAME NIGHT
+## I FOUND AND CORRECTED TWO STALE DIRECTIVES IN THIS FILE (the into-34 inversion, the dead cron)
+## AND OBEYED THIS THIRD ONE WITHOUT TESTING IT. ①/② would have made me DO something wrong, so I
+## checked them. ③ made me do NOTHING, so I did not.** ⇒ ***A DIRECTIVE THAT TELLS YOU TO HOLD IS
+## THE ONE THAT NEVER FORCES A TEST — an obeyed stale rule is visible only to whoever obeys it,
+## and an ignored one is invisible to everyone.*** *Auditing a file does not inoculate you against
+## the next stale line in it.*
 ##
 ## 🔴 BLOCKER FOUND 2026-08-23 09:57 (math), BEFORE ANY EDIT — THE 43 OBLIGATIONS HAVE
 ## NO SUBJECT. `C4.lean:76` states `C4Spec c := ∀ ins, sem c ins = encD (stepT (decQ
