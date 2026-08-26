@@ -1,7 +1,20 @@
 name: Lean Action CI
 
+# Council 2026-08-26 (item 6): the Lean job is gated at PR/merge for branches and
+# runs per-push only on the default branch. Measured cause: this workflow takes
+# 99-110 min against a ~20-min working-push cadence, so with cancel-in-progress
+# the last EIGHT runs on a working branch were all *cancelled* — never a red,
+# never a green, nothing alarmed for 4.5 hours. Push discipline is not the fix
+# ([skip ci] on the two eligible pushes bought 109 min against a 99-110 min run,
+# a coin flip), and `schedule` fires only on the default branch so it structurally
+# cannot cover a working branch. One run even wore conclusion=failure with a
+# CANCELLED job and zero failed steps — a cancel in a red costume, which alarms a
+# human reader while carrying no information. A branch's kernel referee is the
+# local saltbuild audit (CLAUDE.md), which is green on every landing; use
+# workflow_dispatch below to fire a full branch run on demand at a seam.
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
   schedule:
