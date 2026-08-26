@@ -4052,8 +4052,16 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⛔ **STILL A SOCKET AND NO LANDING HERE MAY BE READ OTHERWISE.** `log_chowla_two_shell_xi_sq_h`
    does not exist, and the wrapper re-stating the core over the fork's own `bigXiH h` belongs on
    the **`ShiftFork`** side (that module imports `CircleMethod`, so naming its objects here is an
-   import cycle — the fence `bigXiTwistFilter`'s own docstring records). **NEXT, and both small:**
-   the `ShiftFork` wrapper, then this row's second half above.
+   import cycle — the fence `bigXiTwistFilter`'s own docstring records). **NEXT:** this row's second half above.
+   ✅✅✅ **AND THE WRAPPER LANDED TOO — attempt 1, so item 7's FIRST OBJECT IS COMPLETE UNDER THE
+   NAME THIS ROW ASKS FOR.** `circle_method_estimate_sq_h` (`ShiftFork.lean`), stated over the
+   fork's own `bigXiH h eps H`, discharged by one `rw [bigXiH_eq_twistFilter]` onto the core —
+   *the `ZMod`-side spelling of the twist was chosen precisely so this step is a filter congruence
+   and not a periodicity argument, and that choice paid here.* `Built` (19s), `saltbuild EXIT=0`,
+   0 errors. Three declarations total for this half, **1 + 2 + 1 attempts against a cap of 3.**
+   ⛔ **COMPLETE AS A SOCKET, CONNECTED TO NOTHING.** `log_chowla_two_shell_xi_sq_h` does not
+   exist, so no landing in this row may be read as extending the h-family's reach — the same fence
+   this census raised before any of it was built.
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,

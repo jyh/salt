@@ -412,6 +412,41 @@ theorem circle_method_estimate_h (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 
   rw [bigXiH_eq_twistFilter]
   exact hest eps H x1 x2 hx1 hx2 hcard
 
+/-- **The SQUARED circle-method estimate at shift `h`, over the fork's own set** — the
+`bigXiH`-facing restatement of `circle_method_estimate_sq_h_core` (`CircleMethod.lean`), and
+the object `QUEUE.md` P2 item 7 names.  It is to `circle_method_estimate_sq` exactly what
+`circle_method_estimate_h` is to `circle_method_estimate`.
+
+DIAGONAL, like its untwisted parent and unlike `circle_method_estimate_h`: ONE window `x1`,
+because the `_sq` lane's consumers instantiate at `x₁ = x₂` and the square in the conclusion
+IS that diagonality.  The Fourier mass is `(1/H²)‖𝓕Φ ξ‖²` over `bigXiH h eps H`; the DFT
+factor stays at the UNTWISTED `ξ`, which is the seam's spelling and why the twist lives in
+the membership predicate alone.
+
+The set swap is the only step (`bigXiH_eq_twistFilter`, a filter congruence — the `ZMod`-side
+spelling was chosen so this is a rewrite and not a periodicity argument).  Constant
+`h·(1 + 2·C₀)` and the `0 < h` fence are the core's; see there.
+
+⛔ **STILL NO CONSUMER:** `log_chowla_two_shell_xi_sq_h` does not exist, so this completes the
+socket rather than connecting it. -/
+theorem circle_method_estimate_sq_h (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h eps H, (1 / (H : ℝ) ^ 2) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) := by
+  obtain ⟨C, hC, hest⟩ := circle_method_estimate_sq_h_core h hh C₀ hC₀
+  refine ⟨C, hC, ?_⟩
+  intro eps H _ x1 hx1 hcard
+  rw [bigXiH_eq_twistFilter]
+  exact hest eps H x1 hx1 hcard
+
 /-! ## S2 — the `h`-collapse identity -/
 
 /-- `λ(p)² = 1` for `p ≠ 0`.  Re-derived locally: `DilationStability`'s own `liouville_sq`

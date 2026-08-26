@@ -1055,3 +1055,9 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   -- belongs on the `ShiftFork` side (that module imports CircleMethod, so naming its objects here
   -- would be an import cycle), and `log_chowla_two_shell_xi_sq_h` does not exist. Socket.
   Salt.Entropy.Chowla.circle_method_estimate_sq_h_core
+  -- ⭐ P2 item 7's NAMED object (2026-08-26, math): the `bigXiH`-facing wrapper, mirroring
+  -- `circle_method_estimate_h`'s own row. With this landed, `circle_method_estimate_sq_h_core`
+  -- has a consumer and its row above is redundant-but-kept, on the same reasoning as the split's.
+  -- ⛔ This wrapper still has none: `log_chowla_two_shell_xi_sq_h` does not exist, so item 7's
+  -- first object is COMPLETE as a socket and connects to nothing yet.
+  Salt.Entropy.Chowla.circle_method_estimate_sq_h
