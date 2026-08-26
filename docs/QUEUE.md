@@ -31,7 +31,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
-## | **λ-BV Wave 2** (P1 item 2 tail) | ✅ DISCHARGED STALE — "waits for a design session" was true 08/21 and Wave 2 was RULED that same day (Route II log-rebase primary, ineffectivity accepted, don't-wait). Row never re-stamped. Dispatchable. | math | — |
+## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
 ## | **item 16** census-first | ✅ DISCHARGED STALE — both probes FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition; the arc question it fenced is now the arc commission (`docs/blueprints/arc.md` v3, chartered 08/25). | — | — |
 ## | **chowla.txt provenance** (P2b) | an editorial ruling; cheap repair already identified — a tracked, stamped copy under `docs/sources/`. **s3-a3-design.md is CHAINED to this one row.** | helm (Captain if the wording is his) | next sitting close |
 ## | **c4spec STEP 7** | ⚖️ **RE-FORMED 2026-08-26 12:2x ON SILICON'S MEASUREMENT — ITS TIMEOUT FIRED AND THE BLOCK WAS 256/257 FALSE.** `memOrgan` is LANDED, BUILT and kernel-checked with all 256 next-state bits (`SaltWorks.lean:112`, 1475 gates, `decide +kernel`) — it is simply NOT PLACED in the assembly; and `renumbering_offsets` is landed too (`StateCodecD.lean:324`, imported at `SaltWorks.lean:109`). **The 256 placement is ordinary lane work, AUTHORIZED, not a block.** ⚠️ **RE-CORRECTED 2026-08-26 14:3x — SILICON'S OWN AMENDMENT TO ITS 12:2x MEASUREMENT, WHICH
@@ -269,6 +269,41 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    for this wave — is stamped **5a/5b LANDED (`c4a1a237`)** by its own subject line and touches
    4 lines. Wave 1 had **zero** of its shas in this file. *A sha cited as covering X must be
    opened; a commit that exists is not a commit that says what you were told it says.*
+   ⛔⛔ **BUT "DISPATCHABLE" OVERSHOT, AND THE MEASUREMENT IS 2026-08-26 15:2x (math): THE DESIGN
+   SESSION HAPPENED AND RETURNED *NO WAVE TABLES*.** The 11:2x sweep was right that the *"waits for
+   a design session"* STOP was stale — the session was held 08/21 and Route II was ruled. **What it
+   produced is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, still `Status: DRAFT-UNTIL-REFUTED`,
+   and its §7 refuter pass KILLED its own §3:** the ε-arithmetic is **fatal at the FORCED operating
+   point** (λ = 1/4 and z ≥ exp(exp(400)) are forced, not chosen; the corpus's log-Chowla shelf is
+   fixed-ε and windowed while the ladder needs ~10⁻³⁴⁷/z^11.5) · **the sieve route is strictly
+   dominated** (the direct Möbius route needs no BoundingSieve, no door, no `Btwin`, and its
+   constant is `W`, not `c₁·W` — 7.3× stronger) · **the prize was overstated** (fixed-z roughness
+   gives Ω unbounded, not almost-primality). **§7's own disposition: *"No wave tables from §3"*, and
+   the live threads return to §2 and §4 — both DESIGN-TIER, and §4 says in its own bytes that it
+   *"produces a verdict page, not nodes"*.**
+   ⇒ 🔑 ***A STALE STOP AND A LIVE GO ARE NOT THE ONLY TWO STATES. "The blocker is stale" was TRUE
+   and "therefore dispatchable" DID NOT FOLLOW*** — the thing the stop was waiting for arrived and
+   came back negative. *Fifth mis-scoped routing line in two days, and the first where the sweep
+   itself was correct and only its conclusion overshot.* ⚖️ **What wave 2 needs is a design bell,
+   not an executor:** §7 leaves a priced question for the Captain — whether to open a **Tao
+   Theorem 1.2 formalization campaign** (the ∀ε full-range two-point object) as the road to the
+   unconditional z-rough parity survivor, with the direct-Möbius consumer as its cheap tail.
+   ✅⭐ **WHAT I DID LAND FROM IT — §7's VERDICT 4, THE EXTRACTION REPAIR, AND IT IS
+   ROUTE-INDEPENDENT.** `twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp` +
+   `twinParitySieve_siftedSum_pos_of_margin` (`Salt/TwinBar/TwinParitySieve.lean`), both
+   `[3 axioms]` under the `Salt.TwinBar.All` gate (`saltbuild EXIT=0`, 0 `error:` lines), **first
+   attempt, terminal re-audited green.** The terminal ends `rcases le_or_gt siftedSum 0` and returns
+   `Or.inr hs` — **the size is discarded**; these compose the three landed pieces (`:206` door +
+   `:292` ℓ¹ split + `:323` level) with no `le_or_gt`, giving `mainTerm − (Btwin lvl + B) ≤
+   siftedSum` and, as the interface form, the survivor branch gated on the single explicit margin
+   `Btwin lvl + B < mainTerm`.
+   ⭐ **IT SURVIVED THE VERDICTS THAT KILLED THE WAVE IT WAS FOUND IN** — it is a statement about
+   the LANDED ℓ¹ chain and says nothing about the log-rebase. ⇒ ***A REFUTED DESIGN BLOCK IS NOT AN
+   EMPTY ONE: its verdict section can carry findings that outlive the route.*** *Census first (three
+   shapes): no quantitative `siftedSum` bound existed — the only two `siftedSum` statements were the
+   door, whose remainder is unbounded, and the terminal, which throws the size away.*
+   ⛔ **SCOPE UNCHANGED AND NOT TO BE READ UP:** `B` is still a PARAMETER, the margin is a
+   HYPOTHESIS nothing supplies, and **neither name is a twin-prime claim nor produces a survivor.**
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

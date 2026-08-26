@@ -310,3 +310,33 @@ odd — but that Chowla-conversion lemma is NAMED, not built in wave 1. -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.one_le_ell1_level
   Salt.TwinBar.twin_parity_survivor_or_chowla_of_liouvilleTwinDisp
+
+/-! ### The QUANTITATIVE pre-terminal — the wave-2 §7 extraction repair (2026-08-26, math)
+
+The terminal above ends `rcases le_or_gt siftedSum 0` and returns `Or.inr hs` on the survivor
+branch, so **the size is discarded**.  The λ-BV wave-2 §3 refuter pass
+(`seat/briefs/2026-08-21-w2-0-design-block-DRAFT.md` §7, verdict 4) named that as an extraction
+repair to *"adopt in any consumer"*.
+
+⭐ **It is ROUTE-INDEPENDENT, which is why it lands even though the wave it was found in died.**
+The same §7 killed wave-2's §3 log-collapse (*"no wave tables from §3"*: the ε-arithmetic is fatal
+at the forced operating point, the sieve route is strictly dominated, and the prize was
+overstated).  This repair survived all three verdicts because it is a statement about the LANDED
+ℓ¹ chain and says nothing about the log-rebase.  ⇒ *A refuted design block is not an empty one —
+its verdict section can carry findings that outlive the route.*
+
+`…_lower_of_liouvilleTwinDisp` composes the three landed pieces (`:206` door + `:292` ℓ¹ split +
+`:323` level) with no `le_or_gt`: `mainTerm − (Btwin lvl + B) ≤ siftedSum`.  The terminal follows
+from it in two lines, so nothing is lost; the MARGIN is gained, and a consumer that only learns
+`0 < siftedSum` cannot tell a survivor count of `1` from one of `N/log N`.
+`…_pos_of_margin` is the interface form: the survivor branch DIRECTLY, gated on the single
+explicit inequality `Btwin lvl + B < mainTerm`, rather than a disjunct the consumer must
+eliminate.  *The two are equivalent as THEOREMS and not as INTERFACES; the verdict was about the
+interface.*
+
+⛔ **Scope is unchanged from wave 1 and must not be read up.**  `B` is still a PARAMETER, the
+margin is still a HYPOTHESIS nothing here supplies, and **neither name is a twin-prime claim nor
+produces a survivor.** -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp
+  Salt.TwinBar.twinParitySieve_siftedSum_pos_of_margin

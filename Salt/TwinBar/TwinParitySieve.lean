@@ -377,4 +377,90 @@ theorem twin_parity_survivor_or_chowla_of_liouvilleTwinDisp {z B : ℝ} (Q : ℝ
   · exact Or.inl (by linarith)
   · exact Or.inr hs
 
+/-! ## The QUANTITATIVE pre-terminal — the extraction repair (λ-BV wave-2 §7 verdict 4)
+
+The terminal above ends `rcases le_or_gt siftedSum 0` and returns `Or.inr hs` on the survivor
+branch: **the size is thrown away.**  The wave-2 §3 refuter pass named that as an extraction
+repair to *"adopt in any consumer"*, and it is route-independent — it survived the verdicts that
+killed §3's log-collapse wave, because it is a statement about the LANDED ℓ¹ chain and not about
+the log-rebase at all.
+
+Both lemmas below are the SAME three landed pieces composed — `twinParitySieve_brun_lower_ell1`
+(the door, `:206`), `twinParitySieve_rosserRemainder_le` (the ℓ¹ split, `:292`) and
+`one_le_ell1_level` (`:323`) — with no `le_or_gt` and nothing discarded.  ⛔ **The landed terminal
+is NOT edited and NOT replaced**; this is a strengthening beside it.
+-/
+
+/-- **The quantitative pre-terminal** (`twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp`) —
+the same hypotheses as the terminal, but concluding a LOWER BOUND on the sifted sum instead of a
+disjunction:
+
+    `mainTerm − (Btwin lvl + B) ≤ siftedSum` .
+
+The terminal's disjunction follows from this in two lines (`le_or_gt` on `siftedSum`, then
+`linarith`), so nothing is lost; what is GAINED is the margin, which the disjunction destroys.
+A consumer that only learns `0 < siftedSum` cannot tell a survivor count of `1` from one of
+`N/log N`, and every downstream quantitative question needs the difference.
+
+⛔ **Still a DOOR, exactly as its three inputs are.** `B` is a PARAMETER and wave 1 asserts
+nothing about its size; `Btwin` is explicit and unconditional but the bound is only useful when
+the arithmetic input beats it. **This is not a twin-prime claim and no positivity is asserted
+here** — see the margin form below for the conditional that is. -/
+theorem twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp {z B : ℝ} (Q : ℝ) (hQ : 1 ≤ Q)
+    (hz : Salt.BrunLower.zThresh (1 / 4) ≤ z)
+    (hzprimes : ∀ p ∈ P.primeFactors, (p : ℝ) < z)
+    (hdisp : LiouvilleTwinDisp N P
+      (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+            * Real.log z)
+          * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+              - 1 : ℕ))) B) :
+    (twinParitySieve N P hP).totalMass * Salt.BrunLower.W (twinParitySieve N P hP)
+          * (1 - 2 * (1 / 4 : ℝ) ^ (2 * 1 : ℕ) * Real.exp (2 * (1 / 4))
+              / (1 - (1 / 4 : ℝ) ^ 2 * Real.exp (2 + 2 * (1 / 4))))
+        - (Btwin (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+              * Real.log z)
+            * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+                - 1 : ℕ))) + B)
+      ≤ (twinParitySieve N P hP).siftedSum := by
+  have hdoor := twinParitySieve_brun_lower_ell1 (N := N) (P := P) (hP := hP) (z := z) Q hQ hz
+    hzprimes
+  have hrem := twinParitySieve_rosserRemainder_le (N := N) (P := P) (hP := hP)
+    (one_le_ell1_level (z := z) Q hQ hz) hdisp
+  linarith
+
+/-- **The margin form** (`twinParitySieve_siftedSum_pos_of_margin`) — what the size actually buys.
+
+Where the terminal offers a disjunction whose right branch a consumer must SELECT by refuting the
+left one, this offers the survivor branch DIRECTLY, gated on an explicit strict margin
+
+    `Btwin lvl + B < mainTerm` .
+
+That is the shape a wave-2 consumer wants: the arithmetic input's job is stated as ONE inequality
+to beat, rather than as a disjunct to eliminate.  *The disjunction and this are equivalent given
+the lemma above; they are not equivalent as INTERFACES, and the refuters' "adopt in any consumer"
+is about the interface.*
+
+⛔ **The margin is a HYPOTHESIS and nothing here supplies it.**  Wave 1 asserts nothing about `B`,
+so this is a door in exactly the sense its inputs are — **no twin-prime claim, and no landing here
+may be read as producing a survivor.** -/
+theorem twinParitySieve_siftedSum_pos_of_margin {z B : ℝ} (Q : ℝ) (hQ : 1 ≤ Q)
+    (hz : Salt.BrunLower.zThresh (1 / 4) ≤ z)
+    (hzprimes : ∀ p ∈ P.primeFactors, (p : ℝ) < z)
+    (hdisp : LiouvilleTwinDisp N P
+      (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+            * Real.log z)
+          * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+              - 1 : ℕ))) B)
+    (hmargin : Btwin (Q * (Real.exp ((1 + 2 * (Real.exp (Salt.BrunLower.LamTwin (1 / 4) z) - 1)⁻¹)
+            * Real.log z)
+          * 2 ^ (2 * Salt.BrunLower.minLevel (Salt.BrunLower.LamTwin (1 / 4) z) z
+              - 1 : ℕ))) + B
+        < (twinParitySieve N P hP).totalMass * Salt.BrunLower.W (twinParitySieve N P hP)
+            * (1 - 2 * (1 / 4 : ℝ) ^ (2 * 1 : ℕ) * Real.exp (2 * (1 / 4))
+                / (1 - (1 / 4 : ℝ) ^ 2 * Real.exp (2 + 2 * (1 / 4))))) :
+    0 < (twinParitySieve N P hP).siftedSum := by
+  have hlow := twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp (N := N) (P := P) (hP := hP)
+    (z := z) (B := B) Q hQ hz hzprimes hdisp
+  linarith
+
 end Salt.TwinBar
