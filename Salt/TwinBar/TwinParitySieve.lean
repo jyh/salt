@@ -576,4 +576,60 @@ theorem logWeight_affine_le_div {d m r : ℕ} (hd : 0 < d) (hm : 0 < m) (hr : r 
     field_simp
   exact ⟨by rw [e1]; exact hlo, by rw [e2]; exact hhi⟩
 
+/-! ## The tail-mass infinitude argument — λ-BV wave-2 §7 verdict 4
+
+§7's verdict 4 records this as *"infinitude via the tail-mass argument (genuinely EASIER in the log
+world — the one argument FOR the rebase nobody made)"*.  The core is route-independent and belongs
+here rather than in any log-world file: **a nonnegative weight whose partial sums are unbounded
+cannot be supported on a finite set.**
+
+⭐ **WHY IT IS THE ARGUMENT *FOR* THE REBASE.**  A positivity statement `0 < siftedSum` at each `N`
+gives a survivor `≤ N` for each `N` and **does not give infinitely many survivors** — the witnesses
+could all be the same `n`.  What upgrades one-per-`N` to infinitude is the observation that any
+FIXED finite set contributes a BOUNDED amount of weight, so an unbounded mass cannot be carried by
+finitely many terms.  In the log world the mass grows like `log N` **unconditionally** (the
+subtracted two-point sum is Tao's own theorem), which is precisely the divergence this lemma
+consumes; in the flat world the corresponding divergence is what the campaign is trying to prove.
+*The rebase does not make this lemma easier — it makes its HYPOTHESIS available.*
+
+⛔ **SCOPE.**  This is the abstract step ONLY.  It takes the divergence as a hypothesis and
+supplies nothing toward it; **no landing here produces a survivor, and nothing in the corpus
+consumes it yet.**
+-/
+
+/-- **The tail-mass infinitude step.**  A nonnegative weight whose partial sums over `range N` are
+unbounded has infinite support.
+
+The proof is the contrapositive in one move: on a finite support the partial sums are all bounded
+by the total over that support, because the terms off it are zero and the terms on it are
+nonnegative. -/
+theorem support_infinite_of_partialSums_unbounded {w : ℕ → ℝ} (hw : ∀ n, 0 ≤ w n)
+    (hunb : ∀ M : ℝ, ∃ N : ℕ, M < ∑ n ∈ Finset.range N, w n) :
+    {n : ℕ | w n ≠ 0}.Infinite := by
+  by_contra hfin
+  rw [Set.not_infinite] at hfin
+  obtain ⟨N, hN⟩ := hunb (∑ n ∈ hfin.toFinset, w n)
+  have hsub : ((Finset.range N).filter (fun n => w n ≠ 0)) ⊆ hfin.toFinset := by
+    intro n hn
+    rw [Finset.mem_filter] at hn
+    rw [Set.Finite.mem_toFinset]
+    exact hn.2
+  have hle : (∑ n ∈ (Finset.range N).filter (fun n => w n ≠ 0), w n)
+      ≤ ∑ n ∈ hfin.toFinset, w n :=
+    Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i _ _ => hw i)
+  rw [Finset.sum_filter_ne_zero] at hle
+  linarith
+
+/-- **The step in the shape a positivity chain hands it** — an unbounded LOWER bound suffices.
+
+A consumer typically owns `f N ≤ ∑_{n < N} w n` for a divergent `f` (in the log world,
+`f N = (1−o(1))·log N`), not the raw unboundedness.  This takes that shape directly. -/
+theorem support_infinite_of_lower_unbounded {w : ℕ → ℝ} {f : ℕ → ℝ} (hw : ∀ n, 0 ≤ w n)
+    (hlow : ∀ N : ℕ, f N ≤ ∑ n ∈ Finset.range N, w n)
+    (hdiv : ∀ M : ℝ, ∃ N : ℕ, M < f N) :
+    {n : ℕ | w n ≠ 0}.Infinite := by
+  refine support_infinite_of_partialSums_unbounded hw (fun M => ?_)
+  obtain ⟨N, hN⟩ := hdiv M
+  exact ⟨N, lt_of_lt_of_le hN (hlow N)⟩
+
 end Salt.TwinBar

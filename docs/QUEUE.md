@@ -337,9 +337,26 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    residue-class decomposition supplies both.
    ⛔ **SCOPE — AN INGREDIENT, NOT A WIRING:** pure arithmetic on the weights, naming no Liouville
    sum, no atom and no consumer, and **nothing consumes it yet.**
-   📐 **Verdict 4 STILL OPEN after these three:** the tail-mass infinitude argument (log world) ·
-   F-THIRD-REGIME restated flat-world-only · the §14/§15 cross-references repo-qualified · §0.6's
-   `h ≤ 1` → `h ≤ 2`.
+   ✅⭐⭐ **AND THE TAIL-MASS ARGUMENT — *"the one argument FOR the rebase nobody made"* — IS
+   LANDED, 2026-08-26 16:5x.** `support_infinite_of_partialSums_unbounded` +
+   `support_infinite_of_lower_unbounded`, both `[3 axioms]` under `Salt.TwinBar.All`
+   (`saltbuild EXIT=0`). **A nonnegative weight whose partial sums are unbounded cannot be
+   supported on a finite set.**
+   ⭐⭐ **AND MEASURING IT SETTLED WHAT THE REBASE ACTUALLY BUYS, WHICH §3 NEVER STATED CLEANLY.**
+   `0 < siftedSum` at each `N` gives a survivor `≤ N` **per `N` and does NOT give infinitely
+   many** — the witnesses could all be the same `n`. What upgrades one-per-`N` to infinitude is
+   that a FIXED finite set carries only BOUNDED weight. ⇒ ***THE REBASE DOES NOT MAKE THIS LEMMA
+   EASIER; IT MAKES ITS HYPOTHESIS AVAILABLE*** — in the log world the mass grows like `log N`
+   UNCONDITIONALLY (the subtracted two-point sum is Tao's own theorem), which is exactly the
+   divergence this step consumes; in the flat world that divergence is what the campaign is
+   trying to prove. *The refuters' parenthetical was right and its reason is now on the page.*
+   ⛔ **SCOPE — THE ABSTRACT STEP ONLY:** it takes the divergence as a HYPOTHESIS, supplies nothing
+   toward it, **produces no survivor, and nothing consumes it yet.**
+   📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
+   block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
+   F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references
+   repo-qualified · §0.6's `h ≤ 1` → `h ≤ 2` (S14 verdict). **Every LEAN node verdict 4 named is
+   now landed.**
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

@@ -380,3 +380,26 @@ sum, no atom and no consumer, and **nothing in the corpus consumes it yet.** -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.logWeight_affine_le
   Salt.TwinBar.logWeight_affine_le_div
+
+/-! ### The tail-mass infinitude step — wave-2 §7 verdict 4's last extraction repair
+
+§7 records it as *"infinitude via the tail-mass argument (genuinely EASIER in the log world — the
+one argument FOR the rebase nobody made)"*.  **A nonnegative weight whose partial sums are
+unbounded cannot be supported on a finite set.**
+
+⭐ **Why it is the argument FOR the rebase.**  `0 < siftedSum` at each `N` gives a survivor `≤ N`
+per `N` and **does NOT give infinitely many** — the witnesses could all be the same `n`.  What
+upgrades one-per-`N` to infinitude is that a FIXED finite set carries only BOUNDED weight, so an
+unbounded mass cannot live on finitely many terms.  In the log world the mass grows like `log N`
+**unconditionally** (the subtracted two-point sum is Tao's own theorem) — exactly the divergence
+this step consumes.  ⇒ *The rebase does not make this lemma easier; it makes its HYPOTHESIS
+available.*
+
+`…_of_lower_unbounded` is the shape a positivity chain actually hands over: a divergent lower bound
+`f N ≤ ∑_{n<N} w n` rather than raw unboundedness.
+
+⛔ **SCOPE — the abstract step ONLY.** It takes the divergence as a hypothesis, supplies nothing
+toward it, **produces no survivor, and nothing in the corpus consumes it yet.** -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.support_infinite_of_partialSums_unbounded
+  Salt.TwinBar.support_infinite_of_lower_unbounded
