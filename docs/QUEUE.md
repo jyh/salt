@@ -4025,6 +4025,35 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    shape instead would produce a different object that the `_sq` lane cannot consume.
    📌 **The second half of this row — `m4_doorL2_supply_500`'s h-analogue (`M4DoorL2.lean:206`) —
    is NOT priced here.** It is a separate object in a separate file and this census did not open it.
+   ✅✅⭐ **THE FIRST OBJECT IS LANDED — 2026-08-26 02:5x (math), salt `7cc840c1` + `a6be290f`.**
+   `fourier_split_sq_h` (attempt 1) and `circle_method_estimate_sq_h_core` (attempt 2) — **the
+   grid's empty cell is filled at both levels.** Both `Built` (not Replayed), targeted gate
+   `saltbuild EXIT=0`, 0 errors, 0 warnings naming either file; then the aggregate at `EXIT=0`
+   with **BOTH rows firing as build-time gates, each `[3 axioms]`** (rows at the END of the list,
+   since `#audit_axioms` aborts its remainder on a throw). Cap was 3; used 1 and 2.
+   ⭐ **THE PRICING HELD WHERE IT MATTERED.** The part this census called risky — the `h`-scaled
+   constant and the remainder identity — went through `field_simp; ring` **first try**, because the
+   two remainder coefficients `(h − 1 + h·C₀)` and `(h + 2·C₀·(h − 1))` turned out to be **the L¹
+   core's own**, differing only in the second denominator and differing there **by exactly the L²
+   normaliser**; derived by hand and checked to sum to `h(1+2C₀)` on each term before a line was
+   written.
+   ⛔ **WHAT ACTUALLY COST THE FAILED ATTEMPT WAS A NAME CAPTURE, AND THE FIX WAS ALREADY IN THE
+   SIBLING.** Five errors, all in the tail, all downstream of one line: the template's
+   `have h := norm_add_le T …` **silently shadows the new parameter `h : ℕ`**, so every later
+   `(h : ℝ)` meant a real-inequality proof instead of the shift. *Lean printed `h✝ : ℕ` in the
+   context — the dagger is a shadowing report.* And `circle_method_estimate_h_core`, the L¹ twin I
+   was porting from, **had already renamed that exact line to `have hna := …`.** I diffed its
+   ARITHMETIC BLOCK — the part I thought differed — and never diffed the twenty lines above it.
+   ⇒ ***A SIBLING THAT ALREADY MADE YOUR PORT CARRIES FIXES FOR DEFECTS YOU HAVE NOT HIT YET;
+   DIFF THE WHOLE SIBLING, NOT THE PART YOU THINK IS DIFFERENT.*** *A rename with no comment looks
+   like style and is load-bearing.* ⇒ And the cheap guard: ***WHEN YOU ADD A PARAMETER TO A
+   TRANSCRIBED PROOF, GREP THE TEMPLATE FOR THAT IDENTIFIER AS A LOCAL BINDER FIRST*** (`have h`,
+   `set h`, `intro … h`, `obtain ⟨…, h, …⟩`) — one grep before the build, not five errors after.
+   ⛔ **STILL A SOCKET AND NO LANDING HERE MAY BE READ OTHERWISE.** `log_chowla_two_shell_xi_sq_h`
+   does not exist, and the wrapper re-stating the core over the fork's own `bigXiH h` belongs on
+   the **`ShiftFork`** side (that module imports `CircleMethod`, so naming its objects here is an
+   import cycle — the fence `bigXiTwistFilter`'s own docstring records). **NEXT, and both small:**
+   the `ShiftFork` wrapper, then this row's second half above.
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
