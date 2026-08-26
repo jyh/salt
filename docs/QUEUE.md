@@ -383,8 +383,34 @@ RESURRECTS THEM:**
     **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
     `Q₁ := H/W³`) + the Prop 2.4 statement (bound transcription verified exact by the refuters).
     Class **B**. *Shrunk by the reduction: the `g₁ * h` constructions are gone.*
-12. ⛔⛔ **WAVE 1c — NOT DISPATCHABLE AS BRIEFED (08/21 17:0x, math). ITS DYADIC NODE RESTS ON A
-    PREMISE WAVE 1a REFUTED.** The v2 brief's *"NOTE FOR THE DYADIC NODE"* said A.1's `[X,2X]` is
+12. ⚠️⚠️ **HEADER CORRECTED 2026-08-26 10:2x (math) — THE ⛔⛔ BELOW IS TRUE OF *ONE THIRD* OF THIS
+    ROW AND A HEAD READING ONLY THE HEADER SKIPS THE OTHER TWO.** The row's own text already says it:
+    *"E-5c and the thresholds are untouched by the refutation and remain sound as written."*
+    ⇒ **THE HOLD COVERS THE DYADIC NODE ONLY. E-5c AND THE THRESHOLDS ARE OPEN AND DISPATCHABLE AT
+    CLASS B/C** — which is this row's own stated class.
+    🔑 ***A BLOCKER STATED IN A ROW'S HEADER IS INHERITED AS THE ROW'S STATUS, WHATEVER THE BODY
+    SAYS.*** *Fourth instance of the stale/over-broad-hold class in two days (the saltworks freeze ·
+    item 7's "gated on W-F3" · P2b's "No Tao PDF" · this) — and the first where the hold was never
+    stale, merely SCOPED WRONG IN THE PLACE THAT TRAVELS.*
+    📐 **CENSUS 10:2x, BEFORE ANY ATTEMPT, so whoever holds quota can dispatch cold:**
+    ```
+      mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:130 (+ mem_mrtS :136)   ← wave 1a
+      E-5c, the S-DILATION identity on mrtS      ABSENT — 0 declarations
+        ⛔ the `memS_dilate` family that greps is the DOOR's, at `calP`/`windowClass`
+           sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:738`), NOT MRT's
+           `mrtS` at MRT's own Definition-2.1 sequence. Different object, matching name.
+      H₀mrt(ε) · H₊*(ε)          ABSENT — 0 declarations under any of 4 spellings tried
+      W ≤ H^{1/250}              ABSENT as stated; the `1/250` that greps is a DIFFERENT
+                                 exponent, `(log X_d)^{1−1/250}` in `hL4096` (M4ArithPrime,
+                                 ThmA2Pool) — a base-LOWER threshold, not this ceiling.
+    ```
+    ⇒ **BOTH sound parts are genuinely unbuilt; neither is hiding in the corpus under another name**
+    (three search shapes each, and the near-miss above is exactly why the third shape was run).
+    📌 **What a dispatcher still needs and this census did NOT open:** E-5c's and the thresholds'
+    PRECISE statements live in the v2 scoping brief, not in this row. **Fetch them from there; do not
+    reconstruct them from this row's parenthetical.**
+12b. ⛔⛔ **THE DYADIC NODE ONLY — NOT DISPATCHABLE AS BRIEFED (08/21 17:0x, math). ITS DYADIC NODE
+    RESTS ON A PREMISE WAVE 1a REFUTED.** The v2 brief's *"NOTE FOR THE DYADIC NODE"* said A.1's `[X,2X]` is
     "**already a dyadic block, which is the shape wave 1c's cover produces**" — ***two different
     `[X,2X]`s.*** A.1's is the **`x`-AVERAGE (the outer location parameter)**, not the typical set's
     range; MRT's `S` is **always an initial segment**, and A.2/A.3 impose the dyadic restriction **on
