@@ -13,7 +13,7 @@ import Salt.Maynard.GehPp2
 /-!
 # The Liouville-twisted twin sieve (λ-BV wave 1, node B0)
 
-Design: `seat/briefs/2026-08-20-lambda-bv-block-v6-FIRE.md` (§2, row B0).
+Design: `2026-08-20-lambda-bv-block-v6-FIRE.md` (§2, row B0).
 
 `twinParitySieve N P hP` is the mathlib `BoundingSieve` that sifts the twin
 values `n(n+2)`, `n ∈ [1,N]`, by the primes dividing the squarefree `P`, with

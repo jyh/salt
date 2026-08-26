@@ -10,7 +10,7 @@ import Salt.MR.MRTPortA1
 # The MRT port (item 15) — the λ-quality floor at `lamCoeff` (node E3)
 
 Dispatched from the frozen executor brief
-`seat/briefs/2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md`, node **E3**.  The
+`2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md`, node **E3**.  The
 three statements below are the **door-wave gate's own**, copied verbatim from that
 brief; they are not the maestro's or this executor's paraphrase.
 

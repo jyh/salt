@@ -51,3 +51,64 @@ jobs:
           fi
           echo "scanning $RANGE"
           python scripts/check_commit_trailers.py --range "$RANGE"
+
+  private-paths:
+    name: no NEW path into the private record enters a public repo
+    runs-on: ubuntu-latest
+    # Council 2026-08-25 ruled the firewall line at PATHS and booked this gate
+    # as construction. Booked is not built: measured over the 9 commits that
+    # landed on saltworks at or after that stamp, THREE carried a path into the
+    # private record -- the first 1m41s after the ruling. A rule with no
+    # instrument is obeyed for exactly as long as it is remembered.
+    #
+    # RANGE: the pushed delta, same doctrine as the job above. Measured before
+    # this shipped, THIS repo's history carries ZERO of these shapes across all
+    # 2142 commit messages -- so a full scan would be green today. It is still a
+    # delta scan, deliberately: the enforceable rule is "no NEW path enters",
+    # and a gate whose range depends on today's luck changes meaning the first
+    # time a pre-ruling path is found in an old message.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # BOTH ARMS DRIVEN BEFORE TRUST: a planted path must fail it, a
+      # role-worded message must pass it, and the fixtures are the real
+      # post-ruling instances rather than invented shapes.
+      - run: python scripts/check_private_paths.py --self-test
+      - name: scan the pushed delta
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          # ⛔ THE FALLBACK IS A CONTROL PATH AND THE FIRST ONE WAS NEVER DRIVEN.
+          # Its original form was HEAD~100..HEAD, which on any new branch reaches
+          # ~100 commits of PRE-RULING history -- so every new branch redded
+          # permanently, on findings the commencement clause protects. That is
+          # precisely the red-sweep-gets-abandoned failure this workflow's own
+          # header names, reintroduced in the one code path that had both arms
+          # reasoned and neither driven. Found by the jas seat's meta-gate.
+          #
+          # MERGE-BASE is the correct fallback: it scans what THIS BRANCH ADDS
+          # relative to the mainline, which is the same question the before-sha
+          # answers on an existing branch. Both paths are now driven as controls
+          # before shipping, clean AND dirty.
+          DEF="${{ github.event.repository.default_branch }}"
+          if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
+             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            RANGE="$BEFORE..HEAD"
+            echo "push delta: $RANGE"
+          elif MB=$(git merge-base "origin/$DEF" HEAD 2>/dev/null) && [ -n "$MB" ]; then
+            RANGE="$MB..HEAD"
+            echo "new branch: merge-base with origin/$DEF -> $RANGE"
+          else
+            # No before-sha and no merge-base: we cannot bound "new" at all.
+            # FAIL CLOSED and say why -- a gate that cannot determine its own
+            # scope must not report success. Never silently widen to history.
+            echo "FAIL: cannot determine a delta range (no before-sha, no merge-base"
+            echo "      against origin/$DEF). Refusing to guess a range."
+            exit 1
+          fi
+          echo "scanning $RANGE"
+          python scripts/check_private_paths.py --range "$RANGE"

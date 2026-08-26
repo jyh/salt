@@ -10,7 +10,7 @@ import Salt.MR.MRTThmA1
 # The MRT port (item 15) — the λ-instantiation chain (nodes D2, D3, D4)
 
 Dispatched from the frozen executor brief
-`seat/briefs/2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, node D2.  The three
+`2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, node D2.  The three
 statements below are the **door-composition gate v2's own**, copied verbatim from that
 brief; they are not the maestro's or this executor's paraphrase.
 

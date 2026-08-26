@@ -10,7 +10,7 @@ import Salt.MR.MRTPortMLower
 # The MRT port (item 15) — A.1's whole right-hand side below a fixed constant (node E5)
 
 Dispatched from the frozen executor brief
-`seat/briefs/2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md`, node **E5**.  The
+`2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md`, node **E5**.  The
 single statement below is the door-wave gate's own, copied verbatim from that brief; it is
 not the maestro's or this executor's paraphrase.
 
@@ -46,7 +46,7 @@ with no repair.  Nothing in this file assumes the older unsquared form.
   the window-convention mirror, the seam cap, and the phase, none of which is in this wave.
   E5 and E4 are the two *ends* of the port stated in one currency, not a chain.
 * **GAP X (the output-side scale quantifier) is untouched** — see the council register's
-  Amendment 2 (`seat/briefs/2026-08-25-COUNCIL-decision-register.md`).
+  Amendment 2 (`2026-08-25-COUNCIL-decision-register.md`).
 * No new unconditional analytic bound is produced here.  What this file adds is the
   *currency*: whatever A.1 supplies, it supplies it below any fixed constant `c`.
 

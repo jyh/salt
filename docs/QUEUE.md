@@ -138,7 +138,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    (5b5c0ed3's record). Design-block-first; one Opus executor wave.
    [DONE, for the record: the two ports landed 08/16–19; E4a CLOSED
    08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
-   — NEW FILLS from the 08/20 λ-dialect census (seat/briefs/
+   — NEW FILLS from the 08/20 λ-dialect census (briefs/
    2026-08-20-lambda-dialect-CENSUS.md; both pre-ruled, executor-sized):
 5a. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Wire ppLevel_holds — the landed, sorry-free, ZERO-consumer trophy
    `Salt.Maynard.ppLevel_holds : PpLevel (3999/4000)` (PpAssembly.lean:928)
@@ -411,7 +411,7 @@ RESURRECTS THEM:**
    says ask which document still describes this as not-done BEFORE the commit that lands it — and a
    guard whose failure does not stop the commit is not a guard.*** *Fourth instance today of a record
    lagging its work, and the only one where the record actively asserted the opposite.*
-   ⛔⭐⭐ **DESIGN BLOCK v1 DELIVERED 08/24 12:21 — `seat/57933d38` — AND IT DOES NOT PASS ITS OWN
+   ⛔⭐⭐ **DESIGN BLOCK v1 DELIVERED 08/24 12:21 — `57933d38` — AND IT DOES NOT PASS ITS OWN
    GATE. NOT DISPATCHABLE.** This row says *design-block-first if the port grows a statement*; it does, so
    the block IS the deliverable, and both adversarial lenses returned **refuted** (7 agents, 0 errors).
    ✅ **CONFIRMED, and I verified the two load-bearing claims AT THE TREE before either lens reported:**
@@ -441,7 +441,7 @@ RESURRECTS THEM:**
    ROW ABOVE WAS FOUR DOCUMENTS STALE WHEN I ARRIVED.** v2 (`2d84a815`) refuted on all three lenses ·
    v3 (`3ff66967`) refuted at the X-scale · v4 (`4d9cbaa7`) refuted by a **category error** (I compared
    a range on `q`-the-approximation-denominator with a range on `q`-the-Dirichlet-modulus and called it
-   containment) · **NAME-COLLISION TABLE commissioned and delivered** (`seat/34584a8c`, 9 rows at the
+   containment) · **NAME-COLLISION TABLE commissioned and delivered** (`34584a8c`, 9 rows at the
    bytes, `q`·`Q`·`W`·`M`·`K`·`X`·`λ` + 2 non-collisions) · v5 refuted on **all five** lenses · **v6 =
    v5 + the gate's eleven forced corrections, and the gate's verdict is GATE PASSES WITH CORRECTIONS.**
    ✅ **THE MECHANISM THAT SURVIVED, verified at the bytes by the gate:** `m4_exit_socket_split`
@@ -485,11 +485,11 @@ RESURRECTS THEM:**
    🔑 ***THE LESSON THE CAMPAIGN ACTUALLY TAUGHT: every one of the FIVE kills was a true LOCAL fact
    promoted to a headline it did not carry, and every one would have been caught by reading the SECOND
    side. All five were caught by a lens — and the fifth added a NEW SPECIES to the class: a quotation
-   I composed rather than read, about a document I convicted without re-opening.*** Blocks v1–v6 + table in `seat/briefs/`. **No node has
+   I composed rather than read, about a document I convicted without re-opening.*** Blocks v1–v6 + table in `briefs/`. **No node has
    fired. No Lean written. No build run — every ruling is statement-level.**
    ✅✅⭐⭐ **N1–N4 LANDED 08/24, `b85006f4` — THE MRT PORT'S FIRST LEAN, FOUR NODES, FOUR PASSES,
    ONE ATTEMPT EACH.** Helm authorized the four v6 §4 nodes for executor-tier execution; dispatched from
-   a FROZEN brief (`seat/briefs/2026-08-24-item15-N1toN4-EXECUTOR-BRIEF-FROZEN.md`, `seat/c4e6bbdc`)
+   a FROZEN brief (`2026-08-24-item15-N1toN4-EXECUTOR-BRIEF-FROZEN.md`, `c4e6bbdc`)
    carrying the build-wrapper law, the axiom gate, the collision table per the helm's order, and the
    helm's new **quotation law** as rule 10. `regime_headroom_at_socket` (`MRTPortHeadroom`) ·
    `mrtQuality_lower_of_pointwise` (`MRTPortQualityFloor`) · `lam_eq_lamCoeff_of_prime` +
@@ -521,7 +521,7 @@ RESURRECTS THEM:**
    (`DoorFloor1500.lean:250`) closes **Prop 2.4's whole `min` binder under `le_min`.** ⛔ **The detail I
    checked instead of assuming:** `W_second_arm` concludes at `Real.log H ^ (12 : ℕ)` — **npow, `H : ℝ`**
    — while `arcDen 12 H` is `Real.log (H:ℝ) ^ (12 : ℝ)` — **rpow, `H : ℕ`.** *Same printed `(log H)^12`,
-   two elaborations, two index types.* Note: `seat/briefs/2026-08-24-item15-N5-rpow-step-PRICED.md`.
+   two elaborations, two index types.* Note: `2026-08-24-item15-N5-rpow-step-PRICED.md`.
    ⛔ **DEFECT IN MY OWN FROZEN BRIEF, found by the N4 executor and recorded rather than quietly patched:**
    it told all four to `sed` their statement out of v6 §4, but **only N1 and N2 have Lean code blocks
    there** — N3 and N4 are prose. §4's *"statements written out"* is true of two of the four.
@@ -801,7 +801,7 @@ RESURRECTS THEM:**
    fires at `le_rfl`; verified in the PROOF TERMS at `M4Exit.lean:502`, `:506`, not just the prose).
    **Nothing landed ASSERTS that MRT delivers `mrtDeliveredGrade`** — it occurs only in hypothesis
    position — so no kernel object could be falsified by either event.
-   ⚠️ **ONE LIVE NAVIGATION HAZARD SURVIVES:** `seat/briefs/2026-08-21-mrt-match-REPORT.md:142-144`
+   ⚠️ **ONE LIVE NAVIGATION HAZARD SURVIVES:** `2026-08-21-mrt-match-REPORT.md:142-144`
    ends *"…do NOT target MRT Prop 2.4 as the consumption surface. **Target MRT Thm 2.3 + Lemma 2.2.**"*
    — **the prohibitive half is standing law; the prescriptive half names two objects the same day's
    11:04 ratification deleted by name.** ⭐ *The gate corrected this seat here: erratum E-4 (`:286-289`)
@@ -809,7 +809,7 @@ RESURRECTS THEM:**
    over-stated; the narrow survivor is only that no erratum entry cites §3(c) while correcting the
    positive half.*
    📌 **8 GATE-WRITTEN STATEMENTS; 5 EXECUTORS DISPATCHED** from a FROZEN brief
-   (`seat/briefs/2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, `seat b1e62c25`), one file each,
+   (`2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, `seat b1e62c25`), one file each,
    **one-attempt cap**, build-wrapper law + collision table + the A.1 repair attached: **D2+D3+D4** the
    λ-instantiation chain (A) · **D5+D6** A.1's RHS tail below any fixed δ (A/B) · **D7** the
    closed/half-open carrier glue (B) · **D1** the L²→L¹ re-serve of the split socket (B) · **D8** the
@@ -900,7 +900,7 @@ RESURRECTS THEM:**
    (f ≡ 1 counterexample; the source's p.21 exp(−M) remark form is the true one) and `gJ` sifting
    the WRONG SIDE vs the source's S. D9/E4/the seal are UNAFFECTED (A.1 hypothesis-position only).
    Next: the D-1 road-pricing wave; lane A holds for its report or the Captain's word.**
-   (`seat/briefs/2026-08-25-COUNCIL-decision-register.md`), the D9 SOUND-vs-CHEAPER caveat, and BOTH
+   (`2026-08-25-COUNCIL-decision-register.md`), the D9 SOUND-vs-CHEAPER caveat, and BOTH
    frozen gate briefs.**
    📌 **AND THE RULING IS COMPATIBLE WITH THE REGISTER'S OWN RECOMMENDATION, WHICH I FLAG RATHER THAN
    MANUFACTURE A TENSION FROM.** The register's Amendment said *"if the arc is out of scope the port
@@ -909,7 +909,7 @@ RESURRECTS THEM:**
    Wave B's own terminal node **E4 is literally "the seal: one pricing line left."** *The wave
    TIGHTENS the object the item seals on; it does not compete with it.*
    ✅ **WAVE B FIRED 08/25 — stage 1 (E1, E2, E3) dispatched in parallel from the FROZEN brief**
-   `seat/briefs/2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md` (`seat 90c161a8`). Stage 2
+   `2026-08-25-item15-WAVE-B-ARC-OUT-OF-SCOPE-FROZEN.md` (`seat 90c161a8`). Stage 2
    (E4, E5) follows on stage 1. **E1** `m4_ladder_gates_lam` (B) — the sieve-free door register ·
    **E2** `m4_exit_lam_of_rowMeanSqLam` (B) — the row chain, D8 into D9, *the wave's spine* ·
    **E3** `mrtM_lamCoeff_loglog_floor` (**C**, with an explicit give-up budget) — the quality floor at
@@ -1113,7 +1113,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 18c. ⛔⛔⛔⭐⭐⭐ **THE DOOR'S ROAD IS ALREADY LANDED — `DoorRoadCompose.lean` IS PEDAGOGY, NOT CONTRIBUTION.** Ran the check-before-authoring law; it stopped a duplicate, then found the whole road. **`m4_chiBlockMeanSq_of_shiftBlock`** (`M4Maximal.lean:838`, 178 lines) already contains the entire MIDDLE in ONE proof — `doorChiSup_sq_le_dyadic` (maximal bound) · `Finset.sum_comm` (**the swap**) · `sum_Ioc_shift` (**the reindexing**) · `hfix` (**the capstone**); measured by probing the theorem's own body with negative controls. **`m4_hbd_of_live_L`** (`M4RowLinear.lean:2335`) already concludes **EXACTLY THE DOOR'S `hbd`**: at `NearRatTight (arcDen 12 H) H α`, `∫ ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω) ≤ mrtDeliveredGrade C H · H`, from four named bundles (`M4DoorGates_L`, `Braw ≥ 0`, `M4GradeGate`, `M4SievedDoorSq_L`) — the shape `mrtUniformityXi_of_absWindowBound_twelve` consumes. ⇒ **EVERYTHING IN MY FILE IS A RE-DERIVATION OF ROAD THAT EXISTS**; true, kernel-checked, and NOT a contribution — marked at the head of the file so no one cites it as closing anything. ⛔⛔ **AND MY OWN DUPLICATE DETECTOR (18b) CALLED THE FILE CLEAN — CORRECTLY.** Its verdict is TRUE and NARROW (*no corpus theorem has these signatures*); my lemmas are smaller pieces of a larger landed proof ⇒ redundant **BY COVERAGE, NOT BY SHAPE**. **A DUPLICATE DETECTOR CANNOT SEE REDUNDANCY-BY-COVERAGE; A CLEAN BILL FROM IT IS NOT A LICENCE.** 🔑 **THE REAL LESSON IS A BIAS, NOT FOUR SLIPS:** four times today I published that the corpus had LESS than it does (no producer · lacks the analytic estimates · missing the terminal cancellation · a covering is needed) and **every correction ran the SAME DIRECTION** — a systematic misreading of my own corpus. Remedy: **SEARCH BEFORE COMPOSING, NOT AFTER.** 📌 **The genuinely open question is THE FOUR GATES** — a different question from anything in this file. `bb7f4b19` · stamped 08/22 17:13:37
 
-18b. ⭐⭐ **THE DUPLICATION LAW, DEPLOYED AS AN EXECUTING INSTRUMENT — AND MY 14 NEW DECLARATIONS ARE CLEAN AGAINST THE WHOLE CORPUS.** 18a found a duplicate BY LUCK (the name collided). `seat/tools/math-watch/dupcheck.py` makes it a method: signature = qualified names + 3+-char identifiers + operators + numerals, taken from the STATEMENT **with the declaration's own name STRIPPED**, so alpha-renaming cannot hide a twin. **RESULT: 15,233 declarations indexed across all of `Salt/`; my 14 `DoorRoadCompose` declarations have ZERO twins.** ⛔⛔ **THREE VERSIONS FAILED THE POSITIVE CONTROL BEFORE ONE PASSED, AND EACH FAILURE WAS A DIFFERENT BLINDNESS:** v1 blind to lowercase constants; **v2 put the theorem's OWN NAME in its signature, so twins could never match — a detector that reports CLEAN FOREVER**; v3 was a patch whose nested-string escaping **silently no-opped**, leaving v2 running and still reporting clean. ⇒ **AN EDIT THAT SILENTLY NO-OPS LEAVES THE OLD BROKEN INSTRUMENT REPORTING** — a new costume of *a guard where the bug cannot occur reports clean forever*. The positive control (replant the deleted duplicate, must find `M4Maximal.sum_Ioc_shift:421`) caught all three; **I diagnosed the third by DIFFING THE TWO SIGNATURES rather than guessing a fourth time.** ⛔ **ON THE CORPUS-WIDE COLLISION FIGURE: it is a LOCATOR, NOT A VERDICT** — same signature ≠ same theorem, and my classification heuristics explain only a minority; **I decline to quote a duplicate count.** seat `384df23b` · stamped 08/22 17:04:55
+18b. ⭐⭐ **THE DUPLICATION LAW, DEPLOYED AS AN EXECUTING INSTRUMENT — AND MY 14 NEW DECLARATIONS ARE CLEAN AGAINST THE WHOLE CORPUS.** 18a found a duplicate BY LUCK (the name collided). `dupcheck.py` makes it a method: signature = qualified names + 3+-char identifiers + operators + numerals, taken from the STATEMENT **with the declaration's own name STRIPPED**, so alpha-renaming cannot hide a twin. **RESULT: 15,233 declarations indexed across all of `Salt/`; my 14 `DoorRoadCompose` declarations have ZERO twins.** ⛔⛔ **THREE VERSIONS FAILED THE POSITIVE CONTROL BEFORE ONE PASSED, AND EACH FAILURE WAS A DIFFERENT BLINDNESS:** v1 blind to lowercase constants; **v2 put the theorem's OWN NAME in its signature, so twins could never match — a detector that reports CLEAN FOREVER**; v3 was a patch whose nested-string escaping **silently no-opped**, leaving v2 running and still reporting clean. ⇒ **AN EDIT THAT SILENTLY NO-OPS LEAVES THE OLD BROKEN INSTRUMENT REPORTING** — a new costume of *a guard where the bug cannot occur reports clean forever*. The positive control (replant the deleted duplicate, must find `M4Maximal.sum_Ioc_shift:421`) caught all three; **I diagnosed the third by DIFFING THE TWO SIGNATURES rather than guessing a fourth time.** ⛔ **ON THE CORPUS-WIDE COLLISION FIGURE: it is a LOCATOR, NOT A VERDICT** — same signature ≠ same theorem, and my classification heuristics explain only a minority; **I decline to quote a duplicate count.** seat `384df23b` · stamped 08/22 17:04:55
 
 18a. ⛔⭐⭐ **THE JOIN IS A REINDEXING — AND I DUPLICATED A CORPUS LEMMA PROVING IT.** The post-swap object meets `M4ChiShiftBlockMeanSq` by a **translation of the index set**: same summand, the offset `2^(j+1)·t` on the **BASE** in one and on the **INTERVAL** in the other ⇒ **`M4ChiShiftBlockMeanSq`'s `s` IS that offset**, which is why the family is called *shifted*. ⛔⛔ **I WROTE THE REINDEXING OUT AND THE COMPILER REJECTED IT: `M4Maximal.sum_Ioc_shift` (`:421`) is the same statement CHARACTER FOR CHARACTER, ~600 lines above `M4ChiShiftBlockMeanSq`, IN THE FILE I HAD BEEN READING ALL DAY.** Its docstring — *"THE SHIFT IS EXACT — no overhang cell is created and none is lost"* — and its parameter literally named `s` **independently CONFIRM the structural reading**: analysis right, lemma redundant. Duplicate deleted, corpus's used. ⭐ **AND I FOUND IT ONLY BY LUCK — the NAME collided.** Any other name and it ships as a silent duplicate. So I ran the check I should have run FIRST on the other four: `sum_swap_dyadic` none · the three progression lemmas none · `shift_le_cap` no NAMED twin **but the corpus does that exact step INLINE at SIX sites** (`M4BaseNarrow:345,1461`, `M4RowLinear:2867,3049,4187,4735`) ⇒ naming it is a small real contribution, not a rewrite. Landed: `sum_Ioc_shift_at_door` `[3 axioms]`, `shift_le_cap` `[1 axioms]`. ⛔ **attempts 3/3, AT CAP:** (1) duplicate name + inference failure under a binder; (2) both fixed but my prose landed **OUTSIDE the docstring block** — the placement class, *a stable anchor is not a correct anchor*; (3) closer relocated. Genuine `✔ Built` after olean deletion, EXIT=0, zero diagnostics, All.lean at baseline 2 · `637557ea` · stamped 08/22 16:55:14
 
@@ -1629,7 +1629,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     **Yesterday's law, deployed rather than described:** silicon's *"a queue is PULL, and an
     instrument that only watches PUSH cannot see a pull duty"* — plus their explicit
     *"arm 9 watches MY section only; if the same shape exists elsewhere it is not mine to
-    install."* It does, and now it is: `seat/tools/math-watch/queue-items.sh` gives every beat a
+    install."* It does, and now it is: `queue-items.sh` gives every beat a
     **`queue=` FIELD** instead of silence. Live: `queue=10 OPEN(5,16,17,6,7,8,9,18,10,11)
     disagree=6(5,16,9,18,10,11)`.
 
@@ -2831,7 +2831,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     there — WHEN YOU TYPE `grep` AGAINST A `tail -c` FILE, PASS `-a`.** *This seat's own memory card
     already said "always `grep -F` (and `-a`)" — deployed in the LEAN lane, never in the BUS lane.
     A law published is not a law deployed, third instance in this seat's record.*
-    ✅ **TOOL LANDED: `seat/tools/math-watch/bus-headers.sh`** — byte-cut safe (drops the truncated
+    ✅ **TOOL LANDED: `bus-headers.sh`** — byte-cut safe (drops the truncated
     first line outright; only line 1 can be mangled by `tail -c`, so it is exact not heuristic),
     `-a` throughout, LAX/STRICT delta, and **same-path controls** (run against the file under test,
     not a `printf` pipe — *the two controls that missed this were clean-ASCII stdin, so they tested
@@ -3809,7 +3809,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    briefs, no landings without a ruled campaign.
    ✅ **MATCH DELIVERED 08/21 08:5x (math) — DO NOT RE-RUN.** The Captain
    COMMISSIONED the binder-by-binder match at the 08/21 council; it is
-   done: `seat/briefs/2026-08-21-mrt-match-REPORT.md` (seat `3e0be72b`).
+   done: `2026-08-21-mrt-match-REPORT.md` (seat `3e0be72b`).
    **VERDICT: THE MATCH CLOSES** — every binder exact or weaker; no gap
    is open mathematics.
    ⛔ **AND THE ROW ABOVE IS NOW A TRAP WITHOUT THIS LINE: "the door is
@@ -3830,7 +3830,7 @@ branches fix it (P1.3 kills the divergence reddening the Windows lane, P1.4
 stops the prime-directive gate silently skipping) and are git-verified. jas
 deliberately did not push — a push to a public repo is outward-facing and was
 not the seat's to authorise. ONE PUSH RULING unblocks it. Detail + branch shas:
-`seat/fleet/QUEUE-jas.md`.
+`QUEUE-jas.md`.
 
 ## P2b — CITATION HYGIENE (helm-queued 2026-08-21, no urgency, executor-class)
 
@@ -4320,7 +4320,7 @@ numbering is UNVERIFIED.
    full-range**.
 
    ✅ **ESTABLISHED 08/21 — DO NOT RE-DERIVE ANY OF THIS** (helm brief:
-   `seat/briefs/2026-08-21-w20-eps-fence-READ.md`):
+   `2026-08-21-w20-eps-fence-READ.md`):
    - The "ε-floor fence" is **NOT a wall.** `SpineEpsFence.lean`'s load-bearing
      theorem is three lines of real analysis (a fixed ε > 0 is eventually exceeded
      by nothing tending to 0) conjoined with the landed terminal. Its own docstring
@@ -4408,7 +4408,7 @@ numbering is UNVERIFIED.
 12. **JAS (vector-illustration editor · public repo `github.com/jyh/jas`) — FOLDED
    IN 08/22 on the Captain's order ("so you know about it"), executed by the
    Phoenix fresh head; jas-b's own git-verified answer places jas at fleet-P3.**
-   The detailed board is `seat/fleet/QUEUE-jas.md` — jas seats pull from THAT
+   The detailed board is `QUEUE-jas.md` — jas seats pull from THAT
    file, not this one; this entry exists so the fleet board is complete. State
    at fold: P1.2/P1.3/P1.4/P1.6/P1.7 + P2.5 landed on unpushed branches (three
    stacked, P1.3→P1.6→P1.7; P2.5 independent; all based on 5095060d); open items

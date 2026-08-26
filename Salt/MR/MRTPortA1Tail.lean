@@ -9,7 +9,7 @@ import Salt.MR.BridgeAdapt
 # MRT port (item 15), node D5 — A.1's RHS tail below any fixed `δ`
 
 Dispatched from the frozen D-wave executor brief
-(`seat/briefs/2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, node D5).  Two
+(`2026-08-25-item15-D-WAVE-EXECUTOR-BRIEF-FROZEN.md`, node D5).  Two
 declarations:
 
 * **D5** `mul_exp_neg_le_two_div` — the ONE link turning a LOWER bound on the quality

@@ -14,7 +14,7 @@ import Salt.MR.M4Close
 /-!
 # The MRT port (item 15) — the landed nodes
 
-Design block: `seat/briefs/2026-08-24-item15-mrt-port-DESIGN-BLOCK-v6.md`.  This file
+Design block: `2026-08-24-item15-mrt-port-DESIGN-BLOCK-v6.md`.  This file
 consolidates the port's first four Lean nodes, dispatched from the frozen executor brief
 of 2026-08-24 and landed at salt `b85006f4` as four separate modules; merged here and
 rooted under the maestro's approval so that the full build and the axiom audit can see
@@ -260,7 +260,7 @@ theorem pretDistSq_lam_eq_lamCoeff (g : ℕ → ℂ) (X : ℝ) :
 ## N4 — `lamCoeff` inhabits MRT's 1-bounded completely multiplicative datum
 
 Item 15, node N4 of the MRT port (design block
-`seat/briefs/2026-08-24-item15-mrt-port-DESIGN-BLOCK-v6.md`, §4).  One theorem:
+`2026-08-24-item15-mrt-port-DESIGN-BLOCK-v6.md`, §4).  One theorem:
 the Liouville coefficient sequence `lamCoeff` (`M4Window.lean:73`) satisfies
 `MrtCompMultDatum` (`MRTProp24.lean:195-201`), the structure that packages MRT's
 "1-bounded completely multiplicative" hypothesis.
@@ -309,7 +309,7 @@ theorem mrtCompMultDatum_lamCoeff : MrtCompMultDatum lamCoeff := by
 ## The MRT port (item 15), node N6 — a `CapFreeFloor` producer for `mrtQuality`
 
 Dispatched from the frozen executor brief
-`seat/briefs/2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.  The statement below is
+`2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.  The statement below is
 the gate's, copied verbatim; it is **not** the maestro's paraphrase.
 
 `mrtQuality_lower_of_pointwise` (`Salt/MR/MRTPort.lean:170`, node N2) is the `le_csInf`
@@ -369,7 +369,7 @@ theorem mrtQuality_lower_of_capFreeFloor {X Q : ℝ}
 /-!
 ## Item 15 — N5: the `L`-side arm of Tao Prop. 2.4's `min` binder
 
-Executor brief: `seat/briefs/2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.
+Executor brief: `2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.
 The statement is the adversarial gate's own, frozen; it is NOT repaired here.
 
 `W_first_arm` is the companion of `W_second_arm` (`Salt/MR/DoorFloor1500.lean`): under
@@ -414,7 +414,7 @@ theorem W_first_arm {H L : ℝ} (hH : 1 ≤ Real.log H)
 ## ⟦N7⟧ — the split door's exit, carrying BOTH the W-headroom and the tower
 
 Item 15 (the MRT port), node **N7**, dispatched from the frozen executor brief
-`seat/briefs/2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.
+`2026-08-24-item15-N5toN7-EXECUTOR-BRIEF-FROZEN.md`.
 
 `M4Exit.m4_exit_socket_split` (`M4Exit.lean:487`) delivers, alongside the regime's own
 data, the head's tower endpoint law
