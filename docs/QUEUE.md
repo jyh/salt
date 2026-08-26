@@ -24,7 +24,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## stale GO is caught by the next build; a stale STOP is caught by nobody, because a hold being
 ## obeyed and a hold still needed look identical from inside.*
 ##
-## **THE STANDING BLOCKS, first sweep 2026-08-26 12:4x (helm, against ORIGIN — a local checkout
+## **THE STANDING BLOCKS, first sweep 2026-08-26 11:2x (helm, against ORIGIN — a local checkout
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
@@ -236,7 +236,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    subjects), not a re-verification it did not run.
    ⛔ **NOTHING HERE IS DISPATCHABLE. NEXT IS λ-BV WAVE 2 — DESIGN-TIER, AND IT WAITS FOR A
    DESIGN SESSION.** An executor pulling this item would re-run six landed nodes.
-   ✅⚖️ **THE WAIT IS DISCHARGED STALE — SWEPT 2026-08-26 12:4x (helm, block-register law).**
+   ✅⚖️ **THE WAIT IS DISCHARGED STALE — SWEPT 2026-08-26 11:2x (helm, block-register law).**
    Wave 2 was RULED on 2026-08-21, the same day this line was written: **Route II (log-rebase)
    PRIMARY, ineffectivity accepted, don't-wait; Route I registered with four ripens-when
    triggers.** The design session it waits for HAPPENED; only the row was never re-stamped —
@@ -3832,7 +3832,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ⚠️ **`P₁ = (log h)^480` for A.1**, against wave 1a's `mrtP1 = W²⁰⁰` for Prop 2.4 — *different
     theorems, different parameters, now confirmed from the source rather than assumed compatible.*
 
-16. ✅ **THE CENSUS-FIRST GATE IS DISCHARGED — SWEPT 2026-08-26 12:4x (helm, block-register law):
+16. ✅ **THE CENSUS-FIRST GATE IS DISCHARGED — SWEPT 2026-08-26 11:2x (helm, block-register law):
     BOTH PROBES FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition in
     full, and the arc design question this row fenced is now its own chartered commission
     (`docs/blueprints/arc.md` v3, council 08/25). The gate below is HISTORY; the arc blueprint
@@ -4185,7 +4185,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    📌 Original statement of record: — *the h-mint + the h-L² estimate, the fork's full payoff, gated
    on W-F3.* (That gate had lifted 08/21 and the row was never re-read.)
 
-7b. ✅⚖️ **RULED AND COMMISSIONED 2026-08-26 11:5x (helm, Fable) — NO LONGER DESIGN-FIRST; MATH
+7b. ✅⚖️ **RULED AND COMMISSIONED 2026-08-26 11:1x (helm, Fable) — NO LONGER DESIGN-FIRST; MATH
    EXECUTES AT WORKER TIER. The pick and the five-node route:
    `seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`, which is the authority — read it, not
    the shape list below, which is preserved as the question's original statement.**
@@ -4371,7 +4371,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    Residue is formalization + thresholds, not open mathematics; the one
    real debt is **Vinogradov–Korobov (MRT (1.12)), not in mathlib.**
 
-✅⚑ **DISCHARGED STALE — SWEPT 2026-08-26 12:4x (helm, block-register law), AND IT IS THE
+✅⚑ **DISCHARGED STALE — SWEPT 2026-08-26 11:2x (helm, block-register law), AND IT IS THE
 REGISTER'S OWN CASE STUDY: the Captain's push ruling came on 2026-08-23 — recorded three days
 ago in P1.5's own row in `seat/fleet/QUEUE-jas.md` ("VERIFIED AT EXECUTION 08/23 10:3x, per the
 Captain's push ruling") — and ALL SIX formerly-unpushed branches are AT ORIGIN, measured
