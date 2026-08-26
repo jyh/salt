@@ -10,6 +10,19 @@ The ruling-5 refutation-channel migration landed in `saltworks/docs/QUEUE.md` §
 (all its debts name saltworks objects). This queue carries salt work only; repo-qualify
 every QUEUE citation — both repos have a `docs/QUEUE.md`.
 
+## ⚖️⚖️ **FOUR RULINGS ARE RIPE AS OF 2026-08-26 03:3x (math) — ONE PAGE, READ IT BEFORE PULLING:**
+## **`seat/briefs/2026-08-26-math-DECISIONS-awaiting-a-word.md`** (5 KB). ① re-tier `arc.md`'s R-1,
+## *it is not a node* (its `10^222` is a demanded EXPONENT → `1/12`, invariant under the only knob;
+## arithmetic re-verified independently) · ② commission the **POINT→BAND** block (P2 item 6), now
+## priced — seam is ONE theorem, one structural residual (coefficient `1 → 1/4`), **spend nothing on
+## grade** · ③ **SPLIT P2 item 7** — first half DONE, second half is a frequency-convention design
+## question · ④ **CLOSE P2b item 18 as EXONERATED** — 13/13 citations verified, zero defects, and do
+## NOT authorise its bulk `v2` pass. Evidence: `seat/briefs/2026-08-26-math-BANK-the-headroom-was-an-exponent.md` §1–§9.
+## ⛔ **Suggested standing rule in that page: A QUEUE ITEM THAT *BLOCKS* SHOULD CARRY A RE-MEASURE
+## DATE.** Three holds outlived their conditions in one night (the saltworks freeze · item 7's
+## *"gated on W-F3"* · P2b's *"No Tao PDF exists"*) and **all three were TRUE WHEN WRITTEN** — a stale
+## GO is caught by the next build, a stale STOP by nobody.
+##
 ## RULED 2026-08-20 (the commissioning council): λ-BV = P1, POINT→BAND = P2.
 ## The queue runs CONTINUOUSLY (no day/night): a seat pulls the moment its item
 ## lands or walls; parked-with-queue-non-empty is an alarm condition; an
