@@ -632,4 +632,61 @@ theorem support_infinite_of_lower_unbounded {w : ℕ → ℝ} {f : ℕ → ℝ} 
   obtain ⟨N, hN⟩ := hdiv M
   exact ⟨N, lt_of_lt_of_le hN (hlow N)⟩
 
+/-! ## The harmonic-progression count — λ-BV wave-2 §3(3)'s *"NEW small node"*
+
+§3 of the wave-2 block named this as *"the log-count error per class of the harmonic progression
+sum is O(1) (elementary; the NEW small node — 'harmonic-progression count', B-class)"*, and §7's
+refuter pass VERIFIED it with an **absolute constant `C₀ = 1`, derived**.  It is one of the two §3
+claims the pass upheld (the other being that no `N` is smuggled); the collapse ARGUMENT around it
+died, the ESTIMATE did not.
+
+Summing the pointwise weight comparison above over `m ∈ [1, M]` gives the per-class statement the
+ladder actually reads, and composing with the landed harmonic bound `∑_{m≤M} 1/m ≤ 1 + log M`
+(`Salt.TwinBar.sum_inv_Icc_le`, `Wall.lean:219`) pins the constant at **1** — the refuters' `C₀`,
+now on the page rather than in a verdict.
+
+⛔ **SCOPE.**  These are estimates on the WEIGHTS, uniform in the residue `r` and the modulus `d`.
+They name no Liouville sum and no atom, and **nothing in the corpus consumes them yet** — the
+log-rebase they serve is design-tier and its §3 route is refuted.  Landing them is worth it because
+**the estimate is route-independent**: any log-world pricing of an affine-form atom needs exactly
+this comparison, and the refuters had already checked the constant.
+-/
+
+/-- **The harmonic-progression count, upper.**  For `1 ≤ r ≤ d` the affine-form log weights over
+`m ∈ [1, M]` sum to at most `(1/d)·(1 + log M)`.
+
+The constant is **1**, absolute — §7's derived `C₀` — and it is `Salt.TwinBar.sum_inv_Icc_le`'s,
+not a new estimate. -/
+theorem sum_inv_affine_le {d r : ℕ} (hd : 0 < d) (hr : r ≤ d) (M : ℕ) :
+    (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ)))
+      ≤ (1 / (d : ℝ)) * (1 + Real.log M) := by
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hstep : (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ)))
+      ≤ ∑ m ∈ Finset.Icc 1 M, (1 / (d : ℝ)) * (1 / (m : ℝ)) := by
+    refine Finset.sum_le_sum fun m hm => ?_
+    have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+    exact (logWeight_affine_le_div hd (by omega) hr).2
+  have hharm : (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ)) ≤ 1 + Real.log M := by
+    simpa only [one_div] using sum_inv_Icc_le M
+  calc (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ)))
+      ≤ ∑ m ∈ Finset.Icc 1 M, (1 / (d : ℝ)) * (1 / (m : ℝ)) := hstep
+    _ = (1 / (d : ℝ)) * ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ) := by rw [← Finset.mul_sum]
+    _ ≤ (1 / (d : ℝ)) * (1 + Real.log M) := by
+        exact mul_le_mul_of_nonneg_left hharm (by positivity)
+
+/-- **The harmonic-progression count, lower** — the other side of the same sandwich, at the factor
+`2` the weight comparison costs.  Together with `sum_inv_affine_le` this is the per-class estimate
+in both directions, so a pricing that needs the atom to be NON-negligible has it too.
+
+⭐ **Both bounds carry `1/d` and NOTHING else `d`-dependent**, which is the content: the modulus
+enters exactly as the factor the divisor sum already carries, uniformly in the residue `r`. -/
+theorem sum_inv_affine_ge {d r : ℕ} (hd : 0 < d) (hr : r ≤ d) (M : ℕ) :
+    (1 / (2 * (d : ℝ))) * (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ))
+      ≤ ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ)) := by
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  rw [Finset.mul_sum]
+  refine Finset.sum_le_sum fun m hm => ?_
+  have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+  exact (logWeight_affine_le_div hd (by omega) hr).1
+
 end Salt.TwinBar

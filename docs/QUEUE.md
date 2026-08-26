@@ -352,6 +352,25 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    trying to prove. *The refuters' parenthetical was right and its reason is now on the page.*
    ⛔ **SCOPE — THE ABSTRACT STEP ONLY:** it takes the divergence as a HYPOTHESIS, supplies nothing
    toward it, **produces no survivor, and nothing consumes it yet.**
+   ✅⭐⭐ **AND §3(3)'s *"NEW small node"* IS LANDED — 2026-08-26 17:1x, on the helm's 16:5x order
+   to return to wave 2.** `sum_inv_affine_le` + `sum_inv_affine_ge` (`Salt/TwinBar/`), both
+   `[3 axioms]` under `Salt.TwinBar.All` (`saltbuild EXIT=0`), **first attempt.** THE
+   HARMONIC-PROGRESSION COUNT: `∑_{m≤M} 1/(d·m+r) ≤ (1/d)·(1 + log M)`, and the matching lower
+   bound at the factor 2.
+   ⭐⭐ **THIS IS ONE OF ONLY TWO §3 CLAIMS §7's REFUTER PASS UPHELD** — *"the harmonic-progression
+   error is O(1) with **absolute `C₀ = 1`, derived**"*. ⇒ ***THE COLLAPSE ARGUMENT DIED; THE
+   ESTIMATE DID NOT.*** *A refuted design section is not a section with nothing in it — §7's
+   "what VERIFIED" column is a landing list, and this is the second thing I have taken from it
+   today.*
+   📌 **The constant is not mine and not new:** it is the landed `sum_inv_Icc_le`
+   (`Wall.lean:219`, `∑_{m≤M} 1/m ≤ 1 + log M`) composed with the weight comparison. **`C₀ = 1`
+   is on the page now instead of in a verdict.**
+   ⭐ **Both bounds carry `1/d` and NOTHING else `d`-dependent, uniformly in `r`** — the modulus
+   enters exactly as the factor the divisor sum already carries. *That is the content, and it is
+   what makes the per-class bookkeeping constant.*
+   ⛔ **SCOPE: estimates on the WEIGHTS** — no Liouville sum, no atom, **nothing consumes them
+   yet.** They land because the estimate is ROUTE-INDEPENDENT: any log-world pricing of an
+   affine-form atom needs exactly this comparison.
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references

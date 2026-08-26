@@ -403,3 +403,26 @@ toward it, **produces no survivor, and nothing in the corpus consumes it yet.** 
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.support_infinite_of_partialSums_unbounded
   Salt.TwinBar.support_infinite_of_lower_unbounded
+
+/-! ### The harmonic-progression count — wave-2 §3(3)'s "NEW small node", §7-verified
+
+§3 named it (*"the log-count error per class of the harmonic progression sum is O(1)"*) and §7's
+refuter pass **UPHELD it with an absolute `C₀ = 1, derived`** — one of only two §3 claims the pass
+sustained. **The collapse ARGUMENT around it died; the ESTIMATE did not.**
+
+`sum_inv_affine_le` sums the pointwise weight comparison over `m ∈ [1,M]` and composes with the
+landed `sum_inv_Icc_le` (`Wall.lean:219`, `∑_{m≤M} 1/m ≤ 1 + log M`) to give
+`∑ 1/(d·m+r) ≤ (1/d)·(1 + log M)` — **the constant is 1, absolute, and it is the landed harmonic
+bound's, not a new estimate.** `sum_inv_affine_ge` is the other side at the factor 2 the comparison
+costs.
+
+⭐ **Both bounds carry `1/d` and nothing else `d`-dependent, uniformly in the residue `r`** — the
+modulus enters exactly as the factor the divisor sum already carries. That is the content.
+
+⛔ **SCOPE: estimates on the WEIGHTS.** They name no Liouville sum and no atom, and **nothing
+consumes them yet** — the log-rebase they serve is design-tier and its §3 route is refuted. They
+land because the estimate is **route-independent**: any log-world pricing of an affine-form atom
+needs exactly this, and the refuters had already checked the constant. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.sum_inv_affine_le
+  Salt.TwinBar.sum_inv_affine_ge
