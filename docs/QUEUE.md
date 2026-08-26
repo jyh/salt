@@ -629,6 +629,54 @@ RESURRECTS THEM:**
     LANDED def before deriving anything quantitative from a brief's transcription of it.***
     *Third time today that a stale line in a delivered scoping object aimed a worker at the wrong
     thing — after the row's own "fetch from v2" and the `1.17e4` floor.*
+12c. ⚖️ **THE 984 — THEOREMS WITH NO AUDITED TERMINAL. FILED 2026-08-26 17:0x (math), HELM-ROUTED
+    "FILE IT, DO NOT TRIAGE IT NOW."** The CI-coverage debt is DISCHARGED; this is what it left
+    behind, at a LOWER TIER than the apex. **Do not let it displace λ-BV.**
+    📋 **THE ARTIFACT:** `seat/briefs/2026-08-26-math-REPORT-dead-branches.md` — full 984-name
+    appendix with file and track, plus the method and every control.
+    ```
+      declared theorems in source                                        17985
+      name occurs EXACTLY ONCE in the corpus (its own declaration)         992
+      ⇒ AND named in no #audit_axioms block   →   DEAD BRANCHES            984   across 379 files
+      by track: MR 494 · Entropy 136 · Maynard 104 · Chen 67 · HB 46 · SW 27 · TwinBar 26 ·
+                Goldbach 24 · Twelve 16 · Weil 7 · Brun 5 · ExpSum 5
+      first-cut split: 63 sit in Salt/*/Mathlib/ shim dirs (upstream-candidate ports, likely
+                       SOCKETS); the other 921 are corpus proper.
+    ```
+    ⚠️ **DIRECTION OF ERROR, STATED — this UNDER-reports.** Matching is on the SHORT name anywhere
+    in the corpus, which OVER-approximates use (a same-named lemma elsewhere counts as a use).
+    **Every one of the 984 is genuinely unreferenced; the true set may be LARGER.** Uses through
+    `simp` sets, dot-notation and `open`-abbreviated references are all counted as uses, so they
+    cannot create a false positive — only hide a true one. Controls printed: `zzzNotARealName` 0 ·
+    `lamCoeff` 128 · `M5_cert` 4 · `logWeight_affine_le` 3.
+    ⛔⛔ **IT IS NOT A DEFECT LIST, AND THAT IS WHY IT IS FILED RATHER THAN ACTED ON.** A SOCKET and
+    a CORPSE look identical to a grep. **THREE of the 984 are MINE from today** and were disclosed
+    at landing as *"nothing consumes it yet"*. ⇒ **the act is a TRIAGE — socket / superseded /
+    lost — never a purge**, and **MR's 494 IS WHERE TRIAGE PAYS** (it is the live campaign, where
+    exploratory lemmas accumulate and where a dead branch is most expensive because the spine reads
+    MR). Top MR files: `S15Compose` 23 · `M4RowLinear` 20 · `M4RowAssemblyLinear` 14 ·
+    `S16Budget`/`M4AssemblyFrames`/`DoorLadderLinear` 12 each.
+    📌 **CORRECTED FIGURE THE NEXT HAND MUST INHERIT: the audited-name count is `5255`, NOT the
+    `6877` I published earlier the same day.** The inflation came from running the block regex over
+    COMMENT-STRIPPED text, which let it bridge across block boundaries and swallow unrelated names.
+    **Three raw-text readers agree at 5255**, and `5254/5255` resolve in Lean (the one miss is
+    `Salt.Tactic.thisDeclDoesNotExist`, the audit tactic's own deliberate self-test).
+    ⛔⛔⛔ **AND THE METHOD WARNING, WHICH IS THE MOST REUSABLE THING HERE.** My FIRST method walked
+    the elaborated environment, closing transitively through `ConstantInfo.value?`, and reported
+    **12501 of 17533 (71%) dead**. **RETRACTED BEFORE PUBLICATION.** `value?` is `none` for **all
+    18692** imported Salt theorems, so the closure only ever walked TYPES and the figure was
+    *"17533 minus the 4996 audited theorems"* dressed as a graph algorithm. Caught by asking
+    ***does the walk ADD anything beyond the seeds*** (answer: **36**) rather than ***did it run***.
+    ⇒ 🔑 ***A GRAPH ALGORITHM THAT RETURNS A PLAUSIBLE NUMBER ON AN EMPTY GRAPH FAILS SILENTLY AND
+    ITS OUTPUT SCALES WITH THE CORPUS — a ZERO would have been caught instantly.*** **Anyone
+    re-running this must not use an env walk; `Lean.collectAxioms` works only because axiom
+    summaries survive import, and dependency graphs do not.**
+    📌 Parser provenance: the `#audit_axioms` reader FOLLOWS multi-line continuations, REFUTED not
+    asserted — a first-line-only reader returns 3 names on `Salt/Chen/All.lean` where it returns
+    720, and loses 5075 tree-wide.
+    ⚖️ **TIER: worker, but BELOW the apex. Helm ruling 16:5x — the proof aim is the apex and a
+    hygiene sweep does not displace it. This keeps.**
+
 12b. ⛔⛔ **THE DYADIC NODE ONLY — NOT DISPATCHABLE AS BRIEFED (08/21 17:0x, math). ITS DYADIC NODE
     RESTS ON A PREMISE WAVE 1a REFUTED.** The v2 brief's *"NOTE FOR THE DYADIC NODE"* said A.1's `[X,2X]` is
     "**already a dyadic block, which is the shape wave 1c's cover produces**" — ***two different
