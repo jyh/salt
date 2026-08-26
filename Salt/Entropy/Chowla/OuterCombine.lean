@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # The outer Fubini assembly (Tao arXiv:1509.05422v1, (2.11) → (3.15)/(3.16)), spine node W3-a-3c
 
 The final analytic node of the log-Chowla spine's wave 3.  It combines every
-landed ingredient into Tao's p.22 chain: from the Chowla-failure DOOR input
+landed ingredient into Tao's pp. 22–23 chain: from the Chowla-failure DOOR input
 `(2.11)` (an explicit hypothesis `h211`) to the decoupled two-point-correlation
 lower bound `(3.15)/(3.16)`.
 
@@ -323,7 +323,11 @@ lemma outer_badMass_le (eps : ℚ) (H : ℕ) {x ω : ℕ}
 
 /-! ## The keystone (design step 5): the (2.11) → (3.15)/(3.16) combine -/
 
-/-- **W3-a-3c, the outer Fubini assembly** (Tao arXiv:1509.05422v1 p.22, `(2.11) → (3.15)/(3.16)`).
+/-- **W3-a-3c, the outer Fubini assembly** (Tao arXiv:1509.05422v1 pp. 22–23,
+`(2.11) → (3.15)/(3.16)`).  ⚠️ *Page range widened from `p.22` on 2026-08-26, VERIFIED AT THE
+SOURCE against `docs/sources/1509.05422v1.pdf`: `(2.11)` and `(3.15)` are on p. 22, but `(3.16)`
+is the first display on p. 23, so the chain spans two pages.  The version anchor `v1` was already
+correct and is untouched.*
 From the Chowla-failure DOOR input `h211` (the (2.11)-model lower bound on the outer
 mean of the F-bridge) the decoupled two-point correlation carries a lower bound of the
 same `ε·H/log H` grade, up to an explicit error.

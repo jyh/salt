@@ -4213,6 +4213,37 @@ numbering is UNVERIFIED.
     ⛔ **PAGE TRANCHE IS UNEXECUTABLE FROM THIS SEAT AND I AM NOT GUESSING:** `BigXiArc.lean:19` (*pp. 24–25*) and
     `OuterCombine.lean:5,:326` (*p. 22*). **No Tao PDF exists in `docs/sources/`** (it holds `1501.04585v4`,
     `1503.05121v3`, `1706.03749v1`, `gs9911246`), and this node's page table covers ONLY Prop 2.4 (v2 p.12 / v4 p.13).
+    ✅⭐⭐ **THAT BLOCKER IS DISCHARGED AND THE PAGE TRANCHE IS NOW EXECUTED — 2026-08-26 03:0x (math).
+    THE ROW ABOVE IS BYTE-UNTOUCHED; IT WAS TRUE WHEN WRITTEN AND FALSE WITHIN HOURS.**
+    `docs/sources/` holds **ALL FOUR Tao versions** — `1509.05422v{1,2,3,4}.pdf` — with sha256s in
+    `docs/sources/REFETCH.md`. **Measured: they arrived Aug 23 06:11–08:08, i.e. 1.5–3.5 hours AFTER
+    the 04:4x stamp that declared them absent.** ⚠️ **They are GITIGNORED, not tracked** — so they are
+    present in a working checkout and **reproducible in any clone by one checksummed `curl`** from
+    REFETCH.md (landed 08/25, `0a237299`), which is what actually retires "unexecutable from this seat".
+    ⇒ ⛔ **THIS IS THE THIRD TIME IN ONE NIGHT THAT A HOLD OUTLIVED ITS CONDITION** (the saltworks push
+    freeze; item 7's "gated on W-F3"; this). ***A DIRECTIVE THAT TELLS YOU TO STOP NEVER FORCES A TEST,
+    SO IT DECAYS SILENTLY — RE-READ THE BLOCKER BEFORE INHERITING IT.***
+    📐 **THE TRANCHE, VERIFIED AT THE SOURCE (page images, not `pdftotext`), AND IT IS EXONERATING —
+    which is this node's own headline finding holding up:**
+    ```
+      BigXiArc.lean:19   "v1, pp. 24–25"   ✅ CORRECT AS WRITTEN — NO EDIT.
+      OuterCombine:8,326 "v1, p.22"        ⚠️ widened to "pp. 22–23" (one display crosses the page)
+    ```
+    **`BigXiArc.lean:19` — and I tried to convict it and failed.** I first read Tao's `Ξ_H` as being
+    DEFINED on p.23 (inside Lemma 3.4) and prepared to call "pp. 24–25" off-by-one. **The file is not
+    citing the definition.** p.24 carries **Lemma 3.5** (`|Ξ_H| ≪ 1`, restriction theorem) and p.25
+    carries **Remark 3.6**, which says in Tao's own words that at `g₁ = g₂ = λ` (hence `c_p = 1`) the
+    sum is handled by **Vinogradov estimates** and *"one can compute `Ξ_H` fairly explicitly; it
+    basically consists of those frequencies `ξ` which are **major arc** in the sense that `ξ/H` is
+    close to a rational `a/q` of bounded denominator `q`."* **That is `bigXi_arc`'s statement and this
+    file's own header verbatim, including the `a = 1`, `c_p = 1` collapse.** ⇒ *The citation is not
+    merely defensible, it is the best page in the paper for this file.*
+    **`OuterCombine.lean:8,:326` — substantively correct, precision widened:** `(2.11)` and `(3.15)`
+    are on **p. 22**; **`(3.16)` is the first display on p. 23**, so the chain spans two pages. Edited
+    to `pp. 22–23` with the reason in the docstring. **The `v1` anchor was already correct at all
+    three sites and is untouched — the page tranche never needed a version stamp at all.**
+    ⇒ 📌 **REMAINING under this node: the SECTION/LEMMA (26) and EQUATION (9) tranches only.** The
+    page tranche is CLOSED, and the `NONE` class is 5.
     ⇒ **PAGE-kind citations require the SOURCE PDF to anchor; SECTION-kind do not — a resource requirement this node
     never stated.**
     ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
