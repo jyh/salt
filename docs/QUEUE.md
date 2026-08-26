@@ -473,6 +473,59 @@ RESURRECTS THEM:**
     📌 **What a dispatcher still needs and this census did NOT open:** E-5c's and the thresholds'
     PRECISE statements live in the v2 scoping brief, not in this row. **Fetch them from there; do not
     reconstruct them from this row's parenthetical.**
+    ⛔⛔ **AND THAT LAST LINE IS HALF FALSE — MEASURED 2026-08-26 14:1x, BY THE SEAT THAT WROTE IT.**
+    I followed my own pointer and it holds for **ITEM 5** and **fails for E-5c**:
+    ```
+      ITEM 5 thresholds   ✅ IN v2 §4 (:106-118), precisely, with corrections to v1
+      E-5c S-dilation     ⛔ IN NEITHER BRIEF. Three search shapes over v2: "dilation" ×4 (all
+                             other objects), "E-5c" ×1 (the wave TABLE line :132), the statement
+                             shapes ×0. v1's only E-5 (:43) is the DIRICHLET SPLIT.
+    ```
+    🔑 ***E-5c's LABEL SURVIVED A DELETION THAT TOOK ITS FAMILY.*** v1's `E-5` was the Dirichlet
+    split `g = g₁ * h`; **Probe 1 DELETED that split** (λ is already completely multiplicative), and
+    E-5a and E-5b went with it — `E-5b ⇒ DISSOLVED`, in v2's own re-cut. **E-5c was never the split:
+    it is the `1_S`-dilation identity, i.e. Prop 2.4 apparatus.** So the sub-label points at a parent
+    that no longer exists, and no brief ever stated the child. ⇒ ***WHEN A NODE IS DELETED, ITS
+    SUB-LABELS ARE NOT AUTOMATICALLY DELETED — AND A SURVIVING SUB-LABEL WITH NO SURVIVING PARENT IS
+    A NODE NOBODY HAS STATED.***
+    ⭐ **E-5c IS NOT VOID — I CHECKED THE DEMAND SIDE BEFORE SAYING SO.** A.1 carries *"NO `1_S`, NO
+    `W`, NO `d`"*, which reads like a deletion; but v2's ratified-condition §3 says the opposite in
+    the place that matters: ***"BUT CHARACTERS DO RE-ENTER — IN THE ARC, NOT IN THE HYPOTHESIS"***,
+    quoting MRT §4 p.14 *"α = a/q + θ with q ≤ W"* over `∑ 1_S(n)g(n)e(an/q)`. **The primary route is
+    "A.1 + the MAJOR ARC", and `1_S`/`W`/`d` live in the arc half.** ⇒ **E-5c is DEMANDED AND
+    UNSTATED** — the worst of the four combinations, because a census of ABSENCE (my 10:2x one) reads
+    identically whether a node is unbuilt or uncommissioned.
+    ⚖️ **⇒ E-5c IS HELM/FABLE-TIER, NOT WORKER-TIER, AND NOT BECAUSE IT IS HARD.** Iron rule 1: a
+    worker seat may not author the statement. **What it needs is one paragraph of statement, not a
+    proof attempt.** *I did not attempt it and did not reconstruct it from the row's parenthetical —
+    which is exactly what the line above told me not to do.*
+    ✅⭐ **ITEM 5's THIRD THRESHOLD IS LANDED — `regime_W_cap_of_floor` (stone S10b),
+    `Salt/MR/DoorDischarge.lean`, `[3 axioms]`, FIRST ATTEMPT.** The `W ≤ H^{1/250}` arm v2 §4 called
+    *"missing from every regime field"*, stated the way the corpus states its sibling S10a —
+    **expanded, no `W`, no `rpow`, no `ε`**: raising to the 250th power, `W = (log H)^5 ≤ H^{1/250}`
+    is `(log H)^{1250} ≤ H`. 📐 It reads `R.Hlo` where S10a reads `R.Hhi`, and that is not an
+    inconsistency: **`W` grows with `H`, so S10a — comparing against the `H`-free `log X_min` — is
+    worst at the LARGEST `H`, while here both sides grow and the right side wins, making it a FLOOR,
+    worst at the SMALLEST `H`.** *Same constraint, opposite endpoints, one reason.*
+    ⚠️⚠️ **AND I RE-SOLVED THE BRIEF'S NUMERAL RATHER THAN COPYING IT, WHICH IS THE FINDING.** v2 §4
+    records the floor as `log H ≳ 1.17e4`. With `L = log H` the threshold is `1250·log L ≤ L`, whose
+    upper root is **`L* = 11710.2777…`** — so **`1.17e4 = 11700` is BELOW IT: there
+    `L − 1250·log L = −9.18` and the inequality FAILS.** First integer that works: **`log H ≥ 11711`**
+    (margin `+0.65`). The brief's `≳` is honest to two significant figures; **a reader who
+    instantiates AT the quoted figure gets a false hypothesis.** ⇒ ***A THRESHOLD QUOTED TO TWO
+    FIGURES IS A THRESHOLD WHOSE ROUNDING DIRECTION YOU HAVE NOT BEEN TOLD — RE-SOLVE IT BEFORE YOU
+    INSTANTIATE IT.*** 📌 The regime clears it by ~55 orders (`log H₊ ≳ 10⁵⁹` vs a demand of
+    `1.2 × 10⁴`); **the floor is cheap, and the point is that it was MISSING, not that it is tight.**
+    ⛔ **CLOSING LINE, IN ITEM 7's OWN IDIOM — IT IS AN ARM, NOT A WIRING.** v2 said the threshold is
+    *"missing from every regime field"*; **landing the arm does not add the field.** `ChowlaRegime`
+    (`Regime.lean:56`) still carries no `W`-cap conjunct, and nothing consumes
+    `regime_W_cap_of_floor` yet — its `hthr` is supplied by no landed site. **No landing here may be
+    read as discharging item 5.** *The sibling S10a has the same shape and has had it since it
+    landed; that is the pattern, not an excuse.*
+    📐 **REMAINING on item 12 after this:** E-5c (helm/Fable, one paragraph of statement) · the two
+    ε-dependent thresholds `H₀mrt(ε)` / `H₊*(ε)`, whose port instruction v2 §4 corrects to
+    *"instantiate the existing `extraFloor` binder — ZERO edits inside `SpineFinal`"* (the v1 target
+    `SpineFinal.lean:461` is a SUPERSEDED terminal) · and 12b's dyadic node, still held.
 12b. ⛔⛔ **THE DYADIC NODE ONLY — NOT DISPATCHABLE AS BRIEFED (08/21 17:0x, math). ITS DYADIC NODE
     RESTS ON A PREMISE WAVE 1a REFUTED.** The v2 brief's *"NOTE FOR THE DYADIC NODE"* said A.1's `[X,2X]` is
     "**already a dyadic block, which is the shape wave 1c's cover produces**" — ***two different

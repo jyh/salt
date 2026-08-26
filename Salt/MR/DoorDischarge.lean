@@ -146,4 +146,64 @@ theorem regime_W_headroom_of_floor (R : ChowlaRegime)
     nlinarith [h1, hlogx, hlog2pos]
   linarith [hstep2, hchain]
 
+/-! ## S10b — the OTHER arm of the same `W`-constraint, `W ≤ H^{1/250}` -/
+
+/-- **S10b — the `H`-relative arm of Prop 2.4's `W`-constraint** (`regime_W_cap_of_floor`).
+
+Tao arXiv:1509.05422v2 Prop 2.4 constrains `W = log⁵ H ≪ min(A, (log X)^{1/125})`.  S10a above
+discharges the `(log X)^{1/125}` arm.  This is the OTHER one, `W ≤ H^{1/250}`, stated the way the
+corpus states the first: **expanded, with no `W` and no `rpow`.**  Raising both sides to the 250th
+power turns `W ≤ H^{1/250}` into
+
+    `(log H)^{1250} ≤ H` ,
+
+an inequality in `H` ALONE — no `ε` anywhere — which is why the scoping brief calls it *"an ε-free
+`H₋` floor"*.
+
+📐 **WHY THIS ARM READS `H₋` WHERE S10a READS `H₊`, AND IT IS NOT AN INCONSISTENCY.**  `W` is
+increasing in `H`, so each arm is worst at the end that makes it hardest.  S10a compares `W` against
+an `H`-independent quantity (`log X_min`), so its worst case is the LARGEST `H` — `R.Hhi`.  Here
+both sides grow with `H` and the right side eventually wins, so the constraint is a FLOOR and its
+worst case is the SMALLEST `H` — `R.Hlo`.  *Same constraint, opposite endpoints, for the same
+reason.*
+
+`hthr` is taken as a hypothesis, exactly as S10a takes its own and for the same reason: the numeral
+belongs to whoever builds the regime, not to the arm.
+
+⚠️⚠️ **AND THE NUMERAL IS NOT THE ONE THE BRIEF QUOTES — MEASURED, BECAUSE A ROUNDED THRESHOLD IS
+ROUNDED IN AN UNKNOWN DIRECTION.**  `hthr` is `1250·loglog H ≤ log H`; with `L = log H` that is
+`1250·log L ≤ L`, whose upper root is
+
+    `L* = 11710.2777…`
+
+The scoping brief (`seat/briefs/2026-08-21-mrt-port-scoping-BRIEF-v2.md:117`) records the floor as
+`log H ≳ 1.17e4`.  **`1.17e4 = 11700` lies BELOW that root: there `L − 1250·log L = −9.18` and the
+inequality FAILS.**  The first integer that works is **`log H ≥ 11711`** (margin `+0.65`).  The
+brief's `≳` is honest to two significant figures; a reader who instantiates AT the quoted figure is
+not.  ⇒ ***A THRESHOLD QUOTED TO TWO FIGURES IS A THRESHOLD WHOSE DIRECTION YOU HAVE NOT BEEN
+TOLD — re-solve it before you instantiate it.***
+
+📌 The regime clears this with room that is not close: `log H₊ ≳ 10⁵⁹` is already measured
+(v2 §3c) against a demand of ~1.2 × 10⁴. **The floor is cheap; the point of landing it is that it
+was missing from every regime field, not that it is tight.** -/
+theorem regime_W_cap_of_floor (R : ChowlaRegime)
+    (hthr : 1250 * Real.log (Real.log (R.Hlo : ℝ)) ≤ Real.log (R.Hlo : ℝ)) :
+    (Real.log (R.Hlo : ℝ)) ^ (1250 : ℕ) ≤ (R.Hlo : ℝ) := by
+  have hHlo_ge : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHpos : (0 : ℝ) < (R.Hlo : ℝ) := by linarith
+  -- `L = log H₋ ≥ 1` (since `H₋ ≥ 4·10⁶ ≥ e`), exactly as S10a establishes its own `L ≥ 1`
+  have hL1 : (1 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
+    rw [← Real.log_exp 1]
+    apply Real.log_le_log (Real.exp_pos 1)
+    have := Real.exp_one_lt_d9
+    linarith
+  have hLpos : (0 : ℝ) < Real.log (R.Hlo : ℝ) := by linarith
+  have hpow_pos : (0 : ℝ) < Real.log (R.Hlo : ℝ) ^ (1250 : ℕ) := by positivity
+  -- the whole content is one `log_pow`: the threshold IS the logged form of the conclusion
+  have hkey : Real.log (Real.log (R.Hlo : ℝ) ^ (1250 : ℕ)) ≤ Real.log ((R.Hlo : ℝ)) := by
+    rw [Real.log_pow]
+    push_cast
+    exact hthr
+  exact (Real.log_le_log_iff hpow_pos hHpos).mp hkey
+
 end Salt.MR

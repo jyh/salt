@@ -451,6 +451,17 @@ open Salt.Tactic in
   Salt.MR.pretDistSq_principal_eval
   Salt.MR.prime_power_tail_le
   Salt.MR.regime_W_headroom_of_floor
+  -- ⭐ S10b (2026-08-26 14:2x, math) — the OTHER arm of the SAME Prop 2.4 W-constraint,
+  -- `W ≤ H^{1/250}`, stated expanded as `(log H)^1250 ≤ H`: no `W`, no `rpow`, no `ε`.
+  -- QUEUE item 12 / ITEM 5's third threshold, which v2 §4 recorded as "missing from every
+  -- regime field". 📐 It reads `R.Hlo` where S10a reads `R.Hhi` and that is not an
+  -- inconsistency: `W` grows with `H`, so S10a (comparing against the H-free `log X_min`) is
+  -- worst at the LARGEST H, while here both sides grow and the right side wins, making it a
+  -- FLOOR — worst at the SMALLEST H.
+  -- ⚠️ THE BRIEF'S NUMERAL IS BELOW THE ROOT: `hthr` is `1250·log L ≤ L` (L = log H), upper
+  -- root `L* = 11710.2777…`; the brief's `log H ≳ 1.17e4` = 11700 gives `−9.18` and FAILS
+  -- there. First integer that works: `log H ≥ 11711`. The regime clears it by ~55 orders.
+  Salt.MR.regime_W_cap_of_floor
   Salt.MR.continuous_dpoly
   Salt.MR.sq_norm_dpoly_eq
   Salt.MR.dirichlet_poly_l2_expand
