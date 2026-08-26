@@ -4052,7 +4052,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⛔ **STILL A SOCKET AND NO LANDING HERE MAY BE READ OTHERWISE.** `log_chowla_two_shell_xi_sq_h`
    does not exist, and the wrapper re-stating the core over the fork's own `bigXiH h` belongs on
    the **`ShiftFork`** side (that module imports `CircleMethod`, so naming its objects here is an
-   import cycle — the fence `bigXiTwistFilter`'s own docstring records). **NEXT:** this row's second half above.
+   import cycle — the fence `bigXiTwistFilter`'s own docstring records). **NEXT:** this row's second half — **now censused; see below.**
    ✅✅✅ **AND THE WRAPPER LANDED TOO — attempt 1, so item 7's FIRST OBJECT IS COMPLETE UNDER THE
    NAME THIS ROW ASKS FOR.** `circle_method_estimate_sq_h` (`ShiftFork.lean`), stated over the
    fork's own `bigXiH h eps H`, discharged by one `rw [bigXiH_eq_twistFilter]` onto the core —
@@ -4062,6 +4062,45 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⛔ **COMPLETE AS A SOCKET, CONNECTED TO NOTHING.** `log_chowla_two_shell_xi_sq_h` does not
    exist, so no landing in this row may be read as extending the h-family's reach — the same fence
    this census raised before any of it was built.
+   ⚖️⭐⭐ **SECOND HALF CENSUSED 2026-08-26 03:0x (math) — IT IS *NOT* THE SAME CLASS AS THE FIRST,
+   AND THE REASON IS ONE FREQUENCY.** *No attempt made; this is a pricing census.*
+   ✅ **THREE THINGS I EXPECTED TO BE MISSING AND ARE NOT:**
+   ① **The L² h-DOOR ALREADY EXISTS** — `MRTUniformityXiL2H` (`ShiftFork.lean:520`), with its
+   `h = 1` compat (`mrtUniformityXiL2_eq_xiL2H_one`) and its seam
+   (`contradiction_of_mrtDoorXiL2H`), audited in `Salt/Entropy/All.lean`. ⛔ **AND I FIRST RECORDED
+   IT AS ABSENT** — I searched `MRTUniformityXiHL2` and the corpus spells it `MRTUniformityXiL2H`
+   (`L2` before `H`). **The three-search law is what caught it**; a one-search absence claim would
+   have mispriced this row UPWARD as "needs a new door predicate, design-tier". *An absence claim
+   is not a grep, and a guessed name is a guess about a spelling.*
+   ② **`M4SievedDoorSq` NEEDS NO h-ANALOGUE** (`M4Close.lean:368`) — it is stated at **every**
+   tight-major `α` and never names `bigXi`. **The shift lives in the frequency SET, so the socket
+   is shift-agnostic and serves both lanes unchanged.**
+   ③ **The count bound is landed and PARAMETERISED** — `m4_doorL2_supply` takes
+   `((bigXi R.eps H).card : ℝ) ≤ K` as a hypothesis, and `bigXiH_bounded` (`ShiftFork.lean:253`)
+   already gives `card (bigXiH h eps H) ≤ h·C` off `bigXiH_card_le_mul`. So the `ε = 1/500`
+   instance is a composition, class A/B.
+   ⛔⛔ **AND THE ONE THING THAT IS GENUINELY OPEN IS A FREQUENCY MISMATCH, VERIFIED AT THE BYTES:**
+   ```
+   bigXiH h eps H  = {ξ : ε²/log H ≤ ‖expSum eps H (−((h·ξ).val)/H)‖}   ← largeness at h·ξ
+   MRTUniformityXiL2H h R ρ  integrates  windowExpSum H n (−ξ.val/H)     ← the UNTWISTED ξ
+   nearRatTight_of_bigXiArcTight  certifies −ξ.val/H  for ξ ∈ bigXi eps H ← untwisted largeness
+   ```
+   ⇒ **for `ξ ∈ bigXiH h`, what the corpus certifies is arc-tightness at `h·ξ`; the door needs it
+   at `ξ`.** `m4_doorL2_supply` consumes `harc` precisely to hand each door frequency to the
+   socket's `∀ α, NearRatTight … α → …`, so this is load-bearing, not cosmetic. ⚠️ **A rational
+   approximation at `h·ξ/H` gives one at `ξ/H` only with the denominator cap INFLATED BY `h`**
+   (`a/q` at `h·ξ` reads as `a/(qh)` at `ξ`), so the plausible shapes are: **(a)** the door's grade
+   absorbs a cap inflation `arcDen 12 H → h·arcDen 12 H`; **(b)** the arc supply is re-derived at
+   the untwisted frequency for twisted-set members; **(c)** a route that never needs `harc` at the
+   untwisted spelling. ⛔ **NONE OF THE THREE IS A TRANSCRIPTION, and math is NOT picking** — this
+   is a statement-level choice about what the h-door's grade may cost. **Class C/D, design-first.**
+   📌 **NOT VERIFIED, stated as the obvious next measurement:** whether
+   `ξ ∈ bigXiH h ↔ h·ξ ∈ bigXi` holds on the nose off the two definitions (both are largeness of
+   the same `expSum`, so it looks immediate — but `bigXi`'s own spelling was not opened in this
+   census, and *the last time I guessed a spelling in this row it was wrong.*)
+   ⇒ ⭐ **THE ROW'S TWO HALVES SHOULD BE SPLIT INTO TWO ITEMS.** The first was a composition of
+   landed edges and cost 4 attempts total; the second is a design question about a frequency
+   convention. **Carrying them under one number prices the second at the first's rate.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
