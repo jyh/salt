@@ -3976,9 +3976,34 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    coefficient `1` with the `(3/4)` hidden inside `B`, which is exactly the form a consumer
    over-credits fourfold. **Two statements, one true coefficient each, rather than one statement whose
    coefficient depends on whether you unfolded a definition.**
-   📐 **REMAINING: (iii) ALONE — re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold
-   against the `1/4`-effective floor.** *It now has an `X`-free `C(q)` to carry rather than a rate
-   tangled with `log(1+log X)` — which is what step 4 was for.* Its arithmetic is calibrated to the coefficient-1 band arm
+   ✅✅⭐⭐ **STEP 5 LANDED 09:5x — (iii) IS CLOSED, FIRST ATTEMPT. THE COMMISSION'S STATED CONTENT IS
+   COMPLETE.** `margin_band_threshold_rated` re-derives `capFreeFloor3_margin_all_chi_vt`'s **BAND
+   BRANCH** against the `1/4`-effective floor — **a SIBLING, never an edit**: the landed name's
+   `χ² ≠ 1` and `|v| > 1/2` branches are untouched (Wave K already made `Kvk`/`Kbulk` effective) and
+   only the branch that reads the band arm needed re-deriving.
+   📐 **THE ARITHMETIC, and it is the answer to the question this item opened with.** We need
+   `bandConstQ + K + 25 + D < (1/4 − 1/32)·loglog X = (7/32)·loglog X`, and a threshold of the landed
+   family `32·(… + 25 + D) < loglog X` delivers `< (1/32)·loglog X`. ⇒ ***THE COEFFICIENT DROP
+   `1 → 1/4` COSTS A FACTOR 7 OF SLACK IN A THRESHOLD THAT WAS ALREADY SPENDING ONLY `1/32` OF ITS
+   BUDGET — WHICH IS *WHY* THE SHAPE SURVIVED THE TRADE.*** The `1/32` on the consumer side and the
+   `1/4` on the supply side never had to meet closely. **The census's "the shape survives" is now a
+   kernel statement rather than an estimate.**
+   ⛔⛔ **AND HERE IS WHAT IS *NOT* DONE, because "commission complete" is exactly the phrase that
+   invites the over-read: THE `K_vt` CUSHION IS NOT DISCHARGED.** Two things stand between:
+   **(a)** a full drop-in sibling of `capFreeFloor3_margin_all_chi_vt` (all `χ`, `|v| ≤ 3X`)
+   composing this band branch with the untouched bulk/VK branches; **(b)** the rethread of
+   `capFreeFloor3_pieceDatum_vt` → `_arcDen` → `cofkL_capFreeFloor_at_socket` → the V7 chain, so that
+   a RATED constant is what arrives at `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`. **Neither is in this
+   item's stated content and neither is claimed.** *The commission asked for the seam and the
+   threshold; it has both.*
+   📊 **ITEM 6 TALLY, MEASURED not estimated** (`Salt/MR/BandRated.lean`): **7 public theorems + 4
+   public lemmas = 11 AUDITED NAMES, every one `[3 axioms]` under build-time gates**, plus **3 `def`s**
+   (`goldenL1`, `bandRateReal`, `bandConstQ` — defs carry no axioms so they are not audited) and **2
+   `private` lemmas** = **16 declarations**. Five steps; **1+2+1+1+1 = six attempts against a cap of 3
+   per node**; three mechanical errors, all in step 1, **zero in steps 2–5**.
+   ⛔ *An earlier draft of this line said "12 names" — corrected before committing by counting the
+   audit rows (11) against the declaration kinds. **A count is a measurement, and "names" and
+   "declarations" are different populations.*** Its arithmetic is calibrated to the coefficient-1 band arm
    and does **not** transfer for free; the consumer demand `(1/32)·loglog X + 25 + D` clears `1/4`,
    so the shape survives. **(i) and (ii) are closed.**
    ⛔ **CARRIED, NOT DISCHARGED:** the scale gate `32·diskConst q / goldenL1 q ≤ log X` is

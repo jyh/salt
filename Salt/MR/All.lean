@@ -8597,3 +8597,14 @@ open Salt.Tactic in
   -- ⛔ Still not (iii): re-deriving `capFreeFloor3_margin_all_chi_vt`'s threshold against this is the
   -- commission's last piece. What this buys is an X-free C(q) for that re-derivation to carry.
   Salt.MR.chi_floor_band_realclass_quarter
+  -- ⭐⭐ POINT→BAND step 5 (2026-08-26 09:5x, math) — P2 item 6's step (iii), the commission's LAST
+  -- stated piece. `margin_band_threshold_rated` re-derives `capFreeFloor3_margin_all_chi_vt`'s BAND
+  -- BRANCH against the 1/4-effective floor. A SIBLING, never an edit: the landed name's `χ² ≠ 1` and
+  -- `|v| > 1/2` branches are untouched (Wave K already made Kvk/Kbulk effective) and only the branch
+  -- that reads the band arm needed re-deriving.
+  -- 📐 The arithmetic: we need `bandConstQ + K + 25 + D < (1/4 − 1/32)·loglog X = (7/32)·loglog X`,
+  -- and a `32·(… + 25 + D) < loglog X` threshold delivers `< (1/32)·loglog X`. The coefficient drop
+  -- 1 → 1/4 costs a factor 7 of slack in a threshold already spending 1/32 of its budget — which is
+  -- WHY the shape survived the trade, now as a kernel statement rather than an estimate.
+  -- ⛔ DOES NOT DISCHARGE THE CUSHION. That needs the whole capFreeFloor3_* → cofkL_* → V7 rethread.
+  Salt.MR.margin_band_threshold_rated

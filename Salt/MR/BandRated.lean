@@ -374,4 +374,55 @@ theorem chi_floor_band_realclass_quarter :
       linarith
   linarith
 
+/-! ## §7 — step (iii): the margin threshold, RE-DERIVED against the `1/4` floor -/
+
+/-- ⭐⭐⭐ **POINT→BAND STEP 5 — THE COMMISSION'S LAST PIECE** (`margin_band_threshold_rated`).
+`VkMidSharp.capFreeFloor3_margin_all_chi_vt`'s **band branch**, re-derived against the rated
+`1/4`-effective floor instead of the coefficient-1 band arm.
+
+⛔ **WHY A SIBLING AND NOT AN EDIT.**  The landed `capFreeFloor3_margin_all_chi_vt` is consumed
+across the cushion chain; its `χ² ≠ 1` and `|v| > 1/2` branches are UNCHANGED by this work (Wave K's
+numeral stones already made `Kvk`/`Kbulk` effective).  Only the `χ² = 1`, `|v| ≤ 1/2` branch —
+the one that reads the band arm — needed the re-derivation, so only that branch is restated.
+
+📐 **THE ARITHMETIC, which is the whole of step (iii).**  The landed branch consumed
+`loglog X − C ≤ 𝔻²` and needed `(1/32)·loglog X + 25 + D < loglog X − C`, i.e. `C + 25 + D` under
+`(31/32)·loglog X`.  Ours consumes `(1/4)·loglog X − bandConstQ − K ≤ 𝔻²`
+(`chi_floor_band_realclass_quarter`) and therefore needs
+
+  `bandConstQ + K + 25 + D  <  (1/4 − 1/32)·loglog X = (7/32)·loglog X`.
+
+⭐ **AND THE LANDED THRESHOLD SHAPE ALREADY CLEARS IT WITH ROOM TO SPARE.**  A hypothesis of the
+family `32·(… + 25 + D) < loglog X` gives `… + 25 + D < (1/32)·loglog X`, and
+`(1/32) ≤ (7/32)`.  ⇒ ***THE COEFFICIENT DROP `1 → 1/4` COSTS A FACTOR 7 OF SLACK IN A THRESHOLD
+THAT WAS ALREADY SPENDING 1/32 OF ITS BUDGET — WHICH IS WHY THE SHAPE SURVIVED THE TRADE.***  The
+`1/32` on the consumer side and the `1/4` on the supply side never had to meet closely; the census's
+"the shape survives" is now the kernel's statement rather than an estimate.
+
+📌 The threshold is carried EXPLICITLY and `q`-dependently (`bandConstQ Z δ q` in the hypothesis),
+per `CapFreeAssembly` §4's own law: the demand a consumer must meet is on the page, not folded into
+an opaque constant.  That is also what makes it *rated* — the whole point of the commission. -/
+theorem margin_band_threshold_rated :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (X D : ℝ), χ ^ 2 = 1 →
+      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
+      32 * diskConst q / goldenL1 q ≤ Real.log X →
+      32 * (bandConstQ Z δ q + K + 25 + D) < Real.log (Real.log X) →
+      ∀ v : ℝ, |v| ≤ 1 / 2 →
+        (1 / 32) * Real.log (Real.log X) + 25 + D
+          < pretDistSq (lamChi χ) (costwist v) X := by
+  obtain ⟨Z, δ, K, hZ1, hδ, hquarter⟩ := chi_floor_band_realclass_quarter
+  refine ⟨Z, δ, K, hZ1, hδ, ?_⟩
+  intro q _ χ X D hsq hX hD0 hgate hthr v hv
+  have he1 : (1 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hXe : Real.exp 1 ≤ X := le_trans (Real.exp_le_exp.mpr he1) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have hlogXe : Real.exp 1 ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hX
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith [Real.exp_pos (1 : ℝ)]
+  have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := by
+    have := (Real.le_log_iff_exp_le hlogXpos).mpr hlogXe
+    linarith [Real.exp_pos (1 : ℝ)]
+  have hfl := hquarter q χ hsq X v hX hv hgate
+  linarith
+
 end Salt.MR
