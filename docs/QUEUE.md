@@ -3988,6 +3988,43 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 7. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
    m4_doorL2_supply_500's h-analogue) — the fork's full payoff, gated
    on W-F3.
+   ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
+   attempt (5c's discipline: that is why 5c cost two attempts and not six).** W-F3 Wave B is
+   COMPLETE (five nodes, 08/21) and item 5's arc-finisher landed (`ced778a8`), so nothing gates
+   this row any more.
+   ⭐⭐ **THE ARCHITECTURE IS A 2×2 GRID WITH EXACTLY ONE CELL EMPTY, AND BOTH ITS EDGES ARE
+   LANDED.** Measured in `Salt/Entropy/Chowla/CircleMethod.lean`:
+   ```
+                       untwisted                      twisted (shift h)
+     L¹ / two-window   fourier_split        :378       fourier_split_h        :1043  ✓
+     L² / diagonal     fourier_split_sq     :724  ✓    fourier_split_sq_h     MISSING
+     ---------------   ----------------------------   ----------------------------
+     top level         circle_method_estimate         circle_method_estimate_h      ✓
+                       circle_method_estimate_sq ✓    circle_method_estimate_sq_h   MISSING
+   ```
+   ⇒ **the empty cell is the COMPOSITION of two landed edges**, not new mathematics:
+   `fourier_split_h` supplies the twist (exponential sum at `−((h·ξ).val)/H`, major arm summed
+   over `bigXiTwistFilter h eps H`, and it is a **CLONE not an instance** because the reindex
+   `ξ ↦ h·ξ` dies exactly when `gcd(h,H) > 1` — its own docstring says so); `fourier_split_sq`
+   supplies the diagonal (**one** window `Φ`, plus the reality reflection
+   `‖dft Φ (−ξ)‖ = ‖dft Φ ξ‖`, which is *where the square comes from* — `Φ₂ = Φ₁` turns
+   `dft Φ₁ ξ · dft Φ₂ (−ξ)` into `‖dft Φ₁ ξ‖²`).
+   📐 **PRICE:** two declarations, ~75 + ~145 lines, both transcriptions of a landed template with
+   two systematic substitutions (`p → p·h` in the shift, `bigXi → bigXiTwistFilter h`, and the
+   normaliser `1/H → 1/H²` on the squared arm). **Class C.** Gate is a TARGETED build of
+   `CircleMethod.lean`, not the 9783-job full build.
+   ⛔ **TWO THINGS THE ROW DOES NOT SAY AND A HEAD MUST KNOW.**
+   ① **`circle_method_estimate_sq_h` WOULD HAVE NO CONSUMER.** `log_chowla_two_shell_xi_sq_h` does
+   not exist (0 declarations); the h-lane's landed shell is `log_chowla_two_shell_xi_h`, which is
+   **L¹** and consumes `circle_method_estimate_h`. So this node builds a SOCKET — legitimate, the
+   row calls it *"the fork's full payoff"*, but **a consumer-less socket is a socket** and no
+   landing here may be reported as extending the h-family's reach.
+   ② **`_sq`'s one-window shape is DELIBERATE, not an accident to be generalised.**
+   `Salt/Entropy/All.lean:347` and `SpineFinal.lean:1143` both record it: *"ONE window `x1` — the
+   shell's only instantiation"*. The h-analogue must stay diagonal; taking `_h`'s two-window
+   shape instead would produce a different object that the `_sq` lane cannot consume.
+   📌 **The second half of this row — `m4_doorL2_supply_500`'s h-analogue (`M4DoorL2.lean:206`) —
+   is NOT priced here.** It is a separate object in a separate file and this census did not open it.
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
