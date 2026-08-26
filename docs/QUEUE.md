@@ -3923,6 +3923,53 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
+   ⭐⭐⭐ **CENSUS 2026-08-26 02:3x (math) — THE ROUTE IS LANDED EXCEPT FOR THE COMPOSITION, AND MY
+   OWN PRICE TWO HOURS ABOVE WAS TOO STRONG. Read this before commissioning a design block.**
+   ⛔ **NOT A CLOSURE. Nothing below is built; the arithmetic in ③ is mine and unbuilt.** What is
+   verified is that every ingredient EXISTS with compatible hypotheses, read at the bytes.
+   ① **THE INEFFECTIVE CORNER IS NARROWER THAN "THE BAND": IT IS REAL χ AT `|v| ≤ 1/2`, AND
+   NOTHING ELSE.** `capFreeFloor3_margin_all_chi_vt`'s own case split is `χ² = 1` → (`|v| ≤ 1/2`
+   band | else bulk), `χ² ≠ 1` → the VK pointwise arm. **So `Kband` is consumed ONLY at real
+   characters on the small band**, and Wave K already made the other two arms effective.
+   ② **BOTH SUB-CASES OF THAT CORNER HAVE EFFECTIVE SUPPLIERS IN THE CORPUS ALREADY.**
+   *principal* — `LFunction_band_lower_principal` (`SiegelArm.lean`), **EXPLICIT: `δ/q`**.
+   *real nonprincipal* — `chi_Llower_real_of_L1` (`SiegelArm.lean` §6) takes exactly
+   `0 < L₁ ≤ 1`, `L₁ ≤ (LFunction χ 1).re`, and a scale gate `32·diskConst q / L₁ ≤ log X`;
+   **`l1LowerEffective_goldenGate` supplies that hypothesis effectively** at `L₁ = c/q^{5/2}`,
+   `c = log((3+√5)/2) ≈ 0.9624` (and `c < 1`, so `min 1 (c/q^{5/2}) = c/q^{5/2}` — the `≤ 1`
+   binder is free). Its `−log L₁` term is then `(5/2)·log q + log(1/c)` and `diskConst N =
+   27/2·√N·(1+log N)·N` is an **explicit polynomial** — so the whole `q`-dependence is
+   `O(log q)`, EFFECTIVE. **The scale gate clears with enormous room**: it wants
+   `log X ≳ Qm^{7/2}·log Qm` while the socket already gives `loglog X ≥ log H₊ − 14`.
+   ⭐ **`chi_Llower_real_of_L1` does NOT require `0 < |t|`** (its parent `chi_Llower_real_far`
+   does, and that is exactly why the `L₁` point bound is in the statement) — **so it already IS
+   the point→band join for real χ.** *The campaign's name describes a step the corpus took.*
+   ③ ⛔⛔ **CORRECTING MY OWN PRICE ABOVE — I DEMANDED MORE THAN THE CUSHION DOES.** I wrote that
+   the band floor needs `B(q) ≤ a·log q + c` with **`a`, `c` explicit**. **`c` NEED NOT BE
+   EXPLICIT — it need only be `q`-INDEPENDENT.** The regime exports BOTH
+   `3.2·A ≤ loglog H₋` **and** `loglog H₊ ≤ 2·exp(3.2A/2)`, so the budget is `≥ e^{3.2A}/128`
+   while `log Qm = 12·loglog H₊ ≤ 24·exp(1.6A)` — **the budget is the SQUARE of the demand's
+   scale.** For `A` large enough `e^{3.2A}/128` beats `24a·e^{1.6A} + c` for ANY `a`, `c`,
+   effective or not, and `A` is free at `A₀ ≤ A`. ⇒ ***THE DEMAND IS A RATE, NOT A NUMERAL: the
+   `q`-DEPENDENCE must be rated; the ABSOLUTE constants may stay ineffective.*** This matters
+   because two absolute Skolem constants survive the route — `Z` from `zeta_upper_band` (a
+   compact max over a **`q`-free, `χ`-free** box) and `chi_floor_low_of_Llower`'s `K` (numeral'd
+   by Wave K anyway) — and under my stronger price they would have looked fatal. *An unrated
+   `Q`-indexed max is fatal; an unmeasured absolute constant is not. That is the same distinction
+   the R-1 stamp drew, applied to my own demand instead of the blueprint's.*
+   ④ **THE SEAM IS ONE THEOREM.** `chi_floor_band_uniform` composes `chi_Llower_band_uniform`
+   (the unrated max) into `chi_floor_low_of_Llower`. **Replace only the first factor** with a
+   rated uniform band `L`-lower assembled from ② and the same composition carries through.
+   ⛔ **THE ONE PRICED RESIDUAL, AND IT IS REAL: THE COEFFICIENT DROPS 1 → 1/4.**
+   `chi_Llower_real_of_L1`'s bound carries `(3/4)·log(1 + log X)` — **`X`-DEPENDENT** — so through
+   `chi_floor_low_of_Llower` the floor becomes `(1/4)·loglog X − …` where the current band arm
+   gives coefficient **1** (deliberately: its docstring says the `min` of
+   `chi_floor_all_complete` was avoided to keep it). The consumer demand is
+   `(1/32)·loglog X + 25 + D`, and `1/32 < 1/4`, so **the shape survives** — but
+   `capFreeFloor3_margin_all_chi_vt`'s threshold is a `linarith` over specific coefficients and
+   must be RE-DERIVED, not reused. **That re-derivation is the design block's actual content.**
+   📌 **Not measured, and it is the next thing to measure:** whether the `(3/4)log(1+log X)` term
+   can be carried on the `L`-lower side instead, keeping coefficient 1.
 7. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
    m4_doorL2_supply_500's h-analogue) — the fork's full payoff, gated
    on W-F3.

@@ -189,6 +189,20 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   names this exact gap**: *"It does NOT discharge `K_vt`: the live ineffectivity is `siegelBandB`'s EVT
   band minimum, which a point floor at `s = 1` does not reach. Point→band is a separate, unpriced
   campaign."*
+  ⛔⛔ **ERRATUM TO THIS STAMP, 02:3x SAME NIGHT, BY ITS OWN AUTHOR — THE PARAGRAPH BELOW DEMANDS
+  MORE THAN THE CUSHION DOES, AND A CENSUS FOUND THE ROUTE ALREADY LANDED.** Read `QUEUE.md`
+  P2 item 6's CENSUS block, not this paragraph, for the price. Two corrections: **(a)** the
+  band floor's absolute constant need NOT be explicit — only its `q`-DEPENDENCE must be rated,
+  because the regime exports `loglog H₊ ≤ 2·exp(3.2A/2)` against a budget `≥ e^{3.2A}/128`, so
+  the budget is the SQUARE of the demand's scale and `A` is free at `A₀ ≤ A`; **(b)** the
+  ineffective corner is not "the band" but **real χ at `|v| ≤ 1/2`**, and both of its sub-cases
+  already have effective suppliers (`LFunction_band_lower_principal`, explicit `δ/q`; and
+  `chi_Llower_real_of_L1` whose `L₁` hypothesis `l1LowerEffective_goldenGate` discharges). The
+  one real residual is that the coefficient on `loglog X` drops `1 → 1/4`, which the consumer
+  demand `(1/32)L + 25 + D` still clears but which forces a re-derivation of
+  `capFreeFloor3_margin_all_chi_vt`'s threshold. *An unrated `Q`-indexed max is fatal; an
+  unmeasured ABSOLUTE constant is not — I drew that distinction against the blueprint's figure
+  in this very stamp and then failed to apply it to my own demand two paragraphs later.*
   ⭐⭐ **THE ONE THING THIS STAMP ADDS THAT NOBODY HAD: POINT→BAND NEEDS NO SHARPNESS.** Any effective
   band floor of the form `B(q) ≤ a·log q + c` with `a`, `c` explicit — **any polynomial grade, however
   crude** — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c`, which clears the budget `log H₊/128 ≥ e^518/128` by
