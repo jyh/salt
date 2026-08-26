@@ -3922,6 +3922,29 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    minimum, so coefficient 1 *was* the ineffectivity. **The consumer demand `(1/32)·loglog X + 25 + D`
    still clears `1/4`, so the shape survives** — what the trade costs is the re-derivation, which is
    the commission.
+   ✅⭐ **STEP 1 LANDED 2026-08-26 06:1x (math) — `Salt/MR/BandRated.lean`, and the helm's tier ruling
+   is vindicated by the failure MODES: three attempts, cap 3, and ALL THREE errors were mechanical —
+   an unopened namespace (`diskConst` lives in `Salt.SW`), a whitespace-only line parsed as a tactic,
+   and `Real.log_lt_log` giving `<` where the goal wanted `≤`. NOT ONE was mathematical.** *That is
+   what a correctly-repriced design block looks like from the inside.*
+   `chi_Llower_band_real_rated` = `SiegelArm.chi_Llower_real_of_L1` with its `L₁` slot filled by
+   `goldenL1 q = c/q^{5/2}` (`c = log((3+√5)/2)`, from `l1LowerEffective_goldenGate`), plus the four
+   supporting facts (`log_golden_le_one`, `goldenL1_pos`, `goldenL1_le_one`,
+   `goldenL1_le_LFunction_one`).
+   ⭐ **WHAT THE STATEMENT BUYS: its ONLY existential is `Z`, and `Z` is `q`-FREE and `χ`-FREE** (the
+   compact max of `zeta_upper_band` over a fixed box). Every `q`-dependence is on the page —
+   `−log L₁ = (5/2)log q + log(1/c)` and `diskConst q = 27/2·√q·(1+log q)·q`. **That is precisely the
+   difference from `chi_Llower_band_uniform`, whose `B(Q)` is a bare induction-max with no stated
+   growth**, and it is the property the cushion needs, since the cushion evaluates its constant at an
+   argument that grows with `H₊`.
+   📐 **REMAINING, in order:** (i) the principal-character arm (`LFunction_band_lower_principal`,
+   already EXPLICIT at `δ/q`) joined to this one into a rated replacement for
+   `chi_Llower_band_uniform`; (ii) feed it through `chi_floor_low_of_Llower` — coefficient lands at
+   `1/4`, as recorded; (iii) **re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold at
+   `1/4`** — the commission's stated content.
+   ⛔ **CARRIED, NOT DISCHARGED:** the scale gate `32·diskConst q / goldenL1 q ≤ log X` is
+   `chi_Llower_real_of_L1`'s own. At the door's range it clears with enormous room, but that
+   discharge belongs to the consumer and this step does not claim it.
    📌 Original statement of record, kept: — **POINT→BAND (K_vt effectivisation)** — PROMOTED P3→P2 by the
    Captain's 08/20 ruling: effective s=1 floor ⇒ no Siegel zero ⇒
    zero-free region ⇒ effective band floor (siegelBandB's EVT minimum).

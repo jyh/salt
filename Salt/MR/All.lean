@@ -399,6 +399,7 @@ import Salt.MR.MRTPortExitLamGated
 import Salt.MR.MRTPortA1Const
 import Salt.MR.MRTArcRatCoprime
 import Salt.MR.XGapThread
+import Salt.MR.BandRated
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8555,3 +8556,16 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.log_chowla_two_budget_head_forallX_sq_count
   Salt.MR.m4_exit_socket_split_sq_arc_forallX
   Salt.MR.m4_exit_socket_split_sq_trivial_forallX
+  -- ⭐ POINT→BAND step 1 (2026-08-26, math), P2 item 6 commissioned at WORKER tier by helm ruling
+  -- 06:0x. `chi_Llower_band_real_rated` is `SiegelArm.chi_Llower_real_of_L1` with its `L₁` slot
+  -- filled by the landed effective floor `goldenL1 q = c/q^{5/2}` (`l1LowerEffective_goldenGate`),
+  -- so the band bound's whole `q`-dependence is EXPLICIT and its only existential (`Z`) is `q`-free
+  -- and `χ`-free. That is the difference from `chi_Llower_band_uniform`, whose `B(Q)` is a bare
+  -- induction-max with no stated growth — the unrated constant the `K_vt` cushion inherits.
+  -- ⛔ Rooted at the END of the list, same rule as this session's other roll-ins: `#audit_axioms`
+  -- aborts its remainder on a throw, so a new name belongs where a failure masks nothing.
+  Salt.MR.log_golden_le_one
+  Salt.MR.goldenL1_pos
+  Salt.MR.goldenL1_le_one
+  Salt.MR.goldenL1_le_LFunction_one
+  Salt.MR.chi_Llower_band_real_rated
