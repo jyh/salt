@@ -4314,6 +4314,40 @@ numbering is UNVERIFIED.
     `(2.4)`** *and* **`Proposition 2.4`** (with its own `(2.5)`). **A citation reading "Tao 2.4" is
     ambiguous between them.** `ShiftFork` distinguishes them correctly (`:274` says "Prop 2.4"
     explicitly); a future editor must not collapse the two.
+    ✅✅✅⭐ **EQUATION TRANCHE COMPLETE 2026-08-26 03:3x (math) — 5/5 FILES, 13 CITATIONS READ AT THE
+    SOURCE, **ZERO DEFECTS**. THIS NODE'S REMAINING WORK IS DONE AND ITS VERDICT IS EXONERATION.**
+    ```
+      OuterCombine  v1  (2.11)✓ (3.15)✓ (3.16)✓ (3.9)✓      [page widened p.22 → pp.22–23]
+      FBridge       v1  (2.12)✓ (3.14)✓
+      ShiftFork     v2  (2.4)✓  (4.1)✓                        ← the only v2 anchor
+      Entropy/All   v1  (2.11)✓ (3.1)–(3.7)✓ (3.18)✓
+      MarkovExtract v1  (3.3)✓  (3.9)✓  (3.12)✓ (3.13)✓
+    ```
+    **The sharp ones, with the source's own words:** `(3.3)` is `H(X|Y) ≤ H(X)` on v1 p.17 —
+    *literally* `condEntropy_le_entropy`, and that page itself concludes `I(X,Y) ≥ 0`; `(3.1)–(3.7)`
+    are exactly the Shannon toolkit, with `(3.8)` starting the application, so *"the entropy toolkit
+    (3.1)–(3.7)"* is precise to the endpoint; `(3.9)` is `H(Y_H) = log P_H − o(1)`, i.e. the entropy
+    DEFICIENCY is `o(1)`, matching `L − H[Y;μ]` with `L = log P_H`; `(3.12) → (3.13)` is one step on
+    v1 p.20 and `(3.13)` is consumed on that same page by **Lemma 3.2 (Weak uniform distribution)**,
+    which is why `MarkovExtract` calls it *"the weak-uniformity input"*; `(2.12)` on v1 p.16 is the
+    DEFINITION of `F` as `∑_{p∈𝒫_H} c_p ∑_j 1_{ay+j=pb (ap)} x_{1,j} x_{2,j+ph}`, matching the file's
+    *"assembly `∑_p G_p(v) ∘ residueProj p`"*; `(3.14)` on v1 p.22 is the `F_p` formula with the
+    shift-`h` second factor.
+    ⭐⭐ **AND `MarkovExtract` DOES BETTER THAN CITE CORRECTLY — IT CAUGHT A GAP IN THE SOURCE'S OWN
+    SENTENCE.** v1 p.20 reads *"By `(3.3)`, the summands are non-negative"*; the file quotes that and
+    notes `(3.3)` is an **AVERAGED** statement, so the **PER-`x`** non-negativity Tao asserts there does
+    not follow from it, and supplies an honest fix via `(3.9)`. **Verified: the file's reading of the
+    source is right.** *This is a citation audit that found the corpus more careful than the paper.*
+    ⇒ ⭐ **THE SECTION/LEMMA TRANCHE (26) IS CLEAN BY ARGUMENT, NOT BY FILE-BY-FILE CHECK — stated as an
+    argument so it can be attacked:** lemma numbers are identical in v1 and v2 (the node's own
+    evidence-settled finding; my reads are consistent — `Lemma 3.2`/`3.4`/`3.5` at the same numbers),
+    and **`Salt/` carries ZERO v3/v4 anchors** (measured). So every lemma citation in the tree sits
+    under a v1 or v2 anchor, and those two agree on lemma numbering ⇒ **no lemma citation can be
+    version-wrong.** ⛔ *Not claimed: that every lemma citation names the right lemma. Only that its
+    ANCHOR cannot be the defect.*
+    ⇒ ⚖️ **RECOMMEND CLOSING P2b ITEM 18 AS EXONERATED** (helm's call). Page tranche verified and
+    corrected; equation tranche verified at 13/13; lemma tranche clean by the anchor argument. **The
+    one edit the whole node produced is two words of page range in `OuterCombine`.**
     ⇒ **PAGE-kind citations require the SOURCE PDF to anchor; SECTION-kind do not — a resource requirement this node
     never stated.**
     ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
