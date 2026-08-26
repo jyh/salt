@@ -526,6 +526,21 @@ RESURRECTS THEM:**
     ε-dependent thresholds `H₀mrt(ε)` / `H₊*(ε)`, whose port instruction v2 §4 corrects to
     *"instantiate the existing `extraFloor` binder — ZERO edits inside `SpineFinal`"* (the v1 target
     `SpineFinal.lean:461` is a SUPERSEDED terminal) · and 12b's dyadic node, still held.
+    ⛔⛔ **AND A THIRD STALENESS, FOUND WHILE PRICING THAT REMAINDER — DO NOT DERIVE THE A.1
+    THRESHOLDS FROM THE BRIEF'S TABLE.** v2's *"REMAINING QUANTITATIVE DEMAND, against A.1's actual
+    error terms"* writes the middle term **`(loglog h)²/(log h)` — UNSQUARED**. **The corpus's
+    repaired A.1 is SQUARED:** `Salt/MR/MRTThmA1.lean:126` reads
+    `(Real.log (Real.log h)) ^ 2 / Real.log h ^ 2`, repaired 2026-08-25 at the PDF with two
+    instruments (page image + `pdftotext`, p. 20), and the file's own erratum says the unsquared form
+    was *"a STRICTLY WEAKER claim than MRT's"*. **The brief is 08/21; the repair is 08/25.**
+    ⇒ **A threshold derived from the brief's table would be the WRONG threshold** —
+    `(loglog h)²/(log h)² ≤ δ` is `log L / L ≤ √δ` with `L = log h`, a materially different demand
+    from the unsquared one. 📌 **The same passage of that brief also predates the A.1 VACUITY repair**
+    (A.1 was false for every `C` under the `exp(−M)·M` form; the remark's `exp(−M)` form is the only
+    true one). ⇒ 🔑 ***A SCOPING BRIEF IS A SNAPSHOT OF A STATEMENT THAT KEPT MOVING: re-read the
+    LANDED def before deriving anything quantitative from a brief's transcription of it.***
+    *Third time today that a stale line in a delivered scoping object aimed a worker at the wrong
+    thing — after the row's own "fetch from v2" and the `1.17e4` floor.*
 12b. ⛔⛔ **THE DYADIC NODE ONLY — NOT DISPATCHABLE AS BRIEFED (08/21 17:0x, math). ITS DYADIC NODE
     RESTS ON A PREMISE WAVE 1a REFUTED.** The v2 brief's *"NOTE FOR THE DYADIC NODE"* said A.1's `[X,2X]` is
     "**already a dyadic block, which is the shape wave 1c's cover produces**" — ***two different
