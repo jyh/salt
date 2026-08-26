@@ -3954,9 +3954,22 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `zeta_lower_small_t`); the `q`-dependence is the explicit
    `max (log q − log δ) (bandRateReal Z q X)` — `log q` on the principal branch,
    `O(log q) + (3/4)log(1+log X)` on the real branch.
-   📐 **REMAINING:** (ii) feed it through `chi_floor_low_of_Llower` — coefficient lands at `1/4`, as
-   recorded; (iii) **re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold at `1/4`** —
-   the commission's stated content. **(i) is closed.**
+   ✅⭐ **STEP 3 LANDED 06:5x — (ii) IS CLOSED TOO, FIRST ATTEMPT.**
+   `chi_floor_band_realclass_rated` composes §4's join into `ChiFloorLow.chi_floor_low_of_Llower` —
+   **the SAME lemma `SiegelBand.chi_floor_band_uniform` composes its unrated `B(Q)` into.** So the
+   census's claim that *"the seam is ONE theorem"* held literally: swapping that one factor is the
+   whole of (ii).
+   ⚠️⚠️ **A COEFFICIENT TRAP CREATED BY THIS STEP, RECORDED BEFORE ANYONE CONSUMES IT: the statement
+   carries coefficient `1` on `loglog X`, and the `1/4` appears only after `B` is UNFOLDED.**
+   `chi_floor_low_of_Llower` returns `loglog X − B − K` at coefficient exactly 1 (that is its whole
+   point — no `k²` division, no `min` with the `orderOf χ` branch); our `B` is where
+   `(3/4)·log(1+log X)` lives, inside `bandRateReal`. ⇒ ***A CONSUMER THAT READS THE COEFFICIENT OFF
+   THIS STATEMENT WITHOUT UNFOLDING `B` OVER-CREDITS THE FLOOR BY A FACTOR OF FOUR.*** *Same genus as
+   this item's other two findings — a true figure read against the wrong object.*
+   📐 **REMAINING: (iii) ALONE — re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold
+   against the `1/4`-effective floor.** Its arithmetic is calibrated to the coefficient-1 band arm
+   and does **not** transfer for free; the consumer demand `(1/32)·loglog X + 25 + D` clears `1/4`,
+   so the shape survives. **(i) and (ii) are closed.**
    ⛔ **CARRIED, NOT DISCHARGED:** the scale gate `32·diskConst q / goldenL1 q ≤ log X` is
    `chi_Llower_real_of_L1`'s own. At the door's range it clears with enormous room, but that
    discharge belongs to the consumer and this step does not claim it.

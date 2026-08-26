@@ -8580,3 +8580,12 @@ open Salt.Tactic in
   Salt.MR.chi_Llower_band_real_rated'
   Salt.MR.LFunction_band_lower_principal_uniform
   Salt.MR.chi_Llower_band_realclass_rated
+  -- ⭐ POINT→BAND step 3 (2026-08-26 06:5x, math) — the commission's step (ii), CLOSED.
+  -- `chi_floor_band_realclass_rated` composes §4's join into `ChiFloorLow.chi_floor_low_of_Llower`,
+  -- the SAME lemma `SiegelBand.chi_floor_band_uniform` composes its unrated `B(Q)` into — so the
+  -- seam really was one factor, and swapping it is all step (ii) required.
+  -- ⚠️ COEFFICIENT CAVEAT, in the theorem's own docstring too: the statement carries coefficient 1
+  -- on `loglog X` and the `1/4` appears only after `B` is unfolded (`bandRateReal` holds the
+  -- `(3/4)·log(1+log X)`). A consumer reading the coefficient off the statement without unfolding
+  -- `B` over-credits the floor fourfold.
+  Salt.MR.chi_floor_band_realclass_rated

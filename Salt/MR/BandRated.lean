@@ -264,4 +264,39 @@ theorem chi_Llower_band_realclass_rated :
         ≤ max (Real.log q - Real.log δ) (bandRateReal Z q X) := le_max_right _ _
     linarith
 
+/-! ## §5 — step (ii): the rated band FLOOR, through `chi_floor_low_of_Llower` -/
+
+/-- ⭐⭐ **POINT→BAND STEP 3** (`chi_floor_band_realclass_rated`) — §4 composed with
+`ChiFloorLow.chi_floor_low_of_Llower`, giving the χ-quality FLOOR with a stated rate.
+
+This is the rated counterpart of `SiegelBand.chi_floor_band_uniform`, and it is reached the same
+way — that file composes `chi_Llower_band_uniform` into `chi_floor_low_of_Llower`; **this composes
+§4 into the very same lemma.**  The seam really was one factor.
+
+⚠️ **READ THE COEFFICIENT CAREFULLY — it is 1 on `loglog X` HERE, and the `1/4` appears only after
+`B` is unfolded.**  `chi_floor_low_of_Llower` returns `loglog X − B − K` at coefficient EXACTLY 1
+(that is its whole point: no `k²` division, no `min` with the `orderOf χ` branch).  Our `B` carries
+`bandRateReal`, which contains `(3/4)·log(1 + log X)`; so once `B` is expanded the surviving growth
+is `(1/4)·loglog X − O(log q) − O(1)`.  ⇒ ***THE `1/4` IS INSIDE `B`, NOT A DIFFERENT COEFFICIENT ON
+THE STATEMENT — a consumer that reads the coefficient off this statement without unfolding `B` will
+over-credit the floor by a factor of four.***
+
+⛔ **NOT DONE HERE — the commission's remaining content:** `capFreeFloor3_margin_all_chi_vt`'s
+`linarith` threshold is calibrated against the coefficient-1 band arm and must be RE-DERIVED against
+this one.  The consumer demand `(1/32)·loglog X + 25 + D` clears `1/4`, so the shape survives; the
+arithmetic does not transfer for free. -/
+theorem chi_floor_band_realclass_rated :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ^ 2 = 1 →
+      ∀ X t : ℝ, Real.exp 1 ≤ X → |t| ≤ 1 / 2 →
+        32 * diskConst q / goldenL1 q ≤ Real.log X →
+          Real.log (Real.log X) - max (Real.log q - Real.log δ) (bandRateReal Z q X) - K
+            ≤ pretDistSq (lamChi χ) (costwist t) X := by
+  obtain ⟨K, hK⟩ := chi_floor_low_of_Llower
+  obtain ⟨Z, δ, hZ1, hδ, hband⟩ := chi_Llower_band_realclass_rated
+  refine ⟨Z, δ, K, hZ1, hδ, ?_⟩
+  intro q _ χ hsq X t hX ht hgate
+  exact hK q χ X t (max (Real.log q - Real.log δ) (bandRateReal Z q X)) hX
+    (hband q χ hsq X t hX ht hgate)
+
 end Salt.MR
