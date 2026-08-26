@@ -9,9 +9,16 @@ checksums only. Nothing here re-introduces what the pre-public-release history p
 
 ## Backups that already exist (verified 2026-08-25)
 
+
+> ⛔ **`$SEAT_KIT` IS DELIBERATELY UNDEFINED HERE.** Council 5b's firewall ruling forbids a path
+> into the private record on a public repo, and this file is public. **Set it from your own
+> environment before running anything below** — it points at the seat kit directory that holds
+> `salt-sources-backup-2026-08-25/`. The location lives in the private record, which is where it
+> belongs; what is public is the RECIPE, not the address.
+
 | copy | what it covers | verified |
 |---|---|---|
-| `~/Documents/seat/salt-sources-backup-2026-08-25/` | **all 16 files**, same-disk, non-git, with `SHA256SUMS.txt` | 16/16 OK vs manifest; 0 differing vs live source, both directions |
+| `$SEAT_KIT/salt-sources-backup-2026-08-25/` | **all 16 files**, same-disk, non-git, with `SHA256SUMS.txt` | 16/16 OK vs manifest; 0 differing vs live source, both directions |
 | private `seat` repo, `sources/` | `chowla-v1-textdump.txt` + its provenance stamp **only** | sha matches the stamp; `git ls-files` confirms tracked |
 
 ⚠️ The same-disk backup kills the `rm` and clone-switch loss classes. It is **not** off-machine
@@ -63,7 +70,7 @@ survives regeneration; the checksum is a convenience for the case where the byte
 ## B. NOT re-fetchable from arXiv (2 of 16) — restore from backup
 
 These are the only genuinely irreplaceable files. **Restore from
-`~/Documents/seat/salt-sources-backup-2026-08-25/`; there is no fetch command.**
+`$SEAT_KIT/salt-sources-backup-2026-08-25/`; there is no fetch command.**
 
 | file | bytes | sha256 | note |
 |---|---|---|---|
@@ -110,7 +117,7 @@ silent, because the citation still looks fine.
 ## D. Verify a restore (with a positive control — a bare `shasum -c` proves nothing if the harness is broken)
 
 ```sh
-cd ~/Documents/seat/salt-sources-backup-2026-08-25 && shasum -a 256 -c SHA256SUMS.txt
+cd "$SEAT_KIT/salt-sources-backup-2026-08-25" && shasum -a 256 -c SHA256SUMS.txt
 # expect: 16 lines "OK", 0 "FAILED"
 # CONTROL — the checker must be able to FAIL:
 #   cp SHA256SUMS.txt /tmp/s.txt && printf 'x' >> hb1983-notes.md && shasum -a 256 -c /tmp/s.txt
