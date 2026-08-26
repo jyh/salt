@@ -4094,10 +4094,20 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    the untwisted frequency for twisted-set members; **(c)** a route that never needs `harc` at the
    untwisted spelling. ⛔ **NONE OF THE THREE IS A TRANSCRIPTION, and math is NOT picking** — this
    is a statement-level choice about what the h-door's grade may cost. **Class C/D, design-first.**
-   📌 **NOT VERIFIED, stated as the obvious next measurement:** whether
-   `ξ ∈ bigXiH h ↔ h·ξ ∈ bigXi` holds on the nose off the two definitions (both are largeness of
-   the same `expSum`, so it looks immediate — but `bigXi`'s own spelling was not opened in this
-   census, and *the last time I guessed a spelling in this row it was wrong.*)
+   ✅ **NOW VERIFIED (03:3x, same session — my own open flag, closed rather than inherited):
+   `ξ ∈ bigXiH h eps H ↔ (h·ξ) ∈ bigXi eps H`, ON THE NOSE AND DEFINITIONALLY.** The two predicates
+   are the SAME formula with `ξ` replaced by `h·ξ`:
+   ```
+     bigXi  eps H = {ξ : ε²/log H ≤ ‖expSum eps H (−(ξ.val)/H)‖}          (CircleMethod:42-45)
+     bigXiH h eps H = {ξ : ε²/log H ≤ ‖expSum eps H (−((h·ξ).val)/H)‖}    (ShiftFork:93-97)
+   ```
+   ⇒ **`bigXiH h` is the `(h·)`-PREIMAGE of `bigXi` as a filter — no `0 < h`, no gcd condition.**
+   ⭐ **AND IT UPHOLDS THIS CENSUS RATHER THAN CHANGING IT, with the cap inflation now exact:** for
+   `ξ ∈ bigXiH h` we get `h·ξ ∈ bigXi`, so `nearRatTight_of_bigXiArcTight` certifies
+   `−(h·ξ).val/H` at cap `arcDen 12 H`; and since `(h·ξ).val ≡ h·ξ.val (mod H)` the certified real
+   is `h·ξ.val/H` up to an integer, so `h·ξ.val/H ≈ a/q` gives `ξ.val/H ≈ a/(hq)` — **denominator
+   `h·q`, i.e. the cap inflates by exactly `h`, as priced.** ⇒ **the three shapes stand and the
+   verdict is unchanged: design-first, math does not pick.**
    ⇒ ⭐ **THE ROW'S TWO HALVES SHOULD BE SPLIT INTO TWO ITEMS.** The first was a composition of
    landed edges and cost 4 attempts total; the second is a design question about a frequency
    convention. **Carrying them under one number prices the second at the first's rate.**
