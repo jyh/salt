@@ -508,7 +508,10 @@ independent open hypothesis, implied by the full `∀ α` door (`mrtUniformity_i
 and neither implying nor implied by `MRTUniformityXiL2`.  Nothing in the corpus produces
 it; the `h`-mint (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:206`/`:730`) and
 the `h`-`L²` estimate (`circle_method_estimate_sq_h`) are W-F3+ scope — this fork makes
-them REACHABLE, not done.  At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)`
+them REACHABLE, not done.
+⛔ **STALE, CORRECTED 2026-08-26 (commission 7b, correction 3): `circle_method_estimate_sq_h`
+IS LANDED — 90 lines below this citation, at `:432`, audited.** The `h`-mint is still open.
+*Prose beside code is a second implementation nobody tests.*  At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)`
 fiber inflation — the `K`-shed line of the `L²` restructure
 (`l3-design-block-0815.md` §1).
 

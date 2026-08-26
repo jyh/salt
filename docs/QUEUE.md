@@ -4224,7 +4224,41 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
      (b) the arc supply is RE-DERIVED at the untwisted frequency for twisted-set members
      (c) a route that never needs `harc` at the untwisted spelling at all
    ```
-   **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
+   ✅⚖️⭐⭐ **RESOLVED — HELM/FABLE COMMISSION 2026-08-26 11:1x, freeze v2, 4-refuter pass
+   (`seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`). THE SHAPE IS PICKED: (a ∧ b).**
+   The helm's correction to my framing: **(a) and (b) are ONE SHAPE** — (b) names the derivation,
+   (a) names where the cost lands, and any route through the arc supply pays the cap inflation on
+   the public hypothesis surface. **The real fork was (a∧b) vs (c), and (c) stays rejected on two
+   MEASURED breakage sites** — the seam `contradiction_of_mrtDoorXiL2H` closes by `linarith` ATOM
+   IDENTITY on the untwisted `−ξ.val/H` (respell the door and the two sums are distinct atoms no
+   corpus lemma relates; `ξ ↦ h·ξ` bijects only at `gcd(h,H)=1`), and the `h=1` compat
+   `mrtUniformityXiL2_eq_xiL2H_one` breaks too. **Worker-tier throughout; math did not pick — the
+   helm did, at Fable tier, after the pass.**
+   ✅✅ **N1–N3 LANDED 2026-08-26 12:1x — `Salt/MR/HDoorArc.lean`, the transfer chain.**
+   `nearRatTight_intCast_add` (N1, both arms) · `nearRatTight_div_nat` (N2) ·
+   `nearRatTight_of_bigXiArcTight_H` (N3). **The arc supply now certifies `−ξ.val/H` for members of
+   the TWISTED `bigXiH h`, at the allowance inflated by exactly `h`** — which was 7b's entire blocker.
+   ⭐ **N2's SLACK IS `h`, NOT `h²`, and the reason is an exact cancellation** the commission
+   supplied and the kernel confirms: the inflated allowance and the inflated witness denominator
+   cancel in the radius (`(hQ)/((hq)H) = Q/(qH)`), so the whole margin is the single `1/h`
+   contraction of the distance. *Pricing it `h²` reads the two inflations as independent.*
+   ⛔ **B₅ STAYS 12 — iron rule 1. The CAP moves (`arcDen B₅ H → h·arcDen B₅ H`), never the
+   exponent.**
+   📌 **Two traps the commission named and the build confirmed, both cast-shaped:** the seam is
+   **ADDITIVE** (`H·k + η.val = h·ξ.val` via `Nat.div_add_mod`) because the subtractive spelling is
+   ℕ-TRUNCATED and `push_cast` stalls on it silently; and **`push_cast` must NOT be used on the
+   ℕ-division's cast** — it rewrites it into an ℤ-DIVISION OF CASTS (`Int.ediv` vs `Nat.div`, a
+   different term) and leaves the goal open. `Int.cast_natCast` is the lemma. *Found by build, cost
+   one attempt each.*
+   📊 **Attempts: N1+N2 = 2 (two superfluous `ring`s after a closing `field_simp`); N3 = 3, at the
+   cap** — every failure mechanical, none mathematical.
+   📐 **REMAINING on 7b, in the commission's order:** **N4a–d** the h-L² adapter chain (clone the L²
+   CHAIN, not the L¹ adapter; ⭐ `hins` is FREE — `parseval_insert_budget_door` already quantifies
+   over an ARBITRARY `Xi : Finset (ZMod H)`) · **N4s** state `M4SievedDoorSqH` **and declare it
+   OPEN** · **N5** the h-mint. ⛔ **N4s HAS NO LANDED PRODUCER AND NONE CAN BE MANUFACTURED FROM THE
+   LANDED SOCKET** — see ② above.
+   ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
+   kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
    attempt (5c's discipline: that is why 5c cost two attempts and not six).** W-F3 Wave B is
    COMPLETE (five nodes, 08/21) and item 5's arc-finisher landed (`ced778a8`), so nothing gates
@@ -4309,13 +4343,30 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    (`L2` before `H`). **The three-search law is what caught it**; a one-search absence claim would
    have mispriced this row UPWARD as "needs a new door predicate, design-tier". *An absence claim
    is not a grep, and a guessed name is a guess about a spelling.*
-   ② **`M4SievedDoorSq` NEEDS NO h-ANALOGUE** (`M4Close.lean:368`) — it is stated at **every**
-   tight-major `α` and never names `bigXi`. **The shift lives in the frequency SET, so the socket
-   is shift-agnostic and serves both lanes unchanged.**
+   ② ⛔⛔ **STRUCK 2026-08-26 BY COMMISSION 7b, CORRECTION 1 — AND IT WAS MY CLAIM.** *Text kept
+   verbatim below; the verdict is refuter-verified and I take it without qualification.* **TRUE OF
+   THE SHIFT, FALSE OF THE CAP:** `M4SievedDoorSq`'s α-binder is **cap-LITERAL at `arcDen 12 H`**, so
+   the h-form needs `(h:ℝ) * arcDen 12 H` and is a DIFFERENT predicate — commissioned as **N4s** and
+   **declared OPEN with no landed producer.** ⛔ **`nearRatTight_mono` (`BigXiArc.lean:604`) raises
+   caps ONE WAY**, so the α-set at the inflated cap STRICTLY CONTAINS the landed socket's and the
+   implication runs the wrong way: **discharging N5's `hsock` from the landed `M4SievedDoorSq`, or via
+   mono, is a CORRECTNESS ERROR, not a shortcut.** 🔑 *I verified the socket never names `bigXi` and
+   concluded "shift-agnostic" — but "does not mention the SET" is not "does not mention the CAP". Two
+   different literals, and I never looked for the second.*
+   *Struck text, verbatim:* — **`M4SievedDoorSq` NEEDS NO h-ANALOGUE** — stated at every tight-major
+   `α`, never names `bigXi`, so the socket is shift-agnostic and serves both lanes unchanged.
    ③ **The count bound is landed and PARAMETERISED** — `m4_doorL2_supply` takes
-   `((bigXi R.eps H).card : ℝ) ≤ K` as a hypothesis, and `bigXiH_bounded` (`ShiftFork.lean:253`)
-   already gives `card (bigXiH h eps H) ≤ h·C` off `bigXiH_card_le_mul`. So the `ε = 1/500`
-   instance is a composition, class A/B.
+   `((bigXi R.eps H).card : ℝ) ≤ K` as a hypothesis. ⛔⛔ **BUT MY CITATION IS STRUCK BY COMMISSION 7b,
+   CORRECTION 2: DO NOT ROUTE N5's COUNT THROUGH `bigXiH_bounded`.** It goes via the opaque
+   `bigXi_bounded` and **silently regresses `KXi` by ~316 bits while dragging in a second existential
+   floor the `_500` mint never had.** ⇒ **Compose instead:** `bigXiH_card_le_mul h hh (1/500) H`
+   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:868-871`),
+   giving the h-explicit witness
+   `KXi := (h:ℝ) * (32·Klcm·((2:ℝ)^35)² / ((1/500:ℚ):ℝ)^10)` — constant exposed, `2 ≤ H` discharged
+   from `two_le_regime_Hlo` as at `M4DoorL2.lean:224-226`. **Four lines, class A.**
+   *Struck: "and `bigXiH_bounded` (`ShiftFork.lean:253`) already gives `card ≤ h·C` off
+   `bigXiH_card_le_mul`, so the `ε = 1/500` instance is a composition, class A/B." — the composition
+   is right; the ROUTE was wrong, and a cheaper-looking citation cost 316 bits.*
    ⛔⛔ **AND THE ONE THING THAT IS GENUINELY OPEN IS A FREQUENCY MISMATCH, VERIFIED AT THE BYTES:**
    ```
    bigXiH h eps H  = {ξ : ε²/log H ≤ ‖expSum eps H (−((h·ξ).val)/H)‖}   ← largeness at h·ξ

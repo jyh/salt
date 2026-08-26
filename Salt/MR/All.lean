@@ -400,6 +400,7 @@ import Salt.MR.MRTPortA1Const
 import Salt.MR.MRTArcRatCoprime
 import Salt.MR.XGapThread
 import Salt.MR.BandRated
+import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8608,3 +8609,15 @@ open Salt.Tactic in
   -- WHY the shape survived the trade, now as a kernel statement rather than an estimate.
   -- ⛔ DOES NOT DISCHARGE THE CUSHION. That needs the whole capFreeFloor3_* → cofkL_* → V7 rethread.
   Salt.MR.margin_band_threshold_rated
+  -- ⭐⭐ COMMISSION 7b, NODES N1–N3 (2026-08-26 12:1x, math) — `Salt/MR/HDoorArc.lean`.
+  -- The arc supply transported to the TWISTED frequency set, which was 7b's whole blocker:
+  -- membership in `bigXiH h` is largeness at `h·ξ`, the door integrates at the untwisted `ξ`,
+  -- and the landed supply certifies only the untwisted set. N1 strips an integer shift, N2
+  -- divides the frequency by `h` and pays for it in the cap, N3 composes them off
+  -- `mem_bigXiH_iff`. Shape (a∧b) per the helm's pick; B₅ stays 12 (iron rule 1) — the CAP
+  -- moves, never the exponent.
+  -- ⭐ N2's slack is `h`, NOT `h²`: the inflated allowance and the inflated witness denominator
+  -- cancel exactly in the radius, so the whole margin is the single 1/h distance contraction.
+  Salt.MR.nearRatTight_intCast_add
+  Salt.MR.nearRatTight_div_nat
+  Salt.MR.nearRatTight_of_bigXiArcTight_H

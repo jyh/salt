@@ -568,7 +568,8 @@ stronger"; that claim is WRONG for the same reason, and its repair is recorded i
 
 NOT IN SCOPE, said out loud: the `h`-clone of the `L²` ESTIMATE
 (`circle_method_estimate_sq_h`), any `h`-mint, any spine replay.  This wave makes them
-REACHABLE, not done.  No claim about Chowla, about the door, or about twins is made or
+REACHABLE, not done.  ⛔ STALE, CORRECTED 08/26 (commission 7b, correction 3):
+`circle_method_estimate_sq_h` IS LANDED and audited; only the `h`-mint remains open.  No claim about Chowla, about the door, or about twins is made or
 moved, and no statement is made at any particular `h`. -/
 #audit_axioms Salt.Entropy.Chowla.bigXiTwistFilter
   Salt.Entropy.Chowla.fourier_split_h
