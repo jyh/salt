@@ -34,7 +34,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ✅ DISCHARGED STALE — "waits for a design session" was true 08/21 and Wave 2 was RULED that same day (Route II log-rebase primary, ineffectivity accepted, don't-wait). Row never re-stamped. Dispatchable. | math | — |
 ## | **item 16** census-first | ✅ DISCHARGED STALE — both probes FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition; the arc question it fenced is now the arc commission (`docs/blueprints/arc.md` v3, chartered 08/25). | — | — |
 ## | **chowla.txt provenance** (P2b) | an editorial ruling; cheap repair already identified — a tracked, stamped copy under `docs/sources/`. **s3-a3-design.md is CHAINED to this one row.** | helm (Captain if the wording is his) | next sitting close |
-## | **c4spec STEP 7** | 257 more output bits in the saltworks ASSEMBLY (`core_outs_length` 1056 vs `encDD` 1313). Structurally blocked, NOT pending — do not price it as proof work. | silicon (saltworks) | at silicon's next saltworks wave |
+## | **c4spec STEP 7** | ⚖️ **RE-FORMED 2026-08-26 12:2x ON SILICON'S MEASUREMENT — ITS TIMEOUT FIRED AND THE BLOCK WAS 256/257 FALSE.** `memOrgan` is LANDED, BUILT and kernel-checked with all 256 next-state bits (`SaltWorks.lean:112`, 1475 gates, `decide +kernel`) — it is simply NOT PLACED in the assembly; and `renumbering_offsets` is landed too (`StateCodecD.lean:324`, imported at `SaltWorks.lean:109`). **The 256 placement is ordinary lane work, AUTHORIZED, not a block.** THE BLOCK THAT SURVIVES IS ONE BIT: release = a gate-level TRAP next-state producer exists as a landed `Circ` (`dmemAddr8NL`'s `trap` is a COMBINATIONAL address-fault signal, not the architectural flag). ⛔ **FENCE: `coreShapedD` meets `outs.length = stWidthD` with ZERO GATES and `C4Refuted` forbids reading it as a step-7 candidate — nobody may "discharge" step 7 with it.** | silicon | next sitting close |
 ## | **WAVE 1c** (P1b item 12) | a RE-BRIEF: its dyadic node rests on a premise Wave 1a refuted. No executor may consume the row as written. | design tier (helm/Fable) | next sitting close |
 ## | **arc Wave 1 / lane A** | deliberate freeze under the Captain's D-1 ruling (a) — statements stay frozen, lane A never burned; reopens at one fetch. | the arc commission | at the arc's next design block |
 ## | **item 15 interior holds** | SUPERSEDED — item 15 was SEALED at council 08/25 and its ground is the arc commission's; the interior "NOT DISPATCHABLE" lines are history, not live gates. | — | — |
@@ -211,6 +211,13 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## ⭐ AND THE 08/20 IFF SPLIT (`29f6128`) LEFT A WIDTH-AGNOSTIC → HALF, `c4Spec_fieldwise_of_c4Spec`
 ## (Program.lean:2771), whose own docstring says it is TRUE AT BOTH WIDTHS — the D → half
 ## should follow it rather than be re-derived.
+## ⚖️✅ **RE-MEASURED 2026-08-26 12:2x (silicon, at the re-measure date this row's own register
+## entry set) — AND "STRUCTURALLY BLOCKED" IS FALSE FOR 256 OF THE 257 BITS. The producer is
+## LANDED AND BUILT (`memOrgan`, 256 next-state outputs, kernel-checked ports) and merely
+## UNPLACED; the renumbering is landed too. Placement is AUTHORIZED lane work. The genuine
+## residual is ONE BIT — the trap flag has no gate-level next-state producer. The text below
+## stands byte-untouched as what was true when written; read the register entry at the head of
+## this file for the live form.**
 ## ⛔ STEP 7 REMAINS STRUCTURALLY BLOCKED, NOT PENDING: `core_outs_length` is kernel-checked at
 ## `stWidth` = 1056 while `encDD` is 1313, so `C4SpecD core` is REFUTABLE by a length argument.
 ## The cascade needs 257 more output bits in the ASSEMBLY — silicon, not Lean. Do not price it
