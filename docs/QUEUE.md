@@ -66,7 +66,37 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ##   ② that debt is SUPERSEDED: under the ruling those sites become **43**, so a head
 ##      "repairing" them to 34 writes the dead number. They are now part of RIDER ①'s
 ##      visible ledger update, not a prose debt owed to compiler.
-## ⇒ RE-ARM THE CRON WITH THESE TWO DELTAS when its canonical text is readable.
+## ⛔⛔ ①' AND ②' ARE BOTH CORRECTED 2026-08-25 21:3x (math) — AND ② HAD INVERTED, SO A HEAD
+## FOLLOWING IT WOULD HAVE FALSIFIED ACCURATE PROSE. Recorded here rather than silently
+## rewritten, because this file is the authority and its OWN erratum is part of the record.
+##   ②' **DO NOT CHANGE THE 34 PROSE. IT IS CORRECT.** The D regime did NOT restate the C
+##      forms in place — it landed BESIDE them as separate objects (`C4SpecD`,
+##      `c4SpecD_iff_fieldwise` in `Stack/Program.lean`, `43 = 1+32+1+8+1`, carrying its own
+##      `#audit_axioms c4SpecD_iff_fieldwise`). ⛔ **CITED BY NAME, NOT BY LINE, ON PURPOSE:
+##      I first wrote `:2829`/`:2952`, read at `origin/master ac6186a` — and my OWN pending
+##      accessor edit in that file moves the second to `:2985`. A line number is a claim
+##      about a file that keeps moving; grep the name.** So `c4Spec_iff_fieldwise` STILL
+##      splits `C4Spec` into exactly 34, and
+##      every prose site saying so is TRUE. ② was written when the restatement was still
+##      the expected shape; RIDER ①'s "growth must be VISIBLE, never smoothed" is precisely
+##      what made the separate-object outcome the right one — the rider was OBEYED, and ②
+##      is what a smoothed restatement would have required. *A guidance line outlives the
+##      plan it was written under and keeps giving orders in the plan's voice.*
+##   ①' THE CENSUS UNDERCOUNTS BECAUSE IT GREPPED A NUMERAL. Re-measured 2026-08-25 21:3x:
+##      `into 34` numeral form = **4** sites (the four named — correct as far as it goes),
+##      but the WORD form `thirty-four`/`THIRTY-FOUR` adds **8 more across 5 files**, and
+##      one of those files — **`CoreAssembly.lean`**, whose text is "splits `C4Spec` into
+##      THIRTY-FOUR" — IS NOT IN THE LIST AT ALL. Also numeric-but-not-"into 34":
+##      `PcFieldClosed.lean`'s two "the 33rd of the 34" lines. ⇒ **5 files carry a
+##      34-claim, not 4** — quoted by TEXT so the citation survives an edit above it.
+##      *An absence claim is not a grep: a census that counts one SPELLING of a number is a
+##      census of that spelling. Had ② been executed off ①'s list, 4 numerals would have
+##      moved to 43 and 8 word-form sites would still read thirty-four — a file set
+##      contradicting itself, produced by obeying this file.*
+## 📌 SCOPE, UNCHANGED: those sites are in `SaltWorks/HDL/` = compiler's glob. **math
+## REPORTS, math does not edit them** — and under ②' there is nothing to edit anyway.
+## ⇒ RE-ARM THE CRON WITH THESE DELTAS when its canonical text is readable — carrying ①'
+## and ②', NOT the ① and ② above them.
 
 ## ✅ c4spec STEPS 1-4 LANDED (saltworks `f0aaf64`, LOCAL — freeze holds): `outMem` · `outTrap` ·
 ## `C4SpecD` · `RegFieldD` · `PcFieldD` · `MemFieldD` · `TrappedFieldD`, all on `decQD`.
