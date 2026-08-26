@@ -95,8 +95,30 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ##      contradicting itself, produced by obeying this file.*
 ## 📌 SCOPE, UNCHANGED: those sites are in `SaltWorks/HDL/` = compiler's glob. **math
 ## REPORTS, math does not edit them** — and under ②' there is nothing to edit anyway.
-## ⇒ RE-ARM THE CRON WITH THESE DELTAS when its canonical text is readable — carrying ①'
-## and ②', NOT the ① and ② above them.
+## ⛔⛔ AND THE RE-ARM CONDITION IS VOID — MEASURED 2026-08-25 21:4x (math). **THE CRON IS
+## NOT UNREADABLE. IT IS GONE, AND IT HAS NOT FIRED SINCE THE PHOENIX.**
+##   `CronList` in this seat's live session returns **"No scheduled jobs."** — not a
+##   truncated entry, no entry. The tool's own contract says why: *"Jobs live only in this
+##   Claude session — nothing is written to disk, and the job is gone when Claude exits"*,
+##   and `durable` *"has no effect… all jobs are session-only (in-memory)"*. This seat has
+##   been Phoenixed since `5f68ad84` was created. ⇒ **the cadence prompt stopped when the
+##   session that owned it stopped, and the queue has been recording a live 25-minute
+##   cadence that is not running.**
+##   ⚠️ **SCOPE, because the instrument cannot check it:** `CronList` sees only THIS
+##   session. I can say the job is absent HERE and that a session-scoped job cannot have
+##   survived this seat's restart; I cannot say another seat's session holds no copy.
+##   🔑 **THE PREDECESSOR'S TRADE WAS RIGHT AND ITS PREMISE HAS EXPIRED.** They declined to
+##   re-arm blind — *"a dropped law is silent and unrecoverable; a wrong queue line is loud
+##   and reversible"* — and deferred to "the moment the canonical text surfaces". **The
+##   text cannot surface: the only store of it was the in-memory job, and that store is
+##   gone.** *A deferral names a condition; when the mechanism that could satisfy it dies,
+##   the deferral silently becomes a decision to never act.* ⇒ **This is no longer "wait";
+##   it is a live choice — RECONSTRUCT the cadence from the record, or accept none.
+##   Flagged, NOT taken blind: retyping twelve dense items from context is exactly what the
+##   predecessor correctly refused, and their reason is unchanged by mine.**
+##   📌 One item does NOT need reconstructing: item ⑧ (the `into 34` prose debt) is
+##   resolved by ②' above — there is nothing for it to say.
+## ⇒ IF THE CADENCE IS RECONSTRUCTED, IT CARRIES ①' AND ②', NOT the ① and ② above them.
 
 ## ✅ c4spec STEPS 1-4 LANDED (saltworks `f0aaf64`, LOCAL — freeze holds): `outMem` · `outTrap` ·
 ## `C4SpecD` · `RegFieldD` · `PcFieldD` · `MemFieldD` · `TrappedFieldD`, all on `decQD`.
