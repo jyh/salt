@@ -1041,3 +1041,10 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   -- 📌 This asserts NOTHING about its cleanliness — that was 5c's exact objection to rolling in
   -- an unmeasured declaration. It SUBJECTS it to the gate; the build is what measures.
   Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq
+  -- ⭐ P2 item 7, first half (2026-08-26, math): the empty cell of the split grid.
+  -- `fourier_split_sq_h` has NO consumer yet (`circle_method_estimate_sq_h` is the second half
+  -- of the row and is not built), so unlike `fourier_split_sq` — whose axioms ride its audited
+  -- consumers — this one is gated by nothing until it is listed here. Same reasoning as
+  -- `log_chowla_two_shell_xi_sq` above, and same placement rule: END of the list, because
+  -- `#audit_axioms` aborts its remainder on a throw.
+  Salt.Entropy.Chowla.fourier_split_sq_h
