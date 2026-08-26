@@ -4309,6 +4309,34 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    program's `h`, and the one site where the cap is EVALUATED rather than carried
    (`V7C.lean:192`'s `⌈arcDen 12 R.Hhi⌉₊`). **Margin holds at h = 2 ⇒ transcription-shaped; fails
    ⇒ design-tier, returns to the helm.**
+   ⚖️⭐⭐ **AND I RAN THE FIRST ARM OF THAT MEASUREMENT BEFORE CLOSING (read-only, no dispatch).
+   THE `P₁` MARGIN HOLDS, AND THE ROOM IS A RATIO, NOT AN EXPONENT.** Measured at the bytes:
+   ```
+   arcDen 12 H  =  (log H)^12                              BigXiArc.lean:148
+   P₁           =  calP (Adoor M) (3072M) 1  =  2^{Adoor M}
+                   because calE A G 1 = A·G⁰·(1!)² = A      SeamCalibration.lean:102,105
+   Adoor M      =  2^36 · (log₂ M + 1)   ≥  2^36            DoorFrame.lean:84, Adoor_ge :86
+   ```
+   The gate `arcDen 12 H < P₁` is therefore `12·log₂ log H < Adoor M`, and its `h`-inflated form
+   `h·arcDen 12 H < P₁` is `log₂ h + 12·log₂ log H < Adoor M`. ⇒ **`h` costs exactly `log₂ h` BITS
+   out of an exponent budget of at least `2^36 = 68,719,476,736`. At `h = 2` that is ONE BIT in
+   ~6.87 × 10¹⁰ — a relative cost ≤ 1.5 × 10⁻¹¹ — and the gate survives every `h < 2^(2^36)`.**
+   The gate is carried, never evaluated, at **112 sites across 32 files** (positive count, not an
+   absence claim).
+   ⛔ **AND THE REASON THIS COUNTS AS SLACK IS THE CHECK, NOT THE SIZE — R-1 IS WHY.** `10^222` of
+   `Kvt` "headroom" looked exactly this comfortable and was a DEMANDED EXPONENT, because both its
+   sides moved with `H₊`. Here they do not: `arcDen 12 H` moves with **`H`**,
+   `Adoor M = 2^36(log₂ M + 1)` moves with **`M` alone**, and `h` is the program's shift, fixed at
+   2, moving with **neither**. Three parameters, not one. ⇒ ***A HEADROOM IS A RATIO ONLY AFTER
+   YOU HAVE NAMED WHICH PARAMETER EACH SIDE MOVES WITH — the size of the number is not the
+   evidence.***
+   ⇒ **ON THIS ARM THE PRODUCER WAVE IS TRANSCRIPTION-SHAPED.**
+   ⛔⛔ **THE SECOND ARM I DID NOT TOUCH, ON PURPOSE — IT LANDS ON R-1.** `V7C.lean:192` is the one
+   site where the cap is EVALUATED rather than carried, as `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`, so
+   the `h`-inflation perturbs the argument of **exactly the `Kvt` cushion the bank ruled is NOT A
+   NODE** (R-1, re-tier affirmed at Fable). I measured its SHAPE and stopped there. **A worker
+   seat measuring an R-1-adjacent quantity must report, not rule** — this is a helm/Fable call and
+   the second arm is the whole reason the producer wave was priced as a wave.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
