@@ -4281,6 +4281,17 @@ numbering is UNVERIFIED.
     anchors anywhere in `Salt/`**; every v4 site is a PAGE cite, correctly v4, and every v3 site is
     `REFETCH.md` plumbing, not a citation at all). **What is left is a 5-file EQUATION content audit,
     not a 35-file anchoring pass.**
+    ✅ **AUDIT STARTED, 1 of 5 spot-checked and the v1 anchors HOLD where it counts.**
+    `FBridge.lean` claims *"Tao's `(3.14)` carries a shift parameter `h`: the second factor is
+    `x_{2,j+ph}`"* under a **v1** anchor. **v1 p.22 reads verbatim: *"from the Chinese remainder
+    theorem and `(3.14)` we see that `(1/P_H)∑_y F_p(x,y) = (c_p/p)∑ 1_{j=pb (a)} x_{1,j} x_{2,j+ph}`"*
+    — the `F_p` formula with the shift-`h` second factor. ✅ CORRECT AT v1.** ⛔ **And in v2 p.23 that
+    same slot cites `(3.15)`** — so a blanket `v2` stamp would have falsified this file, which is the
+    concrete instance of the warning above rather than a hypothetical.
+    ⚠️ **NOT checked in that file: its `(2.12)` claim** (*"the assembly `F(v) = ∑_p G_p(v) ∘ residueProj p`"*).
+    v1 p.22 only CITES `(2.12)` in a bound (*"from the triangle inequality, (2.12) … `F(x,y) ≪ H/log H`"*);
+    the DEFINITION lives in §2, which this pass did not open. **Remaining audit: `(2.12)` here, plus
+    `Entropy/All` (4 refs), `MarkovExtract` (4), `ShiftFork` (1, the only v2 anchor).**
     ⇒ **PAGE-kind citations require the SOURCE PDF to anchor; SECTION-kind do not — a resource requirement this node
     never stated.**
     ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
