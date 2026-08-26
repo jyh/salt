@@ -10,6 +10,41 @@ The ruling-5 refutation-channel migration landed in `saltworks/docs/QUEUE.md` §
 (all its debts name saltworks objects). This queue carries salt work only; repo-qualify
 every QUEUE citation — both repos have a `docs/QUEUE.md`.
 
+## ⚖️⭐⭐ **THE BLOCK REGISTER — RATIFIED FLEET LAW, COUNCIL 2026-08-26 item ⑤ (the Captain's
+## generalization of math's proposal): NO SEAT BLOCKS INDEFINITELY. Every blocking condition —
+## queue item, freeze, gate, wait-on-approval, parked watch — carries AT ISSUE an explicit
+## RELEASE CONDITION, a named OWNER, and a RE-MEASURE TIMEOUT (default: next sitting close, read
+## by the helm's forecast sweep). A timeout fires a MEASUREMENT, never a dissolution: discharged
+## by its own terms → dissolve by execution with a receipt · still live → escalate to the owner
+## with the measurement and a new date · unmeasurable → that is itself a finding. AND A BLOCKED
+## ITEM NEVER BLOCKS A SEAT: pull the next item at your tier. Reach clause: a rule binding more
+## than one seat lives where all bound seats read, or is bus-posted at issue.**
+## *Evidence it was needed: three holds outlived their conditions in ONE night (the saltworks
+## freeze below, item 7's "gated on W-F3", P2b's "No Tao PDF exists") — all TRUE WHEN WRITTEN. A
+## stale GO is caught by the next build; a stale STOP is caught by nobody, because a hold being
+## obeyed and a hold still needed look identical from inside.*
+##
+## **THE STANDING BLOCKS, first sweep 2026-08-26 12:4x (helm, against ORIGIN — a local checkout
+## may be behind). Each row: release condition · owner · re-measure.**
+## | item | release condition | owner | re-measure |
+## |---|---|---|---|
+## | **7b** h-L² door convention | ✅ DISCHARGED — the shape is PICKED and commissioned: `seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md` (Fable, refuter-passed). Not a design block any more; math executes at worker tier. | helm→math | — |
+## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
+## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
+## | **λ-BV Wave 2** (P1 item 2 tail) | ✅ DISCHARGED STALE — "waits for a design session" was true 08/21 and Wave 2 was RULED that same day (Route II log-rebase primary, ineffectivity accepted, don't-wait). Row never re-stamped. Dispatchable. | math | — |
+## | **item 16** census-first | ✅ DISCHARGED STALE — both probes FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition; the arc question it fenced is now the arc commission (`docs/blueprints/arc.md` v3, chartered 08/25). | — | — |
+## | **chowla.txt provenance** (P2b) | an editorial ruling; cheap repair already identified — a tracked, stamped copy under `docs/sources/`. **s3-a3-design.md is CHAINED to this one row.** | helm (Captain if the wording is his) | next sitting close |
+## | **c4spec STEP 7** | 257 more output bits in the saltworks ASSEMBLY (`core_outs_length` 1056 vs `encDD` 1313). Structurally blocked, NOT pending — do not price it as proof work. | silicon (saltworks) | at silicon's next saltworks wave |
+## | **WAVE 1c** (P1b item 12) | a RE-BRIEF: its dyadic node rests on a premise Wave 1a refuted. No executor may consume the row as written. | design tier (helm/Fable) | next sitting close |
+## | **arc Wave 1 / lane A** | deliberate freeze under the Captain's D-1 ruling (a) — statements stay frozen, lane A never burned; reopens at one fetch. | the arc commission | at the arc's next design block |
+## | **item 15 interior holds** | SUPERSEDED — item 15 was SEALED at council 08/25 and its ground is the arc commission's; the interior "NOT DISPATCHABLE" lines are history, not live gates. | — | — |
+## *(Sibling registers, same law, recorded where their work lives: verso's F-219 regeneration hold
+## and lossy-quote hold carry AT-ISSUE blocks in `seat/briefs/2026-08-26-helm-DESIGN-f219-and-Bthreshold.md`;
+## t2_00 is dated behind C and B by council ruling; tape-out artifact retention ripens 10-25.)*
+
+## ✅ **ALL FOUR RULED 2026-08-26 06:0x (helm) AND EXECUTED BY MATH THE SAME HOUR — the block
+## below is READING ORDER, not a wait. R-1's disclosed tier caveat was additionally AFFIRMED AT
+## FABLE TIER 07:5x, so nothing here is pending.**
 ## ⚖️⚖️ **FOUR RULINGS ARE RIPE AS OF 2026-08-26 03:3x (math) — ONE PAGE, READ IT BEFORE PULLING:**
 ## **`seat/briefs/2026-08-26-math-DECISIONS-awaiting-a-word.md`** (5 KB). ① re-tier `arc.md`'s R-1,
 ## *it is not a node* (its `10^222` is a demanded EXPONENT → `1/12`, invariant under the only knob;
@@ -201,6 +236,12 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    subjects), not a re-verification it did not run.
    ⛔ **NOTHING HERE IS DISPATCHABLE. NEXT IS λ-BV WAVE 2 — DESIGN-TIER, AND IT WAITS FOR A
    DESIGN SESSION.** An executor pulling this item would re-run six landed nodes.
+   ✅⚖️ **THE WAIT IS DISCHARGED STALE — SWEPT 2026-08-26 12:4x (helm, block-register law).**
+   Wave 2 was RULED on 2026-08-21, the same day this line was written: **Route II (log-rebase)
+   PRIMARY, ineffectivity accepted, don't-wait; Route I registered with four ripens-when
+   triggers.** The design session it waits for HAPPENED; only the row was never re-stamped —
+   the exact shape the register exists to catch (a stale STOP is caught by nobody). The
+   "re-runs six landed nodes" warning stands as history and does NOT apply to Wave 2 work.
    ⛔ **WHY THIS STAMP WAS OWED:** `5900a3b1` — cited in the standing prompt as the queue stamp
    for this wave — is stamped **5a/5b LANDED (`c4a1a237`)** by its own subject line and touches
    4 lines. Wave 1 had **zero** of its shas in this file. *A sha cited as covering X must be
@@ -3791,6 +3832,11 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ⚠️ **`P₁ = (log h)^480` for A.1**, against wave 1a's `mrtP1 = W²⁰⁰` for Prop 2.4 — *different
     theorems, different parameters, now confirmed from the source rather than assumed compatible.*
 
+16. ✅ **THE CENSUS-FIRST GATE IS DISCHARGED — SWEPT 2026-08-26 12:4x (helm, block-register law):
+    BOTH PROBES FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition in
+    full, and the arc design question this row fenced is now its own chartered commission
+    (`docs/blueprints/arc.md` v3, council 08/25). The gate below is HISTORY; the arc blueprint
+    governs. The labelling correction it carries remains TRUE and worth reading.**
 16. **BLOCKS A / B — THE TWO ARCS. ⛔ CENSUS-FIRST, CLASSING FORBIDDEN UNTIL BOTH PROBES REPORT**
     (the Captain's ruling 2). ⛔ **THE ARCS ARE LABELLED BACKWARDS IN v1 AND IN COMMON MEMORY:
     MR short-interval technology enters the MAJOR arc (§4, `q ≤ W`, via Appendix A); the MINOR arc
@@ -4139,7 +4185,25 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    📌 Original statement of record: — *the h-mint + the h-L² estimate, the fork's full payoff, gated
    on W-F3.* (That gate had lifted 08/21 and the row was never re-read.)
 
-7b. ⚖️ **THE h-L² DOOR SUPPLY — A FREQUENCY-CONVENTION QUESTION, DESIGN-FIRST (split out by helm
+7b. ✅⚖️ **RULED AND COMMISSIONED 2026-08-26 11:5x (helm, Fable) — NO LONGER DESIGN-FIRST; MATH
+   EXECUTES AT WORKER TIER. The pick and the five-node route:
+   `seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`, which is the authority — read it, not
+   the shape list below, which is preserved as the question's original statement.**
+   ⛔ **THE COMMISSION STRIKES TWO CLAIMS IN THIS ROW, both verified at the bytes by a 4-refuter
+   pass: ② "`M4SievedDoorSq` NEEDS NO h-ANALOGUE — the socket is shift-agnostic" is TRUE OF THE
+   SHIFT AND FALSE OF THE CAP** (its α-binder is cap-LITERAL at `arcDen 12 H`, `M4Close.lean:368`;
+   `nearRatTight_mono` raises caps one-way, so the inflated-cap α-set strictly CONTAINS the
+   socket's and no landed lemma bridges it) — the cap-inflated socket `M4SievedDoorSqH` is
+   DECLARED OPEN with no producer, and its producer is a WAVE (7 landed producers pinned at
+   `arcDen 12`), first action a MEASUREMENT of the P₁ margin at h = 2. **③'s `bigXiH_bounded`
+   citation is STRUCK** — it routes through the opaque `bigXi_bounded` and regresses `KXi` by
+   ~316 bits against the `_500` mint; compose `bigXiH_card_le_mul` with `bigXi_bounded_500`
+   instead (class A, four lines). *And the shapes were not three: (a) and (b) are ONE shape —
+   (b) names the derivation, (a) names where the cost lands, and any route through `harc` pays
+   the cap inflation on the public surface. The real fork was (a∧b) vs (c); (c) stays rejected
+   on TWO measured breakage sites.*
+   📌 **Original statement of the question, byte-untouched below.**
+   ⚖️ **THE h-L² DOOR SUPPLY — A FREQUENCY-CONVENTION QUESTION, DESIGN-FIRST (split out by helm
    ruling 06:0x; formerly item 7's second half).** Object: `m4_doorL2_supply_500`'s h-analogue
    (`M4DoorL2.lean:206`), concluding `MRTUniformityXiL2H`.
    ✅ **NOT the blocker — already landed:** the L² h-door itself (`MRTUniformityXiL2H`,
@@ -4307,6 +4371,15 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    Residue is formalization + thresholds, not open mathematics; the one
    real debt is **Vinogradov–Korobov (MRT (1.12)), not in mathlib.**
 
+✅⚑ **DISCHARGED STALE — SWEPT 2026-08-26 12:4x (helm, block-register law), AND IT IS THE
+REGISTER'S OWN CASE STUDY: the Captain's push ruling came on 2026-08-23 — recorded three days
+ago in P1.5's own row in `seat/fleet/QUEUE-jas.md` ("VERIFIED AT EXECUTION 08/23 10:3x, per the
+Captain's push ruling") — and ALL SIX formerly-unpushed branches are AT ORIGIN, measured
+2026-08-26 by `git ls-remote` on `jyh/jas` (scrubguard-all-branches · live-recompute-cache-identity ·
+equivalence-gate-cannot-skip · boolean-container-multimember-parity · stroke-align-bounds ·
+seat-path-citations), with twenty-plus PRs merged since. The flag outlived its condition by
+three days and was carried into a council as an open item before measurement killed it.**
+⛔ *Kept, byte-untouched, as the record of what was true when written:*
 ⚑ **JAS — ONE FLEET-ATTENTION FLAG (added 08/22 at the fold; the ruling is the
 Captain's).** jas holds a VERIFIED GREEN-CI STACK FOR ITS PUBLIC REPO, UNPUSHED:
 jas main's CI has been red since 2026-07-30 on the public, paper-backed repo
