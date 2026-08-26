@@ -8569,3 +8569,14 @@ open Salt.Tactic in
   Salt.MR.goldenL1_le_one
   Salt.MR.goldenL1_le_LFunction_one
   Salt.MR.chi_Llower_band_real_rated
+  -- ⭐ POINT→BAND step 2 (2026-08-26 06:2x, math). `LFunction_band_lower_principal_uniform` hoists
+  -- SiegelArm's principal constant OUT of `∀ q` — the landed form reads `∀ q, ∃ m, … m/q ≤ ‖L‖`, so
+  -- `m` is formally q-dependent and the bound carries NO rate, even though its proof takes `m` from
+  -- the q-free `zeta_lower_small_t`. The rate lives in the QUANTIFIER PREFIX, not the proof.
+  -- `chi_Llower_band_realclass_rated` then joins it to §2's real-nonprincipal arm, giving a RATED
+  -- band L-lower for the whole `χ² = 1` class — exactly the class `capFreeFloor3_margin_all_chi_vt`
+  -- consumes the band arm on. Both constants (Z, δ) are q-free and χ-free; the q-dependence is the
+  -- explicit `max (log q − log δ) (bandRateReal Z q X)`.
+  Salt.MR.chi_Llower_band_real_rated'
+  Salt.MR.LFunction_band_lower_principal_uniform
+  Salt.MR.chi_Llower_band_realclass_rated

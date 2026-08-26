@@ -136,4 +136,132 @@ theorem chi_Llower_band_real_rated :
   exact hL q χ hne hsq X t (goldenL1 q) hX ht (goldenL1_pos q) (goldenL1_le_one q)
     (goldenL1_le_LFunction_one χ hne hsq) hgate
 
+/-! ## §3 — the principal arm with the constant HOISTED OUT of `∀ q` -/
+
+/-- **The band rate at real nonprincipal `χ`, named.**  Exactly §2's bound, as a function, so the
+join below can majorise it.  Every `q`-dependence is inside: `−log (goldenL1 q)` contributes
+`(5/2)·log q + log(1/c)`, and `diskConst q` is the explicit `27/2·√q·(1+log q)·q`. -/
+noncomputable def bandRateReal (Z : ℝ) (q : ℕ) (X : ℝ) : ℝ :=
+  Real.log 2 - Real.log (goldenL1 q)
+    + (2 * Real.log 4 + (3 / 4) * Real.log (1 + Real.log X)
+      + (1 / 4) * Real.log (16 * (q : ℝ) * Z * diskConst q / goldenL1 q))
+
+/-- §2 restated against `bandRateReal`, so the join can weaken into a `max`. -/
+theorem chi_Llower_band_real_rated' :
+    ∃ Z : ℝ, 1 ≤ Z ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 → χ ^ 2 = 1 →
+      ∀ X t : ℝ, Real.exp 1 ≤ X → |t| ≤ 1 / 2 →
+        32 * diskConst q / goldenL1 q ≤ Real.log X →
+          -(bandRateReal Z q X)
+            ≤ Real.log ‖DirichletCharacter.LFunction χ
+                (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
+  obtain ⟨Z, hZ1, hL⟩ := chi_Llower_band_real_rated
+  refine ⟨Z, hZ1, ?_⟩
+  intro q _ χ hne hsq X t hX ht hgate
+  simpa [bandRateReal] using hL q χ hne hsq X t hX ht hgate
+
+/-- ⭐ **POINT→BAND STEP 2a** (`LFunction_band_lower_principal_uniform`).
+`SiegelArm.LFunction_band_lower_principal` with its constant **HOISTED OUT of `∀ q`**.
+
+⛔ **WHY THE HOIST IS THE WHOLE POINT AND NOT COSMETIC.**  The landed statement reads
+`∀ q, ∃ m, … m/q ≤ ‖L‖`, so `m` is formally a function of `q` and the bound carries **no rate**:
+`−log(m q) + log q` is only rated if `m` is bounded below uniformly.  Its PROOF takes `m` from
+`ZetaLowerAllT.zeta_lower_small_t`, which is `q`-free — so the uniformity was always there and only
+the quantifier order hid it.  ⇒ ***A CONSTANT QUANTIFIED INSIDE `∀ q` IS UNRATED BY CONSTRUCTION,
+EVEN WHEN ITS WITNESS IS `q`-FREE; THE RATE LIVES IN THE PREFIX, NOT THE PROOF.***
+
+Body is `LFunction_band_lower_principal`'s verbatim (`SiegelArm` §3): `ζ`'s pole only helps, and
+the Euler product over `q.primeFactors` costs at most `q` (`eulerFactor_prod_lower`). -/
+theorem LFunction_band_lower_principal_uniform :
+    ∃ δ : ℝ, 0 < δ ∧ ∀ (q : ℕ) [NeZero q], ∀ d t : ℝ, 0 < d → d ≤ 1 → |t| ≤ 1 →
+      δ / (q : ℝ) ≤ ‖LFunction (1 : DirichletCharacter ℂ q)
+        (((1 + d : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
+  obtain ⟨δ, hδ, hsmall⟩ := zeta_lower_small_t
+  refine ⟨δ, hδ, ?_⟩
+  intro q _ d t hd0 hd1 ht
+  have hqpos : 0 < q := Nat.pos_of_ne_zero (NeZero.ne q)
+  have hqR : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqpos
+  set s : ℂ := ((1 + d : ℝ) : ℂ) - (t : ℝ) * Complex.I with hsdef
+  have hsre : s.re = 1 + d := by
+    rw [hsdef]
+    simp [Complex.sub_re, Complex.mul_re, Complex.I_re, Complex.I_im,
+      Complex.ofReal_re, Complex.ofReal_im]
+  have hs1 : s ≠ 1 := by
+    intro h
+    rw [h, Complex.one_re] at hsre
+    linarith
+  have hz : δ ≤ ‖riemannZeta s‖ := by
+    have h := hsmall d (-t) hd0.le hd1 (by rw [abs_neg]; linarith) (fun hc => absurd hc.1 hd0.ne')
+    have hpt : ((1 + d : ℝ) : ℂ) + ((-t : ℝ) : ℂ) * Complex.I = s := by
+      rw [hsdef]; push_cast; ring
+    rwa [hpt] at h
+  have hprod : 1 / (q : ℝ) ≤ ‖∏ p ∈ q.primeFactors, (1 - (p : ℂ) ^ (-s))‖ :=
+    eulerFactor_prod_lower q (by rw [hsre]; linarith)
+  have hfac : LFunction (1 : DirichletCharacter ℂ q) s
+      = (∏ p ∈ q.primeFactors, (1 - (p : ℂ) ^ (-s))) * riemannZeta s :=
+    LFunctionTrivChar_eq_mul_riemannZeta hs1
+  rw [hfac, norm_mul]
+  have hmul : (1 / (q : ℝ)) * δ
+      ≤ ‖∏ p ∈ q.primeFactors, (1 - (p : ℂ) ^ (-s))‖ * ‖riemannZeta s‖ :=
+    mul_le_mul hprod hz hδ.le (norm_nonneg _)
+  have hdiv : δ / (q : ℝ) = (1 / (q : ℝ)) * δ := by field_simp
+  linarith [hdiv.le, hdiv.symm.le, hmul]
+
+/-! ## §4 — the join: a RATED band `L`-lower for the whole `χ² = 1` class -/
+
+/-- ⭐⭐ **POINT→BAND STEP 2** (`chi_Llower_band_realclass_rated`) — the rated replacement for
+`SiegelBand.chi_Llower_band_uniform` on the class the `K_vt` cushion actually consumes.
+
+`capFreeFloor3_margin_all_chi_vt` splits on `χ² = 1` FIRST and sends `χ² ≠ 1` to the VK pointwise
+arm (which Wave K's numeral stones already made effective), so **the band arm is consumed only at
+`χ² = 1`** — principal and real-nonprincipal together, which is exactly this statement's range.
+
+**BOTH constants are hoisted and neither depends on `q` or `χ`:** `Z` is `zeta_upper_band`'s compact
+max, `δ` is `zeta_lower_small_t`'s.  The `q`-dependence is the explicit `max (log q − log δ)
+(bandRateReal Z q X)` — a `log q` rate on the principal branch and `O(log q) + (3/4)log(1+log X)` on
+the real branch.  ⇒ **contrast `chi_Llower_band_uniform`, whose `B(Q)` is a bare induction-max over
+every modulus `≤ Q` with no stated growth**: that unrated constant is what the cushion inherits, and
+this statement is what replaces it.
+
+⚠️ The `X`-dependent `(3/4)log(1+log X)` inside `bandRateReal` is what costs the floor's coefficient
+`1 → 1/4` downstream — structural, unrecoverable, and already ruled acceptable
+(`QUEUE.md` P2 item 6:
+the consumer demand `(1/32)·loglog X + 25 + D` still clears `1/4`).
+⛔ The scale gate is carried, not discharged. -/
+theorem chi_Llower_band_realclass_rated :
+    ∃ Z δ : ℝ, 1 ≤ Z ∧ 0 < δ ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ^ 2 = 1 →
+      ∀ X t : ℝ, Real.exp 1 ≤ X → |t| ≤ 1 / 2 →
+        32 * diskConst q / goldenL1 q ≤ Real.log X →
+          -(max (Real.log q - Real.log δ) (bandRateReal Z q X))
+            ≤ Real.log ‖DirichletCharacter.LFunction χ
+                (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
+  obtain ⟨Z, hZ1, hreal⟩ := chi_Llower_band_real_rated'
+  obtain ⟨δ, hδ, hprin⟩ := LFunction_band_lower_principal_uniform
+  refine ⟨Z, δ, hZ1, hδ, ?_⟩
+  intro q _ χ hsq X t hX ht hgate
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith
+  by_cases hχ1 : χ = 1
+  · -- principal: the hoisted `δ/q`, then weaken into the `max`
+    have hqpos : 0 < q := Nat.pos_of_ne_zero (NeZero.ne q)
+    have hqR : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqpos
+    have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
+    have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
+    have hb := hprin q (1 / Real.log X) t hd0 hd1 (by linarith [abs_nonneg t])
+    rw [hχ1]
+    have hpos : (0 : ℝ) < δ / (q : ℝ) := div_pos hδ hqR
+    have hlog := Real.log_le_log hpos hb
+    have hsplit : Real.log (δ / (q : ℝ)) = Real.log δ - Real.log q :=
+      Real.log_div (ne_of_gt hδ) (ne_of_gt hqR)
+    rw [hsplit] at hlog
+    have hmax : Real.log q - Real.log δ
+        ≤ max (Real.log q - Real.log δ) (bandRateReal Z q X) := le_max_left _ _
+    linarith
+  · -- real nonprincipal: §2', then weaken into the `max`
+    have hb := hreal q χ hχ1 hsq X t hX ht hgate
+    have hmax : bandRateReal Z q X
+        ≤ max (Real.log q - Real.log δ) (bandRateReal Z q X) := le_max_right _ _
+    linarith
+
 end Salt.MR

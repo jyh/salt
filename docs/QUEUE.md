@@ -3937,11 +3937,26 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    difference from `chi_Llower_band_uniform`, whose `B(Q)` is a bare induction-max with no stated
    growth**, and it is the property the cushion needs, since the cushion evaluates its constant at an
    argument that grows with `H₊`.
-   📐 **REMAINING, in order:** (i) the principal-character arm (`LFunction_band_lower_principal`,
-   already EXPLICIT at `δ/q`) joined to this one into a rated replacement for
-   `chi_Llower_band_uniform`; (ii) feed it through `chi_floor_low_of_Llower` — coefficient lands at
-   `1/4`, as recorded; (iii) **re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold at
-   `1/4`** — the commission's stated content.
+   ✅⭐⭐ **STEP 2 LANDED 06:2x — (i) IS DONE, FIRST ATTEMPT. THE RATED REPLACEMENT NOW COVERS THE
+   WHOLE CLASS THE CUSHION CONSUMES.** `chi_Llower_band_realclass_rated`: a rated band `L`-lower for
+   **every `χ` with `χ² = 1`** — principal and real-nonprincipal joined — which is exactly the class
+   `capFreeFloor3_margin_all_chi_vt` sends to the band arm (it splits on `χ² = 1` first, routing
+   `χ² ≠ 1` to the VK pointwise arm that Wave K already made effective).
+   ⭐ **AND (i) NEEDED A HOIST NOBODY HAD NAMED, which is the step's real content:**
+   `LFunction_band_lower_principal` reads `∀ q, ∃ m, … m/q ≤ ‖L‖`, so `m` is formally a function of
+   `q` and the bound carries **NO RATE** — even though its own proof takes `m` from the `q`-free
+   `zeta_lower_small_t`. `LFunction_band_lower_principal_uniform` hoists it out.
+   ⇒ 🔑 ***A CONSTANT QUANTIFIED INSIDE `∀ q` IS UNRATED BY CONSTRUCTION, EVEN WHEN ITS WITNESS IS
+   `q`-FREE. THE RATE LIVES IN THE QUANTIFIER PREFIX, NOT IN THE PROOF.*** *The uniformity was
+   always there; only the quantifier order hid it — the same shape as the `10^222` that started this
+   whole item, where a true figure attached to the wrong kind of object.*
+   📐 **BOTH constants are now hoisted and `q`-free/`χ`-free** (`Z` from `zeta_upper_band`, `δ` from
+   `zeta_lower_small_t`); the `q`-dependence is the explicit
+   `max (log q − log δ) (bandRateReal Z q X)` — `log q` on the principal branch,
+   `O(log q) + (3/4)log(1+log X)` on the real branch.
+   📐 **REMAINING:** (ii) feed it through `chi_floor_low_of_Llower` — coefficient lands at `1/4`, as
+   recorded; (iii) **re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold at `1/4`** —
+   the commission's stated content. **(i) is closed.**
    ⛔ **CARRIED, NOT DISCHARGED:** the scale gate `32·diskConst q / goldenL1 q ≤ log X` is
    `chi_Llower_real_of_L1`'s own. At the door's range it clears with enormous room, but that
    discharge belongs to the consumer and this step does not claim it.
