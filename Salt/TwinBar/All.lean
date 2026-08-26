@@ -340,3 +340,22 @@ produces a survivor.** -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp
   Salt.TwinBar.twinParitySieve_siftedSum_pos_of_margin
+
+/-! ### The `d = 1` ladder row vanishes — wave-2 §7 verdict 4, second extraction repair
+
+`LiouvilleTwinDisp` sums `|L N d − ν(d)·L N 1|` over `P.divisors`.  **Its `d = 1` row is
+IDENTICALLY ZERO** (`ν(1) = 1`, so the row is `|L N 1 − L N 1|`), and `liouvilleTwinDisp_iff_erase_one`
+restates the whole predicate on `P.divisors.erase 1` — an EQUALITY, not a weakening.
+
+⭐ **Why the refuters flagged it:** a reader pricing the supply ladder row-by-row looks at `d = 1`,
+sees the full Liouville sum `L N 1`, and prices the two-point correlation THERE.  That row costs
+nothing; the correlation is paid in the `ν(d)·L N 1` TAIL of every OTHER row.  ⇒ *A row that
+MENTIONS the hard object is not a row that DEMANDS it.*
+
+Route-independent, like the quantitative pre-terminal above: a statement about the LANDED
+`LiouvilleTwinDisp`, which survived the verdicts that killed §3's log-rebase. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.nu_one
+  Salt.TwinBar.twinDisp_row_one
+  Salt.TwinBar.liouvilleTwinDisp_sum_erase_one
+  Salt.TwinBar.liouvilleTwinDisp_iff_erase_one

@@ -304,6 +304,26 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    door, whose remainder is unbounded, and the terminal, which throws the size away.*
    ⛔ **SCOPE UNCHANGED AND NOT TO BE READ UP:** `B` is still a PARAMETER, the margin is a
    HYPOTHESIS nothing supplies, and **neither name is a twin-prime claim nor produces a survivor.**
+   ✅⭐ **AND VERDICT 4's SECOND REPAIR, LANDED 2026-08-26 16:2x ON THE HELM'S ORDER TO EXECUTE:**
+   `nu_one` · `twinDisp_row_one` · `liouvilleTwinDisp_sum_erase_one` ·
+   `liouvilleTwinDisp_iff_erase_one`, all four `[3 axioms]` under `Salt.TwinBar.All`
+   (`saltbuild EXIT=0`), **first attempt**. **The `d = 1` row of `LiouvilleTwinDisp` is IDENTICALLY
+   ZERO** — `ν(1) = 1` collapses it to `|L N 1 − L N 1|` — so the predicate restates on
+   `P.divisors.erase 1` as an **EQUALITY, not a weakening**: a supplier owes NOTHING at `d = 1` and
+   every ladder pricing starts at `d = 2`.
+   ⭐ **Why the refuters flagged it:** a reader pricing the ladder row-by-row looks at `d = 1`, sees
+   the full Liouville sum `L N 1`, and prices the two-point correlation THERE. **That row costs
+   nothing; the correlation is paid in the `ν(d)·L N 1` TAIL of every OTHER row.** ⇒ ***A ROW THAT
+   MENTIONS THE HARD OBJECT IS NOT A ROW THAT DEMANDS IT.***
+   ⚖️ **AND A CORRECTION TO MY OWN 15:2x FRAMING, ON THE HELM'S CATCH.** I wrote *"wave 2 needs a
+   design bell, not an executor"*. **Too strong.** *"No wave tables from §3"* is true of §3's
+   COLLAPSE WAVE and **not** of §7's verdict 4, which names several executor-sized repairs — I had
+   landed one of them and generalised from that to the whole item. **The helm was right that there
+   is enough to execute against.** ⇒ ***A DEAD ROUTE AND A DEAD ITEM ARE DIFFERENT THINGS; READ THE
+   VERDICT'S NODE LIST BEFORE PRICING THE ITEM FROM THE VERDICT'S HEADLINE.***
+   📐 **Verdict 4 STILL OPEN after these two:** the tail-mass infinitude argument (log world) · the
+   `1/m`-vs-`1/(dm+r)` weight comparison (*"an unnamed B node"*) · F-THIRD-REGIME restated
+   flat-world-only · the §14/§15 cross-references repo-qualified · §0.6's `h ≤ 1` → `h ≤ 2`.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

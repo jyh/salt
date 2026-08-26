@@ -463,4 +463,59 @@ theorem twinParitySieve_siftedSum_pos_of_margin {z B : ℝ} (Q : ℝ) (hQ : 1 �
     (z := z) (B := B) Q hQ hz hzprimes hdisp
   linarith
 
+/-! ## The `d = 1` ladder row — λ-BV wave-2 §7 verdict 4, second extraction repair
+
+`LiouvilleTwinDisp` sums `|L N d − ν(d)·L N 1|` over the divisors of `P`.  **The `d = 1` row of
+that sum is IDENTICALLY ZERO**, because `ν(1) = 1` and the row collapses to `|L N 1 − L N 1|`.
+
+The wave-2 refuter pass named this to correct a reading of the supply ladder: *"the h-fork-at-2
+object lives in `totalMass` and in every row's `ν(d)·L(N,1)` tail, NOT at `d = 1`."*  A reader
+pricing the ladder row-by-row will look at `d = 1`, see the full Liouville sum `L N 1`, and price
+the two-point correlation there — **but that row costs nothing; the correlation is paid in the
+`ν(d)·L N 1` TAIL of every OTHER row.**  ⇒ *A row that mentions the hard object is not a row that
+demands it.*
+
+Like the quantitative pre-terminal above, this is route-independent: it is a statement about the
+LANDED `LiouvilleTwinDisp` and survives the verdicts that killed §3's log-rebase.
+-/
+
+/-- `ν(1) = 1` — the density's value at the empty modulus, from multiplicativity.  Stated because
+the `d = 1` row's collapse depends on it and `Salt.TwinSieve` carries no `nu_one`. -/
+theorem nu_one : Salt.TwinSieve.nu 1 = 1 :=
+  Salt.TwinSieve.nu_mult.map_one
+
+/-- **The `d = 1` row vanishes.**  `|L N 1 − ν(1)·L N 1| = 0`. -/
+theorem twinDisp_row_one (N : ℕ) :
+    |L N 1 - Salt.TwinSieve.nu 1 * L N 1| = 0 := by
+  rw [nu_one, one_mul, sub_self, abs_zero]
+
+/-- ⭐ **THE REFORMULATION THE VANISHING BUYS** — `LiouvilleTwinDisp` is a demand on `d ≥ 2`
+ALONE.  The sum over `P.divisors` equals the sum over `P.divisors.erase 1`, so a supplier owes
+nothing at `d = 1` and every ladder pricing should start at `d = 2`.
+
+`P ≠ 0` comes from `hP : Squarefree P` (`Nat.Squarefree` forbids `0`), which is why the statement
+needs no extra hypothesis. -/
+theorem liouvilleTwinDisp_sum_erase_one (N P : ℕ) (hP : Squarefree P) (lvl : ℝ) :
+    (∑ d ∈ P.divisors,
+        (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0))
+      = ∑ d ∈ P.divisors.erase 1,
+          (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0) := by
+  have hP0 : P ≠ 0 := hP.ne_zero
+  have h1 : (1 : ℕ) ∈ P.divisors := Nat.one_mem_divisors.mpr hP0
+  rw [← Finset.sum_erase_add _ _ h1]
+  have hzero : (if ((1 : ℕ) : ℝ) < lvl then |L N 1 - Salt.TwinSieve.nu 1 * L N 1| else 0) = 0 := by
+    by_cases h : ((1 : ℕ) : ℝ) < lvl
+    · rw [if_pos h, twinDisp_row_one]
+    · rw [if_neg h]
+  rw [hzero, add_zero]
+
+/-- **`LiouvilleTwinDisp` restated on `d ≥ 2`**, the form a supply ladder should be priced
+against.  ⛔ This is a RESTATEMENT, not a weakening: the two sides are equal, not merely
+comparable, so nothing is given up by adopting it. -/
+theorem liouvilleTwinDisp_iff_erase_one (N P : ℕ) (hP : Squarefree P) (lvl B : ℝ) :
+    LiouvilleTwinDisp N P lvl B
+      ↔ (∑ d ∈ P.divisors.erase 1,
+          (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0)) ≤ B := by
+  rw [LiouvilleTwinDisp, liouvilleTwinDisp_sum_erase_one N P hP lvl]
+
 end Salt.TwinBar
