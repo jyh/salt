@@ -8589,3 +8589,11 @@ open Salt.Tactic in
   -- `(3/4)·log(1+log X)`). A consumer reading the coefficient off the statement without unfolding
   -- `B` over-credits the floor fourfold.
   Salt.MR.chi_floor_band_realclass_rated
+  -- ⭐ POINT→BAND step 4 (2026-08-26 07:0x, math). `chi_floor_band_realclass_quarter` puts the rated
+  -- band floor in the shape the assembly consumes: `(1/4)·loglog X − bandConstQ − K`, with
+  -- `bandConstQ` X-FREE and O(log q). Kept as a SEPARATE step from §5 on purpose: §5's form carries
+  -- coefficient 1 with the (3/4) hidden inside `B`, and that is the form a reader can over-credit
+  -- fourfold. The single move is `log(1+log X) ≤ log 2 + loglog X`, so the X-dependence separates.
+  -- ⛔ Still not (iii): re-deriving `capFreeFloor3_margin_all_chi_vt`'s threshold against this is the
+  -- commission's last piece. What this buys is an X-free C(q) for that re-derivation to carry.
+  Salt.MR.chi_floor_band_realclass_quarter

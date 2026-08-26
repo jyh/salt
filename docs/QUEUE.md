@@ -3966,8 +3966,19 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `(3/4)·log(1+log X)` lives, inside `bandRateReal`. ⇒ ***A CONSUMER THAT READS THE COEFFICIENT OFF
    THIS STATEMENT WITHOUT UNFOLDING `B` OVER-CREDITS THE FLOOR BY A FACTOR OF FOUR.*** *Same genus as
    this item's other two findings — a true figure read against the wrong object.*
+   ✅⭐ **STEP 4 LANDED 07:0x — THE FLOOR IS NOW IN THE ASSEMBLY'S OWN SHAPE, FIRST ATTEMPT.**
+   `chi_floor_band_realclass_quarter`: **`(1/4)·loglog X − bandConstQ Z δ q − K ≤ pretDistSq`, with
+   `bandConstQ` `X`-FREE and `O(log q)`.** The single move is `log(1+log X) ≤ log 2 + loglog X`, which
+   separates the one `X`-dependent term out of `bandRateReal`; the `max` survives the split because
+   the extra `(3/4)·loglog X` is nonnegative at `X ≥ exp(exp 1)` (hence the scale floor rises from
+   `exp 1` here — a deliberate difference from §5).
+   ⭐ **KEPT AS A SEPARATE STEP FROM §5 ON PURPOSE, and that is the reusable bit:** §5's form carries
+   coefficient `1` with the `(3/4)` hidden inside `B`, which is exactly the form a consumer
+   over-credits fourfold. **Two statements, one true coefficient each, rather than one statement whose
+   coefficient depends on whether you unfolded a definition.**
    📐 **REMAINING: (iii) ALONE — re-derive `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold
-   against the `1/4`-effective floor.** Its arithmetic is calibrated to the coefficient-1 band arm
+   against the `1/4`-effective floor.** *It now has an `X`-free `C(q)` to carry rather than a rate
+   tangled with `log(1+log X)` — which is what step 4 was for.* Its arithmetic is calibrated to the coefficient-1 band arm
    and does **not** transfer for free; the consumer demand `(1/32)·loglog X + 25 + D` clears `1/4`,
    so the shape survives. **(i) and (ii) are closed.**
    ⛔ **CARRIED, NOT DISCHARGED:** the scale gate `32·diskConst q / goldenL1 q ≤ log X` is

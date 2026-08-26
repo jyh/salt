@@ -299,4 +299,79 @@ theorem chi_floor_band_realclass_rated :
   exact hK q χ X t (max (Real.log q - Real.log δ) (bandRateReal Z q X)) hX
     (hband q χ hsq X t hX ht hgate)
 
+/-! ## §6 — step (iii)a: the floor in the consumer's shape, `(1/4)·loglog X − (X-free) − K` -/
+
+/-- `log (1 + log X) ≤ log 2 + loglog X`.  `VkMidSharp.vt_log_one_add_log_le` and
+`VkTwistClose.vk_log_one_add_log_le` are both `private`; this is the same three lines, which is
+the idiom those two files already established for it. -/
+private lemma br_log_one_add_log_le {X : ℝ} (hX : Real.exp 1 ≤ X) :
+    Real.log (1 + Real.log X) ≤ Real.log 2 + Real.log (Real.log X) := by
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  calc Real.log (1 + Real.log X) ≤ Real.log (2 * Real.log X) :=
+        Real.log_le_log (by linarith) (by linarith)
+    _ = Real.log 2 + Real.log (Real.log X) := Real.log_mul (by norm_num) (by linarith)
+
+/-- **The band rate's `X`-FREE part** — `bandRateReal` with its one `X`-dependent term replaced by
+the constant it contributes after `br_log_one_add_log_le`, joined against the principal branch.
+This is the object a consumer's threshold arithmetic can actually carry: it depends on `q`, `Z`, `δ`
+and nothing else, and its growth is `O(log q)`. -/
+noncomputable def bandConstQ (Z δ : ℝ) (q : ℕ) : ℝ :=
+  max (Real.log q - Real.log δ)
+    (Real.log 2 - Real.log (goldenL1 q) + (2 * Real.log 4 + (3 / 4) * Real.log 2
+      + (1 / 4) * Real.log (16 * (q : ℝ) * Z * diskConst q / goldenL1 q)))
+
+/-- ⭐⭐⭐ **POINT→BAND STEP 4** (`chi_floor_band_realclass_quarter`) — the rated band floor in the
+shape the assembly consumes: **`(1/4)·loglog X − C(q) − K`, with `C(q)` `X`-FREE and `O(log q)`.**
+
+This is where the `1 → 1/4` trade becomes visible in the statement instead of hiding inside `B`, and
+it is deliberately a separate step from §5 for exactly that reason — §5's coefficient-1 form is the
+one a reader can misread by a factor of four.
+
+The single move is `br_log_one_add_log_le`: `bandRateReal` carries `(3/4)·log(1 + log X)`, which is
+`≤ (3/4)·log 2 + (3/4)·loglog X`, so the `X`-dependence separates into a clean `(3/4)·loglog X`
+subtracted from the floor's own `loglog X`.  The `max` survives the split because the extra
+`(3/4)·loglog X` is NONNEGATIVE at this scale (`X ≥ exp(exp 1)`), which is why the scale floor is
+`exp(exp 1)` here and `exp 1` in §5.
+
+⛔ **STILL NOT (iii) ITSELF.**  `capFreeFloor3_margin_all_chi_vt`'s threshold is calibrated against a
+coefficient-1 band arm; re-deriving it against THIS statement is the commission's last piece.  What
+this step buys is that the re-derivation now has an `X`-free `C(q)` to carry, instead of a rate
+tangled with `log(1 + log X)`. -/
+theorem chi_floor_band_realclass_quarter :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ^ 2 = 1 →
+      ∀ X t : ℝ, Real.exp (Real.exp 1) ≤ X → |t| ≤ 1 / 2 →
+        32 * diskConst q / goldenL1 q ≤ Real.log X →
+          (1 / 4) * Real.log (Real.log X) - bandConstQ Z δ q - K
+            ≤ pretDistSq (lamChi χ) (costwist t) X := by
+  obtain ⟨Z, δ, K, hZ1, hδ, hfloor⟩ := chi_floor_band_realclass_rated
+  refine ⟨Z, δ, K, hZ1, hδ, ?_⟩
+  intro q _ χ hsq X t hX ht hgate
+  have he1 : (1 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hXe : Real.exp 1 ≤ X := le_trans (Real.exp_le_exp.mpr he1) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have hlogXe : Real.exp 1 ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hX
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith [Real.exp_pos (1 : ℝ)]
+  have hLL1 : (1 : ℝ) ≤ Real.log (Real.log X) := by
+    have := (Real.le_log_iff_exp_le hlogXpos).mpr hlogXe
+    linarith
+  have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := by linarith
+  have hbase := hfloor q χ hsq X t hXe ht hgate
+  have hone := br_log_one_add_log_le hXe
+  have hmax : max (Real.log q - Real.log δ) (bandRateReal Z q X)
+      ≤ bandConstQ Z δ q + (3 / 4) * Real.log (Real.log X) := by
+    refine max_le ?_ ?_
+    · have h := le_max_left (Real.log q - Real.log δ)
+        (Real.log 2 - Real.log (goldenL1 q) + (2 * Real.log 4 + (3 / 4) * Real.log 2
+          + (1 / 4) * Real.log (16 * (q : ℝ) * Z * diskConst q / goldenL1 q)))
+      simp only [bandConstQ]
+      linarith
+    · have h := le_max_right (Real.log q - Real.log δ)
+        (Real.log 2 - Real.log (goldenL1 q) + (2 * Real.log 4 + (3 / 4) * Real.log 2
+          + (1 / 4) * Real.log (16 * (q : ℝ) * Z * diskConst q / goldenL1 q)))
+      simp only [bandConstQ, bandRateReal]
+      linarith
+  linarith
+
 end Salt.MR
