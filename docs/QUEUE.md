@@ -3904,7 +3904,25 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 ## P2 — POINT→BAND + the campaigns behind the doors (pulled at P1 idle)
 
-6. **POINT→BAND (K_vt effectivisation)** — PROMOTED P3→P2 by the
+6. ✅⚖️⭐ **COMMISSIONED AS *WORKER-TIER* — HELM RULING, 2026-08-26 06:0x. IT IS NO LONGER A DESIGN
+   BLOCK AND DOES NOT WAIT ON A FABLE SUMMONS.** The helm's ground, verbatim in substance: *the route
+   is LANDED except one seam theorem, the ineffective corner has effective suppliers on both
+   sub-cases, and the block's WHOLE CONTENT is re-deriving `capFreeFloor3_margin_all_chi_vt`'s
+   `linarith` threshold.* **The tier changed because the pricing changed what the work IS.**
+   ⛔ **STANDING INSTRUCTION, ADOPTED VERBATIM: *SPEND NOTHING ON GRADE.*** Any effective band floor
+   of any polynomial grade clears the budget by hundreds of orders; the landed point half is already
+   ~200 orders past sufficient.
+   📐 **THE SEAM IS ONE THEOREM:** `chi_floor_band_uniform` composes `chi_Llower_band_uniform` (the
+   unrated induction-max) into `chi_floor_low_of_Llower`. **Replace only the first factor**, assembled
+   from `LFunction_band_lower_principal` (explicit `δ/q`) and `chi_Llower_real_of_L1` +
+   `l1LowerEffective_goldenGate` (`L₁ = c/q^{5/2}`, `c = log((3+√5)/2)`).
+   ⚠️ **THE STRUCTURAL RESIDUAL, RECORDED AT THE HELM'S ORDER SO NOBODY RE-OPENS IT AS A DEFECT: the
+   coefficient on `loglog X` drops `1 → 1/4` and is UNRECOVERABLE.** Every effective arm pays
+   `(3/4)log(1+log X)` (32 sites, 7 files); the only arm avoiding it is the ineffective compact
+   minimum, so coefficient 1 *was* the ineffectivity. **The consumer demand `(1/32)·loglog X + 25 + D`
+   still clears `1/4`, so the shape survives** — what the trade costs is the re-derivation, which is
+   the commission.
+   📌 Original statement of record, kept: — **POINT→BAND (K_vt effectivisation)** — PROMOTED P3→P2 by the
    Captain's 08/20 ruling: effective s=1 floor ⇒ no Siegel zero ⇒
    zero-free region ⇒ effective band floor (siegelBandB's EVT minimum).
    Design block first; unpriced until it exists.
@@ -3998,9 +4016,38 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    was the ineffectivity, wearing a better coefficient.*
    📌 **Not measured, and it is the next thing to measure:** whether the `(3/4)log(1+log X)` term
    can be carried on the `L`-lower side instead, keeping coefficient 1.
-7. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
-   m4_doorL2_supply_500's h-analogue) — the fork's full payoff, gated
-   on W-F3.
+7. ✅⚖️ **SPLIT INTO 7 AND 7b — HELM RULING, 2026-08-26 06:0x (editorial, helm's). ITEM 7 IS
+   CLOSED DONE.** The h-L² estimate landed overnight: `fourier_split_sq_h` ·
+   `circle_method_estimate_sq_h_core` · `circle_method_estimate_sq_h`, **1+2+1 attempts against a cap
+   of 3, all `[3 axioms]` under build-time gates.**
+   ⛔ **CLOSING LINE, AT THE HELM'S ORDER — IT IS A *SOCKET*, NOT A DELIVERY.**
+   `log_chowla_two_shell_xi_sq_h` does not exist, so the object connects to nothing and **no landing
+   here may be read as extending the h-family's reach.**
+   📌 Original statement of record: — *the h-mint + the h-L² estimate, the fork's full payoff, gated
+   on W-F3.* (That gate had lifted 08/21 and the row was never re-read.)
+
+7b. ⚖️ **THE h-L² DOOR SUPPLY — A FREQUENCY-CONVENTION QUESTION, DESIGN-FIRST (split out by helm
+   ruling 06:0x; formerly item 7's second half).** Object: `m4_doorL2_supply_500`'s h-analogue
+   (`M4DoorL2.lean:206`), concluding `MRTUniformityXiL2H`.
+   ✅ **NOT the blocker — already landed:** the L² h-door itself (`MRTUniformityXiL2H`,
+   `ShiftFork.lean:520`, with `h=1` compat and seam) · `M4SievedDoorSq` needs **no** h-analogue (it
+   is stated at EVERY tight-major `α` and never names `bigXi`, so the socket is shift-agnostic) ·
+   the count bound is parameterised and `bigXiH_bounded` gives `card ≤ h·C`.
+   ⛔ **THE BLOCKER, VERIFIED AT THE BYTES:** membership in `bigXiH h` is largeness at the **TWISTED**
+   `h·ξ` (and `bigXiH h` is *definitionally* the `(h·)`-preimage of `bigXi`), while
+   `MRTUniformityXiL2H` integrates at the **UNTWISTED** `−ξ.val/H` and
+   `nearRatTight_of_bigXiArcTight` certifies that frequency only for members of the **untwisted**
+   set. Transfer costs a denominator-cap inflation of **exactly `h`** (`h·ξ.val/H ≈ a/q` ⇒
+   `ξ.val/H ≈ a/(hq)`).
+   ⚖️ **THREE SHAPES, RECORDED AND DELIBERATELY UNPICKED** — the helm's ruling: *"you were right not
+   to pick; a transcription seat picking a convention is how a design question gets priced at a
+   transcription rate."*
+   ```
+     (a) the door's grade ABSORBS the cap inflation   arcDen 12 H  →  h · arcDen 12 H
+     (b) the arc supply is RE-DERIVED at the untwisted frequency for twisted-set members
+     (c) a route that never needs `harc` at the untwisted spelling at all
+   ```
+   **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
    attempt (5c's discipline: that is why 5c cost two attempts and not six).** W-F3 Wave B is
    COMPLETE (five nodes, 08/21) and item 5's arc-finisher landed (`ced778a8`), so nothing gates
@@ -4169,7 +4216,20 @@ v4; lemma numbers in `Salt/` are arXiv v1/v2.** *Do not blanket-stamp either ont
 numbering is UNVERIFIED.
 
 
-18. **ANCHOR THE TAO CITATIONS AT `1509.05422v2`.** ⭐ **THE FINDING IS EXONERATING, AND THAT IS THE
+18. ✅⚖️⛔ **CLOSED AS EXONERATED — HELM RULING, 2026-08-26 06:0x. AND THE BULK "ANCHOR AT v2" PASS
+    IS EXPLICITLY STRUCK, not merely left unscheduled.** Page tranche verified and corrected;
+    equation tranche **13/13 citations read at the source, ZERO defects**; lemma tranche clean by the
+    anchor argument. **The only edit the entire node produced is two words of page range in
+    `OuterCombine`.**
+    ⛔⛔ **WHY THE PASS IS STRUCK, RECORDED IN THE ITEM AT THE HELM'S ORDER: A STANDING AUTHORISATION
+    TO RUN IT IS AN AUTHORISATION TO FALSIFY FOUR CORRECT `v1` ANCHORS.** This node's premise is
+    **HALF FALSE**: **LEMMA numbers SURVIVE `v1→v2`; EQUATION numbers DO NOT** — measured at the
+    source, the same passage reads `(2.11)/(3.15)/(3.14)` in v1 and `(2.12)/(3.16)/(3.15)` in v2, and
+    §4's numbering does not shift at all (section-restarted), so the drift is **not even uniform
+    across the paper**. Four of the five equation-citing files anchor `v1` **correctly**.
+    🔑 ***A HALF-FALSE PREMISE IS MORE DANGEROUS THAN A FALSE ONE, BECAUSE THE TRUE HALF KEEPS IT
+    CREDIBLE.*** *(helm, at the ruling.)*
+    📌 Superseded statement of record, kept: — **ANCHOR THE TAO CITATIONS AT `1509.05422v2`.** ⭐ **THE FINDING IS EXONERATING, AND THAT IS THE
     POINT: salt CITES CORRECTLY.** Evidence settled it — our section numbers match **v1/v2 exactly**
     (Lemma 3.1 / 3.4); **the renumbering arrived at v3.** ⇒ **No proof moves, no statement moves.
     THE ONLY DEFECT IS A MISSING VERSION ANCHOR.** Comment-level throughout. Class **A**.

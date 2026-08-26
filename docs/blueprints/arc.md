@@ -145,6 +145,21 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
 
 ## 4 · The frontier under the ruled road
 
+- ⚖️⛔ **R-1 — STRUCK AS A NODE BY HELM RULING 2026-08-26 06:0x. THIS IS A REFUTATION, NOT A
+  DEMOTION.** Its *"headroom `10^222`"* is a **demanded EXPONENT** — `Qm^0.083 → 1/12`, **invariant
+  under the only free knob** (`A₀ ≤ A`) — over an object (`chi_Llower_band_uniform`) that has **no
+  rate at all**; and the outer-scale re-route is **REFUTED**, `XCeilRiderStrict` capping the lever at
+  **+23.65 additive** on `loglog X`, a factor ≤ ~4, **never a rate**. **Arithmetic independently
+  re-verified 03:5x** (exponent `0.08255`; limit `1/12 = 0.083333`; lever `log 15500 = 9.649` against
+  a floor of `log H₊ − 14`) — figures and method in
+  `seat/briefs/2026-08-26-math-DECISIONS-awaiting-a-word.md` ①.
+  ⇒ **R-1 is the CONSUMER of `QUEUE.md` P2 item 6, which the same ruling commissioned at WORKER
+  tier.** A head reading §7's *"Now: R-1"* must not fire a wave here.
+  ⚠️ **DISCLOSED BY THE HELM AT THE RULING, NOT HIDDEN:** *"`arc.md` is the blueprint I authored under
+  Fable authority and I am ruling this on Opus — I take it because leaving a refuted node standing
+  burns the next head a wave, and deleting a direction that became FALSE is required honesty rather
+  than a statement change. Flagged for the Captain as a tier question he may re-take."*
+  📌 **Original statement of record, byte-untouched below.**
 - **R-1 [the commission's NEXT WAVE] — the `Kvt` rider discharge:** prove the cushion
   inequality at the terminal's regime (the one open item of the landed sieved chain).
   Measured headroom `10^222`; may price B/C rather than D. Gate-written statements per §6.
