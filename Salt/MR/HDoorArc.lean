@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4Window
+import Salt.MR.M4DoorL2
 import Salt.Entropy.Chowla.ShiftFork
 
 /-!
@@ -412,5 +413,196 @@ theorem mrtUniformityXiL2H_of_absWindowSqBound (h : ℕ) (R : ChowlaRegime) (a e
   intro H _ hlo hhi
   exact le_trans (sum_bigXiH_norm_windowExpSum_sq_le h R a e Bsieve K Binsert hsplit hfloor
     harc hB0 hsock hXi hins H hlo hhi) (hρ H hlo hhi)
+
+/-! ## N4s — the socket AT THE INFLATED CAP, stated and DECLARED OPEN
+
+`M4SievedDoorSq` (`M4Close.lean:368-375`) with the literal `arcDen 12 H` replaced by
+`(h : ℝ) * arcDen 12 H` in the `α`-binder.  Nothing else moves — same coefficient sequence,
+same measure, same grade shape.
+
+⛔⛔ **THIS HAS NO PRODUCER AND NONE CAN BE MANUFACTURED FROM THE LANDED SOCKET.**
+`nearRatTight_mono` (`BigXiArc.lean:604-611`) raises caps ONE WAY, so the `α`-set at
+`h · arcDen 12 H` STRICTLY CONTAINS the landed socket's: an inhabitant of `M4SievedDoorSq`
+grades fewer `α` than this asks for, and the implication runs backwards.  Discharging N5's
+`hsock` from the landed socket, directly or through `mono`, is a CORRECTNESS ERROR — not a
+shortcut.  The producer is a W-F3+ wave (the 7 landed producers are all pinned at `arcDen 12`)
+and its first action is a measurement, not a port: whether the `P₁` margin survives
+`h·(log H)^12 < P₁` at the program's `h`.
+-/
+
+/-- **N4s** (`M4SievedDoorSqH`) — the M4-7 socket at shift `h`: the mean square of the SIEVED
+λ-window sum at every `α` tight-major **at the `h`-inflated allowance**.
+
+The commission's correction 1 is what this definition records.  QUEUE 7b ② used to read
+*"`M4SievedDoorSq` needs no `h`-analogue — the socket is shift-agnostic"*, and that is true of
+the SHIFT and false of the CAP: the `α`-binder is cap-LITERAL at `arcDen 12 H`, and the twisted
+route hands it `α` certified only at `h · arcDen 12 H`.  "Does not mention the SET" is not
+"does not mention the CAP". -/
+def M4SievedDoorSqH (h : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
+  M4BandTransport →
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight ((h : ℝ) * arcDen 12 H) H α →
+        (∫ n, ‖absWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+              (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n α‖ ^ 2
+            ∂(logMeasure R.x R.ω))
+          ≤ Braw H * (H : ℝ) ^ 2
+
+/-- ⭐⭐ **N4s IS INHABITED — THE ANTI-VACUITY DUTY, DISCHARGED AT THE SAME TIME THE SOCKET IS
+DECLARED OPEN.**  The `h`-clone of `m4_sievedDoorSq_trivial` (`M4Close.lean:377-390`), and it
+is owed for a sharper reason than the landed one: N5 takes `M4SievedDoorSqH` as a HYPOTHESIS,
+and **the kernel cannot check that a hypothesis is inhabited** — an uninhabited socket would
+make every consumer of the `h`-mint VACUOUSLY TRUE, with a green build and a clean axiom audit.
+"Declared OPEN" must mean *no producer at a USEFUL grade*, never *no inhabitant*.
+
+At the trivial grade `Braw ≡ 1` it holds outright: the window carries `H` terms of modulus
+`≤ 1` and the door's measure is a probability measure.  ⭐ **The cap is never read** — the
+landed proof discards the `NearRatTight` hypothesis, so the inflation is free here, which is
+itself the evidence that ALL of this socket's content is the grade and none of it is the shape.
+⚠️ At `Braw ≡ 1` the grade gate `M4GradeGate` of course fails; that failure is the analytic gap
+the producer wave closes, and it is a different thing from vacuity. -/
+theorem m4_sievedDoorSqH_trivial (h : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    M4SievedDoorSqH h R M (fun _ => 1) := by
+  intro _ H _ _ _ α _
+  refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
+  have hb := norm_absWindowSum_le
+    (a := memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
+    (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) H n α
+  have h0 := norm_nonneg (absWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+    (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n α)
+  nlinarith
+
+/-! ## N5 — the `h`-mint -/
+
+/-- **N5, §1** (`m4_doorL2_supply_H`) — the `h`-clone of `m4_doorL2_supply`
+(`M4DoorL2.lean:127-188`), the `L²` restructure's stone-7 composition at the twisted set.
+
+Every summand of the budget line keeps its landed meaning: `2·K·Bceil` is the socket leg (the
+count times the `(a+b)²` factor times the `H`-uniform grade — **no `√`**, the `L¹→L²` descent
+is deleted), and `δ/2 + 8·2^k/x` is `2·Binsert` paid ONCE for the whole set because the sieve
+insert is `α`-INDEPENDENT.  `l2_budget_line` assembles them, unchanged.
+
+⭐ **`hins` is discharged here for free.**  `parseval_insert_budget_door` quantifies over an
+ARBITRARY `Xi : Finset (ZMod H)`; it is fired at `Xi := bigXiH h R.eps H` with no
+re-derivation of the Parseval stone — the one price the twisted route does NOT pay.
+
+`(hh : 0 < h)` is carried EXPLICITLY per the ShiftFork module fence (`:94-96`): every statement
+manufacturing an `H`-uniform constant carries it.  Here it is the arc transport (N3) that
+demands it. -/
+theorem m4_doorL2_supply_H (h : ℕ) (hh : 0 < h) :
+    ∃ Cg : ℝ, 1 ≤ Cg ∧
+      ∀ (eps : ℚ), 0 < eps → ∃ H₀ : ℕ,
+        ∀ (R : ChowlaRegime), R.eps = eps → H₀ ≤ R.Hlo →
+          ∀ (Braw : ℕ → ℝ) (K Bceil δ : ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Braw H) →
+            M4SievedDoorSqH h R M Braw →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              ((bigXiH h R.eps H).card : ℝ) ≤ K) →
+            0 ≤ K →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+              MRTUniformityXiL2H h R (2 * K * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ)) := by
+  obtain ⟨Cg, hCg, hpars⟩ := parseval_insert_budget_door
+  refine ⟨Cg, hCg, ?_⟩
+  intro eps heps
+  obtain ⟨H₀, hH₀⟩ := nearRatTight_of_bigXiArcTight_H bigXiArcTight_twelve heps hh
+  refine ⟨H₀, ?_⟩
+  intro R hReps hfloor Braw K Bceil δ M k hgates hBraw0 hsock hXi hK0 hceil
+  -- ⟦the arc supply at the TWISTED set, transported to the regime's own `ε`⟧
+  have harc : ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H → ∀ ξ ∈ bigXiH h R.eps H,
+      NearRatTight ((h : ℝ) * arcDen 12 H) H (-(ξ.val : ℝ) / (H : ℝ)) := by
+    intro H _ hH ξ hξ
+    rw [hReps] at hξ
+    exact hH₀ H hH ξ hξ
+  -- ⟦the door's own scales, off the regime — the landed four lines, verbatim⟧
+  have hA : 1 ≤ Adoor M := by
+    have hx := Adoor_ge M
+    omega
+  have hG : 1 ≤ 3072 * M := by
+    have := hgates.hM
+    omega
+  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
+    intro H hhi
+    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
+    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
+    have h2 : 2 ≤ R.x := R.hx
+    omega
+  -- ⟦THE FUSE⟧ the adapter's `hins`, fired at `Xi := bigXiH h R.eps H`.
+  have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXiH h R.eps H,
+        ∫ n, ‖absWindowSum lamCoeff H n (-(ξ.val : ℝ) / (H : ℝ))
+            - absWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+                (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω)
+        ≤ δ / 4 + 4 * 2 ^ k / (R.x : ℝ) := by
+    intro H _ hlo hhi
+    simp only [lamCoeff_eq_liouvilleC]
+    exact hpars (Adoor M) (3072 * M) M 2 R.x R.ω H k liouvilleC δ (bigXiH h R.eps H)
+      liouvilleC_norm_le_one hA hG hgates.hM hgates.hδ hgates.hMδ R.hx R.hω R.hωx
+      hgates.hlogω (hHx H hhi) (hgates.hreach H hlo hhi) hgates.hpow hgates.hcount
+      (hgates.hblocks H hlo hhi)
+  -- ⟦the adapter⟧ N4c: arc + socket at the inflated cap + count + the fused insert budget.
+  have hkey := sum_bigXiH_norm_windowExpSum_sq_le_parseval h R
+    (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
+    Braw K (δ / 4 + 4 * 2 ^ k / (R.x : ℝ)) hfloor harc hBraw0 (hsock m4_bandTransport)
+    hXi hins
+  -- ⟦the budget line⟧ and the `H`-uniform ceiling on the socket leg.
+  intro H _ hlo hhi
+  have hb := hkey H hlo hhi
+  rw [l2_budget_line K (Braw H) δ (R.x : ℝ) k] at hb
+  have hmono : 2 * K * Braw H ≤ 2 * K * Bceil :=
+    mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
+  linarith
+
+/-- ⭐⭐ **N5 — THE `h`-MINT** (`m4_doorL2_supply_500_H`), the `h`-clone of
+`m4_doorL2_supply_500` (`M4DoorL2.lean:206-228`), with the count gate discharged.
+
+⛔ **THE COUNT DOES NOT GO THROUGH `bigXiH_bounded`** (commission correction 2, striking QUEUE
+7b ③'s citation): that routes through the opaque `bigXi_bounded` and regresses `log₂ KXi` by
+~316 bits while dragging in a second existential floor the `_500` mint never had.  The
+composition here is `bigXiH_card_le_mul` (`ShiftFork.lean:238`, the `gcd(h,H) ≤ h` fiber
+bound) against `bigXi_bounded_500`'s THIRD conjunct — so the exported constant stays
+
+    `KXi = h · 32·K_lcm·(2^35)² / ε^10`  at `ε = 1/500`,
+
+`h`-explicit in the witness and with the constant IN THE STATEMENT.  The `2 ≤ H` side condition
+is free from the regime (`two_le_regime_Hlo`), exactly as at `M4DoorL2.lean:224-226`.
+
+📌 **WHAT THIS DOES AND DOES NOT DO.**  It mints the door; it does not open it.  `hsock` is a
+HYPOTHESIS here, exactly as the landed mint takes its own — and its supplier (N4s) has no
+producer.  ⇒ **the twisted `L²` door is now REACHABLE, NOT DONE**, which is what the D5 fork
+document said all along.  The one open obligation the whole of 7b leaves behind is N4s's
+producer wave. -/
+theorem m4_doorL2_supply_500_H (h : ℕ) (hh : 0 < h) :
+    ∃ (Cg KXi : ℝ), 1 ≤ Cg ∧ 0 < KXi ∧ ∃ H₀ : ℕ,
+      ∀ (R : ChowlaRegime), R.eps = 1 / 500 → H₀ ≤ R.Hlo →
+        ∀ (Braw : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
+          M4DoorGates Cg R M k δ →
+          (∀ H : ℕ, 0 ≤ Braw H) →
+          M4SievedDoorSqH h R M Braw →
+          (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            MRTUniformityXiL2H h R (2 * KXi * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ)) := by
+  obtain ⟨Cg, hCg, hsup⟩ := m4_doorL2_supply_H h hh
+  obtain ⟨Klcm, hKlcm, _, hcount⟩ := bigXi_bounded_500
+  obtain ⟨H₀, hH₀⟩ := hsup (1 / 500) (by norm_num)
+  have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have h500 : (0 : ℝ) < (((1 : ℚ) / 500 : ℚ) : ℝ) ^ 10 := by norm_num
+  refine ⟨Cg, (h : ℝ) * (32 * Klcm * ((2 : ℝ) ^ 35) ^ 2 / (((1 : ℚ) / 500 : ℚ) : ℝ) ^ 10),
+    hCg, ?_, H₀, ?_⟩
+  · -- ⛔ NOT bare `positivity`: it reads `(h : ℝ)` structurally as a ℕ-cast and yields `0 ≤`
+    -- only.  The strictness is `hh`, which positivity does not consult.
+    exact mul_pos hhR (by positivity)
+  intro R hReps hfloor Braw Bceil δ M k hgates hBraw0 hsock hceil
+  refine hH₀ R hReps hfloor Braw _ Bceil δ M k hgates hBraw0 hsock ?_ ?_ hceil
+  · -- the count gate: the fiber bound `|Ξ_H^{(h)}| ≤ h·|Ξ_H|`, then the `_500` constant
+    intro H _ hlo _
+    have h2 : 2 ≤ H := le_trans (two_le_regime_Hlo R) hlo
+    have hfib : ((bigXiH h R.eps H).card : ℝ) ≤ (h : ℝ) * ((bigXi R.eps H).card : ℝ) := by
+      exact_mod_cast bigXiH_card_le_mul h hh R.eps H
+    have hbase : ((bigXi R.eps H).card : ℝ)
+        ≤ 32 * Klcm * ((2 : ℝ) ^ 35) ^ 2 / (((1 : ℚ) / 500 : ℚ) : ℝ) ^ 10 := by
+      rw [hReps]
+      exact hcount H h2
+    exact le_trans hfib (mul_le_mul_of_nonneg_left hbase hhR.le)
+  · positivity
 
 end Salt.MR

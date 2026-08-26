@@ -28,7 +28,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
-## | **7b** h-L² door convention | ✅ DISCHARGED — the shape is PICKED and commissioned: `seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md` (Fable, refuter-passed). Not a design block any more; math executes at worker tier. | helm→math | — |
+## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ✅ DISCHARGED STALE — "waits for a design session" was true 08/21 and Wave 2 was RULED that same day (Route II log-rebase primary, ineffectivity accepted, don't-wait). Row never re-stamped. Dispatchable. | math | — |
@@ -4281,9 +4281,34 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⇒ ***THAT PARAGRAPH HAS NOW GONE STALE TWICE IN TWO DAYS, BOTH TIMES BY A LANDING BESIDE IT.
    An absence claim beside code is a claim with an expiry date; write it as a named open slot,
    which stays true when the neighbourhood moves.***
-   📐 **REMAINING on 7b, in the commission's order:** **N4s** state `M4SievedDoorSqH` **and declare
-   it OPEN** · **N5** the h-mint. ⛔ **N4s HAS NO LANDED PRODUCER AND NONE CAN BE MANUFACTURED FROM
-   THE LANDED SOCKET** — see ② above.
+   ✅✅✅ **N4s + N5 LANDED 2026-08-26 13:4x — 7b IS COMPLETE. ELEVEN NAMES, ALL `[3 axioms]`,
+   ALL UNDER THE `Salt.MR.All` AGGREGATE GATE (`saltbuild EXIT=0`, 0 `error:` lines).**
+   `M4SievedDoorSqH` (N4s, the def) · `m4_sievedDoorSqH_trivial` (its witness) ·
+   `m4_doorL2_supply_H` (N5 §1) · `m4_doorL2_supply_500_H` (N5, the mint). **First attempt, no
+   diagnostics.**
+   ⛔ **N4s IS DECLARED OPEN AS COMMISSIONED — no landed producer, and none manufacturable.**
+   ⭐⭐ **BUT I ADDED ONE THING THE COMMISSION DID NOT ASK FOR, AND IT IS NOT OPTIONAL: THE
+   INHABITATION WITNESS.** N5 takes `M4SievedDoorSqH` as a HYPOTHESIS, and **the kernel cannot
+   check that a hypothesis is inhabited.** An uninhabited socket would make every consumer of the
+   h-mint VACUOUSLY TRUE — green build, clean axiom audit, nothing behind it. The landed sibling
+   already carries exactly this duty (`m4_sievedDoorSq_trivial`, `M4Close.lean:377`, whose own
+   docstring names it "the anti-vacuity duty"), so this is a corpus CONVENTION being honoured, not
+   a design change. ⇒ ***"DECLARED OPEN" MUST MEAN "NO PRODUCER AT A USEFUL GRADE", NEVER "NO
+   INHABITANT" — and only a witness tells the two apart.***
+   📌 **AND THE WITNESS MEASURES SOMETHING:** it goes through at grade `Braw ≡ 1` **without ever
+   reading the cap** (the landed proof discards the `NearRatTight` slot), so the `h`-inflation is
+   free to it. That is direct evidence that **ALL of this socket's content is the GRADE and none
+   of it is the SHAPE** — which is exactly why its producer is priced as a wave of estimates
+   rather than a restatement.
+   📐 **WHAT 7b LEAVES BEHIND — ONE OBJECT, AND IT IS NOT MINE:** N4s's PRODUCER, an `h`-family of
+   the `M4SievedDoorSq` producer chain (7 landed producers, all pinned at `arcDen 12`). **W-F3+
+   scope, priced as a WAVE.** ⛔ **The mint MINTS the door; it does not OPEN it** — `hsock` is a
+   hypothesis exactly as in the landed mint, so the twisted `L²` door is **REACHABLE, NOT DONE**,
+   which is what the D5 fork document always said. ⚖️ **Its first action is a MEASUREMENT, not a
+   port** (demand-side first): whether the `P₁` margin survives `h·(log H)^12 < P₁` at the
+   program's `h`, and the one site where the cap is EVALUATED rather than carried
+   (`V7C.lean:192`'s `⌈arcDen 12 R.Hhi⌉₊`). **Margin holds at h = 2 ⇒ transcription-shaped; fails
+   ⇒ design-tier, returns to the helm.**
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any

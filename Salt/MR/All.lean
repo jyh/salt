@@ -8638,3 +8638,24 @@ open Salt.Tactic in
   Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le_sub
   Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le_parseval
   Salt.MR.mrtUniformityXiL2H_of_absWindowSqBound
+  -- ⭐⭐ COMMISSION 7b, NODES N4s + N5 (2026-08-26 13:4x, math) — same file.  7b's last two.
+  -- N4s `M4SievedDoorSqH` is `M4Close.M4SievedDoorSq` with the α-binder's literal `arcDen 12 H`
+  -- replaced by `(h:ℝ) · arcDen 12 H`.  ⛔ IT IS DECLARED OPEN ON PURPOSE: no landed producer,
+  -- and none can be manufactured — `nearRatTight_mono` raises caps ONE WAY, so the α-set at the
+  -- inflated cap STRICTLY CONTAINS the landed socket's and the implication runs backwards.
+  -- ⭐⭐ BUT OPEN IS NOT UNINHABITED, AND THE DIFFERENCE IS LOAD-BEARING: N5 takes this Prop as a
+  -- HYPOTHESIS, and THE KERNEL CANNOT CHECK THAT A HYPOTHESIS IS INHABITED.  An uninhabited
+  -- socket would make every consumer of the h-mint VACUOUSLY TRUE, with a green build and a
+  -- clean axiom audit.  `m4_sievedDoorSqH_trivial` is the witness (grade `Braw ≡ 1`), the
+  -- h-clone of the landed anti-vacuity duty `m4_sievedDoorSq_trivial` (`M4Close.lean:377`).
+  -- 📌 The witness never reads the cap — it discards the `NearRatTight` slot — which is itself
+  -- the evidence that ALL of this socket's content is the GRADE and none of it is the SHAPE.
+  -- N5 mints the door and does NOT open it: `hsock` is a hypothesis here exactly as in the
+  -- landed mint, so the twisted L² door is REACHABLE, NOT DONE.  ⛔ Its count does NOT go
+  -- through `bigXiH_bounded` (316-bit regression + a second existential floor): it composes
+  -- `bigXiH_card_le_mul` with `bigXi_bounded_500`'s third conjunct, so the exported constant is
+  -- `KXi = h · 32·K_lcm·(2^35)²/ε¹⁰` — h-explicit in the witness, constant in the statement.
+  Salt.MR.M4SievedDoorSqH
+  Salt.MR.m4_sievedDoorSqH_trivial
+  Salt.MR.m4_doorL2_supply_H
+  Salt.MR.m4_doorL2_supply_500_H
