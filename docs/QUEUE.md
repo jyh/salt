@@ -3968,6 +3968,21 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `(1/32)·loglog X + 25 + D`, and `1/32 < 1/4`, so **the shape survives** — but
    `capFreeFloor3_margin_all_chi_vt`'s threshold is a `linarith` over specific coefficients and
    must be RE-DERIVED, not reused. **That re-derivation is the design block's actual content.**
+   ✅ **MEASURED, SAME SESSION 02:4x — AND THE ANSWER IS NO, STRUCTURALLY.** *(The line below is
+   kept as written; publishing an open question and then answering it is the record, not noise.)*
+   The `(3/4)·log(1 + log X)` term is the **universal price of the 3-4-1 route in this corpus** —
+   **32 sites across 7 files** (`VkTwistClose` 7, `SiegelArm` 7, `ChiLLower` 6, `VkMidSharp` 4,
+   `FarL2` 4, `LandauL1` 2, `DoorFloor1500` 2). Every arm that reaches an `L`-lower through 3-4-1
+   pays it, because the excursion needs an UPPER bound on `‖L‖` at the far point and that grows
+   with `log X`. **The one arm that does not pay it is `chi_Llower_band`, and its `B` is
+   `X`-independent for exactly one reason: it IS the compact-minimum (`bandBox` EVT), i.e. the
+   ineffective route.** ⇒ ***THE TRADE IS STRUCTURAL, NOT AN ARTEFACT OF THE STATEMENT: coefficient
+   1 with an UNRATED constant, or coefficient 1/4 with a RATED one. No route the corpus currently
+   has gives both.*** 📌 **Reported, not treated as a blocker:** the consumer demand is
+   `(1/32)·loglog X + 25 + D` and `1/32 < 1/4`, so the shape survives the trade — what the trade
+   costs is the RE-DERIVATION of `capFreeFloor3_margin_all_chi_vt`'s `linarith` threshold, which
+   ④ already names as the design block's content. *The coefficient-1 property was never free; it
+   was the ineffectivity, wearing a better coefficient.*
    📌 **Not measured, and it is the next thing to measure:** whether the `(3/4)log(1+log X)` term
    can be carried on the `L`-lower side instead, keeping coefficient 1.
 7. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
