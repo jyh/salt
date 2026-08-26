@@ -518,4 +518,62 @@ theorem liouvilleTwinDisp_iff_erase_one (N P : ℕ) (hP : Squarefree P) (lvl B :
           (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0)) ≤ B := by
   rw [LiouvilleTwinDisp, liouvilleTwinDisp_sum_erase_one N P hP lvl]
 
+/-! ## The log-weight comparison — λ-BV wave-2 §7 verdict 4, the *"unnamed B node"*
+
+The log-rebase writes each divisor atom as a sum over an affine form: `n = d·m + r` with
+`1 ≤ r ≤ d`, so the log world's natural weight `1/n` becomes `1/(d·m + r)` while the atom is
+indexed by `m` and wants the weight `1/m`.  §7's verdict 4 named the comparison between them as
+an unnamed `B` node; it is the lemma below, and the answer is **a factor of exactly 2, uniform in
+`d`, `m` and `r`**:
+
+    `d·m ≤ d·m + r ≤ d·(m+1) ≤ 2·d·m`   (the right step is `m + 1 ≤ 2m`, i.e. `1 ≤ m`).
+
+⛔ **The two hypotheses are both load-bearing and neither is cosmetic.**  `r ≤ d` is what bounds
+the offset by one stride — without it the offset is unbounded and no constant exists.  `1 ≤ m` is
+what turns `m + 1` into `2m` — at `m = 0` the left comparison fails outright (`0 ≤ r`, and the
+`1/m` side is undefined anyway).  *The residue-class decomposition supplies both: `r` ranges over a
+residue system mod `d`, and `m` starts at 1.*
+
+⛔ **SCOPE — this is an INGREDIENT, not a wiring.**  It is pure arithmetic on the weights; it
+mentions no Liouville sum, no atom and no consumer, and **nothing in the corpus consumes it yet**.
+Like the other two verdict-4 repairs it is route-independent — but it earns its place by being the
+constant the log-rebase pricing needs, not by being connected. -/
+
+/-- **The log-weight comparison, two-sided.**  For `1 ≤ m` and `r ≤ d`, the affine-form log weight
+`1/(d·m + r)` sits between `1/(2·d·m)` and `1/(d·m)`. -/
+theorem logWeight_affine_le {d m r : ℕ} (hd : 0 < d) (hm : 0 < m) (hr : r ≤ d) :
+    (1 : ℝ) / (2 * ((d : ℝ) * (m : ℝ))) ≤ 1 / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+      ∧ (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ)) ≤ 1 / ((d : ℝ) * (m : ℝ)) := by
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+  have hm1 : (1 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
+  have hr0 : (0 : ℝ) ≤ (r : ℝ) := Nat.cast_nonneg r
+  have hrd : (r : ℝ) ≤ (d : ℝ) := by exact_mod_cast hr
+  have hdm : (0 : ℝ) < (d : ℝ) * (m : ℝ) := mul_pos hd0 hm0
+  have hden : (0 : ℝ) < (d : ℝ) * (m : ℝ) + (r : ℝ) := by linarith
+  constructor
+  · -- `d·m + r ≤ 2·d·m`, from `r ≤ d ≤ d·m`
+    have hdle : (d : ℝ) ≤ (d : ℝ) * (m : ℝ) := by nlinarith
+    exact one_div_le_one_div_of_le hden (by linarith)
+  · -- `d·m ≤ d·m + r`
+    exact one_div_le_one_div_of_le hdm (by linarith)
+
+/-- **The same comparison in the `1/m` normalisation** — the shape a per-atom pricing reads:
+the affine-form log weight is `(1/d)·(1/m)` up to a factor 2, with BOTH constants explicit.
+
+⭐ This is the form that makes the log-rebase's per-atom bookkeeping a CONSTANT rather than a
+schedule: the `d`-dependence is exactly the factor `1/d` that the divisor sum already carries, and
+what is left over is bounded by 2 uniformly. -/
+theorem logWeight_affine_le_div {d m r : ℕ} (hd : 0 < d) (hm : 0 < m) (hr : r ≤ d) :
+    (1 : ℝ) / (2 * (d : ℝ)) * (1 / (m : ℝ)) ≤ 1 / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+      ∧ (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ)) ≤ 1 / (d : ℝ) * (1 / (m : ℝ)) := by
+  obtain ⟨hlo, hhi⟩ := logWeight_affine_le hd hm hr
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+  have e1 : (1 : ℝ) / (2 * (d : ℝ)) * (1 / (m : ℝ)) = 1 / (2 * ((d : ℝ) * (m : ℝ))) := by
+    field_simp
+  have e2 : (1 : ℝ) / (d : ℝ) * (1 / (m : ℝ)) = 1 / ((d : ℝ) * (m : ℝ)) := by
+    field_simp
+  exact ⟨by rw [e1]; exact hlo, by rw [e2]; exact hhi⟩
+
 end Salt.TwinBar

@@ -321,9 +321,25 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    landed one of them and generalised from that to the whole item. **The helm was right that there
    is enough to execute against.** ⇒ ***A DEAD ROUTE AND A DEAD ITEM ARE DIFFERENT THINGS; READ THE
    VERDICT'S NODE LIST BEFORE PRICING THE ITEM FROM THE VERDICT'S HEADLINE.***
-   📐 **Verdict 4 STILL OPEN after these two:** the tail-mass infinitude argument (log world) · the
-   `1/m`-vs-`1/(dm+r)` weight comparison (*"an unnamed B node"*) · F-THIRD-REGIME restated
-   flat-world-only · the §14/§15 cross-references repo-qualified · §0.6's `h ≤ 1` → `h ≤ 2`.
+   ✅⭐ **AND VERDICT 4's *"UNNAMED B NODE"* IS NAMED AND LANDED — 2026-08-26 16:4x.**
+   `logWeight_affine_le` + `logWeight_affine_le_div` (`Salt/TwinBar/TwinParitySieve.lean`), both
+   `[3 axioms]` under `Salt.TwinBar.All` (`saltbuild EXIT=0`), **first attempt.** The log-rebase
+   writes each divisor atom over an affine form `n = d·m + r`, `1 ≤ r ≤ d`, so the log world's
+   natural weight `1/n` becomes `1/(d·m+r)` while the atom is indexed by `m` and wants `1/m`.
+   **THE ANSWER IS A FACTOR OF EXACTLY 2, UNIFORM IN `d`, `m`, `r`:**
+   `d·m ≤ d·m + r ≤ d·(m+1) ≤ 2·d·m`, the last step being `m + 1 ≤ 2m`.
+   ⭐ **In the `1/m` normalisation the affine weight is `(1/d)·(1/m)` up to 2, both constants
+   explicit — which is what makes the per-atom bookkeeping a CONSTANT rather than a SCHEDULE:** the
+   `d`-dependence is exactly the `1/d` the divisor sum already carries, and the leftover is bounded
+   uniformly. *That is the whole reason the refuters flagged it as a node rather than a remark.*
+   ⛔ **Both hypotheses are load-bearing, neither cosmetic:** `r ≤ d` bounds the offset by one
+   stride (without it no constant exists at all), and `1 ≤ m` is what turns `m+1` into `2m`. The
+   residue-class decomposition supplies both.
+   ⛔ **SCOPE — AN INGREDIENT, NOT A WIRING:** pure arithmetic on the weights, naming no Liouville
+   sum, no atom and no consumer, and **nothing consumes it yet.**
+   📐 **Verdict 4 STILL OPEN after these three:** the tail-mass infinitude argument (log world) ·
+   F-THIRD-REGIME restated flat-world-only · the §14/§15 cross-references repo-qualified · §0.6's
+   `h ≤ 1` → `h ≤ 2`.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

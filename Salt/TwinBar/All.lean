@@ -359,3 +359,24 @@ open Salt.Tactic in
   Salt.TwinBar.twinDisp_row_one
   Salt.TwinBar.liouvilleTwinDisp_sum_erase_one
   Salt.TwinBar.liouvilleTwinDisp_iff_erase_one
+
+/-! ### The log-weight comparison — wave-2 §7 verdict 4's *"unnamed B node"*
+
+The log-rebase writes each divisor atom over an affine form `n = d·m + r`, `1 ≤ r ≤ d`, so the log
+world's natural weight `1/n` becomes `1/(d·m + r)` while the atom is indexed by `m` and wants
+`1/m`.  **The two agree to a factor of exactly 2, uniform in `d`, `m`, `r`:**
+`d·m ≤ d·m + r ≤ d·(m+1) ≤ 2·d·m`, the last step being `m + 1 ≤ 2m`.
+
+`…_le_div` is the same fact in the `1/m` normalisation — the affine weight is `(1/d)·(1/m)` up to
+2, with both constants explicit.  ⭐ That is what makes the log-rebase's per-atom bookkeeping a
+CONSTANT rather than a schedule: the `d`-dependence is exactly the `1/d` the divisor sum already
+carries, and the leftover is bounded by 2 uniformly.
+
+⛔ **Both hypotheses are load-bearing:** `r ≤ d` bounds the offset by one stride (without it no
+constant exists), and `1 ≤ m` is what turns `m + 1` into `2m`.  The residue-class decomposition
+supplies both.
+⛔ **SCOPE — an INGREDIENT, not a wiring.** Pure arithmetic on the weights: it names no Liouville
+sum, no atom and no consumer, and **nothing in the corpus consumes it yet.** -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.logWeight_affine_le
+  Salt.TwinBar.logWeight_affine_le_div
