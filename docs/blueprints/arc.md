@@ -148,6 +148,58 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
 - **R-1 [the commission's NEXT WAVE] — the `Kvt` rider discharge:** prove the cushion
   inequality at the terminal's regime (the one open item of the landed sieved chain).
   Measured headroom `10^222`; may price B/C rather than D. Gate-written statements per §6.
+  ⚠️⛔⛔ **STAMPED 2026-08-26 01:5x (math) — THE ROW ABOVE IS BYTE-UNTOUCHED; THIS IS A STAMP, AND
+  IT CHANGES THE ROW'S PRICE AND ITS OWNER.** *"Prove the cushion inequality" is not a node, and
+  `10^222` is not headroom.* Measured at the bytes, bottom to top:
+  `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`) applies its cushion at
+  **`Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`** — and `arcDen 12 H = (Real.log H)^12` (`BigXiArc.lean:148`),
+  so the modulus cap is `Qm = ⌈(log H₊)^12⌉₊`, **a function of the same `H₊` that funds the budget.**
+  ⇒ 🔑 ***A HEADROOM IS A RATIO BETWEEN TWO QUANTITIES; WHEN BOTH MOVE WITH THE SAME PARAMETER IT IS
+  NOT SLACK ON A CONSTANT — IT IS A DEMANDED EXPONENT.*** With `3.2·A ≤ loglog H₋` and `162 ≤ A`:
+  budget `Kvt ≤ e^518/128 ≈ 10^222.9`, evaluation point `Qm ≥ e^6216 ≈ 10^2699.5`, so the row's
+  `10^222` **is the demand `siegelBandB Qm ≲ Qm^0.083`.** ⭐ **AND THE EXPONENT IS INVARIANT UNDER THE
+  ONLY KNOB THE CALLER HAS:** pushing `A` up through `A₀ ≤ A` raises budget and evaluation point
+  together, `(3.2A − log 128)/(12·3.2A) → 1/12` — **the demanded exponent is `arcDen`'s own 12**, and
+  no design-constant enlargement moves it.
+  ⛔ **THE OBJECT UNDER THE DEMAND HAS NO RATE AT ALL, AND ITS OWN FILE SAYS SO.** The chain is
+  `cofkL_capFreeFloor_at_socket` → `capFreeFloor3_pieceDatum_arcDen` → `_vt` →
+  `capFreeFloor3_margin_all_chi_vt` = `max 0 (max Kvk (max Kbulk Kband))` → `chi_floor_band_arm` →
+  `chi_floor_band_uniform` → **`chi_Llower_band_uniform`, a bare induction-max over the characters of
+  every modulus `q ≤ Q`** (`SiegelBand.lean`: *"it has no known growth rate in `Q`"*). The cushion's
+  own docstring already says it: *"`K_vt` … has no effective bound anywhere in the corpus"*
+  (`RegisterSupply.lean:481`). **Kvk and Kbulk ARE effective** — Wave K's two numeral stones
+  (`cpeel_le_two`, `primeTailConst_le_27`, salt `aa66b675`) bottom them out. **The band arm is the
+  whole blocker.**
+  ⛔⛔ **AND THE RE-ROUTE I TESTED BEFORE PROPOSING IT IS REFUTED — recorded because it is the
+  attractive wrong answer.** `SiegelBand.lean`'s design law says an `X`-independent debit is absorbed
+  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`)
+  keeps a live lever `g R.Hhi R.ω ≤ R.x` that `_g0` sets to **zero**. So the obvious move is to re-route
+  the cushion from `log H₊/4` onto the outer scale and let `g` absorb it. **The lever has a ceiling.**
+  `XCeilRiderStrict ε g` (`XThread.lean:82`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
+  so a caller may request at most `log (g H₊ ω) ≤ 15500·H₊`; against the landed floor
+  `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, LINEAR in `H₊` via `hPHheadroom`) the lever buys
+  **≈ +24 additive on `loglog X`, i.e. a constant factor ≤ ~4 in the budget — never a rate.**
+  ⇒ ***THE LEVER CANNOT ABSORB AN UNRATED CONSTANT, AND A DESIGN LAW STATED FOR `X`-INDEPENDENT
+  DEBITS DOES NOT REACH ONE EVALUATED AT AN `H₊`-DEPENDENT INDEX.***
+  ✅⭐ **WHAT R-1 ACTUALLY IS, AND IT IS ALREADY ON THE QUEUE:** `QUEUE.md` P2 **item 6, POINT→BAND
+  (K_vt effectivisation)**, Captain-promoted P3→P2 on 08/20 — *"effective s=1 floor ⇒ no Siegel zero ⇒
+  zero-free region ⇒ effective band floor (siegelBandB's EVT minimum)"*. This blueprint never cites it.
+  The point floor is **LANDED**: `l1LowerEffective_goldenGate` (`EvenChiDescent.lean:248`),
+  `L1LowerEffective (log((3+√5)/2)) (5/2)`, every real nonprincipal `χ` — **and its own SCOPE FENCE
+  names this exact gap**: *"It does NOT discharge `K_vt`: the live ineffectivity is `siegelBandB`'s EVT
+  band minimum, which a point floor at `s = 1` does not reach. Point→band is a separate, unpriced
+  campaign."*
+  ⭐⭐ **THE ONE THING THIS STAMP ADDS THAT NOBODY HAD: POINT→BAND NEEDS NO SHARPNESS.** Any effective
+  band floor of the form `B(q) ≤ a·log q + c` with `a`, `c` explicit — **any polynomial grade, however
+  crude** — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c`, which clears the budget `log H₊/128 ≥ e^518/128` by
+  hundreds of orders. Grade 5/2 is already ~200 orders past sufficient. ⇒ **P2 item 6's *"unpriced
+  until it exists"* is upgradeable to a PRICE: the campaign must produce an effective band floor of
+  ANY polynomial grade, and sharpness is worth nothing to this consumer.**
+  📌 **DISPOSITION, not taken unilaterally:** R-1 as worded is **not** the commission's next wave —
+  it is the consumer of a P2 campaign. The re-tier (B/C → the D-class POINT→BAND block) and the
+  re-owner are **helm/Fable calls**; flagged here and in `flags.md`, and P2 item 6 carries the price.
+  *Measured, not inferred: every figure above is from the cited bytes; the arithmetic is
+  `e^518 ≈ 10^224.96`, `e^6216 ≈ 10^2699.5`, `222.85/2699.5 = 0.0826`.*
 - **F-5 [B/C] GAP X — unchanged, runs PARALLEL to R-1** (the bounded `∀ X ≥ X₀` threading
   probe; no landing may be read as closing GAP X until this node does).
 - **F-4 [D] GAP A.1 — unchanged as a SEPARATE campaign; its H-1 precondition is DISCHARGED**
@@ -237,6 +289,14 @@ machine-global** (math's migration finding ③). Do-not-claim inheritance: nothi
 unconditional; no wave "closes the major arc"; consumer-less sockets are sockets.
 
 ## 7 · Sequencing and success (v3)
+
+⛔⛔ **SEQUENCING CORRECTED 2026-08-26 01:5x (math) — READ §4's R-1 STAMP BEFORE FIRING ANYTHING
+HERE.** R-1 is **not** a rider wave and **not** math's next move: the cushion's `Kvt` is evaluated at
+`Qm = ⌈(log H₊)^12⌉₊`, so the `10^222` is a demanded exponent `Qm^{1/12}`, not slack — and the object
+under it (`chi_Llower_band_uniform`) has no rate at all. R-1 is the **consumer** of `QUEUE.md` P2
+item 6 (POINT→BAND), whose point floor is landed (`l1LowerEffective_goldenGate`) and whose band half
+is open. **The re-tier and the re-owner are helm/Fable calls; math flagged, math did not re-aim its
+own charter.** F-5 and H-2/H-3/H-4 are unaffected and remain the live A/B work.
 
 **Now:** R-1 (the rider wave, math, gate-as-author) · F-5 parallel · H-2/H-3/H-4 remain OPEN
 to any A-capable seat. **Success shape:** the rider discharged ⇒ the sieved chain stands

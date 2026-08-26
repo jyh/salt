@@ -3864,6 +3864,34 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    Captain's 08/20 ruling: effective s=1 floor ⇒ no Siegel zero ⇒
    zero-free region ⇒ effective band floor (siegelBandB's EVT minimum).
    Design block first; unpriced until it exists.
+   ⚖️⭐⭐ **PRICED 2026-08-26 01:5x (math) — THE ROW ABOVE IS BYTE-UNTOUCHED; THIS IS A STAMP.**
+   *"Unpriced until it exists" is upgradeable, and the price is the surprising part:* **THIS
+   CAMPAIGN NEEDS NO SHARPNESS.** Its consumer is the `K_vt` cushion at
+   `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`), which evaluates `Kvt` at
+   `Qm = ⌈arcDen 12 R.Hhi⌉₊ = ⌈(log H₊)^12⌉₊` against a budget `log H₊/128 ≥ e^518/128`.
+   ⇒ **any effective band floor `B(q) ≤ a·log q + c` with `a`, `c` explicit — ANY polynomial
+   grade, however crude — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c` and clears that budget by
+   hundreds of orders.** The landed point half is already ~200 orders past sufficient
+   (`l1LowerEffective_goldenGate`, `EvenChiDescent.lean:248`, grade `5/2`, constant `2 log φ`,
+   every real nonprincipal χ). ⛔ **So a design block must NOT spend effort on grade.** The
+   whole content is the point→band step itself: `siegelBandB`'s EVT minimum over the box
+   `[1,2] × [−1,1]` is what has no rate (`chi_Llower_band_uniform` is a bare induction-max;
+   `SiegelBand.lean:36`: *"no known growth rate in `Q`"*), and `EvenChiDescent.lean:248`'s own
+   scope fence names exactly this gap.
+   🔑 **WHY THE CUSHION LOOKED LIKE SLACK AND WAS NOT — the reusable half:** the arc blueprint's
+   R-1 row read `e^518/128 ≈ 10^222` as headroom on a constant. **`Kvt`'s evaluation point moves
+   with the same `H₊` that funds the budget** (`Qm ≥ e^6216 ≈ 10^2699.5`), so the figure is a
+   demanded exponent `Qm^0.083`, and pushing the design constant `A` through `A₀ ≤ A` raises both
+   sides — the exponent converges to **`1/12`, `arcDen`'s own exponent, invariant under the only
+   knob the caller has.** ⇒ ***A HEADROOM IS A RATIO; IF BOTH SIDES MOVE WITH THE SAME PARAMETER
+   IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
+   REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
+   `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
+   (`V7Ks.lean:437`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:82`) with `ε ≥ 1/500` permits at most
+   `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
+   `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
+   `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
 7. **The h-mint + the h-L² estimate** (circle_method_estimate_sq_h;
    m4_doorL2_supply_500's h-analogue) — the fork's full payoff, gated
    on W-F3.

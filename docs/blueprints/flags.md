@@ -23367,3 +23367,61 @@ green; the degradation clause was never reached. **Actual difficulty: B**, not C
 `Salt/Chen` namespaces; `Salt/HB` holds the block predicate's own support theory, because
 that is where the dimension-4 instantiation needed it. A `grep -F chi_` across ALL namespaces
 before pricing a block-predicate node would have priced this one at a tenth of its budget.
+
+---
+
+## ARC-R1 — THE `Kvt` RIDER IS NOT AN INEQUALITY (math, 2026-08-26 01:5x)
+
+**Node:** `arc.md` §4's **R-1** — *"the `Kvt` rider discharge: prove the cushion inequality at
+the terminal's regime. Measured headroom `10^222`; may price B/C rather than D."*
+**Verdict: NOT ATTEMPTED, and it should not be — the node as worded has no proof to find.**
+No proof attempt was spent; this is a pricing flag raised BEFORE any attempt, which is why it
+cost a census and not a wave.
+
+**What was measured** (bytes only, every citation re-grepped after the edits above it):
+
+* the cushion is applied at `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊` (`V7Headline.lean:157`), and
+  `arcDen 12 H = (Real.log H)^12` (`BigXiArc.lean:148`) ⇒ the evaluation point
+  `Qm = ⌈(log H₊)^12⌉₊` **moves with the same `H₊` that funds the budget**;
+* budget `Kvt ≤ e^518/128 ≈ 10^222.9` (from `3.2·A ≤ loglog H₋`, `162 ≤ A`) against
+  `Qm ≥ e^6216 ≈ 10^2699.5` ⇒ the row's `10^222` **is the demand `siegelBandB Qm ≲ Qm^0.083`**;
+* pushing `A` through `A₀ ≤ A` raises both sides; the exponent converges to **`1/12`** — the
+  `arcDen` exponent, **invariant under the only knob the caller has**;
+* the object under the demand has **no rate**: `capFreeFloor3_margin_all_chi_vt` is
+  `max 0 (max Kvk (max Kbulk Kband))`, and `Kband` descends through `chi_floor_band_arm` →
+  `chi_floor_band_uniform` → `chi_Llower_band_uniform`, **a bare induction-max over every
+  modulus `q ≤ Q`** (`SiegelBand.lean:36`: *"no known growth rate in `Q`"*). The cushion's own
+  docstring already says *"has no effective bound anywhere in the corpus"*
+  (`RegisterSupply.lean:481`);
+* `Kvk`/`Kbulk` **are** effective — Wave K's stones (`cpeel_le_two`, `primeTailConst_le_27`,
+  salt `aa66b675`) bottom them out. **The band arm is the whole blocker.**
+
+**The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
+(*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`, which `_g0` sets to **zero**)
+makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:82`); with
+`ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
+`loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
+`H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
+
+**Where the node actually lives:** `QUEUE.md` P2 **item 6, POINT→BAND (K_vt effectivisation)**,
+Captain-promoted P3→P2 on 08/20. The point half is LANDED —
+`l1LowerEffective_goldenGate` (`EvenChiDescent.lean:248`), and **its own scope fence names this
+exact gap**. `arc.md` never cited that item. **The re-tier and the re-owner are helm/Fable
+calls; flagged, not taken.**
+
+⭐ **THE DIVIDEND, and it is the reason this flag is worth its length: POINT→BAND NEEDS NO
+SHARPNESS.** Any effective band floor `B(q) ≤ a·log q + c` with `a`, `c` explicit — any
+polynomial grade, however crude — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c` and clears the budget by
+hundreds of orders. So P2 item 6's *"unpriced until it exists"* becomes a price, and a design
+block for it must spend **nothing** on grade.
+
+🔑 **THE REUSABLE LESSON.** ***A HEADROOM IS A RATIO BETWEEN TWO QUANTITIES; WHEN BOTH MOVE WITH
+THE SAME PARAMETER IT IS NOT SLACK ON A CONSTANT — IT IS A DEMANDED EXPONENT.*** The row that
+sent me here was written by reading a true arithmetic figure (`e^518/128`) and attaching it to
+the wrong kind of object. Same genre as this seat's standing law *an instrument can be correct
+about what it measured and wrong about what it implied* — here the instrument was one division.
+📌 And the corollary that nearly cost a wave: **a design law stated for `X`-independent debits
+does not reach a debit evaluated at an `H₊`-DEPENDENT INDEX.** `SiegelBand.lean`'s absorption
+argument is sound and does not apply.
