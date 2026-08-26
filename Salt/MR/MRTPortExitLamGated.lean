@@ -49,8 +49,18 @@ input; it RELOCATES the open object from the door integral to the row integral a
 prices it.  Nothing here closes the door, touches the arc, or proves anything about `λ`
 that did not exist before.
 
-⚠️ This module is NOT rooted in any aggregate — it must be built targeted
-(`../saltbuild.sh Salt.MR.MRTPortExitLamGated`) until a maestro-tier session roots it.
+⛔ **STALE WHEN WRITTEN, CORRECTED 2026-08-26 (math, arc Wave H node H-2).**  The line below
+was true when the executor wrote it and false by the time the wave landed: this module IS
+rooted.  `Salt/MR/All.lean` imports it, and `m4_exit_lam_of_rowMeanSqLam_gated`
+sits in the `#audit_axioms` tail.  The original sentence is kept rather than
+deleted, per `MRTPortRowLam.lean`'s
+append-only idiom:
+
+> ⚠️ This module is NOT rooted in any aggregate — it must be built targeted
+> (`../saltbuild.sh Salt.MR.MRTPortExitLamGated`) until a maestro-tier session roots it.
+
+*The maestro-tier session it waits for has already happened; the sentence outlived its own
+condition.*
 -/
 
 noncomputable section

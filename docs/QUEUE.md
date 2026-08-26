@@ -240,6 +240,18 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    ⛔ **REPORTED, NOT FIXED: `log_chowla_two_shell_xi_sq` — a landed sibling terminal — is ABSENT from
    that roll-call, so its axioms are gated by no build.** One line once someone measures it; rolling
    in an unmeasured declaration would assert cleanliness I cannot back.
+   ✅ **DISCHARGED 2026-08-26 (math) — MEASURED, THEN ROLLED IN, IN THAT ORDER.** The name is now in
+   `Salt/Entropy/All.lean`'s `#audit_axioms` and the gate FIRED on it:
+   `info: Salt/Entropy/All.lean:1017:0: ✓ Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq [3 axioms]`
+   at `saltbuild EXIT=0`, 0 errors — read from the log line, not from an exit code.
+   📌 **The 5c caution above was right and is answered rather than overridden:** adding a name to
+   `#audit_axioms` asserts nothing — the tactic `throwError`s on any non-whitelisted dependency, so
+   **the roll-in SUBJECTS the declaration to measurement; the build is what measures.**
+   ⛔ **PLACED AT THE END OF THE LIST, DELIBERATELY, not beside its three family siblings at `:163-165`**
+   (`log_chowla_two_shell`, `…_xi`, `…_xi_h` — it alone of the four was ungated): `#audit_axioms`
+   ABORTS the remainder of its list on a throw, so a name whose axioms nobody has measured belongs
+   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:362`,
+   `HloExportFlat.lean:196`.*
 
 5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
    `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds` so the four inline
@@ -857,6 +869,25 @@ RESURRECTS THEM:**
    door-`logMeasure` bridge is `sum_Ioc_absWindowSum_sq_div_le_ladder` (`M4BridgeIntegral.lean:493`) +
    `m4_bridge_door_sq_le` (`:523`) at **absolute factor 3, no `log` and no `loglog` debit**; the
    `L²→L¹` descent is `integral_logMeasure_le_sqrt_of_sq` (`M4Close.lean:191`).
+   ⚠️ **AMENDED 2026-08-26 (math, arc Wave H node H-3) — THE ROW ABOVE IS BYTE-UNTOUCHED; THIS
+   NAMES WHAT IT COMPRESSED.** *"Absolute factor 3, no `log` and no `loglog` debit"* is true of
+   the bridge lemma and reads, to anyone arriving by grep, as *free*. Two things it leaves out,
+   both measured:
+   ① **THE 3 IS GATED, NOT ABSOLUTE-BY-CONSTRUCTION.** It arrives through
+   `door_count_le_three_mul_norm` (`M4Door.lean:648`), whose hypotheses are **three**, not zero:
+   `4 ≤ Real.log ω`, `(k:ℝ) ≤ Real.log ω / Real.log 2 + 2`, and `Real.log ω − 1 ≤ Z`. The debit
+   is absent from the CONCLUSION because it was paid in the ANTECEDENT — `log ω ≥ 4` is where the
+   `loglog` went. A consumer at small `ω` has no factor 3.
+   ② **THE COMPOSED CONCLUSION CARRIES A SECOND TERM.** The landed absolute-3 statement is
+   `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:59`), and its right-hand side is
+   `3·(MS H·H²) **+ 4·2^k·H/x / Z**` — the `3·(…)` is the first of two summands, and the row
+   above quotes only the factor. The gate ① supplies enters that statement as its own binder
+   `hk3 : (k:ℝ) ≤ 3·Z`, so the consumer discharges it, not the lemma.
+   ⇒ ***A CONSTANT WITH NO DEBIT IN ITS CONCLUSION HAS ITS DEBIT IN ITS HYPOTHESES; QUOTE THE
+   FACTOR AND YOU HAVE QUOTED HALF THE STATEMENT.*** ⛔ **AND THE CITE THAT SENT ME HERE HAD
+   DRIFTED:** the arc blueprint's H-3 names `QUEUE:788-791`; the text is at **`:858`** — 70 lines
+   off, and `:788` now holds an unrelated A.1 paragraph. *Grepped by content, per this file's own
+   standing law that a line number is a claim about a file that keeps moving.*
    ⛔ **WHAT REMAINS IS EXACTLY TWO THINGS AND NEITHER IS A RATE:** the door datum is **PHASED**
    (`doorCoeffPhase c α`) where A.1 has no frequency, and **SIEVED** (`doorSievedCoeff M`) where A.1
    wants a completely multiplicative `f`. `M4Join.lean:94-100` calls these *"design questions, not

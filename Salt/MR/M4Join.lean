@@ -99,6 +99,38 @@ now CLOSED:
    small `d₀` (`trivThresh H d₀ W = H·d₀/W³` needs `d₀² ≳ W³`).  Both are design questions,
    not proof-engineering ones.  NOT attempted here.
 
+   ⚠ **STATUS CORRECTED (2026-08-26, arc Wave H node H-4).**  The two paragraphs above are
+   byte-untouched — they are an accurate account of what THIS file does not do — but their last
+   sentence, *"NOT attempted here"*, has been read as *"not attempted anywhere"*, and that is
+   now false.  **`Salt/MR/M4ClassPrice.lean` answers both halves in the kernel** (1,114 lines,
+   41 theorems, no `sorry`), and it names this file as its target in its own header: *"The M4
+   wave closed at a six-item register whose last open item is `M4Join.M4RowMeanSq` … this file
+   lands the second, ⟦THE CLASS PRICING⟧, at depth 1, with no induction."*  Half by half:
+
+   * the **dilated-block** obstruction (*"NOT a `doorLadder` block of any ladder"*, so the
+     pricing *"cannot be stated as `M4BlockMeanSq` at the dilated scale without a general
+     per-interval input"*) — `M4ClassPrice` §5, the endpoint drop (K3(iii)), takes the dilated
+     block `(⌊A/d⌋, ⌊B/d⌋]` head-on, and §4 assembles through `M4BlockMeanSqSupQ` /
+     `m4_cover_assembly_supQ` rather than through `M4BlockMeanSq` at the dilated scale.  The
+     general per-interval input this file asked for is not what was supplied; the interface was
+     re-cut instead (§7, `M4RowMeanSqUnphased`, pinned to this file's phased original by
+     `doorCoeffPhase c 0 = c`).
+   * the **non-coprime half** (*"not discharged by the trivial threshold at small `d₀`"*) —
+     `M4ClassPrice` §3, `m4_class_price`, is a TWO-CASE lemma, and the `d₀ > 1` case goes
+     through `M4BridgeDilate.m4_class_dilate_exit`, **an EQUALITY with zero loss**, then
+     `m4_class_dilate_coprime`.  `trivThresh` never enters.  The obstruction was real and the
+     route around it was to stop needing the threshold.
+
+   ⛔ **LANE FENCE, so this correction is not over-read.**  `M4ClassPrice` serves the
+   **UNPRIMED** residue — the object this file states — and mentions `M4RowMeanSq_L` **zero**
+   times (measured; QUEUE P1b's 08/23 stamp and its 08/25 erratum).  **Nothing here says the
+   `_L` lane's residue is produced.**  It is not: the `L` lane reaches this machinery only
+   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3186`), and a
+   producer for `M4RowMeanSq_L` remains the precise open object.
+
+   *A file that correctly scopes a negative to itself still publishes that negative to every
+   reader who arrives by grep — and "NOT attempted here" outlived its own wave by four weeks.*
+
 ## ⟦THE TRAPS RESPECTED⟧
 
 * the four log scales — this file writes `log ω` only (through B-5's two M4-8 lemmas);

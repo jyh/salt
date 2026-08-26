@@ -29,7 +29,17 @@ row mean square at every tight-major `α`, i.e. GAP α in the row's currency (cl
 The conclusion is also delivered at an `∃ R`-chosen regime — unboundedly many scales,
 NOT all large scales.  Nothing here closes either gap.
 
-This module is not yet rooted in any aggregate — it must be built targeted.
+⛔ **STALE WHEN WRITTEN, CORRECTED 2026-08-26 (math, arc Wave H node H-2).**  The line below
+was true when the executor wrote it and false by the time the wave landed: this module IS
+rooted.  `Salt/MR/All.lean` imports it, and both `exit_lam_tail_absorb` and
+`m4_exit_lam_of_rowMeanSqLam` sit in the `#audit_axioms` tail.  The original
+sentence is kept rather than deleted, per `MRTPortRowLam.lean`'s
+append-only idiom:
+
+> This module is not yet rooted in any aggregate — it must be built targeted.
+
+*The rooting was a later act of the same campaign, so the note went stale by the hand that
+wrote it — a build instruction nobody needs to follow any more, still giving the order.*
 -/
 
 noncomputable section

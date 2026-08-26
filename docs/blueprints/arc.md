@@ -202,6 +202,22 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   `e^518 ≈ 10^224.96`, `e^6216 ≈ 10^2699.5`, `222.85/2699.5 = 0.0826`.*
 - **F-5 [B/C] GAP X — unchanged, runs PARALLEL to R-1** (the bounded `∀ X ≥ X₀` threading
   probe; no landing may be read as closing GAP X until this node does).
+  ⚠️ **STATUS STAMPED 2026-08-26 (math) — THE ROW ABOVE IS BYTE-UNTOUCHED AND ITS INSTRUCTION
+  STILL BINDS; only its tense is corrected.** *v3 was written 16:03 and the probe landed 16:15,
+  so this row has been twelve minutes stale since the day it was drafted.* **THE PROBE HAS RUN:**
+  `salt b6365328`, three declarations in `Salt/MR/XGapThread.lean`, sorry-free, `[3 axioms]`,
+  one attempt — and rooted an hour later (`ed9780fd`; the landing was an ORPHAN until then, and
+  all three names are in `All.lean`'s audit list, re-verified tonight).
+  ⛔ **ITS OWN VERDICT IS `NOT A CLOSURE OF GAP X`, so the row's prohibition is UNCHANGED:** the
+  `∀ X ≥ X₀` form BUILDS at the seal, but the scale quantifier is **TRADED, not removed** — the
+  consumer must now supply the door at EVERY `X ≥ X₀` at one fixed window, i.e. output-side cost
+  moved to the input side. Nothing is unconditional; the door antecedent is still the open arc.
+  ⇒ **F-5 has delivered what it was chartered as — a BOUNDED INVESTIGATION — and GAP X remains
+  open.** A head looking for the next B/C node should not re-run this probe.
+  📌 *Checked while stamping, because the probe's own commit message says it landed "in an
+  UNROOTED file" and that sentence is now false: `XGapThread.lean` carries **no** stale rooting
+  claim in its bytes — `ed9780fd` repaired the file when it rooted it. This is the H-2 defect and
+  it did not recur here.*
 - **F-4 [D] GAP A.1 — unchanged as a SEPARATE campaign; its H-1 precondition is DISCHARGED**
   (`salt 9d7c6843`: the primary repaired to the source's exp(−M) remark form and now TRUE as
   stated, with the old form's falsity kernel-checked as a counterexample).
@@ -263,16 +279,41 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   (sole surviving instance, repo-wide grep). The 𝒥 = ∅ implication direction is
   kernel-true regardless — D9/E4 and the seal are UNAFFECTED (A.1 occurs only in
   hypothesis position; measured).
-- **H-2 [A, one commit]:** three stale NOT-ROOTED docstrings — `MRTPortExitLam.lean:32`,
+- **H-2 ✅ DONE 2026-08-26 (math) — all three repaired in `MRTPortRowLam.lean`'s append-only
+  idiom (original sentence kept as a blockquote under a dated correction). ⚠️ My first grep
+  MISSED `MRTPortA1Const` because it says *"**Not rooted.**"* and I searched lowercase — the
+  blueprint was right and my census was case-blind. All four names verified present in
+  `All.lean`'s `#audit_axioms` list before editing.
+  ⛔ **ADDRESS ERRATUM — CAUSED BY THIS REPAIR, so it is recorded rather than silently fixed.**
+  The three cites below (`:32`, `:52-53`, `:53-54`) are byte-untouched and were CORRECT when the
+  node was written; the repair moved every one of them, because it inserted a dated correction
+  ABOVE each quoted sentence. **The quoted sentences now live at `MRTPortExitLam.lean:39`,
+  `MRTPortExitLamGated.lean:59`, `MRTPortA1Const.lean:59`** (each now a `>` blockquote, which is
+  also the greppable tell that it is quoted history and not a live claim).
+  ⚠️ **AND ONE CITE IN THIS ROW UNDER-COVERS ITS OWN CLAIM, INDEPENDENTLY OF MY EDIT:** the audit
+  range `:8541-:8548` vouches for four names but contains only two — `exit_lam_tail_absorb`
+  (`:8545`) and `m4_exit_lam_of_rowMeanSqLam` (`:8546`). The other two are at **`:8552`** and
+  **`:8553`**, outside it. All four ARE present and were verified by name, not by range; the
+  import cite `All.lean:396-399` is exact. ⇒ ***A RANGE CITE IS A CLAIM ABOUT WHAT IT CONTAINS —
+  CHECK THE MEMBERS, NOT THE ENDPOINTS.*** [A, one commit]:** three stale NOT-ROOTED docstrings — `MRTPortExitLam.lean:32`,
   `MRTPortExitLamGated.lean:52-53`, `MRTPortA1Const.lean:53-54` — all three ARE rooted
   (`All.lean:396-399`, audit :8541-:8548). Repair in the `MRTPortRowLam.lean:29-32`
   append-only idiom.
-- **H-3 [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
+- **H-3 ✅ DONE 2026-08-26 (math) — amended at `QUEUE.md:858`, NOT `:788-791`; the cite had
+  drifted 70 lines and `:788` now holds an unrelated A.1 paragraph. All three claims verified
+  at the bytes first (the gate is THREE hypotheses, not one; the second term is
+  `4·2^k·H/x / Z`; the landed conclusion is `m4_doorSq_of_rowMeanSqLam`,
+  `MRTPortRowLam.lean:59`). [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
   one-liner (QUEUE:788-791) over-compresses: the 3 arrives via `door_count_le_three_mul_norm`
   (`M4Door.lean:648`) under `4 ≤ log ω` (+2 gates), and the composed conclusion carries a
   second term `4·2^k·H/x / Z`. The landed absolute-3 conclusion is
   `m4_doorSq_of_rowMeanSqLam`. Amend to name the gate and the term.
-- **H-4 [A]:** `M4Join.lean:99-100` still calls the class pricing "NOT attempted here"
+- **H-4 ✅ DONE 2026-08-26 (math) — status-corrected in `M4Join.lean`'s own STATUS-CORRECTED
+  idiom, half by half (§5's endpoint drop answers the dilated-block obstruction; §3's two-case
+  `m4_class_price` answers the non-coprime half by an EQUALITY, so `trivThresh` never enters).
+  ⛔ A LANE FENCE was added because the correction is over-readable: `M4ClassPrice` serves the
+  UNPRIMED residue and names `M4RowMeanSq_L` zero times — nothing there produces the `_L`
+  residue. [A]:** `M4Join.lean:99-100` still calls the class pricing "NOT attempted here"
   while `M4ClassPrice.lean` answers it in the kernel. Status-correct in the file's own
   STATUS-CORRECTED idiom (`M4Join.lean:30-32`).
 

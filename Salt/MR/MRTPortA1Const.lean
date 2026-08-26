@@ -50,8 +50,17 @@ with no repair.  Nothing in this file assumes the older unsquared form.
 * No new unconditional analytic bound is produced here.  What this file adds is the
   *currency*: whatever A.1 supplies, it supplies it below any fixed constant `c`.
 
-**Not rooted.**  This module is imported by nothing; build it targeted
-(`../saltbuild.sh Salt.MR.MRTPortA1Const`).  Rooting it in an aggregate is maestro-tier.
+⛔ **STALE WHEN WRITTEN, CORRECTED 2026-08-26 (math, arc Wave H node H-2).**  The line below
+was true when the executor wrote it and false by the time the wave landed: this module IS
+rooted.  `Salt/MR/All.lean` imports it, and `mrtA1_lamCoeff_le_const` sits in the
+`#audit_axioms` tail.  The original sentence is kept rather than deleted, per `MRTPortRowLam.lean`'s
+append-only idiom:
+
+> **Not rooted.**  This module is imported by nothing; build it targeted
+> (`../saltbuild.sh Salt.MR.MRTPortA1Const`).  Rooting it in an aggregate is maestro-tier.
+
+*"Imported by nothing" is the strongest form of the claim and the easiest to check — one
+`grep` of `All.lean` refutes it.*
 -/
 
 namespace Salt.MR
