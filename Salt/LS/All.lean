@@ -22,6 +22,7 @@ import Salt.LS.BDHPrep
 import Salt.LS.PhiSum
 import Salt.LS.TypeSums
 import Salt.LS.BDH
+import Salt.Tactic.AuditAxioms
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -114,3 +115,33 @@ dyadic block bound `dyadic` (fibre by `Nat.log 2 (f-1)`, per block `CharLS.char_
 at level `2ʲ⁺¹` via the `psiChi ↔ range (x+1)` bridge `charLS_psi`). Verified
 numeral `≈ 5792 ≤ 6000`.
 -/
+
+/-! ## ⭐ THE TRACK'S AXIOM GATE (added 2026-08-26, math)
+
+⛔ **WHY THIS BLOCK EXISTS: UNTIL TODAY THIS AGGREGATE AUDITED NOTHING.**  A census run for the
+helm's carried-debt order (`seat/briefs/2026-08-26-math-REPORT-uncovered-set.md`) found that
+`Salt/LS/All.lean` and `Salt/Twelve/All.lean` were **the only two track aggregates in the repo with
+no `#audit_axioms` block at all** — every other `*/All.lean` carries one.  The track built green and
+**nothing checked its axioms**, which is the precise shape of *a dead branch reading as coverage*:
+`lake build` going green says the track ELABORATES, never that it is axiom-clean.
+
+⇒ 🔑 ***A GREEN BUILD IS NOT A GATE. THE GATE IS THE AUDIT, AND AN AGGREGATE WITHOUT ONE IS AN
+UNGATED TRACK WEARING A GATE'S FILENAME.***
+
+Listed below are the track's TERMINALS — the results other tracks would consume — not every
+declaration.  That is a deliberate first cut, chosen so the block is honest about its own scope:
+**this gate covers the named results, and the track's helper lemmas are covered only through
+them.**  Widening it is cheap and welcome. -/
+open Salt.Tactic in
+#audit_axioms Salt.LS.parseval
+  Salt.LS.gallagher_pointwise
+  Salt.LS.farey_spacing_core
+  Salt.LS.farey_spacing
+  Salt.LS.analytic_LS
+  Salt.LS.arithmetic_LS
+  Salt.LS.arithmetic_LS_one
+  Salt.LS.char_LS_perQ
+  Salt.LS.char_LS
+  Salt.LS.vaughan
+  Salt.LS.vaughan_sum
+  Salt.LS.bdh

@@ -37,6 +37,7 @@ import Salt.Twelve.QdiagFloor
 import Salt.Twelve.GapsUncond
 import Salt.Twelve.GapsOfLevel
 import Salt.Twelve.WindowPNTDischarge
+import Salt.Tactic.AuditAxioms
 
 /-!
 # Rung 4a (`explicit12`) — aggregate import
@@ -107,3 +108,35 @@ hypothesis via `windowPNT_of_piAsymp`, collapsing the two standing analytic
 inputs of the capstone to `PiAsymp` + `EHall` in
 `gaps_le_twelve_of_piAsymp` (a definitional composition, no new analytic content).
 -/
+
+/-! ## ⭐ THE TRACK'S AXIOM GATE (added 2026-08-26, math)
+
+⛔ **WHY THIS BLOCK EXISTS: UNTIL TODAY THIS AGGREGATE AUDITED NOTHING — ON A CLOSED RUNG.**  A
+census run for the helm's carried-debt order (`seat/briefs/2026-08-26-math-REPORT-uncovered-set.md`)
+found `Salt/Twelve/All.lean` and `Salt/LS/All.lean` were **the only two track aggregates in the repo
+with no `#audit_axioms` block** — every other `*/All.lean` carries one.  Measured audit-name
+coverage of this track was **5 of 398 declarations (1%)**, the lowest in the repo, on a rung whose
+own header says **THE RUNG IS CLOSED**.
+
+⇒ 🔑 ***"CLOSED" IS A CLAIM ABOUT PROOFS; "AUDITED" IS A CLAIM ABOUT AXIOMS, AND A GREEN `lake
+build` IS NEITHER.*** A rung can be closed, green, and completely ungated at the same time — which
+is the shape of *a dead branch reading as coverage*.
+
+Listed below are the rung's TERMINALS, the names its own header calls out — not all 398
+declarations.  A deliberate first cut, honest about its scope: **this gate covers the named
+results; helper lemmas are covered only through them.**  Widening it is cheap and welcome. -/
+open Salt.Tactic in
+#audit_axioms Salt.Twelve.M5_cert
+  Salt.Twelve.phiUpperAtom_final
+  Salt.Twelve.mv_I
+  Salt.Twelve.mv_J
+  Salt.Twelve.qdiag_bridge
+  Salt.Twelve.primorial_ratio_le
+  Salt.Twelve.bounded_gaps_reduces_twelve
+  Salt.Twelve.collision_yF_M
+  Salt.Twelve.s2_inner_yF
+  Salt.Twelve.winFrontierMW_of
+  Salt.Twelve.gaps_le_twelve_of_frontierM
+  Salt.Twelve.gaps_le_twelve
+  Salt.Twelve.windowPNT_of_piAsymp
+  Salt.Twelve.gaps_le_twelve_of_piAsymp
