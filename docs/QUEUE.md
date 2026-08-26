@@ -34,7 +34,23 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ✅ DISCHARGED STALE — "waits for a design session" was true 08/21 and Wave 2 was RULED that same day (Route II log-rebase primary, ineffectivity accepted, don't-wait). Row never re-stamped. Dispatchable. | math | — |
 ## | **item 16** census-first | ✅ DISCHARGED STALE — both probes FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition; the arc question it fenced is now the arc commission (`docs/blueprints/arc.md` v3, chartered 08/25). | — | — |
 ## | **chowla.txt provenance** (P2b) | an editorial ruling; cheap repair already identified — a tracked, stamped copy under `docs/sources/`. **s3-a3-design.md is CHAINED to this one row.** | helm (Captain if the wording is his) | next sitting close |
-## | **c4spec STEP 7** | ⚖️ **RE-FORMED 2026-08-26 12:2x ON SILICON'S MEASUREMENT — ITS TIMEOUT FIRED AND THE BLOCK WAS 256/257 FALSE.** `memOrgan` is LANDED, BUILT and kernel-checked with all 256 next-state bits (`SaltWorks.lean:112`, 1475 gates, `decide +kernel`) — it is simply NOT PLACED in the assembly; and `renumbering_offsets` is landed too (`StateCodecD.lean:324`, imported at `SaltWorks.lean:109`). **The 256 placement is ordinary lane work, AUTHORIZED, not a block.** THE BLOCK THAT SURVIVES IS ONE BIT: release = a gate-level TRAP next-state producer exists as a landed `Circ` (`dmemAddr8NL`'s `trap` is a COMBINATIONAL address-fault signal, not the architectural flag). ⛔ **FENCE: `coreShapedD` meets `outs.length = stWidthD` with ZERO GATES and `C4Refuted` forbids reading it as a step-7 candidate — nobody may "discharge" step 7 with it.** | silicon | next sitting close |
+## | **c4spec STEP 7** | ⚖️ **RE-FORMED 2026-08-26 12:2x ON SILICON'S MEASUREMENT — ITS TIMEOUT FIRED AND THE BLOCK WAS 256/257 FALSE.** `memOrgan` is LANDED, BUILT and kernel-checked with all 256 next-state bits (`SaltWorks.lean:112`, 1475 gates, `decide +kernel`) — it is simply NOT PLACED in the assembly; and `renumbering_offsets` is landed too (`StateCodecD.lean:324`, imported at `SaltWorks.lean:109`). **The 256 placement is ordinary lane work, AUTHORIZED, not a block.** ⚠️ **RE-CORRECTED 2026-08-26 14:3x — SILICON'S OWN AMENDMENT TO ITS 12:2x MEASUREMENT, WHICH
+   WAS THE OUTPUT SIDE ONLY. THERE ARE TWO RESIDUALS, NOT ONE.** On the INPUT side `memOrgan`
+   needs 292: the 256 Q-leaves are primary inputs ✅ and the 32 `wdata` exist as a `Circ` organ
+   (`readTree`) ✅ — but the **3 address bits + 1 write-enable ARE produced, by the LANDED D1b
+   checker `dmemAddr8NL` (`we_out`, `word_index[0..2]`), and `dmemAddr8NL : Silicon.Netlist`
+   while `memOrgan : HDL.Circ`, with NO LANDED `Netlist → Circ` BRIDGE.** ⇒ ***STEP 7's REMAINING
+   WORK IS A REPRESENTATION GAP PLUS A ONE-BIT PRODUCER — NOT "257 BITS OF ASSEMBLY".*** The
+   pieces the design commissioned (D1a storage, D1b checker) are BOTH LANDED; they are landed in
+   two different type universes and nothing joins them. *This correction is a SOURCE READING and
+   needs no build, so it is stamped now.*
+   ⏳ **PENDING VERIFICATION, NOT CLAIMED:** silicon has WRITTEN the width half — `instOuts` is a
+   `map`, so `List.length_map` kills σ and the offset outright and the output-count obligation is
+   dischargeable BEFORE any wiring exists (`instOuts_length_eq` · `memOrgan_next_length` ·
+   `placement_reaches_all_but_trap`, 1056+256 = 1312 · `residual_after_placement` = 1, *the
+   arithmetic form of this row*). **Its build is QUEUED behind another seat's 22-minute build and
+   silicon is NOT claiming the theorems until `saltbuild` says so — nor is this row.**
+   THE BLOCKS THAT SURVIVE ARE TWO: release (i) = a gate-level TRAP next-state producer exists as a landed `Circ` (`dmemAddr8NL`'s `trap` is a COMBINATIONAL address-fault signal, not the architectural flag). ⛔ **FENCE: `coreShapedD` meets `outs.length = stWidthD` with ZERO GATES and `C4Refuted` forbids reading it as a step-7 candidate — nobody may "discharge" step 7 with it.** | silicon | next sitting close |
 ## | **WAVE 1c** (P1b item 12) | a RE-BRIEF: its dyadic node rests on a premise Wave 1a refuted. No executor may consume the row as written. | design tier (helm/Fable) | next sitting close |
 ## | **arc Wave 1 / lane A** | deliberate freeze under the Captain's D-1 ruling (a) — statements stay frozen, lane A never burned; reopens at one fetch. | the arc commission | at the arc's next design block |
 ## | **item 15 interior holds** | SUPERSEDED — item 15 was SEALED at council 08/25 and its ground is the arc commission's; the interior "NOT DISPATCHABLE" lines are history, not live gates. | — | — |
