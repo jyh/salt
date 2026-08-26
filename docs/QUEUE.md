@@ -4244,6 +4244,43 @@ numbering is UNVERIFIED.
     three sites and is untouched — the page tranche never needed a version stamp at all.**
     ⇒ 📌 **REMAINING under this node: the SECTION/LEMMA (26) and EQUATION (9) tranches only.** The
     page tranche is CLOSED, and the `NONE` class is 5.
+    ⛔⛔⛔ **AND BEFORE ANYONE RUNS THAT REMAINDER — THIS NODE'S CENTRAL PREMISE IS HALF FALSE, MEASURED
+    AT THE SOURCE 2026-08-26 03:1x (math). A BLANKET `v2` PASS WOULD MANUFACTURE FALSE CITATIONS IN THE
+    EQUATION TRANCHE.** The node's exonerating finding — *"our section numbers match **v1/v2 exactly**;
+    the renumbering arrived at v3"* — is **TRUE for SECTION/LEMMA numbers and FALSE for EQUATION
+    numbers.** ⭐ **Measured by reading the SAME PASSAGE in both PDFs (page images):**
+    ```
+      v1 p.22 : "...and hence by (2.11) we have"  ... display (3.15) ... cites (3.14)
+      v2 p.23 : "...and hence by (2.12) we have"  ... display (3.16) ... cites (3.15)
+    ```
+    ⇒ **the equation numbers shift by ONE across the v1→v2 boundary in this region, and the passage
+    moves one page.** *(Scope, stated: I measured THIS passage. I did not re-measure the LEMMA claim —
+    that is the node's own evidence-settled finding, inherited, and my reading is consistent with it:
+    `Lemma 3.2`/`3.4`/`3.5` appear at the same numbers in both.)*
+    ⚠️⚠️ **AND THE EQUATION CLASS IS EXACTLY THE ONE THE EARLIER CLASSIFIER COULD NOT SEE** — found "by
+    accident" at `OuterCombine.lean`, 9 files, recorded above as *"equation numbers are version-sensitive
+    exactly like lemma numbers"*. **They are version-sensitive DIFFERENTLY: lemma numbers survive v1→v2,
+    equation numbers do not.** *The class that was invisible is also the class whose safety rule was
+    wrong.*
+    📐 **THE EQUATION-CITING FILES AND THEIR CURRENT ANCHORS (measured; the audit population):**
+    ```
+      Salt/Entropy/All.lean        v1   (2.11) (3.1) (3.7) (3.18)
+      Entropy/Chowla/MarkovExtract v1   (3.3) (3.9) (3.12) (3.13)
+      Entropy/Chowla/FBridge       v1   (2.12) (3.14)
+      Entropy/Chowla/OuterCombine  v1   (2.11) (3.15) (3.16) (3.9)   ✅ VERIFIED against v1 tonight
+      Entropy/Chowla/ShiftFork     v2   (2.4)                        ← the only v2-anchored one
+    ```
+    ⇒ **FOUR of the five already anchor v1, which is the version their numbers appear to be from; a
+    blanket `v2` stamp would falsify all four.** ⛔ **NOT CHECKED, and this is the node's real remaining
+    work, now well-defined: whether each cited equation number matches the CONTENT at that number in
+    its anchor's version.** Both PDFs are present (`docs/sources/`, gitignored, reproducible via
+    `REFETCH.md`), so this is executable — it is a per-citation content read, **not** a bulk `sed`.
+    ⇒ ⭐ **RECOMMENDATION ON THE RECORD (helm's call, not math's): RE-AIM THIS NODE.** The version
+    anchors are largely present and largely right; the defect this node was written about — "0 files
+    anchored" — is long stale (measured tonight: **v2 ×67 · v1 ×38 · v4 ×14 · v3 ×5**, and **zero v3/v4
+    anchors anywhere in `Salt/`**; every v4 site is a PAGE cite, correctly v4, and every v3 site is
+    `REFETCH.md` plumbing, not a citation at all). **What is left is a 5-file EQUATION content audit,
+    not a 35-file anchoring pass.**
     ⇒ **PAGE-kind citations require the SOURCE PDF to anchor; SECTION-kind do not — a resource requirement this node
     never stated.**
     ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
