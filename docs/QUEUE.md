@@ -4291,7 +4291,29 @@ numbering is UNVERIFIED.
     ⚠️ **NOT checked in that file: its `(2.12)` claim** (*"the assembly `F(v) = ∑_p G_p(v) ∘ residueProj p`"*).
     v1 p.22 only CITES `(2.12)` in a bound (*"from the triangle inequality, (2.12) … `F(x,y) ≪ H/log H`"*);
     the DEFINITION lives in §2, which this pass did not open. **Remaining audit: `(2.12)` here, plus
-    `Entropy/All` (4 refs), `MarkovExtract` (4), `ShiftFork` (1, the only v2 anchor).**
+    `Entropy/All` (4 refs) and `MarkovExtract` (4).**
+    ✅✅ **2 of 5 DONE — `ShiftFork.lean` FULLY VERIFIED, and it is the only `v2`-anchored equation
+    file, so it was the highest-risk one.** Both of its claims check out at v2:
+    ```
+      :56       "Tao (2.4) at the model point" = log-Chowla fails at shift h, scale (x,ω), margin ε
+                v2 p.12 (2.4):  |∑_{x/ω<n≤x} g₁(an+b)·g₂(an+b+h)/n| > ε·log ω          ✅ EXACT
+      :273,:518 "the sup-inside form is v2 (4.1), which is OPEN"
+                v2 p.26 (4.1):  (1/X)∫_X^{2X} sup_α |(1/H)∑_{x≤n≤x+H} λ(n)e(αn)| dx,
+                                "not currently covered by the existing literature (note
+                                 carefully that the supremum in α is INSIDE the integral)"  ✅ EXACT
+    ```
+    ⭐ **§4's NUMBERING DID NOT SHIFT v1→v2 while §2/§3's DID** — section-restarted numbering, so
+    `(4.1)` is `(4.1)` in both. ⇒ **the v1→v2 equation shift is NOT uniform across the paper; it is
+    confined to the sections where content was inserted.** *A blanket "+1 for v2" correction would be
+    as wrong as a blanket anchor stamp.*
+    ⚠️⚠️ **AND `(4.1)`'s FORMULA WAS RESTATED WHILE ITS NUMBER HELD:** v1 `(1/H)∑_{j=1}^{H} λ(n+j)e(αj)`
+    vs v2 `(1/H)∑_{x≤n≤x+H} λ(n)e(αn)`. ⇒ ***AN EQUATION NUMBER CAN BE STABLE ACROSS VERSIONS WHILE ITS
+    CONTENT IS RESTATED — "does (4.1) exist" passes where "is (4.1) this formula" fails.*** Checking the
+    number is not checking the citation.
+    ⚠️ **NAME-COLLISION HAZARD, recorded because it is on the SAME PAGE:** v2 p.12 carries **equation
+    `(2.4)`** *and* **`Proposition 2.4`** (with its own `(2.5)`). **A citation reading "Tao 2.4" is
+    ambiguous between them.** `ShiftFork` distinguishes them correctly (`:274` says "Prop 2.4"
+    explicitly); a future editor must not collapse the two.
     ⇒ **PAGE-kind citations require the SOURCE PDF to anchor; SECTION-kind do not — a resource requirement this node
     never stated.**
     ✅ **TRANCHE 1 STANDS (`14f65a7f`): three `docs/` SECTION anchors, each read in full before editing, none
