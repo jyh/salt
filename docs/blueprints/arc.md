@@ -159,6 +159,8 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   Fable authority and I am ruling this on Opus — I take it because leaving a refuted node standing
   burns the next head a wave, and deleting a direction that became FALSE is required honesty rather
   than a statement change. Flagged for the Captain as a tier question he may re-take."*
+  ⚖️✅ **AFFIRMED AT FABLE TIER 2026-08-26 — the tier caveat is discharged; an additive lever cannot
+  close an exponent gap.**
   📌 **Original statement of record, byte-untouched below.**
 - **R-1 [the commission's NEXT WAVE] — the `Kvt` rider discharge:** prove the cushion
   inequality at the terminal's regime (the one open item of the landed sieved chain).
