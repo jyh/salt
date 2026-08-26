@@ -1048,3 +1048,10 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   -- `log_chowla_two_shell_xi_sq` above, and same placement rule: END of the list, because
   -- `#audit_axioms` aborts its remainder on a throw.
   Salt.Entropy.Chowla.fourier_split_sq_h
+  -- ⭐ P2 item 7, first object COMPLETE (2026-08-26, math): the top-level twin of the split above.
+  -- With this landed, `fourier_split_sq_h` now HAS a consumer and its own row above is redundant
+  -- rather than load-bearing — kept, not removed, because a row that was correct when written is
+  -- cheaper to leave than to re-audit. ⛔ This one still has NO consumer: the `bigXiH` wrapper
+  -- belongs on the `ShiftFork` side (that module imports CircleMethod, so naming its objects here
+  -- would be an import cycle), and `log_chowla_two_shell_xi_sq_h` does not exist. Socket.
+  Salt.Entropy.Chowla.circle_method_estimate_sq_h_core
