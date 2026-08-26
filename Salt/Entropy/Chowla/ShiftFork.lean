@@ -505,15 +505,27 @@ frequency `α` left UNTWISTED, exactly as in the `L¹` fork `MRTUniformityXiH`.
 For `h ≥ 2` this binds a DIFFERENT set — the `μ_h`-preimage of `Ξ_H`, incomparable to
 `Ξ_H` in general, of cardinality `≤ gcd(h,H)·|Ξ_H|` (`bigXiH_card_le_gcd_mul`); an
 independent open hypothesis, implied by the full `∀ α` door (`mrtUniformity_implies_xiH`)
-and neither implying nor implied by `MRTUniformityXiL2`.  Nothing in the corpus produces
-it; the `h`-mint (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:206`/`:730`) and
-the `h`-`L²` estimate (`circle_method_estimate_sq_h`) are W-F3+ scope — this fork makes
-them REACHABLE, not done.
-⛔ **STALE, CORRECTED 2026-08-26 (commission 7b, correction 3): `circle_method_estimate_sq_h`
-IS LANDED — 90 lines below this citation, at `:432`, audited.** The `h`-mint is still open.
-*Prose beside code is a second implementation nobody tests.*  At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)`
-fiber inflation — the `K`-shed line of the `L²` restructure
-(`l3-design-block-0815.md` §1).
+and neither implying nor implied by `MRTUniformityXiL2`.
+
+⚠️ **PRODUCER STATUS, RE-MEASURED 2026-08-26 AT EACH EDIT — this paragraph has gone stale
+twice, so it now names WHICH slot is open rather than asserting a bare absence.**
+* `circle_method_estimate_sq_h` **IS LANDED** (`:432` below, 90 lines under the citation
+  that called it unbuilt; commission 7b correction 3).
+* A CONDITIONAL producer now exists: `Salt.MR.mrtUniformityXiL2H_of_absWindowSqBound`
+  (7b node N4d, `Salt/MR/HDoorArc.lean`), the `h`-clone of the landed `L²` adapter chain.
+  Its arc slot is discharged outright by `Salt.MR.nearRatTight_of_bigXiArcTight_H` (N3) at
+  the cap inflated by exactly `h`, and its insert slot by `parseval_insert_budget_door`.
+* **What is still OPEN is the per-`α` socket AT THAT INFLATED CAP** — `M4SievedDoorSqH`
+  (7b node N4s), which has no producer and cannot get one from `nearRatTight_mono`: that
+  raises caps ONE WAY, so the `α`-set at `h · arcDen 12 H` strictly contains the landed
+  socket's and the implication runs backwards.  The `h`-mint
+  (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:206`/`:730`) is open with it.
+
+⇒ the fork makes this door REACHABLE, not done — but the open residue is now ONE named
+socket, not the whole chain.  *Prose beside code is a second implementation nobody tests.*
+
+At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)` fiber inflation — the `K`-shed
+line of the `L²` restructure (`l3-design-block-0815.md` §1).
 
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL, per the REF-L2 mandate R4 restated at
 `MRTUniformityXiL2` (`MRTDoor.lean:174-182`): the frequency quantifier is a `∑` over the

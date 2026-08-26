@@ -4259,11 +4259,31 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    one attempt each.*
    📊 **Attempts: N1+N2 = 2 (two superfluous `ring`s after a closing `field_simp`); N3 = 3, at the
    cap** — every failure mechanical, none mathematical.
-   📐 **REMAINING on 7b, in the commission's order:** **N4a–d** the h-L² adapter chain (clone the L²
-   CHAIN, not the L¹ adapter; ⭐ `hins` is FREE — `parseval_insert_budget_door` already quantifies
-   over an ARBITRARY `Xi : Finset (ZMod H)`) · **N4s** state `M4SievedDoorSqH` **and declare it
-   OPEN** · **N5** the h-mint. ⛔ **N4s HAS NO LANDED PRODUCER AND NONE CAN BE MANUFACTURED FROM THE
-   LANDED SOCKET** — see ② above.
+   ✅✅ **N4a–N4d LANDED 2026-08-26 13:2x — same file. THE TWISTED L² DOOR NOW HAS A PRODUCER
+   IN THE CORPUS WHERE IT HAD NONE.** `sum_bigXiH_norm_windowExpSum_sq_le` (N4a) ·
+   `…_sub` (N4b) · `…_parseval` (N4c) · `mrtUniformityXiL2H_of_absWindowSqBound` (N4d), all four
+   `[3 axioms]` under the `Salt.MR.All` aggregate gate (`saltbuild EXIT=0`, 0 `error:` lines,
+   9340 jobs), **N1–N3 re-audited green in the same run.**
+   ⭐ **THE COMMISSION'S PRICE RELIEF HELD EXACTLY:** the four are literal clones of the LANDED
+   L² chain (`M4Window.lean:397-627`) under two substitutions — set `bigXi → bigXiH h`, cap
+   `arcDen B₅ H → (h:ℝ)·arcDen B₅ H` — because the cores use nothing about `bigXi` beyond
+   Finset-hood and nothing about the cap beyond its being the SAME real in `harc` and `hsock`.
+   **`hins` was free as promised.** *No mathematical content was re-derived; that is the finding,
+   and it is the commission's, not mine.*
+   📊 **Attempts: ONE for all four**, and the single build failure was neither mathematical nor
+   in the clones — `integral_congr_ae` was unresolved because the new file lacked `M4Window`'s
+   own `open MeasureTheory`. ⇒ *a file-level `open` is part of what you are cloning.*
+   🧹 **AND ONE SELF-INFLICTED WARNING REPAIRED IN THE SAME COMMIT:** correction 3 (landed
+   `e90c5120`, mine) welded its new sentence onto an existing paragraph line, leaving
+   `ShiftFork.lean:514` at 122 chars — a lint warning introduced by my own prose fix. Rewrapped,
+   and while there the SAME paragraph's *"Nothing in the corpus produces it"* was itself made
+   stale by N4d, so it now names WHICH slot is open (N4s) instead of asserting a bare absence.
+   ⇒ ***THAT PARAGRAPH HAS NOW GONE STALE TWICE IN TWO DAYS, BOTH TIMES BY A LANDING BESIDE IT.
+   An absence claim beside code is a claim with an expiry date; write it as a named open slot,
+   which stays true when the neighbourhood moves.***
+   📐 **REMAINING on 7b, in the commission's order:** **N4s** state `M4SievedDoorSqH` **and declare
+   it OPEN** · **N5** the h-mint. ⛔ **N4s HAS NO LANDED PRODUCER AND NONE CAN BE MANUFACTURED FROM
+   THE LANDED SOCKET** — see ② above.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any

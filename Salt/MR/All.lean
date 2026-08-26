@@ -8621,3 +8621,20 @@ open Salt.Tactic in
   Salt.MR.nearRatTight_intCast_add
   Salt.MR.nearRatTight_div_nat
   Salt.MR.nearRatTight_of_bigXiArcTight_H
+  -- ⭐⭐ COMMISSION 7b, NODES N4a–N4d (2026-08-26 12:5x, math) — same file.  The `h`-`L²`
+  -- adapter chain: clones of the LANDED `L²` chain in `M4Window.lean` (:397-627), NOT of the
+  -- `L¹` adapter, under two literal substitutions — set `bigXi → bigXiH h`, cap
+  -- `arcDen B₅ H → (h:ℝ) · arcDen B₅ H`.  N4d closes onto `MRTUniformityXiL2H h R ρ`, so the
+  -- twisted door now has a CONDITIONAL producer in the corpus where it had none.
+  -- ⛔ WHAT IS STILL OPEN IS ONE NAMED SLOT, N4s: the per-`α` socket AT THE INFLATED CAP
+  -- (`M4SievedDoorSqH`).  `nearRatTight_mono` cannot supply it — it raises caps ONE WAY, so the
+  -- `α`-set at `h·arcDen 12 H` strictly CONTAINS the landed socket's and the implication runs
+  -- backwards.  Discharging N5's `hsock` from the landed `M4SievedDoorSq` is a correctness
+  -- error, not a shortcut.  N4a's own arc slot, by contrast, IS discharged — by N3 above.
+  -- ⛔ N4d keeps SIX slots: `hXi` is NOT droppable.  The landed `L²` seam consumes no count, but
+  -- that is the count never reaching the SEAM — it is still paid HERE, once, against the sieved
+  -- leg only.  The Σ-shaped conclusion is unreachable without it.
+  Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le
+  Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le_sub
+  Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le_parseval
+  Salt.MR.mrtUniformityXiL2H_of_absWindowSqBound
