@@ -826,6 +826,29 @@ RESURRECTS THEM:**
     (`H₀mrt(ε)` · `H₊*(ε)` · the missing `W ≤ H^{1/250}` ⇒ ε-free `H₋` floor).
     ⛔ **SEAM: instantiate the budget heads' existing `∀ extraFloor` binder. ZERO edits inside
     `SpineFinal`; `:461` is a SUPERSEDED terminal.** Class **B/C**.
+    ✅✅ **BOTH THRESHOLDS LANDED 2026-08-26 20:0x — `Salt/MR/DoorFloor.lean`, beside `H0door`,
+    ZERO edits inside `SpineFinal` as the seam requires.** `H0mrt ε := ⌈exp(4/ε)⌉₊` ·
+    `HplusStar ε := ⌈exp(ε^(-50))⌉₊` · demands `mrt_middle_le_of_H0mrt` / `mrt_tail_le_of_HplusStar`
+    · workhorse `log_le_two_sqrt` · certificate `budget_head_at_mrt_floors`.
+    ⛔⛔ **ERRATUM TO THE SEAM LINE ABOVE — IT NAMES ONE BINDER AND THE TWO THRESHOLDS RIDE TWO.**
+    *(Annotated, not rewritten.)* Measured at `log_chowla_two_budget_head_g`
+    (`SpineFinal.lean:873-880`): `extraFloor ≤ R.Hlo` and `U1floor ≤ R.Hlo` bound the **window
+    length**, while `g R.Hhi R.ω ≤ R.x` is the **outer-scale** clearance. `H₀mrt` bounds `h` and
+    rides `extraFloor`; **`H₊*` bounds `X` and rides the `g` slot** (fired at a constant function —
+    no `max`, no reshaping). Firing both at `extraFloor` would have placed an `X`-floor on `R.Hlo`:
+    **a demand on the wrong quantity that STILL TYPECHECKS, because both slots are `ℕ`.**
+    ⇒ 🔑 ***WHEN TWO THRESHOLDS BOUND DIFFERENT QUANTITIES AND THEIR SLOTS SHARE A TYPE, THE TYPE
+    CHECKER CANNOT TELL YOU WHICH ONE YOU MEANT.***
+    ⚠️ **AND DO NOT DERIVE THESE FLOORS FROM THE v2 BRIEF'S §4 TABLE** — it writes the middle term
+    `(loglog h)²/(log h)` UNSQUARED; the landed `MRTThmA1.lean:126` is SQUARED, as are
+    `MRTPortA1:95` and `MRTPropA3:3865` (all three checked). The squared form is the EASIER one to
+    clear, so a brief-derived floor is too HIGH, not too low — *the direction is a second question
+    from the transcription, and it has its own answer.*
+    📌 **STILL OPEN on this row:** the third threshold's WIRING (the `W ≤ H^{1/250}` arm's ε-free
+    `H₋` floor). Its ARM is landed (`regime_W_cap_of_floor`, S10b) but no regime field carries the
+    conjunct, and adding one to `ChowlaRegime` is a structural change to a widely-constructed
+    field — **NOT executor-tier; leaving it.** `U1floor` is spent at `0`, and `exp(−M(f;X))` is not
+    a threshold term at all.
 13. ✅✅ **THE PRIMARY IS NOW STATED IN LEAN — `5f8eba2b` 2026-08-21.** `Salt/MR/MRTThmA1.lean`
     (85 ln, 4 decls), rooted with **all four names registered in the same edit**; forced build
     `EXIT=0`, `✔ Built Salt.MR.MRTThmA1 (25s)`, zero warnings, all four `[3 axioms]`.

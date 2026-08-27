@@ -310,4 +310,186 @@ theorem budget_head_grade_closed_g (U1floor : ℕ) (g : ℕ → ℕ → ℕ) :
   have h4 : 4000000 ≤ R.Hlo := R.hHlo_floor
   omega
 
+/-! ## The two ε-dependent MRT thresholds — QUEUE item 12's remaining worker-tier arm
+
+`QUEUE.md`'s item 12 leaves `H₀mrt(ε)` and `H₊*(ε)` with the seam *"instantiate the budget heads'
+existing `∀ extraFloor` binder — ZERO edits inside `SpineFinal`"*.  They are the `h`-side and
+`X`-side floors at which two of `MRTThmA1`'s three error terms fall below a demanded `ε`, and they
+are built here, beside `H0door`, because this is the file whose business is floor demands for that
+binder.
+
+⛔⛔ **THE ERROR TERMS ARE TAKEN FROM THE LANDED STATEMENT, NOT FROM THE SCOPING BRIEF.**
+`MRTThmA1` (`Salt/MR/MRTThmA1.lean:126`) reads `(log log h)^2 / (log h)^2` — **SQUARED**.  The v2
+scoping brief's demand table (§4) writes the same term `(loglog h)²/(log h)` — **UNSQUARED**, a
+strictly weaker claim, and it is the form a reader arriving at that table would port.  The Lean
+statement was repaired at the PDF on 2026-08-25 with two instruments; the brief was written 08/21
+and was not.  ⇒ 🔑 ***A SCOPING BRIEF IS A SNAPSHOT OF A STATEMENT THAT KEPT MOVING — DERIVE
+THRESHOLDS FROM THE OBJECT, NEVER FROM THE DOCUMENT THAT SCOPED IT.***
+⚠️ **AND THE DIRECTION IS THE OPPOSITE OF THE ONE I FIRST WROTE HERE — measured, not reasoned.**
+A squared denominator makes the term SMALLER, hence EASIER to clear, so the correct floor is LOWER
+than the brief's form demands: at `u = log h = 4/ε` the squared term is `0.0085` at `ε = 0.1` while
+the unsquared term is `0.34` and FAILS. **A floor ported from the brief would therefore be too
+HIGH** — conservative for this term, wasteful for the consumer, and wrong as a statement about A.1.
+*The dangerous direction is the mirror — a squared-derived floor consumed by a statement still
+carrying the unsquared form — and it does not arise: all three landed sites (`MRTThmA1:126`,
+`MRTPortA1:95`, `MRTPropA3:3865`) carry the SQUARED form, checked here.* ⇒ ***KNOWING WHICH
+TRANSCRIPTION IS RIGHT DOES NOT TELL YOU WHICH WAY THE ERROR WOULD HAVE PUSHED YOU; THAT IS A
+SECOND QUESTION AND IT HAS ITS OWN ANSWER.***
+
+⚖️ **WHY `≤ ε` AND NOT `≤ ε/3`:** each threshold clears ONE term against a demanded `ε`, and the
+consumer splitting a budget across the three terms instantiates at `ε/3`.  Putting the split here
+would bake a three-term assumption into a two-term interface.  **The third term, `exp(−M(f;X))`, is
+not a threshold at all** — it is `M`-driven, and v2 §4 discharges it separately.
+
+📌 **SHAPE, NOT NUMERAL** — as `H0door` says of itself.  These are never evaluated, only compared;
+`H₊*(ε)` in particular is `exp(ε^(-50))`, which is not a number anyone should try to read. -/
+
+/-- **`H₀mrt(ε)` — the `h`-side MRT floor.**  The window length above which `MRTThmA1`'s middle
+error term `(loglog h)²/(log h)²` has fallen to `ε`.
+
+The exponent is `4/ε` rather than anything sharper because the proof routes through
+`log u ≤ 2√u`; a sharper floor would buy nothing, since this is compared and never evaluated. -/
+noncomputable def H0mrt (ε : ℝ) : ℕ := ⌈Real.exp (4 / ε)⌉₊
+
+/-- **`H₊*(ε)` — the `X`-side MRT floor.**  The outer scale above which `MRTThmA1`'s tail error
+term `1/(log X)^{1/50}` has fallen to `ε`. -/
+noncomputable def HplusStar (ε : ℝ) : ℕ := ⌈Real.exp ((1 / ε) ^ (50 : ℕ))⌉₊
+
+/-- Both floors are genuine (positive) floor demands, so they are legal `extraFloor` arguments. -/
+theorem H0mrt_pos (ε : ℝ) : 0 < H0mrt ε := Nat.ceil_pos.mpr (Real.exp_pos _)
+
+theorem HplusStar_pos (ε : ℝ) : 0 < HplusStar ε := Nat.ceil_pos.mpr (Real.exp_pos _)
+
+/-- The workhorse: `log u ≤ 2√u` for `u > 0`, from `log t ≤ t − 1` at `t = √u`.
+
+⭐ This is what makes the `h`-side threshold elementary: the naive route wants `log u / u → 0` as a
+limit, and a limit does not give a FLOOR. -/
+theorem log_le_two_sqrt {u : ℝ} (hu : 0 < u) : Real.log u ≤ 2 * Real.sqrt u := by
+  have hs : 0 < Real.sqrt u := Real.sqrt_pos.mpr hu
+  have h1 : Real.log (Real.sqrt u) ≤ Real.sqrt u - 1 := Real.log_le_sub_one_of_pos hs
+  rw [Real.log_sqrt hu.le] at h1
+  linarith
+
+/-- **`H₀mrt` clears the middle term.**  For `0 < ε ≤ 1` and `h ≥ H₀mrt(ε)`,
+
+    `(log log h)² / (log h)²  ≤  ε` .
+
+This is the `h`-side demand of `MRTThmA1` as landed — **squared denominator**. -/
+theorem mrt_middle_le_of_H0mrt {ε h : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1)
+    (hh : ((H0mrt ε : ℕ) : ℝ) ≤ h) :
+    (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2 ≤ ε := by
+  -- the ceiling's defining bound pushes `h` past `exp (4/ε)`
+  have hexp : Real.exp (4 / ε) ≤ h := le_trans (Nat.le_ceil _) hh
+  have hh0 : 0 < h := lt_of_lt_of_le (Real.exp_pos _) hexp
+  set u : ℝ := Real.log h with hu_def
+  have hu4 : 4 / ε ≤ u := by
+    rw [hu_def, ← Real.log_exp (4 / ε)]
+    exact Real.log_le_log (Real.exp_pos _) hexp
+  have h4e : (4 : ℝ) ≤ 4 / ε := by
+    rw [le_div_iff₀ hε]; nlinarith
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hu1 : (1 : ℝ) ≤ u := by linarith
+  -- `(log u)^2 ≤ 4u`
+  have hlog0 : 0 ≤ Real.log u := Real.log_nonneg hu1
+  have hls : Real.log u ≤ 2 * Real.sqrt u := log_le_two_sqrt hu0
+  have hsq : (Real.log u) ^ 2 ≤ 4 * u := by
+    have h1 : (Real.log u) ^ 2 ≤ (2 * Real.sqrt u) ^ 2 := by
+      exact pow_le_pow_left₀ hlog0 hls 2
+    have h2 : (2 * Real.sqrt u) ^ 2 = 4 * u := by
+      rw [mul_pow, Real.sq_sqrt hu0.le]; ring
+    linarith [h1, h2.le, h2.ge]
+  -- `4u / u^2 = 4/u ≤ ε`
+  have hfin : 4 / u ≤ ε := by
+    rw [div_le_iff₀ hu0]
+    have : 4 / ε * ε ≤ u * ε := by
+      exact mul_le_mul_of_nonneg_right hu4 hε.le
+    rw [div_mul_cancel₀ _ hε.ne'] at this
+    linarith
+  calc (Real.log u) ^ 2 / u ^ 2 ≤ (4 * u) / u ^ 2 := by
+        gcongr
+    _ = 4 / u := by field_simp
+    _ ≤ ε := hfin
+
+/-- **`H₊*` clears the tail term.**  For `0 < ε` and `X ≥ H₊*(ε)`,
+
+    `1 / (log X)^{1/50}  ≤  ε` . -/
+theorem mrt_tail_le_of_HplusStar {ε X : ℝ} (hε : 0 < ε)
+    (hX : ((HplusStar ε : ℕ) : ℝ) ≤ X) :
+    1 / (Real.log X) ^ ((1 : ℝ) / 50) ≤ ε := by
+  have hexp : Real.exp ((1 / ε) ^ (50 : ℕ)) ≤ X := le_trans (Nat.le_ceil _) hX
+  have hX0 : 0 < X := lt_of_lt_of_le (Real.exp_pos _) hexp
+  have hinv0 : (0 : ℝ) < 1 / ε := by positivity
+  have hL : (1 / ε) ^ (50 : ℕ) ≤ Real.log X := by
+    rw [← Real.log_exp ((1 / ε) ^ (50 : ℕ))]
+    exact Real.log_le_log (Real.exp_pos _) hexp
+  have hLpos : (0 : ℝ) < Real.log X := lt_of_lt_of_le (by positivity) hL
+  -- `(1/ε) ≤ (log X)^(1/50)`
+  have hkey : 1 / ε ≤ (Real.log X) ^ ((1 : ℝ) / 50) := by
+    have hmono : ((1 / ε) ^ (50 : ℕ)) ^ ((1 : ℝ) / 50)
+        ≤ (Real.log X) ^ ((1 : ℝ) / 50) :=
+      Real.rpow_le_rpow (by positivity) hL (by norm_num)
+    have hcollapse : ((1 / ε) ^ (50 : ℕ)) ^ ((1 : ℝ) / 50) = 1 / ε := by
+      rw [← Real.rpow_natCast (1 / ε) 50, ← Real.rpow_mul hinv0.le]
+      norm_num
+    rwa [hcollapse] at hmono
+  have hpow0 : (0 : ℝ) < (Real.log X) ^ ((1 : ℝ) / 50) := Real.rpow_pos_of_pos hLpos _
+  have := one_div_le_one_div_of_le hinv0 hkey
+  rwa [one_div_one_div] at this
+
+/-! ### The certificate: the budget head accepts BOTH MRT floors — and they ride DIFFERENT binders
+
+⛔⛔ **THE QUEUE'S SEAM SAYS "instantiate the existing `∀ extraFloor` binder", AND THAT IS TRUE OF
+ONE THRESHOLD, NOT BOTH.**  Measured at the head's own signature
+(`log_chowla_two_budget_head_g`, `SpineFinal.lean:873-880`):
+
+```
+  extraFloor ≤ R.Hlo         a floor on the WINDOW LENGTH  ⇒  H0mrt ε rides here
+  U1floor    ≤ R.Hlo         a second floor on the same quantity
+  g R.Hhi R.ω ≤ R.x          the OUTER-SCALE clearance     ⇒  HplusStar ε rides HERE, not above
+```
+`H₀mrt` bounds `h` and `H₊*` bounds `X`, and the head keeps those in **separate slots**.  Firing
+both at `extraFloor` would have placed an `X`-floor on `R.Hlo` — **a demand on the wrong quantity
+that still typechecks**, because both slots are `ℕ`.  ⇒ 🔑 ***WHEN TWO THRESHOLDS BOUND DIFFERENT
+QUANTITIES AND BOTH SLOTS HAVE THE SAME TYPE, THE TYPE CHECKER CANNOT TELL YOU WHICH ONE YOU
+MEANT.*** The `g` slot takes a constant function; no `max` and no reshaping is needed.
+
+⚠️ **AND THE LETTER TRAP THE SCOPING BRIEF FLAGS ONE LINE ABOVE ITS OWN THRESHOLD ROW.**  The
+head's `ε` is a **`ℚ`** — the Chowla budget, `R.eps`.  This theorem's `ε` is a **`ℝ`** — the MRT
+error demand.  They are different quantities and are deliberately spelled `e` and `ε` here.  *The
+brief warns about exactly this for two different `A`s; the same hazard is live for `ε` and nobody
+had written it down.*
+
+⭐ Non-circularity is D-3's, unchanged: `e` and `δ₀` are fixed by the head BEFORE the floors are
+quantified, so `H0mrt ε` and `HplusStar ε` are legal arguments — **the compile is the
+certificate.** -/
+
+/-- **The two MRT floors, instantiated at the budget head, with their payoffs.**  Fires
+`log_chowla_two_budget_head_g` at `extraFloor := H₀mrt(ε)` and `g := fun _ _ => H₊*(ε)`, so the
+regime's own window range and outer scale already clear both of `MRTThmA1`'s threshold-shaped error
+terms at the demanded `ε`.
+
+⛔ **`U1floor` is spent at `0`** — this certificate makes no claim on that slot, exactly as
+`MRTPort.lean:72` records the socket doing.  ⛔ **And `exp(−M(f;X))` is untouched**: it is not a
+threshold term at all, and v2 §4 discharges it separately. -/
+theorem budget_head_at_mrt_floors (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∃ (e : ℚ) (δ₀ : ℝ), 0 < e ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = e ∧
+        H0mrt ε ≤ R.Hlo ∧ HplusStar ε ≤ R.x ∧
+        (∀ h : ℝ, ((R.Hlo : ℕ) : ℝ) ≤ h →
+            (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2 ≤ ε) ∧
+        (∀ X : ℝ, ((R.x : ℕ) : ℝ) ≤ X →
+            1 / (Real.log X) ^ ((1 : ℝ) / 50) ≤ ε) ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨e, δ₀, he, hδ₀, h⟩ := log_chowla_two_budget_head_g
+  obtain ⟨R, hReps, hRfloor, -, hRx, -, hR⟩ :=
+    h (H0mrt ε) 0 (fun _ _ => HplusStar ε)
+  refine ⟨e, δ₀, he, hδ₀, R, hReps, hRfloor, hRx, ?_, ?_, hR⟩
+  · intro hh hhle
+    refine mrt_middle_le_of_H0mrt hε hε1 (le_trans ?_ hhle)
+    exact_mod_cast Nat.cast_le.mpr hRfloor
+  · intro X hX
+    refine mrt_tail_le_of_HplusStar hε (le_trans ?_ hX)
+    exact_mod_cast Nat.cast_le.mpr hRx
+
 end Salt.MR

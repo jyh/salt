@@ -1468,6 +1468,12 @@ open Salt.Tactic in
   Salt.MR.sec9_eq28
   Salt.MR.sec9_eq28_exit
   Salt.MR.rpow_neg_anti
+  Salt.MR.H0mrt_pos
+  Salt.MR.HplusStar_pos
+  Salt.MR.log_le_two_sqrt
+  Salt.MR.mrt_middle_le_of_H0mrt
+  Salt.MR.mrt_tail_le_of_HplusStar
+  Salt.MR.budget_head_at_mrt_floors
   Salt.MR.H0door_pos
   Salt.MR.exp_le_H0door
   Salt.MR.H0door_anti
