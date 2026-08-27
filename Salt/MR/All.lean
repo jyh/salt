@@ -786,6 +786,7 @@ open Salt.Tactic in
   Salt.MR.sigma_cutoff_pretentious_gen
   Salt.MR.sigma_cutoff_pretentious_half
   Salt.MR.sigma_cutoff_pretentious_crit
+  Salt.MR.integral_exp_neg_mul
   Salt.MR.chi_Llower_trivial
   Salt.MR.chi_floor_all_unconditional
   Salt.MR.chi_Llower_341

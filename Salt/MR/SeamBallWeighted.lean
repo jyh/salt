@@ -499,4 +499,53 @@ theorem sigma_cutoff_pretentious_of_gen {L M C b : ℝ} (hL : 3 ≤ L) (hM : 0 �
   rw [h2c, e1, e2] at h
   exact h
 
+/-! ### A6 wave, node 2 — the σ-AVERAGED PRIME WEIGHT, with `p` still visible
+
+⛔ **WHY THIS EXISTS.**  `hcut_p` (`SupF:733`) is SHARP: replacing `p^{−σ}` by its worst case `1/e`
+on `p ≤ e^{1/σ}` is ATTAINED by a `g` whose `𝔻²`-mass sits at the top endpoint, so the constant
+cannot be improved at that step.  The loss is not in the inequality — it is in the ORDER: our route
+collapses to the distance FIRST (`dist_identification_sigma`) and integrates over `σ` afterwards
+(`sigma_cutoff_*`), by which point the worst case is already paid.  GHS integrate first, while the
+`p`-dependence is still there to average.
+
+⇒ 🔑 ***WHEN A SHARP CONSTANT SITS IN THE MIDDLE OF A CHAIN, THE SLACK IS NOT IN THE STEP — IT IS IN
+THE ORDER OF THE STEPS EITHER SIDE OF IT.***
+
+This node supplies the object the reordered argument needs: the exact `σ`-average of the prime
+weight `p^{−σ} = exp(−σ·log p)`, keeping `log p` explicit instead of collapsing it to its endpoint
+value.  *Elementary and exact — an antiderivative, not an estimate.* -/
+
+/-- **The σ-average of a prime weight, exactly.**  For `L > 0` (the intended `L = log p`),
+`∫_a^b exp(−σL) dσ = (exp(−aL) − exp(−bL))/L`.
+
+⭐ **`L` survives in the denominator**, which is the whole point: `hcut_p`'s uniform step discards
+exactly this `1/log p`, and the reordered argument keeps it. -/
+theorem integral_exp_neg_mul (L a b : ℝ) (hL : 0 < L) :
+    (∫ σ in a..b, Real.exp (-(σ * L)))
+      = (Real.exp (-(a * L)) - Real.exp (-(b * L))) / L := by
+  have hderiv : ∀ σ ∈ Set.uIcc a b,
+      HasDerivAt (fun u : ℝ => -Real.exp (-(u * L)) / L) (Real.exp (-(σ * L))) σ := by
+    intro σ _
+    have h0 : HasDerivAt (fun u : ℝ => u * (-L)) (-L) σ := by
+      simpa using (hasDerivAt_id σ).mul_const (-L)
+    have h1 : HasDerivAt (fun u : ℝ => -(u * L)) (-L) σ := by
+      have hfun : (fun u : ℝ => u * (-L)) = fun u : ℝ => -(u * L) := by
+        funext u; ring
+      rwa [hfun] at h0
+    have h2 : HasDerivAt (fun u : ℝ => Real.exp (-(u * L)))
+        (Real.exp (-(σ * L)) * -L) σ := h1.exp
+    have h3 : HasDerivAt (fun u : ℝ => -Real.exp (-(u * L)))
+        (-(Real.exp (-(σ * L)) * -L)) σ := h2.neg
+    have h4 := h3.div_const L
+    have hrw : -(Real.exp (-(σ * L)) * -L) / L = Real.exp (-(σ * L)) := by
+      field_simp
+    rwa [hrw] at h4
+  have hcont : IntervalIntegrable (fun σ : ℝ => Real.exp (-(σ * L)))
+      MeasureTheory.volume a b := by
+    apply Continuous.intervalIntegrable
+    exact (Real.continuous_exp.comp (by continuity))
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hcont]
+  field_simp
+  ring
+
 end Salt.MR
