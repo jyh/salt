@@ -23425,3 +23425,50 @@ about what it measured and wrong about what it implied* — here the instrument 
 📌 And the corollary that nearly cost a wave: **a design law stated for `X`-independent debits
 does not reach a debit evaluated at an `H₊`-DEPENDENT INDEX.** `SiegelBand.lean`'s absorption
 argument is sound and does not apply.
+
+---
+
+## λ-BV WAVE 2 — `hcount` — ⚖️ **A BANKED NEXT-NODE STATEMENT IS THE WRONG SHAPE. FLAG, NOT A RULING.**
+**2026-08-26 19:1x · Opus 5 (executor tier) · `Salt/TwinBar/TwinParitySieve.lean`**
+
+### The inherited target
+My predecessor's bank (`2026-08-26-math-BANK-7b-closed.md` §14) names the next node as:
+
+> `logSifted_lower_of_count_and_atoms` takes `hcount : Hmain ≤ ∑_{d∣P} μ(d)·C_d`. That sum carries
+> μ's SIGNS, so ONE-SIDED bounds on each `C_d` DO NOT DISCHARGE IT … What discharges it is the
+> TWO-SIDED per-class form `C_d = ν(d)·H + err_d` with `err_d` controlled.
+
+### The finding
+**The diagnosis is right and the prescription is under-specified in a way that a landing would
+hide.** "Two-sided" does not pin the KIND of error. The two-sided pair this track already audits
+(`sum_inv_affine_le` + `sum_inv_affine_ge`) is a **MULTIPLICATIVE** sandwich — `(1/d)·H` above,
+`(1/(2d))·H` below, the factor 2 coming from `1/(dm+r) ≥ 1/(2dm)`. But `∑_d μ(d)·C_d` **CANCELS**
+to `W·H`, which is far smaller than its individual terms, so a factor-2 slop per class does not
+perturb the main term — **it destroys it.** Only an ADDITIVE `err_d`, with the same `1/d` scaling
+as the main term, survives the cancellation.
+
+⛔ **THIS FAILS GREEN.** Building the two-sided companion as the bank's words read would compile,
+audit `[3 axioms]`, and increment the wave scoreboard **while leaving `hcount` exactly as far
+away.** A correct theorem against the wrong shape.
+
+### ⚖️ WHAT I DID, AND THE PART THAT IS NOT MINE TO DECIDE
+✅ **Built, on its own terms and connected to nothing:** `sum_inv_affine_sub_harmonic` —
+`0 ≤ (1/d)·∑_{m≤M} 1/m − ∑_{m≤M} 1/(d·m+r) ≤ 2/d` for `r ≤ d`, error one-signed, `[3 axioms]`,
+`salt 668a7c42`, `saltbuild EXIT=0` / 8813 jobs. Statement checked numerically before any Lean
+(`max d·err ≈ 1.0` against the claimed `2`, so the bound is not vacuous). **Pure addition:
+`108 insertions(+), 0 deletions` — no landed statement altered, weakened, or re-stated.**
+
+⛔ **NOT RULED, AND FLAGGED HERE INSTEAD:** whether wave 2's route to `hcount` should now be
+re-stated around the additive error term. I substituted my own target statement for the banked one
+on executor authority; **that substitution is a flag, not a workaround, and the re-statement is
+Fable/human-tier.** The atom above stands regardless of how that is ruled — it is route-independent
+in the same sense §7's verdict-4 repairs were — but **no one should read its landing as the wave's
+next node having been re-specified.**
+
+📌 The predecessor's `sum_inv_class_le` docstring and its `All.lean` card both state the one-sided
+gap honestly and in their own words; I appended the second layer beside them rather than editing
+either, so the original wording survives above mine.
+
+🔑 ***"TWO-SIDED" DOES NOT SAY WHICH KIND OF ERROR YOU HAVE — ASK WHAT THE CONSUMER DOES WITH THE
+TWO SIDES, NOT HOW MANY SIDES THERE ARE.*** And: ***an inherited target that does not anticipate
+its consumer is a FLAG, not a licence to re-aim.***
