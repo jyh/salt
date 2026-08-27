@@ -23940,3 +23940,35 @@ away — it is the crudest available move, and it is the only place the constant
   step with a `p`-aware one, and every consumer inherits the sharper constant unchanged.**
 📌 **And it re-prices A5 identically** — A5's R-polynomial bound draws on the same head constant, so
 `hcut_p` is the shared node for BOTH lemmas the constants grant covers.
+
+### ⛔⛔ 13:5x — **`hcut_p` IS SHARP. MY "ONE-LINE TARGET" FRAMING WAS WRONG.**
+At 11:5x I filed that A6's whole `1/e → 1/2` question is one inequality (`SupF:733`) and that the
+port's target is *"replace `hcut_p`'s uniform step with a `p`-aware one, and every consumer inherits
+the sharper constant"*.  **Measured, and that is FALSE: the step cannot be improved in place.**
+
+`hcut_p` replaces `p^{−σ}` by its worst case `1/e` on `p ≤ Y = e^{1/σ}`.  The ratio it costs is the
+mass-weighted average of `e·p^{−σ}`:
+```
+   mass at p ≈ Y        (top of range)  e·p^{−σ} = 1.0000   ⇐ the bound is ATTAINED
+   mass at p ≈ Y^{1/2}                  e·p^{−σ} = 1.6487
+   mass at p ≈ Y^{1/10}                 e·p^{−σ} = 2.4596
+```
+⇒ **An adversarial `g` putting all of `𝔻²`'s mass near the top endpoint attains `1/e` exactly.**  No
+inequality at this step can do better, because a `p`-aware bound needs to know where the mass sits
+and the statement quantifies over all 1-bounded `g`.
+⇒ 🔑 ***A CONSTANT THAT IS ATTAINED IS NOT A LOOSE STEP — IT IS THE TRUE VALUE OF THAT STEP, AND
+"REPLACE IT WITH SOMETHING SHARPER" IS NOT AVAILABLE.  LOCALIZING A CONSTANT TO ONE LINE SAYS WHERE
+IT ENTERS, NOT THAT IT CAN BE IMPROVED THERE.***
+
+### ⚖️ WHAT THIS DOES TO THE NODE
+* ⛔ **Struck:** the 11:5x claim that the port has "a single named target" and that consumers inherit
+  a sharper constant unchanged.  They would — if the constant could move.  It cannot, here.
+* ✅ **What survives and is now sharper as a finding:** the *localization* is still right — `1/e`
+  enters at exactly one place and everything downstream transports it.  **That is a map, not a lever.**
+* ⇒ **The sharpening must RESTRUCTURE, not substitute.**  GHS reach `1/2` by taking the σ-integral
+  BEFORE collapsing to the distance, so the `p`-dependence is still visible when the averaging
+  happens; our route collapses first (`dist_identification_sigma`) and then integrates
+  (`sigma_cutoff_*`), by which point the worst case has already been paid.  **The order of those two
+  operations IS the constant.**
+📌 That also explains cleanly why node 1 (`sigma_cutoff_pretentious_crit`) was necessary but not
+sufficient: it fixes the integration step, which in our order happens *after* the loss is locked in.
