@@ -379,6 +379,73 @@ theorem sigma_cutoff_pretentious_gen {c L M C b : ℝ} (hc0 : 0 < c) (hc1 : 2 * 
     _ = (Real.exp (-(c * M)) * Real.exp (c * C) * L) / (1 - 2 * c) := by rw [hKL]
     _ = (Real.exp (c * C) / (1 - 2 * c)) * Real.exp (-(c * M)) * L := by ring
 
+/-! ### The CRITICAL exponent `c = 1/2` — where `1/(1−2c)` is a log, not an infinity
+
+`sigma_cutoff_pretentious_gen` carries `hc1 : 2*c < 1` because its integral evaluates as
+`∫σ^{2c−2}dσ = (b^{2c−1} − (1/L)^{2c−1})/(2c−1)`, and `1/(1−2c)` is that antiderivative's
+denominator.  **At `c = 1/2` the exponent `2c−1` is ZERO**, so the integral is not a power but a
+logarithm — and the general lemma cannot be instantiated there, `hc1` forbidding exactly that value.
+
+⭐ **THE CRITICAL CASE IS AN EQUALITY, NOT A BOUND.**  At `c = 1/2` the integrand collapses:
+`(1/σ²)·exp(−½(M − 2log(σL) − C)) = exp(−M/2)·exp(C/2)·L·(1/σ)`, whose integral over `[1/L, b]` is
+`exp(−M/2)·exp(C/2)·L·log(bL)` exactly.  ⇒ 🔑 ***A DIVERGENT CONSTANT AT A CRITICAL EXPONENT IS
+USUALLY A LOG IN DISGUISE: `1/(1−2c)` is `0/0` at the wall, and the honest evaluation is `log`.***
+
+📌 **Why this is wanted (A6, council item ④c):** A6 needs the SHARP `exp(−M/2)`, which the
+sub-critical family cannot reach — `1/2 − δ` squares to `exp(−(1−2δ)M)`, short of A.3's `exp(−M)`.
+The critical route reaches it at the cost of one `log L`; on `T₀` that is `loglog X`, **the same
+scale as the factor `M` that A.3's own `exp(−M)·M` already carries.** -/
+
+/-- **The σ-cutoff at the CRITICAL exponent `c = 1/2`, exactly.**  The sub-critical family's
+`1/(1−2c)` is replaced by `log (b·L)`, and the identity is exact rather than an estimate.
+
+⛔⛔ **WHICH FACE EACH CONSUMER TAKES — STATED BECAUSE THIS LEMMA MUST NOT BE SUBSTITUTED INTO
+EITHER EXISTING ARM.**  The family is already partitioned by a live guard (freeze v2, verbatim at
+`HalaszDirect.lean:320`): *"L3's arm cites `sigma_cutoff_pretentious_of_gen` (c = 1/e); the ball's
+arm cites `_half` (c = 1/(2e)); a citation of `_half` in any §8.3 consumer is a STOP."*  Measured
+by APPLICATION (not by prose citation):
+```
+  _of_gen  c = 1/e      HalaszDirect:346 (§8.3/L3 arm) · CenterCore:397
+  _half    c = 1/(2e)   HalaszDirect:411 (ball arm)    · CenterCore:333
+  _gen     parametric   PretSupply:508 (caller's own c) · SeamBallWeighted:450, :473
+  _crit    c = 1/2      ⛔ NO CONSUMERS. New, and deliberately unwired.
+```
+⛔ **IT IS NOT A DROP-IN FOR ANY OF THEM, AND NOT A GENERALISATION OF `_gen`.**  `_gen`'s `hc1 :
+2*c < 1` FORBIDS `c = 1/2`, so this is a SEPARATE lemma standing beside it, not a widening — and
+its right-hand side has a **different SHAPE**: a factor `log (b·L)` where the sub-critical faces
+carry the constant `1/(1−2c)`.  *Substituting it into `_half`'s or `_of_gen`'s call site would
+silently change those bounds' shape, which is exactly what the guard exists to prevent.*
+⇒ 🔑 ***A LEMMA THAT REACHES A FORBIDDEN PARAMETER IS NOT THE OLD LEMMA WITH A WIDER HYPOTHESIS —
+IT IS A DIFFERENT THEOREM, AND THE GIVEAWAY IS THAT ITS CONCLUSION CHANGED SHAPE.***
+
+📌 **Its intended consumer is the A6 wave** (council item ④c), which needs the SHARP `exp(−M/2)`
+the sub-critical faces cannot reach; **nothing consumes it yet, and that is disclosed at landing
+rather than left for a census.** -/
+theorem sigma_cutoff_pretentious_crit {L M C b : ℝ} (hL : 3 ≤ L) (hb : 1 / L ≤ b) :
+    (∫ σ in (1 / L)..b,
+        (1 / σ ^ 2) * Real.exp (-(1 / 2 : ℝ) * (M - 2 * Real.log (σ * L) - C)))
+      = Real.exp (C / 2) * Real.exp (-(M / 2)) * L * Real.log (b * L) := by
+  have hLpos : (0 : ℝ) < L := by linarith
+  have hLinv : (0 : ℝ) < 1 / L := by positivity
+  have hbpos : (0 : ℝ) < b := lt_of_lt_of_le hLinv hb
+  -- on the interval the integrand is the constant `exp(−M/2)exp(C/2)L` times `1/σ`
+  have hpt : ∀ σ ∈ Set.uIcc (1 / L) b,
+      (1 / σ ^ 2) * Real.exp (-(1 / 2 : ℝ) * (M - 2 * Real.log (σ * L) - C))
+        = (Real.exp (C / 2) * Real.exp (-(M / 2)) * L) * (1 / σ) := by
+    intro σ hσ
+    have hσpos : (0 : ℝ) < σ := by
+      rcases Set.mem_uIcc.mp hσ with h | h
+      · exact lt_of_lt_of_le hLinv h.1
+      · exact lt_of_lt_of_le hbpos h.1
+    have hσL : (0 : ℝ) < σ * L := mul_pos hσpos hLpos
+    rw [show -(1 / 2 : ℝ) * (M - 2 * Real.log (σ * L) - C)
+        = -(M / 2) + Real.log (σ * L) + C / 2 from by ring,
+      Real.exp_add, Real.exp_add, Real.exp_log hσL]
+    field_simp
+  rw [intervalIntegral.integral_congr hpt, intervalIntegral.integral_const_mul,
+    integral_one_div_of_pos hLinv hbpos]
+  rw [show b / (1 / L) = b * L from by field_simp]
+
 /-- **H-2 — the HALVED σ-cutoff (`sigma_cutoff_pretentious_half`).**  The `c = 1/(2e)`
 instance of `sigma_cutoff_pretentious_gen`:
 
