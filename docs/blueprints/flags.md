@@ -23878,3 +23878,37 @@ logarithmically, and land the extra factor against A.3's own `M`.
 📌 Scale match verified numerically (`1/(1−2c)` → 500 at `c = 0.499` vs `log L ≈ 6.9` at `c = 1/2`,
 `L = 10³`): the log is not merely finite, it is *small* beside the constants the sub-critical route
 was already paying.
+
+### ⛔⛔ 11:5x — **I MUST CORRECT MY OWN A6 ROUTE: THE σ-CUTOFF WAS NOT THE BINDING WALL**
+
+Node 1 (`sigma_cutoff_pretentious_crit`, `salt 831fe6ae`) is correct and stands: at `c = 1/2` the
+σ-cutoff integral is exactly `exp(C/2)·exp(−M/2)·L·log(bL)`, so the sub-critical `1/(1−2c)` really
+is a log in disguise.  **But it is not the wave's binding node, and I reported it as though it
+were.**  Traced upward:
+```
+  sigma_cutoff_pretentious_gen   hc1 : 2c < 1      wall at c = 1/2   ⇒ PASSABLE (node 1: it is a log)
+  halasz_direct_reduce           hce : c ≤ 1/e     wall at c ≈ 0.368 ⇐ TIGHTER, and UPSTREAM
+  window_sup_decay_gen           hce : c ≤ 1/e     same cap, same reason
+  head_sigma_bound (SupF:818)    exponent 1/e      ⇐ THE ACTUAL CONSTANT
+        `‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−(1/e)·𝔻²(1, g·p^{−it}; e^{1/σ}))`
+```
+`window_sup_decay_gen`'s own docstring says why `c ≤ 1/e` is there, in its own words: *"the exponent
+chain `c·(M − 2log(σL) − 48) ≤ c·𝔻² ≤ (1/e)·𝔻²` — the second by `𝔻² ≥ 0` and `c ≤ 1/e`."*  ⇒ **the
+cap is pure MONOTONICITY used to reach `head_sigma_bound`'s exponent.  `1/e` is not a choice made in
+the peel; it is the constant of the head bound itself.**
+
+⇒ 🔑 ***A WALL YOU CAN SEE IS RARELY THE BINDING ONE. I PRICED THE CONSTRAINT THAT WAS WRITTEN AS A
+HYPOTHESIS (`2c < 1`, visibly blocking) AND MISSED THE ONE WRITTEN AS A CONSTANT (`1/e`, sitting
+inside a landed bound's conclusion).  A HYPOTHESIS ANNOUNCES ITSELF; A CONSTANT DOES NOT.***
+
+### ⚖️ WHAT SURVIVES, AND WHAT THE WAVE'S REAL FIRST NODE IS
+✅ **Node 1 survives on its own terms** — it removes the `2c < 1` wall permanently, and that wall
+WOULD have bound once the head bound was sharpened.  *It is necessary and was not sufficient.*
+⛔ **The binding node is `head_sigma_bound`'s `1/e` → `1/2`.**  That is not a peel adjustment: GHS's
+proof of Halász obtains `1/2` by a different argument than the one our `euler_log_bound` +
+pin-composition route gives.  **C/D-class, spend authorized — but it is a PORT of a sharper head
+estimate, not a re-instantiation.**
+📌 **And it re-prices A5 identically:** A5's Halász R-polynomial bound draws on the same head
+constant, so the two share this node rather than each needing their own.
+⚠️ **Reported before spending the D-class budget on the wrong node.**  My 10:5x post said the route
+was "fire the σ-cutoff at the critical `c`"; that is step two, and step one is upstream.
