@@ -23683,3 +23683,27 @@ FORM, AND IN ALL THREE CASES THE STATEMENT TYPECHECKS ANYWAY.***
            and is exactly what makes the shift cheap.  MINE, and being opened.
 ```
 ⚖️ *Zero proof attempts spent on any of the three blocked lemmas — all priced by reading.*
+
+### ⛔⛔⛔ CORRECTION 03:1x — **I FILED A4ii AS "CONSTANT-BLOCKED". IT IS WORSE: `MRTLemmaA4ii` IS REFUTED IN THE KERNEL.**
+`not_mrtLemmaA4ii : ¬ MRTLemmaA4ii` (`MRTPropA3.lean:1378`) — **a landed theorem**, witness `f ≡ 1`
+with `t₁ = (log X)^{1/16}/2 + 1`, where `mrtM f X = 0` is attained at `s = 0` while
+`pretDistSq f (costwist t₁) X > 0`, **so that `t₁` is not a minimiser and `t₁` floats free.**
+The live object is **`MRTLemmaA4iiFixed`** (`:…`), which pins `t₁`:
+`|t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X`.  Its high-`M` arm is already landed
+(`mrtA4iiFixed_high_M`); the repair *"constrain `t₁`, do not weaken the conclusion"* buys the far
+branch's centre cap as DERIVABLE (`mrtA4ii_far_centre_cap`).
+
+⇒ **Nobody should attempt `MRTLemmaA4ii`: it is FALSE, and the kernel says so.**  My earlier entry
+priced it as blocked-by-a-missing-region, which is true of the FIXED form and understates the
+unfixed one. **Corrected here rather than edited above, per annotate-never-rewrite.**
+⚠️ **The θ=2/3 constant tie STILL APPLIES to `MRTLemmaA4iiFixed`'s far branch** — that finding
+stands; it simply attaches to the repaired statement.
+
+⛔ **AND THE PROCESS DEFECT IS MINE, AND IT IS THE SECOND TIME TONIGHT FOR THE SAME LAW.**  I read
+`def MRTLemmaA4ii`, read the source, priced it — and never grepped `not_` against its own name.
+**Tonight I wrote the law after re-deriving a lemma that already existed:** *"WHEN YOU READ A
+DEFINITION TO LEARN A PREDICATE, GREP ITS NAME AS A PREFIX TOO."*  ⇒ 🔑 ***EXTEND IT: GREP `not_`
+AGAINST ANY STATEMENT YOU ARE ABOUT TO PROVE.  A CORPUS THAT REFUTES ITS OWN STATEMENT LEAVES THE
+STATEMENT STANDING — the def still typechecks, still audits, still reads like a target.***
+✅ **Swept the whole ladder for the same shape:** `MRTLemmaA5`, `A6`, `A7`, `MRTThmA1`, `MRTPropA3`
+carry **no refutations**.  A4ii was the only one, and it was the one I was pricing.
