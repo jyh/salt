@@ -827,4 +827,64 @@ theorem liouvilleTwinDisp_of_two_objects {N P : ℕ} {lvl B₁ B₂ : ℝ}
     · rw [if_neg h, if_neg h, if_neg h, add_zero]
   exact le_trans hsplit (by linarith)
 
+/-! ## The log-world twin mass, split — isolating exactly what the Tao campaign must supply
+
+§3(1) of the wave-2 block writes the log-rebased total mass as
+`Σ_{n≤N}(1 − λ(n)λ(n+2))/n = H_N − Σ λ(n)λ(n+2)/n`, and observes that the SUBTRACTED sum is
+**Tao's own theorem** (1509.05422; forms `(1,0),(1,2)`, determinant `2 ≠ 0`) and therefore
+`o(log N)` — so `totalMass_log = (1−o(1))·log N` unconditionally.
+
+§7 killed the COLLAPSE ARGUMENT built on that, not the DECOMPOSITION.  What is landed here is the
+decomposition alone, with no asymptotics and no claim about either piece:
+
+* the **identity** `λ(n(n+2)) = λ(n)·λ(n+2)` — complete multiplicativity, which is what turns the
+  corpus's `liouville (n*(n+2))` spelling into Tao's two-point correlation at shift `2`;
+* the **split** of the log-weighted mass into a harmonic head and that correlation.
+
+⭐ **Why this is worth landing while the campaign is unruled:** it puts the boundary between what
+the corpus HAS and what the Tao campaign must SUPPLY on the page, in the kernel, as an equation.
+The head is `Salt.TwinBar.sum_inv_Icc_le`'s object; the tail is the Tao atom and nothing else.
+⛔ **SCOPE: an identity.** No estimate, no asymptotic, no `o(1)`; neither piece is bounded here,
+and nothing consumes it yet (12c's census will read it as a dead branch until the atom arrives).
+-/
+
+/-- **`λ(n(n+2)) = λ(n)·λ(n+2)`** — complete multiplicativity, no coprimality needed.  This is the
+step that turns the corpus's twin-value spelling into the two-point correlation at shift `2` that
+Tao's theorem is about. -/
+theorem liouville_twinProd_mul (n : ℕ) :
+    (ArithmeticFunction.liouville (n * (n + 2)) : ℤ)
+      = (ArithmeticFunction.liouville n : ℤ) * (ArithmeticFunction.liouville (n + 2) : ℤ) :=
+  ArithmeticFunction.liouville_apply_mul n (n + 2)
+
+/-- **The log-world twin mass splits into a harmonic head and a two-point correlation.**
+
+    `Σ_{n≤N} (1 − λ(n(n+2)))/n  =  Σ_{n≤N} 1/n  −  Σ_{n≤N} λ(n(n+2))/n`
+
+The head is bounded by `sum_inv_Icc_le`; the tail is the object the Tao campaign supplies. -/
+theorem sum_logTwin_split (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N,
+        (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ))
+      = (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / (n : ℝ))
+        - ∑ n ∈ Finset.Icc 1 N,
+            ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ) := by
+  rw [← Finset.sum_sub_distrib]
+  exact Finset.sum_congr rfl fun n _ => by rw [sub_div]
+
+/-- **The same split with the correlation written at Tao's shape** — `λ(n)·λ(n+2)` rather than
+`λ(n(n+2))`.  Composing the two lemmas above; stated so a consumer reading Tao's theorem does not
+have to re-derive the multiplicativity step at the seam. -/
+theorem sum_logTwin_split_shift (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N,
+        (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ))
+      = (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / (n : ℝ))
+        - ∑ n ∈ Finset.Icc 1 N,
+            (((ArithmeticFunction.liouville n : ℤ) : ℝ)
+              * ((ArithmeticFunction.liouville (n + 2) : ℤ) : ℝ)) / (n : ℝ) := by
+  rw [sum_logTwin_split N]
+  congr 1
+  refine Finset.sum_congr rfl fun n _ => ?_
+  rw [liouville_twinProd_mul n]
+  push_cast
+  ring
+
 end Salt.TwinBar

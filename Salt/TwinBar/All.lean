@@ -477,3 +477,25 @@ open Salt.Tactic in
 #audit_axioms Salt.TwinBar.nu_nonneg
   Salt.TwinBar.twinDisp_row_le_two_objects
   Salt.TwinBar.liouvilleTwinDisp_of_two_objects
+
+/-! ### The log-world twin mass, split — the Tao boundary as an equation
+
+§3(1) writes the log-rebased mass as `Σ_{n≤N}(1 − λ(n)λ(n+2))/n = H_N − Σ λ(n)λ(n+2)/n` and notes
+the subtracted sum is **Tao's own theorem** (1509.05422, forms `(1,0),(1,2)`, det `2 ≠ 0`). **§7
+killed the COLLAPSE ARGUMENT built on that, not the DECOMPOSITION** — so what lands here is the
+decomposition alone, with no asymptotics and no claim about either piece:
+
+* `liouville_twinProd_mul` — `λ(n(n+2)) = λ(n)·λ(n+2)`, complete multiplicativity. **This is the
+  step that turns the corpus's twin-VALUE spelling into Tao's two-point correlation at shift 2.**
+* `sum_logTwin_split` / `…_shift` — the split into a harmonic head and that correlation, the second
+  stated at Tao's own shape so a consumer does not re-derive multiplicativity at the seam.
+
+⭐ **Why it is worth landing while the campaign is unruled:** it puts **the boundary between what
+the corpus HAS and what the Tao campaign must SUPPLY on the page, in the kernel, as an equation.**
+The head is `sum_inv_Icc_le`'s object; the tail is the Tao atom and nothing else.
+⛔ **SCOPE: an IDENTITY** — no estimate, no asymptotic, no `o(1)`, neither piece bounded.
+⚠️ Nothing consumes it yet; 12c's census reads it as a dead branch until the atom arrives. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.liouville_twinProd_mul
+  Salt.TwinBar.sum_logTwin_split
+  Salt.TwinBar.sum_logTwin_split_shift

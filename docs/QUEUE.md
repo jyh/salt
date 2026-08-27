@@ -412,6 +412,20 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    ✅✅ **⇒ EVERY ENTRY IN §7's VERDICT 4 IS NOW LANDED.** The list was: pre-terminal quantitative
    chain · tail-mass infinitude · `d = 1` row zero · two-objects-two-strengths · the `1/m` vs
    `1/(dm+r)` weight comparison — **five for five.**
+   ✅⭐⭐ **AND THE TAO BOUNDARY IS NOW AN EQUATION IN THE KERNEL — `liouville_twinProd_mul` ·
+   `sum_logTwin_split` · `sum_logTwin_split_shift`, all `[3 axioms]`, first attempt (17:2x).**
+   §3(1) writes the log-rebased mass as `Σ_{n≤N}(1 − λ(n)λ(n+2))/n = H_N − Σ λ(n)λ(n+2)/n`.
+   ⭐ ***§7 KILLED THE COLLAPSE ARGUMENT BUILT ON THAT LINE, NOT THE DECOMPOSITION*** — so the
+   decomposition lands alone: the complete-multiplicativity step `λ(n(n+2)) = λ(n)·λ(n+2)` **which
+   is what turns the corpus's twin-VALUE spelling into Tao's two-point correlation at shift 2**,
+   and the split itself, stated BOTH ways so a consumer reading Tao does not re-derive
+   multiplicativity at the seam.
+   ⇒ ⚖️ **THIS PUTS THE BOUNDARY BETWEEN WHAT THE CORPUS HAS AND WHAT THE TAO CAMPAIGN MUST SUPPLY
+   ON THE PAGE, AS AN EQUATION.** The head is `sum_inv_Icc_le`'s object, landed; **the tail is the
+   Tao atom and nothing else.** *A campaign is easier to rule on when its deliverable is a named
+   summand rather than a paragraph.*
+   ⛔ **SCOPE: an IDENTITY** — no estimate, no asymptotic, no `o(1)`, neither piece bounded.
+   ⚠️ Nothing consumes it yet; reads as a dead branch on 12c until the atom arrives.
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references
