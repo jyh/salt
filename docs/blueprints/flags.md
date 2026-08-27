@@ -23655,3 +23655,31 @@ statements at θ=3/4 with shifted constants, or (c) leave them, is statement-tie
 **Zero proof attempts were spent** — this was priced by reading the source extract and the corpus's
 own risk list before writing a line.
 📌 A6 and A7 remain mine under the grant and are NOT blocked by this finding.
+
+### ⛔ ADDENDUM 03:0x — **A6 IS CONSTANT-BLOCKED TOO. THREE OF THE FOUR, SAME CLASS, DIFFERENT INPUT.**
+A6 needs `exp(−M/2)`, i.e. a Halász constant of **`1/2`**.  Measured across every landed direct
+Halász bound:
+```
+  halasz_direct_center · _gen · _free · _gen_free · halasz_direct_ball_window_free
+      constants:  1/(2e) ≈ 0.184   and   1/e ≈ 0.368        NEVER 1/2
+  exp(−M/(2e)) ≥ exp(−M/2)  ⇒ the landed supply is STRICTLY WEAKER and cannot give A6
+  the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
+      CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
+```
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:242,611`)
+— **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
+Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
+⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
+HELD.  A4ii/A5 cite a θ=2/3 zero-free region; A6 cites a sharp Halász.  WE HOLD BOTH IN WEAKER
+FORM, AND IN ALL THREE CASES THE STATEMENT TYPECHECKS ANYWAY.***
+
+### 📐 REVISED TRIAGE OF THE GRANT — ONE OF FOUR IS LIVE
+```
+  A4ii  ⛔ constant-blocked (θ=2/3 VK) + Erdős–Turán absent      ⇒ statement-tier, RESERVED
+  A5    ⛔ constant-blocked (same θ=2/3 constant)                ⇒ statement-tier, RESERVED
+  A6    ⛔ constant-blocked (sharp Halász 1/2 vs landed 1/(2e))  ⇒ statement-tier, RESERVED
+  A7    ✅ LIVE — a partial-summation SHIFT estimate.  Its `1/10` is an error exponent, not a
+           citation of an external theorem; `mrtT0`'s radius `|t−t₁| ≤ (log X)^{1/16}` is landed
+           and is exactly what makes the shift cheap.  MINE, and being opened.
+```
+⚖️ *Zero proof attempts spent on any of the three blocked lemmas — all priced by reading.*
