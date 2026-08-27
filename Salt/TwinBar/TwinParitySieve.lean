@@ -887,4 +887,67 @@ theorem sum_logTwin_split_shift (N : ℕ) :
   push_cast
   ring
 
+/-! ## The harmonic LOWER bound — the divergence the tail-mass step consumes
+
+`Salt.TwinBar.sum_inv_Icc_le` (`Wall.lean:219`) gives `∑_{d≤n} 1/d ≤ 1 + log n`.  The corpus has no
+matching LOWER bound over `Icc 1 n` (`harmonic_window_bounds`, `LogMeasure.lean:115`, is two-sided
+but over `Ioc (x/ω) x` — a different range), and the lower bound is the half the log-world argument
+actually needs: it is what makes the head DIVERGE, which is the hypothesis
+`support_infinite_of_lower_unbounded` above takes.
+
+The sharp telescoping form is proved, `log(n+1) ≤ ∑`, with the weaker `log n ≤ ∑` as its corollary.
+-/
+
+/-- **The harmonic lower bound, sharp form:** `log(n+1) ≤ ∑_{d=1}^{n} 1/d`.
+
+Telescoping the other way from `sum_inv_Icc_le`: each step needs
+`log(m+2) − log(m+1) ≤ 1/(m+1)`, which is `Real.log_le_sub_one_of_pos` at `(m+2)/(m+1)`.
+⛔ The sharp `n+1` is not cosmetic — the naive `log n ≤ ∑` cannot be proved by this induction,
+because the step would demand `log(1 + 1/m) ≤ 1/(m+1)`, which is FALSE. -/
+theorem log_succ_le_sum_inv_Icc (n : ℕ) :
+    Real.log ((n : ℝ) + 1) ≤ ∑ d ∈ Finset.Icc 1 n, ((d : ℝ))⁻¹ := by
+  induction n with
+  | zero => simp
+  | succ m ih =>
+    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ m + 1)]
+    have hm1 : (0 : ℝ) < (m : ℝ) + 1 := by positivity
+    have hm2 : (0 : ℝ) < (m : ℝ) + 2 := by positivity
+    have hstep : Real.log ((m : ℝ) + 2) - Real.log ((m : ℝ) + 1) ≤ ((m : ℝ) + 1)⁻¹ := by
+      have hdiv : Real.log (((m : ℝ) + 2) / ((m : ℝ) + 1))
+          ≤ ((m : ℝ) + 2) / ((m : ℝ) + 1) - 1 :=
+        Real.log_le_sub_one_of_pos (by positivity)
+      have hlog : Real.log (((m : ℝ) + 2) / ((m : ℝ) + 1))
+          = Real.log ((m : ℝ) + 2) - Real.log ((m : ℝ) + 1) :=
+        Real.log_div (ne_of_gt hm2) (ne_of_gt hm1)
+      have harith : ((m : ℝ) + 2) / ((m : ℝ) + 1) - 1 = ((m : ℝ) + 1)⁻¹ := by
+        field_simp
+        ring
+      rw [hlog, harith] at hdiv
+      exact hdiv
+    have hcast : ((m + 1 : ℕ) : ℝ) + 1 = (m : ℝ) + 2 := by push_cast; ring
+    have hinv : (((m + 1 : ℕ) : ℝ))⁻¹ = ((m : ℝ) + 1)⁻¹ := by push_cast; ring_nf
+    rw [hcast, hinv]
+    linarith [ih, hstep]
+
+/-- **The harmonic lower bound, plain form:** `log n ≤ ∑_{d=1}^{n} 1/d`, from the sharp one by
+monotonicity of `log`. -/
+theorem log_le_sum_inv_Icc (n : ℕ) :
+    Real.log (n : ℝ) ≤ ∑ d ∈ Finset.Icc 1 n, ((d : ℝ))⁻¹ := by
+  refine le_trans ?_ (log_succ_le_sum_inv_Icc n)
+  rcases Nat.eq_zero_or_pos n with rfl | hn
+  · simp
+  · have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+    exact Real.log_le_log hn0 (by linarith)
+
+/-- **The head diverges** — the hypothesis shape `support_infinite_of_lower_unbounded` takes.
+For every bound `M` there is an `N` whose harmonic sum exceeds it. -/
+theorem sum_inv_Icc_unbounded (M : ℝ) : ∃ n : ℕ, M < ∑ d ∈ Finset.Icc 1 n, ((d : ℝ))⁻¹ := by
+  obtain ⟨n, hn⟩ := exists_nat_gt (Real.exp (M + 1))
+  refine ⟨n, lt_of_lt_of_le ?_ (log_le_sum_inv_Icc n)⟩
+  have hexp : (0 : ℝ) < Real.exp (M + 1) := Real.exp_pos _
+  have hlog : Real.log (Real.exp (M + 1)) < Real.log (n : ℝ) :=
+    Real.log_lt_log hexp hn
+  rw [Real.log_exp] at hlog
+  linarith
+
 end Salt.TwinBar

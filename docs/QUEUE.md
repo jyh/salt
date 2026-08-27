@@ -426,6 +426,19 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    summand rather than a paragraph.*
    ⛔ **SCOPE: an IDENTITY** — no estimate, no asymptotic, no `o(1)`, neither piece bounded.
    ⚠️ Nothing consumes it yet; reads as a dead branch on 12c until the atom arrives.
+   ✅⭐ **AND THE HARMONIC LOWER BOUND — the divergence the tail-mass step consumes — IS LANDED**
+   (`log_succ_le_sum_inv_Icc` · `log_le_sum_inv_Icc` · `sum_inv_Icc_unbounded`, all `[3 axioms]`,
+   17:3x). ⛔ **THE CORPUS HAD ONLY THE UPPER HALF.** `sum_inv_Icc_le` (`Wall.lean:219`) gives
+   `∑_{d≤n} 1/d ≤ 1 + log n`; `harmonic_window_bounds` (`LogMeasure.lean:115`) is two-sided but over
+   `Ioc (x/ω) x`, **a different range** — so the lower bound over `Icc 1 n` was absent, and it is
+   the half the log-world argument actually needs: **it is what makes the head DIVERGE**, which is
+   exactly the hypothesis `support_infinite_of_lower_unbounded` takes.
+   ⛔ **THE SHARP `n+1` IS NOT COSMETIC, and this is the reusable bit:** the proof gives
+   `log(n+1) ≤ ∑`, and the naive `log n ≤ ∑` **cannot be proved by that induction** — the step
+   would demand `log(1 + 1/m) ≤ 1/(m+1)`, which is **FALSE**. The plain form follows from the sharp
+   one by monotonicity, never the other way round. ⇒ ***WHEN AN INDUCTION FAILS ON THE STATEMENT YOU
+   WANT, CHECK WHETHER THE SHARPER STATEMENT INDUCTS — a weaker target is not always an easier
+   one.*** *Cost: one attempt, and the only failure was a `field_simp` residue.*
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references

@@ -499,3 +499,22 @@ open Salt.Tactic in
 #audit_axioms Salt.TwinBar.liouville_twinProd_mul
   Salt.TwinBar.sum_logTwin_split
   Salt.TwinBar.sum_logTwin_split_shift
+
+/-! ### The harmonic LOWER bound — the divergence the tail-mass step consumes
+
+`sum_inv_Icc_le` (`Wall.lean:219`) gives the UPPER half, `∑_{d≤n} 1/d ≤ 1 + log n`. The corpus had
+**no matching lower bound over `Icc 1 n`** — `harmonic_window_bounds` (`LogMeasure.lean:115`) is
+two-sided but over `Ioc (x/ω) x`, a different range — and the lower half is the one the log-world
+argument actually needs: **it is what makes the head DIVERGE**, which is exactly the hypothesis
+`support_infinite_of_lower_unbounded` takes.
+
+⛔ **The sharp `n+1` is not cosmetic.** `log_succ_le_sum_inv_Icc` proves `log(n+1) ≤ ∑`; the naive
+`log n ≤ ∑` CANNOT be proved by that induction, because the step would demand
+`log(1 + 1/m) ≤ 1/(m+1)`, which is **false**. The plain form follows from the sharp one by
+monotonicity, never the other way round.
+
+`sum_inv_Icc_unbounded` packages it as the divergence statement itself. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.log_succ_le_sum_inv_Icc
+  Salt.TwinBar.log_le_sum_inv_Icc
+  Salt.TwinBar.sum_inv_Icc_unbounded
