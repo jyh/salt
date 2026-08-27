@@ -23539,3 +23539,60 @@ Do not add the conjunct as a `ChowlaRegime` field. The cheaper shapes, unpriced 
 W-cap as a **hypothesis on the consumers that need it** (as `regime_W_cap_of_floor` already does),
 or as a **derived predicate / sub-structure** that only the W-cap road demands. *Item 5's own closing
 line already says the landed arm is "AN ARM, NOT A WIRING"; this measures why the wiring is expensive.*
+
+---
+
+## A.3 ⇒ A.2 — ⛔ **STOPPED ON THE HELM'S CONDITION 2: THE STATEMENT IS MISSING, NOT MERELY HARD.**
+**2026-08-27 01:3x · Opus 5 (executor tier) · opened on helm ruling 01:2x, stopped before any proof attempt**
+
+### The ruling and the condition it names
+*"`A.3 ⇒ A.2` is yours, open it … If the STATEMENT turns out missing or wrong rather than merely
+hard, STOP. That is E-5c's situation, it is reserved, it comes to me."*
+
+### ⛔ MRT's THEOREM A.2 IS NOT STATED IN LEAN. THE SLOT IS EMPTY.
+`Salt/MR/MRTPropA3.lean`'s own erratum (2026-08-25 second pass, `:3843-3854`) says it in its own
+words: *"The def below is therefore **NOT MRT's Theorem A.2** and no longer claims to be … The
+`A.2` slot in the spine `A.3 ⇒ A.2 ⇒ A.1` is **still empty**; that hole is now honestly visible
+instead of being papered over by a name."*  The object once named `MRTThmA2` was **renamed
+`MRTThmA1GJ`** because it is A.1's bound for the `g_𝒥`-restricted datum, not A.2:
+```
+  A.2's middle term (source p.21)   (log h)^{1/3} / P₁^{1/6−η}
+  A.1's middle term (landed :126)   (log log h)² / (log h)²          — different objects
+  A.2's extra binders              η ∈ (0,1/6) · [P₁,Q₁] ⊆ [1,h] · X > X(η) · h ≥ 3
+  gJ vs S                          gJ is the indicator of NO prime factor in any 𝒥-block;
+                                   MemS is ≥1 prime factor in EVERY block — OPPOSITE on nonempty 𝒥
+```
+⇒ **`A.3 ⇒ A.2` has no target.**  I stopped before attempting anything; **no proof attempt was made
+and no statement was authored.**
+
+### 📐 ABSENCE VERIFIED IN THREE SHAPES, WITH A CONTROL
+```
+  name grep for *A2*        finds only the S8 ladder (thm_a2', a2Level1, a2RowsSum, thm_a2_spine)
+                            and ThmA2Open.lean — ⚠️ A DIFFERENT A2, the corpus's own S8 node
+  A.2's distinctive term    (log h)^{1/3}/P₁^{1/6−η} appears only inside A.3's OWN statement
+                            (`MRTPropA3.lean:2694`, `:12`), never as an A.2 def
+  the η binder              only in A.3's def (`:96`) — A.1 has none, and no third def carries it
+  CONTROL                   `MRTThmA1` (`MRTThmA1.lean:120`) and `MRTPropA3` (`:92`) both resolve,
+                            so the probe can find a stated spine node when one exists
+```
+⚠️ **THE NAME COLLISION IS LIVE AND IT COST ME A LOOK:** `Salt/MR/ThmA2.lean`, `ThmA2Spine.lean`
+and `ThmA2Open.lean` are the **S8 `thm_A2′` ladder**, unrelated to MRT's Theorem A.2 — the same
+shape as this campaign's two different "Prop 2.4", which a predecessor lost a day to.
+⇒ 🔑 ***A FILE NAMED FOR A THEOREM IS NOT EVIDENCE THE THEOREM IS THERE; IN A CAMPAIGN WITH TWO
+SOURCES, IT IS EVIDENCE OF A COLLISION UNTIL READ.***
+
+### ⭐ NOT A DEAD END — WHAT IS ALREADY THERE FOR WHOEVER AUTHORS A.2
+* **A.2's content is KNOWN AND SOURCE-VERIFIED**, quoted verbatim in the erratum, read at 200 dpi
+  from `1503.05121v3` p.21 and cross-checked with `pdftotext` and `docs/sources/mrt_extract.md:200-201`.
+  **The authoring is a transcription with a verified source, not a research question.**
+* **The A.3-side Parseval join is LANDED and abstract** — `parseval_a3_join`
+  (`ThmA2Open.lean:164`), plus `a3_prefactor_band_le_two`, `a3_prefactor_max_le_three`,
+  `a3_logQ_third_mono`, `a3_logQ_term_mono` (`:129`, exactly the `Q₁ ≤ h` monotonicity that turns
+  A.3's `(log Q₁)^{1/3}/P₁^e` into A.2's `(log h)^{1/3}/P₁^e`), `a3_head_le_third_grade`.
+  ⇒ **the `[P₁,Q₁] ⊆ [1,h]` consumptions are already explicit hypotheses there**, which is the part
+  MRT's *"proceeds as [17, Theorem 3]"* leaves implicit.
+* **`𝒥 = ∅` bridge to A.1 already landed:** `mrtThmA1_of_mrtThmA1GJ_empty`.
+
+⇒ ⚖️ **BACK TO THE HELM: authoring `MRTThmA2` is statement-tier and reserved.  Once it exists, the
+implication has real landed support and is a genuine Class-C dispatch.**  *Nothing here is a
+recommendation about whether to author it.*

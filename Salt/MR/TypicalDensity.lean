@@ -9,6 +9,7 @@ import Salt.BrunLower.MertensWindow
 import Salt.Chen.MertensPNT
 import Salt.Maynard.Mertens
 import Salt.TwinBar.LambdaRate
+import Salt.MR.Decomp
 
 /-!
 # TypicalDensity — the sieve density of the set `S` (S8 / MR-CORE, node A4a)
@@ -1033,5 +1034,61 @@ theorem typical_density_union_le :
   calc C * r * (X : ℝ) * ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹
       ≤ C * r * (X : ℝ) * 2 := mul_le_mul_of_nonneg_left hsum hcoef
     _ = 2 * C * r * X := by ring
+
+/-! ## The bridge to `MemS` — the interface I claimed and had not stated
+
+⛔⛔ **I WROTE THAT `typical_density_union_le` "COMPOSES BY INDEX TYPE, NOT BY HOPE" WITH `MemS`.
+THE INDEX MATCHED; THE PREDICATE LINK WAS UNPROVEN.**  Matching `(ℕ → ℕ)` band sequences over the
+same `Finset.Icc 1 J` says the two objects are indexed alike — it says nothing about whether
+*"`n` has no prime factor in band `j`"* means the same thing on both sides:
+
+```
+  MemS (Sec9Glue:118)          1 ≤ blockOmega (Pseq j) (Qseq j) n     -- Decomp's block counter
+  this file's union filter     (bandProd (P j) (Q j)).Coprime n       -- coprime to the band product
+```
+Both say *no prime of `[P,Q]` divides `n`*, and **that is a theorem, not a notation**.
+⇒ 🔑 ***A SHARED INDEX TYPE IS NOT A SHARED PREDICATE — "IT COMPOSES" NEEDS BOTH, AND ONLY ONE OF
+THEM IS VISIBLE IN A SIGNATURE.***  *Stated here so the claim stops being a claim.*
+
+📌 `Salt.MR.Decomp` imported for `blockOmega`: **+1 module, no cycle** (measured). -/
+
+/-- **The band predicates agree.**  For `n ≠ 0`, having no block prime in `[P, Q]` is exactly
+coprimality to the band product.
+
+⚠️ **A SIBLING EXISTS AND I FOUND IT ONLY AFTER PROVING THIS — RECORDED SO A CENSUS DOES NOT READ
+TWO SIMILAR NAMES AS A DUPLICATE.**  `blockOmega_eq_zero_iff` (`M4T0DatumDischarge.lean:119`) gives
+the **`n.primeFactors` face**: `blockOmega P Q n = 0 ↔ ∀ p ∈ n.primeFactors, ¬(P ≤ p ∧ p ≤ Q)`.
+This lemma gives the **`bandProd`-coprimality face**, which is the predicate `typical_density_le`'s
+filter actually consumes — a different statement, and both are wanted.
+📌 *But it is one composition away, and had I grepped `blockOmega_eq_zero` rather than only
+`def blockOmega`, this proof would have been shorter.*  ⇒ 🔑 ***WHEN YOU READ A DEFINITION TO LEARN
+A PREDICATE, GREP ITS NAME AS A PREFIX TOO — THE `_iff` LEMMA YOU ARE ABOUT TO WRITE IS THE ONE
+MOST LIKELY TO ALREADY EXIST.*** -/
+theorem blockOmega_eq_zero_iff_coprime_bandProd {P Q n : ℕ} (hn : n ≠ 0) :
+    blockOmega P Q n = 0 ↔ (bandProd P Q).Coprime n := by
+  classical
+  constructor
+  · intro h
+    have hempty : BlockPrimeDivs P Q n = ∅ := Finset.card_eq_zero.mp h
+    unfold bandProd
+    refine Nat.Coprime.prod_left ?_
+    intro p hp
+    have hp' : p.Prime := (Finset.mem_filter.mp hp).2
+    have hPQ := Finset.mem_Icc.mp (Finset.mem_filter.mp hp).1
+    refine (Nat.Prime.coprime_iff_not_dvd hp').mpr fun hdvd => ?_
+    have hmem : p ∈ BlockPrimeDivs P Q n :=
+      mem_blockPrimeDivs.mpr ⟨hp', hdvd, hn, hPQ.1, hPQ.2⟩
+    simp [hempty] at hmem
+  · intro h
+    by_contra hne
+    obtain ⟨p, hp⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hne)
+    obtain ⟨hp', hdvd, -, hPle, hleQ⟩ := mem_blockPrimeDivs.mp hp
+    have hpmem : p ∈ primeBand P Q :=
+      Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨hPle, hleQ⟩, hp'⟩
+    have hpdvdProd : p ∣ bandProd P Q := Finset.dvd_prod_of_mem _ hpmem
+    have hgcd : p ∣ Nat.gcd (bandProd P Q) n := Nat.dvd_gcd hpdvdProd hdvd
+    rw [Nat.Coprime] at h
+    rw [h] at hgcd
+    exact hp'.one_lt.ne' (Nat.dvd_one.mp hgcd)
 
 end Salt.MR

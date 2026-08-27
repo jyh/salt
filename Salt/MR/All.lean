@@ -520,6 +520,7 @@ open Salt.Tactic in
   Salt.MR.sep_inv_sq_sum_le
   Salt.MR.typical_density_le
   Salt.MR.typical_density_union_le
+  Salt.MR.blockOmega_eq_zero_iff_coprime_bandProd
   Salt.MR.lambdaLin_norm_le
   Salt.MR.lambdaLin_convolution
   Salt.MR.ellLin_lseries_deriv
