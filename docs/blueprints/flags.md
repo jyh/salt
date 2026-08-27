@@ -23833,3 +23833,48 @@ have been an unfair refutation: `T₀` genuinely bounds `M`.  It fails anyway, a
 📌 Calibration per the erratum holds and is not in tension with this: **smaller constants that clear
 their bar are correct results** — `1/(2e)` simply does not clear THIS bar, because the bar is an
 equality-in-the-exponent, not an inequality with room.
+
+### ⭐⭐ 10:5x — **A6's SHARPENING HAS A ROUTE: THE WALL AT `2c = 1` IS A CHANGE OF SHAPE, NOT A FAILURE**
+**Derivation only — no build run (saltbuild HELD for silicon's DRV window). Priced, not attempted.**
+
+**① OUR `1/(2e)` IS AN INSTANTIATION, NOT A WALL.**  `sigma_cutoff_pretentious_gen`
+(`SeamBallWeighted.lean:325`) is **PARAMETRIC IN `c`**, with one constraint:
+```
+  sigma_cutoff_pretentious_gen {c L M C b : ℝ} (hc0 : 0 < c) (hc1 : 2 * c < 1)
+      ∫_{1/L}^{b} (1/σ²)·exp(−c(M − 2log(σL) − C)) dσ  ≤  (exp(cC)/(1−2c))·exp(−cM)·L
+```
+Its own docstring: *"the convergence margin is `2c = 1/e < 1` (comfortable; **the method's wall is
+`2c = 1`**)"*.  The `_half` face fires it at `c = 1/(2e)` because **(A.13)/(A.14)'s square root
+halves the B-ladder's pointwise exponent** — a choice made upstream, not a limit of this lemma.
+⇒ **Every `c < 1/2` is already reachable with the landed machinery.**
+
+**② BUT THE CONSTRAINT IS STRICT, AND A6 NEEDS EXACTLY `c = 1/2`.**  Sharpening to `1/2 − δ` does
+not help: squaring gives `exp(−(1−2δ)M)`, still short of A.3's `exp(−M)`.  ⇒ *the one value the
+method excludes is the one value needed* — which is why this reads as a wall.
+
+**③ ⭐ AND IT IS NOT A WALL. AT `c = 1/2` THE INTEGRAL CHANGES SHAPE.**  The `1/(1−2c)` factor is
+merely the antiderivative's denominator: `∫σ^{2c−2}dσ = (b^{2c−1} − (1/L)^{2c−1})/(2c−1)`.  **At
+`c = 1/2` the exponent `2c−1` is ZERO**, so the integral is not a power but a LOGARITHM:
+```
+  c < 1/2 :  bound = exp(−cM)·exp(cC)·L / (1−2c)        ← constant blows up as c → 1/2
+  c = 1/2 :  ∫σ^{−1}dσ = log(bL)  ⇒  bound = exp(−M/2)·exp(C/2)·L·log(bL)
+                                                        ← SHARP exponent, cost is ONE LOG
+```
+⇒ 🔑 ***A DIVERGENT CONSTANT AT A CRITICAL EXPONENT IS USUALLY A LOG IN DISGUISE: the formula
+`1/(1−2c)` is `0/0` at the wall, and the honest evaluation there is `log`, not `∞`.***
+
+**④ ⭐⭐ AND THE LOG IS THE SIZE A.3 ALREADY BUDGETS.**  On `T₀`, `M < ⅛·loglog X`; here `L = log X`,
+so the cost `log L = loglog X` — **the same scale as `M`.  And A.3's own first term is
+`exp(−M)·M`, carrying exactly one extra factor of that size.**
+⇒ ***THE `M` IN A.3's `exp(−M)·M` IS THE CRITICAL-EXPONENT LOG CORRECTION.***  The sharp route does
+not need the `M` factor absorbed — **A.3's statement was written with it there.**
+
+### ⚖️ WHAT THIS IS AND IS NOT
+✅ A **route** for the A6 wave: fire the σ-cutoff at the critical `c = 1/2`, evaluate the integral
+logarithmically, and land the extra factor against A.3's own `M`.
+⛔ **NOT a proof, and not attempted.**  `sigma_cutoff_pretentious_gen` cannot be *instantiated* at
+`c = 1/2` — `hc1` forbids it; the critical case needs its own lemma with the `log` antiderivative.
+**That lemma is the A6 wave's first node**, and it is ordinary analysis, not new theory.
+📌 Scale match verified numerically (`1/(1−2c)` → 500 at `c = 0.499` vs `log L ≈ 6.9` at `c = 1/2`,
+`L = 10³`): the log is not merely finite, it is *small* beside the constants the sub-critical route
+was already paying.
