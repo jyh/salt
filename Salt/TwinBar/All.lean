@@ -547,3 +547,22 @@ expansion hands each divisor its own filtered index set. -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.sum_logTwin_split_on
   Salt.TwinBar.logSifted_lower_of_count_and_atoms
+
+/-! ### Where `W` comes from on the direct route — the divisor-sum Euler bridge
+
+The direct route's main term is `∑_{d∣P} μ(d)·ν(d)·H_N`, so the constant in front of the harmonic
+head is `∑_{d∣P} μ(d)·ν(d)`. **That sum IS the sieve's `W`.**
+
+⭐ **This is what makes §7's verdict 2 quantitative.** The verdict said the direct route needs no
+`BoundingSieve` — true of the APPARATUS and **false of the CONSTANT**: `W` still appears, because
+it is what `∑ μν` equals. ⇒ ***A ROUTE CAN SHED A MACHINE AND KEEP THE MACHINE'S NUMBER*** — worth
+one named equation rather than a step buried in a longer proof.
+
+Both halves were landed in `BrunLower/Lemma3.lean` and only needed composing:
+`sum_divisors_eq_sum_powerset` (`:107`) with `sum_powerset_prod_neg_nu` (`:151`, the leading Euler
+term), `moebius_nu_prod_eq` (`:141`) folding `μ`'s sign into the density product setwise.
+`…_twinNu_eq_W` spells it at `twinParitySieve`, where `ν` is the landed twin density
+definitionally. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.sum_divisors_moebius_nu_eq_W
+  Salt.TwinBar.sum_divisors_moebius_twinNu_eq_W

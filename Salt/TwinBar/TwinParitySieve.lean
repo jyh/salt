@@ -1019,4 +1019,43 @@ theorem logSifted_lower_of_count_and_atoms {N P : ℕ} (hP : Squarefree P) {Hmai
   have hA := abs_le.mp hatom
   linarith [hcount, hA.1, hA.2]
 
+/-! ## Where `W` comes from on the direct route — the divisor-sum Euler bridge
+
+The direct route's main term is `∑_{d∣P} μ(d)·ν(d)·H_N`, so the constant in front of the
+harmonic head is `∑_{d∣P} μ(d)·ν(d)`.  **That sum IS the sieve's `W`** — which is why the
+sieve-free route still produces the sieve's density constant, and it is worth having as one named
+equation rather than as a step inside a longer proof.
+
+Both halves are landed in `BrunLower/Lemma3.lean` and only needed composing:
+`sum_divisors_eq_sum_powerset` (`:107`, squarefree divisors ↔ prime-set powerset) and
+`sum_powerset_prod_neg_nu` (`:151`, the leading Euler term `Σ_{S⊆P} ∏_{q∈S}(−ν q) = W`), with
+`moebius_nu_prod_eq` (`:141`) folding `μ`'s sign into the density product at each set.
+
+⭐ **This is the fact that makes §7's verdict 2 quantitative.** It said the direct route needs no
+`BoundingSieve`; that is true of the APPARATUS and false of the CONSTANT — `W` still appears,
+because it is what `∑ μν` equals. *A route can shed a machine and keep the machine's number.*
+-/
+
+/-- **`∑_{d ∣ P} μ(d)·ν(d) = W`** — the divisor-sum form of the leading Euler term, for any
+`BoundingSieve` (its `prodPrimes` is squarefree by construction).
+
+This is the constant multiplying the harmonic head in the direct-Möbius main term. -/
+theorem sum_divisors_moebius_nu_eq_W (s : BoundingSieve) :
+    (∑ d ∈ s.prodPrimes.divisors, (ArithmeticFunction.moebius d : ℝ) * s.nu d)
+      = Salt.BrunLower.W s := by
+  rw [Salt.BrunLower.sum_divisors_eq_sum_powerset s.prodPrimes_squarefree
+      (fun d => (ArithmeticFunction.moebius d : ℝ) * s.nu d)]
+  rw [← Salt.BrunLower.sum_powerset_prod_neg_nu s]
+  refine Finset.sum_congr rfl fun S hS => ?_
+  exact Salt.BrunLower.moebius_nu_prod_eq s (Finset.mem_powerset.mp hS)
+
+/-- **The twin instance, spelled at `twinParitySieve`.**  The direct route's leading constant at
+the Liouville-twisted twin sieve is `W (twinParitySieve N P hP)`, and `ν` there is the landed twin
+density `Salt.TwinSieve.nu` (definitionally, `twinParitySieve_nu`). -/
+theorem sum_divisors_moebius_twinNu_eq_W (N P : ℕ) (hP : Squarefree P) :
+    (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d)
+      = Salt.BrunLower.W (twinParitySieve N P hP) := by
+  have h := sum_divisors_moebius_nu_eq_W (twinParitySieve N P hP)
+  rwa [twinParitySieve_prodPrimes, twinParitySieve_nu] at h
+
 end Salt.TwinBar

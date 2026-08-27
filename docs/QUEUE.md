@@ -454,6 +454,19 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    often"* is a three-line elementary theorem. **The roughness is the entire content** — which is
    exactly why this is stated at the SIFTED sum and not the plain one. *Stating the weaker true
    thing loudly is how a socket avoids becoming an overclaim.*
+   ✅⭐⭐ **AND THE `W` BRIDGE — `sum_divisors_moebius_nu_eq_W` + `…_twinNu_eq_W`, `[3 axioms]`
+   (18:2x):** `∑_{d∣P} μ(d)·ν(d) = W`. The direct route's main term is `∑_{d∣P} μ(d)ν(d)·H_N`, so
+   **the constant in front of the harmonic head IS the sieve's `W`.**
+   ⭐⭐ ***THIS IS WHAT MAKES §7's VERDICT 2 QUANTITATIVE.*** The verdict said the direct route needs
+   no `BoundingSieve` — **true of the APPARATUS and FALSE of the CONSTANT.** `W` still appears,
+   because it is what `∑ μν` equals. ⇒ ***A ROUTE CAN SHED A MACHINE AND KEEP THE MACHINE'S
+   NUMBER.*** *Worth one named equation rather than a step buried inside a longer proof — a
+   constant that survives a route change is exactly the thing a later reader will assume was
+   re-derived.*
+   📌 **Both halves were already landed and only needed composing** — `sum_divisors_eq_sum_powerset`
+   (`Lemma3.lean:107`) with `sum_powerset_prod_neg_nu` (`:151`), `moebius_nu_prod_eq` (`:141`)
+   folding `μ`'s sign in setwise. *One attempt after one mechanical miss: `BoundingSieve` is
+   MATHLIB's, not `Salt.BrunLower`'s — the file's own docstring says so and I qualified it anyway.*
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references
