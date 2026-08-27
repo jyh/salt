@@ -947,7 +947,25 @@ scale `log P_j/log Q_j = r/j²` and `C` is `typical_density_le`'s absolute const
 arbitrarily many bands costs a bounded factor, not a factor `J`.
 
 ⛔ Each band's four side conditions are carried per-`j` exactly as the one-band stone states them;
-nothing here weakens them, and no `j`-uniformity is assumed beyond the ratio schedule. -/
+nothing here weakens them, and no `j`-uniformity is assumed beyond the ratio schedule.
+
+⚖️⚖️ **SCOPE — MEASURED AFTER LANDING, AND IT IS A SOCKET.**  **Nothing in the corpus
+consumes this yet, and the live route may never need it.**  Every consumer of
+`typical_density_le` reaches it at **ONE BLOCK SCALE** — `M4Door.SieveBlockGate` bundles
+its gates *"as they reach `m4_sieve_block_mass`, at one block scale `X`"*, presented once
+per block.  The union over `j` is what MR's **Lemma 2.2** needs, and Lemma 2.2 is **DELETED
+FROM THE RATIFIED PORT WAVES** (`QUEUE.md:582`): with `c_p = 1` in the Liouville case,
+`[23, Lemma 2.2, Thm 2.3]` is replaced by `[23, Theorem A.1]`.
+
+⇒ **What is and is not true:** the one-band stone is LIVE (consumed per-block by `M4Door`,
+`M4Sieve`, `CgPin`, `ConstantsExposed`); the *union* direction serves the deleted port
+target.  So this theorem **closes the gap the wave-1a row named** and **unblocks nothing
+measured**.
+⇒ 🔑 ***"THE ROW SAYS IT IS UNLANDED" AND "THE ROUTE STILL NEEDS IT" ARE DIFFERENT
+CLAIMS, AND A QUEUE ROW OUTLIVES THE DELETION THAT EMPTIED IT.***
+*Disclosed at landing rather than left for a census: on tonight's own dead-branch
+instrument this name would read as a corpse, and it is a socket — the two are
+indistinguishable to a grep, which is exactly why the author must say which.* -/
 theorem typical_density_union_le :
     ∃ C : ℝ, 0 < C ∧ ∀ (J X : ℕ) (P Q : ℕ → ℕ) (r : ℝ), 0 ≤ r →
       (∀ j ∈ Finset.Icc 1 J, 2 ≤ P j) →

@@ -663,6 +663,19 @@ RESURRECTS THEM:**
     **WAVE 1a — E-1, E-2.** The typical-factorization set `S := S_{P₁,Q₁,z₁,z₂}` (`P₁ := W²⁰⁰`,
     `Q₁ := H/W³`) + the Prop 2.4 statement (bound transcription verified exact by the refuters).
     Class **B**. *Shrunk by the reduction: the `g₁ * h` constructions are gone.*
+    ✅⚖️ **THE BAND-UNION GAP NAMED IN THIS ROW'S RECORD IS LANDED 2026-08-27 — AND IT IS A SOCKET.**
+    `typical_density_union_le` (`Salt/MR/TypicalDensity.lean`, `[3 axioms]`, `salt 5c3ee7c7`):
+    the union over `j ≤ J` against MR's `1/j²` ratio schedule, costing a BOUNDED factor (`Σ1/j² ≤ 2`)
+    rather than a factor `J`, with each band's four side conditions carried per-`j`.
+    ⛔⛔ **BUT MEASURED AFTER LANDING: NOTHING CONSUMES IT AND THE LIVE ROUTE MAY NEVER NEED IT.**
+    Every consumer of `typical_density_le` reaches it at ONE BLOCK SCALE (`M4Door.SieveBlockGate`,
+    "once per block"); the union direction is what MR's **Lemma 2.2** needs, and Lemma 2.2 is
+    **DELETED from the ratified waves at :582**. ⇒ 🔑 ***"THE ROW SAYS UNLANDED" AND "THE ROUTE STILL
+    NEEDS IT" ARE DIFFERENT CLAIMS — A QUEUE ROW OUTLIVES THE DELETION THAT EMPTIED IT.***
+    📌 Why it was open at all: this file's header said the union is *"performed by A4 (`ThmA1.lean`)"*
+    and **`Salt/MR/ThmA1.lean` DOES NOT EXIST** (the only `ThmA1`-shaped module imports this file, so
+    it could not have, without a cycle). ***A POINTER TO A FILE THAT DOES NOT EXIST READS EXACTLY LIKE
+    A DISCHARGED OBLIGATION.***
 12. ⚠️⚠️ **HEADER CORRECTED 2026-08-26 10:2x (math) — THE ⛔⛔ BELOW IS TRUE OF *ONE THIRD* OF THIS
     ROW AND A HEAD READING ONLY THE HEADER SKIPS THE OTHER TWO.** The row's own text already says it:
     *"E-5c and the thresholds are untouched by the refutation and remain sound as written."*
