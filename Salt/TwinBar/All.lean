@@ -612,3 +612,42 @@ and import closure, with exactly the range `Icc 1 M` and exactly the constant `2
 for it under the `Salt.Chen` spelling found a different copy and would have cost an import.* -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.sum_inv_affine_sub_harmonic
+
+/-! ### The win condition wired to INFINITUDE — the composition a build cannot check
+
+Two audited objects sat one step apart in `TwinParitySieve.lean` with nothing between them:
+`logSifted_lower_of_count_and_atoms` PRODUCES a lower bound on the sifted log-mass, and
+`support_infinite_of_lower_unbounded` CONSUMES one to yield an infinite support — the latter's own
+doc saying *"nothing in the corpus consumes it yet"*, accurately. **Both green, both audited, the
+interface between them never stated.** ⇒ 🔑 ***THE KERNEL CHECKS THEOREMS, NOT THAT THEY COMPOSE;
+AN INTERFACE NOBODY STATED IS WHERE TWO CORRECT OBJECTS QUIETLY FAIL TO MEET.***
+
+⭐ **THE FINDING WORTH KEEPING: THE PACKAGED LEMMA WAS THE WRONG CONSUMER AND ITS OWN PRIMITIVE WAS
+THE RIGHT ONE.** `support_infinite_of_lower_unbounded` wants `f N ≤ ∑_{range N}` while the win
+condition delivers `∑_{range (N+1)}`; matching it would have forced a shifted `f` with a FALSE
+value at `N = 0`. Going through `support_infinite_of_partialSums_unbounded` and handing it `N+1` as
+the witness dissolves the off-by-one entirely. *A convenience wrapper encodes an indexing
+convention; one that does not match yours costs more than the primitive it wraps.*
+
+📌 The bridge is a weight **extended by zero** off the sifted set, not a restriction of one, and the
+`n = 0` term vanishes in BOTH branches of the coprimality test because the weight divides by `n`
+and `x / 0 = 0`.
+
+⚖️ **VACUITY, CHECKED RATHER THAN ASSUMED** (7b's law: an uninhabited hypothesis makes every
+consumer vacuously true with a green build and a clean audit). Measured outside Lean: for squarefree
+`P`, `∑_{d∣P} μ(d)·C_d` grows like `W·log N` — slope **0.2000** at `P = 15` and **0.1429** at
+`P = 105`, against `W = 1/5` and `W = 1/7`. **So `hcount` and `hdiv` are jointly inhabitable, and
+the growth constant independently confirms `sum_divisors_moebius_nu_eq_W` above.** The one
+hypothesis with no producer is `hatom` — the Tao two-point object, Captain-gated, and it is open,
+not uninhabitable.
+
+⛔ **WHAT IS NOT CLAIMED:** all three inputs remain hypotheses, none is supplied, and no survivor is
+produced. What is added is the step positivity cannot make — `0 < siftedSum` at each `N` is
+consistent with the SAME `n` every time, while an unbounded mass cannot be carried by finitely many
+terms. **Independent of the flagged `hcount` shape by construction** (`flags.md` 08/26 19:1x):
+`hcount` enters only through its VALUE. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.twinLogWeight_nonneg
+  Salt.TwinBar.sum_twinLogWeight_range
+  Salt.TwinBar.twinLogWeight_support_infinite_of_win
+  Salt.TwinBar.twinLogWeight_ne_zero_iff

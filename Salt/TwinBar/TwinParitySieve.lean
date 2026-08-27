@@ -1242,4 +1242,142 @@ theorem sum_inv_affine_sub_harmonic {d r : ℕ} (hd : 0 < d) (hr : r ≤ d) (M :
           mul_le_mul_of_nonneg_left (sum_inv_sq_Icc_le M) (by positivity)
       _ = 2 / (d : ℝ) := by ring
 
+/-! ## Wiring the WIN CONDITION to INFINITUDE — the composition a build cannot check
+
+Two objects have been sitting one step apart in this file with nothing between them:
+
+* `logSifted_lower_of_count_and_atoms` — the direct route's win condition, producing a LOWER BOUND
+  on the sifted log-mass from `hcount` and `hatom`;
+* `support_infinite_of_lower_unbounded` — the tail-mass argument, CONSUMING a lower bound on
+  partial sums to produce an infinite support.
+
+Its own doc says *"nothing in the corpus consumes it yet"*, and that was accurate.  **Both are
+green, both are audited, and the interface between them was never stated** — which is the failure
+mode a `lake build` is structurally unable to report: *the kernel checks theorems, not that they
+compose.*  Stating it turns out to need three things that were not going to appear by themselves:
+
+```
+  a WEIGHT defined on all of ℕ        the win condition sums over a FILTERED Icc 1 N; the
+                                      tail-mass lemma sums over range N.  The bridge is a
+                                      weight extended BY ZERO off the sifted set, not a
+                                      restriction of one.
+  the n = 0 term                      `range (N+1)` carries it and `Icc 1 N` does not.  It
+                                      vanishes for a reason worth naming: the weight divides
+                                      by `n`, and Lean's `x / 0 = 0` kills it in BOTH branches
+                                      of the coprimality test.
+  an OFF-BY-ONE that is real          `hlow` wants `f N ≤ ∑_{range N}` while the win condition
+                                      delivers `∑_{range (N+1)}`.  Going through the primitive
+                                      `support_infinite_of_partialSums_unbounded` and handing it
+                                      `N+1` as the witness dissolves it; going through the
+                                      packaged `..._of_lower_unbounded` would have forced a
+                                      shifted `f` with a false value at `N = 0`.
+```
+⇒ 🔑 ***AN INTERFACE NOBODY STATED IS NOT A SMALL GAP — IT IS THE PLACE WHERE TWO CORRECT OBJECTS
+QUIETLY FAIL TO MEET.***  ⭐ And the third row is the one worth keeping: **the packaged lemma was
+the WRONG consumer and the primitive it was built from was the right one.**  *A convenience wrapper
+encodes an indexing convention, and a wrapper that does not match yours costs more than the
+primitive.*
+
+⚖️ **WHAT THIS DOES AND DOES NOT CLAIM.**  It is a COMPOSITION: `hcount`, `hatom` and the
+divergence all remain hypotheses, exactly as they were.  **It supplies none of them and produces no
+survivor.**  What it adds is that, once supplied, they yield INFINITELY MANY — not one survivor per
+`N`, which is all a positivity statement gives.  ⛔ It is deliberately independent of how `hcount`
+is discharged: the flagged per-class shape (`flags.md`, 08/26 19:1x) is a question about `hcount`'s
+SUPPLIER, and nothing below reads it. -/
+
+/-- The direct route's log-world weight, **extended by zero off the sifted set** — the shape the
+tail-mass argument consumes.  On the sifted set it is the win condition's summand
+`(1 − λ(n(n+2)))/n`; elsewhere it is `0`. -/
+noncomputable def twinLogWeight (P : ℕ) (n : ℕ) : ℝ :=
+  if Nat.Coprime (n * (n + 2)) P then
+    (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ)
+  else 0
+
+/-- `twinLogWeight` is nonnegative — `λ(m) ≤ 1` pointwise (`liouville_real_le`), and the
+denominator is a `ℕ`-cast.  This is the tail-mass lemma's `hw`. -/
+theorem twinLogWeight_nonneg (P n : ℕ) : 0 ≤ twinLogWeight P n := by
+  unfold twinLogWeight
+  split
+  · have h := liouville_real_le (n * (n + 2))
+    exact div_nonneg (by linarith) (Nat.cast_nonneg n)
+  · exact le_rfl
+
+/-- **The bridge identity.**  The `range (N+1)` partial sum of the extended weight IS the win
+condition's filtered `Icc 1 N` sum.
+
+⭐ The `n = 0` term is where the two index conventions actually meet, and it vanishes **in both
+branches**: the weight divides by `n`, and `x / 0 = 0`. -/
+theorem sum_twinLogWeight_range (P N : ℕ) :
+    (∑ n ∈ Finset.range (N + 1), twinLogWeight P n)
+      = ∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime (n * (n + 2)) P),
+          (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ) := by
+  classical
+  have hzero : twinLogWeight P 0 = 0 := by
+    unfold twinLogWeight; split <;> simp
+  have hset : Finset.range (N + 1) = insert 0 (Finset.Icc 1 N) := by
+    ext m; simp only [Finset.mem_range, Finset.mem_insert, Finset.mem_Icc]; omega
+  rw [hset, Finset.sum_insert (by simp), hzero, zero_add, Finset.sum_filter]
+  rfl
+
+/-- ⭐⭐ **THE DIRECT ROUTE'S WIN CONDITION, WIRED TO INFINITUDE.**  With the count, the atom mass
+and the DIVERGENCE of `Hmain − A` all supplied, the sifted log-weight has infinite support.
+
+⛔ **All three remain hypotheses; this supplies none of them.**  What it adds is the step a
+positivity statement cannot make: `0 < siftedSum` at each `N` gives one survivor `≤ N` and is
+consistent with the SAME `n` every time, whereas an unbounded mass cannot be carried by finitely
+many terms.
+
+📌 Independent of the flagged `hcount` shape by construction — `hcount` enters only through its
+VALUE, never through how it is discharged. -/
+theorem twinLogWeight_support_infinite_of_win {P : ℕ} (hP : Squarefree P) {A : ℝ}
+    {Hmain : ℕ → ℝ}
+    (hcount : ∀ N : ℕ, Hmain N ≤ ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ) / (n : ℝ))
+    (hatom : ∀ N : ℕ, |∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
+            ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)| ≤ A)
+    (hdiv : ∀ M : ℝ, ∃ N : ℕ, M < Hmain N - A) :
+    {n : ℕ | twinLogWeight P n ≠ 0}.Infinite := by
+  refine support_infinite_of_partialSums_unbounded (twinLogWeight_nonneg P) fun M => ?_
+  obtain ⟨N, hN⟩ := hdiv M
+  refine ⟨N + 1, ?_⟩
+  rw [sum_twinLogWeight_range]
+  exact lt_of_lt_of_le hN (logSifted_lower_of_count_and_atoms hP (hcount N) (hatom N))
+
+/-- **What the infinite set actually is** — stated so the conclusion above is readable as a
+statement about twin values rather than about an opaque support.
+
+`twinLogWeight P n ≠ 0` says exactly: `n ≥ 1`, the twin value `n(n+2)` is coprime to `P`, and
+`Ω(n(n+2))` is ODD.  ⭐ That is the `P`-rough parity survivor the campaign is after. -/
+theorem twinLogWeight_ne_zero_iff {P n : ℕ} :
+    twinLogWeight P n ≠ 0
+      ↔ 1 ≤ n ∧ Nat.Coprime (n * (n + 2)) P
+          ∧ Odd (ArithmeticFunction.cardFactors (n * (n + 2))) := by
+  classical
+  unfold twinLogWeight
+  by_cases hcop : Nat.Coprime (n * (n + 2)) P
+  · rw [if_pos hcop]
+    rcases Nat.eq_zero_or_pos n with rfl | hn
+    · simp
+    · have hn0 : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+      have hne : n * (n + 2) ≠ 0 := by positivity
+      have hL : ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)
+          = ((-1 : ℤ) ^ ArithmeticFunction.cardFactors (n * (n + 2)) : ℤ) := by
+        rw [ArithmeticFunction.liouville_apply hne]
+      rw [div_ne_zero_iff]
+      constructor
+      · rintro ⟨h1, -⟩
+        refine ⟨hn, hcop, ?_⟩
+        rw [hL] at h1
+        by_contra hodd
+        rw [Nat.not_odd_iff_even] at hodd
+        rw [hodd.neg_one_pow] at h1
+        norm_num at h1
+      · rintro ⟨-, -, hodd⟩
+        refine ⟨?_, hn0⟩
+        rw [hL, hodd.neg_one_pow]
+        norm_num
+  · rw [if_neg hcop]
+    simp [hcop]
+
 end Salt.TwinBar
