@@ -23787,3 +23787,49 @@ be careful there."*  **MRT never use the factor, only its modulus `1/√(1+u²)`
 📌 And our transcription was FAITHFUL — it copied the printed statement exactly. ⇒ ***FIDELITY TO A
 SOURCE IS NOT CORRECTNESS WHEN THE SOURCE CONTRADICTS ITSELF; A TRANSCRIPTION CHECK COMPARES TO ONE
 DISPLAY, AND THE DEFECT LIVED BETWEEN TWO.***
+
+---
+
+## A6 RISK BRANCH — ⛔ **ABSORPTION IS REFUTED. THE `1/2` IS TUNED, NOT SLACK.**
+**2026-08-27 10:1x · Opus 5 · council item ④c, absorb-first arm · measured before any D-class spend**
+
+### The order
+*"A6 is the priced risk branch: absorb `1/(2e)`-vs-`1/2` through the argument, else sharpen our
+Halász to `1/2`."*  **The absorb arm is measured here and it FAILS. The mechanism is exact.**
+
+### ⛔ WHY THE CONSTANT CANNOT BE ABSORBED — IT IS CONSUMED BY A SQUARING
+A6 bounds `F`; the `T₀` step bounds `∫F²` (`mrtA3_T0_bound_of_A6`, `:2220`, thence
+`mrtA3_band_bound_of_A6`, `:2906`).  **Both merely CARRY the constant** — which is what made
+absorption look plausible.  It is consumed one step later, at A.3's own statement:
+```
+  A6 at constant c   ⟶ squared in the T₀ integral ⟶  exp(−2cM)
+      c = 1/2        ⟶  exp(−M)        ← EXACTLY `MRTPropA3`'s own term `mrtM f X / exp (mrtM f X)`
+      c = 1/(2e)     ⟶  exp(−M/e)      ← strictly weaker; cannot imply it
+```
+⇒ 🔑 ***THE `1/2` IS NOT A CONSTANT SOMEONE CHOSE LOOSELY — IT IS THE UNIQUE VALUE THAT SQUARES INTO
+A.3's `exp(−M)`.  A HALVED EXPONENT UPSTREAM OF A SQUARING IS A TUNED QUANTITY, AND IT LOOKS LIKE
+SLACK RIGHT UP TO THE STEP THAT SQUARES IT.***
+
+### 📐 AND NO CONSTANT ABSORBS THE LOSS — CHECKED BOTH WAYS
+```
+  unbounded M:  exp(−M/e)/exp(−M) = exp(M(1−1/e)) → ∞    (M=20 ⇒ 3.1e5)  ⇒ no C works
+  BOUNDED M on T₀ (M < ⅛loglog X), the fair test:
+      loss ≤ (log X)^{(1/8)(1−1/e)} = (log X)^{0.0790}
+      against A.3's own tail term      (log X)^{−0.02}
+  ⇒ the loss is a POSITIVE power of log X where the budget is a NEGATIVE one — NOT absorbable
+```
+*The bounded-`M` test is the one that matters and I ran it because the unbounded test alone would
+have been an unfair refutation: `T₀` genuinely bounds `M`.  It fails anyway, and by a clear margin.*
+
+### ⚖️ WHAT THIS SETTLES, AND WHAT IT LEAVES
+* **The absorb arm is closed.** Not "hard" — refuted, with the exponent arithmetic.
+* ⇒ **The live arm is the ruling's second: SHARPEN OUR HALÁSZ TOWARD `1/2`.**  Every landed direct
+  bound sits at `1/(2e)` or `1/e` (`halasz_direct_center` and its four siblings); the target is `1/2`.
+  **C/D-class, spend authorized by the same ruling.**
+* ⛔ **A THIRD ROUTE EXISTS AND IS NOT MINE:** re-derive `MRTPropA3`'s own statement at the weaker
+  exponent, so the squaring target moves to meet us.  **That is a STATEMENT ACT — flagged, not
+  authored** (minute ④b). *Recorded because a reader who sees only "sharpen Halász" may not realise
+  the alternative was considered and is reserved rather than overlooked.*
+📌 Calibration per the erratum holds and is not in tension with this: **smaller constants that clear
+their bar are correct results** — `1/(2e)` simply does not clear THIS bar, because the bar is an
+equality-in-the-exponent, not an inequality with room.
