@@ -23912,3 +23912,31 @@ estimate, not a re-instantiation.**
 constant, so the two share this node rather than each needing their own.
 ⚠️ **Reported before spending the D-class budget on the wrong node.**  My 10:5x post said the route
 was "fire the σ-cutoff at the critical `c`"; that is step two, and step one is upstream.
+
+### 📐 11:5x — **A6's D-CLASS NODE IS LOCALIZED TO ONE INEQUALITY**
+Chasing `head_sigma_bound`'s `1/e` to its birth:
+```
+  euler_log_bound (SupF:186)          ‖L‖ ≤ exp(cpeel)·exp(∑'_p Re(g p · p^{−s}))   NO 1/e — clean
+  dist_identification_sigma (:757)    ∑'_p Re(g p)p^{−1−σ}
+                                        ≤ (log(1/σ) + (log4+cpeel)) − (1/e)·𝔻²(1,g; e^{1/σ})
+  ⇒ THE CONSTANT IS BORN AT :728-733, three lines:
+        hYσ     : Y ^ σ = Real.exp 1              (Y = e^{1/σ})
+        hpσ_le  : (p:ℝ) ^ σ ≤ Real.exp 1          (for p ≤ Y)
+        hcut_p  : 1 / Real.exp 1 ≤ (p:ℝ) ^ (-σ)   ⇐ THE WHOLE CONSTANT
+```
+⇒ 🔑 ***`1/e` IS THE UNIFORM WORST-CASE VALUE OF `p^{−σ}`, ATTAINED ONLY AT THE TOP ENDPOINT
+`p = e^{1/σ}`.***  Every smaller prime has `p^{−σ}` nearer `1`, and `hcut_p` throws all of that
+away — it is the crudest available move, and it is the only place the constant enters.
+
+### ⚖️ WHAT THIS MEANS FOR THE SHARPENING
+* **The node is not diffuse.** The whole `1/e → 1/2` question is `hcut_p`, one line, and everything
+  downstream (`window_sup_decay_gen`, `halasz_direct_reduce`, the peel faces) merely transports it.
+* ⛔ **But it is NOT a local fix.**  `𝔻²` weights primes by `1/p`, and `∑_{p≤Y} 1/p ≍ loglog Y`, so
+  the top dyadic block carries a constant fraction of the mass — the worst case is not a rare
+  corner.  Recovering it needs the σ-INTEGRAL to see the `p`-dependence, which is precisely GHS's
+  argument and precisely what a per-prime uniform bound cannot do.
+* ⇒ **Confirms the council's pricing: a PORT of GHS's Halász proof, C/D-class.**  What is new is
+  that the port has a single named target rather than a whole file: **replace `hcut_p`'s uniform
+  step with a `p`-aware one, and every consumer inherits the sharper constant unchanged.**
+📌 **And it re-prices A5 identically** — A5's R-polynomial bound draws on the same head constant, so
+`hcut_p` is the shared node for BOTH lemmas the constants grant covers.
