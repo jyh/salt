@@ -8,6 +8,7 @@ import Salt.Brun.SelbergPort
 import Salt.BrunLower.MertensWindow
 import Salt.Chen.MertensPNT
 import Salt.Maynard.Mertens
+import Salt.TwinBar.LambdaRate
 
 /-!
 # TypicalDensity — the sieve density of the set `S` (S8 / MR-CORE, node A4a)
@@ -915,5 +916,99 @@ theorem typical_density_le :
     _ ≤ (1 / c₄) * (Real.log P / Real.log Q) * X + (X : ℝ) * (Real.log P / Real.log Q) := by
         linarith [herr]
     _ = (1 / c₄ + 1) * (Real.log P / Real.log Q) * X := by ring
+
+/-! ## The union over bands — the step this file's own header said lived elsewhere
+
+`typical_density_le` is **one band**.  MR's Lemma 2.2 needs the complement of the FULL typical set
+`S` (a prime factor in *every* band `[P_j, Q_j]`, `j ≤ J`), which is a union bound over `j` against
+`Σ_j log P_j/log Q_j`, and MR's own schedule makes that sum converge by
+`log P_j/log Q_j = (1/j²)·(log P₁/log Q₁)`.
+
+⛔⛔ **THIS FILE'S HEADER SAID THE UNION BOUND WAS PERFORMED BY "A4 (`ThmA1.lean`)". THERE IS NO
+`Salt/MR/ThmA1.lean`.** The file does not exist (checked); the only `ThmA1`-shaped module is
+`MRTThmA1.lean`, which is a different object and in fact imports THIS file — so it could not have
+performed this step without a cycle.  `QUEUE.md`'s wave-1a row was right that this is *"unlanded
+regardless of range"*, and the header was the stale document.
+⇒ 🔑 ***A POINTER TO A FILE THAT DOES NOT EXIST READS EXACTLY LIKE A DISCHARGED OBLIGATION*** — it
+names a location, so the eye stops there.  *Two documents disagreed; the one that turned out stale
+was the one physically closest to the code.*
+
+📌 **Reused, not re-derived:** `Σ_{j≤J} 1/j² ≤ 2` is `Salt.TwinBar.sum_inv_sq_Icc_le` — the corpus
+carries at least five copies of that inequality across `MR`/`Chen`/`TwinBar`, and this file's
+closure had none, so the cheapest reachable one is imported (+1 module, measured).  ⚠️ `MRTThmA1`'s
+copy would have been a **cycle**. -/
+
+open Classical in
+/-- **The band-union density bound.**  With MR's `1/j²` schedule on the band ratios, the count of
+`n ∈ (X, 2X]` missing a prime factor in SOME band is at most `2·C·r·X`, where `r` is the common
+scale `log P_j/log Q_j = r/j²` and `C` is `typical_density_le`'s absolute constant.
+
+⭐ **The `2` is `Σ 1/j²`'s bound and is where the schedule pays for itself** — the union over
+arbitrarily many bands costs a bounded factor, not a factor `J`.
+
+⛔ Each band's four side conditions are carried per-`j` exactly as the one-band stone states them;
+nothing here weakens them, and no `j`-uniformity is assumed beyond the ratio schedule. -/
+theorem typical_density_union_le :
+    ∃ C : ℝ, 0 < C ∧ ∀ (J X : ℕ) (P Q : ℕ → ℕ) (r : ℝ), 0 ≤ r →
+      (∀ j ∈ Finset.Icc 1 J, 2 ≤ P j) →
+      (∀ j ∈ Finset.Icc 1 J, P j ≤ Q j) →
+      (∀ j ∈ Finset.Icc 1 J, 100 * Real.log (Q j) ≤ Real.log X) →
+      (∀ j ∈ Finset.Icc 1 J, ((Nat.sqrt X : ℝ) + 1)
+          * ∏ p ∈ primeBand (P j) (Q j), (1 + 3 / (p : ℝ))
+            ≤ (X : ℝ) * (Real.log (P j) / Real.log (Q j))) →
+      (∀ j ∈ Finset.Icc 1 J, Real.log (P j) / Real.log (Q j) = r / (j : ℝ) ^ 2) →
+      (((Finset.Ioc X (2 * X)).filter
+          (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)).card : ℝ)
+        ≤ 2 * C * r * X := by
+  classical
+  obtain ⟨C, hC, hband⟩ := typical_density_le
+  refine ⟨C, hC, ?_⟩
+  intro J X P Q r hr hP hPQ hgate herr hratio
+  have hX0 : (0 : ℝ) ≤ (X : ℝ) := Nat.cast_nonneg X
+  -- the failing set sits inside the union of the per-band failing sets
+  have hsub : (Finset.Ioc X (2 * X)).filter
+        (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)
+      ⊆ (Finset.Icc 1 J).biUnion (fun j =>
+          (Finset.Ioc X (2 * X)).filter (fun n => (bandProd (P j) (Q j)).Coprime n)) := by
+    intro n hn
+    simp only [Finset.mem_filter] at hn
+    obtain ⟨hn1, j, hj, hcop⟩ := hn
+    exact Finset.mem_biUnion.mpr ⟨j, hj, Finset.mem_filter.mpr ⟨hn1, hcop⟩⟩
+  have hcard : (((Finset.Ioc X (2 * X)).filter
+        (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)).card : ℝ)
+      ≤ ∑ j ∈ Finset.Icc 1 J,
+          (((Finset.Ioc X (2 * X)).filter
+            (fun n => (bandProd (P j) (Q j)).Coprime n)).card : ℝ) := by
+    have h1 := Finset.card_le_card hsub
+    have h2 := Finset.card_biUnion_le (s := Finset.Icc 1 J)
+      (t := fun j => (Finset.Ioc X (2 * X)).filter (fun n => (bandProd (P j) (Q j)).Coprime n))
+    have : ((Finset.Ioc X (2 * X)).filter
+        (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)).card
+        ≤ ∑ j ∈ Finset.Icc 1 J,
+            ((Finset.Ioc X (2 * X)).filter (fun n => (bandProd (P j) (Q j)).Coprime n)).card :=
+      le_trans h1 h2
+    exact_mod_cast this
+  refine le_trans hcard ?_
+  -- each band by the one-band stone, then the schedule
+  have hterm : ∀ j ∈ Finset.Icc 1 J,
+      (((Finset.Ioc X (2 * X)).filter
+        (fun n => (bandProd (P j) (Q j)).Coprime n)).card : ℝ)
+        ≤ C * (r / (j : ℝ) ^ 2) * X := by
+    intro j hj
+    have := hband (P j) (Q j) X (hP j hj) (hPQ j hj) (hgate j hj) (herr j hj)
+    rwa [hratio j hj] at this
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  have hrw : ∑ j ∈ Finset.Icc 1 J, C * (r / (j : ℝ) ^ 2) * X
+      = C * r * (X : ℝ) * ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹ := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    field_simp
+  rw [hrw]
+  have hsum : ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹ ≤ 2 :=
+    Salt.TwinBar.sum_inv_sq_Icc_le J
+  have hcoef : (0 : ℝ) ≤ C * r * (X : ℝ) := by positivity
+  calc C * r * (X : ℝ) * ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹
+      ≤ C * r * (X : ℝ) * 2 := mul_le_mul_of_nonneg_left hsum hcoef
+    _ = 2 * C * r * X := by ring
 
 end Salt.MR
