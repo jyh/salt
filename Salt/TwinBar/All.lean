@@ -452,3 +452,28 @@ prerequisite §7 named. The ATOMS on its right are the open object (Tao Thm 1.2,
 an atom supplier arrives.** Recorded so that reading is not a surprise. -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.sum_twinCoprime_eq_moebius_divisors
+
+/-! ### Every `d ≥ 2` atom carries TWO objects at TWO strengths — verdict 4's LAST entry
+
+§7's verdict 4 closes with *"the `d = 1` ladder row is IDENTICALLY ZERO … every `d ≥ 2` atom
+carries TWO objects at TWO strengths"*. The first half is `twinDisp_row_one`; this is the second,
+and it is the entry I had first glossed as an observation rather than a node.
+
+The row `|L N d − ν(d)·L N 1|` names **two different Liouville sums** — the `d`-restricted
+`L N d`, supplied by a correlation estimate at stride `d`, and the FULL `L N 1`, supplied by the
+stride-1 estimate. Different objects, **different strengths**. The triangle inequality prices the
+row as two INDEPENDENT demands, and `liouvilleTwinDisp_of_two_objects` lifts that to the whole
+discrepancy input.
+
+⭐ **An interface fact, not an estimate.** Without it a reader prices each row as a demand on a
+DIFFERENCE — strictly harder than the conjunction of two bounds, and it needlessly couples the two
+strengths.
+⛔ **SUFFICIENT, not equivalent:** the split DISCARDS the cancellation between `L N d` and
+`ν(d)·L N 1` that the difference form retains. A supplier that CAN exploit that cancellation should
+use `LiouvilleTwinDisp` directly; this exists so that one which cannot is not blocked.
+⚠️ Nothing consumes it yet — it reads as a dead branch on item 12c's census until a supplier
+arrives. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.nu_nonneg
+  Salt.TwinBar.twinDisp_row_le_two_objects
+  Salt.TwinBar.liouvilleTwinDisp_of_two_objects

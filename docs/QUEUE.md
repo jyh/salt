@@ -394,6 +394,24 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    item 12c's own census it reads as a dead branch until an atom supplier arrives.** *Recorded at
    landing so the reading is not a surprise — the helm's 16:5x point that my own sockets would
    appear in my own census, taken.*
+   ✅⭐ **AND VERDICT 4's LAST ENTRY IS LANDED — `nu_nonneg` · `twinDisp_row_le_two_objects` ·
+   `liouvilleTwinDisp_of_two_objects`, all `[3 axioms]`, first attempt (17:1x).** §7 closes verdict
+   4 with *"every `d ≥ 2` atom carries TWO objects at TWO strengths"* — **the entry I had first
+   glossed as an observation rather than a node.** The row `|L N d − ν(d)·L N 1|` names two
+   DIFFERENT Liouville sums: `L N d` (supplied by a correlation estimate at stride `d`) and the FULL
+   `L N 1` (stride 1). Different objects, different strengths; the triangle inequality prices the
+   row as two INDEPENDENT demands, lifted to the whole input by the third name.
+   ⭐ **An INTERFACE fact, not an estimate.** Without it a reader prices each row as a demand on a
+   DIFFERENCE — strictly harder than the conjunction of two bounds, and it needlessly COUPLES the
+   two strengths. ⇒ *A verdict line that reads like a remark can still be a node; the test is
+   whether a consumer would otherwise pay more.*
+   ⛔ **SUFFICIENT, NOT EQUIVALENT — stated in the theorem's own docstring:** the split DISCARDS the
+   cancellation between `L N d` and `ν(d)·L N 1` that the difference form retains. A supplier that
+   CAN exploit that cancellation should use `LiouvilleTwinDisp` directly; this exists so one that
+   cannot is not blocked. ⚠️ Nothing consumes it yet — reads as a dead branch on 12c's census.
+   ✅✅ **⇒ EVERY ENTRY IN §7's VERDICT 4 IS NOW LANDED.** The list was: pre-terminal quantitative
+   chain · tail-mass infinitude · `d = 1` row zero · two-objects-two-strengths · the `1/m` vs
+   `1/(dm+r)` weight comparison — **five for five.**
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references

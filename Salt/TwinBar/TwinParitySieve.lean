@@ -769,4 +769,62 @@ theorem sum_twinCoprime_eq_moebius_divisors (N P : ℕ) (hP : Squarefree P) (w :
         rw [Finset.mul_sum, Finset.sum_filter]
         exact Finset.sum_congr rfl (fun n _ => by split_ifs <;> ring)
 
+/-! ## Every `d ≥ 2` atom carries TWO objects at TWO strengths — verdict 4's last entry
+
+§7's verdict 4 closes with *"the `d = 1` ladder row is IDENTICALLY ZERO … every `d ≥ 2` atom
+carries TWO objects at TWO strengths"*.  The first half is `twinDisp_row_one` above; this is the
+second, and it is the one I had glossed as an observation rather than a node.
+
+The row `|L N d − ν(d)·L N 1|` **names two different Liouville sums**: the `d`-restricted
+`L N d`, whose supply is a correlation estimate at stride `d`, and the FULL `L N 1`, whose supply
+is the stride-1 (unrestricted) estimate.  They are objects of **different strengths**, and a
+supplier that can only reach one of them is not stuck: the triangle inequality prices the row as
+two INDEPENDENT demands.
+
+⭐ **That is the content — an interface fact, not an estimate.** Without it a reader prices each
+row as a demand on a DIFFERENCE, which is strictly harder than the conjunction of the two bounds
+and needlessly couples the two strengths.
+-/
+
+/-- `0 ≤ ν(d)` for every `d` — the density is a ratio of nonnegatives. -/
+theorem nu_nonneg (d : ℕ) : 0 ≤ Salt.TwinSieve.nu d := by
+  rw [Salt.TwinSieve.nu_apply]
+  positivity
+
+/-- **Every ladder row splits into its two objects.**  `|L N d − ν(d)·L N 1| ≤ |L N d| +
+ν(d)·|L N 1|`, so a supplier may meet the row by bounding the two Liouville sums SEPARATELY, each
+at its own strength, instead of bounding their difference. -/
+theorem twinDisp_row_le_two_objects (N d : ℕ) :
+    |L N d - Salt.TwinSieve.nu d * L N 1|
+      ≤ |L N d| + Salt.TwinSieve.nu d * |L N 1| := by
+  have h := abs_sub (L N d) (Salt.TwinSieve.nu d * L N 1)
+  have habs : |Salt.TwinSieve.nu d * L N 1| = Salt.TwinSieve.nu d * |L N 1| := by
+    rw [abs_mul, abs_of_nonneg (nu_nonneg d)]
+  linarith [h, habs.le, habs.ge]
+
+/-- **The whole discrepancy input, priced as two independent families.**  `LiouvilleTwinDisp` is
+implied by separate bounds on the two objects, summed over the level.
+
+⛔ This is a SUFFICIENT condition, not an equivalence: it discards the cancellation between
+`L N d` and `ν(d)·L N 1` that the difference form retains.  A supplier that CAN exploit that
+cancellation should use `LiouvilleTwinDisp` directly — this exists so that one which cannot is
+not blocked. -/
+theorem liouvilleTwinDisp_of_two_objects {N P : ℕ} {lvl B₁ B₂ : ℝ}
+    (h₁ : (∑ d ∈ P.divisors, (if (d : ℝ) < lvl then |L N d| else 0)) ≤ B₁)
+    (h₂ : (∑ d ∈ P.divisors,
+            (if (d : ℝ) < lvl then Salt.TwinSieve.nu d * |L N 1| else 0)) ≤ B₂) :
+    LiouvilleTwinDisp N P lvl (B₁ + B₂) := by
+  have hsplit : (∑ d ∈ P.divisors,
+        (if (d : ℝ) < lvl then |L N d - Salt.TwinSieve.nu d * L N 1| else 0))
+      ≤ (∑ d ∈ P.divisors, (if (d : ℝ) < lvl then |L N d| else 0))
+        + ∑ d ∈ P.divisors,
+            (if (d : ℝ) < lvl then Salt.TwinSieve.nu d * |L N 1| else 0) := by
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun d _ => ?_
+    by_cases h : (d : ℝ) < lvl
+    · rw [if_pos h, if_pos h, if_pos h]
+      exact twinDisp_row_le_two_objects N d
+    · rw [if_neg h, if_neg h, if_neg h, add_zero]
+  exact le_trans hsplit (by linarith)
+
 end Salt.TwinBar
