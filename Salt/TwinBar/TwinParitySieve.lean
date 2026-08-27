@@ -1058,4 +1058,106 @@ theorem sum_divisors_moebius_twinNu_eq_W (N P : ℕ) (hP : Squarefree P) :
   have h := sum_divisors_moebius_nu_eq_W (twinParitySieve N P hP)
   rwa [twinParitySieve_prodPrimes, twinParitySieve_nu] at h
 
+/-! ## The per-class harmonic count — the reusable atom of `hcount`
+
+`logSifted_lower_of_count_and_atoms` holds `hcount` as a hypothesis, and discharging it means
+counting `∑_{n ≤ N, d ∣ n(n+2)} 1/n`.  By `Salt.TwinSieve.dvd_iff_mem_Rnat` that set is the union
+of `ρ(d)` residue classes mod `d`, so the whole count is `ρ(d)` copies of a SINGLE class sum —
+which is what this bounds.
+
+    `∑_{n ≤ N, n ≡ r (mod d)} 1/n  ≤  1 + (1/d)·(1 + log N)`     for `r < d`
+
+⭐ **The `1` is the class's smallest element and it is unavoidable, not slack.**  The affine
+comparison needs `m ≥ 1`; the term at `m = 0` (namely `n = r` itself, when `r ≥ 1`) is outside its
+range and is bounded by `1/r ≤ 1` on its own.  *A per-class count without that term is a per-class
+count that is false at `N ≥ r`.*
+
+⛔ **ONE-SIDED, AND `hcount` NEEDS MORE.**  `hcount` bounds a SIGNED sum `∑_d μ(d)·C_d` from below,
+so an upper bound on each `C_d` does not discharge it: what that needs is the two-sided form
+`C_d = ν(d)·H + err_d` with `err_d` controlled, and then `∑ μ(d)C_d = W·H + ∑ μ(d)err_d`.  **This
+is the first half of that, not the whole of it** — stated so the gap is visible rather than
+implied.
+-/
+
+/-- **The per-class harmonic count, upper.**  For `r < d`, the harmonic sum over one residue class
+mod `d` is at most `1 + (1/d)·(1 + log N)`: the class's smallest element, plus `1/d` times the
+harmonic bound.
+
+The injection is `n ↦ n / d`, which is injective on a fixed residue class. -/
+theorem sum_inv_class_le {d r : ℕ} (hd : 0 < d) (hr : r < d) (N : ℕ) :
+    (∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % d = r), (1 : ℝ) / (n : ℝ))
+      ≤ 1 + (1 / (d : ℝ)) * (1 + Real.log N) := by
+  classical
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  -- split the class into its `n < d` part (at most one element) and its `n ≥ d` part
+  set S := (Finset.Icc 1 N).filter (fun n => n % d = r) with hS
+  have hsplit : (∑ n ∈ S, (1 : ℝ) / (n : ℝ))
+      = (∑ n ∈ S.filter (fun n => n < d), (1 : ℝ) / (n : ℝ))
+        + ∑ n ∈ S.filter (fun n => ¬ n < d), (1 : ℝ) / (n : ℝ) :=
+    (Finset.sum_filter_add_sum_filter_not S _ _).symm
+  -- the small part: the class has at most one element below `d`, and its term is `≤ 1`
+  have hsmall : (∑ n ∈ S.filter (fun n => n < d), (1 : ℝ) / (n : ℝ)) ≤ 1 := by
+    have hsub : S.filter (fun n => n < d) ⊆ {r} := by
+      intro n hn
+      simp only [hS, Finset.mem_filter, Finset.mem_Icc] at hn
+      have : n % d = n := Nat.mod_eq_of_lt hn.2
+      simp only [Finset.mem_singleton]
+      omega
+    refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub ?_) ?_
+    · intro i _ _; positivity
+    · rcases Nat.eq_zero_or_pos r with rfl | hr0
+      · simp
+      · have h1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr0
+        rw [Finset.sum_singleton]
+        rw [div_le_one (by linarith)]
+        linarith
+  -- the large part: `n ↦ n / d` injects into `Icc 1 N`, and `1/n ≤ (1/d)·(1/(n/d))`
+  have hlarge : (∑ n ∈ S.filter (fun n => ¬ n < d), (1 : ℝ) / (n : ℝ))
+      ≤ (1 / (d : ℝ)) * (1 + Real.log N) := by
+    have hstep : (∑ n ∈ S.filter (fun n => ¬ n < d), (1 : ℝ) / (n : ℝ))
+        ≤ ∑ n ∈ S.filter (fun n => ¬ n < d), (1 / (d : ℝ)) * (1 / ((n / d : ℕ) : ℝ)) := by
+      refine Finset.sum_le_sum fun n hn => ?_
+      simp only [hS, Finset.mem_filter, Finset.mem_Icc, not_lt] at hn
+      have hdn : d ≤ n := hn.2
+      have hm1 : 1 ≤ n / d := Nat.one_le_div_iff hd |>.mpr hdn
+      have hmod : d * (n / d) + n % d = n := Nat.div_add_mod n d
+      have heq : (n : ℝ) = (d : ℝ) * ((n / d : ℕ) : ℝ) + ((n % d : ℕ) : ℝ) := by
+        exact_mod_cast (Nat.div_add_mod n d).symm
+      have hrle : n % d ≤ d := le_of_lt (Nat.mod_lt n hd)
+      have := (logWeight_affine_le_div hd hm1 hrle).2
+      rw [heq]
+      exact this
+    refine le_trans hstep ?_
+    -- reindex by `m = n / d`, injective on a fixed residue class, into `Icc 1 N`
+    have hinj : ∀ a ∈ S.filter (fun n => ¬ n < d), ∀ b ∈ S.filter (fun n => ¬ n < d),
+        a / d = b / d → a = b := by
+      intro a ha b hb hab
+      simp only [hS, Finset.mem_filter, Finset.mem_Icc, not_lt] at ha hb
+      have hA : a % d = r := ha.1.2
+      have hB : b % d = r := hb.1.2
+      have hda := Nat.div_add_mod a d
+      have hdb := Nat.div_add_mod b d
+      rw [hab] at hda
+      omega
+    have himg : (S.filter (fun n => ¬ n < d)).image (fun n => n / d) ⊆ Finset.Icc 1 N := by
+      intro m hm
+      simp only [Finset.mem_image] at hm
+      obtain ⟨n, hn, rfl⟩ := hm
+      simp only [hS, Finset.mem_filter, Finset.mem_Icc, not_lt] at hn
+      exact Finset.mem_Icc.mpr ⟨Nat.one_le_div_iff hd |>.mpr hn.2,
+        le_trans (Nat.div_le_self n d) hn.1.1.2⟩
+    calc (∑ n ∈ S.filter (fun n => ¬ n < d), (1 / (d : ℝ)) * (1 / ((n / d : ℕ) : ℝ)))
+        = ∑ m ∈ (S.filter (fun n => ¬ n < d)).image (fun n => n / d),
+            (1 / (d : ℝ)) * (1 / (m : ℝ)) :=
+          (Finset.sum_image (f := fun m : ℕ => (1 / (d : ℝ)) * (1 / (m : ℝ))) hinj).symm
+      _ ≤ ∑ m ∈ Finset.Icc 1 N, (1 / (d : ℝ)) * (1 / (m : ℝ)) := by
+          refine Finset.sum_le_sum_of_subset_of_nonneg himg ?_
+          intro i _ _; positivity
+      _ = (1 / (d : ℝ)) * ∑ m ∈ Finset.Icc 1 N, (1 : ℝ) / (m : ℝ) := by rw [← Finset.mul_sum]
+      _ ≤ (1 / (d : ℝ)) * (1 + Real.log N) := by
+          refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+          simpa only [one_div] using sum_inv_Icc_le N
+  rw [hsplit]
+  linarith [hsmall, hlarge]
+
 end Salt.TwinBar

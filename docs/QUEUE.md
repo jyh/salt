@@ -467,6 +467,19 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    (`Lemma3.lean:107`) with `sum_powerset_prod_neg_nu` (`:151`), `moebius_nu_prod_eq` (`:141`)
    folding `μ`'s sign in setwise. *One attempt after one mechanical miss: `BoundingSieve` is
    MATHLIB's, not `Salt.BrunLower`'s — the file's own docstring says so and I qualified it anyway.*
+   ✅⭐ **AND THE PER-CLASS HARMONIC COUNT — `sum_inv_class_le`, `[3 axioms]` (18:4x):**
+   `∑_{n≤N, n ≡ r mod d} 1/n ≤ 1 + (1/d)(1 + log N)` for `r < d`. By `dvd_iff_mem_Rnat` the set
+   `{n : d ∣ n(n+2)}` is `ρ(d)` residue classes, so **the whole count is `ρ(d)` copies of this**.
+   ⭐ **The leading `1` is the class's smallest element and is UNAVOIDABLE, not slack** — the affine
+   comparison needs `m ≥ 1`, so the `m = 0` term (`n = r` itself) is outside its range and is
+   bounded separately by `1/r ≤ 1`. *A per-class count without that term is FALSE as soon as
+   `N ≥ r`; the error term of a counting lemma is where its smallest element went.*
+   ⛔⛔ **ONE-SIDED, AND `hcount` NEEDS MORE — SAID PLAINLY RATHER THAN IMPLIED.** `hcount` bounds
+   the SIGNED sum `∑_d μ(d)·C_d` FROM BELOW, so upper bounds on each `C_d` **do not discharge it**.
+   What does is the two-sided form `C_d = ν(d)·H + err_d` with `err_d` controlled, giving
+   `∑ μ(d)C_d = W·H + ∑ μ(d)err_d` — and `W` is now named (`sum_divisors_moebius_nu_eq_W`).
+   **This is the first half of that, not the whole of it.** *Two attempts; both failures
+   mechanical (a destructuring depth and an unresolved `Finset.sum_image` function metavariable).*
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references

@@ -566,3 +566,23 @@ definitionally. -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.sum_divisors_moebius_nu_eq_W
   Salt.TwinBar.sum_divisors_moebius_twinNu_eq_W
+
+/-! ### The per-class harmonic count — the reusable atom of `hcount`
+
+`logSifted_lower_of_count_and_atoms` holds `hcount` as a hypothesis; discharging it means counting
+`∑_{n ≤ N, d ∣ n(n+2)} 1/n`. By `Salt.TwinSieve.dvd_iff_mem_Rnat` that set is the union of `ρ(d)`
+residue classes mod `d`, so the whole count is `ρ(d)` copies of a SINGLE class sum:
+
+    `∑_{n ≤ N, n ≡ r (mod d)} 1/n  ≤  1 + (1/d)·(1 + log N)`     (`r < d`)
+
+⭐ **The leading `1` is the class's smallest element and is unavoidable, not slack.** The affine
+comparison needs `m ≥ 1`; the `m = 0` term (`n = r` itself) is outside its range and is bounded by
+`1/r ≤ 1` separately. *A per-class count without that term is false as soon as `N ≥ r`.*
+
+⛔ **ONE-SIDED, AND `hcount` NEEDS MORE — stated so the gap is visible rather than implied.**
+`hcount` bounds the SIGNED sum `∑_d μ(d)·C_d` from below, so upper bounds on each `C_d` do not
+discharge it: that needs the two-sided form `C_d = ν(d)·H + err_d` with `err_d` controlled, giving
+`∑ μ(d)C_d = W·H + ∑ μ(d)err_d` (and `W` is `sum_divisors_moebius_nu_eq_W` above). **This is the
+first half of that, not the whole of it.** -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.sum_inv_class_le
