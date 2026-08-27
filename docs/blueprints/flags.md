@@ -23596,3 +23596,62 @@ SOURCES, IT IS EVIDENCE OF A COLLISION UNTIL READ.***
 ⇒ ⚖️ **BACK TO THE HELM: authoring `MRTThmA2` is statement-tier and reserved.  Once it exists, the
 implication has real landed support and is a genuine Class-C dispatch.**  *Nothing here is a
 recommendation about whether to author it.*
+
+---
+
+## A3-3 / A3-4 — ⛔ **A4ii AND A5 ARE BLOCKED BY A ZERO-FREE-REGION MISMATCH THAT IS STATEMENT-LEVEL.**
+**2026-08-27 02:5x · Opus 5 (executor tier) · granted by helm 02:4x, priced before attempting, zero proof attempts spent**
+
+### The grant and its conditions
+*"A4ii, A5, A6, A7 are yours … If one prices above C once you are inside it, stop and flag. The
+E-5c condition stands."*  **Both conditions fire on A4ii and A5, and they fire together.**
+
+### ⛔ ① THE MACHINERY IS ABSENT — A4ii's OPEN HALF NEEDS TWO THINGS THE CORPUS LACKS
+A4ii's hypothesis is a disjunction and **its first branch is already PROVED**: `mrtA4ii_high_M` and
+`mrtA4ii_high_M_target` (`MRTPropA3.lean:517`, `:536`) discharge `M ≥ ⅛loglog X` from the landed
+part (i).  The open half is `M < ⅛loglog X` **and** `|t−t₁| > (log X)^{1/16}/2`, and MRT prove it in
+two sub-cases (`mrt_extract.md:228-232`, source p.23, eq A.5/A.6):
+```
+  (log X)^{1/16}/2 ≤ |t−t₁| ≤ (log X)^{20}   𝔻(1,p^{it};X)² ≥ (1−2/π)log(log X/log Y) + O(1),
+                                              Y = exp((log X)^{2/3+ε})   ⟵ NO SUCH MACHINERY LANDED
+  |t−t₁| > (log X)^{20}, |t| ≤ X             (t−t₁)log p/2π equidistributed (mod 1) by the
+                                              ERDŐS–TURÁN INEQUALITY + the VK zero-free region for ζ
+```
+⛔ **Erdős–Turán is NOT in the corpus.**  This file's own census (`:1202-1203`) already measured it:
+identifier arm and filename arm each return **one hit, `turan_kubilius` / `TuranKubilius.lean` — a
+DIFFERENT THEOREM.**  *The census was already written; nobody had connected it to this lemma.*
+
+### ⛔⛔ ② AND THE HARDER HALF: THE CONSTANT IS TIED TO A REGION WE DO NOT HAVE
+```
+  MRT's A.4/A.6 use   VK θ = 2/3   ⇒  the sharp constant 1/6 − 1/(3π)
+  OUR landed region   VK θ = 3/4   (`Salt.Vk.zeta_zero_free_region_pow`, explicit:
+                                    Re ρ ≤ 1 − c/((log|Im ρ|)^{3/4}(log log|Im ρ|)³))
+```
+`mrt_extract.md:326-329`, this repo's own risk list, says it outright: *"MRT uses the VK θ=2/3
+region → coefficient 1/3 (in (1.12), Lemma A.4/A.6, the `1/6 − 1/3π` and `1/125` exponents) … For
+any QUANTITATIVE port the sharp exponents are **θ=2/3-tied and would shift — re-derive**."*
+
+**`MRTLemmaA4ii` states the θ=2/3 constant `1/6 − 1/(3π)`.  `MRTLemmaA5` states it too**, inside
+`(log X)^{1/6 − 1/(3π) − ε}`.  ⇒ **Proving either AS STATED needs a θ=2/3 region we do not have; with
+θ=3/4 the constant SHIFTS, and changing it is a STATEMENT CHANGE — reserved.**
+⇒ 🔑 ***A CONSTANT CAN BE A CITATION.  `1/6 − 1/(3π)` IS NOT A NUMBER THIS CORPUS CAN DERIVE — IT IS
+A RECORD OF WHICH ZERO-FREE REGION ITS AUTHOR HELD, AND WE HOLD A DIFFERENT ONE.***  *Nothing in the
+statement says so, and the kernel cannot: the def typechecks perfectly at any constant.*
+
+### 📐 TRIAGE OF THE FOUR, MEASURED NOT GUESSED
+```
+  A4ii  ⛔ BLOCKED  branch 1 PROVED; branch 2 needs Erdős–Turán (absent) + θ=2/3 VK (we hold 3/4)
+                    and its target constant is θ=2/3-tied            ⇒ statement-level, RESERVED
+  A5    ⛔ BLOCKED  same constant `1/6 − 1/(3π)` in its own RHS      ⇒ same tie, RESERVED
+  A6    ⚖️ NOT θ-TIED ON ITS FACE — RHS is exp(−M/2)/(1+|t−t₁|) + (log X)^{−1/16}; MRT prove it by
+                    "the method of Halász's theorem from [9]" (Granville–Harper–Soundararajan) with
+                    the s_𝒥/ℓ/Λ_ℓ decomposition and Lemma A.8 — and **A.8 IS LANDED**
+                    (`halasz_cosh_ineq`, re-exported as `exp_add_exp_sub_two_cos_le`).  UNPRICED.
+  A7    ⚖️ NOT θ-TIED ON ITS FACE — a renormalization/shift, O(X/(log X)^{1/10}).  UNPRICED.
+```
+⚖️ **BACK TO THE HELM ON A4ii AND A5.**  Not "too hard": **the statements name a constant our
+zero-free region cannot produce.**  Whether to (a) port a θ=2/3 VK region, (b) re-derive both
+statements at θ=3/4 with shifted constants, or (c) leave them, is statement-tier and is not mine.
+**Zero proof attempts were spent** — this was priced by reading the source extract and the corpus's
+own risk list before writing a line.
+📌 A6 and A7 remain mine under the grant and are NOT blocked by this finding.
