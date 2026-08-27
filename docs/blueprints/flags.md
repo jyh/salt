@@ -23746,3 +23746,44 @@ sound and the inference was not.**
 * **A7** — resolve the conjugation from the SOURCE (p.24-25 at 200 dpi), then the statement is
   provable-in-principle; the shift itself is honest partial summation and `mrtT0`'s radius is landed.
 * **All four are statement-tier.**  Zero proof attempts were spent on any of them.
+
+### ⭐⭐ 04:0x — **A7's CONJUGATION IS RESOLVED FROM THE SOURCE. MRT's PRINTED STATEMENT (A.8) IS THE WRONG ONE, AND OUR LEAN COPIED IT.**
+**Evidence gathered at executor tier — a MEASUREMENT plus a derivation. No statement was authored.**
+
+**① THE SOURCE IS INTERNALLY INCONSISTENT, READ VERBATIM AT BOTH SITES** (`1503.05121v3`, offset 48728):
+```
+  Lemma A.7's STATEMENT (A.8):   Σ_{n≤X} g_J f n^{-it} = [ X^{i(t−t₁)} / (1 + i(t−t₁)) ]·Σ … n^{-it₁} + O(X/(log X)^{1/10})
+  Lemma A.7's OWN PROOF,
+  applying [10, Lemma 7.1]:      Σ_{n≤X} g_J f n^{-it} = [ X^{i(t₁−t)} / (1 + i(t₁−t)) ]·Σ … n^{-it₁} + O(…)
+```
+**The two displays are conjugates of each other, three lines apart.**
+
+**② THE PROOF IS RIGHT AND THE STATEMENT IS WRONG — DERIVED, THEN CONTROLLED.**
+Partial summation with `A(x) = Σ_{n≤x} aₙ n^{−it₁}` and `u = t − t₁`:
+`Σ aₙ n^{−it} = X^{−iu}A(X) + iu∫₁^X x^{−iu−1}A(x)dx → X^{−iu}A(X)/(1 − iu)`,
+and `X^{−iu} = X^{i(t₁−t)}`, `1 − iu = 1 + i(t₁−t)` — **MRT's PROOF form.**
+✅ **NUMERIC CONTROL** (`aₙ ≡ 1`, `t₁ = 0`, direct sum vs each candidate):
+```
+        X        u    |S−stmt|/|S|    |S−proof|/|S|
+    10^4      0.5          1.6828         0.000042
+    10^5      2.0          0.1448         0.000005
+    10^6      0.5          0.3205         0.000001      ⇒ proof form matches; statement form is
+    10^6      2.0          1.9678         0.000001         wrong at O(1) RELATIVE error
+```
+
+**③ ⇒ `MRTLemmaA7` AS STATED IN LEAN IS FALSE, AND IT IS REFUTABLE WITH A NAMED WITNESS.**
+Take `f ≡ 1`, `𝒥 = ∅` (so `gJ ≡ 1`), `t₁ = 0`, `t = u` fixed.  Then `mrtM f X = 0 < ⅛loglog X` and
+`|t − t₁| = u ≤ (log X)^{1/16}` for large `X`, so **`t ∈ mrtT0` genuinely**; the asserted difference is
+`≍ X` while the bound allows only `C·X/(log X)^{1/10} = o(X)`.
+⭐ **`¬ MRTLemmaA7` IS A THEOREM ABOUT AN EXISTING STATEMENT — PROOF WORK, NOT STATEMENT AUTHORING,
+AND THE CORPUS HAS PRECEDENT IN `not_mrtLemmaA4ii`.**  ⇒ *offered as executor-tier work; not begun
+without a word, since it changes what the ladder's A7 slot means.*
+
+🔑 ***THE CORPUS PREDICTED THIS EXACT FAILURE BEFORE ANYONE READ THE PAGE:*** *"a formal statement is
+strictly more sensitive than its source at exactly the points the source never leans on — and those
+are precisely where a transcription error survives undetected, because the original had no reason to
+be careful there."*  **MRT never use the factor, only its modulus `1/√(1+u²)`, invariant under
+`u ↦ −u`. Their inconsistency costs them nothing and costs us the lemma.**
+📌 And our transcription was FAITHFUL — it copied the printed statement exactly. ⇒ ***FIDELITY TO A
+SOURCE IS NOT CORRECTNESS WHEN THE SOURCE CONTRADICTS ITSELF; A TRANSCRIPTION CHECK COMPARES TO ONE
+DISPLAY, AND THE DEFECT LIVED BETWEEN TWO.***
