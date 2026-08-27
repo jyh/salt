@@ -667,7 +667,19 @@ RESURRECTS THEM:**
     `typical_density_union_le` (`Salt/MR/TypicalDensity.lean`, `[3 axioms]`, `salt 5c3ee7c7`):
     the union over `j ≤ J` against MR's `1/j²` ratio schedule, costing a BOUNDED factor (`Σ1/j² ≤ 2`)
     rather than a factor `J`, with each band's four side conditions carried per-`j`.
-    ⛔⛔ **BUT MEASURED AFTER LANDING: NOTHING CONSUMES IT AND THE LIVE ROUTE MAY NEVER NEED IT.**
+    ⛔⛔ **CORRECTION 2026-08-27 00:5x — MY OWN "SOCKET ON A DELETED BRANCH" READING WAS WRONG.**
+    `:4217-4222` NARROWS the `:582` deletion: *"A DELETION FROM THE REDUCED SPINE MUST BE NARROWED —
+    A.1's OWN PROOF STILL BUILDS `S` … deleted Lemma 2.2 from the MAIN-TEXT route, NOT from A.1's
+    proof … including the `j`-union with `Σ1/j²` already flagged UNLANDED."* **That `j`-union IS
+    `typical_density_union_le`, and A.1 is the PRIMARY.** It composes by index type with the landed
+    `MemS` (`Sec9Glue.lean:118`), the `n ∈ S` half of A.1's own split (`MRTThmA1.lean:191`) — same
+    `(ℕ → ℕ)` band sequences, same `Finset.Icc 1 J`.
+    ⇒ 🔑 ***A DELETION HAS A SCOPE, AND THE NARROWING IS USUALLY WRITTEN SOMEWHERE ELSE IN THE SAME
+    DOCUMENT.*** I concluded "deleted" from the summary line at `:582`; the narrowing at `:4220` was
+    in my own grep output and I acted before reading it.
+    📌 **Still true:** no Lean declaration consumes it yet, and current consumers of
+    `typical_density_le` reach it at ONE BLOCK SCALE. ***"No consumer yet" and "serves a deleted
+    target" are different claims and I conflated them.***
     Every consumer of `typical_density_le` reaches it at ONE BLOCK SCALE (`M4Door.SieveBlockGate`,
     "once per block"); the union direction is what MR's **Lemma 2.2** needs, and Lemma 2.2 is
     **DELETED from the ratified waves at :582**. ⇒ 🔑 ***"THE ROW SAYS UNLANDED" AND "THE ROUTE STILL

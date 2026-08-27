@@ -949,23 +949,28 @@ arbitrarily many bands costs a bounded factor, not a factor `J`.
 ⛔ Each band's four side conditions are carried per-`j` exactly as the one-band stone states them;
 nothing here weakens them, and no `j`-uniformity is assumed beyond the ratio schedule.
 
-⚖️⚖️ **SCOPE — MEASURED AFTER LANDING, AND IT IS A SOCKET.**  **Nothing in the corpus
-consumes this yet, and the live route may never need it.**  Every consumer of
-`typical_density_le` reaches it at **ONE BLOCK SCALE** — `M4Door.SieveBlockGate` bundles
-its gates *"as they reach `m4_sieve_block_mass`, at one block scale `X`"*, presented once
-per block.  The union over `j` is what MR's **Lemma 2.2** needs, and Lemma 2.2 is **DELETED
-FROM THE RATIFIED PORT WAVES** (`QUEUE.md:582`): with `c_p = 1` in the Liouville case,
-`[23, Lemma 2.2, Thm 2.3]` is replaced by `[23, Theorem A.1]`.
+⚖️⚖️ **SCOPE — AND I GOT THIS WRONG ONCE, IN THE UNDER-CLAIMING DIRECTION.**  An earlier
+version of this note said the union direction "serves the deleted port target" and
+"unblocks nothing measured".  **That is FALSE and is struck.**
 
-⇒ **What is and is not true:** the one-band stone is LIVE (consumed per-block by `M4Door`,
-`M4Sieve`, `CgPin`, `ConstantsExposed`); the *union* direction serves the deleted port
-target.  So this theorem **closes the gap the wave-1a row named** and **unblocks nothing
-measured**.
-⇒ 🔑 ***"THE ROW SAYS IT IS UNLANDED" AND "THE ROUTE STILL NEEDS IT" ARE DIFFERENT
-CLAIMS, AND A QUEUE ROW OUTLIVES THE DELETION THAT EMPTIED IT.***
-*Disclosed at landing rather than left for a census: on tonight's own dead-branch
-instrument this name would read as a corpse, and it is a socket — the two are
-indistinguishable to a grep, which is exactly why the author must say which.* -/
+**The deletion is NARROWER than its own summary line.**  `QUEUE.md:582` deletes MRT
+Lemma 2.2 from the ratified waves; `QUEUE.md:4217-4222` narrows it: *"A DELETION FROM THE
+REDUCED SPINE MUST BE NARROWED — A.1's OWN PROOF STILL BUILDS `S` … the spine deleted
+Lemma 2.2 from the MAIN-TEXT route, NOT from A.1's proof … including the `j`-union with
+`Σ1/j²` already flagged UNLANDED."*  **That `j`-union is this theorem**, and A.1 is the
+PRIMARY.
+
+⭐ **AND IT COMPOSES BY INDEX TYPE, NOT BY HOPE.**  A.1's proof splits the mean square at
+`n ∈ S` and bounds the complement (`MRTThmA1.lean:191`).  The `n ∈ S` half is landed as
+`MemS` (`Sec9Glue.lean:118`), `∀ j ∈ Finset.Icc 1 J, 1 ≤ blockOmega (Pseq j) (Qseq j) n` —
+**the same `(ℕ → ℕ)` band sequences over the same `Finset.Icc 1 J`** this theorem is stated
+over.  This is the complement half.
+
+⛔ **STILL TRUE AND STILL DISCLOSED: no Lean declaration consumes it yet**, and every current
+consumer of `typical_density_le` reaches it at one block scale (`M4Door.SieveBlockGate`).
+**"No consumer yet" and "serves a deleted target" are different claims and I conflated them.**
+⇒ 🔑 ***A DELETION HAS A SCOPE, AND THE NARROWING IS USUALLY WRITTEN SOMEWHERE ELSE IN THE
+SAME DOCUMENT — READ FOR IT BEFORE CALLING A BRANCH DEAD.*** -/
 theorem typical_density_union_le :
     ∃ C : ℝ, 0 < C ∧ ∀ (J X : ℕ) (P Q : ℕ → ℕ) (r : ℝ), 0 ≤ r →
       (∀ j ∈ Finset.Icc 1 J, 2 ≤ P j) →
