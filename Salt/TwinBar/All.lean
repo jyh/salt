@@ -651,3 +651,33 @@ open Salt.Tactic in
   Salt.TwinBar.sum_twinLogWeight_range
   Salt.TwinBar.twinLogWeight_support_infinite_of_win
   Salt.TwinBar.twinLogWeight_ne_zero_iff
+
+/-! ### The THIRD hypothesis supplied — and what it measures about the flag
+
+The same forward control, run over the assembled chain, leaves exactly ONE input with no supplier
+anywhere and no campaign attached: **`hdiv`, the divergence.** `hcount` is the flagged per-class
+question, `hatom` is the Tao object — but `hdiv` is neither. It is pure analysis, and any positive
+growth rate discharges it.
+
+⭐⭐ **STATING IT MEASURES SOMETHING ABOUT THE FLAG THAT WAS NOT OBVIOUS: THE DOWNSTREAM CHAIN NEVER
+READS THE CONSTANT.** `hdiv_of_log_growth` accepts any `c > 0`, arbitrarily small. So the flagged
+additive-vs-multiplicative question (`flags.md` 08/26 19:1x) is **not** about recovering the RIGHT
+constant `W` — it is about whether **ANY positive rate survives at all**. A multiplicative sandwich
+on a CANCELLING sum can leave the lower bound NEGATIVE, in which case there is no `c` to supply; an
+additive error leaves `W·H + O(1)` with `W > 0`.
+⇒ 🔑 ***THE FLAG IS ABOUT THE EXISTENCE OF A RATE, NOT ITS VALUE.*** That makes it more
+load-bearing than "we would lose a factor 2" — worth knowing before it is ruled on, and it is the
+kind of thing only the CONSUMER side can tell you.
+
+⚖️ **CONTROL RUN, NOT ASSUMED.** `0 < c` was weakened to `0 ≤ c` and the build was required to
+FAIL — it did, and for the mathematical reason rather than a syntactic one: at `c = 0` the witness
+`t = (M+A+C)/c + 1` collapses and the identity `c·t = M+A+C+c` becomes false, leaving `linarith`
+with nothing. *A hypothesis that can be weakened without breaking the build was never doing work.*
+
+⛔ **NOT SUPPLIED HERE, AND ITS SHAPE NOT PRESUMED:** `hgrow` itself. Any producer of a positive
+log-rate serves, per-class or otherwise — **where `hgrow` comes from is exactly where the flag
+lives.** `twinLogWeight_support_infinite_of_rate` is the assembly: two inputs, no `BoundingSieve`,
+no door, no `Btwin`, no level, **and still no survivor**, because all of them are hypotheses. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.hdiv_of_log_growth
+  Salt.TwinBar.twinLogWeight_support_infinite_of_rate

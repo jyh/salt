@@ -1380,4 +1380,71 @@ theorem twinLogWeight_ne_zero_iff {P n : ℕ} :
   · rw [if_neg hcop]
     simp [hcop]
 
+/-! ## The THIRD hypothesis — supplying `hdiv` from a growth RATE, and what that says about the flag
+
+Running the same forward control over the assembled chain leaves exactly one input with no supplier
+anywhere in the corpus and no campaign attached: **`hdiv`, the divergence**.  `hcount` is the
+flagged per-class question and `hatom` is the Tao object, but `hdiv` is neither — it is pure
+analysis, and it is discharged by ANY positive growth rate.
+
+⭐⭐ **AND STATING IT MEASURES SOMETHING ABOUT THE FLAG THAT WAS NOT OBVIOUS: THE DOWNSTREAM CHAIN
+DOES NOT CARE WHAT `c` IS, ONLY THAT IT IS POSITIVE.**  The consumer never reads the constant.  So
+the flagged additive-vs-multiplicative question (`flags.md`, 08/26 19:1x) is **not** a question
+about getting the RIGHT constant `W` — it is a question about whether ANY positive rate survives at
+all.  A multiplicative sandwich on a CANCELLING sum can leave the lower bound NEGATIVE, in which
+case there is no `c > 0` to hand this lemma; an additive error leaves `W·H + O(1)`, and `W > 0`.
+⇒ 🔑 ***THE FLAG IS ABOUT THE EXISTENCE OF A RATE, NOT ITS VALUE*** — which makes it more
+load-bearing than "we would lose a factor 2", and is worth knowing before it is ruled on.
+
+⛔ **THIS DOES NOT SUPPLY `hgrow` AND DOES NOT PRESUPPOSE ITS SHAPE.**  Any producer of a positive
+log-rate serves, per-class or otherwise.  *Where `hgrow` comes from is exactly where the flag
+lives; this file's business is what happens once it exists.* -/
+
+/-- **The divergence input from a growth RATE.**  If `Hmain N ≥ c·log N − C` with `c > 0`, then
+`Hmain − A` is unbounded above, which is the tail-mass argument's `hdiv` for any fixed `A`.
+
+⭐ **`c` may be arbitrarily small** — the conclusion is insensitive to it.  The witness is
+`N = ⌈exp((M + A + C)/c + 1)⌉₊`, where the trailing `+1` buys the strict inequality with room `c`
+to spare rather than by an epsilon argument. -/
+theorem hdiv_of_log_growth {c C A : ℝ} (hc : 0 < c) {Hmain : ℕ → ℝ}
+    (hgrow : ∀ N : ℕ, c * Real.log (N : ℝ) - C ≤ Hmain N) :
+    ∀ M : ℝ, ∃ N : ℕ, M < Hmain N - A := by
+  intro M
+  set t : ℝ := (M + A + C) / c + 1 with ht
+  refine ⟨⌈Real.exp t⌉₊, ?_⟩
+  have hexp : Real.exp t ≤ ((⌈Real.exp t⌉₊ : ℕ) : ℝ) := Nat.le_ceil _
+  have hlog : t ≤ Real.log ((⌈Real.exp t⌉₊ : ℕ) : ℝ) := by
+    have := Real.log_le_log (Real.exp_pos t) hexp
+    rwa [Real.log_exp] at this
+  have hmul : c * t ≤ c * Real.log ((⌈Real.exp t⌉₊ : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_left hlog hc.le
+  have hct : c * t = M + A + C + c := by
+    rw [ht]; field_simp
+  have hg := hgrow ⌈Real.exp t⌉₊
+  linarith
+
+/-- ⭐⭐ **THE PRIZE SHAPE, ASSEMBLED — TWO INPUTS AND NOTHING ELSE.**  Given the sifted count as a
+POSITIVE LOG RATE, and the Tao atom mass as a uniform bound, the `P`-rough parity survivors are
+INFINITE.
+
+```
+  hgrow :  c·log N − C ≤ Hmain N        (c > 0; the count, as a rate)
+  hcount:  Hmain N ≤ ∑_{d∣P} μ(d)·C_d   (the count, at the Möbius skeleton)
+  hatom :  |∑_{d∣P} μ(d)·(atom sum)| ≤ A (Tao — the campaign object)
+  ⇒        {n : n ≥ 1, (n(n+2), P) = 1, Ω(n(n+2)) odd}  is INFINITE
+```
+⛔ **No `BoundingSieve`, no door, no `Btwin`, no level — and still no survivor**, because all three
+inputs are hypotheses. **This is the shape of the prize with its last purely-analytic gap closed;
+what remains is arithmetic that lives elsewhere.** -/
+theorem twinLogWeight_support_infinite_of_rate {P : ℕ} (hP : Squarefree P) {A c C : ℝ}
+    (hc : 0 < c) {Hmain : ℕ → ℝ}
+    (hcount : ∀ N : ℕ, Hmain N ≤ ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ) / (n : ℝ))
+    (hatom : ∀ N : ℕ, |∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
+            ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)| ≤ A)
+    (hgrow : ∀ N : ℕ, c * Real.log (N : ℝ) - C ≤ Hmain N) :
+    {n : ℕ | twinLogWeight P n ≠ 0}.Infinite :=
+  twinLogWeight_support_infinite_of_win hP hcount hatom (hdiv_of_log_growth hc hgrow)
+
 end Salt.TwinBar
