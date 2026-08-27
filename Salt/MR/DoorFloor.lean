@@ -492,4 +492,83 @@ theorem budget_head_at_mrt_floors (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
     refine mrt_tail_le_of_HplusStar hε (le_trans ?_ hX)
     exact_mod_cast Nat.cast_le.mpr hRx
 
+/-! ### The same instantiation on the L² branch — because the L¹ branch has no producer
+
+⛔⛔ **THE CERTIFICATE ABOVE FIRES A HEAD WHOSE DOOR NOTHING SUPPLIES, AND SO DOES D-3.**  Measured
+by asking, of the head's own door hypothesis, *where is it supplied?*:
+
+```
+  MRTUniformityXi    (L¹)  consumed at M4Exit:303,:396, this file ×4, SpineClose, SpineFlat,
+                           Theorem23Shell …                       PRODUCED: nowhere
+  MRTUniformity      (L¹)  every occurrence is `hdoor :` hypothesis position
+                                                                  PRODUCED: nowhere
+  MRTUniformityXiL2  (L²)  consumed by the `_sq` head family
+                           PRODUCED: mrtUniformityXiL2_of_absWindowSqBound (M4Window:606)
+                                     mrtUniformityXiL2H_of_absWindowSqBound (HDoorArc:394)
+  adapter L² ⇒ L¹                                                 DOES NOT EXIST
+  adapter L¹ ⇒ L²          mrtUniformityXiL2_of_xi (MRTDoor:255) — the OTHER direction
+```
+
+⇒ 🔑 ***A GREEN EXEMPLAR IS NOT A CURRENT ONE.***  I built the certificate above by mirroring the
+landed D-3, and **D-3 predates the L² route** — it was right when written and the route moved under
+it.  Copying a landed pattern copies its ROUTE ASSUMPTIONS silently, and nothing in a build can
+report that.
+
+⚖️ **THIS IS A TWIN, NOT A REPLACEMENT, AND D-3 IS NOT TOUCHED.**  The thresholds are
+door-agnostic — floors on `R.Hlo` and `R.x`, which no door reads — and
+`log_chowla_two_budget_head_g_sq_count` carries **the same three binders**, so the identical
+instantiation lands on the branch that has a producer.  The L¹ form stays as the record.
+
+⛔ **WHAT IS NOT CLAIMED: that the L¹ branch is DEAD.**  A deliberate interface awaiting a producer
+and an abandoned one look identical to a census — that is the standing dead-branch caveat, and
+which of the two this is is not a worker-tier call.  **Measured here is only: consumed many times,
+produced zero times, no `L² ⇒ L¹` adapter.** -/
+
+/-- **The MRT floors at the `_sq` (L²) head.**  Twin of `budget_head_at_mrt_floors` fired at
+`log_chowla_two_budget_head_g_sq_count`, whose door `MRTUniformityXiL2` **has landed producers**.
+Same instantiation: `extraFloor := H₀mrt(ε)`, `g := fun _ _ => H₊*(ε)`, `U1floor` spent at `0`.
+
+⛔⛔ **THE `K` CONJUNCT IS RE-EXPORTED, AND DROPPING IT WAS A REAL DEFECT — CAUGHT BY WALKING ONE
+STEP FURTHER INTO THE CONSUMER.**  The only landed producer of this door,
+`mrtUniformityXiL2_of_absWindowSqBound` (`M4Window.lean:606`), needs **two** things from the SAME
+regime: `hfloor : H₀ ≤ R.Hlo` (which the floors supply) **and** `hXi`, the `|Ξ_H| ≤ K` count bound
+— whose statement is character-for-character the head's own conjunct.
+⇒ *An earlier draft of this docstring said the count could be taken "from the head directly".*
+**That is FALSE: the head is an `∃ R`, so firing it again yields a DIFFERENT witness**, and a floor
+proved about one regime says nothing about another.  ⇒ 🔑 ***UNDER AN EXISTENTIAL, TWO FACTS ARE
+COMPOSABLE ONLY IF THEY LEAVE THROUGH THE SAME WITNESS — "available upstream" IS NOT "available
+TOGETHER".***  A dropped conjunct under an `∃` is not a weaker theorem, it is an UNUSABLE one, and
+nothing in a build would ever say so.
+
+✅ **AND THE FIT IS KERNEL-VERIFIED, NOT ASSERTED.**  A scratch probe fed this statement's
+`hRfloor` and `hcard` into `mrtUniformityXiL2_of_absWindowSqBound` at `H₀ := H0mrt ε`, with every
+campaign-open hypothesis as an explicit binder (**no `sorry` anywhere**) — it elaborates,
+`EXIT=0`.  *Since the whole lesson here is that a build never checks composition, the composition
+was checked on purpose rather than believed.*
+📌 **NOT stated as a named theorem in the corpus, deliberately:** `M4Window` is not in this file's
+import closure (+8 modules, no cycle), so where that composition should LIVE is a placement
+question, not a proof question — reported rather than decided. -/
+theorem budget_head_sq_at_mrt_floors (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∃ (e : ℚ) (K δ₀ : ℝ), 0 < e ∧ 0 < K ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = e ∧
+        H0mrt ε ≤ R.Hlo ∧ HplusStar ε ≤ R.x ∧
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+            ((bigXi R.eps H).card : ℝ) ≤ K) ∧
+        (∀ h : ℝ, ((R.Hlo : ℕ) : ℝ) ≤ h →
+            (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2 ≤ ε) ∧
+        (∀ X : ℝ, ((R.x : ℕ) : ℝ) ≤ X →
+            1 / (Real.log X) ^ ((1 : ℝ) / 50) ≤ ε) ∧
+        ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨e, K, δ₀, he, hK, hδ₀, h⟩ := log_chowla_two_budget_head_g_sq_count
+  obtain ⟨R, hReps, hRfloor, -, hRx, hcard, -, hR⟩ :=
+    h (H0mrt ε) 0 (fun _ _ => HplusStar ε)
+  refine ⟨e, K, δ₀, he, hK, hδ₀, R, hReps, hRfloor, hRx, hcard, ?_, ?_, hR⟩
+  · intro hh hhle
+    refine mrt_middle_le_of_H0mrt hε hε1 (le_trans ?_ hhle)
+    exact_mod_cast Nat.cast_le.mpr hRfloor
+  · intro X hX
+    refine mrt_tail_le_of_HplusStar hε (le_trans ?_ hX)
+    exact_mod_cast Nat.cast_le.mpr hRx
+
 end Salt.MR
