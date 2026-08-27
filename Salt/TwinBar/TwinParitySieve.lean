@@ -1160,4 +1160,86 @@ theorem sum_inv_class_le {d r : ℕ} (hd : 0 < d) (hr : r < d) (N : ℕ) :
   rw [hsplit]
   linarith [hsmall, hlarge]
 
+/-! ## The ADDITIVE error — what a SIGNED sum actually needs
+
+⛔⛔ **THE TRAP THIS SECTION EXISTS TO CLOSE, AND IT HAS TWO LAYERS.**  `sum_inv_class_le` is
+one-sided, and `hcount` bounds the SIGNED sum `∑_{d∣P} μ(d)·C_d` from below, so an upper bound on
+each `C_d` cannot discharge it.  That much was already recorded.  **The second layer is that the
+two-sided pair we already have does not discharge it either:** `sum_inv_affine_le` and
+`sum_inv_affine_ge` sandwich the affine sum between `(1/d)·H` and `(1/(2d))·H`, and that sandwich
+is **MULTIPLICATIVE**.  A factor-2 slop on each class does not perturb the main term `W·H` — it
+destroys it, because `∑_d μ(d)·(1/d)·H` is a cancelling sum whose value `W·H` is far smaller than
+its individual terms.
+
+⇒ 🔑 ***A SANDWICH IS NOT AN ERROR TERM.  A SIGNED SUM NEEDS THE ERROR TO BE ADDITIVE, AND
+"two-sided" ALONE DOES NOT SAY WHICH KIND YOU HAVE.***
+
+This lemma is the additive form: the affine sum equals `(1/d)` times the harmonic sum, up to an
+error of at most `2/d` — **and the error has a SIGN**, which a cancelling consumer wants, so it is
+stated as `0 ≤ … ≤ 2/d` rather than with `|·|`.  The `d`-dependence of the ERROR matches the
+`d`-dependence of the MAIN TERM, which is what makes `∑_d μ(d)·err_d` summable against `W`.
+
+The pointwise identity is `(1/d)(1/m) − 1/(dm+r) = r/(dm(dm+r))`, bounded by `1/(d·m²)` using
+`r ≤ d`; the `m`-sum of `1/m²` is the landed `sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`),
+whose range `Icc 1 M` and constant `2` are exactly the ones needed — **reused, not re-derived**.
+-/
+
+/-- **The affine sum against the harmonic sum, with an ADDITIVE error.**  For `r ≤ d`,
+
+    `0  ≤  (1/d)·∑_{m≤M} 1/m  −  ∑_{m≤M} 1/(d·m+r)  ≤  2/d` .
+
+⭐ Both the main term and the error carry `1/d` and nothing else `d`-dependent, and the error is
+one-signed.  This is the form `hcount` needs; the multiplicative sandwich
+(`sum_inv_affine_le`/`sum_inv_affine_ge`) is not, since `∑_d μ(d)·C_d` cancels. -/
+theorem sum_inv_affine_sub_harmonic {d r : ℕ} (hd : 0 < d) (hr : r ≤ d) (M : ℕ) :
+    0 ≤ (1 / (d : ℝ)) * (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ))
+          - ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+      ∧ (1 / (d : ℝ)) * (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ))
+          - ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+        ≤ 2 / (d : ℝ) := by
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hrd : (r : ℝ) ≤ (d : ℝ) := by exact_mod_cast hr
+  have hr0 : (0 : ℝ) ≤ (r : ℝ) := Nat.cast_nonneg r
+  -- the difference is a single sum of pointwise differences
+  have key : (1 / (d : ℝ)) * (∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ))
+        - ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+      = ∑ m ∈ Finset.Icc 1 M,
+          ((1 / (d : ℝ)) * (1 / (m : ℝ)) - 1 / ((d : ℝ) * (m : ℝ) + (r : ℝ))) := by
+    rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+  constructor
+  · -- nonneg: exactly the landed upper half of the weight comparison, termwise
+    rw [key]
+    refine Finset.sum_nonneg fun m hm => ?_
+    have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+    have := (logWeight_affine_le_div (m := m) hd (by omega) hr).2
+    linarith
+  · rw [key]
+    have hterm : ∀ m ∈ Finset.Icc 1 M,
+        (1 / (d : ℝ)) * (1 / (m : ℝ)) - 1 / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+          ≤ (1 / (d : ℝ)) * (((m : ℝ)) ^ 2)⁻¹ := by
+      intro m hm
+      have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+      have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm1
+      have hdm : (0 : ℝ) < (d : ℝ) * (m : ℝ) := mul_pos hd0 hm0
+      have hden : (0 : ℝ) < (d : ℝ) * (m : ℝ) + (r : ℝ) := by linarith
+      have e : (1 / (d : ℝ)) * (1 / (m : ℝ)) - 1 / ((d : ℝ) * (m : ℝ) + (r : ℝ))
+          = (r : ℝ) / (((d : ℝ) * (m : ℝ)) * ((d : ℝ) * (m : ℝ) + (r : ℝ))) := by
+        field_simp
+        ring
+      have h2 : (1 / (d : ℝ)) * (((m : ℝ)) ^ 2)⁻¹ = 1 / ((d : ℝ) * (m : ℝ) ^ 2) := by
+        field_simp
+      rw [e, h2, div_le_div_iff₀ (by positivity) (by positivity)]
+      have hstep : (r : ℝ) * ((d : ℝ) * (m : ℝ) ^ 2) ≤ (d : ℝ) * ((d : ℝ) * (m : ℝ) ^ 2) :=
+        mul_le_mul_of_nonneg_right hrd (by positivity)
+      nlinarith [mul_nonneg (mul_nonneg hd0.le hm0.le) hr0]
+    calc ∑ m ∈ Finset.Icc 1 M,
+            ((1 / (d : ℝ)) * (1 / (m : ℝ)) - 1 / ((d : ℝ) * (m : ℝ) + (r : ℝ)))
+        ≤ ∑ m ∈ Finset.Icc 1 M, (1 / (d : ℝ)) * (((m : ℝ)) ^ 2)⁻¹ :=
+          Finset.sum_le_sum hterm
+      _ = (1 / (d : ℝ)) * ∑ m ∈ Finset.Icc 1 M, (((m : ℝ)) ^ 2)⁻¹ := by
+          rw [← Finset.mul_sum]
+      _ ≤ (1 / (d : ℝ)) * 2 :=
+          mul_le_mul_of_nonneg_left (sum_inv_sq_Icc_le M) (by positivity)
+      _ = 2 / (d : ℝ) := by ring
+
 end Salt.TwinBar

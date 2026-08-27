@@ -586,3 +586,29 @@ discharge it: that needs the two-sided form `C_d = ν(d)·H + err_d` with `err_d
 first half of that, not the whole of it.** -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.sum_inv_class_le
+
+/-! ### `sum_inv_affine_sub_harmonic` — the ADDITIVE error, and the second layer of the trap
+
+    `0  ≤  (1/d)·∑_{m≤M} 1/m  −  ∑_{m≤M} 1/(d·m+r)  ≤  2/d`     (`r ≤ d`)
+
+⛔⛔ **THE CARD ABOVE NAMED ONE LAYER OF THE TRAP AND THERE ARE TWO.** It records that
+`sum_inv_class_le` is one-sided while `hcount` needs two sides. True — but the two-sided pair this
+file already audits (`sum_inv_affine_le` + `sum_inv_affine_ge`) **does not discharge `hcount`
+either**: that pair is a sandwich between `(1/d)·H` and `(1/(2d))·H`, which is **MULTIPLICATIVE**.
+`∑_d μ(d)·C_d` is a CANCELLING sum whose value `W·H` is far smaller than its individual terms, so a
+factor-2 slop per class does not perturb the main term — it destroys it.
+
+⇒ 🔑 ***A SANDWICH IS NOT AN ERROR TERM. A SIGNED SUM NEEDS THE ERROR TO BE ADDITIVE, AND
+"two-sided" ALONE DOES NOT SAY WHICH KIND YOU HAVE.*** *The gap here was not visible from the word
+"two-sided"; it was visible only from asking what the CONSUMER does with the two sides.*
+
+⭐ The error is **one-signed** (stated `0 ≤ … ≤ 2/d`, not with `|·|`) because a cancelling consumer
+wants the sign, and **both the main term and the error carry `1/d` and nothing else `d`-dependent**
+— which is what makes `∑_d μ(d)·err_d` summable against `W`.
+
+📌 **REUSED, NOT RE-DERIVED:** the `∑_{m ≤ M} 1/m² ≤ 2` step is the landed
+`Salt.TwinBar.sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`) — already in this file's namespace
+and import closure, with exactly the range `Icc 1 M` and exactly the constant `2`. *A first search
+for it under the `Salt.Chen` spelling found a different copy and would have cost an import.* -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.sum_inv_affine_sub_harmonic
