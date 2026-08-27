@@ -3959,6 +3959,31 @@ theorem mrtThmA1Statement_of_constantMatch (Pseq Qseq : ℕ → ℕ)
   obtain ⟨C, hCpos, hA2⟩ := h
   exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty C Pseq Qseq hA2⟩
 
+/-! ## A.7, CORRECTED — the ratified proof-form statement
+
+**Statement text VERBATIM from the Captain-ratified draft 3** (`seat 3abef515`, question A.7′
+ratified).  **The statement act is the Captain's**; nothing here adjusts it — iron rule 1.
+⛔ **The old `MRTLemmaA7` is NOT deleted:** it and its kernel refutation
+(`not_mrtLemmaA7Statement`) document *why* the slot restates — the `MRTLemmaA4ii`/`…Fixed`
+pattern.  Consumers migrate to `Fixed`; that migration is follow-up, not this landing. -/
+
+/-- **A.7, corrected to MRT's own PROOF form** (`arXiv:1503.05121v3` p. 24–25): the printed
+statement (A.8) carries `t − t₁` where the proof derives `t₁ − t` — conjugates, invariant in
+modulus (which is all MRT ever use), and FALSE as printed (`not_mrtLemmaA7Statement`,
+witness `f := costwist t`). This statement is byte-identical to `MRTLemmaA7` except
+`t − t₁ ↦ t₁ − t` in BOTH occurrences (exponent and denominator). -/
+def MRTLemmaA7Fixed (C : ℝ) : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → 0 < X → t ∈ mrtT0 (mrtM f X) t₁ X X →
+      ‖(∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t) n)
+          - (Complex.exp ((((t₁ - t : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+              / (1 + (((t₁ - t : ℝ) : ℂ)) * Complex.I))
+            * ∑ n ∈ Finset.Icc 1 ⌊X⌋₊, gJ 𝒥 Pseq Qseq n * f n * costwist (-t₁) n‖
+        ≤ C * X / (Real.log X) ^ ((1 : ℝ) / 10)
+
+/-- **A.7-Fixed as a statement** — `∃ C > 0`. See `MRTLemmaA6Statement`. -/
+def MRTLemmaA7FixedStatement : Prop := ∃ C : ℝ, 0 < C ∧ MRTLemmaA7Fixed C
+
 /-! ## ⛔⛔ `MRTLemmaA7` IS FALSE — the printed statement (A.8) is the wrong conjugate
 
 Granted by council 2026-08-27 (item ④a) at executor tier, precedent `not_mrtLemmaA4ii`.

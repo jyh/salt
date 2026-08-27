@@ -283,4 +283,121 @@ absolute constant (p. 7, §1.3).  Statement only: nothing in this file proves it
 and nothing in this file assumes it. -/
 def MRTProp24Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTProp24 C
 
+/-! ## E-5c — the `1_S`-dilation identity (MRT §4 p. 14)
+
+Statements **VERBATIM** from the Captain-ratified draft (`seat 3abef515`, drafts 1+2 ratified
+as drafted, all five questions).  **The statement act is the Captain's; the proofs are this
+seat's.**  Nothing below adjusts the ratified text — iron rule 1.
+
+Inside the major-arc reduction, residues mod `q`: for `n ≡ b (mod q)`, `d₀ := (b,q)`, `n = d₀m`,
+`g` completely multiplicative and `d₀ ≤ q ≤ W ≤ P₁`.  Dividing out `d₀` — whose prime factors all
+lie strictly below every band in play — moves the window parameter `Y ↦ Y/d₀` and touches nothing
+else: `J` is pinned by `X₀`, which does NOT dilate. -/
+
+/-- **Helper (mine, not ratified text): a factor with no band prime does not move the block
+divisors.**  If every prime factor of `d₀` is strictly below the band's lower endpoint, then
+`BlockPrimeDivs P Q (d₀·m) = BlockPrimeDivs P Q m` — the dilation is invisible to the band. -/
+private theorem blockPrimeDivs_mul_of_lt_band {P Q d₀ m : ℕ} (hd₀ : 0 < d₀)
+    (hlt : ∀ p ∈ d₀.primeFactors, p < P) :
+    BlockPrimeDivs P Q (d₀ * m) = BlockPrimeDivs P Q m := by
+  ext p
+  rw [mem_blockPrimeDivs, mem_blockPrimeDivs]
+  constructor
+  · rintro ⟨hp, hdvd, hne, hPle, hQ⟩
+    have hm0 : m ≠ 0 := by rintro rfl; simp at hne
+    refine ⟨hp, ?_, hm0, hPle, hQ⟩
+    rcases (Nat.Prime.dvd_mul hp).mp hdvd with h | h
+    · exact absurd hPle (not_le.mpr
+        (hlt p (Nat.mem_primeFactors.mpr ⟨hp, h, hd₀.ne'⟩)))
+    · exact h
+  · rintro ⟨hp, hdvd, hne, hPle, hQ⟩
+    exact ⟨hp, hdvd.mul_left d₀, by positivity, hPle, hQ⟩
+
+/-- **E-5c — the `1_S`-dilation identity, membership half** (MRT `arXiv:1503.05121v3`
+§4 p. 14, the residue split inside the major-arc reduction; the unstated child of v1's
+deleted `E-5` — the parent was the Dirichlet split, this never was).
+Dividing out `d₀` whose prime factors all lie strictly below every band in play moves
+the window parameter `Y ↦ Y/d₀` and touches nothing else: `J` is pinned by `X₀`, which
+does not dilate. Stated as an iff with no lower bound on `m`: at `m = 0` both sides are
+false (`0 ∉ mrtS`), so the iff holds outright. -/
+theorem mrtS_dilate {P₁ Q₁ X₀ Y : ℝ} {d₀ m : ℕ} (hd₀ : 1 ≤ d₀)
+    (hP : ∀ j ∈ Finset.Icc 1 (mrtJ Q₁ X₀), ∀ p ∈ d₀.primeFactors,
+        (p : ℝ) < mrtBandP P₁ Q₁ j) :
+    d₀ * m ∈ mrtS P₁ Q₁ X₀ Y ↔ m ∈ mrtS P₁ Q₁ X₀ (Y / (d₀ : ℝ)) := by
+  classical
+  have hd₀pos : 0 < d₀ := hd₀
+  have hd₀R : (0 : ℝ) < (d₀ : ℝ) := by exact_mod_cast hd₀pos
+  rw [mem_mrtS, mem_mrtS]
+  constructor
+  · rintro ⟨⟨h1, h2⟩, hband⟩
+    have hm1 : 1 ≤ m := by
+      rcases Nat.eq_zero_or_pos m with rfl | hm
+      · simp at h1
+      · exact hm
+    refine ⟨⟨hm1, ?_⟩, ?_⟩
+    · -- range: `d₀·m ≤ ⌊Y⌋₊` gives `m ≤ ⌊Y/d₀⌋₊`
+      have hYnn : (0 : ℝ) ≤ Y := by
+        by_contra hneg
+        push_neg at hneg
+        rw [Nat.floor_of_nonpos hneg.le] at h2
+        omega
+      have hle : ((d₀ * m : ℕ) : ℝ) ≤ Y := by
+        have := Nat.floor_le hYnn
+        calc ((d₀ * m : ℕ) : ℝ) ≤ ((⌊Y⌋₊ : ℕ) : ℝ) := by exact_mod_cast h2
+          _ ≤ Y := this
+      refine Nat.le_floor ?_
+      rw [le_div_iff₀ hd₀R]
+      push_cast at hle ⊢
+      linarith [hle]
+    · -- bands: `d₀` contributes no block prime, so the block divisors coincide
+      intro j hj
+      have hdvd : BlockPrimeDivs (mrtBandPNat P₁ Q₁ j) (mrtBandQNat Q₁ j) (d₀ * m)
+          = BlockPrimeDivs (mrtBandPNat P₁ Q₁ j) (mrtBandQNat Q₁ j) m :=
+        blockPrimeDivs_mul_of_lt_band hd₀pos
+          (fun q hq => Nat.lt_ceil.mpr (hP j hj q hq))
+      have := hband j hj
+      unfold blockOmega at this ⊢
+      rwa [hdvd] at this
+  · rintro ⟨⟨h1, h2⟩, hband⟩
+    have hmul1 : 1 ≤ d₀ * m := Nat.one_le_iff_ne_zero.mpr (by positivity)
+    refine ⟨⟨hmul1, ?_⟩, ?_⟩
+    · have hYnn : (0 : ℝ) ≤ Y / (d₀ : ℝ) := by
+        by_contra hneg
+        push_neg at hneg
+        rw [Nat.floor_of_nonpos hneg.le] at h2
+        omega
+      have hle : ((m : ℕ) : ℝ) ≤ Y / (d₀ : ℝ) :=
+        le_trans (by exact_mod_cast h2) (Nat.floor_le hYnn)
+      rw [le_div_iff₀ hd₀R] at hle
+      refine Nat.le_floor ?_
+      push_cast at hle ⊢
+      linarith [hle]
+    · intro j hj
+      have hdvd : BlockPrimeDivs (mrtBandPNat P₁ Q₁ j) (mrtBandQNat Q₁ j) (d₀ * m)
+          = BlockPrimeDivs (mrtBandPNat P₁ Q₁ j) (mrtBandQNat Q₁ j) m :=
+        blockPrimeDivs_mul_of_lt_band hd₀pos
+          (fun q hq => Nat.lt_ceil.mpr (hP j hj q hq))
+      have := hband j hj
+      unfold blockOmega at this ⊢
+      rwa [hdvd]
+
+/-- **E-5c — the summand identity, the form the arc consumer takes** (same source line):
+for completely multiplicative `g`, the sifted summand factors through the dilation. The
+multiplicativity is taken hypothesis-level (`g (a·b) = g a · g b`, all `a b`), matching
+MRT's "g completely multiplicative" without binding to a structure. -/
+theorem mrtS_indicator_mul_dilate (g : ℕ → ℂ)
+    (hg : ∀ a b : ℕ, g (a * b) = g a * g b)
+    {P₁ Q₁ X₀ Y : ℝ} {d₀ m : ℕ} (hd₀ : 1 ≤ d₀)
+    (hP : ∀ j ∈ Finset.Icc 1 (mrtJ Q₁ X₀), ∀ p ∈ d₀.primeFactors,
+        (p : ℝ) < mrtBandP P₁ Q₁ j) :
+    (if d₀ * m ∈ mrtS P₁ Q₁ X₀ Y then (1 : ℂ) else 0) * g (d₀ * m)
+      = g d₀ * ((if m ∈ mrtS P₁ Q₁ X₀ (Y / (d₀ : ℝ)) then (1 : ℂ) else 0) * g m) := by
+  classical
+  rw [hg d₀ m]
+  by_cases hmem : m ∈ mrtS P₁ Q₁ X₀ (Y / (d₀ : ℝ))
+  · rw [if_pos ((mrtS_dilate hd₀ hP).mpr hmem), if_pos hmem]
+    ring
+  · rw [if_neg (fun hc => hmem ((mrtS_dilate hd₀ hP).mp hc)), if_neg hmem]
+    ring
+
 end Salt.MR

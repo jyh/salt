@@ -384,6 +384,7 @@ import Salt.MR.MRTQualityLam
 import Salt.MR.MRTThmA1
 import Salt.MR.MRTPropA3Bridge
 import Salt.MR.MRTPropA3
+import Salt.MR.MRTThmA2Stmt
 import Salt.MR.DoorRoadCompose
 import Salt.MR.MRTPort
 import Salt.MR.MRTPortA1
@@ -8546,6 +8547,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_high_M
   Salt.MR.mrtM_costwist_self
   Salt.MR.not_mrtLemmaA7Statement
+  Salt.MR.mrtS_dilate
+  Salt.MR.mrtS_indicator_mul_dilate
   Salt.MR.mrt_constant_factors
   Salt.MR.vk34_constant_factors
   Salt.MR.vk34_constant_pos
