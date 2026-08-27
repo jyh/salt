@@ -548,4 +548,41 @@ theorem integral_exp_neg_mul (L a b : ℝ) (hL : 0 < L) :
   field_simp
   ring
 
+/-- ⭐ **A6 wave, node 3 — THE σ-AVERAGE BEATS THE ENDPOINT.**  The mean of the prime weight
+`exp(−σL)` over `[a,b]` is at least its value at the MIDPOINT, not merely at the far endpoint:
+
+    `(b − a)·exp(−((a+b)/2)·L)  ≤  ∫_a^b exp(−σL) dσ` .
+
+⛔ **THIS IS THE QUANTITATIVE FORM OF WHY THE REORDERING GAINS.**  `hcut_p` (`SupF:733`) bounds
+`p^{−σ}` below by its value at the WORST endpoint, and that is sharp *pointwise in `σ`* — an
+adversarial `g` attains it.  But the argument does not need the pointwise bound; it needs the
+`σ`-AVERAGE, and averaging a convex weight lands on the midpoint.  With `L = log p` the gap between
+midpoint and endpoint is exactly the mass `hcut_p` discards.
+⇒ 🔑 ***A BOUND CAN BE SHARP POINTWISE AND LOSSY UNDER THE INTEGRAL THAT ACTUALLY CONSUMES IT —
+SHARPNESS IS A PROPERTY OF A STEP, NOT OF ITS ROLE IN THE CHAIN.***
+
+*Proof: node 2 evaluates the integral exactly; writing `a = m−d`, `b = m+d` factors it as
+`exp(−mL)·2·sinh(dL)/L`, and `dL ≤ sinh(dL)` is `Real.self_le_sinh_iff`.  Convexity, no
+estimate.* -/
+theorem exp_neg_mul_integral_ge_midpoint {L a b : ℝ} (hL : 0 < L) (hab : a ≤ b) :
+    (b - a) * Real.exp (-((a + b) / 2 * L)) ≤ ∫ σ in a..b, Real.exp (-(σ * L)) := by
+  rw [integral_exp_neg_mul L a b hL]
+  set m : ℝ := (a + b) / 2 with hm
+  set d : ℝ := (b - a) / 2 with hd
+  have hd0 : 0 ≤ d := by rw [hd]; linarith
+  have hdL : 0 ≤ d * L := mul_nonneg hd0 hL.le
+  have hsinh : d * L ≤ Real.sinh (d * L) := Real.self_le_sinh_iff.mpr hdL
+  have hfac : Real.exp (-(a * L)) - Real.exp (-(b * L))
+      = Real.exp (-(m * L)) * (2 * Real.sinh (d * L)) := by
+    rw [Real.sinh_eq]
+    have ha : -(a * L) = -(m * L) + d * L := by rw [hm, hd]; ring
+    have hb : -(b * L) = -(m * L) + -(d * L) := by rw [hm, hd]; ring
+    rw [ha, hb, Real.exp_add, Real.exp_add]
+    ring
+  rw [hfac]
+  have hbma : b - a = 2 * d := by rw [hd]; ring
+  rw [hbma, le_div_iff₀ hL]
+  have hpos : (0 : ℝ) < Real.exp (-(m * L)) := Real.exp_pos _
+  nlinarith [hsinh, hpos, hL]
+
 end Salt.MR
