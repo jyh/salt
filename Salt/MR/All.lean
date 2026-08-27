@@ -8544,6 +8544,8 @@ open Salt.Tactic in
   Salt.MR.mrtM_le
   Salt.MR.mrtA4ii_sixteenth_suffices
   Salt.MR.mrtA4ii_high_M
+  Salt.MR.mrtM_costwist_self
+  Salt.MR.not_mrtLemmaA7Statement
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket
   Salt.MR.mrtQuality_lower_of_pointwise

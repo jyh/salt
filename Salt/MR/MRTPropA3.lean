@@ -3959,5 +3959,169 @@ theorem mrtThmA1Statement_of_constantMatch (Pseq Qseq : ℕ → ℕ)
   obtain ⟨C, hCpos, hA2⟩ := h
   exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty C Pseq Qseq hA2⟩
 
+/-! ## ⛔⛔ `MRTLemmaA7` IS FALSE — the printed statement (A.8) is the wrong conjugate
+
+Granted by council 2026-08-27 (item ④a) at executor tier, precedent `not_mrtLemmaA4ii`.
+**The source is internally inconsistent**: `1503.05121v3` Lemma A.7's display (A.8) carries
+`X^{i(t−t₁)}/(1+i(t−t₁))`, while its OWN proof, applying `[10, Lemma 7.1]` three lines later,
+carries the conjugate `X^{i(t₁−t)}/(1+i(t₁−t))`.  Partial summation decides it:
+`Σ_{n≤X} aₙn^{−it} → X^{−iu}A(X)/(1−iu)` with `u = t−t₁`, i.e. **the PROOF's form**.  MRT never
+notice because they only ever use the modulus `1/√(1+u²)`, invariant under `u ↦ −u`.
+**Our transcription was FAITHFUL to the printed statement — and the printed statement is wrong.**
+
+⭐ **THE WITNESS IS ELEMENTARY AND NEEDS NO ASYMPTOTICS**, which is the whole point of choosing it:
+take `f := costwist t` — the twist itself.  Then the FIRST sum collapses to `∑ 1 = N` exactly
+(`costwist_add`, `t + (−t) = 0`), the SECOND has norm `≤ N` by the triangle inequality alone
+(`costwist_norm`), and `‖X^{iu}/(1+iu)‖ = 1/√(1+u²)`.  At `u = 1` that leaves
+`LHS ≥ N(1 − 1/√2) ≈ 0.29·N`, of order `X`, against an allowed `C·X/(log X)^{1/10} = o(X)`.
+*A refutation that needed the asymptotic size of `∑ n^{−iu}` would have been class-C analysis; this
+one needs only that every term of the first sum is exactly `1`.* -/
+
+/-- **`mrtM` vanishes at its own twist.**  `pretDistSq (costwist t) (costwist t) X = 0` termwise,
+since `costwist t p * conj (costwist t p) = costwist 0 p = 1`. -/
+theorem mrtM_costwist_self (t X : ℝ) (hX : 0 ≤ X) (htX : |t| ≤ X) :
+    mrtM (costwist t) X = 0 := by
+  have hzero : pretDistSq (costwist t) (costwist t) X = 0 := by
+    unfold pretDistSq
+    refine Finset.sum_eq_zero fun p _ => ?_
+    rw [costwist_conj, costwist_add, add_neg_cancel]
+    norm_num [costwist]
+  have hle : mrtM (costwist t) X ≤ 0 := by
+    have := mrtM_le (costwist t) hX htX
+    rwa [hzero] at this
+  exact le_antisymm hle (mrtM_nonneg (costwist t) hX (fun n => le_of_eq (costwist_norm t n)))
+
+/-- ⛔⛔ **THE REFUTATION.**  No `C` makes `MRTLemmaA7` true. -/
+theorem not_mrtLemmaA7Statement : ¬ MRTLemmaA7Statement := by
+  rintro ⟨C, hC, h⟩
+  set L : ℝ := max 2 ((8 * C) ^ (10 : ℕ)) with hLdef
+  have hL2 : (2 : ℝ) ≤ L := le_max_left _ _
+  have hLpos : (0 : ℝ) < L := by linarith
+  set X : ℝ := Real.exp L with hXdef
+  have hXpos : (0 : ℝ) < X := Real.exp_pos _
+  have hlogX : Real.log X = L := Real.log_exp L
+  have he1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+  have hXbig : (7 : ℝ) ≤ X := by
+    have h2 : Real.exp 2 ≤ X := by rw [hXdef]; exact Real.exp_le_exp.mpr hL2
+    have hsq : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
+      rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_pos (1 : ℝ)]
+  -- `t = 1` genuinely lies in `mrtT0`
+  have hM : mrtM (costwist 1) X = 0 :=
+    mrtM_costwist_self 1 X (le_of_lt hXpos) (by rw [abs_one]; linarith)
+  have hmem : (1 : ℝ) ∈ mrtT0 (mrtM (costwist 1) X) 0 X X := by
+    unfold mrtT0
+    have hll : (0 : ℝ) < Real.log (Real.log X) := by
+      rw [hlogX]; exact Real.log_pos (by linarith)
+    rw [if_neg (by rw [hM]; linarith)]
+    refine ⟨by rw [abs_one]; linarith, ?_⟩
+    have h1 : (1 : ℝ) ≤ Real.log X := by rw [hlogX]; linarith
+    have hone : (1 : ℝ) = (1 : ℝ) ^ ((1 : ℝ) / 16) := by norm_num
+    calc |(1 : ℝ) - 0| = 1 := by rw [sub_zero, abs_one]
+      _ = (1 : ℝ) ^ ((1 : ℝ) / 16) := hone
+      _ ≤ (Real.log X) ^ ((1 : ℝ) / 16) :=
+          Real.rpow_le_rpow (by norm_num) h1 (by norm_num)
+  have hnorm : ∀ n, ‖costwist 1 n‖ ≤ 1 := fun n => le_of_eq (costwist_norm 1 n)
+  have hA7 := h (costwist 1) (fun _ => 0) (fun _ => 0) ∅ X 1 0 hnorm hXpos hmem
+  set N : ℕ := ⌊X⌋₊ with hNdef
+  -- FIRST SUM = N exactly
+  have hfirst : (∑ n ∈ Finset.Icc 1 N,
+      gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-1 : ℝ) n)
+      = (N : ℂ) := by
+    have hterm : ∀ n ∈ Finset.Icc 1 N,
+        gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-1 : ℝ) n
+          = 1 := by
+      intro n _
+      rw [gJ_empty, one_mul, costwist_add, add_neg_cancel]
+      norm_num [costwist]
+    rw [Finset.sum_congr rfl hterm, Finset.sum_const, Nat.card_Icc]
+    simp
+  -- SECOND SUM has norm ≤ N
+  have hsecond : ‖(∑ n ∈ Finset.Icc 1 N,
+      gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-(0:ℝ)) n)‖
+      ≤ (N : ℝ) := by
+    refine le_trans (norm_sum_le _ _) ?_
+    have hterm : ∀ n ∈ Finset.Icc 1 N,
+        ‖gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-(0:ℝ)) n‖
+          ≤ 1 := by
+      intro n _
+      rw [gJ_empty, one_mul, costwist_add]
+      exact le_of_eq (costwist_norm _ n)
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    rw [Finset.sum_const, Nat.card_Icc]
+    simp
+  -- the renormalisation factor has norm `1/√2`
+  have hFnorm : ‖(Complex.exp ((((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+      / (1 + (((1 - 0 : ℝ) : ℂ)) * Complex.I))‖ = 1 / Real.sqrt 2 := by
+    rw [norm_div]
+    have hnum : ‖Complex.exp ((((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))‖ = 1 := by
+      rw [show (((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ)
+          = ((Real.log X : ℝ) : ℂ) * Complex.I by push_cast; ring]
+      exact Complex.norm_exp_ofReal_mul_I _
+    have hden : ‖(1 : ℂ) + (((1 - 0 : ℝ) : ℂ)) * Complex.I‖ = Real.sqrt 2 := by
+      rw [show (1 : ℂ) + (((1 - 0 : ℝ) : ℂ)) * Complex.I = ⟨1, 1⟩ by
+        apply Complex.ext <;> push_cast <;> simp]
+      rw [Complex.norm_def, Complex.normSq_mk]
+      norm_num
+    rw [hnum, hden]
+  -- assemble: LHS ≥ N(1 − 1/√2)
+  rw [hfirst] at hA7
+  have hs2 : Real.sqrt 2 < 1.4143 := by
+    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2), Real.sqrt_nonneg 2]
+  have hs2' : (1.4142 : ℝ) < Real.sqrt 2 := by
+    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2), Real.sqrt_nonneg 2]
+  have hNge : (X : ℝ) - 1 ≤ (N : ℝ) := by
+    have := Nat.lt_floor_add_one X
+    rw [hNdef]; linarith
+  -- the allowed right-hand side is at most `X/8`
+  have h8C : 8 * C ≤ (Real.log X) ^ ((1 : ℝ) / 10) := by
+    have hb : (0 : ℝ) ≤ 8 * C := by linarith
+    have hpow : ((8 * C) ^ (10 : ℕ)) ≤ L := le_max_right _ _
+    have hcollapse : ((8 * C) ^ (10 : ℕ)) ^ ((1 : ℝ) / 10) = 8 * C := by
+      rw [← Real.rpow_natCast (8 * C) 10, ← Real.rpow_mul hb]
+      norm_num
+    calc 8 * C = ((8 * C) ^ (10 : ℕ)) ^ ((1 : ℝ) / 10) := hcollapse.symm
+      _ ≤ L ^ ((1 : ℝ) / 10) := Real.rpow_le_rpow (by positivity) hpow (by norm_num)
+      _ = (Real.log X) ^ ((1 : ℝ) / 10) := by rw [hlogX]
+  have hden : (0 : ℝ) < (Real.log X) ^ ((1 : ℝ) / 10) := by
+    rw [hlogX]; exact Real.rpow_pos_of_pos hLpos _
+  have hRHS : C * X / (Real.log X) ^ ((1 : ℝ) / 10) ≤ X / 8 := by
+    rw [div_le_div_iff₀ hden (by norm_num)]
+    nlinarith [hXpos.le, h8C, hden]
+  -- the left-hand side is at least `N·(1 − 1/√2)`
+  have hsplit : ‖(N : ℂ) - (Complex.exp ((((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+        / (1 + (((1 - 0 : ℝ) : ℂ)) * Complex.I))
+        * ∑ n ∈ Finset.Icc 1 N,
+            gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-(0:ℝ)) n‖
+      ≥ (N : ℝ) - (1 / Real.sqrt 2) * (N : ℝ) := by
+    have hrev := norm_sub_norm_le ((N : ℂ))
+      ((Complex.exp ((((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+        / (1 + (((1 - 0 : ℝ) : ℂ)) * Complex.I))
+        * ∑ n ∈ Finset.Icc 1 N,
+            gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-(0:ℝ)) n)
+    have hprod : ‖(Complex.exp ((((1 - 0 : ℝ) : ℂ)) * Complex.I * ((Real.log X : ℝ) : ℂ))
+        / (1 + (((1 - 0 : ℝ) : ℂ)) * Complex.I))
+        * ∑ n ∈ Finset.Icc 1 N,
+            gJ (∅ : Finset ℕ) (fun _ => 0) (fun _ => 0) n * costwist 1 n * costwist (-(0:ℝ)) n‖
+        ≤ (1 / Real.sqrt 2) * (N : ℝ) := by
+      rw [norm_mul, hFnorm]
+      have hs2pos : (0 : ℝ) < 1 / Real.sqrt 2 := by positivity
+      exact mul_le_mul_of_nonneg_left hsecond hs2pos.le
+    have hNn : ‖((N : ℕ) : ℂ)‖ = (N : ℝ) := Complex.norm_natCast N
+    linarith [hrev, hNn, hprod]
+  -- contradiction
+  have hs2pos : (0 : ℝ) < Real.sqrt 2 := by positivity
+  have hcoef : (0.29 : ℝ) ≤ 1 - 1 / Real.sqrt 2 := by
+    have hinv : 1 / Real.sqrt 2 ≤ 0.7072 := by
+      rw [div_le_iff₀ hs2pos]
+      nlinarith [hs2']
+    linarith
+  have hNpos : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+  have hchain : (N : ℝ) - (1 / Real.sqrt 2) * (N : ℝ) ≤ X / 8 :=
+    le_trans (le_trans hsplit hA7) hRHS
+  have hfac : (N : ℝ) - (1 / Real.sqrt 2) * (N : ℝ) = (1 - 1 / Real.sqrt 2) * (N : ℝ) := by ring
+  rw [hfac] at hchain
+  nlinarith [hchain, hcoef, hNge, hXbig, hNpos]
+
 end Salt.MR
 
