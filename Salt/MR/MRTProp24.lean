@@ -338,8 +338,7 @@ theorem mrtS_dilate {P₁ Q₁ X₀ Y : ℝ} {d₀ m : ℕ} (hd₀ : 1 ≤ d₀)
     · -- range: `d₀·m ≤ ⌊Y⌋₊` gives `m ≤ ⌊Y/d₀⌋₊`
       have hYnn : (0 : ℝ) ≤ Y := by
         by_contra hneg
-        push_neg at hneg
-        rw [Nat.floor_of_nonpos hneg.le] at h2
+        rw [Nat.floor_of_nonpos (le_of_lt (not_le.mp hneg))] at h2
         omega
       have hle : ((d₀ * m : ℕ) : ℝ) ≤ Y := by
         have := Nat.floor_le hYnn
@@ -363,8 +362,7 @@ theorem mrtS_dilate {P₁ Q₁ X₀ Y : ℝ} {d₀ m : ℕ} (hd₀ : 1 ≤ d₀)
     refine ⟨⟨hmul1, ?_⟩, ?_⟩
     · have hYnn : (0 : ℝ) ≤ Y / (d₀ : ℝ) := by
         by_contra hneg
-        push_neg at hneg
-        rw [Nat.floor_of_nonpos hneg.le] at h2
+        rw [Nat.floor_of_nonpos (le_of_lt (not_le.mp hneg))] at h2
         omega
       have hle : ((m : ℕ) : ℝ) ≤ Y / (d₀ : ℝ) :=
         le_trans (by exact_mod_cast h2) (Nat.floor_le hYnn)
