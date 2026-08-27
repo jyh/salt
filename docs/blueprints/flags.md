@@ -23472,3 +23472,70 @@ either, so the original wording survives above mine.
 🔑 ***"TWO-SIDED" DOES NOT SAY WHICH KIND OF ERROR YOU HAVE — ASK WHAT THE CONSUMER DOES WITH THE
 TWO SIDES, NOT HOW MANY SIDES THERE ARE.*** And: ***an inherited target that does not anticipate
 its consumer is a FLAG, not a licence to re-aim.***
+
+---
+
+## P2 ITEM 5 / ITEM 12 — THE W-CAP CONJUNCT ON `ChowlaRegime` — ⚖️ **DESIGN FINDING. THE BLOCKING SITE IS THE ANTI-VACUITY WITNESS.**
+**2026-08-26 22:1x · Opus 5 (executor tier) · measured at the helm's request, tier turns on this**
+
+### The question as put
+*How many `ChowlaRegime` construction sites are there, and can each discharge the W-cap conjunct
+from the landed arm `regime_W_cap_of_floor` (S10b)?  All discharge ⇒ mechanical, executor-tier.
+Any site cannot ⇒ design finding, site named.*
+
+### ⛔ FIRST: THE LANDED ARM IS NOT UNCONDITIONAL
+`regime_W_cap_of_floor` takes **`hthr : 1250·log(log H₋) ≤ log H₋`** as a hypothesis. It is not
+derivable from the regime's own fields: `hHlo_floor : 4000000 ≤ Hlo` gives `log H₋ ≈ 15.20`, and
+the threshold's root is **`L* = 11710.2777…`, first integer `11711`** (re-solved here, not copied —
+the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
+**`H₋ ≥ exp(11710.28) ≈ 10^5086`** — a `770×` increase in `log H₋`, not a numeric tightening.
+
+### 📐 THE CENSUS — 5 construction sites (three search shapes; structure-instance form is the only one used)
+```
+  Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
+  Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
+  Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
+  Salt/MR/XCeil.lean:502                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
+```
+**The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor
+is caller-driven and unboundedly raisable.
+
+### ⛔⛔ THE SITE THAT CANNOT: `regime_exists_of_dropSum` (`RegimeInst.lean:169-175`)
+It hardcodes `Hlo := 4000000` with `hHlo_floor := le_refl _`, and **it is the corpus's ANTI-VACUITY
+WITNESS** — the proof that a `ChowlaRegime` exists at all. Chain:
+`Diverge.lean:450 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
+regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:251`.
+
+Raising its `Hlo` to `10^5086` is **not a mechanical edit**: its own hypothesis is
+`hJ : log 2 < towerDropSum 2 1 4000000 J`, **stated at the literal `4000000`**, and whether the
+telescoped decrement still exceeds `log 2` at the new base is a mathematical question, not a
+re-`norm_num`.
+
+⚖️ **AND THE STAKE IS THE WHOLE STRUCTURE.** Measured: **585** sites quantify over `ChowlaRegime`
+and **284** are `∃ R : ChowlaRegime` producers. If the conjunct lands and this witness is not
+rebuilt, `ChowlaRegime` has **no known inhabitant**, and every one of those 585 goes **VACUOUSLY
+TRUE with a green build and a clean axiom audit** — 7b's own law, at corpus scale.
+⇒ 🔑 ***A FIELD ADDED TO A STRUCTURE IS PAID FOR AT ITS INHABITATION WITNESS, AND THAT WITNESS IS
+USUALLY THE ONE SITE WITH NO FREE PARAMETERS — the others take the floor from a caller; the witness
+must BE the floor.***
+
+### 📐 DIRECTION, AS ASKED
+Adding a conjunct shrinks the type: **∀-quantified consumers get the field free and become WEAKER
+statements (fewer regimes), carrying NO new hypothesis** — all 585. The cost lands entirely on the
+284 ∃-producers. Of those, the four parametric sites would newly carry a hypothesis **only under the
+caller-pays option**:
+```
+  (a) caller pays   add `exp(11711) ≤ Hlo₀` to all four ⇒ four theorems NEWLY CARRY A HYPOTHESIS,
+                    and it propagates to every caller of each
+  (b) site pays     widen the internal max: `max 4000000 …` → `max ⌈exp 11711⌉₊ …`.  NO new
+                    hypothesis — but each of these theorems EXPOSES `R.Hlo = max …` as an equation
+                    in its conclusion, so the exposed value changes under every consumer that reads it
+```
+**Neither option touches the blocking site**, which is why this is a ruling and not a wave.
+
+### ⚖️ RECOMMENDATION (helm/Fable/Captain tier — NOT taken here)
+Do not add the conjunct as a `ChowlaRegime` field. The cheaper shapes, unpriced here: carry the
+W-cap as a **hypothesis on the consumers that need it** (as `regime_W_cap_of_floor` already does),
+or as a **derived predicate / sub-structure** that only the W-cap road demands. *Item 5's own closing
+line already says the landed arm is "AN ARM, NOT A WIRING"; this measures why the wiring is expensive.*
