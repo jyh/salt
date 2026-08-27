@@ -8546,6 +8546,11 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_high_M
   Salt.MR.mrtM_costwist_self
   Salt.MR.not_mrtLemmaA7Statement
+  Salt.MR.mrt_constant_factors
+  Salt.MR.vk34_constant_factors
+  Salt.MR.vk34_constant_pos
+  Salt.MR.vk34_constant_clears_bar
+  Salt.MR.vk34_constant_lt_mrt
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket
   Salt.MR.mrtQuality_lower_of_pointwise

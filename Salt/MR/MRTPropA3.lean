@@ -4123,5 +4123,72 @@ theorem not_mrtLemmaA7Statement : ¬ MRTLemmaA7Statement := by
   rw [hfac] at hchain
   nlinarith [hchain, hcoef, hNge, hXbig, hNpos]
 
+/-! ## The θ = 3/4 constants — council item ④c's arithmetic, kernel-checked
+
+Council 2026-08-27 item ④c rules **re-derive at what we hold** (no-named-external-hypotheses law:
+porting a sharper external region installs a dependency on purpose).  MRT's Appendix-A constants are
+tied to the **VK θ = 2/3** region; salt holds **θ = 3/4** (`Salt.Vk.zeta_zero_free_region_pow`,
+`Re ρ ≤ 1 − c/((log|Im ρ|)^{3/4}(log log|Im ρ|)³)`).
+
+⛔⛔ **THE MINUTE CALLS θ = 3/4 "our STRONGER region". IT IS THE WEAKER ONE, AND THE DIRECTION IS
+MEASURED HERE RATHER THAN ASSERTED.**  The zero-free margin is `c/(log t)^θ`, which DECREASES as `θ`
+grows, so **smaller `θ` is the stronger region** — MRT's `2/3` beats our `3/4`.  *The ruling is
+unaffected: re-derive-at-what-we-hold is right on the law regardless of direction.  What the
+inversion changes is the EXPECTATION — the wave returns a SMALLER constant, and without this said
+out loud a correct result reads as a regression.*
+
+📐 **THE TIE IS EXACT, WHICH IS WHY THE NEW CONSTANT IS PREDICTABLE.**  MRT's constant factors as
+`1/6 − 1/(3π) = (1/3)·(1/2 − 1/π)`, i.e. `coefficient × (1/2 − 1/π)` with the VK coefficient `1/3`
+at `θ = 2/3`.  At `θ = 3/4` the coefficient is `1/4`, giving `(1/4)·(1/2 − 1/π) = 1/8 − 1/(4π)` —
+**weaker by exactly the factor `3/4`**, and still clear of the qualitative bar `3/125`
+(`mrt_extract.md:326-329`, §0.3).
+
+⚖️ **SCOPE — NO STATEMENT IS AUTHORED HERE.**  These are facts about real numbers, in the same genre
+as the landed `mrtA4_constant_pos` / `mrtA4ii_sixteenth_suffices` / `landed_route_below_a4ii_target`
+for the θ=2/3 constant.  **Re-stating `MRTLemmaA5` at the new constant is a STATEMENT act and is not
+done here** (minute ④b: drafting is the helm's, ratification the Captain's). -/
+
+/-- **The θ=2/3 constant factors exactly.**  `1/6 − 1/(3π) = (1/3)·(1/2 − 1/π)` — the identity that
+makes the VK coefficient visible as a factor, and hence the re-derivation predictable. -/
+theorem mrt_constant_factors : (1 : ℝ) / 6 - 1 / (3 * Real.pi) = (1 / 3) * (1 / 2 - 1 /
+Real.pi) := by
+  have hpi : Real.pi ≠ 0 := ne_of_gt Real.pi_pos
+  field_simp
+  ring
+
+/-- **The θ=3/4 constant, in the same factored form.**  `(1/4)·(1/2 − 1/π) = 1/8 − 1/(4π)`. -/
+theorem vk34_constant_factors :
+    (1 / 4 : ℝ) * (1 / 2 - 1 / Real.pi) = 1 / 8 - 1 / (4 * Real.pi) := by
+  have hpi : Real.pi ≠ 0 := ne_of_gt Real.pi_pos
+  field_simp
+  ring
+
+/-- **The θ=3/4 constant is positive** — so the re-derived A.5 is not vacuous. -/
+theorem vk34_constant_pos : 0 < (1 : ℝ) / 8 - 1 / (4 * Real.pi) := by
+  have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have hpos : (0 : ℝ) < 4 * Real.pi := by linarith
+  rw [sub_pos, div_lt_div_iff₀ hpos (by norm_num)]
+  linarith
+
+/-- ⭐ **THE RE-DERIVED CONSTANT STILL CLEARS THE QUALITATIVE BAR.**  `3/125 < 1/8 − 1/(4π)`, so the
+θ=3/4 re-derivation is viable even though it does not sharpen. -/
+theorem vk34_constant_clears_bar : (3 : ℝ) / 125 < 1 / 8 - 1 / (4 * Real.pi) := by
+  have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h4 : (12 : ℝ) < 4 * Real.pi := by linarith
+  have hinv : 1 / (4 * Real.pi) < 1 / 12 :=
+    one_div_lt_one_div_of_lt (by norm_num) h4
+  linarith
+
+/-- ⛔ **AND IT IS STRICTLY WEAKER THAN MRT'S** — stated so the loss is in the kernel and cannot be
+mistaken for a sharpening. -/
+theorem vk34_constant_lt_mrt :
+    (1 : ℝ) / 8 - 1 / (4 * Real.pi) < 1 / 6 - 1 / (3 * Real.pi) := by
+  rw [mrt_constant_factors, ← vk34_constant_factors]
+  have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have hfac : (0 : ℝ) < 1 / 2 - 1 / Real.pi := by
+    rw [sub_pos, div_lt_div_iff₀ (by linarith) (by norm_num)]
+    linarith
+  nlinarith [hfac]
+
 end Salt.MR
 
