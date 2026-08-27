@@ -426,3 +426,29 @@ needs exactly this, and the refuters had already checked the constant. -/
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.sum_inv_affine_le
   Salt.TwinBar.sum_inv_affine_ge
+
+/-! ### The twin-value Möbius unfolding — the DIRECT route's skeleton
+
+§7's verdict 2 ruled wave-1's sieve chain **strictly dominated**: *"at fixed z the sifted log-mass
+is a finite Möbius sum over the SAME atoms — no BoundingSieve, no door, no `Btwin`"*, and *"if
+Tao-1.2-in-Lean ever lands, the DIRECT MÖBIUS route is the consumer."* This is that route's
+bookkeeping, EXACT (an identity, not a sieve bound):
+
+    `∑_{n ≤ N, (n(n+2),P)=1} w n = ∑_{d ∣ P} μ(d) · ∑_{n ≤ N, d ∣ n(n+2)} w n`
+
+⛔ **Why the landed stone does not serve.** `Salt.SW.sum_coprime_eq_moebius_multiples`
+(`SW/CoprimeBV.lean:98`) is the same classical unfolding but sifts the **INDEX**, reindexing inner
+sums by `d = k·e`. Here the condition is on the **VALUE** `n(n+2)`, and that reindex does not
+transport. *Same identity, different variable, and the difference is exactly the step that fails.*
+The pointwise Möbius collapse DOES transport and is reused from
+`Salt.SW.sum_divisors_moebius_real`, not re-derived.
+
+⭐ The right-hand inner sums are precisely what `L` / `LiouvilleTwinDisp` already index — which is
+what makes this the route's SKELETON rather than a new decomposition.
+
+⛔ **SCOPE: bookkeeping. It does not advance the prize** — it removes the only non-Tao Lean
+prerequisite §7 named. The ATOMS on its right are the open object (Tao Thm 1.2, Captain-gated).
+⚠️ **Nothing consumes it yet, so on today's own dead-branch census it reads as a dead branch until
+an atom supplier arrives.** Recorded so that reading is not a surprise. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.sum_twinCoprime_eq_moebius_divisors

@@ -371,6 +371,29 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    ⛔ **SCOPE: estimates on the WEIGHTS** — no Liouville sum, no atom, **nothing consumes them
    yet.** They land because the estimate is ROUTE-INDEPENDENT: any log-world pricing of an
    affine-form atom needs exactly this comparison.
+   ✅⭐⭐ **AND THE DIRECT ROUTE'S SKELETON IS LANDED — `sum_twinCoprime_eq_moebius_divisors`,
+   `[3 axioms]`, first attempt (2026-08-26 17:2x).** §7's verdict 2 ruled wave-1's sieve chain
+   **strictly dominated** and named the vehicle: *"at fixed z the sifted log-mass is a finite
+   Möbius sum over the SAME atoms — no BoundingSieve, no door, no `Btwin`."* This is that sum,
+   EXACT: `∑_{n≤N,(n(n+2),P)=1} w n = ∑_{d∣P} μ(d)·∑_{n≤N, d∣n(n+2)} w n`, `w`-generic.
+   ⛔ **AND THE LANDED STONE DID NOT SERVE — the census caught a NEAR-MISS.**
+   `Salt.SW.sum_coprime_eq_moebius_multiples` (`SW/CoprimeBV.lean:98`) is the SAME classical
+   unfolding, but it sifts the **INDEX** and reindexes inner sums by `d = k·e`. Our condition is on
+   the **VALUE** `n(n+2)`, and **that reindex does not transport** — `k ∣ n(n+2)` does not put `n`
+   in the needed progression. ⇒ ***SAME IDENTITY, DIFFERENT VARIABLE, AND THE DIFFERENCE IS EXACTLY
+   THE STEP THAT FAILS.*** *The pointwise Möbius collapse DOES transport and is REUSED
+   (`Salt.SW.sum_divisors_moebius_real`), not re-derived — the corpus supplied the half that
+   travels.*
+   ⭐ **The right-hand inner sums are precisely what `L` / `LiouvilleTwinDisp` already index**,
+   which is what makes this the route's SKELETON rather than a new decomposition.
+   ⇒ ⚖️ **WITH THIS AND THE HARMONIC-COUNT NODE, EVERY NON-TAO LEAN PREREQUISITE §7 NAMED FOR THE
+   DIRECT MÖBIUS ROUTE IS NOW IN THE KERNEL.** §7's list was *"the harmonic-count node + the Tao
+   atoms"*; the first is landed and the second is the Captain-gated campaign. **The route is one
+   campaign away and nothing else.**
+   ⛔ **SCOPE: bookkeeping — it does NOT advance the prize.** ⚠️ **Nothing consumes it yet, so on
+   item 12c's own census it reads as a dead branch until an atom supplier arrives.** *Recorded at
+   landing so the reading is not a surprise — the helm's 16:5x point that my own sockets would
+   appear in my own census, taken.*
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references

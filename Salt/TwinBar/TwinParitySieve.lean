@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.TwinBar.Wall
+import Salt.SW.CoprimeBV
 import Salt.Chen.BrunEll1
 import Salt.BrunLower.MertensDischarge
 import Salt.BrunLower.TwinInstance
@@ -688,5 +689,84 @@ theorem sum_inv_affine_ge {d r : ℕ} (hd : 0 < d) (hr : r ≤ d) (M : ℕ) :
   refine Finset.sum_le_sum fun m hm => ?_
   have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
   exact (logWeight_affine_le_div hd (by omega) hr).1
+
+/-! ## The twin-value Möbius unfolding — the DIRECT route's skeleton
+
+§7's verdict 2 ruled wave-1's sieve chain **strictly dominated** for the log-world prize: *"at
+fixed `z` the sifted log-mass is a finite Möbius sum over the SAME atoms: needs only the
+harmonic-count node + the Tao atoms, no BoundingSieve, no door, no `Btwin`"*, and *"if
+Tao-1.2-in-Lean ever lands, the DIRECT MÖBIUS route is the consumer."*  This is that route's
+bookkeeping, and it is exact — an identity, not a sieve bound.
+
+⛔ **WHY THE LANDED STONE DOES NOT SERVE.**  `Salt.SW.sum_coprime_eq_moebius_multiples`
+(`SW/CoprimeBV.lean:98`) is the same classical unfolding, but it sifts the **INDEX** `d` and
+reindexes the inner sums by `d = k·e`.  Here the sifting condition is on the **VALUE** `n(n+2)`,
+and that reindex does not transport: `k ∣ n(n+2)` does not put `n` in an arithmetic progression of
+the shape the stone needs.  ⇒ *Same identity, different variable, and the difference is exactly the
+step that fails.*  What DOES transport is the pointwise Möbius collapse, reused below from
+`Salt.SW.sum_divisors_moebius_real` rather than re-derived.
+
+⛔ **SCOPE — bookkeeping, and nothing consumes it yet.**  It is `w`-generic and says nothing about
+Liouville, about `z`, or about any estimate; the ATOMS on its right-hand side are the open object
+(the Tao Theorem 1.2 campaign, §7's disposition, Captain-gated).  **Landing this does not advance
+the prize; it removes the only non-Tao Lean prerequisite §7 named.** ⚠️ On today's own census this
+name would read as a dead branch until an atom supplier arrives — recorded here so the reading is
+not a surprise. -/
+
+/-- **The twin-value Möbius unfolding.**  For squarefree `P` and any weight `w`, the sum over
+`n ∈ [1,N]` whose twin value `n(n+2)` is coprime to `P` unfolds exactly over the divisors of `P`:
+
+    `∑_{n ≤ N, (n(n+2), P) = 1} w n  =  ∑_{d ∣ P} μ(d) · ∑_{n ≤ N, d ∣ n(n+2)} w n` .
+
+The right-hand inner sums are precisely the objects `L`/`LiouvilleTwinDisp` already index, which is
+what makes this the direct route's skeleton rather than a new decomposition. -/
+theorem sum_twinCoprime_eq_moebius_divisors (N P : ℕ) (hP : Squarefree P) (w : ℕ → ℝ) :
+    (∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime (n * (n + 2)) P), w n)
+      = ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+          * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), w n := by
+  have hP0 : P ≠ 0 := hP.ne_zero
+  -- divisors of `P` that divide `m` are exactly the divisors of `gcd P m`
+  have hset : ∀ m : ℕ, P.divisors.filter (fun k => k ∣ m) = (Nat.gcd P m).divisors := by
+    intro m
+    ext k
+    simp only [Finset.mem_filter, Nat.mem_divisors, Nat.dvd_gcd_iff]
+    have hgcd0 : Nat.gcd P m ≠ 0 := by
+      have : 0 < Nat.gcd P m := Nat.gcd_pos_of_pos_left m (Nat.pos_of_ne_zero hP0)
+      omega
+    exact ⟨fun ⟨⟨hkP, _⟩, hkm⟩ => ⟨⟨hkP, hkm⟩, hgcd0⟩,
+           fun ⟨⟨hkP, hkm⟩, _⟩ => ⟨⟨hkP, hP0⟩, hkm⟩⟩
+  -- the pointwise collapse, at the twin VALUE
+  have hpt : ∀ n : ℕ,
+      (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+          * (if d ∣ n * (n + 2) then w n else 0))
+        = if Nat.Coprime (n * (n + 2)) P then w n else 0 := by
+    intro n
+    have hrw : (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+          * (if d ∣ n * (n + 2) then w n else 0))
+        = w n * ∑ d ∈ P.divisors.filter (fun k => k ∣ n * (n + 2)),
+            (ArithmeticFunction.moebius d : ℝ) := by
+      rw [Finset.mul_sum, Finset.sum_filter]
+      exact Finset.sum_congr rfl (fun d _ => by split_ifs <;> ring)
+    rw [hrw, hset (n * (n + 2)), Salt.SW.sum_divisors_moebius_real]
+    by_cases hc : Nat.Coprime (n * (n + 2)) P
+    · have hg1 : Nat.gcd P (n * (n + 2)) = 1 := by rw [Nat.gcd_comm]; exact hc
+      rw [if_pos hg1, if_pos hc, mul_one]
+    · have hg1 : ¬ Nat.gcd P (n * (n + 2)) = 1 := by rw [Nat.gcd_comm]; exact hc
+      rw [if_neg hg1, if_neg hc, mul_zero]
+  -- assemble: turn both sides into filtered sums and swap
+  calc (∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime (n * (n + 2)) P), w n)
+      = ∑ n ∈ Finset.Icc 1 N, (if Nat.Coprime (n * (n + 2)) P then w n else 0) := by
+        rw [Finset.sum_filter]
+    _ = ∑ n ∈ Finset.Icc 1 N, ∑ d ∈ P.divisors,
+          (ArithmeticFunction.moebius d : ℝ) * (if d ∣ n * (n + 2) then w n else 0) := by
+        exact Finset.sum_congr rfl (fun n _ => (hpt n).symm)
+    _ = ∑ d ∈ P.divisors, ∑ n ∈ Finset.Icc 1 N,
+          (ArithmeticFunction.moebius d : ℝ) * (if d ∣ n * (n + 2) then w n else 0) :=
+        Finset.sum_comm
+    _ = ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+          * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), w n := by
+        refine Finset.sum_congr rfl (fun d _ => ?_)
+        rw [Finset.mul_sum, Finset.sum_filter]
+        exact Finset.sum_congr rfl (fun n _ => by split_ifs <;> ring)
 
 end Salt.TwinBar
