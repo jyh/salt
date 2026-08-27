@@ -6319,6 +6319,7 @@ touched, and the `L¹` sockets `m4_exit_socket_split`/`_45` stand beside these. 
 open Salt.Tactic in
 #audit_axioms Salt.MR.m4_exit_socket_split_sq
   Salt.MR.m4_exit_socket_split_sq_arc
+  Salt.MR.m4_exit_socket_split_sq_arc_at_mrt_floors
 
 /-! ⟦THE L² RESTRUCTURE — stone 7: THE ROAD-SIDE RE-PLUMB + ⟦A1 THE BINDER SPLIT⟧⟧
 (`M4DoorL2`, 2026-07-30, the freeze `docs/exploration/l2-restructure-freeze-0730.md` with
