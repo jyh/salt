@@ -23707,3 +23707,42 @@ AGAINST ANY STATEMENT YOU ARE ABOUT TO PROVE.  A CORPUS THAT REFUTES ITS OWN STA
 STATEMENT STANDING — the def still typechecks, still audits, still reads like a target.***
 ✅ **Swept the whole ladder for the same shape:** `MRTLemmaA5`, `A6`, `A7`, `MRTThmA1`, `MRTPropA3`
 carry **no refutations**.  A4ii was the only one, and it was the one I was pricing.
+
+### ⛔⛔⛔ 03:2x — **A7 IS STATEMENT-BLOCKED TOO. ALL FOUR ARE. AND I MUST RETRACT MY OWN CORRECTION TO THE HELM.**
+
+**A7:** its renormalization factor carries an **unresolved conjugation ambiguity**, already documented
+in this file (`:1848-1868`): *"The statement (A.8) and its own proof carry opposite signs in the
+renormalization factor … Nothing in the paper resolves it, and the reason is that nothing in the
+paper NEEDS it resolved."*  MRT discard the multiplier at p.25 and use only its **modulus**
+(`|X^{iu}/(1+iu)| = 1/√(1+u²)`, invariant under `u ↦ −u`).  **`MRTLemmaA7` states the IDENTITY**, so
+it asserts one of two values `mrtA7_factors_differ` proves distinct.
+⇒ ***A FORMAL STATEMENT IS STRICTLY MORE SENSITIVE THAN ITS SOURCE AT EXACTLY THE POINTS THE SOURCE
+NEVER LEANS ON — and those are precisely where a transcription error survives undetected, because
+the original had no reason to be careful there.***  (That sentence is the corpus's, not mine.)
+
+### ⛔⛔ THE RETRACTION — MY 01:33 CORRECTION TO THE HELM WAS WRONG
+I told the helm: *"your STATEMENT-BOUND claim is FALSE of A.3's ladder — A4ii/A5/A6/A7 are stated
+and audited with no producers, so it is PROOF-bound and executor time moves it."*  The helm took the
+correction and rewrote the desk on it.  **Measured lemma by lemma, the helm was right and I was
+wrong:**
+```
+  A4ii  REFUTED IN THE KERNEL (not_mrtLemmaA4ii) — t₁ floats free; live form is …Fixed
+  A5    constant `1/6 − 1/(3π)` tied to a θ=2/3 VK region; we hold θ=3/4
+  A6    constant `exp(−M/2)` tied to sharp GHS Halász; we hold an explicit peel at 1/(2e)
+  A7    renormalization factor UNRESOLVED between two conjugates; the source never needed it
+```
+**Four lemmas, four DIFFERENT statement-level blocks, and the corpus had already documented three.**
+
+⇒ 🔑 ***"STATED AND AUDITED" IS NOT "STATEMENT-SETTLED".*** My producer-census asked *does a proof
+exist?* and answered correctly.  It could not see that a def **typechecks and carries an audit line
+while being refuted, mis-transcribed, or tied to an input this corpus does not hold.**  ⇒ ***A
+PRODUCER CENSUS MEASURES PROOFS, NOT STATEMENTS — AND I REPORTED ITS NULL AS IF IT MEASURED BOTH.***
+📌 The helm's original read came from the apex arm's shape; mine came from a grep. **The grep was
+sound and the inference was not.**
+
+### ⚖️ WHAT IS ACTUALLY OWED, AND BY WHOM
+* **A4ii** — target `MRTLemmaA4iiFixed`, not `MRTLemmaA4ii`.  High-`M` arm landed; far branch θ-tied.
+* **A5 · A6** — decide the constants: port the sharper external input, or re-derive at what we hold.
+* **A7** — resolve the conjugation from the SOURCE (p.24-25 at 200 dpi), then the statement is
+  provable-in-principle; the shift itself is honest partial summation and `mrtT0`'s radius is landed.
+* **All four are statement-tier.**  Zero proof attempts were spent on any of them.
