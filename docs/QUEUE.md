@@ -3873,8 +3873,32 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     🔑 **SO A.3's OPEN SET IS NOW SMALL AND NAMED:**
     ✅ **A3-0** landed `37155040` · ✅ **A3-2** landed `ea499b92` · ✅ **A3-1** ingredients all landed
     (bridges + MVT; the assembly into A.3's `O(T/X+1)` disposal is unwritten but has no missing part)
+    ⛔⛔ **STALE — CORRECTED 2026-08-27 01:5x (math). THE ASSEMBLY IS LANDED.** `mrtA3_mvt_branch`
+    (`MRTPropA3.lean`, **`salt 5a513656`, 2026-08-22**), audited `All.lean:8457`, sorry-free, with
+    `dpolyA_l2_mvt`, `dpolyA_l2_mvt_Icc` and `sum_sq_norm_div_le` beside it. Its own docstring:
+    *"MRT's LARGE-`T` BRANCH, ASSEMBLED: `O(T/X + 1)` FOR A DYADIC BLOCK … the estimate MRT invoke in
+    their opening sentence."* **This row was written 08/22 00:0x and the work landed LATER THE SAME
+    DAY.** ⇒ 🔑 ***A ROW WRITTEN HOURS BEFORE THE WORK IT DESCRIBES IS THE MOST DANGEROUS KIND OF
+    STALE: accurate at its timestamp, naming the right object, and nothing about it looks old.***
+    *(I pulled A3-1 as a live row and found this only by reading the target file before writing.)*
     ⛔ **A3-3 — Lemma A.4, the Granville–Soundararajan step. Class C. GENUINELY OPEN** (its `g_𝒥` landed).
     ⛔ **A3-4 — Lemmas A.5, A.6, A.7. STILL UNREAD, STILL UNPRICED.**
+    ⛔⛔ **ALSO STALE — CORRECTED 2026-08-27 01:5x (math). ALL THREE ARE STATED AND GATED:**
+    `MRTLemmaA5` (`MRTPropA3.lean:1738`) · `MRTLemmaA6` (`:376`) · `MRTLemmaA7` (`:389`), each with a
+    `…Statement` form, all audited (`All.lean:8406-8409`, `:8436-8437`).
+    ⚖️ **AND THE DISTINCTION THAT MATTERS FOR TIERING — MEASURED, NOT ASSUMED:**
+    ```
+      MRTLemmaA4i   stated ✅  PRODUCER ✅ mrtLemmaA4i_holds (MRTPropA3:468)
+      MRTLemmaA4ii  stated ✅  PRODUCER ⛔ none
+      MRTLemmaA5    stated ✅  PRODUCER ⛔ none
+      MRTLemmaA6    stated ✅  PRODUCER ⛔ none — only CONSUMERS (mrtA6_at_centre,
+                                              mrtA3_T0_bound_of_A6) take it as a HYPOTHESIS
+      MRTLemmaA7    stated ✅  PRODUCER ⛔ none
+    ```
+    ⇒ ***A.3's REMAINING WORK IS PROOF-BOUND, NOT STATEMENT-BOUND*** — the opposite of the apex arm's
+    A.2/E-5c holes, which are statement-tier and reserved. **Executor time DOES move A.3.**
+    ⛔ Tier for A4ii/A5/A6/A7 is NOT claimed here; the queue prices Lemma A.4 as Class C and the other
+    three are unpriced. Asked on the bus 01:33; awaiting a word.
     ⚠️ **AND THE HONEST CAVEAT ON THIS ROW: "ingredients landed" is NOT "node done" — that is the same
     distinction that cost me the `Msup` headline at 18:40 and the chain-closes claim at 22:0x.** *The
     third time I have had to write it tonight, and I am writing it before anyone asks.*
