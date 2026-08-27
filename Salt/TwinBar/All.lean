@@ -518,3 +518,32 @@ open Salt.Tactic in
 #audit_axioms Salt.TwinBar.log_succ_le_sum_inv_Icc
   Salt.TwinBar.log_le_sum_inv_Icc
   Salt.TwinBar.sum_inv_Icc_unbounded
+
+/-! ### ⭐ THE DIRECT ROUTE'S WIN CONDITION, ASSEMBLED — two named inputs and nothing else
+
+Everything above composes into one statement:
+
+    `Hmain − A  ≤  ∑_{n ≤ N, (n(n+2),P) = 1} (1 − λ(n(n+2)))/n`
+
+given `hcount : Hmain ≤ ∑_{d∣P} μ(d)·∑_{n≤N, d∣n(n+2)} 1/n` and
+`hatom : |∑_{d∣P} μ(d)·∑_{n≤N, d∣n(n+2)} λ(n(n+2))/n| ≤ A`.
+
+⭐ **What makes it worth stating is what it does NOT contain.** No `BoundingSieve`, no door, no
+`Btwin`, no `c₁`, no level — §7's verdict 2 said the direct route needs none of them, and the
+assembly SHOWS it: the only inputs are the count and the atoms. Interface style is
+`twinParitySieve_siftedSum_pos_of_margin`'s: **one inequality to beat, not a disjunct to
+eliminate.**
+
+⛔ **BOTH INPUTS ARE HYPOTHESES AND NEITHER IS SUPPLIED HERE.** `hcount` is the sifted harmonic
+count — elementary, but it needs the residue structure of `n(n+2)` mod `d` (`rho`'s job, NOT done
+here). `hatom` is the Tao two-point input, **the campaign object**. ⇒ *This is the SHAPE of the
+prize, not the prize.*
+⚠️ **§7's verdict 3 stands and must not be blurred:** without roughness, *"Ω(n(n+2)) odd infinitely
+often"* is a three-line elementary theorem. The roughness — the coprimality restriction the two
+inputs are indexed over — is the ENTIRE content, and is why this is stated at the SIFTED sum.
+
+`sum_logTwin_split_on` is the `Icc`-free generalisation the skeleton needs, since the Möbius
+expansion hands each divisor its own filtered index set. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.sum_logTwin_split_on
+  Salt.TwinBar.logSifted_lower_of_count_and_atoms

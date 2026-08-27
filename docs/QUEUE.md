@@ -439,6 +439,21 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    one by monotonicity, never the other way round. ⇒ ***WHEN AN INDUCTION FAILS ON THE STATEMENT YOU
    WANT, CHECK WHETHER THE SHARPER STATEMENT INDUCTS — a weaker target is not always an easier
    one.*** *Cost: one attempt, and the only failure was a `field_simp` residue.*
+   ✅⭐⭐⭐ **AND THE DIRECT ROUTE'S WIN CONDITION IS ASSEMBLED — `sum_logTwin_split_on` +
+   `logSifted_lower_of_count_and_atoms`, `[3 axioms]`, first attempt (17:5x).**
+   `Hmain − A ≤ ∑_{n≤N, (n(n+2),P)=1} (1 − λ(n(n+2)))/n`, given the sifted count `Hmain` and the
+   total atom mass `A` as NAMED HYPOTHESES.
+   ⭐⭐ **WHAT MAKES IT WORTH STATING IS WHAT IT DOES NOT CONTAIN: no `BoundingSieve`, no door, no
+   `Btwin`, no `c₁`, no level.** §7's verdict 2 asserted the direct route needs none of them; **the
+   assembly is that assertion discharged in the kernel.** Interface style is the margin form's —
+   ONE INEQUALITY TO BEAT, not a disjunct to eliminate.
+   ⛔ **BOTH INPUTS ARE HYPOTHESES AND NEITHER IS SUPPLIED HERE.** `hcount` is elementary but needs
+   the residue structure of `n(n+2)` mod `d` (`rho`'s job, not done); `hatom` is the Tao campaign
+   object. ⇒ ***THIS IS THE SHAPE OF THE PRIZE, NOT THE PRIZE.***
+   ⚠️ **§7's verdict 3 stands and is not blurred:** without roughness, *"Ω(n(n+2)) odd infinitely
+   often"* is a three-line elementary theorem. **The roughness is the entire content** — which is
+   exactly why this is stated at the SIFTED sum and not the plain one. *Stating the weaker true
+   thing loudly is how a socket avoids becoming an overclaim.*
    📐 **Verdict 4 after these four — ONLY DOC REPAIRS REMAIN, and they are the HELM's pen** (the
    block is `briefs/2026-08-21-w2-0-design-block-DRAFT.md`, `Status: DRAFT-UNTIL-REFUTED`):
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references

@@ -950,4 +950,73 @@ theorem sum_inv_Icc_unbounded (M : ℝ) : ∃ n : ℕ, M < ∑ d ∈ Finset.Icc 
   rw [Real.log_exp] at hlog
   linarith
 
+/-! ## The direct route's WIN CONDITION, assembled — two named inputs and nothing else
+
+Everything above composes into one statement: the sifted log-mass is bounded below by
+`(sifted count) − (total atom mass)`, both of which enter as NAMED HYPOTHESES.  That is the
+direct-Möbius route's win condition in the same interface style as
+`twinParitySieve_siftedSum_pos_of_margin`: **one inequality to beat, not a disjunct to eliminate.**
+
+⭐ **What makes it worth stating is what it does NOT contain.**  No `BoundingSieve`, no door, no
+`Btwin`, no `c₁`, no level `lvl` — §7's verdict 2 said the direct route needs none of them, and the
+assembly shows it: the only inputs are the count and the atoms.
+
+⛔ **BOTH INPUTS ARE HYPOTHESES AND NEITHER IS SUPPLIED HERE.**  `hcount` is the sifted harmonic
+count (elementary, but it needs the residue structure of `n(n+2)` mod `d`, which is `rho`'s job and
+is NOT done here).  `hatom` is the Tao two-point input — **the campaign object**.  ⇒ *This is the
+shape of the prize, not the prize.*
+⚠️ §7's verdict 3 stands and must not be blurred: **without roughness, "Ω(n(n+2)) odd infinitely
+often" is a three-line elementary theorem.**  The roughness — the coprimality restriction that
+`hcount`/`hatom` are indexed over — is the ENTIRE content, and it is why this is stated at the
+SIFTED sum rather than the plain one.
+-/
+
+/-- The log-world split at an ARBITRARY index set — `sum_logTwin_split` was the `Icc 1 N` case.
+Stated generally because the Möbius skeleton hands each divisor its own filtered set. -/
+theorem sum_logTwin_split_on (s : Finset ℕ) :
+    (∑ n ∈ s, (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ))
+      = (∑ n ∈ s, (1 : ℝ) / (n : ℝ))
+        - ∑ n ∈ s, ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ) := by
+  rw [← Finset.sum_sub_distrib]
+  exact Finset.sum_congr rfl fun n _ => by rw [sub_div]
+
+/-- ⭐ **THE DIRECT ROUTE'S WIN CONDITION.**  The sifted log-mass exceeds
+`(sifted count) − (total atom mass)`:
+
+    `Hmain − A  ≤  ∑_{n ≤ N, (n(n+2),P) = 1} (1 − λ(n(n+2)))/n`
+
+given `hcount : Hmain ≤ ∑_{d∣P} μ(d)·∑_{n≤N, d∣n(n+2)} 1/n` and
+`hatom : |∑_{d∣P} μ(d)·∑_{n≤N, d∣n(n+2)} λ(n(n+2))/n| ≤ A`.
+
+No sieve, no door, no `Btwin`, no level — exactly as §7's verdict 2 said the direct route needs.
+⛔ Both inputs are HYPOTHESES: the count is elementary but unsupplied here, and the atom mass is
+the Tao campaign object. -/
+theorem logSifted_lower_of_count_and_atoms {N P : ℕ} (hP : Squarefree P) {Hmain A : ℝ}
+    (hcount : Hmain ≤ ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ) / (n : ℝ))
+    (hatom : |∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
+            ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)| ≤ A) :
+    Hmain - A
+      ≤ ∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime (n * (n + 2)) P),
+          (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ) := by
+  -- the skeleton, at the log weight
+  rw [sum_twinCoprime_eq_moebius_divisors N P hP
+      (fun n => (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ))]
+  -- split each divisor's inner sum, then separate the two families
+  have hsplit : (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
+            (1 - ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ)) / (n : ℝ))
+      = (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+          * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ) / (n : ℝ))
+        - ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+            * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
+                ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ) := by
+    rw [← Finset.sum_sub_distrib]
+    refine Finset.sum_congr rfl fun d _ => ?_
+    rw [sum_logTwin_split_on ((Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2))), mul_sub]
+  rw [hsplit]
+  have hA := abs_le.mp hatom
+  linarith [hcount, hA.1, hA.2]
+
 end Salt.TwinBar
