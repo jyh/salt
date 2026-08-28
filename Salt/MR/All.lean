@@ -8509,6 +8509,7 @@ open Salt.Tactic in
   Salt.MR.theta_lift_head_rate_at_log_two
   Salt.MR.theta_lift_grade_at_log_two_still_weaker
   Salt.MR.b4_grade_cannot_reach_a6_from_head
+  Salt.MR.grade_cannot_reach_fiftieth_under_sigma_wall
   Salt.MR.mrtPropA3_in_bridge_shape
   Salt.MR.mrtA6_inner_eq_sifted
   Salt.MR.mrtA6_F_sifted

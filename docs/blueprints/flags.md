@@ -24176,3 +24176,44 @@ ONLY THE SECOND CAN TELL YOU WHETHER THE FIRST MATTERS.*** (My own `demand-side-
 I have been carrying since 08/24, and which I did not apply until a sentinel poke sent me back.)
 📌 **THE NEXT OBJECT IS THE `/32`, AND IT IS A DIFFERENT PAGE** — the balance page's structural
 divisor, not the head constant. Whether it can move is design-tier and I have not looked.
+
+### ⭐⭐⭐ 21:0x — **THE LAW GENERALIZES: THE WHOLE SPINE IS MULTI-SUMMAND, AND THERE IS A SECOND IMPOSSIBILITY.**
+Applied node 11's discriminator — *read the target's own RHS* — to the sibling statements. Measured
+at the `def`s, not from memory:
+```
+  MRTLemmaA6      C·( exp(−M/2)/(1+|t−t₁|)  +  (log X)^{−1/16} )                        TWO summands
+  MRTThmA2        C·( exp(−M)·M  +  (log h)^{1/3}/P₁^{1/6−η}  +  1/(log X)^{1/50} )     THREE
+  MRTPropA3       C·(T/(X/Q₁)+1)·( (log Q₁)^{1/3}/P₁^{1/6−η} + M/exp(M) + 1/(log X)^{1/50} )  THREE
+  MRTLemmaA7Fixed C·X/(log X)^{1/10}                                                     ONE
+```
+⇒ **Every Halász / head-constant improvement in this campaign touches exactly ONE summand — the
+`M`-decay term — and is silent on the `P₁`-power and `(log X)^{−1/50}` terms.**
+⇒ 🔑 ***A CAMPAIGN'S TARGETS BEING SUMS IS A STRUCTURAL FACT ABOUT WHAT ANY LEVER CAN DO, AND IT IS
+READABLE FROM THE `def`s IN ONE PASS.*** Nobody had.
+
+### ✅ NODE 12 — `grade_cannot_reach_fiftieth_under_sigma_wall`, `[3 axioms]`, first attempt
+`∀ c < 1/2, c/32 < 1/50`. To dominate A.2/A.3's `1/(log X)^{1/50}` through the grade term
+`(log X)^{−ρ}` needs `ρ ≥ 1/50`, i.e. `c ≥ 32/50 = 16/25 = 0.64`. **But
+`sigma_cutoff_pretentious_gen` needs `2c < 1`** — the σ-integral DIVERGES at `c ≥ 1/2`, which is
+exactly why node 1 had to be proved separately at the critical value. `0.64 > 0.5`: **incompatible.**
+⭐ **AND IT IS A DIFFERENT OBSTRUCTION FROM NODE 11's.** There the blocker was the divisor `32`
+against a head capped at `1` (a SUPPLY-side cap). Here the head is capped at `1/2` by the
+σ-integral's CONVERGENCE — a SPEND-side wall — and it bites first.
+⇒ 🔑 ***TWO INDEPENDENT CAPS ON ONE PARAMETER BIND AT DIFFERENT PLACES; FINDING ONE DOES NOT MEAN
+YOU HAVE FOUND THE BINDING ONE.*** I had spent the day treating `c < 1/2` as a convenience the
+critical node worked around, and it is a hard ceiling on what the grade can ever be.
+⛔ **SCOPE, IN THE THEOREM ITSELF AND NARROWER THAN THE HEADLINE:** it says IF the `1/50` summand is
+supplied by the `c/32` grade term THEN the σ-wall forbids it. It does NOT say the spine is blocked —
+that summand may have a different supplier, and **this seat has not censused its suppliers.**
+Stated so the design tier checks exactly one thing: **which term supplies the `1/50`.**
+
+### ⚖️ AND THE HELM'S THREE ITEMS, MEASURED AT THE OBJECTS RATHER THAN QUOTED FROM MY BANK
+① `¬MRTLemmaA7` + `MRTLemmaA7Fixed` — ✅ **LANDED**: `not_mrtLemmaA7Statement` (`MRTPropA3:4085`,
+audited `All.lean:8563`), `MRTLemmaA7Fixed`/`…Statement` (`:4040`/`:4050`).
+② A5 at `θ = 3/4` — ✅ **LANDED**: five constants `MRTPropA3:4243–4274`, audited `All.lean:8566–8570`.
+③ W1-E3 port track — ✅ **WAVE B COMPLETE 08/25** (`45da8f7f`, five nodes, one attempt each). Its
+named residue is `GAP α`, `GAP A.1`, `GAP X`, the `6·MS H ≤ c` pricing line and `M4RowMeanSq_L` —
+**all class D or design-tier by the queue's own rows**, none at executor tier.
+📌 Reported, not ruled: a worker seat measuring beside out-of-tier objects REPORTS. If any of the
+three is meant to have live executor work I have not found, the row that names it is the thing to
+point me at.

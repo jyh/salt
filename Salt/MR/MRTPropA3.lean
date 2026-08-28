@@ -1211,6 +1211,35 @@ Another route, or a smaller divisor, is not addressed here and nothing rules one
 theorem b4_grade_cannot_reach_a6_from_head (c : ℝ) (hc : c ≤ 1) : c / 32 < 1 / 16 := by
   linarith
 
+/-- ⛔⛔ **AND THE SAME ROUTE CANNOT REACH A.2/A.3's `(log X)^{−1/50}` SUMMAND EITHER — THIS TIME
+THE OBSTRUCTION IS THE σ-CUTOFF WALL** (`grade_cannot_reach_fiftieth_under_sigma_wall`).
+
+`MRTThmA2` and `MRTPropA3` are **three-summand** targets, not two:
+```
+  MRTThmA2   C·( exp(−M)·M  +  (log h)^{1/3}/P₁^{1/6−η}  +  1/(log X)^{1/50} )
+  MRTPropA3  C·(T/(X/Q₁)+1)·( (log Q₁)^{1/3}/P₁^{1/6−η} + M/exp(M) + 1/(log X)^{1/50} )
+```
+So `1/(log X)^{1/50}` must be dominated too, and via the grade term `(log X)^{−ρ}` that needs
+`ρ ≥ 1/50`, i.e. `c ≥ 32/50 = 16/25 = 0.64`.  ⛔ **But `sigma_cutoff_pretentious_gen` requires
+`2c < 1`**, i.e. `c < 1/2` — the σ-integral DIVERGES at `c ≥ 1/2`, which is why node 1
+(`sigma_cutoff_pretentious_crit`) had to be proved separately there.  **`0.64 > 0.5`:
+the two demands are incompatible through this route**, and that is what this theorem states.
+
+⭐ **WHY THIS IS A DIFFERENT OBSTRUCTION FROM `b4_grade_cannot_reach_a6_from_head`.**  There the
+blocker was the divisor `32` against a head capped at `1`.  Here the head is capped at `1/2` by the
+σ-INTEGRAL'S CONVERGENCE — a wall on the *spend* side, not the supply side — and it bites first.
+⇒ 🔑 ***TWO INDEPENDENT CAPS ON ONE PARAMETER BIND AT DIFFERENT PLACES; FINDING ONE DOES NOT MEAN
+YOU HAVE FOUND THE BINDING ONE.***
+
+⛔ **SCOPE, AND IT IS NARROWER THAN THE HEADLINE.**  This says: **IF** A.2/A.3's `(log X)^{−1/50}`
+summand is to be supplied by the `c/32` grade term, **THEN** the σ-wall forbids it.  It does **NOT**
+say the spine is blocked — that summand may have an entirely different supplier in the corpus, and
+**this seat has not censused its suppliers.**  Stated so the design tier can check exactly one
+thing: which term supplies the `1/50`. -/
+theorem grade_cannot_reach_fiftieth_under_sigma_wall (c : ℝ) (hc : c < 1 / 2) :
+    c / 32 < 1 / 50 := by
+  linarith
+
 /-- **The θ-lift does NOT close the grade gap** (`theta_lift_grade_at_log_two_still_weaker`).
 At `θ = log 2` the B4 grade is `(1/2)/32 = 1/64`, and `1/64 < 1/16` still.
 📌 Compare `landed_halasz_exponent_weaker_than_a6`: the shortfall narrows from a factor `16/(32e)⁻¹`
