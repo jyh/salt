@@ -24254,3 +24254,39 @@ its five theorems is arithmetic about real numbers and every one stands. What th
 other way.** ⚠️ **Whether `3/50` is even the right bar for a θ=3/4 ROUTE is DESIGN** —
 `mrtA5_rho_margin` is derived for MRT's θ=2/3 balance and a θ=3/4 route may rebalance. **Flagged,
 not ruled**, and it is the helm's/Captain's since the A5 re-derivation was council item ④(c).
+
+### ⭐⛔ 22:2x — **I WENT LOOKING FOR A REASON MY OWN ALARM DIDN'T MATTER. THE MEASUREMENT UPGRADED IT.**
+After node 13 I ran the trace I owed on my own finding: **does anything CONSUME the `3/50` bar?**
+```
+  mrtA5_epsilon_ceiling · mrtA5_rho_margin · vk34_constant_clears_bar ·
+  vk34_constant_lt_mrt                                    → ZERO theorem-level consumers
+  CONTROL mrtA4_constant_pos (uncontroversial sibling)    → ALSO ZERO
+```
+⛔ **THE CONTROL DID NOT FIRE, SO THE INSTRUMENT CANNOT DISCRIMINATE.** Unconsumed is this
+arithmetic shelf's NORM, not a signal — reported as such rather than read as an all-clear.
+⇒ 🔑 ***A NEGATIVE WHOSE CONTROL IS ALSO NEGATIVE IS NOT EVIDENCE; IT IS A MEASUREMENT OF THE
+GENRE.***
+
+**AND THE TWO FACTS THAT CAME BACK INSTEAD, both against the deflationary reading:**
+1. **`MRTLemmaA5` (:1832) carries the constant INSIDE ITS OWN STATEMENT** — the exponent
+   `(log X)^(1/6 − 1/(3π) − ε)`. The same bare-literal-in-a-`def` pattern this file's A.6 flag warns
+   about at :1128. **A re-statement at θ=3/4 does not cite the number, it INSTALLS IT AS A RATE.**
+2. **`3/50` is not a balance-page artifact — it is MRT's OWN SIDE CONDITION ON THIS CONSTANT.** The
+   docstring at :1814: *"`ρ := 1/6 − 1/(3π) − ε` IS A.4(ii)'s CONSTANT … their side condition
+   `ρ/3 > 1/50` is this file's landed `mrtA5_rho_margin`. One constant serves both lemmas."*
+⇒ **My design hedge STANDS** (the downstream rate could change under a rebalance) **but its premise
+was weaker than the truth: the bar travels with the CONSTANT, not with the balance.** Node 13's
+docstring amended in place to say so; the hedge kept, its foundation corrected.
+
+⇒ 🔑 ***SEEKING THE DEFLATIONARY READING OF YOUR OWN FINDING IS THE SAME SPEECH ACT AS SEEKING THE
+FLATTERING ONE.*** Both are motivated; only the measurement settles either. **I have a banked card
+about declining a flattering upgrade to my own correctness — this is its mirror, and the mirror is
+harder to see because humility looks like rigour.**
+
+### ⛔ AND ONE PROCESS CATCH, MINE, IN THE SAME ACTION
+My first amendment `python3` patch **failed its assertion and I ran the build anyway** — `EXIT=0`
+on the UNEDITED file. A green that measured nothing. Caught because the traceback was above the
+`EXIT=0` in the same output and I read the whole block instead of the verdict line.
+⇒ 🔑 ***A BUILD IS ONLY EVIDENCE ABOUT BYTES THAT CHANGED: CONFIRM THE EDIT LANDED (`git diff
+--stat`) BEFORE READING THE GATE.*** The re-run rebuilt in 34s where the false one had replayed —
+**elapsed time was the tell, and it is a tell worth keeping.**

@@ -4306,7 +4306,27 @@ says is narrower and checkable: **the `3/125` comparison does not license the `1
 comparison that would (`3/50`) goes the other way.**  ⚠️ **Whether `3/50` is even the right bar for
 a θ=3/4 ROUTE is a DESIGN question this seat cannot answer** — `mrtA5_rho_margin` is derived for
 MRT's own θ=2/3 balance, and a θ=3/4 route may rebalance and demand something else entirely.
-**Flagged, not ruled.** -/
+**Flagged, not ruled.**
+
+📌 **AMENDED after a consumer trace — AND THE TRACE WENT AGAINST THE DEFLATIONARY READING I WENT
+LOOKING FOR.**  I traced this shelf expecting to find it unconsumed and the alarm therefore idle.
+Two facts came back instead:
+* **`MRTLemmaA5` (:1832) carries the constant INSIDE ITS OWN STATEMENT**, as the exponent
+  `(log X)^(1/6 − 1/(3π) − ε)` — the same bare-literal-in-a-`def` pattern this file's A.6 flag
+  warns about at :1128.  A re-statement at the θ=3/4 constant does not merely cite the number,
+  **it installs it as a RATE in the statement.**
+* **`3/50` is not a balance-page artifact: it is MRT's OWN SIDE CONDITION ON THIS CONSTANT.**  The
+  docstring at :1814 says so outright — *"`ρ := 1/6 − 1/(3π) − ε` IS A.4(ii)'s CONSTANT … and their
+  side condition `ρ/3 > 1/50` is this file's landed `mrtA5_rho_margin`.  One constant serves both
+  lemmas."*
+⇒ **The hedge above STANDS** (the downstream RATE could still change under a rebalance) **but its
+premise was weaker than the truth: the bar travels with the CONSTANT, not with the balance.**
+⛔ **AND THE SHELF BEING UNCONSUMED PROVES NOTHING EITHER WAY** — its uncontroversial sibling
+`mrtA4_constant_pos` is equally unconsumed, so **unconsumed is this shelf's NORM, not a signal.**
+The instrument cannot discriminate a defect from the genre, and is reported as such rather than
+read as an all-clear.
+⇒ 🔑 ***SEEKING THE DEFLATIONARY READING OF YOUR OWN FINDING IS THE SAME SPEECH ACT AS SEEKING THE
+FLATTERING ONE — BOTH ARE MOTIVATED, AND BOTH ARE SETTLED ONLY BY THE MEASUREMENT.*** -/
 theorem vk34_constant_fails_rho_margin : 1 / 8 - 1 / (4 * Real.pi) < 3 / 50 := by
   have h4 : (0 : ℝ) < 4 * Real.pi := by positivity
   have hlt : 4 * Real.pi < 12.6 := by
