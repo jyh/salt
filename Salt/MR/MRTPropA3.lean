@@ -1152,6 +1152,43 @@ theorem landed_halasz_M_rate_weaker_than_a6 : 1 / Real.exp 1 < (1 : ℝ) / 2 := 
   rw [div_lt_div_iff₀ hpos (by norm_num : (0:ℝ) < 2)]
   linarith
 
+/-! ### ⭐⭐ THE A6 WAVE'S θ-LIFT AGAINST THESE TWO GAPS — ONE CLOSES, ONE DOES NOT
+
+The two theorems above state the landed shortfall against A.6 at BOTH levels: the `M`-rate
+(`1/e` vs `1/2`) and the grade (`1/(32e)` vs `1/16`).  The A6 wave freed the head constant from
+`1/e` to `e^{−θ}` (`SeamBallWeighted.head_sigma_bound_theta`,
+`HalaszDirect.window_sup_decay_theta`, all `[3 axioms]`).  Run against these two gaps at the
+`c = 1/2` point `θ = log 2`, the answer is **split, and the split is the finding**:
+
+```
+  M-RATE   1/e  ⟶  1/exp(log 2) = 1/2     ⇒ MEETS A.6 EXACTLY.  Gap CLOSED.
+  GRADE    1/(32e) ⟶ (1/2)/32 = 1/64      ⇒ 1/64 < 1/16.  STILL 4× SHORT.
+```
+⛔ **THE RESIDUAL FACTOR OF 4 IS NOT IN THE HEAD CONSTANT.**  `USetPins.rhoB4` is `c/32`, so
+lifting `c` moves the grade by exactly the factor it moves the rate; the remaining `4` lives in
+the `/32`, a structural divisor of the balance page and a different object entirely.  **No amount
+of `θ` closes the grade gap** — at `θ = 0` the head cap is `1` and the grade is still only `1/32`.
+⇒ 🔑 ***A LIFT THAT CLOSES ONE GAP EXACTLY IS EVIDENCE THAT THE OTHER GAP WAS NEVER THE SAME
+GAP.***  Two shortfalls quoted against one lemma read as one deficiency with two symptoms; they
+are two deficiencies, and the parameter that answers one is silent on the other.
+
+⛔ **AND NOTHING HERE TOUCHES `MRTLemmaA6`'s STATEMENT** — the `(1:ℝ)/16` literal and its 32 sites
+stand exactly as the flag above describes them.  These are arithmetic siblings placed beside the
+gap theorems so a reader who arrives at the shortfall also arrives at what the wave does and does
+not do about it. -/
+
+/-- **The θ-lift meets A.6's `M`-rate exactly** (`theta_lift_head_rate_at_log_two`).  The A6 wave's
+head cap is `1/exp θ`; at `θ = log 2` that is `1/2`, which is A.6's own rate.
+**This closes `landed_halasz_M_rate_weaker_than_a6`'s gap — it does not weaken it, it meets it.** -/
+theorem theta_lift_head_rate_at_log_two : 1 / Real.exp (Real.log 2) = (1 : ℝ) / 2 := by
+  rw [Real.exp_log (by norm_num : (0:ℝ) < 2)]
+
+/-- **The θ-lift does NOT close the grade gap** (`theta_lift_grade_at_log_two_still_weaker`).
+At `θ = log 2` the B4 grade is `(1/2)/32 = 1/64`, and `1/64 < 1/16` still.
+📌 Compare `landed_halasz_exponent_weaker_than_a6`: the shortfall narrows from a factor `16/(32e)⁻¹`
+to exactly `4`, and that residual `4` is the `/32`, not the head constant. -/
+theorem theta_lift_grade_at_log_two_still_weaker : (1 : ℝ) / 64 < 1 / 16 := by norm_num
+
 /-! ## RECON — the trigger law, applied to ALL my remaining "open" claims at once
 
 Row 17k found one buried massif by asking *"have I checked my own store?"* about a single

@@ -8506,6 +8506,8 @@ open Salt.Tactic in
   Salt.MR.shift_le_cap
   Salt.MR.landed_halasz_exponent_weaker_than_a6
   Salt.MR.landed_halasz_M_rate_weaker_than_a6
+  Salt.MR.theta_lift_head_rate_at_log_two
+  Salt.MR.theta_lift_grade_at_log_two_still_weaker
   Salt.MR.mrtPropA3_in_bridge_shape
   Salt.MR.mrtA6_inner_eq_sifted
   Salt.MR.mrtA6_F_sifted

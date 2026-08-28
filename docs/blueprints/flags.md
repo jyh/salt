@@ -24099,3 +24099,40 @@ I bundled a long-line CHECK into the same command as the BUILD and backgrounded 
 check ran, printed, and I never read it; the linter caught the line instead. ⇒ 🔑 ***A VERIFICATION
 BUNDLED INTO A BACKGROUNDED COMMAND IS A VERIFICATION YOU DID NOT RUN.***  Backgrounding is for the
 thing you will be NOTIFIED about; anything whose output you must READ belongs in the foreground.
+
+### ⭐⭐⭐ 19:4x — **THE SURVEY I OWED, AND IT SPLIT THE WAVE'S RESULT IN TWO.**
+I closed the last entry saying *"I checked ONE wall, in the favourable direction. A single
+favourable wall is not a survey."*  Ran the survey.  **The corpus already carries the A.6 gap as
+two kernel theorems, and the θ-lift closes exactly one of them.**
+```
+  landed_halasz_M_rate_weaker_than_a6      1/e     < 1/2     ⟶ θ = log 2 gives EXACTLY 1/2. CLOSED.
+  landed_halasz_exponent_weaker_than_a6    1/(32e) < 1/16    ⟶ θ = log 2 gives 1/64.  STILL 4× SHORT.
+```
+⛔ **THE RESIDUAL 4 IS NOT IN THE HEAD CONSTANT AND NO `θ` REACHES IT.**  `rhoB4 = c/32`, so `θ`
+moves grade and rate by the SAME factor; even `θ = 0` (head cap `1`) leaves the grade at `1/32`,
+still short of `1/16`. The remaining `4` lives in the `/32` — a structural divisor of the balance
+page, a different object.
+⇒ 🔑 ***A LIFT THAT CLOSES ONE GAP EXACTLY IS EVIDENCE THAT THE OTHER GAP WAS NEVER THE SAME GAP.***
+Two shortfalls quoted against one lemma read as one deficiency with two symptoms. They are two
+deficiencies, and the parameter that answers one is SILENT on the other.
+📌 **This is why I stopped calling `c = 1/2` "the A6 target".** It is A.6's `M`-rate target and I had
+been treating it as A.6's target *simpliciter* — the wave's own framing, inherited unexamined
+through four sessions of bank.
+
+### ✅ NODE 10 — the split, in the kernel, beside the theorems it answers
+`Salt/MR/MRTPropA3.lean`, `[3 axioms]`, first attempt: `theta_lift_head_rate_at_log_two`
+(`1/exp(log 2) = 1/2`) and `theta_lift_grade_at_log_two_still_weaker` (`1/64 < 1/16`).
+**Placed beside the two landed gap theorems on purpose** — a reader arrives at the shortfall by
+grepping `weaker_than_a6`, so that is where the successor has to be (sibling-surface law).
+⛔ `MRTLemmaA6`'s statement is untouched; the `(1:ℝ)/16` literal and its 32 sites stand exactly as
+that file's own flag describes.
+
+### ⚖️ THE OTHER WALLS, AND THE ONE THAT POINTS THE WRONG WAY
+Every other wall calibrated against the `1/(k·e)` family survives the lift, and all but one gain
+slack: `t0d_far_exp_le` (`1009/90000 ≤ ρ`), `rho293_le_far` (`rho293 ≤ ρ`), `a2wall_floor32_89`
+(89 → 65), `m4_decay_exponent_neg` (`1/45 − 7/(30e) < 0`, more negative).
+⛔ **`landed_halasz_exponent_weaker_than_a6` is the one that points the other way** — it is an UPPER
+cap on the grade (`ρ < 1/16`), so a growing `ρ` moves TOWARD it, not away. At `ρ = 1/64` there is
+4× headroom, so it does not bind; **but it is the only member of the family whose direction is
+adverse, and a survey that reported "all favourable" would have been the wrong shape of answer.**
+⇒ 🔑 ***A FAMILY OF THRESHOLDS DOES NOT HAVE A DIRECTION; EACH MEMBER DOES.***
