@@ -789,6 +789,10 @@ open Salt.Tactic in
   Salt.MR.integral_exp_neg_mul
   Salt.MR.exp_neg_mul_integral_ge_midpoint
   Salt.MR.finset_weighted_integral_ge_midpoint
+  Salt.MR.sigma_cut_lower_theta
+  Salt.MR.dist_identification_sigma_theta
+  Salt.MR.scale_floor_theta
+  Salt.MR.head_sigma_bound_theta
   Salt.MR.chi_Llower_trivial
   Salt.MR.chi_floor_all_unconditional
   Salt.MR.chi_Llower_341

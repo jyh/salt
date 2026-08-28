@@ -23972,3 +23972,46 @@ IT ENTERS, NOT THAT IT CAN BE IMPROVED THERE.***
   operations IS the constant.**
 📌 That also explains cleanly why node 1 (`sigma_cutoff_pretentious_crit`) was necessary but not
 sufficient: it fixes the integration step, which in our order happens *after* the loss is locked in.
+
+### ✅⭐⭐ 17:5x — **BOTH ENTRIES ABOVE ARE SUPERSEDED: THE `1/e` MOVED, AND NEITHER ROUTE ABOVE IS WHY.**
+`SupF.head_sigma_bound`'s `1/e` is now `e^{−θ}` for a FREE `θ`, kernel-checked, four names all
+`[3 axioms]`, `Salt/MR/SeamBallWeighted.lean` §node 5–7:
+```
+  sigma_cut_lower_theta            e^{−θ}·𝔻²(1,g; e^{θ/σ}) ≤ ∑'_p (1−Re g p)p^{−1−σ}
+  dist_identification_sigma_theta  B1 at a free θ  (the peel half is θ-blind)
+  scale_floor_theta                the floor at e^{θ/σ} — SupF.scale_floor at σ′ = σ/θ, NOT re-proved
+  head_sigma_bound_theta           ‖F(1+σ+it)‖ ≤ C(1/σ)exp(−e^{−θ}·𝔻²(1,g·p^{−it}; e^{θ/σ}))
+```
+**`SupF.sigma_cut_lower` (:660) and `head_sigma_bound` (:818) are the `θ = 1` instances.**
+
+### ⛔ WHAT THE 13:5x ENTRY GOT RIGHT, AND THE ONE WORD THAT WAS WRONG
+`hcut_p` **IS** sharp — the adversarial-`g` measurement stands and is not disputed. What does not
+follow is *"the constant cannot move"*. The cut is `p^{−σ} ≥ (e^{θ/σ})^{−σ} = e^{−θ}` on
+`p ≤ e^{θ/σ}`, and `sigma_cut_lower` fixes `θ = 1`. **Sharp at the truncation scale the corpus
+pinned; the scale was a choice, never derived.**
+⇒ 🔑 ***A SHARPNESS PROOF PINS THE STEP, NOT THE STEP'S PARAMETERS.*** `1/e` reads as a constant of
+nature because it is spelled `Real.exp 1`; it is the value of `exp θ` at a `θ` nobody named.
+⇒ 🔑 ***ASK OF EVERY NUMERAL IN A STATEMENT: WAS THIS CHOSEN, OR FORCED?*** — the sharpness argument
+answered "forced" about the inequality and was read as answering it about the statement.
+
+### ⛔ AND THE RESTRUCTURE ROUTE (nodes 2–4) CANNOT PAY — TRACED TO ITS CONSUMER
+The 13:5x entry's remedy was *"take the σ-integral BEFORE collapsing to the distance"*. Measured
+against the chain: the `1/e` sits **inside `Real.exp`, pointwise in σ** (`head_sigma_bound`
+exponentiates `dist_identification_sigma`), and the σ-integral runs **outside** that exponential
+(`sigma_cutoff_pretentious_gen`). Averaging the linear defect sum and then exponentiating is Jensen
+in the wrong direction for an upper bound: `∫exp(−f) ≥ exp(−∫f)`, always.
+⇒ 🔑 ***A REORDERING GAIN IS ONLY COLLECTIBLE IF THE TWO OPERATIONS ARE ADJACENT; AN `exp` BETWEEN
+THEM IS A ONE-WAY VALVE.*** Nodes 2–4 are correct mathematics that the consumer cannot spend.
+
+### ⚖️ THE PRICE, AND WHAT IS NOT YET IN THE KERNEL
+Composing node 7 with node 6: `exp(−e^{−θ}(M − 2log(σL/θ) − 48))
+= exp(−c(M − 2log(σL) − 48))·(1/θ)^{2c}` with `c = e^{−θ}`.
+**The whole cost of moving the constant is the multiplicative factor `(1/θ)^{2c}` — never a rate.**
+At `c = 1/2` (θ = log 2) that factor is `1/log 2 ≈ 1.4427`, and node 1
+(`sigma_cutoff_pretentious_crit`) is exactly the `c = 1/2` σ-integral, which `_gen`'s `2c < 1`
+forbids. `c` strictly below `1/2` stays inside `_gen` at cost `1/(1−2c)`.
+⛔ **NOT YET DONE, and no consumer has moved:** that composition is arithmetic on this page, not a
+theorem; `window_sup_decay_gen`/`halasz_direct_*` are still pinned at `c ≤ 1/e`; and node 6 carries a
+NEW hypothesis `σ ≤ θ`, which caps the σ-window's top at `θ` — **a consumer with `b > log 2` does not
+get `c = 1/2` from this**, and no consumer's `b` has been measured yet.
+📌 A5 inherits it identically — same head constant, one stone for both lemmas, as first filed.

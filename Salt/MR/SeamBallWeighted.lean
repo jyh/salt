@@ -630,4 +630,230 @@ theorem finset_weighted_integral_ge_midpoint (s : Finset ℕ) (w Lf : ℕ → �
     _ ≤ w p * ∫ σ in a..b, Real.exp (-(σ * Lf p)) :=
         mul_le_mul_of_nonneg_left hterm (hw p hp)
 
+/-! ### A6 wave, node 5 — ⭐⭐ THE `1/e` IS A PINNED PARAMETER, NOT A SHARP CONSTANT
+
+⛔ **THIS NODE CORRECTS THE WAVE'S OWN ROUTE, AND IT DOES NOT GO THROUGH NODES 2–4.**
+Nodes 2–4 build the σ-AVERAGE of the prime weight, on the reading that the slack lives in the
+ORDER of "collapse to the distance" and "integrate over σ".  Traced to its consumer, that
+reordering CANNOT PAY: the `1/e` sits inside `Real.exp` *pointwise in σ*
+(`SupF.head_sigma_bound` :818 exponentiates `dist_identification_sigma`), and the σ-integral
+runs OUTSIDE that exponential (`sigma_cutoff_pretentious_gen` :325).  Averaging the linear
+defect sum and then exponentiating is Jensen in the wrong direction for an UPPER bound:
+`∫ exp(−f) ≥ exp(−∫ f)` always.  ⇒ 🔑 ***A REORDERING GAIN IS ONLY COLLECTIBLE IF THE TWO
+OPERATIONS ARE ADJACENT; AN `exp` BETWEEN THEM IS A ONE-WAY VALVE.***
+
+✅ **WHERE THE SLACK ACTUALLY IS.**  `hcut_p` (`SupF:733`) is sharp — that finding stands, and
+an adversarial `g` attains `1/e`.  But it is sharp *at the truncation scale the corpus pinned*.
+The cut is `p^{−σ} ≥ (e^{θ/σ})^{−σ} = e^{−θ}` for `p ≤ e^{θ/σ}`, and `SupF.sigma_cut_lower`
+instantiates `θ = 1` — a choice, never derived.  **Freeing `θ` moves the constant from `1/e` to
+`e^{−θ}`, continuously, with no change to the argument.**
+⇒ 🔑 ***A SHARPNESS PROOF PINS THE STEP, NOT THE STEP'S PARAMETERS: ASK WHICH NUMERAL IN THE
+STATEMENT WAS CHOSEN RATHER THAN FORCED.***  `1/e` announces itself as a constant of nature
+(it is `exp 1`); it is the value of `exp θ` at the `θ` nobody named.
+
+⛔ **WHAT THIS NODE DOES AND DOES NOT ESTABLISH.**  It establishes the SUPPLY side at a free
+`θ`: the exact `sigma_cut_lower`/`dist_identification_sigma` pair with `1/e ↦ e^{−θ}` and the
+truncation at `e^{θ/σ}` instead of `e^{1/σ}`.  It does NOT yet price the DEMAND side: a smaller
+`θ` truncates the prime sum EARLIER, so the scale floor (`SupF.scale_floor` :869, stated only at
+`e^{1/σ}`) must be re-derived at `e^{θ/σ}`, and its cost is the object that decides whether the
+gain is real.  **No consumer is re-aimed here; nothing downstream moves until that floor is
+measured.** -/
+
+/-- **A6 wave, node 5a — the θ-freed truncation cut** (`sigma_cut_lower_theta`).  For a
+1-bounded `g`, `σ > 0` and ANY `θ`:
+`e^{−θ}·𝔻²(1, g; e^{θ/σ}) ≤ ∑'_p (1 − Re g p)·p^{−1−σ}`.
+
+`SupF.sigma_cut_lower` (:660) is the `θ = 1` instance.  The proof is that page verbatim with
+one line changed: `Y ^ σ = exp θ` rather than `exp 1`, because `Y = e^{θ/σ}`.  ⭐ **`θ` carries
+NO hypothesis** — the cut is monotonicity of `rpow` and holds for every real `θ`. -/
+theorem sigma_cut_lower_theta {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1) {σ θ : ℝ} (hσ0 : 0 < σ) :
+    (1 / Real.exp θ) * pretDistSq (fun _ => 1) g (Real.exp (θ / σ))
+      ≤ ∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+  have hσ1 : (-1 - σ : ℝ) < -1 := by linarith
+  set Y : ℝ := Real.exp (θ / σ) with hYdef
+  set N : ℕ := ⌊Y⌋₊ with hNdef
+  have hYpos : (0 : ℝ) < Y := Real.exp_pos _
+  have hre1 : ∀ n : ℕ, -1 ≤ (g n).re ∧ (g n).re ≤ 1 := fun n =>
+    abs_le.mp (le_trans (Complex.abs_re_le_norm (g n)) (hg n))
+  have hFnn : ∀ p : ℕ, 0 ≤ (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := fun p =>
+    mul_nonneg (by linarith [(hre1 p).2]) (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  have hindF : Summable (Set.indicator {p : ℕ | Nat.Prime p}
+      (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ))) := by
+    refine Summable.of_nonneg_of_le
+      (fun n => Set.indicator_nonneg (fun p _ => hFnn p) n) (fun n => ?_)
+      ((summable_indicator_prime_rpow hσ0).mul_left 2)
+    rw [Set.indicator_apply, Set.indicator_apply]
+    by_cases hn : n ∈ {p : ℕ | Nat.Prime p}
+    · simp only [if_pos hn]
+      exact mul_le_mul_of_nonneg_right (by linarith [(hre1 n).1])
+        (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+    · simp only [if_neg hn, mul_zero, le_refl]
+  have hfull : (∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ))
+      = ∑' n, Set.indicator {p : ℕ | Nat.Prime p}
+          (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) n := by
+    rw [← tsum_subtype {p : ℕ | Nat.Prime p}
+      (fun n : ℕ => (1 - (g n).re) * (n : ℝ) ^ (-1 - σ : ℝ))]; rfl
+  have hsplit := (Summable.sum_add_tsum_nat_add (N + 1) hindF).symm
+  have hhead : (∑ n ∈ Finset.range (N + 1), Set.indicator {p : ℕ | Nat.Prime p}
+          (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) n)
+      = ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+          (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    rw [Finset.sum_filter]
+    exact Finset.sum_congr rfl (fun n _ => by
+      rw [Set.indicator_apply]; simp only [Set.mem_setOf_eq])
+  have htail_nn : (0 : ℝ) ≤ ∑' i, Set.indicator {p : ℕ | Nat.Prime p}
+      (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) (i + (N + 1)) :=
+    tsum_nonneg (fun i => Set.indicator_nonneg (fun p _ => hFnn p) _)
+  have hge : (∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+        (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ))
+      ≤ ∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    rw [hfull, hsplit, hhead]; linarith [htail_nn]
+  have hPD : pretDistSq (fun _ => 1) g Y
+      = ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime, (1 - (g p).re) / (p : ℝ) := by
+    unfold pretDistSq
+    refine Finset.sum_congr (by rw [hNdef]) (fun p _ => ?_)
+    rw [one_mul, Complex.conj_re]
+  have htermcut : ∀ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+      (1 / Real.exp θ) * ((1 - (g p).re) / (p : ℝ))
+        ≤ (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    intro p hp
+    rw [Finset.mem_filter, Finset.mem_range] at hp
+    have hpp : p.Prime := hp.2
+    have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+    have hpN : p ≤ N := by omega
+    have hpY : (p : ℝ) ≤ Y := by
+      calc (p : ℝ) ≤ (N : ℝ) := by exact_mod_cast hpN
+        _ ≤ Y := Nat.floor_le hYpos.le
+    have hYσ : Y ^ σ = Real.exp θ := by
+      rw [hYdef, Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp,
+        div_mul_cancel₀ θ hσ0.ne']
+    have hpσpos : (0 : ℝ) < (p : ℝ) ^ σ := Real.rpow_pos_of_pos hp0 σ
+    have hpσ_le : (p : ℝ) ^ σ ≤ Real.exp θ := by
+      rw [← hYσ]; exact Real.rpow_le_rpow hp0.le hpY hσ0.le
+    have hcut_p : 1 / Real.exp θ ≤ (p : ℝ) ^ (-σ : ℝ) := by
+      rw [Real.rpow_neg hp0.le, ← one_div]
+      exact one_div_le_one_div_of_le hpσpos hpσ_le
+    have hsplitrpow : (p : ℝ) ^ (-1 - σ : ℝ) = (p : ℝ)⁻¹ * (p : ℝ) ^ (-σ : ℝ) := by
+      rw [show (-1 - σ : ℝ) = (-1 : ℝ) + (-σ) from by ring, Real.rpow_add hp0,
+        Real.rpow_neg_one]
+    have hfac_nn : 0 ≤ (1 - (g p).re) * (p : ℝ)⁻¹ :=
+      mul_nonneg (by linarith [(hre1 p).2]) (by positivity)
+    calc (1 / Real.exp θ) * ((1 - (g p).re) / (p : ℝ))
+        = (1 - (g p).re) * (p : ℝ)⁻¹ * (1 / Real.exp θ) := by rw [div_eq_mul_inv]; ring
+      _ ≤ (1 - (g p).re) * (p : ℝ)⁻¹ * (p : ℝ) ^ (-σ : ℝ) :=
+          mul_le_mul_of_nonneg_left hcut_p hfac_nn
+      _ = (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by rw [hsplitrpow]; ring
+  rw [hPD, Finset.mul_sum]
+  refine le_trans (Finset.sum_le_sum htermcut) hge
+
+/-- **A6 wave, node 5b — the θ-freed distance identification** (`dist_identification_sigma_theta`).
+For a 1-bounded `g` and `σ ∈ (0,1]`, with ANY `θ`:
+`∑'_p Re(g p)·p^{−1−σ} ≤ (log(1/σ) + (log 4 + cpeel)) − e^{−θ}·𝔻²(1, g; e^{θ/σ})`.
+
+`SupF.dist_identification_sigma` (:757) is the `θ = 1` instance.  The peel half
+(`SupF.prime_sum_sigma`) is untouched — `θ` enters ONLY through the cut, which is the point:
+**the two halves of B1 are independent, and the corpus pinned only one of them.** -/
+theorem dist_identification_sigma_theta {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1)
+    {σ θ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) :
+    (∑' p : Nat.Primes, (g p).re * (p : ℝ) ^ (-1 - σ : ℝ))
+      ≤ (Real.log (1 / σ) + (Real.log 4 + cpeel))
+        - (1 / Real.exp θ) * pretDistSq (fun _ => 1) g (Real.exp (θ / σ)) := by
+  have hσ1' : (-1 - σ : ℝ) < -1 := by linarith
+  have hre1 : ∀ n : ℕ, -1 ≤ (g n).re ∧ (g n).re ≤ 1 := fun n =>
+    abs_le.mp (le_trans (Complex.abs_re_le_norm (g n)) (hg n))
+  have hP : Summable (fun p : Nat.Primes => (p : ℝ) ^ (-1 - σ : ℝ)) :=
+    Nat.Primes.summable_rpow.mpr hσ1'
+  have hQ : Summable (fun p : Nat.Primes => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) := by
+    refine Summable.of_nonneg_of_le
+      (fun p => mul_nonneg (by linarith [(hre1 (p : ℕ)).2])
+        (Real.rpow_nonneg (Nat.cast_nonneg _) _)) (fun p => ?_) (hP.mul_left 2)
+    exact mul_le_mul_of_nonneg_right (by linarith [(hre1 (p : ℕ)).1])
+      (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  have hsplit_id : (∑' p : Nat.Primes, (g p).re * (p : ℝ) ^ (-1 - σ : ℝ))
+      = (∑' p : Nat.Primes, (p : ℝ) ^ (-1 - σ : ℝ))
+        - ∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    rw [← Summable.tsum_sub hP hQ]
+    exact tsum_congr (fun p => by ring)
+  rw [hsplit_id]
+  linarith [prime_sum_sigma hσ0 hσ1, sigma_cut_lower_theta (θ := θ) hg hσ0]
+
+/-! ### A6 wave, nodes 6–7 — THE DEMAND SIDE, AND THE HEAD AT A FREE θ
+
+Node 5 freed the SUPPLY constant to `e^{−θ}`.  The price is that the prime sum is truncated
+EARLIER (`e^{θ/σ}` instead of `e^{1/σ}` when `θ < 1`), so the scale floor must be re-derived at
+the new truncation.  ⭐ **It costs nothing new: `e^{θ/σ} = e^{1/σ′}` with `σ′ = σ/θ`, so the
+θ-floor is `SupF.scale_floor` INSTANTIATED, not re-proved.**  The whole price appears as the
+single additive term `2·log(1/θ)` inside the exponent — i.e. a MULTIPLICATIVE CONSTANT
+`(1/θ)^{2c}` on the final bound, never a rate.
+⇒ 🔑 ***BEFORE CALLING A CONSTANT IMMOVABLE, PRICE THE MOVE: a parameter that costs an ADDITIVE
+term inside an exponent costs a CONSTANT FACTOR outside it, and a constant is not a wall.*** -/
+
+/-- **A6 wave, node 6 — the θ-freed scale floor** (`scale_floor_theta`).  For 1-bounded `f, g`,
+`0 < σ ≤ θ`, and `e^{θ/σ} ≤ X`:
+`𝔻²(f,g;X) − 2·log((σ/θ)·log X) − 48 ≤ 𝔻²(f,g; e^{θ/σ})`.
+
+`SupF.scale_floor` (:869) is the `θ = 1` instance, and this is that theorem re-aimed by the
+substitution `σ′ = σ/θ` — **no new Mertens input**.  ⛔ The one genuinely new hypothesis is
+`σ ≤ θ`: it is `σ′ ≤ 1`, i.e. the truncation must still sit above `e`. -/
+theorem scale_floor_theta {f g : ℕ → ℂ} (hf : ∀ p, ‖f p‖ ≤ 1) (hg : ∀ p, ‖g p‖ ≤ 1)
+    {σ θ X : ℝ} (hσ0 : 0 < σ) (hσθ : σ ≤ θ) (hYX : Real.exp (θ / σ) ≤ X) :
+    pretDistSq f g X - 2 * Real.log (σ / θ * Real.log X) - 48
+      ≤ pretDistSq f g (Real.exp (θ / σ)) := by
+  have hθ0 : 0 < θ := lt_of_lt_of_le hσ0 hσθ
+  have hσ'0 : (0 : ℝ) < σ / θ := div_pos hσ0 hθ0
+  have hσ'1 : σ / θ ≤ 1 := (div_le_one hθ0).mpr hσθ
+  have hEq : 1 / (σ / θ) = θ / σ := by
+    field_simp
+  -- ⛔ `X` is PINNED explicitly: without it `rw [hEq]`'s trailing `rfl` closes the goal by
+  -- `le_refl`, ASSIGNING the metavariable `?X := e^{θ/σ}` — a green sub-proof of the wrong
+  -- statement.  ⇒ *a rewrite that ends in `rfl` can discharge a goal by INVENTING its
+  -- right-hand side; pin every metavariable a `by` block could satisfy for free.*
+  have h := scale_floor (X := X) hf hg hσ'0 hσ'1 (by rw [hEq]; exact hYX)
+  rwa [hEq] at h
+
+/-- ⭐⭐ **A6 wave, node 7 — THE HEAD BOUND AT A FREE θ** (`head_sigma_bound_theta`).  For a
+globally 1-bounded `g`, `σ ∈ (0,1]`, any `t` and ANY `θ`:
+`‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−e^{−θ}·𝔻²(1, g·p^{−it}; e^{θ/σ}))`, `C = exp(cpeel+(log 4+cpeel))`.
+
+**`SupF.head_sigma_bound` (:818) is the `θ = 1` instance, and `1/e` is its `e^{−θ}`.**  Nothing
+else in the page moves: the peel half (`prime_sum_sigma`), the Euler bound
+(`euler_log_bound`) and the pin (`exponent_shift_eq`) are `θ`-blind.
+⇒ 🔑 ***THE CONSTANT THAT LOOKED LIKE A CONSTANT OF NATURE WAS AN INSTANCE.*** -/
+theorem head_sigma_bound_theta {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1)
+    {σ θ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (t : ℝ) :
+    ‖LSeries (ellLin g) (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+        * Real.exp (-(1 / Real.exp θ)
+            * pretDistSq (fun _ => 1) (fun n => g n * costwist (-t) n)
+                (Real.exp (θ / σ))) := by
+  set g' : ℕ → ℂ := fun n => g n * costwist (-t) n with hg'def
+  have hg' : ∀ p, ‖g' p‖ ≤ 1 := by
+    intro p
+    have hgp : g' p = g p * costwist (-t) p := by rw [hg'def]
+    rw [hgp, norm_mul, costwist_norm, mul_one]; exact hg p
+  have hs : 1 < (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I).re := by
+    rw [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.I_re, Complex.I_im,
+      Complex.ofReal_re, Complex.ofReal_im]
+    simp; linarith
+  have hterm : ∀ p : Nat.Primes,
+      (g p * (p : ℂ) ^ (-(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I))).re
+        = (g' p).re * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    intro p
+    rw [hg'def]; exact exponent_shift_eq σ t p
+  have hexp : (∑' p : Nat.Primes,
+        (g p * (p : ℂ) ^ (-(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I))).re)
+      = ∑' p : Nat.Primes, (g' p).re * (p : ℝ) ^ (-1 - σ : ℝ) := tsum_congr hterm
+  refine le_trans (euler_log_bound g (fun p _ => hg p) hs) ?_
+  rw [hexp]
+  have hid := dist_identification_sigma_theta (θ := θ) hg' hσ0 hσ1
+  refine le_trans
+    (mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr hid) (Real.exp_nonneg cpeel)) (le_of_eq ?_)
+  rw [← Real.exp_add,
+    show cpeel + ((Real.log (1 / σ) + (Real.log 4 + cpeel))
+          - (1 / Real.exp θ) * pretDistSq (fun _ => 1) g' (Real.exp (θ / σ)))
+        = ((cpeel + (Real.log 4 + cpeel)) + Real.log (1 / σ))
+          + (-(1 / Real.exp θ) * pretDistSq (fun _ => 1) g' (Real.exp (θ / σ))) from by ring,
+    Real.exp_add, Real.exp_add, Real.exp_log (show (0 : ℝ) < 1 / σ from by positivity),
+    mul_assoc]
+
 end Salt.MR
