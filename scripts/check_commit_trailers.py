@@ -192,13 +192,37 @@ def self_test() -> int:
     if scan(meta):
         failures.append("a message describing the rule must not trip it")
 
+    # 5. THE SCAN MUST NOT DEPEND ON THE CALLER'S CWD. Hand-run from another
+    #    repository, `git ls-files` used to list THAT repo's files while the
+    #    contents were read from ROOT -- names that did not exist under ROOT were
+    #    skipped as "binary", and the gate printed a confident green about the
+    #    wrong repository (silicon, 2026-08-27, driven in a throwaway repo).
+    import os, tempfile
+    here = os.getcwd()
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run(["git", "init", "-q"], cwd=tmp, check=True)
+        foreign = "FOREIGN-FILE-THAT-ROOT-DOES-NOT-HAVE.txt"
+        pathlib.Path(tmp, foreign).write_text("nothing\n", encoding="utf-8")
+        subprocess.run(["git", "add", foreign], cwd=tmp, check=True)
+        try:
+            os.chdir(tmp)
+            from_foreign = tracked_files()
+        finally:
+            os.chdir(here)
+    from_root = tracked_files()
+    if len(from_foreign) != len(from_root):
+        failures.append("tracked_files() must not depend on cwd: "
+                        f"{len(from_foreign)} from a foreign repo vs {len(from_root)} from ROOT")
+    if any(rel == foreign for rel, _ in from_foreign):
+        failures.append("a foreign repo's file list leaked into the scan")
+
     for f in failures:
         print(f"SELF-TEST FAIL: {f}")
     if failures:
         return 1
     print("check_commit_trailers SELF-TEST: OK "
           "(empty scan fatal proven FIRST, both forbidden shapes caught, "
-          f"{PRESERVED} preserved, self-describing message safe)")
+          f"{PRESERVED} preserved, self-describing message safe, cwd-independent)")
     return 0
 
 
