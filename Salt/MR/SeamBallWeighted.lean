@@ -585,4 +585,49 @@ theorem exp_neg_mul_integral_ge_midpoint {L a b : ℝ} (hL : 0 < L) (hab : a ≤
   have hpos : (0 : ℝ) < Real.exp (-(m * L)) := Real.exp_pos _
   nlinarith [hsinh, hpos, hL]
 
+/-- ⭐⭐ **A6 wave, node 4 — THE REORDERING, AT THE LEVEL OF THE ACTUAL DISTANCE SUM.**  For a
+finite prime set `s` with nonnegative weights `w` and positive `log`-data `Lf`,
+
+    `(b − a)·∑_{p∈s} w p · exp(−((a+b)/2)·Lf p)  ≤  ∫_a^b ∑_{p∈s} w p · exp(−σ·Lf p) dσ` .
+
+⭐ **THIS IS WHERE THE `1/e` WOULD HAVE BEEN PAID, AND IS NOT.**  Taking the `σ`-integral FIRST and
+the collapse second, every prime is averaged at its OWN `Lf p = log p`; the route that collapses
+first (`dist_identification_sigma`, via `hcut_p`) replaces each `exp(−σ·log p)` by the single
+worst-case `1/e` before the integral ever runs.  **Same two operations, opposite order, different
+constant.**
+
+📌 **Tractable because `pretDistSq` is a FINITE sum** — `∑ p ∈ (Finset.range (⌊x⌋₊+1)).filter
+Nat.Prime, …` — so the exchange is `intervalIntegral.integral_finset_sum`, not Fubini.  *The tsum
+in `dist_identification_sigma`'s statement is upstream of the distance, not the distance itself;
+noticing that is what made this node small.*
+
+⛔ **SCOPE.**  This is the exchange plus the termwise midpoint gain (node 3), nothing more.  It does
+NOT yet re-derive `head_sigma_bound` at a better constant: that needs this composed against the
+peel, and the peel is `hcut_p`'s consumer.  **Nothing here consumes it yet.** -/
+theorem finset_weighted_integral_ge_midpoint (s : Finset ℕ) (w Lf : ℕ → ℝ)
+    (hw : ∀ p ∈ s, 0 ≤ w p) (hLf : ∀ p ∈ s, 0 < Lf p) {a b : ℝ} (hab : a ≤ b) :
+    (b - a) * ∑ p ∈ s, w p * Real.exp (-((a + b) / 2 * Lf p))
+      ≤ ∫ σ in a..b, ∑ p ∈ s, w p * Real.exp (-(σ * Lf p)) := by
+  classical
+  have hint : ∀ p ∈ s, IntervalIntegrable (fun σ : ℝ => w p * Real.exp (-(σ * Lf p)))
+      MeasureTheory.volume a b := by
+    intro p _
+    have hc : Continuous fun σ : ℝ => w p * Real.exp (-(σ * Lf p)) :=
+      continuous_const.mul (Real.continuous_exp.comp
+        ((continuous_id.mul continuous_const).neg))
+    exact hc.intervalIntegrable a b
+  rw [intervalIntegral.integral_finsetSum hint, Finset.mul_sum]
+  refine Finset.sum_le_sum fun p hp => ?_
+  have hterm : (b - a) * Real.exp (-((a + b) / 2 * Lf p))
+      ≤ ∫ σ in a..b, Real.exp (-(σ * Lf p)) :=
+    exp_neg_mul_integral_ge_midpoint (hLf p hp) hab
+  have hconst : (∫ σ in a..b, w p * Real.exp (-(σ * Lf p)))
+      = w p * ∫ σ in a..b, Real.exp (-(σ * Lf p)) :=
+    intervalIntegral.integral_const_mul _ _
+  rw [hconst]
+  calc (b - a) * (w p * Real.exp (-((a + b) / 2 * Lf p)))
+      = w p * ((b - a) * Real.exp (-((a + b) / 2 * Lf p))) := by ring
+    _ ≤ w p * ∫ σ in a..b, Real.exp (-(σ * Lf p)) :=
+        mul_le_mul_of_nonneg_left hterm (hw p hp)
+
 end Salt.MR
