@@ -86,7 +86,7 @@ def commit_messages(rev_range: str) -> list[tuple[str, str]]:
     # argv bytes: a NUL in argv raises ValueError before git is ever reached.
     sep = "@@JASCOMMIT@@"
     out = subprocess.run(
-        ["git", "log", f"--format=%H%x1f%B{sep}", rev_range],
+        ["git", "log", f"--format=%H%x1f%B{sep}", rev_range], cwd=ROOT,
         capture_output=True, text=True, encoding="utf-8", check=True,
     ).stdout
     rows = []
@@ -119,19 +119,30 @@ def tracked_files() -> list[tuple[str, str]]:
     verified by the self-test, which would otherwise pass vacuously by
     excluding the only interesting file.
     """
-    out = subprocess.run(["git", "ls-files", "-z"],
+    out = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT,
                          capture_output=True, text=True, encoding="utf-8",
                          check=True)
     rows: list[tuple[str, str]] = []
+    missing: list[str] = []
     for rel in out.stdout.split("\0"):
         if not rel:
             continue
         path = ROOT / rel
         try:
             text = path.read_text(encoding="utf-8")
-        except (UnicodeDecodeError, FileNotFoundError, IsADirectoryError):
-            continue  # binary, or a submodule/symlink pointing nowhere
+        except (UnicodeDecodeError, IsADirectoryError):
+            continue  # binary, or a submodule directory
+        except FileNotFoundError:
+            if path.is_symlink():
+                continue  # a symlink pointing nowhere is tracked but unreadable
+            missing.append(rel)  # a tracked file absent under ROOT: list and tree disagree
+            continue
         rows.append((rel, text))
+    if missing:
+        print(f"FAIL: {len(missing)} tracked file(s) listed by git but absent under "
+              f"{ROOT}: {missing[:3]}{' ...' if len(missing) > 3 else ''}. The file list "
+              "and the tree being scanned are not the same repository.")
+        raise SystemExit(1)
     return rows
 
 
@@ -240,7 +251,7 @@ def is_shallow() -> bool:
     therefore sets `fetch-depth: 0`, and this refuses to run without it rather
     than trusting the workflow to stay correct.
     """
-    out = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
+    out = subprocess.run(["git", "rev-parse", "--is-shallow-repository"], cwd=ROOT,
                          capture_output=True, text=True, encoding="utf-8")
     return out.stdout.strip() == "true"
 
