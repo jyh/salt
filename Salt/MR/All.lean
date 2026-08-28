@@ -8568,6 +8568,7 @@ open Salt.Tactic in
   Salt.MR.vk34_constant_factors
   Salt.MR.vk34_constant_pos
   Salt.MR.vk34_constant_clears_bar
+  Salt.MR.vk34_constant_fails_rho_margin
   Salt.MR.vk34_constant_lt_mrt
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket

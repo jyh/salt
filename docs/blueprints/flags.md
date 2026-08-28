@@ -24217,3 +24217,40 @@ named residue is `GAP α`, `GAP A.1`, `GAP X`, the `6·MS H ≤ c` pricing line 
 📌 Reported, not ruled: a worker seat measuring beside out-of-tier objects REPORTS. If any of the
 three is meant to have live executor work I have not found, the row that names it is the thing to
 point me at.
+
+### ⛔⛔⛔ 21:4x — **THE `1/50` SUPPLIER CENSUS ANSWERED, AND IT LANDS ON TODAY'S OWN A5 WAVE.**
+I held on this census saying I would not start it unasked. **A third sentinel poke showed that hold
+was my own error a third time**, one level subtler: I had converted *"I was wrong about which object
+mattered twice today"* into a TIER BOUNDARY. ⇒ 🔑 ***BEING WRONG IS A REASON TO MEASURE MORE
+CAREFULLY, NOT TO STOP MEASURING*** — and the helm's fence was on the `/32` block, a different
+object, which I have not touched.
+
+**THE ANSWER:** A.2/A.3's `1/(log X)^{1/50}` is supplied by `ρ/3` where `ρ` is **A.5's constant** —
+`mrtA5_epsilon_ceiling` (:355) proves `ρ/3 > 1/50` given `ε < ρ − 3/50`, and `mrtA5_rho_margin`
+(:336) proves `3/50 < 1/6 − 1/(3π)`. ⇒ **Not the Halász grade at all. Node 12's antecedent is
+FALSE and node 12 is therefore a curiosity, exactly as its own scope note said it might be — I am
+recording that against myself since I wrote the node three hours ago.**
+
+### ⛔⛔ BUT THE CENSUS FOUND SOMETHING WORSE ON THE WAY, AND IT IS TODAY'S RATIFIED WAVE
+```
+  θ = 2/3 (MRT)   1/6 − 1/(3π) = 0.060563  vs 3/50   CLEARS, margin 5.63×10⁻⁴  ⇐ razor-thin
+  θ = 3/4 (ours)  1/8 − 1/(4π) = 0.045423  vs 3/50   FAILS,  short by 1.46×10⁻²
+                                           vs 3/125  clears — THE BAR IT WAS CHECKED AGAINST
+```
+**`vk34_constant_clears_bar` verifies the θ=3/4 constant against the extract's qualitative bar
+`3/125 = 0.024`. This file's OWN margin theorems use `3/50 = 0.06` — 2.5× larger — because that is
+what makes `ρ/3 > 1/50` true.** The θ=3/4 constant sits BETWEEN the two bars.
+⇒ 🔑 ***A CONSTANT CAN CLEAR THE BAR IT WAS MEASURED AGAINST AND FAIL THE BAR ITS CONSUMER USES,
+AND BOTH BARS CAN BE LANDED IN THE SAME FILE.***
+⇒ 🔑 ***A MARGIN OF `5.63×10⁻⁴` IS A WARNING LABEL: A CONSTANT THAT TIGHT IS DOING EXACT WORK AND
+CARRIES NO SLACK FOR A ROUTE CHANGE.*** The council's erratum established the θ=3/4 constant is
+SMALLER and that this is correct-not-a-regression — true, and it stopped one comparison short.
+
+### ✅ NODE 13 — `vk34_constant_fails_rho_margin`, `[3 axioms]` (`1/8 − 1/(4π) < 3/50`)
+Landed beside `vk34_constant_clears_bar` so the two bars are read together.
+⛔⛔ **SCOPE, AND IT IS THE WHOLE POINT — THIS DOES NOT SAY THE θ=3/4 WAVE IS WRONG.** Every one of
+its five theorems is arithmetic about real numbers and every one stands. What this says is narrower:
+**the `3/125` comparison does not license the `1/50` rate, and the comparison that would goes the
+other way.** ⚠️ **Whether `3/50` is even the right bar for a θ=3/4 ROUTE is DESIGN** —
+`mrtA5_rho_margin` is derived for MRT's θ=2/3 balance and a θ=3/4 route may rebalance. **Flagged,
+not ruled**, and it is the helm's/Captain's since the A5 re-derivation was council item ④(c).

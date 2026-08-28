@@ -4282,6 +4282,41 @@ theorem vk34_constant_factors :
   field_simp
   ring
 
+/-- ⛔⛔ **THE θ=3/4 CONSTANT FAILS A.5's OWN `ρ`-MARGIN** (`vk34_constant_fails_rho_margin`):
+`1/8 − 1/(4π) < 3/50`.
+
+⚠️ **AND THIS IS A DIFFERENT BAR FROM THE ONE THE WAVE WAS CHECKED AGAINST.**
+`vk34_constant_clears_bar` (below) verifies the θ=3/4 constant against the extract's *qualitative*
+bar `3/125 = 0.024`, and it clears it.  But this file's own `mrtA5_rho_margin` (:336) and
+`mrtA5_epsilon_ceiling` (:355) use **`3/50 = 0.06`** — 2.5× larger — because that is what makes
+`ρ/3 > 1/50` true, and `1/50` is the rate of the third summand in **both** `MRTThmA2` and
+`MRTPropA3`.  Measured:
+```
+  θ = 2/3  (MRT)   1/6 − 1/(3π) = 0.060563   vs 3/50   CLEARS, margin 5.63×10⁻⁴  ⇐ razor-thin
+  θ = 3/4  (ours)  1/8 − 1/(4π) = 0.045423   vs 3/50   FAILS,  short by 1.46×10⁻²
+                                             vs 3/125  clears — the bar it was checked against
+```
+⇒ 🔑 ***A CONSTANT CAN CLEAR THE BAR IT WAS MEASURED AGAINST AND FAIL THE BAR ITS CONSUMER USES,
+AND BOTH BARS CAN BE LANDED IN THE SAME FILE.***  MRT's own margin is `5.63×10⁻⁴` — a quantity that
+small is a warning that the constant is doing exact work, not carrying slack.
+
+⛔⛔ **SCOPE, AND IT IS THE WHOLE POINT — THIS DOES NOT SAY THE θ=3/4 WAVE IS WRONG.**
+The wave is arithmetic about real numbers and every one of its five theorems stands.  What this
+says is narrower and checkable: **the `3/125` comparison does not license the `1/50` rate, and the
+comparison that would (`3/50`) goes the other way.**  ⚠️ **Whether `3/50` is even the right bar for
+a θ=3/4 ROUTE is a DESIGN question this seat cannot answer** — `mrtA5_rho_margin` is derived for
+MRT's own θ=2/3 balance, and a θ=3/4 route may rebalance and demand something else entirely.
+**Flagged, not ruled.** -/
+theorem vk34_constant_fails_rho_margin : 1 / 8 - 1 / (4 * Real.pi) < 3 / 50 := by
+  have h4 : (0 : ℝ) < 4 * Real.pi := by positivity
+  have hlt : 4 * Real.pi < 12.6 := by
+    have := Real.pi_lt_d2
+    linarith
+  have hkey : (1 : ℝ) / 12.6 < 1 / (4 * Real.pi) :=
+    one_div_lt_one_div_of_lt h4 hlt
+  have hnum : (3 : ℝ) / 50 - 1 / 8 + 1 / 12.6 > 0 := by norm_num
+  linarith
+
 /-- **The θ=3/4 constant is positive** — so the re-derived A.5 is not vacuous. -/
 theorem vk34_constant_pos : 0 < (1 : ℝ) / 8 - 1 / (4 * Real.pi) := by
   have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
