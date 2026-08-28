@@ -1183,6 +1183,34 @@ head cap is `1/exp θ`; at `θ = log 2` that is `1/2`, which is A.6's own rate.
 theorem theta_lift_head_rate_at_log_two : 1 / Real.exp (Real.log 2) = (1 : ℝ) / 2 := by
   rw [Real.exp_log (by norm_num : (0:ℝ) < 2)]
 
+/-- ⛔⛔ **THE `c/32` ROUTE CANNOT REACH A.6's SECOND SUMMAND AT ANY HEAD CONSTANT**
+(`b4_grade_cannot_reach_a6_from_head`).  For every `c ≤ 1` — and the A6 wave's head cap is
+`e^{−θ} ≤ 1` for every `θ ≥ 0`, so this covers the construction entire — the B4 grade `ρ = c/32`
+satisfies `ρ < 1/16`.
+📌 **`θ < 0` IS NOT AN ESCAPE** and is worth saying, since `sigma_cut_lower_theta` carries no
+hypothesis on `θ`: at `θ < 0` the truncation `e^{θ/σ}` is `< 1`, the prime range is EMPTY and
+`𝔻²` is `0`, so the bound is vacuous.  A non-vacuous truncation needs `θ ≥ σ > 0`, hence
+`c ≤ e^{−θ} < 1`.  **The `c ≤ 1` here is a deliberate over-approximation of the real cap.**
+
+⭐⭐ **WHY THIS IS THE SESSION'S REAL FINDING, AND WHY IT IS NEGATIVE.**  Read `MRTLemmaA6` (:376):
+its conclusion is a **SUM OF TWO TERMS**, `C·(exp(−(1/2)·M)/(1+|t−t₁|) + (log X)^{−1/16})`.  To
+PROVE A.6 a route must dominate BOTH summands, so it needs `c ≥ 1/2` **and** `ρ ≥ 1/16`.  The A6
+wave's θ-lift delivers the first EXACTLY (`theta_lift_head_rate_at_log_two`) and, by this theorem,
+**can never deliver the second** — not at `θ = log 2`, not at `θ = 0`, not at any `θ`.
+⇒ 🔑 ***WHEN A TARGET IS A SUM, CLOSING ONE SUMMAND BUYS NOTHING ON ITS OWN*** — the bound is
+governed by the weaker term, so a parameter that perfects one term and is silent on the other moves
+the result not at all.  The two `weaker_than_a6` theorems above are not two views of one shortfall;
+they are the two summands, and only one of them is a head-constant question.
+
+📌 **WHERE THE REMAINING FACTOR LIVES, STATED SO IT CAN BE WORKED:** the blocker is the divisor
+`32` in `USetPins.rhoB4 = c/32`, not the head constant.  Even a free head (`c = 1`) gives `1/32`,
+still `2×` short.  **The next object is the `/32`, and it is a different page.**
+⛔ **This theorem is about the `c/32` ROUTE, not about A.6.**  It does not say A.6 is false or
+unreachable — only that THIS route's grade cannot reach A.6's `1/16` by moving the head constant.
+Another route, or a smaller divisor, is not addressed here and nothing rules one out. -/
+theorem b4_grade_cannot_reach_a6_from_head (c : ℝ) (hc : c ≤ 1) : c / 32 < 1 / 16 := by
+  linarith
+
 /-- **The θ-lift does NOT close the grade gap** (`theta_lift_grade_at_log_two_still_weaker`).
 At `θ = log 2` the B4 grade is `(1/2)/32 = 1/64`, and `1/64 < 1/16` still.
 📌 Compare `landed_halasz_exponent_weaker_than_a6`: the shortfall narrows from a factor `16/(32e)⁻¹`

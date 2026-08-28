@@ -24136,3 +24136,43 @@ cap on the grade (`ρ < 1/16`), so a growing `ρ` moves TOWARD it, not away. At 
 4× headroom, so it does not bind; **but it is the only member of the family whose direction is
 adverse, and a survey that reported "all favourable" would have been the wrong shape of answer.**
 ⇒ 🔑 ***A FAMILY OF THRESHOLDS DOES NOT HAVE A DIRECTION; EACH MEMBER DOES.***
+
+### ⛔⛔⛔ 20:1x — **THE CONSUMER CENSUS ANSWERED, AND IT IS A HARD NEGATIVE. READ `MRTLemmaA6`'s RHS.**
+I said in the last entry that measuring *"is A.6 consumed at its M-rate, at its grade, or at both?"*
+was my tier. Measured, and the answer is in the statement's own bytes (`MRTPropA3:376`):
+```
+  ‖…‖ ≤ C * ( Real.exp (-(1/2) * mrtM f X) / (1 + |t - t₁|)   +   (Real.log X) ^ (-(1:ℝ)/16) )
+                        ⇧ the M-RATE summand                        ⇧ the GRADE summand
+```
+**A.6's conclusion is a SUM OF TWO TERMS, so a route must dominate BOTH: it needs `c ≥ 1/2` AND
+`ρ ≥ 1/16`.** The θ-lift delivers the first EXACTLY and cannot deliver the second at any `θ`.
+⇒ 🔑 ***WHEN A TARGET IS A SUM, CLOSING ONE SUMMAND BUYS NOTHING ON ITS OWN.*** The bound is
+governed by the weaker term, so a parameter that perfects one term and is silent on the other moves
+the result NOT AT ALL. ⇒ **The A6 wave, carried through in full, does not deliver A.6.**
+
+### ✅ NODE 11 — the impossibility, in the kernel (`b4_grade_cannot_reach_a6_from_head`, `[3 axioms]`)
+`∀ c ≤ 1, c/32 < 1/16`. `USetPins.rhoB4` is `c/32` by its own docstring, and the wave's head cap is
+`e^{−θ} ≤ 1`, so **no head constant whatever reaches A.6's grade through this route** — not at
+`θ = log 2`, not at `θ = 0` (which still gives only `1/32`, 2× short).
+📌 `θ < 0` is not an escape and the theorem's scope note says why: at `θ < 0` the truncation
+`e^{θ/σ} < 1`, the prime range is empty, `𝔻² = 0` and the bound is VACUOUS. A non-vacuous
+truncation forces `θ ≥ σ > 0`, hence `c < 1`. The `c ≤ 1` is a deliberate over-approximation.
+⛔ **SCOPE, STATED IN THE THEOREM ITSELF:** this is about the `c/32` ROUTE, not about A.6. It does
+NOT say A.6 is false or unreachable — only that moving the head constant cannot get this route's
+grade to `1/16`. Another route or a smaller divisor is not addressed and nothing rules one out.
+
+### ⚖️ WHAT THIS DOES TO THE WAVE, HONESTLY
+* ✅ **The θ-lift is real, kernel-checked, and closes a named gap exactly.** Eleven names today,
+  every one `[3 axioms]`. `head_sigma_bound`'s `1/e` was a pinned parameter and it is now free.
+* ⛔ **It is not what A.6 needed.** I spent the session sharpening the summand that was already the
+  easier one. The binding term was the OTHER one, in the same displayed formula, and I did not read
+  that formula until the eleventh node.
+⇒ 🔑 ***I TRACED THE CONSTANT I COULD MOVE INSTEAD OF THE ONE THAT WAS BINDING, FOR SIX HOURS, AND
+THE DISCRIMINATOR WAS TO READ THE TARGET'S OWN STATEMENT ONCE.*** Every measurement I took was of
+the SUPPLY side — where `1/e` enters, whether it is sharp, what it costs to move. The demand side
+was one `sed` of a `def` I had cited by name four times.
+⇒ 🔑 ***"WHAT IS OUR CONSTANT?" AND "WHAT DOES THE TARGET ASK FOR?" ARE DIFFERENT QUESTIONS, AND
+ONLY THE SECOND CAN TELL YOU WHETHER THE FIRST MATTERS.*** (My own `demand-side-first` card, which
+I have been carrying since 08/24, and which I did not apply until a sentinel poke sent me back.)
+📌 **THE NEXT OBJECT IS THE `/32`, AND IT IS A DIFFERENT PAGE** — the balance page's structural
+divisor, not the head constant. Whether it can move is design-tier and I have not looked.
