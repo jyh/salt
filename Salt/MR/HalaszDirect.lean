@@ -205,6 +205,82 @@ theorem window_sup_decay_gen {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p�
     mul_le_mul_of_nonneg_right hce hnn
   linarith
 
+/-- ⭐⭐ **A6 wave, node 8 — THE WINDOW DECAY AT A FREE `θ`** (`window_sup_decay_theta`).  The
+`θ`-freed clone of `window_sup_decay_gen` (:171): for `0 < c ≤ e^{−θ}`, `0 < σ ≤ θ ≤ 1` and
+`e^{θ/σ} ≤ X`,
+
+  `‖F_seam(1+σ+it)‖ ≤ C_F·(1/σ)·exp(−c·(M_range − 2·log(σ·(logX/θ)) − 48))` .
+
+⭐ **THIS IS WHERE THE `c ≤ 1/e` CAP LIFTS.**  `window_sup_decay_gen`'s `hce : c ≤ 1/e` is
+inherited verbatim from `head_sigma_bound`'s pinned truncation; node 7 freed that pin, so the cap
+here is `c ≤ e^{−θ}` and `θ` is the caller's.  At `θ = 1` this IS `window_sup_decay_gen`.
+
+📌 **THE PEEL IS PAID IN THE `C`-SLOT, NOT IN A NEW TERM.**  The floor at the earlier truncation
+`e^{θ/σ}` is `scale_floor_Mrange_seam` INSTANTIATED at `σ′ = σ/θ` — no new Mertens input.  Since
+`log(σ·logX/θ) = log(σ·logX) + log(1/θ)`, this integrand is `sigma_cutoff_pretentious_gen`'s shape
+with the SAME `L = logX` and the enlarged constant `C′ = 48 + 2·log(1/θ)` (still `≥ 0` for `θ ≤ 1`,
+which is that theorem's own `_hC`).  Its conclusion carries `exp(c·C′) = exp(c·48)·(1/θ)^{2c}`, so
+the whole price of moving the constant is the FACTOR `(1/θ)^{2c}` — at `c = 1/2`, `θ = log 2`, that
+is `1/log 2 ≈ 1.4427`.  **A constant, never a rate.**
+⛔ **NOT the `L`-slot**, which is the reading this comment carried until it was checked: `_gen`'s
+integration range STARTS at `1/L`, and the consumer's σ-range starts at `1/logX` — fixed by the
+problem, not ours to rescale.  Substituting `L := logX/θ` silently moves the lower endpoint.
+⇒ 🔑 ***AN ABSORPTION IS A CLAIM ABOUT WHICH SLOT, AND THE WRONG SLOT CAN GIVE THE RIGHT VERDICT
+("a constant") WITH THE WRONG NUMBER*** — `1/θ` vs `(1/θ)^{2c}`, and only one of them is derivable.
+⇒ 🔑 ***CHECK THE REPLACEMENT, NOT ONLY THE THING IT REPLACED: a parameter substituted into a
+statement moves EVERY occurrence, INCLUDING THE ONES IN ITS HYPOTHESES AND LIMITS.***
+
+⛔ **THE ONE GENUINELY NEW HYPOTHESIS IS `σ ≤ θ`** (the floor needs its truncation above `e`), so a
+caller's σ-window top `b` must satisfy `b ≤ θ`.  At the `c = 1/2` point `θ = log 2 ≈ 0.693`, so a
+consumer wanting `b ∈ (log 2, 1]` does NOT get `1/2` from this. -/
+theorem window_sup_decay_theta {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {c θ t₀ t X T σ : ℝ} (hc0 : 0 < c) (hce : c ≤ 1 / Real.exp θ)
+    (hσ0 : 0 < σ) (hσθ : σ ≤ θ) (hθ1 : θ ≤ 1) (hYX : Real.exp (θ / σ) ≤ X)
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X) :
+    ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
+        (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+        * Real.exp (-c * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+            - 2 * Real.log (σ * (Real.log X / θ)) - 48)) := by
+  have hθ0 : (0 : ℝ) < θ := lt_of_lt_of_le hσ0 hσθ
+  have hσ1 : σ ≤ 1 := le_trans hσθ hθ1
+  have hσ'0 : (0 : ℝ) < σ / θ := div_pos hσ0 hθ0
+  have hσ'1 : σ / θ ≤ 1 := (div_le_one hθ0).mpr hσθ
+  have hEq : 1 / (σ / θ) = θ / σ := by field_simp
+  have hEllOne : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := fun n => ellLin_norm_le_one g hg n
+  have hSeamOne : ∀ n : ℕ, ‖seamCoeff (ellLin g) (fun _ => 1) t₀ n‖ ≤ 1 :=
+    fun n => norm_seamCoeff_le hEllOne (fun _ => le_of_eq norm_one) t₀ n
+  have hHead := head_sigma_bound_theta (θ := θ)
+    (g := seamCoeff (ellLin g) (fun _ => 1) t₀) hSeamOne hσ0 hσ1 t
+  have hdist_eq :
+      pretDistSq (fun _ => 1)
+          (fun n => seamCoeff (ellLin g) (fun _ => 1) t₀ n * costwist (-t) n) (Real.exp (θ / σ))
+        = pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (θ / σ)) :=
+    (dist_triv_left_eq_local (seamCoeff (ellLin g) (fun _ => 1) t₀) t (Real.exp (θ / σ))).trans
+      (seamCoeff_trivial_dist_eq t₀ t (Real.exp (θ / σ)))
+  rw [hdist_eq] at hHead
+  refine hHead.trans ?_
+  refine mul_le_mul_of_nonneg_left ?_
+    (mul_nonneg (Real.exp_nonneg _) (div_nonneg zero_le_one hσ0.le))
+  apply Real.exp_le_exp.mpr
+  -- ⛔ `X` PINNED: without it the `by` block's trailing `rfl` can assign `?X` (node 6's trap).
+  have hd := scale_floor_Mrange_seam (t₀ := t₀) (X := X) hg hσ'0 hσ'1
+    (by rw [hEq]; exact hYX) hmem
+  rw [hEq] at hd
+  have hLr : σ / θ * Real.log X = σ * (Real.log X / θ) := by ring
+  rw [hLr] at hd
+  have hnn : 0 ≤ pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (θ / σ)) :=
+    pretDistSq_nonneg _ _ _ hEllOne (fun n => le_of_eq (costwist_norm (t + t₀) n))
+  have h1 : c * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+        - 2 * Real.log (σ * (Real.log X / θ)) - 48)
+      ≤ c * pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (θ / σ)) :=
+    mul_le_mul_of_nonneg_left hd hc0.le
+  have h2 : c * pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (θ / σ))
+      ≤ (1 / Real.exp θ) * pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (θ / σ)) :=
+    mul_le_mul_of_nonneg_right hce hnn
+  linarith
+
 /-! ## §2 — the majorant's interval integrability
 
 The σ-cutoff stones compute the majorant's integral in closed form, but

@@ -885,6 +885,7 @@ open Salt.Tactic in
   Salt.MR.prop_A3_T1_row_annular_polyT
   Salt.MR.prop_A3_T1_row_moment_polyT
   Salt.MR.window_sup_decay_gen
+  Salt.MR.window_sup_decay_theta
   Salt.MR.halasz_direct_gen
   Salt.MR.halasz_direct_ball
   Salt.MR.halasz_direct_ball_window

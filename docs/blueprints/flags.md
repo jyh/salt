@@ -24015,3 +24015,40 @@ theorem; `window_sup_decay_gen`/`halasz_direct_*` are still pinned at `c ≤ 1/e
 NEW hypothesis `σ ≤ θ`, which caps the σ-window's top at `θ` — **a consumer with `b > log 2` does not
 get `c = 1/2` from this**, and no consumer's `b` has been measured yet.
 📌 A5 inherits it identically — same head constant, one stone for both lemmas, as first filed.
+
+### ✅⭐⭐ 18:2x — **THE CAP LIFTED AT THE CONSUMER: `window_sup_decay_theta`, `[3 axioms]`, first attempt.**
+`Salt/MR/HalaszDirect.lean`, beside `window_sup_decay_gen` (:171).  `hce : c ≤ 1/e` becomes
+`c ≤ e^{−θ}`; at `θ = 1` it IS `window_sup_decay_gen`.  **The `1/e` cap on the exits' exponent was
+inherited verbatim from `head_sigma_bound`'s pinned truncation, and it is now the caller's `θ`.**
+📌 The floor is `SupF.scale_floor_Mrange_seam` INSTANTIATED at `σ′ = σ/θ` — again no new input.
+
+### ⛔ AND I HAD THE PRICE IN THE WRONG SLOT, CAUGHT BEFORE LANDING
+The draft comment said the cost is `L ↦ L/θ` in `sigma_cutoff_pretentious_gen`'s conclusion, "a
+factor `1/θ`".  **False.**  `_gen`'s integration range STARTS at `1/L`, so substituting
+`L := logX/θ` silently moves the lower endpoint — and the consumer's σ-range starts at `1/logX`,
+which is the problem's, not ours to rescale.  The correct absorption is the **`C`-slot**:
+`log(σ·logX/θ) = log(σ·logX) + log(1/θ)`, so `C′ = 48 + 2log(1/θ)` (`≥ 0` for `θ ≤ 1`, which is
+`_gen`'s own `_hC`), and the factor is `exp(cC′)/exp(cC) = (1/θ)^{2c}` — at `c = 1/2`, `θ = log 2`,
+`1/log 2 ≈ 1.4427`.
+⇒ 🔑 ***AN ABSORPTION IS A CLAIM ABOUT WHICH SLOT, AND THE WRONG SLOT GAVE THE RIGHT VERDICT ("a
+constant, not a rate") WITH THE WRONG NUMBER.***  Both readings say "constant"; only one is
+derivable, and the verdict's being right is exactly why nothing would have caught it downstream.
+⇒ 🔑 ***A SUBSTITUTION MOVES EVERY OCCURRENCE — INCLUDING THE ONES IN HYPOTHESES AND INTEGRATION
+LIMITS.***  I checked the integrand and not the range.
+
+### ⚖️ WHAT IS NOW TRUE, AND WHAT IS STILL OPEN
+* ✅ **KERNEL, `[3 axioms]`:** the supply chain is free in `θ` end to end —
+  `sigma_cut_lower_theta` → `dist_identification_sigma_theta` → `head_sigma_bound_theta` →
+  `window_sup_decay_theta`.  `c = 1/2` is reachable at `θ = log 2`.
+* ⛔ **STILL PINNED AT `1/e`:** `halasz_direct_gen` (:325, `c = 1/e`) and `halasz_direct_ball`
+  (:385, `c = 1/(2e)`) — the two exits — and the `private halasz_direct_reduce` between them.
+  **Node 8 is a supply; no exit consumes it yet.**
+* ⛔ **THE `σ ≤ θ` CAP IS THE ONE REAL COST AND IT IS UNMEASURED AT THE CONSUMERS.**  Every exit
+  carries `hb1 : b ≤ 1` with `b` a FREE PARAMETER — **grepped: no call site in the corpus
+  instantiates `b` numerically**, so nothing breaks today, but `b ≤ log 2` would be a genuine
+  narrowing for any future consumer wanting the top of the window.  The header names `2η` and
+  `2/log y` as the intended instances, both small; that is a READING of the header, not a
+  measurement of a call site, and it is offered as such.
+* ⛔ **`c = 1/2` EXACTLY costs a `log(bL)`** — `_gen` requires `2c < 1`, and node 1
+  (`sigma_cutoff_pretentious_crit`) is the critical integral whose RHS carries that extra factor.
+  `c` strictly below `1/2` stays inside `_gen` at cost `1/(1−2c)`.
