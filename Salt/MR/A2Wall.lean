@@ -224,6 +224,36 @@ theorem a2wall_floor32_89 : (1 : ℝ) / 89 ≤ 1 / (32 * Real.exp 1) - 1 / 5000 
   have hsplit : (1 : ℝ) / 89 + 1 / 5000 = 5089 / 445000 := by norm_num
   linarith
 
+/-! ### ⭐ THE SAME FLOOR AT THE θ-LIFTED HALÁSZ GRADE (A6 wave, node 9)
+
+`USetPins.rhoB4` is `1/(32e)`, and its own docstring names it **the B4 Halász grade** — `ρ = c/32`
+at the head constant `c = 1/e`.  The A6 wave freed that head constant to `e^{−θ}`
+(`SeamBallWeighted.head_sigma_bound_theta`, `HalaszDirect.window_sup_decay_theta`), so the same
+page at `θ = log 2` — the `c = 1/2` point — reads `ρ = (1/2)/32 = 1/64`.
+
+⭐⭐ **THIS IS WHY THE HEAD CONSTANT IS WORTH MORE THAN A CONSTANT.**  `ρ` is not a multiplier: it
+is `theta83 ρ = ρ/3`, which is the EXPONENT in `H83 X θ = (log X)^θ`.  A factor `e/2 ≈ 1.359` on
+`ρ` is a factor on a RATE, not on a coefficient.
+
+⛔ **THESE TWO THEOREMS ARE ARITHMETIC AT A HYPOTHETICAL GRADE, AND NOTHING CONSUMES THEM.**  They
+say what the `1/32`-floor fallback becomes IF the balance page is re-run at `ρ = 1/64`; the balance
+page has NOT been re-run, `rhoB4` is UNCHANGED, and re-deriving it is a design act.  They are here
+so the wave's claimed benefit is CHECKABLE rather than asserted in a bus post.
+⇒ 🔑 ***WHEN A CLAIM ABOUT A NUMBER IS THE DELIVERABLE, THE NUMBER IS A NODE.*** -/
+
+/-- **The `1/32`-floor fallback at the θ-lifted grade** (`a2wall_floor64_65`):
+`1/65 ≤ 1/64 − 1/5000`.
+Compare `a2wall_floor32_89` — the sharp integer moves **89 → 65**, and against §3's landed ceiling
+`97.6516…` the admissible window widens from `n ∈ [89, 96]` to `n ∈ [65, 96]`.
+📌 The direction is the favourable one and that is not an accident: `1/64 > 1/(32e)`, and the floor
+is an `≤` against `ρ`, so a LARGER grade can only admit MORE `n`. -/
+theorem a2wall_floor64_65 : (1 : ℝ) / 65 ≤ 1 / 64 - 1 / 5000 := by norm_num
+
+/-- `1/64 − 1/5000 < 1/64` — `65` is the sharp integer at the θ-lifted grade, exactly as `89` is at
+`1/(32e)`.  (Stated against `1/64` rather than `1/n` for `n = 64`: they are the same numeral, and
+this is the form that exhibits the `1/5000` slack as the whole of the gap.) -/
+theorem a2wall_floor64_64_fails : 1 / 64 - 1 / 5000 < (1 : ℝ) / 64 := by norm_num
+
 /-- `1/(32e) − 1/5000 < 1/88` — `89` is the sharp integer at the `1/32` floor. -/
 theorem a2wall_floor32_88_fails : 1 / (32 * Real.exp 1) - 1 / 5000 < (1 : ℝ) / 88 := by
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9

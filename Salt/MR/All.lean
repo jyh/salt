@@ -3575,6 +3575,8 @@ open Salt.Tactic in
   Salt.MR.a2wall_floor_48_at_500
   Salt.MR.a2wall_floor_47_fails_at_500
   Salt.MR.a2wall_floor32_89
+  Salt.MR.a2wall_floor64_65
+  Salt.MR.a2wall_floor64_64_fails
   Salt.MR.a2wall_floor32_88_fails
   Salt.MR.a2wall_box_fails_gate_15
   Salt.MR.a2wall_ballrad_forced

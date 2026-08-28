@@ -24052,3 +24052,50 @@ LIMITS.***  I checked the integrand and not the range.
 * ⛔ **`c = 1/2` EXACTLY costs a `log(bL)`** — `_gen` requires `2c < 1`, and node 1
   (`sigma_cutoff_pretentious_crit`) is the critical integral whose RHS carries that extra factor.
   `c` strictly below `1/2` stays inside `_gen` at cost `1/(1−2c)`.
+
+### ⭐⭐⭐ 19:1x — **I UNDER-PRICED MY OWN RESULT, AND I ASKED THE HELM TO ROUTE THE WRONG OBJECTS.**
+I posted the θ-lift's benefit as a constant factor and asked for a word on re-aiming
+`halasz_direct_gen` / `halasz_direct_ball`. **Measured since, both were wrong.**
+
+**① THE LIVE ROUTE CITES NEITHER EXIT — the corpus says so in its own header.**  `PretSupply`'s P3
+exit `joint_sigma_integral` (:475): *"It is therefore neither of the two banked arms and cites
+neither: it cites `sigma_cutoff_pretentious_gen` at the caller's own `c`… leaving the S-3 citation
+choice — and every numeral — to the consumer."*  It carries `0 < c`, `2c < 1` and **no `c ≤ 1/e`
+at all.**  My routing ask named objects the arc does not use.
+⇒ 🔑 ***A CONSUMER CENSUS IS NOT A GREP FOR THE NAME I EXPECTED TO BE CONSUMED.***  I traced
+`halasz_direct_*` because MY node sat under it, not because the arc did.  (My own card:
+*scope to where the ANSWER lives, not the SUBJECT.*)
+
+**② WHERE `c` IS ACTUALLY CHOSEN — two sites, identical, and both DISCHARGE `hce` rather than
+assume it:** `StationHoist:196` and `SPartStation:912`, `set c : ℝ := 1 / (2 * Real.exp 1)`.
+**The station takes EXACTLY HALF the cap** (`c = (1/2)·(1/e)`), so cap and choice move together.
+📌 Of ~40 `hce : c ≤ 1/e` sites across 18 files, these two are the only ones that discharge it —
+⇒ ***THE NUMERAL LIVES WHERE A HYPOTHESIS IS DISCHARGED, NOT WHERE IT IS DECLARED***, and grepping
+the declarations counts transport, not decisions.
+
+**③ AND THE HEAD CONSTANT IS THE ARC'S HALÁSZ GRADE — IT SITS IN AN EXPONENT.**
+`USetPins.rhoB4 : ℝ := 1 / (32 * Real.exp 1)`, whose own docstring reads *"**The B4 Halász grade**
+`ρ = 1/(32e)` — the un-halved Halász-direct route (the ⟦V4⟧ cost discovery: the `1/2` of
+`rhsFbound` is a free monotone downgrade, so the balance page runs at `1/e`, not `1/(2e)`)."*
+That `ρ` feeds `theta83 ρ = ρ/3`, which is the exponent in `H83 X θ = (log X)^θ`.
+⇒ **The `1/e` is not a coefficient in the arc. It is a RATE.**  `1/e` appears as the family
+`1/(k·e)`, `k ∈ {2,16,32,64,96,192}`, 472 occurrences.
+⇒ 🔑 ***I MEASURED THE COST SIDE AND CALLED IT THE PRICE OF THE WHOLE TRADE.***  The mirror of the
+banked headroom law: there I over-read a ratio as slack; here I under-read a rate as a constant.
+**Both errors are one error — pricing a two-sided quantity from one side.**
+
+### ✅ NODE 9 — THE BENEFIT MADE CHECKABLE (`salt`, `Salt/MR/A2Wall.lean`, `[3 axioms]`)
+At `θ = log 2` the grade is `ρ = (1/2)/32 = 1/64`, and the `1/32`-floor fallback becomes
+`a2wall_floor64_65 : 1/65 ≤ 1/64 − 1/5000`, sharp (`a2wall_floor64_64_fails`).
+**Against `a2wall_floor32_89` the sharp integer moves 89 → 65**, so under §3's landed ceiling
+`97.6516…` the admissible window widens from `n ∈ [89, 96]` to `n ∈ [65, 96]`.
+⛔ **NOTHING CONSUMES THESE AND `rhoB4` IS UNCHANGED** — they state what the page becomes IF the
+balance page is re-run at the lifted grade. Re-running it is a design act, not mine.
+⇒ 🔑 ***WHEN A CLAIM ABOUT A NUMBER IS THE DELIVERABLE, THE NUMBER IS A NODE*** — I had this in a
+bus post as prose for forty minutes; it is two `norm_num` lines.
+
+### ⛔ AND A PROCESS DEFECT WORTH MORE THAN THE NODE
+I bundled a long-line CHECK into the same command as the BUILD and backgrounded the pair — so the
+check ran, printed, and I never read it; the linter caught the line instead. ⇒ 🔑 ***A VERIFICATION
+BUNDLED INTO A BACKGROUNDED COMMAND IS A VERIFICATION YOU DID NOT RUN.***  Backgrounding is for the
+thing you will be NOTIFIED about; anything whose output you must READ belongs in the foreground.
