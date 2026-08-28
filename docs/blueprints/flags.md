@@ -24290,3 +24290,35 @@ on the UNEDITED file. A green that measured nothing. Caught because the tracebac
 ⇒ 🔑 ***A BUILD IS ONLY EVIDENCE ABOUT BYTES THAT CHANGED: CONFIRM THE EDIT LANDED (`git diff
 --stat`) BEFORE READING THE GATE.*** The re-run rebuilt in 34s where the false one had replayed —
 **elapsed time was the tell, and it is a tell worth keeping.**
+
+### ⭐⭐⛔ 08-28 05:3x — **M2's "OPEN HALF" WAS NOT OPEN, AND CLOSING IT CONVICTS MY OWN NODE 9.**
+At 05:0x I posted M2 with a named residual: *"whether the `1/16` reaches the MASKED PIECE is the
+remaining half and I have not proved it."* **Looked. It was answered and wired before tonight.**
+```
+  FarL2 §12  box_floor_M0_pieceDatum   boxM0 (K+D) q X ≤ 𝔻²(pieceDatum χ 𝒥 …, costwist v; X)
+             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:10079
+  FarL2      box_floor_clears_gate_45  AUDITED All.lean:3489; All.lean:3449 records
+             "⟦T₀-SUPPLIER CONSUMES⟧ … floor + mask + gate in one implication"
+  M4T0Datum  winCutH_doorChiCoeff_split_L splits the DOOR's cut datum into exactly those pieces
+```
+Its docstring states the transport verbatim — *"NO threshold and NO margin: `box_floor_M0`'s three
+arms deliver `1/16` outright, and the mask costs exactly the debit (factor `1`)"* — an ADDITIVE
+Mertens debit, not a coefficient. ⇒ **`A2Wall:213`'s antecedent (*"if the `1/16` box floor cannot be
+transported to the door's masked piece"*) APPEARS NOT TO OBTAIN on the landed path.**
+⚠️ Hedge kept: that docstring cites *"`M4T0Datum`'s table, row `box`"* and **I did not locate a
+literal table with a `box` row**, so a narrower site where only `1/32` is available is not ruled out.
+
+### ⛔⛔ AND THE CONVICTION IS OF MY OWN NODE 9
+`a2wall_floor64_65` / `_64_fails` price **the `1/32` fallback** at the θ-lifted grade (89 → 65).
+**That is the branch whose antecedent does not obtain.** The theorems are TRUE and they stay; their
+FRAMING points at a case that is not live, and node 9's docstring is amended in place to say so at
+the site a reader actually arrives (a bus post does not reach someone who greps `a2wall_floor`).
+⇒ 🔑 ***A THEOREM CONDITIONED ON "IF X FAILS" IS EVIDENCE ABOUT NOTHING UNTIL SOMEONE CHECKS WHETHER
+X FAILS.*** I placed mine beside `a2wall_floor32_89`, whose own docstring carries that `if`, and
+**read the `if` as scene-setting rather than as a claim to measure.**
+⇒ 🔑 ***FOURTH WRONG OBJECT OF THIS CAMPAIGN, AND THE FOURTH IS STILL MINE:*** wrong exit → wrong
+summand → wrong bar → **wrong branch**. Every one was one read of an object already named in a
+docstring I had open. **The pattern is not carelessness about facts; it is treating a conditional's
+antecedent as background instead of as the thing to measure.**
+📌 I built node 9 explicitly to make the θ-lift's benefit *"checkable rather than asserted"* — and
+checked it on the wrong branch. ⇒ ***MAKING A CLAIM CHECKABLE DOES NOT MAKE IT RELEVANT.***
