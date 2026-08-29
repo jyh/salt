@@ -176,7 +176,7 @@ ROUNDED IN AN UNKNOWN DIRECTION.**  `hthr` is `1250·loglog H ≤ log H`; with `
 
     `L* = 11710.2777…`
 
-The scoping brief (`seat/briefs/2026-08-21-mrt-port-scoping-BRIEF-v2.md:117`) records the floor as
+The scoping brief (`2026-08-21-mrt-port-scoping-BRIEF-v2.md:117`) records the floor as
 `log H ≳ 1.17e4`.  **`1.17e4 = 11700` lies BELOW that root: there `L − 1250·log L = −9.18` and the
 inequality FAILS.**  The first integer that works is **`log H ≥ 11711`** (margin `+0.65`).  The
 brief's `≳` is honest to two significant figures; a reader who instantiates AT the quoted figure is

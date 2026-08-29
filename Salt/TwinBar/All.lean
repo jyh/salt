@@ -315,7 +315,7 @@ open Salt.Tactic in
 
 The terminal above ends `rcases le_or_gt siftedSum 0` and returns `Or.inr hs` on the survivor
 branch, so **the size is discarded**.  The λ-BV wave-2 §3 refuter pass
-(`seat/briefs/2026-08-21-w2-0-design-block-DRAFT.md` §7, verdict 4) named that as an extraction
+(`2026-08-21-w2-0-design-block-DRAFT.md` §7, verdict 4) named that as an extraction
 repair to *"adopt in any consumer"*.
 
 ⭐ **It is ROUTE-INDEPENDENT, which is why it lands even though the wave it was found in died.**

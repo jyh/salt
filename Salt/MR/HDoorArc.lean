@@ -12,7 +12,7 @@ import Salt.Entropy.Chowla.ShiftFork
 
 Nodes **N1–N3** (the arc transfer) and **N4a–N4d** (the `h`-`L²` adapter chain) of the
 helm/Fable commission
-`seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md` (freeze v2, 4-refuter pass). Worker-tier;
+`2026-08-26-helm-COMMISSION-7b-hdoor.md` (freeze v2, 4-refuter pass). Worker-tier;
 the design is closed and the shape is picked — **(a ∧ b)**, the NAMED transfer chain with `h`
 visible in every statement, over (c)'s respelling of the door.
 

@@ -112,7 +112,7 @@ inputs of the capstone to `PiAsymp` + `EHall` in
 /-! ## ⭐ THE TRACK'S AXIOM GATE (added 2026-08-26, math)
 
 ⛔ **WHY THIS BLOCK EXISTS: UNTIL TODAY THIS AGGREGATE AUDITED NOTHING — ON A CLOSED RUNG.**  A
-census run for the helm's carried-debt order (`seat/briefs/2026-08-26-math-REPORT-uncovered-set.md`)
+census run for the helm's carried-debt order (`2026-08-26-math-REPORT-uncovered-set.md`)
 found `Salt/Twelve/All.lean` and `Salt/LS/All.lean` were **the only two track aggregates in the repo
 with no `#audit_axioms` block** — every other `*/All.lean` carries one.  Measured audit-name
 coverage of this track was **5 of 398 declarations (1%)**, the lowest in the repo, on a rung whose

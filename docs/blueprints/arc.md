@@ -152,7 +152,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   **+23.65 additive** on `loglog X`, a factor ≤ ~4, **never a rate**. **Arithmetic independently
   re-verified 03:5x** (exponent `0.08255`; limit `1/12 = 0.083333`; lever `log 15500 = 9.649` against
   a floor of `log H₊ − 14`) — figures and method in
-  `seat/briefs/2026-08-26-math-DECISIONS-awaiting-a-word.md` ①.
+  `2026-08-26-math-DECISIONS-awaiting-a-word.md` ①.
   ⇒ **R-1 is the CONSUMER of `QUEUE.md` P2 item 6, which the same ruling commissioned at WORKER
   tier.** A head reading §7's *"Now: R-1"* must not fire a wave here.
   ⚠️ **DISCLOSED BY THE HELM AT THE RULING, NOT HIDDEN:** *"`arc.md` is the blueprint I authored under

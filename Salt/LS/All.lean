@@ -119,7 +119,7 @@ numeral `≈ 5792 ≤ 6000`.
 /-! ## ⭐ THE TRACK'S AXIOM GATE (added 2026-08-26, math)
 
 ⛔ **WHY THIS BLOCK EXISTS: UNTIL TODAY THIS AGGREGATE AUDITED NOTHING.**  A census run for the
-helm's carried-debt order (`seat/briefs/2026-08-26-math-REPORT-uncovered-set.md`) found that
+helm's carried-debt order (`2026-08-26-math-REPORT-uncovered-set.md`) found that
 `Salt/LS/All.lean` and `Salt/Twelve/All.lean` were **the only two track aggregates in the repo with
 no `#audit_axioms` block at all** — every other `*/All.lean` carries one.  The track built green and
 **nothing checked its axioms**, which is the precise shape of *a dead branch reading as coverage*:

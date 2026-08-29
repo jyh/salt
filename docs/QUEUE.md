@@ -28,7 +28,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
-## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. | helm→math | — |
+## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
@@ -55,20 +55,20 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## | **arc Wave 1 / lane A** | deliberate freeze under the Captain's D-1 ruling (a) — statements stay frozen, lane A never burned; reopens at one fetch. | the arc commission | at the arc's next design block |
 ## | **item 15 interior holds** | SUPERSEDED — item 15 was SEALED at council 08/25 and its ground is the arc commission's; the interior "NOT DISPATCHABLE" lines are history, not live gates. | — | — |
 ## *(Sibling registers, same law, recorded where their work lives: verso's F-219 regeneration hold
-## and lossy-quote hold carry AT-ISSUE blocks in `seat/briefs/2026-08-26-helm-DESIGN-f219-and-Bthreshold.md`;
+## and lossy-quote hold carry AT-ISSUE blocks in `2026-08-26-helm-DESIGN-f219-and-Bthreshold.md`;
 ## t2_00 is dated behind C and B by council ruling; tape-out artifact retention ripens 10-25.)*
 
 ## ✅ **ALL FOUR RULED 2026-08-26 06:0x (helm) AND EXECUTED BY MATH THE SAME HOUR — the block
 ## below is READING ORDER, not a wait. R-1's disclosed tier caveat was additionally AFFIRMED AT
 ## FABLE TIER 07:5x, so nothing here is pending.**
 ## ⚖️⚖️ **FOUR RULINGS ARE RIPE AS OF 2026-08-26 03:3x (math) — ONE PAGE, READ IT BEFORE PULLING:**
-## **`seat/briefs/2026-08-26-math-DECISIONS-awaiting-a-word.md`** (5 KB). ① re-tier `arc.md`'s R-1,
+## **`2026-08-26-math-DECISIONS-awaiting-a-word.md`** (5 KB). ① re-tier `arc.md`'s R-1,
 ## *it is not a node* (its `10^222` is a demanded EXPONENT → `1/12`, invariant under the only knob;
 ## arithmetic re-verified independently) · ② commission the **POINT→BAND** block (P2 item 6), now
 ## priced — seam is ONE theorem, one structural residual (coefficient `1 → 1/4`), **spend nothing on
 ## grade** · ③ **SPLIT P2 item 7** — first half DONE, second half is a frequency-convention design
 ## question · ④ **CLOSE P2b item 18 as EXONERATED** — 13/13 citations verified, zero defects, and do
-## NOT authorise its bulk `v2` pass. Evidence: `seat/briefs/2026-08-26-math-BANK-the-headroom-was-an-exponent.md` §1–§9.
+## NOT authorise its bulk `v2` pass. Evidence: `2026-08-26-math-BANK-the-headroom-was-an-exponent.md` §1–§9.
 ## ⛔ **Suggested standing rule in that page: A QUEUE ITEM THAT *BLOCKS* SHOULD CARRY A RE-MEASURE
 ## DATE.** Three holds outlived their conditions in one night (the saltworks freeze · item 7's
 ## *"gated on W-F3"* · P2b's *"No Tao PDF exists"*) and **all three were TRUE WHEN WRITTEN** — a stale
@@ -785,7 +785,7 @@ RESURRECTS THEM:**
 12c. ⚖️ **THE 984 — THEOREMS WITH NO AUDITED TERMINAL. FILED 2026-08-26 17:0x (math), HELM-ROUTED
     "FILE IT, DO NOT TRIAGE IT NOW."** The CI-coverage debt is DISCHARGED; this is what it left
     behind, at a LOWER TIER than the apex. **Do not let it displace λ-BV.**
-    📋 **THE ARTIFACT:** `seat/briefs/2026-08-26-math-REPORT-dead-branches.md` — full 984-name
+    📋 **THE ARTIFACT:** `2026-08-26-math-REPORT-dead-branches.md` — full 984-name
     appendix with file and track, plus the method and every control.
     ```
       declared theorems in source                                        17985
@@ -4614,7 +4614,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 7b. ✅⚖️ **RULED AND COMMISSIONED 2026-08-26 11:1x (helm, Fable) — NO LONGER DESIGN-FIRST; MATH
    EXECUTES AT WORKER TIER. The pick and the five-node route:
-   `seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`, which is the authority — read it, not
+   `2026-08-26-helm-COMMISSION-7b-hdoor.md`, which is the authority — read it, not
    the shape list below, which is preserved as the question's original statement.**
    ⛔ **THE COMMISSION STRIKES TWO CLAIMS IN THIS ROW, both verified at the bytes by a 4-refuter
    pass: ② "`M4SievedDoorSq` NEEDS NO h-ANALOGUE — the socket is shift-agnostic" is TRUE OF THE
@@ -4652,7 +4652,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
      (c) a route that never needs `harc` at the untwisted spelling at all
    ```
    ✅⚖️⭐⭐ **RESOLVED — HELM/FABLE COMMISSION 2026-08-26 11:1x, freeze v2, 4-refuter pass
-   (`seat/briefs/2026-08-26-helm-COMMISSION-7b-hdoor.md`). THE SHAPE IS PICKED: (a ∧ b).**
+   (`2026-08-26-helm-COMMISSION-7b-hdoor.md`). THE SHAPE IS PICKED: (a ∧ b).**
    The helm's correction to my framing: **(a) and (b) are ONE SHAPE** — (b) names the derivation,
    (a) names where the cost lands, and any route through the arc supply pays the cap inflation on
    the public hypothesis surface. **The real fork was (a∧b) vs (c), and (c) stays rejected on two
@@ -4924,7 +4924,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 ✅⚑ **DISCHARGED STALE — SWEPT 2026-08-26 11:2x (helm, block-register law), AND IT IS THE
 REGISTER'S OWN CASE STUDY: the Captain's push ruling came on 2026-08-23 — recorded three days
-ago in P1.5's own row in `seat/fleet/QUEUE-jas.md` ("VERIFIED AT EXECUTION 08/23 10:3x, per the
+ago in P1.5's own row in `QUEUE-jas.md` ("VERIFIED AT EXECUTION 08/23 10:3x, per the
 Captain's push ruling") — and ALL SIX formerly-unpushed branches are AT ORIGIN, measured
 2026-08-26 by `git ls-remote` on `jyh/jas` (scrubguard-all-branches · live-recompute-cache-identity ·
 equivalence-gate-cannot-skip · boolean-container-multimember-parity · stroke-align-bounds ·
