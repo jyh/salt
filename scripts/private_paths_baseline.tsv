@@ -1,0 +1,6 @@
+# private_paths_baseline.tsv -- ACCEPTED residue for the tree ratchet (check_private_paths.py --tree).
+# file<TAB>line-sha16<TAB>what. Shrink it after a repair with --tree --write-baseline; a growth is a reviewed diff.
+docs/exploration/council-0727.md	3839fd901700bf28	a path into a private-record repo
+docs/exploration/pilot.md	d5633eb8b70ce8a1	a path into a private-record repo
+docs/exploration/pilot.md	915c2c949e5a6f92	a path into a private-record repo
+docs/exploration/pilot.md	d32a151dab775e14	a path into a private-record repo
