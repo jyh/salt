@@ -23367,3 +23367,958 @@ green; the degradation clause was never reached. **Actual difficulty: B**, not C
 `Salt/Chen` namespaces; `Salt/HB` holds the block predicate's own support theory, because
 that is where the dimension-4 instantiation needed it. A `grep -F chi_` across ALL namespaces
 before pricing a block-predicate node would have priced this one at a tenth of its budget.
+
+---
+
+## ARC-R1 — THE `Kvt` RIDER IS NOT AN INEQUALITY (math, 2026-08-26 01:5x)
+
+**Node:** `arc.md` §4's **R-1** — *"the `Kvt` rider discharge: prove the cushion inequality at
+the terminal's regime. Measured headroom `10^222`; may price B/C rather than D."*
+**Verdict: NOT ATTEMPTED, and it should not be — the node as worded has no proof to find.**
+No proof attempt was spent; this is a pricing flag raised BEFORE any attempt, which is why it
+cost a census and not a wave.
+
+**What was measured** (bytes only, every citation re-grepped after the edits above it):
+
+* the cushion is applied at `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊` (`V7Headline.lean:157`), and
+  `arcDen 12 H = (Real.log H)^12` (`BigXiArc.lean:148`) ⇒ the evaluation point
+  `Qm = ⌈(log H₊)^12⌉₊` **moves with the same `H₊` that funds the budget**;
+* budget `Kvt ≤ e^518/128 ≈ 10^222.9` (from `3.2·A ≤ loglog H₋`, `162 ≤ A`) against
+  `Qm ≥ e^6216 ≈ 10^2699.5` ⇒ the row's `10^222` **is the demand `siegelBandB Qm ≲ Qm^0.083`**;
+* pushing `A` through `A₀ ≤ A` raises both sides; the exponent converges to **`1/12`** — the
+  `arcDen` exponent, **invariant under the only knob the caller has**;
+* the object under the demand has **no rate**: `capFreeFloor3_margin_all_chi_vt` is
+  `max 0 (max Kvk (max Kbulk Kband))`, and `Kband` descends through `chi_floor_band_arm` →
+  `chi_floor_band_uniform` → `chi_Llower_band_uniform`, **a bare induction-max over every
+  modulus `q ≤ Q`** (`SiegelBand.lean:36`: *"no known growth rate in `Q`"*). The cushion's own
+  docstring already says *"has no effective bound anywhere in the corpus"*
+  (`RegisterSupply.lean:481`);
+* `Kvk`/`Kbulk` **are** effective — Wave K's stones (`cpeel_le_two`, `primeTailConst_le_27`,
+  salt `aa66b675`) bottom them out. **The band arm is the whole blocker.**
+
+**The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
+(*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`, which `_g0` sets to **zero**)
+makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:82`); with
+`ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
+`loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
+`H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
+
+**Where the node actually lives:** `QUEUE.md` P2 **item 6, POINT→BAND (K_vt effectivisation)**,
+Captain-promoted P3→P2 on 08/20. The point half is LANDED —
+`l1LowerEffective_goldenGate` (`EvenChiDescent.lean:248`), and **its own scope fence names this
+exact gap**. `arc.md` never cited that item. **The re-tier and the re-owner are helm/Fable
+calls; flagged, not taken.**
+
+⭐ **THE DIVIDEND, and it is the reason this flag is worth its length: POINT→BAND NEEDS NO
+SHARPNESS.** Any effective band floor `B(q) ≤ a·log q + c` with `a`, `c` explicit — any
+polynomial grade, however crude — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c` and clears the budget by
+hundreds of orders. So P2 item 6's *"unpriced until it exists"* becomes a price, and a design
+block for it must spend **nothing** on grade.
+
+🔑 **THE REUSABLE LESSON.** ***A HEADROOM IS A RATIO BETWEEN TWO QUANTITIES; WHEN BOTH MOVE WITH
+THE SAME PARAMETER IT IS NOT SLACK ON A CONSTANT — IT IS A DEMANDED EXPONENT.*** The row that
+sent me here was written by reading a true arithmetic figure (`e^518/128`) and attaching it to
+the wrong kind of object. Same genre as this seat's standing law *an instrument can be correct
+about what it measured and wrong about what it implied* — here the instrument was one division.
+📌 And the corollary that nearly cost a wave: **a design law stated for `X`-independent debits
+does not reach a debit evaluated at an `H₊`-DEPENDENT INDEX.** `SiegelBand.lean`'s absorption
+argument is sound and does not apply.
+
+---
+
+## λ-BV WAVE 2 — `hcount` — ⚖️ **A BANKED NEXT-NODE STATEMENT IS THE WRONG SHAPE. FLAG, NOT A RULING.**
+**2026-08-26 19:1x · Opus 5 (executor tier) · `Salt/TwinBar/TwinParitySieve.lean`**
+
+### The inherited target
+My predecessor's bank (`2026-08-26-math-BANK-7b-closed.md` §14) names the next node as:
+
+> `logSifted_lower_of_count_and_atoms` takes `hcount : Hmain ≤ ∑_{d∣P} μ(d)·C_d`. That sum carries
+> μ's SIGNS, so ONE-SIDED bounds on each `C_d` DO NOT DISCHARGE IT … What discharges it is the
+> TWO-SIDED per-class form `C_d = ν(d)·H + err_d` with `err_d` controlled.
+
+### The finding
+**The diagnosis is right and the prescription is under-specified in a way that a landing would
+hide.** "Two-sided" does not pin the KIND of error. The two-sided pair this track already audits
+(`sum_inv_affine_le` + `sum_inv_affine_ge`) is a **MULTIPLICATIVE** sandwich — `(1/d)·H` above,
+`(1/(2d))·H` below, the factor 2 coming from `1/(dm+r) ≥ 1/(2dm)`. But `∑_d μ(d)·C_d` **CANCELS**
+to `W·H`, which is far smaller than its individual terms, so a factor-2 slop per class does not
+perturb the main term — **it destroys it.** Only an ADDITIVE `err_d`, with the same `1/d` scaling
+as the main term, survives the cancellation.
+
+⛔ **THIS FAILS GREEN.** Building the two-sided companion as the bank's words read would compile,
+audit `[3 axioms]`, and increment the wave scoreboard **while leaving `hcount` exactly as far
+away.** A correct theorem against the wrong shape.
+
+### ⚖️ WHAT I DID, AND THE PART THAT IS NOT MINE TO DECIDE
+✅ **Built, on its own terms and connected to nothing:** `sum_inv_affine_sub_harmonic` —
+`0 ≤ (1/d)·∑_{m≤M} 1/m − ∑_{m≤M} 1/(d·m+r) ≤ 2/d` for `r ≤ d`, error one-signed, `[3 axioms]`,
+`salt 668a7c42`, `saltbuild EXIT=0` / 8813 jobs. Statement checked numerically before any Lean
+(`max d·err ≈ 1.0` against the claimed `2`, so the bound is not vacuous). **Pure addition:
+`108 insertions(+), 0 deletions` — no landed statement altered, weakened, or re-stated.**
+
+⛔ **NOT RULED, AND FLAGGED HERE INSTEAD:** whether wave 2's route to `hcount` should now be
+re-stated around the additive error term. I substituted my own target statement for the banked one
+on executor authority; **that substitution is a flag, not a workaround, and the re-statement is
+Fable/human-tier.** The atom above stands regardless of how that is ruled — it is route-independent
+in the same sense §7's verdict-4 repairs were — but **no one should read its landing as the wave's
+next node having been re-specified.**
+
+📌 The predecessor's `sum_inv_class_le` docstring and its `All.lean` card both state the one-sided
+gap honestly and in their own words; I appended the second layer beside them rather than editing
+either, so the original wording survives above mine.
+
+🔑 ***"TWO-SIDED" DOES NOT SAY WHICH KIND OF ERROR YOU HAVE — ASK WHAT THE CONSUMER DOES WITH THE
+TWO SIDES, NOT HOW MANY SIDES THERE ARE.*** And: ***an inherited target that does not anticipate
+its consumer is a FLAG, not a licence to re-aim.***
+
+---
+
+## P2 ITEM 5 / ITEM 12 — THE W-CAP CONJUNCT ON `ChowlaRegime` — ⚖️ **DESIGN FINDING. THE BLOCKING SITE IS THE ANTI-VACUITY WITNESS.**
+**2026-08-26 22:1x · Opus 5 (executor tier) · measured at the helm's request, tier turns on this**
+
+### The question as put
+*How many `ChowlaRegime` construction sites are there, and can each discharge the W-cap conjunct
+from the landed arm `regime_W_cap_of_floor` (S10b)?  All discharge ⇒ mechanical, executor-tier.
+Any site cannot ⇒ design finding, site named.*
+
+### ⛔ FIRST: THE LANDED ARM IS NOT UNCONDITIONAL
+`regime_W_cap_of_floor` takes **`hthr : 1250·log(log H₋) ≤ log H₋`** as a hypothesis. It is not
+derivable from the regime's own fields: `hHlo_floor : 4000000 ≤ Hlo` gives `log H₋ ≈ 15.20`, and
+the threshold's root is **`L* = 11710.2777…`, first integer `11711`** (re-solved here, not copied —
+the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
+**`H₋ ≥ exp(11710.28) ≈ 10^5086`** — a `770×` increase in `log H₋`, not a numeric tightening.
+
+### 📐 THE CENSUS — 5 construction sites (three search shapes; structure-instance form is the only one used)
+```
+  Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
+  Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
+  Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
+  Salt/MR/XCeil.lean:502                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
+```
+**The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor
+is caller-driven and unboundedly raisable.
+
+### ⛔⛔ THE SITE THAT CANNOT: `regime_exists_of_dropSum` (`RegimeInst.lean:169-175`)
+It hardcodes `Hlo := 4000000` with `hHlo_floor := le_refl _`, and **it is the corpus's ANTI-VACUITY
+WITNESS** — the proof that a `ChowlaRegime` exists at all. Chain:
+`Diverge.lean:450 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
+regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:251`.
+
+Raising its `Hlo` to `10^5086` is **not a mechanical edit**: its own hypothesis is
+`hJ : log 2 < towerDropSum 2 1 4000000 J`, **stated at the literal `4000000`**, and whether the
+telescoped decrement still exceeds `log 2` at the new base is a mathematical question, not a
+re-`norm_num`.
+
+⚖️ **AND THE STAKE IS THE WHOLE STRUCTURE.** Measured: **585** sites quantify over `ChowlaRegime`
+and **284** are `∃ R : ChowlaRegime` producers. If the conjunct lands and this witness is not
+rebuilt, `ChowlaRegime` has **no known inhabitant**, and every one of those 585 goes **VACUOUSLY
+TRUE with a green build and a clean axiom audit** — 7b's own law, at corpus scale.
+⇒ 🔑 ***A FIELD ADDED TO A STRUCTURE IS PAID FOR AT ITS INHABITATION WITNESS, AND THAT WITNESS IS
+USUALLY THE ONE SITE WITH NO FREE PARAMETERS — the others take the floor from a caller; the witness
+must BE the floor.***
+
+### 📐 DIRECTION, AS ASKED
+Adding a conjunct shrinks the type: **∀-quantified consumers get the field free and become WEAKER
+statements (fewer regimes), carrying NO new hypothesis** — all 585. The cost lands entirely on the
+284 ∃-producers. Of those, the four parametric sites would newly carry a hypothesis **only under the
+caller-pays option**:
+```
+  (a) caller pays   add `exp(11711) ≤ Hlo₀` to all four ⇒ four theorems NEWLY CARRY A HYPOTHESIS,
+                    and it propagates to every caller of each
+  (b) site pays     widen the internal max: `max 4000000 …` → `max ⌈exp 11711⌉₊ …`.  NO new
+                    hypothesis — but each of these theorems EXPOSES `R.Hlo = max …` as an equation
+                    in its conclusion, so the exposed value changes under every consumer that reads it
+```
+**Neither option touches the blocking site**, which is why this is a ruling and not a wave.
+
+### ⚖️ RECOMMENDATION (helm/Fable/Captain tier — NOT taken here)
+Do not add the conjunct as a `ChowlaRegime` field. The cheaper shapes, unpriced here: carry the
+W-cap as a **hypothesis on the consumers that need it** (as `regime_W_cap_of_floor` already does),
+or as a **derived predicate / sub-structure** that only the W-cap road demands. *Item 5's own closing
+line already says the landed arm is "AN ARM, NOT A WIRING"; this measures why the wiring is expensive.*
+
+---
+
+## A.3 ⇒ A.2 — ⛔ **STOPPED ON THE HELM'S CONDITION 2: THE STATEMENT IS MISSING, NOT MERELY HARD.**
+**2026-08-27 01:3x · Opus 5 (executor tier) · opened on helm ruling 01:2x, stopped before any proof attempt**
+
+### The ruling and the condition it names
+*"`A.3 ⇒ A.2` is yours, open it … If the STATEMENT turns out missing or wrong rather than merely
+hard, STOP. That is E-5c's situation, it is reserved, it comes to me."*
+
+### ⛔ MRT's THEOREM A.2 IS NOT STATED IN LEAN. THE SLOT IS EMPTY.
+`Salt/MR/MRTPropA3.lean`'s own erratum (2026-08-25 second pass, `:3843-3854`) says it in its own
+words: *"The def below is therefore **NOT MRT's Theorem A.2** and no longer claims to be … The
+`A.2` slot in the spine `A.3 ⇒ A.2 ⇒ A.1` is **still empty**; that hole is now honestly visible
+instead of being papered over by a name."*  The object once named `MRTThmA2` was **renamed
+`MRTThmA1GJ`** because it is A.1's bound for the `g_𝒥`-restricted datum, not A.2:
+```
+  A.2's middle term (source p.21)   (log h)^{1/3} / P₁^{1/6−η}
+  A.1's middle term (landed :126)   (log log h)² / (log h)²          — different objects
+  A.2's extra binders              η ∈ (0,1/6) · [P₁,Q₁] ⊆ [1,h] · X > X(η) · h ≥ 3
+  gJ vs S                          gJ is the indicator of NO prime factor in any 𝒥-block;
+                                   MemS is ≥1 prime factor in EVERY block — OPPOSITE on nonempty 𝒥
+```
+⇒ **`A.3 ⇒ A.2` has no target.**  I stopped before attempting anything; **no proof attempt was made
+and no statement was authored.**
+
+### 📐 ABSENCE VERIFIED IN THREE SHAPES, WITH A CONTROL
+```
+  name grep for *A2*        finds only the S8 ladder (thm_a2', a2Level1, a2RowsSum, thm_a2_spine)
+                            and ThmA2Open.lean — ⚠️ A DIFFERENT A2, the corpus's own S8 node
+  A.2's distinctive term    (log h)^{1/3}/P₁^{1/6−η} appears only inside A.3's OWN statement
+                            (`MRTPropA3.lean:2694`, `:12`), never as an A.2 def
+  the η binder              only in A.3's def (`:96`) — A.1 has none, and no third def carries it
+  CONTROL                   `MRTThmA1` (`MRTThmA1.lean:120`) and `MRTPropA3` (`:92`) both resolve,
+                            so the probe can find a stated spine node when one exists
+```
+⚠️ **THE NAME COLLISION IS LIVE AND IT COST ME A LOOK:** `Salt/MR/ThmA2.lean`, `ThmA2Spine.lean`
+and `ThmA2Open.lean` are the **S8 `thm_A2′` ladder**, unrelated to MRT's Theorem A.2 — the same
+shape as this campaign's two different "Prop 2.4", which a predecessor lost a day to.
+⇒ 🔑 ***A FILE NAMED FOR A THEOREM IS NOT EVIDENCE THE THEOREM IS THERE; IN A CAMPAIGN WITH TWO
+SOURCES, IT IS EVIDENCE OF A COLLISION UNTIL READ.***
+
+### ⭐ NOT A DEAD END — WHAT IS ALREADY THERE FOR WHOEVER AUTHORS A.2
+* **A.2's content is KNOWN AND SOURCE-VERIFIED**, quoted verbatim in the erratum, read at 200 dpi
+  from `1503.05121v3` p.21 and cross-checked with `pdftotext` and `docs/sources/mrt_extract.md:200-201`.
+  **The authoring is a transcription with a verified source, not a research question.**
+* **The A.3-side Parseval join is LANDED and abstract** — `parseval_a3_join`
+  (`ThmA2Open.lean:164`), plus `a3_prefactor_band_le_two`, `a3_prefactor_max_le_three`,
+  `a3_logQ_third_mono`, `a3_logQ_term_mono` (`:129`, exactly the `Q₁ ≤ h` monotonicity that turns
+  A.3's `(log Q₁)^{1/3}/P₁^e` into A.2's `(log h)^{1/3}/P₁^e`), `a3_head_le_third_grade`.
+  ⇒ **the `[P₁,Q₁] ⊆ [1,h]` consumptions are already explicit hypotheses there**, which is the part
+  MRT's *"proceeds as [17, Theorem 3]"* leaves implicit.
+* **`𝒥 = ∅` bridge to A.1 already landed:** `mrtThmA1_of_mrtThmA1GJ_empty`.
+
+⇒ ⚖️ **BACK TO THE HELM: authoring `MRTThmA2` is statement-tier and reserved.  Once it exists, the
+implication has real landed support and is a genuine Class-C dispatch.**  *Nothing here is a
+recommendation about whether to author it.*
+
+---
+
+## A3-3 / A3-4 — ⛔ **A4ii AND A5 ARE BLOCKED BY A ZERO-FREE-REGION MISMATCH THAT IS STATEMENT-LEVEL.**
+**2026-08-27 02:5x · Opus 5 (executor tier) · granted by helm 02:4x, priced before attempting, zero proof attempts spent**
+
+### The grant and its conditions
+*"A4ii, A5, A6, A7 are yours … If one prices above C once you are inside it, stop and flag. The
+E-5c condition stands."*  **Both conditions fire on A4ii and A5, and they fire together.**
+
+### ⛔ ① THE MACHINERY IS ABSENT — A4ii's OPEN HALF NEEDS TWO THINGS THE CORPUS LACKS
+A4ii's hypothesis is a disjunction and **its first branch is already PROVED**: `mrtA4ii_high_M` and
+`mrtA4ii_high_M_target` (`MRTPropA3.lean:517`, `:536`) discharge `M ≥ ⅛loglog X` from the landed
+part (i).  The open half is `M < ⅛loglog X` **and** `|t−t₁| > (log X)^{1/16}/2`, and MRT prove it in
+two sub-cases (`mrt_extract.md:228-232`, source p.23, eq A.5/A.6):
+```
+  (log X)^{1/16}/2 ≤ |t−t₁| ≤ (log X)^{20}   𝔻(1,p^{it};X)² ≥ (1−2/π)log(log X/log Y) + O(1),
+                                              Y = exp((log X)^{2/3+ε})   ⟵ NO SUCH MACHINERY LANDED
+  |t−t₁| > (log X)^{20}, |t| ≤ X             (t−t₁)log p/2π equidistributed (mod 1) by the
+                                              ERDŐS–TURÁN INEQUALITY + the VK zero-free region for ζ
+```
+⛔ **Erdős–Turán is NOT in the corpus.**  This file's own census (`:1202-1203`) already measured it:
+identifier arm and filename arm each return **one hit, `turan_kubilius` / `TuranKubilius.lean` — a
+DIFFERENT THEOREM.**  *The census was already written; nobody had connected it to this lemma.*
+
+### ⛔⛔ ② AND THE HARDER HALF: THE CONSTANT IS TIED TO A REGION WE DO NOT HAVE
+```
+  MRT's A.4/A.6 use   VK θ = 2/3   ⇒  the sharp constant 1/6 − 1/(3π)
+  OUR landed region   VK θ = 3/4   (`Salt.Vk.zeta_zero_free_region_pow`, explicit:
+                                    Re ρ ≤ 1 − c/((log|Im ρ|)^{3/4}(log log|Im ρ|)³))
+```
+`mrt_extract.md:326-329`, this repo's own risk list, says it outright: *"MRT uses the VK θ=2/3
+region → coefficient 1/3 (in (1.12), Lemma A.4/A.6, the `1/6 − 1/3π` and `1/125` exponents) … For
+any QUANTITATIVE port the sharp exponents are **θ=2/3-tied and would shift — re-derive**."*
+
+**`MRTLemmaA4ii` states the θ=2/3 constant `1/6 − 1/(3π)`.  `MRTLemmaA5` states it too**, inside
+`(log X)^{1/6 − 1/(3π) − ε}`.  ⇒ **Proving either AS STATED needs a θ=2/3 region we do not have; with
+θ=3/4 the constant SHIFTS, and changing it is a STATEMENT CHANGE — reserved.**
+⇒ 🔑 ***A CONSTANT CAN BE A CITATION.  `1/6 − 1/(3π)` IS NOT A NUMBER THIS CORPUS CAN DERIVE — IT IS
+A RECORD OF WHICH ZERO-FREE REGION ITS AUTHOR HELD, AND WE HOLD A DIFFERENT ONE.***  *Nothing in the
+statement says so, and the kernel cannot: the def typechecks perfectly at any constant.*
+
+### 📐 TRIAGE OF THE FOUR, MEASURED NOT GUESSED
+```
+  A4ii  ⛔ BLOCKED  branch 1 PROVED; branch 2 needs Erdős–Turán (absent) + θ=2/3 VK (we hold 3/4)
+                    and its target constant is θ=2/3-tied            ⇒ statement-level, RESERVED
+  A5    ⛔ BLOCKED  same constant `1/6 − 1/(3π)` in its own RHS      ⇒ same tie, RESERVED
+  A6    ⚖️ NOT θ-TIED ON ITS FACE — RHS is exp(−M/2)/(1+|t−t₁|) + (log X)^{−1/16}; MRT prove it by
+                    "the method of Halász's theorem from [9]" (Granville–Harper–Soundararajan) with
+                    the s_𝒥/ℓ/Λ_ℓ decomposition and Lemma A.8 — and **A.8 IS LANDED**
+                    (`halasz_cosh_ineq`, re-exported as `exp_add_exp_sub_two_cos_le`).  UNPRICED.
+  A7    ⚖️ NOT θ-TIED ON ITS FACE — a renormalization/shift, O(X/(log X)^{1/10}).  UNPRICED.
+```
+⚖️ **BACK TO THE HELM ON A4ii AND A5.**  Not "too hard": **the statements name a constant our
+zero-free region cannot produce.**  Whether to (a) port a θ=2/3 VK region, (b) re-derive both
+statements at θ=3/4 with shifted constants, or (c) leave them, is statement-tier and is not mine.
+**Zero proof attempts were spent** — this was priced by reading the source extract and the corpus's
+own risk list before writing a line.
+📌 A6 and A7 remain mine under the grant and are NOT blocked by this finding.
+
+### ⛔ ADDENDUM 03:0x — **A6 IS CONSTANT-BLOCKED TOO. THREE OF THE FOUR, SAME CLASS, DIFFERENT INPUT.**
+A6 needs `exp(−M/2)`, i.e. a Halász constant of **`1/2`**.  Measured across every landed direct
+Halász bound:
+```
+  halasz_direct_center · _gen · _free · _gen_free · halasz_direct_ball_window_free
+      constants:  1/(2e) ≈ 0.184   and   1/e ≈ 0.368        NEVER 1/2
+  exp(−M/(2e)) ≥ exp(−M/2)  ⇒ the landed supply is STRICTLY WEAKER and cannot give A6
+  the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
+      CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
+```
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:242,611`)
+— **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
+Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
+⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
+HELD.  A4ii/A5 cite a θ=2/3 zero-free region; A6 cites a sharp Halász.  WE HOLD BOTH IN WEAKER
+FORM, AND IN ALL THREE CASES THE STATEMENT TYPECHECKS ANYWAY.***
+
+### 📐 REVISED TRIAGE OF THE GRANT — ONE OF FOUR IS LIVE
+```
+  A4ii  ⛔ constant-blocked (θ=2/3 VK) + Erdős–Turán absent      ⇒ statement-tier, RESERVED
+  A5    ⛔ constant-blocked (same θ=2/3 constant)                ⇒ statement-tier, RESERVED
+  A6    ⛔ constant-blocked (sharp Halász 1/2 vs landed 1/(2e))  ⇒ statement-tier, RESERVED
+  A7    ✅ LIVE — a partial-summation SHIFT estimate.  Its `1/10` is an error exponent, not a
+           citation of an external theorem; `mrtT0`'s radius `|t−t₁| ≤ (log X)^{1/16}` is landed
+           and is exactly what makes the shift cheap.  MINE, and being opened.
+```
+⚖️ *Zero proof attempts spent on any of the three blocked lemmas — all priced by reading.*
+
+### ⛔⛔⛔ CORRECTION 03:1x — **I FILED A4ii AS "CONSTANT-BLOCKED". IT IS WORSE: `MRTLemmaA4ii` IS REFUTED IN THE KERNEL.**
+`not_mrtLemmaA4ii : ¬ MRTLemmaA4ii` (`MRTPropA3.lean:1378`) — **a landed theorem**, witness `f ≡ 1`
+with `t₁ = (log X)^{1/16}/2 + 1`, where `mrtM f X = 0` is attained at `s = 0` while
+`pretDistSq f (costwist t₁) X > 0`, **so that `t₁` is not a minimiser and `t₁` floats free.**
+The live object is **`MRTLemmaA4iiFixed`** (`:…`), which pins `t₁`:
+`|t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X`.  Its high-`M` arm is already landed
+(`mrtA4iiFixed_high_M`); the repair *"constrain `t₁`, do not weaken the conclusion"* buys the far
+branch's centre cap as DERIVABLE (`mrtA4ii_far_centre_cap`).
+
+⇒ **Nobody should attempt `MRTLemmaA4ii`: it is FALSE, and the kernel says so.**  My earlier entry
+priced it as blocked-by-a-missing-region, which is true of the FIXED form and understates the
+unfixed one. **Corrected here rather than edited above, per annotate-never-rewrite.**
+⚠️ **The θ=2/3 constant tie STILL APPLIES to `MRTLemmaA4iiFixed`'s far branch** — that finding
+stands; it simply attaches to the repaired statement.
+
+⛔ **AND THE PROCESS DEFECT IS MINE, AND IT IS THE SECOND TIME TONIGHT FOR THE SAME LAW.**  I read
+`def MRTLemmaA4ii`, read the source, priced it — and never grepped `not_` against its own name.
+**Tonight I wrote the law after re-deriving a lemma that already existed:** *"WHEN YOU READ A
+DEFINITION TO LEARN A PREDICATE, GREP ITS NAME AS A PREFIX TOO."*  ⇒ 🔑 ***EXTEND IT: GREP `not_`
+AGAINST ANY STATEMENT YOU ARE ABOUT TO PROVE.  A CORPUS THAT REFUTES ITS OWN STATEMENT LEAVES THE
+STATEMENT STANDING — the def still typechecks, still audits, still reads like a target.***
+✅ **Swept the whole ladder for the same shape:** `MRTLemmaA5`, `A6`, `A7`, `MRTThmA1`, `MRTPropA3`
+carry **no refutations**.  A4ii was the only one, and it was the one I was pricing.
+
+### ⛔⛔⛔ 03:2x — **A7 IS STATEMENT-BLOCKED TOO. ALL FOUR ARE. AND I MUST RETRACT MY OWN CORRECTION TO THE HELM.**
+
+**A7:** its renormalization factor carries an **unresolved conjugation ambiguity**, already documented
+in this file (`:1848-1868`): *"The statement (A.8) and its own proof carry opposite signs in the
+renormalization factor … Nothing in the paper resolves it, and the reason is that nothing in the
+paper NEEDS it resolved."*  MRT discard the multiplier at p.25 and use only its **modulus**
+(`|X^{iu}/(1+iu)| = 1/√(1+u²)`, invariant under `u ↦ −u`).  **`MRTLemmaA7` states the IDENTITY**, so
+it asserts one of two values `mrtA7_factors_differ` proves distinct.
+⇒ ***A FORMAL STATEMENT IS STRICTLY MORE SENSITIVE THAN ITS SOURCE AT EXACTLY THE POINTS THE SOURCE
+NEVER LEANS ON — and those are precisely where a transcription error survives undetected, because
+the original had no reason to be careful there.***  (That sentence is the corpus's, not mine.)
+
+### ⛔⛔ THE RETRACTION — MY 01:33 CORRECTION TO THE HELM WAS WRONG
+I told the helm: *"your STATEMENT-BOUND claim is FALSE of A.3's ladder — A4ii/A5/A6/A7 are stated
+and audited with no producers, so it is PROOF-bound and executor time moves it."*  The helm took the
+correction and rewrote the desk on it.  **Measured lemma by lemma, the helm was right and I was
+wrong:**
+```
+  A4ii  REFUTED IN THE KERNEL (not_mrtLemmaA4ii) — t₁ floats free; live form is …Fixed
+  A5    constant `1/6 − 1/(3π)` tied to a θ=2/3 VK region; we hold θ=3/4
+  A6    constant `exp(−M/2)` tied to sharp GHS Halász; we hold an explicit peel at 1/(2e)
+  A7    renormalization factor UNRESOLVED between two conjugates; the source never needed it
+```
+**Four lemmas, four DIFFERENT statement-level blocks, and the corpus had already documented three.**
+
+⇒ 🔑 ***"STATED AND AUDITED" IS NOT "STATEMENT-SETTLED".*** My producer-census asked *does a proof
+exist?* and answered correctly.  It could not see that a def **typechecks and carries an audit line
+while being refuted, mis-transcribed, or tied to an input this corpus does not hold.**  ⇒ ***A
+PRODUCER CENSUS MEASURES PROOFS, NOT STATEMENTS — AND I REPORTED ITS NULL AS IF IT MEASURED BOTH.***
+📌 The helm's original read came from the apex arm's shape; mine came from a grep. **The grep was
+sound and the inference was not.**
+
+### ⚖️ WHAT IS ACTUALLY OWED, AND BY WHOM
+* **A4ii** — target `MRTLemmaA4iiFixed`, not `MRTLemmaA4ii`.  High-`M` arm landed; far branch θ-tied.
+* **A5 · A6** — decide the constants: port the sharper external input, or re-derive at what we hold.
+* **A7** — resolve the conjugation from the SOURCE (p.24-25 at 200 dpi), then the statement is
+  provable-in-principle; the shift itself is honest partial summation and `mrtT0`'s radius is landed.
+* **All four are statement-tier.**  Zero proof attempts were spent on any of them.
+
+### ⭐⭐ 04:0x — **A7's CONJUGATION IS RESOLVED FROM THE SOURCE. MRT's PRINTED STATEMENT (A.8) IS THE WRONG ONE, AND OUR LEAN COPIED IT.**
+**Evidence gathered at executor tier — a MEASUREMENT plus a derivation. No statement was authored.**
+
+**① THE SOURCE IS INTERNALLY INCONSISTENT, READ VERBATIM AT BOTH SITES** (`1503.05121v3`, offset 48728):
+```
+  Lemma A.7's STATEMENT (A.8):   Σ_{n≤X} g_J f n^{-it} = [ X^{i(t−t₁)} / (1 + i(t−t₁)) ]·Σ … n^{-it₁} + O(X/(log X)^{1/10})
+  Lemma A.7's OWN PROOF,
+  applying [10, Lemma 7.1]:      Σ_{n≤X} g_J f n^{-it} = [ X^{i(t₁−t)} / (1 + i(t₁−t)) ]·Σ … n^{-it₁} + O(…)
+```
+**The two displays are conjugates of each other, three lines apart.**
+
+**② THE PROOF IS RIGHT AND THE STATEMENT IS WRONG — DERIVED, THEN CONTROLLED.**
+Partial summation with `A(x) = Σ_{n≤x} aₙ n^{−it₁}` and `u = t − t₁`:
+`Σ aₙ n^{−it} = X^{−iu}A(X) + iu∫₁^X x^{−iu−1}A(x)dx → X^{−iu}A(X)/(1 − iu)`,
+and `X^{−iu} = X^{i(t₁−t)}`, `1 − iu = 1 + i(t₁−t)` — **MRT's PROOF form.**
+✅ **NUMERIC CONTROL** (`aₙ ≡ 1`, `t₁ = 0`, direct sum vs each candidate):
+```
+        X        u    |S−stmt|/|S|    |S−proof|/|S|
+    10^4      0.5          1.6828         0.000042
+    10^5      2.0          0.1448         0.000005
+    10^6      0.5          0.3205         0.000001      ⇒ proof form matches; statement form is
+    10^6      2.0          1.9678         0.000001         wrong at O(1) RELATIVE error
+```
+
+**③ ⇒ `MRTLemmaA7` AS STATED IN LEAN IS FALSE, AND IT IS REFUTABLE WITH A NAMED WITNESS.**
+Take `f ≡ 1`, `𝒥 = ∅` (so `gJ ≡ 1`), `t₁ = 0`, `t = u` fixed.  Then `mrtM f X = 0 < ⅛loglog X` and
+`|t − t₁| = u ≤ (log X)^{1/16}` for large `X`, so **`t ∈ mrtT0` genuinely**; the asserted difference is
+`≍ X` while the bound allows only `C·X/(log X)^{1/10} = o(X)`.
+⭐ **`¬ MRTLemmaA7` IS A THEOREM ABOUT AN EXISTING STATEMENT — PROOF WORK, NOT STATEMENT AUTHORING,
+AND THE CORPUS HAS PRECEDENT IN `not_mrtLemmaA4ii`.**  ⇒ *offered as executor-tier work; not begun
+without a word, since it changes what the ladder's A7 slot means.*
+
+🔑 ***THE CORPUS PREDICTED THIS EXACT FAILURE BEFORE ANYONE READ THE PAGE:*** *"a formal statement is
+strictly more sensitive than its source at exactly the points the source never leans on — and those
+are precisely where a transcription error survives undetected, because the original had no reason to
+be careful there."*  **MRT never use the factor, only its modulus `1/√(1+u²)`, invariant under
+`u ↦ −u`. Their inconsistency costs them nothing and costs us the lemma.**
+📌 And our transcription was FAITHFUL — it copied the printed statement exactly. ⇒ ***FIDELITY TO A
+SOURCE IS NOT CORRECTNESS WHEN THE SOURCE CONTRADICTS ITSELF; A TRANSCRIPTION CHECK COMPARES TO ONE
+DISPLAY, AND THE DEFECT LIVED BETWEEN TWO.***
+
+---
+
+## A6 RISK BRANCH — ⛔ **ABSORPTION IS REFUTED. THE `1/2` IS TUNED, NOT SLACK.**
+**2026-08-27 10:1x · Opus 5 · council item ④c, absorb-first arm · measured before any D-class spend**
+
+### The order
+*"A6 is the priced risk branch: absorb `1/(2e)`-vs-`1/2` through the argument, else sharpen our
+Halász to `1/2`."*  **The absorb arm is measured here and it FAILS. The mechanism is exact.**
+
+### ⛔ WHY THE CONSTANT CANNOT BE ABSORBED — IT IS CONSUMED BY A SQUARING
+A6 bounds `F`; the `T₀` step bounds `∫F²` (`mrtA3_T0_bound_of_A6`, `:2220`, thence
+`mrtA3_band_bound_of_A6`, `:2906`).  **Both merely CARRY the constant** — which is what made
+absorption look plausible.  It is consumed one step later, at A.3's own statement:
+```
+  A6 at constant c   ⟶ squared in the T₀ integral ⟶  exp(−2cM)
+      c = 1/2        ⟶  exp(−M)        ← EXACTLY `MRTPropA3`'s own term `mrtM f X / exp (mrtM f X)`
+      c = 1/(2e)     ⟶  exp(−M/e)      ← strictly weaker; cannot imply it
+```
+⇒ 🔑 ***THE `1/2` IS NOT A CONSTANT SOMEONE CHOSE LOOSELY — IT IS THE UNIQUE VALUE THAT SQUARES INTO
+A.3's `exp(−M)`.  A HALVED EXPONENT UPSTREAM OF A SQUARING IS A TUNED QUANTITY, AND IT LOOKS LIKE
+SLACK RIGHT UP TO THE STEP THAT SQUARES IT.***
+
+### 📐 AND NO CONSTANT ABSORBS THE LOSS — CHECKED BOTH WAYS
+```
+  unbounded M:  exp(−M/e)/exp(−M) = exp(M(1−1/e)) → ∞    (M=20 ⇒ 3.1e5)  ⇒ no C works
+  BOUNDED M on T₀ (M < ⅛loglog X), the fair test:
+      loss ≤ (log X)^{(1/8)(1−1/e)} = (log X)^{0.0790}
+      against A.3's own tail term      (log X)^{−0.02}
+  ⇒ the loss is a POSITIVE power of log X where the budget is a NEGATIVE one — NOT absorbable
+```
+*The bounded-`M` test is the one that matters and I ran it because the unbounded test alone would
+have been an unfair refutation: `T₀` genuinely bounds `M`.  It fails anyway, and by a clear margin.*
+
+### ⚖️ WHAT THIS SETTLES, AND WHAT IT LEAVES
+* **The absorb arm is closed.** Not "hard" — refuted, with the exponent arithmetic.
+* ⇒ **The live arm is the ruling's second: SHARPEN OUR HALÁSZ TOWARD `1/2`.**  Every landed direct
+  bound sits at `1/(2e)` or `1/e` (`halasz_direct_center` and its four siblings); the target is `1/2`.
+  **C/D-class, spend authorized by the same ruling.**
+* ⛔ **A THIRD ROUTE EXISTS AND IS NOT MINE:** re-derive `MRTPropA3`'s own statement at the weaker
+  exponent, so the squaring target moves to meet us.  **That is a STATEMENT ACT — flagged, not
+  authored** (minute ④b). *Recorded because a reader who sees only "sharpen Halász" may not realise
+  the alternative was considered and is reserved rather than overlooked.*
+📌 Calibration per the erratum holds and is not in tension with this: **smaller constants that clear
+their bar are correct results** — `1/(2e)` simply does not clear THIS bar, because the bar is an
+equality-in-the-exponent, not an inequality with room.
+
+### ⭐⭐ 10:5x — **A6's SHARPENING HAS A ROUTE: THE WALL AT `2c = 1` IS A CHANGE OF SHAPE, NOT A FAILURE**
+**Derivation only — no build run (saltbuild HELD for silicon's DRV window). Priced, not attempted.**
+
+**① OUR `1/(2e)` IS AN INSTANTIATION, NOT A WALL.**  `sigma_cutoff_pretentious_gen`
+(`SeamBallWeighted.lean:325`) is **PARAMETRIC IN `c`**, with one constraint:
+```
+  sigma_cutoff_pretentious_gen {c L M C b : ℝ} (hc0 : 0 < c) (hc1 : 2 * c < 1)
+      ∫_{1/L}^{b} (1/σ²)·exp(−c(M − 2log(σL) − C)) dσ  ≤  (exp(cC)/(1−2c))·exp(−cM)·L
+```
+Its own docstring: *"the convergence margin is `2c = 1/e < 1` (comfortable; **the method's wall is
+`2c = 1`**)"*.  The `_half` face fires it at `c = 1/(2e)` because **(A.13)/(A.14)'s square root
+halves the B-ladder's pointwise exponent** — a choice made upstream, not a limit of this lemma.
+⇒ **Every `c < 1/2` is already reachable with the landed machinery.**
+
+**② BUT THE CONSTRAINT IS STRICT, AND A6 NEEDS EXACTLY `c = 1/2`.**  Sharpening to `1/2 − δ` does
+not help: squaring gives `exp(−(1−2δ)M)`, still short of A.3's `exp(−M)`.  ⇒ *the one value the
+method excludes is the one value needed* — which is why this reads as a wall.
+
+**③ ⭐ AND IT IS NOT A WALL. AT `c = 1/2` THE INTEGRAL CHANGES SHAPE.**  The `1/(1−2c)` factor is
+merely the antiderivative's denominator: `∫σ^{2c−2}dσ = (b^{2c−1} − (1/L)^{2c−1})/(2c−1)`.  **At
+`c = 1/2` the exponent `2c−1` is ZERO**, so the integral is not a power but a LOGARITHM:
+```
+  c < 1/2 :  bound = exp(−cM)·exp(cC)·L / (1−2c)        ← constant blows up as c → 1/2
+  c = 1/2 :  ∫σ^{−1}dσ = log(bL)  ⇒  bound = exp(−M/2)·exp(C/2)·L·log(bL)
+                                                        ← SHARP exponent, cost is ONE LOG
+```
+⇒ 🔑 ***A DIVERGENT CONSTANT AT A CRITICAL EXPONENT IS USUALLY A LOG IN DISGUISE: the formula
+`1/(1−2c)` is `0/0` at the wall, and the honest evaluation there is `log`, not `∞`.***
+
+**④ ⭐⭐ AND THE LOG IS THE SIZE A.3 ALREADY BUDGETS.**  On `T₀`, `M < ⅛·loglog X`; here `L = log X`,
+so the cost `log L = loglog X` — **the same scale as `M`.  And A.3's own first term is
+`exp(−M)·M`, carrying exactly one extra factor of that size.**
+⇒ ***THE `M` IN A.3's `exp(−M)·M` IS THE CRITICAL-EXPONENT LOG CORRECTION.***  The sharp route does
+not need the `M` factor absorbed — **A.3's statement was written with it there.**
+
+### ⚖️ WHAT THIS IS AND IS NOT
+✅ A **route** for the A6 wave: fire the σ-cutoff at the critical `c = 1/2`, evaluate the integral
+logarithmically, and land the extra factor against A.3's own `M`.
+⛔ **NOT a proof, and not attempted.**  `sigma_cutoff_pretentious_gen` cannot be *instantiated* at
+`c = 1/2` — `hc1` forbids it; the critical case needs its own lemma with the `log` antiderivative.
+**That lemma is the A6 wave's first node**, and it is ordinary analysis, not new theory.
+📌 Scale match verified numerically (`1/(1−2c)` → 500 at `c = 0.499` vs `log L ≈ 6.9` at `c = 1/2`,
+`L = 10³`): the log is not merely finite, it is *small* beside the constants the sub-critical route
+was already paying.
+
+### ⛔⛔ 11:5x — **I MUST CORRECT MY OWN A6 ROUTE: THE σ-CUTOFF WAS NOT THE BINDING WALL**
+
+Node 1 (`sigma_cutoff_pretentious_crit`, `salt 831fe6ae`) is correct and stands: at `c = 1/2` the
+σ-cutoff integral is exactly `exp(C/2)·exp(−M/2)·L·log(bL)`, so the sub-critical `1/(1−2c)` really
+is a log in disguise.  **But it is not the wave's binding node, and I reported it as though it
+were.**  Traced upward:
+```
+  sigma_cutoff_pretentious_gen   hc1 : 2c < 1      wall at c = 1/2   ⇒ PASSABLE (node 1: it is a log)
+  halasz_direct_reduce           hce : c ≤ 1/e     wall at c ≈ 0.368 ⇐ TIGHTER, and UPSTREAM
+  window_sup_decay_gen           hce : c ≤ 1/e     same cap, same reason
+  head_sigma_bound (SupF:818)    exponent 1/e      ⇐ THE ACTUAL CONSTANT
+        `‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−(1/e)·𝔻²(1, g·p^{−it}; e^{1/σ}))`
+```
+`window_sup_decay_gen`'s own docstring says why `c ≤ 1/e` is there, in its own words: *"the exponent
+chain `c·(M − 2log(σL) − 48) ≤ c·𝔻² ≤ (1/e)·𝔻²` — the second by `𝔻² ≥ 0` and `c ≤ 1/e`."*  ⇒ **the
+cap is pure MONOTONICITY used to reach `head_sigma_bound`'s exponent.  `1/e` is not a choice made in
+the peel; it is the constant of the head bound itself.**
+
+⇒ 🔑 ***A WALL YOU CAN SEE IS RARELY THE BINDING ONE. I PRICED THE CONSTRAINT THAT WAS WRITTEN AS A
+HYPOTHESIS (`2c < 1`, visibly blocking) AND MISSED THE ONE WRITTEN AS A CONSTANT (`1/e`, sitting
+inside a landed bound's conclusion).  A HYPOTHESIS ANNOUNCES ITSELF; A CONSTANT DOES NOT.***
+
+### ⚖️ WHAT SURVIVES, AND WHAT THE WAVE'S REAL FIRST NODE IS
+✅ **Node 1 survives on its own terms** — it removes the `2c < 1` wall permanently, and that wall
+WOULD have bound once the head bound was sharpened.  *It is necessary and was not sufficient.*
+⛔ **The binding node is `head_sigma_bound`'s `1/e` → `1/2`.**  That is not a peel adjustment: GHS's
+proof of Halász obtains `1/2` by a different argument than the one our `euler_log_bound` +
+pin-composition route gives.  **C/D-class, spend authorized — but it is a PORT of a sharper head
+estimate, not a re-instantiation.**
+📌 **And it re-prices A5 identically:** A5's Halász R-polynomial bound draws on the same head
+constant, so the two share this node rather than each needing their own.
+⚠️ **Reported before spending the D-class budget on the wrong node.**  My 10:5x post said the route
+was "fire the σ-cutoff at the critical `c`"; that is step two, and step one is upstream.
+
+### 📐 11:5x — **A6's D-CLASS NODE IS LOCALIZED TO ONE INEQUALITY**
+Chasing `head_sigma_bound`'s `1/e` to its birth:
+```
+  euler_log_bound (SupF:186)          ‖L‖ ≤ exp(cpeel)·exp(∑'_p Re(g p · p^{−s}))   NO 1/e — clean
+  dist_identification_sigma (:757)    ∑'_p Re(g p)p^{−1−σ}
+                                        ≤ (log(1/σ) + (log4+cpeel)) − (1/e)·𝔻²(1,g; e^{1/σ})
+  ⇒ THE CONSTANT IS BORN AT :728-733, three lines:
+        hYσ     : Y ^ σ = Real.exp 1              (Y = e^{1/σ})
+        hpσ_le  : (p:ℝ) ^ σ ≤ Real.exp 1          (for p ≤ Y)
+        hcut_p  : 1 / Real.exp 1 ≤ (p:ℝ) ^ (-σ)   ⇐ THE WHOLE CONSTANT
+```
+⇒ 🔑 ***`1/e` IS THE UNIFORM WORST-CASE VALUE OF `p^{−σ}`, ATTAINED ONLY AT THE TOP ENDPOINT
+`p = e^{1/σ}`.***  Every smaller prime has `p^{−σ}` nearer `1`, and `hcut_p` throws all of that
+away — it is the crudest available move, and it is the only place the constant enters.
+
+### ⚖️ WHAT THIS MEANS FOR THE SHARPENING
+* **The node is not diffuse.** The whole `1/e → 1/2` question is `hcut_p`, one line, and everything
+  downstream (`window_sup_decay_gen`, `halasz_direct_reduce`, the peel faces) merely transports it.
+* ⛔ **But it is NOT a local fix.**  `𝔻²` weights primes by `1/p`, and `∑_{p≤Y} 1/p ≍ loglog Y`, so
+  the top dyadic block carries a constant fraction of the mass — the worst case is not a rare
+  corner.  Recovering it needs the σ-INTEGRAL to see the `p`-dependence, which is precisely GHS's
+  argument and precisely what a per-prime uniform bound cannot do.
+* ⇒ **Confirms the council's pricing: a PORT of GHS's Halász proof, C/D-class.**  What is new is
+  that the port has a single named target rather than a whole file: **replace `hcut_p`'s uniform
+  step with a `p`-aware one, and every consumer inherits the sharper constant unchanged.**
+📌 **And it re-prices A5 identically** — A5's R-polynomial bound draws on the same head constant, so
+`hcut_p` is the shared node for BOTH lemmas the constants grant covers.
+
+### ⛔⛔ 13:5x — **`hcut_p` IS SHARP. MY "ONE-LINE TARGET" FRAMING WAS WRONG.**
+At 11:5x I filed that A6's whole `1/e → 1/2` question is one inequality (`SupF:733`) and that the
+port's target is *"replace `hcut_p`'s uniform step with a `p`-aware one, and every consumer inherits
+the sharper constant"*.  **Measured, and that is FALSE: the step cannot be improved in place.**
+
+`hcut_p` replaces `p^{−σ}` by its worst case `1/e` on `p ≤ Y = e^{1/σ}`.  The ratio it costs is the
+mass-weighted average of `e·p^{−σ}`:
+```
+   mass at p ≈ Y        (top of range)  e·p^{−σ} = 1.0000   ⇐ the bound is ATTAINED
+   mass at p ≈ Y^{1/2}                  e·p^{−σ} = 1.6487
+   mass at p ≈ Y^{1/10}                 e·p^{−σ} = 2.4596
+```
+⇒ **An adversarial `g` putting all of `𝔻²`'s mass near the top endpoint attains `1/e` exactly.**  No
+inequality at this step can do better, because a `p`-aware bound needs to know where the mass sits
+and the statement quantifies over all 1-bounded `g`.
+⇒ 🔑 ***A CONSTANT THAT IS ATTAINED IS NOT A LOOSE STEP — IT IS THE TRUE VALUE OF THAT STEP, AND
+"REPLACE IT WITH SOMETHING SHARPER" IS NOT AVAILABLE.  LOCALIZING A CONSTANT TO ONE LINE SAYS WHERE
+IT ENTERS, NOT THAT IT CAN BE IMPROVED THERE.***
+
+### ⚖️ WHAT THIS DOES TO THE NODE
+* ⛔ **Struck:** the 11:5x claim that the port has "a single named target" and that consumers inherit
+  a sharper constant unchanged.  They would — if the constant could move.  It cannot, here.
+* ✅ **What survives and is now sharper as a finding:** the *localization* is still right — `1/e`
+  enters at exactly one place and everything downstream transports it.  **That is a map, not a lever.**
+* ⇒ **The sharpening must RESTRUCTURE, not substitute.**  GHS reach `1/2` by taking the σ-integral
+  BEFORE collapsing to the distance, so the `p`-dependence is still visible when the averaging
+  happens; our route collapses first (`dist_identification_sigma`) and then integrates
+  (`sigma_cutoff_*`), by which point the worst case has already been paid.  **The order of those two
+  operations IS the constant.**
+📌 That also explains cleanly why node 1 (`sigma_cutoff_pretentious_crit`) was necessary but not
+sufficient: it fixes the integration step, which in our order happens *after* the loss is locked in.
+
+### ✅⭐⭐ 17:5x — **BOTH ENTRIES ABOVE ARE SUPERSEDED: THE `1/e` MOVED, AND NEITHER ROUTE ABOVE IS WHY.**
+`SupF.head_sigma_bound`'s `1/e` is now `e^{−θ}` for a FREE `θ`, kernel-checked, four names all
+`[3 axioms]`, `Salt/MR/SeamBallWeighted.lean` §node 5–7:
+```
+  sigma_cut_lower_theta            e^{−θ}·𝔻²(1,g; e^{θ/σ}) ≤ ∑'_p (1−Re g p)p^{−1−σ}
+  dist_identification_sigma_theta  B1 at a free θ  (the peel half is θ-blind)
+  scale_floor_theta                the floor at e^{θ/σ} — SupF.scale_floor at σ′ = σ/θ, NOT re-proved
+  head_sigma_bound_theta           ‖F(1+σ+it)‖ ≤ C(1/σ)exp(−e^{−θ}·𝔻²(1,g·p^{−it}; e^{θ/σ}))
+```
+**`SupF.sigma_cut_lower` (:660) and `head_sigma_bound` (:818) are the `θ = 1` instances.**
+
+### ⛔ WHAT THE 13:5x ENTRY GOT RIGHT, AND THE ONE WORD THAT WAS WRONG
+`hcut_p` **IS** sharp — the adversarial-`g` measurement stands and is not disputed. What does not
+follow is *"the constant cannot move"*. The cut is `p^{−σ} ≥ (e^{θ/σ})^{−σ} = e^{−θ}` on
+`p ≤ e^{θ/σ}`, and `sigma_cut_lower` fixes `θ = 1`. **Sharp at the truncation scale the corpus
+pinned; the scale was a choice, never derived.**
+⇒ 🔑 ***A SHARPNESS PROOF PINS THE STEP, NOT THE STEP'S PARAMETERS.*** `1/e` reads as a constant of
+nature because it is spelled `Real.exp 1`; it is the value of `exp θ` at a `θ` nobody named.
+⇒ 🔑 ***ASK OF EVERY NUMERAL IN A STATEMENT: WAS THIS CHOSEN, OR FORCED?*** — the sharpness argument
+answered "forced" about the inequality and was read as answering it about the statement.
+
+### ⛔ AND THE RESTRUCTURE ROUTE (nodes 2–4) CANNOT PAY — TRACED TO ITS CONSUMER
+The 13:5x entry's remedy was *"take the σ-integral BEFORE collapsing to the distance"*. Measured
+against the chain: the `1/e` sits **inside `Real.exp`, pointwise in σ** (`head_sigma_bound`
+exponentiates `dist_identification_sigma`), and the σ-integral runs **outside** that exponential
+(`sigma_cutoff_pretentious_gen`). Averaging the linear defect sum and then exponentiating is Jensen
+in the wrong direction for an upper bound: `∫exp(−f) ≥ exp(−∫f)`, always.
+⇒ 🔑 ***A REORDERING GAIN IS ONLY COLLECTIBLE IF THE TWO OPERATIONS ARE ADJACENT; AN `exp` BETWEEN
+THEM IS A ONE-WAY VALVE.*** Nodes 2–4 are correct mathematics that the consumer cannot spend.
+
+### ⚖️ THE PRICE, AND WHAT IS NOT YET IN THE KERNEL
+Composing node 7 with node 6: `exp(−e^{−θ}(M − 2log(σL/θ) − 48))
+= exp(−c(M − 2log(σL) − 48))·(1/θ)^{2c}` with `c = e^{−θ}`.
+**The whole cost of moving the constant is the multiplicative factor `(1/θ)^{2c}` — never a rate.**
+At `c = 1/2` (θ = log 2) that factor is `1/log 2 ≈ 1.4427`, and node 1
+(`sigma_cutoff_pretentious_crit`) is exactly the `c = 1/2` σ-integral, which `_gen`'s `2c < 1`
+forbids. `c` strictly below `1/2` stays inside `_gen` at cost `1/(1−2c)`.
+⛔ **NOT YET DONE, and no consumer has moved:** that composition is arithmetic on this page, not a
+theorem; `window_sup_decay_gen`/`halasz_direct_*` are still pinned at `c ≤ 1/e`; and node 6 carries a
+NEW hypothesis `σ ≤ θ`, which caps the σ-window's top at `θ` — **a consumer with `b > log 2` does not
+get `c = 1/2` from this**, and no consumer's `b` has been measured yet.
+📌 A5 inherits it identically — same head constant, one stone for both lemmas, as first filed.
+
+### ✅⭐⭐ 18:2x — **THE CAP LIFTED AT THE CONSUMER: `window_sup_decay_theta`, `[3 axioms]`, first attempt.**
+`Salt/MR/HalaszDirect.lean`, beside `window_sup_decay_gen` (:171).  `hce : c ≤ 1/e` becomes
+`c ≤ e^{−θ}`; at `θ = 1` it IS `window_sup_decay_gen`.  **The `1/e` cap on the exits' exponent was
+inherited verbatim from `head_sigma_bound`'s pinned truncation, and it is now the caller's `θ`.**
+📌 The floor is `SupF.scale_floor_Mrange_seam` INSTANTIATED at `σ′ = σ/θ` — again no new input.
+
+### ⛔ AND I HAD THE PRICE IN THE WRONG SLOT, CAUGHT BEFORE LANDING
+The draft comment said the cost is `L ↦ L/θ` in `sigma_cutoff_pretentious_gen`'s conclusion, "a
+factor `1/θ`".  **False.**  `_gen`'s integration range STARTS at `1/L`, so substituting
+`L := logX/θ` silently moves the lower endpoint — and the consumer's σ-range starts at `1/logX`,
+which is the problem's, not ours to rescale.  The correct absorption is the **`C`-slot**:
+`log(σ·logX/θ) = log(σ·logX) + log(1/θ)`, so `C′ = 48 + 2log(1/θ)` (`≥ 0` for `θ ≤ 1`, which is
+`_gen`'s own `_hC`), and the factor is `exp(cC′)/exp(cC) = (1/θ)^{2c}` — at `c = 1/2`, `θ = log 2`,
+`1/log 2 ≈ 1.4427`.
+⇒ 🔑 ***AN ABSORPTION IS A CLAIM ABOUT WHICH SLOT, AND THE WRONG SLOT GAVE THE RIGHT VERDICT ("a
+constant, not a rate") WITH THE WRONG NUMBER.***  Both readings say "constant"; only one is
+derivable, and the verdict's being right is exactly why nothing would have caught it downstream.
+⇒ 🔑 ***A SUBSTITUTION MOVES EVERY OCCURRENCE — INCLUDING THE ONES IN HYPOTHESES AND INTEGRATION
+LIMITS.***  I checked the integrand and not the range.
+
+### ⚖️ WHAT IS NOW TRUE, AND WHAT IS STILL OPEN
+* ✅ **KERNEL, `[3 axioms]`:** the supply chain is free in `θ` end to end —
+  `sigma_cut_lower_theta` → `dist_identification_sigma_theta` → `head_sigma_bound_theta` →
+  `window_sup_decay_theta`.  `c = 1/2` is reachable at `θ = log 2`.
+* ⛔ **STILL PINNED AT `1/e`:** `halasz_direct_gen` (:325, `c = 1/e`) and `halasz_direct_ball`
+  (:385, `c = 1/(2e)`) — the two exits — and the `private halasz_direct_reduce` between them.
+  **Node 8 is a supply; no exit consumes it yet.**
+* ⛔ **THE `σ ≤ θ` CAP IS THE ONE REAL COST AND IT IS UNMEASURED AT THE CONSUMERS.**  Every exit
+  carries `hb1 : b ≤ 1` with `b` a FREE PARAMETER — **grepped: no call site in the corpus
+  instantiates `b` numerically**, so nothing breaks today, but `b ≤ log 2` would be a genuine
+  narrowing for any future consumer wanting the top of the window.  The header names `2η` and
+  `2/log y` as the intended instances, both small; that is a READING of the header, not a
+  measurement of a call site, and it is offered as such.
+* ⛔ **`c = 1/2` EXACTLY costs a `log(bL)`** — `_gen` requires `2c < 1`, and node 1
+  (`sigma_cutoff_pretentious_crit`) is the critical integral whose RHS carries that extra factor.
+  `c` strictly below `1/2` stays inside `_gen` at cost `1/(1−2c)`.
+
+### ⭐⭐⭐ 19:1x — **I UNDER-PRICED MY OWN RESULT, AND I ASKED THE HELM TO ROUTE THE WRONG OBJECTS.**
+I posted the θ-lift's benefit as a constant factor and asked for a word on re-aiming
+`halasz_direct_gen` / `halasz_direct_ball`. **Measured since, both were wrong.**
+
+**① THE LIVE ROUTE CITES NEITHER EXIT — the corpus says so in its own header.**  `PretSupply`'s P3
+exit `joint_sigma_integral` (:475): *"It is therefore neither of the two banked arms and cites
+neither: it cites `sigma_cutoff_pretentious_gen` at the caller's own `c`… leaving the S-3 citation
+choice — and every numeral — to the consumer."*  It carries `0 < c`, `2c < 1` and **no `c ≤ 1/e`
+at all.**  My routing ask named objects the arc does not use.
+⇒ 🔑 ***A CONSUMER CENSUS IS NOT A GREP FOR THE NAME I EXPECTED TO BE CONSUMED.***  I traced
+`halasz_direct_*` because MY node sat under it, not because the arc did.  (My own card:
+*scope to where the ANSWER lives, not the SUBJECT.*)
+
+**② WHERE `c` IS ACTUALLY CHOSEN — two sites, identical, and both DISCHARGE `hce` rather than
+assume it:** `StationHoist:196` and `SPartStation:912`, `set c : ℝ := 1 / (2 * Real.exp 1)`.
+**The station takes EXACTLY HALF the cap** (`c = (1/2)·(1/e)`), so cap and choice move together.
+📌 Of ~40 `hce : c ≤ 1/e` sites across 18 files, these two are the only ones that discharge it —
+⇒ ***THE NUMERAL LIVES WHERE A HYPOTHESIS IS DISCHARGED, NOT WHERE IT IS DECLARED***, and grepping
+the declarations counts transport, not decisions.
+
+**③ AND THE HEAD CONSTANT IS THE ARC'S HALÁSZ GRADE — IT SITS IN AN EXPONENT.**
+`USetPins.rhoB4 : ℝ := 1 / (32 * Real.exp 1)`, whose own docstring reads *"**The B4 Halász grade**
+`ρ = 1/(32e)` — the un-halved Halász-direct route (the ⟦V4⟧ cost discovery: the `1/2` of
+`rhsFbound` is a free monotone downgrade, so the balance page runs at `1/e`, not `1/(2e)`)."*
+That `ρ` feeds `theta83 ρ = ρ/3`, which is the exponent in `H83 X θ = (log X)^θ`.
+⇒ **The `1/e` is not a coefficient in the arc. It is a RATE.**  `1/e` appears as the family
+`1/(k·e)`, `k ∈ {2,16,32,64,96,192}`, 472 occurrences.
+⇒ 🔑 ***I MEASURED THE COST SIDE AND CALLED IT THE PRICE OF THE WHOLE TRADE.***  The mirror of the
+banked headroom law: there I over-read a ratio as slack; here I under-read a rate as a constant.
+**Both errors are one error — pricing a two-sided quantity from one side.**
+
+### ✅ NODE 9 — THE BENEFIT MADE CHECKABLE (`salt`, `Salt/MR/A2Wall.lean`, `[3 axioms]`)
+At `θ = log 2` the grade is `ρ = (1/2)/32 = 1/64`, and the `1/32`-floor fallback becomes
+`a2wall_floor64_65 : 1/65 ≤ 1/64 − 1/5000`, sharp (`a2wall_floor64_64_fails`).
+**Against `a2wall_floor32_89` the sharp integer moves 89 → 65**, so under §3's landed ceiling
+`97.6516…` the admissible window widens from `n ∈ [89, 96]` to `n ∈ [65, 96]`.
+⛔ **NOTHING CONSUMES THESE AND `rhoB4` IS UNCHANGED** — they state what the page becomes IF the
+balance page is re-run at the lifted grade. Re-running it is a design act, not mine.
+⇒ 🔑 ***WHEN A CLAIM ABOUT A NUMBER IS THE DELIVERABLE, THE NUMBER IS A NODE*** — I had this in a
+bus post as prose for forty minutes; it is two `norm_num` lines.
+
+### ⛔ AND A PROCESS DEFECT WORTH MORE THAN THE NODE
+I bundled a long-line CHECK into the same command as the BUILD and backgrounded the pair — so the
+check ran, printed, and I never read it; the linter caught the line instead. ⇒ 🔑 ***A VERIFICATION
+BUNDLED INTO A BACKGROUNDED COMMAND IS A VERIFICATION YOU DID NOT RUN.***  Backgrounding is for the
+thing you will be NOTIFIED about; anything whose output you must READ belongs in the foreground.
+
+### ⭐⭐⭐ 19:4x — **THE SURVEY I OWED, AND IT SPLIT THE WAVE'S RESULT IN TWO.**
+I closed the last entry saying *"I checked ONE wall, in the favourable direction. A single
+favourable wall is not a survey."*  Ran the survey.  **The corpus already carries the A.6 gap as
+two kernel theorems, and the θ-lift closes exactly one of them.**
+```
+  landed_halasz_M_rate_weaker_than_a6      1/e     < 1/2     ⟶ θ = log 2 gives EXACTLY 1/2. CLOSED.
+  landed_halasz_exponent_weaker_than_a6    1/(32e) < 1/16    ⟶ θ = log 2 gives 1/64.  STILL 4× SHORT.
+```
+⛔ **THE RESIDUAL 4 IS NOT IN THE HEAD CONSTANT AND NO `θ` REACHES IT.**  `rhoB4 = c/32`, so `θ`
+moves grade and rate by the SAME factor; even `θ = 0` (head cap `1`) leaves the grade at `1/32`,
+still short of `1/16`. The remaining `4` lives in the `/32` — a structural divisor of the balance
+page, a different object.
+⇒ 🔑 ***A LIFT THAT CLOSES ONE GAP EXACTLY IS EVIDENCE THAT THE OTHER GAP WAS NEVER THE SAME GAP.***
+Two shortfalls quoted against one lemma read as one deficiency with two symptoms. They are two
+deficiencies, and the parameter that answers one is SILENT on the other.
+📌 **This is why I stopped calling `c = 1/2` "the A6 target".** It is A.6's `M`-rate target and I had
+been treating it as A.6's target *simpliciter* — the wave's own framing, inherited unexamined
+through four sessions of bank.
+
+### ✅ NODE 10 — the split, in the kernel, beside the theorems it answers
+`Salt/MR/MRTPropA3.lean`, `[3 axioms]`, first attempt: `theta_lift_head_rate_at_log_two`
+(`1/exp(log 2) = 1/2`) and `theta_lift_grade_at_log_two_still_weaker` (`1/64 < 1/16`).
+**Placed beside the two landed gap theorems on purpose** — a reader arrives at the shortfall by
+grepping `weaker_than_a6`, so that is where the successor has to be (sibling-surface law).
+⛔ `MRTLemmaA6`'s statement is untouched; the `(1:ℝ)/16` literal and its 32 sites stand exactly as
+that file's own flag describes.
+
+### ⚖️ THE OTHER WALLS, AND THE ONE THAT POINTS THE WRONG WAY
+Every other wall calibrated against the `1/(k·e)` family survives the lift, and all but one gain
+slack: `t0d_far_exp_le` (`1009/90000 ≤ ρ`), `rho293_le_far` (`rho293 ≤ ρ`), `a2wall_floor32_89`
+(89 → 65), `m4_decay_exponent_neg` (`1/45 − 7/(30e) < 0`, more negative).
+⛔ **`landed_halasz_exponent_weaker_than_a6` is the one that points the other way** — it is an UPPER
+cap on the grade (`ρ < 1/16`), so a growing `ρ` moves TOWARD it, not away. At `ρ = 1/64` there is
+4× headroom, so it does not bind; **but it is the only member of the family whose direction is
+adverse, and a survey that reported "all favourable" would have been the wrong shape of answer.**
+⇒ 🔑 ***A FAMILY OF THRESHOLDS DOES NOT HAVE A DIRECTION; EACH MEMBER DOES.***
+
+### ⛔⛔⛔ 20:1x — **THE CONSUMER CENSUS ANSWERED, AND IT IS A HARD NEGATIVE. READ `MRTLemmaA6`'s RHS.**
+I said in the last entry that measuring *"is A.6 consumed at its M-rate, at its grade, or at both?"*
+was my tier. Measured, and the answer is in the statement's own bytes (`MRTPropA3:376`):
+```
+  ‖…‖ ≤ C * ( Real.exp (-(1/2) * mrtM f X) / (1 + |t - t₁|)   +   (Real.log X) ^ (-(1:ℝ)/16) )
+                        ⇧ the M-RATE summand                        ⇧ the GRADE summand
+```
+**A.6's conclusion is a SUM OF TWO TERMS, so a route must dominate BOTH: it needs `c ≥ 1/2` AND
+`ρ ≥ 1/16`.** The θ-lift delivers the first EXACTLY and cannot deliver the second at any `θ`.
+⇒ 🔑 ***WHEN A TARGET IS A SUM, CLOSING ONE SUMMAND BUYS NOTHING ON ITS OWN.*** The bound is
+governed by the weaker term, so a parameter that perfects one term and is silent on the other moves
+the result NOT AT ALL. ⇒ **The A6 wave, carried through in full, does not deliver A.6.**
+
+### ✅ NODE 11 — the impossibility, in the kernel (`b4_grade_cannot_reach_a6_from_head`, `[3 axioms]`)
+`∀ c ≤ 1, c/32 < 1/16`. `USetPins.rhoB4` is `c/32` by its own docstring, and the wave's head cap is
+`e^{−θ} ≤ 1`, so **no head constant whatever reaches A.6's grade through this route** — not at
+`θ = log 2`, not at `θ = 0` (which still gives only `1/32`, 2× short).
+📌 `θ < 0` is not an escape and the theorem's scope note says why: at `θ < 0` the truncation
+`e^{θ/σ} < 1`, the prime range is empty, `𝔻² = 0` and the bound is VACUOUS. A non-vacuous
+truncation forces `θ ≥ σ > 0`, hence `c < 1`. The `c ≤ 1` is a deliberate over-approximation.
+⛔ **SCOPE, STATED IN THE THEOREM ITSELF:** this is about the `c/32` ROUTE, not about A.6. It does
+NOT say A.6 is false or unreachable — only that moving the head constant cannot get this route's
+grade to `1/16`. Another route or a smaller divisor is not addressed and nothing rules one out.
+
+### ⚖️ WHAT THIS DOES TO THE WAVE, HONESTLY
+* ✅ **The θ-lift is real, kernel-checked, and closes a named gap exactly.** Eleven names today,
+  every one `[3 axioms]`. `head_sigma_bound`'s `1/e` was a pinned parameter and it is now free.
+* ⛔ **It is not what A.6 needed.** I spent the session sharpening the summand that was already the
+  easier one. The binding term was the OTHER one, in the same displayed formula, and I did not read
+  that formula until the eleventh node.
+⇒ 🔑 ***I TRACED THE CONSTANT I COULD MOVE INSTEAD OF THE ONE THAT WAS BINDING, FOR SIX HOURS, AND
+THE DISCRIMINATOR WAS TO READ THE TARGET'S OWN STATEMENT ONCE.*** Every measurement I took was of
+the SUPPLY side — where `1/e` enters, whether it is sharp, what it costs to move. The demand side
+was one `sed` of a `def` I had cited by name four times.
+⇒ 🔑 ***"WHAT IS OUR CONSTANT?" AND "WHAT DOES THE TARGET ASK FOR?" ARE DIFFERENT QUESTIONS, AND
+ONLY THE SECOND CAN TELL YOU WHETHER THE FIRST MATTERS.*** (My own `demand-side-first` card, which
+I have been carrying since 08/24, and which I did not apply until a sentinel poke sent me back.)
+📌 **THE NEXT OBJECT IS THE `/32`, AND IT IS A DIFFERENT PAGE** — the balance page's structural
+divisor, not the head constant. Whether it can move is design-tier and I have not looked.
+
+### ⭐⭐⭐ 21:0x — **THE LAW GENERALIZES: THE WHOLE SPINE IS MULTI-SUMMAND, AND THERE IS A SECOND IMPOSSIBILITY.**
+Applied node 11's discriminator — *read the target's own RHS* — to the sibling statements. Measured
+at the `def`s, not from memory:
+```
+  MRTLemmaA6      C·( exp(−M/2)/(1+|t−t₁|)  +  (log X)^{−1/16} )                        TWO summands
+  MRTThmA2        C·( exp(−M)·M  +  (log h)^{1/3}/P₁^{1/6−η}  +  1/(log X)^{1/50} )     THREE
+  MRTPropA3       C·(T/(X/Q₁)+1)·( (log Q₁)^{1/3}/P₁^{1/6−η} + M/exp(M) + 1/(log X)^{1/50} )  THREE
+  MRTLemmaA7Fixed C·X/(log X)^{1/10}                                                     ONE
+```
+⇒ **Every Halász / head-constant improvement in this campaign touches exactly ONE summand — the
+`M`-decay term — and is silent on the `P₁`-power and `(log X)^{−1/50}` terms.**
+⇒ 🔑 ***A CAMPAIGN'S TARGETS BEING SUMS IS A STRUCTURAL FACT ABOUT WHAT ANY LEVER CAN DO, AND IT IS
+READABLE FROM THE `def`s IN ONE PASS.*** Nobody had.
+
+### ✅ NODE 12 — `grade_cannot_reach_fiftieth_under_sigma_wall`, `[3 axioms]`, first attempt
+`∀ c < 1/2, c/32 < 1/50`. To dominate A.2/A.3's `1/(log X)^{1/50}` through the grade term
+`(log X)^{−ρ}` needs `ρ ≥ 1/50`, i.e. `c ≥ 32/50 = 16/25 = 0.64`. **But
+`sigma_cutoff_pretentious_gen` needs `2c < 1`** — the σ-integral DIVERGES at `c ≥ 1/2`, which is
+exactly why node 1 had to be proved separately at the critical value. `0.64 > 0.5`: **incompatible.**
+⭐ **AND IT IS A DIFFERENT OBSTRUCTION FROM NODE 11's.** There the blocker was the divisor `32`
+against a head capped at `1` (a SUPPLY-side cap). Here the head is capped at `1/2` by the
+σ-integral's CONVERGENCE — a SPEND-side wall — and it bites first.
+⇒ 🔑 ***TWO INDEPENDENT CAPS ON ONE PARAMETER BIND AT DIFFERENT PLACES; FINDING ONE DOES NOT MEAN
+YOU HAVE FOUND THE BINDING ONE.*** I had spent the day treating `c < 1/2` as a convenience the
+critical node worked around, and it is a hard ceiling on what the grade can ever be.
+⛔ **SCOPE, IN THE THEOREM ITSELF AND NARROWER THAN THE HEADLINE:** it says IF the `1/50` summand is
+supplied by the `c/32` grade term THEN the σ-wall forbids it. It does NOT say the spine is blocked —
+that summand may have a different supplier, and **this seat has not censused its suppliers.**
+Stated so the design tier checks exactly one thing: **which term supplies the `1/50`.**
+
+### ⚖️ AND THE HELM'S THREE ITEMS, MEASURED AT THE OBJECTS RATHER THAN QUOTED FROM MY BANK
+① `¬MRTLemmaA7` + `MRTLemmaA7Fixed` — ✅ **LANDED**: `not_mrtLemmaA7Statement` (`MRTPropA3:4085`,
+audited `All.lean:8563`), `MRTLemmaA7Fixed`/`…Statement` (`:4040`/`:4050`).
+② A5 at `θ = 3/4` — ✅ **LANDED**: five constants `MRTPropA3:4243–4274`, audited `All.lean:8566–8570`.
+③ W1-E3 port track — ✅ **WAVE B COMPLETE 08/25** (`45da8f7f`, five nodes, one attempt each). Its
+named residue is `GAP α`, `GAP A.1`, `GAP X`, the `6·MS H ≤ c` pricing line and `M4RowMeanSq_L` —
+**all class D or design-tier by the queue's own rows**, none at executor tier.
+📌 Reported, not ruled: a worker seat measuring beside out-of-tier objects REPORTS. If any of the
+three is meant to have live executor work I have not found, the row that names it is the thing to
+point me at.
+
+### ⛔⛔⛔ 21:4x — **THE `1/50` SUPPLIER CENSUS ANSWERED, AND IT LANDS ON TODAY'S OWN A5 WAVE.**
+I held on this census saying I would not start it unasked. **A third sentinel poke showed that hold
+was my own error a third time**, one level subtler: I had converted *"I was wrong about which object
+mattered twice today"* into a TIER BOUNDARY. ⇒ 🔑 ***BEING WRONG IS A REASON TO MEASURE MORE
+CAREFULLY, NOT TO STOP MEASURING*** — and the helm's fence was on the `/32` block, a different
+object, which I have not touched.
+
+**THE ANSWER:** A.2/A.3's `1/(log X)^{1/50}` is supplied by `ρ/3` where `ρ` is **A.5's constant** —
+`mrtA5_epsilon_ceiling` (:355) proves `ρ/3 > 1/50` given `ε < ρ − 3/50`, and `mrtA5_rho_margin`
+(:336) proves `3/50 < 1/6 − 1/(3π)`. ⇒ **Not the Halász grade at all. Node 12's antecedent is
+FALSE and node 12 is therefore a curiosity, exactly as its own scope note said it might be — I am
+recording that against myself since I wrote the node three hours ago.**
+
+### ⛔⛔ BUT THE CENSUS FOUND SOMETHING WORSE ON THE WAY, AND IT IS TODAY'S RATIFIED WAVE
+```
+  θ = 2/3 (MRT)   1/6 − 1/(3π) = 0.060563  vs 3/50   CLEARS, margin 5.63×10⁻⁴  ⇐ razor-thin
+  θ = 3/4 (ours)  1/8 − 1/(4π) = 0.045423  vs 3/50   FAILS,  short by 1.46×10⁻²
+                                           vs 3/125  clears — THE BAR IT WAS CHECKED AGAINST
+```
+**`vk34_constant_clears_bar` verifies the θ=3/4 constant against the extract's qualitative bar
+`3/125 = 0.024`. This file's OWN margin theorems use `3/50 = 0.06` — 2.5× larger — because that is
+what makes `ρ/3 > 1/50` true.** The θ=3/4 constant sits BETWEEN the two bars.
+⇒ 🔑 ***A CONSTANT CAN CLEAR THE BAR IT WAS MEASURED AGAINST AND FAIL THE BAR ITS CONSUMER USES,
+AND BOTH BARS CAN BE LANDED IN THE SAME FILE.***
+⇒ 🔑 ***A MARGIN OF `5.63×10⁻⁴` IS A WARNING LABEL: A CONSTANT THAT TIGHT IS DOING EXACT WORK AND
+CARRIES NO SLACK FOR A ROUTE CHANGE.*** The council's erratum established the θ=3/4 constant is
+SMALLER and that this is correct-not-a-regression — true, and it stopped one comparison short.
+
+### ✅ NODE 13 — `vk34_constant_fails_rho_margin`, `[3 axioms]` (`1/8 − 1/(4π) < 3/50`)
+Landed beside `vk34_constant_clears_bar` so the two bars are read together.
+⛔⛔ **SCOPE, AND IT IS THE WHOLE POINT — THIS DOES NOT SAY THE θ=3/4 WAVE IS WRONG.** Every one of
+its five theorems is arithmetic about real numbers and every one stands. What this says is narrower:
+**the `3/125` comparison does not license the `1/50` rate, and the comparison that would goes the
+other way.** ⚠️ **Whether `3/50` is even the right bar for a θ=3/4 ROUTE is DESIGN** —
+`mrtA5_rho_margin` is derived for MRT's θ=2/3 balance and a θ=3/4 route may rebalance. **Flagged,
+not ruled**, and it is the helm's/Captain's since the A5 re-derivation was council item ④(c).
+
+### ⭐⛔ 22:2x — **I WENT LOOKING FOR A REASON MY OWN ALARM DIDN'T MATTER. THE MEASUREMENT UPGRADED IT.**
+After node 13 I ran the trace I owed on my own finding: **does anything CONSUME the `3/50` bar?**
+```
+  mrtA5_epsilon_ceiling · mrtA5_rho_margin · vk34_constant_clears_bar ·
+  vk34_constant_lt_mrt                                    → ZERO theorem-level consumers
+  CONTROL mrtA4_constant_pos (uncontroversial sibling)    → ALSO ZERO
+```
+⛔ **THE CONTROL DID NOT FIRE, SO THE INSTRUMENT CANNOT DISCRIMINATE.** Unconsumed is this
+arithmetic shelf's NORM, not a signal — reported as such rather than read as an all-clear.
+⇒ 🔑 ***A NEGATIVE WHOSE CONTROL IS ALSO NEGATIVE IS NOT EVIDENCE; IT IS A MEASUREMENT OF THE
+GENRE.***
+
+**AND THE TWO FACTS THAT CAME BACK INSTEAD, both against the deflationary reading:**
+1. **`MRTLemmaA5` (:1832) carries the constant INSIDE ITS OWN STATEMENT** — the exponent
+   `(log X)^(1/6 − 1/(3π) − ε)`. The same bare-literal-in-a-`def` pattern this file's A.6 flag warns
+   about at :1128. **A re-statement at θ=3/4 does not cite the number, it INSTALLS IT AS A RATE.**
+2. **`3/50` is not a balance-page artifact — it is MRT's OWN SIDE CONDITION ON THIS CONSTANT.** The
+   docstring at :1814: *"`ρ := 1/6 − 1/(3π) − ε` IS A.4(ii)'s CONSTANT … their side condition
+   `ρ/3 > 1/50` is this file's landed `mrtA5_rho_margin`. One constant serves both lemmas."*
+⇒ **My design hedge STANDS** (the downstream rate could change under a rebalance) **but its premise
+was weaker than the truth: the bar travels with the CONSTANT, not with the balance.** Node 13's
+docstring amended in place to say so; the hedge kept, its foundation corrected.
+
+⇒ 🔑 ***SEEKING THE DEFLATIONARY READING OF YOUR OWN FINDING IS THE SAME SPEECH ACT AS SEEKING THE
+FLATTERING ONE.*** Both are motivated; only the measurement settles either. **I have a banked card
+about declining a flattering upgrade to my own correctness — this is its mirror, and the mirror is
+harder to see because humility looks like rigour.**
+
+### ⛔ AND ONE PROCESS CATCH, MINE, IN THE SAME ACTION
+My first amendment `python3` patch **failed its assertion and I ran the build anyway** — `EXIT=0`
+on the UNEDITED file. A green that measured nothing. Caught because the traceback was above the
+`EXIT=0` in the same output and I read the whole block instead of the verdict line.
+⇒ 🔑 ***A BUILD IS ONLY EVIDENCE ABOUT BYTES THAT CHANGED: CONFIRM THE EDIT LANDED (`git diff
+--stat`) BEFORE READING THE GATE.*** The re-run rebuilt in 34s where the false one had replayed —
+**elapsed time was the tell, and it is a tell worth keeping.**
+
+### ⭐⭐⛔ 08-28 05:3x — **M2's "OPEN HALF" WAS NOT OPEN, AND CLOSING IT CONVICTS MY OWN NODE 9.**
+At 05:0x I posted M2 with a named residual: *"whether the `1/16` reaches the MASKED PIECE is the
+remaining half and I have not proved it."* **Looked. It was answered and wired before tonight.**
+```
+  FarL2 §12  box_floor_M0_pieceDatum   boxM0 (K+D) q X ≤ 𝔻²(pieceDatum χ 𝒥 …, costwist v; X)
+             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:10079
+  FarL2      box_floor_clears_gate_45  AUDITED All.lean:3489; All.lean:3449 records
+             "⟦T₀-SUPPLIER CONSUMES⟧ … floor + mask + gate in one implication"
+  M4T0Datum  winCutH_doorChiCoeff_split_L splits the DOOR's cut datum into exactly those pieces
+```
+Its docstring states the transport verbatim — *"NO threshold and NO margin: `box_floor_M0`'s three
+arms deliver `1/16` outright, and the mask costs exactly the debit (factor `1`)"* — an ADDITIVE
+Mertens debit, not a coefficient. ⇒ **`A2Wall:213`'s antecedent (*"if the `1/16` box floor cannot be
+transported to the door's masked piece"*) APPEARS NOT TO OBTAIN on the landed path.**
+⚠️ Hedge kept: that docstring cites *"`M4T0Datum`'s table, row `box`"* and **I did not locate a
+literal table with a `box` row**, so a narrower site where only `1/32` is available is not ruled out.
+
+### ⛔⛔ AND THE CONVICTION IS OF MY OWN NODE 9
+`a2wall_floor64_65` / `_64_fails` price **the `1/32` fallback** at the θ-lifted grade (89 → 65).
+**That is the branch whose antecedent does not obtain.** The theorems are TRUE and they stay; their
+FRAMING points at a case that is not live, and node 9's docstring is amended in place to say so at
+the site a reader actually arrives (a bus post does not reach someone who greps `a2wall_floor`).
+⇒ 🔑 ***A THEOREM CONDITIONED ON "IF X FAILS" IS EVIDENCE ABOUT NOTHING UNTIL SOMEONE CHECKS WHETHER
+X FAILS.*** I placed mine beside `a2wall_floor32_89`, whose own docstring carries that `if`, and
+**read the `if` as scene-setting rather than as a claim to measure.**
+⇒ 🔑 ***FOURTH WRONG OBJECT OF THIS CAMPAIGN, AND THE FOURTH IS STILL MINE:*** wrong exit → wrong
+summand → wrong bar → **wrong branch**. Every one was one read of an object already named in a
+docstring I had open. **The pattern is not carelessness about facts; it is treating a conditional's
+antecedent as background instead of as the thing to measure.**
+📌 I built node 9 explicitly to make the θ-lift's benefit *"checkable rather than asserted"* — and
+checked it on the wrong branch. ⇒ ***MAKING A CLAIM CHECKABLE DOES NOT MAKE IT RELEVANT.***

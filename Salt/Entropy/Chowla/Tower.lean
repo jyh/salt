@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # The tower instantiation (Chowla / entropy-decrement spine, wave III)
 
 Instantiates the concatenation step `step_ineq_3_11` along the regime's tower
-`chowlaTower` (Tao 1509.05422 §3, p.19–20).  Three groups:
+`chowlaTower` (Tao arXiv:1509.05422v1 §3, p.19–20).  Three groups:
 
 * **tower arithmetic** — the multiplier `⌊C₀ log H logloglog H⌋₊ ≥ 2` for
   `H ≥ 4·10⁶` (`tower_mult_ge_two`; `log H ≥ 15`, `logloglog H ≥ 1/2` from
@@ -238,7 +238,7 @@ lemma tower_step (R : ChowlaRegime) {j : ℕ} (hj : j < R.J)
 
 /-! ### The conditional telescoped bound -/
 
-/-- **The conditional telescoped bound** (Tao 1509.05422 p.20).  If the headline
+/-- **The conditional telescoped bound** (Tao arXiv:1509.05422v1 p.20).  If the headline
     fails at every tower level `j < J` (`hdec`, the all-`H`-failure branch), the
     top-level per-symbol entropy is below the base by the full telescoped
     decrement: `e_J ≤ e_0 - towerDropSum`.  Wave IV closes the contradiction with

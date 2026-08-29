@@ -84,3 +84,4 @@ open Salt.Tactic in
   Salt.BrunLower.LamTwin_le_one Salt.BrunLower.log_Wratio_le_ladder
   Salt.BrunLower.hMert_twin Salt.BrunLower.hMert_twinSieve
   Salt.BrunLower.twin_almost_prime
+  Salt.BrunLower.margin_ge Salt.BrunLower.margin_ge_b1

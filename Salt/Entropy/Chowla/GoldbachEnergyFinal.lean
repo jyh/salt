@@ -9,7 +9,7 @@ at the re-frozen (GB-7 catch, RE-FREEZE #2) `rbound`
 
   `rbound H n := C₁·((eps:ℝ)²·H/(log H)²)·sTrunc2 n`   (for ALL `n`, no parity split)
 
-and land the unconditional `|Ξ_H|` bound (Tao 1509.05422 Lemma 3.5).  See
+and land the unconditional `|Ξ_H|` bound (Tao arXiv:1509.05422v2 Lemma 3.5).  See
 `docs/exploration/s3-a3-design.md`, the "Night-shift adjudications" +
 "GB-7 CATCH + RE-FREEZE #2" sections.
 

@@ -103,7 +103,7 @@ The discrete Shannon entropy library, ported from the PFR project
 file as they land (Measure → kernel glue → Basic → Kernel).
 
 Consumer target: the entropy toolkit (3.1)–(3.7) of Tao,
-arXiv:1509.05422 (the entropy decrement argument, rung A-R2).
+arXiv:1509.05422v1 (the entropy decrement argument, rung A-R2).
 -/
 
 -- Build-time axiom audit: a stray axiom in the entropy track fails
@@ -162,6 +162,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.repCount_le_siftedSum
   Salt.Entropy.Chowla.log_chowla_two_shell
   Salt.Entropy.Chowla.log_chowla_two_shell_xi
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi_h
   Salt.Entropy.Chowla.hFac_lcm_sum_le
   Salt.Entropy.Chowla.hFac_mul_of_coprime
   Salt.Entropy.Chowla.sTrunc_le_prod
@@ -465,7 +466,7 @@ Scope: no new claim about twins — boundary-map completion, zero flagship inche
 
 /-! ⟦L3-FORK FOUNDATION⟧ — THE SHIFT-`h` DE-SPECIALIZATION (`ShiftFork`, 2026-08-15).
 
-THE FORK, NOT THE EDIT.  The landed spine is Tao 1509.05422 at `(a, b, h) = (1, 0, 1)`.
+THE FORK, NOT THE EDIT.  The landed spine is Tao arXiv:1509.05422v1 at `(a, b, h) = (1, 0, 1)`.
 `ShiftFork.lean` opens the `h`-family BESIDE it: `logChowlaFails`, `bigXiH`,
 `MRTUniformityXiH` are new names at new arities, and NO landed declaration changes a
 byte or an arity.  In-place generalization was priced and rejected — `logChowla2Fails`
@@ -567,7 +568,8 @@ stronger"; that claim is WRONG for the same reason, and its repair is recorded i
 
 NOT IN SCOPE, said out loud: the `h`-clone of the `L²` ESTIMATE
 (`circle_method_estimate_sq_h`), any `h`-mint, any spine replay.  This wave makes them
-REACHABLE, not done.  No claim about Chowla, about the door, or about twins is made or
+REACHABLE, not done.  ⛔ STALE, CORRECTED 08/26 (commission 7b, correction 3):
+`circle_method_estimate_sq_h` IS LANDED and audited; only the `h`-mint remains open.  No claim about Chowla, about the door, or about twins is made or
 moved, and no statement is made at any particular `h`. -/
 #audit_axioms Salt.Entropy.Chowla.bigXiTwistFilter
   Salt.Entropy.Chowla.fourier_split_h
@@ -674,3 +676,389 @@ first-moment budget) does not imply `PmNormalized`, so `hP` is unavailable there
   Salt.Entropy.Chowla.door_criterion_exists
   Salt.Entropy.Chowla.door_criterion
   Salt.Entropy.Chowla.door_criterion_needs_zero_blindness
+
+/-! ⟦W-F3 WAVE A⟧ — THE F-BRIDGE AT SHIFT `h`: DEFINITIONS AND THE OFFSET-AGNOSTIC BOXES
+(`FBridge` + `OuterCombine`, 2026-08-20).
+
+WHY ONLY A WAVE.  The W-F3 design block claimed the `h`-shell was a one-parameter transport;
+two refuters killed that framing.  `fBridgeG`'s own docstring names `h = 1` among the model
+values `(a,b,h,c_p) = (1,0,1,1)`, so the F-bridge BENEATH the shell is hard-coded at the
+offset the shell proposed to vary, and the offset-1 and offset-`p·h` correlations are not
+defeq.  The refuters split the work; this stanza is WAVE A, the part both agreed is genuine
+transport.
+
+⚠️ THE TWO `1`s.  The `h`-port does NOT touch the gate, and the wave brief that ordered it
+said otherwise.  `fBridgeG`'s gate `((j + 1 : ℕ) : ZMod p) = -r` carries the window's
+1-INDEXING OFFSET, not the shift: `windowVal H (liouvilleWindow H n) j = λ(n+j+1)`, so Tao's
+1-indexed `j` is our `j + 1`.  Tao's indicator `1_{ay+j ≡ pb (mod ap)}` mentions no `h`, and
+`fBridgeF_liouville_apply` (`Prop26.lean:87`) proves in the kernel that the gate evaluates to
+`p ∣ n + j + 1` — a condition on the FIRST factor's argument, which is exactly what feeds
+multiplicativity: at `n+j+1 = p·m`, `λ(p m)·λ(p m + p h) = λ(m)·λ(m + h)` is the shift-`h`
+correlation.  A gate moved to `p ∣ n + j + h` would leave `λ(n+j+1)` with no factor of `p`
+and kill the reduction Wave B has to run.  Both spellings agree at `h = 1`, so NO `h = 1`
+compat lemma can separate them — the same tripwire shape `ShiftFork` records for the twist.
+The gate here therefore stays `(j + 1)`; only the second factor's index carries `h`.
+
+WHAT LANDS.  `fBridgeG_h` / `fBridgeF_h` reopen the parameter the docstring froze: the
+product base index becomes `j + p·h`.  The four deterministic bounds follow at general `h`
+because they never read the offset: `windowVal_prod_abs_le` bounds every term by `1` blind to
+its arguments, and the gate does not mention `h`, so `card_filter_natCast_eq_le` applies at
+`-r - 1` verbatim.  `boxGrade` and `boxSum_le_grade` are statements about the window primes
+alone, so the `H/log H` grade transfers with no arithmetic changed.  MEASURED: all four
+bounds ported with their `h = 1` proof scripts intact — none was offset-sensitive.
+
+THE COMPATS ARE NOT `rfl`.  `fBridgeG_h_one` / `fBridgeF_h_one` need `Nat.mul_one`: `(p : ℕ)
+* 1` whnf-reduces to `0 + p`, stuck for a variable `p`.  Same shape as `bigXi_eq_bigXiH_one`.
+
+SCOPE — THE WAVE BOUNDARY, STATED.  NOTHING downstream of the deterministic box is ported
+here, because nothing downstream is offset-agnostic: no `badSet` at `h`, no `fBridgeG_h_mean`,
+no `fBridgeG_h_sum_over_residues`, no `fBridge_concentration*` at `h`, no `outer_combine` at
+`h`, no `(2.11)` restated at shift `h`, and no terminal.  Those are waves B (the
+concentration/entropy heart, campaign-tier, needs its own design block) and C.  Nothing in
+this wave required them — the boundary held.  Every `h = 1` declaration in both files is
+byte-frozen and keeps its proof; the new names sit BESIDE them.  No claim about Chowla, about
+the door's supply, or about twins is made or moved by this wave. -/
+#audit_axioms Salt.Entropy.Chowla.fBridgeG_h
+  Salt.Entropy.Chowla.fBridgeF_h
+  Salt.Entropy.Chowla.fBridgeG_h_one
+  Salt.Entropy.Chowla.fBridgeF_h_one
+  Salt.Entropy.Chowla.fBridgeG_h_abs_le
+  Salt.Entropy.Chowla.fBridgeG_h_mem_Icc
+  Salt.Entropy.Chowla.fBridgeF_h_abs_le_boxSum
+  Salt.Entropy.Chowla.decoupledMean_h_abs_le_boxSum
+  Salt.Entropy.Chowla.fBridgeF_h_abs_le_box
+  Salt.Entropy.Chowla.decoupledMean_h_abs_le_box
+
+/-! ⟦W-F3 WAVE B, NODE B-1⟧ — THE DEVIATION SET AT SHIFT `h` (`Transport`, 2026-08-21).
+
+WHAT LANDS.  `badSet_h` — `badSet` with the bridge replaced by wave A's `fBridgeF_h` and the
+decoupled mean's second window index moved from `j + p` to `j + p·h` — together with its
+`h = 1` compat `badSet_h_one`.  This is the FIRST object past the deterministic box, i.e. the
+first place wave A's declared boundary ("no `badSet` at `h`") is crossed on purpose.
+
+⚠️ THE THREE SYNCHRONISED SITES.  Byte-identity at shift `h` is not a property of one
+definition.  The offset is spelled independently at three places: this predicate, the
+concentration lemma's deviation set (wave B-2/B-3), and `outer_combine`'s own conclusion
+(`OuterCombine.lean:363-364`, which today reads `j + (p : ℕ)` with NO `* h`).  Wave A fixed
+the target spelling at `OuterCombine.lean:150` as `windowVal H v (j + (p : ℕ) * h)`; `badSet_h`
+matches it verbatim, and the remaining two sites are B-2/B-3 and B-4's obligation, not this
+node's.  B-1 lands site 1 only, and says so.
+
+THE COMPAT IS NOT `rfl`, AND FAILS ON BOTH ITS SITES.  `badSet_h_one` needs `fBridgeF_h_one`
+for the bridge AND `Nat.mul_one` for the window index; `(p : ℕ) * 1` is stuck for a variable
+`p`.  MEASURED with negative controls, not assumed: bare `rfl` reports the two sides not
+definitionally equal; dropping `Nat.mul_one` from the rewrite leaves the goal `j + ↑p * 1`
+against `j + ↑p`; dropping `fBridgeF_h_one` leaves `fBridgeF_h eps H 1` against `fBridgeF`.
+Same shape as `fBridgeG_h_one` / `fBridgeF_h_one` in wave A.
+
+SCOPE.  A definition and one equation.  Nothing about the concentration exponent, the
+entropy transport, `badSet_transport`, or `outer_combine` moves; every `h = 1` declaration in
+`Transport` stays byte-frozen and the new names sit BESIDE them.  No claim about Chowla,
+about the door's supply, or about twins is made or moved by this node. -/
+#audit_axioms Salt.Entropy.Chowla.badSet_h
+  Salt.Entropy.Chowla.badSet_h_one
+
+
+/-! ⟦W-F3 WAVE B, NODES B-2 + B-3⟧ — THE MEAN AND CONCENTRATION CONE AT SHIFT `h`
+(`FBridge`, `Decoupled`, 2026-08-21).
+
+WHAT LANDS.  The eight-object mean/concentration cone at shift `h`, i.e. everything between
+wave A's deterministic box and `outer_combine`.  MEAN: `fBridgeG_h_sum_over_residues` (the
+numerator), `fBridgeG_h_mean`, `fBridgeF_h_mean`.  CONCENTRATION:
+`fBridge_h_concentration_raw`, `fBridge_h_concentration`, `fBridge_h_concentration_sharp`,
+`fBridge_h_concentration_decoupled`, `fBridge_h_concentration_decoupled_sharp`.  Wave A's
+declared boundary named `fBridgeG_h_mean`, `fBridgeG_h_sum_over_residues` and
+`fBridge_concentration*` at `h` as the not-yet-ported list; all of it is now ported.
+
+THE CENSUS, AND WHAT IS *NOT* IN THE CONE.  The Hoeffding substrate is entirely
+offset-blind and needed NO `_h` port: `residueProj_fiber_card` never mentions the pattern
+`v`, and `fBridge_varTerm` / `window_lb` / `fBridge_var_le` / `fBridge_var_le_sharp` are
+statements about the window primes and the box endpoints alone.  All four are REUSED
+VERBATIM.  Consequently the shift costs NOTHING in the concentration grade: the exponents of
+`fBridge_h_concentration` and `fBridge_h_concentration_sharp` are character-for-character the
+`h = 1` exponents.  Every proof script transferred with only names and the product index
+changed; no estimate was re-derived and none was weakened.
+
+⚠️ SITE 2 OF THE THREE SYNCHRONISED SITES IS NOW LANDED.  `fBridgeF_h_mean`,
+`fBridge_h_concentration_decoupled` and `fBridge_h_concentration_decoupled_sharp` spell the
+offset independently of `badSet_h`; all three use wave A's fixed target spelling
+`windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`), byte-identical to site 1.
+SITE 3 — `outer_combine`'s own conclusion (`OuterCombine.lean:363-364`) — still reads
+`j + (p : ℕ)` with no `* h` and is UNTOUCHED: it is node B-4's obligation.
+
+THE `h = 1` RECOVERIES: EXACTLY TWO REWRITES EACH, BUT NOT THE SAME TWO.  B-2/B-3 introduce
+no new DEFINITION, so there is no compat EQUATION to state and none is landed (landing one
+would duplicate an already-frozen theorem).  The obligation that remains is that the `h = 1`
+instance recovers the frozen original, and it was MEASURED, with a negative control per
+rewrite, never asserted.  Result: never `rfl`, always exactly two rewrites, and the PAIR
+VARIES WITH THE SPELLING THE STATEMENT CARRIES —
+`fBridgeG_h_sum_over_residues` / `fBridgeG_h_mean`: `fBridgeG_h_one` + `Nat.mul_one`;
+`fBridgeF_h_mean` / `fBridge_h_concentration_decoupled`: `fBridgeF_h_one` + `Nat.mul_one`;
+the UN-decoupled `fBridge_h_concentration_raw` (and `_concentration`, `_sharp`): the
+statement carries NO product index at all, so `Nat.mul_one` does nothing and the pair is
+`fBridgeF_h_one` + `fBridgeG_h_one` instead.  Controls, all run: omitting `Nat.mul_one`
+leaves `j + ↑p * 1` against `j + ↑p`; omitting `fBridgeG_h_one` leaves
+`fBridgeG_h eps H 1 v p` against `fBridgeG eps H v p`; omitting `fBridgeF_h_one` leaves
+`fBridgeF_h eps H 1 v` against `fBridgeF eps H v`; with no rewrite at all BOTH residuals
+appear together.
+
+SCOPE.  Eight statements, no new definitions, no new axioms.  Nothing about `badSet_transport`,
+the entropy transport, `outer_combine`, `(2.11)`, or the terminal moves; those are B-4 and
+wave C.  Every `h = 1` declaration in `FBridge` and `Decoupled` stays byte-frozen and the new
+names sit BESIDE them.  No claim about Chowla, about the door's supply, or about twins is made
+or moved by these nodes. -/
+#audit_axioms Salt.Entropy.Chowla.fBridgeG_h_sum_over_residues
+  Salt.Entropy.Chowla.fBridgeG_h_mean
+  Salt.Entropy.Chowla.fBridgeF_h_mean
+  Salt.Entropy.Chowla.fBridge_h_concentration_raw
+  Salt.Entropy.Chowla.fBridge_h_concentration
+  Salt.Entropy.Chowla.fBridge_h_concentration_sharp
+  Salt.Entropy.Chowla.fBridge_h_concentration_decoupled
+  Salt.Entropy.Chowla.fBridge_h_concentration_decoupled_sharp
+
+/-! ⟦W-F3 WAVE B, NODE B-4⟧ — THE OUTER ASSEMBLY AND THE CALIBRATION AT SHIFT `h`
+(`Transport`, `OuterCombine`, 2026-08-21).  ⭐ SITE 3 CLOSES; the three-site obligation is
+discharged.
+
+WHAT LANDS — FIVE OBJECTS, and the count is the design block's "5" with a DIFFERENT
+MEMBERSHIP.  `badSet_transport_h`, `badSet_transport_at_calibration_h` (`Transport`);
+`outer_badMass_h_eq`, `outer_badMass_h_le`, `outer_combine_h` (`OuterCombine`).  Wave A's
+declared boundary named `outer_combine` at `h` and `(2.11)` restated at shift `h` as its last
+two not-yet-ported items; both are now ported, and wave A's list is exhausted.
+
+⭐ SITE 3 OF THE THREE SYNCHRONISED SITES — CLOSED.  `outer_combine`'s conclusion spells the
+two-point offset INDEPENDENTLY of site 1 (`badSet_h`, `Transport`) and site 2 (the decoupled
+concentration deviation sets, `FBridge`/`Decoupled`); at `h = 1` it reads
+`windowVal H (liouvilleWindow H n) (j + (p : ℕ))`, with no `* h`.  `outer_combine_h` writes
+wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`).
+VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
+site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:789`, `Decoupled.lean:107`) and site 3
+(`OuterCombine.lean:638`); after `OuterCombine.lean:436` — the whole B-4 block — the unshifted
+literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
+
+⛔⛔ CORRECTED 2026-08-21: THIS PARAGRAPH SAID "ALL THREE SITES AGREE" AND THE AGREEMENT
+POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
+`CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
+them — `circle_method_estimate_h` (`ShiftFork.lean:405`) and `circle_method_estimate_h_core`
+(`CircleMethod.lean:1133`) — already carried the identical literal BEFORE wave A opened.
+⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
+**AGREE**.  The migration population and the agreement population are different sets, and this
+file asserted the second while enumerating the first.
+⚠️ AND THE NUMBER IS WRONG ON A SCHEDULE, NOT WRONG NOW.  Measured across B-5's five-file stack
+(`HBudget`, `HReduce`, `HMainAssembly`, `Prop26`, `ChowlaFailure`) the SHIFTED literal occurs
+**0** times, against **15** frozen offset-carrying lines (14 in `HBudget`, 1 at `Prop26:92`);
+positive control `Transport.lean` = 2 shifted, so the zero is a real zero.  ⇒ **B-5 does not
+INHERIT the agreement population — it CREATES it, and "six" becomes stale the moment B-5 lands.**
+⇒ WHEN YOU EXTEND THIS FAMILY, RE-RUN THE `grep -F` AND UPDATE THIS PARAGRAPH.  A count of a
+growing population belongs beside the command that produced it, never on its own.
+
+⛔⛔ USE THIS SCOPED ARM, NOT THE UNSCOPED ONE ABOVE — THE UNSCOPED COMMAND COUNTS THIS FILE'S
+OWN PROSE, AND IT RATCHETS: every correction that QUOTES the literal in order to explain it adds
+another hit, so the census gets one file harder to read each time somebody does the right thing.
+    grep -rlF '(j + (p : ℕ) * h) : ℝ)' Salt/Entropy/Chowla/     ⇒ EXPECT EXACTLY 8 FILES
+    If it returns more, OPEN THE EXTRA HITS BEFORE BELIEVING THEM — a quotation is not a
+    declaration.  (Scoping beats `--exclude=All.lean`, which rots the day this file carries a
+    real declaration; measured, it carries ZERO — `grep -cE '^(theorem|lemma|def|private|
+    noncomputable)[[:space:]]'` = 0 here, = 8 in `Transport.lean` as the positive control.
+    ⚠️ WITHOUT the trailing whitespace class that pattern returns 4 — `defeq`, `definition`,
+    `definitionally`, `defect`: ENGLISH PROSE AT COLUMN 0.  The word boundary is load-bearing.)
+
+⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1381`
+spells the shifted offset `(j + p * h) : ℝ)` with a BARE `p`, because it faithfully mirrors the
+FROZEN `(j + p) : ℝ)` at `HBudget:664`.  ⇒ THE FROZEN SIDE WAS NEVER BYTE-UNIFORM EITHER: this
+file holds 14 of `(j + (p : ℕ)) : ℝ)` and 1 of `(j + p) : ℝ)`.  The port was right to mirror the
+spelling it found rather than normalise it — but every "byte-identical across N files" sentence
+in this wave, including the ones above, was asserted about a population NOBODY HAD CHECKED FOR
+UNIFORMITY ON THE FROZEN SIDE.  Check the source spelling before claiming identity with it.
+
+✅ RE-RUN AND UPDATED 2026-08-21 BY B-5 (the paragraph above is now a record of the PRE-B-5
+world; do not read its `0`/`15`/`six` as current).  Command, verbatim:
+`grep -rlF '(j + (p : ℕ) * h) : ℝ)' Salt/`.  The agreement population is now **EIGHT SOURCE
+FILES**: `CircleMethod` (8) · `Decoupled` (3) · `FBridge` (10) · `HBudget` (14) ·
+`OuterCombine` (8) · `Prop26` (1) · `ShiftFork` (1) · `Transport` (2) — plus this file's own
+prose.  B-5 added TWO members, `HBudget` and `Prop26`.
+⛔ AND THE PREDICTION WAS WRONG BY ONE, FROM ITS OWN MEASUREMENT.  The B-5 brief said "your
+landing makes it SEVEN" while the same brief's census said the frozen lines sit in TWO files
+("14 in `HBudget`, 1 at `Prop26:92`").  A stack that carries the offset in two files adds two
+members, not one.  ⇒ A POPULATION FORECAST MUST BE DERIVED FROM THE CENSUS THAT SITS BESIDE
+IT — this one contradicted its own table and nobody noticed until the grep was re-run.
+The frozen literal `(j + (p : ℕ)) : ℝ)` is UNCHANGED at 14 in `HBudget` and RISES 1 → 2 in
+`Prop26`, the new one being `fBridgeF_h_liouville_apply_one`, whose whole job is to restate
+the LANDED unshifted conclusion.  A frozen-spelling count going UP is the compat working, not
+a regression: check WHICH declaration owns the new line before reading a rise as a defect.
+
+⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
+defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
+`circle_method_estimate_h` (`ShiftFork.lean:397`) and `circle_method_estimate_h_core`
+(`CircleMethod.lean:1125`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
+identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
+counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
+AGREE.  A future shift-`h` port should enumerate by the literal, not by the roster.
+
+THE SHIFT COSTS NOTHING, THIRD CONFIRMATION.  The `(t + 2 log 2)/g + (κ + (log P_H − H[Y]))/t`
+mass bound, the `(2+ε²)² ≤ 9` calibration step, the sharp exponent
+`δ²·log H/(2 C₀ ε²H (2/ε²+1)²)`, its `ε⁶H/(18 C₀ log H)` lower bound and the full error term
+`ε²H/log H + 2·boxGrade·(…)` are character-for-character the `h = 1` ones.  No estimate was
+re-derived; none was weakened.  `boxGrade`, `boxSum_le_grade`, `uniformOn_univ_real_coe`,
+`weakUniform_spine` and `decrement_markov_fintype` are `h`-FREE — checked in their statements,
+not assumed from their names — and are REUSED VERBATIM with no `_h` port.
+
+THE `(2.11)` AT SHIFT `h`, STATED PRECISELY.  There is no standalone `(2.11)` declaration:
+`(2.11)` enters as `outer_combine`'s hypothesis `h211`.  `outer_combine_h` restates it at shift
+`h` by carrying `fBridgeF_h eps H h` in place of `fBridgeF` — that is the whole roster item.
+The `(2.11)` PRODUCER chain (`ChowlaFailure.lean`, including its `outer_combine` seam
+kill-check) and every `h = 1` consumer of `outer_combine` (`Theorem23Shell` ×3, `SpineClose`,
+`SpineFinal`, `HloExport*`, `S16Uniform`) are UNTOUCHED and remain at `h = 1`: door/wave-C
+surfaces, named here so the next wave does not have to rediscover them.
+
+THE `h = 1` RECOVERY IS A THIRD SHAPE — ONE REWRITE LEMMA, NOT TWO.  B-1 needed
+`fBridgeF_h_one` + `Nat.mul_one`; B-2/B-3 needed that pair or `fBridgeF_h_one` +
+`fBridgeG_h_one`.  Four of B-4's five objects mention NEITHER the bridge nor the product index
+in the clear — both are sealed inside `badSet_h` — so the entire recovery is B-1's compat
+EQUATION `badSet_h_one`, alone.  `outer_combine_h` is the exception: it carries the bridge in
+`h211` AND the product index in its conclusion, so it needs `fBridgeF_h_one` + `Nat.mul_one`,
+B-2/B-3's second pair.
+
+AND THE TACTIC IS NOT THE LEMMA — a sub-finding the count would have hidden.  `badSet_h_one`
+suffices for `badSet_transport_at_calibration_h` under a plain `rw`, but on
+`outer_badMass_h_eq` a plain `rw` FAILS OUTRIGHT with "did not find an occurrence": both of
+that statement's `badSet_h` occurrences sit UNDER BINDERS (`{n | …}` and the `∫ x₀`), which
+`rw` cannot enter.  `simp only [badSet_h_one]` is required.  Same lemma, same count, different
+tactic — because of where the occurrence sits, not what it is.
+
+FIVE NEGATIVE CONTROLS, ALL RUN, ALL FAILING AS REQUIRED (measured, never asserted):
+dropping `badSet_h_one` from `outer_badMass_h_eq`'s recovery leaves `badSet_h eps H 1` against
+`badSet` at both occurrences; using `rw` instead of `simp only` there fails to find the pattern
+at all; dropping it from `badSet_transport_at_calibration_h`'s recovery leaves the same
+residual at one occurrence; dropping `Nat.mul_one` from `outer_combine_h`'s recovery leaves
+`j + ↑p * 1` against `j + ↑p`; dropping `fBridgeF_h_one` leaves `fBridgeF_h eps H 1` against
+`fBridgeF`.  As in B-2/B-3, no compat EQUATION is landed for these five — they are theorems,
+and landing one would duplicate an already-frozen theorem.
+
+SCOPE.  Five statements, no new definitions, no new axioms, a purely additive diff.  Every
+`h = 1` declaration in `Transport` and `OuterCombine` stays byte-frozen and the new names sit
+BESIDE them.  The terminal, the `(2.11)` producer and every downstream consumer are wave C.
+No claim about Chowla, about the door's supply, or about twins is made or moved by this node. -/
+#audit_axioms Salt.Entropy.Chowla.badSet_transport_h
+  Salt.Entropy.Chowla.badSet_transport_at_calibration_h
+  Salt.Entropy.Chowla.outer_badMass_h_eq
+  Salt.Entropy.Chowla.outer_badMass_h_le
+  Salt.Entropy.Chowla.outer_combine_h
+
+/-! ⟦W-F3 WAVE B · B-5⟧ — THE SHIFT-`h` PORT OF THE FIVE-FILE BUDGET STACK
+(`ChowlaFailure` → `Prop26` → `HReduce` → `HMainAssembly` → `HBudget`, 2026-08-21).
+⭐ THE WAVE'S LAST NODE. 16 public + 11 private declarations, ONE new definition, +1178/−0.
+
+THE ONE NEW DEFINITION.  `shiftCorrH x ω k h = ∫ λ(n+k)·λ(n+k+h)` (`HBudget`, `private`, as
+its three frozen siblings are).  `shiftCorr` hardcodes the GAP to `1`; `k` is the BASE offset
+and telescopes, `h` is the gap and does not.  `shiftCorrH_one` is `rfl`.
+⚠️ VISIBILITY IS REPORTED, NOT DECIDED: nothing outside `HBudget.lean` can name it.  That
+mirrors the frozen sibling exactly, but a downstream consumer would need it un-privated, and
+that is a visibility change for a session that owns the decision.
+
+WHERE THE SHIFT IS PAID — ONE SLICE OF THREE, AND THE GATE IS **LINEAR IN `ε·h`**.  The
+`1/8 + 1/16 + 1/16 = 1/4` budget line is UNCHANGED and carries no new term (there is no slack
+in that sum; a new term would have been a design act).  Totals 1 and 2 are `h`-FREE, and that
+is a measurement, not an assumption: `dilation_error_div` is generic in `f`,
+`dilated_window_stability` is generic in `g`, and `corr_shift_le` already takes TWO
+INDEPENDENT OFFSETS — so `perPair_collapse_h` is `corr_shift_le k (k+h)` with no new analysis
+and the `3ω/x/Z` shift constant never sees the gap.  Total 3, the boundary slice, is the whole
+cost: the boundary set becomes `{j < H : H ≤ j + p·h}`, gains exactly one factor `h`, and the
+landed gate `ε ≤ c/(32·log 4)` becomes `ε·h ≤ c/(32·log 4)`.  `hbudget_h_gate_implies_epssq_h`
+is the seam that feeds that binder — BYTE-IDENTICALLY — into the pre-landed rider
+`epsh_gate_implies_epssq_h`, yielding K1's `ε²·h < 1`.  The rider is USED, not re-derived.
+
+⛔ `0 < h` IS FORCED, AND THE BRIEF DID NOT PREDICT IT.  `per_term_h` is where: at `h = 0` the
+shifted boundary gate `j + p·h < H` degenerates to `j < H` and no longer bounds `p`, so the
+residue bound `r ≤ x/ω` — which the `h = 1` script gets FREE from `j + p < H` — fails.  This
+propagates to `hbudget_holds_h` and `hreduce_holds_final_h` as a hypothesis.  It agrees with
+`ShiftFork`'s own "`h = 0` is degenerate" note about `logChowlaFails 0`, arrived at from the
+opposite end: there it is the Prop that degenerates, here it is the PROOF that loses a bound.
+
+⭐ `boundary_card_le` NEEDED NO PORT — the brief's range list named it (`:428-439`) as part of
+the hard step, and it is stated at an ARBITRARY second argument, so `boundary_card_le H (p*h)`
+already IS the shifted count `≤ p·h`.  ⇒ A LEMMA STATED GENERICALLY IS ALREADY PORTED; check
+the statement's own generality before pricing a port.
+
+⛔ ONE DUPLICATION, DELIBERATE AND FLAGGED.  `collapse_identity_h`/`liouville_sq_h` are
+re-proved `private` in `HBudget` although `ShiftFork.lean:434` already has the identical
+public `liouville_collapse_h`, and `DilationStability` has the `h = 1` pair.  Reason:
+`DilationStability`'s are `private`, and `ShiftFork` is NOT in `HBudget`'s import closure
+(both import `ChowlaFailure`; neither imports the other), so reuse would mean ADDING AN IMPORT
+to a landed file — a structural change this node does not own.  Reported, not silently chosen.
+
+THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
+INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
+IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Verified by seam probe, not
+by eye: an `example` feeding a `logChowlaFails h eps x ω` hypothesis straight into
+`singleCorr_of_fails_h` elaborates with no coercion.
+
+THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
+GAP compat `shiftCorrH_one` is `rfl` (the gap enters as `_ + h`, and `Nat.add` recurses on its
+second argument, where a literal `1` reduces).  The OFFSET compat is not (`(p : ℕ) * 1` is
+STUCK for a variable `p`), and `fBridgeF_h_liouville_apply_one` therefore routes through the
+landed `fBridgeF_h_one` instead.  Under the `∫ n, …` binder the bridge compat needs
+`simp only`; `rw` fails outright — the same shape B-4 measured on `outer_badMass_h_eq`.
+`hbudget_holds_h_one`'s gate additionally needs `push_cast; linarith` for `ε·((1:ℕ):ℝ)`.
+
+FIVE NEGATIVE CONTROLS, ALL RUN, ALL FAILING AS REQUIRED (and three positive controls passing
+beside them, so the suite is not vacuous): `rw [fBridgeF_h_one]` under the integral binder →
+"did not find an occurrence of the pattern"; dropping `fBridgeF_h_one` → type mismatch;
+`exact heps_small` for the `ε·((1:ℕ):ℝ)` gate → type mismatch; `windowVal H v (j + p*1) =
+windowVal H v (j + p) := rfl` → type mismatch; `fBridgeF_h_liouville_apply_one := rfl` → type
+mismatch.  Passing beside them: the `logChowlaFails` seam, `simp only [fBridgeF_h_one]`, and
+`push_cast; linarith`.
+
+SCOPE, AND WHAT IS **NOT** CLAIMED.  Every `h = 1` declaration in all five files stays
+byte-frozen (+1178/−0, zero deletions).  `hbudget_holds_h` is the shift-`h` error budget and
+`hreduce_holds_final_h` its capstone; both inherit — UNCHANGED — the `h = 1` chain's standing
+conditional status.  In particular `HMainAssembly`'s resolved-stale gate-fix flag and
+`HReduce`'s CARRIER-GAP note are `h`-BLIND and neither improved nor worsened by this node.  No
+claim about Chowla, about the door's supply, or about twins is made or moved here. -/
+#audit_axioms Salt.Entropy.Chowla.singleCorr_of_fails_h
+  Salt.Entropy.Chowla.singleCorr_of_fails_h_one
+  Salt.Entropy.Chowla.h211_of_logChowla2Fails_h
+  Salt.Entropy.Chowla.fBridgeF_h_liouville_apply
+  Salt.Entropy.Chowla.fBridgeF_h_liouville_apply_one
+  Salt.Entropy.Chowla.perPair_dilation_h
+  Salt.Entropy.Chowla.fBridge_of_singleCorr_h
+  Salt.Entropy.Chowla.consumability_probe_h
+  Salt.Entropy.Chowla.hreduce_close_h
+  Salt.Entropy.Chowla.hreduce_close_h_one
+  Salt.Entropy.Chowla.hreduce_holds_h
+  Salt.Entropy.Chowla.hreduce_holds_h_one
+  Salt.Entropy.Chowla.hbudget_holds_h
+  Salt.Entropy.Chowla.hbudget_h_gate_implies_epssq_h
+  Salt.Entropy.Chowla.epsh_gate_implies_epssq_h
+  Salt.Entropy.Chowla.hbudget_holds_h_one
+  Salt.Entropy.Chowla.hreduce_holds_final_h
+  -- ⭐ ROLLED IN 2026-08-26 (math), discharging QUEUE P1 item 5c's "REPORTED, NOT FIXED".
+  -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:362`) is a LANDED terminal with two
+  -- consumers (`HloExport.lean:362`, `HloExportFlat.lean:196`), and three of its four family
+  -- members were already audited above (`:163-165`) — it alone was gated by no build.
+  -- ⛔ PLACED AT THE END OF THE LIST ON PURPOSE, not beside its siblings: `#audit_axioms`
+  -- `throwError`s on the first non-whitelisted dependency and ABORTS the rest of its list, so a
+  -- name whose axioms nobody has measured belongs where a failure can mask nothing.
+  -- 📌 This asserts NOTHING about its cleanliness — that was 5c's exact objection to rolling in
+  -- an unmeasured declaration. It SUBJECTS it to the gate; the build is what measures.
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq
+  -- ⭐ P2 item 7, first half (2026-08-26, math): the empty cell of the split grid.
+  -- `fourier_split_sq_h` has NO consumer yet (`circle_method_estimate_sq_h` is the second half
+  -- of the row and is not built), so unlike `fourier_split_sq` — whose axioms ride its audited
+  -- consumers — this one is gated by nothing until it is listed here. Same reasoning as
+  -- `log_chowla_two_shell_xi_sq` above, and same placement rule: END of the list, because
+  -- `#audit_axioms` aborts its remainder on a throw.
+  Salt.Entropy.Chowla.fourier_split_sq_h
+  -- ⭐ P2 item 7, first object COMPLETE (2026-08-26, math): the top-level twin of the split above.
+  -- With this landed, `fourier_split_sq_h` now HAS a consumer and its own row above is redundant
+  -- rather than load-bearing — kept, not removed, because a row that was correct when written is
+  -- cheaper to leave than to re-audit. ⛔ This one still has NO consumer: the `bigXiH` wrapper
+  -- belongs on the `ShiftFork` side (that module imports CircleMethod, so naming its objects here
+  -- would be an import cycle), and `log_chowla_two_shell_xi_sq_h` does not exist. Socket.
+  Salt.Entropy.Chowla.circle_method_estimate_sq_h_core
+  -- ⭐ P2 item 7's NAMED object (2026-08-26, math): the `bigXiH`-facing wrapper, mirroring
+  -- `circle_method_estimate_h`'s own row. With this landed, `circle_method_estimate_sq_h_core`
+  -- has a consumer and its row above is redundant-but-kept, on the same reasoning as the split's.
+  -- ⛔ This wrapper still has none: `log_chowla_two_shell_xi_sq_h` does not exist, so item 7's
+  -- first object is COMPLETE as a socket and connects to nothing yet.
+  Salt.Entropy.Chowla.circle_method_estimate_sq_h

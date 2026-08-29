@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # Tao's Lemma 3.2 (weak uniform distribution), Chowla / entropy-decrement spine
 
-This file lands Tao 1509.05422 Lemma 3.2 in the honest, explicit-constant form: for
+This file lands Tao arXiv:1509.05422v2 Lemma 3.2 in the honest, explicit-constant form: for
 a conditioning value `x₀` at which the residue datum's conditional entropy is close
 to its full entropy (a "good" pattern — the complement of the `decrement_markov`
 bad set), and any set `E` of residues that is *exponentially small* relative to the

@@ -16,7 +16,7 @@ line 17).  The frozen row, verbatim:
 > contrapositive Vinogradov (LS/Vaughan + ExpSum vdC); transcribe Tao pp.24-25
 > FIRST.
 
-## The source (Tao, arXiv:1509.05422, pp. 24–25)
+## The source (Tao, arXiv:1509.05422v1, pp. 24–25)
 
 `Ξ_H` is Tao's large-spectrum set (`Salt/Entropy/Chowla/CircleMethod.lean:40-45`,
 at the Liouville instantiation `a = 1`, `c_p = 1`, where the `η ∈ ℤ/aℤ` twist

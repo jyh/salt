@@ -292,6 +292,36 @@ theorem cpeel_summable : Summable (fun p : Nat.Primes => (1 : ℝ) / (p : ℝ) ^
   rw [show (-2 : ℝ) = -((2 : ℕ) : ℝ) from by norm_num, Real.rpow_neg (Nat.cast_nonneg _),
     Real.rpow_natCast, one_div]
 
+/-- **A crude absolute majorant for `cpeel`: `∑'_p p^{-2} ≤ 2`.**
+
+The true value is the prime zeta `P(2) ≈ 0.4522`.  Route: restrict the Basel sum along
+the indicator of the primes — `cpeel = ∑'_n 1_{n prime}·n^{-2} ≤ ∑'_n n^{-2} = π²/6`
+(`hasSum_zeta_two`) — then `π < 3.15` (`Real.pi_lt_d2`) gives `π²/6 < 1.654 ≤ 2`.
+
+WHY A CRUDE BOUND IS THE RIGHT ONE HERE.  The consumer is the numeral evaluation of the
+two EFFECTIVE arms (`Kvk`, `Kbulk`) of the `cffKVt` pricing max, both of which bottom out
+at this constant; the budget at that pricing site is of order `10^222`, so the ~1.5 of
+absolute slack carried here is free by ~180 orders of magnitude and no sharper bound is
+worth its proof cost.  Sharpen only if some future consumer genuinely needs `cpeel < 1/2`
+(available from the same route by peeling the `n = 1` Basel term, `π²/6 − 1 ≈ 0.6449`). -/
+theorem cpeel_le_two : cpeel ≤ 2 := by
+  classical
+  set f : ℕ → ℝ := fun n => (1 : ℝ) / (n : ℝ) ^ 2 with hf
+  have hnn : ∀ n : ℕ, 0 ≤ f n := fun n => by positivity
+  have hzs : Summable f := hasSum_zeta_two.summable
+  have heq : cpeel = ∑' n : ℕ, Set.indicator {p : ℕ | Nat.Prime p} f n := by
+    unfold cpeel
+    rw [← tsum_subtype {p : ℕ | Nat.Prime p} f]
+    rfl
+  have hind : Summable (Set.indicator {p : ℕ | Nat.Prime p} f) := hzs.indicator _
+  have hle : ∑' n : ℕ, Set.indicator {p : ℕ | Nat.Prime p} f n ≤ ∑' n : ℕ, f n :=
+    hind.tsum_le_tsum (fun n => Set.indicator_le_self' (fun x _ => hnn x) n) hzs
+  have hval : ∑' n : ℕ, f n = Real.pi ^ 2 / 6 := hasSum_zeta_two.tsum_eq
+  rw [heq]
+  refine le_trans hle ?_
+  rw [hval]
+  nlinarith [Real.pi_lt_d2, Real.pi_pos]
+
 /-- **Per-prime Euler `k≥2` peel bound.**  For prime `p ≥ 2` and `1 ≤ Re s`,
 `|Re(−log(1−p^{−s})) − Re(p^{−s})| ≤ 1/p²`.  From mathlib's Taylor remainder
 `norm_log_one_sub_inv_sub_self_le` (`‖log(1−z)⁻¹ − z‖ ≤ ‖z‖²(1−‖z‖)⁻¹/2`), with

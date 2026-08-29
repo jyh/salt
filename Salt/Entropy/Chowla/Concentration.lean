@@ -9,7 +9,7 @@ import Salt.Entropy.Chowla.PrimeWindow
 /-!
 # CRT independence and Hoeffding concentration (Tao Lemma 3.3 substrate)
 
-This file supplies the concentration substrate for Tao 1509.05422 Lemma 3.3.  Its
+This file supplies the concentration substrate for Tao arXiv:1509.05422v1 Lemma 3.3.  Its
 heart is the **Chinese-remainder independence** of the residue reductions: under
 the uniform probability measure on `ZMod P_H` (`P_H` the product of the window
 primes, from `PrimeWindow.lean`), the family of natural reductions

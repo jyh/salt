@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # The entropy-comparison (Fannes-type) lemma (Chowla / entropy-decrement spine)
 
 This file provides the wave-II inputs of the entropy-decrement argument
-(Tao 1509.05422 §3):
+(Tao arXiv:1509.05422v2 §3):
 
 * `entropy_sub_le_of_l1` (node D-d0): an elementary discrete Fannes bound.  For
   probability measures `μ, ν` supported on a finite set `A` with `ℓ¹` distance

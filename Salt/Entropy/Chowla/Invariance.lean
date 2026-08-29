@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # The joint-invariance estimate (Chowla / entropy-decrement spine, wave II, node D-d)
 
 The approximate translation invariance of the log-sampled window laws (Tao
-1509.05422 §3, the load-bearing MI-gain step of Lemma 3.1).  The shifted window
+arXiv:1509.05422v2 §3, the load-bearing MI-gain step of Lemma 3.1).  The shifted window
 `X_H^{(j)} n := liouvilleWindow H (n + j·H)` samples the SAME `n`'s Liouville
 values on the block `(n + jH, n + jH + H]`; under `logMeasure x ω` its law barely
 moves, because the log-sampling weight `1/n` telescopes: the pushforward laws of

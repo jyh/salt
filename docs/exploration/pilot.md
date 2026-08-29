@@ -3795,7 +3795,7 @@ decisions per question.
   not_le.mp at each level; every anticipated seam dissolved by
   reducible defeq). `entropy_decrement (R : ChowlaRegime) : ∃ H ∈
   [Hlo, Hhi], a ∣ H ∧ I[X_H : Y_H] ≤ H/(log H · logloglog H)` —
-  Tao 1509.05422 Lemma 3.1, Liouville spine, in-build audit
+  Tao arXiv:1509.05422v2 Lemma 3.1, Liouville spine, in-build audit
   ✓ [3 axioms] (9079 jobs). THE RUNG'S ARC: A-R0 recon → the
   regime gate (3 catches incl. the tower stall) → wave I (3
   nodes) → the wave-II gate (the joint-invariance re-cut) → Dd0

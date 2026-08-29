@@ -1,11 +1,18 @@
 # salt — session instructions
 
 Lean 4 + mathlib project. Objective: a machine-checked proof of the Twin Prime
-Conjecture. Tracks: Brun's theorem (`docs/blueprints/brun.md`, branch `brun`)
-and — currently active — explicit bounded gaps ≤ 12
-(`docs/blueprints/explicit12-design.md`, branch `explicit12`; commit messages
-`explicit12 <node>: <name>`; note `scripts/blueprint_lint.py` audits only the
-Brun guide, so explicit12 docs↔code checks are manual).
+Conjecture. The LIVE WORK ROUTING is **`docs/QUEUE.md`** — the Captain-ratified
+salt queue (P1 finish-first · P2 behind the doors · P3; strict tiering; the
+fleet PULLS at seams; the bus carries orders, the queue carries standing work).
+Seats pick from the queue at their tier; the current campaign is the Salt-method
+twin-prime program (W1/E-ladder ports, the h-fork, λ-BV), worked on track
+branches named in the queue's own items.
+HISTORICAL TRACKS, both closed and preserved: Brun's theorem
+(`docs/blueprints/brun.md`, closed 07-07, "Frontier: none") and explicit gaps
+≤ 12 (`docs/blueprints/explicit12-design.md`, closed 07-11, "RUNG CLOSED"). The
+blueprint node workflow below applies **when and only when** a blueprint track
+is reopened by a Fable/human session; `scripts/blueprint_lint.py` still audits
+the Brun guide and still runs in CI.
 Full routing policy: `docs/MODEL_POLICY.md`. The Lean kernel is the referee:
 `lake build` checks every proof.
 
@@ -59,9 +66,10 @@ Identify which model you are, then attempt only nodes at your tier or below:
 
 ## Workflow per node
 
-1. Pick an unproven node of your class from the guide's catalog/frontier list
-   (`docs/blueprints/brun-guide.md`); `docs/blueprints/flags.md` is the
-   detailed history behind it.
+1. Pull the highest open item AT YOUR TIER from `docs/QUEUE.md` (P1 before P2;
+   never let a lower tier gate a higher). Blueprint guides are pulled only when
+   a queue item names one. `docs/blueprints/flags.md` remains the failure
+   record for ALL tracks — flag there exactly as before.
 2. Write the proof in the track's file (Brun track: `Salt/Brun/` modules,
    imported from `Salt/Brun.lean`).
 3. Verify: `lake build` (must succeed, no warnings introduced), then the

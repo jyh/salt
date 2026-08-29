@@ -82,7 +82,7 @@ demand).
 ## Scope note (honesty)
 
 The kill is relative to the entropy-decrement architecture (the landed spine + Tao
-1509.05422), exactly as the brief specifies. A hypothetical power-saving 2-point Chowla
+arXiv:1509.05422v1), exactly as the brief specifies. A hypothetical power-saving 2-point Chowla
 demanding polylog-x conductors would be a different architecture and a NEW supply
 question — it is not S3, which was defined (fulcrum-pass2.md:55) as feeding χ-legs of
 THIS quantitative spine.

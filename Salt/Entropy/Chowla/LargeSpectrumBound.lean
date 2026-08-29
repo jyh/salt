@@ -26,6 +26,11 @@ SEAM: the conclusion `((bigXi eps H).card : ℝ) ≤ C` is verbatim the `hXi`
 hypothesis of `contradiction_of_mrtDoor` (MRTDoor.lean) at `eps := R.eps`,
 `K := C`; the door composes by feeding `hbound H hH` (a `ChowlaRegime`'s
 `heps1 : eps ≤ 1/2` supplies `heps2` via `eps² ≤ 1/4 < 1/2`).
+
+ERRATUM (2026-08-23 helm, the council-demoted repair; item-18 version axis): "footnote 4"
+matches NO arXiv version of 1509.05422 — v1 has exactly two footnotes; the additive-energy
+escape is fn. 7 in v2 and fn. 9 in v3/v4 (v2's OWN fn. 4 is the model-case remark). The prose
+above is kept verbatim; the OBJECT (the additive-energy escape) is the citation, not the number.
 -/
 import Salt.Entropy.Chowla.LargeSpectrum
 import Salt.Entropy.Chowla.QuadrupleCount

@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # The log-sampling measure (Chowla / entropy-decrement spine, sprint-3 wave I)
 
-The log-sampled random integer of Tao 1509.05422 §3: on the window `n ∈ (x/ω, x]`
+The log-sampled random integer of Tao arXiv:1509.05422v2 §3: on the window `n ∈ (x/ω, x]`
 the sampling probability is `ℙ(n) ∝ 1/n`. This file freezes the measure
 `logMeasure x ω`, its probability/finite-support structure, the singleton-mass
 formula, and the crude Mertens-style two-sided bound `log ω ± 1` on the

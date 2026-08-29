@@ -47,7 +47,7 @@ budget line above.
 ⚠ **THE SEAM WARNING** (`MRTDoor.lean:174–182`, REF-L2 mandate R4).  THE
 QUANTIFIERS STAY OUTSIDE THE INTEGRAL.  `MRTUniformityXiL2` is a finite sum of
 integrals — no `sup` inside — and is IMPLIED by the landed `L¹` theorem-door
-(`MRTDoor.mrtUniformityXiL2_of_xi`).  The sup-inside form is Tao 1509.05422 (4.1),
+(`MRTDoor.mrtUniformityXiL2_of_xi`).  The sup-inside form is Tao arXiv:1509.05422v2 (4.1),
 which is OPEN.
 -/
 
@@ -152,6 +152,75 @@ theorem m4_exit_socket_split_sq_arc :
   intro H _ hlo hhi
   exact le_trans (hH₀ R hReps harc a e Bsieve K Binsert hsplit hB0 hsock hcount hins
     H hlo hhi) (hρ H hlo hhi)
+
+/-! ### The two MRT thresholds installed on the ROAD-FORM exit — QUEUE item 12
+
+`m4_exit_socket_split_sq_arc` above is the **fully-composed** L² exit: it consumes the door
+producer internally and hands the caller `¬ logChowla2Fails` directly.  What it leaves to the
+caller are two `ℕ`/function slots — `U1floor ≤ R.Hlo` and `g R.Hhi R.ω ≤ R.x` — and **those are
+exactly the quantities QUEUE item 12's two ε-dependent thresholds bound.**  So the thresholds
+install from OUTSIDE: no edit to the exit, no new import (`DoorFloor` is already in this file's
+closure).
+
+⚠️⚠️ **TWO DIFFERENT "TWO ε-DETERMINED FLOORS" LIVE ONE PHRASE APART, AND THEY ARE NOT THE SAME
+PAIR.**  The exit's own audit card says it *"absorbs the two `ε`-determined floors the road cannot
+place for itself"* — those are **M4-0's arc floor and `bigXi_bounded`'s count floor**, determined
+by the CHOWLA budget `ε : ℚ`.  **This theorem's pair is `H₀mrt(ε)` and `H₊*(ε)`, determined by the
+MRT error demand `ε : ℝ`** — a different quantity in a different type.  *Reading the card before
+building nearly cancelled this node as redundant.*
+⇒ 🔑 ***THE SAME LETTER NAMING TWO QUANTITIES POISONS READING AS WELL AS WRITING.***
+
+📌 **The Chowla budget is spelled `q` here, not `e`,** because the payload block below binds
+`(a e : ℕ → ℂ)` and an `e` in the `∃`-prefix would be SHADOWED inside it — legal, silent, and
+exactly the kind of thing that makes a statement read wrong later.  *(The `DoorFloor` twins spell
+it `e`; there is no payload block there to shadow it.)*
+
+⛔ **The payload block is COPIED BYTE-FOR-BYTE from `m4_exit_socket_split_sq_arc`'s statement**, not
+retyped — a transcription defect in a duplicated statement is invisible to every downstream check,
+and both copies elaborating proves only that they agree with each other. -/
+
+/-- **QUEUE item 12's thresholds, on the live composed exit.**  `m4_exit_socket_split_sq_arc` fired
+at `U1floor := H₀mrt(ε)` and `g := fun _ _ => H₊*(ε)`, carrying the two MRT payoffs: above the
+regime's own window floor and outer scale, `MRTThmA1`'s two threshold-shaped error terms are each
+`≤ ε`.
+
+⛔ **Nothing here supplies the road's own obligations** — the coefficient split, `Bsieve`, `Binsert`
+and the closing budget line remain exactly as the exit states them. -/
+theorem m4_exit_socket_split_sq_arc_at_mrt_floors (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∃ (q : ℚ) (K δ₀ : ℝ), 0 < q ∧ 0 < K ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = q ∧
+        H0mrt ε ≤ R.Hlo ∧ HplusStar ε ≤ R.x ∧
+        (∀ y : ℝ, ((R.Hlo : ℕ) : ℝ) ≤ y →
+            (Real.log (Real.log y)) ^ 2 / Real.log y ^ 2 ≤ ε) ∧
+        (∀ X : ℝ, ((R.x : ℕ) : ℝ) ≤ X →
+            1 / (Real.log X) ^ ((1 : ℝ) / 50) ≤ ε) ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          (∀ (a e : ℕ → ℂ) (Bsieve : ℕ → ℝ) (Binsert : ℝ),
+            (∀ m, lamCoeff m = a m + e m) →
+            (∀ H : ℕ, 0 ≤ Bsieve H) →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+              NearRatTight (arcDen 12 H) H α →
+                (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+                  ≤ Bsieve H * (H : ℝ) ^ 2) →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+                ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+                  ∂(logMeasure R.x R.ω)) ≤ Binsert) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
+            ¬ logChowla2Fails R.eps R.x R.ω) := by
+  obtain ⟨q, K, δ₀, hq, hK, hδ₀, hexit⟩ := m4_exit_socket_split_sq_arc
+  obtain ⟨R, hReps, hU1, hg, htow, hbody⟩ :=
+    hexit (H0mrt ε) (fun _ _ => HplusStar ε)
+  refine ⟨q, K, δ₀, hq, hK, hδ₀, R, hReps, hU1, hg, ?_, ?_, htow, hbody⟩
+  · intro y hy
+    refine mrt_middle_le_of_H0mrt hε hε1 (le_trans ?_ hy)
+    exact_mod_cast Nat.cast_le.mpr hU1
+  · intro X hX
+    refine mrt_tail_le_of_HplusStar hε (le_trans ?_ hX)
+    exact_mod_cast Nat.cast_le.mpr hg
 
 end Salt.MR
 

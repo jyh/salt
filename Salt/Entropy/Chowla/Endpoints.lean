@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # The entropy endpoints of the decrement contradiction (Chowla / Liouville spine)
 
-Wave IV of the Tao 1509.05422 §3 entropy-decrement spine consumes exactly two
+Wave IV of the Tao arXiv:1509.05422v2 §3 entropy-decrement spine consumes exactly two
 scalar endpoints of the per-symbol entropy `e(H) = ℍ(X_H)/H`:
 
 * **the ceiling** `e(H) ≤ log 2` (`entropy_per_symbol_le`, dividing the landed

@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦L3-FORK FOUNDATION⟧ — the shift-`h` de-specialization, wave W-F1
 
-The landed log-Chowla spine is Tao 1509.05422 at the model point
+The landed log-Chowla spine is Tao arXiv:1509.05422v2 at the model point
 `(a, b, h) = (1, 0, 1)`.  This module opens the `h`-family **beside** the landed
 objects: `logChowlaFails`, `bigXiH`, `MRTUniformityXiH` are new names with new
 arities, and every landed declaration keeps its bytes and its arity.  Nothing
@@ -270,7 +270,7 @@ theorem bigXiH_bounded (h : ℕ) (hh : 0 < h) (eps : ℚ) (heps : 0 < eps)
 THE `∀ ξ ∈ Ξ_H(h)` STAYS OUTSIDE THE INTEGRAL, and **the frequency `α` is
 UNTWISTED**.  Both are load-bearing and neither is policed by the kernel:
 
-* the quantifier position — the sup-inside form is Tao 1509.05422 (4.1), which is
+* the quantifier position — the sup-inside form is Tao arXiv:1509.05422v2 (4.1), which is
   OPEN; moving the quantifier silently downgrades a theorem-door (Prop 2.4,
   PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open conjecture;
 * the frequency — the circle-method estimate's surviving factor is the DFT at the
@@ -412,6 +412,41 @@ theorem circle_method_estimate_h (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 
   rw [bigXiH_eq_twistFilter]
   exact hest eps H x1 x2 hx1 hx2 hcard
 
+/-- **The SQUARED circle-method estimate at shift `h`, over the fork's own set** — the
+`bigXiH`-facing restatement of `circle_method_estimate_sq_h_core` (`CircleMethod.lean`), and
+the object `QUEUE.md` P2 item 7 names.  It is to `circle_method_estimate_sq` exactly what
+`circle_method_estimate_h` is to `circle_method_estimate`.
+
+DIAGONAL, like its untwisted parent and unlike `circle_method_estimate_h`: ONE window `x1`,
+because the `_sq` lane's consumers instantiate at `x₁ = x₂` and the square in the conclusion
+IS that diagonality.  The Fourier mass is `(1/H²)‖𝓕Φ ξ‖²` over `bigXiH h eps H`; the DFT
+factor stays at the UNTWISTED `ξ`, which is the seam's spelling and why the twist lives in
+the membership predicate alone.
+
+The set swap is the only step (`bigXiH_eq_twistFilter`, a filter congruence — the `ZMod`-side
+spelling was chosen so this is a rewrite and not a periodicity argument).  Constant
+`h·(1 + 2·C₀)` and the `0 < h` fence are the core's; see there.
+
+⛔ **STILL NO CONSUMER:** `log_chowla_two_shell_xi_sq_h` does not exist, so this completes the
+socket rather than connecting it. -/
+theorem circle_method_estimate_sq_h (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h eps H, (1 / (H : ℝ) ^ 2) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) := by
+  obtain ⟨C, hC, hest⟩ := circle_method_estimate_sq_h_core h hh C₀ hC₀
+  refine ⟨C, hC, ?_⟩
+  intro eps H _ x1 hx1 hcard
+  rw [bigXiH_eq_twistFilter]
+  exact hest eps H x1 hx1 hcard
+
 /-! ## S2 — the `h`-collapse identity -/
 
 /-- `λ(p)² = 1` for `p ≠ 0`.  Re-derived locally: `DilationStability`'s own `liouville_sq`
@@ -470,17 +505,32 @@ frequency `α` left UNTWISTED, exactly as in the `L¹` fork `MRTUniformityXiH`.
 For `h ≥ 2` this binds a DIFFERENT set — the `μ_h`-preimage of `Ξ_H`, incomparable to
 `Ξ_H` in general, of cardinality `≤ gcd(h,H)·|Ξ_H|` (`bigXiH_card_le_gcd_mul`); an
 independent open hypothesis, implied by the full `∀ α` door (`mrtUniformity_implies_xiH`)
-and neither implying nor implied by `MRTUniformityXiL2`.  Nothing in the corpus produces
-it; the `h`-mint (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:206`/`:730`) and
-the `h`-`L²` estimate (`circle_method_estimate_sq_h`) are W-F3+ scope — this fork makes
-them REACHABLE, not done.  At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)`
-fiber inflation — the `K`-shed line of the `L²` restructure
-(`l3-design-block-0815.md` §1).
+and neither implying nor implied by `MRTUniformityXiL2`.
+
+⚠️ **PRODUCER STATUS, RE-MEASURED 2026-08-26 AT EACH EDIT — this paragraph has gone stale
+twice, so it now names WHICH slot is open rather than asserting a bare absence.**
+* `circle_method_estimate_sq_h` **IS LANDED** (`:432` below, 90 lines under the citation
+  that called it unbuilt; commission 7b correction 3).
+* A CONDITIONAL producer now exists: `Salt.MR.mrtUniformityXiL2H_of_absWindowSqBound`
+  (7b node N4d, `Salt/MR/HDoorArc.lean`), the `h`-clone of the landed `L²` adapter chain.
+  Its arc slot is discharged outright by `Salt.MR.nearRatTight_of_bigXiArcTight_H` (N3) at
+  the cap inflated by exactly `h`, and its insert slot by `parseval_insert_budget_door`.
+* **What is still OPEN is the per-`α` socket AT THAT INFLATED CAP** — `M4SievedDoorSqH`
+  (7b node N4s), which has no producer and cannot get one from `nearRatTight_mono`: that
+  raises caps ONE WAY, so the `α`-set at `h · arcDen 12 H` strictly contains the landed
+  socket's and the implication runs backwards.  The `h`-mint
+  (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:206`/`:730`) is open with it.
+
+⇒ the fork makes this door REACHABLE, not done — but the open residue is now ONE named
+socket, not the whole chain.  *Prose beside code is a second implementation nobody tests.*
+
+At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)` fiber inflation — the `K`-shed
+line of the `L²` restructure (`l3-design-block-0815.md` §1).
 
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL, per the REF-L2 mandate R4 restated at
 `MRTUniformityXiL2` (`MRTDoor.lean:174-182`): the frequency quantifier is a `∑` over the
 set sitting outside `∫`, and there is no `sup` anywhere inside the integral.  The
-sup-inside form is Tao 1509.05422 (4.1), which is OPEN.  The normalisation `1/H²` is the
+sup-inside form is Tao arXiv:1509.05422v2 (4.1), which is OPEN.  The normalisation `1/H²` is the
 landed door's, unchanged. -/
 noncomputable def MRTUniformityXiL2H (h : ℕ) (R : ChowlaRegime) (ρ : ℝ) : Prop :=
   ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →

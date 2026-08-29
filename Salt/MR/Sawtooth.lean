@@ -348,6 +348,40 @@ theorem abs_sum_sin_le (hx : x ∈ Set.Ioo (0 : ℝ) 1) (N : ℕ) :
   rw [hden, div_le_div_iff₀ (by linarith) hsin]
   nlinarith
 
+/-- The `n`-th power of `e^{2πix}` has real part `cos (2πnx)`. -/
+theorem exp_pow_re (x : ℝ) (n : ℕ) :
+    ((Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I)) ^ n).re
+      = Real.cos (2 * Real.pi * x * n) := by
+  rw [← Complex.exp_nat_mul,
+    show ((n : ℂ) * (((2 * Real.pi * x : ℝ) : ℂ) * I))
+      = (((2 * Real.pi * x * n : ℝ) : ℂ)) * I by push_cast; ring]
+  exact Complex.exp_ofReal_mul_I_re _
+
+/-- **The partial sums of `cos (2πnx)` are bounded**, uniformly in `N`. -/
+theorem abs_sum_cos_le (hx : x ∈ Set.Ioo (0 : ℝ) 1) (N : ℕ) :
+    |∑ n ∈ range N, Real.cos (2 * Real.pi * x * n)| ≤ 1 / Real.sin (Real.pi * x) := by
+  set z : ℂ := Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I) with hz
+  have hzne : z ≠ 1 := exp_ne_one hx
+  have hnz : ‖z‖ = 1 := Complex.norm_exp_ofReal_mul_I _
+  have hsin : 0 < Real.sin (Real.pi * x) := sin_pi_mul_pos hx
+  have heq : ∑ n ∈ range N, Real.cos (2 * Real.pi * x * n)
+      = (∑ n ∈ range N, z ^ n).re := by
+    rw [Complex.re_sum]
+    exact Finset.sum_congr rfl fun n _ => (exp_pow_re x n).symm
+  rw [heq]
+  refine le_trans (Complex.abs_re_le_norm _) ?_
+  rw [geom_sum_eq hzne, norm_div]
+  have hnum : ‖z ^ N - 1‖ ≤ 2 := by
+    refine le_trans (norm_sub_le _ _) ?_
+    rw [norm_pow, hnz, one_pow, norm_one]
+    norm_num
+  have hden : ‖z - 1‖ = 2 * Real.sin (Real.pi * x) := by
+    rw [← norm_neg, neg_sub]
+    exact norm_one_sub_exp hx
+  rw [hden, div_le_div_iff₀ (by linarith) hsin]
+  nlinarith
+
+
 end Geometry
 
 /-! ## §4 — the sawtooth Fourier series -/
@@ -580,6 +614,220 @@ theorem hurwitzZeta_apply_zero {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
     HurwitzZeta.hurwitzZeta (x : UnitAddCircle) 0 = 1 / 2 - (x : ℂ) := by
   rw [HurwitzZeta.hurwitzZeta, HurwitzZeta.hurwitzZetaEven_apply_zero,
     if_neg (coe_unitAddCircle_ne_zero hx), hurwitzZetaOdd_apply_zero hx, zero_add]
+
+/-! ## §5b — the cosine twins: the boundary value of `cosZeta`
+
+The `cos` counterparts of §4 and §5.  `cosZeta_apply_one` is genuinely absent from mathlib
+and is NOT a template port of its sine sibling: `cosZeta` is not entire — at `a = 0` it IS
+`ζ`, whose pole sits at the very `s = 1` being evaluated — so the proof must discharge
+`(x : UnitAddCircle) ≠ 0`, an obligation the sine template never incurs.  That asymmetry is
+the even/odd split this campaign runs on. -/
+
+/-- **The cosine companion of the sawtooth series** `∑_{n ≥ 1} cos (2πnx) / n = −log (2 sin πx)`
+on `(0,1)`, stated as a limit of partial sums: conditionally convergent, so deliberately NOT a
+`tsum`.
+
+Template: `tendsto_sum_sin_div_nat` (:358), step for step, with `re` for `im` — EXCEPT step 4,
+which is *shorter* here. The sine proof must compute an **argument** (polar form, then
+`arg_mul_cos_add_sin_mul_I` with two `nlinarith` side goals); `Complex.log_re` gives
+`log ‖1 − z‖` directly, and `‖1 − z‖ = 2 sin (πx)` is the already-landed `norm_one_sub_exp`. -/
+theorem tendsto_sum_cos_div_nat {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
+    Tendsto (fun N => ∑ n ∈ range N, Real.cos (2 * Real.pi * x * n) / n) atTop
+      (𝓝 (-Real.log (2 * Real.sin (Real.pi * x)))) := by
+  set c : ℕ → ℝ := fun n => Real.cos (2 * Real.pi * x * n) with hc
+  set f : ℕ → ℝ := fun n => c n / n with hf
+  set z : ℂ := Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I) with hz
+  have hsin : 0 < Real.sin (Real.pi * x) := sin_pi_mul_pos hx
+  have hnz : ‖z‖ = 1 := Complex.norm_exp_ofReal_mul_I _
+  -- Step 1: convergence, by Dirichlet's test.  (Consumes E0.)
+  -- NB the small end: `c 0 = cos 0 = 1`, not `0` as in the sine template, so the shifted sum is
+  -- `S_{n+1} − 1` and E0's bound does NOT transfer verbatim.  Dirichlet's test needs only SOME
+  -- uniform bound (the value of `T` comes from Abel, never from here), so `+ 1` is free.
+  have hbdd : ∀ n : ℕ, ‖∑ i ∈ range n, c (i + 1)‖ ≤ 1 / Real.sin (Real.pi * x) + 1 := by
+    intro n
+    have h : ∑ i ∈ range n, c (i + 1) = ∑ i ∈ range (n + 1), c i - 1 := by
+      rw [Finset.sum_range_succ' c n]
+      simp [hc]
+    rw [Real.norm_eq_abs, h]
+    have hb := abs_sum_cos_le hx (n + 1)
+    rw [abs_le] at hb ⊢
+    constructor <;> linarith [hb.1, hb.2]
+  have hanti : Antitone (fun i : ℕ => 1 / ((i : ℝ) + 1)) := by
+    intro i j hij
+    have hij' : ((i : ℝ) + 1) ≤ ((j : ℝ) + 1) := by
+      have : (i : ℝ) ≤ (j : ℝ) := by exact_mod_cast hij
+      linarith
+    simp only [one_div]
+    exact inv_anti₀ (by positivity) hij'
+  have hzero : Tendsto (fun i : ℕ => 1 / ((i : ℝ) + 1)) atTop (𝓝 0) :=
+    tendsto_one_div_add_atTop_nhds_zero_nat
+  have hcauchy := hanti.cauchySeq_series_mul_of_tendsto_zero_of_bounded hzero hbdd
+  obtain ⟨T, hT⟩ := cauchySeq_tendsto_of_complete hcauchy
+  simp only [smul_eq_mul] at hT
+  have hTf : Tendsto (fun N => ∑ n ∈ range N, f n) atTop (𝓝 T) := by
+    rw [← Filter.tendsto_add_atTop_iff_nat 1]
+    refine hT.congr fun N => ?_
+    rw [Finset.sum_range_succ' f N]
+    have h0 : f 0 = 0 := by simp [hf, hc]
+    rw [h0, add_zero]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    simp only [hf]
+    push_cast
+    ring
+  -- Step 2: Abel's limit theorem transfers the value from the power series.
+  have habel := Real.tendsto_tsum_powerSeries_nhdsWithin_lt hTf
+  have hval : ∀ r : ℝ, |r| < 1 →
+      ∑' n : ℕ, f n * r ^ n = -(Complex.log (1 - (r : ℂ) * z)).re := by
+    intro r hr
+    have hnorm : ‖(r : ℂ) * z‖ < 1 := by
+      rw [norm_mul, hnz, mul_one, Complex.norm_real, Real.norm_eq_abs]
+      exact hr
+    have H2 := Complex.hasSum_re (Complex.hasSum_taylorSeries_neg_log hnorm)
+    have hcongr : ∀ n : ℕ, (((r : ℂ) * z) ^ n / (n : ℂ)).re = f n * r ^ n := by
+      intro n
+      have e : ((r : ℂ) * z) ^ n / (n : ℂ) = (((r ^ n / n : ℝ)) : ℂ) * z ^ n := by
+        push_cast
+        ring
+      rw [e, Complex.re_ofReal_mul, exp_pow_re x n]
+      simp only [hf, hc]
+      ring
+    have H3 : HasSum (fun n : ℕ => f n * r ^ n) (-(Complex.log (1 - (r : ℂ) * z))).re :=
+      H2.congr_fun fun n => (hcongr n).symm
+    rw [H3.tsum_eq, Complex.neg_re]
+  have heventually : ∀ᶠ r : ℝ in 𝓝[<] (1 : ℝ),
+      ∑' n : ℕ, f n * r ^ n = -(Complex.log (1 - (r : ℂ) * z)).re := by
+    have h1 : ∀ᶠ r : ℝ in 𝓝[<] (1 : ℝ), r < 1 := self_mem_nhdsWithin
+    have h2 : ∀ᶠ r : ℝ in 𝓝[<] (1 : ℝ), -1 < r :=
+      nhdsWithin_le_nhds (eventually_gt_nhds (by norm_num))
+    filter_upwards [h1, h2] with r hr1 hr2
+    exact hval r (abs_lt.mpr ⟨hr2, hr1⟩)
+  have habel' : Tendsto (fun r : ℝ => -(Complex.log (1 - (r : ℂ) * z)).re) (𝓝[<] (1 : ℝ)) (𝓝 T) :=
+    habel.congr' heventually
+  -- Step 3: the limit of the right-hand side, by continuity of `log` at `1 − z`.
+  have hre : (1 - z).re = 1 - Real.cos (2 * Real.pi * x) := by
+    rw [hz, Complex.sub_re, Complex.one_re, Complex.exp_ofReal_mul_I_re]
+  have hslit : (1 - z) ∈ Complex.slitPlane := by
+    rw [Complex.mem_slitPlane_iff]
+    left
+    rw [hre, one_sub_cos_two_pi_mul]
+    positivity
+  have hcont : Tendsto (fun r : ℝ => -(Complex.log (1 - (r : ℂ) * z)).re) (𝓝[<] (1 : ℝ))
+      (𝓝 (-(Complex.log (1 - z)).re)) := by
+    have h1 : ContinuousAt (fun r : ℝ => (1 : ℂ) - (r : ℂ) * z) 1 :=
+      continuousAt_const.sub (Complex.continuous_ofReal.continuousAt.mul continuousAt_const)
+    have h2 : ContinuousAt (fun r : ℝ => Complex.log (1 - (r : ℂ) * z)) 1 := by
+      refine h1.clog ?_
+      rw [Complex.ofReal_one, one_mul]
+      exact hslit
+    have h3 : ContinuousAt (fun r : ℝ => -(Complex.log (1 - (r : ℂ) * z)).re) 1 :=
+      ContinuousAt.neg (ContinuousAt.comp (g := Complex.re)
+        Complex.continuous_re.continuousAt h2)
+    have h4 := (h3.continuousWithinAt (s := Set.Iio (1 : ℝ))).tendsto
+    rw [Complex.ofReal_one, one_mul] at h4
+    exact h4
+  -- Step 4: the MODULUS of `1 − z` — two lines, where the sine twin needs an argument.
+  have hlogre : (Complex.log (1 - z)).re = Real.log (2 * Real.sin (Real.pi * x)) := by
+    rw [Complex.log_re, norm_one_sub_exp hx]
+  have hTval : T = -Real.log (2 * Real.sin (Real.pi * x)) := by
+    have h := tendsto_nhds_unique habel' hcont
+    rw [hlogre] at h
+    linarith
+  rw [← hTval]
+  exact hTf
+
+/-- **The boundary value of the cosine zeta function**: `cosZeta x 1 = −log (2 sin πx)` for
+`x ∈ (0,1)`.  The `k = 0` case, absent from mathlib as priced.
+
+⚠️ This is NOT the sine template with `cos` written in.  `cosZeta` is not entire: at `a = 0` it is
+`ζ`, whose pole sits at exactly the `s = 1` this theorem evaluates.  mathlib's signatures record
+that asymmetry — `differentiableAt_sinZeta (a) : Differentiable ℂ (sinZeta a)` (everywhere, despite
+the name) versus `differentiableAt_cosZeta (a) {s} (hs' : s ≠ 1 ∨ a ≠ 0) : DifferentiableAt ℂ … s`
+— so the port must discharge `(x : UnitAddCircle) ≠ 0` and use `.continuousAt`, not
+`.continuous.continuousAt`.  The same even/odd parity asymmetry the campaign runs on. -/
+theorem cosZeta_apply_one {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
+    HurwitzZeta.cosZeta (x : UnitAddCircle) 1
+      = ((-Real.log (2 * Real.sin (Real.pi * x)) : ℝ) : ℂ) := by
+  set c : ℕ → ℝ := fun n => Real.cos (2 * Real.pi * x * n) with hc
+  set T : ℝ := -Real.log (2 * Real.sin (Real.pi * x)) with hTdef
+  have hsin : 0 < Real.sin (Real.pi * x) := sin_pi_mul_pos hx
+  have hc0 : c 0 = 1 := by simp [hc]
+  -- the obligation the sine template never incurs: `ζ`'s pole is at this very point.
+  have hane : (x : UnitAddCircle) ≠ 0 := by
+    rw [Ne, AddCircle.coe_eq_zero_iff_of_mem_Ico (Set.mem_Ico.mpr ⟨le_of_lt hx.1, hx.2⟩)]
+    exact ne_of_gt hx.1
+  -- (a) absolute convergence for `σ > 1`
+  have hsummable : ∀ σ : ℝ, 1 < σ → Summable (fun n : ℕ => c n / (n : ℝ) ^ σ) := by
+    intro σ hσ
+    refine Summable.of_norm_bounded (Real.summable_one_div_nat_rpow.mpr hσ) fun n => ?_
+    rw [Real.norm_eq_abs, abs_div, abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg n) σ)]
+    rcases Nat.eq_zero_or_pos n with rfl | hn
+    · simp [hc0, Real.zero_rpow (by linarith : σ ≠ 0)]
+    · have hpos : (0 : ℝ) < (n : ℝ) ^ σ := Real.rpow_pos_of_pos (by exact_mod_cast hn) σ
+      have habs : |c n| ≤ 1 := by
+        simp only [hc]
+        exact Real.abs_cos_le_one _
+      rw [div_le_div_iff₀ hpos hpos]
+      nlinarith
+  -- (b) the Dirichlet series tends to `T` as `σ → 1⁺`
+  have hshiftsum : ∀ σ : ℝ, 1 < σ →
+      ∑' n : ℕ, c n / (n : ℝ) ^ σ = ∑' n : ℕ, c (n + 1) / ((n : ℝ) + 1) ^ σ := by
+    intro σ hσ
+    rw [(hsummable σ hσ).tsum_eq_zero_add]
+    have h0 : c 0 / (((0 : ℕ) : ℝ)) ^ σ = 0 := by
+      simp [hc0, Real.zero_rpow (by linarith : σ ≠ 0)]
+    rw [h0, zero_add]
+    exact tsum_congr fun n => by push_cast; ring_nf
+  have hlim : Tendsto (fun σ : ℝ => ∑' n : ℕ, c n / (n : ℝ) ^ σ) (𝓝[>] (1 : ℝ)) (𝓝 T) := by
+    -- again the small end: `c 0 = 1`, so the shifted sum is `S − 1` and the bound needs `+ 1`.
+    have hS : ∀ N, |∑ n ∈ range N, c (n + 1)| ≤ 1 / Real.sin (Real.pi * x) + 1 := by
+      intro N
+      have h : ∑ i ∈ range N, c (i + 1) = ∑ i ∈ range (N + 1), c i - 1 := by
+        rw [Finset.sum_range_succ' c N]
+        simp [hc]
+      rw [h]
+      have hb := abs_sum_cos_le hx (N + 1)
+      rw [abs_le] at hb ⊢
+      constructor <;> linarith [hb.1, hb.2]
+    have hTT : Tendsto (fun N => ∑ n ∈ range N, c (n + 1) / ((n : ℝ) + 1)) atTop (𝓝 T) := by
+      have hbase := tendsto_sum_cos_div_nat hx
+      rw [← Filter.tendsto_add_atTop_iff_nat 1] at hbase
+      refine hbase.congr fun N => ?_
+      rw [Finset.sum_range_succ' (fun n : ℕ => Real.cos (2 * Real.pi * x * n) / n) N]
+      simp only [Nat.cast_zero, mul_zero, Real.cos_zero, div_zero, add_zero]
+      exact Finset.sum_congr rfl fun i _ => by simp only [hc]; push_cast; ring
+    have hmain := tendsto_tsum_div_rpow hS hTT
+    refine hmain.congr' ?_
+    filter_upwards [self_mem_nhdsWithin] with σ hσ
+    exact (hshiftsum σ hσ).symm
+  -- (c) the same limit, computed through the analytic continuation
+  have hcast : ∀ σ : ℝ, 1 < σ →
+      HurwitzZeta.cosZeta (x : UnitAddCircle) (σ : ℂ)
+        = ((∑' n : ℕ, c n / (n : ℝ) ^ σ : ℝ) : ℂ) := by
+    intro σ hσ
+    have hs : 1 < ((σ : ℂ)).re := by simpa using hσ
+    have H := HurwitzZeta.hasSum_nat_cosZeta x hs
+    have H2 : HasSum (fun n : ℕ => ((c n / (n : ℝ) ^ σ : ℝ) : ℂ))
+        (((∑' n : ℕ, c n / (n : ℝ) ^ σ : ℝ) : ℂ)) :=
+      Complex.hasSum_ofReal.mpr (hsummable σ hσ).hasSum
+    refine H.unique (H2.congr_fun fun n => ?_)
+    rw [Complex.ofReal_div, Complex.ofReal_cpow (Nat.cast_nonneg n) σ]
+    norm_cast
+  have hcont : Tendsto (fun σ : ℝ => HurwitzZeta.cosZeta (x : UnitAddCircle) (σ : ℂ))
+      (𝓝[>] (1 : ℝ)) (𝓝 (HurwitzZeta.cosZeta (x : UnitAddCircle) 1)) := by
+    have h2 : ContinuousAt (HurwitzZeta.cosZeta (x : UnitAddCircle)) (((1 : ℝ) : ℂ)) :=
+      (HurwitzZeta.differentiableAt_cosZeta _ (Or.inr hane)).continuousAt
+    have h1 : ContinuousAt (fun σ : ℝ => HurwitzZeta.cosZeta (x : UnitAddCircle) (σ : ℂ)) 1 :=
+      h2.comp Complex.continuous_ofReal.continuousAt
+    have h3 := h1.continuousWithinAt (s := Set.Ioi (1 : ℝ))
+    simpa using h3.tendsto
+  have hcont2 : Tendsto (fun σ : ℝ => HurwitzZeta.cosZeta (x : UnitAddCircle) (σ : ℂ))
+      (𝓝[>] (1 : ℝ)) (𝓝 ((T : ℝ) : ℂ)) := by
+    have h := (Complex.continuous_ofReal.continuousAt (x := T)).tendsto.comp hlim
+    refine h.congr' ?_
+    filter_upwards [self_mem_nhdsWithin] with σ hσ
+    exact (hcast σ hσ).symm
+  exact tendsto_nhds_unique hcont hcont2
+
 
 /-! ## §6 — the unconditional instances of `LandauOdd`'s conditional chain -/
 

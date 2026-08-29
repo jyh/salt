@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The prime-window count (Tao 1509.05422 p. 22 PNT input), spine node W3-c-pnt
+# The prime-window count (Tao arXiv:1509.05422v1 p. 22 PNT input), spine node W3-c-pnt
 
 Tao's Lemma 3.4 (the circle-method estimate, `circle_method_estimate` v2 in
 `docs/exploration/s3-a3-design.md`) cites, on p. 22, the Chebyshev/PNT bound
@@ -34,7 +34,7 @@ open scoped BigOperators
 
 namespace Salt.Entropy.Chowla
 
-/-- **The prime-window count** (Tao 1509.05422 p. 22 PNT input, node W3-c-pnt).
+/-- **The prime-window count** (Tao arXiv:1509.05422v1 p. 22 PNT input, node W3-c-pnt).
 
 Under the regime `√H ≤ ε²H/2` (equivalently `ε² ≥ 2·H^(−1/2)`) and `3 ≤ H`,
 the prime window `𝒫_H = {p prime : ε²H/2 < p ≤ ε²H}` satisfies

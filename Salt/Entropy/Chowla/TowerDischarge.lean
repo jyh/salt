@@ -14,7 +14,7 @@ This node discharges everything the LANDED regime witness can honestly discharge
 producing the cleanest citation surface.  Concretely:
 
 * **The `H`-selection + `hI`** are discharged TOGETHER by `entropy_decrement`
-  (Tao 1509.05422 Lemma 3.1): the tower produces an admissible `H ∈ [H₋, H₊]` at
+  (Tao arXiv:1509.05422v2 Lemma 3.1): the tower produces an admissible `H ∈ [H₋, H₊]` at
   which the mutual information is below `H/(log H · logloglog H)`.  That value is
   the discharged `κ`; the `residue : liouville` order of `hI` is the decrement's
   `liouville : residue` order swapped by `mutualInfo_window_comm`.
@@ -72,7 +72,7 @@ private lemma mutualInfo_window_comm (R : ChowlaRegime) (H : ℕ) :
   ring
 
 /-- **W3E-TOWER, the tower-discharged citation surface.**  For the witnessed
-Chowla regime `R`, GIVEN the MRT uniformity door at level `δ` (Tao 1509.05422
+Chowla regime `R`, GIVEN the MRT uniformity door at level `δ` (Tao arXiv:1509.05422v2
 Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao arXiv:1503.05121), there is an
 admissible decrement level `H ∈ [H₋, H₊]` — produced by `entropy_decrement`,
 Lemma 3.1 — at which the Liouville/residue mutual information is below the

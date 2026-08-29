@@ -376,6 +376,33 @@ lemma margin_ge :
     nlinarith [he12, he52, he12pos, he52pos]
   linarith [hnum]
 
+/-- **Main-term margin at `b = 1`** (`margin_ge_b1`), the primary operating point's
+licence.  At `b = 1`, `λ = 1/4` the H-R main-term factor
+`1 − 2λ^{2b}e^{2λ}/(1 − λ²e^{2+2λ})` is `≥ 0.13158` (true value `+0.13623`).
+
+The crude `e^{5/2} ≤ 12.2` of `exp_five_halves_le` is *one part in a million* too
+weak here: with `e^{1/2} ≤ 1.65` it yields exactly `5/38 = 0.1315789…`, just under
+the stated `0.13158`.  We sharpen to `e^{5/2} ≤ 12.19` — the same `exp_five_lt`
+input, since `148.5 < 12.19² = 148.5961`. -/
+theorem margin_ge_b1 :
+    (0.13158 : ℝ) ≤ 1 - 2 * (1/4) ^ 2 * Real.exp (1/2)
+      / (1 - (1/4) ^ 2 * Real.exp (5/2)) := by
+  have hsq : (Real.exp (5/2:ℝ)) ^ 2 = Real.exp 5 := by rw [← Real.exp_nat_mul]; norm_num
+  have he52 : Real.exp (5/2 : ℝ) ≤ 12.19 := by
+    nlinarith [Real.exp_pos (5/2:ℝ), hsq, exp_five_lt]
+  have he12 : Real.exp (1/2 : ℝ) ≤ 1.65 := exp_half_le
+  have he12pos : 0 < Real.exp (1/2:ℝ) := Real.exp_pos _
+  have he52pos : 0 < Real.exp (5/2:ℝ) := Real.exp_pos _
+  set E1 := Real.exp (1/2:ℝ)
+  set E2 := Real.exp (5/2:ℝ)
+  have hden : 0 < 1 - (1/4:ℝ) ^ 2 * E2 := by nlinarith [he52]
+  have hnum : 2 * (1/4:ℝ) ^ 2 * E1 / (1 - (1/4) ^ 2 * E2) ≤ 1 - 0.13158 := by
+    rw [div_le_iff₀ hden]
+    have h2 : (1/4:ℝ) ^ 2 = 1/16 := by norm_num
+    rw [h2]
+    nlinarith [he12, he52, he12pos, he52pos]
+  linarith [hnum]
+
 /-! ## The remainder product upper bound -/
 
 /-- The remainder product `(1 + 2π(⌊z⌋))³ · ∏_{n=1}^{r-1} (1 + 2π(⌊z_n⌋))²` is bounded by

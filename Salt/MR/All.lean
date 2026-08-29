@@ -150,6 +150,18 @@ import Salt.MR.LandauL1
 import Salt.MR.LandauDescent
 import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
+import Salt.MR.EvenChiFourier
+import Salt.MR.EvenChiCosh
+import Salt.MR.EvenChiSine
+import Salt.MR.EvenChiSign
+import Salt.MR.EvenChiRingBridge
+import Salt.MR.EvenChiTau
+import Salt.MR.EvenChiMiddle
+import Salt.MR.EvenChiAlgebra
+import Salt.MR.EvenChiEta
+import Salt.MR.EvenChiControls
+import Salt.MR.EvenChiDescent
+import Salt.MR.EvenChiCyclotomic
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
@@ -367,6 +379,29 @@ import Salt.MR.V7C
 import Salt.MR.V7E
 import Salt.MR.V7Ks
 import Salt.MR.V7Headline
+import Salt.MR.MRTProp24
+import Salt.MR.MRTQualityLam
+import Salt.MR.MRTThmA1
+import Salt.MR.MRTPropA3Bridge
+import Salt.MR.MRTPropA3
+import Salt.MR.MRTThmA2Stmt
+import Salt.MR.DoorRoadCompose
+import Salt.MR.MRTPort
+import Salt.MR.MRTPortA1
+import Salt.MR.MRTPortA1Tail
+import Salt.MR.MRTPortWindow
+import Salt.MR.MRTPortSocketSq
+import Salt.MR.MRTPortRowLam
+import Salt.MR.MRTPortTrivialSplit
+import Salt.MR.MRTPortLadderGates
+import Salt.MR.MRTPortExitLam
+import Salt.MR.MRTPortMLower
+import Salt.MR.MRTPortExitLamGated
+import Salt.MR.MRTPortA1Const
+import Salt.MR.MRTArcRatCoprime
+import Salt.MR.XGapThread
+import Salt.MR.BandRated
+import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -375,7 +410,7 @@ import Salt.Tactic.AuditAxioms
 The MR-gate campaign (freeze: `docs/exploration/mr-freeze.md`) opens the road
 from the landed power zero-free region (`Salt.Vk.zeta_zero_free_region_pow`,
 θ = 3/4 < 1) toward unconditional log-Chowla-2, by discharging the pretentious
-non-pretentiousness hypothesis (1.6) of Tao 1509.05422 and the MRT door.
+non-pretentiousness hypothesis (1.6) of Tao arXiv:1509.05422v2 and the MRT door.
 
 Wave 1 (route-shared, ungated stones), in the freeze's dispatch order; status
 per stone after the MR-W1 executor wave (residual detail: the MR-W1 section of
@@ -417,6 +452,17 @@ open Salt.Tactic in
   Salt.MR.pretDistSq_principal_eval
   Salt.MR.prime_power_tail_le
   Salt.MR.regime_W_headroom_of_floor
+  -- ⭐ S10b (2026-08-26 14:2x, math) — the OTHER arm of the SAME Prop 2.4 W-constraint,
+  -- `W ≤ H^{1/250}`, stated expanded as `(log H)^1250 ≤ H`: no `W`, no `rpow`, no `ε`.
+  -- QUEUE item 12 / ITEM 5's third threshold, which v2 §4 recorded as "missing from every
+  -- regime field". 📐 It reads `R.Hlo` where S10a reads `R.Hhi` and that is not an
+  -- inconsistency: `W` grows with `H`, so S10a (comparing against the H-free `log X_min`) is
+  -- worst at the LARGEST H, while here both sides grow and the right side wins, making it a
+  -- FLOOR — worst at the SMALLEST H.
+  -- ⚠️ THE BRIEF'S NUMERAL IS BELOW THE ROOT: `hthr` is `1250·log L ≤ L` (L = log H), upper
+  -- root `L* = 11710.2777…`; the brief's `log H ≳ 1.17e4` = 11700 gives `−9.18` and FAILS
+  -- there. First integer that works: `log H ≥ 11711`. The regime clears it by ~55 orders.
+  Salt.MR.regime_W_cap_of_floor
   Salt.MR.continuous_dpoly
   Salt.MR.sq_norm_dpoly_eq
   Salt.MR.dirichlet_poly_l2_expand
@@ -454,10 +500,12 @@ open Salt.Tactic in
   Salt.MR.euler_osc_bridge
   Salt.MR.log_euler_osc_zeta
   Salt.MR.euler_osc_bridge_le
+  Salt.MR.cpeel_le_two
   Salt.MR.halasz_cosh_ineq
   Salt.MR.halasz_cosh_ineq_complex
   Salt.MR.offdiag_int_bound
   Salt.MR.prime_tail_shift
+  Salt.MR.primeTailConst_le_27
   Salt.MR.log_euler_osc_zeta_unconditional
   Salt.MR.euler_osc_bridge_unconditional
   Salt.MR.one_line_pow_growth
@@ -472,6 +520,8 @@ open Salt.Tactic in
   Salt.MR.mvHilbertUniform_of_l2
   Salt.MR.sep_inv_sq_sum_le
   Salt.MR.typical_density_le
+  Salt.MR.typical_density_union_le
+  Salt.MR.blockOmega_eq_zero_iff_coprime_bandProd
   Salt.MR.lambdaLin_norm_le
   Salt.MR.lambdaLin_convolution
   Salt.MR.ellLin_lseries_deriv
@@ -735,6 +785,14 @@ open Salt.Tactic in
   Salt.MR.prop_A3_T1_row_split_weighted
   Salt.MR.sigma_cutoff_pretentious_gen
   Salt.MR.sigma_cutoff_pretentious_half
+  Salt.MR.sigma_cutoff_pretentious_crit
+  Salt.MR.integral_exp_neg_mul
+  Salt.MR.exp_neg_mul_integral_ge_midpoint
+  Salt.MR.finset_weighted_integral_ge_midpoint
+  Salt.MR.sigma_cut_lower_theta
+  Salt.MR.dist_identification_sigma_theta
+  Salt.MR.scale_floor_theta
+  Salt.MR.head_sigma_bound_theta
   Salt.MR.chi_Llower_trivial
   Salt.MR.chi_floor_all_unconditional
   Salt.MR.chi_Llower_341
@@ -827,6 +885,7 @@ open Salt.Tactic in
   Salt.MR.prop_A3_T1_row_annular_polyT
   Salt.MR.prop_A3_T1_row_moment_polyT
   Salt.MR.window_sup_decay_gen
+  Salt.MR.window_sup_decay_theta
   Salt.MR.halasz_direct_gen
   Salt.MR.halasz_direct_ball
   Salt.MR.halasz_direct_ball_window
@@ -1421,6 +1480,13 @@ open Salt.Tactic in
   Salt.MR.sec9_eq28
   Salt.MR.sec9_eq28_exit
   Salt.MR.rpow_neg_anti
+  Salt.MR.H0mrt_pos
+  Salt.MR.HplusStar_pos
+  Salt.MR.log_le_two_sqrt
+  Salt.MR.mrt_middle_le_of_H0mrt
+  Salt.MR.mrt_tail_le_of_HplusStar
+  Salt.MR.budget_head_at_mrt_floors
+  Salt.MR.budget_head_sq_at_mrt_floors
   Salt.MR.H0door_pos
   Salt.MR.exp_le_H0door
   Salt.MR.H0door_anti
@@ -3509,6 +3575,8 @@ open Salt.Tactic in
   Salt.MR.a2wall_floor_48_at_500
   Salt.MR.a2wall_floor_47_fails_at_500
   Salt.MR.a2wall_floor32_89
+  Salt.MR.a2wall_floor64_65
+  Salt.MR.a2wall_floor64_64_fails
   Salt.MR.a2wall_floor32_88_fails
   Salt.MR.a2wall_box_fails_gate_15
   Salt.MR.a2wall_ballrad_forced
@@ -6265,6 +6333,7 @@ touched, and the `L¹` sockets `m4_exit_socket_split`/`_45` stand beside these. 
 open Salt.Tactic in
 #audit_axioms Salt.MR.m4_exit_socket_split_sq
   Salt.MR.m4_exit_socket_split_sq_arc
+  Salt.MR.m4_exit_socket_split_sq_arc_at_mrt_floors
 
 /-! ⟦THE L² RESTRUCTURE — stone 7: THE ROAD-SIDE RE-PLUMB + ⟦A1 THE BINDER SPLIT⟧⟧
 (`M4DoorL2`, 2026-07-30, the freeze `docs/exploration/l2-restructure-freeze-0730.md` with
@@ -7990,3 +8059,650 @@ untouched — the transport wall stands at this rung.  `logChowla2_ineffective_v
 byte-untouched and remains the object of record. -/
 #audit_axioms Salt.MR.xceilRiderStrict_zero
   Salt.MR.logChowla2_ineffective_v7_ksarm_g0
+
+/-! ### `Salt/MR/EvenChiCosh.lean` — the integrality jump and the `2 log φ` floor
+
+Ported out of the even-χ development 2026-08-19.  Self-contained real analysis: no character,
+no Gauss sum, no cyclotomic field appears in it.  `2 cosh y > 2` over the reals is compatible
+with `2 + ε` for every `ε`; **integrality turns it into `≥ 3`, a GAP rather than an epsilon**,
+and that jump is why the ladder routes through `∃ T : ℤ`.  `e4a_E5_floor` is the quantitative
+end of it: an integer trace forces `y ≥ 2 log φ = 0.96242…`. -/
+#audit_axioms Salt.MR.e4a_two_cosh_log
+  Salt.MR.e4a_cosh_integer_of_sum
+  Salt.MR.e4a_cosh_sign_free
+  Salt.MR.e4a_golden_sq
+  Salt.MR.e4a_cosh_floor
+  Salt.MR.e4a_two_lt_two_cosh
+  Salt.MR.e4a_int_ge_three_of_two_lt
+  Salt.MR.e4a_E5_floor
+  Salt.MR.e4a_cosh_neg_free
+  Salt.MR.e4a_cosh_of_pm
+  Salt.MR.e4a_cosh_integer_of_pm
+
+/-! ### `Salt/MR/EvenChiSine.lean` — the sine bridge
+
+`‖1 − ζ^a‖ = 2 sin(πa/q)` for `0 < a < q`, and the bookkeeping that carries it through
+products, `zpow` weights, norms and real parts.  A dependency-closed unit: no cyclotomic
+field, ring of integers or Dirichlet character appears in it.  The real-part and `log`
+lemmas are stated over an ARBITRARY index type, which is why the ladder above never has to
+transport a sum across a bijection. -/
+#audit_axioms Salt.MR.e4a_step3_sin_bridge
+  Salt.MR.e4a_norm_zpow_prod
+  Salt.MR.e4a_sin_prod_eq_norm
+  Salt.MR.e4a_neg_clog_re
+  Salt.MR.e4a_sum_clog_re
+  Salt.MR.e4a_sum_clog_re_sin
+  Salt.MR.e4a_log_zpow_prod
+  Salt.MR.e4a_log_eta_eq_sum
+  Salt.MR.e4a_exp_pow_eq_exp
+  Salt.MR.e4a_unit_ne_zero_aux
+  Salt.MR.e4a_unit_neg_ne_zero
+  Salt.MR.e4a_unit_val_div_mem
+  Salt.MR.e4a_sin_ne_zero_at_unit
+  Salt.MR.e4a_sin_bridge_zmod
+
+/-! ### `Salt/MR/EvenChiSign.lean` — the ℤ sign map of a real Dirichlet character
+
+A real character takes values in `{0,±1}` FREE at `[NeZero q]`, so on the units it IS an
+integer sign.  `e4a_signOf_sum_eq_zero` is the integer form of the R1 amendment, and
+`e4a_card_eq_of_sum_zero` turns it into EQUAL FIBRE CARDINALITIES — which is what cancels the
+signs in the η product.  Dependency-closed and light: no cyclotomic field, no ring of
+integers anywhere in its cone. -/
+#audit_axioms Salt.MR.e4a_card_eq_of_sum_zero
+  Salt.MR.e4a_units_reindex
+  Salt.MR.e4a_prod_restrict_coprime
+  Salt.MR.e4a_char_vanishes_off_units
+  Salt.MR.e4a_fibre_swap
+  Salt.MR.E4aChiBridge.e4a_signOf_one
+  Salt.MR.E4aChiBridge.e4a_signOf_cast
+  Salt.MR.E4aChiBridge.e4a_signOf_mul
+  Salt.MR.E4aChiBridge.e4a_signOf_eq_one_or_neg_one
+  Salt.MR.E4aChiBridge.e4a_signOf_trichotomy
+  Salt.MR.E4aChiBridge.e4a_dirichletReal_values
+  Salt.MR.E4aChiBridge.e4a_signOf_cast'
+  Salt.MR.E4aChiBridge.e4a_signOf_mul'
+  Salt.MR.e4a_dirichlet_fibre_swap
+  Salt.MR.e4a_dirichlet_card_eq
+  Salt.MR.e4a_signOf_sum_eq_zero
+
+/-! ### `Salt/MR/EvenChiRingBridge.lean` — the ℝ→ℂ complexification (helm-ruled ℝ-up)
+
+`e4a_toC_eq_signOf` is the payload: at a unit the complexified character's value IS the
+integer sign map, which turns a ℂ-coefficient character sum into an ℤ-coefficient one.
+`e4a_toC_isPrimitive_iff` transports primitivity BOTH WAYS and collapses to one observation —
+the KERNELS ARE EQUAL — because mathlib characterises `FactorsThrough` purely by a kernel
+containment, so the conductor never has to be computed. -/
+#audit_axioms Salt.MR.e4a_toC_isQuadratic
+  Salt.MR.e4a_toC_even
+  Salt.MR.e4a_toC_ne_one
+  Salt.MR.e4a_toC_eq_signOf
+  Salt.MR.e4a_sum_units_of_vanishing
+  Salt.MR.e4a_toC_sum_eq_signOf_sum
+  Salt.MR.e4a_toC_toUnitHom_ker
+  Salt.MR.e4a_toC_factorsThrough_iff
+  Salt.MR.e4a_toC_conductorSet_eq
+  Salt.MR.e4a_toC_conductor_eq
+  Salt.MR.e4a_toC_isPrimitive_iff
+  Salt.MR.e4a_toC_isPrimitive
+
+/-! ### `Salt/MR/EvenChiTau.lean` — the Gauss sum at an even real character
+
+τ is REAL at an even QUADRATIC χ — primitivity is NOT needed for that, which is weaker than
+the ladder's design assumed.  Its MAGNITUDE `τ.re = ±√q` IS primitive-bound, and is the only
+source of the `√q` in the ground.  The SIGN is deliberately unproved: `cosh` is even. -/
+#audit_axioms Salt.MR.e4a_gaussSum_even_inv_addChar
+  Salt.MR.e4a_gaussSum_real
+  Salt.MR.e4a_gaussSum_eq_real
+  Salt.MR.e4a_gaussSum_re_sq
+  Salt.MR.e4a_gaussSum_re_eq_pm_sqrt
+  Salt.MR.e4a_gaussSum_re_ne_zero
+  Salt.MR.e4a_abs_gaussSum_re
+
+/-! ### `Salt/MR/EvenChiMiddle.lean` — E3's Fourier identity reaching the real sine product
+
+    Re( τ · L(χ⁻¹,1) )  =  − log ∏_{a ∈ (ZMod q)ˣ} ( 2 sin(π·(−a).val / q) ) ^ χ(a)
+
+`e4a_norm_add_inv_int` is the step that makes the descent possible: if `w + w⁻¹` is an integer
+then so is `‖w‖ + ‖w‖⁻¹`, with NO assumption that `w` is real — either `w` is real, or it lies
+on the unit circle, and both branches land an integer.  That is why the ladder never has to
+answer the Galois question "is η real?", which the target never asks.  `e4a_signOf_neg` is
+where EVENNESS is load-bearing: E3 indexes by `(−j).val`, η by `val`, and they agree only
+because `χ(−a) = χ(a)`. -/
+#audit_axioms Salt.MR.e4a_norm_add_inv_int
+  Salt.MR.e4a_prod_units_eq_prod_Ioo
+  Salt.MR.e4a_ne_one_of_sum_zero
+  Salt.MR.e4a_fourier_signOf_form
+  Salt.MR.e4a_fourier_signOf_form_real
+  Salt.MR.e4a_witness_rhs_re
+  Salt.MR.e4a_middle_re_join
+  Salt.MR.e4a_signOf_neg
+  Salt.MR.e4a_middle_reindex
+  Salt.MR.e4a_log_eta_units
+  Salt.MR.e4a_middle_closed
+  Salt.MR.e4a_P_eq_units_prod_inv
+  Salt.MR.e4a_log_P_eq_middle
+  Salt.MR.e4a_middle_ne_zero
+
+/-! ### `Salt/MR/EvenChiAlgebra.lean` — the generic algebra beneath η
+
+Fibre swaps, the descent spine, associate-hood of weighted products, and the exponent
+arithmetic of a primitive root — all stated WITHOUT a cyclotomic field or a ring of integers,
+even though every one of them exists to serve the η that lives in one.  Porting these before
+the `𝓞_K` layer is FORCED, not preferred: the heavy set's dependency closure contains all
+twenty-three.  The generality (`CommRing` + `IsDomain`, arbitrary `Fintype` group) was chosen
+at the start of the campaign, and it is why the 𝓞_K instantiation will need no re-proof. -/
+#audit_axioms Salt.MR.e4a_zeta_isPrimitiveRoot
+  Salt.MR.e4a_fixed_isRational
+  Salt.MR.e4a_descent_to_int
+  Salt.MR.e4a_fibre_fix
+  Salt.MR.e4a_prod_fibre_swap
+  Salt.MR.e4a_prod_fibre_fix
+  Salt.MR.e4a_fibre_swap'
+  Salt.MR.e4a_prod_fibre_swap'
+  Salt.MR.e4a_eta_inverts
+  Salt.MR.e4a_sum_inv_fixed
+  Salt.MR.e4a_sum_inv_fixed_alg
+  Salt.MR.e4a_eta_sum_is_integer
+  Salt.MR.e4a_sum_isIntegral_of_both
+  Salt.MR.e4a_spine
+  Salt.MR.e4a_pow_mod_gen
+  Salt.MR.e4a_pow_val_mul_gen
+  Salt.MR.e4a_fibre_fix'
+  Salt.MR.e4a_prod_fibre_fix'
+  Salt.MR.e4a_eta_fixed
+  Salt.MR.e4a_associated_quotient_eq
+  Salt.MR.e4a_prod_associated_gen
+  Salt.MR.e4a_assoc_of_card_eq_gen
+
+/-! ### `Salt/MR/EvenChiEta.lean` — η in `𝓞_K`, and THE GROUND
+
+The final module of the even-χ port, and the one that terminates at the objective:
+
+    L(1,χ)  ≥  log((3+√5)/2) / √q  =  2·log φ / √q  =  0.9624236501192069… / √q
+
+at even REAL PRIMITIVE nonprincipal χ.  Above it sits `exists_int_add_inv_sin_prod`, the
+Captain-ratified statement of record.  η is a ratio of cyclotomic units, hence a unit of
+`𝓞_K`, and is fixed by every Galois automorphism up to inversion — so `η + η⁻¹` is rational
+AND integral, hence an integer.  The R1 amendment `∑χ = 0` is what makes the two sign fibres
+equal in size, which is what cancels the signs in that ratio; that is why the hypothesis is
+IN the ruled statement rather than a proof detail. -/
+#audit_axioms Salt.MR.e4a_zeta_pow_q
+  Salt.MR.e4a_zeta_isAlgebraic
+  Salt.MR.e4a_route_b_isCyclotomicExtension
+  Salt.MR.e4aZetaK_isPrimitiveRoot
+  Salt.MR.e4aZetaO_isPrimitiveRoot
+  Salt.MR.e4a_ringOfIntegers_isIntegral
+  Salt.MR.e4a_sigma_to_b
+  Salt.MR.e4a_sigma_prod_reindex
+  Salt.MR.e4aEta_def
+  Salt.MR.e4a_eta_gal
+  Salt.MR.e4a_eta_sum_is_integer_concrete
+  Salt.MR.e4a_eta_isIntegral_of_associated
+  Salt.MR.e4a_eta_products_associated
+  Salt.MR.e4a_zetaO_image
+  Salt.MR.e4a_prod_image
+  Salt.MR.e4a_eta_is_unit_image
+  Salt.MR.e4a_eta_inv_is_unit_image
+  Salt.MR.e4a_eta_sum_integer_final
+  Salt.MR.e4a_fibre_prod_ne_zero
+  Salt.MR.e4a_eta_image
+  Salt.MR.e4a_eta_norm
+  Salt.MR.e4a_sin_prod_eq_eta_norm_inv
+  Salt.MR.e4a_fibre_prod_K_ne_zero
+  Salt.MR.e4a_eta_ne_zero
+  Salt.MR.exists_int_add_inv_sin_prod
+  Salt.MR.e4a_E5a_cosh_integer
+  Salt.MR.e4a_E5_floor_at_middle
+  Salt.MR.e4a_E5_floor_unconditional
+  Salt.MR.e4a_L1_lower_even
+
+/-! ### `Salt/MR/EvenChiControls.lean` — ⛔ NEGATIVE CONTROLS, NOT RESULTS
+
+**Nothing in that module is a theorem about the even-χ mathematics.** Each declaration
+refutes something, or is the positive arm that shows a refutation discriminates.
+`e4a_gaussSum_mutant_is_false` is why `heven` is load-bearing rather than decorative;
+`e4a_descent_needs_integrality` is the ℚ-witness that integrality is kernel-necessary;
+`e4a_descent_holds_when_integral` is its positive arm, because a control with one arm proves
+nothing.  **A corpus that carries a hypothesis but not the witness that the hypothesis is
+load-bearing is carrying an unfalsified claim** — that is why these are in the tree rather
+than in custody. -/
+#audit_axioms Salt.MR.e4a_descent_needs_integrality
+  Salt.MR.e4a_descent_holds_when_integral
+  Salt.MR.e4a_gaussSum_real_of_primitive
+  Salt.MR.e4a_gaussSum_odd_inv_addChar
+  Salt.MR.e4a_gaussSum_odd_re_zero
+  Salt.MR.e4a_ruled_hypothesis_probe
+
+/-! ### `Salt/MR/EvenChiDescent.lean` — E6 + E7: the `ℂ → ℝ` down-leg and the golden gate
+
+The helm's 2026-08-19 **ℝ-UP** ruling stated the even lane over `ℝ` and pushed up through
+`e4a_toC`, because up-transport is cheap and constructive while pulling `ℂ` down is not.  That
+ruling bought the whole E4a/E5a spine and **deferred exactly one cost to this module**: the
+corpus consumer `L1LowerEffective` quantifies over ℂ-valued `χ`, so the down-leg had to be
+built.  Neither salt nor mathlib had it (mathlib's `IsQuadratic` API is up-only; `RealPrimStructure`
+states the up-only convention in prose).  `e4a_toR` builds it on the unit group, where a
+quadratic character's values are already `±1`, and `e4a_toC_toR` identifies the round trip.
+
+⛔ **SCOPE FENCE on `l1LowerEffective_goldenGate`:** it closes the register's paper-completeness
+item and retires the `L1_lower_real_effective` Zeno.  It does **NOT** discharge `K_vt` — the live
+ineffectivity is `siegelBandB`'s EVT **band** minimum, which a **point** floor at `s = 1` does not
+reach.  Point→band is a separate unpriced campaign. -/
+#audit_axioms Salt.MR.e4a_unit_val_pm
+  Salt.MR.e4a_signRu_coe
+  Salt.MR.e4a_toC_toR
+  Salt.MR.e4a_eInt_spec
+  Salt.MR.e4a_toR_isQuadratic
+  Salt.MR.e4a_toR_even
+  Salt.MR.e4a_toR_ne_one
+  Salt.MR.e4a_toR_isPrimitive
+  Salt.MR.e4a_L1_lower_even_complex
+  Salt.MR.e4a_log_golden_le_pi
+  Salt.MR.e4a_log_golden_pos
+  Salt.MR.e4a_L1_lower_primitive_both
+  Salt.MR.l1LowerEffective_goldenGate
+  Salt.MR.e4a_gaussSum_mutant_is_false
+  Salt.MR.e4a_toC_vanishes_off_units
+  Salt.MR.e4a_toC_signOf_mutant_is_false
+
+/-! ### `Salt/MR/EvenChiCyclotomic.lean` — E4a's cyclotomic machinery, NOT consumed by the route
+
+⚠️ **NOTHING IN THIS BLOCK IS LOAD-BEARING FOR THE EVEN-χ CHAIN.** Every row is a theorem about
+the mathematics (unlike `EvenChiControls`, which refutes rather than asserts), proved during the
+E4a campaign — but the route that actually closes E4a, the η/Gauss-sum descent in `EvenChiEta`
+and `EvenChiDescent`, reaches `l1LowerEffective_goldenGate` without calling any of them. They are
+audited here because **membership is never implied by greenness**: a module that compiles but is
+neither imported nor audited is not on the corpus's audited surface, and unaudited reusable
+machinery is exactly the kind of thing that later gets cited as if it had been checked.
+
+Four groups. **The associate route** — over any domain with a primitive `n`-th root,
+`∏_{a ∈ S} (ζ^a − 1)` is associated to `(ζ − 1)^|S|` when `S` is coprime to `n`, so equal
+cardinality gives an associate relation and an explicit unit; uniform in `n`, no prime-power
+branch. **The η layer** — the ratified amendment `Σ_a f a = 0` turned into unit-ness, with
+`e4a_eta_associated_in_ring` the version that has content: in a FIELD every nonzero element is a
+unit, so the field statement says nothing, and only in `𝓞 K` is `Associated` a real constraint.
+**The `∏ 2 sin(πa/q) = √q` bridge** — reached by pairing `a` with `q − a` inside `∏ (1 − ζ^k) = q`.
+**The Galois/fibre layer** — a ring map `ζ ↦ ζ^b` FIXES the full `(ZMod q)ˣ`-indexed product but
+SWAPS the two χ-fibres when `χ(b) = −1`; that distinction is the entire content of the layer, and
+`e4a_fibres_nonempty` is what keeps the swap arm from being vacuous. -/
+#audit_axioms Salt.MR.e4a_step1_associated
+  Salt.MR.e4a_step2_unit_ratio
+  Salt.MR.e4a_prod_associated
+  Salt.MR.e4a_step4_equal_card_associated
+  Salt.MR.e4a_step5_unit_witness
+  Salt.MR.e4a_pair_mul_one
+  Salt.MR.e4a_conj_eq_pair
+  Salt.MR.e4a_step7_pair_product
+  Salt.MR.e4a_prod_associated_concrete
+  Salt.MR.e4a_prod_one_sub_eq_q
+  Salt.MR.e4a_range_pair_split
+  Salt.MR.e4a_prod_sin_sq_eq_q
+  Salt.MR.e4a_prod_sin_eq_sqrt_q
+  Salt.MR.e4a_eta_associated_of_sum_zero
+  Salt.MR.e4a_zpow_prod_split
+  Salt.MR.e4a_eta_eq_quotient
+  Salt.MR.e4a_eta_associated_in_ring
+  Salt.MR.e4a_real_char_inv
+  Salt.MR.e4a_map_prod_sub_one
+  Salt.MR.e4a_map_prod_sub_one_pow
+  Salt.MR.e4a_map_prod_sub_one_gen
+  Salt.MR.e4a_zeta_pow_mod
+  Salt.MR.e4a_zeta_pow_val_mul
+  Salt.MR.e4a_prod_units_index
+  Salt.MR.e4a_prod_units_galois
+  Salt.MR.e4a_term_bridge
+  Salt.MR.e4a_galois_fibre_swap
+  Salt.MR.e4a_galois_fibre_fix
+  Salt.MR.e4a_galois_eta_swap
+  Salt.MR.e4a_fibres_nonempty
+  Salt.MR.e4a_unit_image_isIntegral_pair
+
+-- ⟦MRT PORT — WAVE 1a (E-1, E-2)⟧ the typical-factorization set `S` of MRT
+-- `arXiv:1503.05121v3` Definition 2.1 (p. 8) and the STATEMENT of its
+-- Proposition 2.4 (p. 10).  `Salt/MR/MRTProp24.lean`.  Definitions and their
+-- faithfulness receipts only — `MRTProp24` is a `Prop`, nothing here proves or
+-- assumes it.  The `J`-fold band intersection is NOT new: it is the corpus's own
+-- `Salt.MR.MemS` (`Sec9Glue.lean:118`, MR §2's `S`) instantiated at Definition
+-- 2.1's band sequence, so the whole `gJ`/`lemma5` inclusion–exclusion apparatus
+-- applies to `mrtS` verbatim.
+open Salt.Tactic in
+#audit_axioms Salt.MR.mrtBandP
+  Salt.MR.mrtBandQ
+  Salt.MR.mrtBandP_one
+  Salt.MR.mrtBandQ_one
+  Salt.MR.mem_mrtBand_nat
+  Salt.MR.mrtJ
+  Salt.MR.mrtS
+  Salt.MR.mem_mrtS
+  Salt.MR.mrtS_subset_Icc
+  Salt.MR.zero_not_mem_mrtS
+  Salt.MR.mrtP1
+  Salt.MR.mrtQ1
+  Salt.MR.mrtSProp24
+  Salt.MR.mrtM
+  Salt.MR.mrtQuality
+  Salt.MR.MrtCompMultDatum
+  Salt.MR.mrtWindowExpSum
+  Salt.MR.mem_mrtWindow
+  Salt.MR.MRTProp24
+  Salt.MR.MRTProp24Statement
+  Salt.MR.log3_shift_mono
+  Salt.MR.mrtM_lam_lower
+  Salt.MR.mrtShortMean
+  Salt.MR.mem_mrtShortWindow
+  Salt.MR.MRTThmA1
+  Salt.MR.MRTThmA1Statement
+  Salt.MR.measurable_mrtShortMean
+  Salt.MR.norm_mrtShortMean_le
+  Salt.MR.intervalIntegrable_mrtThmA1_integrand
+  Salt.MR.sum_inv_sq_Icc_one_le_two
+  Salt.MR.hMsup_of_propA3_shape
+  Salt.MR.one_le_X_div_h
+  Salt.MR.hMsup_of_propA3_shape_parseval
+  Salt.MR.parseval_dpolyA_terms_of_propA3_shape
+  Salt.MR.parseval_bound_of_propA3_shape
+  Salt.MR.MRTBands
+  Salt.MR.MRTBandCount
+  Salt.MR.MRTPropA3
+  Salt.MR.MRTPropA3Statement
+  Salt.MR.continuous_pretDistSq_costwist
+  Salt.MR.exists_min_pretDistSq
+  Salt.MR.mrtT0
+  Salt.MR.mrtT1
+  Salt.MR.mrtT0_union_mrtT1
+  Salt.MR.mrtT0_disjoint_mrtT1
+  Salt.MR.MRTLemmaA4i
+  Salt.MR.MRTLemmaA4ii
+  Salt.MR.mrtA4_constant_pos
+  Salt.MR.mrtA5_rho_margin
+  Salt.MR.mrtA5_epsilon_ceiling
+  Salt.MR.MRTLemmaA6
+  Salt.MR.MRTLemmaA7
+  Salt.MR.MRTLemmaA6Statement
+  Salt.MR.MRTLemmaA7Statement
+  Salt.MR.blockOmega_eq_zero_of_le_one
+  Salt.MR.memS_false_of_Qseq_one_le_one
+  Salt.MR.mrtBands_bandCount_incompatible_at_one
+  Salt.MR.sifted_empty_at_one
+  Salt.MR.integral_dpolyA_eq_zero_of_empty
+  Salt.MR.exp_add_exp_neg_eq_two_cos
+  Salt.MR.exp_neg_avg
+  Salt.MR.costwist_conj_avg
+  Salt.MR.mrtA4i_loss_witness
+  Salt.MR.mrtA4i_loss_pos
+  Salt.MR.mrtA7_exact_at_center
+  Salt.MR.not_mrtLemmaA4ii
+  Salt.MR.recenter_then_halve_constant
+  Salt.MR.landed_route_below_a4ii_target
+  Salt.MR.mrtT0_eq_empty_of_high_M
+  Salt.MR.lt_of_mem_mrtT0
+  Salt.MR.abs_sub_le_of_mem_mrtT0
+  Salt.MR.MRTLemmaA4iiFixed
+  Salt.MR.mrtA4iiFixed_high_M
+  Salt.MR.mrtA4ii_far_centre_cap
+  Salt.MR.mrtA7_factor_conj
+  Salt.MR.mrtA7_factors_differ
+  Salt.MR.mrtA8_of_mvt
+  Salt.MR.mrtA8_mvt_step
+  Salt.MR.mrtA8
+  Salt.MR.mrtG
+  Salt.MR.MRTLemmaA5
+  Salt.MR.MRTLemmaA5Statement
+  Salt.MR.mrtA3_T0_pointwise_sq
+  Salt.MR.mrtA3_T0_exponent
+  Salt.MR.integral_inv_one_add_sq_le_one
+  Salt.MR.mrtA7_factors_same_norm
+  Salt.MR.mrtA6_at_centre
+  Salt.MR.mrtT0_subset_Icc
+  Salt.MR.mrtT0_Icc_length
+  Salt.MR.integral_inv_one_sub_sq_le_one
+  Salt.MR.integral_inv_one_add_abs_sq_le_two
+  Salt.MR.integral_inv_one_add_abs_sub_sq_le_two
+  Salt.MR.mrtA3_T0_integral_bound
+  Salt.MR.mrtA3_T0_setIntegral_bound
+  Salt.MR.measurableSet_mrtT0
+  Salt.MR.mrtT0_mono_T
+  Salt.MR.mrtA3_T0_bound_of_A6
+  Salt.MR.dpolyA_eq_dpolyS
+  Salt.MR.dpolyA_l2_mvt
+  Salt.MR.dpolyA_l2_mvt_Icc
+  Salt.MR.sum_sq_norm_div_le
+  Salt.MR.mrtA3_mvt_branch
+  Salt.MR.blockOmega_eq_zero_of_lt
+  Salt.MR.memS_false_of_band_inverted
+  Salt.MR.blockOmega_eq_zero_of_no_prime
+  Salt.MR.memS_false_of_prime_free_band
+  Salt.MR.band_8_10_prime_free
+  Salt.MR.continuous_a3_majorant
+  Salt.MR.mrtA3_T0_setIntegral_bound_onT0
+  Salt.MR.measurableSet_mrtT1
+  Salt.MR.mrtT1_subset_Icc
+  Salt.MR.integral_sq_le_of_pointwise_on_mrtT1
+  Salt.MR.mrtA3_band_bound_of_A6
+  Salt.MR.bridge_side_conditions_of_mrtA3_hyps
+  Salt.MR.mrtA3_ambient_excludes_degeneracies
+  Salt.MR.mrtA3_first_term_of_Pseq1_zero
+  Salt.MR.band_zero_two_has_prime
+  Salt.MR.mrtA3_leading_factor_of_Qseq1_zero
+  Salt.MR.memS_false_of_Qseq1_zero
+  Salt.MR.mrtM_nonneg
+  Salt.MR.mrtM_one_eq_zero
+  Salt.MR.mrtA3_bracket_nonneg
+  Salt.MR.renormalise_error_logpower_stronger
+  Salt.MR.trivial_cut_needs_delta_ge_one
+  Salt.MR.door_absWindowSum_sq_le_strata
+  Salt.MR.strataTerm_le_dyadic
+  Salt.MR.door_absWindowSum_sq_le_dyadic
+  Salt.MR.sum_progression_le_sum_Ioc
+  Salt.MR.strata_modulus_pos
+  Salt.MR.strata_modulus_within_arc
+  Salt.MR.strata_capstone_applicable
+  Salt.MR.progression_mem_Ioc_of_window_in_block
+  Salt.MR.sum_progression_le_sum_Ioc_of_window
+  Salt.MR.doorLadder_block_length_ge
+  Salt.MR.doorLadder_block_length_lt
+  Salt.MR.sum_swap_dyadic
+  Salt.MR.sum_swap_dyadic_at_door
+  Salt.MR.sum_Ioc_shift_at_door
+  Salt.MR.shift_le_cap
+  Salt.MR.landed_halasz_exponent_weaker_than_a6
+  Salt.MR.landed_halasz_M_rate_weaker_than_a6
+  Salt.MR.theta_lift_head_rate_at_log_two
+  Salt.MR.theta_lift_grade_at_log_two_still_weaker
+  Salt.MR.b4_grade_cannot_reach_a6_from_head
+  Salt.MR.grade_cannot_reach_fiftieth_under_sigma_wall
+  Salt.MR.mrtPropA3_in_bridge_shape
+  Salt.MR.mrtA6_inner_eq_sifted
+  Salt.MR.mrtA6_F_sifted
+  Salt.MR.renormalise_hyx_of_mrtT0
+  Salt.MR.costwist_one
+  Salt.MR.costwist_mul
+  Salt.MR.gJ_f_costwist_mul
+  Salt.MR.gJ_f_costwist_mul_coprime
+  Salt.MR.one_sub_re_le_norm_one_sub
+  Salt.MR.pretDistSq_one_le_sum_norm
+  Salt.MR.norm_one_sub_liouvilleC_prime
+  Salt.MR.sum_norm_one_sub_liouvilleC
+  Salt.MR.recenter_from_unit_floor
+  Salt.MR.unit_floor_route_above_a4ii_target
+  Salt.MR.sieved_primes_floor_le_pretDistSq_sifted
+  Salt.MR.gJ_prime_eq_zero_iff
+  Salt.MR.mertens_block_difference
+  Salt.MR.pretDistSq_ge_cos_average
+  Salt.MR.integral_abs_cos_pi_unit
+  Salt.MR.mrtA4i_halving
+  Salt.MR.mrtA4ii_high_M_sixteenth
+  Salt.MR.mrt_exponent_gap
+  Salt.MR.mrt_exponent_gap_at_Y
+  Salt.MR.mrtA4ii_constant_decomposition
+  Salt.MR.pretDistSq_ge_cos_average_restricted
+  Salt.MR.abs_cos_pi_mul_eq_cos_pi_mul_dist_round
+  Salt.MR.mrtA4_summand_matches_source
+  Salt.MR.mrtA4ii_far_of_cos_average
+  Salt.MR.MRTShortSegmentSplitting
+  Salt.MR.mrtA4ii_far_of_named_splitting
+  Salt.MR.MRTLargeRangeEquidistribution
+  Salt.MR.mrtA4ii_far_of_either_estimate
+  Salt.MR.MRTThmA1GJ
+  Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty
+  Salt.MR.closed_open_window_card_le_one
+  Salt.MR.shortWindow_closed_sub_open_norm_le
+  Salt.MR.MRTParsevalConstantMatch
+  Salt.MR.mrtThmA1Statement_of_constantMatch
+  Salt.MR.mrtT0_subset_band
+  Salt.MR.continuous_a3_twistedSum
+  Salt.MR.integrableOn_sq_mrtT0_of_continuous
+  Salt.MR.integrableOn_sq_mrtT1_of_continuous
+  Salt.MR.mrtA3_split_bound
+  Salt.MR.band_eq_Icc
+  Salt.MR.mrtA3_split_bound_interval
+  Salt.MR.mrtA4i_holds
+  Salt.MR.mrtLemmaA4i_holds
+  Salt.MR.mrtM_le
+  Salt.MR.mrtA4ii_sixteenth_suffices
+  Salt.MR.mrtA4ii_high_M
+  Salt.MR.mrtM_costwist_self
+  Salt.MR.not_mrtLemmaA7Statement
+  Salt.MR.mrtS_dilate
+  Salt.MR.mrtS_indicator_mul_dilate
+  Salt.MR.mrt_constant_factors
+  Salt.MR.vk34_constant_factors
+  Salt.MR.vk34_constant_pos
+  Salt.MR.vk34_constant_clears_bar
+  Salt.MR.vk34_constant_fails_rho_margin
+  Salt.MR.vk34_constant_lt_mrt
+  Salt.MR.mrtA4ii_high_M_target
+  Salt.MR.regime_headroom_at_socket
+  Salt.MR.mrtQuality_lower_of_pointwise
+  Salt.MR.lam_eq_lamCoeff_of_prime
+  Salt.MR.pretDistSq_lam_eq_lamCoeff
+  Salt.MR.mrtCompMultDatum_lamCoeff
+  Salt.MR.mrtQuality_lower_of_capFreeFloor
+  Salt.MR.W_first_arm
+  Salt.MR.door_contradiction_with_headroom_and_tower
+  Salt.MR.mrtM_lam_eq_lamCoeff
+  Salt.MR.lamCoeff_mul_coprime
+  Salt.MR.mrtThmA1_at_lamCoeff
+  Salt.MR.mul_exp_neg_le_two_div
+  Salt.MR.mrtA1_rhs_tail_le
+  Salt.MR.norm_sq_le_two_of_norm_sub_le
+  Salt.MR.norm_mrtShortMean_sq_le_open
+  Salt.MR.m4_exit_socket_split_of_sq
+  Salt.MR.M4RowMeanSqLam
+  Salt.MR.m4_doorSq_of_rowMeanSqLam
+  Salt.MR.m4_exit_socket_split_sq_trivial
+  Salt.MR.m4_ladder_gates_lam
+  Salt.MR.exit_lam_tail_absorb
+  Salt.MR.m4_exit_lam_of_rowMeanSqLam
+  Salt.MR.log_le_div_add_const_128
+  Salt.MR.log3_shift_le_linear
+  Salt.MR.mrtM_lamCoeff_lower
+  Salt.MR.mrtM_lamCoeff_loglog_floor
+  Salt.MR.mrtM_lamCoeff_ge
+  Salt.MR.m4_exit_lam_of_rowMeanSqLam_gated
+  Salt.MR.mrtA1_lamCoeff_le_const
+  Salt.MR.norm_absWindowSum_rat_le_coprime_head_add
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_forallX_sq_count
+  Salt.MR.m4_exit_socket_split_sq_arc_forallX
+  Salt.MR.m4_exit_socket_split_sq_trivial_forallX
+  -- ⭐ POINT→BAND step 1 (2026-08-26, math), P2 item 6 commissioned at WORKER tier by helm ruling
+  -- 06:0x. `chi_Llower_band_real_rated` is `SiegelArm.chi_Llower_real_of_L1` with its `L₁` slot
+  -- filled by the landed effective floor `goldenL1 q = c/q^{5/2}` (`l1LowerEffective_goldenGate`),
+  -- so the band bound's whole `q`-dependence is EXPLICIT and its only existential (`Z`) is `q`-free
+  -- and `χ`-free. That is the difference from `chi_Llower_band_uniform`, whose `B(Q)` is a bare
+  -- induction-max with no stated growth — the unrated constant the `K_vt` cushion inherits.
+  -- ⛔ Rooted at the END of the list, same rule as this session's other roll-ins: `#audit_axioms`
+  -- aborts its remainder on a throw, so a new name belongs where a failure masks nothing.
+  Salt.MR.log_golden_le_one
+  Salt.MR.goldenL1_pos
+  Salt.MR.goldenL1_le_one
+  Salt.MR.goldenL1_le_LFunction_one
+  Salt.MR.chi_Llower_band_real_rated
+  -- ⭐ POINT→BAND step 2 (2026-08-26 06:2x, math). `LFunction_band_lower_principal_uniform` hoists
+  -- SiegelArm's principal constant OUT of `∀ q` — the landed form reads `∀ q, ∃ m, … m/q ≤ ‖L‖`, so
+  -- `m` is formally q-dependent and the bound carries NO rate, even though its proof takes `m` from
+  -- the q-free `zeta_lower_small_t`. The rate lives in the QUANTIFIER PREFIX, not the proof.
+  -- `chi_Llower_band_realclass_rated` then joins it to §2's real-nonprincipal arm, giving a RATED
+  -- band L-lower for the whole `χ² = 1` class — exactly the class `capFreeFloor3_margin_all_chi_vt`
+  -- consumes the band arm on. Both constants (Z, δ) are q-free and χ-free; the q-dependence is the
+  -- explicit `max (log q − log δ) (bandRateReal Z q X)`.
+  Salt.MR.chi_Llower_band_real_rated'
+  Salt.MR.LFunction_band_lower_principal_uniform
+  Salt.MR.chi_Llower_band_realclass_rated
+  -- ⭐ POINT→BAND step 3 (2026-08-26 06:5x, math) — the commission's step (ii), CLOSED.
+  -- `chi_floor_band_realclass_rated` composes §4's join into `ChiFloorLow.chi_floor_low_of_Llower`,
+  -- the SAME lemma `SiegelBand.chi_floor_band_uniform` composes its unrated `B(Q)` into — so the
+  -- seam really was one factor, and swapping it is all step (ii) required.
+  -- ⚠️ COEFFICIENT CAVEAT, in the theorem's own docstring too: the statement carries coefficient 1
+  -- on `loglog X` and the `1/4` appears only after `B` is unfolded (`bandRateReal` holds the
+  -- `(3/4)·log(1+log X)`). A consumer reading the coefficient off the statement without unfolding
+  -- `B` over-credits the floor fourfold.
+  Salt.MR.chi_floor_band_realclass_rated
+  -- ⭐ POINT→BAND step 4 (2026-08-26 07:0x, math). `chi_floor_band_realclass_quarter` puts the rated
+  -- band floor in the shape the assembly consumes: `(1/4)·loglog X − bandConstQ − K`, with
+  -- `bandConstQ` X-FREE and O(log q). Kept as a SEPARATE step from §5 on purpose: §5's form carries
+  -- coefficient 1 with the (3/4) hidden inside `B`, and that is the form a reader can over-credit
+  -- fourfold. The single move is `log(1+log X) ≤ log 2 + loglog X`, so the X-dependence separates.
+  -- ⛔ Still not (iii): re-deriving `capFreeFloor3_margin_all_chi_vt`'s threshold against this is the
+  -- commission's last piece. What this buys is an X-free C(q) for that re-derivation to carry.
+  Salt.MR.chi_floor_band_realclass_quarter
+  -- ⭐⭐ POINT→BAND step 5 (2026-08-26 09:5x, math) — P2 item 6's step (iii), the commission's LAST
+  -- stated piece. `margin_band_threshold_rated` re-derives `capFreeFloor3_margin_all_chi_vt`'s BAND
+  -- BRANCH against the 1/4-effective floor. A SIBLING, never an edit: the landed name's `χ² ≠ 1` and
+  -- `|v| > 1/2` branches are untouched (Wave K already made Kvk/Kbulk effective) and only the branch
+  -- that reads the band arm needed re-deriving.
+  -- 📐 The arithmetic: we need `bandConstQ + K + 25 + D < (1/4 − 1/32)·loglog X = (7/32)·loglog X`,
+  -- and a `32·(… + 25 + D) < loglog X` threshold delivers `< (1/32)·loglog X`. The coefficient drop
+  -- 1 → 1/4 costs a factor 7 of slack in a threshold already spending 1/32 of its budget — which is
+  -- WHY the shape survived the trade, now as a kernel statement rather than an estimate.
+  -- ⛔ DOES NOT DISCHARGE THE CUSHION. That needs the whole capFreeFloor3_* → cofkL_* → V7 rethread.
+  Salt.MR.margin_band_threshold_rated
+  -- ⭐⭐ COMMISSION 7b, NODES N1–N3 (2026-08-26 12:1x, math) — `Salt/MR/HDoorArc.lean`.
+  -- The arc supply transported to the TWISTED frequency set, which was 7b's whole blocker:
+  -- membership in `bigXiH h` is largeness at `h·ξ`, the door integrates at the untwisted `ξ`,
+  -- and the landed supply certifies only the untwisted set. N1 strips an integer shift, N2
+  -- divides the frequency by `h` and pays for it in the cap, N3 composes them off
+  -- `mem_bigXiH_iff`. Shape (a∧b) per the helm's pick; B₅ stays 12 (iron rule 1) — the CAP
+  -- moves, never the exponent.
+  -- ⭐ N2's slack is `h`, NOT `h²`: the inflated allowance and the inflated witness denominator
+  -- cancel exactly in the radius, so the whole margin is the single 1/h distance contraction.
+  Salt.MR.nearRatTight_intCast_add
+  Salt.MR.nearRatTight_div_nat
+  Salt.MR.nearRatTight_of_bigXiArcTight_H
+  -- ⭐⭐ COMMISSION 7b, NODES N4a–N4d (2026-08-26 12:5x, math) — same file.  The `h`-`L²`
+  -- adapter chain: clones of the LANDED `L²` chain in `M4Window.lean` (:397-627), NOT of the
+  -- `L¹` adapter, under two literal substitutions — set `bigXi → bigXiH h`, cap
+  -- `arcDen B₅ H → (h:ℝ) · arcDen B₅ H`.  N4d closes onto `MRTUniformityXiL2H h R ρ`, so the
+  -- twisted door now has a CONDITIONAL producer in the corpus where it had none.
+  -- ⛔ WHAT IS STILL OPEN IS ONE NAMED SLOT, N4s: the per-`α` socket AT THE INFLATED CAP
+  -- (`M4SievedDoorSqH`).  `nearRatTight_mono` cannot supply it — it raises caps ONE WAY, so the
+  -- `α`-set at `h·arcDen 12 H` strictly CONTAINS the landed socket's and the implication runs
+  -- backwards.  Discharging N5's `hsock` from the landed `M4SievedDoorSq` is a correctness
+  -- error, not a shortcut.  N4a's own arc slot, by contrast, IS discharged — by N3 above.
+  -- ⛔ N4d keeps SIX slots: `hXi` is NOT droppable.  The landed `L²` seam consumes no count, but
+  -- that is the count never reaching the SEAM — it is still paid HERE, once, against the sieved
+  -- leg only.  The Σ-shaped conclusion is unreachable without it.
+  Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le
+  Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le_sub
+  Salt.MR.sum_bigXiH_norm_windowExpSum_sq_le_parseval
+  Salt.MR.mrtUniformityXiL2H_of_absWindowSqBound
+  -- ⭐⭐ COMMISSION 7b, NODES N4s + N5 (2026-08-26 13:4x, math) — same file.  7b's last two.
+  -- N4s `M4SievedDoorSqH` is `M4Close.M4SievedDoorSq` with the α-binder's literal `arcDen 12 H`
+  -- replaced by `(h:ℝ) · arcDen 12 H`.  ⛔ IT IS DECLARED OPEN ON PURPOSE: no landed producer,
+  -- and none can be manufactured — `nearRatTight_mono` raises caps ONE WAY, so the α-set at the
+  -- inflated cap STRICTLY CONTAINS the landed socket's and the implication runs backwards.
+  -- ⭐⭐ BUT OPEN IS NOT UNINHABITED, AND THE DIFFERENCE IS LOAD-BEARING: N5 takes this Prop as a
+  -- HYPOTHESIS, and THE KERNEL CANNOT CHECK THAT A HYPOTHESIS IS INHABITED.  An uninhabited
+  -- socket would make every consumer of the h-mint VACUOUSLY TRUE, with a green build and a
+  -- clean axiom audit.  `m4_sievedDoorSqH_trivial` is the witness (grade `Braw ≡ 1`), the
+  -- h-clone of the landed anti-vacuity duty `m4_sievedDoorSq_trivial` (`M4Close.lean:377`).
+  -- 📌 The witness never reads the cap — it discards the `NearRatTight` slot — which is itself
+  -- the evidence that ALL of this socket's content is the GRADE and none of it is the SHAPE.
+  -- N5 mints the door and does NOT open it: `hsock` is a hypothesis here exactly as in the
+  -- landed mint, so the twisted L² door is REACHABLE, NOT DONE.  ⛔ Its count does NOT go
+  -- through `bigXiH_bounded` (316-bit regression + a second existential floor): it composes
+  -- `bigXiH_card_le_mul` with `bigXi_bounded_500`'s third conjunct, so the exported constant is
+  -- `KXi = h · 32·K_lcm·(2^35)²/ε¹⁰` — h-explicit in the witness, constant in the statement.
+  Salt.MR.M4SievedDoorSqH
+  Salt.MR.m4_sievedDoorSqH_trivial
+  Salt.MR.m4_doorL2_supply_H
+  Salt.MR.m4_doorL2_supply_500_H

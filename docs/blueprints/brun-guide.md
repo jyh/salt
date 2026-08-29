@@ -1,3 +1,9 @@
+⚓ **TRACK CLOSED — THIS IS A HISTORICAL RECORD, NOT A WORK SOURCE.**
+The frontier list below is empty/closed by its own declaration. Live routing:
+`docs/QUEUE.md`. Reopening this track is a Fable/human-tier decision (iron rule 5).
+This banner is the routing fix of 2026-08-18, landed 2026-08-20 at the Captain's
+commissioning ruling; nothing below it was altered.
+
 # Brun's theorem — reader's guide
 
 <!--

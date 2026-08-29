@@ -14,7 +14,7 @@ here with the node map is a registered success).
 
 ## The mathematical object (Liouville spine, c_p = 1)
 
-Tao 1509.05422 Lemma 3.1: on the log-sampled random integer
+Tao arXiv:1509.05422v1 Lemma 3.1: on the log-sampled random integer
 n ∈ (x/ω, x], the window pattern X_H = (λ(n+1), …, λ(n+H)) and
 the residue datum Y_H = n mod P_H (P_H = ∏ of the primes in
 (ε²H/2, ε²H]) satisfy, for SOME H ∈ [H₋, H₊] divisible by a:
@@ -36,7 +36,7 @@ structure; every lemma of the rung is a field-to-field implication.
 NO lemma may introduce a free parameter not drawn from the regime.
 
 ```lean
-/-- The parameter regime of Tao 1509.05422 §3 (Liouville spine).
+/-- The parameter regime of Tao arXiv:1509.05422v1 §3 (Liouville spine).
     The gate verifies the hypothesis list against pp. 16–20 page
     images; executors NEVER add fields or hypotheses — a missing
     inequality is a STOP-AND-FLAG (house re-freeze). -/
@@ -278,7 +278,7 @@ is vacuous for ω ≤ e, but the invariance ℓ¹ needs a positive Σ floor);
 
 ### Charge 1 — the (3.8)–(3.11) fidelity pass (pp. 17–20, verbatim)
 
-Transcribed inequalities (Tao 1509.05422, PDF pp. 17–20):
+Transcribed inequalities (Tao arXiv:1509.05422v1, PDF pp. 17–20):
 - (3.8) `0 ≤ ℍ(X_H) ≪_ε H`. (3.9) `ℍ(Y_H) = log P_H − o_{A→∞}(1)`.
   (3.10) `ℍ(Y_H) ≪ H` for `H₋ ≤ H ≤ H₊` (from PNT).
 - p.18 concatenation heart: `X_{H₁,H₁+H₂}` = window on the SHIFTED block

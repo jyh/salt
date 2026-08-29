@@ -36,7 +36,7 @@ Scratchpad = `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/c6ff6bbc-2
 
 | file | identity | role | staged? |
 |---|---|---|---|
-| `chowla.txt` (+`chowla.pdf`, `chowla_pages/`) | **Tao, "The logarithmically averaged Chowla and Elliott conjectures for two-point correlations"** = arXiv:1509.05422 [G head + refs 1520–1560] | THE primary source; the spine's paper | YES |
+| `chowla.txt` (+`chowla.pdf`, `chowla_pages/`) | **Tao, "The logarithmically averaged Chowla and Elliott conjectures for two-point correlations"** = arXiv:1509.05422v1 [G head + refs 1520–1560] | THE primary source; the spine's paper | YES |
 | `montgomery3.txt` / `montgomery3.pdf` (scratchpad AND repo root `/Users/jyh/projects/claude/salt/montgomery3.pdf`, both 2,284,571 B = same file) | **Montgomery–Vaughan, Multiplicative Number Theory III (draft)** [G ToC head] | Ch. 23.5 = **Halász** (Thm 23.15 `T:HalaszThm`, montgomery3.txt:3538 [G]); Ch. 24 = VMVT + VK region (already served the Vk campaign) | YES — **montgomery3.pdf IS relevant: it is the staged Halász source** |
 | `psu597.txt`, `psu_dedup.txt` | Vaughan PSU Math 597 Ch. 24 (VMVT/VK) [G head] | region side, consumed by VMVT | YES |
 | `ford.txt`, `survey.txt` | Ford, zero-free regions (2 versions; survey.txt = arXiv:1910.08205v5) [G heads] | region side, consumed | YES |
@@ -99,7 +99,7 @@ statement of the MR/MRT theorems themselves (the door is a `def`, not a proof).*
 
 ---
 
-## 3. THE HONEST CHAIN (Tao 1509.05422, model form — all [G] unless marked)
+## 3. THE HONEST CHAIN (Tao arXiv:1509.05422v1, model form — all [G] unless marked)
 
 ```
 log-Chowla-2 (Thm 1.2)  ⟸  Cor 1.5  ⟸  Thm 1.3          [chowla.txt:81,230,204]
@@ -335,3 +335,11 @@ details = map #1.)
    §5) — designers must price the evaluation-point seam FIRST at t ≍ Ax.
 8. The Ax-vs-x^A heights discrepancy (Option-C memory vs grounded chowla.txt)
    — harmless to the arithmetic, but the freeze must cite the grounded form.
+
+
+> **PROVENANCE STAMP (2026-08-23, Captain-ratified item-18 residue A):** the `chowla.txt` this
+> file names as primary is an **unstamped v1 rendering** of arXiv:1509.05422 (content-verified by
+> the item-18 version axis). It is now durable: byte-identical copy at
+> `docs/sources/chowla-v1-textdump.txt` (local, gitignored per the release gate) with sidecar
+> `chowla-v1-textdump.PROVENANCE.md` (sha256 21ffaf5d…), tracked copy in the private seat archive.
+> Object numbers cited from it are v1's; cross-version readers use the axis table (QUEUE item 18).

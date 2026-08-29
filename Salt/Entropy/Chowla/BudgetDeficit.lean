@@ -8,7 +8,7 @@ The final analytic clearance of the Liouville entropy-decrement budget: the
 per-`H` gap between the prime-window log-cardinality `log P_H` and the residue
 datum's entropy `H[Y_H]` never exceeds `log 2`.
 
-This is Tao 1509.05422 (3.9) in its consumed direction.  The residue
+This is Tao arXiv:1509.05422v2 (3.9) in its consumed direction.  The residue
 near-uniformity bound `entropy_residueWindow_ge`
 (`ResidueUniform.lean`) reads
 

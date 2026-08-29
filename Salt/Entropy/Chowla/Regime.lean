@@ -2,11 +2,11 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The Chowla parameter regime (entropy-decrement spine, Tao 1509.05422 §3)
+# The Chowla parameter regime (entropy-decrement spine, Tao arXiv:1509.05422v1 §3)
 
 The mandatory regime structure of the entropy-decrement argument (the A-R0
 D-risk mitigation): every parameter and every inter-parameter inequality of
-Tao 1509.05422 §3 (Liouville spine) lives in ONE structure `ChowlaRegime`.
+Tao arXiv:1509.05422v1 §3 (Liouville spine) lives in ONE structure `ChowlaRegime`.
 No lemma of the rung may introduce a free parameter not drawn from the regime;
 a missing inequality is a STOP-AND-FLAG (house re-freeze).
 
@@ -50,7 +50,7 @@ noncomputable def towerDropSum (C0 a Hlo J : ℕ) : ℝ :=
 
 /-! ### The regime structure -/
 
-/-- The parameter regime of Tao 1509.05422 §3 (Liouville spine).  The gate
+/-- The parameter regime of Tao arXiv:1509.05422v1 §3 (Liouville spine).  The gate
     verifies the hypothesis list against pp. 16–20 page images; executors NEVER
     add fields or hypotheses — a missing inequality is a STOP-AND-FLAG. -/
 structure ChowlaRegime where

@@ -47,6 +47,32 @@ noncomputable def blockIdx (x : ℝ) (p : ℕ) : ℕ :=
 noncomputable def primeTailConst : ℝ :=
   Real.exp (-1) * (Real.log 2 + 24) * 2 / Real.log 2
 
+/-- **A crude absolute majorant for `primeTailConst`: `≤ 27`.**
+
+The true value is `2·e^{-1}·(log 2 + 24)/log 2 ≈ 26.21`.  Route: `e^{-1} ≤ 0.37` from
+`Real.exp_one_gt_d9`, and the two-sided `log 2` bounds `Real.log_two_gt_d9` /
+`Real.log_two_lt_d9`.  The LOWER bound on `log 2` is the load-bearing one — `log 2` sits
+in the DENOMINATOR, so an upper bound alone does not close it.
+
+WHY A CRUDE BOUND IS THE RIGHT ONE HERE.  Together with `cpeel_le_two` this is one of the
+two numeral stones under the EFFECTIVE arms (`Kvk`, `Kbulk`) of the `cffKVt` pricing max;
+the budget at that pricing site is of order `10^222`, so the ~0.8 of absolute slack is
+free by ~180 orders of magnitude.  Sharpening to `≈ 26.22` is available from the same
+three mathlib bounds at higher `nlinarith` cost and buys nothing. -/
+theorem primeTailConst_le_27 : primeTailConst ≤ 27 := by
+  have hlb : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hub : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hL : (0 : ℝ) < Real.log 2 := by linarith
+  have hexp : Real.exp (-1) ≤ 0.37 := by
+    rw [Real.exp_neg, inv_le_comm₀ (Real.exp_pos 1) (by norm_num : (0:ℝ) < 0.37)]
+    have := Real.exp_one_gt_d9
+    norm_num
+    linarith
+  have hexp0 : (0 : ℝ) < Real.exp (-1) := Real.exp_pos _
+  unfold primeTailConst
+  rw [div_le_iff₀ hL]
+  nlinarith [mul_nonneg (sub_nonneg.mpr hexp) hL.le, hexp0, hlb]
+
 /-- `log (2^m · x) = m·log 2 + log x`, the workhorse cut-point identity. -/
 theorem log_two_pow_mul {x : ℝ} (hx : 0 < x) (m : ℕ) :
     Real.log ((2:ℝ)^m * x) = m * Real.log 2 + Real.log x := by

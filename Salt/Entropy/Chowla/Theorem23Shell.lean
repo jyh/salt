@@ -2,7 +2,7 @@
 Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
-# The Theorem-2.3 conditional shell (Tao 1509.05422 §2–§3), spine node W3-E-GLUE
+# The Theorem-2.3 conditional shell (Tao arXiv:1509.05422v1 §2–§3), spine node W3-E-GLUE
 
 The wave-3 capstone: compose the four landed keystones of the log-Chowla spine
 into a single contradiction theorem, with every still-unproven input threaded
@@ -39,6 +39,7 @@ supported) pass the integral inside the finite `ξ`-sum and Bridge A converts ea
 import Salt.Entropy.Chowla.OuterCombine
 import Salt.Entropy.Chowla.MRTDoor
 import Salt.Entropy.Chowla.LargeSpectrumBound
+import Salt.Entropy.Chowla.ShiftFork
 import Mathlib
 
 open MeasureTheory ProbabilityTheory
@@ -453,5 +454,124 @@ theorem log_chowla_two_shell_xi_sq
   have hlower : c₀ * (R.eps : ℝ) ≤ door := le_of_mul_le_mul_left hmul hApos
   -- fire the Ξ-SUMMED L² MRT theorem-door (K-FREE: one collision, no `card·δ` factor).
   exact contradiction_of_mrtDoorXiL2 R hlo hhi hdoor hbudget2 hlower
+
+
+/-- **W-F3 — THE h-SHELL** (`log_chowla_two_shell_xi_h`): the `Ξ_H(h)`-restricted,
+door-conditional Theorem-2.3 shell at shift `h`.
+
+**This is `log_chowla_two_shell_xi` with the shift threaded and NOTHING ELSE.**  Every
+ingredient was already landed by wave B; the mirror substitutes, uniformly:
+
+* `outer_combine` → `outer_combine_h` (`OuterCombine.lean:616`), whose conclusion carries
+  the shifted product `windowVal · j * windowVal · (j + p*h)`;
+* `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:547`);
+* `bigXi R.eps H` → `bigXiH h R.eps H` (`ShiftFork.lean:93`);
+* `MRTUniformityXi` → `MRTUniformityXiH h` (`ShiftFork.lean:296`);
+* `contradiction_of_mrtDoorXi` → `contradiction_of_mrtDoorXiH h` (`ShiftFork.lean:338`).
+
+⭐ **`shellError` IS REUSED UNSHIFTED AND THAT IS CORRECT, NOT AN OVERSIGHT.**  It is a
+function of `(R, H, t, g, κ)` only — `ε²H/log H` plus the `boxGrade`-weighted good/bad
+budgets — and no `p`-shift occurs anywhere inside it.  `outer_combine_h`'s error term is
+byte-identical to `outer_combine`'s, so the same abbreviation folds into both by `rfl`.
+*The absence of a `shellError_h` is a fact about the object, not a missing node.*
+
+⛔ **THE QUANTIFIER DISCIPLINE IS INHERITED VERBATIM: the `∀ ξ ∈ Ξ_H(h)` stays OUTSIDE the
+integral.**  `MRTUniformityXiH` is a finite sum of integrals with no `sup` inside; the
+sup-inside form is Tao (4.1), which is OPEN.  This shell never intros the `ξ` binder — it
+is produced only by `contradiction_of_mrtDoorXiH`.  Independently corroborated at the
+source this session: MRT `arXiv:1503.05121v3` p.3 display (1.5) is exactly the sup-inside
+object, *"this appears difficult to establish with our methods"*, and their Remark 1.9 p.7
+prices moving it as needing `M(g;X²,Q)` rather than `M(g;X,Q)` — a SQUARED height.
+
+`h = 1` recovers `log_chowla_two_shell_xi`'s content; the two are stated separately because
+`bigXiH 1` and `bigXi` are propositionally equal, not definitionally so. -/
+theorem log_chowla_two_shell_xi_h (h : ℕ)
+    (R : ChowlaRegime) {H : ℕ} [NeZero H] (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi)
+    (hH : 3 ≤ H) (hlog : 1 ≤ Real.log (H : ℝ)) (hne : (primeWindow R.eps H).Nonempty)
+    (hreg : Real.sqrt (H : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ) / 2)
+    (hhead : 8 * (PH R.eps H : ℝ) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ))
+    {t : ℝ} (ht : 0 < t) {g : ℝ} (hg : 0 < g)
+    (hgle : g ≤ (R.eps : ℝ) ^ 6 * (H : ℝ)
+        / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2)
+    {κ : ℝ} (hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω] ≤ κ)
+    {c₁ : ℝ} (hc₁ : 0 < c₁)
+    (h211 : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
+        ≤ |∫ n, fBridgeF_h R.eps H h (liouvilleWindow H n) (residueWindow R.eps H n)
+            ∂(logMeasure R.x R.ω)|)
+    {C : ℝ} (hC : 0 < C)
+    (hcirc : ∀ n : ℕ,
+      |∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ))
+            * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ))
+                * ‖ZMod.dft (fun j : ZMod H =>
+                    (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖))
+    {K : ℝ} (hXi : ((bigXiH h R.eps H).card : ℝ) ≤ K)
+    {δ c₀ : ℝ} (hδ : 0 ≤ δ) (hdoor : MRTUniformityXiH h R δ)
+    (hbudget1 : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + shellError R H t g κ
+        ≤ c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)))
+    (hbudget2 : K * δ < c₀ * (R.eps : ℝ)) :
+    False := by
+  classical
+  haveI hpm : IsProbabilityMeasure (logMeasure R.x R.ω) :=
+    isProbabilityMeasure_logMeasure R.hx R.hω
+  have hHpos : 0 < H := NeZero.pos H
+  have hlogpos : 0 < Real.log (H : ℝ) := lt_of_lt_of_le zero_lt_one hlog
+  have hApos : 0 < C * ((H : ℝ) / Real.log (H : ℝ)) :=
+    mul_pos hC (div_pos (by exact_mod_cast hHpos) hlogpos)
+  have heps1R : (R.eps : ℝ) ≤ 1 := by
+    have hle : R.eps ≤ 1 := le_trans R.heps1 (by norm_num)
+    exact_mod_cast hle
+  -- (I) the shifted `outer_combine_h` mass lower bound (`shellError` folds in, defeq).
+  have hoc : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) - shellError R H t g κ
+      ≤ |∫ n, (∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ))
+          ∂(logMeasure R.x R.ω)| :=
+    outer_combine_h R.eps H h R.hx R.hω R.hωx R.heps heps1R hne hreg hH hlog hhead
+      ht hg hgle hI hc₁ h211
+  set gm : ℕ → ℝ := fun n =>
+      ∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+        (windowVal H (liouvilleWindow H n) j : ℝ)
+          * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ) with hgm
+  set door : ℝ := ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ))
+      * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖
+          ∂(logMeasure R.x R.ω) with hdoorS
+  set RHS : ℕ → ℝ := fun n => C * ((H : ℝ) / Real.log (H : ℝ))
+      * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ))
+          * ‖ZMod.dft (fun j : ZMod H =>
+              (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖) with hRHS
+  have hcirc' : ∀ n, |gm n| ≤ RHS n := hcirc
+  have hB : |∫ n, gm n ∂(logMeasure R.x R.ω)| ≤ ∫ n, RHS n ∂(logMeasure R.x R.ω) :=
+    le_trans abs_integral_le_integral_abs
+      (integral_mono_ae (integrable_of_finiteSupport _) (integrable_of_finiteSupport _)
+        (Filter.Eventually.of_forall hcirc'))
+  have hRHSeq : ∫ n, RHS n ∂(logMeasure R.x R.ω)
+      = C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door) := by
+    rw [hRHS, integral_const_mul]
+    congr 1
+    rw [integral_add (integrable_const _) (integrable_of_finiteSupport _), integral_const,
+      probReal_univ, one_smul,
+      integral_finsetSum (bigXiH h R.eps H) (fun ξ _ => integrable_of_finiteSupport _)]
+    congr 1
+    refine Finset.sum_congr rfl (fun ξ _ => ?_)
+    rw [integral_const_mul]
+    congr 1
+    exact integral_congr_ae
+      (Filter.Eventually.of_forall (fun n => (windowExpSum_norm_eq_dft n ξ).symm))
+  have hstar : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) - shellError R H t g κ
+      ≤ C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door) :=
+    le_trans hoc (le_trans hB (le_of_eq hRHSeq))
+  have hmul : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+      ≤ C * ((H : ℝ) / Real.log (H : ℝ)) * door := by
+    have hexp : C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door)
+        = C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * door := by ring
+    linarith [hstar, hbudget1, hexp]
+  have hlower : c₀ * (R.eps : ℝ) ≤ door := le_of_mul_le_mul_left hmul hApos
+  exact contradiction_of_mrtDoorXiH h R hlo hhi hHpos hδ hdoor hXi hbudget2 hlower
 
 end Salt.Entropy.Chowla

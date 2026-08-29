@@ -8,6 +8,8 @@ import Salt.Brun.SelbergPort
 import Salt.BrunLower.MertensWindow
 import Salt.Chen.MertensPNT
 import Salt.Maynard.Mertens
+import Salt.TwinBar.LambdaRate
+import Salt.MR.Decomp
 
 /-!
 # TypicalDensity — the sieve density of the set `S` (S8 / MR-CORE, node A4a)
@@ -915,5 +917,178 @@ theorem typical_density_le :
     _ ≤ (1 / c₄) * (Real.log P / Real.log Q) * X + (X : ℝ) * (Real.log P / Real.log Q) := by
         linarith [herr]
     _ = (1 / c₄ + 1) * (Real.log P / Real.log Q) * X := by ring
+
+/-! ## The union over bands — the step this file's own header said lived elsewhere
+
+`typical_density_le` is **one band**.  MR's Lemma 2.2 needs the complement of the FULL typical set
+`S` (a prime factor in *every* band `[P_j, Q_j]`, `j ≤ J`), which is a union bound over `j` against
+`Σ_j log P_j/log Q_j`, and MR's own schedule makes that sum converge by
+`log P_j/log Q_j = (1/j²)·(log P₁/log Q₁)`.
+
+⛔⛔ **THIS FILE'S HEADER SAID THE UNION BOUND WAS PERFORMED BY "A4 (`ThmA1.lean`)". THERE IS NO
+`Salt/MR/ThmA1.lean`.** The file does not exist (checked); the only `ThmA1`-shaped module is
+`MRTThmA1.lean`, which is a different object and in fact imports THIS file — so it could not have
+performed this step without a cycle.  `QUEUE.md`'s wave-1a row was right that this is *"unlanded
+regardless of range"*, and the header was the stale document.
+⇒ 🔑 ***A POINTER TO A FILE THAT DOES NOT EXIST READS EXACTLY LIKE A DISCHARGED OBLIGATION*** — it
+names a location, so the eye stops there.  *Two documents disagreed; the one that turned out stale
+was the one physically closest to the code.*
+
+📌 **Reused, not re-derived:** `Σ_{j≤J} 1/j² ≤ 2` is `Salt.TwinBar.sum_inv_sq_Icc_le` — the corpus
+carries at least five copies of that inequality across `MR`/`Chen`/`TwinBar`, and this file's
+closure had none, so the cheapest reachable one is imported (+1 module, measured).  ⚠️ `MRTThmA1`'s
+copy would have been a **cycle**. -/
+
+open Classical in
+/-- **The band-union density bound.**  With MR's `1/j²` schedule on the band ratios, the count of
+`n ∈ (X, 2X]` missing a prime factor in SOME band is at most `2·C·r·X`, where `r` is the common
+scale `log P_j/log Q_j = r/j²` and `C` is `typical_density_le`'s absolute constant.
+
+⭐ **The `2` is `Σ 1/j²`'s bound and is where the schedule pays for itself** — the union over
+arbitrarily many bands costs a bounded factor, not a factor `J`.
+
+⛔ Each band's four side conditions are carried per-`j` exactly as the one-band stone states them;
+nothing here weakens them, and no `j`-uniformity is assumed beyond the ratio schedule.
+
+⚖️⚖️ **SCOPE — AND I GOT THIS WRONG ONCE, IN THE UNDER-CLAIMING DIRECTION.**  An earlier
+version of this note said the union direction "serves the deleted port target" and
+"unblocks nothing measured".  **That is FALSE and is struck.**
+
+**The deletion is NARROWER than its own summary line.**  `QUEUE.md:582` deletes MRT
+Lemma 2.2 from the ratified waves; `QUEUE.md:4217-4222` narrows it: *"A DELETION FROM THE
+REDUCED SPINE MUST BE NARROWED — A.1's OWN PROOF STILL BUILDS `S` … the spine deleted
+Lemma 2.2 from the MAIN-TEXT route, NOT from A.1's proof … including the `j`-union with
+`Σ1/j²` already flagged UNLANDED."*  **That `j`-union is this theorem**, and A.1 is the
+PRIMARY.
+
+⭐ **AND IT COMPOSES BY INDEX TYPE, NOT BY HOPE.**  A.1's proof splits the mean square at
+`n ∈ S` and bounds the complement (`MRTThmA1.lean:191`).  The `n ∈ S` half is landed as
+`MemS` (`Sec9Glue.lean:118`), `∀ j ∈ Finset.Icc 1 J, 1 ≤ blockOmega (Pseq j) (Qseq j) n` —
+**the same `(ℕ → ℕ)` band sequences over the same `Finset.Icc 1 J`** this theorem is stated
+over.  This is the complement half.
+
+⛔ **STILL TRUE AND STILL DISCLOSED: no Lean declaration consumes it yet**, and every current
+consumer of `typical_density_le` reaches it at one block scale (`M4Door.SieveBlockGate`).
+**"No consumer yet" and "serves a deleted target" are different claims and I conflated them.**
+⇒ 🔑 ***A DELETION HAS A SCOPE, AND THE NARROWING IS USUALLY WRITTEN SOMEWHERE ELSE IN THE
+SAME DOCUMENT — READ FOR IT BEFORE CALLING A BRANCH DEAD.*** -/
+theorem typical_density_union_le :
+    ∃ C : ℝ, 0 < C ∧ ∀ (J X : ℕ) (P Q : ℕ → ℕ) (r : ℝ), 0 ≤ r →
+      (∀ j ∈ Finset.Icc 1 J, 2 ≤ P j) →
+      (∀ j ∈ Finset.Icc 1 J, P j ≤ Q j) →
+      (∀ j ∈ Finset.Icc 1 J, 100 * Real.log (Q j) ≤ Real.log X) →
+      (∀ j ∈ Finset.Icc 1 J, ((Nat.sqrt X : ℝ) + 1)
+          * ∏ p ∈ primeBand (P j) (Q j), (1 + 3 / (p : ℝ))
+            ≤ (X : ℝ) * (Real.log (P j) / Real.log (Q j))) →
+      (∀ j ∈ Finset.Icc 1 J, Real.log (P j) / Real.log (Q j) = r / (j : ℝ) ^ 2) →
+      (((Finset.Ioc X (2 * X)).filter
+          (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)).card : ℝ)
+        ≤ 2 * C * r * X := by
+  classical
+  obtain ⟨C, hC, hband⟩ := typical_density_le
+  refine ⟨C, hC, ?_⟩
+  intro J X P Q r hr hP hPQ hgate herr hratio
+  have hX0 : (0 : ℝ) ≤ (X : ℝ) := Nat.cast_nonneg X
+  -- the failing set sits inside the union of the per-band failing sets
+  have hsub : (Finset.Ioc X (2 * X)).filter
+        (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)
+      ⊆ (Finset.Icc 1 J).biUnion (fun j =>
+          (Finset.Ioc X (2 * X)).filter (fun n => (bandProd (P j) (Q j)).Coprime n)) := by
+    intro n hn
+    simp only [Finset.mem_filter] at hn
+    obtain ⟨hn1, j, hj, hcop⟩ := hn
+    exact Finset.mem_biUnion.mpr ⟨j, hj, Finset.mem_filter.mpr ⟨hn1, hcop⟩⟩
+  have hcard : (((Finset.Ioc X (2 * X)).filter
+        (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)).card : ℝ)
+      ≤ ∑ j ∈ Finset.Icc 1 J,
+          (((Finset.Ioc X (2 * X)).filter
+            (fun n => (bandProd (P j) (Q j)).Coprime n)).card : ℝ) := by
+    have h1 := Finset.card_le_card hsub
+    have h2 := Finset.card_biUnion_le (s := Finset.Icc 1 J)
+      (t := fun j => (Finset.Ioc X (2 * X)).filter (fun n => (bandProd (P j) (Q j)).Coprime n))
+    have : ((Finset.Ioc X (2 * X)).filter
+        (fun n => ∃ j ∈ Finset.Icc 1 J, (bandProd (P j) (Q j)).Coprime n)).card
+        ≤ ∑ j ∈ Finset.Icc 1 J,
+            ((Finset.Ioc X (2 * X)).filter (fun n => (bandProd (P j) (Q j)).Coprime n)).card :=
+      le_trans h1 h2
+    exact_mod_cast this
+  refine le_trans hcard ?_
+  -- each band by the one-band stone, then the schedule
+  have hterm : ∀ j ∈ Finset.Icc 1 J,
+      (((Finset.Ioc X (2 * X)).filter
+        (fun n => (bandProd (P j) (Q j)).Coprime n)).card : ℝ)
+        ≤ C * (r / (j : ℝ) ^ 2) * X := by
+    intro j hj
+    have := hband (P j) (Q j) X (hP j hj) (hPQ j hj) (hgate j hj) (herr j hj)
+    rwa [hratio j hj] at this
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  have hrw : ∑ j ∈ Finset.Icc 1 J, C * (r / (j : ℝ) ^ 2) * X
+      = C * r * (X : ℝ) * ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹ := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    field_simp
+  rw [hrw]
+  have hsum : ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹ ≤ 2 :=
+    Salt.TwinBar.sum_inv_sq_Icc_le J
+  have hcoef : (0 : ℝ) ≤ C * r * (X : ℝ) := by positivity
+  calc C * r * (X : ℝ) * ∑ j ∈ Finset.Icc 1 J, (((j : ℝ)) ^ 2)⁻¹
+      ≤ C * r * (X : ℝ) * 2 := mul_le_mul_of_nonneg_left hsum hcoef
+    _ = 2 * C * r * X := by ring
+
+/-! ## The bridge to `MemS` — the interface I claimed and had not stated
+
+⛔⛔ **I WROTE THAT `typical_density_union_le` "COMPOSES BY INDEX TYPE, NOT BY HOPE" WITH `MemS`.
+THE INDEX MATCHED; THE PREDICATE LINK WAS UNPROVEN.**  Matching `(ℕ → ℕ)` band sequences over the
+same `Finset.Icc 1 J` says the two objects are indexed alike — it says nothing about whether
+*"`n` has no prime factor in band `j`"* means the same thing on both sides:
+
+```
+  MemS (Sec9Glue:118)          1 ≤ blockOmega (Pseq j) (Qseq j) n     -- Decomp's block counter
+  this file's union filter     (bandProd (P j) (Q j)).Coprime n       -- coprime to the band product
+```
+Both say *no prime of `[P,Q]` divides `n`*, and **that is a theorem, not a notation**.
+⇒ 🔑 ***A SHARED INDEX TYPE IS NOT A SHARED PREDICATE — "IT COMPOSES" NEEDS BOTH, AND ONLY ONE OF
+THEM IS VISIBLE IN A SIGNATURE.***  *Stated here so the claim stops being a claim.*
+
+📌 `Salt.MR.Decomp` imported for `blockOmega`: **+1 module, no cycle** (measured). -/
+
+/-- **The band predicates agree.**  For `n ≠ 0`, having no block prime in `[P, Q]` is exactly
+coprimality to the band product.
+
+⚠️ **A SIBLING EXISTS AND I FOUND IT ONLY AFTER PROVING THIS — RECORDED SO A CENSUS DOES NOT READ
+TWO SIMILAR NAMES AS A DUPLICATE.**  `blockOmega_eq_zero_iff` (`M4T0DatumDischarge.lean:119`) gives
+the **`n.primeFactors` face**: `blockOmega P Q n = 0 ↔ ∀ p ∈ n.primeFactors, ¬(P ≤ p ∧ p ≤ Q)`.
+This lemma gives the **`bandProd`-coprimality face**, which is the predicate `typical_density_le`'s
+filter actually consumes — a different statement, and both are wanted.
+📌 *But it is one composition away, and had I grepped `blockOmega_eq_zero` rather than only
+`def blockOmega`, this proof would have been shorter.*  ⇒ 🔑 ***WHEN YOU READ A DEFINITION TO LEARN
+A PREDICATE, GREP ITS NAME AS A PREFIX TOO — THE `_iff` LEMMA YOU ARE ABOUT TO WRITE IS THE ONE
+MOST LIKELY TO ALREADY EXIST.*** -/
+theorem blockOmega_eq_zero_iff_coprime_bandProd {P Q n : ℕ} (hn : n ≠ 0) :
+    blockOmega P Q n = 0 ↔ (bandProd P Q).Coprime n := by
+  classical
+  constructor
+  · intro h
+    have hempty : BlockPrimeDivs P Q n = ∅ := Finset.card_eq_zero.mp h
+    unfold bandProd
+    refine Nat.Coprime.prod_left ?_
+    intro p hp
+    have hp' : p.Prime := (Finset.mem_filter.mp hp).2
+    have hPQ := Finset.mem_Icc.mp (Finset.mem_filter.mp hp).1
+    refine (Nat.Prime.coprime_iff_not_dvd hp').mpr fun hdvd => ?_
+    have hmem : p ∈ BlockPrimeDivs P Q n :=
+      mem_blockPrimeDivs.mpr ⟨hp', hdvd, hn, hPQ.1, hPQ.2⟩
+    simp [hempty] at hmem
+  · intro h
+    by_contra hne
+    obtain ⟨p, hp⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hne)
+    obtain ⟨hp', hdvd, -, hPle, hleQ⟩ := mem_blockPrimeDivs.mp hp
+    have hpmem : p ∈ primeBand P Q :=
+      Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨hPle, hleQ⟩, hp'⟩
+    have hpdvdProd : p ∣ bandProd P Q := Finset.dvd_prod_of_mem _ hpmem
+    have hgcd : p ∣ Nat.gcd (bandProd P Q) n := Nat.dvd_gcd hpdvdProd hdvd
+    rw [Nat.Coprime] at h
+    rw [h] at hgcd
+    exact hp'.one_lt.ne' (Nat.dvd_one.mp hgcd)
 
 end Salt.MR

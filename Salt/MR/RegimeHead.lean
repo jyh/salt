@@ -355,7 +355,7 @@ floor demand, and any CHOICE-JOIN parameters, there is a regime that
 * sits at `ε` and above BOTH the caller's floor and the MR door floor `H₀door δ₀`;
 * clears the CHOICE-JOIN `gJoin` at its outer scale (so the A-arm fires,
   `s5_at_regime`); and
-* satisfies Tao 1509.05422 Prop 2.4's W-constraint `(log H₊)⁶²⁵ ≤ log X_min`, i.e.
+* satisfies Tao arXiv:1509.05422v2 Prop 2.4's W-constraint `(log H₊)⁶²⁵ ≤ log X_min`, i.e.
   `W = (log H₊)⁵ ≤ (log X_min)^{1/125}` (S10a, `regime_W_headroom_of_floor`).
 
 The `ε`-arm of S10a is discharged internally by demanding `epsFloor ε` of the SAME

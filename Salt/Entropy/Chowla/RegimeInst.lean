@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # The regime instantiation — the anti-vacuity witness for `ChowlaRegime`
 
-`entropy_decrement` (Tao 1509.05422 Lemma 3.1) is `ChowlaRegime`-parametric.
+`entropy_decrement` (Tao arXiv:1509.05422v2 Lemma 3.1) is `ChowlaRegime`-parametric.
 This file supplies the anti-vacuity obligation: an actual inhabitant
 `∃ R : ChowlaRegime`.  Every field is pinned to a concrete constant —
 `a = 1`, `ε = 1/2`, `H₋ = 4·10⁶`, `C₀ = 2`, `H₊ = chowlaTower 2 1 4·10⁶ J`,

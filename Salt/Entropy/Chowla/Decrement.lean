@@ -6,7 +6,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 The wave-IV keystone of the A-R2 rung — the first information-theoretic argument
 in formalized analytic number theory.  It fuses the two frozen outputs of the
-spine into Tao 1509.05422 Lemma 3.1 (Liouville form):
+spine into Tao arXiv:1509.05422v2 Lemma 3.1 (Liouville form):
 
 * wave III's telescope `tower_telescope` (`Salt/Entropy/Chowla/Tower.lean`): IF
   the headline mutual-information bound fails (strictly) at every tower level
@@ -35,7 +35,7 @@ open MeasureTheory ProbabilityTheory Real
 
 namespace Salt.Entropy.Chowla
 
-/-- **THE HEADLINE** (Tao 1509.05422 Lemma 3.1, Liouville form).  In the Chowla
+/-- **THE HEADLINE** (Tao arXiv:1509.05422v2 Lemma 3.1, Liouville form).  In the Chowla
 regime there is an admissible window width `H ∈ [H₋, H₊]` with `a ∣ H` at which
 the Liouville/residue mutual information is below the decrement threshold
 `H / (log H · logloglog H)`.
