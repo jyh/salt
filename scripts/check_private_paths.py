@@ -316,15 +316,27 @@ def partition(findings, exempt):
     return viol, exm
 
 
-def audit_pins(exempt, ref="HEAD"):
-    """(intact, drifted, unresolvable) -- does each pin still match at its ref?
+def audit_pins(exempt):
+    """(intact, drifted, unresolvable, local_only) -- does each pin still match?
 
     THE ARM A DELTA SCAN CANNOT HAVE. If a preserved line is deleted or edited,
     a delta of the same push may show nothing at all; the pin stops resolving,
     and only a look at the tree can say so. A pin whose ref is not present in
     this checkout is UNRESOLVABLE, never 'intact' -- reported, never assumed.
+
+    ⛔ THERE IS DELIBERATELY NO `ref` PARAMETER, AND THAT IS A REPAIR. This
+    function shipped as `audit_pins(exempt, ref="HEAD")` and `main()` dutifully
+    passed it the scanned range's endpoint -- while the first statement of the
+    loop below rebound that same name to None. The argument was discarded
+    before it was ever read. Behaviour was right (each pin is audited at ITS
+    OWN ref, which is what the ruling scopes), but the signature advertised a
+    scoping knob that did not exist and THE CALL SITE PAID IT TRIBUTE, so a
+    reader of `main()` came away believing this audit was bounded by the push.
+    An interface advertising a capability it does not have is a dead arm
+    wearing a driven arm's signature. The loop-local is `found_ref` now, so the
+    shadow cannot silently return.
     """
-    intact, drifted, unresolvable = [], [], []
+    intact, drifted, unresolvable, local_only = [], [], [], []
     for e in exempt:
         # ⛔ THE REF AND THE FILE ARE SEPARATE QUESTIONS, AND CONFLATING THEM
         # FAILS OPEN. First draft treated "git show ref:file failed" as
@@ -332,16 +344,30 @@ def audit_pins(exempt, ref="HEAD"):
         # simply does not have that branch) and WRONG when the ref is present
         # and the FILE was deleted -- that is the preserved record being
         # destroyed, reported as "not applicable". Found by driving the arm.
-        ref = None
-        for cand in (e["ref"], f'origin/{e["ref"]}'):
+        # ⛔ THE PUBLISHED REF FIRST, AND THE ORDER IS THE WHOLE POINT. The
+        # ruling preserved sites on a PUBLISHED branch, so origin/<ref> is the
+        # object it scoped; a bare local branch of the same name is a DIFFERENT
+        # OBJECT. This resolved the bare ref first, and that is a FALSE GREEN in
+        # the exact case the audit exists for -- published line DESTROYED, stale
+        # local checkout still holding it, verdict INTACT. Measured in both
+        # directions by the self-test, which was RED on this file before the
+        # order changed; the adjacent-object trap, inside the function written
+        # to defend against it.
+        found_ref, from_local = None, False
+        for cand, is_local in ((f'origin/{e["ref"]}', False), (e["ref"], True)):
             if subprocess.run(["git", "rev-parse", "--verify", "--quiet", cand],
                               capture_output=True).returncode == 0:
-                ref = cand
+                found_ref, from_local = cand, is_local
                 break
-        if ref is None:
+        if found_ref is None:
             unresolvable.append(e)          # the branch is not in this checkout
             continue
-        blob = subprocess.run(["git", "show", f'{ref}:{e["file"]}'],
+        if from_local:
+            # Resolved, but NOT from the published record. Reported so a
+            # local-only verdict cannot read as a statement about what is
+            # published -- naming the object the answer is about.
+            local_only.append(e)
+        blob = subprocess.run(["git", "show", f'{found_ref}:{e["file"]}'],
                               capture_output=True, text=True, encoding="utf-8")
         if blob.returncode != 0:
             drifted.append(e)               # ref IS here and the FILE is gone
@@ -350,7 +376,7 @@ def audit_pins(exempt, ref="HEAD"):
             intact.append(e)
         else:
             drifted.append(e)
-    return intact, drifted, unresolvable
+    return intact, drifted, unresolvable, local_only
 
 
 def commit_messages(rev_range: str) -> list[tuple[str, str]]:
@@ -673,6 +699,25 @@ def self_test() -> int:
                 failures.append(f"{label}: the PUBLISHED ref governs -- want "
                                 f"{want}, got {got}")
         shutil.rmtree(div, ignore_errors=True)
+
+        # ...and when there IS no published ref, the local one answers and the
+        # gate must SAY SO rather than let a local-only verdict read as a
+        # statement about the published record. Both directions again: a pin
+        # that came from origin/<ref> is NOT local-only.
+        head = g("rev-parse", "HEAD").stdout.strip()
+        write(keep)
+        g("add", "-A"); g("commit", "-qm", "restore")
+        g("update-ref", "refs/remotes/origin/only-remote",
+          g("rev-parse", "HEAD").stdout.strip())
+        remote_only = dict(pin, ref="only-remote")
+        if buckets([remote_only]) != (1, 0, 0):
+            failures.append("a pin whose ref exists only as origin/<ref> must "
+                            f"resolve, got {buckets([remote_only])}")
+        if len(audit_pins([pin])[3]) != 1:
+            failures.append("a pin resolved from a LOCAL ref only must be "
+                            f"reported as such, got {len(audit_pins([pin])[3])}")
+        if audit_pins([remote_only])[3]:
+            failures.append("a pin resolved from origin/<ref> is NOT local-only")
     finally:
         os.chdir(here)
         shutil.rmtree(tmp, ignore_errors=True)
@@ -747,7 +792,7 @@ def main() -> int:
 
     # THE PIN AUDIT — the arm a delta scan cannot have. Run before the verdict,
     # because a drifted pin is a failure even on a push that touches nothing.
-    intact, drifted, unresolvable = audit_pins(exempt, args.range.split("..")[-1])
+    intact, drifted, unresolvable, local_only = audit_pins(exempt)
     if drifted:
         print(f"FAIL [gate {self_id()}]: {len(drifted)} PRESERVED-RECORD PIN(S) "
               f"HAVE DRIFTED.\n")
@@ -787,6 +832,12 @@ def main() -> int:
         print("      while they match their pins exactly.")
         for e in exempted:
             print(f"        {e[0]}  {e[1]}")
+    if exempt and local_only:
+        print(f"  ⚠️  PIN AUDIT: {len(local_only)} pin(s) answered from a LOCAL ref "
+              f"-- origin/<ref> is not in this checkout, so the verdict below is "
+              f"NOT a statement about the published record:")
+        for e in local_only:
+            print(f'        {e["file"]}  @{e["ref"]}  (local branch)')
     if exempt:
         print(f"  PIN AUDIT: {len(intact)} intact, {len(drifted)} drifted, "
               f"{len(unresolvable)} unresolvable"
