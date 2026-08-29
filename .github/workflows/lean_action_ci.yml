@@ -75,4 +75,22 @@ jobs:
       # elan/lake are already on PATH from lean-action.
       - name: Blueprint lint (docs↔code + axiom audit)
         run: python3 scripts/blueprint_lint.py
-      - uses: leanprover-community/docgen-action@v1
+      # ⛔ REMOVED 2026-08-28: `- uses: leanprover-community/docgen-action@v1`
+      #    IT WAS GREEN ONLY WHEN IT DID NOTHING. The action sees this repo's `docs/`
+      #    folder, sets DOCS_EXISTS=true, and tries to build a JEKYLL site from it —
+      #    but salt has no Gemfile, no _config.yml and no docs site, so the build dies
+      #    with "Could not locate Gemfile or .bundle/ directory" (exit 10).
+      #    ⇒ MEASURED ACROSS RUNS RATHER THAN INFERRED FROM ONE:
+      #        fbad5d1a  cache MISS -> texlive/ruby/pages sub-actions RUN   -> RED
+      #        fcfb3cf2  cache HIT  -> texlive, ruby/setup-ruby, upload-pages-artifact
+      #                               and deployment ALL `conclusion=skipped` -> GREEN
+      #      The step's GREEN means the docs cache was hit and nothing was built; its
+      #      RED means it actually ran. It has never once built or deployed docs.
+      #    ⇒ ***A CHECK THAT IS GREEN ONLY WHEN IT SKIPS IS NOT A CHECK*** — and the
+      #      consequence was a RED CHECK OVER A GREEN KERNEL on every salt PR, the same
+      #      shape as the duplicate Lean job retired at council item 19.
+      #    NOT NEUTRALISED (no `continue-on-error`, no `if: false`): a step that cannot
+      #    fail is decoration. If salt is to publish API docs, that is a PROJECT item —
+      #    a Gemfile, a docs site and a Pages deployment on a repo that is private now
+      #    and public later behind a hard gate — and it is the Captain's to open, not a
+      #    red-check repair. The Pages permissions above are left untouched for it.
