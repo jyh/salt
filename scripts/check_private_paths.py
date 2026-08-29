@@ -114,10 +114,13 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 
 def self_id() -> str:
     """This file's own content hash, printed in every verdict.
@@ -552,6 +555,127 @@ def self_test() -> int:
     viol4, exm4 = partition(found, [])
     if exm4 or len(viol4) != 1:
         failures.append("with no active exemptions nothing may be exempted")
+
+    # 4b. ⛔ audit_pins() -- THE SECOND, INDEPENDENT ARM, AND IT HAS NO TEST HERE.
+    #     Ported from jas, where this arm found a FALSE GREEN ON A FIREWALL GATE.
+    #     Driven against a REAL throwaway repository, through the SAME call shape
+    #     production uses, so nothing here is a fixture of the test's own.
+    tmp = tempfile.mkdtemp(prefix="ppgate-selftest-")
+    here = os.getcwd()
+    try:
+        repo = os.path.join(tmp, "r")
+        subprocess.run(["git", "init", "-q", "-b", "trunk", repo], capture_output=True)
+
+        def g(*a):
+            return subprocess.run(["git", "-C", repo, *a], capture_output=True,
+                                  text=True, encoding="utf-8")
+
+        g("config", "user.email", "selftest@example.invalid")
+        g("config", "user.name", "selftest")
+        g("config", "commit.gpgsign", "false")
+        os.makedirs(os.path.join(repo, "docs"))
+        # A PLAIN line: audit_pins HASHES, it never scans, so this fixture needs
+        # no forbidden shape -- and therefore cannot make this file an instance.
+        keep = "a preserved observation, recorded 2026-08-25"
+        doc = os.path.join(repo, "docs", "R.md")
+
+        def write(text):
+            # newline="" is not lint-appeasement: without it this arm writes
+            # CRLF on a Windows lane, and an arm whose BYTES depend on the
+            # platform is not driving the same fixture everywhere.
+            with open(doc, "w", encoding="utf-8", newline="") as fh:
+                fh.write("preface\n" + text + "\ntrailer\n")
+
+        write(keep)
+        g("add", "-A"); g("commit", "-qm", "fixture")
+        g("branch", "pres/fix")
+        pin = {"repo": "x", "ref": "pres/fix", "file": "docs/R.md",
+               "sha": line_sha(keep)}
+        os.chdir(repo)
+
+        def buckets(pins):
+            i, d, u = audit_pins(pins)[:3]
+            return len(i), len(d), len(u)
+
+        # THE POSITIVE CONTROL FIRST: an intact pin must land intact, or every
+        # red below is unreadable -- a red from a detector that cannot go green
+        # measures the harness, not the subject.
+        if buckets([pin]) != (1, 0, 0):
+            failures.append(f"an INTACT pin must audit intact, got {buckets([pin])}")
+        # a pin nobody granted must not be conjured out of the tree
+        if buckets([]) != (0, 0, 0):
+            failures.append("an empty grant must audit to three empty buckets")
+        # ONE CHARACTER of drift on the preserved line
+        write(keep + ".")
+        g("add", "-A"); g("commit", "-qm", "drift"); g("branch", "-f", "pres/fix", "HEAD")
+        if buckets([pin]) != (0, 1, 0):
+            failures.append(f"a DRIFTED line must audit drifted, got {buckets([pin])}")
+        # the ref is PRESENT and the FILE IS GONE -- that is the preserved
+        # record being DESTROYED; "unresolvable" would read as not-applicable.
+        os.remove(doc)
+        g("add", "-A"); g("commit", "-qm", "delete"); g("branch", "-f", "pres/fix", "HEAD")
+        if buckets([pin]) != (0, 1, 0):
+            failures.append("a DELETED preserved file must be DRIFT, never "
+                            f"unresolvable, got {buckets([pin])}")
+        # a ref this checkout does not have is UNRESOLVABLE -- and never intact
+        gone = dict(pin, ref="no/such/branch")
+        if buckets([gone]) != (0, 0, 1):
+            failures.append(f"an ABSENT ref must be unresolvable, got {buckets([gone])}")
+
+        # 4c. ⛔⛔ THE FALSE GREEN THIS FIXTURE EXISTS FOR. The ruling preserved
+        #     sites on a PUBLISHED branch, so the authoritative instance of
+        #     `ref` is the REMOTE one. A bare local branch of the same name is a
+        #     DIFFERENT OBJECT -- the adjacent-object trap, inside the function
+        #     written to defend against it -- and consulting it FIRST produces a
+        #     false green in the exact case that matters: THE PUBLISHED LINE IS
+        #     DESTROYED, A STALE LOCAL CHECKOUT STILL HOLDS IT, THE GATE SAYS
+        #     INTACT. That is not hypothetical here: this repository's own
+        #     working tree sat on a local branch behind origin while this was
+        #     written. Driven in BOTH DIRECTIONS, because a precedence rule
+        #     tested one way is half a rule -- and the two directions must give
+        #     DIFFERENT verdicts or the arm is decoration.
+        div = os.path.join(tmp, "div")
+        for label, local_text, origin_text, want in (
+                ("published intact, local stale", keep + ".", keep, "intact"),
+                ("published DESTROYED, local stale", keep, keep + ".", "drifted")):
+            shutil.rmtree(div, ignore_errors=True)
+            subprocess.run(["git", "init", "-q", "-b", "trunk", div], capture_output=True)
+
+            def d(*a):
+                return subprocess.run(["git", "-C", div, *a], capture_output=True,
+                                      text=True, encoding="utf-8")
+
+            d("config", "user.email", "selftest@example.invalid")
+            d("config", "user.name", "selftest")
+            d("config", "commit.gpgsign", "false")
+            os.makedirs(os.path.join(div, "docs"))
+            dpath = os.path.join(div, "docs", "R.md")
+
+            def dwrite(text):
+                with open(dpath, "w", encoding="utf-8", newline="") as fh:
+                    fh.write("preface\n" + text + "\ntrailer\n")
+
+            dwrite(origin_text)
+            d("add", "-A"); d("commit", "-qm", "published")
+            d("update-ref", "refs/remotes/origin/pres/fix",
+              d("rev-parse", "HEAD").stdout.strip())
+            d("checkout", "-q", "-b", "pres/fix")
+            dwrite(local_text)
+            d("add", "-A"); d("commit", "-qm", "local divergence")
+            d("checkout", "-q", "trunk")
+            dpin = {"repo": "x", "ref": "pres/fix", "file": "docs/R.md",
+                    "sha": line_sha(keep)}
+            os.chdir(div)
+            i2, d2, u2 = audit_pins([dpin])[:3]
+            got = "intact" if i2 else "drifted" if d2 else "unresolvable"
+            os.chdir(repo)
+            if got != want:
+                failures.append(f"{label}: the PUBLISHED ref governs -- want "
+                                f"{want}, got {got}")
+        shutil.rmtree(div, ignore_errors=True)
+    finally:
+        os.chdir(here)
+        shutil.rmtree(tmp, ignore_errors=True)
 
     # 5. THE ARM-COVERAGE DECLARATION. A range the file arm cannot scan must be
     #    reported as a gap, never silently as a zero.
