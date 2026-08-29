@@ -30,3 +30,15 @@ arm "8 private+noncomputable"   '+private noncomputable def d : Nat := 0' INV VI
 echo
 echo "RESULT: $pass pass, $fail fail"
 [ "$fail" -eq 0 ] || exit 1
+
+# ── AUDIT-SIDE ARMS (added 2026-08-28 with the continuation+qualified repair) ──
+echo
+echo "AUDIT-SIDE ARMS (exercised through the real gate on real commits):"
+a2() { local n="$1" c="$2" want="$3"
+  local got; got=$(bash "$(dirname "$0")/audit_gate.sh" "$c" 2>/dev/null \
+        | sed -n '/^--- declared but NOT audited/,/^--- audited/p' | grep -vE '^---' | grep -c .)
+  if [ "$got" = "$want" ]; then printf "  PASS  %-42s unaudited=%s\n" "$n" "$got"
+  else printf "  FAIL  %-42s unaudited=%s (want %s)\n" "$n" "$got" "$want"; fi
+}
+a2 "9  daa2dae8 continuation+qualified → no noise" daa2dae8a81dcb82d10f54d154d176b9d77f20b2 0
+a2 "10 e0fea691 genuine miss → still flagged"      e0fea6918045ede6a773bb994a111442e60d538f 7
