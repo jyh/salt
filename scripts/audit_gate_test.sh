@@ -31,14 +31,39 @@ echo
 echo "RESULT: $pass pass, $fail fail"
 [ "$fail" -eq 0 ] || exit 1
 
-# ── AUDIT-SIDE ARMS (added 2026-08-28 with the continuation+qualified repair) ──
+# ── AUDIT-SIDE ARMS — HERMETIC (rewritten 2026-08-28 before merge) ──────────────
+# ⛔ THE FIRST VERSION OF THESE TWO ARMS CITED REAL SALT COMMITS (daa2dae8,
+# e0fea691) AND WOULD HAVE FAILED IN EVERY FRESH CLONE: both live on an unmerged
+# branch, so `git show <sha>` finds nothing on main.  They passed for me because
+# my clone had the branch.
+# ⇒ A TEST THAT PASSES IN THE AUTHOR'S CLONE HAS NOT BEEN SHOWN TO PASS IN A
+#   CLONE THAT LACKS THE AUTHOR'S BRANCH.  Same class the Captain named one level
+#   up ("passed against 87b78398 is not passed against what is there now"), and
+#   worse here: those commits are work a ruling PARKED, so the test would have
+#   depended on history that must not land.
+# The arms now BUILD THEIR OWN FIXTURE REPO.  No salt history, no network.
 echo
-echo "AUDIT-SIDE ARMS (exercised through the real gate on real commits):"
-a2() { local n="$1" c="$2" want="$3"
-  local got; got=$(bash "$(dirname "$0")/audit_gate.sh" "$c" 2>/dev/null \
-        | sed -n '/^--- declared but NOT audited/,/^--- audited/p' | grep -vE '^---' | grep -c .)
-  if [ "$got" = "$want" ]; then printf "  PASS  %-42s unaudited=%s\n" "$n" "$got"
-  else printf "  FAIL  %-42s unaudited=%s (want %s)\n" "$n" "$got" "$want"; fi
+echo "AUDIT-SIDE ARMS (hermetic fixture repo, no salt history):"
+GATE="$(cd "$(dirname "$0")" && pwd)/audit_gate.sh"
+FIX=$(mktemp -d); trap 'rm -rf "$FIX"' EXIT
+(
+  cd "$FIX" && git init -q . && git config user.email t@t && git config user.name t
+  # fixture 1 — a two-line, FULLY QUALIFIED roll-call covering both declarations
+  printf 'theorem hdiv_of_log_growth : True := trivial\ntheorem twinLogWeight_support : True := trivial\n#audit_axioms Fix.hdiv_of_log_growth\n  Fix.twinLogWeight_support\n' > a.lean
+  git add a.lean && git commit -q -m f1
+  # fixture 2 — declarations with NO roll-call at all, incl. a PREFIXED one
+  printf 'theorem plain_one : True := trivial\nprivate theorem hidden_two : True := trivial\n@[simp] theorem attr_three : True := trivial\n' > b.lean
+  git add b.lean && git commit -q -m f2
+)
+F1=$(cd "$FIX" && git rev-parse HEAD~1); F2=$(cd "$FIX" && git rev-parse HEAD)
+a2() { local n="$1" c="$2" want="$3" got
+  got=$( cd "$FIX" && bash "$GATE" "$c" 2>/dev/null \
+        | sed -n '/^--- declared but NOT audited/,/^--- audited/p' | grep -vE '^---' | grep -c . )
+  if [ "$got" = "$want" ]; then printf "  PASS  %-46s unaudited=%s\n" "$n" "$got"
+  else printf "  FAIL  %-46s unaudited=%s (want %s)\n" "$n" "$got" "$want"; fail=$((fail+1)); fi
 }
-a2 "9  daa2dae8 continuation+qualified → no noise" daa2dae8a81dcb82d10f54d154d176b9d77f20b2 0
-a2 "10 e0fea691 genuine miss → still flagged"      e0fea6918045ede6a773bb994a111442e60d538f 7
+a2 "9  continuation + qualified  -> NO false positives" "$F1" 0
+a2 "10 genuine miss (incl. prefixed) -> STILL FLAGGED"  "$F2" 3
+echo
+echo "TOTAL: $fail failure(s)"
+[ "$fail" -eq 0 ] || exit 1
