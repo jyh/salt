@@ -398,4 +398,82 @@ theorem mrtS_indicator_mul_dilate (g : ℕ → ℂ)
   · rw [if_neg (fun hc => hmem ((mrtS_dilate hd₀ hP).mp hc)), if_neg hmem]
     ring
 
+/-! ## E-5c, consumer side — the applied corollary in MRT's own regime
+
+The ratified statements above take the OPERATIVE hypothesis (*`d₀` contributes no band prime*),
+deliberately not MRT's `d₀ ≤ q ≤ W`.  That was a statement-tier choice and is not revisited here;
+this section discharges the operative hypothesis FROM the regime, which the ratified draft's own
+fidelity note 1 assigns as consumer-side work.  MRT's chain is `d₀ ≤ q ≤ W < W²⁰⁰ = P₁ ≤ P_j`, and
+the only link needing an argument is the last: `P_j`'s exponent carries the coefficient
+`j^{4j}·(log Q₁)^{j-1}`, which is `≥ 1` exactly when `1 ≤ j` and `1 ≤ log Q₁`. -/
+
+/-- **The band's lower endpoints never dip below `P₁`** — MRT's *"`P₁ ≤ P_j`"* made explicit.
+For `1 ≤ j`, `1 ≤ P₁` and `1 ≤ log Q₁`, `P₁ ≤ P_j`.  The exponent's coefficient is a product of
+two factors each `≥ 1`, and `log P₁ ≥ 0` lets that coefficient only push the exponent up. -/
+theorem mrtBandP_base_le {P₁ Q₁ : ℝ} (hP₁ : 1 ≤ P₁) (hQ₁ : 1 ≤ Real.log Q₁) {j : ℕ} (hj : 1 ≤ j) :
+    P₁ ≤ mrtBandP P₁ Q₁ j := by
+  have hlogP : 0 ≤ Real.log P₁ := Real.log_nonneg hP₁
+  have hpow : (1 : ℝ) ≤ ((j ^ (4 * j) : ℕ) : ℝ) := by
+    exact_mod_cast Nat.one_le_pow _ _ hj
+  have hlogQ : (1 : ℝ) ≤ Real.log Q₁ ^ (j - 1) := one_le_pow₀ hQ₁
+  have hcoef : (1 : ℝ) ≤ ((j ^ (4 * j) : ℕ) : ℝ) * Real.log Q₁ ^ (j - 1) := by nlinarith
+  have hexp : Real.log P₁ ≤ ((j ^ (4 * j) : ℕ) : ℝ) * Real.log Q₁ ^ (j - 1) * Real.log P₁ :=
+    le_mul_of_one_le_left hlogP hcoef
+  calc P₁ = Real.exp (Real.log P₁) := (Real.exp_log (lt_of_lt_of_le zero_lt_one hP₁)).symm
+    _ ≤ mrtBandP P₁ Q₁ j := by
+        unfold mrtBandP
+        exact Real.exp_le_exp.mpr hexp
+
+/-- **Every prime factor of `d₀` lies strictly below every band — MRT's regime hypothesis.**
+This is the `hP` slot of `mrtS_dilate` and `mrtS_indicator_mul_dilate`, discharged from
+`d₀ ≤ W`, `1 < W` and `P₁ = W ^ 200`.  ⚠️ The exponent `200` is MRT's own and is **not**
+load-bearing: every step below uses only `1 < 200`, so any exponent `> 1` gives the same
+conclusion.  It is carried as a hypothesis on the SHAPE of `P₁` rather than as a numeral in the
+proof, so a consumer at another exponent re-instantiates rather than re-proves. -/
+theorem mrtBand_primeFactors_lt_of_le_W {W P₁ Q₁ X₀ : ℝ} {d₀ : ℕ} (hW : 1 < W)
+    (hP₁ : P₁ = W ^ 200) (hQ₁ : 1 ≤ Real.log Q₁) (hd₀ : 1 ≤ d₀) (hd₀W : (d₀ : ℝ) ≤ W) :
+    ∀ j ∈ Finset.Icc 1 (mrtJ Q₁ X₀), ∀ p ∈ d₀.primeFactors, (p : ℝ) < mrtBandP P₁ Q₁ j := by
+  intro j hj p hp
+  have hj1 : 1 ≤ j := (Finset.mem_Icc.mp hj).1
+  have hpd : p ∣ d₀ := (Nat.mem_primeFactors.mp hp).2.1
+  have hple : (p : ℝ) ≤ (d₀ : ℝ) := by
+    exact_mod_cast Nat.le_of_dvd (lt_of_lt_of_le Nat.zero_lt_one hd₀) hpd
+  have hWlt : W < P₁ := by
+    rw [hP₁]
+    calc W = W ^ 1 := (pow_one W).symm
+      _ < W ^ 200 := by exact pow_lt_pow_right₀ hW (by norm_num)
+  have hP₁1 : (1 : ℝ) ≤ P₁ := le_of_lt (lt_trans hW hWlt)
+  calc (p : ℝ) ≤ (d₀ : ℝ) := hple
+    _ ≤ W := hd₀W
+    _ < P₁ := hWlt
+    _ ≤ mrtBandP P₁ Q₁ j := mrtBandP_base_le hP₁1 hQ₁ hj1
+
+/-- **E-5c in MRT's regime — the dilation identity with its hypothesis discharged.**  The form a
+consumer inside the major-arc reduction can apply directly: no band arithmetic at the call site. -/
+theorem mrtS_dilate_of_le_W {W P₁ Q₁ X₀ Y : ℝ} {d₀ m : ℕ} (hW : 1 < W)
+    (hP₁ : P₁ = W ^ 200) (hQ₁ : 1 ≤ Real.log Q₁) (hd₀ : 1 ≤ d₀) (hd₀W : (d₀ : ℝ) ≤ W) :
+    d₀ * m ∈ mrtS P₁ Q₁ X₀ Y ↔ m ∈ mrtS P₁ Q₁ X₀ (Y / (d₀ : ℝ)) :=
+  mrtS_dilate hd₀ (mrtBand_primeFactors_lt_of_le_W hW hP₁ hQ₁ hd₀ hd₀W)
+
+/-- **E-5c's summand form in MRT's regime.**  The shape the arc consumer takes, with the band
+hypothesis discharged from `d₀ ≤ W`. -/
+theorem mrtS_indicator_mul_dilate_of_le_W (g : ℕ → ℂ) (hg : ∀ a b : ℕ, g (a * b) = g a * g b)
+    {W P₁ Q₁ X₀ Y : ℝ} {d₀ m : ℕ} (hW : 1 < W)
+    (hP₁ : P₁ = W ^ 200) (hQ₁ : 1 ≤ Real.log Q₁) (hd₀ : 1 ≤ d₀) (hd₀W : (d₀ : ℝ) ≤ W) :
+    (if d₀ * m ∈ mrtS P₁ Q₁ X₀ Y then (1 : ℂ) else 0) * g (d₀ * m)
+      = g d₀ * ((if m ∈ mrtS P₁ Q₁ X₀ (Y / (d₀ : ℝ)) then (1 : ℂ) else 0) * g m) :=
+  mrtS_indicator_mul_dilate g hg hd₀ (mrtBand_primeFactors_lt_of_le_W hW hP₁ hQ₁ hd₀ hd₀W)
+
+/-- **The corollary FIRES — a reachability witness at concrete data.**  A hypothesis bundle can be
+green and unsatisfiable, and `mrtBand_primeFactors_lt_of_le_W`'s conclusion is a `∀` over an `Icc`
+that an empty `J` would satisfy for free.  So the bundle is exhibited inhabited: `W = 3`,
+`P₁ = 3²⁰⁰`, `Q₁ = exp 2`, `d₀ = 2`, every hypothesis discharged by `norm_num`.  This proves
+nothing about MRT and is not meant to — it proves that the four names above are reachable rather
+than vacuously true, which a `#print axioms` line cannot tell you. -/
+theorem mrtS_dilate_of_le_W_witness (X₀ Y : ℝ) (m : ℕ) :
+    2 * m ∈ mrtS ((3 : ℝ) ^ 200) (Real.exp 2) X₀ Y
+      ↔ m ∈ mrtS ((3 : ℝ) ^ 200) (Real.exp 2) X₀ (Y / ((2 : ℕ) : ℝ)) :=
+  mrtS_dilate_of_le_W (W := 3) (by norm_num) rfl
+    (by rw [Real.log_exp]; norm_num) (by norm_num) (by norm_num)
+
 end Salt.MR

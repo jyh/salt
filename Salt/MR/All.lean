@@ -8564,6 +8564,11 @@ open Salt.Tactic in
   Salt.MR.not_mrtLemmaA7Statement
   Salt.MR.mrtS_dilate
   Salt.MR.mrtS_indicator_mul_dilate
+  Salt.MR.mrtBandP_base_le
+  Salt.MR.mrtBand_primeFactors_lt_of_le_W
+  Salt.MR.mrtS_dilate_of_le_W
+  Salt.MR.mrtS_indicator_mul_dilate_of_le_W
+  Salt.MR.mrtS_dilate_of_le_W_witness
   Salt.MR.mrt_constant_factors
   Salt.MR.vk34_constant_factors
   Salt.MR.vk34_constant_pos
