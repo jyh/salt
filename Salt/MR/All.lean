@@ -402,6 +402,7 @@ import Salt.MR.MRTArcRatCoprime
 import Salt.MR.XGapThread
 import Salt.MR.BandRated
 import Salt.MR.BandRatedAssembly
+import Salt.MR.BandRatedSocket
 import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
 
@@ -8574,6 +8575,14 @@ open Salt.Tactic in
   Salt.MR.bandConstQ_nonneg
   Salt.MR.capFreeFloor3_margin_all_chi_vt_rated
   Salt.MR.bandConstQ_le_of_le_arcDen
+  Salt.MR.capFreeFloor3_pieceDatum_vt_rated
+  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated
+  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated
+  Salt.MR.log_golden_ge_log_two
+  Salt.MR.scaleGate_le_quintic
+  Salt.MR.cofkL_scale_gate_at_socket
+  Salt.MR.cofkL_threshold_at_socket_rated
+  Salt.MR.cofkL_capFreeFloor_at_socket_rated
   Salt.MR.mrt_constant_factors
   Salt.MR.vk34_constant_factors
   Salt.MR.vk34_constant_pos

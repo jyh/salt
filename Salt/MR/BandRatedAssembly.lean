@@ -186,7 +186,7 @@ noncomputable def bandArcConst (Z δ : ℝ) : ℝ :=
 
 /-- **THE FIFTH SUMMAND** (`bandConstQ_le_of_le_arcDen`) — the rated band constant absorbed into
 `loglog H` over the major-arc denominator range, in the shape `RbdSupply`'s four siblings use. -/
-theorem bandConstQ_le_of_le_arcDen {q H : ℕ} [NeZero q] {Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ)
+theorem bandConstQ_le_of_le_arcDen {q H : ℕ} [NeZero q] {Z δ : ℝ} (hZ : 1 ≤ Z) (_hδ : 0 < δ)
     (hH : Real.exp 1 ≤ Real.log (H : ℝ)) (hq : (q : ℝ) ≤ arcDen 12 H) :
     bandConstQ Z δ q ≤ 48 * Real.log (Real.log (H : ℝ)) + bandArcConst Z δ := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
@@ -222,7 +222,7 @@ theorem bandConstQ_le_of_le_arcDen {q H : ℕ} [NeZero q] {Z δ : ℝ} (hZ : 1 �
     calc 16 * (q : ℝ) * Z * diskConst q * (1 / goldenL1 q)
         ≤ 648 * Z * (q : ℝ) ^ 3 * ((q : ℝ) ^ (3 : ℕ) / c) :=
           mul_le_mul hnum hinv hinv0 (by positivity)
-      _ = 648 * Z / c * (q : ℝ) ^ 6 := by push_cast; ring
+      _ = 648 * Z / c * (q : ℝ) ^ 6 := by ring
   have harg0 : (0 : ℝ) < 16 * (q : ℝ) * Z * diskConst q / goldenL1 q := by
     have : (0 : ℝ) < 27 / 2 := by norm_num
     have hd : (0 : ℝ) < diskConst q := lt_of_lt_of_le this (diskConst_ge_head hqN)
@@ -241,10 +241,125 @@ theorem bandConstQ_le_of_le_arcDen {q H : ℕ} [NeZero q] {Z δ : ℝ} (hZ : 1 �
         - Real.log c + (1 / 4) * Real.log (648 * Z / c) := le_max_right _ _
     rw [hglog]
     linarith
-  have hbranch1 : Real.log q - Real.log δ ≤ 48 * Real.log (Real.log (H : ℝ)) + bandArcConst Z δ := by
+  have hbranch1 : Real.log q - Real.log δ
+      ≤ 48 * Real.log (Real.log (H : ℝ)) + bandArcConst Z δ := by
     have hb : bandArcConst Z δ ≥ -Real.log δ := le_max_left _ _
     linarith
   unfold bandConstQ
   exact max_le hbranch1 hbranch2
+
+/-! ## §3 — the rated rethread, links 2 and 3 (QUEUE P2 item 6 residual (b))
+
+Residual (b) is the rethread `_pieceDatum_vt → _arcDen → cofkL_capFreeFloor_at_socket` **as a
+sibling chain**, so that a RATED constant is what arrives at the `K_vt` cushion.  §2 built the
+fifth summand; this section carries it up two layers.  Every statement below is the landed name's
+statement with exactly two changes, both already priced by item 6:
+
+* the `q ≤ Qm` binder is **GONE** — `capFreeFloor3_margin_all_chi_vt_rated` quantifies over all
+  moduli, because the band arm was the only consumer of the range (`Qm` had one job);
+* the scale gate `32·diskConst q / goldenL1 q ≤ log X` is **CARRIED**, and `bandConstQ Z δ q`
+  stands inside the threshold bracket where the unrated arm had nothing on the page.
+-/
+
+/-- **THE MASKED FLOOR, RATED** (`capFreeFloor3_pieceDatum_vt_rated`) — the sibling of
+`VkMidSharp.capFreeFloor3_pieceDatum_vt` built on the rated assembly.
+
+⭐ **NOTE WHAT IS MISSING: there is no `Qm`.**  The landed name takes a modulus cap as an
+argument and every consumer has had to thread one; the rated floor has no such binder, so this
+wrapper quantifies over EVERY modulus.  That is inherited, not achieved here — `Qm` existed for
+the band arm's induction-max, and §1 deleted that arm. -/
+theorem capFreeFloor3_pieceDatum_vt_rated :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q)
+        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
+      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
+      32 * diskConst q / goldenL1 q ≤ Real.log X →
+      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
+      40 * Real.log (Real.log (Real.log X))
+          + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+              + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+              + bandConstQ Z δ q + K + 25 + D)
+        < Real.log (Real.log X) →
+        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
+  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_margin_all_chi_vt_rated
+  refine ⟨Z, δ, K, hZ, hδ, hK0, ?_⟩
+  intro q _ χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit hthr v hv
+  have hmargin := hK q χ X D hX hD0 hgate hthr v hv
+  have hcw : ∀ p : ℕ, p.Prime → ‖costwist v p‖ ≤ 1 :=
+    fun p _ => le_of_eq (costwist_norm v p)
+  have htr := pretDistSq_pieceDatum_ge χ Pseq Qseq hcw X 𝒥 (w := costwist v)
+  rw [pretDistSq_liouChi_eq] at htr
+  linarith
+
+/-- **THE THRESHOLD PAGE, RATED** (`pieceFloor_vt_threshold_of_loglog_rated`) — the sibling of
+`RbdSupply.pieceFloor_vt_threshold_of_loglog`, with the fifth summand in the table.
+
+Summand budget (`ℓ₃ := logloglog X`, `Λ := loglog H`), the four landed rows plus §2's:
+`4·log q ≤ 48Λ`, `8·mertensCap q ≤ 8·log(7+12Λ) + 168`, `32·vkDebitConst ≤ 288Λ + 320`,
+`32·vkMidDebitSharp ≤ 8·log(7+12Λ) + 928`, **`32·bandConstQ ≤ 1536Λ + 32·bandArcConst`**, and
+`32·25 = 800` — total `1872Λ + 16·log(7+12Λ) + 2216`, against the hypothesis's
+`1900Λ + 20·log(7+12Λ) + 2300`.
+
+⭐ **THE WHOLE PRICE OF RATING, IN ONE NUMERAL: `350 → 1900` on `Λ`.**  Everything else in the
+condition is byte-identical to the landed one.  `SPEND NOTHING ON GRADE` is why that is
+affordable — and §3's socket sibling proves it is, at the same cushion.
+
+`bandArcConst Z δ` is `q`-free, `H`-free and `X`-free, so it rides in the caller's own constant
+slot: the `hKB` binder is how the exit bundles it into one symbolic `Kbig`. -/
+theorem pieceFloor_vt_threshold_of_loglog_rated {q H : ℕ} [NeZero q] {X K Kbig D Z δ : ℝ}
+    (hZ : 1 ≤ Z) (hδ : 0 < δ)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ)) (hq : (q : ℝ) ≤ arcDen 12 H)
+    (hKB : K + bandArcConst Z δ ≤ Kbig)
+    (hthr : 40 * Real.log (Real.log (Real.log X))
+        + 1900 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kbig + 32 * D
+      < Real.log (Real.log X)) :
+    40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+          + bandConstQ Z δ q + K + 25 + D)
+      < Real.log (Real.log X) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have hband := bandConstQ_le_of_le_arcDen (q := q) (H := H) hZ hδ hH hq
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  have hlogq := log_le_of_le_arcDen hH hq
+  have hcap := mertensCap_le_of_le_arcDen (q := q) hH hq
+  have hvkd := vkDebitConst_le_of_le_arcDen (q := q) hH hq
+  have hvkm := vkMidDebitSharp_le_of_le_arcDen (q := q) hH hq
+  -- the two logarithms, merged into `log(7 + 12Λ)`
+  have h7pos : (0 : ℝ) < 7 + 12 * LH := by linarith
+  have hmerge : Real.log (12 * LH) ≤ Real.log (7 + 12 * LH) :=
+    Real.log_le_log (by linarith) (by linarith)
+  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * LH) := Real.log_nonneg (by linarith)
+  linarith
+
+/-- **THE EXIT, RATED** (`capFreeFloor3_pieceDatum_arcDen_rated`) — the sibling of
+`RbdSupply.capFreeFloor3_pieceDatum_arcDen`.
+
+The constant is `K_vt + max 0 (bandArcConst Z δ)`: one symbolic nonnegative real, exactly as the
+landed exit carries one, so a consumer's cushion is unchanged in SHAPE.  `Z` and `δ` remain the
+`q`-free, `χ`-free existentials of `margin_band_threshold_rated`. -/
+theorem capFreeFloor3_pieceDatum_arcDen_rated :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
+      ∀ (q : ℕ) [NeZero q] (H : ℕ) (χ : DirichletCharacter ℂ q)
+        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
+      Real.exp 1 ≤ Real.log (H : ℝ) → (q : ℝ) ≤ arcDen 12 H →
+      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
+      32 * diskConst q / goldenL1 q ≤ Real.log X →
+      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
+      40 * Real.log (Real.log (Real.log X))
+          + 1900 * Real.log (Real.log (H : ℝ))
+          + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+          + 2300 + 32 * K + 32 * D
+        < Real.log (Real.log X) →
+        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
+  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_vt_rated
+  refine ⟨Z, δ, K + max 0 (bandArcConst Z δ), hZ, hδ,
+    add_nonneg hK0 (le_max_left _ _), ?_⟩
+  intro q _ H χ Pseq Qseq 𝒥 X D hH harc hX hD0 hgate hdebit hthr
+  exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
+    (pieceFloor_vt_threshold_of_loglog_rated hZ hδ hH harc
+      (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
 
 end Salt.MR
