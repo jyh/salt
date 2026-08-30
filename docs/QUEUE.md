@@ -4531,6 +4531,35 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    a RATED constant is what arrives at `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`. **Neither is in this
    item's stated content and neither is claimed.** *The commission asked for the seam and the
    threshold; it has both.*
+   ✅✅⭐⭐ **STAMP 2026-08-30 11:1x (math) — (a) AND (b) ARE BOTH LANDED. THE ROW ABOVE IS
+   BYTE-UNTOUCHED; THIS IS A STAMP, WRITTEN BECAUSE A NODE THAT LANDS WITHOUT ONE STAYS DEMANDED.**
+   **(a)** `capFreeFloor3_margin_all_chi_vt_rated` (`Salt/MR/BandRatedAssembly.lean`, salt
+   `623a71e0`) — the drop-in sibling, band branch swapped, bulk/VK consumed unchanged.
+   **(b)** the rethread, as a SIBLING chain, four commits ending salt `6b69a783`:
+   `bandConstQ_le_of_le_arcDen` (the fifth summand, `6fcb04a5`) → `capFreeFloor3_pieceDatum_vt_rated`
+   → `pieceFloor_vt_threshold_of_loglog_rated` → `capFreeFloor3_pieceDatum_arcDen_rated` →
+   `cofkL_scale_gate_at_socket` → `cofkL_threshold_at_socket_rated` →
+   `cofkL_capFreeFloor_at_socket_rated` (`Salt/MR/BandRatedSocket.lean`). **All `[3 axioms]`, one
+   attempt each, `saltbuild EXIT=0` on `Salt.MR.All` (9343 jobs).**
+   ⭐⭐ **AND THE PART THAT ANSWERS THIS ITEM'S OPENING QUESTION: `Qm` IS GONE FROM THE WHOLE CHAIN.**
+   The landed socket is `cofkL_capFreeFloor_at_socket (K Qm : ℕ)` and the cushion evaluates it at
+   `Qm = ⌈arcDen 12 R.Hhi⌉₊` — *the* argument that grows with `H₊`, which is exactly why R-1's
+   `10^222` read as headroom when it is an exponent. **The rated socket takes `(K : ℕ)` and covers
+   every character of every modulus on the arc range.** The `q ≤ Qm` binder had ONE consumer, the
+   band arm's induction-max, and rating that arm deleted it. ⇒ ***RATING THE CONSTANT DELETED THE
+   QUANTIFIER THAT MADE IT NEED RATING.***
+   📐 **THE SCALE GATE IS NOW DISCHARGED, NOT CARRIED** — see the ⛔ line below, which this
+   supersedes IN FACT while leaving its wording intact: the rated socket link IS the consumer that
+   row named, so the rated binder list is the landed one MINUS `Qm` plus the `q`-free `Z`, `δ`.
+   📐 **THE PRICE, MEASURED:** the threshold's `loglog H` coefficient rises `350 → 1900`, the
+   socket's legs go `1180·√(log H₊) → 4280·√(log H₊)`, and the close clears by four orders against
+   the **byte-identical cushion** `32·K_vt + 32·(2 log M + log 4 + 50) ≤ log H₊/4`. *A 5.4× bump
+   spent out of a square root's worth of margin — which is why `SPEND NOTHING ON GRADE` was the
+   right standing instruction and not merely a cheap one.*
+   ⛔ **STILL NOT CLAIMED, AND THE OVER-READ THIS ROW WARNED ABOUT IS STILL AVAILABLE: `K_vt` IS
+   ONE SYMBOLIC NONNEGATIVE REAL AND THE CUSHION IS STILL A HYPOTHESIS.** What changed is the SHAPE
+   of what stands behind it. **The V7 chain's own rethread onto the rated socket is a further step
+   and was NOT taken** — it lands on R-1's row, where a worker seat reports and does not rule.
    📊 **ITEM 6 TALLY, MEASURED not estimated** (`Salt/MR/BandRated.lean`): **7 public theorems + 4
    public lemmas = 11 AUDITED NAMES, every one `[3 axioms]` under build-time gates**, plus **3 `def`s**
    (`goldenL1`, `bandRateReal`, `bandConstQ` — defs carry no axioms so they are not audited) and **2
