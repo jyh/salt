@@ -167,3 +167,15 @@ jobs:
           # whose head then reported green. This arm asks whether the TREE is clean, against
           # scripts/private_paths_baseline.tsv (4 accepted July-era lines here). Anything NEW reds.
           python scripts/check_private_paths.py --tree
+      - name: message ratchet -- a violating message must not launder into the next scan's base
+        run: |
+          # The delta gate charges the push that carries a violating MESSAGE; it cannot
+          # charge history for keeping one. Measured here: a merge push landed four
+          # branch commits whose messages cite the private record, the delta gate fired
+          # on that very run -- and every later push was green, because the four had
+          # fallen into the next scan's BASE. Ruled 2026-08-30: ACCEPT + record, NO
+          # history rewrite, then close the laundering. This arm scans EVERY message
+          # reachable from HEAD against scripts/private_paths_message_baseline.tsv
+          # (sha + shape only -- never the line, which would trip the tree ratchet).
+          # Anything NEW reds, on every push, on every branch.
+          python scripts/check_private_paths.py --messages
