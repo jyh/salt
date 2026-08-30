@@ -34,13 +34,33 @@ on:
 #     and an absence of red is not a pass. A GREEN THAT STRUCTURALLY CANNOT HAPPEN IS WORSE THAN NO
 #     GATE, because nobody knows they are unprotected.
 #   ⇒ SO: BRANCHES KEEP cancel-in-progress — that is what it was for, and a stale branch build is
-#     genuinely worthless. THE DEFAULT BRANCH DOES NOT: each push to main gets its own run and they
-#     queue. The cost is real (concurrent long builds during a burst) and is the price of main
-#     having a verdict at all. This file's own header already prescribes the local `saltbuild`
+#     genuinely worthless. THE DEFAULT BRANCH DOES NOT: an in-progress `main` verification now runs
+#     to a verdict instead of being killed by the next push. ⚠️ THAT IS NOT THE SAME AS "every main
+#     push is verified", and the earlier draft of this comment claimed it was: GitHub still cancels
+#     an existing PENDING run when a newer one queues ("any existing pending job or workflow in the
+#     same concurrency group will be canceled"), so only the NEWEST PENDING survives and
+#     intermediate main commits can still go unverified. Nor do the runs go concurrent — this group
+#     SERIALISES them, so the price is latency and coverage, NOT concurrent billing. (`queue: max`
+#     would verify every push, at a real billing cost. Deliberately not taken here.)
+#     This file's own header already prescribes the local `saltbuild`
 #     audit as A BRANCH's referee; main had no such prescription and no working CI either.
+#
+#   ⛔ THE TEST IS `github.ref` AGAINST A LITERAL — NOT `github.event.repository.default_branch`,
+#     which is what this change first shipped as (evidence's review of PR #4, 08/30). A `schedule`
+#     run HAS NO WEBHOOK PAYLOAD (GitHub's trigger reference lists it "Not applicable"; GITHUB_REF
+#     is populated, `github.event` is not). The payload form therefore yields `refs/heads/` on the
+#     nightly run, compares TRUE, and leaves THE CRON as the single run still carrying
+#     cancel-in-progress: true — and the newcomer is the canceller, so it would kill an in-progress
+#     main build. IT FAILS OPEN, SILENTLY, ON EXACTLY THE RUN THIS BLOCK EXISTS TO PROTECT.
+#     Measured: schedule run 33209460323 (08-28 20:43:39Z) was cancelled 25 s in by push run
+#     33209469976 (20:43:47Z) — the push direction is what this change fixes; the cron direction is
+#     what the literal fixes. And this cron does not fire at its nominal 09:00: observed 09:41 /
+#     14:11 / 14:17 / 19:27 / 20:43 UTC, an 11-hour spread, so it lands inside an active-day build
+#     sooner or later. The literal has no payload dependency, and it is not a new hardcode —
+#     `on.push.branches: [main]` sits eleven lines above this block.
 concurrency:
   group: lean-ci-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != format('refs/heads/{0}', github.event.repository.default_branch) }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
