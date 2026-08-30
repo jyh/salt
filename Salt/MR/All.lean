@@ -8573,6 +8573,7 @@ open Salt.Tactic in
   Salt.MR.diskConst_ge_head
   Salt.MR.bandConstQ_nonneg
   Salt.MR.capFreeFloor3_margin_all_chi_vt_rated
+  Salt.MR.bandConstQ_le_of_le_arcDen
   Salt.MR.mrt_constant_factors
   Salt.MR.vk34_constant_factors
   Salt.MR.vk34_constant_pos

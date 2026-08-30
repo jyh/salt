@@ -1,5 +1,6 @@
 import Salt.MR.VkMidSharp
 import Salt.MR.BandRated
+import Salt.MR.RbdSupply
 
 /-!
 # The assembled χ-floor with a RATED band branch (`BandRatedAssembly`)
@@ -160,5 +161,90 @@ theorem capFreeFloor3_margin_all_chi_vt_rated :
       exact vkTwistUB_holds (χ ^ 2) hψ hXe h2v
     have h := hvk q χ (vkEulerCorr q * vkTwistConst q) X v hC1 hsq hX hv hsock
     linarith
+
+/-! ## §2 — the rated constant over the arc range (QUEUE P2 item 6 residual (b), first link)
+
+The rethread `_pieceDatum_vt → _arcDen → cofkL_capFreeFloor_at_socket` carries `K` SYMBOLICALLY,
+which a `q`-dependent constant cannot be.  `bandConstQ Z δ q` is `O(log q)`, so on the arc range
+`q ≤ arcDen 12 H = (log H)^12` it must be absorbed into `loglog H` exactly as `log q`,
+`mertensCap q`, `vkDebitConst` and `vkMidDebitSharp` already are (`RbdSupply` §"the four
+summands").  This is that fifth summand, and it is where *rated* pays: the unrated `C(Q)` had no
+growth rate and could not have been absorbed at all.
+
+⭐ SPEND NOTHING ON GRADE (the 08/26 standing instruction).  Every constant below is deliberately
+generous — `q^{5/2} ≤ q³`, `diskConst q ≤ (81/2)q²`, `log q ≤ 12·loglog H` — because the consumer
+budget clears any polynomial grade by hundreds of orders.  Sharpening `45` here buys nothing. -/
+
+/-- The explicit `H`-free part of the arc-range bound on `bandConstQ`.  `Z`-dependent and
+`δ`-dependent by construction: those are the two `q`-free, `χ`-free existentials
+`margin_band_threshold_rated` produces, and keeping them visible is what makes the bound rated. -/
+noncomputable def bandArcConst (Z δ : ℝ) : ℝ :=
+  max (-Real.log δ)
+    (Real.log 2 + 2 * Real.log 4 + (3 / 4) * Real.log 2
+      - Real.log (Real.log ((3 + Real.sqrt 5) / 2))
+      + (1 / 4) * Real.log (648 * Z / Real.log ((3 + Real.sqrt 5) / 2)))
+
+/-- **THE FIFTH SUMMAND** (`bandConstQ_le_of_le_arcDen`) — the rated band constant absorbed into
+`loglog H` over the major-arc denominator range, in the shape `RbdSupply`'s four siblings use. -/
+theorem bandConstQ_le_of_le_arcDen {q H : ℕ} [NeZero q] {Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ)) (hq : (q : ℝ) ≤ arcDen 12 H) :
+    bandConstQ Z δ q ≤ 48 * Real.log (Real.log (H : ℝ)) + bandArcConst Z δ := by
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
+  have hqN : 1 ≤ q := Nat.one_le_iff_ne_zero.mpr (NeZero.ne q)
+  have hq0 : (0 : ℝ) < (q : ℝ) := by linarith
+  have hlogq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
+  have hLH1 : (1 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := one_le_loglog_of_exp_le hH
+  have hlogq : Real.log q ≤ 12 * Real.log (Real.log (H : ℝ)) := log_le_of_le_arcDen hH hq
+  set c : ℝ := Real.log ((3 + Real.sqrt 5) / 2) with hcdef
+  have hc0 : 0 < c := e4a_log_golden_pos
+  -- `log (goldenL1 q) = log c − (5/2)·log q`
+  have hrpow0 : (0 : ℝ) < (q : ℝ) ^ (5 / 2 : ℝ) := Real.rpow_pos_of_pos hq0 _
+  have hglog : Real.log (goldenL1 q) = c.log - (5 / 2) * Real.log q := by
+    rw [goldenL1, Real.log_div (ne_of_gt hc0) (ne_of_gt hrpow0), Real.log_rpow hq0]
+  -- `1 / goldenL1 q ≤ q³ / c`, via `q^{5/2} ≤ q³`
+  have hrpow3 : (q : ℝ) ^ (5 / 2 : ℝ) ≤ (q : ℝ) ^ (3 : ℕ) := by
+    have h := Real.rpow_le_rpow_of_exponent_le hq1 (by norm_num : (5 / 2 : ℝ) ≤ (3 : ℝ))
+    rwa [show ((3 : ℝ)) = ((3 : ℕ) : ℝ) by norm_num, Real.rpow_natCast] at h
+  -- the log-argument, bounded by `(648·Z/c)·q⁵`
+  have hdisk : diskConst q ≤ 81 / 2 * (q : ℝ) ^ 2 := diskConst_le hqN
+  have hdisk0 : (0 : ℝ) ≤ diskConst q := le_trans (by norm_num) (diskConst_ge_head hqN)
+  have hg0 : 0 < goldenL1 q := goldenL1_pos q
+  have hinv : 1 / goldenL1 q ≤ (q : ℝ) ^ (3 : ℕ) / c := by
+    rw [goldenL1, one_div_div]
+    gcongr
+  have h16 : (0 : ℝ) ≤ 16 * (q : ℝ) * Z := by positivity
+  have hnum : 16 * (q : ℝ) * Z * diskConst q ≤ 648 * Z * (q : ℝ) ^ 3 := by
+    have h := mul_le_mul_of_nonneg_left hdisk h16
+    nlinarith [h]
+  have hargle : 16 * (q : ℝ) * Z * diskConst q / goldenL1 q ≤ 648 * Z / c * (q : ℝ) ^ 6 := by
+    rw [div_eq_mul_one_div]
+    have hinv0 : (0 : ℝ) ≤ 1 / goldenL1 q := by positivity
+    calc 16 * (q : ℝ) * Z * diskConst q * (1 / goldenL1 q)
+        ≤ 648 * Z * (q : ℝ) ^ 3 * ((q : ℝ) ^ (3 : ℕ) / c) :=
+          mul_le_mul hnum hinv hinv0 (by positivity)
+      _ = 648 * Z / c * (q : ℝ) ^ 6 := by push_cast; ring
+  have harg0 : (0 : ℝ) < 16 * (q : ℝ) * Z * diskConst q / goldenL1 q := by
+    have : (0 : ℝ) < 27 / 2 := by norm_num
+    have hd : (0 : ℝ) < diskConst q := lt_of_lt_of_le this (diskConst_ge_head hqN)
+    positivity
+  have hlogarg : Real.log (16 * (q : ℝ) * Z * diskConst q / goldenL1 q)
+      ≤ Real.log (648 * Z / c) + 6 * Real.log q := by
+    have hstep := Real.log_le_log harg0 hargle
+    have hpos : (0 : ℝ) < 648 * Z / c := by positivity
+    rwa [Real.log_mul (ne_of_gt hpos) (by positivity), Real.log_pow] at hstep
+  -- assemble
+  have hbranch2 : Real.log 2 - Real.log (goldenL1 q)
+        + (2 * Real.log 4 + (3 / 4) * Real.log 2
+          + (1 / 4) * Real.log (16 * (q : ℝ) * Z * diskConst q / goldenL1 q))
+      ≤ 48 * Real.log (Real.log (H : ℝ)) + bandArcConst Z δ := by
+    have hb : bandArcConst Z δ ≥ Real.log 2 + 2 * Real.log 4 + (3 / 4) * Real.log 2
+        - Real.log c + (1 / 4) * Real.log (648 * Z / c) := le_max_right _ _
+    rw [hglog]
+    linarith
+  have hbranch1 : Real.log q - Real.log δ ≤ 48 * Real.log (Real.log (H : ℝ)) + bandArcConst Z δ := by
+    have hb : bandArcConst Z δ ≥ -Real.log δ := le_max_left _ _
+    linarith
+  unfold bandConstQ
+  exact max_le hbranch1 hbranch2
 
 end Salt.MR
