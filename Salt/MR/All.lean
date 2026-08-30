@@ -401,6 +401,7 @@ import Salt.MR.MRTPortA1Const
 import Salt.MR.MRTArcRatCoprime
 import Salt.MR.XGapThread
 import Salt.MR.BandRated
+import Salt.MR.BandRatedAssembly
 import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
 
@@ -8569,6 +8570,9 @@ open Salt.Tactic in
   Salt.MR.mrtS_dilate_of_le_W
   Salt.MR.mrtS_indicator_mul_dilate_of_le_W
   Salt.MR.mrtS_dilate_of_le_W_witness
+  Salt.MR.diskConst_ge_head
+  Salt.MR.bandConstQ_nonneg
+  Salt.MR.capFreeFloor3_margin_all_chi_vt_rated
   Salt.MR.mrt_constant_factors
   Salt.MR.vk34_constant_factors
   Salt.MR.vk34_constant_pos
