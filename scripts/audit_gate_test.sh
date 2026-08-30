@@ -46,31 +46,36 @@ echo
 echo "AUDIT-SIDE ARMS (hermetic fixture repo, no salt history):"
 GATE="$(cd "$(dirname "$0")" && pwd)/audit_gate.sh"
 FIX=$(mktemp -d); trap 'rm -rf "$FIX"' EXIT
-(
-  cd "$FIX" && git init -q . && git config user.email t@t && git config user.name t
-  # fixture 1 — a two-line, FULLY QUALIFIED roll-call covering both declarations
-  printf 'theorem hdiv_of_log_growth : True := trivial\ntheorem twinLogWeight_support : True := trivial\n#audit_axioms Fix.hdiv_of_log_growth\n  Fix.twinLogWeight_support\n' > a.lean
-  git add a.lean && git commit -q -m f1
-  # fixture 2 — declarations with NO roll-call at all, incl. a PREFIXED one
-  printf 'theorem plain_one : True := trivial\nprivate theorem hidden_two : True := trivial\n@[simp] theorem attr_three : True := trivial\n' > b.lean
-  git add b.lean && git commit -q -m f2
-  # fixture 3 — THE APPEND CASE (added 2026-08-29): a commit that adds a declaration and
-  # puts its roll-call name at the END of an ALREADY-EXISTING block.  The block's
-  # `#audit_axioms` header is unchanged, so it is not in the diff at all -- and the filler
-  # below keeps it further than diff context reaches, which is the REAL shape: in
-  # `Salt/MR/All.lean` the header sits thousands of lines above the append point.
-  printf 'theorem f1 : True := trivial\ntheorem f2 : True := trivial\ntheorem f3 : True := trivial\ntheorem f4 : True := trivial\ntheorem f5 : True := trivial\ntheorem f6 : True := trivial\n#audit_axioms Fix.f1\n  Fix.f2\n  Fix.f3\n  Fix.f4\n  Fix.f5\n  Fix.f6\n' > c.lean
-  git add c.lean && git commit -q -m f3base
-  printf 'theorem f1 : True := trivial\ntheorem f2 : True := trivial\ntheorem f3 : True := trivial\ntheorem f4 : True := trivial\ntheorem f5 : True := trivial\ntheorem f6 : True := trivial\ntheorem appended_seven : True := trivial\n#audit_axioms Fix.f1\n  Fix.f2\n  Fix.f3\n  Fix.f4\n  Fix.f5\n  Fix.f6\n  Fix.appended_seven\n' > c.lean
-  git add c.lean && git commit -q -m f3append
-  # fixture 4 — the NEGATIVE control for the same widening: a commit adding a declaration
-  # and a bare dotted line that is NOT inside any roll-call block.  Must STILL be flagged,
-  # or the repair has bought its green by accepting any indented name anywhere.
-  printf 'theorem uncovered_eight : True := trivial\n-- Fix.uncovered_eight was discussed in\n  Fix.uncovered_eight\n' > d.lean
-  git add d.lean && git commit -q -m f4
-)
-F1=$(cd "$FIX" && git rev-parse HEAD~4); F2=$(cd "$FIX" && git rev-parse HEAD~3)
-F3=$(cd "$FIX" && git rev-parse HEAD~1); F4=$(cd "$FIX" && git rev-parse HEAD)
+# ⛔⛔ EVERY GIT CALL BELOW IS `git -C "$FIX"` AND EVERY PATH IS ABSOLUTE, AND THAT IS NOT STYLE.
+# 2026-08-29: an earlier version of this block opened a `( cd "$FIX" && ... )` subshell and I
+# left a stray `)` in it while adding arms 11-12. Bash reported the syntax error -- AND HAD
+# ALREADY RUN the commands that followed it, in the CALLER'S directory, because the `cd "$FIX"`
+# lived inside the subshell that never opened. Result: three fixture commits (f3base, f3append,
+# f4) and two files (c.lean, d.lean) landed in salt's own history and were pushed to a public
+# remote before I noticed.
+# ⇒ A TEST FIXTURE THAT REACHES ITS SANDBOX BY `cd` IS ONE SYNTAX ERROR AWAY FROM WRITING TO THE
+#   REPOSITORY UNDER TEST. `git -C` and absolute paths cannot miss: there is no shell state to
+#   get wrong, so the failure mode is deleted rather than made less likely.
+git -C "$FIX" init -q . && git -C "$FIX" config user.email t@t && git -C "$FIX" config user.name t
+# fixture 1 — a two-line, FULLY QUALIFIED roll-call covering both declarations
+printf 'theorem hdiv_of_log_growth : True := trivial\ntheorem twinLogWeight_support : True := trivial\n#audit_axioms Fix.hdiv_of_log_growth\n  Fix.twinLogWeight_support\n' > "$FIX/a.lean"
+git -C "$FIX" add a.lean && git -C "$FIX" commit -q -m f1
+# fixture 2 — declarations with NO roll-call at all, incl. a PREFIXED one
+printf 'theorem plain_one : True := trivial\nprivate theorem hidden_two : True := trivial\n@[simp] theorem attr_three : True := trivial\n' > "$FIX/b.lean"
+git -C "$FIX" add b.lean && git -C "$FIX" commit -q -m f2
+# fixture 3 — THE APPEND CASE: a commit that adds a declaration and puts its roll-call name at
+# the END of an ALREADY-EXISTING block. The header is unchanged, so it is not in the diff, and
+# the filler keeps it beyond diff context -- the REAL shape, where `Salt/MR/All.lean`'s header
+# sits thousands of lines above the append point.
+printf 'theorem f1 : True := trivial\ntheorem f2 : True := trivial\ntheorem f3 : True := trivial\ntheorem f4 : True := trivial\ntheorem f5 : True := trivial\ntheorem f6 : True := trivial\n#audit_axioms Fix.f1\n  Fix.f2\n  Fix.f3\n  Fix.f4\n  Fix.f5\n  Fix.f6\n' > "$FIX/c.lean"
+git -C "$FIX" add c.lean && git -C "$FIX" commit -q -m f3base
+printf 'theorem f1 : True := trivial\ntheorem f2 : True := trivial\ntheorem f3 : True := trivial\ntheorem f4 : True := trivial\ntheorem f5 : True := trivial\ntheorem f6 : True := trivial\ntheorem appended_seven : True := trivial\n#audit_axioms Fix.f1\n  Fix.f2\n  Fix.f3\n  Fix.f4\n  Fix.f5\n  Fix.f6\n  Fix.appended_seven\n' > "$FIX/c.lean"
+git -C "$FIX" add c.lean && git -C "$FIX" commit -q -m f3append
+# fixture 4 — the NEGATIVE control: a bare dotted line that is NOT inside any roll-call block.
+printf 'theorem uncovered_eight : True := trivial\n-- Fix.uncovered_eight was discussed in\n  Fix.uncovered_eight\n' > "$FIX/d.lean"
+git -C "$FIX" add d.lean && git -C "$FIX" commit -q -m f4
+F1=$(git -C "$FIX" rev-parse HEAD~4); F2=$(git -C "$FIX" rev-parse HEAD~3)
+F3=$(git -C "$FIX" rev-parse HEAD~1); F4=$(git -C "$FIX" rev-parse HEAD)
 a2() { local n="$1" c="$2" want="$3" got
   got=$( cd "$FIX" && bash "$GATE" "$c" 2>/dev/null \
         | sed -n '/^--- declared but NOT audited/,/^--- audited/p' | grep -vE '^---' | grep -c . )
