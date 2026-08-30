@@ -763,6 +763,38 @@ RESURRECTS THEM:**
     `regime_W_cap_of_floor` yet — its `hthr` is supplied by no landed site. **No landing here may be
     read as discharging item 5.** *The sibling S10a has the same shape and has had it since it
     landed; that is the pattern, not an excuse.*
+    ✅⭐⭐ **E-5c IS LANDED — STAMP 2026-08-29 20:0x (math), ROWS ABOVE BYTE-UNTOUCHED. THE LINE
+    BELOW ASKING THE HELM FOR "ONE PARAGRAPH OF STATEMENT" IS STALE BY TWO DAYS AND THIS ROW WAS
+    ABOUT TO SPEND A FABLE DESIGN PARAGRAPH RE-AUTHORING A THEOREM THAT IS IN THE KERNEL.**
+    `Salt/MR/MRTProp24.lean:323` **`mrtS_dilate`** (the membership half, an iff, no lower bound on
+    `m`) and `:386` **`mrtS_indicator_mul_dilate`** (the summand form the arc consumer takes),
+    landed `e0fea691` 08/27 10:29, ancestor of main since the 08/29 merge `b2340108`. **Both
+    `[propext, Classical.choice, Quot.sound]`**, audited by name at `Salt/MR/All.lean:8565-8566`.
+    The statement act WAS performed at the proper tier: the helm drafted it, the Captain ratified it
+    as drafted on all five questions, and the file's own header records that the Lean text is
+    VERBATIM from that draft. **Iron rule 1 was satisfied, not bypassed.**
+    ⚠️ **THE HYPOTHESIS IS PER-BAND, NOT `d₀ ≤ W`** — `∀ j ∈ Icc 1 (mrtJ Q₁ X₀), ∀ p ∈ d₀.primeFactors,
+    (p:ℝ) < mrtBandP P₁ Q₁ j`. That is deliberate and is the draft's fidelity note 1: the operative
+    content is *"`d₀` contributes no band prime"*, and stating it that way keeps the identity free of
+    the regime so the arc reduction INSTANTIATES rather than re-proves. MRT's `d₀ ≤ q ≤ W < W²⁰⁰ = P₁`
+    is a consequence, and **the applied corollary in-regime is consumer-side B-work, explicitly not
+    part of the statement act** — i.e. WORKER-TIER AND UNBLOCKED.
+    📐 **STATE OF THE PAIR: LANDED AND UNCONSUMED.** The only references to either name anywhere in
+    `Salt/` are the audit roll-call. The open work is the applied corollary plus its wiring into the
+    MRT major-arc reduction over `mrtS` — ⛔ **not** into the door: `M4BridgeDilate` (⟦BRIDGE 3⟧) is
+    the DOOR's `d₀`-dilation at `calP`/`windowClass`, the same near-miss this row's own 10:2x census
+    name-guarded. Different object, matching name; the guard still holds and now cuts both ways.
+    🔑 ***A NODE THAT LANDS WITHOUT A STAMP IN THE ROW THAT DEMANDS IT STAYS DEMANDED.*** `mrtS_dilate`
+    had ZERO hits in this file and so did `e0fea691`. Every E-5c line here (:739 helm/Fable-tier,
+    :798 below, :3931 "statement-tier and reserved") predates the landing and none was wrong when
+    written — the 08/26 census was scrupulous, three search shapes and a name-guard. **Nothing about
+    it decayed except the world.** ⇒ ***A CENSUS OF ABSENCE READS IDENTICALLY WHETHER A NODE IS
+    UNBUILT, UNCOMMISSIONED, OR BUILT YESTERDAY*** — and the row every seat pulls from is the one
+    surface where that costs a wave. ⇒ ***BEFORE PRICING A PARAGRAPH, GREP FOR ITS CONCLUSION.***
+    *Found while specifying the DEMAND for row q rather than answering it — the demand side again.*
+    ⛔ **THE `E-5c` CLAUSE ON THE NEXT LINE IS SUPERSEDED — SEE THE STAMP AT :766. IT LANDED
+    08/27 (`mrtS_dilate`, `mrtS_indicator_mul_dilate`, both `[3 axioms]`); WHAT REMAINS OF IT IS
+    WORKER-TIER, NOT A PARAGRAPH. Line kept whole, status corrected above, never edited in place.**
     📐 **REMAINING on item 12 after this:** E-5c (helm/Fable, one paragraph of statement) · the two
     ε-dependent thresholds `H₀mrt(ε)` / `H₊*(ε)`, whose port instruction v2 §4 corrects to
     *"instantiate the existing `extraFloor` binder — ZERO edits inside `SpineFinal`"* (the v1 target
@@ -3897,6 +3929,10 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ```
     ⇒ ***A.3's REMAINING WORK IS PROOF-BOUND, NOT STATEMENT-BOUND*** — the opposite of the apex arm's
     A.2/E-5c holes, which are statement-tier and reserved. **Executor time DOES move A.3.**
+    ⛔ **E-5c IS NO LONGER ONE OF THOSE HOLES — STAMP 08/29 20:0x (math), sentence above kept whole.**
+    It was stated by the helm, ratified by the Captain and landed 08/27 at `e0fea691`; both names are
+    `[3 axioms]` in `Salt/MR/MRTProp24.lean`. **Full stamp at item 12, :766.** A.2's half of this
+    sentence is untouched by that and stands as written.
     ⛔ Tier for A4ii/A5/A6/A7 is NOT claimed here; the queue prices Lemma A.4 as Class C and the other
     three are unpriced. Asked on the bus 01:33; awaiting a word.
     ⚠️ **AND THE HONEST CAVEAT ON THIS ROW: "ingredients landed" is NOT "node done" — that is the same
