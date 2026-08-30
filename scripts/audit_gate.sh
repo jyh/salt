@@ -38,6 +38,32 @@ AUD=$(echo "$D" | awk '
   inb && /^\+[[:space:]]+[A-Za-z0-9_.!?'"'"']+([[:space:]]+[A-Za-z0-9_.!?'"'"']+)*[[:space:]]*$/ {
         sub(/^\+[[:space:]]*/,""); print; next }
   { inb=0 }' | tr ' ' '\n' | grep -v '^$' | sort -u)
+# ⛔ WIDENED 2026-08-29 (math) — THE THIRD ARTIFACT OF THIS EXACT CLASS, and the commit that
+# found it was its own exhibit (`6a460109`: five declarations, all five genuinely audited and
+# ticked `[3 axioms]` by the aggregate, ALL FIVE reported "NOT audited").
+# THE BLIND SPOT: the awk above enters a block only on an ADDED `#audit_axioms` header. A name
+# APPENDED to an ALREADY-EXISTING roll-call has no header in the diff -- in `Salt/MR/All.lean`
+# the header sits thousands of lines above the append point, so it is not even a CONTEXT line,
+# and no amount of widening the diff patterns can recover it.
+# ⇒ THE DIFF CANNOT ANSWER THIS QUESTION AND THE POST-COMMIT FILE CAN. A name counts as
+#   audited by this commit iff the commit ADDED its line AND that line sits inside a roll-call
+#   block in the RESULTING file. Both halves are required: the first keeps the gate a delta
+#   gate, the second is what the diff could not see.
+# Like its two siblings this failed toward FALSE POSITIVES -- the gate cried wolf on audited
+# work -- so the widening is driven against its negative control as well (arm 12: a bare dotted
+# line outside any block must STILL be flagged, or the green was bought by accepting any
+# indented name anywhere).
+ADDED_BARE=$(echo "$D" | grep -E '^\+[[:space:]]+[A-Za-z0-9_.!?'"'"']+[[:space:]]*$' \
+             | sed -E 's/^\+[[:space:]]*//;s/[[:space:]]*$//' | sort -u)
+INBLOCK=$(for f in $(git show --name-only --format= "$C" -- '*.lean'); do
+            git show "$C:$f" 2>/dev/null | awk '
+              /^#audit_axioms/ { inb=1; sub(/^#audit_axioms[[:space:]]*/,""); print; next }
+              inb && /^[[:space:]]+[A-Za-z0-9_.!?'"'"']+([[:space:]]+[A-Za-z0-9_.!?'"'"']+)*[[:space:]]*$/ {
+                    sub(/^[[:space:]]*/,""); print; next }
+              { inb=0 }'
+          done | tr ' ' '\n' | grep -v '^$' | sort -u)
+APPENDED=$(comm -12 <(echo "$ADDED_BARE") <(echo "$INBLOCK"))
+AUD=$(printf '%s\n%s\n' "$AUD" "$APPENDED" | grep -v '^$' | sort -u)
 # both forms of every audited token
 AUDN=$(echo "$AUD" | awk '{print; n=split($0,a,"."); if (n>1) print a[n]}' | sort -u)
 # a declaration is audited if its own name OR its last component is listed

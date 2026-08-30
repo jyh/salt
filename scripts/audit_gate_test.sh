@@ -54,8 +54,23 @@ FIX=$(mktemp -d); trap 'rm -rf "$FIX"' EXIT
   # fixture 2 — declarations with NO roll-call at all, incl. a PREFIXED one
   printf 'theorem plain_one : True := trivial\nprivate theorem hidden_two : True := trivial\n@[simp] theorem attr_three : True := trivial\n' > b.lean
   git add b.lean && git commit -q -m f2
+  # fixture 3 — THE APPEND CASE (added 2026-08-29): a commit that adds a declaration and
+  # puts its roll-call name at the END of an ALREADY-EXISTING block.  The block's
+  # `#audit_axioms` header is unchanged, so it is not in the diff at all -- and the filler
+  # below keeps it further than diff context reaches, which is the REAL shape: in
+  # `Salt/MR/All.lean` the header sits thousands of lines above the append point.
+  printf 'theorem f1 : True := trivial\ntheorem f2 : True := trivial\ntheorem f3 : True := trivial\ntheorem f4 : True := trivial\ntheorem f5 : True := trivial\ntheorem f6 : True := trivial\n#audit_axioms Fix.f1\n  Fix.f2\n  Fix.f3\n  Fix.f4\n  Fix.f5\n  Fix.f6\n' > c.lean
+  git add c.lean && git commit -q -m f3base
+  printf 'theorem f1 : True := trivial\ntheorem f2 : True := trivial\ntheorem f3 : True := trivial\ntheorem f4 : True := trivial\ntheorem f5 : True := trivial\ntheorem f6 : True := trivial\ntheorem appended_seven : True := trivial\n#audit_axioms Fix.f1\n  Fix.f2\n  Fix.f3\n  Fix.f4\n  Fix.f5\n  Fix.f6\n  Fix.appended_seven\n' > c.lean
+  git add c.lean && git commit -q -m f3append
+  # fixture 4 — the NEGATIVE control for the same widening: a commit adding a declaration
+  # and a bare dotted line that is NOT inside any roll-call block.  Must STILL be flagged,
+  # or the repair has bought its green by accepting any indented name anywhere.
+  printf 'theorem uncovered_eight : True := trivial\n-- Fix.uncovered_eight was discussed in\n  Fix.uncovered_eight\n' > d.lean
+  git add d.lean && git commit -q -m f4
 )
-F1=$(cd "$FIX" && git rev-parse HEAD~1); F2=$(cd "$FIX" && git rev-parse HEAD)
+F1=$(cd "$FIX" && git rev-parse HEAD~4); F2=$(cd "$FIX" && git rev-parse HEAD~3)
+F3=$(cd "$FIX" && git rev-parse HEAD~1); F4=$(cd "$FIX" && git rev-parse HEAD)
 a2() { local n="$1" c="$2" want="$3" got
   got=$( cd "$FIX" && bash "$GATE" "$c" 2>/dev/null \
         | sed -n '/^--- declared but NOT audited/,/^--- audited/p' | grep -vE '^---' | grep -c . )
@@ -64,6 +79,8 @@ a2() { local n="$1" c="$2" want="$3" got
 }
 a2 "9  continuation + qualified  -> NO false positives" "$F1" 0
 a2 "10 genuine miss (incl. prefixed) -> STILL FLAGGED"  "$F2" 3
+a2 "11 APPEND to an EXISTING block -> NO false positive" "$F3" 0
+a2 "12 NEG: bare name OUTSIDE any block -> FLAGGED"      "$F4" 1
 echo
 echo "TOTAL: $fail failure(s)"
 [ "$fail" -eq 0 ] || exit 1
