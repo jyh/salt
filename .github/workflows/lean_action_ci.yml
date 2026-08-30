@@ -23,9 +23,24 @@ on:
     - cron: '0 9 * * *'
 
 # Rapid ceremony bursts supersede each other: cancel the stale run, bill ~1.
+#
+# ⛔ EXCEPT ON THE DEFAULT BRANCH, AND THE NUMBER IS THE ARGUMENT (measured 2026-08-29/30, after the
+#   541-commit math/w1-e3-port merge landed). A full build of this tree took 2 h 34 m wall
+#   (run 33293655100, 04:58:44 -> 07:33:00 UTC). With cancel-in-progress, a verdict on `main`
+#   therefore requires a 2.5-HOUR GAP IN PUSHES — and on 08/29 main saw FIVE consecutive Lean runs
+#   CANCELLED (the merge's own verification among them, plus a deliberate workflow_dispatch killed
+#   by the next seat's push). The one green arrived only after every seat had banked and exited.
+#   ⇒ ON AN ACTIVE DAY, `main` NEVER GREENS AND NEVER REDS: the gate reads "in progress" forever,
+#     and an absence of red is not a pass. A GREEN THAT STRUCTURALLY CANNOT HAPPEN IS WORSE THAN NO
+#     GATE, because nobody knows they are unprotected.
+#   ⇒ SO: BRANCHES KEEP cancel-in-progress — that is what it was for, and a stale branch build is
+#     genuinely worthless. THE DEFAULT BRANCH DOES NOT: each push to main gets its own run and they
+#     queue. The cost is real (concurrent long builds during a burst) and is the price of main
+#     having a verdict at all. This file's own header already prescribes the local `saltbuild`
+#     audit as A BRANCH's referee; main had no such prescription and no working CI either.
 concurrency:
   group: lean-ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != format('refs/heads/{0}', github.event.repository.default_branch) }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
