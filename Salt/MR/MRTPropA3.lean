@@ -1634,7 +1634,13 @@ minimiser. *(Stated as the reason, not as a Lean proof: exhibiting `> 0` needs a
 witness-proofing.** With `t₁` pinned, the far branch's *centre cap* — the `S` that
 `dist_recenter_sq` consumes — becomes DERIVABLE rather than assumed:
 `mrtA4ii_far_centre_cap` below. Free `t₁` could not supply it at all, because a
-free `t₁` says nothing about `pretDistSq f (costwist t₁) X`. -/
+free `t₁` says nothing about `pretDistSq f (costwist t₁) X`.
+
+⛔ **SUPERSESSION STAMP (2026-08-31, the helm's A4F far-branch commission):** the
+clause above tying the cap to `dist_recenter_sq` is the superseded recenter-shaped
+reading, kept verbatim as the record.  The far branch AVERAGES
+(`pretDistSq_ge_cos_average`); the cap is the branch GUARD, not a chain input.
+See `mrtA4ii_far_centre_cap`'s corrected docstring below. -/
 
 /-- **A.4(ii), REPAIRED.**  Identical to `MRTLemmaA4ii` except that `t₁` is now
 required to attain `mrtM f X` — MRT's own reading of `t₁`. -/
@@ -1656,11 +1662,23 @@ theorem mrtA4iiFixed_high_M (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : 
       ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X :=
   mrtA4ii_high_M_target f Pseq Qseq 𝒥 X t ε hf hXe htX hε hM
 
-/-- ⭐ **WHAT THE REPAIR BUYS: the far branch's CENTRE CAP is now derivable.**
+/-- ⭐ **THE FAR BRANCH'S GUARD: on the far branch the centre distance is capped.**
 In the far branch the first disjunct fails, so `mrtM f X < ⅛·loglog X`; with `t₁`
-pinned to the minimiser this transfers to the centre distance itself, which is
-exactly the `S` that `dist_recenter_sq` consumes.  **A free `t₁` could not supply
-this at all** — it says nothing about `pretDistSq f (costwist t₁) X`. -/
+pinned to the minimiser this transfers to the centre distance itself.  **A free
+`t₁` could not supply this at all** — it says nothing about
+`pretDistSq f (costwist t₁) X`.
+
+⛔ **SUPERSEDED READING, CORRECTED (2026-08-31, the helm's A4F far-branch
+commission):** this docstring used to call the cap *"exactly the `S` that
+`dist_recenter_sq` consumes"*.  That is FALSE as a description of the proof
+route: MRT's far branch never recenters — read from the source (pp. 22–23,
+displays (A.4)–(A.5)), it AVERAGES the distance at `t` and at the minimiser
+`t₁` (`pretDistSq_ge_cos_average`), and `‖f p‖ ≤ 1` then eliminates `f` with no
+floor and no cap anywhere in the chain.  The recentering route is numerically
+dead in this file's own record (`recenter_then_halve_constant`,
+`landed_route_below_a4ii_target`).  This lemma is the far branch's **GUARD** —
+the negation of the high-`M` disjunct, in centre-distance form — not a chain
+input. -/
 theorem mrtA4ii_far_centre_cap {f : ℕ → ℂ} {X t₁ : ℝ}
     (hmin : pretDistSq f (costwist t₁) X = mrtM f X)
     (hlow : ¬ ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X)) :

@@ -240,6 +240,72 @@ lives in Lemmas A.4–A.8 (the T₀/T₁ split at `M(f;X) ≥ (1/8)loglog X`).
 **Net: Appendix A re-proves the MR engine for complex non-pretentious f, with the `exp(−M(f;X))` factor,
 using the ζ VK region at extreme t and Halász's theorem ([9],[10]).** This is the S9 / complex-extension surface.
 
+### 3.4a ADDENDUM (A4F-0, 2026-08-31) — Lemma A.4(ii)'s FAR-BRANCH PROOF, transcribed whole (pp. 22–23, displays (A.3)–(A.6)) — GROUNDED
+
+*Commissioned by the helm's A4F far-branch commission (2026-08-31). §3.4 above is an INDEX of this
+material; this addendum carries the proof's actual sentences, because deriving the chain from the
+index alone reproduced a dropped-factor error once already. Every display read from the page image.*
+
+**Prop A.3 proof opening (p.22):** "Since the mean value theorem gives the bound `O(T/X + 1)`, we can
+assume `T ≤ X/2` and `M(f;X) ≥ 1`." — "Let now `t₁` be the value of `t` which attains the minimum in
+`M(f;X) = inf_{|t|≤X} 𝔻(f, n ↦ n^{it}; X)²`." — "If `M(f;X) ≥ (1/8) log log X`, we write
+`𝒯₁ := [−T,T]` and `𝒯₀ := ∅` whereas otherwise we write `𝒯₀ := {|t| ≤ T : |t−t₁| ≤ (log X)^{1/16}}`,
+`𝒯₁ := {|t| ≤ T : |t−t₁| > (log X)^{1/16}}`." — "Let us first handle `𝒯₁`. For this we use the
+following lemma whose proof is in the spirit of works of Granville and Soundararajan (see e.g. [10])."
+
+**Lemma A.4 (p.22):** "Let `𝒥 ⊆ {1,…,J}` and `|t| ≤ X`. (i) One has
+`𝔻(fg_𝒥, p^{it}; X)² ≥ ½𝔻(f, p^{it}; X)²` **(A.3)**. (ii) If `M(f;X) ≥ (1/8) log log X` or
+`|t−t₁| > (log X)^{1/16}/2`, then `𝔻(fg_𝒥, p^{it}; X)² ≥ (1/6 − 1/(3π) − ε) log log X` for any `ε > 0`."
+
+**Proof of (i) (p.22), the three-sum display:**
+`2𝔻(fg_𝒥,p^{it};X)² = Σ_{p≤X}(1 − ℜf(p)g_𝒥(p)p^{−it})/p + Σ_{p≤X}(1 − ℜf(p)p^{−it})/p`
+`+ Σ_{p≤X} ℜf(p)p^{−it}(1 − g_𝒥(p))/p ≥ Σ_{p≤X}(1 − g_𝒥(p))/p + Σ_{p≤X}(1 − ℜf(p)p^{−it})/p`
+`− Σ_{p≤X}(1 − g_𝒥(p))/p ≥ 𝔻(f, p^{it}; X)²`. *(Landed: `mrtA4i_halving`, loss-free.)*
+
+**Proof of (ii), the branch split (p.22, last paragraph):** "Let us now turn to (ii). Notice first
+that when `M(f;X) ≥ (1/8) log log X`, part (i) implies that, whenever `|t| ≤ X`, we have
+`𝔻(fg_𝒥, p^{it}; X)² ≥ (1/16) log log X` which is sufficient. Hence we can concentrate on the case
+where `M(f;X) < (1/8) log log X` and `|t−t₁| > (log X)^{1/16}/2`."
+→ **The far branch's `M < (1/8)loglog X` is a BRANCH GUARD (the negation of the high-`M` disjunct)
+and is never used again in the proof below — no recentering, no centre-cap subtraction.** *(Landed
+guard: `mrtA4ii_far_centre_cap`; landed high-`M` arm: `mrtA4ii_high_M_sixteenth`.)*
+
+**The averaging display (A.4) (p.23):** "Writing `Y = exp((log X)^{2/3+ε})`, we have
+`𝔻(f,p^{it};X)² ≥ ½Σ_{p≤X}(1−ℜf(p)p^{−it})/p + ½Σ_{p≤X}(1−ℜf(p)p^{−it₁})/p`
+`= Σ_{p≤X}(1 − ℜf(p)p^{−i(t+t₁)/2}·cos((t−t₁)log p/2))/p`
+`≥ Σ_{Y<p≤X}(1 − |cos(π‖(t−t₁)log p/(2π)‖)|)/p`, where `‖x‖` denotes the distance from the
+nearest integer." → The first `≥` is `t₁`'s MINIMALITY (`𝔻(f,t₁)² = M ≤ 𝔻(f,t)²`), the `=` is the
+half-angle collapse of the two twists, the last `≥` is `‖f(p)‖ ≤ 1` eliminating `f` plus dropping
+`p ≤ Y` (all summands `≥ 0`). *(Landed: `pretDistSq_ge_cos_average(_restricted)`;
+summand identity certified by `mrtA4_summand_matches_source`.)*
+
+**The splitting display (A.5) (p.23):** "When `(log X)^{1/16}/2 ≤ |t−t₁| ≤ (log X)^{20}`, we get as
+in [10, Proof of Lemma 2.3] by splitting `p` into short segments `(y, y(1 + (log X)^{−30})]` that
+`Σ_{Y<p≤X}(1 − |cos(π‖(t−t₁)log p/(2π)‖)|)/p ≥ (1 − ∫₀¹|cos(πt)|dt)·log(log X/log Y) + O(1)`
+`= (1 − 2/π)·log(log X/log Y) + O(1)`."
+→ ⚠ **THE SPLITTING IS CITED OUT, NOT PROVED IN MRT**: the proof text for this display lives in
+[10, Proof of Lemma 2.3] (= Granville–Soundararajan, "Decay of mean values", per §3.4's [10]);
+MRT's page carries only the segment shape and the value. *(Named open target:
+`MRTShortSegmentSplitting`.)*
+
+**The large range (p.23):** "On the other hand, when `|t−t₁| > (log X)^{20}` and `|t| ≤ X`,
+`(t−t₁)log p/(2π)` is equidistributed (mod 1) by the Erdős-Turán inequality and the
+Vinogradov-Korobov zero free region for `ζ(s)` since `e^{2πik(t−t₁)log p/(2π)} = p^{i(t−t₁)k}`.
+Consequently (A.5) holds also in this case". *(Named open target:
+`MRTLargeRangeEquidistribution`; its heavy half, VK, is landed —
+`Salt.Vk.zeta_zero_free_region_pow`.)*
+
+**The close (A.6) (p.23):** "thus, recalling the definition of `Y`, we obtain from (A.4)
+`𝔻(f,p^{it};X)² ≥ (1/3 − 2/(3π) − ε) log log X` **(A.6)**. Now (ii) follows from combining this
+with part (i). □"
+
+**θ-DEPENDENCE, read off the transcription:** θ enters the far branch ONLY through
+`Y = exp((log X)^{θ+ε})` (via `log(log X/log Y) = (1−θ−ε)·loglog X`); the u-range
+`(log X)^{1/16}/2 ≤ |u| ≤ (log X)^{20}`, the segment length `(log X)^{−30}`, and the constant
+`1 − 2/π` do not move with θ. ε is spent ONCE, in `log(log X/log Y)`. At θ = 3/4 the chain gives
+`(1/4 − ε)(1−2/π)·loglog X` before halving, `(1/8 − 1/(4π) − ε)·loglog X` after — exactly the
+merged `MRTLemmaA4iiFixed34` constant.
+
 ---
 
 ## 4. THE MAJOR-ARC REDUCTION Route M rides (MRT Section 4, pp.14–16) — GROUNDED

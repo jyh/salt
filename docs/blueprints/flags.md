@@ -24393,3 +24393,18 @@ producer for any ladder slot) is equally not claimed by the twins. QUEUE P2 item
 stamp (role wording, restated fence) rode this commit. One latent line-length warning at the
 A.1 file's pre-existing docstring surfaced on rebuild — bytes untouched by this wave, not
 introduced.
+
+### ✅ 08-31 15:0x — A4F-0 LANDED: the far-branch record first (extract addendum + guard docstring corrected)
+Node A4F-0 of the helm's A4F far-branch commission (2026-08-31, in the private record), the
+record act, comment/prose only — zero declarations touched. (a) The far-branch proof of
+Lemma A.4(ii) transcribed WHOLE (source pp. 22–23, displays (A.3)–(A.6), whole sentences,
+page-referenced) as addendum §3.4a to the corpus MRT extract's Halász-machinery section —
+including the load-bearing reading: the splitting display (A.5) is CITED OUT to [10, Proof of
+Lemma 2.3] and carries no proof in MRT; θ enters the far branch ONLY through Y; ε is spent
+once. (b) `mrtA4ii_far_centre_cap`'s docstring corrected: its claim "exactly the S that
+`dist_recenter_sq` consumes" was FALSE as a route description — the far branch AVERAGES
+(`pretDistSq_ge_cos_average`), never recenters; the lemma is the far branch's GUARD (negation
+of the high-M disjunct), not a chain input. Supersession disclosed in place; the sibling
+prose site at the section header carries a stamp with its original bytes kept verbatim.
+`saltbuild EXIT=0` on the touched module; `blueprint_lint: OK`; no new warnings (the build
+log's warning lines are all pre-existing sites in upstream deps).
