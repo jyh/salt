@@ -3,5 +3,6 @@
 # A pushed message cannot be repaired without a force-push (ruled out 08/30), so this list does not shrink; a growth is a reviewed diff that should be nearly impossible to justify.
 0c46a8a5b86b293610f66391d1379fd0e6713789	a path into a private-record repo
 a686cb229c37422f9e711d7a271c41d8b652a836	a path into a private-record repo
+af83c96111f3c773d14c4709acbf2839de974af1	a path into a private-record repo
 dee997a3fc0a143b2770597ab8f0fbe85ccab0b5	a path into a private-record repo
 e90c5120134551ddb023a2b5a8cb202d2aa536d9	a path into a private-record repo
