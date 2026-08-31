@@ -8567,6 +8567,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_high_M
   Salt.MR.mrtM_costwist_self
   Salt.MR.not_mrtLemmaA7Statement
+  Salt.MR.MRTLemmaA7Fixed
+  Salt.MR.MRTLemmaA7FixedStatement
   Salt.MR.mrtS_dilate
   Salt.MR.mrtS_indicator_mul_dilate
   Salt.MR.mrtBandP_base_le

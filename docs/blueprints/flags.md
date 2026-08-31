@@ -24351,3 +24351,16 @@ attempt, `saltbuild EXIT=0` (9344 jobs). A-fortiori from `mrtA4ii_high_M_target`
 `vk34_constant_lt_mrt` + `loglog X ≥ 0`. Theorem only, no new def. ⚠️ Its green carries ZERO
 information about the ε-ceiling — nothing in it binds ε (fold marker-4 caveat, kept in the
 docstring). Registry row in the same commit.
+
+### ✅ 08-31 11:1x — E34-V2 LANDED: the A.7 record made registry-coherent
+Node V2 of the helm's E34 ladder-repair commission (2026-08-31, in the private record).
+`Salt.MR.MRTLemmaA7Fixed` + `Salt.MR.MRTLemmaA7FixedStatement` added to the audit registry —
+they were ABSENT while the REFUTED forms were present, the exact inversion the house pattern
+exists to prevent (fold finding R2). Both now `✓ [3 axioms]`, `saltbuild EXIT=0` (9344 jobs).
+One supersession stamp at the A.7-sign prose block (the site that still said the convention was
+open — resolved by the ratified `MRTLemmaA7Fixed` + `not_mrtLemmaA7Statement`); the other five
+prose mentions and BOTH phase-consuming declarations (`mrtA7_factor_conj`,
+`mrtA7_factors_differ`) stay byte-untouched as the refutation record. The refuted names' audit
+rows STAY (the registry needs them to resolve). E2's six "consumer sites" were PROSE — zero
+theorem-level consumers of `MRTLemmaA7` exist; no migration was performed because there was
+nothing to migrate.

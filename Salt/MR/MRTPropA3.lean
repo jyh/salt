@@ -1679,7 +1679,14 @@ tests nothing about its sign.*
 ⛔ Which convention MRT intend is left OPEN here, not silently chosen. Partial
 summation with `s = t − t₁` gives `∫₁^X u^{−is}dA(u) ≈ X^{−is}A(X)/(1−is)`, i.e.
 the PROOF's form — but that is a heuristic (it assumes `A(u) ≈ (u/X)A(X)`), so it
-is evidence, not a ruling. `MRTLemmaA7` still carries the STATEMENT's form. -/
+is evidence, not a ruling. `MRTLemmaA7` still carries the STATEMENT's form.
+
+✅ **SUPERSEDED (E34 V2, 2026-08-31): the convention is RESOLVED, and not here.**
+The Captain-ratified `MRTLemmaA7Fixed` block (below, at the A.7-corrected section)
+adopts the PROOF's form (`t₁ − t`), and `not_mrtLemmaA7Statement` refutes the
+printed form in the kernel — the "left OPEN" above is the record of when it was
+open, kept verbatim.  The two theorems below (`mrtA7_factor_conj`,
+`mrtA7_factors_differ`) are the refutation record and stay byte-untouched. -/
 
 /-- **The two candidate A.7 factors are complex conjugates.**  This is why any
 check at a point where the factor is real cannot tell them apart. -/
