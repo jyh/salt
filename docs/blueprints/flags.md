@@ -24364,3 +24364,16 @@ prose mentions and BOTH phase-consuming declarations (`mrtA7_factor_conj`,
 rows STAY (the registry needs them to resolve). E2's six "consumer sites" were PROSE — zero
 theorem-level consumers of `MRTLemmaA7` exist; no migration was performed because there was
 nothing to migrate.
+
+### ✅ 08-31 11:1x — E34-V3 LANDED: the 34-forms + the M-floor transcribed whole
+Node V3 of the helm's E34 ladder-repair commission (2026-08-31, in the private record) — the
+statement act under the helm's word, given in the commission's refuter fold. Five defs, all
+audited `✓ [3 axioms]`, one attempt each, `saltbuild EXIT=0` (9344 jobs):
+`MRTPropA3Ambient34` (carries `1 ≤ mrtM f X` — the FIFTH E-ladder statement defect: MRT p.22's
+one sentence *"we can assume T ≤ X/2 and M(f;X) ≥ 1"* had its `M`-half untranscribed; kernel
+witness `mrtM_one_eq_zero`) · `MRTLemmaA4iiFixed34` (constant `1/8 − 1/(4π) − ε`, radius
+UNTOUCHED at `1/16` per fold R2) · `MRTLemmaA5_34` (same constant as exponent; `mrtT1`
+untouched) · `MRTPropA3_34` (ambient34 + tail `1/70`) · `MRTThmA2_34` (tail `1/70`,
+`MRTThmA2Stmt.lean`). The truncated quotation in `MRTPropA3Ambient`'s docstring corrected in
+the same commit, old def byte-untouched. A.6 and the `_of_A6` conditionals untouched (open half
+is the `1/(1+|t−t₁|)` factor — a future producer wave). Registry rows in-commit.

@@ -8442,6 +8442,7 @@ open Salt.Tactic in
   Salt.MR.lt_of_mem_mrtT0
   Salt.MR.abs_sub_le_of_mem_mrtT0
   Salt.MR.MRTLemmaA4iiFixed
+  Salt.MR.MRTLemmaA4iiFixed34
   Salt.MR.mrtA4iiFixed_high_M
   Salt.MR.mrtA4ii_far_centre_cap
   Salt.MR.mrtA7_factor_conj
@@ -8451,6 +8452,7 @@ open Salt.Tactic in
   Salt.MR.mrtA8
   Salt.MR.mrtG
   Salt.MR.MRTLemmaA5
+  Salt.MR.MRTLemmaA5_34
   Salt.MR.MRTLemmaA5Statement
   Salt.MR.mrtA3_T0_pointwise_sq
   Salt.MR.mrtA3_T0_exponent
@@ -8598,6 +8600,9 @@ open Salt.Tactic in
   Salt.MR.mrtA5_epsilon_ceiling34
   Salt.MR.vk34_bar_366_fails
   Salt.MR.mrtA4ii_high_M_target34
+  Salt.MR.MRTPropA3Ambient34
+  Salt.MR.MRTPropA3_34
+  Salt.MR.MRTThmA2_34
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket
   Salt.MR.mrtQuality_lower_of_pointwise

@@ -76,7 +76,11 @@ below.
 is FIDELITY TO THE SOURCE, not a weakening: MRT supply these ambiently in prose, which
 transcribes into nothing —
 * `Real.exp 1 ≤ X` — Theorem A.2's *"for all `X > X(η)` large enough"*;
-* `T ≤ X / 2` — A.3's own opening sentence, *"we can assume `T ≤ X/2`"*;
+* `T ≤ X / 2` — from A.3's own opening sentence, *"Since the mean value theorem gives the
+  bound `O(T/X + 1)`, we can assume `T ≤ X/2` and `M(f;X) ≥ 1`"* (p. 22, quoted WHOLE —
+  an earlier revision of this bullet truncated it at the conjunction, and the `M`-half
+  went untranscribed here as a result; **the E34 repair carries that half in
+  `MRTPropA3Ambient34` below**, this def staying byte-untouched as the record);
 * `2 ≤ Pseq 1` — the intervals of Definition 2.1.
 
 *A displayed formula transcribes; a sentence of running prose does not.*  All three losses
@@ -4440,6 +4444,80 @@ theorem mrtA4ii_high_M_target34 (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (�
   have htarget := mrtA4ii_high_M_target f Pseq Qseq 𝒥 X t ε hf hXe htX hε hM
   have hconst := vk34_constant_lt_mrt
   nlinarith [htarget, hconst, hLL]
+
+/-! ## The 34-forms — the E-ladder restated at constants the corpus holds (E34 V3)
+
+**Statement act under the helm's word, given in the E34 ladder-repair commission's refuter
+fold (2026-08-31, in the private record)** — the drafting authority the 08/31 sitting left
+on the helm's plate.  Every old name stays byte-untouched and citable; these are SIBLINGS.
+
+What moves, and what does not:
+* the A.4(ii)/A.5 constant: `1/6 − 1/(3π) − ε` (θ=2/3, MRT's VK) → `1/8 − 1/(4π) − ε`
+  (θ=3/4, the region salt holds — `Salt.Vk.zeta_zero_free_region_pow`); the tie is exactly
+  the VK coefficient (`vk34_constant_factors`), and the bar it must clear moves `3/50 → 3/70`
+  (`mrtA5_rho_margin34`; `3/66` is kernel-infeasible, `vk34_bar_366_fails`);
+* the terminal tail rate: `1/50 → 1/70` (`mrtA5_epsilon_ceiling34` is the side condition);
+* **THE M-FLOOR, the fifth statement defect (fold finding R1):** MRT p. 22 reduces with
+  *"we can assume `T ≤ X/2` and `M(f;X) ≥ 1`"* — ONE sentence, and `MRTPropA3Ambient`
+  transcribed the `T`-half only (at `M = 0`, kernel witness `mrtM_one_eq_zero` via `f ≡ 1`,
+  the T₀ assembly emits a constant against a vanishing bracket; `MRTThmA1`/`MRTThmA1GJ`
+  were repaired at the Remark form, A.3 — the sibling — never was).  `MRTPropA3Ambient34`
+  carries `1 ≤ mrtM f X`;
+* UNTOUCHED: the T₀/T₁ radius `1/16` (the fold's R2: g stays `1/16`, κ stays `1/16`),
+  A.6 and the `_of_A6` conditionals (A.6 stands as printed; its open half is the
+  `1/(1+|t−t₁|)` factor — a FUTURE producer wave), and A.7 (resolved at `MRTLemmaA7Fixed`).
+
+⛔ Nothing here claims a PRODUCER for any slot — the ladder stays a spec layer. -/
+
+/-- **The A.3 ambient at θ=3/4 — the M-floor transcribed honestly.**  MRT p. 22:
+*"Since the mean value theorem gives the bound `O(T/X + 1)`, we can assume `T ≤ X/2` and
+`M(f;X) ≥ 1`"* — the WHOLE sentence.  `MRTPropA3Ambient` carries the `T`-half; this form
+adds the `M`-half, which is why it takes the datum `f`. -/
+def MRTPropA3Ambient34 (X T : ℝ) (Pseq : ℕ → ℕ) (f : ℕ → ℂ) : Prop :=
+  MRTPropA3Ambient X T Pseq ∧ 1 ≤ mrtM f X
+
+/-- **A.4(ii)-Fixed at the θ=3/4 constant.**  Byte-identical to `MRTLemmaA4iiFixed` except
+the conclusion's constant `1/6 − 1/(3π) − ε ↦ 1/8 − 1/(4π) − ε`.  The far-branch radius
+stays `1/16` — the fold's R2 restored it. -/
+def MRTLemmaA4iiFixed34 : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → Real.exp 1 ≤ X → |t| ≤ X → 0 < ε →
+    |t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X →
+    ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X
+      ∨ (Real.log X) ^ ((1 : ℝ) / 16) / 2 < |t - t₁|) →
+      (1 / 8 - 1 / (4 * Real.pi) - ε) * Real.log (Real.log X)
+        ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
+
+/-- **A.5 at the θ=3/4 constant.**  Byte-identical to `MRTLemmaA5` except the first
+error term's exponent `1/6 − 1/(3π) − ε ↦ 1/8 − 1/(4π) − ε`.  `mrtT1` untouched. -/
+def MRTLemmaA5_34 (C : ℝ) : Prop :=
+  ∀ (f : ℕ → ℂ) (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (P Q : ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → 2 ≤ P → P ≤ Q → (Q : ℝ) ≤ X → 0 < ε →
+    |t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X →
+    t ∈ mrtT1 (mrtM f X) t₁ X X →
+      ‖mrtG f 𝒥 Pseq Qseq P Q X t‖
+        ≤ C * (Real.log Q
+                  / ((Real.log X) ^ (1 / 8 - 1 / (4 * Real.pi) - ε) * Real.log P)
+              + Real.log X
+                  * Real.exp (-(Real.log X / (3 * Real.log Q))
+                      * Real.log (Real.log X / Real.log Q)))
+
+/-- **A.3 at the θ=3/4 lane** — byte-identical to `MRTPropA3` except the ambient is
+`MRTPropA3Ambient34` (the M-floor) and the tail rate is `1/70`. -/
+def MRTPropA3_34 (C : ℝ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+    ∀ (X X₀ η : ℝ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (S : Finset ℕ),
+      0 < η → η < 1 / 6 →
+      Real.sqrt X ≤ X₀ → X₀ ≤ X →
+      MRTBands X₀ η Pseq Qseq → MRTBandCount X₀ Qseq J →
+      (∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * X ∧ MemS Pseq Qseq J n)) →
+    ∀ T : ℝ, 1 ≤ T → MRTPropA3Ambient34 X T Pseq f →
+      (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2)
+        ≤ C * (T / (X / (Qseq 1 : ℝ)) + 1)
+            * ((Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
+                + mrtM f X / Real.exp (mrtM f X)
+                + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
 
 end Salt.MR
 
