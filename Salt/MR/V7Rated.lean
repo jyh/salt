@@ -9,7 +9,7 @@ import Salt.MR.BandRatedSocket
 /-!
 # `V7Rated` — R-1 Wave 1: the V7 rethread onto the RATED socket
 
-Authority: `seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md` (helm, Fable, 2026-08-30).
+Authority: the helm's R-1 Wave 1 commission brief (Fable, 2026-08-30, in the private record).
 Released by ruling x's condition on QUEUE P2 item 6's 2(b) receipt.
 
 The landed headline `V7Headline.logChowla2_ineffective_v7_ksarm_g0` consumes the OLD socket

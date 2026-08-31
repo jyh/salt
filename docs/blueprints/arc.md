@@ -232,9 +232,9 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   *Measured, not inferred: every figure above is from the cited bytes; the arithmetic is
   `e^518 ≈ 10^224.96`, `e^6216 ≈ 10^2699.5`, `222.85/2699.5 = 0.0826`.*
   ✅✅⭐⭐ **STAMP 2026-08-30 (math, R-1 WAVE 1) — THE ROW ABOVE IS BYTE-UNTOUCHED; THE MECHANISM IT
-  REFUTED IS NOW GONE FROM THE V7 LIVE PATH, AND THE CUSHION IS DISCHARGED.** Authority:
-  `seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md` (helm, Fable, released by ruling x's
-  condition on P2 item 6's 2(b) receipt). With `Qm` gone from the rated socket
+  REFUTED IS NOW GONE FROM THE V7 LIVE PATH, AND THE CUSHION IS DISCHARGED.** Authority: the
+  helm's R-1 Wave 1 commission brief (Fable, 2026-08-30, in the private record; released by
+  ruling x's condition on P2 item 6's 2(b) receipt). With `Qm` gone from the rated socket
   (`cofkL_capFreeFloor_at_socket_rated`, item 6 2(b)), the rated `Kvt` is ONE closed
   `H₊`-independent real, so the demanded-exponent mechanism this row refuted no longer exists on the
   live path: the cushion is paid by the design constant's EIGHTH `max` arm
@@ -385,9 +385,8 @@ item 6 (POINT→BAND), whose point floor is landed (`l1LowerEffective_goldenGate
 is open. **The re-tier and the re-owner are helm/Fable calls; math flagged, math did not re-aim its
 own charter.** F-5 and H-2/H-3/H-4 are unaffected and remain the live A/B work.
 
-✅ **STAMP 2026-08-30 (math) — R-1 WAVE 1 IS EXECUTED.** The commission
-`seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md` is the authority; §4's R-1 row carries
-the landing stamp. The cushion is discharged inside `logChowla2_v7_rated`
+✅ **STAMP 2026-08-30 (math) — R-1 WAVE 1 IS EXECUTED.** The helm's R-1 Wave 1 commission brief
+(2026-08-30, in the private record) is the authority; §4's R-1 row carries the landing stamp. The cushion is discharged inside `logChowla2_v7_rated`
 (`Salt/MR/V7Rated.lean`) — the success shape below is reached at the ∃-chosen regime, with the
 scope §4's stamp states.
 

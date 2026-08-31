@@ -8726,9 +8726,9 @@ open Salt.Tactic in
   Salt.MR.m4_sievedDoorSqH_trivial
   Salt.MR.m4_doorL2_supply_H
   Salt.MR.m4_doorL2_supply_500_H
-  -- ⚔️ R-1 WAVE 1 (2026-08-30, math) — the V7 rethread onto the RATED socket.  Authority:
-  -- seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md (helm, Fable; released by ruling x's
-  -- condition on P2 item 6's 2(b) receipt).  `Salt/MR/V7Rated.lean`, five nodes: N0 hoists the
+  -- ⚔️ R-1 WAVE 1 (2026-08-30, math) — the V7 rethread onto the RATED socket.  Authority: the
+  -- helm's R-1 Wave 1 commission brief (Fable, 2026-08-30, in the private record; released by
+  -- ruling x's condition on P2 item 6's 2(b) receipt).  `Salt/MR/V7Rated.lean`, five nodes: N0 hoists the
   -- rated socket's `∃ Z δ Kvt` over the lever (the witnesses are argument-free, so the hoist is
   -- the same proof with `intro K` after the `refine`); N1b is the co-factor supply SIBLING with
   -- FOUR Skolem REALS and a cushion carrying NO evaluation point (the refuters' seam: the spine
