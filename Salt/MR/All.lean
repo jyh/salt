@@ -1490,8 +1490,12 @@ open Salt.Tactic in
   Salt.MR.log_le_two_sqrt
   Salt.MR.mrt_middle_le_of_H0mrt
   Salt.MR.mrt_tail_le_of_HplusStar
+  Salt.MR.HplusStar70
+  Salt.MR.mrt_tail_le_of_HplusStar70
   Salt.MR.budget_head_at_mrt_floors
   Salt.MR.budget_head_sq_at_mrt_floors
+  Salt.MR.budget_head_at_mrt_floors_34
+  Salt.MR.budget_head_sq_at_mrt_floors_34
   Salt.MR.H0door_pos
   Salt.MR.exp_le_H0door
   Salt.MR.H0door_anti
@@ -6339,6 +6343,7 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.m4_exit_socket_split_sq
   Salt.MR.m4_exit_socket_split_sq_arc
   Salt.MR.m4_exit_socket_split_sq_arc_at_mrt_floors
+  Salt.MR.m4_exit_socket_split_sq_arc_at_mrt_floors_34
 
 /-! ⟦THE L² RESTRUCTURE — stone 7: THE ROAD-SIDE RE-PLUMB + ⟦A1 THE BINDER SPLIT⟧⟧
 (`M4DoorL2`, 2026-07-30, the freeze `docs/exploration/l2-restructure-freeze-0730.md` with
@@ -8396,6 +8401,8 @@ open Salt.Tactic in
   Salt.MR.mem_mrtShortWindow
   Salt.MR.MRTThmA1
   Salt.MR.MRTThmA1Statement
+  Salt.MR.MRTThmA1_34
+  Salt.MR.MRTThmA1Statement_34
   Salt.MR.measurable_mrtShortMean
   Salt.MR.norm_mrtShortMean_le
   Salt.MR.intervalIntegrable_mrtThmA1_integrand
@@ -8551,10 +8558,14 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty
+  Salt.MR.MRTThmA1GJ_34
+  Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty_34
   Salt.MR.closed_open_window_card_le_one
   Salt.MR.shortWindow_closed_sub_open_norm_le
   Salt.MR.MRTParsevalConstantMatch
   Salt.MR.mrtThmA1Statement_of_constantMatch
+  Salt.MR.MRTParsevalConstantMatch_34
+  Salt.MR.mrtThmA1Statement_of_constantMatch_34
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous

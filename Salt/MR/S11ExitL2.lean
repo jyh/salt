@@ -222,6 +222,48 @@ theorem m4_exit_socket_split_sq_arc_at_mrt_floors (ε : ℝ) (hε : 0 < ε) (hε
     refine mrt_tail_le_of_HplusStar hε (le_trans ?_ hX)
     exact_mod_cast Nat.cast_le.mpr hg
 
+/-- **The 34-lane floors on the live composed exit (E34 V4)** — twin of
+`m4_exit_socket_split_sq_arc_at_mrt_floors` at `g := fun _ _ => H₊*₇₀(ε)`, tail payoff at
+`1/70`.  ⛔ GLYPH GUARD, applied: the `50 ≤ loglog R.Hlo` antecedent below is the TOWER
+THRESHOLD, not the tail rate — it does not move.  The payload block is copied byte-for-byte
+from the exit's statement, exactly as its sibling's was.  Nothing here supplies the road's
+own obligations. -/
+theorem m4_exit_socket_split_sq_arc_at_mrt_floors_34 (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∃ (q : ℚ) (K δ₀ : ℝ), 0 < q ∧ 0 < K ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = q ∧
+        H0mrt ε ≤ R.Hlo ∧ HplusStar70 ε ≤ R.x ∧
+        (∀ y : ℝ, ((R.Hlo : ℕ) : ℝ) ≤ y →
+            (Real.log (Real.log y)) ^ 2 / Real.log y ^ 2 ≤ ε) ∧
+        (∀ X : ℝ, ((R.x : ℕ) : ℝ) ≤ X →
+            1 / (Real.log X) ^ ((1 : ℝ) / 70) ≤ ε) ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          (∀ (a e : ℕ → ℂ) (Bsieve : ℕ → ℝ) (Binsert : ℝ),
+            (∀ m, lamCoeff m = a m + e m) →
+            (∀ H : ℕ, 0 ≤ Bsieve H) →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+              NearRatTight (arcDen 12 H) H α →
+                (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+                  ≤ Bsieve H * (H : ℝ) ^ 2) →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+                ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+                  ∂(logMeasure R.x R.ω)) ≤ Binsert) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
+            ¬ logChowla2Fails R.eps R.x R.ω) := by
+  obtain ⟨q, K, δ₀, hq, hK, hδ₀, hexit⟩ := m4_exit_socket_split_sq_arc
+  obtain ⟨R, hReps, hU1, hg, htow, hbody⟩ :=
+    hexit (H0mrt ε) (fun _ _ => HplusStar70 ε)
+  refine ⟨q, K, δ₀, hq, hK, hδ₀, R, hReps, hU1, hg, ?_, ?_, htow, hbody⟩
+  · intro y hy
+    refine mrt_middle_le_of_H0mrt hε hε1 (le_trans ?_ hy)
+    exact_mod_cast Nat.cast_le.mpr hU1
+  · intro X hX
+    refine mrt_tail_le_of_HplusStar70 hε (le_trans ?_ hX)
+    exact_mod_cast Nat.cast_le.mpr hg
+
 end Salt.MR
 
 end

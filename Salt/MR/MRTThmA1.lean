@@ -221,4 +221,22 @@ theorem sum_inv_sq_Icc_one_le_two (J : ℕ) :
 theorem — nothing in this development proves it and nothing assumes it. -/
 def MRTThmA1Statement : Prop := ∃ C : ℝ, 0 < C ∧ MRTThmA1 C
 
+/-- **A.1 at the θ=3/4 lane's tail rate (E34 V4)** — byte-identical to `MRTThmA1` except the
+tail term's exponent `1/50 ↦ 1/70`.  Statement act under the helm's word in the E34
+ladder-repair commission's fold (2026-08-31, in the private record); the 34-lane runs
+THROUGH A.1 so it reaches the campaign's primary instead of dead-ending at A.2.  The old
+name stays byte-untouched and citable. -/
+def MRTThmA1_34 (C : ℝ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+    ∀ X h : ℝ, 10 ≤ h → h ≤ X →
+      (1 / X) * (∫ x in X..(2 * X), ‖mrtShortMean f h x‖ ^ 2)
+        ≤ C * (Real.exp (-(mrtM f X))
+              + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
+              + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
+
+/-- **The 34-lane door as a `Prop`** — `∃ C > 0`, `MRTThmA1_34` holds at `C`; the mechanical
+sibling of `MRTThmA1Statement`. -/
+def MRTThmA1Statement_34 : Prop := ∃ C : ℝ, 0 < C ∧ MRTThmA1_34 C
+
 end Salt.MR

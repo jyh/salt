@@ -4519,5 +4519,47 @@ def MRTPropA3_34 (C : ℝ) : Prop :=
                 + mrtM f X / Real.exp (mrtM f X)
                 + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
 
+/-! ### The A.1 tier of the 34-lane (E34 V4) — so the lane reaches the PRIMARY
+
+The tail rethread propagates past A.2 through the landed tail-preserving bridge: these are
+the `1/70` siblings of `MRTThmA1GJ` → `mrtThmA1_of_mrtThmA1GJ_empty` →
+`MRTParsevalConstantMatch` → `mrtThmA1Statement_of_constantMatch`, ending at
+`MRTThmA1Statement_34` (`MRTThmA1.lean`).  Bodies are the landed proofs verbatim — the
+bridge never touches the tail term. -/
+
+/-- **A.1's bound for the `g_𝒥`-restricted datum, at tail `1/70`** — sibling of
+`MRTThmA1GJ`.  As there: a STATEMENT, and NOT MRT's Theorem A.2 (the A.2 slot is
+`MRTThmA2_34`'s). -/
+def MRTThmA1GJ_34 (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+    ∀ X h : ℝ, 10 ≤ h → h ≤ X →
+      (1 / X) * (∫ x in X..(2 * X),
+          ‖mrtShortMean (fun n => f n * gJ 𝒥 Pseq Qseq n) h x‖ ^ 2)
+        ≤ C * (Real.exp (-(mrtM f X))
+              + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
+              + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
+
+/-- **The `𝒥 = ∅` bridge at tail `1/70`** — `gJ ∅ = 1`, proof verbatim from
+`mrtThmA1_of_mrtThmA1GJ_empty`. -/
+theorem mrtThmA1_of_mrtThmA1GJ_empty_34 (C : ℝ) (Pseq Qseq : ℕ → ℕ)
+    (h2 : MRTThmA1GJ_34 C Pseq Qseq ∅) : MRTThmA1_34 C := by
+  intro f hf h1 hmul X h hh hhX
+  have := h2 f hf h1 hmul X h hh hhX
+  simpa [gJ] using this
+
+/-- **The constant-match obligation at tail `1/70`** — sibling of
+`MRTParsevalConstantMatch`; deliberately weak (`∃` an admissible constant), as there. -/
+def MRTParsevalConstantMatch_34 (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+  ∃ C : ℝ, 0 < C ∧ MRTThmA1GJ_34 C Pseq Qseq 𝒥
+
+/-- **The whole spine, conditionally, at tail `1/70`** — whoever discharges the constant
+match at the empty sieve has the primary's 34-form.  Proof verbatim from
+`mrtThmA1Statement_of_constantMatch`. -/
+theorem mrtThmA1Statement_of_constantMatch_34 (Pseq Qseq : ℕ → ℕ)
+    (h : MRTParsevalConstantMatch_34 Pseq Qseq ∅) : MRTThmA1Statement_34 := by
+  obtain ⟨C, hCpos, hA2⟩ := h
+  exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty_34 C Pseq Qseq hA2⟩
+
 end Salt.MR
 

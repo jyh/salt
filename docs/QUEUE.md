@@ -4992,6 +4992,13 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    complete-multiplicativity, all discharged upstream of us.
    Residue is formalization + thresholds, not open mathematics; the one
    real debt is **Vinogradov–Korobov (MRT (1.12)), not in mathlib.**
+   📌 **E34 STAMP (math, 2026-08-31):** the E-ladder statement repairs executed per the
+   helm's E34 ladder-repair commission (2026-08-31, in the private record), wave table v2:
+   the θ=3/4 numeral shelf at bar `3/70` (`3/66` kernel-infeasible), the grade-1/16 supply
+   shelf, the A7 registry repair, the M-floor transcribed whole
+   (`MRTPropA3Ambient34` carries `1 ≤ mrtM f X`), and the 34-lane stated through A.1
+   (`MRTThmA1_34`/`MRTThmA1Statement_34` + floor tier at `H₊*₇₀`). Old names all
+   byte-untouched; no producer claimed for any slot; detail in the flags record's E34 rows.
 
 ✅⚑ **DISCHARGED STALE — SWEPT 2026-08-26 11:2x (helm, block-register law), AND IT IS THE
 REGISTER'S OWN CASE STUDY: the Captain's push ruling came on 2026-08-23 — recorded three days

@@ -24377,3 +24377,19 @@ untouched) · `MRTPropA3_34` (ambient34 + tail `1/70`) · `MRTThmA2_34` (tail `1
 `MRTThmA2Stmt.lean`). The truncated quotation in `MRTPropA3Ambient`'s docstring corrected in
 the same commit, old def byte-untouched. A.6 and the `_of_A6` conditionals untouched (open half
 is the `1/(1+|t−t₁|)` factor — a future producer wave). Registry rows in-commit.
+
+### ✅ 08-31 11:4x — E34-V4 LANDED: the 34-lane reaches the PRIMARY (option b, ruled)
+Node V4 of the helm's E34 ladder-repair commission (2026-08-31, in the private record). The
+tail rethread runs THROUGH A.1 — eleven names, all `✓ [3 axioms]`, one attempt each,
+`saltbuild EXIT=0` (9344 jobs): the A.1 tier `MRTThmA1GJ_34 → mrtThmA1_of_mrtThmA1GJ_empty_34
+→ MRTParsevalConstantMatch_34 → mrtThmA1Statement_of_constantMatch_34 → MRTThmA1_34` (+
+`MRTThmA1Statement_34`, the mechanical ∃-wrapper sibling); the floor tier `HplusStar70`
+(`⌈exp((1/ε)^70)⌉₊`) + `mrt_tail_le_of_HplusStar70` + `budget_head_at_mrt_floors_34` +
+`budget_head_sq_at_mrt_floors_34` + `m4_exit_socket_split_sq_arc_at_mrt_floors_34`.
+⛔ GLYPH GUARD applied and checkable in the diff: the `50 ≤ loglog` tower antecedent in the
+S11 exit twin did NOT move; only `((1:ℝ)/50)` tail exponents and `HplusStar`'s `(50:ℕ)` did.
+Everything the originals do not claim (U1floor, `exp(−M)`, the L¹ producer status, any
+producer for any ladder slot) is equally not claimed by the twins. QUEUE P2 item 9 pointer
+stamp (role wording, restated fence) rode this commit. One latent line-length warning at the
+A.1 file's pre-existing docstring surfaced on rebuild — bytes untouched by this wave, not
+introduced.

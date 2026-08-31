@@ -410,6 +410,35 @@ theorem mrt_middle_le_of_H0mrt {ε h : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1)
     _ = 4 / u := by field_simp
     _ ≤ ε := hfin
 
+/-- **`H₊*₇₀(ε)` — the `X`-side floor for the 34-lane's tail (E34 V4).**  Sibling of
+`HplusStar` at the E34-ruled tail rate `1/70`: the outer scale above which
+`1/(log X)^{1/70}` has fallen to `ε`.  SHAPE, NOT NUMERAL, as its sibling. -/
+noncomputable def HplusStar70 (ε : ℝ) : ℕ := ⌈Real.exp ((1 / ε) ^ (70 : ℕ))⌉₊
+
+/-- **`H₊*₇₀` clears the 34-lane tail term** — proof verbatim from
+`mrt_tail_le_of_HplusStar` at `50 ↦ 70`. -/
+theorem mrt_tail_le_of_HplusStar70 {ε X : ℝ} (hε : 0 < ε)
+    (hX : ((HplusStar70 ε : ℕ) : ℝ) ≤ X) :
+    1 / (Real.log X) ^ ((1 : ℝ) / 70) ≤ ε := by
+  have hexp : Real.exp ((1 / ε) ^ (70 : ℕ)) ≤ X := le_trans (Nat.le_ceil _) hX
+  have hX0 : 0 < X := lt_of_lt_of_le (Real.exp_pos _) hexp
+  have hinv0 : (0 : ℝ) < 1 / ε := by positivity
+  have hL : (1 / ε) ^ (70 : ℕ) ≤ Real.log X := by
+    rw [← Real.log_exp ((1 / ε) ^ (70 : ℕ))]
+    exact Real.log_le_log (Real.exp_pos _) hexp
+  have hLpos : (0 : ℝ) < Real.log X := lt_of_lt_of_le (by positivity) hL
+  have hkey : 1 / ε ≤ (Real.log X) ^ ((1 : ℝ) / 70) := by
+    have hmono : ((1 / ε) ^ (70 : ℕ)) ^ ((1 : ℝ) / 70)
+        ≤ (Real.log X) ^ ((1 : ℝ) / 70) :=
+      Real.rpow_le_rpow (by positivity) hL (by norm_num)
+    have hcollapse : ((1 / ε) ^ (70 : ℕ)) ^ ((1 : ℝ) / 70) = 1 / ε := by
+      rw [← Real.rpow_natCast (1 / ε) 70, ← Real.rpow_mul hinv0.le]
+      norm_num
+    rwa [hcollapse] at hmono
+  have hpow0 : (0 : ℝ) < (Real.log X) ^ ((1 : ℝ) / 70) := Real.rpow_pos_of_pos hLpos _
+  have := one_div_le_one_div_of_le hinv0 hkey
+  rwa [one_div_one_div] at this
+
 /-- **`H₊*` clears the tail term.**  For `0 < ε` and `X ≥ H₊*(ε)`,
 
     `1 / (log X)^{1/50}  ≤  ε` . -/
@@ -569,6 +598,62 @@ theorem budget_head_sq_at_mrt_floors (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1)
     exact_mod_cast Nat.cast_le.mpr hRfloor
   · intro X hX
     refine mrt_tail_le_of_HplusStar hε (le_trans ?_ hX)
+    exact_mod_cast Nat.cast_le.mpr hRx
+
+/-! ### The head certificates at the 34-lane floors (E34 V4) — `H₊*₇₀`, payoff at `1/70`
+
+Twins of the two certificates above with `HplusStar ↦ HplusStar70` and the tail payoff at
+the 34-lane's rate; proofs verbatim via `mrt_tail_le_of_HplusStar70`.  Everything the
+originals do NOT claim (the `U1floor` slot, `exp(−M)`, the L¹ branch's producer status)
+is equally not claimed here. -/
+
+/-- **The MRT floors at the budget head, 34-lane payoff** — twin of
+`budget_head_at_mrt_floors` at `H₊*₇₀`/tail `1/70`. -/
+theorem budget_head_at_mrt_floors_34 (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∃ (e : ℚ) (δ₀ : ℝ), 0 < e ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = e ∧
+        H0mrt ε ≤ R.Hlo ∧ HplusStar70 ε ≤ R.x ∧
+        (∀ h : ℝ, ((R.Hlo : ℕ) : ℝ) ≤ h →
+            (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2 ≤ ε) ∧
+        (∀ X : ℝ, ((R.x : ℕ) : ℝ) ≤ X →
+            1 / (Real.log X) ^ ((1 : ℝ) / 70) ≤ ε) ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨e, δ₀, he, hδ₀, h⟩ := log_chowla_two_budget_head_g
+  obtain ⟨R, hReps, hRfloor, -, hRx, -, hR⟩ :=
+    h (H0mrt ε) 0 (fun _ _ => HplusStar70 ε)
+  refine ⟨e, δ₀, he, hδ₀, R, hReps, hRfloor, hRx, ?_, ?_, hR⟩
+  · intro hh hhle
+    refine mrt_middle_le_of_H0mrt hε hε1 (le_trans ?_ hhle)
+    exact_mod_cast Nat.cast_le.mpr hRfloor
+  · intro X hX
+    refine mrt_tail_le_of_HplusStar70 hε (le_trans ?_ hX)
+    exact_mod_cast Nat.cast_le.mpr hRx
+
+/-- **The MRT floors at the `_sq` (L²) head, 34-lane payoff** — twin of
+`budget_head_sq_at_mrt_floors` at `H₊*₇₀`/tail `1/70`; the `K` conjunct re-exported
+exactly as there. -/
+theorem budget_head_sq_at_mrt_floors_34 (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∃ (e : ℚ) (K δ₀ : ℝ), 0 < e ∧ 0 < K ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = e ∧
+        H0mrt ε ≤ R.Hlo ∧ HplusStar70 ε ≤ R.x ∧
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+            ((bigXi R.eps H).card : ℝ) ≤ K) ∧
+        (∀ h : ℝ, ((R.Hlo : ℕ) : ℝ) ≤ h →
+            (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2 ≤ ε) ∧
+        (∀ X : ℝ, ((R.x : ℕ) : ℝ) ≤ X →
+            1 / (Real.log X) ^ ((1 : ℝ) / 70) ≤ ε) ∧
+        ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨e, K, δ₀, he, hK, hδ₀, h⟩ := log_chowla_two_budget_head_g_sq_count
+  obtain ⟨R, hReps, hRfloor, -, hRx, hcard, -, hR⟩ :=
+    h (H0mrt ε) 0 (fun _ _ => HplusStar70 ε)
+  refine ⟨e, K, δ₀, he, hK, hδ₀, R, hReps, hRfloor, hRx, hcard, ?_, ?_, hR⟩
+  · intro hh hhle
+    refine mrt_middle_le_of_H0mrt hε hε1 (le_trans ?_ hhle)
+    exact_mod_cast Nat.cast_le.mpr hRfloor
+  · intro X hX
+    refine mrt_tail_le_of_HplusStar70 hε (le_trans ?_ hX)
     exact_mod_cast Nat.cast_le.mpr hRx
 
 end Salt.MR
