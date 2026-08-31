@@ -56,4 +56,24 @@ def MRTThmA2 (C : ℝ) (Xthr : ℝ → ℝ) : Prop :=
 /-- **The producer as a Prop**: some absolute `C > 0` and some threshold work. -/
 def MRTThmA2Statement : Prop := ∃ C : ℝ, 0 < C ∧ ∃ Xthr : ℝ → ℝ, MRTThmA2 C Xthr
 
+/-- **A.2 at the θ=3/4 lane's tail rate (E34 V3)** — byte-identical to `MRTThmA2` except
+the tail term `1/(log X)^{1/50} ↦ 1/(log X)^{1/70}`.  Statement act under the helm's word
+in the E34 ladder-repair commission's fold (2026-08-31, in the private record); the old
+name stays byte-untouched and citable. -/
+def MRTThmA2_34 (C : ℝ) (Xthr : ℝ → ℝ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+  ∀ (X X₀ h η : ℝ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (S : Finset ℕ),
+    0 < η → η < 1 / 6 →
+    3 ≤ h → (Qseq 1 : ℝ) ≤ h →
+    Xthr η < X → h ≤ X →
+    Real.sqrt X ≤ X₀ → X₀ ≤ X →
+    MRTBands X₀ η Pseq Qseq → MRTBandCount X₀ Qseq J →
+    (∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 4 * X ∧ MemS Pseq Qseq J n)) →
+    1 / X * (∫ x in X..(2 * X),
+        ‖mrtShortMean (fun n => f n * (if n ∈ S then 1 else 0)) h x‖ ^ 2)
+      ≤ C * (Real.exp (-(mrtM f X)) * mrtM f X
+            + (Real.log h) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
+            + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
+
 end Salt.MR

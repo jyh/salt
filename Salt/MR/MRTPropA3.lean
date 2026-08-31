@@ -76,7 +76,11 @@ below.
 is FIDELITY TO THE SOURCE, not a weakening: MRT supply these ambiently in prose, which
 transcribes into nothing —
 * `Real.exp 1 ≤ X` — Theorem A.2's *"for all `X > X(η)` large enough"*;
-* `T ≤ X / 2` — A.3's own opening sentence, *"we can assume `T ≤ X/2`"*;
+* `T ≤ X / 2` — from A.3's own opening sentence, *"Since the mean value theorem gives the
+  bound `O(T/X + 1)`, we can assume `T ≤ X/2` and `M(f;X) ≥ 1`"* (p. 22, quoted WHOLE —
+  an earlier revision of this bullet truncated it at the conjunction, and the `M`-half
+  went untranscribed here as a result; **the E34 repair carries that half in
+  `MRTPropA3Ambient34` below**, this def staying byte-untouched as the record);
 * `2 ≤ Pseq 1` — the intervals of Definition 2.1.
 
 *A displayed formula transcribes; a sentence of running prose does not.*  All three losses
@@ -1679,7 +1683,14 @@ tests nothing about its sign.*
 ⛔ Which convention MRT intend is left OPEN here, not silently chosen. Partial
 summation with `s = t − t₁` gives `∫₁^X u^{−is}dA(u) ≈ X^{−is}A(X)/(1−is)`, i.e.
 the PROOF's form — but that is a heuristic (it assumes `A(u) ≈ (u/X)A(X)`), so it
-is evidence, not a ruling. `MRTLemmaA7` still carries the STATEMENT's form. -/
+is evidence, not a ruling. `MRTLemmaA7` still carries the STATEMENT's form.
+
+✅ **SUPERSEDED (E34 V2, 2026-08-31): the convention is RESOLVED, and not here.**
+The Captain-ratified `MRTLemmaA7Fixed` block (below, at the A.7-corrected section)
+adopts the PROOF's form (`t₁ − t`), and `not_mrtLemmaA7Statement` refutes the
+printed form in the kernel — the "left OPEN" above is the record of when it was
+open, kept verbatim.  The two theorems below (`mrtA7_factor_conj`,
+`mrtA7_factors_differ`) are the refutation record and stay byte-untouched. -/
 
 /-- **The two candidate A.7 factors are complex conjugates.**  This is why any
 check at a point where the factor is real cannot tell them apart. -/
@@ -4363,6 +4374,192 @@ theorem vk34_constant_lt_mrt :
     rw [sub_pos, div_lt_div_iff₀ (by linarith) (by norm_num)]
     linarith
   nlinarith [hfac]
+
+/-! ## The θ=3/4 tail bar — `1/70`, ruled and kernel-forced from above
+
+The helm's E34 ladder-repair commission (2026-08-31, in the private record) RULES the
+θ=3/4 route's tail rate at `1/70` and its ρ-bar at `3/70` — the θ=2/3 pair was
+`1/50`/`3/50`, and `vk34_constant_fails_rho_margin` (above) is the kernel fact that
+forced the move.  Three shelf facts make the choice read as arithmetic, not taste:
+
+* `mrtA5_rho_margin34` — the θ=3/4 constant CLEARS `3/70` (sibling of
+  `mrtA5_rho_margin`; margin `2.565×10⁻³`, 4.5× MRT's own razor at their `3/50`);
+* `mrtA5_epsilon_ceiling34` — the ε-ceiling it implies, in `mrtA5_epsilon_ceiling`'s
+  exact shape;
+* `vk34_bar_366_fails` — the next-tighter clean bar `3/66` is INFEASIBLE
+  (`1/8 − 1/(4π) < 3/66`, short by `3.2×10⁻⁵`), so `3/70` is forced from above.
+
+⚠️ π-precision, measured before proving: clearing `3/70` needs only `π > 3.14`
+(`Real.pi_gt_d2`), but the `3/66` infeasibility needs `π < 22/7 ≈ 3.14286`, which
+`Real.pi_lt_d2`'s `3.15` cannot give — it takes `Real.pi_lt_d4`.  *Two facts about one
+constant with different π-requirements, exactly as the θ=2/3 block found at :327.* -/
+
+/-- **The θ=3/4 constant clears the ruled bar `3/70`.**  `3/70 < 1/8 − 1/(4π)` —
+the θ=3/4 sibling of `mrtA5_rho_margin`, at the E34-ruled tail bar. -/
+theorem mrtA5_rho_margin34 : (3 : ℝ) / 70 < 1 / 8 - 1 / (4 * Real.pi) := by
+  have h4 : (0 : ℝ) < 4 * Real.pi := by positivity
+  have hgt : (12.56 : ℝ) < 4 * Real.pi := by linarith [Real.pi_gt_d2]
+  have hkey : 1 / (4 * Real.pi) < 1 / 12.56 :=
+    one_div_lt_one_div_of_lt (by norm_num) hgt
+  have hnum : (0 : ℝ) < 1 / 8 - 1 / 12.56 - 3 / 70 := by norm_num
+  linarith
+
+/-- **THE `ε`-CEILING THE θ=3/4 BAR IMPLIES** — `mrtA5_epsilon_ceiling`'s exact shape
+at the ruled pair (`ρ34 = 1/8 − 1/(4π)`, bar `3/70`, rate `1/70`).  As there, `0 < ε`
+is carried because the source carries it and is not used. -/
+theorem mrtA5_epsilon_ceiling34 {ε : ℝ} (_hε0 : 0 < ε)
+    (hεlt : ε < 1 / 8 - 1 / (4 * Real.pi) - 3 / 70) :
+    1 / 70 < (1 / 8 - 1 / (4 * Real.pi) - ε) / 3 := by
+  linarith
+
+/-- ⛔ **THE NEXT-TIGHTER CLEAN BAR IS INFEASIBLE** — `1/8 − 1/(4π) < 3/66`, short by
+`3.2×10⁻⁵`.  Landed so the `3/70` choice reads as forced-from-above, not taste.
+Needs `π < 22/7`: `Real.pi_lt_d4`, where the margin above needed only `pi_gt_d2`. -/
+theorem vk34_bar_366_fails : (1 : ℝ) / 8 - 1 / (4 * Real.pi) < 3 / 66 := by
+  have h4 : (0 : ℝ) < 4 * Real.pi := by positivity
+  have hlt : 4 * Real.pi < 12.5664 := by linarith [Real.pi_lt_d4]
+  have hkey : (1 : ℝ) / 12.5664 < 1 / (4 * Real.pi) :=
+    one_div_lt_one_div_of_lt h4 hlt
+  have hnum : (0 : ℝ) < 3 / 66 - 1 / 8 + 1 / 12.5664 := by norm_num
+  linarith
+
+/-- **A.4(ii)'s HIGH-`M` ARM AT THE θ=3/4 CONSTANT (E34 V1)** — a-fortiori from
+`mrtA4ii_high_M_target`: `ρ34 < ρ23` is kernel (`vk34_constant_lt_mrt`) and
+`loglog X ≥ 0` from `exp 1 ≤ X`, so the weaker constant transfers across the same
+non-negative multiplier.  Theorem only, NO new def — any κ-bearing def is a
+statement act and not made here.
+
+⚠️ **This green carries ZERO information about the ε-ceiling** — nothing here binds
+`ε`; the ε-window facts are `mrtA5_epsilon_ceiling34`'s (the fold's marker-4 caveat,
+kept on the theorem it guards). -/
+theorem mrtA4ii_high_M_target34 (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ)
+    (X t ε : ℝ) (hf : ∀ n, ‖f n‖ ≤ 1) (hXe : Real.exp 1 ≤ X) (htX : |t| ≤ X)
+    (hε : 0 < ε) (hM : (1 / 8) * Real.log (Real.log X) ≤ mrtM f X) :
+    (1 / 8 - 1 / (4 * Real.pi) - ε) * Real.log (Real.log X)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have hL1 : (1 : ℝ) ≤ Real.log X := by
+    rw [Real.le_log_iff_exp_le hXpos]; exact hXe
+  have hLL : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
+  have htarget := mrtA4ii_high_M_target f Pseq Qseq 𝒥 X t ε hf hXe htX hε hM
+  have hconst := vk34_constant_lt_mrt
+  nlinarith [htarget, hconst, hLL]
+
+/-! ## The 34-forms — the E-ladder restated at constants the corpus holds (E34 V3)
+
+**Statement act under the helm's word, given in the E34 ladder-repair commission's refuter
+fold (2026-08-31, in the private record)** — the drafting authority the 08/31 sitting left
+on the helm's plate.  Every old name stays byte-untouched and citable; these are SIBLINGS.
+
+What moves, and what does not:
+* the A.4(ii)/A.5 constant: `1/6 − 1/(3π) − ε` (θ=2/3, MRT's VK) → `1/8 − 1/(4π) − ε`
+  (θ=3/4, the region salt holds — `Salt.Vk.zeta_zero_free_region_pow`); the tie is exactly
+  the VK coefficient (`vk34_constant_factors`), and the bar it must clear moves `3/50 → 3/70`
+  (`mrtA5_rho_margin34`; `3/66` is kernel-infeasible, `vk34_bar_366_fails`);
+* the terminal tail rate: `1/50 → 1/70` (`mrtA5_epsilon_ceiling34` is the side condition);
+* **THE M-FLOOR, the fifth statement defect (fold finding R1):** MRT p. 22 reduces with
+  *"we can assume `T ≤ X/2` and `M(f;X) ≥ 1`"* — ONE sentence, and `MRTPropA3Ambient`
+  transcribed the `T`-half only (at `M = 0`, kernel witness `mrtM_one_eq_zero` via `f ≡ 1`,
+  the T₀ assembly emits a constant against a vanishing bracket; `MRTThmA1`/`MRTThmA1GJ`
+  were repaired at the Remark form, A.3 — the sibling — never was).  `MRTPropA3Ambient34`
+  carries `1 ≤ mrtM f X`;
+* UNTOUCHED: the T₀/T₁ radius `1/16` (the fold's R2: g stays `1/16`, κ stays `1/16`),
+  A.6 and the `_of_A6` conditionals (A.6 stands as printed; its open half is the
+  `1/(1+|t−t₁|)` factor — a FUTURE producer wave), and A.7 (resolved at `MRTLemmaA7Fixed`).
+
+⛔ Nothing here claims a PRODUCER for any slot — the ladder stays a spec layer. -/
+
+/-- **The A.3 ambient at θ=3/4 — the M-floor transcribed honestly.**  MRT p. 22:
+*"Since the mean value theorem gives the bound `O(T/X + 1)`, we can assume `T ≤ X/2` and
+`M(f;X) ≥ 1`"* — the WHOLE sentence.  `MRTPropA3Ambient` carries the `T`-half; this form
+adds the `M`-half, which is why it takes the datum `f`. -/
+def MRTPropA3Ambient34 (X T : ℝ) (Pseq : ℕ → ℕ) (f : ℕ → ℂ) : Prop :=
+  MRTPropA3Ambient X T Pseq ∧ 1 ≤ mrtM f X
+
+/-- **A.4(ii)-Fixed at the θ=3/4 constant.**  Byte-identical to `MRTLemmaA4iiFixed` except
+the conclusion's constant `1/6 − 1/(3π) − ε ↦ 1/8 − 1/(4π) − ε`.  The far-branch radius
+stays `1/16` — the fold's R2 restored it. -/
+def MRTLemmaA4iiFixed34 : Prop :=
+  ∀ (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → Real.exp 1 ≤ X → |t| ≤ X → 0 < ε →
+    |t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X →
+    ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X
+      ∨ (Real.log X) ^ ((1 : ℝ) / 16) / 2 < |t - t₁|) →
+      (1 / 8 - 1 / (4 * Real.pi) - ε) * Real.log (Real.log X)
+        ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X
+
+/-- **A.5 at the θ=3/4 constant.**  Byte-identical to `MRTLemmaA5` except the first
+error term's exponent `1/6 − 1/(3π) − ε ↦ 1/8 − 1/(4π) − ε`.  `mrtT1` untouched. -/
+def MRTLemmaA5_34 (C : ℝ) : Prop :=
+  ∀ (f : ℕ → ℂ) (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (P Q : ℕ) (X t t₁ ε : ℝ),
+    (∀ n, ‖f n‖ ≤ 1) → 2 ≤ P → P ≤ Q → (Q : ℝ) ≤ X → 0 < ε →
+    |t₁| ≤ X → pretDistSq f (costwist t₁) X = mrtM f X →
+    t ∈ mrtT1 (mrtM f X) t₁ X X →
+      ‖mrtG f 𝒥 Pseq Qseq P Q X t‖
+        ≤ C * (Real.log Q
+                  / ((Real.log X) ^ (1 / 8 - 1 / (4 * Real.pi) - ε) * Real.log P)
+              + Real.log X
+                  * Real.exp (-(Real.log X / (3 * Real.log Q))
+                      * Real.log (Real.log X / Real.log Q)))
+
+/-- **A.3 at the θ=3/4 lane** — byte-identical to `MRTPropA3` except the ambient is
+`MRTPropA3Ambient34` (the M-floor) and the tail rate is `1/70`. -/
+def MRTPropA3_34 (C : ℝ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+    ∀ (X X₀ η : ℝ) (Pseq Qseq : ℕ → ℕ) (J : ℕ) (S : Finset ℕ),
+      0 < η → η < 1 / 6 →
+      Real.sqrt X ≤ X₀ → X₀ ≤ X →
+      MRTBands X₀ η Pseq Qseq → MRTBandCount X₀ Qseq J →
+      (∀ n : ℕ, n ∈ S ↔ (X ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * X ∧ MemS Pseq Qseq J n)) →
+    ∀ T : ℝ, 1 ≤ T → MRTPropA3Ambient34 X T Pseq f →
+      (∫ t in (-T)..T, ‖dpolyA f S t‖ ^ 2)
+        ≤ C * (T / (X / (Qseq 1 : ℝ)) + 1)
+            * ((Real.log (Qseq 1)) ^ ((1 : ℝ) / 3) / (Pseq 1 : ℝ) ^ ((1 : ℝ) / 6 - η)
+                + mrtM f X / Real.exp (mrtM f X)
+                + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
+
+/-! ### The A.1 tier of the 34-lane (E34 V4) — so the lane reaches the PRIMARY
+
+The tail rethread propagates past A.2 through the landed tail-preserving bridge: these are
+the `1/70` siblings of `MRTThmA1GJ` → `mrtThmA1_of_mrtThmA1GJ_empty` →
+`MRTParsevalConstantMatch` → `mrtThmA1Statement_of_constantMatch`, ending at
+`MRTThmA1Statement_34` (`MRTThmA1.lean`).  Bodies are the landed proofs verbatim — the
+bridge never touches the tail term. -/
+
+/-- **A.1's bound for the `g_𝒥`-restricted datum, at tail `1/70`** — sibling of
+`MRTThmA1GJ`.  As there: a STATEMENT, and NOT MRT's Theorem A.2 (the A.2 slot is
+`MRTThmA2_34`'s). -/
+def MRTThmA1GJ_34 (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+  ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
+    (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
+    ∀ X h : ℝ, 10 ≤ h → h ≤ X →
+      (1 / X) * (∫ x in X..(2 * X),
+          ‖mrtShortMean (fun n => f n * gJ 𝒥 Pseq Qseq n) h x‖ ^ 2)
+        ≤ C * (Real.exp (-(mrtM f X))
+              + (Real.log (Real.log h)) ^ 2 / Real.log h ^ 2
+              + 1 / (Real.log X) ^ ((1 : ℝ) / 70))
+
+/-- **The `𝒥 = ∅` bridge at tail `1/70`** — `gJ ∅ = 1`, proof verbatim from
+`mrtThmA1_of_mrtThmA1GJ_empty`. -/
+theorem mrtThmA1_of_mrtThmA1GJ_empty_34 (C : ℝ) (Pseq Qseq : ℕ → ℕ)
+    (h2 : MRTThmA1GJ_34 C Pseq Qseq ∅) : MRTThmA1_34 C := by
+  intro f hf h1 hmul X h hh hhX
+  have := h2 f hf h1 hmul X h hh hhX
+  simpa [gJ] using this
+
+/-- **The constant-match obligation at tail `1/70`** — sibling of
+`MRTParsevalConstantMatch`; deliberately weak (`∃` an admissible constant), as there. -/
+def MRTParsevalConstantMatch_34 (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
+  ∃ C : ℝ, 0 < C ∧ MRTThmA1GJ_34 C Pseq Qseq 𝒥
+
+/-- **The whole spine, conditionally, at tail `1/70`** — whoever discharges the constant
+match at the empty sieve has the primary's 34-form.  Proof verbatim from
+`mrtThmA1Statement_of_constantMatch`. -/
+theorem mrtThmA1Statement_of_constantMatch_34 (Pseq Qseq : ℕ → ℕ)
+    (h : MRTParsevalConstantMatch_34 Pseq Qseq ∅) : MRTThmA1Statement_34 := by
+  obtain ⟨C, hCpos, hA2⟩ := h
+  exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty_34 C Pseq Qseq hA2⟩
 
 end Salt.MR
 

@@ -962,6 +962,8 @@ open Salt.Tactic in
   Salt.MR.Tstar_mono
   Salt.MR.far_kernel_bound_star
   Salt.MR.far_kfar_star_le
+  Salt.MR.far_price_floor_16
+  Salt.MR.desmooth_under_grade16
   Salt.MR.hfar_star
   Salt.MR.seam_gate_star_of_nonempty
   Salt.MR.exists_min_gate_star
@@ -1488,8 +1490,12 @@ open Salt.Tactic in
   Salt.MR.log_le_two_sqrt
   Salt.MR.mrt_middle_le_of_H0mrt
   Salt.MR.mrt_tail_le_of_HplusStar
+  Salt.MR.HplusStar70
+  Salt.MR.mrt_tail_le_of_HplusStar70
   Salt.MR.budget_head_at_mrt_floors
   Salt.MR.budget_head_sq_at_mrt_floors
+  Salt.MR.budget_head_at_mrt_floors_34
+  Salt.MR.budget_head_sq_at_mrt_floors_34
   Salt.MR.H0door_pos
   Salt.MR.exp_le_H0door
   Salt.MR.H0door_anti
@@ -6337,6 +6343,7 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.m4_exit_socket_split_sq
   Salt.MR.m4_exit_socket_split_sq_arc
   Salt.MR.m4_exit_socket_split_sq_arc_at_mrt_floors
+  Salt.MR.m4_exit_socket_split_sq_arc_at_mrt_floors_34
 
 /-! ⟦THE L² RESTRUCTURE — stone 7: THE ROAD-SIDE RE-PLUMB + ⟦A1 THE BINDER SPLIT⟧⟧
 (`M4DoorL2`, 2026-07-30, the freeze `docs/exploration/l2-restructure-freeze-0730.md` with
@@ -8394,6 +8401,8 @@ open Salt.Tactic in
   Salt.MR.mem_mrtShortWindow
   Salt.MR.MRTThmA1
   Salt.MR.MRTThmA1Statement
+  Salt.MR.MRTThmA1_34
+  Salt.MR.MRTThmA1Statement_34
   Salt.MR.measurable_mrtShortMean
   Salt.MR.norm_mrtShortMean_le
   Salt.MR.intervalIntegrable_mrtThmA1_integrand
@@ -8440,6 +8449,7 @@ open Salt.Tactic in
   Salt.MR.lt_of_mem_mrtT0
   Salt.MR.abs_sub_le_of_mem_mrtT0
   Salt.MR.MRTLemmaA4iiFixed
+  Salt.MR.MRTLemmaA4iiFixed34
   Salt.MR.mrtA4iiFixed_high_M
   Salt.MR.mrtA4ii_far_centre_cap
   Salt.MR.mrtA7_factor_conj
@@ -8449,6 +8459,7 @@ open Salt.Tactic in
   Salt.MR.mrtA8
   Salt.MR.mrtG
   Salt.MR.MRTLemmaA5
+  Salt.MR.MRTLemmaA5_34
   Salt.MR.MRTLemmaA5Statement
   Salt.MR.mrtA3_T0_pointwise_sq
   Salt.MR.mrtA3_T0_exponent
@@ -8547,10 +8558,14 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty
+  Salt.MR.MRTThmA1GJ_34
+  Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty_34
   Salt.MR.closed_open_window_card_le_one
   Salt.MR.shortWindow_closed_sub_open_norm_le
   Salt.MR.MRTParsevalConstantMatch
   Salt.MR.mrtThmA1Statement_of_constantMatch
+  Salt.MR.MRTParsevalConstantMatch_34
+  Salt.MR.mrtThmA1Statement_of_constantMatch_34
   Salt.MR.mrtT0_subset_band
   Salt.MR.continuous_a3_twistedSum
   Salt.MR.integrableOn_sq_mrtT0_of_continuous
@@ -8565,6 +8580,8 @@ open Salt.Tactic in
   Salt.MR.mrtA4ii_high_M
   Salt.MR.mrtM_costwist_self
   Salt.MR.not_mrtLemmaA7Statement
+  Salt.MR.MRTLemmaA7Fixed
+  Salt.MR.MRTLemmaA7FixedStatement
   Salt.MR.mrtS_dilate
   Salt.MR.mrtS_indicator_mul_dilate
   Salt.MR.mrtBandP_base_le
@@ -8590,6 +8607,13 @@ open Salt.Tactic in
   Salt.MR.vk34_constant_clears_bar
   Salt.MR.vk34_constant_fails_rho_margin
   Salt.MR.vk34_constant_lt_mrt
+  Salt.MR.mrtA5_rho_margin34
+  Salt.MR.mrtA5_epsilon_ceiling34
+  Salt.MR.vk34_bar_366_fails
+  Salt.MR.mrtA4ii_high_M_target34
+  Salt.MR.MRTPropA3Ambient34
+  Salt.MR.MRTPropA3_34
+  Salt.MR.MRTThmA2_34
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket
   Salt.MR.mrtQuality_lower_of_pointwise

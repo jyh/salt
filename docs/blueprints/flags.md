@@ -24322,3 +24322,74 @@ docstring I had open. **The pattern is not carelessness about facts; it is treat
 antecedent as background instead of as the thing to measure.**
 📌 I built node 9 explicitly to make the θ-lift's benefit *"checkable rather than asserted"* — and
 checked it on the wrong branch. ⇒ ***MAKING A CLAIM CHECKABLE DOES NOT MAKE IT RELEVANT.***
+
+### ✅ 08-31 10:2x — E34-V0 LANDED: the θ=3/4 numeral shelf at the ruled bar `3/70`
+Per the helm's E34 ladder-repair commission (2026-08-31, in the private record), wave table node
+V0. Three names beside the θ=3/4 constant block in `MRTPropA3.lean`, all `✓ [3 axioms]`, one
+attempt each, `saltbuild EXIT=0` (9344 jobs), zero diagnostics from the edited file:
+`mrtA5_rho_margin34` (`3/70 < 1/8 − 1/(4π)`, margin `2.565×10⁻³` — needs `Real.pi_gt_d2`) ·
+`mrtA5_epsilon_ceiling34` (the `:354`-shape ε-ceiling at the ruled pair) ·
+`vk34_bar_366_fails` (`1/8 − 1/(4π) < 3/66`, short by `3.2×10⁻⁵` — needs `Real.pi_lt_d4`;
+`pi_lt_d2`'s `3.15` cannot clear `22/7`, so the two shelf facts carry different π-requirements,
+exactly as the θ=2/3 block's own preamble found). `grade64_under_tail70` STRUCK per the fold
+(g=1/64 premise dead). Registry rows in the same commit.
+
+### ✅ 08-31 11:0x — E34-V0s LANDED: the grade-1/16 supply shelf (the fold claim, kerneled)
+Node V0s of the helm's E34 ladder-repair commission (2026-08-31, in the private record). Two
+names in `FarStar.lean` beside `log_price_floor`, both `✓ [3 axioms]`, one attempt each,
+`saltbuild EXIT=0` (9344 jobs), zero diagnostics from the edited file:
+`far_price_floor_16` (sibling of `log_price_floor` at exponent `−1/16`; the proof's only use of
+the printed `1/(32e)` was `≤ 1`, so the identical proof runs at `1/16`) ·
+`desmooth_under_grade16` (`caseAS`'s third summand already decays faster than grade `1/16`).
+Together: "the corpus supplies A.6's grade summand at `1/16`" is now a kernel shelf, not a fold
+claim. Registry rows in the same commit.
+
+### ✅ 08-31 11:0x — E34-V1 LANDED: A.4(ii)'s high-M arm at the θ=3/4 constant
+Node V1 of the helm's E34 ladder-repair commission (2026-08-31, in the private record).
+`mrtA4ii_high_M_target34` (`MRTPropA3.lean`, beside the θ=3/4 shelf), `✓ [3 axioms]`, one
+attempt, `saltbuild EXIT=0` (9344 jobs). A-fortiori from `mrtA4ii_high_M_target` via
+`vk34_constant_lt_mrt` + `loglog X ≥ 0`. Theorem only, no new def. ⚠️ Its green carries ZERO
+information about the ε-ceiling — nothing in it binds ε (fold marker-4 caveat, kept in the
+docstring). Registry row in the same commit.
+
+### ✅ 08-31 11:1x — E34-V2 LANDED: the A.7 record made registry-coherent
+Node V2 of the helm's E34 ladder-repair commission (2026-08-31, in the private record).
+`Salt.MR.MRTLemmaA7Fixed` + `Salt.MR.MRTLemmaA7FixedStatement` added to the audit registry —
+they were ABSENT while the REFUTED forms were present, the exact inversion the house pattern
+exists to prevent (fold finding R2). Both now `✓ [3 axioms]`, `saltbuild EXIT=0` (9344 jobs).
+One supersession stamp at the A.7-sign prose block (the site that still said the convention was
+open — resolved by the ratified `MRTLemmaA7Fixed` + `not_mrtLemmaA7Statement`); the other five
+prose mentions and BOTH phase-consuming declarations (`mrtA7_factor_conj`,
+`mrtA7_factors_differ`) stay byte-untouched as the refutation record. The refuted names' audit
+rows STAY (the registry needs them to resolve). E2's six "consumer sites" were PROSE — zero
+theorem-level consumers of `MRTLemmaA7` exist; no migration was performed because there was
+nothing to migrate.
+
+### ✅ 08-31 11:1x — E34-V3 LANDED: the 34-forms + the M-floor transcribed whole
+Node V3 of the helm's E34 ladder-repair commission (2026-08-31, in the private record) — the
+statement act under the helm's word, given in the commission's refuter fold. Five defs, all
+audited `✓ [3 axioms]`, one attempt each, `saltbuild EXIT=0` (9344 jobs):
+`MRTPropA3Ambient34` (carries `1 ≤ mrtM f X` — the FIFTH E-ladder statement defect: MRT p.22's
+one sentence *"we can assume T ≤ X/2 and M(f;X) ≥ 1"* had its `M`-half untranscribed; kernel
+witness `mrtM_one_eq_zero`) · `MRTLemmaA4iiFixed34` (constant `1/8 − 1/(4π) − ε`, radius
+UNTOUCHED at `1/16` per fold R2) · `MRTLemmaA5_34` (same constant as exponent; `mrtT1`
+untouched) · `MRTPropA3_34` (ambient34 + tail `1/70`) · `MRTThmA2_34` (tail `1/70`,
+`MRTThmA2Stmt.lean`). The truncated quotation in `MRTPropA3Ambient`'s docstring corrected in
+the same commit, old def byte-untouched. A.6 and the `_of_A6` conditionals untouched (open half
+is the `1/(1+|t−t₁|)` factor — a future producer wave). Registry rows in-commit.
+
+### ✅ 08-31 11:4x — E34-V4 LANDED: the 34-lane reaches the PRIMARY (option b, ruled)
+Node V4 of the helm's E34 ladder-repair commission (2026-08-31, in the private record). The
+tail rethread runs THROUGH A.1 — eleven names, all `✓ [3 axioms]`, one attempt each,
+`saltbuild EXIT=0` (9344 jobs): the A.1 tier `MRTThmA1GJ_34 → mrtThmA1_of_mrtThmA1GJ_empty_34
+→ MRTParsevalConstantMatch_34 → mrtThmA1Statement_of_constantMatch_34 → MRTThmA1_34` (+
+`MRTThmA1Statement_34`, the mechanical ∃-wrapper sibling); the floor tier `HplusStar70`
+(`⌈exp((1/ε)^70)⌉₊`) + `mrt_tail_le_of_HplusStar70` + `budget_head_at_mrt_floors_34` +
+`budget_head_sq_at_mrt_floors_34` + `m4_exit_socket_split_sq_arc_at_mrt_floors_34`.
+⛔ GLYPH GUARD applied and checkable in the diff: the `50 ≤ loglog` tower antecedent in the
+S11 exit twin did NOT move; only `((1:ℝ)/50)` tail exponents and `HplusStar`'s `(50:ℕ)` did.
+Everything the originals do not claim (U1floor, `exp(−M)`, the L¹ producer status, any
+producer for any ladder slot) is equally not claimed by the twins. QUEUE P2 item 9 pointer
+stamp (role wording, restated fence) rode this commit. One latent line-length warning at the
+A.1 file's pre-existing docstring surfaced on rebuild — bytes untouched by this wave, not
+introduced.
