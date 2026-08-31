@@ -24322,3 +24322,14 @@ docstring I had open. **The pattern is not carelessness about facts; it is treat
 antecedent as background instead of as the thing to measure.**
 📌 I built node 9 explicitly to make the θ-lift's benefit *"checkable rather than asserted"* — and
 checked it on the wrong branch. ⇒ ***MAKING A CLAIM CHECKABLE DOES NOT MAKE IT RELEVANT.***
+
+### ✅ 08-31 10:2x — E34-V0 LANDED: the θ=3/4 numeral shelf at the ruled bar `3/70`
+Per the helm's E34 ladder-repair commission (2026-08-31, in the private record), wave table node
+V0. Three names beside the θ=3/4 constant block in `MRTPropA3.lean`, all `✓ [3 axioms]`, one
+attempt each, `saltbuild EXIT=0` (9344 jobs), zero diagnostics from the edited file:
+`mrtA5_rho_margin34` (`3/70 < 1/8 − 1/(4π)`, margin `2.565×10⁻³` — needs `Real.pi_gt_d2`) ·
+`mrtA5_epsilon_ceiling34` (the `:354`-shape ε-ceiling at the ruled pair) ·
+`vk34_bar_366_fails` (`1/8 − 1/(4π) < 3/66`, short by `3.2×10⁻⁵` — needs `Real.pi_lt_d4`;
+`pi_lt_d2`'s `3.15` cannot clear `22/7`, so the two shelf facts carry different π-requirements,
+exactly as the θ=2/3 block's own preamble found). `grade64_under_tail70` STRUCK per the fold
+(g=1/64 premise dead). Registry rows in the same commit.

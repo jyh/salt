@@ -8590,6 +8590,9 @@ open Salt.Tactic in
   Salt.MR.vk34_constant_clears_bar
   Salt.MR.vk34_constant_fails_rho_margin
   Salt.MR.vk34_constant_lt_mrt
+  Salt.MR.mrtA5_rho_margin34
+  Salt.MR.mrtA5_epsilon_ceiling34
+  Salt.MR.vk34_bar_366_fails
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket
   Salt.MR.mrtQuality_lower_of_pointwise

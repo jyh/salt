@@ -4364,5 +4364,53 @@ theorem vk34_constant_lt_mrt :
     linarith
   nlinarith [hfac]
 
+/-! ## The θ=3/4 tail bar — `1/70`, ruled and kernel-forced from above
+
+The helm's E34 ladder-repair commission (2026-08-31, in the private record) RULES the
+θ=3/4 route's tail rate at `1/70` and its ρ-bar at `3/70` — the θ=2/3 pair was
+`1/50`/`3/50`, and `vk34_constant_fails_rho_margin` (above) is the kernel fact that
+forced the move.  Three shelf facts make the choice read as arithmetic, not taste:
+
+* `mrtA5_rho_margin34` — the θ=3/4 constant CLEARS `3/70` (sibling of
+  `mrtA5_rho_margin`; margin `2.565×10⁻³`, 4.5× MRT's own razor at their `3/50`);
+* `mrtA5_epsilon_ceiling34` — the ε-ceiling it implies, in `mrtA5_epsilon_ceiling`'s
+  exact shape;
+* `vk34_bar_366_fails` — the next-tighter clean bar `3/66` is INFEASIBLE
+  (`1/8 − 1/(4π) < 3/66`, short by `3.2×10⁻⁵`), so `3/70` is forced from above.
+
+⚠️ π-precision, measured before proving: clearing `3/70` needs only `π > 3.14`
+(`Real.pi_gt_d2`), but the `3/66` infeasibility needs `π < 22/7 ≈ 3.14286`, which
+`Real.pi_lt_d2`'s `3.15` cannot give — it takes `Real.pi_lt_d4`.  *Two facts about one
+constant with different π-requirements, exactly as the θ=2/3 block found at :327.* -/
+
+/-- **The θ=3/4 constant clears the ruled bar `3/70`.**  `3/70 < 1/8 − 1/(4π)` —
+the θ=3/4 sibling of `mrtA5_rho_margin`, at the E34-ruled tail bar. -/
+theorem mrtA5_rho_margin34 : (3 : ℝ) / 70 < 1 / 8 - 1 / (4 * Real.pi) := by
+  have h4 : (0 : ℝ) < 4 * Real.pi := by positivity
+  have hgt : (12.56 : ℝ) < 4 * Real.pi := by linarith [Real.pi_gt_d2]
+  have hkey : 1 / (4 * Real.pi) < 1 / 12.56 :=
+    one_div_lt_one_div_of_lt (by norm_num) hgt
+  have hnum : (0 : ℝ) < 1 / 8 - 1 / 12.56 - 3 / 70 := by norm_num
+  linarith
+
+/-- **THE `ε`-CEILING THE θ=3/4 BAR IMPLIES** — `mrtA5_epsilon_ceiling`'s exact shape
+at the ruled pair (`ρ34 = 1/8 − 1/(4π)`, bar `3/70`, rate `1/70`).  As there, `0 < ε`
+is carried because the source carries it and is not used. -/
+theorem mrtA5_epsilon_ceiling34 {ε : ℝ} (_hε0 : 0 < ε)
+    (hεlt : ε < 1 / 8 - 1 / (4 * Real.pi) - 3 / 70) :
+    1 / 70 < (1 / 8 - 1 / (4 * Real.pi) - ε) / 3 := by
+  linarith
+
+/-- ⛔ **THE NEXT-TIGHTER CLEAN BAR IS INFEASIBLE** — `1/8 − 1/(4π) < 3/66`, short by
+`3.2×10⁻⁵`.  Landed so the `3/70` choice reads as forced-from-above, not taste.
+Needs `π < 22/7`: `Real.pi_lt_d4`, where the margin above needed only `pi_gt_d2`. -/
+theorem vk34_bar_366_fails : (1 : ℝ) / 8 - 1 / (4 * Real.pi) < 3 / 66 := by
+  have h4 : (0 : ℝ) < 4 * Real.pi := by positivity
+  have hlt : 4 * Real.pi < 12.5664 := by linarith [Real.pi_lt_d4]
+  have hkey : (1 : ℝ) / 12.5664 < 1 / (4 * Real.pi) :=
+    one_div_lt_one_div_of_lt h4 hlt
+  have hnum : (0 : ℝ) < 3 / 66 - 1 / 8 + 1 / 12.5664 := by norm_num
+  linarith
+
 end Salt.MR
 
