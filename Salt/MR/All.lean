@@ -60,6 +60,7 @@ import Salt.MR.GrandComp
 import Salt.MR.AnnHead
 import Salt.MR.AbsCosFourier
 import Salt.MR.ZetaNegLogDerivLower
+import Salt.MR.A4FMidBridge
 import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
 import Salt.MR.Lemma14Vtail
@@ -8567,6 +8568,11 @@ open Salt.Tactic in
   Salt.MR.abs_cos_partial_fourier_bound
   Salt.MR.one_sided_majorant_head_floor
   Salt.MR.zeta_neg_re_logDeriv_ge
+  Salt.MR.prime_sum_filter_gt_sub
+  Salt.MR.zeta_near_bridge_lower
+  Salt.MR.abs_log_zeta_near_one_bounded_height
+  Salt.MR.harmonic_prime_sum_abs_le_bounded_height
+  Salt.MR.harmonic_prime_sum_abs_le_vk
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty
