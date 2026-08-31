@@ -61,6 +61,7 @@ import Salt.MR.AnnHead
 import Salt.MR.AbsCosFourier
 import Salt.MR.ZetaNegLogDerivLower
 import Salt.MR.A4FMidBridge
+import Salt.MR.A4FMidRange
 import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
 import Salt.MR.Lemma14Vtail
@@ -8573,6 +8574,13 @@ open Salt.Tactic in
   Salt.MR.abs_log_zeta_near_one_bounded_height
   Salt.MR.harmonic_prime_sum_abs_le_bounded_height
   Salt.MR.harmonic_prime_sum_abs_le_vk
+  Salt.MR.div_seven_pow_seven_le_exp
+  Salt.MR.prime_recip_window_bounds
+  Salt.MR.mrt_mid_range_parametric
+  Salt.MR.mrtShortSegmentSplitting_holds
+  Salt.MR.mrt_mid_range_34
+  Salt.MR.mrtA4ii_far_mid_unconditional
+  Salt.MR.mrtA4ii_far_mid34_unconditional
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty
