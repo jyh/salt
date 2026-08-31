@@ -504,6 +504,41 @@ private lemma log_price_floor {X L : ℝ} (hXe : Real.exp 1 ≤ X) (hXL : Real.l
   rw [h2] at h1
   linarith
 
+/-! ### The supply shelf at grade `1/16` (E34 V0s)
+
+The E34 refuter fold found — and the helm re-verified at these bytes — that the printed
+exponent `1/(32e)` in `log_price_floor`/`hfar_star` is a DELIBERATELY LOSSY weakening:
+the proof's only use of it is `1/(32e) ≤ 1`, so the identical proof runs at `1/16`.  The
+two theorems below make **"the corpus supplies A.6's grade summand at `1/16`"** a kernel
+shelf instead of a fold claim (the helm's E34 ladder-repair commission, 2026-08-31, in
+the private record).  Nothing consuming the `1/(32e)` form moves — these are siblings. -/
+
+/-- **The far price floor at grade `1/16`** — sibling of `log_price_floor` at exponent
+`−1/16`, proof identical: the exponent step needs only `1/16 ≤ 1`. -/
+theorem far_price_floor_16 {X L : ℝ} (hXe : Real.exp 1 ≤ X) (hXL : Real.log X ≤ 2 * L) :
+    1 / (2 * L) ≤ Real.log X ^ (-(1 / 16 : ℝ)) := by
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have hu1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hu0 : (0 : ℝ) < Real.log X := by linarith
+  have ha1 : (1 : ℝ) / 16 ≤ 1 := by norm_num
+  have h1 : Real.log X ^ (-(1 : ℝ)) ≤ Real.log X ^ (-(1 / 16 : ℝ)) :=
+    Real.rpow_le_rpow_of_exponent_le hu1 (by linarith)
+  have h2 : Real.log X ^ (-(1 : ℝ)) = (Real.log X)⁻¹ := by
+    rw [Real.rpow_neg hu0.le, Real.rpow_one]
+  have h3 : 1 / (2 * L) ≤ (Real.log X)⁻¹ := by
+    rw [inv_eq_one_div]
+    exact one_div_le_one_div_of_le hu0 hXL
+  rw [h2] at h1
+  linarith
+
+/-- **The desmooth term is already under grade `1/16`** — `caseAS`'s third summand
+`(log W)^{−1/2+1/1000}` decays FASTER than `(log W)^{−1/16}`.  Stated over `1 ≤ L`;
+consume at `L = log W`. -/
+theorem desmooth_under_grade16 {L : ℝ} (hL : 1 ≤ L) :
+    L ^ (-(1 : ℝ) / 2 + 1 / 1000) ≤ L ^ (-(1 : ℝ) / 16) :=
+  Real.rpow_le_rpow_of_exponent_le hL (by norm_num)
+
 /-- **The far arm's ABSOLUTE constant at `T*`** —
 `Cfar = (306/π)·C_S·C_F·e^{24/e}·(log 4+4)²`.  No `k`, no `X`, no `L`: this is what
 `FarClose`'s verdict says does not exist at `T = L⁴`. -/

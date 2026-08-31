@@ -24333,3 +24333,13 @@ attempt each, `saltbuild EXIT=0` (9344 jobs), zero diagnostics from the edited f
 `pi_lt_d2`'s `3.15` cannot clear `22/7`, so the two shelf facts carry different π-requirements,
 exactly as the θ=2/3 block's own preamble found). `grade64_under_tail70` STRUCK per the fold
 (g=1/64 premise dead). Registry rows in the same commit.
+
+### ✅ 08-31 11:0x — E34-V0s LANDED: the grade-1/16 supply shelf (the fold claim, kerneled)
+Node V0s of the helm's E34 ladder-repair commission (2026-08-31, in the private record). Two
+names in `FarStar.lean` beside `log_price_floor`, both `✓ [3 axioms]`, one attempt each,
+`saltbuild EXIT=0` (9344 jobs), zero diagnostics from the edited file:
+`far_price_floor_16` (sibling of `log_price_floor` at exponent `−1/16`; the proof's only use of
+the printed `1/(32e)` was `≤ 1`, so the identical proof runs at `1/16`) ·
+`desmooth_under_grade16` (`caseAS`'s third summand already decays faster than grade `1/16`).
+Together: "the corpus supplies A.6's grade summand at `1/16`" is now a kernel shelf, not a fold
+claim. Registry rows in the same commit.

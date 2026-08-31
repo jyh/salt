@@ -962,6 +962,8 @@ open Salt.Tactic in
   Salt.MR.Tstar_mono
   Salt.MR.far_kernel_bound_star
   Salt.MR.far_kfar_star_le
+  Salt.MR.far_price_floor_16
+  Salt.MR.desmooth_under_grade16
   Salt.MR.hfar_star
   Salt.MR.seam_gate_star_of_nonempty
   Salt.MR.exists_min_gate_star
