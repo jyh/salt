@@ -5733,6 +5733,37 @@ numbering is UNVERIFIED.
    if Tao-1.2 ever lands, the **direct-Möbius** route is the consumer, not wave-1's
    chain.
 
+   ⚖️⭐⭐⭐ **THE CROWN RE-TIER — RULED 2026-08-31 AT THE SITTING (Captain: "accept
+   rec"); Fable-tier transcription from the ruled frame (§3 of the helm's R-1 Wave 1
+   commission brief, 2026-08-30, in the private record). THIS IS THE CROWN ROW, AND
+   ITS BASE MOVED. Everything above is byte-untouched; this stamp re-tiers what the
+   row's question sits ON.**
+   - **BASE — LANDED CONTENT, not a candidate:** `logChowla2_v7_rated`
+     (`Salt/MR/V7Rated.lean`, salt main, `[3 axioms]` under the aggregate gate) is
+     the program's first hypothesis-free terminal: **unconditional, kernel-checked,
+     at the ε-floor (one produced ε ≥ 1/500), windowed logarithmic average, shift
+     n+1**, with the old `Kvt` cushion DISCHARGED INSIDE (the eighth `max` arm pays
+     it out of the regime's own exponential budget). Residual ineffectivity is
+     confined to the design constant `A`'s `Classical.choice` mint (Ks seventh arm,
+     Kvt eighth arm) and prices SCALE-EXTRACTABILITY, not truth. Scope fence kept
+     verbatim: `Qm` left the V7 **live path** only, never "the whole chain".
+   - **THE APEX ARMS PRICE SEPARATELY, each against this base and none against
+     another's cost:** **∀ε** (this row's question; node 11a's measured rate
+     `exp∘exp∘exp(Θ(ε⁻⁸))` — survivable for an asymptotic family, fatal for any
+     numeral consumer) · **full-range average** (windowed → full-range) ·
+     **effective A** (de-Skolemising the mint). The old fork "∀ε/full-range vs
+     ε-floor" is RESTATED: the ε-floor half is no longer a fork arm — it is the
+     floor the fork stands on. The live question is only how much of ∀ε/full-range
+     to claim as apex beyond it.
+   - **CLAIM LANGUAGE (the flagship's, under the ruling):** state what is landed
+     (the base), price what is aimed at (the arms) — never the base as aspiration
+     nor an arm as landed.
+   - **The transport wall is untouched at this rung — nothing in the re-tier bears
+     on twin primes, and this stamp says so in those words.**
+   - The prize fence and all four fences above STAND. The row's P3 tier is
+     unchanged by this stamp (the re-tier is of the claim structure, not the
+     schedule); a tier change remains the Captain's.
+
 12. **JAS (vector-illustration editor · public repo `github.com/jyh/jas`) — FOLDED
    IN 08/22 on the Captain's order ("so you know about it"), executed by the
    Phoenix fresh head; jas-b's own git-verified answer places jas at fleet-P3.**
