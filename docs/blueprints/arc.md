@@ -231,6 +231,21 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   re-owner are **helm/Fable calls**; flagged here and in `flags.md`, and P2 item 6 carries the price.
   *Measured, not inferred: every figure above is from the cited bytes; the arithmetic is
   `e^518 ≈ 10^224.96`, `e^6216 ≈ 10^2699.5`, `222.85/2699.5 = 0.0826`.*
+  ✅✅⭐⭐ **STAMP 2026-08-30 (math, R-1 WAVE 1) — THE ROW ABOVE IS BYTE-UNTOUCHED; THE MECHANISM IT
+  REFUTED IS NOW GONE FROM THE V7 LIVE PATH, AND THE CUSHION IS DISCHARGED.** Authority:
+  `seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md` (helm, Fable, released by ruling x's
+  condition on P2 item 6's 2(b) receipt). With `Qm` gone from the rated socket
+  (`cofkL_capFreeFloor_at_socket_rated`, item 6 2(b)), the rated `Kvt` is ONE closed
+  `H₊`-independent real, so the demanded-exponent mechanism this row refuted no longer exists on the
+  live path: the cushion is paid by the design constant's EIGHTH `max` arm
+  (`armVt Kvt = max 162 (log(1+Kvt))`, `Salt/MR/V7Rated.lean`) and the cushion arrow LEAVES the
+  statement. **`logChowla2_v7_rated` concludes `¬ logChowla2Fails` with no caller-facing
+  hypothesis**; the no-trade receipt `logChowla2_ineffective_v7_ksarm_g0_of_rated` reproves the
+  landed `_g0` from it at `Kvt := 0`, tied to the landed declaration by a kernel `example`.
+  ⛔ Scope: `Qm` is gone from the **V7 live path**, not the whole chain —
+  `cofkL_cofactorSupply_L_gk_of_bulk` still consumes the old socket, off-path, untouched. The
+  residual ineffectivity sits in `A`'s `Classical.choice` mint (Ks seventh arm, Kvt eighth arm) and
+  prices SCALE-EXTRACTABILITY, not truth. Nothing here bears on twin primes.
 - **F-5 [B/C] GAP X — unchanged, runs PARALLEL to R-1** (the bounded `∀ X ≥ X₀` threading
   probe; no landing may be read as closing GAP X until this node does).
   ⚠️ **STATUS STAMPED 2026-08-26 (math) — THE ROW ABOVE IS BYTE-UNTOUCHED AND ITS INSTRUCTION
@@ -369,6 +384,12 @@ under it (`chi_Llower_band_uniform`) has no rate at all. R-1 is the **consumer**
 item 6 (POINT→BAND), whose point floor is landed (`l1LowerEffective_goldenGate`) and whose band half
 is open. **The re-tier and the re-owner are helm/Fable calls; math flagged, math did not re-aim its
 own charter.** F-5 and H-2/H-3/H-4 are unaffected and remain the live A/B work.
+
+✅ **STAMP 2026-08-30 (math) — R-1 WAVE 1 IS EXECUTED.** The commission
+`seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md` is the authority; §4's R-1 row carries
+the landing stamp. The cushion is discharged inside `logChowla2_v7_rated`
+(`Salt/MR/V7Rated.lean`) — the success shape below is reached at the ∃-chosen regime, with the
+scope §4's stamp states.
 
 **Now:** R-1 (the rider wave, math, gate-as-author) · F-5 parallel · H-2/H-3/H-4 remain OPEN
 to any A-capable seat. **Success shape:** the rider discharged ⇒ the sieved chain stands

@@ -4560,6 +4560,12 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ONE SYMBOLIC NONNEGATIVE REAL AND THE CUSHION IS STILL A HYPOTHESIS.** What changed is the SHAPE
    of what stands behind it. **The V7 chain's own rethread onto the rated socket is a further step
    and was NOT taken** — it lands on R-1's row, where a worker seat reports and does not rule.
+   ✅ **STAMP 2026-08-30 (math) — THAT FURTHER STEP IS NOW TAKEN, UNDER ITS OWN COMMISSION, NOT THIS
+   ROW'S:** R-1 Wave 1, authority `seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md`
+   (helm-ruled, released by 2(b)'s receipt). `Salt/MR/V7Rated.lean`: the rated supply sibling
+   (`cofkR_cofactorSupply_L_gk_rated`, four Skolem REALS, cushion with no evaluation point) and the
+   headline `logChowla2_v7_rated`, where the `Kvt` binder and the cushion arrow LEAVE the statement.
+   The two ⛔ paragraphs above stay correct ABOUT THIS ITEM; the arc's R-1 row carries the landing.
    📊 **ITEM 6 TALLY, MEASURED not estimated** (`Salt/MR/BandRated.lean`): **7 public theorems + 4
    public lemmas = 11 AUDITED NAMES, every one `[3 axioms]` under build-time gates**, plus **3 `def`s**
    (`goldenL1`, `bandRateReal`, `bandConstQ` — defs carry no axioms so they are not audited) and **2

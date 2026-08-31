@@ -403,6 +403,7 @@ import Salt.MR.XGapThread
 import Salt.MR.BandRated
 import Salt.MR.BandRatedAssembly
 import Salt.MR.BandRatedSocket
+import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
 
@@ -8725,3 +8726,27 @@ open Salt.Tactic in
   Salt.MR.m4_sievedDoorSqH_trivial
   Salt.MR.m4_doorL2_supply_H
   Salt.MR.m4_doorL2_supply_500_H
+  -- ⚔️ R-1 WAVE 1 (2026-08-30, math) — the V7 rethread onto the RATED socket.  Authority:
+  -- seat/briefs/2026-08-30-helm-COMMISSION-R1-v7-rethread.md (helm, Fable; released by ruling x's
+  -- condition on P2 item 6's 2(b) receipt).  `Salt/MR/V7Rated.lean`, five nodes: N0 hoists the
+  -- rated socket's `∃ Z δ Kvt` over the lever (the witnesses are argument-free, so the hoist is
+  -- the same proof with `intro K` after the `refine`); N1b is the co-factor supply SIBLING with
+  -- FOUR Skolem REALS and a cushion carrying NO evaluation point (the refuters' seam: the spine
+  -- has no socket call — RegisterRepair:490 is where the socket is consumed); N1's `armVt`
+  -- (eighth `max` arm, `max 162 (log(1+Kvt))`) pays that cushion out of the regime's own
+  -- exponential budget (exp-beats-linear, SPEND NOTHING ON GRADE); N2 `logChowla2_v7_rated` is
+  -- the headline with the `Kvt` binder and the cushion arrow GONE — the program's first
+  -- hypothesis-free headline (outer: nothing; inner: nothing).  Residual ineffectivity is `A`'s
+  -- Classical.choice mint (Ks seventh arm + Kvt eighth arm) and prices SCALE-EXTRACTABILITY,
+  -- not truth.  N5 reproves the landed `_g0` from the new headline at `Kvt := fun _ _ => 0`,
+  -- kernel-tied to the landed declaration by the `example` beside it — derivable-from-stronger
+  -- as a kernel fact, not a docstring claim.
+  -- ⛔ Scope (refuter fold): `Qm` is gone from the V7 LIVE PATH, not "the whole chain" —
+  -- `cofkL_cofactorSupply_L_gk_of_bulk` (CofactorBulk:363) still consumes the old socket,
+  -- off-path, byte-untouched.  Nothing here bears on twin primes; the transport wall is
+  -- untouched at this rung.  (`armVt` is a def and carries no axioms, so it is not audited.)
+  Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform
+  Salt.MR.cofkR_cushion_of_armVt
+  Salt.MR.cofkR_cofactorSupply_L_gk_rated
+  Salt.MR.logChowla2_v7_rated
+  Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated
