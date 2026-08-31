@@ -24437,3 +24437,17 @@ wave). Statement repair (re-pin Y) is a helm/Fable statement act per iron rule 1
 in the wave report, NOT taken here. Found by A4F-2 due diligence: that node was commissioned
 to carry this Prop as its named far-arm hypothesis, and a false hypothesis makes every
 consumer vacuously true.
+
+### ⚠️ 08-31 17:xx — S1 DOCSTRING ERRATUM: the floor gives `e ≤ |Y|`, NOT `e ≤ Y` (mathlib's `log` is even)
+The A4F S1 node transcribed the commissioning fold's note that the `Y`-floor
+`(log X)^{2/3} ≤ log Y` "supplies `exp 1 ≤ Y` by construction" into the docstring of
+`MRTLargeRangeEquidistributionFixed` (MRTPropA3.lean). In mathlib `Real.log (−x) = Real.log x`,
+so `1 ≤ log Y` yields `e ≤ |Y|` only; the note is FALSE as a Lean fact and the docstring is
+corrected in place with the retraction disclosed. The STATEMENT is unchanged (iron rule 1) and
+is not endangered: a negative `Y` enlarges the window to `{p ≤ X}` at the same demand, so those
+instances follow from the positive ones by monotonicity of the nonnegative sum. Consequence for
+consumers: any node that needs `Y > 0` (the Euler bridge at `1 + 1/log Y` does) must carry
+`exp 1 ≤ Y` itself — the H4 mid-range deliverable `mrt_mid_range_parametric` does, and its
+dischargers supply it from `Y = exp(…)`. Found while building H4 (the `Y > 0` step had no
+proof); the law: TEST WHAT YOU SUBSTITUTE — a note reached the tree because it was quoted,
+not checked.

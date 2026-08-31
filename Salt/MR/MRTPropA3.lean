@@ -4734,9 +4734,14 @@ the sibling `MRTShortSegmentSplitting`'s pin `Y = exp((log X)^{2/3+ε})` satisfi
 `ε > 0`, while a pin here would be θ=2/3-only and double the statement surface (the pin option
 was struck in writing at the commissioning fold).
 
-Load-bearing by construction: with the statement's own `exp 1 ≤ X`, the floor already supplies
-`exp 1 ≤ Y` — `1 ≤ log X` gives `1 ≤ (log X)^{2/3} ≤ log Y` — which is the Euler-bridge side
-condition, so no consumer needs a separate largeness hypothesis on `Y`.
+⚠️ **CORRECTED IN-WAVE (H4).**  The commissioning note recorded here at first read *"the floor
+already supplies `exp 1 ≤ Y` by construction"*.  In mathlib's convention `Real.log` is EVEN
+(`log (−e) = 1`), so `1 ≤ log Y` yields only `e ≤ |Y|`, not `e ≤ Y`: the note is FALSE as a
+Lean fact and is retracted.  The statement is unchanged (its negative-`Y` instances have a
+LARGER window `{p ≤ X}` and the same demand, so they follow from the positive ones by
+monotonicity of the nonnegative sum); a consumer that needs `Y > 0` — the Euler bridge does —
+takes `exp 1 ≤ Y` as its own hypothesis, as the mid-range deliverable does.  Recorded in
+`docs/blueprints/flags.md` (the A4F wave).
 
 ⛔ **A STATEMENT, NOT A THEOREM.  NOTHING HERE PROVES IT** — the statement act is the helm's,
 transcribed verbatim (iron rule 1); the consumer `mrtA4ii_far_of_either_estimate` is already
