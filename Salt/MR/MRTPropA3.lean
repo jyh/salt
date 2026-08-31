@@ -4412,5 +4412,27 @@ theorem vk34_bar_366_fails : (1 : ℝ) / 8 - 1 / (4 * Real.pi) < 3 / 66 := by
   have hnum : (0 : ℝ) < 3 / 66 - 1 / 8 + 1 / 12.5664 := by norm_num
   linarith
 
+/-- **A.4(ii)'s HIGH-`M` ARM AT THE θ=3/4 CONSTANT (E34 V1)** — a-fortiori from
+`mrtA4ii_high_M_target`: `ρ34 < ρ23` is kernel (`vk34_constant_lt_mrt`) and
+`loglog X ≥ 0` from `exp 1 ≤ X`, so the weaker constant transfers across the same
+non-negative multiplier.  Theorem only, NO new def — any κ-bearing def is a
+statement act and not made here.
+
+⚠️ **This green carries ZERO information about the ε-ceiling** — nothing here binds
+`ε`; the ε-window facts are `mrtA5_epsilon_ceiling34`'s (the fold's marker-4 caveat,
+kept on the theorem it guards). -/
+theorem mrtA4ii_high_M_target34 (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ)
+    (X t ε : ℝ) (hf : ∀ n, ‖f n‖ ≤ 1) (hXe : Real.exp 1 ≤ X) (htX : |t| ≤ X)
+    (hε : 0 < ε) (hM : (1 / 8) * Real.log (Real.log X) ≤ mrtM f X) :
+    (1 / 8 - 1 / (4 * Real.pi) - ε) * Real.log (Real.log X)
+      ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X := by
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have hL1 : (1 : ℝ) ≤ Real.log X := by
+    rw [Real.le_log_iff_exp_le hXpos]; exact hXe
+  have hLL : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
+  have htarget := mrtA4ii_high_M_target f Pseq Qseq 𝒥 X t ε hf hXe htX hε hM
+  have hconst := vk34_constant_lt_mrt
+  nlinarith [htarget, hconst, hLL]
+
 end Salt.MR
 

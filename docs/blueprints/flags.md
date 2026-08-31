@@ -24343,3 +24343,11 @@ the printed `1/(32e)` was `≤ 1`, so the identical proof runs at `1/16`) ·
 `desmooth_under_grade16` (`caseAS`'s third summand already decays faster than grade `1/16`).
 Together: "the corpus supplies A.6's grade summand at `1/16`" is now a kernel shelf, not a fold
 claim. Registry rows in the same commit.
+
+### ✅ 08-31 11:0x — E34-V1 LANDED: A.4(ii)'s high-M arm at the θ=3/4 constant
+Node V1 of the helm's E34 ladder-repair commission (2026-08-31, in the private record).
+`mrtA4ii_high_M_target34` (`MRTPropA3.lean`, beside the θ=3/4 shelf), `✓ [3 axioms]`, one
+attempt, `saltbuild EXIT=0` (9344 jobs). A-fortiori from `mrtA4ii_high_M_target` via
+`vk34_constant_lt_mrt` + `loglog X ≥ 0`. Theorem only, no new def. ⚠️ Its green carries ZERO
+information about the ε-ceiling — nothing in it binds ε (fold marker-4 caveat, kept in the
+docstring). Registry row in the same commit.
