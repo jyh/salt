@@ -3915,8 +3915,11 @@ def MRTLargeRangeEquidistribution : Prop :=
   `0.0605634…` target; MRT's own remark).
 * **MID RANGE** — `MRTShortSegmentSplitting`, **OPEN**, discharges via
   `mrtA4ii_far_of_named_splitting`.
-* **LARGE RANGE** — `MRTLargeRangeEquidistribution`, **OPEN**; its heavy half (VK) is landed
-  and hypothesis-free, its light half (Erdős–Turán) is absent.
+* **LARGE RANGE** — the frozen `MRTLargeRangeEquidistribution` is **REFUTED**
+  (`not_mrtLargeRangeEquidistribution`: `Y` is free and a small `Y` overdraws Mertens); the
+  live target is its Y-floor sibling `MRTLargeRangeEquidistributionFixed` (below), **OPEN**.
+  Its heavy half (VK) is landed and hypothesis-free, its light half (Erdős–Turán) is absent.
+  *(Bullet corrected in the A4F wave — it previously called the refuted statement OPEN.)*
 
 This theorem is the trivial disjunction-elimination shape: **either open Prop, plus `t₁`'s
 minimality, yields the far-arm bound** — recorded so the two obligations are visibly
@@ -4072,8 +4075,11 @@ def MRTParsevalConstantMatch (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Pro
 
 ⇒ **this is the campaign's remaining debt expressed as a Lean implication rather than a
 paragraph**: whoever discharges the constant match at the empty sieve has the primary.  The
-mid- and large-range obligations (`MRTShortSegmentSplitting`, `MRTLargeRangeEquidistribution`)
-sit beneath A.3 and feed A.4(ii), which is what supplies A.3's own hypothesis.
+mid- and large-range obligations (`MRTShortSegmentSplitting`, and the Y-floor sibling
+`MRTLargeRangeEquidistributionFixed` — the frozen `MRTLargeRangeEquidistribution` is refuted,
+`not_mrtLargeRangeEquidistribution`) sit beneath A.3 and feed A.4(ii), which is what supplies
+A.3's own hypothesis.  *(Parenthetical corrected in the A4F wave — it previously named the
+refuted frozen statement as the open obligation.)*
 
 ⛔ **NOTHING HERE PROVES ANY OF IT.**  The implication is real and the antecedent is open;
 naming it is what lets a design session price the road instead of re-deriving it. -/
@@ -4716,6 +4722,33 @@ theorem not_mrtLargeRangeEquidistribution : ¬ MRTLargeRangeEquidistribution := 
   have hlb : (1 - 2 / 3.14) * (101 * L) ≤ (1 - 2 / Real.pi) * (101 * L) :=
     mul_le_mul_of_nonneg_right (by linarith) h101L
   linarith [hcall, hsum1, hSP, hlb, hLB, hL100]
+
+/-- ⭐ **THE Y-FLOOR SIBLING — the large-range statement, REPAIRED (A4F wave, S1).**
+
+The frozen `MRTLargeRangeEquidistribution` (above) is FALSE as stated — `Y` is free, and
+`not_mrtLargeRangeEquidistribution` puts the witness in the kernel.  This sibling is the
+frozen statement PLUS the one floor hypothesis `(log X)^{2/3} ≤ log Y`, conclusion unchanged —
+the same repair shape as the house precedent (`MRTLemmaA7` kept, `not_mrtLemmaA7Statement`
+beside, `MRTLemmaA7Fixed` added).  The floor is Y-parametric rather than pinned on purpose:
+the sibling `MRTShortSegmentSplitting`'s pin `Y = exp((log X)^{2/3+ε})` satisfies it for every
+`ε > 0`, while a pin here would be θ=2/3-only and double the statement surface (the pin option
+was struck in writing at the commissioning fold).
+
+Load-bearing by construction: with the statement's own `exp 1 ≤ X`, the floor already supplies
+`exp 1 ≤ Y` — `1 ≤ log X` gives `1 ≤ (log X)^{2/3} ≤ log Y` — which is the Euler-bridge side
+condition, so no consumer needs a separate largeness hypothesis on `Y`.
+
+⛔ **A STATEMENT, NOT A THEOREM.  NOTHING HERE PROVES IT** — the statement act is the helm's,
+transcribed verbatim (iron rule 1); the consumer `mrtA4ii_far_of_either_estimate` is already
+`Y`-parametric and needs no change. -/
+def MRTLargeRangeEquidistributionFixed : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u : ℝ), Real.exp 1 ≤ X → |u| ≤ 2 * X →
+    (Real.log X) ^ (20 : ℕ) < |u| →
+    (Real.log X) ^ ((2 : ℝ) / 3) ≤ Real.log Y →
+      (1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y) - C
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+              (fun p : ℕ => Y < (p : ℝ)),
+            (1 - |Real.cos (u * Real.log p / 2)|) / (p : ℝ)
 
 end Salt.MR
 
