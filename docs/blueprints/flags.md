@@ -24408,3 +24408,32 @@ of the high-M disjunct), not a chain input. Supersession disclosed in place; the
 prose site at the section header carries a stamp with its original bytes kept verbatim.
 `saltbuild EXIT=0` on the touched module; `blueprint_lint: OK`; no new warnings (the build
 log's warning lines are all pre-existing sites in upstream deps).
+
+### ⛔ 08-31 15:1x — A4F-1 STOPPED UNDER ITS OWN RULE 4: the segment mechanism cannot close at O(1)
+Node A4F-1 of the helm's A4F far-branch commission (2026-08-31, in the private record) — the
+mid-range splitting estimate. ZERO proof attempts spent, by the commission's own stop rule:
+the commissioned mechanism (per-segment Mertens + Riemann-sum sweep) pays an Abel-summation
+error of at least TV(|cos|)·sup|Mertens error| = (u·(log X − log Y)/π)·(12/log Y), which at
+θ=2/3 is ≳ (log X)^{19/48} at the BOTTOM of the commissioned u-range and (log X)^{20.33} at
+the top — polynomially divergent at every u, with the corpus's landed Mertens
+(`mertens_second_sharp_real`, error 12/log t). Below Mertens resolution no landed instrument
+constrains the phase distribution of primes; the missing input is PNT/zero-free-region
+strength, held unconditionally by NEITHER the corpus (`PiAsymp` is hypothesis-only) NOR the
+mathlib pin (measured). A corpus-internal harmonic route through the landed zeta massif
+(`euler_osc_bridge_unconditional` + `one_line_pow_growth` + `zeta_lower_shallow` +
+`zeta_neg_re_logDeriv_le`) plausibly closes the mid-range Prop sharp — design-tier, sent to
+the helm for a refuter pass in the wave report (private record). A4F-2 not built: its first
+half consumes A4F-1; its second half's named hypothesis is refuted (next row).
+
+### ⛔ 08-31 15:1x — MRTLargeRangeEquidistribution IS FALSE AS STATED — kernel witness landed
+`not_mrtLargeRangeEquidistribution` (MRTPropA3.lean, beside the frozen statement, its bytes
+untouched; `✓ [3 axioms]`, first attempt, `saltbuild EXIT=0` on Salt.MR.All, 9344 jobs).
+The Prop binds `∀ Y` with no constraint while its demand `(1−2/π)·log(log X/log Y)` grows as
+`log Y → 0⁺`: at `Y = exp((log X)^{−100})`, `u = 2X` the demand is ≈ 36.7·loglog X against a
+sum Mertens caps at loglog X + O(1). The sibling `MRTShortSegmentSplitting` pins
+`Y = exp((log X)^{2/3+ε})` and is NOT affected; the source's transfer sentence (p. 23) moves
+display (A.5) at ITS Y, and the pin was dropped when the large branch was named (the 08/27
+wave). Statement repair (re-pin Y) is a helm/Fable statement act per iron rule 1 — proposed
+in the wave report, NOT taken here. Found by A4F-2 due diligence: that node was commissioned
+to carry this Prop as its named far-arm hypothesis, and a false hypothesis makes every
+consumer vacuously true.

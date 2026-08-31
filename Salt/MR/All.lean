@@ -8555,6 +8555,7 @@ open Salt.Tactic in
   Salt.MR.MRTShortSegmentSplitting
   Salt.MR.mrtA4ii_far_of_named_splitting
   Salt.MR.MRTLargeRangeEquidistribution
+  Salt.MR.not_mrtLargeRangeEquidistribution
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty

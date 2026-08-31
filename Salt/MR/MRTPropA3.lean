@@ -4579,5 +4579,143 @@ theorem mrtThmA1Statement_of_constantMatch_34 (Pseq Qseq : ℕ → ℕ)
   obtain ⟨C, hCpos, hA2⟩ := h
   exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty_34 C Pseq Qseq hA2⟩
 
+/-! ## ⛔ THE LARGE-RANGE STATEMENT IS REFUTED — `Y` IS FREE, AND A SMALL `Y` OVERDRAWS MERTENS
+
+`MRTLargeRangeEquidistribution` (above, byte-frozen) quantifies over ALL real `Y` with no
+constraint, while its demand `(1 − 2/π)·log(log X/log Y)` GROWS as `log Y → 0⁺`.  At
+`Y = exp((log X)^{−100})` the demand is `(1 − 2/π)·101·loglog X ≈ 36.7·loglog X`, against a
+sum that Mertens caps at `loglog X + O(1)` — the statement is FALSE, and the witness below
+puts that in the kernel.
+
+The sibling `MRTShortSegmentSplitting` PINS `Y = exp((log X)^{2/3+ε})` and does not have this
+defect.  The source's own sentence (p.23, *"Consequently (A.5) holds also in this case"*)
+transfers display (A.5) AT ITS `Y` — the transcription here dropped the pin when the large
+branch was given its own name.  The repair is a statement act at the frozen layer
+(helm/Fable tier, iron rule 1): re-state with the same `Y`-pin as the sibling.  Recorded in
+`docs/blueprints/flags.md` (the A4F wave); NOT taken here.
+
+Found by A4F-2 due diligence: that node was commissioned to carry this Prop as its named
+far-arm hypothesis, and a false hypothesis makes every consumer vacuously true. -/
+theorem not_mrtLargeRangeEquidistribution : ¬ MRTLargeRangeEquidistribution := by
+  rintro ⟨C, hC0, h⟩
+  -- the witness scale: `loglog X = L`, `log X = T = exp L`, `X = exp T`
+  set L : ℝ := max ((C + Salt.Mertens.mertensM + 12) / 35 + 1) 100 with hLdef
+  have hL100 : (100 : ℝ) ≤ L := le_max_right _ _
+  have hLB : (C + Salt.Mertens.mertensM + 12) / 35 + 1 ≤ L := le_max_left _ _
+  set T : ℝ := Real.exp L with hTdef
+  set X : ℝ := Real.exp T with hXdef
+  have hTpos : 0 < T := Real.exp_pos L
+  have hlogT : Real.log T = L := by rw [hTdef, Real.log_exp]
+  have hlogX : Real.log X = T := by rw [hXdef, Real.log_exp]
+  have hT1 : (1 : ℝ) ≤ T := by
+    rw [hTdef]
+    calc (1 : ℝ) ≤ 1 + 100 := by norm_num
+      _ ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
+      _ ≤ Real.exp L := Real.exp_le_exp.mpr hL100
+  have hXpos : 0 < X := by rw [hXdef]; exact Real.exp_pos T
+  -- `T = exp L ≥ exp 100 ≥ 2^100 ≥ 640000`
+  have hT640k : (640000 : ℝ) ≤ T := by
+    have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+    have hpow : (2 : ℝ) ^ (100 : ℕ) ≤ (Real.exp 1) ^ (100 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h2e 100
+    have hexp100 : Real.exp (100 : ℝ) = (Real.exp 1) ^ (100 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have hstep : (2 : ℝ) ^ (100 : ℕ) ≤ Real.exp (100 : ℝ) := by
+      rw [hexp100]; exact hpow
+    have h640 : (640000 : ℝ) ≤ (2 : ℝ) ^ (100 : ℕ) := by norm_num
+    have hTge : Real.exp (100 : ℝ) ≤ T := by rw [hTdef]; exact Real.exp_le_exp.mpr hL100
+    linarith
+  -- the height gate: `(log X)^20 = T^20 < 2·exp T = 2X`
+  have hT20 : T ^ (20 : ℕ) < 2 * X := by
+    have hT40pos : (0 : ℝ) < T ^ ((1 : ℝ) / 40) := Real.rpow_pos_of_pos hTpos _
+    have hlog40 : Real.log T ≤ 40 * T ^ ((1 : ℝ) / 40) := by
+      have h1 : Real.log (T ^ ((1 : ℝ) / 40)) = (1 / 40) * Real.log T :=
+        Real.log_rpow hTpos _
+      have h2 : Real.log (T ^ ((1 : ℝ) / 40)) ≤ T ^ ((1 : ℝ) / 40) - 1 :=
+        Real.log_le_sub_one_of_pos hT40pos
+      linarith
+    have h3940 : T ^ ((1 : ℝ) / 2) ≤ T ^ ((39 : ℝ) / 40) :=
+      Real.rpow_le_rpow_of_exponent_le hT1 (by norm_num)
+    have h800 : (800 : ℝ) ≤ T ^ ((1 : ℝ) / 2) := by
+      rw [← Real.sqrt_eq_rpow]
+      have h6 : (800 : ℝ) = Real.sqrt 640000 := by
+        rw [show (640000 : ℝ) = 800 ^ 2 by norm_num,
+          Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 800)]
+      rw [h6]
+      exact Real.sqrt_le_sqrt hT640k
+    have h20log : 20 * Real.log T ≤ T := by
+      have hchain : (800 : ℝ) * T ^ ((1 : ℝ) / 40) ≤ T := by
+        calc (800 : ℝ) * T ^ ((1 : ℝ) / 40)
+            ≤ T ^ ((39 : ℝ) / 40) * T ^ ((1 : ℝ) / 40) :=
+              mul_le_mul_of_nonneg_right (h800.trans h3940) hT40pos.le
+          _ = T := by rw [← Real.rpow_add hTpos]; norm_num
+      nlinarith [hlog40, hT40pos.le, hchain]
+    have hT20pos : (0 : ℝ) < T ^ (20 : ℕ) := pow_pos hTpos 20
+    have hlogpow : Real.log (T ^ (20 : ℕ)) = 20 * Real.log T := by
+      rw [Real.log_pow]; push_cast; ring
+    have hle : T ^ (20 : ℕ) ≤ Real.exp T := by
+      rw [← Real.exp_log hT20pos, hlogpow]
+      exact Real.exp_le_exp.mpr h20log
+    rw [hXdef]
+    linarith [Real.exp_pos T, hle]
+  -- the witness `Y`: `log Y = T^{−100} > 0`, and the demand's ratio is `T^{101}`
+  set Y : ℝ := Real.exp (T ^ (-(100 : ℝ))) with hYdef
+  have hlogY : Real.log Y = T ^ (-(100 : ℝ)) := by rw [hYdef, Real.log_exp]
+  have hratio : Real.log (Real.log X / Real.log Y) = 101 * L := by
+    rw [hlogX, hlogY, Real.rpow_neg hTpos.le, div_inv_eq_mul]
+    have hmul : T * T ^ ((100 : ℝ)) = T ^ ((101 : ℝ)) := by
+      nth_rewrite 1 [← Real.rpow_one T]
+      rw [← Real.rpow_add hTpos]; norm_num
+    rw [hmul, Real.log_rpow hTpos, hlogT]
+  -- instantiate the refuted statement at the witness
+  have hXe : Real.exp 1 ≤ X := by rw [hXdef]; exact Real.exp_le_exp.mpr hT1
+  have h2Xpos : (0 : ℝ) < 2 * X := by linarith
+  have hu2X : |2 * X| ≤ 2 * X := by rw [abs_of_pos h2Xpos]
+  have hu20 : (Real.log X) ^ (20 : ℕ) < |2 * X| := by
+    rw [abs_of_pos h2Xpos, hlogX]; exact hT20
+  have hcall := h X Y (2 * X) hXe hu2X hu20
+  rw [hratio] at hcall
+  -- the sum is Mertens-capped: `≤ SPartial X ≤ L + mertensM + 12`
+  have hsum1 : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+        (fun p : ℕ => Y < (p : ℝ)),
+        (1 - |Real.cos ((2 * X) * Real.log p / 2)|) / (p : ℝ))
+      ≤ Salt.Mertens.SPartial X := by
+    have hstep : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+          (fun p : ℕ => Y < (p : ℝ)),
+          (1 - |Real.cos ((2 * X) * Real.log p / 2)|) / (p : ℝ))
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+          (fun p : ℕ => Y < (p : ℝ)), (1 : ℝ) / (p : ℝ) := by
+      refine Finset.sum_le_sum fun p hp => ?_
+      have hprime : Nat.Prime p :=
+        (Finset.mem_filter.mp (Finset.mem_filter.mp hp).1).2
+      have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hprime.pos
+      have hsub := sub_div (1 : ℝ) (|Real.cos ((2 * X) * Real.log p / 2)|) ((p : ℝ))
+      have hnn : (0 : ℝ) ≤ |Real.cos ((2 * X) * Real.log p / 2)| / (p : ℝ) :=
+        div_nonneg (abs_nonneg _) hppos.le
+      linarith [hsub, hnn]
+    refine hstep.trans ?_
+    unfold Salt.Mertens.SPartial
+    exact Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+      (fun p _ _ => by positivity)
+  have hx2 : (2 : ℝ) ≤ X := by
+    have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+    linarith
+  have hmert := (abs_le.mp (Salt.Mertens.mertens_second_sharp_real hx2)).2
+  rw [hlogX, hlogT] at hmert
+  have h12T : 12 / T ≤ 12 := by
+    rw [div_le_iff₀ hTpos]; nlinarith [hT1]
+  have hSP : Salt.Mertens.SPartial X ≤ L + Salt.Mertens.mertensM + 12 := by
+    linarith [hmert, h12T]
+  -- the arithmetic close: `36.6·L − C ≤ L + M + 12` forces `L < 0`, against `L ≥ 100`
+  have hpi : (3.14 : ℝ) < Real.pi := Real.pi_gt_d2
+  have hpipos : (0 : ℝ) < Real.pi := by linarith
+  have h2pi : (2 : ℝ) / Real.pi ≤ 2 / 3.14 := by
+    rw [div_le_div_iff₀ hpipos (by norm_num)]
+    nlinarith [hpi]
+  have h101L : (0 : ℝ) ≤ 101 * L := by linarith
+  have hlb : (1 - 2 / 3.14) * (101 * L) ≤ (1 - 2 / Real.pi) * (101 * L) :=
+    mul_le_mul_of_nonneg_right (by linarith) h101L
+  linarith [hcall, hsum1, hSP, hlb, hLB, hL100]
+
 end Salt.MR
 
