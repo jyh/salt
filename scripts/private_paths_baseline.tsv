@@ -2,6 +2,10 @@
 # file<TAB>line-sha16<TAB>what. Shrink it after a repair with --tree --write-baseline; a growth is a reviewed diff.
 docs/QUEUE.md	3953079dbac0d60e	a path into a private-record repo
 docs/QUEUE.md	8cf038855c616f6b	a path into a private-record repo
+docs/QUEUE.md	16aed3d1819d3b84	a rootless path into the private record (briefs-/fleet-shape)
+docs/QUEUE.md	ecb801c2508e79a4	a rootless path into the private record (briefs-/fleet-shape)
+docs/QUEUE.md	ef985c6f8bb56171	a rootless path into the private record (briefs-/fleet-shape)
+docs/QUEUE.md	3a2371e74006d9b9	a rootless path into the private record (briefs-/fleet-shape)
 docs/blueprints/arc.md	429bb871b876cbe4	a path into a private-record repo
 docs/exploration/council-0727.md	3839fd901700bf28	a path into a private-record repo
 docs/exploration/pilot.md	d5633eb8b70ce8a1	a path into a private-record repo
