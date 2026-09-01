@@ -28,7 +28,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
-## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, eight nodes, eighteen names, all `[3 axioms]`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`); **twenty-nine names in all, all `[3 axioms]`.** ⛔ **WHAT REMAINS OPEN IS `M4BlockMeanSqSupQH h` — the PER-CLASS SUP BOUND at moduli up to `h·arcDen 12 H`**, i.e. the seven producers' own analytic content, on which this wave is silent. See the row body. | helm→math | — |
+## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ⛔ **WHAT REMAINS OPEN IS `M4BlockMeanSqSupQH h` — the PER-CLASS SUP BOUND at moduli up to `h·arcDen 12 H`**, i.e. the seven producers' own analytic content, on which this wave is silent. See the row body. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
@@ -4873,8 +4873,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    📌 **RECOMMENDED NEXT (helm's to rule):** commission the wave at `h = 2` at EXECUTOR tier, first
    node the h-family of `log_le_of_le_arcDen` — one lemma, from which all five rows follow.
    ✅✅⭐⭐ **THE PRODUCER WAVE IS COMMISSIONED AND EXECUTED AT `h = 2` — 2026-08-31 evening
-   (math, helm routing 17:39:57 under the Captain's 17:4x standing law). EIGHT NODES, EIGHTEEN
-   NEW NAMES, ALL `[3 axioms]`, ONE ATTEMPT EACH, on branch `math/7b-hdoor-h2` off main.**
+   (math, helm routing 17:39:57 under the Captain's 17:4x standing law). TWENTY-ONE NAMES ON THE CO-FACTOR SIDE, ALL `[3 axioms]`, ONE ATTEMPT EACH, on branch `math/7b-hdoor-h2` off main.**
    New module `Salt/MR/HDoorSupply.lean`, rooted from `Salt/MR/All.lean`. The co-factor supply
    now exists at the `h`-INFLATED arc allowance `h·arcDen 12 H`, all the way from the single
    substitution to the rated socket.
@@ -4917,7 +4916,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    supply it. The seven producers' own ESTIMATES are untouched — this wave is silent on them, as
    the measurement always said. **Nothing here bears on twin primes.**
    ✅✅⭐⭐⭐ **AND THE DOOR SIDE WENT ALL THE WAY DOWN — SAME BRANCH, SAME NIGHT. `M4SievedDoorSqH`
-   HAS A PRODUCER.** Eleven more names (`HDoorSupply` §9): the free-cap Abel drift
+   HAS A PRODUCER.** Thirteen more names (`HDoorSupply` §9): the free-cap Abel drift
    (`abs_mul_window_le_of_cap`, `norm_phase_sum_cap_drift`, `norm_absWindowSum_le_drift_cap`) ·
    `M4SievedDoorSqSupH` + `m4_sievedDoorSqH_of_supH` (+ its `q`-free reading) ·
    `M4BlockMeanSqSupQH` + `m4_cover_assembly_supQH` · **`m4_sievedDoorSqH_of_blockQH`, the exit**
@@ -4943,7 +4942,9 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    THEM** (`m4_sievedDoorSqSupH_trivial`, `m4_blockMeanSqSupQH_trivial`) — the duty N4s minted,
    applied to N4s's own successors. At the trivial grade `M4GradeGate` fails, and **that failure
    is the analytic gap, not vacuity.**
-   📌 **TOTALS: `Salt/MR/HDoorSupply.lean`, ten nodes, twenty-nine names, every one `[3 axioms]`,
+   📌 **TOTALS (machine-counted at the file, not tallied by hand — my 17:5x bus figure of "29 names"
+   was a HAND count and was WRONG): `Salt/MR/HDoorSupply.lean`, ELEVEN nodes, **34 public names**
+   plus one `private` helper, every one of the 34 audited `[3 axioms]` in a SINGLE enumerating pass,
    one attempt each; `saltbuild EXIT=0` on `Salt.MR.All` (9345 jobs); `blueprint_lint: OK`;
    `check_private_paths --tree` OK, 0 NEW residue. Branch `math/7b-hdoor-h2`, PR #10.**
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
