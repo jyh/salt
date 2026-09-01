@@ -517,9 +517,18 @@ CARRIED, not waved: `hh7` appears in the statement. -/
 /-- **THE LINEAR SOCKET AT THE INFLATED CAP** (`SocketBaseLH`) — `ArithPageLinear.SocketBaseL`
 with **BOTH** occurrences of the arc denominator inflated to `h · arcDen 12 H`.
 
-⛔ Neither `SocketBaseLH h → SocketBaseL` nor its converse holds for `h ≥ 2`, and that is not a
-defect: the two conjuncts move opposite ways, so the inflated socket is neither stronger nor
-weaker than the landed one.  It is a DIFFERENT socket, and every consumer is re-derived. -/
+⭐ **THE INFLATED SOCKET IS STRICTLY WEAKER** (`socketBaseLH_of_socketBaseL`): BOTH inflated
+conjuncts are relaxations — a wider modulus range in the fifth, a larger right-hand side in the
+eleventh — so `SocketBaseL → SocketBaseLH h` for every `h ≥ 1`, and the converse fails at
+`h ≥ 2`.  ⛔ **"Opposite ways" is a statement about the PROOF, not about the implication**: one
+site makes the GOAL harder (more moduli must be served) and the other makes an INPUT weaker
+(`cofkL_logX_floor` divides by the cap).  Both are costs, and a port that moved only one would
+be pricing a different object — but neither reverses the implication.
+
+⛔ **AND THIS IS NOT A SHORTCUT TO THE DOOR SOCKET.**  What runs backwards is at the `α`-set,
+not here: `NearRatTight (h·arcDen 12 H) H α` admits STRICTLY MORE `α` than the landed cap does
+(`HDoorArc.lean:423-429`), so `M4SievedDoorSqH` is a STRONGER Prop than `M4SievedDoorSq` and
+`nearRatTight_mono` cannot supply it.  The two facts point opposite ways and both are true. -/
 def SocketBaseLH (h : ℕ) (R : ChowlaRegime) (M H L q j A s : ℕ) : Prop :=
   R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ L ≤ H ∧ 0 < q ∧ (q : ℝ) ≤ (h : ℝ) * arcDen 12 H ∧
     j ≤ Nat.log 2 L ∧ doorRowFloorL M ≤ j ∧ 0 < A ∧ 2 ^ j ≤ A ∧ Real.sqrt (H : ℝ) ≤ (A : ℝ) ∧
@@ -534,6 +543,22 @@ theorem socketBaseLH_one_iff {R : ChowlaRegime} {M H L q j A s : ℕ} :
     SocketBaseLH 1 R M H L q j A s ↔ SocketBaseL R M H L q j A s := by
   unfold SocketBaseLH SocketBaseL
   norm_num
+
+/-- ⭐ **EVERY LANDED SOCKET IS AN INFLATED SOCKET** (`socketBaseLH_of_socketBaseL`) — the
+direction that DOES hold, stated because the docstring above would otherwise be an unchecked
+claim about it.  Both inflated conjuncts are relaxations, so the implication is one `nlinarith`
+per site; the converse is false at `h ≥ 2` (a modulus in `(arcDen 12 H, 2·arcDen 12 H]` witnesses
+it) and is deliberately not stated. -/
+theorem socketBaseLH_of_socketBaseL {h : ℕ} {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hh : 0 < h) (hb : SocketBaseL R M H L q j A s) : SocketBaseLH h R M H L q j A s := by
+  obtain ⟨h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13⟩ := hb
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hA : (0 : ℝ) ≤ arcDen 12 H := by rw [arcDen]; positivity
+  have hω : (0 : ℝ) ≤ (R.ω : ℝ) := by positivity
+  have hAn : (0 : ℝ) ≤ (A : ℝ) := by positivity
+  refine ⟨h1, h2, h3, h4, ?_, h6, h7, h8, h9, h10, ?_, h12, h13⟩
+  · nlinarith
+  · nlinarith [mul_nonneg (mul_nonneg (by norm_num : (0:ℝ) ≤ 16) hω) hA]
 
 set_option maxHeartbeats 1000000 in
 /-- **⟦THE `log X` FLOOR AT THE INFLATED SOCKET⟧** (`cofkL_logX_floor_h`) — the `h`-family of
@@ -885,5 +910,136 @@ theorem cofkL_threshold_at_socket_rated_h {R : ChowlaRegime} {h M H L q j A s : 
   have hmargin : 4280 * Real.sqrt LH + 2420 + LH / 4 < μ / 2 + μ / 4 := by
     nlinarith [hprodv, hv, hμ, hv0]
   linarith
+
+/-! ## §8 — the exit at the inflated socket, and where the tight margin goes
+
+⭐⭐ **THE ×1.09 MARGIN NEVER BINDS HERE, AND THE REASON IS NOT AN ESCAPE.**  §4's budget is
+tight because the threshold page is stated at ITS OWN floor `Λ ≥ 1` — the weakest floor in the
+corpus.  The socket carries `hlo : 518 ≤ loglog H₋` **in its own landed binder list**, and
+`H₋ ≤ H`, so at every application site `Λ ≥ 518` and the budget clears by four orders of
+magnitude.
+
+⛔ **THIS IS NOT ESCAPE 2, AND THE DIFFERENCE IS THE WHOLE POINT.**  Escape 2 was *threading the
+socket's `Λ`-floor into the threshold page* — that ADDS A HYPOTHESIS to a page that does not
+have one, and the commission forbids it without a flag.  Here the hypothesis is ALREADY IN THE
+LANDED STATEMENT; discharging `hbud` from it adds nothing and changes no binder.  ⇒ the tight
+margin is a property of the PAGE stated in isolation, not of the program.
+
+The binding constraint at the socket is therefore `hh7 : log h ≤ 7` (`h ≤ 1096`), which comes
+from the `mertensCap` row's absorption in §4 and the `log X` floor's subtraction in §6 — not
+from the `Λ`-budget at all. -/
+
+set_option maxHeartbeats 1000000 in
+/-- **⟦THE RATED SOCKET AT THE INFLATED CAP, `K`-UNIFORM⟧**
+(`cofkL_capFreeFloor_at_socket_rated_uniform_h`) — the `h`-family of
+`V7Rated.cofkL_capFreeFloor_at_socket_rated_uniform`, and the wave's exit.
+
+**Binder-for-binder the landed name, with `SocketBaseL` replaced by `SocketBaseLH h` and the
+two hypotheses `0 < h`, `log h ≤ 7` added on the `h` itself.**  Nothing about the regime, the
+cushion, the `ε`-floor or the `Λ`-floor moves, and the `Kvt` it exports is the same kind of
+object: one symbolic nonnegative real, chosen before `R`, `H` and `q` are bound.
+
+⭐ **THAT LAST FACT IS WHY THE CAP CANNOT REACH THE `Kvt` CUSHION ON THE RATED LANE** — the
+three witnesses are hoisted above every binder the inflation touches, so no instantiation of
+the cap can move them.  It is the structural fact the 08/31 measurement reported, now carried
+by an `h`-family statement rather than read off the landed one. -/
+theorem cofkL_capFreeFloor_at_socket_rated_uniform_h (h : ℕ) (hh : 0 < h)
+    (hh7 : Real.log h ≤ 7) :
+    ∃ Z δ Kvt : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ Kvt ∧
+      ∀ (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
+        SocketBaseLH h R M H L q j A s → 1 ≤ M →
+        (1 : ℝ) / 500 ≤ (R.eps : ℝ) →
+        (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        32 * Kvt + 32 * (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+          ≤ Real.log (R.Hhi : ℝ) / 4 →
+        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) := by
+  obtain ⟨Z, δ, Kvt, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_arcDen_rated_h h hh hh7
+  refine ⟨Z, δ, Kvt, hZ, hδ, hK0, ?_⟩
+  intro K R M H L q j A s χ hb hM hε hlo hcush 𝒥 h𝒥
+  have hq0 : 0 < q := hb.2.2.2.1
+  haveI : NeZero q := ⟨by omega⟩
+  have h1 : R.Hlo ≤ H := hb.1
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have harc : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H := hb.2.2.2.2.1
+  -- ⟦the design floor⟧
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
+  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH4
+  have hlogHe : Real.exp 1 ≤ Real.log (H : ℝ) := by
+    linarith [Real.exp_one_lt_d9]
+  -- ⟦`H₊ ≥ 10^14`⟧
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
+  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
+  have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
+    have h := Real.exp_le_exp.mpr hlo
+    rwa [Real.exp_log (by linarith)] at h
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
+    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
+    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
+    linarith
+  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
+  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
+    Real.log_le_log (by linarith) hHloH
+  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
+    Real.log_le_log (by linarith) hHHhi
+  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
+  have hHhi14 : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ) := by
+    have hlogle : Real.log ((10 : ℝ) ^ 14) ≤ Real.log (R.Hhi : ℝ) := by
+      rw [show ((10 : ℝ) ^ 14) = (10 : ℝ) ^ (14 : ℕ) by norm_num, Real.log_pow]
+      push_cast
+      linarith [cofk_log_ten_le, hLH8]
+    have h2' := Real.exp_le_exp.mpr hlogle
+    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
+  -- ⟦THE BUDGET, DISCHARGED FROM THE SOCKET'S OWN `Λ`-FLOOR — no binder added⟧
+  have hΛ518 : (518 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by
+    have hmono : Real.log (Real.log (R.Hlo : ℝ)) ≤ Real.log (Real.log (H : ℝ)) :=
+      Real.log_le_log (by linarith) hlogmono
+    linarith
+  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) :=
+    Real.log_nonneg (by linarith)
+  have hbud : 156 * Real.log h + 8 * Real.log 2
+      ≤ 28 * Real.log (Real.log (H : ℝ))
+        + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84 := by
+    have h2lt := Real.log_two_lt_d9
+    linarith
+  -- ⟦the scale gate, the debit page, the threshold — all at the INFLATED socket⟧
+  have hXee : Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) :=
+    cofkL_X_ge_expexp_h hh hh7 hb hε hHhi14 hH4
+  have hgate : 32 * diskConst q / goldenL1 q ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    cofkL_scale_gate_at_socket_h hh hh7 hb hε hlo harc
+  have hMpos : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+  have hM1 : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
+  have hD0 : (0 : ℝ) ≤ 2 * Real.log (M : ℝ) + Real.log 4 + 50 := by
+    have h1' : (0 : ℝ) ≤ Real.log (M : ℝ) := Real.log_nonneg hM1
+    have h2' : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+    linarith
+  have hdebit := cofkL_debit_bound K M (((A + s : ℕ)) : ℝ) hM 𝒥 h𝒥
+  have hthr := cofkL_threshold_at_socket_rated_h (Kvt := Kvt)
+    (D := 2 * Real.log (M : ℝ) + Real.log 4 + 50) hh hh7 hb hε hlo hcush
+  exact hK q H χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 𝒥
+    (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+    hlogHe harc hbud hXee hD0 hgate hdebit hthr
+
+/-- ⭐ **THE EXIT AT `h = 2`** (`cofkL_capFreeFloor_at_socket_rated_uniform_two`) — the
+commissioned lane, with the two `h`-hypotheses discharged by `norm_num`-level arithmetic. -/
+theorem cofkL_capFreeFloor_at_socket_rated_uniform_two :
+    ∃ Z δ Kvt : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ Kvt ∧
+      ∀ (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
+        SocketBaseLH 2 R M H L q j A s → 1 ≤ M →
+        (1 : ℝ) / 500 ≤ (R.eps : ℝ) →
+        (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        32 * Kvt + 32 * (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+          ≤ Real.log (R.Hhi : ℝ) / 4 →
+        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) := by
+  refine cofkL_capFreeFloor_at_socket_rated_uniform_h 2 (by norm_num) ?_
+  have hcast : (((2 : ℕ) : ℝ)) = (2 : ℝ) := by norm_num
+  rw [hcast]
+  linarith [Real.log_two_lt_d9]
 
 end Salt.MR
