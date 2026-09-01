@@ -4947,6 +4947,36 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    plus one `private` helper, every one of the 34 audited `[3 axioms]` in a SINGLE enumerating pass,
    one attempt each; `saltbuild EXIT=0` on `Salt.MR.All` (9345 jobs); `blueprint_lint: OK`;
    `check_private_paths --tree` OK, 0 NEW residue. Branch `math/7b-hdoor-h2`, PR #10.**
+   ⛔⭐ **THE DOOR-SLOT MEASUREMENT, AND A CORRECTION TO THE FIVE-ARM COUNT ABOVE — 2026-08-31
+   night (math, on the helm's poke). Report `2026-08-31-math-REPORT-7b-door-slot-measurement.md`.**
+   ✅ **The class-price → χ-average chain is CAP-FREE, SIX FOR SIX** (`arcDen` count 0 in every
+   signature): `classSup` (`M4WaveClosed:141`) · `classSup_le_inv_totient_sum_doorChiSup_L`
+   (`M4RowLinear:3288`) · `le_doorChiSup_L` (`:2438`) · `doorChiSup_sq_le_dyadic_L` (`:1905`) ·
+   `sum_windowClass_memSCoeff` (`M4ClassPrice:202`) · `norm_sum_residueClassOn_liou_le`
+   (`M4BridgeResidue:367`). ⇒ **the remaining slot reduces to the χ side by machinery that never
+   reads the cap — and the χ side is what §1–§8 of the wave ported.**
+   ⛔⛔ **BUT THE "FIVE ARMS" ABOVE IS AN INCOMPLETE ENUMERATION AND THIS IS THE CORRECTION.**
+   `m4_nonCoprime_classMeanSq` (`M4NonCoprime.lean:384-390`) carries a SIXTH cap-reading side
+   condition, `harc : ∀ H ∈ [H₋,H₊], 2·arcDen 12 H ≤ (H:ℝ)`. Inflated: `log 2 + log h + 12Λ ≤
+   log H` — cost exactly `log h`, budget `log H − 12Λ − log 2`, and at the socket's own floor
+   (`loglog H₋ ≥ 518`) free by a margin with no useful finite name. **The verdict does not move;
+   the COUNT does.** (Its sibling `hgate` is the `P₁` gate restated, i.e. arm 1.)
+   ⇒ ***THE FIVE ARMS WERE THE ARMS OF THE LANE I WALKED*** — all five sit on the co-factor lane
+   or its gates; the non-coprime DILATION branch has its own cap gate, in a file the measurement
+   never opened. The honest sentence was *"five arms on this lane"*.
+   ⭐ **AND A SECOND NODE THAT NEEDED NO PORT:** `M4NonCoprime.classSup_le_dilate` (`:304-307`) is
+   stated with a FREE `W` under `q ≤ W`, `W < P₁`, so `W := h·arcDen 12 H` instantiates VERBATIM
+   — its docstring says why (*"no arc datum, hence no enlarged cap"*). With
+   `qgraded_drift_price_le` that is two. ⇒ ***A FREE BOUND IN A STATEMENT IS A PORT THAT ALREADY
+   HAPPENED*** — the dual of the three drift lemmas whose LITERAL `arcDen B₅ H` made a `sed` look
+   like a wall. **One law, two signs: a census of HYPOTHESES mis-prices in BOTH directions.**
+   📐 **SCALE OF A FULL CHAIN PORT:** the exact spelling `(q : ℝ) ≤ arcDen 12 H` appears at **371
+   sites across 39 files** under `Salt/MR/` (machine-counted, wave module excluded; a positive
+   count, not an absence claim). ⛔ **That number is the WRONG PRICE on its own** — almost all are
+   THREADS; on the co-factor lane all five consumers factored through ONE lemma. ⇒ ***THE PORT IS
+   WIDE, NOT DEEP***, and a hypothesis-site census prices only the wide part.
+   ⛔ **The measurement does NOT price the ESTIMATE** — what value of `B H` the seven producers
+   deliver is untouched, exactly as the cap measurement was untouched by it.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
