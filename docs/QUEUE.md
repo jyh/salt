@@ -4981,6 +4981,29 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ✅ Both new sockets carry an anti-vacuity witness in the same commit
    (`m4_classBlockMeanSqH_trivial`, `m4_chiBlockMeanSqH_trivial`); the χ one matters most,
    because `M4ChiBlockMeanSqH` is what the close LEAVES open.
+   ⭐⭐⛔ **THE χ-UNIFORMITY CENSUS — the question the closure call turns on, MEASURED (same
+   night, addendum to the door-slot report).**
+   ✅ **THE CAP IS READ NOWHERE BETWEEN THE DOOR AND THE CAPSTONE.** `m4_classMeanSq_of_chiMeanSq`
+   THREAD · `m4_blockMeanSqSupQ_of_classMeanSq` THREAD · `m4_chiBlock_fixed_of_chiRow`
+   (`M4WaveClosed:748`) THREAD — `hqQ` goes straight to `hrow` · `M4ChiRowMeanSq` (⟦R3⟧, the
+   bottom) has `q` in the QUANTIFIER only, its bound `MS H` is `q`-FREE · **`thm_a2'_of_rows`
+   (`ThmA2.lean:513`) has NO `q` AT ALL** (a bare `a : ℕ → ℂ`) · `thm_a2'_of_rows_chiSummed`
+   takes `{q} [NeZero q]` with no cap, and **`arcDen` count in `ThmA2ChiSummed.lean`: 0**.
+   ✅ **AND `M4ChiRowMeanSq` HAS NO PRODUCER — three searches, since it is an absence claim:**
+   the only conclusion-position hit is a hypothesis binder (`M4WaveClosed:855`); a multi-line
+   scan for any declaration concluding in it returns **0**.
+   ⛔⛔ **SO THE ROW STAYS UNSTAMPED, AND THE CENSUS DOES NOT CHANGE THAT.** `M4ChiRowMeanSqH h`
+   quantifies over strictly more `q`, so it is a **strictly stronger hypothesis** — *"a real
+   demand, not derivable"* stands. What the census adds is WHAT KIND of demand: it introduces
+   **no new kind of obligation**, meets **no cap anywhere in the corpus** (there is none to
+   meet), and lands on a hypothesis **entirely unbuilt at `h = 1` too**.
+   ⇒ ***THE `h`-INFLATION ADDS NO OBSTRUCTION THE DOOR DID NOT ALREADY HAVE; IT WIDENS A
+   QUANTIFIER ON A HYPOTHESIS NOBODY HAS DISCHARGED.*** Whether an eventual supplier is
+   `q`-uniform is a question about work not yet done — not about the corpus.
+   ⚠️ **THE FLATTERING READING IS AVAILABLE HERE AND IT IS FALSE:** *"no cap anywhere, so h = 2
+   is free"*. A wider quantifier on an unsupplied hypothesis is still a stronger hypothesis.
+   The census made me more right than the receipt I had posted twenty minutes earlier, which is
+   exactly when a finding needs the most checking, and it is declined out loud.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
