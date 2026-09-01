@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.BandRatedAssembly
+import Salt.MR.BandRatedSocket
 
 /-!
 # QUEUE 7b — the co-factor supply at the `h`-INFLATED arc cap (`HDoorSupply`)
@@ -54,6 +55,7 @@ namespace Salt.MR
 open scoped BigOperators
 
 open Salt.SW
+open Salt.Entropy.Chowla
 
 /-! ## §1 — the base substitution: ONE lemma, from which the five rows follow -/
 
@@ -491,5 +493,216 @@ theorem capFreeFloor3_pieceDatum_arcDen_rated_two :
   exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
     (pieceFloor_vt_threshold_of_loglog_rated_two hZ hδ hH harc
       (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
+
+/-! ## §6 — THE SOCKET, WITH BOTH CAP SITES MOVED TOGETHER
+
+⛔⛔ **THIS IS THE TRAP THE MEASUREMENT LEFT BEHIND, AND IT IS THE REASON THIS SECTION EXISTS.**
+`ArithPageLinear.SocketBaseL` mentions `arcDen 12 H` TWICE, and the two occurrences move in
+OPPOSITE DIRECTIONS under inflation:
+
+* the **fifth** conjunct `(q : ℝ) ≤ arcDen 12 H` — inflating it **STRENGTHENS** the demand
+  (a wider range of moduli must be served), and it is what §1–§5 above pay for;
+* the **eleventh** conjunct `(R.x : ℝ) ≤ 16·ω·arcDen 12 H·A` — inflating it **WEAKENS** the
+  hypothesis, and `RegisterSupply.cofkL_logX_floor` **DIVIDES** by it
+  (`A ≥ 4^{2E}/(2·arcDen 12 H)`), so the inflation is a SUBTRACTION of `log h` from a floor
+  that is LINEAR in `H₊`.
+
+⇒ **A port that inflated only one of the two would be measuring a different object.**
+`SocketBaseLH` moves both, and every lemma below is the landed one re-run against it.
+
+The eleventh site is free by an enormous margin — the floor spends `H₊/90200` and is asked for
+`H₊/10⁶`, so at `H₊ ≥ 10¹⁴` a subtraction of `log h ≤ 7` is invisible.  It is nonetheless
+CARRIED, not waved: `hh7` appears in the statement. -/
+
+/-- **THE LINEAR SOCKET AT THE INFLATED CAP** (`SocketBaseLH`) — `ArithPageLinear.SocketBaseL`
+with **BOTH** occurrences of the arc denominator inflated to `h · arcDen 12 H`.
+
+⛔ Neither `SocketBaseLH h → SocketBaseL` nor its converse holds for `h ≥ 2`, and that is not a
+defect: the two conjuncts move opposite ways, so the inflated socket is neither stronger nor
+weaker than the landed one.  It is a DIFFERENT socket, and every consumer is re-derived. -/
+def SocketBaseLH (h : ℕ) (R : ChowlaRegime) (M H L q j A s : ℕ) : Prop :=
+  R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ L ≤ H ∧ 0 < q ∧ (q : ℝ) ≤ (h : ℝ) * arcDen 12 H ∧
+    j ≤ Nat.log 2 L ∧ doorRowFloorL M ≤ j ∧ 0 < A ∧ 2 ^ j ≤ A ∧ Real.sqrt (H : ℝ) ≤ (A : ℝ) ∧
+    (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * ((h : ℝ) * arcDen 12 H) * (A : ℝ) ∧
+    (A : ℝ) ≤ 2 * (R.x : ℝ) ∧ s ≤ L
+
+/-- ⭐ **THE SOCKET AT `h = 1` IS THE LANDED SOCKET** (`socketBaseL_of_socketBaseLH_one`) —
+the anti-drift check.  A family that did not reduce to the landed object at `h = 1` would be a
+different definition wearing the same name; this is the one implication that must hold, and it
+does, in both directions. -/
+theorem socketBaseLH_one_iff {R : ChowlaRegime} {M H L q j A s : ℕ} :
+    SocketBaseLH 1 R M H L q j A s ↔ SocketBaseL R M H L q j A s := by
+  unfold SocketBaseLH SocketBaseL
+  norm_num
+
+set_option maxHeartbeats 1000000 in
+/-- **⟦THE `log X` FLOOR AT THE INFLATED SOCKET⟧** (`cofkL_logX_floor_h`) — the `h`-family of
+`RegisterSupply.cofkL_logX_floor`, and **the eleventh-conjunct half of the two-site port**.
+
+The regime's `hPHheadroom` against the socket's inflated `x ≤ 16·ω·(h·(log H)¹²)·A` gives
+`A ≥ 4^{2⌊ε²H₊⌋}/(2·h·(log H)¹²)`, so the floor loses exactly `log h` — against a leading term
+`H₊/90200` and a demand `H₊/10⁶`, at `H₊ ≥ 10¹⁴`.  `hh7` is what pays it. -/
+theorem cofkL_logX_floor_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh7 : Real.log h ≤ 7)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / 500 ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    (R.Hhi : ℝ) / 10 ^ 6 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
+  have h11 : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    hb.2.2.2.2.2.2.2.2.2.2.1
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith
+  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
+    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
+    linarith
+  -- ⟦the arc denominator, inflated⟧
+  have harc : (0 : ℝ) < arcDen 12 H := by
+    rw [arcDen]; exact Real.rpow_pos_of_pos hlogH0 12
+  have harcH : (0 : ℝ) < (h : ℝ) * arcDen 12 H := by positivity
+  have hlogarc : Real.log (arcDen 12 H) = 12 * Real.log (Real.log (H : ℝ)) :=
+    log_arcDen_twelve hlogH0
+  -- ⟦the primorial majorant⟧
+  set E : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hEdef
+  have hPH0 : 8 * (((4 ^ E : ℕ) : ℝ)) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ) := R.hPHheadroom
+  have hW : (((4 ^ E : ℕ) : ℝ)) = (4 : ℝ) ^ E := by push_cast; ring
+  rw [hW] at hPH0
+  -- ⟦the combination, `ω` cancelled⟧
+  have hmul : (8 * ((4 : ℝ) ^ E) ^ 2) * (R.ω : ℝ)
+      ≤ (16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ)) * (R.ω : ℝ) := by
+    have := le_trans hPH0 h11; linarith
+  have h8w : 8 * ((4 : ℝ) ^ E) ^ 2 ≤ 16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    le_of_mul_le_mul_right hmul hω0
+  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast h8
+  have hkey : ((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)) ≤ (A : ℝ) := by
+    rw [div_le_iff₀ (by linarith)]
+    linarith
+  -- ⟦the logarithm of the floor: the inflation is exactly a `− log h`⟧
+  have hlogW : Real.log (((4 : ℝ) ^ E) ^ 2) = 2 * (E : ℝ) * Real.log 4 := by
+    rw [← pow_mul, Real.log_pow]
+    push_cast; ring
+  have harc2 : (0 : ℝ) < 2 * ((h : ℝ) * arcDen 12 H) := by linarith
+  have hW2pos : (0 : ℝ) < ((4 : ℝ) ^ E) ^ 2 := by positivity
+  have heq : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
+      = 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
+        - 12 * Real.log (Real.log (H : ℝ)) := by
+    rw [Real.log_div (ne_of_gt hW2pos) (ne_of_gt harc2), hlogW,
+      Real.log_mul (by norm_num) (ne_of_gt harcH),
+      Real.log_mul (ne_of_gt hh0) (ne_of_gt harc), hlogarc]
+    ring
+  have hlogA : 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
+      - 12 * Real.log (Real.log (H : ℝ)) ≤ Real.log (A : ℝ) := by
+    have hle : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
+        ≤ Real.log (A : ℝ) := Real.log_le_log (div_pos hW2pos harc2) hkey
+    rw [heq] at hle
+    exact hle
+  -- ⟦the floor of the primorial exponent⟧
+  have hEfl : (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) - 1 ≤ (E : ℝ) := by
+    have hq : (R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)) < (E : ℚ) + 1 := by
+      rw [hEdef]; exact Nat.lt_floor_add_one _
+    have hR : ((R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) : ℚ) : ℝ) < ((E : ℚ) : ℝ) + 1 := by
+      exact_mod_cast hq
+    push_cast at hR
+    linarith
+  have heps2 : (1 : ℝ) / 250000 ≤ (R.eps : ℝ) ^ 2 := by nlinarith [hε]
+  have hE0 : (0 : ℝ) ≤ (E : ℝ) := Nat.cast_nonneg _
+  have hmulE : (1 : ℝ) / 250000 * (R.Hhi : ℝ) ≤ (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) :=
+    mul_le_mul_of_nonneg_right heps2 hHhi0.le
+  have hEbig : (R.Hhi : ℝ) / 250000 - 1 ≤ (E : ℝ) := by linarith only [hEfl, hmulE]
+  -- ⟦the two crude brackets on `H₊`⟧
+  have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hlogmono : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := Real.log_le_log hH0 hHle
+  have hllmono : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (R.Hhi : ℝ)) :=
+    Real.log_le_log hlogH0 hlogmono
+  have hllsub : Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (R.Hhi : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hsq : Real.log (R.Hhi : ℝ) ≤ 2 * Real.sqrt (R.Hhi : ℝ) - 2 :=
+    cofk_log_le_two_sqrt hHhi0
+  have hv : (10 : ℝ) ^ 7 ≤ Real.sqrt (R.Hhi : ℝ) := by
+    have h1 : Real.sqrt (((10 : ℝ) ^ 7) ^ 2) ≤ Real.sqrt (R.Hhi : ℝ) :=
+      Real.sqrt_le_sqrt (by rw [show (((10 : ℝ) ^ 7) ^ 2) = (10 : ℝ) ^ 14 by norm_num]; exact hHhi)
+    rwa [Real.sqrt_sq (by norm_num)] at h1
+  have hvsq : Real.sqrt (R.Hhi : ℝ) * Real.sqrt (R.Hhi : ℝ) = (R.Hhi : ℝ) :=
+    Real.mul_self_sqrt hHhi0.le
+  have hv0 : (0 : ℝ) ≤ Real.sqrt (R.Hhi : ℝ) := Real.sqrt_nonneg _
+  have hprod : (10 : ℝ) ^ 7 * Real.sqrt (R.Hhi : ℝ) ≤ (R.Hhi : ℝ) :=
+    le_trans (mul_le_mul_of_nonneg_right hv hv0) (le_of_eq hvsq)
+  -- ⟦the numeral: `log A ≥ H₊/10⁶`, now paying `log h ≤ 7` as well⟧
+  have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast
+    linarith [Real.log_two_gt_d9]
+  have hlog2 : Real.log 2 ≤ 0.6932 := by linarith [Real.log_two_lt_d9]
+  have hElog : (1.3862 : ℝ) * (E : ℝ) ≤ (E : ℝ) * Real.log 4 := by
+    have h := mul_le_mul_of_nonneg_left hlog4 hE0
+    linarith only [h]
+  have hterm : (R.Hhi : ℝ) / 90200 - 2.7725 ≤ 2 * (E : ℝ) * Real.log 4 := by
+    linarith only [hElog, hEbig]
+  have hdebit : 12 * Real.log (Real.log (H : ℝ)) ≤ 24 * Real.sqrt (R.Hhi : ℝ) := by
+    linarith only [hllmono, hllsub, hsq]
+  have hfloor : (R.Hhi : ℝ) / 10 ^ 6 ≤ Real.log (A : ℝ) := by
+    linarith only [hterm, hdebit, hlog2, hh7, hlogA, hprod, hHhi]
+  -- ⟦the exit⟧
+  have hA1 : (1 : ℝ) ≤ (A : ℝ) := by exact_mod_cast h8
+  have hAs : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  have hlogAs : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    Real.log_le_log (by linarith) hAs
+  linarith
+
+/-- **⟦THE `μ`-FLOOR AT THE INFLATED SOCKET⟧** (`cofkL_mu_floor_h`) — `loglog(A+s) ≥ log H₊ − 14`,
+the `h`-family of `RegisterSupply.cofkL_mu_floor`.  Reads the cap only through §6's floor. -/
+theorem cofkL_mu_floor_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh7 : Real.log h ≤ 7)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / 500 ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    Real.log (R.Hhi : ℝ) - 14 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hfl := cofkL_logX_floor_h hh hh7 hb hε hHhi hH
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith
+  have hbigpos : (0 : ℝ) < (R.Hhi : ℝ) / 10 ^ 6 := div_pos hHhi0 (by norm_num)
+  have hstep : Real.log ((R.Hhi : ℝ) / 10 ^ 6)
+      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    Real.log_le_log hbigpos hfl
+  have hsplit : Real.log ((R.Hhi : ℝ) / 10 ^ 6)
+      = Real.log (R.Hhi : ℝ) - Real.log ((10 : ℝ) ^ 6) := by
+    rw [Real.log_div (ne_of_gt hHhi0) (by norm_num)]
+  have h106 : Real.log ((10 : ℝ) ^ 6) ≤ 14 := by
+    rw [show ((10 : ℝ) ^ 6) = (10 : ℝ) ^ (6 : ℕ) by norm_num, Real.log_pow]
+    push_cast
+    linarith [cofk_log_ten_le]
+  rw [hsplit] at hstep
+  linarith
+
+/-- The inflated socket's scale still clears the supplier's own gate `e^e ≤ X`
+(`cofkL_X_ge_expexp_h`). -/
+theorem cofkL_X_ge_expexp_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh7 : Real.log h ≤ 7)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / 500 ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) := by
+  have hfl := cofkL_logX_floor_h hh hh7 hb hε hHhi hH
+  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hApos : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
+    have : 1 ≤ A + s := by omega
+    have h : (1 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by exact_mod_cast this
+    linarith
+  have he : Real.exp 1 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+    have h3 : Real.exp 1 ≤ 3 := by linarith [Real.exp_one_lt_d9]
+    have h4 : (3 : ℝ) ≤ (R.Hhi : ℝ) / 10 ^ 6 := by
+      rw [le_div_iff₀ (by norm_num)]; nlinarith
+    linarith
+  have h := Real.exp_le_exp.mpr he
+  rwa [Real.exp_log hApos] at h
 
 end Salt.MR
