@@ -427,8 +427,11 @@ The set swap is the only step (`bigXiH_eq_twistFilter`, a filter congruence — 
 spelling was chosen so this is a rewrite and not a periodicity argument).  Constant
 `h·(1 + 2·C₀)` and the `0 < h` fence are the core's; see there.
 
-⛔ **STILL NO CONSUMER:** `log_chowla_two_shell_xi_sq_h` does not exist, so this completes the
-socket rather than connecting it. -/
+✅ **CONSUMER LANDED 2026-09-01 (DESK row o):** `log_chowla_two_shell_xi_sq_h`
+(`Theorem23Shell.lean:624`) takes this estimate's conclusion as its `hcirc` slot, so the
+socket is now CONNECTED on the `L²` `h`-lane.  ⛔ That closes the CONSUMER side only: the
+door `MRTUniformityXiL2H` this chain terminates at is still an open hypothesis, and the
+paragraph in `MRTUniformityXiL2H`'s own docstring below names what is open there. -/
 theorem circle_method_estimate_sq_h (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
     ∃ C : ℝ, 0 < C ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),

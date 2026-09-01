@@ -462,7 +462,7 @@ door-conditional Theorem-2.3 shell at shift `h`.
 **This is `log_chowla_two_shell_xi` with the shift threaded and NOTHING ELSE.**  Every
 ingredient was already landed by wave B; the mirror substitutes, uniformly:
 
-* `outer_combine` → `outer_combine_h` (`OuterCombine.lean:616`), whose conclusion carries
+* `outer_combine` → `outer_combine_h` (`OuterCombine.lean:620`), whose conclusion carries
   the shifted product `windowVal · j * windowVal · (j + p*h)`;
 * `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:547`);
 * `bigXi R.eps H` → `bigXiH h R.eps H` (`ShiftFork.lean:93`);
@@ -573,5 +573,154 @@ theorem log_chowla_two_shell_xi_h (h : ℕ)
     linarith [hstar, hbudget1, hexp]
   have hlower : c₀ * (R.eps : ℝ) ≤ door := le_of_mul_le_mul_left hmul hApos
   exact contradiction_of_mrtDoorXiH h R hlo hhi hHpos hδ hdoor hXi hbudget2 hlower
+
+/-- **W-F3 × THE L² RESTRUCTURE — THE L² h-SHELL** (`log_chowla_two_shell_xi_sq_h`): the
+`Ξ_H(h)`-restricted, Ξ-SUMMED `L²`, door-conditional Theorem-2.3 shell at shift `h`.
+
+**This is the cross of the two landed shells and nothing else.**  It is to
+`log_chowla_two_shell_xi_sq` (`:362`) exactly what `log_chowla_two_shell_xi_h` (`:488`) is
+to `log_chowla_two_shell_xi` — the same shift threading, applied to the squared lane.  The
+mirror substitutes, uniformly:
+
+* `outer_combine` → `outer_combine_h` (`OuterCombine.lean:620`), whose conclusion carries
+  the shifted product `windowVal · j * windowVal · (j + p*h)`;
+* `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:547`);
+* `bigXi R.eps H` → `bigXiH h R.eps H` (`ShiftFork.lean:93`);
+* `MRTUniformityXiL2` → `MRTUniformityXiL2H h` (`ShiftFork.lean:535`);
+* `contradiction_of_mrtDoorXiL2` → `contradiction_of_mrtDoorXiL2H h` (`ShiftFork.lean:569`).
+
+The `hcirc` slot is the SQUARED one — `(1/H²)·‖dft‖²` summed over `Ξ_H(h)`, the untwisted
+frequency inside the norm and the twist in the membership predicate alone.  Its discharger
+is `circle_method_estimate_sq_h` (`ShiftFork.lean:432`), the object `QUEUE.md` P2 item 7
+names, landed 2026-08-26 with the note *"still no consumer"*.  **This shell is that
+consumer**; the three docstrings carrying that note are corrected in the same commit.
+`0 < h` is NOT a binder here and its absence is deliberate: the fence lives on the
+discharger (`circle_method_estimate_sq_h` takes `hh : 0 < h`, its constant `h·(1 + 2·C₀)`
+needing it), while this shell manufactures no `h`-uniform constant of its own.
+
+**The shed rides across, and it is the `L²` lane's, not the fork's.**  `K` and
+`hXi : |Ξ_H(h)| ≤ K` are GONE exactly as on the `h = 1` squared lane: the Ξ-summed door
+pays its total mass ONCE rather than once per frequency, so the closure budget is
+`ρ < c₀·ε` with `ρ` K-free.  ⛔ **That is not a claim about the `h`-fiber.**  `bigXiH h` can
+carry up to `gcd(h,H)` times the mass of `Ξ_H` (`bigXiH_card_le_gcd_mul`); on this lane the
+inflation is charged to the door's own grade `ρ` and never to a count, so a reader hunting
+the `gcd` factor must look at `MRTUniformityXiL2H`'s PRODUCER, not at this shell's binders.
+
+⭐ **`shellError` IS REUSED UNSHIFTED AND UNSQUARED, and that is correct on both axes** — it
+is a function of `(R, H, t, g, κ)` only, no `p`-shift and no Fourier term occurs anywhere
+inside it, and `outer_combine_h`'s error term is byte-identical to `outer_combine`'s.  *The
+absence of a `shellError_h` is a fact about the object, not a missing node.*
+
+⛔ **THE QUANTIFIER DISCIPLINE IS INHERITED VERBATIM: the `ξ`-sum stays OUTSIDE the
+integral.**  `MRTUniformityXiL2H` is a finite sum of integrals with no `sup` inside; the
+sup-inside form is Tao `arXiv:1509.05422v2` (4.1), which is OPEN.  This shell never intros
+the `ξ` binder — it is produced only by `contradiction_of_mrtDoorXiL2H`.
+
+⚖️ **WHAT THIS SUPPLIES, AND WHAT IT DOES NOT.**  It is a CONSUMER and it is unconditional
+in nothing: it turns the `L²` `h`-door plus the two budgets into `False`.
+`MRTUniformityXiL2H h R ρ` remains an OPEN hypothesis at every `h`, this shell manufactures
+no supply for it, and nothing here bears on twin primes.
+
+`h = 1` recovers `log_chowla_two_shell_xi_sq`'s content; the two are stated separately
+because `bigXiH 1` and `bigXi` are propositionally equal, not definitionally so
+(`mrtUniformityXiL2_eq_xiL2H_one` is the door-side companion of that gap). -/
+theorem log_chowla_two_shell_xi_sq_h (h : ℕ)
+    (R : ChowlaRegime) {H : ℕ} [NeZero H] (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi)
+    (hH : 3 ≤ H) (hlog : 1 ≤ Real.log (H : ℝ)) (hne : (primeWindow R.eps H).Nonempty)
+    (hreg : Real.sqrt (H : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ) / 2)
+    (hhead : 8 * (PH R.eps H : ℝ) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ))
+    {t : ℝ} (ht : 0 < t) {g : ℝ} (hg : 0 < g)
+    (hgle : g ≤ (R.eps : ℝ) ^ 6 * (H : ℝ)
+        / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2)
+    {κ : ℝ} (hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω] ≤ κ)
+    {c₁ : ℝ} (hc₁ : 0 < c₁)
+    (h211 : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
+        ≤ |∫ n, fBridgeF_h R.eps H h (liouvilleWindow H n) (residueWindow R.eps H n)
+            ∂(logMeasure R.x R.ω)|)
+    -- the SQUARED circle-method Fourier bound at shift `h`
+    -- (discharger: `circle_method_estimate_sq_h`):
+    {C : ℝ} (hC : 0 < C)
+    (hcirc : ∀ n : ℕ,
+      |∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ))
+            * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ) ^ 2)
+                * ‖ZMod.dft (fun j : ZMod H =>
+                    (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖ ^ 2))
+    -- the Ξ-SUMMED `L²` MRT door at shift `h` (`ShiftFork.lean`); NO `K`, NO card bound:
+    {ρ c₀ : ℝ} (hdoor : MRTUniformityXiL2H h R ρ)
+    -- the two numeric-closure budgets (`hbudget1` UNCHANGED; `hbudget2` is K-FREE):
+    (hbudget1 : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + shellError R H t g κ
+        ≤ c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)))
+    (hbudget2 : ρ < c₀ * (R.eps : ℝ)) :
+    False := by
+  classical
+  haveI hpm : IsProbabilityMeasure (logMeasure R.x R.ω) :=
+    isProbabilityMeasure_logMeasure R.hx R.hω
+  have hHpos : 0 < H := NeZero.pos H
+  have hlogpos : 0 < Real.log (H : ℝ) := lt_of_lt_of_le zero_lt_one hlog
+  have hApos : 0 < C * ((H : ℝ) / Real.log (H : ℝ)) :=
+    mul_pos hC (div_pos (by exact_mod_cast hHpos) hlogpos)
+  have heps1R : (R.eps : ℝ) ≤ 1 := by
+    have hle : R.eps ≤ 1 := le_trans R.heps1 (by norm_num)
+    exact_mod_cast hle
+  -- (I) the shifted `outer_combine_h` mass lower bound (`shellError` folds in, defeq).
+  have hoc : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) - shellError R H t g κ
+      ≤ |∫ n, (∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ))
+          ∂(logMeasure R.x R.ω)| :=
+    outer_combine_h R.eps H h R.hx R.hω R.hωx R.heps heps1R hne hreg hH hlog hhead
+      ht hg hgle hI hc₁ h211
+  -- abbreviations
+  set gm : ℕ → ℝ := fun n =>
+      ∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+        (windowVal H (liouvilleWindow H n) j : ℝ)
+          * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ) with hgm
+  set door : ℝ := ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ) ^ 2)
+      * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω) with hdoorS
+  set RHS : ℕ → ℝ := fun n => C * ((H : ℝ) / Real.log (H : ℝ))
+      * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ) ^ 2)
+          * ‖ZMod.dft (fun j : ZMod H =>
+              (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖ ^ 2) with hRHS
+  have hcirc' : ∀ n, |gm n| ≤ RHS n := hcirc
+  -- Bridge B, step 1+2: `|∫ gm| ≤ ∫ RHS`.
+  have hB : |∫ n, gm n ∂(logMeasure R.x R.ω)| ≤ ∫ n, RHS n ∂(logMeasure R.x R.ω) :=
+    le_trans abs_integral_le_integral_abs
+      (integral_mono_ae (integrable_of_finiteSupport _) (integrable_of_finiteSupport _)
+        (Filter.Eventually.of_forall hcirc'))
+  -- Bridge B, step 3: `∫ RHS = C·(H/log H)·(ε² + door)` (Bridge A SQUARED, per `ξ`).
+  have hRHSeq : ∫ n, RHS n ∂(logMeasure R.x R.ω)
+      = C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door) := by
+    rw [hRHS, integral_const_mul]
+    congr 1
+    rw [integral_add (integrable_const _) (integrable_of_finiteSupport _), integral_const,
+      probReal_univ, one_smul,
+      integral_finsetSum (bigXiH h R.eps H) (fun ξ _ => integrable_of_finiteSupport _)]
+    congr 1
+    refine Finset.sum_congr rfl (fun ξ _ => ?_)
+    rw [integral_const_mul]
+    congr 1
+    exact integral_congr_ae
+      (Filter.Eventually.of_forall (fun n =>
+        congrArg (fun z : ℝ => z ^ 2) (windowExpSum_norm_eq_dft n ξ).symm))
+  -- (★): assemble the chain.
+  have hstar : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) - shellError R H t g κ
+      ≤ C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door) :=
+    le_trans hoc (le_trans hB (le_of_eq hRHSeq))
+  -- derive the door's `L²` mass lower bound `c₀·ε ≤ door`.
+  have hmul : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+      ≤ C * ((H : ℝ) / Real.log (H : ℝ)) * door := by
+    have hexp : C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door)
+        = C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * door := by ring
+    linarith [hstar, hbudget1, hexp]
+  have hlower : c₀ * (R.eps : ℝ) ≤ door := le_of_mul_le_mul_left hmul hApos
+  -- fire the Ξ-SUMMED `L²` MRT door at shift `h` (K-FREE: one collision, no `card·δ`).
+  exact contradiction_of_mrtDoorXiL2H h R hlo hhi hdoor hbudget2 hlower
 
 end Salt.Entropy.Chowla

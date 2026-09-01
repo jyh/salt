@@ -1052,13 +1052,24 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   -- ⭐ P2 item 7, first object COMPLETE (2026-08-26, math): the top-level twin of the split above.
   -- With this landed, `fourier_split_sq_h` now HAS a consumer and its own row above is redundant
   -- rather than load-bearing — kept, not removed, because a row that was correct when written is
-  -- cheaper to leave than to re-audit. ⛔ This one still has NO consumer: the `bigXiH` wrapper
+  -- cheaper to leave than to re-audit. ⭐ AMENDED 2026-09-01: this core is consumed ONE LAYER OUT
+  -- (`circle_method_estimate_sq_h` → `log_chowla_two_shell_xi_sq_h`); the `bigXiH` wrapper still
   -- belongs on the `ShiftFork` side (that module imports CircleMethod, so naming its objects here
-  -- would be an import cycle), and `log_chowla_two_shell_xi_sq_h` does not exist. Socket.
+  -- would be an import cycle). No longer a dead socket.
   Salt.Entropy.Chowla.circle_method_estimate_sq_h_core
   -- ⭐ P2 item 7's NAMED object (2026-08-26, math): the `bigXiH`-facing wrapper, mirroring
   -- `circle_method_estimate_h`'s own row. With this landed, `circle_method_estimate_sq_h_core`
   -- has a consumer and its row above is redundant-but-kept, on the same reasoning as the split's.
-  -- ⛔ This wrapper still has none: `log_chowla_two_shell_xi_sq_h` does not exist, so item 7's
-  -- first object is COMPLETE as a socket and connects to nothing yet.
+  -- ⭐ AMENDED 2026-09-01 (DESK row o): the wrapper NOW HAS A CONSUMER —
+  -- `log_chowla_two_shell_xi_sq_h`, the row below. Item 7's first object is no longer a socket
+  -- connected to nothing. (The three rows above stay: a row that was correct when written is
+  -- cheaper to leave than to re-audit, and each still gates its own name transitively.)
   Salt.Entropy.Chowla.circle_method_estimate_sq_h
+  -- ⭐ DESK row o (2026-09-01, math): the `L²` h-lane CONSUMER, `Theorem23Shell.lean:624` — the
+  -- cross of `log_chowla_two_shell_xi_sq` (`:362`) and `log_chowla_two_shell_xi_h` (`:488`).
+  -- Registered HERE, in the same commit that lands it, because an unregistered name is invisible
+  -- to this gate forever and its absence looks exactly like a name that passed (the 08/31 catch).
+  -- ⛔ It is a CONSUMER: it asserts no supply for `MRTUniformityXiL2H`, which stays an open
+  -- hypothesis at every `h`. Placed at the END of the list on the same reasoning as its
+  -- neighbours — `#audit_axioms` aborts its remainder on the first non-whitelisted dependency.
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_h

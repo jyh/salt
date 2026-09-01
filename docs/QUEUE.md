@@ -4680,6 +4680,19 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⛔ **CLOSING LINE, AT THE HELM'S ORDER — IT IS A *SOCKET*, NOT A DELIVERY.**
    `log_chowla_two_shell_xi_sq_h` does not exist, so the object connects to nothing and **no landing
    here may be read as extending the h-family's reach.**
+   ✅ **THE SOCKET IS CONNECTED — 2026-09-01 (math, DESK row o, worker tier, branch-and-go).**
+   `log_chowla_two_shell_xi_sq_h` (`Salt/Entropy/Chowla/Theorem23Shell.lean:624`) is LANDED,
+   `[3 axioms]`, ONE attempt, registered in `Salt/Entropy/All.lean`'s audit list in the same
+   commit. It is the cross of `log_chowla_two_shell_xi_sq` (`:362`) and
+   `log_chowla_two_shell_xi_h` (`:488`): `outer_combine_h` · `fBridgeF_h` · `bigXiH h` ·
+   `MRTUniformityXiL2H h` · `contradiction_of_mrtDoorXiL2H h`, with the SQUARED `hcirc` slot
+   discharged by `circle_method_estimate_sq_h`. The `K`/`|Ξ| ≤ K` shed rides across; `shellError`
+   is reused unshifted and unsquared (it carries no `p` and no Fourier term).
+   ⛔ **WHAT THIS DOES NOT SAY.** It is a CONSUMER: `MRTUniformityXiL2H h R ρ` remains an OPEN
+   hypothesis at every `h`, this landing manufactures no supply for it, and the frequency-mismatch
+   census in 7b (below) is untouched — nothing here answers whether the `h`-fork is spine-bound on
+   the `L²` lane. That question is the Captain's, and DESK row o's release-kind is still its
+   ruling. **Nothing bears on twin primes.**
    📌 Original statement of record: — *the h-mint + the h-L² estimate, the fork's full payoff, gated
    on W-F3.* (That gate had lifted 08/21 and the row was never re-read.)
 
