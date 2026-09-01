@@ -412,6 +412,7 @@ import Salt.MR.HDoorSupply
 import Salt.MR.HDoorClose
 import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
+import Salt.MR.S16FlatTerminalLinearH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -8947,3 +8948,74 @@ open Salt.Tactic in
   Salt.MR.m4_doorL2_supply_500_two_of_chiMeanSq
   Salt.MR.m4_classBlockMeanSqH_trivial
   Salt.MR.m4_chiBlockMeanSqH_trivial
+
+/-! ⟦THE SECOND ROAD AT SHIFT `h`, ON THE TERMINAL'S LANE⟧ (`S16FlatTerminalLinearH`,
+2026-09-01, math, worker tier; the helm's per-name statement word of 15:33:54 on the
+signature draft is the statement act).
+
+The `_L_gk` h-family: the flat road's terminal register `m4_second_road_L2_gk_flatRoot_L`
+re-stated at the `h`-inflated arc cap.  Every link of the chain socket → shift block → block
+mean square → stratified block sup → blocked block mean square → cover → door → mint is a
+transcription of its `h = 1` twin with the cap threaded (modulus `q ≤ h·arcDen 12 H`, `α`-cap
+`NearRatTight (h·arcDen 12 H)`, the drift scale, AND the x-scale floor `R.x ≤ 16·ω·(h·arcDen)·A`
+— the last against the draft's first reading: the stratified consumer derives the dilated
+base's x-floor from the stratum bound `d ≤ cap`, so it moves with the cap).  The register is
+in DOOR FORM: it concludes `MRTUniformityXiL2H h R (2·Kc·Bceil + δ/2 + 8·2^k/x)`, the mint's
+shape, whose consumer is `log_chowla_two_shell_xi_sq_h`'s `hdoor` slot (`Salt/Entropy/All.lean`).
+The residual enters once (`m4_freeBlockSup_of_chiSummedH_L_gk`) at `strataResidualH h H =
+strataResidual H + log h`, the grades stay in the base residual, and the `h = 2` ceiling lemma
+pays the `log 2` under the LANDED `110525` at `Real.pi_lt_d4` (ratio² < 1.00231).  The
+`ℓ`-witness `blockLenH` halves with the cap (the landed `blockLen` pinches at `q = 1` under cap
+`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:222/268/300` at an opaque cap (the
+helm's RESPELL of the rpow identity).  The framed base `SocketBaseLH` is REUSED from
+`HDoorSupply` (byte-identical to the draft's, x-floor inflated — an independent confirmation).
+⛔ NOT here: the `SocketBaseL`-framed producer population re-quantified over `SocketBaseLH h`,
+and the six hops above the register — the next wave.
+Nothing bears on twin primes: a spelling of obligations at shift `h`, each conditional exactly
+where its `h = 1` twin is.  Purely additive; `M4SievedDoorSqH` (base lane) untouched. -/
+#audit_axioms Salt.MR.hArcDen_nonneg
+  Salt.MR.arcDen_le_hArcDen
+  Salt.MR.one_le_hArcDen_of_regime
+  Salt.MR.one_le_hArcDen_of_cap
+  Salt.MR.one_le_of_hArcDen
+  Salt.MR.four_le_hArcDen_of_regime
+  Salt.MR.strataResidualH
+  Salt.MR.strataResidualH_one
+  Salt.MR.strataResidualH_eq
+  Salt.MR.strataResidualH_nonneg
+  Salt.MR.blockLenH
+  Salt.MR.one_le_blockLenH
+  Salt.MR.blockLenH_le
+  Salt.MR.hArcDen_lt_floor_succ
+  Salt.MR.floor_succ_le_two_mul_h
+  Salt.MR.blockLenH_drift
+  Salt.MR.blockLenH_narrow
+  Salt.MR.blockLenH_arc_floor
+  Salt.MR.abs_mul_window_le_of_cap_block
+  Salt.MR.norm_absWindowSum_le_drift_blocked_Q
+  Salt.MR.norm_absWindowSum_sq_le_drift_blocked_Q
+  Salt.MR.M4ChiSummedFreeRowH_L_gk
+  Salt.MR.M4ChiSummedFreeShiftBlockH_L_gk
+  Salt.MR.M4ChiSummedBlockMeanSqNH_L_gk
+  Salt.MR.M4BlockMeanSqBlk2H_L_gk
+  Salt.MR.M4SievedDoorSqBlk2H_L_gk
+  Salt.MR.M4SievedDoorSqH_L_gk
+  Salt.MR.m4_sievedDoorSq_L_gk_of_H
+  Salt.MR.m4_chiSummedFreeRow_trivialH_L_gk
+  Salt.MR.m4_chiSummedShiftBlock_of_freeRowH_L_gk
+  Salt.MR.m4_chiSummedBlockN_of_shiftBlockH_L_gk
+  Salt.MR.m4_chiSummedN_suppliedH_L_gk
+  Salt.MR.m4_freeBlockSup_of_chiSummedH_L_gk
+  Salt.MR.m4_blockMeanSqBlk2_of_chiSummedH_L_gk
+  Salt.MR.m4_cover_assembly_blk2H_L_gk
+  Salt.MR.m4_sievedDoorSq_of_blk2H_L_gk
+  Salt.MR.m4_doorL2_supply_H_L_gk
+  Salt.MR.m4_doorL2_supply_500_H_L_gk
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L
+  Salt.MR.m4ChiRowGradedH_L
+  Salt.MR.m4ChiRowGradedH_big_L
+  Salt.MR.m4ChiRowGradedH_small_L
+  Salt.MR.m4ChiRowGradedH_an_L
+  Salt.MR.M4ChiSummedFreeRowBigH_L_gk
+  Salt.MR.m4_chiSummedFreeRow_of_bigH_L_gk
+  Salt.MR.m4_arith_rs_ceiling_met_rhoH_two
