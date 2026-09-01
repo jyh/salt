@@ -104,5 +104,41 @@ import Salt.Maynard.GehShiuWire
 import Salt.Tactic.AuditAxioms
 
 /-! ⟦AUDIT-ROWS 0802⟧ The Maynard capstone, ledger-absent until TROPHY's
-census (this file had no audit block at all). -/
+census (this file had no audit block at all).
+
+⟦AUDIT-ROWS 0901⟧ **The GEH/Shiu/Pp road is LIVE, and it is listed here for the
+first time** (council 2026-09-01, ruling 11; the helm's audit-coverage sweep of the
+same day).  That sweep found this
+aggregate listing exactly ONE name against 99 imported modules, and 31 modules —
+the whole GEH road — provably outside every audit block's dependency cone in the
+repository.  A road with no audited headliner is not a road that failed an audit;
+it is a road no audit could see.
+
+⛔ **Why one terminal was not enough, and this is the finding worth carrying.**
+`geh_door_of_obligations` is a CONDITIONAL headline: `GEH_min` and the named
+obligations enter it as HYPOTHESES.  A hypothesis contributes nothing to a proof
+term, so the machinery that will one day DISCHARGE those hypotheses — the Shiu
+road, the small-`q` Siegel–Walfisz arm, the Type-I₁ tail — is by construction
+*outside* the terminal's cone.  Listing the door covers 11 of the road's 31
+modules and cannot, even in principle, reach the other 20.
+
+⇒ 🔑 ***AN AUDIT GATE FOLLOWS PROOF DEPENDENCY, SO A CONDITIONAL TERMINAL CANNOT
+COVER ITS OWN SUPPLIERS. THE MORE OBLIGATIONS A HEADLINE CARRIES, THE LESS OF ITS
+ROAD ITS AUDIT SEES*** — and the suppliers are exactly the work in progress, i.e.
+exactly where a stray axiom would land.  The names below are therefore the road's
+seven sub-road ROOTS plus the door and its one discharged obligation, chosen so
+that every one of the 31 modules lies in some listed name's cone.  Same policy as
+`Salt/LS/All.lean`: terminals, not every declaration; helpers are covered through
+them. -/
 #audit_axioms Salt.Maynard.bounded_gaps_from_eh_complete
+  -- The GEH door: the conditional headline, and the one obligation now discharged.
+  geh_door_of_obligations
+  Salt.Maynard.ppLevel_holds
+  -- The seven roots of the sub-roads the door's own cone cannot reach.
+  GehAnchor.pieceObligationU_of_anchored_multiblock
+  Salt.Maynard.hdecomp_double
+  Salt.Maynard.hshiu_wire_sharp
+  Salt.Maynard.window_lambda_disc_le
+  tail_obligation_vP1
+  Salt.Maynard.windowPNT_holds
+  Salt.Maynard.s2_tensor_lower_closed
