@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.BandRatedAssembly
 import Salt.MR.BandRatedSocket
+import Salt.MR.HDoorArc
 
 /-!
 # QUEUE 7b — the co-factor supply at the `h`-INFLATED arc cap (`HDoorSupply`)
@@ -56,6 +57,7 @@ open scoped BigOperators
 
 open Salt.SW
 open Salt.Entropy.Chowla
+open Salt.ExpSum
 
 /-! ## §1 — the base substitution: ONE lemma, from which the five rows follow -/
 
@@ -1041,5 +1043,178 @@ theorem cofkL_capFreeFloor_at_socket_rated_uniform_two :
   have hcast : (((2 : ℕ) : ℝ)) = (2 : ℝ) := by norm_num
   rw [hcast]
   linarith [Real.log_two_lt_d9]
+
+/-! ## §9 — THE DOOR SIDE: the sup socket and its bridge at the inflated cap
+
+§1–§8 built the CO-FACTOR supply at `h·arcDen 12 H`.  This section walks the other consumer of
+the same cap — the door's own mean-square chain
+`M4BlockMeanSqSupQ → M4SievedDoorSqSup → M4SievedDoorSq` — to its `h`-family, so that
+`HDoorArc.M4SievedDoorSqH`'s open slot moves DOWN one level, from the sieved door square to the
+per-block mean square at the inflated modulus range.
+
+⛔ **THE DRIFT LEMMA HAD TO BE GENERALISED, AND THAT IS A FACT ABOUT THE STATEMENT, NOT THE
+PROOF.**  `M4Abel.norm_phase_sum_arcDen_drift` and its two feeders are stated with the LITERAL
+`arcDen B₅ H` in both the hypothesis and the conclusion, and `h·arcDen 12 H` is not `arcDen B₅ H`
+for any `B₅`.  Their proofs, however, never read the cap as anything but an opaque real — so
+§9.1 restates the three at a free cap `Q` and the landed proofs run verbatim.  ⭐ *The pin was in
+the SPELLING, not in the mathematics; nothing here re-derives an estimate.*
+
+⭐ **AND ONE THING NEEDED NO PORT AT ALL:** `M4BridgePhase.qgraded_drift_price_le` is stated with
+a FREE `A` under `(q : ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM.  The
+commission's worry that the drift factor "is never re-chosen" is answered by the landed bytes. -/
+
+/-! ### §9.1 — the Abel drift at a FREE cap -/
+
+/-- The drift factor at a free cap: `|θ| ≤ Q/(q·H)` and a window of length `≤ H` give
+`|θ|·(N − M) ≤ Q/q`.  `M4Abel.abs_mul_window_le_of_arcDen` with `arcDen B₅ H` freed to `Q`. -/
+theorem abs_mul_window_le_of_cap {Q : ℝ} {H q M N : ℕ} (hq : 0 < q) (hH : 0 < H)
+    (hlen : N - M ≤ H) {θ : ℝ} (hθ : |θ| ≤ Q / ((q : ℝ) * (H : ℝ))) :
+    |θ| * ((N - M : ℕ) : ℝ) ≤ Q / (q : ℝ) := by
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+  have hqR : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq
+  have hlenR : ((N - M : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlen
+  have h1 : |θ| * ((N - M : ℕ) : ℝ) ≤ |θ| * (H : ℝ) :=
+    mul_le_mul_of_nonneg_left hlenR (abs_nonneg θ)
+  have h2 : |θ| * (H : ℝ) ≤ Q / ((q : ℝ) * (H : ℝ)) * (H : ℝ) :=
+    mul_le_mul_of_nonneg_right hθ hHR.le
+  have h3 : Q / ((q : ℝ) * (H : ℝ)) * (H : ℝ) = Q / (q : ℝ) := by
+    field_simp
+  linarith
+
+/-- **THE M4-0′ PAYLOAD AT A FREE CAP** (`norm_phase_sum_cap_drift`) —
+`M4Abel.norm_phase_sum_arcDen_drift` with the cap freed.  Same proof. -/
+theorem norm_phase_sum_cap_drift {Q : ℝ} {H q M N : ℕ} (hMN : M ≤ N) (hq : 0 < q)
+    (hH : 0 < H) (hlen : N - M ≤ H) {θ : ℝ}
+    (hθ : |θ| ≤ Q / ((q : ℝ) * (H : ℝ))) {A : ℕ → ℂ} {B : ℝ} (hB : 0 ≤ B)
+    (hpart : ∀ K, M ≤ K → K ≤ N → ‖∑ m ∈ Finset.Ioc M K, A m‖ ≤ B) :
+    ‖∑ m ∈ Finset.Ioc M N, eR (θ * (m : ℝ)) * A m‖
+      ≤ (1 + 2 * Real.pi * (Q / (q : ℝ))) * B := by
+  refine le_trans (norm_phase_sum_Ioc_drift hMN θ hpart) ?_
+  refine mul_le_mul_of_nonneg_right ?_ hB
+  have hstep := abs_mul_window_le_of_cap (Q := Q) hq hH hlen hθ
+  have heq : 2 * Real.pi * |θ| * ((N - M : ℕ) : ℝ)
+      = 2 * Real.pi * (|θ| * ((N - M : ℕ) : ℝ)) := by ring
+  rw [heq]
+  have hpi : (0 : ℝ) ≤ 2 * Real.pi := by positivity
+  linarith [mul_le_mul_of_nonneg_left hstep hpi]
+
+/-- **THE WINDOW DRIFT AT A FREE CAP** (`norm_absWindowSum_le_drift_cap`) —
+`M4BridgePhase.norm_absWindowSum_le_drift` with the cap freed.  Same proof. -/
+theorem norm_absWindowSum_le_drift_cap {Q : ℝ} {H q n : ℕ} (hq : 0 < q) (hH : 0 < H)
+    {β θ : ℝ} (hθ : |θ| ≤ Q / ((q : ℝ) * (H : ℝ))) (a : ℕ → ℂ) :
+    ‖absWindowSum a H n (β + θ)‖
+      ≤ (1 + 2 * Real.pi * (Q / (q : ℝ))) * subWindowSup a H n β := by
+  rw [absWindowSum_add_eq_phase_sum]
+  refine norm_phase_sum_cap_drift (M := n) (N := n + H) (A := phaseCoeff a β)
+    (B := subWindowSup a H n β) (Nat.le_add_right n H) hq hH (by omega) hθ
+    (subWindowSup_nonneg a H n β) ?_
+  intro K h1 h2
+  rw [sum_Ioc_phaseCoeff_eq_sub a β h1]
+  exact le_subWindowSup a H n β (by omega)
+
+/-! ### §9.2 — the sup socket at the inflated cap, and the bridge onto `M4SievedDoorSqH` -/
+
+/-- **THE SUB-WINDOW-UNIFORM SOCKET AT THE INFLATED CAP** (`M4SievedDoorSqSupH`) —
+`M4BridgePhase.M4SievedDoorSqSup` with its modulus range inflated to `q ≤ h·arcDen 12 H` and
+NOTHING else changed: same integrand, same measure, same `q`-graded right-hand side. -/
+def M4SievedDoorSqSupH (h : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
+  M4BandTransport →
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
+      (q : ℝ) ≤ (h : ℝ) * arcDen 12 H →
+        (∫ n, (subWindowSup (memSCoeff (calP (Adoor M) (3072 * M))
+              (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
+            ∂(logMeasure R.x R.ω))
+          ≤ Braw H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2
+
+/-- **THE BRIDGE AT THE INFLATED CAP** (`m4_sievedDoorSqH_of_supH`) — the `h`-family of
+`M4BridgePhase.m4_sievedDoorSq_of_sup`, and **the first producer `HDoorArc.M4SievedDoorSqH` has
+ever had.**
+
+The proof is the landed one with `arcDen 12 H` read as `h·arcDen 12 H` throughout: the
+`NearRatTight` witness now arrives with `q ≤ h·arcDen 12 H` and radius
+`|α − b/q| ≤ (h·arcDen 12 H)/(qH)`, and §9.1's free-cap drift takes it. -/
+theorem m4_sievedDoorSqH_of_supH {h : ℕ} {R : ChowlaRegime} {M : ℕ} {Braw Braw' : ℕ → ℝ}
+    (hgrade : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ (h : ℝ) * arcDen 12 H →
+      (1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * Braw' H)
+        ≤ Braw H)
+    (hsup : M4SievedDoorSqSupH h R M Braw') : M4SievedDoorSqH h R M Braw := by
+  intro htr H _ hlo hhi α hα
+  have hH : 0 < H := Nat.pos_of_ne_zero (NeZero.ne H)
+  obtain ⟨b, q, hq, hqQ, hd⟩ := hα
+  set c := memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC
+    with hc
+  set β : ℝ := (b : ℝ) / (q : ℝ) with hβ
+  -- ⟦the pointwise drift bound, squared, at the INFLATED cap⟧
+  have hpt : ∀ n : ℕ, ‖absWindowSum c H n α‖ ^ 2
+      ≤ (1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2
+          * (subWindowSup c H n β) ^ 2 := by
+    intro n
+    -- ⚠️ NOT named `h`: the shift is `h`, and shadowing it here silently retypes every
+    -- `(h : ℝ)` below the `have`.
+    have hdr := norm_absWindowSum_le_drift_cap (Q := (h : ℝ) * arcDen 12 H) (H := H) (q := q)
+      (n := n) (β := β) (θ := α - β) hq hH hd c
+    have he : β + (α - β) = α := by ring
+    rw [he] at hdr
+    calc ‖absWindowSum c H n α‖ ^ 2
+        ≤ ((1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ)))
+            * subWindowSup c H n β) ^ 2 := by gcongr
+      _ = (1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2
+            * (subWindowSup c H n β) ^ 2 := by ring
+  -- ⟦the integral, and the grade⟧
+  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ ∫ n, (1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2
+          * (subWindowSup c H n β) ^ 2 ∂(logMeasure R.x R.ω) := integral_logMeasure_mono hpt
+    _ = (1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2
+          * ∫ n, (subWindowSup c H n β) ^ 2 ∂(logMeasure R.x R.ω) :=
+        integral_logMeasure_const_mul _ _
+    _ ≤ (1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2
+          * (Braw' H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2) :=
+        mul_le_mul_of_nonneg_left (hsup htr H hlo hhi b q hq hqQ) (sq_nonneg _)
+    _ = ((1 + 2 * Real.pi * ((h : ℝ) * arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * Braw' H))
+          * (H : ℝ) ^ 2 := by ring
+    _ ≤ Braw H * (H : ℝ) ^ 2 :=
+        mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
+
+/-- ⭐ **THE `q`-FREE READING AT THE INFLATED CAP** (`m4_sievedDoorSqH_of_supH_uniform`) — and
+**this is the node that needed no port.**
+
+`M4BridgePhase.qgraded_drift_price_le` is stated with a FREE `A` under `(q : ℝ) ≤ A`, so
+`A := h·arcDen 12 H` instantiates it VERBATIM — the `q` cancels the drift's `1/q` exactly as it
+does at the landed cap, and the absolute price is `(1 + 2π)²·(h·arcDen 12 H)²`, i.e. the landed
+price times `h²`.  That `h²` is the honest cost of the inflation on this arm, inside a
+`(log H)^{24}` vs `(log H)^{−30}` gap. -/
+theorem m4_sievedDoorSqH_of_supH_uniform {h : ℕ} {R : ChowlaRegime} {M : ℕ}
+    {Braw Braw' : ℕ → ℝ} (hB0 : ∀ H : ℕ, 0 ≤ Braw' H)
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (1 + 2 * Real.pi) ^ 2 * (((h : ℝ) * arcDen 12 H) ^ 2 * Braw' H) ≤ Braw H)
+    (hsup : M4SievedDoorSqSupH h R M Braw') : M4SievedDoorSqH h R M Braw :=
+  m4_sievedDoorSqH_of_supH
+    (fun H _q hlo hhi hq hqQ =>
+      le_trans (qgraded_drift_price_le hq hqQ (hB0 H)) (hgrade H hlo hhi)) hsup
+
+/-- **THE INFLATED SUP SOCKET IS INHABITED** (`m4_sievedDoorSqSupH_trivial`) — the anti-vacuity
+duty, discharged for the new socket at the same time it is introduced, exactly as
+`HDoorArc.m4_sievedDoorSqH_trivial` was for `M4SievedDoorSqH`.
+
+⛔ **THIS IS OWED AND IT IS NOT CEREMONY.**  `m4_sievedDoorSqH_of_supH` takes this Prop as a
+HYPOTHESIS, and the kernel cannot check that a hypothesis is inhabited: an uninhabited sup
+socket would make the bridge vacuously usable, with a green build and a clean axiom audit. -/
+theorem m4_sievedDoorSqSupH_trivial (h : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    M4SievedDoorSqSupH h R M (fun _ => 1) := by
+  intro _ H _ _ _ b q hq _
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
+  refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
+  have hle := subWindowSup_le_of_norm_le_one
+    (a := memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
+    (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) H n
+    ((b : ℝ) / (q : ℝ))
+  have h0 := subWindowSup_nonneg
+    (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
+    H n ((b : ℝ) / (q : ℝ))
+  have hsq : (subWindowSup (memSCoeff (calP (Adoor M) (3072 * M))
+      (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ (H : ℝ) ^ 2 := by nlinarith
+  nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
 
 end Salt.MR
