@@ -53,6 +53,15 @@ when a tidy-up is the worst possible act.
   40-hex sha is reported and KEPT: an unrecognised key means the key format
   moved, and the safe response to "I no longer understand this store" is to
   stop, not to delete confidently.
+  ⛔ AND ONE KEY FAMILY IN THIS REPO IS ALREADY IN THAT CLASS, NAMED HERE RATHER
+    THAN LEFT FOR A READER TO DISCOVER: `seed_cache.yml` writes
+    `salt-lake-<os>-<hashFiles>-seed-<run_id>` — a DECIMAL run id, not a sha. So
+    a seed entry (~887 MB) is unclassified, is KEPT indefinitely by this rule,
+    and is printed with a ⚠️ on every firing. That is the right default — the
+    seed is the artifact that broke the 2026-09-01 deadlock, and deleting it
+    automatically would re-arm the risk it was made to answer — but it is a
+    DELIBERATE permanent occupant of ~8.7% of the cap, retired by a hand once
+    main is reliably warm, not by this rule.
 · It has no notion of "old". Age is not the criterion; membership in the newest
   sha's group is. An entry created a minute ago for a superseded sha is dead
   weight, and an entry created yesterday for the newest sha is the one thing
@@ -348,6 +357,22 @@ def self_test():
     keep, delete, newest, refusal = plan(odd, MAIN)
     check("unclassified key is never in the delete set",
           all("no-sha-here" not in e["key"] for e in delete))
+
+    # 6b — THE REAL INSTANCE OF THAT CLASS, and it is not hypothetical: the seed
+    #      workflow's key ends `-seed-<run_id>`, a DECIMAL id. Record verbatim
+    #      from the store on 2026-09-01 (entry since evicted, which is exactly
+    #      why it is pinned here rather than re-read).
+    seeded = REAL + [{"createdAt": "2026-09-01T18:11:16.000000Z", "id": 7215637087,
+                      "ref": MAIN, "sizeInBytes": 887132849,
+                      "key": "salt-lake-Linux-3a15ef9af7655c2915d2cf8ceac8b5ed79d97c73c0e88c8e77f3c9cf4da9b64a-seed-33521573204"}]
+    on_ref, unclassified, other = classify(seeded, MAIN)
+    check("the seed workflow's key is unclassified (decimal run id, not a sha)",
+          len(unclassified) == 1 and "seed-" in unclassified[0]["key"])
+    keep, delete, newest, refusal = plan(seeded, MAIN)
+    check("a seed entry is never deleted by this rule",
+          all("-seed-" not in e["key"] for e in delete))
+    check("a seed entry does not disturb the sha verdict",
+          newest == NEW and len(delete) == 2, str(newest))
 
     # 7 — the empty store answers NOTHING TO CHECK, distinctly from "minimal".
     keep, delete, newest, refusal = plan([], MAIN)
