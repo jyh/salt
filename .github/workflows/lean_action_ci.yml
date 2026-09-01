@@ -210,6 +210,18 @@ jobs:
   #   goes cold. The script's own `--expect-sha` gate is the second, independent
   #   half of that: it refuses if THIS sha has no build entry in the store.
   #
+  # ⚠️ WHAT THIS JOB CANNOT DO, BECAUSE IT RUNS AFTER THE SAVE: it bounds the
+  #   STEADY STATE, not the transient. On the first main run after this lands the
+  #   store briefly holds three shas plus any residue — over the cap — and GitHub
+  #   may evict before this job ever starts. That transient is survivable and the
+  #   reason is `lastAccessedAt`: the running job has just RESTORED the newest
+  #   sha's entries, so they are the most recently used in the store and LRU
+  #   reaches for exactly the stale entries this rule would delete anyway.
+  #   Running the cleanup BEFORE the save would remove the transient, at the cost
+  #   of dropping to a single sha while the build is still in flight. Deliberately
+  #   not taken: the safest state to be in when a build fails is holding MORE
+  #   restorable history, not less.
+  #
   # ⚠️ THE SELF-TEST RUNS FIRST, IN CI, ON EVERY FIRING. Its fixtures are cut from
   #   a real `gh cache list --json` record, and a mutation control (max -> min in
   #   the newest-selection) turns 7 of its 22 arms red, so it is a suite that can
