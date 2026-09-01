@@ -24393,3 +24393,89 @@ producer for any ladder slot) is equally not claimed by the twins. QUEUE P2 item
 stamp (role wording, restated fence) rode this commit. One latent line-length warning at the
 A.1 file's pre-existing docstring surfaced on rebuild — bytes untouched by this wave, not
 introduced.
+
+### ✅ 08-31 15:0x — A4F-0 LANDED: the far-branch record first (extract addendum + guard docstring corrected)
+Node A4F-0 of the helm's A4F far-branch commission (2026-08-31, in the private record), the
+record act, comment/prose only — zero declarations touched. (a) The far-branch proof of
+Lemma A.4(ii) transcribed WHOLE (source pp. 22–23, displays (A.3)–(A.6), whole sentences,
+page-referenced) as addendum §3.4a to the corpus MRT extract's Halász-machinery section —
+including the load-bearing reading: the splitting display (A.5) is CITED OUT to [10, Proof of
+Lemma 2.3] and carries no proof in MRT; θ enters the far branch ONLY through Y; ε is spent
+once. (b) `mrtA4ii_far_centre_cap`'s docstring corrected: its claim "exactly the S that
+`dist_recenter_sq` consumes" was FALSE as a route description — the far branch AVERAGES
+(`pretDistSq_ge_cos_average`), never recenters; the lemma is the far branch's GUARD (negation
+of the high-M disjunct), not a chain input. Supersession disclosed in place; the sibling
+prose site at the section header carries a stamp with its original bytes kept verbatim.
+`saltbuild EXIT=0` on the touched module; `blueprint_lint: OK`; no new warnings (the build
+log's warning lines are all pre-existing sites in upstream deps).
+
+### ⛔ 08-31 15:1x — A4F-1 STOPPED UNDER ITS OWN RULE 4: the segment mechanism cannot close at O(1)
+Node A4F-1 of the helm's A4F far-branch commission (2026-08-31, in the private record) — the
+mid-range splitting estimate. ZERO proof attempts spent, by the commission's own stop rule:
+the commissioned mechanism (per-segment Mertens + Riemann-sum sweep) pays an Abel-summation
+error of at least TV(|cos|)·sup|Mertens error| = (u·(log X − log Y)/π)·(12/log Y), which at
+θ=2/3 is ≳ (log X)^{19/48} at the BOTTOM of the commissioned u-range and (log X)^{20.33} at
+the top — polynomially divergent at every u, with the corpus's landed Mertens
+(`mertens_second_sharp_real`, error 12/log t). Below Mertens resolution no landed instrument
+constrains the phase distribution of primes; the missing input is PNT/zero-free-region
+strength, held unconditionally by NEITHER the corpus (`PiAsymp` is hypothesis-only) NOR the
+mathlib pin (measured). A corpus-internal harmonic route through the landed zeta massif
+(`euler_osc_bridge_unconditional` + `one_line_pow_growth` + `zeta_lower_shallow` +
+`zeta_neg_re_logDeriv_le`) plausibly closes the mid-range Prop sharp — design-tier, sent to
+the helm for a refuter pass in the wave report (private record). A4F-2 not built: its first
+half consumes A4F-1; its second half's named hypothesis is refuted (next row).
+
+### ⛔ 08-31 15:1x — MRTLargeRangeEquidistribution IS FALSE AS STATED — kernel witness landed
+`not_mrtLargeRangeEquidistribution` (MRTPropA3.lean, beside the frozen statement, its bytes
+untouched; `✓ [3 axioms]`, first attempt, `saltbuild EXIT=0` on Salt.MR.All, 9344 jobs).
+The Prop binds `∀ Y` with no constraint while its demand `(1−2/π)·log(log X/log Y)` grows as
+`log Y → 0⁺`: at `Y = exp((log X)^{−100})`, `u = 2X` the demand is ≈ 36.7·loglog X against a
+sum Mertens caps at loglog X + O(1). The sibling `MRTShortSegmentSplitting` pins
+`Y = exp((log X)^{2/3+ε})` and is NOT affected; the source's transfer sentence (p. 23) moves
+display (A.5) at ITS Y, and the pin was dropped when the large branch was named (the 08/27
+wave). Statement repair (re-pin Y) is a helm/Fable statement act per iron rule 1 — proposed
+in the wave report, NOT taken here. Found by A4F-2 due diligence: that node was commissioned
+to carry this Prop as its named far-arm hypothesis, and a false hypothesis makes every
+consumer vacuously true.
+
+### ⚠️ 08-31 17:xx — S1 DOCSTRING ERRATUM: the floor gives `e ≤ |Y|`, NOT `e ≤ Y` (mathlib's `log` is even)
+The A4F S1 node transcribed the commissioning fold's note that the `Y`-floor
+`(log X)^{2/3} ≤ log Y` "supplies `exp 1 ≤ Y` by construction" into the docstring of
+`MRTLargeRangeEquidistributionFixed` (MRTPropA3.lean). In mathlib `Real.log (−x) = Real.log x`,
+so `1 ≤ log Y` yields `e ≤ |Y|` only; the note is FALSE as a Lean fact and the docstring is
+corrected in place with the retraction disclosed. The STATEMENT is unchanged (iron rule 1) and
+is not endangered: a negative `Y` enlarges the window to `{p ≤ X}` at the same demand, so those
+instances follow from the positive ones by monotonicity of the nonnegative sum. Consequence for
+consumers: any node that needs `Y > 0` (the Euler bridge at `1 + 1/log Y` does) must carry
+`exp 1 ≤ Y` itself — the H4 mid-range deliverable `mrt_mid_range_parametric` does, and its
+dischargers supply it from `Y = exp(…)`. Found while building H4 (the `Y > 0` step had no
+proof); the law: TEST WHAT YOU SUBSTITUTE — a note reached the tree because it was quoted,
+not checked.
+
+### ⚠️ 08-31 17:xx — S2(iii): the C-free `MRTLemmaA4iiFixed34` far arm is STATEMENT-BLOCKED at small `X` (not refuted)
+The fold's structural finding (R3-U2), recorded as the commission's S2(iii) asks. The far-branch
+mechanism produces `(1/2)·((1−2/π)·log(log X/log Y) − C)` with an ADDITIVE absolute `C`
+(the Mertens window, the exact tail, the harmonic sums — each an O(1) at every `X`); at
+`Y = exp((log X)^{3/4+ε'})` this is `(1/8 − 1/(4π))·loglog X − (ε/2)·loglog X − C/2` after
+`ε' := ε/(1−2/π)`, which meets the C-free target `(1/8 − 1/(4π) − ε)·loglog X` exactly when
+`loglog X ≥ C/ε` — a threshold in `ε`. For a FIXED `C` and a small enough `ε` at a given `X`
+the C-free form is not what the mechanism proves; the source (extract addendum §3.4a, the
+(A.6) close, p. 23: *"thus, recalling the definition of `Y`, we obtain from (A.4)
+`𝔻(f,p^{it};X)² ≥ (1/3 − 2/(3π) − ε) log log X`"*) absorbs (A.5)'s `O(1)` into `ε·loglog X`
+implicitly, valid only for `X` large in terms of `ε`. NOT refuted — no witness is known
+against the C-free statement (the high-M arm is landed and unaffected; the far arm may hold
+for other reasons) — BLOCKED as a target of THIS mechanism. The honest family lands beside it
+(the A4F threshold module): the ∃-C far theorem in the mechanism's native shape and the
+threshold producer `MRTLemmaA4iiFixed34T`. Statement acts remain the helm's; nothing at the
+frozen layer is touched.
+
+### ⚠️ 08-31 17:xx — S2(ii) as worded reaches only the MID range; the large arm still needs the Y-floor large Prop
+`MRTLemmaA4iiFixed34`'s far disjunct `(log X)^{1/16}/2 < |t − t₁|` carries NO ceiling (`|t|,|t₁| ≤ X`
+allow `|t − t₁|` up to `2X`), so the threshold producer "derived from (i)" (the ∃-C far theorem,
+which is Y-parametric MID-range, `|t − t₁| ≤ (log X)^{20}`) covers the far arm only up to
+`(log X)^{20}`; beyond it the input is the large-range estimate — `MRTLargeRangeEquidistributionFixed`
+(S1's Y-floor sibling), OPEN, priced at A4F-3 (ET + prime-sum transfer at VK strength, class
+C/D). Executed honestly: `MRTLemmaA4iiFixed34T` is DEFINED per the given wording (Fixed34's
+binders, the threshold `C₀/ε ≤ loglog X` added), PRODUCED conditionally on the large Prop
+(`mrtLemmaA4iiFixed34T_of_largeRangeFixed`), and an UNCONDITIONAL mid-range threshold theorem
+lands beside it. The def is not improvised; the conditional is flagged here for the fold.
