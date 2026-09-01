@@ -4828,6 +4828,50 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    NODE** (R-1, re-tier affirmed at Fable). I measured its SHAPE and stopped there. **A worker
    seat measuring an R-1-adjacent quantity must report, not rule** — this is a helm/Fable call and
    the second arm is the whole reason the producer wave was priced as a wave.
+   ⚖️⭐⭐ **THE SECOND ARM IS RUN — 2026-08-31 evening (math, routed by the night wave 17:23).
+   VERDICT: RIPE AT `h = 2` ON EVERY ARM; THE PRODUCER WAVE IS TRANSCRIPTION-SHAPED AS TO THE
+   CAP.** Full arithmetic, byte-cited, in the seat's measurement report `2026-08-31-math-REPORT-7b-P1-margin-measurement.md`.
+   A MEASUREMENT ONLY — no Lean written, no statement or frozen byte touched, nothing built.
+   ⭐⭐ **AND THE ARM THAT STOPPED 08/26 WAS NEVER THE BINDING ONE.** The deferral was correct
+   THE DAY IT WAS WRITTEN and its clock ran out on 08/30: R-1 wave 1 landed, and
+   `logChowla2_v7_rated` (`V7Rated.lean:973-985`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
+   The rated socket's witnesses are hoisted ABOVE `R`, `H` and `q`
+   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:73-77`), so **no instantiation of
+   the cap can move them**: on the rated lane the evaluated site is CAP-BLIND and the
+   `h`-inflation perturbs the cushion by exactly nothing. *(A structural fact at the bytes. The
+   report-not-rule discipline stands: whether the program walks the rated lane is the helm's.)*
+   📐 **THE BINDING ARM IS A PAGE NOBODY HAD NAMED** — `pieceFloor_vt_threshold_of_loglog_rated`
+   (`BandRatedAssembly.lean:310-318`). All five cap-consumers factor through ONE lemma
+   (`log_le_of_le_arcDen`, `RbdSupply.lean:308`), so inflation is a single substitution
+   `log q ≤ log h + 12Λ` (`Λ := loglog H`). Row coefficients on `log q`, ×32: `4 + 24 + 128 = 156`
+   (and `156 × 12 = 1872` reproduces the landed Λ-total — the check that the table is right).
+   **Slack `28Λ + 4·log(7+12Λ) + 84` against cost `156·log h`:** at the lemma's own floor `Λ ≥ 1`,
+   `108.70 ≤ 123.78` — **h = 2 FITS ×1.14, h = 3 fails, break-even h ≤ 2.21**; at the socket's own
+   floor `Λ ≥ 518` (in scope at every application site, merely not passed) the ratio is **×135**.
+   ⚖️ **Two escapes for `h ≥ 3`, both below a statement act on a frozen numeral:** (1) route the
+   band row's 128 into the constant slot the page already carries (`hKB`) via a NEW sibling def
+   `bandArcConstH h Z δ := bandArcConst Z δ + 4·log h` ⇒ cost `28·log h`, **break-even h ≤ 83 at
+   Λ ≥ 1**, residue paid by `armVt` on the rated lane; (2) thread the socket's Λ-floor ⇒
+   `h ≈ 5e40`, but that ADDS A HYPOTHESIS to a new sibling and should be flagged before it is
+   taken. **At h = 2 neither escape is needed.** The UNRATED lane clears too (`350Λ` vs `336Λ`,
+   four rows, cost `28·log h`): **×5.5, break-even h ≤ 50**.
+   ⭐ **THE SHAPE:** the cost coefficient and the slack coefficient are THE SAME NUMBER (28), so
+   escape 1's condition is `log h ≲ Λ + 3` ⇒ ***THE CAP-INFLATION BUDGET IS ITSELF ABOUT `log H`***
+   — the door may be twisted by any shift up to ~`e³·log H` before a numeral has to move.
+   ✅ **THE OTHER FOUR ARMS, ALL FREE AT h = 2:** `P₁` gate `log₂h` bits vs `Adoor ≥ 2^36` (arm 1,
+   re-verified at the bytes: `calE A G 1 = A` `SeamCalibration.lean:102`, `Adoor_ge`
+   `DoorFrame.lean:86`) ×6.9e10 · scale gate `5·log h` vs `≈9.9e7` ×2.8e7 · `log X` floor `log h`
+   vs `≈1e9` ×1.5e9 · Abel drift factor `h²` vs `C(log H)^{1/4}loglog H` ×≈9e2.
+   ⭐ **`qgraded_drift_price_le` IS ALREADY h-UNIFORM** (`M4BridgePhase.lean:403-406`): stated with
+   a FREE `A` under `(q:ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM. The commission's
+   worry that the drift factor "is never re-chosen" is answered — it never needed to be.
+   ⛔ **AND THE CAP HAS A SECOND SITE INSIDE ONE DEFINITION, MOVING THE OTHER WAY.** `SocketBaseL`
+   (`ArithPageLinear.lean:695-698`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
+   the demand) AND `x ≤ 16·ω·arcDen 12 H·A` (11th, inflation WEAKENS the hypothesis — and
+   `cofkL_logX_floor` DIVIDES by it, `RegisterSupply.lean:330`). **A port that inflates the fifth
+   and not the eleventh is measuring a different object.**
+   📌 **RECOMMENDED NEXT (helm's to rule):** commission the wave at `h = 2` at EXECUTOR tier, first
+   node the h-family of `log_le_of_le_arcDen` — one lemma, from which all five rows follow.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
