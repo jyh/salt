@@ -188,3 +188,49 @@ jobs:
       #    a Gemfile, a docs site and a Pages deployment on a repo that is private now
       #    and public later behind a hard gate — and it is the Captain's to open, not a
       #    red-check repair. The Pages permissions above are left untouched for it.
+
+  # ══ RETENTION: KEEP THE NEWEST main SHA ONLY ═════════════════════════════════
+  # Council 2026-09-01, ruling 5. PR #14 stopped PRs from WRITING to the 10 GiB
+  # cache cap; it does nothing about main's own history, and main writes ~4.3 GB
+  # per sha across the two cache families (lean-action's `.lake` ~3.38 GB plus
+  # this workflow's `.lake/build` ~0.91 GB). Measured 20:3xZ that day, minutes
+  # after #14 merged: two main shas + one pre-#14 PR entry = 9,509,119,693 B,
+  # 88.6% of the cap. ⇒ THE CAP HOLDS TWO MAIN SHAS. Without this job the third
+  # merge evicts, GitHub picks the victim, and the 2026-09-01 fixed point
+  # (cold -> overrun -> cancelled -> save SKIPPED -> cold) is one eviction away.
+  #
+  # ⛔ THE ELEVATED PERMISSION IS SCOPED TO THIS JOB AND NOWHERE ELSE. A job-level
+  #   `permissions:` block REPLACES the workflow default for this job only, so the
+  #   build job above keeps its `pages: write`/`id-token: write` and never gains
+  #   `actions: write`. This job checks out one script and runs no project code.
+  #
+  # ⛔ IT RUNS ONLY AFTER A GREEN BUILD, BY CONSTRUCTION: `needs: build` will not
+  #   start on a failed or cancelled build, and a run that did not finish did not
+  #   save a cache — deleting older shas in that state is exactly how the repo
+  #   goes cold. The script's own `--expect-sha` gate is the second, independent
+  #   half of that: it refuses if THIS sha has no build entry in the store.
+  #
+  # ⚠️ THE SELF-TEST RUNS FIRST, IN CI, ON EVERY FIRING. Its fixtures are cut from
+  #   a real `gh cache list --json` record, and a mutation control (max -> min in
+  #   the newest-selection) turns 7 of its 22 arms red, so it is a suite that can
+  #   say NO. If it ever goes red here, the step fails BEFORE anything is deleted.
+  cache-retention:
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@v5
+      - name: Retention — keep the newest main sha only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/cache_retention.py --self-test
+          python3 scripts/cache_retention.py \
+            --repo "$GITHUB_REPOSITORY" \
+            --expect-sha "$GITHUB_SHA" \
+            --report-other-refs \
+            --apply
