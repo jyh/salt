@@ -28,7 +28,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
-## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. | helm→math | — |
+## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ⛔ **WHAT REMAINS OPEN IS `M4BlockMeanSqSupQH h` — the PER-CLASS SUP BOUND at moduli up to `h·arcDen 12 H`**, i.e. the seven producers' own analytic content, on which this wave is silent. See the row body. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
@@ -4828,6 +4828,155 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    NODE** (R-1, re-tier affirmed at Fable). I measured its SHAPE and stopped there. **A worker
    seat measuring an R-1-adjacent quantity must report, not rule** — this is a helm/Fable call and
    the second arm is the whole reason the producer wave was priced as a wave.
+   ⚖️⭐⭐ **THE SECOND ARM IS RUN — 2026-08-31 evening (math, routed by the night wave 17:23).
+   VERDICT: RIPE AT `h = 2` ON EVERY ARM; THE PRODUCER WAVE IS TRANSCRIPTION-SHAPED AS TO THE
+   CAP.** Full arithmetic, byte-cited, in the seat's measurement report `2026-08-31-math-REPORT-7b-P1-margin-measurement.md`.
+   A MEASUREMENT ONLY — no Lean written, no statement or frozen byte touched, nothing built.
+   ⭐⭐ **AND THE ARM THAT STOPPED 08/26 WAS NEVER THE BINDING ONE.** The deferral was correct
+   THE DAY IT WAS WRITTEN and its clock ran out on 08/30: R-1 wave 1 landed, and
+   `logChowla2_v7_rated` (`V7Rated.lean:973-985`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
+   The rated socket's witnesses are hoisted ABOVE `R`, `H` and `q`
+   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:73-77`), so **no instantiation of
+   the cap can move them**: on the rated lane the evaluated site is CAP-BLIND and the
+   `h`-inflation perturbs the cushion by exactly nothing. *(A structural fact at the bytes. The
+   report-not-rule discipline stands: whether the program walks the rated lane is the helm's.)*
+   📐 **THE BINDING ARM IS A PAGE NOBODY HAD NAMED** — `pieceFloor_vt_threshold_of_loglog_rated`
+   (`BandRatedAssembly.lean:310-318`). All five cap-consumers factor through ONE lemma
+   (`log_le_of_le_arcDen`, `RbdSupply.lean:308`), so inflation is a single substitution
+   `log q ≤ log h + 12Λ` (`Λ := loglog H`). Row coefficients on `log q`, ×32: `4 + 24 + 128 = 156`
+   (and `156 × 12 = 1872` reproduces the landed Λ-total — the check that the table is right).
+   **Slack `28Λ + 4·log(7+12Λ) + 84` against cost `156·log h`:** at the lemma's own floor `Λ ≥ 1`,
+   `108.70 ≤ 123.78` — **h = 2 FITS ×1.14, h = 3 fails, break-even h ≤ 2.21**; at the socket's own
+   floor `Λ ≥ 518` (in scope at every application site, merely not passed) the ratio is **×135**.
+   ⚖️ **Two escapes for `h ≥ 3`, both below a statement act on a frozen numeral:** (1) route the
+   band row's 128 into the constant slot the page already carries (`hKB`) via a NEW sibling def
+   `bandArcConstH h Z δ := bandArcConst Z δ + 4·log h` ⇒ cost `28·log h`, **break-even h ≤ 83 at
+   Λ ≥ 1**, residue paid by `armVt` on the rated lane; (2) thread the socket's Λ-floor ⇒
+   `h ≈ 5e40`, but that ADDS A HYPOTHESIS to a new sibling and should be flagged before it is
+   taken. **At h = 2 neither escape is needed.** The UNRATED lane clears too (`350Λ` vs `336Λ`,
+   four rows, cost `28·log h`): **×5.5, break-even h ≤ 50**.
+   ⭐ **THE SHAPE:** the cost coefficient and the slack coefficient are THE SAME NUMBER (28), so
+   escape 1's condition is `log h ≲ Λ + 3` ⇒ ***THE CAP-INFLATION BUDGET IS ITSELF ABOUT `log H`***
+   — the door may be twisted by any shift up to ~`e³·log H` before a numeral has to move.
+   ✅ **THE OTHER FOUR ARMS, ALL FREE AT h = 2:** `P₁` gate `log₂h` bits vs `Adoor ≥ 2^36` (arm 1,
+   re-verified at the bytes: `calE A G 1 = A` `SeamCalibration.lean:102`, `Adoor_ge`
+   `DoorFrame.lean:86`) ×6.9e10 · scale gate `5·log h` vs `≈9.9e7` ×2.8e7 · `log X` floor `log h`
+   vs `≈1e9` ×1.5e9 · Abel drift factor `h²` vs `C(log H)^{1/4}loglog H` ×≈9e2.
+   ⭐ **`qgraded_drift_price_le` IS ALREADY h-UNIFORM** (`M4BridgePhase.lean:403-406`): stated with
+   a FREE `A` under `(q:ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM. The commission's
+   worry that the drift factor "is never re-chosen" is answered — it never needed to be.
+   ⛔ **AND THE CAP HAS A SECOND SITE INSIDE ONE DEFINITION, MOVING THE OTHER WAY.** `SocketBaseL`
+   (`ArithPageLinear.lean:695-698`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
+   the demand) AND `x ≤ 16·ω·arcDen 12 H·A` (11th, inflation WEAKENS the hypothesis — and
+   `cofkL_logX_floor` DIVIDES by it, `RegisterSupply.lean:330`). **A port that inflates the fifth
+   and not the eleventh is measuring a different object.**
+   📌 **RECOMMENDED NEXT (helm's to rule):** commission the wave at `h = 2` at EXECUTOR tier, first
+   node the h-family of `log_le_of_le_arcDen` — one lemma, from which all five rows follow.
+   ✅✅⭐⭐ **THE PRODUCER WAVE IS COMMISSIONED AND EXECUTED AT `h = 2` — 2026-08-31 evening
+   (math, helm routing 17:39:57 under the Captain's 17:4x standing law). TWENTY-ONE NAMES ON THE CO-FACTOR SIDE, ALL `[3 axioms]`, ONE ATTEMPT EACH, on branch `math/7b-hdoor-h2` off main.**
+   New module `Salt/MR/HDoorSupply.lean`, rooted from `Salt/MR/All.lean`. The co-factor supply
+   now exists at the `h`-INFLATED arc allowance `h·arcDen 12 H`, all the way from the single
+   substitution to the rated socket.
+   📐 **THE CHAIN, IN ORDER:** `log_le_of_le_arcDen_h` (the ONE lemma all five cap-consumers
+   factor through) → the five rows (`mertensCap`, `vkDebitConst`, `vkMidDebitSharp` in
+   `RbdSupply` shape, `bandConstQ` the RATED fifth) → `pieceFloor_vt_threshold_of_loglog_rated_h`
+   → `capFreeFloor3_pieceDatum_arcDen_rated_h` → `SocketBaseLH` + `cofkL_logX_floor_h` /
+   `cofkL_mu_floor_h` / `cofkL_X_ge_expexp_h` → `cofkL_scale_gate_at_socket_h` /
+   `cofkL_threshold_at_socket_rated_h` → `cofkL_capFreeFloor_at_socket_rated_uniform_h`.
+   Each has an `_two` instance at `h = 2` discharging every `h`-side hypothesis.
+   ⭐⭐ **THE HEADLINE: `..._rated_two` AND `..._uniform_two` ARE BINDER-FOR-BINDER THE LANDED
+   NAMES WITH `q ≤ arcDen 12 H` ALONE REPLACED BY `q ≤ 2·arcDen 12 H`.** No hypothesis is added
+   and none is dropped. **That is what "transcription-shaped as to the cap" means, now checked by
+   the kernel rather than measured off the bytes.**
+   ⚠️ **THE MARGIN IS ×1.09, NOT THE ×1.14 PUBLISHED BEFORE THE WAVE — my own figure, corrected
+   at the bytes.** The pre-wave table had not charged the `8·log 2` of second-order cost the two
+   `log` rows carry when `log(12Λ) → log(L+12Λ)` and `log(7+12Λ) → log(7+L+12Λ)` are absorbed.
+   `164·log 2 = 113.68` against `28 + 4·log 19 + 84 = 123.78`. ✅ **POSITIVE CONTROL RUN: the same
+   discharge at `h = 3` FAILS** (`176.9` vs `123.78`) — the budget is load-bearing, not
+   decoration, and break-even is `h ≤ 2.21` exactly as measured.
+   ⭐⭐ **BUT THE TIGHT MARGIN NEVER BINDS AT AN APPLICATION SITE, AND THAT IS NOT ESCAPE 2.** The
+   threshold page is tight only because it is stated at ITS OWN floor `Λ ≥ 1`. The socket carries
+   `hlo : 518 ≤ loglog H₋` **in its own landed binder list**, so at every application site
+   `Λ ≥ 518` and the budget clears by four orders — **with no binder added**. Escape 2 was
+   threading that floor INTO the page, which does add one; this is reading a floor that is
+   already there. ⇒ the binding constraint at the socket is `hh7 : log h ≤ 7` (`h ≤ 1096`), which
+   comes from the `mertensCap` absorption and the `log X` floor — **not from the `Λ`-budget at
+   all**. **ESCAPE 1 (`bandArcConstH`) WAS PRE-AUTHORIZED AND NOT NEEDED; ESCAPE 2 NOT TAKEN.**
+   ⛔ **THE TWO-SITE WARNING WAS OBEYED AND ITS INCIDENTAL HALF WAS WRONG.** `SocketBaseLH`
+   inflates BOTH conjuncts. But my measurement's "opposite ways" was read, by me, as meaning
+   neither socket implies the other — **false, and now checked**: both inflated conjuncts are
+   RELAXATIONS, so `socketBaseLH_of_socketBaseL` holds for every `h ≥ 1` (and
+   `socketBaseLH_one_iff` pins the family at `h = 1`). *"Opposite ways" is true of the PROOF —
+   one site makes the goal harder, the other makes an input weaker — not of the implication.*
+   ⇒ ***A WARNING ABOUT A COST IS NOT A CLAIM ABOUT AN IMPLICATION, AND I WROTE IT AS ONE.***
+   ⛔⛔ **WHAT THIS DOES NOT DO — READ THIS BEFORE CITING THE WAVE.** It builds the CO-FACTOR
+   SUPPLY at the inflated cap; **`M4SievedDoorSqH` IS STILL OPEN.** The `α`-set direction is
+   untouched and still runs backwards: `NearRatTight (h·arcDen 12 H) H α` admits STRICTLY MORE
+   `α`, so the door socket is STRONGER than the landed one and `nearRatTight_mono` still cannot
+   supply it. The seven producers' own ESTIMATES are untouched — this wave is silent on them, as
+   the measurement always said. **Nothing here bears on twin primes.**
+   ✅✅⭐⭐⭐ **AND THE DOOR SIDE WENT ALL THE WAY DOWN — SAME BRANCH, SAME NIGHT. `M4SievedDoorSqH`
+   HAS A PRODUCER.** Thirteen more names (`HDoorSupply` §9): the free-cap Abel drift
+   (`abs_mul_window_le_of_cap`, `norm_phase_sum_cap_drift`, `norm_absWindowSum_le_drift_cap`) ·
+   `M4SievedDoorSqSupH` + `m4_sievedDoorSqH_of_supH` (+ its `q`-free reading) ·
+   `M4BlockMeanSqSupQH` + `m4_cover_assembly_supQH` · **`m4_sievedDoorSqH_of_blockQH`, the exit**
+   · `m4_blockMeanSqSupQH_of_classPriceH` · two anti-vacuity witnesses.
+   ⭐⭐ **N4s IS NO LONGER PRODUCERLESS.** The row above says *"THIS HAS NO PRODUCER AND NONE CAN BE
+   MANUFACTURED FROM THE LANDED SOCKET"* — the second half stands (the `α`-set at the inflated cap
+   STRICTLY CONTAINS the landed one, `nearRatTight_mono` still runs backwards, and discharging
+   `hsock` from `M4SievedDoorSq` is still a correctness error), **but the first half is now false
+   and it was answered by BUILDING the family, not by finding a shortcut.**
+   📐 **THE OPEN SLOT HAS MOVED TWO LEVELS DOWN, TO WHERE THE MATHEMATICS IS:** what remains is
+   `M4BlockMeanSqSupQH h` — and through `m4_blockMeanSqSupQH_of_classPriceH`, the **PER-CLASS SUP
+   BOUND at moduli up to `h·arcDen 12 H`**. Everything between that and the door predicate is now
+   in the kernel. **This wave is silent on that estimate, exactly as the measurement said.**
+   ⛔ **ONE STATEMENT-LEVEL FINDING, AND IT IS A SPELLING FACT, NOT A MATHEMATICAL ONE.**
+   `M4Abel.abs_mul_window_le_of_arcDen` / `norm_phase_sum_arcDen_drift` and
+   `M4BridgePhase.norm_absWindowSum_le_drift` write the cap as the LITERAL `arcDen B₅ H` in both
+   hypothesis and conclusion, and `h·arcDen 12 H` is **not** `arcDen B₅ H` for any `B₅` — so they
+   could not be instantiated. Their proofs never read the cap as anything but an opaque real, so
+   the three are restated at a free `Q` and the landed proofs run VERBATIM.
+   ⇒ ***A LEMMA PINNED BY ITS SPELLING LOOKS EXACTLY LIKE A LEMMA PINNED BY ITS MATHEMATICS, AND
+   ONLY READING THE PROOF TELLS THEM APART.***
+   ✅ **BOTH NEW SOCKETS CARRY THEIR ANTI-VACUITY WITNESS IN THE SAME COMMIT THAT INTRODUCES
+   THEM** (`m4_sievedDoorSqSupH_trivial`, `m4_blockMeanSqSupQH_trivial`) — the duty N4s minted,
+   applied to N4s's own successors. At the trivial grade `M4GradeGate` fails, and **that failure
+   is the analytic gap, not vacuity.**
+   📌 **TOTALS (machine-counted at the file, not tallied by hand — my 17:5x bus figure of "29 names"
+   was a HAND count and was WRONG): `Salt/MR/HDoorSupply.lean`, ELEVEN nodes, **34 public names**
+   plus one `private` helper, every one of the 34 audited `[3 axioms]` in a SINGLE enumerating pass,
+   one attempt each; `saltbuild EXIT=0` on `Salt.MR.All` (9345 jobs); `blueprint_lint: OK`;
+   `check_private_paths --tree` OK, 0 NEW residue. Branch `math/7b-hdoor-h2`, PR #10.**
+   ⛔⭐ **THE DOOR-SLOT MEASUREMENT, AND A CORRECTION TO THE FIVE-ARM COUNT ABOVE — 2026-08-31
+   night (math, on the helm's poke). Report `2026-08-31-math-REPORT-7b-door-slot-measurement.md`.**
+   ✅ **The class-price → χ-average chain is CAP-FREE, SIX FOR SIX** (`arcDen` count 0 in every
+   signature): `classSup` (`M4WaveClosed:141`) · `classSup_le_inv_totient_sum_doorChiSup_L`
+   (`M4RowLinear:3288`) · `le_doorChiSup_L` (`:2438`) · `doorChiSup_sq_le_dyadic_L` (`:1905`) ·
+   `sum_windowClass_memSCoeff` (`M4ClassPrice:202`) · `norm_sum_residueClassOn_liou_le`
+   (`M4BridgeResidue:367`). ⇒ **the remaining slot reduces to the χ side by machinery that never
+   reads the cap — and the χ side is what §1–§8 of the wave ported.**
+   ⛔⛔ **BUT THE "FIVE ARMS" ABOVE IS AN INCOMPLETE ENUMERATION AND THIS IS THE CORRECTION.**
+   `m4_nonCoprime_classMeanSq` (`M4NonCoprime.lean:384-390`) carries a SIXTH cap-reading side
+   condition, `harc : ∀ H ∈ [H₋,H₊], 2·arcDen 12 H ≤ (H:ℝ)`. Inflated: `log 2 + log h + 12Λ ≤
+   log H` — cost exactly `log h`, budget `log H − 12Λ − log 2`, and at the socket's own floor
+   (`loglog H₋ ≥ 518`) free by a margin with no useful finite name. **The verdict does not move;
+   the COUNT does.** (Its sibling `hgate` is the `P₁` gate restated, i.e. arm 1.)
+   ⇒ ***THE FIVE ARMS WERE THE ARMS OF THE LANE I WALKED*** — all five sit on the co-factor lane
+   or its gates; the non-coprime DILATION branch has its own cap gate, in a file the measurement
+   never opened. The honest sentence was *"five arms on this lane"*.
+   ⭐ **AND A SECOND NODE THAT NEEDED NO PORT:** `M4NonCoprime.classSup_le_dilate` (`:304-307`) is
+   stated with a FREE `W` under `q ≤ W`, `W < P₁`, so `W := h·arcDen 12 H` instantiates VERBATIM
+   — its docstring says why (*"no arc datum, hence no enlarged cap"*). With
+   `qgraded_drift_price_le` that is two. ⇒ ***A FREE BOUND IN A STATEMENT IS A PORT THAT ALREADY
+   HAPPENED*** — the dual of the three drift lemmas whose LITERAL `arcDen B₅ H` made a `sed` look
+   like a wall. **One law, two signs: a census of HYPOTHESES mis-prices in BOTH directions.**
+   📐 **SCALE OF A FULL CHAIN PORT:** the exact spelling `(q : ℝ) ≤ arcDen 12 H` appears at **371
+   sites across 39 files** under `Salt/MR/` (machine-counted, wave module excluded; a positive
+   count, not an absence claim). ⛔ **That number is the WRONG PRICE on its own** — almost all are
+   THREADS; on the co-factor lane all five consumers factored through ONE lemma. ⇒ ***THE PORT IS
+   WIDE, NOT DEEP***, and a hypothesis-site census prices only the wide part.
+   ⛔ **The measurement does NOT price the ESTIMATE** — what value of `B H` the seven producers
+   deliver is untouched, exactly as the cap measurement was untouched by it.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any

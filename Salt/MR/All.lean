@@ -408,6 +408,7 @@ import Salt.MR.XGapThread
 import Salt.MR.BandRated
 import Salt.MR.BandRatedAssembly
 import Salt.MR.BandRatedSocket
+import Salt.MR.HDoorSupply
 import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
@@ -8806,3 +8807,87 @@ open Salt.Tactic in
   Salt.MR.cofkR_cofactorSupply_L_gk_rated
   Salt.MR.logChowla2_v7_rated
   Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated
+
+open Salt.Tactic in
+-- ⭐⭐ COMMISSION 7b, THE PRODUCER WAVE AT h = 2 (2026-08-31 evening, math) — helm routing
+-- 17:39:57 under the Captain's 17:4x standing law, executor tier, transcription-shaped.
+-- `Salt/MR/HDoorSupply.lean`: the co-factor supply AND the door chain at the h-INFLATED arc
+-- allowance `h · arcDen 12 H`.  Eleven nodes, 34 names, one attempt each.
+-- 📐 §1–§3 the single substitution `log q ≤ log h + 12·loglog H` and the five rows that follow
+-- from it (all five cap-consumers factor through `log_le_of_le_arcDen`; row coefficients on
+-- `log q` ×32 are 4 + 24 + 128 = 156, and 156×12 = 1872 reproduces the landed Λ-total, which is
+-- the identity that checks the table).  §4 the BINDING ARM, the threshold page: budget
+-- `156·log h + 8·log 2 ≤ 28Λ + 4·log(7+12Λ) + 84`, cost coefficient = slack coefficient = 28,
+-- so the cap-inflation budget is itself about `log H`.  §5 the arc exit.  §6–§8 the socket.
+-- §9 the door side.
+-- ⚠️ THE MARGIN IS ×1.09 AT THE LEMMA'S OWN FLOOR Λ ≥ 1 — the pre-wave measurement published
+-- ×1.14 because it had not charged the 8·log 2 the two `log` rows cost when their arguments
+-- widen.  Break-even h ≤ 2.21; the same discharge at h = 3 FAILS (positive control, run in
+-- scratch).  ⭐ BUT IT NEVER BINDS AT AN APPLICATION SITE, and that is NOT escape 2: the socket
+-- carries `hlo : 518 ≤ loglog H₋` IN ITS OWN LANDED BINDER LIST, so reading it adds no binder.
+-- Escape 2 would thread that floor INTO a page that lacks one.  The real ceiling at the socket
+-- is `hh7 : log h ≤ 7` (h ≤ 1096), from the mertensCap absorption and the log X floor.
+-- ⭐ ESCAPE 1 (`bandArcConstH`) was PRE-AUTHORIZED AND NOT NEEDED.
+-- ⛔ THE TWO-SITE PORT: `SocketBaseLH` inflates BOTH of `SocketBaseL`'s cap sites — the 5th
+-- conjunct (inflation STRENGTHENS the demand) and the 11th (inflation WEAKENS it, and
+-- `cofkL_logX_floor` DIVIDES by it).  Moving one and not the other prices a different object.
+-- ⚠️ But "opposite ways" is true of the PROOF and FALSE of the implication: both inflated
+-- conjuncts are RELAXATIONS, so `socketBaseLH_of_socketBaseL` holds for every h ≥ 1 and
+-- `socketBaseLH_one_iff` pins the family at h = 1.  Both are stated rather than asserted.
+-- ⭐⭐ THE DOOR SIDE: N4s IS NO LONGER PRODUCERLESS.  `HDoorArc`'s docstring says the socket
+-- "HAS NO PRODUCER AND NONE CAN BE MANUFACTURED FROM THE LANDED SOCKET" — the second half
+-- STANDS (the α-set at the inflated cap strictly CONTAINS the landed one, `nearRatTight_mono`
+-- runs backwards, discharging `hsock` from `M4SievedDoorSq` is still a correctness error); the
+-- first half is answered by BUILDING the family.  `m4_sievedDoorSqH_of_blockQH` produces
+-- `M4SievedDoorSqH` from the per-block mean square at the inflated modulus range.
+-- ⭐ Three landed drift lemmas were pinned by their SPELLING, not their mathematics: M4Abel's
+-- `abs_mul_window_le_of_arcDen` / `norm_phase_sum_arcDen_drift` and M4BridgePhase's
+-- `norm_absWindowSum_le_drift` write the cap as the LITERAL `arcDen B₅ H`, and h·(log H)^12 is
+-- not (log H)^{B₅} for any B₅ — but their PROOFS read the cap as an opaque real, so §9.1's
+-- free-cap restatements run the landed proofs VERBATIM.
+-- ⭐ `qgraded_drift_price_le` needed NO port at all: stated with a free `A` under `q ≤ A`, it
+-- instantiates at `A := h·arcDen 12 H` verbatim.
+-- ✅ Both new sockets carry their ANTI-VACUITY witness in the commit that introduces them
+-- (`m4_sievedDoorSqSupH_trivial`, `m4_blockMeanSqSupQH_trivial`) — the exits take them as
+-- HYPOTHESES and the kernel cannot check that a hypothesis is inhabited.  At the trivial grade
+-- `M4GradeGate` fails, and that failure is the analytic gap, not vacuity.
+-- ⛔ WHAT IS OPEN: `M4BlockMeanSqSupQH h` — and through `m4_blockMeanSqSupQH_of_classPriceH`,
+-- the PER-CLASS SUP BOUND at moduli up to `h·arcDen 12 H`, i.e. the seven landed producers'
+-- own analytic content at a wider modulus range.  This wave is SILENT on that estimate.
+-- Nothing here bears on twin primes.  (`SocketBaseLH`, `M4SievedDoorSqSupH` and
+-- `M4BlockMeanSqSupQH` are defs and carry no axioms; they are audited anyway, as the block
+-- above audits its own defs, so the registry row count matches the declaration count.)
+#audit_axioms Salt.MR.arcDen_le_h_mul_arcDen
+  Salt.MR.log_le_of_le_arcDen_h
+  Salt.MR.log_max_two_le_of_le_arcDen_h
+  Salt.MR.mertensCap_le_of_le_arcDen_h
+  Salt.MR.vkDebitConst_le_of_le_arcDen_h
+  Salt.MR.vkMidDebitSharp_le_of_le_arcDen_h
+  Salt.MR.bandConstQ_le_of_le_arcDen_h
+  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_h
+  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_two
+  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_h
+  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_two
+  Salt.MR.SocketBaseLH
+  Salt.MR.socketBaseLH_one_iff
+  Salt.MR.socketBaseLH_of_socketBaseL
+  Salt.MR.cofkL_logX_floor_h
+  Salt.MR.cofkL_mu_floor_h
+  Salt.MR.cofkL_X_ge_expexp_h
+  Salt.MR.cofkL_scale_gate_at_socket_h
+  Salt.MR.cofkL_threshold_at_socket_rated_h
+  Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_h
+  Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_two
+  Salt.MR.abs_mul_window_le_of_cap
+  Salt.MR.norm_phase_sum_cap_drift
+  Salt.MR.norm_absWindowSum_le_drift_cap
+  Salt.MR.M4SievedDoorSqSupH
+  Salt.MR.m4_sievedDoorSqH_of_supH
+  Salt.MR.m4_sievedDoorSqH_of_supH_uniform
+  Salt.MR.m4_sievedDoorSqSupH_trivial
+  Salt.MR.M4BlockMeanSqSupQH
+  Salt.MR.m4_cover_assembly_supQH
+  Salt.MR.m4_sievedDoorSqH_of_blockQH
+  Salt.MR.m4_blockMeanSqSupQH_of_classPriceH
+  Salt.MR.m4_blockMeanSqSupQH_trivial
+  Salt.MR.m4_doorL2_supply_500_H_of_blockQH
