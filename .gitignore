@@ -30,3 +30,4 @@ articles/*.pdf
 # Scratch elaboration space (the N7 sorry ruling, 8/11): per-agent-named
 # Scratch*.lean files are NEVER tracked — glob, any depth, matching saltworks.
 Scratch*.lean
+scripts/__pycache__/
