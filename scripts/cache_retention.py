@@ -252,8 +252,24 @@ def main(argv=None):
         if r.returncode == 0:
             print("cache_retention: deleted id=%s" % e["id"])
         else:
-            sys.stderr.write("cache_retention: DELETE FAILED id=%s: %s\n"
-                             % (e["id"], r.stderr.strip()))
+            msg = (r.stderr or "").strip()
+            sys.stderr.write("cache_retention: DELETE FAILED id=%s: %s\n" % (e["id"], msg))
+            # ⛔ NAME THE LIKELIEST CAUSE RATHER THAN LEAVE A BARE 403 FOR A
+            #   READER TO DECODE AT THE WRONG MOMENT. Measured 2026-09-01:
+            #   `repos/jyh/salt/actions/permissions/workflow` reports
+            #   `default_workflow_permissions: "read"`. A job-level
+            #   `permissions:` block is meant to set this job's token
+            #   regardless — but that is DOCUMENTED behaviour, not a
+            #   measurement of this repo, and the two have already come apart
+            #   here once today. So this branch states the hypothesis and where
+            #   to check it; it does not assert it.
+            if "403" in msg or "not accessible" in msg.lower():
+                sys.stderr.write(
+                    "cache_retention: ⇒ this reads like a TOKEN PERMISSION refusal, not a "
+                    "missing cache. Check `gh api repos/<owner>/<repo>/actions/permissions/"
+                    "workflow`; if `default_workflow_permissions` is \"read\" and this job's "
+                    "`permissions: {actions: write}` did not override it, the retention job "
+                    "cannot delete and the setting is the fix. NOTHING WAS DELETED.\n")
             rc = 3
     return rc
 
