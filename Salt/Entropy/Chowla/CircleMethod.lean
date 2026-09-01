@@ -1357,10 +1357,12 @@ from the L¹ core, and it differs by exactly the L² normaliser.
 `H = 1` the vanishing of the window correlation needs `1 ≤ p·h` (`Nat.mul_pos`).  At `h = 0`
 the statement is FALSE at `H = 1`, not merely unproven.
 
-⛔ **NO CONSUMER YET.**  `log_chowla_two_shell_xi_sq_h` does not exist, and the wrapper that
-re-states this over the shift fork's own `bigXiH h` belongs on the `ShiftFork` side (that
-module imports this one, so naming its objects here would be an import cycle — the same
-fence `bigXiTwistFilter`'s docstring records).  This is a socket. -/
+✅ **CONSUMED AS OF 2026-09-01, ONE LAYER OUT.**  The `bigXiH`-facing wrapper
+`circle_method_estimate_sq_h` (`ShiftFork.lean:432`) restates this core, and
+`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) consumes THAT.  The wrapper still
+belongs on the `ShiftFork` side and this file still may not name it (that module imports this
+one, so naming its objects here would be an import cycle — the same fence
+`bigXiTwistFilter`'s docstring records); the citation above is prose, not an import. -/
 theorem circle_method_estimate_sq_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
     ∃ C : ℝ, 0 < C ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
