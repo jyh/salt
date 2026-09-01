@@ -5219,6 +5219,31 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⇒ ⭐ **THE ROW'S TWO HALVES SHOULD BE SPLIT INTO TWO ITEMS.** The first was a composition of
    landed edges and cost 4 attempts total; the second is a design question about a frequency
    convention. **Carrying them under one number prices the second at the first's rate.**
+   ✅✅⭐ **THE `_L_gk` h-FAMILY IS LANDED — 2026-09-01 (math, DESK row CP, worker tier B/A; the
+   helm's per-name statement word of 15:33:54 on the signature draft is the statement act).**
+   `Salt/MR/S16FlatTerminalLinearH.lean`, **46 names, every one `[3 axioms]`** (`#print axioms`
+   per name + the `Salt/MR/All.lean` audit block in the same commit), ONE attempt per name (one
+   build with two namespace opens, one `simp`→`norm_num`, and the QUEUE's own `have h` name-capture
+   lesson from this row firing twice — nothing mathematical). The flat road's terminal register
+   `m4_second_road_L2_gk_flatRoot_L` re-stated at the `h`-inflated cap, DOOR FORM: the register
+   `m4_second_road_L2_H_gk_flatRoot_L h hh K` concludes `MRTUniformityXiL2H h R (2·Kc·Bceil + δ/2 +
+   8·2^k/x)` from `M4ChiSummedFreeRowH_L_gk h K R M RS` and the five cap reads at `h·arcDen 12 H`
+   — its consumer is `log_chowla_two_shell_xi_sq_h`'s `hdoor` slot (row o, merged). Links 3.1–3.8
+   + the mint `m4_doorL2_supply_H_L_gk` + the `_500` pin, the splice `m4ChiRowGradedH_L`, the ceiling lemma `m4_arith_rs_ceiling_met_rhoH_two` (pinned `h = 2`; the
+   `log 2` fits under the LANDED `110525` at `Real.pi_lt_d4`, ratio² < 1.00231 — the "×3/2 constant
+   repair" does NOT fit, slack was ×1.0048).
+   ⛔ **TWO THINGS THE SIGNATURE DRAFT HAD WRONG, found by the transcription and posted on the bus
+   before the first line of Lean:** (1) the x-scale floor `R.x ≤ 16·ω·arcDen·A` INFLATES with the
+   cap — the stratified consumer derives it at the dilated base `⌊A/d⌋−1` from the stratum bound
+   `d ≤ cap`, so at cap `h·arcDen` the χ-summed predicates and `SocketBaseLH` carry
+   `16·ω·(h·arcDen)·A` — and `HDoorSupply.SocketBaseLH` (08/31) already carries exactly that, so the
+   framed base is REUSED, not redefined (the aggregate caught the name collision); (2) 3.5 needs an h-sibling of the stratified consumer
+   (`m4_freeBlockSup_of_chiSummedH_L_gk`, where the residual enters), one link the draft did not
+   count. The rpow identity is STRUCK per the word; the three `_Q` drift lemmas replace it.
+   ⛔ **WHAT THIS DOES NOT SAY.** `M4ChiSummedFreeRowH_L_gk h` is the socket and has NO producer at
+   `h ≥ 2` — the `SocketBaseL`-framed producer population (160/52/49/50 occurrences) re-quantified
+   over `SocketBaseLH h`, and the six hops above the register, are the NEXT wave. The register is
+   conditional exactly where its `h = 1` twin is. **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
