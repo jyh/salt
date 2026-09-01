@@ -28,7 +28,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
-## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ⛔ **WHAT REMAINS OPEN IS `M4BlockMeanSqSupQH h` — the PER-CLASS SUP BOUND at moduli up to `h·arcDen 12 H`**, i.e. the seven producers' own analytic content, on which this wave is silent. See the row body. | helm→math | — |
+## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ✅⭐⭐⭐ **AND THE CLOSING WAVE DISCHARGED N4s** (`HDoorClose.lean`, 11 names): the twisted door's mint closes onto **the same two data the `h = 1` door closes onto**. ⛔ **STILL OPEN, AND WHY THE ROW IS NOT STAMPED CLOSED: `M4ChiBlockMeanSqH h` — the ESTIMATE, at a modulus range `h` times wider than the landed datum supplies.** That widening is a real demand and is not derivable. See the row body. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
@@ -4947,6 +4947,40 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    plus one `private` helper, every one of the 34 audited `[3 axioms]` in a SINGLE enumerating pass,
    one attempt each; `saltbuild EXIT=0` on `Salt.MR.All` (9345 jobs); `blueprint_lint: OK`;
    `check_private_paths --tree` OK, 0 NEW residue. Branch `math/7b-hdoor-h2`, PR #10.**
+   ✅✅⭐⭐⭐ **THE CLOSING WAVE — `HDoorArc`'s N4s SOCKET IS DISCHARGED, 2026-08-31 night (math,
+   helm-commissioned 18:52).** `Salt/MR/HDoorClose.lean`, **eleven names, all `[3 axioms]`, one
+   attempt each, registry rows in the SAME commit.** The twisted `L²` door's mint closes onto
+   **the same two data the `h = 1` door closes onto**: the χ-uniform block mean square and the
+   non-coprime slot, both at the inflated cap. Chain:
+   `M4ChiBlockMeanSqH h` → (χ-reduction) → coprime half + the carried non-coprime slot →
+   `M4ClassBlockMeanSqH h` → (split + Chebyshev) → `M4BlockMeanSqSupQH h` → `M4SievedDoorSqH h`
+   → `MRTUniformityXiL2H h`. **Every link carries the cap as a THREAD; not one reads it.**
+   ⛔⛔ **AND THE COMMISSION'S NAMED ROUTE WAS THE ABANDONED LANE — the corpus says so in its own
+   words, and this is the finding, not the fix.** The commission routed through the `h`-family of
+   `M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice`. `M4WaveClosed.lean:16-24` records that that
+   node's hypothesis is *"not what a mean-square supplier can deliver … strictly stronger than
+   anything the MRT method proves"*, and §2 of that same file exists to replace the step.
+   ⇒ ***ROUTING THE CLOSE THROUGH IT WOULD HAVE DISCHARGED THE SOCKET ONTO A DEMAND WITH NO
+   POSSIBLE SUPPLIER — a green build, a clean axiom audit, and a VACUOUS CLOSE.*** The `h`-family
+   of that node (`HDoorSupply.m4_blockMeanSqSupQH_of_classPriceH`) is faithful and TRUE and is
+   exactly the wrong thing to route through. **No landed byte moved; only the lane changed.**
+   ⇒ 🔑 ***A TRUE LEMMA CAN BE THE WRONG ROUTE, AND ITS TRUTH IS NO WARNING AT ALL*** — the only
+   thing that told me was the neighbouring file's own header saying it had abandoned the step.
+   ✅ **WHAT IS CLOSED: THE CAP.** At `h = 2` the door predicate needs **no gate, no floor and no
+   constant that the `h = 1` door did not need.** Every cap-READING arm the two waves met is
+   discharged in `HDoorSupply` §1–§8 or free at the socket's own `518` floor.
+   ⛔⛔ **WHAT IS NOT CLOSED AND IS NOT CLAIMED: THE ESTIMATE, AND ITS RANGE — SO THIS ROW IS NOT
+   STAMPED CLOSED.** `M4ChiBlockMeanSqH h` asks for the χ-uniform block mean square at
+   `q ≤ h·arcDen 12 H` where the landed datum supplies `q ≤ arcDen 12 H`. **That widening is a
+   REAL demand on the seven producers and is NOT derivable.** ⇒ the honest reading is
+   ***THE `h`-DOOR NEEDS EXACTLY THE `1`-DOOR'S CONDITIONAL, RESTATED OVER AN `h`-TIMES WIDER
+   MODULUS RANGE*** — strictly weaker than *"the door predicate is inhabited UNCONDITIONALLY at
+   h = 2"*, which the 18:52 fold expected. **Whether the producers' bound is `q`-uniform is
+   UNPRICED, and I did not price it by assumption. The closure call is the helm's on that
+   measurement, not mine on this one.**
+   ✅ Both new sockets carry an anti-vacuity witness in the same commit
+   (`m4_classBlockMeanSqH_trivial`, `m4_chiBlockMeanSqH_trivial`); the χ one matters most,
+   because `M4ChiBlockMeanSqH` is what the close LEAVES open.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
