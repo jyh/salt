@@ -1634,7 +1634,13 @@ minimiser. *(Stated as the reason, not as a Lean proof: exhibiting `> 0` needs a
 witness-proofing.** With `t₁` pinned, the far branch's *centre cap* — the `S` that
 `dist_recenter_sq` consumes — becomes DERIVABLE rather than assumed:
 `mrtA4ii_far_centre_cap` below. Free `t₁` could not supply it at all, because a
-free `t₁` says nothing about `pretDistSq f (costwist t₁) X`. -/
+free `t₁` says nothing about `pretDistSq f (costwist t₁) X`.
+
+⛔ **SUPERSESSION STAMP (2026-08-31, the helm's A4F far-branch commission):** the
+clause above tying the cap to `dist_recenter_sq` is the superseded recenter-shaped
+reading, kept verbatim as the record.  The far branch AVERAGES
+(`pretDistSq_ge_cos_average`); the cap is the branch GUARD, not a chain input.
+See `mrtA4ii_far_centre_cap`'s corrected docstring below. -/
 
 /-- **A.4(ii), REPAIRED.**  Identical to `MRTLemmaA4ii` except that `t₁` is now
 required to attain `mrtM f X` — MRT's own reading of `t₁`. -/
@@ -1656,11 +1662,23 @@ theorem mrtA4iiFixed_high_M (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : 
       ≤ pretDistSq (fun n => f n * gJ 𝒥 Pseq Qseq n) (costwist t) X :=
   mrtA4ii_high_M_target f Pseq Qseq 𝒥 X t ε hf hXe htX hε hM
 
-/-- ⭐ **WHAT THE REPAIR BUYS: the far branch's CENTRE CAP is now derivable.**
+/-- ⭐ **THE FAR BRANCH'S GUARD: on the far branch the centre distance is capped.**
 In the far branch the first disjunct fails, so `mrtM f X < ⅛·loglog X`; with `t₁`
-pinned to the minimiser this transfers to the centre distance itself, which is
-exactly the `S` that `dist_recenter_sq` consumes.  **A free `t₁` could not supply
-this at all** — it says nothing about `pretDistSq f (costwist t₁) X`. -/
+pinned to the minimiser this transfers to the centre distance itself.  **A free
+`t₁` could not supply this at all** — it says nothing about
+`pretDistSq f (costwist t₁) X`.
+
+⛔ **SUPERSEDED READING, CORRECTED (2026-08-31, the helm's A4F far-branch
+commission):** this docstring used to call the cap *"exactly the `S` that
+`dist_recenter_sq` consumes"*.  That is FALSE as a description of the proof
+route: MRT's far branch never recenters — read from the source (pp. 22–23,
+displays (A.4)–(A.5)), it AVERAGES the distance at `t` and at the minimiser
+`t₁` (`pretDistSq_ge_cos_average`), and `‖f p‖ ≤ 1` then eliminates `f` with no
+floor and no cap anywhere in the chain.  The recentering route is numerically
+dead in this file's own record (`recenter_then_halve_constant`,
+`landed_route_below_a4ii_target`).  This lemma is the far branch's **GUARD** —
+the negation of the high-`M` disjunct, in centre-distance form — not a chain
+input. -/
 theorem mrtA4ii_far_centre_cap {f : ℕ → ℂ} {X t₁ : ℝ}
     (hmin : pretDistSq f (costwist t₁) X = mrtM f X)
     (hlow : ¬ ((1 / 8) * Real.log (Real.log X) ≤ mrtM f X)) :
@@ -3827,7 +3845,13 @@ by splitting `p` into short segments `(y, y(1 + (log X)^{-30})]`"*.  The value M
 the `O(1)` is carried in-statement as an explicit `C` (the S5 law: no hidden asymptotics).
 
 ⛔ **THIS IS A STATEMENT, NOT A THEOREM. NOTHING BELOW PROVES IT** — it is the exact remaining
-analytic content of A.4(ii)'s mid range, written so it can be cited, dispatched, and tracked. -/
+analytic content of A.4(ii)'s mid range, written so it can be cited, dispatched, and tracked.
+
+✅ **DISCHARGED in the A4F wave (2026-08-31)** by `mrtShortSegmentSplitting_holds` in the A4F
+mid-range module (a LATER module — nothing in this file proves it, so the line above stays
+true here): the exact-series majorization of `|cos|`, the Mertens window, and the harmonic
+sums through the landed zeta massif; its pin is an instance of the Y-floor
+`(log X)^{2/3} ≤ log Y`. -/
 def MRTShortSegmentSplitting : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u ε : ℝ), 0 < ε → Real.exp 1 ≤ X →
     Y = Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)) →
@@ -3895,10 +3919,15 @@ def MRTLargeRangeEquidistribution : Prop :=
 
 * **HIGH `M`** — `mrtA4ii_high_M_sixteenth`, **LANDED** (`1/16 = 0.0625` clears the
   `0.0605634…` target; MRT's own remark).
-* **MID RANGE** — `MRTShortSegmentSplitting`, **OPEN**, discharges via
-  `mrtA4ii_far_of_named_splitting`.
-* **LARGE RANGE** — `MRTLargeRangeEquidistribution`, **OPEN**; its heavy half (VK) is landed
-  and hypothesis-free, its light half (Erdős–Turán) is absent.
+* **MID RANGE** — `MRTShortSegmentSplitting`, **DISCHARGED in the A4F wave**
+  (`mrtShortSegmentSplitting_holds`, the A4F mid-range module; the far arm through
+  `mrtA4ii_far_of_named_splitting` is now unconditional there).  *(Bullet updated in the
+  A4F wave; it previously read OPEN.)*
+* **LARGE RANGE** — the frozen `MRTLargeRangeEquidistribution` is **REFUTED**
+  (`not_mrtLargeRangeEquidistribution`: `Y` is free and a small `Y` overdraws Mertens); the
+  live target is its Y-floor sibling `MRTLargeRangeEquidistributionFixed` (below), **OPEN**.
+  Its heavy half (VK) is landed and hypothesis-free, its light half (Erdős–Turán) is absent.
+  *(Bullet corrected in the A4F wave — it previously called the refuted statement OPEN.)*
 
 This theorem is the trivial disjunction-elimination shape: **either open Prop, plus `t₁`'s
 minimality, yields the far-arm bound** — recorded so the two obligations are visibly
@@ -4054,8 +4083,12 @@ def MRTParsevalConstantMatch (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Pro
 
 ⇒ **this is the campaign's remaining debt expressed as a Lean implication rather than a
 paragraph**: whoever discharges the constant match at the empty sieve has the primary.  The
-mid- and large-range obligations (`MRTShortSegmentSplitting`, `MRTLargeRangeEquidistribution`)
-sit beneath A.3 and feed A.4(ii), which is what supplies A.3's own hypothesis.
+mid- and large-range obligations (`MRTShortSegmentSplitting` — DISCHARGED in the A4F wave,
+`mrtShortSegmentSplitting_holds` — and the Y-floor sibling `MRTLargeRangeEquidistributionFixed`,
+still OPEN; the frozen `MRTLargeRangeEquidistribution` is refuted,
+`not_mrtLargeRangeEquidistribution`) sit beneath A.3 and feed A.4(ii), which is what supplies
+A.3's own hypothesis.  *(Parenthetical corrected in the A4F wave — it previously named the
+refuted frozen statement as the open obligation, and then the mid range as open.)*
 
 ⛔ **NOTHING HERE PROVES ANY OF IT.**  The implication is real and the antecedent is open;
 naming it is what lets a design session price the road instead of re-deriving it. -/
@@ -4560,6 +4593,176 @@ theorem mrtThmA1Statement_of_constantMatch_34 (Pseq Qseq : ℕ → ℕ)
     (h : MRTParsevalConstantMatch_34 Pseq Qseq ∅) : MRTThmA1Statement_34 := by
   obtain ⟨C, hCpos, hA2⟩ := h
   exact ⟨C, hCpos, mrtThmA1_of_mrtThmA1GJ_empty_34 C Pseq Qseq hA2⟩
+
+/-! ## ⛔ THE LARGE-RANGE STATEMENT IS REFUTED — `Y` IS FREE, AND A SMALL `Y` OVERDRAWS MERTENS
+
+`MRTLargeRangeEquidistribution` (above, byte-frozen) quantifies over ALL real `Y` with no
+constraint, while its demand `(1 − 2/π)·log(log X/log Y)` GROWS as `log Y → 0⁺`.  At
+`Y = exp((log X)^{−100})` the demand is `(1 − 2/π)·101·loglog X ≈ 36.7·loglog X`, against a
+sum that Mertens caps at `loglog X + O(1)` — the statement is FALSE, and the witness below
+puts that in the kernel.
+
+The sibling `MRTShortSegmentSplitting` PINS `Y = exp((log X)^{2/3+ε})` and does not have this
+defect.  The source's own sentence (p.23, *"Consequently (A.5) holds also in this case"*)
+transfers display (A.5) AT ITS `Y` — the transcription here dropped the pin when the large
+branch was given its own name.  The repair is a statement act at the frozen layer
+(helm/Fable tier, iron rule 1): re-state with the same `Y`-pin as the sibling.  Recorded in
+`docs/blueprints/flags.md` (the A4F wave); NOT taken here.
+
+Found by A4F-2 due diligence: that node was commissioned to carry this Prop as its named
+far-arm hypothesis, and a false hypothesis makes every consumer vacuously true. -/
+theorem not_mrtLargeRangeEquidistribution : ¬ MRTLargeRangeEquidistribution := by
+  rintro ⟨C, hC0, h⟩
+  -- the witness scale: `loglog X = L`, `log X = T = exp L`, `X = exp T`
+  set L : ℝ := max ((C + Salt.Mertens.mertensM + 12) / 35 + 1) 100 with hLdef
+  have hL100 : (100 : ℝ) ≤ L := le_max_right _ _
+  have hLB : (C + Salt.Mertens.mertensM + 12) / 35 + 1 ≤ L := le_max_left _ _
+  set T : ℝ := Real.exp L with hTdef
+  set X : ℝ := Real.exp T with hXdef
+  have hTpos : 0 < T := Real.exp_pos L
+  have hlogT : Real.log T = L := by rw [hTdef, Real.log_exp]
+  have hlogX : Real.log X = T := by rw [hXdef, Real.log_exp]
+  have hT1 : (1 : ℝ) ≤ T := by
+    rw [hTdef]
+    calc (1 : ℝ) ≤ 1 + 100 := by norm_num
+      _ ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
+      _ ≤ Real.exp L := Real.exp_le_exp.mpr hL100
+  have hXpos : 0 < X := by rw [hXdef]; exact Real.exp_pos T
+  -- `T = exp L ≥ exp 100 ≥ 2^100 ≥ 640000`
+  have hT640k : (640000 : ℝ) ≤ T := by
+    have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+    have hpow : (2 : ℝ) ^ (100 : ℕ) ≤ (Real.exp 1) ^ (100 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h2e 100
+    have hexp100 : Real.exp (100 : ℝ) = (Real.exp 1) ^ (100 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have hstep : (2 : ℝ) ^ (100 : ℕ) ≤ Real.exp (100 : ℝ) := by
+      rw [hexp100]; exact hpow
+    have h640 : (640000 : ℝ) ≤ (2 : ℝ) ^ (100 : ℕ) := by norm_num
+    have hTge : Real.exp (100 : ℝ) ≤ T := by rw [hTdef]; exact Real.exp_le_exp.mpr hL100
+    linarith
+  -- the height gate: `(log X)^20 = T^20 < 2·exp T = 2X`
+  have hT20 : T ^ (20 : ℕ) < 2 * X := by
+    have hT40pos : (0 : ℝ) < T ^ ((1 : ℝ) / 40) := Real.rpow_pos_of_pos hTpos _
+    have hlog40 : Real.log T ≤ 40 * T ^ ((1 : ℝ) / 40) := by
+      have h1 : Real.log (T ^ ((1 : ℝ) / 40)) = (1 / 40) * Real.log T :=
+        Real.log_rpow hTpos _
+      have h2 : Real.log (T ^ ((1 : ℝ) / 40)) ≤ T ^ ((1 : ℝ) / 40) - 1 :=
+        Real.log_le_sub_one_of_pos hT40pos
+      linarith
+    have h3940 : T ^ ((1 : ℝ) / 2) ≤ T ^ ((39 : ℝ) / 40) :=
+      Real.rpow_le_rpow_of_exponent_le hT1 (by norm_num)
+    have h800 : (800 : ℝ) ≤ T ^ ((1 : ℝ) / 2) := by
+      rw [← Real.sqrt_eq_rpow]
+      have h6 : (800 : ℝ) = Real.sqrt 640000 := by
+        rw [show (640000 : ℝ) = 800 ^ 2 by norm_num,
+          Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 800)]
+      rw [h6]
+      exact Real.sqrt_le_sqrt hT640k
+    have h20log : 20 * Real.log T ≤ T := by
+      have hchain : (800 : ℝ) * T ^ ((1 : ℝ) / 40) ≤ T := by
+        calc (800 : ℝ) * T ^ ((1 : ℝ) / 40)
+            ≤ T ^ ((39 : ℝ) / 40) * T ^ ((1 : ℝ) / 40) :=
+              mul_le_mul_of_nonneg_right (h800.trans h3940) hT40pos.le
+          _ = T := by rw [← Real.rpow_add hTpos]; norm_num
+      nlinarith [hlog40, hT40pos.le, hchain]
+    have hT20pos : (0 : ℝ) < T ^ (20 : ℕ) := pow_pos hTpos 20
+    have hlogpow : Real.log (T ^ (20 : ℕ)) = 20 * Real.log T := by
+      rw [Real.log_pow]; push_cast; ring
+    have hle : T ^ (20 : ℕ) ≤ Real.exp T := by
+      rw [← Real.exp_log hT20pos, hlogpow]
+      exact Real.exp_le_exp.mpr h20log
+    rw [hXdef]
+    linarith [Real.exp_pos T, hle]
+  -- the witness `Y`: `log Y = T^{−100} > 0`, and the demand's ratio is `T^{101}`
+  set Y : ℝ := Real.exp (T ^ (-(100 : ℝ))) with hYdef
+  have hlogY : Real.log Y = T ^ (-(100 : ℝ)) := by rw [hYdef, Real.log_exp]
+  have hratio : Real.log (Real.log X / Real.log Y) = 101 * L := by
+    rw [hlogX, hlogY, Real.rpow_neg hTpos.le, div_inv_eq_mul]
+    have hmul : T * T ^ ((100 : ℝ)) = T ^ ((101 : ℝ)) := by
+      nth_rewrite 1 [← Real.rpow_one T]
+      rw [← Real.rpow_add hTpos]; norm_num
+    rw [hmul, Real.log_rpow hTpos, hlogT]
+  -- instantiate the refuted statement at the witness
+  have hXe : Real.exp 1 ≤ X := by rw [hXdef]; exact Real.exp_le_exp.mpr hT1
+  have h2Xpos : (0 : ℝ) < 2 * X := by linarith
+  have hu2X : |2 * X| ≤ 2 * X := by rw [abs_of_pos h2Xpos]
+  have hu20 : (Real.log X) ^ (20 : ℕ) < |2 * X| := by
+    rw [abs_of_pos h2Xpos, hlogX]; exact hT20
+  have hcall := h X Y (2 * X) hXe hu2X hu20
+  rw [hratio] at hcall
+  -- the sum is Mertens-capped: `≤ SPartial X ≤ L + mertensM + 12`
+  have hsum1 : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+        (fun p : ℕ => Y < (p : ℝ)),
+        (1 - |Real.cos ((2 * X) * Real.log p / 2)|) / (p : ℝ))
+      ≤ Salt.Mertens.SPartial X := by
+    have hstep : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+          (fun p : ℕ => Y < (p : ℝ)),
+          (1 - |Real.cos ((2 * X) * Real.log p / 2)|) / (p : ℝ))
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+          (fun p : ℕ => Y < (p : ℝ)), (1 : ℝ) / (p : ℝ) := by
+      refine Finset.sum_le_sum fun p hp => ?_
+      have hprime : Nat.Prime p :=
+        (Finset.mem_filter.mp (Finset.mem_filter.mp hp).1).2
+      have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hprime.pos
+      have hsub := sub_div (1 : ℝ) (|Real.cos ((2 * X) * Real.log p / 2)|) ((p : ℝ))
+      have hnn : (0 : ℝ) ≤ |Real.cos ((2 * X) * Real.log p / 2)| / (p : ℝ) :=
+        div_nonneg (abs_nonneg _) hppos.le
+      linarith [hsub, hnn]
+    refine hstep.trans ?_
+    unfold Salt.Mertens.SPartial
+    exact Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+      (fun p _ _ => by positivity)
+  have hx2 : (2 : ℝ) ≤ X := by
+    have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+    linarith
+  have hmert := (abs_le.mp (Salt.Mertens.mertens_second_sharp_real hx2)).2
+  rw [hlogX, hlogT] at hmert
+  have h12T : 12 / T ≤ 12 := by
+    rw [div_le_iff₀ hTpos]; nlinarith [hT1]
+  have hSP : Salt.Mertens.SPartial X ≤ L + Salt.Mertens.mertensM + 12 := by
+    linarith [hmert, h12T]
+  -- the arithmetic close: `36.6·L − C ≤ L + M + 12` forces `L < 0`, against `L ≥ 100`
+  have hpi : (3.14 : ℝ) < Real.pi := Real.pi_gt_d2
+  have hpipos : (0 : ℝ) < Real.pi := by linarith
+  have h2pi : (2 : ℝ) / Real.pi ≤ 2 / 3.14 := by
+    rw [div_le_div_iff₀ hpipos (by norm_num)]
+    nlinarith [hpi]
+  have h101L : (0 : ℝ) ≤ 101 * L := by linarith
+  have hlb : (1 - 2 / 3.14) * (101 * L) ≤ (1 - 2 / Real.pi) * (101 * L) :=
+    mul_le_mul_of_nonneg_right (by linarith) h101L
+  linarith [hcall, hsum1, hSP, hlb, hLB, hL100]
+
+/-- ⭐ **THE Y-FLOOR SIBLING — the large-range statement, REPAIRED (A4F wave, S1).**
+
+The frozen `MRTLargeRangeEquidistribution` (above) is FALSE as stated — `Y` is free, and
+`not_mrtLargeRangeEquidistribution` puts the witness in the kernel.  This sibling is the
+frozen statement PLUS the one floor hypothesis `(log X)^{2/3} ≤ log Y`, conclusion unchanged —
+the same repair shape as the house precedent (`MRTLemmaA7` kept, `not_mrtLemmaA7Statement`
+beside, `MRTLemmaA7Fixed` added).  The floor is Y-parametric rather than pinned on purpose:
+the sibling `MRTShortSegmentSplitting`'s pin `Y = exp((log X)^{2/3+ε})` satisfies it for every
+`ε > 0`, while a pin here would be θ=2/3-only and double the statement surface (the pin option
+was struck in writing at the commissioning fold).
+
+⚠️ **CORRECTED IN-WAVE (H4).**  The commissioning note recorded here at first read *"the floor
+already supplies `exp 1 ≤ Y` by construction"*.  In mathlib's convention `Real.log` is EVEN
+(`log (−e) = 1`), so `1 ≤ log Y` yields only `e ≤ |Y|`, not `e ≤ Y`: the note is FALSE as a
+Lean fact and is retracted.  The statement is unchanged (its negative-`Y` instances have a
+LARGER window `{p ≤ X}` and the same demand, so they follow from the positive ones by
+monotonicity of the nonnegative sum); a consumer that needs `Y > 0` — the Euler bridge does —
+takes `exp 1 ≤ Y` as its own hypothesis, as the mid-range deliverable does.  Recorded in
+`docs/blueprints/flags.md` (the A4F wave).
+
+⛔ **A STATEMENT, NOT A THEOREM.  NOTHING HERE PROVES IT** — the statement act is the helm's,
+transcribed verbatim (iron rule 1); the consumer `mrtA4ii_far_of_either_estimate` is already
+`Y`-parametric and needs no change. -/
+def MRTLargeRangeEquidistributionFixed : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u : ℝ), Real.exp 1 ≤ X → |u| ≤ 2 * X →
+    (Real.log X) ^ (20 : ℕ) < |u| →
+    (Real.log X) ^ ((2 : ℝ) / 3) ≤ Real.log Y →
+      (1 - 2 / Real.pi) * Real.log (Real.log X / Real.log Y) - C
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
+              (fun p : ℕ => Y < (p : ℝ)),
+            (1 - |Real.cos (u * Real.log p / 2)|) / (p : ℝ)
 
 end Salt.MR
 
