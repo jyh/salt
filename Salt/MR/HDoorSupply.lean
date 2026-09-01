@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.BandRatedAssembly
 import Salt.MR.BandRatedSocket
 import Salt.MR.HDoorArc
+import Salt.MR.M4ClassPrice
 
 /-!
 # QUEUE 7b — the co-factor supply at the `h`-INFLATED arc cap (`HDoorSupply`)
@@ -1216,5 +1217,151 @@ theorem m4_sievedDoorSqSupH_trivial (h : ℕ) (R : ChowlaRegime) (M : ℕ) :
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
       ≤ (H : ℝ) ^ 2 := by nlinarith
   nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
+
+/-! ### §9.3 — one level further down: the covering side at the inflated cap
+
+`M4ClassPrice.m4_cover_assembly_supQ` carries the modulus range as a pure THREAD — the covering
+argument reads only that the integrand is nonnegative, and passes `hqQ` straight to the block
+predicate.  So the `h`-family is the landed proof with one binder retyped, and the composition
+lands `M4SievedDoorSqH` on `M4BlockMeanSqSupQH`.
+
+⇒ **the open slot for the twisted `L²` door is now the PER-BLOCK MEAN SQUARE at the inflated
+modulus range**, which is where the analytic content of the seven producers actually lives.
+⛔ **This wave does not touch that content and never claimed to.** -/
+
+/-- **THE `q`-GRADED PER-BLOCK MEAN SQUARE AT THE INFLATED CAP** (`M4BlockMeanSqSupQH`) —
+`M4ClassPrice.M4BlockMeanSqSupQ` with `q ≤ arcDen 12 H` inflated to `q ≤ h·arcDen 12 H`. -/
+def M4BlockMeanSqSupQH (h : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
+    (q : ℝ) ≤ (h : ℝ) * arcDen 12 H → ∀ i < k,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **THE COVERING SIDE AT THE INFLATED CAP** (`m4_cover_assembly_supQH`) — the `h`-family of
+`M4ClassPrice.m4_cover_assembly_supQ`.  The covering argument never reads the cap; `hqQ` is a
+thread. -/
+theorem m4_cover_assembly_supQH {h : ℕ} {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
+    {Bblk : ℕ → ℝ} (hgates : M4DoorGates Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hblk : M4BlockMeanSqSupQH h R M k Bblk) :
+    M4SievedDoorSqSupH h R M (fun H => 3 * Bblk H) := by
+  intro _ H _ hlo hhi b q hq hqQ
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hP : (0 : ℝ) ≤ Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 := by
+    have := hB0 H; positivity
+  have hmain := integral_door_cover_le_clean (x := R.x) (ω := R.ω) (H := H) (k := k)
+    (g := fun n => (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2)
+    (P := Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2)
+    R.hx R.hω R.hωx hgates.hlogω hgates.hcount (fun n => by positivity) hP hxH
+    (hgates.hreach H hlo hhi) hgates.hpow (hblk H hlo hhi b q hq hqQ)
+  simp only [doorSievedCoeff] at hmain
+  have heq : 3 * (Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2)
+      = 3 * Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 := by ring
+  rw [heq] at hmain
+  exact hmain
+
+/-- ⭐⭐ **THE WAVE'S EXIT** (`m4_sievedDoorSqH_of_blockQH`) — `M4SievedDoorSqH` produced from
+the per-block mean square at the inflated modulus range, in one composition.
+
+**This is what the wave delivers as an object rather than as a table.**  `HDoorArc`'s N4s socket
+was declared open with no producer and none manufacturable from the landed socket; it now has a
+producer whose only remaining input is the block predicate at `h·arcDen 12 H`.  The price paid
+for the inflation is visible on the page: `(1 + 2π)²·(h·arcDen 12 H)²`, the landed absolute
+price times `h²`.
+
+⛔ **WHAT IS STILL OPEN, STATED PLAINLY:** `M4BlockMeanSqSupQH h`.  That is the seven producers'
+own analytic content at a wider modulus range, and **this wave is silent on it** — as the 08/31
+measurement said it would be, and as `hsock` on the `h`-mint still records. -/
+theorem m4_sievedDoorSqH_of_blockQH {h : ℕ} {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
+    {Bblk Braw : ℕ → ℝ} (hgates : M4DoorGates Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (1 + 2 * Real.pi) ^ 2 * (((h : ℝ) * arcDen 12 H) ^ 2 * (3 * Bblk H)) ≤ Braw H)
+    (hblk : M4BlockMeanSqSupQH h R M k Bblk) :
+    M4SievedDoorSqH h R M Braw :=
+  m4_sievedDoorSqH_of_supH_uniform (fun H => by have := hB0 H; positivity) hgrade
+    (m4_cover_assembly_supQH hgates hB0 hblk)
+
+/-! ### §9.4 — the last transcription: the class price at the inflated cap
+
+`M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice` threads the modulus range through to the class
+price and reads nothing else about it.  Porting it puts the wave's open slot exactly where the
+seven producers' mathematics lives: **the per-class sup bound, at moduli up to `h·arcDen 12 H`
+instead of `arcDen 12 H`.**  Nothing below this line is analytic content, and nothing above it
+was. -/
+
+/-- **THE CLASS PRICE ASSEMBLED, AT THE INFLATED CAP** (`m4_blockMeanSqSupQH_of_classPriceH`) —
+the `h`-family of `M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice`.  The block grade is
+`(B H)²/H²`, unchanged; only the range of `q` the class price must serve has widened. -/
+theorem m4_blockMeanSqSupQH_of_classPriceH {h : ℕ} {R : ChowlaRegime} {M k : ℕ} {B : ℕ → ℝ}
+    (hclass : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q →
+      (q : ℝ) ≤ (h : ℝ) * arcDen 12 H →
+      ∀ i < k, ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+        ∀ K, K ≤ H → ∀ r, r < q →
+          ‖∑ m ∈ windowClass K n q r, doorSievedCoeff M m‖ ≤ B H) :
+    M4BlockMeanSqSupQH h R M k (fun H => B H ^ 2 / (H : ℝ) ^ 2) := by
+  intro H hlo hhi b q hq hqQ i hik
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  -- ⟦pointwise on the block: the class price squared⟧
+  have hterm : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ (q : ℝ) ^ 2 * B H ^ 2 := fun n hn =>
+    subWindowSup_sq_le_class_count (doorSievedCoeff M) H n hq b
+      (fun K hK r hr => hclass H hlo hhi q hq hqQ i hik n hn K hK r hr)
+  have hcard : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+        * ((q : ℝ) ^ 2 * B H ^ 2) := by
+    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ ∑ _n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            ((q : ℝ) ^ 2 * B H ^ 2) := Finset.sum_le_sum hterm
+      _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+            * ((q : ℝ) ^ 2 * B H ^ 2) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
+    rw [Nat.card_Ioc]
+    have hfit := doorLadder_fit R.x H i
+    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
+      omega
+    exact_mod_cast hn
+  have hpos := doorLadder_pos hxH (i + 1)
+  have hrhs : B H ^ 2 / (H : ℝ) ^ 2 * (q : ℝ) ^ 2 * (H : ℝ) ^ 2
+        * (doorLadder R.x H (i + 1) : ℝ)
+      = (doorLadder R.x H (i + 1) : ℝ) * ((q : ℝ) ^ 2 * B H ^ 2) := by
+    field_simp
+  rw [hrhs]
+  refine le_trans hcard ?_
+  have hQB : (0 : ℝ) ≤ (q : ℝ) ^ 2 * B H ^ 2 := by positivity
+  exact mul_le_mul_of_nonneg_right hc hQB
+
+/-- **THE INFLATED BLOCK PREDICATE IS INHABITED** (`m4_blockMeanSqSupQH_trivial`) — the
+anti-vacuity duty for the wave's remaining open slot, discharged at the trivial per-class grade
+`B H := H`.
+
+⛔ **OWED, AND FOR THE SHARP REASON.**  `m4_sievedDoorSqH_of_blockQH` takes
+`M4BlockMeanSqSupQH h` as a HYPOTHESIS, and the kernel cannot check that a hypothesis is
+inhabited: an uninhabited block predicate would make the whole `h`-door chain vacuously usable
+with a green build and a clean axiom audit.  ⚠️ At `B ≡ H` the block grade is `1` and the
+`M4GradeGate` of course fails — **that failure is the analytic gap the seven producers close,
+and it is a different thing from vacuity.** -/
+theorem m4_blockMeanSqSupQH_trivial (h : ℕ) (R : ChowlaRegime) (M k : ℕ) :
+    M4BlockMeanSqSupQH h R M k (fun H => (H : ℝ) ^ 2 / (H : ℝ) ^ 2) := by
+  refine m4_blockMeanSqSupQH_of_classPriceH (B := fun H => (H : ℝ)) ?_
+  intro H _ _ q _ _ i _ n _ K hK r _
+  calc ‖∑ m ∈ windowClass K n q r, doorSievedCoeff M m‖
+      ≤ ∑ m ∈ windowClass K n q r, ‖doorSievedCoeff M m‖ := norm_sum_le _ _
+    _ ≤ ∑ _m ∈ windowClass K n q r, (1 : ℝ) := by
+        exact Finset.sum_le_sum (fun m _ => norm_doorSievedCoeff_le_one M m)
+    _ = ((windowClass K n q r).card : ℝ) := by rw [Finset.sum_const, nsmul_eq_mul, mul_one]
+    _ ≤ (H : ℝ) := by
+        have hcard : (windowClass K n q r).card ≤ K := by
+          have hsub := Finset.card_le_card (windowClass_subset K n q r)
+          rwa [Nat.card_Ioc, Nat.add_sub_cancel_left] at hsub
+        have : ((windowClass K n q r).card : ℝ) ≤ (K : ℝ) := by exact_mod_cast hcard
+        have hKH : (K : ℝ) ≤ (H : ℝ) := by exact_mod_cast hK
+        linarith
 
 end Salt.MR
