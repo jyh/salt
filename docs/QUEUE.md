@@ -28,7 +28,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## may be behind). Each row: release condition · owner · re-measure.**
 ## | item | release condition | owner | re-measure |
 ## |---|---|---|---|
-## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ⛔ **WHAT REMAINS OPEN IS `M4BlockMeanSqSupQH h` — the PER-CLASS SUP BOUND at moduli up to `h·arcDen 12 H`**, i.e. the seven producers' own analytic content, on which this wave is silent. See the row body. | helm→math | — |
+## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ✅⭐⭐⭐ **AND THE CLOSING WAVE DISCHARGED N4s** (`HDoorClose.lean`, 11 names): the twisted door's mint closes onto **the same two data the `h = 1` door closes onto**. ⚖️ **HELM RULING 19:07: 7b is CLOSED AS TO THE CAP; its ESTIMATE-RANGE is an OPEN CONDITIONAL, named `M4ChiBlockMeanSqH 2` (the χ mean square at `q ≤ 2·arcDen 12 H` vs the landed `q ≤ arcDen 12 H`), owned by the PRODUCERS' lane, not the door's.** ✅ **AND THE COMMISSIONED `q`-UNIFORMITY CENSUS IS RUN: RIPE — the producers' χ bound does NOT read the modulus, so `M4ChiBlockMeanSqH 2` is exactly as open as `M4ChiBlockMeanSq`, no more.** See the row body. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
 ## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
@@ -4977,6 +4977,93 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    WIDE, NOT DEEP***, and a hypothesis-site census prices only the wide part.
    ⛔ **The measurement does NOT price the ESTIMATE** — what value of `B H` the seven producers
    deliver is untouched, exactly as the cap measurement was untouched by it.
+   ✅✅⭐⭐⭐ **THE CLOSING WAVE — `HDoorArc`'s N4s SOCKET IS DISCHARGED, 2026-08-31 night (math,
+   helm-commissioned 18:52).** `Salt/MR/HDoorClose.lean`, **eleven names, all `[3 axioms]`, one
+   attempt each, registry rows in the SAME commit.** The twisted `L²` door's mint closes onto
+   **the same two data the `h = 1` door closes onto**: the χ-uniform block mean square and the
+   non-coprime slot, both at the inflated cap. Chain:
+   `M4ChiBlockMeanSqH h` → (χ-reduction) → coprime half + the carried non-coprime slot →
+   `M4ClassBlockMeanSqH h` → (split + Chebyshev) → `M4BlockMeanSqSupQH h` → `M4SievedDoorSqH h`
+   → `MRTUniformityXiL2H h`. **Every link carries the cap as a THREAD; not one reads it.**
+   ⛔⛔ **AND THE COMMISSION'S NAMED ROUTE WAS THE ABANDONED LANE — the corpus says so in its own
+   words, and this is the finding, not the fix.** The commission routed through the `h`-family of
+   `M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice`. `M4WaveClosed.lean:16-24` records that that
+   node's hypothesis is *"not what a mean-square supplier can deliver … strictly stronger than
+   anything the MRT method proves"*, and §2 of that same file exists to replace the step.
+   ⇒ ***ROUTING THE CLOSE THROUGH IT WOULD HAVE DISCHARGED THE SOCKET ONTO A DEMAND WITH NO
+   POSSIBLE SUPPLIER — a green build, a clean axiom audit, and a VACUOUS CLOSE.*** The `h`-family
+   of that node (`HDoorSupply.m4_blockMeanSqSupQH_of_classPriceH`) is faithful and TRUE and is
+   exactly the wrong thing to route through. **No landed byte moved; only the lane changed.**
+   ⇒ 🔑 ***A TRUE LEMMA CAN BE THE WRONG ROUTE, AND ITS TRUTH IS NO WARNING AT ALL*** — the only
+   thing that told me was the neighbouring file's own header saying it had abandoned the step.
+   ✅ **WHAT IS CLOSED: THE CAP.** At `h = 2` the door predicate needs **no gate, no floor and no
+   constant that the `h = 1` door did not need.** Every cap-READING arm the two waves met is
+   discharged in `HDoorSupply` §1–§8 or free at the socket's own `518` floor.
+   ⛔⛔ **WHAT IS NOT CLOSED AND IS NOT CLAIMED: THE ESTIMATE, AND ITS RANGE — the seat did not
+   stamp, and the helm's 19:07 ruling above records that as right.** `M4ChiBlockMeanSqH h` asks for the χ-uniform block mean square at
+   `q ≤ h·arcDen 12 H` where the landed datum supplies `q ≤ arcDen 12 H`. **That widening is a
+   REAL demand on the seven producers and is NOT derivable.** ⇒ the honest reading is
+   ***THE `h`-DOOR NEEDS EXACTLY THE `1`-DOOR'S CONDITIONAL, RESTATED OVER AN `h`-TIMES WIDER
+   MODULUS RANGE*** — strictly weaker than *"the door predicate is inhabited UNCONDITIONALLY at
+   h = 2"*, which the 18:52 fold expected. **Whether the producers' bound is `q`-uniform is
+   UNPRICED, and I did not price it by assumption.** The closure call was the helm's and it is
+   made, above, in two halves.
+   ✅ Both new sockets carry an anti-vacuity witness in the same commit
+   (`m4_classBlockMeanSqH_trivial`, `m4_chiBlockMeanSqH_trivial`); the χ one matters most,
+   because `M4ChiBlockMeanSqH` is what the close LEAVES open.
+   ⭐⭐⛔ **THE χ-UNIFORMITY CENSUS — the question the closure call turns on, MEASURED (same
+   night, addendum to the door-slot report).**
+   ✅ **THE CAP IS READ NOWHERE BETWEEN THE DOOR AND THE CAPSTONE.** `m4_classMeanSq_of_chiMeanSq`
+   THREAD · `m4_blockMeanSqSupQ_of_classMeanSq` THREAD · `m4_chiBlock_fixed_of_chiRow`
+   (`M4WaveClosed:748`) THREAD — `hqQ` goes straight to `hrow` · `M4ChiRowMeanSq` (⟦R3⟧, the
+   bottom) has `q` in the QUANTIFIER only, its bound `MS H` is `q`-FREE · **`thm_a2'_of_rows`
+   (`ThmA2.lean:513`) has NO `q` AT ALL** (a bare `a : ℕ → ℂ`) · `thm_a2'_of_rows_chiSummed`
+   takes `{q} [NeZero q]` with no cap, and **`arcDen` count in `ThmA2ChiSummed.lean`: 0**.
+   ✅ **AND `M4ChiRowMeanSq` HAS NO PRODUCER — three searches, since it is an absence claim:**
+   the only conclusion-position hit is a hypothesis binder (`M4WaveClosed:855`); a multi-line
+   scan for any declaration concluding in it returns **0**.
+   ⛔⛔ **SO THE ROW STAYS UNSTAMPED, AND THE CENSUS DOES NOT CHANGE THAT.** `M4ChiRowMeanSqH h`
+   quantifies over strictly more `q`, so it is a **strictly stronger hypothesis** — *"a real
+   demand, not derivable"* stands. What the census adds is WHAT KIND of demand: it introduces
+   **no new kind of obligation**, meets **no cap anywhere in the corpus** (there is none to
+   meet), and lands on a hypothesis **entirely unbuilt at `h = 1` too**.
+   ⇒ ***THE `h`-INFLATION ADDS NO OBSTRUCTION THE DOOR DID NOT ALREADY HAVE; IT WIDENS A
+   QUANTIFIER ON A HYPOTHESIS NOBODY HAS DISCHARGED.*** Whether an eventual supplier is
+   `q`-uniform is a question about work not yet done — not about the corpus.
+   ⚠️ **THE FLATTERING READING IS AVAILABLE HERE AND IT IS FALSE:** *"no cap anywhere, so h = 2
+   is free"*. A wider quantifier on an unsupplied hypothesis is still a stronger hypothesis.
+   The census made me more right than the receipt I had posted twenty minutes earlier, which is
+   exactly when a finding needs the most checking, and it is declined out loud.
+   ⚖️⚖️ **HELM RULING 2026-08-31 19:07:09 — THE ROW'S STATUS, IN THE RULING'S OWN WORDS:**
+   ***QUEUE item 7b is CLOSED AS TO THE CAP — the mint's `hsock` and `HDoorArc`'s socket both
+   have kernel-checked producers at `h = 2` (PR #10 + #11) onto the SAME two data the `h = 1`
+   door closes onto, no new gate, floor or constant — and its ESTIMATE-RANGE is an OPEN
+   CONDITIONAL, named: `M4ChiBlockMeanSqH 2` (the χ mean square at `q ≤ 2·arcDen 12 H` against
+   the landed `q ≤ arcDen 12 H`), owned by the PRODUCERS' lane, not the door's.***
+   ↩️ **The same ruling RETRACTS the 18:52 commission's own word *"inhabited UNCONDITIONALLY at
+   h = 2"***: it had read cap-freeness of the ROUTE as closure of the DATUM at the wider range.
+   The seat did not stamp, and the ruling records that as right.
+   ⭐⭐✅ **THE COMMISSIONED `q`-UNIFORMITY CENSUS (helm 19:07) — VERDICT: RIPE.** *"Does the
+   producers' χ bound read the modulus or not"* — **it does not.** Every declaration in the
+   corpus whose statement bounds a `doorChiSup` object, censused at its signature:
+   `doorChiSup_sq_le_dyadic` (`M4Maximal:396`) · `norm_sq_coprime_window_le` (`M4Gauss:302`) ·
+   `stratum_sq_le_chiSummed` (`:448`) · `stratum_sq_le_chiSummed_at_truncD` (`M4SecondRoad`) ·
+   `doorChiSup_le_len` (`M4CoprimeSupply:122`) — **`arcDen` count 0 in all five**; and
+   `m4_chiBlock_at` (`M4BaseNarrow:272`), the only one that mentions `arcDen`, mentions it three
+   times and **NOT ONCE AS A CAP ON `q`** (`hnar : H ≤ arcDen 12 H·L`, `hG1 : 2·arcDen² ≤ Ftr H`,
+   `harc8 : 8·arcDen 12 H ≤ H` — all conditions on `H`, `L` and the grades). Its statement
+   mentions `q` in exactly ONE place, `{χ : DirichletCharacter ℂ q}`, and its grade
+   `m4BclGraded j₀ Fan Ftr H` (`M4Maximal:698`) is `q`-FREE.
+   ⇒ 🔑 ***THE PRODUCERS' GATES ARE ABOUT `arcDen 12 H` AS A QUANTITY, NEVER AS A CAP ON THE
+   MODULUS — so inflating the CAP does not move them at all.*** Supplying `M4ChiBlockMeanSqH 2`
+   costs exactly what supplying `M4ChiBlockMeanSq` costs.
+   ⛔ **AND WHAT RIPE DOES NOT MEAN, said before anyone can read it that way: it is a verdict
+   about the SHAPE of the supply side, measured at signatures — NOT that the estimate exists.**
+   `m4_chiBlock_at`'s own `hfix` is a hypothesis, and the layer below (`M4ChiRowMeanSq`, ⟦R3⟧)
+   has NO PRODUCER AT ALL. ⇒ ***RIPE means: WHEN THE ESTIMATE LANDS, IT LANDS AT BOTH RANGES AT
+   ONCE.*** `M4ChiBlockMeanSqH 2` is exactly as open as `M4ChiBlockMeanSq` — no more, and now
+   measured, no less. The 19:07 ruling is unchanged; the open conditional is **not made worse by
+   the inflation.** Full census in the door-slot report's Addendum 2.
    ⚖️ *Superseded: the three shapes and the design-first ruling below are the pre-commission state,
    kept as the record.* **Class C/D. DESIGN-FIRST. A worker seat must not choose among (a)/(b)/(c).**
    ✅⭐ **THE GATE HAS LIFTED AND THE ITEM IS PRICED — 2026-08-26 02:5x (math), census BEFORE any
