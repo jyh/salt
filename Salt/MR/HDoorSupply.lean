@@ -1364,4 +1364,41 @@ theorem m4_blockMeanSqSupQH_trivial (h : ℕ) (R : ChowlaRegime) (M k : ℕ) :
         have hKH : (K : ℝ) ≤ (H : ℝ) := by exact_mod_cast hK
         linarith
 
+/-! ### §9.5 — the reduction, read at the door mint
+
+`HDoorArc.m4_doorL2_supply_500_H` takes `M4SievedDoorSqH` as a hypothesis and says of itself:
+*"It mints the door; it does not open it … its supplier (N4s) has no producer. ⇒ the twisted
+`L²` door is now REACHABLE, NOT DONE."*  §9.2–§9.4 supplied that producer, so the mint can now
+be read one level down.  This composition is that reading, stated once so no consumer has to
+assemble it. -/
+
+/-- ⭐⭐ **THE `h`-MINT, OFF THE BLOCK PREDICATE** (`m4_doorL2_supply_500_H_of_blockQH`) —
+`HDoorArc.m4_doorL2_supply_500_H` with its `hsock : M4SievedDoorSqH h R M Braw` replaced by
+what now produces it: the per-block mean square at the inflated modulus range, plus the grade
+link that pays the drift price.
+
+**What the twisted `L²` door now waits on, in one name: `M4BlockMeanSqSupQH h`.**
+
+⛔ **AND WHAT THAT IS.**  Through `m4_blockMeanSqSupQH_of_classPriceH` it is the per-class sup
+bound at moduli up to `h·arcDen 12 H` — the seven landed producers' own analytic content at a
+wider modulus range.  **That estimate is not attempted here and this wave never claimed it.**
+The door is still REACHABLE, NOT DONE; what has changed is *what it is reachable FROM*. -/
+theorem m4_doorL2_supply_500_H_of_blockQH (h : ℕ) (hh : 0 < h) :
+    ∃ (Cg KXi : ℝ), 1 ≤ Cg ∧ 0 < KXi ∧ ∃ H₀ : ℕ,
+      ∀ (R : ChowlaRegime), R.eps = 1 / 500 → H₀ ≤ R.Hlo →
+        ∀ (Braw Bblk : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
+          M4DoorGates Cg R M k δ →
+          (∀ H : ℕ, 0 ≤ Braw H) →
+          (∀ H : ℕ, 0 ≤ Bblk H) →
+          (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+            (1 + 2 * Real.pi) ^ 2 * (((h : ℝ) * arcDen 12 H) ^ 2 * (3 * Bblk H)) ≤ Braw H) →
+          M4BlockMeanSqSupQH h R M k Bblk →
+          (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            MRTUniformityXiL2H h R (2 * KXi * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ)) := by
+  obtain ⟨Cg, KXi, hCg, hKXi, H₀, hmint⟩ := m4_doorL2_supply_500_H h hh
+  refine ⟨Cg, KXi, hCg, hKXi, H₀, ?_⟩
+  intro R hReps hfloor Braw Bblk Bceil δ M k hgates hBraw0 hBblk0 hgrade hblk hceil
+  exact hmint R hReps hfloor Braw Bceil δ M k hgates hBraw0
+    (m4_sievedDoorSqH_of_blockQH hgates hBblk0 hgrade hblk) hceil
+
 end Salt.MR
