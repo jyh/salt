@@ -101,4 +101,127 @@ lemma log_max_two_le_of_le_arcDen_h {q H h : ℕ} (hh : 0 < h)
   rwa [Real.log_mul (ne_of_gt hh0) (by linarith : arcDen 12 H ≠ 0),
     log_arcDen_twelve hlogH] at h
 
+/-- `log 4 = 2·log 2`.  `RbdSupply`'s copy is `private` to that file; this is the same
+one-liner, kept local for the same reason. -/
+private lemma log_four_eq_two_mul_log_two : Real.log 4 = 2 * Real.log 2 := by
+  rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+  push_cast; ring
+
+/-! ## §2 — the three `RbdSupply` rows at the inflated cap
+
+Each is the landed proof re-run against `L + 12Λ` where it read `12Λ`.  Two of the three
+carry the inflation only INSIDE a logarithm — that is why the `h`-cost of the whole table is
+`156·L` and not more, and it is a fact about the shape of `mertensCap` and `vkMidDebitSharp`,
+not a choice made here. -/
+
+/-- **THE `mertensCap` SUMMAND AT THE INFLATED CAP** (`mertensCap_le_of_le_arcDen_h`).
+The `h`-family of `RbdSupply.mertensCap_le_of_le_arcDen`: the inflation enters INSIDE the
+logarithm, `log(12Λ) → log(L + 12Λ)`. -/
+lemma mertensCap_le_of_le_arcDen_h {q H h : ℕ} (hh : 0 < h)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H) :
+    mertensCap q
+      ≤ Real.log (Real.log h + 12 * Real.log (Real.log (H : ℝ))) + 21 := by
+  have hmax := log_max_two_le_of_le_arcDen_h hh hH hq
+  have h2le : (2 : ℝ) ≤ ((max 2 q : ℕ) : ℝ) := by
+    have h : (2 : ℕ) ≤ max 2 q := le_max_left _ _
+    exact_mod_cast h
+  have hlog2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hlogmax : Real.log 2 ≤ Real.log ((max 2 q : ℕ) : ℝ) :=
+    Real.log_le_log (by norm_num) h2le
+  have hlogmaxpos : (0 : ℝ) < Real.log ((max 2 q : ℕ) : ℝ) := lt_of_lt_of_le hlog2pos hlogmax
+  have hll : Real.log (Real.log ((max 2 q : ℕ) : ℝ))
+      ≤ Real.log (Real.log h + 12 * Real.log (Real.log (H : ℝ))) :=
+    Real.log_le_log hlogmaxpos hmax
+  have hdiv : 12 / Real.log ((max 2 q : ℕ) : ℝ) ≤ 12 / Real.log 2 :=
+    div_le_div_of_nonneg_left (by norm_num) hlog2pos hlogmax
+  have h12 : 12 / Real.log 2 ≤ 17.4 := by
+    rw [div_le_iff₀ hlog2pos]
+    linarith [Real.log_two_gt_d9]
+  have hM := mertensM_le_three
+  unfold mertensCap
+  linarith
+
+/-- **THE `vkDebitConst` SUMMAND AT THE INFLATED CAP** (`vkDebitConst_le_of_le_arcDen_h`).
+The `h`-family of `RbdSupply.vkDebitConst_le_of_le_arcDen`.  This row carries `log q` BARE at
+coefficient `3/4`, so it is one of the three that pay: `10 + 9Λ ↦ 10 + (3/4)·L + 9Λ`. -/
+lemma vkDebitConst_le_of_le_arcDen_h {q H h : ℕ} [NeZero q] (hh : 0 < h)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H) :
+    vkDebitConst (vkEulerCorr q * vkTwistConst q)
+      ≤ 10 + (3 / 4) * Real.log h + 9 * Real.log (Real.log (H : ℝ)) := by
+  have hlogq := log_le_of_le_arcDen_h hh hH hq
+  have hC := log_vkEuler_mul_vkTwist_le (q := q)
+  have h2 := Real.log_two_lt_d9
+  have h4 := log_four_eq_two_mul_log_two
+  unfold vkDebitConst
+  linarith
+
+/-- **THE `vkMidDebitSharp` SUMMAND AT THE INFLATED CAP** (`vkMidDebitSharp_le_of_le_arcDen_h`).
+The `h`-family of `RbdSupply.vkMidDebitSharp_le_of_le_arcDen`: like `mertensCap`, the
+inflation enters only INSIDE the logarithm, `log(7+12Λ) → log(7+L+12Λ)`.
+
+The landed proof's two roundings are untouched; the only edit is that `hstep`'s
+`B := 6 + 12Λ` becomes `6 + L + 12Λ`, still nonnegative, so `e^100 + B ≤ e^100·(1+B)` runs
+verbatim. -/
+lemma vkMidDebitSharp_le_of_le_arcDen_h {q H h : ℕ} [NeZero q] (hh : 0 < h)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H) :
+    vkMidDebitSharp q
+      ≤ 29 + (1 / 4) * Real.log (7 + Real.log h + 12 * Real.log (Real.log (H : ℝ))) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have hlogq := log_le_of_le_arcDen_h hh hH hq
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
+  have hlogq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
+  have h2 := Real.log_two_lt_d9
+  have h2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have h4 := log_four_eq_two_mul_log_two
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  set Lh : ℝ := Real.log h with hLhdef
+  have hE1 : (1 : ℝ) ≤ Real.exp (Real.exp 100) := by
+    have h0 : (0 : ℝ) ≤ Real.exp 100 := (Real.exp_pos 100).le
+    calc (1 : ℝ) = Real.exp 0 := by rw [Real.exp_zero]
+      _ ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr h0
+  have he100 : (1 : ℝ) ≤ Real.exp 100 := by
+    have := Real.add_one_le_exp (100 : ℝ); linarith
+  -- the height term: `log(2e^A + 2) ≤ log 4 + e^100`
+  have hht : Real.log (2 * Real.exp (Real.exp 100) + 2) ≤ Real.log 4 + Real.exp 100 := by
+    have hb : 2 * Real.exp (Real.exp 100) + 2 ≤ 4 * Real.exp (Real.exp 100) := by linarith
+    have h1 : Real.log (2 * Real.exp (Real.exp 100) + 2)
+        ≤ Real.log (4 * Real.exp (Real.exp 100)) := Real.log_le_log (by positivity) hb
+    have h2' : Real.log (4 * Real.exp (Real.exp 100)) = Real.log 4 + Real.exp 100 := by
+      rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]
+    linarith
+  -- the inner argument, rounded to `e^100 + (6 + L + 12Λ)`
+  have hinner : 7 / 2 + Real.log 2 + Real.log q
+      + Real.log (2 * Real.exp (Real.exp 100) + 2)
+      ≤ Real.exp 100 + (6 + Lh + 12 * LH) := by linarith
+  have hinner0 : (0 : ℝ) < 7 / 2 + Real.log 2 + Real.log q
+      + Real.log (2 * Real.exp (Real.exp 100) + 2) := by
+    have hnn : (0 : ℝ) ≤ Real.log (2 * Real.exp (Real.exp 100) + 2) :=
+      Real.log_nonneg (by linarith)
+    linarith
+  -- pull `e^100` out of the logarithm
+  have hB0 : (0 : ℝ) ≤ 6 + Lh + 12 * LH := by linarith
+  have h7pos : (0 : ℝ) < 7 + Lh + 12 * LH := by linarith
+  have hstep : Real.exp 100 + (6 + Lh + 12 * LH)
+      ≤ Real.exp 100 * (7 + Lh + 12 * LH) := by
+    nlinarith [he100, hB0]
+  have hlogstep : Real.log (Real.exp 100 + (6 + Lh + 12 * LH))
+      ≤ 100 + Real.log (7 + Lh + 12 * LH) := by
+    have h1 : Real.log (Real.exp 100 + (6 + Lh + 12 * LH))
+        ≤ Real.log (Real.exp 100 * (7 + Lh + 12 * LH)) :=
+      Real.log_le_log (by linarith) hstep
+    have h2' : Real.log (Real.exp 100 * (7 + Lh + 12 * LH))
+        = 100 + Real.log (7 + Lh + 12 * LH) := by
+      rw [Real.log_mul (Real.exp_ne_zero _) (ne_of_gt h7pos), Real.log_exp]
+    linarith
+  have hlogmono : Real.log (7 / 2 + Real.log 2 + Real.log q
+        + Real.log (2 * Real.exp (Real.exp 100) + 2))
+      ≤ Real.log (Real.exp 100 + (6 + Lh + 12 * LH)) := Real.log_le_log hinner0 hinner
+  unfold vkMidDebitSharp
+  linarith
+
 end Salt.MR
