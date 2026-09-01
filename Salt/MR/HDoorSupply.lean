@@ -307,4 +307,122 @@ theorem bandConstQ_le_of_le_arcDen_h {q H h : ℕ} [NeZero q] {Z δ : ℝ} (hZ :
   unfold bandConstQ
   exact max_le hbranch1 hbranch2
 
+/-! ## §4 — THE BINDING ARM: the threshold page, and what `h` costs there
+
+This is the page no document had named before the 08/31 measurement, and it is where the whole
+cap-inflation is paid.  The five rows above assemble to
+
+  `156·L + 1872·Λ + 8·log(L+12Λ) + 8·log(7+L+12Λ) + 2216 + 32·K + 32·bandArcConst`
+
+against the landed hypothesis's `1900·Λ + 20·log(7+12Λ) + 2300 + 32·Kbig`.  For `L ≤ 7` the
+two `log` rows are absorbed at a cost of `8·log 2`, and what is left is the budget
+
+  `156·L + 8·log 2  ≤  28·Λ + 4·log(7+12Λ) + 84`.
+
+⭐ **The `Λ`-coefficient on each side is `28`.**  The condition is `L ≲ Λ + 3`: the door may be
+twisted by any shift up to about `e³·log H` before a numeral has to move.
+
+⚠️ **THE MARGIN IS DISCLOSED, NOT COMFORTABLE.**  At the family's own floor `Λ ≥ 1` and `h = 2`
+the budget spends `164·log 2 = 113.68` against `28 + 4·log 19 + 84 = 123.78` — **×1.09**.  (The
+pre-wave measurement published ×1.14 because it had not yet charged the `8·log 2` of
+second-order cost the two `log` rows carry; this is the corrected figure, and it is the one the
+kernel checks.)  At the socket's own floor `Λ ≥ 518` — in scope at every application site,
+merely not passed — the same budget clears by ×135; threading it is ESCAPE 2 and it ADDS A
+HYPOTHESIS, so it is not taken here. -/
+
+/-- **THE THRESHOLD PAGE AT THE INFLATED CAP** (`pieceFloor_vt_threshold_of_loglog_rated_h`) —
+the `h`-family of `BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`.
+
+The conclusion and the `hthr` hypothesis are BYTE-IDENTICAL to the landed page's: the numerals
+`1900`, `20`, `2300` do not move, and no consumer of the landed page has to change shape.  The
+family carries its own budget as `hbud` — that is the honest statement of what an `h`-inflation
+costs, and `pieceFloor_vt_threshold_of_loglog_rated_two` discharges it at `h = 2` from `hH`
+alone.
+
+`hh7 : log h ≤ 7` is what lets the `mertensCap` row's `log(L + 12Λ)` be absorbed into the
+page's own `log(7 + 12Λ)`; it is a bound on `h` of about `1096`, far above any `h` this budget
+could otherwise afford, so it constrains nothing. -/
+theorem pieceFloor_vt_threshold_of_loglog_rated_h {q H h : ℕ} [NeZero q]
+    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ) (hh : 0 < h)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
+    (hh7 : Real.log h ≤ 7)
+    (hbud : 156 * Real.log h + 8 * Real.log 2
+      ≤ 28 * Real.log (Real.log (H : ℝ))
+        + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84)
+    (hKB : K + bandArcConst Z δ ≤ Kbig)
+    (hthr : 40 * Real.log (Real.log (Real.log X))
+        + 1900 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kbig + 32 * D
+      < Real.log (Real.log X)) :
+    40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+          + bandConstQ Z δ q + K + 25 + D)
+      < Real.log (Real.log X) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hband := bandConstQ_le_of_le_arcDen_h (q := q) (H := H) (h := h) hZ hδ hh hH hq
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  set Lh : ℝ := Real.log h with hLhdef
+  have hlogq := log_le_of_le_arcDen_h hh hH hq
+  have hcap := mertensCap_le_of_le_arcDen_h (q := q) hh hH hq
+  have hvkd := vkDebitConst_le_of_le_arcDen_h (q := q) hh hH hq
+  have hvkm := vkMidDebitSharp_le_of_le_arcDen_h (q := q) hh hH hq
+  have h7pos : (0 : ℝ) < 7 + 12 * LH := by linarith
+  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * LH) := Real.log_nonneg (by linarith)
+  -- ⟦row 2's widened logarithm, absorbed: `L ≤ 7` puts `L + 12Λ` under `7 + 12Λ`⟧
+  have habs2 : Real.log (Lh + 12 * LH) ≤ Real.log (7 + 12 * LH) :=
+    Real.log_le_log (by linarith) (by linarith)
+  -- ⟦row 4's widened logarithm, absorbed at a cost of `log 2`: `7 + L + 12Λ ≤ 2·(7 + 12Λ)`⟧
+  have habs4 : Real.log (7 + Lh + 12 * LH) ≤ Real.log 2 + Real.log (7 + 12 * LH) := by
+    have hle : 7 + Lh + 12 * LH ≤ 2 * (7 + 12 * LH) := by linarith
+    have h1 : Real.log (7 + Lh + 12 * LH) ≤ Real.log (2 * (7 + 12 * LH)) :=
+      Real.log_le_log (by linarith) hle
+    have h2 : Real.log (2 * (7 + 12 * LH)) = Real.log 2 + Real.log (7 + 12 * LH) :=
+      Real.log_mul (by norm_num) (ne_of_gt h7pos)
+    linarith
+  linarith
+
+/-- ⭐ **THE `h = 2` LANE, AND IT ASKS FOR NOTHING THE LANDED LANE DOES NOT**
+(`pieceFloor_vt_threshold_of_loglog_rated_two`).
+
+Hypothesis-for-hypothesis this is `BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`
+with `hq` alone changed, from `q ≤ arcDen 12 H` to `q ≤ 2·arcDen 12 H`.  The budget is
+discharged from `hH`: `Λ ≥ 1` gives `28Λ ≥ 28`, and `7 + 12Λ ≥ 19 ≥ 16` gives
+`4·log(7+12Λ) ≥ 16·log 2`, so the demand `164·log 2 ≤ 112 + 16·log 2` is
+`148·log 2 ≤ 112`, i.e. `log 2 ≤ 0.7567…`. -/
+theorem pieceFloor_vt_threshold_of_loglog_rated_two {q H : ℕ} [NeZero q]
+    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ 2 * arcDen 12 H)
+    (hKB : K + bandArcConst Z δ ≤ Kbig)
+    (hthr : 40 * Real.log (Real.log (Real.log X))
+        + 1900 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kbig + 32 * D
+      < Real.log (Real.log X)) :
+    40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+          + bandConstQ Z δ q + K + 25 + D)
+      < Real.log (Real.log X) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have h2lt := Real.log_two_lt_d9
+  have h2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  have hcast : (((2 : ℕ) : ℝ)) = (2 : ℝ) := by norm_num
+  have hlog2N : Real.log ((2 : ℕ) : ℝ) = Real.log 2 := by rw [hcast]
+  -- ⟦`4·log(7+12Λ) ≥ 16·log 2`, from `7 + 12Λ ≥ 16`⟧
+  have h16 : Real.log 16 = 4 * Real.log 2 := by
+    rw [show (16 : ℝ) = 2 ^ (4 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have hge : Real.log 16 ≤ Real.log (7 + 12 * LH) :=
+    Real.log_le_log (by norm_num) (by linarith)
+  refine pieceFloor_vt_threshold_of_loglog_rated_h (h := 2) hZ hδ (by norm_num) hH
+    (by rw [hcast]; exact hq) (by rw [hlog2N]; linarith) ?_ hKB hthr
+  rw [hlog2N]
+  linarith
+
 end Salt.MR
