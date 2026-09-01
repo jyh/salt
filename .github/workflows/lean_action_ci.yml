@@ -75,7 +75,23 @@ jobs:
     # salt's own ~9k-job corpus needs ~2-2.5h cold on a 4-core runner. 240 min
     # lets a seeding run COMPLETE so the .lake/build cache below gets saved;
     # cached runs then finish in minutes. (~$1.20 per cold run at Linux rates.)
-    timeout-minutes: 240
+    # ⛔ 300, NOT 240 (raised 2026-09-01). 240 is INSIDE the runner-variance band
+    #   rather than comfortably above it. Measured the same day on the identical module
+    #   span `Salt.SW.ShiftTrivChar -> Salt.MR.M4Gauss`, two runners differed by 1.43x
+    #   (123.9 min vs 176.9 min) — and the faster one did slightly MORE work (639 vs 633
+    #   modules). A cold build finishes in ~215 min on the fast half of the fleet and does
+    #   NOT finish inside 240 on the slow half, so 240 is a coin-flip gate on a branch
+    #   whose greens people merge on.
+    #   This compounds with the restore/save split above: a run cancelled at the wall
+    #   SKIPS its cache save, so a single overrun makes the NEXT run cold too. That is
+    #   what turned one slow build into a self-sustaining fixed point (3 runs, 720 billed
+    #   minutes, nothing produced).
+    # ⚠️ A CAP MUST STILL EXIST, and 300 is not merely "more": the same morning run
+    #   33460951379 went SILENT for 3h09m at [8980/9795] — a COMPLETE archived log with
+    #   zero output of any kind in the window — and only the wall ended it. No cap value
+    #   fixes a stall; the cap is what bounds one. 300 clears the measured cold build
+    #   with margin and still bounds a hang.
+    timeout-minutes: 300
 
     steps:
       # Disk headroom: the corpus (~9,400 jobs) + mathlib cache (~5.7GB) +
@@ -91,8 +107,24 @@ jobs:
       - uses: actions/checkout@v5
       # Salt's own build cache (mathlib comes via lake exe cache get inside
       # lean-action). restore-keys lets any prior seed serve incrementally.
+      #
+      # ⛔ RESTORE/SAVE ARE SPLIT, AND THE SAVE IS DEFAULT-BRANCH ONLY (2026-09-01).
+      #   Measured that morning: the repo's 10 GB cache cap was consumed by entries on
+      #   refs/pull/10/merge totalling 8,589,028,190 B — a MERGED PR's ref that nothing
+      #   is eligible to read. (Only the SIZE is quoted, hand-summed from `gh cache list`.
+      #   The entry COUNT disagreed between `gh cache list` and the repo usage endpoint
+      #   and was never explained, and the usage endpoint was later shown to be the stale
+      #   half — it still reported deleted entries 13 minutes after `cache list` read 0.
+      #   `gh cache list` is the instrument here.) Those saves evicted main's own pair between 00:59Z and
+      #   02:01Z; main and PR #11 then ran cold, blew `timeout-minutes: 240`, and were
+      #   CANCELLED — and a cancelled run SKIPS ITS CACHE SAVE (step `Post Restore salt
+      #   build cache` read `skipped` in both, `success`/22 s in the warm control).
+      #   ⇒ cold -> overrun -> cancelled -> nothing saved -> cold. A fixed point.
+      #   A PR cannot restore another PR's cache, but it CAN evict main's, so a PR save
+      #   is all cost and no benefit. Restoring stays on for everyone: a PR reads the
+      #   base branch's entry, which is the one the seed workflow writes.
       - name: Restore salt build cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: .lake/build
           key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
@@ -103,6 +135,24 @@ jobs:
           # Explicit (not auto): the 2026-07-17 run 29599988363 spent 2h11m and
           # died starved — the signature of building mathlib from source.
           use-mathlib-cache: true
+          # ⛔ THE DOMINANT TERM IN THE CAP, AND IT IS NOT OURS BY DEFAULT (2026-09-01).
+          #   lean-action wraps actions/cache over `path: .lake` — the WHOLE tree, so it
+          #   CONTAINS the .lake/build we cache above — keyed per `github.sha`. Measured:
+          #   3,381,278,129 B per sha against a 10 GB repo cap, i.e. 79% of everything a
+          #   run stores, and only ~2 shas of headroom for the whole repository.
+          #   Proven redundant by ORDER, not by reading: in warm run 33456610698 the
+          #   salt entry restored at 00:56:00 (869 MB) and lean-action unpacked 3,223 MB
+          #   OVER it at 00:57:07, both from the same sha.
+          #   Off the default branch we drop both halves. The cost is real and small:
+          #   `lake exe cache get` measured 4m04s (seed run 33521573204) against a 53 s
+          #   restore of this entry — ~3 minutes on a job whose warm total is ~5 min.
+          # ⚠️ WHY main KEEPS IT: this cache is also the insulation against mathlib's own
+          #   CDN being unavailable for the pinned revision, which is when lake builds
+          #   mathlib FROM SOURCE — the 2h11m death recorded two lines above. Keep the
+          #   insulation where a failure is most expensive; drop it where it destroys
+          #   the cap. `use-github-cache` gates BOTH the restore and the save in
+          #   lean-action's action.yml (its only two uses of the input).
+          use-github-cache: ${{ github.ref == 'refs/heads/main' }}
       # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
       # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
       # the lint's phase-1/phase-3 `lake env lean` invocations elaborate a tiny
@@ -110,6 +160,15 @@ jobs:
       # elan/lake are already on PATH from lean-action.
       - name: Blueprint lint (docs↔code + axiom audit)
         run: python3 scripts/blueprint_lint.py
+      # The save half of the split above. Default branch only, and AFTER the build so
+      # it stores what the build produced. `actions/cache@v4` has no conditional save,
+      # which is the whole reason restore and save are separate steps.
+      - name: Save salt build cache (default branch only)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: actions/cache/save@v4
+        with:
+          path: .lake/build
+          key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
       # ⛔ REMOVED 2026-08-28: `- uses: leanprover-community/docgen-action@v1`
       #    IT WAS GREEN ONLY WHEN IT DID NOTHING. The action sees this repo's `docs/`
       #    folder, sets DOCS_EXISTS=true, and tries to build a JEKYLL site from it —
