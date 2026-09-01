@@ -404,6 +404,7 @@ import Salt.MR.BandRated
 import Salt.MR.BandRatedAssembly
 import Salt.MR.BandRatedSocket
 import Salt.MR.HDoorSupply
+import Salt.MR.HDoorClose
 import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
@@ -8859,3 +8860,51 @@ open Salt.Tactic in
   Salt.MR.m4_blockMeanSqSupQH_of_classPriceH
   Salt.MR.m4_blockMeanSqSupQH_trivial
   Salt.MR.m4_doorL2_supply_500_H_of_blockQH
+
+open Salt.Tactic in
+-- ⭐⭐ COMMISSION 7b, THE CLOSING WAVE (2026-08-31 night, math) — helm 18:52, executor tier.
+-- `Salt/MR/HDoorClose.lean`: `HDoorArc`'s N4s socket DISCHARGED, and the twisted L² door's
+-- mint closed onto the same two data the h = 1 door closes onto.
+-- ⛔ THE COMMISSION'S NAMED ROUTE WAS THE ABANDONED LANE, AND THE FILE SAYS SO ITSELF. It
+-- routed through the h-family of `M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice`;
+-- `M4WaveClosed`'s header (:16-24) records that that node's hypothesis is "not what a
+-- mean-square supplier can deliver … strictly stronger than anything the MRT method proves".
+-- Routing the close through it would have discharged the socket onto a demand with no
+-- possible supplier — a green build, a clean audit, and a vacuous close. §2 of that file
+-- exists to replace the step, and this module takes the replacement. No landed byte moved
+-- and no statement act was taken; only the LANE changed, and the deviation is on the bus.
+-- 📐 THE LANE: M4ChiBlockMeanSqH h ──(χ-reduction, cap THREAD)──▶ coprime half
+--   ──(+ the non-coprime slot, CARRIED exactly as at h = 1)──▶ M4ClassBlockMeanSqH h
+--   ──(split + Chebyshev, cap THREAD)──▶ HDoorSupply.M4BlockMeanSqSupQH h ──▶ M4SievedDoorSqH h
+--   ──(HDoorArc.m4_doorL2_supply_500_H)──▶ MRTUniformityXiL2H h.
+--   EVERY link on this lane carries the cap as a THREAD; not one reads it. The q-uniform
+--   machinery (classSup · classSup_le_inv_totient_sum_doorChiSup · le_doorChiSup ·
+--   sum_windowClass_memSCoeff · norm_sum_residueClassOn_liou_le) is the whole content and it
+--   never sees the allowance — measured 6/6 in the door-slot report.
+-- ✅ WHAT IS CLOSED: THE CAP. At h = 2 the door predicate needs no gate, no floor and no
+--   constant that the h = 1 door did not need; every cap-READING arm is discharged in
+--   HDoorSupply §1–§8 or free at the socket's own 518 floor.
+-- ⛔ WHAT IS NOT CLOSED, AND IS NOT CLAIMED: THE ESTIMATE, AND ITS RANGE. M4ChiBlockMeanSqH h
+--   asks for the χ-uniform block mean square at q ≤ h·arcDen 12 H where the landed datum
+--   supplies q ≤ arcDen 12 H. That widening is a REAL demand on the seven producers and is
+--   NOT derivable here. ⇒ the honest reading is: THE h-DOOR NEEDS EXACTLY THE 1-DOOR'S
+--   CONDITIONAL, RESTATED OVER AN h-TIMES WIDER MODULUS RANGE — strictly weaker than
+--   "inhabited unconditionally at h = 2", and the difference must not be blurred.
+-- ✅ Both new sockets carry their ANTI-VACUITY witness in this same commit
+--   (`m4_classBlockMeanSqH_trivial`, `m4_chiBlockMeanSqH_trivial`); the second matters most,
+--   because M4ChiBlockMeanSqH is what the close LEAVES open. At the trivial grade M4GradeGate
+--   fails, and that failure is the analytic gap, not vacuity.
+-- 📌 Registry rows land in the SAME COMMIT as the declarations, per the helm's 18:4x catch:
+--   a one-shot audit and a registered audit produce the same green and have different
+--   lifetimes. Nothing here bears on twin primes.
+#audit_axioms Salt.MR.M4ChiBlockMeanSqH
+  Salt.MR.M4ClassBlockMeanSqH
+  Salt.MR.m4_classMeanSq_of_chiMeanSqH
+  Salt.MR.m4_classBlockMeanSqH_of_chi
+  Salt.MR.m4_blockMeanSqSupQH_of_classMeanSqH
+  Salt.MR.m4_sievedDoorSqH_of_classMeanSqH
+  Salt.MR.m4_sievedDoorSqH_of_chiMeanSqH
+  Salt.MR.m4_doorL2_supply_500_H_of_chiMeanSqH
+  Salt.MR.m4_doorL2_supply_500_two_of_chiMeanSq
+  Salt.MR.m4_classBlockMeanSqH_trivial
+  Salt.MR.m4_chiBlockMeanSqH_trivial
