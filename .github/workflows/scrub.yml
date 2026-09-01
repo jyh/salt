@@ -17,6 +17,24 @@ name: Scrub
 on:
   push:
   workflow_dispatch:
+  # ⛔ ADDED BECAUSE THE FORGE-PROSE ARM'S SUBJECT SET IS FIXED BY ITS TRIGGER, AND
+  #   THAT COST TWO PRs IN ONE DAY. `check_pr_descriptions.py --open` enumerates the
+  #   OPEN PRs AT RUN TIME. With push as the only trigger, the run fired by the last
+  #   push of a branch completes BEFORE the PR for that branch is created -- so the
+  #   PR is not in the population, while the checks list prints that green on the
+  #   PR's own page, which is exactly where a reader concludes it is about it.
+  #   MEASURED, TWICE, AT THE REAL OBJECTS -- this is the red arm, in production,
+  #   not a fixture: PR #5 created 18:50:23Z against a run that started 18:48:52Z
+  #   (91 s early); PR #6 created 00:02:01Z against a run whose prose arm finished
+  #   00:01:07Z (61 s early). Both were closed one at a time by a workflow_dispatch
+  #   after the fact -- a remedy that fixes the instance and leaves the class.
+  # ⚠️ THE OTHER DOOR THIS DOES NOT CLOSE, SO IT IS NOT OVERSOLD: a push to the BASE
+  #   still fires no run for the PRs targeting it. That is what the arm's own
+  #   re-read-every-open-PR design covers, and it is why `push` STAYS. This adds the
+  #   one event the design could not reach: the PR that did not exist yet.
+  # The green arm is this workflow's own PR: if the trigger works, THIS change's PR
+  # carries a `pull_request` Scrub run with itself in the population.
+  pull_request:
 
 permissions:
   contents: read
