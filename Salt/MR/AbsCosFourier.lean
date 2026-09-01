@@ -312,13 +312,19 @@ theorem hasSum_absCos_harmonics (θ : ℝ) :
 
 /-! ## The tail telescopes exactly -/
 
-/-- `Σ_{k≥0} 1/(4(M+k+1)²−1) = 1/(2(2M+1))` — the truncation tail, exact. -/
-lemma hasSum_absCos_tail_weights (M : ℕ) :
-    HasSum (fun k : ℕ => 1 / (4 * ((M : ℝ) + (k : ℝ) + 1) ^ 2 - 1))
-      (1 / (2 * (2 * (M : ℝ) + 1))) := by
-  set b : ℕ → ℝ := fun k => (1 / 2) / (2 * ((M : ℝ) + (k : ℝ)) + 1) with hb
-  have hposd : ∀ k : ℕ, (0 : ℝ) < 2 * ((M : ℝ) + (k : ℝ)) + 1 := fun k => by positivity
-  have hterm : ∀ k : ℕ, 1 / (4 * ((M : ℝ) + (k : ℝ) + 1) ^ 2 - 1) = b k - b (k + 1) := by
+/-- `Σ_{k≥0} 1/(4(Mcut+k+1)²−1) = 1/(2(2·Mcut+1))` — the truncation tail, exact.
+
+The cutoff binder is `Mcut`, matching `absCos_weight_partial_sum` and
+`abs_cos_partial_fourier_bound` below; the bare `M` this lemma carried until
+2026-09-01 was the one spelling in the file that did not (PR #5/#6 review
+finding, DESK row AX). Statement and proof are otherwise byte-identical — a
+binder rename, nothing more. -/
+lemma hasSum_absCos_tail_weights (Mcut : ℕ) :
+    HasSum (fun k : ℕ => 1 / (4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1))
+      (1 / (2 * (2 * (Mcut : ℝ) + 1))) := by
+  set b : ℕ → ℝ := fun k => (1 / 2) / (2 * ((Mcut : ℝ) + (k : ℝ)) + 1) with hb
+  have hposd : ∀ k : ℕ, (0 : ℝ) < 2 * ((Mcut : ℝ) + (k : ℝ)) + 1 := fun k => by positivity
+  have hterm : ∀ k : ℕ, 1 / (4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1) = b k - b (k + 1) := by
     intro k
     have h1 := hposd k
     have h2 := hposd (k + 1)
@@ -326,26 +332,26 @@ lemma hasSum_absCos_tail_weights (M : ℕ) :
     simp only [hb]
     push_cast
     rw [div_sub_div _ _ (by linarith) (by linarith),
-      show 4 * ((M : ℝ) + (k : ℝ) + 1) ^ 2 - 1
-        = (2 * ((M : ℝ) + (k : ℝ)) + 1) * (2 * ((M : ℝ) + ((k : ℝ) + 1)) + 1) by ring,
+      show 4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1
+        = (2 * ((Mcut : ℝ) + (k : ℝ)) + 1) * (2 * ((Mcut : ℝ) + ((k : ℝ) + 1)) + 1) by ring,
       div_eq_div_iff (by positivity) (by positivity)]
     ring
-  have hnn : ∀ k : ℕ, (0 : ℝ) ≤ 1 / (4 * ((M : ℝ) + (k : ℝ) + 1) ^ 2 - 1) := by
+  have hnn : ∀ k : ℕ, (0 : ℝ) ≤ 1 / (4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1) := by
     intro k
-    have h1 : (1 : ℝ) ≤ (M : ℝ) + (k : ℝ) + 1 := by
-      have hM := Nat.cast_nonneg (α := ℝ) M
+    have h1 : (1 : ℝ) ≤ (Mcut : ℝ) + (k : ℝ) + 1 := by
+      have hMcut := Nat.cast_nonneg (α := ℝ) Mcut
       have hk := Nat.cast_nonneg (α := ℝ) k
       linarith
-    have : (0 : ℝ) < 4 * ((M : ℝ) + (k : ℝ) + 1) ^ 2 - 1 := by nlinarith
+    have : (0 : ℝ) < 4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1 := by nlinarith
     positivity
   rw [hasSum_iff_tendsto_nat_of_nonneg hnn]
   have hpart : ∀ n : ℕ,
-      ∑ k ∈ Finset.range n, (1 / (4 * ((M : ℝ) + (k : ℝ) + 1) ^ 2 - 1)) = b 0 - b n := by
+      ∑ k ∈ Finset.range n, (1 / (4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1)) = b 0 - b n := by
     intro n
     rw [Finset.sum_congr rfl fun k _ => hterm k]
     exact Finset.sum_range_sub' b n
   simp only [hpart]
-  have hb0 : b 0 = 1 / (2 * (2 * (M : ℝ) + 1)) := by
+  have hb0 : b 0 = 1 / (2 * (2 * (Mcut : ℝ) + 1)) := by
     simp only [hb, Nat.cast_zero, add_zero]
     rw [div_div]
   have hbtend : Filter.Tendsto b Filter.atTop (nhds 0) := by
@@ -413,7 +419,7 @@ theorem abs_cos_partial_fourier_bound (θ : ℝ) (Mcut : ℕ) :
       |t (k + Mcut)| ≤ 4 / Real.pi * (1 / (4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1)) := by
     intro k
     have h1 : (1 : ℝ) ≤ (Mcut : ℝ) + (k : ℝ) + 1 := by
-      have hM := Nat.cast_nonneg (α := ℝ) Mcut
+      have hMcut := Nat.cast_nonneg (α := ℝ) Mcut
       have hk := Nat.cast_nonneg (α := ℝ) k
       linarith
     have hpos : (0 : ℝ) < 4 * ((Mcut : ℝ) + (k : ℝ) + 1) ^ 2 - 1 := by nlinarith

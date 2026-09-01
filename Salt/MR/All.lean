@@ -8647,6 +8647,13 @@ open Salt.Tactic in
   Salt.MR.MRTPropA3Ambient34
   Salt.MR.MRTPropA3_34
   Salt.MR.MRTThmA2_34
+  -- ⭐ DESK row AX (2026-09-01, math): the A2 statement pair, audited for the first time.
+  -- `MRTThmA2Stmt` was imported by this aggregate and never named in an audit block, so the
+  -- module ELABORATED under the gate while these two names were measured by nothing —
+  -- `#audit_axioms` is transitive through a listed name, not through an import. Raised in the
+  -- PR #5/#6 review as "a two-line addition for whoever wants it"; these are the two lines.
+  Salt.MR.MRTThmA2
+  Salt.MR.MRTThmA2Statement
   Salt.MR.mrtA4ii_high_M_target
   Salt.MR.regime_headroom_at_socket
   Salt.MR.mrtQuality_lower_of_pointwise

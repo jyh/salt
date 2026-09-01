@@ -24479,3 +24479,26 @@ C/D). Executed honestly: `MRTLemmaA4iiFixed34T` is DEFINED per the given wording
 binders, the threshold `C₀/ε ≤ loglog X` added), PRODUCED conditionally on the large Prop
 (`mrtLemmaA4iiFixed34T_of_largeRangeFixed`), and an UNCONDITIONAL mid-range threshold theorem
 lands beside it. The def is not improvised; the conditional is flagged here for the fold.
+
+### 📥 09-01 — `zeta_neg_re_logDeriv_ge` is a STANDALONE DEPOSIT: true, kernel-clean, consumed by nothing
+DESK row AX, the PR #5/#6 review's second finding, recorded rather than wired — and the choice is
+the finding, not a shrug. `Salt.MR.zeta_neg_re_logDeriv_ge` (`ZetaNegLogDerivLower.lean:53`) is
+landed and audited (`Salt/MR/All.lean:8573`, `[3 axioms]`); its ONLY appearances in the corpus are
+its own declaration and that registry row — **zero consumers, zero docs mentions** (three search
+shapes, re-run at the bytes 09-01: the fully-qualified name, the `logDeriv_ge` substring, and
+`ZetaNegLogDerivLower` as an import). ⚠️ **The import shape is not silent and the count matters:**
+it returns exactly one hit, `Salt/MR/All.lean:62`, which is the track AGGREGATE pulling the module
+under the gate — a gate is not a consumer. Read as "zero" it would be a stronger claim than the
+instrument made.
+
+**Why it is not wired here.** Its consumer is the A4F **large-range** arm — the below-`T₀` half of
+the dVP input that `MRTLargeRangeEquidistributionFixed` needs — and that arm is OPEN and priced at
+A4F-3 (ET + prime-sum transfer at VK strength, class C/D; see the 08-31 S2(ii) entry above).
+Wiring it would mean building its consumer, which is not an executor-tier act and is not what row
+AX asks for. **The deposit is therefore correct-and-idle by design, not by neglect.**
+
+⛔ **What a reader must not conclude from its idleness.** An unconsumed theorem and an abandoned
+one look identical to every instrument we have — a grep, a dead-branch census, a reachability walk.
+This entry is the difference, written down: it is a DEPOSIT AGAINST A NAMED FUTURE CONSUMER, the
+consumer is named, and the day that consumer lands this entry is what tells its author the input is
+already in the kernel. *A census of absence cannot tell "unbuilt" from "unconsumed-on-purpose".*
