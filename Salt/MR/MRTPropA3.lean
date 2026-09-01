@@ -3845,7 +3845,13 @@ by splitting `p` into short segments `(y, y(1 + (log X)^{-30})]`"*.  The value M
 the `O(1)` is carried in-statement as an explicit `C` (the S5 law: no hidden asymptotics).
 
 ⛔ **THIS IS A STATEMENT, NOT A THEOREM. NOTHING BELOW PROVES IT** — it is the exact remaining
-analytic content of A.4(ii)'s mid range, written so it can be cited, dispatched, and tracked. -/
+analytic content of A.4(ii)'s mid range, written so it can be cited, dispatched, and tracked.
+
+✅ **DISCHARGED in the A4F wave (2026-08-31)** by `mrtShortSegmentSplitting_holds` in the A4F
+mid-range module (a LATER module — nothing in this file proves it, so the line above stays
+true here): the exact-series majorization of `|cos|`, the Mertens window, and the harmonic
+sums through the landed zeta massif; its pin is an instance of the Y-floor
+`(log X)^{2/3} ≤ log Y`. -/
 def MRTShortSegmentSplitting : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u ε : ℝ), 0 < ε → Real.exp 1 ≤ X →
     Y = Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)) →
@@ -3913,8 +3919,10 @@ def MRTLargeRangeEquidistribution : Prop :=
 
 * **HIGH `M`** — `mrtA4ii_high_M_sixteenth`, **LANDED** (`1/16 = 0.0625` clears the
   `0.0605634…` target; MRT's own remark).
-* **MID RANGE** — `MRTShortSegmentSplitting`, **OPEN**, discharges via
-  `mrtA4ii_far_of_named_splitting`.
+* **MID RANGE** — `MRTShortSegmentSplitting`, **DISCHARGED in the A4F wave**
+  (`mrtShortSegmentSplitting_holds`, the A4F mid-range module; the far arm through
+  `mrtA4ii_far_of_named_splitting` is now unconditional there).  *(Bullet updated in the
+  A4F wave; it previously read OPEN.)*
 * **LARGE RANGE** — the frozen `MRTLargeRangeEquidistribution` is **REFUTED**
   (`not_mrtLargeRangeEquidistribution`: `Y` is free and a small `Y` overdraws Mertens); the
   live target is its Y-floor sibling `MRTLargeRangeEquidistributionFixed` (below), **OPEN**.
@@ -4075,11 +4083,12 @@ def MRTParsevalConstantMatch (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Pro
 
 ⇒ **this is the campaign's remaining debt expressed as a Lean implication rather than a
 paragraph**: whoever discharges the constant match at the empty sieve has the primary.  The
-mid- and large-range obligations (`MRTShortSegmentSplitting`, and the Y-floor sibling
-`MRTLargeRangeEquidistributionFixed` — the frozen `MRTLargeRangeEquidistribution` is refuted,
+mid- and large-range obligations (`MRTShortSegmentSplitting` — DISCHARGED in the A4F wave,
+`mrtShortSegmentSplitting_holds` — and the Y-floor sibling `MRTLargeRangeEquidistributionFixed`,
+still OPEN; the frozen `MRTLargeRangeEquidistribution` is refuted,
 `not_mrtLargeRangeEquidistribution`) sit beneath A.3 and feed A.4(ii), which is what supplies
 A.3's own hypothesis.  *(Parenthetical corrected in the A4F wave — it previously named the
-refuted frozen statement as the open obligation.)*
+refuted frozen statement as the open obligation, and then the mid range as open.)*
 
 ⛔ **NOTHING HERE PROVES ANY OF IT.**  The implication is real and the antecedent is open;
 naming it is what lets a design session price the road instead of re-deriving it. -/

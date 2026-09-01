@@ -62,6 +62,7 @@ import Salt.MR.AbsCosFourier
 import Salt.MR.ZetaNegLogDerivLower
 import Salt.MR.A4FMidBridge
 import Salt.MR.A4FMidRange
+import Salt.MR.A4FThreshold
 import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
 import Salt.MR.Lemma14Vtail
@@ -8581,6 +8582,11 @@ open Salt.Tactic in
   Salt.MR.mrt_mid_range_34
   Salt.MR.mrtA4ii_far_mid_unconditional
   Salt.MR.mrtA4ii_far_mid34_unconditional
+  Salt.MR.mrtA4ii_far34_C
+  Salt.MR.MRTLemmaA4iiFixed34T
+  Salt.MR.far34_threshold_close
+  Salt.MR.mrtLemmaA4iiFixed34T_of_largeRangeFixed
+  Salt.MR.mrtLemmaA4iiFixed34T_mid
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty

@@ -24451,3 +24451,31 @@ consumers: any node that needs `Y > 0` (the Euler bridge at `1 + 1/log Y` does) 
 dischargers supply it from `Y = exp(…)`. Found while building H4 (the `Y > 0` step had no
 proof); the law: TEST WHAT YOU SUBSTITUTE — a note reached the tree because it was quoted,
 not checked.
+
+### ⚠️ 08-31 17:xx — S2(iii): the C-free `MRTLemmaA4iiFixed34` far arm is STATEMENT-BLOCKED at small `X` (not refuted)
+The fold's structural finding (R3-U2), recorded as the commission's S2(iii) asks. The far-branch
+mechanism produces `(1/2)·((1−2/π)·log(log X/log Y) − C)` with an ADDITIVE absolute `C`
+(the Mertens window, the exact tail, the harmonic sums — each an O(1) at every `X`); at
+`Y = exp((log X)^{3/4+ε'})` this is `(1/8 − 1/(4π))·loglog X − (ε/2)·loglog X − C/2` after
+`ε' := ε/(1−2/π)`, which meets the C-free target `(1/8 − 1/(4π) − ε)·loglog X` exactly when
+`loglog X ≥ C/ε` — a threshold in `ε`. For a FIXED `C` and a small enough `ε` at a given `X`
+the C-free form is not what the mechanism proves; the source (extract addendum §3.4a, the
+(A.6) close, p. 23: *"thus, recalling the definition of `Y`, we obtain from (A.4)
+`𝔻(f,p^{it};X)² ≥ (1/3 − 2/(3π) − ε) log log X`"*) absorbs (A.5)'s `O(1)` into `ε·loglog X`
+implicitly, valid only for `X` large in terms of `ε`. NOT refuted — no witness is known
+against the C-free statement (the high-M arm is landed and unaffected; the far arm may hold
+for other reasons) — BLOCKED as a target of THIS mechanism. The honest family lands beside it
+(the A4F threshold module): the ∃-C far theorem in the mechanism's native shape and the
+threshold producer `MRTLemmaA4iiFixed34T`. Statement acts remain the helm's; nothing at the
+frozen layer is touched.
+
+### ⚠️ 08-31 17:xx — S2(ii) as worded reaches only the MID range; the large arm still needs the Y-floor large Prop
+`MRTLemmaA4iiFixed34`'s far disjunct `(log X)^{1/16}/2 < |t − t₁|` carries NO ceiling (`|t|,|t₁| ≤ X`
+allow `|t − t₁|` up to `2X`), so the threshold producer "derived from (i)" (the ∃-C far theorem,
+which is Y-parametric MID-range, `|t − t₁| ≤ (log X)^{20}`) covers the far arm only up to
+`(log X)^{20}`; beyond it the input is the large-range estimate — `MRTLargeRangeEquidistributionFixed`
+(S1's Y-floor sibling), OPEN, priced at A4F-3 (ET + prime-sum transfer at VK strength, class
+C/D). Executed honestly: `MRTLemmaA4iiFixed34T` is DEFINED per the given wording (Fixed34's
+binders, the threshold `C₀/ε ≤ loglog X` added), PRODUCED conditionally on the large Prop
+(`mrtLemmaA4iiFixed34T_of_largeRangeFixed`), and an UNCONDITIONAL mid-range threshold theorem
+lands beside it. The def is not improvised; the conditional is flagged here for the fold.
