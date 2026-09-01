@@ -1073,3 +1073,12 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   -- hypothesis at every `h`. Placed at the END of the list on the same reasoning as its
   -- neighbours — `#audit_axioms` aborts its remainder on the first non-whitelisted dependency.
   Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_h
+
+-- ⭐ ⟦BW-(ii) 0901⟧ `Salt/Entropy/Mathlib/SetCard.lean` — two mathlib-shaped `Set.ncard`
+-- helpers, outside every audit cone in the repository until this block (council 2026-09-01
+-- ruling 11). Small, and listed for exactly that reason: the sweep's residue is where nobody
+-- looks, and a two-lemma file is the easiest place for an axiom to sit unread.
+-- ⚠️ These are declared in the `Set` namespace, not `Salt.*` — which is WHY they were missed
+-- by eye: a `Salt.`-prefixed scan of this aggregate's names cannot see them at all.
+#audit_axioms Set.ncard_singleton_inter'
+  Set.ncard_inter_singleton

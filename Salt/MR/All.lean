@@ -8947,3 +8947,19 @@ open Salt.Tactic in
   Salt.MR.m4_doorL2_supply_500_two_of_chiMeanSq
   Salt.MR.m4_classBlockMeanSqH_trivial
   Salt.MR.m4_chiBlockMeanSqH_trivial
+
+-- ⭐ ⟦BW-(ii) 0901⟧ THE TWO MR MODULES NO GATE IN THE REPOSITORY COULD SEE.
+-- Council 2026-09-01 ruling 11 routed the non-Maynard audit-cone stragglers here. Measured
+-- on `main ff07fa93`: `Salt/MR/PortNonVacuous.lean` (4 decls) and
+-- `Salt/MR/S12ConstComposeFlat.lean` (2) declare no listed name, and no module that
+-- transitively imports them declares one either — so no `#audit_axioms` proof term in the
+-- corpus could mention them, at any track. They built green and nothing checked their axioms.
+-- ⛔ PortNonVacuous is the sharpest case of the class and the reason to care: it is the file
+-- that certifies IN THE KERNEL that the port's gates are SATISFIABLE. A vacuity certificate
+-- that is itself unaudited is the one place where an axiom leak would be invisible AND would
+-- discredit exactly the theorems the certificate exists to defend.
+#audit_axioms Salt.MR.gates_jointly_satisfiable
+  Salt.MR.socket_nonvacuous
+  Salt.MR.mmuChiRate_instantiated
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_flat
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_flat
