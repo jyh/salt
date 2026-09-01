@@ -403,6 +403,7 @@ import Salt.MR.XGapThread
 import Salt.MR.BandRated
 import Salt.MR.BandRatedAssembly
 import Salt.MR.BandRatedSocket
+import Salt.MR.HDoorSupply
 import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
 import Salt.Tactic.AuditAxioms
