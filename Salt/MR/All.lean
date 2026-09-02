@@ -9561,3 +9561,30 @@ and the headline's unconditionality at `h` is precisely what E gates. -/
   Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h
   Salt.MR.logChowla2_ineffective_v3_h
+/-! ⟦BLOCK T's THIRD HOP AND ITS CHAIN AT SHIFT `h`⟧ (`S16ComposeLH` §11–§12, 2026-09-02, math —
+wave H3 block T, part 3).  **Hops 4, 5 and 6 now all stand at shift `h`.**
+
+⭐ **THE WHOLE CHAIN IS BINDER WORK EXCEPT ONE STEP.**  `capfloor_floor4_sharp_LH` is the only
+new argument: the sharp `Ks` rider needs the modulus range, and at the inflated cap that gives
+`q ≤ h·arcDen 12 H ≤ log H ^ 13` rather than `log H ^ 12` — H2c's own absorption (`h ≤ 1096 ≤
+10^21 ≤ log H`), and `13/16 < 1` still yields `q^{1/16} ≤ log H`, which is all the assembly
+spends.  Everything else is a `∀ K` moved inside an `∃`-prefix or a rider moved from an
+antecedent into a carried conjunct.
+
+⭐ **HOP 6 HOISTS THE CROSSING CONSTANTS ABOVE THE DESIGN LEVER**, so the terminal's own `A` may
+take `log(1/Ks)` into its `max` and read `floor4` off with no numeral rider at all; the
+`A`-scoped window becomes the regime-scoped one by the flat floor `e^{3.2A} ≤ log H₋`.
+
+⛔⛔ **AND HOP 6's `h` TWIN IS EXACTLY THE SHAPE `logChowla2_v7_rated` CONSUMES — which is why
+the headline is BLOCKED ON E and not on T.**  See the previous block's note.
+Nothing bears on twin primes. -/
+#audit_axioms Salt.MR.capfloor_floor4_sharp_LH
+  Salt.MR.capfloor_floor4_of_regimeWin_LH
+  Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin
+  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h

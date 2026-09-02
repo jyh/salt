@@ -5519,13 +5519,21 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `cofkR_cofactorSupply_*_h` exists. ⇒ 🔑 **A BLOCK ORDER DERIVED FROM A ROW TABLE ORDERS THE
    STATEMENTS; THE PROOFS ORDER THEMSELVES.** Recommended re-order: **C → T(hops) → E →
    T(headline)**.
-   ⛔ **NOT here:** hop 6 and its `kswin` chain (~10–12 names, all mechanical and all
-   `ε`-independent, each layer measured at the object: `capfloor_floor4_of_regimeWin_LH` +
-   a `capfloor_floor4_sharp_LH`, `s13CapFloor_all_LH_gk_sharpT0_kswin`,
-   `s16_capGate_supply_LH_gk_sharpT0_kswin`, `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist`
-   and `_khoist_cs`, `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` and `_khoist_cs`,
-   `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin`, hop 6); the remaining
-   `logChowla2_ineffective_v*_h`; **the headline, which is E's.**
+   ✅✅ **AND HOP 6 LANDED TOO, ON THE HELM's WORD — ALL THREE OF T's HOPS NOW STAND AT SHIFT
+   `h`.** `S16ComposeLH` §11–§12, **10 further names**: `capfloor_floor4_sharp_LH` ·
+   `capfloor_floor4_of_regimeWin_LH` · `s13CapFloor_all_LH_gk_sharpT0_kswin` ·
+   `s16_capGate_supply_LH_gk_sharpT0_kswin` · `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist`
+   and `_khoist_cs` · `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` and `_khoist_cs` ·
+   `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin` · hop 6
+   `…_win_xceil_cqhoist_csfree_kswin_h`.
+   ⭐ **THE WHOLE CHAIN IS BINDER WORK EXCEPT ONE STEP.** `capfloor_floor4_sharp_LH` is the only
+   new argument: the sharp `Ks` rider reads the modulus range, and at the inflated cap that gives
+   `q ≤ h·arcDen 12 H ≤ log H ^ 13` rather than `log H ^ 12` — H2c's own absorption
+   (`h ≤ 1096 ≤ 10^21 ≤ log H`), and `13/16 < 1` still yields `q^{1/16} ≤ log H`, which is all
+   the assembly spends. Everything else is a `∀ K` moved inside an `∃`-prefix, or a rider moved
+   from an antecedent into a carried conjunct.
+   ⛔ **NOT here:** the remaining `logChowla2_ineffective_v2/v4/v5_h`, and **the headline
+   `logChowla2_v7_rated_h`, which is E's.**
    **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
