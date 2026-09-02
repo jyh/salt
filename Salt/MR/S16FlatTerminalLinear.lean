@@ -1526,8 +1526,8 @@ theorem logChowla2_witnessed_scale_flat_L (hband : S16BandLaneCBoundedL 32000000
     linarith [hεpin]
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
     rw [hHlo]; exact flatWitFloor_log_ge hA26
-  have hsel := s15_sel''_L_gk_witness_flat_bumped hA26 32000000 hKle hδ₀ hδpin hKc hKb
-    hCt hCtb hCgle hMflb hx0win heps hlo hwin
+  have hsel := s15_sel''_L_gk_witness_flat_bumped (c := 1) hA26 32000000 hKle (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKb
+    hCt hCtb hCgle hMflb hx0win (by simpa using heps) hlo hwin
   exact hfire (flatDoorM A) hsel hcross
 
 /-! ## §7 — THE INHABITATION AND NON-VACUITY CERTIFICATES AT THE FLAT LINEAR POINT -/

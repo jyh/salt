@@ -216,21 +216,21 @@ ceilings, and with `Ct`'s ceiling at the honest `2^23`.
 The six `ρ`-free lines (`hM`, `mfloor`, `bfloor`, `gRows`, `x0M`, `blk`) are the landed
 acceptance's, read off at a dummy narrow instance — they do not mention `ρ`, `Ct`, `Cg` or
 `δ₀`, so the instance is legal.  The five charge-spending lines are §1's. -/
-theorem s15_sel''_L_witness_flat_charge {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
-    {R : ChowlaRegime}
+theorem s15_sel''_L_witness_flat_charge {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct ρ : ℝ}
+    {x₀ Mfl c : ℕ} {R : ChowlaRegime} (hc1 : 1 ≤ c) (hcb : c ≤ 1096)
     (hρlog : -Real.log ρ ≤ 417)
     (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
     (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
     (hMfl : Mfl ≤ flatDoorM A)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L Cg δ₀ Ct ρ x₀ Mfl R (flatDoorM A) := by
   have hbase := s15_sel''_L_witness_flat (A := A) (Cg := 0) (δ₀ := 1 / 2 ^ 10) (Ct := 1)
-    (K := 1) (x₀ := x₀) (Mfl := Mfl) (R := R) hA (by norm_num) (by norm_num) (by norm_num)
-    (by norm_num) (by norm_num) (by norm_num) (by simp) hMfl hx0win heps hlo hhi
+    (K := 1) (x₀ := x₀) (Mfl := Mfl) (c := c) (R := R) hA hc1 hcb (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by simp) hMfl hx0win heps hlo hhi
   have hinv : Real.log (1 / ρ) = -Real.log ρ := by rw [one_div, Real.log_inv]
   refine
     { hM := hbase.hM
@@ -260,29 +260,31 @@ theorem at the riders that are TRUE at the terminal's own witness: `1/2^20 ≤ �
 (`s16_audit_neglog_rho_le_wide`).
 
 ⟦WHAT DOES **NOT** APPEAR⟧ any upper bound on `A` — unchanged. -/
-theorem s15_sel''_L_witness_flat_wide {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ}
-    {R : ChowlaRegime}
-    (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 20 ≤ δ₀)
+theorem s15_sel''_L_witness_flat_wide {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
+    {x₀ Mfl c : ℕ} {R : ChowlaRegime}
+    (hc1 : 1 ≤ c) (hcb : c ≤ 1096) (hh7c : Real.log (c : ℝ) ≤ 7)
+    (hδ : 0 < δ₀) (hδb : 1 / (2 ^ 20 * (c : ℝ) ^ 2) ≤ δ₀)
     (hK : 0 < K) (hKb : K ≤ 2 ^ 539)
     (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
     (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
     (hMfl : Mfl ≤ flatDoorM A)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (flatDoorM A) :=
-  s15_sel''_L_witness_flat_charge hA
-    (le_trans (s16_audit_neglog_rho_le_wide hδ hK hδb hKb) (by norm_num)) hCt hCtb
+  s15_sel''_L_witness_flat_charge hA hc1 hcb
+    (s16_audit_neglog_rho_le_417_h hc1 hh7c hδ hK hδb hKb) hCt hCtb
     hbfl hMfl hx0win heps hlo hhi
 
 /-- **THE LEVERED `blk` LINE AT THE FLAT DESIGN POINT** — charge-free and constant-free, so
 it is read off the landed levered acceptance at a dummy narrow instance.  `4^K ≤ e^{760·E}`
 against `e^{E²}` at `E ≥ 10^{17}`. -/
 theorem flat_blk_line_gk {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
-    (hKle : Klev ≤ 170000000 * flatDoorM A) {R : ChowlaRegime}
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {c : ℕ} (hc1 : 1 ≤ c) (hcb : c ≤ 1096)
+    {R : ChowlaRegime}
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
@@ -290,30 +292,32 @@ theorem flat_blk_line_gk {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
         + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) :=
   (s15_sel''_L_gk_witness_flat (A := A) (Cg := 0) (δ₀ := 1 / 2 ^ 10) (Ct := 1) (K := 1)
-    (x₀ := 0) (Mfl := 0) hA Klev hKle (by norm_num) (by norm_num) (by norm_num)
-    (by norm_num) (by norm_num) (by norm_num) (by simp) (by simp)
+    (x₀ := 0) (Mfl := 0) (c := c) hA Klev hKle hc1 hcb (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by simp) (by simp)
     (by simpa using (Real.exp_pos (Real.exp (3.2 * A) / 10)).le) heps hlo hhi).blk
 
 /-- **⟦THE LEVERED WIDE ACCEPTANCE⟧** (`s15_sel''_L_gk_witness_flat_wide`) — the wide
 register at the `G`-lever, `Klev` at the linear door's own ceiling `1.7·10⁸·M`. -/
 theorem s15_sel''_L_gk_witness_flat_wide {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
-    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ}
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl c : ℕ}
     {R : ChowlaRegime}
-    (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 20 ≤ δ₀)
+    (hc1 : 1 ≤ c) (hcb : c ≤ 1096) (hh7c : Real.log (c : ℝ) ≤ 7)
+    (hδ : 0 < δ₀) (hδb : 1 / (2 ^ 20 * (c : ℝ) ^ 2) ≤ δ₀)
     (hK : 0 < K) (hKb : K ≤ 2 ^ 539)
     (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
     (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
     (hMfl : Mfl ≤ flatDoorM A)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) :=
   s15_sel''_L_gk_of_L Klev
-    (s15_sel''_L_witness_flat_wide hA hδ hδb hK hKb hCt hCtb hbfl hMfl hx0win heps hlo hhi)
-    (flat_blk_line_gk hA Klev hKle heps hlo hhi)
+    (s15_sel''_L_witness_flat_wide hA hc1 hcb hh7c hδ hδb hK hKb hCt hCtb hbfl hMfl hx0win
+      heps hlo hhi)
+    (flat_blk_line_gk hA Klev hKle hc1 hcb heps hlo hhi)
 
 /-! ## §3 — ⟦THE JOINT POINT⟧ -/
 
