@@ -415,6 +415,7 @@ import Salt.MR.HDoorArc
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
+import Salt.MR.S16FlatTerminalLinearLH
 import Salt.MR.HSeamCheck
 import Salt.Tactic.AuditAxioms
 
@@ -9228,3 +9229,60 @@ Nothing bears on twin primes. -/
   Salt.MR.arc36_of_floor_h
   Salt.MR.arc36_of_regime_h
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_h
+
+/-! ⟦THE FLAT-LINEAR LANE AT THE INFLATED SOCKET — WAVE H2b⟧ (`S16FlatTerminalLinearLH`, NEW ·
+`HSeamCheck` §3, 2026-09-01, math).  The three hops of the flat-linear terminal — the capstone,
+the conditional sharp form and the terminal itself — re-fired over
+`HDoorSupply.SocketBaseLH h`, whose arc denominator is `h · arcDen 12 H`.
+
+⭐ **THE EXPENSIVE OBJECT WAS `h`-INVARIANT.**  The `S15Sel''_L_gk` register — twelve fields,
+the thing a census prices as the wave — mentions no socket anywhere, and neither does
+`MSelect'_L_gk` or any of its bridges.  Hops 2 and 3 therefore consume the LANDED register
+unchanged, and the selector layer produces it at `h` from wave H1's shift scale `c := h`.
+⭐ **THE `h` IS PAID ONCE, IN A CONSTANT, NOT ONCE PER STRATUM.**  The envelope
+`RSanDoorRhoH ρ h H = ρ / strataResidualH h H ²` cancels the drift gate's residual EXACTLY, so
+the terminal ceiling closes at the `h`-FREE `110525·ρ ≤ δ₀²` — the same numeral as at `h = 1`,
+for every `h ≤ 1096`.
+⭐ **`Kc ≤ 2^539` LEAVES THE DEBT LIST AND BECOMES AN EXPORTED FACT** (`…_flat_LH`'s eleventh
+conjunct).  At `h = 1` it is rider 1 of the landed terminal, an ask about an opaque
+`∃ C, 0 < C ∧ …`; on the `h` lane the head's own count bound serves as the register's `Kc` and
+carries its ceiling out of the exit.  **The one place the `h` lane is STRICTLY STRONGER than its
+`h = 1` twin — and it is stronger because the shift forced the count to be computed rather than
+assumed.**  `Ct ≤ 2^23` is NOT removed and is carried exactly as at `h = 1`.
+⚠️ **WORD 5 IS TAKEN FROM THE HALF-WINDOW FLOOR, NOT FROM `MSelect'.winFit`, AND THE COMMISSION'S
+ROUTE CANNOT WORK.**  `winFit` is a bare inequality `(7/10)·j₀ + 3·(…) ≤ log H`; from it the
+same line PLUS the shift's `6·log h + 7·log h ≤ 91` is not derivable for any positive amount,
+because nothing in it says `log H` exceeds its own left side.  The reserve is one step upstream,
+in the half-window floor, where `s13_winFit_of_halfWindow_gen` spends `w = √(log H) ≥ 7.2·10^10`
+against ~`900·w`; `s13_winFit_h_of_halfWindow_gen` pays the `91` there.  ⇒ **A RESERVE NAMED IN A
+COMMISSION IS NOT A RESERVE EXPOSED BY THE LEMMA THAT WAS NAMED WITH IT.**
+⚠️ **`s13_gate8_L_gk_h` CARRIES `1 ≤ Λ` IN ITS SIGNATURE** — without it the statement is FALSE
+(at `12·Λ = A·log 2 − 3`, `M = 1`, `H = R.Hhi`), and the fire site already holds it.
+⚠️ **`s13_smallGradeFits_h` NEEDS A FLOOR ITS `h = 1` TWIN DOES NOT.**  The first claim must
+absorb `4.11·log h ≤ 28.8` against `0.239·G`, which needs `84·loglog H ≳ 118`; the regime's own
+`4·10^6 ≤ H` supplies `log H ≥ 15` and `loglog H ≥ 2`, both carried explicitly.
+⛔ **NEITHER NEW DEF GAINS A PRODUCER AND NEITHER IS A THEOREM.**  `S16BandLaneCBoundedL` has no
+producer anywhere at `h = 1` (34 binder sites, 9 modules, zero discharges), so re-quantifying it
+at the inflated socket re-states an open rider rather than opening a new one;
+`S15CrossingBound_LH_gk` is wave H2c's target.  The `h` lane's conditionality is EXACTLY the
+`h = 1` lane's, on the same two objects.  `S16BandLaneCBoundedL K → S16BandLaneCBoundedLH h K`
+is NOT claimed at `h ≥ 2` and is false in general: the socket sits in hypothesis position, so
+the inflated rider is the STRONGER Prop.  The `h = 1` twin laws are stated as theorems, because
+a drifted def would still elaborate at every consumer and no build could see it.
+⛔ NOT here: word 8's `Ct ≤ 2^23` export at `h` (its statement copy alone exceeds the
+commission's own 30-line budget before any body, and it would re-cut the `Ct` slot of all three
+hops — the antecedent stays and H3 takes it); H2c's crossing supplier; H3's uniform lane.
+Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is. -/
+#audit_axioms Salt.MR.s16BandLaneCBoundedLH_one_iff
+  Salt.MR.s15CrossingBound_LH_gk_one_iff
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH
+  Salt.MR.RSanDoorRhoH_le_RSanDoorRho
+  Salt.MR.s13_gate8_L_gk_h
+  Salt.MR.doorBaseFrame_at_socket_LH
+  Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk
+  Salt.MR.s13_smallGradeFits_h
+  Salt.MR.s13_winFit_h_of_halfWindow_gen
+  Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28
+  Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH
+  Salt.MR.logChowla2_witnessed_scale_flat_LH

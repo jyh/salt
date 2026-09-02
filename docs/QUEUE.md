@@ -5359,6 +5359,50 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    commission cites it twice; the conflict is recorded rather than resolved silently.
    ⛔ **NOT here:** every hop statement (H2b); the crossing supplier (H2c); hops 4/5/6, the
    capstones and `logChowla2_v7_rated` (H3). **Nothing bears on twin primes.**
+   ✅✅ **WAVE H2b — THE FLAT-LINEAR LANE AT THE INFLATED SOCKET — 2026-09-02 (math, worker
+   tier with two hops at C; the helm's H2b/H2c commission, re-cut after two refuters, fired
+   23:31 on the H2a merge).** New module `Salt/MR/S16FlatTerminalLinearLH.lean` (15 names) ·
+   `HSeamCheck` (+1 import, §3, four `example`s). **13 theorems + 2 defs, every theorem
+   `[3 axioms]`**; audit block in `Salt/MR/All.lean` in the same commit; full tree
+   `saltbuild EXIT=0`.
+   ⭐ **THE EXPENSIVE OBJECT WAS `h`-INVARIANT.** The `S15Sel''_L_gk` register — twelve fields,
+   the row a census prices as the wave — mentions no socket anywhere, and neither does
+   `MSelect'_L_gk` nor any of its bridges. Hops 2 and 3 consume the LANDED register unchanged;
+   the selector layer produces it at `h` from wave H1's shift scale at `c := h`.
+   ⭐ **THE `h` IS PAID ONCE, IN A CONSTANT, NOT ONCE PER STRATUM.** The envelope
+   `RSanDoorRhoH ρ h H = ρ / strataResidualH h H²` cancels the drift gate's residual EXACTLY, so
+   the terminal ceiling closes at the `h`-FREE `110525·ρ ≤ δ₀²` — the same numeral as at
+   `h = 1`, for every `h ≤ 1096`.
+   ⭐ **`Kc ≤ 2^539` LEAVES THE DEBT LIST AND BECOMES AN EXPORTED FACT.** At `h = 1` it is rider
+   1 of the landed terminal, an ask about an opaque `∃ C, 0 < C ∧ …`; at `h` the head's own
+   count bound serves as the register's `Kc` and carries its ceiling out of the exit. **The one
+   place the `h` lane is STRICTLY STRONGER than its `h = 1` twin — and it is stronger because
+   the shift forced the count to be computed rather than assumed.** `Ct ≤ 2^23` is NOT removed.
+   ⚠️ **WORD 5's COMMISSIONED ROUTE CANNOT WORK, AND THE REASON GENERALISES.**
+   `MSelect'_L_gk.winFit` is a bare inequality `(7/10)·j₀ + 3·(…) ≤ log H`; from it the same
+   line PLUS the shift's `6·log h + 7·log h ≤ 91` is not derivable for ANY positive amount,
+   because nothing in it says `log H` exceeds its own left side. The reserve the commission
+   correctly names lives one step upstream, in the half-window floor, where
+   `s13_winFit_of_halfWindow_gen` spends `w = √(log H) ≥ 7.2·10^10` against ~`900·w`. ⇒ **A
+   RESERVE NAMED IN A COMMISSION IS NOT A RESERVE EXPOSED BY THE LEMMA NAMED WITH IT** — the
+   `h` twin is taken from `hsel.half`, and named for it.
+   ⚠️ **TWO SIGNATURES CARRY A FLOOR THEIR `h = 1` TWINS DO NOT.** `s13_gate8_L_gk_h` needs
+   `1 ≤ Λ` or the statement is FALSE (at `12·Λ = A·log 2 − 3`, `M = 1`, `H = R.Hhi`);
+   `s13_smallGradeFits_h` must absorb `4.11·log h ≤ 28.8` against `0.239·G`, which needs
+   `84·loglog H ≳ 118` — supplied by the regime's own `4·10^6 ≤ H` as `log H ≥ 15`.
+   ⛔ **NEITHER NEW DEF GAINS A PRODUCER AND NEITHER IS A THEOREM.** `S16BandLaneCBoundedL` has
+   no producer anywhere at `h = 1` (34 binder sites, 9 modules, zero discharges), so
+   re-quantifying it at the inflated socket re-states an open rider rather than opening a new
+   one; `S15CrossingBound_LH_gk` is H2c's target. The `h` lane's conditionality is EXACTLY the
+   `h = 1` lane's, on the same two objects. `S16BandLaneCBoundedL K → S16BandLaneCBoundedLH h K`
+   is NOT claimed at `h ≥ 2` and is false in general — the socket is in HYPOTHESIS position, so
+   the inflated rider is the STRONGER Prop. Both `h = 1` twin laws are stated as theorems,
+   because a drifted def would still elaborate at every consumer and no build could see it.
+   ⛔ **NOT here:** word 8's `Ct ≤ 2^23` export at `h` — DECLINED on the commission's own
+   ≤ 30-line condition: the statement copy alone exceeds it before any body, and it would re-cut
+   the `Ct` slot of all three hops; the antecedent stays and H3 takes it. Also not here: H2c's
+   crossing supplier; H3's uniform lane, hops 4/5/6 and the capstones. **Nothing bears on twin
+   primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
