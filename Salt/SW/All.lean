@@ -363,3 +363,14 @@ open Salt.Tactic in
   Salt.SW.psi_explicit_sharpM_perZero_box Salt.SW.psi_explicit_sharpM_box
   Salt.SW.exists_gap_midpoint Salt.SW.exists_contour_params
   Salt.SW.psi_explicit_sharpM_perZero_unsep
+
+-- ⭐ ⟦BW-(ii) 0901⟧ `Salt/SW/EpsilonZero.lean` — 20 declarations, listed by NO gate in the
+-- repository until this block (council 2026-09-01 ruling 11; measured on `main ff07fa93`).
+-- This is the module that abolishes the COMPACTNESS step in `zeta_zero_free_strip`, i.e. the
+-- one that turns an opaque existential `ε₀` into an explicit constant — the effectivity of
+-- every consumer that divides by it. An unaudited effectivity repair is the shape of a green
+-- track that certifies nothing: `lake build` says it ELABORATES, never that it is axiom-clean.
+#audit_axioms Salt.SW.zeta_zero_free_strip_sharp
+  Salt.SW.zeta_zero_free_strip_sharp_bounded
+  Salt.SW.zeta_zero_free_region_sharp
+  Salt.SW.zeta_zero_free_region_sharp_bounded
