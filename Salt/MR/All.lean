@@ -420,6 +420,7 @@ import Salt.MR.S16UniformLH
 import Salt.MR.S16ComposeLH
 import Salt.MR.HSeamCheck
 import Salt.MR.S13CapGateLinearLH
+import Salt.MR.V7RatedH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9588,3 +9589,58 @@ Nothing bears on twin primes. -/
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
   Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
+
+/-! ⟦BLOCK E — THE `ε` SEAM CLOSED, AND THE PRIZE⟧ (`HDoorSupply` §6–§8 re-spelled in place,
+`Salt/MR/V7RatedH.lean` NEW, 2026-09-02, math — wave H3 block E).  **`logChowla2_v7_rated_h`
+stands: H3's hypothesis-free headline at every `h` with `log h ≤ 7`.**
+
+⛔ **WHAT WAS ACTUALLY WRONG.** The `h` head pins `ε = 1/(500·h)`; seven merged `_h` names in
+`HDoorSupply` demanded the FLAT `1/500 ≤ R.eps`, **false at `h ≥ 2`**, and both sides sat in
+HYPOTHESIS position of conditional statements, so no gate in the repository could see it.  The
+whole demand is spent at ONE place — `heps2` inside `cofkL_logX_floor_h` — and at `1/(500h)`
+the closing coefficient goes NEGATIVE at `h = 4`: no `H₊` closes it.  Ruling (a): the
+conclusion becomes `h`-explicit, `H₊/(10⁶·h²) ≤ log(A+s)`.
+
+⭐ **THE RE-CUT IS LOCAL, AND THAT IS A MEASUREMENT, NOT A HOPE.**  Every call site of all
+seven is inside `HDoorSupply.lean` itself; outside it, only this registry names them.  So the
+seven are re-spelled IN PLACE and nothing downstream needed repair.  The `H₊` floor rises from
+`10¹⁴` to `10²⁶·h⁴` — bought free from the road's own `hlo : 518 ≤ loglog H₋`, which gives
+`log H₊ ≥ 10⁸` against a cost of `26·log 10 + 4·log h ≤ 88.1`.
+
+⭐ **WHERE (a)'s COST LANDS: at `hmuF`, exactly as the helm's ruling said, and NOT in the
+cushion.**  The μ-floor weakens `log H₊ − 14` → `log H₊ − 28` (`log(10⁶h²) ≤ 13.82 + 14`), and
+the 14 is spent at three sites with `10²¹`-scale slack.  `32·Kvt + 32·D ≤ log H₊/4` is an
+ANTECEDENT throughout and is untouched.
+
+⛔⛔ **THE ITEM THE H3 CENSUS NEVER NAMED, AND IT WAS THE GATE.**
+`cofkR_cofactorSupply_L_gk_rated_h` — the headline's own supplier.  A census that walks NAMES
+and ROWS cannot see a dependency between BLOCKS; this one was found by opening the prize's
+proof and reading its FIRST line.  Its `h` twin reads the socket at exactly six places and is
+otherwise ~650 lines of arithmetic on the block scale `A + s`.
+
+⭐ **AND A SECOND ROUTE NOBODY NAMED: the base-scale cap.**  `s16_baseScaleCap96_L_at_klevF`
+(`KLever:427`) is `SocketBaseL`-only, and the headline closes with it.  Its port is cheap for a
+structural reason: the endpoint route reads socket conjuncts **2, 3, 8, 12, 13**, and the
+inflation touches **5 and 11**.  The only arithmetic that moves is the pin's own numeral —
+`log(1/ε) ≤ 7` becomes `≤ 14` (`500·1096 < 2²⁰`) against a supply `69·e^{2t}`, `t ≥ 10¹⁷`.
+
+📌 **THE EQUALITY-PIN FAMILY WAS CENSUSED AND IS OFF THIS ROAD.**  The seven `R.eps = 1/500`
+sites are heads of the door-`L²` `_500` mint family whose only consumers are each other; the
+`h` road reaches `MRTUniformityXiL2H` through `m4_doorL2_supply_H_L_gk_khoist`, whose `ε`
+binder is generic.  ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h` lane — recorded
+because a vacuous supplier and an absent one are indistinguishable from every gate, and the
+day N4s acquires a producer the family needs the `1/(500h)` spelling.
+
+⛔ **WHAT THIS IS NOT.**  `logChowla2_v7_rated_h` is conditional in exactly the places its
+`h = 1` twin is, and nothing here bears on twin primes: the transport wall is untouched at this
+rung, `ε` is bounded only from BELOW (and at shift `h` that floor is `1/(500·h)`, not `1/500`),
+and the residual ineffectivity prices scale-extractability, not truth. -/
+#audit_axioms Salt.MR.cofkL_socket_floors_h
+  Salt.MR.cofkR_cofactorSupply_L_gk_rated_h
+  Salt.MR.S16BaseScaleCapEnd_LH_gk
+  Salt.MR.s16BaseScaleCapEndLH_gk_one_iff
+  Salt.MR.s16_baseScaleCapEnd_LH_of_xceil
+  Salt.MR.s16_baseScaleCap96_LH_of_end
+  Salt.MR.klevF_capNumeral_h
+  Salt.MR.s16_baseScaleCap96_LH_at_klevF
+  Salt.MR.logChowla2_v7_rated_h

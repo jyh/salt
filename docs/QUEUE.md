@@ -5535,6 +5535,46 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⛔ **NOT here:** the remaining `logChowla2_ineffective_v2/v4/v5_h`, and **the headline
    `logChowla2_v7_rated_h`, which is E's.**
    **Nothing bears on twin primes.**
+   ✅✅✅ **WAVE H3 BLOCK E — THE ε SEAM IS CLOSED AND THE PRIZE STANDS:
+   `logChowla2_v7_rated_h` — 2026-09-02 (math, fresh head; the helm's E fire, bus 31562067).**
+   `Salt/MR/HDoorSupply.lean` §6–§8 re-spelled IN PLACE (7 statements) + `Salt/MR/V7RatedH.lean`
+   (NEW, 9 names). **15 names in the audit set, every theorem `[3 axioms]`.**
+   ⭐ **RULING (a), EXECUTED.** `cofkL_logX_floor_h` now takes `1/(500·h) ≤ R.eps` and concludes
+   `H₊/(10⁶·h²) ≤ log(A+s)`; the μ-floor weakens `log H₊ − 14` → `− 28`; the `H₊` floor rises
+   `10¹⁴ → 10²⁶·h⁴`, bought free from the road's own `hlo : 518 ≤ loglog H₋` (`log H₊ ≥ 10⁸`
+   against a cost of `26·log 10 + 4·log h ≤ 88.1`).
+   ⭐ **THE RE-CUT IS LOCAL, AND THAT IS A MEASUREMENT.** Every call site of all seven is inside
+   `HDoorSupply.lean`; outside it, only the registry names them. So the seven are re-spelled in
+   place and NOTHING downstream needed repair. ⚠️ **ERRATUM ON THE COMMISSION'S §2.2 NUMBER, in
+   the safe direction:** the closing condition is `√H₊ ≥ 2.38·10⁶·h²`, i.e. `H₊ ≥ 8.1·10²⁴` at
+   `h ≤ 1096` — the commission wrote `8.1·10³⁶` (it squared `h²` once too often).
+   ⛔⛔ **AND E's CHARTER WAS BIGGER THAN THE CENSUS GAVE IT, IN TWO PLACES, BOTH FOUND BY
+   OPENING A CONSUMER.** (1) `cofkR_cofactorSupply_L_gk_rated_h` — the headline's own supplier,
+   never named by any census; the socket is read at exactly SIX places and the other ~650 lines
+   are socket-blind arithmetic on `A + s`. (2) **the base-scale cap**:
+   `s16_baseScaleCap96_L_at_klevF` (`KLever:427`) is `SocketBaseL`-only and the headline closes
+   with it — four new names (`S16BaseScaleCapEnd_LH_gk` + its `_one_iff`,
+   `s16_baseScaleCapEnd_LH_of_xceil`, `s16_baseScaleCap96_LH_of_end`, `klevF_capNumeral_h`,
+   `s16_baseScaleCap96_LH_at_klevF`). ⭐ Cheap for a STRUCTURAL reason: the endpoint route reads
+   socket conjuncts **2, 3, 8, 12, 13** and the inflation touches **5 and 11**. The only
+   arithmetic that moves is the pin's numeral: `log(1/ε) ≤ 7` → `≤ 14` (`500·1096 < 2²⁰`)
+   against a supply `69·e^{2t}`, `t ≥ 10¹⁷`.
+   📌 **THE EQUALITY-PIN FAMILY IS OFF THE ROAD (step 0 (ii), three shapes).** The seven
+   `R.eps = 1/500` sites (`HDoorSupply:1388` · `HDoorArc:577` · `M4DoorL2:208/:732` ·
+   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1549`) are heads of the door-`L²` `_500` mint
+   family whose only consumers are each other; the `h` road reaches `MRTUniformityXiL2H` through
+   `m4_doorL2_supply_H_L_gk_khoist`, whose `ε` binder is `∀ (eps : ℚ), 0 < eps` — generic.
+   **The STOP CONDITION never fired.** ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h`
+   lane; recorded because **a pin is an antecedent: at the wrong value it does not FAIL, it
+   DISAPPEARS**, and a vacuous supplier is indistinguishable from an absent one at every gate.
+   📌 **(iii) the `h ≤ 1096` crossing, per lemma:** E reads `Salt.MR.h_le_1096_of_hh7`
+   (`S16ProducersH:766`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
+   `hh7` binder.
+   ⛔ **NOT here:** `logChowla2_ineffective_v2/v4/v5_h` (T's presentation ladder, off the
+   headline's road) and the `_g0` no-trade receipt at `h`.
+   **Nothing bears on twin primes:** `logChowla2_v7_rated_h` is conditional in exactly the places
+   its `h = 1` twin is, `ε` is bounded only from BELOW (and at shift `h` that floor is
+   `1/(500·h)`), and the residual ineffectivity prices scale-extractability, not truth.
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
