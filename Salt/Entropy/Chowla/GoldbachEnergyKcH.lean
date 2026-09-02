@@ -284,6 +284,20 @@ theorem bigXiH_bounded_ceiling_of_pin (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h 
       _ = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
             * (h : ℝ) := by ring
 
+/-! ## §5 — the ε line at shift `h` (wave H2a word 2 — a LINE, not a name) -/
+
+/-- **⟦THE ε LINE AT SHIFT `h`⟧** — the ten `by norm_num` sites that derive
+`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:1072, XThread:1387, V7Ks:372,
+S16ComposeV4:921, S16Uniform:1667/:1001, V7B:1800, RegisterCompose:287,
+S16FlatTerminalLinear:1525, S16FlatFinal:200) are a **PASS-THROUGH at `h`**: both sides scale by
+exactly `h`, and `512 > 500`.  This `example` is the check that the line elaborates at a SYMBOLIC
+`h`; **no name is minted** — each `h`-twin site will carry the one-liner itself. -/
+example (h : ℕ) (hh : 0 < h) :
+    (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ 1 / (500 * (h : ℚ)) := by
+  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
+  rw [div_le_div_iff₀ (by positivity) (by positivity)]
+  nlinarith [hq0]
+
 end Salt.Entropy.Chowla
 
 end
