@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S16FlatTerminalExitH
 import Salt.MR.S16ProducersH
+import Salt.MR.S16FlatTerminalLinearLH
 
 /-!
 # ⟦THE SEAM, CLOSED BY CONSTRUCTION⟧ — wave H1's acceptance integration
@@ -25,6 +26,16 @@ STOPS COMPILING — the seam is closed by construction, not by inspection.
 `s15_sel''_L_gk_witness_flat_bumped_win` (and the four lemmas beneath it) over a shift scale
 `c`, so the `h`-twin is the instance `c := h`; this wrapper names it for wave H2 rather than
 making every consumer re-derive `h ≤ 1096` from `hh7`.
+
+§3 is wave H2b's acceptance: the flat-linear terminal `logChowla2_witnessed_scale_flat_LH` fired
+at a CONCRETE `h = 2`, reading its `Kc ≤ 2^539` out of the theorem's own conjunct rather than
+assuming it, plus the two new defs' `h = 1` twin laws.
+
+⛔ **WHAT §3 DELIBERATELY DOES NOT CLAIM.**  `S16BandLaneCBoundedL K → S16BandLaneCBoundedLH 2 K`
+is NOT asserted anywhere, and is not true in general: the rider's socket sits in HYPOTHESIS
+position, so the inflated form is the STRONGER Prop and the implication runs the other way.  A
+consumer at `h ≥ 2` must be handed the `LH` rider; the `h = 1` twin law is the only bridge, and
+it is an `↔` at `h = 1` only.
 
 Nothing here bears on twin primes: every object is conditional exactly where its `h = 1` twin is.
 -/
@@ -92,6 +103,52 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_h {A : ℝ} (hA : 162 ≤ A) (Kle
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (flatDoorM A) :=
   s15_sel''_L_gk_witness_flat_bumped_win (c := h) hA Klev hKle hh
     (h_le_1096_of_hh7 hh hh7) hh7 hδ hδb hK hKb hCt hCtb hCg hMfl hx0win heps hlo hhi
+
+/-! ## §3 — WAVE H2b's ACCEPTANCE: THE FLAT-LINEAR TERMINAL AT A CONCRETE `h = 2` -/
+
+/-- **⟦THE `h` TERMINAL FIRES AT `h = 2`⟧** — wave H2b's acceptance item.
+
+The three hops are conditional statements whose shift is symbolic; an `example` at a CONCRETE
+`h = 2` is what checks that the chain's numerals actually admit a shift, rather than merely
+type-checking at a variable that no consumer instantiates.  Two things are read at the object:
+the `ε` pin `1/(500·2) ≤ ε` and the count ceiling **`Kc ≤ 2^539`, OBTAINED from the theorem's
+own conjunct** — at `h = 1` that ceiling is an ASSUMED rider of the landed terminal, and on the
+`h` lane it is a fact, because the shift forced the count to be computed. -/
+example (hband : S16BandLaneCBoundedLH 2 32000000) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) : True := by
+  have hcast : (((2 : ℕ)) : ℝ) = 2 := by norm_num
+  have hh7 : Real.log (((2 : ℕ)) : ℝ) ≤ 7 := by
+    rw [hcast]; linarith [Real.log_two_lt_d9]
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hopq, Mfl, _hε, _hCg, _hKc, _hδ₀, _hCt, _hMfl1,
+    _hCgle, hεpin, hδpin, _hMflb, hKcb, _hβ, _hA26, _hA₀A, _hAge, _hcensus, _hbody⟩ :=
+    logChowla2_witnessed_scale_flat_LH 2 (by norm_num) hh7 hband A₀ hA₀
+  -- ⟦THE COUNT CEILING IS A FACT HERE, NOT A RIDER⟧
+  have _hKb : Kc ≤ 2 ^ 539 := hKcb
+  -- ⟦THE TWO PINS AT h = 2, read as the theorem states them⟧
+  have _heps : 1 / (500 * ((2 : ℕ) : ℚ)) ≤ ε := hεpin
+  have _hδ : 1 / (838400 * (((2 : ℕ)) : ℝ) ^ 2) ≤ δ₀ := hδpin
+  trivial
+
+/-- **⟦THE `h = 1` INSTANCE TAKES THE LANDED RIDER⟧** — the spot-check word 10 asks for.  A
+caller who holds the LANDED `S16BandLaneCBoundedL 32000000` can enter the `h` terminal at
+`h = 1` through the twin law, and gets back the landed `ε`/`δ₀` pins (`1/500`, `1/838400`). -/
+example (hband : S16BandLaneCBoundedL 32000000) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) : True := by
+  have hh7 : Real.log (((1 : ℕ)) : ℝ) ≤ 7 := by norm_num
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hopq, Mfl, _hε, _hCg, _hKc, _hδ₀, _hCt, _hMfl1,
+    _hCgle, hεpin, _hδpin, _hMflb, _hKcb, _hβ, _hA26, _hA₀A, _hAge, _hcensus, _hbody⟩ :=
+    logChowla2_witnessed_scale_flat_LH 1 (by norm_num) hh7
+      ((s16BandLaneCBoundedLH_one_iff 32000000).mpr hband) A₀ hA₀
+  have _heps : 1 / 500 ≤ ε := by
+    have := hεpin; norm_num at this; linarith
+  trivial
+
+/-- The band-lane rider at `h = 1` IS the landed rider. -/
+example (K : ℕ) : S16BandLaneCBoundedLH 1 K ↔ S16BandLaneCBoundedL K :=
+  s16BandLaneCBoundedLH_one_iff K
+
+/-- The crossing rider at `h = 1` IS the landed crossing rider. -/
+example (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    S15CrossingBound_LH_gk 1 K R M ↔ S15CrossingBound_L_gk K R M :=
+  s15CrossingBound_LH_gk_one_iff K R M
 
 end Salt.MR
 
