@@ -262,13 +262,15 @@ Conjunct 11 enters this page at exactly two places — `s13CapGrid_mu_lo` and
 Every other `11`-routed grid leaf inherits through those two, so its port is the landed
 proof with `(hh) (hh7)` threaded and the conclusion untouched. -/
 
-theorem s13_abs8640_of_socketBase_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13_abs8640_of_socketBase_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     (8640 : ℝ) ≤ (Real.log (A : ℝ)) ^ (theta293 - 1 / 500) := by
   obtain ⟨h1, h2⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
   exact s13_abs8640_of_loglog (by linarith) h2
 
-theorem s13_abs8640_at_base_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s B : ℕ}
+theorem s13_abs8640_at_base_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s B : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAB : A ≤ B) :
     (8640 : ℝ) ≤ (Real.log (B : ℝ)) ^ (theta293 - 1 / 500) := by
   obtain ⟨h1, -⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
@@ -281,12 +283,14 @@ theorem s13_abs8640_at_base_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) 
   have hθ : (0 : ℝ) ≤ theta293 - 1 / 500 := by have := s13_theta293_margin_lo; linarith
   exact le_trans hcore (Real.rpow_le_rpow (by linarith) hmono hθ)
 
-theorem s13_abs8640_at_shift_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13_abs8640_at_shift_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     (8640 : ℝ) ≤ (Real.log ((A + s : ℕ) : ℝ)) ^ (theta293 - 1 / 500) :=
   s13_abs8640_at_base_LH hh hh7 hfl hb (Nat.le_add_right A s)
 
-theorem s13CapGrid_twoj_le_H_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_twoj_le_H_LH {h : ℕ} (_hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hb : SocketBaseLH h R M H L q j A s) : 2 ^ j ≤ H := by
   have hjL : j ≤ Nat.log 2 L := hb.2.2.2.2.2.1
   have hLH : L ≤ H := hb.2.2.1
@@ -299,7 +303,8 @@ theorem s13CapGrid_twoj_le_H_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ)
   · exact le_trans (le_trans (Nat.pow_le_pow_right (by norm_num) hjL)
       (Nat.pow_log_le_self 2 (by omega))) hLH
 
-theorem s13CapGrid_mu_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_mu_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     Real.sqrt (H : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
@@ -308,7 +313,8 @@ theorem s13CapGrid_mu_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
     Real.log_le_log hA0 (by push_cast; linarith [Nat.cast_nonneg (α := ℝ) s])
   exact le_trans (s13_socketBase_logA_ge_sqrt_LH hh hh7 hfl hb) hmono
 
-theorem s13CapGrid_mu_2000_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_mu_2000_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
   have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
@@ -318,14 +324,16 @@ theorem s13CapGrid_mu_2000_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have : (2000 : ℝ) ≤ Real.sqrt (H : ℝ) := by nlinarith [hs2, hs0, hHR]
   exact le_trans this (s13CapGrid_mu_lo_LH hh hh7 hfl hb)
 
-theorem s13CapGrid_logH_le_mu_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_logH_le_mu_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     Real.log (H : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
   have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
   have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
   exact le_trans (capgrid_log_le_sqrt (by linarith)) (s13CapGrid_mu_lo_LH hh hh7 hfl hb)
 
-theorem s13CapGrid_Lambda_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_Lambda_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
@@ -341,7 +349,8 @@ theorem s13CapGrid_Lambda_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : �
     Real.log_le_log hA0 (by push_cast; linarith [Nat.cast_nonneg (α := ℝ) s])
   exact le_trans (s13_socketBase_loglogA_sharp_LH hh hh7 hfl hb) (Real.log_le_log hlogA0 hmono)
 
-theorem s13CapGrid_Lambda_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_Lambda_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
   have hlo : R.Hlo ≤ H := hb.1
@@ -355,7 +364,8 @@ theorem s13CapGrid_Lambda_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ)
   have := s13CapGrid_Lambda_sharp_LH hh hh7 hfl hb
   linarith [capgrid_exp50_lo]
 
-theorem s13CapGrid_logX_eight_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem s13CapGrid_logX_eight_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     8 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
   linarith [s13CapGrid_mu_2000_LH hh hh7 hfl hb]
@@ -408,7 +418,8 @@ theorem s13CapGrid_q_logX_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
     _ ≤ 1096 * (Real.log (((A + s : ℕ)) : ℝ) ^ (12 : ℕ) / 4096) := hstep
     _ ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (12 : ℕ) := hfin
 
-theorem s13CapGrid_logqT_L_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_logqT_L_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T)
     (hThi : 2 * T ≤ (((A + s : ℕ)) : ℝ)) :
@@ -459,7 +470,8 @@ theorem s13CapGrid_logqT_L_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have h12 : 12 * Real.log μ ≤ μ := by nlinarith [hΛsq, hs2, hs40, hs0]
   linarith
 
-theorem s13CapGrid_logTann_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_logTann_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
     Real.log (((A + s : ℕ)) : ℝ) - 2 * Real.log (Real.log (((A + s : ℕ)) : ℝ))
@@ -482,7 +494,8 @@ theorem s13CapGrid_logTann_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
   have hLam := s13CapGrid_Lambda_sharp_LH hh hh7 hfl hb
   linarith
 
-theorem s13CapGrid_Tann_one_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_Tann_one_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) : (1 : ℝ) < 2 * T := by
   set μ : ℝ := Real.log (((A + s : ℕ)) : ℝ) with hμdef
@@ -506,7 +519,8 @@ theorem s13CapGrid_Tann_one_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) 
   have := Real.exp_lt_exp.mpr hlog0
   rwa [Real.exp_zero, Real.exp_log hT0] at this
 
-theorem s13CapGrid_kappa_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_kappa_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
     ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
@@ -533,7 +547,8 @@ theorem s13CapGrid_kappa_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
   rw [← hμdef] at hlow
   nlinarith [htop, hlow, hnum]
 
-theorem s13CapGrid_kappa30_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_kappa30_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
     ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
@@ -558,7 +573,8 @@ theorem s13CapGrid_kappa30_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   rw [le_div_iff₀ hlog0] at hbase ⊢
   linarith
 
-theorem s13CapGrid_BT_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_BT_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
     ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
@@ -591,7 +607,8 @@ theorem s13CapGrid_BT_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
   rw [Real.exp_log (by linarith), Real.exp_log (by linarith)] at hmono
   nlinarith [hmono, hqR, hT1]
 
-theorem s13CapGrid_BT10_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+theorem s13CapGrid_BT10_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
     ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
@@ -599,7 +616,8 @@ theorem s13CapGrid_BT10_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 
         ≤ (2 * T) ^ 10 := by
   intro i hi
   exact ramQbase_le_pow_ten (s13CapGrid_Tann_one_LH hh hh7 hfl hb hTlo)
-    (s13CapGrid_B3 (Nd := A + s) (s13CapGrid_mu_2000_LH hh hh7 hfl hb) (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) i hi)
+    (s13CapGrid_B3 (Nd := A + s) (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
+      (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) i hi)
     (s13CapGrid_kappa_Tann_LH hh hh7 hfl hb hTlo i hi)
 
 
@@ -615,7 +633,7 @@ is `+log h`-insensitive and ports mechanically. -/
 place on it where conjunct 5's inflation is spent.  At `SocketBaseL` the modulus ledger gives
 `log q ≤ 12·loglog H`; at `SocketBaseLH h` it gives `log q ≤ log h + 12·loglog H`, and `hh7`
 turns that into `≤ 7 + 12·loglog H` wherever a numeral is wanted. -/
-theorem capfloor_logq_le_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+theorem capfloor_logq_le_LH {h : ℕ} (hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hb : SocketBaseLH h R M H L q j A s) :
     Real.log (q : ℝ) ≤ Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ))
@@ -638,7 +656,8 @@ theorem capfloor_logq_le_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
   push_cast at hstep
   linarith
 
-theorem capfloor_twoj_le_H_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+theorem capfloor_twoj_le_H_LH {h : ℕ} (_hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hb : SocketBaseLH h R M H L q j A s) : 2 ^ j ≤ H := by
   have hjL : j ≤ Nat.log 2 L := hb.2.2.2.2.2.1
   have hLH : L ≤ H := hb.2.2.1
@@ -651,7 +670,8 @@ theorem capfloor_twoj_le_H_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   · exact le_trans (le_trans (Nat.pow_le_pow_right (by norm_num) hjL)
       (Nat.pow_log_le_self 2 (by omega))) hLH
 
-theorem capfloor_core_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_core_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) :
     (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) ∧ Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) ∧
@@ -686,7 +706,8 @@ theorem capfloor_core_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
   have hHhalf : Real.log (H : ℝ) ≤ Real.sqrt (H : ℝ) / 2 := capfloor_logH_le_half_sqrt hHR
   exact ⟨hv, hm, hTpos, by linarith⟩
 
-theorem capfloor_muLambda_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_muLambda_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) :
     Real.exp (Real.log (H : ℝ) / 4) ≤ Real.log (5 * Tann + 1) ∧
@@ -720,7 +741,8 @@ theorem capfloor_muLambda_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have hz := Real.log_le_log hpos (le_trans hstep hmono)
   rwa [Real.log_exp] at hz
 
-theorem capfloor_T0_Tann_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
+theorem capfloor_T0_Tann_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
     (hT₀ : T₀ ≤ Real.exp (Real.sqrt (H : ℝ) / 2)) : T₀ ≤ Tann := by
@@ -731,7 +753,8 @@ theorem capfloor_T0_Tann_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : �
   rw [Real.exp_log hTpos] at h2
   linarith
 
-theorem capfloor_T0_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
+theorem capfloor_T0_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
     (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) : T₀ ≤ Tann := by
@@ -753,7 +776,8 @@ theorem capfloor_T0_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
     nlinarith [hmono, hsplit, he1, hp]
   exact capfloor_T0_Tann_sharp_LH hh hh7 hfl hb hAN hTlo (le_trans hT₀ (Real.exp_le_exp.mpr hE))
 
-theorem capfloor_rhs_legs_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_rhs_legs_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) :
     Real.exp 300 * (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
@@ -782,7 +806,8 @@ theorem capfloor_rhs_legs_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have hp2 : (0 : ℝ) ≤ (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by positivity
   exact mul_le_mul hleg1 hleg2 hp2 (le_trans hp1.le hleg1)
 
-theorem capfloor_tannGate_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_tannGate_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) :
     TannGate ((Nd : ℕ) : ℝ) ((q : ℝ) * Tann) := by
@@ -825,7 +850,8 @@ theorem capfloor_tannGate_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   calc Real.exp (30 * r) ≤ Real.exp (Real.log ((q : ℝ) * Tann)) := Real.exp_le_exp.mpr hkey
     _ = (q : ℝ) * Tann := Real.exp_log hqT0
 
-theorem capfloor_QTann_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {A G M H L q j As s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_QTann_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {A G M H L q j As s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hAN : As ≤ Nd)
     (hA : 1 ≤ A) (hG : 1 ≤ G) (hM : 1 ≤ M)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
@@ -842,7 +868,8 @@ theorem capfloor_QTann_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
     _ ≤ Real.exp (30 * Real.sqrt (Real.log ((Nd : ℕ) : ℝ))) := Real.exp_le_exp.mpr (by linarith)
     _ ≤ (q : ℝ) * Tann := hgate
 
-theorem capfloor_kappa30Q_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {A G M H L q j As s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_kappa30Q_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {A G M H L q j As s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hAN : As ≤ Nd)
     (hA : 1 ≤ A) (hG : 1 ≤ G) (hM : 1 ≤ M)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
@@ -852,7 +879,8 @@ theorem capfloor_kappa30Q_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
     (capfloor_one_lt_QK2_gen hA hG hM) ?_ (capfloor_tannGate_LH hh hh7 hfl hb hAN hTlo)
   rw [rpow_half_eq_sqrt]; exact hQ2reg
 
-theorem capfloor_QTann_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_QTann_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hAN : As ≤ Nd)
     (hM : 1 ≤ M) (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
     (hQ2reg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
@@ -860,7 +888,8 @@ theorem capfloor_QTann_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
     ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann :=
   capfloor_QTann_gen_LH hh hh7 hfl hb hAN (one_le_AdoorL hM) (one_le_s13GK K hM) hM hTlo hQ2reg
 
-theorem capfloor_kappa30Q_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ} {Tann : ℝ}
+theorem capfloor_kappa30Q_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hAN : As ≤ Nd)
     (hM : 1 ≤ M) (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
     (hQ2reg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
@@ -1074,7 +1103,8 @@ theorem capfloor_floor4_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 
   nlinarith [hfac, hv0]
 
 
-theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
+theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
     {T₀ Kq Ks Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hM : 1 ≤ M)
     (hAN : As ≤ Nd)
@@ -1626,13 +1656,15 @@ hM hb` and feeds `hbb` to every grid leaf.  **That line is the whole reason this
 `SocketBaseLH h → SocketBase` is false at `h ≥ 2`, so it simply disappears here and each leaf
 takes the `LH` binder directly. -/
 
-theorem s13CapGrid_Q2_reg_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (hM : 1 ≤ M)
+theorem s13CapGrid_Q2_reg_LH_gk {h : ℕ} (_hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (hM : 1 ≤ M)
     (hb : SocketBaseLH h R M H L q j A s) (hblock : s13BlockFloor_L_gk K M ≤ A + s) :
     Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
       ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) :=
   (s13_doorRowZeroBase_five_L_gk K hM hblock hb.2.2.2.2.2.2.1).2.1
 
-theorem s13CapGrid_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {cs T : ℝ}
+theorem s13CapGrid_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {cs T : ℝ}
     (hM : 1 ≤ M) (hcs : 1 ≤ cs) (hfl : loglogFloor50 ≤ R.Hlo)
     (hb : SocketBaseLH h R M H L q j A s) (hblock : s13BlockFloor_L_gk K M ≤ A + s)
     (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T)
@@ -1677,12 +1709,254 @@ theorem s13CapGrid_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have hμ : (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := s13CapGrid_mu_2000_LH hh hh7 hfl hb
   have hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
     s13CapGrid_Lambda_lo_LH hh hh7 hfl hb
-  exact ⟨s13CapGrid_logX_eight_LH hh hh7 hfl hb, s13CapGrid_H83_two hμ hΛ, s13CapGrid_q_logX_LH hh hh7 hfl hb,
+  exact ⟨s13CapGrid_logX_eight_LH hh hh7 hfl hb, s13CapGrid_H83_two hμ hΛ,
+    s13CapGrid_q_logX_LH hh hh7 hfl hb,
     s13CapGrid_logqT_L_LH hh hh7 hfl hb hTlo hThi, s13CapGrid_P_low (A + s),
     s13CapGrid_Q2_reg_LH_gk hh hh7 K hM hb hblock, s13CapGrid_Q_pos hμ, s13CapGrid_Q_high (A + s),
     s13CapGrid_P_le_Q hμ hΛ, s13CapGrid_Hj hμ hΛ, s13CapGrid_B3 hμ hΛ,
-    s13CapGrid_BT_LH hh hh7 hfl hb hTlo, s13CapGrid_kappa30_LH hh hh7 hfl hb hTlo, s13CapGrid_BT10_LH hh hh7 hfl hb hTlo,
+    s13CapGrid_BT_LH hh hh7 hfl hb hTlo, s13CapGrid_kappa30_LH hh hh7 hfl hb hTlo,
+    s13CapGrid_BT10_LH hh hh7 hfl hb hTlo,
     s13CapGrid_WL hμ hΛ, s13CapGrid_gate hcs hμ hΛ, s13CapGrid_Q_hundred hμ hΛ,
     s13CapGrid_band_product hμ hΛ⟩
+
+
+/-! ## ⟦§8 — THE CAP-GATE ASSEMBLER, THE WIRE, AND THE DELIVERABLE⟧
+
+`s16_capGate_supply_L_gk` is where the wave's structural fact lives: the landed proof derives
+`hbb : SocketBase` from its `SocketBaseL` binder and feeds `hbb` to the whole floor and eps
+pages.  That derivation has no `LH` counterpart, so it is gone and every page below takes the
+inflated binder directly.
+
+⟦R KILL 1⟧ is discharged in the CONCLUSION here: the per-block gate is stated at
+`Hreg := A + s` rather than `Hreg := H`, which is the only change to the landed shape.
+
+The two wire lemmas and the deliverable read the socket at conjuncts 4 and 8 only — `0 < q`
+and `0 < A`, both untouched by the inflation — so they are clean re-bindings, exactly as
+⟦RH2c Q3⟧ found. -/
+
+set_option maxHeartbeats 1000000 in
+-- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
+theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
+    {epsf : ℕ → ℝ}
+    (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo) (hcs : Real.exp (-100) ≤ cs)
+    (hblk : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s)
+    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
+    (hKs : Real.exp (-100) ≤ Ks) (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hεr : ∀ A : ℕ, theta293 - 1 / 500 ≤ epsf A)
+    (hcap : S16BaseScaleCap96_LH_gk h K R M) (hcof : S16CofactorSupply_LH_gk h K Cq R M) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+        5 ≤ Real.log (Real.log (2 * T)) →
+        ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
+          S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
+            Rrad Rbd CR EP2 (epsf (A + s)) := by
+  intro H L q j A s hb T hTlo hThi hTgate hTll
+  obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
+  -- the grid wave, at the linear door
+  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
+    s13CapGrid_all_LH_gk hh hh7 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
+  -- `1 < 2T` off the annulus gate
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hT1 : (1 : ℝ) < 2 * T := by
+    have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+    linarith
+  have hT0le : (0 : ℝ) ≤ 2 * T := by linarith
+  have hAN : A ≤ A + s := Nat.le_add_right _ _
+  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
+  -- the floor wave, at the linear door
+  obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
+    s13CapFloor_all_LH_gk hh hh7 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs
+  -- the eps wave, LADDER-BLIND
+  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH hh hh7 hfl hb
+  obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
+    s13CapEps_all_LH hh hh7 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
+  refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
+    s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
+  exact
+    { logX_eight := g1
+      H83_two := g2
+      QTann := f1
+      kappa30Q := f2
+      q_logX := g3
+      T0_Tann := f3
+      floor1 := f4
+      floor2 := f5
+      floor3 := f6
+      floor4 := f7
+      logqT_L := g4
+      P_low := g5
+      Q2_reg := g6
+      Q_pos := g7
+      Q_high := g8
+      P_le_Q := g9
+      budget := fun i hi =>
+        s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
+          (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
+      Hj := g10
+      B3 := g11
+      BT := g12
+      kappa30 := g13
+      BT10 := g14
+      WL := g15
+      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
+        (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb)
+      Rbd_nonneg := hRbd0
+      Rbd_grade := hRbdg
+      Cq_gate := hCqg
+      Rbd_socket := hRsock
+      epsr_nonneg := e1
+      abs8640 := e2
+      EP2_gate := e3
+      q_arcDen := e4
+      phi_row := e5
+      p2_row := e6
+      tail_row := e7
+      Q_hundred := g17
+      band_product := g18 }
+
+
+
+
+theorem m4_hcap_at_door_perBlock_LH_gk_bounded {h : ℕ} (_hh : 0 < h)
+    (_hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ 126848 / 10 ^ 8 ∧ 0 < Ks ∧
+      ∀ (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 : ℝ),
+              DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf (2 * T)
+                VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2) →
+        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKqb, hKs, hcapstone⟩ :=
+    m4_rowChi_capstone_perBlock_bounded
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKqb, hKs, ?_⟩
+  intro R M cU ε hcU hfam H L q j A s hb χ T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, hd⟩ :=
+    hfam H L q j A s hb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hb.2.2.2.1.ne'⟩
+  have hlogX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := hd.logX_four
+    linarith
+  have hres := hcapstone q cU hcU (calP (AdoorL M) (s13GK K M))
+    (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M)) (mrAlpha (1 / 12)) 2 Jb
+    hd.Jb_lo hd.Jb_hi hd.Hseq_two hd.alpha_nonneg
+    (2 * T) VJ V Lr (((A + s : ℕ)) : ℝ) hd.Tann_one hd.qTann_one hd.P_three hd.PQ hd.QTann
+    hd.kappa30Q hd.loglog5 hd.VJ_bound η εd hd.alpha_eta hd.eta_half hd.Tann_X hd.X_pos
+    hd.debit hd.logX_pos hd.q_logX hd.V_one hd.V_inv hd.T0_Tann hd.floor1 hd.floor2
+    hd.floor3 hd.floor4 hd.logqT_one hd.logqT_L hd.L_exp hd.logV_L
+    hd.H83_two hd.logX_exp hd.logX_four hTgate
+    (2 * (A + s)) Xd P Q Mr (winCutH (A + s) (doorCoeffU_L_gk K M)) b cf hd.cf_one hd.P_low
+    hd.Q_pos hd.Q_high hd.range hd.budget hd.Hj hd.B3 hd.BT hd.kappa30 hd.BT10 hd.WL hd.gate
+    Rbd CR hd.Rbd_nonneg hd.Rbd_grade hd.Cq_gate
+    (fun _ : DirichletCharacter ℂ q => (0 : ℝ)) hd.Rbd_binder
+    KS hd.KS_nonneg hd.KS_binder hd.KS_gate E EP2 (ε (A + s)) hd.epsr_nonneg hd.abs8640
+    hd.EP2_gate hd.E_row hd.E_binder (doorCap_hXN (A + s)) (doorCap_hN2 (A + s))
+    (fun n hn => doorRowDatumU_supp0_L_gk K M (A + s) hn)
+    (fun _ : DirichletCharacter ℂ q => (0 : ℝ))
+    (m4_hSup_door_at_zero q (winCutH (A + s) (doorCoeffU_L_gk K M)) (2 * (A + s)) hlogX1) χ
+  rw [chiBarCoeff_doorRowDatum_L_gk] at hres
+  simpa using hres
+
+theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧ 0 < Ks ∧
+      ∀ (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+              G2Scaffold.DoorCapErrWS_L_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                      ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                        (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_L_gk K M)))
+                        (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                    → DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                        (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKqb, hKs, hwire⟩ :=
+    m4_hcap_at_door_perBlock_LH_gk_bounded hh hh7 K
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq,
+    le_trans hKqb kq_closed_form_le_exp_hundred, hKs, ?_⟩
+  intro R M cU ε hc1 hcapWS
+  refine hwire R M cU ε hc1 ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
+
+theorem s15_crossing_supplied_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) :
+    ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧
+      0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      (Real.exp (-100) ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
+        Real.exp (-100) ≤ Ks →
+        ∀ (R : ChowlaRegime) (M : ℕ), 1 ≤ M → loglogFloor50 ≤ R.Hlo →
+          (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s) →
+          S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
+          S15CrossingBound_LH_gk h K R M) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs0, hT₀3, hKq0, hKqb, hKs0, hwire⟩ :=
+    m4_fuse_hcap_of_capWS_LH_gk_ceiling hh hh7 K
+  obtain ⟨C, hC0, hC40, hband⟩ := m4_tail_mass_at_band_bounded
+  refine ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hT₀3, hKq0, hKqb, hKs0, hC0, hC40, ?_⟩
+  intro hcs hT₀ hKq hKs R M hM hfl hblk hcof hcap
+  have hgate := s16_capGate_supply_LH_gk hh hh7 K hM hfl hcs hblk hT₀ hKq hKs hC0 hC40
+    (fun _ => le_rfl) hcap hcof
+  refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  have hq : 1 ≤ q := hsb.2.2.2.1
+  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
+  have hNd : 1 ≤ A + s := by omega
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+  have hT1 : (1 : ℝ) < 2 * T := by linarith
+  exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
 
 end Salt.MR

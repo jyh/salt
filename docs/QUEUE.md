@@ -5403,6 +5403,40 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    the `Ct` slot of all three hops; the antecedent stays and H3 takes it. Also not here: H2c's
    crossing supplier; H3's uniform lane, hops 4/5/6 and the capstones. **Nothing bears on twin
    primes.**
+   ✅✅ **WAVE H2c — THE CROSSING SUPPLIER AT THE INFLATED SOCKET — 2026-09-02 (h2c, an Opus
+   executor head, A/B tier throughout, in parallel with H2b).** New module
+   `Salt/MR/S13CapGateLinearLH.lean`, **62 names, every theorem `[3 axioms]`**; audit block in
+   `Salt/MR/All.lean`; no landed declaration edited. Deliverable
+   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:960`'s `∃`-prefix and pins with `hblk` at
+   `SocketBaseLH h`, concluding `S16CofactorSupply_LH_gk h → S16BaseScaleCap96_LH_gk h →
+   S15CrossingBound_LH_gk h`.
+   ⛔ **WHY SIXTY AND NOT THIRTY.** `s16_capGate_supply_L_gk` and `s13CapGrid_all_L_gk` derive
+   `hbb : SocketBase` from their `SocketBaseL` binder and feed it to the WHOLE floor and eps
+   pages; `SocketBaseLH h → SocketBase` is FALSE at `h ≥ 2`, so every `SocketBase`-typed leaf
+   under the assembler is re-stated. Census driven at the object: conjunct 5 is read at exactly
+   FIVE sites, conjunct 11 at exactly ONE, and conjunct 11 costs NO new substrate (its `_LH`
+   twins are landed in `S16ProducersH`; only `mu_lo` and `Lambda_sharp` touch them).
+   ⭐ **TRANSITIVE REACHABILITY OF A CONJUNCT IS NOT SPENDING IT.** The `QTann`/`kappa30Q` razor
+   pair reaches `capfloor_logq_le` but `capfloor_tannGate` destructures `⟨-, hq1⟩` and keeps only
+   `1 ≤ q`, using `0 ≤ log q` in the favourable direction — five names priced down by reading one
+   `obtain` pattern.
+   ⚠️ **A LOOSENED BOUND CAN INVALIDATE A HYPOTHESIS NOTHING APPEARED TO SPEND.** `floor2`'s
+   `0 ≤ loglog H` followed at `h = 1` from `0 ≤ log q ≤ 12·loglog H`; the `+log h` breaks that
+   implication. **The inflation broke a SIGN INFERENCE, not a numeric budget** — a class no
+   census of conjunct reads predicts, because the leaf did not read the socket, it read a
+   consequence whose sign the socket had been silently underwriting.
+   ⭐ **THE SIX NUMERIC SIBLINGS CARRY THE LANDED CERTIFICATES.** A certificate that stopped
+   travelling would mean the ceiling was a barrier rather than a convenience — a finding about
+   the mathematics, not a repair. All six travel; each is consumed by exactly one `EP₂` row and
+   nowhere else, which is the check that the ceilings were priced from real demand. A7 is
+   answered at the kernel: `capeps_master`'s true admissible `t` is ~`7·10^17`, so `60` sits
+   seventeen orders below the barrier and `70` was never needed.
+   ⟦R KILL 1⟧ `s13CapEps_all`'s fourth conjunct `q ≤ arcDen 12 H` is FALSE at `LH` and is
+   RE-BASED to `Hreg := A + s`, where it is exactly the grid page's `q_logX`. The field it lands
+   in is read NOWHERE in the corpus and `Hreg` occurs in that structure only there.
+   ⛔ **NOT here:** the PRODUCERS of the two supply defs (H3's step 0 at `1/(500h)`); the uniform
+   lane and `cofkL_socket_floors_h` (H3). **Nothing bears on twin primes:** every `h` object
+   stays conditional exactly where its `h = 1` twin is.
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
