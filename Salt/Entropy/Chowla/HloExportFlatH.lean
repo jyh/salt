@@ -17,7 +17,9 @@ value: the HBudget gate reads `ε·h = 1/500`, `hε_D3C` reads `16·C·ε ≤ 16
 the `h` cancelling, and `hδ₀ge` is exact at zero slack (`5/(2096h) · (1/(500h)) / 4 =
 1/(838400h²)`); (b) the circle constant is capped at `C ≤ h·(1 + 2·C₀)` (`HeadPinLeavesH`),
 the `h`-core's own `refine` witness; (c) the large-spectrum count set is `bigXiH h` with
-`K := h·Cxi` from `bigXiH_bounded` — existential, no numeral moves; (d) `0 < h` is a stated
+`K := Cxi` from the PINNED `bigXiH_bounded_ceiling_of_pin`, which also exports the terminal
+road's rider `K ≤ 2^539` (wave H2a word 1(d); the landed line took the existential
+`bigXiH_bounded` and the ceiling was unreachable at `h`); (d) `0 < h` is a stated
 binder, required by every `_h` leaf and by the pins themselves.  The conclusion is
 `¬ logChowlaFails h R.eps R.x R.ω` (`ShiftFork.lean:62`), NEVER `¬ logChowla2Fails`, which
 hard-codes shift `1` and from which nothing derives the shift-`h` seed.
@@ -40,6 +42,7 @@ Nothing here bears on twin primes: the exit at shift `h` is conditional on the s
 import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.HeadPinLeavesH
 import Salt.Entropy.Chowla.Theorem23Shell
+import Salt.Entropy.Chowla.GoldbachEnergyKcH
 
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
@@ -215,8 +218,8 @@ of the landed head is recovered at the pinned `ε` because `ε·h = 1/500` exact
 
 ⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:174–182`). -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh : 0 < h)
-    (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
-    ∃ (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
+    (hh7 : Real.log (h : ℝ) ≤ 7) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+    ∃ (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
       1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧ 0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧
       budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap = max (flatDesignFloor A)
@@ -291,8 +294,12 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh
     rw [hstep, hεR]
     have hpos : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
     gcongr
-  -- ⟦THE COUNT⟧ `bigXiH h` bounded by `h·Cxi`, existential (word 8(c))
-  obtain ⟨Cxi, hCxi, H₀xi, _hH₀xi2, hxi⟩ := bigXiH_bounded h hh ε hεQpos hε2
+  -- ⟦THE COUNT⟧ the PINNED hook, which carries the terminal road's rider `Cxi ≤ 2^539`
+  -- (wave H2a word 1(d)).  The landed line reached for the EXISTENTIAL `bigXiH_bounded`, whose
+  -- constant is only positive — that one `obtain` is why `Kc ≤ 2^539` was unreachable at `h`.
+  -- The fiber `h` is INSIDE the constant now, so the exported `K` is `Cxi`, not `h · Cxi`.
+  obtain ⟨Cxi, hCxi, hCxib, H₀xi, _hH₀xi2, hxi⟩ :=
+    bigXiH_bounded_ceiling_of_pin h hh hh7 ε hεdef
   -- ⟦THE FLAT DESIGN CONSTANT⟧ symbolic: the caller's `A₀`, raised to the budget demand
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
   have hβpos : 0 < β := by
@@ -304,8 +311,8 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh
   -- ⟦THE HEAD'S OWN FOUR-ARM FLOOR⟧ (flat), and the consumer-free cap it induces
   obtain ⟨Hopq, hOpqdef⟩ : ∃ n : ℕ, n = max (max H₀red H₀D3) H₀xi := ⟨_, rfl⟩
   obtain ⟨F, hFdef⟩ : ∃ n : ℕ, n = max Hopq (budgetFloorFlat (ε : ℝ) β A) := ⟨_, rfl⟩
-  refine ⟨ε, (h : ℝ) * Cxi, cD3 / (16 * C) * (ε : ℝ) / 4, A, β,
-    max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), Hopq, hεQpos, mul_pos hhR hCxi,
+  refine ⟨ε, Cxi, cD3 / (16 * C) * (ε : ℝ) / 4, A, β,
+    max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), Hopq, hεQpos, hCxi, hCxib,
     div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num),
     hεdef.ge, hδ₀ge, hβpos, hA26, hA₀A, hAge, by rw [hFdef], ?_⟩
   intro extraFloor U1floor g₅

@@ -84,10 +84,10 @@ hypothesis lifts that to `δ₀` by `mrtUniformityXiL2H_mono`; the head consumes
 and concludes `¬ logChowlaFails h R.eps R.x R.ω`.  `Kb` is the head's own count bound, taken as
 the register's `Kc` (word 8(c)): the same real serves as the `bigXiH h` count and as the budget
 line's coefficient, exactly as at `h = 1`. -/
-theorem m4_second_road_L2_H_gk_flatRoot_L_exit (h : ℕ) (hh : 0 < h) (K : ℕ) (A₀ : ℝ)
-    (hA₀ : 162 ≤ A₀) :
+theorem m4_second_road_L2_H_gk_flatRoot_L_exit (h : ℕ) (hh : 0 < h)
+    (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
-      0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧
+      0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 539 ∧ 0 < δ₀ ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧
       1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧ 0 < β ∧
       162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
@@ -117,13 +117,13 @@ theorem m4_second_road_L2_H_gk_flatRoot_L_exit (h : ℕ) (hh : 0 < h) (K : ℕ) 
             M4ChiSummedFreeRowH_L_gk h K R M RS →
               ¬ logChowlaFails h R.eps R.x R.ω := by
   obtain ⟨Cg, hCg, hCgle, hreg⟩ := m4_second_road_L2_H_gk_flatRoot_L h hh K
-  obtain ⟨ε, Kb, δ₀, A, β, Hcap, Hopq, hε, hKb, hδ₀, hεpin, hδpin, hβ, _hA26, hA₀A,
+  obtain ⟨ε, Kb, δ₀, A, β, Hcap, Hopq, hε, hKb, hKbb, hδ₀, hεpin, hδpin, hβ, _hA26, hA₀A,
     hAge, hCapEq, hhead⟩ :=
-      log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h h hh A₀
+      log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h h hh hh7 A₀
         (by linarith : (26 : ℝ) ≤ A₀)
   obtain ⟨H₀, hH₀⟩ := hreg ε hε
-  refine ⟨Cg, ε, Kb, δ₀, A, β, max Hcap H₀, max Hopq H₀, hCg, hCgle, hε, hKb, hδ₀, hεpin, hδpin,
-    hβ,
+  refine ⟨Cg, ε, Kb, δ₀, A, β, max Hcap H₀, max Hopq H₀, hCg, hCgle, hε, hKb, hKbb, hδ₀, hεpin,
+    hδpin, hβ,
     le_trans hA₀ hA₀A, hA₀A, hAge, by rw [hCapEq]; exact flatRootCapH_arc _ _ _ _ _, ?_⟩
   intro U1floor g
   obtain ⟨R, hReps, hRextra, hRU1, hRg, hcount, hRtow, hRcap, hR⟩ := hhead H₀ U1floor g
