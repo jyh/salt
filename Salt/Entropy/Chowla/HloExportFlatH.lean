@@ -46,6 +46,13 @@ open scoped BigOperators
 
 namespace Salt.Entropy.Chowla
 
+/-- The max-lattice shuffle of the flat cap, `h`-file copy: `HloExportFlat.flatCap_shuffle`
+(`HloExportFlat.lean:50`) is `private` to its own module, so the twin restates it here.
+Pure `ℕ` lattice arithmetic — no shift enters. -/
+private lemma flatCapH_shuffle (a b c d e : ℕ) :
+    max a (max (max b (max d e)) c) ≤ max (max a (max b c)) (max d e) := by
+  omega
+
 /-- **The `L²` spine contradiction core, flat-file twin, AT SHIFT `h`**
 (`spine_False_core_xi_sq_flat_h`) — `HloExportFlat.spine_False_core_xi_sq_flat` (`private`,
 `HloExportFlat.lean:60`) VERBATIM under a fresh name with the shift threaded: the seed is
@@ -54,7 +61,7 @@ namespace Salt.Entropy.Chowla
 `log_chowla_two_shell_xi_sq_h`.  The bridge is `fBridgeF_h eps H h`; the failure Prop is
 `logChowlaFails h` (`ShiftFork.lean:62`), passed to the seed by definitional unfolding.  The
 core takes `κ` as an EXPLICIT ARGUMENT, so it is threshold-agnostic, as at `h = 1`. -/
-private theorem spine_False_core_xi_sq_flat_h (h : ℕ) (hh : 0 < h) (R : ChowlaRegime) {ρ : ℝ}
+private theorem spine_False_core_xi_sq_flat_h (h : ℕ) (_hh : 0 < h) (R : ChowlaRegime) {ρ : ℝ}
     (hdoor : MRTUniformityXiL2H h R ρ)
     (cE : ℝ) (_hcE : 0 < cE) (H₀red : ℕ)
     (hred : ∀ (eps : ℚ) (H x ω : ℕ),
@@ -273,8 +280,8 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh
       rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]
       have h1 : (5 : ℝ) / (2096 * (h : ℝ)) * (16 * C)
           ≤ (5 : ℝ) / (2096 * (h : ℝ)) * (16 * ((h : ℝ) * (655 / 100))) := by
-        gcongr
-        positivity
+        have hfac : (0 : ℝ) ≤ (5 : ℝ) / (2096 * (h : ℝ)) := by positivity
+        nlinarith [hCnum, hfac]
       have h2 : (5 : ℝ) / (2096 * (h : ℝ)) * (16 * ((h : ℝ) * (655 / 100))) = 1 / 4 := by
         field_simp; ring
       linarith
@@ -324,7 +331,7 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh
     exact hxi H' (le_trans hxiHlo hlo')
   · -- ⟦THE CAP⟧ the flat base equation, shuffled onto the consumer's floors
     rw [_hRcapEq]
-    exact flatCap_shuffle _ _ _ _ _
+    exact flatCapH_shuffle _ _ _ _ _
   intro ρ _hρpos hρ hdoor hfail
   obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrementFlat Rf
   have hH4 : 4000000 ≤ H := le_trans Rf.hHlo_floor hlo
