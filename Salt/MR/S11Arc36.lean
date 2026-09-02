@@ -87,6 +87,55 @@ theorem arc36_of_floor {H : ℕ} (hH : arcFloor36 ≤ H) :
   rw [hcube]
   nlinarith [hA, hbig, hsq, hs0]
 
+/-- **⟦gate 7 AT THE INFLATED CAP⟧** (`arc36_of_floor_h`) — `arc36_of_floor` with the arc read
+at `h · arcDen 12 H`.
+
+⛔ **`arcFloor36` CANNOT CARRY THIS.** The landed floor `10^138` clears `(128·72^36)² ≈
+8.76·10^137` by a factor of only **1.14**, so the `h³` the inflated cap introduces breaks it at
+`h = 2`. The route here is the same one, at the constant `128·1096³·72^36 ≈ 1.23·10^78`, whose
+square `≈ 1.52·10^156` needs a floor of `10^157` — which `loglogFloor50 = ⌈e^{e^50}⌉₊` supplies
+with room that is not a factor but a tower. -/
+theorem arc36_of_floor_h {h H : ℕ} (hcb : (h : ℝ) ^ 3 ≤ 1316532736)
+    (hH : (10 : ℕ) ^ 157 ≤ H) :
+    128 * ((h : ℝ) * arcDen 12 H) ^ 3 ≤ (H : ℝ) := by
+  have hHR : ((10 : ℝ) ^ (157 : ℕ)) ≤ (H : ℝ) := by exact_mod_cast hH
+  have h10 : (0 : ℝ) < (10 : ℝ) ^ (157 : ℕ) := by positivity
+  have ht : (0 : ℝ) < (H : ℝ) := lt_of_lt_of_le h10 hHR
+  have ht1 : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+  have hL0 : 0 ≤ Real.log (H : ℝ) := Real.log_nonneg ht1
+  have hstep : Real.log (H : ℝ) ≤ 72 * (H : ℝ) ^ ((1 : ℝ) / 72) := log_le_rpow_inv_72 ht
+  have hhalf : ((H : ℝ) ^ ((1 : ℝ) / 72)) ^ (36 : ℕ) = Real.sqrt (H : ℝ) := by
+    rw [← Real.rpow_natCast ((H : ℝ) ^ ((1 : ℝ) / 72)) 36, ← Real.rpow_mul ht.le,
+      Real.sqrt_eq_rpow]
+    norm_num
+  have hA : Real.log (H : ℝ) ^ (36 : ℕ) ≤ 72 ^ (36 : ℕ) * Real.sqrt (H : ℝ) := by
+    calc Real.log (H : ℝ) ^ (36 : ℕ) ≤ (72 * (H : ℝ) ^ ((1 : ℝ) / 72)) ^ (36 : ℕ) := by
+          gcongr
+      _ = 72 ^ (36 : ℕ) * ((H : ℝ) ^ ((1 : ℝ) / 72)) ^ (36 : ℕ) := by rw [mul_pow]
+      _ = 72 ^ (36 : ℕ) * Real.sqrt (H : ℝ) := by rw [hhalf]
+  have hsq : Real.sqrt (H : ℝ) * Real.sqrt (H : ℝ) = (H : ℝ) := Real.mul_self_sqrt ht.le
+  have hs0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
+  have hC0 : (0 : ℝ) ≤ 128 * 1316532736 * 72 ^ (36 : ℕ) := by positivity
+  have hbig : (128 : ℝ) * 1316532736 * 72 ^ (36 : ℕ) ≤ Real.sqrt (H : ℝ) := by
+    have hCsq : ((128 : ℝ) * 1316532736 * 72 ^ (36 : ℕ)) ^ (2 : ℕ) ≤ (H : ℝ) := by
+      refine le_trans ?_ hHR
+      norm_num
+    calc (128 : ℝ) * 1316532736 * 72 ^ (36 : ℕ)
+        = Real.sqrt (((128 : ℝ) * 1316532736 * 72 ^ (36 : ℕ)) ^ (2 : ℕ)) :=
+          (Real.sqrt_sq hC0).symm
+      _ ≤ Real.sqrt (H : ℝ) := Real.sqrt_le_sqrt hCsq
+  have hcube : ((h : ℝ) * arcDen 12 H) ^ 3 = (h : ℝ) ^ 3 * Real.log (H : ℝ) ^ (36 : ℕ) := by
+    rw [arcDen_twelve_eq_pow]; ring
+  have hL36 : (0 : ℝ) ≤ Real.log (H : ℝ) ^ (36 : ℕ) := by positivity
+  rw [hcube]
+  calc (128 : ℝ) * ((h : ℝ) ^ 3 * Real.log (H : ℝ) ^ (36 : ℕ))
+      ≤ 128 * (1316532736 * (72 ^ (36 : ℕ) * Real.sqrt (H : ℝ))) := by
+        have := mul_le_mul hcb hA hL36 (by norm_num : (0 : ℝ) ≤ 1316532736)
+        linarith [this]
+    _ = ((128 : ℝ) * 1316532736 * 72 ^ (36 : ℕ)) * Real.sqrt (H : ℝ) := by ring
+    _ ≤ Real.sqrt (H : ℝ) * Real.sqrt (H : ℝ) := mul_le_mul_of_nonneg_right hbig hs0
+    _ = (H : ℝ) := hsq
+
 /-- ⟦gate 7⟧ in the shape the register's binder reads it: a floor on `R.Hlo` discharges the
 whole window range. -/
 theorem arc36_of_regime {R : ChowlaRegime} (hfloor : arcFloor36 ≤ R.Hlo) :

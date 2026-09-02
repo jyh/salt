@@ -5332,6 +5332,33 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    hypothesis exactly as the `h = 1` substrate does; the explicit h-general count constant is
    H2's. ⛔ **NOT here:** wave H2; word 5's two `flat_arm_*` re-cuts (measured: NO consumer inside
    H1). **Nothing bears on twin primes.**
+   ✅✅ **WAVE H2a — THE SECOND SUBSTRATE AT SHIFT `h` — 2026-09-01 (math, worker tier with two
+   at C; the helm's wave-H2 commission re-cut after two refuters).** New module
+   `Salt/Entropy/Chowla/GoldbachEnergyKcH.lean` (5 names) · `S16FlatTerminalLinear` (+4) ·
+   `XThread` (+1) · `S11Arc36` (+1). **12 new names, every one `[3 axioms]`**; audit blocks in
+   `Salt/Entropy/All.lean` and `Salt/MR/All.lean` in the same commit; full tree
+   `saltbuild EXIT=0` (9,803 jobs).
+   ⭐ **WORD 1 — the count ceiling reaches the `h` lane.** `Kc ≤ 2^539` was UNREACHABLE at `h`
+   for the same reason H1's `Cg` cap was: one `obtain` on the unbounded sibling. `T := 2^41·h²`
+   keeps `hTA` **`h`-FREE** (`ε²T = 2^41/250000`), which `2^41·h³` does not; the `C₁` payoff is
+   `2^35·h²` in **two forced cases** — the `hh7`-uniform `(log T)² ≤ 1799.46` FAILS at `h = 1` by
+   1.212× and the landed `hpt_const_le_pow35` carries `h = 1` at 0.955 on its own tight 807.70.
+   The exponent is **`h^15`, not `h^11`** (`ε^{-10}` ten + `C₁(h)²` four + fiber one):
+   `2^379.53` against `2^539`, **159.47 bits**. Threaded as a strengthened export onto the head
+   and the exit; **`HSeamCheck` §1 now OBTAINS `Kb` instead of assuming it.**
+   ⭐ **WORDS 3–6, four corners, each measured before it was built.** `hE` moves `10^25 → 10^43`
+   and `10^42` would NOT do (demand `2.59·10^42` at `A = 162`). The catch-#253 corner is LIVE and
+   H1 did not close it — the landed route **dies at `h = 3`** — repaired off `50 ≤ loglog H₊`
+   (`H₊ ≥ 3.6·10^21` against a demand of `2.31·10^12`). `arcFloor36` clears the landed constant
+   by only **1.14×** so it cannot carry the `h³`; the arc floor is routed off
+   `loglogFloor50 = ⌈e^{e^50}⌉₊`, whose room is a TOWER. ⚠️ The `j₀` corner's PINNED shape is not
+   derivable as stated (`4·log(263·h·A) = 4·log(263·A) + 4·log h`, and nothing supplies the
+   `4·log h`): the `+28` is carried in the hypothesis, where it must live — **a soundness repair,
+   declared, not a convenience.**
+   📌 `eps_line_h` IS minted although the helm's bus line withdrew the name, because the H2b/H2c
+   commission cites it twice; the conflict is recorded rather than resolved silently.
+   ⛔ **NOT here:** every hop statement (H2b); the crossing supplier (H2c); hops 4/5/6, the
+   capstones and `logChowla2_v7_rated` (H3). **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,

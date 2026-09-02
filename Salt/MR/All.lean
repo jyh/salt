@@ -9196,3 +9196,35 @@ Nothing bears on twin primes: every object is conditional exactly where its `h =
   Salt.MR.s15Arm_log_le_scaled
   Salt.MR.h_le_1096_of_hh7
   Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_h
+
+/-! ⟦THE SECOND SUBSTRATE AT SHIFT `h` — WAVE H2a WORDS 3–6⟧ (`S16FlatTerminalLinear` ·
+`XThread` · `S11Arc36`, 2026-09-01, math).  Four corners the `h` lane cannot reach without them,
+each measured before it was built.
+
+⭐ **`flat_arm_budget_le_h` — the `hE` DIGIT.**  The `ε^6` arms gain `h^6`
+(`1.5625·10^16 → 2.71·10^34` at `h ≤ 1096`) and the budget bound `10^21·A → 4·10^39·A`, which
+forces `hE : 10^25 ≤ exp 518.4` up to **`10^43`** — and `10^42` would NOT do: at `A = 162` the
+demand is `2.59·10^42`.  Route: `10^43 ≤ 2.7^100 ≤ exp 100 ≤ exp 518.4`, margin 1.37×.  The
+UPPER pin `ε ≤ 1/2` is `h`-free, so `he6` and `hbsq` are the landed proof verbatim: **the shift
+touches exactly the two arms that read the `ε` pin, and no others** (`flat_witFloor_eq_designBase_h`).
+⭐ **`xceil_arm_split_h` — the catch-#253 corner, and wave H1 did NOT close it.**  The landed
+route pays the sum split's `log 2` from `hε2 : 1/250000 ≤ ε²` against an arm price of `H₊/10^6`
+with ZERO slack; at `h` the residue runs `16.0 · 3.31 · 0.679 · −0.386` and **dies at `h = 3`**.
+Repaired by H1's `H₊/10^20` re-cut plus paying from `50 ≤ loglog H₊` (giving `H₊ ≥ 3.6·10^21`)
+instead of from `4000000 ≤ H₊` (demand at `h = 1096`: `2.31·10^12`).
+⭐ **`arc36_of_regime_h` — `arcFloor36` CANNOT CARRY THE INFLATED CAP.**  `10^138` clears the
+landed constant by only **1.14×**, so the `h³` breaks it at `h = 2`; routed off
+`loglogFloor50 = ⌈e^{e^50}⌉₊` instead, whose room is a TOWER and not a factor.
+⚠️ **`s13_g2_jfloor_of_MSelect'_L_gk_h` DEVIATES FROM ITS PINNED SHAPE BY ONE `+28`, AND THAT IS
+A SOUNDNESS REPAIR.**  From the pinned hypothesis alone the conclusion is not derivable —
+`4·log(263·h·A) = 4·log(263·A) + 4·log h` and nothing supplies the `4·log h`.  The `28` is
+carried in the hypothesis, where it must live; the consumer pays it from `s13_g2_jfloor_gen`'s
+own gate, against `F = doorRowFloorL M = 2^36·M²`.
+Nothing bears on twin primes. -/
+#audit_axioms Salt.MR.flat_arm_eps_le_h
+  Salt.MR.flat_arm_budget_le_h
+  Salt.MR.flat_witFloor_eq_designBase_h
+  Salt.MR.xceil_arm_split_h
+  Salt.MR.arc36_of_floor_h
+  Salt.MR.arc36_of_regime_h
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_h

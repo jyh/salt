@@ -48,15 +48,18 @@ adapter, no `le_trans`, no numeral in between.
 reported that: both statements were green, audited and merged.  The `h = 1` instantiation cannot
 discriminate it either — at `h = 1` the two pins are the same numeral. -/
 example (h : ℕ) (hh2 : 2 ≤ h) (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀)
-    {Kc : ℝ} (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
+    {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
     (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) : True := by
   have hh : 0 < h := by omega
-  obtain ⟨Cg, ε, Kb, δ₀, A, β, Hcap, Hopq, hCg, hCgle, hε, hKb, hδ₀, hεpin, hδpin, hβ,
+  obtain ⟨Cg, ε, Kb, δ₀, A, β, Hcap, Hopq, hCg, hCgle, hε, hKb, hKbb, hδ₀, hεpin, hδpin, hβ,
     hA162, hA₀A, hAge, hCapLe, hmain⟩ :=
-      m4_second_road_L2_H_gk_flatRoot_L_exit h hh K A₀ hA₀
-  -- ⟦THE SEAM⟧ the exit's own `δ₀`-pin, handed straight to the arm estimate at shift `h`
-  have _harm := s15ArmH_log_le hh hh7 hδ₀ hδpin hKc hKcb (Hhi := Hhi) (ω := ω) hHhi hΛ
-  -- and the `Cg` cap that word 1 restored is exported too, so the selector's bump is reachable
+      m4_second_road_L2_H_gk_flatRoot_L_exit h hh hh7 K A₀ hA₀
+  -- ⟦THE SEAM⟧ the exit's own `δ₀`-pin AND its own count constant `Kb`, handed straight to the
+  -- arm estimate at shift `h`.  ⭐ Wave H2a word 1(e) STRENGTHENED this check: `Kc ≤ 2^539` used
+  -- to be a free hypothesis of the example; it is now OBTAINED from the exit, so the seam is
+  -- verified on the constant the road actually carries rather than on an assumed one.
+  have _harm := s15ArmH_log_le hh hh7 hδ₀ hδpin hKb hKbb (Hhi := Hhi) (ω := ω) hHhi hΛ
+  -- and the `Cg` cap that H1 word 1 restored is exported too, so the selector's bump is reachable
   have _hcap : Cg ≤ 2 * 10 ^ 12 := hCgle
   trivial
 

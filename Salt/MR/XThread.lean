@@ -1134,6 +1134,66 @@ theorem flat_capstone_uniform_win_xceil_kwide_khoist (Awin : ℝ)
 set_option maxHeartbeats 1600000 in
 -- Same cause as the landed original: the capstone's monster body is consumed under one more
 -- binder layer.
+/-- **⟦THE `XCeilRider` ARM SPLIT AT SHIFT `h`⟧** (`xceil_arm_split_h`) — the catch-#253 repair,
+packaged as the one inequality wave H2b's supplier will consume.
+
+⛔ **THE CORNER THIS CLOSES IS LIVE, AND WAVE H1 DID NOT CLOSE IT.**
+`flat_conditional_uniform_win_xceil_kwide_khoist` (below) pays the sum split's `log 2` out of
+`hε2 : 1/250000 ≤ ε²` against the arm price `H₊/10^6`, with **ZERO** slack at `ε = 1/500`.  At
+shift `h` the pin is `ε = 1/(500·h)`, so `hε2` becomes `1/(250000·h²) ≤ ε²` and the residue
+`4·H₊/(10^6·h²) − …` runs `16.0 · 3.31 · 0.679 · −0.386` at `h = 1, 2, 3, 4`: **the landed route
+dies at `h = 3`.**
+
+⟦THE REPAIR, AND WHERE THE ROOM COMES FROM⟧  Two changes.  (1) The arm is priced by
+`s15ArmH_log_le` at `H₊/10^20`, not `H₊/10^6` — wave H1's re-cut, fourteen orders deeper.
+(2) The `log 2 + log h` is paid from the gate's SECOND conjunct `50 ≤ loglog H₊` rather than
+from `4000000 ≤ H₊`: that gives `log H₊ ≥ e^50 ≥ 3.6·10^21`, hence `H₊ ≥ 3.6·10^21`, against a
+demand of only `2.31·10^12` at `h = 1096`.  **The headroom is a TOWER and the corner is a
+constant; that is the whole of it.**  Slack at `h = 1096`: `1.199·10^10` against `7.694`. -/
+theorem xceil_arm_split_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {Hhi : ℕ}
+    (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log 2 + Real.log (h : ℝ)
+      ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have h1096 : (h : ℝ) ≤ 1096 := by
+    exact_mod_cast Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7
+  have hsqb : (h : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hx1, h1096]
+  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  -- ⟦THE TOWER⟧ `loglog H₊ ≥ 50` ⟹ `log H₊ ≥ e^50 ≥ (e^25)² ≥ 3.6·10^21` ⟹ `H₊ ≥ 3.6·10^21`
+  have hL0 : (0 : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := Real.log_nonneg (by linarith)
+  have hL1 : (1 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hL0 (by norm_num : (0 : ℝ) < 50) hll
+  have hexp50 : (36 * 10 ^ 20 : ℝ) ≤ Real.exp 50 := by
+    have h25 := xt_exp25
+    have hsq : Real.exp 25 * Real.exp 25 = Real.exp 50 := by
+      rw [← Real.exp_add]; norm_num
+    rw [← hsq]
+    nlinarith [h25, (Real.exp_pos 25).le]
+  have hLexp : Real.exp 50 ≤ Real.log ((Hhi : ℕ) : ℝ) := by
+    have h1 := Real.exp_le_exp.mpr hll
+    rwa [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((Hhi : ℕ) : ℝ))] at h1
+  have hLbig : (36 * 10 ^ 20 : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := by linarith
+  have hHbig : (36 * 10 ^ 20 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by
+    have := Real.log_le_sub_one_of_pos hHpos
+    linarith
+  -- ⟦THE SLACK⟧ the `h²` widening of the denominator, then a linear comparison
+  have hr1 : ((Hhi : ℕ) : ℝ) / (250000 * 1201216)
+      ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) := by
+    have hpos : (0 : ℝ) < 250000 * (h : ℝ) ^ 2 := by positivity
+    have hle : 250000 * (h : ℝ) ^ 2 ≤ 250000 * 1201216 := by nlinarith [hsqb]
+    gcongr
+  have e1 : ((Hhi : ℕ) : ℝ) / (250000 * 1201216)
+      = ((Hhi : ℕ) : ℝ) * (1 / 300304000000) := by ring
+  have e2 : ((Hhi : ℕ) : ℝ) / (10 : ℝ) ^ 20
+      = ((Hhi : ℕ) : ℝ) * (1 / 100000000000000000000) := by norm_num; ring
+  have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hkey : Real.log 2 + Real.log (h : ℝ)
+      ≤ ((Hhi : ℕ) : ℝ) / (250000 * 1201216) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+    rw [e1, e2]; linarith [hHbig, hlog2, hh7]
+  linarith [hkey, hr1]
+
 /-- **⟦THE FLAT CONDITIONAL, WINDOWED, WIDE-CEILINGED, `K`-HOISTED, `x`-CEILINGED⟧**
 (`flat_conditional_uniform_win_xceil_kwide_khoist`) — §7 under
 `S16ComposeV4.flat_conditional_uniform_win_ceiling_kwide_khoist`'s body.
