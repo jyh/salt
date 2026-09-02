@@ -250,6 +250,55 @@ theorem xt_log_inv_rho_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 83
   push_cast at h2
   linarith [Real.log_two_lt_d9]
 
+/-- **⟦THE `ρ`-CHARGE AT A SCALED `δ₀` PIN⟧** (`xt_log_inv_rho_le_scaled`) —
+`xt_log_inv_rho_le` with the pin relaxed by a factor `c ≥ 1`.  The floor drops by exactly `c`,
+so the charge rises by exactly `log c`: `ρ ≥ 1/(2^580·c)`, hence
+`log(1/ρ) ≤ 580·log 2 + log c = 402.03 + log c`.
+
+At the `h` lane's own pin (`c = h²`, wave X's exported `1/(838400·h²) ≤ δ₀`) and under the
+`h`-family's binder `hh7 : log h ≤ 7`, `log c = 2·log h ≤ 14`, so the charge is at most `417`.
+⛔ It is `2·log h` and NOT `4·log h`: the compose pins `doorRhoOfDelta (s12DeltaSock δ₀ Kc)`, and
+`s12DeltaSock`'s square root (`S12Compose.lean:216`) exactly cancels `doorRhoOfDelta`'s square
+(`M4ArithRho.lean:578`). -/
+theorem xt_log_inv_rho_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < δ₀)
+    (hδpin : 1 / (838400 * c) ≤ δ₀) (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) :
+    Real.log (1 / doorRhoOfDelta (s12DeltaSock δ₀ Kc)) ≤ 403 + Real.log c := by
+  have hc0 : (0 : ℝ) < c := by linarith
+  have hδs : 0 < s12DeltaSock δ₀ Kc := s12DeltaSock_pos hδ₀ hKc
+  have hρpos : 0 < doorRhoOfDelta (s12DeltaSock δ₀ Kc) := doorRhoOfDelta_pos hδs.ne'
+  have hp580 : (0 : ℝ) < 2 ^ (580 : ℕ) := by positivity
+  have hp580one : (1 : ℝ) ≤ 2 ^ (580 : ℕ) := one_le_pow₀ (by norm_num)
+  have hsplit : (2 : ℝ) ^ (580 : ℕ) = 2 ^ (41 : ℕ) * 2 ^ (539 : ℕ) := by rw [← pow_add]
+  have hlo : (1 : ℝ) / (2 ^ (580 : ℕ) * c) ≤ doorRhoOfDelta (s12DeltaSock δ₀ Kc) := by
+    rw [doorRhoOfDelta]
+    refine le_min ?_ ?_
+    · rw [div_le_one (by positivity)]
+      calc (1 : ℝ) = 1 * 1 := by ring
+        _ ≤ 2 ^ (580 : ℕ) * c := mul_le_mul hp580one hc1 (by norm_num) (by positivity)
+    rw [s12DeltaSock_sq hδ₀ hKc, le_div_iff₀ (by norm_num : (0 : ℝ) < 110525),
+      le_div_iff₀ (by positivity : (0 : ℝ) < 16 * Kc)]
+    have hstep : 1 / ((2 : ℝ) ^ (580 : ℕ) * c) * 110525 * (16 * Kc)
+        ≤ 1 / ((2 : ℝ) ^ (580 : ℕ) * c) * 110525 * (16 * 2 ^ (539 : ℕ)) := by
+      have hcpos : (0 : ℝ) < 1 / ((2 : ℝ) ^ (580 : ℕ) * c) * 110525 * 16 := by positivity
+      nlinarith [hKcb, hcpos]
+    have hval : 1 / ((2 : ℝ) ^ (580 : ℕ) * c) * 110525 * (16 * 2 ^ (539 : ℕ))
+        = 1768400 / (2 ^ (41 : ℕ) * c) := by
+      rw [hsplit]; field_simp; ring
+    have hnum : (1768400 : ℝ) / (2 ^ (41 : ℕ) * c) ≤ 1 / (838400 * c) := by
+      rw [div_le_div_iff₀ (by positivity) (by positivity)]
+      nlinarith [hc0]
+    linarith [hδpin]
+  have h1 : (1 : ℝ) / doorRhoOfDelta (s12DeltaSock δ₀ Kc) ≤ 2 ^ (580 : ℕ) * c := by
+    rw [div_le_iff₀ hρpos]
+    calc (1 : ℝ) = (2 ^ (580 : ℕ) * c) * (1 / (2 ^ (580 : ℕ) * c)) := by field_simp
+      _ ≤ (2 ^ (580 : ℕ) * c) * doorRhoOfDelta (s12DeltaSock δ₀ Kc) :=
+        mul_le_mul_of_nonneg_left hlo (by positivity)
+  have h2 : Real.log (1 / doorRhoOfDelta (s12DeltaSock δ₀ Kc))
+      ≤ Real.log ((2 : ℝ) ^ (580 : ℕ) * c) := Real.log_le_log (by positivity) h1
+  rw [Real.log_mul (by positivity) (by positivity), Real.log_pow] at h2
+  push_cast at h2
+  linarith [Real.log_two_lt_d9]
+
 /-- **⟦THE SUM SPLIT⟧** (`xt_log_add_le`) — `log (m + n) ≤ log 2 + B` whenever both summands are
 under `B`, at natural arguments (`log 0 = 0` is handled, not assumed away). -/
 theorem xt_log_add_le {m n : ℕ} {B : ℝ}
@@ -278,11 +327,14 @@ theorem xt_log_add_le {m n : ℕ} {B : ℝ}
       rw [Real.log_mul (by norm_num) hm0R.ne'] at hlog
       · linarith
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 2000000 in
 -- the arm's four summands, the double exponential's collapse and the closing budget elaborate
--- in one block
-/-- **⟦THE ARM, PRICED⟧** (`s15Arm_log_le`) — the compose's own `g`-arm costs, in logs, no more
-than `log ω + H₊/10^6` on the gate.
+-- in one block; the 2026-09-01 re-cut to `H₊/10^20` adds the tower step `u ≥ 8·10^41`, whose
+-- constants are large enough that the block no longer fits the previous 1000000
+/-- **⟦THE ARM, PRICED, AT A SCALED `δ₀` PIN⟧** (`s15Arm_log_le_scaled`) — the compose's own
+`g`-arm costs, in logs, no more than `log ω + H₊/10^20` on the gate, at any pin
+`1/(838400·c) ≤ δ₀` with `1 ≤ c ≤ 1201216` and `log c ≤ 14`.  `c = 1` is the landed lane
+(`s15Arm_log_le`, below); `c = h²` is the `h` lane's, at `h ≤ e^7 = 1096`.
 
 ⟦THE ARITHMETIC HEART⟧ the binding summand is `gArmDoorRho`'s
 `16·ω·(log H₊)^{12}·exp(exp(7000·loglog H₊ + 500·log(1/ρ) + 6600))`, whose log is
@@ -290,15 +342,18 @@ than `log ω + H₊/10^6` on the gate.
 `log(1/ρ) ≤ 403` the exponent obeys `7000·λ + 207600 ≤ e^{λ}/2 = (log H₊)/2`, i.e. the whole
 double exponential is at most `√H₊` — against a budget of `H₊/10^6`.  The margin at the floor is
 `e^{50}/2 = 2.6·10^{21}` against `5.6·10^5`: **fifteen orders**. -/
-theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400 ≤ δ₀)
+theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 1201216)
+    (hlogc : Real.log c ≤ 14) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
     (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
     (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
     Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
-      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / 1000000 := by
+      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have hc0 : (0 : ℝ) < c := by linarith
   set ρ : ℝ := doorRhoOfDelta (s12DeltaSock δ₀ Kc) with hρdef
   have hδs : 0 < s12DeltaSock δ₀ Kc := s12DeltaSock_pos hδ₀ hKc
   have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρlog : Real.log (1 / ρ) ≤ 403 := xt_log_inv_rho_le hδ₀ hδpin hKc hKcb
+  have hρlog : Real.log (1 / ρ) ≤ 417 :=
+    le_trans (xt_log_inv_rho_le_scaled hc1 hδ₀ hδpin hKc hKcb) (by linarith)
   -- ⟦THE SCALES⟧ `L = log H₊`, `Λ = loglog H₊`, and their two exponential witnesses
   set L : ℝ := Real.log ((Hhi : ℕ) : ℝ) with hLdef
   set Λ : ℝ := Real.log L with hΛdef
@@ -362,13 +417,18 @@ theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400
     rw [s15Arm, s13GArm']
     push_cast
     ring
-  have hceil1 : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ) ≤ 128 * 838400 * ((ω : ℕ) : ℝ) + 1 := by
+  have hceil1 : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ)
+      ≤ 128 * 838400 * 1201216 * ((ω : ℕ) : ℝ) + 1 := by
     have h0 : (0 : ℝ) ≤ 128 * ((ω : ℕ) : ℝ) / δ₀ := by positivity
     have hlt : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ) < 128 * ((ω : ℕ) : ℝ) / δ₀ + 1 :=
       Nat.ceil_lt_add_one h0
-    have hdiv : 128 * ((ω : ℕ) : ℝ) / δ₀ ≤ 128 * 838400 * ((ω : ℕ) : ℝ) := by
+    have hdiv : 128 * ((ω : ℕ) : ℝ) / δ₀ ≤ 128 * 838400 * 1201216 * ((ω : ℕ) : ℝ) := by
       rw [div_le_iff₀ hδ₀]
-      nlinarith [hωnn, hδpin]
+      have hpin' : 1 / (838400 * 1201216 : ℝ) ≤ δ₀ := by
+        refine le_trans ?_ hδpin
+        rw [div_le_div_iff₀ (by norm_num) (by positivity)]
+        nlinarith [hcb, hc0]
+      nlinarith [hωnn, hpin']
     linarith
   have hceil2 : ((⌈gArmDoorRho 0 0 ((ω : ℕ) : ℝ) ρ Hhi⌉₊ : ℕ) : ℝ)
       ≤ 16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) + 1 := by
@@ -378,7 +438,7 @@ theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400
   -- ⟦THE ENVELOPE⟧ `S ≤ (ω+1)·e^Y` at `Y = L + 12λ + e^E + 6`
   have hX1 : (1 : ℝ) ≤ Real.exp (12 * Λ + Real.exp E) :=
     Real.one_le_exp (by positivity)
-  have hHhibig : (108000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by nlinarith [huu, hu]
+  have hHhibig : (13 * 10 ^ 13 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by nlinarith [huu, hu]
   have he6 : (19 : ℝ) ≤ Real.exp 6 := by
     have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
     have h : Real.exp (6 : ℝ) = (Real.exp 1) ^ (6 : ℕ) := by
@@ -394,13 +454,13 @@ theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400
   have henv : ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ)
       ≤ (((ω : ℕ) : ℝ) + 1) * Real.exp (L + (12 * Λ + Real.exp E) + 6) := by
     rw [hcast, hYeq]
-    have hfac : 2 * ((Hhi : ℕ) : ℝ) + 107315214
+    have hfac : 2 * ((Hhi : ℕ) : ℝ) + 13 * 10 ^ 13
           + 16 * Real.exp (12 * Λ + Real.exp E)
         ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6 := by
       have h1 : 2 * ((Hhi : ℕ) : ℝ)
           ≤ 2 * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E)) := by
         nlinarith [hX1, hHhiR]
-      have h2 : (107315214 : ℝ)
+      have h2 : (13 * 10 ^ 13 : ℝ)
           ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by
         nlinarith [hX1, hHhibig]
       have h3 : 16 * Real.exp (12 * Λ + Real.exp E)
@@ -409,12 +469,12 @@ theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400
       have hprodnn : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by positivity
       nlinarith [h1, h2, h3, he6, hprodnn]
     have hstep : 2 * ((ω : ℕ) : ℝ) * (((Hhi : ℕ) : ℝ) + 2) + 8 * ((ω : ℕ) : ℝ)
-        + (128 * 838400 * ((ω : ℕ) : ℝ) + 1)
+        + (128 * 838400 * 1201216 * ((ω : ℕ) : ℝ) + 1)
         + (16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) + 1)
-        ≤ (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 107315214
+        ≤ (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 13 * 10 ^ 13
             + 16 * Real.exp (12 * Λ + Real.exp E)) := by
       nlinarith [hωnn, hX1, hHhiR, Real.exp_pos (12 * Λ + Real.exp E)]
-    have hmul : (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 107315214
+    have hmul : (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 13 * 10 ^ 13
           + 16 * Real.exp (12 * Λ + Real.exp E))
         ≤ (((ω : ℕ) : ℝ) + 1)
           * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6) :=
@@ -424,7 +484,7 @@ theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400
   rcases Nat.eq_zero_or_pos (s15Arm δ₀ ρ Hhi ω) with h0 | hpos
   · rw [h0]
     simp only [Nat.cast_zero, Real.log_zero]
-    have : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 1000000 := by positivity
+    have : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
     linarith
   · have hSpos : (0 : ℝ) < ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ) := by exact_mod_cast hpos
     have hlog := Real.log_le_log hSpos henv
@@ -444,13 +504,48 @@ theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400
     -- the closing budget
     have hΛL : Λ ≤ L := by nlinarith [hΛv, hvv, hv]
     have hclose : Real.log 2 + (L + (12 * Λ + Real.exp E) + 6)
-        ≤ ((Hhi : ℕ) : ℝ) / 1000000 := by
-      have hstep : L + 12 * Λ + Real.exp E + 6.7 ≤ ((Hhi : ℕ) : ℝ) / 1000000 := by
-        rw [← huu]
-        nlinarith [hexpE, hΛL, hLu, hu, hLbig]
+        ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+      -- ⟦THE TOWER STEP⟧ `u = e^{L/2} = (e^{L/4})² ≥ (1 + L/4)²`, so with `L ≥ 3.6·10^21`
+      -- the linear witness `u ≥ 1.8·10^21` is upgraded to `u ≥ 8.1·10^41` — which is what
+      -- buys the deeper cut `H₊/10^20` in place of `H₊/10^6`.  The headroom here is a TOWER
+      -- (`XCeilGate` carries `50 ≤ loglog H₊`), so the extra fourteen orders are free.
+      have hq := Real.add_one_le_exp (L / 4)
+      have hq0 : (0 : ℝ) ≤ Real.exp (L / 4) := (Real.exp_pos _).le
+      have hqL : (9 * 10 ^ 20 : ℝ) ≤ Real.exp (L / 4) := by linarith only [hq, hLbig]
+      have hsq : Real.exp (L / 4) * Real.exp (L / 4) = u := by
+        rw [← Real.exp_add, show L / 4 + L / 4 = L / 2 by ring, hudef]
+      have hu41 : (8 * 10 ^ 41 : ℝ) ≤ u := by
+        rw [← hsq]
+        calc (8 * 10 ^ 41 : ℝ) ≤ (9 * 10 ^ 20) * (9 * 10 ^ 20) := by norm_num
+          _ ≤ Real.exp (L / 4) * Real.exp (L / 4) :=
+              mul_le_mul hqL hqL (by norm_num) hq0
+      -- keep every step LINEAR in `u`: the one product is isolated in `hsquare`.
+      have hupos : (0 : ℝ) < u := by linarith only [hu41]
+      have hlin : L + 12 * Λ + Real.exp E + 6.7 ≤ 27 * u := by
+        linarith only [hexpE, hΛL, hLu]
+      have h27 : (27 : ℝ) * 10 ^ 20 ≤ u := by linarith only [hu41]
+      have hsquare : 27 * u * 10 ^ 20 ≤ u * u := by
+        have hm := mul_le_mul_of_nonneg_right h27 hupos.le
+        linarith only [hm]
+      have hstep : L + 12 * Λ + Real.exp E + 6.7 ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+        rw [← huu, le_div_iff₀ (by norm_num : (0 : ℝ) < 10 ^ 20)]
+        linarith only [hlin, hsquare]
       linarith [Real.log_two_lt_d9]
     linarith [hlog, hprod, hω1, hclose]
 
+
+/-- **⟦THE ARM, PRICED, AT THE LANDED PIN⟧** (`s15Arm_log_le`) — `s15Arm_log_le_scaled` at
+`c = 1`.  ⭐ **RE-CUT 2026-09-01 (wave H1 word 2): the conclusion is now `H₊/10^20`, not
+`H₊/10^6`.**  The estimate always had tower headroom (`XCeilGate` carries `50 ≤ loglog H₊`, so
+`H₊ ≥ e^{e^{50}}` while the proof only ever spent `u ≥ 1.8·10^21`); the fourteen extra orders
+are what let the `h` lane's relaxed `δ₀` pin `1/(838400·h²) ≤ δ₀` reach the same consumers.
+Strictly stronger than the landed form — every `h = 1` consumer reaches it by `linarith`. -/
+theorem s15Arm_log_le {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀) (hδpin : 1 / 838400 ≤ δ₀)
+    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
+    (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 :=
+  s15Arm_log_le_scaled le_rfl (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKcb hHhi hΛ
 
 /-! ## §3 — ⟦THE FLAT HEAD, EXPORTING THE CEILING⟧ -/
 
@@ -1109,7 +1204,10 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist (Awin : ℝ)
     have harm : Real.log ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ)
         ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / 1000000 := by
       rw [hρdef, hδsdef]
-      exact s15Arm_log_le hδ₀ hδpin hKc hKcb hH4 hll
+      -- the re-cut estimate is STRICTLY STRONGER; this consumer still spends only `H₊/10^6`
+      refine le_trans (s15Arm_log_le hδ₀ hδpin hKc hKcb hH4 hll) ?_
+      have : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by positivity
+      linarith
     have hgb := hg Hhi ω ⟨hH4, hll, hωw⟩
     have hlog2 : Real.log 2 ≤ 0.7 := by linarith [Real.log_two_lt_d9]
     have harm' : Real.log ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ)
