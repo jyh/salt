@@ -413,6 +413,7 @@ import Salt.MR.HDoorClose
 import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
 import Salt.MR.S16FlatTerminalLinearH
+import Salt.MR.S16ProducersH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9035,3 +9036,76 @@ where its `h = 1` twin is.  Purely additive; `M4SievedDoorSqH` (base lane) untou
   Salt.MR.mmuChiRate_instantiated
   Salt.MR.logChowla2_capstone_final_const'_graded_gk_flat
   Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_flat
+
+/-! ⟦THE SOCKET'S PRODUCERS AT SHIFT `h` — WAVE P OF THE `_L_gk` h-FAMILY⟧ (`S16ProducersH`,
+2026-09-01, math, worker tier; the helm's commission `h-wave-P-X` of 16:4x, refuted 16:5x, is
+the statement act for the five design words).
+
+The terminal path's producer chain — the constant-pool fuse
+`m4_closure_fuse_zero'_const_nonneg_L_gk` and everything under it — re-quantified over the
+inflated framed base `HDoorSupply.SocketBaseLH h`, so the socket `M4ChiSummedFreeRowH_L_gk h`
+the landed register `m4_second_road_L2_H_gk_flatRoot_L` is conditional on has a PRODUCER at
+every `h` with `log h ≤ 7`.  Three shapes read the cap and each has one repair: S12 the envelope
+price (`hArcDen_mul_strataResidualH_sq_le`, the envelope `RSanDoorRhoH ρ h H := ρ /
+strataResidualH h H²`, whose cancel at the register's drift gate is EXACT and `h`-free —
+`m4_arith_rs_ceiling_met_rhoH`, the successor of the retained-unconsumed `_rhoH_two`); S2 the
+`ρ`-frame's x-floor (`gArmDoorRho 0 0 (h·ω)` IS the inflated floor; the compose's arm is
+`s15ArmH`); S11 the band base's `q ≤ arcDen` (`s13_band_qfit_h`).  Every other shape is
+cap-blind and its twin is the landed proof at `SocketBaseLH h`; the socket helpers under the
+four bridge restatements read conjunct 11 and lose exactly `log h ≤ 7` against slack of `10²¹`.
+RECEIPT: `m4_chiSummedN_supplied_of_rowH_L_gk` — the register's own consumer fires on the
+fuse's output with `RStr := h⁷·rStrWitness` and the `j₀`-floor `g2_of_j0_floor_h`.
+⛔ NOT here: the exit below the register (wave X) and the six hops above it (wave H); no
+`SocketBaseH`/`S13BandGate'H`/`rStrWitnessH` def.
+Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is;
+the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
+#audit_axioms Salt.MR.RSanDoorRhoH
+  Salt.MR.RSanDoorRhoH_one
+  Salt.MR.RSanDoorRhoH_nonneg
+  Salt.MR.one_le_strataResidualH
+  Salt.MR.three_le_of_one_lt_log
+  Salt.MR.one_le_hArcDen_of_loglog
+  Salt.MR.m4_arith_rs_ceiling_met_rhoH
+  Salt.MR.m4_arith_rs_ceiling_met_of_deltaH
+  Salt.MR.hArcDen_mul_strataResidualH_sq_le
+  Salt.MR.a2DoorGrade_pool_L_priced_rhoH
+  Salt.MR.a2DoorGrade_pool_L_priced_rhoH_gk
+  Salt.MR.price_at_constPool_socketH_L
+  Salt.MR.m4_arith_henv_rho_poolH_L_gk
+  Salt.MR.m4_arith_henv_constPoolH_L_gk
+  Salt.MR.s13_socketBase_xscale_LH
+  Salt.MR.s13_socketBase_logA_ge_sqrt_LH
+  Salt.MR.s13_socketBase_loglogA_sharp_LH
+  Salt.MR.s13_socketBase_loglogA_LH
+  Salt.MR.s14_loglogX_ge_of_socket_LH
+  Salt.MR.s12c_llX_ge_LH
+  Salt.MR.s15_block_at_socket_gen_LH
+  Salt.MR.s13_band_X400_LH
+  Salt.MR.s13_band_baseFloor_LH
+  Salt.MR.s12c_eps_threshold_at_socket_flatH
+  Salt.MR.s15_heps293_at_socket_flatH
+  Salt.MR.s15_hband4096_at_socket_flatH
+  Salt.MR.s15_block_at_socketH_L_gk
+  Salt.MR.s15ArmH
+  Salt.MR.s15ArmH_one
+  Salt.MR.s15ArmH_demoted
+  Salt.MR.s15ArmH_rho
+  Salt.MR.gArmDoorRho_zero_mul_le
+  Salt.MR.s15ArmH_le_mul
+  Salt.MR.s15ArmH_log_le
+  Salt.MR.s15_doorArithFrameRho_L_at_socketH''
+  Salt.MR.s15_doorArithFrameRho_L_familyH''
+  Salt.MR.s13_band_qfit_h
+  Salt.MR.s13_band_arm_at_top_LH
+  Salt.MR.s13_band_err_free_LH
+  Salt.MR.doorBandBase_family'H_L_gk
+  Salt.MR.m4_hband_at_door_slotH_L_gk
+  Salt.MR.rStrWitness_G1_h
+  Salt.MR.rStrWitness_mul_nonneg
+  Salt.MR.g2_of_j0_floor_h
+  Salt.MR.m4_arith_gate4_rhoH_L
+  Salt.MR.m4_hrowsSlot_at_door_zero'H_L_gk
+  Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_poolH_L_gk
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk
+  Salt.MR.m4_chiSummedN_supplied_of_rowH_L_gk
