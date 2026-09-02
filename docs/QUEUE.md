@@ -5266,6 +5266,40 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `rStrWitnessH` def (statement-tier; the band family takes the gate's four fields as binders).
    ⛔ **NOT here:** wave X (the exit below the register) and wave H (the hops). **Nothing bears
    on twin primes.**
+   ✅✅ **WAVE X — THE EXIT BELOW THE REGISTER AT SHIFT `h` — 2026-09-01 (math, worker tier B;
+   the same commission, AMENDED at 17:0x after a second focused refuter).**
+   `Salt/Entropy/Chowla/HeadPinLeavesH.lean` (4 names) ·
+   `Salt/Entropy/Chowla/HloExportFlatH.lean` (1) · `Salt/MR/S16FlatTerminalExitH.lean` (2) —
+   **7 names, every one `[3 axioms]`**, audit blocks in `Salt/Entropy/All.lean` and
+   `Salt/MR/All.lean` in the same commit. `m4_second_road_L2_H_gk_flatRoot_L_exit` is the
+   `h`-twin of `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal
+   register on the terminal's lane, **in `¬ logChowlaFails h` form**, composed from the landed
+   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1567`) and the new flat head at shift `h`.
+   The four scalings and nothing else: the pins `1/(500·h) ≤ ε` and `1/(838400·h²) ≤ δ₀` (under
+   which every gate of the landed head takes exactly its `h = 1` value, because `ε·h = 1/500`
+   exactly), the cap `C ≤ h·(1 + 2·C₀)`, the count set `bigXiH h` with `K` existential, and the
+   `0 < h` binder. ⭐ **THE FINDING IS A COUNT THAT WENT DOWN: part (iii) — the commissioned
+   `h`-twins of `m4_exit_socket_split_sq_arc_flatRoot` and
+   `m4_doorL2_close_split_sq_gk_flatRoot_L` — IS NOT NEEDED AT ALL.** Those two exist at `h = 1`
+   only because the `h = 1` register is built in the SPLIT form and must be walked back to a
+   door; at `h` the mint `m4_doorL2_supply_H_L_gk` already delivers the door, so the register's
+   conclusion IS the head's `hdoor` slot. What remained was one `ℕ`-lattice floor shuffle and one
+   monotonicity step in `ρ`. ⇒ 🔑 ***THE INTERFACE BELOW THE REGISTER AT `h` IS THE DOOR, AND A
+   DOOR NEEDS NO UNFOLDING TWIN*** — a step priced from the `h = 1` FILE LIST is priced from a
+   shape the `h` lane may have already left behind. ⚠️ **Two statement differences INHERITED
+   from the landed door-form register, declared rather than left to be found:** the five cap
+   reads at `h·arcDen 12 H` with drift `strataResidualH h H` (the `h`-family's shape since #17),
+   and the absent `Cg ≤ 2·10^12` conjunct (the mint exports only `1 ≤ Cg`). `162 ≤ A₀`/`162 ≤ A`
+   are kept at the twin's numerals and `ρ` stays FREE. The leaves are **body replays, not
+   wrappers** — `HeadPinLeaves.lean:30-37` is standing law: the pinned constant occurs
+   ANTITONICALLY in each `∃`-leaf, so no consequence of the landed form recovers the witness.
+   The acceptance NEGATIVE check is in `S16FlatTerminalExitH` §3: at a SYMBOLIC `h` the `h = 1`
+   conclusion Prop `logChowla2Fails` does not even ELABORATE (it takes no shift), while the
+   `h`-spelling does — the three `h = 1` twin laws beside it cannot discriminate that.
+   ⛔ **NOT here:** wave H, the six hops ABOVE the register (their `h`-twins are statement
+   changes, not ports), and the compose's unpriced `4·log h` corner. **Nothing bears on twin
+   primes:** the exit is conditional on the same socket (`M4ChiSummedFreeRowH_L_gk h`) and the
+   same door gates its `h = 1` twin is conditional on.
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,

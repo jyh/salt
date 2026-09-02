@@ -414,6 +414,7 @@ import Salt.MR.V7Rated
 import Salt.MR.HDoorArc
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.S16ProducersH
+import Salt.MR.S16FlatTerminalExitH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9109,3 +9110,39 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
   Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk
   Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk
   Salt.MR.m4_chiSummedN_supplied_of_rowH_L_gk
+
+/-! ⟦THE EXIT BELOW THE REGISTER AT SHIFT `h` — WAVE X, PARTS (iii)/(iv)⟧
+(`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
+`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal register on the
+terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
+(`S16FlatTerminalLinearH.lean:1567`) and the flat head at shift `h`
+(`Salt/Entropy/Chowla/HloExportFlatH.lean:210`).
+
+⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
+`h`-twins of `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (`:70`) and
+`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L` (`:179`).  NEITHER IS NEEDED.
+Those two exist at `h = 1` because the `h = 1` register is built in the SPLIT form
+(`a`/`e`, `Bsieve`/`Binsert`) and must be walked back to a door: the socket UNFOLDS
+`MRTUniformityXiL2` into the split, the loop RE-CLOSES it.  At shift `h` that walk was already
+paid by the mint `m4_doorL2_supply_H_L_gk`, so the register's conclusion IS the head's `hdoor`
+slot.  What remained was one `ℕ`-lattice floor shuffle and one monotonicity step in `ρ`.
+⇒ 🔑 **THE INTERFACE BELOW THE REGISTER AT `h` IS THE DOOR, AND A DOOR NEEDS NO UNFOLDING
+TWIN** — a step priced from the `h = 1` file list is priced from a SHAPE the `h` lane may have
+already left behind.
+
+⟦AGAINST THE `h = 1` TWIN⟧ this statement moves by exactly the commission's four scalings — the
+two pins (`1/(500·h) ≤ ε`, `1/(838400·h²) ≤ δ₀`), the conclusion Prop (`¬ logChowlaFails h`),
+the count set (`bigXiH h`, `Kb` existential, no numeral) — plus the `0 < h` binder.  TWO further
+differences are INHERITED from the landed door-form register and are named here rather than left
+to be discovered: the five cap reads are at `h · arcDen 12 H` and the drift residual is
+`strataResidualH h H` (the `h`-family's shape since `#17`), and the `Cg ≤ 2·10^12` conjunct is
+absent because the mint exports only `1 ≤ Cg`.  `162 ≤ A₀`/`162 ≤ A` are kept at the twin's
+numerals, and `ρ` stays FREE: the budget line `2·Kb·Bceil + δ/2 + 8·2^k/x ≤ δ₀` is a hypothesis
+here exactly as at `h = 1`.
+⛔ NOT here: wave H, the six hops ABOVE the register — they conclude `¬ logChowla2Fails` at
+`h = 1` and their `h`-twins are statement changes, not textual ports; and the compose's
+`4·log h` corner (`ρ := doorRhoOfDelta δ₀` at `δ₀ ∝ h⁻²`) is unpriced and belongs to H's word.
+Nothing bears on twin primes: the exit is conditional on the same socket
+(`M4ChiSummedFreeRowH_L_gk h`) and the same door gates its `h = 1` twin is conditional on. -/
+#audit_axioms Salt.MR.mrtUniformityXiL2H_mono
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit

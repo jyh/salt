@@ -89,6 +89,8 @@ import Salt.Entropy.Chowla.SpineEpsFence
 import Salt.Entropy.Chowla.PinDichotomy
 import Salt.Entropy.Chowla.ShiftFork
 import Salt.Entropy.Chowla.SignSplit
+import Salt.Entropy.Chowla.HeadPinLeavesH
+import Salt.Entropy.Chowla.HloExportFlatH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -1082,3 +1084,35 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
 -- by eye: a `Salt.`-prefixed scan of this aggregate's names cannot see them at all.
 #audit_axioms Set.ncard_singleton_inter'
   Set.ncard_inter_singleton
+
+/-! ⟦THE PINNED LEAVES AND THE FLAT HEAD AT SHIFT `h` — WAVE X, PARTS (i)/(ii)⟧
+(`HeadPinLeavesH`, `HloExportFlatH`, 2026-09-01, math).  The `h = 1` road's EXIT
+(`HloExportFlat.log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat`) had no twin at
+shift `h`: the `h`-register `m4_second_road_L2_H_gk_flatRoot_L` is in DOOR FORM precisely
+because nothing at `h ≠ 1` consumed a door.  These two files are that exit's leaves and head.
+
+⚠️ THE LEAVES ARE BODY REPLAYS, NOT WRAPPERS, AND THAT IS FORCED.  `HeadPinLeaves.lean:30-37`
+is standing law here: the pinned constant occurs ANTITONICALLY inside each `∃`-leaf, so NO
+consequence of the landed form recovers the witness — the only route is to re-run the proof
+with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1182-1465` over the
+PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
+from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
+`circle_method_estimate_sq_bounded_h_core` replays `CircleMethod.lean:1366-1508` with the cap
+`C ≤ h·(1 + 2·C₀)` kept at the witness.
+
+⟦THE HEAD MOVES BY FOUR SCALINGS AND ONE BINDER, NOTHING ELSE⟧ the pins are `1/(500·h) ≤ ε`
+and `1/(838400·h²) ≤ δ₀`, under which EVERY gate of the landed head takes exactly its `h = 1`
+value (`ε·h = 1/500` exactly); the circle constant is capped at `h·(1 + 2·C₀)`; the large-
+spectrum count set is `bigXiH h` with `K` existential — no numeral moves; and `0 < h` is a
+stated binder.  The conclusion is `¬ logChowlaFails h` (`ShiftFork.lean:62`), NEVER
+`¬ logChowla2Fails`, which hard-codes shift `1` and from which nothing derives the shift-`h`
+seed.  ⛔ `hh7 : log h ≤ 7` is NOT carried into this wave: nothing here pays for it.
+⛔ NOT here: the compose into the register, which lives on the MR side
+(`Salt/MR/S16FlatTerminalExitH.lean`) because the import gate runs MR → Entropy only.
+Nothing bears on twin primes: the exit at shift `h` is conditional on the same open door
+(`MRTUniformityXiL2H h R ρ`) its `h = 1` twin is conditional on.  Purely additive. -/
+#audit_axioms Salt.Entropy.Chowla.hbudget_holds_h_bounded
+  Salt.Entropy.Chowla.hreduce_holds_final_h_bounded
+  Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_h_core
+  Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_h
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h
