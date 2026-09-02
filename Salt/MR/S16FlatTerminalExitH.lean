@@ -31,8 +31,11 @@ the two pins of word 8(a) (`1/(500·h) ≤ ε`, `1/(838400·h²) ≤ δ₀`); th
 word 8(c) (`bigXiH h`, `Kb` existential — no numeral moves); and the `0 < h` binder of word 8(d).
 TWO further differences are INHERITED from the landed door-form register, not minted here, and
 are named so the tripwire is not silently crossed: the five cap reads are at `h · arcDen 12 H`
-and the drift residual is `strataResidualH h H` (that is the `h`-family's shape since `#17`), and
-the `Cg ≤ 2·10^12` conjunct is absent because the mint exports only `1 ≤ Cg`.  `162 ≤ A₀` and
+and the drift residual is `strataResidualH h H` (that is the `h`-family's shape since `#17`).
+⭐ **DIFFERENCE 2 IS RETRACTED (wave H1 word 1, 2026-09-01):** the missing `Cg ≤ 2·10^12`
+conjunct was never a property of the `h` lane — it was an artifact of ONE `obtain` at the mint
+reaching for `parseval_insert_budget_door` where the `h = 1` lane reaches for `_bounded`.  The
+cap is restored at the mint, the register and here, and this statement now EXPORTS it.  `162 ≤ A₀` and
 `162 ≤ A` are kept at the twin's numerals, and `ρ` stays FREE: `2·Kb·Bceil + δ/2 + 8·2^k/x ≤ δ₀`
 is a hypothesis here exactly as it is at `h = 1`.
 
@@ -83,7 +86,7 @@ the register's `Kc` (word 8(c)): the same real serves as the `bigXiH h` count an
 line's coefficient, exactly as at `h = 1`. -/
 theorem m4_second_road_L2_H_gk_flatRoot_L_exit (h : ℕ) (hh : 0 < h) (K : ℕ) (A₀ : ℝ)
     (hA₀ : 162 ≤ A₀) :
-    ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧
+    ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧
       1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧ 0 < β ∧
       162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
@@ -113,13 +116,14 @@ theorem m4_second_road_L2_H_gk_flatRoot_L_exit (h : ℕ) (hh : 0 < h) (K : ℕ) 
             2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
             M4ChiSummedFreeRowH_L_gk h K R M RS →
               ¬ logChowlaFails h R.eps R.x R.ω := by
-  obtain ⟨Cg, hCg, hreg⟩ := m4_second_road_L2_H_gk_flatRoot_L h hh K
+  obtain ⟨Cg, hCg, hCgle, hreg⟩ := m4_second_road_L2_H_gk_flatRoot_L h hh K
   obtain ⟨ε, Kb, δ₀, A, β, Hcap, Hopq, hε, hKb, hδ₀, hεpin, hδpin, hβ, _hA26, hA₀A,
     hAge, hCapEq, hhead⟩ :=
       log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h h hh A₀
         (by linarith : (26 : ℝ) ≤ A₀)
   obtain ⟨H₀, hH₀⟩ := hreg ε hε
-  refine ⟨Cg, ε, Kb, δ₀, A, β, max Hcap H₀, max Hopq H₀, hCg, hε, hKb, hδ₀, hεpin, hδpin, hβ,
+  refine ⟨Cg, ε, Kb, δ₀, A, β, max Hcap H₀, max Hopq H₀, hCg, hCgle, hε, hKb, hδ₀, hεpin, hδpin,
+    hβ,
     le_trans hA₀ hA₀A, hA₀A, hAge, by rw [hCapEq]; exact flatRootCapH_arc _ _ _ _ _, ?_⟩
   intro U1floor g
   obtain ⟨R, hReps, hRextra, hRU1, hRg, hcount, hRtow, hRcap, hR⟩ := hhead H₀ U1floor g
