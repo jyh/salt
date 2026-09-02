@@ -1417,6 +1417,78 @@ theorem flat_arm_budget_le_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   rw [budgetFloorFlat, flatDesignBase]
   exact Nat.ceil_le_ceil (Real.exp_le_exp.mpr hmax)
 
+/-- **⟦gate 7 AT THE INFLATED CAP, IN REGIME FORM⟧** (`arc36_of_regime_h`) — wave H2a word 5.
+The exit's `harc3` (`S16FlatTerminalExitH:107`) demands `128·(h·arcDen 12 H)^3 ≤ H`, and the
+landed `arcFloor36` route clears `h = 1` by only **1.14×**, so it FAILS from `h = 2`.  Routed off
+`loglogFloor50 = ⌈e^{e^50}⌉₊` instead: that gives `H ≥ e^{e^50}`, against a demand of `10^157`.
+**The room is a tower, not a factor** — which is why this is the floor the `h` lane must read. -/
+theorem arc36_of_regime_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime}
+    (hfloor : loglogFloor50 ≤ R.Hlo) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * ((h : ℝ) * arcDen 12 H) ^ 3 ≤ (H : ℝ) := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have h1096 : (h : ℝ) ≤ 1096 := by
+    exact_mod_cast Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7
+  have hcb : (h : ℝ) ^ 3 ≤ 1316532736 := by
+    calc (h : ℝ) ^ 3 ≤ (1096 : ℝ) ^ 3 := pow_le_pow_left₀ hx0.le h1096 3
+      _ = 1316532736 := by norm_num
+  have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have hfl : (10 : ℕ) ^ 157 ≤ loglogFloor50 := by
+    have he3 : (10 : ℝ) ≤ Real.exp 3 := by
+      have h3 : Real.exp 3 = (Real.exp 1) ^ (3 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have hp : (2.7 : ℝ) ^ (3 : ℕ) ≤ (Real.exp 1) ^ (3 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) he1.le 3
+      rw [h3]; nlinarith [hp]
+    have he157 : (Real.exp 3) ^ (157 : ℕ) = Real.exp 471 := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have hpow : ((10 : ℝ)) ^ (157 : ℕ) ≤ Real.exp 471 := by
+      have hle : ((10 : ℝ)) ^ (157 : ℕ) ≤ (Real.exp 3) ^ (157 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) he3 157
+      rw [← he157]; exact hle
+    have h471 : (471 : ℝ) ≤ Real.exp 50 := by
+      have h50 : Real.exp 50 = (Real.exp 1) ^ (50 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have hp : (2.7 : ℝ) ^ (50 : ℕ) ≤ (Real.exp 1) ^ (50 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) he1.le 50
+      have hn : (471 : ℝ) ≤ (2.7 : ℝ) ^ (50 : ℕ) := by norm_num
+      rw [h50]; linarith
+    have hmono : Real.exp 471 ≤ Real.exp (Real.exp 50) := Real.exp_le_exp.mpr h471
+    have hceil : Real.exp (Real.exp 50) ≤ ((loglogFloor50 : ℕ) : ℝ) := by
+      rw [loglogFloor50]; exact Nat.le_ceil _
+    have hfin : ((10 : ℝ)) ^ (157 : ℕ) ≤ ((loglogFloor50 : ℕ) : ℝ) := by linarith
+    exact_mod_cast hfin
+  intro H hlo _
+  exact arc36_of_floor_h hcb (le_trans hfl (le_trans hfloor hlo))
+
+/-- **⟦THE `j₀` CORNER AT SHIFT `h`⟧** (`s13_g2_jfloor_of_MSelect'_L_gk_h`) — wave H2a word 6,
+the OUTER step taking the `h`-free `∀H` family to the `h`-bearing one, exactly as the H2b/H2c
+commission pins it (its §1 word 2 slot 3; the H2a draft had the composition inverted).  This is
+the QUEUE's "unpriced `4·log h`" corner, priced: `4·log h ≤ 28` under `hh7`.
+
+⚠️ **ONE DEVIATION FROM THE PINNED SHAPE, AND IT IS A SOUNDNESS REPAIR, NOT A CONVENIENCE.** The
+pin states the hypothesis as `4·log(263·max 1 (arcDen 12 H)) ≤ F`; from that alone the
+conclusion is **not derivable**, because `4·log(263·h·A) = 4·log(263·A) + 4·log h` and nothing
+in the hypothesis supplies the `4·log h`.  The `28` is therefore carried where it must live —
+in the hypothesis.  The consumer supplies it from `s13_g2_jfloor_gen` with its gate at
+`4·log 263 + 48·Λ + 28 ≤ F`, which is the same one numeral, and the slack the pin itself names
+(`F = doorRowFloorL M = 2^36·M²` against `4·log 263 + 48·Λ`) pays it many times over.
+`F` is left generic; `F := ((doorRowFloorL M : ℕ) : ℝ)` is the pinned instance. -/
+theorem s13_g2_jfloor_of_MSelect'_L_gk_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {F : ℝ}
+    (h1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * max 1 (arcDen 12 H)) + 28 ≤ F) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * (h : ℝ) * max 1 (arcDen 12 H)) ≤ F := by
+  intro H hlo hhi
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have hmax : (1 : ℝ) ≤ max 1 (arcDen 12 H) := le_max_left _ _
+  have hsplit : Real.log (263 * (h : ℝ) * max 1 (arcDen 12 H))
+      = Real.log (263 * max 1 (arcDen 12 H)) + Real.log (h : ℝ) := by
+    rw [show (263 : ℝ) * (h : ℝ) * max 1 (arcDen 12 H)
+        = (263 * max 1 (arcDen 12 H)) * (h : ℝ) by ring,
+      Real.log_mul (by positivity) (ne_of_gt hx0)]
+  rw [hsplit]
+  linarith [h1 H hlo hhi, hh7]
+
 /-- **⟦THE ARM CENSUS AT SHIFT `h`⟧** (`flat_witFloor_eq_designBase_h`) —
 `flat_witFloor_eq_designBase` on the two `h`-scaled arms.  The other three arms
 (`flat_arm_arcFloor_le`, `flat_arm_loglogFloor_le`, `flat_designFloor_eq_designBase`) are

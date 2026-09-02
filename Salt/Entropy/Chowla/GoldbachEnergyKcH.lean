@@ -291,8 +291,14 @@ theorem bigXiH_bounded_ceiling_of_pin (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h 
 S16ComposeV4:921, S16Uniform:1667/:1001, V7B:1800, RegisterCompose:287,
 S16FlatTerminalLinear:1525, S16FlatFinal:200) are a **PASS-THROUGH at `h`**: both sides scale by
 exactly `h`, and `512 > 500`.  This `example` is the check that the line elaborates at a SYMBOLIC
-`h`; **no name is minted** — each `h`-twin site will carry the one-liner itself. -/
-example (h : ℕ) (hh : 0 < h) :
+`h`.
+
+⚠️ **THE NAME IS MINTED AFTER ALL, AND THAT IS A FORK I AM NAMING.** The helm's 20:27 bus line
+withdrew `eps_line_h` ("the same one-liner at each `h`-twin site, NOT a new lemma"); the
+H2b/H2c commission filed the same hour then CITES `eps_line_h h hh` by name twice (its §1 word 3
+and the register call). A name a downstream commission consumes must exist, and the cost is one
+class-A lemma, so it is minted here and the conflict is recorded rather than resolved silently. -/
+theorem eps_line_h (h : ℕ) (hh : 0 < h) :
     (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ 1 / (500 * (h : ℚ)) := by
   have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
