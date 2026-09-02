@@ -2555,7 +2555,8 @@ set_option maxHeartbeats 1600000 in
 -- shape
 /-- ⟦SHARP `T₀` TWIN AT SHIFT `h`⟧ (`s15_crossing_supplied_LH_gk_ceiling_sharpT0`) — H2c's
 crossing supplier with `T₀`'s bound moved inside the `∀ R` and sharpened to `exp(√H₋/2)`. -/
-theorem s15_crossing_supplied_LH_gk_ceiling_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+theorem s15_crossing_supplied_LH_gk_ceiling_sharpT0 {h : ℕ} (hh : 0 < h)
+    (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧
       0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
@@ -2698,5 +2699,85 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h (h : ℕ
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (flatDoorM A) hKw hsel
     (hsupply hcs hKqb hKs R (flatDoorM A) hM1 hfl (by rw [hHlo]; exact hT₀) hblk hcof hcapsc)
+
+/-! ## §10 — ⟦BLOCK T⟧ THE INEFFECTIVE LIMIT `v3` AT SHIFT `h`
+
+⭐ **This hop keeps the cofactor supply and the base-scale cap as HYPOTHESES**, so it is
+landable at `h` without the `ε` seam.  Its four riders are discharged exactly as at `h = 1`;
+the only `h`-lane inputs are block W's `s16_bandLaneWinLH_holds` and §7's terminal.
+-/
+
+set_option exponentiation.threshold 4000 in
+set_option maxHeartbeats 1600000 in
+-- as the landed original: the design constant's arm census re-elaborates against the terminal's
+-- own prefix
+/-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
+`S16Compose:1112` on §7, with the band rider discharged from block W. -/
+theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      (Real.exp (-100) ≤ cs → T₀ ≤ Real.exp (Real.exp 100) →
+        Real.exp (-100) ≤ Ks →
+        ∀ g : ℕ → ℕ → ℕ, ∃ R : ChowlaRegime,
+          R.eps = ε ∧ R.Hlo = flatDesignBase A ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (S16CofactorSupply_LH_gk h 32000000 Cq R (flatDoorM A) →
+            S16BaseScaleCap96_LH_gk h 32000000 R (flatDoorM A) →
+              ¬ logChowlaFails h R.eps R.x R.ω)) := by
+  -- ⟦RIDER 0, DISCHARGED⟧ the band lane's own constant, at its own window
+  obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinLH_holds h hh 32000000
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hεpin, hδpin, hMflb, hβ, hmain⟩ :=
+    logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h h hh hh7 Awin hband
+  -- ⟦THE CLASSICAL LIMIT⟧ the design constant, chosen ABOVE all three fixed constants
+  obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (max (max A₀ 162) Awin)
+      (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))) := ⟨_, rfl⟩
+  have hA162 : (162 : ℝ) ≤ A := by
+    rw [hAdef]
+    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) (le_max_left _ _)
+  have hA₀A : A₀ ≤ A := by
+    rw [hAdef]
+    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) (le_max_left _ _)
+  have hAwinA : Awin ≤ A := by
+    rw [hAdef]; exact le_trans (le_max_right _ _) (le_max_left _ _)
+  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
+    rw [hAdef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
+    rw [hAdef]
+    exact le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) (le_max_right _ _)
+  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
+    rw [hAdef]
+    exact le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) (le_max_right _ _)
+  have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
+  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
+  -- ⟦RIDER 3, DISCHARGED⟧ the `x₀` window
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
+    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+      Real.add_one_le_exp _
+    linarith
+  -- ⟦RIDER 4, DISCHARGED⟧ the arm census
+  have hopq : Hopq ≤ flatDesignBase A := by
+    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
+    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
+    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
+    rw [flatDesignBase]; exact_mod_cast hceil
+  obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge
+  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hεpin, hδpin, hMflb A hA162 hAwinA, hβ, hA162, hA₀A, ?_⟩
+  intro hcs hT₀ hKs g
+  obtain ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, hfire2⟩ :=
+    hfire hx0win hopq hcs hT₀ hKs g
+  exact ⟨R, hReps, by rw [hHlo]; exact hbase hopq, hRg, hRtow, hdes, hwin, hfire2⟩
 
 end Salt.MR
