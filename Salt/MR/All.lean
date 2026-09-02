@@ -417,8 +417,10 @@ import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
 import Salt.MR.S16FlatTerminalLinearLH
 import Salt.MR.S16UniformLH
+import Salt.MR.S16ComposeLH
 import Salt.MR.HSeamCheck
 import Salt.MR.S13CapGateLinearLH
+import Salt.MR.V7RatedH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9462,3 +9464,191 @@ Nothing bears on twin primes: every `h` object is conditional exactly where its 
   Salt.MR.m4_hband_at_door_slot_split_graded_LH_gk_uniform
   Salt.MR.s16_bandLaneWinLH_holds
   Salt.MR.s16_bandLaneWinLH_holdsU
+/-! ⟦THE UNIFORM CAPSTONES AT SHIFT `h`⟧ (`S16ComposeLH`, NEW · `HloExportFlatH` §5,
+2026-09-02, math — wave H3 block C).  Rows 5–8 of the census: the `A`-uniform, windowed,
+doubly-priced capstone and the conditional that sits on it, then the `kwide`, `khoist` and
+`xceil` twins of each.
+
+⭐ **THE `Ct` CEILING WAS MISSING FROM THE `h` LANE.**  Wave P's fuse
+(`m4_closure_fuse_zero'_const_nonneg_H_L_gk`) carries `0 < Ct` and no ceiling, while every
+capstone statement carries `Ct ≤ 2^23`.  §1 re-obtains the landed `h` slot and fuse off
+`NumeralCt.m4_hrowsSum_chi_door_zero'_L_gk_bounded` (`Ct ≤ 6·e^14`) and closes with
+`six_exp_fourteen_le_two_pow_23`.  Proof bodies verbatim; only the source of `Ct` moves.
+
+⛔ **ONE GATE IS NOT A TRANSCRIPTION, AND IT IS WHY H2a WORD 5 EXISTS.**  At `h = 1` gate 7
+(`128·arcDen^3 ≤ H`) is discharged from `arcFloor36 = 10^138`, which clears its demand by
+**1.14×** and therefore FAILS from `h = 2`.  The `h` lane reads `arc36_of_regime_h` off
+`loglogFloor50` instead — a tower against `10^157` — so the `arcFloor36` hypothesis the landed
+proof extracts is **not extracted here at all**.
+
+⭐ **THE TRIVIAL GRADE PAYS `h^7` AND NOTHING ELSE DOES.**  ⟦G1⟧ demands
+`(h·arcDen 12 H)^7 ≤ RStr H`, so `RStr := h^7·rStrWitness` (`rStrWitness_G1_h`).  It is invisible
+at gate 10a: `m4BclGraded_le_of_fits` bounds the graded block by `2·(m4Cmax H · Fan H)`, in which
+`Ftr` does not occur, so the ceiling arithmetic is the landed one byte for byte.
+
+⭐ **`S13BandGate'_L_gk` DISSOLVES RATHER THAN PORTING** — wave P's `doorBandBase_family'H_L_gk`
+takes the four components directly, so the `h` lane never builds that socket-quantified
+structure.
+
+⭐ **THE `K`-HOIST IS FREE AT `h = 1` AND COSTS THREE RESTATEMENTS AT `h`.**  At `h = 1` the
+khoist road takes `Cg` from `parseval_insert_budget_door_bounded` at the DOOR level, so nothing
+above ever mentioned `K`.  The `h` lane routes through the door-form register, whose `K` is a
+LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H₀` from
+`nearRatTight_of_bigXiArcTight_H`, neither mentioning `K`) — but it is three theorems, not zero.
+
+⛔⛔ **AND THE `xceil` ROW IS NOT A COPY: IT IS A FENCE.**  Its road's head is
+`XThread.flat_head_uniform_xceil`, built from `chowlaRegimeFlat_exists_param_head_xceil`; at `h`
+the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
+where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
+its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
+declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
+conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
+that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.
+
+⛔ NOT here: blocks T (hops 4/5/6 and `logChowla2_v7_rated_h`, the hypothesis-free headline) and
+E (the `ε` seam).  Nothing bears on twin primes: every `h` object is conditional exactly where
+its `h = 1` twin is. -/
+#audit_axioms Salt.MR.m4_hrowsSlot_at_door_zero'H_L_gk_ceiling
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling
+  Salt.MR.flat_capstone_uniform_win_ceiling_h
+  Salt.MR.flat_conditional_uniform_win_ceiling_h
+  Salt.MR.m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide
+  Salt.MR.flat_capstone_uniform_win_ceiling_kwide_h
+  Salt.MR.flat_conditional_uniform_win_ceiling_kwide_h
+  Salt.MR.m4_doorL2_supply_H_L_gk_khoist
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_khoist
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_khoist
+  Salt.MR.flat_capstone_uniform_win_ceiling_kwide_khoist_h
+  Salt.MR.flat_conditional_uniform_win_ceiling_kwide_khoist_h
+  Salt.MR.flat_head_uniform_xceil_h
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist
+  Salt.MR.flat_capstone_uniform_win_xceil_kwide_khoist_h
+  Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist_h
+/-! ⟦BLOCK T's LANDABLE CORE AT SHIFT `h`⟧ (`S16ComposeLH` §7–§10, 2026-09-02, math — wave H3
+block T, parts 1 and 2).  Hops 4 and 5 of the six, the sharp-`T₀` crossing chain they need, and the
+ineffective limit `v3`.
+
+⭐ **HOP 4 NEEDED NOTHING NEW.**  The conditional is §3's, the crossing supplier is H2c's, the
+witness floor is H2a's `flat_witFloor_eq_designBase_h`, the selector is H1's shift-scaled
+`s15_sel''_L_gk_witness_flat_bumped_win_h` at `c := h`, and the block floor is wave P's
+`s15_block_at_socketH_L_gk`.  The selector's `ε`-floor is `1/(2^9·h) ≤ R.eps` and the head pins
+`ε = 1/(500·h)`, **so the shift cancels and the margin is the landed `500 < 512` at every `h`** —
+which is what wave H1 bought by threading a scale `c` through the selector layer.
+
+⭐ **THE SHARP-`T₀` CHAIN IS THREE NAMES BECAUSE H2c LANDED THE ONE PIECE THAT IS NOT
+BOOKKEEPING** (`capfloor_T0_Tann_sharp_LH`): hop 5 wants `T₀ ≤ exp(√H₋/2)` INSIDE the `∀ R`
+where H2c's chain exports the flat `exp(exp 100)` outside it, so these are that chain with one
+discharger swapped and one binder moved.
+
+⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
+`logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
+its first line, and that supplier DEMANDS `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head pins
+`ε = 1/(500·h)` — FALSE at `h ≥ 2`.  Its body consumes `cofkL_capFreeFloor_at_socket_rated_uniform`,
+`cofkL_socket_floors` and `cofkL_mu_floor`, three of the seven `_h` names E is chartered to
+re-cut, and it carries the cushion as a hypothesis of its own.  **There is no
+`cofkR_cofactorSupply_*_h` in the corpus.**  ⇒ **T can be finished except for its headline; the
+headline is E's.**
+
+⛔ NOT here: hop 6 and its `kswin` chain (~10–12 names, all mechanical and all `ε`-independent),
+the remaining `logChowla2_ineffective_v*_h`, and the headline.
+Nothing bears on twin primes: every `h` object is conditional exactly where its `h = 1` twin is,
+and the headline's unconditionality at `h` is precisely what E gates. -/
+#audit_axioms Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h
+  Salt.MR.s13CapFloor_all_LH_gk_sharpT0
+  Salt.MR.s16_capGate_supply_LH_gk_sharpT0
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h
+  Salt.MR.logChowla2_ineffective_v3_h
+/-! ⟦BLOCK T's THIRD HOP AND ITS CHAIN AT SHIFT `h`⟧ (`S16ComposeLH` §11–§12, 2026-09-02, math —
+wave H3 block T, part 3).  **Hops 4, 5 and 6 now all stand at shift `h`.**
+
+⭐ **THE WHOLE CHAIN IS BINDER WORK EXCEPT ONE STEP.**  `capfloor_floor4_sharp_LH` is the only
+new argument: the sharp `Ks` rider needs the modulus range, and at the inflated cap that gives
+`q ≤ h·arcDen 12 H ≤ log H ^ 13` rather than `log H ^ 12` — H2c's own absorption (`h ≤ 1096 ≤
+10^21 ≤ log H`), and `13/16 < 1` still yields `q^{1/16} ≤ log H`, which is all the assembly
+spends.  Everything else is a `∀ K` moved inside an `∃`-prefix or a rider moved from an
+antecedent into a carried conjunct.
+
+⭐ **HOP 6 HOISTS THE CROSSING CONSTANTS ABOVE THE DESIGN LEVER**, so the terminal's own `A` may
+take `log(1/Ks)` into its `max` and read `floor4` off with no numeral rider at all; the
+`A`-scoped window becomes the regime-scoped one by the flat floor `e^{3.2A} ≤ log H₋`.
+
+⛔⛔ **AND HOP 6's `h` TWIN IS EXACTLY THE SHAPE `logChowla2_v7_rated` CONSUMES — which is why
+the headline is BLOCKED ON E and not on T.**  See the previous block's note.
+Nothing bears on twin primes. -/
+#audit_axioms Salt.MR.capfloor_floor4_sharp_LH
+  Salt.MR.capfloor_floor4_of_regimeWin_LH
+  Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin
+  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
+
+/-! ⟦BLOCK E — THE `ε` SEAM CLOSED, AND THE PRIZE⟧ (`HDoorSupply` §6–§8 re-spelled in place,
+`Salt/MR/V7RatedH.lean` NEW, 2026-09-02, math — wave H3 block E).  **`logChowla2_v7_rated_h`
+stands: H3's hypothesis-free headline at every `h` with `log h ≤ 7`.**
+
+⛔ **WHAT WAS ACTUALLY WRONG.** The `h` head pins `ε = 1/(500·h)`; seven merged `_h` names in
+`HDoorSupply` demanded the FLAT `1/500 ≤ R.eps`, **false at `h ≥ 2`**, and both sides sat in
+HYPOTHESIS position of conditional statements, so no gate in the repository could see it.  The
+whole demand is spent at ONE place — `heps2` inside `cofkL_logX_floor_h` — and at `1/(500h)`
+the closing coefficient goes NEGATIVE at `h = 4`: no `H₊` closes it.  Ruling (a): the
+conclusion becomes `h`-explicit, `H₊/(10⁶·h²) ≤ log(A+s)`.
+
+⭐ **THE RE-CUT IS LOCAL, AND THAT IS A MEASUREMENT, NOT A HOPE.**  Every call site of all
+seven is inside `HDoorSupply.lean` itself; outside it, only this registry names them.  So the
+seven are re-spelled IN PLACE and nothing downstream needed repair.  The `H₊` floor rises from
+`10¹⁴` to `10²⁶·h⁴` — bought free from the road's own `hlo : 518 ≤ loglog H₋`, which gives
+`log H₊ ≥ 10⁸` against a cost of `26·log 10 + 4·log h ≤ 88.1`.
+
+⭐ **WHERE (a)'s COST LANDS: at `hmuF`, exactly as the helm's ruling said, and NOT in the
+cushion.**  The μ-floor weakens `log H₊ − 14` → `log H₊ − 28` (`log(10⁶h²) ≤ 13.82 + 14`), and
+the 14 is spent at three sites with `10²¹`-scale slack.  `32·Kvt + 32·D ≤ log H₊/4` is an
+ANTECEDENT throughout and is untouched.
+
+⛔⛔ **THE ITEM THE H3 CENSUS NEVER NAMED, AND IT WAS THE GATE.**
+`cofkR_cofactorSupply_L_gk_rated_h` — the headline's own supplier.  A census that walks NAMES
+and ROWS cannot see a dependency between BLOCKS; this one was found by opening the prize's
+proof and reading its FIRST line.  Its `h` twin reads the socket at exactly six places and is
+otherwise ~650 lines of arithmetic on the block scale `A + s`.
+
+⭐ **AND A SECOND ROUTE NOBODY NAMED: the base-scale cap.**  `s16_baseScaleCap96_L_at_klevF`
+(`KLever:427`) is `SocketBaseL`-only, and the headline closes with it.  Its port is cheap for a
+structural reason: the endpoint route reads socket conjuncts **2, 3, 8, 12, 13**, and the
+inflation touches **5 and 11**.  The only arithmetic that moves is the pin's own numeral —
+`log(1/ε) ≤ 7` becomes `≤ 14` (`500·1096 < 2²⁰`) against a supply `69·e^{2t}`, `t ≥ 10¹⁷`.
+
+📌 **THE EQUALITY-PIN FAMILY WAS CENSUSED AND IS OFF THIS ROAD.**  The seven `R.eps = 1/500`
+sites are heads of the door-`L²` `_500` mint family whose only consumers are each other; the
+`h` road reaches `MRTUniformityXiL2H` through `m4_doorL2_supply_H_L_gk_khoist`, whose `ε`
+binder is generic.  ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h` lane — recorded
+because a vacuous supplier and an absent one are indistinguishable from every gate, and the
+day N4s acquires a producer the family needs the `1/(500h)` spelling.
+
+⭐⭐ **AND THE FAMILY IS PINNED TO THE LANDED OBJECT BY A THEOREM, NOT A DOCSTRING.**
+`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:973`'s statement from
+`logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
+LANDED `logChowla2_v7_rated` itself.  The prize is an `∃` whose content sits under binders: a
+family that had drifted into a WEAKER object would still elaborate at every consumer, and no
+build anywhere could see it.  The substitution `h := 1` is the only instrument that looks.
+
+⛔ **WHAT THIS IS NOT.**  `logChowla2_v7_rated_h` is conditional in exactly the places its
+`h = 1` twin is, and nothing here bears on twin primes: the transport wall is untouched at this
+rung, `ε` is bounded only from BELOW (and at shift `h` that floor is `1/(500·h)`, not `1/500`),
+and the residual ineffectivity prices scale-extractability, not truth. -/
+#audit_axioms Salt.MR.cofkL_socket_floors_h
+  Salt.MR.cofkR_cofactorSupply_L_gk_rated_h
+  Salt.MR.S16BaseScaleCapEnd_LH_gk
+  Salt.MR.s16BaseScaleCapEndLH_gk_one_iff
+  Salt.MR.s16_baseScaleCapEnd_LH_of_xceil
+  Salt.MR.s16_baseScaleCap96_LH_of_end
+  Salt.MR.klevF_capNumeral_h
+  Salt.MR.s16_baseScaleCap96_LH_at_klevF
+  Salt.MR.logChowla2_v7_rated_h
+  Salt.MR.logChowla2_v7_rated_h_one

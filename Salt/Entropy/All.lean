@@ -1155,3 +1155,13 @@ does H2a word 1(d)'s `K ≤ 2^539`.  The commission that fired wave H2b priced t
 design block of H3"; measured at the object it is one `intro`.
 Nothing bears on twin primes. -/
 #audit_axioms Salt.Entropy.Chowla.flat_head_uniform_h
+/-! ⟦THE SPINE CORE, RE-EXPORTED FOR THE `xceil` LANE⟧ (`HloExportFlatH` §5, 2026-09-02, math —
+wave H3 block C).  One line, and it exists because of an import direction: the `x`-ceiling
+apparatus lives entirely in `Salt/MR` and `Salt/Entropy` cannot import `Salt/MR`, so the `h`
+lane's `x`-ceilinged head must be built in MR — where two `private` helpers of this module are
+out of reach.  The 4-line one is re-proved at the MR site; the 139-line
+`spine_False_core_xi_sq_flat_h` is re-exported here instead.
+**Deliberately the smallest possible edit: a NEW declaration, not a visibility change.**  No
+landed line is touched and no `private` marker is lifted.
+Nothing bears on twin primes. -/
+#audit_axioms Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export
