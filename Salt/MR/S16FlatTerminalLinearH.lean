@@ -36,11 +36,12 @@ largest stratum, i.e. the modulus cap's shadow through the dilation, and it move
 
 ⟦THE RESIDUAL⟧  The Gauss strata's harmonic sum `∑_{d ∣ q} 1/d ≤ 1 + log q` is bounded through
 `q ≤ h·arcDen` by `strataResidualH h H := 1 + log(h·arcDen 12 H)` and by nothing smaller.  The
-grades stay in the BASE residual (`RSanDoorRho`, `RSanDoor` untouched); the two reads of the
-residual (the stratified link and the register's drift gate) are at `strataResidualH`, and one
-consumer-side ceiling lemma (`m4_arith_rs_ceiling_met_rhoH_two`, §6) pays the `log 2` at
-`h = 2` under the LANDED constant `110525` — `strataResidualH 2 H = strataResidual H + log 2`
-exactly, and at the ceiling's own floor `50 ≤ loglog H` the ratio² is below `1.00231`.
+two reads of the residual (the stratified link and the register's drift gate) are at
+`strataResidualH`; the grades are at the INFLATED envelope `RSanDoorRhoH ρ h H :=
+ρ / strataResidualH h H²` (`S16ProducersH`, wave P), so the register's drift gate cancels
+EXACTLY and `h`-free (`m4_arith_rs_ceiling_met_rhoH`).  *(Superseded on 2026-09-01 by wave P:
+this header first kept the grades in the BASE residual and paid the `log 2` at `h = 2` by the
+ratio lemma `m4_arith_rs_ceiling_met_rhoH_two` (§6), which is RETAINED and now UNCONSUMED.)*
 
 ⟦THE `ℓ`-WITNESS⟧  `blockLenH h H q := max 1 (H / (⌊h·arcDen 12 H⌋₊ + 1))` — the landed
 `blockLen ≈ H/arcDen` fails the drift binder `cap·ℓ ≤ q·H` at `q = 1` under cap `2·arcDen`
@@ -1703,7 +1704,10 @@ floor `50 ≤ loglog H` (where `strataResidual H ≥ 601`) the ratio² is below 
 LANDED constant `110525` still pays: `109,994 × 1.00231 < 110,251 ≤ 110525` — at
 `Real.pi_lt_d4`; the landed page's `π < 3.15` does NOT fit.  ⚠️ A `×1.0025` margin is exact
 arithmetic, not a design freedom; the `h`-general form runs out of slack at `h ≥ 5`, so this is
-STATED AT `2`. -/
+STATED AT `2`.  ⛔ **RETAINED, UNCONSUMED (2026-09-01, wave P):** its successor is
+`S16ProducersH.m4_arith_rs_ceiling_met_rhoH`, which moves the grades to the inflated envelope
+`RSanDoorRhoH ρ h H := ρ / strataResidualH h H²` and cancels EXACTLY at every `h` under the
+same `110525` — no ratio, no `h = 2` pin. -/
 theorem m4_arith_rs_ceiling_met_rhoH_two {ρ δ₀ : ℝ} (hρ : 0 < ρ) (hρδ : 110525 * ρ ≤ δ₀ ^ 2)
     {H : ℕ} (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 ≤ Real.log (Real.log (H : ℝ))) :
     96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH 2 H ^ 2 * (108 / 5 * RSanDoorRho ρ H)

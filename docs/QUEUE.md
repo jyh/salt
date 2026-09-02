@@ -5244,6 +5244,28 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `h ≥ 2` — the `SocketBaseL`-framed producer population (160/52/49/50 occurrences) re-quantified
    over `SocketBaseLH h`, and the six hops above the register, are the NEXT wave. The register is
    conditional exactly where its `h = 1` twin is. **Nothing bears on twin primes.**
+   ✅✅ **WAVE P — THE SOCKET HAS A PRODUCER AT `h` — 2026-09-01 (math, worker tier B/A; the
+   helm's h-wave P/X commission of 16:4x, refuted 16:5x, is the statement act for the five
+   design words).** `Salt/MR/S16ProducersH.lean`, **50 names, every
+   one `[3 axioms]`** (`#print axioms` per name + the `Salt/MR/All.lean` audit block in the same
+   commit), ONE attempt per name (one build with two `rw` misfires on the S12 price, nothing
+   mathematical). The terminal path's producer chain — the constant-pool fuse
+   `m4_closure_fuse_zero'_const_nonneg_H_L_gk` and everything under it — re-quantified over
+   `HDoorSupply.SocketBaseLH h`; it concludes `M4ChiSummedFreeRowH_L_gk h K R M
+   (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H))`, the socket the register is
+   conditional on, and `m4_chiSummedN_supplied_of_rowH_L_gk` shows the register's own consumer
+   fires on it (`RStr := h⁷·rStrWitness`, `g2_of_j0_floor_h`). The three cap-reading shapes and
+   their repairs: S12 `hArcDen_mul_strataResidualH_sq_le` under `hh7 : log h ≤ 7` + the envelope
+   def `RSanDoorRhoH` with the EXACT `h`-free cancel `m4_arith_rs_ceiling_met_rhoH` (the `h = 2`
+   ratio lemma is RETAINED, UNCONSUMED); S2 `s15ArmH` + the `ρ`-frame at `ω ↦ h·ω`; S11
+   `s13_band_qfit_h` + `doorBandBase_family'H_L_gk`. ⚠️ **The four "class-A" bridge restatements
+   were not class A:** the socket helpers beneath them (`s13_socketBase_xscale` → `logA_ge_sqrt`
+   → `loglogA` → `s14_loglogX_ge` → `s12c_llX_ge`; `s15_block_at_socket_gen`) read conjunct 11
+   and each loses `log h`; nine `_LH` restatements absorb it against slack of `10²¹` — the count
+   is 50, not the commissioned ~16–18, all transcription. No `SocketBaseH`, `S13BandGate'H` or
+   `rStrWitnessH` def (statement-tier; the band family takes the gate's four fields as binders).
+   ⛔ **NOT here:** wave X (the exit below the register) and wave H (the hops). **Nothing bears
+   on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
