@@ -5300,6 +5300,38 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    changes, not ports), and the compose's unpriced `4·log h` corner. **Nothing bears on twin
    primes:** the exit is conditional on the same socket (`M4ChiSummedFreeRowH_L_gk h`) and the
    same door gates its `h = 1` twin is conditional on.
+   ✅✅ **WAVE H1 — THE SUBSTRATE AT SHIFT `h` — 2026-09-01 (math, worker tier with three at C;
+   the helm's wave-H commission, re-cut after two refuters).** `Salt/MR/HSeamCheck.lean` (new,
+   2 names incl. the acceptance integration) · `S16Budget` (+3) · `XThread` (+2, and
+   `s15Arm_log_le` re-cut) · `S16ProducersH` (+1, and `s15ArmH_log_le` respelled) ·
+   `S15SelLinear`/`S15SelLinearWide`/`FlatFloorBump` (the selector layer threaded).
+   **7 new names, every one `[3 axioms]`**; audit block in `Salt/MR/All.lean` in the same commit.
+   ⭐⭐ **THE SEAM.** Waves P (#18) and X (#19) both landed green, both fully audited, and **did
+   not compose at `h ≥ 2`**: `s15ArmH_log_le` demanded `1/838400 ≤ δ₀` while X's exit can only
+   export `1/(838400·h²) ≤ δ₀`, which is forced. Both numerals sat in HYPOTHESES of conditional
+   statements ⇒ 🔑 ***THE KERNEL CHECKS THEOREMS, NOT THAT THEY COMPOSE; when two waves of one
+   commission land separately, the seam BETWEEN them is exactly where nothing has been run.***
+   `HSeamCheck` §1 is an integration `example` at a SYMBOLIC `h ≥ 2` that hands the exit's own
+   pin, unmodified, to the arm estimate — if either numeral drifts again that file stops
+   compiling. ⭐ **The `ρ`-corner was priced at `4·log h`, then `13·log h`; it is `2·log h`** —
+   the compose pins `doorRhoOfDelta (s12DeltaSock δ₀ Kc)` and the sock's √ cancels the square.
+   The charge is `403 + 2·log h ≤ 417`; the five charge-generic register lines re-cut at 417.
+   ⭐ **The arm generalised**: `s15Arm_log_le_scaled` at any pin `1/(838400·c) ≤ δ₀`, concluding
+   `H₊/10^20` — strictly stronger than the landed `H₊/10^6`, paid by a tower step
+   (`u ≥ 8·10^41` where the landed proof spent `u ≥ 1.8·10^21`). ⭐ **The selector layer is ONE
+   generalisation, not four twins**: a shift scale `c` threaded through nine lemmas, landed lane
+   `c = 1`, `h` lane `c = h`; the shift enters in exactly three places (ε-floor as `c`, δ₀-pin as
+   `c²`, ρ-charge as `2·log c`) and the `Cg` bump re-routes through `flatDoorM_ge_pow355`
+   (81 orders) because the landed `bfloorConst` has ZERO slack. ⭐ **Word 1's `Cg` cap** restored
+   at FOUR sites (the commission named three; the `_500` sibling exit carried the same artifact).
+   📌 **STEP 0, ANSWERED BEFORE THE BRANCH:** `Kc ≤ 2^539` FITS at `h` — `h = 1` witness
+   `≤ 2^228.06`, `+111.08` bits at `h ≤ 1096` (the charge is **11 bits per doubling, not 1**,
+   because the h lane's `ε = 1/(500h)` enters the count constant at the −10th power), total
+   `2^339.14` against `2^539`: **199.9 bits spare.** ⛔ But the ceiling is UNREACHABLE on the h
+   lane (the h head obtains the existential `bigXi_bounded`), so H1 threads it as a stated
+   hypothesis exactly as the `h = 1` substrate does; the explicit h-general count constant is
+   H2's. ⛔ **NOT here:** wave H2; word 5's two `flat_arm_*` re-cuts (measured: NO consumer inside
+   H1). **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,

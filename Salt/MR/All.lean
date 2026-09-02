@@ -415,6 +415,7 @@ import Salt.MR.HDoorArc
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
+import Salt.MR.HSeamCheck
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9146,3 +9147,52 @@ Nothing bears on twin primes: the exit is conditional on the same socket
 (`M4ChiSummedFreeRowH_L_gk h`) and the same door gates its `h = 1` twin is conditional on. -/
 #audit_axioms Salt.MR.mrtUniformityXiL2H_mono
   Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit
+
+/-! ⟦THE SUBSTRATE AT SHIFT `h` — WAVE H1⟧ (`S16Budget` · `XThread` · `S16ProducersH` ·
+`HSeamCheck`, 2026-09-01, math).  Wave H1 makes the `h` lane's own pins REACHABLE by the lemmas
+that consume them.  Its content is four things, and the first is the one that mattered.
+
+⭐⭐ **THE SEAM.**  Waves P (`#18`) and X (`#19`) both landed green, both fully audited, and
+**did not compose at `h ≥ 2`**: `s15ArmH_log_le` demanded the `h = 1` pin `1/838400 ≤ δ₀` while
+X's exit can only export `1/(838400·h²) ≤ δ₀`, which is FORCED (`δ₀ = cD3/(16C)·ε/4` with
+`C ≤ 6.55h`, `ε = 1/(500h)`).  Both numerals sat in HYPOTHESES of conditional statements, so
+**no gate in this repository could see it.**  ⇒ 🔑 ***THE KERNEL CHECKS THEOREMS, NOT THAT THEY
+COMPOSE — and when two waves of one commission land separately, the seam BETWEEN them is exactly
+where nothing has been run.***  `HSeamCheck` §1 is the check that can see it: an integration
+`example` at a SYMBOLIC `h ≥ 2` that hands the exit's own exported pin, unmodified, to the arm
+estimate.  If either numeral drifts again, that file stops compiling.
+
+⭐ **THE CHARGE, AND A NUMBER TWO DESIGN WORDS GOT WRONG.**  The `ρ`-corner was priced at
+`4·log h`, then at `13·log h`.  It is `2·log h`: the compose pins
+`doorRhoOfDelta (s12DeltaSock δ₀ Kc)`, never `doorRhoOfDelta δ₀`, and `s12DeltaSock`'s square
+root exactly cancels `doorRhoOfDelta`'s square.  `s16_audit_neglog_rho_le_wide_h` states it
+(`403 + 2·log h`), `_417_h` closes it under `hh7`, and the five charge-generic register lines are
+re-cut at `417` — all of them charge-GENERIC, so the re-cut is a hypothesis WEAKENING.
+
+⭐ **THE ARM, GENERALISED.**  `s15Arm_log_le_scaled` prices the arm at ANY pin
+`1/(838400·c) ≤ δ₀`, `1 ≤ c ≤ 1201216`, `log c ≤ 14`, concluding `log ω + H₊/10^20` — a
+STRICTLY STRONGER bound than the landed `H₊/10^6`, paid for by a tower step the landed proof
+never needed (`u = e^{L/2} = (e^{L/4})² ≥ 8·10^41`, where it had spent only `u ≥ 1.8·10^21`).
+`s15Arm_log_le` is that lemma at `c = 1`; `s15ArmH_log_le` is it at `c = h²`.
+
+⭐ **THE SELECTOR LAYER — ONE GENERALISATION, NOT FOUR TWINS.**  A shift scale `c` is threaded
+through `s15_sel''_L_witness_flat`, `s15_sel''_L_gk_witness_flat`, `flat_blk_line_gk`,
+`s15_sel''_L_witness_flat_charge`, `s15_sel''_L_witness_flat_wide`,
+`s15_sel''_L_gk_witness_flat_wide`, `flatDoorM_bfloor_bump` and both bumped selectors; the landed
+lane is `c = 1` and the `h` lane is `c = h`.  The shift enters in exactly three places — the
+`ε`-floor as `c`, the `δ₀`-pin as `c²`, the `ρ`-charge as `2·log c` — and the `Cg` bump is
+re-routed through `flatDoorM_ge_pow355` (81 orders) because the landed `bfloorConst` has ZERO
+slack and cannot carry a `c²`.
+⛔ NOT here: wave H2 (the six hops, the two suppliers and their two capstones); the explicit
+`h`-general large-spectrum count constant (H1's step 0 measured `Kc ≤ 2^539` FITS at `h` with
+199.9 bits to spare, but the ceiling is unreachable on the `h` lane — the h head obtains the
+EXISTENTIAL `bigXi_bounded`, so H1 threads `Kc ≤ 2^539` as a stated hypothesis exactly as the
+`h = 1` substrate does); and word 5's two `flat_arm_*` re-cuts, which have NO consumer inside H1.
+Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is. -/
+#audit_axioms Salt.MR.s16_audit_rho_ge_wide_h
+  Salt.MR.s16_audit_neglog_rho_le_wide_h
+  Salt.MR.s16_audit_neglog_rho_le_417_h
+  Salt.MR.xt_log_inv_rho_le_scaled
+  Salt.MR.s15Arm_log_le_scaled
+  Salt.MR.h_le_1096_of_hh7
+  Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_h

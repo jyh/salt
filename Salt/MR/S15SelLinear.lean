@@ -264,15 +264,16 @@ Siegel-ineffective, so no theorem places it in any window.  Here the window is
 
 ⟦WHAT DOES **NOT** APPEAR⟧ any upper bound on `A`.  Nothing in the register caps the design
 constant — ⟦H2-CONSTANTS⟧'s synthesis, kernelized. -/
-theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ}
+theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl c : ℕ}
     {R : ChowlaRegime}
+    (hc1 : 1 ≤ c) (hcb : c ≤ 1096)
     (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 10 ≤ δ₀)
     (hK : 0 < K) (hKb : K ≤ 2 ^ 20)
     (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 20)
     (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
     (hMfl : Mfl ≤ flatDoorM A)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
@@ -390,13 +391,23 @@ theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
     have hHhige : Real.exp (E ^ 2) ≤ ((R.Hhi : ℕ) : ℝ) := by
       have : ((R.Hlo : ℕ) : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) := by exact_mod_cast R.hHlohi
       linarith
-    have hepsR : (1 : ℝ) / 512 ≤ (R.eps : ℝ) := by
-      have hq : ((1 : ℚ) / 512 : ℚ) ≤ R.eps := by
-        have := heps; norm_num at this ⊢; linarith
-      have hc := (Rat.cast_le (K := ℝ)).mpr hq
-      push_cast at hc
-      linarith
-    have hepssq : (1 : ℝ) / 262144 ≤ (R.eps : ℝ) ^ 2 := by nlinarith [hepsR]
+    have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+    have hcR0 : (0 : ℝ) < (c : ℝ) := by linarith
+    have hcRb : (c : ℝ) ≤ 1096 := by exact_mod_cast hcb
+    have hepsR : (1 : ℝ) / (512 * (c : ℝ)) ≤ (R.eps : ℝ) := by
+      have hcast : (((1 : ℚ) / (2 ^ 9 * (c : ℚ)) : ℚ) : ℝ) ≤ ((R.eps : ℚ) : ℝ) :=
+        (Rat.cast_le (K := ℝ)).mpr heps
+      have heq : (((1 : ℚ) / (2 ^ 9 * (c : ℚ)) : ℚ) : ℝ) = 1 / (512 * (c : ℝ)) := by
+        push_cast; norm_num
+      rw [heq] at hcast
+      exact hcast
+    have hepsR0 : (0 : ℝ) ≤ 1 / (512 * (c : ℝ)) := by positivity
+    have hepssq : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) ≤ (R.eps : ℝ) ^ 2 := by
+      have hmul := mul_le_mul hepsR hepsR hepsR0 (le_trans hepsR0 hepsR)
+      calc (1 : ℝ) / (262144 * (c : ℝ) ^ 2)
+          = (1 / (512 * (c : ℝ))) * (1 / (512 * (c : ℝ))) := by field_simp; ring
+        _ ≤ (R.eps : ℝ) * (R.eps : ℝ) := hmul
+        _ = (R.eps : ℝ) ^ 2 := by ring
     have hfloorR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1
         ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
       have h := Nat.lt_floor_add_one (R.eps ^ 2 * (R.Hhi : ℚ))
@@ -404,20 +415,30 @@ theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
           < ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1 := by exact_mod_cast h
       push_cast at h'
       linarith
-    have hprod : (1 : ℝ) / 262144 * Real.exp (E ^ 2) ≤ (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
+    have hprod : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2)
+        ≤ (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
       mul_le_mul hepssq hHhige (Real.exp_pos _).le (by positivity)
     -- `e^{E²} ≥ E⁸/256`, so `2^{-18}·e^{E²} ≥ E⁸/2^{26} ≥ 6·E⁶` at `E ≥ 10^{17}`
     have hquart : (E ^ 2) ^ 4 / 256 ≤ Real.exp (E ^ 2) := flat_exp_ge_quartic (by positivity)
     -- amended per REF-FLAT-SAT: `6 → 15`, matching `hlhs`'s `19 → 55`
-    have hbig : 15 * E ^ (6 : ℕ) ≤ 1 / 262144 * Real.exp (E ^ 2) := by
-      have h2 : (1 : ℝ) / 262144 * ((E ^ 2) ^ 4 / 256)
-          = E ^ (6 : ℕ) * E ^ (2 : ℕ) / 67108864 := by ring
-      have h3 : (15 : ℝ) * E ^ (6 : ℕ) ≤ E ^ (6 : ℕ) * E ^ (2 : ℕ) / 67108864 := by
-        have hEsq : (1006632960 : ℝ) ≤ E ^ (2 : ℕ) := by nlinarith [hE17, hE0]
+    -- the shift enters ONLY here, as `c²` in the denominator; `E ≥ 10^17` so `E² ≥ 10^34`
+    -- against a demand of `15·67108864·c² ≤ 1.21·10^15` at `c ≤ 1096` — nineteen orders.
+    have hbig : 15 * E ^ (6 : ℕ) ≤ 1 / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2) := by
+      have hcsq : (1 : ℝ) ≤ (c : ℝ) ^ 2 := by nlinarith [hcR1]
+      have hcsqb : (c : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hcR1, hcRb]
+      have h2 : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * ((E ^ 2) ^ 4 / 256)
+          = E ^ (6 : ℕ) * E ^ (2 : ℕ) / (67108864 * (c : ℝ) ^ 2) := by field_simp; ring
+      have h3 : (15 : ℝ) * E ^ (6 : ℕ)
+          ≤ E ^ (6 : ℕ) * E ^ (2 : ℕ) / (67108864 * (c : ℝ) ^ 2) := by
+        rw [le_div_iff₀ (by positivity)]
+        have hEsq : (1209000000000000000 : ℝ) ≤ E ^ (2 : ℕ) := by nlinarith [hE17, hE0]
         have hE60 : (0 : ℝ) ≤ E ^ (6 : ℕ) := by positivity
-        nlinarith [mul_nonneg hE60 (show (0 : ℝ) ≤ E ^ (2 : ℕ) - 1006632960 by linarith)]
-      have h1 : (1 : ℝ) / 262144 * ((E ^ 2) ^ 4 / 256) ≤ 1 / 262144 * Real.exp (E ^ 2) := by
-        linarith [hquart]
+        nlinarith [mul_nonneg hE60
+          (show (0 : ℝ) ≤ E ^ (2 : ℕ) - 1006632960 * (c : ℝ) ^ 2 by nlinarith [hEsq, hcsqb])]
+      have h1 : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * ((E ^ 2) ^ 4 / 256)
+          ≤ 1 / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2) := by
+        have hpos : (0 : ℝ) ≤ 1 / (262144 * (c : ℝ) ^ 2) := by positivity
+        exact mul_le_mul_of_nonneg_left hquart hpos
       linarith [h1, h2, h3]
     linarith [hlhs, hfloorR, hprod, hbig, hE61]
   · -- ⟦`M`-UPPER 2⟧ the window gate: `0.49959·E² + 108` against `E²/2`
@@ -527,7 +548,8 @@ set_option maxHeartbeats 1600000 in
 `e^{3.2A} = (e^{1.6A})²` dwarfs `766·e^{1.6A}` by the factor `e^{1.6A} ≥ 10^{17}` itself.  So
 the flat register hosts the lever at the door's full `K`-budget. -/
 theorem s15_sel''_L_gk_witness_flat {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
-    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ}
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl c : ℕ}
+    (hc1 : 1 ≤ c) (hcb : c ≤ 1096)
     {R : ChowlaRegime}
     (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 10 ≤ δ₀)
     (hK : 0 < K) (hKb : K ≤ 2 ^ 20)
@@ -535,14 +557,15 @@ theorem s15_sel''_L_gk_witness_flat {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
     (hMfl : Mfl ≤ flatDoorM A)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) := by
   refine s15_sel''_L_gk_of_L Klev
-    (s15_sel''_L_witness_flat hA hδ hδb hK hKb hCt hCtb hbfl hMfl hx0win heps hlo hhi) ?_
+    (s15_sel''_L_witness_flat hA hc1 hcb hδ hδb hK hKb hCt hCtb hbfl hMfl hx0win heps hlo hhi)
+    ?_
   set E : ℝ := Real.exp (3.2 * A / 2) with hEdef
   set Mr : ℝ := ((flatDoorM A : ℕ) : ℝ) with hMrdef
   have hE17 : (10 : ℝ) ^ 17 ≤ E := flat_exp_half_ge hA
@@ -631,13 +654,24 @@ theorem s15_sel''_L_gk_witness_flat {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     rw [Real.exp_log hHlopos] at h
     have h2 : ((R.Hlo : ℕ) : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) := by exact_mod_cast R.hHlohi
     linarith
-  have hepsR : (1 : ℝ) / 512 ≤ (R.eps : ℝ) := by
-    have hq : ((1 : ℚ) / 512 : ℚ) ≤ R.eps := by
-      have := heps; norm_num at this ⊢; linarith
-    have hc := (Rat.cast_le (K := ℝ)).mpr hq
-    push_cast at hc
-    linarith
-  have hepssq : (1 : ℝ) / 262144 ≤ (R.eps : ℝ) ^ 2 := by nlinarith [hepsR]
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hcR0 : (0 : ℝ) < (c : ℝ) := by linarith
+  have hcRb : (c : ℝ) ≤ 1096 := by exact_mod_cast hcb
+  have hcsqb : (c : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hcR1, hcRb]
+  have hepsR : (1 : ℝ) / (512 * (c : ℝ)) ≤ (R.eps : ℝ) := by
+    have hcast : (((1 : ℚ) / (2 ^ 9 * (c : ℚ)) : ℚ) : ℝ) ≤ ((R.eps : ℚ) : ℝ) :=
+      (Rat.cast_le (K := ℝ)).mpr heps
+    have heq : (((1 : ℚ) / (2 ^ 9 * (c : ℚ)) : ℚ) : ℝ) = 1 / (512 * (c : ℝ)) := by
+      push_cast; norm_num
+    rw [heq] at hcast
+    exact hcast
+  have hepsR0 : (0 : ℝ) ≤ 1 / (512 * (c : ℝ)) := by positivity
+  have hepssq : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) ≤ (R.eps : ℝ) ^ 2 := by
+    have hmul := mul_le_mul hepsR hepsR hepsR0 (le_trans hepsR0 hepsR)
+    calc (1 : ℝ) / (262144 * (c : ℝ) ^ 2)
+        = (1 / (512 * (c : ℝ))) * (1 / (512 * (c : ℝ))) := by field_simp; ring
+      _ ≤ (R.eps : ℝ) * (R.eps : ℝ) := hmul
+      _ = (R.eps : ℝ) ^ 2 := by ring
   have hfloorR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1
       ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
     have h := Nat.lt_floor_add_one (R.eps ^ 2 * (R.Hhi : ℚ))
@@ -645,7 +679,8 @@ theorem s15_sel''_L_gk_witness_flat {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
         < ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1 := by exact_mod_cast h
     push_cast at h'
     linarith
-  have hprod : (1 : ℝ) / 262144 * Real.exp (E ^ 2) ≤ (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
+  have hprod : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2)
+      ≤ (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
     mul_le_mul hepssq hHhige (Real.exp_pos _).le (by positivity)
   have hE2big : 766 * E + 40 ≤ E ^ 2 := by
     have hmul : (10 : ℝ) ^ 17 * E ≤ E * E := by nlinarith [hE17, hE0]
@@ -661,9 +696,16 @@ theorem s15_sel''_L_gk_witness_flat {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     linarith
   have hsplit40 : Real.exp (766 * E + 40) = Real.exp (766 * E) * Real.exp 40 := by
     rw [← Real.exp_add]
-  have hbig : 2 * Real.exp (766 * E) ≤ 1 / 262144 * Real.exp (E ^ 2) := by
+  -- the shift enters only as `c²`: `2·262144·c² ≤ 6.3·10^11` against `exp 40 ≥ 10^17`
+  have hbig : 2 * Real.exp (766 * E) ≤ 1 / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2) := by
     have hexpp : (0 : ℝ) < Real.exp (766 * E) := Real.exp_pos _
-    nlinarith [hexpmono, hsplit40, hexp40, hexpp]
+    have hstep : 2 * 262144 * (c : ℝ) ^ 2 * Real.exp (766 * E) ≤ Real.exp (E ^ 2) := by
+      nlinarith [hexpmono, hsplit40, hexp40, hexpp, hcsqb]
+    have hden : (0 : ℝ) < 262144 * (c : ℝ) ^ 2 := by positivity
+    have hre : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2)
+        = Real.exp (E ^ 2) / (262144 * (c : ℝ) ^ 2) := by ring
+    rw [hre, le_div_iff₀ hden]
+    nlinarith [hstep]
   have hEle : (18 : ℝ) * E + 5 ≤ Real.exp (766 * E) := by
     have h1 : (1 : ℝ) + 766 * E ≤ Real.exp (766 * E) := by
       linarith [Real.add_one_le_exp (766 * E)]

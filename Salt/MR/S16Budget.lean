@@ -981,6 +981,71 @@ theorem s16_audit_neglog_rho_le_wide {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 <
   rw [h2] at h1
   linarith
 
+set_option exponentiation.threshold 4000 in
+/-- ⟦AUDIT, AT SHIFT `h`⟧ **THE `ρ` FLOOR AT THE SCALED `δ₀` PIN** (`s16_audit_rho_ge_wide_h`) —
+`s16_audit_rho_ge_wide` with the `h` lane's own pin `1/(2^20·h²) ≤ δ₀` (wave X's exit exports
+`1/(838400·h²) ≤ δ₀`, and `838400 ≤ 2^20`).  The floor drops by exactly `h²`, and by nothing
+else: `s12DeltaSock`'s square root cancels `doorRhoOfDelta`'s square, so a `h⁻²` pin costs
+`h⁻²` in `ρ`, not `h⁻⁴`. -/
+theorem s16_audit_rho_ge_wide_h {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / (2 ^ 20 * (h : ℝ) ^ 2) ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
+    (1 : ℝ) / (2 ^ 581 * (h : ℝ) ^ 2) ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hhsq : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith
+  have hh0 : (0 : ℝ) < (h : ℝ) := by linarith
+  have hinv : (0 : ℝ) < 1 / (h : ℝ) ^ 2 := by positivity
+  rw [doorRhoOfDelta, le_min_iff]
+  refine ⟨?_, ?_⟩
+  · rw [div_le_one (by positivity)]
+    nlinarith [hhsq]
+  rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
+  -- ⟦THE SPLIT⟧ the `h²` is a common factor on both sides; peel it off so the
+  -- numeral comparison `1768400 ≤ 2^22` is seen by `nlinarith` on its own.
+  have hkey : 1 / (2 : ℝ) ^ 581 * (16 * K * 110525) ≤ 1 / (2 : ℝ) ^ 20 := by
+    nlinarith [hKb, hK]
+  have hsplit1 : 1 / ((2 : ℝ) ^ 581 * (h : ℝ) ^ 2) * (16 * K * 110525)
+      = 1 / (2 : ℝ) ^ 581 * (16 * K * 110525) * (1 / (h : ℝ) ^ 2) := by
+    field_simp
+  have hsplit2 : 1 / (2 : ℝ) ^ 20 * (1 / (h : ℝ) ^ 2)
+      = 1 / ((2 : ℝ) ^ 20 * (h : ℝ) ^ 2) := by
+    field_simp
+  rw [hsplit1]
+  refine le_trans (mul_le_mul_of_nonneg_right hkey hinv.le) ?_
+  rw [hsplit2]
+  exact hδb
+
+set_option exponentiation.threshold 4000 in
+/-- ⟦AUDIT, AT SHIFT `h`⟧ **THE CLEARING CHARGE AT SHIFT `h`** (`s16_audit_neglog_rho_le_wide_h`)
+— `log(1/ρ) ≤ 403 + 2·log h`.  The `403` is `581·log 2 = 402.72`; the shift adds `2·log h` and
+NOTHING ELSE.  ⛔ This is the number two successive design words priced at `4·log h` and then
+`13·log h`: the compose pins `doorRhoOfDelta (s12DeltaSock δ₀ Kc)`, never `doorRhoOfDelta δ₀`,
+and the sock's `√` exactly cancels the envelope's square. -/
+theorem s16_audit_neglog_rho_le_wide_h {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / (2 ^ 20 * (h : ℝ) ^ 2) ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
+    -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 403 + 2 * Real.log (h : ℝ) := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hge := s16_audit_rho_ge_wide_h hh hδ hK hδb hKb
+  have hpos : (0 : ℝ) < 1 / (2 ^ 581 * (h : ℝ) ^ 2) := by positivity
+  have h1 : Real.log ((1 : ℝ) / (2 ^ 581 * (h : ℝ) ^ 2))
+      ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := Real.log_le_log hpos hge
+  have h2 : Real.log ((1 : ℝ) / (2 ^ 581 * (h : ℝ) ^ 2))
+      = -(581 * Real.log 2) - 2 * Real.log (h : ℝ) := by
+    rw [one_div, Real.log_inv, Real.log_mul (by positivity) (by positivity), Real.log_pow,
+      Real.log_pow]
+    push_cast; ring
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  rw [h2] at h1
+  linarith
+
+/-- ⟦AUDIT, AT SHIFT `h`⟧ the charge under the `h`-family's own binder: `hh7 : log h ≤ 7` gives
+`403 + 2·log h ≤ 417`.  417 is the number every `ρ`-carrying register line of the `h` lane
+spends — 14 more than the `h = 1` lane's 403, for shifts up to `e^7 = 1096`. -/
+theorem s16_audit_neglog_rho_le_417_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / (2 ^ 20 * (h : ℝ) ^ 2) ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
+    -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 417 :=
+  le_trans (s16_audit_neglog_rho_le_wide_h hh hδ hK hδb hKb) (by linarith)
+
 /-- ⟦AUDIT⟧ the BINDING `lvl` register line at the wide charge `403` (`s15w2_lvl_num'` at
 `43`).  Slack `3.13·10^{10}`: the widened `Kc` ceiling is invisible against `14·λ₊`. -/
 theorem s16_audit_lvl_num_wide {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277)

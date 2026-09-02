@@ -1459,9 +1459,16 @@ theorem m4_sievedDoorSq_of_blk2H_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {
 M4DoorGates_L_gk K`, `M4SievedDoorSqH → M4SievedDoorSqH_L_gk h K`, and the sieve insert fired at
 `(AdoorL M) (s13GK K M)`; `parseval_insert_budget_door` is lane-general and the arc supply at
 the twisted set (`nearRatTight_of_bigXiArcTight_H`) is lane-free.  `(hh : 0 < h)` is carried
-explicitly per the `ShiftFork` module fence. -/
+explicitly per the `ShiftFork` module fence.
+
+⭐ **2026-09-01, wave H1 word 1 — THE `Cg` CAP RESTORED.**  This mint originally reached for
+`parseval_insert_budget_door` (`M4ParsevalStone.lean:341`) where the `h = 1` lane reaches for
+`parseval_insert_budget_door_bounded` (`CgPin.lean:291`, the same `∀`-body plus one conjunct).
+The two differ only in that the bounded one EXPORTS `Cg ≤ 2·10^12`, and that cap is READ with
+ZERO slack downstream (`flatDoorM_bfloor_bump`: `24·2·10^12·838400 = 4.02432·10^19` exactly).
+Its absence at `h` was an artifact of that one `obtain`, not a property of the `h` lane. -/
 theorem m4_doorL2_supply_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
-    ∃ Cg : ℝ, 1 ≤ Cg ∧
+    ∃ Cg : ℝ, 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       ∀ (eps : ℚ), 0 < eps → ∃ H₀ : ℕ,
         ∀ (R : ChowlaRegime), R.eps = eps → H₀ ≤ R.Hlo →
           ∀ (Braw : ℕ → ℝ) (Kc Bceil δ : ℝ) (M k : ℕ),
@@ -1473,8 +1480,8 @@ theorem m4_doorL2_supply_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
             0 ≤ Kc →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
               MRTUniformityXiL2H h R (2 * Kc * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ)) := by
-  obtain ⟨Cg, hCg, hpars⟩ := parseval_insert_budget_door
-  refine ⟨Cg, hCg, ?_⟩
+  obtain ⟨Cg, hCg, hCgle, hpars⟩ := parseval_insert_budget_door_bounded
+  refine ⟨Cg, hCg, hCgle, ?_⟩
   intro eps heps
   obtain ⟨H₀, hH₀⟩ := nearRatTight_of_bigXiArcTight_H bigXiArcTight_twelve heps hh
   refine ⟨H₀, ?_⟩
@@ -1523,9 +1530,22 @@ theorem m4_doorL2_supply_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
 
 /-- **THE `_500` PIN** — `HDoorArc.m4_doorL2_supply_500_H` (`:575`) on the lane: the count
 discharged from `bigXiH_card_le_mul` against `bigXi_bounded_500`'s third conjunct, the exported
-constant `KXi = h · 32·K_lcm·(2^35)² / ε^10` at `ε = 1/500`, `h`-explicit in the witness. -/
+constant `KXi = h · 32·K_lcm·(2^35)² / ε^10` at `ε = 1/500`, `h`-explicit in the witness.
+
+⚠️ **READ THE `ε` PIN BEFORE READING THE `h`-CHARGE OFF THIS WITNESS (H1 step 0, 2026-09-01).**
+Here the charge really is `h × (the h = 1 value)` — ONE factor of `h` — but only because this
+lemma pins `R.eps = 1/500`.  The `h` lane's own exit pins `ε = 1/(500·h)`
+(`HloExportFlatH.lean:250`), and the count constant carries `ε^{-10}`
+(`bigXi_bounded_explicit`, `GoldbachEnergyN0.lean:726`), so THERE the charge is `h^11`, not `h`.
+Both are correct at their own pin; only the second is the exit's.  (Step 0's number: `h = 1`
+witness ≤ `2^228.06`, `+111.08` bits at `h ≤ 1096`, total `2^339.14` against the `2^539` pin.)
+
+⭐ **WAVE H1 WORD 1, FOURTH SITE (not in the commission's list of three).**  This sibling exit
+carried the same capless `Cg` for the same reason — it obtains from the mint — so leaving it
+would have recreated the very artifact word 1 removes.  Zero kernel consumers; strengthened in
+the ruled direction. -/
 theorem m4_doorL2_supply_500_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
-    ∃ (Cg KXi : ℝ), 1 ≤ Cg ∧ 0 < KXi ∧ ∃ H₀ : ℕ,
+    ∃ (Cg KXi : ℝ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧ 0 < KXi ∧ ∃ H₀ : ℕ,
       ∀ (R : ChowlaRegime), R.eps = 1 / 500 → H₀ ≤ R.Hlo →
         ∀ (Braw : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
           M4DoorGates_L_gk K Cg R M k δ →
@@ -1533,13 +1553,13 @@ theorem m4_doorL2_supply_500_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
           M4SievedDoorSqH_L_gk h K R M Braw →
           (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
             MRTUniformityXiL2H h R (2 * KXi * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ)) := by
-  obtain ⟨Cg, hCg, hsup⟩ := m4_doorL2_supply_H_L_gk h hh K
+  obtain ⟨Cg, hCg, hCgle, hsup⟩ := m4_doorL2_supply_H_L_gk h hh K
   obtain ⟨Klcm, hKlcm, _, hcount⟩ := bigXi_bounded_500
   obtain ⟨H₀, hH₀⟩ := hsup (1 / 500) (by norm_num)
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have h500 : (0 : ℝ) < (((1 : ℚ) / 500 : ℚ) : ℝ) ^ 10 := by norm_num
   refine ⟨Cg, (h : ℝ) * (32 * Klcm * ((2 : ℝ) ^ 35) ^ 2 / (((1 : ℚ) / 500 : ℚ) : ℝ) ^ 10),
-    hCg, ?_, H₀, ?_⟩
+    hCg, hCgle, ?_, H₀, ?_⟩
   · exact mul_pos hhR (by positivity)
   intro R hReps hfloor Braw Bceil δ M k hgates hBraw0 hsock hceil
   refine hH₀ R hReps hfloor Braw _ Bceil δ M k hgates hBraw0 hsock ?_ ?_ hceil
@@ -1566,7 +1586,7 @@ the count `Kc` and the door's grade is the conclusion's argument; the consumer i
 caller's budget line — the same three-term line `l2_budget_line` the `h = 1` register checks
 against `δ₀`. -/
 theorem m4_second_road_L2_H_gk_flatRoot_L (h : ℕ) (hh : 0 < h) (K : ℕ) :
-    ∃ Cg : ℝ, 1 ≤ Cg ∧
+    ∃ Cg : ℝ, 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       ∀ (eps : ℚ), 0 < eps → ∃ H₀ : ℕ,
         ∀ (R : ChowlaRegime), R.eps = eps → H₀ ≤ R.Hlo →
           ∀ (δ Bceil Kc : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
@@ -1589,8 +1609,8 @@ theorem m4_second_road_L2_H_gk_flatRoot_L (h : ℕ) (hh : 0 < h) (K : ℕ) :
             0 ≤ Kc →
             M4ChiSummedFreeRowH_L_gk h K R M RS →
               MRTUniformityXiL2H h R (2 * Kc * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ)) := by
-  obtain ⟨Cg, hCg, hmint⟩ := m4_doorL2_supply_H_L_gk h hh K
-  refine ⟨Cg, hCg, ?_⟩
+  obtain ⟨Cg, hCg, hCgle, hmint⟩ := m4_doorL2_supply_H_L_gk h hh K
+  refine ⟨Cg, hCg, hCgle, ?_⟩
   intro eps heps
   obtain ⟨H₀, hH₀⟩ := hmint eps heps
   refine ⟨H₀, ?_⟩

@@ -104,17 +104,6 @@ theorem flatDoorM_ge_bfloorConst {A : ℝ} (hA : 37 ≤ A) :
     nlinarith [hexp]
   linarith
 
-/-- **⟦BUMP 1, AT THE TERMINAL'S OWN PINS⟧** — `s15_sel''_L_gk_witness_flat_wide`'s `hbfl`
-slot, discharged from `Cg ≤ 2·10¹²` and `1/838400 ≤ δ₀` at any `A ≥ 37`.  The two sides meet
-EXACTLY at the pins (`24·2·10¹²·838400 = 4.02432·10¹⁹`), so no numeral here is slack. -/
-theorem flatDoorM_bfloor_bump {A Cg δ₀ : ℝ} (hA : 37 ≤ A) (hδ : 0 < δ₀)
-    (hδb : 1 / 838400 ≤ δ₀) (hCg : Cg ≤ 2 * 10 ^ 12) :
-    24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ) := by
-  have hstep : 24 * Cg / δ₀ ≤ (40243200000000000000 : ℝ) := by
-    rw [div_le_iff₀ hδ]
-    nlinarith [hδb, hCg]
-  exact le_trans hstep (flatDoorM_ge_bfloorConst hA)
-
 /-! ## §2 — ⟦BUMP 2⟧ the `Mfl` floor at the terminal's `2^355` -/
 
 set_option exponentiation.threshold 4000 in
@@ -130,6 +119,37 @@ theorem flatDoorM_ge_pow355 {A : ℝ} (hA : 162 ≤ A) : (2 : ℕ) ^ 355 ≤ fla
     push_cast
     norm_num
   linarith
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦BUMP 1, AT THE TERMINAL'S OWN PINS⟧** — `s15_sel''_L_gk_witness_flat_wide`'s `hbfl`
+slot, discharged from `Cg ≤ 2·10¹²` and `1/838400 ≤ δ₀` at any `A ≥ 37`.  The two sides meet
+EXACTLY at the pins (`24·2·10¹²·838400 = 4.02432·10¹⁹`), so no numeral here is slack. -/
+theorem flatDoorM_bfloor_bump {A Cg δ₀ : ℝ} {c : ℕ} (hc1 : 1 ≤ c) (hcb : c ≤ 1096)
+    (hA : 162 ≤ A) (hδ : 0 < δ₀)
+    (hδb : 1 / (838400 * (c : ℝ) ^ 2) ≤ δ₀) (hCg : Cg ≤ 2 * 10 ^ 12) :
+    24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ) := by
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hcRb : (c : ℝ) ≤ 1096 := by exact_mod_cast hcb
+  have hcsqb : (c : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hcR1, hcRb]
+  have hcsq1 : (1 : ℝ) ≤ (c : ℝ) ^ 2 := by nlinarith [hcR1]
+  -- ⟦THE ROUTE CHANGE⟧ the landed bump lands on `flatDoorM_ge_bfloorConst`
+  -- (`4.02432·10^19`, ZERO slack).  At the shift the demand is `4.02432·10^19·c²
+  -- ≤ 4.84·10^25`, which that constant cannot cover — so the bump is re-routed through
+  -- `flatDoorM_ge_pow355` (`2^355 ≈ 7.3·10^106`), clearing by 81 orders.
+  have hcsqpos : (0 : ℝ) < (c : ℝ) ^ 2 := by nlinarith [hcR1]
+  have hkey : (1 : ℝ) / 838400 ≤ (c : ℝ) ^ 2 * δ₀ := by
+    have h := mul_le_mul_of_nonneg_left hδb hcsqpos.le
+    calc (1 : ℝ) / 838400 = (c : ℝ) ^ 2 * (1 / (838400 * (c : ℝ) ^ 2)) := by field_simp
+      _ ≤ (c : ℝ) ^ 2 * δ₀ := h
+  have hstep : 24 * Cg / δ₀ ≤ (40243200000000000000 : ℝ) * (c : ℝ) ^ 2 := by
+    rw [div_le_iff₀ hδ]
+    nlinarith [hkey, hCg]
+  have hcap : (40243200000000000000 : ℝ) * (c : ℝ) ^ 2 ≤ (2 : ℝ) ^ (355 : ℕ) := by
+    have h355 : (48345000000000000000000000 : ℝ) ≤ (2 : ℝ) ^ (355 : ℕ) := by norm_num
+    nlinarith [hcsqb, h355]
+  have hpow : (2 : ℝ) ^ (355 : ℕ) ≤ ((flatDoorM A : ℕ) : ℝ) := by
+    exact_mod_cast flatDoorM_ge_pow355 hA
+  linarith [hstep, hcap, hpow]
 
 /-- **⟦BUMP 2, AT THE TERMINAL'S OWN PIN⟧** — `s15_sel''_L_gk_witness_flat_wide`'s `hMfl`
 slot, discharged from the terminal's `Mfl ≤ 2^355` at any `A ≥ 162`. -/
@@ -331,21 +351,28 @@ theorem flatDoorM_gradeFloor_win {A C : ℝ} (hA : 162 ≤ A) (hC0 : 0 < C)
 instead of through the `2^355` pin.  The `bfloor` bump is unchanged (it reads only the `Cg`/`δ₀`
 pins, which no window touches). -/
 theorem s15_sel''_L_gk_witness_flat_bumped_win {A : ℝ} (hA : 162 ≤ A) (Klev : ℕ)
-    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ}
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl c : ℕ}
     {R : ChowlaRegime}
-    (hδ : 0 < δ₀) (hδb : 1 / 838400 ≤ δ₀)
+    (hc1 : 1 ≤ c) (hcb : c ≤ 1096) (hh7c : Real.log (c : ℝ) ≤ 7)
+    (hδ : 0 < δ₀) (hδb : 1 / (838400 * (c : ℝ) ^ 2) ≤ δ₀)
     (hK : 0 < K) (hKb : K ≤ 2 ^ 539)
     (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
     (hCg : Cg ≤ 2 * 10 ^ 12) (hMfl : Mfl ≤ flatDoorM A)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) :=
-  s15_sel''_L_gk_witness_flat_wide (flat162_ge_26 hA) Klev hKle hδ
-    (by nlinarith [hδb] : (1 : ℝ) / 2 ^ 20 ≤ δ₀) hK hKb hCt hCtb
-    (flatDoorM_bfloor_bump (flat162_ge_37 hA) hδ hδb hCg)
+  s15_sel''_L_gk_witness_flat_wide (flat162_ge_26 hA) Klev hKle hc1 hcb hh7c hδ
+    (by
+      have h1 : (0 : ℝ) < (c : ℝ) ^ 2 := by
+        have : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+        positivity
+      have : (1 : ℝ) / (2 ^ 20 * (c : ℝ) ^ 2) ≤ 1 / (838400 * (c : ℝ) ^ 2) := by
+        rw [div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [h1]
+      linarith [hδb] : (1 : ℝ) / (2 ^ 20 * (c : ℝ) ^ 2) ≤ δ₀) hK hKb hCt hCtb
+    (flatDoorM_bfloor_bump hc1 hcb hA hδ hδb hCg)
     hMfl hx0win heps hlo hhi
 
 /-- **⟦THE BUMPED WITNESS⟧** — `s15_sel''_L_gk_witness_flat_wide` with its two `M`-floor
@@ -353,22 +380,29 @@ hypotheses DISCHARGED, at the flat terminal's own constant pins.  This is the ex
 re-fire consumes: nothing about `Cg`, `δ₀`, `Mfl` is left for the caller beyond the pins the
 terminal already exports. -/
 theorem s15_sel''_L_gk_witness_flat_bumped {A : ℝ} (hA : 162 ≤ A) (Klev : ℕ)
-    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ}
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K : ℝ} {x₀ Mfl c : ℕ}
     {R : ChowlaRegime}
-    (hδ : 0 < δ₀) (hδb : 1 / 838400 ≤ δ₀)
+    (hc1 : 1 ≤ c) (hcb : c ≤ 1096) (hh7c : Real.log (c : ℝ) ≤ 7)
+    (hδ : 0 < δ₀) (hδb : 1 / (838400 * (c : ℝ) ^ 2) ≤ δ₀)
     (hK : 0 < K) (hKb : K ≤ 2 ^ 539)
     (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
     (hCg : Cg ≤ 2 * 10 ^ 12) (hMfl : Mfl ≤ 2 ^ 355)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
-    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) :=
-  s15_sel''_L_gk_witness_flat_wide (flat162_ge_26 hA) Klev hKle hδ
-    (by nlinarith [hδb] : (1 : ℝ) / 2 ^ 20 ≤ δ₀) hK hKb hCt hCtb
-    (flatDoorM_bfloor_bump (flat162_ge_37 hA) hδ hδb hCg)
+  s15_sel''_L_gk_witness_flat_wide (flat162_ge_26 hA) Klev hKle hc1 hcb hh7c hδ
+    (by
+      have h1 : (0 : ℝ) < (c : ℝ) ^ 2 := by
+        have : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+        positivity
+      have : (1 : ℝ) / (2 ^ 20 * (c : ℝ) ^ 2) ≤ 1 / (838400 * (c : ℝ) ^ 2) := by
+        rw [div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [h1]
+      linarith [hδb] : (1 : ℝ) / (2 ^ 20 * (c : ℝ) ^ 2) ≤ δ₀) hK hKb hCt hCtb
+    (flatDoorM_bfloor_bump hc1 hcb hA hδ hδb hCg)
     (flatDoorM_Mfl_bump hA hMfl) hx0win heps hlo hhi
 
 end Salt.MR

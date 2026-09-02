@@ -760,21 +760,56 @@ theorem s15ArmH_le_mul {h : ℕ} (hh : 0 < h) (δ₀ ρ : ℝ) (Hhi ω : ℕ) :
   rw [Nat.mul_add]
   exact Nat.add_le_add h1 h2
 
+/-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER⟧** (`h_le_1096_of_hh7`) — the `ℕ` half of
+`hh7 : log h ≤ 7`, which the `ℝ` half at `:170` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
+and `h² ≤ 1201216`.  Every numeral re-cut of wave H1 is stated against these two. -/
+theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) : h ≤ 1096 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp 7 := by
+    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh7
+  have he7 : Real.exp 7 < 1097 := by
+    have h3 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have h5 : (Real.exp 1) ^ (7 : ℕ) < (2.7182818286 : ℝ) ^ (7 : ℕ) :=
+      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
+    have h6 : (2.7182818286 : ℝ) ^ (7 : ℕ) < 1097 := by norm_num
+    rw [h3]; linarith
+  have : (h : ℝ) < 1097 := by linarith
+  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
+
 /-- **⟦THE ARM'S LOG AT SHIFT `h`⟧** (`s15Arm_log_le` at `h`) — the landed bound plus `log h`,
-off `s15ArmH_le_mul`. -/
-theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀)
-    (hδpin : 1 / 838400 ≤ δ₀) (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
+off `s15ArmH_le_mul`.
+
+⭐ **RESPELLED IN PLACE 2026-09-01 (wave H1 word 2) — THIS LEMMA WAS THE δ₀-PIN SEAM.**  It
+carried the `h = 1` numeral `1/838400 ≤ δ₀` while wave X's exit can only export
+`1/(838400·h²) ≤ δ₀` (forced: the head takes `δ₀ = cD3/(16C)·ε/4` with `C ≤ 6.55h` and
+`ε = 1/(500h)`, so `δ₀ ≍ h⁻²`).  At `h ≥ 2` the pin supplied did not discharge the pin demanded,
+and NO GATE IN THE REPOSITORY COULD SEE IT: both numerals sit in hypotheses of conditional
+statements.  It is now stated at the pin the `h` lane actually exports, routed through
+`XThread.s15Arm_log_le_scaled` at `c = h²`, and the conclusion is at the re-cut `H₊/10^20`.
+The `117` `h = 1` sites are untouched (iron rule 5); this was the ONLY `h`-lane name carrying
+the unscaled pin, and it had zero kernel consumers. -/
+theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {δ₀ Kc : ℝ}
+    (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
+    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
     (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
     Real.log ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
-      ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 1000000 := by
-  have hbase := s15Arm_log_le hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
+      ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hc1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1R]
+  have h1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast h_le_1096_of_hh7 hh hh7
+  have hcb : (h : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hh1R, h1096]
+  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 14 := by
+    rw [Real.log_pow]; push_cast; linarith
+  have hbase := s15Arm_log_le_scaled hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
   have hle := s15ArmH_le_mul hh δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω
   have hleR : ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
       ≤ (h : ℝ) * ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
     exact_mod_cast hle
   have hω0 : 0 ≤ Real.log ((ω : ℕ) : ℝ) := Real.log_natCast_nonneg ω
   have hh0 : 0 ≤ Real.log (h : ℝ) := Real.log_natCast_nonneg h
-  have hHhi0 : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 1000000 := by positivity
+  have hHhi0 : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
   rcases Nat.eq_zero_or_pos (s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω)
     with hz | hpos
   · rw [hz]; simp only [Nat.cast_zero, Real.log_zero]; linarith
