@@ -5570,8 +5570,19 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    📌 **(iii) the `h ≤ 1096` crossing, per lemma:** E reads `Salt.MR.h_le_1096_of_hh7`
    (`S16ProducersH:766`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
    `hh7` binder.
+   ⭐⭐ **AND THE PRIZE IS PINNED TO THE LANDED OBJECT BY A THEOREM:**
+   `logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:973`'s statement from
+   `logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
+   landed `logChowla2_v7_rated` itself. The three substitutions are definitional or `norm_num`
+   (`1/(500·1)`, `1/(838400·1²)`, and `logChowlaFails 1 = logChowla2Fails`, `ShiftFork:72`).
+   ⇒ **AN `∃`-STATEMENT'S DRIFT IS INVISIBLE TO EVERY CONSUMER**: a weaker family still
+   elaborates everywhere it is used, so `h := 1` is the only instrument that looks.
    ⛔ **NOT here:** `logChowla2_ineffective_v2/v4/v5_h` (T's presentation ladder, off the
-   headline's road) and the `_g0` no-trade receipt at `h`.
+   headline's road) and the `_g0` no-trade receipt at `h`. ⭐ **AND THEY ARE NOW DOMINATED:**
+   each of v2/v4/v5 carries `S16CofactorSupply_L_gk` (and v2 the base-scale cap) as a rider on
+   its conclusion, and the headline at `h` DISCHARGES both — so an `_h` twin of any of them
+   would be derivable-from-stronger, a receipt rather than a step. Recorded so the next head
+   prices them as archaeology, not as a gap.
    **Nothing bears on twin primes:** `logChowla2_v7_rated_h` is conditional in exactly the places
    its `h = 1` twin is, `ε` is bounded only from BELOW (and at shift `h` that floor is
    `1/(500·h)`), and the residual ineffectivity prices scale-extractability, not truth.

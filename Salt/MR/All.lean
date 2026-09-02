@@ -9631,6 +9631,13 @@ binder is generic.  ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h` 
 because a vacuous supplier and an absent one are indistinguishable from every gate, and the
 day N4s acquires a producer the family needs the `1/(500h)` spelling.
 
+⭐⭐ **AND THE FAMILY IS PINNED TO THE LANDED OBJECT BY A THEOREM, NOT A DOCSTRING.**
+`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:973`'s statement from
+`logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
+LANDED `logChowla2_v7_rated` itself.  The prize is an `∃` whose content sits under binders: a
+family that had drifted into a WEAKER object would still elaborate at every consumer, and no
+build anywhere could see it.  The substitution `h := 1` is the only instrument that looks.
+
 ⛔ **WHAT THIS IS NOT.**  `logChowla2_v7_rated_h` is conditional in exactly the places its
 `h = 1` twin is, and nothing here bears on twin primes: the transport wall is untouched at this
 rung, `ε` is bounded only from BELOW (and at shift `h` that floor is `1/(500·h)`, not `1/500`),
@@ -9644,3 +9651,4 @@ and the residual ineffectivity prices scale-extractability, not truth. -/
   Salt.MR.klevF_capNumeral_h
   Salt.MR.s16_baseScaleCap96_LH_at_klevF
   Salt.MR.logChowla2_v7_rated_h
+  Salt.MR.logChowla2_v7_rated_h_one

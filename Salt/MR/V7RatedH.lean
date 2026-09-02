@@ -1194,4 +1194,76 @@ theorem logChowla2_v7_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
 
 end RatedHeadlineH
 
+/-! ## §5 — ⟦THE ANTI-DRIFT GATE ON THE PRIZE⟧
+
+⛔ **WHY THIS IS A THEOREM AND NOT A DOCSTRING CLAIM.**  `logChowla2_v7_rated_h` is an
+`∃`-statement whose whole content sits under binders; a family that had silently drifted into a
+WEAKER object — a looser `ε` floor, a `logChowlaFails` at some other shift, a rider quietly
+added — would still elaborate at every consumer, and **no build anywhere could see it.**  The
+substitution `h := 1` is the one instrument that looks.
+
+The house pattern (V7Rated §5): a HAND-RETYPED copy of the landed statement, proved from the
+`h`-family at `h = 1`; then an `example` whose type is that same statement and whose proof term
+is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:973` fails to
+elaborate HERE. -/
+
+section AntiDriftH
+
+open Salt.Entropy.Chowla
+
+set_option exponentiation.threshold 4000 in
+/-- ⭐⭐ **THE `h`-FAMILY AT `h = 1` IS THE LANDED HEADLINE** (`logChowla2_v7_rated_h_one`) — a
+hand-retyped copy of `V7Rated.logChowla2_v7_rated`'s statement, derived from
+`logChowla2_v7_rated_h 1`.  The three substitutions the shift makes are all definitional or
+`norm_num`: `1/(500·1) = 1/500`, `1/(838400·1²) = 1/838400`, and
+`logChowlaFails 1 = logChowla2Fails` (`ShiftFork:72`, `rfl`). -/
+theorem logChowla2_v7_rated_h_one (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15,
+    hεpin, hδpin, a18, a19, a20, a21,
+    R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩ :=
+    logChowla2_v7_rated_h 1 (by norm_num) (by norm_num) A₀
+  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, ?_, ?_,
+    a18, a19, a20, a21, R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
+  · simpa using hεpin
+  · simpa using hδpin
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE RESTATEMENT, TIED TO THE LANDED DECLARATION⟧** — the theorem above retypes
+`V7Rated:973` by hand, so on its own it certifies only that the `h`-family implies THAT TEXT.
+This `example`'s type is that statement and its proof term is the landed
+`logChowla2_v7_rated` itself, so the two are the same up to defeq and the copy is
+self-enforcing under future edits to either side. -/
+example (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        ¬ logChowla2Fails R.eps R.x R.ω :=
+  logChowla2_v7_rated A₀
+
+end AntiDriftH
+
 end Salt.MR
