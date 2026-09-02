@@ -5461,6 +5461,44 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    the hypothesis-free headline), E (the `ε` seam — seven `HDoorSupply` names demand
    `1/500 ≤ R.eps` while the `h` head pins `ε = 1/(500·h)`); the cofactor/cap producers.
    **Nothing bears on twin primes.**
+   ✅✅ **WAVE H3 BLOCK C — THE UNIFORM CAPSTONES AT SHIFT `h` — 2026-09-02 (math, fresh head;
+   the helm's H3 commission rows 5–8).** New module `Salt/MR/S16ComposeLH.lean` (17 theorems +
+   2 private lemmas) · `Salt/Entropy/Chowla/HloExportFlatH.lean` §5 (+1, a public re-export).
+   **18 names, every theorem `[3 axioms]`**; audit blocks in `Salt/MR/All.lean` AND
+   `Salt/Entropy/All.lean`; full tree `saltbuild EXIT=0`, no warnings introduced.
+   ⭐ **THE CENSUS PRICED C AT ~8 AND IT IS 18, AND THE MODEL WAS WRONG IN BOTH DIRECTIONS AT
+   ONCE.** It under-named hop 2_h's fire list (six socket-framed lemmas absent from the row
+   table) and simultaneously over-priced the remainder (five of the six had already been built
+   by H2b/H2c, unmerged when the census was written). The two errors nearly cancelled. ⇒ **A
+   TOTAL THAT COMES OUT RIGHT CAN HIDE A MODEL THAT IS WRONG TWICE**; the only instrument that
+   separates them is reading the CONSUMER's argument list at the object.
+   ⭐ **THE `Ct` CEILING WAS MISSING FROM THE `h` LANE** — wave P's fuse carries `0 < Ct` and no
+   ceiling while every capstone statement carries `Ct ≤ 2^23`; re-obtained off `NumeralCt`'s
+   bounded upstream, bodies verbatim (2 names the census did not have).
+   ⛔ **GATE 7 IS NOT A TRANSCRIPTION** — `arcFloor36 = 10^138` clears `128·arcDen^3 ≤ H` by
+   **1.14×** at `h = 1` and FAILS from `h = 2`; the `h` lane reads `arc36_of_regime_h` off
+   `loglogFloor50` (a tower against `10^157`), so the landed proof's `arcFloor36` hypothesis is
+   not extracted here at all. ⭐ `RStr := h^7·rStrWitness` is invisible at gate 10a, because
+   `m4BclGraded_le_of_fits` bounds the block by `2·(m4Cmax H·Fan H)` and `Ftr` does not occur.
+   ⭐ **THE `K`-HOIST IS FREE AT `h = 1` AND COSTS THREE RESTATEMENTS AT `h`** — there the road
+   takes `Cg` from parseval at the DOOR level, so nothing above ever mentioned `K`; the `h` lane
+   routes through the door-form register, whose `K` is a leading binder. Still pure
+   re-bracketing, but three theorems rather than none. ⇒ **A RE-BRACKETING IS FREE ONLY WHERE
+   THE THING BEING HOISTED WAS ALREADY OUTSIDE.**
+   ⛔⛔ **AND THE `xceil` ROW IS NOT A COPY — IT IS A FENCE.** Its road's head is
+   `XThread.flat_head_uniform_xceil`; at `h` the head is `HloExportFlatH.flat_head_uniform_h`,
+   and `Salt/Entropy` CANNOT import `Salt/MR`, where the whole `xceil` apparatus lives (verified
+   in three shapes). Built in MR beside its `h = 1` sibling, off a ONE-LINE PUBLIC RE-EXPORT
+   appended to `HloExportFlatH` §5 — a new declaration, no landed line touched, no `private`
+   lifted (the helm concurred with this arm before it was taken). ⇒ **"THREE COPIES OF ROW 5" IS
+   A CLAIM ABOUT STATEMENTS, NOT ABOUT SUPPLIERS: two theorems can differ by one conjunct and
+   stand on chains that diverge four levels below.**
+   ⭐ **THE ARITHMETIC WAS ALREADY PAID** — the only inequality spent in the whole block is the
+   conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
+   that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's
+   `log 2`, with the room coming from `50 ≤ loglog H₊`.
+   ⛔ **NOT here:** blocks T (hops 4/5/6 and `logChowla2_v7_rated_h`) and E (the `ε` seam).
+   **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,

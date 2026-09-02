@@ -417,6 +417,7 @@ import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
 import Salt.MR.S16FlatTerminalLinearLH
 import Salt.MR.S16UniformLH
+import Salt.MR.S16ComposeLH
 import Salt.MR.HSeamCheck
 import Salt.MR.S13CapGateLinearLH
 import Salt.Tactic.AuditAxioms
@@ -9462,3 +9463,66 @@ Nothing bears on twin primes: every `h` object is conditional exactly where its 
   Salt.MR.m4_hband_at_door_slot_split_graded_LH_gk_uniform
   Salt.MR.s16_bandLaneWinLH_holds
   Salt.MR.s16_bandLaneWinLH_holdsU
+/-! ⟦THE UNIFORM CAPSTONES AT SHIFT `h`⟧ (`S16ComposeLH`, NEW · `HloExportFlatH` §5,
+2026-09-02, math — wave H3 block C).  Rows 5–8 of the census: the `A`-uniform, windowed,
+doubly-priced capstone and the conditional that sits on it, then the `kwide`, `khoist` and
+`xceil` twins of each.
+
+⭐ **THE `Ct` CEILING WAS MISSING FROM THE `h` LANE.**  Wave P's fuse
+(`m4_closure_fuse_zero'_const_nonneg_H_L_gk`) carries `0 < Ct` and no ceiling, while every
+capstone statement carries `Ct ≤ 2^23`.  §1 re-obtains the landed `h` slot and fuse off
+`NumeralCt.m4_hrowsSum_chi_door_zero'_L_gk_bounded` (`Ct ≤ 6·e^14`) and closes with
+`six_exp_fourteen_le_two_pow_23`.  Proof bodies verbatim; only the source of `Ct` moves.
+
+⛔ **ONE GATE IS NOT A TRANSCRIPTION, AND IT IS WHY H2a WORD 5 EXISTS.**  At `h = 1` gate 7
+(`128·arcDen^3 ≤ H`) is discharged from `arcFloor36 = 10^138`, which clears its demand by
+**1.14×** and therefore FAILS from `h = 2`.  The `h` lane reads `arc36_of_regime_h` off
+`loglogFloor50` instead — a tower against `10^157` — so the `arcFloor36` hypothesis the landed
+proof extracts is **not extracted here at all**.
+
+⭐ **THE TRIVIAL GRADE PAYS `h^7` AND NOTHING ELSE DOES.**  ⟦G1⟧ demands
+`(h·arcDen 12 H)^7 ≤ RStr H`, so `RStr := h^7·rStrWitness` (`rStrWitness_G1_h`).  It is invisible
+at gate 10a: `m4BclGraded_le_of_fits` bounds the graded block by `2·(m4Cmax H · Fan H)`, in which
+`Ftr` does not occur, so the ceiling arithmetic is the landed one byte for byte.
+
+⭐ **`S13BandGate'_L_gk` DISSOLVES RATHER THAN PORTING** — wave P's `doorBandBase_family'H_L_gk`
+takes the four components directly, so the `h` lane never builds that socket-quantified
+structure.
+
+⭐ **THE `K`-HOIST IS FREE AT `h = 1` AND COSTS THREE RESTATEMENTS AT `h`.**  At `h = 1` the
+khoist road takes `Cg` from `parseval_insert_budget_door_bounded` at the DOOR level, so nothing
+above ever mentioned `K`.  The `h` lane routes through the door-form register, whose `K` is a
+LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H₀` from
+`nearRatTight_of_bigXiArcTight_H`, neither mentioning `K`) — but it is three theorems, not zero.
+
+⛔⛔ **AND THE `xceil` ROW IS NOT A COPY: IT IS A FENCE.**  Its road's head is
+`XThread.flat_head_uniform_xceil`, built from `chowlaRegimeFlat_exists_param_head_xceil`; at `h`
+the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
+where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
+its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
+declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
+conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
+that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.
+
+⛔ NOT here: blocks T (hops 4/5/6 and `logChowla2_v7_rated_h`, the hypothesis-free headline) and
+E (the `ε` seam).  Nothing bears on twin primes: every `h` object is conditional exactly where
+its `h = 1` twin is. -/
+#audit_axioms Salt.MR.m4_hrowsSlot_at_door_zero'H_L_gk_ceiling
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling
+  Salt.MR.flat_capstone_uniform_win_ceiling_h
+  Salt.MR.flat_conditional_uniform_win_ceiling_h
+  Salt.MR.m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide
+  Salt.MR.flat_capstone_uniform_win_ceiling_kwide_h
+  Salt.MR.flat_conditional_uniform_win_ceiling_kwide_h
+  Salt.MR.m4_doorL2_supply_H_L_gk_khoist
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_khoist
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_khoist
+  Salt.MR.flat_capstone_uniform_win_ceiling_kwide_khoist_h
+  Salt.MR.flat_conditional_uniform_win_ceiling_kwide_khoist_h
+  Salt.MR.flat_head_uniform_xceil_h
+  Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist
+  Salt.MR.flat_capstone_uniform_win_xceil_kwide_khoist_h
+  Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist_h
