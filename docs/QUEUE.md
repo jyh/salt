@@ -5499,6 +5499,34 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `log 2`, with the room coming from `50 ≤ loglog H₊`.
    ⛔ **NOT here:** blocks T (hops 4/5/6 and `logChowla2_v7_rated_h`) and E (the `ε` seam).
    **Nothing bears on twin primes.**
+   ✅ **WAVE H3 BLOCK T, LANDABLE CORE — HOPS 4 AND 5 AT SHIFT `h` — 2026-09-02 (math, same
+   head).** `Salt/MR/S16ComposeLH.lean` §7–§10, **6 names, every one `[3 axioms]`**: hop 4
+   `logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h` · the sharp-`T₀` LH chain
+   (`s13CapFloor_all_LH_gk_sharpT0`, `s16_capGate_supply_LH_gk_sharpT0`,
+   `s15_crossing_supplied_LH_gk_ceiling_sharpT0`) · hop 5 `…_win_xceil_khoist_h` ·
+   `logChowla2_ineffective_v3_h`.
+   ⭐ **HOP 4 NEEDED NOTHING NEW** — the selector's `ε`-floor is `1/(2^9·h) ≤ R.eps` and the head
+   pins `ε = 1/(500·h)`, so **the shift cancels and the margin is the landed `500 < 512` at every
+   `h`**; that is what H1 bought by threading a scale `c` through the selector layer instead of
+   building four `h`-twins. The sharp-`T₀` chain is three names only because H2c had already
+   landed `capfloor_T0_Tann_sharp_LH`, the one piece that is not bookkeeping.
+   ⛔⛔ **AND THE COMMISSION'S BLOCK ORDER IS WRONG: H3's HEADLINE IS GATED ON BLOCK E.**
+   `logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241)
+   in its FIRST line, and that supplier demands `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head
+   pins `ε = 1/(500·h)` — FALSE at `h ≥ 2`. Its body consumes
+   `cofkL_capFreeFloor_at_socket_rated_uniform`, `cofkL_socket_floors` and `cofkL_mu_floor`
+   (three of E's seven), and carries the cushion as a hypothesis of its own. No
+   `cofkR_cofactorSupply_*_h` exists. ⇒ 🔑 **A BLOCK ORDER DERIVED FROM A ROW TABLE ORDERS THE
+   STATEMENTS; THE PROOFS ORDER THEMSELVES.** Recommended re-order: **C → T(hops) → E →
+   T(headline)**.
+   ⛔ **NOT here:** hop 6 and its `kswin` chain (~10–12 names, all mechanical and all
+   `ε`-independent, each layer measured at the object: `capfloor_floor4_of_regimeWin_LH` +
+   a `capfloor_floor4_sharp_LH`, `s13CapFloor_all_LH_gk_sharpT0_kswin`,
+   `s16_capGate_supply_LH_gk_sharpT0_kswin`, `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist`
+   and `_khoist_cs`, `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` and `_khoist_cs`,
+   `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin`, hop 6); the remaining
+   `logChowla2_ineffective_v*_h`; **the headline, which is E's.**
+   **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,

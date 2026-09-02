@@ -9526,3 +9526,38 @@ its `h = 1` twin is. -/
   Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist
   Salt.MR.flat_capstone_uniform_win_xceil_kwide_khoist_h
   Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist_h
+/-! ⟦BLOCK T's LANDABLE CORE AT SHIFT `h`⟧ (`S16ComposeLH` §7–§10, 2026-09-02, math — wave H3
+block T, parts 1 and 2).  Hops 4 and 5 of the six, the sharp-`T₀` crossing chain they need, and the
+ineffective limit `v3`.
+
+⭐ **HOP 4 NEEDED NOTHING NEW.**  The conditional is §3's, the crossing supplier is H2c's, the
+witness floor is H2a's `flat_witFloor_eq_designBase_h`, the selector is H1's shift-scaled
+`s15_sel''_L_gk_witness_flat_bumped_win_h` at `c := h`, and the block floor is wave P's
+`s15_block_at_socketH_L_gk`.  The selector's `ε`-floor is `1/(2^9·h) ≤ R.eps` and the head pins
+`ε = 1/(500·h)`, **so the shift cancels and the margin is the landed `500 < 512` at every `h`** —
+which is what wave H1 bought by threading a scale `c` through the selector layer.
+
+⭐ **THE SHARP-`T₀` CHAIN IS THREE NAMES BECAUSE H2c LANDED THE ONE PIECE THAT IS NOT
+BOOKKEEPING** (`capfloor_T0_Tann_sharp_LH`): hop 5 wants `T₀ ≤ exp(√H₋/2)` INSIDE the `∀ R`
+where H2c's chain exports the flat `exp(exp 100)` outside it, so these are that chain with one
+discharger swapped and one binder moved.
+
+⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
+`logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
+its first line, and that supplier DEMANDS `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head pins
+`ε = 1/(500·h)` — FALSE at `h ≥ 2`.  Its body consumes `cofkL_capFreeFloor_at_socket_rated_uniform`,
+`cofkL_socket_floors` and `cofkL_mu_floor`, three of the seven `_h` names E is chartered to
+re-cut, and it carries the cushion as a hypothesis of its own.  **There is no
+`cofkR_cofactorSupply_*_h` in the corpus.**  ⇒ **T can be finished except for its headline; the
+headline is E's.**
+
+⛔ NOT here: hop 6 and its `kswin` chain (~10–12 names, all mechanical and all `ε`-independent),
+the remaining `logChowla2_ineffective_v*_h`, and the headline.
+Nothing bears on twin primes: every `h` object is conditional exactly where its `h = 1` twin is,
+and the headline's unconditionality at `h` is precisely what E gates. -/
+#audit_axioms Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h
+  Salt.MR.s13CapFloor_all_LH_gk_sharpT0
+  Salt.MR.s16_capGate_supply_LH_gk_sharpT0
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h
+  Salt.MR.logChowla2_ineffective_v3_h
