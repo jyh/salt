@@ -5437,6 +5437,30 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⛔ **NOT here:** the PRODUCERS of the two supply defs (H3's step 0 at `1/(500h)`); the uniform
    lane and `cofkL_socket_floors_h` (H3). **Nothing bears on twin primes:** every `h` object
    stays conditional exactly where its `h = 1` twin is.
+   ✅ **WAVE H3 BLOCKS U + W — THE `A`-UNIFORM ROAD AND THE WINDOWED RIDER AT SHIFT `h` —
+   2026-09-02 (math, on the head that had already run H2b and the H3 census; the helm's H3
+   commission, cut on that census).** New module `Salt/MR/S16UniformLH.lean` (9 names) ·
+   `Salt/Entropy/Chowla/HloExportFlatH.lean` §4 (+1). **8 theorems + 2 defs, every theorem
+   `[3 axioms]`**; audit blocks in `Salt/Entropy/All.lean` AND `Salt/MR/All.lean`; full tree
+   `saltbuild EXIT=0` (9,804 jobs), no warnings introduced.
+   ⭐ **BLOCK U — THE "REAL DESIGN BLOCK OF H3" IS TWO `intro`s.** The `A₀` pin has exactly ONE
+   origin on the whole `h` lane (`HloExportFlatH:307`); every `obtain` above it is `A`-free —
+   H2a's count hook `bigXiH_bounded_ceiling_of_pin` takes `h` and `ε` only — and `S16ProducersH`,
+   `S16FlatTerminalLinearH`, `HDoorSupply` contain **zero** `A₀`. ⭐ **And at `h` the road is ONE
+   theorem where `h = 1` needs three:** the door-form register `m4_second_road_L2_H_gk_flatRoot_L`
+   has no `A` in its statement at all, so `flat_socket_uniform`/`flat_doorL2_uniform` have nothing
+   to hoist.
+   ⭐ **BLOCK W — AND THIS IS WHERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
+   `S16BandLaneCBoundedL` has no producer anywhere, so H2b re-quantified it for free and left an
+   OPEN rider; the WINDOWED riders are **theorems**, so their `h` twins needed a producer PORT —
+   and the `h` lane gets a **DISCHARGED** rider in exchange. The port is class A: the mint
+   projects **conjunct 4** and passes `hb` through, and across `S11HoistLinear`'s 59 socket
+   occurrences there are **zero** projections of conjuncts 5 and 11, the only two `SocketBaseLH`
+   relaxes — so **every proof body is the landed one verbatim; only the statements move.**
+   ⛔ **NOT here:** blocks C (the uniform capstones), T (hops 4/5/6 and `logChowla2_v7_rated_h`,
+   the hypothesis-free headline), E (the `ε` seam — seven `HDoorSupply` names demand
+   `1/500 ≤ R.eps` while the `h` head pins `ε = 1/(500·h)`); the cofactor/cap producers.
+   **Nothing bears on twin primes.**
 8. **hb-engine OPENER** — the flagship's named campaign toward
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
