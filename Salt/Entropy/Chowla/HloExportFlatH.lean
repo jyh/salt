@@ -373,4 +373,192 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh
     ((H : ℝ) / (Rf.A * Real.log H)) (cD3 / (16 * C))
     ht hg hgle hI hbudget1 hbudget2 hfail
 
+/-! ## §4 — WAVE H3 BLOCK U: THE SAME HEAD WITH THE DESIGN CONSTANT HOISTED
+
+⭐ **THE HOIST IS A PURE RE-BRACKETING, AND THE CENSUS THAT SAYS SO IS MECHANICAL.**
+`S16Uniform.flat_head_uniform`'s docstring states the legality condition for the `h = 1` twin:
+the landed line `A := max A₀ (budgetAFlat ε β)` becomes `intro A hA26 hAge`, *"which is legal
+precisely because every `obtain` above that line is `A`-free."*  At shift `h` the obtains above
+`:307` are `hreduce_holds_final_h_bounded` · `primeWindow_sum_inv_ge_bounded` ·
+`circle_method_estimate_sq_bounded_h` · the `ε` pin · **`bigXiH_bounded_ceiling_of_pin`** · `β` —
+**not one reads `A`**, and wave H2a's count hook takes `h` and `ε` only.  Every `∃`-witness is
+`A`-free too: `Hopq = max (max H₀red H₀D3) H₀xi`, `δ₀ = cD3/(16·C)·ε/4`, `Cxi`, `β`.
+
+⛔ **AND THIS IS THE WHOLE OF THE `A₀` PIN ON THE `h` LANE.**  `grep A₀` over the `h`-side files
+returns hits in exactly two — this file (the binder and its three reads) and
+`S16FlatTerminalExitH`, which forwards them.  `S16ProducersH`, `S16FlatTerminalLinearH` and
+`HDoorSupply` contain **zero**, and the door-form register `m4_second_road_L2_H_gk_flatRoot_L`
+(S16FlatTerminalLinearH:1588) has no `A` in its statement at all.  So this one `intro` is what
+the `A`-uniform `h` road costs — wave H2b/H2c's §3 priced it as the design block of H3.
+
+⛔ It lives HERE rather than in a sibling file because the landed body calls two `private`
+helpers of this file (`flatCapH_shuffle`, `spine_False_core_xi_sq_flat_h`); a sibling would have
+to re-prove them.  **Purely additive: no landed declaration is touched.** -/
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as the landed head: the `∃`-prefix and the regime witness re-elaborate, here
+-- against a prefix that has lost `A` and gained a `∀`.
+/-- **⟦THE `A`-UNIFORM FLAT HEAD AT SHIFT `h`⟧** (`flat_head_uniform_h`) —
+`log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h` with the caller's `A₀` REPLACED by a
+`∀ A` inside the `∃`-prefix, exactly as `S16Uniform.flat_head_uniform` does at `h = 1`.  The body
+is the landed one verbatim; the only edit is that its `obtain ⟨A, hAdefA⟩ … max A₀ (budgetAFlat)`
+and the three `have`s reading it become `intro A hA26 hAge`.
+
+The `h` pins ride out unchanged — `ε = 1/(500·h)`, `δ₀ ≥ 1/(838400·h²)` — and so does H2a word
+1(d)'s count ceiling `K ≤ 2^539`, which is the conjunct that makes the `h` lane's terminal
+stronger than its `h = 1` twin. -/
+theorem flat_head_uniform_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) :
+    ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
+      1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧ 0 < β ∧
+      ∀ A : ℝ, 26 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap = max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), ∃ R : ChowlaRegime,
+            R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              ((bigXiH h R.eps H).card : ℝ) ≤ K) ∧
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+            R.Hlo ≤ max Hcap (max extraFloor U1floor) ∧
+            ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2H h R ρ →
+              ¬ logChowlaFails h R.eps R.x R.ω := by
+  classical
+  have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_h_bounded
+  obtain ⟨cD3, hcD3, hcD3ge, H₀D3, hD3⟩ := primeWindow_sum_inv_ge_bounded
+  obtain ⟨C, hC, hCcap, hcm⟩ := circle_method_estimate_sq_bounded_h h hh (2 * Real.log 4)
+    (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- ⟦THE LEAF NUMERALS⟧ `log 4 = 2·log 2 < 1.3863`, hence `C ≤ 6.55·h`
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  have hCnum : C ≤ (h : ℝ) * (655 / 100) := by
+    rw [hlog4eq] at hCcap
+    nlinarith [hCcap, hhR, hlog2lt]
+  -- ⟦THE PIN⟧ `ε := 1/(500·h)`, so `ε·h = 1/500`: every gate reads as at `h = 1`
+  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
+  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
+  have hεQpos : 0 < ε := by exact_mod_cast hεR0
+  have hεh : (ε : ℝ) * (h : ℝ) = 1 / 500 := by rw [hεR]; field_simp
+  have hεcE : (ε : ℝ) * (h : ℝ) ≤ cE / (32 * Real.log 4) := by
+    rw [hεh, le_div_iff₀ (by positivity), hlog4eq]
+    linarith
+  have hε500 : (ε : ℝ) ≤ 1 / 500 := by
+    rw [hεR]
+    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  have hε_half_lt : (ε : ℝ) < 1 / 2 := by linarith
+  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := by
+    rw [le_div_iff₀ (by norm_num : (0 : ℝ) < 16)]; linarith
+  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := by
+    rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]
+    have h1 : (ε : ℝ) * (16 * C) ≤ (ε : ℝ) * (16 * ((h : ℝ) * (655 / 100))) := by
+      gcongr
+    have h2 : (ε : ℝ) * (16 * ((h : ℝ) * (655 / 100)))
+        = 16 * (655 / 100) * ((ε : ℝ) * (h : ℝ)) := by ring
+    rw [hεh] at h2
+    linarith
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
+    rw [hεdef]
+    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hε500, hεR0]
+  -- ⟦THE `δ₀` FLOOR⟧ the binding arm at its worst case, exact at zero slack
+  have hδ₀ge : (1 : ℝ) / (838400 * (h : ℝ) ^ 2) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+    have hkey : (5 : ℝ) / (2096 * (h : ℝ)) ≤ cD3 / (16 * C) := by
+      rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]
+      have h1 : (5 : ℝ) / (2096 * (h : ℝ)) * (16 * C)
+          ≤ (5 : ℝ) / (2096 * (h : ℝ)) * (16 * ((h : ℝ) * (655 / 100))) := by
+        have hfac : (0 : ℝ) ≤ (5 : ℝ) / (2096 * (h : ℝ)) := by positivity
+        nlinarith [hCnum, hfac]
+      have h2 : (5 : ℝ) / (2096 * (h : ℝ)) * (16 * ((h : ℝ) * (655 / 100))) = 1 / 4 := by
+        field_simp; ring
+      linarith
+    have hstep : (1 : ℝ) / (838400 * (h : ℝ) ^ 2)
+        = (5 : ℝ) / (2096 * (h : ℝ)) * (1 / (500 * (h : ℝ))) / 4 := by
+      field_simp; ring
+    rw [hstep, hεR]
+    have hpos : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
+    gcongr
+  -- ⟦THE COUNT⟧ the PINNED hook, which carries the terminal road's rider `Cxi ≤ 2^539`
+  -- (wave H2a word 1(d)).  The landed line reached for the EXISTENTIAL `bigXiH_bounded`, whose
+  -- constant is only positive — that one `obtain` is why `Kc ≤ 2^539` was unreachable at `h`.
+  -- The fiber `h` is INSIDE the constant now, so the exported `K` is `Cxi`, not `h · Cxi`.
+  obtain ⟨Cxi, hCxi, hCxib, H₀xi, _hH₀xi2, hxi⟩ :=
+    bigXiH_bounded_ceiling_of_pin h hh hh7 ε hεdef
+  -- ⟦THE FLAT DESIGN CONSTANT⟧ symbolic: the caller's `A₀`, raised to the budget demand
+  obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
+  have hβpos : 0 < β := by
+    rw [hβdef]; exact div_pos (mul_pos hcD3 hεR0) (by positivity)
+  -- ⟦THE HEAD'S OWN FOUR-ARM FLOOR⟧ (flat) — `A`-FREE, which is the whole point
+  obtain ⟨Hopq, hOpqdef⟩ : ∃ n : ℕ, n = max (max H₀red H₀D3) H₀xi := ⟨_, rfl⟩
+  refine ⟨ε, Cxi, cD3 / (16 * C) * (ε : ℝ) / 4, β, Hopq, hεQpos, hCxi, hCxib,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num),
+    hεdef.ge, hδ₀ge, hβpos, ?_⟩
+  -- ⟦THE HOIST⟧ the landed proof chose `A := max A₀ (budgetAFlat ε β)` HERE
+  intro A hA26 hAge
+  obtain ⟨F, hFdef⟩ : ∃ n : ℕ, n = max Hopq (budgetFloorFlat (ε : ℝ) β A) := ⟨_, rfl⟩
+  refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
+  intro extraFloor U1floor g₅
+  obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid⟩ :=
+    chowlaRegimeFlat_exists_param_head A hA26 ε hεQpos hεQ1
+      (max F (max extraFloor U1floor)) g₅
+  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
+  have hxiHlo : H₀xi ≤ Rf.Hlo := by
+    rw [hFdef, hOpqdef] at hFlo
+    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
+  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
+    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
+  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
+    rw [hFdef, hOpqdef] at hFlo
+    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  refine ⟨Rf.toChowlaRegime, hReps,
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_,
+    fun _ => hRwid, ?_, ?_⟩
+  · -- ⟦THE EXPORTED COUNT GATE⟧ the road's `hXi`, at this head's own `ε`
+    intro H' _ hlo' _
+    rw [hReps]
+    exact hxi H' (le_trans hxiHlo hlo')
+  · -- ⟦THE CAP⟧ the flat base equation, shuffled onto the consumer's floors
+    rw [_hRcapEq]
+    exact flatCapH_shuffle _ _ _ _ _
+  intro ρ _hρpos hρ hdoor hfail
+  obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrementFlat Rf
+  have hH4 : 4000000 ≤ H := le_trans Rf.hHlo_floor hlo
+  haveI : NeZero H := ⟨by omega⟩
+  have hI : I[residueWindow Rf.eps H : liouvilleWindow H ; logMeasure Rf.x Rf.ω]
+      ≤ (H : ℝ) / (Rf.A * Real.log H) := by
+    rw [mutualInfo_window_comm_flat]; exact hMI
+  have hepsc : (Rf.eps : ℝ) * (h : ℝ) ≤ cE / (32 * Real.log 4) := by rw [hReps]; exact hεcE
+  have hH₀ : max H₀red H₀D3 ≤ H := le_trans hredHlo hlo
+  have hβR : cD3 * (Rf.eps : ℝ) / (144 * Real.log 4) = β := by rw [hReps, hβdef]
+  have hAgeR : budgetAFlat (Rf.eps : ℝ) (cD3 * (Rf.eps : ℝ) / (144 * Real.log 4)) ≤ Rf.A := by
+    rw [hβR, hReps, hRA]; exact hAge
+  have hfloorH : budgetFloorFlat (Rf.eps : ℝ)
+      (cD3 * (Rf.eps : ℝ) / (144 * Real.log 4)) Rf.A ≤ H := by
+    rw [hβR, hReps, hRA]
+    exact le_trans hbudHlo hlo
+  obtain ⟨t, g, ht, hg, hgle, hbudget1⟩ :=
+    hbudget1_witnessFlat Rf H cD3 C hcD3 hC
+      (by rw [hReps]; exact le_of_lt hε_half_lt)
+      (by rw [hReps]; exact hε_D3)
+      (by rw [hReps]; exact hε_D3C) hhi hAgeR hfloorH
+  -- ⟦THE K-FREE hbudget2⟧ `ρ ≤ c₀ε/4 < c₀ε`
+  have hbudget2 : ρ < cD3 / (16 * C) * (Rf.eps : ℝ) := by
+    rw [hReps]
+    have hc0pos : (0 : ℝ) < cD3 / (16 * C) := div_pos hcD3 (mul_pos (by norm_num) hC)
+    have hpos : (0 : ℝ) < cD3 / (16 * C) * (ε : ℝ) := mul_pos hc0pos hεR0
+    linarith [hρ, hpos]
+  -- ⟦THE CORE⟧ at the FLAT threshold `κ = H/(A·log H)`
+  exact spine_False_core_xi_sq_flat_h h hh Rf.toChowlaRegime hdoor cE hcE H₀red
+    (fun eps H x ω => hred h eps H x ω hh) cD3 hcD3
+    H₀D3 hD3 C hC hcm H hlo hhi hH₀ hepsc t g
+    ((H : ℝ) / (Rf.A * Real.log H)) (cD3 / (16 * C))
+    ht hg hgle hI hbudget1 hbudget2 hfail
+
 end Salt.Entropy.Chowla

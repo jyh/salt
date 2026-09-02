@@ -416,6 +416,7 @@ import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
 import Salt.MR.S16FlatTerminalLinearLH
+import Salt.MR.S16UniformLH
 import Salt.MR.HSeamCheck
 import Salt.MR.S13CapGateLinearLH
 import Salt.Tactic.AuditAxioms
@@ -9421,3 +9422,43 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling
   Salt.MR.s15_crossing_supplied_LH_gk_ceiling
+
+/-! ⟦THE UNIFORM LANE AT SHIFT `h` — WAVE H3, BLOCKS U AND W⟧ (`S16UniformLH`, NEW ·
+`HloExportFlatH` §4, 2026-09-02, math).  The two blocks that had to land before the uniform
+capstones can be ported, and nothing else.
+
+⭐ **BLOCK U — THE `A`-UNIFORM `h` ROAD IS TWO `intro`s, NOT A DESIGN BLOCK.**  The `A₀` pin has
+exactly ONE origin on the whole `h` lane (`HloExportFlatH:307`), every `obtain` above it is
+`A`-free — wave H2a's count hook takes `h` and `ε` only — and `S16ProducersH`,
+`S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
+landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
+at `h = 1`.  ⭐ **And at `h` the road is ONE theorem where `h = 1` needs three:** the door-form
+register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1588) has no `A` in its
+statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothing to hoist.
+`Hopq` leaves the `∀ A` and `Hcap` stays inside — the same split, for the same reason.
+
+⭐ **BLOCK W — AND HERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
+`S16BandLaneCBoundedL` has **no producer anywhere** (34 binder sites, 9 modules, zero
+discharges), so wave H2b re-quantified it for free and left an open rider.  The WINDOWED riders
+are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1200, `_holdsU` S16ComposeV4:93), so their
+`h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
+⭐ **The port is class A, and a projection census says why.**  The mint
+`m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:736) touches its socket in exactly two
+ways: it projects **conjunct 4** (`0 < q`) and passes `hb` to its own antecedent.  Across
+`S11HoistLinear`'s 59 socket occurrences there are **zero** projections of conjuncts 5 and 11 —
+the only two `SocketBaseLH h` relaxes.  **Every proof body here is the landed one verbatim; only
+the statements are re-quantified**, and the window still closes at
+`Awin := max 162 ((log Cband + 20)/0.64)` because `Cband = Cb/E` carries no `A`.
+⛔ Both `h = 1` twin laws are stated as theorems: the socket sits in HYPOTHESIS position in both
+defs, so a drifted def would elaborate at every consumer and no build could see it.
+⛔ NOT here: blocks C (the uniform capstones), T (hops 4/5/6 and `logChowla2_v7_rated_h`), E (the
+`ε` seam — the seven `HDoorSupply` names that demand `1/500 ≤ R.eps` while the `h` head pins
+`ε = 1/(500·h)`); the cofactor/cap producers at the base socket.
+Nothing bears on twin primes: every `h` object is conditional exactly where its `h = 1` twin is. -/
+#audit_axioms Salt.MR.m4_second_road_L2_H_gk_flatRoot_L_exit_uniform
+  Salt.MR.s16BandLaneCBoundedLH_win_one_iff
+  Salt.MR.s16BandLaneCBoundedLH_winU_one_iff
+  Salt.MR.m4_hband_at_door_slot_split_graded_LH_gk
+  Salt.MR.m4_hband_at_door_slot_split_graded_LH_gk_uniform
+  Salt.MR.s16_bandLaneWinLH_holds
+  Salt.MR.s16_bandLaneWinLH_holdsU

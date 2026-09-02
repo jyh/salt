@@ -1144,3 +1144,14 @@ Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing. -/
   Salt.Entropy.Chowla.hpt_holds_500h
   Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin
   Salt.Entropy.Chowla.eps_line_h
+
+/-! ⟦THE FLAT HEAD AT SHIFT `h`, WITH THE DESIGN CONSTANT HOISTED⟧ (`HloExportFlatH` §4,
+2026-09-02, math — wave H3 block U).  The `A₀` pin has ONE origin on the whole `h` lane, at
+`:307`, and every `obtain` above it is `A`-free (wave H2a's count hook
+`bigXiH_bounded_ceiling_of_pin` takes `h` and `ε` only), so the hoist is `intro A hA26 hAge` —
+the legality condition `S16Uniform.flat_head_uniform` states for the `h = 1` twin, holding
+verbatim at `h`.  The `h` pins ride out unchanged (`ε = 1/(500·h)`, `δ₀ ≥ 1/(838400·h²)`) and so
+does H2a word 1(d)'s `K ≤ 2^539`.  The commission that fired wave H2b priced this as "the real
+design block of H3"; measured at the object it is one `intro`.
+Nothing bears on twin primes. -/
+#audit_axioms Salt.Entropy.Chowla.flat_head_uniform_h
