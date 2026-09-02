@@ -63,6 +63,7 @@ import Salt.MR.ZetaNegLogDerivLower
 import Salt.MR.A4FMidBridge
 import Salt.MR.A4FMidRange
 import Salt.MR.A4FThreshold
+import Salt.MR.A4FLargeRange
 import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
 import Salt.MR.Lemma14Vtail
@@ -8598,6 +8599,13 @@ open Salt.Tactic in
   Salt.MR.far34_threshold_close
   Salt.MR.mrtLemmaA4iiFixed34T_of_largeRangeFixed
   Salt.MR.mrtLemmaA4iiFixed34T_mid
+  Salt.MR.mrt_large_range_parametric
+  Salt.MR.MRTLargeRangeEquidistributionFixedEps
+  Salt.MR.mrtLargeRangeEquidistributionFixedEps_holds
+  Salt.MR.MRTLemmaA4iiFixed34E
+  Salt.MR.mrtLemmaA4iiFixed34E_holds
+  Salt.MR.largeRangeFixedEps_of_fixed
+  Salt.MR.lemmaA4iiFixed34E_of_fixed34T
   Salt.MR.mrtA4ii_far_of_either_estimate
   Salt.MR.MRTThmA1GJ
   Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty

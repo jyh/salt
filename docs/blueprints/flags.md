@@ -24502,3 +24502,49 @@ one look identical to every instrument we have — a grep, a dead-branch census,
 This entry is the difference, written down: it is a DEPOSIT AGAINST A NAMED FUTURE CONSUMER, the
 consumer is named, and the day that consumer lands this entry is what tells its author the input is
 already in the kernel. *A census of absence cannot tell "unbuilt" from "unconsumed-on-purpose".*
+
+### ⚠️ 09-02 — AU D★: the frozen large-range Prop and the T-form's large arm are STATEMENT-BLOCKED at a BARE exponent (not refuted); A.4(ii) whole at θ = 3/4 lands beside them in the source's quantifier order
+The large-range reduction (helm commission `2026-09-01-helm-COMMISSION-AU-etvk-large-range.md` §2 as
+amended; freeze `2026-09-02-math-AU-Dstar-FREEZE.md`, refuter-passed 09-02 with six documentary errata
+and no statement change). **The finding:** `MRTLargeRangeEquidistributionFixed` (MRTPropA3.lean) has
+ONE consumer, `mrtLemmaA4iiFixed34T_of_largeRangeFixed` (A4FThreshold.lean), which reads it ONLY at
+`Y = exp((log X)^{3/4+ε'})` and never at the frozen floor `(log X)^{2/3}`. At the consumer's `Y` the
+landed mid-range mechanism carries with no height cap (`harmonic_prime_sum_abs_le_vk`,
+`zeta_near_logDeriv_bound`: binders read, no cap on `|t|` relative to anything), and the block is the
+PORT `mrt_large_range_parametric` (`Salt/MR/A4FLargeRange.lean`): height ceiling → the range
+`(log X)^{20} < |u| ≤ 2X`, floor → `(log X)^{3/4}·(loglog X)^5 ≤ log Y`, the bounded-height regime
+EMPTY, one new stone (rpow monotonicity at exponent `3/4`). Class C at the object, not D.
+
+**What is BLOCKED, and why it is a statement over-claim, not a proof gap.** Both the frozen Prop
+(uniform `C` down to the bare `2/3`) and the T-form `MRTLemmaA4iiFixed34T`'s large arm (its threshold
+`C₀/ε ≤ loglog X` admits `ε ≈ C₀/loglog X`, i.e. `log Y = (log X)^{3/4}·e^{O(1)}`, the bare `3/4` up
+to a constant) demand a constant uniform at a BARE exponent. Every ζ'/ζ route controls the harmonic
+sums through `(1/log Y)·sup‖ζ'/ζ‖ ≤ (1/log Y)·400·D(t)/cR`, `D = (log t)^{3/4}(loglog t)^4`
+(`ZetaPowLower.lean`, `zeta_near_logDeriv_bound`; θ = 3/4 enters `D` in exactly that place), so a
+uniform `C` needs `log Y ≥ K·(log X)^θ·(loglog X)^a` with `a > 0` at every region strength (landed
+`(3/4, 4)`; Vinogradov–Korobov's `(2/3, 1/3)`). At the T-form's admissible `Y` the deficit is
+`≥ (1 − 2/π)·4·logloglog X − O(1)` against an allowance `C₀/2`. The corpus's sharpest landed
+difference bound (`zeta_near_strip_growth`, HalaszPrimes.lean) IS this route with the width matched
+(refuter R4, three search shapes). NOT refuted — no witness; under RH both hold. STATEMENT-BLOCKED
+as targets of every ζ'/ζ route, the S2(iii) shape one level out. The source (arXiv:1503.05121 p.22,
+A.4(ii)) claims only "for any ε > 0" with the `O(1)` absorbed for `X` large in `ε` — never the
+uniformity. ⇒ **A DESIGN BLOCK IS PRICED AT THE STATEMENT ITS CONSUMER READS, NOT AT THE STATEMENT ON
+THE SHELF.**
+
+**What lands (all `[3 axioms]`, `Salt/MR/A4FLargeRange.lean`):** `MRTLargeRangeEquidistributionFixedEps`
+(D1, `∀ε ∃C`, floor `(log X)^{3/4+ε}`, `e ≤ Y` carried — mathlib's `log` is even, AND the LL floor
+vanishes at `X = e`: at `X = e, Y = e^δ, u = 2` the window is `{2}`, the sum is `0.11538 ≤ 1/2` and
+the demand `(1−2/π)·log(1/δ) → ∞`, so the uniform theorem WITHOUT `e ≤ Y` is REFUTABLE), produced by
+`mrtLargeRangeEquidistributionFixedEps_holds`; `MRTLemmaA4iiFixed34E` (D2, `∀ε` before `∃C₀`),
+produced UNCONDITIONALLY by `mrtLemmaA4iiFixed34E_holds` — **A.4(ii) whole at θ = 3/4**, high-M + mid
++ large arms closed; the pins `largeRangeFixedEps_of_fixed` and `lemmaA4iiFixed34E_of_fixed34T`
+(frozen ⇒ new, never the reverse). The frozen statements' bytes are untouched. Statement-tier cost,
+RECORDED (refuter RB): D1's floor exponent `3/4 + ε` vs the source's `2/3 + ε` costs the certified
+demand `(1/4 − ε)·loglog X` instead of `(1/3 − ε)` — `0.045423` vs `0.060563` after the (A.3)
+halving — FORCED by the landed θ = 3/4 region; nothing downstream needs `2/3` (the E34 ladder has
+no producer for any slot). **Demand-side item, ripens with A.5's wave:** `MRTLemmaA5_34`/`MRTPropA3_34`
+carry `∀ε` inside a uniform `C`; under the E-form the below-threshold absorption is `exp(c/ε^{7/2})`,
+not `e^{C₀}`, so the ladder above A.4(ii) inherits the source's `≪_ε`. A.3's consumer uses ONE fixed
+`ε` (the `1/70` tail rate), so the campaign is unaffected. `zeta_neg_re_logDeriv_ge` (the 09-01
+deposit above) stays idle BY DESIGN: the below-`T₀` regime it was deposited for is empty above the
+branch threshold. Nothing here bears on twin primes.
