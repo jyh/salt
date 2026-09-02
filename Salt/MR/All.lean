@@ -417,6 +417,7 @@ import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
 import Salt.MR.S16FlatTerminalLinearLH
 import Salt.MR.HSeamCheck
+import Salt.MR.S13CapGateLinearLH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9286,3 +9287,137 @@ Nothing bears on twin primes: every object is conditional exactly where its `h =
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28
   Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.logChowla2_witnessed_scale_flat_LH
+
+/-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
+
+`Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:960` with the same `∃ Cq cs T₀ Kq Ks C`
+prefix and pins, `hblk` at `SocketBaseLH h`, concluding
+`S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
+S15CrossingBound_LH_gk h K R M`.
+No landed declaration is edited: every landed numeric stone the `h` lane outgrows has a
+SIBLING here with a wider ceiling.
+
+⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` (`:955`) and
+`s13CapGrid_all_L_gk` (`:594`) derive `hbb : SocketBase` from their `SocketBaseL` binder and
+feed `hbb` to the WHOLE floor and eps pages.  `SocketBaseLH h → SocketBase` is FALSE at
+`h ≥ 2` and no non-linear inflated socket exists, so every `SocketBase`-typed leaf under that
+assembler is re-stated here.
+
+**THE TWO CONJUNCTS THAT MOVE, AND WHERE THEY ARE READ** (census driven at the object).
+Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGrid_q_logX`
+(`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
+`s13_capEps_register` (`S13CapEps:476`), `s13CapEps_q_arcDen` (`:530`).  Conjunct 11 is read
+at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
+through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
+`_LH` twins are already landed in `S16ProducersH` (`:332`, `:345`, `:408`, `:425`), and on the
+grid page only `mu_lo` and `Lambda_sharp` touch them — the other twelve inherit.
+
+⭐ **TRANSITIVE REACHABILITY OF CONJUNCT 5 IS NOT THE SAME AS SPENDING IT.**
+`s13CapFloor_all_L_gk` reaches `capfloor_logq_le` through `QTann_L_gk → QTann_gen →
+capfloor_tannGate`, which looks like five more leaves to re-price.  It is not:
+`capfloor_tannGate` destructures `⟨-, hq1⟩` and KEEPS ONLY `1 ≤ q`, then uses `0 ≤ log q` in
+the favourable direction inside its closing `nlinarith` — the goal there is a LOWER bound.  At
+`LH` the upper bound only weakens and the lower bound is untouched.  The whole razor pair is
+`+log h`-insensitive and ports mechanically.
+
+⚠️ **A LOOSENED BOUND CAN INVALIDATE A HYPOTHESIS NOTHING APPEARED TO SPEND.**  In
+`capfloor_floor2` the landed proof derives `0 ≤ loglog H` from `0 ≤ log q ≤ 12·loglog H`.  At
+`LH` the bound is `log q ≤ log h + 12·loglog H` and that implication is GONE — the inflation
+broke a SIGN INFERENCE, not a numeric budget.  Taken from the register's own `log H ≥ 10²¹`
+instead.  Nothing in a census of conjunct reads predicts this class: the leaf did not read the
+socket, it read a consequence whose sign the socket had been silently underwriting.
+
+⭐ **THE SIX NUMERIC SIBLINGS CARRY THE LANDED CERTIFICATES, NOT RE-DERIVED ONES.**
+`capeps_master_60` etc. widen `t ≤ 50 → 60`, `e^11 → e^18`, `160 → 216`, `+1 → +8` and are
+proved by the landed `nlinarith`/`linarith` certificates verbatim.  A certificate that STOPPED
+travelling would mean the ceiling was a barrier rather than a convenience — a finding about
+the mathematics.  All six travel.  In `capeps_master` the hypothesis `t ≤ 50` enters in
+exactly one place, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷` versus a left side of about
+`686`: the true admissible `t` is ~`7·10¹⁷`.  Each sibling is consumed by exactly one row and
+nowhere else, which is the check that the ceilings were priced from real demand.
+
+⟦R KILL 1⟧ **`s13CapEps_all`'s FOURTH CONJUNCT IS FALSE AT `LH` AND IS RE-BASED, NOT DROPPED.**
+`q ≤ arcDen 12 H` cannot hold when the socket only gives `q ≤ h·arcDen 12 H`.  It is stated at
+`Hreg := A + s`, where `arcDen 12 (A+s) = (log (A+s))^12` is exactly the grid page's `q_logX`,
+whose `LH` conclusion is unchanged.  The field it lands in
+(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear:187`) is READ NOWHERE in the corpus —
+three declarations, five `:= e4` assignments, docstrings, zero reads — and `Hreg` occurs in
+that structure only there, so no landed object changes and nothing downstream observes it.
+
+Two leaves needed a genuine re-cut rather than a binder swap.  `q_logX_LH`: `log H ≤ μ` no
+longer closes `q ≤ h·(log H)^12 ≤ μ^12`, so `capfloor_logH_le_half_sqrt` plus `mu_lo` give
+`log H ≤ μ/2` UNIFORMLY — `2^12 = 4096` of room against `h ≤ 1096`, margin `3.7×`, no numeral
+at a floor.  `floor4_LH`: rather than carry an `h^{1/16}` factor, `h ≤ 1096 ≤ log H` absorbs
+the inflation into the exponent — `q ≤ (log H)^13`, so `q^{1/16} ≤ (log H)^{13/16} ≤ log H`.
+
+The `h = 1` twin laws are stated as THEOREMS for both new defs.  In both, the socket sits in
+HYPOTHESIS position under a `∀`, so a drifted definition would still elaborate at every
+consumer and no build anywhere could see the drift; `_one_iff` is the only instrument that
+looks at it.
+
+Nothing here bears on twin primes: every `h` object stays conditional exactly where its
+`h = 1` twin is.  (`S16BaseScaleCap96_LH_gk` and `S16CofactorSupply_LH_gk` are defs and carry
+no axioms; they are audited anyway so the registry row count matches the declaration count.) -/
+#audit_axioms Salt.MR.capeps_master_60
+  Salt.MR.capeps_expbound_60
+  Salt.MR.capeps_bigexp_60
+  Salt.MR.capeps_Pbig_h
+  Salt.MR.capfloor_lam_core_h
+  Salt.MR.capfloor_floor3_numeric_h
+  Salt.MR.S16BaseScaleCap96_LH_gk
+  Salt.MR.S16CofactorSupply_LH_gk
+  Salt.MR.s16BaseScaleCap96LH_gk_one_iff
+  Salt.MR.s16CofactorSupplyLH_gk_one_iff
+  Salt.MR.s13_abs8640_of_socketBase_LH
+  Salt.MR.s13_abs8640_at_base_LH
+  Salt.MR.s13_abs8640_at_shift_LH
+  Salt.MR.s13CapGrid_twoj_le_H_LH
+  Salt.MR.s13CapGrid_mu_lo_LH
+  Salt.MR.s13CapGrid_mu_2000_LH
+  Salt.MR.s13CapGrid_logH_le_mu_LH
+  Salt.MR.s13CapGrid_Lambda_sharp_LH
+  Salt.MR.s13CapGrid_Lambda_lo_LH
+  Salt.MR.s13CapGrid_logX_eight_LH
+  Salt.MR.s13CapGrid_q_logX_LH
+  Salt.MR.s13CapGrid_logqT_L_LH
+  Salt.MR.s13CapGrid_logTann_lo_LH
+  Salt.MR.s13CapGrid_Tann_one_LH
+  Salt.MR.s13CapGrid_kappa_Tann_LH
+  Salt.MR.s13CapGrid_kappa30_LH
+  Salt.MR.s13CapGrid_BT_LH
+  Salt.MR.s13CapGrid_BT10_LH
+  Salt.MR.capfloor_logq_le_LH
+  Salt.MR.capfloor_twoj_le_H_LH
+  Salt.MR.capfloor_core_LH
+  Salt.MR.capfloor_muLambda_LH
+  Salt.MR.capfloor_T0_Tann_sharp_LH
+  Salt.MR.capfloor_T0_Tann_LH
+  Salt.MR.capfloor_rhs_legs_LH
+  Salt.MR.capfloor_tannGate_LH
+  Salt.MR.capfloor_QTann_gen_LH
+  Salt.MR.capfloor_kappa30Q_gen_LH
+  Salt.MR.capfloor_QTann_LH_gk
+  Salt.MR.capfloor_kappa30Q_LH_gk
+  Salt.MR.capfloor_floor1_LH
+  Salt.MR.capfloor_floor2_LH
+  Salt.MR.capfloor_floor3_LH
+  Salt.MR.capfloor_floor4_LH
+  Salt.MR.s13CapFloor_all_LH_gk
+  Salt.MR.h_le_exp_seven
+  Salt.MR.capeps_row_phi_h
+  Salt.MR.capeps_row_tail_h
+  Salt.MR.capeps_row_p2_h
+  Salt.MR.s13_capEps_register_LH
+  Salt.MR.s13CapEps_abs8640_LH
+  Salt.MR.s13CapEps_q_arcDen_LH
+  Salt.MR.s13CapEps_EP2_gate_LH
+  Salt.MR.s13CapEps_all_LH
+  Salt.MR.s13CapEps_pin_floors_LH
+  Salt.MR.s13CapEps_pins_supply_LH
+  Salt.MR.s13CapGrid_Q2_reg_LH_gk
+  Salt.MR.s13CapGrid_all_LH_gk
+  Salt.MR.s16_capGate_supply_LH_gk
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling
