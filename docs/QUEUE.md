@@ -534,6 +534,37 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    ⚖️ **ROUTE I's FOUR TRIGGERS T1–T4: UNFIRED AS OF 09/03** (math's step-0 census, bus `32815628` 10:08 — T1 evaluated
    08/21 and did not fire · T2 not fired, the ladder closes · T3 not landed · T4 not fired). **Route II (log-rebase)
    remains PRIMARY** per the 08/21 rulings; nothing today re-opens Route I.
+   ✅✅ **λ-BV WAVE 2 (W2-0) EXECUTED WHOLE — STAMPED 2026-09-03 10:59 (math).** Design: freeze v1 09/03 10:12
+   (`5aa1a91a`) → helm refuter pass REPAIR-THEN-FIRE 6/6 (10:30; ONE statement FALSE as frozen —
+   W4 at `(a,b) = (0,0)`, `liouville 0 = 0`; repaired with `0 < a`) → freeze v2 (`f9ec8f7f`, §10 of
+   the same brief). Landed on `math/lbv-w2-affine` off `074682e0`: **2-W** `f299904c`
+   `Salt/Entropy/Chowla/AffineFork.lean` (12: `logChowlaFailsAff` · `LogChowlaAffSupply` the
+   supply DEMAND, a def with NO producer at `a ≥ 2` · `affWindow_survivorMass_ge` ·
+   `exists_affSurvivor_of_not_failsAff` · `liouville_shift_two_eq_neg_one_iff` ·
+   `coprime_twinProd_of_affine` · `exists_admissible_class` (`r := P − 1`) ·
+   `rough_of_coprime_primorial` · `flatDesignBase_unbounded` ·
+   `zRough_oddOmega_infinite_of_affSupply` · `…_primorial`) + `b0e837cc`
+   `Salt/MR/AffineSupplyH.lean` (`logChowlaAffSupply_one_zero`, `oddOmega_twinProd_infinite`) +
+   `db1ca531` audit rows; **2-P** `9e88257d` `Salt/TwinBar/TwinParitySieveLog.lean` (24 decls, the
+   B0–B4 log-rebase: `twinParitySieveLog`, `rem_split_log`, `LiouvilleTwinDispLog`,
+   `remLogCount_abs_le` at `4ρ(d)` — closes as frozen — `BtwinLog`, `twinRemLog_sum_le`,
+   `twinParitySieveLog_brun_lower_ell1/_rosserRemainder_le/_siftedSum_lower/_siftedSum_eq/
+   _support_infinite`). **28 obligations, 26 first attempt, every theorem `[3 axioms]` under the
+   three rebuilt aggregates.**
+   ⭐⭐ **THE FINDING:** AT ONE RESIDUE CLASS THE WINDOW'S OWN NORMALISATION IS THE MAIN TERM — in
+   Tao Thm 2.3's affine shape the fixed-`z` collapse needs NO `ε` pin (`heps1` suffices), NO Möbius
+   sum, NO common window: survivor mass `≥ (1−ε)log ω − 1 ≥ 63.5` (`regime_logOmega_ge`).
+   ⛔ **HONEST LABEL, in refusal form:** the commission's headline prize (collapse the Wave-1 terminal
+   to an unconditional Ω-odd survivor) is NOT delivered — block W ORPHANS the terminal (its left
+   disjunct is an ℓ¹ natural-density mass; W is log-windowed), block P re-mints the door at log weight
+   still behind `LiouvilleTwinDispLog` (held by nobody). The only unconditional theorem is
+   `oddOmega_twinProd_infinite`, ELEMENTARY. The prize shape is CONDITIONAL on
+   `LogChowlaAffSupply (primorial z) r 2` — wave 2-S, a port of Tao's general-`a` case with ≥ 3 new
+   pieces (the `∃ η ∈ ℤ/aℤ` union in `Ξ_H`, Lemma 3.5's `ℤ/aHℤ` grid, a regime OFFSET binder) and,
+   beyond the one-grade door's numeral budget (`primorial z > e⁷` at `z ≥ 11`), CO-DEPENDENT ON THE
+   UNPROVED CROWN `MRTDoorAllGrades`. **NEXT:** S-0 census (read-only, in flight 09/03) → a 2-S
+   design block → its refuter pass. Growing-`z` λ-BV (binder C) DRY on every route; Route I T1
+   evaluated · T2/T4 NOT FIRED · T3 no. Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
