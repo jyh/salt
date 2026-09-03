@@ -55,7 +55,11 @@ import Salt.HB.CharTrio
 import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
 import Salt.HB.Lemma10
+import Salt.HB.Lemma10Chain
 import Salt.HB.EstermannRoad
+import Salt.HB.Lemma3Floor
+import Salt.HB.SieveWire
+import Salt.HB.DoorBridge
 
 /-!
 # The Heath-Brown track (`HB`) — aggregate import
@@ -306,6 +310,22 @@ open Salt.Tactic in
   -- the divisor bookkeeping (gap row 4's open half): d(k)·d(k₀)·d(k₁) ≤ d(k)³
   Salt.N7.card_divisors_le_of_dvd Salt.N7.divisor_triple_le_cube
   Salt.N7.divisor_triple_attains_cube
+  -- node N7 WAVE A cont. (Salt/HB/Lemma10Chain.lean): HB (7.6)–(7.8) — the Abel transfer
+  -- with the phase variation as a hypothesis (R-A3), the completion by additive characters
+  -- mod `k` with Estermann spent once (the 2-adic factor carried literally as `√(2^{v₂ k})`,
+  -- collapsed at the road modulus by the consumer), the dyadic `m`-sum; numerals 8 / 16
+  -- from the written ledger, unmoved.  Lemma 10 itself (the p.223 assembly at
+  -- `K = 2 + k^{1/4}`) is NOT here — it is the next wave, and the file header says so.
+  Salt.N7.invMod Salt.N7.hbPhase Salt.N7.hbPhase' Salt.N7.klPhaseSum Salt.N7.lem10Coeff
+  Salt.N7.e_add_intCast Salt.N7.norm_e_sub_le Salt.N7.sum_Ioc_succ_top_int
+  Salt.N7.sum_Ico_succ_top_int Salt.N7.sum_Ioc_abel_int_ico Salt.N7.sum_Ico_eq_sum_Ioc_pred
+  Salt.N7.sum_Ioc_abel_int Salt.N7.lem10ExpSum_eq_sum_coeff Salt.N7.lem10_abel_transfer
+  Salt.N7.var_const Salt.N7.var_inv Salt.N7.lem10ExpSum_kl_mul
+  Salt.N7.stdAddChar_intCast_eq_e Salt.N7.isUnit_intCast_iff Salt.N7.klPhaseSum_eq_kloosterman
+  Salt.N7.sum_zmod_val_eq_sum_range Salt.N7.sum_range_mul_mod Salt.N7.sum_Ico_reflect
+  Salt.N7.gcd_natAbs_eq_of_dvd_sub Salt.N7.sqrt_gcd_mul_le Salt.N7.dist₁_shift_lower
+  Salt.N7.sum_sqrt_gcd_min_le Salt.N7.klPhaseSum_bound Salt.N7.lem10_dyadic_bound
+  Salt.N7.e_neg_eq_conj Salt.N7.norm_lem10ExpSum_neg
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
@@ -316,3 +336,26 @@ open Salt.Tactic in
   -- a bound, so it can never be composed into an estimate. It is here so the `≤ 8` carried
   -- by every row above reads as the limit of the method rather than unexamined slack.
   Salt.HB.two_pow_totient_exceeds_estermann_at_nine
+  -- node N3 JOIN (Salt/HB/Lemma3Floor.lean): HB Lemma 3 at the repulsion floor — the
+  -- FLOOR antecedent of `hb_lemma3_unconditional_absorbed` discharged from a
+  -- `repulsionCeiling` hypothesis, the mirror of HSIGMA-COMP at `B = 2b·log Q/L`.  The
+  -- `Sinv` antecedent is deliberately still carried (priced by `invSq_sum_split_le`), and
+  -- `hceil` is consumed, not proved.  A join is not the engine.
+  Salt.HB.repulsion_floor_gives_lemma3_binders
+  Salt.HB.hb_lemma3_at_repulsion_floor
+  -- node N5 WIRING (Salt/HB/SieveWire.lean): the star step's honest window built as an
+  -- `HBSieveData` (the real character of a quadratic χ via `Salt.MR.e4a_toR`), HB's `P`
+  -- identified with the complex χ's fibre, the two `S⁽³⁾`s identified (`rfl`), and the
+  -- dim-4 sandwich instantiated there.  A wire, not an estimate; the window the reduction
+  -- chain is stated on is N8's decision, not this file's.
+  Salt.HB.chiReChar Salt.HB.chiReChar_apply Salt.HB.chiReChar_prime
+  Salt.HB.hbSiftSet_chiReChar Salt.HB.hbData Salt.HB.hbData_P Salt.HB.hbData_S3_eq
+  Salt.HB.hbData_fl_sandwich
+  -- node N11 (Salt/HB/DoorBridge.lean): the DOOR half of the fulcrum — from HB's own
+  -- carrier `S1 (Ioc x (2x))` to TPC via the landed survivor extraction on `p1PrimeSum`,
+  -- the proper-prime-power tail split off and bounded (crude by design).  The `S1` LOWER
+  -- bound (Theorem 1, N9) is NOT here; a positive `S1 − ppTail` at arbitrarily large `x`
+  -- is the HYPOTHESIS of these rows, never their claim.
+  Salt.HB.twinPrimeConjecture_of_frequently_pos Salt.HB.twinWindow_two_mul_add_two
+  Salt.HB.ppTail_le Salt.HB.S1_Ioc_le_p1PrimeSum_add_ppTail
+  Salt.HB.twin_of_ppTail_lt_S1 Salt.HB.twinPrimeConjecture_of_frequently_S1
