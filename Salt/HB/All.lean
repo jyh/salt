@@ -55,6 +55,7 @@ import Salt.HB.CharTrio
 import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
 import Salt.HB.Lemma10
+import Salt.HB.Lemma10Chain
 import Salt.HB.EstermannRoad
 import Salt.HB.Lemma3Floor
 import Salt.HB.SieveWire
@@ -309,6 +310,22 @@ open Salt.Tactic in
   -- the divisor bookkeeping (gap row 4's open half): d(k)·d(k₀)·d(k₁) ≤ d(k)³
   Salt.N7.card_divisors_le_of_dvd Salt.N7.divisor_triple_le_cube
   Salt.N7.divisor_triple_attains_cube
+  -- node N7 WAVE A cont. (Salt/HB/Lemma10Chain.lean): HB (7.6)–(7.8) — the Abel transfer
+  -- with the phase variation as a hypothesis (R-A3), the completion by additive characters
+  -- mod `k` with Estermann spent once (the 2-adic factor carried literally as `√(2^{v₂ k})`,
+  -- collapsed at the road modulus by the consumer), the dyadic `m`-sum; numerals 8 / 16
+  -- from the written ledger, unmoved.  Lemma 10 itself (the p.223 assembly at
+  -- `K = 2 + k^{1/4}`) is NOT here — it is the next wave, and the file header says so.
+  Salt.N7.invMod Salt.N7.hbPhase Salt.N7.hbPhase' Salt.N7.klPhaseSum Salt.N7.lem10Coeff
+  Salt.N7.e_add_intCast Salt.N7.norm_e_sub_le Salt.N7.sum_Ioc_succ_top_int
+  Salt.N7.sum_Ico_succ_top_int Salt.N7.sum_Ioc_abel_int_ico Salt.N7.sum_Ico_eq_sum_Ioc_pred
+  Salt.N7.sum_Ioc_abel_int Salt.N7.lem10ExpSum_eq_sum_coeff Salt.N7.lem10_abel_transfer
+  Salt.N7.var_const Salt.N7.var_inv Salt.N7.lem10ExpSum_kl_mul
+  Salt.N7.stdAddChar_intCast_eq_e Salt.N7.isUnit_intCast_iff Salt.N7.klPhaseSum_eq_kloosterman
+  Salt.N7.sum_zmod_val_eq_sum_range Salt.N7.sum_range_mul_mod Salt.N7.sum_Ico_reflect
+  Salt.N7.gcd_natAbs_eq_of_dvd_sub Salt.N7.sqrt_gcd_mul_le Salt.N7.dist₁_shift_lower
+  Salt.N7.sum_sqrt_gcd_min_le Salt.N7.klPhaseSum_bound Salt.N7.lem10_dyadic_bound
+  Salt.N7.e_neg_eq_conj Salt.N7.norm_lem10ExpSum_neg
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.

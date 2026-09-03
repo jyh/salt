@@ -5683,7 +5683,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `Salt/HB/SieveWire.lean` (`chiReChar` via `Salt.MR.e4a_toR`, `hbData` at the honest window, the two
    `S⁽³⁾`s identified by `rfl`, the dim-4 sandwich instantiated; 8 names) · **N11 DOOR**
    `Salt/HB/DoorBridge.lean` (see the file header for what landed) · **Wave A remainder**
-   `Salt/HB/Lemma10Chain.lean` ((7.6)–(7.8) + Lemma 10; see the file header) · the **Wave C scout**
+   `Salt/HB/Lemma10Chain.lean` ((7.6)–(7.8) LANDED, 31 names, numerals 8/16 unmoved; Lemma 10's p.223 assembly at `K = 2 + k^{1/4}` NOT attempted — the next Wave A rung) · the **Wave C scout**
    `docs/exploration/wave-c-scout-0903.md` (read-only). ⛔ A JOIN IS NOT THE ENGINE: `hEngine` is still
    a binder; N8 (the reduction chain on ONE window — four windows exist: `l2cWindow`, `honestWindow`,
    `HBSieveData.support`, `twinWindow`), N9 (Theorem 1), N10 (the corollaries) have no object. The
