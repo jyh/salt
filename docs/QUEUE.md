@@ -565,6 +565,27 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    UNPROVED CROWN `MRTDoorAllGrades`. **NEXT:** S-0 census (read-only, in flight 09/03) → a 2-S
    design block → its refuter pass. Growing-`z` λ-BV (binder C) DRY on every route; Route I T1
    evaluated · T2/T4 NOT FIRED · T3 no. Nothing here bears on twin primes.
+   ✅⭐ **WAVE 2-S STEP F1 LANDED — STAMPED 2026-09-03 14:0x (math).** The Captain's 12:46 fire
+   (desk EY): freeze `2026-09-03-math-FREEZE-lambda-bv-wave2S-stride.md` (13:10, v1.1 13:13, v1.2 =
+   §7 after the helm's REPAIR-THEN-FIRE 6/6 verdict 13:30). `Salt/Entropy/Chowla/StrideFork.lean` on
+   `math/lbv-w2s-stride`: **32 declarations, 25 obligations, 25 FIRST ATTEMPT, every one `[3 axioms]`
+   under the rebuilt Entropy aggregate** (`logMeasureAff` the pushforward along `a·` — THE MEASURE
+   CARRIES THE STRIDE; `singleCorr_of_failsAff`; `bigXiAff` with Tao's `η ∈ ℤ/aℤ` union visible,
+   `|Ξ^aff| ≤ a·gcd(h,H)·|Ξ|`, the pinned ceiling `≤ 2^539` at `ε = 1/(500·a·h)`, the `a`-spelling
+   tripwire `affOffset_spec`; `ChowlaRegimeAff extends ChowlaRegime` by `b`, `hb`; the tower re-basing
+   `chowlaTower_eq_base_one`; `chowlaRegime_exists_flat_stride`; the affine doors reading `R.a`, `R.b`
+   with their `(1,0)` compats and seams; `sum_window_aff_eq`). Full tree `saltbuild EXIT=0`, 236
+   warnings before/after, lint OK, scrub gates OK.
+   ⛔ **HONEST LABEL:** F1 is the FOUNDATION of a port priced at or ABOVE the h-fork (16 files /
+   16,097 lines / 18 days, and the h-fork never twinned the decrement — the stride moves the windows);
+   F2 (Prop 2.6 with the class filter) · F3 (the door supply: arc bridge + the h-lane's supply read at
+   `a·h` + the x-scaling; STOP: the door does not transport along `regimeEnlargeX`) · F4 (the entropy
+   half at the stride measure — UNPRICED until its design block measures `tower_telescope`'s base
+   point) · F5 (shell/exit/terminal at `a·h`) each wait on their own design block and refuter pass, and
+   on the Captain's campaign decision at the 09/04 08:00 council. **z ≤ 7 sits inside the landed OUTER
+   cap only (`log 420 = 6.04 ≤ 7`); its GRADE is UNMEASURED** (demand `δ/(a·h)²` × supply `1.02·a`;
+   the "10²¹ slack" was log-scale). `11 ≤ z ≤ 23` waits on a numeral re-cut of the budget lines FIRST;
+   the crown `MRTDoorAllGrades` gates unbounded `z` only. Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

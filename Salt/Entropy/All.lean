@@ -92,6 +92,7 @@ import Salt.Entropy.Chowla.SignSplit
 import Salt.Entropy.Chowla.HeadPinLeavesH
 import Salt.Entropy.Chowla.HloExportFlatH
 import Salt.Entropy.Chowla.AffineFork
+import Salt.Entropy.Chowla.StrideFork
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
@@ -1206,3 +1207,47 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.flatDesignBase_unbounded
   Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupply
   Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupply_primorial
+
+/-! ⟦STRIDE FORK⟧ — THE FOUNDATION OF THE STRIDE PORT (`StrideFork`, 2026-09-03, math — λ-BV
+wave 2-S step F1, the Captain's 12:46 fire, helm refuter verdict REPAIR-THEN-FIRE 6/6).
+
+The stride measure `logMeasureAff a x ω` (the pushforward of `logMeasure` along `n ↦ a·n`: Tao's
+tuple `(λ(a·n + j))_j` is the LANDED window under it), the (2.4) ⇒ (2.6) normalisation at the
+affine forms (`singleCorr_of_failsAff`), Tao's `Ξ_H` with the `η ∈ ℤ/aℤ` union VISIBLE
+(`bigXiAff`, count `≤ a·gcd(h,H)·|Ξ|`, the pinned ceiling `≤ 2^539` at `ε = 1/(500·a·h)`), the
+`a`-spelling tripwire `affOffset_spec`, the regime with an offset (`ChowlaRegimeAff extends
+ChowlaRegime` by `b`, `hb : b ≤ Hlo` — Tao Lemma 2.5's `|r| ≤ H₋`), the tower re-basing
+`chowlaTower C0 a Hlo j = chowlaTower C0 1 (a*Hlo) j`, the flat regime at a general stride, the
+`Ξ`-restricted doors at the affine forms reading the regime's own `R.a`, `R.b` (untwisted `ξ`,
+quantifier outside) with their `(1, 0)` compats and their seams (the tripwires), and the exact
+`x`-scaling of the stride measure on the sums.  Every declaration is foundational: nothing here
+produces `LogChowlaAffSupply` at any `a ≥ 2`, nothing moves the door, nothing bears on twin
+primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x–13:5x). -/
+#audit_axioms Salt.Entropy.Chowla.logMeasureAff
+  Salt.Entropy.Chowla.logMeasureAff_one
+  Salt.Entropy.Chowla.integral_logMeasureAff
+  Salt.Entropy.Chowla.isProbabilityMeasure_logMeasureAff
+  Salt.Entropy.Chowla.singleCorr_of_failsAff
+  Salt.Entropy.Chowla.singleCorr_of_failsAff'
+  Salt.Entropy.Chowla.affOffset
+  Salt.Entropy.Chowla.bigXiAff
+  Salt.Entropy.Chowla.mem_bigXiAff_iff
+  Salt.Entropy.Chowla.bigXiAff_one_zero
+  Salt.Entropy.Chowla.affOffset_spec
+  Salt.Entropy.Chowla.card_affPreimage_le
+  Salt.Entropy.Chowla.bigXiAff_card_le
+  Salt.Entropy.Chowla.bigXiAff_card_le_mul
+  Salt.Entropy.Chowla.bigXiAff_bounded
+  Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin
+  Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime
+  Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime_toChowlaRegime
+  Salt.Entropy.Chowla.chowlaTower_eq_base_one
+  Salt.Entropy.Chowla.towerDropSum_eq_base_one
+  Salt.Entropy.Chowla.chowlaRegime_exists_flat_stride
+  Salt.Entropy.Chowla.MRTUniformityXiAff
+  Salt.Entropy.Chowla.MRTUniformityXiL2Aff
+  Salt.Entropy.Chowla.mrtUniformityXiH_eq_xiAff_one_zero
+  Salt.Entropy.Chowla.mrtUniformityXiL2H_eq_xiL2Aff_one_zero
+  Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff
+  Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2Aff
+  Salt.Entropy.Chowla.sum_window_aff_eq
