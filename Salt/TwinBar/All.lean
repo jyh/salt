@@ -32,6 +32,7 @@ import Salt.TwinBar.SiegelCorrStrong
 import Salt.TwinBar.TwistedSieve
 import Salt.TwinBar.Separation
 import Salt.TwinBar.TwinParitySieve
+import Salt.TwinBar.TwinParitySieveLog
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -681,3 +682,49 @@ no door, no `Btwin`, no level, **and still no survivor**, because all of them ar
 open Salt.Tactic in
 #audit_axioms Salt.TwinBar.hdiv_of_log_growth
   Salt.TwinBar.twinLogWeight_support_infinite_of_rate
+
+/-! ⟦λ-BV WAVE 2-P — THE LOG-REBASE OF B0–B4⟧ (`TwinParitySieveLog`, 2026-09-03, math).
+
+Wave 1's chain under LOG weights `(1 − λ(m))/n`, `m = n(n+2)` (`twinIdx` inverts the twin
+product): `twinParitySieveLog` (B0; `prodPrimes`/`nu` are wave 1's by `rfl`, so
+`twinParitySieveLog_hMert` is `hMert_twinSieve` after a bare `change` to `Salt.TwinSieve.sieve`),
+`rem_split_log` (B1: the remainder is the HARMONIC remainder `remLogCount d N = Clog N d −
+ν(d)·H_N` minus the Liouville discrepancy `Llog N d − ν(d)·Llog N 1`), `LiouvilleTwinDispLog`
+(the named arithmetic input at the log weight), `twinParitySieveLog_brun_lower_ell1` (B2, the
+ten Props), `remLogCount_abs_le` (`≤ 4·ρ(d)`: `ρ(d)` residue classes each within 4 of `(1/d)·H_N`
+— the per-class sup is ≈ 2.4 and 4 is a majorant), `BtwinLog = 4·Btwin`, `twinRemLog_sum_le`,
+`twinParitySieveLog_rosserRemainder_le` (B3), `twinParitySieveLog_siftedSum_lower` (B4, the
+quantitative verdict-4 form), and the wiring to infinitude: `twinParitySieveLog_siftedSum_eq`
+(the sifted sum IS the landed `twinLogWeight` partial sum) and
+`twinParitySieveLog_support_infinite` (through `support_infinite_of_partialSums_unbounded`).
+
+⛔ Honest label: a LOG-WORLD DOOR conditional on `LiouvilleTwinDispLog` (binder C, held by
+nobody), wave 1's shape one weight over — the Captain's ruled primary (Route II).  It is NOT
+the vehicle for the fixed-`z` prize (block W in `Salt/Entropy/Chowla/AffineFork.lean` is), it
+does NOT collapse the Wave-1 terminal, and its input at growing `z` is the open λ-BV object.
+Nothing here bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.twinIdx
+  Salt.TwinBar.twinIdx_twinProd
+  Salt.TwinBar.twinParitySieveLog
+  Salt.TwinBar.twinParitySieveLog_prodPrimes
+  Salt.TwinBar.twinParitySieveLog_nu
+  Salt.TwinBar.twinParitySieveLog_totalMass
+  Salt.TwinBar.Llog
+  Salt.TwinBar.Clog
+  Salt.TwinBar.remLogCount
+  Salt.TwinBar.Llog_one
+  Salt.TwinBar.Clog_one
+  Salt.TwinBar.twinParitySieveLog_multSum
+  Salt.TwinBar.rem_split_log
+  Salt.TwinBar.LiouvilleTwinDispLog
+  Salt.TwinBar.twinParitySieveLog_totalMass_nonneg
+  Salt.TwinBar.twinParitySieveLog_hMert
+  Salt.TwinBar.twinParitySieveLog_brun_lower_ell1
+  Salt.TwinBar.remLogCount_abs_le
+  Salt.TwinBar.BtwinLog
+  Salt.TwinBar.twinRemLog_sum_le
+  Salt.TwinBar.twinParitySieveLog_rosserRemainder_le
+  Salt.TwinBar.twinParitySieveLog_siftedSum_lower
+  Salt.TwinBar.twinParitySieveLog_siftedSum_eq
+  Salt.TwinBar.twinParitySieveLog_support_infinite
