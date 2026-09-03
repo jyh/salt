@@ -31,7 +31,7 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 ## | **7b** h-L² door convention | ✅✅ **COMPLETE 2026-08-26 13:4x (math)** — all five commissioned nodes landed, **11 names, every one `[3 axioms]` under the `Salt.MR.All` gate**. The twisted `L²` door has a producer (`mrtUniformityXiL2H_of_absWindowSqBound`) and a mint (`m4_doorL2_supply_500_H`). ⛔ **REACHABLE, NOT DONE:** the mint's `hsock` is the cap-inflated socket `M4SievedDoorSqH`, DECLARED OPEN with an inhabitation witness; **its producer is a W-F3+ WAVE whose first action is the `P₁`-margin measurement.** Design was the helm's (`2026-08-26-helm-COMMISSION-7b-hdoor.md`, refuter-passed); math executed at worker tier. ✅⭐ **THE PRODUCER WAVE'S CO-FACTOR HALF IS EXECUTED AT `h = 2` — 2026-08-31 (math, helm-commissioned 17:39:57): `Salt/MR/HDoorSupply.lean`, on `math/7b-hdoor-h2`.** ✅⭐⭐ **AND THE DOOR SIDE TOO — ELEVEN nodes, **34 names**, all `[3 axioms]` — `M4SievedDoorSqH` HAS A PRODUCER** (`m4_sievedDoorSqH_of_blockQH`). ✅⭐⭐⭐ **AND THE CLOSING WAVE DISCHARGED N4s** (`HDoorClose.lean`, 11 names): the twisted door's mint closes onto **the same two data the `h = 1` door closes onto**. ⚖️ **HELM RULING 19:07: 7b is CLOSED AS TO THE CAP; its ESTIMATE-RANGE is an OPEN CONDITIONAL, named `M4ChiBlockMeanSqH 2` (the χ mean square at `q ≤ 2·arcDen 12 H` vs the landed `q ≤ arcDen 12 H`), owned by the PRODUCERS' lane, not the door's.** ✅ **AND THE COMMISSIONED `q`-UNIFORMITY CENSUS IS RUN: RIPE — the producers' χ bound does NOT read the modulus, so `M4ChiBlockMeanSqH 2` is exactly as open as `M4ChiBlockMeanSq`, no more.** See the row body. | helm→math | — |
 ## | **JAS push flag** (P2) | ✅ DISCHARGED STALE — the Captain's push ruling came 2026-08-23 (recorded in P1.5's own row) and ALL SIX formerly-unpushed branches are AT ORIGIN, verified by `git ls-remote` 08/26. The flag outlived its condition by three days. | — | — |
 ## | **P2.6** README/arXiv title note | ✅ DISCHARGED — Captain confirmed at council 08/26: KEEP the title, ADD the one-line note beside the repo's paper citation naming the arXiv v1 title. Executes at jas's wake. | jas | at its wake |
-## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. **Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?). ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | — |
+## | **λ-BV Wave 2** (P1 item 2 tail) | ⚖️ **RE-MEASURED 2026-08-26 15:2x (math): THE STOP WAS STALE AND "DISPATCHABLE" STILL OVERSHOT.** The design session was held 08/21 and its §7 refuter pass killed its own §3 — *"No wave tables from §3"*; live threads are §2/§4, both DESIGN-TIER. ~~**Wave 2 needs a design bell, not an executor** (priced question: open a Tao-Thm-1.2 formalization campaign?)~~ ⚖️✅ **DISCHARGED 2026-09-03 — THE BELL RANG.** Council 09/03 §4 ruled λ-BV THE CONTINUING CAMPAIGN and the design block W2-0 FIRED 09:48 (desk EU, `2026-09-03-helm-COMMISSION-lambda-bv-wave2-design.md`), froze 10:12, took a REPAIR-THEN-FIRE verdict 10:30, and re-fired as waves 2-W + 2-P at 10:42 — see P1 item 2's 09/03 stamp. ⛔ **THE BELL DID NOT ANSWER THE PRICED QUESTION: it RE-ASKED it.** The refuter pass found neither block delivers the headline prize; the Tao two-point port is now named WAVE 2-S and is at S-0 CENSUS, its price due at the 09/04 08:00 council. ✅ §7's verdict-4 EXTRACTION REPAIR was route-independent and IS landed (2 names, `[3 axioms]`). ⇒ **a stale STOP and a live GO are not the only two states.** | math→helm | 09/04 08:00 council (the S-0 census prices wave 2-S) |
 ## | **item 16** census-first | ✅ DISCHARGED STALE — both probes FIRED/CONFIRMED 2026-08-21 10:4x, satisfying the Captain's ruling-2 condition; the arc question it fenced is now the arc commission (`docs/blueprints/arc.md` v3, chartered 08/25). | — | — |
 ## | **chowla.txt provenance** (P2b) | an editorial ruling; cheap repair already identified — a tracked, stamped copy under `docs/sources/`. **s3-a3-design.md is CHAINED to this one row.** | helm (Captain if the wording is his) | next sitting close |
 ## | **c4spec STEP 7** | ⚖️ **RE-FORMED 2026-08-26 12:2x ON SILICON'S MEASUREMENT — ITS TIMEOUT FIRED AND THE BLOCK WAS 256/257 FALSE.** `memOrgan` is LANDED, BUILT and kernel-checked with all 256 next-state bits (`SaltWorks.lean:112`, 1475 gates, `decide +kernel`) — it is simply NOT PLACED in the assembly; and `renumbering_offsets` is landed too (`StateCodecD.lean:324`, imported at `SaltWorks.lean:109`). **The 256 placement is ordinary lane work, AUTHORIZED, not a block.** ⚠️ **RE-CORRECTED 2026-08-26 14:3x — SILICON'S OWN AMENDMENT TO ITS 12:2x MEASUREMENT, WHICH
@@ -485,6 +485,55 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    F-THIRD-REGIME restated flat-world-only (else §5 contradicts §3) · the §14/§15 cross-references
    repo-qualified · §0.6's `h ≤ 1` → `h ≤ 2` (S14 verdict). **Every LEAN node verdict 4 named is
    now landed.**
+   ✅⚖️⭐⭐⭐ **WAVE 2: FIRED, FROZEN, REFUTED, RE-FIRED — ALL ON 2026-09-03 (desk EU, deadline 09/04 08:00).**
+   **09:48 FIRED** to math (Fable, kriterion) — the log-rebase design block W2-0 per the 08/21 rulings §2/§4:
+   `2026-09-03-helm-COMMISSION-lambda-bv-wave2-design.md`. Council 09/03 §4: **λ-BV IS THE CONTINUING
+   CAMPAIGN** (the pack's fork line struck; the χ mean square went to P3, PR #29 `53f826cf`).
+   **10:12 FROZEN, STOPPED AT THE FREEZE POST** — `2026-09-03-math-FREEZE-lambda-bv-wave2.md`:
+   **25 statements type-check SORRY-BODIED at main `074682e0`** (`saltbuild EXIT=0`, 0 errors, 25 `declaration uses
+   sorry`); step-0 census posted BEFORE any design (bus `32815628`, 10:08). No Lean landed, no branch cut.
+   **10:30 REFUTER VERDICT — `REPAIR-THEN-FIRE`** (6 refuters, 12 assigned kill-checks + 17 unassigned, 875k tokens):
+   `2026-09-03-helm-REFUTER-VERDICT-lambda-bv-wave2.md`, verdicts in the sibling `-REFUTER-PASS-…-verdicts.json`.
+   ⛔ **ONE STATEMENT FALSE AS STATED:** W4 `exists_affSurvivor_of_not_failsAff` — mathlib's `liouville 0 = 0` makes `hnf`
+   satisfiable at `(a,b) = (0,0)` at every regime while the conclusion demands `0 = −1`. **REPAIR: add `(ha : 0 < a)`**
+   (W8 supplies it from `hP`, W9 from `Nat.one_pos`; S1's def is NOT weakened). ⇒ ***A SORRY-BODIED BUILD CANNOT SEE
+   TRUTH — 25 green statements and one of them false.*** Plus **eight wave-table repairs**, each of which would have burned
+   an executor's single attempt (the W4 floor's undischarged sign · W5's unimportable `Salt.TwinBar` cite · W2's
+   `one_mul`/`add_zero` · S2's `.mp` not `.mpr` · P6's `range N` vs `range (N+1)` seam · P3a's three near-names and its
+   `M = 0` case · P2b's `change` target · **every row must name the TREE PATH `seats/math/salt` beside the sha** — the helm
+   checkout was 21 commits behind and lacked `V7RatedH.lean`, so an executor pointed there reads the prize as ABSENT), and
+   **TWO NEW NODES W6b/W6c** so the z-rough prize is MINTED rather than read off a docstring.
+   ⛔⛔⭐⭐ **THE ROUTE FINDING — NEITHER BLOCK DELIVERS THE COMMISSION'S HEADLINE PRIZE.** Block W **ORPHANS the Wave-1
+   terminal** `twin_parity_survivor_or_chowla_of_liouvilleTwinDisp` (`Salt/TwinBar/TwinParitySieve.lean:357`): it consumes
+   no ¬Fails form, its left disjunct is an ℓ¹ natural-density mass, and every block-W object is log-weighted and windowed.
+   Block P **re-mints the same door at log weight, still conditional on `LiouvilleTwinDispLog`**. The ONLY unconditional
+   theorem wave 2-W produces today is **W9, elementary**; W8 is conditional on the unproduced stride supply S1 at `a ≥ 2`.
+   **THE PRIZE NEEDS WAVE 2-S:** a stride-general port of Tao Theorem 2.3 (Tao STATES the general stride,
+   `docs/sources/chowla-v1-textdump.txt:548-549` — the PORT specialised it to `(a,b) = (1,0)`; the "axis Tao left open"
+   sentence is STRUCK as a priority claim), plus a **Fable-tier regime re-freeze** (the `∃ η ∈ ℤ/aℤ` union in Ξ, Lemma 3.5's
+   count on the `ℤ/aHℤ` grid, and an OFFSET binder `ChowlaRegime` does not have) — and at large `z` it is **CO-DEPENDENT ON
+   THE UNPROVED CROWN `MRTDoorAllGrades`**: the landed one-grade door (ρ ≤ 1/837782) caps the stride inside a numeral
+   budget while `a = primorial z` exceeds it by `z ≈ 11`.
+   **10:42 FREEZE v2 POSTED; WAVES 2-W (W1–W9 + W6b/W6c) AND 2-P FIRING** by class (Sonnet A/B · Opus C), one attempt per
+   name, branch **`math/lbv-w2-affine` off `origin/main`**, PR then merge on green, honest conditional labels on every
+   docstring (W8 conditional on S1 at `a ≥ 2`; block P conditional on `LiouvilleTwinDispLog`; W9 elementary).
+   ⛔ **PR STATE, MEASURED TWICE IN NINE MINUTES.** At **10:5x: NONE OPEN** (`gh pr list -R jyh/salt` showed nothing past
+   #29 `53f826cf`; `git ls-remote --heads origin` carried no `lbv` branch). **RE-MEASURED 11:00: PR #30 IS OPEN** —
+   `math/lbv-w2-affine` at `d306e418`, opened 10:59:49, *"the affine fork + the log-rebase of B0–B4 — 38 declarations,
+   every theorem `[3 axioms]`"*, +1004 lines across `Salt/Entropy/Chowla/AffineFork.lean` · `Salt/MR/AffineSupplyH.lean` ·
+   `Salt/TwinBar/TwinParitySieveLog.lean` + three `All.lean` gates + `docs/QUEUE.md`; **build IN PROGRESS, not merged.**
+   ⇒ ***A QUEUE LINE THAT SAYS "NONE OPEN" IS TRUE FOR MINUTES*** — the first reading was correct and nine minutes later it
+   over-claimed absence. Both are printed rather than the second replacing the first, because the pair is the evidence that
+   this row must be re-measured at read, not trusted at read. ⚠️ **PR #30 ALSO EDITS THIS FILE** — whoever merges second
+   resolves `docs/QUEUE.md` by hand; neither edit is authoritative over the other.
+   **WAVE 2-S = S-0 CENSUS ONLY, NO DESIGN, NO REGIME FIELD** — `2026-09-03-math-S0-CENSUS-stride.md`: the
+   `a := 1` pins, the `R.a` sites by role, the failure Props' consumers by layer, Tao's `a`-dependent steps, and four
+   deliverables including the arithmetic stride cap `a_max` from `contradiction_of_mrtDoorXiH`'s `hsmall`.
+   **Its output PRICES THE REAL WAVE 2 FOR THE CAPTAIN at the 09/04 08:00 council** — that is the decision this item now
+   waits on, and it carries a date.
+   ⚖️ **ROUTE I's FOUR TRIGGERS T1–T4: UNFIRED AS OF 09/03** (math's step-0 census, bus `32815628` 10:08 — T1 evaluated
+   08/21 and did not fire · T2 not fired, the ladder closes · T3 not landed · T4 not fired). **Route II (log-rebase)
+   remains PRIMARY** per the 08/21 rulings; nothing today re-opens Route I.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
