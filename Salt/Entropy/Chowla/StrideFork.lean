@@ -78,7 +78,9 @@ noncomputable def logMeasureAff (a x ω : ℕ) : Measure ℕ :=
 /-- **F1-M2 (class A).**  `(fun n => 1 * n) = id` by `funext` + `one_mul`, then
 `MeasureTheory.Measure.map_id`. -/
 theorem logMeasureAff_one (x ω : ℕ) : logMeasureAff 1 x ω = logMeasure x ω := by
-  sorry
+  unfold logMeasureAff
+  have hid : (fun n : ℕ => 1 * n) = id := by funext n; simp
+  rw [hid, Measure.map_id]
 
 /-- **F1-M3 (class A).**  The change of variables: every integral against the stride measure
 is the integral of the composite against `logMeasure`.  `MeasureTheory.integral_map` with
@@ -87,7 +89,9 @@ is the integral of the composite against `logMeasure`.  `MeasureTheory.integral_
 `Measurable.aestronglyMeasurable` applies with no side condition). -/
 theorem integral_logMeasureAff (a x ω : ℕ) (f : ℕ → ℝ) :
     ∫ m, f m ∂(logMeasureAff a x ω) = ∫ n, f (a * n) ∂(logMeasure x ω) := by
-  sorry
+  unfold logMeasureAff
+  exact integral_map (measurable_from_nat).aemeasurable
+    (measurable_from_nat).aestronglyMeasurable
 
 /-- **F1-M4 (class A, an `instance`).**  The stride measure is a probability measure whenever
 `logMeasure` is:
@@ -97,9 +101,29 @@ theorem integral_logMeasureAff (a x ω : ℕ) (f : ℕ → ℝ) :
 `InvarianceHead.lean:163`). -/
 instance isProbabilityMeasure_logMeasureAff (a x ω : ℕ)
     [IsProbabilityMeasure (logMeasure x ω)] : IsProbabilityMeasure (logMeasureAff a x ω) := by
-  sorry
+  unfold logMeasureAff
+  exact Measure.isProbabilityMeasure_map (measurable_from_nat).aemeasurable
 
 /-! ## F1-N — the (2.4) ⇒ (2.6) normalisation at the affine forms -/
+
+/-- **The `logMeasure` expectation is the harmonic-weighted window sum ÷ `Z`.**
+A VERBATIM copy of `ChowlaFailure.lean:40`'s `logMeasure_integral_eq`, which is
+`private` to its module (module header, F1-N1).  Its proof is `f`-generic. -/
+private theorem logMeasure_integral_eq_aff (f : ℕ → ℝ) (x ω : ℕ) :
+    ∫ n, f n ∂(logMeasure x ω)
+      = (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹
+          * ∑ n ∈ Finset.Ioc (x / ω) x, f n * (n : ℝ)⁻¹ := by
+  have hf : ∀ n ∈ Finset.Ioc (x / ω) x,
+      Integrable f ((n : ENNReal)⁻¹ • Measure.dirac n) := fun n hn =>
+    (integrable_dirac (by simp)).smul_measure
+      (ENNReal.inv_ne_top.mpr (by exact_mod_cast Nat.one_le_iff_ne_zero.mp (window_one_le hn)))
+  unfold logMeasure
+  rw [integral_smul_measure, integral_finsetSum_measure hf]
+  simp only [integral_smul_measure, integral_dirac, smul_eq_mul, ENNReal.toReal_inv,
+    ENNReal.toReal_natCast]
+  rw [norm_toReal]
+  congr 1
+  exact Finset.sum_congr rfl (fun n _ => mul_comm _ _)
 
 /-- **F1-N1 (class B).**  Stmt 1 at the affine forms: Tao (2.4) ⇒ (2.6) — the failure of the
 affine atom at margin `ε` gives `ε/2 ≤ |E λ(a·n+b)λ(a·n+b+h)|` under the log-measure.  The
@@ -118,7 +142,32 @@ theorem singleCorr_of_failsAff (a b h : ℕ) (eps : ℚ) {x ω : ℕ}
     (eps : ℝ) / 2 ≤
       |∫ n, (ArithmeticFunction.liouville (a * n + b) : ℝ)
         * (ArithmeticFunction.liouville (a * n + b + h) : ℝ) ∂(logMeasure x ω)| := by
-  sorry
+  unfold logChowlaFailsAff at hfail
+  have hint : ∫ n, (ArithmeticFunction.liouville (a * n + b) : ℝ)
+        * (ArithmeticFunction.liouville (a * n + b + h) : ℝ) ∂(logMeasure x ω)
+      = (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹
+          * ∑ n ∈ Finset.Ioc (x / ω) x,
+              (ArithmeticFunction.liouville (a * n + b) : ℝ)
+                * (ArithmeticFunction.liouville (a * n + b + h) : ℝ) / (n : ℝ) := by
+    rw [logMeasure_integral_eq_aff
+      (fun n => (ArithmeticFunction.liouville (a * n + b) : ℝ)
+        * (ArithmeticFunction.liouville (a * n + b + h) : ℝ))]
+    simp only [div_eq_mul_inv]
+  rw [hint]
+  obtain ⟨hZlo, hZhi⟩ := harmonic_window_bounds hx hω hωx
+  set Z : ℝ := ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹ with hZ
+  set Nsum : ℝ := ∑ n ∈ Finset.Ioc (x / ω) x,
+      (ArithmeticFunction.liouville (a * n + b) : ℝ)
+        * (ArithmeticFunction.liouville (a * n + b + h) : ℝ) / (n : ℝ) with hNsum
+  have hZpos : 0 < Z := by linarith
+  have key : (eps : ℝ) * Z ≤ 2 * |Nsum| := by
+    rcases le_or_gt (eps : ℝ) 0 with hsign | hsign
+    · nlinarith [mul_nonneg (neg_nonneg.mpr hsign) hZpos.le, abs_nonneg Nsum]
+    · nlinarith [hfail, mul_le_mul_of_nonneg_left hZhi hsign.le,
+        mul_nonneg hsign.le (by linarith : (0 : ℝ) ≤ Real.log (ω : ℝ) - 1)]
+  rw [abs_mul, abs_inv, abs_of_pos hZpos, mul_comm Z⁻¹ |Nsum|, ← div_eq_mul_inv,
+    le_div_iff₀ hZpos]
+  nlinarith [key]
 
 /-- **F1-N2 (class A).**  The same seed read under the stride measure, in the form the entropy
 half consumes (windows at `m = a·n`): `integral_logMeasureAff` at
@@ -131,7 +180,11 @@ theorem singleCorr_of_failsAff' (a b h : ℕ) (eps : ℚ) {x ω : ℕ}
     (eps : ℝ) / 2 ≤
       |∫ m, (ArithmeticFunction.liouville (m + b) : ℝ)
         * (ArithmeticFunction.liouville (m + b + h) : ℝ) ∂(logMeasureAff a x ω)| := by
-  sorry
+  have h1 := singleCorr_of_failsAff a b h eps hx hω hωx hlog2 hfail
+  rw [integral_logMeasureAff a x ω
+    (fun m => (ArithmeticFunction.liouville (m + b) : ℝ)
+      * (ArithmeticFunction.liouville (m + b + h) : ℝ))]
+  exact h1
 
 /-! ## F1-X — the large-spectrum set with the `η ∈ ℤ/aℤ` union made visible -/
 
@@ -165,7 +218,9 @@ is `bigXi`'s at the shifted point by construction). -/
 theorem mem_bigXiAff_iff {a b h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
     ξ ∈ bigXiAff a b h eps H
       ↔ ∃ η ∈ Finset.range a, affOffset a b h H η + (h : ZMod H) * ξ ∈ bigXi eps H := by
-  sorry
+  classical
+  unfold bigXiAff bigXi
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
 
 /-- **F1-X3 (class B) — the `(1, 0)` compat.**  `Finset.filter_congr`; `∃ η ∈ range 1, P η ↔
 P 0` (`Finset.mem_range`, `Nat.lt_one_iff`); at `η = 0`, `affOffset 1 0 h H 0 = 0` by
@@ -173,7 +228,16 @@ P 0` (`Finset.mem_range`, `Nat.lt_one_iff`); at `η = 0`, `affOffset 1 0 h H 0 =
 turns the point into `bigXiH`'s `(h : ZMod H) * ξ`. -/
 theorem bigXiAff_one_zero (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
     bigXiAff 1 0 h eps H = bigXiH h eps H := by
-  sorry
+  classical
+  ext ξ
+  rw [mem_bigXiAff_iff, mem_bigXiH_iff]
+  constructor
+  · rintro ⟨η, hη, hmem⟩
+    rw [Finset.mem_range, Nat.lt_one_iff] at hη
+    subst hη
+    simpa [affOffset] using hmem
+  · intro hmem
+    exact ⟨0, by simp, by simpa [affOffset] using hmem⟩
 
 /-- **F1-X4 (class B) — THE `a`-SPELLING TRIPWIRE.**  No other statement in this file depends on
 `H / a` being the right factor (`bigXiAff_one_zero` is provable under ANY `H/a`-shaped expression:
@@ -184,7 +248,13 @@ at `a = 1`, `η = 0` kills it).  This one does: under `a ∣ H`, `a` times the o
 `Nat.mod_modEq`.  If `affOffset` had the wrong grid, this is the statement that fails. -/
 theorem affOffset_spec {a b h H : ℕ} [NeZero H] (hdvd : a ∣ H) (η : ℕ) :
     (affOffset a b h H η).val * a ≡ (b + h) * η * H [MOD H * a] := by
-  sorry
+  unfold affOffset
+  rw [ZMod.val_natCast]
+  have hm : a * (H / a) = H := Nat.mul_div_cancel' hdvd
+  have h2 := (Nat.mod_modEq ((b + h) * η * (H / a)) H).mul_right' a
+  have h3 : (b + h) * η * (H / a) * a = (b + h) * η * H := by
+    rw [mul_assoc, mul_comm (H / a) a, hm]
+  rwa [h3] at h2
 
 /-! ## F1-C — the fibre bounds (`ShiftFork` T2 at a translated target) -/
 
@@ -192,13 +262,28 @@ theorem affOffset_spec {a b h H : ℕ} [NeZero H] (hdvd : a ∣ H) (η : ℕ) :
 (private there; the fibre lemma below needs it). -/
 private lemma dvd_of_coprime_factor_aff {d a' b' v : ℕ} (hd : 0 < d)
     (hcop : Nat.Coprime b' a') (hdvd : d * b' ∣ d * a' * v) : b' ∣ v := by
-  sorry
+  rw [mul_assoc] at hdvd
+  exact hcop.dvd_of_dvd_mul_left ((mul_dvd_mul_iff_left hd.ne').mp hdvd)
 
 /-- **F1-C0b (class A, a copy).**  `ShiftFork.lean:158-178` `val_dvd_of_mul_eq_zero`, VERBATIM
 (uses `dvd_of_coprime_factor_aff` in place of the private original). -/
 private lemma val_dvd_of_mul_eq_zero_aff {H : ℕ} [NeZero H] (h : ℕ) {z : ZMod H}
     (hz : (h : ZMod H) * z = 0) : H / Nat.gcd h H ∣ z.val := by
-  sorry
+  have hHne : H ≠ 0 := NeZero.ne H
+  have hdpos : 0 < Nat.gcd h H :=
+    Nat.pos_of_ne_zero fun hzero => hHne (Nat.eq_zero_of_gcd_eq_zero_right hzero)
+  have hcast : ((h * z.val : ℕ) : ZMod H) = 0 := by
+    rw [Nat.cast_mul, ZMod.natCast_val, ZMod.cast_id]
+    exact hz
+  have hdvd : H ∣ h * z.val := (ZMod.natCast_eq_zero_iff _ _).mp hcast
+  have hH : Nat.gcd h H * (H / Nat.gcd h H) = H :=
+    Nat.mul_div_cancel' (Nat.gcd_dvd_right h H)
+  have hh : Nat.gcd h H * (h / Nat.gcd h H) = h :=
+    Nat.mul_div_cancel' (Nat.gcd_dvd_left h H)
+  refine dvd_of_coprime_factor_aff (d := Nat.gcd h H) hdpos
+    ((Nat.coprime_div_gcd_div_gcd hdpos).symm) ?_
+  rw [hH, hh]
+  exact hdvd
 
 /-- **F1-C0 (class A, a copy).**  `ShiftFork.lean:179-222` `card_fiber_le`, VERBATIM with the two
 helpers above (all three are `private` to `ShiftFork`; no import edit to the landed file).
@@ -206,7 +291,42 @@ Every fibre of `ξ ↦ (h : ZMod H) * ξ` has at most `gcd(h,H)` elements. -/
 private lemma card_fiber_le_aff {H : ℕ} [NeZero H] (h : ℕ) (t : ZMod H) :
     (Finset.univ.filter (fun x : ZMod H => (h : ZMod H) * x = t)).card
       ≤ Nat.gcd h H := by
-  sorry
+  classical
+  rcases Finset.eq_empty_or_nonempty
+      (Finset.univ.filter (fun x : ZMod H => (h : ZMod H) * x = t)) with hE | hne
+  · rw [hE, Finset.card_empty]
+    exact Nat.zero_le _
+  · obtain ⟨x₀, hx₀⟩ := hne
+    have hx₀' : (h : ZMod H) * x₀ = t := (Finset.mem_filter.mp hx₀).2
+    have hHdq : H / Nat.gcd h H * Nat.gcd h H = H :=
+      Nat.div_mul_cancel (Nat.gcd_dvd_right h H)
+    have hker : ∀ x ∈ Finset.univ.filter (fun x : ZMod H => (h : ZMod H) * x = t),
+        (H / Nat.gcd h H) ∣ (x - x₀).val := by
+      intro x hx
+      refine val_dvd_of_mul_eq_zero_aff h ?_
+      have hx' : (h : ZMod H) * x = t := (Finset.mem_filter.mp hx).2
+      rw [mul_sub, hx', hx₀', sub_self]
+    have hle : (Finset.univ.filter (fun x : ZMod H => (h : ZMod H) * x = t)).card
+        ≤ (Finset.range (Nat.gcd h H)).card := by
+      refine Finset.card_le_card_of_injOn
+        (fun x => (x - x₀).val / (H / Nat.gcd h H)) ?_ ?_
+      · intro x _
+        have hlt : (x - x₀).val / (H / Nat.gcd h H) < Nat.gcd h H := by
+          refine Nat.div_lt_of_lt_mul ?_
+          rw [hHdq]
+          exact ZMod.val_lt _
+        simpa using hlt
+      · intro x hx y hy hxy
+        replace hxy : (x - x₀).val / (H / Nat.gcd h H)
+            = (y - x₀).val / (H / Nat.gcd h H) := hxy
+        have hdx := hker x (Finset.mem_coe.mp hx)
+        have hdy := hker y (Finset.mem_coe.mp hy)
+        have hval : (x - x₀).val = (y - x₀).val := by
+          rw [← Nat.div_mul_cancel hdx, ← Nat.div_mul_cancel hdy, hxy]
+        have hz : x - x₀ = y - x₀ := ZMod.val_injective H hval
+        have := congrArg (fun t : ZMod H => t + x₀) hz
+        simpa using this
+    simpa using hle
 
 /-- **F1-C1 (class B) — the fibre bound at a translated target, for ANY target set.**
 `ShiftFork.bigXiH_card_le_gcd_mul`'s proof with `bigXi` replaced by an arbitrary `T` and the
@@ -216,7 +336,17 @@ with `eq_sub_iff_add_eq'`), bounded by `card_fiber_le_aff h (t - c)`. -/
 theorem card_affPreimage_le {H : ℕ} [NeZero H] (h : ℕ) (c : ZMod H) (T : Finset (ZMod H)) :
     (Finset.univ.filter (fun ξ : ZMod H => c + (h : ZMod H) * ξ ∈ T)).card
       ≤ Nat.gcd h H * T.card := by
-  sorry
+  classical
+  refine Finset.card_le_mul_card_image_of_maps_to
+    (f := fun ξ : ZMod H => c + (h : ZMod H) * ξ) (t := T)
+    (fun ξ hξ => (Finset.mem_filter.mp hξ).2) (Nat.gcd h H) ?_
+  intro t _
+  refine le_trans (Finset.card_le_card ?_) (card_fiber_le_aff h (t - c))
+  intro x hx
+  rw [Finset.mem_filter] at hx ⊢
+  refine ⟨Finset.mem_univ x, ?_⟩
+  rw [eq_sub_iff_add_eq']
+  exact hx.2
 
 /-- **F1-C2 (class B) — THE COUNT: `|Ξ^{(a,b,h)}_H| ≤ a · gcd(h,H) · |Ξ_H|`.**  `bigXiAff` is
 the `biUnion` over `η ∈ range a` of the translated preimages (`Finset.ext` + `mem_bigXiAff_iff`
@@ -225,13 +355,32 @@ terms each `≤ gcd(h,H) · |bigXi|` by `card_affPreimage_le`
 (`Finset.sum_le_card_nsmul` / `Finset.card_range`, `smul_eq_mul`).  Uniform in `b`. -/
 theorem bigXiAff_card_le (a b h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
     (bigXiAff a b h eps H).card ≤ a * (Nat.gcd h H * (bigXi eps H).card) := by
-  sorry
+  classical
+  have hset : bigXiAff a b h eps H
+      = (Finset.range a).biUnion (fun η =>
+          Finset.univ.filter (fun ξ : ZMod H =>
+            affOffset a b h H η + (h : ZMod H) * ξ ∈ bigXi eps H)) := by
+    ext ξ
+    rw [mem_bigXiAff_iff, Finset.mem_biUnion]
+    constructor
+    · rintro ⟨η, hη, hm⟩
+      exact ⟨η, hη, Finset.mem_filter.mpr ⟨Finset.mem_univ _, hm⟩⟩
+    · rintro ⟨η, hη, hm⟩
+      exact ⟨η, hη, (Finset.mem_filter.mp hm).2⟩
+  rw [hset]
+  refine le_trans Finset.card_biUnion_le ?_
+  refine le_trans (Finset.sum_le_card_nsmul _ _ (Nat.gcd h H * (bigXi eps H).card) ?_) ?_
+  · intro η _
+    exact card_affPreimage_le h _ _
+  · rw [Finset.card_range, smul_eq_mul]
 
 /-- **F1-C3 (class A).**  `gcd(h,H) ≤ h` at `0 < h` (`Nat.gcd_le_left`), as `ShiftFork`'s
 `bigXiH_card_le_mul`. -/
 theorem bigXiAff_card_le_mul (a b h : ℕ) (hh : 0 < h) (eps : ℚ) (H : ℕ) [NeZero H] :
     (bigXiAff a b h eps H).card ≤ a * h * (bigXi eps H).card := by
-  sorry
+  refine le_trans (bigXiAff_card_le a b h eps H) ?_
+  rw [mul_assoc]
+  exact Nat.mul_le_mul_left a (Nat.mul_le_mul_right _ (Nat.gcd_le_left H hh))
 
 /-- **F1-C4 (class A) — the transfer of Tao Lemma 3.5.**  `bigXi_bounded`
 (`GoldbachEnergyFinal.lean:502`, unconditional) through F1-C3 with the constant `a·h·C`, as
@@ -242,7 +391,15 @@ frequency already lies on `ℤ/Hℤ` (S-0 census §5(ii)). -/
 theorem bigXiAff_bounded (eps : ℚ) (heps : 0 < eps) (heps2 : (eps : ℝ) ^ 2 < 1 / 2) :
     ∃ C : ℝ, 0 < C ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (a b h : ℕ), 0 < h → ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
       ((bigXiAff a b h eps H).card : ℝ) ≤ (a : ℝ) * (h : ℝ) * C := by
-  sorry
+  obtain ⟨C, hC, H₀, hH₀, hb⟩ := bigXi_bounded eps heps heps2
+  refine ⟨C, hC, H₀, hH₀, ?_⟩
+  intro a b h hh H _ hle
+  have h1 : ((bigXiAff a b h eps H).card : ℝ)
+      ≤ (a : ℝ) * (h : ℝ) * ((bigXi eps H).card : ℝ) := by
+    exact_mod_cast bigXiAff_card_le_mul a b h hh eps H
+  have h2 := hb H hle
+  have hah : (0 : ℝ) ≤ (a : ℝ) * (h : ℝ) := by positivity
+  nlinarith [h1, h2, hah]
 
 set_option exponentiation.threshold 4000 in
 /-- **F1-C5 (class B) — THE PINNED CEILING at the affine lane's own pin `ε = 1/(500·a·h)`**, the
@@ -258,7 +415,67 @@ theorem bigXiAff_bounded_ceiling_of_pin (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (ε : ℚ) (hε : ε = 1 / (500 * ((a * h : ℕ) : ℚ))) :
     ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
       ((bigXiAff a b h ε H).card : ℝ) ≤ C := by
-  sorry
+  subst hε
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hx0 : (0 : ℝ) < ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have hx1 : (1 : ℝ) ≤ ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have hq0 : (0 : ℚ) < ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
+  have h1096 : ((a * h : ℕ) : ℝ) ≤ 1096 := by
+    exact_mod_cast h_le_1096_of_log_le_seven hkpos hah7
+  have hcast : (((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)
+      = 1 / (500 * ((a * h : ℕ) : ℝ)) := by push_cast; ring
+  have heps2 : ((((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)) ^ 2 < 1 / 2 := by
+    rw [hcast]
+    have hle : (1 : ℝ) / (500 * ((a * h : ℕ) : ℝ)) ≤ 1 / 500 := by
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
+    have h0 : (0 : ℝ) < 1 / (500 * ((a * h : ℕ) : ℝ)) := by positivity
+    nlinarith [hle, h0]
+  have hbase := bigXi_bounded_explicit (1 / (500 * ((a * h : ℕ) : ℚ))) (by positivity) heps2
+    ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) (Real.exp 40) (Real.exp_pos _)
+    hFac2_lcm_sum_le_exp40 (hpt_holds_500h (a * h) hkpos hah7)
+  refine ⟨32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+      * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ),
+    by positivity, ?_, 2, le_rfl, ?_⟩
+  · have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by
+      simpa using exp_forty_le_pow40
+    have hfold : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+          * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ)
+        = (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * ((a * h : ℕ) : ℝ) ^ (15 : ℕ) := by
+      ring
+    have hp15 : ((a * h : ℕ) : ℝ) ^ (15 : ℕ) ≤ (1096 : ℝ) ^ (15 : ℕ) :=
+      pow_le_pow_left₀ hx0.le h1096 15
+    have hnn : (0 : ℝ) ≤ 32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ) := by positivity
+    have hnum : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (1096 : ℝ) ^ (15 : ℕ)
+        ≤ 2 ^ 539 := by norm_num
+    rw [hfold]
+    calc (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * ((a * h : ℕ) : ℝ) ^ (15 : ℕ)
+        ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (1096 : ℝ) ^ (15 : ℕ) := by
+          have h1 : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40
+              ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) :=
+            mul_le_mul_of_nonneg_left h40 hnn
+          have h2 : (0 : ℝ) ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) := by
+            positivity
+          nlinarith [h1, h2, hp15, pow_nonneg hx0.le 15]
+      _ ≤ 2 ^ 539 := hnum
+  · intro H _ hH2
+    have hfib : ((bigXiAff a b h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)
+        ≤ ((a * h : ℕ) : ℝ) * ((bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ) := by
+      have hnat := bigXiAff_card_le_mul a b h hh (1 / (500 * ((a * h : ℕ) : ℚ))) H
+      exact_mod_cast hnat
+    have hb := hbase H hH2
+    have hden : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+          / ((((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)) ^ 10
+        = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) := by
+      rw [hcast]; field_simp
+    rw [hden] at hb
+    calc ((bigXiAff a b h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)
+        ≤ ((a * h : ℕ) : ℝ) * ((bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ) := hfib
+      _ ≤ ((a * h : ℕ) : ℝ) * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ)) := by
+          exact mul_le_mul_of_nonneg_left hb hx0.le
+      _ = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ) := by ring
 
 /-! ## F1-R — the regime with an offset (the statement act) -/
 
@@ -287,7 +504,7 @@ def ChowlaRegimeAff.ofRegime (R : ChowlaRegime) (b : ℕ) (hb : b ≤ R.Hlo) : C
 (`rfl` on the structure eta). -/
 theorem ChowlaRegimeAff.ofRegime_toChowlaRegime (R : ChowlaRegime) (b : ℕ) (hb : b ≤ R.Hlo) :
     (ChowlaRegimeAff.ofRegime R b hb).toChowlaRegime = R := by
-  sorry
+  rfl
 
 /-- **F1-R0a (class A) — the stride is a re-basing of the tower.**  `chowlaTower C0 a Hlo j =
 chowlaTower C0 1 (a * Hlo) j`: the bases agree up to `one_mul` (`Regime.lean:37`, `chowlaTower C0 a
@@ -297,13 +514,16 @@ stride-`1` tower lemma (`towerJmin_spec`, `chowlaTower_base_ge`, `dropSum_exceed
 all stated at the literal stride `1` over a general base `B ≥ 4·10⁶`) available at stride `a`. -/
 theorem chowlaTower_eq_base_one (C0 a Hlo j : ℕ) :
     chowlaTower C0 a Hlo j = chowlaTower C0 1 (a * Hlo) j := by
-  sorry
+  induction j with
+  | zero => simp [chowlaTower]
+  | succ j ih => rw [chowlaTower, chowlaTower, ih]
 
 /-- **F1-R0b (class A).**  The telescoped decrement re-bases the same way: `unfold towerDropSum`,
 `Finset.sum_congr rfl`, `rw [chowlaTower_eq_base_one]`. -/
 theorem towerDropSum_eq_base_one (C0 a Hlo J : ℕ) :
     towerDropSum C0 a Hlo J = towerDropSum C0 1 (a * Hlo) J := by
-  sorry
+  unfold towerDropSum
+  exact Finset.sum_congr rfl (fun j _ => by rw [chowlaTower_eq_base_one])
 
 /-- **F1-R4 (class B) — the flat regime at a general stride EXISTS, with the coprimality floor
 paid by the flat base.**  The mirror of `chowlaRegimeFlat_exists_param_gen`
@@ -332,7 +552,78 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
     (hcopa : (a : ℚ) ≤ eps ^ 2 * (flatDesignFloor A : ℚ) / 2) :
     ∃ R : ChowlaRegime, R.a = a ∧ R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧
       R.Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
-  sorry
+  classical
+  have hapos : 0 < a := ha
+  obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
+  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
+  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
+    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
+    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
+  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
+  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
+  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
+  obtain ⟨Hlo, hHlodef⟩ : ∃ Hlo : ℕ,
+      Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * m ^ 4)) := ⟨_, rfl⟩
+  have hHloDF : flatDesignFloor A ≤ Hlo := by rw [hHlodef]; exact le_max_left _ _
+  have hHlo_floor : 4000000 ≤ Hlo := le_trans (flatDesignFloor_house A) hHloDF
+  have hHlo0 : Hlo₀ ≤ Hlo := by
+    rw [hHlodef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
+    rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
+  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
+  have hHlocap : Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
+    rw [hHlodef, hmdef]
+  -- the two stride-sensitive fields, transferred from the flat base
+  have hHloA : a ≤ Hlo := le_trans hHloa hHloDF
+  have hcop : (a : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 := by
+    refine le_trans hcopa ?_
+    have hle : ((flatDesignFloor A : ℕ) : ℚ) ≤ (Hlo : ℚ) := by exact_mod_cast hHloDF
+    have hmul := mul_le_mul_of_nonneg_left hle (sq_nonneg eps)
+    linarith
+  -- `hPNTwindow`, the builder's script verbatim
+  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
+    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
+      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
+        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
+          Real.sqrt_sq (by positivity)]
+      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
+        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
+    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
+    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
+      Real.mul_self_sqrt (by positivity)
+    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
+      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
+        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
+      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
+    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
+      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
+      rw [mul_assoc, hHloeq] at hh
+      linarith [hh]
+    linarith [h3]
+  -- ⟦THE RE-BASED TOWER⟧ at base `a·Hlo`
+  have hHloaHlo : Hlo ≤ a * Hlo := Nat.le_mul_of_pos_left Hlo hapos
+  have hbase : 4000000 ≤ a * Hlo := le_trans hHlo_floor hHloaHlo
+  obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = towerJmin 2 1 (a * Hlo) := ⟨_, rfl⟩
+  have hJ : Real.log 2 < towerDropSum 2 1 (a * Hlo) J := by
+    rw [hJdef]; exact towerJmin_spec hbase
+  have hJ' : Real.log 2 < towerDropSum 2 a Hlo J := by
+    rw [towerDropSum_eq_base_one]; exact hJ
+  obtain ⟨Hhi, hHhidef⟩ : ∃ Hhi : ℕ, Hhi = chowlaTower 2 1 (a * Hlo) J := ⟨_, rfl⟩
+  have hfit : chowlaTower 2 a Hlo J ≤ Hhi :=
+    le_of_eq (by rw [hHhidef, chowlaTower_eq_base_one])
+  have hHlohi : Hlo ≤ Hhi := by
+    rw [hHhidef]
+    exact le_trans hHloaHlo (chowlaTower_base_ge hbase J)
+  have hHhi_floor : 4000000 ≤ Hhi := le_trans hHlo_floor hHlohi
+  obtain ⟨x, ω, hx2, hω2, hωx, hhead, hhead', hPH, homega, hxb⟩ :=
+    regime_outer_param eps heps heps1 Hhi (4 ^ ⌊eps ^ 2 * (Hhi : ℚ)⌋₊) hHhi_floor
+  refine ⟨{ x := x, ω := ω, a := a, eps := eps, Hlo := Hlo, Hhi := Hhi, C0 := 2, J := J,
+            hx := hx2, hω := hω2, hωx := hωx, ha := ha, heps := heps, heps1 := heps1,
+            hHlo := hHloA, hHlohi := hHlohi, hC0 := le_refl 2,
+            hHlo_floor := hHlo_floor, hheadroom := hhead, hcoprime := hcop, hfit := hfit,
+            hJcon := hJ', hheadroom' := hhead', hPHheadroom := hPH, hPNTwindow := hPNT,
+            hωbig := homega, hxbig := hxb },
+    rfl, rfl, hHlo0, hHlocap⟩
 
 /-! ## F1-D — the `Ξ`-restricted MRT door at the affine forms, and its seam -/
 
@@ -376,7 +667,25 @@ police the door's spelling; `affOffset_spec` and the seam below are the tripwire
 theorem mrtUniformityXiH_eq_xiAff_one_zero (h : ℕ) (R : ChowlaRegime) (hR1 : R.a = 1) (δ : ℝ) :
     MRTUniformityXiH h R δ
       = MRTUniformityXiAff h (ChowlaRegimeAff.ofRegime R 0 (Nat.zero_le _)) δ := by
-  sorry
+  have hset : ∀ (H : ℕ) [NeZero H], bigXiAff R.a 0 h R.eps H = bigXiH h R.eps H := by
+    intro H _
+    rw [hR1, bigXiAff_one_zero]
+  have hmeas : logMeasureAff R.a R.x R.ω = logMeasure R.x R.ω := by
+    rw [hR1, logMeasureAff_one]
+  apply propext
+  constructor
+  · intro hd H _ hlo hhi ξ hξ
+    have hξ0 : ξ ∈ bigXiAff R.a 0 h R.eps H := hξ
+    rw [hset H] at hξ0
+    have hk := hd H hlo hhi ξ hξ0
+    rw [← hmeas] at hk
+    exact hk
+  · intro hd H _ hlo hhi ξ hξ
+    have hξ0 : ξ ∈ bigXiAff R.a 0 h R.eps H := by rw [hset H]; exact hξ
+    have hk : (∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖
+        ∂(logMeasureAff R.a R.x R.ω)) ≤ δ * (H : ℝ) := hd H hlo hhi ξ hξ0
+    rw [hmeas] at hk
+    exact hk
 
 /-- **F1-D4 (class B) — the `(1, 0)` compat for the `L²` door.**  As F1-D3 with
 `MRTUniformityXiL2H` (`ShiftFork.lean:538`). -/
@@ -384,7 +693,26 @@ theorem mrtUniformityXiL2H_eq_xiL2Aff_one_zero (h : ℕ) (R : ChowlaRegime) (hR1
     (ρ : ℝ) :
     MRTUniformityXiL2H h R ρ
       = MRTUniformityXiL2Aff h (ChowlaRegimeAff.ofRegime R 0 (Nat.zero_le _)) ρ := by
-  sorry
+  have hset : ∀ (H : ℕ) [NeZero H], bigXiAff R.a 0 h R.eps H = bigXiH h R.eps H := by
+    intro H _
+    rw [hR1, bigXiAff_one_zero]
+  have hmeas : logMeasureAff R.a R.x R.ω = logMeasure R.x R.ω := by
+    rw [hR1, logMeasureAff_one]
+  apply propext
+  constructor
+  · intro hd H _ hlo hhi
+    have hk : ∑ ξ ∈ bigXiAff R.a 0 h R.eps H, (1 / (H : ℝ) ^ 2)
+        * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasureAff R.a R.x R.ω) ≤ ρ := by
+      rw [hset H, hmeas]
+      exact hd H hlo hhi
+    exact hk
+  · intro hd H _ hlo hhi
+    have hk : ∑ ξ ∈ bigXiAff R.a 0 h R.eps H, (1 / (H : ℝ) ^ 2)
+        * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasureAff R.a R.x R.ω) ≤ ρ := hd H hlo hhi
+    rw [hset H, hmeas] at hk
+    exact hk
 
 /-- **F1-D5 (class B) — THE `L¹` SEAM AT `(a, b, h)`, THE TRIPWIRE.**  The clone of
 `contradiction_of_mrtDoorXiH` (`ShiftFork.lean:338-376`) with the set and the measure swapped:
@@ -403,7 +731,27 @@ theorem contradiction_of_mrtDoorXiAff (h : ℕ) (R : ChowlaRegimeAff) {δ c₀ �
         (1 / (H : ℝ)) * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖
           ∂(logMeasureAff R.a R.x R.ω)) :
     False := by
-  sorry
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+  have hsum : (∑ ξ ∈ bigXiAff R.a R.b h R.eps H,
+      (1 / (H : ℝ)) * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖
+        ∂(logMeasureAff R.a R.x R.ω)) ≤ ∑ _ξ ∈ bigXiAff R.a R.b h R.eps H, δ := by
+    apply Finset.sum_le_sum
+    intro ξ hξ
+    have hb := hdoor H hlo hhi ξ hξ
+    calc (1 / (H : ℝ)) * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖
+            ∂(logMeasureAff R.a R.x R.ω)
+        ≤ (1 / (H : ℝ)) * (δ * (H : ℝ)) :=
+          mul_le_mul_of_nonneg_left hb (by positivity)
+      _ = δ * ((H : ℝ) / (H : ℝ)) := by ring
+      _ = δ := by rw [div_self hHR.ne', mul_one]
+  have hconst : (∑ _ξ ∈ bigXiAff R.a R.b h R.eps H, δ)
+      = ((bigXiAff R.a R.b h R.eps H).card : ℝ) * δ := by
+    rw [Finset.sum_const, nsmul_eq_mul]
+  have hcard : ((bigXiAff R.a R.b h R.eps H).card : ℝ) * δ ≤ K * δ :=
+    mul_le_mul_of_nonneg_right hXi hδ
+  have h1 : c₀ * ε ≤ ((bigXiAff R.a R.b h R.eps H).card : ℝ) * δ :=
+    le_trans hlower (le_trans hsum (le_of_eq hconst))
+  linarith [h1, hcard, hsmall]
 
 /-- **F1-D6 (class A) — THE `L²` SEAM AT `(a, b, h)`.**  The clone of
 `contradiction_of_mrtDoorXiL2H` (`ShiftFork.lean:572-582`): `have hd := hdoor H hlo hhi;
@@ -416,7 +764,8 @@ theorem contradiction_of_mrtDoorXiL2Aff (h : ℕ) (R : ChowlaRegimeAff) {ρ c₀
         * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
             ∂(logMeasureAff R.a R.x R.ω)) :
     False := by
-  sorry
+  have hd := hdoor H hlo hhi
+  linarith
 
 /-! ## F1-S — the exact `x`-scaling of the stride measure (the supply's first half) -/
 
@@ -433,6 +782,13 @@ multiple of `a` — F3 names that term, never absorbs it. -/
 theorem sum_window_aff_eq (a x ω : ℕ) (ha : 0 < a) (f : ℕ → ℝ) :
     ∑ n ∈ Finset.Ioc (x / ω) x, f (a * n) / (n : ℝ)
       = (a : ℝ) * ∑ m ∈ (Finset.Ioc (x / ω) x).image (fun n => a * n), f m / (m : ℝ) := by
-  sorry
+  rw [Finset.sum_image (fun u _ v _ huv => Nat.eq_of_mul_eq_mul_left ha huv), Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  rcases Nat.eq_zero_or_pos n with hn | hn
+  · subst hn; simp
+  · have hn0 : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+    have ha0 : (a : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr ha.ne'
+    rw [Nat.cast_mul]
+    field_simp
 
 end Salt.Entropy.Chowla
