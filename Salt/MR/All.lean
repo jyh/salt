@@ -423,6 +423,7 @@ import Salt.MR.S16ComposeLH
 import Salt.MR.HSeamCheck
 import Salt.MR.S13CapGateLinearLH
 import Salt.MR.V7RatedH
+import Salt.MR.AffineSupplyH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9701,3 +9702,15 @@ primes: one input of the log-Chowla-2 spine at ONE fixed `ε`. -/
   Salt.MR.mrtUniformityXi_of_xiL2
   Salt.MR.mrtUniformityXi_holds_flat
   Salt.MR.MRTDoorAllGrades
+
+/-! ⟦AFFINE SUPPLY AT `a = 1`⟧ (`AffineSupplyH`, 2026-09-03, math — λ-BV wave 2-W).
+`logChowlaAffSupply_one_zero` reads the landed prize `logChowla2_v7_rated_h` (three of its
+conjuncts, the `∃ R` block's six) into `LogChowlaAffSupply 1 0 h` at every `h` with
+`log h ≤ 7`; `oddOmega_twinProd_infinite` runs the whole affine consumer chain W3–W8 against
+that supply at `P = 1, r = 0, h = 2` and concludes infinitely many `n` with `Ω(n(n+2))` odd —
+⛔ an ELEMENTARY fact (three lines by `λ(p) = −1`, `λ(pq) = 1`), whose only value is that
+every seam of the chain is exercised in the kernel before the `a ≥ 2` supply is priced against
+them.  The ONE unconditional theorem of wave 2-W.  Nothing here bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.logChowlaAffSupply_one_zero
+  Salt.MR.oddOmega_twinProd_infinite
