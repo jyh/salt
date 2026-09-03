@@ -91,6 +91,7 @@ import Salt.Entropy.Chowla.ShiftFork
 import Salt.Entropy.Chowla.SignSplit
 import Salt.Entropy.Chowla.HeadPinLeavesH
 import Salt.Entropy.Chowla.HloExportFlatH
+import Salt.Entropy.Chowla.AffineFork
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
@@ -1165,3 +1166,43 @@ out of reach.  The 4-line one is re-proved at the MR site; the 139-line
 landed line is touched and no `private` marker is lifted.
 Nothing bears on twin primes. -/
 #audit_axioms Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export
+
+/-! ⟦AFFINE FORK⟧ — THE STRIDE/OFFSET DE-SPECIALIZATION (`AffineFork`, 2026-09-03, math —
+λ-BV wave 2-W, the consumer at Tao Theorem 2.3's affine atom).
+
+`logChowlaFailsAff a b h` is the failure Prop at the affine forms `a·n + b`, `a·n + b + h`
+(weight `1/n` in the CLASS index, Tao's own normalisation), with the landed `logChowlaFails h`
+as its `(1, 0)` member (`logChowlaFailsAff_one_zero`).  `LogChowlaAffSupply a b h` is THE
+SUPPLY DEMAND — a `def`, produced at `(1, 0)` in `Salt/MR/AffineSupplyH.lean` and by NOBODY at
+`a ≥ 2` (that is wave 2-S, a port of Tao's general-`a` case; the freeze prices it ≥ the h-fork
+and, at strides beyond the one-grade door's numeral budget, co-dependent on the unproved crown
+`MRTDoorAllGrades`).
+
+⭐ The finding the block rests on: AT ONE RESIDUE CLASS THE WINDOW'S OWN NORMALISATION IS THE
+MAIN TERM.  Where the affine atom does not fail, `Σ (1 − λλ)/n ≥ (1 − ε)·log ω − 1 ≥ 63.5 > 0`
+(`affWindow_survivorMass_ge`, from `harmonic_window_bounds` and the LANDED
+`regime_logOmega_ge`), so a window element has `λ(an+b)λ(an+b+h) = −1`
+(`exists_affSurvivor_of_not_failsAff`) — no `ε` pin, no Möbius sum, no common window.
+⛔ That theorem carries `0 < a` because at `(a, b) = (0, 0)` it is FALSE (`liouville 0 = 0`;
+the refuter pass's kill).  The prize shape `zRough_oddOmega_infinite_of_affSupply` and its
+primorial form `zRough_oddOmega_infinite_of_affSupply_primorial` ("for every fixed `z`,
+infinitely many `n` with `n(n+2)` `z`-rough and `Ω(n(n+2))` odd") are CONDITIONAL on the
+supply at `(P, r, 2)`; `exists_admissible_class` (`r := P − 1`, explicit) and
+`rough_of_coprime_primorial` mint the prize SENTENCE rather than leaving it in a docstring.
+
+Scope: NOT almost-primality, no `∀ε`, nothing on the apex, and the Wave-1 terminal is NOT
+collapsed (its left disjunct is an ℓ¹ natural-density mass; everything here is log-weighted
+and windowed).  Nothing here bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.logChowlaFailsAff
+  Salt.Entropy.Chowla.logChowlaFailsAff_one_zero
+  Salt.Entropy.Chowla.LogChowlaAffSupply
+  Salt.Entropy.Chowla.affWindow_survivorMass_ge
+  Salt.Entropy.Chowla.exists_affSurvivor_of_not_failsAff
+  Salt.Entropy.Chowla.liouville_shift_two_eq_neg_one_iff
+  Salt.Entropy.Chowla.coprime_twinProd_of_affine
+  Salt.Entropy.Chowla.exists_admissible_class
+  Salt.Entropy.Chowla.rough_of_coprime_primorial
+  Salt.Entropy.Chowla.flatDesignBase_unbounded
+  Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupply
+  Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupply_primorial
