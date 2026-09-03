@@ -6405,6 +6405,23 @@ numbering is UNVERIFIED.
    awaiting his push ruling. Standing for him at the canvas, not queue items:
    smokes S3 TABTRUTH + S4 Painter PH2.
 
+13. ⚖️ **THE χ MEAN SQUARE — `M4ChiBlockMeanSq` and its h-family `M4ChiBlockMeanSqH 2` — SCHEDULED AT P3 BY THE
+   CAPTAIN 2026-09-03 09:5x at council ("What if we add the χ mean square as P3?").** The object: the
+   PRODUCERS' side of the spine door. The door itself is on main `074682e0` (PR #28, the door receipt:
+   the L² door at grade ≤ 1/837782 unconditional, `MRTDoorAllGrades` stated without `g`); 7b's ruling
+   of 08/26 19:07 left its ESTIMATE-RANGE as the open conditional `M4ChiBlockMeanSqH 2` (the χ mean
+   square at `q ≤ 2·arcDen 12 H`), and the commissioned q-uniformity census found it **exactly as open
+   as the h=1 `M4ChiBlockMeanSq`, no more** — the producers' χ bound does not read the modulus. So this
+   is ONE open conditional with a known price, not two. Owner: the producers' lane (math at Fable for
+   the design, executors by class after a freeze). ⛔ It is P3 by the Captain's word: it does NOT
+   displace λ-BV (P1, Wave 2 fired 09/03 to math) or POINT→BAND (P2); it is what a seat pulls at
+   P1+P2 idle, and the 08/21 rulings priced it as ONE object with the MRT match (T1 of Route I) —
+   so a Route-I trigger firing may promote it; the helm re-measures at each sitting. The council
+   pack of 09/03 §3 proposed it as the NEXT commission; that proposal was WRONG on precedence and is
+   struck — this item is the corrected placement. (Name note: the queue's item 11 calls the ∀ε
+   campaign "W2-0"; the 08/21 λ-BV rulings call the log-rebase block "W2-0" too — the λ-BV
+   commission of 09/03 uses the rulings' name.)
+
 ## THE MECHANICS (the saltworks board's, verbatim in spirit)
 
 - ⛔⛔ **SEARCH LAW (born 08/21–22; THREE seats hit the same defect in one night).**
