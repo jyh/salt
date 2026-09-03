@@ -5673,6 +5673,21 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    h_Engine: a recon/design block on HB1983 §6's two-variable
    Euler-product apparatus (Lemma 10's one external input, Estermann,
    scoped; the p.217 character-sum input already a corpus theorem).
+   ⭐ **CROWN-JOINS STAMP 2026-09-03 (h2c, Fable; branch `h2c/crown-joins` off main `d11ce7e8`; the
+   helm's 13:01 order on the crown census).** The census priced the engine at the object: N0–N6
+   LANDED, N7 ~1 % (Wave A stopped at (7.5) on 08/11), N8–N11 ABSENT, every landed terminal with
+   ZERO consumers; `MRTDoorAllGrades` is NOT on this path (zero consumers; not in the dichotomy's
+   24-module import cone — it is wave 2-S's crown). The RIPE-NOW joins fired by class, statements
+   type-checked sorry-bodied BEFORE the executors: **N3 JOIN** `Salt/HB/Lemma3Floor.lean` (HB Lemma 3
+   at the repulsion floor, the HSigmaComp mirror at `B = 2b·log Q/L`; 2 names) · **N5 WIRING**
+   `Salt/HB/SieveWire.lean` (`chiReChar` via `Salt.MR.e4a_toR`, `hbData` at the honest window, the two
+   `S⁽³⁾`s identified by `rfl`, the dim-4 sandwich instantiated; 8 names) · **N11 DOOR**
+   `Salt/HB/DoorBridge.lean` (see the file header for what landed) · **Wave A remainder**
+   `Salt/HB/Lemma10Chain.lean` ((7.6)–(7.8) + Lemma 10; see the file header) · the **Wave C scout**
+   `docs/exploration/wave-c-scout-0903.md` (read-only). ⛔ A JOIN IS NOT THE ENGINE: `hEngine` is still
+   a binder; N8 (the reduction chain on ONE window — four windows exist: `l2cWindow`, `honestWindow`,
+   `HBSieveData.support`, `twinWindow`), N9 (Theorem 1), N10 (the corollaries) have no object. The
+   campaign decision is the Captain's at the 09/04 council. Nothing here bears on twin primes.
 9. **THE MRT-DOOR RECON** — a STANDING RECON LANE (not a proving wave)
    on discharging MRTUniformityXi itself: the program's crown question
    stays watched, per the prime directive. Output: periodic recon
