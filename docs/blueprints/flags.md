@@ -24548,3 +24548,40 @@ not `e^{C₀}`, so the ladder above A.4(ii) inherits the source's `≪_ε`. A.3'
 `ε` (the `1/70` tail rate), so the campaign is unaffected. `zeta_neg_re_logDeriv_ge` (the 09-01
 deposit above) stays idle BY DESIGN: the below-`T₀` regime it was deposited for is empty above the
 branch threshold. Nothing here bears on twin primes.
+
+### 📥 09-02 — EM: `M4RowMeanSq_L` is RETIRED as an object (not refuted); the spine door is NAMED at the flat family; the crown `MRTDoorAllGrades` is minted with no producer
+
+**Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:991) — "⟦THE CLASS PRICING⟧ open, a
+design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
+is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1392,
+hypothesis position; `m4_wave_exit_L` :3434, in its statement, itself with ZERO dependents), zero
+producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "(c) ANALYTIC ARMS — none") and of the
+second road's (`m4_second_road_tower_L`). `M4ClassPrice` ⟦U2⟧ abandoned the interface on purpose 07-31.
+The class pricing is LANDED in `_L` (08/01: `m4_classMeanSq_of_chiMeanSq_L`, `m4_nonCoprime_classMeanSq_N_L`,
+`m4_classBlockMeanSq_of_rowDatum_L` — the last covers EVERY class through `m4_coprimeBlock_at_L`, NOT
+through the retired `M4CoprimeBlockMeanSq_L` of ⟦COPRIME-SCOPE⟧ above). **Disposition:** RETIRED as an
+object under iron rule 1 — bytes untouched, no producer built (a redundant landing), no refutation claimed.
+
+**What lands instead (`Salt/MR/DoorReceipt.lean`, all `[3 axioms]`):** the live headline
+`logChowla2_v7_rated` PROVES the `L²` MRT door `MRTUniformityXiL2 R ρ` inside its proof (manufactured at
+`flat_socket_uniform_xceil`, consumed at the head's slot) and no theorem stated it. The road-side hops
+H0–H7 are re-stated as forms with a conclusion slot and replayed generic in it; at `¬ logChowla2Fails` the
+chain re-derives the headline from the landed head (kernel receipts `logChowla2_v7_rated_form`,
+`logChowla2_v7_rated_of_generic`); at `MRTDoorReceipt` with the door-head it names the door:
+`mrtUniformityXiL2_holds_flat` (`L²`, grade `≤ 1/837782`, flat family, UNCONDITIONAL) and
+`mrtUniformityXi_holds_flat` (`L¹` at `√(1/837782)`, by the Jensen bridge `mrtUniformityXi_of_xiL2`).
+
+**The refuter catch that shaped the statement (R6, CONFIRMED-FATAL for the freeze's S2 as written):** the
+head's `δ₀ = cD3/(16·C)·ε/4` is exported LOWER-pinned only, and a receipt `ρ ≤ δ₀` at an unbounded `δ₀` is
+met by the trivial bound `‖windowExpSum‖ ≤ H` (every Ξ-term `≤ 1`, the sum `≤ |Ξ_H| ≤ 2^539`) — it names no
+door. The door-head pins the leaves at their own `refine` witnesses (`cD3 = 1/4`, `C = 1 + 4·log 4`) so the
+same mint reads upward: `δ₀ = 1/(128000·(1 + 8·log 2)) ∈ (1/837783, 1/837782)`. ⇒ **A GRADE BOUNDED ONLY
+FROM BELOW IS NOT A GRADE; STATE THE RECEIPT AT A NUMERAL.**
+
+**The crown:** `MRTDoorAllGrades := ∀ δ > 0, ∀ ε ∈ (0, 1/2], ∃ H₀, ∀ R, R.eps = ε → H₀ ≤ R.Hlo →
+MRTUniformityXi R δ` — Tao 1509.05422 Prop 2.4 for `λ` at the major-arc frequencies, regime-uniform, `∃ H₀`
+BEFORE `∀ R` (the non-vacuity idiom), NO `g` slot (refuter R7: the freeze's `g` slot was unreadable by the
+only regime builder; `ChowlaRegime.hheadroom'` supplies the one outer-scale fact Tao's proof uses). A THEOREM
+in the literature; NOT proved here, NO producer, two roads priced (a `δ`-parametric inhabitation of the M4
+class road's register, class C large; the E-ladder at `f = λχ`, class D). The flat receipts above are ONE
+grade at ONE `ε`-floor and are NOT an instance of the crown; no pin is claimed. Nothing bears on twin primes.

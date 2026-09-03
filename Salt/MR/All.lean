@@ -412,6 +412,7 @@ import Salt.MR.BandRatedSocket
 import Salt.MR.HDoorSupply
 import Salt.MR.HDoorClose
 import Salt.MR.V7Rated
+import Salt.MR.DoorReceipt
 import Salt.MR.HDoorArc
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.S16ProducersH
@@ -9660,3 +9661,43 @@ and the residual ineffectivity prices scale-extractability, not truth. -/
   Salt.MR.s16_baseScaleCap96_LH_at_klevF
   Salt.MR.logChowla2_v7_rated_h
   Salt.MR.logChowla2_v7_rated_h_one
+
+/-! ⟦THE SPINE DOOR, NAMED⟧ (`DoorReceipt`, 2026-09-02, math — the EM wave, refuter-passed
+REPAIR-THEN-FIRE 3/3, fired by the helm 18:01).  The live headline `logChowla2_v7_rated` PROVES the
+`L²` MRT door inside its own proof and no theorem stated it.  Each road-side hop H0–H7 is re-stated
+ONCE as a form with a conclusion slot `P`, replayed ONCE generic in `P` (bodies verbatim), and
+instantiated twice: at `¬ logChowla2Fails` with the landed head (`logChowla2_v7_rated_form` +
+`logChowla2_v7_rated_of_generic` tie the forms and the replays to the landed names as kernel facts),
+and at `MRTDoorReceipt` with the door-head `flat_door_head_xceil` (the head's mint with the leaves
+pinned at their own witnesses, `1/838400 ≤ δ₀ ≤ 1/837782` — refuter R6: a receipt at a
+lower-pinned `δ₀` names no door).  `mrtUniformityXiL2_holds_flat`: the `L²` door at grade
+`≤ 1/837782` on the flat family, UNCONDITIONAL; `mrtUniformityXi_of_xiL2` (Jensen on `logMeasure`)
+gives the Tao-faithful `L¹` form `mrtUniformityXi_holds_flat` at `√(1/837782)`.  The crown
+`MRTDoorAllGrades` (the door at every grade, Prop 2.4 for `λ`, no `g` slot per refuter R7) is a
+`def` with NO producer — minted so the E-ladder has a consumer named.  Nothing here bears on twin
+primes: one input of the log-Chowla-2 spine at ONE fixed `ε`. -/
+#audit_axioms Salt.MR.MRTDoorReceipt
+  Salt.MR.FlatHeadForm
+  Salt.MR.FlatSocketForm
+  Salt.MR.flat_socket_generic
+  Salt.MR.FlatDoorL2Form
+  Salt.MR.flat_doorL2_generic
+  Salt.MR.FlatRoadForm
+  Salt.MR.flat_road_generic
+  Salt.MR.FlatCapstoneForm
+  Salt.MR.flat_capstone_generic
+  Salt.MR.FlatConditionalForm
+  Salt.MR.flat_conditional_generic
+  Salt.MR.FlatKswinForm
+  Salt.MR.flat_kswin_generic
+  Salt.MR.V7RatedForm
+  Salt.MR.flat_v7_generic
+  Salt.MR.flat_door_head_xceil
+  Salt.MR.flat_chain_generic
+  Salt.MR.logChowla2_v7_rated_form
+  Salt.MR.logChowla2_v7_rated_of_generic
+  Salt.MR.mrtDoorReceipt_v7_form
+  Salt.MR.mrtUniformityXiL2_holds_flat
+  Salt.MR.mrtUniformityXi_of_xiL2
+  Salt.MR.mrtUniformityXi_holds_flat
+  Salt.MR.MRTDoorAllGrades
