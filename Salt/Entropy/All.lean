@@ -1343,31 +1343,31 @@ a door (the receipt is `Salt.MR.StridePairReceipt`'s) or bears on twin primes.  
   Salt.Entropy.Chowla.loglog_mul_flatDesignBase_le
   Salt.Entropy.Chowla.flatDesignBase_clears_stride_floors
 
-/-! ⟦STRIDE ENTROPY HALF⟧ — THE ENTROPY HALF AT THE AFFINE REGIME, THE PLAIN ROAD (`StrideDecrement`,
-`StrideCombine`, `StrideReduce`, `StrideShell`, 2026-09-04, math — λ-BV wave 2-S step F4a, Entropy
-half; frozen v1 14:1x, v1.1 cut on the helm's refuter verdict REPAIR-THEN-FIRE 4/4 at 15:0x, fired
-15:0x — D, K, R in parallel, then S).
+/-! ⟦STRIDE ENTROPY HALF⟧ — THE ENTROPY HALF AT THE AFFINE REGIME, THE PLAIN ROAD
+(`StrideDecrement`, `StrideCombine`, `StrideReduce`, `StrideShell`, 2026-09-04, math — λ-BV wave
+2-S step F4a, Entropy half; frozen v1 14:1x, v1.1 cut on the helm's refuter verdict
+REPAIR-THEN-FIRE 4/4 at 15:0x, fired 15:0x — D, K, R in parallel, then S).
 
 The affine seam `contradiction_of_mrtDoorXiL2AffW` fired AT TOWER VALUES by a shell mirroring
 `log_chowla_two_shell_xi_sq_h` with six substitutions.  D: the decrement at the stride measure
 `logMeasureAff` — ONE design lemma `logMeasureAff_map_shift` (a shift by `t` with `a ∣ t` of the
-stride measure IS the plain measure shifted by `t/a` then pushed along `a·`), so `joint_l1_le_aff` is
-the generic contraction + `base_l1_le` verbatim; `entropy_decrementAff` exports the witness at TAO'S
-RANGE `R.a * R.Hlo ≤ H` (the tower's base), and `R.a ∣ H` is consumed exactly once.  K: residue
-uniformity as an injective RELABEL (`entropy_comp_of_injective` at the unit `(a : ZMod PH)`), the
-class filter at `badSet_aff` and `outer_combine_aff`.  R: the `hreduce_aff` discharge — two new
-arithmetic lemmas (`gate_residue_aff` at `gcd(a, p) = 1`, `card_class_range_ge`), the shift
-telescoping by `integral_shift_le` at `k/a` with no induction, and the budget `hbudget_holds_aff` with
-the main term pinned at `((H/a)/p)` per prime and FIVE SLICES `1/8 + 1/16 + 1/32 + 1/64 + 1/64 = 1/4`
-closing exactly at the gate `ε·a·h ≤ c/(64·log 4)` and the count binder `64·a ≤ ε·H`; the exports
-carry `1/4 ≤ c` (the `cE` carry, verdict A1).  S: the shell, the core, THE HEAD
-`log_chowla_aff_of_door` — the circle-method estimate a SLOT `hcm` with its cap (F4b's producer), the
-crown's payload a binder `hcrown` (Entropy cannot import MR) — exporting the crown's door at grade
-`a·Zr·ρ + E` BESIDE `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`, with
-`1/(838400(ah)²) ≤ δ₀_aff`; NOT composed (the `≈ 214.4` miss is F5's).  The `(1, 0)` receipts carry the
-affine vocabulary on exactly ONE side (verdict A2).  CONDITIONAL on F4b through the slot; nothing here
-proves an estimate, moves a door, or bears on twin primes.  57 obligations, 57 landed (four Opus
-executors, 2026-09-04 15:0x–15:5x). -/
+stride measure IS the plain measure shifted by `t/a` then pushed along `a·`), so `joint_l1_le_aff`
+is the generic contraction + `base_l1_le` verbatim; `entropy_decrementAff` exports the witness at
+TAO'S RANGE `R.a * R.Hlo ≤ H` (the tower's base), and `R.a ∣ H` is consumed exactly once.  K:
+residue uniformity as an injective RELABEL (`entropy_comp_of_injective` at the unit `(a : ZMod
+PH)`), the class filter at `badSet_aff` and `outer_combine_aff`.  R: the `hreduce_aff` discharge —
+two new arithmetic lemmas (`gate_residue_aff` at `gcd(a, p) = 1`, `card_class_range_ge`), the
+shift telescoping by `integral_shift_le` at `k/a` with no induction, and the budget
+`hbudget_holds_aff` with the main term pinned at `((H/a)/p)` per prime and FIVE SLICES `1/8 + 1/16
++ 1/32 + 1/64 + 1/64 = 1/4` closing exactly at the gate `ε·a·h ≤ c/(64·log 4)` and the count
+binder `64·a ≤ ε·H`; the exports carry `1/4 ≤ c` (the `cE` carry, verdict A1).  S: the shell, the
+core, THE HEAD `log_chowla_aff_of_door` — the circle-method estimate a SLOT `hcm` with its cap
+(F4b's producer), the crown's payload a binder `hcrown` (Entropy cannot import MR) — exporting the
+crown's door at grade `a·Zr·ρ + E` BESIDE `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬
+logChowlaFailsAff`, with `1/(838400(ah)²) ≤ δ₀_aff`; NOT composed (the `≈ 214.4` miss is F5's).
+The `(1, 0)` receipts carry the affine vocabulary on exactly ONE side (verdict A2).  CONDITIONAL
+on F4b through the slot; nothing here proves an estimate, moves a door, or bears on twin primes.
+57 obligations, 57 landed (four Opus executors, 2026-09-04 15:0x–15:5x). -/
 #audit_axioms Salt.Entropy.Chowla.finiteSupport_logMeasureAff
   Salt.Entropy.Chowla.logMeasureAff_map_shift
   Salt.Entropy.Chowla.joint_l1_le_aff
