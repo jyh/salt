@@ -364,6 +364,34 @@ theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (
 
 /-! ## §3 — THE ZERO SIDE, MADE CONSUMABLE (the `(L1)`/L3 packet discharged) -/
 
+/-- The regime forces `2 ≤ q`: at `q = 1` the effective `ℓ′` is `−log(1/dhC) − 14·log(log 4 + 2)`,
+which is negative, while `n9E0 > 0` — so `ellBig` is contradicted. -/
+private lemma n9_two_le_q [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) : 2 ≤ q := by
+  rcases Nat.lt_or_ge q 2 with hlt | hge
+  swap
+  · exact hge
+  exfalso
+  have hq1 : q = 1 := by have := Nat.pos_of_ne_zero (NeZero.ne q); omega
+  have hqR : ((q : ℕ) : ℝ) = 1 := by rw [hq1]; norm_num
+  have hdhCpos := dh_spec.1
+  have hdhC1 := dh_spec.2.1
+  have hinv : 0 ≤ Real.log (1 / dhC) :=
+    Real.log_nonneg (by rw [le_div_iff₀ hdhCpos]; linarith)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hpos : 0 < Real.log (Real.log 4 + 2) := Real.log_pos (by linarith)
+  have hdk : dhK = 14 := rfl
+  have hE : n9Ell q η < 0 := by
+    simp only [n9Ell, hqR, Real.log_one, mul_zero, Real.log_zero, mul_one, hdk]
+    linarith
+  have hE0 : 0 < n9E0 := by
+    have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+    have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+    have hc : (0 : ℝ) < Real.exp (3 * 10 ^ 6) := Real.exp_pos _
+    simp only [n9E0]; linarith
+  have := hR.ellBig
+  linarith
+
 /-- **Ordering over a BOX: no zero in the strip `9/10 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ T` sits above `β₀`**
 (T-BAL-UNORDERED — the `hord` binder of `re_le_repulsionCeiling_of_ne`, at every height `T` at
 which the D–H numerator is non-negative; the ball `2 (3/2)` is `T = 3/2`).  Restated over the
@@ -378,7 +406,86 @@ theorem re_le_beta0_of_ne [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     {ρ : ℂ} (hρ : DirichletCharacter.LFunction χ ρ = 0)
     (hlo : 9 / 10 ≤ ρ.re) (hhi : ρ.re ≤ 1) (him : |ρ.im| ≤ T) :
     ρ.re ≤ β₀ := by
-  sorry
+  have _hT := hT
+  have hlt1 : ρ.re < 1 := by
+    rcases lt_or_eq_of_le hhi with h | h
+    · exact h
+    · exact absurd hρ (DirichletCharacter.LFunction_ne_zero_of_one_le_re χ
+        (Or.inl hR.ne) (le_of_eq h.symm))
+  by_cases him0 : ρ.im = 0
+  · have hcoe : ((ρ.re : ℝ) : ℂ) = ρ := by
+      apply Complex.ext <;> simp [him0]
+    exact hR.ηmax ρ.re (by rw [hcoe]; exact hρ) hlt1
+  have hq2 : 2 ≤ q := n9_two_le_q hR
+  have hqR : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
+  have hL : 0 < Real.log q := Real.log_pos (by linarith)
+  have hLne : Real.log q ≠ 0 := ne_of_gt hL
+  have hβpos : 0 < 1 - β₀ := by have := hR.β1; linarith
+  have hne : (1 : ℝ) - β₀ ≠ 0 := ne_of_gt hβpos
+  have hηL : η * Real.log q = 1 / (1 - β₀) := by rw [hR.ηdef]; field_simp
+  have hηLpos : 0 < η * Real.log q := by rw [hηL]; positivity
+  have hzfr : ρ.re ≤ 1 - 1 / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+    Salt.Fulcrum.zero_free_region_all_numeral q χ hR.prim hR.ne hρ (by linarith) (Or.inr him0)
+  have hdhCpos := dh_spec.1
+  have hdhC1 := dh_spec.2.1
+  have hinv : 0 ≤ Real.log (1 / dhC) :=
+    Real.log_nonneg (by rw [le_div_iff₀ hdhCpos]; linarith)
+  -- the D–H numerator at the box top, read as a bound on `log(q(T+2))`
+  have hNa : dhK * Real.log (Real.log ((q : ℝ) * (T + 2)) + 2)
+      ≤ Real.log (η * Real.log q) := by
+    simp only [n9EllAt] at hN; linarith
+  -- `ellBig` makes `log(ηL)` astronomically large
+  have hlog4q : 0 < Real.log (4 * (q : ℝ)) := Real.log_pos (by linarith)
+  have hMbig : Real.exp (3 * 10 ^ 6) ≤ Real.log (η * Real.log q) := by
+    have h2 : 0 ≤ dhK * Real.log (Real.log (4 * (q : ℝ)) + 2) :=
+      mul_nonneg (by norm_num [dhK]) (Real.log_nonneg (by linarith))
+    have hEll := hR.ellBig
+    simp only [n9Ell] at hEll
+    have hE0 : Real.exp (3 * 10 ^ 6) ≤ n9E0 := by
+      have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+      have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+      simp only [n9E0]; linarith
+    linarith
+  have hMge : (200000 : ℝ) ≤ Real.log (η * Real.log q) := by
+    have h1 := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
+    linarith
+  -- the zero's own height is below the box top
+  have hWpos : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+    Real.log_pos (by nlinarith [abs_nonneg ρ.im])
+  have hWle : Real.log ((q : ℝ) * (|ρ.im| + 2)) ≤ Real.log ((q : ℝ) * (T + 2)) :=
+    Real.log_le_log (by nlinarith [abs_nonneg ρ.im]) (by nlinarith [abs_nonneg ρ.im])
+  have hM14 : Real.log ((q : ℝ) * (T + 2)) + 2
+      ≤ Real.exp (Real.log (η * Real.log q) / 14) := by
+    have h1 : Real.log (Real.log ((q : ℝ) * (T + 2)) + 2)
+        ≤ Real.log (η * Real.log q) / 14 := by
+      have hdk : dhK = 14 := rfl
+      rw [hdk] at hNa; linarith
+    calc Real.log ((q : ℝ) * (T + 2)) + 2
+        = Real.exp (Real.log (Real.log ((q : ℝ) * (T + 2)) + 2)) := by
+          have hWTpos : 0 < Real.log ((q : ℝ) * (T + 2)) := by linarith
+          exact (Real.exp_log (by linarith)).symm
+      _ ≤ _ := Real.exp_le_exp.mpr h1
+  have hbig : (126848 : ℝ) ≤ Real.exp (13 * Real.log (η * Real.log q) / 14) := by
+    have h1 := Real.add_one_le_exp (13 * Real.log (η * Real.log q) / 14)
+    linarith
+  have hkey : 126848 * Real.log ((q : ℝ) * (|ρ.im| + 2)) ≤ η * Real.log q := by
+    have hE : (0 : ℝ) < Real.exp (Real.log (η * Real.log q) / 14) := Real.exp_pos _
+    have hsplit : Real.exp (Real.log (η * Real.log q))
+        = Real.exp (Real.log (η * Real.log q) / 14)
+          * Real.exp (13 * Real.log (η * Real.log q) / 14) := by
+      rw [← Real.exp_add]; ring_nf
+    calc 126848 * Real.log ((q : ℝ) * (|ρ.im| + 2))
+        ≤ 126848 * Real.exp (Real.log (η * Real.log q) / 14) := by nlinarith [hWle, hM14]
+      _ ≤ Real.exp (13 * Real.log (η * Real.log q) / 14)
+            * Real.exp (Real.log (η * Real.log q) / 14) := by nlinarith [hbig, hE]
+      _ = Real.exp (Real.log (η * Real.log q)) := by rw [hsplit]; ring
+      _ = η * Real.log q := Real.exp_log hηLpos
+  have h1 : (1 - β₀) * (η * Real.log q) = 1 := by rw [hηL]; field_simp
+  have hfin : 1 - β₀ ≤ 1 / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
+    rw [div_div, le_div_iff₀ (by positivity)]
+    have h2 := mul_le_mul_of_nonneg_left hkey hβpos.le
+    linarith
+  linarith
 
 /-- **D–H FOR A SECOND REAL ZERO, with Landau's floor** — a PROJECTION of `dh_spec`'s second arm
 (the verdict's A2: as frozen in v1 this was stated at `dhC` with a spec that covered only
