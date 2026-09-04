@@ -395,7 +395,29 @@ theorem dh_repulsion_tall_real :
         16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
         (1 - β₀) ≥ dhC * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(dhB * (1 - ρ.re)))
           / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ dhK := by
-  sorry
+  intro q _ χ hprim hne hsq hq β₀ hβ0 hβlo hβhi ρ hρ hρim hlandau hlo hhi hord
+  have hqR : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have habs : |ρ.im| = 0 := by rw [hρim]; simp
+  have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hl4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; ring
+  have hA : Real.log 4 ≤ Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
+    rw [habs]
+    exact Real.log_le_log (by norm_num) (by nlinarith [hqR])
+  have hApos : (0 : ℝ) < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
+    rw [hl4] at hA; linarith
+  have hB : Real.log (4 * (q : ℝ)) = Real.log 2 + Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
+    rw [habs, show (4 : ℝ) * (q : ℝ) = 2 * ((q : ℝ) * (0 + 2)) by ring,
+      Real.log_mul (by norm_num) (by nlinarith [hqR])]
+  have hBpos : (0 : ℝ) < Real.log (4 * (q : ℝ)) := by rw [hB]; linarith
+  have hfloor : ρ.re ≤ 1 - 1 / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
+    have hdiv : (1 : ℝ) / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2))
+        ≤ 1 / 5000 / Real.log (4 * (q : ℝ)) := by
+      rw [div_le_div_iff₀ hApos hBpos, hB]
+      rw [hl4] at hA
+      linarith
+    linarith
+  exact dh_spec.2.2.2 q χ hprim hne hsq hq β₀ hβ0 hβlo hβhi ρ hρ hfloor hlo hhi hord
 
 /-- **THE REPULSION CEILING OVER A BOX — `hceil` discharged at every height at which the
 contract speaks.**  Every zero `ρ ≠ β₀` in the strip `9/10 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ T` has
@@ -494,7 +516,10 @@ and `linarith`.  Consumer: `neg_re_logDeriv_differenced_mult_ge`. -/
 theorem neg_re_logDeriv_LFunction_ge {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
     {σ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
     -(1 / (σ - 1) + 1) ≤ (-logDeriv (DirichletCharacter.LFunction χ) (σ : ℂ)).re := by
-  sorry
+  have h := vmPairS_le_pole χ 0 h1 h2
+  have h0 : vmPairS χ 0 σ = 0 := by simp [vmPairS, vmPairW]
+  rw [h0] at h
+  linarith
 
 /-- **The differencing, LOWER form** — the mirror of `neg_re_logDeriv_differenced_mult`
 (`TwistedMertens.lean:486`): the same partial-fraction difference with every inequality reversed;
