@@ -2055,8 +2055,11 @@ private lemma dh_repulsion_inst_tall {q : ℕ} [NeZero q] (χ : DirichletCharact
     have hrowEβ : (Y : ℝ) ^ (β₀ - ρ.re) * ((136 + 48 * M + 48 * M * 5 + 144 * M / (1 - β₀))
         * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - β₀)) ≤ 1 / 8 :=
       row_Eβ_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
-        (Y := Y) (z := (z : ℝ)) (M := M) (Z₀ := 5) hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ
-        hβ0hi rfl hMnn hMB' (by norm_num) hz1r hzhi_r hYlo_r hYhi_r huτ hgEβ
+        (Y := Y) (z := (z : ℝ)) (M := M) (Z₀ := 5)
+        (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl hMnn hMB' (by norm_num) hz1r hzhi_r
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) hYlo_r huτ
+        (by rw [show (14 * (15 / 34) - 409 / 100 : ℝ) = 3547 / 1700 by norm_num]; exact hgEβ)
     -- ===== ROW3 decomposition + contradiction =====
     have hYdiv : (Y : ℝ) ^ (β₀ - ρ.re) / (Y : ℝ) = (Y : ℝ) ^ (β₀ - ρ.re - 1) := by
       rw [div_eq_mul_inv, ← Real.rpow_neg_one (Y : ℝ), ← Real.rpow_add hYpos,
