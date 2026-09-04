@@ -2035,7 +2035,71 @@ theorem real_zeros_below_zfrCeil [NeZero q] {χ : DirichletCharacter ℂ q} {β�
     ∀ t : ℝ, ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) →
       9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ efT0 q t + 1 →
       ρ.re ≤ efZfrCeil q (1 / 126848) t := by
-  sorry
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hb1 := hR.β1
+  -- `1 − β₀ = 1/(ηL) ≤ (1/5000)/log 4q`: Landau's window contains `β₀`
+  have hE0 : Real.exp (3 * 10 ^ 6) ≤ n9E0 := by
+    have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+    have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+    simp only [n9E0]; linarith
+  have hE1 := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
+  have hηnum : (30000 : ℝ) ≤ η := by
+    have hηge : (3000001 : ℝ) ≤ Real.log η := by linarith only [hηbig, hE0, hE1]
+    have h := Real.exp_le_exp.mpr hηge
+    rw [Real.exp_log hηpos] at h
+    have h2 := Real.add_one_le_exp (3000001 : ℝ)
+    linarith only [h, h2]
+  have hone : (1 - β₀) * (η * Real.log q) = 1 := by rw [hηL]; field_simp
+  have hcross : 5000 * Real.log (4 * (q : ℝ)) ≤ η * Real.log q := by
+    have hprod : 30000 * Real.log q ≤ η * Real.log q :=
+      mul_le_mul_of_nonneg_right hηnum hL.le
+    linarith only [hprod, hW2L, hLhuge]
+  have hwβ : 1 - (1 / 5000) / Real.log (4 * (q : ℝ)) ≤ β₀ := by
+    have hfin : 1 - β₀ ≤ 1 / 5000 / Real.log (4 * (q : ℝ)) := by
+      rw [div_div, le_div_iff₀ (by positivity)]
+      nlinarith [hcross, hβpos, hone]
+    linarith only [hfin]
+  -- the two numeric comparisons of the ceilings
+  have hlog4 : Real.log (4 * (q : ℝ)) = Real.log 4 + Real.log q :=
+    Real.log_mul (by norm_num) (by linarith only [hqR])
+  have hlog3 : Real.log (3 * (q : ℝ)) = Real.log 3 + Real.log q :=
+    Real.log_mul (by norm_num) (by linarith only [hqR])
+  have h4le : Real.log (4 : ℝ) ≤ 3 := by
+    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
+    linarith only [h]
+  have h3ge : (1 : ℝ) ≤ Real.log (3 : ℝ) := by
+    have he := Real.exp_one_lt_d9
+    have h := Real.log_le_log (Real.exp_pos 1) (by linarith only [he] : Real.exp 1 ≤ (3 : ℝ))
+    rwa [Real.log_exp] at h
+  intro t ρ hρ him0 hne hlo hhi _him
+  have hcoe : ((ρ.re : ℝ) : ℂ) = ρ := by apply Complex.ext <;> simp [him0]
+  have hzr : DirichletCharacter.LFunction χ ((ρ.re : ℝ) : ℂ) = 0 := by rw [hcoe]; exact hρ
+  have hlandau : ρ.re ≤ 1 - (1 / 5000) / Real.log (4 * (q : ℝ)) := by
+    rcases le_or_gt ρ.re (1 - (1 / 5000) / Real.log (4 * (q : ℝ))) with h | h
+    · exact h
+    · exfalso
+      have heq := (landau_one_exceptional_at hR.prim hR.ne hzr hR.zero h.le hwβ).1
+      exact hne (by rw [← hcoe, heq])
+  have hT0 : (0 : ℝ) ≤ efT0 q t := by rw [efT0]; positivity
+  have hbase : (3 : ℝ) * (q : ℝ) ≤ (q : ℝ) * (efT0 q t + 3) := by nlinarith [hqR, hT0]
+  have hlog3q : 0 < Real.log (3 * (q : ℝ)) := by rw [hlog3]; linarith only [h3ge, hL]
+  have hmono : Real.log (3 * (q : ℝ)) ≤ Real.log ((q : ℝ) * (efT0 q t + 3)) :=
+    Real.log_le_log (by linarith only [hqR]) hbase
+  have hXpos : 0 < Real.log ((q : ℝ) * (efT0 q t + 3)) := by linarith only [hmono, hlog3q]
+  have hkey : 1 / 126848 / Real.log ((q : ℝ) * (efT0 q t + 3))
+      ≤ 1 / 5000 / Real.log (4 * (q : ℝ)) := by
+    rw [div_div, div_div, div_le_div_iff₀ (by positivity) (by positivity)]
+    have h1 : 5000 * Real.log (4 * (q : ℝ)) ≤ 5000 * (3 + Real.log q) := by
+      rw [hlog4]; linarith only [h4le]
+    have h2 : 126848 * Real.log (3 * (q : ℝ))
+        ≤ 126848 * Real.log ((q : ℝ) * (efT0 q t + 3)) := by linarith only [hmono]
+    have h3 : 126848 * (1 + Real.log q) ≤ 126848 * Real.log (3 * (q : ℝ)) := by
+      rw [hlog3]; linarith only [h3ge]
+    nlinarith only [h1, h2, h3, hL]
+  rw [efZfrCeil]
+  linarith only [hlandau, hkey]
 
 /-- **`htail` AT THE WINDOW, RANGE A — the tail built at the REPULSION ceiling.**  v1 re-exported
 the landed Range-B tail `logChiSum_tendsto_zfr_hundred` at a printed `e^{70000}`; the verdict's
@@ -2100,7 +2164,17 @@ theorem hcorr_at_split [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : �
     {S : ℂ} (hS : Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S)) :
     |Real.log (hbF χ z) - ((logChiSum χ z X).re + S.re)|
       ≤ 2 / (⌊z⌋₊ : ℝ) + 10 / Real.sqrt (⌊z⌋₊ : ℝ) := by
-  sorry
+  obtain ⟨A, hlimP⟩ := hbEulerLog_tendsto hR hz
+  have hXre : Tendsto (fun Y : ℝ => (logChiSum χ X Y).re) atTop (𝓝 S.re) :=
+    (Complex.continuous_re.tendsto S).comp hS
+  have hlimS : Tendsto (fun Y : ℝ => (logChiSum χ z Y).re) atTop
+      (𝓝 ((logChiSum χ z X).re + S.re)) := by
+    have hsum : Tendsto (fun Y : ℝ => (logChiSum χ z X).re + (logChiSum χ X Y).re) atTop
+        (𝓝 ((logChiSum χ z X).re + S.re)) := tendsto_const_nhds.add hXre
+    refine hsum.congr' ?_
+    filter_upwards [eventually_ge_atTop X] with Y hY
+    rw [← Complex.add_re, ← logChiSum_add χ hzX hY]
+  exact hb_hcorr_closed χ hR.sq hz hlimP hlimS
 
 /-- **The `(L2)` constant** (a ceiling): the `e^{250}` of the kill times the packet's `Cs`. -/
 noncomputable def n9K2 : ℝ := Real.exp 260 * (802 + 4 * n9Cs)
@@ -2140,7 +2214,83 @@ re-export), so the exponent carries `+ 1`.  Class **B**, cap 200: `Nat.ceil_lt_a
 theorem card_divisors_le_rpow_explicit {ε : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1) :
     ∀ n : ℕ, 1 ≤ n →
       (n.divisors.card : ℝ) ≤ (3 / ε) ^ ((2 : ℝ) ^ (1 / ε) + 1) * (n : ℝ) ^ ε := by
-  sorry
+  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hKpos : (0 : ℝ) < ε * Real.log 2 := mul_pos hε hlog2
+  set g : ℝ := 1 + (ε * Real.log 2)⁻¹ with hg
+  set P₀ : ℕ := ⌈(2 : ℝ) ^ ε⁻¹⌉₊ with hP₀
+  have hg1 : (1 : ℝ) ≤ g := by rw [hg]; have := (inv_pos.mpr hKpos).le; linarith
+  have hgpos : (0 : ℝ) < g := by rw [hg]; have := inv_pos.mpr hKpos; linarith
+  -- the PRINTED constant dominates the landed witness `g ^ P₀`
+  have h3ε : (1 : ℝ) ≤ 3 / ε := by rw [le_div_iff₀ hε]; linarith
+  have hgle : g ≤ 3 / ε := by
+    have hl2 := Real.log_two_gt_d9
+    have hinv : (ε * Real.log 2)⁻¹ ≤ 2 / ε := by
+      rw [inv_eq_one_div, div_le_div_iff₀ hKpos hε]
+      nlinarith only [hl2, hε]
+    have h1 : (1 : ℝ) ≤ 1 / ε := by rw [le_div_iff₀ hε]; linarith
+    have h2 : (3 : ℝ) / ε = 1 / ε + 2 / ε := by ring
+    rw [hg]; linarith only [hinv, h1, h2]
+  have hP₀le : (P₀ : ℝ) ≤ (2 : ℝ) ^ (1 / ε) + 1 := by
+    rw [hP₀, one_div]
+    exact le_of_lt (Nat.ceil_lt_add_one (Real.rpow_nonneg (by norm_num) _))
+  have hconst : g ^ P₀ ≤ (3 / ε) ^ ((2 : ℝ) ^ (1 / ε) + 1) := by
+    have h1 : g ^ P₀ ≤ (3 / ε) ^ P₀ := pow_le_pow_left₀ hgpos.le hgle P₀
+    have h2 : ((3 : ℝ) / ε) ^ P₀ = (3 / ε) ^ ((P₀ : ℕ) : ℝ) := (Real.rpow_natCast _ _).symm
+    rw [h2] at h1
+    exact le_trans h1 (Real.rpow_le_rpow_of_exponent_le h3ε hP₀le)
+  intro n hn
+  have hn0 : n ≠ 0 := by omega
+  have hn_eq : (n : ℝ) = ∏ p ∈ n.primeFactors, (p : ℝ) ^ (n.factorization p) := by
+    have h1 : n = ∏ p ∈ n.primeFactors, p ^ (n.factorization p) := by
+      conv_lhs => rw [← Nat.prod_factorization_pow_eq_self hn0]
+      rw [Finsupp.prod, Nat.support_factorization]
+    calc (n : ℝ)
+        = ((∏ p ∈ n.primeFactors, p ^ (n.factorization p) : ℕ) : ℝ) := by rw [← h1]
+      _ = ∏ p ∈ n.primeFactors, (p : ℝ) ^ (n.factorization p) := by push_cast; rfl
+  have hq : ∏ p ∈ n.primeFactors, (p : ℝ) ^ ((n.factorization p : ℝ) * ε)
+      = (n : ℝ) ^ ε := by
+    rw [hn_eq, ← Real.finsetProd_rpow n.primeFactors
+        (fun p => (p : ℝ) ^ (n.factorization p)) (fun p _ => by positivity) ε]
+    apply Finset.prod_congr rfl
+    intro p _
+    rw [← Real.rpow_natCast (p : ℝ) (n.factorization p), ← Real.rpow_mul (by positivity)]
+  have hfactor : ∀ p ∈ n.primeFactors,
+      ((n.factorization p : ℝ) + 1)
+        ≤ (if p < P₀ then g else 1) * (p : ℝ) ^ ((n.factorization p : ℝ) * ε) := by
+    intro p hp
+    have hp2 : 2 ≤ p := (Nat.prime_of_mem_primeFactors hp).two_le
+    by_cases hlt : p < P₀
+    · rw [if_pos hlt, hg]; exact Salt.Maynard.tau_factor_small hε hp2
+    · rw [if_neg hlt, one_mul]
+      exact Salt.Maynard.tau_factor_large
+        (Salt.Maynard.tau_threshold hε (hP₀ ▸ not_lt.mp hlt))
+  have hprodc : ∏ p ∈ n.primeFactors, (if p < P₀ then g else 1 : ℝ) ≤ g ^ P₀ := by
+    have hrw : ∏ p ∈ n.primeFactors, (if p < P₀ then g else 1 : ℝ)
+        = ∏ _p ∈ n.primeFactors.filter (· < P₀), g :=
+      (Finset.prod_filter (· < P₀) (fun _ => (g : ℝ))).symm
+    rw [hrw, Finset.prod_const]
+    apply pow_le_pow_right₀ hg1
+    calc (n.primeFactors.filter (· < P₀)).card
+        ≤ (Finset.range P₀).card := by
+          apply Finset.card_le_card
+          intro p hp
+          rw [Finset.mem_filter] at hp
+          exact Finset.mem_range.mpr hp.2
+      _ = P₀ := Finset.card_range P₀
+  have hnε : (0 : ℝ) ≤ (n : ℝ) ^ ε := Real.rpow_nonneg (by positivity) _
+  rw [Nat.card_divisors hn0]
+  push_cast
+  calc ∏ p ∈ n.primeFactors, ((n.factorization p : ℝ) + 1)
+      ≤ ∏ p ∈ n.primeFactors,
+          (if p < P₀ then g else 1) * (p : ℝ) ^ ((n.factorization p : ℝ) * ε) :=
+        Finset.prod_le_prod (fun p _ => by positivity) hfactor
+    _ = (∏ p ∈ n.primeFactors, (if p < P₀ then g else 1))
+          * ∏ p ∈ n.primeFactors, (p : ℝ) ^ ((n.factorization p : ℝ) * ε) :=
+        Finset.prod_mul_distrib
+    _ ≤ g ^ P₀ * (n : ℝ) ^ ε := by
+        rw [hq]; exact mul_le_mul_of_nonneg_right hprodc hnε
+    _ ≤ (3 / ε) ^ ((2 : ℝ) ^ (1 / ε) + 1) * (n : ℝ) ^ ε :=
+        mul_le_mul_of_nonneg_right hconst hnε
 
 /-- **HB LEMMA 4 AT THE POINT: `|S⁽⁰⁾ − S⁽³⁾| ≤ 2^40·x/z₀`.**  Class **B**, cap 300.
 Red-first: `hb_lemma4_l2cWindow` on `hbZ_packet` with `ε := 1/(2000·z₀)`, `C := (3/ε)^{2^{1/ε}}`
