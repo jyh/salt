@@ -1096,7 +1096,39 @@ theorem failSet_log_le (P : ℕ) (hP : Squarefree P) {Lam z sRatio : ℝ} {side 
     (hPz : ∀ p ∈ P.primeFactors, (p : ℝ) < z) :
     ∀ δ ∈ failSet Lam z side (flB sRatio Lam) P,
       Real.log δ ≤ (sRatio + 1) * Real.log z := by
-  sorry
+  intro δ hδ
+  obtain ⟨⟨hδP, hP0⟩, hnot, hchi⟩ := mem_failSet.mp hδ
+  have hδ0 : δ ≠ 0 := failSet_ne_zero hδ
+  have hδsq : Squarefree δ := hP.squarefree_of_dvd hδP
+  have hz0 : (0 : ℝ) < z := by linarith
+  set p := δ.minFac with hpdef
+  have hpdvd : p ∣ δ := Nat.minFac_dvd δ
+  have hddvd : δ / p ∣ δ := Nat.div_dvd_of_dvd hpdvd
+  have hd0 : δ / p ≠ 0 := by
+    intro h
+    have := Nat.div_mul_cancel hpdvd
+    rw [h, zero_mul] at this
+    exact hδ0 this.symm
+  have hdsq : Squarefree (δ / p) := hδsq.squarefree_of_dvd hddvd
+  have hdz : ∀ r ∈ (δ / p).primeFactors, (r : ℝ) < z := by
+    intro r hr
+    exact hPz r (Nat.primeFactors_mono ((hddvd.trans hδP)) hP.ne_zero hr)
+  have hlev := flB_level_bound hLam hz hside hs hd0 hdsq hdz hchi
+  have hpz : (p : ℝ) < z := by
+    rcases eq_or_ne δ 1 with rfl | hδ1
+    · simp only [hpdef, Nat.minFac_one, Nat.cast_one]; linarith
+    · have hpp : p.Prime := Nat.minFac_prime hδ1
+      exact hPz p (Nat.mem_primeFactors.mpr ⟨hpp, hpdvd.trans hδP, hP.ne_zero⟩)
+  have hcast : (δ : ℝ) = ((δ / p : ℕ) : ℝ) * (p : ℝ) := by
+    rw [← Nat.cast_mul, Nat.div_mul_cancel hpdvd]
+  have hzpow : (0 : ℝ) < z ^ sRatio := Real.rpow_pos_of_pos hz0 sRatio
+  have hle : (δ : ℝ) ≤ z ^ (sRatio + 1) := by
+    rw [hcast, Real.rpow_add hz0, Real.rpow_one]
+    exact mul_le_mul hlev hpz.le (Nat.cast_nonneg p) hzpow.le
+  have hδpos : (0 : ℝ) < (δ : ℝ) := by
+    exact_mod_cast Nat.pos_of_ne_zero hδ0
+  calc Real.log δ ≤ Real.log (z ^ (sRatio + 1)) := Real.log_le_log hδpos hle
+    _ = (sRatio + 1) * Real.log z := Real.log_rpow hz0 _
 
 /-- **The per-δ transfer at `ρ₂`** — `hb_transfer` fed Lemma 6.  Class **A**, cap 60.
 Consumer: `hb_p200_upper`, `hb_p200_lower`. -/
@@ -1108,8 +1140,11 @@ theorem hb_transfer_additive (P : ℕ) (hP : Squarefree P)
     (hfailL : ∀ δ ∈ failSet Lam z side b P, Real.log δ ≤ L) :
     |lamSum Lam z side b P (fun d => nuG d * A' d) - moebSum P (fun d => nuG d * A' d)|
       ≤ 64 * B' * L
-          * |lamSum Lam z side b P (fun d => nuG d) - moebSum P (fun d => nuG d)| := by
-  sorry
+          * |lamSum Lam z side b P (fun d => nuG d) - moebSum P (fun d => nuG d)| :=
+  hb_transfer P hP hb hside (fun d => nuG d * A' d) (64 * B' * L)
+    (fun δ hδ => deltaSum_nuG_nonneg P hP hPodd δ (mem_failSet.mp hδ).1.1)
+    (fun δ hδ => deltaSum_nuG_mul_additive_le P hP hPodd A' hA' hB' hA'p hL3 hPL δ
+      (mem_failSet.mp hδ).1.1 (hfailL δ hδ))
 
 /-- **The per-δ transfer at `ρ₃`** — `hb_transfer` fed Lemma 6.  Class **A**, cap 60.
 Consumer: `hb_p200_upper`, `hb_p200_lower`. -/
@@ -1121,8 +1156,11 @@ theorem hb_transfer_sq_additive (P : ℕ) (hP : Squarefree P)
     (hfailL : ∀ δ ∈ failSet Lam z side b P, Real.log δ ≤ L) :
     |lamSum Lam z side b P (fun d => nuG d * A d ^ 2) - moebSum P (fun d => nuG d * A d ^ 2)|
       ≤ (128 * CA * L) ^ 2
-          * |lamSum Lam z side b P (fun d => nuG d) - moebSum P (fun d => nuG d)| := by
-  sorry
+          * |lamSum Lam z side b P (fun d => nuG d) - moebSum P (fun d => nuG d)| :=
+  hb_transfer P hP hb hside (fun d => nuG d * A d ^ 2) ((128 * CA * L) ^ 2)
+    (fun δ hδ => deltaSum_nuG_nonneg P hP hPodd δ (mem_failSet.mp hδ).1.1)
+    (fun δ hδ => deltaSum_nuG_mul_sq_additive_le P hP hPodd A hA hCA hAp hL3 hPL δ
+      (mem_failSet.mp hδ).1.1 (hfailL δ hδ))
 
 /-! ## §6 — HB Lemma 5 as an INTERFACE (N7's exit) and the p.200 assembly -/
 
@@ -1159,7 +1197,12 @@ when `(d, α) = 1`.  Class **A**, cap 60.  Red-first: `Finset.prod_mul_distrib` 
 `Finset.prod_const` against `omegaG`/`Gdens`.  Consumer: `hb_p200_upper`, `hb_p200_lower`. -/
 theorem hbG_div_eq_nuG {α d : ℕ} (hd : d ≠ 0) (hdα : Nat.Coprime d α) :
     hbG α d / (d : ℝ) = nuG d := by
-  sorry
+  rw [nuG_apply hd, hbG, if_pos hdα, omegaG]
+  congr 1
+  rw [show (∏ p ∈ d.primeFactors, Gdens p)
+      = ∏ p ∈ d.primeFactors, (2 * ((2 * (p : ℝ) - 1) / ((p : ℝ) + 1))) from
+    Finset.prod_congr rfl fun p _ => by rw [Gdens]; ring,
+    Finset.prod_mul_distrib, Finset.prod_const]
 
 /-- **The (2.3) error sum** `Σ_{d ∣ P} 4^{ω(d)}/d` — a definition, so the p.200 rows carry it
 by name and `n8ErrSum_le` prices it once. -/
@@ -1179,7 +1222,56 @@ carry `n8ErrSum P` by name; N9 prices it here, through its `log z ≤ L`). -/
 theorem n8ErrSum_le (P : ℕ) (hP : Squarefree P) {z : ℕ} (hz : 2 ≤ z)
     (hPz : ∀ p ∈ P.primeFactors, p ≤ z) :
     n8ErrSum P ≤ Real.exp (4 * mertens2C) * Real.log z ^ 4 := by
-  sorry
+  classical
+  have hzR : (2 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz
+  have hlogz : 0 < Real.log z := Real.log_pos (by linarith)
+  have hprod : n8ErrSum P = ∏ p ∈ P.primeFactors, (1 + 4 / (p : ℝ)) := by
+    rw [n8ErrSum,
+      sum_divisors_eq_sum_powerset hP (fun d => (4 : ℝ) ^ d.primeFactors.card / (d : ℝ)),
+      Finset.prod_one_add]
+    refine Finset.sum_congr rfl fun T hT => ?_
+    rw [Finset.mem_powerset] at hT
+    have hTprime : ∀ p ∈ T, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors (hT hp)
+    rw [Nat.primeFactors_prod hTprime, Nat.cast_prod, ← Finset.prod_const,
+      ← Finset.prod_div_distrib]
+  have hstep2 : ∏ p ∈ P.primeFactors, (1 + 4 / (p : ℝ))
+      ≤ Real.exp (∑ p ∈ P.primeFactors, 4 / (p : ℝ)) := by
+    rw [Real.exp_sum]
+    refine Finset.prod_le_prod (fun p hp => ?_) (fun p hp => ?_)
+    · have hp0 : (0 : ℝ) < (p : ℝ) := by
+        exact_mod_cast (Nat.prime_of_mem_primeFactors hp).pos
+      positivity
+    · have := Real.add_one_le_exp (4 / (p : ℝ))
+      linarith
+  have hsub : P.primeFactors ⊆ (Finset.range (z + 1)).filter Nat.Prime := by
+    intro p hp
+    exact Finset.mem_filter.mpr ⟨Finset.mem_range.mpr (by have := hPz p hp; omega),
+      Nat.prime_of_mem_primeFactors hp⟩
+  have hstep3 : ∑ p ∈ P.primeFactors, 4 / (p : ℝ)
+      ≤ 4 * (Real.log (Real.log z) + mertens2C) := by
+    have hinv : ∑ p ∈ P.primeFactors, (1 : ℝ) / (p : ℝ)
+        ≤ Real.log (Real.log z) + mertens2C := by
+      refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub ?_)
+        (Salt.Maynard.sum_inv_prime_le_aux hz)
+      intro p _ _
+      positivity
+    have heq : ∑ p ∈ P.primeFactors, 4 / (p : ℝ)
+        = 4 * ∑ p ∈ P.primeFactors, (1 : ℝ) / (p : ℝ) := by
+      rw [Finset.mul_sum]
+      exact Finset.sum_congr rfl fun p _ => by ring
+    rw [heq]
+    linarith
+  have h4 : Real.exp (4 * (Real.log (Real.log z) + mertens2C))
+      = Real.exp (4 * mertens2C) * Real.log z ^ 4 := by
+    rw [show (4 : ℝ) * (Real.log (Real.log z) + mertens2C)
+        = 4 * mertens2C + (Real.log (Real.log z) + (Real.log (Real.log z)
+            + (Real.log (Real.log z) + Real.log (Real.log z)))) by ring,
+      Real.exp_add, Real.exp_add, Real.exp_add, Real.exp_add, Real.exp_log hlogz]
+    ring
+  calc n8ErrSum P = ∏ p ∈ P.primeFactors, (1 + 4 / (p : ℝ)) := hprod
+    _ ≤ Real.exp (∑ p ∈ P.primeFactors, 4 / (p : ℝ)) := hstep2
+    _ ≤ Real.exp (4 * (Real.log (Real.log z) + mertens2C)) := Real.exp_le_exp.mpr hstep3
+    _ = Real.exp (4 * mertens2C) * Real.log z ^ 4 := h4
 
 /-- **The N8 Lemma-6 constant**: `64·CA′ + (128·CA)² + CC` — the sum of the three
 per-density constants, so that `S₂ + S₃ + C₀S₁ ≤ n8C6·B·L·S₁` (using `L² ≤ B·L`). -/
