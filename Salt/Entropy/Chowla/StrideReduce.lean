@@ -58,6 +58,7 @@ import Salt.Entropy.Chowla.StrideDecrement
 import Salt.Entropy.Chowla.StrideBridge
 import Salt.Entropy.Chowla.HMainAssembly
 import Salt.Entropy.Chowla.HBudget
+import Salt.Entropy.Chowla.HeadPinLeaves
 import Mathlib
 
 open MeasureTheory ProbabilityTheory
@@ -95,7 +96,8 @@ a unit (`ZMod.isUnit_iff_coprime`, `hcop`); set `c := -(u⁻¹ * ((j + 1 : ℕ) 
 `r := c.val`; `p ∣ a·r + j + 1` by `ZMod.natCast_eq_zero_iff` after `push_cast` and
 `u * u⁻¹ = 1`; the iff by `ZMod.natCast_eq_natCast_iff'`-shape on `n % p` and the unit's
 cancellation (`mul_left_cancel₀`).  The landed `gate_residue` (`HBudget.lean:188`) is the
-`a = 1` case (`u = 1`). -/
+`a = 1` case (`u = 1`); executor note (v1.1, verdict A8(iv)): at `a = 1` the term `1 * r` is
+STUCK, not `rfl` — `one_mul` + `Nat.coprime_one_left`. -/
 theorem gate_residue_aff (a p j : ℕ) (hp : 2 ≤ p) (hcop : Nat.Coprime a p) :
     ∃ r : ℕ, r < p ∧ p ∣ (a * r + j + 1) ∧
       ∀ n : ℕ, ((a * n + j + 1 : ℕ) : ZMod p) = 0 ↔ n % p = r := by
@@ -151,7 +153,9 @@ theorem shiftCorrAff_base (a b x ω h : ℕ) :
 `k` and `b` differ by the shift `k/a` in `n`: `integral_logMeasureAff` on both sides, then
 `λ(a·n + k) = λ(a·(n + k/a) + b)` (`Nat.mul_add`, the collapse), so the difference is
 `integral_shift_le x ω (k / a) hx hω hωx f hf` (`ShiftCorr.lean:235`) at
-`f := fun n => λ(a·n + b)·λ(a·n + b + h)`, `|f| ≤ 1` by `abs_liouville_le_one` twice. -/
+`f := fun n => λ(a·n + b)·λ(a·n + b + h)`, `|f| ≤ 1` by `abs_liouville_le_one` twice.  Executor
+note (v1.1, verdict A8(iv)): the RHS here is `ring`-equal to `integral_shift_le`'s
+(`ShiftCorr.lean:237-239`), not `exact` — close with `le_of_eq_of_le`/`ring_nf`, or `convert`. -/
 theorem shiftCorrAff_le (a b x ω : ℕ) (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x)
     (hblt : b < a) (k h : ℕ) (hk : (k : ZMod a) = (b : ZMod a)) :
     |shiftCorrAff a x ω k h - shiftCorrAff a x ω b h|
@@ -215,9 +219,12 @@ theorem perPair_bound_aff {x ω : ℕ} (a b h H : ℕ) (hx : 2 ≤ x) (hω : 2 �
 
 /-- **F4-R4a (class C) — `IF_unfold_h` (`HBudget.lean:1040`) at the affine forms.**  The pointwise
 half is landed (`fBridgeF_aff_liouville_apply`, `StrideBridge.lean:453`: the gate AND the class
-filter in one `if`); then `integral_finsetSum` twice (`integrable_of_finiteSupport _` at the
-stride measure's instance) — or `integral_logMeasureAff` + `integral_logMeasure_eq` +
-`Finset.sum_comm` exactly as at `h`, reading the window at `a·n`. -/
+filter in one `if`); then `IF_unfold_h`'s own script (`HBudget.lean:1040-1075`) at `m = a·n`:
+`integral_logMeasureAff` (unconditional) + `integral_logMeasure_eq` (unconditional) +
+`Finset.sum_comm` twice.  ⛔ NOT `integral_finsetSum` via `integrable_of_finiteSupport _`: that
+route also demands `[IsFiniteMeasure (logMeasureAff a x ω)]`, which the `FiniteSupport` instance
+does not give and which this statement carries no `hx`/`hω` to derive (v1.1, verdict A3).  Add
+NO binders to this statement. -/
 theorem IF_unfold_aff (a b h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ} :
     (∫ m, fBridgeF_aff eps H a b h (liouvilleWindow H m) (residueWindow eps H m)
         ∂(logMeasureAff a x ω))
@@ -230,8 +237,10 @@ theorem IF_unfold_aff (a b h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ} :
   sorry
 
 /-- **F4-R4b (class C) — THE PER-TERM BOUND AT THE AFFINE FORMS.**  The twin of `per_term_h`
-(`HBudget.lean:1077`) with THREE branches: the class filter fails (both sides `0`; the term
-vanishes by `if_neg`); the boundary `H ≤ j + p·h` (the window product is junk-zero, the whole
+(`HBudget.lean:1077`) with THREE branches: the class filter fails (both sides `0`: `if_neg` on the
+gate-conjunction via `hfilt` zeroes the INTEGRAND pointwise, then `MeasureTheory.integral_zero`
+closes `∫ 0` — as `per_term_h`, `HBudget.lean:1113-1116`; the RHS `if`s collapse by `if_neg
+hfilt`; v1.1, verdict A5); the boundary `H ≤ j + p·h` (the window product is junk-zero, the whole
 `(1/p)·X_aff` is lost); the interior (`integral_logMeasureAff`, `gate_residue_aff` for the class
 `rⱼ`, `integral_logMeasure_eq`, the class sum, `perPair_bound_aff`, `hkH` from `r < p ≤ H`).
 `hxωH : H ≤ x/ω` gives `r ≤ x/ω`; `hcop : Nat.Coprime a p`. -/
@@ -258,8 +267,9 @@ theorem per_term_aff (a b h : ℕ) (hh : 0 < h) (ha : 1 ≤ a) (hblt : b < a) (e
 /-! ## F4-R5 — THE BUDGET at the affine forms (the capstone) -/
 
 /-- **F4-R5 (class C, THE CAPSTONE) — `hbudget_holds_h` (`HBudget.lean:1182`) at the affine
-forms.**  The error budget with the main term pinned at the literal `(H/a)/p` per prime (the
-consumer's spelling, `StrideBridge.lean:591`, byte-load-bearing).  THE FIVE SLICES (module
+forms.**  The error budget with the main term pinned at the literal `(H/a)/p` per prime (R5's OWN
+form: the consumer `StrideBridge.lean:591` carries `H/a` OUTSIDE the sum, and R6a's `hSPH` bridges
+the two spellings — v1.1, verdict A8(iii)).  THE FIVE SLICES (module
 header): dilation+swap `(H/a + 1)·Σ_p (2·log p + 8)/(pZ) ≤ (1/8)·SP·(H/a)·ε + (1/8)·SP·ε` from
 `hωbig` (the `h`-lane's `hT1`, `:1246`, per surviving index; `card_class_range_le`); shift
 `(H/a + 1)·Σ_p (1/p + H/p²)·S ≤ (1/16)·SP·(H/a)·ε + (1/16)·SP·ε` from `hxbig` and
@@ -271,10 +281,14 @@ the two `+1` leftovers `(3/16)·SP·ε ≤ (1/64)·SP·(H/a)·ε` from `12·a �
 `64·a ≤ ε·H`, `ε² ≤ 1`).  Assembly: `IF_unfold_aff`, the main term as
 `Σ_p Σ_{j<H} [filter]·(1/p)·X_aff` (`Finset.sum_const`, `Finset.card_filter`), the difference
 distributed, `Finset.abs_sum_le_sum_abs` twice, `per_term_aff` termwise, the boundary sum by
-`card_class_boundary_le H a (p*h)`, `linarith` on the five slices.  `c` and `H₀` are
-`primeWindow_sum_inv_ge`'s (`WindowMertensLower.lean:56`), as at `h`. -/
+`card_class_boundary_le H a (p*h)`, `linarith` on the five slices.  `c`, `1/4 ≤ c` and `H₀` are
+`primeWindow_sum_inv_ge_bounded`'s (`HeadPinLeaves.lean:61`, imported for this):
+`obtain ⟨c, hc, hcge, H₀, hD3⟩ := primeWindow_sum_inv_ge_bounded; refine ⟨c, hc, hcge, H₀, ?_⟩`
+(`HeadPinLeavesH.lean:70-71`) — NEVER the unbounded `primeWindow_sum_inv_ge`
+(`WindowMertensLower.lean:56`), whose `1/4` is a witness inside a proof, invisible after `obtain`
+(v1.1, verdict A1; §3 S-7: the `cE` carry the head's gate reads). -/
 theorem hbudget_holds_aff :
-    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (a b h : ℕ) (eps : ℚ) (H x ω : ℕ),
+    ∃ c : ℝ, 0 < c ∧ 1 / 4 ≤ c ∧ ∃ H₀ : ℕ, ∀ (a b h : ℕ) (eps : ℚ) (H x ω : ℕ),
       0 < h → 1 ≤ a → b < a → Nat.Coprime a (PH eps H) →
       2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
       3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
@@ -357,10 +371,12 @@ theorem consumability_probe_aff (a b h : ℕ) (ha : 0 < a) (eps : ℚ) (H : ℕ)
   sorry
 
 /-- **F4-R6d (class A) — THE CAPSTONE COMPOSED: `hreduce_holds_final_h` (`HBudget.lean:1514`) at the
-affine forms.**  `obtain ⟨c, hc, H₀, hbud⟩ := hbudget_holds_aff`, then `hreduce_holds_aff` at the
-budget.  This is the `hred` the affine head consumes (its `cE`). -/
+affine forms.**  `obtain ⟨c, hc, hcge, H₀, hbud⟩ := hbudget_holds_aff; refine ⟨c, hc, hcge, H₀, ?_⟩` (the
+`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:360-361`), then `hreduce_holds_aff` at the
+budget.  This is the `hred` the affine head consumes (its `cE`, WITH `1/4 ≤ cE` — v1.1, verdict
+A1, §3 S-7). -/
 theorem hreduce_holds_final_aff :
-    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (a b h : ℕ) (eps : ℚ) (H x ω : ℕ),
+    ∃ c : ℝ, 0 < c ∧ 1 / 4 ≤ c ∧ ∃ H₀ : ℕ, ∀ (a b h : ℕ) (eps : ℚ) (H x ω : ℕ),
       0 < h → 1 ≤ a → b < a → Nat.Coprime a (PH eps H) →
       2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
       3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
@@ -379,22 +395,28 @@ theorem hreduce_holds_final_aff :
             ∂(logMeasureAff a x ω)| := by
   sorry
 
-/-- **F4-R6e (class B) — the `(1, 0)` compat of the reduction**, stated at the LANDED conclusion of
-`hreduce_holds_h` (`HMainAssembly.lean:165`) and discharged by `hreduce_holds_aff 1 0 h`:
-`logMeasureAff_one` and `fBridgeF_aff_one_zero` under the integral binders (`simp only`),
-`m + 0 = m` (`add_zero`), `(H : ℝ)/1 = H` (`div_one`), `Nat.mul_one`… — the objects coincide at
-the model point.  (The BUDGET's own `(1, 0)` compat is not stated: `hbudget_holds_aff` carries
-two binders the `h`-lane's does not — the gate at `64` and the count slack — so it does not
-recover `hbudget_holds_h`'s statement; the reduction's conclusion is the receipt.) -/
+/-- **F4-R6e (class B) — the `(1, 0)` compat of the reduction, RESTATED v1.1 (verdict A2(b)) so
+that it can fail.**  The hypotheses are `hreduce_holds_aff`'s at `(a, b) = (1, 0)` VERBATIM (the
+affine vocabulary: `logMeasureAff 1 x ω`, `liouville (m + 0)`, `fBridgeF_aff eps H 1 0 h`,
+`(H : ℝ) / ((1 : ℕ) : ℝ)`); the conclusion is `hreduce_holds_h`'s (`HMainAssembly.lean:165`)
+VERBATIM (`logMeasure x ω`, `fBridgeF_h eps H h`, `(H : ℝ)`).  Discharge: `have := hreduce_holds_aff
+1 0 h eps H hseed hbudget`, then the bridges ON THE CONCLUSION — `logMeasureAff_one`,
+`fBridgeF_aff_one_zero` under the integral binders (`simp only`, not `rw`), `add_zero`,
+`Nat.cast_one`, `div_one`.  The v1 form restated `hreduce_holds_h` byte for byte on both sides and
+could not fail; here the bridge lemmas are LOAD-BEARING.  (The BUDGET's own `(1, 0)` compat is not
+stated: `hbudget_holds_aff` carries two binders the `h`-lane's does not — the gate at `64` and the
+count slack — so it does not recover `hbudget_holds_h`'s statement; the reduction's conclusion is
+the receipt.) -/
 theorem hreduce_holds_aff_one_zero (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
-    (hseed : (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
-              * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|)
-    (hbudget : |(∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
-              ∂(logMeasure x ω))
-          - (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ)
-              * (∫ n, (ArithmeticFunction.liouville n : ℝ)
-                  * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)))|
-        ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ)) :
+    (hseed : (eps : ℝ) / 2 ≤ |∫ m, (ArithmeticFunction.liouville (m + 0) : ℝ)
+              * (ArithmeticFunction.liouville (m + 0 + h) : ℝ) ∂(logMeasureAff 1 x ω)|)
+    (hbudget : |(∫ m, fBridgeF_aff eps H 1 0 h (liouvilleWindow H m) (residueWindow eps H m)
+              ∂(logMeasureAff 1 x ω))
+          - (∑ p ∈ primeWindow eps H, ((H : ℝ) / ((1 : ℕ) : ℝ)) / (p : ℝ)
+              * (∫ m, (ArithmeticFunction.liouville (m + 0) : ℝ)
+                  * (ArithmeticFunction.liouville (m + 0 + h) : ℝ) ∂(logMeasureAff 1 x ω)))|
+        ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * ((H : ℝ) / ((1 : ℕ) : ℝ))
+            * (eps : ℝ)) :
     (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
         * |∫ n, (ArithmeticFunction.liouville n : ℝ)
             * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|

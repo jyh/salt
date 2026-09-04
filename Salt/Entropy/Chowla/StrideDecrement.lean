@@ -56,7 +56,9 @@ namespace Salt.Entropy.Chowla
 support: `finiteSupport_of_comp` (`Salt/Entropy/Measure.lean:150`, a LEMMA, not an instance —
 so this declaration is mandatory: without it every `integrable_of_finiteSupport _` at
 `logMeasureAff` fails to resolve) at the landed `instFiniteSupport (logMeasure x ω)`
-(`LogMeasure.lean:80`). -/
+(`LogMeasure.lean:80`).  ⛔ It gives `FiniteSupport` ONLY, not `IsFiniteMeasure`:
+`integrable_of_finiteSupport _` demands BOTH, and the latter comes only through
+`isProbabilityMeasure_logMeasureAff` under the ambient `hx hω` instance (v1.1, verdict A3). -/
 instance finiteSupport_logMeasureAff (a x ω : ℕ) : FiniteSupport (logMeasureAff a x ω) := by
   unfold logMeasureAff
   exact finiteSupport_of_comp (measurable_from_nat)
@@ -293,17 +295,14 @@ theorem entropy_decrementAff (R : ChowlaRegime) :
         ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))) := by
   sorry
 
-/-- **F4-D5a (class A) — the stride-`1` receipt.**  At `R.a = 1` the affine decrement IS the
-landed `entropy_decrement R`: `simp only [hR1, logMeasureAff_one, one_mul]` on both sides of the
-`Iff` (`R.a * R.Hlo = R.Hlo` at `R.a = 1`).  Records that the twin drifts nowhere at the model
-point. -/
-theorem entropy_decrementAff_one (R : ChowlaRegime) (hR1 : R.a = 1) :
-    (∃ H : ℕ, R.a * R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧
-      I[liouvilleWindow H : residueWindow R.eps H ; logMeasureAff R.a R.x R.ω]
-        ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))))
-    ↔ (∃ H : ℕ, R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧
-      I[liouvilleWindow H : residueWindow R.eps H ; logMeasure R.x R.ω]
-        ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) := by
+/-- **F4-D5a (class A) — the stride-`1` receipt, RESTATED v1.1 (verdict A2(d)) at the MEASURE
+level.**  At `R.a = 1` the mutual information at the stride measure IS the landed one, at every
+`H`: `rw [hR1, logMeasureAff_one]`.  The v1 form was an `Iff` between the two decrement theorems'
+conclusions — two landed-or-frozen theorems, unable to fail; here `logMeasureAff_one` is
+LOAD-BEARING and the receipt is the object the decrement's twin actually changes. -/
+theorem entropy_decrementAff_one (R : ChowlaRegime) (hR1 : R.a = 1) (H : ℕ) :
+    I[liouvilleWindow H : residueWindow R.eps H ; logMeasureAff R.a R.x R.ω]
+      = I[liouvilleWindow H : residueWindow R.eps H ; logMeasure R.x R.ω] := by
   sorry
 
 end Salt.Entropy.Chowla

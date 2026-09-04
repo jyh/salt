@@ -31,8 +31,9 @@ witness, the core); its flat threshold is replaced by the plain one.
 the hypothesis `hcirc` and the head as the hypothesis `hcm` carrying the CAP `C ≤ h·(1 + 2·C₀)`
 (the `_bounded_h` shape, `HeadPinLeavesH.lean:511`).  The head reads `C` ONLY through that cap
 (the ε-pin's ε²-arm `hε_D3C`, where `ε·16·a·C ≤ 16·6.55/500 = 0.2096 ≤ 1/4 = cD3` at every
-`(a, h)` because `ε·a·h = 1/500`); if F4b's constant is `a·C(h)` instead, this line is the one
-that fails — M1 is ISOLATED here.
+`(a, h)` because `ε·a·h = 1/500`); if F4b's constant is `a·C(h)` instead, TWO cap reads fail —
+`hε_D3C` and `hδ₀ge`'s `hkey` — and nothing else (v1.1, verdict A8(ii)); M1 is ISOLATED in those
+two lines.
 
 ⛔ HONEST LABEL.  F4a produces `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`
 beside the crown's door at grade `a·Zr·ρ + E` — NOT composed: `a·Zr·ρ + E ≤ δ₀_aff` is the `214`
@@ -80,6 +81,9 @@ theorem nat_le_flatDesignBase (n : ℕ) (A : ℝ) (hn : Real.log (Real.log (n : 
 
 /-! ## F4-S1 — THE `L²` SHELL AT THE AFFINE FORMS -/
 
+-- `windowExpSum_norm_eq_dft` is a `private lemma` of `Theorem23Shell.lean:68` (v1.1, verdict A4;
+-- precedent `HeadPinLeavesH.lean:50-51`).
+open private windowExpSum_norm_eq_dft from Salt.Entropy.Chowla.Theorem23Shell in
 /-- **F4-S1 (class B) — THE `L²` SHELL AT THE AFFINE FORMS** (`log_chowla_two_shell_xi_sq_aff`).
 `log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) with the six substitutions: the
 measure `logMeasureAff R.a R.x R.ω`; `fBridgeF_aff R.eps H R.a R.b h` in `h211`; the FILTERED
@@ -91,7 +95,8 @@ Chain: `hoc := outer_combine_aff …` (with `hcop := coprime_PH_of_le R.ha R.hco
 `hlo' : R.Hlo ≤ H` from `hlo` and `R.ha`), the error term rewritten by the relabel into
 `shellError`; Bridge B (`abs_integral_le_integral_abs`, `integral_mono_ae` at the stride
 measure's `integrable_of_finiteSupport _`); Bridge A squared per `ξ` (`integral_const_mul`,
-`integral_finsetSum`, `windowExpSum_norm_eq_dft`) — the Fourier factor is at the UNTWISTED `ξ`
+`integral_finsetSum`, `windowExpSum_norm_eq_dft` — reached by the `open private … in` above) —
+the Fourier factor is at the UNTWISTED `ξ`
 exactly as at `h`; `hstar`, `hmul`, `hlower : c₀·ε ≤ door`; finally
 `contradiction_of_mrtDoorXiL2AffW h R hdvd hlo hhi hdoor hbudget2 hlower`.  `0 < h` is NOT a
 binder (the discharger's fence, as at `h`). -/
@@ -210,9 +215,9 @@ and beside it THE ENTROPY HALF: `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h 
 with `1/(838400·(ah)²) ≤ δ₀_aff` (the road's own re-mint at `k = ah`, F2 §2).
 
 THE ORDER (the `h`-head's, `HloExportFlatH.lean:256-372`, plain threshold): (1) the leaves —
-`obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_aff`-shape (with `1/4 ≤ cE` from
-its own `primeWindow_sum_inv_ge_bounded` leaf; F4-R6d exports `c` — the executor threads the
-`1/4 ≤ c` conjunct through R6d or re-obtains it from `primeWindow_sum_inv_ge_bounded`),
+`obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_aff` (FIVE-WIDE: F4-R6d EXPORTS
+`1/4 ≤ c` since v1.1 — §3 S-7, verdict A1; `hcEge` is READ from the export, never re-derived
+from another existential's `c`),
 `⟨cD3, hcD3, hcD3ge, H₀D3, hD3⟩ := primeWindow_sum_inv_ge_bounded`, `⟨C, hC, hCcap, hcm'⟩ := hcm`;
 (2) THE PIN `ε := 1/(500·(a·h))` and the numerals — `hεcE : ε·a·h = 1/500 ≤ cE/(64·log 4)`
 (`cE ≥ 1/4`, `log 4 < 1.3863`), `hε_D3 : ε ≤ (cD3/a)/16`, `hε_D3C : ε ≤ (cD3/a)/(16·C)` from
@@ -226,7 +231,8 @@ its payload; (5) `δ₀ := (cD3/a)/(16·C)·ε/4`; then `intro ρ' hρ'pos hρ' 
 `a·Ra.Hlo ≤ H`), `hI` by `mutualInfo_window_comm_aff`; `hH₀` from `nat_le_flatDesignBase` +
 `hHloB` + `hlo`; `hcount : 64·a ≤ ε·H` from `Ra.hcoprime` (`a ≤ ε²·Hlo/2`), `hε32`, `Hlo ≤ H`;
 (7) `hbudget1_witness Ra.toChowlaRegime H (cD3/a) C …` (`SpineFinal.lean:598`) at `hfloor` from
-`budgetFloor_le_flatDesignBase` + `hHloB` + `hlo`; `hbudget2 : ρ' < (cD3/a)/(16·C)·ε` from
+`budgetFloor_le_flatDesignBase` + `hHloB` + `hlo` (its `cD3/a/4` against the core's `cD3/(4·a)`
+is `div_div` — v1.1, verdict A8(iv)); `hbudget2 : ρ' < (cD3/a)/(16·C)·ε` from
 `hρ'`; (8) `spine_False_core_xi_sq_aff`.  `hcrown`'s shape is the crown's conclusion verbatim,
 at `A₀'`. -/
 theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
@@ -268,14 +274,18 @@ theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b 
 
 /-! ## F4-S4 — the `(1, 0)` compat of the shell -/
 
-/-- **F4-S4 (class B) — the affine shell at `(1, 0)` recovers the `h`-shell's contradiction.**
-Stated at the `h`-shell's binders (`Theorem23Shell.lean:624`) under `R.a = 1`, discharged by
-`log_chowla_two_shell_xi_sq_aff h (ChowlaRegimeAff.ofRegime R 0 (Nat.zero_le _))`: `1 ∣ H`
-(`one_dvd`), `1 * R.Hlo ≤ H` (`one_mul`), `hI` and `h211` through `logMeasureAff_one` and
-`fBridgeF_aff_one_zero` (`simp only` under the binders), `hcirc` with the filter `True` at `ZMod 1`
-(`eq_iff_true_of_subsingleton`, `if_true`) and `bigXiAff_one_zero`, `hdoor` through
-`mrtUniformityXiL2AffW_one_zero_eq` (F3-P12), `shellError` at `ofRegime_toChowlaRegime` (`rfl`).
-Records that the shell drifts nowhere at the model point. -/
+/-- **F4-S4 (class B) — the affine shell at `(1, 0)` recovers the `h`-shell's contradiction,
+RESTATED v1.1 (verdict A2(c)) so that it can fail.**  The four slot hypotheses `hI`, `h211`,
+`hcirc`, `hdoor` are in the AFFINE vocabulary at the regime `R` with `R.a = 1`, `b = 0`
+(`logMeasureAff R.a R.x R.ω`, `fBridgeF_aff R.eps H R.a 0 h`, the CLASS-FILTERED inner sum over
+`bigXiAff R.a 0 h R.eps H`, `MRTUniformityXiL2AffW h (ChowlaRegimeAff.ofRegime R 0 _)`); the REST
+are the `h`-shell's binders (`Theorem23Shell.lean:624`) VERBATIM — the PLAIN range `R.Hlo ≤ H` with
+NO `R.a ∣ H`, and `shellError R H t g κ` at the plain regime.  Discharge:
+`log_chowla_two_shell_xi_sq_aff h (ChowlaRegimeAff.ofRegime R 0 (Nat.zero_le _))` with the range
+bridged through `hR1` — `hdvd : R.a ∣ H` from `one_dvd`, `hlo' : R.a * R.Hlo ≤ H` from `one_mul` —
+and `shellError` at `ofRegime_toChowlaRegime` (`rfl`).  The v1 form restated the `h`-shell plus an
+unused `hR1` and could not fail; here the range bridges at `R.a = 1` are LOAD-BEARING: the receipt
+says the affine shell's Tao-range demand is INVISIBLE at stride `1`, and nothing more. -/
 theorem log_chowla_two_shell_xi_sq_aff_one_zero (h : ℕ)
     (R : ChowlaRegime) (hR1 : R.a = 1) {H : ℕ} [NeZero H] (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi)
     (hH : 3 ≤ H) (hlog : 1 ≤ Real.log (H : ℝ)) (hne : (primeWindow R.eps H).Nonempty)
@@ -284,21 +294,22 @@ theorem log_chowla_two_shell_xi_sq_aff_one_zero (h : ℕ)
     {t : ℝ} (ht : 0 < t) {g : ℝ} (hg : 0 < g)
     (hgle : g ≤ (R.eps : ℝ) ^ 6 * (H : ℝ)
         / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2)
-    {κ : ℝ} (hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω] ≤ κ)
+    {κ : ℝ} (hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasureAff R.a R.x R.ω] ≤ κ)
     {c₁ : ℝ} (hc₁ : 0 < c₁)
     (h211 : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
-        ≤ |∫ n, fBridgeF_h R.eps H h (liouvilleWindow H n) (residueWindow R.eps H n)
-            ∂(logMeasure R.x R.ω)|)
+        ≤ |∫ m, fBridgeF_aff R.eps H R.a 0 h (liouvilleWindow H m) (residueWindow R.eps H m)
+            ∂(logMeasureAff R.a R.x R.ω)|)
     {C : ℝ} (hC : 0 < C)
-    (hcirc : ∀ n : ℕ,
+    (hcirc : ∀ m : ℕ,
       |∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
-          (windowVal H (liouvilleWindow H n) j : ℝ)
-            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ) * h) : ℝ)|
+          if ((j + 1 : ℕ) : ZMod R.a) = (((p : ℕ) * 0 : ℕ) : ZMod R.a) then
+            (windowVal H (liouvilleWindow H m) j : ℝ)
+              * (windowVal H (liouvilleWindow H m) (j + (p : ℕ) * h) : ℝ) else 0|
         ≤ C * ((H : ℝ) / Real.log (H : ℝ))
-            * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiH h R.eps H, (1 / (H : ℝ) ^ 2)
+            * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiAff R.a 0 h R.eps H, (1 / (H : ℝ) ^ 2)
                 * ‖ZMod.dft (fun j : ZMod H =>
-                    (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖ ^ 2))
-    {ρ c₀ : ℝ} (hdoor : MRTUniformityXiL2H h R ρ)
+                    (windowVal H (liouvilleWindow H m) (ZMod.val j) : ℂ)) ξ‖ ^ 2))
+    {ρ c₀ : ℝ} (hdoor : MRTUniformityXiL2AffW h (ChowlaRegimeAff.ofRegime R 0 (Nat.zero_le _)) ρ)
     (hbudget1 : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
           + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
           + shellError R H t g κ

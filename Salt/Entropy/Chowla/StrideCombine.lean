@@ -284,11 +284,15 @@ theorem outer_combine_aff (eps : ℚ) (H : ℕ) (a b h : ℕ) {x ω : ℕ}
           ∂(logMeasureAff a x ω)| := by
   sorry
 
-/-- **F4-K6a (class B) — the `(1, 0)` compat of the assembly**, stated at the LANDED conclusion of
-`outer_combine_h` and discharged by `outer_combine_aff` at `(1, 0)`: `logMeasureAff_one`,
-`fBridgeF_aff_one_zero` under the integral binder (`simp only`, not `rw`), the filter at `ZMod 1`
-(`eq_iff_true_of_subsingleton`, `if_true`), and `hcop : Nat.Coprime 1 _ := Nat.coprime_one_left _`.
-Records that the filter and the measure drift nowhere at the model point. -/
+/-- **F4-K6a (class B) — the `(1, 0)` compat of the assembly, RESTATED v1.1 (verdict A2(a)) so
+that it can fail.**  `hI` and `h211` are in the AFFINE vocabulary at `(a, b) = (1, 0)`
+(`logMeasureAff 1 x ω`, `fBridgeF_aff eps H 1 0 h`); the conclusion is `outer_combine_h`'s
+(`OuterCombine.lean:620`) VERBATIM at the landed `logMeasure x ω` (the entropy term, the measure,
+the unfiltered inner sum).  Discharge: `outer_combine_aff eps H 1 0 h … (Nat.coprime_one_left _) …
+hI h211`, then the bridges ON THE CONCLUSION — `logMeasureAff_one` (the measure and the entropy
+term), the filter at `ZMod 1` (`eq_iff_true_of_subsingleton`, `if_true`) under the integral binder
+(`simp only`, not `rw`).  The v1 form restated `outer_combine_h` up to `_hc₁ → hc₁` and could not
+fail; here `logMeasureAff_one` and the `ZMod 1` collapse are LOAD-BEARING. -/
 theorem outer_combine_aff_one_zero (eps : ℚ) (H h : ℕ) {x ω : ℕ}
     (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x)
     [IsProbabilityMeasure (logMeasure x ω)]
@@ -299,11 +303,11 @@ theorem outer_combine_aff_one_zero (eps : ℚ) (H h : ℕ) {x ω : ℕ}
     {t : ℝ} (ht : 0 < t) {g : ℝ} (hg : 0 < g)
     (hgle : g ≤ (eps : ℝ) ^ 6 * (H : ℝ) /
         (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2)
-    {κ : ℝ} (hI : I[residueWindow eps H : liouvilleWindow H ; logMeasure x ω] ≤ κ)
+    {κ : ℝ} (hI : I[residueWindow eps H : liouvilleWindow H ; logMeasureAff 1 x ω] ≤ κ)
     {c₁ : ℝ} (hc₁ : 0 < c₁)
     (h211 : c₁ * ((eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
-        ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
-            ∂(logMeasure x ω)|) :
+        ≤ |∫ m, fBridgeF_aff eps H 1 0 h (liouvilleWindow H m) (residueWindow eps H m)
+            ∂(logMeasureAff 1 x ω)|) :
     c₁ * ((eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
         - ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
             + 2 * boxGrade eps H * ((t + 2 * Real.log 2) / g
