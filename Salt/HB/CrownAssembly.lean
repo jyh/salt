@@ -560,6 +560,239 @@ theorem deltaSum_nuG_mul_additive_le (P : ℕ) (hP : Squarefree P)
       ≤ deltaSum P δ (fun d => nuG d) * (64 * B' * L) := mul_le_mul_of_nonneg_left hbnd hnn
     _ = 64 * B' * L * deltaSum P δ (fun d => nuG d) := by ring
 
+/-- The subsets of `S` containing two fixed distinct elements, summed against `∏ f`. -/
+lemma sum_powerset_filter_mem₂ {S : Finset ℕ} (f : ℕ → ℝ) {p p' : ℕ}
+    (hp : p ∈ S) (hp' : p' ∈ S) (hpp' : p ≠ p') :
+    ∑ T ∈ S.powerset.filter (fun T => p ∈ T ∧ p' ∈ T), ∏ r ∈ T, f r
+      = f p * f p' * ∏ r ∈ (S.erase p).erase p', (1 + f r) := by
+  classical
+  rw [Finset.prod_one_add, Finset.mul_sum]
+  refine Finset.sum_nbij' (fun T => (T.erase p).erase p')
+    (fun U => insert p (insert p' U)) ?_ ?_ ?_ ?_ ?_
+  · intro T hT
+    rw [Finset.mem_filter, Finset.mem_powerset] at hT
+    exact Finset.mem_powerset.mpr
+      (Finset.erase_subset_erase p' (Finset.erase_subset_erase p hT.1))
+  · intro U hU
+    rw [Finset.mem_powerset] at hU
+    have hUS : U ⊆ S := hU.trans ((Finset.erase_subset p' _).trans (Finset.erase_subset p S))
+    refine Finset.mem_filter.mpr ⟨Finset.mem_powerset.mpr ?_, ?_, ?_⟩
+    · exact Finset.insert_subset hp (Finset.insert_subset hp' hUS)
+    · exact Finset.mem_insert_self p _
+    · exact Finset.mem_insert_of_mem (Finset.mem_insert_self p' U)
+  · intro T hT
+    rw [Finset.mem_filter] at hT
+    have hp'T : p' ∈ T.erase p := Finset.mem_erase.mpr ⟨(Ne.symm hpp'), hT.2.2⟩
+    rw [Finset.insert_erase hp'T, Finset.insert_erase hT.2.1]
+  · intro U hU
+    rw [Finset.mem_powerset] at hU
+    have hpU : p ∉ U := fun h => (Finset.mem_erase.mp (Finset.mem_of_mem_erase (hU h))).1 rfl
+    have hp'U : p' ∉ U := fun h => (Finset.mem_erase.mp (hU h)).1 rfl
+    have h1 : p ∉ insert p' U := by
+      simp only [Finset.mem_insert]
+      rintro (h | h)
+      · exact hpp' h
+      · exact hpU h
+    rw [Finset.erase_insert h1, Finset.erase_insert hp'U]
+  · intro T hT
+    rw [Finset.mem_filter] at hT
+    have hp'T : p' ∈ T.erase p := Finset.mem_erase.mpr ⟨(Ne.symm hpp'), hT.2.2⟩
+    rw [← Finset.mul_prod_erase _ f hT.2.1, ← Finset.mul_prod_erase _ f hp'T, mul_assoc]
+
+/-- **The `A²` fibre identity** (HB (3.7)): the second moment of an additive twist against the
+signed density over a powerset. -/
+lemma sum_powerset_prod_neg_nuG_mul_sum_sq {Q : Finset ℕ} (A : ℕ → ℝ)
+    (hne : ∀ p ∈ Q, (1 : ℝ) - nuG p ≠ 0) :
+    ∑ T ∈ Q.powerset, ((∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A r) ^ 2)
+      = (∏ p ∈ Q, (1 - nuG p))
+        * ((∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+            - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+            - ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))) := by
+  classical
+  set W := ∏ p ∈ Q, (1 - nuG p) with hWdef
+  have hWe : ∀ p ∈ Q, (∏ r ∈ Q.erase p, (1 + - nuG r)) = W / (1 - nuG p) := by
+    intro p hp
+    rw [eq_div_iff (hne p hp),
+      show (∏ r ∈ Q.erase p, (1 + - nuG r)) = ∏ r ∈ Q.erase p, (1 - nuG r) from
+        Finset.prod_congr rfl fun r _ => by ring, hWdef,
+      ← Finset.mul_prod_erase Q (fun r => 1 - nuG r) hp]
+    ring
+  have hWe2 : ∀ p ∈ Q, ∀ p' ∈ Q, p ≠ p' →
+      (∏ r ∈ (Q.erase p).erase p', (1 + - nuG r)) = W / ((1 - nuG p) * (1 - nuG p')) := by
+    intro p hp p' hp' hpp'
+    have hp'e : p' ∈ Q.erase p := Finset.mem_erase.mpr ⟨Ne.symm hpp', hp'⟩
+    rw [eq_div_iff (mul_ne_zero (hne p hp) (hne p' hp')),
+      show (∏ r ∈ (Q.erase p).erase p', (1 + - nuG r))
+          = ∏ r ∈ (Q.erase p).erase p', (1 - nuG r) from
+        Finset.prod_congr rfl fun r _ => by ring, hWdef,
+      ← Finset.mul_prod_erase Q (fun r => 1 - nuG r) hp,
+      ← Finset.mul_prod_erase (Q.erase p) (fun r => 1 - nuG r) hp'e]
+    ring
+  have hcell : ∀ p ∈ Q, ∀ p' ∈ Q,
+      (∑ T ∈ Q.powerset.filter (fun T => p ∈ T ∧ p' ∈ T), ∏ r ∈ T, (- nuG r))
+        = W * ((nuG p / (1 - nuG p)) * (nuG p' / (1 - nuG p')))
+          + (if p = p' then - (W * (nuG p / (1 - nuG p)))
+                - W * (nuG p / (1 - nuG p)) ^ 2 else 0) := by
+    intro p hp p' hp'
+    by_cases h : p = p'
+    · subst h
+      have hc := hne p hp
+      rw [if_pos rfl]
+      have hfil : Q.powerset.filter (fun T => p ∈ T ∧ p ∈ T)
+          = Q.powerset.filter (fun T => p ∈ T) := by
+        simp only [and_self]
+      rw [hfil, sum_powerset_filter_mem (fun r => - nuG r) hp, hWe p hp]
+      field_simp
+      ring
+    · have hc := hne p hp
+      have hc' := hne p' hp'
+      rw [if_neg h, add_zero, sum_powerset_filter_mem₂ (fun r => - nuG r) hp hp' h,
+        hWe2 p hp p' hp' h]
+      field_simp
+  have hexp : ∀ T ∈ Q.powerset, (∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A r) ^ 2
+      = ∑ p ∈ Q, ∑ p' ∈ Q,
+          (if p ∈ T ∧ p' ∈ T then A p * A p' * ∏ r ∈ T, (- nuG r) else 0) := by
+    intro T hT
+    rw [Finset.mem_powerset] at hT
+    have h2 : ∀ p : ℕ,
+        (∑ p' ∈ Q, (if p ∈ T ∧ p' ∈ T then A p * A p' * ∏ r ∈ T, (- nuG r) else 0))
+          = if p ∈ T then ∑ p' ∈ T, A p * A p' * ∏ r ∈ T, (- nuG r) else 0 := by
+      intro p
+      by_cases hpT : p ∈ T
+      · simp only [hpT, true_and, if_true]
+        rw [Finset.sum_ite_mem, Finset.inter_eq_right.mpr hT]
+      · simp [hpT]
+    rw [Finset.sum_congr rfl (fun p _ => h2 p), Finset.sum_ite_mem,
+      Finset.inter_eq_right.mpr hT, sq, Finset.sum_mul_sum, Finset.mul_sum]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    rw [Finset.mul_sum]
+    exact Finset.sum_congr rfl fun p' _ => by ring
+  rw [Finset.sum_congr rfl hexp, Finset.sum_comm]
+  have hinner : ∀ p ∈ Q,
+      (∑ T ∈ Q.powerset, ∑ p' ∈ Q,
+          (if p ∈ T ∧ p' ∈ T then A p * A p' * ∏ r ∈ T, (- nuG r) else 0))
+        = ∑ p' ∈ Q, (W * ((A p * (nuG p / (1 - nuG p))) * (A p' * (nuG p' / (1 - nuG p'))))
+            + (if p = p' then A p ^ 2 * (- (W * (nuG p / (1 - nuG p)))
+                  - W * (nuG p / (1 - nuG p)) ^ 2) else 0)) := by
+    intro p hp
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun p' hp' => ?_
+    rw [← Finset.sum_filter, ← Finset.mul_sum, hcell p hp p' hp']
+    by_cases h : p = p'
+    · subst h; rw [if_pos rfl, if_pos rfl]; ring
+    · rw [if_neg h, if_neg h]; ring
+  rw [Finset.sum_congr rfl hinner]
+  have hfinal : ∀ p ∈ Q,
+      (∑ p' ∈ Q, (W * ((A p * (nuG p / (1 - nuG p))) * (A p' * (nuG p' / (1 - nuG p'))))
+          + (if p = p' then A p ^ 2 * (- (W * (nuG p / (1 - nuG p)))
+                - W * (nuG p / (1 - nuG p)) ^ 2) else 0)))
+        = W * ((A p * (nuG p / (1 - nuG p))) * ∑ p' ∈ Q, A p' * (nuG p' / (1 - nuG p')))
+          + A p ^ 2 * (- (W * (nuG p / (1 - nuG p)))
+              - W * (nuG p / (1 - nuG p)) ^ 2) := by
+    intro p hp
+    rw [Finset.sum_add_distrib]
+    congr 1
+    · rw [Finset.mul_sum, Finset.mul_sum]
+    · rw [Finset.sum_ite_eq Q p (fun _ => A p ^ 2 * (- (W * (nuG p / (1 - nuG p)))
+          - W * (nuG p / (1 - nuG p)) ^ 2)), if_pos hp]
+  rw [Finset.sum_congr rfl hfinal, Finset.sum_add_distrib]
+  have e1 : (∑ p ∈ Q, W * ((A p * (nuG p / (1 - nuG p)))
+        * ∑ p' ∈ Q, A p' * (nuG p' / (1 - nuG p'))))
+      = W * (∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2 := by
+    rw [show ∀ x : ℝ, W * x ^ 2 = (W * x) * x from fun x => by ring, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun p _ => by ring
+  have e2 : (∑ p ∈ Q, A p ^ 2 * (- (W * (nuG p / (1 - nuG p)))
+        - W * (nuG p / (1 - nuG p)) ^ 2))
+      = - (W * ((∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+          + ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)))) := by
+    rw [mul_add, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+      ← Finset.sum_neg_distrib]
+    exact Finset.sum_congr rfl fun p _ => by ring
+  rw [e1, e2]
+  ring
+
+/-- HB p.205's `|A′(δ) − Σ_{p<p(δ)} A′(p)ν/(1−ν)| ≤ 64B′L` — the bracket of (3.6) at `L ≥ 3`. -/
+lemma abs_A_sub_sum_ratio_le (P : ℕ) (hP : Squarefree P)
+    (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) (A' : ℕ → ℝ) (hA' : IsAdditiveOn P A')
+    {B' L : ℝ} (hB' : 0 ≤ B') (hA'p : ∀ p ∈ P.primeFactors, |A' p| ≤ B' * Real.log p)
+    (hL3 : 3 ≤ L) (hPL : ∀ p ∈ P.primeFactors, Real.log p ≤ L)
+    (δ : ℕ) (hδ : δ ∣ P) (hδL : Real.log δ ≤ L) :
+    |A' δ - ∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+        A' p * (nuG p / (1 - nuG p))| ≤ 64 * B' * L := by
+  classical
+  have hlog4 : Real.log 4 ≤ 1.4 := by
+    have h : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+      push_cast; ring
+    rw [h]; linarith [Real.log_two_lt_d9]
+  have hδsq : Squarefree δ := hP.squarefree_of_dvd hδ
+  have hδsub : δ.primeFactors ⊆ P.primeFactors := Nat.primeFactors_mono hδ hP.ne_zero
+  have hAδeq : A' δ = ∑ p ∈ δ.primeFactors, A' p := by
+    conv_lhs => rw [← Nat.prod_primeFactors_of_squarefree hδsq]
+    exact additive_prod hP hA' hδsub
+  have hlogsum : ∑ p ∈ δ.primeFactors, Real.log p = Real.log δ := by
+    conv_rhs => rw [← Nat.prod_primeFactors_of_squarefree hδsq]
+    rw [Nat.cast_prod, Real.log_prod]
+    intro p hp
+    exact Nat.cast_ne_zero.mpr (Nat.prime_of_mem_primeFactors hp).ne_zero
+  have hAδ : |A' δ| ≤ B' * L := by
+    calc |A' δ| = |∑ p ∈ δ.primeFactors, A' p| := by rw [hAδeq]
+      _ ≤ ∑ p ∈ δ.primeFactors, |A' p| := Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ p ∈ δ.primeFactors, B' * Real.log p :=
+          Finset.sum_le_sum fun p hp => hA'p p (hδsub hp)
+      _ = B' * Real.log δ := by rw [← Finset.mul_sum, hlogsum]
+      _ ≤ B' * L := mul_le_mul_of_nonneg_left hδL hB'
+  have hSig := abs_sum_nuG_ratio_le P hPodd A' hB' hA'p hL3 hPL
+    (Q := P.primeFactors.filter (fun p => p < δ.minFac)) (Finset.filter_subset _ _)
+  have habs : |A' δ - ∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+      A' p * (nuG p / (1 - nuG p))|
+      ≤ |A' δ| + |∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+          A' p * (nuG p / (1 - nuG p))| := by
+    have := abs_add_le (A' δ) (-∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+      A' p * (nuG p / (1 - nuG p)))
+    rwa [← sub_eq_add_neg, abs_neg] at this
+  nlinarith [mul_nonneg hB' (show (0 : ℝ) ≤ 43 * L - 20 * Real.log 4 - 80 by linarith)]
+
+/-- `|A(p)²| ≤ CA²·L·log p` and `|A(p)²·ν/(1−ν)| ≤ (20/3)CA²L·log p` — the two twisted
+weights the `A²` grade feeds to `abs_sum_nuG_ratio_le`. -/
+lemma sq_weight_bounds (P : ℕ) (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) (A : ℕ → ℝ)
+    {CA L : ℝ} (_hCA : 0 ≤ CA) (hAp : ∀ p ∈ P.primeFactors, |A p| ≤ CA * Real.log p)
+    (hPL : ∀ p ∈ P.primeFactors, Real.log p ≤ L) :
+    (∀ p ∈ P.primeFactors, |A p ^ 2| ≤ (CA ^ 2 * L) * Real.log p)
+      ∧ (∀ p ∈ P.primeFactors, |A p ^ 2 * (nuG p / (1 - nuG p))|
+          ≤ ((20 / 3) * (CA ^ 2 * L)) * Real.log p) := by
+  have hsq : ∀ p ∈ P.primeFactors, |A p ^ 2| ≤ (CA ^ 2 * L) * Real.log p := by
+    intro p hp
+    have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+    have hlog0 : 0 ≤ Real.log p := Real.log_nonneg (by exact_mod_cast hpp.one_lt.le)
+    have h1 := hAp p hp
+    have h2 := hPL p hp
+    have habs : |A p ^ 2| = |A p| ^ 2 := by rw [← sq_abs, abs_of_nonneg (sq_nonneg _)]
+    rw [habs]
+    calc |A p| ^ 2 ≤ (CA * Real.log p) ^ 2 := by
+          exact pow_le_pow_left₀ (abs_nonneg _) h1 2
+      _ = CA ^ 2 * Real.log p * Real.log p := by ring
+      _ ≤ CA ^ 2 * L * Real.log p := by
+          nlinarith [mul_nonneg (mul_nonneg (sq_nonneg CA) hlog0) (sub_nonneg.mpr h2)]
+  refine ⟨hsq, fun p hp => ?_⟩
+  have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+  have hp3 : (3 : ℝ) ≤ (p : ℝ) := by
+    have h2 := hpp.two_le
+    have h3 : 3 ≤ p := by have := hPodd p hp; omega
+    exact_mod_cast h3
+  obtain ⟨hr0, hr⟩ := nuG_ratio_le hpp (hPodd p hp)
+  have hrle : nuG p / (1 - nuG p) ≤ 20 / 3 := by
+    refine le_trans hr ?_
+    rw [div_le_div_iff₀ (by linarith) (by norm_num)]
+    linarith
+  have hlog0 : 0 ≤ Real.log p := Real.log_nonneg (by exact_mod_cast hpp.one_lt.le)
+  have hL0 : (0 : ℝ) ≤ L := le_trans hlog0 (hPL p hp)
+  rw [abs_mul, abs_of_nonneg hr0]
+  calc |A p ^ 2| * (nuG p / (1 - nuG p)) ≤ ((CA ^ 2 * L) * Real.log p) * (20 / 3) :=
+        mul_le_mul (hsq p hp) hrle hr0
+          (mul_nonneg (mul_nonneg (sq_nonneg CA) hL0) hlog0)
+    _ = ((20 / 3) * (CA ^ 2 * L)) * Real.log p := by ring
+
 /-- **HB LEMMA 6 at `ρ₃ = ν_G·A²` — the per-δ domination, literal constant** (HB (3.7)–(3.8),
 the `L²` grade — sharper than his stated `BL`, as his p.206 remark notes).  Split
 `A(δe)² = A(δ)² + 2A(δ)A(e) + A(e)²` and `A(e)² = Σ_{p∣e}A(p)² + Σ_{p≠p′∣e}A(p)A(p′)`; the
@@ -574,7 +807,123 @@ theorem deltaSum_nuG_mul_sq_additive_le (P : ℕ) (hP : Squarefree P)
     (δ : ℕ) (hδ : δ ∣ P) (hδL : Real.log δ ≤ L) :
     |deltaSum P δ (fun d => nuG d * A d ^ 2)|
       ≤ (128 * CA * L) ^ 2 * deltaSum P δ (fun d => nuG d) := by
-  sorry
+  classical
+  set Q := P.primeFactors.filter (fun p => p < δ.minFac) with hQ
+  have hQprime : ∀ p ∈ Q, p.Prime := fun p hp =>
+    Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1
+  have hQsub : Q ⊆ P.primeFactors := Finset.filter_subset _ _
+  have hPdsq : Squarefree (∏ p ∈ Q, p) := squarefree_prod_of_primes hQprime
+  have hPdpf : (∏ p ∈ Q, p).primeFactors = Q := Nat.primeFactors_prod hQprime
+  have hδ0 : δ ≠ 0 := by rintro rfl; exact hP.ne_zero (Nat.eq_zero_of_zero_dvd hδ)
+  have hne : ∀ p ∈ Q, (1 : ℝ) - nuG p ≠ 0 := fun p hp => by
+    have := nuG_lt_one_of_prime (hQprime p hp) (hPodd p (hQsub hp)); linarith
+  have hW : ∑ T ∈ Q.powerset, ∏ r ∈ T, (- nuG r) = ∏ p ∈ Q, (1 - nuG p) := by
+    rw [← Finset.prod_one_add]
+    exact Finset.prod_congr rfl fun p _ => by ring
+  -- (1) the fibre identity
+  have hid : deltaSum P δ (fun d => nuG d * A d ^ 2)
+      = deltaSum P δ (fun d => nuG d)
+        * ((A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+            - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+            - ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))) := by
+    rw [deltaSum, lowDiv_eq_divisors hP, ← hQ,
+      sum_divisors_eq_sum_powerset hPdsq
+        (fun e => (μ e : ℝ) * (nuG (δ * e) * A (δ * e) ^ 2)), hPdpf]
+    have key : ∀ T ∈ Q.powerset,
+        (μ (∏ p ∈ T, p) : ℝ) * (nuG (δ * ∏ p ∈ T, p) * A (δ * ∏ p ∈ T, p) ^ 2)
+          = nuG δ * ((∏ r ∈ T, (- nuG r)) * (A δ + ∑ r ∈ T, A r) ^ 2) := by
+      intro T hT
+      rw [Finset.mem_powerset] at hT
+      have hTprime : ∀ p ∈ T, p.Prime := fun p hp => hQprime p (hT hp)
+      have hpf : (∏ p ∈ T, p).primeFactors = T := Nat.primeFactors_prod hTprime
+      have he0 : (∏ p ∈ T, p) ≠ 0 := (squarefree_prod_of_primes hTprime).ne_zero
+      have hTsub : T ⊆ P.primeFactors := hT.trans hQsub
+      have hedvd : (∏ p ∈ T, p) ∣ P := by
+        rw [← Nat.prod_primeFactors_of_squarefree hP]
+        exact Finset.prod_dvd_prod_of_subset _ _ _ hTsub
+      have hcop : Nat.Coprime δ (∏ p ∈ T, p) := by
+        refine coprime_of_mem_lowDiv hδ0 he0 ?_
+        intro p hp
+        rw [hpf] at hp
+        exact (Finset.mem_filter.mp (hT hp)).2
+      rw [nuG_isMultiplicative.map_mul_of_coprime hcop, hA.2 δ _ hδ hedvd hcop,
+        additive_prod hP hA hTsub, ← moebius_nuG_prod_primes hTprime]
+      ring
+    rw [Finset.sum_congr rfl key]
+    have hsplit : ∀ T ∈ Q.powerset,
+        nuG δ * ((∏ r ∈ T, (- nuG r)) * (A δ + ∑ r ∈ T, A r) ^ 2)
+          = nuG δ * A δ ^ 2 * (∏ r ∈ T, (- nuG r))
+            + 2 * (nuG δ * A δ) * ((∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A r))
+            + nuG δ * ((∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A r) ^ 2) := fun T _ => by ring
+    rw [Finset.sum_congr rfl hsplit, Finset.sum_add_distrib, Finset.sum_add_distrib,
+      ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum, hW,
+      sum_powerset_prod_neg_nuG_mul_sum A hne, sum_powerset_prod_neg_nuG_mul_sum_sq A hne,
+      deltaSum_nuG_eq P hP δ hδ, ← hQ]
+    ring
+  -- (2) the three bounds
+  have hnn := deltaSum_nuG_nonneg P hP hPodd δ hδ
+  have hlog4 : Real.log 4 ≤ 1.4 := by
+    have h : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+      push_cast; ring
+    rw [h]; linarith [Real.log_two_lt_d9]
+  have hb1 := abs_A_sub_sum_ratio_le P hP hPodd A hA hCA hAp hL3 hPL δ hδ hδL
+  obtain ⟨hsq1, hsq2⟩ := sq_weight_bounds P hPodd A hCA hAp hPL
+  have hCAL : (0 : ℝ) ≤ CA ^ 2 * L := mul_nonneg (sq_nonneg CA) (by linarith)
+  have hb2 := abs_sum_nuG_ratio_le P hPodd (fun p => A p ^ 2)
+    hCAL hsq1 hL3 hPL (Q := Q) hQsub
+  have hb3 := abs_sum_nuG_ratio_le P hPodd (fun p => A p ^ 2 * (nuG p / (1 - nuG p)))
+    (by linarith : (0:ℝ) ≤ (20 / 3) * (CA ^ 2 * L)) hsq2 hL3 hPL (Q := Q) hQsub
+  have hb3' : |∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|
+      ≤ 20 * (20 / 3 * (CA ^ 2 * L)) * (L + (Real.log 4 + 4)) := by
+    rw [show (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+        = ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) * (nuG p / (1 - nuG p)) from
+      Finset.sum_congr rfl fun p _ => by ring]
+    exact hb3
+  have hbr : |(A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+      - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+      - ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))| ≤ (128 * CA * L) ^ 2 := by
+    have hsqle : (A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2 ≤ (64 * CA * L) ^ 2 := by
+      have := abs_nonneg (A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p)))
+      nlinarith [sq_abs (A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p)))]
+    have hsq0 : 0 ≤ (A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2 := sq_nonneg _
+    have habs : |(A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+        - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+        - ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))|
+        ≤ (A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+          + |∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|
+          + |∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))| := by
+      calc |(A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+              - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+              - ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))|
+          ≤ |(A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+              - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)|
+            + |∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))| := by
+              have := abs_add_le ((A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+                  - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2))
+                (-∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)))
+              rwa [← sub_eq_add_neg, abs_neg] at this
+        _ ≤ ((A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+              + |∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|)
+            + |∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))| := by
+              have h2 := abs_add_le ((A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2)
+                (-∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+              rw [← sub_eq_add_neg, abs_neg] at h2
+              rw [abs_of_nonneg hsq0] at h2
+              linarith
+    have hLpos : (0 : ℝ) < L := by linarith
+    have hCA2 : (0 : ℝ) ≤ CA ^ 2 := sq_nonneg CA
+    nlinarith [mul_nonneg (mul_nonneg hCA2 hLpos.le)
+        (show (0 : ℝ) ≤ 2.8 * L - (L + (Real.log 4 + 4)) by linarith),
+      mul_nonneg hCA2 (sq_nonneg L)]
+  rw [hid, abs_mul, abs_of_nonneg hnn]
+  calc deltaSum P δ (fun d => nuG d)
+        * |(A δ - ∑ p ∈ Q, A p * (nuG p / (1 - nuG p))) ^ 2
+            - (∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+            - ∑ p ∈ Q, A p ^ 2 * (nuG p / (1 - nuG p))|
+      ≤ deltaSum P δ (fun d => nuG d) * (128 * CA * L) ^ 2 :=
+        mul_le_mul_of_nonneg_left hbr hnn
+    _ = (128 * CA * L) ^ 2 * deltaSum P δ (fun d => nuG d) := by ring
 
 /-- **HB Lemma 6, the δ-free sums `S₂ ≪ BL·S₁`, identity form.**  `moebSum P (ν_G·A′)
 = −W·Σ_{p ∣ P} A′(p)ν_G(p)/(1 − ν_G(p))` (the `δ = 1`, `p(δ) = ∞` case of (3.6) — note
@@ -636,7 +985,106 @@ theorem moebSum_nuG_mul_sq_additive_le (P : ℕ) (hP : Squarefree P)
     (hL3 : 3 ≤ L) (hPL : ∀ p ∈ P.primeFactors, Real.log p ≤ L) :
     |moebSum P (fun d => nuG d * A d ^ 2)|
       ≤ (128 * CA * L) ^ 2 * moebSum P (fun d => nuG d) := by
-  sorry
+  classical
+  have hne : ∀ p ∈ P.primeFactors, (1 : ℝ) - nuG p ≠ 0 := fun p hp => by
+    have := nuG_lt_one_of_prime (Nat.prime_of_mem_primeFactors hp) (hPodd p hp); linarith
+  have hWprod : W (hbSieve P hP hPodd) = ∏ p ∈ P.primeFactors, (1 - nuG p) := rfl
+  have hWpos : (0 : ℝ) < ∏ p ∈ P.primeFactors, (1 - nuG p) := hWprod ▸ W_pos _
+  have hWeq : moebSum P (fun d => nuG d) = ∏ p ∈ P.primeFactors, (1 - nuG p) := by
+    have h := moebSum_nu_eq_W (hbSieve P hP hPodd)
+    rw [hWprod] at h
+    simpa [hbSieve_prodPrimes, hbSieve_nu] using h
+  have hid : moebSum P (fun d => nuG d * A d ^ 2)
+      = (∏ p ∈ P.primeFactors, (1 - nuG p))
+        * ((∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+            - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+            - ∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))) := by
+    rw [moebSum, sum_divisors_eq_sum_powerset hP (fun d => (μ d : ℝ) * (nuG d * A d ^ 2))]
+    have key : ∀ T ∈ P.primeFactors.powerset,
+        (μ (∏ p ∈ T, p) : ℝ) * (nuG (∏ p ∈ T, p) * A (∏ p ∈ T, p) ^ 2)
+          = (∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A r) ^ 2 := by
+      intro T hT
+      rw [Finset.mem_powerset] at hT
+      have hTprime : ∀ p ∈ T, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors (hT hp)
+      rw [additive_prod hP hA hT, ← mul_assoc, moebius_nuG_prod_primes hTprime]
+    rw [Finset.sum_congr rfl key, sum_powerset_prod_neg_nuG_mul_sum_sq A hne]
+  have hlog4 : Real.log 4 ≤ 1.4 := by
+    have h : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+      push_cast; ring
+    rw [h]; linarith [Real.log_two_lt_d9]
+  have hlog40 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+  have hCAL : (0 : ℝ) ≤ CA ^ 2 * L := mul_nonneg (sq_nonneg CA) (by linarith)
+  have hCAL2 : (0 : ℝ) ≤ CA ^ 2 * L ^ 2 := mul_nonneg (sq_nonneg CA) (sq_nonneg L)
+  have h28 : (0 : ℝ) ≤ 2.8 * L - (L + (Real.log 4 + 4)) := by linarith
+  obtain ⟨hsq1, hsq2⟩ := sq_weight_bounds P hPodd A hCA hAp hPL
+  have hS1 := abs_sum_nuG_ratio_le P hPodd A hCA hAp hL3 hPL
+    (Q := P.primeFactors) Finset.Subset.rfl
+  have hb2 := abs_sum_nuG_ratio_le P hPodd (fun p => A p ^ 2) hCAL hsq1 hL3 hPL
+    (Q := P.primeFactors) Finset.Subset.rfl
+  have hb3 := abs_sum_nuG_ratio_le P hPodd (fun p => A p ^ 2 * (nuG p / (1 - nuG p)))
+    (by linarith : (0 : ℝ) ≤ (20 / 3) * (CA ^ 2 * L)) hsq2 hL3 hPL
+    (Q := P.primeFactors) Finset.Subset.rfl
+  have hb3' : |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|
+      ≤ 20 * (20 / 3 * (CA ^ 2 * L)) * (L + (Real.log 4 + 4)) := by
+    rw [show (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+        = ∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) * (nuG p / (1 - nuG p)) from
+      Finset.sum_congr rfl fun p _ => by ring]
+    exact hb3
+  have e1 : (∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+      ≤ 3136 * (CA ^ 2 * L ^ 2) := by
+    have h1 : |∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))| ≤ 56 * (CA * L) := by
+      refine le_trans hS1 ?_
+      nlinarith [mul_nonneg hCA h28]
+    have h2 : (0 : ℝ) ≤ 56 * (CA * L) := le_trans (abs_nonneg _) h1
+    nlinarith [sq_abs (∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))), abs_nonneg
+      (∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p)))]
+  have e2 : |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))|
+      ≤ 56 * (CA ^ 2 * L ^ 2) := by
+    refine le_trans hb2 ?_
+    nlinarith [mul_nonneg hCAL h28]
+  have e3 : |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|
+      ≤ 374 * (CA ^ 2 * L ^ 2) := by
+    refine le_trans hb3' ?_
+    nlinarith [mul_nonneg hCAL h28]
+  have hbr : |(∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+      - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+      - ∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))| ≤ (128 * CA * L) ^ 2 := by
+    have hsq0 : (0 : ℝ) ≤ (∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2 :=
+      sq_nonneg _
+    have habs : |(∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+        - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+        - ∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))|
+        ≤ (∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+          + |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|
+          + |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))| := by
+      calc |(∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+              - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+              - ∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))|
+          ≤ |(∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+              - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)|
+            + |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))| := by
+              have := abs_add_le ((∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+                  - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2))
+                (-∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)))
+              rwa [← sub_eq_add_neg, abs_neg] at this
+        _ ≤ ((∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+              + |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2|)
+            + |∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))| := by
+              have h2 := abs_add_le ((∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2)
+                (-∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+              rw [← sub_eq_add_neg, abs_neg] at h2
+              rw [abs_of_nonneg hsq0] at h2
+              linarith
+    nlinarith [hCAL2]
+  rw [hid, hWeq, abs_mul, abs_of_pos hWpos]
+  calc (∏ p ∈ P.primeFactors, (1 - nuG p))
+        * |(∑ p ∈ P.primeFactors, A p * (nuG p / (1 - nuG p))) ^ 2
+            - (∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p)) ^ 2)
+            - ∑ p ∈ P.primeFactors, A p ^ 2 * (nuG p / (1 - nuG p))|
+      ≤ (∏ p ∈ P.primeFactors, (1 - nuG p)) * (128 * CA * L) ^ 2 :=
+        mul_le_mul_of_nonneg_left hbr hWpos.le
+    _ = (128 * CA * L) ^ 2 * ∏ p ∈ P.primeFactors, (1 - nuG p) := by ring
 
 /-- **HB's "`δ ≤ q`" at the block-Brun weights** (p.199: "to obtain the bound `δ ≤ q` we need
 the sieving limit `β ≥ 3`"; here the level bound does it).  A first-failure `δ` has `δ/p(δ)`
