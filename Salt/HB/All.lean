@@ -428,21 +428,31 @@ end N8
 The crown's N9 freeze (2026-09-04): HB 1983 Theorem 1 at the twin instance (`hb_theorem1`),
 the zero side of N4's `(L1)`/N8's L3 packet made consumable (§3 there), N4's `(L2)` composition
 (§4), the assembly (§5), and the door hand-over to the crown FAMILY `HeathBrownDichotomyPoly k`
-(§6) — every theorem `sorry`-bodied BY DESIGN until the refuter verdict; 34 red rows + the defs
-✓ is this branch's expected reading.  ONE NAME PER COMMAND, as for N8 (the audit aborts at its
-first offender).  Executors never edit these rows.
+(§6) — every theorem `sorry`-bodied BY DESIGN until the wave lands.  v2 (2026-09-04, on the
+refuter verdict): 68 rows — 42 theorems + 26 defs/structures; the expected reading before the
+wave is 51 red (the 42 theorems + the 9 defs downstream of `dh_repulsion_tall_at`'s sorry:
+`dhC n9Ell n9EllAt n9Floor hbZ0 hbZ hbS N9Regime n9Cq`) + 17 ✓.  The first row is the one
+theorem appended to a landed file (`Salt/SW/TBalTall.lean`, the helm's ruling).  ONE NAME PER
+COMMAND, as for N8 (the audit aborts at its first offender).  Executors never edit these rows.
 -/
 
 section N9
 open Salt.Tactic
 #audit_axioms Salt.HB.dhB
 #audit_axioms Salt.HB.dhK
+#audit_axioms Salt.SW.dh_repulsion_tall_of_floor
 #audit_axioms Salt.HB.dh_repulsion_tall_at
 #audit_axioms Salt.HB.dhC
 #audit_axioms Salt.HB.dh_spec
 #audit_axioms Salt.HB.invSqC
 #audit_axioms Salt.HB.invSqC_spec
+#audit_axioms Salt.HB.merC
+#audit_axioms Salt.HB.merC_spec
+#audit_axioms Salt.HB.segC
+#audit_axioms Salt.HB.segC_spec
 #audit_axioms Salt.HB.n9Ell
+#audit_axioms Salt.HB.n9EllAt
+#audit_axioms Salt.HB.n9EllAt_two
 #audit_axioms Salt.HB.n9Floor
 #audit_axioms Salt.HB.n9Cs
 #audit_axioms Salt.HB.hbZ0A
@@ -459,6 +469,7 @@ open Salt.Tactic
 #audit_axioms Salt.HB.hbZ_packet
 #audit_axioms Salt.HB.re_le_beta0_of_ne
 #audit_axioms Salt.HB.dh_repulsion_tall_real
+#audit_axioms Salt.HB.dh_ceiling_box
 #audit_axioms Salt.HB.dh_floor_ball
 #audit_axioms Salt.HB.sinv_ball
 #audit_axioms Salt.HB.hb_zero_data
@@ -485,6 +496,9 @@ open Salt.Tactic
 #audit_axioms Salt.HB.HeathBrownDichotomyPoly
 #audit_axioms Salt.HB.fulcrumQualityPoly_one_iff
 #audit_axioms Salt.HB.noSiegelZerosPoly_one_iff
+#audit_axioms Salt.HB.heathBrownDichotomyPoly_one_iff
+#audit_axioms Salt.HB.three_le_of_ne_one
+#audit_axioms Salt.HB.noSiegelZerosPoly_mono
 #audit_axioms Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly
 #audit_axioms Salt.HB.fulcrum_dichotomy_poly
 #audit_axioms Salt.HB.beta0_max_of_zero
