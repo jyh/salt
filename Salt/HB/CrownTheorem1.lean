@@ -336,7 +336,10 @@ noncomputable def n9K (Cerr CA CA' CC : ℝ) : ℝ :=
 Consumer: `hbZ_packet`. -/
 theorem hbZ_bounds (q : ℕ) (η : ℝ) (hz0 : 0 < hbZ0 q η) :
     (q : ℝ) ^ (1 / hbZ0 q η) ≤ (hbZ q η : ℝ) ∧ (hbZ q η : ℝ) < (q : ℝ) ^ (1 / hbZ0 q η) + 1 := by
-  sorry
+  have _hz0 := hz0
+  have hnn : (0 : ℝ) ≤ (q : ℝ) ^ (1 / hbZ0 q η) :=
+    Real.rpow_nonneg (Nat.cast_nonneg q) _
+  exact ⟨Nat.le_ceil _, Nat.ceil_lt_add_one hnn⟩
 
 /-- **THE `z` PACKET — every `z`-binder of L4, P±, `(L2)`, K1 at once.**  Class **B**, cap 300.
 Red-first: `log z ≥ L/z₀ = 10⁴·L/log ℓ′`; `ηq` gives `log ℓ′ ≤ log L`, so
