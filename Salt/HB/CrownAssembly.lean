@@ -92,7 +92,18 @@ Red-first: `Nat.Coprime.coprime_dvd_right` with `hbP ∣ excPrimorial` proved by
 `l2cWindow_excPrimorial_coprime`.  Consumer: `hbDataN8_S3_eq`. -/
 theorem l2cWindow_coprime_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z x : ℕ) :
     ∀ n ∈ l2cWindow χ z x, Nat.Coprime (n * (n + 2)) (hbP (chiReChar χ hsq) (z : ℝ)) := by
-  sorry
+  classical
+  intro n hn
+  have hcop := l2cWindow_excPrimorial_coprime χ z x n hn
+  refine Nat.Coprime.coprime_dvd_right ?_ hcop
+  rw [hbP, hbSiftSet_chiReChar, excPrimorial]
+  refine Finset.prod_dvd_prod_of_subset _ _ _ ?_
+  intro p hp
+  rw [Finset.mem_filter] at hp ⊢
+  obtain ⟨hr, hpp, _, hchi⟩ := hp
+  refine ⟨hr, hpp, ?_⟩
+  rw [hchi]
+  norm_num
 
 /-- **THE N8 WIRE.**  The `HBSieveData` at the N8 window: character `chiReChar χ hsq`,
 modulus `hbP`, `support := l2cWindow χ z x`, `val n = n(n+2)`, `a n = Λ*(n)Λ*(n+2)` with
@@ -116,7 +127,11 @@ wire IS the star step's `S3` on the N8 window — the `(l, P) = 1` filter is the
 theorem hbDataN8_S3_eq (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
     (x : ℕ) :
     (hbDataN8 χ hsq hz x).S3 = S3 χ z (l2cWindow χ z x) := by
-  sorry
+  change ∑ n ∈ (l2cWindow χ z x).filter
+      (fun n => Nat.Coprime (n * (n + 2)) (hbP (chiReChar χ hsq) (z : ℝ))),
+      LamStar χ z n * LamStar χ z (n + 2) = _
+  rw [Finset.filter_true_of_mem (l2cWindow_coprime_hbP χ hsq z x)]
+  rfl
 
 /-- **The N5 exit at the N8 wire** — `hbSieve_fl_sandwich` at `hbDataN8`, with the sifted sum
 rewritten through `hbDataN8_S3_eq`.  Class **A**, cap 60 (the mirror of `hbData_fl_sandwich`,
@@ -131,7 +146,9 @@ theorem hbDataN8_sandwich (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z 
       ∧ S3 χ z (l2cWindow χ z x)
         ≤ lamSum (Lam4 lam (z : ℝ)) (z : ℝ) 1 (flB sRatio (Lam4 lam (z : ℝ)))
             (hbP (chiReChar χ hsq) (z : ℝ)) (hbDataN8 χ hsq hz x).S := by
-  sorry
+  have h := hbSieve_fl_sandwich (hbDataN8 χ hsq hz x) hlam hlam' hzt hs
+  rw [hbDataN8_S3_eq] at h
+  exact h.1
 
 /-! ## §5 — HB Lemma 6 (pp.199, 204–206): the three densities and the per-δ bounds
 
