@@ -1359,6 +1359,38 @@ filters.  Consumer: **N9** (composes N4's `κS₁ = (1+δ)x𝔖C(α)/(ηL)²` in
 theorem hbS1_eq_W (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
     (x : ℕ) {α : ℕ} (hα2 : 2 ∣ α) (hαodd : ∀ p : ℕ, p.Prime → p ∣ α → p = 2) :
     hbS1 χ α ((z : ℝ) - 1) = W (hbDataN8 χ hsq hz x).sieve := by
-  sorry
+  classical
+  have hWeq : W (hbDataN8 χ hsq hz x).sieve
+      = ∏ p ∈ (hbP (chiReChar χ hsq) (z : ℝ)).primeFactors, (1 - nuG p) := rfl
+  have hzc : ((z - 1 : ℕ) : ℝ) = (z : ℝ) - 1 := by
+    push_cast [Nat.cast_sub (by omega : 1 ≤ z)]
+    ring
+  have hfloor : ⌊(z : ℝ) - 1⌋₊ + 1 = z := by
+    rw [← hzc, Nat.floor_natCast]
+    omega
+  rw [hWeq, hbP_primeFactors, hbSiftSet_chiReChar, hbS1, hfloor]
+  have hfil : (Finset.range z).filter
+        (fun p => Nat.Prime p ∧ Salt.TwinBar.chiRe χ p = 1 ∧ ¬ (p ∣ α))
+      = (Finset.range z).filter
+        (fun p => p.Prime ∧ 2 < p ∧ Salt.TwinBar.chiRe χ p = 1) := by
+    refine Finset.filter_congr fun p _ => ?_
+    constructor
+    · rintro ⟨h1, h2, h3⟩
+      refine ⟨h1, ?_, h2⟩
+      have hp2 : p ≠ 2 := by rintro rfl; exact h3 hα2
+      have := h1.two_le
+      omega
+    · rintro ⟨h1, h2, h3⟩
+      refine ⟨h1, h3, fun hd => ?_⟩
+      have := hαodd p h1 hd
+      omega
+  rw [hfil]
+  refine Finset.prod_congr rfl fun p hp => ?_
+  rw [Finset.mem_filter] at hp
+  obtain ⟨_, hpp, hp2, _⟩ := hp
+  have hp3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast (by omega : 3 ≤ p)
+  rw [nuG_prime hpp, Gdens]
+  field_simp
+  ring
 
 end Salt.HB
