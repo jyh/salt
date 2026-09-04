@@ -94,6 +94,7 @@ import Salt.Entropy.Chowla.HloExportFlatH
 import Salt.Entropy.Chowla.AffineFork
 import Salt.Entropy.Chowla.StrideFork
 import Salt.Entropy.Chowla.StrideBridge
+import Salt.Entropy.Chowla.StridePair
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms

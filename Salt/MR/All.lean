@@ -424,6 +424,7 @@ import Salt.MR.HSeamCheck
 import Salt.MR.S13CapGateLinearLH
 import Salt.MR.V7RatedH
 import Salt.MR.AffineSupplyH
+import Salt.MR.StridePairReceipt
 import Salt.Tactic.AuditAxioms
 
 /-!
