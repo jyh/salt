@@ -95,6 +95,10 @@ import Salt.Entropy.Chowla.AffineFork
 import Salt.Entropy.Chowla.StrideFork
 import Salt.Entropy.Chowla.StrideBridge
 import Salt.Entropy.Chowla.StridePair
+import Salt.Entropy.Chowla.StrideDecrement
+import Salt.Entropy.Chowla.StrideCombine
+import Salt.Entropy.Chowla.StrideReduce
+import Salt.Entropy.Chowla.StrideShell
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
@@ -1338,3 +1342,91 @@ a door (the receipt is `Salt.MR.StridePairReceipt`'s) or bears on twin primes.  
   Salt.Entropy.Chowla.strideEndpoint_le
   Salt.Entropy.Chowla.loglog_mul_flatDesignBase_le
   Salt.Entropy.Chowla.flatDesignBase_clears_stride_floors
+
+/-! ⟦STRIDE ENTROPY HALF⟧ — THE ENTROPY HALF AT THE AFFINE REGIME, THE PLAIN ROAD
+(`StrideDecrement`, `StrideCombine`, `StrideReduce`, `StrideShell`, 2026-09-04, math — λ-BV wave
+2-S step F4a, Entropy half; frozen v1 14:1x, v1.1 cut on the helm's refuter verdict
+REPAIR-THEN-FIRE 4/4 at 15:0x, fired 15:0x — D, K, R in parallel, then S).
+
+The affine seam `contradiction_of_mrtDoorXiL2AffW` fired AT TOWER VALUES by a shell mirroring
+`log_chowla_two_shell_xi_sq_h` with six substitutions.  D: the decrement at the stride measure
+`logMeasureAff` — ONE design lemma `logMeasureAff_map_shift` (a shift by `t` with `a ∣ t` of the
+stride measure IS the plain measure shifted by `t/a` then pushed along `a·`), so `joint_l1_le_aff`
+is the generic contraction + `base_l1_le` verbatim; `entropy_decrementAff` exports the witness at
+TAO'S RANGE `R.a * R.Hlo ≤ H` (the tower's base), and `R.a ∣ H` is consumed exactly once.  K:
+residue uniformity as an injective RELABEL (`entropy_comp_of_injective` at the unit `(a : ZMod
+PH)`), the class filter at `badSet_aff` and `outer_combine_aff`.  R: the `hreduce_aff` discharge —
+two new arithmetic lemmas (`gate_residue_aff` at `gcd(a, p) = 1`, `card_class_range_ge`), the
+shift telescoping by `integral_shift_le` at `k/a` with no induction, and the budget
+`hbudget_holds_aff` with the main term pinned at `((H/a)/p)` per prime and FIVE SLICES `1/8 + 1/16
++ 1/32 + 1/64 + 1/64 = 1/4` closing exactly at the gate `ε·a·h ≤ c/(64·log 4)` and the count
+binder `64·a ≤ ε·H`; the exports carry `1/4 ≤ c` (the `cE` carry, verdict A1).  S: the shell, the
+core, THE HEAD `log_chowla_aff_of_door` — the circle-method estimate a SLOT `hcm` with its cap
+(F4b's producer), the crown's payload a binder `hcrown` (Entropy cannot import MR) — exporting the
+crown's door at grade `a·Zr·ρ + E` BESIDE `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬
+logChowlaFailsAff`, with `1/(838400(ah)²) ≤ δ₀_aff`; NOT composed (the `≈ 214.4` miss is F5's).
+The `(1, 0)` receipts carry the affine vocabulary on exactly ONE side (verdict A2).  CONDITIONAL
+on F4b through the slot; nothing here proves an estimate, moves a door, or bears on twin primes.
+57 obligations, 57 landed (four Opus executors, 2026-09-04 15:0x–15:5x). -/
+#audit_axioms Salt.Entropy.Chowla.finiteSupport_logMeasureAff
+  Salt.Entropy.Chowla.logMeasureAff_map_shift
+  Salt.Entropy.Chowla.joint_l1_le_aff
+  Salt.Entropy.Chowla.condEntropy_shift_reduction_aff
+  Salt.Entropy.Chowla.condEntropy_shift_le_of_l1_aff
+  Salt.Entropy.Chowla.condEntropy_shift_le_aff
+  Salt.Entropy.Chowla.condEntropy_kwindow_le_aff
+  Salt.Entropy.Chowla.step_ineq_3_11_aff
+  Salt.Entropy.Chowla.towerEntropyAff
+  Salt.Entropy.Chowla.towerMIAff
+  Salt.Entropy.Chowla.tower_step_of_aff
+  Salt.Entropy.Chowla.tower_step_aff
+  Salt.Entropy.Chowla.tower_telescope_aff
+  Salt.Entropy.Chowla.entropy_per_symbol_le_aff
+  Salt.Entropy.Chowla.entropy_nonneg_per_symbol_aff
+  Salt.Entropy.Chowla.mutualInfo_window_nonneg_aff
+  Salt.Entropy.Chowla.mutualInfo_window_comm_aff
+  Salt.Entropy.Chowla.decrement_exists_of_tower_aff
+  Salt.Entropy.Chowla.entropy_decrementAff
+  Salt.Entropy.Chowla.entropy_decrementAff_one
+  Salt.Entropy.Chowla.entropy_residueWindow_aff_eq
+  Salt.Entropy.Chowla.entropy_residueWindow_ge_aff
+  Salt.Entropy.Chowla.weakUniform_spine_aff
+  Salt.Entropy.Chowla.badSet_aff
+  Salt.Entropy.Chowla.badSet_aff_one_zero
+  Salt.Entropy.Chowla.badSet_transport_aff
+  Salt.Entropy.Chowla.badSet_transport_at_calibration_aff
+  Salt.Entropy.Chowla.fBridgeF_aff_abs_le_boxSum
+  Salt.Entropy.Chowla.decoupledMean_aff_abs_le_boxSum
+  Salt.Entropy.Chowla.fBridgeF_aff_abs_le_box
+  Salt.Entropy.Chowla.decoupledMean_aff_abs_le_box
+  Salt.Entropy.Chowla.outer_badMass_aff_eq
+  Salt.Entropy.Chowla.outer_badMass_aff_le
+  Salt.Entropy.Chowla.outer_combine_aff
+  Salt.Entropy.Chowla.outer_combine_aff_one_zero
+  Salt.Entropy.Chowla.strideWindow_Z_pos
+  Salt.Entropy.Chowla.strideWindow_sum_inv_sq
+  Salt.Entropy.Chowla.strideBoundary_card_le
+  Salt.Entropy.Chowla.gate_residue_aff
+  Salt.Entropy.Chowla.card_class_range_le
+  Salt.Entropy.Chowla.card_class_range_ge
+  Salt.Entropy.Chowla.card_class_boundary_le
+  Salt.Entropy.Chowla.shiftCorrAff
+  Salt.Entropy.Chowla.shiftCorrAff_base
+  Salt.Entropy.Chowla.shiftCorrAff_le
+  Salt.Entropy.Chowla.absXaff_le_one
+  Salt.Entropy.Chowla.perPair_collapse_aff_collapsed
+  Salt.Entropy.Chowla.perPair_bound_aff
+  Salt.Entropy.Chowla.IF_unfold_aff
+  Salt.Entropy.Chowla.per_term_aff
+  Salt.Entropy.Chowla.hbudget_holds_aff
+  Salt.Entropy.Chowla.hreduce_holds_aff
+  Salt.Entropy.Chowla.hreduce_close_aff
+  Salt.Entropy.Chowla.consumability_probe_aff
+  Salt.Entropy.Chowla.hreduce_holds_final_aff
+  Salt.Entropy.Chowla.hreduce_holds_aff_one_zero
+  Salt.Entropy.Chowla.budgetFloor_le_flatDesignBase
+  Salt.Entropy.Chowla.nat_le_flatDesignBase
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff
+  Salt.Entropy.Chowla.spine_False_core_xi_sq_aff
+  Salt.Entropy.Chowla.log_chowla_aff_of_door
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff_one_zero

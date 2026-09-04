@@ -425,6 +425,7 @@ import Salt.MR.S13CapGateLinearLH
 import Salt.MR.V7RatedH
 import Salt.MR.AffineSupplyH
 import Salt.MR.StridePairReceipt
+import Salt.MR.StrideEntropyReceipt
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9757,3 +9758,14 @@ them.  The ONE unconditional theorem of wave 2-W.  Nothing here bears on twin pr
 open Salt.Tactic in
 #audit_axioms Salt.MR.logChowlaAffSupply_one_zero
   Salt.MR.oddOmega_twinProd_infinite
+
+/-! ⟦STRIDE ENTROPY RECEIPT⟧ — THE CROWN FED INTO THE AFFINE HEAD (`StrideEntropyReceipt`,
+2026-09-04, math — λ-BV wave 2-S step F4a, MR one-liner).  `log_chowla_aff_of_door_crowned`
+applies the Entropy head `log_chowla_aff_of_door` to the landed crown
+`mrtUniformityXiL2AffW_holds_flat_stride` (`StridePairReceipt`): for `b < a`, `0 < h`, `log(a·h) ≤
+7` and the circle-method SLOT `hcm` (F4b's producer, with its cap), at every `A₀` — the crown's
+regime, its door at grade `a·Zr·ρ + E`, and the entropy half `∀ ρ' ≤ δ₀_aff, door ρ' → ¬
+logChowlaFailsAff` beside it, NOT composed.  CONDITIONAL on F4b through `hcm`; nothing here bears
+on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.log_chowla_aff_of_door_crowned

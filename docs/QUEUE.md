@@ -626,6 +626,31 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    affine correlation. NEXT: F4 (the entropy half at the affine regime, consuming
    `regimeShrinkX_stride`'s regime and firing `contradiction_of_mrtDoorXiL2AffW` at TOWER VALUES ONLY)
    — statement-only, refuters first. Nothing here bears on twin primes.
+   ✅⭐⭐ **WAVE 2-S STEP F4a LANDED — THE ENTROPY HALF AT THE AFFINE REGIME, THE PLAIN ROAD — STAMPED
+   2026-09-04 16:0x (math).** Priced 13:5x (`2026-09-04-math-PRICE-lbv-w2S-F4-entropy-half.md`: the
+   four demand-side findings — the live road's decrement is FLAT vs the crown's PLAIN export; the affine
+   circle-method estimate has NO OWNER and is load-bearing for the head → a SLOT; `LogChowlaAffSupply`'s
+   `=` unreachable from the crown; the gate carries `a`), frozen statement-only 14:1x
+   (`2026-09-04-math-FREEZE-lbv-w2S-F4a.md`), v1.1 cut 15:0x on the helm's REPAIR-THEN-FIRE 4/4 verdict
+   (§A: THE `cE` CARRY — `1/4 ≤ c` exported by `hbudget_holds_aff`/`hreduce_holds_final_aff`, the
+   `HeadPinLeaves` import; four DEAD RECEIPTS restated so a bridge lemma is load-bearing; three recipes),
+   fired 15:0x — D, K, R in parallel, then S + MR. `Salt/Entropy/Chowla/StrideDecrement.lean` (17/17),
+   `StrideCombine.lean` (14/14), `StrideReduce.lean` (20/20), `StrideShell.lean` (6/6),
+   `Salt/MR/StrideEntropyReceipt.lean` (1/1) on `math/lbv-w2s-f4a`: **64 declarations, 58 obligations,
+   58 LANDED (51 at one attempt), every theorem `[3 axioms]` under both rebuilt aggregates** — the
+   decrement at the stride measure exporting TAO'S RANGE `a·Hlo ≤ H`; residue uniformity an injective
+   RELABEL; the budget with FIVE SLICES `1/8+1/16+1/32+1/64+1/64 = 1/4` closing EXACTLY at the gate
+   `ε·a·h ≤ c/(64·log 4)` and the count binder `64·a ≤ ε·H`; THE HEAD `log_chowla_aff_of_door` with the
+   circle estimate a SLOT `hcm` (cap `C ≤ h(1+2·2·log 4)`) and the crown's payload a binder, exporting the
+   crown's door at `a·Zr·ρ + E` BESIDE `∀ ρ' ≤ δ₀_aff, door → ¬ logChowlaFailsAff`, `1/(838400(ah)²) ≤
+   δ₀_aff` (the head's tightest cap read `hε_D3C` at slack 1.19×; `hkey` at ZERO slack — the two lines an
+   `a·C(h)` circle constant would kill); the MR one-liner `log_chowla_aff_of_door_crowned` feeds the F3
+   crown in. ⛔ **HONEST LABEL:** F4a is CONDITIONAL on F4b's estimate through the slot; it proves no
+   estimate, moves no door, closes no prize; the door and the entropy half are NOT composed — the
+   `≈ 214.4` miss at `(210, 2)` is F5's numeral; `LogChowlaAffSupply`'s `=` is the CROWN's re-cut.
+   NEXT: F4b (the affine circle-method estimate at the class filter over `bigXiAff`, `C_aff = C(h)`
+   a-FREE — its own design block, statement-only, refuters first; its landing discharges `hcm` by one
+   class-A name), then F5. Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
