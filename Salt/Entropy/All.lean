@@ -1252,3 +1252,46 @@ primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x�
   Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff
   Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2Aff
   Salt.Entropy.Chowla.sum_window_aff_eq
+
+/-! ⟦STRIDE BRIDGE⟧ — Tao (3.16) / Prop 2.6 AT THE AFFINE FORMS (`StrideBridge`, 2026-09-04,
+math — λ-BV wave 2-S step F2, fired by the 09/04 council on the helm's refuter verdict
+REPAIR-THEN-FIRE 6/6).
+
+The F-function with the class filter `j + 1 ≡ p·b (mod a)` as a CONJUNCT ON THE SUMMATION INDEX
+(the carrier `ZMod (PH eps H)` unchanged; the filter never touches the residue datum), its `(1, 0)`
+compats, the box bound, the residue-sum and mean identities, the four concentration bounds
+(exponents IDENTICAL to the `h`-lane's — the stride and the offset cost nothing in the
+concentration grade), the filter's three KERNEL TRIPWIRES (`affFilter_spec_three` at `a = 3`
+where the rival spellings separate, `affFilter_spec_two` on the `j` vs `j + 1` axis,
+`fBridgeG_aff_two_one` the object at `(2, 1)`), Prop 2.6's pointwise unfold and the
+`(p, r)`-collapse at stride `a` (`a·r + j + 1`; the collapsed base point is the seed's `a·m' + b`
+only under `b < a`), and the `(c₁, h211)` glue at the affine forms with the constant EXPLICIT
+(`cM/(2a)`: only `H/a` of the window survives the class).  `hreduce_aff` is a HYPOTHESIS here
+exactly as `hreduce` is in `Prop26` — its discharge is F4's, at the stride measure.  Nothing here
+produces `LogChowlaAffSupply`, moves a door, or bears on twin primes.  23 obligations, 23 first
+attempt (one Opus executor, 2026-09-04 10:2x–10:3x). -/
+#audit_axioms Salt.Entropy.Chowla.fBridgeG_aff
+  Salt.Entropy.Chowla.fBridgeF_aff
+  Salt.Entropy.Chowla.fBridgeG_aff_one_zero
+  Salt.Entropy.Chowla.fBridgeF_aff_one_zero
+  Salt.Entropy.Chowla.fBridgeG_aff_abs_le
+  Salt.Entropy.Chowla.fBridgeG_aff_mem_Icc
+  Salt.Entropy.Chowla.fBridgeG_aff_sum_over_residues
+  Salt.Entropy.Chowla.fBridgeG_aff_mean
+  Salt.Entropy.Chowla.fBridge_aff_concentration_raw
+  Salt.Entropy.Chowla.fBridge_aff_concentration
+  Salt.Entropy.Chowla.fBridge_aff_concentration_sharp
+  Salt.Entropy.Chowla.fBridge_aff_concentration_decoupled_sharp
+  Salt.Entropy.Chowla.affFilter_spec_three
+  Salt.Entropy.Chowla.affFilter_spec_two
+  Salt.Entropy.Chowla.fBridgeG_aff_two_one
+  Salt.Entropy.Chowla.fBridgeF_aff_liouville_apply
+  Salt.Entropy.Chowla.fBridgeF_aff_liouville_apply_one_zero
+  Salt.Entropy.Chowla.affGate_index_eq
+  Salt.Entropy.Chowla.liouville_collapse_aff
+  Salt.Entropy.Chowla.perPair_collapse_aff
+  Salt.Entropy.Chowla.affCollapse_base_point
+  Salt.Entropy.Chowla.fBridge_of_singleCorr_aff
+  Salt.Entropy.Chowla.fBridge_of_singleCorr_aff'
+  Salt.Entropy.Chowla.h211_aff
+  Salt.Entropy.Chowla.h211_aff_one_zero

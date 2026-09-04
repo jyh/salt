@@ -586,6 +586,24 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    cap only (`log 420 = 6.04 ≤ 7`); its GRADE is UNMEASURED** (demand `δ/(a·h)²` × supply `1.02·a`;
    the "10²¹ slack" was log-scale). `11 ≤ z ≤ 23` waits on a numeral re-cut of the budget lines FIRST;
    the crown `MRTDoorAllGrades` gates unbounded `z` only. Nothing here bears on twin primes.
+   ✅⭐ **WAVE 2-S STEP F2 LANDED — STAMPED 2026-09-04 10:4x (math).** The 09/04 council's word (minute
+   §2: "F2: YES. math fires one Opus on salt bb7e656e"), on the helm's REPAIR-THEN-FIRE 6/6 verdict of
+   09/03 18:1x (freeze `2026-09-03-math-FREEZE-lambda-bv-wave2S-F2.md` v2, §7 the changelog).
+   `Salt/Entropy/Chowla/StrideBridge.lean` on `math/lbv-w2s-f2`: **25 declarations, 23 obligations,
+   23 FIRST ATTEMPT, every one `[3 axioms]` (one, `affGate_index_eq`, at `[propext]` alone) under the
+   rebuilt Entropy aggregate** — Tao (3.16)/Prop 2.6 at the affine forms with the class filter
+   `j + 1 ≡ p·b (mod a)` a CONJUNCT ON THE SUMMATION INDEX (the carrier unchanged; F1's carrier STOP
+   cleared by inspection), the three kernel tripwires of the filter's spelling
+   (`affFilter_spec_three` at `a = 3`, `affFilter_spec_two`, `fBridgeG_aff_two_one` the object at
+   `(2,1)`), the `(p, r)`-collapse at `a·r + j + 1` with the collapsed base point `a·m' + b` ONLY
+   under `b < a` (`affCollapse_base_point`), the `(c₁, h211)` glue with the constant EXPLICIT
+   (`cM/(2a)`), and the `(1, 0)` recoveries. `hreduce_aff` stays a HYPOTHESIS (F4's discharge, at the
+   stride measure). The statement-only merge fence is DISCHARGED (0 `sorry`). ⛔ **HONEST LABEL:** F2
+   produces no supply and proves no estimate; the grade at `z = 7` is PRICED, not reached (freeze §2:
+   the road's re-mint at `k = 420` meets the affine demand `δ₀_aff = 6.76×10⁻¹²` EXACTLY, zero slack,
+   and the door on F3's route misses it by the supply factor `1.02·a = 214`, a numeral paid at one gate
+   at `+32`/`+64` on `log H`), CONDITIONAL on F3's regime pairing — a NODE, priced separately
+   (`2026-09-04-math-PRICE-lbv-w2S-F3-regime-pairing.md`). Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

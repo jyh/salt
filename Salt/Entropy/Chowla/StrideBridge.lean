@@ -3,12 +3,13 @@ Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦STRIDE BRIDGE⟧ — Tao (3.16) / Prop 2.6 at the affine forms: the F-function with the class
-filter, λ-BV wave 2-S step F2 (2026-09-03, STATEMENT-ONLY at the freeze; v2 after the helm's
-refuter verdict 18:1x — REPAIR-THEN-FIRE 6/6; executors after the 09/04 08:00 council)
+filter, λ-BV wave 2-S step F2 (2026-09-03, statement-only at the freeze; v2 after the helm's
+refuter verdict 18:1x — REPAIR-THEN-FIRE 6/6; LANDED 2026-09-04 on the council's word: 23
+obligations, 23 first attempt, one Opus executor, every declaration `[3 axioms]` or fewer)
 
-⛔ **MERGE FENCE (iron rule 2).**  This module is sorry-bodied BY DESIGN and imported from
-`Salt/Entropy/All.lean`; the branch `math/lbv-w2s-f2` NEVER reaches `main` until every obligation
-here lands sorry-free (`git grep '^\s*sorry\s*$' origin/main` is 0 and stays 0).
+**The merge fence of the statement-only freeze is DISCHARGED**: no `sorry` remains in this
+module (the fence read "the branch `math/lbv-w2s-f2` never reaches `main` until every obligation
+here lands sorry-free"; they have, and `#audit_axioms` in `Salt/Entropy/All.lean` lists them).
 
 `StrideFork` (F1) opened the OBJECTS of Tao arXiv:1509.05422 Theorem 2.3 at a general stride
 `a` and offset `b`: the pushforward measure `logMeasureAff a x ω`, the frequency set
@@ -105,14 +106,19 @@ compat CANNOT police the filter's spelling — at `a = 1` every spelling is `Tru
 tripwires are the F2-T block. -/
 theorem fBridgeG_aff_one_zero (h : ℕ) (v : Fin H → ℤ) (p : primeWindow eps H) :
     fBridgeG_aff eps H 1 0 h v p = fBridgeG_h eps H h v p := by
-  sorry
+  funext r
+  unfold fBridgeG_aff fBridgeG_h
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  simp only [eq_iff_true_of_subsingleton, and_true]
 
 /-- **F2-B4 (class A) — the `(1, 0)` compat for `F`.**  Termwise from `fBridgeG_aff_one_zero`
 (`funext y; unfold fBridgeF_aff fBridgeF_h; exact Finset.sum_congr rfl (fun p _ => by rw
 [fBridgeG_aff_one_zero])`). -/
 theorem fBridgeF_aff_one_zero (h : ℕ) (v : Fin H → ℤ) :
     fBridgeF_aff eps H 1 0 h v = fBridgeF_h eps H h v := by
-  sorry
+  funext y
+  unfold fBridgeF_aff fBridgeF_h
+  exact Finset.sum_congr rfl (fun p _ => by rw [fBridgeG_aff_one_zero])
 
 /-- **F2-B5 (class B) — the deterministic box bound at `(a, b, h)`**:
 `|G_p^{(a,b,h)}(v)(r)| ≤ H/p + 1`
@@ -125,7 +131,48 @@ kept ones are `windowVal_prod_abs_le`), after which the residue-class count
 lemma fBridgeG_aff_abs_le (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
     (p : primeWindow eps H) (r : ZMod (p : ℕ)) :
     |fBridgeG_aff eps H a b h v p r| ≤ (H : ℝ) / (p : ℝ) + 1 := by
-  sorry
+  classical
+  unfold fBridgeG_aff
+  calc |∑ j ∈ Finset.range H, if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+            ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0|
+      ≤ ∑ j ∈ Finset.range H, |if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+            ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ j ∈ Finset.range H, if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then (1 : ℝ) else 0 := by
+        apply Finset.sum_le_sum
+        intro j _
+        by_cases hA : ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+        · rw [if_pos hA]
+          by_cases hB : ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)
+          · rw [if_pos (And.intro hA hB)]
+            exact windowVal_prod_abs_le hv j (j + (p : ℕ) * h)
+          · have hn : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+                ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hc => hB hc.2
+            rw [if_neg hn]
+            simp
+        · have hn : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+              ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hc => hA hc.1
+          rw [if_neg hA, if_neg hn]
+          simp
+    _ = (((Finset.range H).filter
+          (fun j : ℕ => ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r)).card : ℝ) := by
+        rw [Finset.sum_boole]
+    _ ≤ (H : ℝ) / (p : ℝ) + 1 := by
+        have hset : (Finset.range H).filter (fun j : ℕ => ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r)
+            = (Finset.range H).filter (fun j : ℕ => (j : ZMod (p : ℕ)) = -r - 1) := by
+          apply Finset.filter_congr
+          intro j _
+          rw [Nat.cast_add, Nat.cast_one, eq_sub_iff_add_eq]
+        rw [hset]
+        have hcard := card_filter_natCast_eq_le H (-r - 1)
+        have hcast : (((Finset.range H).filter
+            (fun j : ℕ => (j : ZMod (p : ℕ)) = -r - 1)).card : ℝ)
+            ≤ ((H / (p : ℕ) + 1 : ℕ) : ℝ) := by exact_mod_cast hcard
+        have hdiv : ((H / (p : ℕ) : ℕ) : ℝ) ≤ (H : ℝ) / (p : ℝ) := Nat.cast_div_le
+        push_cast at hcast
+        linarith
 
 /-- **F2-B6 (class A).**  The `[lo, hi]` box form: `Set.mem_Icc.mpr (abs_le.mp (fBridgeG_aff_abs_le
 …))`. -/
@@ -133,7 +180,7 @@ lemma fBridgeG_aff_mem_Icc (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| 
     (p : primeWindow eps H) (r : ZMod (p : ℕ)) :
     fBridgeG_aff eps H a b h v p r
       ∈ Set.Icc (-((H : ℝ) / (p : ℝ) + 1)) ((H : ℝ) / (p : ℝ) + 1) := by
-  sorry
+  exact Set.mem_Icc.mpr (abs_le.mp (fBridgeG_aff_abs_le eps H a b h hv p r))
 
 /-- **F2-B7 (class B) — the residue-sum identity at `(a, b, h)`** (the mean's numerator):
 `∑_{r ∈ ZMod p} G_p^{(a,b,h)}(v)(r) = ∑_{j < H} 1_{j+1 ≡ pb (a)} · v_j·v_{j+ph}`.  The `h`-script
@@ -150,7 +197,32 @@ lemma fBridgeG_aff_sum_over_residues (a b h : ℕ) {v : Fin H → ℤ} (p : prim
       = ∑ j ∈ Finset.range H,
           if ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
             (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0 := by
-  sorry
+  classical
+  unfold fBridgeG_aff
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  by_cases hf : ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)
+  · rw [if_pos hf]
+    have hcond : ∀ r : ZMod (p : ℕ),
+        (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r ∧ ((j + 1 : ℕ) : ZMod a)
+            = (((p : ℕ) * b : ℕ) : ZMod a)) ↔ (r = -((j + 1 : ℕ) : ZMod (p : ℕ))) := by
+      intro r
+      constructor
+      · rintro ⟨h1, -⟩; rw [h1, neg_neg]
+      · intro h1; exact ⟨by rw [h1, neg_neg], hf⟩
+    calc ∑ r : ZMod (p : ℕ), (if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+            ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0)
+        = ∑ r : ZMod (p : ℕ), (if r = -((j + 1 : ℕ) : ZMod (p : ℕ)) then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0) := by
+          refine Finset.sum_congr rfl (fun r _ => ?_); rw [if_congr (hcond r) rfl rfl]
+      _ = (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) := by
+          rw [Finset.sum_ite_eq' Finset.univ (-((j + 1 : ℕ) : ZMod (p : ℕ)))]; simp
+  · rw [if_neg hf]
+    refine Finset.sum_eq_zero (fun r _ => ?_)
+    have hn : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r ∧ ((j + 1 : ℕ) : ZMod a)
+        = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hc => hf hc.2
+    rw [if_neg hn]
 
 /-- **F2-B8 (class B) — the mean identity at `(a, b, h)`**:
 `E_y[G_p^{(a,b,h)}(v)(y mod p)] = (1/p)·∑_{j} 1_{j+1 ≡ pb (a)} v_j v_{j+ph}`.  The `h`-script
@@ -164,7 +236,37 @@ lemma fBridgeG_aff_mean (a b h : ℕ) {v : Fin H → ℤ} (p : primeWindow eps H
       = (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
           if ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
             (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0 := by
-  sorry
+  classical
+  set μ := uniformOn (Set.univ : Set (ZMod (PH eps H))) with hμ
+  haveI : IsProbabilityMeasure μ :=
+    isProbabilityMeasure_uniformOn Set.finite_univ Set.univ_nonempty
+  have hmass : ∀ ω : ZMod (PH eps H), μ.real {ω} = ((PH eps H : ℝ))⁻¹ := by
+    intro ω
+    have hs : μ {ω} = ((PH eps H : ℝ≥0∞))⁻¹ := by
+      rw [hμ, uniformOn_univ, Measure.count_singleton, ZMod.card]; simp
+    rw [measureReal_def, hs, ENNReal.toReal_inv, ENNReal.toReal_natCast]
+  rw [integral_fintype Integrable.of_finite]
+  simp only [hmass, smul_eq_mul]
+  rw [← Finset.mul_sum]
+  have hfib : ∑ ω : ZMod (PH eps H), fBridgeG_aff eps H a b h v p (residueProj eps H p ω)
+      = ∑ r : ZMod (p : ℕ), (PH eps H / (p : ℕ)) • fBridgeG_aff eps H a b h v p r := by
+    rw [← Finset.sum_fiberwise_of_maps_to (t := (Finset.univ : Finset (ZMod (p : ℕ))))
+        (fun ω _ => Finset.mem_univ (residueProj eps H p ω))
+        (fun ω => fBridgeG_aff eps H a b h v p (residueProj eps H p ω))]
+    refine Finset.sum_congr rfl (fun r _ => ?_)
+    rw [Finset.sum_congr rfl (fun ω hω =>
+      show fBridgeG_aff eps H a b h v p (residueProj eps H p ω)
+          = fBridgeG_aff eps H a b h v p r by
+        rw [(Finset.mem_filter.mp hω).2]), Finset.sum_const, residueProj_fiber_card]
+  rw [hfib]
+  simp only [nsmul_eq_mul]
+  rw [← Finset.mul_sum, fBridgeG_aff_sum_over_residues]
+  have hpp0 : ((p : ℕ) : ℝ) ≠ 0 := by exact_mod_cast (prime_of_mem_primeWindow p.2).pos.ne'
+  have harith : (PH eps H : ℝ)⁻¹ * ((PH eps H / (p : ℕ) : ℕ) : ℝ) = 1 / (p : ℝ) := by
+    rw [Nat.cast_div (dvd_PH eps H p) hpp0]
+    have hp0 : (PH eps H : ℝ) ≠ 0 := by exact_mod_cast (PH_pos eps H).ne'
+    field_simp
+  rw [← mul_assoc, harith]
 
 /-- **F2-B9 (class A) — the raw concentration bound at `(a, b, h)`**: `hoeffding_residueProj eps H
 (fBridgeG_aff eps H a b h v) (fun i x => fBridgeG_aff_mem_Icc eps H a b h hv i x) hδ` — the SAME
@@ -178,7 +280,8 @@ theorem fBridge_aff_concentration_raw (a b h : ℕ) {v : Fin H → ℤ} (hv : �
               fBridgeG_aff eps H a b h v p (residueProj eps H p ω)]|}
       ≤ 2 * Real.exp (-δ ^ 2 / (2 * ((∑ p : primeWindow eps H,
           (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ))) := by
-  sorry
+  exact hoeffding_residueProj eps H (fBridgeG_aff eps H a b h v)
+    (fun i x => fBridgeG_aff_mem_Icc eps H a b h hv i x) hδ
 
 /-- **F2-B10 (class A) — the usable concentration bound at `(a, b, h)`**, exponent
 `2·exp(−δ²/(2(ε²H+1)(2/ε²+1)²))` UNCHANGED (`fBridge_var_le` is `v`-, `h`- and `a`-free).  The
@@ -191,7 +294,18 @@ theorem fBridge_aff_concentration (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i,
               fBridgeG_aff eps H a b h v p (residueProj eps H p ω)]|}
       ≤ 2 * Real.exp (-δ ^ 2 /
           (2 * (((eps : ℝ) ^ 2 * (H : ℝ) + 1) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2))) := by
-  sorry
+  refine le_trans (fBridge_aff_concentration_raw eps H a b h hv hδ) ?_
+  have hSpos : 0 < ((∑ p : primeWindow eps H,
+      (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ) := by
+    rw [NNReal.coe_sum]
+    haveI : Nonempty (primeWindow eps H) := ⟨⟨hne.choose, hne.choose_spec⟩⟩
+    refine Finset.sum_pos (fun p _ => ?_) Finset.univ_nonempty
+    rw [fBridge_varTerm eps H p]; positivity
+  have hSle := fBridge_var_le eps H heps
+  refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) (by norm_num)
+  rw [neg_div, neg_div, neg_le_neg_iff,
+      div_le_div_iff₀ (by positivity) (mul_pos (by norm_num) hSpos)]
+  nlinarith [sq_nonneg δ, hSle, hSpos]
 
 /-- **F2-B11 (class A) — the sharp (one-log) concentration bound at `(a, b, h)`**: the
 `h`-script (`fBridge_h_concentration_sharp`, `FBridge.lean:752`) verbatim; `fBridge_var_le_sharp`
@@ -209,7 +323,37 @@ theorem fBridge_aff_concentration_sharp (a b h : ℕ) {v : Fin H → ℤ} (hv : 
               fBridgeG_aff eps H a b h v p (residueProj eps H p ω)]|}
       ≤ 2 * Real.exp (-δ ^ 2 * Real.log (H : ℝ) /
           (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
-  sorry
+  refine le_trans (fBridge_aff_concentration_raw eps H a b h hv hδ) ?_
+  set D := 2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 with hDdef
+  set S := ((∑ p : primeWindow eps H,
+      (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ) with hSdef
+  have hepsne : (eps : ℝ) ≠ 0 := by exact_mod_cast heps.ne'
+  have hlogpos : (0 : ℝ) < Real.log (H : ℝ) := zero_lt_one.trans_le hlog
+  have hlogne : Real.log (H : ℝ) ≠ 0 := hlogpos.ne'
+  have hHpos : (0 : ℝ) < (H : ℝ) := by
+    rcases Nat.eq_zero_or_pos H with hh | hh
+    · exfalso; rw [hh, Nat.cast_zero, Real.log_zero] at hlog; linarith
+    · exact_mod_cast hh
+  have hSpos : 0 < S := by
+    rw [hSdef, NNReal.coe_sum]
+    haveI : Nonempty (primeWindow eps H) := ⟨⟨hne.choose, hne.choose_spec⟩⟩
+    refine Finset.sum_pos (fun p _ => ?_) Finset.univ_nonempty
+    rw [fBridge_varTerm eps H p]; positivity
+  have hDpos : 0 < D := by rw [hDdef]; positivity
+  have hSle : S ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+      * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by
+    rw [hSdef]; exact fBridge_var_le_sharp eps H heps hcard
+  have hkey : 2 * S * Real.log (H : ℝ) ≤ D := by
+    have hmul : 2 * S * Real.log (H : ℝ)
+        ≤ 2 * (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+            * (2 / (eps : ℝ) ^ 2 + 1) ^ 2) * Real.log (H : ℝ) := by
+      apply mul_le_mul_of_nonneg_right _ hlogpos.le
+      exact mul_le_mul_of_nonneg_left hSle (by norm_num)
+    refine hmul.trans_eq ?_
+    rw [hDdef]; field_simp
+  refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) (by norm_num)
+  rw [div_le_div_iff₀ (mul_pos (by norm_num) hSpos) hDpos]
+  nlinarith [sq_nonneg δ, hkey]
 
 /-- **F2-B12 (class A) — the sharp decoupled-mean corollary at `(a, b, h)`** — the deviation set
 written with the FILTERED decoupled mean `∑_p (1/p) ∑_j 1_{j+1 ≡ pb (a)} v_j v_{j+ph}`
@@ -230,7 +374,16 @@ theorem fBridge_aff_concentration_decoupled_sharp (a b h : ℕ)
                 (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0|}
       ≤ 2 * Real.exp (-δ ^ 2 * Real.log (H : ℝ) /
           (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
-  sorry
+  have hmean : (∑ p : primeWindow eps H,
+        (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+          fBridgeG_aff eps H a b h v p (residueProj eps H p ω)])
+      = ∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          if ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0 :=
+    Finset.sum_congr rfl (fun p _ => fBridgeG_aff_mean eps H a b h p)
+  have hq := fBridge_aff_concentration_sharp eps H a b h hv heps hne hδ hC₀ hcard hlog
+  rw [hmean] at hq
+  exact hq
 
 /-! ## F2-T — the filter's KERNEL TRIPWIRES (the refuter's kill A1: no producer-chain statement is
 filter-sensitive, so the spelling `j + 1 ≡ p·b (mod a)` is pinned here, decidably) -/
@@ -244,7 +397,7 @@ the `{0, 3}` mutant refused by the same tactic). -/
 lemma affFilter_spec_three :
     (Finset.range 6).filter
       (fun j => ((j + 1 : ℕ) : ZMod 3) = ((2 * 1 : ℕ) : ZMod 3)) = {1, 4} := by
-  sorry
+  decide
 
 /-- **F2-T2 (class A) — the index-shift axis, at `a = 2`.**  `a = 2, b = 1, p = 3` ⇒ `j + 1` odd ⇒
 the EVEN `j`: `{0, 2, 4}` in `range 6` (a filter on `j` would give the odd ones).  Recipe: `decide`
@@ -252,7 +405,7 @@ the EVEN `j`: `{0, 2, 4}` in `range 6` (a filter on `j` would give the odd ones)
 lemma affFilter_spec_two :
     (Finset.range 6).filter
       (fun j => ((j + 1 : ℕ) : ZMod 2) = ((3 * 1 : ℕ) : ZMod 2)) = {0, 2, 4} := by
-  sorry
+  decide
 
 /-- **F2-T3 (class B) — the OBJECT's tripwire: `fBridgeG_aff` at `(a, b) = (2, 1)` with the
 surviving index set spelled ARITHMETICALLY.**  For an odd window prime `p·1 ≡ 1 (mod 2)`, so the
@@ -268,7 +421,24 @@ lemma fBridgeG_aff_two_one (h : ℕ) (v : Fin H → ℤ) (p : primeWindow eps H)
       = ∑ j ∈ (Finset.range H).filter (fun j => j % 2 = 0),
           if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
             (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0 := by
-  sorry
+  classical
+  unfold fBridgeG_aff
+  rw [Finset.sum_filter]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  have hiff : ((j + 1 : ℕ) : ZMod 2) = (((p : ℕ) * 1 : ℕ) : ZMod 2) ↔ j % 2 = 0 := by
+    rw [ZMod.natCast_eq_natCast_iff']
+    have hpo : (p : ℕ) % 2 = 1 := Nat.odd_iff.mp hp
+    omega
+  by_cases hj : j % 2 = 0
+  · rw [if_pos hj]
+    by_cases hg : ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+    · rw [if_pos (And.intro hg (hiff.mpr hj)), if_pos hg]
+    · have hn : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+          ∧ ((j + 1 : ℕ) : ZMod 2) = (((p : ℕ) * 1 : ℕ) : ZMod 2)) := fun hc => hg hc.1
+      rw [if_neg hn, if_neg hg]
+  · have hn : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r
+        ∧ ((j + 1 : ℕ) : ZMod 2) = (((p : ℕ) * 1 : ℕ) : ZMod 2)) := fun hc => hj (hiff.mp hc.2)
+    rw [if_neg hn, if_neg hj]
 
 /-! ## F2-P — Prop 2.6 at the affine forms: the pointwise unfold and the `(p, r)`-collapse -/
 
@@ -288,7 +458,31 @@ lemma fBridgeF_aff_liouville_apply (a b h : ℕ) (m : ℕ) :
             (ArithmeticFunction.liouville (m + j + 1) : ℝ)
               * (windowVal H (liouvilleWindow H m) (j + (p : ℕ) * h) : ℝ)
           else 0 := by
-  sorry
+  unfold fBridgeF_aff
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  rw [residueProj_residueWindow]
+  unfold fBridgeG_aff
+  refine Finset.sum_congr rfl (fun j hj => ?_)
+  have hjH : j < H := Finset.mem_range.mp hj
+  have hgate : ((j + 1 : ℕ) : ZMod (p : ℕ)) = -((m : ℕ) : ZMod (p : ℕ))
+      ↔ ((m + j + 1 : ℕ) : ZMod (p : ℕ)) = 0 := by
+    rw [show ((m + j + 1 : ℕ) : ZMod (p : ℕ))
+          = ((j + 1 : ℕ) : ZMod (p : ℕ)) + ((m : ℕ) : ZMod (p : ℕ)) from by push_cast; ring,
+        add_eq_zero_iff_eq_neg]
+  by_cases hc : ((m + j + 1 : ℕ) : ZMod (p : ℕ)) = 0
+  · by_cases hf : ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)
+    · rw [if_pos (And.intro (hgate.mpr hc) hf), if_pos (And.intro hc hf),
+        windowVal_liouvilleWindow H m j hjH]
+    · have hn1 : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -((m : ℕ) : ZMod (p : ℕ))
+          ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hq => hf hq.2
+      have hn2 : ¬ (((m + j + 1 : ℕ) : ZMod (p : ℕ)) = 0
+          ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hq => hf hq.2
+      rw [if_neg hn1, if_neg hn2]
+  · have hn1 : ¬ (((j + 1 : ℕ) : ZMod (p : ℕ)) = -((m : ℕ) : ZMod (p : ℕ))
+        ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hq => hc (hgate.mp hq.1)
+    have hn2 : ¬ (((m + j + 1 : ℕ) : ZMod (p : ℕ)) = 0
+        ∧ ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a)) := fun hq => hc hq.1
+    rw [if_neg hn1, if_neg hn2]
 
 /-- **F2-P2 (class A) — the `(1, 0)` recovery of the pointwise unfold**, stated at the LANDED
 conclusion of `fBridgeF_h_liouville_apply` and discharged through `fBridgeF_aff_one_zero`
@@ -301,7 +495,7 @@ theorem fBridgeF_aff_liouville_apply_one_zero (h : ℕ) (m : ℕ) :
             (ArithmeticFunction.liouville (m + j + 1) : ℝ)
               * (windowVal H (liouvilleWindow H m) (j + (p : ℕ) * h) : ℝ)
           else 0 := by
-  sorry
+  rw [fBridgeF_aff_one_zero, fBridgeF_h_liouville_apply]
 
 /-- **F2-P3 (class A) — THE INDEX ARITHMETIC OF THE `(p, r)`-COLLAPSE AT STRIDE `a`.**  On the
 residue class `n ≡ rⱼ (mod p)` realising the gate `p ∣ a·n + j + 1`, write `p·k = a·rⱼ + j + 1`
@@ -313,7 +507,8 @@ unrelated atoms) and NOT a bare `rw [← hk]` (the goal has no subterm `a * rj +
 exposes it).  This is the line the freeze names "`a·r + j + 1` in place of `r + j + 1`". -/
 lemma affGate_index_eq (a p j rj k m : ℕ) (hk : p * k = a * rj + j + 1) :
     a * (p * m + rj) + j + 1 = p * (a * m + k) := by
-  sorry
+  have hx : a * (p * m + rj) + j + 1 = p * (a * m) + (a * rj + j + 1) := by ring
+  rw [hx, ← hk]; ring
 
 /-- **F2-P4 (class A) — the multiplicativity collapse at stride `a`.**  With the gate
 `p·k = a·rⱼ + j + 1` and `p ≠ 0`, the dilated pair collapses to the seed's shape at the base point
@@ -330,7 +525,11 @@ lemma liouville_collapse_aff (a p j rj k m h : ℕ) (hp : p ≠ 0)
         * (ArithmeticFunction.liouville (a * (p * m + rj) + j + p * h + 1) : ℝ)
       = (ArithmeticFunction.liouville (a * m + k) : ℝ)
           * (ArithmeticFunction.liouville (a * m + k + h) : ℝ) := by
-  sorry
+  have h1 := affGate_index_eq a p j rj k m hk
+  have h2 : a * (p * m + rj) + j + p * h + 1 = p * (a * m + k) + p * h := by
+    rw [← h1]; ring
+  rw [h1, h2]
+  exact liouville_collapse_h p h hp (a * m + k)
 
 /-- **F2-P5 (class A) — the per-pair dilation reduction at stride `a`.**  `dilation_error_div`
 (`Dilation.lean:161`, generic in `f`) at `q ↦ p`, `r ↦ rⱼ`, `M ↦ 1` and
@@ -349,7 +548,13 @@ lemma perPair_collapse_aff {x ω : ℕ} (a h p j rj : ℕ) (hp : 1 ≤ p) (hrj :
                 * (ArithmeticFunction.liouville (a * (p * m + rj) + j + p * h + 1) : ℝ))
                 / (m : ℝ)) / Z)|
       ≤ 2 * 1 * (rj : ℝ) / (p : ℝ) ^ 2 / Z := by
-  sorry
+  exact dilation_error_div hp hrj
+    (f := fun n => (ArithmeticFunction.liouville (a * n + j + 1) : ℝ)
+        * (ArithmeticFunction.liouville (a * n + j + p * h + 1) : ℝ)) (M := 1)
+    (fun n => by
+      rw [abs_mul]
+      exact mul_le_one₀ (abs_liouville_le_one _) (abs_nonneg _) (abs_liouville_le_one _))
+    hZ
 
 /-- **F2-P6 (class A) — THE COLLAPSED BASE POINT IS THE SEED'S `a·m' + b` ONLY UNDER `b < a`** (the
 refuter's kill A2).  From the class congruence `k ≡ b (mod a)` (F4 derives it from
@@ -361,7 +566,10 @@ scratch probe 09/03 18:1x): `have h1 := (ZMod.natCast_eq_natCast_iff' k b a).mp 
 [Nat.mod_eq_of_lt hblt] at h1; have h2 := Nat.div_add_mod k a; omega`. -/
 lemma affCollapse_base_point (a b k : ℕ) (hblt : b < a)
     (hk : (k : ZMod a) = (b : ZMod a)) : k = a * (k / a) + b := by
-  sorry
+  have h1 := (ZMod.natCast_eq_natCast_iff' k b a).mp hk
+  rw [Nat.mod_eq_of_lt hblt] at h1
+  have h2 := Nat.div_add_mod k a
+  omega
 
 /-! ## F2-C — the `(c₁, h211)` glue at the affine forms (the `ChowlaFailure` twins) -/
 
@@ -391,7 +599,39 @@ theorem fBridge_of_singleCorr_aff (a b h : ℕ) {x ω : ℕ}
     cM / (2 * (a : ℝ)) * (δ * (H : ℝ) / Real.log (H : ℝ))
       ≤ |∫ m, fBridgeF_aff eps H a b h (liouvilleWindow H m) (residueWindow eps H m)
           ∂(logMeasureAff a x ω)| := by
-  sorry
+  rcases Nat.eq_zero_or_pos a with rfl | ha
+  · simp only [Nat.cast_zero, mul_zero, div_zero, zero_mul]
+    exact abs_nonneg _
+  · set SP : ℝ := ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) with hSP
+    set X : ℝ := |∫ m, (ArithmeticFunction.liouville (m + b) : ℝ)
+        * (ArithmeticFunction.liouville (m + b + h) : ℝ) ∂(logMeasureAff a x ω)| with hX
+    have hlogpos : (0 : ℝ) < Real.log (H : ℝ) := by linarith
+    have hHnn : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg H
+    have hapos : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
+    have hane : (a : ℝ) ≠ 0 := hapos.ne'
+    have hlogne : Real.log (H : ℝ) ≠ 0 := hlogpos.ne'
+    have hSPnn : (0 : ℝ) ≤ SP := by
+      rw [hSP]; exact Finset.sum_nonneg (fun p hp => by positivity)
+    have hXnn : (0 : ℝ) ≤ X := abs_nonneg _
+    have hcM_le : cM ≤ SP * Real.log (H : ℝ) := (div_le_iff₀ hlogpos).mp hmert
+    have hkey : cM * δ ≤ SP * X * Real.log (H : ℝ) := by
+      calc cM * δ ≤ (SP * Real.log (H : ℝ)) * X :=
+            mul_le_mul hcM_le hseed hδ.le (mul_nonneg hSPnn hlogpos.le)
+        _ = SP * X * Real.log (H : ℝ) := by ring
+    have hstep : cM * δ * (H : ℝ) ≤ SP * X * Real.log (H : ℝ) * (H : ℝ) :=
+      mul_le_mul_of_nonneg_right hkey hHnn
+    have hle1 : cM / (2 * (a : ℝ)) * (δ * (H : ℝ) / Real.log (H : ℝ))
+        ≤ (1 / 2) * SP * ((H : ℝ) / (a : ℝ)) * X := by
+      have hlhs : cM / (2 * (a : ℝ)) * (δ * (H : ℝ) / Real.log (H : ℝ))
+          = (cM * δ * (H : ℝ)) / (2 * (a : ℝ) * Real.log (H : ℝ)) := by
+        field_simp
+      have hrhs : (1 / 2) * SP * ((H : ℝ) / (a : ℝ)) * X
+          = (SP * X * (H : ℝ)) / (2 * (a : ℝ)) := by
+        field_simp
+      rw [hlhs, hrhs, div_le_div_iff₀ (by positivity) (by positivity)]
+      nlinarith [mul_le_mul_of_nonneg_right hstep
+        (by positivity : (0 : ℝ) ≤ 2 * (a : ℝ))]
+    exact hle1.trans hreduce
 
 /-- **F2-C2 (class A) — the same, in the consumer's `∃ c` shape** (the `hprop26` binder of
 `h211_aff` below and of `h211_of_logChowla2Fails_h`).
@@ -411,7 +651,9 @@ theorem fBridge_of_singleCorr_aff' (a b h : ℕ) (ha : 0 < a) {x ω : ℕ}
       c * (δ * (H : ℝ) / Real.log (H : ℝ))
         ≤ |∫ m, fBridgeF_aff eps H a b h (liouvilleWindow H m) (residueWindow eps H m)
             ∂(logMeasureAff a x ω)| := by
-  sorry
+  have hapos : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
+  refine ⟨cM / (2 * (a : ℝ)), div_pos hcM (by linarith), ?_⟩
+  exact fBridge_of_singleCorr_aff eps H a b h hlog hcM hmert hreduce hδ hseed
 
 /-- **F2-C3 (class A) — Stmt 3 at the affine forms (compose to `h211`).**  The twin of
 `h211_of_logChowla2Fails_h` (`ChowlaFailure.lean:254`): feed the affine seed
@@ -435,7 +677,15 @@ theorem h211_aff (a b h : ℕ) {x ω : ℕ}
       c₁ * ((eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
         ≤ |∫ m, fBridgeF_aff eps H a b h (liouvilleWindow H m) (residueWindow eps H m)
             ∂(logMeasureAff a x ω)| := by
-  sorry
+  have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
+  have hseed := singleCorr_of_failsAff' a b h eps hx hω hωx hlog2 hfail
+  have hδpos : (0 : ℝ) < (eps : ℝ) / 2 := by linarith
+  obtain ⟨c, hc, hbound⟩ := hprop26 hδpos hseed
+  refine ⟨c / 2, by linarith, ?_⟩
+  have hEq : c / 2 * ((eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
+      = c * ((eps : ℝ) / 2 * (H : ℝ) / Real.log (H : ℝ)) := by ring
+  rw [hEq]
+  exact hbound
 
 /-- **F2-C4 (class B) — the `(1, 0)` recovery of `h211`**, stated at the LANDED conclusion of
 `h211_of_logChowla2Fails_h` (the `logMeasure` integral of `fBridgeF_h`) from the LANDED
@@ -461,6 +711,19 @@ theorem h211_aff_one_zero (h : ℕ) {x ω : ℕ}
       c₁ * ((eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
         ≤ |∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n)
             ∂(logMeasure x ω)| := by
-  sorry
+  have hfail' : logChowlaFailsAff 1 0 h eps x ω :=
+    (logChowlaFailsAff_one_zero h eps x ω).mpr hfail
+  have hprop26' : ∀ {δ : ℝ}, 0 < δ →
+      δ ≤ |∫ m, (ArithmeticFunction.liouville (m + 0) : ℝ)
+            * (ArithmeticFunction.liouville (m + 0 + h) : ℝ) ∂(logMeasureAff 1 x ω)| →
+      ∃ c : ℝ, 0 < c ∧
+        c * (δ * (H : ℝ) / Real.log (H : ℝ))
+          ≤ |∫ m, fBridgeF_aff eps H 1 0 h (liouvilleWindow H m) (residueWindow eps H m)
+              ∂(logMeasureAff 1 x ω)| := by
+    intro δ hδ hs
+    simp only [logMeasureAff_one, fBridgeF_aff_one_zero, add_zero] at hs ⊢
+    exact hprop26 hδ hs
+  have hmain := h211_aff eps H 1 0 h hx hω hωx hlog2 heps hprop26' hfail'
+  simpa only [logMeasureAff_one, fBridgeF_aff_one_zero, add_zero] using hmain
 
 end Salt.Entropy.Chowla
