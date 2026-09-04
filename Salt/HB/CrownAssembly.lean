@@ -166,6 +166,53 @@ one N8 and Wave C-2 (row C2-07) share — Wave C imports it from here. -/
 def IsAdditiveOn (P : ℕ) (A : ℕ → ℝ) : Prop :=
   A 1 = 0 ∧ ∀ d e : ℕ, d ∣ P → e ∣ P → Nat.Coprime d e → A (d * e) = A d + A e
 
+/-- `ν_G` on a product of distinct primes. -/
+private lemma nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
+    nuG (∏ p ∈ S, p) = ∏ p ∈ S, nuG p :=
+  nuG_isMultiplicative.map_prod_of_subset_primeFactors _ _
+    (by rw [Nat.primeFactors_prod hS])
+
+/-- `μ(∏S)·ν_G(∏S) = ∏_{p∈S}(−ν_G p)`. -/
+private lemma moebius_nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
+    (μ (∏ p ∈ S, p) : ℝ) * nuG (∏ p ∈ S, p) = ∏ p ∈ S, (- nuG p) := by
+  rw [moebius_real_of_squarefree (squarefree_prod_of_primes hS), Nat.primeFactors_prod hS,
+    nuG_prod_primes hS,
+    show (∏ p ∈ S, (- nuG p)) = ∏ p ∈ S, ((-1 : ℝ) * nuG p) from
+      Finset.prod_congr rfl (fun p _ => by ring),
+    Finset.prod_mul_distrib, Finset.prod_const]
+
+/-- `lowDiv P δ` is the divisor set of `P(δ) = ∏_{p ∣ P, p < p(δ)} p`. -/
+private lemma lowDiv_eq_divisors {P δ : ℕ} (hP : Squarefree P) :
+    lowDiv P δ = (∏ p ∈ P.primeFactors.filter (fun p => p < δ.minFac), p).divisors := by
+  classical
+  set Q := P.primeFactors.filter (fun p => p < δ.minFac) with hQ
+  have hQprime : ∀ p ∈ Q, p.Prime := fun p hp =>
+    Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1
+  have hQsub : Q ⊆ P.primeFactors := Finset.filter_subset _ _
+  have hPdsq : Squarefree (∏ p ∈ Q, p) := squarefree_prod_of_primes hQprime
+  have hPdpf : (∏ p ∈ Q, p).primeFactors = Q := Nat.primeFactors_prod hQprime
+  have hPddvd : (∏ p ∈ Q, p) ∣ P := by
+    rw [← Nat.prod_primeFactors_of_squarefree hP]
+    exact Finset.prod_dvd_prod_of_subset _ _ _ hQsub
+  ext e
+  rw [mem_lowDiv, Nat.mem_divisors]
+  constructor
+  · rintro ⟨⟨heP, hP0⟩, hlow⟩
+    refine ⟨?_, hPdsq.ne_zero⟩
+    have he0 : e ≠ 0 := by rintro rfl; exact hP0 (Nat.eq_zero_of_zero_dvd heP)
+    have hsub : e.primeFactors ⊆ Q := by
+      intro p hp
+      exact Finset.mem_filter.mpr ⟨Nat.primeFactors_mono heP hP.ne_zero hp, hlow p hp⟩
+    calc e = ∏ p ∈ e.primeFactors, p :=
+          (Nat.prod_primeFactors_of_squarefree (hP.squarefree_of_dvd heP)).symm
+      _ ∣ ∏ p ∈ Q, p := Finset.prod_dvd_prod_of_subset _ _ _ hsub
+  · rintro ⟨hdvd, _⟩
+    refine ⟨⟨hdvd.trans hPddvd, hP.ne_zero⟩, ?_⟩
+    intro p hp
+    have := Nat.primeFactors_mono hdvd hPdsq.ne_zero hp
+    rw [hPdpf] at this
+    exact (Finset.mem_filter.mp this).2
+
 /-- **`S^{(1)}(δ)` in closed form** (HB p.204): `ν_G` multiplicative gives
 `S^{(1)}(δ) = ν_G(δ)·∏_{p ∣ P, p < p(δ)} (1 − ν_G(p))`.  Class **B**, cap 150.  Red-first:
 `deltaSum` unfolds to a sum over `lowDiv P δ`; `lowDiv P δ` is the divisor set of the product
@@ -177,7 +224,31 @@ of the primes of `P` below `δ.minFac` (`mem_lowDiv`), so `sum_divisors_eq_sum_p
 theorem deltaSum_nuG_eq (P : ℕ) (hP : Squarefree P) (δ : ℕ) (hδ : δ ∣ P) :
     deltaSum P δ (fun d => nuG d)
       = nuG δ * ∏ p ∈ P.primeFactors.filter (fun p => p < δ.minFac), (1 - nuG p) := by
-  sorry
+  classical
+  set Q := P.primeFactors.filter (fun p => p < δ.minFac) with hQ
+  have hQprime : ∀ p ∈ Q, p.Prime := fun p hp =>
+    Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1
+  have hPdsq : Squarefree (∏ p ∈ Q, p) := squarefree_prod_of_primes hQprime
+  have hPdpf : (∏ p ∈ Q, p).primeFactors = Q := Nat.primeFactors_prod hQprime
+  have hδ0 : δ ≠ 0 := by rintro rfl; exact hP.ne_zero (Nat.eq_zero_of_zero_dvd hδ)
+  rw [deltaSum, lowDiv_eq_divisors hP, ← hQ,
+    sum_divisors_eq_sum_powerset hPdsq (fun e => (μ e : ℝ) * nuG (δ * e)), hPdpf]
+  have key : ∀ S ∈ Q.powerset, (μ (∏ p ∈ S, p) : ℝ) * nuG (δ * ∏ p ∈ S, p)
+      = nuG δ * ∏ p ∈ S, (- nuG p) := by
+    intro S hS
+    rw [Finset.mem_powerset] at hS
+    have hSprime : ∀ p ∈ S, p.Prime := fun p hp => hQprime p (hS hp)
+    have hpf : (∏ p ∈ S, p).primeFactors = S := Nat.primeFactors_prod hSprime
+    have he0 : (∏ p ∈ S, p) ≠ 0 := (squarefree_prod_of_primes hSprime).ne_zero
+    have hcop : Nat.Coprime δ (∏ p ∈ S, p) := by
+      refine coprime_of_mem_lowDiv hδ0 he0 ?_
+      intro p hp
+      rw [hpf] at hp
+      exact (Finset.mem_filter.mp (hS hp)).2
+    rw [nuG_isMultiplicative.map_mul_of_coprime hcop, ← mul_assoc, mul_comm (μ (∏ p ∈ S, p) : ℝ),
+      mul_assoc, moebius_nuG_prod_primes hSprime]
+  rw [Finset.sum_congr rfl key, ← Finset.mul_sum, ← Finset.prod_one_add]
+  exact congrArg _ (Finset.prod_congr rfl fun p _ => by ring)
 
 /-- **`S^{(1)}(δ) ≥ 0`** (HB p.204, "`0 ≤ G(p) ≤ p`").  Class **B**, cap 60.  Red-first:
 `deltaSum_nuG_eq`, then `nuG_pos_of_prime`/`nuG_lt_one_of_prime` factorwise (`P` odd).
@@ -185,7 +256,16 @@ Consumer: `hb_transfer_additive`, `hb_transfer_sq_additive`, `lamSum_nuG_sub_W_b
 theorem deltaSum_nuG_nonneg (P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) (δ : ℕ) (hδ : δ ∣ P) :
     0 ≤ deltaSum P δ (fun d => nuG d) := by
-  sorry
+  classical
+  have hδ0 : δ ≠ 0 := by rintro rfl; exact hP.ne_zero (Nat.eq_zero_of_zero_dvd hδ)
+  rw [deltaSum_nuG_eq P hP δ hδ]
+  refine mul_nonneg ?_ (Finset.prod_nonneg fun p hp => ?_)
+  · rw [nuG_apply hδ0]
+    refine div_nonneg (Finset.prod_nonneg fun p hp => ?_) (Nat.cast_nonneg _)
+    exact Gdens_nonneg (Nat.prime_of_mem_primeFactors hp).pos
+  · have hpmem := (Finset.mem_filter.mp hp).1
+    have := nuG_lt_one_of_prime (Nat.prime_of_mem_primeFactors hpmem) (hPodd p hpmem)
+    linarith
 
 /-- **The one-signedness of the FL defect at `ρ₁`.**  `S₁′⁺ − S₁ ≥ 0` and `S₁ − S₁′⁻ ≥ 0`, from
 `mainSum_chi_eq_W_sub_correction` (`lamSum = W − (−1)^side·Σ_δ S^{(1)}(δ)`) and
@@ -195,7 +275,16 @@ theorem lamSum_nuG_sub_W_bounds (P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) {Lam z : ℝ} {b : ℕ} (hb : 1 ≤ b) :
     0 ≤ lamSum Lam z 1 b P (fun d => nuG d) - W (hbSieve P hP hPodd)
       ∧ 0 ≤ W (hbSieve P hP hPodd) - lamSum Lam z 2 b P (fun d => nuG d) := by
-  sorry
+  have hnn : ∀ (side : ℕ), 0 ≤ ∑ δ ∈ failSet Lam z side b P, deltaSum P δ (fun d => nuG d) :=
+    fun side => Finset.sum_nonneg fun δ hδ =>
+      deltaSum_nuG_nonneg P hP hPodd δ (mem_failSet.mp hδ).1.1
+  have h1 := mainSum_chi_eq_W_sub_correction (hbSieve P hP hPodd)
+    (Lam := Lam) (z := z) (side := 1) (b := b) hb (by norm_num)
+  have h2 := mainSum_chi_eq_W_sub_correction (hbSieve P hP hPodd)
+    (Lam := Lam) (z := z) (side := 2) (b := b) hb (by norm_num)
+  simp only [hbSieve_prodPrimes, hbSieve_nu] at h1 h2
+  norm_num at h1 h2
+  exact ⟨by linarith [hnn 1], by linarith [hnn 2]⟩
 
 /-- **HB (3.6), the additive-twist fibre identity.**  For `A′` additive on `P`'s divisors,
 `S^{(2)}(δ) = S^{(1)}(δ)·(A′(δ) − Σ_{p ∣ P, p < p(δ)} A′(p)·ν_G(p)/(1 − ν_G(p)))`.
