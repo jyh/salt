@@ -11,11 +11,13 @@ import Salt.Maynard.Mertens
 /-!
 # N8, THE SIEVE HALF — HB 1983's p.200 assembly from the dimension-4 sieve (design freeze v2)
 
-**STATUS: A DESIGN FREEZE, v2 (after the refuter pass).  Every theorem below is
-`sorry`-bodied by design.**  This file is one half of node N8 of the Heath-Brown engine
-(`docs/sources/hb1983-notes.md` §1–§2, pp.199–200, and Lemma 6, pp.204–206): the sieve wire
-at the crown window, HB Lemma 6 proved here with literal constants, HB Lemma 5 as an
-INTERFACE (N7's exit, Wave C-2 row C2-10), and the p.200 assembly
+**STATUS: EXECUTED (2026-09-04).  The v2 design freeze (after the refuter pass) is
+DISCHARGED — all twenty theorems below are proved, sorry-free, with no statement changed and
+no new axiom (each `#print axioms` shows exactly `[propext, Classical.choice, Quot.sound]`);
+no pre-authorised numeral amendment was needed.**  This file is one half of node N8 of the
+Heath-Brown engine (`docs/sources/hb1983-notes.md` §1–§2, pp.199–200, and Lemma 6,
+pp.204–206): the sieve wire at the crown window, HB Lemma 6 proved here with literal
+constants, HB Lemma 5 as an INTERFACE (N7's exit, Wave C-2 row C2-10), and the p.200 assembly
 `S⁽³⁾ ≤ κS₁{(L′/L)² + O(BL) + O(B²e^{−z₀/4})} + O(xL⁸/z)` (both signs).  The other half —
 the reduction chain `S⁽⁰⁾ → S⁽³⁾` on the window and Lemma 3 at the pretense sum — is
 `Salt/HB/CrownChain.lean`; the two files share no declaration and neither imports the
