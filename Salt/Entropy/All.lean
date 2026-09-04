@@ -1296,3 +1296,45 @@ attempt (one Opus executor, 2026-09-04 10:2x–10:3x). -/
   Salt.Entropy.Chowla.fBridge_of_singleCorr_aff'
   Salt.Entropy.Chowla.h211_aff
   Salt.Entropy.Chowla.h211_aff_one_zero
+
+/-! ⟦STRIDE PAIR⟧ — THE REGIME PAIRING, SHARE THE TOWER (`StridePair`, 2026-09-04, math — λ-BV
+wave 2-S step F3, Entropy half; frozen v1 11:2x, v2 cut on the helm's refuter verdict
+REPAIR-THEN-FIRE 4/4, fired 12:0x).
+
+The shrunk regime `regimeShrinkX_stride` (`x/a`, `Rd.a·Hlo/a`, stride `a`, every other field
+verbatim) with its tower identity a THEOREM (`regimeShrinkX_stride_tower`), the multiplier's export
+`StrideScale`, the grid-restricted affine family `bigXiAffD` (`∅` off `a ∣ H`), the `L²` door at a
+generic set family `MRTUniformityXiL2Set` (`= MRTUniformityXiL2H` at `bigXiH`, `rfl`), THE STATEMENT
+ACT `MRTUniformityXiL2AffW` — the affine door AT TAO'S RANGE (`R.a ∣ H ∧ R.a·R.Hlo ≤ H`; F1-D2
+untouched, the wide door implies it, the seam cloned), the measure transport (the image window is a
+SUBSET of the plain window, the normaliser ratio `≤ 1.02` at `log ω ≥ 101`, the endpoint a named
+slack term) from the plain door over `bigXiAffD` to the affine door at the shrunk regime, and the
+flat-base numerals (`loglog(a·B) ≤ 3.2A + log 2` at the consumer's literal).  Nothing here produces
+a door (the receipt is `Salt.MR.StridePairReceipt`'s) or bears on twin primes.  28 obligations,
+28 landed (one Opus executor, 2026-09-04 12:0x–12:2x; 24 at one attempt). -/
+#audit_axioms Salt.Entropy.Chowla.strideScale_one
+  Salt.Entropy.Chowla.chowlaTower_ge_base
+  Salt.Entropy.Chowla.regimeShrinkX_stride_x
+  Salt.Entropy.Chowla.regimeShrinkX_stride_omega
+  Salt.Entropy.Chowla.regimeShrinkX_stride_a
+  Salt.Entropy.Chowla.regimeShrinkX_stride_eps
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hlo
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hhi
+  Salt.Entropy.Chowla.regimeShrinkX_stride_C0
+  Salt.Entropy.Chowla.regimeShrinkX_stride_J
+  Salt.Entropy.Chowla.regimeShrinkX_stride_tower
+  Salt.Entropy.Chowla.regimeShrinkX_stride_x_mul
+  Salt.Entropy.Chowla.bigXiAffD_of_dvd
+  Salt.Entropy.Chowla.bigXiAffD_card_le
+  Salt.Entropy.Chowla.mrtUniformityXiL2Set_bigXiH_eq
+  Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_aff
+  Salt.Entropy.Chowla.mrtUniformityXiL2AffW_mono
+  Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2AffW
+  Salt.Entropy.Chowla.mrtUniformityXiL2AffW_one_zero_eq
+  Salt.Entropy.Chowla.sum_window_image_le
+  Salt.Entropy.Chowla.integral_logMeasureAff_le_plain
+  Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_set
+  Salt.Entropy.Chowla.strideZRatio_le
+  Salt.Entropy.Chowla.strideEndpoint_le
+  Salt.Entropy.Chowla.loglog_mul_flatDesignBase_le
+  Salt.Entropy.Chowla.flatDesignBase_clears_stride_floors
