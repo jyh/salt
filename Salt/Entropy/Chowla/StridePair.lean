@@ -21,9 +21,10 @@ so `hfit`/`hJcon` transfer by `chowlaTower_eq_base_one`; the `x`-fields at `x/a`
 `StrideScale` conjuncts the RECEIPT exports (the multiplier is threaded through the road on the
 MR side, `StridePairReceipt.lean`, because the outer-scale rider cannot carry the `hPHheadroom`
 floor scaled by `a` — freeze §1(B)).  The affine pushforward measure at `(x/a, ω)` is supported on
-the multiples of `a` in the plain window at `(x, ω)` up to ONE endpoint multiple, so the plain
-`L²` door over the affine set transports to the affine door at grade
-`a·(Z_x/Z_{x/a})·ρ + (endpoint)` — every factor EXPLICIT in `mrtUniformityXiL2AffW_of_set`.
+multiples of `a` that all lie INSIDE the plain window at `(x, ω)` (the image is a subset — v2,
+refuter R4: zero multiples fall outside), so the plain `L²` door over the affine set transports
+to the affine door at grade `a·(Z_x/Z_{x/a})·ρ + (endpoint)`, the endpoint a NAMED nonnegative
+slack term — every factor EXPLICIT in `mrtUniformityXiL2AffW_of_set`.
 
 THE STATEMENT ACT (Fable tier, freeze §3): the affine door at TAO'S OWN RANGE —
 `MRTUniformityXiL2AffW`, quantified over `H` with `R.a ∣ H` and `R.a·R.Hlo ≤ H`.  F1-D2's
@@ -49,6 +50,12 @@ Degenerate values (the W4 law): `a = 0` is excluded by `1 ≤ a` wherever divisi
 import Salt.Entropy.Chowla.StrideFork
 import Salt.Entropy.Chowla.TowerFlatBuilder
 import Mathlib
+
+-- v2 (refuter verdict A5): the transport's integrand bound `‖windowExpSum H n α‖ ≤ H` lives in
+-- `MRTDoor.lean` as a `private` lemma (its `Salt.MR` twin `norm_windowExpSum_le` is unreachable
+-- from an Entropy module).  Reached by `open private`, the corpus's sanctioned device
+-- (`DoorReceipt.lean:64` does the same for `uniformCap_shuffle`).
+open private norm_windowExpSum_trivial from Salt.Entropy.Chowla.MRTDoor
 
 open MeasureTheory
 open scoped BigOperators
@@ -182,7 +189,7 @@ theorem regimeShrinkX_stride_tower (R : ChowlaRegime) (a : ℕ) (hdiv : a ∣ R.
 /-- **F3-P6 (class A).**  The scale is divided EXACTLY: `(x/a) * a = x` from `a ∣ x`
 (`Nat.div_mul_cancel hs.1`), read through `regimeShrinkX_stride_x`.  This is what makes the
 affine pushforward's top endpoint `a·(x/a) = x` the plain window's top endpoint, with no
-`⌊·⌋` corner at the top (the bottom corner is `sum_window_image_le`'s one multiple). -/
+`⌊·⌋` corner at the top (the bottom corner is `sum_window_image_le`'s inclusion). -/
 theorem regimeShrinkX_stride_x_mul (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
@@ -261,6 +268,16 @@ theorem mrtUniformityXiL2AffW_of_aff (h : ℕ) (R : ChowlaRegimeAff) (ρ : ℝ)
     (hd : MRTUniformityXiL2Aff h R ρ) : MRTUniformityXiL2AffW h R ρ := by
   sorry
 
+/-- **F3-P10a (class A, v2) — the windowed door is monotone in its grade.**  The twin of
+`mrtUniformityXiL2H_mono` (`S16FlatTerminalExitH.lean:69`): `intro H _ hdvd hlo hhi; exact
+le_trans (hdoor H hdvd hlo hhi) hle`.  Added on the refuter verdict (A7): the crown states its
+grade with a SLACK binder `Zr` and a NAMED endpoint `E`, and lands there from the transport's
+literal grade `a·(Z/Z')·ρ + K·a/(…)` by THIS step (`Z/Z' ≤ 1.02` by F3-P17, the endpoint by
+F3-P18) — a step the v1 recipe assumed and no obligation carried. -/
+theorem mrtUniformityXiL2AffW_mono (h : ℕ) (R : ChowlaRegimeAff) {ρ ρ' : ℝ}
+    (hdoor : MRTUniformityXiL2AffW h R ρ) (hle : ρ ≤ ρ') : MRTUniformityXiL2AffW h R ρ' := by
+  sorry
+
 /-- **F3-P11 (class A) — THE `L²` SEAM AT TAO'S RANGE.**  `contradiction_of_mrtDoorXiL2Aff`
 (`StrideFork.lean:759`) with the door fired at `hdvd hlo hhi`: `have hd := hdoor H hdvd hlo hhi;
 linarith`.  The entropy-side caller (F4) supplies `hdvd` from `dvd_chowlaTower` and `hlo` from the
@@ -299,17 +316,21 @@ private theorem logMeasure_integral_eq_pair (f : ℕ → ℝ) (x ω : ℕ) :
           * ∑ n ∈ Finset.Ioc (x / ω) x, f n * (n : ℝ)⁻¹ := by
   sorry
 
-/-- **F3-P14 (class B) — the image window sits in the scaled window up to ONE multiple of `a`.**
-For `0 ≤ f ≤ M` and `x = a * x'`: the image `{a·n : x'/ω < n ≤ x'}` (F1-S1's window) lies in
-`(a·(x'/ω), a·x']`; the plain window at `(a·x', ω)` is `(a·x'/ω, a·x']`; and `a·(x'/ω) ≤ (a·x')/ω
-< a·(x'/ω) + a` (`Nat.mul_div_le_mul_div_assoc`, `Nat.div_lt_iff_lt_mul`), so at most ONE multiple
-of `a` lies in the image but not in the plain window, and it exceeds `a·(x'/ω)`.  Hence
-`Σ_image f m/m ≤ Σ_{Ioc (a x'/ω) (a x')} f m/m + M / (a·(x'/ω) + 1)`.  Route: split the image
-by membership in the plain window (`Finset.sum_le_sum_of_subset_of_nonneg` on the part inside;
-the part outside is a subset of `{m : a·(x'/ω) < m ≤ (a x')/ω, a ∣ m}`, whose card is `≤ 1`
-(`Nat.card_multiples`-style: two multiples of `a` in an interval of length `< a` coincide), and
-each term is `≤ M/m ≤ M/(a·(x'/ω)+1)`).  The ENDPOINT TERM IS NAMED, never absorbed (F1 verdict
-§C).  At `a = 1` the image is the window and the endpoint term is `≤ M/(x'/ω+1)` (harmless). -/
+/-- **F3-P14 (class A — v2, was B) — the image window sits INSIDE the scaled window.**
+For `0 ≤ f ≤ M` and `x = a * x'`: the image `{a·n : x'/ω < n ≤ x'}` (F1-S1's window) is a
+SUBSET of the plain window `(a·x'/ω, a·x']` at `(a·x', ω)`, unconditionally: writing `x' = qω + r`
+with `q = x'/ω`, `0 ≤ r < ω`, one has `a·x'/ω = a·q + ⌊a·r/ω⌋ ≤ a·q + a − 1 < a·(q+1)`, and
+`a·(q+1)` is the LEAST image element; the top `a·x'` is the window's own top.  (v1 claimed "at
+most ONE multiple outside" — the refuter verdict (R4, R3) measured ZERO: the endpoint term
+`M/(a·(x'/ω)+1)` is pure nonnegative SLACK, kept NAMED because it is what the crown's `E` and
+freeze §2 price; no number moves.)  Route: `Finset.sum_le_sum_of_subset_of_nonneg` on the
+inclusion (`Finset.mem_image`, `Finset.mem_Ioc`; the inequality `a * x' / ω < a * (q + 1)` by
+`Nat.div_lt_iff_lt_mul` at `0 < ω` — case-split `rcases Nat.eq_zero_or_pos ω`, at `ω = 0` both
+Nat floors are `0` and the image sits in `Ioc 0 (a·x')` — then `Nat.lt_of_div_lt_div`-free
+arithmetic: `a * x' < a * (q+1) * ω` from `x' < (q+1)·ω`, `Nat.lt_div_add_one_mul_self`… or
+`Nat.div_add_mod x' ω` + `Nat.mod_lt` + `nlinarith`), then `le_add_of_nonneg_right` with
+`0 ≤ M/(…)` from `0 ≤ M` (`le_trans (hf0 0) (hfM 0)`) and a positive denominator.  At `a = 1`
+the image is the window. -/
 theorem sum_window_image_le (a x' ω : ℕ) (ha : 0 < a) (f : ℕ → ℝ) (M : ℝ)
     (hf0 : ∀ m, 0 ≤ f m) (hfM : ∀ m, f m ≤ M) :
     ∑ m ∈ (Finset.Ioc (x' / ω) x').image (fun n => a * n), f m / (m : ℝ)
@@ -325,7 +346,8 @@ Proof: `integral_logMeasureAff` (F1-M3) turns the left side into `∫ f(a n) dμ
 (F1-S1, with `f m / m` spelled as `f m * m⁻¹` — `div_eq_mul_inv`) reindexes the left sum to the
 image; `sum_window_image_le` bounds the image sum; multiply through by `Z(x', ω)⁻¹ > 0`
 (`harmonic_window_bounds` gives `Z ≥ log ω − 1 > 0` at `log ω ≥ 2`, i.e. `hω : 8 ≤ ω`).  Every
-factor is EXPLICIT (the normaliser ratio is NOT yet `1.02`: that is F3-P17). -/
+factor is EXPLICIT (the normaliser ratio is NOT yet `1.02`: that is F3-P17; the endpoint term
+is nonnegative slack carried from F3-P14). -/
 theorem integral_logMeasureAff_le_plain (a x' ω : ℕ) (ha : 0 < a) (hx : 2 ≤ x') (hω : 8 ≤ ω)
     (hωx : ω ≤ x') (f : ℕ → ℝ) (M : ℝ) (hf0 : ∀ m, 0 ≤ f m) (hfM : ∀ m, f m ≤ M) :
     ∫ m, f m ∂(logMeasureAff a x' ω)
@@ -340,15 +362,18 @@ theorem integral_logMeasureAff_le_plain (a x' ω : ℕ) (ha : 0 < a) (hx : 2 ≤
 regime `Rd` (`MRTUniformityXiL2Set (bigXiAffD a b h) Rd ρ`) to the affine door AT TAO'S RANGE at
 the shrunk regime `Ra := ofRegime (regimeShrinkX_stride Rd a …) b hb`, at grade
 `a·(Z(Rd.x, ω)/Z(Ra.x, ω))·ρ + K·a/((a·(Ra.x/ω)+1)·Z(Ra.x, ω))`.  Per `H` on the grid
-(`hdvd : a ∣ H`; `bigXiAffD_of_dvd` rewrites the set): for each `ξ`,
-`f := ‖windowExpSum H · (−ξ/H)‖²`
-has `0 ≤ f ≤ H²` (`norm_windowExpSum_le`, `M4Window.lean:208` — an MR name; its Entropy twin is
-`norm_windowExpSum_le_card`/the trivial bound in `MRTDoor.lean` — the executor greps
-`‖windowExpSum` for the Entropy-side statement); `integral_logMeasureAff_le_plain` at `x' := Ra.x`
-(`regimeShrinkX_stride_x_mul` gives `a * Ra.x = Rd.x`, so the plain measure is `Rd`'s), multiply
-by `1/H²`, sum over `ξ ∈ bigXiAff` (`Finset.sum_le_sum`, `Finset.mul_sum`), the first sum is
-`≤ ρ` by `hdoor H hlo' hhi` (`hlo' : Rd.Hlo ≤ H` from `Rd.Hlo ≤ Rd.a * Rd.Hlo = a * Ra.Hlo ≤ H`),
-the second is `card · (H²/H²) · a/((…)·Z) ≤ K·a/((…)·Z)` by `hK`.  Ranges: `Ra.Hhi = Rd.Hhi`,
+(`hdvd : a ∣ H`; `bigXiAffD_of_dvd` rewrites the set — in `hdoor` AND in `hK`, both stated at
+the grid-restricted family `bigXiAffD`, which is exactly what the receipt exports; v2 on the
+refuter verdict (R1): v1's `hK` at the unrestricted `bigXiAff` was NOT implied by the chain's
+count, since `bigXiAffD = ∅` off the grid — the hypothesis is now the WEAKER one, the one P16
+uses): for each `ξ`, `f := ‖windowExpSum H · (−ξ/H)‖²` has `0 ≤ f ≤ H²`
+(`norm_windowExpSum_trivial`, `MRTDoor.lean:219`, opened `private` above — v2, A5: v1 cited a
+phantom name and an MR name unreachable from this module; `sq_nonneg`, `pow_le_pow_left`);
+`integral_logMeasureAff_le_plain` at `x' := Ra.x` (`regimeShrinkX_stride_x_mul` gives `a * Ra.x
+= Rd.x`, so the plain measure is `Rd`'s), multiply by `1/H²`, sum over `ξ ∈ bigXiAff`
+(`Finset.sum_le_sum`, `Finset.mul_sum`), the first sum is `≤ ρ` by `hdoor H hlo' hhi` (`hlo' :
+Rd.Hlo ≤ H` from `Rd.Hlo ≤ Rd.a * Rd.Hlo = a * Ra.Hlo ≤ H`), the second is `card · (H²/H²) ·
+a/((…)·Z) ≤ K·a/((…)·Z)` by `hK H hlo' hhi` after the same rewrite.  Ranges: `Ra.Hhi = Rd.Hhi`,
 `Ra.eps = Rd.eps`, `Ra.ω = Rd.ω`, `Ra.a = a`, `Ra.b = b` (the projections; `ofRegime` is `{ R with
 … }`).  `hω : 8 ≤ Rd.ω` from `Rd.hωbig` (`log ω ≥ 129`) — the caller's numeral. -/
 theorem mrtUniformityXiL2AffW_of_set (h : ℕ) (Rd : ChowlaRegime) (a b : ℕ) (ha : 1 ≤ a)
@@ -358,7 +383,7 @@ theorem mrtUniformityXiL2AffW_of_set (h : ℕ) (Rd : ChowlaRegime) (a b : ℕ) (
     (hb : b ≤ (regimeShrinkX_stride Rd a ha ha1096 heps500 hs hdiv hlo4 hloM).Hlo)
     (hω : 8 ≤ Rd.ω) (K ρ : ℝ)
     (hK : ∀ H : ℕ, ∀ [NeZero H], Rd.Hlo ≤ H → H ≤ Rd.Hhi →
-      ((bigXiAff a b h Rd.eps H).card : ℝ) ≤ K)
+      ((bigXiAffD a b h Rd.eps H).card : ℝ) ≤ K)
     (hdoor : MRTUniformityXiL2Set (fun eps H _ => bigXiAffD a b h eps H) Rd ρ) :
     MRTUniformityXiL2AffW h
       (ChowlaRegimeAff.ofRegime (regimeShrinkX_stride Rd a ha ha1096 heps500 hs hdiv hlo4 hloM)
@@ -382,19 +407,22 @@ theorem strideZRatio_le (x x' ω : ℕ) (hx : 2 ≤ x) (hx' : 2 ≤ x') (hω : 2
 
 /-- **F3-P18 (class A) — M2's second measurement, the endpoint term.**  `K·a/((a·q+1)·Z) ≤
 K·a/((a·q+1)·(log ω − 1))` at `Z ≥ log ω − 1 > 0` (`harmonic_window_bounds`, `hlog : 2 ≤ log ω`)
-and `0 ≤ K`: `div_le_div_of_nonneg_left` with the denominators ordered.  The caller closes the
-numeral from `hheadroom'` (`q = x'/ω ≥ 8·Hhi·log²Hhi`) and `loglog Hhi ≥ 50`, against
-`K ≤ 2^539` — freeze §2 prices it. -/
-theorem strideEndpoint_le (K a : ℝ) (q Z ω : ℕ) (hK : 0 ≤ K) (ha : 0 ≤ a)
+and `0 ≤ K`: `div_le_div_of_nonneg_left` with the denominators ordered.  `Z : ℝ` — the REAL
+harmonic normaliser `Σ_{n ∈ Ioc (x'/ω) x'} 1/n` of F3-P16's grade (v2, refuter verdict A3: v1
+bound `Z` as `ℕ` and cast it, a lemma true as spelled and uninstantiable at its only consumer).
+The caller closes the numeral from `hheadroom'` (`q = x'/ω ≥ 8·Hhi·log²Hhi`) and `loglog Hhi ≥
+50`, against `K ≤ 2^539` — freeze §2 prices it. -/
+theorem strideEndpoint_le (K a Z : ℝ) (q ω : ℕ) (hK : 0 ≤ K) (ha : 0 ≤ a)
     (hlog : 2 ≤ Real.log ω) (hZ : Real.log ω - 1 ≤ Z) :
-    K * a / ((a * (q : ℝ) + 1) * (Z : ℝ)) ≤ K * a / ((a * (q : ℝ) + 1) * (Real.log ω - 1)) := by
+    K * a / ((a * (q : ℝ) + 1) * Z) ≤ K * a / ((a * (q : ℝ) + 1) * (Real.log ω - 1)) := by
   sorry
 
 /-! ## F3-P19–P20 — the flat base at the shrunk regime (the caller's numerals) -/
 
 /-- **F3-P19 (class A) — R5, CORRECTED.**  The price brief's `loglog(a·B) ≤ loglog B + 1` does
-NOT fit the ONE consumer that reads `Hlo` from above: H6's `hbaseceil` (`DoorReceipt.lean:838`,
-`flat_L_width_priced`'s `hbase`) wants `loglog Hlo ≤ 3.2·A + log 2` LITERALLY, with `log 2` of
+NOT fit the ONE consumer that reads `Hlo` from above: H6's `hbaseceil` (`DoorReceipt.lean:
+819-821` at `h = 1`; `flat_L_width_priced`'s `hbase`) wants `loglog Hlo ≤ 3.2·A + log 2`
+LITERALLY, with `log 2` of
 slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean:1535`) already spends on the
 `Nat.ceil` overshoot.  So the lemma is stated at the flat base with the factor `a` absorbed
 inside the ceiling's own margin: `log(a·B) = log a + log B ≤ 7 + (exp(3.2A) + log 2)` (the

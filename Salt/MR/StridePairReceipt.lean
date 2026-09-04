@@ -38,7 +38,9 @@ replays, the door-head, the chain, the receipt) ported to the `h` lane's compose
      `regime_outer_param_ceiling`'s tighter form with `log a ≤ 7` absorbed) and is carried INERT
      through every hop as `a ∣ R.x ∧ StrideScale a R` (no hop reads `R.x` except through the
      regime's fields and the ceiling; H5 substitutes `g' = s15ArmH + g` and proves the rider at
-     `a·g'`, one `log a` more inside a margin of `H₊/(250000·h²)`).
+     `a·g'`, the extra `log a ≤ 7` paid by the numeral twin `xceil_arm_split_mul_h` — v2, refuter
+     verdict A1: the landed `xceil_arm_split_h` is an EQUALITY-tight budget line with no residual
+     slack, so the `+ 7` needs its own class-A numeral, not "the same margin").
   Δ3 THE FLOOR IS EXPOSED TO THE END.  H5 already carries `R.Hlo = U1floor` for any `U1floor ≥
      max Hcap (arcFloor36, loglogFloor50)`; H6 instantiates `U1floor := flatWitFloor` and H7 pins
      `flatDesignBase A`.  Here H6/H7 keep `∀ U1floor ≥ flatWitFloor` with ONE caller hypothesis,
@@ -52,11 +54,16 @@ replays, the door-head, the chain, the receipt) ported to the `h` lane's compose
      `DoorReceipt.flat_door_head_xceil` does at `h = 1` (refuter R6: a grade bounded only from
      below is not a grade).
 
-THE CROWN (§6): `mrtUniformityXiL2AffW_holds_flat_stride` — for every `(a, b, h)` with `b < a`,
+THE CROWN (§7): `mrtUniformityXiL2AffW_holds_flat_stride` — for every `(a, b, h)` with `b < a`,
 `0 < h`, `log(a·h) ≤ 7`, and every `A₀`, an affine regime `Ra` with `Ra.a = a`, `Ra.b = b`,
 `flatDesignBase A ≤ Ra.Hlo`, carrying the affine `L²` door AT TAO'S RANGE at grade
-`a·(Z/Z')·ρ + (endpoint)`, `ρ ≤ 1/(837782·(a·h)²)`, `Z/Z' ≤ 1.02` — the freeze §2 supply line
-`1.02·a·δ₀(a·h)`, stated at the regime it lives at.  UNCONDITIONAL once landed.
+**`≤ 1.02·a·ρ + E`** with `ρ ≤ 1/(837782·(a·h)²)` and `E` a named nonnegative endpoint bounded
+against `2^539` — the freeze §2 supply line `1.02·a·δ₀(a·h)`, stated at the regime it lives at.
+The statement spells the grade `a·Zr·ρ + E` with `Zr` a SLACK BINDER (`1 ≤ Zr ≤ 1.02`; the
+executor takes `Zr := 1.02`), NOT the normaliser ratio `Z/Z'` — that ratio is bounded above by
+`1.02` (F3-P17) but is NOT `≥ 1` in general (v2, refuter verdict A7: `Z(10,3)/Z(5,3) = 0.854`);
+the door lands at the binder's grade from the transport's literal grade by
+`mrtUniformityXiL2AffW_mono` (F3-P10a).  UNCONDITIONAL once landed.
 
 HONEST LABEL.  The door's grade is the road's at parameter `a·h` times `1.02·a`; the affine DEMAND
 (`δ₀_aff = δ₀(a·h)`, freeze §2) is NOT met here — that miss (`214` at `(210, 2)`) is F5's numeral
@@ -76,8 +83,15 @@ import Salt.MR.HDoorArc
 import Mathlib
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
--- corpus's sanctioned device (`DoorReceipt.lean:70` does the same for `uniformCap_shuffle`).
+-- corpus's sanctioned device (`DoorReceipt.lean:64` does the same for `uniformCap_shuffle`).
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
+-- v2 (refuter R1): two "body verbatim" replays call `private` lemmas of their source modules —
+-- the multiplier builder (F3-Q2) copies `chowlaRegimeFlat_exists_param_gen_ceiling`'s body,
+-- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:144, :135), and the road-exit
+-- replay (F3-Q8) copies S16ComposeLH.lean:1869-1891, whose cap line is `flatRootCapH_arc_k`
+-- (S16ComposeLH.lean:1063).  Opened here so the copies elaborate; nothing landed moves.
+open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
+open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 
 noncomputable section
 
@@ -92,7 +106,7 @@ namespace Salt.MR
 /-- **F3-Q0 (abbrev).**  A frequency-set family: one finite set of frequencies on the `1/H` grid
 per `(ε, H)`.  The landed instances are `fun eps H _ => bigXiH h eps H` and
 `fun eps H _ => bigXiAffD a b h eps H`. -/
-abbrev XiFamily := ∀ (eps : ℚ) (H : ℕ) [NeZero H], Finset (ZMod H)
+abbrev XiFamily := ∀ (_eps : ℚ) (H : ℕ) [NeZero H], Finset (ZMod H)
 
 /-! ## §1 — the multiplier: a factor `a` on the outer scale, carried by the BUILDER -/
 
@@ -119,8 +133,11 @@ VERBATIM, and the ceiling `log(a·x₀) ≤ log a + (30/ε)·log H₊ + 2·log(P
 collapse (XCeil.lean:~440-470: `2·log(P+1) ≤ 1.39 + 0.694·H₊` at `ε ≤ 1/2`, `(30/ε)·log H₊ ≤
 (30/ε)·H₊/…`) with `+ 7` absorbed by the margin `(31/ε − 0.694)·H₊ − (30/ε)·log H₊ ≥ 61·H₊ −
 (30/ε)·log H₊ ≥ 2.4·10⁸` at `H₊ ≥ 4·10⁶`, `1/ε ≥ 2` — the executor copies the ~90-line body and
-edits the record's `x` and the last `linarith`.  The flat fields (`A`, `hflat`, `Jf`, `hfitF`,
-`hJconF`) are untouched.  `log a ≤ 7` in the form `a ≤ 1096`. -/
+edits the record's `x` and the last `linarith`.  The body calls `xceil_flat_P` and
+`xceil_flat_step`, `private` to `XCeil.lean` and opened at this file's head (v2, refuter R1);
+the `+ 7` enters at `xceil_flat_step`'s use, whose margin `(u − 0.694)·H₊ − 1.39 ≥ 5.2·10⁶`
+grows in both `H₊` and `u = 1/ε`.  The flat fields (`A`, `hflat`, `Jf`, `hfitF`, `hJconF`) are
+untouched.  `log a ≤ 7` in the form `a ≤ 1096`. -/
 theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
     (A : ℝ) (hA : 26 ≤ A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) :
     ∃ R : ChowlaRegimeFlat, R.eps = eps ∧ R.A = A ∧ Hlo₀ ≤ R.Hlo ∧
@@ -542,9 +559,11 @@ def V7RatedFormH (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 the landed body with `flat_head_uniform_xceil_h h hh hh7` replaced by the hypothesis `hhead` and
 `m4_second_road_L2_H_gk_flatRoot_L_khoist h hh` by F3-Q7 at `Xi` with `harcXi`; the `a`-binders
 are introduced beside `U1floor g hg` and forwarded (`hhd H₀ a U1floor g ha ha1096 hg`); the
-new conjunct `StrideScale a R` is forwarded verbatim; the last line `hR δ₀ hδ₀ le_rfl
-(mrtUniformityXiL2Set_mono …)` — `mrtUniformityXiL2H_mono`'s set-generic twin, a one-line
-`intro H _ hlo hhi; exact le_trans (hdoor H hlo hhi) hbudget` the executor states inline. -/
+new conjunct `StrideScale a R` is forwarded verbatim; the cap line `flatRootCapH_arc_k` is
+`private` to `S16ComposeLH.lean` and opened at this file's head (v2, refuter R1); the last line
+`hR δ₀ hδ₀ le_rfl (mrtUniformityXiL2Set_mono …)` — `mrtUniformityXiL2H_mono`'s set-generic twin,
+a one-line `intro H _ hlo hhi; exact le_trans (hdoor H hlo hhi) hbudget` the executor states
+inline. -/
 theorem flat_roadExit_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
@@ -562,14 +581,32 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     FlatCapstoneFormH h Awin P := by
   sorry
 
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1153)
+with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
+EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
+the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
+landed proof (`h ≤ 1096` from `h_le_1096_of_log_le_seven`, `H₊ ≥ 36·10²⁰` from `loglog H₊ ≥ 50`
+through `xt_exp25`, the `h²` widening `hr1`, then `linarith` against `14.694` instead of
+`7.694`); slack `1.2·10¹⁰` from `hHbig` at `h = 1096`. -/
+theorem xceil_arm_split_mul_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {Hhi : ℕ}
+    (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log 2 + Real.log (h : ℝ) + 7
+      ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  sorry
+
 /-- **⟦H2→H3 REPLAY⟧ (class B).**  The conditional (S16ComposeLH.lean:2170-2325) from a generic
 capstone — the one hop that MOVES `g` (`g' := s15ArmH h δ₀ ρ + g`) and now proves the rider at
-`a·g'`: the landed `hg'` block (S16ComposeLH.lean:2198-2240) with `Real.log (a * (arm + g)) =
-log a + log(arm + g)` (`Real.log_mul`, `a ≥ 1`, `arm + g ≥ 1` — `s15ArmH` is `≥ 1`; else the
-`= 0` case) and `log a ≤ log 1096 < 7.0` paid by the same margin `H₊/(250000·h²)` that pays
-`log h + log 2` (`xceil_arm_split_h`'s room is a tower against a constant).  Then `hmain 0 le_rfl
-a U1floor g' ha ha1096 hg'`, `hRarm`/`hRgg` by `omega` from `a * (arm + g) ≤ R.x` (`Nat.mul_add`,
-`a ≥ 1`), `StrideScale` forwarded, the rest verbatim. -/
+`a·g'`: the landed `hg'` block (S16ComposeLH.lean:2198-2240) with the budget `B := 31/ε·H₊ −
+log 2 − 7` in place of `31/ε·H₊ − log 2` — `harm' : log arm ≤ B` from `harm`, the gate's
+`hωw : log ω + ε²H₊ ≤ 31/ε·H₊`, `hεsq` and `xceil_arm_split_mul_h hh hh7 hH4 hll` (v2, A1: the
+`+ 7` numeral twin above, in place of `xceil_arm_split_h`); `hgb' : log g ≤ B` from the STRICT
+rider `hg` (its `ε²H₊` margin against the same numeral); `xt_log_add_le harm' hgb'` gives
+`log(arm + g) ≤ 31/ε·H₊ − 7`; then `Real.log (a * (arm + g)) = log a + log(arm + g)`
+(`Real.log_mul`, `a ≥ 1`, `arm + g ≥ 1` — `s15ArmH` is `≥ 1`; else the `= 0` case) and
+`log a ≤ log 1096 < 7` (`Real.log_le_log`, `Real.log 1096 < 7` by `Real.exp_one_gt_d9`… or the
+converse of `h_le_1096_of_log_le_seven`) close `≤ 31/ε·H₊`.  Then `hmain 0 le_rfl a U1floor g'
+ha ha1096 hg'`, `hRarm`/`hRgg` by `omega` from `a * (arm + g) ≤ R.x` (`Nat.mul_add`, `a ≥ 1`),
+`StrideScale` forwarded, the rest verbatim. -/
 theorem flat_conditional_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (Awin : ℝ) (hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
     (hcap : FlatCapstoneFormH h Awin P) :
@@ -608,10 +645,24 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
 
 /-! ## §6 — the door-head, the chain, the receipts -/
 
-/-- **⟦THE RECEIPT PREDICATE AT `h`⟧** the `L²` door over `Xi` at the closed numeral
-`1/(837782·h²)`:
-`DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:84) with the set family and the `h²`. -/
+/-- **⟦THE RECEIPT PREDICATE AT `h` — THE P-SLOT, WIDENED (v2)⟧** the `L²` door over `Xi` at
+the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:84) with the
+set family and the `h²` — carrying TWO facts the head holds and the chain does not forward:
+(i) the head's ε-PIN as an EQUALITY, `R.eps = 1/(500·h)` (refuter verdict A4: the six forms and
+the receipts export only the LOWER pin `1/(500h) ≤ ε`, while `regimeShrinkX_stride` and the
+transport need `ε ≤ 1/500`; the regime's own `heps1 : ε ≤ 1/2` gives `2/ε² ≥ 8`, which fails
+`hcoprime` at `a = 210`); (ii) the COUNT, `∃ K ≤ 2^539, ∀ H ∈ [Hlo, Hhi], |Xi R.eps H| ≤ K`
+(refuter verdict A2/A6: the head form exports it, the road exit SPENDS it, no later form
+re-exports it, and the crown's `hK` has no source).  Both ride the P-slot because `P` is
+OPAQUE to the six forms and the five replays (Q8–Q12 are generic in `P`): the door-head
+(F3-Q14) discharges both at the head, where `R.eps = ε`, `ε = 1/(500h)` (`hεdef`) and the count
+conjunct are all in hand — ZERO forms or replays move.  The alternative (thread the equality and
+the count through the six forms as conjuncts) was an 11-site edit across landed-text-derived
+statements; refused. -/
 def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
+  R.eps = 1 / (500 * (h : ℚ)) ∧
+  (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+    ((Xi R.eps H).card : ℝ) ≤ K) ∧
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
@@ -623,9 +674,13 @@ so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1
 `bigXiH_bounded_ceiling_of_pin h hh hh7 ε rfl`; at `bigXiAffD a b h` with `h := a·h` it is
 `bigXiAff_bounded_ceiling_of_pin` through `bigXiAffD_card_le`); `β := cD3·ε/(144·log 4)`;
 `Hopq := H₀xi`; the hoist `intro A hA26 hAge`; the regime from F3-Q3 at `max F (max extraFloor
-U1floor)` and the caller's `a`, `g`, `hg`; the cap by `flatCapH_shuffle`; the door HANDED OUT
-`⟨ρ, hρpos, le_trans hρ hδ₀le, hdoor⟩`.  The `h`-head's tail (`entropy_decrementFlat`,
-`spine_False_core_xi_sq_flat_h`) is NOT replayed — the door-head has no tail. -/
+U1floor)` and the caller's `a`, `g`, `hg`; the cap by `flatCapH_shuffle`; the `P R` slot
+(`MRTDoorReceiptSet`, v2) discharged as the triple `⟨hReps ▸ hεdef, ⟨C, hC, hCb, hcountR⟩,
+ρ, hρpos, le_trans hρ hδ₀le, hdoor⟩` — the pin from `hεdef : ε = 1/(500h)` and `R.eps = ε`, the
+count from the head's own count conjunct (`hcountR : ∀ H ∈ [R.Hlo, R.Hhi], |Xi R.eps H| ≤ C`,
+which the head form ALSO exports beside `P R`), the door HANDED OUT.  The `h`-head's tail
+(`entropy_decrementFlat`, `spine_False_core_xi_sq_flat_h`) is NOT replayed — the door-head has
+no tail. -/
 theorem flat_door_head_xceil_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (Xi : XiFamily)
     (hcount : ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
@@ -646,8 +701,13 @@ theorem flat_chain_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
 /-- **⟦THE RECEIPT AT `h`, GENERIC SET, FLOOR AND SCALE EXPOSED⟧ (class A).**  The chain at
 `P := MRTDoorReceiptSet h Xi` fed the door-head, unpacked to the payload the pairing reads:
 `obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, …, hεpin, …, hA162, hA₀A,
-hbody⟩ := flat_chain_generic_h … (flat_door_head_xceil_h …) A₀` then `⟨ε, A, hε, hεpin, hA162,
-hA₀A, hbody⟩`. -/
+hbody⟩ := flat_chain_generic_h … (flat_door_head_xceil_h …) A₀`.  v2 (A4/A2): the payload's
+`P R` is now the triple `⟨hRpin, ⟨K, hK, hKb, hcountR⟩, ρ, …⟩`; the two new conjuncts are
+(i) the top-level ε-PIN EQUALITY `ε = 1/(500h)` — read off `P R` at the TRIVIAL instantiation
+`hbody (flatDesignBase A) 1 (fun _ _ => 0) le_rfl (flatDesignBase_loglog_le hA162) le_rfl
+(by norm_num) xceilRiderStrict_zero` (the same five arguments F3-Q17 uses): `hReps ▸ hRpin`;
+(ii) the count conjunct in the payload, forwarded from `P R` verbatim.  Then `⟨ε, A, hε, hεpin,
+hεeq, hA162, hA₀A, fun U1floor a g hU hUceil ha ha1096 hg => …⟩` with the payload re-packed. -/
 theorem mrtUniformityXiL2Set_holds_flat_floor (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
@@ -655,7 +715,8 @@ theorem mrtUniformityXiL2Set_holds_flat_floor (h : ℕ) (hh : 0 < h) (hh7 : Real
     (hcount : ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
       ((Xi (1 / (500 * (h : ℚ))) H).card : ℝ) ≤ C)
     (A₀ : ℝ) :
-    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ ε = 1 / (500 * (h : ℚ)) ∧
+      162 ≤ A ∧ A₀ ≤ A ∧
       ∀ (U1floor a : ℕ) (g : ℕ → ℕ → ℕ), flatDesignBase A ≤ U1floor →
         Real.log (Real.log ((U1floor : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 →
         1 ≤ a → a ≤ 1096 → XCeilRiderStrict ε g →
@@ -663,6 +724,8 @@ theorem mrtUniformityXiL2Set_holds_flat_floor (h : ℕ) (hh : 0 < h) (hh7 : Real
         R.eps = ε ∧ R.Hlo = U1floor ∧ a * g R.Hhi R.ω ≤ R.x ∧ StrideScale a R ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((Xi R.eps H).card : ℝ) ≤ K) ∧
         ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ := by
   sorry
 
@@ -686,10 +749,14 @@ theorem mrtUniformityXiL2H_holds_flat (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h 
 `((a*h : ℕ) : ℝ) * arcDen` matches the road's `(k : ℝ) * arcDen` at `k = a*h` by
 `Nat.cast_mul`… — state the road at `h := a * h` and `push_cast`); `hcount` from
 `bigXiAff_bounded_ceiling_of_pin a b h ha hh hah7 _ rfl` through `bigXiAffD_card_le`
-(`Nat.cast_le.mpr`).  The pin `1/(500·(a·h))` is F1-C5's. -/
+(`Nat.cast_le.mpr`).  The pin `1/(500·(a·h))` is F1-C5's.  v2 (A4/A2): the ε-pin EQUALITY
+`ε = 1/(500·(a·h))` and the count conjunct at `bigXiAffD` are F3-Q16's own at `h := a*h`, `Xi :=
+bigXiAffD a b h` — nothing to prove here beyond the instance (`Nat.cast_mul` on the pin's
+denominator if the road is stated at `(a*h : ℕ)`). -/
 theorem mrtUniformityXiL2AffSet_holds_flat_floor (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
-    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+      ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∀ (U1floor a' : ℕ) (g : ℕ → ℕ → ℕ), flatDesignBase A ≤ U1floor →
         Real.log (Real.log ((U1floor : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 →
         1 ≤ a' → a' ≤ 1096 → XCeilRiderStrict ε g →
@@ -697,6 +764,8 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor (a b h : ℕ) (ha : 0 < a) (hh 
         R.eps = ε ∧ R.Hlo = U1floor ∧ a' * g R.Hhi R.ω ≤ R.x ∧ StrideScale a' R ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((bigXiAffD a b h R.eps H).card : ℝ) ≤ K) ∧
         ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
           MRTUniformityXiL2Set (fun eps H _ => bigXiAffD a b h eps H) R ρ := by
   sorry
@@ -708,30 +777,34 @@ with `b < a`, `0 < h`, `log(a·h) ≤ 7` and every `A₀`: an affine regime `Ra`
 `b`, whose `Hlo` is `Rd.a · flatDesignBase A` for the door regime `Rd` (`= flatDesignBase A` when
 the builder's stride is `1`, which it is but does not export — hence the product form, and the
 floor `flatDesignBase A ≤ Ra.Hlo` exported beside it), carrying the affine `L²` door AT TAO'S
-RANGE at grade `a·(Z(Rd.x, ω)/Z(Ra.x, ω))·ρ + K·a/((a·(Ra.x/ω)+1)·Z(Ra.x, ω))` with
-`ρ ≤ 1/(837782·(ah)²)`, `Z/Z' ≤ 1.02`, `K ≤ 2^539`.
+RANGE at grade **`≤ 1.02·a·ρ + E`** with `ρ ≤ 1/(837782·(ah)²)` and `E` a NAMED nonnegative
+endpoint `≤ 2^539·a/((a·(Ra.x/ω)+1)·(log ω − 1))`.  The statement spells the grade `a·Zr·ρ + E`
+with `Zr` a SLACK BINDER — `1 ≤ Zr ≤ 1.02` — NOT the normaliser ratio `Z/Z'` (v2, refuter verdict
+A7: the ratio is `≤ 1.02` by F3-P17 but not `≥ 1` in general; `Z(10,3)/Z(5,3) = 0.854`).  The
+executor takes `Zr := 1.02`, `E := 2^539·a/(…)` (the bound's own right side) and lands the door
+by `mrtUniformityXiL2AffW_mono` (F3-P10a) from the transport's literal grade `a·(Z/Z')·ρ +
+K·a/((…)·Z')`: `Z/Z' ≤ 1.02` (F3-P17 at `log ω ≥ 101`), `K·a/((…)·Z') ≤ 2^539·a/((…)·(log ω − 1))`
+(F3-P18 at `Z' ≥ log ω − 1` from `harmonic_window_bounds`, `K ≤ 2^539`).
 Assembly: `mrtUniformityXiL2AffSet_holds_flat_floor a b h ha hh hah7 A₀` at `U1floor := a *
 flatDesignBase A` (`hU : flatDesignBase A ≤ a * B` by `Nat.le_mul_of_pos_left`; `hUceil :=
 loglog_mul_flatDesignBase_le hA162 ha (log a ≤ log(ah) ≤ 7)`), `a' := a`, `g := 0`
-(`xceilRiderStrict_zero`) — giving `Rd` with `Rd.Hlo = a * B`, `StrideScale a Rd`, the door over
-`bigXiAffD`; then `regimeShrinkX_stride Rd a ha ha1096 heps500 hs hdiv hlo4 hloM` with `hdiv : a ∣
-Rd.a * (a * B)` (`Dvd.intro_left`), `hlo4`/`hloM` from `flatDesignBase_clears_stride_floors hA162
-(heps : 1/548000 ≤ ε)` and `Rd.a * (a*B) / a = Rd.a * B ≥ B` (`Nat.mul_div_cancel`… with
-`Nat.le_mul_of_pos_left`), `heps500 : ε ≤ 1/500` from `Rd.heps1`?? — NO: from the head's pin the
-form exports only `1/(500(ah)) ≤ ε`; the upper bound `ε ≤ 1/500` is read off the regime as the
-`h`-lane does (`hε2q : ε ≤ 1/2` from `R0.heps1`) — at the pin `ε = 1/(500·ah)` EXACTLY (the
-head's `hεdef`); the executor exports `ε = 1/(500·(a·h))` as a conjunct of
-`mrtUniformityXiL2AffSet_holds_flat_floor` if `≤ 1/500` cannot be recovered (a one-line
-statement strengthening on THIS file's own receipt, not on a landed one); `hb : b ≤ Ra.Hlo`
-from `b < a ≤ 1096 ≤ 4·10⁶ ≤ Ra.Hlo`; `hω : 8 ≤ Rd.ω` from `Rd.hωbig` (`log ω ≥ 64·500`);
-`hK` from the affine count at the regime's `ε` (the head's exported count conjunct is
-`MRTDoorReceiptSet`-side — thread the count through `mrtUniformityXiL2AffSet_holds_flat_floor`'s
-payload as one more conjunct `∀ H, R.Hlo ≤ H → H ≤ R.Hhi → |bigXiAffD…| ≤ K`, `K ≤ 2^539`, which
-the head form already exports and the chain forwards — the executor adds it to §6's two receipts
-and to this statement's `K`); finally `mrtUniformityXiL2AffW_of_set` and the projections. -/
+(`xceilRiderStrict_zero`) — giving `Rd` with `Rd.Hlo = a * B`, `StrideScale a Rd`, the count
+`hcountD : ∃ K ≤ 2^539, ∀ H ∈ [Rd.Hlo, Rd.Hhi], |bigXiAffD a b h Rd.eps H| ≤ K` (v2, A2: the
+receipt's own conjunct, sourced from the widened P-slot — F3-P16's `hK` is stated at
+`bigXiAffD`, so it is fed VERBATIM), and the door over `bigXiAffD`; then `regimeShrinkX_stride
+Rd a ha ha1096 heps500 hs hdiv hlo4 hloM` with `hdiv : a ∣ Rd.a * (a * B)` (`Dvd.intro_left`),
+`hlo4`/`hloM` from `flatDesignBase_clears_stride_floors hA162 (heps : 1/548000 ≤ ε)` and
+`Rd.a * (a*B) / a = Rd.a * B ≥ B` (`Nat.mul_div_cancel`… with `Nat.le_mul_of_pos_left`),
+`heps500 : Rd.eps ≤ 1/500` from the receipt's ε-PIN EQUALITY `hεeq : ε = 1/(500·(a·h))` and
+`Rd.eps = ε` (v2, A4: `1/(500·(ah)) ≤ 1/500` at `a·h ≥ 1`, `one_div_le_one_div_of_le`; v1's
+"read `ε ≤ 1/2` off the regime" route was bogus — `hcoprime` needs `2/ε² ≥ a`, i.e. `ε ≤ 1/24`
+at `a ≤ 1096`); `hb : b ≤ Ra.Hlo` from `b < a ≤ 1096 ≤ 4·10⁶ ≤ Ra.Hlo`; `hω : 8 ≤ Rd.ω` from
+`Rd.hωbig` (`log ω ≥ 64·500`); finally `mrtUniformityXiL2AffW_of_set`, the projections, and the
+mono step above.  The top-level pin `ε = 1/(500·(a·h))` is the receipt's, forwarded. -/
 theorem mrtUniformityXiL2AffW_holds_flat_stride (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hba : b < a) (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
-    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+      ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
         flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
         ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
