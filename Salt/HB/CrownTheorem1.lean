@@ -2136,6 +2136,44 @@ theorem logChiSum_tail_at_window [NeZero q] {χ : DirichletCharacter ℂ q} {β�
         ≤ 100 / Real.sqrt (Real.log X) := by
   sorry
 
+/-- **Bounded window sums of a non-negative integrand ⇒ summable.**  The monotone-convergence
+half of `hbEulerLog_tendsto`: `g` vanishes at and below `N`, is non-negative, and every window
+sum `∑_{N < n ≤ M} g` is `≤ C`. -/
+private lemma n9_summable_window {N : ℕ} {g : ℕ → ℝ} (hg : ∀ n, 0 ≤ g n)
+    (hzero : ∀ n, n ≤ N → g n = 0) {C : ℝ} (hC : ∀ M : ℕ, ∑ n ∈ Finset.Ioc N M, g n ≤ C) :
+    Summable g := by
+  classical
+  refine summable_of_sum_range_le (c := C) hg (fun m => ?_)
+  have heq : ∑ n ∈ Finset.range m, g n
+      = ∑ n ∈ (Finset.range m).filter (fun n => N < n), g n := by
+    refine (Finset.sum_subset (Finset.filter_subset _ _) (fun n hn hn' => ?_)).symm
+    have hlt : ¬ N < n := fun h => hn' (Finset.mem_filter.mpr ⟨hn, h⟩)
+    exact hzero n (not_lt.mp hlt)
+  have hsub : (Finset.range m).filter (fun n => N < n) ⊆ Finset.Ioc N m := by
+    intro n hn
+    rw [Finset.mem_filter, Finset.mem_range] at hn
+    exact Finset.mem_Ioc.mpr ⟨hn.2, le_of_lt hn.1⟩
+  rw [heq]
+  exact le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub (fun n _ _ => hg n)) (hC m)
+
+/-- The window sum of a summable integrand vanishing at and below `N` converges as `Y → ∞`. -/
+private lemma n9_window_tendsto {N : ℕ} {g : ℕ → ℝ} (hg : Summable g)
+    (hzero : ∀ n, n ≤ N → g n = 0) :
+    Tendsto (fun Y : ℝ => ∑ n ∈ Finset.Ioc N ⌊Y⌋₊, g n) atTop (𝓝 (∑' n, g n)) := by
+  classical
+  have hnat : Tendsto (fun M : ℕ => ∑ n ∈ Finset.range M, g n) atTop (𝓝 (∑' n, g n)) :=
+    hg.hasSum.tendsto_sum_nat
+  have hfl : Tendsto (fun Y : ℝ => ⌊Y⌋₊ + 1) atTop atTop :=
+    tendsto_atTop_mono (fun Y : ℝ => Nat.le_succ ⌊Y⌋₊) tendsto_nat_floor_atTop
+  refine (hnat.comp hfl).congr (fun Y => ?_)
+  simp only [Function.comp_apply]
+  refine (Finset.sum_subset (fun n hn => ?_) (fun n hn hn' => ?_)).symm
+  · rw [Finset.mem_Ioc] at hn
+    exact Finset.mem_range.mpr (by omega)
+  · rw [Finset.mem_range] at hn
+    have hlt : ¬ N < n := fun h => hn' (Finset.mem_Ioc.mpr ⟨h, by omega⟩)
+    exact hzero n (not_lt.mp hlt)
+
 /-- **`hlimP` — the ordered Euler log-product converges** (the CHAR-TRIO flag's step 1, never
 produced — every occurrence in the corpus is a hypothesis; `hb_hcorr_closed` carries it).
 Class **C**, cap 300.  Red-first (the verdict's A1 re-route — NOT through
@@ -2152,7 +2190,242 @@ Consumer: `hcorr_at_split`. -/
 theorem hbEulerLog_tendsto [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {z : ℝ} (hz : 3 ≤ z) :
     ∃ A : ℝ, Tendsto (fun Y : ℝ => hbEulerLog χ z Y) atTop (𝓝 A) := by
-  sorry
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, -, -, -, -, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := n9_two_le_q hR
+  have hN3 : 3 ≤ ⌊z⌋₊ := Nat.le_floor (by exact_mod_cast hz)
+  -- `β₀ ≥ 19/20`: `1 − β₀ = 1/(ηL)` with `η ≥ 20` and `L ≥ 1.5·10⁶`
+  have hone : (1 - β₀) * (η * Real.log q) = 1 := by rw [hηL]; field_simp
+  have hE0 : Real.exp (3 * 10 ^ 6) ≤ n9E0 := by
+    have ha0 : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+    have hb0 : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+    simp only [n9E0]; linarith
+  have hηnum : (20 : ℝ) ≤ η := by
+    have hE1 := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
+    have hge : (3000001 : ℝ) ≤ Real.log η := by linarith
+    have h := Real.exp_le_exp.mpr hge
+    rw [Real.exp_log hηpos] at h
+    have h2 := Real.add_one_le_exp (3000001 : ℝ)
+    linarith
+  have hprod : (20 : ℝ) ≤ η * Real.log q := by
+    have h := mul_le_mul_of_nonneg_right hηnum hL.le
+    linarith only [h, hLhuge]
+  have hβ19 : (19 : ℝ) / 20 ≤ β₀ := by nlinarith only [hone, hβpos, hprod]
+  -- the analytic input: the `Λ`-series converges from a high base point, hence from `z`
+  obtain ⟨X₀, -, hX₀⟩ :=
+    logChiSum_tendsto_zfr_hundred (σa := 9 / 10) (σb := 19 / 20) (c₀ := 1 / 126848)
+      χ hR.prim hq2 (by linarith) le_rfl (by norm_num) (by norm_num) (by norm_num)
+      (by linarith) hR.β1 hβ19 hR.zero (by norm_num)
+      (fun ρ hρ hre hor => zero_free_region_all_numeral q χ hR.prim hR.ne hρ hre hor)
+      (real_zeros_below_zfrCeil hR)
+  obtain ⟨S, hS, -⟩ := hX₀ (max X₀ z) (le_max_left _ _)
+  have hzX : z ≤ max X₀ z := le_max_right _ _
+  have hlimre : Tendsto (fun Y : ℝ => (logChiSum χ z Y).re) atTop
+      (𝓝 ((logChiSum χ z (max X₀ z)).re + S.re)) := by
+    have hXre : Tendsto (fun Y : ℝ => (logChiSum χ (max X₀ z) Y).re) atTop (𝓝 S.re) :=
+      (Complex.continuous_re.tendsto S).comp hS
+    have hsum : Tendsto (fun Y : ℝ => (logChiSum χ z (max X₀ z)).re
+        + (logChiSum χ (max X₀ z) Y).re) atTop
+        (𝓝 ((logChiSum χ z (max X₀ z)).re + S.re)) := tendsto_const_nhds.add hXre
+    refine hsum.congr' ?_
+    filter_upwards [eventually_ge_atTop (max X₀ z)] with Y hY
+    rw [← Complex.add_re, ← logChiSum_add χ hzX hY]
+  -- the three non-negative windows: the log-series remainder and the two detector halves
+  obtain ⟨e, he⟩ : ∃ e : ℕ → ℝ, e = fun n => if ⌊z⌋₊ < n ∧ Nat.Prime n then
+      -Real.log (1 - Salt.TwinBar.chiRe χ n / (n : ℝ)) - Salt.TwinBar.chiRe χ n / (n : ℝ)
+    else 0 := ⟨_, rfl⟩
+  obtain ⟨a, ha⟩ : ∃ a : ℕ → ℝ, a = fun n =>
+      if ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1 then
+        2 * (wLog n * ArithmeticFunction.vonMangoldt n) else 0 := ⟨_, rfl⟩
+  obtain ⟨b, hb⟩ : ∃ b : ℕ → ℝ, b = fun n =>
+      if ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q then
+        wLog n * ArithmeticFunction.vonMangoldt n else 0 := ⟨_, rfl⟩
+  have hxabs : ∀ n : ℕ, Nat.Prime n → |Salt.TwinBar.chiRe χ n / (n : ℝ)| ≤ 1 / 2 := by
+    intro n hn
+    have hp2 : (2 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn.two_le
+    have hp0 : (0 : ℝ) < (n : ℝ) := by linarith
+    rw [abs_div, abs_of_pos hp0, div_le_div_iff₀ hp0 (by norm_num)]
+    linarith [chiReTB_abs_le_one χ n]
+  have hepos : ∀ n, 0 ≤ e n := by
+    intro n
+    simp only [he]
+    by_cases hcase : ⌊z⌋₊ < n ∧ Nat.Prime n
+    · rw [if_pos hcase]
+      have hx := abs_le.mp (hxabs n hcase.2)
+      have h1 : (0 : ℝ) < 1 - Salt.TwinBar.chiRe χ n / (n : ℝ) := by linarith [hx.2]
+      have h2 := Real.log_le_sub_one_of_pos h1
+      linarith
+    · rw [if_neg hcase]
+  have hwΛ : ∀ n : ℕ, ⌊z⌋₊ < n → 0 ≤ wLog n * ArithmeticFunction.vonMangoldt n := by
+    intro n hn
+    have hn1 : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast (by omega : 1 ≤ n)
+    exact mul_nonneg (wLog_nonneg hn1) vonMangoldt_nonneg
+  have hapos : ∀ n, 0 ≤ a n := by
+    intro n
+    simp only [ha]
+    by_cases hcase : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1
+    · rw [if_pos hcase]; linarith [hwΛ n hcase.1]
+    · rw [if_neg hcase]
+  have hbpos : ∀ n, 0 ≤ b n := by
+    intro n
+    simp only [hb]
+    by_cases hcase : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q
+    · rw [if_pos hcase]; exact hwΛ n hcase.1
+    · rw [if_neg hcase]
+  have hezero : ∀ n, n ≤ ⌊z⌋₊ → e n = 0 := by
+    intro n hn; simp only [he]; exact if_neg (fun h => absurd h.1 (not_lt.mpr hn))
+  have hazero : ∀ n, n ≤ ⌊z⌋₊ → a n = 0 := by
+    intro n hn; simp only [ha]; exact if_neg (fun h => absurd h.1 (not_lt.mpr hn))
+  have hbzero : ∀ n, n ≤ ⌊z⌋₊ → b n = 0 := by
+    intro n hn; simp only [hb]; exact if_neg (fun h => absurd h.1 (not_lt.mpr hn))
+  -- the `e`-window IS the log-series remainder
+  have hcE : ∀ Y : ℝ, ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, e n
+      = hbEulerLog χ z Y - ∑ p ∈ windowPrimes z Y, Salt.TwinBar.chiRe χ p / (p : ℝ) := by
+    intro Y
+    have hstep : ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, e n
+        = ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, if Nat.Prime n then
+            -Real.log (1 - Salt.TwinBar.chiRe χ n / (n : ℝ))
+              - Salt.TwinBar.chiRe χ n / (n : ℝ) else 0 := by
+      refine Finset.sum_congr rfl (fun n hn => ?_)
+      rw [Finset.mem_Ioc] at hn
+      simp only [he]
+      by_cases hp : Nat.Prime n
+      · rw [if_pos (⟨hn.1, hp⟩ : ⌊z⌋₊ < n ∧ Nat.Prime n), if_pos hp]
+      · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ Nat.Prime n => hp h.2), if_neg hp]
+    rw [hstep, ← Finset.sum_filter, hbEulerLog, windowPrimes, ← Finset.sum_sub_distrib]
+  have hppd : ∀ Y : ℝ, ppDefect z Y
+      = ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊,
+          if ¬ Nat.Prime n then wLog n * ArithmeticFunction.vonMangoldt n else 0 := by
+    intro Y; rw [ppDefect, Finset.sum_filter]
+  have hcA : ∀ Y : ℝ, ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, a n ≤ 2 * ppDefect z Y := by
+    intro Y
+    rw [hppd Y, Finset.mul_sum]
+    refine Finset.sum_le_sum (fun n hn => ?_)
+    rw [Finset.mem_Ioc] at hn
+    have hw := hwΛ n hn.1
+    simp only [ha]
+    by_cases hp : Nat.Prime n
+    · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1 => h.2.1 hp),
+        if_neg (not_not.mpr hp)]
+      norm_num
+    · rw [if_pos hp]
+      by_cases hc : Salt.TwinBar.chiRe χ n = 1
+      · rw [if_pos (⟨hn.1, hp, hc⟩ :
+          ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1)]
+      · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1 =>
+          hc h.2.2)]
+        linarith
+  have hcB : ∀ Y : ℝ, ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, b n ≤ ppDefect z Y := by
+    intro Y
+    rw [hppd Y]
+    refine Finset.sum_le_sum (fun n hn => ?_)
+    rw [Finset.mem_Ioc] at hn
+    have hw := hwΛ n hn.1
+    simp only [hb]
+    by_cases hp : Nat.Prime n
+    · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q => h.2.1 hp),
+        if_neg (not_not.mpr hp)]
+    · rw [if_pos hp]
+      by_cases hc : Nat.Coprime n q
+      · rw [if_pos (⟨hn.1, hp, hc⟩ : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q)]
+      · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q => hc h.2.2)]
+        linarith
+  -- the three uniform ceilings
+  have hEbnd : ∀ M : ℕ, ∑ n ∈ Finset.Ioc ⌊z⌋₊ M, e n ≤ 2 / (⌊z⌋₊ : ℝ) := by
+    intro M
+    have h := hcE (M : ℝ)
+    rw [Nat.floor_natCast M] at h
+    rw [h]
+    refine le_trans (le_abs_self _) ?_
+    exact le_trans (hbEulerLog_sub_primeSum_termwise χ z (M : ℝ))
+      (sum_two_div_sq_windowPrimes_le (by linarith : (1 : ℝ) ≤ z))
+  have hppdle : ∀ M : ℕ, ppDefect z (M : ℝ) ≤ 10 / Real.sqrt (⌊z⌋₊ : ℝ) := by
+    intro M
+    rcases le_or_gt z (M : ℝ) with hM | hM
+    · exact ppDefect_le hz hM
+    · have hMle : M ≤ ⌊z⌋₊ := Nat.le_floor hM.le
+      have hemp : Finset.Ioc ⌊z⌋₊ ⌊(M : ℝ)⌋₊ = ∅ := by
+        rw [Nat.floor_natCast M]; exact Finset.Ioc_eq_empty (by omega)
+      rw [ppDefect, hemp, Finset.filter_empty, Finset.sum_empty]
+      positivity
+  have hAbnd : ∀ M : ℕ, ∑ n ∈ Finset.Ioc ⌊z⌋₊ M, a n
+      ≤ 2 * (10 / Real.sqrt (⌊z⌋₊ : ℝ)) := by
+    intro M
+    have h := hcA (M : ℝ)
+    rw [Nat.floor_natCast M] at h
+    linarith [hppdle M]
+  have hBbnd : ∀ M : ℕ, ∑ n ∈ Finset.Ioc ⌊z⌋₊ M, b n ≤ 10 / Real.sqrt (⌊z⌋₊ : ℝ) := by
+    intro M
+    have h := hcB (M : ℝ)
+    rw [Nat.floor_natCast M] at h
+    linarith [hppdle M]
+  have hse : Summable e := n9_summable_window hepos hezero hEbnd
+  have hsa : Summable a := n9_summable_window hapos hazero hAbnd
+  have hsb : Summable b := n9_summable_window hbpos hbzero hBbnd
+  have hlimd : Tendsto (fun Y : ℝ => ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, (e n - a n + b n)) atTop
+      (𝓝 ((∑' n, e n) - (∑' n, a n) + (∑' n, b n))) := by
+    have h1 := n9_window_tendsto hse hezero
+    have h2 := n9_window_tendsto hsa hazero
+    have h3 := n9_window_tendsto hsb hbzero
+    refine ((h1.sub h2).add h3).congr (fun Y => ?_)
+    rw [← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
+  -- the identity: `hbEulerLog = (logChiSum).re + (e − a + b)-window`
+  have hid : ∀ Y : ℝ, (logChiSum χ z Y).re
+      + ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, (e n - a n + b n) = hbEulerLog χ z Y := by
+    intro Y
+    have hptw : ∀ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, e n - a n + b n
+        = (if Nat.Prime n then -Real.log (1 - Salt.TwinBar.chiRe χ n / (n : ℝ)) else 0)
+          - wLog n * ArithmeticFunction.vonMangoldt n * Salt.TwinBar.chiRe χ n := by
+      intro n hn
+      rw [Finset.mem_Ioc] at hn
+      by_cases hp : Nat.Prime n
+      · have hp2 : (2 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hp.two_le
+        have hlogpos : (0 : ℝ) < Real.log n := Real.log_pos (by linarith)
+        have hwl : wLog (n : ℝ) * ArithmeticFunction.vonMangoldt n = 1 / (n : ℝ) := by
+          rw [wLog, vonMangoldt_apply_prime hp]
+          field_simp
+        have hna : ¬ (⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1) :=
+          fun h => h.2.1 hp
+        have hnb : ¬ (⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q) := fun h => h.2.1 hp
+        simp only [he, ha, hb]
+        rw [if_pos (⟨hn.1, hp⟩ : ⌊z⌋₊ < n ∧ Nat.Prime n), if_pos hp, if_neg hna, if_neg hnb,
+          hwl]
+        ring
+      · have hchi := chiRe_eq_two_mul_ind_sub χ hR.sq n
+        obtain ⟨I1, hI1⟩ : ∃ I1 : ℝ,
+            I1 = (if Salt.TwinBar.chiRe χ n = 1 then (1 : ℝ) else 0) := ⟨_, rfl⟩
+        obtain ⟨I2, hI2⟩ : ∃ I2 : ℝ,
+            I2 = (if Nat.Coprime n q then (1 : ℝ) else 0) := ⟨_, rfl⟩
+        rw [← hI1, ← hI2] at hchi
+        have hA : a n = 2 * (wLog (n : ℝ) * ArithmeticFunction.vonMangoldt n) * I1 := by
+          rw [hI1]; simp only [ha]
+          by_cases hc : Salt.TwinBar.chiRe χ n = 1
+          · rw [if_pos (⟨hn.1, hp, hc⟩ :
+              ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1), if_pos hc]
+            ring
+          · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1 =>
+              hc h.2.2), if_neg hc]
+            ring
+        have hB : b n = (wLog (n : ℝ) * ArithmeticFunction.vonMangoldt n) * I2 := by
+          rw [hI2]; simp only [hb]
+          by_cases hc : Nat.Coprime n q
+          · rw [if_pos (⟨hn.1, hp, hc⟩ : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q),
+              if_pos hc]
+            ring
+          · rw [if_neg (fun h : ⌊z⌋₊ < n ∧ ¬ Nat.Prime n ∧ Nat.Coprime n q => hc h.2.2),
+              if_neg hc]
+            ring
+        have hE : e n = 0 := by
+          simp only [he]
+          exact if_neg (fun h : ⌊z⌋₊ < n ∧ Nat.Prime n => hp h.2)
+        rw [hE, hA, hB, if_neg hp, hchi]
+        ring
+    rw [Finset.sum_congr rfl hptw, Finset.sum_sub_distrib, ← Finset.sum_filter,
+      ← logChiSum_re_eq_sum χ hR.sq z Y]
+    simp only [hbEulerLog, windowPrimes]
+    ring
+  exact ⟨(logChiSum χ z (max X₀ z)).re + S.re
+    + ((∑' n, e n) - (∑' n, a n) + (∑' n, b n)), (hlimre.add hlimd).congr (fun Y => hid Y)⟩
 
 /-- **`hcorr` at the split point** — the bridge `hb_hcorr_closed` lacks: its `A′` is the limit of
 `(logChiSum χ z Y).re`, while `(L2)` wants `(logChiSum χ z X).re + Stail.re`; `logChiSum_add`
