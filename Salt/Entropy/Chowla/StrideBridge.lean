@@ -3,8 +3,12 @@ Copyright (c) 2026 The Salt project contributors. Released under the Apache
 License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦STRIDE BRIDGE⟧ — Tao (3.16) / Prop 2.6 at the affine forms: the F-function with the class
-filter, λ-BV wave 2-S step F2 (2026-09-03, STATEMENT-ONLY at the freeze; executors after the
-09/04 08:00 council)
+filter, λ-BV wave 2-S step F2 (2026-09-03, STATEMENT-ONLY at the freeze; v2 after the helm's
+refuter verdict 18:1x — REPAIR-THEN-FIRE 6/6; executors after the 09/04 08:00 council)
+
+⛔ **MERGE FENCE (iron rule 2).**  This module is sorry-bodied BY DESIGN and imported from
+`Salt/Entropy/All.lean`; the branch `math/lbv-w2s-f2` NEVER reaches `main` until every obligation
+here lands sorry-free (`git grep '^\s*sorry\s*$' origin/main` is 0 and stays 0).
 
 `StrideFork` (F1) opened the OBJECTS of Tao arXiv:1509.05422 Theorem 2.3 at a general stride
 `a` and offset `b`: the pushforward measure `logMeasureAff a x ω`, the frequency set
@@ -15,12 +19,15 @@ half (F4) has a `(c₁, h211)` pair to consume at `(a, b, h)`, exactly as `outer
 `h211_of_logChowla2Fails_h`.
 
 ⟦THE DESIGN, IN THREE LINES — freeze `2026-09-03-math-FREEZE-lambda-bv-wave2S-F2.md` §1⟧
-* Tao (3.16) (textdump:1288-1290) restricts the window index to the class `j ≡ p·b (mod a)`:
+* Tao (3.16) (textdump:1278-1284) restricts the window index to the class `j ≡ p·b (mod a)`:
   `E Σ_p (c_p/p) Σ_{j : j, j+ph ∈ [1,H]} 1_{j ≡ pb (a)} g₁(an+j) g₂(an+j+ph) ≫ ε·H/log H`.  In the
   corpus's 0-indexed window (`windowVal H v j = λ(m+j+1)`) that filter is `j + 1 ≡ p·b (mod a)`,
-  spelled `((j + 1 : ℕ) : ZMod a) = ((p·b : ℕ) : ZMod a)`.  ⭐ **THE FILTER IS A CONJUNCT ON THE
-  SUMMATION INDEX `(j, p)` AND NEVER TOUCHES THE RESIDUE DATUM.**  Tao's gate `an + j ≡ pb (mod ap)`
-  splits by CRT (`gcd(a, p) = 1`: `a ≤ ε²H₋/2 < p` by the regime's `hcoprime`) into `p ∣ an + j`
+  spelled `((j + 1 : ℕ) : ZMod a) = ((p·b : ℕ) : ZMod a)` — `p·b` and not `b`, because the
+  multiplicativity step MULTIPLIES the argument by `p` (`n ↦ pn`, textdump:758).  ⭐ **THE FILTER IS
+  A CONJUNCT ON THE SUMMATION INDEX `(j, p)` AND NEVER TOUCHES THE RESIDUE DATUM.**  Tao's gate
+  `an + j ≡ pb (mod ap)` (the display at :741, the statement from :732) splits by CRT
+  (`gcd(a, p) = 1`: `a ≤ ε²H₋/2 < p` by the regime's `hcoprime`; the kernel receipt is
+  `coprime_PH_of_le`, `PrimeWindow.lean:143-160`) into `p ∣ an + j`
   — the landed gate on `y = m mod P_H` at `m = a·n` — and `j ≡ pb (mod a)`, which reads no `y`.
   So the carrier `ZMod (PH eps H)` is UNCHANGED and F1's STOP ("the filter cannot be carried through
   `fBridgeF`'s carrier without a new carrier") is cleared by inspection, not by a construction.
@@ -35,10 +42,23 @@ half (F4) has a `(c₁, h211)` pair to consume at `(a, b, h)`, exactly as `outer
 ⛔ **Degenerate values.**  `a = 0`: `ZMod 0 = ℤ` and the filter reads `j + 1 = p·b` in `ℤ`; every
 identity and bound below is still true, `(H : ℝ) / 0 = 0` makes `hreduce_aff` trivial and
 `cM / (2·0) = 0` makes the explicit conclusion `0 ≤ |…|`; `0 < a` is carried where a POSITIVE
-constant is exported.  `h = 0` inherits the `h`-lane's degeneracy.  `b` is unconstrained here
-(the regime's `hb` binds it downstream).  `H = 0, 1`: `Finset.range H` and `Fin H` degenerate as in
-`FBridge`.  `a = 1, b = 0`: the filter is `True` (`ZMod 1` is a subsingleton) and every object is
-the landed `_h` member — the `_one_zero` compats say so.
+constant is exported.  `h = 0` inherits the `h`-lane's degeneracy.  `b` is unconstrained in every
+statement below EXCEPT `affCollapse_base_point`, which carries `b < a`: the collapsed base point is
+the seed's `a·m' + b` ONLY for the reduced residue (at `a = 2, b = 3` the collapse lands on
+`2m' + 1`, not `2m' + 3`), and the regime's `hb : b ≤ Hlo` is the WRONG ceiling for that — F4's
+producer of `hreduce_aff` carries `hblt : b < a` (or the affine regime gains the field; F4's design
+block decides).  At the prize instance `(210, 209, 2)` it holds.  `H = 0, 1`: `Finset.range H` and
+`Fin H` degenerate as in `FBridge`.  `a = 1, b = 0`: the filter is `True` (`ZMod 1` is a
+subsingleton) and every object is the landed `_h` member — the `_one_zero` compats say so.
+
+⛔ **WHICH STATEMENTS POLICE THE FILTER'S SPELLING.**  None of the 19 producer-chain obligations
+does: every identity carries the filter expression on BOTH sides (B7/B8/B12/P1), the `(1, 0)`
+compats live at `ZMod 1` where every spelling is `True`, the bounds only lose terms, and C1–C4
+never unfold `fBridgeF_aff` — the whole chain lands green under a WRONG filter (the F1 verdict's
+§B3 shape, one wave later).  The kernel tripwires are the F2-T block: `affFilter_spec_three` (the
+predicate at `a = 3`, where `p·b ≢ b`), `affFilter_spec_two` (the `j` vs `j + 1` axis) and
+`fBridgeG_aff_two_one` (the OBJECT at `(2, 1)`, its surviving index set spelled `j % 2 = 0`).  A
+wrong `H/a` is first caught at F4's `hreduce_aff` discharge.
 
 Scope: definitions and the producer-chain statements only; `hreduce_aff` is a HYPOTHESIS here
 exactly as `hreduce` is in `Prop26` (its discharge is F4's, at the stride measure).  Nothing here
@@ -76,11 +96,13 @@ noncomputable def fBridgeF_aff (a b h : ℕ) (v : Fin H → ℤ) : ZMod (PH eps 
   fun y => ∑ p : primeWindow eps H, fBridgeG_aff eps H a b h v p (residueProj eps H p y)
 
 /-- **F2-B3 (class B) — the `(1, 0)` compat for `G`.**  At `a = 1` the filter compares two
-elements of `ZMod 1`, a subsingleton (`Fin 1`), so the second conjunct is `True`:
-`have hsub : ∀ u w : ZMod 1, u = w := fun u w => Subsingleton.elim u w`, then `funext r; unfold
-fBridgeG_aff fBridgeG_h; refine Finset.sum_congr rfl (fun j _ => ?_); simp only [hsub, and_true]`.
-Like `fBridgeG_h_one`, this compat CANNOT police the filter's spelling — at `a = 1` every
-spelling is `True`; `fBridgeG_aff_sum_over_residues` at `a = 2` is where a wrong filter shows. -/
+elements of `ZMod 1`, a subsingleton (`Fin 1`), so the second conjunct is `True`: `funext r; unfold
+fBridgeG_aff fBridgeG_h; refine Finset.sum_congr rfl (fun j _ => ?_); simp only
+[eq_iff_true_of_subsingleton, and_true]` (recipe VERIFIED in a scratch probe at the freeze's v2,
+09/03 18:1x; a local `hsub : ∀ u w : ZMod 1, u = w` is NOT a rewrite rule — its LHS is a bound
+variable — and would leave `x = x`, which `and_true` cannot see).  Like `fBridgeG_h_one`, this
+compat CANNOT police the filter's spelling — at `a = 1` every spelling is `True`; the filter's
+tripwires are the F2-T block. -/
 theorem fBridgeG_aff_one_zero (h : ℕ) (v : Fin H → ℤ) (p : primeWindow eps H) :
     fBridgeG_aff eps H 1 0 h v p = fBridgeG_h eps H h v p := by
   sorry
@@ -119,9 +141,10 @@ lemma fBridgeG_aff_mem_Icc (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| 
 `r`-sum of `if gate r ∧ filter then t else 0` is `if filter then (∑_r if gate r then t else 0)
 else 0` (`by_cases hf : filter` and `simp only [hf, and_true, and_false, if_false,
 Finset.sum_const_zero]`), and the inner sum collapses at `r = -(j+1)` exactly as at `h`
-(`Finset.sum_ite_eq'` after the `hcond` flip).  ⭐ THIS IS THE FILTER'S TRIPWIRE: at `a = 2, b = 1`
-the right-hand side keeps only the `j` with `j + 1 ≡ p (mod 2)`, i.e. the EVEN `j` (every window
-prime is odd) — a filter on `j` instead of `j + 1` keeps the odd ones. -/
+(`Finset.sum_ite_eq'` after the `hcond` flip).  ⛔ B7 polices the GATE's residue collapse, NOT the
+filter: the class filter appears identically on both sides, so this identity proves under ANY
+spelling of it (the refuter's kill A1).  The arithmetic "at `a = 2, b = 1` the EVEN `j` survive"
+is true, and it is `fBridgeG_aff_two_one` (F2-T3) that asserts it in the kernel. -/
 lemma fBridgeG_aff_sum_over_residues (a b h : ℕ) {v : Fin H → ℤ} (p : primeWindow eps H) :
     ∑ r : ZMod (p : ℕ), fBridgeG_aff eps H a b h v p r
       = ∑ j ∈ Finset.range H,
@@ -209,6 +232,44 @@ theorem fBridge_aff_concentration_decoupled_sharp (a b h : ℕ)
           (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
   sorry
 
+/-! ## F2-T — the filter's KERNEL TRIPWIRES (the refuter's kill A1: no producer-chain statement is
+filter-sensitive, so the spelling `j + 1 ≡ p·b (mod a)` is pinned here, decidably) -/
+
+/-- **F2-T1 (class A) — the separating tripwire, at `a = 3`.**  `a = 3, b = 1, p = 2` ⇒ `p·b = 2`
+⇒ `j + 1 ≡ 2 (mod 3)` ⇒ `j ∈ {1, 4}` in `range 6`.  The three rival spellings give three DIFFERENT
+sets — `b` in place of `p·b` gives `{0, 3}`, `j` in place of `j + 1` gives `{2, 5}` — so this one
+`decide` separates all of them (at `a = 2` every odd `p` has `p·b ≡ b`, which is why the freeze's
+own `a = 2` instance could not).  Recipe: `decide` (VERIFIED in a scratch probe 09/03 18:1x, with
+the `{0, 3}` mutant refused by the same tactic). -/
+lemma affFilter_spec_three :
+    (Finset.range 6).filter
+      (fun j => ((j + 1 : ℕ) : ZMod 3) = ((2 * 1 : ℕ) : ZMod 3)) = {1, 4} := by
+  sorry
+
+/-- **F2-T2 (class A) — the index-shift axis, at `a = 2`.**  `a = 2, b = 1, p = 3` ⇒ `j + 1` odd ⇒
+the EVEN `j`: `{0, 2, 4}` in `range 6` (a filter on `j` would give the odd ones).  Recipe: `decide`
+(VERIFIED in the same probe). -/
+lemma affFilter_spec_two :
+    (Finset.range 6).filter
+      (fun j => ((j + 1 : ℕ) : ZMod 2) = ((3 * 1 : ℕ) : ZMod 2)) = {0, 2, 4} := by
+  sorry
+
+/-- **F2-T3 (class B) — the OBJECT's tripwire: `fBridgeG_aff` at `(a, b) = (2, 1)` with the
+surviving index set spelled ARITHMETICALLY.**  For an odd window prime `p·1 ≡ 1 (mod 2)`, so the
+filter keeps exactly the even `j`, and the per-prime component is the gate-only sum over
+`(range H).filter (· % 2 = 0)`.  FALSE under `j ≡ p·b`, under `b` in place of `p·b`, and under no
+filter — the kernel tripwire the docstrings of v1 promised and did not have.  Recipe: `unfold
+fBridgeG_aff`; `Finset.sum_filter` on the right, then `Finset.sum_congr rfl` and per `j` the
+filter conjunct is `((j+1 : ℕ) : ZMod 2) = ((p*1 : ℕ) : ZMod 2) ↔ j % 2 = 0` by
+`ZMod.natCast_eq_natCast_iff'` + `Nat.odd_iff.mp hp` + `omega`; `split_ifs` closes. -/
+lemma fBridgeG_aff_two_one (h : ℕ) (v : Fin H → ℤ) (p : primeWindow eps H)
+    (hp : Odd (p : ℕ)) (r : ZMod (p : ℕ)) :
+    fBridgeG_aff eps H 2 1 h v p r
+      = ∑ j ∈ (Finset.range H).filter (fun j => j % 2 = 0),
+          if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
+            (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ) * h) : ℝ) else 0 := by
+  sorry
+
 /-! ## F2-P — Prop 2.6 at the affine forms: the pointwise unfold and the `(p, r)`-collapse -/
 
 /-- **F2-P1 (class B) — the pointwise F-bridge unfold at `(a, b, h)`, at ANY base point `m`.**
@@ -245,20 +306,24 @@ theorem fBridgeF_aff_liouville_apply_one_zero (h : ℕ) (m : ℕ) :
 /-- **F2-P3 (class A) — THE INDEX ARITHMETIC OF THE `(p, r)`-COLLAPSE AT STRIDE `a`.**  On the
 residue class `n ≡ rⱼ (mod p)` realising the gate `p ∣ a·n + j + 1`, write `p·k = a·rⱼ + j + 1`
 (the gate at the class representative); then at `n = p·m + rⱼ` the window index is a multiple
-of `p`: `a·(p·m + rⱼ) + j + 1 = p·(a·m + k)`.  `subst`-free: `nlinarith`/`ring_nf` after `rw [←
-hk]`, or `omega` (linear in `m` once `hk` is a hypothesis: `a·p·m + (a·rⱼ + j + 1) = p·a·m +
-p·k`).  This is the line the freeze names "`a·r + j + 1` in place of `r + j + 1`". -/
+of `p`: `a·(p·m + rⱼ) + j + 1 = p·(a·m + k)`.  Recipe (VERIFIED in a scratch probe 09/03 18:1x):
+`have hx : a * (p * m + rj) + j + 1 = p * (a * m) + (a * rj + j + 1) := by ring` then
+`rw [hx, ← hk]; ring`.  ⛔ NOT `omega` (it atomises `a * (p*m+rj)`, `p * (a*m+k)` and `p * k` as
+unrelated atoms) and NOT a bare `rw [← hk]` (the goal has no subterm `a * rj + j + 1` until `hx`
+exposes it).  This is the line the freeze names "`a·r + j + 1` in place of `r + j + 1`". -/
 lemma affGate_index_eq (a p j rj k m : ℕ) (hk : p * k = a * rj + j + 1) :
     a * (p * m + rj) + j + 1 = p * (a * m + k) := by
   sorry
 
-/-- **F2-P4 (class A/B) — the multiplicativity collapse at stride `a`.**  With the gate
+/-- **F2-P4 (class A) — the multiplicativity collapse at stride `a`.**  With the gate
 `p·k = a·rⱼ + j + 1` and `p ≠ 0`, the dilated pair collapses to the seed's shape at the base point
 `a·m + k`: `λ(a(pm+rⱼ)+j+1)·λ(a(pm+rⱼ)+j+ph+1) = λ(am+k)·λ(am+k+h)`.  `affGate_index_eq` rewrites
 both arguments (`a(pm+rⱼ)+j+ph+1 = p(am+k) + p·h` by `omega` from the first), then
-`liouville_collapse_h p h hp (a*m+k)` (`ShiftFork.lean:472`) closes.  Downstream (F4) `k ≡ b
-(mod a)` because `p·k ≡ j+1 ≡ p·b (mod a)` with `gcd(p, a) = 1` — the class filter is what makes
-the collapsed base point `a·m' + b`, the seed's form; that congruence is NOT stated here. -/
+`liouville_collapse_h p h hp (a*m+k)` (`ShiftFork.lean:472`) closes (the `omega` here IS sound: with
+`affGate_index_eq` in context the atoms are shared and the goal is linear in them).  Downstream
+(F4) `k ≡ b (mod a)` because `p·k ≡ j+1 ≡ p·b (mod a)` with `gcd(p, a) = 1` — the class filter is
+what makes the collapsed base point `a·m' + b`, the seed's form; that congruence is F4's, and the
+step from it to the seed's form is `affCollapse_base_point` below, which needs `b < a`. -/
 lemma liouville_collapse_aff (a p j rj k m h : ℕ) (hp : p ≠ 0)
     (hk : p * k = a * rj + j + 1) :
     (ArithmeticFunction.liouville (a * (p * m + rj) + j + 1) : ℝ)
@@ -286,6 +351,18 @@ lemma perPair_collapse_aff {x ω : ℕ} (a h p j rj : ℕ) (hp : 1 ≤ p) (hrj :
       ≤ 2 * 1 * (rj : ℝ) / (p : ℝ) ^ 2 / Z := by
   sorry
 
+/-- **F2-P6 (class A) — THE COLLAPSED BASE POINT IS THE SEED'S `a·m' + b` ONLY UNDER `b < a`** (the
+refuter's kill A2).  From the class congruence `k ≡ b (mod a)` (F4 derives it from
+`p·k ≡ j + 1 ≡ p·b (mod a)` and `gcd(p, a) = 1`) and the REDUCED residue `b < a`, `k = a·(k/a) + b`
+— so the collapsed pair `λ(am+k)·λ(am+k+h)` is `λ(a·m' + b)·λ(a·m' + b + h)` at `m' = m + k/a`.
+Without `b < a` the conclusion is FALSE (`a = 2, b = 3, k = 1`): the regime's `hb : b ≤ Hlo` does
+not supply it, so F4's `hreduce_aff` producer carries `hblt : b < a`.  Recipe (VERIFIED in a
+scratch probe 09/03 18:1x): `have h1 := (ZMod.natCast_eq_natCast_iff' k b a).mp hk; rw
+[Nat.mod_eq_of_lt hblt] at h1; have h2 := Nat.div_add_mod k a; omega`. -/
+lemma affCollapse_base_point (a b k : ℕ) (hblt : b < a)
+    (hk : (k : ZMod a) = (b : ZMod a)) : k = a * (k / a) + b := by
+  sorry
+
 /-! ## F2-C — the `(c₁, h211)` glue at the affine forms (the `ChowlaFailure` twins) -/
 
 /-- **F2-C1 (class B) — Tao Prop 2.6 at the affine forms, EXPLICIT constant.**  From the seed
@@ -295,8 +372,10 @@ lemma perPair_collapse_aff {x ω : ℕ} (a h p j rj : ℕ) (hp : 1 ≤ p) (hrj :
 `SP·(H/a)·|X_aff|`, the `H/a` being the class's share of the window (Tao (3.16)) — the affine
 F-bridge expectation obeys `cM/(2a) · (δ·H/log H) ≤ |∫ F_aff|`.  The `h`-script
 (`fBridge_of_singleCorr_h`, `Prop26.lean:286`) with `(H : ℝ)` read as `(H : ℝ) / a` in `hkey`'s
-consumer and the constant `cM/2` read as `cM/(2a)` (`field_simp` at `0 < a`; at `a = 0` both
-sides are `0`).  The constant is EXPLICIT so that F5's grade line reads `cM/(2a)` from the kernel,
+consumer and the constant `cM/2` read as `cM/(2a)`.  No `0 < a` binder here, so the executor
+case-splits `rcases Nat.eq_zero_or_pos a`: at `a = 0` the LEFT side is `cM/0 · … = 0` and the goal
+is `abs_nonneg` (the right side is NOT `0`); at `0 < a` the `h`-script with `field_simp`.  The
+constant is EXPLICIT so that F5's grade line reads `cM/(2a)` from the kernel,
 not from prose. -/
 theorem fBridge_of_singleCorr_aff (a b h : ℕ) {x ω : ℕ}
     (hlog : 1 ≤ Real.log (H : ℝ)) {cM : ℝ} (hcM : 0 < cM)
@@ -363,9 +442,10 @@ theorem h211_aff (a b h : ℕ) {x ω : ℕ}
 `logChowlaFails h` hypothesis and the `h`-twin's own `hprop26` spelling, and discharged from
 `h211_aff 1 0 h`: `logChowlaFailsAff_one_zero` (`AffineFork.lean:78`) converts `hfail`;
 `logMeasureAff_one` and `fBridgeF_aff_one_zero` convert the integrals in both the binder and the
-conclusion (`simp only [logMeasureAff_one, fBridgeF_aff_one_zero, zero_add] at *` — the seed's
-summand is `λ(m + 0)·λ(m + 0 + h)`, hence the `zero_add`).  The kill-check that the affine family
-SUBSUMES the `h`-family at its model point. -/
+conclusion (`simp only [logMeasureAff_one, fBridgeF_aff_one_zero, add_zero] at *` — the seed's
+summand is `λ(m + 0)·λ(m + 0 + h)`, hence `add_zero`, NOT `zero_add`, which matches nothing and is
+a silent simp no-op; `AffineFork.lean:76` records the same trap).  The kill-check that the affine
+family SUBSUMES the `h`-family at its model point. -/
 theorem h211_aff_one_zero (h : ℕ) {x ω : ℕ}
     (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x)
     (hlog2 : 2 ≤ Real.log (ω : ℝ)) (heps : 0 < eps)
