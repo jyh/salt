@@ -604,6 +604,28 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    and the door on F3's route misses it by the supply factor `1.02·a = 214`, a numeral paid at one gate
    at `+32`/`+64` on `log H`), CONDITIONAL on F3's regime pairing — a NODE, priced separately
    (`2026-09-04-math-PRICE-lbv-w2S-F3-regime-pairing.md`). Nothing here bears on twin primes.
+   ✅⭐⭐ **WAVE 2-S STEP F3 LANDED — THE REGIME PAIRING, SHARE THE TOWER — STAMPED 2026-09-04 12:5x
+   (math).** Frozen statement-only 11:2x (`2026-09-04-math-FREEZE-lbv-w2S-F3.md`), v2 cut 12:0x on the
+   helm's REPAIR-THEN-FIRE 4/4 verdict (§A the kill→repair ledger: the `+7` numeral twin of the
+   equality-tight `xceil_arm_split_h`; THE P-SLOT WIDENED so the head's ε-pin EQUALITY and the count
+   ride the opaque conclusion and no form moves; `Z : ℝ`; `open private`; P16's `hK` at `bigXiAffD`;
+   the crown's grade worded `≤ 1.02·a·ρ + E` with `Zr` a slack binder and the landing step
+   `mrtUniformityXiL2AffW_mono` added), fired 12:0x. `Salt/Entropy/Chowla/StridePair.lean` (28/28) +
+   `Salt/MR/StridePairReceipt.lean` (20/20) on `math/lbv-w2s-f3`: **60 declarations, 48 obligations,
+   48 LANDED (41 at one attempt), every theorem `[3 axioms]` under both rebuilt aggregates** — the
+   shrunk regime `regimeShrinkX_stride` (`x/a`, `Rd.a·Hlo/a`, stride `a`) with its tower identity a
+   THEOREM; THE STATEMENT ACT `MRTUniformityXiL2AffW`, the affine door AT TAO'S RANGE (`R.a ∣ H ∧
+   R.a·Hlo ≤ H`, F1-D2 untouched, seam cloned); the measure transport at grade `a·(Z/Z')·ρ + E`; the
+   multiplier THREADED through the builder (the price's M-R2 struck: the rider ranges over the gate's
+   `ω`); the `h`-lane generator at a GENERIC SET FAMILY with the floor exposed and the door handed out;
+   the affine arc bridge at cap `(ah)·arcDen` on the grid; and THE CROWN
+   `mrtUniformityXiL2AffW_holds_flat_stride`: the affine `L²` door exists in the kernel at a regime
+   the entropy half can run on, grade `≤ 1.02·a·ρ + E`, `ρ ≤ 1/(837782(ah)²)`. ⛔ **HONEST LABEL:** F3
+   produces the affine door AT A REGIME at the road's own grade times `1.02·a`; the affine DEMAND is
+   still MISSED by `214` at `(210, 2)` (F5's numeral re-cut); nothing here proves an estimate about the
+   affine correlation. NEXT: F4 (the entropy half at the affine regime, consuming
+   `regimeShrinkX_stride`'s regime and firing `contradiction_of_mrtDoorXiL2AffW` at TOWER VALUES ONLY)
+   — statement-only, refuters first. Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
