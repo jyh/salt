@@ -1893,6 +1893,13 @@ theorem hb_theorem1 [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
 
 /-! ## §6 — THE DOOR AND THE CROWN FAMILY (N10 reduced, N11 closed, N12 parametrised) -/
 
+/-- `C(4) = 2`: the product over the odd prime factors of `4` is empty. -/
+private lemma n9_calpha_four : hbCalpha 4 = 2 := by
+  have h4 : (4 : ℕ).primeFactors = {2} := by
+    rw [show (4 : ℕ) = 2 ^ 2 by norm_num, Nat.primeFactors_pow 2 (by norm_num),
+      Nat.Prime.primeFactors Nat.prime_two]
+  simp [hbCalpha, h4, Finset.filter_singleton]
+
 /-- **The lower half of Theorem 1, as the door reads it.**  Class **A**, cap 60.
 Consumer: `crown_handover`. -/
 theorem hb_theorem1_lower [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
@@ -1901,7 +1908,24 @@ theorem hb_theorem1_lower [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     (hK : 2 * n9K Cerr CA CA' CC ≤ Real.log (n9Ell q η)) :
     (x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 / 2
       ≤ S1 (Finset.Ioc x (2 * x)) := by
-  sorry
+  obtain ⟨δ, heq, hδ⟩ := hb_theorem1 hR hx hx' hN7
+  obtain ⟨hqR, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩ := n9_num_facts hR
+  have hlogpos : 0 < Real.log (n9Ell q η) := Real.log_pos (by linarith only [hPbig])
+  have hK2 : n9K Cerr CA CA' CC / Real.log (n9Ell q η) ≤ 1 / 2 := by
+    rw [div_le_iff₀ hlogpos]
+    linarith only [hK]
+  have hδ2 : |δ| ≤ 1 / 2 := le_trans hδ hK2
+  have hlow : (1 : ℝ) / 2 ≤ 1 + δ := by
+    have h := (abs_le.mp hδ2).1
+    linarith only [h]
+  have hM : (0 : ℝ) ≤ (x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 := by
+    have h1 := Salt.HardyLittlewood.twinSingularSeries_pos
+    have h2 : hbCalpha 4 = 2 := n9_calpha_four
+    rw [h2]
+    positivity
+  rw [heq]
+  have hstep := mul_le_mul_of_nonneg_right hlow hM
+  linarith only [hstep]
 
 /-- **The fulcrum quality at POLYLOG strength `k`**: infinitely many real primitive `χ` with a
 zero `ρ` inside `‖1 − ρ‖ ≤ 1/(C·(log q)^k)`.  At `k = 1` this is `FulcrumQualityMin C`
@@ -1933,23 +1957,35 @@ def HeathBrownDichotomyPoly (k : ℝ) : Prop :=
 
 /-- Class **A**, cap 30: `Real.rpow_one`. -/
 theorem fulcrumQualityPoly_one_iff (C : ℝ) : FulcrumQualityPoly C 1 ↔ FulcrumQualityMin C := by
-  sorry
+  simp only [FulcrumQualityPoly, FulcrumQualityMin, Real.rpow_one]
 
 /-- Class **A**, cap 30: `Real.rpow_one`. -/
 theorem noSiegelZerosPoly_one_iff : NoSiegelZerosPoly 1 ↔ NoSiegelZeros := by
-  sorry
+  simp only [NoSiegelZerosPoly, NoSiegelZeros, Real.rpow_one]
 
 /-- **The frozen crown IS the `k = 1` member** — the sentence made a theorem (the verdict's K12
 note).  Class **A**, cap 20: `or_congr Iff.rfl noSiegelZerosPoly_one_iff`.
 Consumer: the crown ruling (Arm B's target). -/
 theorem heathBrownDichotomyPoly_one_iff : HeathBrownDichotomyPoly 1 ↔ HeathBrownDichotomy := by
-  sorry
+  simp only [HeathBrownDichotomyPoly, HeathBrownDichotomy]
+  exact or_congr Iff.rfl noSiegelZerosPoly_one_iff
 
 /-- **A non-trivial Dirichlet character has modulus `≥ 3`** (the verdict's A9): mod `1` and
 mod `2` the only character is `1` (`(ZMod 2)ˣ` is trivial).  Class **A**, cap 30.
 Consumer: `noSiegelZerosPoly_mono` (`log q ≥ 1`). -/
 theorem three_le_of_ne_one [NeZero q] (χ : DirichletCharacter ℂ q) (hne : χ ≠ 1) : 3 ≤ q := by
-  sorry
+  rcases Nat.lt_or_ge q 3 with hlt | hge
+  swap
+  · exact hge
+  exfalso
+  have hq1 : 1 ≤ q := Nat.one_le_iff_ne_zero.mpr (NeZero.ne q)
+  apply hne
+  refine MulChar.ext fun a => ?_
+  have hu : (a : ZMod q) = 1 := by
+    have h2 : q = 1 ∨ q = 2 := by omega
+    rcases h2 with h | h <;> subst h <;> revert a <;> decide
+  rw [hu]
+  simp
 
 /-- **The family is monotone in `k`**: `c/(log q)^{k′} ≤ c/(log q)^k` for `k ≤ k′` once
 `log q ≥ 1`.  This is the theorem behind "`Poly 14` is weaker than the frozen crown" (with
@@ -1958,7 +1994,27 @@ theorem three_le_of_ne_one [NeZero q] (χ : DirichletCharacter ℂ q) (hne : χ 
 Consumer: the crown ruling. -/
 theorem noSiegelZerosPoly_mono {k k' : ℝ} (hk : 1 ≤ k) (hkk' : k ≤ k')
     (h : NoSiegelZerosPoly k) : NoSiegelZerosPoly k' := by
-  sorry
+  have _hk := hk
+  obtain ⟨c, hc, hprop⟩ := h
+  refine ⟨c, hc, ?_⟩
+  intro q _ χ hq1 hprim hsq hne β hβ hβ1
+  have h3 : (3 : ℕ) ≤ q := three_le_of_ne_one χ hne
+  have h3R : (3 : ℝ) ≤ (q : ℝ) := by exact_mod_cast h3
+  have he : Real.exp 1 ≤ (q : ℝ) := by
+    have h9 := Real.exp_one_lt_d9
+    linarith
+  have hlog1 : (1 : ℝ) ≤ Real.log q := by
+    have h := Real.log_le_log (Real.exp_pos 1) he
+    rwa [Real.log_exp] at h
+  have hmono : Real.log q ^ k ≤ Real.log q ^ k' :=
+    Real.rpow_le_rpow_of_exponent_le hlog1 hkk'
+  have hpk : (0 : ℝ) < Real.log q ^ k := Real.rpow_pos_of_pos (by linarith) k
+  have hpk' : (0 : ℝ) < Real.log q ^ k' := Real.rpow_pos_of_pos (by linarith) k'
+  have hdiv : c / Real.log q ^ k' ≤ c / Real.log q ^ k := by
+    rw [div_le_div_iff₀ hpk' hpk]
+    exact mul_le_mul_of_nonneg_left hmono hc.le
+  have hmain := hprop q χ hq1 hprim hsq hne β hβ hβ1
+  linarith
 
 /-- **The `¬F` horn at strength `k`** — the mirror of `not_fulcrum_implies_noSiegelZeros`.
 Class **B**, cap 300.  Red-first: `¬F` gives `Q` with every `q > Q` at quality worse than
@@ -1968,14 +2024,59 @@ minimum gap — the compactness gadget's own argument (`Salt/Fulcrum/Gadget.lean
 in place of `log q`.  Consumer: `fulcrum_dichotomy_poly`. -/
 theorem not_fulcrumPoly_implies_noSiegelZerosPoly {C k : ℝ} (hC : 0 < C) (hk : 1 ≤ k)
     (hnF : ¬ FulcrumQualityPoly C k) : NoSiegelZerosPoly k := by
-  sorry
+  have hnF' : ∃ Q : ℕ, ¬ ∃ (q : ℕ) (_ : NeZero q) (χ : DirichletCharacter ℂ q) (ρ : ℂ),
+      Q < q ∧ χ.IsPrimitive ∧ χ ^ 2 = 1 ∧ χ ≠ 1 ∧
+      DirichletCharacter.LFunction χ ρ = 0 ∧ ‖(1 : ℂ) - ρ‖ * (C * Real.log q ^ k) ≤ 1 := by
+    by_contra hcon
+    exact hnF fun Q => not_not.mp fun h => hcon ⟨Q, h⟩
+  obtain ⟨Q, hQ0⟩ := hnF'
+  obtain ⟨c₀, hc₀, hiso⟩ := Salt.Fulcrum.siegel_zeros_isolated_below Q
+  have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hm : (0 : ℝ) < Real.log 2 ^ k := Real.rpow_pos_of_pos hl2 k
+  refine ⟨min (c₀ * Real.log 2 ^ k) (1 / C), lt_min (mul_pos hc₀ hm) (by positivity), ?_⟩
+  intro q _ χ hq1 hprim hsq hne β hβ hβ1
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq1
+  have hlq : (0 : ℝ) < Real.log q := Real.log_pos (by linarith)
+  have hlq2 : Real.log 2 ≤ Real.log q := Real.log_le_log (by norm_num) hq2
+  have hpk : (0 : ℝ) < Real.log q ^ k := Real.rpow_pos_of_pos hlq k
+  have hmk : Real.log 2 ^ k ≤ Real.log q ^ k :=
+    Real.rpow_le_rpow hl2.le hlq2 (by linarith)
+  rcases le_or_gt q Q with hle | hgt
+  · have hb := hiso q χ hle hprim hsq hne β hβ hβ1
+    have hcle : min (c₀ * Real.log 2 ^ k) (1 / C) ≤ c₀ * Real.log 2 ^ k := min_le_left _ _
+    have hstep : min (c₀ * Real.log 2 ^ k) (1 / C) / Real.log q ^ k ≤ c₀ := by
+      rw [div_le_iff₀ hpk]
+      have hh : c₀ * Real.log 2 ^ k ≤ c₀ * Real.log q ^ k :=
+        mul_le_mul_of_nonneg_left hmk hc₀.le
+      linarith
+    linarith
+  · have hkey : 1 < ‖(1 : ℂ) - (β : ℂ)‖ * (C * Real.log q ^ k) := by
+      rcases le_or_gt (‖(1 : ℂ) - (β : ℂ)‖ * (C * Real.log q ^ k)) 1 with hcon | hgt2
+      · exact absurd ⟨q, ‹NeZero q›, χ, (β : ℂ), hgt, hprim, hsq, hne, hβ, hcon⟩ hQ0
+      · exact hgt2
+    have hnorm : ‖(1 : ℂ) - (β : ℂ)‖ = 1 - β := by
+      rw [show (1 : ℂ) - (β : ℂ) = ((1 - β : ℝ) : ℂ) by push_cast; ring,
+        Complex.norm_real, Real.norm_eq_abs, abs_of_pos (by linarith)]
+    rw [hnorm] at hkey
+    have hcle : min (c₀ * Real.log 2 ^ k) (1 / C) ≤ 1 / C := min_le_right _ _
+    have hfin : min (c₀ * Real.log 2 ^ k) (1 / C) / Real.log q ^ k ≤ 1 - β := by
+      rw [div_le_iff₀ hpk]
+      have h3 : 1 / C ≤ (1 - β) * Real.log q ^ k := by
+        rw [div_le_iff₀ hC]
+        have heq : (1 - β) * Real.log q ^ k * C = (1 - β) * (C * Real.log q ^ k) := by ring
+        rw [heq]
+        linarith only [hkey]
+      linarith only [hcle, h3]
+    linarith
 
 /-- **THE DICHOTOMY AT STRENGTH `k`.**  Class **A**, cap 30 (`by_cases`, as `fulcrum_dichotomy`).
 Consumer: `heathBrownDichotomyPoly_of_N7`. -/
 theorem fulcrum_dichotomy_poly {C k : ℝ} (hC : 0 < C) (hk : 1 ≤ k)
     (hEngine : FulcrumQualityPoly C k → TwinPrimeConjecture) :
     HeathBrownDichotomyPoly k := by
-  sorry
+  by_cases hF : FulcrumQualityPoly C k
+  · exact Or.inl (hEngine hF)
+  · exact Or.inr (not_fulcrumPoly_implies_noSiegelZerosPoly hC hk hF)
 
 /-- **The largest real zero exists** (the `ηmax` field, supplied at the hand-over).  Given a real
 zero `β` of `L(·,χ)` with `1/2 ≤ β < 1`, there is a real zero `β₀ ≥ β`, `β₀ < 1`, above every
@@ -1987,7 +2088,38 @@ theorem beta0_max_of_zero [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.I
     (hβ : DirichletCharacter.LFunction χ (β : ℂ) = 0) (hlo : 1 / 2 ≤ β) (hhi : β < 1) :
     ∃ β₀ : ℝ, DirichletCharacter.LFunction χ (β₀ : ℂ) = 0 ∧ β ≤ β₀ ∧ β₀ < 1 ∧
       ∀ β' : ℝ, DirichletCharacter.LFunction χ (β' : ℂ) = 0 → β' < 1 → β' ≤ β₀ := by
-  sorry
+  classical
+  have _hχ := hχ
+  have _hsq := hsq
+  have _hlo := hlo
+  have hmemZ : ∀ b : ℝ, DirichletCharacter.LFunction χ (b : ℂ) = 0 → β ≤ b → b ≤ 1 →
+      (b : ℂ) ∈ Salt.SW.boxZeros χ β 1 0 := by
+    intro b hb hlo' hhi'
+    rw [Salt.SW.mem_boxZeros hne]
+    exact ⟨hb, by simpa using hlo', by simpa using hhi', by simp⟩
+  set S : Finset ℝ := (Salt.SW.boxZeros χ β 1 0).image Complex.re with hSdef
+  have hβS : β ∈ S := Finset.mem_image.mpr ⟨(β : ℂ), hmemZ β hβ le_rfl hhi.le, by simp⟩
+  have hSne : S.Nonempty := ⟨β, hβS⟩
+  obtain ⟨ρ, hρmem, hρre⟩ := Finset.mem_image.mp (S.max'_mem hSne)
+  rw [Salt.SW.mem_boxZeros hne] at hρmem
+  obtain ⟨hz, hlo2, hhi2, him2⟩ := hρmem
+  have him0 : ρ.im = 0 := abs_eq_zero.mp (le_antisymm him2 (abs_nonneg _))
+  have hcoe : ((ρ.re : ℝ) : ℂ) = ρ := by apply Complex.ext <;> simp [him0]
+  have hzero : DirichletCharacter.LFunction χ ((S.max' hSne : ℝ) : ℂ) = 0 := by
+    rw [← hρre, hcoe]; exact hz
+  have hge : β ≤ S.max' hSne := S.le_max' β hβS
+  have hle1 : S.max' hSne ≤ 1 := by rw [← hρre]; exact hhi2
+  have hlt : S.max' hSne < 1 := by
+    rcases lt_or_eq_of_le hle1 with h | h
+    · exact h
+    · exfalso
+      rw [h] at hzero
+      exact (DirichletCharacter.LFunction_apply_one_ne_zero hne) (by simpa using hzero)
+  refine ⟨S.max' hSne, hzero, hge, hlt, ?_⟩
+  intro b' hb' hb'1
+  rcases le_or_gt b' β with h | h
+  · linarith
+  · exact S.le_max' b' (Finset.mem_image.mpr ⟨(b' : ℂ), hmemZ b' hb' h.le hb'1.le, by simp⟩)
 
 /-- **The crown's quality constant — HB's `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` (p.223), in this file's
 currency**: `1 − β₀ ≤ 1/(n9Cq·(log q)^{30})` puts `ℓ′ ≥ n9E0 + e^{2·n9K} + 1 + 16·log L` (so
@@ -2022,7 +2154,7 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
 `heathBrownDichotomyPoly_of_N7`. -/
 theorem hEngine_poly_of_N7 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
     FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 30 → TwinPrimeConjecture := by
-  sorry
+  exact fun hF => twinPrimeConjecture_of_frequently_S1 (crown_handover hN7 hF)
 
 /-- **THE INTERMEDIATE CROWN, AT THE STRENGTH THE LANDED SUPPLY REACHES, CONDITIONAL ON N7:
 `TPC ∨ NoSiegelZerosPoly 30`.**  Stated at the LITERAL `30` (= `dhK + 16`: the contract's `14`
@@ -2033,6 +2165,9 @@ exponent is a mutable `def` in the same file would silently re-anchor).  The fro
 Class **A**, cap 20.  Consumer: none yet — the intermediate crown row. -/
 theorem heathBrownDichotomyPoly_of_N7 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
     HeathBrownDichotomyPoly 30 := by
-  sorry
+  have hCq : 0 < n9Cq Cerr CA CA' CC := by
+    simp only [n9Cq]
+    exact div_pos (Real.exp_pos _) dh_spec.1
+  exact fulcrum_dichotomy_poly hCq (by norm_num) (hEngine_poly_of_N7 hN7)
 
 end Salt.HB
