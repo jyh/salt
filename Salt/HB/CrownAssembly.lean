@@ -1277,6 +1277,361 @@ theorem n8ErrSum_le (P : ℕ) (hP : Squarefree P) {z : ℕ} (hz : 2 ≤ z)
 per-density constants, so that `S₂ + S₃ + C₀S₁ ≤ n8C6·B·L·S₁` (using `L² ≤ B·L`). -/
 noncomputable def n8C6 (CA CA' CC : ℝ) : ℝ := 64 * CA' + (128 * CA) ^ 2 + CC
 
+/-- `|λ_d| ≤ 1` at the block-Brun weights on a squarefree modulus. -/
+lemma abs_lamBB_le_one {Lam z : ℝ} {side b d : ℕ} (hd : Squarefree d) :
+    |lamBB Lam z side b d| ≤ 1 := by
+  rw [lamBB, abs_mul, moebius_real_of_squarefree hd, abs_pow, abs_neg, abs_one, one_pow,
+    one_mul]
+  split_ifs <;> simp
+
+/-- **The p.200 main-sum decomposition.**  The λ-weighted `S(d)` sum is `κ` times the four
+density sums, up to the (2.3) error sum. -/
+lemma lamSum_S_decomp (H : HBSieveData) {α : ℕ} {x L LL kappa C₀ Cerr CA CA' CC : ℝ}
+    {A A' : ℕ → ℝ} {Lam : ℝ} {side b : ℕ}
+    (hz0 : 0 < H.z)
+    (hlev : ∀ d ∈ H.P.divisors, chi Lam H.z side b d → (d : ℝ) ^ 3 ≤ Real.exp L)
+    (hPα : Nat.Coprime H.P α) (hx : 0 ≤ x)
+    (hL5 : Lemma5Eval H α x L LL kappa C₀ Cerr CA CA' CC A A') :
+    |lamSum Lam H.z side b H.P H.S
+        - kappa * (LL ^ 2 * lamSum Lam H.z side b H.P (fun d => nuG d)
+            + lamSum Lam H.z side b H.P (fun d => nuG d * A d ^ 2)
+            + lamSum Lam H.z side b H.P (fun d => nuG d * A' d)
+            + C₀ * lamSum Lam H.z side b H.P (fun d => nuG d))|
+      ≤ Cerr * x * L ^ 4 / H.z * n8ErrSum H.P := by
+  classical
+  have hP0 : H.P ≠ 0 := H.P_squarefree.ne_zero
+  have hCerr := hL5.Cerr_nonneg
+  -- the main sum, reassembled
+  have hcomb : kappa * (LL ^ 2 * lamSum Lam H.z side b H.P (fun d => nuG d)
+        + lamSum Lam H.z side b H.P (fun d => nuG d * A d ^ 2)
+        + lamSum Lam H.z side b H.P (fun d => nuG d * A' d)
+        + C₀ * lamSum Lam H.z side b H.P (fun d => nuG d))
+      = ∑ d ∈ H.P.divisors,
+          lamBB Lam H.z side b d * (kappa * nuG d * (LL ^ 2 + A d ^ 2 + A' d + C₀)) := by
+    have hsplit : ∀ d ∈ H.P.divisors,
+        lamBB Lam H.z side b d * (kappa * nuG d * (LL ^ 2 + A d ^ 2 + A' d + C₀))
+          = kappa * LL ^ 2 * (lamBB Lam H.z side b d * nuG d)
+            + kappa * (lamBB Lam H.z side b d * (nuG d * A d ^ 2))
+            + kappa * (lamBB Lam H.z side b d * (nuG d * A' d))
+            + kappa * C₀ * (lamBB Lam H.z side b d * nuG d) := fun d _ => by ring
+    rw [Finset.sum_congr rfl hsplit, Finset.sum_add_distrib, Finset.sum_add_distrib,
+      Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum,
+      ← Finset.mul_sum]
+    simp only [lamSum]
+    ring
+  rw [hcomb, lamSum, ← Finset.sum_sub_distrib]
+  refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+  rw [n8ErrSum, Finset.mul_sum]
+  refine Finset.sum_le_sum fun d hd => ?_
+  have hd0 : d ≠ 0 := Nat.pos_of_mem_divisors hd |>.ne'
+  have hdR : (0 : ℝ) < (d : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero hd0
+  have hdsq : Squarefree d := H.P_squarefree.squarefree_of_dvd (Nat.dvd_of_mem_divisors hd)
+  have hbound0 : (0 : ℝ) ≤ Cerr * x * L ^ 4 / H.z * ((4 : ℝ) ^ d.primeFactors.card / (d : ℝ)) := by
+    have : (0 : ℝ) ≤ Cerr * x * L ^ 4 / H.z := by positivity
+    positivity
+  by_cases hchi : chi Lam H.z side b d
+  · have hdα : Nat.Coprime d α :=
+      Nat.Coprime.coprime_dvd_left (Nat.dvd_of_mem_divisors hd) hPα
+    have heval := hL5.eval d hd hdα (hlev d hd hchi)
+    rw [hbG_div_eq_nuG hd0 hdα] at heval
+    rw [← mul_sub, abs_mul]
+    have hlam1 := abs_lamBB_le_one (Lam := Lam) (z := H.z) (side := side) (b := b) hdsq
+    have heq : H.S d - kappa * nuG d * (LL ^ 2 + A d ^ 2 + A' d + C₀)
+        = H.S d - kappa * nuG d * (LL ^ 2 + A d ^ 2 + A' d + C₀) := rfl
+    have hE : |H.S d - kappa * nuG d * (LL ^ 2 + A d ^ 2 + A' d + C₀)|
+        ≤ Cerr * x * L ^ 4 / (H.z * d) * (4 : ℝ) ^ d.primeFactors.card := heval
+    have hrw : Cerr * x * L ^ 4 / (H.z * d) * (4 : ℝ) ^ d.primeFactors.card
+        = Cerr * x * L ^ 4 / H.z * ((4 : ℝ) ^ d.primeFactors.card / (d : ℝ)) := by
+      field_simp
+    rw [hrw] at hE
+    calc |lamBB Lam H.z side b d| * |H.S d - kappa * nuG d * (LL ^ 2 + A d ^ 2 + A' d + C₀)|
+        ≤ 1 * (Cerr * x * L ^ 4 / H.z * ((4 : ℝ) ^ d.primeFactors.card / (d : ℝ))) :=
+          mul_le_mul hlam1 hE (abs_nonneg _) zero_le_one
+      _ = _ := by ring
+  · have : lamBB Lam H.z side b d = 0 := by rw [lamBB, if_neg hchi, mul_zero]
+    rw [this, zero_mul, zero_mul, sub_zero, abs_zero]
+    exact hbound0
+
+/-- **HB Lemma 6 at the λ-weighted sums**: `|S₂′|` and `|S₃′|` against `W` and the FL defect. -/
+lemma hb_p200_dens_bounds (H : HBSieveData) {L LL CA CA' : ℝ} {A A' : ℕ → ℝ}
+    {Lam : ℝ} {side b : ℕ} (hb : 1 ≤ b) (hside : side ≤ 2)
+    (hL3 : 3 ≤ L) (hPL : ∀ p ∈ H.P.primeFactors, Real.log p ≤ L)
+    (hCA : 0 ≤ CA) (hCA' : 0 ≤ CA')
+    (hAadd : IsAdditiveOn H.P A) (hA'add : IsAdditiveOn H.P A')
+    (hAp : ∀ p ∈ H.P.primeFactors, |A p| ≤ CA * Real.log p)
+    (hA'p : ∀ p ∈ H.P.primeFactors, |A' p| ≤ CA' * (L + |LL|) * Real.log p)
+    (hfailL : ∀ δ ∈ failSet Lam H.z side b H.P, Real.log δ ≤ L) :
+    |lamSum Lam H.z side b H.P (fun d => nuG d * A' d)|
+        ≤ 64 * (CA' * (L + |LL|)) * L
+            * (W H.sieve + |lamSum Lam H.z side b H.P (fun d => nuG d) - W H.sieve|)
+      ∧ |lamSum Lam H.z side b H.P (fun d => nuG d * A d ^ 2)|
+        ≤ (128 * CA * L) ^ 2
+            * (W H.sieve + |lamSum Lam H.z side b H.P (fun d => nuG d) - W H.sieve|) := by
+  have hmoeb : moebSum H.P (fun d => nuG d) = W H.sieve := by
+    have h := moebSum_nu_eq_W (hbSieve H.P H.P_squarefree H.P_odd)
+    have h2 : W (hbSieve H.P H.P_squarefree H.P_odd) = W H.sieve := rfl
+    rw [← h2]
+    simpa [hbSieve_prodPrimes, hbSieve_nu] using h
+  have hB' : (0 : ℝ) ≤ CA' * (L + |LL|) :=
+    mul_nonneg hCA' (by have := abs_nonneg LL; linarith)
+  have hCL : (0 : ℝ) ≤ 64 * (CA' * (L + |LL|)) * L := by
+    have : (0 : ℝ) ≤ L := by linarith
+    positivity
+  have h2a := moebSum_nuG_mul_additive_le H.P H.P_squarefree H.P_odd A' hA'add hB' hA'p hL3 hPL
+  have h2b := hb_transfer_additive H.P H.P_squarefree H.P_odd hb hside A' hA'add hB' hA'p hL3
+    hPL hfailL
+  have h3a := moebSum_nuG_mul_sq_additive_le H.P H.P_squarefree H.P_odd A hAadd hCA hAp hL3 hPL
+  have h3b := hb_transfer_sq_additive H.P H.P_squarefree H.P_odd hb hside A hAadd hCA hAp hL3
+    hPL hfailL
+  rw [hmoeb] at h2a h2b h3a h3b
+  constructor
+  · have htri : |lamSum Lam H.z side b H.P (fun d => nuG d * A' d)|
+        ≤ |lamSum Lam H.z side b H.P (fun d => nuG d * A' d)
+              - moebSum H.P (fun d => nuG d * A' d)|
+          + |moebSum H.P (fun d => nuG d * A' d)| := by
+      have := abs_add_le (lamSum Lam H.z side b H.P (fun d => nuG d * A' d)
+          - moebSum H.P (fun d => nuG d * A' d)) (moebSum H.P (fun d => nuG d * A' d))
+      simpa using this
+    nlinarith [abs_nonneg (lamSum Lam H.z side b H.P (fun d => nuG d) - W H.sieve)]
+  · have htri : |lamSum Lam H.z side b H.P (fun d => nuG d * A d ^ 2)|
+        ≤ |lamSum Lam H.z side b H.P (fun d => nuG d * A d ^ 2)
+              - moebSum H.P (fun d => nuG d * A d ^ 2)|
+          + |moebSum H.P (fun d => nuG d * A d ^ 2)| := by
+      have := abs_add_le (lamSum Lam H.z side b H.P (fun d => nuG d * A d ^ 2)
+          - moebSum H.P (fun d => nuG d * A d ^ 2)) (moebSum H.P (fun d => nuG d * A d ^ 2))
+      simpa using this
+    nlinarith [abs_nonneg (lamSum Lam H.z side b H.P (fun d => nuG d) - W H.sieve),
+      sq_nonneg (128 * CA * L)]
+
+/-- `(128·CA·L)² ≤ (128·CA)²·B·L` when `L ≤ B` — the `L² ≤ BL` slack of `n8C6`. -/
+lemma sq_const_le_of_le {CA L B : ℝ} (hL0 : 0 ≤ L) (hLB : L ≤ B) :
+    (128 * CA * L) ^ 2 ≤ (128 * CA) ^ 2 * (B * L) := by
+  nlinarith [sq_nonneg (128 * CA), mul_nonneg hL0 (sub_nonneg.mpr hLB)]
+
+set_option maxHeartbeats 1000000 in
+-- the assembly carries ~60 hypotheses over degree-6 monomials; the linear-arithmetic
+-- closes are within budget individually but exceed the default in aggregate
+/-- **The p.200 assembly, both signs, at an abstract sieve situation.** -/
+lemma hb_p200_core (H : HBSieveData) {α : ℕ} {x L LL kappa C₀ Cerr CA CA' CC : ℝ}
+    {A A' : ℕ → ℝ} {lam sRatio : ℝ}
+    (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4) (hzt : zThresh lam ≤ H.z)
+    (hs : levelE (Lam4 lam H.z) ≤ sRatio) (hL3 : 3 ≤ L)
+    (hD : 3 * sRatio * Real.log H.z ≤ L)
+    (hPα : Nat.Coprime H.P α) (hκ : 0 ≤ kappa) (hx : 0 ≤ x)
+    (hL5 : Lemma5Eval H α x L LL kappa C₀ Cerr CA CA' CC A A') :
+    lamSum (Lam4 lam H.z) H.z 1 (flB sRatio (Lam4 lam H.z)) H.P H.S
+        ≤ kappa * W H.sieve
+            * (1 + lam * flConst lam (Lam4 lam H.z) * Real.exp (-(flRate lam) * sRatio))
+            * (LL ^ 2 + n8C6 CA CA' CC * (L + |LL|) * L)
+          + Cerr * x * L ^ 4 / H.z * n8ErrSum H.P
+      ∧ kappa * W H.sieve
+            * (LL ^ 2 * (1 - flConst lam (Lam4 lam H.z) * Real.exp (-(flRate lam) * sRatio))
+                - n8C6 CA CA' CC * (L + |LL|) * L
+                  * (1 + flConst lam (Lam4 lam H.z) * Real.exp (-(flRate lam) * sRatio)))
+          - Cerr * x * L ^ 4 / H.z * n8ErrSum H.P
+        ≤ lamSum (Lam4 lam H.z) H.z 2 (flB sRatio (Lam4 lam H.z)) H.P H.S := by
+  classical
+  have h12 := lam_exp_lt_one hlam hlam'
+  have hLam : 0 < Lam4 lam H.z := Lam4_pos hlam hlam' hzt
+  have hz2 : (2 : ℝ) ≤ H.z := H.two_le_z
+  have hz1 : (1 : ℝ) < H.z := by linarith
+  have hz0 : (0 : ℝ) < H.z := by linarith
+  have hb : 1 ≤ flB sRatio (Lam4 lam H.z) := one_le_flB hs
+  have hlogz0 : (0 : ℝ) ≤ Real.log H.z := Real.log_nonneg (by linarith)
+  have hlevE : (2 : ℝ) < levelE (Lam4 lam H.z) := by
+    have h1 : (1 : ℝ) < Real.exp (Lam4 lam H.z) := one_lt_exp_of_pos hLam
+    rw [levelE, lt_div_iff₀ (by linarith)]
+    linarith
+  have hsR : (2 : ℝ) < sRatio := lt_of_lt_of_le hlevE hs
+  have hprod1 : (0 : ℝ) ≤ (3 * sRatio - 6) * Real.log H.z :=
+    mul_nonneg (by linarith) hlogz0
+  have hlogzL : Real.log H.z ≤ L / 6 := by linarith
+  have hprod2 : (0 : ℝ) ≤ (3 * sRatio - (sRatio + 1)) * Real.log H.z :=
+    mul_nonneg (by linarith) hlogz0
+  have hSL : (sRatio + 1) * Real.log H.z ≤ L := by linarith
+  have hPL : ∀ p ∈ H.P.primeFactors, Real.log p ≤ L := by
+    intro p hp
+    have hpz := H.P_lt_z p hp
+    have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+    have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hpp.one_lt.le
+    have := Real.log_le_log (by linarith) hpz.le
+    linarith
+  have hfailL : ∀ (side : ℕ), 1 ≤ side →
+      ∀ δ ∈ failSet (Lam4 lam H.z) H.z side (flB sRatio (Lam4 lam H.z)) H.P,
+        Real.log δ ≤ L := by
+    intro side hside δ hδ
+    have h := failSet_log_le H.P H.P_squarefree hLam hz1 hside hs H.P_lt_z δ hδ
+    linarith
+  have hlev : ∀ (side : ℕ), 1 ≤ side → ∀ d ∈ H.P.divisors,
+      chi (Lam4 lam H.z) H.z side (flB sRatio (Lam4 lam H.z)) d → (d : ℝ) ^ 3 ≤ Real.exp L := by
+    intro side hside d hd hchi
+    have hd0 : d ≠ 0 := (Nat.pos_of_mem_divisors hd).ne'
+    have hdsq : Squarefree d := H.P_squarefree.squarefree_of_dvd (Nat.dvd_of_mem_divisors hd)
+    have hdz : ∀ p ∈ d.primeFactors, (p : ℝ) < H.z := fun p hp =>
+      H.P_lt_z p (Nat.primeFactors_mono (Nat.dvd_of_mem_divisors hd) H.P_squarefree.ne_zero hp)
+    have hlb := flB_level_bound hLam hz1 hside hs hd0 hdsq hdz hchi
+    have h1 : (d : ℝ) ^ 3 ≤ (H.z ^ sRatio) ^ (3 : ℕ) :=
+      pow_le_pow_left₀ (Nat.cast_nonneg d) hlb 3
+    have h2 : (H.z ^ sRatio) ^ (3 : ℕ) = Real.exp (3 * sRatio * Real.log H.z) := by
+      rw [← Real.rpow_natCast (H.z ^ sRatio) 3, ← Real.rpow_mul hz0.le,
+        Real.rpow_def_of_pos hz0,
+        show Real.log H.z * (sRatio * (3 : ℕ)) = 3 * sRatio * Real.log H.z by push_cast; ring]
+    rw [h2] at h1
+    exact le_trans h1 (Real.exp_le_exp.mpr hD)
+  obtain ⟨-, ⟨hfl_low, hfl_up⟩, -⟩ := hbSieve_fl_sandwich H hlam hlam' hzt hs
+  obtain ⟨hd3up, hd3lo⟩ := lamSum_nuG_sub_W_bounds H.P H.P_squarefree H.P_odd
+    (Lam := Lam4 lam H.z) (z := H.z) (b := flB sRatio (Lam4 lam H.z)) hb
+  have hWsieve : W (hbSieve H.P H.P_squarefree H.P_odd) = W H.sieve := rfl
+  rw [hWsieve] at hd3up hd3lo
+  have hWpos : 0 < W H.sieve := W_pos _
+  have hLL0 : (0 : ℝ) ≤ |LL| := abs_nonneg LL
+  have hC₀ := hL5.C₀_le
+  have hCA := hL5.CA_nonneg
+  have hCA' := hL5.CA'_nonneg
+  have hCC : (0 : ℝ) ≤ CC := by
+    have h0 : (0 : ℝ) ≤ CC * (L + |LL|) * L := le_trans (abs_nonneg C₀) hC₀
+    have hBL : (0 : ℝ) < (L + |LL|) * L := mul_pos (by linarith) (by linarith)
+    by_contra hcon
+    rw [not_le] at hcon
+    have hneg : CC * ((L + |LL|) * L) < 0 := mul_neg_of_neg_of_pos hcon hBL
+    rw [← mul_assoc] at hneg
+    linarith
+  have hdens1 := hb_p200_dens_bounds H hb (by norm_num : (1 : ℕ) ≤ 2) hL3 hPL
+    hCA hCA' hL5.A_add hL5.A'_add hL5.A_prime hL5.A'_prime (hfailL 1 (by norm_num))
+  have hdens2 := hb_p200_dens_bounds H hb (le_refl 2) hL3 hPL
+    hCA hCA' hL5.A_add hL5.A'_add hL5.A_prime hL5.A'_prime (hfailL 2 (by norm_num))
+  have hdec1 := lamSum_S_decomp H (Lam := Lam4 lam H.z) (side := 1)
+    (b := flB sRatio (Lam4 lam H.z)) hz0 (hlev 1 (by norm_num)) hPα hx hL5
+  have hdec2 := lamSum_S_decomp H (Lam := Lam4 lam H.z) (side := 2)
+    (b := flB sRatio (Lam4 lam H.z)) hz0 (hlev 2 (by norm_num)) hPα hx hL5
+  have hFC : 0 < flConst lam (Lam4 lam H.z) := flConst_pos hlam h12
+  have hEX : 0 < Real.exp (-(flRate lam) * sRatio) := Real.exp_pos _
+  obtain ⟨hb2u, hb3u⟩ := hdens1
+  obtain ⟨hb2l, hb3l⟩ := hdens2
+  set FC := flConst lam (Lam4 lam H.z) with hFCdef
+  set EX := Real.exp (-(flRate lam) * sRatio) with hEXdef
+  set Wv := W H.sieve with hWvdef
+  set B := L + |LL| with hBdef
+  set S1p := lamSum (Lam4 lam H.z) H.z 1 (flB sRatio (Lam4 lam H.z)) H.P (fun d => nuG d)
+    with hS1pdef
+  set S2p := lamSum (Lam4 lam H.z) H.z 1 (flB sRatio (Lam4 lam H.z)) H.P
+    (fun d => nuG d * A' d) with hS2pdef
+  set S3p := lamSum (Lam4 lam H.z) H.z 1 (flB sRatio (Lam4 lam H.z)) H.P
+    (fun d => nuG d * A d ^ 2) with hS3pdef
+  set S1m := lamSum (Lam4 lam H.z) H.z 2 (flB sRatio (Lam4 lam H.z)) H.P (fun d => nuG d)
+    with hS1mdef
+  set S2m := lamSum (Lam4 lam H.z) H.z 2 (flB sRatio (Lam4 lam H.z)) H.P
+    (fun d => nuG d * A' d) with hS2mdef
+  set S3m := lamSum (Lam4 lam H.z) H.z 2 (flB sRatio (Lam4 lam H.z)) H.P
+    (fun d => nuG d * A d ^ 2) with hS3mdef
+  set Err := Cerr * x * L ^ 4 / H.z * n8ErrSum H.P with hErrdef
+  have hL0 : (0 : ℝ) ≤ L := by linarith
+  have hB0 : (0 : ℝ) ≤ B := by rw [hBdef]; linarith
+  have hLB : L ≤ B := by rw [hBdef]; linarith
+  have hFE0 : (0 : ℝ) ≤ FC * EX := (mul_pos hFC hEX).le
+  have hWFE : (0 : ℝ) ≤ Wv * (FC * EX) := mul_nonneg hWpos.le hFE0
+  have hCL0 : (0 : ℝ) ≤ 64 * (CA' * B) * L :=
+    mul_nonneg (mul_nonneg (by norm_num) (mul_nonneg hCA' hB0)) hL0
+  have hCC0 : (0 : ℝ) ≤ CC * B * L := mul_nonneg (mul_nonneg hCC hB0) hL0
+  have hn8 : (0 : ℝ) ≤ n8C6 CA CA' CC := by
+    rw [n8C6]
+    have h1 : (0 : ℝ) ≤ (128 * CA) ^ 2 := sq_nonneg _
+    linarith
+  have hBrk0 : (0 : ℝ) ≤ LL ^ 2 + n8C6 CA CA' CC * B * L := by
+    have h1 : (0 : ℝ) ≤ n8C6 CA CA' CC * B * L := mul_nonneg (mul_nonneg hn8 hB0) hL0
+    have h2 : (0 : ℝ) ≤ LL ^ 2 := sq_nonneg LL
+    linarith
+  have hsqCA : (128 * CA * L) ^ 2 ≤ (128 * CA) ^ 2 * (B * L) :=
+    sq_const_le_of_le hL0 hLB
+  constructor
+  · -- the upper assembly
+    have hS1p0 : (0 : ℝ) ≤ S1p := by linarith
+    have habs1 : |S1p - Wv| = S1p - Wv := abs_of_nonneg (by linarith)
+    rw [habs1] at hb2u hb3u
+    have e2 : S2p ≤ 64 * (CA' * B) * L * S1p := by
+      have h := le_trans (le_abs_self S2p) hb2u
+      linarith
+    have e3 : S3p ≤ (128 * CA * L) ^ 2 * S1p := by
+      have h := le_trans (le_abs_self S3p) hb3u
+      linarith
+    have e0 : C₀ * S1p ≤ CC * B * L * S1p :=
+      mul_le_mul_of_nonneg_right (le_trans (le_abs_self _) hC₀) hS1p0
+    have esq : (128 * CA * L) ^ 2 * S1p ≤ (128 * CA) ^ 2 * (B * L) * S1p :=
+      mul_le_mul_of_nonneg_right hsqCA hS1p0
+    have hstep : LL ^ 2 * S1p + S3p + S2p + C₀ * S1p
+        ≤ S1p * (LL ^ 2 + n8C6 CA CA' CC * B * L) := by
+      rw [n8C6]
+      have hexp : S1p * (LL ^ 2 + (64 * CA' + (128 * CA) ^ 2 + CC) * B * L)
+          = LL ^ 2 * S1p + (128 * CA) ^ 2 * (B * L) * S1p + 64 * (CA' * B) * L * S1p
+            + CC * B * L * S1p := by ring
+      rw [hexp]
+      linarith
+    have hmain : kappa * (LL ^ 2 * S1p + S3p + S2p + C₀ * S1p)
+        ≤ kappa * Wv * (1 + lam * FC * EX) * (LL ^ 2 + n8C6 CA CA' CC * B * L) := by
+      have h1 := mul_le_mul_of_nonneg_left hstep hκ
+      have h2 : S1p * (LL ^ 2 + n8C6 CA CA' CC * B * L)
+          ≤ (Wv * (1 + lam * FC * EX)) * (LL ^ 2 + n8C6 CA CA' CC * B * L) :=
+        mul_le_mul_of_nonneg_right hfl_up hBrk0
+      have h3 := mul_le_mul_of_nonneg_left h2 hκ
+      calc kappa * (LL ^ 2 * S1p + S3p + S2p + C₀ * S1p)
+          ≤ kappa * (S1p * (LL ^ 2 + n8C6 CA CA' CC * B * L)) := h1
+        _ ≤ kappa * ((Wv * (1 + lam * FC * EX)) * (LL ^ 2 + n8C6 CA CA' CC * B * L)) := h3
+        _ = kappa * Wv * (1 + lam * FC * EX) * (LL ^ 2 + n8C6 CA CA' CC * B * L) := by ring
+    have hdd := (abs_le.mp hdec1).2
+    linarith
+  · -- the lower assembly
+    have hS1mabs : |S1m| ≤ Wv * (1 + FC * EX) := by
+      rw [abs_le]
+      exact ⟨by linarith, by linarith⟩
+    have habs1 : |S1m - Wv| ≤ Wv * (FC * EX) := by
+      rw [abs_of_nonpos (by linarith : S1m - Wv ≤ 0)]
+      linarith
+    have hUp : Wv + |S1m - Wv| ≤ Wv * (1 + FC * EX) := by linarith
+    have hU0 : (0 : ℝ) ≤ Wv * (1 + FC * EX) := by linarith
+    have e2 : -(64 * (CA' * B) * L * (Wv * (1 + FC * EX))) ≤ S2m := by
+      have h1 : |S2m| ≤ 64 * (CA' * B) * L * (Wv * (1 + FC * EX)) :=
+        le_trans hb2l (mul_le_mul_of_nonneg_left hUp hCL0)
+      have := neg_abs_le S2m
+      linarith
+    have e3 : -((128 * CA * L) ^ 2 * (Wv * (1 + FC * EX))) ≤ S3m := by
+      have h1 : |S3m| ≤ (128 * CA * L) ^ 2 * (Wv * (1 + FC * EX)) :=
+        le_trans hb3l (mul_le_mul_of_nonneg_left hUp (sq_nonneg _))
+      have := neg_abs_le S3m
+      linarith
+    have e0 : -(CC * B * L * (Wv * (1 + FC * EX))) ≤ C₀ * S1m := by
+      have h1 : |C₀ * S1m| ≤ CC * B * L * (Wv * (1 + FC * EX)) := by
+        rw [abs_mul]
+        exact mul_le_mul hC₀ hS1mabs (abs_nonneg _) hCC0
+      have := neg_abs_le (C₀ * S1m)
+      linarith
+    have eLL : LL ^ 2 * (Wv * (1 - FC * EX)) ≤ LL ^ 2 * S1m :=
+      mul_le_mul_of_nonneg_left hfl_low (sq_nonneg LL)
+    have esq : (128 * CA * L) ^ 2 * (Wv * (1 + FC * EX))
+        ≤ (128 * CA) ^ 2 * (B * L) * (Wv * (1 + FC * EX)) :=
+      mul_le_mul_of_nonneg_right hsqCA hU0
+    have hstep : Wv * (LL ^ 2 * (1 - FC * EX)
+          - n8C6 CA CA' CC * B * L * (1 + FC * EX))
+        ≤ LL ^ 2 * S1m + S3m + S2m + C₀ * S1m := by
+      rw [n8C6]
+      have hexp : Wv * (LL ^ 2 * (1 - FC * EX)
+            - (64 * CA' + (128 * CA) ^ 2 + CC) * B * L * (1 + FC * EX))
+          = LL ^ 2 * (Wv * (1 - FC * EX)) - (128 * CA) ^ 2 * (B * L) * (Wv * (1 + FC * EX))
+            - 64 * (CA' * B) * L * (Wv * (1 + FC * EX))
+            - CC * B * L * (Wv * (1 + FC * EX)) := by ring
+      rw [hexp]
+      linarith
+    have hmain : kappa * Wv * (LL ^ 2 * (1 - FC * EX)
+          - n8C6 CA CA' CC * B * L * (1 + FC * EX))
+        ≤ kappa * (LL ^ 2 * S1m + S3m + S2m + C₀ * S1m) := by
+      have h1 := mul_le_mul_of_nonneg_left hstep hκ
+      calc kappa * Wv * (LL ^ 2 * (1 - FC * EX)
+              - n8C6 CA CA' CC * B * L * (1 + FC * EX))
+          = kappa * (Wv * (LL ^ 2 * (1 - FC * EX)
+              - n8C6 CA CA' CC * B * L * (1 + FC * EX))) := by ring
+        _ ≤ kappa * (LL ^ 2 * S1m + S3m + S2m + C₀ * S1m) := h1
+    have hdd := (abs_le.mp hdec2).1
+    linarith
+
 /-- **HB p.200, THE UPPER ASSEMBLY.**  From the sandwich (2.2) at the N8 wire, Lemma 5 as the
 interface `Lemma5Eval`, Lemma 6 (§5), the FL defect (`hbSieve_fl_sandwich` (2), side 1:
 `S₁′⁺ ≤ W(1 + λ·C·e^{−cs})`, `C = flConst λ Λ₄`, `c = flRate λ`) and the per-δ transfers:
@@ -1312,8 +1667,10 @@ theorem hb_p200_upper (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : 
       ≤ kappa * W (hbDataN8 χ hsq hz x).sieve
           * (1 + lam * flConst lam (Lam4 lam (z : ℝ)) * Real.exp (-(flRate lam) * sRatio))
           * (LL ^ 2 + n8C6 CA CA' CC * (L + |LL|) * L)
-        + Cerr * x * L ^ 4 / (z : ℝ) * n8ErrSum (hbDataN8 χ hsq hz x).P := by
-  sorry
+        + Cerr * x * L ^ 4 / (z : ℝ) * n8ErrSum (hbDataN8 χ hsq hz x).P :=
+  le_trans (hbDataN8_sandwich χ hsq hz x hlam hlam' hzt hs).2
+    (hb_p200_core (hbDataN8 χ hsq hz x) hlam hlam' hzt hs hL3 hD hPα hκ
+      (Nat.cast_nonneg x) hL5).1
 
 /-- **HB p.200, THE LOWER ASSEMBLY** ("an analogous argument shows
 `S⁽³⁾ ≥ x𝔖C(α) + O(xe^{−z₀/4})`").  Side 2 of the sandwich with the FL lower endpoint
@@ -1342,8 +1699,10 @@ theorem hb_p200_lower (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : 
             - n8C6 CA CA' CC * (L + |LL|) * L
                 * (1 + flConst lam (Lam4 lam (z : ℝ)) * Real.exp (-(flRate lam) * sRatio)))
       - Cerr * x * L ^ 4 / (z : ℝ) * n8ErrSum (hbDataN8 χ hsq hz x).P
-      ≤ S3 χ z (l2cWindow χ z x) := by
-  sorry
+      ≤ S3 χ z (l2cWindow χ z x) :=
+  le_trans (hb_p200_core (hbDataN8 χ hsq hz x) hlam hlam' hzt hs hL3 hD hPα hκ
+      (Nat.cast_nonneg x) hL5).2
+    (hbDataN8_sandwich χ hsq hz x hlam hlam' hzt hs).1
 
 /-! ## §7 — the `κS₁` wire: HB's `S₁` (p.207, N4's object) IS the sieve's `W` -/
 
