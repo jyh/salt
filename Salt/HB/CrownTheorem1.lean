@@ -832,7 +832,179 @@ theorem sinv_ball [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hm : ∀ ρ ∈ Z, (m ρ : ℝ) ≤ (Salt.SW.zeroMult χ ρ : ℝ)) :
     ∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2
       ≤ n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η) := by
-  sorry
+  classical
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hdhCpos := dh_spec.1
+  have hdhC1 := dh_spec.2.1
+  have hdhB : dhB = 680 := rfl
+  have hdhK : dhK = 14 := rfl
+  have hinv : 0 ≤ Real.log (1 / dhC) :=
+    Real.log_nonneg (by rw [le_div_iff₀ hdhCpos]; linarith)
+  have hWpos : 0 < Real.log (4 * (q : ℝ)) := Real.log_pos (by linarith)
+  have hE0 : Real.exp (3 * 10 ^ 6) ≤ n9E0 := by
+    have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+    have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+    simp only [n9E0]; linarith
+  have hE1 := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
+  have hPbig : (3000001 : ℝ) ≤ n9Ell q η := by have := hR.ellBig; linarith
+  have hPpos : 0 < n9Ell q η := by linarith
+  have hEllEq : n9Ell q η = Real.log (η * Real.log q) - Real.log (1 / dhC)
+      - dhK * Real.log (Real.log (4 * (q : ℝ)) + 2) := rfl
+  have hXnn : 0 ≤ dhK * Real.log (Real.log (4 * (q : ℝ)) + 2) := by
+    rw [hdhK]
+    have : 0 ≤ Real.log (Real.log (4 * (q : ℝ)) + 2) := Real.log_nonneg (by linarith)
+    linarith
+  have hlog2 := Real.log_two_lt_d9
+  have hsplit : Real.log (η * Real.log q) = Real.log η + Real.log (Real.log q) :=
+    Real.log_mul (ne_of_gt hηpos) (ne_of_gt hL)
+  have hηq := hR.ηq
+  have he401 := Real.add_one_le_exp (401 : ℝ)
+  have hlogηle : Real.log η ≤ Real.log q / 200 := by
+    rcases le_or_gt 0 (Real.log η) with h | h
+    · nlinarith
+    · linarith
+  have hlogLle : Real.log (Real.log q) ≤ Real.log q := by
+    have := Real.log_le_sub_one_of_pos hL; linarith
+  have hLhuge : (1500000 : ℝ) ≤ Real.log q := by linarith
+  -- `log L ≤ L/200` from `L ≤ exp(L/200)`
+  have hlogLsmall : Real.log (Real.log q) ≤ Real.log q / 200 := by
+    have h400 := Real.add_one_le_exp (Real.log q / 400)
+    have hnn : (0 : ℝ) ≤ Real.log q / 400 + 1 := by linarith
+    have hprod : (Real.log q / 400 + 1) * (Real.log q / 400 + 1)
+        ≤ Real.exp (Real.log q / 400) * Real.exp (Real.log q / 400) :=
+      mul_le_mul h400 h400 hnn (le_of_lt (Real.exp_pos _))
+    have hsq : Real.exp (Real.log q / 200)
+        = Real.exp (Real.log q / 400) * Real.exp (Real.log q / 400) := by
+      rw [← Real.exp_add]; ring_nf
+    have hge : Real.log q ≤ Real.exp (Real.log q / 200) := by
+      rw [hsq]; nlinarith [hprod, hLhuge]
+    have := Real.log_le_log hL hge
+    rwa [Real.log_exp] at this
+  have hPsmall : n9Ell q η ≤ Real.log q / 100 := by linarith
+  have hW2L : Real.log (4 * (q : ℝ)) ≤ 2 * Real.log q := by
+    have h4 : Real.log (4 * (q : ℝ)) = Real.log 4 + Real.log q :=
+      Real.log_mul (by norm_num) (by linarith)
+    have hl4 : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; ring
+    linarith
+  have hq2L : Real.log ((q : ℝ) + 2) ≤ 2 * Real.log q := by
+    have h1 : Real.log ((q : ℝ) + 2) ≤ Real.log ((q : ℝ) ^ 2) :=
+      Real.log_le_log (by linarith) (by nlinarith)
+    rw [Real.log_pow] at h1; push_cast at h1; linarith
+  have h45L : Real.log ((q : ℝ) * (3 / 2 + 3)) ≤ 2 * Real.log q := by
+    have h4 : Real.log ((q : ℝ) * (3 / 2 + 3)) = Real.log q + Real.log (3 / 2 + 3) := by
+      rw [Real.log_mul (by linarith) (by norm_num)]
+    have h5 : Real.log (3 / 2 + 3 : ℝ) ≤ Real.log 8 :=
+      Real.log_le_log (by norm_num) (by norm_num)
+    have h6 : Real.log 8 = 3 * Real.log 2 := by
+      rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; ring
+    linarith
+  -- the floor on the erased ball
+  have hfloor : ∀ ρ ∈ Z.erase ((β₀ : ℂ)), n9Floor q η ≤ ‖ρ - 1‖ := by
+    intro ρ hρ
+    exact dh_floor_ball hR (hZ ρ (Finset.mem_of_mem_erase hρ)).2
+      (hZ ρ (Finset.mem_of_mem_erase hρ)).1 (Finset.ne_of_mem_erase hρ)
+  have hr0pos : 0 < n9Floor q η := by
+    rw [n9Floor, hdhB]; exact div_pos hPpos (by linarith)
+  -- the mass of the erased ball, off the crude density count
+  have hsub : Z.erase ((β₀ : ℂ)) ⊆ Salt.SW.boxZeros χ (1 / 2) 1 (3 / 2) := by
+    intro ρ hρ
+    obtain ⟨hball, hzero⟩ := hZ ρ (Finset.mem_of_mem_erase hρ)
+    rw [Metric.mem_ball, dist_eq_norm] at hball
+    have hre : |(ρ - 2).re| ≤ ‖ρ - 2‖ := Complex.abs_re_le_norm _
+    have him : |(ρ - 2).im| ≤ ‖ρ - 2‖ := Complex.abs_im_le_norm _
+    have e1 : (ρ - 2).re = ρ.re - 2 := by simp
+    have e2 : (ρ - 2).im = ρ.im := by simp
+    rw [e1] at hre; rw [e2] at him
+    have hre' := abs_lt.mp (lt_of_le_of_lt hre hball)
+    have him' := abs_lt.mp (lt_of_le_of_lt him hball)
+    have hlt1 : ρ.re < 1 := by
+      rcases lt_or_ge ρ.re 1 with h | h
+      · exact h
+      · exact absurd hzero
+          (DirichletCharacter.LFunction_ne_zero_of_one_le_re χ (Or.inl hR.ne) h)
+    refine (Salt.SW.mem_boxZeros hR.ne).mpr ⟨hzero, by linarith [hre'.1], le_of_lt hlt1, ?_⟩
+    rw [abs_le]; constructor <;> linarith [him'.1, him'.2]
+  have hmass : (∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ))
+      ≤ 137 * (2 * (3 / 2) + 3) * Real.log ((q : ℝ) * (3 / 2 + 3)) := by
+    have hstep1 : (∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ))
+        ≤ ∑ ρ ∈ Z.erase ((β₀ : ℂ)), (Salt.SW.zeroMult χ ρ : ℝ) :=
+      Finset.sum_le_sum (fun ρ hρ => hm ρ (Finset.mem_of_mem_erase hρ))
+    have hstep2 : (∑ ρ ∈ Z.erase ((β₀ : ℂ)), (Salt.SW.zeroMult χ ρ : ℝ))
+        ≤ ∑ ρ ∈ Salt.SW.boxZeros χ (1 / 2) 1 (3 / 2), (Salt.SW.zeroMult χ ρ : ℝ) :=
+      Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i _ _ => by positivity)
+    have hstep3 := Salt.SW.zeroCountM_le χ hR.prim hq2 (σ := 1 / 2) (T := 3 / 2)
+      (by norm_num) (by norm_num)
+    simp only [Salt.SW.zeroCountM, Salt.SW.efMultTotal] at hstep3
+    linarith
+  -- the Prachar split at the floor
+  have hspec := invSqC_spec.2 χ hR.prim hq2 hr0pos hfloor
+    (fun ρ hρ => (hZ ρ (Finset.mem_of_mem_erase hρ)).2)
+    (fun ρ hρ => hm ρ (Finset.mem_of_mem_erase hρ)) hmass
+  -- the arithmetic
+  have hAinv := invSqC_spec.1
+  have hWnn : (0 : ℝ) ≤ Real.log (4 * (q : ℝ)) := hWpos.le
+  have hq2nn : (0 : ℝ) ≤ Real.log ((q : ℝ) + 2) := Real.log_nonneg (by linarith)
+  have hL2nn : (0 : ℝ) ≤ 4 * Real.log q ^ 2 := by positivity
+  have hG : 1 / n9Floor q η = 680 * Real.log (4 * (q : ℝ)) / n9Ell q η := by
+    rw [n9Floor, hdhB]; field_simp
+  have hGsq : 1 / n9Floor q η ^ 2 = (680 * Real.log (4 * (q : ℝ)) / n9Ell q η) ^ 2 := by
+    rw [← hG, div_pow, one_pow]
+  have hW2 : Real.log (4 * (q : ℝ)) ^ 2 ≤ 4 * Real.log q ^ 2 := by
+    have h := mul_self_le_mul_self hWnn hW2L
+    linarith only [h]
+  have hPP : n9Ell q η ≤ n9Ell q η ^ 2 := by
+    rw [pow_two]
+    exact le_mul_of_one_le_left hPpos.le (by linarith only [hPbig])
+  have hα : 1 / n9Floor q η ^ 2 ≤ 680 ^ 2 * (4 * Real.log q ^ 2 / n9Ell q η) := by
+    rw [hGsq, div_pow, mul_pow,
+      show (680 : ℝ) ^ 2 * (4 * Real.log q ^ 2 / n9Ell q η)
+        = 680 ^ 2 * (4 * Real.log q ^ 2) / n9Ell q η by ring,
+      div_le_div_iff₀ (pow_pos hPpos 2) hPpos]
+    have s1 : Real.log (4 * (q : ℝ)) ^ 2 * n9Ell q η
+        ≤ 4 * Real.log q ^ 2 * n9Ell q η := mul_le_mul_of_nonneg_right hW2 hPpos.le
+    have s2 : 4 * Real.log q ^ 2 * n9Ell q η ≤ 4 * Real.log q ^ 2 * n9Ell q η ^ 2 :=
+      mul_le_mul_of_nonneg_left hPP hL2nn
+    linarith only [s1, s2]
+  have hβbd : Real.log ((q : ℝ) + 2) / n9Floor q η
+      ≤ 680 * (4 * Real.log q ^ 2 / n9Ell q η) := by
+    rw [div_eq_mul_one_div, hG,
+      show Real.log ((q : ℝ) + 2) * (680 * Real.log (4 * (q : ℝ)) / n9Ell q η)
+        = Real.log ((q : ℝ) + 2) * (680 * Real.log (4 * (q : ℝ))) / n9Ell q η by ring,
+      show (680 : ℝ) * (4 * Real.log q ^ 2 / n9Ell q η)
+        = 680 * (4 * Real.log q ^ 2) / n9Ell q η by ring,
+      div_le_div_iff₀ hPpos hPpos]
+    have s0 : Real.log ((q : ℝ) + 2) * Real.log (4 * (q : ℝ))
+        ≤ 2 * Real.log q * (2 * Real.log q) :=
+      mul_le_mul hq2L hW2L hWnn (by linarith only [hL])
+    have s2 : Real.log ((q : ℝ) + 2) * Real.log (4 * (q : ℝ)) * n9Ell q η
+        ≤ 4 * Real.log q ^ 2 * n9Ell q η :=
+      mul_le_mul_of_nonneg_right (by linarith only [s0]) hPpos.le
+    linarith only [s2]
+  have hγ : 16 * (137 * (2 * (3 / 2) + 3) * Real.log ((q : ℝ) * (3 / 2 + 3)))
+      ≤ 3400 * (4 * Real.log q ^ 2 / n9Ell q η) := by
+    rw [show (3400 : ℝ) * (4 * Real.log q ^ 2 / n9Ell q η)
+        = 3400 * (4 * Real.log q ^ 2) / n9Ell q η by ring, le_div_iff₀ hPpos]
+    have s1 : Real.log ((q : ℝ) * (3 / 2 + 3)) * n9Ell q η
+        ≤ 2 * Real.log q * (Real.log q / 100) :=
+      mul_le_mul h45L hPsmall hPpos.le (by linarith only [hL])
+    linarith only [s1, sq_nonneg (Real.log q)]
+  have hfinal : invSqC * (1 / n9Floor q η ^ 2
+        + Real.log ((q : ℝ) + 2) / n9Floor q η)
+      + 16 * (137 * (2 * (3 / 2) + 3) * Real.log ((q : ℝ) * (3 / 2 + 3)))
+      ≤ n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η) := by
+    have hstep : invSqC * (1 / n9Floor q η ^ 2 + Real.log ((q : ℝ) + 2) / n9Floor q η)
+        ≤ invSqC * (680 ^ 2 * (4 * Real.log q ^ 2 / n9Ell q η)
+            + 680 * (4 * Real.log q ^ 2 / n9Ell q η)) :=
+      mul_le_mul_of_nonneg_left (by linarith only [hα, hβbd]) hAinv.le
+    have hcs : n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η)
+        = invSqC * (680 ^ 2 * (4 * Real.log q ^ 2 / n9Ell q η)
+            + 680 * (4 * Real.log q ^ 2 / n9Ell q η))
+          + 3400 * (4 * Real.log q ^ 2 / n9Ell q η) := by
+      simp only [n9Cs, hdhB]; ring
+    rw [hcs]; linarith only [hstep, hγ]
+  linarith only [hspec, hfinal]
 
 /-- **THE ZERO PACKET AT HB's POINT — the one `Z` every `(L1)`/L3/kill row re-runs against.**
 `LFunction_partialFraction_remainder_diff`'s `Z m` with its ball membership KEPT, the floor
@@ -855,7 +1027,17 @@ theorem hb_zero_data [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
       (∀ ρ ∈ Z.erase ((β₀ : ℂ)), n9Floor q η ≤ ‖ρ - 1‖) ∧
       (∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2
         ≤ n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η)) := by
-  sorry
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  obtain ⟨Z, m, h1, h2, h3, h4⟩ :=
+    Salt.SW.LFunction_partialFraction_remainder_diff χ hR.prim hq2
+  have hm : ∀ ρ ∈ Z, (m ρ : ℝ) ≤ (Salt.SW.zeroMult χ ρ : ℝ) := by
+    intro ρ hρ
+    exact le_of_eq (by exact_mod_cast h3 ρ hρ)
+  refine ⟨Z, m, h1, h2, h3, h4, ?_, sinv_ball hR h1 hm⟩
+  intro ρ hρ
+  exact dh_floor_ball hR (h1 ρ (Finset.mem_of_mem_erase hρ)).2
+    (h1 ρ (Finset.mem_of_mem_erase hρ)).1 (Finset.ne_of_mem_erase hρ)
 
 /-- **`(L1)`, LOWER SIDE, DISCHARGED: `L′/L(1,χ) ≥ ηL − (1606 + 8·n9Cs)·L/√ℓ′`.**
 Class **B**, cap 200.  Red-first: `hb_zero_data`; `zeroMult_eq_one_of_eta` (M-ONE, `η ≥ 15000`)
