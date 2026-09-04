@@ -3,76 +3,72 @@ Copyright (c) 2026 Jason Hickey. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
-import Salt.HB.L2cMasterUncond
+import Salt.HB.L2cCore
 import Salt.HB.SieveWire
 import Salt.HB.CharTrio
-import Salt.HB.Lemma3Uncond
-import Salt.HB.Lemma3Floor
 import Salt.Maynard.Mertens
 
 /-!
-# N8 — THE §2 ASSEMBLY OF HEATH-BROWN 1983 (the crown campaign's first design block)
+# N8, THE SIEVE HALF — HB 1983's p.200 assembly from the dimension-4 sieve (design freeze v2)
 
-**STATUS: A DESIGN FREEZE.  Every theorem below is `sorry`-bodied by design.**  This file is
-the wave table for node N8 of the Heath-Brown engine (`docs/sources/hb1983-notes.md` §1–§2,
-pp.197–200): the reduction chain `S⁽⁰⁾ → S⁽³⁾` stated on ONE window, and the p.200 assembly
-`S⁽³⁾ ≤ κS₁{(L′/L)² + O(BL) + O(B²e^{−z₀/4})} + O(xL⁸/z)` (both signs) from the landed
-dimension-4 sieve, HB's Lemma 5 as an INTERFACE (N7's exit, Wave C-2 row C2-10), and HB's
-Lemma 6 proved here.  Each docstring carries the row's **class**, its **line cap**, the
-**red-first idea** (what the executor does first), and the **consumer** of the statement by
-Lean name.  Nothing here bears on twin primes: N8 assembles nothing on its own — the dichotomy
-`fulcrum_dichotomy` stays conditional on `hEngine` until N7 (Waves A/B/C), N8, N9, N10 and the
-four joins all land.
+**STATUS: A DESIGN FREEZE, v2 (after the refuter pass).  Every theorem below is
+`sorry`-bodied by design.**  This file is one half of node N8 of the Heath-Brown engine
+(`docs/sources/hb1983-notes.md` §1–§2, pp.199–200, and Lemma 6, pp.204–206): the sieve wire
+at the crown window, HB Lemma 6 proved here with literal constants, HB Lemma 5 as an
+INTERFACE (N7's exit, Wave C-2 row C2-10), and the p.200 assembly
+`S⁽³⁾ ≤ κS₁{(L′/L)² + O(BL) + O(B²e^{−z₀/4})} + O(xL⁸/z)` (both signs).  The other half —
+the reduction chain `S⁽⁰⁾ → S⁽³⁾` on the window and Lemma 3 at the pretense sum — is
+`Salt/HB/CrownChain.lean`; the two files share no declaration and neither imports the
+other, so two executors can work them in parallel in one checkout (one file each).  Each
+docstring carries the row's **class**, its **line cap**, the **red-first idea**, and the
+**consumer** of the statement by Lean name.
 
-## THE THREE DESIGN DECISIONS (seams S1, S2, S6 of the crown census)
+Nothing here bears on twin primes: N8 assembles nothing on its own.  The dichotomy
+`fulcrum_dichotomy` stays conditional on `hEngine` until N7 (Waves A/B/C), N8, N4's
+composition wave, the `z` witness (seam S3), N9, N10 and N12 land.  N11 is closed
+(`twinPrimeConjecture_of_frequently_S1`, `Salt/HB/DoorBridge.lean`, sorry-free).
 
-**S1 — ONE WINDOW: `l2cWindow χ z x`.**  Four windows exist in the corpus (`l2cWindow`,
-`honestWindow`, `HBSieveData.support`, `twinWindow`).  The chain is stated on
-`l2cWindow χ z x = {n ∈ (x, 2x] : (n(n+2), q·excPrimorial χ z) = 1}` — HB's `(l, qP) = 1` at
-the minimal honest modulus, the window the unconditional master `hb_l2c_master_unconditional`
-is already proved on.  The star step reaches it for free (`S2_sub_S3_window` takes any
-sub-window with `excPrimorial`-coprimality, which `l2cWindow_excPrimorial_coprime` supplies);
-the sieve reaches it through a second wire `hbDataN8` (the `SieveWire` pattern at this window,
-where the `(l, P) = 1` filter of `hbData_S3_eq` becomes VACUOUS — `hbDataN8_S3_eq`); the door
-(`twinWindow (2x+2) = Ioc x (2x)`, `twinWindow_two_mul_add_two`) is reached by the
-`S⁽⁰⁾ → S⁽¹⁾` swap `S1_Ioc_sub_S1_l2cWindow_le`.  `honestWindow` and `hbData` are thereby
-SUPERSEDED for the crown path (they stay landed, untouched).
+## THE TWO DESIGN DECISIONS OF THIS HALF (seams S1, S2 of the crown census)
 
-**S2 — ONE `S⁽³⁾`.**  `hbDataN8_S3_eq` identifies the interface's sifted sum with the star
-step's `S3 χ z (l2cWindow χ z x)` with NO residual filter, so every sandwich conclusion is
-literally about the object the reduction chain ends on.
+**S1 — the window is `l2cWindow χ z x`** (chosen in `CrownChain.lean`); the sieve reaches it
+through a second wire `hbDataN8` (the `SieveWire` pattern at this window).  `hbData`
+(`SieveWire.lean`) is SUPERSEDED for the crown path (it stays landed, untouched).
 
-**S6 — `S⁽⁰⁾ → S⁽¹⁾` NAMED.**  `S1_Ioc_sub_S1_l2cWindow_le`: the terms dropped by the
-coprimality cut are prime-power pairs, at most two per prime of `q·excPrimorial`, so the swap
-costs `≤ 2(ω(q) + z)·L′²` — sharper than HB's `O(L⁴z)`.
+**S2 — ONE `S⁽³⁾`.**  `excPrimorial χ z` is the product of the primes `p < z` with
+`χ_ℝ(p) ≠ −1`, and HB's sifting modulus `hbP` is the product of the primes `2 < p < z` with
+`χ_ℝ(p) = 1` — a sub-product.  So `excPrimorial`-coprimality (the window's) gives
+`hbP`-coprimality, the `(l, P) = 1` filter of `hbData_S3_eq` is the identity on the window,
+and `hbDataN8_S3_eq` identifies the interface's sifted sum with the star step's
+`S3 χ z (l2cWindow χ z x)` with NO residual filter.
+
+## THE STATEMENT REPAIRS OF v2 (the refuter pass, 2026-09-03 18:1x)
+
+* `deltaSum_nuG_mul_additive` (HB (3.6)) now carries `hPodd` — v1 divided by `1 − ν_G(p)`
+  with `ν_G(2) = 1` exactly (`nuG_lt_one_of_prime` carries `p ≠ 2` for this reason; HB p.205
+  invokes "`P` is odd" at exactly this line).  Counterexample to v1: `P = 6`, `δ = 3`.
+* `Lemma5Eval` carries the three nonnegativity fields `CA_nonneg`, `CA'_nonneg`,
+  `Cerr_nonneg`: the Lemma-6 rows demand `0 ≤ B′`, `0 ≤ CA`, and `Lemma5Eval`'s prime-wise
+  bounds are VACUOUS when `hbP = 1`, so nothing else supplies them.  (`0 ≤ CC` follows from
+  `C₀_le` at `L ≥ 3`; not a field.)  Wave C-2 prints literal nonnegative constants anyway.
 
 ## WHAT N8 KEEPS SYMBOLIC (and why)
 
-* `PretenseSum χ (2x+2)` stays a SYMBOL in the Lemma-4 error `lemma4Err` — N8's reduction is
-  zero-free, exactly as HB's §2 is.  The zero enters only through
-  `pretenseSum_at_repulsion_floor` (HB Lemma 3 at the pretense-sum level, the join the crown
-  chain actually consumes — see the ⛔ below) and through the VALUES `LL = L′(1,χ)/L(1,χ)` and
-  `kappa`, both free parameters here, identified by N9 with N4's terminals.
+* The VALUES `LL = L′(1,χ)/L(1,χ)` and `kappa` are free parameters here, identified by N9
+  with N4's terminals (`(L1)`, `hb_L2_at_split_point_charTrio`).
 * `Lemma5Eval` is an interface: Wave C-2 (row C2-10) PRODUCES it at `H := hbDataN8 …`; the
   p.200 rows CONSUME it.  Its constants `CA CA' CC Cerr` are literal parameters — Wave C must
   print them; N8 never writes `≪`.
-* `z` is free with the landed binders carried (`hz100 hz8 hzx` of the master, `hzt hs` of the
-  sieve, and `3·sRatio·log z ≤ L` for HB's `D = q^{1/3}`); N9 discharges them at HB's
-  `z = q^{1/z₀}`, `z₀ = A·log log η` (seam S3 is N9's, not N8's).
-
-⛔ **A FINDING ABOUT THE LANDED N3 JOIN.**  `hb_lemma3_at_repulsion_floor`
-(`Salt/HB/Lemma3Floor.lean`) joins Lemma 3 to the PARAMETRIC `hb_lemma2` shape: its antecedent
-`hres : overshootMajorant χ A ≤ …` is the τ-crude majorant that the L2c campaign declared
-"provably `L²`-inflated at the worst pattern and BYPASSED" (`Salt/HB/L2cCore.lean` header).  No
-producer of `hres` at HB's grade exists or is planned, so that join has no consumer on the crown
-path.  The join the path needs is one level down — the pretense sum itself at the floor —
-and it is `pretenseSum_at_repulsion_floor` below (same binders, same route, one stage earlier).
-The landed join stays; it is simply not on the road.
+* `z` is free with the landed binders carried (`hzt hs` of the sieve, and
+  `3·sRatio·log z ≤ L` for HB's `D = q^{1/3}`); N9 discharges them at HB's `z = q^{1/z₀}`,
+  `z₀ = A·log log η` (seam S3 is N9's, not N8's).  ⚠ `hzt` forces `log log z ≥ 400`
+  (`zThresh_facts`), so the crown's threshold is `log q ≥ z₀·e^{400}` — a threshold in `q`,
+  not in `η`; N9's `C0` must name it.
 
 ## THE ROWS (executor order; class per the salt CLAUDE.md table)
 
-§1 window & wire · §2 the swap · §3 Lemma 4 on the window · §4 Lemma 3 at the pretense sum ·
-§5 Lemma 6 (the densities) · §6 Lemma 5 interface + the p.200 assembly · §7 the `κS₁` wire.
+§1 the wire at the window · §5 Lemma 6 (the densities) · §6 Lemma 5 interface + the p.200
+assembly · §7 the `κS₁` wire.  (§2–§4 are `CrownChain.lean`'s; the numbering is the freeze
+brief's.)  Order: W2–W4 → D0–D3 → D4 → D5/D7/D8 → D6/D9 → D10 → T1/T2 → E1/E2 → P+ → P− → K1.
 -/
 
 open Finset ArithmeticFunction
@@ -85,21 +81,15 @@ namespace Salt.HB
 
 variable {q : ℕ}
 
-/-! ## §1 — the window decision (S1) and the sieve wire at that window (S2) -/
-
-/-- **`l2cWindow ⊆ honestWindow`.**  Coprimality to `q·excPrimorial` implies coprimality to
-`excPrimorial`.  Class **A**, cap 30.  Red-first: `Finset.filter_subset_filter` +
-`Nat.Coprime.coprime_dvd_right (dvd_mul_left _ _)`.  Consumer: `S2_sub_S3_l2cWindow` (via
-`l2cWindow_excPrimorial_coprime`, already landed; this row is the set-level form for N9). -/
-theorem l2cWindow_subset_honestWindow (χ : DirichletCharacter ℂ q) (z x : ℕ) :
-    l2cWindow χ z x ⊆ honestWindow χ z x := by
-  sorry
+/-! ## §1 — the sieve wire at the crown window (S2) -/
 
 /-- **The `(l, P) = 1` filter is vacuous on the N8 window.**  Every prime of
-`hbP (chiReChar χ hsq) z` is `2 < p < z` with `χ_ℝ(p) = 1 ≠ −1`, hence divides
-`excPrimorial χ z`; so `excPrimorial`-coprimality gives `hbP`-coprimality.  Class **A**, cap 60.
+`hbP (chiReChar χ hsq) z` is `2 < p < z` with `χ_ℝ(p) = 1`, hence `≠ −1`, hence a factor of
+`excPrimorial χ z` (`StarWindow.lean`: the primes `p < z` with `chiRe χ p ≠ −1`); so
+`excPrimorial`-coprimality gives `hbP`-coprimality.  Class **A**, cap 60.
 Red-first: `Nat.Coprime.coprime_dvd_right` with `hbP ∣ excPrimorial` proved by
-`Finset.prod_dvd_prod_of_subset` after `hbSiftSet_chiReChar`.  Consumer: `hbDataN8_S3_eq`. -/
+`Finset.prod_dvd_prod_of_subset` after `hbSiftSet_chiReChar`, from
+`l2cWindow_excPrimorial_coprime`.  Consumer: `hbDataN8_S3_eq`. -/
 theorem l2cWindow_coprime_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z x : ℕ) :
     ∀ n ∈ l2cWindow χ z x, Nat.Coprime (n * (n + 2)) (hbP (chiReChar χ hsq) (z : ℝ)) := by
   sorry
@@ -115,7 +105,7 @@ noncomputable def hbDataN8 (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z
     (fun n => LamStar χ z n * LamStar χ z (n + 2))
     (fun n _ => mul_nonneg (LamStar_nonneg χ hsq z n) (LamStar_nonneg χ hsq z (n + 2)))
 
-/-- The N8 wire sifts by HB's own modulus. -/
+/-- The N8 wire sifts by HB's own modulus (`rfl`; no obligation). -/
 theorem hbDataN8_P (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
     (x : ℕ) : (hbDataN8 χ hsq hz x).P = hbP (chiReChar χ hsq) (z : ℝ) := rfl
 
@@ -143,112 +133,6 @@ theorem hbDataN8_sandwich (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z 
             (hbP (chiReChar χ hsq) (z : ℝ)) (hbDataN8 χ hsq hz x).S := by
   sorry
 
-/-! ## §2 — the swap `S⁽⁰⁾ → S⁽¹⁾` (seam S6, HB p.197) -/
-
-/-- **The cut only removes mass.**  `S1 (l2cWindow) ≤ S1 (Ioc x (2x))`: a sub-window of
-nonnegative terms.  Class **A**, cap 20.  Red-first: `Finset.sum_le_sum_of_subset_of_nonneg`
-with `l2cWindow_subset` and `vonMangoldt_nonneg`.  Consumer: `hb_lemma4_l2cWindow`. -/
-theorem S1_l2cWindow_le_S1_Ioc (χ : DirichletCharacter ℂ q) (z x : ℕ) :
-    S1 (l2cWindow χ z x) ≤ S1 (Finset.Ioc x (2 * x)) := by
-  sorry
-
-/-- **HB p.197, `S⁽⁰⁾ = S⁽¹⁾ + O(L⁴z)`, sharpened.**  A term `Λ(n)Λ(n+2)` dropped by the
-coprimality cut has some prime `p ∣ q·excPrimorial χ z` dividing `n` or `n+2`; both are prime
-powers, so `n = p^e` or `n + 2 = p^e`, and a dyadic window holds at most ONE power of each
-prime on each side.  Hence at most `2` dropped terms per prime, each `≤ L′²`, over at most
-`ω(q) + #{p < z} ≤ ω(q) + z` primes.  Class **B**, cap 250.  Red-first: express the
-difference as a sum over `(Ioc x (2x)) \ l2cWindow`, bound the index set's cardinality by a
-`biUnion` over the primes of `q·excPrimorial` of the two singleton-or-empty fibres
-`{n ∈ Ioc : n = p^e}` / `{n : n + 2 = p^e}`, each `≤ 1` (`Nat.pow_lt_pow_right`-style doubling).
-`hq : 0 < q` is needed: at `q = 0` the window collapses and the bound is false.
-Consumer: `hb_lemma4_l2cWindow`. -/
-theorem S1_Ioc_sub_S1_l2cWindow_le (χ : DirichletCharacter ℂ q) (hq : 0 < q) (z x : ℕ) :
-    S1 (Finset.Ioc x (2 * x)) - S1 (l2cWindow χ z x)
-      ≤ 2 * ((q.primeFactors.card : ℝ) + (z : ℝ)) * Lwin x ^ 2 := by
-  sorry
-
-/-! ## §3 — HB Lemma 4 on the N8 window (`S⁽⁰⁾ = S⁽³⁾ + error`, the pretense sum symbolic) -/
-
-/-- **The star step at the N8 window** — `S2_sub_S3_window` at `A := l2cWindow χ z x`.
-Class **A**, cap 30.  Red-first: `S2_sub_S3_window χ hsq z x hz _ (l2cWindow_subset χ z x)
-(l2cWindow_excPrimorial_coprime χ z x) ε hε`.  Consumer: `hb_lemma4_l2cWindow`. -/
-theorem S2_sub_S3_l2cWindow (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z x : ℕ)
-    (hz : 1 ≤ z) (ε : ℝ) (hε : 0 < ε) :
-    ∃ C : ℝ, 0 < C ∧
-      |S2 χ (l2cWindow χ z x) - S3 χ z (l2cWindow χ z x)|
-        ≤ 2 * (C * (2 * (x : ℝ) + 2) ^ ε * Real.log (2 * (x : ℝ) + 2)) ^ 2
-            * (2 * (x : ℝ) / (z : ℝ) + (Nat.sqrt (2 * x + 2) : ℝ)) := by
-  sorry
-
-/-- **THE LEMMA-4 ERROR ON THE N8 WINDOW**, the three landed pieces summed with the pretense
-sum SYMBOLIC: the swap (§2), the unconditional master's three terms (`hb_l2c_master_unconditional`,
-`L2cCmain = 2^31`), and the star step's `x^{1+2ε}L′²/z`-grade tail.  A definition.
-N9 feeds `pretenseSum_at_repulsion_floor` into the middle term and chooses `z` so that the
-whole is `O(x/z₀)` — HB's Lemma 4 at `z₀ ≤ A·log log η`. -/
-noncomputable def lemma4Err (χ : DirichletCharacter ℂ q) (z x : ℕ) (C ε : ℝ) : ℝ :=
-  2 * ((q.primeFactors.card : ℝ) + (z : ℝ)) * Lwin x ^ 2
-  + (L2cCmain * ((x : ℝ) / z0 z x)
-      + L2cCmain * ((x : ℝ) / Real.log x) * Real.exp (5 * z0 z x)
-          * PretenseSum χ (2 * x + 2)
-      + L2cCmain * Real.exp (2 * z0 z x)
-          * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ) + (x : ℝ) ^ ((9 : ℝ) / 10)) * Lwin x ^ 3)
-  + 2 * (C * (2 * (x : ℝ) + 2) ^ ε * Real.log (2 * (x : ℝ) + 2)) ^ 2
-      * (2 * (x : ℝ) / (z : ℝ) + (Nat.sqrt (2 * x + 2) : ℝ))
-
-/-- **HB LEMMA 4 ON THE N8 WINDOW — the reduction terminal.**  `|S⁽⁰⁾ − S⁽³⁾| ≤ lemma4Err`
-from the bare master packet `{hsq, hz100, hz8, hzx}` and `hq`.  Class **B**, cap 150.
-Red-first: `S⁽⁰⁾ − S⁽³⁾ = (S⁽⁰⁾ − S⁽¹⁾) + (S⁽¹⁾ − S⁽²⁾) + (S⁽²⁾ − S⁽³⁾)` on `W := l2cWindow`;
-the first bracket is in `[0, swap]` (§2), the second in `[−master, 0]` (`S1_le_S2` and
-`hb_l2c_master_unconditional`), the third `≤ star` in absolute value (`S2_sub_S3_l2cWindow`);
-`abs_add` three times.  Consumer: **N9** (`hb_theorem1`, the next design block: HB Theorem 1
-at `z = q^{1/z₀}`), thence `twinPrimeConjecture_of_frequently_S1` (`DoorBridge.lean`), which
-consumes exactly a lower bound on `S1 (Ioc x (2x))`. -/
-theorem hb_lemma4_l2cWindow (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (hq : 0 < q)
-    {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x)
-    (ε : ℝ) (hε : 0 < ε) :
-    ∃ C : ℝ, 0 < C ∧
-      |S1 (Finset.Ioc x (2 * x)) - S3 χ z (l2cWindow χ z x)| ≤ lemma4Err χ z x C ε := by
-  sorry
-
-/-! ## §4 — HB Lemma 3 at the pretense-sum level, at the repulsion floor (the live N3 join) -/
-
-/-- **THE PRETENSE SUM AT THE REPULSION FLOOR.**  `pretenseSum_unconditional_absorbed` fired
-at HB's operating point `σ = 1 + 1/L`, `σ′ = 1 + √(log η)/L`, its three `r0`-binders supplied
-by `repulsion_floor_gives_lemma3_binders` (landed, `Lemma3Floor.lean`) and its floor antecedent
-discharged from `hceil` by `one_sub_ceiling_le_dist_one`, the rate absorbed by
-`hbCoreRate_at_hb_optimum_absorbed`.  The conclusion's inner factor is character-for-character
-the one `hb_lemma3_at_repulsion_floor` carries; here it bounds `PretenseSum χ N` ITSELF, which
-is what `lemma4Err` holds.  Class **B**, cap 200.  Red-first: copy the §2 proof of
-`Lemma3Floor.lean` with `pretenseSum_unconditional_absorbed` in place of
-`hb_lemma3_unconditional_absorbed`; the operating-point side conditions `1 < σ ≤ σ′ ≤ 2` are
-`hell`/`hηq` (`√ℓ ≤ L`).  Consumer: **N9** (into `lemma4Err`'s `PretenseSum χ (2x+2)`).
-`Sinv` is deliberately still an antecedent (priced by `invSq_sum_split_le`; N9's). -/
-theorem pretenseSum_at_repulsion_floor {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
-    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) (N : ℕ)
-    {β₀ Sinv Cs L η b c k Q u : ℝ}
-    (hLpos : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
-    (hell : 1 ≤ Real.log η) (hηq : Real.log η ≤ L) (hCs : 0 ≤ Cs)
-    (hSinvC : Sinv ≤ Cs * (L ^ 2 / Real.log η))
-    (hCR : 1600 * Real.log (80 * Real.sqrt f * (1 + Real.log f)) ≤ 800 * L)
-    (hβlo : 1 / 2 < β₀) (hβ1 : β₀ < 1)
-    (hβ0 : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0)
-    (hb : 0 < b) (hQ : 1 < Q) (hu : u = 1 - β₀)
-    (hD : 0 ≤ Real.log (1 / c) + k * Real.log (Real.log Q + 2) - Real.log L)
-    (hlarge : (2 * b * Real.log Q / L
-        + (Real.log (1 / c) + k * Real.log (Real.log Q + 2) - Real.log L)
-            / (2 * b * Real.log Q / L)) ^ 2 ≤ Real.log η)
-    (hceil : ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) →
-        ρ.re ≤ repulsionCeiling b c k Q u) :
-    ∃ (Z : Finset ℂ) (m : ℂ → ℕ),
-      (β₀ : ℂ) ∈ Z ∧ 1 ≤ m (β₀ : ℂ) ∧
-      (∀ ρ ∈ Z, DirichletCharacter.LFunction χ ρ = 0) ∧
-      (∀ ρ ∈ Z, (m ρ : ℝ) ≤ (Salt.SW.zeroMult χ ρ : ℝ)) ∧
-      ((∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ Sinv) →
-        PretenseSum χ N
-          ≤ (N : ℝ) ^ (1 / L) * ((1 - β₀) * L ^ 2
-              + (2 + (802 + 4 * Cs) * (L / Real.sqrt (Real.log η)))) / 2) := by
-  sorry
-
 /-! ## §5 — HB Lemma 6 (pp.199, 204–206): the three densities and the per-δ bounds
 
 The landed sieve (`RosserDim4FL`, `RosserDim4Instance`) proves the per-δ TRANSFER
@@ -256,7 +140,8 @@ The landed sieve (`RosserDim4FL`, `RosserDim4Instance`) proves the per-δ TRANSF
 hypotheses it takes, and this section proves them for `ρ₂ = ν_G·A′` and `ρ₃ = ν_G·A²` with
 `A, A′` additive on the divisors of `P` and bounded at primes.  The constants are literal;
 HB's `≪ BL` becomes `64·B′·L` and his `≪ L²` becomes `(128·CA·L)²` (both with ample slack,
-computed in the freeze brief §2; bounded numeral amendment is pre-authorised). -/
+computed in the freeze brief §2 and re-derived by the refuter pass; bounded numeral amendment
+is pre-authorised: `64 → ≤ 256`, `128 → ≤ 512`, the `3 ≤ L` guard `→ ≤ 10`). -/
 
 /-- **Additivity on the divisors of a squarefree modulus.**  Mathlib has `IsMultiplicative`
 (`ArithmeticFunction/Defs.lean`) and no additive sibling (the Wave C scout, §0); this is the
@@ -268,8 +153,10 @@ def IsAdditiveOn (P : ℕ) (A : ℕ → ℝ) : Prop :=
 `S^{(1)}(δ) = ν_G(δ)·∏_{p ∣ P, p < p(δ)} (1 − ν_G(p))`.  Class **B**, cap 150.  Red-first:
 `deltaSum` unfolds to a sum over `lowDiv P δ`; `lowDiv P δ` is the divisor set of the product
 of the primes of `P` below `δ.minFac` (`mem_lowDiv`), so `sum_divisors_eq_sum_powerset` +
-`nuG_isMultiplicative` + `Finset.prod_one_sub`-shape (`moebSum_nu_eq_W`'s own proof is the
-template).  Consumer: `deltaSum_nuG_nonneg`, `deltaSum_nuG_mul_additive`. -/
+`nuG_isMultiplicative`, then the two lemmas `moebSum_nu_eq_W` itself uses
+(`RosserDim4Instance.lean`): `Salt.BrunLower.sum_powerset_prod_neg_nu` and
+`moebius_nu_prod_eq`.  True without `hPodd` (no division).  Consumer: `deltaSum_nuG_nonneg`,
+`deltaSum_nuG_mul_additive`. -/
 theorem deltaSum_nuG_eq (P : ℕ) (hP : Squarefree P) (δ : ℕ) (hδ : δ ∣ P) :
     deltaSum P δ (fun d => nuG d)
       = nuG δ * ∏ p ∈ P.primeFactors.filter (fun p => p < δ.minFac), (1 - nuG p) := by
@@ -295,12 +182,15 @@ theorem lamSum_nuG_sub_W_bounds (P : ℕ) (hP : Squarefree P)
 
 /-- **HB (3.6), the additive-twist fibre identity.**  For `A′` additive on `P`'s divisors,
 `S^{(2)}(δ) = S^{(1)}(δ)·(A′(δ) − Σ_{p ∣ P, p < p(δ)} A′(p)·ν_G(p)/(1 − ν_G(p)))`.
+**`hPodd` is load-bearing**: the identity divides by `1 − ν_G(p)`, and `ν_G(2) = 1` exactly
+(HB p.205: "`P` is odd, and so `G(p) < p`"); v1 omitted it and was false at `P = 6`, `δ = 3`.
 Class **C**, cap 300.  Red-first: on `lowDiv P δ` every `e` is coprime to `δ`, so
 `ν_G(δe)A′(δe) = ν_G(δ)ν_G(e)(A′(δ) + A′(e))`; the `A′(δ)` part is `deltaSum_nuG_eq`; for the
 `A′(e)` part write `A′(e) = Σ_{p ∣ e} A′(p)` (additivity + squarefree) and swap the sums:
-`Σ_{e ∋ p} μ(e)ν_G(e) = −ν_G(p)·∏_{p′ ≠ p}(1 − ν_G(p′))`.  Consumer:
-`deltaSum_nuG_mul_additive_le`. -/
-theorem deltaSum_nuG_mul_additive (P : ℕ) (hP : Squarefree P) (A' : ℕ → ℝ)
+`Σ_{e ∋ p} μ(e)ν_G(e) = −ν_G(p)·∏_{p′ ≠ p}(1 − ν_G(p′))`; `nuG_lt_one_of_prime` clears the
+denominators.  Consumer: `deltaSum_nuG_mul_additive_le`. -/
+theorem deltaSum_nuG_mul_additive (P : ℕ) (hP : Squarefree P)
+    (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) (A' : ℕ → ℝ)
     (hA' : IsAdditiveOn P A') (δ : ℕ) (hδ : δ ∣ P) :
     deltaSum P δ (fun d => nuG d * A' d)
       = deltaSum P δ (fun d => nuG d)
@@ -422,10 +312,15 @@ for `d ∣ P`, `(d, α) = 1`, `d ≤ q^{1/3}` (spelled `d³ ≤ e^L`, `L = log q
 additive on `P`'s divisors, `|A(p)| ≤ CA·log p`, `|A′(p)| ≤ CA′·B·log p`, `|C₀| ≤ CC·B·L`,
 `B = L + |LL|`, `LL = L′(1,χ)/L(1,χ)` (a free real here; N9 identifies it with N4's `(L1)`
 terminal).  Every `≪` of the paper is a literal parameter: **Wave C-2 (row C2-10) must print
-`CA CA' CC Cerr`**, and the `x` is produced by the `t`-integration (scout §5), never carried.
+`CA CA' CC Cerr`, nonnegative** (the three `_nonneg` fields are v2's: the Lemma-6 rows demand
+them and the prime-wise bounds cannot supply them when `hbP = 1`), and the `x` is produced by
+the `t`-integration (scout §5), never carried.
 Producer: Wave C-2 at `H := hbDataN8 χ hsq hz x`.  Consumers: `hb_p200_upper`, `hb_p200_lower`. -/
 structure Lemma5Eval (H : HBSieveData) (α : ℕ) (x L LL kappa C₀ Cerr CA CA' CC : ℝ)
     (A A' : ℕ → ℝ) : Prop where
+  CA_nonneg : 0 ≤ CA
+  CA'_nonneg : 0 ≤ CA'
+  Cerr_nonneg : 0 ≤ Cerr
   A_add : IsAdditiveOn H.P A
   A'_add : IsAdditiveOn H.P A'
   A_prime : ∀ p ∈ H.P.primeFactors, |A p| ≤ CA * Real.log p
@@ -455,8 +350,8 @@ noncomputable def mertens2C : ℝ :=
 /-- **HB (2.3): `Σ_{d∣P} 4^{ω(d)}/d ≪ L⁴`.**  `= ∏_{p ∣ P}(1 + 4/p) ≤ exp(4·Σ_{p<z} 1/p)
 ≤ exp(4·(log log z + mertens2C)) = e^{4·mertens2C}·(log z)⁴`.  Class **B**, cap 200.
 Red-first: `sum_divisors_eq_sum_powerset` + `Finset.prod_add`-shape for the product identity,
-`Real.add_one_le_exp` factorwise, `sum_inv_prime_le_aux`.  Consumer: `hb_p200_upper`,
-`hb_p200_lower` (through N9's `log z ≤ L`). -/
+`Real.add_one_le_exp` factorwise, `sum_inv_prime_le_aux`.  Consumer: **N9** (the p.200 rows
+carry `n8ErrSum P` by name; N9 prices it here, through its `log z ≤ L`). -/
 theorem n8ErrSum_le (P : ℕ) (hP : Squarefree P) {z : ℕ} (hz : 2 ≤ z)
     (hPz : ∀ p ∈ P.primeFactors, p ≤ z) :
     n8ErrSum P ≤ Real.exp (4 * mertens2C) * Real.log z ^ 4 := by
@@ -476,13 +371,19 @@ HB's form `κS₁{(L′/L)² + O(BL) + O(B²e^{−z₀/4})} + O(xL⁸z⁻¹)` is
 (`hbS1_eq_W`), `LL² ≤ B²`, and `n8ErrSum ≤ e^{4·mertens2C}L⁴` (`n8ErrSum_le`).
 Hypotheses: the sieve's operating packet (`hlam hlam' hzt hs`), HB's `D = q^{1/3}` as
 `3·sRatio·log z ≤ L` (so every kept `d` has `d³ ≤ e^L` by `flB_level_bound`, and every
-first-failure `δ` has `log δ ≤ L` by `failSet_log_le`), `1 < z`, `κ ≥ 0`, and
-`(P, α) = 1` (true at the twin instance `α = 4`: `P` is odd).
-Class **C**, cap 600.  Red-first: `Σ_d λ⁺_d S(d) = κ Σ_d λ⁺_d ν_G(d)(LL² + A² + A′ + C₀)
-+ Σ_d λ⁺_d e_d` with `|e_d| ≤ Cerr·x·L⁴/(z·d)·4^{ω(d)}` and `|λ_d| ≤ 1`; the main sum is
-`κ(LL²·S₁′ + S₃′ + S₂′ + C₀·S₁′)`; bound `S₂′ ≤ |S₂| + |S₂′ − S₂|` by
-`moebSum_nuG_mul_additive_le` + `hb_transfer_additive` + `lamSum_nuG_sub_W_bounds`; same for
-`S₃′`.  Consumer: **N9** (`hb_theorem1`, with `kappa := hbKappa χ α x (hbL1 χ z)` and
+first-failure `δ` has `log δ ≤ L` by `failSet_log_le`), `κ ≥ 0`, and `(P, α) = 1` (true at
+the twin instance `α = 4`: `P` is odd).  The sign guards `0 ≤ CA, CA′, Cerr` are
+`Lemma5Eval`'s fields.
+Class **C**, cap 600.  **Red-first, the preamble (four landed facts, ~40 ln, before any
+algebra):** `Lam4_pos hlam hlam' hzt` gives `0 < Λ₄`; `levelE Λ = 2e^Λ/(e^Λ − 1) > 2` for
+`Λ > 0` (two lines from the definition, `RosserDim4FL.lean`; `levelE_pos` gives only `> 0`),
+so `sRatio > 2` and `hD` gives `log z ≤ L/6`; `hPL : log p ≤ L` for `p ∣ P` from
+`HBSieveData.P_lt_z`; `hδL : log δ ≤ L` on the fail set from `failSet_log_le` and
+`(sRatio + 1)·log z ≤ L/3 + L/6`.  **Then the algebra:** `Σ_d λ⁺_d S(d) = κ Σ_d λ⁺_d
+ν_G(d)(LL² + A² + A′ + C₀) + Σ_d λ⁺_d e_d` with `|e_d| ≤ Cerr·x·L⁴/(z·d)·4^{ω(d)}` and
+`|λ_d| ≤ 1`; the main sum is `κ(LL²·S₁′ + S₃′ + S₂′ + C₀·S₁′)`; bound `S₂′ ≤ |S₂| + |S₂′ − S₂|`
+by `moebSum_nuG_mul_additive_le` + `hb_transfer_additive` + `lamSum_nuG_sub_W_bounds`; same
+for `S₃′`.  Consumer: **N9** (`hb_theorem1`, with `kappa := hbKappa χ α x (hbL1 χ z)` and
 `LL` from N4's `(L1)`). -/
 theorem hb_p200_upper (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
     (hz : 2 ≤ z) {lam sRatio : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
@@ -504,9 +405,14 @@ theorem hb_p200_upper (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : 
 
     S⁽³⁾ ≥ κ·W·(LL²·(1 − Ce^{−cs}) − n8C6·B·L·(1 + Ce^{−cs})) − Cerr·x·L⁴·z⁻¹·n8ErrSum P.
 
-Same hypotheses and route as `hb_p200_upper`; class **C**, cap 400 (the mirror, once the
-upper's bookkeeping lemmas exist).  Consumer: **N9** (`hb_theorem1` — THIS is the sign the
-door consumes: a LOWER bound on `S⁽³⁾`, hence on `S1 (Ioc x (2x))` through
+Same hypotheses and route as `hb_p200_upper` (the same preamble); class **C**, cap 400 (the
+mirror, once the upper's bookkeeping lemmas exist).  ⚠ For N9, not for the executor: at the
+sieve's own threshold `sRatio = levelE Λ₄` the FL factor `flConst·e^{−flRate·sRatio}` is the
+Λ-free constant `2e^{2λ}/(1 − λ²e^{2+2λ}) ≈ 13.82` at `λ = 1/4`, so the bracket is negative
+and the statement, though true, says nothing; it is non-vacuous once
+`sRatio ≥ levelE Λ₄ + log(13.82)/log 4 ≈ levelE Λ₄ + 1.9`, which N9's `s = z₀/3` supplies
+for free but its `hb_theorem1` must CARRY.  Consumer: **N9** (`hb_theorem1` — THIS is the
+sign the door consumes: a LOWER bound on `S⁽³⁾`, hence on `S1 (Ioc x (2x))` through
 `hb_lemma4_l2cWindow`, is what `twinPrimeConjecture_of_frequently_S1` needs). -/
 theorem hb_p200_lower (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
     (hz : 2 ≤ z) {lam sRatio : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
@@ -533,7 +439,7 @@ theorem hb_p200_lower (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : 
 the twin instance `α = 4`), and the factors agree by `one_sub_hbG_div_eq`.  Class **B**,
 cap 200.  Red-first: `hbSiftSet_chiReChar` + `Finset.prod_congr` after an `ext` on the two
 filters.  Consumer: **N9** (composes N4's `κS₁ = (1+δ)x𝔖C(α)/(ηL)²` into `hb_p200_*`'s
-`kappa · W`). -/
+`kappa · W`; N4's row takes a FREE real `z`, so N9 instantiates it at `(z:ℝ) − 1`). -/
 theorem hbS1_eq_W (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
     (x : ℕ) {α : ℕ} (hα2 : 2 ∣ α) (hαodd : ∀ p : ℕ, p.Prime → p ∣ α → p = 2) :
     hbS1 χ α ((z : ℝ) - 1) = W (hbDataN8 χ hsq hz x).sieve := by

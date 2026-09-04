@@ -60,6 +60,7 @@ import Salt.HB.EstermannRoad
 import Salt.HB.Lemma3Floor
 import Salt.HB.SieveWire
 import Salt.HB.DoorBridge
+import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
 
 /-!
@@ -360,27 +361,62 @@ open Salt.Tactic in
   Salt.HB.twinPrimeConjecture_of_frequently_pos Salt.HB.twinWindow_two_mul_add_two
   Salt.HB.ppTail_le Salt.HB.S1_Ioc_le_p1PrimeSum_add_ppTail
   Salt.HB.twin_of_ppTail_lt_S1 Salt.HB.twinPrimeConjecture_of_frequently_S1
-  -- node N8 (Salt/HB/CrownAssembly.lean): THE §2 ASSEMBLY — a DESIGN FREEZE (h2c/crown-n8,
-  -- 2026-09-03).  Every theorem is sorry-bodied until the N8 wave lands; this block is RED by
-  -- design on the freeze branch (the audit refuses `sorryAx`) and goes green only when every
-  -- row is proved — the executor never edits these rows.  The window decision (S1:
-  -- `l2cWindow`), the wire `hbDataN8` with the vacuous `(l, P) = 1` filter (S2), the swap
-  -- `S⁽⁰⁾ → S⁽¹⁾` (S6), HB Lemma 4 on the window with the pretense sum SYMBOLIC, Lemma 3 at
-  -- the pretense-sum level at the repulsion floor (the live N3 join), HB Lemma 6 with literal
-  -- constants, HB Lemma 5 as the INTERFACE `Lemma5Eval` (Wave C-2 fills it), the p.200
-  -- assembly both signs, and the `κS₁ = W` wire.  N8 assembles nothing: `hEngine` stays a
-  -- binder until N7–N11 and the joins land.
-  Salt.HB.l2cWindow_subset_honestWindow Salt.HB.l2cWindow_coprime_hbP
-  Salt.HB.hbDataN8 Salt.HB.hbDataN8_P Salt.HB.hbDataN8_S3_eq Salt.HB.hbDataN8_sandwich
-  Salt.HB.S1_l2cWindow_le_S1_Ioc Salt.HB.S1_Ioc_sub_S1_l2cWindow_le
-  Salt.HB.S2_sub_S3_l2cWindow Salt.HB.lemma4Err Salt.HB.hb_lemma4_l2cWindow
-  Salt.HB.pretenseSum_at_repulsion_floor
-  Salt.HB.IsAdditiveOn Salt.HB.deltaSum_nuG_eq Salt.HB.deltaSum_nuG_nonneg
-  Salt.HB.lamSum_nuG_sub_W_bounds Salt.HB.deltaSum_nuG_mul_additive
-  Salt.HB.deltaSum_nuG_mul_additive_le Salt.HB.deltaSum_nuG_mul_sq_additive_le
-  Salt.HB.moebSum_nuG_mul_additive Salt.HB.moebSum_nuG_mul_additive_le
-  Salt.HB.moebSum_nuG_mul_sq_additive_le Salt.HB.failSet_log_le
-  Salt.HB.hb_transfer_additive Salt.HB.hb_transfer_sq_additive
-  Salt.HB.Lemma5Eval Salt.HB.hbG_div_eq_nuG Salt.HB.n8ErrSum Salt.HB.mertens2C
-  Salt.HB.n8ErrSum_le Salt.HB.n8C6 Salt.HB.hb_p200_upper Salt.HB.hb_p200_lower
-  Salt.HB.hbS1_eq_W
+
+/-! ## node N8 — THE §2 ASSEMBLY, a DESIGN FREEZE (v2, 2026-09-03; branch `h2c/crown-n8`)
+
+Two modules, one per executor: `Salt/HB/CrownChain.lean` (the reduction `S⁽⁰⁾ → S⁽³⁾` on the
+crown window `l2cWindow`, the swap `S⁽⁰⁾ → S⁽¹⁾`, HB Lemma 4 with the pretense sum SYMBOLIC and
+the divisor constant bound BEFORE `z x`, HB Lemma 3 at the pretense-sum level at the repulsion
+floor on the `(L1)` packet at `Lp := 2L`) and `Salt/HB/CrownAssembly.lean` (the wire `hbDataN8`
+with the vacuous `(l, P) = 1` filter, HB Lemma 6 with literal constants, HB Lemma 5 as the
+INTERFACE `Lemma5Eval` that Wave C-2 fills, the p.200 assembly both signs, the `κS₁ = W` wire).
+Every theorem is sorry-bodied until the N8 wave lands.  N8 assembles nothing: `hEngine` stays
+a binder until N7 (Waves A/B/C), N8, N4's composition wave, the `z` witness, N9, N10 and N12
+land (N11 is closed).
+
+**ONE NAME PER COMMAND, deliberately.**  `#audit_axioms` aborts at its FIRST offender
+(`throwError` inside the `for`), so a single 35-name command on this branch would resolve
+exactly one name and hide a typo in the other 34 behind the same red.  As 35 commands the
+branch emits 27 errors (`sorryAx`) and 8 ✓ (the defs, the structure, the `rfl` row), every
+name resolved; it flips to 35 ✓ when the wave lands.  Executors never edit these rows.
+-/
+
+section N8
+open Salt.Tactic
+#audit_axioms Salt.HB.l2cWindow_subset_honestWindow
+#audit_axioms Salt.HB.S1_l2cWindow_le_S1_Ioc
+#audit_axioms Salt.HB.S1_Ioc_sub_S1_l2cWindow_le
+#audit_axioms Salt.HB.S2_sub_S3_window_of_tau
+#audit_axioms Salt.HB.S2_sub_S3_l2cWindow
+#audit_axioms Salt.HB.lemma4Err
+#audit_axioms Salt.HB.hb_lemma4_l2cWindow
+#audit_axioms Salt.HB.pretenseSum_at_repulsion_floor
+
+#audit_axioms Salt.HB.l2cWindow_coprime_hbP
+#audit_axioms Salt.HB.hbDataN8
+#audit_axioms Salt.HB.hbDataN8_P
+#audit_axioms Salt.HB.hbDataN8_S3_eq
+#audit_axioms Salt.HB.hbDataN8_sandwich
+#audit_axioms Salt.HB.IsAdditiveOn
+#audit_axioms Salt.HB.deltaSum_nuG_eq
+#audit_axioms Salt.HB.deltaSum_nuG_nonneg
+#audit_axioms Salt.HB.lamSum_nuG_sub_W_bounds
+#audit_axioms Salt.HB.deltaSum_nuG_mul_additive
+#audit_axioms Salt.HB.deltaSum_nuG_mul_additive_le
+#audit_axioms Salt.HB.deltaSum_nuG_mul_sq_additive_le
+#audit_axioms Salt.HB.moebSum_nuG_mul_additive
+#audit_axioms Salt.HB.moebSum_nuG_mul_additive_le
+#audit_axioms Salt.HB.moebSum_nuG_mul_sq_additive_le
+#audit_axioms Salt.HB.failSet_log_le
+#audit_axioms Salt.HB.hb_transfer_additive
+#audit_axioms Salt.HB.hb_transfer_sq_additive
+#audit_axioms Salt.HB.Lemma5Eval
+#audit_axioms Salt.HB.hbG_div_eq_nuG
+#audit_axioms Salt.HB.n8ErrSum
+#audit_axioms Salt.HB.mertens2C
+#audit_axioms Salt.HB.n8ErrSum_le
+#audit_axioms Salt.HB.n8C6
+#audit_axioms Salt.HB.hb_p200_upper
+#audit_axioms Salt.HB.hb_p200_lower
+#audit_axioms Salt.HB.hbS1_eq_W
+end N8
