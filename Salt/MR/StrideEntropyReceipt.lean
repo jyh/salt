@@ -56,6 +56,7 @@ theorem log_chowla_aff_of_door_crowned (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (
         ∃ δ₀ : ℝ, 0 < δ₀ ∧ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) ≤ δ₀ ∧
           ∀ ρ' : ℝ, 0 < ρ' → ρ' ≤ δ₀ → MRTUniformityXiL2AffW h Ra ρ' →
             ¬ logChowlaFailsAff a b h Ra.eps Ra.x Ra.ω := by
-  sorry
+  exact log_chowla_aff_of_door a b h ha hh hba hah7 hcm
+    (fun A₀' => mrtUniformityXiL2AffW_holds_flat_stride a b h ha hh hba hah7 A₀') A₀
 
 end Salt.MR

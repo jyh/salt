@@ -178,7 +178,8 @@ theorem gate_residue_aff (a p j : ℕ) (hp : 2 ≤ p) (hcop : Nat.Coprime a p) :
       have h4 := (ZMod.natCast_eq_natCast_iff n c.val p).mpr h2
       rw [h4, hrc]
 
-/-- **F4-R1b (class A) — the class count, above.**  `#{j < H : ((j + 1 : ℕ) : ZMod a) = c} ≤ H/a + 1`:
+/-- **F4-R1b (class A) — the class count, above.**
+`#{j < H : ((j + 1 : ℕ) : ZMod a) = c} ≤ H/a + 1`:
 `card_filter_natCast_eq_le` (`FBridge.lean:125`, modulus-generic) after the `j + 1 ↦ j` reindex of
 the predicate (`StrideBridge.lean:163-170`'s `hset` trick at `c − 1`), or directly by the injection
 `j ↦ (j + 1) / a` into `Finset.range (H / a + 2)`… — stated at `H/a + 1`, which the injection
@@ -361,7 +362,8 @@ theorem absXaff_le_one (a b h : ℕ) {x ω : ℕ} (hx : 2 ≤ x) (hω : 2 ≤ ω
 
 /-! ## F4-R3 — the per-pair reduction at stride `a` -/
 
-/-- **F4-R3a (class A) — the collapsed image sum.**  `perPair_collapse_aff` (`StrideBridge.lean:540`)
+/-- **F4-R3a (class A) — the collapsed image sum.**  `perPair_collapse_aff`
+(`StrideBridge.lean:540`)
 states the image sum with the UNCOLLAPSED arguments; `liouville_collapse_aff` (`:522`) rewrites each
 summand to `λ(a·m + k)·λ(a·m + k + h)` under `Finset.sum_congr` (the gate `p·k = a·rⱼ + j + 1` as
 `hk`).  The twin of `perPair_collapse_h` (`HBudget.lean:912`) with `p * k = a * r + j + 1` in
@@ -1235,7 +1237,8 @@ theorem hbudget_holds_aff :
 
 /-- **F4-R6a (class B) — `hreduce_holds_h` (`HMainAssembly.lean:165`) at the affine forms.**
 Index-blind arithmetic: `set SP`, `set Xs := X_aff`, `set IF`, `set MAIN := Σ_p ((H/a)/p)·Xs`;
-`hSPH : Σ_p ((H/a)/p) = SP·(H/a)` (`Finset.sum_mul`, `one_div_mul_eq_div`); `|MAIN| = SP·(H/a)·|Xs|`;
+`hSPH : Σ_p ((H/a)/p) = SP·(H/a)` (`Finset.sum_mul`, `one_div_mul_eq_div`);
+`|MAIN| = SP·(H/a)·|Xs|`;
 the reverse triangle `abs_sub_abs_le_abs_sub`; `nlinarith [hmain, hbudget, hprod]` with
 `hprod : 0 ≤ (2|Xs| − ε)·(SP·(H/a))` (`0 ≤ (H : ℝ)/(a : ℝ)` by `positivity`, true at `a = 0`). -/
 theorem hreduce_holds_aff (a b h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
@@ -1329,7 +1332,8 @@ theorem consumability_probe_aff (a b h : ℕ) (ha : 0 < a) (eps : ℚ) (H : ℕ)
   exact fBridge_of_singleCorr_aff' eps H a b h ha hlog hcM hmert HRED hδ hseed
 
 /-- **F4-R6d (class A) — THE CAPSTONE COMPOSED: `hreduce_holds_final_h` (`HBudget.lean:1514`) at the
-affine forms.**  `obtain ⟨c, hc, hcge, H₀, hbud⟩ := hbudget_holds_aff; refine ⟨c, hc, hcge, H₀, ?_⟩` (the
+affine forms.**  `obtain ⟨c, hc, hcge, H₀, hbud⟩ := hbudget_holds_aff;
+refine ⟨c, hc, hcge, H₀, ?_⟩` (the
 `1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:360-361`), then `hreduce_holds_aff` at the
 budget.  This is the `hred` the affine head consumes (its `cE`, WITH `1/4 ≤ cE` — v1.1, verdict
 A1, §3 S-7). -/
