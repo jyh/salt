@@ -167,13 +167,13 @@ def IsAdditiveOn (P : ℕ) (A : ℕ → ℝ) : Prop :=
   A 1 = 0 ∧ ∀ d e : ℕ, d ∣ P → e ∣ P → Nat.Coprime d e → A (d * e) = A d + A e
 
 /-- `ν_G` on a product of distinct primes. -/
-private lemma nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
+lemma nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
     nuG (∏ p ∈ S, p) = ∏ p ∈ S, nuG p :=
   nuG_isMultiplicative.map_prod_of_subset_primeFactors _ _
     (by rw [Nat.primeFactors_prod hS])
 
 /-- `μ(∏S)·ν_G(∏S) = ∏_{p∈S}(−ν_G p)`. -/
-private lemma moebius_nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
+lemma moebius_nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
     (μ (∏ p ∈ S, p) : ℝ) * nuG (∏ p ∈ S, p) = ∏ p ∈ S, (- nuG p) := by
   rw [moebius_real_of_squarefree (squarefree_prod_of_primes hS), Nat.primeFactors_prod hS,
     nuG_prod_primes hS,
@@ -182,7 +182,7 @@ private lemma moebius_nuG_prod_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prim
     Finset.prod_mul_distrib, Finset.prod_const]
 
 /-- `lowDiv P δ` is the divisor set of `P(δ) = ∏_{p ∣ P, p < p(δ)} p`. -/
-private lemma lowDiv_eq_divisors {P δ : ℕ} (hP : Squarefree P) :
+lemma lowDiv_eq_divisors {P δ : ℕ} (hP : Squarefree P) :
     lowDiv P δ = (∏ p ∈ P.primeFactors.filter (fun p => p < δ.minFac), p).divisors := by
   classical
   set Q := P.primeFactors.filter (fun p => p < δ.minFac) with hQ
@@ -286,6 +286,80 @@ theorem lamSum_nuG_sub_W_bounds (P : ℕ) (hP : Squarefree P)
   norm_num at h1 h2
   exact ⟨by linarith [hnn 1], by linarith [hnn 2]⟩
 
+/-- An additive function on the divisors of a squarefree `P` is the sum over the primes. -/
+lemma additive_prod {P : ℕ} (hP : Squarefree P) {A : ℕ → ℝ} (hA : IsAdditiveOn P A) :
+    ∀ {S : Finset ℕ}, S ⊆ P.primeFactors → A (∏ p ∈ S, p) = ∑ p ∈ S, A p := by
+  classical
+  intro S
+  induction S using Finset.induction_on with
+  | empty => intro _; simpa using hA.1
+  | insert a S ha ih =>
+    intro hS
+    have haP : a ∈ P.primeFactors := hS (Finset.mem_insert_self a S)
+    have hSP : S ⊆ P.primeFactors := fun x hx => hS (Finset.mem_insert_of_mem hx)
+    have hap : a.Prime := Nat.prime_of_mem_primeFactors haP
+    have hcop : Nat.Coprime a (∏ p ∈ S, p) := by
+      refine Nat.Coprime.prod_right ?_
+      intro p hp
+      exact (Nat.coprime_primes hap (Nat.prime_of_mem_primeFactors (hSP hp))).mpr
+        (fun h => ha (by rw [h]; exact hp))
+    have hadvd : a ∣ P := Nat.dvd_of_mem_primeFactors haP
+    have hSdvd : (∏ p ∈ S, p) ∣ P := by
+      rw [← Nat.prod_primeFactors_of_squarefree hP]
+      exact Finset.prod_dvd_prod_of_subset _ _ _ hSP
+    rw [Finset.prod_insert ha, Finset.sum_insert ha, hA.2 a _ hadvd hSdvd hcop, ih hSP]
+
+/-- The subsets of `S` containing a fixed `p`, summed against `∏ f`. -/
+lemma sum_powerset_filter_mem {S : Finset ℕ} (f : ℕ → ℝ) {p : ℕ} (hp : p ∈ S) :
+    ∑ T ∈ S.powerset.filter (fun T => p ∈ T), ∏ r ∈ T, f r
+      = f p * ∏ r ∈ S.erase p, (1 + f r) := by
+  classical
+  rw [Finset.prod_one_add, Finset.mul_sum]
+  refine Finset.sum_nbij' (fun T => T.erase p) (fun U => insert p U) ?_ ?_ ?_ ?_ ?_
+  · intro T hT
+    rw [Finset.mem_filter, Finset.mem_powerset] at hT
+    exact Finset.mem_powerset.mpr (Finset.erase_subset_erase p hT.1)
+  · intro U hU
+    rw [Finset.mem_powerset] at hU
+    refine Finset.mem_filter.mpr ⟨Finset.mem_powerset.mpr ?_, Finset.mem_insert_self p U⟩
+    exact Finset.insert_subset hp (hU.trans (Finset.erase_subset p S))
+  · intro T hT
+    rw [Finset.mem_filter] at hT
+    exact Finset.insert_erase hT.2
+  · intro U hU
+    rw [Finset.mem_powerset] at hU
+    exact Finset.erase_insert (fun h => (Finset.mem_erase.mp (hU h)).1 rfl)
+  · intro T hT
+    rw [Finset.mem_filter] at hT
+    exact (Finset.mul_prod_erase _ f hT.2).symm
+
+/-- The off-diagonal swap: the additive twist against the signed density over a powerset. -/
+lemma sum_powerset_prod_neg_nuG_mul_sum {Q : Finset ℕ} (A' : ℕ → ℝ)
+    (hne : ∀ p ∈ Q, (1 : ℝ) - nuG p ≠ 0) :
+    ∑ T ∈ Q.powerset, ((∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A' r))
+      = - ((∏ p ∈ Q, (1 - nuG p)) * ∑ p ∈ Q, A' p * (nuG p / (1 - nuG p))) := by
+  classical
+  have h1 : ∀ T ∈ Q.powerset, ((∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A' r))
+      = ∑ p ∈ Q, (if p ∈ T then A' p * ∏ r ∈ T, (- nuG r) else 0) := by
+    intro T hT
+    rw [Finset.mem_powerset] at hT
+    rw [Finset.sum_ite_mem, Finset.inter_eq_right.mpr hT, ← Finset.sum_mul]
+    ring
+  rw [Finset.sum_congr rfl h1, Finset.sum_comm]
+  have h2 : ∀ p ∈ Q, (∑ T ∈ Q.powerset, (if p ∈ T then A' p * ∏ r ∈ T, (- nuG r) else 0))
+      = - ((∏ r ∈ Q, (1 - nuG r)) * (A' p * (nuG p / (1 - nuG p)))) := by
+    intro p hp
+    rw [← Finset.sum_filter, ← Finset.mul_sum, sum_powerset_filter_mem (fun r => - nuG r) hp]
+    have hc : (1 : ℝ) - nuG p ≠ 0 := hne p hp
+    have herase : ∏ r ∈ Q, (1 - nuG r)
+        = (1 - nuG p) * ∏ r ∈ Q.erase p, (1 + - nuG r) := by
+      rw [← Finset.mul_prod_erase Q (fun r => 1 - nuG r) hp]
+      exact congrArg _ (Finset.prod_congr rfl fun r _ => by ring)
+    rw [herase]
+    field_simp
+  rw [Finset.sum_congr rfl h2, Finset.mul_sum]
+  exact Finset.sum_neg_distrib _
+
 /-- **HB (3.6), the additive-twist fibre identity.**  For `A′` additive on `P`'s divisors,
 `S^{(2)}(δ) = S^{(1)}(δ)·(A′(δ) − Σ_{p ∣ P, p < p(δ)} A′(p)·ν_G(p)/(1 − ν_G(p)))`.
 **`hPodd` is load-bearing**: the identity divides by `1 − ν_G(p)`, and `ν_G(2) = 1` exactly
@@ -302,7 +376,53 @@ theorem deltaSum_nuG_mul_additive (P : ℕ) (hP : Squarefree P)
       = deltaSum P δ (fun d => nuG d)
           * (A' δ - ∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
               A' p * (nuG p / (1 - nuG p))) := by
-  sorry
+  classical
+  set Q := P.primeFactors.filter (fun p => p < δ.minFac) with hQ
+  have hQprime : ∀ p ∈ Q, p.Prime := fun p hp =>
+    Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1
+  have hQsub : Q ⊆ P.primeFactors := Finset.filter_subset _ _
+  have hPdsq : Squarefree (∏ p ∈ Q, p) := squarefree_prod_of_primes hQprime
+  have hPdpf : (∏ p ∈ Q, p).primeFactors = Q := Nat.primeFactors_prod hQprime
+  have hδ0 : δ ≠ 0 := by rintro rfl; exact hP.ne_zero (Nat.eq_zero_of_zero_dvd hδ)
+  have hne : ∀ p ∈ Q, (1 : ℝ) - nuG p ≠ 0 := fun p hp => by
+    have := nuG_lt_one_of_prime (hQprime p hp) (hPodd p (hQsub hp)); linarith
+  rw [deltaSum_nuG_eq P hP δ hδ, ← hQ, deltaSum, lowDiv_eq_divisors hP, ← hQ,
+    sum_divisors_eq_sum_powerset hPdsq (fun e => (μ e : ℝ) * (nuG (δ * e) * A' (δ * e))),
+    hPdpf]
+  have key : ∀ T ∈ Q.powerset,
+      (μ (∏ p ∈ T, p) : ℝ) * (nuG (δ * ∏ p ∈ T, p) * A' (δ * ∏ p ∈ T, p))
+        = nuG δ * ((∏ r ∈ T, (- nuG r)) * (A' δ + ∑ r ∈ T, A' r)) := by
+    intro T hT
+    rw [Finset.mem_powerset] at hT
+    have hTprime : ∀ p ∈ T, p.Prime := fun p hp => hQprime p (hT hp)
+    have hpf : (∏ p ∈ T, p).primeFactors = T := Nat.primeFactors_prod hTprime
+    have he0 : (∏ p ∈ T, p) ≠ 0 := (squarefree_prod_of_primes hTprime).ne_zero
+    have hTsub : T ⊆ P.primeFactors := hT.trans hQsub
+    have hedvd : (∏ p ∈ T, p) ∣ P := by
+      rw [← Nat.prod_primeFactors_of_squarefree hP]
+      exact Finset.prod_dvd_prod_of_subset _ _ _ hTsub
+    have hcop : Nat.Coprime δ (∏ p ∈ T, p) := by
+      refine coprime_of_mem_lowDiv hδ0 he0 ?_
+      intro p hp
+      rw [hpf] at hp
+      exact (Finset.mem_filter.mp (hT hp)).2
+    rw [nuG_isMultiplicative.map_mul_of_coprime hcop, hA'.2 δ _ hδ hedvd hcop,
+      additive_prod hP hA' hTsub, ← moebius_nuG_prod_primes hTprime]
+    ring
+  rw [Finset.sum_congr rfl key]
+  -- split the two halves
+  have hsplit : ∀ T ∈ Q.powerset,
+      nuG δ * ((∏ r ∈ T, (- nuG r)) * (A' δ + ∑ r ∈ T, A' r))
+        = nuG δ * A' δ * (∏ r ∈ T, (- nuG r))
+          + nuG δ * ((∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A' r)) := by
+    intro T _; ring
+  rw [Finset.sum_congr rfl hsplit, Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
+  have hW : ∑ T ∈ Q.powerset, ∏ r ∈ T, (- nuG r) = ∏ p ∈ Q, (1 - nuG p) := by
+    rw [← Finset.prod_one_add]
+    exact Finset.prod_congr rfl fun p _ => by ring
+  have hswap := sum_powerset_prod_neg_nuG_mul_sum (Q := Q) A' hne
+  rw [hW, hswap]
+  ring
 
 /-- **HB LEMMA 6 at `ρ₂ = ν_G·A′` — the per-δ domination, literal constant.**  With
 `|A′(p)| ≤ B′·log p`, `log δ ≤ L`, every prime of `P` below `e^L` and `3 ≤ L`:
@@ -345,7 +465,20 @@ theorem moebSum_nuG_mul_additive (P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) (A' : ℕ → ℝ) (hA' : IsAdditiveOn P A') :
     moebSum P (fun d => nuG d * A' d)
       = - W (hbSieve P hP hPodd) * ∑ p ∈ P.primeFactors, A' p * (nuG p / (1 - nuG p)) := by
-  sorry
+  classical
+  have hne : ∀ p ∈ P.primeFactors, (1 : ℝ) - nuG p ≠ 0 := fun p hp => by
+    have := nuG_lt_one_of_prime (Nat.prime_of_mem_primeFactors hp) (hPodd p hp); linarith
+  have hW : W (hbSieve P hP hPodd) = ∏ p ∈ P.primeFactors, (1 - nuG p) := rfl
+  rw [moebSum, sum_divisors_eq_sum_powerset hP (fun d => (μ d : ℝ) * (nuG d * A' d))]
+  have key : ∀ T ∈ P.primeFactors.powerset,
+      (μ (∏ p ∈ T, p) : ℝ) * (nuG (∏ p ∈ T, p) * A' (∏ p ∈ T, p))
+        = (∏ r ∈ T, (- nuG r)) * (∑ r ∈ T, A' r) := by
+    intro T hT
+    rw [Finset.mem_powerset] at hT
+    have hTprime : ∀ p ∈ T, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors (hT hp)
+    rw [additive_prod hP hA' hT, ← mul_assoc, moebius_nuG_prod_primes hTprime]
+  rw [Finset.sum_congr rfl key, sum_powerset_prod_neg_nuG_mul_sum A' hne, hW]
+  ring
 
 /-- **`|S₂| ≤ 64·B′·L·S₁`.**  Class **B**, cap 150 (the prime sum of
 `deltaSum_nuG_mul_additive_le` without the `A′(δ)` term; `moebSum P ν_G = W > 0` by
