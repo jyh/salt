@@ -2029,7 +2029,11 @@ private lemma dh_repulsion_inst_tall {q : ℕ} [NeZero q] (χ : DirichletCharact
     have hrow1 : (1 - β₀) * (2 - β₀) * (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖) ≤ 1 / 8 :=
       row_rho_main_cap (Q := Q) (L₂ := L₂) (c := c) (c₀ := c₀) (u := 1 - β₀) (w := 1 - ρ.re)
         (σ := ρ.re) (β₀ := β₀) (Y := Y) (n1 := ‖1 - ρ‖) (n2 := ‖2 - ρ‖)
-        hQ4 hL₂1 hcpos hc1 hc₀pos hu0 rfl hσlo hσ1 hβ0 hβ0hi hn2 hn1inv hYlo_r hYhi_r huτ hgρ
+        (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hL₂1 hcpos hc1 hc₀pos hu0 rfl hσlo hσ1 hβ0 hβ0hi hn2 hn1inv
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+        hYlo_r hYhi_r huτ
+        (by rw [show (1 - 14 / 17 : ℝ) = 3 / 17 by norm_num]; exact hgρ)
     have hσ0 : 0 < ρ.re := by linarith only [hσlo]
     have hCρnn : 0 ≤ C2Rho q Zρ ρ := by
       rw [C2Rho, CwRho]
