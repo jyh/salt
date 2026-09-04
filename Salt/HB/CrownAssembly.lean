@@ -424,6 +424,85 @@ theorem deltaSum_nuG_mul_additive (P : ℕ) (hP : Squarefree P)
   rw [hW, hswap]
   ring
 
+/-- `ν_G(p)/(1 − ν_G(p)) ≤ 20/p` at every odd prime (`= 2(2p−1)/((p−1)(p−2))`; the bound is
+`16p² − 58p + 40 ≥ 0`, true from `p ≥ 3`, and at `p = 3` it reads `5 ≤ 20/3`). -/
+lemma nuG_ratio_le {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) :
+    0 ≤ nuG p / (1 - nuG p) ∧ nuG p / (1 - nuG p) ≤ 20 / (p : ℝ) := by
+  have h3 : (3 : ℝ) ≤ (p : ℝ) := by
+    have h2 := hp.two_le
+    have h3' : 3 ≤ p := by omega
+    exact_mod_cast h3'
+  have hp0 : (0 : ℝ) < (p : ℝ) := by linarith
+  have hpos : 0 < nuG p := nuG_pos_of_prime hp
+  have hlt : nuG p < 1 := nuG_lt_one_of_prime hp hp2
+  have hnu : nuG p = 2 * (2 * (p : ℝ) - 1) / (((p : ℝ) + 1) * (p : ℝ)) := by
+    rw [nuG_prime hp, Gdens]
+    field_simp
+  have hd : (0 : ℝ) < ((p : ℝ) + 1) * (p : ℝ) := by positivity
+  have hkey : nuG p * (p : ℝ) + 20 * nuG p ≤ 20 := by
+    rw [← sub_nonneg]
+    have heq : (20 : ℝ) - (nuG p * (p : ℝ) + 20 * nuG p)
+        = (16 * (p : ℝ) ^ 2 - 58 * (p : ℝ) + 40) / (((p : ℝ) + 1) * (p : ℝ)) := by
+      rw [hnu]; field_simp; ring
+    rw [heq]
+    apply div_nonneg _ hd.le
+    nlinarith [h3]
+  refine ⟨div_nonneg hpos.le (by linarith), ?_⟩
+  rw [div_le_div_iff₀ (by linarith) hp0]
+  linarith
+
+/-- **The Mertens-1 price of the `ν/(1−ν)` prime sum** (HB p.205): with `|A′(p)| ≤ B′ log p`
+and every prime of `P` below `e^L`, `|Σ_{p∈Q} A′(p)ν_G(p)/(1−ν_G(p))| ≤ 20B′(L + log 4 + 4)`. -/
+lemma abs_sum_nuG_ratio_le (P : ℕ) (hPodd : ∀ p ∈ P.primeFactors, p ≠ 2) (A' : ℕ → ℝ)
+    {B' L : ℝ} (hB' : 0 ≤ B') (hA'p : ∀ p ∈ P.primeFactors, |A' p| ≤ B' * Real.log p)
+    (hL3 : 3 ≤ L) (hPL : ∀ p ∈ P.primeFactors, Real.log p ≤ L)
+    {Q : Finset ℕ} (hQ : Q ⊆ P.primeFactors) :
+    |∑ p ∈ Q, A' p * (nuG p / (1 - nuG p))| ≤ 20 * B' * (L + (Real.log 4 + 4)) := by
+  classical
+  set N := ⌊Real.exp L⌋₊ with hN
+  have hexp1 : (1 : ℝ) ≤ Real.exp L := Real.one_le_exp (by linarith)
+  have hN1 : 1 ≤ N := Nat.le_floor (by exact_mod_cast hexp1)
+  have hNle : (N : ℝ) ≤ Real.exp L := Nat.floor_le (Real.exp_pos L).le
+  have hlogN : Real.log N ≤ L := by
+    have : Real.log N ≤ Real.log (Real.exp L) :=
+      Real.log_le_log (by exact_mod_cast hN1) hNle
+    rwa [Real.log_exp] at this
+  have hsub : Q ⊆ (Finset.range (N + 1)).filter Nat.Prime := by
+    intro p hp
+    have hpP := hQ hp
+    have hpp : p.Prime := Nat.prime_of_mem_primeFactors hpP
+    have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+    have hple : (p : ℝ) ≤ Real.exp L := by
+      have := Real.exp_le_exp.mpr (hPL p hpP)
+      rwa [Real.exp_log hp0] at this
+    have hpN : p ≤ N := Nat.le_floor hple
+    exact Finset.mem_filter.mpr ⟨Finset.mem_range.mpr (by omega), hpp⟩
+  have hterm : ∀ p ∈ Q, |A' p * (nuG p / (1 - nuG p))| ≤ 20 * B' * (Real.log p / p) := by
+    intro p hp
+    have hpP := hQ hp
+    have hpp : p.Prime := Nat.prime_of_mem_primeFactors hpP
+    have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+    obtain ⟨hr0, hr⟩ := nuG_ratio_le hpp (hPodd p hpP)
+    have hlog0 : 0 ≤ Real.log p := Real.log_nonneg (by exact_mod_cast hpp.one_lt.le)
+    rw [abs_mul, abs_of_nonneg hr0]
+    calc |A' p| * (nuG p / (1 - nuG p)) ≤ (B' * Real.log p) * (20 / (p : ℝ)) :=
+          mul_le_mul (hA'p p hpP) hr hr0 (by positivity)
+      _ = 20 * B' * (Real.log p / p) := by ring
+  have hmert : ∑ p ∈ Q, Real.log p / p ≤ Real.log N + (Real.log 4 + 4) := by
+    refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub ?_)
+      (Salt.Maynard.sum_log_div_prime_le hN1)
+    intro p _ _
+    rcases Nat.eq_zero_or_pos p with rfl | hpp
+    · simp
+    · exact div_nonneg (Real.log_nonneg (by exact_mod_cast hpp)) (Nat.cast_nonneg p)
+  calc |∑ p ∈ Q, A' p * (nuG p / (1 - nuG p))|
+      ≤ ∑ p ∈ Q, |A' p * (nuG p / (1 - nuG p))| := Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ p ∈ Q, 20 * B' * (Real.log p / p) := Finset.sum_le_sum hterm
+    _ = 20 * B' * ∑ p ∈ Q, Real.log p / p := by rw [Finset.mul_sum]
+    _ ≤ 20 * B' * (L + (Real.log 4 + 4)) := by
+        refine mul_le_mul_of_nonneg_left (by linarith) (by positivity)
+
+
 /-- **HB LEMMA 6 at `ρ₂ = ν_G·A′` — the per-δ domination, literal constant.**  With
 `|A′(p)| ≤ B′·log p`, `log δ ≤ L`, every prime of `P` below `e^L` and `3 ≤ L`:
 `|S^{(2)}(δ)| ≤ 64·B′·L·S^{(1)}(δ)`.  The `64`: `|A′(δ)| ≤ B′·L`; at `p = 3`,
@@ -438,7 +517,48 @@ theorem deltaSum_nuG_mul_additive_le (P : ℕ) (hP : Squarefree P)
     (hL3 : 3 ≤ L) (hPL : ∀ p ∈ P.primeFactors, Real.log p ≤ L)
     (δ : ℕ) (hδ : δ ∣ P) (hδL : Real.log δ ≤ L) :
     |deltaSum P δ (fun d => nuG d * A' d)| ≤ 64 * B' * L * deltaSum P δ (fun d => nuG d) := by
-  sorry
+  classical
+  have hnn := deltaSum_nuG_nonneg P hP hPodd δ hδ
+  have hlog4 : Real.log 4 ≤ 1.4 := by
+    have h : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+      push_cast; ring
+    rw [h]; linarith [Real.log_two_lt_d9]
+  have hδsq : Squarefree δ := hP.squarefree_of_dvd hδ
+  have hδsub : δ.primeFactors ⊆ P.primeFactors := Nat.primeFactors_mono hδ hP.ne_zero
+  have hAδeq : A' δ = ∑ p ∈ δ.primeFactors, A' p := by
+    conv_lhs => rw [← Nat.prod_primeFactors_of_squarefree hδsq]
+    exact additive_prod hP hA' hδsub
+  have hlogsum : ∑ p ∈ δ.primeFactors, Real.log p = Real.log δ := by
+    conv_rhs => rw [← Nat.prod_primeFactors_of_squarefree hδsq]
+    rw [Nat.cast_prod, Real.log_prod]
+    intro p hp
+    exact Nat.cast_ne_zero.mpr (Nat.prime_of_mem_primeFactors hp).ne_zero
+  have hAδ : |A' δ| ≤ B' * L := by
+    calc |A' δ| = |∑ p ∈ δ.primeFactors, A' p| := by rw [hAδeq]
+      _ ≤ ∑ p ∈ δ.primeFactors, |A' p| := Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ p ∈ δ.primeFactors, B' * Real.log p :=
+          Finset.sum_le_sum fun p hp => hA'p p (hδsub hp)
+      _ = B' * Real.log δ := by rw [← Finset.mul_sum, hlogsum]
+      _ ≤ B' * L := mul_le_mul_of_nonneg_left hδL hB'
+  have hSig := abs_sum_nuG_ratio_le P hPodd A' hB' hA'p hL3 hPL
+    (Q := P.primeFactors.filter (fun p => p < δ.minFac)) (Finset.filter_subset _ _)
+  have hbnd : |A' δ - ∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+      A' p * (nuG p / (1 - nuG p))| ≤ 64 * B' * L := by
+    have habs : |A' δ - ∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+        A' p * (nuG p / (1 - nuG p))|
+        ≤ |A' δ| + |∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+            A' p * (nuG p / (1 - nuG p))| := by
+      have := abs_add_le (A' δ) (-∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+        A' p * (nuG p / (1 - nuG p)))
+      rwa [← sub_eq_add_neg, abs_neg] at this
+    nlinarith [mul_nonneg hB' (show (0 : ℝ) ≤ 43 * L - 20 * Real.log 4 - 80 by linarith)]
+  rw [deltaSum_nuG_mul_additive P hP hPodd A' hA' δ hδ, abs_mul, abs_of_nonneg hnn]
+  calc deltaSum P δ (fun d => nuG d)
+        * |A' δ - ∑ p ∈ P.primeFactors.filter (fun p => p < δ.minFac),
+            A' p * (nuG p / (1 - nuG p))|
+      ≤ deltaSum P δ (fun d => nuG d) * (64 * B' * L) := mul_le_mul_of_nonneg_left hbnd hnn
+    _ = 64 * B' * L * deltaSum P δ (fun d => nuG d) := by ring
 
 /-- **HB LEMMA 6 at `ρ₃ = ν_G·A²` — the per-δ domination, literal constant** (HB (3.7)–(3.8),
 the `L²` grade — sharper than his stated `BL`, as his p.206 remark notes).  Split
@@ -488,7 +608,24 @@ theorem moebSum_nuG_mul_additive_le (P : ℕ) (hP : Squarefree P)
     {B' L : ℝ} (hB' : 0 ≤ B') (hA'p : ∀ p ∈ P.primeFactors, |A' p| ≤ B' * Real.log p)
     (hL3 : 3 ≤ L) (hPL : ∀ p ∈ P.primeFactors, Real.log p ≤ L) :
     |moebSum P (fun d => nuG d * A' d)| ≤ 64 * B' * L * moebSum P (fun d => nuG d) := by
-  sorry
+  have hlog4 : Real.log 4 ≤ 1.4 := by
+    have h : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+      push_cast; ring
+    rw [h]; linarith [Real.log_two_lt_d9]
+  have hW : moebSum P (fun d => nuG d) = W (hbSieve P hP hPodd) := by
+    have h := moebSum_nu_eq_W (hbSieve P hP hPodd)
+    simpa [hbSieve_prodPrimes, hbSieve_nu] using h
+  have hWpos : 0 < W (hbSieve P hP hPodd) := W_pos _
+  have hSig := abs_sum_nuG_ratio_le P hPodd A' hB' hA'p hL3 hPL
+    (Q := P.primeFactors) Finset.Subset.rfl
+  rw [moebSum_nuG_mul_additive P hP hPodd A' hA', hW, abs_mul, abs_neg, abs_of_pos hWpos]
+  calc W (hbSieve P hP hPodd) * |∑ p ∈ P.primeFactors, A' p * (nuG p / (1 - nuG p))|
+      ≤ W (hbSieve P hP hPodd) * (20 * B' * (L + (Real.log 4 + 4))) :=
+        mul_le_mul_of_nonneg_left hSig hWpos.le
+    _ ≤ 64 * B' * L * W (hbSieve P hP hPodd) := by
+        nlinarith [mul_nonneg (mul_nonneg hWpos.le hB')
+          (show (0 : ℝ) ≤ 44 * L - 20 * Real.log 4 - 80 by linarith)]
 
 /-- **`|S₃| ≤ (128·CA·L)²·S₁`.**  Class **C**, cap 300 (the off-diagonal expansion of
 `deltaSum_nuG_mul_sq_additive_le` over `P.divisors`).  Consumer: `hb_p200_upper`,
