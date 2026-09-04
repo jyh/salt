@@ -19,10 +19,11 @@ import Salt.Fulcrum.CZeroNumeral
 /-!
 # THE CROWN, N9 — Heath-Brown 1983 Theorem 1 and the door hand-over: STATEMENTS ONLY
 
-**STATUS: FROZEN v2, statements only (2026-09-04; v1 `f13d09a3`, this v2 on the helm's 12:38
-refuter verdict — REPAIR-THEN-FIRE, 4/4 — with every kill repaired at the object, and on the
-Captain's 12:39 ruling on the crown's statement).  Every theorem here is `sorry`-bodied BY
-DESIGN until the wave lands.**  This file is the wave table for N9: each docstring carries the
+**STATUS: FROZEN v3, the wave FIRING (2026-09-04; v1 `f13d09a3`; v2 `235d618b` on the helm's
+12:38 refuter verdict — REPAIR-THEN-FIRE, 4/4 — with every kill repaired at the object, and on
+the Captain's 12:39 ruling on the crown's statement; v3 on the desk's own finding 3 below, which
+the wave's first hour surfaced).  Rows are `sorry`-bodied until their executor lands them.**
+This file is the wave table for N9: each docstring carries the
 class, the line cap, the red-first idea, and the CONSUMER by Lean name; the freeze brief carries
 the kill→repair ledger, the kill-checks and the price.
 
@@ -59,9 +60,10 @@ Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the two-sided p.200 
    identity `ηL = 1/(1−β₀)` already supplies one power of `L`, so `n9Cq` closes `ellBig` and `hK`
    at `k = 14`).  §6 states the crown FAMILY `HeathBrownDichotomyPoly k`, whose `k = 1` member is
    the frozen crown (byte-untouched, `heathBrownDichotomyPoly_one_iff`), and lands the engine at
-   `k = 14`.  **The Captain ruled (2026-09-04 12:39): the crown is HEATH-BROWN's EXACTLY, `k = 1`
-   (Arm B — re-prove D–H at `k ≤ 1`, the crown's next design block); `HeathBrownDichotomyPoly 14`
-   lands here as the INTERMEDIATE member.**
+   `k = 14` — before finding 3.  **The Captain ruled (2026-09-04 12:39): the crown is
+   HEATH-BROWN's EXACTLY, `k = 1` (Arm B — re-prove D–H at `k ≤ 1`, the crown's next design
+   block); the member this file reaches lands as the INTERMEDIATE member — `k = 30` after
+   finding 3, not `14`.**
 3. **`(L2)`'s six binders are not "every piece proved".**  `hcorr`'s producer needs `hlimP`
    (never produced — the CHAR-TRIO flag), `htail`'s only producer is the RANGE-B tail
    `logChiSum_tendsto_zfr_hundred`, whose threshold `X₀` is `q`-dependent and superpolynomial in
@@ -70,6 +72,23 @@ Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the two-sided p.200 
    no producer; `hseg`'s feeder carries the same zero-side antecedents as `(L1)`.  §4 books each
    as a row; the tail is built here at the REPULSION ceiling (Range A, `C2`), where the decay is
    real from `q^250` on.
+4. **THE TAIL CARRIES A `k`-INDEPENDENT POWER OF `log q`, AND THE REGIME MUST PAY IT (v3).**  The
+   Range-A ledger's row (iv) is `10³·M³·N·u^{bceil−1}` (`efEnvelope_le_ledger_sharp`,
+   `Lemma7EF.lean:2624-2632`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
+   count of the near-1 strip (`DensityCrude.lean:459`: on `16/17 < σ ≤ 1` the density shape
+   degenerates and `N(σ,T) ≤` the count, polylog in `L`) — against the repulsion decay
+   `exp(−0.368·ℓ′)` at the window edge.  The grade needs `exp(0.368·ℓ′) ≥ 10^{10}·L^{4.5}`, i.e.
+   `ℓ′ ≥ 74 + 12.2·log L` (`12.2 = 4.5·b/250` at `b = 680`).  A CONSTANT threshold on `ℓ′` cannot
+   supply it: the regime bounds `L` only from below (`ηq`), so the corner `ℓ′ = n9E0`, `L → ∞` is
+   inside it and there v2's C2 was unreachable (the 08/06 TAU-SHARP refuter's K3(c)2,
+   `flags.md:20655-20662`, had named this term: "the lever is `b/s`, not `k`").  HB has no such
+   term because at p.209 he prices the block by Jutila's LOG-FREE density (4.9) shell by shell
+   ("using `q^{15/2} ≤ x^{1/4}`" is that sum); our N2 is the crude count there by design.  The
+   repair: the regime field `ellL : n9E0 + 16·log log(4q) ≤ ℓ′` (16 = 12.2 + room), which the
+   polylog quality supplies only at `k = 14 + 16 = 30` — so the intermediate crown is
+   `HeathBrownDichotomyPoly 30`.  Every other row is `L`-free at a constant `ℓ′` (checked: Z6, Z8,
+   Z11, `hsmall`'s four terms, the star term, the FL term).  For Arm B this means `k = 1` needs
+   BOTH a `k ≤ 1` contract AND a log-free density on the near-1 strip (class D, both).
 4. **`fulcrum_zero_real_zfr`'s `hcal` is unsatisfiable as stated** (it quantifies over every
    `c₀` that satisfies the ZFR, including arbitrarily small ones); the live route is
    `fulcrum_zero_real` + `zero_free_region_all_numeral` at `c₀ = 1/126848`.  §6 uses that.
@@ -81,9 +100,10 @@ Wave C lands) and on the regime `N9Regime`, whose `ellBig` field is the coupled 
 constants are existential (`dhC`, `invSqC`, `merC`, `segC` — each a `Classical.choose` of a landed
 `∃ C` with its spec re-exported; no prose numeral about any of them is a theorem) and one
 threshold is ineffective (Siegel's `C(ε)` for `ηq`).  The crown reached is
-`HeathBrownDichotomyPoly 14`, conditional on N7; the frozen `HeathBrownDichotomy` (`k = 1`) is
-NOT reached here — it is Arm B's, the next design block.  Nothing here bears on twin primes;
-`hEngine` stays a binder until N7, the rows here, and Arm B land.
+`HeathBrownDichotomyPoly 30`, conditional on N7 (the `16` of `ellL` on top of the D–H `14`); the
+frozen `HeathBrownDichotomy` (`k = 1`) is NOT reached here — it is Arm B's, the next design
+block, and needs a log-free near-1 density as well as a `k ≤ 1` contract.  Nothing here bears on
+twin primes; `hEngine` stays a binder until N7, the rows here, and Arm B land.
 -/
 
 open Finset ArithmeticFunction
@@ -297,8 +317,11 @@ twin instance, a largeness threshold, or one of the two seams this freeze found:
   with the dichotomy's declared ineffectivity;
 * `ellBig` — **THE COUPLED THRESHOLD**: `ℓ′ ≥ n9E0`, where
   `ℓ′ = log(ηL) − log(1/dhC) − 14·log(log(4q)+2)` carries `13·log log q`.  From the polylog
-  quality `1 − β₀ ≤ 1/(C·(log q)^{15})` it is a threshold on `C`; from `FulcrumQualityMin C`
-  (`k = 1`) it is NOT reachable — freeze §5.
+  quality `1 − β₀ ≤ 1/(C·(log q)^{14})` it is a threshold on `C`; from `FulcrumQualityMin C`
+  (`k = 1`) it is NOT reachable — freeze §5;
+* `ellL` — **THE TAIL'S OWN DEMAND (finding 4)**: `ℓ′ ≥ n9E0 + 16·log log(4q)`, the price of the
+  crude near-1 zero count in `logChiSum_tail_at_window`'s row (iv); implies `ellBig`
+  (`log(4q) > 1`).  The polylog quality supplies it at `k = 30` and at no smaller `k`.
 Derived, not carried: `1 ≤ ℓ′`, `(2·680)² ≤ ℓ′` (the `hσ'r` quadratic at `ell := ℓ′`),
 `17·ℓ′ ≤ 680·log 4q` (the `16/17` strip: `ℓ′ ≤ log(ηL) ≤ 2e^{−401}L`), `1/2 < β₀`,
 `3 ≤ q`, `η ≥ 15000`. -/
@@ -312,6 +335,7 @@ structure N9Regime (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (β₀ �
   ηmax : ∀ β : ℝ, DirichletCharacter.LFunction χ (β : ℂ) = 0 → β < 1 → β ≤ β₀
   ηq : Real.exp 401 * Real.log η ≤ Real.log q
   ellBig : n9E0 ≤ n9Ell q η
+  ellL : n9E0 + 16 * Real.log (Real.log (4 * (q : ℝ))) ≤ n9Ell q η
 
 /-- **N7's exit, as the ∀-statement N9 consumes.**  Wave C-2 (row C2-10) produces `Lemma5Eval`
 at the N8 wire with UNIFORM `Cerr CA CA' CC` and per-instance `C₀ A A'`; `LL` and `κ` are the two
@@ -1709,12 +1733,15 @@ half from `dh_ceiling_box` at `T = efT0 q u + 1` when `0 ≤ n9EllAt q η T`, an
 ceiling is `> 1 ≥ Re ρ` — when it is not; the `min` needs no case split in the statement);
 `efEnvelope_le_ledger_sharp` is ceiling-generic (`bceil` enters only row (iv) `10³M³N·u^{bceil−1}`);
 rows (i)–(iii) verbatim from the landed proof (`ledger_const_le_of_window` takes exactly
-`hwin : 250·log q ≤ log u`); row (iv) killed by the repulsion decay below the crossover and by
-the Range-B decay `exp(−c₀·log u/(7·log log u))` above it (the crossover sits at
-`log log(qu) ≈ (ηL)^{1/14}/6`, far above `exp(20·L·log L/c₀)`); `logChiSum_tendsto_of_envelope`
-and the landed `key` arithmetic give the grade (row (i) is ceiling-independent, so `100/√log X`
-is unchanged).  Consumer: `hb_L2_at_hb_point` (as `htail` at `X = x` and as `hcorr_at_split`'s
-`hS`). -/
+`hwin : 250·log q ≤ log u`); row (iv) below the crossover is
+`10³·M³·N·exp(−n9EllAt·log u/(680·log(q(T₀+3))))` — at `u = X = q^{250}` that is
+`≈ 1.6·10⁷·L⁴·exp(−0.368·n9EllAt)` and the tail integral of it `≈ 4·10^{10}·L⁴·e^{−0.368ℓ′}/ℓ′`,
+so the grade `100/√log X` needs `ℓ′ ≥ 74 + 12.2·log L` — PAID BY THE REGIME'S `ellL`
+(finding 4; `n9EllAt ≥ ℓ′ − 84·log(251L)/L`), NOT by `ellBig` alone; above the crossover
+(`log log(qu) ≈ (ηL)^{1/14}/6`, far above `exp(20·L·log L/c₀)`) the Range-B decay
+`exp(−c₀·log u/(7·log log u))` dominates `M³N`; `logChiSum_tendsto_of_envelope` and the landed
+`key` arithmetic give the grade (row (i) is ceiling-independent).
+Consumer: `hb_L2_at_hb_point` (as `htail` at `X = x` and as `hcorr_at_split`'s `hS`). -/
 theorem logChiSum_tail_at_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {X : ℝ} (hX : (q : ℝ) ^ 250 ≤ X) :
     ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
@@ -1878,7 +1905,7 @@ theorem hb_theorem1_lower [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
 
 /-- **The fulcrum quality at POLYLOG strength `k`**: infinitely many real primitive `χ` with a
 zero `ρ` inside `‖1 − ρ‖ ≤ 1/(C·(log q)^k)`.  At `k = 1` this is `FulcrumQualityMin C`
-(`fulcrumQualityPoly_one_iff`).  The landed engine fires at `k = dhK = 14` (finding 2). -/
+(`fulcrumQualityPoly_one_iff`).  The landed engine fires at `k = 30 = dhK + 16` (findings 2, 4). -/
 def FulcrumQualityPoly (C k : ℝ) : Prop :=
   ∀ Q : ℕ, ∃ (q : ℕ) (_ : NeZero q) (χ : DirichletCharacter ℂ q) (ρ : ℂ),
     Q < q ∧ χ.IsPrimitive ∧ χ ^ 2 = 1 ∧ χ ≠ 1 ∧
@@ -1897,9 +1924,10 @@ def NoSiegelZerosPoly (k : ℝ) : Prop :=
 
 /-- **THE CROWN FAMILY.**  `k = 1` is the frozen `HeathBrownDichotomy` (byte-untouched, in
 `Salt/TwinBar/SiegelTwin.lean`; `heathBrownDichotomyPoly_one_iff`); the landed supply reaches
-`k = dhK = 14`.  **The Captain's ruling (2026-09-04 12:39): the campaign's crown is the `k = 1`
-member — HB's exactly — reached through Arm B (D–H re-proved at `k ≤ 1`, the next design block);
-this file lands `k = 14` as the INTERMEDIATE member.** -/
+`k = 30` (`dhK = 14` from the contract, `16` from the tail's crude count — finding 4).  **The
+Captain's ruling (2026-09-04 12:39): the campaign's crown is the `k = 1` member — HB's exactly —
+reached through Arm B (D–H re-proved at `k ≤ 1` AND a log-free near-1 density, the next design
+block); this file lands `k = 30` as the INTERMEDIATE member.** -/
 def HeathBrownDichotomyPoly (k : ℝ) : Prop :=
   TwinPrimeConjecture ∨ NoSiegelZerosPoly k
 
@@ -1962,10 +1990,11 @@ theorem beta0_max_of_zero [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.I
   sorry
 
 /-- **The crown's quality constant — HB's `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` (p.223), in this file's
-currency**: `1 − β₀ ≤ 1/(n9Cq·(log q)^{14})` puts `ℓ′ ≥ n9E0 + e^{2·n9K} + 1` (so `ellBig` and
-`hK` hold): `ηL = 1/(1−β₀) ≥ C·L^{14}` gives `log(ηL) ≥ log C + 14·log L`, and
-`14·log(log 4q + 2) ≤ 14·log L + 8.6` at `L ≥ 4`, so `ℓ′ ≥ log C − log(1/dhC) − 8.6`; the `/dhC`
-here cancels the `−log(1/dhC)` exactly (the verdict's U1: `k = 14`, not `15`). -/
+currency**: `1 − β₀ ≤ 1/(n9Cq·(log q)^{30})` puts `ℓ′ ≥ n9E0 + e^{2·n9K} + 1 + 16·log L` (so
+`ellBig`, `ellL` and `hK` hold): `ηL = 1/(1−β₀) ≥ C·L^{30}` gives `log(ηL) ≥ log C + 30·log L`,
+and `14·log(log 4q + 2) ≤ 14·log L + 8.6` at `L ≥ 4`, so `ℓ′ ≥ log C − log(1/dhC) − 8.6 + 16·log L`;
+the `/dhC` here cancels the `−log(1/dhC)` exactly, and `16·log log(4q) ≤ 16·log L + 22/L`
+(the verdict's U1 gave `14`; finding 4's `ellL` adds `16`). -/
 noncomputable def n9Cq (Cerr CA CA' CC : ℝ) : ℝ :=
   Real.exp (n9E0 + Real.exp (2 * n9K Cerr CA CA' CC) + 10) / dhC
 
@@ -1978,31 +2007,32 @@ on top of it); reality by `fulcrum_zero_real` with `zero_free_region_all_numeral
 the largest real zero by `beta0_max_of_zero` (its quality is at least the witness's); `ηq` from
 `siegel_theorem` at `ε := e^{−402}` — INEFFECTIVE, absorbed into the `∃ x` (the threshold `Q` may
 depend on Siegel's `C(ε)`; nothing here is claimed effective); the remaining regime fields from
-the quality at `k = 14` (`n9Cq`'s docstring); `x := q^250`; `hb_theorem1_lower` with `hK` from
-the quality; then `x𝔖C(4)/2 > 4√(2x+2)·log³(2x+2)` at `x ≥ q^250`.
-Consumer: `hEngine_poly_of_N7`. -/
+the quality at `k = 30` (`n9Cq`'s docstring: `ellBig` and `ellL` both); `x := q^250`;
+`hb_theorem1_lower` with `hK` from the quality; then `x𝔖C(4)/2 > 4√(2x+2)·log³(2x+2)` at
+`x ≥ q^250`.  Consumer: `hEngine_poly_of_N7`. -/
 theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
-    (hF : FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 14) :
+    (hF : FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 30) :
     ∀ N : ℕ, ∃ x : ℕ, N ≤ x ∧
       4 * Real.sqrt (2 * (x : ℝ) + 2) * Real.log (2 * (x : ℝ) + 2) ^ 3
         < S1 (Finset.Ioc x (2 * x)) := by
   sorry
 
-/-- **THE ENGINE AT STRENGTH `14`, CONDITIONAL ON N7.**  Class **A**, cap 40:
+/-- **THE ENGINE AT STRENGTH `30`, CONDITIONAL ON N7.**  Class **A**, cap 40:
 `twinPrimeConjecture_of_frequently_S1 (crown_handover hN7 hF)`.  Consumer:
 `heathBrownDichotomyPoly_of_N7`. -/
 theorem hEngine_poly_of_N7 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 14 → TwinPrimeConjecture := by
+    FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 30 → TwinPrimeConjecture := by
   sorry
 
 /-- **THE INTERMEDIATE CROWN, AT THE STRENGTH THE LANDED SUPPLY REACHES, CONDITIONAL ON N7:
-`TPC ∨ NoSiegelZerosPoly 14`.**  Stated at the LITERAL `14`, not at `dhK` (the verdict's U4: a
-headline whose exponent is a mutable `def` in the same file would silently re-anchor if `dhK`
-were ever edited).  The frozen crown is the `k = 1` member (`heathBrownDichotomyPoly_one_iff`);
-reaching it is Arm B — a D–H contract at `k ≤ 1` (HB's Jutila form) — by the Captain's ruling.
+`TPC ∨ NoSiegelZerosPoly 30`.**  Stated at the LITERAL `30` (= `dhK + 16`: the contract's `14`
+plus the tail's crude-count price, finding 4), not at a def (the verdict's U4: a headline whose
+exponent is a mutable `def` in the same file would silently re-anchor).  The frozen crown is the
+`k = 1` member (`heathBrownDichotomyPoly_one_iff`); reaching it is Arm B — a D–H contract at
+`k ≤ 1` (HB's Jutila form) AND a log-free density on the near-1 strip — by the Captain's ruling.
 Class **A**, cap 20.  Consumer: none yet — the intermediate crown row. -/
 theorem heathBrownDichotomyPoly_of_N7 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    HeathBrownDichotomyPoly 14 := by
+    HeathBrownDichotomyPoly 30 := by
   sorry
 
 end Salt.HB
