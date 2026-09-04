@@ -431,39 +431,53 @@ lemma ray_pow_bound {Q L₂ c u w α γ ε b k : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 �
 
 /-! ## §5 — the on-ray row caps (each master row `≤ 1/8` on the ray `u < τ`) -/
 
-/-- **The 1/x row cap.** `Y^{β₀−σ−1} ≤ 1/8` on the ray.  Net `u`-power `14(σ+u) ≥ 13 > 0`
-(the exponent is `≤ 0`, so the lower bound `Y ≥ Q^{104}u^{−14}` upper-bounds `Y^{β₀−σ−1}`);
-`ray_pow_bound` collapses it to `c^{14(σ+u)} ≤ c^{13} ≤ (1/2)^{13} ≤ 1/8`. -/
-lemma row_1x_cap {Q L₂ c u w σ β₀ Y : ℝ}
+/-- **The 1/x row cap**, at the PARAMETRIC scale `Y ≥ Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.
+`Y^{β₀−σ−1} ≤ 1/8`.  The exponent `e = β₀−σ−1` is negative, so the LOWER bound on `Y` bounds
+`Y^e` above; the net `u`-power is `−m·e = m·(1+σ−β₀) ≥ m·16/17 ≥ 3 > 0`, and `ray_pow_bound`
+collapses the monomial to `c^{−me} ≤ c^3 ≤ (1/2)^3 = 1/8`.
+
+**The balance law.**  Only the SIGNS `0 < a`, `0 < m`, `0 < b`, `0 ≤ k` are spent (the
+`ray_pow_bound` side goal `hα` reads `e·(a + b·w·m) ≤ 0` with `e < 0`), together with the
+collapse floor `hm3 : 3 ≤ m·(16/17)`.  Instantiated at `(a, m, b, k) = (104, 14, 680, 14)`,
+where `hm3` reads `3 ≤ 13.18`. -/
+lemma row_1x_cap {Q L₂ c u w σ β₀ Y : ℝ} (a m b k : ℝ)
     (hQ4 : 4 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c) (hchalf : c ≤ 1 / 2)
     (hu0 : 0 < u) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1) (hσβ : σ ≤ β₀)
     (hβ1 : β₀ < 1)
-    (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ)) :
+    (ha : 0 < a) (hm : 0 < m) (hb : 0 < b) (hk : 0 ≤ k) (hm3 : 3 ≤ m * (16 / 17))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k) :
     Y ^ (β₀ - σ - 1) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hw0 : 0 < w := by rw [hwdef]; linarith
   set e : ℝ := β₀ - σ - 1 with he
   have hene : e < 0 := by rw [he]; linarith
-  have hbaselo : (0 : ℝ) < Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) := by positivity
-  have hstep1 : Y ^ e ≤ (Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ e :=
+  have hnege : (16 : ℝ) / 17 ≤ -e := by rw [he]; linarith
+  -- The window's ordering `hσβ : σ ≤ β₀` fixes the sign of the offset `p = β₀ − σ`; the collapse
+  -- below spends only `hβ1` and `hσlo`, so the landed binder is recorded here rather than dropped.
+  have _hpnn : (0 : ℝ) ≤ β₀ - σ := sub_nonneg.mpr hσβ
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
+  have hstep1 : Y ^ e ≤ (Q ^ a * u ^ (-m)) ^ e :=
     Real.rpow_le_rpow_of_nonpos hbaselo hYlo hene.le
-  have hexp : (Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ e = Q ^ (104 * e) * u ^ (-(14 * e)) := by
+  have hexp : (Q ^ a * u ^ (-m)) ^ e = Q ^ (a * e) * u ^ (-(m * e)) := by
     rw [Real.mul_rpow (Real.rpow_nonneg (by linarith) _) (Real.rpow_nonneg hu0.le _),
       ← Real.rpow_mul (by linarith), ← Real.rpow_mul hu0.le,
-      show -(14 : ℝ) * e = -(14 * e) by ring]
-  have hγpos : (0 : ℝ) < -(14 * e) := by nlinarith
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-    (α := 104 * e) (γ := -(14 * e)) (ε := 0) hQ1 hL2 hcc (by norm_num) (by norm_num) hu0 hγpos huτ
-    (by nlinarith [hw0, hγpos, hene]) (by nlinarith [hene])
+      show -m * e = -(m * e) by ring]
+  have hγpos : (0 : ℝ) < -(m * e) := by nlinarith [mul_pos hm (neg_pos.mpr hene)]
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+    (α := a * e) (γ := -(m * e)) (ε := 0) hQ1 hL2 hcc hb hk hu0 hγpos huτ
+    (by nlinarith [mul_pos ha (neg_pos.mpr hene),
+      mul_pos (mul_pos (mul_pos hb hw0) hm) (neg_pos.mpr hene)])
+    (mul_nonneg hk hγpos.le)
   rw [Real.rpow_zero, mul_one] at hmono
   rw [hexp] at hstep1
-  have hchain : Y ^ e ≤ c ^ (-(14 * e)) := le_trans hstep1 hmono
-  have hge : c ^ (-(14 * e)) ≤ c ^ (13 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc (by linarith) (by nlinarith)
-  have h12 : c ^ (13 : ℝ) ≤ (1 / 2 : ℝ) ^ (13 : ℝ) := Real.rpow_le_rpow hcc.le hchalf (by norm_num)
-  have h13 : (1 / 2 : ℝ) ^ (13 : ℝ) ≤ 1 / 8 := by
-    rw [show (13 : ℝ) = ((13 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
+  have hchain : Y ^ e ≤ c ^ (-(m * e)) := le_trans hstep1 hmono
+  have hge : c ^ (-(m * e)) ≤ c ^ (3 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc (by linarith)
+      (by nlinarith [mul_le_mul_of_nonneg_left hnege hm.le, hm3])
+  have h12 : c ^ (3 : ℝ) ≤ (1 / 2 : ℝ) ^ (3 : ℝ) := Real.rpow_le_rpow hcc.le hchalf (by norm_num)
+  have h13 : (1 / 2 : ℝ) ^ (3 : ℝ) ≤ 1 / 8 := by
+    rw [show (3 : ℝ) = ((3 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
   linarith [hchain, hge, h12, h13]
 
 set_option maxHeartbeats 1600000 in
@@ -1785,7 +1799,9 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
         (Y := Y) hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl hYlo_r hYhi_r huτ hg1A hg2A
     have hrow1x : (Y : ℝ) ^ (β₀ - ρ.re - 1) ≤ 1 / 8 :=
       row_1x_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
-        (Y := Y) hQ4 hL₂1 hcpos hg1x hu0 rfl hσlo hσ1 hσβ hβ0hi hYlo_r huτ
+        (Y := Y) (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hL₂1 hcpos hg1x hu0 rfl hσlo hσ1 hσβ hβ0hi
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) hYlo_r huτ
     have hrowEβ : (Y : ℝ) ^ (β₀ - ρ.re) * ((136 + 48 * M + 48 * M * Z₀ + 144 * M / (1 - β₀))
         * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - β₀)) ≤ 1 / 8 :=
       row_Eβ_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
