@@ -136,7 +136,15 @@ theorem dh_repulsion_tall_at : ∃ c : ℝ, 0 < c ∧ c ≤ 1 ∧
         16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
         (1 - β₀) ≥ c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(dhB * (1 - ρ.re)))
           / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ dhK) := by
-  sorry
+  obtain ⟨c, hcpos, hc1, hc⟩ :=
+    Salt.SW.dh_repulsion_tall_of_floor (c₀ := 1 / 126848) (by norm_num) (by norm_num)
+  refine ⟨c, hcpos, hc1, ?_, ?_⟩
+  · intro q _ χ hprim hne hsq hq β₀ hβ0 hβlo hβhi ρ hρ hρim hlo hhi hord
+    have hfloor : ρ.re ≤ 1 - 1 / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+      Salt.Fulcrum.zero_free_region_all_numeral q χ hprim hne hρ (by linarith) (Or.inr hρim)
+    simpa [dhB, dhK] using hc q χ hprim hne hsq hq β₀ hβ0 hβlo hβhi ρ hρ hfloor hlo hhi hord
+  · intro q _ χ hprim hne hsq hq β₀ hβ0 hβlo hβhi ρ hρ hfloor hlo hhi hord
+    simpa [dhB, dhK] using hc q χ hprim hne hsq hq β₀ hβ0 hβlo hβhi ρ hρ hfloor hlo hhi hord
 
 /-- The Deuring–Heilbronn constant `c`, chosen once.  The landed proof's WITNESS has
 `log(1/c) = 86.23` (the binding arm `(c₀/32)^{17/3}` at `c₀ = 1/126848`); `Classical.choose` does
@@ -162,7 +170,7 @@ theorem dh_spec : 0 < dhC ∧ dhC ≤ 1 ∧
         16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
         (1 - β₀) ≥ dhC * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(dhB * (1 - ρ.re)))
           / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ dhK) := by
-  sorry
+  exact Classical.choose_spec dh_repulsion_tall_at
 
 /-- The Prachar near-one constant of `invSq_sum_split_le`, chosen once. -/
 noncomputable def invSqC : ℝ := Classical.choose invSq_sum_split_le
@@ -177,7 +185,7 @@ theorem invSqC_spec : 0 < invSqC ∧
         (∑ ρ ∈ Z, (m ρ : ℝ)) ≤ J →
         ∑ ρ ∈ Z, (m ρ : ℝ) / ‖ρ - 1‖ ^ 2
           ≤ invSqC * (1 / r0 ^ 2 + Real.log ((f : ℝ) + 2) / r0) + 16 * J := by
-  sorry
+  exact Classical.choose_spec invSq_sum_split_le
 
 /-- **Mertens' third constant, chosen once** (the verdict's A5: `hb_mertens_third_real` exports
 `∃ C`; its proof's witness `29` is NOT exported, and `hsmall` in `(L2)` cannot be discharged
@@ -190,7 +198,7 @@ binder and `hsmall`'s `8·EP` term). -/
 theorem merC_spec : 0 ≤ merC ∧ ∀ z : ℝ, 3 ≤ z →
     |Real.log (primeProdBelow z) + Real.log (Real.log z) + Real.eulerMascheroniConstant|
       ≤ merC / Real.log z := by
-  sorry
+  exact Classical.choose_spec hb_mertens_third_real
 
 /-- **The coprime-segment constant, chosen once** (`hb_coprime_segment`'s `∃ C`; witness `50`
 in the proof, not exported).  Consumer: `hb_L2_at_hb_point` (through `hb_hseg_closed`'s `hC`). -/
@@ -202,7 +210,7 @@ theorem segC_spec : 0 ≤ segC ∧ ∀ (q : ℕ), 0 < q → ∀ {z X : ℝ}, 3 �
           wLog n * ArithmeticFunction.vonMangoldt n)
         - (Real.log (Real.log X) - Real.log (Real.log z))|
       ≤ ppDefect z X + segC / Real.log z + (Real.log q / Real.log z) / z := by
-  sorry
+  exact Classical.choose_spec hb_coprime_segment
 
 /-- **`ℓ′` — the effective `log η`.**  The numerator of the D–H floor at base `4q`:
 `log(ηL) − log(1/dhC) − 14·log(log(4q) + 2)`; with `log(1/dhC) ≈ 90` this is
@@ -224,7 +232,8 @@ noncomputable def n9EllAt (q : ℕ) (η T : ℝ) : ℝ :=
 
 /-- Class **A**, cap 10: `unfold; ring_nf` (`4·q = q·(2+2)`).  Consumer: `dh_floor_ball`. -/
 theorem n9EllAt_two (q : ℕ) (η : ℝ) : n9EllAt q η 2 = n9Ell q η := by
-  sorry
+  have h : (q : ℝ) * (2 + 2) = 4 * (q : ℝ) := by ring
+  simp only [n9EllAt, n9Ell, h]
 
 /-- **The D–H floor at base `4q`**: every zero `ρ ≠ β₀` of `L(·,χ)` in `ball 2 (3/2)` has
 `n9Floor q η ≤ ‖ρ − 1‖` (`dh_floor_ball`).  `= ℓ′/(dhB·log 4q)`. -/
