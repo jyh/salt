@@ -1039,65 +1039,6 @@ theorem hb_zero_data [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
   exact dh_floor_ball hR (h1 ρ (Finset.mem_of_mem_erase hρ)).2
     (h1 ρ (Finset.mem_of_mem_erase hρ)).1 (Finset.ne_of_mem_erase hρ)
 
-/-- **`(L1)`, LOWER SIDE, DISCHARGED: `L′/L(1,χ) ≥ ηL − (1606 + 8·n9Cs)·L/√ℓ′`.**
-Class **B**, cap 200.  Red-first: `hb_zero_data`; `zeroMult_eq_one_of_eta` (M-ONE, `η ≥ 15000`)
-pins `m β₀ = 1`; `neg_re_logDeriv_differenced_mult` at `σ = 1`, `σ′ = 1 + √ℓ′/(2L)` with
-`hs'top := neg_re_logDeriv_LFunction_le`; `l1_error_collapse` at `Lp := 2L`, `ell := ℓ′`,
-`Cs := n9Cs`, `CR := 1600·log(80√q(1+log q)) ≤ 800·(2L)` (`ηq` gives `L ≥ 20`); then
-`ηL = 1/(1−β₀)`.  This is `neg_re_logDeriv_one_le_mult`'s body (`Lemma7L.lean:190-230`) with its
-two antecedents paid — the `ell`-FREE entry point (`hσ'r : √ell/Lp ≤ r0/2` is ITS binder, at
-`ell = ℓ′`: `ℓ′ ≥ 680²(1 + 1.39/L)²`, inside `n9E0`).  ⛔ NOT `hb_L1_one_sided`
-(`Lemma7L.lean:231`): it hard-wires `ell := log η` in its rate AND its `hSinvC`, and
-`log η/ℓ′ = 1 + (13·log L + 86)/ℓ′` is UNBOUNDED in the regime (fix `ℓ′`, let `q` grow), so
-`sinv_ball`'s `ℓ′`-scale bound cannot feed it.  Consumer: `hb_S3_at_hb_point`. -/
-theorem hb_L1_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
-    (hR : N9Regime q χ β₀ η) :
-    η * Real.log q - (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) ≤ hbLL χ := by
-  sorry
-
-/-- **The `s′`-side input, LOWER form** — the mirror of `neg_re_logDeriv_LFunction_le`:
-`−Re L′/L(σ,χ) ≥ −(1/(σ−1) + 1)` on `1 < σ ≤ 2`.  Class **A**, cap 60.  Red-first (the verdict's
-A6 — the `tsum` route runs through four `private` lemmas of `TwistedMertens.lean` and cannot be
-cited from here): the PUBLIC `vmPairS_le_pole` (`TwistedMertens.lean:252`) at `N := 0`,
-`0 ≤ vmPairS χ 0 σ` by `Finset.sum_nonneg` from `one_add_chiRe_nonneg` and `vonMangoldt_nonneg`,
-and `linarith`.  Consumer: `neg_re_logDeriv_differenced_mult_ge`. -/
-theorem neg_re_logDeriv_LFunction_ge {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
-    {σ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
-    -(1 / (σ - 1) + 1) ≤ (-logDeriv (DirichletCharacter.LFunction χ) (σ : ℂ)).re := by
-  have h := vmPairS_le_pole χ 0 h1 h2
-  have h0 : vmPairS χ 0 σ = 0 := by simp [vmPairS, vmPairW]
-  rw [h0] at h
-  linarith
-
-/-- **The differencing, LOWER form** — the mirror of `neg_re_logDeriv_differenced_mult`
-(`TwistedMertens.lean:486`): the same partial-fraction difference with every inequality reversed;
-the zero-difference sum is bounded in ABSOLUTE value by `4(σ′−σ)·Sinv` there already, and the
-remainder is a norm.  Class **B**, cap 250.  Consumer: `hb_L1_upper_at_hb_point`. -/
-theorem neg_re_logDeriv_differenced_mult_ge {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ → ℕ}
-    {σ σ' β₀ r0 Sinv Rrem : ℝ}
-    (hσ1 : 1 ≤ σ) (hlt : σ ≤ σ') (hβ1 : β₀ < 1)
-    (hβZ : (β₀ : ℂ) ∈ Z)
-    (hr0 : 0 < r0) (hσr : σ - 1 ≤ r0 / 2) (hσ'r : σ' - 1 ≤ r0 / 2)
-    (hfloor : ∀ ρ ∈ Z.erase ((β₀ : ℂ)), r0 ≤ ‖ρ - 1‖)
-    (hSinv : ∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ Sinv)
-    (hrem : ‖(logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
-            - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ))‖ ≤ Rrem)
-    (hs'bot : -(1 / (σ' - 1) + 1) ≤ (-logDeriv Lf (σ' : ℂ)).re) :
-    -((m (β₀ : ℂ) : ℝ) / (σ - β₀)) - (1 / (σ' - 1) + 1)
-        + (m (β₀ : ℂ) : ℝ) / (σ' - β₀) - 4 * (σ' - σ) * Sinv - Rrem
-      ≤ (-logDeriv Lf (σ : ℂ)).re := by
-  sorry
-
-/-- **`(L1)`, UPPER SIDE: `L′/L(1,χ) ≤ ηL + (1606 + 8·n9Cs)·L/√ℓ′`** — ABSENT in the corpus
-(`hb_L1_one_sided` is the lower side only), REQUIRED by N9 twice: for `B = L + |LL|` in the
-`n8C6·B·L` error of BOTH p.200 rows, and for Theorem 1's upper half.  Class **B**, cap 200: the
-mirror of `hb_L1_lower_at_hb_point` on `neg_re_logDeriv_differenced_mult_ge`.
-Consumer: `hb_S3_at_hb_point`. -/
-theorem hb_L1_upper_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
-    (hR : N9Regime q χ β₀ η) :
-    hbLL χ ≤ η * Real.log q + (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) := by
-  sorry
-
 /-- The regime's numeric packet used by the pretense rows: `L` is astronomically large,
 `ℓ′ ∈ [3000001, L/100]`, `log 4q ≤ 2L`, and the Borel–Carathéodory remainder constant
 `1600·log(80√q(1+log q))` sits under `800·(2L)`. -/
@@ -1186,6 +1127,353 @@ private lemma n9_num_facts [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η 
       Real.log_le_log (by positivity) h1
     linarith only [h2, hLhuge]
   exact ⟨hqR, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩
+
+/-- **`(L1)`, LOWER SIDE, DISCHARGED: `L′/L(1,χ) ≥ ηL − (1606 + 8·n9Cs)·L/√ℓ′`.**
+Class **B**, cap 200.  Red-first: `hb_zero_data`; `zeroMult_eq_one_of_eta` (M-ONE, `η ≥ 15000`)
+pins `m β₀ = 1`; `neg_re_logDeriv_differenced_mult` at `σ = 1`, `σ′ = 1 + √ℓ′/(2L)` with
+`hs'top := neg_re_logDeriv_LFunction_le`; `l1_error_collapse` at `Lp := 2L`, `ell := ℓ′`,
+`Cs := n9Cs`, `CR := 1600·log(80√q(1+log q)) ≤ 800·(2L)` (`ηq` gives `L ≥ 20`); then
+`ηL = 1/(1−β₀)`.  This is `neg_re_logDeriv_one_le_mult`'s body (`Lemma7L.lean:190-230`) with its
+two antecedents paid — the `ell`-FREE entry point (`hσ'r : √ell/Lp ≤ r0/2` is ITS binder, at
+`ell = ℓ′`: `ℓ′ ≥ 680²(1 + 1.39/L)²`, inside `n9E0`).  ⛔ NOT `hb_L1_one_sided`
+(`Lemma7L.lean:231`): it hard-wires `ell := log η` in its rate AND its `hSinvC`, and
+`log η/ℓ′ = 1 + (13·log L + 86)/ℓ′` is UNBOUNDED in the regime (fix `ℓ′`, let `q` grow), so
+`sinv_ball`'s `ℓ′`-scale bound cannot feed it.  Consumer: `hb_S3_at_hb_point`. -/
+theorem hb_L1_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) :
+    η * Real.log q - (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) ≤ hbLL χ := by
+  obtain ⟨hqR, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩ := n9_num_facts hR
+  obtain ⟨-, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hb1 := hR.β1
+  have hPpos : 0 < n9Ell q η := by linarith only [hPbig]
+  have hLp : (0 : ℝ) < 2 * Real.log q := by linarith only [hL]
+  have hdhB : dhB = 680 := rfl
+  -- `η ≥ 15000`, so M-ONE pins the multiplicity
+  have hηbig' : (15000 : ℝ) ≤ η := by
+    have hE0 : Real.exp (3 * 10 ^ 6) ≤ n9E0 := by
+      have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+      have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+      simp only [n9E0]; linarith
+    have hE1 := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
+    have hlogη : (15000 : ℝ) ≤ Real.log η := by linarith only [hηbig, hE0, hE1]
+    have h := Real.exp_le_exp.mpr hlogη
+    rw [Real.exp_log hηpos] at h
+    have := Real.add_one_le_exp (15000 : ℝ)
+    linarith only [h, this]
+  have hm1 : Salt.SW.zeroMult χ ((β₀ : ℝ) : ℂ) = 1 :=
+    zeroMult_eq_one_of_eta hR.prim hR.ne hR.zero (by rw [hR.ηdef, one_div]) hηbig'
+  -- `√ℓ′` facts and the proximity condition at the floor
+  have hs1 : (1 : ℝ) ≤ Real.sqrt (n9Ell q η) := by
+    rw [show (1 : ℝ) = Real.sqrt 1 by simp]
+    exact Real.sqrt_le_sqrt (by linarith only [hPbig])
+  have hsnn : (0 : ℝ) ≤ Real.sqrt (n9Ell q η) := Real.sqrt_nonneg _
+  have hsmul : Real.sqrt (n9Ell q η) * Real.sqrt (n9Ell q η) = n9Ell q η :=
+    Real.mul_self_sqrt hPpos.le
+  have hs2L : Real.sqrt (n9Ell q η) ≤ 2 * Real.log q := by
+    nlinarith only [hsmul, hPsmall, hs1, hL, hsnn]
+  have hs1360 : (1360 : ℝ) ≤ Real.sqrt (n9Ell q η) := by
+    nlinarith only [hsmul, hPbig, hs1, hsnn]
+  have hr0eq : n9Floor q η = n9Ell q η / (680 * Real.log (4 * (q : ℝ))) := by
+    rw [n9Floor, hdhB]
+  have hr0pos : 0 < n9Floor q η := by
+    rw [hr0eq]; exact div_pos hPpos (by linarith only [hWpos])
+  have hσ'r : Real.sqrt (n9Ell q η) / (2 * Real.log q) ≤ n9Floor q η / 2 := by
+    rw [hr0eq, div_div, div_le_div_iff₀ (by positivity) (by positivity)]
+    have hp1 : 1360 * Real.sqrt (n9Ell q η) ≤ n9Ell q η := by
+      have h := mul_le_mul_of_nonneg_right hs1360 hsnn
+      rw [hsmul] at h; exact h
+    have hp2 : Real.log (4 * (q : ℝ)) * Real.sqrt (n9Ell q η)
+        ≤ 2 * Real.log q * Real.sqrt (n9Ell q η) :=
+      mul_le_mul_of_nonneg_right hW2L hsnn
+    have hp3 : 2 * Real.log q * (1360 * Real.sqrt (n9Ell q η))
+        ≤ 2 * Real.log q * n9Ell q η := mul_le_mul_of_nonneg_left hp1 (by linarith only [hL])
+    linarith only [hp2, hp3]
+  -- the second abscissa
+  have hd0 : (0 : ℝ) < Real.sqrt (n9Ell q η) / (2 * Real.log q) := by positivity
+  have hσ'1 : (1 : ℝ) < 1 + Real.sqrt (n9Ell q η) / (2 * Real.log q) := by linarith only [hd0]
+  have hσ'2 : 1 + Real.sqrt (n9Ell q η) / (2 * Real.log q) ≤ 2 := by
+    have h : Real.sqrt (n9Ell q η) / (2 * Real.log q) ≤ 1 := by
+      rw [div_le_one hLp]; linarith only [hs2L]
+    linarith only [h]
+  -- the zero packet
+  obtain ⟨Z, m, hZ, hZall, hmult, hdiff, hfloor, hSinv⟩ := hb_zero_data hR
+  have hβball : ((β₀ : ℝ) : ℂ) ∈ Metric.ball (2 : ℂ) (3 / 2) := by
+    rw [Metric.mem_ball, dist_eq_norm]
+    have he : ((β₀ : ℝ) : ℂ) - 2 = ((β₀ - 2 : ℝ) : ℂ) := by push_cast; ring
+    rw [he, Complex.norm_real, Real.norm_eq_abs, abs_lt]
+    exact ⟨by linarith only [hβhalf], by linarith only [hb1]⟩
+  obtain ⟨hβZ, hmβ⟩ := hZall ((β₀ : ℝ) : ℂ) hβball hR.zero
+  have hrem := hdiff 1 (1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) le_rfl (by norm_num)
+    hσ'1.le hσ'2
+  have habs : |(1 : ℝ) - (1 + Real.sqrt (n9Ell q η) / (2 * Real.log q))|
+      = (1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) - 1 := by
+    rw [abs_of_nonpos (by linarith only [hd0])]; ring
+  rw [habs] at hrem
+  have hs'top := neg_re_logDeriv_LFunction_le χ hσ'1 hσ'2
+  have hmain := neg_re_logDeriv_differenced_mult
+    (Lf := DirichletCharacter.LFunction χ) (Z := Z) (m := m)
+    (σ := 1) (σ' := 1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) (β₀ := β₀)
+    (r0 := n9Floor q η) (Sinv := n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η))
+    le_rfl (by linarith only [hd0]) hb1 hβZ hr0pos (by linarith only [hr0pos])
+    (by linarith only [hσ'r]) hfloor hSinv hrem hs'top
+  rw [Complex.ofReal_one] at hmain
+  have hmzeq : (m ((β₀ : ℝ) : ℂ) : ℝ) = 1 := by
+    have h := hmult ((β₀ : ℝ) : ℂ) hβZ
+    rw [hm1] at h
+    exact_mod_cast congrArg (Nat.cast : ℕ → ℝ) h
+  rw [hmzeq] at hmain
+  -- the error collapse
+  have hCsnn : (0 : ℝ) ≤ n9Cs := by
+    have hA := invSqC_spec.1
+    have hprod : (0 : ℝ) ≤ invSqC * (dhB ^ 2 + dhB) :=
+      mul_nonneg hA.le (by rw [hdhB]; norm_num)
+    simp only [n9Cs]; linarith only [hprod]
+  have hcol := l1_error_collapse (Lp := 2 * Real.log q) (ell := n9Ell q η)
+    (Sinv := n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η)) (Cs := n9Cs)
+    (CR := 1600 * Real.log (80 * Real.sqrt (q : ℝ) * (1 + Real.log q)))
+    (mβ := 1) (β₀ := β₀)
+    (by linarith only [hPbig]) (by linarith only [hPsmall, hL]) hCsnn (by norm_num) hb1
+    le_rfl hCR
+  -- the pole, in the `η` currency
+  have hpole : (1 : ℝ) / (1 - β₀) = η * Real.log q := hηL.symm
+  have hneg : (-logDeriv (DirichletCharacter.LFunction χ) (1 : ℂ)).re = -hbLL χ := by
+    simp [hbLL]
+  rw [hneg] at hmain
+  have hrate : (802 + 1 + 4 * n9Cs) * ((2 * Real.log q) / Real.sqrt (n9Ell q η))
+      = (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) := by ring
+  linarith only [hmain, hcol, hpole, hrate]
+
+/-- **The `s′`-side input, LOWER form** — the mirror of `neg_re_logDeriv_LFunction_le`:
+`−Re L′/L(σ,χ) ≥ −(1/(σ−1) + 1)` on `1 < σ ≤ 2`.  Class **A**, cap 60.  Red-first (the verdict's
+A6 — the `tsum` route runs through four `private` lemmas of `TwistedMertens.lean` and cannot be
+cited from here): the PUBLIC `vmPairS_le_pole` (`TwistedMertens.lean:252`) at `N := 0`,
+`0 ≤ vmPairS χ 0 σ` by `Finset.sum_nonneg` from `one_add_chiRe_nonneg` and `vonMangoldt_nonneg`,
+and `linarith`.  Consumer: `neg_re_logDeriv_differenced_mult_ge`. -/
+theorem neg_re_logDeriv_LFunction_ge {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    {σ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
+    -(1 / (σ - 1) + 1) ≤ (-logDeriv (DirichletCharacter.LFunction χ) (σ : ℂ)).re := by
+  have h := vmPairS_le_pole χ 0 h1 h2
+  have h0 : vmPairS χ 0 σ = 0 := by simp [vmPairS, vmPairW]
+  rw [h0] at h
+  linarith
+
+/-- **The differencing, LOWER form** — the mirror of `neg_re_logDeriv_differenced_mult`
+(`TwistedMertens.lean:486`): the same partial-fraction difference with every inequality reversed;
+the zero-difference sum is bounded in ABSOLUTE value by `4(σ′−σ)·Sinv` there already, and the
+remainder is a norm.  Class **B**, cap 250.  Consumer: `hb_L1_upper_at_hb_point`. -/
+theorem neg_re_logDeriv_differenced_mult_ge {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ → ℕ}
+    {σ σ' β₀ r0 Sinv Rrem : ℝ}
+    (hσ1 : 1 ≤ σ) (hlt : σ ≤ σ') (hβ1 : β₀ < 1)
+    (hβZ : (β₀ : ℂ) ∈ Z)
+    (hr0 : 0 < r0) (hσr : σ - 1 ≤ r0 / 2) (hσ'r : σ' - 1 ≤ r0 / 2)
+    (hfloor : ∀ ρ ∈ Z.erase ((β₀ : ℂ)), r0 ≤ ‖ρ - 1‖)
+    (hSinv : ∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ Sinv)
+    (hrem : ‖(logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
+            - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ))‖ ≤ Rrem)
+    (hs'bot : -(1 / (σ' - 1) + 1) ≤ (-logDeriv Lf (σ' : ℂ)).re) :
+    -((m (β₀ : ℂ) : ℝ) / (σ - β₀)) - (1 / (σ' - 1) + 1)
+        + (m (β₀ : ℂ) : ℝ) / (σ' - β₀) - 4 * (σ' - σ) * Sinv - Rrem
+      ≤ (-logDeriv Lf (σ : ℂ)).re := by
+  classical
+  have hσ'1 : (1 : ℝ) ≤ σ' := le_trans hσ1 hlt
+  have hdβ : (0 : ℝ) < σ - β₀ := by linarith
+  have hdβ' : (0 : ℝ) < σ' - β₀ := by linarith
+  set S : ℝ := (∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ)).re with hS
+  set S' : ℝ := (∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ)).re with hS'
+  set A : ℝ := (logDeriv Lf (σ : ℂ)).re with hA
+  set A' : ℝ := (logDeriv Lf (σ' : ℂ)).re with hA'
+  have hproj : (A - S) - (A' - S') ≤ Rrem := by
+    refine le_trans ?_ hrem
+    have habs := Complex.abs_re_le_norm
+      ((logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
+        - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ)))
+    have hre : ((logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
+        - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ))).re
+        = (A - S) - (A' - S') := by
+      simp [hA, hA', hS, hS']
+    rw [hre] at habs
+    linarith [(abs_le.mp habs).2]
+  have hsumre : ∀ τ : ℝ, (∑ ρ ∈ Z, (m ρ : ℂ) / ((τ : ℂ) - ρ)).re
+      = ∑ ρ ∈ Z, ((m ρ : ℂ) / ((τ : ℂ) - ρ)).re := by
+    intro τ; exact Complex.re_sum Z _
+  have hdiff : S' - S = ∑ ρ ∈ Z,
+      (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re) := by
+    rw [hS, hS', hsumre σ, hsumre σ', ← Finset.sum_sub_distrib]
+  have hsplit : ∑ ρ ∈ Z, (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
+      = ((((m (β₀ : ℂ)) : ℂ) / ((σ' : ℂ) - (β₀ : ℂ))).re
+          - (((m (β₀ : ℂ)) : ℂ) / ((σ : ℂ) - (β₀ : ℂ))).re)
+        + ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+            (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re) :=
+    (Finset.add_sum_erase Z _ hβZ).symm
+  have hβreal : ∀ τ : ℝ, 0 < τ - β₀ →
+      (((m (β₀ : ℂ)) : ℂ) / ((τ : ℂ) - (β₀ : ℂ))).re = (m (β₀ : ℂ) : ℝ) / (τ - β₀) := by
+    intro τ _
+    have hc : ((τ : ℂ) - (β₀ : ℂ)) = (((τ - β₀ : ℝ)) : ℂ) := by push_cast; ring
+    rw [hc, ← Complex.ofReal_natCast, ← Complex.ofReal_div, Complex.ofReal_re]
+  have hβterm : (((m (β₀ : ℂ)) : ℂ) / ((σ' : ℂ) - (β₀ : ℂ))).re
+      - (((m (β₀ : ℂ)) : ℂ) / ((σ : ℂ) - (β₀ : ℂ))).re
+      = (m (β₀ : ℂ) : ℝ) / (σ' - β₀) - (m (β₀ : ℂ) : ℝ) / (σ - β₀) := by
+    rw [hβreal σ' hdβ', hβreal σ hdβ]
+  -- the remaining zeros, in ABSOLUTE value (the mirror needs the lower half)
+  have hstep : ∀ ρ ∈ Z.erase ((β₀ : ℂ)),
+      |((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re|
+        ≤ 4 * (σ' - σ) * ((m ρ : ℝ) / ‖ρ - 1‖ ^ 2) := by
+    intro ρ hρ
+    have hfl := hfloor ρ hρ
+    have hρ0 : 0 < ‖ρ - 1‖ := lt_of_lt_of_le hr0 hfl
+    have hnorm := per_zero_inv_diff_le (σ := σ) (σ' := σ') (r0 := r0) (ρ := ρ)
+      hσ1 hlt hσr hσ'r hr0 hfl
+    have heq : ((m ρ : ℂ) / ((σ' : ℂ) - ρ)) - ((m ρ : ℂ) / ((σ : ℂ) - ρ))
+        = -((m ρ : ℂ) * (1 / ((σ : ℂ) - ρ) - 1 / ((σ' : ℂ) - ρ))) := by ring
+    have hre : (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
+        = (-((m ρ : ℂ) * (1 / ((σ : ℂ) - ρ) - 1 / ((σ' : ℂ) - ρ)))).re := by
+      rw [← heq, Complex.sub_re]
+    rw [hre]
+    refine le_trans (Complex.abs_re_le_norm _) ?_
+    have hmn : ‖((m ρ : ℕ) : ℂ)‖ = (m ρ : ℝ) := by simp
+    rw [norm_neg, norm_mul, hmn]
+    calc (m ρ : ℝ) * ‖1 / ((σ : ℂ) - ρ) - 1 / ((σ' : ℂ) - ρ)‖
+        ≤ (m ρ : ℝ) * (4 * (σ' - σ) / ‖ρ - 1‖ ^ 2) :=
+          mul_le_mul_of_nonneg_left hnorm (by positivity)
+      _ = 4 * (σ' - σ) * ((m ρ : ℝ) / ‖ρ - 1‖ ^ 2) := by ring
+  have hother : -(4 * (σ' - σ) * Sinv)
+      ≤ ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+          (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re) := by
+    have h1 : |∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+          (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)|
+        ≤ ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+          |((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re| :=
+      Finset.abs_sum_le_sum_abs _ _
+    have h2 : ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+          |((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re|
+        ≤ 4 * (σ' - σ) * Sinv := by
+      refine le_trans (Finset.sum_le_sum hstep) ?_
+      rw [← Finset.mul_sum]
+      exact mul_le_mul_of_nonneg_left hSinv (by linarith)
+    have h3 := abs_le.mp (le_trans h1 h2)
+    linarith [h3.1]
+  have hneg : (-logDeriv Lf (σ : ℂ)).re = -A := by rw [hA, Complex.neg_re]
+  have hneg' : (-logDeriv Lf (σ' : ℂ)).re = -A' := by rw [hA', Complex.neg_re]
+  rw [hneg'] at hs'bot
+  rw [hneg]
+  have hSS : (m (β₀ : ℂ) : ℝ) / (σ' - β₀) - (m (β₀ : ℂ) : ℝ) / (σ - β₀)
+        - 4 * (σ' - σ) * Sinv ≤ S' - S := by
+    rw [hdiff, hsplit, hβterm]; linarith [hother]
+  linarith
+
+/-- **`(L1)`, UPPER SIDE: `L′/L(1,χ) ≤ ηL + (1606 + 8·n9Cs)·L/√ℓ′`** — ABSENT in the corpus
+(`hb_L1_one_sided` is the lower side only), REQUIRED by N9 twice: for `B = L + |LL|` in the
+`n8C6·B·L` error of BOTH p.200 rows, and for Theorem 1's upper half.  Class **B**, cap 200: the
+mirror of `hb_L1_lower_at_hb_point` on `neg_re_logDeriv_differenced_mult_ge`.
+Consumer: `hb_S3_at_hb_point`. -/
+theorem hb_L1_upper_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) :
+    hbLL χ ≤ η * Real.log q + (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) := by
+  obtain ⟨hqR, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩ := n9_num_facts hR
+  obtain ⟨-, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hb1 := hR.β1
+  have hPpos : 0 < n9Ell q η := by linarith only [hPbig]
+  have hLp : (0 : ℝ) < 2 * Real.log q := by linarith only [hL]
+  have hdhB : dhB = 680 := rfl
+  -- `η ≥ 15000`, so M-ONE pins the multiplicity
+  have hηbig' : (15000 : ℝ) ≤ η := by
+    have hE0 : Real.exp (3 * 10 ^ 6) ≤ n9E0 := by
+      have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
+      have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
+      simp only [n9E0]; linarith
+    have hE1 := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
+    have hlogη : (15000 : ℝ) ≤ Real.log η := by linarith only [hηbig, hE0, hE1]
+    have h := Real.exp_le_exp.mpr hlogη
+    rw [Real.exp_log hηpos] at h
+    have := Real.add_one_le_exp (15000 : ℝ)
+    linarith only [h, this]
+  have hm1 : Salt.SW.zeroMult χ ((β₀ : ℝ) : ℂ) = 1 :=
+    zeroMult_eq_one_of_eta hR.prim hR.ne hR.zero (by rw [hR.ηdef, one_div]) hηbig'
+  -- `√ℓ′` facts and the proximity condition at the floor
+  have hs1 : (1 : ℝ) ≤ Real.sqrt (n9Ell q η) := by
+    rw [show (1 : ℝ) = Real.sqrt 1 by simp]
+    exact Real.sqrt_le_sqrt (by linarith only [hPbig])
+  have hsnn : (0 : ℝ) ≤ Real.sqrt (n9Ell q η) := Real.sqrt_nonneg _
+  have hsmul : Real.sqrt (n9Ell q η) * Real.sqrt (n9Ell q η) = n9Ell q η :=
+    Real.mul_self_sqrt hPpos.le
+  have hs2L : Real.sqrt (n9Ell q η) ≤ 2 * Real.log q := by
+    nlinarith only [hsmul, hPsmall, hs1, hL, hsnn]
+  have hs1360 : (1360 : ℝ) ≤ Real.sqrt (n9Ell q η) := by
+    nlinarith only [hsmul, hPbig, hs1, hsnn]
+  have hr0eq : n9Floor q η = n9Ell q η / (680 * Real.log (4 * (q : ℝ))) := by
+    rw [n9Floor, hdhB]
+  have hr0pos : 0 < n9Floor q η := by
+    rw [hr0eq]; exact div_pos hPpos (by linarith only [hWpos])
+  have hσ'r : Real.sqrt (n9Ell q η) / (2 * Real.log q) ≤ n9Floor q η / 2 := by
+    rw [hr0eq, div_div, div_le_div_iff₀ (by positivity) (by positivity)]
+    have hp1 : 1360 * Real.sqrt (n9Ell q η) ≤ n9Ell q η := by
+      have h := mul_le_mul_of_nonneg_right hs1360 hsnn
+      rw [hsmul] at h; exact h
+    have hp2 : Real.log (4 * (q : ℝ)) * Real.sqrt (n9Ell q η)
+        ≤ 2 * Real.log q * Real.sqrt (n9Ell q η) :=
+      mul_le_mul_of_nonneg_right hW2L hsnn
+    have hp3 : 2 * Real.log q * (1360 * Real.sqrt (n9Ell q η))
+        ≤ 2 * Real.log q * n9Ell q η := mul_le_mul_of_nonneg_left hp1 (by linarith only [hL])
+    linarith only [hp2, hp3]
+  -- the second abscissa
+  have hd0 : (0 : ℝ) < Real.sqrt (n9Ell q η) / (2 * Real.log q) := by positivity
+  have hσ'1 : (1 : ℝ) < 1 + Real.sqrt (n9Ell q η) / (2 * Real.log q) := by linarith only [hd0]
+  have hσ'2 : 1 + Real.sqrt (n9Ell q η) / (2 * Real.log q) ≤ 2 := by
+    have h : Real.sqrt (n9Ell q η) / (2 * Real.log q) ≤ 1 := by
+      rw [div_le_one hLp]; linarith only [hs2L]
+    linarith only [h]
+  -- the zero packet
+  obtain ⟨Z, m, hZ, hZall, hmult, hdiff, hfloor, hSinv⟩ := hb_zero_data hR
+  have hβball : ((β₀ : ℝ) : ℂ) ∈ Metric.ball (2 : ℂ) (3 / 2) := by
+    rw [Metric.mem_ball, dist_eq_norm]
+    have he : ((β₀ : ℝ) : ℂ) - 2 = ((β₀ - 2 : ℝ) : ℂ) := by push_cast; ring
+    rw [he, Complex.norm_real, Real.norm_eq_abs, abs_lt]
+    exact ⟨by linarith only [hβhalf], by linarith only [hb1]⟩
+  obtain ⟨hβZ, hmβ⟩ := hZall ((β₀ : ℝ) : ℂ) hβball hR.zero
+  have hrem := hdiff 1 (1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) le_rfl (by norm_num)
+    hσ'1.le hσ'2
+  have habs : |(1 : ℝ) - (1 + Real.sqrt (n9Ell q η) / (2 * Real.log q))|
+      = (1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) - 1 := by
+    rw [abs_of_nonpos (by linarith only [hd0])]; ring
+  rw [habs] at hrem
+  have hs'bot := neg_re_logDeriv_LFunction_ge χ hσ'1 hσ'2
+  have hmain := neg_re_logDeriv_differenced_mult_ge
+    (Lf := DirichletCharacter.LFunction χ) (Z := Z) (m := m)
+    (σ := 1) (σ' := 1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) (β₀ := β₀)
+    (r0 := n9Floor q η) (Sinv := n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η))
+    le_rfl (by linarith only [hd0]) hb1 hβZ hr0pos (by linarith only [hr0pos])
+    (by linarith only [hσ'r]) hfloor hSinv hrem hs'bot
+  rw [Complex.ofReal_one] at hmain
+  have hmzeq : (m ((β₀ : ℝ) : ℂ) : ℝ) = 1 := by
+    have h := hmult ((β₀ : ℝ) : ℂ) hβZ
+    rw [hm1] at h
+    exact_mod_cast congrArg (Nat.cast : ℕ → ℝ) h
+  rw [hmzeq] at hmain
+  have hCsnn : (0 : ℝ) ≤ n9Cs := by
+    have hA := invSqC_spec.1
+    have hprod : (0 : ℝ) ≤ invSqC * (dhB ^ 2 + dhB) :=
+      mul_nonneg hA.le (by rw [hdhB]; norm_num)
+    simp only [n9Cs]; linarith only [hprod]
+  have hcol := l1_error_collapse (Lp := 2 * Real.log q) (ell := n9Ell q η)
+    (Sinv := n9Cs * ((2 * Real.log q) ^ 2 / n9Ell q η)) (Cs := n9Cs)
+    (CR := 1600 * Real.log (80 * Real.sqrt (q : ℝ) * (1 + Real.log q)))
+    (mβ := 1) (β₀ := β₀)
+    (by linarith only [hPbig]) (by linarith only [hPsmall, hL]) hCsnn (by norm_num) hb1
+    le_rfl hCR
+  have hβnn : (0 : ℝ)
+      ≤ 1 / ((1 + Real.sqrt (n9Ell q η) / (2 * Real.log q)) - β₀) := by
+    apply div_nonneg (by norm_num)
+    linarith only [hb1, hd0]
+  have hpole : (1 : ℝ) / (1 - β₀) = η * Real.log q := hηL.symm
+  have hneg : (-logDeriv (DirichletCharacter.LFunction χ) (1 : ℂ)).re = -hbLL χ := by
+    simp [hbLL]
+  rw [hneg] at hmain
+  have hrate : (802 + 1 + 4 * n9Cs) * ((2 * Real.log q) / Real.sqrt (n9Ell q η))
+      = (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) := by ring
+  linarith only [hmain, hcol, hpole, hrate, hβnn]
+
 
 /-- **The pretense sum at the operating point, at any window height.**  `pretenseSum_le_differenced`
 at `σ = 1 + 1/(2L)`, `σ′ = 1 + √ℓ′/(2L)` against `hb_zero_data`'s `Z`, with the core rate absorbed
