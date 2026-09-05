@@ -25,35 +25,33 @@ the first input WHOLE, together with the two H rows it closes, and part of the s
 * **T6/T7 — the two densities.** `(φ(r)/r)·S_{μ/n²}(r) = ρ₀·(r/κ(r))` (H5a's main term) and
   `(t/φ(t))·S_{μ²/(κφ)}(t) = c₀·κ(t)/t` (H6e's main term, with `c₀` DEFINED as its series).
 * **P1/P2 and H5a/H5c** — the counting half of An's Lemma 3.7 over `ℚ` and its two-log
-  weighted partial summation. **These are two of the six flagged rows, now closed.**
-* **C1** — the exact harmonic identity `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1`.
+  weighted partial summation.
+* **C1** — the exact harmonic identity `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1` — and with it
+  **C2** (the sawtooth-log piece), **THE CONSTANT C3** (`Σ(μ(n)/n)log(Q/n) → 1`) and
+  **H6c**. C2 runs by ONE discrete Abel over `(a, N]` and a total-variation split, NOT by
+  the fibre decomposition of `n ↦ ⌊Q/n⌋₊`.
 * **S1** — the `t`-smooth convolution `Σ_{m ≤ X,(m,t)=1} μ(m)G(m) =
-  Σ_{d ≤ X smooth} Σ_{e ≤ X/d} μ(e)G(de)` — and **S2**, the smooth partial sum against its
-  Euler product, `Σ_{d ≤ X smooth} 1/d ≤ t/φ(t)`.
-* Two PUBLIC helpers the next wave (H2) consumes: `summable_moebius_sq_div_kappa_totient`
-  and `log_rpow_le_rpow_quarter` (`(log x)^A ≤ (4A)^A x^{1/4}`).
+  Σ_{d ≤ X smooth} Σ_{e ≤ X/d} μ(e)G(de)` — **S2**, the smooth partial sum against its
+  Euler product, and **S3**, its tail, by a FINITE prime-step induction carried for every
+  `Y > 0` (the surplus below `Y = 1` is what pays for the geometric tail at the step).
+* **S4, H6d, H6f and H6e** — the four coprime-restricted rows, the last two through the
+  `κ`-expansion `μ(n)/κ(n) = (μ(n)/n)·Σ_{d ∣ n} μ(d)/κ(d)`. **All six of the W6b-H freeze's
+  flagged rows are now closed.**
+* Three PUBLIC helpers the next wave (H2) consumes: `summable_moebius_sq_div_kappa_totient`,
+  `log_rpow_le_rpow_quarter` (`(log x)^A ≤ (4A)^A x^{1/4}`) and `one_le_c0`.
 
-## ⚠ THE HONEST LABEL — what this file does NOT prove
+## ⚠ THE HONEST LABEL — what this file does and does NOT prove
 
-**Eight of the cut's twenty-two frozen rows are ABSENT, and their absence is recorded rather
-than implied** (`docs/blueprints/flags.md`, the 09-05 W6b-H1b entries). Rows ABSENT:
-**C2** (`abs_sum_moebius_mul_log_floor_ratio_le`), **C3**
-(`abs_sum_moebius_div_mul_log_div_sub_one_le`), **H6c**
-(`abs_sum_moebius_mul_log_div_add_one_le`), **S3**
-(`div_totient_sub_sum_smooth_inv_le`), **S4** (`abs_coprime_sum_moebius_div_le`), **H6d**
-(`coprime_sum_moebius_div_log_eq`), **H6f** (`coprime_sum_moebius_div_kappa_le`), **H6e**
-(`coprime_sum_moebius_div_kappa_log_eq`). Four of the six H-freeze rows therefore remain
-open: only **H5a and H5c land here**. A consumer must read this file's declaration list, not
-the wave's label, for what is available.
+**NO frozen row of this cut is absent.** All twenty-two land, the six W6b-H freeze rows
+(H5a, H5c, H6c, H6d, H6e, H6f) among them; the six 09-05 flag entries are RETIRED in
+`docs/blueprints/flags.md`. A consumer should still read this file's declaration list, not
+the wave's label.
 
-**The second input is still missing.** C2 (the sawtooth-log piece, by a blockwise discrete
-Abel over the fibres of `n ↦ ⌊Q/n⌋₊`) is what C3 — and through C3, H6c, H6d and H6e — is
-gated on; S3 needs the smooth series `Σ'_{d smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}` in
-the OTHER direction (S2's inequality goes the easy way and needs only an injection; S3 needs
-the sum's exact value, hence a bijection and a limit), and S4/H6f are gated on it. None of
-this is a statement
-defect: **no frozen statement of this cut is believed false.** The flags record the cost,
-not a contradiction.
+**H6e lands in the NAMED form.** `coprime_sum_moebius_div_kappa_log_eq` states the row with
+the LANDED constant `c0` as its main term, because the frozen `∃ c₀` shape exports no witness
+and the H2 wave's H7c consumes H6e's main term AS `c0`. The frozen shape is kept as the
+one-line corollary `coprime_sum_moebius_div_kappa_log_exists`; `0 < c0` is the public
+`one_le_c0`.
 
 **Everything proved here is an UPPER bound or an exact identity** — no asymptotic and no
 lower bound anywhere. Where a constant is `∃`-bound it is **non-effective**: H5a and H5c
@@ -77,15 +75,17 @@ f 1`. The measured control is in T3's docstring.
 `GrahamHard.lean`.** That file is byte-unchanged by this wave; the two that landed (H5a,
 H5c) carry its frozen types.
 
-**Two mutants were MEASURED and STRUCK** and are recorded in P2's and C2's — here, P2's —
-docstring as NOT controls: P2 with `X^{1/4} → X^0`, and P2 with `σ(r) → 1`. C2's struck
-mutant (dropping the `+ 1` in the log) is recorded in this wave's flag entry instead, since
-C2 itself is absent.
+**Three mutants were MEASURED and STRUCK** and are recorded as NOT controls in the docstrings
+that own them: P2 with `X^{1/4} → X^0` and P2 with `σ(r) → 1` (in P2's), and C2 with the
+`+ 1` in the log DROPPED (in C2's) — that last measures `×log²(2Q) = −0.81 … −0.05` over
+`Q = 10² … 10⁶`, bounded and shrinking, so it PASSES at every tested point.
 
 **F6** (no net numerator log): every frozen statement here is log-free (T1–T7, P1, P2, S1,
-C1) or carries its logs in a bounded one-variable pair (H5a's `√M·σ`, H5c's
-`(1 + |log M + α|)(1 + |log M + β|)`). The route's numerator logs — `(1 + log Q)/√Q` in
-C3's `D`-tail and `(1 + log Q)²` in H6d's far tail — belong to the absent rows.
+S2, S3, C1) or carries its logs in a bounded one-variable pair (H5a's `√M·σ`, H5c's
+`(1 + |log M + α|)(1 + |log M + β|)`) or in the DENOMINATOR only (C2, C3, H6c, S4, H6d, H6f
+and H6e all read `(log 2Q)^{−A}`). The route's numerator logs — `log Q·f(Q)` in H6c,
+`(1 + log Q)/√Q` in C3's `D`-tail, `(1 + log Q)²` in the far tails of H6d and H6e — are each
+closed by the A4 helper at `A`, `A + 1` or `A + 2`, and none survives to a statement.
 
 Axiom-clean (`propext, Classical.choice, Quot.sound`); no `native_decide`, no `sorry`.
 -/
@@ -5745,16 +5745,883 @@ theorem coprime_sum_moebius_div_kappa_le (A : ℝ) (hA : 0 < A) :
     rw [hringid]
     linarith only [habs, hnear, hfar, hfarC, hextra]
 
+/-! ### H6e — the κ-weighted log sum -/
+
+/-- The telescoping step of `Σ f^{−3/2}`. -/
+private lemma rpow_step_three_halves (t : ℝ) (ht : 1 ≤ t) :
+    (t + 1) ^ (-(3/2) : ℝ) ≤ 2 * t ^ (-(1/2) : ℝ) - 2 * (t + 1) ^ (-(1/2) : ℝ) := by
+  have ht0 : (0 : ℝ) < t := by linarith
+  have ht1 : (0 : ℝ) < t + 1 := by linarith
+  have ha0 : (0 : ℝ) < t ^ ((1/2 : ℝ)) := Real.rpow_pos_of_pos ht0 _
+  have hb0 : (0 : ℝ) < (t + 1) ^ ((1/2 : ℝ)) := Real.rpow_pos_of_pos ht1 _
+  have ha2 : (t ^ ((1/2 : ℝ))) ^ 2 = t := by
+    rw [rpow_pow_nat ht0.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have hb2 : ((t + 1) ^ ((1/2 : ℝ))) ^ 2 = t + 1 := by
+    rw [rpow_pow_nat ht1.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have hb3 : ((t + 1) ^ ((1/2 : ℝ))) ^ 3 = (t + 1) ^ ((3/2 : ℝ)) := by
+    rw [rpow_pow_nat ht1.le, show (1/2 : ℝ) * ((3 : ℕ) : ℝ) = (3/2 : ℝ) by norm_num]
+  have hL : (t + 1) ^ (-(3/2) : ℝ) = 1 / ((t + 1) ^ ((1/2 : ℝ))) ^ 3 := by
+    rw [hb3, Real.rpow_neg ht1.le]
+    ring
+  have hR1 : t ^ (-(1/2) : ℝ) = 1 / t ^ ((1/2 : ℝ)) := by
+    rw [Real.rpow_neg ht0.le]
+    ring
+  have hR2 : (t + 1) ^ (-(1/2) : ℝ) = 1 / (t + 1) ^ ((1/2 : ℝ)) := by
+    rw [Real.rpow_neg ht1.le]
+    ring
+  have hab : t ^ ((1/2 : ℝ)) < (t + 1) ^ ((1/2 : ℝ)) := by nlinarith only [ha2, hb2, ha0, hb0]
+  have hidt : ((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
+      * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ))) = 1 := by
+    nlinarith only [ha2, hb2]
+  rw [hL, hR1, hR2, div_le_iff₀ (by positivity : (0 : ℝ) < ((t + 1) ^ ((1/2 : ℝ))) ^ 3)]
+  have hid : (2 * (1 / t ^ ((1/2 : ℝ))) - 2 * (1 / (t + 1) ^ ((1/2 : ℝ))))
+        * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+      = (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2) / t ^ ((1/2 : ℝ)) := by
+    field_simp
+    try ring
+  rw [hid, le_div_iff₀ ha0]
+  have hsum0 : (0 : ℝ) < t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)) := by linarith
+  have hkey : (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ))) * (1 * t ^ ((1/2 : ℝ)))
+      ≤ (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)))
+        * (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2) := by
+    have hexp : (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)))
+        * (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2)
+        = 2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 2
+          * (((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
+            * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ)))) := by ring
+    rw [hexp, hidt]
+    nlinarith only [hab, ha0, hb0]
+  exact le_of_mul_le_mul_left hkey hsum0
+
+/-- `Σ_{D < n ≤ M} n^{−3/2} ≤ 2·D^{−1/2}` for `D ≥ 1`. -/
+private lemma sum_Ioc_rpow_neg_three_halves_le {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
+    ∑ n ∈ Finset.Ioc D M, (n : ℝ) ^ (-(3/2) : ℝ) ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
+  rcases le_or_gt M D with hMD | hMD
+  · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
+    have : (0 : ℝ) < (D : ℝ) ^ (-(1/2) : ℝ) := by
+      refine Real.rpow_pos_of_pos ?_ _
+      exact_mod_cast hD
+    linarith
+  · have hDM : D ≤ M := by omega
+    have key : ∀ m : ℕ, D ≤ m →
+        ∑ n ∈ Finset.Ioc D m, (n : ℝ) ^ (-(3/2) : ℝ)
+          ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) - 2 * (m : ℝ) ^ (-(1/2) : ℝ) := by
+      intro m hm
+      induction m, hm using Nat.le_induction with
+      | base => simp
+      | succ k hk ih =>
+        rw [Finset.sum_Ioc_succ_top hk]
+        have hk1 : (1 : ℝ) ≤ (k : ℝ) := by
+          have : (1 : ℕ) ≤ k := le_trans hD hk
+          exact_mod_cast this
+        have hstep := rpow_step_three_halves (k : ℝ) hk1
+        have hcast : ((k + 1 : ℕ) : ℝ) = (k : ℝ) + 1 := by push_cast; ring
+        rw [hcast]
+        linarith only [ih, hstep]
+    have h := key M hDM
+    have hpos : (0 : ℝ) < (M : ℝ) ^ (-(1/2) : ℝ) := by
+      refine Real.rpow_pos_of_pos ?_ _
+      have : (1 : ℕ) ≤ M := le_trans hD hDM
+      exact_mod_cast this
+    linarith
+
+/-- The `n^{−3/2}`-dominated tail: a series bounded termwise by `n^{−3/2}` differs from its
+partial sum over `[1, D]` by at most `2·D^{−1/2}`. -/
+private lemma abs_tsum_sub_sum_le_three_halves {g : ℕ → ℝ} (hg : Summable g)
+    (hb : ∀ n : ℕ, |g n| ≤ (n : ℝ) ^ (-(3/2) : ℝ)) {D : ℕ} (hD : 1 ≤ D) :
+    |(∑' n : ℕ, g n) - ∑ n ∈ Finset.Icc 1 D, g n| ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
+  classical
+  set b : ℕ → ℝ := fun n => if n ∈ Finset.Icc 1 D then 0 else (n : ℝ) ^ (-(3/2) : ℝ) with hbdef
+  have hb0 : ∀ n, 0 ≤ b n := by
+    intro n
+    rw [hbdef]
+    dsimp only
+    split_ifs
+    · exact le_refl 0
+    · exact Real.rpow_nonneg (by positivity) _
+  have hbsum : Summable b := by
+    refine Summable.of_nonneg_of_le hb0 (fun n => ?_)
+      (Real.summable_one_div_nat_rpow.mpr (by norm_num) :
+        Summable fun n : ℕ => 1 / (n : ℝ) ^ ((3/2 : ℝ)))
+    rw [hbdef]
+    dsimp only
+    have hne : (n : ℝ) ^ (-(3/2) : ℝ) = 1 / (n : ℝ) ^ ((3/2 : ℝ)) := by
+      rw [Real.rpow_neg (by positivity), one_div]
+    split_ifs
+    · positivity
+    · rw [hne]
+  have hbtsum : (∑' n : ℕ, b n) ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
+    refine Real.tsum_le_of_sum_le hb0 fun s => ?_
+    have hs' : ∑ n ∈ s, b n = ∑ n ∈ s.filter (fun n => D < n), b n := by
+      refine (Finset.sum_filter_of_ne fun n _ hne => ?_).symm
+      by_contra hcon
+      rw [not_lt] at hcon
+      refine hne ?_
+      rw [hbdef]
+      dsimp only
+      rcases Nat.eq_zero_or_pos n with rfl | hn0
+      · rw [if_neg (by simp)]
+        rw [Nat.cast_zero, Real.zero_rpow (by norm_num)]
+      · rw [if_pos (Finset.mem_Icc.mpr ⟨hn0, hcon⟩)]
+    have hsubset : s.filter (fun n => D < n) ⊆ Finset.Ioc D (s.sup id) := by
+      intro n hn
+      rw [Finset.mem_filter] at hn
+      rw [Finset.mem_Ioc]
+      exact ⟨hn.2, Finset.le_sup (f := id) hn.1⟩
+    rw [hs']
+    calc ∑ n ∈ s.filter (fun n => D < n), b n
+        ≤ ∑ n ∈ Finset.Ioc D (s.sup id), b n :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsubset fun i _ _ => hb0 i
+      _ ≤ ∑ n ∈ Finset.Ioc D (s.sup id), (n : ℝ) ^ (-(3/2) : ℝ) := by
+          refine Finset.sum_le_sum fun n hn => ?_
+          rw [hbdef]
+          dsimp only
+          split_ifs
+          · exact Real.rpow_nonneg (by positivity) _
+          · exact le_refl _
+      _ ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := sum_Ioc_rpow_neg_three_halves_le hD _
+  have hg' : Summable (fun n : ℕ => if n ∈ Finset.Icc 1 D then g n else 0) :=
+    summable_of_ne_finset_zero (s := Finset.Icc 1 D) fun n hn => if_neg hn
+  have hsum' : (∑' n : ℕ, (if n ∈ Finset.Icc 1 D then g n else 0))
+      = ∑ n ∈ Finset.Icc 1 D, g n := by
+    rw [tsum_eq_sum (s := Finset.Icc 1 D) fun n hn => if_neg hn]
+    exact Finset.sum_congr rfl fun n hn => if_pos hn
+  have hdiff : (∑' n : ℕ, g n) - ∑ n ∈ Finset.Icc 1 D, g n
+      = ∑' n : ℕ, (g n - (if n ∈ Finset.Icc 1 D then g n else 0)) := by
+    rw [hg.tsum_sub hg', hsum']
+  have hpt : ∀ n : ℕ, |g n - (if n ∈ Finset.Icc 1 D then g n else 0)| ≤ b n := by
+    intro n
+    by_cases hn : n ∈ Finset.Icc 1 D
+    · rw [if_pos hn, sub_self, abs_zero, hbdef]
+      dsimp only
+      rw [if_pos hn]
+    · rw [if_neg hn, sub_zero, hbdef]
+      dsimp only
+      rw [if_neg hn]
+      exact hb n
+  have habs : Summable (fun n : ℕ => |g n - (if n ∈ Finset.Icc 1 D then g n else 0)|) :=
+    Summable.of_nonneg_of_le (fun n => abs_nonneg _) hpt hbsum
+  rw [hdiff]
+  calc |∑' n : ℕ, (g n - (if n ∈ Finset.Icc 1 D then g n else 0))|
+      ≤ ∑' n : ℕ, |g n - (if n ∈ Finset.Icc 1 D then g n else 0)| := by
+        have h := norm_tsum_le_tsum_norm
+          (f := fun n : ℕ => g n - (if n ∈ Finset.Icc 1 D then g n else 0)) (by simpa using habs)
+        simpa using h
+    _ ≤ ∑' n : ℕ, b n := Summable.tsum_le_tsum hpt habs hbsum
+    _ ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := hbtsum
+
+/-- **`1 ≤ c₀` (PUBLIC; the H2 wave consumes it).** The `n = 1` term of the series is `1`
+and every term is nonnegative. -/
+theorem one_le_c0 : 1 ≤ c0 := by
+  have hs : Summable (fun n : ℕ => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) :=
+    summable_moebius_sq_div_kappa_totient.of_abs
+  have hnn : ∀ j : ℕ, (0 : ℝ) ≤ (moebius j : ℝ) ^ 2 / (kappa j * (Nat.totient j : ℝ)) := by
+    intro j
+    refine div_nonneg (sq_nonneg _) (mul_nonneg ?_ (by positivity))
+    rw [kappa]
+    exact mul_nonneg (by positivity) (Finset.prod_nonneg fun p _ => by positivity)
+  have h1 : (moebius 1 : ℝ) ^ 2 / (kappa 1 * (Nat.totient 1 : ℝ)) = 1 := by
+    rw [isMultiplicative_moebius.map_one, kappa, Nat.primeFactors_one]
+    norm_num
+  have h := hs.le_tsum 1 (fun j _ => hnn j)
+  rw [h1] at h
+  exact h
+
+/-- `|μ(n)²/(κ(n)φ(n))| ≤ n^{−3/2}` — the bound behind T7's summability helper. -/
+private lemma abs_moebius_sq_div_kappa_totient_le (n : ℕ) :
+    |(moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))| ≤ (n : ℝ) ^ (-(3/2) : ℝ) := by
+  have hrw : (n : ℝ) ^ (-(3/2) : ℝ) = 1 / (n : ℝ) ^ ((3/2 : ℝ)) := by
+    rw [Real.rpow_neg (by positivity)]
+    ring
+  rw [hrw]
+  rcases Nat.eq_zero_or_pos n with rfl | hn
+  · simp
+  · by_cases hsqf : Squarefree n
+    · have hbound := rpow_three_halves_le_kappa_mul_totient n hn hsqf
+      have hnR : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+      have hpos : (0 : ℝ) < (n : ℝ) ^ ((3/2 : ℝ)) := Real.rpow_pos_of_pos hnR _
+      have hkpos : (0 : ℝ) < kappa n * (Nat.totient n : ℝ) := lt_of_lt_of_le hpos hbound
+      have hmu : ((moebius n : ℝ)) ^ 2 = 1 := by
+        have h := moebius_sq (n := n)
+        rw [if_pos hsqf] at h
+        exact_mod_cast h
+      rw [hmu, abs_of_nonneg (div_nonneg zero_le_one hkpos.le)]
+      exact one_div_le_one_div_of_le hpos hbound
+    · rw [moebius_eq_zero_of_not_squarefree hsqf, Int.cast_zero, zero_pow (by norm_num),
+        zero_div, abs_zero]
+      positivity
+
+/-- `Σ_{e ≤ y} |(μ(e)/κ(e))·log(y/e)| ≤ (1 + log y)²` (`κ(e) ≥ e`). -/
+private lemma sum_abs_moebius_div_kappa_log_le {y : ℝ} (hy : 1 ≤ y) :
+    ∑ e ∈ Finset.Icc 1 ⌊y⌋₊, |(moebius e : ℝ) / kappa e * Real.log (y / e)|
+      ≤ (1 + Real.log y) ^ 2 := by
+  have hy0 : (0 : ℝ) < y := by linarith
+  have hlogy : (0 : ℝ) ≤ Real.log y := Real.log_nonneg hy
+  have hNy : ((⌊y⌋₊ : ℕ) : ℝ) ≤ y := Nat.floor_le hy0.le
+  have hterm : ∀ e ∈ Finset.Icc 1 ⌊y⌋₊,
+      |(moebius e : ℝ) / kappa e * Real.log (y / (e : ℝ))| ≤ ((e : ℝ))⁻¹ * Real.log y := by
+    intro e he
+    obtain ⟨he1, heN⟩ := Finset.mem_Icc.mp he
+    have he0 : (0 : ℝ) < (e : ℝ) := by exact_mod_cast he1
+    have he1R : (1 : ℝ) ≤ (e : ℝ) := by exact_mod_cast he1
+    have heY : (e : ℝ) ≤ y := le_trans (by exact_mod_cast heN) hNy
+    have hye : (1 : ℝ) ≤ y / (e : ℝ) := (one_le_div he0).mpr heY
+    have hlog0 : (0 : ℝ) ≤ Real.log (y / (e : ℝ)) := Real.log_nonneg hye
+    have hlogle : Real.log (y / (e : ℝ)) ≤ Real.log y := by
+      refine Real.log_le_log (by positivity) ?_
+      rw [div_le_iff₀ he0]
+      nlinarith only [he1R, hy0]
+    rw [abs_mul, abs_of_nonneg hlog0]
+    exact mul_le_mul (abs_moebius_div_kappa_le he1) hlogle hlog0 (by positivity)
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  rw [← Finset.sum_mul]
+  have h2 := sum_inv_le_one_add_log ⌊y⌋₊
+  have h3 : Real.log ((⌊y⌋₊ : ℕ) : ℝ) ≤ Real.log y := log_natCast_le_log hy hNy
+  nlinarith only [h2, h3, hlogy]
+
+/-- **The κ-expansion's swap, with a weight.** -/
+private lemma sum_coprime_moebius_div_kappa_swap_mul (t N : ℕ) (G : ℕ → ℝ) :
+    ∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) / kappa n * G n
+      = ∑ d ∈ (Finset.Icc 1 N).filter (fun d => Nat.Coprime d t),
+          (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (N / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * G (d * f) := by
+  classical
+  have hL : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) / kappa n * G n
+      = ∑ n ∈ Finset.Icc 1 N, ∑ d ∈ n.divisors,
+          (if Nat.Coprime n t then (moebius n : ℝ) / (n : ℝ)
+            * ((moebius d : ℝ) / kappa d) * G n else 0) := by
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun n hn => ?_
+    obtain ⟨hn1, _⟩ := Finset.mem_Icc.mp hn
+    by_cases hc : Nat.Coprime n t
+    · rw [if_pos hc, moebius_div_kappa_expand hn1, Finset.mul_sum, Finset.sum_mul]
+      refine Finset.sum_congr rfl fun d _ => ?_
+      rw [if_pos hc]
+    · rw [if_neg hc, Finset.sum_congr rfl (fun d (_ : d ∈ n.divisors) => if_neg hc),
+        Finset.sum_const, smul_zero]
+  have hR : ∑ d ∈ (Finset.Icc 1 N).filter (fun d => Nat.Coprime d t),
+        (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (N / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * G (d * f)
+      = ∑ d ∈ Finset.Icc 1 N, ∑ f ∈ Finset.Icc 1 (N / d),
+          (if Nat.Coprime d t then (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d) else 0)
+            * ((if Nat.Coprime f (d * t) then (moebius f : ℝ) / (f : ℝ) else 0)
+              * G (d * f)) := by
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun d _ => ?_
+    have hinner : ∑ f ∈ Finset.Icc 1 (N / d),
+          ((if Nat.Coprime f (d * t) then (moebius f : ℝ) / (f : ℝ) else 0) * G (d * f))
+        = ∑ f ∈ (Finset.Icc 1 (N / d)).filter (fun f => Nat.Coprime f (d * t)),
+            (moebius f : ℝ) / (f : ℝ) * G (d * f) := by
+      rw [Finset.sum_filter]
+      refine Finset.sum_congr rfl fun f _ => ?_
+      by_cases hcf : Nat.Coprime f (d * t)
+      · rw [if_pos hcf, if_pos hcf]
+      · rw [if_neg hcf, if_neg hcf, zero_mul]
+    rw [← Finset.mul_sum, hinner]
+    by_cases hc : Nat.Coprime d t
+    · rw [if_pos hc, if_pos hc]
+    · rw [if_neg hc, if_neg hc, zero_mul]
+  rw [hL, hR, sum_divisors_swap N (fun d n => if Nat.Coprime n t then
+    (moebius n : ℝ) / (n : ℝ) * ((moebius d : ℝ) / kappa d) * G n else 0)]
+  refine Finset.sum_congr rfl fun d hd => ?_
+  obtain ⟨hd1, _⟩ := Finset.mem_Icc.mp hd
+  refine Finset.sum_congr rfl fun f hf => ?_
+  obtain ⟨hf1, _⟩ := Finset.mem_Icc.mp hf
+  have hbase := kappa_swap_term t hd1 hf1
+  have hsplit : (if Nat.Coprime (d * f) t then
+        (moebius (d * f) : ℝ) / ((d * f : ℕ) : ℝ) * ((moebius d : ℝ) / kappa d) * G (d * f)
+      else 0)
+      = (if Nat.Coprime (d * f) t then
+          (moebius (d * f) : ℝ) / ((d * f : ℕ) : ℝ) * ((moebius d : ℝ) / kappa d) else 0)
+        * G (d * f) := by
+    split_ifs
+    · rfl
+    · rw [zero_mul]
+  rw [hsplit, hbase]
+  ring
+
+set_option maxHeartbeats 2000000 in
+-- H6e assembles the κ-expansion's weighted swap, H6d at level `d·t`, T7's main term and its
+-- series tail, and the two regimes in one declaration; it exceeds the default budget.
+/-- **H6e, in the NAMED form (the H2 verdict's A1): the witness is the landed `c0`.**
+`|Σ_{n ≤ Q,(n,t)=1}(μ(n)/κ(n))log(Q/n) − c₀·κ(t)/t| ≤ C·σ_{−1/4}(t)/(log 2Q)^A`.
+
+The κ-expansion's weighted swap turns the sum into
+`Σ_{d ≤ Q,(d,t)=1}(μ²(d)/(dκ(d)))·T_{d·t}(Q/d)`; on `d ≤ D = ⌊√Q⌋₊` the inner sum is H6d at
+level `d·t` — `Squarefree (d·t)` by `Nat.squarefree_mul` on `Coprime d t`, and the terms with
+`d` NOT squarefree carry `μ²(d) = 0` — whose main term `dt/φ(dt) = (d/φ(d))(t/φ(t))` makes
+`Σ_{d ≤ D} (μ²(d)/(dκ(d)))·(dt/φ(dt)) = (t/φ(t))·Σ_{d ≤ D,(d,t)=1} μ²(d)/(κ(d)φ(d))`, which
+is T7's `c₀·κ(t)/t` up to the series tail `2/√D` (`|μ²(n)/(κ(n)φ(n))| ≤ n^{−3/2}`). Beyond
+`D` the trivial `|T(y)| ≤ (1 + log y)²` runs against `Σ_{d > D} 1/d² ≤ 2/√Q`, closed by the
+A4 helper at `A`, `A + 1` and `A + 2`. Below `Q = 4` the trivial bound is absorbed into `C`.
+
+The constant is NON-EFFECTIVE (H6d carries `mmuRate_holds`'s window through C3).
+
+Sanity (measured) at `(t, Q) = (2, 100)`: `Σ_{n ≤ 100 odd}(μ(n)/κ(n))log(100/n) = 2.3446`
+against `c₀·κ(2)/2 = 2.4674`.
+
+The must-FAIL control (measured): with `c₀·κ(t)/t` → `c₀·t/κ(t)` at `t = 2`, the ratio is
+`19.03 / 42.33 / 72.84 / 110.89 / 156.73` at `Q = 10² … 10⁶` against
+`1.8728 / 0.6873 / 0.1954 / 0.0482 / 0.0109` frozen — UNBOUNDED. -/
+theorem coprime_sum_moebius_div_kappa_log_eq (A : ℝ) (hA : 0 < A) :
+    ∃ C : ℝ, 0 < C ∧ ∀ t : ℕ, Squarefree t →
+    ∀ Q : ℝ, 1 ≤ Q →
+    |∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) / kappa n * Real.log (Q / n)
+        - c0 * kappa t / t| ≤ C * sigmaQ t / Real.log (2 * Q) ^ A := by
+  classical
+  obtain ⟨CD, hCD, hD6⟩ := coprime_sum_moebius_div_log_eq A hA
+  have h2A : (0 : ℝ) < (2 : ℝ) ^ A := Real.rpow_pos_of_pos (by norm_num) _
+  have hk1 : (0 : ℝ) < (4 * A) ^ A := Real.rpow_pos_of_pos (by linarith) _
+  have hk2 : (0 : ℝ) < (4 * (A + 1)) ^ (A + 1) := Real.rpow_pos_of_pos (by linarith) _
+  have hk3 : (0 : ℝ) < (4 * (A + 2)) ^ (A + 2) := Real.rpow_pos_of_pos (by linarith) _
+  have hlog4 : (0 : ℝ) < Real.log 4 := Real.log_pos (by norm_num)
+  have hlog8 : (0 : ℝ) < Real.log 8 ^ A := Real.rpow_pos_of_pos (Real.log_pos (by norm_num)) _
+  refine ⟨((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A + 4 * CD * 2 ^ A
+    + 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+    + 24 * (4 * A) ^ A, by positivity, ?_⟩
+  intro t hts Q hQ
+  have ht : 1 ≤ t := Nat.one_le_iff_ne_zero.mpr hts.ne_zero
+  have hQpos : (0 : ℝ) < Q := by linarith
+  have hsig1 : (1 : ℝ) ≤ sigmaQ t := one_le_sigmaQ t ht
+  have hsig0 : (0 : ℝ) < sigmaQ t := by linarith
+  have hlog2Q : 0 < Real.log (2 * Q) := Real.log_pos (by linarith)
+  have hlog2QA : (0 : ℝ) < Real.log (2 * Q) ^ A := Real.rpow_pos_of_pos hlog2Q _
+  have hlogQ0 : (0 : ℝ) ≤ Real.log Q := Real.log_nonneg hQ
+  have hNQ : ((⌊Q⌋₊ : ℕ) : ℝ) ≤ Q := Nat.floor_le hQpos.le
+  have htphi := div_totient_le_three_sigmaQ t ht
+  have htphi0 : (0 : ℝ) ≤ (t : ℝ) / Nat.totient t := by positivity
+  have hCpos : (0 : ℝ) < ((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A + 4 * CD * 2 ^ A
+      + 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+      + 24 * (4 * A) ^ A := by positivity
+  -- the series and its tail
+  have hgsum : Summable (fun n : ℕ => if Nat.Coprime n t then
+      (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ)) else 0) :=
+    summable_coprime_indicator summable_moebius_sq_div_kappa_totient t
+  have hgb : ∀ n : ℕ, |if Nat.Coprime n t then
+      (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ)) else 0|
+      ≤ (n : ℝ) ^ (-(3/2) : ℝ) := by
+    intro n
+    by_cases hc : Nat.Coprime n t
+    · rw [if_pos hc]
+      exact abs_moebius_sq_div_kappa_totient_le n
+    · rw [if_neg hc, abs_zero]
+      exact Real.rpow_nonneg (by positivity) _
+  have htail : ∀ E : ℕ, 1 ≤ E →
+      |coprimeSeries (fun n => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) t
+        - ∑ n ∈ (Finset.Icc 1 E).filter (fun n => Nat.Coprime n t),
+            (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))|
+      ≤ 2 * (E : ℝ) ^ (-(1/2) : ℝ) := by
+    intro E hE
+    have h := abs_tsum_sub_sum_le_three_halves hgsum hgb hE
+    have hfil : ∑ n ∈ Finset.Icc 1 E, (if Nat.Coprime n t then
+          (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ)) else 0)
+        = ∑ n ∈ (Finset.Icc 1 E).filter (fun n => Nat.Coprime n t),
+            (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ)) :=
+      (Finset.sum_filter _ _).symm
+    rw [hfil] at h
+    exact h
+  have hT7 := div_totient_mul_coprimeSeries_inv_kappa_totient t ht
+  -- `S ≤ 3` from the tail at `E = 1`
+  have hS3 : coprimeSeries (fun n => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) t
+      ≤ 3 := by
+    have h1set : (Finset.Icc 1 1).filter (fun n => Nat.Coprime n t) = {1} := by
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_singleton]
+      constructor
+      · rintro ⟨⟨h1, h2⟩, _⟩
+        omega
+      · rintro rfl
+        exact ⟨⟨le_refl 1, le_refl 1⟩, Nat.coprime_one_left t⟩
+    have h1val : ∑ n ∈ (Finset.Icc 1 1).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ)) = 1 := by
+      rw [h1set, Finset.sum_singleton, isMultiplicative_moebius.map_one, kappa,
+        Nat.primeFactors_one]
+      norm_num
+    have h := htail 1 (le_refl 1)
+    rw [h1val, Nat.cast_one, Real.one_rpow] at h
+    have := abs_le.mp h
+    linarith [this.2]
+  have hc0kt : c0 * kappa t / t = (t : ℝ) / Nat.totient t
+      * coprimeSeries (fun n => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) t :=
+    hT7.symm
+  rcases lt_or_ge Q 4 with hsmall | hbig
+  -- ═══ the trivial regime `Q < 4` ═══
+  · have htriv : |∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) / kappa n * Real.log (Q / n)| ≤ (1 + Real.log Q) ^ 2 := by
+      refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+      refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun i _ _ => abs_nonneg _)) ?_
+      exact sum_abs_moebius_div_kappa_log_le hQ
+    have hS0 : (0 : ℝ) ≤ coprimeSeries
+        (fun n => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) t := by
+      unfold coprimeSeries
+      refine tsum_nonneg fun n => ?_
+      by_cases hc : Nat.Coprime n t
+      · rw [if_pos hc]
+        refine div_nonneg (sq_nonneg _) (mul_nonneg ?_ (by positivity))
+        rw [kappa]
+        exact mul_nonneg (by positivity) (Finset.prod_nonneg fun p _ => by positivity)
+      · rw [if_neg hc]
+    have hmain0 : (0 : ℝ) ≤ c0 * kappa t / t := by
+      rw [hc0kt]
+      exact mul_nonneg htphi0 hS0
+    have hmain9 : c0 * kappa t / t ≤ 9 * sigmaQ t := by
+      rw [hc0kt]
+      have h := mul_le_mul htphi hS3 hS0 (by linarith)
+      linarith only [h]
+    have hmono : Real.log (2 * Q) ^ A ≤ Real.log 8 ^ A :=
+      Real.rpow_le_rpow hlog2Q.le (Real.log_le_log (by linarith) (by linarith)) hA.le
+    have hlq4 : Real.log Q ≤ Real.log 4 := Real.log_le_log hQpos (by linarith)
+    have habs := abs_sub_le_add (∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter
+      (fun n => Nat.Coprime n t), (moebius n : ℝ) / kappa n * Real.log (Q / n))
+      (c0 * kappa t / t)
+    rw [abs_of_nonneg hmain0] at habs
+    refine le_trans habs ?_
+    rw [le_div_iff₀ hlog2QA]
+    have hK0 : (0 : ℝ) ≤ (1 + Real.log 4) ^ 2 + 9 := by positivity
+    have p0 : (1 + Real.log Q) ^ 2 ≤ (1 + Real.log 4) ^ 2 := by
+      nlinarith only [hlq4, hlogQ0, hlog4]
+    have p1 : (1 + Real.log Q) ^ 2 + c0 * kappa t / t
+        ≤ ((1 + Real.log 4) ^ 2 + 9) * sigmaQ t := by
+      nlinarith only [p0, hmain9, hsig1, hlog4, hlogQ0]
+    have p2 : ((1 + Real.log 4) ^ 2 + 9) * sigmaQ t * Real.log (2 * Q) ^ A
+        ≤ ((1 + Real.log 4) ^ 2 + 9) * sigmaQ t * Real.log 8 ^ A :=
+      mul_le_mul_of_nonneg_left hmono (mul_nonneg hK0 hsig0.le)
+    have p3 : ((1 + Real.log Q) ^ 2 + c0 * kappa t / t) * Real.log (2 * Q) ^ A
+        ≤ ((1 + Real.log 4) ^ 2 + 9) * sigmaQ t * Real.log (2 * Q) ^ A :=
+      mul_le_mul_of_nonneg_right p1 hlog2QA.le
+    have p4 : ((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A * sigmaQ t
+        ≤ (((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A + 4 * CD * 2 ^ A
+          + 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+          + 24 * (4 * A) ^ A) * sigmaQ t := by
+      have hrest : (0 : ℝ) ≤ 4 * CD * 2 ^ A
+          + 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+          + 24 * (4 * A) ^ A := by positivity
+      nlinarith only [hrest, hsig0]
+    have p5 : (|∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun n => Nat.Coprime n t),
+          (moebius n : ℝ) / kappa n * Real.log (Q / n)| + c0 * kappa t / t)
+          * Real.log (2 * Q) ^ A
+        ≤ ((1 + Real.log Q) ^ 2 + c0 * kappa t / t) * Real.log (2 * Q) ^ A :=
+      mul_le_mul_of_nonneg_right (by linarith only [htriv]) hlog2QA.le
+    linarith only [p2, p3, p4, p5]
+  -- ═══ the main regime `Q ≥ 4` ═══
+  · have hs0 : (0 : ℝ) < Q ^ (1/2 : ℝ) := Real.rpow_pos_of_pos hQpos _
+    have hspow : (Q ^ (1/2 : ℝ)) ^ 2 = Q := by
+      rw [rpow_pow_nat hQpos.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+    have hQ12 : Q ^ (1/2 : ℝ) ≤ Q := by
+      have h := Real.rpow_le_rpow_of_exponent_le hQ (show (1/2 : ℝ) ≤ 1 by norm_num)
+      rwa [Real.rpow_one] at h
+    have hs2 : (2 : ℝ) ≤ Q ^ (1/2 : ℝ) := by
+      refine le_of_pow_le_pow_left₀ (n := 2) (by norm_num) hs0.le ?_
+      rw [hspow]
+      nlinarith only [hbig]
+    set D : ℕ := ⌊Q ^ (1/2 : ℝ)⌋₊ with hDdef
+    have hDle : ((D : ℕ) : ℝ) ≤ Q ^ (1/2 : ℝ) := Nat.floor_le hs0.le
+    have hDgt : Q ^ (1/2 : ℝ) < ((D : ℕ) : ℝ) + 1 := Nat.lt_floor_add_one _
+    have hDhalf : Q ^ (1/2 : ℝ) / 2 ≤ ((D : ℕ) : ℝ) := by linarith
+    have hD1 : 1 ≤ D := by
+      have h : (1 : ℝ) ≤ ((D : ℕ) : ℝ) := by linarith
+      exact_mod_cast h
+    have hDN : D ≤ ⌊Q⌋₊ := by rw [hDdef]; exact Nat.floor_mono hQ12
+    have hD0 : (0 : ℝ) < (D : ℝ) := by
+      have h : (1 : ℝ) ≤ ((D : ℕ) : ℝ) := by exact_mod_cast hD1
+      linarith
+    have hq40 : (0 : ℝ) < Q ^ (1/4 : ℝ) := Real.rpow_pos_of_pos hQpos _
+    have hDpow0 : (0 : ℝ) < (D : ℝ) ^ (1/2 : ℝ) := Real.rpow_pos_of_pos hD0 _
+    have hDhalfpow : Q ^ (1/4 : ℝ) / 2 ≤ (D : ℝ) ^ (1/2 : ℝ) := by
+      have e1 : (Q ^ (1/2 : ℝ) / 2) ^ (1/2 : ℝ) ≤ (D : ℝ) ^ (1/2 : ℝ) :=
+        Real.rpow_le_rpow (by positivity) hDhalf (by norm_num)
+      have e2 : (Q ^ (1/2 : ℝ) / 2) ^ (1/2 : ℝ) = Q ^ (1/4 : ℝ) / (2 : ℝ) ^ (1/2 : ℝ) := by
+        rw [Real.div_rpow hs0.le (by norm_num), ← Real.rpow_mul hQpos.le]
+        norm_num
+      have e3 : (2 : ℝ) ^ (1/2 : ℝ) ≤ 2 := by
+        have h := Real.rpow_le_rpow_of_exponent_le (show (1 : ℝ) ≤ 2 by norm_num)
+          (show (1/2 : ℝ) ≤ 1 by norm_num)
+        rwa [Real.rpow_one] at h
+      have e4 : (0 : ℝ) < (2 : ℝ) ^ (1/2 : ℝ) := Real.rpow_pos_of_pos (by norm_num) _
+      have e5 : Q ^ (1/4 : ℝ) / 2 ≤ Q ^ (1/4 : ℝ) / (2 : ℝ) ^ (1/2 : ℝ) :=
+        div_le_div_of_nonneg_left hq40.le e4 e3
+      linarith only [e1, e2.le, e2.ge, e5]
+    have hDinv : (D : ℝ) ^ (-(1/2) : ℝ) = 1 / (D : ℝ) ^ (1/2 : ℝ) := by
+      rw [Real.rpow_neg hD0.le]
+      ring
+    -- the weighted swap
+    rw [sum_coprime_moebius_div_kappa_swap_mul t ⌊Q⌋₊ (fun n => Real.log (Q / (n : ℝ)))]
+    have hcongr : ∀ d ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t),
+        (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * Real.log (Q / ((d * f : ℕ) : ℝ))
+        = (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)) := by
+      intro d _
+      congr 1
+      refine Finset.sum_congr rfl fun f _ => ?_
+      congr 2
+      push_cast
+      rw [div_div]
+    rw [Finset.sum_congr rfl hcongr]
+    have hFD : ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter (fun d => d ≤ D)
+        = (Finset.Icc 1 D).filter (fun d => Nat.Coprime d t) := by
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_Icc]
+      constructor
+      · rintro ⟨⟨⟨h1, _⟩, hc⟩, hxD⟩
+        exact ⟨⟨h1, hxD⟩, hc⟩
+      · rintro ⟨⟨h1, hxD⟩, hc⟩
+        exact ⟨⟨⟨h1, le_trans hxD hDN⟩, hc⟩, hxD⟩
+    have hw : ∀ d : ℕ, 1 ≤ d →
+        |(moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)| ≤ 1 / (d : ℝ) ^ 2 := by
+      intro d hd1
+      have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+      have hkpos : (0 : ℝ) < kappa d := lt_of_lt_of_le hd0 (le_kappa d hd1)
+      have hmu2 : (moebius d : ℝ) ^ 2 ≤ 1 := by
+        have h := moebius_sq (n := d)
+        by_cases hsq : Squarefree d
+        · rw [if_pos hsq] at h
+          have hh : ((moebius d : ℝ)) ^ 2 = 1 := by exact_mod_cast h
+          linarith
+        · rw [moebius_eq_zero_of_not_squarefree hsq]
+          norm_num
+      have hmu0 : (0 : ℝ) ≤ (moebius d : ℝ) ^ 2 := sq_nonneg _
+      rw [abs_of_nonneg (by positivity), div_le_div_iff₀ (by positivity) (by positivity)]
+      nlinarith only [hmu2, hmu0, hd0, hkpos, le_kappa d hd1]
+    -- the decomposition
+    have hdecomp : ∑ d ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t),
+          (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ))
+          - c0 * kappa t / t
+        = (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+              * ((∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                  (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+                - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)))
+          + (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+              (fun d => ¬ d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+                * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                    (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+          + ((∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+              (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+                * (((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)))
+            - c0 * kappa t / t) := by
+      have h1 := Finset.sum_filter_add_sum_filter_not
+        ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)) (fun d => d ≤ D)
+        (fun d => (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+      have h2 : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+              * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                  (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ))
+          = (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+              (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+                * ((∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                    (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+                  - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)))
+            + ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+              (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+                * (((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)) := by
+        rw [← Finset.sum_add_distrib]
+        exact Finset.sum_congr rfl fun d _ => by ring
+      linarith only [h1, h2.le, h2.ge]
+    rw [hdecomp]
+    -- P3: the main term against T7
+    have hWM : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * (((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ))
+        = (t : ℝ) / Nat.totient t * ∑ d ∈ (Finset.Icc 1 D).filter (fun d => Nat.Coprime d t),
+            (moebius d : ℝ) ^ 2 / (kappa d * (Nat.totient d : ℝ)) := by
+      rw [hFD, Finset.mul_sum]
+      refine Finset.sum_congr rfl fun d hd => ?_
+      rw [Finset.mem_filter, Finset.mem_Icc] at hd
+      obtain ⟨⟨hd1, _⟩, hc⟩ := hd
+      have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+      have hkpos : (0 : ℝ) < kappa d := lt_of_lt_of_le hd0 (le_kappa d hd1)
+      have hphid : (0 : ℝ) < (Nat.totient d : ℝ) := by
+        have : 0 < Nat.totient d := Nat.totient_pos.mpr hd1
+        exact_mod_cast this
+      have hphit : (0 : ℝ) < (Nat.totient t : ℝ) := by
+        have : 0 < Nat.totient t := Nat.totient_pos.mpr ht
+        exact_mod_cast this
+      have htot : (Nat.totient (d * t) : ℝ) = (Nat.totient d : ℝ) * (Nat.totient t : ℝ) := by
+        rw [Nat.totient_mul hc]
+        push_cast
+        ring
+      have hcast : ((d * t : ℕ) : ℝ) = (d : ℝ) * (t : ℝ) := by push_cast; ring
+      rw [htot, hcast]
+      field_simp
+      try ring
+    have hP3 : |(∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * (((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ))) - c0 * kappa t / t|
+        ≤ 3 * sigmaQ t * (2 * (D : ℝ) ^ (-(1/2) : ℝ)) := by
+      rw [hWM, hc0kt, ← mul_sub, abs_mul, abs_of_nonneg htphi0]
+      have h1 := htail D hD1
+      have h2 : |∑ d ∈ (Finset.Icc 1 D).filter (fun d => Nat.Coprime d t),
+            (moebius d : ℝ) ^ 2 / (kappa d * (Nat.totient d : ℝ))
+          - coprimeSeries (fun n => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) t|
+          ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
+        rw [abs_sub_comm]
+        exact h1
+      exact mul_le_mul htphi h2 (abs_nonneg _) (by linarith)
+    -- P1: H6d on the near range
+    have hP1 : |∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ((∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+              - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ))|
+        ≤ 4 * (CD * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A) := by
+      have hterm : ∀ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => d ≤ D),
+          |(moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ((∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+              - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ))|
+            ≤ sigmaQ d / (d : ℝ) ^ 2 * (CD * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A) := by
+        intro d hd
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hd
+        obtain ⟨⟨⟨hd1, hdN⟩, hc⟩, hdD⟩ := hd
+        have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+        have hdR : (d : ℝ) ≤ Q ^ (1/2 : ℝ) := le_trans (by exact_mod_cast hdD) hDle
+        have hsigd : (1 : ℝ) ≤ sigmaQ d := one_le_sigmaQ d hd1
+        have hrhs0 : (0 : ℝ) ≤ sigmaQ d / (d : ℝ) ^ 2
+            * (CD * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A) := by
+          refine mul_nonneg (div_nonneg (by linarith) (by positivity)) ?_
+          exact div_nonneg (mul_nonneg (mul_nonneg hCD.le (by linarith only [hsig1])) h2A.le)
+            hlog2QA.le
+        by_cases hdsq : Squarefree d
+        · have hdt1 : 1 ≤ d * t := Nat.one_le_iff_ne_zero.mpr
+            (Nat.mul_ne_zero (by omega) (by omega))
+          have hsqdt : Squarefree (d * t) := (Nat.squarefree_mul hc).mpr ⟨hdsq, hts⟩
+          obtain ⟨hQd, _⟩ := le_sqrt_div_log hQ hd1 hdR
+          have hDb := hD6 (d * t) hsqdt (Q / (d : ℝ)) hQd
+          rw [Nat.floor_div_natCast Q d] at hDb
+          have hsigdt : (1 : ℝ) ≤ sigmaQ (d * t) := one_le_sigmaQ (d * t) hdt1
+          have hCsig : (0 : ℝ) < CD * sigmaQ (d * t) := by nlinarith only [hCD, hsigdt]
+          have hmul := sigmaQ_mul_le d t hd1 ht
+          have hnear1 : |(∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter
+                (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+              - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)|
+              ≤ CD * sigmaQ d * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A := by
+            have h1 : CD * sigmaQ (d * t) / Real.log (2 * (Q / (d : ℝ))) ^ A
+                ≤ CD * sigmaQ (d * t) * 2 ^ A / Real.log (2 * Q) ^ A :=
+              div_log_pow_near hA hCsig hQ hd1 hdR
+            have h2 : CD * sigmaQ (d * t) * 2 ^ A / Real.log (2 * Q) ^ A
+                ≤ CD * sigmaQ d * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A := by
+              rw [div_le_div_iff_of_pos_right hlog2QA]
+              have hstep2 := mul_le_mul_of_nonneg_left hmul (mul_nonneg hCD.le h2A.le)
+              nlinarith only [hstep2]
+            linarith only [hDb, h1, h2]
+          rw [abs_mul]
+          have hwd := hw d hd1
+          have hAbs0 : (0 : ℝ) ≤ |(∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter
+              (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+            - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)| := abs_nonneg _
+          have hstep := mul_le_mul hwd hnear1 hAbs0 (by positivity)
+          refine le_trans hstep (le_of_eq ?_)
+          field_simp
+          try ring
+        · rw [moebius_eq_zero_of_not_squarefree hdsq, Int.cast_zero, zero_pow (by norm_num),
+            zero_div, zero_mul, abs_zero]
+          exact hrhs0
+      refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+      refine le_trans (Finset.sum_le_sum hterm) ?_
+      rw [← Finset.sum_mul]
+      have hsub : ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D) ⊆ Finset.Icc 1 D := by
+        intro x hx
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hx
+        rw [Finset.mem_Icc]
+        exact ⟨hx.1.1.1, hx.2⟩
+      have hsum : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => d ≤ D), sigmaQ d / (d : ℝ) ^ 2 ≤ 4 := by
+        refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i hi _ => ?_))
+          (sum_sigmaQ_div_sq_le D)
+        obtain ⟨hi1, _⟩ := Finset.mem_Icc.mp hi
+        have := one_le_sigmaQ i hi1
+        have hi0 : (0 : ℝ) < (i : ℝ) := by exact_mod_cast hi1
+        positivity
+      refine mul_le_mul_of_nonneg_right hsum ?_
+      exact div_nonneg (mul_nonneg (mul_nonneg hCD.le (by linarith only [hsig1])) h2A.le)
+        hlog2QA.le
+    -- P2: the far range
+    have hP2 : |∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => ¬ d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ))|
+        ≤ 2 / Q ^ (1/2 : ℝ) * (1 + Real.log Q) ^ 2 := by
+      have hterm : ∀ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => ¬ d ≤ D),
+          |(moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ))|
+            ≤ 1 / (d : ℝ) ^ 2 * (1 + Real.log Q) ^ 2 := by
+        intro d hd
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hd
+        obtain ⟨⟨⟨hd1, hdN⟩, _⟩, _⟩ := hd
+        have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+        have hd1R : (1 : ℝ) ≤ (d : ℝ) := by exact_mod_cast hd1
+        have hdQ : (d : ℝ) ≤ Q := le_trans (by exact_mod_cast hdN) hNQ
+        have hQd : (1 : ℝ) ≤ Q / (d : ℝ) := (one_le_div hd0).mpr hdQ
+        have htr := sum_abs_moebius_div_log_le hQd
+        rw [Nat.floor_div_natCast Q d] at htr
+        have hlogd : Real.log (Q / (d : ℝ)) ≤ Real.log Q := by
+          refine Real.log_le_log (by positivity) ?_
+          rw [div_le_iff₀ hd0]
+          nlinarith only [hd1R, hQpos]
+        have hlogd0 : (0 : ℝ) ≤ Real.log (Q / (d : ℝ)) := Real.log_nonneg hQd
+        have hsqle : (1 + Real.log (Q / (d : ℝ))) ^ 2 ≤ (1 + Real.log Q) ^ 2 := by
+          nlinarith only [hlogd, hlogd0, hlogQ0]
+        have hTb : |∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+            (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ))|
+            ≤ (1 + Real.log Q) ^ 2 := by
+          refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+          refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+            (fun i _ _ => abs_nonneg _)) ?_
+          linarith only [htr, hsqle]
+        rw [abs_mul]
+        exact mul_le_mul (hw d hd1) hTb (abs_nonneg _) (by positivity)
+      refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+      refine le_trans (Finset.sum_le_sum hterm) ?_
+      rw [← Finset.sum_mul]
+      have hsub : ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => ¬ d ≤ D) ⊆ Finset.Ioo D (⌊Q⌋₊ + 1) := by
+        intro x hx
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hx
+        rw [Finset.mem_Ioo]
+        exact ⟨by omega, by omega⟩
+      have hsum : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => ¬ d ≤ D), 1 / (d : ℝ) ^ 2 ≤ 2 / Q ^ (1/2 : ℝ) := by
+        have h1 : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+              (fun d => ¬ d ≤ D), 1 / (d : ℝ) ^ 2
+            ≤ ∑ d ∈ Finset.Ioo D (⌊Q⌋₊ + 1), 1 / (d : ℝ) ^ 2 :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i _ _ => by positivity)
+        have h2 : ∑ d ∈ Finset.Ioo D (⌊Q⌋₊ + 1), 1 / (d : ℝ) ^ 2
+            = ∑ d ∈ Finset.Ioo D (⌊Q⌋₊ + 1), (((d : ℝ)) ^ 2)⁻¹ :=
+          Finset.sum_congr rfl fun d _ => one_div _
+        have h3 : ∑ i ∈ Finset.Ioo D (⌊Q⌋₊ + 1), (((i : ℝ)) ^ 2)⁻¹ ≤ 2 / ((D : ℕ) + 1) :=
+          sum_Ioo_inv_sq_le D (⌊Q⌋₊ + 1)
+        have h4 : (2 : ℝ) / (((D : ℕ) : ℝ) + 1) ≤ 2 / Q ^ (1/2 : ℝ) :=
+          div_le_div_of_nonneg_left (by norm_num) hs0 hDgt.le
+        rw [h2] at h1
+        linarith only [h1, h3, h4]
+      exact mul_le_mul_of_nonneg_right hsum (by positivity)
+    -- the two tails against the A4 helpers
+    have hA4sq := one_add_log_sq_mul_log_rpow_le A hA hQ
+    have hA4a := log_rpow_le_rpow_quarter A hA (show (1 : ℝ) ≤ 2 * Q by linarith)
+    have hsplit24 : (2 * Q) ^ (1/4 : ℝ) = (2 : ℝ) ^ (1/4 : ℝ) * Q ^ (1/4 : ℝ) :=
+      Real.mul_rpow (by norm_num) hQpos.le
+    have h2quarter : (2 : ℝ) ^ (1/4 : ℝ) ≤ 2 := by
+      have h := Real.rpow_le_rpow_of_exponent_le (show (1 : ℝ) ≤ 2 by norm_num)
+        (show (1/4 : ℝ) ≤ 1 by norm_num)
+      rwa [Real.rpow_one] at h
+    have hLA : Real.log (2 * Q) ^ A ≤ (4 * A) ^ A * (2 * Q ^ (1/4 : ℝ)) := by
+      refine le_trans hA4a ?_
+      rw [hsplit24]
+      exact mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_right h2quarter hq40.le) hk1.le
+    have hq4s : Q ^ (1/4 : ℝ) ≤ Q ^ (1/2 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le hQ (by norm_num)
+    have hP2C : 2 / Q ^ (1/2 : ℝ) * (1 + Real.log Q) ^ 2
+        ≤ 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+            * sigmaQ t / Real.log (2 * Q) ^ A := by
+      have hEq : 2 / Q ^ (1/2 : ℝ) * (1 + Real.log Q) ^ 2
+          = (2 * (1 + Real.log Q) ^ 2) / Q ^ (1/2 : ℝ) := by ring
+      rw [hEq, div_le_div_iff₀ hs0 hlog2QA]
+      have p1 : 2 * ((1 + Real.log Q) ^ 2 * Real.log (2 * Q) ^ A)
+          ≤ 2 * (2 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1)
+              + (4 * (A + 2)) ^ (A + 2)) * Q ^ (1/4 : ℝ)) :=
+        mul_le_mul_of_nonneg_left hA4sq (by norm_num)
+      have p2 : 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+            * Q ^ (1/4 : ℝ)
+          ≤ 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+            * Q ^ (1/2 : ℝ) :=
+        mul_le_mul_of_nonneg_left hq4s (by linarith only [hk1, hk2, hk3])
+      have p3 : 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+            * Q ^ (1/2 : ℝ)
+          ≤ 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+            * sigmaQ t * Q ^ (1/2 : ℝ) := by
+        have h := mul_le_mul_of_nonneg_left hsig1
+          (show (0 : ℝ) ≤ 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1)
+            + (4 * (A + 2)) ^ (A + 2)) by linarith only [hk1, hk2, hk3])
+        nlinarith only [h, hs0]
+      linarith only [p1, p2, p3]
+    have hP3C : 3 * sigmaQ t * (2 * (D : ℝ) ^ (-(1/2) : ℝ))
+        ≤ 24 * (4 * A) ^ A * sigmaQ t / Real.log (2 * Q) ^ A := by
+      rw [hDinv]
+      have hEq : 3 * sigmaQ t * (2 * (1 / (D : ℝ) ^ (1/2 : ℝ)))
+          = (6 * sigmaQ t) / (D : ℝ) ^ (1/2 : ℝ) := by ring
+      rw [hEq, div_le_div_iff₀ hDpow0 hlog2QA]
+      have p1 : 6 * sigmaQ t * Real.log (2 * Q) ^ A
+          ≤ 6 * sigmaQ t * ((4 * A) ^ A * (2 * Q ^ (1/4 : ℝ))) :=
+        mul_le_mul_of_nonneg_left hLA (by linarith)
+      have p2 : 24 * (4 * A) ^ A * sigmaQ t * (Q ^ (1/4 : ℝ) / 2)
+          ≤ 24 * (4 * A) ^ A * sigmaQ t * (D : ℝ) ^ (1/2 : ℝ) :=
+        mul_le_mul_of_nonneg_left hDhalfpow
+          (mul_nonneg (by linarith only [hk1]) hsig0.le)
+      linarith only [p1, p2]
+    have hextra : (0 : ℝ) ≤ ((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A * sigmaQ t
+        / Real.log (2 * Q) ^ A :=
+      div_nonneg (mul_nonneg (mul_nonneg (by positivity) hlog8.le)
+        (by linarith only [hsig1])) hlog2QA.le
+    have habs := abs_add_add_le
+      (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+        (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ((∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+            - ((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)))
+      (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+        (fun d => ¬ d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ) * Real.log (Q / (d : ℝ) / (f : ℝ)))
+      ((∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * (((d * t : ℕ) : ℝ) / (Nat.totient (d * t) : ℝ)))
+        - c0 * kappa t / t)
+    have hringid : (((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A + 4 * CD * 2 ^ A
+          + 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+          + 24 * (4 * A) ^ A) * sigmaQ t / Real.log (2 * Q) ^ A
+        = ((1 + Real.log 4) ^ 2 + 9) * Real.log 8 ^ A * sigmaQ t / Real.log (2 * Q) ^ A
+          + 4 * (CD * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A)
+          + 4 * ((4 * A) ^ A + 2 * (4 * (A + 1)) ^ (A + 1) + (4 * (A + 2)) ^ (A + 2))
+              * sigmaQ t / Real.log (2 * Q) ^ A
+          + 24 * (4 * A) ^ A * sigmaQ t / Real.log (2 * Q) ^ A := by
+      ring
+    rw [hringid]
+    linarith only [habs, hP1, hP2, hP2C, hP3, hP3C, hextra]
+
+/-- **H6e in the frozen `∃ c₀` form** — a one-line corollary of the NAMED row, with the
+witness `c0` and `0 < c0` from `one_le_c0`. The named form is the one the H2 wave consumes
+(its row H7c reads H6e's main term AS `c0`); the `∃` form exports no witness and is kept only
+because it is the shape the W6b-H freeze froze. -/
+theorem coprime_sum_moebius_div_kappa_log_exists :
+    ∃ c₀ : ℝ, 0 < c₀ ∧ ∀ A : ℝ, 0 < A → ∃ C : ℝ, 0 < C ∧
+    ∀ t : ℕ, Squarefree t → ∀ Q : ℝ, 1 ≤ Q →
+    |∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) / kappa n * Real.log (Q / n)
+        - c₀ * kappa t / t| ≤ C * sigmaQ t / Real.log (2 * Q) ^ A :=
+  ⟨c0, lt_of_lt_of_le zero_lt_one one_le_c0,
+    fun A hA => coprime_sum_moebius_div_kappa_log_eq A hA⟩
+
 /-! ## §2(b) binder-shape rows
 
 The off-line values are the sub-freeze's measured receipts. C1 at `N = 6` is the ONE EXACT
 row (`49/20 − 11/12 − 1/2 − 1/5 + 1/6 = 1`). T6 at `r = 6` has both sides `ρ₀/2`; H5a at
 `(6, 100)` has count `31`, main term `30.396` and RHS `4·10·3.2397 = 129.6`.
 
-The sub-freeze also asked for H6d at `(2, 100)` (`Σ_{n ≤ 100 odd}(μ(n)/n)log(100/n) =
-1.9721` vs `t/φ(t) = 2`) and H6e at `(2, 100)` (`2.3446` vs `c₀·κ(2)/2 = 2.4674`). **Both
-rows are ABSENT from this cut**, so those two example rows cannot be written; the numerals
-are printed here so the receipts are not lost. -/
+H6d at `(2, 100)` reads `Σ_{n ≤ 100 odd}(μ(n)/n)log(100/n) = 1.9721` against `t/φ(t) = 2`,
+and H6e at `(2, 100)` reads `2.3446` against `c₀·κ(2)/2 = 2.4674`; both rows land in this
+cut, so both binder-shape `example`s are written out below. -/
 
 example : ∑ n ∈ Finset.Icc 1 6, (moebius n : ℝ) / n
     * ∑ m ∈ Finset.Icc 1 (6 / n), (1 : ℝ) / m = 1 := by
@@ -5791,5 +6658,21 @@ example (G : ℕ → ℝ) :
       = ∑ d ∈ (Finset.Icc 1 10).filter (fun d => d.primeFactors ⊆ (2 : ℕ).primeFactors),
           ∑ e ∈ Finset.Icc 1 (10 / d), (moebius e : ℝ) * G (d * e) :=
   sum_coprime_moebius_eq_sum_smooth 2 10 (by norm_num) G
+
+example : ∃ C : ℝ, 0 < C ∧
+    |∑ n ∈ (Finset.Icc 1 ⌊(100 : ℝ)⌋₊).filter (fun n => Nat.Coprime n 2),
+        (moebius n : ℝ) / n * Real.log ((100 : ℝ) / n)
+        - ((2 : ℕ) : ℝ) / Nat.totient 2|
+      ≤ C * sigmaQ 2 / Real.log (2 * (100 : ℝ)) ^ (2 : ℝ) := by
+  obtain ⟨C, hC, h⟩ := coprime_sum_moebius_div_log_eq 2 (by norm_num)
+  exact ⟨C, hC, h 2 Nat.prime_two.squarefree 100 (by norm_num)⟩
+
+example : ∃ C : ℝ, 0 < C ∧
+    |∑ n ∈ (Finset.Icc 1 ⌊(100 : ℝ)⌋₊).filter (fun n => Nat.Coprime n 2),
+        (moebius n : ℝ) / kappa n * Real.log ((100 : ℝ) / n)
+        - c0 * kappa 2 / ((2 : ℕ) : ℝ)|
+      ≤ C * sigmaQ 2 / Real.log (2 * (100 : ℝ)) ^ (2 : ℝ) := by
+  obtain ⟨C, hC, h⟩ := coprime_sum_moebius_div_kappa_log_eq 2 (by norm_num)
+  exact ⟨C, hC, h 2 Nat.prime_two.squarefree 100 (by norm_num)⟩
 
 end Salt.SW
