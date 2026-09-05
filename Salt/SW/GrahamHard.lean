@@ -17,7 +17,7 @@ bound from `x ≥ z`, and the missing range `z ≤ x < z²` is reached by An 202
 one-level specialisation over `ℚ`. **This file lands that argument's SUBSTRATE, not its
 conclusion.**
 
-## What is here (the design freeze's rows H0–H6 and H9)
+## What is here
 
 * **H1a/b/c** — the Λ-identity `Σ_{d ∣ n} μ(d)·log(z/d) = Λ(n)` (`n ≥ 2`), its level
   form `log z·Σ_{d ∣ n} θ^{(z)}_d = Λ(n) + T_z(n)`, and the vanishing of the tail
@@ -26,10 +26,10 @@ conclusion.**
   An's cross sum `S₂` (two prime sums with their partial summations) outright.
 * **H3** — `Σ_{n ≤ x} Λ(n)² ≤ (log 4 + 4)·x·log x`, from `Λ ≤ log` and Chebyshev.
 * **H4** — An's (5.2): the tail second moment reindexed by the four-parameter bijection
-  `(n, d, d′) ↔ (g, a, b, k)`, an EXACT identity.
-* **H5a/H5c** — the squarefree count coprime to `r`, and its two-log weighted form.
-* **H6a–f** — the Möbius sums with a power-of-log saving (An (3.1)–(3.3) and
-  Lemmas 3.10–3.12 over `ℚ`).
+  `(n, d, d′) ↔ (g, a, b, k)`, an EXACT identity. The `(k, ab) = 1` filter rides in the
+  SUMMAND, not in the index set.
+* **H6a/H6b** — the bare and the `1/n`-weighted Möbius sums with a power-of-log saving
+  (An (3.1), (3.2) over `ℚ`), both from the landed `mmuRate_holds`.
 * **H0b–e** — the four elementary divisor-sum bounds every error term of §5 is measured
   against (`σ_{−1/4}` on average, the `1/(n log²)` sum, the dyadic `Q^{1/2}` bound, and
   `Σ σ_{−1/4}(t)/t`).
@@ -38,24 +38,34 @@ conclusion.**
 
 ## ⚠ THE HONEST LABEL — what this file does NOT prove
 
+**Six rows of this wave's cut are ABSENT, and their absence is recorded rather than
+implied** (`docs/blueprints/flags.md`, the four 09-05 entries): the squarefree count
+coprime to `r` and its two-log weighted form (An's Lemma 3.7 over `ℚ` and its partial
+summation), and four of the six Möbius rows with a power-of-log saving — the log-weighted
+sum, the coprime-restricted sum, and An's Lemmas 3.11/3.12. They fail at two places, both
+named in the flags: a squarefree-density factorisation of `ρ₀`'s SERIES (for the first
+pair) and the evaluation `Σ_{n ≤ x}(μ(n)/n)·log(x/n) → 1` (for the second group, which
+collapses to that single constant once H6b is in hand). A consumer must read the file's
+declaration list, not this wave's label, for what is available.
+
 **It does not prove the full-range mean bound.** The three rows that would close it are
-the NEXT wave's and are absent here: the tail second moment `Σ_{n ≤ u} T_z(n)² ≤ C·u·log z`
-on `u ≤ z²` (An §5's `S₃`, class D), the full-range `Σ_{n ≤ x} w(n) ≤ C·x/log z` for
-`x ≥ z`, and the two consumer-facing forms for Jutila's two-level weight. Nothing here
-improves `GrahamMean.lean`'s hypothesis, and B2's closure table still reads the easy
-half at no scale.
+the NEXT wave's and are absent here too: the tail second moment
+`Σ_{n ≤ u} T_z(n)² ≤ C·u·log z` on `u ≤ z²` (An §5's `S₃`, class D), the full-range
+`Σ_{n ≤ x} w(n) ≤ C·x/log z` for `x ≥ z`, and the two consumer-facing forms for Jutila's
+two-level weight. Nothing here improves `GrahamMean.lean`'s hypothesis, and B2's closure
+table still reads the easy half at no scale.
 
 **Everything proved here is an UPPER bound or an exact identity** — no asymptotic and no
-lower bound anywhere. Where a constant is `∃`-bound it is **non-effective**: the `H6`
-rows pass through `mmuRate_holds`, whose `x₀` is not extracted, so their docstrings print
-the DERIVATION of the constant and never a numeral.
+lower bound anywhere. Where a constant is `∃`-bound it is **non-effective**: H6a and H6b
+pass through `mmuRate_holds`, whose `x₀` is not extracted, so their docstrings print the
+DERIVATION of the constant and never a numeral.
 
 `ρ₀·c₀ = 1` is true (`ρ₀ = 6/π²`, `c₀ = ζ(2)`) and is **never used**: every step that
 meets the product absorbs it into an existential constant.
 
 **F6** (no net numerator log): H3's bare `x·log x` and H9's `x·log x/log²z` are consumed
 only under `x ≤ z²`, where `log x ≤ 2 log z` and the net is `x·log z` resp. `x/log z`;
-every `H6` log is in a DENOMINATOR; H5c's is a log RATIO per variable.
+every H6 log is in a DENOMINATOR.
 
 Axiom-clean (`propext, Classical.choice, Quot.sound`); no `native_decide`, no `sorry`.
 -/

@@ -94,6 +94,7 @@ import Salt.SW.TBalTall
 import Salt.SW.BCSup
 import Salt.SW.BvL
 import Salt.SW.GrahamMean
+import Salt.SW.GrahamHard
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -423,3 +424,23 @@ open Salt.Tactic in
   Salt.SW.sum_abs_grahamGc_le
   Salt.SW.grahamW_sum_le
   Salt.SW.sum_sq_sum_bvWeight_le
+
+-- ⟦B2 W6b-H1 0905⟧ `Salt/SW/GrahamHard.lean` — the SUBSTRATE of the Graham mean bound on the
+-- HARD half `z ≤ u < z²`: the Λ-identity and its level form with the tail (H1a/b/c), the
+-- Cauchy–Schwarz split (H2), `Σ Λ² ≤ (log 4 + 4)x log x` (H3), An's (5.2) four-parameter
+-- bijection (H4), two Möbius rows with a power-of-log saving (H6a/H6b), the four elementary
+-- divisor-sum bounds (H0b–e) and the below-level mean (H9). Six rows of the cut are ABSENT
+-- and flagged (`docs/blueprints/flags.md`, 09-05); the module docstring carries the label.
+#audit_axioms Salt.SW.sum_divisors_moebius_mul_log_div_eq
+  Salt.SW.log_mul_sum_grahamTheta_eq
+  Salt.SW.tailT_eq_zero_of_le
+  Salt.SW.grahamW_le_two_mul_sq
+  Salt.SW.sum_vonMangoldt_sq_le
+  Salt.SW.sum_tailT_sq_eq
+  Salt.SW.abs_sum_moebius_le_div_log_pow
+  Salt.SW.abs_sum_moebius_div_le_inv_log_pow
+  Salt.SW.sum_sigmaQ_le
+  Salt.SW.sum_inv_mul_log_sq_le
+  Salt.SW.sum_rpow_neg_half_log_sigmaQ_le
+  Salt.SW.sum_sigmaQ_div_le
+  Salt.SW.grahamW_sum_le_low
