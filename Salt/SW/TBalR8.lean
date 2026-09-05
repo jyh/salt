@@ -301,6 +301,47 @@ lemma neg_log_le_rpow' {u δ : ℝ} (hu0 : 0 < u) (hδ : 0 < δ) :
   calc -Real.log u * (Real.exp 1 * δ) = -δ * Real.log u * Real.exp 1 := by ring
     _ ≤ u ^ (-δ) := hle
 
+/-- **The sharp `L₂`-to-`Q` conversion: `log Q + 2 ≤ Q^{9/10}` on `Q ≥ 4`.**  ⟦B1a S4⟧ At `k = 1`
+every surviving `L₂` power beyond `k·γ` must be paid for in `Q`-powers, and this is the exchange
+rate: constant `1` at exponent `9/10` (the true `C(0.9) = 0.97246`), which is what keeps the Eβ arm
+of the `c`-tower behind the ρ-main arm.
+
+Elementary route, no derivative: with `t := Q^{9/10}` (so `log t = (9/10)·log Q`), `log t ≤ t/e`
+(`Real.log_le_sub_one_of_pos` at `t/e`, exactly as `neg_log_le_rpow'` does it) gives
+`log Q + 2 = (10/9)·log t + 2 ≤ (10/9)·t/e + 2`, and `(24/7 : ℝ) ≤ t` (from `(24/7)^10 ≤ 4^9` and
+`4 ≤ Q`) with `e > 2.7` closes it linearly, with slack `0.0271` at the corner `Q = 4`. -/
+lemma log_add_two_le_rpow_nine_tenths {Q : ℝ} (hQ : 4 ≤ Q) :
+    Real.log Q + 2 ≤ Q ^ (9 / 10 : ℝ) := by
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have he : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have he27 : (2.7 : ℝ) < Real.exp 1 := lt_trans (by norm_num) Real.exp_one_gt_d9
+  set t : ℝ := Q ^ (9 / 10 : ℝ) with htdef
+  have htpos : (0 : ℝ) < t := Real.rpow_pos_of_pos hQ0 _
+  have hlogt : Real.log t = 9 / 10 * Real.log Q := by rw [htdef, Real.log_rpow hQ0]
+  -- `24/7 ≤ 4^{9/10} ≤ t`
+  have h4 : (24 / 7 : ℝ) ≤ (4 : ℝ) ^ (9 / 10 : ℝ) := by
+    have hbnn : (0 : ℝ) ≤ (4 : ℝ) ^ (9 / 10 : ℝ) := Real.rpow_nonneg (by norm_num) _
+    refine le_of_pow_le_pow_left₀ (n := 10) (by norm_num) hbnn ?_
+    have hpow : ((4 : ℝ) ^ (9 / 10 : ℝ)) ^ (10 : ℕ) = 262144 := by
+      rw [← Real.rpow_natCast ((4 : ℝ) ^ (9 / 10 : ℝ)) 10,
+        ← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 4),
+        show (9 / 10 * ((10 : ℕ) : ℝ)) = ((9 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+      norm_num
+    rw [hpow]; norm_num
+  have ht247 : (24 / 7 : ℝ) ≤ t := by
+    have hmono : (4 : ℝ) ^ (9 / 10 : ℝ) ≤ t :=
+      Real.rpow_le_rpow (by norm_num) hQ (by norm_num)
+    linarith [h4, hmono]
+  -- `e·log t ≤ t`, i.e. `log t ≤ t/e`
+  have hlogte : Real.log t * Real.exp 1 ≤ t := by
+    have hd := Real.log_le_sub_one_of_pos (div_pos htpos he)
+    rw [Real.log_div htpos.ne' he.ne', Real.log_exp] at hd
+    have h2 : Real.log t ≤ t / Real.exp 1 := by linarith
+    rwa [le_div_iff₀ he] at h2
+  have hXnn : (0 : ℝ) ≤ Real.log t := Real.log_nonneg (by linarith [ht247])
+  have hkey : 2.7 * Real.log t ≤ t := by nlinarith [hlogte, he27, hXnn]
+  linarith [hkey, hlogt, ht247]
+
 /-! ## §4 — the on-ray row caps (the exponent-balance; `b = 680` absorbs the `Q`/`L₂` powers) -/
 
 /-- **The ρ-row on-ray cap (the exponent-balance template).** For `0 < w ≤ 1/17` (`w = 1−σ`),
