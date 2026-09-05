@@ -344,116 +344,15 @@ lemma log_add_two_le_rpow_nine_tenths {Q : ℝ} (hQ : 4 ≤ Q) :
 
 /-! ## §4 — the on-ray row caps (the exponent-balance; `b = 680` absorbs the `Q`/`L₂` powers) -/
 
-/-- **The ρ-row on-ray cap (the exponent-balance template).** For `0 < w ≤ 1/17` (`w = 1−σ`),
-`Q ≥ 4`, `0 < u ≤ τ := c·Q^{−680w}/(log Q+2)^{14}`, and a detector length `0 < Y ≤ 2Q^{104}u^{−14}`,
-the ρ-row's crude upper bound `2u·Y^{w}·(log Q/c₀)` is `≤ (4/c₀)·c^{1−14w}`.
-
-This is THE reusable template for all five master rows: `Y^w ≤ 2^w Q^{104w}u^{−14w}`, then
-`u^{1−14w} ≤ τ^{1−14w}` (pure `rpow` monotonicity, `1−14w ≥ 3/17 > 0`), then the `Q`-power
-`104w−680w(1−14w) = w(−576+9520w) ≤ 0` and the `L₂`-power `1−14(1−14w) = −13+196w ≤ 0` are BOTH
-nonpositive on `w ≤ 1/17` — the `b = 680`/`k = 14`/`σ₀ = 16/17` window law — so `Q^{…}, L₂^{…} ≤ 1`,
-leaving only the constant `(4/c₀)·c^{1−14w}`.  The remaining rows (Eρ, A, Eβ, 1/x) follow the
-same skeleton with `rpow_sub_one_le`/`neg_log_le_rpow` handling their `Y^u−1`/`log z` factors. -/
-lemma rho_row_power_bound {w Q u c c₀ Y : ℝ} (hw0 : 0 < w) (hw : w ≤ 1 / 17) (hQ : 4 ≤ Q)
-    (hu0 : 0 < u) (hc0 : 0 < c₀) (hcc : 0 < c) (hY0 : 0 < Y)
-    (hYub : Y ≤ 2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / (Real.log Q + 2) ^ (14 : ℝ)) :
-    2 * u * Y ^ w * (Real.log Q / c₀) ≤ 4 / c₀ * c ^ (1 - 14 * w) := by
-  have hQ0 : (0 : ℝ) < Q := by linarith
-  have hQ1 : (1 : ℝ) ≤ Q := by linarith
-  have hlogQ : 0 ≤ Real.log Q := Real.log_nonneg hQ1
-  have hL2 : (2 : ℝ) ≤ Real.log Q + 2 := by linarith
-  have hLpos : (0 : ℝ) < Real.log Q + 2 := by linarith
-  have hexp : (0 : ℝ) ≤ 1 - 14 * w := by nlinarith
-  set τ : ℝ := c * Q ^ (-(680 * w)) / (Real.log Q + 2) ^ (14 : ℝ) with hτdef
-  have hτpos : 0 < τ := by
-    rw [hτdef]; positivity
-  -- step 1 : Y^w ≤ 2^w · Q^{104w} · u^{−14w}
-  have hYw : Y ^ w ≤ 2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w)) := by
-    have heq : (2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ w
-        = 2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w)) := by
-      rw [Real.mul_rpow (by positivity) (by positivity),
-        Real.mul_rpow (by norm_num) (by positivity),
-        ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le]
-      rw [show (104 : ℝ) * w = 104 * w by ring, show -(14 : ℝ) * w = -(14 * w) by ring]
-    rw [← heq]; exact Real.rpow_le_rpow hY0.le hYub hw0.le
-  -- step 2 : u · u^{−14w} = u^{1−14w}, and u^{1−14w} ≤ τ^{1−14w}
-  have huu : u * u ^ (-(14 * w)) = u ^ (1 - 14 * w) := by
-    rw [show (1 : ℝ) - 14 * w = 1 + -(14 * w) by ring, Real.rpow_add hu0, Real.rpow_one]
-  have huτpow : u ^ (1 - 14 * w) ≤ τ ^ (1 - 14 * w) :=
-    Real.rpow_le_rpow hu0.le huτ hexp
-  -- step 3 : τ^{1−14w} = c^{1−14w} · Q^{−680w(1−14w)} · (log Q+2)^{−14(1−14w)}
-  have hτpow : τ ^ (1 - 14 * w)
-      = c ^ (1 - 14 * w) * Q ^ (-(680 * w) * (1 - 14 * w))
-        * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w)) := by
-    rw [hτdef, Real.div_rpow (by positivity) (Real.rpow_nonneg hLpos.le _),
-      Real.mul_rpow hcc.le (Real.rpow_nonneg hQ0.le _),
-      ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hLpos.le,
-      div_eq_mul_inv, ← Real.rpow_neg hLpos.le,
-      show -(680 * w) * (1 - 14 * w) = -(680 * w) * (1 - 14 * w) by ring,
-      show -((14 : ℝ) * (1 - 14 * w)) = -(14 : ℝ) * (1 - 14 * w) by ring]
-  -- step 4 : the Q-power and L₂-power are ≤ 1 on the window (b=680/k=14/σ₀=16/17 law)
-  have hQpow : Q ^ (104 * w + -(680 * w) * (1 - 14 * w)) ≤ 1 :=
-    Real.rpow_le_one_of_one_le_of_nonpos hQ1 (by nlinarith [sq_nonneg w])
-  have hQprod : Q ^ (104 * w) * Q ^ (-(680 * w) * (1 - 14 * w)) ≤ 1 := by
-    rw [← Real.rpow_add hQ0]; exact hQpow
-  have hLpow : Real.log Q * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w)) ≤ 1 := by
-    calc Real.log Q * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w))
-        ≤ (Real.log Q + 2) * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w)) :=
-          mul_le_mul_of_nonneg_right (by linarith) (Real.rpow_pos_of_pos hLpos _).le
-      _ = (Real.log Q + 2) ^ (1 + -(14 : ℝ) * (1 - 14 * w)) := by
-          rw [Real.rpow_add hLpos, Real.rpow_one]
-      _ ≤ 1 := Real.rpow_le_one_of_one_le_of_nonpos (by linarith) (by nlinarith)
-  -- step 5 : assemble
-  have hLprodnn : 0 ≤ Real.log Q * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w)) :=
-    mul_nonneg hlogQ (Real.rpow_pos_of_pos hLpos _).le
-  have hXnn : 0 ≤ 2 ^ (1 + w) * c ^ (1 - 14 * w) := by positivity
-  have hmain : 2 * u * Y ^ w * Real.log Q ≤ 4 * c ^ (1 - 14 * w) := by
-    have hb1 : 2 * u * Y ^ w * Real.log Q
-        ≤ 2 * u * (2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w))) * Real.log Q :=
-      mul_le_mul_of_nonneg_right
-        (mul_le_mul_of_nonneg_left hYw (by linarith [hu0])) hlogQ
-    have hb2 : 2 * u * (2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w))) * Real.log Q
-        = 2 ^ (1 + w) * u ^ (1 - 14 * w) * (Q ^ (104 * w) * Real.log Q) := by
-      rw [show (2 : ℝ) ^ (1 + w) = 2 * 2 ^ w by rw [Real.rpow_add (by norm_num), Real.rpow_one],
-        ← huu]; ring
-    have hb3 : 2 ^ (1 + w) * u ^ (1 - 14 * w) * (Q ^ (104 * w) * Real.log Q)
-        ≤ 2 ^ (1 + w) * τ ^ (1 - 14 * w) * (Q ^ (104 * w) * Real.log Q) :=
-      mul_le_mul_of_nonneg_right
-        (mul_le_mul_of_nonneg_left huτpow (by positivity))
-        (mul_nonneg (Real.rpow_pos_of_pos hQ0 _).le hlogQ)
-    have hPeq : 2 ^ (1 + w) * τ ^ (1 - 14 * w) * (Q ^ (104 * w) * Real.log Q)
-        = 2 ^ (1 + w) * c ^ (1 - 14 * w) * (Q ^ (104 * w) * Q ^ (-(680 * w) * (1 - 14 * w)))
-          * (Real.log Q * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w))) := by
-      rw [hτpow]; ring
-    have hb4 : 2 ^ (1 + w) * c ^ (1 - 14 * w)
-          * (Q ^ (104 * w) * Q ^ (-(680 * w) * (1 - 14 * w)))
-          * (Real.log Q * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w)))
-        ≤ 2 ^ (1 + w) * c ^ (1 - 14 * w) := by
-      calc 2 ^ (1 + w) * c ^ (1 - 14 * w)
-              * (Q ^ (104 * w) * Q ^ (-(680 * w) * (1 - 14 * w)))
-              * (Real.log Q * (Real.log Q + 2) ^ (-(14 : ℝ) * (1 - 14 * w)))
-          ≤ 2 ^ (1 + w) * c ^ (1 - 14 * w) * 1 * 1 :=
-            mul_le_mul (mul_le_mul_of_nonneg_left hQprod hXnn) hLpow hLprodnn
-              (mul_nonneg hXnn (by norm_num))
-        _ = 2 ^ (1 + w) * c ^ (1 - 14 * w) := by ring
-    have hb5 : 2 ^ (1 + w) * c ^ (1 - 14 * w) ≤ 4 * c ^ (1 - 14 * w) := by
-      have h24 : (2 : ℝ) ^ (1 + w) ≤ 4 := by
-        calc (2 : ℝ) ^ (1 + w) ≤ (2 : ℝ) ^ (2 : ℝ) :=
-              Real.rpow_le_rpow_of_exponent_le (by norm_num) (by linarith)
-          _ = 4 := by rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
-      exact mul_le_mul_of_nonneg_right h24 (Real.rpow_pos_of_pos hcc _).le
-    linarith [hb1, hb2 ▸ hb3, hPeq ▸ hb4, hb5]
-  -- reduce the /c₀ goal to `hmain`
-  rw [show 2 * u * Y ^ w * (Real.log Q / c₀) = (2 * u * Y ^ w * Real.log Q) * c₀⁻¹ by ring,
-    show 4 / c₀ * c ^ (1 - 14 * w) = (4 * c ^ (1 - 14 * w)) * c₀⁻¹ by ring]
-  exact mul_le_mul_of_nonneg_right hmain (inv_nonneg.mpr hc0.le)
-
 /-- **The on-ray monomial engine.**  For a base pair `Q ≥ 1`, `L₂ ≥ 1`, on the ray
 `u ≤ τ = c·Q^{−bw}/L₂^{k}` (`0 < c`, `0 < u`), any monomial `Q^α·u^γ·L₂^ε` with a *positive*
 `u`-power `γ` and *nonpositive net* `Q`- and `L₂`-exponents (`α ≤ bwγ`, `ε ≤ kγ`) collapses to
-`≤ c^γ`.  This is the exponent-balance skeleton of `rho_row_power_bound`, abstracted: `u^γ ≤ τ^γ`
-substitutes the ray bound, and the window law makes the residual `Q`/`L₂` powers `≤ 1`.
+`≤ c^γ`.  This is the exponent-balance skeleton, abstracted: `u^γ ≤ τ^γ` substitutes the ray
+bound, and the window law makes the residual `Q`/`L₂` powers `≤ 1`.
+⚰️ Its numeral-pinned template `rho_row_power_bound` (`(104, 14, 680)` hard-wired at 93 sites)
+was RETIRED 2026-09-05 with this engine as successor (QUEUE P3 item 10, h2c's tombstone row):
+the census at `395786f0` found the declaration, this sentence and its audit row as the ONLY
+Lean occurrences — no consumer.
 
 ⟦TAU-SHARP TS-3-PREP⟧ The ray exponents `(b, k)` are **parameters**, not the numerals `(680, 14)`
 this engine is instantiated at throughout `dh_repulsion_inst` / `dh_repulsion_inst_tall`; `hb`/`hk`

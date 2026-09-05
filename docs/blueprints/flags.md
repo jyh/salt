@@ -23297,6 +23297,17 @@ wording beside the stale one — `MRTUniformityXiL2H`'s docstring in `ShiftFork.
 the ⟦W-F2⟧ stanza in `Salt/Entropy/All.lean`, which flags the stale sentences at their
 line numbers and points here.
 
+✅ **REPAIRED 2026-09-05 (math, QUEUE P3 item 10 — a Fable-tier prose edit; no statement, proof
+or hypothesis moved):** both sites now carry the incomparability wording above, and the
+⟦W-F2⟧ stanza's ⚠ pointer is stamped. Two adjacent sentences of the same `ShiftFork.lean`
+docstring were measured stale at the tree (`395786f0`) and re-worded in the same commit:
+"a future `mrtUniformity_implies_xiH`" (it landed in W-F2 itself, `ShiftFork.lean:497`) and
+"exactly as `MRTUniformityXi` is for `h = 1`" (`mrtUniformityXi_holds_flat`,
+`Salt/MR/DoorReceipt.lean`, 2026-09-02, produces it at flat regimes). Left standing because
+still true: `MRTUniformity` (the `∀ α` door) is produced nowhere — 11 hits, all binders, 0
+conclusions; `MRTUniformityXiH h` itself has no producer (`StrideFork.lean:668` is a compat
+EQUALITY, not a supply).
+
 ## ⚠️ (2026-08-16, wave BRUN-ELL1) ⟦THE `Buchstab.lean` HEADER FLAG IS STALE AT HEAD — THE `_div` LEMMAS ARE NOW EXACT DUPLICATES; DISPOSITION DEFERRED⟧
 
 **Opus executor, BRUN-ELL1 (the `ℓ¹` exit).** Found while reading the cited ground for the

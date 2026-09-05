@@ -516,9 +516,11 @@ frequency invariance the two spellings of the twist differ by.
 (`bigXiH_card_le_mul`, `bigXiH_bounded`) carries `0 < h` explicitly.
 
 SCOPE.  Definitional/foundational only.  `MRTUniformityXiH h` is the `h`-family's OPEN
-HYPOTHESIS — for `h ≥ 2` a STRICTLY STRONGER one than the landed `Ξ`-door — and this
-file supplies no producer for it, exactly as the corpus supplies none for
-`MRTUniformity`.  No claim about Chowla, about the door, or about twins is made or moved.
+HYPOTHESIS — for `h ≥ 2` INCOMPARABLE to the landed `Ξ`-door (the `μ_h`-preimage of
+`Ξ_H`, not a superset; the "STRICTLY STRONGER" that stood here until 2026-09-05 was
+FALSE, `docs/blueprints/flags.md` W-F2 row) — and this file supplies no producer for it,
+exactly as the corpus supplies none for `MRTUniformity`.  No claim about Chowla, about
+the door, or about twins is made or moved.
 The pairing/consumer census behind the fork ruling is re-derived mechanically by
 `scripts/l3_shift_census.py`. -/
 #audit_axioms Salt.Entropy.Chowla.logChowlaFails
@@ -562,8 +564,9 @@ and `h + 2·C₀` fails the first from `h = 3, C₀ = 3` on.
 `liouville_collapse_h` is correctly UNFENCED in `h` — at `h = 0` it degenerates to
 `λ(p·N)² = λ(N)²`, still true — and carries only `p ≠ 0`.
 
-THE PRODUCER STORY IS UNCHANGED.  `mrtUniformity_implies_xiH` is the lemma named as
-"future" in `MRTUniformityXiH`'s docstring (`ShiftFork.lean:292-295`): it consumes the
+THE PRODUCER STORY IS UNCHANGED.  `mrtUniformity_implies_xiH` is the lemma that
+`MRTUniformityXiH`'s docstring called "future" until 2026-09-05 (it cites it by name now): it
+consumes the
 `∀ α` door `MRTUniformity`, which this corpus NEVER produces, so no new supply of the
 `h`-door exists.  It would hold over any `Finset (ZMod H)` whatever, which is why it
 certifies nothing about the door's spelling — `contradiction_of_mrtDoorXiH` remains the
@@ -578,7 +581,9 @@ cardinality `≤ gcd(h,H)·|Ξ_H|` — an independent open hypothesis, implied b
 and neither implying nor implied by `MRTUniformityXiL2`.  ⚠ The landed prose at
 `ShiftFork.lean:281-284` and at `:502-505` of this file calls the `h`-door "strictly
 stronger"; that claim is WRONG for the same reason, and its repair is recorded in
-`docs/blueprints/flags.md` for a future wave (this one is additive-only).
+`docs/blueprints/flags.md` for a future wave (this one is additive-only).  ✅ REPAIRED
+2026-09-05 (QUEUE P3 item 10, math, a Fable-tier prose edit): both sites now carry the
+incomparability wording, and the flags row is stamped.
 
 NOT IN SCOPE, said out loud: the `h`-clone of the `L²` ESTIMATE
 (`circle_method_estimate_sq_h`), any `h`-mint, any spine replay.  This wave makes them

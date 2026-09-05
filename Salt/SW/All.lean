@@ -317,7 +317,6 @@ open Salt.Tactic in
   Salt.SW.tbal_tau_le_split Salt.SW.tbal_tau_le_split_k1 Salt.SW.dh_master_ray
   Salt.SW.exp_sub_one_le_e_mul Salt.SW.rpow_sub_one_le Salt.SW.neg_log_le_rpow
   Salt.SW.neg_log_le_rpow'
-  Salt.SW.rho_row_power_bound
   Salt.SW.ray_pow_bound Salt.SW.row_1x_cap Salt.SW.row_A_cap Salt.SW.row_rho_main_cap
   -- ⟦B1a⟧ the `k = 1` twins and their two engines (the landed caps above are untouched)
   Salt.SW.log_add_two_le_rpow_nine_tenths Salt.SW.ray_pow_bound_conv
