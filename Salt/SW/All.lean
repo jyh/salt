@@ -447,13 +447,16 @@ open Salt.Tactic in
   Salt.SW.grahamW_sum_le_low
 
 -- ⟦B2 W6b-H1b 0905⟧ `Salt/SW/GrahamHard2.lean` — the TWO INPUTS of the six rows W6b-H1 left
--- flagged. The coprime-subseries tool (T1–T5) and its two instances (T6 the `ρ₀·r/κ(r)`
--- density, T7 the `c₀·κ(t)/t` one), the counting half (P1, P2) and with it **H5a and H5c**,
--- the exact harmonic identity (C1), the `t`-smooth convolution (S1) and the smooth partial
--- sum against its Euler product (S2) — FOURTEEN of the cut's twenty-two frozen rows, plus
--- two PUBLIC helpers the H2 wave consumes. EIGHT rows are ABSENT and flagged
--- (`docs/blueprints/flags.md`, 09-05 W6b-H1b): C2, C3, H6c, S3, S4, H6d, H6f, H6e. The
--- module docstring carries the label.
+-- flagged, now COMPLETE. The coprime-subseries tool (T1–T5) and its two instances (T6 the
+-- `ρ₀·r/κ(r)` density, T7 the `c₀·κ(t)/t` one), the counting half (P1, P2) and with it
+-- **H5a and H5c**, the exact harmonic identity (C1), the sawtooth-log piece (C2) and with it
+-- **THE CONSTANT (C3)** and **H6c**, the `t`-smooth convolution (S1), the smooth partial sum
+-- against its Euler product (S2) and its tail (S3), the coprime Möbius sum (S4), and
+-- **H6d, H6f, H6e** — ALL TWENTY-TWO frozen rows of the cut, plus THREE PUBLIC helpers the
+-- H2 wave consumes (`log_rpow_le_rpow_quarter`, `summable_moebius_sq_div_kappa_totient`,
+-- `one_le_c0`) and H6e's frozen `∃ c₀` form as a corollary of its NAMED form. NOTHING is
+-- absent; the six W6b-H1 flag entries are RETIRED in `docs/blueprints/flags.md`. The module
+-- docstring carries the label. Twenty-six `#audit_axioms` names — sized from THIS LIST.
 #audit_axioms Salt.SW.summable_coprime_indicator
   Salt.SW.coprimeSeries_one
   Salt.SW.coprimeSeries_eq_of_primeFactors_eq
@@ -468,5 +471,15 @@ open Salt.Tactic in
   Salt.SW.sqf_coprime_sum_log_mul_log_eq
   Salt.SW.log_rpow_le_rpow_quarter
   Salt.SW.sum_moebius_div_mul_harmonic_eq
+  Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le
+  Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le
+  Salt.SW.abs_sum_moebius_mul_log_div_add_one_le
   Salt.SW.sum_coprime_moebius_eq_sum_smooth
   Salt.SW.sum_smooth_inv_le
+  Salt.SW.div_totient_sub_sum_smooth_inv_le
+  Salt.SW.abs_coprime_sum_moebius_div_le
+  Salt.SW.coprime_sum_moebius_div_log_eq
+  Salt.SW.coprime_sum_moebius_div_kappa_le
+  Salt.SW.one_le_c0
+  Salt.SW.coprime_sum_moebius_div_kappa_log_eq
+  Salt.SW.coprime_sum_moebius_div_kappa_log_exists

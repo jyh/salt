@@ -24690,6 +24690,13 @@ What it did NOT land is the step that turns the identity into the evaluation: th
 `P(Q) = Σ_{n ≤ Q}(μ(n)/n)·log((⌊Q/n⌋₊+1)n/Q)`, which is the entry's "SECOND application of Möbius
 cancellation". H6c and H6d remain open; see the 09-05 W6b-H1b entry below.
 
+**RETIRED 2026-09-05 (W6b-H1b SECOND PASS, `Salt/SW/GrahamHard2.lean`)** — the sawtooth-log piece
+LANDED as `Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le` (C2), and with it
+`Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le` (C3, the missing CONSTANT) and
+`Salt.SW.abs_sum_moebius_mul_log_div_add_one_le` (H6c) and
+`Salt.SW.coprime_sum_moebius_div_log_eq` (H6d). See the second-pass paragraph of the C2/C3/H6c
+entry below for the mechanism.
+
 ### 📥 09-05 — W6b-H1 `coprime_sum_moebius_div_kappa_log_eq` / `coprime_sum_moebius_div_kappa_le` (H6e, H6f): NOT attempted in Lean; gated on H6d and on `c₀`
 
 **Object:** the same cut. Recorded so the absence is a KNOWN hole and not a stale one.
@@ -24713,6 +24720,12 @@ coprime-subseries tool with no analysis at all, as
 `Salt.SW.div_totient_mul_coprimeSeries_inv_kappa_totient` (T7). H6e and H6f themselves are still
 ABSENT: they remain gated on H6d (through C3 and C2) and on the smooth series; see the 09-05 W6b-H1b
 entry below.
+
+**RETIRED 2026-09-05 (W6b-H1b SECOND PASS, `Salt/SW/GrahamHard2.lean`)** — both rows landed:
+`Salt.SW.coprime_sum_moebius_div_kappa_le` (H6f) and `Salt.SW.coprime_sum_moebius_div_kappa_log_eq`
+(H6e), the latter in the NAMED form with `c0` as its main term (the frozen `∃ c₀` shape is the
+one-line corollary `Salt.SW.coprime_sum_moebius_div_kappa_log_exists`, and `0 < c0` is the new PUBLIC
+`Salt.SW.one_le_c0`). The gate was C2, and C2 fell.
 
 ### 📥 09-05 — W6b-H1 count: the freeze's `§0` block carries NINETEEN theorem rows, not eighteen
 
@@ -24768,6 +24781,25 @@ it PASSES at every tested point and is NOT a kill-check (the sawtooth log carrie
 cancellation). The live control is `μ(n) → μ²(n)`: `|Σ|·log²(2Q) = 8.8 … 62.5` over the same range,
 unbounded.
 
+**RETIRED 2026-09-05 (W6b-H1b second pass, `Salt/SW/GrahamHard2.lean`)** — closed by
+`Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le` (C2),
+`Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le` (C3) and
+`Salt.SW.abs_sum_moebius_mul_log_div_add_one_le` (H6c). **The route differs from the diagnosed one
+in exactly one place, and that is the whole saving: there is NO fibre decomposition.** The entry
+priced the fibre partition of `Icc (⌊Q/K⌋₊+1) ⌊Q⌋₊` by `k = ⌊Q/n⌋₊`, with empty fibres tolerated and
+a per-fibre Abel, at 600–900 lines. It is not needed. A SINGLE discrete Abel over `(a, N]`
+(`abel_sum_Ioc`, derived from the landed `abel_sum` by subtracting the two `[1, ·]` identities)
+suffices, because the total variation of the weight `w` is bounded UNIFORMLY by
+`1/n² + (⌊Q/n⌋₊ − ⌊Q/(n+1)⌋₊)/Q`: off a jump of `⌊Q/·⌋₊` the two weights share the numerator `k + 1`
+and `w(n+1) − w(n) = (n·log((n+1)/n) − log((k+1)n/Q))/(n(n+1))` with a numerator in `[−log 2, 1]`
+(pure algebra, no mean-value theorem); across a jump both weights lie in `[0, 1/Q]`. The jump part
+then TELESCOPES to `⌊Q/a⌋₊/Q ≤ 2K/Q` — one line — where the fibre route would have had to count the
+fibres. Everything else the entry lists is used as it stands: the two `w` bounds, the integer
+`K = ⌊(log 2Q)^A⌋₊ + 1`, the termwise small range, the step `log 2n ≥ ½ log 2Q` from the A4 helper,
+and the two regimes at `Q₀(A) = 4096·((4A)^A)⁴ + 4096`. C2 came in at ~420 lines, not 600–900.
+C3 is then the entry's own `T = 1 − D − P` with the hyperbola swap (`sum_hyperbola_swap`) and the
+`√Q` split, and H6c is one line off C3 and H6b at `A + 1`.
+
 ### 📥 09-05 — W6b-H1b `div_totient_sub_sum_smooth_inv_le` / `abs_coprime_sum_moebius_div_le` / `coprime_sum_moebius_div_log_eq` / `coprime_sum_moebius_div_kappa_le` / `coprime_sum_moebius_div_kappa_log_eq` (S3, S4, H6d, H6f, H6e): the smooth series in the HARD direction, and two rows gated behind C2
 
 **Object:** the same cut. S1 and S2 landed; the five rows above them did not.
@@ -24813,3 +24845,28 @@ were attempted 0 times, deliberately.
 **Statement concern: NONE.** All five are believed TRUE as spelled. In particular H6e's `c₀` is no
 longer an obstruction (`Salt.SW.c0` and T7 landed here), and S1's binder `1 ≤ t` was confirmed
 load-bearing: at `t = 0` and `m = 2` the LHS is `0` and the RHS `−1`.
+
+**RETIRED 2026-09-05 (W6b-H1b second pass, `Salt/SW/GrahamHard2.lean`)** — all five landed:
+`Salt.SW.div_totient_sub_sum_smooth_inv_le` (S3), `Salt.SW.abs_coprime_sum_moebius_div_le` (S4),
+`Salt.SW.coprime_sum_moebius_div_log_eq` (H6d), `Salt.SW.coprime_sum_moebius_div_kappa_le` (H6f) and
+`Salt.SW.coprime_sum_moebius_div_kappa_log_eq` (H6e). **S3 needed NEITHER of the two routes this
+entry weighed** — no `tsum`, no smooth subtype, no `Function.Injective.tsum_eq`, no limit, and no
+compounding `⌊X/q^a⌋ ≥ X/q^a − 1` loss. The smooth series is never evaluated. The row is a FINITE
+prime-step induction (`smooth_tail_le`) whose statement is carried **for every `Y > 0`, not only for
+`Y ≥ 1`** — that is the whole trick: below `Y = 1` the smooth sum is empty while `Y^{−1/2} ≥ 1`, and
+that surplus is exactly what pays for the geometric tail `(q/(q−1))·q^{−(m+1)}` at the step, so the
+induction closes with the constant `1` and the two facts `P_S ≤ G_S` and `q/(q−1) ≤ (1 − q^{−1/2})⁻¹`,
+both the per-prime `1 ≤ p·p^{−1/2}`. Each step is finite (`smooth_sum_step`, a `Finset.sum_nbij'`
+bijection between the `insert q S`-smooth integers `≤ Y` and the sigma-set of pairs `(a, e)` with
+`a ≤ m = ⌊Y⌋₊ + 1`). The per-prime numerics came in as diagnosed, with a little more margin:
+`c_2 = 1.88, c_3 = 1.38, c_5 = 1.10` and `c_p = 1` from `p = 7` (that last is `p^{−1/4} + p^{−1/2} ≤ 1`,
+true from 7 with margin `0.0045` at the bound `7^{−1/4} ≤ 0.6151` used), and `∏ c_p ≤ 2.854 ≤ 3`.
+S4 and H6d then run as the entry describes; H6f and H6e run on the `κ`-expansion, whose Lean shape
+is worth recording: `μ(n)/κ(n) = (μ(n)/n)·Σ_{d ∣ n} μ(d)/κ(d)` is proved by the landed
+`sum_moebius_div_eq_totient_div` recipe with `κ` in place of the identity, and the swap is NOT a
+Dirichlet convolution — at `n = p²` the ordinary convolution of `μ²(d)/(dκ(d))` and `μ(m)/m` gives
+`−1/(p²(p+1))` while `μ(p²)/κ(p²) = 0`, and it is the COPRIMALITY of the pair `(d, f)` (carried by
+`kappa_swap_term`'s four cases) that kills it. Two further pieces are worth keeping:
+`sigmaQ (d·t) ≤ sigmaQ d · sigmaQ t` by the injection `e ↦ (gcd(e,d), e/gcd(e,d))`, and
+`Σ_{d ≤ D} σ_{−1/4}(d)/d² ≤ 4` by the landed divisor swap and `Σ 1/n² ≤ 2` twice — no partial
+summation and no `Σ_{d ≤ D} σ(d) ≤ 5D` is needed anywhere.
