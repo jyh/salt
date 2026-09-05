@@ -96,6 +96,7 @@ import Salt.SW.BvL
 import Salt.SW.GrahamMean
 import Salt.SW.GrahamHard
 import Salt.SW.GrahamHard2
+import Salt.SW.GrahamHard3
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -483,3 +484,31 @@ open Salt.Tactic in
   Salt.SW.one_le_c0
   Salt.SW.coprime_sum_moebius_div_kappa_log_eq
   Salt.SW.coprime_sum_moebius_div_kappa_log_exists
+
+-- ⟦B2 W6b-H2 0905⟧ `Salt/SW/GrahamHard3.lean` — the KEYSTONE'S HARD HALF, whole. An 2022 §5's
+-- `S₃`: the tail second moment `Σ_{n ≤ u} T_z(n)² ≤ C·u·log z` on `z ≤ u ≤ z²` (**H7**), and
+-- with it Graham's mean bound on the FULL range `x ≥ z` (**H8**) and the two-level forms
+-- **S10-H** and **S10-L**. Staged as the exact reductions (H7a the lower limit, H7a' the
+-- NON-STRICT box) with two public helpers (H7-0 κ-multiplicativity, H7e-0 σ
+-- sub-multiplicativity), the evaluation (H7b = H5c instantiated), ΣA (H7c → `c0`, H7c'), ΣB+ΣC
+-- (H7d's κ-cancellation, H7d') and ΣD (H7e-1 … H7e-4). ALL SEVENTEEN frozen rows land; NOTHING
+-- is absent and `flags.md` gains nothing. The module docstring carries the honest label — upper
+-- bound only, non-effective constants, `ρ₀c₀ = 1` never used, S10-L lossy, the two STRUCK H7d
+-- mutants. Seventeen `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.sum_filter_side_eq_sqfLogPair_sub
+  Salt.SW.sum_tailT_sq_eq_box
+  Salt.SW.kappa_mul_of_coprime
+  Salt.SW.sigmaQ_mul_le
+  Salt.SW.abs_sqfLogPair_sub_le
+  Salt.SW.abs_aKernel_sub_c0_le
+  Salt.SW.sum_inv_mul_abs_aKernel_le
+  Salt.SW.abs_bKernel_le
+  Salt.SW.sum_abs_bKernel_le
+  Salt.SW.sum_rpow_neg_half_sigmaQ_one_add_log_le
+  Salt.SW.sum_sum_errUpper_le
+  Salt.SW.sum_sum_errLower_le
+  Salt.SW.sum_rpow_neg_three_half_le
+  Salt.SW.sum_tailT_sq_le
+  Salt.SW.grahamW_sum_le_full
+  Salt.SW.sum_sq_sum_bvWeight_le_full
+  Salt.SW.sum_sq_sum_bvWeight_le_low
