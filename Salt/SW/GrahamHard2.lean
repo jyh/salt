@@ -1960,4 +1960,309 @@ theorem sqf_coprime_sum_log_mul_log_eq : ∃ C : ℝ, 0 < C ∧ ∀ r : ℕ, 1 �
     mul_le_mul_of_nonneg_left hsig1 hPM
   linarith [hkey]
 
+/-! ## III. THE CONSTANT -/
+
+/-- **The A4 helper (PUBLIC; H2's wave consumes it).**
+`(log x)^A ≤ (4A)^A·x^{1/4}` for `x ≥ 1` and `A > 0`, from mathlib's
+`Real.log_le_rpow_div` at `ε = 1/(4A)`.
+
+This is the device every far tail of this file is closed with. The landed
+`log u ≤ 4u^{1/4}` keeps only its `1 + log Q ≤ 5Q^{1/4}` half: its FIXED exponent does not
+beat `(log 2Q)^A` above `A = 1` — applied to C3's `D`-tail it leaves
+`Θ(Q^{(A+1)/4 − 1/2})`, unbounded for `A > 1`. -/
+theorem log_rpow_le_rpow_quarter (A : ℝ) (hA : 0 < A) {x : ℝ} (hx : 1 ≤ x) :
+    Real.log x ^ A ≤ (4 * A) ^ A * x ^ (1/4 : ℝ) := by
+  have hx0 : (0 : ℝ) < x := by linarith
+  have hAne : A ≠ 0 := hA.ne'
+  have hlog : 0 ≤ Real.log x := Real.log_nonneg hx
+  have hA4 : (0 : ℝ) < 1 / (4 * A) := by positivity
+  have h1 : Real.log x ≤ 4 * A * x ^ (1 / (4 * A) : ℝ) := by
+    have h := Real.log_le_rpow_div hx0.le hA4
+    have hrw : x ^ (1 / (4 * A) : ℝ) / (1 / (4 * A)) = 4 * A * x ^ (1 / (4 * A) : ℝ) := by
+      field_simp
+    linarith [h, hrw.le, hrw.ge]
+  have h2 : Real.log x ^ A ≤ (4 * A * x ^ (1 / (4 * A) : ℝ)) ^ A :=
+    Real.rpow_le_rpow hlog h1 hA.le
+  have h3 : (4 * A * x ^ (1 / (4 * A) : ℝ)) ^ A = (4 * A) ^ A * x ^ (1/4 : ℝ) := by
+    rw [Real.mul_rpow (by positivity) (Real.rpow_nonneg hx0.le _), ← Real.rpow_mul hx0.le,
+      show (1 / (4 * A) : ℝ) * A = 1/4 by field_simp]
+  linarith [h2, h3.le, h3.ge]
+
+/-- **The swap stone** (the landed `sum_divisors_swap` recipe, re-derived):
+`Σ_{r ≤ N} Σ_{e ∣ r} F(e, r) = Σ_{e ≤ N} Σ_{f ≤ N/e} F(e, e·f)`. -/
+private lemma sum_divisors_swap (N : ℕ) (F : ℕ → ℕ → ℝ) :
+    ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, F e r
+      = ∑ e ∈ Finset.Icc 1 N, ∑ f ∈ Finset.Icc 1 (N / e), F e (e * f) := by
+  have h1 : ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, F e r
+      = ∑ e ∈ Finset.Icc 1 N, ∑ r ∈ (Finset.Icc 1 N).filter (fun r => e ∣ r), F e r := by
+    refine Finset.sum_comm' ?_
+    intro r e
+    simp only [Finset.mem_Icc, Nat.mem_divisors, Finset.mem_filter]
+    constructor
+    · rintro ⟨⟨hr1, hrN⟩, hed, hr0⟩
+      have he1 : 1 ≤ e := Nat.pos_of_dvd_of_pos hed (by omega)
+      exact ⟨⟨⟨hr1, hrN⟩, hed⟩, he1, le_trans (Nat.le_of_dvd (by omega) hed) hrN⟩
+    · rintro ⟨⟨⟨hr1, hrN⟩, hed⟩, _⟩
+      exact ⟨⟨hr1, hrN⟩, hed, by omega⟩
+  rw [h1]
+  refine Finset.sum_congr rfl fun e he => ?_
+  exact sum_dvd_reindex (Finset.mem_Icc.mp he).1 (fun r => F e r)
+
+/-- **C1 (the exact identity).** `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1` for `N ≥ 1`.
+
+The divisor-sum swap sends `(n, m)` to `k = n·m` and the inner sum becomes
+`Σ_{d ∣ k} μ(d) = [k = 1]`, so only `k = 1` survives.
+
+This row is its own control — the `N = 6` instance
+`49/20 − 11/12 − 1/2 − 1/5 + 1/6 = 1` is checked by `norm_num` in §2(b) below. -/
+theorem sum_moebius_div_mul_harmonic_eq (N : ℕ) (hN : 1 ≤ N) :
+    ∑ n ∈ Finset.Icc 1 N, (moebius n : ℝ) / n * ∑ m ∈ Finset.Icc 1 (N / n), (1 : ℝ) / m = 1 := by
+  classical
+  have hswap := sum_divisors_swap N (fun e r => (moebius e : ℝ) / (r : ℝ))
+  have hL : ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, (moebius e : ℝ) / (r : ℝ) = 1 := by
+    have hterm : ∀ r ∈ Finset.Icc 1 N,
+        (∑ e ∈ r.divisors, (moebius e : ℝ) / (r : ℝ))
+          = (if r = 1 then (1 : ℝ) else 0) / (r : ℝ) := by
+      intro r _
+      rw [← Finset.sum_div, sum_divisors_moebius_real]
+    rw [Finset.sum_congr rfl hterm]
+    have hz : ∀ b ∈ Finset.Icc 1 N, b ≠ 1 → (if b = 1 then (1 : ℝ) else 0) / (b : ℝ) = 0 := by
+      intro b _ hbne
+      rw [if_neg hbne, zero_div]
+    rw [Finset.sum_eq_single_of_mem 1 (Finset.mem_Icc.mpr ⟨le_refl 1, hN⟩) hz]
+    norm_num
+  have hgoal : ∑ n ∈ Finset.Icc 1 N,
+        (moebius n : ℝ) / n * ∑ m ∈ Finset.Icc 1 (N / n), (1 : ℝ) / m
+      = ∑ e ∈ Finset.Icc 1 N, ∑ f ∈ Finset.Icc 1 (N / e), (moebius e : ℝ) / ((e * f : ℕ) : ℝ) := by
+    refine Finset.sum_congr rfl fun n _ => ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    push_cast
+    ring
+  rw [hgoal, ← hswap]
+  exact hL
+
+/-! ## IV. THE t-SMOOTH CONVOLUTION -/
+
+open scoped Classical in
+/-- The indicator of the `t`-smooth integers, as an arithmetic function. -/
+private noncomputable def smoothInd (t : ℕ) : ArithmeticFunction ℤ where
+  toFun n := if n = 0 then 0 else if n.primeFactors ⊆ t.primeFactors then 1 else 0
+  map_zero' := by simp
+
+private lemma smoothInd_apply (t : ℕ) {n : ℕ} (hn : n ≠ 0) :
+    smoothInd t n = if n.primeFactors ⊆ t.primeFactors then 1 else 0 := by
+  classical
+  simp [smoothInd, hn]
+
+private lemma smoothInd_one (t : ℕ) : smoothInd t 1 = 1 := by
+  rw [smoothInd_apply t one_ne_zero, Nat.primeFactors_one]
+  simp
+
+private lemma isMultiplicative_smoothInd (t : ℕ) : (smoothInd t).IsMultiplicative := by
+  classical
+  rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
+  refine ⟨smoothInd_one t, fun {m n} hm hn hmn => ?_⟩
+  rw [smoothInd_apply t (Nat.mul_ne_zero hm hn), smoothInd_apply t hm, smoothInd_apply t hn]
+  have hun : (m * n).primeFactors = m.primeFactors ∪ n.primeFactors :=
+    Nat.Coprime.primeFactors_mul hmn
+  by_cases h1 : m.primeFactors ⊆ t.primeFactors
+  · by_cases h2 : n.primeFactors ⊆ t.primeFactors
+    · have hpf : (m * n).primeFactors ⊆ t.primeFactors := by
+        rw [hun]
+        exact Finset.union_subset h1 h2
+      rw [if_pos hpf, if_pos h1, if_pos h2, mul_one]
+    · have hpf : ¬ (m * n).primeFactors ⊆ t.primeFactors := by
+        rw [hun]
+        exact fun hcon => h2 fun x hx => hcon (Finset.mem_union_right _ hx)
+      rw [if_neg hpf, if_pos h1, if_neg h2, mul_zero]
+  · have hpf : ¬ (m * n).primeFactors ⊆ t.primeFactors := by
+      rw [hun]
+      exact fun hcon => h1 fun x hx => hcon (Finset.mem_union_left _ hx)
+    rw [if_neg hpf, if_neg h1, zero_mul]
+
+open scoped Classical in
+/-- `n ↦ μ(n)·[(n,t) = 1]`, as an arithmetic function. -/
+private noncomputable def coprimeMoebius (t : ℕ) : ArithmeticFunction ℤ where
+  toFun n := if Nat.Coprime n t then moebius n else 0
+  map_zero' := by
+    classical
+    by_cases h : Nat.Coprime 0 t
+    · rw [if_pos h, ArithmeticFunction.map_zero]
+    · rw [if_neg h]
+
+private lemma coprimeMoebius_apply (t n : ℕ) :
+    coprimeMoebius t n = if Nat.Coprime n t then moebius n else 0 := by
+  classical
+  simp [coprimeMoebius]
+
+private lemma isMultiplicative_coprimeMoebius (t : ℕ) : (coprimeMoebius t).IsMultiplicative := by
+  classical
+  rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
+  constructor
+  · rw [coprimeMoebius_apply, if_pos (Nat.coprime_one_left t),
+      isMultiplicative_moebius.map_one]
+  · intro m n _ _ hmn
+    rw [coprimeMoebius_apply, coprimeMoebius_apply, coprimeMoebius_apply]
+    by_cases h1 : Nat.Coprime m t
+    · by_cases h2 : Nat.Coprime n t
+      · rw [if_pos (Nat.Coprime.mul_left h1 h2), if_pos h1, if_pos h2,
+          isMultiplicative_moebius.map_mul_of_coprime hmn]
+      · have hne : ¬ Nat.Coprime (m * n) t := fun hcon =>
+          h2 (Nat.Coprime.coprime_dvd_left (dvd_mul_left n m) hcon)
+        rw [if_neg hne, if_pos h1, if_neg h2, mul_zero]
+    · have hne : ¬ Nat.Coprime (m * n) t := fun hcon =>
+        h1 (Nat.Coprime.coprime_dvd_left (dvd_mul_right m n) hcon)
+      rw [if_neg hne, if_neg h1, zero_mul]
+
+/-- `Σ_{k ∣ m} μ(k) = [m = 1]` over `ℤ`. -/
+private lemma sum_divisors_moebius_int (m : ℕ) :
+    ∑ k ∈ m.divisors, (moebius k) = if m = 1 then (1 : ℤ) else 0 := by
+  rcases Nat.eq_zero_or_pos m with rfl | hm
+  · simp
+  · rw [← ArithmeticFunction.coe_mul_zeta_apply, ArithmeticFunction.moebius_mul_coe_zeta,
+      ArithmeticFunction.one_apply]
+
+/-- **The pointwise `t`-smooth convolution identity.**
+`Σ_{d ∣ m, d t-smooth} μ(m/d) = μ(m)·[(m,t) = 1]`. Both sides are multiplicative, so
+`IsMultiplicative.eq_iff_eq_on_prime_powers` reduces it to prime powers: at `p ∤ t` only
+`d = 1` is smooth and the sum is `μ(p^i)`; at `p ∣ t` every `p^j` is smooth and the sum
+telescopes to `[p^i = 1]`, exactly matching the coprimality indicator. -/
+private lemma moebius_mul_smoothInd (t : ℕ) (ht : t ≠ 0) :
+    (moebius * smoothInd t : ArithmeticFunction ℤ) = coprimeMoebius t := by
+  classical
+  rw [ArithmeticFunction.IsMultiplicative.eq_iff_eq_on_prime_powers _
+    (isMultiplicative_moebius.mul (isMultiplicative_smoothInd t)) _
+    (isMultiplicative_coprimeMoebius t)]
+  intro p i hp
+  have hp0 : 0 < p := hp.pos
+  have hexpand : (moebius * smoothInd t : ArithmeticFunction ℤ) (p ^ i)
+      = ∑ j ∈ Finset.range (i + 1), (moebius (p ^ (i - j))) * smoothInd t (p ^ j) := by
+    rw [ArithmeticFunction.mul_apply,
+      Nat.sum_divisorsAntidiagonal' (fun a b => (moebius a) * smoothInd t b),
+      Nat.sum_divisors_prime_pow hp]
+    refine Finset.sum_congr rfl fun j hj => ?_
+    have hji : j ≤ i := by
+      have := Finset.mem_range.mp hj
+      omega
+    rw [Nat.pow_div hji hp0]
+  rw [hexpand, coprimeMoebius_apply]
+  by_cases hpt : p ∈ t.primeFactors
+  · -- every `p^j` is smooth
+    have hsm : ∀ j : ℕ, smoothInd t (p ^ j) = 1 := by
+      intro j
+      rw [smoothInd_apply t (by positivity), if_pos ?_]
+      rcases Nat.eq_zero_or_pos j with rfl | hj
+      · rw [pow_zero, Nat.primeFactors_one]
+        exact Finset.empty_subset _
+      · rw [Nat.primeFactors_pow p (by omega), hp.primeFactors]
+        exact Finset.singleton_subset_iff.mpr hpt
+    have hsum : ∑ j ∈ Finset.range (i + 1), (moebius (p ^ (i - j))) * smoothInd t (p ^ j)
+        = ∑ j ∈ Finset.range (i + 1), (moebius (p ^ j)) := by
+      have h1 : ∑ j ∈ Finset.range (i + 1), (moebius (p ^ (i - j))) * smoothInd t (p ^ j)
+          = ∑ j ∈ Finset.range (i + 1), (moebius (p ^ (i + 1 - 1 - j))) := by
+        refine Finset.sum_congr rfl fun j _ => ?_
+        rw [hsm j, mul_one, show i + 1 - 1 - j = i - j by omega]
+      rw [h1, Finset.sum_range_reflect (fun k => (moebius (p ^ k)))]
+    rw [hsum, ← Nat.sum_divisors_prime_pow hp, sum_divisors_moebius_int]
+    rcases Nat.eq_zero_or_pos i with rfl | hi
+    · rw [pow_zero, if_pos rfl, if_pos (Nat.coprime_one_left t),
+        isMultiplicative_moebius.map_one]
+    · have hne : p ^ i ≠ 1 := by
+        intro hcon
+        have := Nat.pow_eq_one.mp hcon
+        rcases this with h | h
+        · exact hp.one_lt.ne' h
+        · omega
+      have hnc : ¬ Nat.Coprime (p ^ i) t := by
+        intro hc
+        have hpd : p ∣ t := (Nat.mem_primeFactors.mp hpt).2.1
+        have hpp : p ∣ p ^ i := dvd_pow_self p (by omega)
+        have : p ∣ Nat.gcd (p ^ i) t := Nat.dvd_gcd hpp hpd
+        rw [hc] at this
+        exact hp.one_lt.ne' (Nat.dvd_one.mp this)
+      rw [if_neg hne, if_neg hnc]
+  · -- only `d = 1` is smooth
+    have hnd : ¬ p ∣ t := by
+      intro hd
+      exact hpt (Nat.mem_primeFactors.mpr ⟨hp, hd, ht⟩)
+    have hzero : ∀ j ∈ Finset.range (i + 1), j ≠ 0 →
+        (moebius (p ^ (i - j))) * smoothInd t (p ^ j) = 0 := by
+      intro j _ hj
+      rw [smoothInd_apply t (by positivity), if_neg ?_, mul_zero]
+      rw [Nat.primeFactors_pow p hj, hp.primeFactors]
+      exact fun hcon => hpt (Finset.singleton_subset_iff.mp hcon)
+    rw [Finset.sum_eq_single_of_mem 0 (Finset.mem_range.mpr (by omega)) hzero, pow_zero,
+      smoothInd_one, mul_one, Nat.sub_zero,
+      if_pos (Nat.Coprime.pow_left i ((Nat.Prime.coprime_iff_not_dvd hp).mpr hnd))]
+
+/-- **S1 (the convolution).** `Σ_{m ≤ X, (m,t)=1} μ(m)G(m) = Σ_{d ≤ X smooth} Σ_{e ≤ X/d}
+μ(e)G(de)` for `t ≥ 1`.
+
+Undo the inner reindex (`sum_dvd_reindex` at level `d`), swap, and the inner sum becomes the
+pointwise convolution identity above.
+
+The must-FAIL control (measured, K34): the binder `1 ≤ t` is load-bearing — at `t = 0` and
+`m = 2` the LHS is `0` (`Coprime m 0 ↔ m = 1`) while the RHS is `−1` (the smooth set at
+level 0 is `{1}`, so the RHS is `Σ_{e ≤ X} μ(e)G(e)`). -/
+theorem sum_coprime_moebius_eq_sum_smooth (t X : ℕ) (ht : 1 ≤ t) (G : ℕ → ℝ) :
+    ∑ m ∈ (Finset.Icc 1 X).filter (fun m => Nat.Coprime m t), (moebius m : ℝ) * G m
+      = ∑ d ∈ (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ t.primeFactors),
+          ∑ e ∈ Finset.Icc 1 (X / d), (moebius e : ℝ) * G (d * e) := by
+  classical
+  have ht0 : t ≠ 0 := by omega
+  have hRHS : ∀ d ∈ (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ t.primeFactors),
+      (∑ e ∈ Finset.Icc 1 (X / d), (moebius e : ℝ) * G (d * e))
+        = ∑ m ∈ (Finset.Icc 1 X).filter (fun m => d ∣ m), (moebius (m / d) : ℝ) * G m := by
+    intro d hd
+    have hd1 : 1 ≤ d := (Finset.mem_Icc.mp (Finset.mem_filter.mp hd).1).1
+    rw [sum_dvd_reindex hd1 (fun m => (moebius (m / d) : ℝ) * G m)]
+    refine Finset.sum_congr rfl fun e _ => ?_
+    rw [Nat.mul_div_cancel_left e (by omega : 0 < d)]
+  rw [Finset.sum_congr rfl hRHS]
+  have hswap : ∑ d ∈ (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ t.primeFactors),
+        ∑ m ∈ (Finset.Icc 1 X).filter (fun m => d ∣ m), (moebius (m / d) : ℝ) * G m
+      = ∑ m ∈ Finset.Icc 1 X,
+          ∑ d ∈ m.divisors.filter (fun d => d.primeFactors ⊆ t.primeFactors),
+            (moebius (m / d) : ℝ) * G m := by
+    refine Finset.sum_comm' ?_
+    intro d m
+    simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors]
+    constructor
+    · rintro ⟨⟨⟨hd1, hdX⟩, hsm⟩, ⟨hm1, hmX⟩, hdm⟩
+      exact ⟨⟨⟨hdm, by omega⟩, hsm⟩, hm1, hmX⟩
+    · rintro ⟨⟨⟨hdm, _⟩, hsm⟩, hm1, hmX⟩
+      have hd1 : 1 ≤ d := Nat.pos_of_dvd_of_pos hdm (by omega)
+      have hdX : d ≤ X := le_trans (Nat.le_of_dvd (by omega) hdm) hmX
+      exact ⟨⟨⟨hd1, hdX⟩, hsm⟩, ⟨hm1, hmX⟩, hdm⟩
+  rw [hswap, Finset.sum_filter]
+  refine Finset.sum_congr rfl fun m hm => ?_
+  have hm0 : m ≠ 0 := by
+    have := (Finset.mem_Icc.mp hm).1
+    omega
+  have hkey : ∑ d ∈ m.divisors.filter (fun d => d.primeFactors ⊆ t.primeFactors),
+      (moebius (m / d) : ℤ) = if Nat.Coprime m t then moebius m else 0 := by
+    have hconv : (moebius * smoothInd t : ArithmeticFunction ℤ) m
+        = ∑ d ∈ m.divisors, (moebius (m / d)) * smoothInd t d := by
+      rw [ArithmeticFunction.mul_apply,
+        Nat.sum_divisorsAntidiagonal' (fun a b => (moebius a) * smoothInd t b)]
+    rw [moebius_mul_smoothInd t ht0, coprimeMoebius_apply] at hconv
+    rw [hconv, Finset.sum_filter]
+    refine Finset.sum_congr rfl fun d hd => ?_
+    have hd0 : d ≠ 0 := Nat.pos_of_mem_divisors hd |>.ne'
+    rw [smoothInd_apply t hd0]
+    by_cases hsm : d.primeFactors ⊆ t.primeFactors
+    · rw [if_pos hsm, if_pos hsm, mul_one]
+    · rw [if_neg hsm, if_neg hsm, mul_zero]
+  have hcast : ∑ d ∈ m.divisors.filter (fun d => d.primeFactors ⊆ t.primeFactors),
+        (moebius (m / d) : ℝ) * G m
+      = ((∑ d ∈ m.divisors.filter (fun d => d.primeFactors ⊆ t.primeFactors),
+          (moebius (m / d) : ℤ) : ℤ) : ℝ) * G m := by
+    push_cast
+    rw [Finset.sum_mul]
+  rw [hcast, hkey]
+  by_cases hc : Nat.Coprime m t
+  · rw [if_pos hc, if_pos hc]
+  · rw [if_neg hc, if_neg hc, Int.cast_zero, zero_mul]
+
 end Salt.SW
