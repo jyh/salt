@@ -507,4 +507,1457 @@ theorem div_totient_mul_coprimeSeries_inv_kappa_totient (t : ℕ) (ht : 1 ≤ t)
     div_eq_iff (mul_ne_zero hUpos.ne' hVpos.ne')]
   linear_combination (-c0) * hUVW
 
+/-! ## II. THE COUNTING HALF (H5) -/
+
+/-- `(x^q)^k = x^(q·k)` for a natural `k` (the landed `rpow_pow_nat` recipe, re-derived:
+a `private` cannot cross a file boundary). -/
+private lemma rpow_pow_nat {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
+    (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
+  rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
+
+/-- The telescoping step of `Σ f^{−1/2}` (the landed recipe, re-derived). -/
+private lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
+    (t + 1) ^ (-(1/2) : ℝ) ≤ 2 * (t + 1) ^ ((1/2) : ℝ) - 2 * t ^ ((1/2) : ℝ) := by
+  have ht1 : (0 : ℝ) < t + 1 := by linarith
+  have hinv : (t + 1) ^ (-(1/2) : ℝ) = ((t + 1) ^ ((1/2) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
+  rw [hinv]
+  set a : ℝ := (t + 1) ^ ((1/2) : ℝ) with ha
+  set b : ℝ := t ^ ((1/2) : ℝ) with hb
+  have ha0 : 0 < a := Real.rpow_pos_of_pos ht1 _
+  have hb0 : (0 : ℝ) ≤ b := Real.rpow_nonneg ht _
+  have ha2 : a ^ 2 = t + 1 := by
+    rw [ha, rpow_pow_nat ht1.le, show ((1/2 : ℝ)) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have hb2 : b ^ 2 = t := by
+    rw [hb, rpow_pow_nat ht, show ((1/2 : ℝ)) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  rw [inv_eq_one_div, div_le_iff₀ ha0]
+  nlinarith [sq_nonneg (a - b), ha2, hb2]
+
+/-- `Σ_{f ≤ N} f^{−1/2} ≤ 2·N^{1/2}` (the landed recipe, re-derived). -/
+private lemma sum_rpow_neg_half_le (N : ℕ) :
+    ∑ f ∈ Finset.Icc 1 N, (f : ℝ) ^ (-(1/2) : ℝ) ≤ 2 * (N : ℝ) ^ ((1/2) : ℝ) := by
+  induction N with
+  | zero => simp [Real.zero_rpow]
+  | succ m ih =>
+    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ m + 1)]
+    have hcast : ((m + 1 : ℕ) : ℝ) = (m : ℝ) + 1 := by push_cast; ring
+    rw [hcast]
+    linarith [ih, rpow_step_half (m : ℝ) (by positivity)]
+
+/-- `(Q/e)^q = Q^q·e^{−q}` (the landed `div_rpow_neg` recipe, re-derived). -/
+private lemma div_rpow_neg {Q e : ℝ} (hQ : 0 ≤ Q) (he : 0 ≤ e) (q : ℝ) :
+    (Q / e) ^ q = Q ^ q * e ^ (-q) := by
+  rw [div_eq_mul_inv, Real.mul_rpow hQ (inv_nonneg.mpr he), Real.inv_rpow he, Real.rpow_neg he]
+
+/-- `1 ≤ σ_{−1/4}(r)` for `r ≥ 1` — the divisor `e = 1` alone. -/
+private lemma one_le_sigmaQ (r : ℕ) (hr : 1 ≤ r) : (1 : ℝ) ≤ sigmaQ r := by
+  rw [sigmaQ]
+  have h1 : (1 : ℕ) ∈ r.divisors := Nat.one_mem_divisors.mpr (by omega)
+  have hle := Finset.single_le_sum
+    (f := fun e : ℕ => (e : ℝ) ^ (-(1/4 : ℝ)))
+    (fun e _ => Real.rpow_nonneg (by positivity) _) h1
+  simpa using hle
+
+/-- `d² ∣ b²·a` with `a` squarefree forces `d ∣ b`: split off `g = gcd d b`, cancel `g²`,
+and `d'²` — coprime to `b'²` — divides the squarefree `a`, hence `d' = 1`. -/
+private lemma dvd_of_sq_dvd_sq_mul {d b a : ℕ} (ha : Squarefree a) (h : d ^ 2 ∣ b ^ 2 * a) :
+    d ∣ b := by
+  rcases Nat.eq_zero_or_pos d with rfl | hd
+  · have h0 : b ^ 2 * a = 0 := by simpa using h
+    have hane : a ≠ 0 := ha.ne_zero
+    have : b = 0 := by
+      rcases Nat.mul_eq_zero.mp h0 with hb | hab
+      · exact pow_eq_zero_iff (by norm_num) |>.mp hb
+      · exact absurd hab hane
+    simp [this]
+  · have hg0 : 0 < Nat.gcd d b := Nat.gcd_pos_of_pos_left b hd
+    have hgd : Nat.gcd d b ∣ d := Nat.gcd_dvd_left d b
+    have hgb : Nat.gcd d b ∣ b := Nat.gcd_dvd_right d b
+    have hdeq : d = Nat.gcd d b * (d / Nat.gcd d b) := (Nat.mul_div_cancel' hgd).symm
+    have hbeq : b = Nat.gcd d b * (b / Nat.gcd d b) := (Nat.mul_div_cancel' hgb).symm
+    have hcop : Nat.Coprime (d / Nat.gcd d b) (b / Nat.gcd d b) :=
+      Nat.coprime_div_gcd_div_gcd hg0
+    have hg2 : 0 < Nat.gcd d b ^ 2 := by positivity
+    have hstep : Nat.gcd d b ^ 2 * (d / Nat.gcd d b) ^ 2
+        ∣ Nat.gcd d b ^ 2 * ((b / Nat.gcd d b) ^ 2 * a) := by
+      calc Nat.gcd d b ^ 2 * (d / Nat.gcd d b) ^ 2 = d ^ 2 := by
+            rw [← mul_pow, ← hdeq]
+        _ ∣ b ^ 2 * a := h
+        _ = Nat.gcd d b ^ 2 * ((b / Nat.gcd d b) ^ 2 * a) := by
+            rw [← mul_assoc, ← mul_pow, ← hbeq]
+    have h2 : (d / Nat.gcd d b) ^ 2 ∣ (b / Nat.gcd d b) ^ 2 * a :=
+      (Nat.mul_dvd_mul_iff_left hg2).mp hstep
+    have hcop2 : Nat.Coprime ((d / Nat.gcd d b) ^ 2) ((b / Nat.gcd d b) ^ 2) :=
+      Nat.Coprime.pow 2 2 hcop
+    have hda : (d / Nat.gcd d b) ^ 2 ∣ a := hcop2.dvd_of_dvd_mul_left h2
+    have hunit : IsUnit (d / Nat.gcd d b) :=
+      ha (d / Nat.gcd d b) (by rw [← pow_two]; exact hda)
+    have h1 : d / Nat.gcd d b = 1 := Nat.isUnit_iff.mp hunit
+    rw [hdeq, h1, mul_one]
+    exact hgb
+
+/-- **P1.** `Σ_{d² ∣ n} μ(d) = μ(n)²` for `n ≥ 1`.
+
+`Nat.sq_mul_squarefree_of_pos` writes `n = b²·a` with `a` squarefree; the `d` with `d² ∣ n`
+are EXACTLY the divisors of `b`, so the sum is `[b = 1]`, and `b = 1 ↔ Squarefree n`.
+
+The must-FAIL control (measured): with `μ(n)²` → `μ(n)` at `n = 2` the LHS is `1` and the
+RHS `−1`. -/
+theorem sum_moebius_sq_dvd_eq (n : ℕ) (hn : 1 ≤ n) :
+    ∑ d ∈ (Finset.Icc 1 n).filter (fun d => d ^ 2 ∣ n), (moebius d : ℝ)
+      = (moebius n : ℝ) ^ 2 := by
+  classical
+  obtain ⟨a, b, ha0, hb0, hab, hasq⟩ := Nat.sq_mul_squarefree_of_pos hn
+  have hset : (Finset.Icc 1 n).filter (fun d => d ^ 2 ∣ n) = b.divisors := by
+    ext d
+    simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors]
+    constructor
+    · rintro ⟨⟨hd1, _⟩, hdvd⟩
+      refine ⟨dvd_of_sq_dvd_sq_mul hasq ?_, by omega⟩
+      rw [hab]
+      exact hdvd
+    · rintro ⟨hdb, _⟩
+      have hd1 : 1 ≤ d := Nat.pos_of_dvd_of_pos hdb hb0
+      have hdb' : d ≤ b := Nat.le_of_dvd hb0 hdb
+      have hbn : b ≤ n := by nlinarith [hab, ha0, hb0]
+      refine ⟨⟨hd1, by omega⟩, ?_⟩
+      rw [← hab]
+      exact Dvd.dvd.mul_right (pow_dvd_pow_of_dvd hdb 2) a
+  have hiff : b = 1 ↔ Squarefree n := by
+    constructor
+    · rintro rfl
+      have han : a = n := by simpa using hab
+      exact han ▸ hasq
+    · intro hsq
+      exact Nat.isUnit_iff.mp (hsq b ⟨a, by rw [← hab]; ring⟩)
+  have hmn : ((moebius n : ℝ)) ^ 2 = if Squarefree n then (1 : ℝ) else 0 := by
+    have h := moebius_sq (n := n)
+    by_cases hs : Squarefree n
+    · rw [if_pos hs] at h ⊢
+      exact_mod_cast h
+    · rw [if_neg hs] at h ⊢
+      exact_mod_cast h
+  rw [hset, sum_divisors_moebius_real, hmn]
+  by_cases hb1 : b = 1
+  · rw [if_pos hb1, if_pos (hiff.mp hb1)]
+  · rw [if_neg hb1, if_neg fun hs => hb1 (hiff.mpr hs)]
+
+/-- `Σ_{k ∣ r} μ(k)/k = φ(r)/r` — only the squarefree divisors survive, they are the
+subsets of `r.primeFactors`, and `Finset.prod_one_add` turns the powerset sum into
+`∏_{p ∣ r}(1 − 1/p)`, which is `φ(r)/r`. -/
+private lemma sum_moebius_div_eq_totient_div (r : ℕ) (hr : 1 ≤ r) :
+    ∑ k ∈ r.divisors, (moebius k : ℝ) / k = (Nat.totient r : ℝ) / r := by
+  classical
+  have hr0 : r ≠ 0 := by omega
+  have hfilter : ∑ k ∈ r.divisors, (moebius k : ℝ) / k
+      = ∑ k ∈ r.divisors.filter Squarefree, (moebius k : ℝ) / k := by
+    refine (Finset.sum_subset (Finset.filter_subset _ _) fun k hk hk' => ?_).symm
+    have hns : ¬ Squarefree k := fun hs => hk' (Finset.mem_filter.mpr ⟨hk, hs⟩)
+    rw [moebius_eq_zero_of_not_squarefree hns, Int.cast_zero, zero_div]
+  rw [hfilter, Nat.sum_divisors_filter_squarefree hr0, totient_div_eq_prod_one_sub r hr]
+  have hbridge : (UniqueFactorizationMonoid.normalizedFactors r).toFinset = r.primeFactors := by
+    rw [Nat.factors_eq, List.toFinset_coe, Nat.toFinset_factors]
+  rw [hbridge]
+  have hform : ∏ p ∈ r.primeFactors, (1 - 1 / (p : ℝ))
+      = ∏ p ∈ r.primeFactors, (1 + -(1 / (p : ℝ))) := by
+    refine Finset.prod_congr rfl fun p _ => by ring
+  rw [hform, Finset.prod_one_add]
+  refine Finset.sum_congr rfl fun t ht => ?_
+  have hsub : t ⊆ r.primeFactors := Finset.mem_powerset.mp ht
+  have hprime : ∀ p ∈ t, Nat.Prime p := fun p hp => Nat.prime_of_mem_primeFactors (hsub hp)
+  have hpw : (↑t : Set ℕ).Pairwise (Function.onFun Nat.Coprime (fun p : ℕ => p)) := by
+    intro p hp q hq hne
+    exact (Nat.coprime_primes (hprime p hp) (hprime q hq)).mpr hne
+  have hval : t.val.prod = ∏ p ∈ t, p := Finset.prod_val t
+  rw [hval, isMultiplicative_moebius.map_prod (fun p : ℕ => p) t hpw, Nat.cast_prod,
+    Int.cast_prod, ← Finset.prod_div_distrib]
+  refine Finset.prod_congr rfl fun p hp => ?_
+  rw [moebius_apply_prime (hprime p hp)]
+  push_cast
+  ring
+
+/-- `|⌊y⌋₊ − y| ≤ min(1, y)` for `y ≥ 0`. -/
+private lemma abs_floor_sub_le_min {y : ℝ} (hy : 0 ≤ y) :
+    |((⌊y⌋₊ : ℕ) : ℝ) - y| ≤ min 1 y := by
+  have h1 : ((⌊y⌋₊ : ℕ) : ℝ) ≤ y := Nat.floor_le hy
+  have h2 : y < ((⌊y⌋₊ : ℕ) : ℝ) + 1 := Nat.lt_floor_add_one y
+  have h3 : (0 : ℝ) ≤ ((⌊y⌋₊ : ℕ) : ℝ) := Nat.cast_nonneg _
+  rw [abs_of_nonpos (by linarith), neg_sub]
+  exact le_min (by linarith) (by linarith)
+
+/-- `min(1, y) ≤ y^{1/4}` for `y ≥ 0` (K37). -/
+private lemma min_one_le_rpow_quarter {y : ℝ} (hy : 0 ≤ y) : min 1 y ≤ y ^ (1/4 : ℝ) := by
+  rcases le_or_gt y 1 with h | h
+  · rcases eq_or_lt_of_le hy with rfl | hy0
+    · rw [Real.zero_rpow (by norm_num), min_eq_right zero_le_one]
+    · rw [min_eq_right h]
+      calc y = y ^ (1 : ℝ) := (Real.rpow_one y).symm
+        _ ≤ y ^ (1/4 : ℝ) := Real.rpow_le_rpow_of_exponent_ge hy0 h (by norm_num)
+  · rw [min_eq_left h.le]
+    have hle := Real.rpow_le_rpow (zero_le_one) h.le (by norm_num : (0 : ℝ) ≤ 1/4)
+    rwa [Real.one_rpow] at hle
+
+/-- **P2.** `|#{m ≤ X : (m,r)=1} − (φ(r)/r)·X| ≤ X^{1/4}·σ_{−1/4}(r)` for `X ≥ 0`.
+
+`sum_coprime_eq_moebius_multiples` at `F ≡ 1` writes the count as `Σ_{k ∣ r} μ(k)⌊X/k⌋₊`,
+the main term as `Σ_{k ∣ r} μ(k)(X/k)` (`Σ μ(k)/k = φ(r)/r`), and the difference is
+controlled termwise by `|⌊y⌋₊ − y| ≤ min(1, y) ≤ y^{1/4}` at `y = X/k`.
+
+The must-FAIL control (measured): with the density DROPPED (`(φ(r)/r)·X` → `X`), the ratio
+to `X^{1/4}σ(r)` is `6.5399 / 24.1438 / 39.1517` at `(r, X) = (6, 10²) / (30, 10³) /
+(30030, 10⁴)` — UNBOUNDED.
+
+Two mutants were MEASURED and STRUCK, and are recorded here so nobody re-proposes them as
+controls. `X^{1/4}` → `X^0`: the error `|#{e ≤ X, (e,r)=1} − (φ(r)/r)X|` reads
+`1.81 / 1.08 / 0.75` at `(30030, 10³) / (30030, 10⁴) / (510510, 10⁴)` against
+`σ = 20.65 / 20.65 / 30.81` — the Möbius-weighted fractional parts cancel far below
+`2^{ω(r)}`, so this row's exponent is a CONVENIENCE for H5a's assembly, not a sharp claim.
+`σ(r)` → `1`: max ratio `0.723` on the refuter's grid. Neither FAILS. -/
+theorem abs_card_coprime_sub_le (r : ℕ) (hr : 1 ≤ r) (X : ℝ) (hX : 0 ≤ X) :
+    |(((Finset.Icc 1 ⌊X⌋₊).filter (fun m => Nat.Coprime m r)).card : ℝ)
+        - (Nat.totient r : ℝ) / r * X|
+      ≤ X ^ (1/4 : ℝ) * sigmaQ r := by
+  classical
+  have hcard : (((Finset.Icc 1 ⌊X⌋₊).filter (fun m => Nat.Coprime m r)).card : ℝ)
+      = ∑ k ∈ r.divisors, (moebius k : ℝ) * ((⌊X⌋₊ / k : ℕ) : ℝ) := by
+    have h := sum_coprime_eq_moebius_multiples r ⌊X⌋₊ hr (fun _ => (1 : ℝ))
+    rw [Finset.sum_const, nsmul_eq_mul, mul_one] at h
+    rw [h]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [Finset.sum_const, Nat.card_Icc, nsmul_eq_mul, mul_one]
+    norm_num
+  have hmain : (Nat.totient r : ℝ) / r * X = ∑ k ∈ r.divisors, (moebius k : ℝ) * (X / k) := by
+    rw [← sum_moebius_div_eq_totient_div r hr, Finset.sum_mul]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    ring
+  rw [hcard, hmain, ← Finset.sum_sub_distrib]
+  calc |∑ k ∈ r.divisors,
+          ((moebius k : ℝ) * ((⌊X⌋₊ / k : ℕ) : ℝ) - (moebius k : ℝ) * (X / k))|
+      ≤ ∑ k ∈ r.divisors,
+          |(moebius k : ℝ) * ((⌊X⌋₊ / k : ℕ) : ℝ) - (moebius k : ℝ) * (X / k)| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ k ∈ r.divisors, X ^ (1/4 : ℝ) * (k : ℝ) ^ (-(1/4 : ℝ)) := by
+        refine Finset.sum_le_sum fun k hk => ?_
+        have hk1 : 1 ≤ k := Nat.pos_of_mem_divisors hk
+        have hk0 : (0 : ℝ) < (k : ℝ) := by exact_mod_cast hk1
+        have hy : (0 : ℝ) ≤ X / (k : ℝ) := by positivity
+        have hfl : ((⌊X⌋₊ / k : ℕ) : ℝ) = ((⌊X / (k : ℝ)⌋₊ : ℕ) : ℝ) := by
+          rw [Nat.floor_div_natCast]
+        have hmu : |((moebius k : ℤ) : ℝ)| ≤ 1 := by
+          rw [← Int.cast_abs]
+          exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+        rw [hfl, ← mul_sub, abs_mul]
+        calc |((moebius k : ℤ) : ℝ)| * |((⌊X / (k : ℝ)⌋₊ : ℕ) : ℝ) - X / (k : ℝ)|
+            ≤ 1 * (X / (k : ℝ)) ^ (1/4 : ℝ) := by
+              refine mul_le_mul hmu ?_ (abs_nonneg _) zero_le_one
+              exact le_trans (abs_floor_sub_le_min hy) (min_one_le_rpow_quarter hy)
+          _ = X ^ (1/4 : ℝ) * (k : ℝ) ^ (-(1/4 : ℝ)) := by
+              rw [one_mul, div_rpow_neg hX hk0.le]
+    _ = X ^ (1/4 : ℝ) * sigmaQ r := by
+        rw [sigmaQ, Finset.mul_sum]
+
+/-- `|μ(n)/n²| ≤ 1/n²` (at `n = 0` both sides are `0`). -/
+private lemma abs_moebius_div_sq_le (n : ℕ) :
+    |(moebius n : ℝ) / (n : ℝ) ^ 2| ≤ 1 / (n : ℝ) ^ 2 := by
+  rcases Nat.eq_zero_or_pos n with rfl | hn
+  · simp
+  · have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+    have hmu : |((moebius n : ℤ) : ℝ)| ≤ 1 := by
+      rw [← Int.cast_abs]
+      exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+    rw [abs_div, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (n : ℝ) ^ 2)]
+    exact (div_le_div_iff_of_pos_right (by positivity)).mpr hmu
+
+/-- The `1/n²`-dominated tail: a series bounded termwise by `1/n²` differs from its partial
+sum over `[1, D]` by at most `2/(D + 1)` (`sum_Ioo_inv_sq_le` on every finite window,
+passed to the tsum by `Real.tsum_le_of_sum_le`). -/
+private lemma abs_tsum_sub_sum_le {g : ℕ → ℝ} (hg : Summable g)
+    (hb : ∀ n : ℕ, |g n| ≤ 1 / (n : ℝ) ^ 2) (D : ℕ) :
+    |(∑' n : ℕ, g n) - ∑ n ∈ Finset.Icc 1 D, g n| ≤ 2 / ((D : ℝ) + 1) := by
+  classical
+  set b : ℕ → ℝ := fun n => if n ∈ Finset.Icc 1 D then 0 else 1 / (n : ℝ) ^ 2 with hbdef
+  have hb0 : ∀ n, 0 ≤ b n := by
+    intro n
+    rw [hbdef]
+    dsimp only
+    split_ifs
+    · exact le_refl 0
+    · positivity
+  have hbsum : Summable b := by
+    refine Summable.of_nonneg_of_le hb0 (fun n => ?_)
+      (Real.summable_one_div_nat_pow.mpr (by norm_num) : Summable fun n : ℕ => 1 / (n : ℝ) ^ 2)
+    rw [hbdef]
+    dsimp only
+    split_ifs
+    · positivity
+    · exact le_refl _
+  have hbtsum : (∑' n : ℕ, b n) ≤ 2 / ((D : ℝ) + 1) := by
+    refine Real.tsum_le_of_sum_le hb0 fun s => ?_
+    have hs' : ∑ n ∈ s, b n = ∑ n ∈ s.filter (fun n => D < n), b n := by
+      refine (Finset.sum_filter_of_ne fun n _ hne => ?_).symm
+      by_contra hcon
+      rw [not_lt] at hcon
+      refine hne ?_
+      rw [hbdef]
+      dsimp only
+      rcases Nat.eq_zero_or_pos n with rfl | hn0
+      · rw [if_neg (by simp)]
+        norm_num
+      · rw [if_pos (Finset.mem_Icc.mpr ⟨hn0, hcon⟩)]
+    have hsubset : s.filter (fun n => D < n) ⊆ Finset.Ioo D (s.sup id + 1) := by
+      intro n hn
+      rw [Finset.mem_filter] at hn
+      rw [Finset.mem_Ioo]
+      have hle : n ≤ s.sup id := Finset.le_sup (f := id) hn.1
+      exact ⟨hn.2, by omega⟩
+    rw [hs']
+    calc ∑ n ∈ s.filter (fun n => D < n), b n
+        ≤ ∑ n ∈ Finset.Ioo D (s.sup id + 1), b n :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsubset fun i _ _ => hb0 i
+      _ ≤ ∑ n ∈ Finset.Ioo D (s.sup id + 1), (((n : ℝ)) ^ 2)⁻¹ := by
+          refine Finset.sum_le_sum fun n hn => ?_
+          rw [hbdef]
+          dsimp only
+          split_ifs
+          · positivity
+          · rw [one_div]
+      _ ≤ 2 / ((D : ℝ) + 1) := sum_Ioo_inv_sq_le D (s.sup id + 1)
+  have hg' : Summable (fun n : ℕ => if n ∈ Finset.Icc 1 D then g n else 0) :=
+    summable_of_ne_finset_zero (s := Finset.Icc 1 D) fun n hn => if_neg hn
+  have hsum' : (∑' n : ℕ, (if n ∈ Finset.Icc 1 D then g n else 0))
+      = ∑ n ∈ Finset.Icc 1 D, g n := by
+    rw [tsum_eq_sum (s := Finset.Icc 1 D) fun n hn => if_neg hn]
+    exact Finset.sum_congr rfl fun n hn => if_pos hn
+  have hdiff : (∑' n : ℕ, g n) - ∑ n ∈ Finset.Icc 1 D, g n
+      = ∑' n : ℕ, (g n - (if n ∈ Finset.Icc 1 D then g n else 0)) := by
+    rw [hg.tsum_sub hg', hsum']
+  have hpt : ∀ n : ℕ, |g n - (if n ∈ Finset.Icc 1 D then g n else 0)| ≤ b n := by
+    intro n
+    by_cases hn : n ∈ Finset.Icc 1 D
+    · rw [if_pos hn, sub_self, abs_zero, hbdef]
+      dsimp only
+      rw [if_pos hn]
+    · rw [if_neg hn, sub_zero, hbdef]
+      dsimp only
+      rw [if_neg hn]
+      exact hb n
+  have habs : Summable (fun n : ℕ => |g n - (if n ∈ Finset.Icc 1 D then g n else 0)|) :=
+    Summable.of_nonneg_of_le (fun n => abs_nonneg _) hpt hbsum
+  rw [hdiff]
+  calc |∑' n : ℕ, (g n - (if n ∈ Finset.Icc 1 D then g n else 0))|
+      ≤ ∑' n : ℕ, |g n - (if n ∈ Finset.Icc 1 D then g n else 0)| := by
+        have h := norm_tsum_le_tsum_norm
+          (f := fun n : ℕ => g n - (if n ∈ Finset.Icc 1 D then g n else 0)) (by simpa using habs)
+        simpa using h
+    _ ≤ ∑' n : ℕ, b n := Summable.tsum_le_tsum hpt habs hbsum
+    _ ≤ 2 / ((D : ℝ) + 1) := hbtsum
+
+/-- **H5a (the H freeze's row, verbatim).** `|Σ_{m ≤ M, (m,r)=1} μ²(m) − ρ₀(r/κ(r))M|
+≤ C·√M·σ_{−1/4}(r)`, with `C = 4`.
+
+P1 opens `μ²(m)` as `Σ_{d² ∣ m} μ(d)`; the swap sends the pair `(m, d)` to
+`d ≤ √N`, `m = d²e`, and the coprimality splits as `(d, r) = 1 ∧ (e, r) = 1`; P2 at
+`X = M/d²` supplies each inner count with error `X^{1/4}σ(r) = M^{1/4}d^{−1/2}σ(r)`, and
+`Σ_{d ≤ √M} d^{−1/2} ≤ 2·M^{1/4}` (NOT `2√M` — the sum runs to `⌊√M⌋₊, not to M) turns the
+total error into `2√M·σ(r)`. The main term is `(φ(r)/r)·M` times the partial sum of the
+coprime subseries, whose tail costs `2M/(D+1) ≤ 2√M`, and T6 identifies the full series as
+`ρ₀(r/κ(r))`.
+
+The must-FAIL control (measured): with the density `ρ₀·(r/κ(r))` → `ρ₀·(φ(r)/r)`, the
+ratio `|count − main|/(√M·σ(6))` at `r = 6` and `M = 10² / 10⁴ / 10⁶` is
+`0.0186 / 0.0104 / 0.0002` FROZEN (counts 31 / 3043 / 303963) against
+`0.3314 / 3.1379 / 31.2749` MUTANT — the GROWTH is the kill; a fixed-`M` comparison
+would pass at a large enough `C`. -/
+theorem sqf_coprime_count_eq : ∃ C : ℝ, 0 < C ∧ ∀ r : ℕ, 1 ≤ r → ∀ M : ℝ, 1 ≤ M →
+    |∑ m ∈ (Finset.Icc 1 ⌊M⌋₊).filter (fun m => Nat.Coprime m r), (moebius m : ℝ) ^ 2
+        - rho0 * ((r : ℝ) / kappa r) * M| ≤ C * M ^ (1/2 : ℝ) * sigmaQ r := by
+  classical
+  refine ⟨4, by norm_num, fun r hr M hM => ?_⟩
+  set N : ℕ := ⌊M⌋₊ with hNdef
+  set D : ℕ := Nat.sqrt N with hDdef
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hNM : (N : ℝ) ≤ M := Nat.floor_le hM0.le
+  have hMN : M < (N : ℝ) + 1 := Nat.lt_floor_add_one M
+  have hN1 : 1 ≤ N := Nat.le_floor (by exact_mod_cast hM)
+  have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
+  have hsig1 : (1 : ℝ) ≤ sigmaQ r := one_le_sigmaQ r hr
+  have hphi0 : (0 : ℝ) ≤ (Nat.totient r : ℝ) / r := by positivity
+  have hphi1 : (Nat.totient r : ℝ) / r ≤ 1 := by
+    rw [div_le_one hr0]
+    exact_mod_cast Nat.totient_le r
+  -- the coprime-restricted summand of the subseries
+  set g : ℕ → ℝ := fun n => if Nat.Coprime n r then (moebius n : ℝ) / (n : ℝ) ^ 2 else 0
+    with hgdef
+  have hgsum : Summable g := summable_coprime_indicator summable_abs_moebius_div_sq r
+  have hgb : ∀ n : ℕ, |g n| ≤ 1 / (n : ℝ) ^ 2 := by
+    intro n
+    rw [hgdef]
+    dsimp only
+    split_ifs
+    · exact abs_moebius_div_sq_le n
+    · rw [abs_zero]
+      positivity
+  -- STEP 1-3: the swap
+  have hstep1 : ∑ m ∈ (Finset.Icc 1 N).filter (fun m => Nat.Coprime m r), (moebius m : ℝ) ^ 2
+      = ∑ m ∈ Finset.Icc 1 N, ∑ d ∈ (Finset.Icc 1 m).filter (fun d => d ^ 2 ∣ m),
+          (if Nat.Coprime m r then (moebius d : ℝ) else 0) := by
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun m hm => ?_
+    have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+    by_cases hc : Nat.Coprime m r
+    · rw [if_pos hc, Finset.sum_congr rfl (fun d _ => if_pos hc)]
+      exact (sum_moebius_sq_dvd_eq m hm1).symm
+    · rw [if_neg hc, Finset.sum_congr rfl (fun d _ => if_neg hc), Finset.sum_const, smul_zero]
+  have hstep2 : ∑ m ∈ Finset.Icc 1 N, ∑ d ∈ (Finset.Icc 1 m).filter (fun d => d ^ 2 ∣ m),
+          (if Nat.Coprime m r then (moebius d : ℝ) else 0)
+      = ∑ d ∈ Finset.Icc 1 D, ∑ m ∈ (Finset.Icc 1 N).filter (fun m => d ^ 2 ∣ m),
+          (if Nat.Coprime m r then (moebius d : ℝ) else 0) := by
+    refine Finset.sum_comm' ?_
+    intro m d
+    simp only [Finset.mem_Icc, Finset.mem_filter]
+    constructor
+    · rintro ⟨⟨hm1, hmN⟩, ⟨hd1, _⟩, hdvd⟩
+      have hd2m : d ^ 2 ≤ m := Nat.le_of_dvd (by omega) hdvd
+      refine ⟨⟨⟨hm1, hmN⟩, hdvd⟩, hd1, ?_⟩
+      rw [hDdef]
+      exact Nat.le_sqrt.mpr (by nlinarith)
+    · rintro ⟨⟨⟨hm1, hmN⟩, hdvd⟩, hd1, _⟩
+      have hd2m : d ^ 2 ≤ m := Nat.le_of_dvd (by omega) hdvd
+      exact ⟨⟨hm1, hmN⟩, ⟨hd1, by nlinarith⟩, hdvd⟩
+  have hstep3 : ∀ d : ℕ, 1 ≤ d →
+      ∑ m ∈ (Finset.Icc 1 N).filter (fun m => d ^ 2 ∣ m),
+          (if Nat.Coprime m r then (moebius d : ℝ) else 0)
+        = (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0) := by
+    intro d hd1
+    have hd2 : 1 ≤ d ^ 2 := Nat.one_le_pow _ _ hd1
+    rw [sum_dvd_reindex hd2 (fun m => if Nat.Coprime m r then (moebius d : ℝ) else 0),
+      Finset.mul_sum]
+    refine Finset.sum_congr rfl fun e _ => ?_
+    by_cases hc : Nat.Coprime (d ^ 2 * e) r
+    · rw [if_pos hc, if_pos hc, mul_one]
+    · rw [if_neg hc, if_neg hc, mul_zero]
+  have hLHS : ∑ m ∈ (Finset.Icc 1 N).filter (fun m => Nat.Coprime m r), (moebius m : ℝ) ^ 2
+      = ∑ d ∈ Finset.Icc 1 D, (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+          (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0) := by
+    rw [hstep1, hstep2]
+    exact Finset.sum_congr rfl fun d hd => hstep3 d (Finset.mem_Icc.mp hd).1
+  -- STEP 4: the per-`d` comparison against P2
+  have hper : ∀ d ∈ Finset.Icc 1 D,
+      |(moebius d : ℝ) * (∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+        - (Nat.totient r : ℝ) / r * M * g d|
+      ≤ M ^ (1/4 : ℝ) * sigmaQ r * (d : ℝ) ^ (-(1/2) : ℝ) := by
+    intro d hd
+    have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
+    have hdR : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+    have hcastd : ((d ^ 2 : ℕ) : ℝ) = (d : ℝ) ^ 2 := by push_cast; ring
+    have hX0 : (0 : ℝ) ≤ M / ((d ^ 2 : ℕ) : ℝ) := by rw [hcastd]; positivity
+    have hfl : ⌊M / ((d ^ 2 : ℕ) : ℝ)⌋₊ = N / d ^ 2 := by
+      rw [Nat.floor_div_natCast]
+    have hXq : (M / ((d ^ 2 : ℕ) : ℝ)) ^ (1/4 : ℝ)
+        = M ^ (1/4 : ℝ) * (d : ℝ) ^ (-(1/2) : ℝ) := by
+      rw [div_rpow_neg hM0.le (by positivity) (1/4 : ℝ), hcastd,
+        ← Real.rpow_natCast (d : ℝ) 2, ← Real.rpow_mul hdR.le]
+      norm_num
+    by_cases hcd : Nat.Coprime d r
+    · have hcd2 : Nat.Coprime (d ^ 2) r := Nat.Coprime.pow_left 2 hcd
+      have hinner : (∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+          = (((Finset.Icc 1 (N / d ^ 2)).filter (fun e => Nat.Coprime e r)).card : ℝ) := by
+        have hpt : ∀ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0)
+              = (if Nat.Coprime e r then (1 : ℝ) else 0) := by
+          intro e _
+          by_cases hc : Nat.Coprime e r
+          · rw [if_pos (Nat.Coprime.mul_left hcd2 hc), if_pos hc]
+          · have hne : ¬ Nat.Coprime (d ^ 2 * e) r := fun hcon =>
+              hc (Nat.Coprime.coprime_dvd_left (dvd_mul_left e (d ^ 2)) hcon)
+            rw [if_neg hne, if_neg hc]
+        rw [Finset.sum_congr rfl hpt, ← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul,
+          mul_one]
+      have hP2 := abs_card_coprime_sub_le r hr (M / ((d ^ 2 : ℕ) : ℝ)) hX0
+      rw [hfl] at hP2
+      have hgd : g d = (moebius d : ℝ) / (d : ℝ) ^ 2 := by
+        rw [hgdef]; dsimp only; rw [if_pos hcd]
+      have hmaind : (Nat.totient r : ℝ) / r * M * g d
+          = (moebius d : ℝ) * ((Nat.totient r : ℝ) / r * (M / ((d ^ 2 : ℕ) : ℝ))) := by
+        rw [hgd, hcastd]
+        field_simp
+      rw [hinner, hmaind, ← mul_sub, abs_mul]
+      have hmu : |((moebius d : ℤ) : ℝ)| ≤ 1 := by
+        rw [← Int.cast_abs]
+        exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+      calc |((moebius d : ℤ) : ℝ)|
+              * |(((Finset.Icc 1 (N / d ^ 2)).filter (fun e => Nat.Coprime e r)).card : ℝ)
+                  - (Nat.totient r : ℝ) / r * (M / ((d ^ 2 : ℕ) : ℝ))|
+          ≤ 1 * ((M / ((d ^ 2 : ℕ) : ℝ)) ^ (1/4 : ℝ) * sigmaQ r) := by
+            refine mul_le_mul hmu hP2 (abs_nonneg _) zero_le_one
+        _ = M ^ (1/4 : ℝ) * sigmaQ r * (d : ℝ) ^ (-(1/2) : ℝ) := by
+            rw [one_mul, hXq]; ring
+    · have hzero : (∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0)) = 0 := by
+        refine Finset.sum_eq_zero fun e _ => ?_
+        refine if_neg fun hc => hcd ?_
+        exact Nat.Coprime.coprime_dvd_left
+          (dvd_trans (dvd_pow_self d (by norm_num)) (Dvd.intro e rfl)) hc
+      have hgd : g d = 0 := by
+        rw [hgdef]; dsimp only; rw [if_neg hcd]
+      rw [hzero, hgd, mul_zero, mul_zero, sub_zero, abs_zero]
+      have : (0 : ℝ) ≤ (d : ℝ) ^ (-(1/2) : ℝ) := Real.rpow_nonneg hdR.le _
+      have hMq : (0 : ℝ) ≤ M ^ (1/4 : ℝ) := Real.rpow_nonneg hM0.le _
+      positivity
+  -- STEP 5: sum the per-`d` errors
+  have hDM : (D : ℝ) ≤ M ^ (1/2 : ℝ) := by
+    have h1 : ((D : ℝ)) ^ 2 ≤ M := by
+      have hnat : D * D ≤ N := Nat.sqrt_le N
+      have : ((D * D : ℕ) : ℝ) ≤ (N : ℝ) := by exact_mod_cast hnat
+      push_cast at this
+      nlinarith
+    have h2 := Real.rpow_le_rpow (by positivity : (0 : ℝ) ≤ ((D : ℝ)) ^ 2) h1
+      (by norm_num : (0 : ℝ) ≤ 1/2)
+    rwa [← Real.rpow_natCast (D : ℝ) 2, ← Real.rpow_mul (by positivity : (0 : ℝ) ≤ (D : ℝ)),
+      show ((2 : ℕ) : ℝ) * (1/2 : ℝ) = 1 by norm_num, Real.rpow_one] at h2
+  have hD2 : (D : ℝ) ^ (1/2 : ℝ) ≤ M ^ (1/4 : ℝ) := by
+    have h := Real.rpow_le_rpow (by positivity : (0 : ℝ) ≤ (D : ℝ)) hDM
+      (by norm_num : (0 : ℝ) ≤ 1/2)
+    rwa [← Real.rpow_mul hM0.le, show (1/2 : ℝ) * (1/2 : ℝ) = 1/4 by norm_num] at h
+  have hMsplit : M ^ (1/4 : ℝ) * M ^ (1/4 : ℝ) = M ^ (1/2 : ℝ) := by
+    rw [← Real.rpow_add hM0, show (1/4 : ℝ) + (1/4 : ℝ) = 1/2 by norm_num]
+  have herr : |(∑ d ∈ Finset.Icc 1 D, (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+        - ∑ d ∈ Finset.Icc 1 D, (Nat.totient r : ℝ) / r * M * g d|
+      ≤ 2 * M ^ (1/2 : ℝ) * sigmaQ r := by
+    rw [← Finset.sum_sub_distrib]
+    calc |∑ d ∈ Finset.Icc 1 D, ((moebius d : ℝ) * (∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+              (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+            - (Nat.totient r : ℝ) / r * M * g d)|
+        ≤ ∑ d ∈ Finset.Icc 1 D, |(moebius d : ℝ) * (∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+              (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+            - (Nat.totient r : ℝ) / r * M * g d| := Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ d ∈ Finset.Icc 1 D, M ^ (1/4 : ℝ) * sigmaQ r * (d : ℝ) ^ (-(1/2) : ℝ) :=
+          Finset.sum_le_sum hper
+      _ = M ^ (1/4 : ℝ) * sigmaQ r * ∑ d ∈ Finset.Icc 1 D, (d : ℝ) ^ (-(1/2) : ℝ) := by
+          rw [Finset.mul_sum]
+      _ ≤ M ^ (1/4 : ℝ) * sigmaQ r * (2 * (D : ℝ) ^ ((1/2) : ℝ)) := by
+          refine mul_le_mul_of_nonneg_left (sum_rpow_neg_half_le D) ?_
+          have : (0 : ℝ) ≤ M ^ (1/4 : ℝ) := Real.rpow_nonneg hM0.le _
+          nlinarith [hsig1]
+      _ ≤ M ^ (1/4 : ℝ) * sigmaQ r * (2 * M ^ (1/4 : ℝ)) := by
+          have hpos : (0 : ℝ) ≤ M ^ (1/4 : ℝ) * sigmaQ r := by
+            have : (0 : ℝ) ≤ M ^ (1/4 : ℝ) := Real.rpow_nonneg hM0.le _
+            nlinarith [hsig1]
+          nlinarith [hD2, hpos]
+      _ = 2 * M ^ (1/2 : ℝ) * sigmaQ r := by
+          rw [← hMsplit]; ring
+  -- STEP 6-7: the main term against the full subseries and T6
+  have hmainsum : ∑ d ∈ Finset.Icc 1 D, (Nat.totient r : ℝ) / r * M * g d
+      = (Nat.totient r : ℝ) / r * M * ∑ d ∈ Finset.Icc 1 D, g d := by
+    rw [Finset.mul_sum]
+  have hT6 := totient_div_mul_coprimeSeries_moebius_div_sq r hr
+  have hser : (Nat.totient r : ℝ) / r * (∑' n : ℕ, g n) = rho0 * ((r : ℝ) / kappa r) := hT6
+  have hMD : M ^ (1/2 : ℝ) ≤ (D : ℝ) + 1 := by
+    have hnat : N < (D + 1) * (D + 1) := Nat.lt_succ_sqrt N
+    have hcast : (N : ℝ) + 1 ≤ ((D : ℝ) + 1) ^ 2 := by
+      have : (N : ℝ) + 1 ≤ (((D + 1) * (D + 1) : ℕ) : ℝ) := by exact_mod_cast hnat
+      push_cast at this
+      nlinarith
+    have h1 : M ≤ ((D : ℝ) + 1) ^ 2 := by linarith
+    have h2 := Real.rpow_le_rpow hM0.le h1 (by norm_num : (0 : ℝ) ≤ 1/2)
+    rwa [← Real.rpow_natCast ((D : ℝ) + 1) 2,
+      ← Real.rpow_mul (by positivity : (0 : ℝ) ≤ (D : ℝ) + 1),
+      show ((2 : ℕ) : ℝ) * (1/2 : ℝ) = 1 by norm_num, Real.rpow_one] at h2
+  have htail : |(∑' n : ℕ, g n) - ∑ n ∈ Finset.Icc 1 D, g n| ≤ 2 / ((D : ℝ) + 1) :=
+    abs_tsum_sub_sum_le hgsum hgb D
+  have hmainerr : |(Nat.totient r : ℝ) / r * M * (∑ d ∈ Finset.Icc 1 D, g d)
+      - rho0 * ((r : ℝ) / kappa r) * M| ≤ 2 * M ^ (1/2 : ℝ) * sigmaQ r := by
+    have hrw : (Nat.totient r : ℝ) / r * M * (∑ d ∈ Finset.Icc 1 D, g d)
+        - rho0 * ((r : ℝ) / kappa r) * M
+        = (Nat.totient r : ℝ) / r * M * ((∑ d ∈ Finset.Icc 1 D, g d) - (∑' n : ℕ, g n)) := by
+      rw [← hser]; ring
+    rw [hrw, abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (Nat.totient r : ℝ) / r * M),
+      abs_sub_comm]
+    have hDpos : (0 : ℝ) < (D : ℝ) + 1 := by positivity
+    have hstep : M / ((D : ℝ) + 1) ≤ M ^ (1/2 : ℝ) := by
+      rw [div_le_iff₀ hDpos]
+      calc M = M ^ (1/2 : ℝ) * M ^ (1/2 : ℝ) := by
+            rw [← Real.rpow_add hM0, show (1/2 : ℝ) + (1/2 : ℝ) = 1 by norm_num, Real.rpow_one]
+        _ ≤ M ^ (1/2 : ℝ) * ((D : ℝ) + 1) :=
+            mul_le_mul_of_nonneg_left hMD (Real.rpow_nonneg hM0.le _)
+    calc (Nat.totient r : ℝ) / r * M * |(∑' n : ℕ, g n) - ∑ d ∈ Finset.Icc 1 D, g d|
+        ≤ 1 * M * (2 / ((D : ℝ) + 1)) := by
+          refine mul_le_mul (mul_le_mul hphi1 (le_refl M) hM0.le zero_le_one) htail
+            (abs_nonneg _) (by positivity)
+      _ = 2 * (M / ((D : ℝ) + 1)) := by field_simp
+      _ ≤ 2 * M ^ (1/2 : ℝ) := by linarith
+      _ ≤ 2 * M ^ (1/2 : ℝ) * sigmaQ r := by
+          have : (0 : ℝ) ≤ M ^ (1/2 : ℝ) := Real.rpow_nonneg hM0.le _
+          nlinarith [hsig1]
+  -- STEP 8: assemble
+  rw [hLHS]
+  have hsplit : (∑ d ∈ Finset.Icc 1 D, (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+          (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+        - rho0 * ((r : ℝ) / kappa r) * M
+      = ((∑ d ∈ Finset.Icc 1 D, (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+          - ∑ d ∈ Finset.Icc 1 D, (Nat.totient r : ℝ) / r * M * g d)
+        + ((Nat.totient r : ℝ) / r * M * (∑ d ∈ Finset.Icc 1 D, g d)
+          - rho0 * ((r : ℝ) / kappa r) * M) := by
+    rw [hmainsum]; ring
+  rw [hsplit]
+  calc |((∑ d ∈ Finset.Icc 1 D, (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+          - ∑ d ∈ Finset.Icc 1 D, (Nat.totient r : ℝ) / r * M * g d)
+        + ((Nat.totient r : ℝ) / r * M * (∑ d ∈ Finset.Icc 1 D, g d)
+          - rho0 * ((r : ℝ) / kappa r) * M)|
+      ≤ |(∑ d ∈ Finset.Icc 1 D, (moebius d : ℝ) * ∑ e ∈ Finset.Icc 1 (N / d ^ 2),
+            (if Nat.Coprime (d ^ 2 * e) r then (1 : ℝ) else 0))
+          - ∑ d ∈ Finset.Icc 1 D, (Nat.totient r : ℝ) / r * M * g d|
+        + |(Nat.totient r : ℝ) / r * M * (∑ d ∈ Finset.Icc 1 D, g d)
+          - rho0 * ((r : ℝ) / kappa r) * M| := abs_add_le _ _
+    _ ≤ 2 * M ^ (1/2 : ℝ) * sigmaQ r + 2 * M ^ (1/2 : ℝ) * sigmaQ r :=
+        add_le_add herr hmainerr
+    _ = 4 * M ^ (1/2 : ℝ) * sigmaQ r := by ring
+
+/-- The telescoping step of `Σ f^{−3/4}` (the landed recipe, re-derived). -/
+private lemma rpow_step_three_quarter (t : ℝ) (ht : 0 ≤ t) :
+    (t + 1) ^ (-(3/4) : ℝ) ≤ 4 * (t + 1) ^ ((1/4) : ℝ) - 4 * t ^ ((1/4) : ℝ) := by
+  have ht1 : (0 : ℝ) < t + 1 := by linarith
+  have hcube : ((t + 1) ^ ((1/4) : ℝ)) ^ 3 = (t + 1) ^ ((3/4) : ℝ) := by
+    rw [rpow_pow_nat ht1.le, show ((1/4 : ℝ)) * ((3 : ℕ) : ℝ) = (3/4 : ℝ) by norm_num]
+  have hinv : (t + 1) ^ (-(3/4) : ℝ) = ((t + 1) ^ ((3/4) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
+  rw [hinv, ← hcube]
+  set a : ℝ := (t + 1) ^ ((1/4) : ℝ) with ha
+  set b : ℝ := t ^ ((1/4) : ℝ) with hb
+  have ha0 : 0 < a := Real.rpow_pos_of_pos ht1 _
+  have hb0 : (0 : ℝ) ≤ b := Real.rpow_nonneg ht _
+  have ha4 : a ^ 4 = t + 1 := by
+    rw [ha, rpow_pow_nat ht1.le, show ((1/4 : ℝ)) * ((4 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have hb4 : b ^ 4 = t := by
+    rw [hb, rpow_pow_nat ht, show ((1/4 : ℝ)) * ((4 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have ha3 : (0 : ℝ) < a ^ 3 := by positivity
+  rw [inv_eq_one_div, div_le_iff₀ ha3]
+  nlinarith [mul_nonneg (sq_nonneg (a - b))
+    (show (0 : ℝ) ≤ 3 * a ^ 2 + 2 * a * b + b ^ 2 by positivity), ha4, hb4]
+
+/-- `Σ_{f ≤ N} f^{−3/4} ≤ 4·N^{1/4}` (the landed recipe, re-derived). -/
+private lemma sum_rpow_neg_three_quarter_le (N : ℕ) :
+    ∑ f ∈ Finset.Icc 1 N, (f : ℝ) ^ (-(3/4) : ℝ) ≤ 4 * (N : ℝ) ^ ((1/4) : ℝ) := by
+  induction N with
+  | zero => simp [Real.zero_rpow]
+  | succ m ih =>
+    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ m + 1)]
+    have hcast : ((m + 1 : ℕ) : ℝ) = (m : ℝ) + 1 := by push_cast; ring
+    rw [hcast]
+    linarith [ih, rpow_step_three_quarter (m : ℝ) (by positivity)]
+
+/-- `log u ≤ 4·u^{1/4}` for `u ≥ 1` (the landed recipe, re-derived). -/
+private lemma log_le_four_rpow_quarter {u : ℝ} (hu : 1 ≤ u) :
+    Real.log u ≤ 4 * u ^ ((1/4) : ℝ) := by
+  have hu0 : (0 : ℝ) < u := by linarith
+  have h1 : Real.log (u ^ ((1/4) : ℝ)) = (1/4 : ℝ) * Real.log u := Real.log_rpow hu0 _
+  have h2 : Real.log (u ^ ((1/4) : ℝ)) ≤ u ^ ((1/4) : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (Real.rpow_pos_of_pos hu0 _)
+  have h3 : (0 : ℝ) ≤ u ^ ((1/4) : ℝ) := (Real.rpow_pos_of_pos hu0 _).le
+  linarith
+
+/-- `Σ_{f ≤ m} 1/f ≤ 1 + log m` (the landed recipe, re-derived). -/
+private lemma sum_inv_le_one_add_log (m : ℕ) :
+    ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
+  have h := harmonic_le_one_add_log m
+  rw [harmonic_eq_sum_Icc] at h
+  push_cast at h
+  exact h
+
+/-- `Σ_{f ≤ M} f^{−1/2}·log(2Y/f) ≤ (2 log 2 + 16)·Y^{1/2}` for `M ≤ Y` (the landed
+recipe, re-derived). -/
+private lemma sum_rpow_neg_half_log_le {Y : ℝ} (hY : 1 ≤ Y) {M : ℕ} (hM : (M : ℝ) ≤ Y) :
+    ∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
+      ≤ (2 * Real.log 2 + 16) * Y ^ ((1/2) : ℝ) := by
+  have hY0 : (0 : ℝ) < Y := by linarith
+  have hbound : ∀ f ∈ Finset.Icc 1 M,
+      (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
+        ≤ Real.log 2 * (f : ℝ) ^ (-(1/2) : ℝ)
+          + 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ) := by
+    intro f hf
+    have hf1 : 1 ≤ f := (Finset.mem_Icc.mp hf).1
+    have hfM : f ≤ M := (Finset.mem_Icc.mp hf).2
+    have hf0 : (0 : ℝ) < (f : ℝ) := by exact_mod_cast hf1
+    have hfY : (f : ℝ) ≤ Y := le_trans (by exact_mod_cast hfM) hM
+    have hYf1 : (1 : ℝ) ≤ Y / (f : ℝ) := (one_le_div hf0).mpr hfY
+    have hsplit : Real.log (2 * Y / (f : ℝ)) = Real.log 2 + Real.log (Y / (f : ℝ)) := by
+      rw [show 2 * Y / (f : ℝ) = 2 * (Y / (f : ℝ)) by ring,
+        Real.log_mul (by norm_num) (by positivity)]
+    have hlogb : Real.log (Y / (f : ℝ)) ≤ 4 * (Y / (f : ℝ)) ^ ((1/4) : ℝ) :=
+      log_le_four_rpow_quarter hYf1
+    have hdr : (Y / (f : ℝ)) ^ ((1/4) : ℝ) = Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(1/4) : ℝ) :=
+      div_rpow_neg hY0.le hf0.le _
+    have hmul : (f : ℝ) ^ (-(1/2) : ℝ) * (f : ℝ) ^ (-(1/4) : ℝ) = (f : ℝ) ^ (-(3/4) : ℝ) := by
+      rw [← Real.rpow_add hf0, show (-(1/2 : ℝ)) + (-(1/4 : ℝ)) = (-(3/4) : ℝ) by norm_num]
+    have hfp : (0 : ℝ) < (f : ℝ) ^ (-(1/2) : ℝ) := Real.rpow_pos_of_pos hf0 _
+    rw [hsplit, mul_add]
+    have hstep : (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (Y / (f : ℝ))
+        ≤ 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ) := by
+      calc (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (Y / (f : ℝ))
+          ≤ (f : ℝ) ^ (-(1/2) : ℝ) * (4 * (Y / (f : ℝ)) ^ ((1/4) : ℝ)) :=
+            mul_le_mul_of_nonneg_left hlogb hfp.le
+        _ = 4 * Y ^ ((1/4) : ℝ) * ((f : ℝ) ^ (-(1/2) : ℝ) * (f : ℝ) ^ (-(1/4) : ℝ)) := by
+            rw [hdr]; ring
+        _ = 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ) := by rw [hmul]
+    nlinarith [hstep]
+  have hMY2 : ((M : ℕ) : ℝ) ^ ((1/2) : ℝ) ≤ Y ^ ((1/2) : ℝ) :=
+    Real.rpow_le_rpow (by positivity) hM (by norm_num)
+  have hMY4 : ((M : ℕ) : ℝ) ^ ((1/4) : ℝ) ≤ Y ^ ((1/4) : ℝ) :=
+    Real.rpow_le_rpow (by positivity) hM (by norm_num)
+  have hYY : Y ^ ((1/4) : ℝ) * Y ^ ((1/4) : ℝ) = Y ^ ((1/2) : ℝ) := by
+    rw [← Real.rpow_add hY0, show ((1/4 : ℝ)) + ((1/4 : ℝ)) = ((1/2) : ℝ) by norm_num]
+  have hY4 : (0 : ℝ) ≤ Y ^ ((1/4) : ℝ) := Real.rpow_nonneg hY0.le _
+  have hlog2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+  calc ∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
+      ≤ ∑ f ∈ Finset.Icc 1 M, (Real.log 2 * (f : ℝ) ^ (-(1/2) : ℝ)
+          + 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ)) := Finset.sum_le_sum hbound
+    _ = Real.log 2 * (∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ))
+          + 4 * Y ^ ((1/4) : ℝ) * (∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(3/4) : ℝ)) := by
+        rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
+    _ ≤ Real.log 2 * (2 * ((M : ℕ) : ℝ) ^ ((1/2) : ℝ))
+          + 4 * Y ^ ((1/4) : ℝ) * (4 * ((M : ℕ) : ℝ) ^ ((1/4) : ℝ)) := by
+        gcongr
+        · exact sum_rpow_neg_half_le M
+        · exact sum_rpow_neg_three_quarter_le M
+    _ ≤ Real.log 2 * (2 * Y ^ ((1/2) : ℝ)) + 4 * Y ^ ((1/4) : ℝ) * (4 * Y ^ ((1/4) : ℝ)) := by
+        gcongr
+    _ = (2 * Real.log 2 + 16) * Y ^ ((1/2) : ℝ) := by rw [← hYY]; ring
+
+/-- **The general discrete Abel identity** over `[1, N]`:
+`Σ_{m ≤ N} a_m G(m) = A_N·G(N) − Σ_{n < N} A_n·(G(n+1) − G(n))` with `A_n = Σ_{m ≤ n} a_m`.
+(The landed `mwWeighted_abel` is weight-`1/n`-specific; this is the general form.) -/
+private lemma abel_sum (a G : ℕ → ℝ) {N : ℕ} (hN : 1 ≤ N) :
+    ∑ m ∈ Finset.Icc 1 N, a m * G m
+      = (∑ m ∈ Finset.Icc 1 N, a m) * G N
+        - ∑ n ∈ Finset.Ico 1 N, (∑ m ∈ Finset.Icc 1 n, a m) * (G (n + 1) - G n) := by
+  induction N, hN using Nat.le_induction with
+  | base => simp
+  | succ n hn ih =>
+    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ n + 1),
+      Finset.sum_Icc_succ_top (by omega : 1 ≤ n + 1), Finset.sum_Ico_succ_top hn, ih]
+    ring
+
+/-- The telescoping sum `Σ_{m ≤ N}(G(m+1) − G(m)) = G(N+1) − G(1)`. -/
+private lemma sum_telescope_nat (G : ℕ → ℝ) {N : ℕ} (hN : 1 ≤ N) :
+    ∑ m ∈ Finset.Icc 1 N, (G (m + 1) - G m) = G (N + 1) - G 1 := by
+  induction N, hN using Nat.le_induction with
+  | base => simp
+  | succ n hn ih =>
+    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ n + 1), ih]
+    ring
+
+/-- `F(y) = y·((log y − 1 + α)(log y − 1 + β) + 1)` has derivative
+`(log y + α)(log y + β)` at every `y > 0` — the antiderivative An's partial summation
+needs, written out so no integral is ever formed. -/
+private lemma hasDerivAt_bigF (α β : ℝ) {x : ℝ} (hx : 0 < x) :
+    HasDerivAt (fun y : ℝ => y * ((Real.log y - 1 + α) * (Real.log y - 1 + β) + 1))
+      ((Real.log x + α) * (Real.log x + β)) x := by
+  have hxne : x ≠ 0 := hx.ne'
+  have hlog : HasDerivAt Real.log x⁻¹ x := Real.hasDerivAt_log hxne
+  have h1 : HasDerivAt (fun y : ℝ => Real.log y - 1 + α) x⁻¹ x :=
+    (hlog.sub_const 1).add_const α
+  have h2 : HasDerivAt (fun y : ℝ => Real.log y - 1 + β) x⁻¹ x :=
+    (hlog.sub_const 1).add_const β
+  have h4 : HasDerivAt (fun y : ℝ => (Real.log y - 1 + α) * (Real.log y - 1 + β) + 1)
+      (x⁻¹ * (Real.log x - 1 + β) + (Real.log x - 1 + α) * x⁻¹) x := (h1.mul h2).add_const 1
+  have h5 : HasDerivAt (fun y : ℝ => y * ((Real.log y - 1 + α) * (Real.log y - 1 + β) + 1))
+      (1 * ((Real.log x - 1 + α) * (Real.log x - 1 + β) + 1)
+        + x * (x⁻¹ * (Real.log x - 1 + β) + (Real.log x - 1 + α) * x⁻¹)) x :=
+    (hasDerivAt_id x).mul h4
+  have hxx : x * x⁻¹ = 1 := mul_inv_cancel₀ hxne
+  have h6 : 1 * ((Real.log x - 1 + α) * (Real.log x - 1 + β) + 1)
+        + x * (x⁻¹ * (Real.log x - 1 + β) + (Real.log x - 1 + α) * x⁻¹)
+      = (Real.log x + α) * (Real.log x + β) := by
+    calc 1 * ((Real.log x - 1 + α) * (Real.log x - 1 + β) + 1)
+          + x * (x⁻¹ * (Real.log x - 1 + β) + (Real.log x - 1 + α) * x⁻¹)
+        = ((Real.log x - 1 + α) * (Real.log x - 1 + β) + 1)
+          + (x * x⁻¹) * ((Real.log x - 1 + β) + (Real.log x - 1 + α)) := by ring
+      _ = (Real.log x + α) * (Real.log x + β) := by rw [hxx]; ring
+  rw [← h6]
+  exact h5
+
+/-- The mean-value step for `F`: on `[u, v]` with `0 < u < v` there is `ξ ∈ (u, v)` with
+`F(v) − F(u) = (log ξ + α)(log ξ + β)·(v − u)`. -/
+private lemma bigF_mvt (α β : ℝ) {u v : ℝ} (hu : 0 < u) (huv : u < v) :
+    ∃ ξ ∈ Set.Ioo u v,
+      v * ((Real.log v - 1 + α) * (Real.log v - 1 + β) + 1)
+        - u * ((Real.log u - 1 + α) * (Real.log u - 1 + β) + 1)
+      = (Real.log ξ + α) * (Real.log ξ + β) * (v - u) := by
+  have hcont : ContinuousOn (fun y : ℝ => y * ((Real.log y - 1 + α) * (Real.log y - 1 + β) + 1))
+      (Set.Icc u v) := by
+    intro y hy
+    have hy0 : 0 < y := lt_of_lt_of_le hu hy.1
+    exact ((hasDerivAt_bigF α β hy0).continuousAt).continuousWithinAt
+  obtain ⟨ξ, hξ, hslope⟩ := exists_hasDerivAt_eq_slope
+    (fun y : ℝ => y * ((Real.log y - 1 + α) * (Real.log y - 1 + β) + 1))
+    (fun y : ℝ => (Real.log y + α) * (Real.log y + β)) huv hcont
+    (fun x hx => hasDerivAt_bigF α β (lt_trans hu hx.1))
+  refine ⟨ξ, hξ, ?_⟩
+  have hvu : v - u ≠ 0 := sub_ne_zero.mpr huv.ne'
+  rw [hslope]
+  field_simp
+
+/-- The per-step bound `|F(m+1) − F(m) − g(m)| ≤ (1/m)(|log m + α| + |log m + β| + 1)`:
+the mean value `g(ξ)` at `ξ ∈ (m, m+1)` differs from `g(m)` by `δ(a + b + δ)` with
+`0 < δ = log ξ − log m ≤ log(1 + 1/m) ≤ 1/m ≤ 1`. -/
+private lemma bigF_step_bound (α β : ℝ) {m : ℕ} (hm : 1 ≤ m) :
+    |((m : ℝ) + 1) * ((Real.log ((m : ℝ) + 1) - 1 + α) * (Real.log ((m : ℝ) + 1) - 1 + β) + 1)
+        - (m : ℝ) * ((Real.log m - 1 + α) * (Real.log m - 1 + β) + 1)
+      - (Real.log m + α) * (Real.log m + β)|
+      ≤ (1 / (m : ℝ)) * (|Real.log m + α| + |Real.log m + β| + 1) := by
+  have hm0 : (1 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
+  have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
+  obtain ⟨ξ, hξ, hval⟩ := bigF_mvt α β hmpos (by linarith : (m : ℝ) < (m : ℝ) + 1)
+  have hξ0 : (0 : ℝ) < ξ := lt_trans hmpos hξ.1
+  set δ : ℝ := Real.log ξ - Real.log (m : ℝ) with hδ
+  have hδ0 : 0 ≤ δ := by
+    rw [hδ, sub_nonneg]
+    exact Real.log_le_log hmpos hξ.1.le
+  have hδ1 : δ ≤ 1 / (m : ℝ) := by
+    have h1 : Real.log ξ ≤ Real.log ((m : ℝ) + 1) := Real.log_le_log hξ0 hξ.2.le
+    have h2 : Real.log ((m : ℝ) + 1) - Real.log (m : ℝ) ≤ 1 / (m : ℝ) := by
+      have hq : Real.log (((m : ℝ) + 1) / (m : ℝ)) ≤ ((m : ℝ) + 1) / (m : ℝ) - 1 :=
+        Real.log_le_sub_one_of_pos (by positivity)
+      rw [Real.log_div (by linarith) hmpos.ne'] at hq
+      have hid : ((m : ℝ) + 1) / (m : ℝ) - 1 = 1 / (m : ℝ) := by
+        field_simp
+        ring
+      linarith [hq, hid.le, hid.ge]
+    rw [hδ]
+    linarith
+  have hδle1 : δ ≤ 1 := le_trans hδ1 (by rw [div_le_one hmpos]; linarith)
+  have hlogξ : Real.log ξ = Real.log (m : ℝ) + δ := by rw [hδ]; ring
+  rw [hval, hlogξ]
+  have hexp : (Real.log (m : ℝ) + δ + α) * (Real.log (m : ℝ) + δ + β) * (((m : ℝ) + 1) - (m : ℝ))
+      - (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β)
+      = δ * ((Real.log (m : ℝ) + α) + (Real.log (m : ℝ) + β) + δ) := by ring
+  rw [hexp, abs_mul, abs_of_nonneg hδ0]
+  have hb : |(Real.log (m : ℝ) + α) + (Real.log (m : ℝ) + β) + δ|
+      ≤ |Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β| + 1 := by
+    calc |(Real.log (m : ℝ) + α) + (Real.log (m : ℝ) + β) + δ|
+        ≤ |(Real.log (m : ℝ) + α) + (Real.log (m : ℝ) + β)| + |δ| := abs_add_le _ _
+      _ ≤ (|Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β|) + |δ| := by
+          gcongr
+          exact abs_add_le _ _
+      _ ≤ |Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β| + 1 := by
+          rw [abs_of_nonneg hδ0]
+          linarith
+  have hnn : (0 : ℝ) ≤ |Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β| + 1 := by positivity
+  exact mul_le_mul hδ1 hb (abs_nonneg _) (by positivity)
+
+/-- `1 ≤ ∏_{p ∣ r}(1 + 1/p)`. -/
+private lemma one_le_prod_one_add (r : ℕ) : (1 : ℝ) ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
+  calc (1 : ℝ) = ∏ _p ∈ r.primeFactors, (1 : ℝ) := by rw [Finset.prod_const_one]
+    _ ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
+        refine Finset.prod_le_prod (fun p _ => zero_le_one) fun p _ => ?_
+        have : (0 : ℝ) ≤ 1 / (p : ℝ) := by positivity
+        linarith
+
+/-- `r ≤ κ(r)`, hence `0 < r/κ(r) ≤ 1`. -/
+private lemma le_kappa (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) ≤ kappa r := by
+  have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
+  have h := kappa_div_eq_prod_one_add r hr
+  have h1 := one_le_prod_one_add r
+  have : (1 : ℝ) ≤ kappa r / r := by rw [h]; exact h1
+  rwa [le_div_iff₀ hr0, one_mul] at this
+
+private lemma div_kappa_pos (r : ℕ) (hr : 1 ≤ r) : (0 : ℝ) < (r : ℝ) / kappa r := by
+  have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
+  have hk := le_kappa r hr
+  exact div_pos hr0 (by linarith)
+
+private lemma div_kappa_le_one (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) / kappa r ≤ 1 := by
+  have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
+  have hk := le_kappa r hr
+  rw [div_le_one (by linarith)]
+  exact hk
+
+/-- `|ρ₀| ≤ 2` — the `D = 0` case of the `1/n²`-dominated tail bound. -/
+private lemma abs_rho0_le_two : |rho0| ≤ 2 := by
+  have h := abs_tsum_sub_sum_le (g := fun n : ℕ => (moebius n : ℝ) / (n : ℝ) ^ 2)
+    summable_abs_moebius_div_sq.of_abs abs_moebius_div_sq_le 0
+  simpa [rho0] using h
+
+/-- The one-step variation of `g(y) = (log y + α)(log y + β)` on the integers. -/
+private lemma g_step_bound (α β : ℝ) {n : ℕ} (hn : 1 ≤ n) :
+    |(Real.log ((n : ℝ) + 1) + α) * (Real.log ((n : ℝ) + 1) + β)
+        - (Real.log n + α) * (Real.log n + β)|
+      ≤ (1 / (n : ℝ)) * (|Real.log n + α| + |Real.log n + β| + 1) := by
+  have hn0 : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+  have hnpos : (0 : ℝ) < (n : ℝ) := by linarith
+  set δ : ℝ := Real.log ((n : ℝ) + 1) - Real.log (n : ℝ) with hδ
+  have hδ0 : 0 ≤ δ := by
+    rw [hδ, sub_nonneg]
+    exact Real.log_le_log hnpos (by linarith)
+  have hδ1 : δ ≤ 1 / (n : ℝ) := by
+    have hq : Real.log (((n : ℝ) + 1) / (n : ℝ)) ≤ ((n : ℝ) + 1) / (n : ℝ) - 1 :=
+      Real.log_le_sub_one_of_pos (by positivity)
+    rw [Real.log_div (by linarith) hnpos.ne'] at hq
+    have hid : ((n : ℝ) + 1) / (n : ℝ) - 1 = 1 / (n : ℝ) := by
+      field_simp
+      ring
+    rw [hδ]
+    linarith [hq, hid.le, hid.ge]
+  have hlog : Real.log ((n : ℝ) + 1) = Real.log (n : ℝ) + δ := by rw [hδ]; ring
+  rw [hlog, show (Real.log (n : ℝ) + δ + α) * (Real.log (n : ℝ) + δ + β)
+      - (Real.log (n : ℝ) + α) * (Real.log (n : ℝ) + β)
+      = δ * ((Real.log (n : ℝ) + α) + (Real.log (n : ℝ) + β) + δ) by ring, abs_mul,
+    abs_of_nonneg hδ0]
+  have hδle1 : δ ≤ 1 := le_trans hδ1 (by rw [div_le_one hnpos]; linarith)
+  have hb : |(Real.log (n : ℝ) + α) + (Real.log (n : ℝ) + β) + δ|
+      ≤ |Real.log (n : ℝ) + α| + |Real.log (n : ℝ) + β| + 1 := by
+    calc |(Real.log (n : ℝ) + α) + (Real.log (n : ℝ) + β) + δ|
+        ≤ |(Real.log (n : ℝ) + α) + (Real.log (n : ℝ) + β)| + |δ| := abs_add_le _ _
+      _ ≤ (|Real.log (n : ℝ) + α| + |Real.log (n : ℝ) + β|) + |δ| := by
+          gcongr
+          exact abs_add_le _ _
+      _ ≤ |Real.log (n : ℝ) + α| + |Real.log (n : ℝ) + β| + 1 := by
+          rw [abs_of_nonneg hδ0]
+          linarith
+  exact mul_le_mul hδ1 hb (abs_nonneg _) (by positivity)
+
+/-- The partial sum of `g` against its antiderivative `F`, termwise by the mean-value step. -/
+private lemma sum_g_sub_bigF_le (α β : ℝ) {N : ℕ} (hN : 1 ≤ N) :
+    |∑ m ∈ Finset.Icc 1 N, (Real.log m + α) * (Real.log m + β)
+       - (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+            * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+          - ((-1 + α) * (-1 + β) + 1))|
+      ≤ ∑ m ∈ Finset.Icc 1 N, (1 / (m : ℝ)) * (|Real.log m + α| + |Real.log m + β| + 1) := by
+  set G : ℕ → ℝ :=
+    fun k => (k : ℝ) * ((Real.log (k : ℝ) - 1 + α) * (Real.log (k : ℝ) - 1 + β) + 1) with hG
+  have hGN : G (N + 1) = ((N : ℝ) + 1)
+      * ((Real.log ((N : ℝ) + 1) - 1 + α) * (Real.log ((N : ℝ) + 1) - 1 + β) + 1) := by
+    simp only [hG]
+    push_cast
+    ring
+  have hG1 : G 1 = (-1 + α) * (-1 + β) + 1 := by
+    simp only [hG]
+    rw [Nat.cast_one, Real.log_one]
+    ring
+  rw [← hGN, ← hG1, ← sum_telescope_nat G hN, ← Finset.sum_sub_distrib]
+  calc |∑ m ∈ Finset.Icc 1 N, ((Real.log m + α) * (Real.log m + β) - (G (m + 1) - G m))|
+      ≤ ∑ m ∈ Finset.Icc 1 N, |(Real.log m + α) * (Real.log m + β) - (G (m + 1) - G m)| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ m ∈ Finset.Icc 1 N, (1 / (m : ℝ)) * (|Real.log m + α| + |Real.log m + β| + 1) := by
+        refine Finset.sum_le_sum fun m hm => ?_
+        have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+        have hGm1 : G (m + 1) = ((m : ℝ) + 1)
+            * ((Real.log ((m : ℝ) + 1) - 1 + α) * (Real.log ((m : ℝ) + 1) - 1 + β) + 1) := by
+          simp only [hG]
+          push_cast
+          ring
+        have hGm : G m = (m : ℝ)
+            * ((Real.log (m : ℝ) - 1 + α) * (Real.log (m : ℝ) - 1 + β) + 1) := by
+          simp only [hG]
+        rw [hGm1, hGm, show (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β)
+            - (((m : ℝ) + 1) * ((Real.log ((m : ℝ) + 1) - 1 + α)
+                * (Real.log ((m : ℝ) + 1) - 1 + β) + 1)
+              - (m : ℝ) * ((Real.log (m : ℝ) - 1 + α) * (Real.log (m : ℝ) - 1 + β) + 1))
+            = -(((m : ℝ) + 1) * ((Real.log ((m : ℝ) + 1) - 1 + α)
+                * (Real.log ((m : ℝ) + 1) - 1 + β) + 1)
+              - (m : ℝ) * ((Real.log (m : ℝ) - 1 + α) * (Real.log (m : ℝ) - 1 + β) + 1)
+              - (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β)) by ring, abs_neg]
+        exact bigF_step_bound α β hm1
+
+set_option maxHeartbeats 1200000 in
+-- H5c is one long estimate chain (discrete Abel, the mean-value step, and four separate
+-- bounds assembled in a single `calc`); it exceeds the default elaboration budget.
+/-- **H5c (the H freeze's row, verbatim).** The two-log weighted form of H5a.
+
+Discrete Abel (`abel_sum`) against H5a's counting function turns the weighted sum into
+`ρ₀(r/κ(r))·Σ_{m ≤ N} g(m)` plus a boundary term and a variation sum, both weighed by
+`|E(n)| ≤ C·√n·σ(r)`; `Σ_{n ≤ N} n^{−1/2}log(2M/n) ≤ (2 log 2 + 16)√M` closes the
+variation sum. The main term meets its antiderivative
+`F(x) = x((log x − 1 + α)(log x − 1 + β) + 1)` through the mean-value theorem on each
+`[m, m+1]` — no integral is ever formed — and **the residue `F(1) = αβ − (α+β) + 2` is
+carried**, not dropped: at `M = 1, α = β = 0` the sum is `0` while the main term is `2`.
+
+The must-FAIL control (measured): with the main-term factor
+`((log M − 1 + α)(log M − 1 + β) + 1)` → `((log M + α)(log M + β))` at `α = β = 0`,
+`r = 1`, the ratio to `√M(1 + log M)²` is `3.654 / 9.554 / 25.815` at
+`M = 10³ / 10⁴ / 10⁵` (growing) against `0.0216 / 0.0217 / 0.0010` frozen. -/
+theorem sqf_coprime_sum_log_mul_log_eq : ∃ C : ℝ, 0 < C ∧ ∀ r : ℕ, 1 ≤ r → ∀ M : ℝ, 1 ≤ M →
+    ∀ α β : ℝ,
+    |∑ m ∈ (Finset.Icc 1 ⌊M⌋₊).filter (fun m => Nat.Coprime m r),
+        (moebius m : ℝ) ^ 2 * (Real.log m + α) * (Real.log m + β)
+      - rho0 * ((r : ℝ) / kappa r) * M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)|
+      ≤ C * M ^ (1/2 : ℝ) * sigmaQ r * (1 + |Real.log M + α|) * (1 + |Real.log M + β|) := by
+  classical
+  obtain ⟨C5, hC5pos, hC5⟩ := sqf_coprime_count_eq
+  refine ⟨250 + 39 * C5, by linarith, fun r hr M hM α β => ?_⟩
+  set N : ℕ := ⌊M⌋₊ with hNdef
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hNM : (N : ℝ) ≤ M := Nat.floor_le hM0.le
+  have hMN : M < (N : ℝ) + 1 := Nat.lt_floor_add_one M
+  have hN1 : 1 ≤ N := Nat.le_floor (by exact_mod_cast hM)
+  have hNR : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN1
+  have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
+  have hsig1 : (1 : ℝ) ≤ sigmaQ r := one_le_sigmaQ r hr
+  set L : ℝ := Real.log M with hLdef
+  have hL0 : (0 : ℝ) ≤ L := Real.log_nonneg hM
+  set Q : ℝ := rho0 * ((r : ℝ) / kappa r) with hQdef
+  have hQ2 : |Q| ≤ 2 := by
+    rw [hQdef, abs_mul, abs_of_nonneg (div_kappa_pos r hr).le]
+    calc |rho0| * ((r : ℝ) / kappa r) ≤ 2 * ((r : ℝ) / kappa r) := by
+          exact mul_le_mul_of_nonneg_right abs_rho0_le_two (div_kappa_pos r hr).le
+      _ ≤ 2 * 1 := by
+          exact mul_le_mul_of_nonneg_left (div_kappa_le_one r hr) (by norm_num)
+      _ = 2 := by ring
+  set P : ℝ := (1 + |L + α|) * (1 + |L + β|) with hPdef
+  have hP1 : (1 : ℝ) ≤ P := by
+    rw [hPdef]
+    nlinarith [abs_nonneg (L + α), abs_nonneg (L + β)]
+  have hPge : 1 + |L + α| + |L + β| ≤ P := by
+    rw [hPdef]
+    nlinarith [abs_nonneg (L + α), abs_nonneg (L + β)]
+  have hMh : (1 : ℝ) ≤ M ^ (1/2 : ℝ) := Real.one_le_rpow hM (by norm_num)
+  have hMq : (1 : ℝ) ≤ M ^ (1/4 : ℝ) := Real.one_le_rpow hM (by norm_num)
+  have hMqh : M ^ (1/4 : ℝ) ≤ M ^ (1/2 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_le hM (by norm_num)
+  have hLq : L ≤ 4 * M ^ (1/4 : ℝ) := log_le_four_rpow_quarter hM
+  have hq2 : M ^ (1/4 : ℝ) * M ^ (1/4 : ℝ) = M ^ (1/2 : ℝ) := by
+    rw [← Real.rpow_add hM0]
+    norm_num
+  have hsq25 : (1 + L) ^ 2 ≤ 25 * M ^ (1/2 : ℝ) := by
+    nlinarith [hLq, hq2, hMqh, hMh, hL0, sq_nonneg (4 * M ^ (1/4 : ℝ) - L)]
+  -- the summand and the weight
+  set a : ℕ → ℝ := fun m => if Nat.Coprime m r then (moebius m : ℝ) ^ 2 else 0 with hadef
+  set gg : ℕ → ℝ := fun m => (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β) with hggdef
+  -- the frozen sum, rewritten
+  have hLHS : ∑ m ∈ (Finset.Icc 1 N).filter (fun m => Nat.Coprime m r),
+        (moebius m : ℝ) ^ 2 * (Real.log m + α) * (Real.log m + β)
+      = ∑ m ∈ Finset.Icc 1 N, a m * gg m := by
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    rw [hadef, hggdef]
+    dsimp only
+    by_cases hc : Nat.Coprime m r
+    · rw [if_pos hc, if_pos hc]
+      ring
+    · rw [if_neg hc, if_neg hc, zero_mul]
+  -- the counting function through H5a
+  have hEbound : ∀ n : ℕ, 1 ≤ n →
+      |(∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)| ≤ C5 * (n : ℝ) ^ (1/2 : ℝ) * sigmaQ r := by
+    intro n hn
+    have h := hC5 r hr (n : ℝ) (by exact_mod_cast hn)
+    rw [Nat.floor_natCast] at h
+    have heq : ∑ m ∈ (Finset.Icc 1 n).filter (fun m => Nat.Coprime m r), (moebius m : ℝ) ^ 2
+        = ∑ m ∈ Finset.Icc 1 n, a m := by
+      rw [Finset.sum_filter]
+    rw [heq] at h
+    rw [hQdef]
+    exact h
+  -- the two Abel identities
+  have hsum1 : ∀ n : ℕ, (∑ _m ∈ Finset.Icc 1 n, (1 : ℝ)) = (n : ℝ) := by
+    intro n
+    rw [Finset.sum_const, Nat.card_Icc, nsmul_eq_mul, mul_one]
+    norm_num
+  have hg1 : ∑ m ∈ Finset.Icc 1 N, gg m
+      = (N : ℝ) * gg N - ∑ n ∈ Finset.Ico 1 N, (n : ℝ) * (gg (n + 1) - gg n) := by
+    have h := abel_sum (fun _ => (1 : ℝ)) gg hN1
+    simp only [one_mul] at h
+    rw [h, hsum1 N]
+    congr 1
+    exact Finset.sum_congr rfl fun n _ => by rw [hsum1 n]
+  have hga := abel_sum a gg hN1
+  have hdecomp : (∑ m ∈ Finset.Icc 1 N, a m * gg m) - Q * (∑ m ∈ Finset.Icc 1 N, gg m)
+      = ((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N
+        - ∑ n ∈ Finset.Ico 1 N,
+            ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n) := by
+    have hexp : ∑ n ∈ Finset.Ico 1 N,
+            ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)
+        = (∑ n ∈ Finset.Ico 1 N, (∑ m ∈ Finset.Icc 1 n, a m) * (gg (n + 1) - gg n))
+          - Q * ∑ n ∈ Finset.Ico 1 N, (n : ℝ) * (gg (n + 1) - gg n) := by
+      rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+      exact Finset.sum_congr rfl fun n _ => by ring
+    rw [hga, hg1, hexp]
+    ring
+  -- the log comparison on `[1, N]`
+  have hlogcmp : ∀ n : ℕ, 1 ≤ n → n ≤ N →
+      |Real.log (n : ℝ) + α| + |Real.log (n : ℝ) + β| + 1 ≤ P + 2 * (L - Real.log (n : ℝ)) := by
+    intro n hn1 hnN
+    have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn1
+    have hnM : (n : ℝ) ≤ M := le_trans (by exact_mod_cast hnN) hNM
+    have hln0 : 0 ≤ Real.log (n : ℝ) := Real.log_nonneg hnR
+    have hlnL : Real.log (n : ℝ) ≤ L := Real.log_le_log (by linarith) hnM
+    have hstep : ∀ γ : ℝ, |Real.log (n : ℝ) + γ| ≤ |L + γ| + (L - Real.log (n : ℝ)) := by
+      intro γ
+      calc |Real.log (n : ℝ) + γ| = |(L + γ) + (-(L - Real.log (n : ℝ)))| := by
+            congr 1; ring
+        _ ≤ |L + γ| + |-(L - Real.log (n : ℝ))| := abs_add_le _ _
+        _ = |L + γ| + (L - Real.log (n : ℝ)) := by
+            rw [abs_neg]
+            congr 1
+            exact abs_of_nonneg (by linarith)
+    linarith [hstep α, hstep β, hPge]
+  -- the boundary term
+  have hlogN : L ≤ Real.log 2 + Real.log (N : ℝ) := by
+    have h2N : M ≤ 2 * (N : ℝ) := by linarith
+    calc L ≤ Real.log (2 * (N : ℝ)) := Real.log_le_log hM0 h2N
+      _ = Real.log 2 + Real.log (N : ℝ) := Real.log_mul (by norm_num) (by linarith)
+  have hlog2le : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)
+    linarith
+  have hggN : |gg N| ≤ P := by
+    rw [hggdef, hPdef]
+    dsimp only
+    have hlnL : Real.log (N : ℝ) ≤ L := Real.log_le_log (by linarith) hNM
+    have hstep : ∀ γ : ℝ, |Real.log (N : ℝ) + γ| ≤ 1 + |L + γ| := by
+      intro γ
+      calc |Real.log (N : ℝ) + γ| = |(L + γ) + (-(L - Real.log (N : ℝ)))| := by
+            congr 1; ring
+        _ ≤ |L + γ| + |-(L - Real.log (N : ℝ))| := abs_add_le _ _
+        _ = |L + γ| + (L - Real.log (N : ℝ)) := by
+            rw [abs_neg]
+            congr 1
+            exact abs_of_nonneg (by linarith)
+        _ ≤ 1 + |L + γ| := by linarith
+    rw [abs_mul]
+    exact mul_le_mul (by linarith [hstep α]) (by linarith [hstep β]) (abs_nonneg _)
+      (by positivity)
+  have hT2 : |((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N|
+      ≤ C5 * M ^ (1/2 : ℝ) * sigmaQ r * P := by
+    rw [abs_mul]
+    have hNh : (N : ℝ) ^ (1/2 : ℝ) ≤ M ^ (1/2 : ℝ) :=
+      Real.rpow_le_rpow (by linarith) hNM (by norm_num)
+    have hb1 := hEbound N hN1
+    have hnn : (0 : ℝ) ≤ C5 * (N : ℝ) ^ (1/2 : ℝ) * sigmaQ r :=
+      mul_nonneg (mul_nonneg hC5pos.le (Real.rpow_nonneg (by linarith) _)) (by linarith)
+    calc |(∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)| * |gg N|
+        ≤ (C5 * (N : ℝ) ^ (1/2 : ℝ) * sigmaQ r) * P :=
+          mul_le_mul hb1 hggN (abs_nonneg _) hnn
+      _ ≤ C5 * M ^ (1/2 : ℝ) * sigmaQ r * P :=
+          mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right
+            (mul_le_mul_of_nonneg_left hNh hC5pos.le) (by linarith)) (by linarith)
+  -- the variation sum
+  have hT3 : ∑ n ∈ Finset.Ico 1 N,
+        |((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)|
+      ≤ 38 * C5 * sigmaQ r * P * M ^ (1/2 : ℝ) := by
+    have hterm : ∀ n ∈ Finset.Ico 1 N,
+        |((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)|
+          ≤ C5 * sigmaQ r * ((n : ℝ) ^ (-(1/2) : ℝ) * P
+              + 2 * ((n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)))) := by
+      intro n hn
+      have hn1 : 1 ≤ n := (Finset.mem_Ico.mp hn).1
+      have hnN : n ≤ N := le_of_lt (Finset.mem_Ico.mp hn).2
+      have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn1
+      have hnpos : (0 : ℝ) < (n : ℝ) := by linarith
+      have hnM : (n : ℝ) ≤ M := le_trans (by exact_mod_cast hnN) hNM
+      have hln0 : 0 ≤ Real.log (n : ℝ) := Real.log_nonneg hnR
+      have hstep : |gg (n + 1) - gg n|
+          ≤ (1 / (n : ℝ)) * (|Real.log (n : ℝ) + α| + |Real.log (n : ℝ) + β| + 1) := by
+        rw [hggdef]
+        dsimp only
+        have hcast : ((n + 1 : ℕ) : ℝ) = (n : ℝ) + 1 := by push_cast; ring
+        rw [hcast]
+        exact g_step_bound α β hn1
+      have hcmp := hlogcmp n hn1 hnN
+      have hlogd : L - Real.log (n : ℝ) ≤ Real.log (2 * M / (n : ℝ)) := by
+        rw [Real.log_div (by positivity) hnpos.ne', Real.log_mul (by norm_num) hM0.ne']
+        have : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+        linarith
+      have hEn := hEbound n hn1
+      have hrp : (n : ℝ) ^ (1/2 : ℝ) * (1 / (n : ℝ)) = (n : ℝ) ^ (-(1/2) : ℝ) := by
+        rw [eq_comm, show (-(1/2) : ℝ) = (1/2 : ℝ) + (-1 : ℝ) by norm_num,
+          Real.rpow_add hnpos, Real.rpow_neg_one]
+        ring
+      have hnn : (0 : ℝ) ≤ C5 * (n : ℝ) ^ (1/2 : ℝ) * sigmaQ r :=
+        mul_nonneg (mul_nonneg hC5pos.le (Real.rpow_nonneg (by linarith) _)) (by linarith)
+      rw [abs_mul]
+      calc |(∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)| * |gg (n + 1) - gg n|
+          ≤ (C5 * (n : ℝ) ^ (1/2 : ℝ) * sigmaQ r)
+              * ((1 / (n : ℝ)) * (P + 2 * Real.log (2 * M / (n : ℝ)))) := by
+            refine mul_le_mul hEn ?_ (abs_nonneg _) hnn
+            refine le_trans hstep ?_
+            refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+            linarith
+        _ = C5 * sigmaQ r * (((n : ℝ) ^ (1/2 : ℝ) * (1 / (n : ℝ))) * P
+              + 2 * (((n : ℝ) ^ (1/2 : ℝ) * (1 / (n : ℝ))) * Real.log (2 * M / (n : ℝ)))) := by
+            ring
+        _ = C5 * sigmaQ r * ((n : ℝ) ^ (-(1/2) : ℝ) * P
+              + 2 * ((n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)))) := by
+            rw [hrp]
+    have hnonneg : ∀ n ∈ Finset.Icc 1 N, n ∉ Finset.Ico 1 N →
+        (0 : ℝ) ≤ C5 * sigmaQ r * ((n : ℝ) ^ (-(1/2) : ℝ) * P
+          + 2 * ((n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)))) := by
+      intro n hn _
+      have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
+      have hnN : n ≤ N := (Finset.mem_Icc.mp hn).2
+      have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn1
+      have hnM : (n : ℝ) ≤ M := le_trans (by exact_mod_cast hnN) hNM
+      have hlogd : (0 : ℝ) ≤ Real.log (2 * M / (n : ℝ)) := by
+        refine Real.log_nonneg ?_
+        rw [le_div_iff₀ (by linarith)]
+        linarith
+      have hrp0 : (0 : ℝ) ≤ (n : ℝ) ^ (-(1/2) : ℝ) := Real.rpow_nonneg (by linarith) _
+      have hP0 : (0 : ℝ) ≤ P := by linarith
+      have : (0 : ℝ) ≤ sigmaQ r := by linarith
+      positivity
+    calc ∑ n ∈ Finset.Ico 1 N,
+          |((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)|
+        ≤ ∑ n ∈ Finset.Ico 1 N, C5 * sigmaQ r * ((n : ℝ) ^ (-(1/2) : ℝ) * P
+            + 2 * ((n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)))) :=
+          Finset.sum_le_sum hterm
+      _ ≤ ∑ n ∈ Finset.Icc 1 N, C5 * sigmaQ r * ((n : ℝ) ^ (-(1/2) : ℝ) * P
+            + 2 * ((n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)))) :=
+          Finset.sum_le_sum_of_subset_of_nonneg Finset.Ico_subset_Icc_self hnonneg
+      _ = C5 * sigmaQ r * (P * (∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-(1/2) : ℝ))
+            + 2 * ∑ n ∈ Finset.Icc 1 N,
+                (n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ))) := by
+          rw [← Finset.mul_sum]
+          congr 1
+          rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+          exact Finset.sum_congr rfl fun n _ => by ring
+      _ ≤ 38 * C5 * sigmaQ r * P * M ^ (1/2 : ℝ) := by
+          have h1 : ∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-(1/2) : ℝ) ≤ 2 * (N : ℝ) ^ ((1/2) : ℝ) :=
+            sum_rpow_neg_half_le N
+          have h1' : (N : ℝ) ^ ((1/2) : ℝ) ≤ M ^ (1/2 : ℝ) :=
+            Real.rpow_le_rpow (by linarith) hNM (by norm_num)
+          have h2 : ∑ n ∈ Finset.Icc 1 N,
+              (n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ))
+              ≤ (2 * Real.log 2 + 16) * M ^ ((1/2) : ℝ) := sum_rpow_neg_half_log_le hM hNM
+          have hP0 : (0 : ℝ) ≤ P := by linarith
+          have hCs : (0 : ℝ) ≤ C5 * sigmaQ r := mul_nonneg hC5pos.le (by linarith)
+          have hS1 : ∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-(1/2) : ℝ) ≤ 2 * M ^ (1/2 : ℝ) := by
+            linarith
+          have hS2 : ∑ n ∈ Finset.Icc 1 N,
+              (n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)) ≤ 18 * M ^ (1/2 : ℝ) :=
+            le_trans h2 (mul_le_mul_of_nonneg_right (by linarith) (by linarith))
+          have hi1 : P * (∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-(1/2) : ℝ))
+              ≤ P * (2 * M ^ (1/2 : ℝ)) := mul_le_mul_of_nonneg_left hS1 hP0
+          have hi3 : (1 : ℝ) * M ^ (1/2 : ℝ) ≤ P * M ^ (1/2 : ℝ) :=
+            mul_le_mul_of_nonneg_right hP1 (by linarith)
+          have hinner : P * (∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-(1/2) : ℝ))
+              + 2 * ∑ n ∈ Finset.Icc 1 N,
+                  (n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ))
+              ≤ 38 * P * M ^ (1/2 : ℝ) := by
+            linarith [hi1, hi3, hS2]
+          calc C5 * sigmaQ r * (P * (∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-(1/2) : ℝ))
+                + 2 * ∑ n ∈ Finset.Icc 1 N,
+                    (n : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * M / (n : ℝ)))
+              ≤ C5 * sigmaQ r * (38 * P * M ^ (1/2 : ℝ)) :=
+                mul_le_mul_of_nonneg_left hinner hCs
+            _ = 38 * C5 * sigmaQ r * P * M ^ (1/2 : ℝ) := by ring
+  -- the main term against the antiderivative
+  have hbigF1 : |(-1 + α) * (-1 + β) + 1| ≤ 2 * P * (1 + L) ^ 2 := by
+    have hab : ∀ γ : ℝ, 1 + |γ| ≤ (1 + |L + γ|) * (1 + L) := by
+      intro γ
+      have h1 : |γ| ≤ |L + γ| + L := by
+        calc |γ| = |(L + γ) + (-L)| := by congr 1; ring
+          _ ≤ |L + γ| + |(-L)| := abs_add_le _ _
+          _ = |L + γ| + L := by rw [abs_neg, abs_of_nonneg hL0]
+      nlinarith [abs_nonneg (L + γ), hL0, h1]
+    have h2 : |(-1 + α) * (-1 + β) + 1| ≤ (1 + |α|) * (1 + |β|) + 1 := by
+      calc |(-1 + α) * (-1 + β) + 1| ≤ |(-1 + α) * (-1 + β)| + |(1 : ℝ)| := abs_add_le _ _
+        _ = |(-1 + α)| * |(-1 + β)| + 1 := by rw [abs_mul, abs_one]
+        _ ≤ (1 + |α|) * (1 + |β|) + 1 := by
+            have ha : |(-1 + α)| ≤ 1 + |α| := by
+              calc |(-1 + α)| ≤ |(-1 : ℝ)| + |α| := abs_add_le _ _
+                _ = 1 + |α| := by rw [abs_neg, abs_one]
+            have hb : |(-1 + β)| ≤ 1 + |β| := by
+              calc |(-1 + β)| ≤ |(-1 : ℝ)| + |β| := abs_add_le _ _
+                _ = 1 + |β| := by rw [abs_neg, abs_one]
+            have hmm := mul_le_mul ha hb (abs_nonneg _) (by positivity : (0 : ℝ) ≤ 1 + |α|)
+            linarith
+    have h3 : (1 + |α|) * (1 + |β|) ≤ P * (1 + L) ^ 2 := by
+      have := mul_le_mul (hab α) (hab β) (by positivity)
+        (mul_nonneg (by positivity) (by linarith))
+      calc (1 + |α|) * (1 + |β|) ≤ ((1 + |L + α|) * (1 + L)) * ((1 + |L + β|) * (1 + L)) := this
+        _ = P * (1 + L) ^ 2 := by rw [hPdef]; ring
+    have hsq1 : (1 : ℝ) ≤ (1 + L) ^ 2 := by nlinarith [hL0]
+    have h4 : (1 : ℝ) ≤ P * (1 + L) ^ 2 := by nlinarith [hP1, hsq1]
+    linarith
+  have hbdry : |((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+        * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+      - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)| ≤ P := by
+    obtain ⟨η, hη, hval⟩ := bigF_mvt α β hM0 hMN
+    rw [hval, abs_mul]
+    have hη0 : (0 : ℝ) < η := lt_trans hM0 hη.1
+    have hlo : L ≤ Real.log η := Real.log_le_log hM0 hη.1.le
+    have hhi : Real.log η ≤ Real.log 2 + L := by
+      have hNb : (N : ℝ) + 1 ≤ 2 * M := by linarith
+      calc Real.log η ≤ Real.log (2 * M) := Real.log_le_log hη0 (le_trans hη.2.le hNb)
+        _ = Real.log 2 + L := Real.log_mul (by norm_num) hM0.ne'
+    have hstep : ∀ γ : ℝ, |Real.log η + γ| ≤ 1 + |L + γ| := by
+      intro γ
+      calc |Real.log η + γ| = |(L + γ) + (Real.log η - L)| := by congr 1; ring
+        _ ≤ |L + γ| + |Real.log η - L| := abs_add_le _ _
+        _ = |L + γ| + (Real.log η - L) := by
+            congr 1
+            exact abs_of_nonneg (by linarith)
+        _ ≤ 1 + |L + γ| := by linarith
+    have hgη : |(Real.log η + α) * (Real.log η + β)| ≤ P := by
+      rw [abs_mul, hPdef]
+      exact mul_le_mul (by linarith [hstep α]) (by linarith [hstep β]) (abs_nonneg _)
+        (by positivity)
+    have hlen : |(N : ℝ) + 1 - M| ≤ 1 := by
+      rw [abs_of_nonneg (by linarith)]
+      linarith
+    calc |(Real.log η + α) * (Real.log η + β)| * |(N : ℝ) + 1 - M|
+        ≤ P * 1 := mul_le_mul hgη hlen (abs_nonneg _) (by linarith)
+      _ = P := by ring
+  have hharm : ∑ m ∈ Finset.Icc 1 N,
+        (1 / (m : ℝ)) * (|Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β| + 1)
+      ≤ 2 * P * (1 + L) ^ 2 := by
+    have hb : ∀ m ∈ Finset.Icc 1 N,
+        (1 / (m : ℝ)) * (|Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β| + 1)
+          ≤ (P + 2 * L) * ((m : ℝ))⁻¹ := by
+      intro m hm
+      have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+      have hmN : m ≤ N := (Finset.mem_Icc.mp hm).2
+      have hmR : (1 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm1
+      have hln0 : 0 ≤ Real.log (m : ℝ) := Real.log_nonneg hmR
+      have hcmp := hlogcmp m hm1 hmN
+      rw [one_div, mul_comm]
+      refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+      linarith
+    calc ∑ m ∈ Finset.Icc 1 N,
+          (1 / (m : ℝ)) * (|Real.log (m : ℝ) + α| + |Real.log (m : ℝ) + β| + 1)
+        ≤ ∑ m ∈ Finset.Icc 1 N, (P + 2 * L) * ((m : ℝ))⁻¹ := Finset.sum_le_sum hb
+      _ = (P + 2 * L) * ∑ m ∈ Finset.Icc 1 N, ((m : ℝ))⁻¹ := by rw [Finset.mul_sum]
+      _ ≤ (P + 2 * L) * (1 + Real.log (N : ℝ)) := by
+          refine mul_le_mul_of_nonneg_left (sum_inv_le_one_add_log N) ?_
+          linarith
+      _ ≤ 2 * P * (1 + L) ^ 2 := by
+          have hlnN : Real.log (N : ℝ) ≤ L := Real.log_le_log (by linarith) hNM
+          have hlnN0 : (0 : ℝ) ≤ Real.log (N : ℝ) := Real.log_nonneg hNR
+          have hh1 : (P + 2 * L) * (1 + Real.log (N : ℝ)) ≤ (P + 2 * L) * (1 + L) :=
+            mul_le_mul_of_nonneg_left (by linarith) (by linarith)
+          have hh2 : P + 2 * L ≤ 2 * P * (1 + L) := by nlinarith [hP1, hL0]
+          have hh3 : (P + 2 * L) * (1 + L) ≤ (2 * P * (1 + L)) * (1 + L) :=
+            mul_le_mul_of_nonneg_right hh2 (by linarith)
+          calc (P + 2 * L) * (1 + Real.log (N : ℝ)) ≤ (2 * P * (1 + L)) * (1 + L) :=
+                le_trans hh1 hh3
+            _ = 2 * P * (1 + L) ^ 2 := by ring
+  have hT1 : |(∑ m ∈ Finset.Icc 1 N, gg m)
+      - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)| ≤ 125 * P * M ^ (1/2 : ℝ) := by
+    have hmid := sum_g_sub_bigF_le α β hN1
+    have hggsum : ∑ m ∈ Finset.Icc 1 N, gg m
+        = ∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β) := by
+      rw [hggdef]
+    rw [hggsum]
+    have hsplit : (∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β))
+          - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)
+        = ((∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β))
+            - (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                * (Real.log ((N : ℝ) + 1) - 1 + β) + 1) - ((-1 + α) * (-1 + β) + 1)))
+          + (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+              - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))
+          - ((-1 + α) * (-1 + β) + 1) := by ring
+    rw [hsplit]
+    have hstep1 : |((∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β))
+            - (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                * (Real.log ((N : ℝ) + 1) - 1 + β) + 1) - ((-1 + α) * (-1 + β) + 1)))
+          + (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+              - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))
+          - ((-1 + α) * (-1 + β) + 1)|
+        ≤ 2 * P * (1 + L) ^ 2 + P + 2 * P * (1 + L) ^ 2 := by
+      calc |((∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β))
+              - (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                  * (Real.log ((N : ℝ) + 1) - 1 + β) + 1) - ((-1 + α) * (-1 + β) + 1)))
+            + (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                  * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+                - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))
+            - ((-1 + α) * (-1 + β) + 1)|
+          ≤ |((∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β))
+              - (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                  * (Real.log ((N : ℝ) + 1) - 1 + β) + 1) - ((-1 + α) * (-1 + β) + 1)))
+            + (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                  * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+                - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))|
+              + |(-1 + α) * (-1 + β) + 1| := by
+            rw [sub_eq_add_neg]
+            calc |_ + -((-1 + α) * (-1 + β) + 1)| ≤ |_| + |(-((-1 + α) * (-1 + β) + 1))| :=
+                  abs_add_le _ _
+              _ = _ := by rw [abs_neg]
+        _ ≤ (2 * P * (1 + L) ^ 2 + P) + 2 * P * (1 + L) ^ 2 := by
+            refine add_le_add ?_ hbigF1
+            calc |_ + _| ≤ |((∑ m ∈ Finset.Icc 1 N,
+                    (Real.log (m : ℝ) + α) * (Real.log (m : ℝ) + β))
+                  - (((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                      * (Real.log ((N : ℝ) + 1) - 1 + β) + 1) - ((-1 + α) * (-1 + β) + 1)))|
+                + |(((N : ℝ) + 1) * ((Real.log ((N : ℝ) + 1) - 1 + α)
+                      * (Real.log ((N : ℝ) + 1) - 1 + β) + 1)
+                    - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))| := abs_add_le _ _
+              _ ≤ 2 * P * (1 + L) ^ 2 + P := add_le_add (le_trans hmid hharm) hbdry
+        _ = 2 * P * (1 + L) ^ 2 + P + 2 * P * (1 + L) ^ 2 := by ring
+    have hfin : 2 * P * (1 + L) ^ 2 + P + 2 * P * (1 + L) ^ 2 ≤ 125 * P * M ^ (1/2 : ℝ) := by
+      have hP0 : (0 : ℝ) ≤ P := by linarith
+      have hA : P * (1 + L) ^ 2 ≤ P * (25 * M ^ (1/2 : ℝ)) :=
+        mul_le_mul_of_nonneg_left hsq25 hP0
+      have hB : P ≤ P * M ^ (1/2 : ℝ) := by nlinarith [hMh, hP0]
+      have hC : (0 : ℝ) ≤ P * M ^ (1/2 : ℝ) := mul_nonneg hP0 (by linarith)
+      linarith [hA, hB, hC]
+    linarith [hstep1, hfin]
+  -- assemble
+  rw [hLHS]
+  have hmain : (∑ m ∈ Finset.Icc 1 N, a m * gg m)
+      - Q * M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)
+      = (((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N
+        - ∑ n ∈ Finset.Ico 1 N,
+            ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n))
+        + Q * ((∑ m ∈ Finset.Icc 1 N, gg m)
+          - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)) := by
+    rw [← hdecomp]
+    ring
+  have hgoal : Q * M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)
+      = rho0 * ((r : ℝ) / kappa r) * M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1) := by
+    rw [hQdef]
+  rw [← hgoal, hmain]
+  have hsum3 : |∑ n ∈ Finset.Ico 1 N,
+        ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)|
+      ≤ 38 * C5 * sigmaQ r * P * M ^ (1/2 : ℝ) :=
+    le_trans (Finset.abs_sum_le_sum_abs _ _) hT3
+  have hQP : |Q * ((∑ m ∈ Finset.Icc 1 N, gg m)
+      - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))| ≤ 250 * P * M ^ (1/2 : ℝ) := by
+    rw [abs_mul]
+    have hnn : (0 : ℝ) ≤ 125 * P * M ^ (1/2 : ℝ) :=
+      mul_nonneg (by linarith) (by linarith)
+    calc |Q| * |(∑ m ∈ Finset.Icc 1 N, gg m)
+            - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1)|
+        ≤ 2 * (125 * P * M ^ (1/2 : ℝ)) := mul_le_mul hQ2 hT1 (abs_nonneg _) (by norm_num)
+      _ = 250 * P * M ^ (1/2 : ℝ) := by ring
+  have hcombine : |(((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N
+        - ∑ n ∈ Finset.Ico 1 N,
+            ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n))
+      + Q * ((∑ m ∈ Finset.Icc 1 N, gg m)
+        - M * ((Real.log M - 1 + α) * (Real.log M - 1 + β) + 1))|
+      ≤ (C5 * M ^ (1/2 : ℝ) * sigmaQ r * P + 38 * C5 * sigmaQ r * P * M ^ (1/2 : ℝ))
+        + 250 * P * M ^ (1/2 : ℝ) := by
+    refine le_trans (abs_add_le _ _) (add_le_add ?_ hQP)
+    calc |((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N
+          - ∑ n ∈ Finset.Ico 1 N,
+              ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)|
+        = |((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N
+          + -(∑ n ∈ Finset.Ico 1 N,
+              ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n))| := by
+          rw [sub_eq_add_neg]
+      _ ≤ |((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N|
+          + |-(∑ n ∈ Finset.Ico 1 N,
+              ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n))| :=
+          abs_add_le _ _
+      _ = |((∑ m ∈ Finset.Icc 1 N, a m) - Q * (N : ℝ)) * gg N|
+          + |∑ n ∈ Finset.Ico 1 N,
+              ((∑ m ∈ Finset.Icc 1 n, a m) - Q * (n : ℝ)) * (gg (n + 1) - gg n)| := by
+          rw [abs_neg]
+      _ ≤ C5 * M ^ (1/2 : ℝ) * sigmaQ r * P + 38 * C5 * sigmaQ r * P * M ^ (1/2 : ℝ) :=
+          add_le_add hT2 hsum3
+  refine le_trans hcombine ?_
+  have hP0 : (0 : ℝ) ≤ P := by linarith
+  have hMh0 : (0 : ℝ) ≤ M ^ (1/2 : ℝ) := by linarith
+  have hexpand : (250 + 39 * C5) * M ^ (1/2 : ℝ) * sigmaQ r * (1 + |L + α|) * (1 + |L + β|)
+      = (250 + 39 * C5) * (M ^ (1/2 : ℝ) * sigmaQ r * P) := by
+    rw [hPdef]; ring
+  rw [hexpand]
+  have hPM : (0 : ℝ) ≤ M ^ (1/2 : ℝ) * P := mul_nonneg hMh0 hP0
+  have hkey : M ^ (1/2 : ℝ) * P * 1 ≤ M ^ (1/2 : ℝ) * P * sigmaQ r :=
+    mul_le_mul_of_nonneg_left hsig1 hPM
+  linarith [hkey]
+
 end Salt.SW
