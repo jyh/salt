@@ -429,6 +429,7 @@ import Salt.MR.StrideEntropyReceipt
 import Salt.MR.StrideGradeWalls
 import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGradeReceipt
+import Salt.MR.HalaszWeighted
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9857,3 +9858,26 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g
   Salt.MR.logChowlaAffSupplyW_holds
   Salt.MR.zRough_oddOmega_infinite_primorial
+
+/-! ⟦B2 W8 0905⟧ — JUTILA'S LEMMA 7: HALÁSZ WITH THE `η_j` RETAINED (`HalaszWeighted`,
+2026-09-05, h2c — Arm B part B2 wave W8; ONE Opus executor, 7 obligations, 7 landed at one
+attempt each).  `exists_unimodular_mul_eq_norm` supplies an `η` with `‖η‖ = 1` and `η z = ‖z‖`
+(`η` stays a BINDER: `‖f‖/f` is undefined at `f = 0`); `sum_norm_dirichletPolyChi_eq` is
+Lemma 7's first line `Σ_j ‖f_j‖ = Σ_n a_n·Σ_j η_j χ_j(n) n^{−s_j}`;
+`sq_sum_norm_dirichletPolyChi_le` is Cauchy–Schwarz on `‖a_n‖/√b_n` and `√b_n‖c_n‖`;
+`sum_mul_norm_sq_eq_halaszB` expands `Σ_n b_n‖c_n‖²` into the `(j,k)` double sum of `B`
+(`0 ∉ S` is LOAD-BEARING — at `n = 0`, `0^{−s̄_j}·0^{−s_k} = 0` but `0^{−(s̄_j+s_k)} = 1` when
+`s̄_j + s_k = 0`; the mutation runs at `q = 1`, `12 ≠ 16`); `halasz_weighted` is the inequality
+and `halasz_weighted_tsum` its `tsum` form (`b_0 = 0`, `0 ≤ b`, per-`(j,k)` summability), the
+one W9 consumes; `halaszBTsum_eq` rewrites `B` as the series of the character `χ₁⁻¹ · χ₂`
+(termwise, non-units included), so W9 never rewrites under a `tsum` binder.  Every row is an
+INPUT to the density theorem's assembly (W9); no landed Halász file is consumed and
+`MVHilbert.lean` is untouched.  Nothing here bears on twin primes.  7 obligations, 7 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.exists_unimodular_mul_eq_norm
+  Salt.MR.sum_norm_dirichletPolyChi_eq
+  Salt.MR.sq_sum_norm_dirichletPolyChi_le
+  Salt.MR.sum_mul_norm_sq_eq_halaszB
+  Salt.MR.halasz_weighted
+  Salt.MR.halasz_weighted_tsum
+  Salt.MR.halaszBTsum_eq
