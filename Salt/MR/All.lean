@@ -426,6 +426,9 @@ import Salt.MR.V7RatedH
 import Salt.MR.AffineSupplyH
 import Salt.MR.StridePairReceipt
 import Salt.MR.StrideEntropyReceipt
+import Salt.MR.StrideGradeWalls
+import Salt.MR.StridePairReceiptG
+import Salt.MR.StrideGradeReceipt
 import Salt.Tactic.AuditAxioms
 
 /-!
