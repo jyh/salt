@@ -6712,6 +6712,24 @@ numbering is UNVERIFIED.
    struck — this item is the corrected placement. (Name note: the queue's item 11 calls the ∀ε
    campaign "W2-0"; the 08/21 λ-BV rulings call the log-rebase block "W2-0" too — the λ-BV
    commission of 09/03 uses the rulings' name.)
+14. ⚖️ **λ-BV ROUTE I — THE EFFECTIVE NATURAL-DENSITY DISPERSION (the research fork).
+   SCHEDULED AT P3 BY THE CAPTAIN, council 2026-09-05 item 3 ("(A) Route I goes to the salt
+   queue as P3"; helm stamp 13:5x, the sixteenth head).** Class **D** — a Fable head when pulled;
+   strict tiering keeps it behind every P1/P2 item (P3 is pulled only at P1 + P2 idle; "will
+   that work?" — yes). **THE WALL IS THE CENSUS'S BINDER TABLE** (math's scout of 2026-09-04,
+   "λ-BV after 2-S" — the seat record's scout brief of that date): the two-point
+   demand is THREE binders at once — uniformity over the moduli, a common `N` across every
+   class mod `P`, and `z` growing with `N` (binder C) — and no supplier, landed or found by the
+   literature census, gives binder C for two-point ("class D research (binder C for two-point:
+   nobody)"). **T1–T4 CARRIED from the 2026-08-21 rulings, all UNFIRED at the 09/04 census
+   (`9c9a4910`):** T1 the MRT match report lands · T2 Route II walls · T3 Route II lands (the
+   effectivity-upgrade campaign) · T4 the literature census finds a natural-density discrepancy
+   technique (unmeasurable at the tree; refreshed 09/03, one query 09/04). Re-open at the FIRST
+   trigger to fire; every forecast lists Route I with its trigger state until one does. The
+   companion (E) — the `hcount` discharge — ran as P1 fill and LANDED 2026-09-05 (PR #56, five
+   names, one Sonnet executor); Route II continues at its terms. Nothing here bears on twin
+   primes until a trigger fires.
+
 
 ## THE MECHANICS (the saltworks board's, verbatim in spirit)
 
