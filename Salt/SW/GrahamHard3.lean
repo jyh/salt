@@ -1296,30 +1296,472 @@ theorem sum_abs_bKernel_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → ∀
 
 /-! ## V. ΣD -/
 
+/-- **H7e-1 (H0d re-weighted).** `Σ_{a ≤ Q} a^{−1/2}·σ(a)·(1 + log(Q/a)) ≤ C·√Q`, from
+**H0d** (`sum_rpow_neg_half_log_sigmaQ_le`) and the termwise
+`1 + log(Q/a) ≤ (1/log 2)·log(2Q/a)` (valid because `log(Q/a) ≥ 0` on `a ≤ Q`).
+
+The must-FAIL control, `Q^{1/2} → Q^{1/4}`: the ratio is
+`10.5 / 39.0 / 99.8 / 215.7 / 427.1` at `Q = 10 … 10⁵` — unbounded. The frozen ratio to
+`√Q` is `5.9 / 12.3 / 17.8 / 21.6 / 24.0 / 25.5` at `Q = 10 … 10⁶`, bounded: it rises
+SLOWLY toward its limit `≈ 28` because the mean of `σ_{−1/4}` up to `Q` converges to
+`ζ(5/4) = 4.595` like `Q^{−1/4}` (measured means `4.137 / 4.337 / 4.450` at `10⁴/10⁵/10⁶`).
+H0d is landed, so the bound is a theorem and the receipt is that slow convergence, not a
+doubt. -/
 theorem sum_rpow_neg_half_sigmaQ_one_add_log_le : ∃ C : ℝ, 0 < C ∧ ∀ Q : ℝ, 1 ≤ Q →
     ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))
       ≤ C * Q ^ (1/2 : ℝ) := by
-  sorry
+  classical
+  obtain ⟨C, hC, h0d⟩ := sum_rpow_neg_half_log_sigmaQ_le
+  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  refine ⟨C / Real.log 2, by positivity, fun Q hQ => ?_⟩
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have hNQ : ((⌊Q⌋₊ : ℕ) : ℝ) ≤ Q := Nat.floor_le hQ0.le
+  have hterm : ∀ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+      (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))
+        ≤ 1 / Real.log 2
+            * ((a : ℝ) ^ (-(1/2 : ℝ)) * Real.log (2 * Q / a) * sigmaQ a) := by
+    intro a ha
+    simp only [Finset.mem_Icc] at ha
+    have ha1 : 1 ≤ a := ha.1
+    have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha1
+    have haQ : (a : ℝ) ≤ Q := le_trans (by exact_mod_cast ha.2) hNQ
+    have hQa1 : (1 : ℝ) ≤ Q / a := (one_le_div ha0).mpr haQ
+    have hb := one_add_log_le_inv_log_two_mul (Q / a) hQa1
+    have h2 : (2 : ℝ) * (Q / a) = 2 * Q / a := by ring
+    rw [h2] at hb
+    have hnn : (0 : ℝ) ≤ (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a :=
+      mul_nonneg (Real.rpow_nonneg ha0.le _) (sigmaQ_nonneg a)
+    calc (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))
+        ≤ (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 / Real.log 2 * Real.log (2 * Q / a)) :=
+          mul_le_mul_of_nonneg_left hb hnn
+      _ = 1 / Real.log 2
+            * ((a : ℝ) ^ (-(1/2 : ℝ)) * Real.log (2 * Q / a) * sigmaQ a) := by ring
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  rw [← Finset.mul_sum]
+  calc 1 / Real.log 2
+        * ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+            (a : ℝ) ^ (-(1/2 : ℝ)) * Real.log (2 * Q / a) * sigmaQ a
+      ≤ 1 / Real.log 2 * (C * Q ^ (1/2 : ℝ)) :=
+        mul_le_mul_of_nonneg_left (h0d Q hQ) (by positivity)
+    _ = C / Real.log 2 * Q ^ (1/2 : ℝ) := by ring
 
+/-- **H7e-2 (the `E_M` sum).** The coprime filter is absent here (the summand is
+nonnegative, so H7's route drops it by `Finset.sum_le_sum_of_subset_of_nonneg`);
+`σ(ab) ≤ σ(a)σ(b)` (H7e-0), `(u/(gab))^{1/2} = (u/g)^{1/2}a^{−1/2}b^{−1/2}`, and on
+`a, b ≤ Q = u/(gz)` the two logs are `log(Q/a)`, `log(Q/b) ≥ 0`, so the double sum
+FACTORISES into H7e-1 squared.
+
+This row carries TWO claims H7e-1 does not — the filter drop and `σ(ab) ≤ σ(a)σ(b)` — so
+it gets its own control. Sharpening the right-hand side's `(u/(gz))` to `(u/(gz))^{3/4}`
+(at `g = z = 1`, `u = Q`) gives `61.9 / 481 / 1,772 / 4,652 / 10,256 / 20,571` at
+`Q = 10 … 10⁶` — unbounded, against the frozen shape `S(Q)²/Q = 34.8 / 152 / 315 / 465 /
+577 / 651`, bounded and tending to `(6ζ(5/4))² ≈ 760`. -/
 theorem sum_sum_errUpper_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → ∀ g : ℕ, 1 ≤ g → ∀ u : ℝ,
     ((g * z : ℕ) : ℝ) ≤ u →
     ∑ a ∈ Finset.Icc 1 ⌊u / (g * z)⌋₊, ∑ b ∈ Finset.Icc 1 ⌊u / (g * z)⌋₊,
         (u / (g * a * b)) ^ (1/2 : ℝ) * sigmaQ (a * b)
           * (1 + |Real.log (u / (g * b * z))|) * (1 + |Real.log (u / (g * a * z))|)
       ≤ C * (u / g) ^ (1/2 : ℝ) * (u / (g * z)) := by
-  sorry
+  classical
+  obtain ⟨C, hC, h1⟩ := sum_rpow_neg_half_sigmaQ_one_add_log_le
+  refine ⟨C ^ 2, by positivity, fun z hz g hg u hu => ?_⟩
+  have hz0 : (0 : ℝ) < (z : ℝ) := by exact_mod_cast hz
+  have hg0 : (0 : ℝ) < (g : ℝ) := by exact_mod_cast hg
+  have hgz : ((g : ℝ)) * (z : ℝ) ≤ u := by push_cast at hu; exact hu
+  have hgz0 : (0 : ℝ) < (g : ℝ) * z := by positivity
+  have hu0 : (0 : ℝ) < u := lt_of_lt_of_le (by nlinarith [hz0, hg0]) hgz
+  have hQ1 : (1 : ℝ) ≤ u / ((g : ℝ) * z) := (one_le_div hgz0).mpr hgz
+  have hQ0 : (0 : ℝ) < u / ((g : ℝ) * z) := by linarith
+  have hNQ : ((⌊u / ((g : ℝ) * z)⌋₊ : ℕ) : ℝ) ≤ u / ((g : ℝ) * z) := Nat.floor_le hQ0.le
+  have hbound : ∀ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+      ∀ b ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+      (u / ((g : ℝ) * a * b)) ^ (1/2 : ℝ) * sigmaQ (a * b)
+        * (1 + |Real.log (u / ((g : ℝ) * b * z))|)
+        * (1 + |Real.log (u / ((g : ℝ) * a * z))|)
+      ≤ (u / (g : ℝ)) ^ (1/2 : ℝ)
+          * (((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a
+                * (1 + Real.log (u / ((g : ℝ) * z) / a)))
+            * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b
+                * (1 + Real.log (u / ((g : ℝ) * z) / b)))) := by
+    intro a ha b hb
+    simp only [Finset.mem_Icc] at ha hb
+    have ha1 : 1 ≤ a := ha.1
+    have hb1 : 1 ≤ b := hb.1
+    have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha1
+    have hb0 : (0 : ℝ) < (b : ℝ) := by exact_mod_cast hb1
+    have haQ : (a : ℝ) ≤ u / ((g : ℝ) * z) := le_trans (by exact_mod_cast ha.2) hNQ
+    have hbQ : (b : ℝ) ≤ u / ((g : ℝ) * z) := le_trans (by exact_mod_cast hb.2) hNQ
+    have hla : Real.log (u / ((g : ℝ) * a * z)) = Real.log (u / ((g : ℝ) * z) / a) := by
+      congr 1
+      field_simp
+    have hlb : Real.log (u / ((g : ℝ) * b * z)) = Real.log (u / ((g : ℝ) * z) / b) := by
+      congr 1
+      field_simp
+    have hlan : (0 : ℝ) ≤ Real.log (u / ((g : ℝ) * z) / a) :=
+      Real.log_nonneg ((one_le_div ha0).mpr haQ)
+    have hlbn : (0 : ℝ) ≤ Real.log (u / ((g : ℝ) * z) / b) :=
+      Real.log_nonneg ((one_le_div hb0).mpr hbQ)
+    have hfac : (u / ((g : ℝ) * a * b)) ^ (1/2 : ℝ)
+        = (u / (g : ℝ)) ^ (1/2 : ℝ) * ((a : ℝ) ^ (-(1/2 : ℝ)) * (b : ℝ) ^ (-(1/2 : ℝ))) := by
+      rw [show u / ((g : ℝ) * a * b) = u / (g : ℝ) / ((a : ℝ) * (b : ℝ)) by
+            field_simp,
+        Real.div_rpow (by positivity) (by positivity),
+        Real.mul_rpow (by positivity) (by positivity),
+        Real.rpow_neg ha0.le, Real.rpow_neg hb0.le]
+      field_simp
+    rw [hla, hlb, hfac, abs_of_nonneg hlan, abs_of_nonneg hlbn]
+    have hsig := sigmaQ_mul_le a b
+    have hnn : (0 : ℝ) ≤ (u / (g : ℝ)) ^ (1/2 : ℝ)
+        * ((a : ℝ) ^ (-(1/2 : ℝ)) * (b : ℝ) ^ (-(1/2 : ℝ)))
+        * ((1 + Real.log (u / ((g : ℝ) * z) / b)) * (1 + Real.log (u / ((g : ℝ) * z) / a))) := by
+      have h1 : (0 : ℝ) ≤ (u / (g : ℝ)) ^ (1/2 : ℝ) := Real.rpow_nonneg (by positivity) _
+      have h2 : (0 : ℝ) ≤ (a : ℝ) ^ (-(1/2 : ℝ)) := Real.rpow_nonneg ha0.le _
+      have h3 : (0 : ℝ) ≤ (b : ℝ) ^ (-(1/2 : ℝ)) := Real.rpow_nonneg hb0.le _
+      have h4 : (0 : ℝ) ≤ 1 + Real.log (u / ((g : ℝ) * z) / a) := by linarith
+      have h5 : (0 : ℝ) ≤ 1 + Real.log (u / ((g : ℝ) * z) / b) := by linarith
+      positivity
+    nlinarith [hsig, hnn, sigmaQ_nonneg a, sigmaQ_nonneg b]
+  refine le_trans (Finset.sum_le_sum fun a ha =>
+    Finset.sum_le_sum fun b hb => hbound a ha b hb) ?_
+  have hcollect : ∑ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+        ∑ b ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+          (u / (g : ℝ)) ^ (1/2 : ℝ)
+            * (((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a
+                  * (1 + Real.log (u / ((g : ℝ) * z) / a)))
+              * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b
+                  * (1 + Real.log (u / ((g : ℝ) * z) / b))))
+      = (u / (g : ℝ)) ^ (1/2 : ℝ)
+        * ((∑ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+              (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (u / ((g : ℝ) * z) / a)))
+          * (∑ b ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+              (b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b
+                * (1 + Real.log (u / ((g : ℝ) * z) / b)))) := by
+    rw [Finset.sum_mul_sum, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun a _ => by rw [Finset.mul_sum]
+  rw [hcollect]
+  have hSnn : (0 : ℝ) ≤ ∑ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+      (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (u / ((g : ℝ) * z) / a)) := by
+    refine Finset.sum_nonneg fun a ha => ?_
+    simp only [Finset.mem_Icc] at ha
+    have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha.1
+    have haQ : (a : ℝ) ≤ u / ((g : ℝ) * z) := le_trans (by exact_mod_cast ha.2) hNQ
+    have hln : (0 : ℝ) ≤ Real.log (u / ((g : ℝ) * z) / a) :=
+      Real.log_nonneg ((one_le_div ha0).mpr haQ)
+    have h2 : (0 : ℝ) ≤ (a : ℝ) ^ (-(1/2 : ℝ)) := Real.rpow_nonneg ha0.le _
+    have h3 := sigmaQ_nonneg a
+    positivity
+  have hS := h1 (u / ((g : ℝ) * z)) hQ1
+  have hQhalf : (u / ((g : ℝ) * z)) ^ (1/2 : ℝ) * (u / ((g : ℝ) * z)) ^ (1/2 : ℝ)
+      = u / ((g : ℝ) * z) := by
+    have h := Real.rpow_add hQ0 (1/2 : ℝ) (1/2 : ℝ)
+    rw [show (1/2 : ℝ) + (1/2 : ℝ) = 1 by norm_num, Real.rpow_one] at h
+    exact h.symm
+  have hprod : (∑ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+        (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (u / ((g : ℝ) * z) / a)))
+      * (∑ b ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
+        (b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b * (1 + Real.log (u / ((g : ℝ) * z) / b)))
+      ≤ C ^ 2 * (u / ((g : ℝ) * z)) := by
+    have := mul_le_mul hS hS hSnn (by positivity)
+    calc _ ≤ (C * (u / ((g : ℝ) * z)) ^ (1/2 : ℝ))
+          * (C * (u / ((g : ℝ) * z)) ^ (1/2 : ℝ)) := this
+      _ = C ^ 2 * (u / ((g : ℝ) * z)) := by
+          rw [show C * (u / ((g : ℝ) * z)) ^ (1/2 : ℝ) * (C * (u / ((g : ℝ) * z)) ^ (1/2 : ℝ))
+              = C ^ 2 * ((u / ((g : ℝ) * z)) ^ (1/2 : ℝ)
+                  * (u / ((g : ℝ) * z)) ^ (1/2 : ℝ)) from by ring, hQhalf]
+  calc (u / (g : ℝ)) ^ (1/2 : ℝ) * _
+      ≤ (u / (g : ℝ)) ^ (1/2 : ℝ) * (C ^ 2 * (u / ((g : ℝ) * z))) :=
+        mul_le_mul_of_nonneg_left hprod (Real.rpow_nonneg (by positivity) _)
+    _ = C ^ 2 * (u / (g : ℝ)) ^ (1/2 : ℝ) * (u / ((g : ℝ) * z)) := by ring
 
+/-- The `a ≤ b` case of H7e-3's summand: `min = a`, `log(a/a) = 0`, `log(b/a) ≤ log(Q/a)`,
+and `σ(ab) ≤ σ(a)σ(b)`. -/
+private lemma errLower_le_case (z : ℕ) (Q : ℝ) (a b : ℕ)
+    (ha1 : 1 ≤ a) (hbQ : (b : ℝ) ≤ Q) (hab : a ≤ b) :
+    ((z : ℝ) / ((min a b : ℕ) : ℝ)) ^ (1/2 : ℝ) * sigmaQ (a * b)
+      * (1 + |Real.log ((a : ℝ) / ((min a b : ℕ) : ℝ))|)
+      * (1 + |Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ))|)
+      ≤ (z : ℝ) ^ (1/2 : ℝ)
+        * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b := by
+  have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha1
+  have hb1 : 1 ≤ b := le_trans ha1 hab
+  have hb0 : (0 : ℝ) < (b : ℝ) := by exact_mod_cast hb1
+  have habR : (a : ℝ) ≤ (b : ℝ) := by exact_mod_cast hab
+  have hz0 : (0 : ℝ) ≤ (z : ℝ) := Nat.cast_nonneg z
+  have hlba : (0 : ℝ) ≤ Real.log ((b : ℝ) / a) := Real.log_nonneg ((one_le_div ha0).mpr habR)
+  have hlbQ : Real.log ((b : ℝ) / a) ≤ Real.log (Q / a) := by
+    refine Real.log_le_log (by positivity) ?_
+    exact (div_le_div_iff_of_pos_right ha0).mpr hbQ
+  have hfac : ((z : ℝ) / (a : ℝ)) ^ (1/2 : ℝ)
+      = (z : ℝ) ^ (1/2 : ℝ) * (a : ℝ) ^ (-(1/2 : ℝ)) := by
+    rw [Real.div_rpow hz0 ha0.le, Real.rpow_neg ha0.le]
+    field_simp
+  have hsig := sigmaQ_mul_le a b
+  have hzq : (0 : ℝ) ≤ (z : ℝ) ^ (1/2 : ℝ) := Real.rpow_nonneg hz0 _
+  have haq : (0 : ℝ) ≤ (a : ℝ) ^ (-(1/2 : ℝ)) := Real.rpow_nonneg ha0.le _
+  have hsa := sigmaQ_nonneg a
+  have hsb := sigmaQ_nonneg b
+  have hlq : (0 : ℝ) ≤ Real.log (Q / a) := le_trans hlba hlbQ
+  have hpre : (0 : ℝ) ≤ (z : ℝ) ^ (1/2 : ℝ) * (a : ℝ) ^ (-(1/2 : ℝ)) := by positivity
+  rw [min_eq_left hab, div_self (ne_of_gt ha0), Real.log_one, abs_zero, hfac,
+    abs_of_nonneg hlba]
+  calc (z : ℝ) ^ (1/2 : ℝ) * (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ (a * b) * (1 + 0)
+        * (1 + Real.log ((b : ℝ) / a))
+      = ((z : ℝ) ^ (1/2 : ℝ) * (a : ℝ) ^ (-(1/2 : ℝ)))
+          * (sigmaQ (a * b) * (1 + Real.log ((b : ℝ) / a))) := by ring
+    _ ≤ ((z : ℝ) ^ (1/2 : ℝ) * (a : ℝ) ^ (-(1/2 : ℝ)))
+          * ((sigmaQ a * sigmaQ b) * (1 + Real.log (Q / a))) := by
+        refine mul_le_mul_of_nonneg_left ?_ hpre
+        exact mul_le_mul hsig (by linarith) (by linarith) (mul_nonneg hsa hsb)
+    _ = (z : ℝ) ^ (1/2 : ℝ)
+          * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b := by
+        ring
+
+/-- **H7e-3 (the `E_L` sum).** `Σ_{a,b ≤ Q} (z/min)^{1/2}σ(ab)(1 + |log(a/min)|)
+(1 + |log(b/min)|) ≤ C·√z·Q^{3/2}`. Each term is bounded by `U(a,b) + U(b,a)` with
+`U(a,b) = √z·(a^{−1/2}σ(a)(1 + log(Q/a)))·σ(b)` — the `a ≤ b` half by `min = a`, the
+`b < a` half by the same computation with the roles swapped — so the estimate is done ONCE
+and the double sum splits into H7e-1 times **H0b** (`Σ_{b ≤ Q} σ(b) ≤ 5Q`).
+
+The must-FAIL control, `Q^{3/2} → Q`: `24.9 / 237 / 1,332 / 2,738 / 5,740` at
+`Q = 10 … 10⁴` — unbounded. The frozen ratio is `7.9 / 23.7 / 42.1 / 50.0 / 57.4`, the same
+slow rise toward `≈ 130` as H7e-1's. -/
 theorem sum_sum_errLower_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → ∀ Q : ℝ, 1 ≤ Q →
     ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊,
         ((z : ℝ) / ((min a b : ℕ) : ℝ)) ^ (1/2 : ℝ) * sigmaQ (a * b)
           * (1 + |Real.log ((a : ℝ) / ((min a b : ℕ) : ℝ))|)
           * (1 + |Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ))|)
       ≤ C * (z : ℝ) ^ (1/2 : ℝ) * Q ^ (3/2 : ℝ) := by
-  sorry
+  classical
+  obtain ⟨C, hC, h1⟩ := sum_rpow_neg_half_sigmaQ_one_add_log_le
+  refine ⟨10 * C, by linarith, fun z hz Q hQ => ?_⟩
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have hz0 : (0 : ℝ) ≤ (z : ℝ) := Nat.cast_nonneg z
+  have hNQ : ((⌊Q⌋₊ : ℕ) : ℝ) ≤ Q := Nat.floor_le hQ0.le
+  have hUnn : ∀ a b : ℕ, 1 ≤ a → (a : ℝ) ≤ Q →
+      (0 : ℝ) ≤ (z : ℝ) ^ (1/2 : ℝ)
+        * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b := by
+    intro a b ha1 haQ
+    have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha1
+    have hln : (0 : ℝ) ≤ Real.log (Q / a) := Real.log_nonneg ((one_le_div ha0).mpr haQ)
+    have h1' : (0 : ℝ) ≤ (z : ℝ) ^ (1/2 : ℝ) := Real.rpow_nonneg hz0 _
+    have h2 : (0 : ℝ) ≤ (a : ℝ) ^ (-(1/2 : ℝ)) := Real.rpow_nonneg ha0.le _
+    have h3 := sigmaQ_nonneg a
+    have h4 := sigmaQ_nonneg b
+    positivity
+  have hterm : ∀ a ∈ Finset.Icc 1 ⌊Q⌋₊, ∀ b ∈ Finset.Icc 1 ⌊Q⌋₊,
+      ((z : ℝ) / ((min a b : ℕ) : ℝ)) ^ (1/2 : ℝ) * sigmaQ (a * b)
+        * (1 + |Real.log ((a : ℝ) / ((min a b : ℕ) : ℝ))|)
+        * (1 + |Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ))|)
+      ≤ (z : ℝ) ^ (1/2 : ℝ)
+          * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b
+        + (z : ℝ) ^ (1/2 : ℝ)
+          * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b * (1 + Real.log (Q / b))) * sigmaQ a := by
+    intro a ha b hb
+    simp only [Finset.mem_Icc] at ha hb
+    have haQ : (a : ℝ) ≤ Q := le_trans (by exact_mod_cast ha.2) hNQ
+    have hbQ : (b : ℝ) ≤ Q := le_trans (by exact_mod_cast hb.2) hNQ
+    rcases le_total a b with hab | hab
+    · have h := errLower_le_case z Q a b ha.1 hbQ hab
+      linarith [hUnn b a hb.1 hbQ]
+    · have h := errLower_le_case z Q b a hb.1 haQ hab
+      rw [min_comm b a, Nat.mul_comm b a] at h
+      have heq : ((z : ℝ) / ((min a b : ℕ) : ℝ)) ^ (1/2 : ℝ) * sigmaQ (a * b)
+          * (1 + |Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ))|)
+          * (1 + |Real.log ((a : ℝ) / ((min a b : ℕ) : ℝ))|)
+          = ((z : ℝ) / ((min a b : ℕ) : ℝ)) ^ (1/2 : ℝ) * sigmaQ (a * b)
+          * (1 + |Real.log ((a : ℝ) / ((min a b : ℕ) : ℝ))|)
+          * (1 + |Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ))|) := by ring
+      rw [heq] at h
+      linarith [hUnn a b ha.1 haQ]
+  refine le_trans (Finset.sum_le_sum fun a ha =>
+    Finset.sum_le_sum fun b hb => hterm a ha b hb) ?_
+  have hsplit : ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊,
+        ((z : ℝ) ^ (1/2 : ℝ)
+            * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b
+          + (z : ℝ) ^ (1/2 : ℝ)
+            * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b * (1 + Real.log (Q / b))) * sigmaQ a)
+      = 2 * ((z : ℝ) ^ (1/2 : ℝ)
+          * ((∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+                (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a)))
+            * ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, sigmaQ b)) := by
+    have hA : ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊,
+          (z : ℝ) ^ (1/2 : ℝ)
+            * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b
+        = (z : ℝ) ^ (1/2 : ℝ)
+          * ((∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+                (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a)))
+            * ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, sigmaQ b) := by
+      rw [Finset.sum_mul_sum, Finset.mul_sum]
+      refine Finset.sum_congr rfl fun a _ => ?_
+      rw [Finset.mul_sum]
+      exact Finset.sum_congr rfl fun b _ => by ring
+    have hB : ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊,
+          (z : ℝ) ^ (1/2 : ℝ)
+            * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b * (1 + Real.log (Q / b))) * sigmaQ a
+        = (z : ℝ) ^ (1/2 : ℝ)
+          * ((∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+                (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a)))
+            * ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, sigmaQ b) := by
+      rw [Finset.sum_comm, Finset.sum_mul_sum, Finset.mul_sum]
+      refine Finset.sum_congr rfl fun a _ => ?_
+      rw [Finset.mul_sum]
+      exact Finset.sum_congr rfl fun b _ => by ring
+    have : ∀ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+        (∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, ((z : ℝ) ^ (1/2 : ℝ)
+              * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b
+            + (z : ℝ) ^ (1/2 : ℝ)
+              * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b * (1 + Real.log (Q / b))) * sigmaQ a))
+        = (∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, (z : ℝ) ^ (1/2 : ℝ)
+              * ((a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a))) * sigmaQ b)
+          + ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, (z : ℝ) ^ (1/2 : ℝ)
+              * ((b : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ b * (1 + Real.log (Q / b))) * sigmaQ a :=
+      fun a _ => Finset.sum_add_distrib
+    rw [Finset.sum_congr rfl this, Finset.sum_add_distrib, hA, hB]
+    ring
+  rw [hsplit]
+  have hS1 := h1 Q hQ
+  have hS2 := sum_sigmaQ_le Q hQ
+  have hS1nn : (0 : ℝ) ≤ ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+      (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a)) := by
+    refine Finset.sum_nonneg fun a ha => ?_
+    simp only [Finset.mem_Icc] at ha
+    have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha.1
+    have haQ : (a : ℝ) ≤ Q := le_trans (by exact_mod_cast ha.2) hNQ
+    have hln : (0 : ℝ) ≤ Real.log (Q / a) := Real.log_nonneg ((one_le_div ha0).mpr haQ)
+    have h2 : (0 : ℝ) ≤ (a : ℝ) ^ (-(1/2 : ℝ)) := Real.rpow_nonneg ha0.le _
+    have h3 := sigmaQ_nonneg a
+    positivity
+  have hS2nn : (0 : ℝ) ≤ ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, sigmaQ b :=
+    Finset.sum_nonneg fun b _ => sigmaQ_nonneg b
+  have hzq : (0 : ℝ) ≤ (z : ℝ) ^ (1/2 : ℝ) := Real.rpow_nonneg hz0 _
+  have hQ32 : Q ^ (1/2 : ℝ) * Q = Q ^ (3/2 : ℝ) := by
+    have h := Real.rpow_add hQ0 (1/2 : ℝ) 1
+    rw [Real.rpow_one, show (1/2 : ℝ) + 1 = 3/2 by norm_num] at h
+    exact h.symm
+  have hmul : (∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+        (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a)))
+      * ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, sigmaQ b ≤ (C * Q ^ (1/2 : ℝ)) * (5 * Q) :=
+    mul_le_mul hS1 hS2 hS2nn (by positivity)
+  calc 2 * ((z : ℝ) ^ (1/2 : ℝ)
+        * ((∑ a ∈ Finset.Icc 1 ⌊Q⌋₊,
+              (a : ℝ) ^ (-(1/2 : ℝ)) * sigmaQ a * (1 + Real.log (Q / a)))
+          * ∑ b ∈ Finset.Icc 1 ⌊Q⌋₊, sigmaQ b))
+      ≤ 2 * ((z : ℝ) ^ (1/2 : ℝ) * ((C * Q ^ (1/2 : ℝ)) * (5 * Q))) := by
+        have := mul_le_mul_of_nonneg_left hmul hzq
+        linarith
+    _ = 10 * C * (z : ℝ) ^ (1/2 : ℝ) * (Q ^ (1/2 : ℝ) * Q) := by ring
+    _ = 10 * C * (z : ℝ) ^ (1/2 : ℝ) * Q ^ (3/2 : ℝ) := by rw [hQ32]
 
+private lemma rpow_pow_nat' {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
+    (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
+  rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
+
+/-- The telescoping step of `Σ g^{−3/2}`: with `a = t^{1/2}`, `b = (t+1)^{1/2}` the
+relation `b² − a² = 1` and `a < b` give `(t+1)^{−3/2} ≤ 2t^{−1/2} − 2(t+1)^{−1/2}`. -/
+private lemma rpow_step_three_halves' (t : ℝ) (ht : 1 ≤ t) :
+    (t + 1) ^ (-(3/2) : ℝ) ≤ 2 * t ^ (-(1/2) : ℝ) - 2 * (t + 1) ^ (-(1/2) : ℝ) := by
+  have ht0 : (0 : ℝ) < t := by linarith
+  have ht1 : (0 : ℝ) < t + 1 := by linarith
+  have ha0 : (0 : ℝ) < t ^ ((1/2 : ℝ)) := Real.rpow_pos_of_pos ht0 _
+  have hb0 : (0 : ℝ) < (t + 1) ^ ((1/2 : ℝ)) := Real.rpow_pos_of_pos ht1 _
+  have ha2 : (t ^ ((1/2 : ℝ))) ^ 2 = t := by
+    rw [rpow_pow_nat' ht0.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have hb2 : ((t + 1) ^ ((1/2 : ℝ))) ^ 2 = t + 1 := by
+    rw [rpow_pow_nat' ht1.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+  have hb3 : ((t + 1) ^ ((1/2 : ℝ))) ^ 3 = (t + 1) ^ ((3/2 : ℝ)) := by
+    rw [rpow_pow_nat' ht1.le, show (1/2 : ℝ) * ((3 : ℕ) : ℝ) = (3/2 : ℝ) by norm_num]
+  have hL : (t + 1) ^ (-(3/2) : ℝ) = 1 / ((t + 1) ^ ((1/2 : ℝ))) ^ 3 := by
+    rw [hb3, Real.rpow_neg ht1.le]
+    ring
+  have hR1 : t ^ (-(1/2) : ℝ) = 1 / t ^ ((1/2 : ℝ)) := by
+    rw [Real.rpow_neg ht0.le]
+    ring
+  have hR2 : (t + 1) ^ (-(1/2) : ℝ) = 1 / (t + 1) ^ ((1/2 : ℝ)) := by
+    rw [Real.rpow_neg ht1.le]
+    ring
+  have hab : t ^ ((1/2 : ℝ)) < (t + 1) ^ ((1/2 : ℝ)) := by nlinarith only [ha2, hb2, ha0, hb0]
+  have hidt : ((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
+      * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ))) = 1 := by
+    nlinarith only [ha2, hb2]
+  rw [hL, hR1, hR2, div_le_iff₀ (by positivity : (0 : ℝ) < ((t + 1) ^ ((1/2 : ℝ))) ^ 3)]
+  have hid : (2 * (1 / t ^ ((1/2 : ℝ))) - 2 * (1 / (t + 1) ^ ((1/2 : ℝ))))
+        * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+      = (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2) / t ^ ((1/2 : ℝ)) := by
+    field_simp
+    try ring
+  rw [hid, le_div_iff₀ ha0]
+  have hsum0 : (0 : ℝ) < t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)) := by linarith
+  have hkey : (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ))) * (1 * t ^ ((1/2 : ℝ)))
+      ≤ (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)))
+        * (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2) := by
+    have hexp : (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)))
+        * (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
+          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2)
+        = 2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 2
+          * (((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
+            * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ)))) := by ring
+    rw [hexp, hidt]
+    nlinarith only [hab, ha0, hb0]
+  exact le_of_mul_le_mul_left hkey hsum0
+
+private lemma sum_Ioc_rpow_neg_three_halves_le' {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
+    ∑ n ∈ Finset.Ioc D M, (n : ℝ) ^ (-(3/2) : ℝ) ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
+  rcases le_or_gt M D with hMD | hMD
+  · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
+    have : (0 : ℝ) < (D : ℝ) ^ (-(1/2) : ℝ) := by
+      refine Real.rpow_pos_of_pos ?_ _
+      exact_mod_cast hD
+    linarith
+  · have hDM : D ≤ M := by omega
+    have key : ∀ m : ℕ, D ≤ m →
+        ∑ n ∈ Finset.Ioc D m, (n : ℝ) ^ (-(3/2) : ℝ)
+          ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) - 2 * (m : ℝ) ^ (-(1/2) : ℝ) := by
+      intro m hm
+      induction m, hm using Nat.le_induction with
+      | base => simp
+      | succ k hk ih =>
+        rw [Finset.sum_Ioc_succ_top hk]
+        have hk1 : (1 : ℝ) ≤ (k : ℝ) := by
+          have : (1 : ℕ) ≤ k := le_trans hD hk
+          exact_mod_cast this
+        have hstep := rpow_step_three_halves' (k : ℝ) hk1
+        have hcast : ((k + 1 : ℕ) : ℝ) = (k : ℝ) + 1 := by push_cast; ring
+        rw [hcast]
+        linarith only [ih, hstep]
+    have h := key M hDM
+    have hpos : (0 : ℝ) < (M : ℝ) ^ (-(1/2) : ℝ) := by
+      refine Real.rpow_pos_of_pos ?_ _
+      have : (1 : ℕ) ≤ M := le_trans hD hDM
+      exact_mod_cast this
+    linarith
+
+/-- **H7e-4 (the `g`-tail).** `Σ_{g ≤ X} g^{−3/2} ≤ 3` — the `g = 1` term plus the
+telescoped tail `2·(1 − X^{−1/2}) ≤ 2`.
+
+The must-FAIL control, `3 → 2`: FALSE already at `X = 10⁵`, where
+`Σ_{g ≤ 10⁵} g^{−3/2} = 2.6061 > 2` (the limit is `ζ(3/2) = 2.6124`). At the zero level
+`X = 0` the sum is empty and the row reads `0 ≤ 3`. -/
 theorem sum_rpow_neg_three_half_le (X : ℕ) :
     ∑ g ∈ Finset.Icc 1 X, (g : ℝ) ^ (-(3/2 : ℝ)) ≤ 3 := by
-  sorry
+  classical
+  rcases Nat.eq_zero_or_pos X with rfl | hX
+  · simp
+  · have hins : Finset.Icc 1 X = insert 1 (Finset.Ioc 1 X) := by
+      ext k
+      simp only [Finset.mem_Icc, Finset.mem_Ioc, Finset.mem_insert]
+      omega
+    have hnot : (1 : ℕ) ∉ Finset.Ioc 1 X := by simp
+    rw [hins, Finset.sum_insert hnot]
+    have h := sum_Ioc_rpow_neg_three_halves_le' (D := 1) (le_refl 1) X
+    have h1 : ((1 : ℕ) : ℝ) ^ (-(3/2 : ℝ)) = 1 := by
+      norm_num
+    have h2 : ((1 : ℕ) : ℝ) ^ (-(1/2) : ℝ) = 1 := by
+      norm_num
+    rw [h2] at h
+    rw [h1]
+    linarith
 
 /-! ## VI. THE FROZEN TOP -/
 
