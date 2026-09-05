@@ -33,6 +33,7 @@ import Salt.TwinBar.TwistedSieve
 import Salt.TwinBar.Separation
 import Salt.TwinBar.TwinParitySieve
 import Salt.TwinBar.TwinParitySieveLog
+import Salt.TwinBar.TwinParityCount
 import Salt.Tactic.AuditAxioms
 
 /-!
