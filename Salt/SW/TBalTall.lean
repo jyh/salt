@@ -2948,6 +2948,166 @@ theorem dh_repulsion_tall_of_floor {c₀ : ℝ} (hc₀pos : 0 < c₀) (hc₀le1 
     le_rfl hσlo hσ1 hord hZρ hc₀pos hc₀le1 hZ0nn hZ0Q hfloor hcpos hc1 hc_t1 hc_t2 hc_t3 hc_t4
     hc_t5 hc_t6 hc_t7 hc_t8 hc_t9 hc_t10
 
+/-- **⟦B1a⟧ — THE DEURING–HEILBRONN REPULSION AT `k = 1`, OFF A ZERO-FREE-REGION FLOOR.**
+
+`dh_repulsion_tall` re-cut at the operating point `(a, m, b, k) = (51, 12, 215, 1)`: the
+`L₂ = log q(|Im ρ|+2) + 2` power in the denominator is **`k = 1`**, not `14`, at the price of the
+`Q`-exponent `b = 215` (up from `680`) — the S4 exchange, `log Q + 2 ≤ Q^{9/10}`, spent once per
+row through the four `_k1` twins.
+
+Two interface changes, both forced by the re-cut and both honest:
+
+* the height binder `ρ.im ≠ 0` is REPLACED by a zero-free-region FLOOR
+  `ρ.re ≤ 1 − c₀/log(q(|Im ρ|+2))` supplied by the caller, at that caller's own `c₀`.  This is
+  what `dh_repulsion_tall` derives internally from `zero_free_region_all` (where `ρ.im ≠ 0` is
+  exactly the hypothesis that buys the floor), lifted to the interface so that the contract can be
+  used at ANY floor a caller has already established — including on the real axis;
+* the constant is bound to that `c₀`: `c ≤ c₀`, with `c` the explicit TWELVE-arm `min` tower below.
+  The binding arm is arm 2, `(c₀/32)^{17/5}` (the ρ-main row's threshold), at
+  `log(1/c) = 51.736` for `c₀ = 1/126848`; every other arm sits below it (the largest competitor is
+  arm 6, the Eβ row, at `48.78` — the conversion's constant `1` is what keeps it there).
+
+The ordering hypothesis `ρ.re ≤ β₀` is the named `T-BAL-UNORDERED` deviation, unchanged. -/
+theorem dh_repulsion_k1_of_floor {c₀ : ℝ} (hc₀pos : 0 < c₀) (hc₀le1 : c₀ ≤ 1) :
+    ∃ c : ℝ, 0 < c ∧ c ≤ c₀ ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+        χ.IsPrimitive → χ ≠ 1 → χ ^ 2 = 1 → 2 ≤ q →
+        ∀ β₀ : ℝ, DirichletCharacter.LFunction χ (β₀ : ℂ) = 0 → 1 / 2 < β₀ → β₀ < 1 →
+        ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 →
+          ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) →
+          16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
+          (1 - β₀) ≥ c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(215 * (1 - ρ.re)))
+            / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) := by
+  set KEβ : ℝ := 16 * (328 + 48 * 5) * 248 ^ 9 with hKEβdef
+  set KEρ : ℝ := 16 * 570 * 248 ^ 9 with hKEρdef
+  set A₀ : ℝ := Real.log 2 + 4 * Real.log (256 * (82 + 12 * 5)) with hA₀def
+  have hA₀pos : 0 < A₀ := by
+    rw [hA₀def]
+    have h1 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+    have h2 : 0 ≤ Real.log (256 * (82 + 12 * 5)) := Real.log_nonneg (by norm_num)
+    linarith only [h1, h2]
+  -- **THE ARM TABLE** (`log(1/arm)`, `c₀ = 1/126848`; the BINDING arm is the largest).  TWELVE
+  -- arms: the landed ten, re-cut at `(a, m) = (51, 12)`, with the A-row's guard SPLIT into arms 3
+  -- and 3′ (a linear and a quadratic condition in `m`, unsound to fold) and its monomial leg's
+  -- arm 12 added (`δ_m = 1/50`).  Every projection index is hand-built and depth-sensitive.
+  --   1.  `1/40`                                        3.6889
+  --   2.  `(c₀/32)^{17/5}`                             51.7360  ← **BINDING**
+  --   3.  `1/(8·(1+51))`                                6.0307
+  --   3′. `e²/(16·12²)`                                 5.7417
+  --   4.  `(1/(8·2·2·(1+51)·e))^{17/5}`                28.6180
+  --   5.  `1/2`                                         0.6931
+  --   6.  `(1/KEβ)^{1700/2047}`                        48.7801
+  --   7.  `(c₀/KEρ)^{1700/3747}`                       31.9781
+  --   8.  `1/(3A₀)`                                     4.8527
+  --   9.  `1/18`                                        2.8904
+  --  10.  `1/576`                                       6.3561
+  --  12.  `(1/19200)^{850/233}`                        35.9789
+  -- `log(1/c)` = the MAX = **51.736**, and `c ≤ c₀` is FREE (arm 2 is below `c₀/32`).
+  set c : ℝ := min (1 / 40 : ℝ) (min ((c₀ / 32) ^ (17 / 5 : ℝ))
+    (min (1 / (8 * (1 + 51)) : ℝ) (min (Real.exp 1 ^ 2 / (16 * 12 ^ 2))
+    (min ((1 / (8 * 2 * 2 * (1 + 51) * Real.exp 1)) ^ (17 / 5 : ℝ))
+    (min (1 / 2 : ℝ) (min ((1 / KEβ) ^ (1700 / 2047 : ℝ))
+    (min ((c₀ / KEρ) ^ (1700 / 3747 : ℝ)) (min (1 / (3 * A₀))
+    (min (1 / 18 : ℝ) (min (1 / 576 : ℝ) ((1 / 19200 : ℝ) ^ (850 / 233 : ℝ))))))))))))
+    with hcdef
+  have hp1 : (0 : ℝ) < 1 / 40 := by norm_num
+  have hp2 : (0 : ℝ) < (c₀ / 32) ^ (17 / 5 : ℝ) :=
+    Real.rpow_pos_of_pos (div_pos hc₀pos (by norm_num)) _
+  have hp3 : (0 : ℝ) < 1 / (8 * (1 + 51)) := by norm_num
+  have hp3' : (0 : ℝ) < Real.exp 1 ^ 2 / (16 * 12 ^ 2) := by positivity
+  have hp4 : (0 : ℝ) < (1 / (8 * 2 * 2 * (1 + 51) * Real.exp 1)) ^ (17 / 5 : ℝ) :=
+    Real.rpow_pos_of_pos (by positivity) _
+  have hp6 : (0 : ℝ) < (1 / KEβ) ^ (1700 / 2047 : ℝ) :=
+    Real.rpow_pos_of_pos (by rw [hKEβdef]; positivity) _
+  have hp7 : (0 : ℝ) < (c₀ / KEρ) ^ (1700 / 3747 : ℝ) :=
+    Real.rpow_pos_of_pos (div_pos hc₀pos (by rw [hKEρdef]; positivity)) _
+  have hp8 : (0 : ℝ) < 1 / (3 * A₀) := div_pos one_pos (by linarith only [hA₀pos])
+  have hp12 : (0 : ℝ) < (1 / 19200 : ℝ) ^ (850 / 233 : ℝ) := Real.rpow_pos_of_pos (by norm_num) _
+  have hcpos : 0 < c := by
+    rw [hcdef]
+    exact lt_min hp1 (lt_min hp2 (lt_min hp3 (lt_min hp3' (lt_min hp4 (lt_min (by norm_num)
+      (lt_min hp6 (lt_min hp7 (lt_min hp8 (lt_min (by norm_num)
+        (lt_min (by norm_num) hp12))))))))))
+  have hc_t1 : c ≤ 1 / 40 := by rw [hcdef]; exact min_le_left _ _
+  have hc_t2 : c ≤ (c₀ / 32) ^ (17 / 5 : ℝ) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (min_le_left _ _)
+  have hc_t3 : c ≤ 1 / (8 * (1 + 51)) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _))
+  have hc_t3' : c ≤ Real.exp 1 ^ 2 / (16 * 12 ^ 2) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_left _ _)))
+  have hc_t4 : c ≤ (1 / (8 * 2 * 2 * (1 + 51) * Real.exp 1)) ^ (17 / 5 : ℝ) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_left _ _))))
+  have hc_t5 : c ≤ (1 / 2 : ℝ) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _)))))
+  have hc_t6 : c ≤ (1 / KEβ) ^ (1700 / 2047 : ℝ) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_left _ _))))))
+  have hc_t7 : c ≤ (c₀ / KEρ) ^ (1700 / 3747 : ℝ) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_left _ _)))))))
+  have hc_t8 : c ≤ 1 / (3 * A₀) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _))))))))
+  have hc_t9 : c ≤ 1 / 18 := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_left _ _)))))))))
+  have hc_t10 : c ≤ 1 / 576 := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_left _ _))))))))))
+  have hc_t12 : c ≤ (1 / 19200 : ℝ) ^ (850 / 233 : ℝ) := by
+    rw [hcdef]
+    exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (
+      le_trans (min_le_right _ _) (min_le_right _ _))))))))))
+  have hc1 : c ≤ 1 := le_trans hc_t5 (by norm_num)
+  -- `c ≤ c₀` is FREE: arm 2 sits below `c₀/32`
+  have hcle : c ≤ c₀ := by
+    have h1 : (c₀ / 32) ^ (17 / 5 : ℝ) ≤ (c₀ / 32) ^ (1 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_ge (div_pos hc₀pos (by norm_num)) (by linarith only [hc₀le1])
+        (by norm_num)
+    rw [Real.rpow_one] at h1
+    calc c ≤ (c₀ / 32) ^ (17 / 5 : ℝ) := hc_t2
+      _ ≤ c₀ / 32 := h1
+      _ ≤ c₀ := by linarith only [hc₀pos]
+  rw [hKEβdef] at hc_t6
+  rw [hKEρdef] at hc_t7
+  rw [hA₀def] at hc_t8
+  clear_value c
+  refine ⟨c, hcpos, hcle, ?_⟩
+  intro q _instNe χ hχ hχ1 hsq hq β₀ hβ0zero hβ0lo hβ0hi ρ hρzero hfloor hσlo hσ1 hord
+  have hqR : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  -- the TALL packaging, taken AT the zero's own height
+  have hZρ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ |ρ.im| →
+      ‖zetaHol s‖ ≤ 3 + 2 * |ρ.im| := zetaHol_bound_tall |ρ.im|
+  have hZ0nn : (0 : ℝ) ≤ 3 + 2 * |ρ.im| := by positivity
+  have hZ0Q : 3 + 2 * |ρ.im| ≤ 2 * ((q : ℝ) * (|ρ.im| + 2)) := by
+    nlinarith only [hqR, abs_nonneg ρ.im]
+  have h := dh_repulsion_inst_tall_k1 (H := |ρ.im|) χ hχ hχ1 hsq hq hβ0zero hβ0lo hβ0hi hρzero
+    le_rfl hσlo hσ1 hord hZρ hc₀pos hc₀le1 hZ0nn hZ0Q hfloor hcpos hc1 hc_t1 hc_t2 hc_t3 hc_t3'
+    hc_t4 hc_t5 hc_t6 hc_t7 hc_t8 hc_t9 hc_t10 hc_t12
+  rwa [Real.rpow_one] at h
+
 /-! ## §4 — the plug: the `β`-supplier at the CAMPAIGN box -/
 
 /-- **THE PLUG — `boxZeros_re_le_of_repulsion` fired at the campaign box.**
