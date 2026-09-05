@@ -1,5 +1,91 @@
--- Salt/SW/GrahamHard2.lean (NEW; imports Salt.SW.GrahamHard)
+/-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
 import Salt.SW.GrahamHard
+
+/-!
+# ARM B part B2, wave **W6b-H1b** — the TWO INPUTS of the six flagged H1 rows
+
+`Salt/SW/GrahamHard.lean` (W6b-H1) landed the substrate of An 2022 §5 over `ℚ` and recorded
+six ABSENT rows in `docs/blueprints/flags.md` (the four 09-05 entries). Their executor's
+diagnosis was that the six are not six defects but **two inputs**: a squarefree-density
+factorisation of `ρ₀`'s SERIES (for H5a/H5c) and the evaluation
+`Σ_{n ≤ Q}(μ(n)/n)·log(Q/n) → 1` (for H6c/H6d, and through them H6e/H6f). This file lands
+the first input WHOLE, together with the two H rows it closes, and part of the second.
+
+## What is here
+
+* **The coprime-subseries tool (T1–T5).** For `f` absolutely summable, multiplicative on
+  coprime pairs and ZERO off squarefree, the level-`t` subseries `S_f(t) = Σ'_{(n,t)=1} f(n)`
+  satisfies the prime step `S_f(t) = (1 + f p)·S_f(pt)` and the closed form
+  `S_f(t)·∏_{p ∣ t}(1 + f p) = Σ' f`. This is the "`tsum` split" the H1 flag named as
+  missing, and it is one stone, not two: **T6** and **T7** are its two instances.
+* **T6/T7 — the two densities.** `(φ(r)/r)·S_{μ/n²}(r) = ρ₀·(r/κ(r))` (H5a's main term) and
+  `(t/φ(t))·S_{μ²/(κφ)}(t) = c₀·κ(t)/t` (H6e's main term, with `c₀` DEFINED as its series).
+* **P1/P2 and H5a/H5c** — the counting half of An's Lemma 3.7 over `ℚ` and its two-log
+  weighted partial summation. **These are two of the six flagged rows, now closed.**
+* **C1** — the exact harmonic identity `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1`.
+* **S1** — the `t`-smooth convolution `Σ_{m ≤ X,(m,t)=1} μ(m)G(m) =
+  Σ_{d ≤ X smooth} Σ_{e ≤ X/d} μ(e)G(de)`.
+* Two PUBLIC helpers the next wave (H2) consumes: `summable_moebius_sq_div_kappa_totient`
+  and `log_rpow_le_rpow_quarter` (`(log x)^A ≤ (4A)^A x^{1/4}`).
+
+## ⚠ THE HONEST LABEL — what this file does NOT prove
+
+**Nine of the cut's twenty-two frozen rows are ABSENT, and their absence is recorded rather
+than implied** (`docs/blueprints/flags.md`, the 09-05 W6b-H1b entries). Rows ABSENT:
+**C2** (`abs_sum_moebius_mul_log_floor_ratio_le`), **C3**
+(`abs_sum_moebius_div_mul_log_div_sub_one_le`), **H6c**
+(`abs_sum_moebius_mul_log_div_add_one_le`), **S2** (`sum_smooth_inv_le`), **S3**
+(`div_totient_sub_sum_smooth_inv_le`), **S4** (`abs_coprime_sum_moebius_div_le`), **H6d**
+(`coprime_sum_moebius_div_log_eq`), **H6f** (`coprime_sum_moebius_div_kappa_le`), **H6e**
+(`coprime_sum_moebius_div_kappa_log_eq`). Four of the six H-freeze rows therefore remain
+open: only **H5a and H5c land here**. A consumer must read this file's declaration list, not
+the wave's label, for what is available.
+
+**The second input is still missing.** C2 (the sawtooth-log piece, by a blockwise discrete
+Abel over the fibres of `n ↦ ⌊Q/n⌋₊`) is what C3 — and through C3, H6c, H6d and H6e — is
+gated on; S2/S3 need the smooth series `Σ'_{d smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}`
+at `s = 1` and `s = 1/2`, and S4/H6f are gated on those. None of this is a statement
+defect: **no frozen statement of this cut is believed false.** The flags record the cost,
+not a contradiction.
+
+**Everything proved here is an UPPER bound or an exact identity** — no asymptotic and no
+lower bound anywhere. Where a constant is `∃`-bound it is **non-effective**: H5a and H5c
+pass through no rate at all (they are elementary, `C = 4` and `C = 250 + 39·C_{H5a}`), but
+the wave's remaining rows would pass through `mmuRate_holds` by way of H6a/H6b, whose `x₀`
+is not extracted anywhere in the corpus — so their constants, when they land, will print
+their DERIVATION and never a numeral.
+
+**`c0` is a SERIES, not a number.** It is `Σ'_n μ(n)²/(κ(n)φ(n))`; `c₀ = ζ(2)` is true and
+is never used, and `ρ₀·c₀ = 1` is true and is never used. T7 is stated at the series.
+
+**T4/T5 hold for `f` zero off squarefree only** — the tool is NOT a general Euler product.
+The must-FAIL control is in T5's docstring: at `f = 1/n²` and `t = 2` the closed form is
+false by `1.542124 ≠ 1.644931`, because the true factor is `(1 − 1/4)^{−1}`.
+
+**T3 carries `t ≠ 0` and `s ≠ 0`.** The v1 statement without them is FALSE at `(t, s) =
+(0, 1)`: both `primeFactors` are `∅` while `Coprime n 0 ↔ n = 1`, so `coprimeSeries f 0 =
+f 1`. The measured control is in T3's docstring.
+
+**The six H rows are the W6b-H freeze's statements, landing HERE and not in
+`GrahamHard.lean`.** That file is byte-unchanged by this wave; the two that landed (H5a,
+H5c) carry its frozen types.
+
+**Two mutants were MEASURED and STRUCK** and are recorded in P2's and C2's — here, P2's —
+docstring as NOT controls: P2 with `X^{1/4} → X^0`, and P2 with `σ(r) → 1`. C2's struck
+mutant (dropping the `+ 1` in the log) is recorded in this wave's flag entry instead, since
+C2 itself is absent.
+
+**F6** (no net numerator log): every frozen statement here is log-free (T1–T7, P1, P2, S1,
+C1) or carries its logs in a bounded one-variable pair (H5a's `√M·σ`, H5c's
+`(1 + |log M + α|)(1 + |log M + β|)`). The route's numerator logs — `(1 + log Q)/√Q` in
+C3's `D`-tail and `(1 + log Q)²` in H6d's far tail — belong to the absent rows.
+
+Axiom-clean (`propext, Classical.choice, Quot.sound`); no `native_decide`, no `sorry`.
+-/
 
 namespace Salt.SW
 
@@ -2264,5 +2350,53 @@ theorem sum_coprime_moebius_eq_sum_smooth (t X : ℕ) (ht : 1 ≤ t) (G : ℕ �
   by_cases hc : Nat.Coprime m t
   · rw [if_pos hc, if_pos hc]
   · rw [if_neg hc, if_neg hc, Int.cast_zero, zero_mul]
+
+
+/-! ## §2(b) binder-shape rows
+
+The off-line values are the sub-freeze's measured receipts. C1 at `N = 6` is the ONE EXACT
+row (`49/20 − 11/12 − 1/2 − 1/5 + 1/6 = 1`). T6 at `r = 6` has both sides `ρ₀/2`; H5a at
+`(6, 100)` has count `31`, main term `30.396` and RHS `4·10·3.2397 = 129.6`.
+
+The sub-freeze also asked for H6d at `(2, 100)` (`Σ_{n ≤ 100 odd}(μ(n)/n)log(100/n) =
+1.9721` vs `t/φ(t) = 2`) and H6e at `(2, 100)` (`2.3446` vs `c₀·κ(2)/2 = 2.4674`). **Both
+rows are ABSENT from this cut**, so those two example rows cannot be written; the numerals
+are printed here so the receipts are not lost. -/
+
+example : ∑ n ∈ Finset.Icc 1 6, (moebius n : ℝ) / n
+    * ∑ m ∈ Finset.Icc 1 (6 / n), (1 : ℝ) / m = 1 := by
+  have h1 : moebius 1 = 1 := isMultiplicative_moebius.map_one
+  have h2 : moebius 2 = -1 := moebius_apply_prime Nat.prime_two
+  have h3 : moebius 3 = -1 := moebius_apply_prime Nat.prime_three
+  have h4 : moebius 4 = 0 := moebius_eq_zero_of_not_squarefree (by decide)
+  have h5 : moebius 5 = -1 := moebius_apply_prime (by norm_num)
+  have h6 : moebius 6 = 1 := by
+    rw [show (6 : ℕ) = 2 * 3 by norm_num,
+      isMultiplicative_moebius.map_mul_of_coprime (by decide), h2, h3]
+    norm_num
+  have e1 : Finset.Icc 1 1 = ({1} : Finset ℕ) := by decide
+  have e2 : Finset.Icc 1 2 = ({1, 2} : Finset ℕ) := by decide
+  have e3 : Finset.Icc 1 3 = ({1, 2, 3} : Finset ℕ) := by decide
+  have e6 : Finset.Icc 1 6 = ({1, 2, 3, 4, 5, 6} : Finset ℕ) := by decide
+  rw [e6]
+  norm_num [e1, e2, e3, e6, h1, h2, h3, h4, h5, h6]
+
+example : (Nat.totient 6 : ℝ) / ((6 : ℕ) : ℝ)
+      * coprimeSeries (fun n => (moebius n : ℝ) / (n : ℝ) ^ 2) 6
+    = rho0 * (((6 : ℕ) : ℝ) / kappa 6) :=
+  totient_div_mul_coprimeSeries_moebius_div_sq 6 (by norm_num)
+
+example : ∃ C : ℝ, 0 < C ∧
+    |∑ m ∈ (Finset.Icc 1 ⌊(100 : ℝ)⌋₊).filter (fun m => Nat.Coprime m 6),
+        (moebius m : ℝ) ^ 2 - rho0 * (((6 : ℕ) : ℝ) / kappa 6) * 100|
+      ≤ C * (100 : ℝ) ^ (1/2 : ℝ) * sigmaQ 6 := by
+  obtain ⟨C, hC, h⟩ := sqf_coprime_count_eq
+  exact ⟨C, hC, h 6 (by norm_num) 100 (by norm_num)⟩
+
+example (G : ℕ → ℝ) :
+    ∑ m ∈ (Finset.Icc 1 10).filter (fun m => Nat.Coprime m 2), (moebius m : ℝ) * G m
+      = ∑ d ∈ (Finset.Icc 1 10).filter (fun d => d.primeFactors ⊆ (2 : ℕ).primeFactors),
+          ∑ e ∈ Finset.Icc 1 (10 / d), (moebius e : ℝ) * G (d * e) :=
+  sum_coprime_moebius_eq_sum_smooth 2 10 (by norm_num) G
 
 end Salt.SW

@@ -24631,6 +24631,23 @@ sound; it is gated entirely on H5a.
 **Statement concern: NONE.** Both rows are believed TRUE as spelled. H5a's `∃C` is uniform in `r` and
 `M` and the `σ_{−1/4}(r)` weight is `≥ 1`, so no binder is doing hidden work.
 
+**RETIRED 2026-09-05 (W6b-H1b, `Salt/SW/GrahamHard2.lean`)** — the residual is closed by
+`Salt.SW.sqf_coprime_count_eq` (H5a) and `Salt.SW.sqf_coprime_sum_log_mul_log_eq` (H5c). The missing
+"squarefree-density factorisation of `rho0`'s SERIES" is ONE stone, not the two pieces (i)+(ii) this
+entry priced: the COPRIME-SUBSERIES TOOL `Salt.SW.coprimeSeries_mul_prod_eq` — the prime step
+`S_f(t) = (1 + f(p))·S_f(pt)` for `f` multiplicative on coprime pairs and ZERO OFF SQUAREFREE
+(`Salt.SW.coprimeSeries_eq_mul_prime`, by a `Function.Injective.tsum_eq` reindex `n = p·e` whose
+support condition is just `p ∣ n`), then a Finset induction over `t.primeFactors` transferred to the
+given level by `Salt.SW.coprimeSeries_eq_of_primeFactors_eq`. Its instance
+`Salt.SW.totient_div_mul_coprimeSeries_moebius_div_sq` IS the identity this entry asked for, and the
+finite half is the per-prime `(1 − 1/p)(1 + 1/p) = 1 − 1/p²` — no `rad r` interposition and no
+`tsum_eq_tsum_of_ne_zero_bij` bijection over the support. H5c is then a general discrete Abel
+(`abel_sum`, the weight-free form) against H5a, with the antiderivative
+`F(x) = x((log x − 1 + α)(log x − 1 + β) + 1)` met through the mean-value theorem on each `[m, m+1]`
+so that no integral is formed, and **the residue `F(1)` carried** — at `M = 1, α = β = 0` the sum is
+`0` while the main term is `2`, so a route that drops it is false at that point. The counting half
+came in at the estimated ~200 lines; (i)+(ii) came in at ~350, not 300–400 for the bijection alone.
+
 ### 📥 09-05 — W6b-H1 `abs_sum_moebius_mul_log_div_add_one_le` / `coprime_sum_moebius_div_log_eq` (H6c, H6d): both reduce to ONE missing constant, and it is not elementary
 
 **Object:** the same cut. H6a and H6b LANDED (H6b by a fully discrete Abel route that never leaves ℕ —
@@ -24664,6 +24681,15 @@ is not the issue.
 
 **Statement concern: NONE.** Both rows are believed TRUE as spelled.
 
+**NOT RETIRED 2026-09-05 (W6b-H1b, `Salt/SW/GrahamHard2.lean`)** — the diagnosis is CONFIRMED and the
+missing constant is still missing. This wave landed the two pieces this entry named as cheap or sound:
+the harmonic identity `Salt.SW.sum_moebius_div_mul_harmonic_eq` (C1, exact) and the `t`-smooth
+convolution `Salt.SW.sum_coprime_moebius_eq_sum_smooth` (S1, by
+`IsMultiplicative.eq_iff_eq_on_prime_powers` — no explicit smooth part of `m` is ever constructed).
+What it did NOT land is the step that turns the identity into the evaluation: the sawtooth-log piece
+`P(Q) = Σ_{n ≤ Q}(μ(n)/n)·log((⌊Q/n⌋₊+1)n/Q)`, which is the entry's "SECOND application of Möbius
+cancellation". H6c and H6d remain open; see the 09-05 W6b-H1b entry below.
+
 ### 📥 09-05 — W6b-H1 `coprime_sum_moebius_div_kappa_log_eq` / `coprime_sum_moebius_div_kappa_le` (H6e, H6f): NOT attempted in Lean; gated on H6d and on `c₀`
 
 **Object:** the same cut. Recorded so the absence is a KNOWN hole and not a stale one.
@@ -24678,6 +24704,16 @@ budget went to H6b instead (which landed and is a genuine input to both).
 **Statement concern: NONE.** In particular H6e's `c₀` is EXISTENTIAL in the frozen row, so nothing here
 depends on its value; the obstruction is producing any positive constant with the stated uniformity.
 
+**PARTLY RETIRED 2026-09-05 (W6b-H1b, `Salt/SW/GrahamHard2.lean`)** — `c₀` is no longer the
+obstruction. It is DEFINED as its series (`Salt.SW.c0 = Σ' μ(n)²/(κ(n)φ(n))`), its convergence is
+`Salt.SW.summable_moebius_sq_div_kappa_totient` (PUBLIC; off squarefree the term vanishes and on
+squarefree `n` the product `κ(n)φ(n) = ∏_{p ∣ n}(p² − 1)` dominates `n^{3/2}`), and the `κ(t)/t`
+uniformity this entry attributed to a Dirichlet series `∏_{p ∤ t}(1 − p^{−s}/(p+1))` falls out of the
+coprime-subseries tool with no analysis at all, as
+`Salt.SW.div_totient_mul_coprimeSeries_inv_kappa_totient` (T7). H6e and H6f themselves are still
+ABSENT: they remain gated on H6d (through C3 and C2) and on the smooth series; see the 09-05 W6b-H1b
+entry below.
+
 ### 📥 09-05 — W6b-H1 count: the freeze's `§0` block carries NINETEEN theorem rows, not eighteen
 
 **Object:** `§0`'s ```lean block and the dispatch's row list. Both are labelled "18 rows + 4 defs" and
@@ -24686,3 +24722,83 @@ block returns **19** (H1a, H1b, H1c, H2, H3, H4, H5a, H5c, H6a, H6b, H6c, H6d, H
 H0d, H0e, H9), and the dispatch's own inline enumeration is the same nineteen names. The defs are four
 as stated. No statement is affected and nothing was added or dropped — the label is off by one against
 its own list. Recorded because an audit block sized from the label would under-cover by one row.
+
+**RETIRED 2026-09-05 (W6b-H1b, `Salt/SW/GrahamHard2.lean`)** — the class is closed by construction at
+the next cut. The W6b-H1b sub-freeze's `§0` block was COUNTED before it was called frozen
+(`grep -c '^theorem'` = 22) and was passed through the kernel with `:= by sorry` stubs at the same sha
+(EXIT=0, 22 `sorry` warnings, 0 errors), so the label and the list agree by construction; and the
+`⟦B2 W6b-H1b 0905⟧` audit block in `Salt/SW/All.lean` is sized from the LIST of what actually landed
+(fifteen `#audit_axioms` names — thirteen frozen rows and the two public helpers), never from a label.
+An off-by-one between a label and its own list cannot under-cover here.
+
+### 📥 09-05 — W6b-H1b `abs_sum_moebius_mul_log_floor_ratio_le` / `abs_sum_moebius_div_mul_log_div_sub_one_le` / `abs_sum_moebius_mul_log_div_add_one_le` (C2, C3, H6c): the blockwise Abel is the whole cost, and it did not fit the wave
+
+**Object:** `Salt/SW/GrahamHard2.lean` at the W6b-H1b cut. Thirteen of the cut's twenty-two frozen
+rows landed; these three did not, and they are ONE row plus two consequences.
+
+**What was tried (Opus, the wave's executor).** The sub-freeze's route was re-derived at the object
+and is SOUND at every step; nothing below is a defect report. C1 landed exactly as priced, and with it
+`T(Q) = 1 − D(Q) − P(Q)` is an identity, not an estimate. `D(Q)` is closed by the landed H6b plus the
+A4 helper `Salt.SW.log_rpow_le_rpow_quarter` (which landed here, PUBLIC). What remains is C2 alone:
+`|P(Q)| ≤ C/(log 2Q)^A` with `w(n) = (1/n)log((⌊Q/n⌋₊+1)n/Q)` and `0 ≤ w(n) ≤ 1/Q`.
+
+**Where it breaks: nowhere in the mathematics, and everywhere in the length.** The route needs, in
+Lean and in this order: the two `w` bounds; the integer `K = ⌊(log 2Q)^A⌋₊ + 1` with `1/K ≤
+(log 2Q)^{−A}`; the termwise small range `n ≤ Q/K` (contributing `≤ 1/K`); the fibre decomposition of
+`Icc (⌊Q/K⌋₊+1) ⌊Q⌋₊` by `k = ⌊Q/n⌋₊` through `Finset.sum_fiberwise_of_maps_to`, WITH the
+identification of each fibre as `Icc (⌊Q/(k+1)⌋₊ + 1) (⌊Q/k⌋₊)` and with EMPTY fibres tolerated; a
+discrete Abel per fibre against `Mmu` at saving `B = 2A + 1` (the general form landed here as the
+private `abel_sum`; the landed `mwWeighted_abel` is weight-`1/n`-specific and does not serve); the
+three per-fibre weight bounds `w(a+1) ≤ (k+1)/Q`, `w(b) ≤ 1/(kb)`, `|w(n) − w(n+1)| ≤ 2/n²`; the step
+`log 2n ≥ ½·log 2Q` on every fibre, which needs `n ≥ √Q/2` and therefore the A4 helper and the
+threshold `Q₀(A) = 2·(4A)^{4A}`; and the two regimes, with the trivial `|P| ≤ ⌊Q⌋₊/Q ≤ 1` below
+`Q₀(A)`. Measured against this wave's own rate (blocks I and II came in at ~1,950 lines for eleven
+rows), that is 600–900 lines for ONE row. It did not fit after H5a and H5c were paid for, and a
+half-written fibre argument is worth nothing.
+
+⇒ **C3 and H6c are GATED, with 0 attempts each** (C3 is `T = 1 − D − P` with `P` absent; H6c is one
+line off C3 and H6b at `A + 1`). The wave's decision was to spend the remainder on rows that stand
+alone (C1 and S1 both landed) rather than on a partial C2.
+
+**Statement concern: NONE.** All three rows are believed TRUE as spelled, and C2's numerals were
+re-measured at the desk before the freeze. **Recorded so it is not re-proposed as a control:** C2 with
+the `+ 1` DROPPED (`log(⌊Q/n⌋₊·n/Q)`) measures `−0.0289 / −0.0054 / +0.0027 / +0.00065 / −0.00021` at
+`Q = 10² … 10⁶`, i.e. `×log²(2Q) = −0.81 / −0.31 / +0.27 / +0.10 / −0.05` — bounded and shrinking, so
+it PASSES at every tested point and is NOT a kill-check (the sawtooth log carries its own Möbius
+cancellation). The live control is `μ(n) → μ²(n)`: `|Σ|·log²(2Q) = 8.8 … 62.5` over the same range,
+unbounded.
+
+### 📥 09-05 — W6b-H1b `sum_smooth_inv_le` / `div_totient_sub_sum_smooth_inv_le` / `abs_coprime_sum_moebius_div_le` / `coprime_sum_moebius_div_log_eq` / `coprime_sum_moebius_div_kappa_le` / `coprime_sum_moebius_div_kappa_log_eq` (S2, S3, S4, H6d, H6f, H6e): the smooth CLOSED FORM, and two rows gated behind C2
+
+**Object:** the same cut. S1 landed; the six rows above it did not.
+
+**What was tried (Opus, the wave's executor).** S1 — the `t`-smooth convolution — is the row that
+decides the block, and it LANDED, by a route cheaper than the sub-freeze's: both
+`n ↦ [n t-smooth]` and `n ↦ μ(n)[(n,t)=1]` are multiplicative, so
+`ArithmeticFunction.IsMultiplicative.eq_iff_eq_on_prime_powers` reduces the pointwise identity to two
+prime-power computations and **no `t`-smooth part of `m` is ever constructed** — none of the
+`Nat.factorization` machinery the sub-freeze's route names (`m_t := ∏_{p ∈ t.primeFactors}
+p^{v_p(m)}`, its divisibility, its coprime complement, the divisor-set equality) is needed. That
+correction is worth keeping: it is the single largest saving found in this wave.
+
+**Where it breaks.** S2 and S3 need the SMOOTH SERIES in closed form,
+`Σ'_{d t-smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}`, at `s = 1` AND `s = 1/2` — the sub-freeze's own
+"risk node 2". Two routes were weighed at the object and neither is short: (a) the prime-step
+recursion on the SMOOTH SUBTYPE (`ℕ × ℕ` will not do — `(1,1)` and `(0,p)` both hit `p`), with
+`Function.Injective.tsum_eq` on the subtype, `tsum_mul_tsum_of_summable_norm` for the geometric
+factor, and a Finset induction over `t.primeFactors` for the closed form, run TWICE; (b) a purely
+finite route, injecting the smooth `d ≤ X` into a product of exponent ranges and applying
+`Finset.prod_sum`, which avoids every `tsum` but pays for the injection instead. Either is ~450 lines
+before S3's per-prime numerics (`(1 − p^{−1/2})^{−1} ≤ c_p(1 + p^{−1/4})` with `c₂ = 1.86, c₃ = 1.35,
+c₅ = 1.09, c_p = 1` from `p = 7`, `∏ c_p ≤ 2.74 ≤ 3`). It did not fit.
+
+⇒ **S4 and H6f are GATED on S2/S3** (S4 is S1 at `G = 1/m` against H6b, with S2 on `d ≤ √Q` and S3's
+tail beyond; H6f is the `κ`-expansion `μ(n)/κ(n) = (μ(n)/n)Σ_{d ∣ n} μ(d)/κ(d)` against S4 at level
+`dt`). **H6d and H6e are GATED on C3, hence on C2** (see the entry above): H6d is S1 at
+`G(m) = (1/m)log(Q/m)` reduced to `T(Q/d)`, and H6e is H6d at level `d·t` — its `Squarefree (d·t)`
+binder discharged by `Nat.squarefree_mul` on `Coprime d t` — with T7 supplying the main term. All four
+were attempted 0 times, deliberately.
+
+**Statement concern: NONE.** All six are believed TRUE as spelled. In particular H6e's `c₀` is no
+longer an obstruction (`Salt.SW.c0` and T7 landed here), and S1's binder `1 ≤ t` was confirmed
+load-bearing: at `t = 0` and `m = 2` the LHS is `0` and the RHS `−1`.

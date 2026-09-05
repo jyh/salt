@@ -95,6 +95,7 @@ import Salt.SW.BCSup
 import Salt.SW.BvL
 import Salt.SW.GrahamMean
 import Salt.SW.GrahamHard
+import Salt.SW.GrahamHard2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -444,3 +445,26 @@ open Salt.Tactic in
   Salt.SW.sum_rpow_neg_half_log_sigmaQ_le
   Salt.SW.sum_sigmaQ_div_le
   Salt.SW.grahamW_sum_le_low
+
+-- ⟦B2 W6b-H1b 0905⟧ `Salt/SW/GrahamHard2.lean` — the TWO INPUTS of the six rows W6b-H1 left
+-- flagged. The coprime-subseries tool (T1–T5) and its two instances (T6 the `ρ₀·r/κ(r)`
+-- density, T7 the `c₀·κ(t)/t` one), the counting half (P1, P2) and with it **H5a and H5c**,
+-- the exact harmonic identity (C1) and the `t`-smooth convolution (S1) — THIRTEEN of the
+-- cut's twenty-two frozen rows, plus two PUBLIC helpers the H2 wave consumes. NINE rows are
+-- ABSENT and flagged (`docs/blueprints/flags.md`, 09-05 W6b-H1b): C2, C3, H6c, S2, S3, S4,
+-- H6d, H6f, H6e. The module docstring carries the label.
+#audit_axioms Salt.SW.summable_coprime_indicator
+  Salt.SW.coprimeSeries_one
+  Salt.SW.coprimeSeries_eq_of_primeFactors_eq
+  Salt.SW.coprimeSeries_eq_mul_prime
+  Salt.SW.coprimeSeries_mul_prod_eq
+  Salt.SW.totient_div_mul_coprimeSeries_moebius_div_sq
+  Salt.SW.div_totient_mul_coprimeSeries_inv_kappa_totient
+  Salt.SW.summable_moebius_sq_div_kappa_totient
+  Salt.SW.sum_moebius_sq_dvd_eq
+  Salt.SW.abs_card_coprime_sub_le
+  Salt.SW.sqf_coprime_count_eq
+  Salt.SW.sqf_coprime_sum_log_mul_log_eq
+  Salt.SW.log_rpow_le_rpow_quarter
+  Salt.SW.sum_moebius_div_mul_harmonic_eq
+  Salt.SW.sum_coprime_moebius_eq_sum_smooth
