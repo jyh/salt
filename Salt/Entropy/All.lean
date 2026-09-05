@@ -101,6 +101,7 @@ import Salt.Entropy.Chowla.StrideReduce
 import Salt.Entropy.Chowla.StrideShell
 import Salt.Entropy.Chowla.StrideCircle
 import Salt.Entropy.Chowla.StridePrize
+import Salt.Entropy.Chowla.StrideShellG
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
@@ -1504,3 +1505,18 @@ here bears on twin primes.  9 declarations (2 defs), 7 obligations, 7 landed. -/
   Salt.Entropy.Chowla.GradedAffHeadAt
   Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG
   Salt.Entropy.Chowla.logChowlaAffSupplyW_of_headG
+
+/-! ⟦STRIDE SHELL G⟧ — THE GRADED AFFINE HEAD (`StrideShellG`, 2026-09-04, math — λ-BV wave 2-S
+step F5 β, the graded SIBLING lane by substitution; frozen statement-only 20:1x, v1.1 on the
+helm's refuter verdict REPAIR-THEN-FIRE, fired 21:0x — ONE Opus executor, 1/1 open obligation at
+one attempt, the other LANDED at the freeze as the kernel's shape control).
+`log_chowla_aff_of_door_g` is the landed affine head `log_chowla_aff_of_door` with
+`837782·(ah)² ↦ 837782·2^11·(ah)²` at its `hcrown` binder and its conclusion — the body is that
+head's 181 lines VERBATIM, since `hρle` is obtained from `hcrown` and re-packaged in the `refine`
+and no other line reads the ceiling's numeral; `log_chowla_aff_of_door_unslotted_g` is the same
+head with the circle-method slot discharged by `circle_method_estimate_sq_bounded_aff`.  Beside
+the 35 MR names of the same lane (`Salt.MR.All`).  Nothing here bears on twin primes.
+2 obligations, 2 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.log_chowla_aff_of_door_g
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g

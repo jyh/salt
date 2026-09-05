@@ -426,6 +426,9 @@ import Salt.MR.V7RatedH
 import Salt.MR.AffineSupplyH
 import Salt.MR.StridePairReceipt
 import Salt.MR.StrideEntropyReceipt
+import Salt.MR.StrideGradeWalls
+import Salt.MR.StridePairReceiptG
+import Salt.MR.StrideGradeReceipt
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -9780,3 +9783,77 @@ the crown's regime, its door at grade `a·Zr·ρ + E`, and the entropy half `∀
 longer conditional on a slot; nothing here bears on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.log_chowla_aff_of_door_crowned_unslotted
+
+/-! ⟦STRIDE GRADE WALLS⟧ — THE NUMERAL WALLS OF THE GRADED LANE (`StrideGradeWalls`, 2026-09-04,
+math — λ-BV wave 2-S step F5 β, the graded SIBLING lane by substitution; frozen statement-only
+20:1x, v1.1 on the helm's refuter verdict REPAIR-THEN-FIRE, fired 21:0x — ONE Opus executor,
+14/14, 13 at one attempt).  The landed `h`-lane road is run at the threaded pin
+`1/(838400·2^11·h²) ≤ δ₀`, so every landed lemma that bounds the envelope `ρ_env` or `−log ρ_env`
+by a NUMERAL under the pin is re-cut here by substitution, each body a verbatim copy of its
+source at `main 9a2b3053`: the charge chain at `2^31`/`2^592`/`411`/`425`, the four cap lines at
+`425` in place of `417`, the three register witnesses, the bump at `838400·2^11` (re-routed
+through `flatDoorM_ge_pow355`) and the arm at the `c`-ceiling `2^11·1096² = 2460090368` with the
+`128·838400·c` group at `27·10^16`.  Numerals only; nothing here proves an estimate, and nothing
+bears on twin primes.  14 obligations, 14 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.s16_audit_rho_ge_wide_h_g
+  Salt.MR.s16_audit_neglog_rho_le_wide_h_g
+  Salt.MR.s16_audit_neglog_rho_le_425_h
+  Salt.MR.flat_half_line_g
+  Salt.MR.flat_anchor_line_wide_g
+  Salt.MR.flat_gP1_line_g
+  Salt.MR.flat_lvl_line_g
+  Salt.MR.s15_sel''_L_witness_flat_charge_g
+  Salt.MR.s15_sel''_L_witness_flat_wide_g
+  Salt.MR.s15_sel''_L_gk_witness_flat_wide_g
+  Salt.MR.flatDoorM_bfloor_bump_g
+  Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_h_g
+  Salt.MR.s15Arm_log_le_scaled_g
+  Salt.MR.s15ArmH_log_le_g
+
+/-! ⟦STRIDE PAIR RECEIPT G⟧ — THE `h`-LANE DOOR RECEIPT AT THE GRADED PIN (`StridePairReceiptG`,
+2026-09-04, math — λ-BV wave 2-S step F5 β; fired 21:0x — ONE Opus executor, 11/11, every name at
+one attempt).  `StridePairReceipt`'s six forms, five replays, door-head, chain, receipts and crown
+regenerated at the road's pin `838400·2^11`: the forms by substitution on the pin conjunct, the
+replays VERBATIM with exactly two name swaps (`s15ArmH_log_le_g`,
+`s15_sel''_L_gk_witness_flat_bumped_win_h_g`, both `StrideGradeWalls`), and the door-head's MINT
+moved by `2^11` (`δ₀ := cD3/(16C)·ε/4/2^11`) so the door it hands out is 2048× finer,
+`ρ ≤ 1/(837782·2^11·h²)`.  The crown `mrtUniformityXiL2AffW_holds_flat_stride_g` is the affine
+`L²` door at Tao's range at grade `≤ 1.02·a·ρ + E` at that ceiling.  Nothing here bears on twin
+primes.  18 declarations (7 defs), 11 obligations, 11 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.FlatHeadFormHG
+  Salt.MR.FlatRoadExitFormHG
+  Salt.MR.FlatCapstoneFormHG
+  Salt.MR.FlatConditionalFormHG
+  Salt.MR.FlatKswinFormHG
+  Salt.MR.V7RatedFormHG
+  Salt.MR.flat_roadExit_generic_h_g
+  Salt.MR.flat_capstone_generic_h_g
+  Salt.MR.flat_conditional_generic_h_g
+  Salt.MR.flat_kswin_generic_h_g
+  Salt.MR.flat_v7_generic_h_g
+  Salt.MR.MRTDoorReceiptSetG
+  Salt.MR.flat_door_head_xceil_h_g
+  Salt.MR.flat_chain_generic_h_g
+  Salt.MR.mrtUniformityXiL2Set_holds_flat_floor_g
+  Salt.MR.mrtUniformityXiL2H_holds_flat_g
+  Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g
+
+/-! ⟦STRIDE GRADE RECEIPT⟧ — THE GRADED CROWN FED INTO THE GRADED HEAD, THE SUPPLY, THE PRIZE
+(`StrideGradeReceipt`, 2026-09-04, math — λ-BV wave 2-S step F5 β; fired 21:0x — ONE Opus
+executor, 1/1 open obligation at one attempt, the other two LANDED at the freeze as the kernel's
+shape control).  `log_chowla_aff_of_door_crowned_unslotted_g` feeds the graded crown into the
+graded unslotted Entropy head and its conclusion IS `GradedAffHeadAt a b h A₀` (the `unfold` is
+the K-check); `logChowlaAffSupplyW_holds` is F5-S at that discharge — the stride supply at
+`a ≥ 2` that `AffineFork.lean:96` records as held by nobody, now HELD;
+`zRough_oddOmega_infinite_primorial` is the prize, UNCONDITIONAL: for every `z` with
+`primorial z ≤ 548` (`z ≤ 10` — the gate is on the primorial, never on `z`; `548` is EXACT since
+`549·2 = 1098 > e^7`) and every admissible class `r < primorial z`, infinitely many `n` with
+`n(n+2)` `z`-rough and `Ω(n(n+2))` odd — Tao Thm 2.3's consequence at one class, NOT
+almost-primality.  Nothing here bears on twin primes.  3 obligations, 3 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g
+  Salt.MR.logChowlaAffSupplyW_holds
+  Salt.MR.zRough_oddOmega_infinite_primorial

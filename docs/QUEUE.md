@@ -698,6 +698,36 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    by substitution (`838400·2^11`, `2^31`, `2^592`, `411`, `425`, the bump at `2^11`; ~47 names, nothing landed
    moves), its freeze at the next head, the helm's refuter pass, the wave; then the prize is one line.
    Nothing here bears on twin primes.
+   ✅⭐⭐ **WAVE 2-S STEP F5 β, THE GRADED SIBLING LANE — LANDED 27/27, ONE Opus, EVERY NAME AT ONE ATTEMPT, 18
+   MINUTES — STAMPED 2026-09-04 21:2x (math).** Frozen statement-only 20:1x, the helm's refuter verdict 20:41
+   REPAIR-THEN-FIRE (no FATAL), v1.1 cut at the freeze 20:5x (`35eaadcb`), fired 20:59, landed 21:17 in four path-limited
+   commits (`9433f402` Walls 14/14 · `a9f0838a` ReceiptG 11/11 · `fe028ee0` ShellG 1/1 · `5d1de440` GradeReceipt 1/1 + the
+   37 audit rows). **Every one of the 37 names `[propext, Classical.choice, Quot.sound]`**; the K5 control RECORDED (the arm
+   with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:476's twin — one step before the
+   freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
+   minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:330`
+   shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
+   off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
+   `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
+   (A 16 · B 10 · C 1 by size), 3 one-liners LANDED at the freeze as kernel shape controls** (the crown_g's conclusion IS
+   the graded head's `hcrown`; the head's conclusion IS `GradedAffHeadAt` by `unfold; exact`; F5-S at that discharge).
+   THE TRACE re-priced β ~47 → 37: the crown reads the six `FlatXFormH` defs + the five generic replays + the door-head
+   and NEVER the LinearLH hop forms / ExitH's exit / ComposeLH's sites; the pin is consumed at exactly two replay names
+   (`s15ArmH_log_le` :1479, the bumped-win selector :1693), both twinned; the walls at 0.375 nats slack, the arm at
+   0.377, the composition closes with 1.83× room at `a = 1096`. **AUDIT ROWS LANDED WITH THE WAVE** (the freeze's
+   ⟦AUDIT DEFERRED⟧ markers replaced in the same commit as the last `sorry`): ⟦STRIDE GRADE WALLS⟧ 14 · ⟦STRIDE PAIR
+   RECEIPT G⟧ 18 · ⟦STRIDE GRADE RECEIPT⟧ 3 in `Salt/MR/All.lean`, ⟦STRIDE SHELL G⟧ 2 in `Salt/Entropy/All.lean`.
+   ⭐⭐ **THE PRIZE IS UNCONDITIONAL:** `zRough_oddOmega_infinite_primorial` (`Salt/MR/StrideGradeReceipt.lean`) — for every
+   `z` with `primorial z ≤ 548` (i.e. `z ≤ 10`; the gate is on the primorial) and every class `r < primorial z` with
+   `gcd(r(r+2), primorial z) = 1`, infinitely many `n` with `n(n+2)` `z`-rough and `Ω(n(n+2))` odd — Tao Thm 2.3's
+   consequence at one class, NOT almost-primality; `logChowlaAffSupplyW_holds` is the stride supply at `a ≥ 2` that
+   `AffineFork.lean:96` recorded as held by nobody, now held. ⛔ **HONEST LABEL:** a second terminal the crown alone reads,
+   `2^11` finer, paid by `+7.62` nats on every `ρ`-charge against `≥ 449×` of room; the def, the `h`-prize and every
+   `h = 1` consumer untouched; `z ≥ 11` rides on the unproved crown `MRTDoorAllGrades`; nothing on the apex. Freeze
+   `2026-09-04-math-FREEZE-lbv-w2S-F5-beta.md`; verdict `2026-09-04-helm-REFUTER-VERDICT-lbv-w2S-F5-beta.md`. NEXT: the
+   PR, merge on green by the re-drive law; then the helm's word on what follows F5 (the crown's grade is unbounded `z`'s
+   gate). Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
