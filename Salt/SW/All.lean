@@ -92,6 +92,8 @@ import Salt.SW.DensityLogfree
 import Salt.SW.TauExt
 import Salt.SW.TBalTall
 import Salt.SW.BCSup
+import Salt.SW.BvL
+import Salt.SW.GrahamMean
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -396,3 +398,28 @@ open Salt.Tactic in
   Salt.SW.bvWeight_eq_of_mem
   Salt.SW.sum_bvWeight_divisors_eq_zero
   Salt.SW.sum_bvWeight_divisors_one
+
+-- ⟦B2 W6b-E 0904⟧ `Salt/SW/BvL.lean` — the coprime log-weighted Möbius sum `bvL g w` on the
+-- REALS, its telescope `bvL (p g') w = bvL g' w + (1/p)·bvL (p g') (w/p)` and the envelope
+-- `|bvL g w| ≤ C₀·g/φ(g)` (squarefree `g`), whence the sharp pointwise decay
+-- `|innerG z g| ≤ C₀/(φ(g)·log z)`. `bvL` itself is a def; the seven theorems are the gate.
+#audit_axioms Salt.SW.bvL_of_lt_one
+  Salt.SW.innerG_eq_bvL
+  Salt.SW.abs_bvL_one_le
+  Salt.SW.bvL_step
+  Salt.SW.abs_bvL_le
+  Salt.SW.innerG_eq_zero_of_not_squarefree
+  Salt.SW.abs_innerG_le_sharp
+
+-- ⟦B2 W6b-E 0904⟧ `Salt/SW/GrahamMean.lean` — the Graham / Barban–Vehov MEAN upper bound on
+-- the EASY half `x ≥ z²`: `Σ_{n ≤ x} w(n) ≤ C·x/log z`, and the same for Jutila's two-level
+-- weight. The hypothesis `x ≥ z²` is strictly weaker than Graham's `x ≥ z` (W6b-H's), and
+-- S10's `z₂² ≤ x` is unsatisfiable at B2's closure table — the honest label is in the module
+-- docstring, and the audit is what says the constants carry no extra axiom.
+#audit_axioms Salt.SW.sum_totient_innerG_sq_le
+  Salt.SW.grahamW_sum_eq_floor
+  Salt.SW.sum_grahamGc_div_eq
+  Salt.SW.sum_abs_grahamTheta_le
+  Salt.SW.sum_abs_grahamGc_le
+  Salt.SW.grahamW_sum_le
+  Salt.SW.sum_sq_sum_bvWeight_le
