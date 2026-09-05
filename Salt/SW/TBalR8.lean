@@ -455,6 +455,44 @@ lemma ray_pow_bound {Q L₂ c u w α γ ε b k : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 �
           (Real.rpow_nonneg hL0.le _) (by positivity)
     _ = c ^ γ := by ring
 
+/-- **The on-ray monomial engine, WITH the `L₂ → Q` conversion** (the `ray_pow_bound` companion).
+Same collapse as `ray_pow_bound`, but the `L₂`-exponent `ε` is NO LONGER required to sit under the
+ray's own `k·γ`: the shortfall `ε − k·γ ≥ 0` (`hres`) is converted into `Q`-powers through
+`hL2hi : L₂ ≤ Q^{δ′}` and charged to the exponent-balance hypothesis, which becomes
+`α + δ′·(ε − k·γ) ≤ b·w·γ`.
+
+⟦B1a S4⟧ This is the whole mechanism of the `k = 1` twins: at `k = 1` the landed `hε : ε ≤ k·γ`
+fails on every row (there are no spare `L₂` powers left), and `hL2hi` at `δ′ = 9/10`
+(`log_add_two_le_rpow_nine_tenths`) buys them back in `Q` at exchange rate `1`.  `hb`/`hk` are
+carried positionally exactly as `ray_pow_bound` carries them, so the two engines are drop-in
+siblings at a call site. -/
+lemma ray_pow_bound_conv {Q L₂ c u w α γ ε b k δ' : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c)
+    (hb : 0 < b) (hk : 0 ≤ k) (hu0 : 0 < u) (hγ : 0 < γ)
+    (hL2hi : L₂ ≤ Q ^ δ') (hres : k * γ ≤ ε)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hα : α + δ' * (ε - k * γ) ≤ b * w * γ) :
+    Q ^ α * u ^ γ * L₂ ^ ε ≤ c ^ γ := by
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have hL0 : (0 : ℝ) < L₂ := by linarith
+  have hs : (0 : ℝ) ≤ ε - k * γ := by linarith
+  -- the shortfall, converted: `L₂^{ε−kγ} ≤ (Q^{δ′})^{ε−kγ} = Q^{δ′(ε−kγ)}`
+  have hconv : L₂ ^ (ε - k * γ) ≤ Q ^ (δ' * (ε - k * γ)) := by
+    calc L₂ ^ (ε - k * γ) ≤ (Q ^ δ') ^ (ε - k * γ) := Real.rpow_le_rpow hL0.le hL2hi hs
+      _ = Q ^ (δ' * (ε - k * γ)) := by rw [← Real.rpow_mul hQ0.le]
+  have hsplit : L₂ ^ ε = L₂ ^ (k * γ) * L₂ ^ (ε - k * γ) := by
+    rw [← Real.rpow_add hL0]; ring_nf
+  have hQα : Q ^ (α + δ' * (ε - k * γ)) = Q ^ α * Q ^ (δ' * (ε - k * γ)) := Real.rpow_add hQ0 _ _
+  have hmain := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+    (α := α + δ' * (ε - k * γ)) (γ := γ) (ε := k * γ) hQ1 hL2 hcc hb hk hu0 hγ huτ hα le_rfl
+  have hQunn : (0 : ℝ) ≤ Q ^ α * u ^ γ := by positivity
+  have hLknn : (0 : ℝ) ≤ L₂ ^ (k * γ) := (Real.rpow_pos_of_pos hL0 _).le
+  calc Q ^ α * u ^ γ * L₂ ^ ε
+      = Q ^ α * u ^ γ * (L₂ ^ (k * γ) * L₂ ^ (ε - k * γ)) := by rw [hsplit]
+    _ ≤ Q ^ α * u ^ γ * (L₂ ^ (k * γ) * Q ^ (δ' * (ε - k * γ))) :=
+        mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hconv hLknn) hQunn
+    _ = Q ^ (α + δ' * (ε - k * γ)) * u ^ γ * L₂ ^ (k * γ) := by rw [hQα]; ring
+    _ ≤ c ^ γ := hmain
+
 /-! ## §5 — the on-ray row caps (each master row `≤ 1/8` on the ray `u < τ`) -/
 
 /-- **The 1/x row cap**, at the PARAMETRIC scale `Y ≥ Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.
