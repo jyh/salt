@@ -1506,14 +1506,17 @@ here bears on twin primes.  9 declarations (2 defs), 7 obligations, 7 landed. -/
   Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG
   Salt.Entropy.Chowla.logChowlaAffSupplyW_of_headG
 
-/-! ⟦STRIDE SHELL G — β, AUDIT DEFERRED⟧ (`StrideShellG`, 2026-09-04, math — λ-BV wave 2-S step F5
-β, the graded SIBLING lane by substitution; frozen statement-only 20:1x, the helm's refuter
-verdict 20:41 REPAIR-THEN-FIRE, v1.1 cut at the freeze).  TWO Entropy names enter this aggregate
-by the import line above UNAUDITED at the freeze — `log_chowla_aff_of_door_g` (the landed affine
-head with `837782 ↦ 837782·2^11` at its `hcrown` binder and its conclusion, body a verbatim
-copy, `sorry` at the freeze) and `log_chowla_aff_of_door_unslotted_g` (LANDED at the freeze as
-the kernel's shape control, but its producer carries `sorryAx`) — beside the 35 MR names of the
-same lane (`Salt.MR.All`): `#audit_axioms` throws on `sorryAx`, so the rows CANNOT precede the
-landing.  ⛔ MERGE FENCE (iron rule 2): the 2 rows land HERE, replacing this marker, WITH the
-wave — in the same commit as the last `sorry`, both at `[propext, Classical.choice, Quot.sound]`
-or less; the landing exit test (freeze §7) names them.  Nothing here bears on twin primes. -/
+/-! ⟦STRIDE SHELL G⟧ — THE GRADED AFFINE HEAD (`StrideShellG`, 2026-09-04, math — λ-BV wave 2-S
+step F5 β, the graded SIBLING lane by substitution; frozen statement-only 20:1x, v1.1 on the
+helm's refuter verdict REPAIR-THEN-FIRE, fired 21:0x — ONE Opus executor, 1/1 open obligation at
+one attempt, the other LANDED at the freeze as the kernel's shape control).
+`log_chowla_aff_of_door_g` is the landed affine head `log_chowla_aff_of_door` with
+`837782·(ah)² ↦ 837782·2^11·(ah)²` at its `hcrown` binder and its conclusion — the body is that
+head's 181 lines VERBATIM, since `hρle` is obtained from `hcrown` and re-packaged in the `refine`
+and no other line reads the ceiling's numeral; `log_chowla_aff_of_door_unslotted_g` is the same
+head with the circle-method slot discharged by `circle_method_estimate_sq_bounded_aff`.  Beside
+the 35 MR names of the same lane (`Salt.MR.All`).  Nothing here bears on twin primes.
+2 obligations, 2 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.log_chowla_aff_of_door_g
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g

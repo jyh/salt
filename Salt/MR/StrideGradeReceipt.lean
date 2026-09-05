@@ -71,6 +71,26 @@ theorem zRough_oddOmega_infinite_primorial {z r : ℕ} (hz : primorial z ≤ 548
     (hr : r < primorial z) (hcop : Nat.Coprime (r * (r + 2)) (primorial z)) :
     {n : ℕ | (∀ p ∈ (n * (n + 2)).primeFactors, z < p)
       ∧ Odd (ArithmeticFunction.cardFactors (n * (n + 2)))}.Infinite := by
-  sorry
+  have hpz : 0 < primorial z := primorial_pos z
+  have hah7 : Real.log ((primorial z * 2 : ℕ) : ℝ) ≤ 7 := by
+    have hle : primorial z * 2 ≤ 1096 := by omega
+    have hR : ((primorial z * 2 : ℕ) : ℝ) ≤ 1096 := by exact_mod_cast hle
+    have hR0 : (0 : ℝ) < ((primorial z * 2 : ℕ) : ℝ) := by
+      have hpos : 0 < primorial z * 2 := by omega
+      exact_mod_cast hpos
+    -- the `e^7` move at `StridePairReceipt.lean:1425-1436`
+    have he7 : (1096 : ℝ) ≤ Real.exp 7 := by
+      have h3 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have h4 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+      have h5 : (2.7182818283 : ℝ) ^ (7 : ℕ) ≤ (Real.exp 1) ^ (7 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) h4.le 7
+      have h6 : (1096 : ℝ) ≤ (2.7182818283 : ℝ) ^ (7 : ℕ) := by norm_num
+      rw [h3]; linarith
+    calc Real.log ((primorial z * 2 : ℕ) : ℝ) ≤ Real.log (Real.exp 7) :=
+        Real.log_le_log hR0 (by linarith)
+      _ = 7 := Real.log_exp 7
+  exact zRough_oddOmega_infinite_of_affSupplyW_primorial hcop
+    (logChowlaAffSupplyW_holds (primorial z) r 2 hpz (by norm_num) hr
+      (gcd_dvd_two_of_coprime hcop) hah7)
 
 end Salt.MR
