@@ -728,6 +728,37 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    `2026-09-04-math-FREEZE-lbv-w2S-F5-beta.md`; verdict `2026-09-04-helm-REFUTER-VERDICT-lbv-w2S-F5-beta.md`. NEXT: the
    PR, merge on green by the re-drive law; then the helm's word on what follows F5 (the crown's grade is unbounded `z`'s
    gate). Nothing here bears on twin primes.
+   ✅✅⭐⭐ **λ-BV WAVE 2-S + β — DONE AT ITS TERMS — STAMPED 2026-09-04 21:48 (math), on the helm's 21:34 word.** FOUR
+   MERGES on salt `main` today: F4a `984b553f` (PR #39) · F4b `4885bfed` (PR #41) · F5 ripe `9a2b3053` (PR #42) · β
+   `9c9a4910` (PR #44); main's own Lean CI on the last merge `33944639370` GREEN (build 8m13s), Scrub `33944639372` green.
+   ⛔ **HONEST LABEL.** The prize `zRough_oddOmega_infinite_primorial` (`Salt/MR/StrideGradeReceipt.lean`) is
+   UNCONDITIONAL at ONE residue class: for every `z` with `primorial z ≤ 548` (⇔ `z ≤ 10`, the gate being on the
+   primorial) and every admissible `r < primorial z`, infinitely many `n` with `n(n+2)` `z`-rough and `Ω(n(n+2))` odd —
+   Tao Thm 2.3's consequence at one class, NOT almost-primality. The affine composition `a·Zr·ρ + E ≤ δ₀` is CLOSED
+   through `GradedAffHeadAt` on the graded lane (`log_chowla_aff_composed_of_headG` at the binder, the binder discharged
+   by the graded head; `logChowlaAffSupplyW_holds` at every `(a, b, h)` with `b < a`, `gcd(b+h, a) ∣ h`, `log(ah) ≤ 7`).
+   `z ≥ 11` = THE CROWN'S `k = 1` STATEMENT by the Captain's 19:16 ruling (desk FI, "Arm B": the crown's statement
+   stays the frozen `HeathBrownDichotomy` at `k = 1`; h2c's B2-by-Jutila block carries it) — on THIS lane it reads as
+   `MRTDoorAllGrades`'s unbounded-`z` gate, no producer, not a worker pull.
+   ✅ **THE DEFERRED AUDITS ARE RETIRED BY ROWS, MEASURED AT `9c9a4910`:** 0 ⟦AUDIT DEFERRED⟧ markers under `Salt/`; the
+   37 β names + the 9 F5-ripe names = 46/46 in `#audit_axioms` rows BY EXACT NAME (⟦STRIDE GRADE WALLS⟧ 14 · ⟦STRIDE
+   PAIR RECEIPT G⟧ 18 · ⟦STRIDE GRADE RECEIPT⟧ 3 in `Salt/MR/All.lean`; ⟦STRIDE SHELL G⟧ 2 · ⟦STRIDE PRIZE⟧ 9 in
+   `Salt/Entropy/All.lean`; a negative control reads 0); both aggregates rebuilt after `touch` through the wrapper,
+   `saltbuild EXIT=0` ×2, 0 errors, 0 `sorryAx`, the 46 ticks read by name: 45 `[3 axioms]`, `gcd_dvd_two_of_coprime`
+   `[2 axioms]`. The freeze's fence row was rewritten by the landing stamp above; nothing is owed here.
+   ⚖️ **ROUTE I's T1–T4 RE-MEASURED AT `9c9a4910`** (the 08/21 RULINGS' text): **T1 NOT FIRED** — the match report's
+   rider is NO (`2026-08-21-mrt-match-REPORT.md` §6) and nothing since supplies a natural-density atom:
+   `LiouvilleTwinDisp` has 0 producers (the one theorem concluding it, `liouvilleTwinDisp_of_two_objects`, is the
+   interface split conditional on two bounds); the stride lane produces the atom's SHAPE (two-point at stride `d`,
+   class `r`, shift 2) at LOG weight, windowed, at an `∃`-scale, `d ≤ 548` — not `L N d`. **T2 NOT FIRED** — the
+   log-rebase did not wall: B0–B4 at log weight LANDED 09/03 (`Salt/TwinBar/TwinParitySieveLog.lean`, PR #30, every
+   theorem `[3 axioms]`, rows in `Salt/TwinBar/All.lean`). **T3 NOT FIRED** — Route II has not LANDED: its object is a
+   DOOR conditional on `LiouvilleTwinDispLog` (0 producers; `twinParitySieveLog_support_infinite` takes it `∀ N`) —
+   there is no discharge to upgrade. **T4 UNMEASURABLE AT THE TREE** — a literature trigger; the last commissioned
+   census (08/21, W2-C2 refresh 09/03) read NOT FIRED; one web query on 2026-09-04 returned Ford–Radziwiłł 2605.03349
+   (sign changes of `λ` in ONE progression, a single-function Linnik-type result — not a two-point correlation, not a
+   discrepancy over moduli): no hit of the trigger's shape — one query, not a census. Nothing here bears on twin
+   primes; the apex's λ-BV demand is the SCOUT's subject (`2026-09-04-math-SCOUT-lbv-after-2S.md`, the 09/05 sitting).
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
