@@ -24589,3 +24589,100 @@ only regime builder; `ChowlaRegime.hheadroom'` supplies the one outer-scale fact
 in the literature; NOT proved here, NO producer, two roads priced (a `δ`-parametric inhabitation of the M4
 class road's register, class C large; the E-ladder at `f = λχ`, class D). The flat receipts above are ONE
 grade at ONE `ε`-floor and are NOT an instance of the crown; no pin is claimed. Nothing bears on twin primes.
+
+### 📥 09-05 — W6b-H1 `sqf_coprime_count_eq` / `sqf_coprime_sum_log_mul_log_eq` (H5a, H5c): the DENSITY IDENTITY is the block, and it is a `tsum` split, not a counting estimate
+
+**Object:** `Salt/SW/GrahamHard.lean` at the W6b-H1 cut. Thirteen of the wave's nineteen frozen rows
+landed; H5a and H5c did not, and they fail at the SAME place.
+
+**What was tried (Opus, 3 passes on the route, no Lean cut committed).** The counting half of An's
+Lemma 3.7 over `ℚ` is routine and its inputs are all present: `μ²(m) = Σ_{d² ∣ m} μ(d)`
+(mathlib `moebius_sq`), the coprime count `#{m′ ≤ X : (m′,r) = 1} = Σ_{e ∣ r} μ(e)⌊X/e⌋`
+(salt `sum_coprime_eq_moebius_multiples`, `CoprimeBV.lean:98`, at `F ≡ 1`), the fractional-part
+bound `|{X/e}| ≤ min(1, X/e) ≤ (X/e)^{1/4}` and the two tail sums (`Σ_{d ≤ √M}(M/d²)^{1/4} ≤ 2√M`,
+`M·Σ_{d > √M} d^{−2} ≤ √M`) — the last two are the same rpow-induction shape as the landed H0
+substrate and would reuse it.
+
+**Where it breaks.** Assembling those gives the main term
+`(φ(r)/r)·M·Σ_{d ≤ √M, (d,r)=1} μ(d)/d²`, and the FROZEN main term is `rho0·(r/κ(r))·M`. Closing the
+gap needs, exactly:
+
+  (i) `Σ_{d ∣ r} μ(d)/d² = (φ(r)/r)·(κ(r)/r)` — a finite identity, but it is
+      `∏_{p ∣ r}(1 − p^{−2}) = ∏(1 − p^{−1})·∏(1 + p^{−1})` and needs the divisor-sum-to-prime-product
+      step for the multiplicative `d ↦ μ(d)/d²` (mathlib's `prodPrimeFactors_one_add_of_squarefree`
+      wants a SQUAREFREE argument, and `r` here is arbitrary, so `rad r` has to be interposed), plus
+      `φ(r)/r = ∏_{p ∣ r}(1 − 1/p)` from `Nat.totient_mul_prod_primeFactors`;
+
+  (ii) `(Σ_{d ∣ r} μ(d)/d²)·(Σ'_{(d,r)=1} μ(d)/d²) = rho0` — an INFINITE-sum split. The bijection is
+      `(d₁, d₂) ↦ d₁·d₂` from `{d₁ ∣ r} × {(d₂,r) = 1}` onto the squarefree naturals, injective there
+      because `d₁ = gcd(d₁d₂, r)` for squarefree `d₁d₂`, and surjective onto the support because
+      `μ = 0` off squarefree (e.g. `4` is outside the image at `r = 2`, and `μ(4) = 0`). Mechanising
+      it is a `tsum_eq_tsum_of_ne_zero_bij` over the support with the `Summable` side conditions.
+
+⇒ **The block is NOT the error exponent and NOT the counting.** K17's `M^{1/2}σ_{−1/4}` was
+re-derived and is right; what is missing is a squarefree-density factorisation of `rho0`'s SERIES,
+which exists nowhere in the corpus and is of `rho0`'s own species. Estimated 300–400 lines for (i)+(ii)
+alone, on top of ~200 for the counting; the freeze's price of 4–5 decls for H5a/H5c reads low by a
+factor of two or more. **H5c was not attempted separately** — it is partial summation twice on H5a's
+conclusion and its own derivation (the one-variable weight, `|log t + α| ≤ |log M + α| + log(M/t)`,
+`∫_1^M t^{−1/2}log(M/t) ≤ 4√M`, the boundary absorbed by `2 log M + 2 ≤ 6√M`) was checked and looks
+sound; it is gated entirely on H5a.
+
+**Statement concern: NONE.** Both rows are believed TRUE as spelled. H5a's `∃C` is uniform in `r` and
+`M` and the `σ_{−1/4}(r)` weight is `≥ 1`, so no binder is doing hidden work.
+
+### 📥 09-05 — W6b-H1 `abs_sum_moebius_mul_log_div_add_one_le` / `coprime_sum_moebius_div_log_eq` (H6c, H6d): both reduce to ONE missing constant, and it is not elementary
+
+**Object:** the same cut. H6a and H6b LANDED (H6b by a fully discrete Abel route that never leaves ℕ —
+see the commit); H6c and H6d did not.
+
+**What was tried (Opus, 3 passes on the route).** H6c is `|Σ_{n ≤ Q} μ(n)·log n/n + 1| ≤ C/(log 2Q)^A`.
+With `T(Q) := Σ_{n ≤ Q}(μ(n)/n)·log(Q/n) = log Q·f(Q) − g(Q)` and the LANDED H6b (which bounds `f` at
+any saving, so `log Q·f(Q)` is `O((log 2Q)^{−A})` at `A+1`), **H6c is EQUIVALENT to `T(Q) = 1 + O`,
+which is H6d at `t = 1`.** So H6c and H6d are one problem, and the whole content is the value `1`.
+
+Three elementary routes to that value were driven and all three fail at the same point:
+
+  * the harmonic identity `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1` IS cheap here — it is the landed divisor
+    swap (`sum_divisors_swap` in this file, or `CoprimeBV.sum_dvd_reindex`) applied to `F e r = μ(e)/r`
+    plus `sum_divisors_moebius_real` — but subtracting it leaves
+    `T − 1 = −γ·f(Q) − Σ_{n ≤ Q}(μ(n)/n)·δ(Q/n)` with `|δ(y)| ≤ 1/y`, and that last sum is only
+    `O(1)` term-by-term (`Σ_{n ≤ Q}(1/n)(n/Q) = 1`). It needs a SECOND application of Möbius
+    cancellation, not a bound;
+  * discrete Abel on `w(n) = log n/n` gives `g(N) = M(N)log N/N + Σ_{n < N} M(n)(w(n) − w(n+1))`, so
+    `g(N)` converges — but to `Σ_{n ≥ 1} M(n)(w(n) − w(n+1))`, with no elementary evaluation;
+  * the integral form `T(x) = ∫_1^x f(t)dt/t` (from `log(x/n) = ∫_n^x dt/t` and swapping) is correct
+    and elementary, and reduces the claim to `∫_1^∞ f(t)dt/t = 1` — the residue of
+    `x^s/(s²ζ(1+s))` at `s = 0`. Analytic.
+
+⇒ **The corpus has the RATE (`mmuRate_holds`) but not the CONSTANT.** Everything H6c/H6d need beyond
+H6b is that one evaluation. The freeze's H6d route (the `t`-smooth convolution
+`μ·1_{(n,t)=1} = μ * 1_{d ∣ t^∞}`, with `Σ_{d ∣ t^∞} 1/d = t/φ(t)` and the `2.71·Q^{−1/2}σ_{−1/4}(t)`
+tail) was re-checked and is SOUND — but it reduces `S_t(Q)` to `T(Q/d)`, i.e. it presupposes exactly
+the missing evaluation. The desk's A5 correction (that the `D_t` route is self-referential) stands and
+is not the issue.
+
+**Statement concern: NONE.** Both rows are believed TRUE as spelled.
+
+### 📥 09-05 — W6b-H1 `coprime_sum_moebius_div_kappa_log_eq` / `coprime_sum_moebius_div_kappa_le` (H6e, H6f): NOT attempted in Lean; gated on H6d and on `c₀`
+
+**Object:** the same cut. Recorded so the absence is a KNOWN hole and not a stale one.
+
+H6e and H6f (An's Lemmas 3.11/3.12 over `ℚ`) were not cut. H6f is the `κ`-weighted analogue of H6d's
+error term and inherits its block; H6e additionally has to CONSTRUCT `c₀` — the freeze itself names it
+"the one input NOT in the corpus", from the Dirichlet series `∏_{p ∤ t}(1 − p^{−s}/(p+1))` with
+`G′_t(0) = ζ(2)·κ(t)/t`, which is where the `κ(t)/t` uniformity comes from. With H6c/H6d flagged, an
+attempt at H6e/H6f could only have produced a second copy of the same missing evaluation, so the
+budget went to H6b instead (which landed and is a genuine input to both).
+
+**Statement concern: NONE.** In particular H6e's `c₀` is EXISTENTIAL in the frozen row, so nothing here
+depends on its value; the obstruction is producing any positive constant with the stated uniformity.
+
+### 📥 09-05 — W6b-H1 count: the freeze's `§0` block carries NINETEEN theorem rows, not eighteen
+
+**Object:** `§0`'s ```lean block and the dispatch's row list. Both are labelled "18 rows + 4 defs" and
+the dispatch enumerates the names inline. Counted at the cut: `grep -c "^theorem "` on the extracted
+block returns **19** (H1a, H1b, H1c, H2, H3, H4, H5a, H5c, H6a, H6b, H6c, H6d, H6e, H6f, H0b, H0c,
+H0d, H0e, H9), and the dispatch's own inline enumeration is the same nineteen names. The defs are four
+as stated. No statement is affected and nothing was added or dropped — the label is off by one against
+its own list. Recorded because an audit block sized from the label would under-cover by one row.
