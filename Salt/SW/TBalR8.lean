@@ -874,6 +874,122 @@ lemma row_rho_main_cap {Q L₂ c c₀ u w σ β₀ Y n1 n2 : ℝ} (a m b k : ℝ
       _ = 4 / c₀ * c ^ (1 - m / 17) := by ring
   linarith [hstep1, hstep2, hfin, hg]
 
+set_option maxHeartbeats 800000 in
+-- The residue-row reduction threads the pole-distance ZFR bound through the `ray_pow_bound`
+-- monomial and several `rpow`-atom `ring`/`nlinarith` normalizations, exceeding the default budget.
+/-- **The ρ-main row cap AT `k = 1`** — the B1a twin of `row_rho_main_cap` (the landed `k = 14`
+cap is untouched and keeps its own route).  Same statement, same conclusion; the `k`-hypothesis
+`hkρ : 1 ≤ k·(1 − m/17)` — false at `k = 1` — is REPLACED by the S4 conversion: the ray is first
+reduced to its `k = 1` form (`hk1 : 1 ≤ k` with `L₂ ≥ 1`), and the single surviving `L₂` power is
+converted into `Q`-powers by `ray_pow_bound_conv` through `hL2hi : L₂ ≤ Q^{δ′}`.
+
+**The balance law.**  `hmρ : m/17 < 1` is still `γ > 0` at the window's worst corner `w = 1/17`;
+the conversion charges the shortfall `ε − γ = m·w` to the `Q`-side, so `hα` becomes
+`w·(a + δ′·m) ≤ b·w·γ` and the single balance binder is **`hbal_ρ′ : a + δ′·m ≤ b·(1 − m/17)`**
+(the landed `hbal_ρ` with the conversion's `δ′·m` added on the left).  No side condition on `γ` is
+owed: at `k = 1` the engine's `hres` reads `1 − m·w ≤ 1`, free.  Instantiated at
+`(a, m, b, k, δ′) = (51, 12, 215, 1, 9/10)`, where `hbal_ρ′` reads `61.8 ≤ 215·(5/17) = 63.235`. -/
+lemma row_rho_main_cap_k1 {Q L₂ c c₀ u w σ β₀ Y n1 n2 δ' : ℝ} (a m b k : ℝ)
+    (hQ4 : 4 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c) (hc1 : c ≤ 1) (hc0 : 0 < c₀)
+    (hu0 : 0 < u) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1)
+    (hβ0 : 0 ≤ β₀) (hβ1 : β₀ < 1)
+    (hn2 : 1 ≤ n2) (hn1inv : 1 / n1 ≤ L₂ / c₀)
+    (hm : 0 < m) (hb : 0 < b) (hk : 0 ≤ k) (hk1 : 1 ≤ k)
+    (hδ' : 0 ≤ δ') (hL2hi : L₂ ≤ Q ^ δ')
+    (hmρ : m / 17 < 1) (hbal_ρ' : a + δ' * m ≤ b * (1 - m / 17))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y) (hYhi : Y ≤ 2 * Q ^ a * u ^ (-m))
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hg : 4 / c₀ * c ^ (1 - m / 17) ≤ 1 / 8) :
+    u * (2 - β₀) * Y ^ w / (n1 * n2) ≤ 1 / 8 := by
+  have hQ1 : (1 : ℝ) ≤ Q := by linarith
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have hL0 : (0 : ℝ) < L₂ := by linarith
+  -- F6(c): `hk` is the landed interface binder; at `k = 1` the engine reads its own `0 ≤ 1`,
+  -- so the landed binder is RECORDED here rather than silently dropped.
+  have _hk0 : (0 : ℝ) ≤ k := hk
+  have _hδ0 : (0 : ℝ) ≤ δ' := hδ'
+  -- the ray, reduced to its `k = 1` form (`L₂ = L₂^1 ≤ L₂^k`, `hk1`)
+  have huτ1 : u ≤ c * Q ^ (-(b * w)) / L₂ ^ (1 : ℝ) := by
+    have hLk : L₂ ^ (1 : ℝ) ≤ L₂ ^ k := Real.rpow_le_rpow_of_exponent_le hL2 hk1
+    have hL1pos : (0 : ℝ) < L₂ ^ (1 : ℝ) := Real.rpow_pos_of_pos hL0 _
+    have hnum : (0 : ℝ) ≤ c * Q ^ (-(b * w)) := mul_nonneg hcc.le (Real.rpow_nonneg hQ0.le _)
+    exact le_trans huτ (div_le_div_of_nonneg_left hnum hL1pos hLk)
+  have hw0 : 0 < w := by rw [hwdef]; linarith
+  have hw17 : w ≤ 1 / 17 := by rw [hwdef]; linarith
+  have h17ρ : (0 : ℝ) ≤ 1 / 17 - w := by linarith
+  have hmw : m * w ≤ m / 17 := by nlinarith [mul_nonneg hm.le h17ρ]
+  have hn2pos : (0 : ℝ) < n2 := by linarith
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
+  have hYpos : (0 : ℝ) < Y := lt_of_lt_of_le hbaselo hYlo
+  have hYwnn : (0 : ℝ) ≤ Y ^ w := (Real.rpow_pos_of_pos hYpos _).le
+  -- `Y^w ≤ 2^w Q^{aw} u^{−mw}`
+  have hYw : Y ^ w ≤ 2 ^ w * Q ^ (a * w) * u ^ (-(m * w)) := by
+    have h1 : Y ^ w ≤ (2 * Q ^ a * u ^ (-m)) ^ w :=
+      Real.rpow_le_rpow hYpos.le hYhi hw0.le
+    rwa [Real.mul_rpow (by positivity) (Real.rpow_nonneg hu0.le _),
+      Real.mul_rpow (by norm_num) (Real.rpow_nonneg hQ0.le _),
+      ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le,
+      show -m * w = -(m * w) by ring] at h1
+  -- the monomial collapse
+  have hγpos : (0 : ℝ) < 1 - m * w := by linarith
+  have hmono := ray_pow_bound_conv (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b)
+    (k := 1) (δ' := δ')
+    (α := a * w) (γ := 1 - m * w) (ε := 1) hQ1 hL2 hcc hb (by norm_num) hu0 hγpos hL2hi
+    (by nlinarith [mul_nonneg hm.le hw0.le]) huτ1
+    (by nlinarith [mul_le_mul_of_nonneg_left hbal_ρ' hw0.le,
+      mul_nonneg (mul_nonneg hb.le hw0.le) (mul_nonneg hm.le h17ρ)])
+  rw [Real.rpow_one] at hmono
+  -- `1/(n1 n2) ≤ L₂/c₀`
+  have hfrac : 1 / (n1 * n2) ≤ L₂ / c₀ := by
+    have hsplit : 1 / (n1 * n2) = 1 / n1 * (1 / n2) := by rw [one_div, one_div, one_div, mul_inv]
+    rw [hsplit]
+    have h2le : 1 / n2 ≤ 1 := (div_le_one hn2pos).mpr hn2
+    calc 1 / n1 * (1 / n2) ≤ L₂ / c₀ * 1 :=
+          mul_le_mul hn1inv h2le (by positivity) (by positivity)
+      _ = L₂ / c₀ := by ring
+  -- assemble
+  have hnum_nn : (0 : ℝ) ≤ u * (2 - β₀) * Y ^ w := by
+    apply mul_nonneg (mul_nonneg hu0.le (by linarith)) hYwnn
+  have hstep1 : u * (2 - β₀) * Y ^ w / (n1 * n2)
+      ≤ u * (2 - β₀) * Y ^ w * (L₂ / c₀) := by
+    rw [div_eq_mul_one_div]
+    exact mul_le_mul_of_nonneg_left hfrac hnum_nn
+  have hstep2 : u * (2 - β₀) * Y ^ w * (L₂ / c₀) ≤ 2 / c₀ * (u * Y ^ w * L₂) := by
+    have hTnn : (0 : ℝ) ≤ u * Y ^ w * (L₂ / c₀) :=
+      mul_nonneg (mul_nonneg hu0.le hYwnn) (div_nonneg (by linarith) hc0.le)
+    have hb2 : 2 - β₀ ≤ 2 := by linarith
+    calc u * (2 - β₀) * Y ^ w * (L₂ / c₀) = (2 - β₀) * (u * Y ^ w * (L₂ / c₀)) := by ring
+      _ ≤ 2 * (u * Y ^ w * (L₂ / c₀)) := mul_le_mul_of_nonneg_right hb2 hTnn
+      _ = 2 / c₀ * (u * Y ^ w * L₂) := by ring
+  -- `u·Y^w·L₂ ≤ 2^w c^{1−mw}`, and `2^w ≤ 2`, `c^{1−mw} ≤ c^{1−m/17}`
+  have huYL : u * Y ^ w * L₂ ≤ 2 ^ w * c ^ (1 - m * w) := by
+    have hbnd : u * Y ^ w * L₂ ≤ u * (2 ^ w * Q ^ (a * w) * u ^ (-(m * w))) * L₂ :=
+      mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hYw hu0.le) (by linarith)
+    have heq : u * (2 ^ w * Q ^ (a * w) * u ^ (-(m * w))) * L₂
+        = 2 ^ w * (Q ^ (a * w) * u ^ (1 - m * w) * L₂) := by
+      rw [show (1 : ℝ) - m * w = 1 + -(m * w) by ring, Real.rpow_add hu0, Real.rpow_one]; ring
+    rw [heq] at hbnd
+    have : 2 ^ w * (Q ^ (a * w) * u ^ (1 - m * w) * L₂) ≤ 2 ^ w * c ^ (1 - m * w) :=
+      mul_le_mul_of_nonneg_left hmono (Real.rpow_nonneg (by norm_num) _)
+    linarith [hbnd, this]
+  have h2w : (2 : ℝ) ^ w ≤ 2 := by
+    calc (2 : ℝ) ^ w ≤ (2 : ℝ) ^ (1 : ℝ) :=
+          Real.rpow_le_rpow_of_exponent_le (by norm_num) (by rw [hwdef]; linarith)
+      _ = 2 := Real.rpow_one 2
+  have hcw : c ^ (1 - m * w) ≤ c ^ (1 - m / 17) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by linarith)
+  -- final chain
+  have hfin : 2 / c₀ * (u * Y ^ w * L₂) ≤ 4 / c₀ * c ^ (1 - m / 17) := by
+    have h2c0 : (0 : ℝ) ≤ 2 / c₀ := by positivity
+    calc 2 / c₀ * (u * Y ^ w * L₂) ≤ 2 / c₀ * (2 ^ w * c ^ (1 - m * w)) :=
+          mul_le_mul_of_nonneg_left huYL h2c0
+      _ ≤ 2 / c₀ * (2 * c ^ (1 - m / 17)) := by
+          apply mul_le_mul_of_nonneg_left _ h2c0
+          exact le_trans (mul_le_mul_of_nonneg_right h2w (Real.rpow_nonneg hcc.le _))
+            (mul_le_mul_of_nonneg_left hcw (by norm_num))
+      _ = 4 / c₀ * c ^ (1 - m / 17) := by ring
+  linarith [hstep1, hstep2, hfin, hg]
+
 /-- **The polylog factor bound.**  `1 + log(z²) ≤ 248·u^{−1/100}·L₂` at the crush scale
 `z ≤ 2Q^{12}u^{−3}`.  `log z ≤ log 2 + 12 log Q − 3 log u`, then `−log u ≤ (100/e)·u^{−1/100}`
 (`neg_log_le_rpow'`) and `log Q ≤ L₂` fold every term into the single `u^{−1/100}·L₂` shape.
