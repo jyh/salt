@@ -431,152 +431,194 @@ lemma ray_pow_bound {Q L₂ c u w α γ ε b k : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 �
 
 /-! ## §5 — the on-ray row caps (each master row `≤ 1/8` on the ray `u < τ`) -/
 
-/-- **The 1/x row cap.** `Y^{β₀−σ−1} ≤ 1/8` on the ray.  Net `u`-power `14(σ+u) ≥ 13 > 0`
-(the exponent is `≤ 0`, so the lower bound `Y ≥ Q^{104}u^{−14}` upper-bounds `Y^{β₀−σ−1}`);
-`ray_pow_bound` collapses it to `c^{14(σ+u)} ≤ c^{13} ≤ (1/2)^{13} ≤ 1/8`. -/
-lemma row_1x_cap {Q L₂ c u w σ β₀ Y : ℝ}
+/-- **The 1/x row cap**, at the PARAMETRIC scale `Y ≥ Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.
+`Y^{β₀−σ−1} ≤ 1/8`.  The exponent `e = β₀−σ−1` is negative, so the LOWER bound on `Y` bounds
+`Y^e` above; the net `u`-power is `−m·e = m·(1+σ−β₀) ≥ m·16/17 ≥ 3 > 0`, and `ray_pow_bound`
+collapses the monomial to `c^{−me} ≤ c^3 ≤ (1/2)^3 = 1/8`.
+
+**The balance law.**  Only the SIGNS `0 < a`, `0 < m`, `0 < b`, `0 ≤ k` are spent (the
+`ray_pow_bound` side goal `hα` reads `e·(a + b·w·m) ≤ 0` with `e < 0`), together with the
+collapse floor `hm3 : 3 ≤ m·(16/17)`.  Instantiated at `(a, m, b, k) = (104, 14, 680, 14)`,
+where `hm3` reads `3 ≤ 13.18`. -/
+lemma row_1x_cap {Q L₂ c u w σ β₀ Y : ℝ} (a m b k : ℝ)
     (hQ4 : 4 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c) (hchalf : c ≤ 1 / 2)
     (hu0 : 0 < u) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1) (hσβ : σ ≤ β₀)
     (hβ1 : β₀ < 1)
-    (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ)) :
+    (ha : 0 < a) (hm : 0 < m) (hb : 0 < b) (hk : 0 ≤ k) (hm3 : 3 ≤ m * (16 / 17))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k) :
     Y ^ (β₀ - σ - 1) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hw0 : 0 < w := by rw [hwdef]; linarith
   set e : ℝ := β₀ - σ - 1 with he
   have hene : e < 0 := by rw [he]; linarith
-  have hbaselo : (0 : ℝ) < Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) := by positivity
-  have hstep1 : Y ^ e ≤ (Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ e :=
+  have hnege : (16 : ℝ) / 17 ≤ -e := by rw [he]; linarith
+  -- The window's ordering `hσβ : σ ≤ β₀` fixes the sign of the offset `p = β₀ − σ`; the collapse
+  -- below spends only `hβ1` and `hσlo`, so the landed binder is recorded here rather than dropped.
+  have _hpnn : (0 : ℝ) ≤ β₀ - σ := sub_nonneg.mpr hσβ
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
+  have hstep1 : Y ^ e ≤ (Q ^ a * u ^ (-m)) ^ e :=
     Real.rpow_le_rpow_of_nonpos hbaselo hYlo hene.le
-  have hexp : (Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ e = Q ^ (104 * e) * u ^ (-(14 * e)) := by
+  have hexp : (Q ^ a * u ^ (-m)) ^ e = Q ^ (a * e) * u ^ (-(m * e)) := by
     rw [Real.mul_rpow (Real.rpow_nonneg (by linarith) _) (Real.rpow_nonneg hu0.le _),
       ← Real.rpow_mul (by linarith), ← Real.rpow_mul hu0.le,
-      show -(14 : ℝ) * e = -(14 * e) by ring]
-  have hγpos : (0 : ℝ) < -(14 * e) := by nlinarith
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-    (α := 104 * e) (γ := -(14 * e)) (ε := 0) hQ1 hL2 hcc (by norm_num) (by norm_num) hu0 hγpos huτ
-    (by nlinarith [hw0, hγpos, hene]) (by nlinarith [hene])
+      show -m * e = -(m * e) by ring]
+  have hγpos : (0 : ℝ) < -(m * e) := by nlinarith [mul_pos hm (neg_pos.mpr hene)]
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+    (α := a * e) (γ := -(m * e)) (ε := 0) hQ1 hL2 hcc hb hk hu0 hγpos huτ
+    (by nlinarith [mul_pos ha (neg_pos.mpr hene),
+      mul_pos (mul_pos (mul_pos hb hw0) hm) (neg_pos.mpr hene)])
+    (mul_nonneg hk hγpos.le)
   rw [Real.rpow_zero, mul_one] at hmono
   rw [hexp] at hstep1
-  have hchain : Y ^ e ≤ c ^ (-(14 * e)) := le_trans hstep1 hmono
-  have hge : c ^ (-(14 * e)) ≤ c ^ (13 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc (by linarith) (by nlinarith)
-  have h12 : c ^ (13 : ℝ) ≤ (1 / 2 : ℝ) ^ (13 : ℝ) := Real.rpow_le_rpow hcc.le hchalf (by norm_num)
-  have h13 : (1 / 2 : ℝ) ^ (13 : ℝ) ≤ 1 / 8 := by
-    rw [show (13 : ℝ) = ((13 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
+  have hchain : Y ^ e ≤ c ^ (-(m * e)) := le_trans hstep1 hmono
+  have hge : c ^ (-(m * e)) ≤ c ^ (3 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc (by linarith)
+      (by nlinarith [mul_le_mul_of_nonneg_left hnege hm.le, hm3])
+  have h12 : c ^ (3 : ℝ) ≤ (1 / 2 : ℝ) ^ (3 : ℝ) := Real.rpow_le_rpow hcc.le hchalf (by norm_num)
+  have h13 : (1 / 2 : ℝ) ^ (3 : ℝ) ≤ 1 / 8 := by
+    rw [show (3 : ℝ) = ((3 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
   linarith [hchain, hge, h12, h13]
 
 set_option maxHeartbeats 1600000 in
 -- The log-crush chain (`log Y` bound → `rpow_sub_one_le` guard → the collected monomial through
 -- `ray_pow_bound`) threads several nested `nlinarith`/`ring` normalizations over `rpow` atoms; the
 -- rearrangement exceeds the default budget (as in `dh_master_ray`).
-/-- **The A-row cap** (the `Y^u−1 ≈ u·ln Y` cancellation).  `Y^{β₀−σ}·(Y^{1−β₀}−1) ≤ 1/8` on the
-ray.  `rpow_sub_one_le` turns `Y^u−1` into `e·u·ln Y`; `ln Y ≤ ln 2 + 104 log Q + 14·(−log u)` is
-crushed by `neg_log_le_rpow` to a `u^{−δ}` power, then `ray_pow_bound` closes with net
-`u`-power `1 − 14(w−u) − δ ≥ 3/17 − δ > 0`. -/
-lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
+/-- **The A-row cap** (the `Y^u−1 ≈ u·ln Y` cancellation), at the PARAMETRIC scale
+`Q^a·u^{−m} ≤ Y ≤ 2Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.  `Y^{β₀−σ}·(Y^{1−β₀}−1) ≤ 1/8` on
+the ray.  `rpow_sub_one_le` turns `Y^u−1` into `e·u·ln Y`; `ln Y ≤ ln 2 + a·log Q + m·(−log u)` is
+crushed by `neg_log_le_rpow` to a `u^{−δ}` power with CONSTANT `1 + a + 50·m` (the landed
+`805 = 1 + 104 + 50·14`), then `ray_pow_bound` closes with net `u`-power
+`49/50 − m·(w−u) ≥ 49/50 − m/17 > 0`.
+
+**The balance law.**  Two `ray_pow_bound` calls.  The GUARD (`α = 0`, `γ = 49/50`, `ε = 1`) spends
+`hkA0 : 1 ≤ k·(49/50)` — kept SEPARATE from `hkA` because it is the `log Y` split's first piece and
+fails on its own at `k = 1` (by 2 %), which this statement makes visible.  The MONOMIAL
+(`α = a·p`, `γ = 49/50 − m·p`, `ε = 1`, with `p = β₀ − σ = w − u ∈ [0, 1/17)`) spends
+`hmA : m/17 < 49/50` (`γ > 0`), `hbal_A : a ≤ b·(49/50 − m/17)` (`hα` — the LHS of `a·p ≤ b·w·γ`
+grows and the RHS falls in `p`, so the corner `p = w = 1/17` decides) and
+`hkA : 1 ≤ k·(49/50 − m/17)` (`hε`).  `ha`/`hm` are read outright: `Q^a ≥ 1`, `u^{−m} ≥ 1`, and
+every `m·p ≤ m/17` product.  Instantiated at `(a, m, b, k) = (104, 14, 680, 14)`, where the γ-floor
+is `133/850`, `hbal_A` reads `104 ≤ 680·(133/850) = 106.4` (2.3 % slack) and `hkA` `1 ≤ 2.19`. -/
+lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ} (a m b k : ℝ)
     (hQ4 : 4 ≤ Q) (hL2 : Real.log Q + 2 ≤ L₂) (hcc : 0 < c) (hc1 : c ≤ 1)
     (hu0 : 0 < u) (hu1 : u ≤ 1) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1)
     (hσβ : σ ≤ β₀) (_hβ1 : β₀ < 1) (huβ : 1 - β₀ = u)
-    (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
-    (hYhi : Y ≤ 2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hg1 : 805 * c ^ (49 / 50 : ℝ) ≤ 1)
-    (hg2 : 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) ≤ 1 / 8) :
+    (ha : 0 < a) (hm : 0 < m) (hb : 0 < b) (hk : 0 ≤ k)
+    (hmA : m / 17 < 49 / 50) (hbal_A : a ≤ b * (49 / 50 - m / 17))
+    (hkA : 1 ≤ k * (49 / 50 - m / 17)) (hkA0 : 1 ≤ k * (49 / 50))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y)
+    (hYhi : Y ≤ 2 * Q ^ a * u ^ (-m))
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hg1 : (1 + a + 50 * m) * c ^ (49 / 50 : ℝ) ≤ 1)
+    (hg2 : 2 * (1 + a + 50 * m) * Real.exp 1 * c ^ (49 / 50 - m / 17) ≤ 1 / 8) :
     Y ^ (β₀ - σ) * (Y ^ (1 - β₀) - 1) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hQ0 : (0 : ℝ) < Q := by linarith
   have hlogQ0 : 0 ≤ Real.log Q := Real.log_nonneg hQ1
   have hL2' : (1 : ℝ) ≤ L₂ := by linarith
   have hw0 : 0 < w := by rw [hwdef]; linarith
-  have hbaselo : (0 : ℝ) < Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) := by positivity
+  have hw17 : w ≤ 1 / 17 := by rw [hwdef]; linarith
+  have hCnn : (0 : ℝ) ≤ 1 + a + 50 * m := by linarith
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
   have hYpos : (0 : ℝ) < Y := lt_of_lt_of_le hbaselo hYlo
   have hY1 : (1 : ℝ) ≤ Y := by
     refine le_trans ?_ hYlo
-    have h1 : (1 : ℝ) ≤ Q ^ (104 : ℝ) := Real.one_le_rpow hQ1 (by norm_num)
-    have h2 : (1 : ℝ) ≤ u ^ (-(14 : ℝ)) :=
-      Real.one_le_rpow_of_pos_of_le_one_of_nonpos hu0 hu1 (by norm_num)
+    have h1 : (1 : ℝ) ≤ Q ^ a := Real.one_le_rpow hQ1 ha.le
+    have h2 : (1 : ℝ) ≤ u ^ (-m) :=
+      Real.one_le_rpow_of_pos_of_le_one_of_nonpos hu0 hu1 (by linarith)
     nlinarith [h1, h2]
   have hlogYnn : 0 ≤ Real.log Y := Real.log_nonneg hY1
   have hp : β₀ - σ = w - u := by rw [hwdef]; linarith
   have hpnn : 0 ≤ β₀ - σ := by linarith
+  have h17 : (0 : ℝ) ≤ 1 / 17 - (w - u) := by linarith
+  have hmp : m * (w - u) ≤ m / 17 := by nlinarith [mul_nonneg hm.le h17]
   have hu50 : (1 : ℝ) ≤ u ^ (-(1 / 50 : ℝ)) :=
     Real.one_le_rpow_of_pos_of_le_one_of_nonpos hu0 hu1 (by norm_num)
-  -- Step 1 : `log Y ≤ 805·u^{−1/50}·L₂`
-  have hlogY : Real.log Y ≤ 805 * u ^ (-(1 / 50 : ℝ)) * L₂ := by
-    have hle : Real.log Y ≤ Real.log (2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) :=
+  -- Step 1 : `log Y ≤ (1+a+50m)·u^{−1/50}·L₂`
+  have hlogY : Real.log Y ≤ (1 + a + 50 * m) * u ^ (-(1 / 50 : ℝ)) * L₂ := by
+    have hle : Real.log Y ≤ Real.log (2 * Q ^ a * u ^ (-m)) :=
       Real.log_le_log hYpos hYhi
-    have hexp : Real.log (2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
-        = Real.log 2 + 104 * Real.log Q + -14 * Real.log u := by
+    have hexp : Real.log (2 * Q ^ a * u ^ (-m))
+        = Real.log 2 + a * Real.log Q + -m * Real.log u := by
       rw [Real.log_mul (by positivity) (by positivity), Real.log_mul (by norm_num) (by positivity),
         Real.log_rpow hQ0, Real.log_rpow hu0]
     have hlog2 : Real.log 2 ≤ 1 := by
       have := Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num); linarith
     have hnlogu : -Real.log u ≤ u ^ (-(1 / 50 : ℝ)) / (1 / 50) := neg_log_le_rpow hu0 (by norm_num)
-    have hstep : Real.log 2 + 104 * Real.log Q + -14 * Real.log u
-        ≤ 805 * u ^ (-(1 / 50 : ℝ)) * L₂ := by
+    have hstep : Real.log 2 + a * Real.log Q + -m * Real.log u
+        ≤ (1 + a + 50 * m) * u ^ (-(1 / 50 : ℝ)) * L₂ := by
       have e1 : (1 : ℝ) ≤ u ^ (-(1 / 50 : ℝ)) * L₂ := by nlinarith [hu50, hL2']
-      have e2 : 104 * Real.log Q ≤ 104 * (u ^ (-(1 / 50 : ℝ)) * L₂) := by
-        have : Real.log Q ≤ L₂ := by linarith
-        nlinarith [hu50, this, Real.log_nonneg hQ1]
-      have e3 : -14 * Real.log u ≤ 700 * u ^ (-(1 / 50 : ℝ)) := by
-        have : -14 * Real.log u = 14 * (-Real.log u) := by ring
-        rw [this]; nlinarith [hnlogu]
-      have e4 : 700 * u ^ (-(1 / 50 : ℝ)) ≤ 700 * (u ^ (-(1 / 50 : ℝ)) * L₂) := by
-        nlinarith [hL2', Real.rpow_nonneg hu0.le (-(1 / 50 : ℝ))]
+      have e2 : a * Real.log Q ≤ a * (u ^ (-(1 / 50 : ℝ)) * L₂) := by
+        have hlq : Real.log Q ≤ L₂ := by linarith
+        have hs : Real.log Q ≤ u ^ (-(1 / 50 : ℝ)) * L₂ := by nlinarith [hu50, hL2', hlq]
+        exact mul_le_mul_of_nonneg_left hs ha.le
+      have e3 : -m * Real.log u ≤ 50 * m * u ^ (-(1 / 50 : ℝ)) := by
+        have h1 : m * (-Real.log u) ≤ m * (u ^ (-(1 / 50 : ℝ)) / (1 / 50)) :=
+          mul_le_mul_of_nonneg_left hnlogu hm.le
+        have h2 : m * (u ^ (-(1 / 50 : ℝ)) / (1 / 50)) = 50 * m * u ^ (-(1 / 50 : ℝ)) := by ring
+        rw [h2] at h1; linarith [h1]
+      have e4 : 50 * m * u ^ (-(1 / 50 : ℝ)) ≤ 50 * m * (u ^ (-(1 / 50 : ℝ)) * L₂) := by
+        have hx : u ^ (-(1 / 50 : ℝ)) ≤ u ^ (-(1 / 50 : ℝ)) * L₂ := by
+          nlinarith [hL2', Real.rpow_nonneg hu0.le (-(1 / 50 : ℝ))]
+        exact mul_le_mul_of_nonneg_left hx (by linarith)
       nlinarith [hlog2, e1, e2, e3, e4]
     linarith [hle, hexp ▸ hstep]
   -- Step 2 : `u·log Y ≤ 1` (the `rpow_sub_one_le` guard)
   have hulogY : u * Real.log Y ≤ 1 := by
-    have hb := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-      (α := 0) (γ := 49 / 50) (ε := 1) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 (by norm_num)
-      huτ (by positivity) (by norm_num)
-    rw [Real.rpow_zero, one_mul, Real.rpow_one] at hb
-    have hmul : u * Real.log Y ≤ u * (805 * u ^ (-(1 / 50 : ℝ)) * L₂) :=
+    have hbg := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+      (α := 0) (γ := 49 / 50) (ε := 1) hQ1 hL2' hcc hb hk hu0 (by norm_num)
+      huτ (mul_nonneg (mul_nonneg hb.le hw0.le) (by norm_num)) hkA0
+    rw [Real.rpow_zero, one_mul, Real.rpow_one] at hbg
+    have hmul : u * Real.log Y ≤ u * ((1 + a + 50 * m) * u ^ (-(1 / 50 : ℝ)) * L₂) :=
       mul_le_mul_of_nonneg_left hlogY hu0.le
-    have heq : u * (805 * u ^ (-(1 / 50 : ℝ)) * L₂) = 805 * (u ^ (49 / 50 : ℝ) * L₂) := by
+    have heq : u * ((1 + a + 50 * m) * u ^ (-(1 / 50 : ℝ)) * L₂)
+        = (1 + a + 50 * m) * (u ^ (49 / 50 : ℝ) * L₂) := by
       rw [show (49 / 50 : ℝ) = 1 + -(1 / 50 : ℝ) by norm_num, Real.rpow_add hu0, Real.rpow_one]
       ring
     rw [heq] at hmul
-    nlinarith [hmul, hb, hg1]
+    linarith [hmul, hg1, mul_le_mul_of_nonneg_left hbg hCnn]
   -- Step 3 : the cancellation and the final monomial bound
   have hYu : Y ^ u - 1 ≤ Real.exp 1 * (u * Real.log Y) := rpow_sub_one_le hY1 hu0.le hulogY
   rw [huβ]
   have hYpnn : (0 : ℝ) ≤ Y ^ (β₀ - σ) := Real.rpow_nonneg hYpos.le _
   have hfin : Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y)) ≤ 1 / 8 := by
-    -- bound `u·log Y ≤ 805·u^{49/50}·L₂` and `Y^{β₀−σ} ≤ 2^p Q^{104p} u^{−14p}`
-    have hulY : u * Real.log Y ≤ 805 * (u ^ (49 / 50 : ℝ) * L₂) := by
-      have hmul : u * Real.log Y ≤ u * (805 * u ^ (-(1 / 50 : ℝ)) * L₂) :=
+    -- bound `u·log Y ≤ (1+a+50m)·u^{49/50}·L₂` and `Y^{β₀−σ} ≤ 2^p Q^{ap} u^{−mp}`
+    have hulY : u * Real.log Y ≤ (1 + a + 50 * m) * (u ^ (49 / 50 : ℝ) * L₂) := by
+      have hmul : u * Real.log Y ≤ u * ((1 + a + 50 * m) * u ^ (-(1 / 50 : ℝ)) * L₂) :=
         mul_le_mul_of_nonneg_left hlogY hu0.le
-      have heq : u * (805 * u ^ (-(1 / 50 : ℝ)) * L₂) = 805 * (u ^ (49 / 50 : ℝ) * L₂) := by
+      have heq : u * ((1 + a + 50 * m) * u ^ (-(1 / 50 : ℝ)) * L₂)
+          = (1 + a + 50 * m) * (u ^ (49 / 50 : ℝ) * L₂) := by
         rw [show (49 / 50 : ℝ) = 1 + -(1 / 50 : ℝ) by norm_num, Real.rpow_add hu0, Real.rpow_one]
         ring
       rwa [heq] at hmul
     have hYp : Y ^ (β₀ - σ)
-        ≤ 2 ^ (β₀ - σ) * Q ^ (104 * (β₀ - σ)) * u ^ (-(14 * (β₀ - σ))) := by
-      have h1 : Y ^ (β₀ - σ) ≤ (2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ (β₀ - σ) :=
+        ≤ 2 ^ (β₀ - σ) * Q ^ (a * (β₀ - σ)) * u ^ (-(m * (β₀ - σ))) := by
+      have h1 : Y ^ (β₀ - σ) ≤ (2 * Q ^ a * u ^ (-m)) ^ (β₀ - σ) :=
         Real.rpow_le_rpow hYpos.le hYhi hpnn
       rw [Real.mul_rpow (by positivity) (Real.rpow_nonneg hu0.le _),
         Real.mul_rpow (by norm_num) (Real.rpow_nonneg hQ0.le _),
         ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le,
-        show -(14 : ℝ) * (β₀ - σ) = -(14 * (β₀ - σ)) by ring] at h1
+        show -m * (β₀ - σ) = -(m * (β₀ - σ)) by ring] at h1
       exact h1
-    -- the monomial `Q^{104p}·u^{49/50−14p}·L₂ ≤ c^{49/50−14p}`
-    have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-      (α := 104 * (β₀ - σ)) (γ := 49 / 50 - 14 * (β₀ - σ)) (ε := 1) hQ1 hL2' hcc
-      (by norm_num) (by norm_num) hu0
-      (by rw [hp]; nlinarith [hw0, hu0, mul_nonneg hw0.le hw0.le])
+    -- the monomial `Q^{ap}·u^{49/50−mp}·L₂ ≤ c^{49/50−mp}`
+    have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+      (α := a * (β₀ - σ)) (γ := 49 / 50 - m * (β₀ - σ)) (ε := 1) hQ1 hL2' hcc
+      hb hk hu0
+      (by rw [hp]; linarith [hmp, hmA])
       huτ
-      (by rw [hp]; nlinarith [hw0, hu0, mul_nonneg hw0.le hw0.le,
-        mul_nonneg hw0.le hu0.le])
-      (by rw [hp]; nlinarith [hw0, hu0])
+      (by rw [hp]
+          nlinarith [mul_le_mul_of_nonneg_left hbal_A hw0.le,
+            mul_nonneg (mul_nonneg hb.le hw0.le) (mul_nonneg hm.le h17),
+            mul_nonneg ha.le hu0.le])
+      (by rw [hp]; nlinarith [hkA, mul_nonneg hk (mul_nonneg hm.le h17)])
     rw [Real.rpow_one] at hmono
-    -- TAU-SHARP S2: the A row's **own** γ-floor, not the uniform `1/8`.  `γ_A(σ,β₀) =
-    -- 49/50 − 14(β₀−σ)` is decreasing in `β₀−σ`, and `β₀ − σ = w − u < w ≤ 1/17` on the window
-    -- (`hσlo : 16/17 ≤ σ`, `hu0 : 0 < u`), so `γ_A > 49/50 − 14/17 = 133/850` — the closed-endpoint
-    -- infimum, exact as a rational.  `linarith` (not `nlinarith`): the goal is linear in `σ`, `u`.
-    have hγ8 : c ^ (49 / 50 - 14 * (β₀ - σ)) ≤ c ^ (133 / 850 : ℝ) :=
-      Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by rw [hp]; linarith [hσlo, hw0, hu0])
+    -- TAU-SHARP S2, at parameters: the A row's **own** γ-floor, not the uniform `1/8`.
+    -- `γ_A(σ,β₀) = 49/50 − m(β₀−σ)` is decreasing in `β₀−σ`, and `β₀ − σ = w − u < w ≤ 1/17` on
+    -- the window (`hσlo : 16/17 ≤ σ`, `hu0 : 0 < u`), so `γ_A > 49/50 − m/17` — the
+    -- closed-endpoint infimum, exact as a rational in `m`, and `133/850` at `m = 14`.
+    have hγ8 : c ^ (49 / 50 - m * (β₀ - σ)) ≤ c ^ (49 / 50 - m / 17) :=
+      Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by rw [hp]; linarith [hmp])
     have h2p : (2 : ℝ) ^ (β₀ - σ) ≤ 2 := by
       calc (2 : ℝ) ^ (β₀ - σ) ≤ (2 : ℝ) ^ (1 : ℝ) :=
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by rw [hp]; linarith)
@@ -584,40 +626,41 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
     -- assemble
     have hEnn : (0 : ℝ) ≤ Real.exp 1 := (Real.exp_pos 1).le
     have hchain : Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y))
-        ≤ 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) := by
+        ≤ 2 * (1 + a + 50 * m) * Real.exp 1 * c ^ (49 / 50 - m / 17) := by
       have hstep1 : Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y))
-          ≤ (2 ^ (β₀ - σ) * Q ^ (104 * (β₀ - σ)) * u ^ (-(14 * (β₀ - σ))))
-            * (Real.exp 1 * (805 * (u ^ (49 / 50 : ℝ) * L₂))) := by
+          ≤ (2 ^ (β₀ - σ) * Q ^ (a * (β₀ - σ)) * u ^ (-(m * (β₀ - σ))))
+            * (Real.exp 1 * ((1 + a + 50 * m) * (u ^ (49 / 50 : ℝ) * L₂))) := by
         apply mul_le_mul hYp _ (mul_nonneg hEnn (mul_nonneg hu0.le hlogYnn)) (by positivity)
         exact mul_le_mul_of_nonneg_left hulY hEnn
       refine le_trans hstep1 ?_
-      have hcollect : (2 ^ (β₀ - σ) * Q ^ (104 * (β₀ - σ)) * u ^ (-(14 * (β₀ - σ))))
-            * (Real.exp 1 * (805 * (u ^ (49 / 50 : ℝ) * L₂)))
-          = 805 * Real.exp 1 * 2 ^ (β₀ - σ)
-            * (Q ^ (104 * (β₀ - σ)) * (u ^ (-(14 * (β₀ - σ))) * u ^ (49 / 50 : ℝ)) * L₂) := by
+      have hcollect : (2 ^ (β₀ - σ) * Q ^ (a * (β₀ - σ)) * u ^ (-(m * (β₀ - σ))))
+            * (Real.exp 1 * ((1 + a + 50 * m) * (u ^ (49 / 50 : ℝ) * L₂)))
+          = (1 + a + 50 * m) * Real.exp 1 * 2 ^ (β₀ - σ)
+            * (Q ^ (a * (β₀ - σ)) * (u ^ (-(m * (β₀ - σ))) * u ^ (49 / 50 : ℝ)) * L₂) := by
         ring
       rw [hcollect]
-      have hupow : u ^ (-(14 * (β₀ - σ))) * u ^ (49 / 50 : ℝ)
-          = u ^ (49 / 50 - 14 * (β₀ - σ)) := by
+      have hupow : u ^ (-(m * (β₀ - σ))) * u ^ (49 / 50 : ℝ)
+          = u ^ (49 / 50 - m * (β₀ - σ)) := by
         rw [← Real.rpow_add hu0]; ring_nf
       rw [hupow]
-      have hmono' : Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂
-          ≤ c ^ (49 / 50 - 14 * (β₀ - σ)) := hmono
-      have hA : (0 : ℝ) ≤ 805 * Real.exp 1 := by positivity
-      have hBnn : (0 : ℝ) ≤ Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂ := by
+      have hmono' : Q ^ (a * (β₀ - σ)) * u ^ (49 / 50 - m * (β₀ - σ)) * L₂
+          ≤ c ^ (49 / 50 - m * (β₀ - σ)) := hmono
+      have hA : (0 : ℝ) ≤ (1 + a + 50 * m) * Real.exp 1 := mul_nonneg hCnn hEnn
+      have hBnn : (0 : ℝ) ≤ Q ^ (a * (β₀ - σ)) * u ^ (49 / 50 - m * (β₀ - σ)) * L₂ := by
         positivity
-      have hB : Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂
-          ≤ c ^ (133 / 850 : ℝ) := le_trans hmono' hγ8
+      have hB : Q ^ (a * (β₀ - σ)) * u ^ (49 / 50 - m * (β₀ - σ)) * L₂
+          ≤ c ^ (49 / 50 - m / 17) := le_trans hmono' hγ8
       have hinner : 2 ^ (β₀ - σ)
-            * (Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂)
-          ≤ 2 * c ^ (133 / 850 : ℝ) :=
+            * (Q ^ (a * (β₀ - σ)) * u ^ (49 / 50 - m * (β₀ - σ)) * L₂)
+          ≤ 2 * c ^ (49 / 50 - m / 17) :=
         le_trans (mul_le_mul_of_nonneg_right h2p hBnn) (mul_le_mul_of_nonneg_left hB (by norm_num))
-      calc 805 * Real.exp 1 * 2 ^ (β₀ - σ)
-            * (Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂)
-          = (805 * Real.exp 1) * (2 ^ (β₀ - σ)
-              * (Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂)) := by ring
-        _ ≤ (805 * Real.exp 1) * (2 * c ^ (133 / 850 : ℝ)) := mul_le_mul_of_nonneg_left hinner hA
-        _ = 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) := by ring
+      calc (1 + a + 50 * m) * Real.exp 1 * 2 ^ (β₀ - σ)
+            * (Q ^ (a * (β₀ - σ)) * u ^ (49 / 50 - m * (β₀ - σ)) * L₂)
+          = ((1 + a + 50 * m) * Real.exp 1) * (2 ^ (β₀ - σ)
+              * (Q ^ (a * (β₀ - σ)) * u ^ (49 / 50 - m * (β₀ - σ)) * L₂)) := by ring
+        _ ≤ ((1 + a + 50 * m) * Real.exp 1) * (2 * c ^ (49 / 50 - m / 17)) :=
+            mul_le_mul_of_nonneg_left hinner hA
+        _ = 2 * (1 + a + 50 * m) * Real.exp 1 * c ^ (49 / 50 - m / 17) := by ring
     linarith [hchain, hg2]
   calc Y ^ (β₀ - σ) * (Y ^ u - 1)
       ≤ Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y)) :=
@@ -627,38 +670,53 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
 set_option maxHeartbeats 800000 in
 -- The residue-row reduction threads the pole-distance ZFR bound through the `ray_pow_bound`
 -- monomial and several `rpow`-atom `ring`/`nlinarith` normalizations, exceeding the default budget.
-/-- **The ρ-main row cap** (the residue row — where the zero-free region enters).  The master's
-leading row `(1−β₀)(2−β₀)·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖) ≤ 1/8` on the ray.  The pole-distance
-`1/‖1−ρ‖ ≤ L₂/c₀` (ZFR floor) and `‖2−ρ‖ ≥ 1` reduce it to `(2/c₀)·u·Y^{w}·L₂`, which
-`ray_pow_bound` (α=104w, γ=1−14w, ε=1) collapses to `(4/c₀)·c^{1−14w} ≤ (4/c₀)·c^{3/17}`. -/
-lemma row_rho_main_cap {Q L₂ c c₀ u w σ β₀ Y n1 n2 : ℝ}
+/-- **The ρ-main row cap** (the residue row — where the zero-free region enters), at the PARAMETRIC
+scale `Q^a·u^{−m} ≤ Y ≤ 2Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.  The master's leading row
+`(1−β₀)(2−β₀)·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖) ≤ 1/8` on the ray.  The pole-distance `1/‖1−ρ‖ ≤ L₂/c₀`
+(ZFR floor) and `‖2−ρ‖ ≥ 1` reduce it to `(2/c₀)·u·Y^{w}·L₂`, which `ray_pow_bound`
+(α = a·w, γ = 1 − m·w, ε = 1) collapses to `(4/c₀)·c^{1−mw} ≤ (4/c₀)·c^{1−m/17}`.
+
+**The balance law.**  `hmρ : m/17 < 1` is `γ > 0` at the window's worst corner `w = 1/17`;
+`hbal_ρ : a ≤ b·(1 − m/17)` is `hα` (`α = a·w ≤ b·w·γ`, both sides `w`-proportional, so the corner
+decides); `hkρ : 1 ≤ k·(1 − m/17)` is `hε`.  Only `m`'s sign is read — `a` enters solely through
+`α = a·w`, so no `ha` is owed.  Instantiated at `(a, m, b, k) = (104, 14, 680, 14)`, where
+`hbal_ρ` reads `104 ≤ 680·(3/17) = 120` and `hkρ` reads `1 ≤ 14·(3/17) = 2.47`. -/
+lemma row_rho_main_cap {Q L₂ c c₀ u w σ β₀ Y n1 n2 : ℝ} (a m b k : ℝ)
     (hQ4 : 4 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c) (hc1 : c ≤ 1) (hc0 : 0 < c₀)
     (hu0 : 0 < u) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1)
     (hβ0 : 0 ≤ β₀) (hβ1 : β₀ < 1)
     (hn2 : 1 ≤ n2) (hn1inv : 1 / n1 ≤ L₂ / c₀)
-    (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y) (hYhi : Y ≤ 2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hg : 4 / c₀ * c ^ (3 / 17 : ℝ) ≤ 1 / 8) :
+    (hm : 0 < m) (hb : 0 < b) (hk : 0 ≤ k)
+    (hmρ : m / 17 < 1) (hbal_ρ : a ≤ b * (1 - m / 17)) (hkρ : 1 ≤ k * (1 - m / 17))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y) (hYhi : Y ≤ 2 * Q ^ a * u ^ (-m))
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hg : 4 / c₀ * c ^ (1 - m / 17) ≤ 1 / 8) :
     u * (2 - β₀) * Y ^ w / (n1 * n2) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hQ0 : (0 : ℝ) < Q := by linarith
   have hw0 : 0 < w := by rw [hwdef]; linarith
+  have hw17 : w ≤ 1 / 17 := by rw [hwdef]; linarith
+  have h17ρ : (0 : ℝ) ≤ 1 / 17 - w := by linarith
+  have hmw : m * w ≤ m / 17 := by nlinarith [mul_nonneg hm.le h17ρ]
   have hn2pos : (0 : ℝ) < n2 := by linarith
-  have hbaselo : (0 : ℝ) < Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) := by positivity
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
   have hYpos : (0 : ℝ) < Y := lt_of_lt_of_le hbaselo hYlo
   have hYwnn : (0 : ℝ) ≤ Y ^ w := (Real.rpow_pos_of_pos hYpos _).le
-  -- `Y^w ≤ 2^w Q^{104w} u^{−14w}`
-  have hYw : Y ^ w ≤ 2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w)) := by
-    have h1 : Y ^ w ≤ (2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ w :=
+  -- `Y^w ≤ 2^w Q^{aw} u^{−mw}`
+  have hYw : Y ^ w ≤ 2 ^ w * Q ^ (a * w) * u ^ (-(m * w)) := by
+    have h1 : Y ^ w ≤ (2 * Q ^ a * u ^ (-m)) ^ w :=
       Real.rpow_le_rpow hYpos.le hYhi hw0.le
     rwa [Real.mul_rpow (by positivity) (Real.rpow_nonneg hu0.le _),
       Real.mul_rpow (by norm_num) (Real.rpow_nonneg hQ0.le _),
       ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le,
-      show -(14 : ℝ) * w = -(14 * w) by ring] at h1
+      show -m * w = -(m * w) by ring] at h1
   -- the monomial collapse
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-    (α := 104 * w) (γ := 1 - 14 * w) (ε := 1) hQ1 hL2 hcc (by norm_num) (by norm_num) hu0
-    (by rw [hwdef] at *; nlinarith [hw0]) huτ (by nlinarith [hw0]) (by nlinarith [hw0])
+  have hγpos : (0 : ℝ) < 1 - m * w := by linarith
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+    (α := a * w) (γ := 1 - m * w) (ε := 1) hQ1 hL2 hcc hb hk hu0 hγpos huτ
+    (by nlinarith [mul_le_mul_of_nonneg_left hbal_ρ hw0.le,
+      mul_nonneg (mul_nonneg hb.le hw0.le) (mul_nonneg hm.le h17ρ)])
+    (by nlinarith [hkρ, mul_nonneg hk (mul_nonneg hm.le h17ρ)])
   rw [Real.rpow_one] at hmono
   -- `1/(n1 n2) ≤ L₂/c₀`
   have hfrac : 1 / (n1 * n2) ≤ L₂ / c₀ := by
@@ -682,33 +740,33 @@ lemma row_rho_main_cap {Q L₂ c c₀ u w σ β₀ Y n1 n2 : ℝ}
     calc u * (2 - β₀) * Y ^ w * (L₂ / c₀) = (2 - β₀) * (u * Y ^ w * (L₂ / c₀)) := by ring
       _ ≤ 2 * (u * Y ^ w * (L₂ / c₀)) := mul_le_mul_of_nonneg_right hb2 hTnn
       _ = 2 / c₀ * (u * Y ^ w * L₂) := by ring
-  -- `u·Y^w·L₂ ≤ 2^w c^{1−14w}`, and `2^w ≤ 2`, `c^{1−14w} ≤ c^{3/17}`
-  have huYL : u * Y ^ w * L₂ ≤ 2 ^ w * c ^ (1 - 14 * w) := by
-    have hbnd : u * Y ^ w * L₂ ≤ u * (2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w))) * L₂ :=
+  -- `u·Y^w·L₂ ≤ 2^w c^{1−mw}`, and `2^w ≤ 2`, `c^{1−mw} ≤ c^{1−m/17}`
+  have huYL : u * Y ^ w * L₂ ≤ 2 ^ w * c ^ (1 - m * w) := by
+    have hbnd : u * Y ^ w * L₂ ≤ u * (2 ^ w * Q ^ (a * w) * u ^ (-(m * w))) * L₂ :=
       mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hYw hu0.le) (by linarith)
-    have heq : u * (2 ^ w * Q ^ (104 * w) * u ^ (-(14 * w))) * L₂
-        = 2 ^ w * (Q ^ (104 * w) * u ^ (1 - 14 * w) * L₂) := by
-      rw [show (1 : ℝ) - 14 * w = 1 + -(14 * w) by ring, Real.rpow_add hu0, Real.rpow_one]; ring
+    have heq : u * (2 ^ w * Q ^ (a * w) * u ^ (-(m * w))) * L₂
+        = 2 ^ w * (Q ^ (a * w) * u ^ (1 - m * w) * L₂) := by
+      rw [show (1 : ℝ) - m * w = 1 + -(m * w) by ring, Real.rpow_add hu0, Real.rpow_one]; ring
     rw [heq] at hbnd
-    have : 2 ^ w * (Q ^ (104 * w) * u ^ (1 - 14 * w) * L₂) ≤ 2 ^ w * c ^ (1 - 14 * w) :=
+    have : 2 ^ w * (Q ^ (a * w) * u ^ (1 - m * w) * L₂) ≤ 2 ^ w * c ^ (1 - m * w) :=
       mul_le_mul_of_nonneg_left hmono (Real.rpow_nonneg (by norm_num) _)
     linarith [hbnd, this]
   have h2w : (2 : ℝ) ^ w ≤ 2 := by
     calc (2 : ℝ) ^ w ≤ (2 : ℝ) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le (by norm_num) (by rw [hwdef]; linarith)
       _ = 2 := Real.rpow_one 2
-  have hcw : c ^ (1 - 14 * w) ≤ c ^ (3 / 17 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by rw [hwdef] at *; nlinarith [hw0])
+  have hcw : c ^ (1 - m * w) ≤ c ^ (1 - m / 17) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by linarith)
   -- final chain
-  have hfin : 2 / c₀ * (u * Y ^ w * L₂) ≤ 4 / c₀ * c ^ (3 / 17 : ℝ) := by
+  have hfin : 2 / c₀ * (u * Y ^ w * L₂) ≤ 4 / c₀ * c ^ (1 - m / 17) := by
     have h2c0 : (0 : ℝ) ≤ 2 / c₀ := by positivity
-    calc 2 / c₀ * (u * Y ^ w * L₂) ≤ 2 / c₀ * (2 ^ w * c ^ (1 - 14 * w)) :=
+    calc 2 / c₀ * (u * Y ^ w * L₂) ≤ 2 / c₀ * (2 ^ w * c ^ (1 - m * w)) :=
           mul_le_mul_of_nonneg_left huYL h2c0
-      _ ≤ 2 / c₀ * (2 * c ^ (3 / 17 : ℝ)) := by
+      _ ≤ 2 / c₀ * (2 * c ^ (1 - m / 17)) := by
           apply mul_le_mul_of_nonneg_left _ h2c0
           exact le_trans (mul_le_mul_of_nonneg_right h2w (Real.rpow_nonneg hcc.le _))
             (mul_le_mul_of_nonneg_left hcw (by norm_num))
-      _ = 4 / c₀ * c ^ (3 / 17 : ℝ) := by ring
+      _ = 4 / c₀ * c ^ (1 - m / 17) := by ring
   linarith [hstep1, hstep2, hfin, hg]
 
 /-- **The polylog factor bound.**  `1 + log(z²) ≤ 248·u^{−1/100}·L₂` at the crush scale
@@ -785,17 +843,28 @@ lemma logz_factor_pow9_le {Q L₂ z u : ℝ} (hQ4 : 4 ≤ Q) (hL2 : Real.log Q +
 set_option maxHeartbeats 1600000 in
 -- The four-factor monomial collection (`← Real.rpow_add` groups + `ring`) plus the nested
 -- `nlinarith` window checks exceed the default budget (as in `dh_master_ray`).
-/-- **The Eβ-row cap.** `Y^{β₀−σ}·Eβ ≤ 1/8` on the ray. -/
-lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
+/-- **The Eβ-row cap**, at the PARAMETRIC scale `Y ≥ Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.
+`Y^{β₀−σ}·Eβ ≤ 1/8` on the ray.  `ray_pow_bound` runs at
+`α = 1/2 + 12 + a(1/2−σ)`, `γ = −409/100 + m(σ−1/2)`, `ε = 10`.
+
+**The balance law.**  `hmEβ : 409/100 < m·(15/34)` is `γ > 0` at the window's worst corner
+`σ = 16/17`; `haE : 25/2 ≤ a·(15/34)` makes `α ≤ 0` there, so `hα : α ≤ b·w·γ` is free
+(SUFFICIENT, not sharp — the `σ → 1` corner needs only `a ≥ 25`, but that form would owe a
+companion upper bound on `a` in terms of `b`); `hkEβ : 10 ≤ k·(m·(15/34) − 409/100)` is `hε`.
+Instantiated at `(a, m, b, k) = (104, 14, 680, 14)`, where the γ-floor is `3547/1700` and
+`hkEβ` reads `10 ≤ 29.2`.  (The landed `_hYhi` binder is gone: no proof line read it.) -/
+lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ} (a m b k : ℝ)
     (hQ4 : 4 ≤ Q) (hL2 : Real.log Q + 2 ≤ L₂) (hcc : 0 < c) (hc1 : c ≤ 1)
     (hu0 : 0 < u) (hu1 : u ≤ 1) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1)
     (hσβ : σ ≤ β₀) (_hβ1 : β₀ < 1) (huβ : 1 - β₀ = u)
     (hMnn : 0 ≤ M) (hM : M ≤ Real.sqrt Q * L₂) (hZ0 : 0 ≤ Z₀)
     (hz1 : 1 ≤ z) (hzhi : z ≤ 2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
-    (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
-    (_hYhi : Y ≤ 2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hg : 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (3547 / 1700 : ℝ) ≤ 1 / 8) :
+    (hb : 0 < b) (hk : 0 ≤ k)
+    (hmEβ : 409 / 100 < m * (15 / 34)) (haE : 25 / 2 ≤ a * (15 / 34))
+    (hkEβ : 10 ≤ k * (m * (15 / 34) - 409 / 100))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hg : 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (m * (15 / 34) - 409 / 100) ≤ 1 / 8) :
     Y ^ (β₀ - σ) * ((136 + 48 * M + 48 * M * Z₀ + 144 * M / (1 - β₀))
         * z * (1 + Real.log (z ^ 2)) ^ 9 * Y ^ (1 / 2 - β₀)) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
@@ -804,8 +873,15 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
   have hL2' : (1 : ℝ) ≤ L₂ := by linarith
   have hL0 : (0 : ℝ) < L₂ := by linarith
   have hw0 : 0 < w := by rw [hwdef]; linarith
-  have hbaselo : (0 : ℝ) < Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) := by positivity
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
   have hYpos : (0 : ℝ) < Y := lt_of_lt_of_le hbaselo hYlo
+  -- the parametric window facts: `hmEβ`/`haE` are linear in `m`/`a`, so they carry their own signs
+  have hmpos : (0 : ℝ) < m := by linarith
+  have hapos : (0 : ℝ) < a := by linarith
+  have h15 : (15 : ℝ) / 34 ≤ σ - 1 / 2 := by linarith
+  have hγfloor : m * (15 / 34) - 409 / 100
+      ≤ -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)) := by
+    nlinarith [mul_le_mul_of_nonneg_left h15 hmpos.le]
   have hzpos : (0 : ℝ) < z := by linarith
   have hsqQ : Real.sqrt Q = Q ^ (1 / 2 : ℝ) := Real.sqrt_eq_rpow Q
   have hpoly := logz_factor_pow9_le hQ4 hL2 hu0 hu1 hz1 hzhi
@@ -831,48 +907,51 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
       = K * z * (1 + Real.log (z ^ 2)) ^ 9 * (Y ^ (β₀ - σ) * Y ^ (1 / 2 - β₀)) by ring,
     ← Real.rpow_add hYpos, show (β₀ - σ) + (1 / 2 - β₀) = 1 / 2 - σ by ring]
   have hYexp : (1 : ℝ) / 2 - σ < 0 := by linarith
-  have hYb : Y ^ (1 / 2 - σ) ≤ Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ))) := by
-    have h1 : Y ^ (1 / 2 - σ) ≤ (Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ (1 / 2 - σ) :=
+  have hYb : Y ^ (1 / 2 - σ) ≤ Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ))) := by
+    have h1 : Y ^ (1 / 2 - σ) ≤ (Q ^ a * u ^ (-m)) ^ (1 / 2 - σ) :=
       Real.rpow_le_rpow_of_nonpos hbaselo hYlo hYexp.le
     rwa [Real.mul_rpow (Real.rpow_nonneg hQ0.le _) (Real.rpow_nonneg hu0.le _),
       ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le,
-      show -(14 : ℝ) * (1 / 2 - σ) = -(14 * (1 / 2 - σ)) by ring] at h1
+      show -m * (1 / 2 - σ) = -(m * (1 / 2 - σ)) by ring] at h1
   -- monomial collapse via ray_pow_bound
-  have hγpos : (0 : ℝ) < -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)) := by
-    nlinarith [hσlo]
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-    (α := 1 / 2 + 12 + 104 * (1 / 2 - σ))
-    (γ := -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
-    (ε := 1 + 9) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 hγpos huτ
-    (by rw [hwdef] at *; nlinarith [hw0, hσlo]) (by nlinarith [hσlo])
+  have hγpos : (0 : ℝ) < -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)) := by
+    linarith [hγfloor, hmEβ]
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+    (α := 1 / 2 + 12 + a * (1 / 2 - σ))
+    (γ := -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
+    (ε := 1 + 9) hQ1 hL2' hcc hb hk hu0 hγpos huτ
+    (by nlinarith [mul_pos (mul_pos hb hw0) hγpos, haE,
+      mul_le_mul_of_nonneg_left h15 hapos.le])
+    (by nlinarith [mul_le_mul_of_nonneg_left hγfloor hk, hkEβ])
   -- collect the product into the monomial
-  have hQg : Q ^ (1 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (104 * (1 / 2 - σ))
-      = Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ)) := by
+  have hQg : Q ^ (1 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (a * (1 / 2 - σ))
+      = Q ^ (1 / 2 + 12 + a * (1 / 2 - σ)) := by
     rw [← Real.rpow_add hQ0, ← Real.rpow_add hQ0]
-  have hug : u ^ (-(1 : ℝ)) * u ^ (-(3 : ℝ)) * u ^ (-(9 / 100 : ℝ)) * u ^ (-(14 * (1 / 2 - σ)))
-      = u ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) := by
+  have hug : u ^ (-(1 : ℝ)) * u ^ (-(3 : ℝ)) * u ^ (-(9 / 100 : ℝ)) * u ^ (-(m * (1 / 2 - σ)))
+      = u ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ))) := by
     rw [← Real.rpow_add hu0, ← Real.rpow_add hu0, ← Real.rpow_add hu0]
   have hLg : L₂ * L₂ ^ (9 : ℝ) = L₂ ^ (1 + 9 : ℝ) := by
     rw [Real.rpow_add hL0, Real.rpow_one]
   have hcollect : ((328 + 48 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂) * u ^ (-(1 : ℝ)))
         * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
         * (248 ^ 9 * u ^ (-(9 / 100 : ℝ)) * L₂ ^ (9 : ℝ))
-        * (Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ))))
+        * (Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ))))
       = 2 * (328 + 48 * Z₀) * 248 ^ 9
-        * (Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ))
-          * u ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
+        * (Q ^ (1 / 2 + 12 + a * (1 / 2 - σ))
+          * u ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
           * L₂ ^ (1 + 9 : ℝ)) := by
     rw [← hQg, ← hug, ← hLg]; ring
   -- final chain
   have hCnn : (0 : ℝ) ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 := by positivity
-  -- TAU-SHARP S2: the Eβ row's **own** γ-floor.  `γ_Eβ(σ) = 14σ − 1109/100` is strictly increasing
-  -- in `σ`, so its infimum over the window sits at the CLOSED endpoint `hσlo : 16/17 ≤ σ`, where it
-  -- equals `3547/1700` EXACTLY (`14·16/17 − 1109/100 = 22400/1700 − 18853/1700`).  The freeze's
-  -- decimal `2.0865` exceeds this by `2.941e−5` and is FALSE at the endpoint — the rational is the
-  -- only admissible numeral.  `linarith` (not `nlinarith`): linear in `σ`, tight at equality.
-  have hcγ : c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
-      ≤ c ^ (3547 / 1700 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by linarith [hσlo])
+  -- TAU-SHARP S2, at parameters: the Eβ row's **own** γ-floor.  `γ_Eβ(σ) = m(σ−1/2) − 409/100`
+  -- is strictly increasing in `σ` (`m > 0`), so its infimum over the window sits at the CLOSED
+  -- endpoint `hσlo : 16/17 ≤ σ`, where `σ − 1/2 = 15/34` and the floor is `m·(15/34) − 409/100`
+  -- — EXACT as a rational in `m`, and `3547/1700` at `m = 14` (`14·16/17 − 1109/100 =
+  -- 22400/1700 − 18853/1700`); a decimal `2.0865` there exceeds it by `2.941e−5` and is FALSE at
+  -- the endpoint.  This is `hγfloor`, proved once above by `m·(15/34) ≤ m·(σ−1/2)`.
+  have hcγ : c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
+      ≤ c ^ (m * (15 / 34) - 409 / 100) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc hc1 hγfloor
   have hbnn : (0 : ℝ) ≤ 1 + Real.log (z ^ 2) := by
     have := Real.log_nonneg (show (1 : ℝ) ≤ z ^ 2 by nlinarith [hz1]); linarith
   have hpolynn : (0 : ℝ) ≤ (1 + Real.log (z ^ 2)) ^ 9 := pow_nonneg hbnn 9
@@ -885,7 +964,7 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
       ≤ ((328 + 48 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂) * u ^ (-(1 : ℝ)))
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
           * (248 ^ 9 * u ^ (-(9 / 100 : ℝ)) * L₂ ^ (9 : ℝ))
-          * (Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ)))) := by
+          * (Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ)))) := by
     have h1 : K * z
         ≤ (328 + 48 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂) * u ^ (-(1 : ℝ))
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ))) :=
@@ -900,34 +979,45 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
       ≤ ((328 + 48 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂) * u ^ (-(1 : ℝ)))
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
           * (248 ^ 9 * u ^ (-(9 / 100 : ℝ)) * L₂ ^ (9 : ℝ))
-          * (Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ)))) := hprod
+          * (Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ)))) := hprod
     _ = 2 * (328 + 48 * Z₀) * 248 ^ 9
-        * (Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ))
-          * u ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
+        * (Q ^ (1 / 2 + 12 + a * (1 / 2 - σ))
+          * u ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
           * L₂ ^ (1 + 9 : ℝ)) := hcollect
     _ ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9
-        * c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) :=
+        * c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ))) :=
         mul_le_mul_of_nonneg_left hmono hCnn
-    _ ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (3547 / 1700 : ℝ) :=
+    _ ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (m * (15 / 34) - 409 / 100) :=
         mul_le_mul_of_nonneg_left hcγ hCnn
     _ ≤ 1 / 8 := hg
 
 set_option maxHeartbeats 1600000 in
 -- The four-factor monomial collection (`← Real.rpow_add` groups + `ring`) plus the nested
 -- `nlinarith` window checks exceed the default budget (as in `dh_master_ray`).
-/-- **The Eρ-row cap.** `Eρ = Cρ·z·(1+log z²)^9·Y^{1/2−σ} ≤ 1/8` on the ray, where the
-extraction constant `Cρ` (`= C2Rho q Z₀ ρ`) obeys the ZFR-folded bound `Cρ ≤ (564+72Z₀)√Q·L₂²/c₀`
-(proven in the assembly by unpacking `C2Rho`/`CwRho` against the pole floors). -/
-lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
+/-- **The Eρ-row cap**, at the PARAMETRIC scale `Y ≥ Q^a·u^{−m}` and ray `u ≤ c·Q^{−bw}/L₂^k`.
+`Eρ = Cρ·z·(1+log z²)^9·Y^{1/2−σ} ≤ 1/8` on the ray, where the extraction constant `Cρ`
+(`= C2Rho q Z₀ ρ`) obeys the ZFR-folded bound `Cρ ≤ (564+72Z₀)√Q·L₂²/c₀` (proven in the assembly
+by unpacking `C2Rho`/`CwRho` against the pole floors).  `ray_pow_bound` runs at
+`α = 1/2 + 12 + a(1/2−σ)`, `γ = −309/100 + m(σ−1/2)`, `ε = 11`.
+
+**The balance law.**  `hmEρ : 309/100 < m·(15/34)` is `γ > 0` at the window's worst corner
+`σ = 16/17`; `haE : 25/2 ≤ a·(15/34)` makes `α ≤ 0` there, so `hα : α ≤ b·w·γ` is free
+(SUFFICIENT, not sharp — see `row_Eβ_cap`); `hkEρ : 11 ≤ k·(m·(15/34) − 309/100)` is `hε`.
+Instantiated at `(a, m, b, k) = (104, 14, 680, 14)`, where the γ-floor is `5247/1700` and
+`hkEρ` reads `11 ≤ 43.2`. -/
+lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ} (a m b k : ℝ)
     (hQ4 : 4 ≤ Q) (hL2 : Real.log Q + 2 ≤ L₂) (hcc : 0 < c) (hc1 : c ≤ 1) (hc0 : 0 < c₀)
     (hu0 : 0 < u) (hu1 : u ≤ 1) (hwdef : w = 1 - σ) (hσlo : 16 / 17 ≤ σ) (hσ1 : σ < 1)
     (_hCρnn : 0 ≤ Cρ)
     (hCρ : Cρ ≤ (564 + 72 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀))
     (hZ0 : 0 ≤ Z₀)
     (hz1 : 1 ≤ z) (hzhi : z ≤ 2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
-    (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hg : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (5247 / 1700 : ℝ) ≤ 1 / 8) :
+    (hb : 0 < b) (hk : 0 ≤ k)
+    (hmEρ : 309 / 100 < m * (15 / 34)) (haE : 25 / 2 ≤ a * (15 / 34))
+    (hkEρ : 11 ≤ k * (m * (15 / 34) - 309 / 100))
+    (hYlo : Q ^ a * u ^ (-m) ≤ Y)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hg : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (m * (15 / 34) - 309 / 100) ≤ 1 / 8) :
     Cρ * z * (1 + Real.log (z ^ 2)) ^ 9 * Y ^ (1 / 2 - σ) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hQ0 : (0 : ℝ) < Q := by linarith
@@ -935,38 +1025,48 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
   have hL2' : (1 : ℝ) ≤ L₂ := by linarith
   have hL0 : (0 : ℝ) < L₂ := by linarith
   have hw0 : 0 < w := by rw [hwdef]; linarith
-  have hbaselo : (0 : ℝ) < Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) := by positivity
+  have hbaselo : (0 : ℝ) < Q ^ a * u ^ (-m) := by positivity
   have hYpos : (0 : ℝ) < Y := lt_of_lt_of_le hbaselo hYlo
+  -- the parametric window facts: `hmEρ`/`haE` are linear in `m`/`a`, so they carry their own signs
+  have hmpos : (0 : ℝ) < m := by linarith
+  have hapos : (0 : ℝ) < a := by linarith
+  have h15 : (15 : ℝ) / 34 ≤ σ - 1 / 2 := by linarith
+  have hγfloor : m * (15 / 34) - 309 / 100
+      ≤ -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)) := by
+    nlinarith [mul_le_mul_of_nonneg_left h15 hmpos.le]
   have hzpos : (0 : ℝ) < z := by linarith
   have hpoly := logz_factor_pow9_le hQ4 hL2 hu0 hu1 hz1 hzhi
   have hYexp : (1 : ℝ) / 2 - σ < 0 := by linarith
-  have hYb : Y ^ (1 / 2 - σ) ≤ Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ))) := by
-    have h1 : Y ^ (1 / 2 - σ) ≤ (Q ^ (104 : ℝ) * u ^ (-(14 : ℝ))) ^ (1 / 2 - σ) :=
+  have hYb : Y ^ (1 / 2 - σ) ≤ Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ))) := by
+    have h1 : Y ^ (1 / 2 - σ) ≤ (Q ^ a * u ^ (-m)) ^ (1 / 2 - σ) :=
       Real.rpow_le_rpow_of_nonpos hbaselo hYlo hYexp.le
     rwa [Real.mul_rpow (Real.rpow_nonneg hQ0.le _) (Real.rpow_nonneg hu0.le _),
       ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le,
-      show -(14 : ℝ) * (1 / 2 - σ) = -(14 * (1 / 2 - σ)) by ring] at h1
+      show -m * (1 / 2 - σ) = -(m * (1 / 2 - σ)) by ring] at h1
   -- monomial collapse via ray_pow_bound
-  have hγpos : (0 : ℝ) < -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)) := by nlinarith [hσlo]
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
-    (α := 1 / 2 + 12 + 104 * (1 / 2 - σ))
-    (γ := -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
-    (ε := 2 + 9) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 hγpos huτ
-    (by nlinarith [hσlo, mul_pos hw0 hγpos]) (by nlinarith [hσlo])
-  have hQg : Q ^ (1 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (104 * (1 / 2 - σ))
-      = Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ)) := by
+  have hγpos : (0 : ℝ) < -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)) := by
+    linarith [hγfloor, hmEρ]
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b) (k := k)
+    (α := 1 / 2 + 12 + a * (1 / 2 - σ))
+    (γ := -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
+    (ε := 2 + 9) hQ1 hL2' hcc hb hk hu0 hγpos huτ
+    (by nlinarith [mul_pos (mul_pos hb hw0) hγpos, haE,
+      mul_le_mul_of_nonneg_left h15 hapos.le])
+    (by nlinarith [mul_le_mul_of_nonneg_left hγfloor hk, hkEρ])
+  have hQg : Q ^ (1 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (a * (1 / 2 - σ))
+      = Q ^ (1 / 2 + 12 + a * (1 / 2 - σ)) := by
     rw [← Real.rpow_add hQ0, ← Real.rpow_add hQ0]
-  have hug : u ^ (-(3 : ℝ)) * u ^ (-(9 / 100 : ℝ)) * u ^ (-(14 * (1 / 2 - σ)))
-      = u ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) := by
+  have hug : u ^ (-(3 : ℝ)) * u ^ (-(9 / 100 : ℝ)) * u ^ (-(m * (1 / 2 - σ)))
+      = u ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ))) := by
     rw [← Real.rpow_add hu0, ← Real.rpow_add hu0]
   have hLg : L₂ ^ (2 : ℝ) * L₂ ^ (9 : ℝ) = L₂ ^ (2 + 9 : ℝ) := by rw [← Real.rpow_add hL0]
   have hcollect : ((564 + 72 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀))
         * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
         * (248 ^ 9 * u ^ (-(9 / 100 : ℝ)) * L₂ ^ (9 : ℝ))
-        * (Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ))))
+        * (Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ))))
       = 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀
-        * (Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ))
-          * u ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
+        * (Q ^ (1 / 2 + 12 + a * (1 / 2 - σ))
+          * u ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
           * L₂ ^ (2 + 9 : ℝ)) := by
     rw [← hQg, ← hug, ← hLg]; ring
   -- nonneg facts and the product bound
@@ -982,7 +1082,7 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
       ≤ ((564 + 72 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀))
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
           * (248 ^ 9 * u ^ (-(9 / 100 : ℝ)) * L₂ ^ (9 : ℝ))
-          * (Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ)))) := by
+          * (Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ)))) := by
     have h1 : Cρ * z
         ≤ (564 + 72 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀)
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ))) :=
@@ -994,26 +1094,28 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
       mul_le_mul h1 hpoly hpolynn (mul_nonneg hCbarnn hzbarnn)
     exact mul_le_mul h2 hYb hYsnn (mul_nonneg (mul_nonneg hCbarnn hzbarnn) hPbarnn)
   have hCnn : (0 : ℝ) ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ := by positivity
-  -- TAU-SHARP S2: the Eρ row's **own** γ-floor.  `γ_Eρ(σ) = 14σ − 1009/100` is strictly increasing
-  -- in `σ`, so its infimum over the window sits at the CLOSED endpoint `hσlo : 16/17 ≤ σ`, where it
-  -- equals `5247/1700` EXACTLY (`14·16/17 − 1009/100 = 22400/1700 − 17153/1700`).  The freeze's
-  -- decimal `3.0865` exceeds this by `2.941e−5` and is FALSE at the endpoint — the rational is the
-  -- only admissible numeral.  `linarith` (not `nlinarith`): linear in `σ`, tight at equality.
-  have hcγ : c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) ≤ c ^ (5247 / 1700 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by linarith [hσlo])
+  -- TAU-SHARP S2, at parameters: the Eρ row's **own** γ-floor.  `γ_Eρ(σ) = m(σ−1/2) − 309/100`
+  -- is strictly increasing in `σ` (`m > 0`), so its infimum over the window sits at the CLOSED
+  -- endpoint `hσlo : 16/17 ≤ σ`, where `σ − 1/2 = 15/34` and the floor is `m·(15/34) − 309/100`
+  -- — EXACT as a rational in `m`, and `5247/1700` at `m = 14` (`14·16/17 − 1009/100 =
+  -- 22400/1700 − 17153/1700`); a decimal `3.0865` there exceeds it by `2.941e−5` and is FALSE at
+  -- the endpoint.  This is `hγfloor`, proved once above by `m·(15/34) ≤ m·(σ−1/2)`.
+  have hcγ : c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
+      ≤ c ^ (m * (15 / 34) - 309 / 100) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc hc1 hγfloor
   calc Cρ * z * (1 + Real.log (z ^ 2)) ^ 9 * Y ^ (1 / 2 - σ)
       ≤ ((564 + 72 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀))
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
           * (248 ^ 9 * u ^ (-(9 / 100 : ℝ)) * L₂ ^ (9 : ℝ))
-          * (Q ^ (104 * (1 / 2 - σ)) * u ^ (-(14 * (1 / 2 - σ)))) := hprod
+          * (Q ^ (a * (1 / 2 - σ)) * u ^ (-(m * (1 / 2 - σ)))) := hprod
     _ = 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀
-        * (Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ))
-          * u ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
+        * (Q ^ (1 / 2 + 12 + a * (1 / 2 - σ))
+          * u ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
           * L₂ ^ (2 + 9 : ℝ)) := hcollect
     _ ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀
-        * c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) :=
+        * c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ))) :=
         mul_le_mul_of_nonneg_left hmono hCnn
-    _ ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (5247 / 1700 : ℝ) :=
+    _ ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (m * (15 / 34) - 309 / 100) :=
         mul_le_mul_of_nonneg_left hcγ hCnn
     _ ≤ 1 / 8 := hg
 
@@ -1769,7 +1871,11 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     have hrow1 : (1 - β₀) * (2 - β₀) * (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖) ≤ 1 / 8 :=
       row_rho_main_cap (Q := Q) (L₂ := L₂) (c := c) (c₀ := c₀) (u := 1 - β₀) (w := 1 - ρ.re)
         (σ := ρ.re) (β₀ := β₀) (Y := Y) (n1 := ‖1 - ρ‖) (n2 := ‖2 - ρ‖)
-        hQ4 hL₂1 hcpos hc1 hc₀pos hu0 rfl hσlo hσ1 hβ0 hβ0hi hn2 hn1inv hYlo_r hYhi_r huτ hgρ
+        (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hL₂1 hcpos hc1 hc₀pos hu0 rfl hσlo hσ1 hβ0 hβ0hi hn2 hn1inv
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+        hYlo_r hYhi_r huτ
+        (by rw [show (1 - 14 / 17 : ℝ) = 3 / 17 by norm_num]; exact hgρ)
     have hσ0 : 0 < ρ.re := by linarith only [hσlo]
     have hCρnn : 0 ≤ C2Rho q Z₀ ρ := by
       rw [C2Rho, CwRho]
@@ -1778,19 +1884,36 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     have hrow2 : C2Rho q Z₀ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9
         * (Y : ℝ) ^ (1 / 2 - ρ.re) ≤ 1 / 8 :=
       row_Eρ_cap (Q := Q) (L₂ := L₂) (c := c) (c₀ := c₀) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re)
-        (Y := Y) (z := (z : ℝ)) (Cρ := C2Rho q Z₀ ρ) (Z₀ := Z₀) hQ4 hlogL2 hcpos hc1 hc₀pos hu0 hu1
-        rfl hσlo hσ1 hCρnn hCρ hZ0nn hz1r hzhi_r hYlo_r huτ hgEρ
+        (Y := Y) (z := (z : ℝ)) (Cρ := C2Rho q Z₀ ρ) (Z₀ := Z₀)
+        (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hlogL2 hcpos hc1 hc₀pos hu0 hu1 rfl hσlo hσ1 hCρnn hCρ hZ0nn hz1r hzhi_r
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) hYlo_r huτ
+        (by rw [show (14 * (15 / 34) - 309 / 100 : ℝ) = 5247 / 1700 by norm_num]; exact hgEρ)
     have hrowA : (Y : ℝ) ^ (β₀ - ρ.re) * ((Y : ℝ) ^ (1 - β₀) - 1) ≤ 1 / 8 :=
       row_A_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
-        (Y := Y) hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl hYlo_r hYhi_r huτ hg1A hg2A
+        (Y := Y) (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+        hYlo_r hYhi_r huτ
+        (by rw [show (1 + 104 + 50 * 14 : ℝ) = 805 by norm_num]; exact hg1A)
+        (by rw [show (1 + 104 + 50 * 14 : ℝ) = 805 by norm_num,
+              show (49 / 50 - 14 / 17 : ℝ) = 133 / 850 by norm_num,
+              show (2 * 805 : ℝ) = 1610 by norm_num]
+            exact hg2A)
     have hrow1x : (Y : ℝ) ^ (β₀ - ρ.re - 1) ≤ 1 / 8 :=
       row_1x_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
-        (Y := Y) hQ4 hL₂1 hcpos hg1x hu0 rfl hσlo hσ1 hσβ hβ0hi hYlo_r huτ
+        (Y := Y) (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hL₂1 hcpos hg1x hu0 rfl hσlo hσ1 hσβ hβ0hi
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) hYlo_r huτ
     have hrowEβ : (Y : ℝ) ^ (β₀ - ρ.re) * ((136 + 48 * M + 48 * M * Z₀ + 144 * M / (1 - β₀))
         * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - β₀)) ≤ 1 / 8 :=
       row_Eβ_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
-        (Y := Y) (z := (z : ℝ)) (M := M) (Z₀ := Z₀) hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ
-        hβ0hi rfl hMnn hMB' hZ0nn hz1r hzhi_r hYlo_r hYhi_r huτ hgEβ
+        (Y := Y) (z := (z : ℝ)) (M := M) (Z₀ := Z₀)
+        (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl hMnn hMB' hZ0nn hz1r hzhi_r
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) hYlo_r huτ
+        (by rw [show (14 * (15 / 34) - 409 / 100 : ℝ) = 3547 / 1700 by norm_num]; exact hgEβ)
     -- ===== ROW3 decomposition + contradiction =====
     have hYdiv : (Y : ℝ) ^ (β₀ - ρ.re) / (Y : ℝ) = (Y : ℝ) ^ (β₀ - ρ.re - 1) := by
       rw [div_eq_mul_inv, ← Real.rpow_neg_one (Y : ℝ), ← Real.rpow_add hYpos,
