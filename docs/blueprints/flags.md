@@ -24728,12 +24728,12 @@ the next cut. The W6b-H1b sub-freeze's `§0` block was COUNTED before it was cal
 (`grep -c '^theorem'` = 22) and was passed through the kernel with `:= by sorry` stubs at the same sha
 (EXIT=0, 22 `sorry` warnings, 0 errors), so the label and the list agree by construction; and the
 `⟦B2 W6b-H1b 0905⟧` audit block in `Salt/SW/All.lean` is sized from the LIST of what actually landed
-(fifteen `#audit_axioms` names — thirteen frozen rows and the two public helpers), never from a label.
+(sixteen `#audit_axioms` names — fourteen frozen rows and the two public helpers), never from a label.
 An off-by-one between a label and its own list cannot under-cover here.
 
 ### 📥 09-05 — W6b-H1b `abs_sum_moebius_mul_log_floor_ratio_le` / `abs_sum_moebius_div_mul_log_div_sub_one_le` / `abs_sum_moebius_mul_log_div_add_one_le` (C2, C3, H6c): the blockwise Abel is the whole cost, and it did not fit the wave
 
-**Object:** `Salt/SW/GrahamHard2.lean` at the W6b-H1b cut. Thirteen of the cut's twenty-two frozen
+**Object:** `Salt/SW/GrahamHard2.lean` at the W6b-H1b cut. Fourteen of the cut's twenty-two frozen
 rows landed; these three did not, and they are ONE row plus two consequences.
 
 **What was tried (Opus, the wave's executor).** The sub-freeze's route was re-derived at the object
