@@ -5155,6 +5155,596 @@ theorem coprime_sum_moebius_div_log_eq (A : ℝ) (hA : 0 < A) :
     rw [hringid]
     linarith only [habs, hnear, hfar, hfarC, hmaint, hmainC, hextra]
 
+/-! ### The κ-expansion (H6f's and H6e's stone) -/
+
+/-- `κ(∏ P) = ∏_{p ∈ P}(p + 1)` for a finite set of primes. -/
+private lemma kappa_prod_primes {T : Finset ℕ} (hT : ∀ p ∈ T, Nat.Prime p) :
+    kappa (∏ p ∈ T, p) = ∏ p ∈ T, ((p : ℝ) + 1) := by
+  have hpf : (∏ p ∈ T, p).primeFactors = T := Nat.primeFactors_prod hT
+  rw [kappa, hpf, Nat.cast_prod, ← Finset.prod_mul_distrib]
+  refine Finset.prod_congr rfl fun p hp => ?_
+  have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast (hT p hp).pos
+  field_simp
+
+/-- `Σ_{k ∣ r} μ(k)/κ(k) = ∏_{p ∣ r}(1 − 1/(p+1))` — only the squarefree divisors survive,
+they are the subsets of `r.primeFactors`, and `Finset.prod_one_add` collects them. -/
+private lemma sum_moebius_div_kappa_eq (r : ℕ) (hr : 1 ≤ r) :
+    ∑ k ∈ r.divisors, (moebius k : ℝ) / kappa k
+      = ∏ p ∈ r.primeFactors, (1 - 1 / ((p : ℝ) + 1)) := by
+  classical
+  have hr0 : r ≠ 0 := by omega
+  have hfilter : ∑ k ∈ r.divisors, (moebius k : ℝ) / kappa k
+      = ∑ k ∈ r.divisors.filter Squarefree, (moebius k : ℝ) / kappa k := by
+    refine (Finset.sum_subset (Finset.filter_subset _ _) fun k hk hk' => ?_).symm
+    have hns : ¬ Squarefree k := fun hs => hk' (Finset.mem_filter.mpr ⟨hk, hs⟩)
+    rw [moebius_eq_zero_of_not_squarefree hns, Int.cast_zero, zero_div]
+  rw [hfilter, Nat.sum_divisors_filter_squarefree hr0]
+  have hbridge : (UniqueFactorizationMonoid.normalizedFactors r).toFinset = r.primeFactors := by
+    rw [Nat.factors_eq, List.toFinset_coe, Nat.toFinset_factors]
+  rw [hbridge]
+  have hform : ∏ p ∈ r.primeFactors, (1 - 1 / ((p : ℝ) + 1))
+      = ∏ p ∈ r.primeFactors, (1 + -(1 / ((p : ℝ) + 1))) :=
+    Finset.prod_congr rfl fun p _ => by ring
+  rw [hform, Finset.prod_one_add]
+  refine Finset.sum_congr rfl fun T hT => ?_
+  have hsub : T ⊆ r.primeFactors := Finset.mem_powerset.mp hT
+  have hprime : ∀ p ∈ T, Nat.Prime p := fun p hp => Nat.prime_of_mem_primeFactors (hsub hp)
+  have hpw : (↑T : Set ℕ).Pairwise (Function.onFun Nat.Coprime (fun p : ℕ => p)) := by
+    intro p hp q hq hne
+    exact (Nat.coprime_primes (hprime p hp) (hprime q hq)).mpr hne
+  have hval : T.val.prod = ∏ p ∈ T, p := Finset.prod_val T
+  rw [hval, isMultiplicative_moebius.map_prod (fun p : ℕ => p) T hpw,
+    kappa_prod_primes hprime, Int.cast_prod, ← Finset.prod_div_distrib]
+  refine Finset.prod_congr rfl fun p hp => ?_
+  rw [moebius_apply_prime (hprime p hp)]
+  have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast (hprime p hp).pos
+  push_cast
+  field_simp
+
+/-- **The κ-expansion.** `μ(n)/κ(n) = (μ(n)/n)·Σ_{d ∣ n} μ(d)/κ(d)` — both sides vanish off
+squarefree, and on squarefree `n` the divisor sum is `∏(1 − 1/(p+1)) = n/κ(n)`. -/
+private lemma moebius_div_kappa_expand {n : ℕ} (hn : 1 ≤ n) :
+    (moebius n : ℝ) / kappa n
+      = (moebius n : ℝ) / n * ∑ d ∈ n.divisors, (moebius d : ℝ) / kappa d := by
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hkpos : (0 : ℝ) < kappa n := lt_of_lt_of_le hn0 (le_kappa n hn)
+  by_cases hsqf : Squarefree n
+  · rw [sum_moebius_div_kappa_eq n hn]
+    have hnR : (n : ℝ) = ∏ p ∈ n.primeFactors, (p : ℝ) := by
+      rw [← Nat.cast_prod, Nat.prod_primeFactors_of_squarefree hsqf]
+    have hkap : kappa n = ∏ p ∈ n.primeFactors, ((p : ℝ) + 1) := by
+      rw [kappa, hnR, ← Finset.prod_mul_distrib]
+      refine Finset.prod_congr rfl fun p hp => ?_
+      have hp0 : (0 : ℝ) < (p : ℝ) := by
+        exact_mod_cast (Nat.prime_of_mem_primeFactors hp).pos
+      field_simp
+    have hprod : ∏ p ∈ n.primeFactors, (1 - 1 / ((p : ℝ) + 1)) = (n : ℝ) / kappa n := by
+      rw [hnR, hkap, ← Finset.prod_div_distrib]
+      refine Finset.prod_congr rfl fun p hp => ?_
+      have hp0 : (0 : ℝ) < (p : ℝ) := by
+        exact_mod_cast (Nat.prime_of_mem_primeFactors hp).pos
+      field_simp
+      ring
+    rw [hprod]
+    field_simp
+  · rw [moebius_eq_zero_of_not_squarefree hsqf]
+    simp
+
+/-- The termwise identity behind the `κ`-expansion's swap. -/
+private lemma kappa_swap_term (t : ℕ) {d f : ℕ} (hd : 1 ≤ d) (hf : 1 ≤ f) :
+    (if Nat.Coprime (d * f) t then
+        (moebius (d * f) : ℝ) / ((d * f : ℕ) : ℝ) * ((moebius d : ℝ) / kappa d) else 0)
+      = (if Nat.Coprime d t then (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d) else 0)
+        * (if Nat.Coprime f (d * t) then (moebius f : ℝ) / (f : ℝ) else 0) := by
+  classical
+  have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hf0 : (0 : ℝ) < (f : ℝ) := by exact_mod_cast hf
+  have hkpos : (0 : ℝ) < kappa d := lt_of_lt_of_le hd0 (le_kappa d hd)
+  by_cases hdsq : Squarefree d
+  · by_cases hfsq : Squarefree f
+    · by_cases hdf : Nat.Coprime d f
+      · have hmu : (moebius (d * f) : ℝ) = (moebius d : ℝ) * (moebius f : ℝ) := by
+          rw [isMultiplicative_moebius.map_mul_of_coprime hdf]
+          push_cast
+          ring
+        have hcop : Nat.Coprime (d * f) t ↔ Nat.Coprime d t ∧ Nat.Coprime f t :=
+          Nat.coprime_mul_iff_left
+        have hcop2 : Nat.Coprime f (d * t) ↔ Nat.Coprime f t := by
+          rw [Nat.coprime_mul_iff_right]
+          exact ⟨fun h => h.2, fun h => ⟨Nat.coprime_comm.mp hdf, h⟩⟩
+        by_cases hdt : Nat.Coprime d t
+        · by_cases hft : Nat.Coprime f t
+          · rw [if_pos (hcop.mpr ⟨hdt, hft⟩), if_pos hdt, if_pos (hcop2.mpr hft), hmu]
+            have hdne : (d : ℝ) ≠ 0 := hd0.ne'
+            have hfne : (f : ℝ) ≠ 0 := hf0.ne'
+            have hkne : kappa d ≠ 0 := hkpos.ne'
+            push_cast
+            field_simp
+          · rw [if_neg (fun h => hft (hcop.mp h).2), if_pos hdt,
+              if_neg (fun h => hft (hcop2.mp h)), mul_zero]
+        · rw [if_neg (fun h => hdt (hcop.mp h).1), if_neg hdt, zero_mul]
+      · have hns : ¬ Squarefree (d * f) := by
+          intro hsq
+          obtain ⟨p, hp, hpg⟩ := Nat.exists_prime_and_dvd (show Nat.gcd d f ≠ 1 from hdf)
+          have hpd : p ∣ d := hpg.trans (Nat.gcd_dvd_left d f)
+          have hpf' : p ∣ f := hpg.trans (Nat.gcd_dvd_right d f)
+          have hpp : p * p ∣ d * f := mul_dvd_mul hpd hpf'
+          have hu := hsq p hpp
+          exact hp.one_lt.ne' (Nat.isUnit_iff.mp hu)
+        have hnc : ¬ Nat.Coprime f (d * t) := by
+          intro h
+          exact hdf (Nat.coprime_comm.mp ((Nat.coprime_mul_iff_right.mp h).1))
+        rw [moebius_eq_zero_of_not_squarefree hns, if_neg hnc, mul_zero]
+        split_ifs <;> simp
+    · have hns : ¬ Squarefree (d * f) := fun hsq => hfsq (hsq.squarefree_of_dvd ⟨d, by ring⟩)
+      rw [moebius_eq_zero_of_not_squarefree hns,
+        moebius_eq_zero_of_not_squarefree hfsq]
+      split_ifs <;> simp
+  · have hns : ¬ Squarefree (d * f) := fun hsq => hdsq (hsq.squarefree_of_dvd ⟨f, rfl⟩)
+    rw [moebius_eq_zero_of_not_squarefree hns,
+      moebius_eq_zero_of_not_squarefree hdsq]
+    split_ifs <;> simp
+
+/-- **The κ-expansion's swap.** `Σ_{n ≤ N, (n,t)=1} μ(n)/κ(n) =
+Σ_{d ≤ N, (d,t)=1} (μ²(d)/(dκ(d)))·Σ_{f ≤ N/d, (f,dt)=1} μ(f)/f`. -/
+private lemma sum_coprime_moebius_div_kappa_swap (t N : ℕ) :
+    ∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime n t), (moebius n : ℝ) / kappa n
+      = ∑ d ∈ (Finset.Icc 1 N).filter (fun d => Nat.Coprime d t),
+          (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (N / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ) := by
+  classical
+  have hL : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime n t), (moebius n : ℝ) / kappa n
+      = ∑ n ∈ Finset.Icc 1 N, ∑ d ∈ n.divisors,
+          (if Nat.Coprime n t then (moebius n : ℝ) / (n : ℝ)
+            * ((moebius d : ℝ) / kappa d) else 0) := by
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun n hn => ?_
+    obtain ⟨hn1, _⟩ := Finset.mem_Icc.mp hn
+    by_cases hc : Nat.Coprime n t
+    · rw [if_pos hc, moebius_div_kappa_expand hn1, Finset.mul_sum]
+      exact Finset.sum_congr rfl fun d _ => (if_pos hc).symm
+    · rw [if_neg hc, Finset.sum_congr rfl (fun d (_ : d ∈ n.divisors) => if_neg hc),
+        Finset.sum_const, smul_zero]
+  have hR : ∑ d ∈ (Finset.Icc 1 N).filter (fun d => Nat.Coprime d t),
+        (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (N / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ)
+      = ∑ d ∈ Finset.Icc 1 N, ∑ f ∈ Finset.Icc 1 (N / d),
+          (if Nat.Coprime d t then (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d) else 0)
+            * (if Nat.Coprime f (d * t) then (moebius f : ℝ) / (f : ℝ) else 0) := by
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun d _ => ?_
+    rw [← Finset.mul_sum, ← Finset.sum_filter]
+    by_cases hc : Nat.Coprime d t
+    · rw [if_pos hc, if_pos hc]
+    · rw [if_neg hc, if_neg hc, zero_mul]
+  rw [hL, hR, sum_divisors_swap N (fun d n => if Nat.Coprime n t then
+    (moebius n : ℝ) / (n : ℝ) * ((moebius d : ℝ) / kappa d) else 0)]
+  refine Finset.sum_congr rfl fun d hd => ?_
+  obtain ⟨hd1, _⟩ := Finset.mem_Icc.mp hd
+  refine Finset.sum_congr rfl fun f hf => ?_
+  obtain ⟨hf1, _⟩ := Finset.mem_Icc.mp hf
+  exact kappa_swap_term t hd1 hf1
+
+/-- **σ is submultiplicative** (K36): `σ_{−1/4}(d·t) ≤ σ_{−1/4}(d)·σ_{−1/4}(t)`, by the
+injection `e ↦ (gcd(e,d), e/gcd(e,d))` of `(dt).divisors` into `d.divisors ×ˢ t.divisors`. -/
+private lemma sigmaQ_mul_le (d t : ℕ) (hd : 1 ≤ d) (ht : 1 ≤ t) :
+    sigmaQ (d * t) ≤ sigmaQ d * sigmaQ t := by
+  classical
+  have hd0 : d ≠ 0 := by omega
+  have ht0 : t ≠ 0 := by omega
+  have hdt0 : d * t ≠ 0 := Nat.mul_ne_zero hd0 ht0
+  have hrec : ∀ e ∈ (d * t).divisors, Nat.gcd e d * (e / Nat.gcd e d) = e :=
+    fun e _ => Nat.mul_div_cancel' (Nat.gcd_dvd_left e d)
+  have hmaps : ∀ e ∈ (d * t).divisors,
+      (Nat.gcd e d, e / Nat.gcd e d) ∈ d.divisors ×ˢ t.divisors := by
+    intro e he
+    have he0 : 0 < e := Nat.pos_of_mem_divisors he
+    have hedt : e ∣ d * t := (Nat.mem_divisors.mp he).1
+    have hg0 : 0 < Nat.gcd e d := Nat.gcd_pos_of_pos_left d he0
+    have hgd : Nat.gcd e d ∣ d := Nat.gcd_dvd_right e d
+    have hcop : Nat.Coprime (e / Nat.gcd e d) (d / Nat.gcd e d) :=
+      Nat.coprime_div_gcd_div_gcd hg0
+    have hbt : e / Nat.gcd e d ∣ t := by
+      have hstep : Nat.gcd e d * (e / Nat.gcd e d) ∣ Nat.gcd e d * ((d / Nat.gcd e d) * t) := by
+        calc Nat.gcd e d * (e / Nat.gcd e d) = e := hrec e he
+          _ ∣ d * t := hedt
+          _ = Nat.gcd e d * ((d / Nat.gcd e d) * t) := by
+              rw [← mul_assoc, Nat.mul_div_cancel' hgd]
+      have h2 : e / Nat.gcd e d ∣ (d / Nat.gcd e d) * t :=
+        (Nat.mul_dvd_mul_iff_left hg0).mp hstep
+      exact hcop.dvd_of_dvd_mul_left h2
+    rw [Finset.mem_product]
+    exact ⟨Nat.mem_divisors.mpr ⟨hgd, hd0⟩,
+      Nat.mem_divisors.mpr ⟨hbt, ht0⟩⟩
+  have hinj : Set.InjOn (fun e => (Nat.gcd e d, e / Nat.gcd e d)) ↑(d * t).divisors := by
+    intro a ha b hb hab
+    have h1 : Nat.gcd a d = Nat.gcd b d := congrArg Prod.fst hab
+    have h2 : a / Nat.gcd a d = b / Nat.gcd b d := congrArg Prod.snd hab
+    have ha' := hrec a (by simpa using ha)
+    have hb' := hrec b (by simpa using hb)
+    rw [← ha', ← hb', h2, h1]
+  have hstep1 : sigmaQ (d * t)
+      = ∑ z ∈ (d * t).divisors.image (fun e => (Nat.gcd e d, e / Nat.gcd e d)),
+          ((z.1 * z.2 : ℕ) : ℝ) ^ (-(1/4 : ℝ)) := by
+    rw [sigmaQ, Finset.sum_image (f := fun z : ℕ × ℕ => ((z.1 * z.2 : ℕ) : ℝ) ^ (-(1/4 : ℝ)))
+      hinj]
+    refine Finset.sum_congr rfl fun e he => ?_
+    rw [hrec e he]
+  rw [hstep1]
+  have hsub : (d * t).divisors.image (fun e => (Nat.gcd e d, e / Nat.gcd e d))
+      ⊆ d.divisors ×ˢ t.divisors := by
+    intro z hz
+    obtain ⟨e, he, rfl⟩ := Finset.mem_image.mp hz
+    exact hmaps e he
+  refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub
+    (fun z _ _ => Real.rpow_nonneg (by positivity) _)) ?_
+  rw [Finset.sum_product, sigmaQ, sigmaQ, Finset.sum_mul]
+  refine le_of_eq ?_
+  refine Finset.sum_congr rfl fun a _ => ?_
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun b _ => ?_
+  have ha0 : (0 : ℝ) ≤ (a : ℝ) := by positivity
+  have hb0 : (0 : ℝ) ≤ (b : ℝ) := by positivity
+  push_cast
+  exact Real.mul_rpow ha0 hb0
+
+/-- `Σ_{d ≤ D} σ_{−1/4}(d)/d² ≤ 4` — the divisor swap and `Σ 1/n² ≤ 2` twice. -/
+private lemma sum_sigmaQ_div_sq_le (D : ℕ) :
+    ∑ d ∈ Finset.Icc 1 D, sigmaQ d / (d : ℝ) ^ 2 ≤ 4 := by
+  classical
+  have hexp : ∑ d ∈ Finset.Icc 1 D, sigmaQ d / (d : ℝ) ^ 2
+      = ∑ r ∈ Finset.Icc 1 D, ∑ e ∈ r.divisors,
+          (e : ℝ) ^ (-(1/4 : ℝ)) / (r : ℝ) ^ 2 := by
+    refine Finset.sum_congr rfl fun r _ => ?_
+    rw [sigmaQ, Finset.sum_div]
+  rw [hexp, sum_divisors_swap D (fun e r => (e : ℝ) ^ (-(1/4 : ℝ)) / (r : ℝ) ^ 2)]
+  have hterm : ∀ e ∈ Finset.Icc 1 D,
+      ∑ f ∈ Finset.Icc 1 (D / e), (e : ℝ) ^ (-(1/4 : ℝ)) / ((e * f : ℕ) : ℝ) ^ 2
+        ≤ 2 / (e : ℝ) ^ 2 := by
+    intro e he
+    obtain ⟨he1, _⟩ := Finset.mem_Icc.mp he
+    have he0 : (0 : ℝ) < (e : ℝ) := by exact_mod_cast he1
+    have heR : (1 : ℝ) ≤ (e : ℝ) := by exact_mod_cast he1
+    have hq : (e : ℝ) ^ (-(1/4 : ℝ)) ≤ 1 := by
+      rw [Real.rpow_neg he0.le]
+      have h1 : (1 : ℝ) ≤ (e : ℝ) ^ (1/4 : ℝ) := Real.one_le_rpow heR (by norm_num)
+      rw [inv_le_one_iff₀]
+      right
+      exact h1
+    have hstep : ∀ f ∈ Finset.Icc 1 (D / e),
+        (e : ℝ) ^ (-(1/4 : ℝ)) / ((e * f : ℕ) : ℝ) ^ 2
+          ≤ (1 / (e : ℝ) ^ 2) * (1 / (f : ℝ) ^ 2) := by
+      intro f hf
+      obtain ⟨hf1, _⟩ := Finset.mem_Icc.mp hf
+      have hf0 : (0 : ℝ) < (f : ℝ) := by exact_mod_cast hf1
+      have hcast : ((e * f : ℕ) : ℝ) ^ 2 = (e : ℝ) ^ 2 * (f : ℝ) ^ 2 := by
+        push_cast; ring
+      rw [hcast]
+      have hpos : (0 : ℝ) < (e : ℝ) ^ 2 * (f : ℝ) ^ 2 := by positivity
+      rw [div_le_iff₀ hpos]
+      have hone : (1 / (e : ℝ) ^ 2) * (1 / (f : ℝ) ^ 2) * ((e : ℝ) ^ 2 * (f : ℝ) ^ 2) = 1 := by
+        field_simp
+      rw [hone]
+      exact hq
+    refine le_trans (Finset.sum_le_sum hstep) ?_
+    rw [← Finset.mul_sum]
+    have h2 := sum_inv_sq_le_two (D / e)
+    have hinv : (0 : ℝ) ≤ 1 / (e : ℝ) ^ 2 := by positivity
+    have h3 := mul_le_mul_of_nonneg_left h2 hinv
+    have h4 : (1 / (e : ℝ) ^ 2) * 2 = 2 / (e : ℝ) ^ 2 := by ring
+    linarith only [h3, h4.le, h4.ge]
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  have h5 : ∑ e ∈ Finset.Icc 1 D, 2 / (e : ℝ) ^ 2
+      = 2 * ∑ e ∈ Finset.Icc 1 D, 1 / (e : ℝ) ^ 2 := by
+    rw [Finset.mul_sum]
+    exact Finset.sum_congr rfl fun e _ => by ring
+  rw [h5]
+  linarith only [sum_inv_sq_le_two D]
+
+/-- `|μ(n)/κ(n)| ≤ 1/n` for `n ≥ 1` (`κ(n) ≥ n`). -/
+private lemma abs_moebius_div_kappa_le {n : ℕ} (hn : 1 ≤ n) :
+    |(moebius n : ℝ) / kappa n| ≤ ((n : ℝ))⁻¹ := by
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hkpos : (0 : ℝ) < kappa n := lt_of_lt_of_le hn0 (le_kappa n hn)
+  have hmu : |((moebius n : ℤ) : ℝ)| ≤ 1 := by
+    rw [← Int.cast_abs]
+    exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+  rw [abs_div, abs_of_nonneg hkpos.le]
+  have h1 : |((moebius n : ℤ) : ℝ)| / kappa n ≤ 1 / kappa n :=
+    (div_le_div_iff_of_pos_right hkpos).mpr hmu
+  have h2 : (1 : ℝ) / kappa n ≤ 1 / (n : ℝ) :=
+    div_le_div_of_nonneg_left (by norm_num) hn0 (le_kappa n hn)
+  rw [inv_eq_one_div]
+  linarith only [h1, h2]
+
+set_option maxHeartbeats 1600000 in
+-- H6f assembles the κ-expansion's swap, the near/far split and the two regimes in one
+-- declaration; it exceeds the default elaboration budget.
+/-- **H6f (the H freeze's row, verbatim).**
+`|Σ_{n ≤ Q, (n,t)=1} μ(n)/κ(n)| ≤ C·σ_{−1/4}(t)/(log 2Q)^A`.
+
+The κ-expansion `μ(n)/κ(n) = (μ(n)/n)·Σ_{d ∣ n} μ(d)/κ(d)` (both sides zero off squarefree;
+on squarefree `n` the divisor sum is `∏(1 − 1/(p+1)) = n/κ(n)`) and the divisor swap turn
+the coprime sum into `Σ_{d ≤ Q,(d,t)=1}(μ²(d)/(dκ(d)))·Σ_{f ≤ Q/d,(f,dt)=1} μ(f)/f`. On
+`d ≤ D = ⌊√Q⌋₊` the inner sum is S4 at level `d·t`, with `σ(dt) ≤ σ(d)σ(t)` (K36) and
+`Σ_{d ≤ D} σ(d)/d² ≤ 4`; beyond `D` the trivial `|Σ μ(f)/f| ≤ 1 + log Q` runs against
+`Σ_{d > D} 1/d² ≤ 2/(D+1) ≤ 2/√Q`, closed by the A4 helper at `A` and `A + 1`. Below
+`Q = 4` the trivial `|Σ| ≤ 1 + log Q` (from `κ(n) ≥ n`) is absorbed into `C`.
+
+The constant is NON-EFFECTIVE (S4 carries `mmuRate_holds`'s window through H6b).
+
+The must-FAIL control (measured): with the `σ(t)` weight DROPPED, at `t = primorial(z)` and
+`Q = z` only `n = 1` survives the coprimality filter, so `|Σ| = 1` EXACTLY and
+`|Σ|·(log 2Q)² = 16.8 / 28.1 / 40.9 / 57.8 / 75.7` at `z = 30 / 100 / 300 / 1000 / 3000` —
+UNBOUNDED (the same mechanism as S4's control). -/
+theorem coprime_sum_moebius_div_kappa_le (A : ℝ) (hA : 0 < A) :
+    ∃ C : ℝ, 0 < C ∧ ∀ t : ℕ, Squarefree t →
+    ∀ Q : ℝ, 1 ≤ Q →
+    |∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun n => Nat.Coprime n t), (moebius n : ℝ) / kappa n|
+      ≤ C * sigmaQ t / Real.log (2 * Q) ^ A := by
+  classical
+  obtain ⟨CS, hCS, hS⟩ := abs_coprime_sum_moebius_div_le A hA
+  have h2A : (0 : ℝ) < (2 : ℝ) ^ A := Real.rpow_pos_of_pos (by norm_num) _
+  have hk1 : (0 : ℝ) < (4 * A) ^ A := Real.rpow_pos_of_pos (by linarith) _
+  have hk2 : (0 : ℝ) < (4 * (A + 1)) ^ (A + 1) := Real.rpow_pos_of_pos (by linarith) _
+  have hlog4 : (0 : ℝ) < Real.log 4 := Real.log_pos (by norm_num)
+  have hlog8 : (0 : ℝ) < Real.log 8 ^ A := Real.rpow_pos_of_pos (Real.log_pos (by norm_num)) _
+  refine ⟨(1 + Real.log 4) * Real.log 8 ^ A + 4 * CS * 2 ^ A
+    + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)), by positivity, ?_⟩
+  intro t hts Q hQ
+  have ht : 1 ≤ t := Nat.one_le_iff_ne_zero.mpr hts.ne_zero
+  have hQpos : (0 : ℝ) < Q := by linarith
+  have hsig1 : (1 : ℝ) ≤ sigmaQ t := one_le_sigmaQ t ht
+  have hsig0 : (0 : ℝ) < sigmaQ t := by linarith
+  have hlog2Q : 0 < Real.log (2 * Q) := Real.log_pos (by linarith)
+  have hlog2QA : (0 : ℝ) < Real.log (2 * Q) ^ A := Real.rpow_pos_of_pos hlog2Q _
+  have hlogQ0 : (0 : ℝ) ≤ Real.log Q := Real.log_nonneg hQ
+  have hNQ : ((⌊Q⌋₊ : ℕ) : ℝ) ≤ Q := Nat.floor_le hQpos.le
+  have hCpos : (0 : ℝ) < (1 + Real.log 4) * Real.log 8 ^ A + 4 * CS * 2 ^ A
+      + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) := by positivity
+  rcases lt_or_ge Q 4 with hsmall | hbig
+  -- ═══ the trivial regime `Q < 4` ═══
+  · have htriv : |∑ n ∈ (Finset.Icc 1 ⌊Q⌋₊).filter (fun n => Nat.Coprime n t),
+        (moebius n : ℝ) / kappa n| ≤ 1 + Real.log Q := by
+      refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+      refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun i _ _ => abs_nonneg _)) ?_
+      refine le_trans (Finset.sum_le_sum (fun n hn =>
+        abs_moebius_div_kappa_le (Finset.mem_Icc.mp hn).1)) ?_
+      refine le_trans (sum_inv_le_one_add_log _) ?_
+      linarith [log_natCast_le_log hQ hNQ]
+    have hmono : Real.log (2 * Q) ^ A ≤ Real.log 8 ^ A :=
+      Real.rpow_le_rpow hlog2Q.le (Real.log_le_log (by linarith) (by linarith)) hA.le
+    have hlq4 : Real.log Q ≤ Real.log 4 := Real.log_le_log hQpos (by linarith)
+    refine le_trans htriv ?_
+    rw [le_div_iff₀ hlog2QA]
+    have h1 : (1 + Real.log Q) * Real.log (2 * Q) ^ A
+        ≤ (1 + Real.log 4) * Real.log 8 ^ A := by
+      have e1 : (1 + Real.log Q) * Real.log (2 * Q) ^ A
+          ≤ (1 + Real.log 4) * Real.log (2 * Q) ^ A :=
+        mul_le_mul_of_nonneg_right (by linarith) hlog2QA.le
+      have e2 : (1 + Real.log 4) * Real.log (2 * Q) ^ A ≤ (1 + Real.log 4) * Real.log 8 ^ A :=
+        mul_le_mul_of_nonneg_left hmono (by linarith)
+      linarith only [e1, e2]
+    have hC1 : (1 + Real.log 4) * Real.log 8 ^ A
+        ≤ (1 + Real.log 4) * Real.log 8 ^ A + 4 * CS * 2 ^ A
+          + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) := by
+      nlinarith only [hCS, h2A, hk1, hk2]
+    have hCsig : (1 + Real.log 4) * Real.log 8 ^ A + 4 * CS * 2 ^ A
+          + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1))
+        ≤ ((1 + Real.log 4) * Real.log 8 ^ A + 4 * CS * 2 ^ A
+          + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1))) * sigmaQ t := by
+      nlinarith only [hCpos, hsig1]
+    linarith only [h1, hC1, hCsig]
+  -- ═══ the main regime `Q ≥ 4` ═══
+  · have hs0 : (0 : ℝ) < Q ^ (1/2 : ℝ) := Real.rpow_pos_of_pos hQpos _
+    have hspow : (Q ^ (1/2 : ℝ)) ^ 2 = Q := by
+      rw [rpow_pow_nat hQpos.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
+    have hQ12 : Q ^ (1/2 : ℝ) ≤ Q := by
+      have h := Real.rpow_le_rpow_of_exponent_le hQ (show (1/2 : ℝ) ≤ 1 by norm_num)
+      rwa [Real.rpow_one] at h
+    set D : ℕ := ⌊Q ^ (1/2 : ℝ)⌋₊ with hDdef
+    have hDle : ((D : ℕ) : ℝ) ≤ Q ^ (1/2 : ℝ) := Nat.floor_le hs0.le
+    have hDgt : Q ^ (1/2 : ℝ) < ((D : ℕ) : ℝ) + 1 := Nat.lt_floor_add_one _
+    have hDN : D ≤ ⌊Q⌋₊ := by rw [hDdef]; exact Nat.floor_mono hQ12
+    rw [sum_coprime_moebius_div_kappa_swap t ⌊Q⌋₊]
+    have hsplit := Finset.sum_filter_add_sum_filter_not
+      ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t))
+      (fun d => d ≤ D)
+      (fun d => (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+        * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+            (moebius f : ℝ) / (f : ℝ))
+    -- the weight bound
+    have hw : ∀ d : ℕ, 1 ≤ d → |(moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)| ≤ 1 / (d : ℝ) ^ 2 := by
+      intro d hd1
+      have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+      have hkpos : (0 : ℝ) < kappa d := lt_of_lt_of_le hd0 (le_kappa d hd1)
+      have hmu2 : (moebius d : ℝ) ^ 2 ≤ 1 := by
+        have h := moebius_sq (n := d)
+        by_cases hsq : Squarefree d
+        · rw [if_pos hsq] at h
+          have : ((moebius d : ℝ)) ^ 2 = 1 := by exact_mod_cast h
+          linarith
+        · rw [moebius_eq_zero_of_not_squarefree hsq]
+          norm_num
+      have hmu0 : (0 : ℝ) ≤ (moebius d : ℝ) ^ 2 := sq_nonneg _
+      rw [abs_of_nonneg (by positivity)]
+      rw [div_le_div_iff₀ (by positivity) (by positivity)]
+      nlinarith only [hmu2, hmu0, hd0, hkpos, le_kappa d hd1]
+    -- the near range
+    have hnear : |∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ)|
+        ≤ 4 * (CS * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A) := by
+      have hterm : ∀ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => d ≤ D),
+          |(moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ)|
+            ≤ sigmaQ d / (d : ℝ) ^ 2 * (CS * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A) := by
+        intro d hd
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hd
+        obtain ⟨⟨⟨hd1, _⟩, _⟩, hdD⟩ := hd
+        have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+        have hdR : (d : ℝ) ≤ Q ^ (1/2 : ℝ) := le_trans (by exact_mod_cast hdD) hDle
+        obtain ⟨hQd, _⟩ := le_sqrt_div_log hQ hd1 hdR
+        have hdt1 : 1 ≤ d * t := Nat.one_le_iff_ne_zero.mpr
+          (Nat.mul_ne_zero (by omega) (by omega))
+        have hSb := hS (d * t) hdt1 (Q / (d : ℝ)) hQd
+        rw [Nat.floor_div_natCast Q d] at hSb
+        have hsigd : (1 : ℝ) ≤ sigmaQ d := one_le_sigmaQ d hd1
+        have hsigdt : (1 : ℝ) ≤ sigmaQ (d * t) := one_le_sigmaQ (d * t) hdt1
+        have hCsig : (0 : ℝ) < CS * sigmaQ (d * t) := by nlinarith only [hCS, hsigdt]
+        have hmul := sigmaQ_mul_le d t hd1 ht
+        have hnear1 : |∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter
+              (fun f => Nat.Coprime f (d * t)), (moebius f : ℝ) / (f : ℝ)|
+            ≤ CS * sigmaQ d * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A := by
+          have h1 : CS * sigmaQ (d * t) / Real.log (2 * (Q / (d : ℝ))) ^ A
+              ≤ CS * sigmaQ (d * t) * 2 ^ A / Real.log (2 * Q) ^ A :=
+            div_log_pow_near hA hCsig hQ hd1 hdR
+          have h2 : CS * sigmaQ (d * t) * 2 ^ A / Real.log (2 * Q) ^ A
+              ≤ CS * sigmaQ d * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A := by
+            rw [div_le_div_iff_of_pos_right hlog2QA]
+            have hstep2 := mul_le_mul_of_nonneg_left hmul (mul_nonneg hCS.le h2A.le)
+            nlinarith only [hstep2]
+          linarith only [hSb, h1, h2]
+        rw [abs_mul]
+        have hwd := hw d hd1
+        have hAbs0 : (0 : ℝ) ≤ |∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter
+            (fun f => Nat.Coprime f (d * t)), (moebius f : ℝ) / (f : ℝ)| := abs_nonneg _
+        have hrhs0 : (0 : ℝ) ≤ CS * sigmaQ d * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A :=
+          div_nonneg (mul_nonneg (mul_nonneg (mul_nonneg hCS.le (by linarith only [hsigd]))
+            (by linarith only [hsig1])) h2A.le) hlog2QA.le
+        have hstep := mul_le_mul hwd hnear1 hAbs0 (by positivity)
+        refine le_trans hstep (le_of_eq ?_)
+        field_simp
+        try ring
+      refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+      refine le_trans (Finset.sum_le_sum hterm) ?_
+      rw [← Finset.sum_mul]
+      have hsub : ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => d ≤ D) ⊆ Finset.Icc 1 D := by
+        intro x hx
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hx
+        rw [Finset.mem_Icc]
+        exact ⟨hx.1.1.1, hx.2⟩
+      have hsum : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => d ≤ D), sigmaQ d / (d : ℝ) ^ 2 ≤ 4 := by
+        refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i hi _ => ?_))
+          (sum_sigmaQ_div_sq_le D)
+        obtain ⟨hi1, _⟩ := Finset.mem_Icc.mp hi
+        have := one_le_sigmaQ i hi1
+        have hi0 : (0 : ℝ) < (i : ℝ) := by exact_mod_cast hi1
+        positivity
+      refine mul_le_mul_of_nonneg_right hsum ?_
+      exact div_nonneg (mul_nonneg (mul_nonneg hCS.le (by linarith only [hsig1])) h2A.le)
+        hlog2QA.le
+    -- the far range
+    have hfar : |∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => ¬ d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+          * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+              (moebius f : ℝ) / (f : ℝ)|
+        ≤ 2 / Q ^ (1/2 : ℝ) * (1 + Real.log Q) := by
+      have hterm : ∀ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => ¬ d ≤ D),
+          |(moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+            * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+                (moebius f : ℝ) / (f : ℝ)|
+            ≤ 1 / (d : ℝ) ^ 2 * (1 + Real.log Q) := by
+        intro d hd
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hd
+        obtain ⟨⟨⟨hd1, hdN⟩, _⟩, _⟩ := hd
+        have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
+        have hd1R : (1 : ℝ) ≤ (d : ℝ) := by exact_mod_cast hd1
+        have hdQ : (d : ℝ) ≤ Q := le_trans (by exact_mod_cast hdN) hNQ
+        have hQd : (1 : ℝ) ≤ Q / (d : ℝ) := (one_le_div hd0).mpr hdQ
+        have htr := abs_coprime_sum_moebius_div_triv (d * t) hQd
+        rw [Nat.floor_div_natCast Q d] at htr
+        have hlogd : Real.log (Q / (d : ℝ)) ≤ Real.log Q := by
+          refine Real.log_le_log (by positivity) ?_
+          rw [div_le_iff₀ hd0]
+          nlinarith only [hd1R, hQpos]
+        rw [abs_mul]
+        have hwd := hw d hd1
+        have hAbs0 : (0 : ℝ) ≤ |∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter
+            (fun f => Nat.Coprime f (d * t)), (moebius f : ℝ) / (f : ℝ)| := abs_nonneg _
+        exact mul_le_mul hwd (by linarith only [htr, hlogd]) hAbs0 (by positivity)
+      refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+      refine le_trans (Finset.sum_le_sum hterm) ?_
+      rw [← Finset.sum_mul]
+      have hsub : ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+          (fun d => ¬ d ≤ D) ⊆ Finset.Ioo D (⌊Q⌋₊ + 1) := by
+        intro x hx
+        rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hx
+        rw [Finset.mem_Ioo]
+        exact ⟨by omega, by omega⟩
+      have hsum : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+            (fun d => ¬ d ≤ D), 1 / (d : ℝ) ^ 2 ≤ 2 / Q ^ (1/2 : ℝ) := by
+        have h1 : ∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+              (fun d => ¬ d ≤ D), 1 / (d : ℝ) ^ 2
+            ≤ ∑ d ∈ Finset.Ioo D (⌊Q⌋₊ + 1), 1 / (d : ℝ) ^ 2 :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i _ _ => by positivity)
+        have h2 : ∑ d ∈ Finset.Ioo D (⌊Q⌋₊ + 1), 1 / (d : ℝ) ^ 2
+            = ∑ d ∈ Finset.Ioo D (⌊Q⌋₊ + 1), (((d : ℝ)) ^ 2)⁻¹ :=
+          Finset.sum_congr rfl fun d _ => one_div _
+        have h3 : ∑ i ∈ Finset.Ioo D (⌊Q⌋₊ + 1), (((i : ℝ)) ^ 2)⁻¹ ≤ 2 / ((D : ℕ) + 1) :=
+          sum_Ioo_inv_sq_le D (⌊Q⌋₊ + 1)
+        have h4 : (2 : ℝ) / (((D : ℕ) : ℝ) + 1) ≤ 2 / Q ^ (1/2 : ℝ) :=
+          div_le_div_of_nonneg_left (by norm_num) hs0 hDgt.le
+        rw [h2] at h1
+        linarith only [h1, h3, h4]
+      exact mul_le_mul_of_nonneg_right hsum (by linarith)
+    -- the far range against the A4 helper
+    have hq40 : (0 : ℝ) < Q ^ (1/4 : ℝ) := Real.rpow_pos_of_pos hQpos _
+    have hq4s : Q ^ (1/4 : ℝ) ≤ Q ^ (1/2 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le hQ (by norm_num)
+    have hA4 := one_add_log_mul_log_rpow_le A hA hQ
+    have hfarC : 2 / Q ^ (1/2 : ℝ) * (1 + Real.log Q)
+        ≤ 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * sigmaQ t
+            / Real.log (2 * Q) ^ A := by
+      have hEq : 2 / Q ^ (1/2 : ℝ) * (1 + Real.log Q)
+          = (2 * (1 + Real.log Q)) / Q ^ (1/2 : ℝ) := by ring
+      rw [hEq, div_le_div_iff₀ hs0 hlog2QA]
+      have p1 : 2 * ((1 + Real.log Q) * Real.log (2 * Q) ^ A)
+          ≤ 2 * (2 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * Q ^ (1/4 : ℝ)) :=
+        mul_le_mul_of_nonneg_left hA4 (by norm_num)
+      have p2 : 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * Q ^ (1/4 : ℝ)
+          ≤ 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * Q ^ (1/2 : ℝ) :=
+        mul_le_mul_of_nonneg_left hq4s (by linarith only [hk1, hk2])
+      have p3 : 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * Q ^ (1/2 : ℝ)
+          ≤ 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * sigmaQ t * Q ^ (1/2 : ℝ) := by
+        have h := mul_le_mul_of_nonneg_left hsig1
+          (show (0 : ℝ) ≤ 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) by
+            linarith only [hk1, hk2])
+        nlinarith only [h, hs0]
+      linarith only [p1, p2, p3]
+    have hextra : (0 : ℝ) ≤ (1 + Real.log 4) * Real.log 8 ^ A * sigmaQ t
+        / Real.log (2 * Q) ^ A :=
+      div_nonneg (mul_nonneg (mul_nonneg (by linarith only [hlog4]) hlog8.le)
+        (by linarith only [hsig1])) hlog2QA.le
+    have habs := abs_add_le
+      (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+        (fun d => d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+        * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+            (moebius f : ℝ) / (f : ℝ))
+      (∑ d ∈ ((Finset.Icc 1 ⌊Q⌋₊).filter (fun d => Nat.Coprime d t)).filter
+        (fun d => ¬ d ≤ D), (moebius d : ℝ) ^ 2 / ((d : ℝ) * kappa d)
+        * ∑ f ∈ (Finset.Icc 1 (⌊Q⌋₊ / d)).filter (fun f => Nat.Coprime f (d * t)),
+            (moebius f : ℝ) / (f : ℝ))
+    rw [hsplit] at habs
+    have hringid : ((1 + Real.log 4) * Real.log 8 ^ A + 4 * CS * 2 ^ A
+          + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1))) * sigmaQ t / Real.log (2 * Q) ^ A
+        = (1 + Real.log 4) * Real.log 8 ^ A * sigmaQ t / Real.log (2 * Q) ^ A
+          + 4 * (CS * sigmaQ t * 2 ^ A / Real.log (2 * Q) ^ A)
+          + 4 * ((4 * A) ^ A + (4 * (A + 1)) ^ (A + 1)) * sigmaQ t
+              / Real.log (2 * Q) ^ A := by
+      ring
+    rw [hringid]
+    linarith only [habs, hnear, hfar, hfarC, hextra]
+
 /-! ## §2(b) binder-shape rows
 
 The off-line values are the sub-freeze's measured receipts. C1 at `N = 6` is the ONE EXACT
