@@ -1092,6 +1092,21 @@ RESURRECTS THEM:**
     UNBUILT, UNCOMMISSIONED, OR BUILT YESTERDAY*** — and the row every seat pulls from is the one
     surface where that costs a wave. ⇒ ***BEFORE PRICING A PARAGRAPH, GREP FOR ITS CONCLUSION.***
     *Found while specifying the DEMAND for row q rather than answering it — the demand side again.*
+    ✅ **THE APPLIED COROLLARY IS LANDED — STAMPED 2026-09-05 13:53 (math, the item-7 sweep), ROWS ABOVE
+    BYTE-UNTOUCHED. The line above saying "the open work is the applied corollary plus its wiring" was written
+    at 20:0x on 08/29; the corollary landed at 21:44 the same night and no stamp followed it.** `6a460109`
+    (`Salt/MR/MRTProp24.lean:420-475`, ancestor of main): `mrtBandP_base_le` · `mrtBand_primeFactors_lt_of_le_W`
+    (every prime factor of `d₀` below every band, from `d₀ ≤ W`, `1 < W`, `P₁ = W^200` — the exponent carried as
+    a hypothesis on the SHAPE, not a numeral) · `mrtS_dilate_of_le_W` · `mrtS_indicator_mul_dilate_of_le_W` (the
+    two E-5c forms with their `hP` slot discharged in-regime) · `mrtS_dilate_of_le_W_witness`; five names, all
+    `[propext, Classical.choice, Quot.sound]`, audited by name in `Salt/MR/All.lean`. ⛔ **THE WIRING HAS NO
+    CONSUMER AT THE TREE (measured at main `8c537125`):** the only file naming `mrtS` is `MRTProp24.lean` itself;
+    the "MRT major-arc reduction over `mrtS`" is P1b's unbuilt major arc (the port's own next design block), so
+    the corollary sits LANDED AND UNCONSUMED by construction, not by neglect. ⇒ **item 12's worker-tier
+    remainder is EMPTY**: E-5c landed (08/27) + its corollary (08/29) + both thresholds (08/26, stamped above);
+    what remains is 12b's dyadic node (design-tier, held as briefed) and the arc that would consume all three.
+    🔑 *A NODE THAT LANDS WITHOUT A STAMP IN THE ROW THAT DEMANDS IT STAYS DEMANDED — the row's own law, fired on
+    the row's own next paragraph.*
     ⛔ **THE `E-5c` CLAUSE ON THE NEXT LINE IS SUPERSEDED — SEE THE STAMP AT :766. IT LANDED
     08/27 (`mrtS_dilate`, `mrtS_indicator_mul_dilate`, both `[3 axioms]`); WHAT REMAINS OF IT IS
     WORKER-TIER, NOT A PARAGRAPH. Line kept whole, status corrected above, never edited in place.**
