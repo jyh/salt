@@ -99,6 +99,8 @@ import Salt.SW.GrahamHard2
 import Salt.SW.GrahamHard3
 import Salt.SW.Kernel2
 import Salt.SW.CoprimeHarmonic
+import Salt.SW.PseudoChar
+import Salt.SW.PseudoCharEuler
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -550,3 +552,50 @@ open Salt.Tactic in
   Salt.SW.sum_inv_Icc_le_div_totient_mul_coprime
   Salt.SW.sum_coprime_inv_le_zeta_two_mul_sqf
   Salt.SW.sum_sf_coprime_inv_ge
+-- ⟦B2 W3 0905⟧ `Salt/SW/PseudoChar.lean` — Jutila's PSEUDOCHARACTERS (L1), whole.
+-- `f_r(n) = f(gcd(r, n))` for a multiplicative `f` (Jutila 1977, (1.2) p.45): the two
+-- multiplicativities (in `n` on coprime pairs, in `r` on coprime levels), the detection-identity
+-- input `f_r(dn) = f_r(d)·f_{r/(r,d)}(n)` — split so that the ℕ gcd identity carries NO
+-- square-freeness and only the `f`-split needs it — and Selberg's instance `ψ = μ·φ` with
+-- `ψ_r(p) = 1 − p` on `p ∣ r`. The non-square-free failure `ψ_4(4) = 0 ≠ ψ_4(2)·ψ_2(2) = 1` is a
+-- THEOREM here, not a comment, so the `Squarefree` binder is load-bearing in Lean. The module
+-- docstring carries the honest label — every row is an input to Lemma 6, the coefficients are
+-- ℝ-valued and cast once at the point of use, no von Mangoldt detour is ever formed. Sixteen
+-- `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.pseudoChar_one_right
+  Salt.SW.pseudoChar_one_left
+  Salt.SW.pseudoChar_of_coprime
+  Salt.SW.pseudoChar_mul_right_of_coprime
+  Salt.SW.gcd_mul_eq_gcd_mul_gcd_div
+  Salt.SW.pseudoChar_mul_of_squarefree
+  Salt.SW.pseudoChar_mul_left_of_coprime
+  Salt.SW.pseudoChar_prime_left
+  Salt.SW.abs_pseudoChar_le_sum_divisors
+  Salt.SW.selbergPsi_apply
+  Salt.SW.selbergPsi_isMultiplicative
+  Salt.SW.selbergPsi_apply_prime
+  Salt.SW.abs_selbergPsi_le
+  Salt.SW.abs_pseudoChar_selbergPsi_le
+  Salt.SW.pseudoChar_selbergPsi_prime_of_dvd
+  Salt.SW.pseudoChar_selbergPsi_four_two_two
+
+-- ⟦B2 W4 0905⟧ `Salt/SW/PseudoCharEuler.lean` — Jutila's LEMMA 1 (L1′), whole: the twisted
+-- Euler product `Σ_n χ(n)f_t(n)n^{−s} = L(s,χ)·∏_{p∣t}(1 + (f(p) − 1)χ(p)p^{−s})` on `Re s > 1`
+-- for square-free `t`, and with it (2.2) p.48 — `L(s,χ)·M(s,χ,f_r)` — in its per-level form and
+-- in the `r`-summed form Lemma 6 consumes, each with the summability that form needs. The
+-- product is a PRIME-PEELING INDUCTION over `t.primeFactors` staged as its own private lemma,
+-- and the one reindexing helper is the unconditional `LSeries_dvd_mul_eq`; no infinite product
+-- and no convergence of one enters. The docstring carries the honest label (`|bvWeight| ≤ 1` and
+-- the contour node are Lemma 6's own) and the reason `Squarefree t` is load-bearing: at `t = 4`
+-- the identity fails in the SECOND significant digit. Ten `#audit_axioms` names — sized from
+-- THIS LIST.
+#audit_axioms Salt.SW.jutilaLocal_one
+  Salt.SW.jutilaLocal_prime
+  Salt.SW.jutilaLocal_mul_of_coprime
+  Salt.SW.norm_jutilaLocal_le
+  Salt.SW.LSeries_dvd_mul_eq
+  Salt.SW.LSeriesSummable_pseudoChar_twist
+  Salt.SW.LSeries_pseudoChar_twist_eq
+  Salt.SW.LSeries_jutila_coeff_eq
+  Salt.SW.LSeriesSummable_jutila_coeff
+  Salt.SW.LSeries_jutila_coeff_sum_eq
