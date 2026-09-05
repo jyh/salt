@@ -1705,7 +1705,7 @@ private lemma dh_repulsion_inst_tall {q : ℕ} [NeZero q] (χ : DirichletCharact
     (hχ : χ.IsPrimitive) (_hχ1 : χ ≠ 1) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q)
     {β₀ : ℝ} (hβ0zero : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0)
     (hβ0lo : 1 / 2 < β₀) (hβ0hi : β₀ < 1)
-    {ρ : ℂ} (hρzero : DirichletCharacter.LFunction χ ρ = 0) (hρim : ρ.im ≠ 0)
+    {ρ : ℂ} (hρzero : DirichletCharacter.LFunction χ ρ = 0)
     {H : ℝ} (himρ : |ρ.im| ≤ H) (hσlo : 16 / 17 ≤ ρ.re) (hσ1 : ρ.re < 1) (hord : ρ.re ≤ β₀)
     {c₀ Zρ c : ℝ}
     (hZρ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Zρ)
@@ -2248,7 +2248,109 @@ theorem dh_repulsion_tall : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
   have hZ0nn : (0 : ℝ) ≤ 3 + 2 * |ρ.im| := by positivity
   have hZ0Q : 3 + 2 * |ρ.im| ≤ 2 * ((q : ℝ) * (|ρ.im| + 2)) := by
     nlinarith only [hqR, abs_nonneg ρ.im]
-  exact dh_repulsion_inst_tall (H := |ρ.im|) χ hχ hχ1 hsq hq hβ0zero hβ0lo hβ0hi hρzero hρim
+  exact dh_repulsion_inst_tall (H := |ρ.im|) χ hχ hχ1 hsq hq hβ0zero hβ0lo hβ0hi hρzero
+    le_rfl hσlo hσ1 hord hZρ hc₀pos hc₀le1 hZ0nn hZ0Q hfloor hcpos hc1 hc_t1 hc_t2 hc_t3 hc_t4
+    hc_t5 hc_t6 hc_t7 hc_t8 hc_t9 hc_t10
+
+/-- **THE CONTRACT WITH THE FLOOR AS A HYPOTHESIS, `c₀` FREE, THE NUMERALS PRINTED** (N9 row A0′,
+appended 2026-09-04 under the helm's ruling on the N9 refuter verdict; no landed proof changed).
+`dh_repulsion_tall`'s proof with two changes and no new argument: the zero-free region is NOT
+invoked — the floor `Re ρ ≤ 1 − c₀/log(q(|Im ρ|+2))` is a HYPOTHESIS on each `ρ`, so a REAL
+zero `ρ ≠ β₀` may supply Landau's floor in its place (`dh_repulsion_inst_tall` never read
+`Im ρ ≠ 0`, measured over its whole body, and since 2026-09-04 no longer takes it) — and the
+witness `⟨680, c, 14⟩` is PRINTED in the conclusion, `c` the same ten-arm minimum at the given
+`c₀` (`0 < c₀ ≤ 1`; the arms `(c₀/32)^{17/3}` and `(c₀/KEρ)^{1700/5247}` carry it).  The
+`Im ρ ≠ 0` contract is this one fired with the ZFR's floor; N9 fires it at `c₀ = 1/126848`.
+Consumer: `Salt.HB.dh_repulsion_tall_at`.  Class **B**, cap 250: the `c`-tower and its ten
+arm bounds exactly as in `dh_repulsion_tall` (with `c₀` a parameter), then ONE call to
+`dh_repulsion_inst_tall` with `hfloor` from the hypothesis. -/
+theorem dh_repulsion_tall_of_floor {c₀ : ℝ} (hc₀pos : 0 < c₀) (hc₀le1 : c₀ ≤ 1) :
+    ∃ c : ℝ, 0 < c ∧ c ≤ 1 ∧
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ.IsPrimitive → χ ≠ 1 → χ ^ 2 = 1 → 2 ≤ q →
+      ∀ β₀ : ℝ, DirichletCharacter.LFunction χ (β₀ : ℂ) = 0 → 1 / 2 < β₀ → β₀ < 1 →
+      ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 →
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) →
+        16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
+        (1 - β₀) ≥ c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(680 * (1 - ρ.re)))
+          / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ (14 : ℝ) := by
+  set KEβ : ℝ := 16 * (328 + 48 * 5) * 248 ^ 9 with hKEβdef
+  set KEρ : ℝ := 16 * 570 * 248 ^ 9 with hKEρdef
+  set A₀ : ℝ := Real.log 2 + 4 * Real.log (256 * (82 + 12 * 5)) with hA₀def
+  have hA₀pos : 0 < A₀ := by
+    rw [hA₀def]
+    have h1 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+    have h2 : 0 ≤ Real.log (256 * (82 + 12 * 5)) := Real.log_nonneg (by norm_num)
+    linarith only [h1, h2]
+  -- the SAME ten-arm tower as `dh_repulsion_tall`, with `c₀` the parameter.  Every projection
+  -- index below is hand-built and depth-sensitive: keep this tower TEN deep.
+  set c : ℝ := min (1 / 40 : ℝ) (min ((c₀ / 32) ^ (17 / 3 : ℝ))
+    (min ((1 / 805 : ℝ) ^ (50 / 49 : ℝ)) (min ((1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ))
+    (min (1 / 2 : ℝ) (min ((1 / KEβ) ^ (1700 / 3547 : ℝ)) (min ((c₀ / KEρ) ^ (1700 / 5247 : ℝ))
+    (min (1 / (3 * A₀)) (min (1 / 18 : ℝ) (1 / 576 : ℝ))))))))) with hcdef
+  have hp1 : (0 : ℝ) < 1 / 40 := by norm_num
+  have hp2 : (0 : ℝ) < (c₀ / 32) ^ (17 / 3 : ℝ) :=
+    Real.rpow_pos_of_pos (div_pos hc₀pos (by norm_num)) _
+  have hp3 : (0 : ℝ) < (1 / 805 : ℝ) ^ (50 / 49 : ℝ) := Real.rpow_pos_of_pos (by norm_num) _
+  have hp4 : (0 : ℝ) < (1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ) :=
+    Real.rpow_pos_of_pos (by positivity) _
+  have hp6 : (0 : ℝ) < (1 / KEβ) ^ (1700 / 3547 : ℝ) :=
+    Real.rpow_pos_of_pos (by rw [hKEβdef]; positivity) _
+  have hp7 : (0 : ℝ) < (c₀ / KEρ) ^ (1700 / 5247 : ℝ) :=
+    Real.rpow_pos_of_pos (div_pos hc₀pos (by rw [hKEρdef]; positivity)) _
+  have hp8 : (0 : ℝ) < 1 / (3 * A₀) := div_pos one_pos (by linarith only [hA₀pos])
+  have hcpos : 0 < c := by
+    rw [hcdef]
+    exact lt_min hp1 (lt_min hp2 (lt_min hp3 (lt_min hp4 (lt_min (by norm_num) (lt_min hp6
+      (lt_min hp7 (lt_min hp8 (lt_min (by norm_num) (by norm_num)))))))))
+  have hc_t1 : c ≤ 1 / 40 := by rw [hcdef]; exact min_le_left _ _
+  have hc_t2 : c ≤ (c₀ / 32) ^ (17 / 3 : ℝ) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (min_le_left _ _)
+  have hc_t3 : c ≤ (1 / 805 : ℝ) ^ (50 / 49 : ℝ) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _))
+  have hc_t4 : c ≤ (1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (min_le_left _ _)))
+  have hc_t5 : c ≤ (1 / 2 : ℝ) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _))))
+  have hc_t6 : c ≤ (1 / KEβ) ^ (1700 / 3547 : ℝ) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+        (le_trans (min_le_right _ _) (min_le_left _ _)))))
+  have hc_t7 : c ≤ (c₀ / KEρ) ^ (1700 / 5247 : ℝ) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+        (le_trans (min_le_right _ _) (min_le_left _ _))))))
+  have hc_t8 : c ≤ 1 / (3 * A₀) := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+        (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _)))))))
+  have hc_t9 : c ≤ 1 / 18 := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+        (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+          (le_trans (min_le_right _ _) (min_le_left _ _))))))))
+  have hc_t10 : c ≤ 1 / 576 := by
+    rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+      (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+        (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
+          (le_trans (min_le_right _ _) (min_le_right _ _))))))))
+  have hc1 : c ≤ 1 := le_trans hc_t5 (by norm_num)
+  rw [hKEβdef] at hc_t6
+  rw [hKEρdef] at hc_t7
+  rw [hA₀def] at hc_t8
+  clear_value c
+  refine ⟨c, hcpos, hc1, ?_⟩
+  intro q _instNe χ hχ hχ1 hsq hq β₀ hβ0zero hβ0lo hβ0hi ρ hρzero hfloor hσlo hσ1 hord
+  have hqR : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  -- the TALL packaging, taken AT the zero's own height
+  have hZρ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ |ρ.im| →
+      ‖zetaHol s‖ ≤ 3 + 2 * |ρ.im| := zetaHol_bound_tall |ρ.im|
+  have hZ0nn : (0 : ℝ) ≤ 3 + 2 * |ρ.im| := by positivity
+  have hZ0Q : 3 + 2 * |ρ.im| ≤ 2 * ((q : ℝ) * (|ρ.im| + 2)) := by
+    nlinarith only [hqR, abs_nonneg ρ.im]
+  exact dh_repulsion_inst_tall (H := |ρ.im|) χ hχ hχ1 hsq hq hβ0zero hβ0lo hβ0hi hρzero
     le_rfl hσlo hσ1 hord hZρ hc₀pos hc₀le1 hZ0nn hZ0Q hfloor hcpos hc1 hc_t1 hc_t2 hc_t3 hc_t4
     hc_t5 hc_t6 hc_t7 hc_t8 hc_t9 hc_t10
 

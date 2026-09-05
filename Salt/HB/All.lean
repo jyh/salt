@@ -62,6 +62,7 @@ import Salt.HB.SieveWire
 import Salt.HB.DoorBridge
 import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
+import Salt.HB.CrownTheorem1
 
 /-!
 # The Heath-Brown track (`HB`) — aggregate import
@@ -421,3 +422,89 @@ open Salt.Tactic
 #audit_axioms Salt.HB.hb_p200_lower
 #audit_axioms Salt.HB.hbS1_eq_W
 end N8
+
+/-! ## N9 — HB Theorem 1 and the door hand-over (`Salt/HB/CrownTheorem1.lean`), STATEMENTS ONLY
+
+The crown's N9 freeze (2026-09-04): HB 1983 Theorem 1 at the twin instance (`hb_theorem1`),
+the zero side of N4's `(L1)`/N8's L3 packet made consumable (§3 there), N4's `(L2)` composition
+(§4), the assembly (§5), and the door hand-over to the crown FAMILY `HeathBrownDichotomyPoly k`
+(§6) — every theorem left unproved BY DESIGN until the wave landed.  v2 (2026-09-04, on the
+refuter verdict): 68 rows — 42 theorems + 26 defs/structures; the expected reading before the
+wave was 51 red (the 42 theorems + the 9 defs downstream of `dh_repulsion_tall_at`'s placeholder:
+`dhC n9Ell n9EllAt n9Floor hbZ0 hbZ hbS N9Regime n9Cq`) + 17 ✓.  THE WAVE LANDED 2026-09-04
+(four executors, 42/42, zero flags): the reading is 68 ✓.  The first row is the one
+theorem appended to a landed file (`Salt/SW/TBalTall.lean`, the helm's ruling).  ONE NAME PER
+COMMAND, as for N8 (the audit aborts at its first offender).  Executors never edit these rows.
+-/
+
+section N9
+open Salt.Tactic
+#audit_axioms Salt.HB.dhB
+#audit_axioms Salt.HB.dhK
+#audit_axioms Salt.SW.dh_repulsion_tall_of_floor
+#audit_axioms Salt.HB.dh_repulsion_tall_at
+#audit_axioms Salt.HB.dhC
+#audit_axioms Salt.HB.dh_spec
+#audit_axioms Salt.HB.invSqC
+#audit_axioms Salt.HB.invSqC_spec
+#audit_axioms Salt.HB.merC
+#audit_axioms Salt.HB.merC_spec
+#audit_axioms Salt.HB.segC
+#audit_axioms Salt.HB.segC_spec
+#audit_axioms Salt.HB.n9Ell
+#audit_axioms Salt.HB.n9EllAt
+#audit_axioms Salt.HB.n9EllAt_two
+#audit_axioms Salt.HB.n9Floor
+#audit_axioms Salt.HB.n9Cs
+#audit_axioms Salt.HB.hbZ0A
+#audit_axioms Salt.HB.hbZ0
+#audit_axioms Salt.HB.hbZ
+#audit_axioms Salt.HB.hbS
+#audit_axioms Salt.HB.hbLL
+#audit_axioms Salt.HB.hbKappaN9
+#audit_axioms Salt.HB.n9E0
+#audit_axioms Salt.HB.N9Regime
+#audit_axioms Salt.HB.N7Exit
+#audit_axioms Salt.HB.n9K
+#audit_axioms Salt.HB.hbZ_bounds
+#audit_axioms Salt.HB.hbZ_packet
+#audit_axioms Salt.HB.re_le_beta0_of_ne
+#audit_axioms Salt.HB.dh_repulsion_tall_real
+#audit_axioms Salt.HB.dh_ceiling_box
+#audit_axioms Salt.HB.dh_floor_ball
+#audit_axioms Salt.HB.sinv_ball
+#audit_axioms Salt.HB.hb_zero_data
+#audit_axioms Salt.HB.hb_L1_lower_at_hb_point
+#audit_axioms Salt.HB.neg_re_logDeriv_LFunction_ge
+#audit_axioms Salt.HB.neg_re_logDeriv_differenced_mult_ge
+#audit_axioms Salt.HB.hb_L1_upper_at_hb_point
+#audit_axioms Salt.HB.pretenseSum_at_hb_point
+#audit_axioms Salt.HB.chiOne_kill_at_hb_point
+#audit_axioms Salt.HB.real_zeros_below_zfrCeil
+#audit_axioms Salt.HB.logChiSum_tail_at_window
+#audit_axioms Salt.HB.hbEulerLog_tendsto
+#audit_axioms Salt.HB.hcorr_at_split
+#audit_axioms Salt.HB.n9K2
+#audit_axioms Salt.HB.hb_L2_at_hb_point
+#audit_axioms Salt.HB.card_divisors_le_rpow_explicit
+#audit_axioms Salt.HB.hb_lemma4_at_hb_point
+#audit_axioms Salt.HB.n9K3
+#audit_axioms Salt.HB.hb_S3_at_hb_point
+#audit_axioms Salt.HB.hb_theorem1
+#audit_axioms Salt.HB.hb_theorem1_lower
+#audit_axioms Salt.HB.FulcrumQualityPoly
+#audit_axioms Salt.HB.NoSiegelZerosPoly
+#audit_axioms Salt.HB.HeathBrownDichotomyPoly
+#audit_axioms Salt.HB.fulcrumQualityPoly_one_iff
+#audit_axioms Salt.HB.noSiegelZerosPoly_one_iff
+#audit_axioms Salt.HB.heathBrownDichotomyPoly_one_iff
+#audit_axioms Salt.HB.three_le_of_ne_one
+#audit_axioms Salt.HB.noSiegelZerosPoly_mono
+#audit_axioms Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly
+#audit_axioms Salt.HB.fulcrum_dichotomy_poly
+#audit_axioms Salt.HB.beta0_max_of_zero
+#audit_axioms Salt.HB.n9Cq
+#audit_axioms Salt.HB.crown_handover
+#audit_axioms Salt.HB.hEngine_poly_of_N7
+#audit_axioms Salt.HB.heathBrownDichotomyPoly_of_N7
+end N9
