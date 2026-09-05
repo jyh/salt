@@ -428,10 +428,11 @@ end N8
 The crown's N9 freeze (2026-09-04): HB 1983 Theorem 1 at the twin instance (`hb_theorem1`),
 the zero side of N4's `(L1)`/N8's L3 packet made consumable (§3 there), N4's `(L2)` composition
 (§4), the assembly (§5), and the door hand-over to the crown FAMILY `HeathBrownDichotomyPoly k`
-(§6) — every theorem `sorry`-bodied BY DESIGN until the wave lands.  v2 (2026-09-04, on the
+(§6) — every theorem left unproved BY DESIGN until the wave landed.  v2 (2026-09-04, on the
 refuter verdict): 68 rows — 42 theorems + 26 defs/structures; the expected reading before the
-wave is 51 red (the 42 theorems + the 9 defs downstream of `dh_repulsion_tall_at`'s sorry:
-`dhC n9Ell n9EllAt n9Floor hbZ0 hbZ hbS N9Regime n9Cq`) + 17 ✓.  The first row is the one
+wave was 51 red (the 42 theorems + the 9 defs downstream of `dh_repulsion_tall_at`'s placeholder:
+`dhC n9Ell n9EllAt n9Floor hbZ0 hbZ hbS N9Regime n9Cq`) + 17 ✓.  THE WAVE LANDED 2026-09-04
+(four executors, 42/42, zero flags): the reading is 68 ✓.  The first row is the one
 theorem appended to a landed file (`Salt/SW/TBalTall.lean`, the helm's ruling).  ONE NAME PER
 COMMAND, as for N8 (the audit aborts at its first offender).  Executors never edit these rows.
 -/
