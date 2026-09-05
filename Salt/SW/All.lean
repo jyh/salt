@@ -97,6 +97,8 @@ import Salt.SW.GrahamMean
 import Salt.SW.GrahamHard
 import Salt.SW.GrahamHard2
 import Salt.SW.GrahamHard3
+import Salt.SW.Kernel2
+import Salt.SW.CoprimeHarmonic
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -512,3 +514,39 @@ open Salt.Tactic in
   Salt.SW.grahamW_sum_le_full
   Salt.SW.sum_sq_sum_bvWeight_le_full
   Salt.SW.sum_sq_sum_bvWeight_le_low
+
+-- ⟦B2 K 0905⟧ `Salt/SW/Kernel2.lean` — the kernel node K: the TWICE-smoothed Riesz kernel
+-- `(1 - u)²₊ ↔ 2·y^w/(w(w+1)(w+2))`, i.e. the `Kernel.lean` deliverables re-run with one more
+-- pole. `kern2` and its square identity, the Mellin transform `2/(s(s+1)(s+2))`, the two
+-- vertical dominants — the `(1/c)`-weighted QUADRATIC one (an integrability tool only) and the
+-- CUBIC `((c²+t²)^{3/2})⁻¹` one with NO `c`-dependent constant, which is what W7's contour
+-- bound at `Re = 1/2` consumes — the inversion `kernel_identity_2` (with the `y = 2`, `c = 1`
+-- control reading `1/4` as an `example` in the file) and the dominated sum↔integral swap
+-- `kernel_sum_swap_2`. `Kernel.lean` is byte-identical; the contour node itself is W7's own.
+-- Eleven `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.kern2_eq_sq_kern
+  Salt.SW.continuous_kern2
+  Salt.SW.hasMellin_kern2
+  Salt.SW.s2_ne_zero
+  Salt.SW.norm_inv_denom2_le
+  Salt.SW.norm_inv_denom2_cubic_le
+  Salt.SW.verticalIntegrable_mellin_kern2
+  Salt.SW.kern2_value
+  Salt.SW.kernel_identity_2
+  Salt.SW.integrable_Fterm2
+  Salt.SW.kernel_sum_swap_2
+
+-- ⟦B2 W2 0905⟧ `Salt/SW/CoprimeHarmonic.lean` — Jutila's Lemma 5 (L5), the `r`-average, as a
+-- UNIFORM lower bound: `(6/π²)·(φ(q)/q)·log R ≤ Σ'_{r ≤ R} 1/r` over square-free `r` coprime
+-- to `q`, for every `q ≥ 1` and every real `R ≥ 1` — no `R₀`, no `log R ≥ (log q)^{1/2}`, and
+-- no asymptotic of Jutila's p.49 consumed. Proved outright by two injections:
+-- `log R ≤ Σ_{n ≤ R} 1/n` (the harmonic floor), `n = d·m` with `d` `q`-smooth against the
+-- LANDED `sum_smooth_inv_le`, and `m = b²·a` with `a` square-free against `hasSum_zeta_two`.
+-- The binder `1 ≤ q` is load-bearing on the two injection rows. `R = 1` smoke row in the file.
+-- Six `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.log_le_sum_inv_Icc_floor
+  Salt.SW.exists_smooth_mul_coprime
+  Salt.SW.sum_inv_Icc_le_coprime_mul_smooth
+  Salt.SW.sum_inv_Icc_le_div_totient_mul_coprime
+  Salt.SW.sum_coprime_inv_le_zeta_two_mul_sqf
+  Salt.SW.sum_sf_coprime_inv_ge
