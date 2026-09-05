@@ -2,8 +2,11 @@
 
 **Node:** JUTILA-STAGE (source extraction, no Lean). **Source:** M. Jutila, *On Linnik's
 constant*, Math. Scand. **41** (1977), 45–62 (received 26 Nov 1976; Dept. of Mathematics,
-University of Turku). Open access, DOI 10.7146/math.scand.a-11701;
-PDF `https://www.mscand.dk/article/download/11701/9717`.
+University of Turku). Open access, DOI 10.7146/math.scand.a-11701 (resolves to
+`https://journals.msp.org/mscand/article/view/1943`); PDF galley
+`https://journals.msp.org/mscand/article/download/1943/1942/1974`. (The earlier
+`mscand.dk/article/download/11701/9717` link is HTTP 404 since at least 2026-09-04; the DOI is the
+durable pointer, the galley the direct one — both verified live 2026-09-05, `application/pdf`.)
 **The PDF is NOT in this repo and must never enter it** (copyright). These are my own notes:
 definitions, theorem statements with formulas transcribed faithfully, constants, and
 proof-shape summaries. No prose passages are reproduced beyond the single effectivity
