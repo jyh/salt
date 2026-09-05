@@ -47,6 +47,7 @@ import Salt.SW.ZeroCountNearOne
 import Salt.SW.DHDetector
 import Salt.SW.StripConvergence
 import Salt.SW.GrahamWeights
+import Salt.SW.BvWeight
 import Salt.SW.DHRepulsion
 import Salt.SW.DHContour
 import Salt.SW.DHBalance
@@ -87,6 +88,7 @@ import Salt.SW.EFSharp
 import Salt.SW.EFSharpZeros
 import Salt.SW.EFSharpMult
 import Salt.SW.DensityCrude
+import Salt.SW.DensityLogfree
 import Salt.SW.TauExt
 import Salt.SW.TBalTall
 import Salt.SW.BCSup
@@ -378,3 +380,19 @@ open Salt.Tactic in
   Salt.SW.zeta_zero_free_strip_sharp_bounded
   Salt.SW.zeta_zero_free_region_sharp
   Salt.SW.zeta_zero_free_region_sharp_bounded
+
+-- ⟦B2 W0 0904⟧ `Salt/SW/DensityLogfree.lean` — the LOG-FREE density on the low strip
+-- `4/5 ≤ σ ≤ 119/120`, `N ≤ 1378·(qT)^{150(1−σ)}`, off the landed count with the two
+-- crudities taken sharp at `T ≥ 2`. B2's free half: Jutila's §3 is then needed only on
+-- `119/120 < σ ≤ 1`. The literal is a claim about a numeral, so the audit is the gate.
+#audit_axioms Salt.SW.zeroCountM_density_logfree_low
+
+-- ⟦B2 W6a 0904⟧ `Salt/SW/BvWeight.lean` — Jutila's two-level Barban–Vehov weight
+-- (2.5)/(2.6) as a combination of the landed one-level `grahamTheta`, with the three case
+-- rows and Lemma 6's two opening divisor identities (`a_1 = 1`, `a_n = 0` on `2 ≤ n ≤ z₁`).
+-- `bvWeight` itself is a def; the five theorems are what the gate can audit.
+#audit_axioms Salt.SW.bvWeight_eq_moebius_of_le
+  Salt.SW.bvWeight_eq_zero_of_gt
+  Salt.SW.bvWeight_eq_of_mem
+  Salt.SW.sum_bvWeight_divisors_eq_zero
+  Salt.SW.sum_bvWeight_divisors_one
