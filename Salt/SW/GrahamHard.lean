@@ -1411,4 +1411,358 @@ example : ∑ n ∈ Finset.Icc 1 ⌊(12 : ℝ)⌋₊, tailT 2 n ^ 2
               * Real.log (((b * k : ℕ) : ℝ) / 2) :=
   sum_tailT_sq_eq (by norm_num) (by norm_num)
 
+
+/-! ## H6b — the weighted Möbius sum with a power-of-log saving -/
+
+/-- **The DISCRETE Abel identity** `Mw(X) = M_μ(X)/X + Σ_{n < X} M_μ(n)/(n(n+1))`.
+H6b's whole transfer from `mmuRate_holds` runs through this and a telescoping sum: no
+integral, no `IntegrableOn`, no improper-integral matching (contrast the `A = 1` route of
+`MoebiusRateSharp`, which needs all three because it works on the reals). -/
+private lemma mwWeighted_abel {X : ℕ} (hX : 1 ≤ X) :
+    mwWeighted X = Salt.TwinBar.Mmu X / (X : ℝ)
+      + ∑ n ∈ Finset.Ico 1 X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1)) := by
+  induction X, hX using Nat.le_induction with
+  | base => simp [mwWeighted, Salt.TwinBar.Mmu]
+  | succ X hX ih =>
+    have hX0 : (0 : ℝ) < (X : ℝ) := by exact_mod_cast hX
+    have hmw : mwWeighted (X + 1) = mwWeighted X + (moebius (X + 1) : ℝ) / ((X : ℝ) + 1) := by
+      simp only [mwWeighted]
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ X + 1)]
+      push_cast
+      ring
+    have hM : Salt.TwinBar.Mmu (X + 1) = Salt.TwinBar.Mmu X + (moebius (X + 1) : ℝ) := by
+      simp only [Salt.TwinBar.Mmu]
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ X + 1)]
+    rw [hmw, ih, Finset.sum_Ico_succ_top hX, hM]
+    push_cast
+    field_simp
+    ring
+
+/-- The telescoping step `1/((n+1)(log n)^{A+1}) ≤ (2^{A+1}/A)·((log n)^{−A} − (log(n+1))^{−A})`
+for `n ≥ 3`. Convexity is never invoked: `e^s ≥ 1 + s` and `log x ≥ 1 − 1/x` give the
+tangent bound `u^{−A} − v^{−A} ≥ A·v^{−A−1}(v − u)` directly, and `v ≤ 2u` (i.e.
+`n + 1 ≤ n²`) converts `v^{−A−1}` into `2^{−A−1}u^{−A−1}`. -/
+private lemma log_rpow_tele_step {A : ℝ} (hA : 0 < A) {n : ℕ} (hn : 3 ≤ n) :
+    1 / (((n : ℝ) + 1) * Real.log n ^ (A + 1))
+      ≤ 2 ^ (A + 1) / A * (Real.log n ^ (-A) - Real.log ((n : ℝ) + 1) ^ (-A)) := by
+  have hn3 : (3 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+  have hn0 : (0 : ℝ) < (n : ℝ) := by linarith
+  have hu1 : (1 : ℝ) < Real.log (n : ℝ) := by
+    have he3 : Real.exp 1 < 3 := lt_trans Real.exp_one_lt_d9 (by norm_num)
+    exact (Real.lt_log_iff_exp_lt hn0).mpr (by linarith)
+  set u : ℝ := Real.log (n : ℝ) with hudef
+  set v : ℝ := Real.log ((n : ℝ) + 1) with hvdef
+  have hu0 : 0 < u := by linarith
+  have huv : u < v := by
+    rw [hudef, hvdef]; exact Real.log_lt_log hn0 (by linarith)
+  have hv0 : 0 < v := by linarith
+  have hv2u : v ≤ 2 * u := by
+    have hsq : (n : ℝ) + 1 ≤ (n : ℝ) * (n : ℝ) := by nlinarith
+    have hlg : Real.log ((n : ℝ) + 1) ≤ Real.log ((n : ℝ) * (n : ℝ)) :=
+      Real.log_le_log (by linarith) hsq
+    rw [Real.log_mul (by linarith) (by linarith)] at hlg
+    rw [hvdef, hudef]; linarith
+  have hgap : 1 / ((n : ℝ) + 1) ≤ v - u := by
+    have hpos : (0 : ℝ) < (n : ℝ) / ((n : ℝ) + 1) := by positivity
+    have heq : (n : ℝ) / ((n : ℝ) + 1) = -(1 / ((n : ℝ) + 1)) + 1 := by field_simp; ring
+    have hle : (n : ℝ) / ((n : ℝ) + 1) ≤ Real.exp (-(1 / ((n : ℝ) + 1))) := by
+      rw [heq]; exact Real.add_one_le_exp _
+    have h2 := (Real.log_le_iff_le_exp hpos).mpr hle
+    have hs : Real.log ((n : ℝ) / ((n : ℝ) + 1)) = u - v := by
+      rw [Real.log_div (by linarith) (by linarith), hudef, hvdef]
+    rw [hs] at h2
+    linarith
+  -- the tangent bound `u^{-A} - v^{-A} ≥ A·v^{-A-1}·(v-u)`
+  have hlogratio : 1 - u / v ≤ Real.log (v / u) := by
+    have h1 : Real.log (u / v) ≤ u / v - 1 := Real.log_le_sub_one_of_pos (by positivity)
+    have h2 : Real.log (u / v) = -Real.log (v / u) := by
+      rw [Real.log_div hu0.ne' hv0.ne', Real.log_div hv0.ne' hu0.ne']; ring
+    linarith
+  have hquot : (u / v) ^ (-A) = Real.exp (A * Real.log (v / u)) := by
+    rw [Real.rpow_def_of_pos (show (0 : ℝ) < u / v by positivity)]
+    congr 1
+    have h2 : Real.log (u / v) = -Real.log (v / u) := by
+      rw [Real.log_div hu0.ne' hv0.ne', Real.log_div hv0.ne' hu0.ne']; ring
+    rw [h2]; ring
+  have hstep1 : 1 + A * (1 - u / v) ≤ (u / v) ^ (-A) := by
+    rw [hquot]
+    have h := Real.add_one_le_exp (A * Real.log (v / u))
+    have h2 : A * (1 - u / v) ≤ A * Real.log (v / u) :=
+      mul_le_mul_of_nonneg_left hlogratio hA.le
+    linarith
+  have hsplit : u ^ (-A) = v ^ (-A) * (u / v) ^ (-A) := by
+    rw [div_rpow_neg hu0.le hv0.le, show (-(-A) : ℝ) = A by ring,
+      show v ^ (-A) * (u ^ (-A) * v ^ A) = v ^ (-A) * v ^ A * u ^ (-A) by ring,
+      ← Real.rpow_add hv0, show (-A + A : ℝ) = 0 by ring, Real.rpow_zero, one_mul]
+  have hvA1 : v ^ (-A) / v = v ^ (-A - 1) := by
+    rw [show (-A - 1 : ℝ) = (-A) + (-(1 : ℝ)) by ring, Real.rpow_add hv0, Real.rpow_neg_one]
+    ring
+  have hvApos : (0 : ℝ) < v ^ (-A) := Real.rpow_pos_of_pos hv0 _
+  have htangent : A * v ^ (-A - 1) * (v - u) ≤ u ^ (-A) - v ^ (-A) := by
+    have h1 : v ^ (-A) * (1 + A * (1 - u / v)) ≤ v ^ (-A) * (u / v) ^ (-A) :=
+      mul_le_mul_of_nonneg_left hstep1 hvApos.le
+    rw [← hsplit] at h1
+    have h2 : v ^ (-A) * (1 + A * (1 - u / v)) = v ^ (-A) + A * (v ^ (-A) / v) * (v - u) := by
+      field_simp
+    rw [h2, hvA1] at h1
+    linarith
+  -- convert `v^{-A-1}` into `2^{-A-1}u^{-A-1}` and finish
+  have hexp0 : (-A - 1 : ℝ) ≤ 0 := by linarith
+  have hmono : (2 * u) ^ (-A - 1) ≤ v ^ (-A - 1) :=
+    Real.rpow_le_rpow_of_nonpos hv0 hv2u hexp0
+  have hsplit2 : (2 * u) ^ (-A - 1) = 2 ^ (-A - 1) * u ^ (-A - 1) :=
+    Real.mul_rpow (by norm_num) hu0.le
+  have h2pow : (2 : ℝ) ^ (-A - 1) = 1 / 2 ^ (A + 1) := by
+    rw [show (-A - 1 : ℝ) = -(A + 1) by ring, Real.rpow_neg (by norm_num)]
+    ring
+  have huinv : u ^ (-A - 1) = 1 / u ^ (A + 1) := by
+    rw [show (-A - 1 : ℝ) = -(A + 1) by ring, Real.rpow_neg hu0.le]
+    ring
+  have hupow : (0 : ℝ) < u ^ (A + 1) := Real.rpow_pos_of_pos hu0 _
+  have h2A : (0 : ℝ) < (2 : ℝ) ^ (A + 1) := Real.rpow_pos_of_pos (by norm_num) _
+  have hchain : A / 2 ^ (A + 1) * (1 / (((n : ℝ) + 1) * u ^ (A + 1)))
+      ≤ u ^ (-A) - v ^ (-A) := by
+    refine le_trans ?_ htangent
+    have hgap' : A * v ^ (-A - 1) * (1 / ((n : ℝ) + 1)) ≤ A * v ^ (-A - 1) * (v - u) := by
+      refine mul_le_mul_of_nonneg_left hgap ?_
+      have : (0 : ℝ) ≤ v ^ (-A - 1) := Real.rpow_nonneg hv0.le _
+      positivity
+    refine le_trans ?_ hgap'
+    have hmono' : A * ((2 : ℝ) ^ (-A - 1) * u ^ (-A - 1)) * (1 / ((n : ℝ) + 1))
+        ≤ A * v ^ (-A - 1) * (1 / ((n : ℝ) + 1)) := by
+      rw [← hsplit2]
+      have hnn : (0 : ℝ) ≤ 1 / ((n : ℝ) + 1) := by positivity
+      exact mul_le_mul_of_nonneg_right
+        (mul_le_mul_of_nonneg_left hmono hA.le) hnn
+    refine le_trans (le_of_eq ?_) hmono'
+    rw [h2pow, huinv]
+    field_simp
+  have hc : (0 : ℝ) < 2 ^ (A + 1) / A := by positivity
+  calc 1 / (((n : ℝ) + 1) * u ^ (A + 1))
+      = 2 ^ (A + 1) / A * (A / 2 ^ (A + 1) * (1 / (((n : ℝ) + 1) * u ^ (A + 1)))) := by
+        field_simp
+    _ ≤ 2 ^ (A + 1) / A * (u ^ (-A) - v ^ (-A)) := mul_le_mul_of_nonneg_left hchain hc.le
+
+/-- The telescoped tail `Σ_{N ≤ n < X} 1/((n+1)(log n)^{A+1}) ≤ (2^{A+1}/A)·(log N)^{−A}`. -/
+private lemma sum_Ico_log_tail {A : ℝ} (hA : 0 < A) {N : ℕ} (hN : 3 ≤ N) :
+    ∀ X : ℕ, N ≤ X →
+      ∑ n ∈ Finset.Ico N X, 1 / (((n : ℝ) + 1) * Real.log n ^ (A + 1))
+        ≤ 2 ^ (A + 1) / A * Real.log N ^ (-A) := by
+  have hkey : ∀ X : ℕ, N ≤ X →
+      ∑ n ∈ Finset.Ico N X, 1 / (((n : ℝ) + 1) * Real.log n ^ (A + 1))
+        ≤ 2 ^ (A + 1) / A * (Real.log N ^ (-A) - Real.log X ^ (-A)) := by
+    intro X hX
+    induction X, hX using Nat.le_induction with
+    | base => simp
+    | succ X hX ih =>
+      rw [Finset.sum_Ico_succ_top hX]
+      have hstep := log_rpow_tele_step hA (n := X) (by omega)
+      have hcast : ((X + 1 : ℕ) : ℝ) = (X : ℝ) + 1 := by push_cast; ring
+      rw [hcast]
+      linarith [ih, hstep]
+  intro X hX
+  have h := hkey X hX
+  have hXpos : (0 : ℝ) ≤ Real.log X ^ (-A) := by
+    refine Real.rpow_nonneg ?_ _
+    refine Real.log_nonneg ?_
+    have : (3 : ℝ) ≤ (X : ℝ) := by exact_mod_cast le_trans hN hX
+    linarith
+  have hc : (0 : ℝ) < 2 ^ (A + 1) / A := by
+    have : (0 : ℝ) < (2 : ℝ) ^ (A + 1) := Real.rpow_pos_of_pos (by norm_num) _
+    positivity
+  nlinarith [h, hXpos, hc]
+
+/-- The natural-cut-off form of H6b: `|Mw(N)| ≤ C/(log N)^A` for `N ≥ 3`. -/
+private lemma abs_mwWeighted_le_inv_log_rpow (A : ℝ) (hA : 0 < A) :
+    ∃ C : ℝ, 0 < C ∧ ∀ N : ℕ, 3 ≤ N → |mwWeighted N| ≤ C / Real.log N ^ A := by
+  obtain ⟨C₁, x₀, hC₁, hb⟩ := mmuRate_holds (A + 1) (by linarith)
+  set N₀ : ℕ := max x₀ 3 with hN₀def
+  have hN₀3 : 3 ≤ N₀ := le_max_right x₀ 3
+  set K : ℝ := C₁ + C₁ * (2 ^ (A + 1) / A) with hKdef
+  have h2A : (0 : ℝ) < (2 : ℝ) ^ (A + 1) := Real.rpow_pos_of_pos (by norm_num) _
+  have hKpos : 0 < K := by rw [hKdef]; positivity
+  set C : ℝ := max K (Real.log (N₀ : ℝ) ^ A) with hCdef
+  have hCpos : 0 < C := lt_of_lt_of_le hKpos (le_max_left _ _)
+  refine ⟨C, hCpos, fun N hN3 => ?_⟩
+  have hN3R : (3 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN3
+  have hlogN : (1 : ℝ) < Real.log (N : ℝ) := by
+    have he3 : Real.exp 1 < 3 := lt_trans Real.exp_one_lt_d9 (by norm_num)
+    exact (Real.lt_log_iff_exp_lt (by linarith)).mpr (by linarith)
+  have hlogNA : (0 : ℝ) < Real.log (N : ℝ) ^ A := Real.rpow_pos_of_pos (by linarith) _
+  rcases le_or_gt N₀ N with hbig | hsmall
+  · -- the rate's window: the discrete Abel split, then the telescoped tail
+    have hx0N : x₀ ≤ N := le_trans (le_max_left x₀ 3) hbig
+    have hNpos : (0 : ℝ) < (N : ℝ) := by linarith
+    have hbound : ∀ X : ℕ, N ≤ X →
+        |mwWeighted N| ≤ |mwWeighted X| + |Salt.TwinBar.Mmu X / (X : ℝ)| + K / Real.log N ^ A := by
+      intro X hX
+      have hidN := mwWeighted_abel (X := N) (by omega)
+      have hidX := mwWeighted_abel (X := X) (by omega)
+      have hsplit : ∑ n ∈ Finset.Ico 1 X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))
+          = (∑ n ∈ Finset.Ico 1 N, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1)))
+            + ∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1)) := by
+        rw [← Finset.sum_union (Finset.Ico_disjoint_Ico_consecutive 1 N X),
+          Finset.Ico_union_Ico_eq_Ico (by omega) hX]
+      have hkeyid : mwWeighted N = mwWeighted X - Salt.TwinBar.Mmu X / (X : ℝ)
+          + Salt.TwinBar.Mmu N / (N : ℝ)
+          - ∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1)) := by
+        rw [hidX, hsplit] at *
+        linarith [hidN]
+      -- the boundary term
+      have hbdry : |Salt.TwinBar.Mmu N / (N : ℝ)| ≤ C₁ / Real.log (N : ℝ) ^ A := by
+        have h := hb N hx0N
+        have hLpos : (0 : ℝ) < Real.log (N : ℝ) ^ (A + 1) :=
+          Real.rpow_pos_of_pos (by linarith) _
+        have hle : |Salt.TwinBar.Mmu N| / (N : ℝ) ≤ C₁ / Real.log (N : ℝ) ^ (A + 1) := by
+          rw [div_le_div_iff₀ hNpos hLpos]
+          have h2 : |Salt.TwinBar.Mmu N| * Real.log (N : ℝ) ^ (A + 1)
+              ≤ C₁ * (N : ℝ) / Real.log (N : ℝ) ^ (A + 1) * Real.log (N : ℝ) ^ (A + 1) :=
+            mul_le_mul_of_nonneg_right h hLpos.le
+          rw [div_mul_cancel₀ _ hLpos.ne'] at h2
+          linarith
+        have hmono : Real.log (N : ℝ) ^ A ≤ Real.log (N : ℝ) ^ (A + 1) :=
+          Real.rpow_le_rpow_of_exponent_le hlogN.le (by linarith)
+        rw [abs_div, abs_of_nonneg hNpos.le] at *
+        calc |Salt.TwinBar.Mmu N| / (N : ℝ) ≤ C₁ / Real.log (N : ℝ) ^ (A + 1) := hle
+          _ ≤ C₁ / Real.log (N : ℝ) ^ A := by
+              refine div_le_div_of_nonneg_left hC₁.le hlogNA hmono
+      -- the tail
+      have htail : |∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))|
+          ≤ C₁ * (2 ^ (A + 1) / A) / Real.log (N : ℝ) ^ A := by
+        have hterm : ∀ n ∈ Finset.Ico N X,
+            |Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))|
+              ≤ C₁ * (1 / (((n : ℝ) + 1) * Real.log n ^ (A + 1))) := by
+          intro n hn
+          obtain ⟨hnN, -⟩ := Finset.mem_Ico.mp hn
+          have hn3 : 3 ≤ n := le_trans (le_trans hN₀3 hbig) hnN
+          have hnx0 : x₀ ≤ n := le_trans hx0N hnN
+          have hn3R : (3 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn3
+          have hnpos : (0 : ℝ) < (n : ℝ) := by linarith
+          have hlogn : (1 : ℝ) < Real.log (n : ℝ) := by
+            have he3 : Real.exp 1 < 3 := lt_trans Real.exp_one_lt_d9 (by norm_num)
+            exact (Real.lt_log_iff_exp_lt hnpos).mpr (by linarith)
+          have hlognA : (0 : ℝ) < Real.log (n : ℝ) ^ (A + 1) :=
+            Real.rpow_pos_of_pos (by linarith) _
+          have h := hb n hnx0
+          rw [abs_div, abs_of_nonneg (by positivity : (0:ℝ) ≤ (n : ℝ) * ((n : ℝ) + 1))]
+          rw [div_le_iff₀ (by positivity)]
+          have hexp : C₁ * (1 / (((n : ℝ) + 1) * Real.log (n : ℝ) ^ (A + 1)))
+              * ((n : ℝ) * ((n : ℝ) + 1))
+              = (C₁ * (n : ℝ) / Real.log (n : ℝ) ^ (A + 1)) := by
+            field_simp
+          rw [hexp]
+          exact h
+        calc |∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))|
+            ≤ ∑ n ∈ Finset.Ico N X, |Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))| :=
+              Finset.abs_sum_le_sum_abs _ _
+          _ ≤ ∑ n ∈ Finset.Ico N X, C₁ * (1 / (((n : ℝ) + 1) * Real.log n ^ (A + 1))) :=
+              Finset.sum_le_sum hterm
+          _ = C₁ * ∑ n ∈ Finset.Ico N X, 1 / (((n : ℝ) + 1) * Real.log n ^ (A + 1)) := by
+              rw [Finset.mul_sum]
+          _ ≤ C₁ * (2 ^ (A + 1) / A * Real.log (N : ℝ) ^ (-A)) :=
+              mul_le_mul_of_nonneg_left
+                (sum_Ico_log_tail hA (le_trans hN₀3 hbig) X hX) hC₁.le
+          _ = C₁ * (2 ^ (A + 1) / A) / Real.log (N : ℝ) ^ A := by
+              rw [show Real.log (N : ℝ) ^ (-A) = 1 / Real.log (N : ℝ) ^ A by
+                rw [Real.rpow_neg (by linarith)]; ring]
+              ring
+      have hK : K / Real.log (N : ℝ) ^ A
+          = C₁ / Real.log (N : ℝ) ^ A + C₁ * (2 ^ (A + 1) / A) / Real.log (N : ℝ) ^ A := by
+        rw [hKdef]; ring
+      have e1 : mwWeighted X - Salt.TwinBar.Mmu X / (X : ℝ) + Salt.TwinBar.Mmu N / (N : ℝ)
+          - ∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))
+          = mwWeighted X + -(Salt.TwinBar.Mmu X / (X : ℝ)) + Salt.TwinBar.Mmu N / (N : ℝ)
+            + -(∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))) := by ring
+      have t1 := abs_add_le (mwWeighted X + -(Salt.TwinBar.Mmu X / (X : ℝ))
+        + Salt.TwinBar.Mmu N / (N : ℝ))
+        (-(∑ n ∈ Finset.Ico N X, Salt.TwinBar.Mmu n / ((n : ℝ) * ((n : ℝ) + 1))))
+      have t2 := abs_add_le (mwWeighted X + -(Salt.TwinBar.Mmu X / (X : ℝ)))
+        (Salt.TwinBar.Mmu N / (N : ℝ))
+      have t3 := abs_add_le (mwWeighted X) (-(Salt.TwinBar.Mmu X / (X : ℝ)))
+      rw [abs_neg] at t1 t3
+      rw [hkeyid, hK, e1]
+      linarith [t1, t2, t3, hbdry, htail]
+    -- let `X → ∞`
+    have hlim : Filter.Tendsto
+        (fun X : ℕ => |mwWeighted X| + |Salt.TwinBar.Mmu X / (X : ℝ)| + K / Real.log (N : ℝ) ^ A)
+        Filter.atTop (nhds (0 + 0 + K / Real.log (N : ℝ) ^ A)) := by
+      refine Filter.Tendsto.add (Filter.Tendsto.add ?_ ?_) tendsto_const_nhds
+      · simpa using mwWeighted_tendsto_zero.abs
+      · simpa using Mmu_div_tendsto_zero.abs
+    have hfin : |mwWeighted N| ≤ 0 + 0 + K / Real.log (N : ℝ) ^ A :=
+      ge_of_tendsto hlim (Filter.eventually_atTop.mpr ⟨N, fun X hX => hbound X hX⟩)
+    have hKC : K ≤ C := le_max_left _ _
+    calc |mwWeighted N| ≤ K / Real.log (N : ℝ) ^ A := by linarith
+      _ ≤ C / Real.log (N : ℝ) ^ A := (div_le_div_iff_of_pos_right hlogNA).mpr hKC
+  · -- the finite window
+    have htriv : |mwWeighted N| ≤ 1 := abs_mwWeighted_le_one (by omega)
+    have hNle : (N : ℝ) ≤ (N₀ : ℝ) := by exact_mod_cast (by omega : N ≤ N₀)
+    have hlogle : Real.log (N : ℝ) ^ A ≤ Real.log (N₀ : ℝ) ^ A :=
+      Real.rpow_le_rpow (by linarith) (Real.log_le_log (by linarith) hNle) hA.le
+    have hCge : Real.log (N₀ : ℝ) ^ A ≤ C := le_max_right _ _
+    rw [le_div_iff₀ hlogNA]
+    nlinarith [htriv, hlogle, hCge, hlogNA]
+
+/-- **H6b (An (3.2) over `ℚ`).** `|Σ_{n ≤ Q} μ(n)/n| ≤ C/(log 2Q)^A` for every `A > 0`.
+
+Route: the DISCRETE Abel identity `Mw(X) = M_μ(X)/X + Σ_{n<X} M_μ(n)/(n(n+1))`, applied at
+`N` and at `X ≥ N` and subtracted; `mmuRate_holds` at `A + 1` bounds the boundary term and,
+through a telescoping `(log n)^{−A}` estimate, the whole tail by `C/(log N)^A`; letting
+`X → ∞` against the landed `Mw(X) → 0` and `M_μ(X)/X → 0` removes the two `X`-terms.
+The real cut-off is reached exactly as in H6a (`⌊Q⌋₊ ≤ Q`, `log 2Q ≤ 2 log ⌊Q⌋₊` above 4),
+and the window `Q < max(x₀, 4)` by the landed `|Mw| ≤ 1`.
+
+The constant is NON-EFFECTIVE: it carries `mmuRate_holds`'s `C` and `x₀` at the saving
+`A + 1`, and no numeral for `x₀` is extracted anywhere in the corpus. -/
+theorem abs_sum_moebius_div_le_inv_log_pow (A : ℝ) (hA : 0 < A) : ∃ C : ℝ, 0 < C ∧ ∀ Q : ℝ, 1 ≤ Q →
+    |∑ n ∈ Finset.Icc 1 ⌊Q⌋₊, (moebius n : ℝ) / n| ≤ C / Real.log (2 * Q) ^ A := by
+  obtain ⟨C₀, hC₀, hcore⟩ := abs_mwWeighted_le_inv_log_rpow A hA
+  have h2A : (0 : ℝ) < (2 : ℝ) ^ A := Real.rpow_pos_of_pos (by norm_num) _
+  have hlog8 : (0 : ℝ) < Real.log 8 := Real.log_pos (by norm_num)
+  set C : ℝ := max (C₀ * 2 ^ A) (Real.log 8 ^ A) with hCdef
+  have hCpos : 0 < C := lt_of_lt_of_le (by positivity) (le_max_left _ _)
+  refine ⟨C, hCpos, fun Q hQ => ?_⟩
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have hnQ : ((⌊Q⌋₊ : ℕ) : ℝ) ≤ Q := Nat.floor_le hQ0.le
+  have hQn : Q < ((⌊Q⌋₊ : ℕ) : ℝ) + 1 := by exact_mod_cast Nat.lt_floor_add_one Q
+  have hlog2Q : (0 : ℝ) < Real.log (2 * Q) := Real.log_pos (by linarith)
+  have hpowpos : (0 : ℝ) < Real.log (2 * Q) ^ A := Real.rpow_pos_of_pos hlog2Q _
+  have hsum : ∑ n ∈ Finset.Icc 1 ⌊Q⌋₊, (moebius n : ℝ) / n = mwWeighted ⌊Q⌋₊ := rfl
+  rw [hsum]
+  rcases le_or_gt 4 ⌊Q⌋₊ with hbig | hsmall
+  · have hn4R : (4 : ℝ) ≤ ((⌊Q⌋₊ : ℕ) : ℝ) := by exact_mod_cast hbig
+    have hlogn : (0 : ℝ) < Real.log ((⌊Q⌋₊ : ℕ) : ℝ) := Real.log_pos (by linarith)
+    have hlognA : (0 : ℝ) < Real.log ((⌊Q⌋₊ : ℕ) : ℝ) ^ A := Real.rpow_pos_of_pos hlogn _
+    have hcmp : Real.log (2 * Q) ≤ 2 * Real.log ((⌊Q⌋₊ : ℕ) : ℝ) := by
+      have hstep : 2 * Q ≤ ((⌊Q⌋₊ : ℕ) : ℝ) * ((⌊Q⌋₊ : ℕ) : ℝ) := by nlinarith
+      calc Real.log (2 * Q) ≤ Real.log (((⌊Q⌋₊ : ℕ) : ℝ) * ((⌊Q⌋₊ : ℕ) : ℝ)) :=
+            Real.log_le_log (by linarith) hstep
+        _ = 2 * Real.log ((⌊Q⌋₊ : ℕ) : ℝ) := by
+            rw [Real.log_mul (by linarith) (by linarith)]; ring
+    have hpow : Real.log (2 * Q) ^ A ≤ 2 ^ A * Real.log ((⌊Q⌋₊ : ℕ) : ℝ) ^ A := by
+      have h1 : Real.log (2 * Q) ^ A ≤ (2 * Real.log ((⌊Q⌋₊ : ℕ) : ℝ)) ^ A :=
+        Real.rpow_le_rpow hlog2Q.le hcmp hA.le
+      rwa [Real.mul_rpow (by norm_num) hlogn.le] at h1
+    calc |mwWeighted ⌊Q⌋₊| ≤ C₀ / Real.log ((⌊Q⌋₊ : ℕ) : ℝ) ^ A := hcore _ (by omega)
+      _ = C₀ * 2 ^ A / (2 ^ A * Real.log ((⌊Q⌋₊ : ℕ) : ℝ) ^ A) := by field_simp
+      _ ≤ C₀ * 2 ^ A / Real.log (2 * Q) ^ A := by
+          gcongr
+      _ ≤ C / Real.log (2 * Q) ^ A := by
+          gcongr
+          exact le_max_left _ _
+  · have htriv : |mwWeighted ⌊Q⌋₊| ≤ 1 := by
+      rcases Nat.eq_zero_or_pos ⌊Q⌋₊ with h0 | hpos
+      · rw [h0]; simp [mwWeighted]
+      · exact abs_mwWeighted_le_one hpos
+    have hQsmall : Q < 4 := by
+      have : ((⌊Q⌋₊ : ℕ) : ℝ) ≤ 3 := by exact_mod_cast (by omega : ⌊Q⌋₊ ≤ 3)
+      linarith
+    have hlogle : Real.log (2 * Q) ≤ Real.log 8 :=
+      Real.log_le_log (by linarith) (by linarith)
+    have hpowle : Real.log (2 * Q) ^ A ≤ Real.log 8 ^ A :=
+      Real.rpow_le_rpow hlog2Q.le hlogle hA.le
+    have hCge : Real.log 8 ^ A ≤ C := le_max_right _ _
+    rw [le_div_iff₀ hpowpos]
+    nlinarith [htriv, hpowle, hCge, hpowpos]
+
 end Salt.SW
