@@ -84,6 +84,32 @@ lemma tbal_tau_le_split {Q w c : ℝ} (hQ : 1 ≤ Q) (hw : 0 < w) (hc0 : 0 ≤ c
         apply mul_le_mul_of_nonneg_right hL13 hLpos.le
     _ = 1 * ((Real.log Q + 2) ^ (13 : ℝ) * (Real.log Q + 2)) := by ring
 
+/-- **Trivial-branch bound at `k = 1`** (the B1a twin of `tbal_tau_le_split`).  The contract RHS
+`τ = c·Q^{−bw}/L₂` (`L₂ = log Q + 2`, the `k = 1` ray) is `≤ 1/(40 L₂)` for any `Q ≥ 1`, `w > 0`,
+`b ≥ 0` and `0 ≤ c ≤ 1/40`.  Hence in the trivial branch `1/(40 L₂) ≤ u` the target `u ≥ τ` is
+immediate.
+
+**Why `c ≤ 1/40` and not `c ≤ 1`.**  The landed `k = 14` lemma survives `c ≤ 1` only through
+`hL13 : 8192 ≤ L₂^{13}` — the thirteen spare `L₂` powers that pay for the `40`.  At `k = 1` there
+are none, and `c ≤ 1` is FALSE here (`c = 1, Q = 4, b = 1, w = 1/1000`: LHS `0.2949` vs RHS
+`0.00738`).  The honest hypothesis is arm 1 of the `c`-min tower itself, `c ≤ 1/40`, which the
+instances already carry and now pass DIRECTLY rather than weakened to `c ≤ 1`. -/
+lemma tbal_tau_le_split_k1 {Q w c b : ℝ} (hQ : 1 ≤ Q) (hw : 0 < w) (hb : 0 ≤ b) (hc0 : 0 ≤ c)
+    (hc : c ≤ 1 / 40) :
+    c * Q ^ (-(b * w)) / (Real.log Q + 2) ≤ 1 / (40 * (Real.log Q + 2)) := by
+  have hlogQ : 0 ≤ Real.log Q := Real.log_nonneg hQ
+  have hLpos : (0 : ℝ) < Real.log Q + 2 := by linarith
+  have hQpow : Q ^ (-(b * w)) ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos hQ (by nlinarith [mul_nonneg hb hw.le])
+  have hQpownn : (0 : ℝ) ≤ Q ^ (-(b * w)) := (Real.rpow_pos_of_pos (by linarith) _).le
+  rw [div_le_div_iff₀ hLpos (by positivity : (0 : ℝ) < 40 * (Real.log Q + 2))]
+  -- goal: `c·Q^{−bw}·(40 L₂) ≤ 1·L₂`
+  have h1 : c * Q ^ (-(b * w)) ≤ 1 / 40 := by
+    calc c * Q ^ (-(b * w)) ≤ c * 1 := mul_le_mul_of_nonneg_left hQpow hc0
+      _ = c := by ring
+      _ ≤ 1 / 40 := hc
+  nlinarith [h1, hLpos]
+
 /-! ## §2 — the TIGHT master (the freeze `3/4 ≤ rows`, ready for the on-ray caps) -/
 
 variable {q : ℕ}
