@@ -67,9 +67,9 @@ with F4a's circle-method slot DISCHARGED by `circle_method_estimate_sq_bounded_a
 `C₀ = 2·log 4` (`StrideCircle.lean`): `log_chowla_aff_of_door_crowned a b h ha hh hba hah7
 (circle_method_estimate_sq_bounded_aff a b h ha hh hgcd (2 * Real.log 4) (by positivity)) A₀`.
 The ONE binder F4a's head did not carry, `hgcd : Nat.gcd (b + h) a ∣ h`, is the producer's (the
-major arm's partner frequency lands in `bigXiAff` iff `(b+h)·η' ≡ b·η (mod a)` is always
-solvable); the twin-prime consumer has it at `gcd(r + 2, P) = 1`.  Statement-only at the
-freeze. -/
+major arm's partner frequency lands in `bigXiAff` whenever `(b+h)·η' ≡ b·η (mod a)` is always
+solvable — N7; minus `hgcd` N7 is FALSE at `(8,2,2)`, `H = 8`, `ε = 4/5`); the twin-prime
+consumer has it at `gcd(r + 2, P) = 1`.  Statement-only at the freeze; v1.1 cut on the verdict. -/
 theorem log_chowla_aff_of_door_crowned_unslotted (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hba : b < a) (hgcd : Nat.gcd (b + h) a ∣ h)
     (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
