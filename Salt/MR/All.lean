@@ -9769,3 +9769,14 @@ logChowlaFailsAff` beside it, NOT composed.  CONDITIONAL on F4b through `hcm`; n
 on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.log_chowla_aff_of_door_crowned
+
+/-! ⟦STRIDE CIRCLE RECEIPT⟧ — THE CROWN FED INTO THE UNSLOTTED HEAD (`StrideEntropyReceipt`,
+2026-09-04, math — λ-BV wave 2-S step F4b, MR one-liner).
+`log_chowla_aff_of_door_crowned_unslotted` is `log_chowla_aff_of_door_crowned` with F4a's circle-method slot `hcm` DISCHARGED by
+`circle_method_estimate_sq_bounded_aff` (`StrideCircle`) at `C₀ = 2·log 4`: for `b < a`, `0 < h`,
+`gcd(b+h, a) ∣ h` (the producer's binder — F5's prize gains it) and `log(a·h) ≤ 7`, at every `A₀` —
+the crown's regime, its door at grade `a·Zr·ρ + E`, and the entropy half `∀ ρ' ≤ δ₀_aff, door ρ' →
+¬ logChowlaFailsAff` beside it, NOT composed (the `≈ 214.4` miss at `(210, 2)` is F5's).  No
+longer conditional on a slot; nothing here bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.log_chowla_aff_of_door_crowned_unslotted

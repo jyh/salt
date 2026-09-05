@@ -1431,3 +1431,44 @@ on F4b through the slot; nothing here proves an estimate, moves a door, or bears
   Salt.Entropy.Chowla.spine_False_core_xi_sq_aff
   Salt.Entropy.Chowla.log_chowla_aff_of_door
   Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff_one_zero
+
+/-! ⟦STRIDE CIRCLE⟧ — THE AFFINE CIRCLE-METHOD ESTIMATE, THE PRODUCER OF F4a's SLOT
+(`StrideCircle`, 2026-09-04, math — λ-BV wave 2-S step F4b; priced 16:0x, frozen statement-only
+16:2x, v1.1 cut on the helm's refuter verdict REPAIR-THEN-FIRE 4/4 at 17:2x, fired 17:2x — ONE
+Opus executor in file order).
+
+Tao 1509.05422 Lemma 3.4 at the class filter `j + 1 ≡ p·b (mod a)` over the affine large-spectrum
+set `bigXiAff a b h eps H`, with the `h`-lane's constant `h·(1 + 2·C₀)` — `a`-FREE in the kernel
+(`a` is bound outside the `∃ C`; the cap conjunct `C ≤ h·(1 + 2·C₀)` is the certificate).  The
+class filter expanded over `η ∈ ℤ/aℤ` by orthogonality LIFTED through `a ∣ H` (`twistOffset`,
+`stdAddChar_lift_of_dvd`, `classFilter_expand`); the twist lands on the SECOND window factor and
+TRANSLATES its DFT (`dft_twist`: `𝓕(χ_d·Φ)(k) = 𝓕Φ(k − d)`), so the `h`-lane's diagonal collapse
+fails and AM–GM leaves a PARTNER sum over the translated fibre (`fourier_split_sq_twist`); the
+partner lands in `bigXiAff` under `gcd(b+h, a) ∣ h` (`xiEta_translate_mem_bigXiAff` — minus that
+binder it is FALSE at `(a,b,h) = (8,2,2)`, `H = 8`, `ε = 4/5`); two union bounds supply the `a`
+that the expansion's `1/a` cancels.  `circle_method_estimate_sq_bounded_aff` has EXACTLY the shape
+of F4a's slot `hcm` and `log_chowla_aff_of_door_unslotted` discharges it by one class-A name at
+`C₀ = 2·log 4`.  The estimate holds under two binders F4a's slot did not carry: `a ∣ H` (in the
+slot) and `hgcd : Nat.gcd (b + h) a ∣ h` (the producer's, on the discharges; F5's prize gains it).
+Moves no door, closes no prize; the `≈ 214.4` miss at `(210, 2)` is F5's; nothing here bears on
+twin primes.  19 declarations (2 defs), 17 obligations, 17 landed (one Opus executor, 2026-09-04
+17:2x–17:4x). -/
+#audit_axioms Salt.Entropy.Chowla.twistOffset
+  Salt.Entropy.Chowla.xiEta
+  Salt.Entropy.Chowla.affOffset_eq_mul_twistOffset
+  Salt.Entropy.Chowla.mem_xiEta
+  Salt.Entropy.Chowla.dft_twist
+  Salt.Entropy.Chowla.norm_twist_mul
+  Salt.Entropy.Chowla.stdAddChar_lift_of_dvd
+  Salt.Entropy.Chowla.classFilter_expand
+  Salt.Entropy.Chowla.filteredCorr_eq_twistSum
+  Salt.Entropy.Chowla.periodization_total_twist
+  Salt.Entropy.Chowla.T_collapse_twist
+  Salt.Entropy.Chowla.fourier_split_sq_twist
+  Salt.Entropy.Chowla.xiEta_subset_bigXiAff
+  Salt.Entropy.Chowla.xiEta_translate_mem_bigXiAff
+  Salt.Entropy.Chowla.sum_xiEta_le
+  Salt.Entropy.Chowla.sum_xiEta_translate_le
+  Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_aff
+  Salt.Entropy.Chowla.circle_method_estimate_sq_aff_core
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted

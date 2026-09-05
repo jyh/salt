@@ -41,12 +41,12 @@ two lines.
 
 ⛔ HONEST LABEL.  F4a produces `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`
 beside the crown's door at grade `a·Zr·ρ + E` — NOT composed: `a·Zr·ρ + E ≤ δ₀_aff` is the `214`
-miss at `(210, 2)` and F5's numeral.  Conditional on the circle-method slot (F4b).  Nothing
-here proves an estimate or bears on twin primes.  Every declaration below is statement-only at
-the freeze (sorry-bodied, recipe in the docstring), built as a module through
-`../saltbuild.sh`; NO executor fires before the helm's refuter verdict.  ⛔ MERGE FENCE (iron
-rule 2): `math/lbv-w2s-f4a` never reaches `main` until every obligation in the four F4a files
-lands sorry-free.  Import direction: `Salt.Entropy`-internal; the crown lives in `Salt.MR`, so
+miss at `(210, 2)` and F5's numeral.  The circle-method slot `hcm` is DISCHARGED by F4b
+(`StrideCircle.lean`: `circle_method_estimate_sq_bounded_aff`, under the producer's binder
+`gcd(b+h, a) ∣ h`; `log_chowla_aff_of_door_unslotted`).  Nothing here proves an estimate or bears
+on twin primes.  LANDED 2026-09-04 (F4a merged to `main` in PR #39: every declaration below
+sorry-free, `[3 axioms]`, audited in `Salt.Entropy.All`).  Import direction:
+`Salt.Entropy`-internal; the crown lives in `Salt.MR`, so
 the head's CONSUMER of the crown is stated here as a hypothesis-free theorem that OBTAINS the
 crown… — ⛔ NO: `Salt.Entropy` cannot import `Salt.MR` (the `xceil` fence, H3's lesson).  The
 head therefore takes the crown's PAYLOAD as a binder (`hcrown`, the crown's own conclusion

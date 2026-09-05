@@ -11,11 +11,12 @@ binder `hcrown`.  This module is the one place both sides are in scope: it feeds
 The result is F4a's single MR-side name — the object F5 consumes: at the crown's regime `Ra`, the
 door at grade `a·Zr·ρ + E` AND the entropy-half implication `∀ ρ' ≤ δ₀_aff, door ρ' → ¬ fails`,
 side by side, NOT composed (`a·Zr·ρ + E ≤ δ₀_aff` is the `214` miss at `(210, 2)` — F5's
-numeral).  Still conditional on the affine circle-method SLOT `hcm` (F4b's producer).
+numeral).  The slot `hcm` is DISCHARGED by F4b's `circle_method_estimate_sq_bounded_aff`
+in `log_chowla_aff_of_door_crowned_unslotted` below, under the producer's binder `gcd(b+h, a) ∣ h`.
 
-HONEST LABEL.  One class-A application; proves no estimate, closes no prize, bears on nothing on
-the apex.  Statement-only at the freeze (sorry-bodied); ⛔ MERGE FENCE with the four Entropy
-files of F4a.
+HONEST LABEL.  Two class-A applications; prove no estimate, close no prize, bear on nothing on
+the apex.  LANDED 2026-09-04 (F4a in PR #39; F4b's twin on `math/lbv-w2s-f4b`), sorry-free,
+`[3 axioms]`, audited in `Salt.MR.All`.
 -/
 import Salt.Entropy.Chowla.StrideShell
 import Salt.Entropy.Chowla.StrideCircle
@@ -84,6 +85,7 @@ theorem log_chowla_aff_of_door_crowned_unslotted (a b h : ℕ) (ha : 0 < a) (hh 
         ∃ δ₀ : ℝ, 0 < δ₀ ∧ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) ≤ δ₀ ∧
           ∀ ρ' : ℝ, 0 < ρ' → ρ' ≤ δ₀ → MRTUniformityXiL2AffW h Ra ρ' →
             ¬ logChowlaFailsAff a b h Ra.eps Ra.x Ra.ω := by
-  sorry
+  exact log_chowla_aff_of_door_crowned a b h ha hh hba hah7
+    (circle_method_estimate_sq_bounded_aff a b h ha hh hgcd (2 * Real.log 4) (by positivity)) A₀
 
 end Salt.MR
