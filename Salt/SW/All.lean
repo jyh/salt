@@ -303,13 +303,16 @@ open Salt.Tactic in
   Salt.SW.unmoll_extraction_rho
   Salt.SW.dh_extraction_upper_rho
   Salt.SW.dhW_detector_floor_rho Salt.SW.dh_balance
-  Salt.SW.tbal_tau_le_split Salt.SW.dh_master_ray
+  Salt.SW.tbal_tau_le_split Salt.SW.tbal_tau_le_split_k1 Salt.SW.dh_master_ray
   Salt.SW.exp_sub_one_le_e_mul Salt.SW.rpow_sub_one_le Salt.SW.neg_log_le_rpow
   Salt.SW.neg_log_le_rpow'
   Salt.SW.rho_row_power_bound
   Salt.SW.ray_pow_bound Salt.SW.row_1x_cap Salt.SW.row_A_cap Salt.SW.row_rho_main_cap
+  -- ⟦B1a⟧ the `k = 1` twins and their two engines (the landed caps above are untouched)
+  Salt.SW.log_add_two_le_rpow_nine_tenths Salt.SW.ray_pow_bound_conv
+  Salt.SW.row_A_cap_k1 Salt.SW.row_rho_main_cap_k1
   Salt.SW.logz_factor_le
-  Salt.SW.logz_factor_pow9_le Salt.SW.row_Eβ_cap Salt.SW.row_Eρ_cap
+  Salt.SW.logz_factor_pow9_le Salt.SW.row_Eβ_cap Salt.SW.row_Eρ_cap Salt.SW.row_Eβ_cap_k1
   Salt.SW.tbal_hguard Salt.SW.tbal_hscale Salt.SW.tbal_hcov Salt.SW.C2Rho_le
   Salt.SW.dh_repulsion_ordered
   Salt.SW.psi1Chi_sub_eq Salt.SW.psiChiR_sub_riesz_diff_le
@@ -344,6 +347,7 @@ open Salt.Tactic in
   Salt.SW.dhAbel_leg1_rho_tall Salt.SW.dhAbel_inner_rho_tall Salt.SW.unmoll_extraction_rho_tall
   Salt.SW.dh_extraction_upper_rho_tall Salt.SW.dh_master_ray_tall Salt.SW.C2Rho_le_tall
   Salt.SW.row_Eρ_cap_tall Salt.SW.dh_repulsion_tall Salt.SW.boxZeros_re_le_at_efHeight
+  Salt.SW.row_Eρ_cap_tall_k1 Salt.SW.dh_repulsion_k1_of_floor
   Salt.SW.norm_logDeriv_le_of_bound_off_zeros Salt.SW.norm_sub_le_of_norm_le_on_ball
   Salt.SW.mem_of_LFunction_eq_zero Salt.SW.multiplicity_eq_zeroMult
   Salt.SW.LFunction_partialFraction_remainder_diff
