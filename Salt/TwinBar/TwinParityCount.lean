@@ -60,7 +60,17 @@ Recipe (class A): `cases N with | zero => simp | succ m => ?_`; in the `succ` ca
 mind the casts (`push_cast`). -/
 theorem log_natCast_le_sum_inv_Icc (N : ℕ) :
     Real.log (N : ℝ) ≤ ∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / (n : ℝ) := by
-  sorry
+  cases N with
+  | zero => simp
+  | succ m =>
+    have h := log_succ_le_sum_inv_Icc (m + 1)
+    push_cast at h
+    simp only [one_div]
+    push_cast
+    have hpos : (0 : ℝ) < (m : ℝ) + 1 := by positivity
+    have hstep : Real.log ((m : ℝ) + 1) ≤ Real.log ((m : ℝ) + 1 + 1) :=
+      Real.log_le_log hpos (by linarith)
+    exact hstep.trans h
 
 /-! ## `hcount` discharged — the signed Möbius sum from below -/
 
@@ -89,7 +99,18 @@ theorem moebius_sum_inv_dvd_ge (P N : ℕ) :
         - 4 * ∑ d ∈ P.divisors, (rho d : ℝ)
       ≤ ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
           * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ) / (n : ℝ) := by
-  sorry
+  rw [Finset.sum_mul, Finset.mul_sum, ← Finset.sum_sub_distrib]
+  refine Finset.sum_le_sum fun d hd => ?_
+  have hd0 := Nat.pos_of_mem_divisors hd
+  have h := remLogCount_abs_le (N := N) hd0
+  rw [remLogCount, Clog_one] at h
+  unfold Clog at h
+  have hμ : |(ArithmeticFunction.moebius d : ℝ)| ≤ 1 := by
+    exact_mod_cast ArithmeticFunction.abs_moebius_le_one (n := d)
+  have hb := mul_le_mul hμ h (abs_nonneg _) (by norm_num : (0 : ℝ) ≤ 1)
+  rw [← abs_mul] at hb
+  have hb2 := (abs_le.mp hb).1
+  nlinarith [hb2]
 
 /-- **The growth constant is positive**: `0 < ∑_{d∣P} μ(d)ν(d)` for squarefree `P`, because the
 sum IS the twin sieve's `W` (`sum_divisors_moebius_twinNu_eq_W`, at any `N`) and `W > 0`
@@ -98,7 +119,8 @@ sum IS the twin sieve's `W` (`sum_divisors_moebius_twinNu_eq_W`, at any `N`) and
 Recipe (class A): `rw [sum_divisors_moebius_twinNu_eq_W 1 P hP]; exact Salt.BrunLower.W_pos _`. -/
 theorem sum_divisors_moebius_twinNu_pos (P : ℕ) (hP : Squarefree P) :
     0 < ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d := by
-  sorry
+  rw [sum_divisors_moebius_twinNu_eq_W 1 P hP]
+  exact Salt.BrunLower.W_pos _
 
 /-! ## The terminal — one hypothesis left on the direct road -/
 
@@ -122,7 +144,17 @@ theorem twinLogWeight_support_infinite_of_atom {P : ℕ} (hP : Squarefree P) {A 
         * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
             ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)| ≤ A) :
     {n : ℕ | twinLogWeight P n ≠ 0}.Infinite := by
-  sorry
+  have hW := sum_divisors_moebius_twinNu_pos P hP
+  exact twinLogWeight_support_infinite_of_rate hP
+    (c := ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d)
+    (C := 4 * ∑ d ∈ P.divisors, (rho d : ℝ)) hW
+    (Hmain := fun N => (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * Salt.TwinSieve.nu d) * (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / (n : ℝ))
+      - 4 * ∑ d ∈ P.divisors, (rho d : ℝ))
+    (fun N => moebius_sum_inv_dvd_ge P N) hatom
+    (fun N => by
+      have := mul_le_mul_of_nonneg_left (log_natCast_le_sum_inv_Icc N) hW.le
+      linarith)
 
 /-! ## The terminal at the SOURCE's strength — a demand-side finding, flagged
 
@@ -158,6 +190,16 @@ theorem twinLogWeight_support_infinite_of_atom_rate {P : ℕ} (hP : Squarefree P
             ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
           ≤ ε * Real.log N + A) :
     {n : ℕ | twinLogWeight P n ≠ 0}.Infinite := by
-  sorry
+  have hW := sum_divisors_moebius_twinNu_pos P hP
+  refine support_infinite_of_partialSums_unbounded (twinLogWeight_nonneg P) fun M => ?_
+  obtain ⟨N, hN⟩ := hdiv_of_log_growth (sub_pos.mpr hε) (A := 0)
+    (Hmain := fun N => (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * Salt.TwinSieve.nu d - ε) * Real.log (N : ℝ)
+      - (4 * ∑ d ∈ P.divisors, (rho d : ℝ) + A)) (fun N => le_rfl) M
+  refine ⟨N + 1, ?_⟩
+  rw [sum_twinLogWeight_range]
+  have h := logSifted_lower_of_count_and_atoms hP (moebius_sum_inv_dvd_ge P N) (hatom N)
+  have hlog := mul_le_mul_of_nonneg_left (log_natCast_le_sum_inv_Icc N) hW.le
+  nlinarith [hN, hlog, h]
 
 end Salt.TwinBar

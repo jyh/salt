@@ -759,6 +759,31 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    (sign changes of `λ` in ONE progression, a single-function Linnik-type result — not a two-point correlation, not a
    discrepancy over moduli): no hit of the trigger's shape — one query, not a census. Nothing here bears on twin
    primes; the apex's λ-BV demand is the SCOUT's subject (`2026-09-04-math-SCOUT-lbv-after-2S.md`, the 09/05 sitting).
+   ✅⭐ **(E) P1 FILL — THE DIRECT ROAD's `hcount` DISCHARGED — STAMPED 2026-09-05 13:42 (math), on council
+   09/05 item 3.** New module `Salt/TwinBar/TwinParityCount.lean` (in `Salt/TwinBar/All.lean`'s import list and its
+   `#audit_axioms` rows): FIVE theorems, every one `[propext, Classical.choice, Quot.sound]`, one Sonnet executor
+   (four at one attempt, one at two) — `log_natCast_le_sum_inv_Icc` (`log N ≤ H_N`) · `moebius_sum_inv_dvd_ge`
+   (`hcount` at `Hmain N = (∑_{d∣P} μν)·H_N − 4·∑_{d∣P} ρ(d)`, composed from the LOG LANE's landed per-class estimate
+   `remLogCount_abs_le`, 09/03, whose `Clog N d` IS the direct road's `C_d`) · `sum_divisors_moebius_twinNu_pos`
+   (`0 < ∑ μν`, the landed `W` identity + `W_pos`) · `twinLogWeight_support_infinite_of_atom` (the terminal from
+   `hatom` ALONE) · `twinLogWeight_support_infinite_of_atom_rate` (the terminal at the SOURCE's strength,
+   `|atom N| ≤ ε·log N + A`, `ε < W` — ADDED beyond the commissioned discharge and flagged on the bus: the landed
+   uniform `≤ A` over-demanded what Tao's two-point theorem (`o(log x)`) and the corpus's spine (an `ε·log`-scale
+   floor) supply; one re-composition, no new mathematics; the helm's to keep or strike). Docstring pointers:
+   `AffineFork.lean`'s two `=`-form consumers marked DOMINATED by their `≤`-siblings in `StridePrize.lean`;
+   `TwinParitySieve.lean`'s per-class and ADDITIVE sections and the `_of_rate` docstring point at the discharge.
+   📌 **THE RECORD OF THE RE-CUT (find first, then author):** the first freeze (`4187b622`) carried NINE statements,
+   five re-deriving at `log N` (constant 3) what the log lane had landed at `H_N` (constant 4) two days earlier;
+   caught while drafting the audit rows, before any proof was paid (the Opus executor stopped while still reading);
+   re-cut to five (`0bfe4175`); the `4` is the log lane's majorant, inherited. Receipts at the tree: the diff vs the
+   freeze = exactly the five `sorry` lines removed, insert-only prose elsewhere; module + `Salt.TwinBar.All`
+   `saltbuild EXIT=0`, the five ticks read by name at `All.lean:752`; full tree `saltbuild EXIT=0` (9847 jobs, 0 errors, 8244 ticks, 0 `sorryAx`); lint OK (headliners 9 axiom-clean); no warning in
+   any touched file. Landed on `math/lbv-hcount` off main `522ab07d`; PR to merge on green.
+   ⛔ **HONEST LABEL.** No new unconditional theorem. The direct road (`logSifted_lower_of_count_and_atoms` →
+   `twinLogWeight_support_infinite_of_atom`) now has ONE hypothesis, `hatom` — the full-range log-averaged two-point
+   at every class mod `P` at a COMMON `N` — and nothing here produces it (fixed `z`: Tao Thm 1.2's quantifier, the
+   sitting's option (C), class D; growing `z`: the census's binder C, held by nobody). The h-fork, the crown and
+   the prize are untouched. Nothing here bears on twin primes. (A) Route I's P3 row is the helm's (minute E4).
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
