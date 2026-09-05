@@ -7987,6 +7987,8 @@ of `Σ_g φ(g)·(decay)²`). Flagged per doctrine as the balloon point; the crud
 sign / `1/g` factor) provably gives only `log³z` (wrong shape), so the signed diagonal is
 mandatory. Everything UP TO the analytic `innerG` bound is now mechanized.
 
+**RETIRED 2026-09-05 (W6b-E, `Salt/SW/BvL.lean` + `Salt/SW/GrahamMean.lean`)** — the residual (the `g ≥ 2` decay, and with it the sharp mean) is closed by `Salt.SW.abs_innerG_le_sharp` (`|innerG z g| ≤ C₀/(φ(g)·log z)`) and `Salt.SW.sum_totient_innerG_sq_le` (`Σ_{g≤z} φ(g)·innerG² ≤ C₁/log z`) with the envelope `h(g) = g/φ(g)`, NOT `3^{ω(g)}` — which is exactly why `Σ_g φ(g)·9^{ω(g)}/g²` diverged; the mean itself is `Salt.SW.grahamW_sum_le`, and it holds at `x ≥ z²` ONLY (the range `z ≤ x < z²` stays open, wave W6b-H).
+
 ## 2026-07-17 VMVT-FOURIER Opus done
 **THE MINIMAL TORUS MODULE — the α-domain counting identity is LANDED (`Salt/Vmvt/Fourier.lean`,
 sorry-free, [3 axioms]).** This is the Parseval extension the R2-3 flag demanded ("the whole
@@ -8162,6 +8164,8 @@ landed (`abs_sum_grahamTheta_div_le_inv_log`, i.e. `|innerG z 1| ≤ C/log z`).
 NOT close the consumer `Σ_{g≤z}φ(g)·innerG² ≍ 1/log z`: `Σφ(g)·9^ω/g²` diverges (`Σ9^ω/g ≤
 (1+log z)^9` by PpSums k=9 → `log⁷z`, wrong shape). The sharp mean needs Graham's on-average
 Euler cancellation (a `d`-grade effective `h(g)`), a genuinely separate estimate. Flagged.
+
+**RETIRED 2026-09-05 (W6b-E, `Salt/SW/BvL.lean`)** — the residual is closed by `Salt.SW.abs_innerG_le_sharp` off `Salt.SW.abs_bvL_le` (`|L_g(w)| ≤ C₀·g/φ(g)` for squarefree `g`, the object `Salt.SW.bvL` on a REAL `w`), by exactly the nested induction (i)+(ii)+(iii) named above — on the lexicographic measure `(g, ⌊w⌋₊)`, with `Salt.SW.bvL_step` as the prime peel and the real-`w` transfer through `abs_mwWeighted_le_one` — but with `h(g) = g/φ(g)`, on which the telescope closes with EQUALITY at every step; the `3^{ω(g)}` target was the wrong envelope, and the "GRAHAM AVERAGE" node just above is `Salt.SW.sum_totient_innerG_sq_le`.
 
 ## SHIU-W3b — NEW-1/NEW-2 LANDED; S4-III/S4-IV assemblies FLAGGED (2026-07-17)
 
