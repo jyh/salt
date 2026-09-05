@@ -19,10 +19,20 @@ import Salt.Fulcrum.CZeroNumeral
 /-!
 # THE CROWN, N9 — Heath-Brown 1983 Theorem 1 and the door hand-over: STATEMENTS ONLY
 
-**STATUS: FROZEN v3, the wave FIRING (2026-09-04; v1 `f13d09a3`; v2 `235d618b` on the helm's
-12:38 refuter verdict — REPAIR-THEN-FIRE, 4/4 — with every kill repaired at the object, and on
-the Captain's 12:39 ruling on the crown's statement; v3 on the desk's own finding 3 below, which
-the wave's first hour surfaced).  Rows are `sorry`-bodied until their executor lands them.**
+**STATUS: EXECUTED WHOLE (2026-09-04; v1 `f13d09a3`; v2 `235d618b` on the helm's 12:38 refuter
+verdict — REPAIR-THEN-FIRE, 4/4 — with every kill repaired at the object, and on the Captain's 12:39
+ruling on the crown's statement; v3 on the desk's own finding 3 below; the four executor waves landed
+all 42 theorems at `[propext, Classical.choice, Quot.sound]`, zero flags).**
+
+**THE LABEL (the Captain's ruling, 2026-09-04 19:1x):** what this file LANDS is the POLYLOG DICHOTOMY
+at exponent `30` — `HeathBrownDichotomyPoly 30` = `TwinPrimeConjecture ∨ NoSiegelZerosPoly 30`,
+conditional on N7's exit `N7Exit` — a new theorem (the effective polylog-Siegel bound is open) and an
+INTERMEDIATE, never called the crown.  The crown's STATEMENT is the frozen `HeathBrownDichotomy`
+(the `k = 1` member, byte-untouched; `heathBrownDichotomyPoly_one_iff`), reached by Arm B: B0 ✓ (the
+parametric T-BAL caps, PR #40) · B1a (the D–H contract at `k = 1`, running) · B2 (a log-free near-1
+zero density by Jutila §2–§3, ruled) · N7 · the row-(iv) tail re-grade.  The `q`-coupling of the
+intermediate is the exponent `k`'s and vanishes iff `k ≤ 1`, so the `k ≤ 1` re-proof is the only
+decoupling route; at `q = 2` the polylog form is vacuously the stronger, so the label carries `q ≥ 3`.
 This file is the wave table for N9: each docstring carries the
 class, the line cap, the red-first idea, and the CONSUMER by Lean name; the freeze brief carries
 the kill→repair ledger, the kill-checks and the price.
