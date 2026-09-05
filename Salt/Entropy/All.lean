@@ -1473,3 +1473,33 @@ twin primes.  19 declarations (2 defs), 17 obligations, 17 landed (one Opus exec
   Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_aff
   Salt.Entropy.Chowla.circle_method_estimate_sq_aff_core
   Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted
+
+/-! ⟦STRIDE PRIZE⟧ — THE PRIZE STATEMENT AT THE CROWN'S FLOOR AND THE COMPOSITION AT A BINDER
+(`StridePrize`, 2026-09-04, math — λ-BV wave 2-S step F5, the RIPE block; frozen statement-only
+18:4x on the helm's 18:38 word, fired 18:5x — ONE Opus executor, 7/7, 6 at one attempt).
+
+`LogChowlaAffSupplyW` is the landed supply demand `LogChowlaAffSupply` (`AffineFork`) with
+`R.Hlo = flatDesignBase A` relaxed to `flatDesignBase A ≤ R.Hlo` — the form the affine crown
+exports; the landed `=` def is untouched.  `gcd_dvd_two_of_coprime` derives the producer's binder
+`gcd(b+h, a) ∣ h` at `(P, r, 2)` from the consumer's own `Nat.Coprime (r·(r+2)) P`, so the two
+consumers re-pointed at the sibling (`zRough_oddOmega_infinite_of_affSupplyW`, `_primorial`) gain
+no binder — the landed proofs with one line changed.  `GradedAffHeadAt a b h A₀` is the affine
+head's conclusion (`log_chowla_aff_of_door_crowned_unslotted`) with the door's grade ceiling
+`ρ ≤ 1/(837782·(ah)²)` re-cut to `ρ ≤ 1/(837782·2^11·(ah)²)` — the shape the head exports once the
+road's envelope `doorRhoOfDelta` carries the `2^11` (the α″ re-cut, ruled by default 19:10) — and
+`log_chowla_aff_composed_of_headG` COMPOSES it: the door at `a·Zr·ρ + E` meets `δ₀` through ONE
+witness `Ra` (`a ≤ 1096` from `log(ah) ≤ 7`; `E ≤ 2^{-61}` at `flatDesignBase A ≥ 2^600` and
+`log ω ≥ 129`), so `¬ logChowlaFailsAff` at the crown's regime; `logChowlaAffSupplyW_of_headG` is
+the stride supply at `a ≥ 2` FROM THAT BINDER.  Nothing here discharges the binder: the supply at
+`a ≥ 2` is still held by nobody until the envelope re-cut lands; the prize when it lands is
+`z`-rough + odd `Ω(n(n+2))` at `z ≤ 7` (Tao Thm 2.3 at one class, NOT almost-primality); nothing
+here bears on twin primes.  9 declarations (2 defs), 7 obligations, 7 landed. -/
+#audit_axioms Salt.Entropy.Chowla.flatDesignBase_ge_pow600
+  Salt.Entropy.Chowla.LogChowlaAffSupplyW
+  Salt.Entropy.Chowla.logChowlaAffSupplyW_of_supply
+  Salt.Entropy.Chowla.gcd_dvd_two_of_coprime
+  Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupplyW
+  Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupplyW_primorial
+  Salt.Entropy.Chowla.GradedAffHeadAt
+  Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG
+  Salt.Entropy.Chowla.logChowlaAffSupplyW_of_headG

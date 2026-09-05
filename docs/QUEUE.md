@@ -674,6 +674,29 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    in this spelling (the helm's K3 word; `Coprime` declined). NEXT: F5 — the grade line (the `≈ 214.4`,
    the six export numerals, the two ε-pin numerals) and the prize statement at `a ≥ 2` carrying
    `hgcd`. Nothing here bears on twin primes.
+   ✅⭐ **WAVE 2-S STEP F5, THE RIPE BLOCK, LANDED — THE PRIZE STATEMENT AT THE CROWN'S FLOOR AND THE
+   COMPOSITION AT A BINDER — STAMPED 2026-09-04 19:1x (math).** Priced 18:3x
+   (`2026-09-04-math-PRICE-lbv-w2S-F5-grade-line.md`: the composition `a·Zr·ρ + E ≤ δ₀` at the landed
+   head is MISSED by exactly `1.020753·a`; the supply's grade is the road's envelope
+   `doorRhoOfDelta (s12DeltaSock δ₀ Kc)`, a literal in 164 declarations' statements — the re-cut is the
+   envelope's DEF by `2^11`, arm α″, RULED BY DEFAULT 19:10 under the Captain's law; its census
+   `2026-09-04-math-CENSUS-doorRhoOfDelta-numeral-walls.md`: 13 numeral walls break, tightest slack
+   0.0249 nats, 27 register antecedents unmeasured — the α″ freeze follows), frozen statement-only 18:4x
+   (`2026-09-04-math-FREEZE-lbv-w2S-F5-ripe.md`), fired 18:5x — ONE Opus executor.
+   `Salt/Entropy/Chowla/StridePrize.lean` on `math/lbv-w2s-f5`: **9 declarations (2 defs), 7 obligations,
+   7 LANDED (6 at one attempt), every theorem `[propext, Classical.choice, Quot.sound]` or less** —
+   `LogChowlaAffSupplyW` (the landed `=` def untouched, its `≤` sibling), `gcd_dvd_two_of_coprime` (`hgcd`
+   from the consumer's `hcop`, no new binder on the prize's consumers), the two consumers re-pointed at
+   one line each, `GradedAffHeadAt` + `log_chowla_aff_composed_of_headG` (ONE witness; `a ≤ 1096`;
+   `E ≤ 2^{-61}` at `flatDesignBase A ≥ 2^600`, `log ω ≥ 129` by the landed `regime_logOmega_ge`) +
+   `logChowlaAffSupplyW_of_headG`. ⛔ **HONEST LABEL:** the composition and the supply are stated AT A
+   BINDER (the graded head's conclusion); nobody holds `LogChowlaAffSupplyW` at `a ≥ 2` until the envelope
+   re-cut lands (13 wall statements + 9 caps re-numeralled, 27 antecedents priced by a build-side probe);
+   the prize when it lands is `z ≤ 7` rough + odd `Ω`, Tao Thm 2.3 at one class. NEXT: the α″ FREEZE on
+   the census (the def; the minimum new numerals `2^591`/`410`/`424`, `2^62`/`43`, `2^72`/`50`; the graded
+   head's `hcrown` spellings + the receipt/crown ceilings by substitution), the helm's refuter pass, the
+   def edit on a REPAIR-THEN-FIRE verdict, then `zRough_oddOmega_infinite_primorial` at `primorial z ≤ 548`.
+   Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
