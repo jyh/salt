@@ -1077,6 +1077,12 @@ so an upper bound on each `C_d` does not discharge it: what that needs is the tw
 `C_d = ν(d)·H + err_d` with `err_d` controlled, and then `∑ μ(d)C_d = W·H + ∑ μ(d)err_d`.  **This
 is the first half of that, not the whole of it** — stated so the gap is visible rather than
 implied.
+
+✅ **DISCHARGED 2026-09-05 — `Salt/TwinBar/TwinParityCount.lean`.**  The two-sided form landed on
+09/03 in the log lane (`abs_class_sub_harmonic_le`, `remLogCount_abs_le`:
+`|C_d − ν(d)·H_N| ≤ 4·ρ(d)`, `TwinParitySieveLog.lean`); `moebius_sum_inv_dvd_ge` composes
+it into `hcount` at `Hmain N = (∑_{d∣P} μν)·H_N − 4·∑_{d∣P} ρ(d)`, and
+`twinLogWeight_support_infinite_of_atom` leaves the direct road ONE hypothesis, `hatom`.
 -/
 
 /-- **The per-class harmonic count, upper.**  For `r < d`, the harmonic sum over one residue class
@@ -1182,6 +1188,9 @@ stated as `0 ≤ … ≤ 2/d` rather than with `|·|`.  The `d`-dependence of th
 The pointwise identity is `(1/d)(1/m) − 1/(dm+r) = r/(dm(dm+r))`, bounded by `1/(d·m²)` using
 `r ≤ d`; the `m`-sum of `1/m²` is the landed `sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`),
 whose range `Icc 1 M` and constant `2` are exactly the ones needed — **reused, not re-derived**.
+
+✅ Consumed 2026-09-03 by `abs_class_sub_harmonic_le` (`TwinParitySieveLog.lean`), the per-class
+two-sided count through which `hcount` is discharged (`TwinParityCount.lean`, 2026-09-05).
 -/
 
 /-- **The affine sum against the harmonic sum, with an ADDITIVE error.**  For `r ≤ d`,
@@ -1435,7 +1444,11 @@ INFINITE.
 ```
 ⛔ **No `BoundingSieve`, no door, no `Btwin`, no level — and still no survivor**, because all three
 inputs are hypotheses. **This is the shape of the prize with its last purely-analytic gap closed;
-what remains is arithmetic that lives elsewhere.** -/
+what remains is arithmetic that lives elsewhere.**
+
+✅ 2026-09-05: `hcount` and `hgrow` are SUPPLIED in `TwinParityCount.lean`
+(`twinLogWeight_support_infinite_of_atom`, from `hatom` alone; `_of_atom_rate` at the source's
+`ε·log N + A` strength); `hatom` remains the campaign object. -/
 theorem twinLogWeight_support_infinite_of_rate {P : ℕ} (hP : Squarefree P) {A c C : ℝ}
     (hc : 0 < c) {Hmain : ℕ → ℝ}
     (hcount : ∀ N : ℕ, Hmain N ≤ ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)

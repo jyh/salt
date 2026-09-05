@@ -298,7 +298,13 @@ Membership: `liouville_shift_two_eq_neg_one_iff` at `m` (`0 < m` from `n ≥ 1`)
 `coprime_twinProd_of_affine`.  The forms `P * n + r + 2` and `m + 2` are syntactically equal.
 
 ⛔ Conditional on `LogChowlaAffSupply P r 2`, which has NO producer at `P ≥ 2` (wave 2-S).
-NOT almost-primality; nothing toward twin primes by itself. -/
+NOT almost-primality; nothing toward twin primes by itself.
+
+📌 DOMINATED (2026-09-05): its `≤`-sibling `zRough_oddOmega_infinite_of_affSupplyW`
+(`StridePrize.lean`) takes `LogChowlaAffSupplyW`, which the graded lane PRODUCES
+(`logChowlaAffSupplyW_holds`, `StrideGradeReceipt.lean`, at `primorial z ≤ 548`); this `=`-form
+has no `a ≥ 2` producer and is unreachable from the crown's `≤` export (F4a finding F-3).  Kept
+as the record of the shape. -/
 theorem zRough_oddOmega_infinite_of_affSupply {P r : ℕ} (hP : 0 < P)
     (hcop : Nat.Coprime (r * (r + 2)) P) (hsup : LogChowlaAffSupply P r 2) :
     {n : ℕ | Nat.Coprime (n * (n + 2)) P
@@ -331,7 +337,11 @@ theorem zRough_oddOmega_infinite_of_affSupply {P r : ℕ} (hP : 0 < P)
 `n` with `n(n+2)` `z`-rough and `Ω(n(n+2))` odd" — §7 verdict 3's honest statement, and
 `exists_admissible_class` supplies an `r` for every `z`.  ⛔ Still CONDITIONAL on the stride
 supply at `(primorial z, r, 2)`, held by nobody; at `z ≤ 1` (`primorial z = 1`) it is the
-unconditional `Salt.MR.oddOmega_twinProd_infinite`. -/
+unconditional `Salt.MR.oddOmega_twinProd_infinite`.
+
+📌 DOMINATED (2026-09-05) by `zRough_oddOmega_infinite_of_affSupplyW_primorial`
+(`StridePrize.lean`), discharged UNCONDITIONALLY at `primorial z ≤ 548` as
+`zRough_oddOmega_infinite_primorial` (`StrideGradeReceipt.lean`). -/
 theorem zRough_oddOmega_infinite_of_affSupply_primorial {z r : ℕ}
     (hcop : Nat.Coprime (r * (r + 2)) (primorial z))
     (hsup : LogChowlaAffSupply (primorial z) r 2) :

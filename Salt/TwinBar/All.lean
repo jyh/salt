@@ -33,6 +33,7 @@ import Salt.TwinBar.TwistedSieve
 import Salt.TwinBar.Separation
 import Salt.TwinBar.TwinParitySieve
 import Salt.TwinBar.TwinParitySieveLog
+import Salt.TwinBar.TwinParityCount
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -728,3 +729,28 @@ open Salt.Tactic in
   Salt.TwinBar.twinParitySieveLog_siftedSum_lower
   Salt.TwinBar.twinParitySieveLog_siftedSum_eq
   Salt.TwinBar.twinParitySieveLog_support_infinite
+
+/-! ### ⟦λ-BV (E) P1 FILL — THE `hcount` DISCHARGE⟧ (`TwinParityCount`, 2026-09-05).
+
+Council 09/05 item 3 fired the scout's option (E).  The direct road's `hcount` — the sifted
+harmonic count `Hmain N ≤ ∑_{d∣P} μ(d)·∑_{n ≤ N, d∣n(n+2)} 1/n` — is supplied at
+`Hmain N := (∑_{d∣P} μν)·H_N − 4·∑_{d∣P} ρ(d)` (`moebius_sum_inv_dvd_ge`), composed from the LOG
+LANE's landed per-class estimate (`remLogCount_abs_le` above: `|Clog N d − ν(d)·H_N| ≤ 4·ρ(d)`,
+and `Clog N d` IS the direct road's `C_d`) with `|μ| ≤ 1`; `0 < ∑ μν` is the landed `W` identity +
+`W_pos`; `log N ≤ H_N` bridges to the growth rate.  The terminal
+`twinLogWeight_support_infinite_of_atom` takes `hatom` ALONE; its sibling `_of_atom_rate` takes
+`hatom` at the SOURCE's strength (`|atom N| ≤ ε·log N + A`, `ε < W`) — the landed uniform `≤ A`
+over-demanded what Tao's two-point theorem and the corpus's own spine supply.
+
+📌 The record: a first freeze carried nine names, five re-deriving at `log N` what this lane had
+landed at `H_N` two days earlier; re-cut to five before any proof was paid.  Find first.
+
+⛔ **Honest label:** no new unconditional theorem; `hatom` remains the one object on the direct
+road (fixed `z`: Tao Thm 1.2's quantifier; growing `z`: binder C, held by nobody).  Nothing bears
+on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.log_natCast_le_sum_inv_Icc
+  Salt.TwinBar.moebius_sum_inv_dvd_ge
+  Salt.TwinBar.sum_divisors_moebius_twinNu_pos
+  Salt.TwinBar.twinLogWeight_support_infinite_of_atom
+  Salt.TwinBar.twinLogWeight_support_infinite_of_atom_rate
