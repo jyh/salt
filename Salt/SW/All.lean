@@ -101,6 +101,7 @@ import Salt.SW.Kernel2
 import Salt.SW.CoprimeHarmonic
 import Salt.SW.PseudoChar
 import Salt.SW.PseudoCharEuler
+import Salt.SW.JutilaDetector
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -599,3 +600,71 @@ open Salt.Tactic in
   Salt.SW.LSeries_jutila_coeff_eq
   Salt.SW.LSeriesSummable_jutila_coeff
   Salt.SW.LSeries_jutila_coeff_sum_eq
+
+-- ⟦B2 W7 0905⟧ `Salt/SW/JutilaDetector.lean` — Jutila's LEMMA 6 (L6), whole: the DETECTED
+-- Dirichlet polynomial `g(s,χ)`, its Mellin form, THE CONTOUR NODE, and the floor at a zero.
+-- (i) the two-level weight's uniform bound `|λ_d| ≤ 1` and Lemma 6's opening split — the `n = 1`
+-- term `K(1/x)·Σ'_r r⁻¹` plus the detector, on `1 ≤ x`; (ii) the sizes on the strip
+-- `Re s ≥ 1/2`: the local factor `≤ t^{3/2}` (`t ≠ 0` load-bearing), `Σ_{d ≤ z₂} d^{−1/2} ≤ 2√z₂`
+-- re-derived here because `GrahamHard2`'s is PRIVATE, and `‖M(s)‖ ≤ 2√z₂·R^{3/2}`; (iii) W4's
+-- `r`-summed (2.2) instantiated at W6a's weight, and the ONE vertical integral on `Re w = c > 0`
+-- with `1 < β + c` (`kernel_sum_swap_2`, `riesz_tsum_eq`, the unconditional L-series shift);
+-- (iv) THE CONTOUR NODE — `φ(w) = w·F(w)` is holomorphic on `Re w > −1` with `φ(0) = 0` at a
+-- zero, so `F` IS `dslope φ 0` off `0` and the landed `rectBI_dslope_eq_zero` closes the tall
+-- rectangle; the horizontal edges vanish like `T'^{−2}` against `LFunction_growth`, the two
+-- verticals become improper integrals by `intervalIntegral_tendsto_integral`, and
+-- `tendsto_nhds_unique` shifts `Re w = 2 − β` to `Re w = 1/2 − β`; (v) `∫(m²+t²)^{−3/2} ≤ π/m²`,
+-- `∫|t|(m²+t²)^{−3/2} ≤ π/m` and the (2.8) bound
+-- `E = 25(T + 2)√q(1 + log q)√z₂ R^{3/2} x^{1/2−β}` at `m = 59/120`; (vi) the floor (2.10) by the
+-- reverse triangle inequality against W2's uniform L5; (vii) F5's corollary at the corrected
+-- table `(ε, b, a₁, a₂, c) = (1/120, 1/10, 3, 7/2, 13/2)` with `D = qT ≥ 10²⁰`, through
+-- `q/φ(q) ≤ ω(q) + 1 ≤ log q/log 2 + 1` (the trivial `φ(q) ≥ 1` does NOT close it) and the
+-- linearisation `5625·u ≤ e^{(71/240)u}` for `u ≥ log 10²⁰`. `ζ` never enters and no
+-- `vonMangoldt` is formed; `E` is Pólya–Vinogradov-grade, WEAKER than convexity, and the
+-- exponent table absorbs the loss with slack `D^{−71/240}`. The two `example`s in the file are
+-- the exit rows: the split at `(1, 2, 3, 1, 2, 2)` and the F5 numeral at the threshold. Forty-four
+-- `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.abs_bvWeight_le_one
+  Salt.SW.abs_sum_bvWeight_divisors_le_card
+  Salt.SW.jutilaCoeff_zero
+  Salt.SW.jutilaCoeff_one
+  Salt.SW.jutilaCoeff_eq_zero_of_le
+  Salt.SW.jutilaFull_eq_add_detector
+  Salt.SW.norm_jutilaLocal_selbergPsi_le
+  Salt.SW.sum_Icc_rpow_neg_half_le
+  Salt.SW.norm_jutilaM_selbergPsi_le
+  Salt.SW.sum_rFilter_inv_mul_rpow_le
+  Salt.SW.norm_jutilaMollifier_le
+  Salt.SW.norm_jutilaCoeff_le
+  Salt.SW.LSeriesSummable_jutilaCoeff
+  Salt.SW.LSeries_jutilaCoeff_eq
+  Salt.SW.LSeries_mul_natCast_cpow_neg
+  Salt.SW.summable_jutilaCoeff_kernel
+  Salt.SW.jutilaFull_eq_tsum
+  Salt.SW.jutilaFull_mellin
+  Salt.SW.jutilaDetector_mellin
+  Salt.SW.jutilaMollifier_differentiable
+  Salt.SW.jutilaPhi_differentiableOn
+  Salt.SW.jutilaPhi_zero
+  Salt.SW.dslope_jutilaPhi_eq
+  Salt.SW.rectBI_dslope_jutilaPhi_eq_zero
+  Salt.SW.norm_jutilaIntegrand_le
+  Salt.SW.norm_inv_denom2_le_abs_im_cube
+  Salt.SW.norm_integral_jutilaIntegrand_edge_le
+  Salt.SW.norm_inv_denom2_cubic_le_of_min
+  Salt.SW.integrable_inv_sq_add_sq_rpow
+  Salt.SW.integrable_abs_mul_inv_sq_add_sq_rpow
+  Salt.SW.integrable_jutilaIntegrand_line
+  Salt.SW.integral_jutilaIntegrand_shift
+  Salt.SW.integral_inv_sq_add_sq
+  Salt.SW.integral_inv_sq_add_sq_rpow_le
+  Salt.SW.integral_abs_mul_inv_sq_add_sq_rpow_le
+  Salt.SW.norm_jutilaFull_le
+  Salt.SW.jutilaDetector_floor_at_zero
+  Salt.SW.div_totient_le_card_primeFactors_add_one
+  Salt.SW.card_primeFactors_le_log_div_log_two
+  Salt.SW.inv_log_le_totient_div
+  Salt.SW.f5_error_bound
+  Salt.SW.f5_exp_dominates
+  Salt.SW.f5_error_le_main
+  Salt.SW.jutilaDetector_floor_F5
