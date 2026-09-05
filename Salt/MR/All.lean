@@ -9783,3 +9783,15 @@ the crown's regime, its door at grade `a·Zr·ρ + E`, and the entropy half `∀
 longer conditional on a slot; nothing here bears on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.log_chowla_aff_of_door_crowned_unslotted
+
+/-! ⟦STRIDE GRADE LANE — β, AUDIT DEFERRED⟧ (`StrideGradeWalls` · `StridePairReceiptG` ·
+`StrideGradeReceipt`, 2026-09-04, math — λ-BV wave 2-S step F5 β, the graded SIBLING lane by
+substitution; frozen statement-only 20:1x, the helm's refuter verdict 20:41 REPAIR-THEN-FIRE, v1.1
+cut at the freeze).  THIRTY-FIVE MR names enter this aggregate by the three import lines above
+UNAUDITED at the freeze — ⟦STRIDE GRADE WALLS⟧ 14 · ⟦STRIDE PAIR RECEIPT G⟧ 18 (7 defs + 11) ·
+⟦STRIDE GRADE RECEIPT⟧ 3 — beside TWO Entropy names (⟦STRIDE SHELL G⟧, `Salt.Entropy.All`): 27 of
+the 37 carry `sorryAx` at the freeze and `#audit_axioms` throws on it, so the rows CANNOT precede
+the landing.  ⛔ MERGE FENCE (iron rule 2): the 35 rows land HERE, replacing this marker, WITH the
+wave — in the same commit as the last `sorry`, every name at `[propext, Classical.choice,
+Quot.sound]` or less; the landing exit test (freeze §7) names them, and a green aggregate WITHOUT
+those rows has audited nothing new.  Nothing here bears on twin primes. -/

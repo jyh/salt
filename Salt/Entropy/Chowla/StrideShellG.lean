@@ -14,11 +14,13 @@ under an `∃` the door and the entropy half compose only through the SAME witne
 finer grade must enter the head through its binder and leave through its conclusion — this file
 is the landed head with `837782 ↦ 837782 · 2^11` in EXACTLY those two places (the `hcrown` binder
 and the conclusion; the entropy half's own pin `1/(838400·(ah)²) ≤ δ₀_aff` is the HEAD's demand
-and does not move).  The head's proof never reads the ceiling: the crown's `hρle` is obtained and
-re-packaged untouched (`StrideShell.lean:547-549`, `:632-634`), so the body is the landed body
-VERBATIM.  Its conclusion is `GradedAffHeadAt a b h A₀` (`StridePrize.lean:166`) byte for byte —
-the MR one-liner `StrideGradeReceipt.log_chowla_aff_of_door_crowned_unslotted_g` checks that
-identity in the kernel by `unfold GradedAffHeadAt; exact …`.
+and does not move).  The head's proof never reads the ceiling: the crown's `hρle` is obtained
+(`StrideShell.lean:501`, the `obtain … hρle …` from `hcrown A₀'`) and re-packaged untouched
+(`:581`, the `refine` package) — `grep -n 837782` on the landed file hits :452 and :461 only —
+so the body is the landed body VERBATIM.  Its conclusion is `GradedAffHeadAt a b h A₀`
+(`StridePrize.lean:166`) byte for byte — the MR one-liner
+`StrideGradeReceipt.log_chowla_aff_of_door_crowned_unslotted_g` checks that identity in the kernel
+by `unfold GradedAffHeadAt; exact …`.
 
 HONEST LABEL.  Two declarations; nothing new is proved about the entropy half, which is the
 landed one.  Statement-only at the freeze (the head's body is a verbatim copy for the executor;
@@ -42,9 +44,9 @@ set_option maxHeartbeats 1600000 in
 /-- **F5-β-S3 (class C by size, mechanically A — a verbatim copy) — `log_chowla_aff_of_door_g`.**
 `log_chowla_aff_of_door` (`StrideShell.lean:433-468`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
 ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` at source lines 452 (the `hcrown` binder) and
-461 (the conclusion).  BODY: `StrideShell.lean:469-649` VERBATIM — `hρle` is obtained at the
-crown (`:547-549`) and re-packaged at `:632-634`; no other line mentions `ρ`'s ceiling; the
-`maxHeartbeats 1600000` is the landed head's. -/
+461 (the conclusion).  BODY: `StrideShell.lean:469-649` VERBATIM — `hρle` is obtained from
+`hcrown A₀'` (`:501`, the `obtain`) and re-packaged in the `refine` (`:581`); no other line
+mentions `ρ`'s ceiling; the `maxHeartbeats 1600000` is the landed head's. -/
 theorem log_chowla_aff_of_door_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (_hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7)
     (hcm : ∃ C : ℝ, 0 < C ∧ C ≤ (h : ℝ) * (1 + 2 * (2 * Real.log 4)) ∧

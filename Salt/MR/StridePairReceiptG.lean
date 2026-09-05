@@ -45,7 +45,9 @@ HONEST LABEL.  A second terminal that the crown alone reads: the landed lane kee
 `h`-prize at `1/(837782·h²)`, this lane serves the affine composition at `1/(837782·2^11·h²)`.
 The price is `+7.62` nats on every `ρ`-charge (`403 + 2·log h ≤ 417` becomes `411 + 2·log h ≤
 425`) against cap lines with `≥ 449×` of room and one binding window line with `4·10⁻⁴·e^{3.2A}`
-of room; the door itself gets 2048× finer for free through `_mono`.  Statement-only at the
+of room; the door itself gets 2048× finer through the MINT (the door-head's `δ₀ ↦ δ₀/2^11`, then
+`le_trans hρ hδ₀le`) at exactly that `+7.62` nats — `mrtUniformityXiL2AffW_mono` carries the
+GRADE `a·Zr·ρ + E`, not the ceiling.  Statement-only at the
 freeze; NO executor fires before the helm's refuter verdict.  ⛔ MERGE FENCE (iron rule 2).
 Nothing here bears on twin primes: the prize this lane feeds (`StrideGradeReceipt`) is `z`-rough
 + odd `Ω(n(n+2))` at `primorial z ≤ 548`, Tao Thm 2.3 at one class, nothing on the apex.
@@ -396,15 +398,15 @@ def MRTDoorReceiptSetG (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
 
 /-- **⟦THE DOOR-HEAD, GRADED⟧ (class B).** Statement: `flat_door_head_xceil_h` (:1881) at
 `FlatHeadFormHG … (MRTDoorReceiptSetG h Xi)` . BODY: :1886-1968 VERBATIM with the mint moved by
-`2^11` : the witness `cD3 / (16 * C) * (ε : ℝ) / 4` (:1946) ↦
-`cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11` (its positivity gains one `div_pos … (by positivity)` );
-`hval` (:1913-1917) gains `/ 2 ^ 11` on the left and `* 2 ^ 11` inside the right denominator
-(`field_simp; ring` unchanged); `hδ₀ge` (:1920-1924) at `838400 * 2 ^ 11` with the same
-`hnum : 128000 * (1 + 8 * log 2) ≤ 838400` and `nlinarith [hnum, hsq0]` now multiplying through
-`2 ^ 11` (state `hnum'` at `× 2 ^ 11` if `nlinarith` needs the product); `hδ₀le` (:1925-1929) at
-`837782 * 2 ^ 11` likewise; the discharge `le_trans hρ hδ₀le` (:1971) unchanged. The regime build,
-the count hook, the hoist and the cap read NO `δ₀` . ⟦SUBSTITUTED LINES⟧ source none (names only).
--/
+`2^11` (sites anchored by `have`-name; line numbers at `main 9a2b3053`): the witness
+`cD3 / (16 * C) * (ε : ℝ) / 4` in the `refine` (:1937) ↦ `cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11`
+(its positivity at :1938 gains one `div_pos … (by positivity)` ); `hval` (:1914-1918) gains
+`/ 2 ^ 11` on the left and `* 2 ^ 11` inside the right denominator (`field_simp; ring` unchanged);
+`hδ₀ge` (:1920-1924) at `838400 * 2 ^ 11` with the same `hnum : 128000 * (1 + 8 * log 2) ≤ 838400`
+and `nlinarith [hnum, hsq0]` now multiplying through `2 ^ 11` (state `hnum'` at `× 2 ^ 11` if
+`nlinarith` needs the product); `hδ₀le` (:1925-1929) at `837782 * 2 ^ 11` likewise; the discharge
+`le_trans hρ hδ₀le` (:1968, the body's last line) unchanged. The regime build, the count hook, the
+hoist and the cap read NO `δ₀` . ⟦SUBSTITUTED LINES⟧ source none (names only). -/
 theorem flat_door_head_xceil_h_g (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
     (Xi : XiFamily)
     (hcount : ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →

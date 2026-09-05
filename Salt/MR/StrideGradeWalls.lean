@@ -52,19 +52,21 @@ namespace Salt.MR
 /-! ## §1 — THE CHARGE CHAIN AT THE GRADED PIN (`S16Budget.lean:990-1047`'s three walls) -/
 
 /-- **⟦W15 TWIN⟧ (class B)** — `s16_audit_rho_ge_wide_h` (`S16Budget.lean:990`) with `2 ^ 20 ↦
-2 ^ 31` in `hδb` and `2 ^ 581 ↦ 2 ^ 592` in the conclusion.  BODY: `:1001-1021` verbatim with
-`2 ^ 581 ↦ 2 ^ 592` at `hkey` and `hsplit1` and `2 ^ 20 ↦ 2 ^ 31` at `hkey` and `hsplit2`; the
-`nlinarith [hKb, hK]` closing `hkey` compares `1768400 = 16·110525` against `2^592/(2^539·2^31)
-= 2^22` — the SAME margin as landed (`2^581/(2^539·2^20) = 2^22`), ×2.37. -/
+2 ^ 31` in `hδb` and `2 ^ 581 ↦ 2 ^ 592` in the conclusion.  BODY: `S16Budget.lean:993-1015`
+verbatim — from `hh1` through the `min 1` branch (`rw [doorRhoOfDelta, le_min_iff]`,
+`refine ⟨?_, ?_⟩`) to the closing `exact hδb` — with `2 ^ 581 ↦ 2 ^ 592` at `hkey` and `hsplit1`
+and `2 ^ 20 ↦ 2 ^ 31` at `hkey` and `hsplit2`; the `nlinarith [hKb, hK]` closing `hkey` compares
+`1768400 = 16·110525` against `2^592/(2^539·2^31) = 2^22` — the SAME margin as landed
+(`2^581/(2^539·2^20) = 2^22`), ×2.37. -/
 theorem s16_audit_rho_ge_wide_h_g {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
     (hδb : 1 / (2 ^ 31 * (h : ℝ) ^ 2) ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
     (1 : ℝ) / (2 ^ 592 * (h : ℝ) ^ 2) ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
   sorry
 
 /-- **⟦W16 TWIN⟧ (class A)** — `s16_audit_neglog_rho_le_wide_h` (`S16Budget.lean:1023`) at `2 ^ 31`
-and `411 + 2·log h`.  BODY: `:1026-1041` verbatim with `s16_audit_rho_ge_wide_h_g`, `2 ^ 581 ↦
-2 ^ 592` (`hpos`, `h1`, `h2` ×2), `581 ↦ 592` in `h2`'s normal form; the closing `linarith` has
-`411 − 592·0.6931471808 = 0.657` nats. -/
+and `411 + 2·log h`.  BODY: `S16Budget.lean:1026-1038` verbatim (`hh0` … the closing `linarith`)
+with `s16_audit_rho_ge_wide_h_g` at `hge`, `2 ^ 581 ↦ 2 ^ 592` (`hpos`, `h1`, `h2` ×2), `581 ↦
+592` in `h2`'s normal form; the closing `linarith` has `411 − 592·0.6931471808 = 0.657` nats. -/
 theorem s16_audit_neglog_rho_le_wide_h_g {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀)
     (hK : 0 < K) (hδb : 1 / (2 ^ 31 * (h : ℝ) ^ 2) ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
     -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 411 + 2 * Real.log (h : ℝ) := by
@@ -83,7 +85,8 @@ theorem s16_audit_neglog_rho_le_425_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h 
 (`S15SelLinearWide.lean:82-160`; hypothesis weakenings, bodies verbatim) -/
 
 /-- **⟦THE WINDOW LINE AT `425`⟧ (class A)** — `flat_half_line` (`S15SelLinearWide.lean:101`) with
-`hc : c ≤ 417 ↦ c ≤ 425`.  BODY: `:102-121` verbatim; the closing `linarith [hsq, hE2, hc]` pays
+`hc : c ≤ 417 ↦ c ≤ 425`.  BODY: `S15SelLinearWide.lean:104-121` verbatim (`hE17` … the closing
+`linarith [hsq, hE2, hc]`); that `linarith` pays
 `3·8 = 24` more against `4.1·10⁻⁴·e^{3.2A}` (`≥ 5·10³²` at `A ≥ 26`).  THE BINDING LINE of the
 lane (`M` sits at its ceiling by design). -/
 theorem flat_half_line_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
@@ -92,14 +95,16 @@ theorem flat_half_line_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
   sorry
 
 /-- **⟦THE `anchor` LINE AT `425`, DOUBLED `Λ` SLOT⟧ (class A)** — `flat_anchor_line_wide`
-(`S15SelLinearWide.lean:91`) with `hc : c ≤ 425`.  BODY: `:92-96` verbatim (`449×`). -/
+(`S15SelLinearWide.lean:91`) with `hc : c ≤ 425`.  BODY: `:94-96` verbatim (`hE17`, `hMge`,
+`linarith`; `449×`). -/
 theorem flat_anchor_line_wide_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
     14 * (2 * Real.exp (3.2 * A / 2)) + c + 33
       ≤ 39 * 10 ^ 8 * ((flatDoorM A : ℕ) : ℝ) := by
   sorry
 
 /-- **⟦THE `𝒯`-LEG BUDGET AT `−425`⟧ (class A)** — `flat_gP1_line` (`S15SelLinearWide.lean:127`)
-with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:130-149` verbatim (`≈5.5·10³×`). -/
+with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:131-148` verbatim (`hE17` … `rw [AdoorL_cast]; linarith`;
+`≈5.5·10³×`). -/
 theorem flat_gP1_line_g {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -425 ≤ c) (hCt : 0 < Ct)
     (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
     29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c := by
@@ -120,10 +125,13 @@ theorem flat_lvl_line_g {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425)
 
 /-- **⟦THE REGISTER AT THE FLAT DESIGN POINT, CHARGE-GENERIC, AT `425`⟧ (class B)** —
 `s15_sel''_L_witness_flat_charge` (`S15SelLinearWide.lean:219`) with `hρlog : -log ρ ≤ 417 ↦ ≤
-425`.  BODY: `:232-249` verbatim with the four `_g` lines (`flat_half_line_g`,
-`flat_anchor_line_wide_g`, `flat_gP1_line_g`, `flat_lvl_line_g`); the six `ρ`-free lines are read
-off the same dummy narrow instance; the `rho` field (`−log ρ ≤ 10^14`) closes by `linarith
-[hρlog]` as landed. -/
+425`.  BODY: `S15SelLinearWide.lean:231-254` verbatim — `hbase := s15_sel''_L_witness_flat …` at
+the FROZEN dummy literals `δ₀ := 1/2^10`, `K := 1` (:231-233; that call reaches the narrow walls
+`s15w_rho_ge`/`s15w_neglog_rho_le` at those literals, which β never moves — only the six `ρ`-free
+fields `hM`/`gRows`/`x0M`/`blk` (+ `mfloor`/`bfloor` supplied here) are read off it), `hinv`, and
+the `refine` package (:235-254) with the four `_g` lines (`flat_half_line_g`,
+`flat_anchor_line_wide_g`, `flat_gP1_line_g`, `flat_lvl_line_g`) at `half`/`anchor`/`gP1`/`lvl`;
+the `rho` field (`−log ρ ≤ 10^14`) closes by `linarith [hρlog]` as landed. -/
 theorem s15_sel''_L_witness_flat_charge_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct ρ : ℝ}
     {x₀ Mfl c : ℕ} {R : ChowlaRegime} (hc1 : 1 ≤ c) (hcb : c ≤ 1096)
     (hρlog : -Real.log ρ ≤ 425)
@@ -179,7 +187,7 @@ theorem s15_sel''_L_gk_witness_flat_wide_g {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ
   sorry
 
 /-! ## §4 — THE BUMP AND THE BUMPED SELECTOR AT THE GRADED PIN (`FlatFloorBump.lean:127-152`,
-`HSeamCheck.lean:87-102`) -/
+`HSeamCheck.lean:92-104`) -/
 
 /-- **⟦BUMP 1 AT THE GRADED PIN⟧ (class B)** — `flatDoorM_bfloor_bump` (`FlatFloorBump.lean:127`)
 with `hδb : 1/(838400·c²) ≤ δ₀ ↦ 1/(838400·2^11·c²) ≤ δ₀`.  BODY: `:131-152` verbatim with
@@ -194,13 +202,13 @@ theorem flatDoorM_bfloor_bump_g {A Cg δ₀ : ℝ} {c : ℕ} (hc1 : 1 ≤ c) (hc
   sorry
 
 /-- **⟦THE BUMPED WINDOWED SELECTOR AT SHIFT `h`, GRADED⟧ (class A)** — the name the graded H3→H4
-replay calls in place of `s15_sel''_L_gk_witness_flat_bumped_win_h` (`HSeamCheck.lean:87`,
+replay calls in place of `s15_sel''_L_gk_witness_flat_bumped_win_h` (`HSeamCheck.lean:92`,
 signature identical, `hδb` at `838400 * 2 ^ 11`).  BODY (`FlatFloorBump.lean:353-376`'s
 `_bumped_win` at `c := h`, folded): `s15_sel''_L_gk_witness_flat_wide_g (flat162_ge_26 hA) Klev
 hKle hh (h_le_1096_of_hh7 hh hh7) hh7 hδ ⟨the bridge⟩ hK hKb hCt hCtb (flatDoorM_bfloor_bump_g hh
 (h_le_1096_of_hh7 hh hh7) hA hδ hδb hCg) hMfl hx0win heps hlo hhi`, where ⟨the bridge⟩ is
 `1/(2^31·h²) ≤ 1/(838400·2^11·h²) ≤ δ₀` by `div_le_div_iff₀` + `nlinarith [h1]` exactly as at
-`:369-371` (`838400·2048 = 1717043200 ≤ 2^31`). -/
+`FlatFloorBump.lean:372-373` (`h1 : 0 < c²` at :369-371; `838400·2048 = 1717043200 ≤ 2^31`). -/
 theorem s15_sel''_L_gk_witness_flat_bumped_win_h_g {A : ℝ} (hA : 162 ≤ A) (Klev : ℕ)
     (hKle : Klev ≤ 170000000 * flatDoorM A) {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -220,13 +228,25 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_h_g {A : ℝ} (hA : 162 ≤ A) (K
 /-- **⟦THE ARM, PRICED, AT A `c`-CEILING THAT ADMITS `2^11·h²`⟧ (class B)** —
 `s15Arm_log_le_scaled` (`XThread.lean:345`) with `hcb : c ≤ 1201216 ↦ c ≤ 2460090368` and
 `hlogc : log c ≤ 14 ↦ ≤ 22`; conclusion unchanged.  ⛔ The landed lemma CANNOT be reused at
-`c = 2^11·h²`: both binders fail (`log(2^11·1201216) = 21.62`).  BODY: `:353-533` verbatim with
-FOUR numerals moved — `hρlog : … ≤ 417 ↦ ≤ 425` (`:359-360`, `xt_log_inv_rho_le_scaled`'s `403 +
-log c ≤ 403 + 22`); `hceil1`'s `128 * 838400 * 1201216 ↦ 128 * 838400 * 2460090368` (three sites,
-`:426-437`, incl. `hpin'`); `hHhibig : 13 * 10 ^ 13 ↦ 27 * 10 ^ 16 ≤ Hhi` (`:453`, still from `u ≥
-1.8·10²¹`); `hfac`/`hstep`'s `13 * 10 ^ 13 ↦ 27 * 10 ^ 16` (`:472-499`, four sites;
-`128·838400·2460090368 = 2.6401·10¹⁷ ≤ 2.7·10¹⁷`).  `hE : E ≤ L/2` closes by the same `nlinarith
-[hρlog, hΛv, hvv, hv]` (`7000·2(v−1) + 212500 + 6600 ≤ v²/2` at `v ≥ 6·10¹⁰`). -/
+`c = 2^11·h²`: both binders fail (`log(2^11·1201216) = 21.62`).  ⚠ `2460090368 = 2^11·1096²`
+EXACTLY — the `c`-ceiling has ZERO margin; it is safe only because its sole supplier (`h ≤ 1096`
+in `s15ArmH_log_le_g`) is itself the exact `⌊e^7⌋` bound, and a raise of `h`'s cap re-cuts it.
+BODY: `XThread.lean:351-534` verbatim — from `have hc0 : 0 < c` and `set ρ := …` (:351-352) to
+the closing `linarith [hlog, hprod, hω1, hclose]` (:534) — with NINE numeral sites moved in THREE
+families, each anchored by its `have`-name (the line numbers are at `main 9a2b3053`):
+  · `hρlog : log(1/ρ) ≤ 417 ↦ ≤ 425` (:355-356; `xt_log_inv_rho_le_scaled` gives `403 + log c`
+    and `hlogc` gives `log c ≤ 22`);
+  · EVERY `1201216 ↦ 2460090368` — FOUR sites: `hceil1`'s statement (:421), `hdiv` (:425),
+    `hpin'` (:427), and `hstep`'s LHS (:472).  ⛔ The fourth is not optional: with :472 left at
+    `1201216` the `linarith [hceil1, hceil2, hstep, hmul]` at :482 is unclosable
+    (`2.64·10¹⁷·ω ≤ 1.29·10¹⁴·ω` is false for `ω ≥ 1`);
+  · `13 * 10 ^ 13 ↦ 27 * 10 ^ 16` — FIVE sites: `hHhibig` (:441, still from `u ≥ 1.8·10²¹`),
+    `hfac` (:457), `h2` (:463), `hstep`'s RHS (:474), `hmul` (:477);
+    `128·838400·2460090368 = 2.6401·10¹⁷ ≤ 2.7·10¹⁷` (2.27 %).
+`hE : E ≤ L/2` closes by the same `nlinarith [hρlog, hΛv, hvv, hv]` (`7000·2(v−1) + 212500 +
+6600 ≤ v²/2` at `v ≥ 6·10¹⁰`).  ⛔ THE CONTROL (K5, the executor RECORDS it before landing this
+name): with `hcb`/`hlogc` at the new ceiling and `hstep`'s `13 * 10 ^ 13` LEFT LANDED, `hstep`
+must FAIL (`128·838400·2460090368 = 2.64·10¹⁷ > 1.3·10¹⁴`, a factor 2048). -/
 theorem s15Arm_log_le_scaled_g {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 2460090368)
     (hlogc : Real.log c ≤ 22) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
     (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
@@ -237,7 +257,9 @@ theorem s15Arm_log_le_scaled_g {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 2
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED⟧ (class A)** — `s15ArmH_log_le` (`S16ProducersH.lean:793`)
 with `hδpin` at `838400 * 2 ^ 11`; conclusion unchanged — the name the graded H2→H3 replay calls.
-BODY: `:802-830` verbatim with `hcb : (2 ^ 11 : ℝ) * h² ≤ 2460090368` (from `h ≤ 1096`),
+BODY: `S16ProducersH.lean:799-828` verbatim (`hh1R` … the closing `linarith`) with `hcb : (2 ^ 11
+: ℝ) * h² ≤ 2460090368` (from `h1096 : h ≤ 1096`; ⚠ EXACT — `2^11·1096² = 2460090368`, zero
+margin, safe only because `h_le_1096_of_hh7` is itself the exact `⌊e^7⌋` bound),
 `hlogc : log (2 ^ 11 * h²) ≤ 22` (`Real.log_mul`, `Real.log_pow` twice, `11·log 2 < 7.6247`,
 `2·log h ≤ 14`), `hδpin' : 1 / (838400 * (2 ^ 11 * h²)) ≤ δ₀` by `rw [← mul_assoc]` from `hδpin`,
 `hc1 : 1 ≤ 2 ^ 11 * h²`, and `hbase := s15Arm_log_le_scaled_g hc1 hcb hlogc hδ₀ hδpin' hKc hKcb

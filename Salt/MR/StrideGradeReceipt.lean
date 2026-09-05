@@ -12,8 +12,9 @@ F4b-N11b one-liner at the graded names — and its conclusion IS `GradedAffHeadA
 (`StridePrize.lean:166`): the binder F5-C (`log_chowla_aff_composed_of_headG`) composes at.  Then
 `logChowlaAffSupplyW_holds` is F5-S at that discharge — the stride supply at `a ≥ 2` that
 `AffineFork.lean:96` records as held by nobody — and `zRough_oddOmega_infinite_primorial` is the
-UNCONDITIONAL prize: for every `z` with `primorial z ≤ 548` (`z ≤ 10`; `primorial 8 = primorial 9 =
-primorial 10 = 210` — the gate is on the primorial, never on `z`) and every admissible class
+prize, UNCONDITIONAL once the 27 land (statement-only at this freeze): for every `z` with
+`primorial z ≤ 548` (`z ≤ 10`; `primorial 8 = primorial 9 = primorial 10 = 210` — the gate is on the
+primorial, never on `z`) and every admissible class
 `r < primorial z` with `gcd(r(r+2), primorial z) = 1`, infinitely many `n` with `n(n+2)` `z`-rough
 and `Ω(n(n+2))` odd — Tao Thm 2.3's consequence at one class, NOT almost-primality.
 
@@ -38,7 +39,7 @@ open Salt.Entropy.Chowla
 
 /-- **F5-β-S6 (class A, LANDED AT THE FREEZE) — the graded crown fed into the graded unslotted head,
 concluding `GradedAffHeadAt`.**  `log_chowla_aff_of_door_crowned_unslotted`
-(`StrideEntropyReceipt.lean:73`) at the graded names: `unfold GradedAffHeadAt; exact
+(`StrideEntropyReceipt.lean:74`) at the graded names: `unfold GradedAffHeadAt; exact
 log_chowla_aff_of_door_unslotted_g a b h ha hh hba hgcd hah7 (fun A₀' =>
 mrtUniformityXiL2AffW_holds_flat_stride_g a b h ha hh hba hah7 A₀') A₀`.  The `unfold` is the
 K-check: `GradedAffHeadAt`'s body must be the graded head's conclusion byte for byte. -/
@@ -51,7 +52,7 @@ theorem log_chowla_aff_of_door_crowned_unslotted_g (a b h : ℕ) (ha : 0 < a) (h
     (fun A₀' => mrtUniformityXiL2AffW_holds_flat_stride_g a b h ha hh hba hah7 A₀') A₀
 
 /-- **F5-β-S (class A, LANDED AT THE FREEZE) — THE STRIDE SUPPLY AT `a ≥ 2`.**  F5-S
-(`logChowlaAffSupplyW_of_headG`, `StridePrize.lean:281`) at the discharge above: for every
+(`logChowlaAffSupplyW_of_headG`, `StridePrize.lean:280`) at the discharge above: for every
 `(a, b, h)` with `b < a`, `0 < h`, `gcd(b+h, a) ∣ h`, `log(ah) ≤ 7`, `LogChowlaAffSupplyW a b h`. -/
 theorem logChowlaAffSupplyW_holds (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (hgcd : Nat.gcd (b + h) a ∣ h) (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) :

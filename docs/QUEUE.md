@@ -698,6 +698,22 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    by substitution (`838400·2^11`, `2^31`, `2^592`, `411`, `425`, the bump at `2^11`; ~47 names, nothing landed
    moves), its freeze at the next head, the helm's refuter pass, the wave; then the prize is one line.
    Nothing here bears on twin primes.
+   🧊 **WAVE 2-S STEP F5 β, THE GRADED SIBLING LANE — FROZEN STATEMENT-ONLY 20:1x, REFUTER VERDICT 20:41
+   REPAIR-THEN-FIRE (no FATAL), v1.1 CUT AT THE FREEZE — STAMPED 2026-09-04 (math).** salt `math/lbv-w2s-beta` off
+   `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
+   `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
+   (A 16 · B 10 · C 1 by size), 3 one-liners LANDED at the freeze as kernel shape controls** (the crown_g's conclusion IS
+   the graded head's `hcrown`; the head's conclusion IS `GradedAffHeadAt` by `unfold; exact`; F5-S at that discharge).
+   THE TRACE re-priced β ~47 → 37: the crown reads the six `FlatXFormH` defs + the five generic replays + the door-head
+   and NEVER the LinearLH hop forms / ExitH's exit / ComposeLH's sites; the pin is consumed at exactly two replay names
+   (`s15ArmH_log_le` :1479, the bumped-win selector :1693), both twinned; the walls at 0.375 nats slack, the arm at
+   0.377, the composition closes with 1.83× room at `a = 1096`. ⛔ **AUDIT DEFERRED, MARKED IN BOTH AGGREGATES:** 35 MR
+   + 2 Entropy names enter by import UNAUDITED at the freeze (27 carry `sorryAx`; `#audit_axioms` throws on it) — the
+   ⟦AUDIT DEFERRED⟧ markers in `Salt/MR/All.lean` and `Salt/Entropy/All.lean` are REPLACED by the 37 rows WITH the wave,
+   in the same commit as the last `sorry` (freeze §7.1 clause 4, the merge gate). ⛔ MERGE FENCE until the 27 land.
+   Freeze `2026-09-04-math-FREEZE-lbv-w2S-F5-beta.md`; verdict `2026-09-04-helm-REFUTER-VERDICT-lbv-w2S-F5-beta.md`.
+   NEXT: ONE Opus executor on the 27 in file order (Walls → ReceiptG → ShellG → GradeReceipt); the landing exit test
+   (freeze §7.1); PR; merge on green by the re-drive law. Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):

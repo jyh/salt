@@ -1505,3 +1505,15 @@ here bears on twin primes.  9 declarations (2 defs), 7 obligations, 7 landed. -/
   Salt.Entropy.Chowla.GradedAffHeadAt
   Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG
   Salt.Entropy.Chowla.logChowlaAffSupplyW_of_headG
+
+/-! ⟦STRIDE SHELL G — β, AUDIT DEFERRED⟧ (`StrideShellG`, 2026-09-04, math — λ-BV wave 2-S step F5
+β, the graded SIBLING lane by substitution; frozen statement-only 20:1x, the helm's refuter
+verdict 20:41 REPAIR-THEN-FIRE, v1.1 cut at the freeze).  TWO Entropy names enter this aggregate
+by the import line above UNAUDITED at the freeze — `log_chowla_aff_of_door_g` (the landed affine
+head with `837782 ↦ 837782·2^11` at its `hcrown` binder and its conclusion, body a verbatim
+copy, `sorry` at the freeze) and `log_chowla_aff_of_door_unslotted_g` (LANDED at the freeze as
+the kernel's shape control, but its producer carries `sorryAx`) — beside the 35 MR names of the
+same lane (`Salt.MR.All`): `#audit_axioms` throws on `sorryAx`, so the rows CANNOT precede the
+landing.  ⛔ MERGE FENCE (iron rule 2): the 2 rows land HERE, replacing this marker, WITH the
+wave — in the same commit as the last `sorry`, both at `[propext, Classical.choice, Quot.sound]`
+or less; the landing exit test (freeze §7) names them.  Nothing here bears on twin primes. -/
