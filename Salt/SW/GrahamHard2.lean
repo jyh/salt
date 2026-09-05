@@ -28,17 +28,18 @@ the first input WHOLE, together with the two H rows it closes, and part of the s
   weighted partial summation. **These are two of the six flagged rows, now closed.**
 * **C1** — the exact harmonic identity `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1`.
 * **S1** — the `t`-smooth convolution `Σ_{m ≤ X,(m,t)=1} μ(m)G(m) =
-  Σ_{d ≤ X smooth} Σ_{e ≤ X/d} μ(e)G(de)`.
+  Σ_{d ≤ X smooth} Σ_{e ≤ X/d} μ(e)G(de)` — and **S2**, the smooth partial sum against its
+  Euler product, `Σ_{d ≤ X smooth} 1/d ≤ t/φ(t)`.
 * Two PUBLIC helpers the next wave (H2) consumes: `summable_moebius_sq_div_kappa_totient`
   and `log_rpow_le_rpow_quarter` (`(log x)^A ≤ (4A)^A x^{1/4}`).
 
 ## ⚠ THE HONEST LABEL — what this file does NOT prove
 
-**Nine of the cut's twenty-two frozen rows are ABSENT, and their absence is recorded rather
+**Eight of the cut's twenty-two frozen rows are ABSENT, and their absence is recorded rather
 than implied** (`docs/blueprints/flags.md`, the 09-05 W6b-H1b entries). Rows ABSENT:
 **C2** (`abs_sum_moebius_mul_log_floor_ratio_le`), **C3**
 (`abs_sum_moebius_div_mul_log_div_sub_one_le`), **H6c**
-(`abs_sum_moebius_mul_log_div_add_one_le`), **S2** (`sum_smooth_inv_le`), **S3**
+(`abs_sum_moebius_mul_log_div_add_one_le`), **S3**
 (`div_totient_sub_sum_smooth_inv_le`), **S4** (`abs_coprime_sum_moebius_div_le`), **H6d**
 (`coprime_sum_moebius_div_log_eq`), **H6f** (`coprime_sum_moebius_div_kappa_le`), **H6e**
 (`coprime_sum_moebius_div_kappa_log_eq`). Four of the six H-freeze rows therefore remain
@@ -47,8 +48,10 @@ the wave's label, for what is available.
 
 **The second input is still missing.** C2 (the sawtooth-log piece, by a blockwise discrete
 Abel over the fibres of `n ↦ ⌊Q/n⌋₊`) is what C3 — and through C3, H6c, H6d and H6e — is
-gated on; S2/S3 need the smooth series `Σ'_{d smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}`
-at `s = 1` and `s = 1/2`, and S4/H6f are gated on those. None of this is a statement
+gated on; S3 needs the smooth series `Σ'_{d smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}` in
+the OTHER direction (S2's inequality goes the easy way and needs only an injection; S3 needs
+the sum's exact value, hence a bijection and a limit), and S4/H6f are gated on it. None of
+this is a statement
 defect: **no frozen statement of this cut is believed false.** The flags record the cost,
 not a contradiction.
 
@@ -2351,6 +2354,161 @@ theorem sum_coprime_moebius_eq_sum_smooth (t X : ℕ) (ht : 1 ≤ t) (G : ℕ �
   · rw [if_pos hc, if_pos hc]
   · rw [if_neg hc, if_neg hc, Int.cast_zero, zero_mul]
 
+
+/-- The exact geometric partial sum `Σ_{a < n}(1/q)^a = (q/(q−1))(1 − (1/q)^n)`. -/
+private lemma geom_partial_eq {q : ℝ} (hq : 2 ≤ q) (n : ℕ) :
+    ∑ a ∈ Finset.range n, (1 / q) ^ a = (q / (q - 1)) * (1 - (1 / q) ^ n) := by
+  have hq0 : (0 : ℝ) < q := by linarith
+  have hq1 : (q : ℝ) - 1 ≠ 0 := by intro h; linarith
+  induction n with
+  | zero => simp
+  | succ m ih =>
+    rw [Finset.sum_range_succ, ih, div_pow, div_pow, one_pow, one_pow]
+    have hqm : (q : ℝ) ^ m ≠ 0 := by positivity
+    field_simp
+    ring
+
+/-- `Σ_{a < n}(1/q)^a ≤ q/(q − 1)` for `q ≥ 2`. -/
+private lemma geom_partial_le {q : ℝ} (hq : 2 ≤ q) (n : ℕ) :
+    ∑ a ∈ Finset.range n, (1 / q) ^ a ≤ q / (q - 1) := by
+  have hq0 : (0 : ℝ) < q := by linarith
+  have hq1 : (0 : ℝ) < q - 1 := by linarith
+  rw [geom_partial_eq hq n]
+  have h1 : (0 : ℝ) ≤ (1 / q) ^ n := by positivity
+  have h2 : (0 : ℝ) ≤ q / (q - 1) := by positivity
+  nlinarith [h1, h2]
+
+/-- The smooth partial sum against the Euler product, over an arbitrary finite prime set:
+`Σ_{d ≤ X, d S-smooth} 1/d ≤ ∏_{p ∈ S} p/(p − 1)`.
+
+Induction on `S`. At the step `insert q S`, every `S'`-smooth `d ≤ X` is `q^a·e` with
+`e = ordCompl[q] d` again `S`-smooth (`q ∤ e`, and every other prime of `e` divides `d`), so
+`d ↦ (v_q(d), ordCompl[q] d)` is an INJECTION of the level-`S'` index set into
+`range(X+1) ×ˢ (level S)`; only the injection is needed, never a bijection, because the
+inequality goes the easy way. -/
+private lemma sum_smooth_inv_le_prod (X : ℕ) :
+    ∀ S : Finset ℕ, (∀ p ∈ S, Nat.Prime p) →
+      ∑ d ∈ (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ S), (1 : ℝ) / d
+        ≤ ∏ p ∈ S, ((p : ℝ) / ((p : ℝ) - 1)) := by
+  classical
+  intro S
+  refine Finset.induction_on S ?_ ?_
+  · intro _
+    have hsub : (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ (∅ : Finset ℕ))
+        ⊆ ({1} : Finset ℕ) := by
+      intro d hd
+      rw [Finset.mem_filter, Finset.mem_Icc] at hd
+      have hemp : d.primeFactors = ∅ := Finset.subset_empty.mp hd.2
+      rcases Nat.primeFactors_eq_empty.mp hemp with h | h
+      · omega
+      · simp [h]
+    calc ∑ d ∈ (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ (∅ : Finset ℕ)), (1 : ℝ) / d
+        ≤ ∑ d ∈ ({1} : Finset ℕ), (1 : ℝ) / d :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub fun i _ _ => by positivity
+      _ = 1 := by norm_num
+      _ = ∏ p ∈ (∅ : Finset ℕ), ((p : ℝ) / ((p : ℝ) - 1)) := by rw [Finset.prod_empty]
+  · intro q S hq ih hprime
+    have hqp : Nat.Prime q := hprime q (Finset.mem_insert_self q S)
+    have hSp : ∀ p ∈ S, Nat.Prime p := fun p hp => hprime p (Finset.mem_insert_of_mem hp)
+    have hq2 : 2 ≤ q := hqp.two_le
+    have hqR : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
+    have hq0 : (0 : ℝ) < (q : ℝ) := by linarith
+    set T' := (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ insert q S) with hT'
+    set TS := (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ S) with hTS
+    set Φ : ℕ → ℕ × ℕ := fun d => (d.factorization q, d / q ^ d.factorization q) with hΦ
+    have hrec : ∀ d : ℕ, q ^ (Φ d).1 * (Φ d).2 = d := fun d =>
+      Nat.ordProj_mul_ordCompl_eq_self d q
+    have hinj : Set.InjOn Φ (↑T' : Set ℕ) := by
+      intro d₁ _ d₂ _ heq
+      rw [← hrec d₁, ← hrec d₂, heq]
+    have hmaps : ∀ d ∈ T', Φ d ∈ Finset.range (X + 1) ×ˢ TS := by
+      intro d hd
+      rw [hT', Finset.mem_filter, Finset.mem_Icc] at hd
+      obtain ⟨⟨hd1, hdX⟩, hsm⟩ := hd
+      have hd0 : d ≠ 0 := by omega
+      have hdvd : q ^ d.factorization q ∣ d := Nat.ordProj_dvd d q
+      have hple : q ^ d.factorization q ≤ d := Nat.le_of_dvd (by omega) hdvd
+      have hpow : 2 ^ d.factorization q ≤ q ^ d.factorization q := Nat.pow_le_pow_left hq2 _
+      have haX : d.factorization q ≤ X :=
+        le_trans (le_of_lt Nat.lt_two_pow_self) (le_trans hpow (le_trans hple hdX))
+      have hediv : d / q ^ d.factorization q ∣ d := Nat.ordCompl_dvd d q
+      have he1 : 1 ≤ d / q ^ d.factorization q := Nat.pos_of_dvd_of_pos hediv (by omega)
+      have heX : d / q ^ d.factorization q ≤ X :=
+        le_trans (Nat.le_of_dvd (by omega) hediv) hdX
+      have hnq : ¬ q ∣ d / q ^ d.factorization q := Nat.not_dvd_ordCompl hqp hd0
+      simp only [hΦ, Finset.mem_product]
+      refine ⟨Finset.mem_range.mpr (by omega), ?_⟩
+      rw [hTS, Finset.mem_filter, Finset.mem_Icc]
+      refine ⟨⟨he1, heX⟩, fun p hp => ?_⟩
+      have hpe : p ∣ d / q ^ d.factorization q := Nat.dvd_of_mem_primeFactors hp
+      have hpprime : Nat.Prime p := Nat.prime_of_mem_primeFactors hp
+      have hpd : p ∈ d.primeFactors :=
+        Nat.mem_primeFactors.mpr ⟨hpprime, dvd_trans hpe hediv, hd0⟩
+      have hpne : p ≠ q := fun hcon => hnq (hcon ▸ hpe)
+      rcases Finset.mem_insert.mp (hsm hpd) with h | h
+      · exact absurd h hpne
+      · exact h
+    have hTSnn : (0 : ℝ) ≤ ∑ e ∈ TS, (1 : ℝ) / e :=
+      Finset.sum_nonneg fun e _ => by positivity
+    calc ∑ d ∈ T', (1 : ℝ) / d
+        = ∑ d ∈ T', (1 : ℝ) / ((q ^ (Φ d).1 * (Φ d).2 : ℕ) : ℝ) := by
+          refine Finset.sum_congr rfl fun d _ => ?_
+          rw [hrec d]
+      _ = ∑ z ∈ T'.image Φ, (1 : ℝ) / ((q ^ z.1 * z.2 : ℕ) : ℝ) :=
+          (Finset.sum_image (f := fun z : ℕ × ℕ => (1 : ℝ) / ((q ^ z.1 * z.2 : ℕ) : ℝ))
+            hinj).symm
+      _ ≤ ∑ z ∈ Finset.range (X + 1) ×ˢ TS, (1 : ℝ) / ((q ^ z.1 * z.2 : ℕ) : ℝ) := by
+          refine Finset.sum_le_sum_of_subset_of_nonneg ?_ fun i _ _ => by positivity
+          intro z hz
+          obtain ⟨d, hd, rfl⟩ := Finset.mem_image.mp hz
+          exact hmaps d hd
+      _ = (∑ a ∈ Finset.range (X + 1), ((1 : ℝ) / (q : ℝ)) ^ a) * ∑ e ∈ TS, (1 : ℝ) / e := by
+          rw [Finset.sum_product, Finset.sum_mul]
+          refine Finset.sum_congr rfl fun a _ => ?_
+          rw [Finset.mul_sum]
+          refine Finset.sum_congr rfl fun e _ => ?_
+          push_cast
+          rw [div_pow, one_pow, div_mul_div_comm, one_mul]
+      _ ≤ ((q : ℝ) / ((q : ℝ) - 1)) * ∏ p ∈ S, ((p : ℝ) / ((p : ℝ) - 1)) :=
+          mul_le_mul (geom_partial_le hqR _) (ih hSp) hTSnn
+            (le_of_lt (div_pos hq0 (by linarith)))
+      _ = ∏ p ∈ insert q S, ((p : ℝ) / ((p : ℝ) - 1)) :=
+          (Finset.prod_insert (f := fun p : ℕ => (p : ℝ) / ((p : ℝ) - 1)) hq).symm
+
+/-- **S2.** `Σ_{d ≤ X, d t-smooth} 1/d ≤ t/φ(t)` for `t ≥ 1`.
+
+The smooth partial sum against the Euler product over `t.primeFactors`, and
+`∏_{p ∣ t} p/(p − 1) = t/φ(t)` by the landed totient product.
+
+The must-FAIL control (measured): with `t/φ(t)` → `φ(t)/t` at `(t, X) = (2, 10)` the LHS is
+`1.875 > 0.5`. -/
+theorem sum_smooth_inv_le (t X : ℕ) (ht : 1 ≤ t) :
+    ∑ d ∈ (Finset.Icc 1 X).filter (fun d => d.primeFactors ⊆ t.primeFactors), (1 : ℝ) / d
+      ≤ (t : ℝ) / Nat.totient t := by
+  classical
+  have ht0 : (0 : ℝ) < t := by exact_mod_cast ht
+  have hU := prod_one_sub_pos t
+  have h := sum_smooth_inv_le_prod X t.primeFactors fun p hp => Nat.prime_of_mem_primeFactors hp
+  refine le_trans h (le_of_eq ?_)
+  have hone : (∏ p ∈ t.primeFactors, ((p : ℝ) / ((p : ℝ) - 1)))
+      * ∏ p ∈ t.primeFactors, (1 - 1 / (p : ℝ)) = 1 := by
+    rw [← Finset.prod_mul_distrib]
+    refine Finset.prod_eq_one fun p hp => ?_
+    have hp2 : (2 : ℝ) ≤ (p : ℝ) := by
+      exact_mod_cast (Nat.prime_of_mem_primeFactors hp).two_le
+    have h1 : (p : ℝ) ≠ 0 := by linarith
+    have h2 : (p : ℝ) - 1 ≠ 0 := by intro hcon; linarith
+    field_simp
+  have hprodeq : ∏ p ∈ t.primeFactors, ((p : ℝ) / ((p : ℝ) - 1))
+      = 1 / ∏ p ∈ t.primeFactors, (1 - 1 / (p : ℝ)) := by
+    rw [eq_div_iff hU.ne']
+    exact hone
+  have hcast : (t : ℝ) / (Nat.totient t : ℝ) = 1 / ∏ p ∈ t.primeFactors, (1 - 1 / (p : ℝ)) := by
+    have hp := totient_div_eq_prod_one_sub t ht
+    rw [div_eq_iff ht0.ne'] at hp
+    rw [hp, div_eq_div_iff (mul_ne_zero hU.ne' ht0.ne') hU.ne']
+    ring
+  rw [hprodeq, hcast]
 
 /-! ## §2(b) binder-shape rows
 

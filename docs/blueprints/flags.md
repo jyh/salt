@@ -24768,9 +24768,9 @@ it PASSES at every tested point and is NOT a kill-check (the sawtooth log carrie
 cancellation). The live control is `μ(n) → μ²(n)`: `|Σ|·log²(2Q) = 8.8 … 62.5` over the same range,
 unbounded.
 
-### 📥 09-05 — W6b-H1b `sum_smooth_inv_le` / `div_totient_sub_sum_smooth_inv_le` / `abs_coprime_sum_moebius_div_le` / `coprime_sum_moebius_div_log_eq` / `coprime_sum_moebius_div_kappa_le` / `coprime_sum_moebius_div_kappa_log_eq` (S2, S3, S4, H6d, H6f, H6e): the smooth CLOSED FORM, and two rows gated behind C2
+### 📥 09-05 — W6b-H1b `div_totient_sub_sum_smooth_inv_le` / `abs_coprime_sum_moebius_div_le` / `coprime_sum_moebius_div_log_eq` / `coprime_sum_moebius_div_kappa_le` / `coprime_sum_moebius_div_kappa_log_eq` (S3, S4, H6d, H6f, H6e): the smooth series in the HARD direction, and two rows gated behind C2
 
-**Object:** the same cut. S1 landed; the six rows above it did not.
+**Object:** the same cut. S1 and S2 landed; the five rows above them did not.
 
 **What was tried (Opus, the wave's executor).** S1 — the `t`-smooth convolution — is the row that
 decides the block, and it LANDED, by a route cheaper than the sub-freeze's: both
@@ -24781,24 +24781,35 @@ prime-power computations and **no `t`-smooth part of `m` is ever constructed** �
 p^{v_p(m)}`, its divisibility, its coprime complement, the divisor-set equality) is needed. That
 correction is worth keeping: it is the single largest saving found in this wave.
 
-**Where it breaks.** S2 and S3 need the SMOOTH SERIES in closed form,
-`Σ'_{d t-smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}`, at `s = 1` AND `s = 1/2` — the sub-freeze's own
-"risk node 2". Two routes were weighed at the object and neither is short: (a) the prime-step
-recursion on the SMOOTH SUBTYPE (`ℕ × ℕ` will not do — `(1,1)` and `(0,p)` both hit `p`), with
-`Function.Injective.tsum_eq` on the subtype, `tsum_mul_tsum_of_summable_norm` for the geometric
-factor, and a Finset induction over `t.primeFactors` for the closed form, run TWICE; (b) a purely
-finite route, injecting the smooth `d ≤ X` into a product of exponent ranges and applying
-`Finset.prod_sum`, which avoids every `tsum` but pays for the injection instead. Either is ~450 lines
-before S3's per-prime numerics (`(1 − p^{−1/2})^{−1} ≤ c_p(1 + p^{−1/4})` with `c₂ = 1.86, c₃ = 1.35,
-c₅ = 1.09, c_p = 1` from `p = 7`, `∏ c_p ≤ 2.74 ≤ 3`). It did not fit.
+**S2 landed too, and NOT by the sub-freeze's route** — this is the second saving of the wave, and it
+is the reason S3 is now isolated. S2 is an INEQUALITY in the easy direction, so it needs only an
+INJECTION, never the closed form: at the induction step `insert q S`, the map
+`d ↦ (v_q(d), ordCompl[q] d)` sends the level-`S'` index set injectively into
+`range(X+1) ×ˢ (level S)`, `Finset.sum_image` plus `Finset.sum_le_sum_of_subset_of_nonneg` moves the
+sum across, and the `a`-factor is an ordinary geometric partial sum `≤ q/(q−1)`. No `tsum`, no
+subtype, no `Finset.prod_sum`, no `Nat.factorization` inverse — `Nat.ordProj_mul_ordCompl_eq_self`
+and `Nat.not_dvd_ordCompl` are the only factorization facts used. `Salt.SW.sum_smooth_inv_le`.
 
-⇒ **S4 and H6f are GATED on S2/S3** (S4 is S1 at `G = 1/m` against H6b, with S2 on `d ≤ √Q` and S3's
-tail beyond; H6f is the `κ`-expansion `μ(n)/κ(n) = (μ(n)/n)Σ_{d ∣ n} μ(d)/κ(d)` against S4 at level
+**Where it breaks: S3, and only S3.** S3 bounds `t/φ(t) − Σ_{d ≤ X smooth} 1/d`, so it needs the
+smooth series in the OTHER direction — the sum's exact VALUE
+`Σ'_{d t-smooth} d^{−s} = ∏_{p ∣ t}(1 − p^{−s})^{−1}` at `s = 1` AND `s = 1/2` (the sub-freeze's own
+"risk node 2"), where the injection above must become a BIJECTION and the geometric factor must be
+summed to its limit. Two routes were weighed at the object and neither is short: (a) the prime-step
+recursion on the SMOOTH SUBTYPE (`ℕ × ℕ` will not do — `(1,1)` and `(0,p)` both hit `p`), with
+`Function.Injective.tsum_eq` on the subtype and `tsum_mul_tsum_of_summable_norm` for the geometric
+factor, run TWICE; (b) a finite route by the same `ordProj` induction as S2 but with `Finset.sum_nbij'`
+in place of `Finset.sum_image` — which then loses a factor per level to `⌊X/q^a⌋ ≥ X/q^a − 1`, and the
+loss COMPOUNDS over the primes of `t`, so the constant `3` is not reached by the naive form. Either is
+~400 lines before S3's per-prime numerics (`(1 − p^{−1/2})^{−1} ≤ c_p(1 + p^{−1/4})` with
+`c₂ = 1.86, c₃ = 1.35, c₅ = 1.09, c_p = 1` from `p = 7`, `∏ c_p ≤ 2.74 ≤ 3`). It did not fit.
+
+⇒ **S4 and H6f are GATED on S3** (S4 is S1 at `G = 1/m` against H6b, with the landed S2 on `d ≤ √Q`
+and S3's tail beyond; H6f is the `κ`-expansion `μ(n)/κ(n) = (μ(n)/n)Σ_{d ∣ n} μ(d)/κ(d)` against S4 at level
 `dt`). **H6d and H6e are GATED on C3, hence on C2** (see the entry above): H6d is S1 at
 `G(m) = (1/m)log(Q/m)` reduced to `T(Q/d)`, and H6e is H6d at level `d·t` — its `Squarefree (d·t)`
 binder discharged by `Nat.squarefree_mul` on `Coprime d t` — with T7 supplying the main term. All four
 were attempted 0 times, deliberately.
 
-**Statement concern: NONE.** All six are believed TRUE as spelled. In particular H6e's `c₀` is no
+**Statement concern: NONE.** All five are believed TRUE as spelled. In particular H6e's `c₀` is no
 longer an obstruction (`Salt.SW.c0` and T7 landed here), and S1's binder `1 ≤ t` was confirmed
 load-bearing: at `t = 0` and `m = 2` the LHS is `0` and the RHS `−1`.
