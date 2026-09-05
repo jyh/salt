@@ -2069,7 +2069,16 @@ private lemma dh_repulsion_inst_tall {q : ℕ} [NeZero q] (χ : DirichletCharact
         (by rw [show (14 * (15 / 34) - 309 / 100 : ℝ) = 5247 / 1700 by norm_num]; exact hgEρ)
     have hrowA : (Y : ℝ) ^ (β₀ - ρ.re) * ((Y : ℝ) ^ (1 - β₀) - 1) ≤ 1 / 8 :=
       row_A_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
-        (Y := Y) hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl hYlo_r hYhi_r huτ hg1A hg2A
+        (Y := Y) (a := 104) (m := 14) (b := 680) (k := 14)
+        hQ4 hlogL2 hcpos hc1 hu0 hu1 rfl hσlo hσ1 hσβ hβ0hi rfl
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+        (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+        hYlo_r hYhi_r huτ
+        (by rw [show (1 + 104 + 50 * 14 : ℝ) = 805 by norm_num]; exact hg1A)
+        (by rw [show (1 + 104 + 50 * 14 : ℝ) = 805 by norm_num,
+              show (49 / 50 - 14 / 17 : ℝ) = 133 / 850 by norm_num,
+              show (2 * 805 : ℝ) = 1610 by norm_num]
+            exact hg2A)
     have hrow1x : (Y : ℝ) ^ (β₀ - ρ.re - 1) ≤ 1 / 8 :=
       row_1x_cap (Q := Q) (L₂ := L₂) (c := c) (u := 1 - β₀) (w := 1 - ρ.re) (σ := ρ.re) (β₀ := β₀)
         (Y := Y) (a := 104) (m := 14) (b := 680) (k := 14)
