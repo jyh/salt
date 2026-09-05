@@ -1492,7 +1492,8 @@ witness `Ra` (`a ≤ 1096` from `log(ah) ≤ 7`; `E ≤ 2^{-61}` at `flatDesignB
 `log ω ≥ 129`), so `¬ logChowlaFailsAff` at the crown's regime; `logChowlaAffSupplyW_of_headG` is
 the stride supply at `a ≥ 2` FROM THAT BINDER.  Nothing here discharges the binder: the supply at
 `a ≥ 2` is still held by nobody until the envelope re-cut lands; the prize when it lands is
-`z`-rough + odd `Ω(n(n+2))` at `z ≤ 7` (Tao Thm 2.3 at one class, NOT almost-primality); nothing
+`z`-rough + odd `Ω(n(n+2))` at `primorial z ≤ 548`, i.e. `z ≤ 10` (Tao Thm 2.3 at one class, NOT
+almost-primality); nothing
 here bears on twin primes.  9 declarations (2 defs), 7 obligations, 7 landed. -/
 #audit_axioms Salt.Entropy.Chowla.flatDesignBase_ge_pow600
   Salt.Entropy.Chowla.LogChowlaAffSupplyW

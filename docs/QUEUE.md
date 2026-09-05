@@ -679,7 +679,8 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    (`2026-09-04-math-PRICE-lbv-w2S-F5-grade-line.md`: the composition `a·Zr·ρ + E ≤ δ₀` at the landed
    head is MISSED by exactly `1.020753·a`; the supply's grade is the road's envelope
    `doorRhoOfDelta (s12DeltaSock δ₀ Kc)`, a literal in 164 declarations' statements — the re-cut is the
-   envelope's DEF by `2^11`, arm α″, RULED BY DEFAULT 19:10 under the Captain's law; its census
+   envelope — arm α″ was ruled by default 19:10 and WITHDRAWN by its author 19:16 (the receipt cannot see a
+   def re-cut: the forms export `∃ ρ ≤ δ₀`); the Captain ruled β, the graded sibling lane, 19:18; the census
    `2026-09-04-math-CENSUS-doorRhoOfDelta-numeral-walls.md`: 13 numeral walls break, tightest slack
    0.0249 nats, 27 register antecedents unmeasured — the α″ freeze follows), frozen statement-only 18:4x
    (`2026-09-04-math-FREEZE-lbv-w2S-F5-ripe.md`), fired 18:5x — ONE Opus executor.
@@ -692,10 +693,10 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    `logChowlaAffSupplyW_of_headG`. ⛔ **HONEST LABEL:** the composition and the supply are stated AT A
    BINDER (the graded head's conclusion); nobody holds `LogChowlaAffSupplyW` at `a ≥ 2` until the envelope
    re-cut lands (13 wall statements + 9 caps re-numeralled, 27 antecedents priced by a build-side probe);
-   the prize when it lands is `z ≤ 7` rough + odd `Ω`, Tao Thm 2.3 at one class. NEXT: the α″ FREEZE on
-   the census (the def; the minimum new numerals `2^591`/`410`/`424`, `2^62`/`43`, `2^72`/`50`; the graded
-   head's `hcrown` spellings + the receipt/crown ceilings by substitution), the helm's refuter pass, the
-   def edit on a REPAIR-THEN-FIRE verdict, then `zRough_oddOmega_infinite_primorial` at `primorial z ≤ 548`.
+   the prize when it lands is rough + odd `Ω` at `primorial z ≤ 548`, i.e. `z ≤ 10` (the gate is on the
+   primorial; no prime in `(7, 10]`), Tao Thm 2.3 at one class. NEXT (RULED β 19:18): the graded SIBLING lane
+   by substitution (`838400·2^11`, `2^31`, `2^592`, `411`, `425`, the bump at `2^11`; ~47 names, nothing landed
+   moves), its freeze at the next head, the helm's refuter pass, the wave; then the prize is one line.
    Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.

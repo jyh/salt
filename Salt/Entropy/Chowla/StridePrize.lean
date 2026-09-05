@@ -13,9 +13,11 @@ THE DEMAND, at the landed object (`log_chowla_aff_of_door_crowned_unslotted`,
 beside `∀ ρ' ≤ δ₀, door ρ' → ¬ fails` with `1/(838400·k²) ≤ δ₀`, `k = a·h` — the composition
 `a·Zr·ρ + E ≤ δ₀` is MISSED by `1.020753·a`.  At the graded head (`ρ ≤ 1/(837782·2^11·k²)`) it
 CLOSES
-with `a ≤ 1096` (`hah7`): `a·Zr·ρ ≤ 1117.9/(837782·2048·k²) = 0.5462/(838400·k²)`, and `E` is free
-at `Ra.x/Ra.ω ≥ Ra.Hhi ≥ Ra.Hlo ≥ flatDesignBase A ≥ 2^600` and `log Ra.ω ≥ 65` (the regime's
-`hωbig`): `E ≤ 2^539/(2^600·64) ≤ 2^{-67} ≤ 0.45/(838400·1096²)`.
+with `a ≤ 1096` (`hah7`): `a·Zr·ρ ≤ 1117.92/(837782·2048·k²) ≤ 0.5463/(838400·k²)` (exact ratio
+`0.546262…`), and `E` is free at `Ra.x/Ra.ω ≥ Ra.Hhi ≥ Ra.Hlo ≥ flatDesignBase A ≥ 2^600` and
+`log Ra.ω ≥ 129` (the landed `regime_logOmega_ge`, `SignSplit.lean:174`): the landed route spends
+only
+`log ω − 1 ≥ 1`, so `E ≤ 2^539/2^600 = 2^{-61} ≤ 0.45/(838400·1096²)` (6 orders of room).
 
 THE PRIZE, per the helm's K3 word (F4b A13) and F4a verdict A8(i): the landed `LogChowlaAffSupply`
 (`AffineFork.lean:96`, `R.Hlo = flatDesignBase A`) is UNTOUCHED; the crown exports `≤`, so the prize
@@ -33,7 +35,8 @@ rather than the `hωbig` field the recipe named.  Nothing here closes the prize:
 `logChowlaAffSupplyW_of_headG` takes the GRADED head's conclusion as a BINDER (under an `∃`, two
 facts compose only through the same witness — the landed head's statement cannot carry the finer
 grade, so the composition is ripe only at a binder; its discharge is one application of the graded
-sibling head once the β lane lands).  The unconditional prize at `primorial z ≤ 548` (`z ≤ 7`:
+sibling head once the β lane lands).  The unconditional prize at `primorial z ≤ 548` (`z ≤ 10`, the
+gate being on the primorial — `primorial 8 = primorial 9 = primorial 10 = 210`:
 `z`-rough + `Ω(n(n+2))` odd, Tao Thm 2.3 at one class — NOT almost-primality) waits on that lane.
 Nothing here bears on twin primes.
 -/
@@ -48,12 +51,12 @@ namespace Salt.Entropy.Chowla
 /-! ## F5-E — the design base clears `2^600` -/
 
 set_option exponentiation.threshold 4000 in
-/-- **F5-E (class A).**  `flatDesignBase A = ⌈exp(exp(3.2·A))⌉₊ ≥ 2^600` at `A ≥ 162`:
-`Nat.le_ceil`-shape (`Nat.le_ceil` / `Nat.ceil_le`), `2^600 = exp(600·log 2)` (`Real.exp_log`,
-`Real.rpow_natCast`… or `Real.exp_nat_mul`), `600·log 2 < 416 < 1 + 518.4 ≤ exp(3.2·162) ≤
-exp(3.2·A)`
-(`Real.log_two_lt_d9`, `Real.add_one_le_exp`, `Real.exp_le_exp`), then `Real.exp_le_exp` once more.
-The twin of `flatDoorM_ge_pow355` (`FlatFloorBump.lean:113`) at the base instead of the modulus. -/
+/-- **F5-E (class A).**  `flatDesignBase A = ⌈exp(exp(3.2·A))⌉₊ ≥ 2^600` at `A ≥ 162`.  THE LANDED
+ROUTE: `Real.log_pow` + `Real.exp_log` give `(2:ℝ)^600 = exp(600·log 2)`; `600·log 2 < 416`
+(`Real.log_two_lt_d9`) and `416 ≤ 3.2·162 + 1 ≤ exp(3.2·162) ≤ exp(3.2·A)` (`Real.add_one_le_exp`,
+`Real.exp_le_exp`); `Real.exp_le_exp` once more, then `Nat.le_ceil` after `rw [flatDesignBase]`, and
+`exact_mod_cast`.  25 bits of margin (the composition's true floor is `2^575`).  The twin of
+`flatDoorM_ge_pow355` (`FlatFloorBump.lean:113`) at the base instead of the modulus. -/
 theorem flatDesignBase_ge_pow600 {A : ℝ} (hA : 162 ≤ A) :
     (2 : ℕ) ^ 600 ≤ flatDesignBase A := by
   have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
@@ -180,11 +183,16 @@ set_option exponentiation.threshold 4000 in
 (i) `a·Zr·ρ ≤ 1096·1.02·(1/(837782·2^11·k²)) ≤ (0.55)·(1/(838400·k²))` (`mul_le_mul` three times,
 `div_le_div_iff₀`, `norm_num`/`nlinarith` on the numerals — `1096·1.02·838400 = 9.373×10⁸ ≤
 0.55·837782·2048 = 9.437×10⁸`), (ii) `E ≤ (0.45)·(1/(838400·k²))`: `a·(x/ω) + 1 ≥ a·(x/ω) ≥ a·2^600`
-from `hheadroom : Hhi ≤ x/ω`, `hHlohi`, `flatDesignBase_ge_pow600 hA162`, `hHlo`; `log ω − 1 ≥ 64`
-from the regime's `hωbig` (`Regime.lean`, the `64/ε + 1 ≤ log ω` arm at `ε ≤ 1`); so `E ≤
-2^539·a/(a·2^600·64)
-= 2^{-67}` and `2^{-67}·838400·1096² ≤ 0.45`; then `linarith`.  Finally `himpl (a·Zr·ρ + E)
-(by positivity) hle hdoor` and re-export `ε, A, Ra` with the same conjuncts.  Class B: numerals and
+from `hheadroom : Hhi ≤ x/ω`, `hHlohi`, `flatDesignBase_ge_pow600 hA162`, `hHlo`; `log ω − 1 ≥ 1`
+from
+the LANDED `regime_logOmega_ge Ra.toChowlaRegime : 129 ≤ log Ra.ω` (`SignSplit.lean:174`; the
+regime field
+`hωbig` is the HBUDGET window-coupling floor, not this bound — verdict A6); so `E ≤
+2^539·a/(a·2^600·1) =
+2^{-61}` and `2^{-61}·838400·1096² ≤ 0.45`; then `linarith`.  Finally `himpl (a·Zr·ρ + E) hgpos hle
+hdoor`
+with `hgpos` from `hρ`, `hZr1`, `hE0` (a positive product plus a nonnegative), and re-export `ε, A,
+Ra` with the same conjuncts.  Class B: numerals and
 one cast (`((Ra.x / Ra.ω : ℕ) : ℝ)` against `Nat.cast_le`). -/
 theorem log_chowla_aff_composed_of_headG (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) (hheadG : GradedAffHeadAt a b h A₀) :
