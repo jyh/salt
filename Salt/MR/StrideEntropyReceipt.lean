@@ -11,13 +11,15 @@ binder `hcrown`.  This module is the one place both sides are in scope: it feeds
 The result is F4a's single MR-side name — the object F5 consumes: at the crown's regime `Ra`, the
 door at grade `a·Zr·ρ + E` AND the entropy-half implication `∀ ρ' ≤ δ₀_aff, door ρ' → ¬ fails`,
 side by side, NOT composed (`a·Zr·ρ + E ≤ δ₀_aff` is the `214` miss at `(210, 2)` — F5's
-numeral).  Still conditional on the affine circle-method SLOT `hcm` (F4b's producer).
+numeral).  The slot `hcm` is DISCHARGED by F4b's `circle_method_estimate_sq_bounded_aff`
+in `log_chowla_aff_of_door_crowned_unslotted` below, under the producer's binder `gcd(b+h, a) ∣ h`.
 
-HONEST LABEL.  One class-A application; proves no estimate, closes no prize, bears on nothing on
-the apex.  Statement-only at the freeze (sorry-bodied); ⛔ MERGE FENCE with the four Entropy
-files of F4a.
+HONEST LABEL.  Two class-A applications; prove no estimate, close no prize, bear on nothing on
+the apex.  LANDED 2026-09-04 (F4a in PR #39; F4b's twin on `math/lbv-w2s-f4b`), sorry-free,
+`[3 axioms]`, audited in `Salt.MR.All`.
 -/
 import Salt.Entropy.Chowla.StrideShell
+import Salt.Entropy.Chowla.StrideCircle
 import Salt.MR.StridePairReceipt
 import Mathlib
 
@@ -36,6 +38,7 @@ theorem log_chowla_aff_of_door_crowned (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (
     (hcm : ∃ C : ℝ, 0 < C ∧ C ≤ (h : ℝ) * (1 + 2 * (2 * Real.log 4)) ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) →
+      a ∣ H →
       ((Salt.Entropy.Chowla.primeWindow eps H).card : ℝ)
           ≤ (2 * Real.log 4) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
       |∑ p : Salt.Entropy.Chowla.primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
@@ -58,5 +61,31 @@ theorem log_chowla_aff_of_door_crowned (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (
             ¬ logChowlaFailsAff a b h Ra.eps Ra.x Ra.ω := by
   exact log_chowla_aff_of_door a b h ha hh hba hah7 hcm
     (fun A₀' => mrtUniformityXiL2AffW_holds_flat_stride a b h ha hh hba hah7 A₀') A₀
+
+/-- **F4b-N11b (class A) — the crown fed into the UNSLOTTED head.**
+`log_chowla_aff_of_door_crowned`
+with F4a's circle-method slot DISCHARGED by `circle_method_estimate_sq_bounded_aff` at
+`C₀ = 2·log 4` (`StrideCircle.lean`): `log_chowla_aff_of_door_crowned a b h ha hh hba hah7
+(circle_method_estimate_sq_bounded_aff a b h ha hh hgcd (2 * Real.log 4) (by positivity)) A₀`.
+The ONE binder F4a's head did not carry, `hgcd : Nat.gcd (b + h) a ∣ h`, is the producer's (the
+major arm's partner frequency lands in `bigXiAff` whenever `(b+h)·η' ≡ b·η (mod a)` is always
+solvable — N7; minus `hgcd` N7 is FALSE at `(8,2,2)`, `H = 8`, `ε = 4/5`); the twin-prime
+consumer has it at `gcd(r + 2, P) = 1`.  Statement-only at the freeze; v1.1 cut on the verdict. -/
+theorem log_chowla_aff_of_door_crowned_unslotted (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
+    (hba : b < a) (hgcd : Nat.gcd (b + h) a ∣ h)
+    (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+        flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+        (∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+          E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+              * (Real.log (Ra.ω : ℝ) - 1)) ∧
+          MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E)) ∧
+        ∃ δ₀ : ℝ, 0 < δ₀ ∧ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) ≤ δ₀ ∧
+          ∀ ρ' : ℝ, 0 < ρ' → ρ' ≤ δ₀ → MRTUniformityXiL2AffW h Ra ρ' →
+            ¬ logChowlaFailsAff a b h Ra.eps Ra.x Ra.ω := by
+  exact log_chowla_aff_of_door_crowned a b h ha hh hba hah7
+    (circle_method_estimate_sq_bounded_aff a b h ha hh hgcd (2 * Real.log 4) (by positivity)) A₀
 
 end Salt.MR

@@ -29,6 +29,10 @@ witness, the core); its flat threshold is replaced by the plain one.
 ⭐ THE CIRCLE-METHOD SLOT (price brief §1, F-2).  The affine circle-method estimate — Tao Lemma
 3.4 at the class filter, over `bigXiAff` — has no producer yet (F4b).  It enters the shell as
 the hypothesis `hcirc` and the head as the hypothesis `hcm` carrying the CAP `C ≤ h·(1 + 2·C₀)`
+(F4b S-1, 2026-09-04 16:1x: the slot's `∀` carries `a ∣ H →` — `bigXiAff`'s grid is ℕ-division,
+every
+consumer holds `hdvd`, and the producer needs it; the slot no longer demands the estimate where
+the object is undefined)
 (the `_bounded_h` shape, `HeadPinLeavesH.lean:511`).  The head reads `C` ONLY through that cap
 (the ε-pin's ε²-arm `hε_D3C`, where `ε·16·a·C ≤ 16·6.55/500 = 0.2096 ≤ 1/4 = cD3` at every
 `(a, h)` because `ε·a·h = 1/500`); if F4b's constant is `a·C(h)` instead, TWO cap reads fail —
@@ -37,12 +41,12 @@ two lines.
 
 ⛔ HONEST LABEL.  F4a produces `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`
 beside the crown's door at grade `a·Zr·ρ + E` — NOT composed: `a·Zr·ρ + E ≤ δ₀_aff` is the `214`
-miss at `(210, 2)` and F5's numeral.  Conditional on the circle-method slot (F4b).  Nothing
-here proves an estimate or bears on twin primes.  Every declaration below is statement-only at
-the freeze (sorry-bodied, recipe in the docstring), built as a module through
-`../saltbuild.sh`; NO executor fires before the helm's refuter verdict.  ⛔ MERGE FENCE (iron
-rule 2): `math/lbv-w2s-f4a` never reaches `main` until every obligation in the four F4a files
-lands sorry-free.  Import direction: `Salt.Entropy`-internal; the crown lives in `Salt.MR`, so
+miss at `(210, 2)` and F5's numeral.  The circle-method slot `hcm` is DISCHARGED by F4b
+(`StrideCircle.lean`: `circle_method_estimate_sq_bounded_aff`, under the producer's binder
+`gcd(b+h, a) ∣ h`; `log_chowla_aff_of_door_unslotted`).  Nothing here proves an estimate or bears
+on twin primes.  LANDED 2026-09-04 (F4a merged to `main` in PR #39: every declaration below
+sorry-free, `[3 axioms]`, audited in `Salt.Entropy.All`).  Import direction:
+`Salt.Entropy`-internal; the crown lives in `Salt.MR`, so
 the head's CONSUMER of the crown is stated here as a hypothesis-free theorem that OBTAINS the
 crown… — ⛔ NO: `Salt.Entropy` cannot import `Salt.MR` (the `xceil` fence, H3's lesson).  The
 head therefore takes the crown's PAYLOAD as a binder (`hcrown`, the crown's own conclusion
@@ -269,6 +273,7 @@ theorem spine_False_core_xi_sq_aff (h : ℕ) (_hh : 0 < h) (R : ChowlaRegimeAff)
     (C : ℝ) (hC : 0 < C)
     (hcm : ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) →
+      R.a ∣ H →
       ((primeWindow eps H).card : ℝ)
           ≤ (2 * Real.log 4) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
       |∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
@@ -383,7 +388,7 @@ theorem spine_False_core_xi_sq_aff (h : ℕ) (_hh : 0 < h) (R : ChowlaRegimeAff)
                 * ‖ZMod.dft (fun j : ZMod H =>
                     (windowVal H (liouvilleWindow H m) (ZMod.val j) : ℂ)) ξ‖ ^ 2) :=
     fun m => hcm R.eps H (liouvilleWindow H m)
-      (fun i => abs_liouvilleWindow_le_one H m i) hcard
+      (fun i => abs_liouvilleWindow_le_one H m i) hdvd hcard
   exact log_chowla_two_shell_xi_sq_aff h R hdvd hlo hhi hH3 hlogH hne hreg hhead ht hg hgle hI
     (by positivity) h211 hC hcirc hdoor hbudget1 hbudget2
 
@@ -430,6 +435,7 @@ theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b 
     (hcm : ∃ C : ℝ, 0 < C ∧ C ≤ (h : ℝ) * (1 + 2 * (2 * Real.log 4)) ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) →
+      a ∣ H →
       ((primeWindow eps H).card : ℝ)
           ≤ (2 * Real.log 4) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
       |∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,

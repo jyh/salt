@@ -651,6 +651,29 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    NEXT: F4b (the affine circle-method estimate at the class filter over `bigXiAff`, `C_aff = C(h)`
    a-FREE — its own design block, statement-only, refuters first; its landing discharges `hcm` by one
    class-A name), then F5. Nothing here bears on twin primes.
+   ✅⭐⭐ **WAVE 2-S STEP F4b LANDED — THE AFFINE CIRCLE-METHOD ESTIMATE, THE PRODUCER OF F4a's SLOT —
+   STAMPED 2026-09-04 18:2x (math).** Priced 16:0x (`2026-09-04-math-PRICE-lbv-w2S-F4b-circle-estimate.md`:
+   the slot OMITS `a ∣ H` and LACKS `gcd(b+h,a) ∣ h` — the `η`-twist TRANSLATES one Fourier factor and
+   the major arm's PARTNER frequency needs it), frozen statement-only 16:2x
+   (`2026-09-04-math-FREEZE-lbv-w2S-F4b.md`; S-1 `a ∣ H →` in F4a's slot ×3 in the same commit), v1.1
+   cut 17:2x on the helm's REPAIR-THEN-FIRE 4/4 verdict (§A: the dead implicit `a` struck from
+   `periodization_total_twist`; the N9/N10 INVERSION — the cap is read where the witness is PINNED, an
+   `obtain` leaves it opaque; the `hgcd` control re-cut `(4,2,2)` → `(8,2,2)`, `H = 8`, `ε = 4/5`; five
+   dead names; four `open private` lines), fired 17:2x — ONE Opus executor in file order.
+   `Salt/Entropy/Chowla/StrideCircle.lean` (17/17) + `log_chowla_aff_of_door_crowned_unslotted` in
+   `Salt/MR/StrideEntropyReceipt.lean` (1/1) on `math/lbv-w2s-f4b`: **19 + 1 declarations, 18
+   obligations, 18 LANDED, every theorem `[propext, Classical.choice, Quot.sound]` or less** — Tao Lemma
+   3.4 at the class filter over `bigXiAff` with the `h`-lane's constant `h·(1 + 2·C₀)`, `a`-FREE IN THE
+   KERNEL (`a` outside the `∃ C`, the cap conjunct the certificate); `circle_method_estimate_sq_bounded_aff`
+   IS F4a's slot shape and `log_chowla_aff_of_door_unslotted` / the MR twin discharge it at `C₀ = 2·log 4`.
+   ⛔ **HONEST LABEL:** the estimate holds under two binders F4a's slot did not carry — `a ∣ H` (now in
+   the slot) and `hgcd : Nat.gcd (b + h) a ∣ h` (the producer's, on the discharges); `hgcd`'s necessity
+   is a LEMMA-level fact (`xiEta_translate_mem_bigXiAff` minus it is FALSE at `(8,2,2)`), not the
+   core's; F4a's head is no longer conditional on a slot, but the door and the entropy half are still
+   NOT composed — the `≈ 214.4` miss at `(210, 2)` is F5's numeral; F5's prize statement GAINS `hgcd`
+   in this spelling (the helm's K3 word; `Coprime` declined). NEXT: F5 — the grade line (the `≈ 214.4`,
+   the six export numerals, the two ε-pin numerals) and the prize statement at `a ≥ 2` carrying
+   `hgcd`. Nothing here bears on twin primes.
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
    — P1 FILL (pull while the block cooks, any tier that fits):
