@@ -252,6 +252,15 @@ three constraints defining `A` map to the three entries of (5.15)/(5.16) **one f
 of variable, and the `A`-vs-`(T₂−T₁)` mismatch that made the row look risky is precisely the
 Jacobian `δ₂w₂/α₂`. **The two waves meet.**
 
+✅ **AND THE ALGEBRA IS INSTRUMENT-VERIFIED, NOT HAND-CHECKED.** The identity and all four
+constraint images were driven over **4,000 random parameter tuples in exact rationals**
+(`α₁ α₂ β₁ β₂ δ₁ δ₂ q Δ w₁ w₂ R₁ x`, `Fraction` arithmetic, no floating point): the Jacobian, both
+`x`-endpoint images, and both `R₁`-endpoint images matched their (5.15)/(5.16) entries **0 failures
+in 4,000**, and the seam factor `K w₁w₂/(Dδ₁w₁)` equalled `δ₂w₂/α₂` identically. **A negative
+control was driven and the instrument refuses it**: the sign-flipped third entry
+(`α₂δ₁w₁R₁ − α₁β₂ + α₂β₁`, the transcription error this row exists to catch) was accepted **0 times
+in 500** — so the check can say NO. [SCOUT]
+
 ⚠️ **Two honest riders.** (i) This is an identity between the **main terms**; (5.19)'s `Σ*`
 side conditions (`T₂ > T₁`, (5.6), `(w₂,Dδ₁w₁)=1`) must be carried into §6 unchanged — they are
 not part of the seam but they travel with it. (ii) I verified the algebra, not a Lean proof; the
