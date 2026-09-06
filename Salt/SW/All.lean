@@ -100,6 +100,7 @@ import Salt.SW.GrahamHard3
 import Salt.SW.Kernel2
 import Salt.SW.CoprimeHarmonic
 import Salt.SW.PseudoChar
+import Salt.SW.PseudoCharH
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.Tactic.AuditAxioms
@@ -668,3 +669,39 @@ open Salt.Tactic in
   Salt.SW.f5_exp_dominates
   Salt.SW.f5_error_le_main
   Salt.SW.jutilaDetector_floor_F5
+
+-- ⟦B2 W5 0905⟧ `Salt/SW/PseudoCharH.lean` — Jutila's LEMMAS 2 and 3 (L2, L3), whole: the
+-- coefficients `h(d; r, r')` of the pseudocharacter product. `hCoef f r r'` is the
+-- `ArithmeticFunction` supported on square-free `d` with prime values
+-- `h(p) = f_r(p)·f_{r'}(p) − 1` (that is `f(p) − 1` on a prime of exactly one level,
+-- `f(p)² − 1` on a common prime, `0` off `r r'` — `pseudoChar_prime_right`, the prime-ARGUMENT
+-- evaluation, the mirror of the landed `pseudoChar_prime_left`). Lemma 2 (p.48) is stated twice:
+-- over `n.divisors` (`n ≠ 0` load-bearing, `Nat.divisors 0 = ∅`) and over the FINITE range
+-- `(r r').divisors` filtered by `d ∣ n`, valid at every `n`. Lemma 3 (p.49) is the orthogonality
+-- `Σ_d h(d)/d = δ_{r,r'}·φ(r)` and the size `Σ_d |h(d)| ≤ ∏_{p ∣ r}(p + 1)·∏_{p ∣ r'}(p + 1)`,
+-- both for Selberg's `ψ = μ·φ`. One ENGINE row carries all three Euler products: for `g`
+-- multiplicative on coprime pairs and vanishing off square-free arguments,
+-- `Σ_{d ∣ N} g(d) = ∏_{p ∣ N}(1 + g(p))` at ANY `N ≠ 0` (mathlib's own row needs `N` square-free;
+-- the radical reduction is what generalises it, and `N = r r'` is not square-free when `r = r'`).
+-- The two `Squarefree` binders on the identity and the orthogonality are load-bearing IN LEAN,
+-- as the module docstring's measured receipts record. Nineteen `#audit_axioms` names — sized
+-- from THIS LIST.
+#audit_axioms Salt.SW.hCoef_apply
+  Salt.SW.hCoef_of_squarefree
+  Salt.SW.hCoef_of_not_squarefree
+  Salt.SW.hCoef_one
+  Salt.SW.hCoef_prime
+  Salt.SW.pseudoChar_prime_right
+  Salt.SW.hCoef_prime_of_not_dvd
+  Salt.SW.hCoef_isMultiplicative
+  Salt.SW.hCoef_eq_zero_of_not_dvd
+  Salt.SW.sum_divisors_eq_prod_primeFactors_of_squarefree_support
+  Salt.SW.sum_divisors_hCoef_mul_eq_prod
+  Salt.SW.sum_divisors_hCoef_div_eq_prod
+  Salt.SW.sum_divisors_abs_hCoef_eq_prod
+  Salt.SW.pseudoChar_eq_prod_primeFactors
+  Salt.SW.pseudoChar_mul_eq_sum_hCoef
+  Salt.SW.pseudoChar_mul_eq_sum_hCoef_filter
+  Salt.SW.hCoef_selbergPsi_prime
+  Salt.SW.hCoef_sum_div_eq
+  Salt.SW.hCoef_abs_sum_le
