@@ -219,7 +219,8 @@ theorem hb_L2_at_split_point_char {q : ℕ} [NeZero q] (χ : DirichletCharacter 
     (hα0 : 0 < α) (hα2 : 2 ∣ α)
     (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
     (hz : 32 ≤ z) (hαz : (α : ℝ) < z)
-    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η)
+    (hX : 3 ≤ X) (hwinlo : 250 * L ≤ Real.log X) (hwin : Real.log X ≤ 500 * L)
+    (hηlarge : 500 ≤ η)
     (hm1 : zeroMult χ (β₀ : ℂ) = 1)
     (htail : ‖Stail + ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ)
         * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖ ≤ Etail)
@@ -229,15 +230,15 @@ theorem hb_L2_at_split_point_char {q : ℕ} [NeZero q] (χ : DirichletCharacter 
     (hP : |Real.log (primeProdBelow z) + Real.log (Real.log z)
         + Real.eulerMascheroniConstant| ≤ EP)
     (hL1 : L1 = (∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)))⁻¹ * hbF χ z)
-    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
         + 8 * EP + 2 * (64 / z) ≤ 1) :
     ∃ δ : ℝ,
       hbKappa χ α x L1 * hbS1 χ α z
         = (1 + δ) * (x * Salt.HardyLittlewood.twinSingularSeries * hbCalpha α / (η * L) ^ 2)
-      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
           + 8 * EP + 2 * (2 * (Real.log q / Real.log z) / z) + 2 * (64 / z) :=
   hb_L2_at_split_point_concrete χ hq (hb_hchi01 χ hsq) (hb_hchi0 χ hsq) hα0 hα2 hβ₀1 hL hη
-    hz hαz hX hwin hηlarge hm1 htail hseg hcorr hP hL1 hsmall
+    hz hαz hX hwinlo hwin hηlarge hm1 htail hseg hcorr hP hL1 hsmall
 
 /-- **`(L2)` at the split point with **no** character binders at all** — `hchi01`, `hchi0` and
 `hL1` all gone, the L-value entering as the corpus's own `hbL1 χ z` (the ordered Euler product,
@@ -251,7 +252,8 @@ theorem hb_L2_at_split_point_charTrio {q : ℕ} [NeZero q] (χ : DirichletCharac
     (hα0 : 0 < α) (hα2 : 2 ∣ α)
     (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
     (hz : 32 ≤ z) (hαz : (α : ℝ) < z)
-    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η)
+    (hX : 3 ≤ X) (hwinlo : 250 * L ≤ Real.log X) (hwin : Real.log X ≤ 500 * L)
+    (hηlarge : 500 ≤ η)
     (hm1 : zeroMult χ (β₀ : ℂ) = 1)
     (htail : ‖Stail + ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ)
         * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖ ≤ Etail)
@@ -260,14 +262,14 @@ theorem hb_L2_at_split_point_charTrio {q : ℕ} [NeZero q] (χ : DirichletCharac
     (hcorr : |Real.log (hbF χ z) - ((logChiSum χ z X).re + Stail.re)| ≤ Ecorr)
     (hP : |Real.log (primeProdBelow z) + Real.log (Real.log z)
         + Real.eulerMascheroniConstant| ≤ EP)
-    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
         + 8 * EP + 2 * (64 / z) ≤ 1) :
     ∃ δ : ℝ,
       hbKappa χ α x (hbL1 χ z) * hbS1 χ α z
         = (1 + δ) * (x * Salt.HardyLittlewood.twinSingularSeries * hbCalpha α / (η * L) ^ 2)
-      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
           + 8 * EP + 2 * (2 * (Real.log q / Real.log z) / z) + 2 * (64 / z) :=
-  hb_L2_at_split_point_char χ hsq hq hα0 hα2 hβ₀1 hL hη hz hαz hX hwin hηlarge hm1 htail hseg
-    hcorr hP (hbL1_eq χ z) hsmall
+  hb_L2_at_split_point_char χ hsq hq hα0 hα2 hβ₀1 hL hη hz hαz hX hwinlo hwin hηlarge hm1 htail
+    hseg hcorr hP (hbL1_eq χ z) hsmall
 
 end Salt.HB
