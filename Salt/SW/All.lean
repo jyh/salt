@@ -88,6 +88,7 @@ import Salt.SW.EFSharp
 import Salt.SW.EFSharpZeros
 import Salt.SW.EFSharpMult
 import Salt.SW.DensityCrude
+import Salt.SW.WellSpacedAt
 import Salt.SW.DensityLogfree
 import Salt.SW.TauExt
 import Salt.SW.TBalTall
@@ -722,3 +723,44 @@ open Salt.Tactic in
   Salt.SW.re_one_div_sub_ge_at_height
   Salt.SW.LFunction_zero_count_near_one_at_height
   Salt.SW.LFunction_zero_count_near_one_at_height_guarded
+
+-- ⟦B2 W9d 0905⟧ `Salt/SW/WellSpacedAt.lean` — THE `Δ`-SPACED SCHUR SUM, a Mathlib-only LEAF.
+-- For a finite `𝒯 ⊆ ℝ` whose distinct points are at least `Δ` apart (`WellSpacedAt`), the
+-- off-diagonal sum obeys `Σ_{γ' ∈ 𝒯.erase γ} 1/(γ − γ')² ≤ (π²/3)/Δ²` at every `γ ∈ 𝒯`. The
+-- route splits `𝒯.erase γ` at `γ` and indexes each side by `n(x) := ⌊|x − γ|/Δ⌋ ≥ 1`, which is
+-- INJECTIVE there (two points sharing an index lie in one half-open interval of length `Δ`, so
+-- they are `< Δ` apart — the predicate forbids it) and satisfies `n(x)·Δ ≤ |x − γ|`; each side
+-- is then compared with `ζ(2) = π²/6` by `hasSum_zeta_two`, and `2ζ(2) = π²/3`. The constant is
+-- TIGHT: the lattice `{0, Δ, 2Δ, …}` at its centre reaches `3.2889` (4001 points) against
+-- `π²/3 = 3.2899`. At `Δ = 1` the predicate is `Salt.MR.WellSpaced` verbatim, but that file's
+-- closure is eleven Salt modules and nothing in W9 consumes it, so the tie is a docstring
+-- sentence and not a row: this file imports Mathlib ONLY. The exit `example` invokes the row at
+-- the lattice `{0, 1, 2}`, centre `1` — a point on EACH side, `1 + 1 ≤ π²/3`. One
+-- `#audit_axioms` name — sized from THIS LIST.
+#audit_axioms Salt.SW.sum_inv_sq_sub_le_of_wellSpacedAt
+
+-- ⟦B2 W9e 0905⟧ `Salt/SW/DensityLogfree.lean` — THE BOXES AT THE SCALE `Δ = 1/log D`: W1 AT
+-- HEIGHT PER BOX, WITH W1'S CONSTANT THREADED. `N(σ,T,χ)` is fibred over the boxes
+-- `[σ, 1] × [kΔ, (k+1)Δ)`, `k ∈ [−⌈T log D⌉ − 1, ⌈T log D⌉ + 1]` (`boxIndex`, `boxFibre`,
+-- `boxIndex_mem_Icc`, `zeroCountM_eq_sum_boxFibre`); each box sits in the disc
+-- `closedBall (1 + (k + ½)Δ·I) (Δ·√(λ² + ¼))`, `λ := (1 − σ) log D`
+-- (`boxFibre_subset_closedBall` — NO strip binder: the containment is the box's own geometry at
+-- every `σ`). W1 at height then counts the disc, its constant carried as the binder `hC₁` (W1 is
+-- `∃ C`; the witness `7200` is never a row here): on `D = qT ≥ 10²⁰`, `T ≥ 2`, `q ≥ 2` and the
+-- strip `119/120 ≤ σ ≤ 1`, the box's count is `≤ C₁·(7/4 + 3λ/2)` (`efMultTotal_boxFibre_le`),
+-- since `√(λ² + ¼) ≤ λ + ½`, `|t₀| ≤ T + 1` and `log(q + T + 3) ≤ log(qT)` there — the numeral
+-- `log(10²⁰) = 20(log 2 + log 5) ≥ 46` doing both. `σ ≤ 1` is TRUTH-load-bearing on both count
+-- rows: above `1` the box is EMPTY while the bound is NEGATIVE for `λ < −7/6`, and the row is
+-- stated for EVERY `k`, so the empty-fibre case needs `0 ≤ RHS`. One representative per box,
+-- TOTAL (`boxRep`, the Skolem `dite`; `boxRep_mem`); the representatives of the boxes of one
+-- PARITY are `Δ`-well-spaced, because same-parity `k ≠ k'` differ by at least `2`
+-- (`wellSpacedAt_parity_reps`); and the count is at most the box bound times the number of
+-- NON-EMPTY boxes, the even ones plus the odd ones (`zeroCountM_le_box_bound_mul`). W9f reads
+-- the last row with W9c's ratio. Seven `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.boxRep_mem
+  Salt.SW.boxIndex_mem_Icc
+  Salt.SW.zeroCountM_eq_sum_boxFibre
+  Salt.SW.boxFibre_subset_closedBall
+  Salt.SW.efMultTotal_boxFibre_le
+  Salt.SW.wellSpacedAt_parity_reps
+  Salt.SW.zeroCountM_le_box_bound_mul
