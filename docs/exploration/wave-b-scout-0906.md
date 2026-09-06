@@ -314,7 +314,7 @@ pins that seal's statement from the consumer side, which is the cheapest thing t
 
 ---
 
-## §7 — WHAT I COULD NOT DETERMINE (one of the five closed after first writing it)
+## §7 — WHAT I COULD NOT DETERMINE (two of the five closed after first writing it)
 
 1. ✅ ~~Whether `I ⊆ (E,2E]` maps onto a `Finset.Ioc A B` without an off-by-one.~~ **SETTLED — NO
    OFF-BY-ONE, AND IT NEEDED NO BUILD.** The dossier had this UNVERIFIED since 08/06 and I first
@@ -338,8 +338,21 @@ pins that seal's statement from the consumer side, which is the cheapest thing t
 4. **The `a_i`/`b_i` count over (5.3)–(5.5).** §6 of the paper needs `∏_{p∣q/Δ}(p−2) = qΔ^{−1}M`;
    the Wave C scout already books that as its own C1-07 row, so I have **not** priced it here — it
    is Wave C's, and I say so rather than double-count it.
-5. **`hb_lemma10'`** (the primed variant). The header names it beside `hb_lemma10` as equally
-   unlanded; I did not determine what distinguishes them or whether (5.17) needs both.
+5. ✅ ~~`hb_lemma10'` (the primed variant) — what distinguishes it, and does (5.17) need both?~~
+   **SETTLED, AND THE ANSWER IS THAT IT SHOULD NOT BE BUILT.** Three shapes run over the whole
+   repository (`.lean` and `.md`): the exact name · any `lemma10'`/`lemma10_prime`/`hbLemma10`
+   spelling · `find -iname '*lemma10*'`. **The primed name occurs EXACTLY ONCE in the corpus** —
+   `Lemma10Chain.lean:27`, the sentence that declares it unlanded. It has **no statement, no
+   docstring specification, and no design row anywhere.** [KERNEL]
+   **The evident intent** is HB's two phase shapes: Lemma 10 is stated for `f(n) = (T − Cn̄)/k`
+   **or** `f(n) = (T/n − Cn̄)/k` (`:611`), so a primed twin would be the second.
+   ⇒ **§2(e) dissolves the need for it.** The landed `lem10_dyadic_bound` is generic over
+   `g : ℤ → ℝ` with a variation budget, and **both** shapes are already landed as instances —
+   `var_const` (`:274`) and `var_inv` (`:293`). A single `hb_lemma10` stated over the `g`/`V`
+   interface subsumes both; a primed twin would restate the same theorem at a second instantiation.
+   ⇒ **RECOMMENDATION for the Wave A seal's freeze: state ONE theorem over `g`/`V` and RETIRE the
+   primed name**, unless the seal's author means something by it that the corpus does not record.
+   That saves a statement and removes a second surface from the seal.
 
 **Nothing in this scout bears on twin primes**: it prices a wave of N7, which is a binder on the
 crown either way, and it lands nothing.
