@@ -278,21 +278,28 @@ UNTWISTED**.  Both are load-bearing and neither is policed by the kernel:
   in the membership predicate of `bigXiH`, `chowla.txt:1296-1300`).  A door
   stated at `−(h·ξ.val)/H` elaborates fine and then fails to compose at the seam.
 
-**STRENGTH, WITH ITS DIRECTION NAMED.**  For `h ≥ 2` this is a STRICTLY STRONGER
-hypothesis than the landed `MRTUniformityXi`: `bigXiH h` is the larger set (it
-contains every `ξ` whose `h`-multiple is large-spectrum, and `μ_h` is not
-injective when `gcd(h,H) > 1`), so the `h`-door constrains strictly more
-frequencies.  It is still implied by the full `∀ α` door `MRTUniformity` by the
-same one-liner as `mrtUniformity_implies_xi` (`MRTDoor.lean:116-119`) — the
-frequency restriction only discards instances.
+**STRENGTH, WITH ITS DIRECTION NAMED.**  For `h ≥ 2` this is NOT a stronger hypothesis
+than the landed `MRTUniformityXi` — the two are INCOMPARABLE.  `bigXiH h eps H` is the
+`μ_h`-PREIMAGE of `bigXi eps H` under `μ_h : ξ ↦ (h : ZMod H)·ξ` (`mem_bigXiH_iff`
+above), and a preimage is not a superset: whenever `gcd(h,H) = 1` the map is a bijection
+and the preimage is a PERMUTED COPY of `Ξ_H`, of the same cardinality, containing it in
+neither direction.  The `h`-door constrains a DIFFERENT family of frequencies, of
+cardinality `≤ gcd(h,H)·|Ξ_H|` (`bigXiH_card_le_gcd_mul`), and neither implies nor is
+implied by the `Ξ`-door.  It is implied by the full `∀ α` door `MRTUniformity`
+(`mrtUniformity_implies_xiH` below — the one-liner of `mrtUniformity_implies_xi`,
+`MRTDoor.lean:116-119`): the frequency restriction only discards instances.
+*(The prose that stood here until 2026-09-05 called the `h`-door "strictly stronger";
+that was FALSE — `docs/blueprints/flags.md`, the W-F2 row of 2026-08-15.)*
 
 **THE PRODUCER STORY, HONESTLY.**  `MRTUniformity` is NEVER PRODUCED anywhere in
 this corpus: every occurrence of it is a hypothesis binder, and the `∀ α`-shaped
 terminal is DERIVED FROM the `Ξ`-restricted door (`SpineFinal.lean:976`), not the
-reverse.  So `MRTUniformityXiH h` is the `h`-family's OPEN HYPOTHESIS, exactly as
-`MRTUniformityXi` is for `h = 1`; a future `mrtUniformity_implies_xiH` would
-supply it only from the `∀ α` Prop, which nothing in the corpus produces.  This
-file adds no producer and claims none. -/
+reverse.  So `MRTUniformityXiH h` is the `h`-family's OPEN HYPOTHESIS, as
+`MRTUniformityXi` was for `h = 1` until `mrtUniformityXi_holds_flat`
+(`Salt/MR/DoorReceipt.lean`, 2026-09-02) produced it at flat regimes (`∃ R`,
+`δ ≤ √(1/837782)`); `mrtUniformity_implies_xiH` (this file) supplies the `h`-door only
+from the `∀ α` Prop, which nothing in the corpus produces.  This file adds no producer
+and claims none. -/
 noncomputable def MRTUniformityXiH (h : ℕ) (R : ChowlaRegime) (δ : ℝ) : Prop :=
   ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ ξ ∈ bigXiH h R.eps H,
     (∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ∂(logMeasure R.x R.ω)) ≤ δ * (H : ℝ)
