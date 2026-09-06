@@ -23,11 +23,25 @@ must deliver.  Three facts do the work, all elementary:
    alone, so the sum splits over the `|Adm(P)|` ADMISSIBLE CLASSES `r < P`, `(r(r+2),P) = 1`
    (`admClasses`, `sum_twinCoprime_eq_sum_admClasses`) — every piece at the SAME stride `P`,
    the same shift `2`, the same tolerance.  ⇒ the decomposition over divisors `d ∣ P` and their
-   `ρ(d)` classes (the shape the 08/26 flag priced) is NOT the one to feed: it spends the pinned
-   tolerance `1/(1000·d)` at every `d`, and `(1/1000)·∏_{p∣P}(1 + ρ(p)/p)` exceeds
-   `W = ∏(1 − ρ(p)/p)` from `z = 131` on (measured 09/05, `W/S = 0.998` at `z = 131`).  The
-   admissible-class decomposition spends `|Adm|·(1/(1000P))/P = W/(1000·P)` — below `W` at
-   EVERY `P` (`card_admClasses_eq_mul_W`, `admClasses_budget_lt_W`).
+   `ρ(d)` classes (the shape the 08/26 flag priced) is NOT the one to feed — but NOT because it
+   overspends.  A class atom at stride `d` costs `ε_d/d`, not `ε_d`: on `n = dm + r` the weight
+   `1/n` is `(1/d)·(1/m)` (§1(2), D4 below; the corpus's class-index normalisation,
+   `AffineFork.lean:69`).  So the multi-stride spend is `S′(z) = (1/1000)·∏_{p≤z}(1 + ρ(p)/p²)`,
+   and against `W = ∏(1 − ρ(p)/p)` it PASSES throughout the reachable range —
+   `z = 7`: `W 0.071429`, `S′ 0.0017173`, ratio `41.6`; `11`: `0.058442 / 0.0017457 / 33.5`;
+   `31`: `0.031046 / 0.0018033 / 17.2`; `97`: `0.019149 / 0.0018191 / 10.5`;
+   `127`: `0.017141 / 0.0018209 / 9.41`; `131`: `0.016880 / 0.0018211 / 9.27` — and first fails
+   only at `z = 3 607 187`.  ⚠ An earlier draft of this block priced each atom at `ε_d` rather
+   than `ε_d/d` and reported a crossing at `z = 131`: every entry of that table reproduced, and
+   the MEANING was wrong — the budget column used the corpus's normalisation and the table a
+   counterfactual `1/(am+b)` one, which D4 two sections down refutes.  It also ran `d` out to
+   `d ∣ primorial 131`, while beyond `d = 548` no atom has a supplier at all (the head that
+   EXPORTS the pin carries `hah7 : log(a·h) ≤ 7`, `StrideEntropyReceipt.lean:74`).
+   ⇒ THE REASON IS SHAPE, NOT BUDGET.  The class decomposition needs ONE stride, ONE tolerance
+   and ONE common `N` across the `|Adm(P)|` classes; the divisor decomposition needs
+   `2·3^{π(z)−1}` atoms at strides that mostly violate `hah7`.  Its own spend is
+   `|Adm|·(1/(1000P))/P = W/(1000·P)` — below `W` at EVERY `P`
+   (`card_admClasses_eq_mul_W`, `admClasses_budget_lt_W`), and `3.4·10⁻⁷` at `P = 210`.
 2. **A class atom is Tao's affine form up to `O(1/P)`** (`class_sum_le_affine_form`): on
    `n = P·m + r` the weight `1/n` is `(1/P)·(1/m)` up to `∑_m r/(P·m·(Pm+r)) ≤ 2/P`, and the
    `m = 0` term is one summand of size `≤ 1`.  So the road reads Tao's normalisation
@@ -140,7 +154,7 @@ empty otherwise — case on `r ≤ N`); the `m = 0` term (present iff `1 ≤ r`)
 for `m ≥ 1`: `g(Pm+r)/(Pm+r) = (1/P)·g(Pm+r)/m − g(Pm+r)·r/(P·m·(Pm+r))` and
 `∑_{m ≤ M} r/(P·m·(Pm+r)) ≤ (r/P²)·∑_{m≤M} 1/m² ≤ (r/P²)·2 ≤ 2/P` (`1/m² ≤ 1/(m−1) − 1/m` for
 `m ≥ 2`, telescoping; `r < P`).  Triangle inequality (`abs_sub_le`, `Finset.abs_sum_le_sum_abs`). -/
-theorem class_sum_le_affine_form {P r : ℕ} (hP : 0 < P) (hr : r < P) (N : ℕ) (g : ℕ → ℝ)
+theorem class_sum_le_affine_form {P r : ℕ} (hr : r < P) (N : ℕ) (g : ℕ → ℝ)
     (hg : ∀ n, |g n| ≤ 1) :
     |∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % P = r), g n / (n : ℝ)|
       ≤ (1 / (P : ℝ)) * |∑ m ∈ Finset.Icc 1 ((N - r) / P), g (P * m + r) / (m : ℝ)|
@@ -168,7 +182,7 @@ def AffFullRangeAt (a b h : ℕ) (ε A : ℝ) (M : ℕ) : Prop :=
 weight change.  `log ((N − r)/P) ≤ log N` (`Nat.div_le_self`, `Nat.sub_le`, `Real.log_le_log`;
 at `N = 0` both sides read `0 ≤ A/P + 2/P + 1`).  `|λ(k)| ≤ 1` for every `k`
 (`ArithmeticFunction.liouville_apply`: `(−1)^Ω(k)` at `k ≠ 0`, `0` at `k = 0`). -/
-theorem class_atom_le_of_affFullRange {P r : ℕ} (hP : 0 < P) (hr : r < P) {ε A : ℝ}
+theorem class_atom_le_of_affFullRange {P r : ℕ} (hr : r < P) {ε A : ℝ}
     (hε : 0 ≤ ε) (N : ℕ) (hfr : AffFullRangeAt P r 2 ε A ((N - r) / P)) :
     |∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % P = r),
         ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
@@ -178,7 +192,8 @@ theorem class_atom_le_of_affFullRange {P r : ℕ} (hP : 0 < P) (hr : r < P) {ε 
 /-- **D7 (class B) — `hatom` FROM THE DEMAND AT EVERY ADMISSIBLE CLASS, AT ONE `N`.**
 
 Recipe: `← sum_twinCoprime_eq_moebius_divisors N P hP (fun n => λ(n(n+2))/n)`
-(`TwinParitySieve.lean:723`), D2 (`hP.ne_zero`), `Finset.abs_sum_le_sum_abs`, D6 per class
+(`TwinParitySieve.lean:723`), D2 (`Nat.pos_of_ne_zero hP.ne_zero`), `Finset.abs_sum_le_sum_abs`,
+D6 per class
 (`Rnat`-free: `r < P` from `Finset.mem_range` via `Finset.mem_filter`), `Finset.sum_le_sum`,
 `Finset.sum_const`, `nsmul_eq_mul`. -/
 theorem atom_abs_le_of_affFullRange_classes {P : ℕ} (hP : Squarefree P) {ε A : ℝ} (hε : 0 ≤ ε)
@@ -220,7 +235,8 @@ theorem twinLogWeight_support_infinite_of_atom_rate_frequently {P : ℕ} (hP : S
 /-- **D10 (class B) — THE DEMAND, ASSEMBLED.**  Tao 1.2's full-range object at the stride `P`,
 shift `2`, EVERY admissible class, at a common scale `N` along an infinite set of scales, at any
 per-class tolerance `ε < 1/P` — the direct road's terminal follows.  At the stride lane's pin
-`ε = 1/(1000P)` the hypothesis `hεP` holds with `1000·P` to spare.
+`ε = 1/(1000P)` the hypothesis `hεP : ε < 1/P` holds with `1000×` to spare (`500×` for
+`2/(1000P)`); the `1000·P` factor is `W` against the SPEND — that is D8's, at `:122`.
 
 Recipe: D9 at `ε := |Adm|·(ε/P)`, `A := |Adm|·(A/P + 2/P + 1)`, `hε` from D8, `hatom` from D7. -/
 theorem twinLogWeight_support_infinite_of_affFullRange {P : ℕ} (hP : Squarefree P) {ε A : ℝ}
@@ -245,9 +261,11 @@ at most `log N / log ω + 1` of them (`ω^(K−1) ≤ N/x₀` since `x_{K−1} �
 `∑_{n ≤ x_K} 1/n ≤ 1 + log x₀`.
 
 Recipe: an auxiliary by induction on `K`: `∀ N, N < x₀ * ω ^ K → |S N| ≤ ε * K * log ω + (log x₀ +
-1)` — at `K + 1`, either `N < x₀` (the tail, `Salt.TwinBar.sum_inv_Icc_le`, `Wall.lean:219`, `|f|
-≤ 1`) or split `Icc 1 N = Icc 1 (N/ω) ∪ Ioc (N/ω) N` (`Finset.Icc_union_Ioc_eq_Icc`-shaped
-rewrite, disjoint), the window bound at `x := N`, and the hypothesis at `N/ω < x₀ * ω ^ K`
+1)` — at `K + 1`, either `N < x₀` (the tail, `Salt.TwinBar.sum_inv_Icc_le`, `Wall.lean:220`, `|f|
+≤ 1`) or split `Icc 1 N = Icc 1 (N/ω) ∪ Ioc (N/ω) N` via `Finset.sum_Ioc_consecutive` (the
+`to_additive` of `prod_Ioc_consecutive`, `BigOperators/Intervals.lean:61`) at `0 ≤ N/ω ≤ N`,
+after `Finset.Icc 1 N = Finset.Ioc 0 N` in ℕ; the window bound at `x := N`, and the
+hypothesis at `N/ω < x₀ * ω ^ K`
 (`Nat.div_lt_iff_lt_mul`).  Then `K := Nat.log ω (N / x₀) + 1` (`Nat.lt_pow_succ_log_self`), and
 `Nat.log ω (N/x₀) * log ω ≤ log (N/x₀) ≤ log N` (`Nat.pow_log_le_self`, `Real.log_le_log`). `N =
 0`: the left side is `0`. -/

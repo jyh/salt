@@ -43,16 +43,19 @@ namespace Salt.Entropy.Chowla
 `log_chowla_two_budget_head_g_sq_count_hloCap_pinned`'s statement with `ε` moved from the
 `∃`-prefix to a HYPOTHESIS `0 < ε ≤ 1/500`, the two pin conjuncts dropped, and ONE conjunct added:
 `ε/1677 ≤ δ₀` (from `δ₀ = cD3/(16·C)·ε/4` with `1/4 ≤ cD3`, `C ≤ 6.55`:
-`cD3/(16·C) ≥ 5/2096`, so `δ₀ ≥ 5ε/8384 = ε/1676.8`).  Everything else is the pinned head's,
-item for item.
+`cD3/(16·C) ≥ 5/2096`, so `δ₀ ≥ 5ε/8384 = ε/1676.8`; `1677` is the SMALLEST integer that works —
+the landed leaves give `5/2096` with ZERO slack).  Everything else is the pinned head's, item for
+item.  ⚠ NO `K` UPPER BOUND IS EXPORTED here (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange
+rate is consumable at the L² grade only, so a consumer must not hunt for a `K`-numeral.
 
-Recipe: the pinned head's proof VERBATIM (`HloExport.lean:519–640`) with `hεdef : ε = 1/500`
+Recipe: the pinned head's proof VERBATIM (`HloExport.lean:519–618`) with `hεdef : ε = 1/500`
 replaced by the hypothesis: `hεcE`, `hε_half_lt`, `hε_D3`, `hε_D3C`, `hε2`, `hεQ1` each by
 `le_trans`/`lt_of_le_of_lt` from `ε ≤ 1/500` and the pinned-leaf numerals (`hcEge`, `hcD3ge`,
 `hCnum`, `hlog4eq`); the exchange-rate conjunct from `hkey : 5/2096 ≤ cD3/(16·C)` (the landed
 line) by `nlinarith`/`linarith` on `ε ≥ 0`; the three `private` names of `HloExport`
 (`spine_False_core_xi_sq_cap`, `mutualInfo_window_comm_cap`, `hloCap_shuffle`) via
-`open private … from Salt.Entropy.Chowla.HloExport` (the landed idiom, `XThread.lean:330`). -/
+`open private … from Salt.Entropy.Chowla.HloExport` (the landed idiom, `XThread.lean:50`;
+a second at `S16Compose.lean:63`). -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily (ε : ℚ) (hε0 : 0 < ε)
     (hε : ε ≤ 1 / 500) :
     ∃ (K δ₀ : ℝ) (Hcap : ℕ), 0 < K ∧ 0 < δ₀ ∧ (ε : ℝ) / 1677 ≤ δ₀ ∧
