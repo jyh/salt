@@ -436,6 +436,16 @@ wave was 51 red (the 42 theorems + the 9 defs downstream of `dh_repulsion_tall_a
 (four executors, 42/42, zero flags): the reading is 68 ✓.  The first row is the one
 theorem appended to a landed file (`Salt/SW/TBalTall.lean`, the helm's ruling).  ONE NAME PER
 COMMAND, as for N8 (the audit aborts at its first offender).  Executors never edit these rows.
+
+**RE-STAMPED 2026-09-06 (Arm B, stage B3-i, design γ — the row-(iv) tail re-grade).**  The names
+below are unchanged; three of their STATEMENTS moved, and the file's headline moved with them:
+`N9Regime`'s field `ellL` (finding 4's `q`-coupled crude-count price) is DELETED and `ellB3`
+(`n9E0B3 ≤ ℓ′`, `q`-FREE — a threshold on B2's own constant) stands in its place;
+`logChiSum_tail_at_window`'s conclusion gains one `X`-free summand `n9Tail q η`; and
+`n9Cq`/`crown_handover`/`hEngine_poly_of_N7`/`heathBrownDichotomyPoly_of_N7` move from the
+literal `30` to the literal `14` — **`heathBrownDichotomyPoly_of_N7 : N7Exit … →
+HeathBrownDichotomyPoly 14`**.  The re-grade's own rows are in `Salt/HB/TailShells.lean`
+(stanza ⟦B3-i(a)⟧ below) and in `Salt/HB/CrownTheorem1.lean` §3b.
 -/
 
 section N9
@@ -560,3 +570,18 @@ open Salt.Tactic
 #audit_axioms Salt.HB.efEnvelopeB3_le_ledger
 #audit_axioms Salt.HB.integral_rpow_div_log_tail_le
 end B3i
+
+/-! ## ⟦B3-i(b) 0906⟧ `Salt/HB/CrownTheorem1.lean` — THE TWO DEFS THE RE-GRADE ADDS
+
+`n9Tail q η = 20·n9CB2·e^{−ℓ′/24}` is the ONE `X`-free summand the re-graded Range-A tail
+carries (`logChiSum_tail_at_window`, audited above), and `n9E0B3 = 24·log(2000·n9CB2+1)` is the
+regime threshold that pays for it — `q`-FREE, which is what lets the quality exponent drop
+`30 → 14`.  Every other name of the re-cut already has a row in the N9 stanza above; those rows
+now read the re-cut statements (the N9 banner says which moved).  3 `#audit_axioms` names. -/
+
+section B3ib
+open Salt.Tactic
+#audit_axioms Salt.HB.n9Tail
+#audit_axioms Salt.HB.n9E0B3
+#audit_axioms Salt.HB.n9E0B3_nonneg
+end B3ib
