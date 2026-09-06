@@ -446,6 +446,19 @@ below are unchanged; three of their STATEMENTS moved, and the file's headline mo
 literal `30` to the literal `14` — **`heathBrownDichotomyPoly_of_N7 : N7Exit … →
 HeathBrownDichotomyPoly 14`**.  The re-grade's own rows are in `Salt/HB/TailShells.lean`
 (stanza ⟦B3-i(a)⟧ below) and in `Salt/HB/CrownTheorem1.lean` §3b.
+
+**RE-STAMPED AGAIN 2026-09-06 (Arm B, stages B3-ii and B3 — the `hsmall` repackaging and the
+consumer at `k = 1`).**  Again no name below is removed, and again some STATEMENTS moved:
+`dhK` is now `1`, `dh_repulsion_tall_at`/`dh_spec` are re-wired to B1a's
+`Salt.SW.dh_repulsion_k1_of_floor` and their bound on `c` strengthens from `≤ 1` to `≤ 1/126848`,
+`re_le_beta0_of_ne` closes on that bound instead of on an exponent split, and the `(L2)` chain's
+tail-integral error term is `500(1 + 2 log η)/η` in place of `500(1 + 2 log(ηL))/η`
+(`hb_F_tail_integral` and the five theorems that forward it, all audited above).
+`crown_handover`'s statement is BYTE-UNCHANGED; its proof is now a projection of the new
+`crown_handover_k1`.  ⭐ The stage's deliverable is the last row of stanza ⟦B3⟧ below:
+**`heathBrownDichotomy_of_N7 : N7Exit Cerr CA CA' CC → HeathBrownDichotomy`** — the FROZEN crown
+statement (`Salt/TwinBar/SiegelTwin.lean`, byte-untouched) on ONE binder.  It is a dichotomy
+conditional on N7, and nothing in it bears on twin primes.
 -/
 
 section N9
@@ -519,6 +532,26 @@ open Salt.Tactic
 #audit_axioms Salt.HB.hEngine_poly_of_N7
 #audit_axioms Salt.HB.heathBrownDichotomyPoly_of_N7
 end N9
+
+/-! ## ⟦B3 0906⟧ `Salt/HB/CrownTheorem1.lean` — THE CONSUMER AT `k = 1`: THE CROWN'S FROZEN
+STATEMENT ON ONE BINDER (Arm B, stage B3)
+
+`dhK := 1` re-wires the D–H contract to B1a's `k = 1` sibling and un-couples `ℓ′` from `q`; the
+hand-over then consumes HB's OWN fulcrum (`FulcrumQualityMin`, not `FulcrumQualityPoly … 14`),
+the supply's single `log L` cancelling the `log(log 4q + 2)` of the floor EXACTLY.  Three rows
+are new here — the bridge `fulcrumQualityMin_of_poly` (which is what keeps the `Poly 14` row
+alive at zero cost), the `k = 1` hand-over `crown_handover_k1`, and the engine `hEngine_of_N7` —
+and the fourth is the crown's frozen statement itself, conditional on N7 and on nothing else in
+this file.  ⛔ `N7Exit` is OPEN; the row is a dichotomy; nothing here bears on twin primes.
+4 `#audit_axioms` names — sized from THIS LIST. -/
+
+section B3
+open Salt.Tactic
+#audit_axioms Salt.HB.fulcrumQualityMin_of_poly
+#audit_axioms Salt.HB.crown_handover_k1
+#audit_axioms Salt.HB.hEngine_of_N7
+#audit_axioms Salt.HB.heathBrownDichotomy_of_N7
+end B3
 
 /-! ## ⟦B3-i(a) 0906⟧ `Salt/HB/TailShells.lean` — THE ROW-(iv) TAIL RE-GRADE: B2 spent shell
 by shell (Arm B part B3-i, design γ)
