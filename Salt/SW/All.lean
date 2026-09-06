@@ -787,7 +787,7 @@ open Salt.Tactic in
 -- `≤ 73T` iff `T ≥ 1.959`. The constants `73`, `7/2 + 3|t|`, `2 + 3‖u‖` are the corpus's
 -- (Pólya–Vinogradov-free: ζ's growth here is `norm_riemannZeta_le`'s partial-fraction bound), not
 -- Jutila's. Every row is an INPUT to W9's assembly; nothing here bears on twin primes.
--- 36 `#audit_axioms` names — sized from THIS LIST.
+-- 37 `#audit_axioms` names — sized from THIS LIST.
 #audit_axioms Salt.SW.jutilaB_zero
   Salt.SW.jutilaB_ofReal_eq
   Salt.SW.jutilaB_nonneg
@@ -820,6 +820,7 @@ open Salt.Tactic in
   Salt.SW.integral_resIntegrand_shift
   Salt.SW.halaszBTsum_jutilaB_eq_sum
   Salt.SW.halaszBTsum_jutilaB_expand
+  Salt.SW.halaszBTsum_jutilaB_eq
   Salt.SW.sum_rFilter_totient_div_sq_le
   Salt.SW.sum_two_pow_card_primeFactors_le
   Salt.SW.sum_rFilter_abs_hCoef_le
