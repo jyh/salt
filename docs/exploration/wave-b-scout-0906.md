@@ -12,11 +12,11 @@ written to its pattern: the epistemic tiers are kept apart on every row —
 **Absence rule** (QUEUE row 19i): a row says ABSENT only when the arms are listed *and* a sibling
 control in the same convention was found; otherwise it says "not found under N arms, arms listed".
 
-**Status: §1 and §2(e) are delivered (the pack's two rows). §2(a)–(d), §3–§7 are PENDING.**
+**Status: WHOLE. §1 and §2(e) were delivered as the PARTIAL for the 07:41 pack; §2(a)–(d) and §3–§7 complete it.**
 
 ---
 
-## §0 — HEADLINE (partial)
+## §0 — HEADLINE
 
 §5 is a **congruence-and-cancellation argument, not an analytic one**, and the corpus is further
 into it than the 08/11 gate's un-itemised 3,000–6,000 suggests. Three of its four structural
@@ -151,13 +151,176 @@ ingredients provide and what (5.17) can supply.
 
 ---
 
-## §2(a)–(d), §3, §4, §5, §6, §7 — PENDING (WHOLE due 09:30)
+## §2(a)–(d) — THE REST OF THE STRUCTURE
 
-Named here so the partial's silence is not read as a hole: (a) the μ-sieve and hyperbola step;
-(b) the dyadic decomposition and support conditions; (c) the four-congruence CRT collapse against
-mathlib's forms; (d) the ψ-reduction's `Max`/`Min` triples; §3 the stones; §4 the (5.19)↔(6.2)
-seam (UNVERIFIED at the Wave C scout §7.7); §5 the (5.5) hole at `v₂(q)=3`; §6 the wave table;
-§7 what I could not determine.
+**(a) The μ-sieve of `Λ*` (p.210) and the hyperbola step (p.211).** `Λ*(n) = Σ*_{u∣n} χ(u) log(n/u)`
+is re-expressed by Möbius over `m ∣ Q` and truncated at `m < q`, error `≪ x^{1+ε}q^{−1}`
+(`hb1983-notes.md:531-537`). **Lemma 1 is supplied** — `LamStar_nonneg`
+(`Salt/HB/TwistChain.lean:359`) and `vonMangoldt_le_LamTilde` (`:368`), both in the roll-call
+(`Salt/HB/All.lean:98-99`) [KERNEL]. The hyperbola manipulation into the `Σ_{v>V} χ(w)` shape has a
+**one-variable sibling** landed — `sum_divisors_eq_hyperbola_symm` (`Salt/SW/Hyperbola.lean:55`,
+generic over a `CommRing`) and `dhA_hyperbola_symm` (`:184`) [KERNEL] — so the two-variable version
+is a port of a landed idiom, not a fresh construction. **The carrier `S(δ₁,δ₂;V₁,V₂)` itself is
+ABSENT** (sibling control found ⇒ ABSENT, not merely unfound). Class C for the carrier + Lemma 9;
+class B for the sieve. [SCOUT]
+
+**(b) The dyadic decomposition (5.2)–(5.3) and the support conditions (5.1).** `R_i/V_i` and `S_i`
+powers of 2 with `x ≪ δ_iR_iS_i ≪ x`; the residue split mod `q` carries `χ(b₁b₂)`. The **dyadic
+idiom is landed in the file Wave B consumes** — `lem10_dyadic_bound` sums over
+`Finset.Ioc M (2*M)` (`Lemma10Chain.lean:1005`) [KERNEL] — so the convention is fixed and an
+executor should follow it rather than invent a `Set.Ioc` form. (5.1) is three coprimality side
+conditions on the carrier's definition. Class B. [SCOUT]
+
+**(c) The four congruences (5.7)–(5.10) and their collapse to (5.11)–(5.13).** See §3 stone 1 —
+this is the wave's hardest row and mathlib's fit is exact in the primitive and wrong in the wrapper.
+
+**(d) The ψ-reduction (5.14)–(5.17) and the `Max`/`Min` triples.** (5.15)/(5.16) are a three-term
+`Max` and a three-term `Min`; in Lean these are `max a (max b c)` / `min a (min b c)` over `ℝ`,
+with the ordering facts an executor needs being `le_max_left/right` and `min_le_left/right` — no
+design content, but **the three entries must be transcribed in HB's exact order** because
+(5.15)'s third entry and (5.16)'s third entry differ only in a leading `2` and share the
+`α₁β₂ − α₂β₁` numerator (`:589-590`), which is the transcription hazard in this row. The `ψ` and
+the inverse `w̄₂` are landed (§1's (5.17) row). Class A for the triples, B for the reduction. [SCOUT]
+
+---
+
+## §3 — THE STONES (what an executor fails on if not pointed at first)
+
+**STONE 1 — the four-modulus CRT with compatibility (5.13). Class C, ≈ 300–600 ln.**
+HB collapses four congruences to one by a consistency check `(m_j,m_k) ∣ (X_j − X_k)` over
+`α₁α₂ ; α₂δ₁w₁ ; α₂q ; α₁δ₂q`, then an explicit lcm `m₀ = α₁δ₂·δ₁w₁·α₂q/(α,q)` (`:581-584`).
+
+⭐ **mathlib has EXACTLY the right primitive and EXACTLY the wrong wrapper, and an executor will
+reach for the wrong one.**
+
+- **RIGHT:** `Nat.chineseRemainder'` (`.lake/packages/mathlib/Mathlib/Data/Nat/ModEq.lean:422`) —
+  `(h : a ≡ b [MOD gcd n m]) : { k // k ≡ a [MOD n] ∧ k ≡ b [MOD m] }`. Its hypothesis **is** HB's
+  (5.13) compatibility condition, stated as a `gcd` congruence rather than a divisibility; and
+  `chineseRemainder'_lt_lcm` (`.lake/packages/mathlib/Mathlib/Data/Nat/ModEq.lean:467`) bounds the witness by `lcm n m`, which is HB's `m₀`. [KERNEL]
+- **WRONG:** every n-ary form — `chineseRemainderOfList` (`.lake/packages/mathlib/Mathlib/Data/Nat/ChineseRemainder.lean:65`),
+  `chineseRemainderOfMultiset` (`:132`), `chineseRemainderOfFinset` (`:165`) — demands
+  `Pairwise (Coprime on s)`. **HB's four moduli are not pairwise coprime** (they share `α₂` and `q`
+  by construction), so the ergonomic n-ary route is unavailable. [KERNEL]
+
+⇒ **The collapse is a THREE-FOLD ITERATION of `chineseRemainder'`**, carrying the modulus as an
+iterated `lcm` and discharging each compatibility hypothesis from (5.4)/(5.5)/(1.7). **House idiom
+already fixed:** `roadModulus_eq_lcm` (`Salt/Weil/RoadModulus.lean:62`) says `D` *is* `Nat.lcm`
+by `rfl` — the corpus already chose `lcm` over the `αq/gcd` spelling, and this row should follow it.
+The corpus's only prior CRT use is the **pairwise coprime** `Nat.chineseRemainder` under a
+`Finset.induction` (`Salt/Goldbach/Residue.lean:41`, `:60`) [KERNEL] — a control that does **not**
+transfer, and an executor copying it will hit the coprimality wall on the first fold.
+
+**STONE 2 — the p.214 error budget at the CORRECTED exponents. Class B–C, ≈ 250–450 ln.**
+The ψ-total `≪ δ₁q^{5/2}(S₁S₂ + S₁² + x + xS₁/S₂)S₁^{ε−1/4} ≪ δ₁q^{5/2}x^{15/16+ε}` must be closed
+term by term at `S₁, S₂ ≪ x^{1/2}` and `S₁S₂ ≫ x^{15/16}` — **not** at HB's printed `x^{1/4}`,
+which empties the regime. The notes already carry the term-by-term closure in exact rationals
+(`:653-661`): term 1 binds, terms 2–4 are free, and `S₂ ≪ x^{1/4}` is **not needed at all**. So
+this stone is *transcription of a completed argument*, not new mathematics — **provided the
+executor is handed the corrected exponents**, because the paper says otherwise and a careful
+executor reading HB will reproduce the empty regime. [HB-NOTES]
+
+**NOT A STONE, and this is the finding: the O(1) `T` / `T/w₂` split.** §2(e) shows the landed
+interface takes `g` + a variation budget, and both of HB's phase shapes are landed as `var_const`
+(`:274`) and `var_inv` (`:293`). The 08/11 gate would have priced this; it is an instantiation.
+
+---
+
+## §4 — THE (5.19)↔(6.2) SEAM: **IT CLOSES**, AND THE IDENTITY IS ONE AFFINE SUBSTITUTION
+
+This was **UNVERIFIED** at the Wave C scout (its `§7.7`) and is the one place the two waves can
+fail to meet. Verified here [SCOUT], from the two displays as each scout states them:
+
+- **(5.19)** summand (`:672`): `(T₂ − T₁)·(Dδ₁w₁)^{−1}`, with `D = α₂qΔ^{−1}` (5.12).
+- **(6.2)** summand (`:693-696`, and the Wave C scout's §1 row for it): `K^{−1}(w₁w₂)^{−1}A`, with
+  `K = δ₁δ₂qΔ^{−1}` and `A(w₁,w₂) = mes{ t : x ≤ t ≤ 2x, R_i ≤ l_i(t)/(δ_iw_i) ≤ 2R_i }`.
+
+Equating and cancelling the common `qΔ^{−1}δ₁w₁`:
+
+> `(T₂ − T₁)/α₂ = A/(δ₂w₂)`, i.e. **`A = (δ₂w₂/α₂)·(T₂ − T₁)`.**
+
+**That is exactly the Jacobian of the substitution (5.14) already performs.** Put
+`v₂ = l₂(t)/(δ₂w₂) = (α₂t + β₂)/(δ₂w₂)`, so `t = (δ₂w₂v₂ − β₂)/α₂` and `dt = (δ₂w₂/α₂)dv₂`. The
+three constraints defining `A` map to the three entries of (5.15)/(5.16) **one for one**:
+
+| constraint on `t` | image under `t ↦ v₂` | (5.15)/(5.16) entry |
+|---|---|---|
+| `R₂ ≤ l₂(t)/(δ₂w₂) ≤ 2R₂` | `R₂ ≤ v₂ ≤ 2R₂` | first entries ✅ |
+| `x ≤ t ≤ 2x` | `(α₂x+β₂)/(δ₂w₂) ≤ v₂ ≤ (2α₂x+β₂)/(δ₂w₂)` | second entries ✅ |
+| `R₁ ≤ l₁(t)/(δ₁w₁) ≤ 2R₁` | `v₂ ≥ (α₂δ₁w₁R₁ + α₁β₂ − α₂β₁)/(α₁δ₂w₂)`, and `≤` the same with `2R₁` | third entries ✅, sign and all |
+
+⇒ **SAME SHAPE. No delta.** (6.2)'s summand is (5.19)'s summand pushed through one affine change
+of variable, and the `A`-vs-`(T₂−T₁)` mismatch that made the row look risky is precisely the
+Jacobian `δ₂w₂/α₂`. **The two waves meet.**
+
+⚠️ **Two honest riders.** (i) This is an identity between the **main terms**; (5.19)'s `Σ*`
+side conditions (`T₂ > T₁`, (5.6), `(w₂,Dδ₁w₁)=1`) must be carried into §6 unchanged — they are
+not part of the seam but they travel with it. (ii) I verified the algebra, not a Lean proof; the
+Lean cost is a `MeasureTheory.volume` image-under-affine-map argument, **class B, ≈ 80–150 ln**,
+and it belongs to Wave C-1 (which owns `A`), not to Wave B.
+
+---
+
+## §5 — THE (5.5) HOLE AT `v₂(q) = 3`: **MOOT AT THE TWIN INSTANCE**
+
+`weil-trio-design-0806.md:165-172` records a genuine hole in HB (5.5): (1.8)+(1.9) do **not** give
+`(α₁,q) = (α₂,q)` when `v₂(α₁) ≠ v₂(α₂)`, with the admissible counterexample `4n+1, 8n+3`.
+
+**At the twin instance it does not arise.** The crown's wire fixes the forms: `hbDataN8`
+(`Salt/HB/CrownAssembly.lean:114-123`) takes `val n = n * (n + 2)` [KERNEL], i.e. `l₁(n) = n` and
+`l₂(n) = n + 2` — so `α₁ = α₂` (and `v₂(α₁) = v₂(α₂)` trivially), and `(α₁,q) = (α₂,q)` holds for
+every `q` with no cube-free appeal needed for *this* step. The design's own note says the same
+("MOOT FOR TWIN PRIMES … the road carries `α₁ = α₂` as a named hypothesis").
+
+⇒ **LIVE for general form pairs, MOOT here. One row, no price.** It stays worth a remark in any
+writeup as an erratum-grade finding about HB, and Wave B's Lean statements should carry `α₁ = α₂`
+as a named hypothesis rather than silently relying on the instance.
+
+---
+
+## §6 — THE WAVE TABLE
+
+Split as the object dictates: the congruence half and the ψ half meet cleanly at (5.13).
+
+| # | node | statement shape | consumes | regime | class | ln |
+|---|---|---|---|---|---|---|
+| **B-1** | the carrier | `S(δ₁,δ₂;V₁,V₂)` as a definition + (5.1) support | — (ABSENT; hyperbola sibling as idiom) | FRESH | C | 170–340 |
+| **B-2** | Λ*'s μ-sieve + Lemma 9 | `S(d) = Σ μμ ∫∫ S(…) + O(x^{1+ε}q^{−1})` | `LamStar_nonneg`, `vonMangoldt_le_LamTilde`, `sum_divisors_eq_hyperbola_symm` | ASSEMBLY (3 landed) | C | 370–700 |
+| **B-3** | dyadic + residue split (5.2)–(5.4) | `S = Σ_{R,S}Σ_{a,b} χ(b₁b₂)S` | the `Finset.Ioc M (2M)` idiom | ASSEMBLY | B | 230–460 |
+| **B-4** | **the CRT collapse (5.5)–(5.13)** | four congruences ⟹ `v₂w₂ ≡ C (mod Dδ₁w₁)` | `roadModulus`, `roadModulus_eq_lcm`, `dvd_roadModulus{,_mul,_left}`, `Nat.chineseRemainder'`, `chineseRemainder'_lt_lcm` | **FRESH** (stone 1) | **C** | 400–800 |
+| **B-5** | the ψ-reduction (5.14)–(5.17) | `#{v₂} = (T₂−T₁)/(Dδ₁w₁) + ψ(·) − ψ(·)` | `sawtooth` + its whole kit, `invMod` | ASSEMBLY (6 landed) | B | 210–420 |
+| **B-6** | **applying Lemma 10** | the ψ-total `≪ δ₁q^{5/2}x^{15/16+ε}` | `lem10_dyadic_bound`, `klPhaseSum_bound`, `var_const`, `var_inv`, `dvd_roadModulus_mul`; **gated on `hb_lemma10` (Wave A seal)** | ASSEMBLY (5 landed + 1 unlanded) | **C** | 350–650 |
+| **B-7** | Lemma 11 / (5.19) | the wave's exit, at the **corrected** exponents | B-3…B-6 | FRESH | C | 250–450 |
+| | | | | | **Σ** | **1,980–3,820** |
+
+**Against the 08/11 gate's inherited 3,000–6,000: the bar narrows to ≈ 2,000–3,800, and its low end
+falls below the inherited floor.** [DESIGN]
+
+**Regime call** (the pair's §3 prices assemblies by piece count): **four of seven nodes are
+ASSEMBLIES of already-landed inputs** — the regime the estimator ran 3.3× low on for the ratio and
+1.0× for the strip. B-3 and B-5 in particular consume landed idioms almost entirely and should be
+priced by piece count, not by class mean. The genuinely FRESH mass is B-1, B-4 and B-7.
+
+⛔ **B-6 is gated on the Wave A seal** (`hb_lemma10`), so Wave B cannot close before it. §2(e)
+pins that seal's statement from the consumer side, which is the cheapest thing this scout produces.
+
+---
+
+## §7 — WHAT I COULD NOT DETERMINE
+
+1. **Whether `I ⊆ (E,2E]` maps onto a `Finset.Ioc A B` without an off-by-one.** The dossier flagged
+   it UNVERIFIED and it is still open; §2(e) shows the landed form takes endpoints + a length bound,
+   which is exactly where the off-by-one would live. **What settles it:** a ~20-line scratch file
+   instantiating `lem10_dyadic_bound` at a concrete `(E, A, B)` — a build, which this order forbade.
+2. **The exact constant in `hb_lemma10`'s conclusion.** §2(e) gives its shape; the numeral depends
+   on the dyadic cover's block count and the `(log Kk)³ → (log 2k)³` conversion (`2.39`), and both
+   are the Wave A seal's to fix. **What settles it:** the seal's freeze.
+3. **Whether B-2's double integral needs a Fubini/measurability side condition** that mathlib does
+   not hand over cheaply. I read the display, not a proof. **What settles it:** the B-2 freeze.
+4. **The `a_i`/`b_i` count over (5.3)–(5.5).** §6 of the paper needs `∏_{p∣q/Δ}(p−2) = qΔ^{−1}M`;
+   the Wave C scout already books that as its own C1-07 row, so I have **not** priced it here — it
+   is Wave C's, and I say so rather than double-count it.
+5. **`hb_lemma10'`** (the primed variant). The header names it beside `hb_lemma10` as equally
+   unlanded; I did not determine what distinguishes them or whether (5.17) needs both.
 
 **Nothing in this scout bears on twin primes**: it prices a wave of N7, which is a binder on the
 crown either way, and it lands nothing.
