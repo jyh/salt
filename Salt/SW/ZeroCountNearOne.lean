@@ -609,8 +609,7 @@ example : ∃ C : ℝ, 0 < C ∧ ∀ {q : ℕ} [NeZero q] (χ : DirichletCharact
   have h0 := h χ hχ hq 0 hr0 hr
   have e : ((1 : ℂ) + ((0 : ℝ) : ℂ) * I) = 1 := by simp
   have e' : ((q : ℝ) + |(0 : ℝ)| + 2) = (q : ℝ) + 2 := by simp
-  first
-    | (rw [e', e] at h0; exact h0)
-    | (convert h0 <;> simp)
+  rw [e', e] at h0
+  exact h0
 
 end Salt.SW
