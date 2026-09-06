@@ -109,7 +109,7 @@ theorem lem10_dyadic_bound [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk
 |---|---|---|---|
 | summation variable `n` | `w₂` | the `n` of `Finset.Ioc A B` inside `lem10ExpSum` | ✅ **fits** |
 | `k` | `Dδ₁w₁ = α₂qΔ^{−1}δ₁w₁` | `k : ℕ`, `[NeZero k]`, `hk : 2 ≤ k` | ✅ fits; the consumer owes `2 ≤ Dδ₁w₁`, immediate from `q ≥ 3` |
-| `E` | `S₂`, `I ⊆ (S₂, 2S₂]` | `{E : ℝ}`, `hE : 1 ≤ E`, **plus** `hlen : ((B−A).toNat : ℝ) ≤ 2*E` | ⚠️ **shape delta**: the landed form takes integer endpoints `A B` and a **length** bound, not a set inclusion `I ⊆ (E,2E]`. The consumer must produce `A B` and discharge `hlen`. The dossier's own UNVERIFIED note (`:283-285`, "nobody has checked that `I₀ ⊆ (E,2E]` maps onto a `Finset.Ioc M₁ M₂` without an off-by-one") **is exactly this row and is still open** |
+| `E` | `S₂`, `I ⊆ (S₂, 2S₂]` | `{E : ℝ}`, `hE : 1 ≤ E`, **plus** `hlen : ((B−A).toNat : ℝ) ≤ 2*E` | ⚠️ **shape delta**: the landed form takes integer endpoints `A B` and a **length** bound, not a set inclusion `I ⊆ (E,2E]`. The consumer must produce `A B` and discharge `hlen`. The dossier's own UNVERIFIED note (`:283-285`) is exactly this row — **and §7.1 now CLOSES it: `A = ⌊S₂⌋`, `B = ⌊2S₂⌋` gives HB's `I` exactly, and `hlen` is free. No off-by-one** |
 | `T` | `T₁`/`T₂` after an O(1) split into `T`- and `T/w₂`-shaped pieces | **no `T` slot at all** — `g : ℤ → ℝ` with `hvar : ∑\|g(n+1)−g(n)\| ≤ V` | ⭐ **STRICTLY MORE GENERAL, AND THE SPLIT IS ABSORBED.** `f(n)=(T−Cn̄)/k` ⟹ `g n = T/k`, variation `0` — **`var_const` (`:274`)**. `f(n)=(T/n−Cn̄)/k` ⟹ `g n = T/(kn)`, variation `≤ \|T\|/(kE)` — **`var_inv` (`:293`)**. Both landed. The O(1) `w₂`-range split HB performs by hand is an **instantiation**, not a step |
 | `C` | the (5.11) constant, `(C, Dδ₁w₁) = 1` | `c : ℤ`, `hc : Nat.Coprime c.natAbs (k / q)` | ✅ fits, and the landed hypothesis is **weaker** — coprimality against `k/q`, not `k`. (5.11)'s `(C,Dδ₁w₁)=1` implies it since `k/q ∣ k` |
 | `b` | `b₂` | `b : ℤ` | ✅ fits |
@@ -314,12 +314,22 @@ pins that seal's statement from the consumer side, which is the cheapest thing t
 
 ---
 
-## §7 — WHAT I COULD NOT DETERMINE
+## §7 — WHAT I COULD NOT DETERMINE (one of the five closed after first writing it)
 
-1. **Whether `I ⊆ (E,2E]` maps onto a `Finset.Ioc A B` without an off-by-one.** The dossier flagged
-   it UNVERIFIED and it is still open; §2(e) shows the landed form takes endpoints + a length bound,
-   which is exactly where the off-by-one would live. **What settles it:** a ~20-line scratch file
-   instantiating `lem10_dyadic_bound` at a concrete `(E, A, B)` — a build, which this order forbade.
+1. ✅ ~~Whether `I ⊆ (E,2E]` maps onto a `Finset.Ioc A B` without an off-by-one.~~ **SETTLED — NO
+   OFF-BY-ONE, AND IT NEEDED NO BUILD.** The dossier had this UNVERIFIED since 08/06 and I first
+   filed it here as needing a scratch build; that was wrong about the *kind* of question it is. It
+   is floor arithmetic about how the CONSUMER instantiates, not a Lean elaboration question.
+   **The witness:** take `A = ⌊S₂⌋`, `B = ⌊2S₂⌋`. Then `Finset.Ioc A B` is
+   `{n : A < n ≤ B}` (`.lake/packages/mathlib/Mathlib/Order/Interval/Finset/Defs.lean:309`,
+   `mem_Ioc : x ∈ Ioc a b ↔ a < x ∧ x ≤ b`) [KERNEL], which for integers is exactly
+   `{n : S₂ < n ≤ 2S₂}` — HB's `I` — because `n > ⌊S₂⌋ ⟺ n > S₂` and `n ≤ ⌊2S₂⌋ ⟺ n ≤ 2S₂` on `ℤ`.
+   And `hlen` discharges for free: `(B − A).toNat = ⌊2S₂⌋ − ⌊S₂⌋ ≤ 2S₂ = 2E`, since `⌊2S₂⌋ ≤ 2S₂`
+   and `⌊S₂⌋ ≥ 0`. **Driven, not asserted:** both claims over **20,000 random `S₂ ≥ 1` in exact
+   rationals — 0 failures**, worst observed `(B−A)/E = 1.333` against the bound `2`; and a
+   **negative control** (`A` shifted down by one, the precise slip feared) accepted **0/2000**.
+   ⚠️ What this does NOT settle: that an executor writes it correctly, and that no *other*
+   instantiation of `E` is intended. The interval question itself is closed.
 2. **The exact constant in `hb_lemma10`'s conclusion.** §2(e) gives its shape; the numeral depends
    on the dyadic cover's block count and the `(log Kk)³ → (log 2k)³` conversion (`2.39`), and both
    are the Wave A seal's to fix. **What settles it:** the seal's freeze.
