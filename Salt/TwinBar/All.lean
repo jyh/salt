@@ -35,6 +35,7 @@ import Salt.TwinBar.TwinParitySieve
 import Salt.TwinBar.TwinParitySieveLog
 import Salt.TwinBar.TwinParityCount
 import Salt.Tactic.AuditAxioms
+import Salt.TwinBar.TwinParityAtomClasses
 
 /-!
 # The twin-bar rung (`twinbar`) — aggregate import
@@ -754,3 +755,35 @@ open Salt.Tactic in
   Salt.TwinBar.sum_divisors_moebius_twinNu_pos
   Salt.TwinBar.twinLogWeight_support_infinite_of_atom
   Salt.TwinBar.twinLogWeight_support_infinite_of_atom_rate
+
+/-! ⟦THE ADMISSIBLE-CLASS DEMAND — QUEUE P3 ITEM 11, TIER D⟧ (`TwinParityAtomClasses`, 2026-09-05).
+The direct road's `hatom` reduced to Tao Thm 1.2 at `ω(x) = x` on the admissible classes mod `P`.
+
+⭐ THE FINDING THAT RE-SCOPED THE ROW: `hatom` splits over the `|Adm(P)| = P·W` admissible classes
+at ONE stride, and at the affine head's pinned `ε = 1/(1000·P)` the spend is `W/(1000·P) < W` at
+EVERY `P` — so **the `∀ ε` arm is never demanded by the direct road at fixed `z`; the FULL-RANGE
+arm alone is**.  D5 `AffFullRangeAt` is that demand; D7 assembles `hatom` from it at every class at
+one `N`; D9 re-cuts the consumer to an infinite set of scales; D12 is the window→full-range bridge.
+
+⚠ THE PRICING NOTE, corrected at the refuter pass: a stride-`d` class atom costs `ε_d/d`, not
+`ε_d`, so the multi-stride spend is `S′(z) = (1/1000)·∏(1 + ρ(p)/p²)`, which PASSES against `W`
+by `9.27×` at `z = 131` and first fails only at `z = 3 607 187`.  The argument for the class
+decomposition is SHAPE — one stride, one tolerance, one common `N` — never budget.
+
+⛔ HONEST LABEL: no new unconditional theorem.  At fixed `z` the terminal is the content
+`zRough_oddOmega_infinite_of_affSupplyW` (`Salt/Entropy/Chowla/StridePrize.lean:121`) already
+lands; this is a second proof and a kernel cross-check of the two roads.  Nothing bears on twin
+primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.coprime_twinProd_iff_mod
+  Salt.TwinBar.sum_twinCoprime_eq_sum_admClasses
+  Salt.TwinBar.card_admClasses_eq_mul_W
+  Salt.TwinBar.moebius_twinNu_sum_ge_inv
+  Salt.TwinBar.admClasses_budget_lt_W
+  Salt.TwinBar.class_sum_le_affine_form
+  Salt.TwinBar.class_atom_le_of_affFullRange
+  Salt.TwinBar.atom_abs_le_of_affFullRange_classes
+  Salt.TwinBar.twinLogWeight_support_infinite_of_atom_rate_frequently
+  Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange
+  Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange_all
+  Salt.TwinBar.abs_sum_Icc_le_of_windows

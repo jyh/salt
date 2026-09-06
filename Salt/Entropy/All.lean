@@ -105,6 +105,7 @@ import Salt.Entropy.Chowla.StrideShellG
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
+import Salt.Entropy.Chowla.SpineEpsFamily
 
 /-!
 # The entropy library (sprint-3 A-R1) — aggregate import
@@ -1525,3 +1526,16 @@ the 35 MR names of the same lane (`Salt.MR.All`).  Nothing here bears on twin pr
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.log_chowla_aff_of_door_g
   Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g
+
+/-! ⟦THE `ε`-FAMILY HEAD — QUEUE P3 ITEM 11, TIER E1⟧ (`SpineEpsFamily`, 2026-09-05).
+`HloExport`'s pinned head with `ε = 1/500` replaced by the HYPOTHESIS `0 < ε ≤ 1/500`, the four
+smallness arms re-derived by monotonicity, and the exchange rate `ε/1677 ≤ δ₀` exported as a
+conjunct (`δ₀ = cD3/(16C)·ε/4 ≥ 5ε/8384`; `1677` is the SMALLEST integer that works — the pinned
+leaves give `cD3/(16C) ≥ 5/2096` with zero slack, `Salt/Entropy/Chowla/HloExport.lean:561`).
+
+⚠ NO `K` UPPER BOUND IS EXPORTED (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange rate is
+consumable at the L² grade only, so a consumer takes `K` from the same `obtain`, never from a
+numeral.  The `∃ ε` tripwire `spine_eps_constant_floor` is untouched — this family sits BESIDE it.
+Nothing bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily

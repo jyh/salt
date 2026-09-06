@@ -431,6 +431,7 @@ import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGradeReceipt
 import Salt.MR.HalaszWeighted
 import Salt.Tactic.AuditAxioms
+import Salt.MR.EpsFamilyReceipt
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -9881,3 +9882,15 @@ open Salt.Tactic in
   Salt.MR.halasz_weighted
   Salt.MR.halasz_weighted_tsum
   Salt.MR.halaszBTsum_eq
+
+/-! ⟦THE `∀ ε` ARM IS THE CROWN'S — QUEUE P3 ITEM 11, TIER E2⟧ (`EpsFamilyReceipt`, 2026-09-05).
+`MRTDoorAllGrades → ∀ ε ∈ (0, 1/500], log-Chowla-2 at that `ε` on a regime above any floor`, via
+`mrtUniformityXiL2_of_xi` (`Salt/Entropy/Chowla/MRTDoor.lean:255`) at `K·(δ₀/K) = δ₀`, with E1's
+own exported count bound supplying `K`.
+
+⛔ HONEST LABEL: CONDITIONAL on the crown, which has NO producer and is not claimed reachable
+here.  What the statement settles is the SHAPE of the dependency — the `∀ ε` arm is exactly the
+door at all grades, nothing more — which is why the direct road at fixed `z` does not need it.
+Nothing bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.logChowla2_epsFamily_of_allGrades
