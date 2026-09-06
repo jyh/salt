@@ -103,6 +103,7 @@ import Salt.SW.CoprimeHarmonic
 import Salt.SW.PseudoChar
 import Salt.SW.PseudoCharH
 import Salt.SW.JutilaResidue
+import Salt.SW.JutilaHalasz
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.Tactic.AuditAxioms
@@ -825,3 +826,40 @@ open Salt.Tactic in
   Salt.SW.sum_two_pow_card_primeFactors_le
   Salt.SW.sum_rFilter_abs_hCoef_le
   Salt.SW.norm_jutilaI_le
+
+-- ⟦B2 W9a-c 0905⟧ `Salt/SW/JutilaHalasz.lean` — Jutila's §3 (pp.51–53) HALÁSZ INSTANCE at the
+-- detector's system, the partial summation, the `S'`-form floor and the two integrated kernel
+-- bounds, at a single primitive `χ` mod `q ≥ 2` with `ε = 1/120`. The detector IS a Dirichlet
+-- polynomial in the χ-free coefficient `a'_n = a(n)·(Σ'_r r⁻¹ψ_r(n))·K(n/x)·n^{−σ}` at
+-- `s = ρ − σ` (`jutilaA`), so W8's Lemma 7 applies with the residue-block weight
+-- `b_n = jutilaB q R N M n`: `b_n > 0` wherever `a'_n ≠ 0` on `(z₁, x]` (`M ≤ z₁` kills the
+-- `M`-term, `2x ≤ N` keeps `K(n/N) > 0`), the series is finitely supported, and the first Halász
+-- factor is `≤ 4·Σ_{n ≤ x} a(n)²n^{1−2σ}` — the CRUDE `K(n/N) ≥ 1/4` on `n ≤ x ≤ N/2` is exactly
+-- what `2x ≤ N` buys, and at `N = x/2` the row is FALSE (`18.31 > 9.63` at the toy). The partial
+-- summation runs Abel at EVERY scale with `1/2 ≤ σ` — S10-H above `z₂`, S10-L on `[2, z₂]`, the
+-- `[1, 2)` sliver absorbed by the constant — and its one analytic step is
+-- `Σ_{j ≤ X} j^{−t} ≤ (1 + log X)·X^{1−t}`, proved by induction off `log(X+1) − log X ≥ 1/(X+1)`;
+-- no `1/(2σ − 1)` loss appears, and the `log z₂` term is carried ONCE because the telescope is
+-- exact. The floor is frozen in the `S'`-FORM (`Σ'_r r⁻¹` UNWEAKENED, Lemma 5 not applied) so
+-- that `φ(q)/q` cancels between Halász's two sides and no UPPER bound on the coprime harmonic sum
+-- is ever needed; at F5's table the error is at most a third of `S'` (a ratio of the chain's own
+-- constants, `D`-uniform), so `‖g(ρ)‖ ≥ S'/2` with the exact rational margin `121/144 − 1/3 −
+-- 1/2 = 1/144`. The DIAGONAL integrates the pointwise `‖resKernel s N M‖ ≤ 1.0255·log(N/M)`
+-- (`ξ₀ ≥ 0`, i.e. `M = e^ξ ≥ 1`, is TRUTH-load-bearing) with no integrability hypothesis; the
+-- OFF-DIAGONAL is a CLOSED FORM — `∫_Ξ∫_H K̃(−s)(e^{−sη} − e^{−sξ}) = K̃(−s)(|Ξ|∫_H − |H|∫_Ξ)`
+-- with `‖∫_H e^{−sη}‖ ≤ 2/‖s‖` (needing `η ≥ 0` AND `Re s ≥ 0`) — giving
+-- `‖∫∫‖ ≤ 2.051(|Ξ| + |H|)/(Im s)²`, never violated, with C₀'s 2.5 % as the asymptotic margin.
+-- THE RATIO `card_system_le_rpow` is NOT here: it is FLAGGED (`B2-W9ac-card_system_le_rpow`) —
+-- the device's integration step has no integrable-in-`(ξ, η)` input in the corpus. Every row is
+-- an INPUT to W9f; the floor rows are VACUOUS at the object; nothing bears on twin primes.
+-- 10 `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.jutilaDetector_eq_dirichletPolyChi
+  Salt.SW.jutilaB_pos_of_ne_zero
+  Salt.SW.summable_jutilaB_series
+  Salt.SW.sum_normSq_jutilaA_div_jutilaB_le
+  Salt.SW.sum_sq_sum_bvWeight_mul_rpow_le
+  Salt.SW.sq_sum_norm_jutilaDetector_le
+  Salt.SW.jutilaDetector_floor_sum
+  Salt.SW.jutilaDetector_floor_half_sum
+  Salt.SW.integral_norm_resKernel_diag_le
+  Salt.SW.norm_integral_resKernel_offdiag_le

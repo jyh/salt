@@ -24935,3 +24935,74 @@ any `ring`, since `ring` has no reason to treat a heterogeneous `•` as an atom
 `cpow_mul_resKernel_div` must be applied inside its own `have`, never by `rw` on the goal, because
 `E` sits between the `d^{−1−s}` and the kernel. The wave's stop was a budget stop and nothing more:
 the row cost one attempt once its inputs were landed.
+
+## B2-W9ac-card_system_le_rpow — THE RATIO: a HAND-BACK at the STOP line, with all TEN inputs landed (2026-09-06)
+
+**Model: Opus (the W9a + W9c executor). Attempts: 3 (route audit at the object · a kernel-checked
+probe of the device step · a workaround analysis). Not refuted — priced out, and the price has a
+NAMED missing input.**
+
+The other ten rows of `Salt/SW/JutilaHalasz.lean` are LANDED and sorry-free, each with
+`#print axioms` = `[propext, Classical.choice, Quot.sound]`. This entry records why the assembly
+did not follow them and what the next executor needs.
+
+**The break, exactly.** The device integrates BOTH sides of Halász over the rectangle `Ξ × H`
+(`M = e^ξ`, `N = e^η`): from the pointwise instance
+`(J·S'/2)^2 ≤ A · Q ξ η` with `Q ξ η := (Σ_{j,k} conj(η_j)·η_k · halaszBTsum (jutilaB q R (e^η) (e^ξ)) χ χ (s̄_j + s_k)).re`
+the route wants `(J·S'/2)^2 · |Ξ||H| ≤ A · ∫_Ξ∫_H Q`. Every route to that step —
+`intervalIntegral.integral_mono_on` (the freeze's §1 route),
+`intervalIntegral.integral_const` + `integral_sub`, or splitting `Q` through the residue-block
+identity with `integral_add`/`integral_finsetSum` — takes `IntervalIntegrable` of `Q` as a
+hypothesis. It is not optional plumbing: a non-integrable integrand has interval integral `0` in
+mathlib, so the LOWER bound is false without it.
+
+**The missing input, named.** `grep` over `Salt/` at `8a28b690`: there is NO continuity,
+measurability or integrability row for `resKernel`, `resPhi`, `jutilaI` or
+`Salt.MR.halaszBTsum` as a function of `(N, M)` — only bounds at a fixed `(N, M)`. The two
+integrated kernel rows this cut lands do NOT supply it: `integral_norm_resKernel_diag_le` goes
+through `intervalIntegral.norm_integral_le_of_norm_le_const` (which carries no integrability
+hypothesis) and `norm_integral_resKernel_offdiag_le` computes its double integral in CLOSED FORM
+off `Complex.exp`'s own continuity — neither ever integrates `jutilaI` or `halaszBTsum`.
+
+**The probe (attempt 2), through the wrapper.** A `ScratchB2.lean` at the worktree, built at
+`saltbuild EXIT=0`: the residue-block identity DOES apply pointwise on the rectangle —
+`halaszBTsum_jutilaB_eq χ hR hM hMN hs0 hs` closes
+`halaszBTsum (jutilaB q R (Real.exp η) (Real.exp ξ)) χ χ s = E · resKernel s (e^η) (e^ξ) · Σ'φ/r² + jutilaI q R (e^η) (e^ξ) s`
+with NO `sorry` (so `hM : 2 ≤ e^ξ` and `hMN : e^ξ ≤ e^η` are the only side conditions the device
+owes there). The two declarations that needed `sorry` were exactly the two named above:
+`c ≤ Q ξ η` on `Icc ξ₀ ξ₁ × Icc η₀ η₁` ⇒ `c·|Ξ||H| ≤ ∫∫ Q`, and
+`IntervalIntegrable (fun η => (halaszBTsum (jutilaB q R (e^η) (e^ξ)) χ χ s).re) volume η₀ η₁`.
+
+**The workaround, and its price (attempt 3).** Integrability IS reachable, and the next cut should
+freeze it as a ROW rather than leave it implicit: on the rectangle `N = e^η ≤ e^{η₁}` is bounded,
+`jutilaB q R N M n = 0` for `n ≥ N` (`jutilaB_eq_zero_of_le`), so `halaszBTsum` restricted to the
+rectangle is a FINITE sum over `n ≤ ⌈e^{η₁}⌉₊` of terms continuous in `(ξ, η)` (`jutilaB`'s body is
+`(n)⁻¹·(Σ')²·((max 0 (1 − n/N))² − (max 0 (1 − n/M))²)`, continuous in `(N, M)` at `N, M > 0`) —
+hence continuous, hence `Continuous.intervalIntegrable`. That is a new row of ≈ 40–60 lines
+(a `tsum = Finset.sum` step with a UNIFORM support bound over the rectangle, then continuity).
+
+**The line arithmetic that made this a hand-back rather than a grind.** STOP 1,050 (the freeze's
+§3). The ten inputs landed at **918 lines**, leaving 123. The assembly's mandatory pieces price at
+≥ 290: the table and its side conditions (`R = D^{1/10} ≥ 1`, `M = e^{ξ₀} ≥ 2`, `M ≤ z₁ = ⌊D³⌋₊`,
+`2x ≤ N`, `z₂ ≤ x`, `z₁ < z₂`) ≈ 40; the floor per `j` and `Σ_j ‖g_j‖ ≥ J·S'/2` ≈ 10; the Halász
+instance at `η_j := Classical.choose (exists_unimodular_mul_eq_norm _)` ≈ 10; the `/b` bound and the
+partial summation down to `A ≤ 616·C_ps·x^{2−2σ}` with the table's log bookkeeping
+(`log z₂/log²(z₂/z₁) ≤ 14/log D`, `1 + log x ≤ 7.5 log D` at `z₁ = ⌊D³⌋₊`, `z₂ = ⌊D^{7/2}⌋₊`) ≈ 50;
+the integrability row + the device ≈ 60; the residue block integrated per `(j, k)` with the
+diagonal/off-diagonal split and the Schur sum ≈ 60; the `I`-block ≈ 20; the quadratic in `J` and
+`exists_threshold` as a limit ≈ 40. **123 against ≥ 290** — the freeze's own ruling ("reaching the
+STOP with ONLY `card_system_le_rpow` open is a HAND-BACK, not a failure") is what this is.
+
+**What the next executor needs, in order.** (1) The integrability row above, frozen as a statement.
+(2) Then the assembly runs as the freeze's §1 spells it, with one correction found here: the
+`∃`-witness must be `53000 * 616 * C_ps` (kill 1) and the partial summation's own `∃ C` is
+**`4 · max (4·K_H) K_L`, not the design's `2 · max (4·K_H) K_L`** — see the second correction below.
+Nothing about the ratio's STATEMENT is in doubt: it was never contradicted, only unreached.
+
+**A recipe correction the ratio's consumer must carry:** `sum_sq_sum_bvWeight_mul_rpow_le` landed
+with `C = 4 · max (4·K_H) K_L`, twice the design v2 §A.3's `2 · max (4·K_H) K_L`. The design's
+factor 2 pays only for the `u ∈ [1, 2)` sliver; the Abel bookkeeping needs a SECOND factor 2,
+because the landed shape of the partial summation is `B·((2 + log X)·X^{1−t} + l)` — a `2 + log X`,
+not a `1 + log x` — and `2 + log x ≤ 2(1 + log x)` is what converts it to the row's frozen RHS.
+Everything downstream that reads `A ≤ 616·C_ps·x^{2−2σ}` must double `C_ps` accordingly (the
+threshold `D₁` moves by `2^{240/43}`, ≈ `10^{1.8}`, well inside the design's `10^59–10^64` band).
