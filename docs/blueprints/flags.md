@@ -24881,3 +24881,57 @@ Dirichlet convolution — at `n = p²` the ordinary convolution of `μ²(d)/(dκ
 `sigmaQ (d·t) ≤ sigmaQ d · sigmaQ t` by the injection `e ↦ (gcd(e,d), e/gcd(e,d))`, and
 `Σ_{d ≤ D} σ_{−1/4}(d)/d² ≤ 4` by the landed divisor swap and `Σ 1/n² ≤ 2` twice — no partial
 summation and no `Σ_{d ≤ D} σ(d) ≤ 5D` is needed anywhere.
+
+## B2-W9b-halaszBTsum_jutilaB_eq — the residue-block identity: STOPPED AT THE LINE, not refuted (2026-09-05)
+
+**Node** `Salt.SW.halaszBTsum_jutilaB_eq`, the section-(vi) crux row of `Salt/SW/JutilaResidue.lean`.
+**Model: Opus. Attempts: 0 — deliberately, and the reason is the BUDGET, not the mathematics.** The
+wave's STOP line for this file is 1,900 lines. Thirty-six of the thirty-seven frozen rows landed, and
+the last of them (`halaszBTsum_jutilaB_expand`, 149 proof-lines — the `(r, r', d)`-expansion with the
+`n = dm` re-indexing) carried the file to 1,983. An executor who reaches the STOP line stops and
+reports rather than reading the overrun as evidence of a defect, so this row was never attempted. It
+is REMOVED from the file, which compiles sorry-free at 36/37; the desk re-freezes it.
+
+**Statement concern: NONE.** Nothing in this wave contradicted the identity, and every numerical
+receipt behind it stands (three ways to `2.4·10⁻⁷` at the desk; thirteen further instances to
+`≤ 1.3·10⁻⁷` at the pass, `s = 0` included). The two growth rows it eventually consumes were the
+ones the sweep respelled with the SUM kernel factor before the pass, and both landed here as
+respelled.
+
+**Every input is LANDED** — a flagged assembly leaves its inputs landed, and here that is the whole
+value of the wave: `halaszBTsum_jutilaB_expand` (the expansion, with `χ₀(dm) = χ₀(m)` from
+`rFilter`'s coprimality via `map_mul` + `MulChar.one_apply`, and the `n = dm` re-indexing done as
+`Finset.sum_image` on `{m ∈ Icc 1 ⌈N⌉₊ : d·m ≤ ⌈N⌉₊}` followed by `Finset.sum_subset` back to
+`Icc 1 ⌈N⌉₊` — the terms outside vanish because both kernels do), `tsum_trivChar_mul_cpow_eq` (the
+`d^{−1−s}` leaving the `m`-series), `tsum_trivChar_kern2_diff_eq_integral` (the Mellin pair at
+`c = 1`, with the `integral_sub` step supplied by the private
+`integrable_trivChar_mellin_line`), `integral_resIntegrand_shift` (the contour node with the
+residue), `dslope_resPhi_neg`, `cpow_mul_resKernel_div` (the `d`-collapse) and W5's
+`hCoef_sum_div_eq`. The next executor writes only the assembly.
+
+**The route, unchanged from the sub-freeze's §1 and now supported by the landed rows:** from
+`_expand`, per `(r, r', d)` apply `tsum_trivChar_mul_cpow_eq` (the `d^{−1−s}` out), then
+`tsum_trivChar_kern2_diff_eq_integral` at `c = 1` (`hM`, `hN` from `2 ≤ M ≤ N`), then
+`integral_resIntegrand_shift` (`hM : 1 ≤ M`, `hs0`, `hs`), then `dslope_resPhi_neg` and
+`cpow_mul_resKernel_div` for the collapse `d^{−1−s}·E·resKernel s (N/d) (M/d) = E·d⁻¹·resKernel s N M`;
+the `d`-sum `Σ_d h(d)·d⁻¹ = δ_{r,r'}·φ(r)` by `hCoef_sum_div_eq` (`r, r'` square-free from `rFilter`)
+and `Finset.sum_ite_eq`; the `(r, r')`-sum collapses to `Σ'_r r⁻²·φ(r)`; the remaining integrals ARE
+`jutilaI` by unfolding. **Price it from the landed inputs, not from the freeze's original class-C
+estimate** — the expensive halves (the expansion, the shift, the Mellin pair) are all behind it now,
+and what remains is `Finset` bookkeeping and casts.
+
+**LANDED** by the crux executor (2026-09-05, Opus): **one attempt**, 111 lines (the docstring and
+the frozen statement included; 100 proof-lines), the file at 2,080 against a STOP of 2,300 — the
+route of the paragraph above ran unaltered, and the statement closed AS SPELLED. `#print axioms
+Salt.SW.halaszBTsum_jutilaB_eq` = `[propext, Classical.choice, Quot.sound]`; the file builds with
+0 errors and 0 warnings and the aggregate `Salt.SW.All` at EXIT=0 with the audit row
+`✓ Salt.SW.halaszBTsum_jutilaB_eq [3 axioms]`. Three `have`s carry it: the `d`-term (the four landed
+rows in one `rw` chain, then the collapse as a three-step `calc`), the `(r, r')`-term (Lemma 3's
+`hCoef_sum_div_eq` cast to ℂ through `Complex.ofReal_sum`, giving the `if r = r'`), and the assembly
+(`Finset.mul_sum` + `← Finset.sum_add_distrib` to put the RHS under ONE `r`-sum, then
+`Finset.sum_ite_eq_of_mem` on the `r'`-sum). Two corrections for the card: the shifted integral must
+be hoisted into an OPAQUE local (`obtain ⟨S, hS⟩ : ∃ S : ℂ, S = (1/(2π)) • ∫ … := ⟨_, rfl⟩`) before
+any `ring`, since `ring` has no reason to treat a heterogeneous `•` as an atom; and the collapse row
+`cpow_mul_resKernel_div` must be applied inside its own `have`, never by `rw` on the goal, because
+`E` sits between the `d^{−1−s}` and the kernel. The wave's stop was a budget stop and nothing more:
+the row cost one attempt once its inputs were landed.

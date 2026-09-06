@@ -102,6 +102,7 @@ import Salt.SW.Kernel2
 import Salt.SW.CoprimeHarmonic
 import Salt.SW.PseudoChar
 import Salt.SW.PseudoCharH
+import Salt.SW.JutilaResidue
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.Tactic.AuditAxioms
@@ -764,3 +765,63 @@ open Salt.Tactic in
   Salt.SW.efMultTotal_boxFibre_le
   Salt.SW.wellSpacedAt_parity_reps
   Salt.SW.zeroCountM_le_box_bound_mul
+-- ⟦B2 W9b 0905⟧ `Salt/SW/JutilaResidue.lean` — Jutila's RESIDUE BLOCK `B(s, χ₀)` (pp.52–53), the
+-- (ξ,η) device's analytic core, written with the twice-smoothed Riesz kernel `K(u) = (1 − u)²₊` in
+-- place of `e^{−u}`. The Halász weight `b_n = n⁻¹(Σ'_{r ≤ R} r⁻¹ψ_r(n))²(K(n/N) − K(n/M))`
+-- (`jutilaB`) is expanded by Lemma 2 in its filter form and `n = dm`, the `d^{−1−s}` leaves the
+-- `m`-series FIRST (`tsum_trivChar_mul_cpow_eq` — with `(dm)^{−1−s}` on the left the Mellin row is
+-- false by exactly `d^{−1−s}` for every `d ≥ 2`), and `kernel_identity_2` + `kernel_sum_swap_2`
+-- give the Mellin integral of `2((N/d)^w − (M/d)^w)L(1+s+w, χ₀)/(w(w+1)(w+2))` on `Re w = 1`.
+-- ONE contour shift to `Re w = −1/2 − Re s` crosses the single pole `w = −s`: `w = 0` is REMOVABLE
+-- (the kernel difference vanishes there — this is why the `M`-term exists), and with mathlib's
+-- entire `LFunctionTrivChar₁` the integrand is `(dslope ψ 0)(w)/(w − (−s))`, so `rectBI_cif_eq`
+-- extracts `(dslope ψ 0)(−s) = E(χ₀)·resKernel s (N/d) (M/d)` with NO case split at `s = 0` (there
+-- it is `ψ'(0)`, Jutila's "interpreted as `log(N/M)`"). On the shifted line the kernel factor is
+-- the SUM `(N/d)^{Re w} + (M/d)^{Re w}` — on the LEFT line the `M`-term is the LARGER, and a bound
+-- by `2(N/d)^{Re w}` is FALSE there by up to `(1 + (N/M)^{|Re w|})/2` (`1.62` at `(40, 8)`,
+-- `Re w = −1/2`) — and the consumer collapses it against the outer `d^{−1−Re s}`
+-- (`d^{−1−Re s}(M/d)^{−1/2−Re s} = d^{−1/2}M^{−1/2−Re s} ≤ M^{−1/2}`), never by the split
+-- `(M/d)^{−1/2−Re s} ≤ (d/M)^{1/2}`, which is false for `d > M`. The remainder is
+-- `‖I(s)‖ ≤ 73·qT·M^{−1/2}·(R(1 + log R))²` for `|Im s| ≤ 2T`, `T ≥ 2`; the `73` is TIGHT — the
+-- exact chain is `2[(7/2 + 3|Im s|)/m² + 3/m] = 42.378 + 25.684·|Im s|` at `m = 29/60`, which is
+-- `≤ 73T` iff `T ≥ 1.959`. The constants `73`, `7/2 + 3|t|`, `2 + 3‖u‖` are the corpus's
+-- (Pólya–Vinogradov-free: ζ's growth here is `norm_riemannZeta_le`'s partial-fraction bound), not
+-- Jutila's. Every row is an INPUT to W9's assembly; nothing here bears on twin primes.
+-- 37 `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.jutilaB_zero
+  Salt.SW.jutilaB_ofReal_eq
+  Salt.SW.jutilaB_nonneg
+  Salt.SW.jutilaB_eq_zero_of_le
+  Salt.SW.jutilaB_eq_of_le
+  Salt.SW.jutilaB_pos
+  Salt.SW.resKernelFun_zero
+  Salt.SW.resKernel_of_ne_zero
+  Salt.SW.resKernel_zero
+  Salt.SW.norm_resKernel_le_div
+  Salt.SW.norm_resKernel_le_log
+  Salt.SW.cpow_mul_resKernel_div
+  Salt.SW.two_pow_card_primeFactors_le
+  Salt.SW.norm_LFunctionTrivChar_le
+  Salt.SW.norm_riemannZeta_le_of_half_le
+  Salt.SW.norm_riemannZeta_half_le
+  Salt.SW.norm_prod_one_sub_inv_le_one
+  Salt.SW.summable_trivChar_kern2
+  Salt.SW.tsum_trivChar_mul_cpow_eq
+  Salt.SW.tsum_trivChar_kern2_eq_integral
+  Salt.SW.tsum_trivChar_kern2_diff_eq_integral
+  Salt.SW.resPhi_differentiableOn
+  Salt.SW.resPhi_zero
+  Salt.SW.resIntegrand_eq_dslope_div
+  Salt.SW.dslope_resPhi_neg
+  Salt.SW.rectBI_resPhi_dslope_div_eq
+  Salt.SW.norm_resIntegrand_le
+  Salt.SW.norm_integral_resIntegrand_edge_le
+  Salt.SW.integrable_resIntegrand_line
+  Salt.SW.integral_resIntegrand_shift
+  Salt.SW.halaszBTsum_jutilaB_eq_sum
+  Salt.SW.halaszBTsum_jutilaB_expand
+  Salt.SW.halaszBTsum_jutilaB_eq
+  Salt.SW.sum_rFilter_totient_div_sq_le
+  Salt.SW.sum_two_pow_card_primeFactors_le
+  Salt.SW.sum_rFilter_abs_hCoef_le
+  Salt.SW.norm_jutilaI_le
