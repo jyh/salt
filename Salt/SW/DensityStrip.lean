@@ -273,7 +273,23 @@ theorem zeroCountM_density_logfree :
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive → 2 ≤ q →
       ∀ (σ T : ℝ), 4 / 5 ≤ σ → σ ≤ 1 → 2 ≤ T →
         zeroCountM χ σ T ≤ C * ((q : ℝ) * T) ^ (D * (1 - σ)) := by
-  sorry
+  obtain ⟨C_s, hCs, hstrip⟩ := zeroCountM_density_logfree_strip
+  refine ⟨max 1378 C_s, 150, lt_max_of_lt_left (by norm_num), by norm_num, le_rfl, ?_⟩
+  intro q _ χ hχ hq σ T hσ hσ1 hT
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith
+  have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by linarith
+  have hpow0 : (0 : ℝ) ≤ ((q : ℝ) * T) ^ (150 * (1 - σ)) :=
+    Real.rpow_nonneg (by linarith) _
+  rcases le_or_gt σ (119 / 120) with h | h
+  · exact le_trans (zeroCountM_density_logfree_low χ hχ hq σ T hσ h hT)
+      (mul_le_mul_of_nonneg_right (le_max_left _ _) hpow0)
+  · calc zeroCountM χ σ T
+        ≤ C_s * ((q : ℝ) * T) ^ (14 * (1 - σ)) := hstrip q χ hχ hq σ T h.le hσ1 hT
+      _ ≤ C_s * ((q : ℝ) * T) ^ (150 * (1 - σ)) :=
+          mul_le_mul_of_nonneg_left (rpow_mul_le_rpow_of_le_150 hQ1 hσ1) hCs.le
+      _ ≤ max 1378 C_s * ((q : ℝ) * T) ^ (150 * (1 - σ)) :=
+          mul_le_mul_of_nonneg_right (le_max_right _ _) hpow0
 
 /-- **The W9f exit rows** (each INVOKES a frozen row at numerals): the glue at `qT = 4`,
 `σ = 1/2` (`4^{7} ≤ 4^{75}`); the `σ = 1` line at a primitive character mod `5`, `T = 2`. -/
