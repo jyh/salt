@@ -127,13 +127,31 @@ must conclude, in the corpus's own conventions:
 > for `k` with `2 ≤ k`, `q ∣ k`, `(c, k/q)` coprime, `b : ℤ`, `E ≥ 1`, integer endpoints
 > `A ≤ B` with `(B−A).toNat ≤ 2E`, and `g : ℤ → ℝ` of total variation `≤ V` on `Ioc A (B−1)`:
 > `|Σ_{n ∈ Ioc A B, (n,k)=1, n ≡ b (q)} sawtooth (g n + c·invMod n k / k)|`
-> `≤ <explicit> · (1 + V·k^{1/4}) · (E + k) · q^{3/2} · d(k)³ · (log 2k)³ / k^{1/4}`
+> `≤ <explicit> · (1 + V) · (E + k) · q^{3/2} · d(k)³ · (log 2k)³ / k^{1/4}`
+
+⛔ **CORRECTED 2026-09-06 14:1x (h2c, from the Wave A seal's refuter pass, run `wf_11472297-170`).**
+The shape above read `(1 + V·k^{1/4}) · … / k^{1/4}` until this stamp, and **that form does not
+reach HB's p.214 target — it fails by an unbounded power of `x`.** The `k^{1/4}` inside the factor
+cancels the `k^{−1/4}` outside, so the V-part degenerates to `V · q^{3/2} · (E + k)` with **no
+damping at all**. Measured against `δ₁q^{5/2}x^{15/16}` over `x = 2⁴⁰…2³⁰⁰`: ratio
+**2.76 → 114 → 1.22e4 → 2.64e6 → 1.28e10**, growth exactly `x^{1/8}` — which is the dropped
+`k^{1/4}`. ⇒ **The seal's TWO-TERM form is what `B-6` consumes**
+(`E/k^{1/4} + (1 + k^{1/4}·V)·q^{3/2}·(E+k)/√k`); the `k^{−1/2} ≤ k^{−1/4}` weakening that produced
+the old one-term shape is **struck** in freeze v1. If a one-term form is wanted it is HB's own,
+as now written above — measured bounded (aggregate ratio 0.030–0.050, **flat in `x`**).
+🔑 **The `√k` in the denominator is load-bearing and cannot be weakened to `k^{1/4}`.**
 
 three points about that shape, each a [SCOUT] claim:
 
 1. **`K = 2 + k^{1/4}` is the truncation and it is why `k^{1/4}` appears twice** — once as the
    `k^{ε−1/4}` saving and once inside `(1 + |T|E^{−1}k^{−1})`, which the `g`/`V` interface renders
-   as `(1 + V·K)`-shaped. The landed dyadic bound already carries `(1 + 4πMV)` per block
+   as `(1 + V·K)`-shaped. ⛔ **Corrected 09/06 with the blockquote above: HB's factor is
+   `(1 + |T|E^{−1}k^{−1})` = `(1 + V)` ON THE NOSE in the `g`/`V` interface, NOT `(1 + V·K)`.**
+   The `(1 + V·K)` reading is what put a `k^{1/4}` into the one-term shape and cancelled its own
+   damping. The `(1 + 4πMV)` of the landed dyadic bound is a PER-BLOCK factor at `M`, and the
+   assembly's `K/M²` coefficient cancels the `M` — so the `K` never reaches `V`'s coefficient in
+   the two-term form. (Refuter R3 confirmed that algebra; refuter R4 measured the failure of the
+   weakened one-term form.) The landed dyadic bound already carries `(1 + 4πMV)` per block
    (`:1005`); the assembly sums that over the dyadic cover of `0 < |m| ≤ K`.
 2. **`d(k)³(log 2k)³` is LITERAL, not `k^ε`** — the freeze rule
    (`weil-trio-design-0806.md:90-93`), and `lem10_dyadic_bound` already exits at
