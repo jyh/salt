@@ -63,6 +63,7 @@ import Salt.HB.DoorBridge
 import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
 import Salt.HB.CrownTheorem1
+import Salt.HB.TailShells
 
 /-!
 # The Heath-Brown track (`HB`) — aggregate import
@@ -508,3 +509,54 @@ open Salt.Tactic
 #audit_axioms Salt.HB.hEngine_poly_of_N7
 #audit_axioms Salt.HB.heathBrownDichotomyPoly_of_N7
 end N9
+
+/-! ## ⟦B3-i(a) 0906⟧ `Salt/HB/TailShells.lean` — THE ROW-(iv) TAIL RE-GRADE: B2 spent shell
+by shell (Arm B part B3-i, design γ)
+
+`efEnvelope`'s two zero rows carry the CRUDE count `137·(2T₀+5)·log(q(T₀+4))` in the
+definition itself, so the row-(iv) tail cannot be re-graded inside it.  This file cuts a
+SIBLING envelope: `efEnvelope`'s first two summands verbatim, `β₀`'s own de-smoothing term kept
+apart, and ONE `efShellRow` in place of both crude rows.
+
+B2's constants are chosen ONCE (`n9CB2`, `n9DB2`) and `n9B2_spec` is the double
+`Classical.choose_spec` of `zeroCountM_density_logfree` — so `D ≤ 150` and the density bound
+ride explicitly.  THE SHELL SPEND (`zeroSum_shells_le`) indexes each zero of the erased box by
+`i(ρ) = ⌊log((1 − Re ρ)/w)/log(6/5)⌋₊` — TOTAL on `Z`, because `hbar` gives `1 − Re ρ ≥ w > 0`
+— brackets it as `w(6/5)^{i} ≤ 1 − Re ρ < w(6/5)^{i+1}`, and bounds the index by
+`I = ⌈1/w⌉₊` through Bernoulli `(6/5)^i ≥ 1 + i/5` against `1 − Re ρ ≤ 1 − σa ≤ 1/10`.  The sum
+splits by `Finset.sum_fiberwise_of_maps_to` over `Finset.range (I+1)`; on fibre `i` the mass is
+at most `zeroCountM χ (1 − w(6/5)^{i+1}) T` (the fibre sits in that box by the bracket's upper
+half), which B2 prices — its `4/5 ≤ σ` binder is met because a NON-EMPTY fibre forces
+`w(6/5)^{i+1} ≤ (6/5)·(1/10) = 3/25`, an EMPTY one being `0 ≤ RHS`.  Two `rpow`s become one
+`exp` whose exponent `hy` drives below `−w(6/5)^i·log u/4`, and `∑_i e^{−i} ≤ 1/(1 − e^{−1})`
+closes at the constant `2` (`geom_sum_mul`, `2 ≤ e`).
+
+`psiDefect_norm_le_raw` is `psiDefect_norm_le_of_ef` cut at `hkey` with the box's lower edge
+`9/10 ≤ σ₀ − w` EXPORTED (R2's K3 repair — the shell lemma's `hσa` and `hbar` need it): the
+de-smoothing sum splits as `m_{β₀}·h·u^{β₀−1} + (h/u)·∑_{erase} m_ρ·u^{Re ρ}` and the erased
+spend is priced TERMWISE at `(5/4)·∑_{erase} m_ρ·u^{Re ρ}` (`‖ρ‖ ≥ Re ρ ≥ 9/10`, so `1/‖ρ‖ ≤
+10/9 ≤ 5/4`) — the A3 harmonic batching is NOT spent here, which is exactly what lets the shell
+lemma consume the bare sum.  `psiDefect_norm_le_envelopeB3` assembles them at the design
+parameters.  The ledger row drops the ceiling term by a LIMIT: `efEnvelopeB3` is `efEnvelope`
+at ANY ceiling `b'` minus two non-negative rows, and `10^3·M^3·N·u^{b'−1} → 0` as `b' → −∞`,
+so `efEnvelope_le_ledger_sharp`'s fourth summand is free (`le_of_forall_sub_le`).  Nothing here
+bears on twin primes.
+
+The two envelope DEFINITIONS (`efShellRow`, `efEnvelopeB3`) carry no row of their own: their
+axiom footprint is covered transitively by the four theorems that mention them.
+11 `#audit_axioms` names — sized from THIS LIST. -/
+
+section B3i
+open Salt.Tactic
+#audit_axioms Salt.HB.n9CB2
+#audit_axioms Salt.HB.n9DB2
+#audit_axioms Salt.HB.n9B2_spec
+#audit_axioms Salt.HB.efZeroSumM_norm_le_termwise
+#audit_axioms Salt.HB.zeroSum_shells_le
+#audit_axioms Salt.HB.psiDefect_norm_le_raw
+#audit_axioms Salt.HB.psiDefect_norm_le_envelopeB3
+#audit_axioms Salt.HB.efEnvelopeB3_nonneg
+#audit_axioms Salt.HB.continuousOn_efEnvelopeB3_ceilFun
+#audit_axioms Salt.HB.efEnvelopeB3_le_ledger
+#audit_axioms Salt.HB.integral_rpow_div_log_tail_le
+end B3i

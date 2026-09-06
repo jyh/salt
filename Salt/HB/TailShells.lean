@@ -7,13 +7,31 @@ import Salt.HB.Lemma7EF
 import Salt.SW.DensityStrip
 
 /-!
-# Arm B part B3-i — THE ROW-(iv) TAIL RE-GRADE: B2 spent shell by shell (STUB, design γ)
+# Arm B part B3-i — THE ROW-(iv) TAIL RE-GRADE: B2 spent shell by shell (design γ)
 
-DRAFT FREEZE v0 STUB — statements only, every proof `sorry`; a kernel well-formedness pass,
-not a landing. The crude count `137·(2T₀+5)·log(q(T₀+4))` is baked into `efEnvelope`'s
-definition; this file cuts a sibling envelope whose two zero rows go through B2's log-free
-density (`zeroCountM_density_logfree`) shell by shell at the ceiling, and prices the
-exponential row's tail integral. Nothing here bears on twin primes.
+LANDED 2026-09-06 (B3-i(a)): the freeze draft v1 §0(A)'s eleven statements, every proof
+kernel-checked and sorry-free. The crude count `137·(2T₀+5)·log(q(T₀+4))` is baked into
+`efEnvelope`'s definition; this file cuts a sibling envelope whose two zero rows go through
+B2's log-free density (`zeroCountM_density_logfree`) shell by shell at the ceiling, and
+prices the exponential row's tail integral. Nothing here bears on twin primes.
+
+## The shell spend, in one line
+
+`zeroSum_shells_le` puts each zero of the erased box in the shell
+`i(ρ) = ⌊log((1 − Re ρ)/w)/log(6/5)⌋₊` (total on `Z`, since `hbar` gives `1 − Re ρ ≥ w > 0`),
+splits the sum fibrewise over `Finset.range (I+1)` with `I = ⌈1/w⌉₊` (Bernoulli
+`(6/5)^i ≥ 1 + i/5` against `1 − Re ρ ≤ 1/10` bounds the index), prices fibre `i` by B2 at
+`σ = 1 − w(6/5)^{i+1}` (which is `≥ 4/5` because `w(6/5)^{i+1} ≤ 3/25` on a NON-EMPTY fibre),
+turns the two `rpow`s into one `exp` whose exponent `hy` drives below `−t_i·log u/4`, and sums
+the geometric tail `∑ e^{−i} ≤ 1/(1 − e^{−1}) ≤ 2`.
+
+## The `σb`-free continuity re-cut
+
+`Lemma7EF`'s continuity chain is `private`, so §"Continuity helpers" re-cuts the pieces the B3
+envelope needs. The one deliberate difference is recorded there: that chain's
+`0 < σb + 1` hypothesis is used only to discharge `ContinuousOn.rpow_const`'s side goal by
+`Or.inr`, and on `[3,∞)` the base is `≥ 3 ≠ 0`, so `Or.inl` discharges it with NO hypothesis on
+`σb` — which is what `continuousOn_efEnvelopeB3_ceilFun`'s frozen binder list allows.
 -/
 
 open Complex DirichletCharacter ArithmeticFunction Filter Set MeasureTheory
@@ -429,15 +447,178 @@ theorem psiDefect_norm_le_envelopeB3 {q : ℕ} [NeZero q] (χ : DirichletCharact
 theorem efEnvelopeB3_nonneg {q : ℕ} {β₀ bceil σa σb u : ℝ} {m : ℕ} (hq : 2 ≤ q) (hu : 3 ≤ u)
     (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) :
     0 ≤ efEnvelopeB3 q β₀ bceil m σa σb u := by
-  sorry
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hHpos : 0 < efH q u := efH_pos hq hu
+  have huh : (3 : ℝ) ≤ u + efH q u := by linarith
+  have hC0 : (0 : ℝ) < n9CB2 := n9B2_spec.1
+  rw [efEnvelopeB3, efShellRow]
+  refine add_nonneg (div_nonneg (add_nonneg (add_nonneg ?_ ?_) ?_) (by linarith)) ?_
+  · exact mul_nonneg (by linarith) (Real.log_nonneg (by linarith))
+  · exact div_nonneg (add_nonneg
+      (efShiftBound_nonneg hq hT0 (by linarith) (by linarith) hσab hu)
+      (efShiftBound_nonneg hq hT0 (by linarith) (by linarith) hσab huh)) (le_of_lt hHpos)
+  · exact mul_nonneg (Nat.cast_nonneg m)
+      (mul_nonneg hHpos.le (Real.rpow_nonneg hu0.le _))
+  · refine mul_nonneg (mul_nonneg ?_ (by linarith)) (Real.exp_pos _).le
+    have h : (0 : ℝ) ≤ efH q u / u := div_nonneg hHpos.le hu0.le
+    linarith
+
+/-! ### Continuity helpers
+
+`Lemma7EF`'s own continuity chain is `private`, so the pieces the B3 envelope needs are
+re-cut here.  The one deliberate difference: `cont_efShiftBound` there carries a
+`0 < σb + 1` hypothesis used only to discharge `ContinuousOn.rpow_const`'s side goal by
+`Or.inr`; on `[3,∞)` the base is `≥ 3 ≠ 0`, so `Or.inl` discharges it with no hypothesis
+on `σb` at all — which is what the B3 statement's binder list allows. -/
+
+private lemma contB3_log_comp {s : Set ℝ} {g : ℝ → ℝ} (hg : ContinuousOn g s)
+    (h0 : ∀ x ∈ s, g x ≠ 0) : ContinuousOn (fun x => Real.log (g x)) s :=
+  Real.continuousOn_log.comp hg (fun x hx => by simpa using h0 x hx)
+
+private lemma contB3_logqu {q : ℕ} (hq : 2 ≤ q) :
+    ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * u)) (Set.Ici (3 : ℝ)) := by
+  have hq0 : (0 : ℝ) < (q : ℝ) := by
+    have : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+    linarith
+  refine contB3_log_comp (continuousOn_const.mul continuousOn_id) (fun u hu => ?_)
+  have h3 : (3 : ℝ) ≤ u := hu
+  exact ne_of_gt (by positivity)
+
+private lemma logquB3_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
+    (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+  have he : Real.exp 1 ≤ (q : ℝ) * u :=
+    le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hqu
+  have h1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
+  linarith
+
+private lemma contB3_efT0 {q : ℕ} (hq : 2 ≤ q) :
+    ContinuousOn (fun u : ℝ => efT0 q u) (Set.Ici (3 : ℝ)) := by
+  simp only [efT0]
+  exact ((contB3_logqu hq).add continuousOn_const).pow 6
+
+private lemma contB3_efH {q : ℕ} (hq : 2 ≤ q) :
+    ContinuousOn (fun u : ℝ => efH q u) (Set.Ici (3 : ℝ)) := by
+  simp only [efH]
+  refine continuousOn_id.div (((contB3_logqu hq).add continuousOn_const).pow 3) (fun u hu => ?_)
+  have h := logquB3_ge hq (show (3 : ℝ) ≤ u from hu)
+  positivity
+
+private lemma contB3_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
+    ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * (efT0 q u + a))) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  refine contB3_log_comp (continuousOn_const.mul ((contB3_efT0 hq).add continuousOn_const))
+    (fun u hu => ne_of_gt ?_)
+  have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  nlinarith
+
+private lemma contB3_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
+    ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hsq : (1 : ℝ) ≤ Real.sqrt q := by
+    rw [show (1 : ℝ) = Real.sqrt 1 from (Real.sqrt_one).symm]
+    exact Real.sqrt_le_sqrt (by linarith)
+  have hlq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hfac1 : ContinuousOn (fun u : ℝ => 120 + 4 * (137 * (2 * efT0 q u + 7)
+      * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1) / (Real.log (7 / 6) * (σb - σa)))
+      (Set.Ici (3 : ℝ)) := by
+    refine continuousOn_const.add (ContinuousOn.div_const (continuousOn_const.mul ?_) _)
+    exact ((continuousOn_const.mul ((continuousOn_const.mul (contB3_efT0 hq)).add
+      continuousOn_const)).mul (contB3_logQT hq 5 (by norm_num))).add continuousOn_const
+  have hfac2 : ContinuousOn (fun u : ℝ =>
+      Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))))
+      (Set.Ici (3 : ℝ)) := by
+    refine contB3_log_comp (continuousOn_const.mul (((continuousOn_const.mul
+      (continuousOn_const.add (contB3_efT0 hq))).mul continuousOn_const).mul
+      continuousOn_const)) (fun u hu => ne_of_gt ?_)
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    have h5 : (0 : ℝ) < 5 * (5 + efT0 q u) := by linarith
+    have hs : (0 : ℝ) < Real.sqrt q := by linarith
+    have hl : (0 : ℝ) < 1 + Real.log q := by linarith
+    have := mul_pos (mul_pos h5 hs) hl
+    linarith
+  simp only [efShiftB]
+  exact hfac1.mul hfac2
+
+private lemma contB3_efShiftBound {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ}
+    {φ : ℝ → ℝ} (hφ : ContinuousOn φ (Set.Ici (3 : ℝ)))
+    (hφ3 : ∀ u ∈ Set.Ici (3 : ℝ), 3 ≤ φ u) :
+    ContinuousOn (fun u : ℝ => efShiftBound q (efT0 q u) σa σb (φ u)) (Set.Ici (3 : ℝ)) := by
+  have hlogφ : ContinuousOn (fun u : ℝ => Real.log (φ u)) (Set.Ici (3 : ℝ)) :=
+    contB3_log_comp hφ (fun u hu => ne_of_gt (by linarith [hφ3 u hu]))
+  have hlogφ0 : ∀ u ∈ Set.Ici (3 : ℝ), Real.log (φ u) ≠ 0 := by
+    intro u hu
+    have h3 := hφ3 u hu
+    have he : Real.exp 1 ≤ φ u :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h3
+    have h1 : (1 : ℝ) ≤ Real.log (φ u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
+    linarith
+  have hrow1 : ContinuousOn (fun u : ℝ => 2 * ((1 + 1 / Real.log (φ u)) - σa)
+      * efShiftB q (efT0 q u) σa σb * (Real.exp 1 * φ u ^ (2 : ℕ)) / efT0 q u ^ 2)
+      (Set.Ici (3 : ℝ)) := by
+    refine ContinuousOn.div (((continuousOn_const.mul ((continuousOn_const.add
+      (continuousOn_const.div hlogφ hlogφ0)).sub continuousOn_const)).mul
+      (contB3_efShiftB hq)).mul (continuousOn_const.mul (hφ.pow 2)))
+      ((contB3_efT0 hq).pow 2) (fun u hu => ?_)
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    positivity
+  have hrow2 : ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb * φ u ^ (σb + 1)
+      * (Real.pi / σa)) (Set.Ici (3 : ℝ)) :=
+    ((contB3_efShiftB hq).mul
+      (hφ.rpow_const (fun u hu => Or.inl (ne_of_gt (by linarith [hφ3 u hu]))))).mul
+      continuousOn_const
+  have hrow3 : ContinuousOn (fun u : ℝ => (Real.log (φ u) + 1) * (Real.exp 1 * φ u ^ (2 : ℕ))
+      * (2 / efT0 q u)) (Set.Ici (3 : ℝ)) := by
+    refine ((hlogφ.add continuousOn_const).mul (continuousOn_const.mul (hφ.pow 2))).mul
+      (continuousOn_const.div (contB3_efT0 hq) (fun u hu => ?_))
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    linarith
+  simp only [efShiftBound]
+  exact continuousOn_const.mul ((hrow1.add hrow2).add hrow3)
 
 /-- Class B: mirror `continuousOn_efEnvelope_ceilFun`. -/
 theorem continuousOn_efEnvelopeB3_ceilFun {q : ℕ} (hq : 2 ≤ q) {β₀ : ℝ} {B : ℝ → ℝ} (m : ℕ)
     (hB : ContinuousOn B (Set.Ici (3 : ℝ))) {σa σb : ℝ} (hσa : 9 / 10 ≤ σa) :
     ContinuousOn (fun u : ℝ => efEnvelopeB3 q β₀ (B u) m σa σb u) (Set.Ici (3 : ℝ)) := by
-  sorry
+  have _hσa : (9 : ℝ) / 10 ≤ σa := hσa
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hφ2 : ContinuousOn (fun u : ℝ => u + efH q u) (Set.Ici (3 : ℝ)) :=
+    continuousOn_id.add (contB3_efH hq)
+  have hφ23 : ∀ u ∈ Set.Ici (3 : ℝ), (3 : ℝ) ≤ u + efH q u := by
+    intro u hu
+    have h3 : (3 : ℝ) ≤ u := hu
+    linarith [efH_pos hq h3]
+  have hid : ContinuousOn (fun u : ℝ => u) (Set.Ici (3 : ℝ)) := continuousOn_id
+  have hne0 : ∀ u ∈ Set.Ici (3 : ℝ), u ≠ 0 :=
+    fun u hu => ne_of_gt (by linarith [show (3 : ℝ) ≤ u from hu])
+  have hA : ContinuousOn (fun u : ℝ => (efH q u + 1) * Real.log (u + efH q u))
+      (Set.Ici (3 : ℝ)) :=
+    ((contB3_efH hq).add continuousOn_const).mul
+      (contB3_log_comp hφ2 (fun u hu => ne_of_gt (by linarith [hφ23 u hu])))
+  have hBd : ContinuousOn (fun u : ℝ => (efShiftBound q (efT0 q u) σa σb u
+      + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u) (Set.Ici (3 : ℝ)) :=
+    ContinuousOn.div ((contB3_efShiftBound hq (continuousOn_id (α := ℝ)) (fun u hu => hu)).add
+      (contB3_efShiftBound hq hφ2 hφ23)) (contB3_efH hq)
+      (fun u hu => ne_of_gt (efH_pos hq (show (3 : ℝ) ≤ u from hu)))
+  have hC : ContinuousOn (fun u : ℝ => (m : ℝ) * (efH q u * u ^ (β₀ - 1))) (Set.Ici (3 : ℝ)) :=
+    continuousOn_const.mul ((contB3_efH hq).mul
+      (hid.rpow_const (fun u hu => Or.inl (hne0 u hu))))
+  have hlogid : ContinuousOn (fun u : ℝ => Real.log u) (Set.Ici (3 : ℝ)) :=
+    contB3_log_comp hid hne0
+  have hexpo : ContinuousOn (fun u : ℝ => -((1 - B u) * Real.log u) / 4) (Set.Ici (3 : ℝ)) :=
+    ContinuousOn.div_const (((continuousOn_const.sub hB).mul hlogid).neg) 4
+  have hshell : ContinuousOn (fun u : ℝ => efShellRow q (B u) u) (Set.Ici (3 : ℝ)) := by
+    simp only [efShellRow]
+    exact ((((contB3_efH hq).div hid hne0).add continuousOn_const).mul continuousOn_const).mul
+      hexpo.rexp
+  simp only [efEnvelopeB3]
+  exact (ContinuousOn.div ((hA.add hBd).add hC) hid hne0).add hshell
 
-/-- **THE B3 LEDGER** — rows (i)–(iii) of the sharp ledger verbatim, the shell row as is. Class B. -/
+/-- **THE B3 LEDGER** — rows (i)–(iii) of the sharp ledger verbatim, the shell row as is.
+Class B. -/
 theorem efEnvelopeB3_le_ledger {q : ℕ} {β₀ bceil σa σb u M N : ℝ} {m : ℕ}
     (hq : 2 ≤ q) (hu : 3 ≤ u) (hM : M = Real.log ((q : ℝ) * u) + 2)
     (hN : N = Real.log q + 11 * Real.log M)
@@ -447,7 +628,82 @@ theorem efEnvelopeB3_le_ledger {q : ℕ} {β₀ bceil σa σb u M N : ℝ} {m : 
       ≤ ((m : ℝ) + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M + M / u
         + 10 ^ 6 * M ^ 9 * N ^ 2 * u ^ (σb - 1)
         + (1 / M ^ 3 + 5 / 4) * (2 * n9CB2) * Real.exp (-((1 - bceil) * Real.log u) / 4) := by
-  sorry
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logquB3_ge hq hu
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hHpos : 0 < efH q u := efH_pos hq hu
+  have hlq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hlM : (0 : ℝ) ≤ Real.log M := Real.log_nonneg (by linarith)
+  have hN0 : (0 : ℝ) ≤ N := by rw [hN]; linarith
+  have hMcube : (0 : ℝ) < M ^ 3 := by positivity
+  have hCnn : (0 : ℝ) ≤ 10 ^ 3 * M ^ 3 * N := by nlinarith
+  -- the shell row, at the ledger's own symbols: `efH q u / u = 1/M³`
+  have hHu : efH q u / u = 1 / M ^ 3 := by
+    rw [show efH q u = u / M ^ 3 from by rw [efH, hM]]
+    field_simp
+  have hshellrow : efShellRow q bceil u
+      = (1 / M ^ 3 + 5 / 4) * (2 * n9CB2) * Real.exp (-((1 - bceil) * Real.log u) / 4) := by
+    rw [efShellRow, hHu]
+  -- the B3 envelope is `efEnvelope` at ANY ceiling, minus two non-negative rows
+  have hdrop : ∀ b' : ℝ, efEnvelopeB3 q β₀ bceil m σa σb u
+      ≤ efEnvelope q β₀ b' m σa σb u + efShellRow q bceil u := by
+    intro b'
+    have hlogQ4 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 4)) :=
+      Real.log_nonneg (by nlinarith)
+    have hlogT2 : (0 : ℝ) ≤ Real.log (efT0 q u + 2) := Real.log_nonneg (by linarith)
+    have hW1 : (0 : ℝ) ≤ efH q u * u ^ (b' - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))) :=
+      mul_nonneg (mul_nonneg hHpos.le (Real.rpow_nonneg hu0.le _))
+        (mul_nonneg (by linarith) hlogQ4)
+    have hW2 : (0 : ℝ) ≤ u ^ b' * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+        * (8 + 4 * Real.log (efT0 q u + 2))) :=
+      mul_nonneg (Real.rpow_nonneg hu0.le _)
+        (mul_nonneg (by linarith) (by linarith))
+    rw [efEnvelopeB3, efEnvelope]
+    have hle : (efH q u + 1) * Real.log (u + efH q u)
+        + (efShiftBound q (efT0 q u) σa σb u
+            + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u
+        + (m : ℝ) * (efH q u * u ^ (β₀ - 1))
+      ≤ (efH q u + 1) * Real.log (u + efH q u)
+        + (efShiftBound q (efT0 q u) σa σb u
+            + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u
+        + ((m : ℝ) * (efH q u * u ^ (β₀ - 1))
+            + efH q u * u ^ (b' - 1)
+              * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))))
+        + u ^ b' * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+            * (8 + 4 * Real.log (efT0 q u + 2))) := by linarith
+    linarith [div_le_div_of_nonneg_right hle hu0.le]
+  have hled : ∀ b' : ℝ, efEnvelope q β₀ b' m σa σb u
+      ≤ ((m : ℝ) + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M + M / u
+        + 10 ^ 6 * M ^ 9 * N ^ 2 * u ^ (σb - 1) + 10 ^ 3 * M ^ 3 * N * u ^ (b' - 1) :=
+    fun b' => efEnvelope_le_ledger_sharp hq hu hM hN hσa hσab hσb hgap hβ₀1
+  -- the ceiling row is free: `u^{b'−1} → 0` as `b' → −∞`
+  rw [← hshellrow]
+  refine le_of_forall_sub_le (fun ε hε => ?_)
+  have hlogu : (0 : ℝ) < Real.log u := Real.log_pos (by linarith)
+  have hden : (0 : ℝ) < 10 ^ 3 * M ^ 3 * N + 1 := by linarith
+  obtain ⟨b', hpow⟩ : ∃ b' : ℝ, u ^ (b' - 1) = ε / (10 ^ 3 * M ^ 3 * N + 1) := by
+    refine ⟨1 + Real.log (ε / (10 ^ 3 * M ^ 3 * N + 1)) / Real.log u, ?_⟩
+    rw [Real.rpow_def_of_pos hu0]
+    rw [show 1 + Real.log (ε / (10 ^ 3 * M ^ 3 * N + 1)) / Real.log u - 1
+        = Real.log (ε / (10 ^ 3 * M ^ 3 * N + 1)) / Real.log u from by ring]
+    rw [show Real.log u * (Real.log (ε / (10 ^ 3 * M ^ 3 * N + 1)) / Real.log u)
+        = Real.log (ε / (10 ^ 3 * M ^ 3 * N + 1)) from by field_simp]
+    exact Real.exp_log (div_pos hε hden)
+  have hb : efEnvelopeB3 q β₀ bceil m σa σb u
+      ≤ ((m : ℝ) + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M + M / u
+        + 10 ^ 6 * M ^ 9 * N ^ 2 * u ^ (σb - 1)
+        + 10 ^ 3 * M ^ 3 * N * u ^ (b' - 1) + efShellRow q bceil u := by
+    linarith [hdrop b', hled b']
+  rw [hpow] at hb
+  have hCe : 10 ^ 3 * M ^ 3 * N * (ε / (10 ^ 3 * M ^ 3 * N + 1)) ≤ ε := by
+    rw [show 10 ^ 3 * M ^ 3 * N * (ε / (10 ^ 3 * M ^ 3 * N + 1))
+        = 10 ^ 3 * M ^ 3 * N * ε / (10 ^ 3 * M ^ 3 * N + 1) from by ring,
+      div_le_iff₀ hden]
+    nlinarith
+  linarith
 
 /-- **THE `E₁` BOUND** — the exponential row's tail integral. Class B. -/
 theorem integral_rpow_div_log_tail_le {X ε : ℝ} (hX : 3 ≤ X) (hε : 0 < ε) :
