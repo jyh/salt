@@ -281,10 +281,14 @@ theorem a2wall_floor32_88_fails : 1 / (32 * Real.exp 1) - 1 / 5000 < (1 : ℝ) /
   have hsplit : (1 : ℝ) / 88 + 1 / 5000 = 5088 / 440000 := by norm_num
   linarith
 
-/-- **WHY THE RE-CUT EXISTS** (`a2wall_box_fails_gate_15`).  The LANDED gate coefficient
+/-- **WHY THE RE-CUT EXISTS** (`a2wall_box_fails_gate_15`).  The PRE-RE-CUT gate coefficient
 `(103/1500)·e ≈ 0.18665` is `2.99×` above the box floor's `1/16 = 0.0625`: at `n = 15` the
 first exit summand cannot be paid out of the contour box at all.  (`T0BandCapFree`'s header
-records the same fact against `CapFreeFloor`'s `1/32`, at `6×`.) -/
+RECORDED the same fact against `CapFreeFloor`'s `1/32`, at `6×`; that header still says `1/32`
+is SHORT at the re-cut gate, and gives no factor — it is `1.950×`, computed here.  Every GATE
+numeral in this docstring is pre-re-cut; the floors `1/16` and `1/32` are current.  The landed
+gate is `(1009/45000)·e = 0.060950…` (`a2wall_gate_45`), which `1/16` CLEARS:
+`a2wall_box_clears_45`.)  Corrected 2026-09-05: this said "the LANDED gate". -/
 theorem a2wall_box_fails_gate_15 : (1 : ℝ) / 16 < 103 / 1500 * Real.exp 1 := by
   linarith [Real.exp_one_gt_d9]
 
