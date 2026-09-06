@@ -45,6 +45,76 @@ theorem efZeroSumM_norm_le_termwise {q : ℕ} [NeZero q] (χ : DirichletCharacte
   rw [norm_mul, norm_div, Complex.norm_cpow_eq_rpow_re_of_pos hy0, Complex.norm_natCast]
   exact le_of_eq (mul_div_assoc _ _ _).symm
 
+/-! ### The shell machinery (private helpers for `zeroSum_shells_le`) -/
+
+/-- **The shell index** of a zero at the base scale `w`: `⌊log((1 − Re ρ)/w)/log(6/5)⌋₊`. -/
+private noncomputable def shellIdx (w : ℝ) (ρ : ℂ) : ℕ :=
+  ⌊Real.log ((1 - ρ.re) / w) / Real.log (6 / 5)⌋₊
+
+/-- **The bracket**: at `w ≤ z` the index `i = ⌊log(z/w)/log(6/5)⌋₊` puts `z` in the shell
+`[w·(6/5)^i, w·(6/5)^{i+1})`. -/
+private lemma shell_bracket {w z : ℝ} (hw : 0 < w) (hwz : w ≤ z) :
+    w * (6 / 5 : ℝ) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊) ≤ z ∧
+      z < w * (6 / 5 : ℝ) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊ + 1) := by
+  have hl65 : (0 : ℝ) < Real.log (6 / 5) := Real.log_pos (by norm_num)
+  have hx1 : (1 : ℝ) ≤ z / w := (one_le_div hw).mpr hwz
+  have hx0 : (0 : ℝ) < z / w := by linarith
+  have hlx : (0 : ℝ) ≤ Real.log (z / w) := Real.log_nonneg hx1
+  have hr0 : (0 : ℝ) ≤ Real.log (z / w) / Real.log (6 / 5) := div_nonneg hlx hl65.le
+  have hrl : Real.log (z / w) / Real.log (6 / 5) * Real.log (6 / 5) = Real.log (z / w) := by
+    field_simp
+  have hfl := Nat.floor_le hr0
+  have hfu := Nat.lt_floor_add_one (Real.log (z / w) / Real.log (6 / 5))
+  constructor
+  · have h1 : Real.log ((6 / 5 : ℝ) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊))
+        ≤ Real.log (z / w) := by
+      rw [Real.log_pow]
+      linarith [mul_le_mul_of_nonneg_right hfl hl65.le, hrl]
+    have hp : (0 : ℝ) < ((6 : ℝ) / 5) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊) := by positivity
+    have h2 := Real.exp_le_exp.mpr h1
+    rw [Real.exp_log hp, Real.exp_log hx0, le_div_iff₀ hw] at h2
+    linarith [h2, mul_comm w (((6 : ℝ) / 5) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊))]
+  · have h1 : Real.log (z / w)
+        < Real.log ((6 / 5 : ℝ) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊ + 1)) := by
+      rw [Real.log_pow]
+      push_cast
+      linarith [mul_lt_mul_of_pos_right hfu hl65, hrl]
+    have hp : (0 : ℝ) < ((6 : ℝ) / 5) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊ + 1) := by
+      positivity
+    have h2 := Real.exp_lt_exp.mpr h1
+    rw [Real.exp_log hx0, Real.exp_log hp, div_lt_iff₀ hw] at h2
+    linarith [h2, mul_comm w (((6 : ℝ) / 5) ^ (⌊Real.log (z / w) / Real.log (6 / 5)⌋₊ + 1))]
+
+/-- Bernoulli at `a = 1/5`: `1 + i/5 ≤ (6/5)^i`. -/
+private lemma one_add_div_five_le_pow (i : ℕ) : 1 + (i : ℝ) / 5 ≤ (6 / 5 : ℝ) ^ i := by
+  have h := one_add_mul_le_pow (a := (1 / 5 : ℝ)) (by norm_num) i
+  have he : (1 : ℝ) + 1 / 5 = 6 / 5 := by norm_num
+  rw [he] at h
+  linarith
+
+/-- `(e^{−1})^i = e^{−i}`. -/
+private lemma exp_neg_one_pow (i : ℕ) : (Real.exp (-1)) ^ i = Real.exp (-(i : ℝ)) := by
+  induction i with
+  | zero => simp
+  | succ n ih =>
+      rw [pow_succ, ih, ← Real.exp_add]
+      congr 1
+      push_cast
+      ring
+
+/-- The geometric tail of `e^{−i}` is at most `2` (`1/(1 − e^{−1}) ≤ 2`). -/
+private lemma geom_exp_neg_sum_le (n : ℕ) :
+    ∑ i ∈ Finset.range n, (Real.exp (-1)) ^ i ≤ 2 := by
+  have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+  have hr0 : (0 : ℝ) < Real.exp (-1) := Real.exp_pos _
+  have hmul : Real.exp (-1) * Real.exp 1 = 1 := by rw [← Real.exp_add]; norm_num
+  have hrhalf : Real.exp (-1) ≤ 1 / 2 := by nlinarith
+  have hS0 : (0 : ℝ) ≤ ∑ i ∈ Finset.range n, (Real.exp (-1)) ^ i :=
+    Finset.sum_nonneg fun i _ => pow_nonneg hr0.le i
+  have hgm := geom_sum_mul (Real.exp (-1)) n
+  have hrn : (0 : ℝ) ≤ (Real.exp (-1)) ^ n := pow_nonneg hr0.le n
+  nlinarith [hgm, hrn, mul_le_mul_of_nonneg_left hrhalf hS0]
+
 /-- **THE SHELL SPEND** — B2 spent shell by shell at a ceiling `1 − w`. Class C. -/
 theorem zeroSum_shells_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {σa T u w : ℝ} (hσa : 9 / 10 ≤ σa) (hT : 2 ≤ T)
@@ -54,7 +124,144 @@ theorem zeroSum_shells_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     (hbig : 20 ≤ w * Real.log u) :
     ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * u ^ ρ.re
       ≤ 2 * n9CB2 * u * Real.exp (-(w * Real.log u) / 4) := by
-  sorry
+  classical
+  obtain ⟨hC0, hD0, _hD150, hB2⟩ := n9B2_spec
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  have hL0 : (0 : ℝ) < Real.log u := by
+    rcases lt_or_ge 0 (Real.log u) with hcon | hcon
+    · exact hcon
+    · nlinarith [mul_nonneg hw.le (neg_nonneg.mpr hcon)]
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqT0 : (0 : ℝ) < (q : ℝ) * T := by nlinarith
+  -- the bracket at every zero of `Z`
+  have hbr : ∀ ρ ∈ Z, w * (6 / 5 : ℝ) ^ (shellIdx w ρ) ≤ 1 - ρ.re ∧
+      1 - ρ.re < w * (6 / 5 : ℝ) ^ (shellIdx w ρ + 1) := by
+    intro ρ hρ
+    exact shell_bracket hw (by linarith [hbar ρ hρ])
+  -- the index range
+  set I : ℕ := ⌈1 / w⌉₊ with hIdef
+  have hmapsto : ∀ ρ ∈ Z, shellIdx w ρ ∈ Finset.range (I + 1) := by
+    intro ρ hρ
+    have hb := (hbr ρ hρ).1
+    have hmem := (mem_boxZeros hχ1).mp (hZ hρ)
+    have h1 : w * (6 / 5 : ℝ) ^ (shellIdx w ρ) ≤ 1 / 10 := by linarith [hmem.2.1]
+    have h2 := one_add_div_five_le_pow (shellIdx w ρ)
+    have h3 : w * (1 + (shellIdx w ρ : ℝ) / 5) ≤ 1 / 10 := by
+      nlinarith [mul_le_mul_of_nonneg_left h2 hw.le]
+    have h4 : (shellIdx w ρ : ℝ) ≤ 1 / w := by
+      rw [le_div_iff₀ hw]; nlinarith
+    have h5 : (shellIdx w ρ : ℝ) ≤ (I : ℝ) := le_trans h4 (by rw [hIdef]; exact Nat.le_ceil _)
+    have h6 : shellIdx w ρ ≤ I := by exact_mod_cast h5
+    exact Finset.mem_range.mpr (by omega)
+  -- the shell budget
+  set A : ℝ := w * Real.log u / 4 with hAdef
+  have hA5 : (5 : ℝ) ≤ A := by rw [hAdef]; linarith
+  -- THE FIBRE BOUND
+  have hfib : ∀ (i : ℕ) (F : Finset ℂ), F ⊆ Z → (∀ ρ ∈ F, shellIdx w ρ = i) →
+      (∑ ρ ∈ F, (zeroMult χ ρ : ℝ) * u ^ ρ.re)
+        ≤ n9CB2 * u * Real.exp (-(A * (6 / 5 : ℝ) ^ i)) := by
+    intro i F hFZ hFi
+    have hRnn : (0 : ℝ) ≤ n9CB2 * u * Real.exp (-(A * (6 / 5 : ℝ) ^ i)) :=
+      mul_nonneg (mul_nonneg hC0.le hu0.le) (Real.exp_pos _).le
+    rcases F.eq_empty_or_nonempty with hemp | ⟨ρ₀, hρ₀⟩
+    · rw [hemp, Finset.sum_empty]; exact hRnn
+    · have hs0 : (0 : ℝ) < w * (6 / 5 : ℝ) ^ i := by positivity
+      have hb₀ := (hbr ρ₀ (hFZ hρ₀)).1
+      rw [hFi ρ₀ hρ₀] at hb₀
+      have hmem₀ := (mem_boxZeros hχ1).mp (hZ (hFZ hρ₀))
+      have hsle : w * (6 / 5 : ℝ) ^ i ≤ 1 / 10 := by linarith [hmem₀.2.1]
+      have hs' : ∀ ρ ∈ F, 1 - ρ.re < 6 / 5 * (w * (6 / 5 : ℝ) ^ i) := by
+        intro ρ hρ
+        have h := (hbr ρ (hFZ hρ)).2
+        rw [hFi ρ hρ] at h
+        rw [pow_succ] at h
+        linarith
+      have hlow : ∀ ρ ∈ F, ρ.re ≤ 1 - w * (6 / 5 : ℝ) ^ i := by
+        intro ρ hρ
+        have h := (hbr ρ (hFZ hρ)).1
+        rw [hFi ρ hρ] at h
+        linarith
+      have hsub : F ⊆ boxZeros χ (1 - 6 / 5 * (w * (6 / 5 : ℝ) ^ i)) 1 T := by
+        intro ρ hρ
+        have hmem := (mem_boxZeros hχ1).mp (hZ (hFZ hρ))
+        exact (mem_boxZeros hχ1).mpr
+          ⟨hmem.1, by linarith [hs' ρ hρ], hmem.2.2.1, hmem.2.2.2⟩
+      calc (∑ ρ ∈ F, (zeroMult χ ρ : ℝ) * u ^ ρ.re)
+          ≤ ∑ ρ ∈ F, (zeroMult χ ρ : ℝ) * u ^ (1 - w * (6 / 5 : ℝ) ^ i) := by
+            refine Finset.sum_le_sum (fun ρ hρ => ?_)
+            exact mul_le_mul_of_nonneg_left
+              (Real.rpow_le_rpow_of_exponent_le hu (hlow ρ hρ)) (by positivity)
+        _ = (∑ ρ ∈ F, (zeroMult χ ρ : ℝ)) * u ^ (1 - w * (6 / 5 : ℝ) ^ i) := by
+            rw [Finset.sum_mul]
+        _ ≤ zeroCountM χ (1 - 6 / 5 * (w * (6 / 5 : ℝ) ^ i)) T
+              * u ^ (1 - w * (6 / 5 : ℝ) ^ i) := by
+            refine mul_le_mul_of_nonneg_right ?_ (Real.rpow_nonneg hu0.le _)
+            rw [zeroCountM, efMultTotal]
+            exact Finset.sum_le_sum_of_subset_of_nonneg hsub (fun _ _ _ => by positivity)
+        _ ≤ n9CB2 * ((q : ℝ) * T) ^ (n9DB2 * (1 - (1 - 6 / 5 * (w * (6 / 5 : ℝ) ^ i))))
+              * u ^ (1 - w * (6 / 5 : ℝ) ^ i) := by
+            refine mul_le_mul_of_nonneg_right ?_ (Real.rpow_nonneg hu0.le _)
+            exact hB2 q χ hχ hq (1 - 6 / 5 * (w * (6 / 5 : ℝ) ^ i)) T (by linarith)
+              (by linarith) hT
+        _ ≤ n9CB2 * u * Real.exp (-(A * (6 / 5 : ℝ) ^ i)) := by
+            have h1 : ((q : ℝ) * T) ^ (n9DB2 * (1 - (1 - 6 / 5 * (w * (6 / 5 : ℝ) ^ i))))
+                = Real.exp (n9DB2 * (6 / 5 * (w * (6 / 5 : ℝ) ^ i))
+                    * Real.log ((q : ℝ) * T)) := by
+              rw [Real.rpow_def_of_pos hqT0]; congr 1; ring
+            have h2 : u ^ (1 - w * (6 / 5 : ℝ) ^ i)
+                = Real.exp ((1 - w * (6 / 5 : ℝ) ^ i) * Real.log u) := by
+              rw [Real.rpow_def_of_pos hu0]; congr 1; ring
+            have hkey : w * (6 / 5 : ℝ) ^ i * (6 / 5 * n9DB2 * Real.log ((q : ℝ) * T))
+                ≤ w * (6 / 5 : ℝ) ^ i * (3 / 4 * Real.log u) :=
+              mul_le_mul_of_nonneg_left hy hs0.le
+            have hexp : Real.exp (n9DB2 * (6 / 5 * (w * (6 / 5 : ℝ) ^ i))
+                  * Real.log ((q : ℝ) * T))
+                * Real.exp ((1 - w * (6 / 5 : ℝ) ^ i) * Real.log u)
+                ≤ u * Real.exp (-(A * (6 / 5 : ℝ) ^ i)) := by
+              rw [← Real.exp_add]
+              have hru : u * Real.exp (-(A * (6 / 5 : ℝ) ^ i))
+                  = Real.exp (Real.log u + -(A * (6 / 5 : ℝ) ^ i)) := by
+                rw [Real.exp_add, Real.exp_log hu0]
+              rw [hru]
+              refine Real.exp_le_exp.mpr ?_
+              rw [hAdef]
+              nlinarith [hkey]
+            rw [h1, h2]
+            calc n9CB2 * Real.exp (n9DB2 * (6 / 5 * (w * (6 / 5 : ℝ) ^ i))
+                    * Real.log ((q : ℝ) * T))
+                  * Real.exp ((1 - w * (6 / 5 : ℝ) ^ i) * Real.log u)
+                = n9CB2 * (Real.exp (n9DB2 * (6 / 5 * (w * (6 / 5 : ℝ) ^ i))
+                    * Real.log ((q : ℝ) * T))
+                  * Real.exp ((1 - w * (6 / 5 : ℝ) ^ i) * Real.log u)) := by ring
+              _ ≤ n9CB2 * (u * Real.exp (-(A * (6 / 5 : ℝ) ^ i))) :=
+                  mul_le_mul_of_nonneg_left hexp hC0.le
+              _ = n9CB2 * u * Real.exp (-(A * (6 / 5 : ℝ) ^ i)) := by ring
+  -- assemble the shells
+  rw [← Finset.sum_fiberwise_of_maps_to hmapsto (fun ρ => (zeroMult χ ρ : ℝ) * u ^ ρ.re)]
+  refine le_trans (Finset.sum_le_sum (fun i _ => hfib i _ (Finset.filter_subset _ _)
+    (fun ρ hρ => (Finset.mem_filter.mp hρ).2))) ?_
+  have hstep : ∀ i ∈ Finset.range (I + 1),
+      n9CB2 * u * Real.exp (-(A * (6 / 5 : ℝ) ^ i))
+        ≤ n9CB2 * u * Real.exp (-A) * (Real.exp (-1)) ^ i := by
+    intro i _
+    have hber := one_add_div_five_le_pow i
+    have hrw : n9CB2 * u * Real.exp (-A) * (Real.exp (-1)) ^ i
+        = n9CB2 * u * Real.exp (-A + -(i : ℝ)) := by
+      rw [exp_neg_one_pow i, Real.exp_add]; ring
+    rw [hrw]
+    refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) (mul_nonneg hC0.le hu0.le)
+    nlinarith [mul_le_mul_of_nonneg_left hber (by linarith : (0 : ℝ) ≤ A),
+      mul_nonneg (by linarith : (0 : ℝ) ≤ A - 5) (Nat.cast_nonneg i : (0 : ℝ) ≤ (i : ℝ))]
+  refine le_trans (Finset.sum_le_sum hstep) ?_
+  rw [← Finset.mul_sum]
+  calc n9CB2 * u * Real.exp (-A) * (∑ i ∈ Finset.range (I + 1), (Real.exp (-1)) ^ i)
+      ≤ n9CB2 * u * Real.exp (-A) * 2 :=
+        mul_le_mul_of_nonneg_left (geom_exp_neg_sum_le _)
+          (mul_nonneg (mul_nonneg hC0.le hu0.le) (Real.exp_pos _).le)
+    _ = 2 * n9CB2 * u * Real.exp (-(w * Real.log u) / 4) := by
+        rw [show -A = -(w * Real.log u) / 4 by rw [hAdef]; ring]
+        ring
 
 /-- The shell row of the B3 envelope. -/
 noncomputable def efShellRow (q : ℕ) (bceil u : ℝ) : ℝ :=
