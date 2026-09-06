@@ -6606,6 +6606,33 @@ numbering is UNVERIFIED.
    2026-08-21 at the desk, under the INVERTED PURSE: it gets scheduled, not
    debated.** His reason, in his words: *the fleet tends to fall idle at night when
    he is away* — this is the item a night seat pulls instead of parking.
+   ✅ **TIERS D + E LANDED `6092dfd6` 2026-09-05 (PR #66).** 16 declarations, **14
+   proofs, sorry-free**, in three new files — `Salt/TwinBar/TwinParityAtomClasses.lean`
+   (D0–D12), `Salt/Entropy/Chowla/SpineEpsFamily.lean` (E1),
+   `Salt/MR/EpsFamilyReceipt.lean` (E2) — rooted with audit blocks in all three track
+   aggregates. Every name `[propext, Classical.choice, Quot.sound]`; `coprime_twinProd_iff_mod`
+   stronger at `[propext, Quot.sound]`. Verified by THREE independent routes that agree name
+   by name: a local `#print axioms` run, the aggregates' own `#audit_axioms` ticks, and CI's
+   kernel. Frozen statement-only 18:1x → the LEAD's refuter pass (h2c, a non-author, the
+   two-level hierarchy's pilot) signed REPAIR-THEN-FIRE, no statement false → v1.1 → one Opus
+   executor, 14/14.
+   ⭐ **THE FINDING THAT RE-SCOPED THE ROW:** `hatom` splits over the `|Adm(P)| = P·W`
+   admissible classes at ONE stride, and at the affine head's pinned `ε = 1/(1000·P)` the spend
+   is `W/(1000·P) < W` at EVERY `P` ⇒ **the `∀ ε` arm is NEVER demanded by the direct road at
+   fixed `z`; the FULL-RANGE arm alone is.** The `∀ ε` arm is the crown's, and E2 states exactly
+   that as a kernel fact rather than assuming it.
+   ⛔ **STILL OPEN: TIER S** (the full-range supply) — DESIGNED, not frozen. Its two gating
+   censuses are DONE (`2026-09-05-math-CENSUS-C1-C2-affine-door-lane.md`, seat `b7f299d6`):
+   S-1's band is the `XCeil` band (one ceiling shape, 22 sites) and the regime is `b`-free by
+   signature, so one `(x, ω)` serves every class. What S owes its own freeze: the S-4 plateau
+   argument redone against the TWO builders that actually pin `Hhi`; the socket window's
+   non-emptiness as a stated obligation; and S-1's head form EXPORTING the tight upper bound
+   (`XCeil.lean:494–497`) as a third conjunct.
+   ⛔ **HONEST LABEL:** no new unconditional theorem. At fixed `z` this is a SECOND PROOF of a
+   terminal `zRough_oddOmega_infinite_of_affSupplyW` already lands, plus a kernel cross-check of
+   the two roads. E2 is conditional on `MRTDoorAllGrades`, which has no producer. The `∃ ε`
+   tripwire is untouched. **Nothing here bears on twin primes.**
+
    **THE QUESTION:** push salt's existing Tao-Thm-1.2 spine (`Salt/Entropy/Chowla`,
    73 files, 66 Tao-1509 cites) from **one-produced-ε / windowed** to **∀ε /
    full-range**.
