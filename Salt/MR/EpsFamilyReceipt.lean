@@ -42,6 +42,20 @@ gives `H₀` and `hcrown' : ∀ R, R.eps = ε → H₀ ≤ R.Hlo → MRTUniformi
 theorem logChowla2_epsFamily_of_allGrades (hcrown : MRTDoorAllGrades) (ε : ℚ) (hε0 : 0 < ε)
     (hε : ε ≤ 1 / 500) (extraFloor : ℕ) :
     ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ ¬ logChowla2Fails R.eps R.x R.ω := by
-  sorry
+  obtain ⟨K, δ₀, Hcap, hK, hδ₀, _hrate, hbody⟩ :=
+    log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily ε hε0 hε
+  obtain ⟨H₀, hcrown'⟩ := hcrown (δ₀ / K) (div_pos hδ₀ hK) ε hε0
+    (le_trans hε (by norm_num : (1 : ℚ) / 500 ≤ 1 / 2))
+  obtain ⟨R, hReps, hRlo, _hU1, _hg, hXi, _htow, _hcap, himpl⟩ :=
+    hbody (max extraFloor H₀) 0 (fun _ _ => 0)
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hRlo, ?_⟩
+  have hL2 : MRTUniformityXiL2 R (K * (δ₀ / K)) :=
+    mrtUniformityXiL2_of_xi R (le_of_lt (div_pos hδ₀ hK)) hXi
+      (hcrown' R hReps (le_trans (le_max_right _ _) hRlo))
+  have hKne : K ≠ 0 := ne_of_gt hK
+  have heq : K * (δ₀ / K) = δ₀ := by
+    field_simp
+  rw [heq] at hL2
+  exact himpl δ₀ hδ₀ le_rfl hL2
 
 end Salt.MR

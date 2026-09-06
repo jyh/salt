@@ -65,8 +65,10 @@ Every statement here is elementary (class A/B) and conditional or definitional; 
 `P = primorial z` — is the content the crown road ALREADY lands unconditionally at
 `primorial z ≤ 548` (`zRough_oddOmega_infinite_primorial`, one class, no `hatom`): at fixed `z`
 the direct road buys a SECOND PROOF and a kernel cross-check of the two roads, not new ground.
-Nothing here bears on twin primes.  STATEMENT-ONLY at the freeze; `sorry` bodies carry the
-recipes; the refuter pass precedes any executor.
+Nothing here bears on twin primes.  (Frozen statement-only 2026-09-05 18:1x; the lead's refuter
+pass signed REPAIR-THEN-FIRE, no statement false; all 14 obligations PROVED 2026-09-05 21:3x, every
+name `[propext, Classical.choice, Quot.sound]` and `coprime_twinProd_iff_mod` stronger still at
+`[propext, Quot.sound]`.)
 -/
 
 namespace Salt.TwinBar
@@ -89,7 +91,16 @@ and `n + 2 = P * (n / P) + (n % P + 2)`; each factor is `Nat.coprime_mul_left_ad
 `AffineFork.lean:225`). -/
 theorem coprime_twinProd_iff_mod (P n : ℕ) :
     Nat.Coprime (n * (n + 2)) P ↔ Nat.Coprime ((n % P) * (n % P + 2)) P := by
-  sorry
+  have hn : P * (n / P) + n % P = n := Nat.div_add_mod n P
+  have h1 : Nat.Coprime n P ↔ Nat.Coprime (n % P) P := by
+    calc Nat.Coprime n P
+        ↔ Nat.Coprime (P * (n / P) + n % P) P := by rw [hn]
+      _ ↔ Nat.Coprime (n % P) P := Nat.coprime_mul_left_add_left (n % P) P (n / P)
+  have h2 : Nat.Coprime (n + 2) P ↔ Nat.Coprime (n % P + 2) P := by
+    calc Nat.Coprime (n + 2) P
+        ↔ Nat.Coprime (P * (n / P) + (n % P + 2)) P := by rw [← Nat.add_assoc, hn]
+      _ ↔ Nat.Coprime (n % P + 2) P := Nat.coprime_mul_left_add_left (n % P + 2) P (n / P)
+  rw [Nat.coprime_mul_iff_left, Nat.coprime_mul_iff_left, h1, h2]
 
 /-- **D2 (class B).**  The coprime-filtered sum splits over the admissible classes, fiberwise by
 `n % P`.
@@ -101,7 +112,27 @@ with D1 closing `Coprime (n(n+2)) P ∧ n % P = r ↔ n % P = r ∧ r ∈ admCla
 theorem sum_twinCoprime_eq_sum_admClasses (N P : ℕ) (hP : 0 < P) (w : ℕ → ℝ) :
     (∑ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime (n * (n + 2)) P), w n)
       = ∑ r ∈ admClasses P, ∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % P = r), w n := by
-  sorry
+  classical
+  have hmaps : ∀ n ∈ (Finset.Icc 1 N).filter (fun n => Nat.Coprime (n * (n + 2)) P),
+      n % P ∈ admClasses P := by
+    intro n hn
+    rw [Finset.mem_filter] at hn
+    simp only [admClasses, Finset.mem_filter, Finset.mem_range]
+    exact ⟨Nat.mod_lt _ hP, (coprime_twinProd_iff_mod P n).mp hn.2⟩
+  rw [← Finset.sum_fiberwise_of_maps_to hmaps w]
+  refine Finset.sum_congr rfl fun r hr => ?_
+  congr 1
+  ext n
+  simp only [Finset.mem_filter]
+  constructor
+  · rintro ⟨⟨h1, _⟩, h3⟩
+    exact ⟨h1, h3⟩
+  · rintro ⟨h1, h2⟩
+    refine ⟨⟨h1, ?_⟩, h2⟩
+    have hr' := hr
+    simp only [admClasses, Finset.mem_filter, Finset.mem_range] at hr'
+    rw [coprime_twinProd_iff_mod P n, h2]
+    exact hr'.2
 
 /-- **D3 (class B/C) — THE COUNT, the finding's own statement.**  `|Adm(P)| = P·W` with
 `W = ∑_{d∣P} μ(d)ν(d)`, for squarefree `P`.
@@ -116,7 +147,79 @@ it is the statement of the budget identity `|Adm|·(1/(1000P))/P = W/(1000P)`. -
 theorem card_admClasses_eq_mul_W {P : ℕ} (hP : Squarefree P) :
     ((admClasses P).card : ℝ)
       = (P : ℝ) * ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d := by
-  sorry
+  classical
+  have hP0 : P ≠ 0 := hP.ne_zero
+  have hPpos : 0 < P := Nat.pos_of_ne_zero hP0
+  -- each admissible class meets `[1, P]` exactly once
+  have hclass : ∀ r ∈ admClasses P,
+      ((Finset.Icc 1 P).filter (fun n => n % P = r)) = {if r = 0 then P else r} := by
+    intro r hr
+    have hr' := hr
+    simp only [admClasses, Finset.mem_filter, Finset.mem_range] at hr'
+    have hrP : r < P := hr'.1
+    ext n
+    simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_singleton]
+    constructor
+    · rintro ⟨⟨h1, h2⟩, h3⟩
+      by_cases hn : n = P
+      · subst hn
+        rw [Nat.mod_self] at h3
+        rw [if_pos h3.symm]
+      · have hmod : n % P = n := Nat.mod_eq_of_lt (by omega)
+        rw [hmod] at h3
+        subst h3
+        rw [if_neg (by omega)]
+    · intro h
+      subst h
+      by_cases h0 : r = 0
+      · rw [if_pos h0]
+        exact ⟨⟨hPpos, le_rfl⟩, by rw [Nat.mod_self]; exact h0.symm⟩
+      · rw [if_neg h0]
+        exact ⟨⟨by omega, by omega⟩, Nat.mod_eq_of_lt hrP⟩
+  have hD2 := sum_twinCoprime_eq_sum_admClasses P P hPpos (fun _ => (1 : ℝ))
+  have hLHS := sum_twinCoprime_eq_moebius_divisors P P hP (fun _ => (1 : ℝ))
+  have hRHS : (∑ r ∈ admClasses P,
+      ∑ _n ∈ (Finset.Icc 1 P).filter (fun n => n % P = r), (1 : ℝ))
+      = ((admClasses P).card : ℝ) := by
+    have hone : ∀ r ∈ admClasses P,
+        (∑ _n ∈ (Finset.Icc 1 P).filter (fun n => n % P = r), (1 : ℝ)) = 1 := by
+      intro r hr
+      rw [hclass r hr, Finset.sum_singleton]
+    rw [Finset.sum_congr rfl hone, Finset.sum_const, nsmul_eq_mul, mul_one]
+  have hcount : ∀ d ∈ P.divisors,
+      (∑ _n ∈ (Finset.Icc 1 P).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ))
+        = (P : ℝ) * Salt.TwinSieve.nu d := by
+    intro d hd
+    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
+    haveI : NeZero d := ⟨hd0.ne'⟩
+    have hdvd : d ∣ P := (Nat.mem_divisors.mp hd).1
+    have hset : (Finset.Icc 1 P).filter (fun n => d ∣ n * (n + 2))
+        = (Finset.Icc 1 P).filter (fun n => n % d ∈ Rnat d) :=
+      Finset.filter_congr (fun n _ => by
+        simpa using dvd_iff_mem_Rnat d n)
+    have h1 := congCount_telescoping d (Rnat d) hd0 (P / d) 0
+    rw [Nat.add_zero, Nat.div_mul_cancel hdvd] at h1
+    have h2 : congCount d (Rnat d) 0 = 0 := by
+      unfold congCount
+      rw [Finset.Icc_eq_empty (by omega : ¬(1 : ℕ) ≤ 0)]
+      simp
+    rw [h2, Nat.add_zero] at h1
+    unfold congCount at h1
+    have hinter : Rnat d ∩ Finset.range d = Rnat d :=
+      Finset.inter_eq_left.mpr (Rnat_subset_range d)
+    rw [hinter, Rnat_card] at h1
+    have hdR : (d : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hd0.ne'
+    have hdivR : (((P / d : ℕ)) : ℝ) = (P : ℝ) / (d : ℝ) := Nat.cast_div hdvd hdR
+    rw [Finset.sum_const, nsmul_eq_mul, mul_one, hset, h1, Nat.cast_mul, hdivR,
+      Salt.TwinSieve.nu_apply]
+    ring
+  have hmain : ∀ d ∈ P.divisors,
+      (ArithmeticFunction.moebius d : ℝ)
+          * (∑ _n ∈ (Finset.Icc 1 P).filter (fun n => d ∣ n * (n + 2)), (1 : ℝ))
+        = (P : ℝ) * ((ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d) := by
+    intro d hd
+    rw [hcount d hd]; ring
+  rw [← hRHS, ← hD2, hLHS, Finset.sum_congr rfl hmain, ← Finset.mul_sum]
 
 /-- **D3′ (class B).**  `W ≥ 1/P` for squarefree `P`: every factor `1 − ν(p) = 1 − ρ(p)/p` is at
 least `1/p` (`ρ(2) = 1`, `ρ(p) = 2` at odd primes: `rho_two`, `rho_odd_prime`, `M2.lean:57,61`),
@@ -129,7 +232,34 @@ Recipe: `sum_divisors_moebius_twinNu_eq_W 1 P hP` (`TwinParitySieve.lean:1055`),
 `fun p => 1 / (p : ℝ)`, then the squarefree product identity, cast. -/
 theorem moebius_twinNu_sum_ge_inv {P : ℕ} (hP : Squarefree P) :
     1 / (P : ℝ) ≤ ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d := by
-  sorry
+  classical
+  rw [sum_divisors_moebius_twinNu_eq_W 1 P hP]
+  unfold Salt.BrunLower.W
+  rw [twinParitySieve_prodPrimes, twinParitySieve_nu]
+  have hprodP : ∏ p ∈ P.primeFactors, (p : ℝ) = (P : ℝ) := by
+    rw [← Nat.cast_prod, Nat.prod_primeFactors_of_squarefree hP]
+  have hstep : ∀ p ∈ P.primeFactors, 1 / (p : ℝ) ≤ 1 - Salt.TwinSieve.nu p := by
+    intro p hp
+    have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+    have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+    rw [Salt.TwinSieve.nu_apply]
+    rcases eq_or_ne p 2 with rfl | hodd
+    · rw [rho_two]; norm_num
+    · rw [rho_odd_prime hpp hodd]
+      have h3 : 3 ≤ p := by
+        have h2 := hpp.two_le
+        rcases hpp.eq_two_or_odd' with h | h
+        · exact absurd h hodd
+        · obtain ⟨k, hk⟩ := h; omega
+      have h3' : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast h3
+      have hrw : (1 : ℝ) / (p : ℝ) + ((2 : ℕ) : ℝ) / (p : ℝ) = 3 / (p : ℝ) := by
+        push_cast; ring
+      rw [le_sub_iff_add_le, hrw, div_le_one hp0]
+      linarith
+  calc 1 / (P : ℝ) = ∏ p ∈ P.primeFactors, 1 / (p : ℝ) := by
+        rw [Finset.prod_div_distrib, Finset.prod_const_one, hprodP]
+    _ ≤ ∏ p ∈ P.primeFactors, (1 - Salt.TwinSieve.nu p) :=
+        Finset.prod_le_prod (fun p _ => by positivity) hstep
 
 /-- **D8 (class B) — THE BUDGET.**  At any per-class tolerance `ε < 1/P` (in Tao's `1/m`
 normalisation), the classes' total `|Adm|·(ε/P)` sits below `W`.  At the stride lane's pin
@@ -141,7 +271,20 @@ theorem admClasses_budget_lt_W {P : ℕ} (hP : Squarefree P) {ε : ℝ} (hε : 0
     (hεP : ε < 1 / (P : ℝ)) :
     ((admClasses P).card : ℝ) * (ε / (P : ℝ))
       < ∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ) * Salt.TwinSieve.nu d := by
-  sorry
+  have hP0 : P ≠ 0 := hP.ne_zero
+  have hPpos : 0 < P := Nat.pos_of_ne_zero hP0
+  have hPR : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hPpos
+  have hcard : ((admClasses P).card : ℝ) ≤ (P : ℝ) := by
+    have hle : (admClasses P).card ≤ P := by
+      calc (admClasses P).card ≤ (Finset.range P).card :=
+            Finset.card_le_card (Finset.filter_subset _ _)
+        _ = P := Finset.card_range P
+    exact_mod_cast hle
+  have h1 : ((admClasses P).card : ℝ) * (ε / (P : ℝ)) ≤ (P : ℝ) * (ε / (P : ℝ)) :=
+    mul_le_mul_of_nonneg_right hcard (by positivity)
+  have h2 : (P : ℝ) * (ε / (P : ℝ)) = ε := by field_simp
+  have h3 := moebius_twinNu_sum_ge_inv hP
+  linarith
 
 /-! ## §2 — a class atom is Tao's affine form, up to `O(1/P)` -/
 
@@ -159,7 +302,185 @@ theorem class_sum_le_affine_form {P r : ℕ} (hr : r < P) (N : ℕ) (g : ℕ →
     |∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % P = r), g n / (n : ℝ)|
       ≤ (1 / (P : ℝ)) * |∑ m ∈ Finset.Icc 1 ((N - r) / P), g (P * m + r) / (m : ℝ)|
         + 2 / (P : ℝ) + 1 := by
-  sorry
+  have hP : 0 < P := lt_of_le_of_lt (Nat.zero_le r) hr
+  have hPR : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+  have hr0 : (0 : ℝ) ≤ (r : ℝ) := by positivity
+  have hrPR : (r : ℝ) ≤ (P : ℝ) := by exact_mod_cast hr.le
+  set M : ℕ := (N - r) / P with hMdef
+  set A : Finset ℕ := (Finset.Icc 1 M).image (fun m => P * m + r) with hAdef
+  set C : Finset ℕ := (Finset.Icc 1 N).filter (fun n => n % P = r) with hCdef
+  have hAC : A ⊆ C := by
+    intro n hn
+    rw [hAdef, Finset.mem_image] at hn
+    obtain ⟨m, hm, rfl⟩ := hn
+    rw [Finset.mem_Icc] at hm
+    have hmpos : 1 ≤ m := hm.1
+    have hmM : m ≤ M := hm.2
+    have hM1 : 1 ≤ M := le_trans hmpos hmM
+    have hNr : P ≤ N - r := by
+      rw [hMdef] at hM1
+      exact (Nat.one_le_div_iff hP).mp hM1
+    have hPM : P * M ≤ N - r := by
+      calc P * M = M * P := Nat.mul_comm _ _
+        _ = (N - r) / P * P := by rw [hMdef]
+        _ ≤ N - r := Nat.div_mul_le_self _ _
+    rw [hCdef, Finset.mem_filter, Finset.mem_Icc]
+    refine ⟨⟨?_, ?_⟩, ?_⟩
+    · calc 1 = 1 * 1 := by norm_num
+        _ ≤ P * m := Nat.mul_le_mul hP hmpos
+        _ ≤ P * m + r := Nat.le_add_right _ _
+    · calc P * m + r ≤ P * M + r := Nat.add_le_add_right (Nat.mul_le_mul (le_refl P) hmM) r
+        _ ≤ (N - r) + r := Nat.add_le_add_right hPM r
+        _ = N := by omega
+    · rw [Nat.mul_add_mod]
+      exact Nat.mod_eq_of_lt hr
+  have hdiff : C \ A ⊆ {r} := by
+    intro n hn
+    rw [Finset.mem_sdiff] at hn
+    obtain ⟨hnC, hnA⟩ := hn
+    have hnC' := hnC
+    rw [hCdef, Finset.mem_filter, Finset.mem_Icc] at hnC'
+    obtain ⟨⟨hn1, hn2⟩, hn3⟩ := hnC'
+    rw [Finset.mem_singleton]
+    have hne : P * (n / P) + n % P = n := Nat.div_add_mod n P
+    rw [hn3] at hne
+    by_contra hcon
+    have hq1 : 1 ≤ n / P := by
+      rcases Nat.eq_zero_or_pos (n / P) with h0 | h0
+      · exfalso; apply hcon
+        rw [h0, Nat.mul_zero, Nat.zero_add] at hne
+        exact hne.symm
+      · exact h0
+    have hPq : P * (n / P) ≤ N - r := by
+      refine Nat.le_sub_of_add_le ?_
+      rw [hne]; exact hn2
+    have hqM : n / P ≤ M := by
+      rw [hMdef, Nat.le_div_iff_mul_le hP]
+      calc n / P * P = P * (n / P) := Nat.mul_comm _ _
+        _ ≤ N - r := hPq
+    exact hnA (by
+      rw [hAdef, Finset.mem_image]
+      exact ⟨n / P, Finset.mem_Icc.mpr ⟨hq1, hqM⟩, hne⟩)
+  have htail : |∑ n ∈ C \ A, g n / (n : ℝ)| ≤ 1 := by
+    refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+    have hb : ∀ n ∈ C \ A, |g n / (n : ℝ)| ≤ 1 := by
+      intro n hn
+      have hnC := (Finset.mem_sdiff.mp hn).1
+      rw [hCdef, Finset.mem_filter, Finset.mem_Icc] at hnC
+      have hn1 : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hnC.1.1
+      have hnpos : (0 : ℝ) < (n : ℝ) := by linarith
+      rw [abs_div, abs_of_nonneg hnpos.le, div_le_one hnpos]
+      have := hg n
+      linarith
+    refine le_trans (Finset.sum_le_card_nsmul _ _ 1 hb) ?_
+    have hcard : (C \ A).card ≤ 1 := by
+      calc (C \ A).card ≤ ({r} : Finset ℕ).card := Finset.card_le_card hdiff
+        _ = 1 := Finset.card_singleton r
+    simp only [nsmul_eq_mul, mul_one]
+    exact_mod_cast hcard
+  have hinj : ∀ x ∈ Finset.Icc 1 M, ∀ y ∈ Finset.Icc 1 M,
+      P * x + r = P * y + r → x = y := by
+    intro x _ y _ h
+    exact Nat.eq_of_mul_eq_mul_left hP (Nat.add_right_cancel h)
+  have hAsum : ∑ n ∈ A, g n / (n : ℝ)
+      = ∑ m ∈ Finset.Icc 1 M, g (P * m + r) / ((P * m + r : ℕ) : ℝ) := by
+    rw [hAdef]
+    exact Finset.sum_image hinj
+  have hsqbound : ∀ K : ℕ,
+      ∑ m ∈ Finset.Icc 1 K, (1 : ℝ) / (m : ℝ) ^ 2 ≤ 2 - 1 / (K : ℝ) := by
+    intro K
+    induction K with
+    | zero =>
+      rw [Finset.Icc_eq_empty (by omega : ¬(1 : ℕ) ≤ 0), Finset.sum_empty]
+      norm_num
+    | succ K ih =>
+      have hcast : ((K + 1 : ℕ) : ℝ) = (K : ℝ) + 1 := by push_cast; ring
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ K + 1), hcast]
+      rcases Nat.eq_zero_or_pos K with hK0 | hKpos
+      · subst hK0
+        rw [Finset.Icc_eq_empty (by omega : ¬(1 : ℕ) ≤ 0), Finset.sum_empty]
+        norm_num
+      · have hKR : (1 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hKpos
+        have hK0' : (0 : ℝ) < (K : ℝ) := by linarith
+        have hK1 : (0 : ℝ) < (K : ℝ) + 1 := by linarith
+        have hstep : (1 : ℝ) / ((K : ℝ) + 1) ^ 2
+            ≤ 1 / (K : ℝ) - 1 / ((K : ℝ) + 1) := by
+          rw [div_sub_div _ _ (ne_of_gt hK0') (ne_of_gt hK1),
+            div_le_div_iff₀ (by positivity) (by positivity)]
+          nlinarith
+        linarith
+  have hsq : ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ) ^ 2 ≤ 2 := by
+    have h := hsqbound M
+    have h2 : (0 : ℝ) ≤ 1 / (M : ℝ) := by positivity
+    linarith
+  have hcompare : |(∑ m ∈ Finset.Icc 1 M, g (P * m + r) / ((P * m + r : ℕ) : ℝ))
+      - 1 / (P : ℝ) * ∑ m ∈ Finset.Icc 1 M, g (P * m + r) / (m : ℝ)| ≤ 2 / (P : ℝ) := by
+    rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+    refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+    have hterm : ∀ m ∈ Finset.Icc 1 M,
+        |g (P * m + r) / ((P * m + r : ℕ) : ℝ) - 1 / (P : ℝ) * (g (P * m + r) / (m : ℝ))|
+          ≤ (r : ℝ) / ((P : ℝ) ^ 2 * (m : ℝ) ^ 2) := by
+      intro m hm
+      rw [Finset.mem_Icc] at hm
+      have hm1 : (1 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm.1
+      have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
+      have hcast : ((P * m + r : ℕ) : ℝ) = (P : ℝ) * (m : ℝ) + (r : ℝ) := by push_cast; ring
+      have hd1 : (0 : ℝ) < (P : ℝ) * (m : ℝ) + (r : ℝ) := by positivity
+      have hd2 : (0 : ℝ) < ((P : ℝ) * (m : ℝ) + (r : ℝ)) * ((P : ℝ) * (m : ℝ)) := by positivity
+      have hpos2 : (0 : ℝ) < (P : ℝ) ^ 2 * (m : ℝ) ^ 2 := by positivity
+      have hne1 : ((P : ℝ) * (m : ℝ) + (r : ℝ)) ≠ 0 := ne_of_gt hd1
+      have hnePR : (P : ℝ) ≠ 0 := ne_of_gt hPR
+      have hnemR : (m : ℝ) ≠ 0 := ne_of_gt hmpos
+      rw [hcast]
+      have hkey : g (P * m + r) / ((P : ℝ) * (m : ℝ) + (r : ℝ))
+            - 1 / (P : ℝ) * (g (P * m + r) / (m : ℝ))
+          = g (P * m + r)
+              * (-(r : ℝ) / (((P : ℝ) * (m : ℝ) + (r : ℝ)) * ((P : ℝ) * (m : ℝ)))) := by
+        field_simp
+        ring
+      rw [hkey, abs_mul]
+      have habs : |(-(r : ℝ) / (((P : ℝ) * (m : ℝ) + (r : ℝ)) * ((P : ℝ) * (m : ℝ))))|
+          = (r : ℝ) / (((P : ℝ) * (m : ℝ) + (r : ℝ)) * ((P : ℝ) * (m : ℝ))) := by
+        rw [abs_div, abs_neg, abs_of_nonneg hr0, abs_of_nonneg hd2.le]
+      rw [habs]
+      have hb2 : (r : ℝ) / (((P : ℝ) * (m : ℝ) + (r : ℝ)) * ((P : ℝ) * (m : ℝ)))
+          ≤ (r : ℝ) / ((P : ℝ) ^ 2 * (m : ℝ) ^ 2) := by
+        rw [div_le_div_iff₀ hd2 hpos2]
+        nlinarith [mul_nonneg (mul_nonneg hr0 hPR.le) hmpos.le, hr0, hPR.le, hmpos.le,
+          mul_pos hPR hmpos]
+      calc |g (P * m + r)|
+            * ((r : ℝ) / (((P : ℝ) * (m : ℝ) + (r : ℝ)) * ((P : ℝ) * (m : ℝ))))
+          ≤ 1 * ((r : ℝ) / ((P : ℝ) ^ 2 * (m : ℝ) ^ 2)) :=
+            mul_le_mul (hg _) hb2 (by positivity) (by norm_num)
+        _ = (r : ℝ) / ((P : ℝ) ^ 2 * (m : ℝ) ^ 2) := one_mul _
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    have hrewrite : ∑ m ∈ Finset.Icc 1 M, (r : ℝ) / ((P : ℝ) ^ 2 * (m : ℝ) ^ 2)
+        = ((r : ℝ) / (P : ℝ) ^ 2) * ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ) ^ 2 := by
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl fun m _ => ?_
+      ring
+    rw [hrewrite]
+    have h1 : ((r : ℝ) / (P : ℝ) ^ 2) * ∑ m ∈ Finset.Icc 1 M, (1 : ℝ) / (m : ℝ) ^ 2
+        ≤ ((r : ℝ) / (P : ℝ) ^ 2) * 2 :=
+      mul_le_mul_of_nonneg_left hsq (by positivity)
+    have h2 : ((r : ℝ) / (P : ℝ) ^ 2) * 2 ≤ 2 / (P : ℝ) := by
+      rw [div_mul_eq_mul_div, div_le_div_iff₀ (by positivity) hPR]
+      nlinarith
+    linarith
+  have hsplitC : ∑ n ∈ C, g n / (n : ℝ)
+      = (∑ n ∈ C \ A, g n / (n : ℝ)) + ∑ n ∈ A, g n / (n : ℝ) :=
+    (Finset.sum_sdiff hAC).symm
+  rw [hsplitC, hAsum]
+  set X : ℝ := ∑ m ∈ Finset.Icc 1 M, g (P * m + r) / ((P * m + r : ℕ) : ℝ) with hXdef
+  set Y : ℝ := ∑ m ∈ Finset.Icc 1 M, g (P * m + r) / (m : ℝ) with hYdef
+  set T : ℝ := ∑ n ∈ C \ A, g n / (n : ℝ) with hTdef
+  have habs1 : |X| - |1 / (P : ℝ) * Y| ≤ |X - 1 / (P : ℝ) * Y| :=
+    abs_sub_abs_le_abs_sub _ _
+  have habs2 : |1 / (P : ℝ) * Y| = 1 / (P : ℝ) * |Y| := by
+    rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ 1 / (P : ℝ))]
+  have hfinal : |T + X| ≤ |T| + |X| := abs_add_le _ _
+  rw [habs2] at habs1
+  linarith [htail, hcompare, habs1, hfinal]
 
 /-! ## §3 — the demand object: Tao Theorem 1.2 at `ω(x) = x` -/
 
@@ -187,7 +508,45 @@ theorem class_atom_le_of_affFullRange {P r : ℕ} (hr : r < P) {ε A : ℝ}
     |∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % P = r),
         ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
       ≤ (ε / (P : ℝ)) * Real.log (N : ℝ) + (A / (P : ℝ) + 2 / (P : ℝ) + 1) := by
-  sorry
+  have hP : 0 < P := lt_of_le_of_lt (Nat.zero_le r) hr
+  have hPR : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+  have hD4 := class_sum_le_affine_form hr N
+    (fun n => ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ))
+    (fun n => liouville_real_abs_le _)
+  unfold AffFullRangeAt at hfr
+  have heqsum : (∑ m ∈ Finset.Icc 1 ((N - r) / P),
+        ((ArithmeticFunction.liouville ((P * m + r) * (P * m + r + 2)) : ℤ) : ℝ) / (m : ℝ))
+      = ∑ m ∈ Finset.Icc 1 ((N - r) / P),
+        ((ArithmeticFunction.liouville (P * m + r) : ℤ) : ℝ)
+          * ((ArithmeticFunction.liouville (P * m + r + 2) : ℤ) : ℝ) / (m : ℝ) := by
+    refine Finset.sum_congr rfl fun m _ => ?_
+    rw [ArithmeticFunction.liouville_apply_mul, Int.cast_mul]
+  rw [heqsum] at hD4
+  have hMN : (N - r) / P ≤ N := le_trans (Nat.div_le_self _ _) (Nat.sub_le _ _)
+  have hlogN : (0 : ℝ) ≤ Real.log (N : ℝ) := by
+    rcases Nat.eq_zero_or_pos N with h | h
+    · rw [h]; simp
+    · exact Real.log_nonneg (by exact_mod_cast h)
+  have hlog : Real.log ((((N - r) / P : ℕ)) : ℝ) ≤ Real.log (N : ℝ) := by
+    rcases Nat.eq_zero_or_pos ((N - r) / P) with h | h
+    · rw [h]; simpa using hlogN
+    · exact Real.log_le_log (by exact_mod_cast h) (by exact_mod_cast hMN)
+  have hstep := mul_le_mul_of_nonneg_left hlog hε
+  have hbound : |∑ m ∈ Finset.Icc 1 ((N - r) / P),
+        ((ArithmeticFunction.liouville (P * m + r) : ℤ) : ℝ)
+          * ((ArithmeticFunction.liouville (P * m + r + 2) : ℤ) : ℝ) / (m : ℝ)|
+      ≤ ε * Real.log (N : ℝ) + A := by linarith
+  have hkey : 1 / (P : ℝ) * |∑ m ∈ Finset.Icc 1 ((N - r) / P),
+        ((ArithmeticFunction.liouville (P * m + r) : ℤ) : ℝ)
+          * ((ArithmeticFunction.liouville (P * m + r + 2) : ℤ) : ℝ) / (m : ℝ)|
+      ≤ ε / (P : ℝ) * Real.log (N : ℝ) + A / (P : ℝ) := by
+    calc 1 / (P : ℝ) * |∑ m ∈ Finset.Icc 1 ((N - r) / P),
+            ((ArithmeticFunction.liouville (P * m + r) : ℤ) : ℝ)
+              * ((ArithmeticFunction.liouville (P * m + r + 2) : ℤ) : ℝ) / (m : ℝ)|
+        ≤ 1 / (P : ℝ) * (ε * Real.log (N : ℝ) + A) :=
+          mul_le_mul_of_nonneg_left hbound (by positivity)
+      _ = ε / (P : ℝ) * Real.log (N : ℝ) + A / (P : ℝ) := by ring
+  linarith
 
 /-- **D7 (class B) — `hatom` FROM THE DEMAND AT EVERY ADMISSIBLE CLASS, AT ONE `N`.**
 
@@ -203,7 +562,21 @@ theorem atom_abs_le_of_affFullRange_classes {P : ℕ} (hP : Squarefree P) {ε A 
             ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
       ≤ ((admClasses P).card : ℝ)
           * ((ε / (P : ℝ)) * Real.log (N : ℝ) + (A / (P : ℝ) + 2 / (P : ℝ) + 1)) := by
-  sorry
+  classical
+  have hP0 : 0 < P := Nat.pos_of_ne_zero hP.ne_zero
+  rw [← sum_twinCoprime_eq_moebius_divisors N P hP,
+    sum_twinCoprime_eq_sum_admClasses N P hP0]
+  refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+  have hb : ∀ r ∈ admClasses P,
+      |∑ n ∈ (Finset.Icc 1 N).filter (fun n => n % P = r),
+          ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
+        ≤ (ε / (P : ℝ)) * Real.log (N : ℝ) + (A / (P : ℝ) + 2 / (P : ℝ) + 1) := by
+    intro r hr
+    have hr' := hr
+    simp only [admClasses, Finset.mem_filter, Finset.mem_range] at hr'
+    exact class_atom_le_of_affFullRange hr'.1 hε N (hall r hr)
+  refine le_trans (Finset.sum_le_sum hb) ?_
+  rw [Finset.sum_const, nsmul_eq_mul]
 
 /-! ## §4 — the consumer re-cut: infinitely many `N` suffice -/
 
@@ -230,7 +603,27 @@ theorem twinLogWeight_support_infinite_of_atom_rate_frequently {P : ℕ} (hP : S
             ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
           ≤ ε * Real.log N + A) :
     {n : ℕ | twinLogWeight P n ≠ 0}.Infinite := by
-  sorry
+  have hW := sum_divisors_moebius_twinNu_pos P hP
+  refine support_infinite_of_partialSums_unbounded (twinLogWeight_nonneg P) fun M => ?_
+  obtain ⟨N₀, hN₀⟩ := hdiv_of_log_growth (sub_pos.mpr hε) (A := 0)
+    (Hmain := fun N => (∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * Salt.TwinSieve.nu d - ε) * Real.log (N : ℝ)
+      - (4 * ∑ d ∈ P.divisors, (rho d : ℝ) + A)) (fun N => le_rfl) M
+  obtain ⟨N, hNS, hNgt⟩ := hS.exists_gt N₀
+  refine ⟨N + 1, ?_⟩
+  rw [sum_twinLogWeight_range]
+  have h := logSifted_lower_of_count_and_atoms hP (moebius_sum_inv_dvd_ge P N) (hatom N hNS)
+  have hlog := mul_le_mul_of_nonneg_left (log_natCast_le_sum_inv_Icc N) hW.le
+  have hmono : Real.log (N₀ : ℝ) ≤ Real.log (N : ℝ) := by
+    rcases Nat.eq_zero_or_pos N₀ with h0 | h0
+    · have hN1 : 1 ≤ N := by omega
+      rw [h0]
+      simp only [Nat.cast_zero, Real.log_zero]
+      exact Real.log_nonneg (by exact_mod_cast hN1)
+    · exact Real.log_le_log (by exact_mod_cast h0) (by exact_mod_cast hNgt.le)
+  have hprod := mul_le_mul_of_nonneg_left hmono (sub_pos.mpr hε).le
+  simp only [sub_zero] at hN₀
+  linarith
 
 /-- **D10 (class B) — THE DEMAND, ASSEMBLED.**  Tao 1.2's full-range object at the stride `P`,
 shift `2`, EVERY admissible class, at a common scale `N` along an infinite set of scales, at any
@@ -243,14 +636,27 @@ theorem twinLogWeight_support_infinite_of_affFullRange {P : ℕ} (hP : Squarefre
     (hε : 0 ≤ ε) (hεP : ε < 1 / (P : ℝ)) {S : Set ℕ} (hS : S.Infinite)
     (hall : ∀ N ∈ S, ∀ r ∈ admClasses P, AffFullRangeAt P r 2 ε A ((N - r) / P)) :
     {n : ℕ | twinLogWeight P n ≠ 0}.Infinite := by
-  sorry
+  refine twinLogWeight_support_infinite_of_atom_rate_frequently hP
+    (ε := ((admClasses P).card : ℝ) * (ε / (P : ℝ)))
+    (A := ((admClasses P).card : ℝ) * (A / (P : ℝ) + 2 / (P : ℝ) + 1))
+    (admClasses_budget_lt_W hP hε hεP) hS ?_
+  intro N hN
+  calc |∑ d ∈ P.divisors, (ArithmeticFunction.moebius d : ℝ)
+        * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2)),
+            ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ)|
+      ≤ ((admClasses P).card : ℝ)
+          * ((ε / (P : ℝ)) * Real.log (N : ℝ) + (A / (P : ℝ) + 2 / (P : ℝ) + 1)) :=
+        atom_abs_le_of_affFullRange_classes hP hε N (hall N hN)
+    _ = ((admClasses P).card : ℝ) * (ε / (P : ℝ)) * Real.log (N : ℝ)
+          + ((admClasses P).card : ℝ) * (A / (P : ℝ) + 2 / (P : ℝ) + 1) := by ring
 
 /-- **D11 (class A).**  The `∀ N` form: D10 at `S := Set.univ` (`Set.infinite_univ`). -/
 theorem twinLogWeight_support_infinite_of_affFullRange_all {P : ℕ} (hP : Squarefree P)
     {ε A : ℝ} (hε : 0 ≤ ε) (hεP : ε < 1 / (P : ℝ))
     (hall : ∀ N : ℕ, ∀ r ∈ admClasses P, AffFullRangeAt P r 2 ε A ((N - r) / P)) :
     {n : ℕ | twinLogWeight P n ≠ 0}.Infinite := by
-  sorry
+  exact twinLogWeight_support_infinite_of_affFullRange hP hε hεP Set.infinite_univ
+    (fun N _ => hall N)
 
 /-! ## §5 — the bridge the supply walks: windows at one width tile the full range -/
 
@@ -275,6 +681,103 @@ theorem abs_sum_Icc_le_of_windows {f : ℕ → ℝ} (hf : ∀ n, |f n| ≤ 1) {�
       |∑ n ∈ Finset.Ioc (x / ω) x, f n / (n : ℝ)| ≤ ε * Real.log (ω : ℝ)) :
     |∑ n ∈ Finset.Icc 1 N, f n / (n : ℝ)|
       ≤ ε * Real.log (N : ℝ) + (ε * Real.log (ω : ℝ) + Real.log (x₀ : ℝ) + 1) := by
-  sorry
+  have hω0 : 0 < ω := by omega
+  have hω1 : 1 < ω := by omega
+  have hωR : (1 : ℝ) < (ω : ℝ) := by exact_mod_cast hω1
+  have hlogω : (0 : ℝ) ≤ Real.log (ω : ℝ) := Real.log_nonneg hωR.le
+  have hx₀R : (1 : ℝ) ≤ (x₀ : ℝ) := by exact_mod_cast hx₀
+  have hlogx₀ : (0 : ℝ) ≤ Real.log (x₀ : ℝ) := Real.log_nonneg hx₀R
+  have hIcc : ∀ n : ℕ, Finset.Icc 1 n = Finset.Ioc 0 n := by
+    intro n; ext k; simp only [Finset.mem_Icc, Finset.mem_Ioc]; omega
+  have htail : ∀ n : ℕ, |∑ k ∈ Finset.Icc 1 n, f k / (k : ℝ)| ≤ 1 + Real.log (n : ℝ) := by
+    intro n
+    refine le_trans (Finset.abs_sum_le_sum_abs _ _) ?_
+    refine le_trans (Finset.sum_le_sum (fun k hk => ?_)) (Salt.TwinBar.sum_inv_Icc_le n)
+    rw [Finset.mem_Icc] at hk
+    have hk1 : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk.1
+    have hk0 : (0 : ℝ) < (k : ℝ) := by linarith
+    have h1 : |f k / (k : ℝ)| = |f k| * ((k : ℝ))⁻¹ := by
+      rw [abs_div, abs_of_nonneg hk0.le, div_eq_mul_inv]
+    rw [h1]
+    have h2 : |f k| * ((k : ℝ))⁻¹ ≤ 1 * ((k : ℝ))⁻¹ :=
+      mul_le_mul_of_nonneg_right (hf k) (by positivity)
+    linarith
+  have hlogmono : ∀ a b : ℕ, a ≤ b → Real.log (a : ℝ) ≤ Real.log (b : ℝ) := by
+    intro a b hab
+    rcases Nat.eq_zero_or_pos a with h0 | h0
+    · rw [h0]
+      simp only [Nat.cast_zero, Real.log_zero]
+      rcases Nat.eq_zero_or_pos b with h1 | h1
+      · rw [h1]; simp
+      · exact Real.log_nonneg (by exact_mod_cast h1)
+    · exact Real.log_le_log (by exact_mod_cast h0) (by exact_mod_cast hab)
+  have aux : ∀ K : ℕ, ∀ N' : ℕ, N' ≤ N → N' < x₀ * ω ^ K →
+      |∑ n ∈ Finset.Icc 1 N', f n / (n : ℝ)|
+        ≤ ε * (K : ℝ) * Real.log (ω : ℝ) + (Real.log (x₀ : ℝ) + 1) := by
+    intro K
+    induction K with
+    | zero =>
+      intro N' _ hlt
+      rw [pow_zero, Nat.mul_one] at hlt
+      have h1 := htail N'
+      have h2 : Real.log (N' : ℝ) ≤ Real.log (x₀ : ℝ) := hlogmono _ _ hlt.le
+      simp only [Nat.cast_zero, mul_zero, zero_mul]
+      linarith
+    | succ K ih =>
+      intro N' hN'N hlt
+      by_cases hcase : N' < x₀
+      · have h1 := htail N'
+        have h2 : Real.log (N' : ℝ) ≤ Real.log (x₀ : ℝ) := hlogmono _ _ hcase.le
+        have h3 : (0 : ℝ) ≤ ε * ((K : ℝ) + 1) * Real.log (ω : ℝ) :=
+          mul_nonneg (mul_nonneg hε (by positivity)) hlogω
+        push_cast
+        linarith
+      · replace hcase : x₀ ≤ N' := Nat.not_lt.mp hcase
+        have hdivlt : N' / ω < x₀ * ω ^ K := by
+          rw [Nat.div_lt_iff_lt_mul hω0]
+          calc N' < x₀ * ω ^ (K + 1) := hlt
+            _ = x₀ * ω ^ K * ω := by ring
+        have hdivle : N' / ω ≤ N := le_trans (Nat.div_le_self _ _) hN'N
+        have hih := ih (N' / ω) hdivle hdivlt
+        rw [hIcc (N' / ω)] at hih
+        have hw := hwin N' hcase hN'N
+        have hsplit : ((∑ n ∈ Finset.Ioc 0 (N' / ω), f n / (n : ℝ))
+            + ∑ n ∈ Finset.Ioc (N' / ω) N', f n / (n : ℝ))
+            = ∑ n ∈ Finset.Ioc 0 N', f n / (n : ℝ) :=
+          Finset.sum_Ioc_consecutive _ (Nat.zero_le _) (Nat.div_le_self _ _)
+        rw [hIcc N', ← hsplit]
+        refine le_trans (abs_add_le _ _) ?_
+        push_cast
+        linarith
+  rcases Nat.eq_zero_or_pos N with hN0 | hNpos
+  · rw [hN0, Finset.Icc_eq_empty (by omega : ¬(1 : ℕ) ≤ 0), Finset.sum_empty, abs_zero]
+    simp only [Nat.cast_zero, Real.log_zero, mul_zero, zero_add]
+    have := mul_nonneg hε hlogω
+    linarith
+  · have hNlt : N < x₀ * ω ^ (Nat.log ω (N / x₀) + 1) := by
+      have h1 : N / x₀ < ω ^ (Nat.log ω (N / x₀) + 1) :=
+        Nat.lt_pow_succ_log_self hω1 (N / x₀)
+      rw [Nat.div_lt_iff_lt_mul (by omega : 0 < x₀)] at h1
+      calc N < ω ^ (Nat.log ω (N / x₀) + 1) * x₀ := h1
+        _ = x₀ * ω ^ (Nat.log ω (N / x₀) + 1) := by ring
+    have haux := aux (Nat.log ω (N / x₀) + 1) N le_rfl hNlt
+    have hLlog : ((Nat.log ω (N / x₀) : ℕ) : ℝ) * Real.log (ω : ℝ) ≤ Real.log (N : ℝ) := by
+      rcases Nat.eq_zero_or_pos (N / x₀) with h0 | h0
+      · rw [h0, Nat.log_zero_right]
+        simp only [Nat.cast_zero, zero_mul]
+        exact Real.log_nonneg (by exact_mod_cast hNpos)
+      · have hple : ω ^ Nat.log ω (N / x₀) ≤ N / x₀ :=
+          Nat.pow_log_le_self ω h0.ne'
+        have hple2 : ω ^ Nat.log ω (N / x₀) ≤ N :=
+          le_trans hple (Nat.div_le_self _ _)
+        have h1 := hlogmono _ _ hple2
+        rw [Nat.cast_pow, Real.log_pow] at h1
+        exact h1
+    have hfin : ε * (((Nat.log ω (N / x₀) : ℕ) : ℝ) + 1) * Real.log (ω : ℝ)
+        ≤ ε * Real.log (N : ℝ) + ε * Real.log (ω : ℝ) := by
+      have h := mul_le_mul_of_nonneg_left hLlog hε
+      nlinarith [h]
+    push_cast at haux
+    linarith
 
 end Salt.TwinBar
