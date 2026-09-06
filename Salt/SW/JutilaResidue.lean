@@ -1572,6 +1572,118 @@ theorem halaszBTsum_jutilaB_expand [NeZero q] (χ : DirichletCharacter ℂ q) {R
     linarith
   rw [hker0 N hN0 _ hge, hker0 M hM _ (le_trans hMN hge), sub_self, mul_zero]
 
+/-- **THE RESIDUE-BLOCK IDENTITY** (W9b's crux; measured three ways to `2.4·10⁻⁷` at the desk and
+confirmed at the pass by two independent instruments at thirteen instances to `≤ 1.3·10⁻⁷`,
+`s = 0` included). No primitivity, no `2 ≤ q`: the character step needs nothing (`χ⁻¹χ = χ₀`),
+`q = 1` is fine. -/
+theorem halaszBTsum_jutilaB_eq [NeZero q] (χ : DirichletCharacter ℂ q)
+    {R : ℝ} (hR : 1 ≤ R) {N M : ℝ} (hM : 2 ≤ M) (hMN : M ≤ N) {s : ℂ} (hs0 : 0 ≤ s.re)
+    (hs : s.re ≤ 1 / 60) :
+    Salt.MR.halaszBTsum (jutilaB q R N M) χ χ s
+      = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M
+          * ((∑ r ∈ rFilter q R, (Nat.totient r : ℝ) / (r : ℝ) ^ 2 : ℝ) : ℂ)
+        + jutilaI q R N M s := by
+  have hM1 : (1 : ℝ) ≤ M := by linarith
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hN0 : (0 : ℝ) < N := lt_of_lt_of_le hM0 hMN
+  -- (a) THE `d`-TERM: the `d^{−1−s}` out, the Mellin pair at `c = 1`, the shift, the residue,
+  -- and the collapse `d^{−1−s}·E·resKernel s (N/d) (M/d) = E·resKernel s N M·d⁻¹`.
+  have hterm : ∀ d : ℕ, 0 < d →
+      (∑' m : ℕ, ((1 : DirichletCharacter ℂ q) m) * ((d * m : ℕ) : ℂ) ^ (-(1 : ℂ) - s)
+          * (kern2 ((d * m : ℝ) / N) - kern2 ((d * m : ℝ) / M)))
+        = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M * (d : ℂ)⁻¹
+          + (d : ℂ) ^ (-(1 : ℂ) - s) * ((1 / (2 * Real.pi)) • ∫ t : ℝ,
+              resIntegrand q N M d s (((-1 / 2 - s.re : ℝ) : ℂ) + (t : ℂ) * I)) := by
+    intro d hd
+    have hcol : (d : ℂ) ^ (-(1 : ℂ) - s)
+          * ((∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹))
+            * resKernel s (N / (d : ℝ)) (M / (d : ℝ)))
+        = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M * (d : ℂ)⁻¹ := by
+      have h := cpow_mul_resKernel_div hd hM0 hN0 s
+      calc (d : ℂ) ^ (-(1 : ℂ) - s)
+            * ((∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹))
+              * resKernel s (N / (d : ℝ)) (M / (d : ℝ)))
+          = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹))
+              * ((d : ℂ) ^ (-(1 : ℂ) - s) * resKernel s (N / (d : ℝ)) (M / (d : ℝ))) := by
+            ring
+        _ = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * ((d : ℂ)⁻¹ * resKernel s N M) := by rw [h]
+        _ = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M * (d : ℂ)⁻¹ := by ring
+    rw [tsum_trivChar_mul_cpow_eq q hd s,
+      tsum_trivChar_kern2_diff_eq_integral q hM0 hN0 hd hs0 (c := 1) one_pos,
+      Complex.ofReal_one, integral_resIntegrand_shift q hM1 hMN hd hs0 hs,
+      dslope_resPhi_neg q hM0 hN0 hd s, mul_add, hcol]
+  -- (b) THE `(r, r')`-TERM: Lemma 3 collapses `Σ_d h(d)·d⁻¹` to `δ_{r,r'}·φ(r)`.
+  have hpair : ∀ r ∈ rFilter q R, ∀ r' ∈ rFilter q R,
+      (((r : ℝ)⁻¹ * (r' : ℝ)⁻¹ : ℝ) : ℂ)
+          * ∑ d ∈ (r * r').divisors, (hCoef selbergPsi r r' d : ℂ)
+            * ∑' m : ℕ, ((1 : DirichletCharacter ℂ q) m) * ((d * m : ℕ) : ℂ) ^ (-(1 : ℂ) - s)
+                * (kern2 ((d * m : ℝ) / N) - kern2 ((d * m : ℝ) / M))
+        = (if r = r' then (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M
+              * (((r : ℝ)⁻¹ * (r' : ℝ)⁻¹ : ℝ) : ℂ) * (Nat.totient r : ℂ) else 0)
+          + (((r : ℝ)⁻¹ * (r' : ℝ)⁻¹ : ℝ) : ℂ)
+            * ∑ d ∈ (r * r').divisors, (hCoef selbergPsi r r' d : ℂ) * (d : ℂ) ^ (-(1 : ℂ) - s)
+              * ((1 / (2 * Real.pi)) • ∫ t : ℝ,
+                  resIntegrand q N M d s (((-1 / 2 - s.re : ℝ) : ℂ) + (t : ℂ) * I)) := by
+    intro r hr r' hr'
+    simp only [rFilter, Finset.mem_filter] at hr hr'
+    have hcoefsum : ∑ d ∈ (r * r').divisors, ((hCoef selbergPsi r r' d : ℝ) : ℂ) * (d : ℂ)⁻¹
+        = if r = r' then (Nat.totient r : ℂ) else 0 := by
+      have h := hCoef_sum_div_eq hr.2.1 hr'.2.1
+      have hcast : ((∑ d ∈ (r * r').divisors, hCoef selbergPsi r r' d / (d : ℝ) : ℝ) : ℂ)
+          = ∑ d ∈ (r * r').divisors, ((hCoef selbergPsi r r' d : ℝ) : ℂ) * (d : ℂ)⁻¹ := by
+        rw [Complex.ofReal_sum]
+        refine Finset.sum_congr rfl (fun d _ => ?_)
+        push_cast
+        ring
+      rw [← hcast, h]
+      split_ifs with hrr
+      · push_cast
+        ring
+      · push_cast
+        ring
+    have hsplit : ∀ d ∈ (r * r').divisors,
+        ((hCoef selbergPsi r r' d : ℝ) : ℂ)
+            * ∑' m : ℕ, ((1 : DirichletCharacter ℂ q) m) * ((d * m : ℕ) : ℂ) ^ (-(1 : ℂ) - s)
+                * (kern2 ((d * m : ℝ) / N) - kern2 ((d * m : ℝ) / M))
+          = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M
+                * (((hCoef selbergPsi r r' d : ℝ) : ℂ) * (d : ℂ)⁻¹)
+            + ((hCoef selbergPsi r r' d : ℝ) : ℂ) * (d : ℂ) ^ (-(1 : ℂ) - s)
+              * ((1 / (2 * Real.pi)) • ∫ t : ℝ,
+                  resIntegrand q N M d s (((-1 / 2 - s.re : ℝ) : ℂ) + (t : ℂ) * I)) := by
+      intro d hd
+      obtain ⟨S, hS⟩ : ∃ S : ℂ, S = (1 / (2 * Real.pi)) • ∫ t : ℝ,
+          resIntegrand q N M d s (((-1 / 2 - s.re : ℝ) : ℂ) + (t : ℂ) * I) := ⟨_, rfl⟩
+      rw [hterm d (Nat.pos_of_mem_divisors hd), ← hS]
+      ring
+    have hfirst : ∑ d ∈ (r * r').divisors, (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹))
+          * resKernel s N M * (((hCoef selbergPsi r r' d : ℝ) : ℂ) * (d : ℂ)⁻¹)
+        = (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M
+          * (if r = r' then (Nat.totient r : ℂ) else 0) := by
+      rw [← Finset.mul_sum, hcoefsum]
+    rw [Finset.sum_congr rfl hsplit, Finset.sum_add_distrib, hfirst, mul_add]
+    congr 1
+    split_ifs with hrr
+    · ring
+    · ring
+  -- (c) THE ASSEMBLY: `Finset.sum_ite_eq_of_mem` on the `r'`-sum, the cast of `Σ'_r φ(r)/r²`,
+  -- and the remaining integrals ARE `jutilaI`.
+  have hcast2 : ((∑ r ∈ rFilter q R, (Nat.totient r : ℝ) / (r : ℝ) ^ 2 : ℝ) : ℂ)
+      = ∑ r ∈ rFilter q R, (((r : ℝ)⁻¹ * (r : ℝ)⁻¹ : ℝ) : ℂ) * (Nat.totient r : ℂ) := by
+    rw [Complex.ofReal_sum]
+    refine Finset.sum_congr rfl (fun r _ => ?_)
+    push_cast
+    ring
+  rw [halaszBTsum_jutilaB_expand χ hR hM0 hMN hs0, hcast2]
+  simp only [jutilaI]
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl (fun r hr => ?_)
+  rw [Finset.sum_congr rfl (hpair r hr), Finset.sum_add_distrib]
+  congr 1
+  rw [Finset.sum_ite_eq_of_mem (rFilter q R) r
+    (fun r' => (∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)) * resKernel s N M
+      * (((r : ℝ)⁻¹ * (r' : ℝ)⁻¹ : ℝ) : ℂ) * (Nat.totient r : ℂ)) hr]
+  ring
+
 theorem sum_rFilter_totient_div_sq_le (q : ℕ) (R : ℝ) :
     ∑ r ∈ rFilter q R, (Nat.totient r : ℝ) / (r : ℝ) ^ 2 ≤ ∑ r ∈ rFilter q R, (r : ℝ)⁻¹ := by
   refine Finset.sum_le_sum (fun r hr => ?_)

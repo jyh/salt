@@ -24919,3 +24919,19 @@ and `Finset.sum_ite_eq`; the `(r, r')`-sum collapses to `Σ'_r r⁻²·φ(r)`; t
 `jutilaI` by unfolding. **Price it from the landed inputs, not from the freeze's original class-C
 estimate** — the expensive halves (the expansion, the shift, the Mellin pair) are all behind it now,
 and what remains is `Finset` bookkeeping and casts.
+
+**LANDED** by the crux executor (2026-09-05, Opus): **one attempt**, 111 lines (the docstring and
+the frozen statement included; 100 proof-lines), the file at 2,080 against a STOP of 2,300 — the
+route of the paragraph above ran unaltered, and the statement closed AS SPELLED. `#print axioms
+Salt.SW.halaszBTsum_jutilaB_eq` = `[propext, Classical.choice, Quot.sound]`; the file builds with
+0 errors and 0 warnings and the aggregate `Salt.SW.All` at EXIT=0 with the audit row
+`✓ Salt.SW.halaszBTsum_jutilaB_eq [3 axioms]`. Three `have`s carry it: the `d`-term (the four landed
+rows in one `rw` chain, then the collapse as a three-step `calc`), the `(r, r')`-term (Lemma 3's
+`hCoef_sum_div_eq` cast to ℂ through `Complex.ofReal_sum`, giving the `if r = r'`), and the assembly
+(`Finset.mul_sum` + `← Finset.sum_add_distrib` to put the RHS under ONE `r`-sum, then
+`Finset.sum_ite_eq_of_mem` on the `r'`-sum). Two corrections for the card: the shifted integral must
+be hoisted into an OPAQUE local (`obtain ⟨S, hS⟩ : ∃ S : ℂ, S = (1/(2π)) • ∫ … := ⟨_, rfl⟩`) before
+any `ring`, since `ring` has no reason to treat a heterogeneous `•` as an atom; and the collapse row
+`cpow_mul_resKernel_div` must be applied inside its own `have`, never by `rw` on the goal, because
+`E` sits between the `d^{−1−s}` and the kernel. The wave's stop was a budget stop and nothing more:
+the row cost one attempt once its inputs were landed.
