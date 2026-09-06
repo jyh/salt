@@ -3360,7 +3360,7 @@ open Salt.Tactic in
 -- `X`-FREE and equals `2·(log(4M)+25)` (`band_floor_M0_doorPiece`, `two_le_calE_door`).
 -- CARRIED SYMBOLIC, all of it: the grade gate `hSle`/`hgrade`, `hErr`, the four `Y`-gates, the
 -- piece `hRHS`, the dissection gates and the floor threshold.  No numeral is chosen here.
--- ⚠ ⟦THE PRICING RESIDUE, NAMED⟧ (module header): §5's `hRHS` is carried at a FREE `B`, and the
+-- ✅ ⟦THE PRICING RESIDUE, NAMED⟧ (module header): §5's `hRHS` is carried at a FREE `B`, and the
 -- corpus's landed pricer `dilated_scale_grade` — datum-generic, so it DOES apply at the piece —
 -- asks its floor on `|v| ≤ Rad ≥ |t₁| + Tstar(k, log k)`, and `Tstar k L = L⁴·k^{1/(4 log L)}` at
 -- `k ≍ X` is `X^{o(1)}`, incomparably wider than the band's `|v| ≤ 2·seamT0 X + 1`.  So the two
@@ -3368,10 +3368,16 @@ open Salt.Tactic in
 -- (§8), box strength `1/32` on `|v| ≤ 3X` (`capFreeFloor3_pieceDatum`, the range that covers
 -- `Tstar`).  The dissection is FORCED (the door datum is completely multiplicative, NOT
 -- squarefree-linearised), so a consumer pricing through `dilated_scale_grade` gets `M₀` at BOX
--- strength — and `T0BandCapFree`'s own header records `1/32` as `6×` short of the exit's decay
--- gate `(103/1500)e`, i.e. the `(log X)^{1/30}` inside `cfbC₁` is not paid back.  Two escapes,
--- both design-tier and both outside this file: a band-radius pricing page on the wide scale
--- window, or a crude-fold re-cut.  `B` is left FREE so either plugs in unchanged
+-- strength.  ✅ ⟦DISCHARGED — `M4T0Discharge`, 2026-07-28; marked here 2026-09-05⟧ `B` is free at
+-- NO consumer any more (`m4_t0band_discharged` at `B := t0dB X Cb`; `doorRowCarried_of_t0free`
+-- takes the arm out of the register).  The pre-discharge reading was "the box's `1/32` is `6×`
+-- short of the gate `(103/1500)e`"; TWO numerals moved in OPPOSITE directions — the gate is
+-- `(1009/45000)e = 0.060950…` after the `(45,46)` re-cut, and the floor CONSUMED is `FarL2`'s
+-- `1/16 = 0.0625`, not `CapFreeFloor3`'s `1/32` — so the `5.973×` shortfall is a `1.0254×`
+-- CLEARANCE (`a2wall_box_clears_45`, margin `0.00155008…` = the threshold constant `700`).
+-- `1/32` IS still short of the re-cut gate, by `1.950×`; the discharge uses the stronger floor
+-- landed beside it (§12, FREE WIN w1).  The two escapes named below the table in `M4T0Datum`'s
+-- header (a band-radius pricing page; a crude-fold re-cut) were never needed
 open Salt.Tactic in
 #audit_axioms Salt.MR.winCutH_sum_finset
   Salt.MR.winCutH_doorChiCoeff_split
@@ -3469,9 +3475,13 @@ open Salt.Tactic in
 -- through the VK branch `chi_Llower_341_vk` above `exp(exp 100)` and `chi_Llower_341_height`
 -- AT that absolute height below); NO socket remains (`vkTwistUB_holds`, its two named debits
 -- absorbed by the `q`-slot via `plog_vk_qdebit`).  ⟦THE MASTER CHECK⟧ `plog_floor_clears_gate`:
--- the threshold constant is **`16`** (margin `1/4 − (103/1500)e = 0.0633527… ≥ 1/16`), against
--- `cfb_floor_clears_gate`'s `22` at `7/30`; the box's `1/16 = 0.0625 < 0.18665` does not clear
--- the gate at all.  TRANSPORTS `polylog_floor_M0_liouChi` / `polylog_floor_M0_pieceDatum`
+-- the threshold constant is **`16`** (margin `1/4 − (1009/45000)e = 0.1890499… ≥ 1/16`), against
+-- `cfb_floor_clears_gate`'s `22` at `7/30`; and the box's `1/16 = 0.0625` **DOES** clear the
+-- re-cut gate (`0.0609500 < 0.0625`) — which is exactly what `M4T0Discharge` consumes.
+-- *(Corrected 2026-09-05: this banner read the margin at the PRE-re-cut gate `(103/1500)e` and
+-- concluded "the box … does not clear the gate at all", contradicting `plog_floor_clears_gate`'s
+-- own docstring, which the banner audits.  The theorem's statement was always at `1009/45000`.)*
+-- TRANSPORTS `polylog_floor_M0_liouChi` / `polylog_floor_M0_pieceDatum`
 -- (`plogM0_add_debit`, the `band_floor_M0_pieceDatum` pattern).  FREE WINS: `band_floor_M0_vk`
 -- (w2 — the `T₀`-band floor lifted `7/30 → 1/4`, an instance at `A := 3`) and `box_floor_M0`
 -- (w1 — the plain `M₀ ≤ 𝔻²` box form at `1/16`, `capFreeFloor3_margin_all_chi`'s arms with the

@@ -607,9 +607,17 @@ theorem polylog_floor_M0_pieceDatum (A : ℝ) (hA : 1 ≤ A) (Q : ℕ) :
 `|v| ≤ 2·seamT0 X + 1`.  An instance of §7 at `A := 3`: `seamT0 X = (log X)^{1/45} ≤ log X`,
 so `2·seamT0 X + 1 ≤ 2·log X + 1 ≤ (log X)³` past the scale floor.
 
-The lift matters because `band_floor_M0`'s `7/30 = 0.2333…` clears the gate `0.18665` with
-margin `1/22`, while `1/4` clears it with margin `1/16` — and because the SAME statement now
-holds at every poly-log height, not only at `seamT0`. -/
+The lift matters because `band_floor_M0`'s `7/30 = 0.2333…` clears the gate at threshold
+constant `22` (`T0BandCapFree.cfb_floor_clears_gate`), while `1/4` clears it at `16`
+(`plog_floor_clears_gate`, §8) — and because the SAME statement now holds at every poly-log
+height, not only at `seamT0`.
+
+*(Corrected 2026-09-05: this line named the gate as `0.18665`, i.e. the PRE-re-cut
+`(103/1500)·e`.  There the two margins are only just met — `7/30 − 0.18665 = 0.046678 ≥ 1/22`
+and `1/4 − 0.18665 = 0.063345 ≥ 1/16` — which is where the constants `22` and `16` come from.
+Both theorems have been stated at the re-cut gate `(1009/45000)·e = 0.06095` since the
+`(45,46)` seam re-cut, where the same margins are `0.17238` and `0.18905`; the constants are
+unchanged, and are what this comparison is about.)* -/
 theorem band_floor_M0_vk (Q : ℕ) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (X v : ℝ), q ≤ Q →
       Real.exp (Real.exp 1) ≤ X → |v| ≤ 2 * seamT0 X + 1 →

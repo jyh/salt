@@ -84,7 +84,7 @@ carried symbolically, in the order they appear:
 **No constant is a numeral chosen here.**  `cSq = 20736` is Route III's, `cfbC₁`/`cfbM0` are
 `T0BandCapFree`'s, and the `8 = 4×2` is the powerset card times the cut's split.
 
-## ⚠ ⟦THE PRICING RESIDUE, NAMED⟧ — the `hRHS` binder's two floors
+## ✅ ⟦THE PRICING RESIDUE, NAMED — AND DISCHARGED (`M4T0Discharge`, 2026-07-28)⟧
 
 §5's `hRHS` is carried at a FREE `B`.  A consumer must price it, and the corpus's landed
 pricer is `SPartStation.dilated_scale_grade` — datum-generic (`hg : ∀ p prime, ‖g p‖ ≤ 1`), so
@@ -99,11 +99,45 @@ at the piece sit on different ranges:
 | floor | range | coefficient | landed as |
 |---|---|---|---|
 | band | `|v| ≤ 2·seamT0 X + 1` | `7/30` less the mask debit | §8 (`band_floor_M0_pieceDatum`) |
-| box | `|v| ≤ 3X` (covers `Tstar`) | `1/32` less the mask debit | `capFreeFloor3_pieceDatum` |
+| box | `|v| ≤ 3X` (covers `Tstar`) | `1/16` less the mask debit | `FarL2.box_floor_M0_pieceDatum` |
+| box, weaker | `|v| ≤ 3X` | `1/32`, strict | `CofactorSupplier.capFreeFloor3_pieceDatum` |
 
 The dissection is FORCED here — the door's datum is completely multiplicative but NOT
 squarefree-linearised, so Route III is the only way into `ellLin`'s landed supply — and the
-dissection's pricer reads the BOX range.  ⚠ The design arithmetic (NOT kernel-checked; the
+dissection's pricer reads the BOX range.
+
+✅ ⟦DISCHARGED, AND WHAT IT TOOK⟧  `B` is free at NO consumer any more:
+`M4T0Discharge.m4_t0band_discharged` prices it at `B := t0dB X Cb` through
+`FarL2.box_floor_M0_pieceDatum` → `dilated_scale_grade` (`Rad := 3X`) → §5's `hRHS` → §7, and
+`M4T0Discharge.doorRowCarried_of_t0free` takes the arm OUT of the register.  TWO numerals moved,
+in OPPOSITE directions, and both are load-bearing:
+* the exit's decay gate is `(1009/45000)·e = 0.060950…`, NOT `(103/1500)·e ≈ 0.18665` — the
+  `(45, 46)` seam re-cut (`SeamSplit.seamT0`, `A2Wall.a2wall_gate_45`, the exact identity
+  `1/45 − 1009/45000 = −1/5000`).  `A2Wall.a2wall_box_fails_gate_15` keeps the OLD comparison in
+  the kernel, deliberately, as the record of why the re-cut exists;
+* the box floor CONSUMED is `FarL2.boxM0`'s `1/16 = 0.0625`, not `CapFreeFloor3`'s `1/32`.
+  `A2Wall.a2wall_box_clears_45` is `(1009/45000)·e ≤ 1/16 − 1/700` — a `1.0254×` CLEARANCE with
+  margin `0.00155008…`, which is the whole content of the threshold constant `700`.
+⚠ `1/32 = 0.03125` is still SHORT of the re-cut gate, by `1.950×`; `T0BandCapFree`'s header says
+so and that sentence is TRUE at head.  The `1/32` was never going to clear it — the discharge
+works on the STRONGER floor landed beside it (`FarL2` §12, "FREE WIN w1"), which is why quoting
+the table's `1/32` row against the gate reads as a wall and is not one.
+
+⛔ THE PARAGRAPH BELOW IS THE PRE-DISCHARGE RECORD, KEPT VERBATIM and NOT a live obstruction:
+its two escapes (a band-range pricing page; a crude-fold re-cut) were never needed.  It is kept
+because a reader who arrives from a consumer must be able to see what the free `B` cost before
+it was paid — and struck-through prose is how this file records history (cf. `DoorFloor`'s `B₅`
+note).  *(Marked 2026-09-05: it had stood unmarked for five weeks and cost a scout brief.)*
+
+⚠ ITS CITATION IS HISTORICAL TOO, and this is the half that did the damage: the paragraph
+attributes `(103/1500)·e` to "`T0BandCapFree`'s own header", and that header was rewritten at
+the re-cut.  The numeral is in NO shape there today (`103/1500`, `103 / 1500`, `18665`: zero
+hits each); its live sentence prices `1/32` against `(1009/45000)·e` and is TRUE.  So a reader
+who follows the citation arrives at a file whose bytes say something else — which is exactly
+how the stale numeral was laundered into a 2026-09-05 scout brief.  Read the clause below as
+dated, not as a pointer.
+
+⚠ The design arithmetic (NOT kernel-checked; the
 theorems below carry the gate symbolically and choose nothing): `T0BandCapFree`'s own header
 records that the box's `1/32 = 0.03125` is `6×` SHORT of the exit's decay gate
 `(103/1500)·e ≈ 0.18665`, so a consumer that prices `B` through `dilated_scale_grade` gets an
