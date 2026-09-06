@@ -705,3 +705,21 @@ open Salt.Tactic in
   Salt.SW.hCoef_selbergPsi_prime
   Salt.SW.hCoef_sum_div_eq
   Salt.SW.hCoef_abs_sum_le
+
+-- ⟦B2 W1 0905⟧ `Salt/SW/ZeroCountNearOne.lean` — Jutila's LEMMA 8 (Linnik's density lemma) AT
+-- HEIGHT: §2's radius-resolved count moved to the centre `1 + it₀`. For a primitive `χ` mod
+-- `q ≥ 2`, every real `t₀` and `0 < r < 1/2`, the zeros of `L(·,χ)` in `closedBall (1 + t₀·I) r`
+-- (with multiplicity, the `MeromorphicOn.divisor` finsum) number `≤ 7200·(1 + r·log(q+|t₀|+2))`,
+-- and in the regime `r ≥ 1/log(q+|t₀|+2)` the `1 +` is absorbed. The route is §2's Landau
+-- partial-fraction argument at `σ = 1 + r + t₀·I` inside the Blaschke disk `ball (2 + t₀·I) (3/2)`:
+-- the numeric `LFunction_norm_logDeriv_sub_sum'` is already stated at an arbitrary centre, the
+-- per-zero geometry is translation-invariant, and the termwise ζ-majorant is re-proved OFF the
+-- real axis from `‖χ(n)·n^{−s}‖ = n^{−Re s}` against `−ζ'/ζ(Re s)`. The constant collapses
+-- through `log_four_M0_le` at `t = γ = t₀` and `q(|t₀|+2) ≤ (q+|t₀|+2)²`, so the SAME `C = 7200`
+-- closes and `t₀ = 0` recovers `LFunction_zero_count_near_one` verbatim (the exit `example`).
+-- `7200` is FORCED by this chain (the `r·log` coefficient is `5 × 1440`); the slack is additive
+-- only. Four `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.landau_neg_logDeriv_re_lower_of_re
+  Salt.SW.re_one_div_sub_ge_at_height
+  Salt.SW.LFunction_zero_count_near_one_at_height
+  Salt.SW.LFunction_zero_count_near_one_at_height_guarded
