@@ -105,6 +105,7 @@ import Salt.SW.PseudoCharH
 import Salt.SW.JutilaResidue
 import Salt.SW.JutilaHalasz
 import Salt.SW.JutilaRatio
+import Salt.SW.DensityStrip
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.Tactic.AuditAxioms
@@ -895,3 +896,38 @@ open Salt.Tactic in
   Salt.SW.continuous_resKernel_exp
   Salt.SW.const_mul_le_integral_integral_of_le
   Salt.SW.card_system_le_rpow
+
+-- ⟦B2 W9f 0905⟧ `Salt/SW/DensityStrip.lean` — THE LOG-FREE ZERO-DENSITY THEOREM, B2's
+-- deliverable: `N(σ,T,χ) ≤ C·(qT)^{D(1−σ)}` on `4/5 ≤ σ ≤ 1`, `T ≥ 2`, at a primitive `χ` mod
+-- `q ≥ 2`, with `D ≤ 150`. Three suppliers first: at `σ ≥ 1` the count is `0`
+-- (`zeroCountM_eq_zero_of_one_le` — the box `σ ≤ Re ≤ 1` is EMPTY by
+-- `LFunction_ne_zero_of_one_le_re` at `χ ≠ 1`, which primitivity at `q ≥ 2` supplies); below a
+-- threshold `D₀` the `σ`-free crude count is at most the CONSTANT `137(2D₀ + 3)log(D₀(D₀ + 3))`
+-- (`zeroCountM_le_const_of_le`; `2 ≤ T` is TRUTH-load-bearing — at the minimal `D₀ = qT < 0.303`
+-- that RHS is NEGATIVE while a count never is); and `rpow` is monotone in the exponent above
+-- base `1` (`rpow_mul_le_rpow_of_le_150`). THE STRIP (`zeroCountM_density_logfree_strip`, the
+-- literal `14 = 2c + 1`) assembles W9e's boxes with W1's constant threaded, W9c′'s RATIO at each
+-- parity's representatives, the crude count below `D₀ := max(10²⁰, D₁)` and the non-vanishing at
+-- `σ = 1`. The per-parity system is staged as ONE private lemma over an ABSTRACT Finset of box
+-- indices: the representatives are zeros with `Re < 1` (the non-vanishing), injectively indexed
+-- by their ordinates (`boxIndex` reads `Im` alone and `boxRep k` lies in the `k`-th fibre), and
+-- `Δ`-well-spaced BY ANTITONY of `WellSpacedAt` in its Finset — so the image INCLUSION is the
+-- whole bridge from `wellSpacedAt_parity_reps`, with no equiv round-trip; `Finset.equivFin`
+-- indexes the system as `Fin #S`. The closing chain: `7/4 + 3λ/2 ≤ (7/4)e^{λ}` (equality at
+-- `λ = 0`), `e^{λ} = (qT)^{1−σ}` and `(qT)^{13(1−σ)}·(qT)^{1−σ} = (qT)^{14(1−σ)}`, with
+-- `C = max(137(2D₀ + 3)log(D₀(D₀ + 3)), (7/2)C₁C_r)`. THE TARGET
+-- (`zeroCountM_density_logfree`) glues the landed low half (`1378·(qT)^{150(1−σ)}` on
+-- `[4/5, 119/120]`) to the strip lifted to the exponent `150` by the glue; `C = max 1378 C_s`,
+-- `D = 150`, and the seam is exact (`150(1 − σ) = 5/4` at `σ = 119/120`, the low half's own
+-- crude exponent). `C` is NON-EFFECTIVE (W1's `∃`, the ratio's `∃ C_r` and its threshold
+-- `D₁ = 10^59–10^64`, S10's `∃ K`); `2 ≤ T` on the TARGET is TRUTH-load-bearing through a
+-- NEGATIVE base (at `q = 3`, `T = −1`, `σ = 9/10` the count is `0` while
+-- `Real.rpow (−3) 15 < 0`), on the STRIP JUNK-TRUE (its exponent `14(1 − σ) ≤ 0.1167` never
+-- crosses the first `cos(πy)` zero). Landing this file lands B2 WHOLE; nothing here bears on
+-- twin primes beyond stating B2's own condition.
+-- 5 `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.zeroCountM_eq_zero_of_one_le
+  Salt.SW.zeroCountM_le_const_of_le
+  Salt.SW.rpow_mul_le_rpow_of_le_150
+  Salt.SW.zeroCountM_density_logfree_strip
+  Salt.SW.zeroCountM_density_logfree
