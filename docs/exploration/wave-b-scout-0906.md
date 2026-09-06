@@ -144,6 +144,45 @@ three points about that shape, each a [SCOUT] claim:
    so `(log Kk)³ ≤ 2.39·(log 2k)³`. Defects 1 and 2 of that list are CLOSED; **this one is not**,
    and it belongs to the Wave A seal, not to Wave B.
 
+### §2(e′) — THE `√(2^{v₂(k)})` FACTOR IS RETIRED ON ROAD MODULI, AND ITS `q`-SIDE HYPOTHESIS IS DISCHARGED
+
+`klPhaseSum_bound` and `lem10_dyadic_bound` both carry an explicit
+`√(2 ^ k.factorization 2)` (`Lemma10Chain.lean:726`, `:1005`), inherited from the **general**
+Estermann row `norm_kloosterman_estermann` (`EstermannGlobal.lean:318`) at `:756`. **On road moduli
+that factor is already gone, and the corpus discharges the hypotheses that remove it.**
+
+| row | file:line | what it gives |
+|---|---|---|
+| `factorization_two_kloosterman_modulus` | `Salt/Weil/GcdBranch.lean:347` | **`v₂(D·δ₁·w₁) = v₂(D)`** — *"the entire 2-part of the Kloosterman modulus sits in `D`"*, because `2 ∣ α` with `Coprime δ₁ α`, `Coprime w₁ α` forces `δ₁, w₁` **ODD**. Its docstring records that this **retired the W2 stone** |
+| `factorization_two_roadModulus` | `Salt/Weil/RoadModulus.lean:93` | `v₂(D) = max(v₂ α₂, v₂ q)` |
+| **`norm_kloosterman_estermann_road_clean`** | `Salt/Weil/EstermannTwoAdic.lean:234` | **D4** — Estermann (7.1) verbatim at `k = D·δ₁·w₁`, **NO 2-adic factor**, at `v₂(α₂), v₂(q) ≤ 8` |
+| ⭐ **`factorization_two_le_three_of_isPrimitive`** | **`Salt/HB/EstermannRoad.lean:46`** | **D6 — `χ.IsPrimitive ⇒ v₂(q) ≤ 3`**, from `structure_of_isPrimitive` (the 2-part is `2^0`, `2^2` or `2^3` and nothing else). *"the real hypothesis is free"* |
+| ⭐⭐ **`norm_kloosterman_estermann_road_of_isPrimitive`** | **`Salt/HB/EstermannRoad.lean:63`** | **D7 — THE FULLY DISCHARGED CLOSE.** HB (7.1) on the road modulus, no 2-adic factor, with the `q`-side valuation hypothesis **replaced by `χ.IsPrimitive`**. Its proof is one `exact` |
+
+⇒ 🔑 **THE SUPPORT CONDITION THAT READS AS BOOKKEEPING IS WHAT KILLS THE FACTOR.** The three
+hypotheses that retire it — `2 ∣ α`, `Coprime δ₁ α`, `Coprime w₁ α` — **are HB's (5.6)**, which
+(5.19)'s `Σ*` already imposes and which §1 above catalogues as a class-A side condition worth 20–40
+lines. A paper's "support conditions" are where it puts the facts it needs and does not discuss.
+
+⇒ **CONSUMER-FACING CONSEQUENCE: Wave B should route through D7, not D4.** D7's `q`-side hypothesis
+is `χ.IsPrimitive`, which the regime already carries (`N9Regime.prim`); D4's is `v₂(q) ≤ 8`, which
+would have to be threaded. **Nothing needs bounding by the consumer and nothing needs a new binder.**
+
+⚠️ **AND A CORRECTION TO THIS SCOUT'S OWN FIRST READING OF IT.** I first reported the `q`-side
+hypothesis as discharged by *"χ real primitive ⇒ `q` cube-free ⇒ `v₂(q) ≤ 2"*, an inference from
+HB's sentence at `hb1983-notes.md:567`, and censused `Salt/` for **"cube-free"** at three shapes —
+**0 hits** — and concluded the fact was absent. **It is landed** (D6), proved from **primitivity via
+the structure theorem**, with no cube-free reasoning anywhere. ⇒ 🔑 ***I CENSUSED THE ROUTE I HAD IN
+MIND INSTEAD OF THE CONCLUSION I NEEDED.*** `grep cube-free` returns 0 and the conclusion `v₂(q) ≤ 3`
+was in the corpus the whole time under a different name. **Census the CONCLUSION, not your route to
+it.**
+
+📌 **The file also carries a NEGATIVE CONTROL and a deliberate gap, both worth not collapsing:**
+`two_pow_totient_exceeds_estermann_at_nine` (`EstermannRoad.lean:85`) proves the D1′ inequality
+**FAILS** at `e = 9` — so `e ≤ 8` is where the *method* stops, not where a proof got tired — and it
+is fenced in its own docstring against being quoted as a bound. The Weil rows sit at `v₂ ≤ 8` while
+the road consumes only `v₂(q) ≤ 3`: **five powers of two of headroom, left readable on purpose.**
+
 ⇒ **The Wave A seal's statement is pinned from below by this row**: whatever `hb_lemma10` says, it
 must take the `g`/`V` interface (not `T`), integer endpoints with a length bound (not a set
 inclusion), and coprimality against `k/q` (not `k`) — because that is what its own landed
