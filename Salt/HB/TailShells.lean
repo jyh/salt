@@ -294,7 +294,68 @@ theorem psiDefect_norm_le_raw {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
           + (zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
           + (h / u + 5 / 4) * ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
               (zeroMult χ ρ : ℝ) * u ^ ρ.re := by
-  sorry
+  classical
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  have hu1 : (1 : ℝ) ≤ u := by linarith
+  have hu0 : (0 : ℝ) < u := by linarith
+  obtain ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, hσ₀1, hsock⟩ :=
+    psi_explicit_sharpM_perZero_unsep χ hχ hq hu hh hσa hσab hσb hT₀
+  refine ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, ?_⟩
+  have hT0 : (0 : ℝ) ≤ T := by linarith [hT.1]
+  -- `β₀` lies in the contour box
+  have hβZ : (β₀ : ℂ) ∈ boxZeros χ (σ₀ - w) 1 T := by
+    rw [mem_boxZeros hχ1]
+    refine ⟨hβ₀zero, ?_, ?_, ?_⟩
+    · simp only [Complex.ofReal_re]; linarith [hσ.2]
+    · simpa using hβ₀1
+    · simp only [Complex.ofReal_im, abs_zero]; linarith [hT.1]
+  have hres : (((zeroMult χ (β₀ : ℂ) : ℝ) * u ^ β₀ / β₀ : ℝ) : ℂ)
+      = (zeroMult χ (β₀ : ℂ) : ℂ) * (((u : ℝ) : ℂ) ^ (β₀ : ℂ) / (β₀ : ℂ)) := by
+    push_cast [Complex.ofReal_cpow (le_of_lt hu0)]
+    ring
+  have hkey : psiDefect χ β₀ (zeroMult χ (β₀ : ℂ)) u
+      = (psiChiR u χ + efZeroSumM χ (boxZeros χ (σ₀ - w) 1 T) u)
+        - efZeroSumM χ ((boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ)) u := by
+    rw [efZeroSumM_erase_split χ hβZ u, psiDefect, hres]
+    ring
+  -- THE ERASED SPEND, termwise: `‖ρ‖ ≥ Re ρ ≥ σ₀ − w ≥ 9/10`
+  have hspend : ‖efZeroSumM χ ((boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ)) u‖
+      ≤ 5 / 4 * ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+          (zeroMult χ ρ : ℝ) * u ^ ρ.re := by
+    refine le_trans (efZeroSumM_norm_le_termwise χ hu1) ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_le_sum (fun ρ hρ => ?_)
+    have hmem := (mem_boxZeros hχ1).mp (Finset.mem_of_mem_erase hρ)
+    have hρ9 : (9 : ℝ) / 10 ≤ ‖ρ‖ :=
+      le_trans (by linarith [hmem.2.1])
+        (le_trans (le_abs_self ρ.re) (Complex.abs_re_le_norm ρ))
+    have hnn : (0 : ℝ) ≤ (zeroMult χ ρ : ℝ) * u ^ ρ.re := by positivity
+    rw [div_le_iff₀ (by linarith : (0 : ℝ) < ‖ρ‖)]
+    nlinarith
+  -- THE DE-SMOOTHING SUM, `β₀` kept apart
+  have hdesm : ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 T, (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))
+      = (zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
+        + h / u * ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+            (zeroMult χ ρ : ℝ) * u ^ ρ.re := by
+    rw [← Finset.add_sum_erase _ (fun ρ => (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))) hβZ]
+    simp only [Complex.ofReal_re]
+    refine congrArg _ ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun ρ _ => ?_)
+    rw [Real.rpow_sub hu0, Real.rpow_one]
+    field_simp
+  -- assembly
+  rw [hkey]
+  refine le_trans (norm_sub_le _ _) ?_
+  have hexp : (h / u + 5 / 4) * ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+        (zeroMult χ ρ : ℝ) * u ^ ρ.re
+      = h / u * (∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+            (zeroMult χ ρ : ℝ) * u ^ ρ.re)
+        + 5 / 4 * ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+            (zeroMult χ ρ : ℝ) * u ^ ρ.re := by ring
+  rw [hexp]
+  rw [hdesm] at hsock
+  linarith [hsock, hspend]
 
 /-- **`hEF` FOR THE B3 ENVELOPE.** Class C (an assembly). -/
 theorem psiDefect_norm_le_envelopeB3 {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
@@ -307,7 +368,62 @@ theorem psiDefect_norm_le_envelopeB3 {q : ℕ} [NeZero q] (χ : DirichletCharact
     (hy : 6 / 5 * n9DB2 * Real.log ((q : ℝ) * (efT0 q u + 1)) ≤ 3 / 4 * Real.log u)
     (hbig : 20 ≤ (1 - bceil) * Real.log u) :
     ‖psiDefect χ β₀ m u‖ ≤ u * efEnvelopeB3 q β₀ bceil m σa σb u := by
-  sorry
+  subst hm
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hu1 : (1 : ℝ) ≤ u := by linarith
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hHpos : 0 < efH q u := efH_pos hq hu
+  have huh : (3 : ℝ) ≤ u + efH q u := by linarith
+  have hlogu : (0 : ℝ) < Real.log u := Real.log_pos (by linarith)
+  have hbc1 : bceil < 1 := by nlinarith
+  obtain ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, hbnd⟩ :=
+    psiDefect_norm_le_raw χ hχ hq hu hHpos hσa hσab hσb hT0 hβ₀1 hσbβ₀ hβ₀zero
+  refine le_trans hbnd ?_
+  -- THE SHELL SPEND at the exported edge `σa := σ₀ − w`
+  have hTle : T ≤ efT0 q u + 1 := hT.2
+  have hT2 : (2 : ℝ) ≤ T := le_trans hT0 hT.1
+  have hshell : ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+      (zeroMult χ ρ : ℝ) * u ^ ρ.re
+      ≤ 2 * n9CB2 * u * Real.exp (-((1 - bceil) * Real.log u) / 4) := by
+    have hbar : ∀ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ), ρ.re ≤ 1 - (1 - bceil) := by
+      intro ρ hρ
+      have hmem := (mem_boxZeros hχ1).mp (Finset.mem_of_mem_erase hρ)
+      have := hceil ρ hmem.1 (Finset.ne_of_mem_erase hρ) (by linarith [hmem.2.1])
+        hmem.2.2.1 (le_trans hmem.2.2.2 hTle)
+      linarith
+    have hyT : 6 / 5 * n9DB2 * Real.log ((q : ℝ) * T) ≤ 3 / 4 * Real.log u := by
+      have hD0 : (0 : ℝ) < n9DB2 := n9B2_spec.2.1
+      refine le_trans
+        (mul_le_mul_of_nonneg_left ?_ (by linarith : (0 : ℝ) ≤ 6 / 5 * n9DB2)) hy
+      exact Real.log_le_log (by nlinarith) (by nlinarith)
+    exact zeroSum_shells_le χ hχ hq hσ₀w hT2 hu1 (Finset.erase_subset _ _)
+      (by linarith) (by linarith) hbar hyT hbig
+  -- the uniformised contour budget
+  have hE1 : efShiftError q T σ₀ w u ≤ efShiftBound q (efT0 q u) σa σb u :=
+    efShiftError_le_efShiftBound hq hT0 hT.1 hT.2 hσa hσab hσb hσ.1 hσ.2 hw hwlb hu
+  have hE2 : efShiftError q T σ₀ w (u + efH q u)
+      ≤ efShiftBound q (efT0 q u) σa σb (u + efH q u) :=
+    efShiftError_le_efShiftBound hq hT0 hT.1 hT.2 hσa hσab hσb hσ.1 hσ.2 hw hwlb huh
+  -- the target, unfolded
+  have hnorm : u * efEnvelopeB3 q β₀ bceil (zeroMult χ (β₀ : ℂ)) σa σb u
+      = (efH q u + 1) * Real.log (u + efH q u)
+        + (efShiftBound q (efT0 q u) σa σb u
+            + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u
+        + (zeroMult χ (β₀ : ℂ) : ℝ) * (efH q u * u ^ (β₀ - 1))
+        + (efH q u / u + 5 / 4) * (2 * n9CB2 * u
+            * Real.exp (-((1 - bceil) * Real.log u) / 4)) := by
+    rw [efEnvelopeB3, efShellRow]
+    field_simp
+  rw [hnorm]
+  have hbud : (efShiftError q T σ₀ w u + efShiftError q T σ₀ w (u + efH q u)) / efH q u
+      ≤ (efShiftBound q (efT0 q u) σa σb u
+          + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u :=
+    div_le_div_of_nonneg_right (by linarith) (le_of_lt hHpos)
+  have hfac : (0 : ℝ) ≤ efH q u / u + 5 / 4 := by positivity
+  have hmulle := mul_le_mul_of_nonneg_left hshell hfac
+  linarith [hbud, hmulle]
 
 /-- Class B: mirror `efEnvelope_nonneg`. -/
 theorem efEnvelopeB3_nonneg {q : ℕ} {β₀ bceil σa σb u : ℝ} {m : ℕ} (hq : 2 ≤ q) (hu : 3 ≤ u)
