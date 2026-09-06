@@ -8,6 +8,7 @@ import Salt.HB.CrownAssembly
 import Salt.HB.MOne
 import Salt.HB.Lemma7Prod
 import Salt.HB.Lemma7EF
+import Salt.HB.TailShells
 import Salt.HB.DoorBridge
 import Salt.SW.TBalTall
 import Salt.SW.DensityCrude
@@ -24,8 +25,9 @@ verdict — REPAIR-THEN-FIRE, 4/4 — with every kill repaired at the object, an
 ruling on the crown's statement; v3 on the desk's own finding 3 below; the four executor waves landed
 all 42 theorems at `[propext, Classical.choice, Quot.sound]`, zero flags).**
 
-**THE LABEL (the Captain's ruling, 2026-09-04 19:1x):** what this file LANDS is the POLYLOG DICHOTOMY
-at exponent `30` — `HeathBrownDichotomyPoly 30` = `TwinPrimeConjecture ∨ NoSiegelZerosPoly 30`,
+**THE LABEL (the Captain's ruling, 2026-09-04 19:1x; the exponent re-cut 2026-09-06 by design γ,
+stage B3-i):** what this file LANDS is the POLYLOG DICHOTOMY
+at exponent `14` — `HeathBrownDichotomyPoly 14` = `TwinPrimeConjecture ∨ NoSiegelZerosPoly 14`,
 conditional on N7's exit `N7Exit` — a new theorem (the effective polylog-Siegel bound is open) and an
 INTERMEDIATE, never called the crown.  The crown's STATEMENT is the frozen `HeathBrownDichotomy`
 (the `k = 1` member, byte-untouched; `heathBrownDichotomyPoly_one_iff`), reached by Arm B: B0 ✓ (the
@@ -72,8 +74,10 @@ Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the two-sided p.200 
    the frozen crown (byte-untouched, `heathBrownDichotomyPoly_one_iff`), and lands the engine at
    `k = 14` — before finding 3.  **The Captain ruled (2026-09-04 12:39): the crown is
    HEATH-BROWN's EXACTLY, `k = 1` (Arm B — re-prove D–H at `k ≤ 1`, the crown's next design
-   block); the member this file reaches lands as the INTERMEDIATE member — `k = 30` after
-   finding 3, not `14`.**
+   block); the member this file reaches lands as the INTERMEDIATE member.**  *(That member was
+   `k = 30` from 2026-09-04 to 2026-09-06, finding 4's price; design (γ) — the row-(iv) shell
+   re-grade, §3b — pays that price with a `q`-free threshold instead and brings it back to
+   `k = dhK = 14`.)*
 3. **`(L2)`'s six binders are not "every piece proved".**  `hcorr`'s producer needs `hlimP`
    (never produced — the CHAR-TRIO flag), `htail`'s only producer is the RANGE-B tail
    `logChiSum_tendsto_zfr_hundred`, whose threshold `X₀` is `q`-dependent and superpolynomial in
@@ -94,11 +98,16 @@ Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the two-sided p.200 
    `flags.md:20655-20662`, had named this term: "the lever is `b/s`, not `k`").  HB has no such
    term because at p.209 he prices the block by Jutila's LOG-FREE density (4.9) shell by shell
    ("using `q^{15/2} ≤ x^{1/4}`" is that sum); our N2 is the crude count there by design.  The
-   repair: the regime field `ellL : n9E0 + 16·log log(4q) ≤ ℓ′` (16 = 12.2 + room), which the
-   polylog quality supplies only at `k = 14 + 16 = 30` — so the intermediate crown is
-   `HeathBrownDichotomyPoly 30`.  Every other row is `L`-free at a constant `ℓ′` (checked: Z6, Z8,
-   Z11, `hsmall`'s four terms, the star term, the FL term).  For Arm B this means `k = 1` needs
-   BOTH a `k ≤ 1` contract AND a log-free density on the near-1 strip (class D, both).
+   repair AS OF 2026-09-04 (v3) was the regime field `ellL : n9E0 + 16·log log(4q) ≤ ℓ′`
+   (16 = 12.2 + room), which the polylog quality supplies only at `k = 14 + 16 = 30` — the
+   intermediate crown was `HeathBrownDichotomyPoly 30`.  Every other row is `L`-free at a constant
+   `ℓ′` (checked: Z6, Z8, Z11, `hsmall`'s four terms, the star term, the FL term).
+   ⇒ **REPAIRED AT THE SOURCE 2026-09-06 (design γ, stage B3-i): HB's own p.209 argument is now
+   the proof.**  B2 (`zeroCountM_density_logfree`, landed) is spent SHELL BY SHELL inside a
+   sibling envelope (`Salt/HB/TailShells.lean`, `efEnvelopeB3`), row (iv) disappears, and the tail
+   pays ONE `X`-free `n9Tail q η` whose threshold `ellB3` is `q`-FREE — so `ellL` is deleted and
+   the exponent returns to `k = dhK = 14`.  For Arm B this leaves `k = 1` needing the `k ≤ 1`
+   contract ALONE (the log-free density half is now spent here, not owed).
 4. **`fulcrum_zero_real_zfr`'s `hcal` is unsatisfiable as stated** (it quantifies over every
    `c₀` that satisfies the ZFR, including arbitrarily small ones); the live route is
    `fulcrum_zero_real` + `zero_free_region_all_numeral` at `c₀ = 1/126848`.  §6 uses that.
@@ -109,8 +118,10 @@ Honest label: N9 assembles Theorem 1 CONDITIONALLY on N7's exit (`N7Exit`, a hyp
 Wave C lands) and on the regime `N9Regime`, whose `ellBig` field is the coupled threshold.  Four
 constants are existential (`dhC`, `invSqC`, `merC`, `segC` — each a `Classical.choose` of a landed
 `∃ C` with its spec re-exported; no prose numeral about any of them is a theorem) and one
-threshold is ineffective (Siegel's `C(ε)` for `ηq`).  The crown reached is
-`HeathBrownDichotomyPoly 30`, conditional on N7 (the `16` of `ellL` on top of the D–H `14`); the
+threshold is ineffective (Siegel's `C(ε)` for `ηq`), and one more existential rides in from B2
+(`n9CB2`, through `ellB3` — the price of the shell re-grade).  The crown reached is
+`HeathBrownDichotomyPoly 14`, conditional on N7 (the D–H `14`, with NO tail surcharge since
+design γ; it was `30` while `ellL` stood); the
 frozen `HeathBrownDichotomy` (`k = 1`) is NOT reached here — it is Arm B's, the next design
 block, and needs a log-free near-1 density as well as a `k ≤ 1` contract.  Nothing here bears on
 twin primes; `hEngine` stays a binder until N7, the rows here, and Arm B land.
@@ -318,6 +329,26 @@ Read through `ηq`, this threshold ALSO forces `L > e^{3·10⁶}` (so `250 ≤ L
 noncomputable def n9E0 : ℝ :=
   Real.exp (3 * 10 ^ 6) + (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 + Real.exp (merC + segC)
 
+/-- **THE B3 TAIL CONSTANT (design γ)** — the `O(1)` slot the row-(iv) re-grade buys: `X`-free,
+exponentially small in `ℓ′`.  From `X ≥ q^{250}` the shell row's tail is
+`≤ 18·n9CB2·e^{−ℓ′/11}` (`n9_shellRow_tail_raw` carries that honest form): below the crossover
+the row decays like `X^{−ε}` at `ε = ℓ′/(2748·L)` — `4·680·1.01 = 2747.2 ≤ 2748` at
+`log(q(T₀+3)) ≤ 1.01·L`, and `n9EllAt ≥ ℓ′ − 14/100` — so `X^{−ε} ≤ e^{−250·ℓ′/2748}`; above it
+the Range-B arm gives `e^{−L/700} ≤ e^{−ℓ′/7}` (`hPsmall`).  The printed `20`/`24` carry room
+over the honest `18`/`11`. -/
+noncomputable def n9Tail (q : ℕ) (η : ℝ) : ℝ := 20 * n9CB2 * Real.exp (-(n9Ell q η) / 24)
+
+/-- **THE B3 THRESHOLD** — `4·n9Tail ≤ 1/25` (the `hsmall` slot) as soon as
+`ℓ′ ≥ 24·log(2000·n9CB2 + 1)`: the ONE existential B2 adds (`n9CB2`) pays for itself.  It is
+`q`-FREE — which is the whole point of design (γ): the deleted `ellL` was not. -/
+noncomputable def n9E0B3 : ℝ := 24 * Real.log (2000 * n9CB2 + 1)
+
+/-- `0 ≤ n9E0B3` — `n9CB2 > 0` (`n9B2_spec.1`) and `Real.log_nonneg`.  Class **A**.
+Consumer: `crown_handover` (twice: `hCqbig` and `hEllge`). -/
+theorem n9E0B3_nonneg : 0 ≤ n9E0B3 := by
+  have h := n9B2_spec.1
+  exact mul_nonneg (by norm_num) (Real.log_nonneg (by linarith))
+
 /-- **THE REGIME — N9's packet, bundled.**  Every field is either HB's hypothesis (1.11) at the
 twin instance, a largeness threshold, or one of the two seams this freeze found:
 * `ηmax` — `β₀` is the LARGEST real zero (the T-BAL-UNORDERED binder `hord`, supplied at the
@@ -329,9 +360,13 @@ twin instance, a largeness threshold, or one of the two seams this freeze found:
   `ℓ′ = log(ηL) − log(1/dhC) − 14·log(log(4q)+2)` carries `13·log log q`.  From the polylog
   quality `1 − β₀ ≤ 1/(C·(log q)^{14})` it is a threshold on `C`; from `FulcrumQualityMin C`
   (`k = 1`) it is NOT reachable — freeze §5;
-* `ellL` — **THE TAIL'S OWN DEMAND (finding 4)**: `ℓ′ ≥ n9E0 + 16·log log(4q)`, the price of the
-  crude near-1 zero count in `logChiSum_tail_at_window`'s row (iv); implies `ellBig`
-  (`log(4q) > 1`).  The polylog quality supplies it at `k = 30` and at no smaller `k`.
+* `ellB3` — **THE B3 TAIL'S DEMAND (design γ, 2026-09-06)**: `ℓ′ ≥ n9E0B3 = 24·log(2000·n9CB2+1)`,
+  the price of the near-1 zero mass in `logChiSum_tail_at_window`'s tail now that B2 is spent
+  SHELL BY SHELL there.  It is `q`-FREE — a threshold on B2's own constant — and the polylog
+  quality supplies it at `k = 14`.  *(History: until 2026-09-06 this field was
+  `ellL : ℓ′ ≥ n9E0 + 16·log log(4q)`, the price of the CRUDE count of finding 4 below —
+  `q`-coupled, and supplied only at `k = 30`.  Design (γ), `Salt/HB/TailShells.lean`, deleted
+  it: §3b here.)*
 Derived, not carried: `1 ≤ ℓ′`, `(2·680)² ≤ ℓ′` (the `hσ'r` quadratic at `ell := ℓ′`),
 `17·ℓ′ ≤ 680·log 4q` (the `16/17` strip: `ℓ′ ≤ log(ηL) ≤ 2e^{−401}L`), `1/2 < β₀`,
 `3 ≤ q`, `η ≥ 15000`. -/
@@ -345,7 +380,7 @@ structure N9Regime (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (β₀ �
   ηmax : ∀ β : ℝ, DirichletCharacter.LFunction χ (β : ℂ) = 0 → β < 1 → β ≤ β₀
   ηq : Real.exp 401 * Real.log η ≤ Real.log q
   ellBig : n9E0 ≤ n9Ell q η
-  ellL : n9E0 + 16 * Real.log (Real.log (4 * (q : ℝ))) ≤ n9Ell q η
+  ellB3 : n9E0B3 ≤ n9Ell q η
 
 /-- **N7's exit, as the ∀-statement N9 consumes.**  Wave C-2 (row C2-10) produces `Lemma5Eval`
 at the N8 wire with UNIFORM `Cerr CA CA' CC` and per-instance `C₀ A A'`; `LL` and `κ` are the two
@@ -2254,19 +2289,27 @@ private lemma n9_rep_rpow_le [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ �
   rw [Real.rpow_def_of_pos hu0]
   exact Real.exp_le_exp.mpr hkey
 
-set_option maxHeartbeats 1000000 in
--- Four ledger rows over one window context, the last of them a two-case decay argument.
-/-- **THE RANGE-A LEDGER, POINTWISE ON THE WINDOW.**  `G(u) ≤ (m+255)/log u` at EVERY
-`u` with `q^{250} ≤ u` — no existential threshold.  Rows (i)–(iii) are §14's, re-proved
-pointwise from the window edge; row (iv) is Range A's own: below the crossover
-(`700·log M ≤ L`) the repulsion decay `exp(−ℓ′·log u/(680·log(q(T₀+3))))` pays it, and the
-regime's `ellL` is exactly what makes `ℓ′` beat the `5·log log u` the row costs; above it
-(`700·log M > L`, so `log u ≥ e^{2141}`) the Range-B decay pays it with room to spare. -/
-private lemma n9_env_le_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+/-! ### §3b — THE ROW-(iv) RE-GRADE (design γ): B2's shells in place of the crude count
+
+Row (iv) of the landed ledger is the CRUDE near-1 zero count against the repulsion decay, and it
+is what forced the regime's `ellL` (`ℓ′ ≥ n9E0 + 16·log log 4q`, `q`-COUPLED) and with it the
+quality exponent `30`.  Design (γ) replaces it by B2's log-free density spent SHELL BY SHELL
+(`Salt/HB/TailShells.lean`): the sibling envelope `efEnvelopeB3` carries ONE `efShellRow` in
+place of the two crude rows, its first three rows are graded exactly as row (i)–(iii) were
+(`n9_envB3_core_le_window`), and the shell row is priced IN THE TAIL — `n9_shellRow_tail_le`,
+one `X`-free summand `n9Tail q η`.  The regime pays `ellB3`, a threshold on B2's own constant,
+which is `q`-free; the quality exponent drops `30 → 14`. -/
+
+/-- **ROWS (i)–(iii) OF THE B3 LEDGER, POINTWISE ON THE WINDOW.**  The landed
+`n9_env_le_window` with row (iv) — the crude count against the repulsion decay — DELETED and the
+shell row left standing: at every `u ≥ q^{250}` the B3 envelope is
+`≤ (m+254)/log u + efShellRow`.  Class **A** (a deletion; the three rows are §14's, verbatim).
+Consumer: `logChiSum_tail_at_window`. -/
+private lemma n9_envB3_core_le_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) (m : ℕ) {u : ℝ} (hu : 3 ≤ u)
     (hwin : 250 * Real.log q ≤ Real.log u) :
-    efEnvelope q β₀ (n9BceilA q β₀ u) m (9 / 10) (19 / 20) u
-      ≤ ((m : ℝ) + 255) / Real.log u := by
+    efEnvelopeB3 q β₀ (n9BceilA q β₀ u) m (9 / 10) (19 / 20) u
+      ≤ ((m : ℝ) + 254) / Real.log u + efShellRow q (n9BceilA q β₀ u) u := by
   obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
   obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
   have hq2 : 2 ≤ q := by exact_mod_cast hqR
@@ -2305,7 +2348,7 @@ private lemma n9_env_le_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀
   have hNy : N ≤ y / 150 := by
     rw [hNdef]; linarith only [hLy, hlogM, hlogy, hy]
   have hN0 : (0 : ℝ) ≤ N := by rw [hNdef]; linarith only [hL, hlogM0]
-  have hled := efEnvelope_le_ledger_sharp (β₀ := β₀) (bceil := n9BceilA q β₀ u) (m := m)
+  have hled := efEnvelopeB3_le_ledger (β₀ := β₀) (bceil := n9BceilA q β₀ u) (m := m)
     (M := M) (N := N) (σa := 9 / 10) (σb := 19 / 20) hq2 hu hMdef hNdef le_rfl (by norm_num)
     (by norm_num) (by norm_num) (le_of_lt hR.β1)
   have hCled : 2 * 10 ^ 6 * N ^ 2 / M ^ 2 ≤ 250 :=
@@ -2355,230 +2398,778 @@ private lemma n9_env_le_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀
       _ ≤ Real.exp (y / 20) * Real.exp (-(y / 20)) :=
           mul_le_mul_of_nonneg_right (le_trans hcoef hexp13) hE0.le
       _ = 1 := by rw [← Real.exp_add]; simp
-  -- (iv) the erased spend, at the Range-A ceiling
-  have hiv : 10 ^ 3 * M ^ 3 * N * u ^ (n9BceilA q β₀ u - 1) ≤ 1 / y := by
-    obtain ⟨A, hAdef⟩ : ∃ A : ℝ, A = 5 * Real.log y + 4 := ⟨_, rfl⟩
-    have hA0 : (0 : ℝ) ≤ A := by rw [hAdef]; linarith only [hlogy0]
-    have he4 : (54 : ℝ) ≤ Real.exp 4 := by
-      have h1 := Real.exp_one_gt_d9
-      have h2 : Real.exp 4 = Real.exp 1 ^ 4 := by
-        rw [show (4 : ℝ) = ((4 : ℕ) : ℝ) * 1 by norm_num, Real.exp_nat_mul]
-      have h3 : (2.7182818283 : ℝ) ^ 4 ≤ Real.exp 1 ^ 4 :=
-        pow_le_pow_left₀ (by norm_num) (le_of_lt h1) 4
-      have h4 : (54 : ℝ) ≤ (2.7182818283 : ℝ) ^ 4 := by norm_num
-      rw [h2]; linarith only [h3, h4]
-    have hy5 : y ^ 5 = Real.exp (5 * Real.log y) := by
-      rw [show (5 : ℝ) * Real.log y = ((5 : ℕ) : ℝ) * Real.log y by norm_num,
-        Real.exp_nat_mul, Real.exp_log hy0]
-    have hcoef : 10 ^ 3 * M ^ 3 * N * y ≤ Real.exp A := by
-      have hM3p : M ^ 3 ≤ (2 * y) ^ 3 := pow_le_pow_left₀ hM0.le hM2y 3
-      have hstep : 10 ^ 3 * M ^ 3 * N ≤ 10 ^ 3 * (2 * y) ^ 3 * (y / 150) := by
-        have h1 : 10 ^ 3 * M ^ 3 ≤ 10 ^ 3 * (2 * y) ^ 3 :=
-          mul_le_mul_of_nonneg_left hM3p (by norm_num)
-        exact mul_le_mul h1 hNy hN0 (by positivity)
-      have heq : 10 ^ 3 * (2 * y) ^ 3 * (y / 150) * y = (8 * 10 ^ 3 / 150) * y ^ 5 := by ring
-      have hAsplit : Real.exp A = Real.exp 4 * Real.exp (5 * Real.log y) := by
-        rw [hAdef, ← Real.exp_add]; congr 1; ring
-      have h5nn : (0 : ℝ) ≤ y ^ 5 := by positivity
-      calc 10 ^ 3 * M ^ 3 * N * y ≤ 10 ^ 3 * (2 * y) ^ 3 * (y / 150) * y :=
-            mul_le_mul_of_nonneg_right hstep hy0.le
-        _ = (8 * 10 ^ 3 / 150) * y ^ 5 := heq
-        _ ≤ 54 * y ^ 5 := by nlinarith only [h5nn]
-        _ ≤ Real.exp 4 * Real.exp (5 * Real.log y) := by
-            rw [hy5]; exact mul_le_mul_of_nonneg_right he4 (Real.exp_pos _).le
-        _ = Real.exp A := hAsplit.symm
-    have hdecay : u ^ (n9BceilA q β₀ u - 1) ≤ Real.exp (-A) := by
-      by_cases hcase : 700 * Real.log M ≤ Real.log q
-      · have hmin : n9BceilA q β₀ u - 1
-            ≤ repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀) - 1 := by
-          have h : repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀)
-              ⊓ efZfrCeil q (1 / 126848) u
-              ≤ repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀) :=
-            inf_le_left
-          simp only [n9BceilA]
-          linarith only [h]
-        refine le_trans (Real.rpow_le_rpow_of_exponent_le (by linarith only [hu]) hmin) ?_
-        refine n9_rep_rpow_le hR hu hA0 ?_
-        rw [← hydef]
-        have hT2 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq2 hu
-        have hQ3 : (q : ℝ) * (efT0 q u + 1 + 2) = (q : ℝ) * (efT0 q u + 3) := by ring
-        have hlogQ : Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) ≤ Real.log q + 7 * Real.log M := by
-          rw [hQ3]; exact log_q_efT0_add3_le hq2 hu hMdef
-        have hQ10 : (10 : ℝ) ≤ (q : ℝ) * (efT0 q u + 1 + 2) := by
-          nlinarith only [hT2, hqR]
-        have h4qle : Real.log (4 * (q : ℝ)) ≤ Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) := by
-          refine Real.log_le_log (by linarith only [hqR]) ?_
-          nlinarith only [hT2, hqR]
-        have h4qlog : Real.log q ≤ Real.log (4 * (q : ℝ)) :=
-          Real.log_le_log (by linarith only [hL, hqR]) (by linarith only [hqR])
-        have hb1 : (0 : ℝ) < Real.log (4 * (q : ℝ)) + 2 := by linarith only [hlog4qpos]
-        have hw0 : (0 : ℝ) ≤ 7 * Real.log M / Real.log q := by positivity
-        have hwq : 7 * Real.log M / Real.log q * Real.log q = 7 * Real.log M := by
-          field_simp
-        have hratio : Real.log (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
-            - Real.log (Real.log (4 * (q : ℝ)) + 2) ≤ 7 * Real.log M / Real.log q := by
-          have hdiv : Real.log (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
-              - Real.log (Real.log (4 * (q : ℝ)) + 2)
-              = Real.log ((Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
-                  / (Real.log (4 * (q : ℝ)) + 2)) := by
-            rw [Real.log_div (by linarith only [hb1, h4qle]) (by linarith only [hb1])]
-          rw [hdiv]
-          have hle1 := Real.log_le_sub_one_of_pos
-            (show (0 : ℝ) < (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
-              / (Real.log (4 * (q : ℝ)) + 2) from
-              div_pos (by linarith only [hb1, h4qle]) hb1)
-          have hstep : (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
-              / (Real.log (4 * (q : ℝ)) + 2) ≤ 7 * Real.log M / Real.log q + 1 := by
-            rw [div_le_iff₀ hb1]
-            nlinarith only [hlogQ, hwq, hw0, h4qlog, hlogM0, hL,
-              mul_nonneg hw0 (sub_nonneg.mpr h4qlog)]
-          linarith only [hle1, hstep]
-        have hEllAt : n9Ell q η - 98 * Real.log M / Real.log q
-            ≤ n9EllAt q η (efT0 q u + 1) := by
-          have hk : dhK = 14 := rfl
-          have hmul : (14 : ℝ) * (7 * Real.log M / Real.log q) = 98 * Real.log M / Real.log q := by
-            ring
-          simp only [n9Ell, n9EllAt, hk]
-          linarith only [hratio, hmul]
-        have hcase' : 7 * Real.log M ≤ Real.log q / 100 := by linarith only [hcase, hlogM0]
-        have h98 : 98 * Real.log M / Real.log q ≤ 14 / 100 := by
-          rw [div_le_div_iff₀ hL (by norm_num)]
-          linarith only [hcase']
-        have hEllAt' : n9Ell q η - 14 / 100 ≤ n9EllAt q η (efT0 q u + 1) := by
-          linarith only [hEllAt, h98]
-        have hlogQ' : Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) ≤ 101 / 100 * Real.log q := by
-          linarith only [hlogQ, hcase']
-        have p1 : Real.log q * Real.log y
-            ≤ Real.log q * Real.log (Real.log q) + y - Real.log q := by
-          have hsplit : Real.log y = Real.log (Real.log q) + Real.log (y / Real.log q) := by
-            rw [← Real.log_mul (ne_of_gt hL) (by positivity)]
-            congr 1
-            field_simp
-          have hle := Real.log_le_sub_one_of_pos
-            (show (0 : ℝ) < y / Real.log q by positivity)
-          have hqy : Real.log y ≤ Real.log (Real.log q) + (y / Real.log q - 1) := by
-            linarith only [hsplit, hle]
-          have h := mul_le_mul_of_nonneg_left hqy hL.le
-          have heq : Real.log q * (y / Real.log q) = y := by field_simp
-          nlinarith only [h, heq]
-        have hE0nn : (0 : ℝ) ≤ n9E0 := by
-          have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
-          have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
-          have hc : (0 : ℝ) < Real.exp (3 * 10 ^ 6 : ℝ) := Real.exp_pos _
-          simp only [n9E0]; linarith only [ha, hb, hc]
-        have h16 : 16 * Real.log (Real.log q) ≤ n9Ell q η := by
-          have hll : Real.log (Real.log q) ≤ Real.log (Real.log (4 * (q : ℝ))) :=
-            Real.log_le_log hL h4qlog
-          linarith only [hR.ellL, hll, hE0nn]
-        have p2 : 16 * (Real.log q * Real.log (Real.log q)) ≤ Real.log q * n9Ell q η := by
-          nlinarith only [h16, hL]
-        have p3 : 250 * (Real.log q * n9Ell q η) ≤ y * n9Ell q η := by
-          have hE : (0 : ℝ) ≤ n9Ell q η := by linarith only [hPbig]
-          nlinarith only [hLy, hE, hy0]
-        have p4 : 3435 * y ≤ (1415 / 10000) * (y * n9Ell q η) := by
-          nlinarith only [hPbig, hy0]
-        have hb : dhB = 680 := rfl
-        have hstep1 : A * (dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2)))
-            ≤ A * (680 * (101 / 100 * Real.log q)) := by
-          rw [hb]
-          refine mul_le_mul_of_nonneg_left ?_ hA0
-          linarith only [hlogQ']
-        have hstep2 : A * (680 * (101 / 100 * Real.log q))
-            = 3434 * (Real.log q * Real.log y) + 13736 / 5 * Real.log q := by
-          rw [hAdef]; ring
-        have hstep3 : (n9Ell q η - 14 / 100) * y ≤ n9EllAt q η (efT0 q u + 1) * y :=
-          mul_le_mul_of_nonneg_right hEllAt' hy0.le
-        have hfin : 3434 * (Real.log q * Real.log y) + 13736 / 5 * Real.log q
-            ≤ (n9Ell q η - 14 / 100) * y := by
-          linarith only [p1, p2, p3, p4, hL, hy0]
-        linarith only [hstep1, hstep2, hstep3, hfin]
-      · push Not at hcase
-        have hmin : n9BceilA q β₀ u - 1 ≤ efZfrCeil q (1 / 126848) u - 1 := by
-          have h : repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀)
-              ⊓ efZfrCeil q (1 / 126848) u ≤ efZfrCeil q (1 / 126848) u := inf_le_right
-          simp only [n9BceilA]
-          linarith only [h]
-        refine le_trans (Real.rpow_le_rpow_of_exponent_le (by linarith only [hu]) hmin) ?_
-        refine efZfrCeil_rpow_le hq2 hu hMdef hA0 ?_
-        rw [← hydef]
-        obtain ⟨t, htdef⟩ : ∃ t : ℝ, t = Real.log y := ⟨_, rfl⟩
-        have hMt : Real.log M ≤ t + 1 := by rw [htdef]; exact hlogM
-        have ht : (2141 : ℝ) ≤ t := by linarith only [hcase, hMt, hLhuge]
-        have ht0 : (0 : ℝ) < t := by linarith only [ht]
-        have hyt : Real.exp t = y := by rw [htdef]; exact Real.exp_log hy0
-        have h8 : (t / 8) ^ 8 ≤ y := by
-          have h1 : t / 8 ≤ Real.exp (t / 8) := by
-            linarith only [Real.add_one_le_exp (t / 8)]
-          have h2 : (t / 8) ^ 8 ≤ Real.exp (t / 8) ^ 8 :=
-            pow_le_pow_left₀ (by positivity) h1 8
-          have h3 : Real.exp (t / 8) ^ 8 = Real.exp t := by
-            rw [show t = ((8 : ℕ) : ℝ) * (t / 8) by push_cast; ring, Real.exp_nat_mul]
-            congr 2
-            push_cast; ring
-          rw [← hyt]; linarith only [h2, h3]
-        have ht6 : (2141 : ℝ) ^ 6 ≤ t ^ 6 := pow_le_pow_left₀ (by norm_num) ht 6
-        have ht2 : (0 : ℝ) ≤ t ^ 2 := by positivity
-        have hykey : (492000000 : ℝ) * t ^ 2 ≤ y := by
-          have hpow : t ^ 8 = t ^ 6 * t ^ 2 := by ring
-          have hstep : (2141 : ℝ) ^ 6 * t ^ 2 ≤ t ^ 8 := by
-            rw [hpow]; exact mul_le_mul_of_nonneg_right ht6 ht2
-          have heq : (t / 8) ^ 8 = t ^ 8 / 16777216 := by ring
-          rw [heq] at h8
-          nlinarith only [hstep, h8, ht2]
-        have hAt : A ≤ 5 * t + 4 := by rw [hAdef, htdef]
-        have hsum : Real.log q + 7 * Real.log M ≤ 707 * (t + 1) := by
-          linarith only [hcase, hMt, hlogM0]
-        calc A * (Real.log q + 7 * Real.log M)
-            ≤ (5 * t + 4) * (707 * (t + 1)) := by
-              refine mul_le_mul hAt hsum ?_ ?_
-              · linarith only [hL, hlogM0]
-              · linarith only [ht0]
-          _ ≤ 1 / 126848 * y := by nlinarith only [hykey, ht, ht0]
-    have hEA : (0 : ℝ) < Real.exp A := Real.exp_pos _
-    rw [le_div_iff₀ hy0]
-    calc 10 ^ 3 * M ^ 3 * N * u ^ (n9BceilA q β₀ u - 1) * y
-        = 10 ^ 3 * M ^ 3 * N * y * u ^ (n9BceilA q β₀ u - 1) := by ring
-      _ ≤ Real.exp A * Real.exp (-A) :=
-          mul_le_mul hcoef hdecay (Real.rpow_nonneg hu0.le _) hEA.le
-      _ = 1 := by rw [← Real.exp_add]; simp
-  have hcollect : ((m : ℝ) + 255) / y
-      = ((m : ℝ) + 252) / y + 1 / y + 1 / y + 1 / y := by ring
-  rw [hydef] at hi hii hiii hiv hcollect
-  linarith only [hled, hi, hii, hiii, hiv, hcollect]
+  -- the shell row, at the ledger's own symbols (`efH q u / u = 1/M³`)
+  have hune : u ≠ 0 := ne_of_gt hu0
+  have hMne : M ≠ 0 := ne_of_gt hM0
+  have hHu : efH q u / u = 1 / M ^ 3 := by
+    rw [show efH q u = u / M ^ 3 from by rw [efH, hMdef]]
+    field_simp
+  have hshell : efShellRow q (n9BceilA q β₀ u) u
+      = (1 / M ^ 3 + 5 / 4) * (2 * n9CB2)
+        * Real.exp (-((1 - n9BceilA q β₀ u) * Real.log u) / 4) := by
+    rw [efShellRow, hHu]
+  have hcollect : ((m : ℝ) + 254) / y = ((m : ℝ) + 252) / y + 1 / y + 1 / y := by ring
+  rw [hydef] at hi hii hiii hcollect
+  rw [hshell]
+  linarith only [hled, hi, hii, hiii, hcollect]
 
-/-- **`htail` AT THE WINDOW, RANGE A — the tail built at the REPULSION ceiling.**  v1 re-exported
-the landed Range-B tail `logChiSum_tendsto_zfr_hundred` at a printed `e^{70000}`; the verdict's
-one FATAL (K6): that producer's `X₀` is `Classical.choose`d from
-`efEnvelope_zfr_eventually_le_sharp`, whose rows force `log X₀ ≥ (log q + 7)²` and
-`log X₀ ≳ 1.5·10^{17}` — `q`-dependent and
-superpolynomial — NO `x ∈ [q^250, q^500]` clears it, and the Range-B ceiling's decay at `u = q^b`
-is a CONSTANT `e^{−c₀ b}`, so no threshold repair exists there.  Range A is where the decay is
-real: the repulsion ceiling's `u^{bceil−1} = exp(−n9EllAt·log u/(680·log(q(T₀+3))))` is
-`≤ exp(−ℓ′/5000)` from `u ≥ q^250` on.  Class **C**, cap 600 (the eventually-lemma re-proved,
-~230 ln in the landed Range-B version).  Red-first: `hm1 := zeroMult_eq_one_of_eta`; the ceiling
-function `bceil u := min (repulsionCeiling dhB dhC dhK (q(efT0 q u + 3)) (1−β₀)) (efZfrCeil q
-(1/126848) u)` — continuous on `Ici X` (`continuousOn_efZfrCeil`; the repulsion half is `log ∘ log`
-of `efT0`), VALID at every `u` (`psiDefect_norm_le_envelope`'s `hceil` over `|Im ρ| ≤ efT0 q u + 1`:
-the `efZfrCeil` half from `zero_free_region_all_numeral` + `real_zeros_below_zfrCeil`; the repulsion
-half from `dh_ceiling_box` at `T = efT0 q u + 1` when `0 ≤ n9EllAt q η T`, and trivial — the
-ceiling is `> 1 ≥ Re ρ` — when it is not; the `min` needs no case split in the statement);
-`efEnvelope_le_ledger_sharp` is ceiling-generic (`bceil` enters only row (iv) `10³M³N·u^{bceil−1}`);
-rows (i)–(iii) verbatim from the landed proof (`ledger_const_le_of_window` takes exactly
-`hwin : 250·log q ≤ log u`); row (iv) below the crossover is
-`10³·M³·N·exp(−n9EllAt·log u/(680·log(q(T₀+3))))` — at `u = X = q^{250}` that is
-`≈ 1.6·10⁷·L⁴·exp(−0.368·n9EllAt)` and the tail integral of it `≈ 4·10^{10}·L⁴·e^{−0.368ℓ′}/ℓ′`,
-so the grade `100/√log X` needs `ℓ′ ≥ 74 + 12.2·log L` — PAID BY THE REGIME'S `ellL`
-(finding 4; `n9EllAt ≥ ℓ′ − 84·log(251L)/L`), NOT by `ellBig` alone; above the crossover
-(`log log(qu) ≈ (ηL)^{1/14}/6`, far above `exp(20·L·log L/c₀)`) the Range-B decay
-`exp(−c₀·log u/(7·log log u))` dominates `M³N`; `logChiSum_tendsto_of_envelope` and the landed
-`key` arithmetic give the grade (row (i) is ceiling-independent).
-Consumer: `hb_L2_at_hb_point` (as `htail` at `X = x` and as `hcorr_at_split`'s `hS`). -/
-theorem logChiSum_tail_at_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+/-- The shell row at the Range-A ceiling is continuous on `[3,∞)` — the measurability its tail
+integral needs.  `n9_cont_bceilA` for the ceiling, `efH = u/M³` and `exp` for the rest. -/
+private lemma n9_cont_shellRow {q : ℕ} (hq : 2 ≤ q) (β₀ : ℝ) :
+    ContinuousOn (fun u : ℝ => efShellRow q (n9BceilA q β₀ u) u) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqu : ContinuousOn (fun u : ℝ => (q : ℝ) * u) (Set.Ici (3 : ℝ)) :=
+    continuousOn_const.mul continuousOn_id
+  have hMge : ∀ u ∈ Set.Ici (3 : ℝ), (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
+    intro u hu
+    have h3 : (3 : ℝ) ≤ u := hu
+    have h6 : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+    have hlog : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := by
+      have he : Real.exp 1 ≤ (q : ℝ) * u :=
+        le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h6
+      exact (Real.le_log_iff_exp_le (by linarith)).mpr he
+    linarith
+  have hlogqu : ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * u)) (Set.Ici (3 : ℝ)) :=
+    Real.continuousOn_log.comp hqu (fun u hu => by
+      have h3 : (3 : ℝ) ≤ u := hu
+      exact ne_of_gt (by nlinarith))
+  have hden : ContinuousOn (fun u : ℝ => (Real.log ((q : ℝ) * u) + 2) ^ 3) (Set.Ici (3 : ℝ)) :=
+    (hlogqu.add continuousOn_const).pow 3
+  have hidne : ∀ u ∈ Set.Ici (3 : ℝ), u ≠ 0 :=
+    fun u hu => ne_of_gt (by linarith only [show (3 : ℝ) ≤ u from hu])
+  have hefH : ContinuousOn (fun u : ℝ => efH q u) (Set.Ici (3 : ℝ)) := by
+    simp only [efH]
+    exact continuousOn_id.div hden
+      (fun u hu => pow_ne_zero 3 (ne_of_gt (by linarith only [hMge u hu])))
+  have hlogu : ContinuousOn Real.log (Set.Ici (3 : ℝ)) :=
+    Real.continuousOn_log.mono (fun u hu => hidne u hu)
+  have hexp : ContinuousOn
+      (fun u : ℝ => Real.exp (-((1 - n9BceilA q β₀ u) * Real.log u) / 4)) (Set.Ici (3 : ℝ)) :=
+    Real.continuous_exp.comp_continuousOn
+      ((((continuousOn_const.sub (n9_cont_bceilA hq β₀)).mul hlogu).neg).div_const 4)
+  simp only [efShellRow]
+  exact (((hefH.div continuousOn_id hidne).add continuousOn_const).mul continuousOn_const).mul hexp
+
+/-- The shell row's prefactor is `≤ 3·n9CB2` at every `u ≥ 3`: `efH q u/u = 1/M³ ≤ 1/27`, so
+`2·(1/M³ + 5/4) ≤ 3`.  Class **A**. -/
+private lemma n9_shellRow_le_exp {q : ℕ} (hq : 2 ≤ q) {b u : ℝ} (hu : 3 ≤ u) :
+    efShellRow q b u ≤ 3 * n9CB2 * Real.exp (-((1 - b) * Real.log u) / 4) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hune : u ≠ 0 := ne_of_gt hu0
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  have hM3 : (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
+    have h6 : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+    have hlog : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := by
+      have he : Real.exp 1 ≤ (q : ℝ) * u :=
+        le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h6
+      exact (Real.le_log_iff_exp_le (by linarith)).mpr he
+    linarith
+  have hDne : Real.log ((q : ℝ) * u) + 2 ≠ 0 := ne_of_gt (by linarith)
+  have hD3 : (0 : ℝ) < (Real.log ((q : ℝ) * u) + 2) ^ 3 := pow_pos (by linarith) 3
+  have hHu : efH q u / u = 1 / (Real.log ((q : ℝ) * u) + 2) ^ 3 := by
+    simp only [efH]
+    field_simp
+  have hnn : (0 : ℝ) ≤ efH q u / u := by rw [hHu]; exact div_nonneg zero_le_one hD3.le
+  have h27 : (27 : ℝ) ≤ (Real.log ((q : ℝ) * u) + 2) ^ 3 := by
+    calc (27 : ℝ) = 3 ^ 3 := by norm_num
+      _ ≤ (Real.log ((q : ℝ) * u) + 2) ^ 3 := pow_le_pow_left₀ (by norm_num) hM3 3
+  have hsmall : efH q u / u ≤ 1 / 27 := by
+    rw [hHu, div_le_div_iff₀ hD3 (by norm_num)]
+    linarith only [h27]
+  have hcoef : (efH q u / u + 5 / 4) * (2 * n9CB2) ≤ 3 * n9CB2 := by
+    nlinarith only [hsmall, hnn, hC0]
+  rw [efShellRow]
+  exact mul_le_mul_of_nonneg_right hcoef (Real.exp_pos _).le
+
+/-- **THE RANGE-A CEILING GAP BELOW THE CROSSOVER.**  Where `700·log M ≤ L` the repulsion arm is
+the live one and its gap is `ℓ′/(687·L)`: the box top costs `98·log M/L ≤ 14/100`
+(so `n9EllAt ≥ ℓ′ − 14/100`) and `log(q(T₀+3)) ≤ 1.01·L`, whence
+`1 − bceil ≥ n9EllAt/(680·log Q) ≥ ℓ′/(687·L)` (`680·1.01 = 686.8 ≤ 687` with `ℓ′ ≥ 481`).
+The arithmetic is the deleted row (iv)'s, re-aimed at the ceiling gap instead of a decay
+exponent — which is why nothing here reads `ellL`.  Class **B**. -/
+private lemma n9_bceilA_gap_below [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {u : ℝ} (hu : 3 ≤ u)
+    (hwin : 250 * Real.log q ≤ Real.log u)
+    (hcase : 700 * Real.log (Real.log ((q : ℝ) * u) + 2) ≤ Real.log q) :
+    n9Ell q η / (687 * Real.log q) ≤ 1 - n9BceilA q β₀ u := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hu0 : (0 : ℝ) < u := by linarith only [hu]
+  obtain ⟨M, hMdef⟩ : ∃ M : ℝ, M = Real.log ((q : ℝ) * u) + 2 := ⟨_, rfl⟩
+  have hMeq : M = Real.log q + Real.log u + 2 := by
+    rw [hMdef, Real.log_mul (ne_of_gt (by linarith only [hqR] : (0 : ℝ) < (q : ℝ)))
+      (ne_of_gt hu0)]
+  have hM3 : (3 : ℝ) ≤ M := by rw [hMeq]; linarith only [hL, hwin, hLhuge]
+  have hlogM0 : (0 : ℝ) ≤ Real.log M := Real.log_nonneg (by linarith only [hM3])
+  rw [← hMdef] at hcase
+  have hcase' : 7 * Real.log M ≤ Real.log q / 100 := by linarith only [hcase, hlogM0]
+  have hT2 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq2 hu
+  have hQ3 : (q : ℝ) * (efT0 q u + 1 + 2) = (q : ℝ) * (efT0 q u + 3) := by ring
+  have hlogQ : Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) ≤ Real.log q + 7 * Real.log M := by
+    rw [hQ3]; exact log_q_efT0_add3_le hq2 hu hMdef
+  have hQ10 : (10 : ℝ) ≤ (q : ℝ) * (efT0 q u + 1 + 2) := by nlinarith only [hT2, hqR]
+  have hlogQpos : (0 : ℝ) < Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) :=
+    Real.log_pos (by linarith only [hQ10])
+  have h4qle : Real.log (4 * (q : ℝ)) ≤ Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) := by
+    refine Real.log_le_log (by linarith only [hqR]) ?_
+    nlinarith only [hT2, hqR]
+  have h4qlog : Real.log q ≤ Real.log (4 * (q : ℝ)) :=
+    Real.log_le_log (by linarith only [hL, hqR]) (by linarith only [hqR])
+  have hb1 : (0 : ℝ) < Real.log (4 * (q : ℝ)) + 2 := by linarith only [hlog4qpos]
+  have hw0 : (0 : ℝ) ≤ 7 * Real.log M / Real.log q := by positivity
+  have hwq : 7 * Real.log M / Real.log q * Real.log q = 7 * Real.log M := by
+    field_simp
+  have hratio : Real.log (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
+      - Real.log (Real.log (4 * (q : ℝ)) + 2) ≤ 7 * Real.log M / Real.log q := by
+    have hdiv : Real.log (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
+        - Real.log (Real.log (4 * (q : ℝ)) + 2)
+        = Real.log ((Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
+            / (Real.log (4 * (q : ℝ)) + 2)) := by
+      rw [Real.log_div (by linarith only [hb1, h4qle]) (by linarith only [hb1])]
+    rw [hdiv]
+    have hle1 := Real.log_le_sub_one_of_pos
+      (show (0 : ℝ) < (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
+        / (Real.log (4 * (q : ℝ)) + 2) from
+        div_pos (by linarith only [hb1, h4qle]) hb1)
+    have hstep : (Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2)
+        / (Real.log (4 * (q : ℝ)) + 2) ≤ 7 * Real.log M / Real.log q + 1 := by
+      rw [div_le_iff₀ hb1]
+      nlinarith only [hlogQ, hwq, hw0, h4qlog, hlogM0, hL,
+        mul_nonneg hw0 (sub_nonneg.mpr h4qlog)]
+    linarith only [hle1, hstep]
+  have hEllAt : n9Ell q η - 98 * Real.log M / Real.log q
+      ≤ n9EllAt q η (efT0 q u + 1) := by
+    have hk : dhK = 14 := rfl
+    have hmul : (14 : ℝ) * (7 * Real.log M / Real.log q) = 98 * Real.log M / Real.log q := by
+      ring
+    simp only [n9Ell, n9EllAt, hk]
+    linarith only [hratio, hmul]
+  have h98 : 98 * Real.log M / Real.log q ≤ 14 / 100 := by
+    rw [div_le_div_iff₀ hL (by norm_num)]
+    linarith only [hcase']
+  have hEllAt' : n9Ell q η - 14 / 100 ≤ n9EllAt q η (efT0 q u + 1) := by
+    linarith only [hEllAt, h98]
+  have hlogQ' : Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) ≤ 101 / 100 * Real.log q := by
+    linarith only [hlogQ, hcase']
+  -- the repulsion arm's value, and the gap
+  have hb : dhB = 680 := rfl
+  have hden : (0 : ℝ) < dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) := by
+    rw [hb]; linarith only [hlogQpos]
+  have hval : repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀)
+      = 1 - n9EllAt q η (efT0 q u + 1)
+          / (dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2))) := by
+    have hid : Real.log (1 / (1 - β₀)) = Real.log (η * Real.log q) := by rw [hηL]
+    simp only [repulsionCeiling, n9EllAt, hid]
+  have hinf : n9BceilA q β₀ u
+      ≤ repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀) := by
+    simp only [n9BceilA]; exact inf_le_left
+  rw [hval] at hinf
+  have hstep : n9Ell q η / (687 * Real.log q)
+      ≤ n9EllAt q η (efT0 q u + 1)
+        / (dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2))) := by
+    rw [div_le_div_iff₀ (by positivity) hden, hb]
+    have p1 : n9Ell q η * (680 * Real.log ((q : ℝ) * (efT0 q u + 1 + 2)))
+        ≤ n9Ell q η * (680 * (101 / 100 * Real.log q)) := by
+      refine mul_le_mul_of_nonneg_left ?_ (by linarith only [hPbig])
+      linarith only [hlogQ']
+    have p2 : (n9Ell q η - 14 / 100) * (687 * Real.log q)
+        ≤ n9EllAt q η (efT0 q u + 1) * (687 * Real.log q) :=
+      mul_le_mul_of_nonneg_right hEllAt' (by linarith only [hL])
+    have p3 : (0 : ℝ) ≤ Real.log q * (n9Ell q η / 5 - 9618 / 100) := by
+      nlinarith only [hL, hPbig]
+    nlinarith only [p1, p2, p3]
+  linarith only [hstep, hinf]
+
+/-- **THE RANGE-A CEILING GAP ABOVE THE CROSSOVER.**  Where `L ≤ 700·log M` the Range-B arm is
+the live one: there `log log u ≥ 2141`, so `log u ≥ 10^{10}·(log log u)²`, which pays
+`A·(L + 7·log M) ≤ log u/126848` at `A = 4·(L/700 + log log u)` — and `efZfrCeil_rpow_le` turns
+that into `(1 − bceil)·log u ≥ A`.  The `4·` is the shell row's own `/4`: it makes the row
+`≤ 3·n9CB2·e^{−L/700}/log u` up there.  Class **B**. -/
+private lemma n9_bceilA_gap_above [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {u : ℝ} (hu : 3 ≤ u)
+    (hwin : 250 * Real.log q ≤ Real.log u)
+    (hcase : Real.log q ≤ 700 * Real.log (Real.log ((q : ℝ) * u) + 2)) :
+    4 * (Real.log q / 700) + 4 * Real.log (Real.log u)
+      ≤ (1 - n9BceilA q β₀ u) * Real.log u := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hu0 : (0 : ℝ) < u := by linarith only [hu]
+  obtain ⟨y, hydef⟩ : ∃ y : ℝ, y = Real.log u := ⟨_, rfl⟩
+  have hy : (375000000 : ℝ) ≤ y := by rw [hydef]; linarith only [hwin, hLhuge]
+  have hy0 : (0 : ℝ) < y := by linarith only [hy]
+  have hlogu0 : (0 : ℝ) < Real.log u := by rw [← hydef]; exact hy0
+  obtain ⟨M, hMdef⟩ : ∃ M : ℝ, M = Real.log ((q : ℝ) * u) + 2 := ⟨_, rfl⟩
+  have hMeq : M = Real.log q + y + 2 := by
+    rw [hMdef, hydef, Real.log_mul (ne_of_gt (by linarith only [hqR] : (0 : ℝ) < (q : ℝ)))
+      (ne_of_gt hu0)]
+  have hLy : Real.log q ≤ y / 250 := by rw [hydef]; linarith only [hwin]
+  have hM2y : M ≤ 2 * y := by rw [hMeq]; linarith only [hLy, hy]
+  have hM3 : (3 : ℝ) ≤ M := by rw [hMeq]; linarith only [hL, hy]
+  have hM0 : (0 : ℝ) < M := by linarith only [hM3]
+  have hsy : (19364 : ℝ) ≤ Real.sqrt y := by
+    rw [show (19364 : ℝ) = Real.sqrt (19364 ^ 2) by
+      rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 19364)]]
+    exact Real.sqrt_le_sqrt (by norm_num; linarith only [hy])
+  have hsqy : Real.sqrt y ^ 2 = y := Real.sq_sqrt hy0.le
+  have hlogy : Real.log y ≤ y / 9682 := by
+    have h1 := n9_log_le_two_sqrt hy0
+    nlinarith only [h1, hsy, hsqy, Real.sqrt_nonneg y]
+  have hlogy0 : (0 : ℝ) ≤ Real.log y := Real.log_nonneg (by linarith only [hy])
+  have hlogM : Real.log M ≤ Real.log y + 1 := by
+    have h1 : Real.log M ≤ Real.log (2 * y) := Real.log_le_log hM0 hM2y
+    have h2 : Real.log (2 * y) = Real.log 2 + Real.log y :=
+      Real.log_mul (by norm_num) (ne_of_gt hy0)
+    have h3 : Real.log 2 ≤ 1 := by
+      linarith only [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
+    linarith only [h1, h2, h3]
+  have hlogM0 : (0 : ℝ) ≤ Real.log M := Real.log_nonneg (by linarith only [hM3])
+  rw [← hMdef] at hcase
+  obtain ⟨t, htdef⟩ : ∃ t : ℝ, t = Real.log y := ⟨_, rfl⟩
+  have hMt : Real.log M ≤ t + 1 := by rw [htdef]; exact hlogM
+  have ht : (2141 : ℝ) ≤ t := by linarith only [hcase, hMt, hLhuge]
+  have ht0 : (0 : ℝ) < t := by linarith only [ht]
+  have hyt : Real.exp t = y := by rw [htdef]; exact Real.exp_log hy0
+  have h8 : (t / 8) ^ 8 ≤ y := by
+    have h1 : t / 8 ≤ Real.exp (t / 8) := by
+      linarith only [Real.add_one_le_exp (t / 8)]
+    have h2 : (t / 8) ^ 8 ≤ Real.exp (t / 8) ^ 8 :=
+      pow_le_pow_left₀ (by positivity) h1 8
+    have h3 : Real.exp (t / 8) ^ 8 = Real.exp t := by
+      rw [show t = ((8 : ℕ) : ℝ) * (t / 8) by push_cast; ring, Real.exp_nat_mul]
+      congr 2
+      push_cast; ring
+    rw [← hyt]; linarith only [h2, h3]
+  have ht6 : (2141 : ℝ) ^ 6 ≤ t ^ 6 := pow_le_pow_left₀ (by norm_num) ht 6
+  have ht2 : (0 : ℝ) ≤ t ^ 2 := by positivity
+  have hykey : (10 ^ 10 : ℝ) * t ^ 2 ≤ y := by
+    have hpow : t ^ 8 = t ^ 6 * t ^ 2 := by ring
+    have hstep : (2141 : ℝ) ^ 6 * t ^ 2 ≤ t ^ 8 := by
+      rw [hpow]; exact mul_le_mul_of_nonneg_right ht6 ht2
+    have heq : (t / 8) ^ 8 = t ^ 8 / 16777216 := by ring
+    rw [heq] at h8
+    nlinarith only [hstep, h8, ht2]
+  obtain ⟨A, hAdef⟩ : ∃ A : ℝ, A = 4 * (Real.log q / 700) + 4 * t := ⟨_, rfl⟩
+  have hA0 : (0 : ℝ) ≤ A := by rw [hAdef]; linarith only [hL, ht0]
+  have hAle : A ≤ 8 * t + 4 := by
+    rw [hAdef]; linarith only [hcase, hMt]
+  have hsum : Real.log q + 7 * Real.log M ≤ 707 * (t + 1) := by
+    linarith only [hcase, hMt, hlogM0]
+  have hcond : A * (Real.log q + 7 * Real.log M) ≤ 1 / 126848 * Real.log u := by
+    rw [← hydef]
+    calc A * (Real.log q + 7 * Real.log M)
+        ≤ (8 * t + 4) * (707 * (t + 1)) := by
+          refine mul_le_mul hAle hsum ?_ ?_
+          · linarith only [hL, hlogM0]
+          · linarith only [ht0]
+      _ ≤ 1 / 126848 * y := by nlinarith only [hykey, ht, ht0]
+  have hmin : n9BceilA q β₀ u ≤ efZfrCeil q (1 / 126848) u := by
+    simp only [n9BceilA]; exact inf_le_right
+  have hrpow := efZfrCeil_rpow_le hq2 hu hMdef hA0 hcond
+  have hzfr : A ≤ (1 - efZfrCeil q (1 / 126848) u) * Real.log u := by
+    rw [Real.rpow_def_of_pos hu0] at hrpow
+    have h2 := Real.exp_le_exp.mp hrpow
+    nlinarith only [h2]
+  have hstep : (1 - efZfrCeil q (1 / 126848) u) * Real.log u
+      ≤ (1 - n9BceilA q β₀ u) * Real.log u :=
+    mul_le_mul_of_nonneg_right (by linarith only [hmin]) hlogu0.le
+  rw [hAdef] at hzfr
+  rw [hydef] at htdef
+  linarith only [hzfr, hstep, htdef]
+
+/-- Below the crossover the shell row decays like `u^{−ε}` at `ε = ℓ′/(2748·L)` — `L`-free once
+`ℓ′/L` is read as one symbol, and that is the whole re-grade: the exponent no longer competes
+with `log log u`.  Class **A** (the gap lemma does the work). -/
+private lemma n9_shellRow_below [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {u : ℝ} (hu : 3 ≤ u)
+    (hwin : 250 * Real.log q ≤ Real.log u)
+    (hcase : 700 * Real.log (Real.log ((q : ℝ) * u) + 2) ≤ Real.log q) :
+    efShellRow q (n9BceilA q β₀ u) u
+      ≤ 3 * n9CB2 * u ^ (-(n9Ell q η / (2748 * Real.log q))) := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hu0 : (0 : ℝ) < u := by linarith only [hu]
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  have hlogu0 : (0 : ℝ) < Real.log u := by linarith only [hwin, hLhuge]
+  have hgap := n9_bceilA_gap_below hR hu hwin hcase
+  have h4 : n9Ell q η / (687 * Real.log q) = 4 * (n9Ell q η / (2748 * Real.log q)) := by
+    field_simp
+    ring
+  have hmul := mul_le_mul_of_nonneg_right hgap hlogu0.le
+  rw [h4] at hmul
+  have hexp : Real.exp (-((1 - n9BceilA q β₀ u) * Real.log u) / 4)
+      ≤ u ^ (-(n9Ell q η / (2748 * Real.log q))) := by
+    rw [Real.rpow_def_of_pos hu0]
+    exact Real.exp_le_exp.mpr (by nlinarith only [hmul])
+  exact le_trans (n9_shellRow_le_exp hq2 hu)
+    (mul_le_mul_of_nonneg_left hexp (by linarith only [hC0]))
+
+/-- Above the crossover the Range-B arm carries the row: `≤ 3·n9CB2·e^{−L/700}/log u`, whose
+tail integral against `dv/(v·log v)` is `e^{−L/700}/log X` — and `hPsmall` turns `e^{−L/700}`
+into `e^{−ℓ′/7}`.  Class **A** (the gap lemma does the work). -/
+private lemma n9_shellRow_above [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {u : ℝ} (hu : 3 ≤ u)
+    (hwin : 250 * Real.log q ≤ Real.log u)
+    (hcase : Real.log q ≤ 700 * Real.log (Real.log ((q : ℝ) * u) + 2)) :
+    efShellRow q (n9BceilA q β₀ u) u
+      ≤ 3 * n9CB2 * Real.exp (-(Real.log q) / 700) / Real.log u := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hu0 : (0 : ℝ) < u := by linarith only [hu]
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  have hlogu0 : (0 : ℝ) < Real.log u := by linarith only [hwin, hLhuge]
+  have hgap := n9_bceilA_gap_above hR hu hwin hcase
+  have hll : Real.exp (Real.log (Real.log u)) = Real.log u := Real.exp_log hlogu0
+  have hexp : Real.exp (-((1 - n9BceilA q β₀ u) * Real.log u) / 4)
+      ≤ Real.exp (-(Real.log q) / 700) / Real.log u := by
+    have h1 : Real.exp (-((1 - n9BceilA q β₀ u) * Real.log u) / 4)
+        ≤ Real.exp (-(Real.log q) / 700 - Real.log (Real.log u)) :=
+      Real.exp_le_exp.mpr (by linarith only [hgap])
+    have h2 : Real.exp (-(Real.log q) / 700 - Real.log (Real.log u))
+        = Real.exp (-(Real.log q) / 700) / Real.log u := by
+      rw [Real.exp_sub, hll]
+    linarith only [h1, h2]
+  refine le_trans (n9_shellRow_le_exp hq2 hu) ?_
+  calc 3 * n9CB2 * Real.exp (-((1 - n9BceilA q β₀ u) * Real.log u) / 4)
+      ≤ 3 * n9CB2 * (Real.exp (-(Real.log q) / 700) / Real.log u) :=
+        mul_le_mul_of_nonneg_left hexp (by linarith only [hC0])
+    _ = 3 * n9CB2 * Real.exp (-(Real.log q) / 700) / Real.log u := by ring
+
+/-- **THE SHELL ROW'S MAJORANT ON THE WINDOW — CROSSOVER-FREE.**  The sum of the two arms' bounds
+is valid at EVERY `u ≥ q^{250}` (each arm's bound holds on its side, the other summand being
+non-negative), so no crossover height is ever named: the tail integral splits into a `v^{−1−ε}`
+piece and a `1/(v·log²v)` piece, each with a closed form.  Class **A**. -/
+private lemma n9_shellRow_majorant [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {u : ℝ} (hu : 3 ≤ u)
+    (hwin : 250 * Real.log q ≤ Real.log u) :
+    efShellRow q (n9BceilA q β₀ u) u
+      ≤ 3 * n9CB2 * u ^ (-(n9Ell q η / (2748 * Real.log q)))
+        + 3 * n9CB2 * Real.exp (-(Real.log q) / 700) / Real.log u := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hu0 : (0 : ℝ) < u := by linarith only [hu]
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  have hlogu0 : (0 : ℝ) < Real.log u := by linarith only [hwin, hLhuge]
+  by_cases hcase : 700 * Real.log (Real.log ((q : ℝ) * u) + 2) ≤ Real.log q
+  · have h := n9_shellRow_below hR hu hwin hcase
+    have h2 : (0 : ℝ) ≤ 3 * n9CB2 * Real.exp (-(Real.log q) / 700) / Real.log u :=
+      div_nonneg (mul_nonneg (by linarith only [hC0]) (Real.exp_pos _).le) hlogu0.le
+    linarith only [h, h2]
+  · have h := n9_shellRow_above hR hu hwin (le_of_lt (not_le.mp hcase))
+    have h2 : (0 : ℝ) ≤ 3 * n9CB2 * u ^ (-(n9Ell q η / (2748 * Real.log q))) :=
+      mul_nonneg (by linarith only [hC0]) (Real.rpow_nonneg hu0.le _)
+    linarith only [h, h2]
+
+/-- The shell row is non-negative at every `u ≥ 3`. -/
+private lemma n9_shellRow_nonneg {q : ℕ} (hq : 2 ≤ q) (b : ℝ) {u : ℝ} (hu : 3 ≤ u) :
+    0 ≤ efShellRow q b u := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  have hM3 : (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
+    have h6 : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+    have hlog : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := by
+      have he : Real.exp 1 ≤ (q : ℝ) * u :=
+        le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h6
+      exact (Real.le_log_iff_exp_le (by linarith)).mpr he
+    linarith
+  have hD3 : (0 : ℝ) < (Real.log ((q : ℝ) * u) + 2) ^ 3 := pow_pos (by linarith) 3
+  have hH : (0 : ℝ) ≤ efH q u / u := by
+    simp only [efH]
+    exact div_nonneg (div_nonneg hu0.le hD3.le) hu0.le
+  rw [efShellRow]
+  exact mul_nonneg (mul_nonneg (by linarith only [hH]) (by linarith only [hC0]))
+    (Real.exp_pos _).le
+
+/-- **THE THREE SHELL BINDERS AT THE RANGE-A CEILING.**  `hb16`: both arms are above `16/17`
+(`n9EllAt ≤ ℓ′ ≤ L/100 ≤ 40·log Q` for the repulsion arm, `c₀/log Q ≤ 1/17` for the ZFR arm).
+`hy`: `6/5·n9DB2·log(q(T₀+1)) ≤ 180·(L + 7·log M) ≤ (3/4)·log u` at `log u ≥ 250·L` — the
+`log M` is paid by `log y ≤ 4·y^{1/4}` (`n9_log_le_two_sqrt` twice), the crude `y/9682` being
+too weak by a factor `10³`.  `hbig`: `20 ≤ (1 − bceil)·log u` from either gap lemma.
+Class **B**.  Consumer: `logChiSum_tail_at_window` (`hEF`). -/
+private lemma n9_shell_binders [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {u : ℝ} (hu : 3 ≤ u)
+    (hwin : 250 * Real.log q ≤ Real.log u) :
+    16 / 17 ≤ n9BceilA q β₀ u ∧
+    6 / 5 * n9DB2 * Real.log ((q : ℝ) * (efT0 q u + 1)) ≤ 3 / 4 * Real.log u ∧
+    20 ≤ (1 - n9BceilA q β₀ u) * Real.log u := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hu0 : (0 : ℝ) < u := by linarith only [hu]
+  have hlogu0 : (0 : ℝ) < Real.log u := by linarith only [hwin, hLhuge]
+  obtain ⟨y, hydef⟩ : ∃ y : ℝ, y = Real.log u := ⟨_, rfl⟩
+  have hy : (375000000 : ℝ) ≤ y := by rw [hydef]; linarith only [hwin, hLhuge]
+  have hy0 : (0 : ℝ) < y := by linarith only [hy]
+  obtain ⟨M, hMdef⟩ : ∃ M : ℝ, M = Real.log ((q : ℝ) * u) + 2 := ⟨_, rfl⟩
+  have hMeq : M = Real.log q + y + 2 := by
+    rw [hMdef, hydef, Real.log_mul (ne_of_gt (by linarith only [hqR] : (0 : ℝ) < (q : ℝ)))
+      (ne_of_gt hu0)]
+  have hLy : Real.log q ≤ y / 250 := by rw [hydef]; linarith only [hwin]
+  have hM2y : M ≤ 2 * y := by rw [hMeq]; linarith only [hLy, hy]
+  have hM3 : (3 : ℝ) ≤ M := by rw [hMeq]; linarith only [hL, hy]
+  have hM0 : (0 : ℝ) < M := by linarith only [hM3]
+  have hT2 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq2 hu
+  have hQ3 : (q : ℝ) * (efT0 q u + 1 + 2) = (q : ℝ) * (efT0 q u + 3) := by ring
+  have hQ10 : (10 : ℝ) ≤ (q : ℝ) * (efT0 q u + 3) := by nlinarith only [hT2, hqR]
+  have hlogQ3 : (1 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 3)) := by
+    have he : Real.exp 1 ≤ (q : ℝ) * (efT0 q u + 3) :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hQ10
+    exact (Real.le_log_iff_exp_le (by linarith only [hQ10])).mpr he
+  have hlogQle : Real.log ((q : ℝ) * (efT0 q u + 3)) ≤ Real.log q + 7 * Real.log M :=
+    log_q_efT0_add3_le hq2 hu hMdef
+  have hlogQge : Real.log q ≤ Real.log ((q : ℝ) * (efT0 q u + 3)) := by
+    refine Real.log_le_log (by linarith only [hqR]) ?_
+    nlinarith only [hT2, hqR]
+  -- `hb16`
+  have hAtle : n9EllAt q η (efT0 q u + 1) ≤ n9Ell q η := by
+    have hdk : dhK = 14 := rfl
+    have h4q : Real.log (4 * (q : ℝ)) + 2
+        ≤ Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) + 2 := by
+      have h := Real.log_le_log (by linarith only [hqR] : (0 : ℝ) < 4 * (q : ℝ))
+        (show 4 * (q : ℝ) ≤ (q : ℝ) * (efT0 q u + 1 + 2) by nlinarith only [hT2, hqR])
+      linarith only [h]
+    have hmono := Real.log_le_log
+      (show (0 : ℝ) < Real.log (4 * (q : ℝ)) + 2 by linarith only [hlog4qpos]) h4q
+    simp only [n9EllAt, n9Ell, hdk]
+    linarith only [hmono]
+  have hb16 : 16 / 17 ≤ n9BceilA q β₀ u := by
+    simp only [n9BceilA]
+    refine le_inf ?_ ?_
+    · have hb : dhB = 680 := rfl
+      have hlogQpos : (0 : ℝ) < Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) := by
+        rw [hQ3]; linarith only [hlogQ3]
+      have hden : (0 : ℝ) < dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) := by
+        rw [hb]; linarith only [hlogQpos]
+      have hval : repulsionCeiling dhB dhC dhK ((q : ℝ) * (efT0 q u + 1 + 2)) (1 - β₀)
+          = 1 - n9EllAt q η (efT0 q u + 1)
+              / (dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2))) := by
+        have hid : Real.log (1 / (1 - β₀)) = Real.log (η * Real.log q) := by rw [hηL]
+        simp only [repulsionCeiling, n9EllAt, hid]
+      have hQge : Real.log q ≤ Real.log ((q : ℝ) * (efT0 q u + 1 + 2)) := by
+        rw [hQ3]; exact hlogQge
+      have hAtL : n9EllAt q η (efT0 q u + 1) ≤ Real.log q / 100 := by
+        linarith only [hAtle, hPsmall]
+      have hfrac : n9EllAt q η (efT0 q u + 1)
+          / (dhB * Real.log ((q : ℝ) * (efT0 q u + 1 + 2))) ≤ 1 / 17 := by
+        rw [div_le_iff₀ hden, hb]
+        linarith only [hAtL, hQge, hL]
+      rw [hval]
+      linarith only [hfrac]
+    · have hfrac : (1 / 126848 : ℝ) / Real.log ((q : ℝ) * (efT0 q u + 3)) ≤ 1 / 17 := by
+        rw [div_le_iff₀ (by linarith only [hlogQ3])]
+        linarith only [hlogQ3]
+      simp only [efZfrCeil]
+      linarith only [hfrac]
+  -- `hy`
+  have hsy : (19364 : ℝ) ≤ Real.sqrt y := by
+    rw [show (19364 : ℝ) = Real.sqrt (19364 ^ 2) by
+      rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 19364)]]
+    exact Real.sqrt_le_sqrt (by norm_num; linarith only [hy])
+  have hs : (139 : ℝ) ≤ Real.sqrt (Real.sqrt y) := by
+    rw [show (139 : ℝ) = Real.sqrt (139 ^ 2) by
+      rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 139)]]
+    exact Real.sqrt_le_sqrt (by norm_num; linarith only [hsy])
+  have hs2 : Real.sqrt (Real.sqrt y) ^ 2 = Real.sqrt y := Real.sq_sqrt (Real.sqrt_nonneg y)
+  have hsqy : Real.sqrt y ^ 2 = y := Real.sq_sqrt hy0.le
+  have hs4 : Real.sqrt (Real.sqrt y) ^ 4 = y := by
+    have h : Real.sqrt (Real.sqrt y) ^ 4 = (Real.sqrt (Real.sqrt y) ^ 2) ^ 2 := by ring
+    rw [h, hs2, hsqy]
+  have hlogy4 : Real.log y ≤ 4 * Real.sqrt (Real.sqrt y) := by
+    have h1 : Real.log y = 2 * Real.log (Real.sqrt y) := by
+      rw [Real.log_sqrt hy0.le]; ring
+    have h2 : Real.log (Real.sqrt y) ≤ 2 * Real.sqrt (Real.sqrt y) :=
+      n9_log_le_two_sqrt (Real.sqrt_pos.mpr hy0)
+    linarith only [h1, h2]
+  have hlogM : Real.log M ≤ 1 + 4 * Real.sqrt (Real.sqrt y) := by
+    have h1 : Real.log M ≤ Real.log (2 * y) := Real.log_le_log hM0 hM2y
+    have h2 : Real.log (2 * y) = Real.log 2 + Real.log y :=
+      Real.log_mul (by norm_num) (ne_of_gt hy0)
+    have h3 : Real.log 2 ≤ 1 := by
+      linarith only [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
+    linarith only [h1, h2, h3, hlogy4]
+  have hcube : (2685619 : ℝ) * Real.sqrt (Real.sqrt y) ≤ Real.sqrt (Real.sqrt y) ^ 4 := by
+    have h2 : (139 : ℝ) ^ 3 ≤ Real.sqrt (Real.sqrt y) ^ 3 :=
+      pow_le_pow_left₀ (by norm_num) hs 3
+    have h3 := mul_le_mul_of_nonneg_right h2 (by linarith only [hs] :
+      (0 : ℝ) ≤ Real.sqrt (Real.sqrt y))
+    calc (2685619 : ℝ) * Real.sqrt (Real.sqrt y) = (139 : ℝ) ^ 3 * Real.sqrt (Real.sqrt y) := by
+          norm_num
+      _ ≤ Real.sqrt (Real.sqrt y) ^ 3 * Real.sqrt (Real.sqrt y) := h3
+      _ = Real.sqrt (Real.sqrt y) ^ 4 := by ring
+  have hy2 : 6 / 5 * n9DB2 * Real.log ((q : ℝ) * (efT0 q u + 1)) ≤ 3 / 4 * Real.log u := by
+    have hD : n9DB2 ≤ 150 := n9B2_spec.2.2.1
+    have hD0 : 0 < n9DB2 := n9B2_spec.2.1
+    have hT1 : (6 : ℝ) ≤ (q : ℝ) * (efT0 q u + 1) := by nlinarith only [hT2, hqR]
+    have hpos : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 1)) :=
+      Real.log_nonneg (by linarith only [hT1])
+    have hmono : Real.log ((q : ℝ) * (efT0 q u + 1))
+        ≤ Real.log ((q : ℝ) * (efT0 q u + 3)) := by
+      refine Real.log_le_log (by linarith only [hT1]) ?_
+      nlinarith only [hqR]
+    have hstep : 6 / 5 * n9DB2 * Real.log ((q : ℝ) * (efT0 q u + 1))
+        ≤ 180 * (Real.log q + 7 * Real.log M) := by
+      have h1 : 6 / 5 * n9DB2 * Real.log ((q : ℝ) * (efT0 q u + 1))
+          ≤ 180 * Real.log ((q : ℝ) * (efT0 q u + 1)) := by nlinarith only [hD, hpos]
+      have h2 : (180 : ℝ) * Real.log ((q : ℝ) * (efT0 q u + 1))
+          ≤ 180 * (Real.log q + 7 * Real.log M) := by
+        linarith only [hmono, hlogQle]
+      linarith only [h1, h2]
+    have hnum : 180 * (Real.log q + 7 * Real.log M) ≤ 3 / 4 * y := by
+      have h1 : (180 : ℝ) * Real.log q ≤ 18 / 25 * y := by linarith only [hLy]
+      have h2 : (1260 : ℝ) * Real.log M ≤ 1260 + 5040 * Real.sqrt (Real.sqrt y) := by
+        linarith only [hlogM]
+      have h3 : (1260 : ℝ) + 5040 * Real.sqrt (Real.sqrt y)
+          ≤ 3 / 100 * Real.sqrt (Real.sqrt y) ^ 4 := by
+        linarith only [hcube, hs]
+      rw [hs4] at h3
+      linarith only [h1, h2, h3]
+    rw [← hydef]
+    linarith only [hstep, hnum]
+  -- `hbig`
+  have hbig : 20 ≤ (1 - n9BceilA q β₀ u) * Real.log u := by
+    by_cases hcase : 700 * Real.log (Real.log ((q : ℝ) * u) + 2) ≤ Real.log q
+    · have hgap := n9_bceilA_gap_below hR hu hwin hcase
+      have hmul := mul_le_mul_of_nonneg_right hgap hlogu0.le
+      have hlow : (20 : ℝ) ≤ n9Ell q η / (687 * Real.log q) * Real.log u := by
+        rw [div_mul_eq_mul_div, le_div_iff₀ (by linarith only [hL])]
+        have h1 : (3000001 : ℝ) * (250 * Real.log q) ≤ n9Ell q η * Real.log u :=
+          mul_le_mul hPbig hwin (by linarith only [hL]) (by linarith only [hPbig])
+        linarith only [h1, hL]
+      linarith only [hmul, hlow]
+    · have hgap := n9_bceilA_gap_above hR hu hwin (le_of_lt (not_le.mp hcase))
+      have hll0 : (0 : ℝ) ≤ Real.log (Real.log u) :=
+        Real.log_nonneg (by linarith only [hwin, hLhuge])
+      linarith only [hgap, hLhuge, hll0]
+  exact ⟨hb16, hy2, hbig⟩
+
+/-- **THE SHELL ROW'S TAIL, PRICED — the honest form.**  From `X ≥ q^{250}`:
+`efShellRow(X)/log X + 2∫_X^∞ efShellRow(v)·dv/(v·log v) ≤ 18·n9CB2·e^{−ℓ′/11}`, together with
+the integrability and the `→ 0` the socket demands.  The crossover split lives INSIDE the
+majorant (`n9_shellRow_majorant`), so the integral never has to be cut: the `v^{−1−ε}` piece is
+priced by `integral_rpow_div_log_tail_le` (`X^{−ε}/(ε·log X) ≤ X^{−ε} ≤ e^{−250·ℓ′/2748}`, since
+`ε·log X ≥ 250·ℓ′/2748 ≥ 1`), the `1/(v·log²v)` piece by `integral_inv_mul_log_sq`
+(`e^{−L/700}/log X ≤ e^{−ℓ′/7}`, `hPsmall`).  The `Tendsto` conjunct comes from the
+ABOVE-crossover bound, which holds eventually — no uniform `C/log t` exists at extreme `L`.
+Class **C**.  Consumer: `n9_shellRow_tail_le`, `logChiSum_tail_at_window`. -/
+private lemma n9_shellRow_tail_raw [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {X : ℝ} (hX : (q : ℝ) ^ 250 ≤ X) :
+    IntegrableOn (fun v : ℝ => efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v))
+        (Set.Ioi X) ∧
+      Tendsto (fun v : ℝ => efShellRow q (n9BceilA q β₀ v) v / Real.log v) atTop (𝓝 0) ∧
+      efShellRow q (n9BceilA q β₀ X) X / Real.log X
+        + 2 * ∫ v in Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v)
+        ≤ 18 * n9CB2 * Real.exp (-(n9Ell q η) / 11) := by
+  obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
+  obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
+  have hq2 : 2 ≤ q := by exact_mod_cast hqR
+  have hqpos : (0 : ℝ) < (q : ℝ) := by linarith only [hqR]
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  -- the window edge at `X`
+  have hq250 : Real.exp (250 * Real.log q) = (q : ℝ) ^ (250 : ℕ) := by
+    rw [show (250 : ℝ) * Real.log q = ((250 : ℕ) : ℝ) * Real.log q by norm_num,
+      Real.exp_nat_mul, Real.exp_log hqpos]
+  have hX250 : Real.exp (250 * Real.log q) ≤ X := by rw [hq250]; exact hX
+  have hXbig : (375000000 : ℝ) ≤ X := by
+    have h := Real.add_one_le_exp (250 * Real.log q)
+    linarith only [h, hX250, hLhuge]
+  have hX3 : (3 : ℝ) ≤ X := by linarith only [hXbig]
+  have hX1 : (1 : ℝ) < X := by linarith only [hXbig]
+  have hX0 : (0 : ℝ) < X := by linarith only [hXbig]
+  have hlogX : 250 * Real.log q ≤ Real.log X := by
+    have h := Real.log_le_log (Real.exp_pos (250 * Real.log q)) hX250
+    rwa [Real.log_exp] at h
+  have hlogXbig : (375000000 : ℝ) ≤ Real.log X := by linarith only [hlogX, hLhuge]
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by linarith only [hlogXbig]
+  have hlogX0 : (0 : ℝ) < Real.log X := by linarith only [hlogXbig]
+  obtain ⟨ε, hεdef⟩ : ∃ ε : ℝ, ε = n9Ell q η / (2748 * Real.log q) := ⟨_, rfl⟩
+  obtain ⟨E, hEdef⟩ : ∃ E : ℝ, E = Real.exp (-(Real.log q) / 700) := ⟨_, rfl⟩
+  have hE0 : (0 : ℝ) < E := by rw [hEdef]; exact Real.exp_pos _
+  have hεpos : (0 : ℝ) < ε := by
+    rw [hεdef]
+    exact div_pos (by linarith only [hPbig]) (by linarith only [hL])
+  have hwinv : ∀ v : ℝ, X ≤ v → 250 * Real.log q ≤ Real.log v := fun v hv =>
+    le_trans hlogX (Real.log_le_log hX0 hv)
+  have hmaj : ∀ v : ℝ, X ≤ v → efShellRow q (n9BceilA q β₀ v) v
+      ≤ 3 * n9CB2 * v ^ (-ε) + 3 * n9CB2 * E / Real.log v := by
+    intro v hv
+    rw [hεdef, hEdef]
+    exact n9_shellRow_majorant hR (le_trans hX3 hv) (hwinv v hv)
+  -- the two majorant pieces
+  obtain ⟨hI1int, hI1le⟩ := integral_rpow_div_log_tail_le hX3 hεpos
+  have hI2int : IntegrableOn (fun v : ℝ => 1 / (v * Real.log v ^ 2)) (Set.Ioi X) :=
+    integrableOn_inv_mul_log_sq hX1
+  have hmajint : IntegrableOn
+      (fun v : ℝ => 3 * n9CB2 * (v ^ (-(1 : ℝ) - ε) / Real.log v)
+        + 3 * n9CB2 * E * (1 / (v * Real.log v ^ 2))) (Set.Ioi X) :=
+    (hI1int.const_mul _).add (hI2int.const_mul _)
+  have hpt : ∀ v ∈ Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v)
+      ≤ 3 * n9CB2 * (v ^ (-(1 : ℝ) - ε) / Real.log v)
+        + 3 * n9CB2 * E * (1 / (v * Real.log v ^ 2)) := by
+    intro v hv
+    have hvX : X < v := hv
+    have hv0 : (0 : ℝ) < v := by linarith only [hvX, hX0]
+    have hvne : v ≠ 0 := ne_of_gt hv0
+    have hlv : (1 : ℝ) ≤ Real.log v := le_trans hlogX1 (Real.log_le_log hX0 hvX.le)
+    have hlv0 : (0 : ℝ) < Real.log v := by linarith only [hlv]
+    have hlvne : Real.log v ≠ 0 := ne_of_gt hlv0
+    have hrp : v ^ (-(1 : ℝ) - ε) = v ^ (-ε) / v := by
+      rw [show -(1 : ℝ) - ε = -ε - 1 by ring, Real.rpow_sub hv0, Real.rpow_one]
+    rw [div_le_iff₀ (mul_pos hv0 hlv0)]
+    have hexpand : (3 * n9CB2 * (v ^ (-(1 : ℝ) - ε) / Real.log v)
+        + 3 * n9CB2 * E * (1 / (v * Real.log v ^ 2))) * (v * Real.log v)
+        = 3 * n9CB2 * v ^ (-ε) + 3 * n9CB2 * E / Real.log v := by
+      rw [hrp]
+      field_simp
+    rw [hexpand]
+    exact hmaj v hvX.le
+  have hcont : ContinuousOn (fun v : ℝ => efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v))
+      (Set.Ioi X) := by
+    refine ContinuousOn.div
+      ((n9_cont_shellRow hq2 β₀).mono (fun v hv => le_trans hX3 (le_of_lt hv)))
+      (continuousOn_id.mul (Real.continuousOn_log.mono
+        (fun v hv => ne_of_gt (by linarith only [Set.mem_Ioi.mp hv, hX0])))) (fun v hv => ?_)
+    have hvX : X < v := hv
+    have hv0 : (0 : ℝ) < v := by linarith only [hvX, hX0]
+    have hlv0 : (0 : ℝ) < Real.log v :=
+      Real.log_pos (by linarith only [hvX, hXbig])
+    exact ne_of_gt (mul_pos hv0 hlv0)
+  have hint : IntegrableOn (fun v : ℝ => efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v))
+      (Set.Ioi X) := by
+    refine hmajint.mono' (hcont.aestronglyMeasurable measurableSet_Ioi)
+      ((ae_restrict_iff' measurableSet_Ioi).mpr (ae_of_all _ (fun v hv => ?_)))
+    have hvX : X < v := hv
+    have hv0 : (0 : ℝ) < v := by linarith only [hvX, hX0]
+    have hlv0 : (0 : ℝ) < Real.log v := Real.log_pos (by linarith only [hvX, hXbig])
+    have h0 : (0 : ℝ) ≤ efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v) :=
+      div_nonneg (n9_shellRow_nonneg hq2 _ (by linarith only [hvX, hX3]))
+        (le_of_lt (mul_pos hv0 hlv0))
+    rw [Real.norm_eq_abs, abs_of_nonneg h0]
+    exact hpt v hv
+  -- the tail integral
+  have hIle : (∫ v in Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v))
+      ≤ 3 * n9CB2 * (X ^ (-ε) / (ε * Real.log X)) + 3 * n9CB2 * E * (1 / Real.log X) := by
+    have h1 := setIntegral_mono_on hint hmajint measurableSet_Ioi hpt
+    have h2 : (∫ v in Set.Ioi X, (3 * n9CB2 * (v ^ (-(1 : ℝ) - ε) / Real.log v)
+          + 3 * n9CB2 * E * (1 / (v * Real.log v ^ 2))))
+        = 3 * n9CB2 * (∫ v in Set.Ioi X, v ^ (-(1 : ℝ) - ε) / Real.log v)
+          + 3 * n9CB2 * E * (∫ v in Set.Ioi X, 1 / (v * Real.log v ^ 2)) := by
+      rw [integral_add (hI1int.const_mul _) (hI2int.const_mul _),
+        MeasureTheory.integral_const_mul, MeasureTheory.integral_const_mul]
+    rw [h2, integral_inv_mul_log_sq hX1] at h1
+    have h3 : 3 * n9CB2 * (∫ v in Set.Ioi X, v ^ (-(1 : ℝ) - ε) / Real.log v)
+        ≤ 3 * n9CB2 * (X ^ (-ε) / (ε * Real.log X)) :=
+      mul_le_mul_of_nonneg_left hI1le (by linarith only [hC0])
+    linarith only [h1, h3]
+  -- the two constants against `e^{−ℓ′/11}`
+  have hεX : (1 : ℝ) ≤ ε * Real.log X ∧ X ^ (-ε) ≤ Real.exp (-(n9Ell q η) / 11) := by
+    have h1 : ε * (250 * Real.log q) ≤ ε * Real.log X :=
+      mul_le_mul_of_nonneg_left hlogX hεpos.le
+    have h2 : ε * (250 * Real.log q) = 250 * n9Ell q η / 2748 := by
+      rw [hεdef]
+      field_simp
+    constructor
+    · linarith only [h1, h2, hPbig]
+    · rw [Real.rpow_def_of_pos hX0]
+      refine Real.exp_le_exp.mpr ?_
+      nlinarith only [h1, h2, hPbig]
+  have hEle : E ≤ Real.exp (-(n9Ell q η) / 11) := by
+    rw [hEdef]
+    exact Real.exp_le_exp.mpr (by linarith only [hPsmall, hPbig])
+  -- the endpoint and the integral, each `≤ 3·n9CB2·(X^{−ε} + E)`
+  have hPnn : (0 : ℝ) ≤ 3 * n9CB2 * X ^ (-ε) :=
+    mul_nonneg (by linarith only [hC0]) (Real.rpow_nonneg hX0.le _)
+  have hQnn : (0 : ℝ) ≤ 3 * n9CB2 * E := mul_nonneg (by linarith only [hC0]) hE0.le
+  have hend : efShellRow q (n9BceilA q β₀ X) X / Real.log X
+      ≤ 3 * n9CB2 * X ^ (-ε) + 3 * n9CB2 * E := by
+    have h1 := hmaj X le_rfl
+    have h2 : 3 * n9CB2 * E / Real.log X ≤ 3 * n9CB2 * E := div_le_self hQnn hlogX1
+    have h3 : efShellRow q (n9BceilA q β₀ X) X / Real.log X
+        ≤ efShellRow q (n9BceilA q β₀ X) X :=
+      div_le_self (n9_shellRow_nonneg hq2 _ hX3) hlogX1
+    linarith only [h1, h2, h3]
+  have hIle2 : (∫ v in Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v))
+      ≤ 3 * n9CB2 * X ^ (-ε) + 3 * n9CB2 * E := by
+    have hb1 : 3 * n9CB2 * (X ^ (-ε) / (ε * Real.log X)) ≤ 3 * n9CB2 * X ^ (-ε) := by
+      have h : X ^ (-ε) / (ε * Real.log X) ≤ X ^ (-ε) :=
+        div_le_self (Real.rpow_nonneg hX0.le _) hεX.1
+      exact mul_le_mul_of_nonneg_left h (by linarith only [hC0])
+    have hb2 : 3 * n9CB2 * E * (1 / Real.log X) ≤ 3 * n9CB2 * E := by
+      rw [mul_one_div]
+      exact div_le_self hQnn hlogX1
+    linarith only [hIle, hb1, hb2]
+  have hfinal : 3 * (3 * n9CB2 * X ^ (-ε) + 3 * n9CB2 * E)
+      ≤ 18 * n9CB2 * Real.exp (-(n9Ell q η) / 11) := by
+    have h1 : 3 * n9CB2 * X ^ (-ε) ≤ 3 * n9CB2 * Real.exp (-(n9Ell q η) / 11) :=
+      mul_le_mul_of_nonneg_left hεX.2 (by linarith only [hC0])
+    have h2 : 3 * n9CB2 * E ≤ 3 * n9CB2 * Real.exp (-(n9Ell q η) / 11) :=
+      mul_le_mul_of_nonneg_left hEle (by linarith only [hC0])
+    linarith only [h1, h2]
+  refine ⟨hint, ?_, by linarith only [hend, hIle2, hfinal]⟩
+  -- the limit, from the above-crossover bound (eventually)
+  refine tendsto_div_log_of_eventually_le (C := 3 * n9CB2 * E) ?_ ?_
+  · filter_upwards [eventually_ge_atTop X] with v hv
+    exact n9_shellRow_nonneg hq2 _ (le_trans hX3 hv)
+  · filter_upwards [eventually_ge_atTop X,
+      eventually_ge_atTop (Real.exp (Real.exp (Real.log q / 700)))] with v hv hv2
+    have hv3 : (3 : ℝ) ≤ v := le_trans hX3 hv
+    have hv0 : (0 : ℝ) < v := by linarith only [hv3]
+    have hlv0 : (0 : ℝ) < Real.log v := by linarith only [hwinv v hv, hLhuge]
+    have hcase : Real.log q ≤ 700 * Real.log (Real.log ((q : ℝ) * v) + 2) := by
+      have hlv : Real.exp (Real.log q / 700) ≤ Real.log v := by
+        have h := Real.log_le_log (Real.exp_pos _) hv2
+        rwa [Real.log_exp] at h
+      have hsplit : Real.log ((q : ℝ) * v) = Real.log q + Real.log v :=
+        Real.log_mul (ne_of_gt hqpos) (ne_of_gt hv0)
+      have hMge : Real.exp (Real.log q / 700) ≤ Real.log ((q : ℝ) * v) + 2 := by
+        rw [hsplit]; linarith only [hlv, hL]
+      have h := Real.log_le_log (Real.exp_pos (Real.log q / 700)) hMge
+      rw [Real.log_exp] at h
+      linarith only [h]
+    have h := n9_shellRow_above hR hv3 (hwinv v hv) hcase
+    rw [hEdef]
+    exact h
+
+/-- **THE SHELL ROW'S TAIL AT THE PRINTED CONSTANT** (freeze §0(B)): the honest
+`18·n9CB2·e^{−ℓ′/11}` weakened to `n9Tail q η = 20·n9CB2·e^{−ℓ′/24}`.  Class **A**. -/
+private lemma n9_shellRow_tail_le [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {X : ℝ} (hX : (q : ℝ) ^ 250 ≤ X) :
+    IntegrableOn (fun v : ℝ => efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v))
+        (Set.Ioi X) ∧
+      Tendsto (fun v : ℝ => efShellRow q (n9BceilA q β₀ v) v / Real.log v) atTop (𝓝 0) ∧
+      efShellRow q (n9BceilA q β₀ X) X / Real.log X
+        + 2 * ∫ v in Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v)
+        ≤ n9Tail q η := by
+  obtain ⟨-, -, hPbig, -, -, -, -⟩ := n9_num_facts hR
+  obtain ⟨h1, h2, h3⟩ := n9_shellRow_tail_raw hR hX
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  refine ⟨h1, h2, le_trans h3 ?_⟩
+  rw [n9Tail]
+  have hmono : Real.exp (-(n9Ell q η) / 11) ≤ Real.exp (-(n9Ell q η) / 24) :=
+    Real.exp_le_exp.mpr (by linarith only [hPbig])
+  nlinarith only [hmono, hC0, (Real.exp_pos (-(n9Ell q η) / 11)).le]
+
+/-- **`htail` AT THE WINDOW, RANGE A, RE-GRADED (design γ) — THE ENGINE ROOM.**  The tail
+theorem's proof with the shell row's tail carried as a PARAMETER `Etail`: the socket
+`logChiSum_tendsto_of_envelope` at `G = efEnvelopeB3`, whose integrability and `→ 0` come from
+the core rows' pointwise grade `(m+254)/log t` (`n9_envB3_core_le_window`) PLUS the shell row's
+two conjuncts (`n9_shellRow_tail_raw`), and whose right-hand side splits by `integral_add` into
+the core part — priced by the kept weakening block at `C = 255` — and the shell part, which is
+exactly `Etail`.  Both the printed row (`logChiSum_tail_at_window`, at `n9Tail`) and the sharp
+row the consumer spends (`n9_tail_at_window_sharp`) are this lemma at two values of `Etail`.
+Class **C**.  Consumer: `logChiSum_tail_at_window`, `n9_tail_at_window_sharp`. -/
+private lemma n9_tail_at_window_gen [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {X : ℝ} (hX : (q : ℝ) ^ 250 ≤ X) {Etail : ℝ}
+    (hEtail : efShellRow q (n9BceilA q β₀ X) X / Real.log X
+        + 2 * ∫ v in Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v) ≤ Etail) :
     ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
       ‖S + (Salt.SW.zeroMult χ (β₀ : ℂ) : ℂ)
           * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖
-        ≤ 100 / Real.sqrt (Real.log X) := by
+        ≤ 100 / Real.sqrt (Real.log X) + Etail := by
   obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
   obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
   have hq2 : 2 ≤ q := by exact_mod_cast hqR
@@ -2611,46 +3202,127 @@ theorem logChiSum_tail_at_window [NeZero q] {χ : DirichletCharacter ℂ q} {β�
     have h := Real.add_one_le_exp (250 * Real.log q)
     linarith
   have hX3 : (3 : ℝ) ≤ X := by linarith
+  have hX1 : (1 : ℝ) < X := by linarith
   have hX0 : (0 : ℝ) < X := by linarith
   have hlogX : 250 * Real.log q ≤ Real.log X := by
     have h := Real.log_le_log (Real.exp_pos (250 * Real.log q)) hX250
     rwa [Real.log_exp] at h
   have hlogXbig : (375000000 : ℝ) ≤ Real.log X := by linarith
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by linarith
   have hlogX0 : (0 : ℝ) < Real.log X := by linarith
-  -- the envelope at the Range-A ceiling
+  -- the B3 envelope at the Range-A ceiling
   set m : ℕ := zeroMult χ (β₀ : ℂ) with hmdef
-  set G : ℝ → ℝ := fun t => efEnvelope q β₀ (n9BceilA q β₀ t) m (9 / 10) (19 / 20) t with hGdef
+  set G : ℝ → ℝ := fun t => efEnvelopeB3 q β₀ (n9BceilA q β₀ t) m (9 / 10) (19 / 20) t with hGdef
   have hsub : Set.Ici X ⊆ Set.Ici (3 : ℝ) := fun t ht => le_trans hX3 ht
+  have hwint : ∀ t : ℝ, X ≤ t → 250 * Real.log q ≤ Real.log t := fun t ht =>
+    le_trans hlogX (Real.log_le_log hX0 ht)
   have hGc : ContinuousOn G (Set.Ici X) :=
-    (continuousOn_efEnvelope_ceilFun hq2 (β₀ := β₀) (B := fun t => n9BceilA q β₀ t) m
+    (continuousOn_efEnvelopeB3_ceilFun hq2 (β₀ := β₀) (B := fun t => n9BceilA q β₀ t) m
       (n9_cont_bceilA hq2 β₀) (by norm_num)).mono hsub
   have hG0 : ∀ t ∈ Set.Ici X, 0 ≤ G t := fun t ht =>
-    efEnvelope_nonneg hq2 (le_trans hX3 ht) (by norm_num) (by norm_num) (by norm_num)
-  have hEF : ∀ t ∈ Set.Ici X, ‖psiDefect χ β₀ m t‖ ≤ t * G t := fun t ht =>
-    psiDefect_norm_le_envelope χ hR.prim hq2 (le_trans hX3 ht) le_rfl (by norm_num)
-      (by norm_num) (le_of_lt hR.β1) hβ19 hR.zero (n9_re_le_bceilA hR (le_trans hX3 ht))
-  have hle : ∀ t ∈ Set.Ici X, G t ≤ ((m : ℝ) + 255) / Real.log t := by
+    efEnvelopeB3_nonneg hq2 (le_trans hX3 ht) (by norm_num) (by norm_num) (by norm_num)
+  have hEF : ∀ t ∈ Set.Ici X, ‖psiDefect χ β₀ m t‖ ≤ t * G t := by
     intro t ht
     have ht3 : (3 : ℝ) ≤ t := le_trans hX3 ht
-    have htw : 250 * Real.log q ≤ Real.log t := by
-      have h := Real.log_le_log hX0 (show X ≤ t from ht)
-      linarith
-    exact n9_env_le_window hR m ht3 htw
-  have hev : ∀ᶠ t : ℝ in atTop, G t ≤ ((m : ℝ) + 255) / Real.log t := by
-    filter_upwards [eventually_ge_atTop X] with t ht
-    exact hle t ht
-  have hGint : IntegrableOn (fun t : ℝ => G t / (t * Real.log t)) (Set.Ioi X) :=
-    integrableOn_div_of_eventually_le hX3 hGc hG0 hev
+    obtain ⟨hb16, hyb, hbig⟩ := n9_shell_binders hR ht3 (hwint t ht)
+    exact psiDefect_norm_le_envelopeB3 χ hR.prim hq2 ht3 hmdef (by norm_num) (by norm_num)
+      (by norm_num) (le_of_lt hR.β1) hβ19 hR.zero (n9_re_le_bceilA hR ht3) hb16 hyb hbig
+  have hle : ∀ t ∈ Set.Ici X, G t
+      ≤ ((m : ℝ) + 254) / Real.log t + efShellRow q (n9BceilA q β₀ t) t := by
+    intro t ht
+    have ht3 : (3 : ℝ) ≤ t := le_trans hX3 ht
+    exact n9_envB3_core_le_window hR m ht3 (hwint t ht)
+  obtain ⟨hSint, hSlim, -⟩ := n9_shellRow_tail_raw hR hX
+  -- integrability and the limit for `G`
+  have hCint : IntegrableOn
+      (fun v : ℝ => ((m : ℝ) + 254) * (1 / (v * Real.log v ^ 2))) (Set.Ioi X) :=
+    (integrableOn_inv_mul_log_sq hX1).const_mul _
+  have hmajint : IntegrableOn (fun v : ℝ => ((m : ℝ) + 254) * (1 / (v * Real.log v ^ 2))
+      + efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v)) (Set.Ioi X) := hCint.add hSint
+  have hptG : ∀ v ∈ Set.Ioi X, G v / (v * Real.log v)
+      ≤ ((m : ℝ) + 254) * (1 / (v * Real.log v ^ 2))
+        + efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v) := by
+    intro v hv
+    have hvX : X < v := hv
+    have hv0 : (0 : ℝ) < v := by linarith only [hvX, hX0]
+    have hvne : v ≠ 0 := ne_of_gt hv0
+    have hlv : (1 : ℝ) ≤ Real.log v := le_trans hlogX1 (Real.log_le_log hX0 hvX.le)
+    have hlv0 : (0 : ℝ) < Real.log v := by linarith only [hlv]
+    have hlvne : Real.log v ≠ 0 := ne_of_gt hlv0
+    rw [div_le_iff₀ (mul_pos hv0 hlv0)]
+    have hexpand : (((m : ℝ) + 254) * (1 / (v * Real.log v ^ 2))
+        + efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v)) * (v * Real.log v)
+        = ((m : ℝ) + 254) / Real.log v + efShellRow q (n9BceilA q β₀ v) v := by
+      field_simp
+    rw [hexpand]
+    exact hle v (le_of_lt hvX)
+  have hGint : IntegrableOn (fun t : ℝ => G t / (t * Real.log t)) (Set.Ioi X) := by
+    have hcontG : ContinuousOn (fun v : ℝ => G v / (v * Real.log v)) (Set.Ioi X) := by
+      refine ContinuousOn.div
+        (hGc.mono (fun v hv => Set.mem_Ici.mpr (le_of_lt (Set.mem_Ioi.mp hv))))
+        (continuousOn_id.mul (Real.continuousOn_log.mono
+          (fun v hv => ne_of_gt (by linarith only [Set.mem_Ioi.mp hv, hX0])))) (fun v hv => ?_)
+      have hvX : X < v := hv
+      have hv0 : (0 : ℝ) < v := by linarith only [hvX, hX0]
+      have hlv0 : (0 : ℝ) < Real.log v := Real.log_pos (by linarith only [hvX, hXbig])
+      exact ne_of_gt (mul_pos hv0 hlv0)
+    refine hmajint.mono' (hcontG.aestronglyMeasurable measurableSet_Ioi)
+      ((ae_restrict_iff' measurableSet_Ioi).mpr (ae_of_all _ (fun v hv => ?_)))
+    have hvX : X < v := hv
+    have hv0 : (0 : ℝ) < v := by linarith only [hvX, hX0]
+    have hlv0 : (0 : ℝ) < Real.log v := Real.log_pos (by linarith only [hvX, hXbig])
+    have h0 : (0 : ℝ) ≤ G v / (v * Real.log v) :=
+      div_nonneg (hG0 v (le_of_lt hvX)) (le_of_lt (mul_pos hv0 hlv0))
+    rw [Real.norm_eq_abs, abs_of_nonneg h0]
+    exact hptG v hv
   have hGlim : Tendsto (fun t : ℝ => G t / Real.log t) atTop (𝓝 0) := by
-    refine tendsto_div_log_of_eventually_le ?_ hev
-    filter_upwards [eventually_ge_atTop X] with t ht
-    exact hG0 t ht
+    have hmajlim : Tendsto (fun t : ℝ => ((m : ℝ) + 254) * (1 / Real.log t ^ 2)
+        + efShellRow q (n9BceilA q β₀ t) t / Real.log t) atTop (𝓝 0) := by
+      have hlogsq : Tendsto (fun t : ℝ => Real.log t ^ 2) atTop atTop :=
+        (tendsto_pow_atTop (by norm_num)).comp Real.tendsto_log_atTop
+      have h1 : Tendsto (fun t : ℝ => ((m : ℝ) + 254) * (1 / Real.log t ^ 2)) atTop (𝓝 0) := by
+        have h2 := (tendsto_inv_atTop_zero.comp hlogsq).const_mul ((m : ℝ) + 254)
+        rw [mul_zero] at h2
+        simpa [one_div] using h2
+      have h3 := h1.add hSlim
+      rwa [add_zero] at h3
+    refine squeeze_zero' ?_ ?_ hmajlim
+    · filter_upwards [eventually_ge_atTop X] with t ht
+      exact div_nonneg (hG0 t ht) (Real.log_nonneg (by linarith only [ht, hXbig]))
+    · filter_upwards [eventually_ge_atTop X] with t ht
+      have ht3 : (3 : ℝ) ≤ t := le_trans hX3 ht
+      have hlt0 : (0 : ℝ) < Real.log t := Real.log_pos (by linarith only [ht, hXbig])
+      have hltne : Real.log t ≠ 0 := ne_of_gt hlt0
+      have hstep := div_le_div_of_nonneg_right (hle t ht) hlt0.le
+      have heq : (((m : ℝ) + 254) / Real.log t + efShellRow q (n9BceilA q β₀ t) t)
+          / Real.log t
+          = ((m : ℝ) + 254) * (1 / Real.log t ^ 2)
+            + efShellRow q (n9BceilA q β₀ t) t / Real.log t := by
+        field_simp
+      linarith only [hstep, heq.le, heq.ge]
   obtain ⟨S, hS, hbound⟩ :=
     logChiSum_tendsto_of_envelope χ (by linarith) hR.β1 m hX3 hGc hG0 hEF hGint hGlim
-  refine ⟨S, hS, le_trans hbound (le_trans (tail_le_of_pointwise hX3 hGc hG0 hle) ?_)⟩
-  -- `C/(log X)² + 2C/log X ≤ 100/√(log X)` at `C = 256`, `√(log X) ≥ 19364`
-  have hC : ((m : ℝ) + 255) = 256 := by norm_num [hm1]
-  rw [hC]
+  refine ⟨S, hS, le_trans hbound ?_⟩
+  -- the ledger: the core rows through the kept weakening block at `C = 255`, the shell row
+  -- through `hEtail`
+  have hIG : (∫ v in Set.Ioi X, G v / (v * Real.log v))
+      ≤ ((m : ℝ) + 254) * (1 / Real.log X)
+        + ∫ v in Set.Ioi X, efShellRow q (n9BceilA q β₀ v) v / (v * Real.log v) := by
+    have h1 := setIntegral_mono_on hGint hmajint measurableSet_Ioi hptG
+    rwa [integral_add hCint hSint, MeasureTheory.integral_const_mul,
+      integral_inv_mul_log_sq hX1] at h1
+  have hGX : G X / Real.log X ≤ ((m : ℝ) + 254) * (1 / Real.log X ^ 2)
+      + efShellRow q (n9BceilA q β₀ X) X / Real.log X := by
+    have hlXne : Real.log X ≠ 0 := ne_of_gt hlogX0
+    have hstep := div_le_div_of_nonneg_right (hle X (Set.mem_Ici.mpr le_rfl)) hlogX0.le
+    have heq : (((m : ℝ) + 254) / Real.log X + efShellRow q (n9BceilA q β₀ X) X) / Real.log X
+        = ((m : ℝ) + 254) * (1 / Real.log X ^ 2)
+          + efShellRow q (n9BceilA q β₀ X) X / Real.log X := by
+      field_simp
+    linarith only [hstep, heq.le, heq.ge]
+  -- `C/(log X)² + 2C/log X ≤ 100/√(log X)` at `C = 255`, `√(log X) ≥ 19364`
+  have hC : ((m : ℝ) + 254) = 255 := by norm_num [hm1]
+  rw [hC] at hIG hGX
   obtain ⟨s, hsdef⟩ : ∃ s : ℝ, s = Real.sqrt (Real.log X) := ⟨_, rfl⟩
   have hsq : s ^ 2 = Real.log X := by rw [hsdef]; exact Real.sq_sqrt hlogX0.le
   have hs : (19364 : ℝ) ≤ s := by
@@ -2659,15 +3331,75 @@ theorem logChiSum_tail_at_window [NeZero q] {χ : DirichletCharacter ℂ q} {β�
     exact Real.sqrt_le_sqrt (by norm_num; linarith)
   have hs0 : (0 : ℝ) < s := by linarith
   rw [← hsdef, ← hsq]
-  have e1 : (256 : ℝ) / (s ^ 2) ^ 2 ≤ 1 / s := by
-    rw [div_le_div_iff₀ (by positivity) hs0]
+  rw [← hsq] at hIG hGX hEtail
+  have e1 : (255 : ℝ) * (1 / (s ^ 2) ^ 2) ≤ 1 / s := by
+    rw [mul_one_div, div_le_div_iff₀ (by positivity) hs0]
     nlinarith [hs, hs0]
-  have e2 : 2 * ((256 : ℝ) / s ^ 2) ≤ 99 / s := by
-    rw [show 2 * ((256 : ℝ) / s ^ 2) = 512 / s ^ 2 by ring,
+  have e2 : 2 * ((255 : ℝ) * (1 / s ^ 2)) ≤ 99 / s := by
+    rw [mul_one_div, show 2 * ((255 : ℝ) / s ^ 2) = 510 / s ^ 2 by ring,
       div_le_div_iff₀ (by positivity) hs0]
     nlinarith [hs, hs0]
   have e3 : (1 : ℝ) / s + 99 / s = 100 / s := by ring
-  linarith
+  linarith only [hGX, hIG, hEtail, e1, e2, e3]
+
+/-- **`htail` AT THE WINDOW, RANGE A, RE-GRADED (design γ).**  The tail at the REPULSION ceiling,
+built on the SHELL envelope `efEnvelopeB3`: the conclusion gains ONE `X`-free summand
+`n9Tail q η` — exponentially small in `ℓ′`, and `q`-FREE — and the regime binder loses `ellL`.
+That trade is the whole of stage B3-i: the crude near-1 zero count row (iv) carried (finding 4,
+and the `16·log log 4q` it forced on the regime) is replaced by B2's log-free density spent
+shell by shell, so the polylog quality the crown needs drops from `k = 30` to `k = 14`.
+Route: `n9_tail_at_window_gen` at `Etail := n9Tail q η`, with `n9_shellRow_tail_le` for the shell
+row's tail.  Class **C** (the assembly is `n9_tail_at_window_gen`'s).
+*(History: v1 re-exported the landed Range-B tail `logChiSum_tendsto_zfr_hundred` at a printed
+`e^{70000}`; the verdict's one FATAL (K6) killed that — that producer's `X₀` is `Classical.choose`d
+from `efEnvelope_zfr_eventually_le_sharp`, `q`-dependent and superpolynomial, so NO
+`x ∈ [q^250, q^500]` clears it.  Range A is where the decay is real: the repulsion ceiling's
+`u^{bceil−1} = exp(−n9EllAt·log u/(680·log(q(T₀+3))))` is `≤ exp(−ℓ′/5000)` from `u ≥ q^{250}` on.
+Until 2026-09-06 this row's grade was the bare `100/√log X`, at the price of the regime's `ellL`.)*
+Consumer: `hb_L2_at_hb_point` (through `n9_tail_at_window_sharp`; `hcorr_at_split`'s `hS`). -/
+theorem logChiSum_tail_at_window [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {X : ℝ} (hX : (q : ℝ) ^ 250 ≤ X) :
+    ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
+      ‖S + (Salt.SW.zeroMult χ (β₀ : ℂ) : ℂ)
+          * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖
+        ≤ 100 / Real.sqrt (Real.log X) + n9Tail q η :=
+  n9_tail_at_window_gen hR hX (n9_shellRow_tail_le hR hX).2.2
+
+/-- **THE SAME TAIL AT THE SHARP CONSTANT — what the consumer must spend.**  ⛔ `n9Tail`'s
+printed `20·n9CB2·e^{−ℓ′/24}` is bounded through `ellB3` by `1/100` AND BY NOTHING SMALLER: at
+`ℓ′ = n9E0B3` (i.e. `n9CB2` astronomically large) that bound is attained, so `n9Tail` is a
+CONSTANT slot.  `hsmall`'s unit budget absorbs a constant (0.527 → 0.567); the `δ`-bound
+`|δ| ≤ n9K2·(log ℓ′/√ℓ′ + 1/√L)` does NOT — its right-hand side tends to `0` with `ℓ′`, and no
+inequality between the two `Classical.choose`n constants `n9CB2` and `n9Cs` is available.  The
+freeze's `cT` therefore closes `hsmall` and not the closer at the end of `hb_L2_at_hb_point`.
+⇒ **the row the consumer spends is this one**: the honest tail
+(`n9_shellRow_tail_raw`, `18·n9CB2·e^{−ℓ′/11}`) has a STRICTLY larger exponent than the
+threshold's `/24`, and that margin is exactly what cancels `n9CB2`:
+`n9CB2 ≤ e^{ℓ′/24}/2000` (`ellB3`) gives `18·n9CB2·e^{−ℓ′/11} ≤ (9/1000)·e^{−13ℓ′/264}
+≤ e^{−ℓ′/300}` — `n9CB2`-free, and decaying.  Class **A** (`n9_tail_at_window_gen` + one
+exponential comparison).  Consumer: `hb_L2_at_hb_point` (`htail`). -/
+private lemma n9_tail_at_window_sharp [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {X : ℝ} (hX : (q : ℝ) ^ 250 ≤ X) :
+    ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
+      ‖S + (Salt.SW.zeroMult χ (β₀ : ℂ) : ℂ)
+          * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖
+        ≤ 100 / Real.sqrt (Real.log X) + Real.exp (-(n9Ell q η) / 300) := by
+  obtain ⟨-, -, hPbig, -, -, -, -⟩ := n9_num_facts hR
+  have hC0 : 0 < n9CB2 := n9B2_spec.1
+  refine n9_tail_at_window_gen hR hX (le_trans (n9_shellRow_tail_raw hR hX).2.2 ?_)
+  have hCle : 2000 * n9CB2 + 1 ≤ Real.exp (n9Ell q η / 24) := by
+    have h := hR.ellB3
+    simp only [n9E0B3] at h
+    have hpos : (0 : ℝ) < 2000 * n9CB2 + 1 := by linarith only [hC0]
+    have h2 : Real.log (2000 * n9CB2 + 1) ≤ n9Ell q η / 24 := by linarith only [h]
+    have h3 := Real.exp_le_exp.mpr h2
+    rwa [Real.exp_log hpos] at h3
+  have h18 : 18 * n9CB2 ≤ Real.exp (n9Ell q η / 24) := by linarith only [hCle, hC0]
+  calc 18 * n9CB2 * Real.exp (-(n9Ell q η) / 11)
+      ≤ Real.exp (n9Ell q η / 24) * Real.exp (-(n9Ell q η) / 11) :=
+        mul_le_mul_of_nonneg_right h18 (Real.exp_pos _).le
+    _ = Real.exp (n9Ell q η / 24 + -(n9Ell q η) / 11) := (Real.exp_add _ _).symm
+    _ ≤ Real.exp (-(n9Ell q η) / 300) := Real.exp_le_exp.mpr (by linarith only [hPbig])
 
 /-- **Bounded window sums of a non-negative integrand ⇒ summable.**  The monotone-convergence
 half of `hbEulerLog_tendsto`: `g` vanishes at and below `N`, is non-negative, and every window
@@ -3074,9 +3806,13 @@ set_option maxHeartbeats 1000000 in
 /-- **`(L2)` AT HB's OPERATING POINT — N4's composition wave, as one row.**
 `hb_L2_at_split_point_charTrio` at `X := x`, `z := hbZ − 1`, `L := log q`, with its six binders
 paid: `hm1` ← `zeroMult_eq_one_of_eta` (`η ≥ 15000`, `hη` by `one_div`); `htail` ←
-`logChiSum_tail_at_window` at `X = x ≥ q^250`; `hseg` ← `hb_hseg_closed` with `segC_spec` and
+`n9_tail_at_window_sharp` at `X = x ≥ q^250` (the design-γ re-grade: `Etail` gains the shell
+row's tail — spent HERE at the sharp `e^{−ℓ′/300}`, not at the printed `n9Tail`, because this
+row's `δ`-bound tends to `0` with `ℓ′` while `n9Tail` is only a constant; see that row's
+docstring); `hseg` ← `hb_hseg_closed` with `segC_spec` and
 `chiOne_kill_at_hb_point`; `hcorr` ← `hcorr_at_split` with `hbEulerLog_tendsto` and the `S` of
-`logChiSum_tail_at_window`; `hP` ← `merC_spec`; `hsmall` ← the ledger: `4·Etail ≤ 400/√(250L)`,
+`logChiSum_tail_at_window`; `hP` ← `merC_spec`; `hsmall` ← the ledger: `4·Etail ≤ 400/√(250L)`
+plus the B3 tail's constant slot (`cT`, `≤ 1/100`; the unit budget goes `0.527 → 0.567`),
 `4·Ekill ≤ 4e^{250}(802+4n9Cs)·2L/(√ℓ′·log z)` with `log z ≥ 10⁴L/log ℓ′` (the
 `(e^{300}(802+4n9Cs))^8`-part of `n9E0` closes it — a square would), `8·EP = 8·merC/log z` and
 `Eseg`'s `segC/log z` (the `e^{merC+segC}`-part of `n9E0`, with `L ≥ e^{401}ℓ′`), `2·64/z`.
@@ -3169,18 +3905,23 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have ha : (0 : ℝ) ≤ (Real.exp 300 * (802 + 4 * n9Cs)) ^ 8 := by positivity
     have hb : (0 : ℝ) < Real.exp (merC + segC) := Real.exp_pos _
     simp only [n9E0]; linarith only [ha, hb, hc]
-  have h16L : 16 * Real.log (Real.log q) + 300 ≤ n9Ell q η := by
-    linarith only [hR.ellL, hloglog, hE0big]
-  have hηhuge : Real.exp 300 * Real.log q ^ 16 ≤ η := by
-    have h1 : Real.exp (300 + 16 * Real.log (Real.log q)) ≤ Real.exp (Real.log η) :=
-      Real.exp_le_exp.mpr (by linarith only [h16L, hEllLogη])
-    rw [Real.exp_log hηpos] at h1
-    have h2 : Real.exp (300 + 16 * Real.log (Real.log q))
-        = Real.exp 300 * Real.log q ^ 16 := by
-      rw [Real.exp_add, show (16 : ℝ) * Real.log (Real.log q)
-        = ((16 : ℕ) : ℝ) * Real.log (Real.log q) by norm_num, Real.exp_nat_mul,
-        Real.exp_log hL]
-    linarith only [h1, h2]
+  -- `ℓ′` keeps THIRTEEN of the fourteen `log(log 4q + 2)` (design γ: `ellL` is gone, `ellBig`
+  -- is not — and `hηbig`'s constant bound cannot re-derive a `q`-dependent one)
+  have h13L : n9E0 + 13 * Real.log (Real.log q) ≤ Real.log η := by
+    have hinv : 0 ≤ Real.log (1 / dhC) :=
+      Real.log_nonneg (by rw [le_div_iff₀ dh_spec.1]; linarith [dh_spec.2.1])
+    have hLle : Real.log q ≤ Real.log (4 * (q : ℝ)) + 2 := by
+      have h : Real.log q ≤ Real.log (4 * (q : ℝ)) :=
+        Real.log_le_log hqR0 (by linarith only [hqR0])
+      linarith only [h]
+    have hlogLle : Real.log (Real.log q) ≤ Real.log (Real.log (4 * (q : ℝ)) + 2) :=
+      Real.log_le_log hL hLle
+    have hdk : dhK = 14 := rfl
+    have hsplit : Real.log (η * Real.log q) = Real.log η + Real.log (Real.log q) :=
+      Real.log_mul (ne_of_gt hηpos) hLne
+    have hell := hR.ellBig
+    simp only [n9Ell, hdk, hsplit] at hell
+    linarith only [hell, hinv, hlogLle]
   have hηnum : (3000002 : ℝ) ≤ η := by
     have h1 : Real.exp (3000001 : ℝ) ≤ η := by
       have h := Real.exp_le_exp.mpr (show (3000001 : ℝ) ≤ Real.log η by
@@ -3303,7 +4044,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have h2 : (hbZ q η : ℝ) ^ 3 ≤ (x : ℝ) := hzx
     rw [hzdef]; linarith only [h1, h2]
   -- the four binders of `hb_L2_at_split_point_charTrio`
-  obtain ⟨S, hS, htail⟩ := logChiSum_tail_at_window hR hx
+  obtain ⟨S, hS, htail⟩ := n9_tail_at_window_sharp hR hx
   have hcorr := hcorr_at_split hR hz3 hzX hS
   have hkill := chiOne_kill_at_hb_point hR hz3 hXpos.le hwinX
   rw [← hecdef] at hkill
@@ -3452,7 +4193,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   have hlogLnn : (0 : ℝ) ≤ Real.log (Real.log q) := Real.log_nonneg (by linarith only [hLhuge])
   have hηe : Real.exp 300 * Real.log q ^ 3 ≤ η := by
     have h1 : Real.exp (300 + 3 * Real.log (Real.log q)) ≤ Real.exp (Real.log η) :=
-      Real.exp_le_exp.mpr (by linarith only [h16L, hEllLogη, hlogLnn])
+      Real.exp_le_exp.mpr (by linarith only [h13L, hE0big, hlogLnn])
     rw [Real.exp_log hηpos] at h1
     have h2 : Real.exp (300 + 3 * Real.log (Real.log q)) = Real.exp 300 * Real.log q ^ 3 := by
       rw [Real.exp_add, show (3 : ℝ) * Real.log (Real.log q)
@@ -3571,12 +4312,19 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have hpos : (0 : ℝ) ≤ Real.exp 250 * ec * A := by positivity
     have hbig : (14402 : ℝ) ≤ Real.exp 350 * ec := by nlinarith only [h2, hec]
     nlinarith only [hprod, hpos, hbig]
+  -- the B3 tail's slot: a CONSTANT `≤ 1/100`, which the unit budget absorbs (`0.527 → 0.567`)
+  have cT : Real.exp (-(n9Ell q η) / 300) ≤ 1 / 100 := by
+    have h1 := Real.add_one_le_exp (n9Ell q η / 300)
+    have h2 : Real.exp (-(n9Ell q η) / 300) * Real.exp (n9Ell q η / 300) = 1 := by
+      rw [← Real.exp_add, show -(n9Ell q η) / 300 + n9Ell q η / 300 = 0 by ring, Real.exp_zero]
+    have h3 : (0 : ℝ) < Real.exp (-(n9Ell q η) / 300) := Real.exp_pos _
+    nlinarith only [hPbig, h1, h2, h3]
   have hsmall : 4 * ((2 / z + 10 / Real.sqrt z)
         + (Ek + 30 / Real.sqrt z + segC / Real.log z + Real.log q / Real.log z / z)
-        + 100 / Real.sqrt (Real.log (x : ℝ))
+        + (100 / Real.sqrt (Real.log (x : ℝ)) + Real.exp (-(n9Ell q η) / 300))
         + 500 * (1 + 2 * Real.log (η * Real.log q)) / η)
       + 8 * (merC / Real.log z) + 2 * (64 / z) ≤ 1 := by
-    linarith only [c1, c2, c3, c4, c5, c6, c7, c8, c11, hAsmall, hBsmall, hAle1, hB0]
+    linarith only [c1, c2, c3, c4, c5, c6, c7, c8, c11, hAsmall, hBsmall, hAle1, hB0, cT]
   obtain ⟨δ, hδeq, hδle⟩ := hb_L2_at_split_point_charTrio (α := 4) (x := (x : ℝ)) χ hR.sq hqpos
     (by norm_num) (by norm_num) hR.β1 hL hR.ηdef hz32 (by exact_mod_cast hz4) hX3 hwinX
     (by linarith only [hηnum]) hm1 htail hseg hcorr hP hsmall
@@ -3584,7 +4332,28 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   refine ⟨δ, hδeq, ?_⟩
   refine le_trans hδle ?_
   rw [← hAdef, ← hBdef, n9K2, ← hecdef]
-  have hc1 : Real.exp 250 * ec / 300 + 1 / 1000 ≤ Real.exp 260 * ec := by
+  -- the B3 tail's slot in the `δ`-bound.  `cT` (a CONSTANT `1/100`) is NOT enough here: this
+  -- target tends to `0` with `ℓ′`, so the tail must decay — which is exactly why the consumer
+  -- spends `n9_tail_at_window_sharp` (`e^{−ℓ′/300}`) and not the printed `n9Tail`.
+  have cTA : 4 * Real.exp (-(n9Ell q η) / 300) ≤ A := by
+    have hsq1732 : (1732 : ℝ) ≤ Real.sqrt (n9Ell q η) := by
+      nlinarith only [hEsq, hEsqrt, hPbig]
+    have hexpbig : 4 * Real.sqrt (n9Ell q η) ≤ Real.exp (n9Ell q η / 300) := by
+      have h1 := Real.add_one_le_exp (n9Ell q η / 300)
+      nlinarith only [h1, hEsq, hsq1732, hEsqrt]
+    have hinv : Real.exp (-(n9Ell q η) / 300) * Real.exp (n9Ell q η / 300) = 1 := by
+      rw [← Real.exp_add, show -(n9Ell q η) / 300 + n9Ell q η / 300 = 0 by ring, Real.exp_zero]
+    have hepos : (0 : ℝ) < Real.exp (-(n9Ell q η) / 300) := Real.exp_pos _
+    have hlog1 : (1 : ℝ) ≤ Real.log (n9Ell q η) := by
+      have he := Real.exp_one_lt_d9
+      have h := Real.log_le_log (Real.exp_pos 1)
+        (show Real.exp 1 ≤ n9Ell q η by linarith only [he, hPbig])
+      rwa [Real.log_exp] at h
+    have hstep : 4 * Real.exp (-(n9Ell q η) / 300) * Real.sqrt (n9Ell q η) ≤ 1 := by
+      nlinarith only [hexpbig, hinv, hepos, hEsqrt]
+    rw [hAdef, le_div_iff₀ hEsqrt]
+    nlinarith only [hstep, hlog1, hEsqrt]
+  have hc1 : Real.exp 250 * ec / 300 + 1 / 1000 + 1 ≤ Real.exp 260 * ec := by
     have h10 : (11 : ℝ) ≤ Real.exp 10 := by
       have := Real.add_one_le_exp (10 : ℝ); linarith only [this]
     have heq : Real.exp 260 = Real.exp 250 * Real.exp 10 := by
@@ -3601,10 +4370,10 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have h1 : (1 : ℝ) ≤ Real.exp 260 := by
       have := Real.add_one_le_exp (260 : ℝ); linarith only [this]
     nlinarith only [h1, hec]
-  have hcA : (Real.exp 250 * ec / 300) * A + A / 1000 ≤ Real.exp 260 * ec * A := by
+  have hcA : (Real.exp 250 * ec / 300) * A + A / 1000 + A ≤ Real.exp 260 * ec * A := by
     nlinarith only [hA0, hc1]
   have hcB : 32 * B ≤ Real.exp 260 * ec * B := by nlinarith only [hB0, hc2]
-  linarith only [c1, c2, c3, c4, c5, c6, c7, c8, c10, c11, hcA, hcB]
+  linarith only [c1, c2, c3, c4, c5, c6, c7, c8, c10, c11, hcA, hcB, cTA]
 
 /-! ## §5 — THE ASSEMBLY: Lemma 4 + the p.200 bracket + the cancellation = Theorem 1 -/
 
@@ -5493,7 +6262,8 @@ theorem hb_theorem1_lower [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
 
 /-- **The fulcrum quality at POLYLOG strength `k`**: infinitely many real primitive `χ` with a
 zero `ρ` inside `‖1 − ρ‖ ≤ 1/(C·(log q)^k)`.  At `k = 1` this is `FulcrumQualityMin C`
-(`fulcrumQualityPoly_one_iff`).  The landed engine fires at `k = 30 = dhK + 16` (findings 2, 4). -/
+(`fulcrumQualityPoly_one_iff`).  The landed engine fires at `k = dhK = 14` (finding 2; it fired at
+`k = 30 = dhK + 16` while finding 4's `ellL` stood, i.e. until design γ's shell re-grade). -/
 def FulcrumQualityPoly (C k : ℝ) : Prop :=
   ∀ Q : ℕ, ∃ (q : ℕ) (_ : NeZero q) (χ : DirichletCharacter ℂ q) (ρ : ℂ),
     Q < q ∧ χ.IsPrimitive ∧ χ ^ 2 = 1 ∧ χ ≠ 1 ∧
@@ -5512,10 +6282,11 @@ def NoSiegelZerosPoly (k : ℝ) : Prop :=
 
 /-- **THE CROWN FAMILY.**  `k = 1` is the frozen `HeathBrownDichotomy` (byte-untouched, in
 `Salt/TwinBar/SiegelTwin.lean`; `heathBrownDichotomyPoly_one_iff`); the landed supply reaches
-`k = 30` (`dhK = 14` from the contract, `16` from the tail's crude count — finding 4).  **The
+`k = 14` (`dhK = 14` from the contract, and — since design γ's shell re-grade, 2026-09-06 —
+NOTHING from the tail; it was `k = 30` while finding 4's crude-count price `ellL` stood).  **The
 Captain's ruling (2026-09-04 12:39): the campaign's crown is the `k = 1` member — HB's exactly —
-reached through Arm B (D–H re-proved at `k ≤ 1` AND a log-free near-1 density, the next design
-block); this file lands `k = 30` as the INTERMEDIATE member.** -/
+reached through Arm B (D–H re-proved at `k ≤ 1`; the log-free near-1 density half is landed);
+this file lands `k = 14` as the INTERMEDIATE member.** -/
 def HeathBrownDichotomyPoly (k : ℝ) : Prop :=
   TwinPrimeConjecture ∨ NoSiegelZerosPoly k
 
@@ -5686,13 +6457,15 @@ theorem beta0_max_of_zero [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.I
   · exact S.le_max' b' (Finset.mem_image.mpr ⟨(b' : ℂ), hmemZ b' hb' h.le hb'1.le, by simp⟩)
 
 /-- **The crown's quality constant — HB's `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` (p.223), in this file's
-currency**: `1 − β₀ ≤ 1/(n9Cq·(log q)^{30})` puts `ℓ′ ≥ n9E0 + e^{2·n9K} + 1 + 16·log L` (so
-`ellBig`, `ellL` and `hK` hold): `ηL = 1/(1−β₀) ≥ C·L^{30}` gives `log(ηL) ≥ log C + 30·log L`,
-and `14·log(log 4q + 2) ≤ 14·log L + 8.6` at `L ≥ 4`, so `ℓ′ ≥ log C − log(1/dhC) − 8.6 + 16·log L`;
-the `/dhC` here cancels the `−log(1/dhC)` exactly, and `16·log log(4q) ≤ 16·log L + 22/L`
-(the verdict's U1 gave `14`; finding 4's `ellL` adds `16`). -/
+currency**: `1 − β₀ ≤ 1/(n9Cq·(log q)^{14})` puts `ℓ′ ≥ n9E0 + n9E0B3 + e^{2·n9K}` (so `ellBig`,
+`ellB3` and `hK` hold): `ηL = 1/(1−β₀) ≥ C·L^{14}` gives `log(ηL) ≥ log C + 14·log L`, and
+`14·log(log 4q + 2) ≤ 14·log L + 14` at `L ≥ 4`, so the `+14` in `C` and the `14·log L` cancel
+EXACTLY and the `/dhC` cancels the `−log(1/dhC)`: NO `log L` residue survives.  The exponent is
+`dhK + 0` — the verdict's U1 (`ηL = 1/(1−β₀)` already supplies one power of `L`).
+*(History: until 2026-09-06 this def read `exp(n9E0 + e^{2·n9K} + 10)/dhC` at `k = 30`, the extra
+`16` being finding 4's `ellL`; design (γ)'s shell re-grade deleted that field.)* -/
 noncomputable def n9Cq (Cerr CA CA' CC : ℝ) : ℝ :=
-  Real.exp (n9E0 + Real.exp (2 * n9K Cerr CA CA' CC) + 10) / dhC
+  Real.exp (n9E0 + n9E0B3 + Real.exp (2 * n9K Cerr CA CA' CC) + 14) / dhC
 
 /-- **THE HAND-OVER: from the polylog fulcrum to the door's hypothesis.**  Class **C**, cap 400.
 Red-first: for `N`, take the witness at a `Q ≥ N` with `Real.exp 402 * (n9E0 + 1) ≤ Real.log Q`
@@ -5703,11 +6476,11 @@ on top of it); reality by `fulcrum_zero_real` with `zero_free_region_all_numeral
 the largest real zero by `beta0_max_of_zero` (its quality is at least the witness's); `ηq` from
 `siegel_theorem` at `ε := e^{−402}` — INEFFECTIVE, absorbed into the `∃ x` (the threshold `Q` may
 depend on Siegel's `C(ε)`; nothing here is claimed effective); the remaining regime fields from
-the quality at `k = 30` (`n9Cq`'s docstring: `ellBig` and `ellL` both); `x := q^250`;
+the quality at `k = 14` (`n9Cq`'s docstring: `ellBig` and `ellB3` both); `x := q^250`;
 `hb_theorem1_lower` with `hK` from the quality; then `x𝔖C(4)/2 > 4√(2x+2)·log³(2x+2)` at
 `x ≥ q^250`.  Consumer: `hEngine_poly_of_N7`. -/
 theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
-    (hF : FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 30) :
+    (hF : FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 14) :
     ∀ N : ℕ, ∃ x : ℕ, N ≤ x ∧
       4 * Real.sqrt (2 * (x : ℝ) + 2) * Real.log (2 * (x : ℝ) + 2) ^ 3
         < S1 (Finset.Ioc x (2 * x)) := by
@@ -5772,10 +6545,11 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
   have hdC1 := dh_spec.2.1
   have hCqpos : 0 < n9Cq Cerr CA CA' CC := by
     simp only [n9Cq]; exact div_pos (Real.exp_pos _) hdCpos
+  have hE0B3nn : (0 : ℝ) ≤ n9E0B3 := n9E0B3_nonneg
   have hCqbig : (253696 : ℝ) ≤ n9Cq Cerr CA CA' CC := by
     have hnum : Real.exp (20 : ℝ)
-        ≤ Real.exp (n9E0 + Real.exp (2 * n9K Cerr CA CA' CC) + 10) :=
-      Real.exp_le_exp.mpr (by linarith only [hE0pos, hexp2K])
+        ≤ Real.exp (n9E0 + n9E0B3 + Real.exp (2 * n9K Cerr CA CA' CC) + 14) :=
+      Real.exp_le_exp.mpr (by linarith only [hE0pos, hexp2K, hE0B3nn])
     simp only [n9Cq]
     rw [le_div_iff₀ hdCpos]
     nlinarith only [hnum, hexp20, hdCpos, hdC1]
@@ -5805,17 +6579,17 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
   have hq3 : 3 ≤ q := three_le_of_ne_one χ hne
   have hqR : (3 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq3
   have hqpos : (0 : ℝ) < (q : ℝ) := by linarith only [hqR]
-  -- the fulcrum ball at exponent `1` follows from the one at exponent `30`
+  -- the fulcrum ball at exponent `1` follows from the one at exponent `14`
   have hL1 : (1 : ℝ) ≤ Real.log q := by linarith only [hLhuge]
-  have hmono30 : Real.log q ≤ Real.log q ^ (30 : ℝ) := by
-    have h := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num : (1 : ℝ) ≤ 30)
+  have hmono14 : Real.log q ≤ Real.log q ^ (14 : ℝ) := by
+    have h := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num : (1 : ℝ) ≤ 14)
     rwa [Real.rpow_one] at h
   have hnn : (0 : ℝ) ≤ ‖(1 : ℂ) - ρ‖ := norm_nonneg _
   have hball1 : ‖(1 : ℂ) - ρ‖ * (n9Cq Cerr CA CA' CC * Real.log q) ≤ 1 := by
     have hstep : ‖(1 : ℂ) - ρ‖ * (n9Cq Cerr CA CA' CC * Real.log q)
-        ≤ ‖(1 : ℂ) - ρ‖ * (n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ)) := by
+        ≤ ‖(1 : ℂ) - ρ‖ * (n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ)) := by
       apply mul_le_mul_of_nonneg_left _ hnn
-      nlinarith only [hmono30, hCqpos]
+      nlinarith only [hmono14, hCqpos]
     linarith only [hstep, hball]
   obtain ⟨him0, hre12, hre1⟩ := Salt.Fulcrum.fulcrum_zero_real (n9Cq Cerr CA CA' CC)
     (1 / 126848) (by norm_num) (by norm_num) hCc0
@@ -5828,33 +6602,33 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
       apply Complex.ext <;> simp [him0]
     rw [he, Complex.norm_real, Real.norm_eq_abs, abs_of_pos (by linarith only [hre1])]
   have hβpos : 0 < 1 - β₀ := by linarith only [hβ01]
-  have hrpos : (0 : ℝ) < n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ) :=
-    mul_pos hCqpos (Real.rpow_pos_of_pos hLpos 30)
-  have hqual : (1 - β₀) * (n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ)) ≤ 1 := by
+  have hrpos : (0 : ℝ) < n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ) :=
+    mul_pos hCqpos (Real.rpow_pos_of_pos hLpos 14)
+  have hqual : (1 - β₀) * (n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ)) ≤ 1 := by
     rw [hnormβ] at hball
-    have hstep : (1 - β₀) * (n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ))
-        ≤ (1 - ρ.re) * (n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ)) :=
+    have hstep : (1 - β₀) * (n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ))
+        ≤ (1 - ρ.re) * (n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ)) :=
       mul_le_mul_of_nonneg_right (by linarith only [hββ0]) hrpos.le
     linarith only [hstep, hball]
   -- the operating point
   set η : ℝ := 1 / ((1 - β₀) * Real.log q) with hηdef
   have hηpos : 0 < η := by rw [hηdef]; positivity
   have hηL : η * Real.log q = 1 / (1 - β₀) := by rw [hηdef]; field_simp
-  have hηLge : n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ) ≤ η * Real.log q := by
+  have hηLge : n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ) ≤ η * Real.log q := by
     rw [hηL, le_div_iff₀ hβpos]
     linarith only [hqual]
   -- `ℓ′ ≥ n9E0 + e^{2·n9K} − 4 + 16·log L`
   have hlogCq : Real.log (n9Cq Cerr CA CA' CC)
-      = n9E0 + Real.exp (2 * n9K Cerr CA CA' CC) + 10 + Real.log (1 / dhC) := by
+      = n9E0 + n9E0B3 + Real.exp (2 * n9K Cerr CA CA' CC) + 14 + Real.log (1 / dhC) := by
     simp only [n9Cq]
     rw [Real.log_div (ne_of_gt (Real.exp_pos _)) (ne_of_gt hdCpos), Real.log_exp,
       one_div, Real.log_inv]
     ring
-  have hlogηL : Real.log (n9Cq Cerr CA CA' CC) + 30 * Real.log (Real.log q)
+  have hlogηL : Real.log (n9Cq Cerr CA CA' CC) + 14 * Real.log (Real.log q)
       ≤ Real.log (η * Real.log q) := by
-    have h1 : Real.log (n9Cq Cerr CA CA' CC * Real.log q ^ (30 : ℝ))
+    have h1 : Real.log (n9Cq Cerr CA CA' CC * Real.log q ^ (14 : ℝ))
         ≤ Real.log (η * Real.log q) := Real.log_le_log hrpos hηLge
-    rw [Real.log_mul (ne_of_gt hCqpos) (ne_of_gt (Real.rpow_pos_of_pos hLpos 30)),
+    rw [Real.log_mul (ne_of_gt hCqpos) (ne_of_gt (Real.rpow_pos_of_pos hLpos 14)),
       Real.log_rpow hLpos] at h1
     linarith only [h1]
   have hlogLnn : 0 ≤ Real.log (Real.log q) := Real.log_nonneg hL1
@@ -5884,15 +6658,14 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     have h2 : Real.log (Real.log (4 * (q : ℝ))) ≤ Real.log (2 * Real.log q) :=
       Real.log_le_log hlog4qpos h1
     linarith only [h2, hlog2L, hl2]
-  have hEllge : n9E0 + Real.exp (2 * n9K Cerr CA CA' CC) - 4 + 16 * Real.log (Real.log q)
-      ≤ n9Ell q η := by
+  -- the cancellation is EXACT at `k = 14`: `+14` against `14·log(log 4q + 2) ≤ 14·log L + 14`
+  have hEllge : n9E0 + n9E0B3 + Real.exp (2 * n9K Cerr CA CA' CC) ≤ n9Ell q η := by
     simp only [n9Ell, show dhK = 14 from rfl]
     linarith only [hlogηL, hlogCq, hA2]
-  have hellBig : n9E0 ≤ n9Ell q η := by linarith only [hEllge, hexp2K, hlogLnn]
-  have hellL : n9E0 + 16 * Real.log (Real.log (4 * (q : ℝ))) ≤ n9Ell q η := by
-    linarith only [hEllge, hexp2K, hA3]
+  have hellBig : n9E0 ≤ n9Ell q η := by linarith only [hEllge, hexp2K, hE0B3nn]
+  have hellB3 : n9E0B3 ≤ n9Ell q η := by linarith only [hEllge, hexp2K, hE0pos]
   have hEllexp : Real.exp (2 * n9K Cerr CA CA' CC) ≤ n9Ell q η := by
-    linarith only [hEllge, hE0pos, hlogLnn]
+    linarith only [hEllge, hE0pos, hE0B3nn]
   have hK : 2 * n9K Cerr CA CA' CC ≤ Real.log (n9Ell q η) := by
     have h := Real.log_le_log (Real.exp_pos (2 * n9K Cerr CA CA' CC)) hEllexp
     rwa [Real.log_exp] at h
@@ -5941,7 +6714,7 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
   -- the regime, and Theorem 1's lower half at `x = q^250`
   have hR : N9Regime q χ β₀ η :=
     { prim := hprim, sq := hsq, ne := hne, zero := hz0, β1 := hβ01, ηdef := hηdef,
-      ηmax := hmax, ηq := hηq, ellBig := hellBig, ellL := hellL }
+      ηmax := hmax, ηq := hηq, ellBig := hellBig, ellB3 := hellB3 }
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by linarith only [hqR]
   have hxcast : (((q ^ 250 : ℕ)) : ℝ) = (q : ℝ) ^ 250 := by push_cast; ring
   have hxlo : (q : ℝ) ^ 250 ≤ (((q ^ 250 : ℕ)) : ℝ) := by rw [hxcast]
@@ -6038,22 +6811,23 @@ theorem crown_handover {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     nlinarith only [hSS, hXpos]
   linarith only [hkey, hM, hlow]
 
-/-- **THE ENGINE AT STRENGTH `30`, CONDITIONAL ON N7.**  Class **A**, cap 40:
+/-- **THE ENGINE AT STRENGTH `14`, CONDITIONAL ON N7.**  Class **A**, cap 40:
 `twinPrimeConjecture_of_frequently_S1 (crown_handover hN7 hF)`.  Consumer:
 `heathBrownDichotomyPoly_of_N7`. -/
 theorem hEngine_poly_of_N7 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 30 → TwinPrimeConjecture := by
+    FulcrumQualityPoly (n9Cq Cerr CA CA' CC) 14 → TwinPrimeConjecture := by
   exact fun hF => twinPrimeConjecture_of_frequently_S1 (crown_handover hN7 hF)
 
 /-- **THE INTERMEDIATE CROWN, AT THE STRENGTH THE LANDED SUPPLY REACHES, CONDITIONAL ON N7:
-`TPC ∨ NoSiegelZerosPoly 30`.**  Stated at the LITERAL `30` (= `dhK + 16`: the contract's `14`
-plus the tail's crude-count price, finding 4), not at a def (the verdict's U4: a headline whose
-exponent is a mutable `def` in the same file would silently re-anchor).  The frozen crown is the
-`k = 1` member (`heathBrownDichotomyPoly_one_iff`); reaching it is Arm B — a D–H contract at
-`k ≤ 1` (HB's Jutila form) AND a log-free density on the near-1 strip — by the Captain's ruling.
+`TPC ∨ NoSiegelZerosPoly 14`.**  Stated at the LITERAL `14` (= the contract's `dhK`, with NO tail
+surcharge since design γ's shell re-grade of 2026-09-06 — it read `30 = dhK + 16` while finding 4's
+`ellL` stood), not at a def (the verdict's U4: a headline whose exponent is a mutable `def` in the
+same file would silently re-anchor).  The frozen crown is the `k = 1` member
+(`heathBrownDichotomyPoly_one_iff`); reaching it is Arm B — a D–H contract at `k ≤ 1` (HB's Jutila
+form); the log-free density on the near-1 strip, the other half, is landed and spent here.
 Class **A**, cap 20.  Consumer: none yet — the intermediate crown row. -/
 theorem heathBrownDichotomyPoly_of_N7 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    HeathBrownDichotomyPoly 30 := by
+    HeathBrownDichotomyPoly 14 := by
   have hCq : 0 < n9Cq Cerr CA CA' CC := by
     simp only [n9Cq]
     exact div_pos (Real.exp_pos _) dh_spec.1

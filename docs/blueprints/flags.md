@@ -25047,3 +25047,56 @@ as a LIMIT (`tendsto_rpow_neg_atTop` at `−73/600` after `log D ≤ 100·D^{1/1
 `(1 + log D/10)²`), never as a closed form. The threshold's exponent is `−17/120` rather than the
 design's `−43/240` for the same reason: `e^{ξ₀} ≥ D^{29/10}` (from `ξ₁ ≥ 3 log D − log 2`) is used
 in place of the sharp `D^{119/40}`, which costs decay but no generality.
+
+## B3-i(b)/hb_L2_at_hb_point — ⚖️ **THE FREEZE'S `cT` SLOT CLOSES `hsmall` AND NOT THE `δ`-BOUND: A CONSTANT TAIL CANNOT RIDE A TARGET THAT TENDS TO ZERO** (2026-09-06, Opus executor, elaboration of freeze draft `armB-B3-v0` v1 §0(B))
+
+**The row, and what it is not.** Nothing here is a STOP: every frozen statement of §0(A)/§0(B)
+landed as spelled, `heathBrownDichotomyPoly_of_N7 : … → HeathBrownDichotomyPoly 14` at the three
+axioms. This entry records a defect in the freeze's ROUTE for one consumer, found only at the
+elaboration, and the repair that carries it — because the freeze's instruction, followed
+literally, does not close.
+
+**What the freeze says.** §0(B): the consumer `hb_L2_at_hb_point` gets
+`cT : n9Tail q η ≤ 1/100` from `hR.ellB3`, the `hsmall` literal gains `(100/√(log x) + n9Tail q η)`
+(parenthesized, R3's repair #6), and "the closer `:3579` gains `cT`". That is exactly right for
+`hsmall`, whose budget is `≤ 1` and whose landed total is `0.527` (R3's re-sum): the constant
+`4·n9Tail ≤ 1/25` fits, `0.527 → 0.567`.
+
+**Where it breaks.** `Etail` enters TWICE. Besides `hsmall`, it rides the conclusion of
+`hb_L2_at_split_point_charTrio`:
+`|δ| ≤ 4·(Ecorr + Eseg + Etail + 500(1+2 log ηL)/η) + 8·EP + 2·(2(L/log z)/z) + 2·(64/z)`,
+and this row's own statement is `|δ| ≤ n9K2·(log ℓ′/√ℓ′ + 1/√L)` — a target that **tends to `0`
+as `ℓ′ → ∞`**, every landed term of the closer being `O(A) + O(B)`. A constant `1/100` cannot be
+absorbed by it, and `1/100` is the BEST bound `ellB3` gives: `n9E0B3 = 24·log(2000·n9CB2+1)` has
+the SAME coefficient `24` as `n9Tail`'s exponent `−ℓ′/24`, so
+`n9CB2·e^{−ℓ′/24} ≤ n9CB2/(2000·n9CB2+1)` — with equality attainable at `ℓ′ = n9E0B3`, i.e. for a
+`n9CB2` large enough. No decay in `ℓ′` survives, and no inequality between the two
+`Classical.choose`n constants `n9CB2` and `n9Cs` (inside `n9K2`) is available to Lean. **As
+spelled, the consumer is unprovable — not merely hard.**
+
+**The repair, and why it needs no statement change.** The honest tail is
+`18·n9CB2·e^{−ℓ′/11}` (`n9_shellRow_tail_raw`), whose exponent is strictly LARGER than the
+threshold's `1/24`; that margin is what cancels `n9CB2`:
+`n9CB2 ≤ e^{ℓ′/24}/2000` (`ellB3`) ⇒ `18·n9CB2·e^{−ℓ′/11} ≤ (9/1000)·e^{−13ℓ′/264} ≤ e^{−ℓ′/300}`,
+which is `n9CB2`-FREE and decays. So the file carries BOTH: the frozen
+`logChiSum_tail_at_window` at the printed `n9Tail q η` (freeze §0(B), proved as spelled), and a
+private `n9_tail_at_window_sharp` at `e^{−ℓ′/300}` — the same proof
+(`n9_tail_at_window_gen`) at a second `Etail`. The consumer spends the sharp row; `cT` becomes
+`e^{−ℓ′/300} ≤ 1/100` for `hsmall`, and the closer gains `cTA : 4·e^{−ℓ′/300} ≤ A` (through
+`4·√ℓ′ ≤ e^{ℓ′/300}`, `log ℓ′ ≥ 1`). Routes inside a proof are the executor's; no frozen
+statement, binder, numeral or name moved.
+
+**The lesson, stated so the next freeze prices it.** A slot bought for a `≤ 1` budget is not a
+slot in every consumer of the same term: **an `O(1)` widening must be checked against EVERY
+target the widened term reaches, and a target that tends to zero admits no constant.** The
+freeze's kill-checks summed `hsmall` (K4) and never summed the `δ`-bound, because the pair's T8
+had said "every term `O(B)`" — struck by R3 for the A-side, but the strike stopped at `hsmall`.
+⇒ when a widening rides an EXPORTED error term, walk the exported term's consumers, not the
+budget it was designed for. Cf. the memory card *a device binder is not a truth binder*: here a
+`1/100` that is TRUE and SUFFICIENT in one consumer is USELESS in the next.
+
+**A second, smaller correction to the freeze's arithmetic** (recorded, not blocking): §0(B)'s
+`ε = n9Ell/(5496·L)` halves `n9EllAt` (`n9EllAt ≥ n9Ell/2`) where `hEllAt' : n9EllAt ≥ ℓ′ − 14/100`
+already gives `ε = ℓ′/(2748·L)` at `ℓ′ ≥ 481` — the landed proof uses the sharper one, which is
+what makes `X^{−ε} ≤ e^{−250ℓ′/2748} ≤ e^{−ℓ′/11}` (the freeze's own `22` was the halved reading).
+The printed `n9Tail`'s `20` and `24` hold either way.
