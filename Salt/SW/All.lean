@@ -104,6 +104,7 @@ import Salt.SW.PseudoChar
 import Salt.SW.PseudoCharH
 import Salt.SW.JutilaResidue
 import Salt.SW.JutilaHalasz
+import Salt.SW.JutilaRatio
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.Tactic.AuditAxioms
@@ -863,3 +864,34 @@ open Salt.Tactic in
   Salt.SW.jutilaDetector_floor_half_sum
   Salt.SW.integral_norm_resKernel_diag_le
   Salt.SW.norm_integral_resKernel_offdiag_le
+-- ⟦B2 W9c-ratio 0906⟧ `Salt/SW/JutilaRatio.lean` — THE RATIO's re-cut: the residue block's
+-- integrability over the device's rectangle, the device lemma, and THE RATIO
+-- `J ≤ C·(qT)^{13(1−σ)}`. The W9a/c wave flagged `card_system_le_rpow` with its ten inputs
+-- landed and ONE named missing: every route to `c·|Ξ||H| ≤ ∫_Ξ∫_H Q` takes `IntervalIntegrable Q`
+-- (a non-integrable integrand has interval integral `0` in mathlib, so the LOWER bound is false
+-- without it), while the corpus carried bounds on `resKernel`, `jutilaI` and `halaszBTsum` only
+-- at a FIXED `(N, M)`. This file supplies it: on the rectangle `e^ξ ≤ e^η ≤ N₁` the residue block
+-- is a FINITE sum with a UNIFORM range (`jutilaB q R N M n = 0` for `n ≥ N`), each term
+-- continuous in `(ξ, η)`, hence a globally continuous function on `ℝ²` that AGREES with the block
+-- on the rectangle; the kernel is continuous in `(ξ, η)` at every `s` (the closed form off `0`,
+-- `η − ξ` at `0`); and `jutilaI` needs no row of its own — it is the DIFFERENCE of two continuous
+-- integrands through the landed identity. The device lemma integrates a pointwise lower bound
+-- over the closed rectangle by `integral_mono_on` twice, its outer integrand continuous by
+-- `continuous_parametric_intervalIntegral_of_continuous'`; `hF` is TRUTH-load-bearing (Lean's
+-- `∫ = 0` junk value sits on the LOWER side) and so are both orientations. THE RATIO then runs
+-- the assembly: the floor `‖g(ρ_j)‖ ≥ S'/2` in the `S'`-form, Halász at the unimodular witnesses
+-- with the `/b` bound uniform over the rectangle, the device on the `.re` of the finite-sum form,
+-- the expansion per `(j, k)` through the residue-block identity, the diagonal and off-diagonal
+-- integrated kernel bounds with the Schur sum, and the `I`-block below `S'²/8` past the
+-- threshold. `φ(q)/q` CANCELS between Halász's two sides: `E(χ₀) = ∏_{p ∣ q}(1 − 1/p)` IS
+-- `φ(q)/q`, and Lemma 5 is applied exactly once, on the floor's `S'`. `C` and `D₁` are
+-- non-effective inside the `∃` (`C_ps` is the partial summation's own `∃`-constant, and `D₁` is
+-- produced as a LIMIT, never a closed form); the ratio assumes zeros with `β ≥ 119/120` and is
+-- VACUOUS at the object. Nothing here bears on twin primes.
+-- 6 `#audit_axioms` names — sized from THIS LIST.
+#audit_axioms Salt.SW.halaszBTsum_jutilaB_exp_eq_sum
+  Salt.SW.continuous_jutilaB_exp
+  Salt.SW.continuous_halaszB_sum_exp
+  Salt.SW.continuous_resKernel_exp
+  Salt.SW.const_mul_le_integral_integral_of_le
+  Salt.SW.card_system_le_rpow
