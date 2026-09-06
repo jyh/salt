@@ -4201,19 +4201,15 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     linarith only [h1, h2]
   have he300 : (51 : ℝ) ≤ Real.exp 300 := by
     have := Real.add_one_le_exp (300 : ℝ); linarith only [this]
-  have c8 : 500 * (1 + 2 * Real.log (η * Real.log q)) / η ≤ B / 8 := by
-    have hsplit : Real.log (η * Real.log q) = Real.log η + Real.log (Real.log q) :=
-      Real.log_mul (ne_of_gt hηpos) hLne
+  have c8 : 500 * (1 + 2 * Real.log η) / η ≤ B / 8 := by
     have hlogη : Real.log η ≤ Real.log q := by
       have h := hR.ηq
       have h2 := Real.add_one_le_exp (401 : ℝ)
       rcases le_or_gt 0 (Real.log η) with h3 | h3
       · nlinarith only [h, h2, h3]
       · linarith only [h3, hL]
-    have hlogL : Real.log (Real.log q) ≤ Real.log q := by
-      linarith only [Real.log_le_sub_one_of_pos hL]
-    have hnum : 1 + 2 * Real.log (η * Real.log q) ≤ 5 * Real.log q := by
-      rw [hsplit]; linarith only [hlogη, hlogL, hLhuge]
+    have hnum : 1 + 2 * Real.log η ≤ 5 * Real.log q := by
+      linarith only [hlogη, hLhuge]
     have hBη : Real.log q ^ 2 * Real.sqrt (Real.log q) ≤ B * η := by
       have h1 : B * (Real.exp 300 * Real.log q ^ 3) ≤ B * η :=
         mul_le_mul_of_nonneg_left hηe hB0.le
@@ -4322,11 +4318,11 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   have hsmall : 4 * ((2 / z + 10 / Real.sqrt z)
         + (Ek + 30 / Real.sqrt z + segC / Real.log z + Real.log q / Real.log z / z)
         + (100 / Real.sqrt (Real.log (x : ℝ)) + Real.exp (-(n9Ell q η) / 300))
-        + 500 * (1 + 2 * Real.log (η * Real.log q)) / η)
+        + 500 * (1 + 2 * Real.log η) / η)
       + 8 * (merC / Real.log z) + 2 * (64 / z) ≤ 1 := by
     linarith only [c1, c2, c3, c4, c5, c6, c7, c8, c11, hAsmall, hBsmall, hAle1, hB0, cT]
   obtain ⟨δ, hδeq, hδle⟩ := hb_L2_at_split_point_charTrio (α := 4) (x := (x : ℝ)) χ hR.sq hqpos
-    (by norm_num) (by norm_num) hR.β1 hL hR.ηdef hz32 (by exact_mod_cast hz4) hX3 hwinX
+    (by norm_num) (by norm_num) hR.β1 hL hR.ηdef hz32 (by exact_mod_cast hz4) hX3 hlogX hwinX
     (by linarith only [hηnum]) hm1 htail hseg hcorr hP hsmall
   rw [hzdef] at hδeq
   refine ⟨δ, hδeq, ?_⟩

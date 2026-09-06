@@ -49,11 +49,12 @@ tail.  The `m`-general form is *not* attempted here.
 
       ∫_X^∞ v^{β₀−2}(log v)^{−1} dv  =  ∫_{t₀}^∞ e^{−t} dt/t,   t₀ = (1−β₀)·log X.
 
-* §3 `hb_F_tail_integral`: the two composed, **with the upper window edge consumed here and only
-  here**.  `X ≤ q^{500}` enters as `hwin : log X ≤ 500·L`, giving `t₀ ≤ 500/η`, and the error is
+* §3 `hb_F_tail_integral`: the two composed, **with both window edges consumed here and only
+  here**.  `X ≤ q^{500}` enters as `hwin : log X ≤ 500·L`, giving `t₀ ≤ 500/η`, and `q^{250} ≤ X`
+  enters as `hwinlo : 250·L ≤ log X`, which is what removes the `log L`; the error is
   stated with its honest constant *visible*:
 
-      |∫_X^∞ v^{β₀−2}/log v dv − (log(ηL) − log log X − γ₀)|  ≤  500·(1 + 2·log(ηL))/η.
+      |∫_X^∞ v^{β₀−2}/log v dv − (log(ηL) − log log X − γ₀)|  ≤  500·(1 + 2·log η)/η.
 
   Per R4's finding the window exponent is **not** hidden inside an `O(·)`: the `500` is literal,
   and `hηlarge : 500 ≤ η` (which is what `t₀ ≤ 1` *means* at this window) is a named binder.
@@ -70,7 +71,7 @@ tail.  The `m`-general form is *not* attempted here.
   time (`rankin_floor_le`), exactly as the freeze predicts.
 * §5 `hb_logF_at_split_point` is the deliverable at the multiplicative mandate: ONE bound,
 
-      |log F − (log log z − log(ηL) + γ₀)| ≤ Ecorr + Eseg + Etail + 500(1 + 2 log(ηL))/η,
+      |log F − (log log z − log(ηL) + γ₀)| ≤ Ecorr + Eseg + Etail + 500(1 + 2 log η)/η,
 
   with `hm1` collapsing the socket's multiplicity.  Three inputs ride as **named binders with
   explicit bounds** (never as silent `O(·)`s): `hcorr` (HB's step 1 — blocked on the corpus
@@ -417,23 +418,27 @@ theorem integral_rpow_div_log_Ioi_eq_expIntegral {β₀ X : ℝ} (hβ₀1 : β�
 
 /-! ## §3 — the integral at the design's currency, with the window edge explicit -/
 
-/-- **THE INTEGRAL (N4b W3, HB p.210) — the upper window edge consumed here and only here.**
-With `η := ((1−β₀)L)^{−1}` and `L := log q`, for a split point `X` with `3 ≤ X` and
+/-- **THE INTEGRAL (N4b W3, HB p.210) — both window edges consumed here and only here.**
+With `η := ((1−β₀)L)^{−1}` and `L := log q`, for a split point `X` with `3 ≤ X`,
+`250·L ≤ log X` (i.e. `q^{250} ≤ X`, the window's LOWER edge) and
 `log X ≤ 500·L` (i.e. `X ≤ q^{500}`, the window's UPPER edge):
 
     | ∫_X^∞ v^{β₀−2}(log v)^{−1} dv − (log(ηL) − log log X − γ₀) |
-        ≤  500·(1 + 2·log(ηL)) / η.
+        ≤  500·(1 + 2·log η) / η.
 
 The window exponent is **not** hidden in an `O(·)` (R4's finding): the `500` is literal, and it
 enters exactly twice — once as `t₀ = (1−β₀)log X ≤ 500/η` (the size of the error) and once as the
-side condition `t₀ ≤ 1`, which at this window *is* `hηlarge : 500 ≤ η`.  HB's `O(η^{−1} log η)`
-is this bound with `log(ηL)` in place of `log η` (the honest currency: `log(ηL) = −log(1−β₀)`). -/
+side condition `t₀ ≤ 1`, which at this window *is* `hηlarge : 500 ≤ η`.  This bound **is** HB's
+`O(η^{−1} log η)`; the lower edge `250·L ≤ log X` is what buys it (it kills the `log L` that a
+bare `log(log X) ≥ 0` discard would leave behind), and `log(ηL) = −log(1−β₀)` remains the
+centre's currency. -/
 theorem hb_F_tail_integral {β₀ L η X : ℝ}
     (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
-    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η) :
+    (hX : 3 ≤ X) (hwinlo : 250 * L ≤ Real.log X) (hwin : Real.log X ≤ 500 * L)
+    (hηlarge : 500 ≤ η) :
     |(∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v)
         - (Real.log (η * L) - Real.log (Real.log X) - Real.eulerMascheroniConstant)|
-      ≤ 500 * (1 + 2 * Real.log (η * L)) / η := by
+      ≤ 500 * (1 + 2 * Real.log η) / η := by
   have hc0 : (0 : ℝ) < 1 - β₀ := by linarith
   have hX0 : (0 : ℝ) < X := by linarith
   have hlogX : (1 : ℝ) ≤ Real.log X := by
@@ -460,7 +465,8 @@ theorem hb_F_tail_integral {β₀ L η X : ℝ}
   -- `−log t₀ = log(ηL) − log log X`
   have hlogt₀ : Real.log t₀ = -Real.log (η * L) + Real.log (Real.log X) := by
     simp only [ht₀def]
-    rw [Real.log_mul (ne_of_gt hc0) (ne_of_gt (by linarith : (0:ℝ) < Real.log X)), hηL,
+    rw [Real.log_mul (ne_of_gt hc0) (ne_of_gt (by linarith only [hlogX] : (0:ℝ) < Real.log X)),
+      hηL,
       Real.log_div one_ne_zero (ne_of_gt hc0), Real.log_one]
     ring
   -- the substitution and §1
@@ -472,20 +478,23 @@ theorem hb_F_tail_integral {β₀ L η X : ℝ}
   rw [hrewrite] at hstone
   refine le_trans hstone ?_
   -- the two factors, each bounded separately (their product is what the window prices)
-  have hfac : 1 - 2 * Real.log t₀ ≤ 1 + 2 * Real.log (η * L) := by
+  have hfac : 1 - 2 * Real.log t₀ ≤ 1 + 2 * Real.log η := by
     rw [hlogt₀]
-    have : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hlogX
-    linarith
+    have hsplit : Real.log (η * L) = Real.log η + Real.log L :=
+      Real.log_mul (ne_of_gt hη0) (ne_of_gt hL)
+    have hLX : L ≤ Real.log X := by linarith only [hwinlo, hL]
+    have hLlog : Real.log L ≤ Real.log (Real.log X) := Real.log_le_log hL hLX
+    linarith only [hsplit, hLlog]
   have hfac0 : (0 : ℝ) ≤ 1 - 2 * Real.log t₀ := by
     have : Real.log t₀ ≤ 0 := Real.log_nonpos ht₀.le ht₀1
     linarith
-  have hfin : t₀ * (1 - 2 * Real.log t₀) ≤ (500 / η) * (1 + 2 * Real.log (η * L)) := by
+  have hfin : t₀ * (1 - 2 * Real.log t₀) ≤ (500 / η) * (1 + 2 * Real.log η) := by
     have h1 : t₀ * (1 - 2 * Real.log t₀) ≤ (500 / η) * (1 - 2 * Real.log t₀) :=
       mul_le_mul_of_nonneg_right ht₀win hfac0
-    have h2 : (500 / η) * (1 - 2 * Real.log t₀) ≤ (500 / η) * (1 + 2 * Real.log (η * L)) :=
+    have h2 : (500 / η) * (1 - 2 * Real.log t₀) ≤ (500 / η) * (1 + 2 * Real.log η) :=
       mul_le_mul_of_nonneg_left hfac (by positivity)
     linarith
-  have : (500 / η) * (1 + 2 * Real.log (η * L)) = 500 * (1 + 2 * Real.log (η * L)) / η := by
+  have : (500 / η) * (1 + 2 * Real.log η) = 500 * (1 + 2 * Real.log η) / η := by
     field_simp
   linarith
 
@@ -766,11 +775,12 @@ The three carried rows are exactly HB's own three inputs, each a *named binder* 
   the F-side cancellation is valid.
 
 Everything else — HB's `−∫_X^∞ v^{β₀−2}/log v dv = −log(ηL) + log log X + γ₀` — is proved here,
-in §§1–3, and enters with the window's honest constant `500·(1 + 2 log(ηL))/η`. -/
+in §§1–3, and enters with the window's honest constant `500·(1 + 2 log η)/η`. -/
 theorem hb_logF_at_split_point {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     {β₀ L η z X logF Ecorr Eseg Etail : ℝ} {Stail : ℂ}
     (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
-    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η)
+    (hX : 3 ≤ X) (hwinlo : 250 * L ≤ Real.log X) (hwin : Real.log X ≤ 500 * L)
+    (hηlarge : 500 ≤ η)
     (hm1 : zeroMult χ (β₀ : ℂ) = 1)
     (htail : ‖Stail + ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ)
         * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖ ≤ Etail)
@@ -778,11 +788,11 @@ theorem hb_logF_at_split_point {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
         - (Real.log (Real.log z) - Real.log (Real.log X))| ≤ Eseg)
     (hcorr : |logF - ((logChiSum χ z X).re + Stail.re)| ≤ Ecorr) :
     |logF - (Real.log (Real.log z) - Real.log (η * L) + Real.eulerMascheroniConstant)|
-      ≤ Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η := by
+      ≤ Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η := by
   set I : ℝ := ∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v with hIdef
   -- §3: the integral
   have hInt := hb_F_tail_integral (β₀ := β₀) (L := L) (η := η) (X := X)
-    hβ₀1 hL hη hX hwin hηlarge
+    hβ₀1 hL hη hX hwinlo hwin hηlarge
   rw [← hIdef] at hInt
   -- `hm1` collapses the socket's `m`
   have hone : ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ) = 1 := by rw [hm1]; norm_num

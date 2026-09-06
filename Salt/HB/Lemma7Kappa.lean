@@ -931,7 +931,7 @@ sieve-side binders `hrear`/`hsing` supplied by this file, so that `κ`, `C(α)` 
 now the corpus's own objects and the error is fully numeric:
 
     κ·S₁ = (1 + δ)·x·𝔖·C(α)/(ηL)²,
-    |δ| ≤ 4(Ecorr + Eseg + Etail + 500(1 + 2 log ηL)/η) + 8·E_P
+    |δ| ≤ 4(Ecorr + Eseg + Etail + 500(1 + 2 log η)/η) + 8·E_P
             + 2·(2 z₀/z) + 2·(64/z),      z₀ = log q / log z .
 
 This is HB's `{1 + O(z₀(log η)^{−1/2})}` with every constant on the page. -/
@@ -944,7 +944,8 @@ theorem hb_L2_at_split_point_concrete {q : ℕ} [NeZero q] (χ : DirichletCharac
     (hα0 : 0 < α) (hα2 : 2 ∣ α)
     (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
     (hz : 32 ≤ z) (hαz : (α : ℝ) < z)
-    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η)
+    (hX : 3 ≤ X) (hwinlo : 250 * L ≤ Real.log X) (hwin : Real.log X ≤ 500 * L)
+    (hηlarge : 500 ≤ η)
     (hm1 : zeroMult χ (β₀ : ℂ) = 1)
     (htail : ‖Stail + ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ)
         * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖ ≤ Etail)
@@ -954,17 +955,17 @@ theorem hb_L2_at_split_point_concrete {q : ℕ} [NeZero q] (χ : DirichletCharac
     (hP : |Real.log (primeProdBelow z) + Real.log (Real.log z)
         + Real.eulerMascheroniConstant| ≤ EP)
     (hL1 : L1 = (∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)))⁻¹ * hbF χ z)
-    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
         + 8 * EP + 2 * (64 / z) ≤ 1) :
     ∃ δ : ℝ,
       hbKappa χ α x L1 * hbS1 χ α z
         = (1 + δ) * (x * Salt.HardyLittlewood.twinSingularSeries * hbCalpha α / (η * L) ^ 2)
-      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
           + 8 * EP + 2 * (2 * (Real.log q / Real.log z) / z) + 2 * (64 / z) := by
   obtain ⟨e1, hrear, he1⟩ :=
     hb_hrear χ (x := x) hq hchi01 hchi0 hα0 hα2 (by linarith) hαz hL1
   obtain ⟨e2, hsing, he2⟩ := hb_hsing χ hz
-  exact hb_L2_at_split_point χ hβ₀1 hL hη (by linarith) hαz hX hwin hηlarge hm1 htail hseg
+  exact hb_L2_at_split_point χ hβ₀1 hL hη (by linarith) hαz hX hwinlo hwin hηlarge hm1 htail hseg
     hcorr hP hrear hsing he1 he2 hsmall
 
 end Salt.HB

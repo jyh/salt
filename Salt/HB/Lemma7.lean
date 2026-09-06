@@ -255,20 +255,22 @@ in one place.
 
     κ·S₁  =  (1 + δ) · x · 𝔖 · C(α) / (ηL)²,
 
-    |δ| ≤ 4·(Ecorr + Eseg + Etail + 500(1 + 2 log ηL)/η) + 8·E_P + 2·a₁ + 2·a₂.
+    |δ| ≤ 4·(Ecorr + Eseg + Etail + 500(1 + 2 log η)/η) + 8·E_P + 2·a₁ + 2·a₂.
 
 `𝔖` is the corpus's own Hardy–Littlewood constant, `S₁` HB's product (`hbS1`), and the two
 sieve-side rows `hrear` (`(4.4)`) and `hsing` (`(4.5)`) ride as **named binders with explicit
 bounds** — the `W4.5` residue, whose discharge needs `κ`, `G(p)` and `C(α)` as definitions.
 
 `hm1` is design v3 **D11**; `hα` is HB's "assuming `z > α`" (consumed by `hrear`'s provider);
-`hwin` is the window's **upper** edge, spent inside W3. -/
+`hwin` is the window's **upper** edge, spent inside W3; `hwinlo` is its **lower** edge, spent in
+the same place (it is what buys the error term's `log η` in place of `log(ηL)`). -/
 theorem hb_L2_at_split_point {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     {α : ℕ} {β₀ L η z x X Calpha Singz kappa Ecorr Eseg Etail EP a1 a2 e1 e2 : ℝ}
     {Stail : ℂ}
     (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
     (hz : 3 ≤ z) (hα : (α : ℝ) < z)
-    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η)
+    (hX : 3 ≤ X) (hwinlo : 250 * L ≤ Real.log X) (hwin : Real.log X ≤ 500 * L)
+    (hηlarge : 500 ≤ η)
     (hm1 : zeroMult χ (β₀ : ℂ) = 1)
     (htail : ‖Stail + ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ)
         * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖ ≤ Etail)
@@ -281,12 +283,12 @@ theorem hb_L2_at_split_point {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
       = (1 + e1) * (x * Calpha * hbF χ z ^ 2 * primeProdBelow z ^ 2 * Singz))
     (hsing : Singz = (1 + e2) * Salt.HardyLittlewood.twinSingularSeries)
     (he1 : |e1| ≤ a1) (he2 : |e2| ≤ a2)
-    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
         + 8 * EP + 2 * a2 ≤ 1) :
     ∃ δ : ℝ,
       kappa * hbS1 χ α z
         = (1 + δ) * (x * Salt.HardyLittlewood.twinSingularSeries * Calpha / (η * L) ^ 2)
-      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log η) / η)
           + 8 * EP + 2 * a1 + 2 * a2 := by
   have _hα := hα
   have _hz := hz
@@ -298,7 +300,7 @@ theorem hb_L2_at_split_point {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
     positivity
   -- W3's deliverable, instantiated at `logF := log F`
   have hF := hb_logF_at_split_point χ (β₀ := β₀) (L := L) (η := η) (z := z) (X := X)
-    (logF := Real.log (hbF χ z)) hβ₀1 hL hη hX hwin hηlarge hm1 htail hseg hcorr
+    (logF := Real.log (hbF χ z)) hβ₀1 hL hη hX hwinlo hwin hηlarge hm1 htail hseg hcorr
   exact hb_L2_core χ hηL hF hP hrear hsing he1 he2 hsmall
 
 end Salt.HB
