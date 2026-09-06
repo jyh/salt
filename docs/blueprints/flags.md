@@ -25006,3 +25006,44 @@ because the landed shape of the partial summation is `B·((2 + log X)·X^{1−t}
 not a `1 + log x` — and `2 + log x ≤ 2(1 + log x)` is what converts it to the row's frozen RHS.
 Everything downstream that reads `A ≤ 616·C_ps·x^{2−2σ}` must double `C_ps` accordingly (the
 threshold `D₁` moves by `2^{240/43}`, ≈ `10^{1.8}`, well inside the design's `10^59–10^64` band).
+
+**LANDED at W9c′** by the ratio's executor (2026-09-06, Opus): **one attempt**, once the five
+plumbing rows of `Salt/SW/JutilaRatio.lean` supplied the named missing input. `#print axioms
+Salt.SW.card_system_le_rpow` = `[propext, Classical.choice, Quot.sound]`; the file builds with
+0 errors and 0 warnings in it and the aggregate `Salt.SW.All` at EXIT=0 with the audit row
+`✓ Salt.SW.card_system_le_rpow [3 axioms]`. The statement closed **AS SPELLED** — nothing in the
+frozen block moved, and the six `sorry`s are the only deleted lines against the stub.
+
+**Which of this file's rows the device consumed.** The assembly rewrites the residue block to the
+ℂ-valued finite-sum form ONCE on the whole rectangle (`halaszBTsum_jutilaB_exp_eq_sum`, at
+`ξ ≤ ξ₁ ≤ η₀ ≤ η` and `e^η ≤ N₁`) and runs every integral manipulation on that globally continuous
+function (`continuous_jutilaB_exp` → `continuous_halaszB_sum_exp`), so the device lemma
+(`const_mul_le_integral_integral_of_le`) applies to `(F̃_ℂ).re` with `c := (J·S'/2)²/A_max` and
+every outer side condition is `continuous_parametric_intervalIntegral_of_continuous'` on it. The
+kernel row (`continuous_resKernel_exp`) is what makes the `E·Σ'φ/r²·resKernel` piece integrable in
+`η` and in `ξ`; **the `I`-block never needs an integrability row of its own** — it is the DIFFERENCE
+of the two continuous integrands, so `intervalIntegral.integral_sub` splits it at both levels and
+`norm_integral_le_of_norm_le_const` bounds the remainder twice from `norm_jutilaI_le` alone. That
+is one row fewer than the workaround above predicted.
+
+**The one route note the flag above could not see.** `φ(q)/q` cancels because `E(χ₀) =
+∏_{p ∣ q}(1 − p⁻¹)` **IS** `φ(q)/q` (`Nat.totient_mul_prod_primeFactors`, cast per prime): the
+residue block's constant carries the factor that the floor's `S'` pays for, and Lemma 5
+(`sum_sf_coprime_inv_ge`) is applied EXACTLY ONCE, on `S'`, after which the `φ(q)/q` divides out and
+no `q/φ(q)` survives. Bounding `‖E‖ ≤ 1` instead — the reading the freeze's §1 prints — leaves a
+`q/φ(q)` in the witness and does NOT close the frozen statement. The lower bound on `φ(q)/q`
+(`inv_log_le_totient_div`) is needed only for the threshold's `S' ≥ 0.04`, never for the ratio.
+
+**The two arithmetic slips of the entry above, corrected here** (the entry itself is left as the
+executor wrote it): the line arithmetic is **`1050 − 918 = 132`**, not `123`; and the threshold's
+shift is **`2^{240/43} = 47.9 ≈ 10^{1.68}`**, not `10^{1.8}` — still well inside the design's
+`10^59–10^64` band, and non-effective either way.
+
+**The honest label on the price.** The witnesses this executor took are DELIBERATELY loose, because
+they sit inside the `∃`: `C := 10^8·C_ps` (the tight chain is `8·398.2·(10π²/6)·616·C_ps ≈
+5.24·10^7·C_ps`, and the executor's own slack chain reads `600` for the design's `398.2` and `700`
+for its `616`, giving `5.56·10^7·C_ps`), and `D₁ := max(10^20, D₁(C_ps))` with `D₁(C_ps)` produced
+as a LIMIT (`tendsto_rpow_neg_atTop` at `−73/600` after `log D ≤ 100·D^{1/100}` absorbs the
+`(1 + log D/10)²`), never as a closed form. The threshold's exponent is `−17/120` rather than the
+design's `−43/240` for the same reason: `e^{ξ₀} ≥ D^{29/10}` (from `ξ₁ ≥ 3 log D − log 2`) is used
+in place of the sharp `D^{119/40}`, which costs decay but no generality.
