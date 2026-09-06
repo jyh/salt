@@ -72,6 +72,16 @@ The off-diagonal against its bound at `Re s = 0` RISES with `log D` — `0.41` (
 `|K̃(−s)||s| ≤ 1.0255` on `Re s ≤ 1/60`, attained at `s = 1/60` real. The third at `10²⁰`:
 `E/S'_lb = 0.103` measured (`E ≤ S'/3` is the chain's constant, `D`-uniform). The Schur lattice
 `3.2799 / 3.2889` against `π²/3 = 3.2899`.
+
+## The landed control (the partial summation's witness as PROVED, not as designed)
+
+`sum_sq_sum_bvWeight_mul_rpow_le` landed with `C = 4·max(4K_H, K_L)` (see its docstring), so at
+the toy the row's RHS at the landed witness is twice the receipt above: `18.74 / 20.45 / 29.75 /
+49.80` at `σ = 1, 0.99, 0.95, 0.9` (ratios `0.13, 0.12, 0.10, 0.08`). The statement is `∃ C`; no
+row that consumes it reads the numeral. `card_system_le_rpow` is FLAGGED in this wave
+(`B2-W9ac-card_system_le_rpow`: the device step needs the residue block's integrability over the
+rectangle, a row the corpus lacks) — its statement is unchanged and unrefuted, and it returns
+with that row in the next cut; the ten inputs above are landed.
 -/
 
 open MeasureTheory Complex DirichletCharacter ArithmeticFunction
@@ -441,7 +451,13 @@ private lemma partial_summation_core {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) {
 (design v2 §A.3): Abel with `1/2 ≤ σ` (`(2σ − 1) ≥ 0`; dyadic would break F6 at `σ → 1/2`),
 `(x^{2−2σ} − 1)/(2 − 2σ) ≤ x^{2−2σ}·log x` (no `1/λ` loss), the `+ log z₂` term CARRIED. The
 constant is the row's own `∃ C` — `C = 2·max(4K_H, K_L)` from the two landed prefactors
-(`GrahamHard3.lean:2498`, `:2559`), printed as a symbol, never as S10's `K`. -/
+(`GrahamHard3.lean:2498`, `:2559`), printed as a symbol, never as S10's `K`.
+
+**The landed witness is `4·max(4K_H, K_L)`**, twice the design's: the design's factor `2` pays
+only for the `u ∈ [1, 2)` sliver, and the Abel bookkeeping's natural shape is
+`B·((2 + log X)·X^{1−t} + l)` — a `2 + log X`, converted to the row's `1 + log x` by
+`2 + log x ≤ 2(1 + log x)` at a second factor `2`. Every consumer reading
+`A ≤ 616·C_ps·x^{2−2σ}` doubles `C_ps` accordingly (the threshold `D₁` moves by `2^{240/43}`). -/
 theorem sum_sq_sum_bvWeight_mul_rpow_le : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ, 2 ≤ z₁ → z₁ < z₂ →
     ∀ x σ : ℝ, (z₂ : ℝ) ≤ x → 1 / 2 ≤ σ → σ ≤ 1 →
     ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d) ^ 2 * (n : ℝ) ^ (1 - 2 * σ)
