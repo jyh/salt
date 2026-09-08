@@ -391,6 +391,7 @@ import Salt.MR.MRTThmA1
 import Salt.MR.MRTPropA3Bridge
 import Salt.MR.MRTPropA3
 import Salt.MR.MRTThmA2Stmt
+import Salt.MR.MRTSummandSupply
 import Salt.MR.DoorRoadCompose
 import Salt.MR.MRTPort
 import Salt.MR.MRTPortA1
@@ -8452,6 +8453,14 @@ open Salt.Tactic in
   Salt.MR.MRTBandCount
   Salt.MR.MRTPropA3
   Salt.MR.MRTPropA3Statement
+  Salt.MR.mrtBands_log_Qseq_one_le
+  Salt.MR.mrtBands_log_Qseq_one_rpow_le
+  Salt.MR.mrtA3_first_summand_le_of_bands
+  Salt.MR.mrtA3_first_summand_le_of_bands_ambient
+  Salt.MR.mrtA3_first_summand_le_of_floor
+  Salt.MR.mrtA2_first_summand_le_of_h
+  Salt.MR.mrtBands_A1_vacuous_at_Pseq_one_two
+  Salt.MR.mrtBands_A1_binds_at_Pseq_one_three
   Salt.MR.continuous_pretDistSq_costwist
   Salt.MR.exists_min_pretDistSq
   Salt.MR.mrtT0
