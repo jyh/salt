@@ -23,6 +23,14 @@ under the generalized Elliott–Halberstam conjecture. So the project runs two l
 `Salt/Basic.lean` states the target formally (`TwinPrimeConjecture`). The project
 succeeds when a theorem of that type exists.
 
+As of 2026-09-07, `Salt/HB/CrownTheorem1.lean` carries a machine-checked proof of
+Heath-Brown's dichotomy, `HeathBrownDichotomy = TwinPrimeConjecture ∨ NoSiegelZeros`,
+conditional on one open hypothesis: `N7Exit` (Heath-Brown's Lemma 5), which the
+theorem takes as a binder and the corpus does not prove. Neither arm of the
+dichotomy is decided, so this is not a proof of the twin prime conjecture. The
+constants are not effective: the chain uses Siegel's ineffective threshold, and
+B2's log-free density constant `n9CB2` is a `Classical.choose`.
+
 ## Trust policy
 
 - Everything on `main` compiles: `lake build` kernel-checks every proof.
