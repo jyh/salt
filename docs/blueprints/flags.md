@@ -25100,3 +25100,50 @@ budget it was designed for. Cf. the memory card *a device binder is not a truth 
 already gives `ε = ℓ′/(2748·L)` at `ℓ′ ≥ 481` — the landed proof uses the sharper one, which is
 what makes `X^{−ε} ≤ e^{−250ℓ′/2748} ≤ e^{−ℓ′/11}` (the freeze's own `22` was the halved reading).
 The printed `n9Tail`'s `20` and `24` hold either way.
+
+## 2026-09-08 N7Exit Opus statement-concern
+⛔⛔ **`N7Exit` (`Salt/HB/CrownTheorem1.lean`) WAS FALSE AS STATED. The crown's antecedent was
+unsatisfiable, so `heathBrownDichotomy_of_N7` — a correct machine-checked theorem — was VACUOUS.**
+Nothing was unsound and the mathematics is untouched: HB's Lemma 5 is a real published theorem.
+The defect was our Lean statement of it. Repaired in the same commit as this entry.
+
+**What was wrong.** The binder read
+`∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z} (hz : 2 ≤ z) (x : ℕ), …`
+and dropped **four** hypotheses HB's Lemma 5 carries (p.199 plus the standing assumptions p.196;
+`docs/sources/hb1983-notes.md:218`, `:24-26`, `:60`, `:77`): `χ.IsPrimitive`, `z ≤ q^{1/3}`, the
+range (1.13) `q^250 ≤ x ≤ q^500`, and `3 ≤ q`. Only **(1.11)** — the zero — was ever de-scoped in
+writing (`:1007-1009`), and (1.11) is none of those four.
+
+**Refuted at the principal character.** `Admissible χ z d` (`Salt/HB/TwistChain.lean`) requires
+some `p < z` with `chiRe χ p = −1`; at χ principal `chiRe ∈ {0,1}`, so `Admissible` is *vacuously
+true* and `LamStar χ z n = Σ_{d∣n} chiRe χ d · log(n/d)` has all terms `≥ 0` with the `d = 1` term
+equal to `log n` — no cancellation. So `S 1 ≥ |window|·(log x)²`, i.e. `S(1)/x → ∞`, while the
+other side of `Lemma5Eval.eval` is linear in `x` with `x`-free coefficients (`hbKappa … = x·L1²·(…)`;
+`A 1 = A' 1 = 0` by `IsAdditiveOn`; `hbG 4 1 = 1`; `|C₀| ≤ CC(L+|LL|)L`; allowance `Cerr·x·L⁴/z`).
+`eval` therefore fails for large `x`, **for every choice of `Cerr CA CA' CC`**.
+
+**Refuted again, independently, at `q = 1`.** `NeZero 1` holds, `L = log 1 = 0`, so the allowance
+is identically `0`, `C₀_le` forces `C₀ = 0` and `d³ ≤ exp 0` forces `d = 1`; `eval` becomes the
+exact equation `S 1 = κ·LL²` for every `x`. ⇒ **adding `IsPrimitive` alone does not repair it.**
+
+**The repair.** `N7Exit` now carries `3 ≤ q`, `χ.IsPrimitive`, `3·log z ≤ log q` and
+`q^250 ≤ x ≤ q^500` inside the ∀, **and `0 ≤ Cerr ∧ 0 ≤ CA ∧ 0 ≤ CA' ∧ 0 ≤ CC` as an explicit
+first conjunct outside it.** The last is the load-bearing half: `crown_handover_k1` used to read
+those four signs off `hN7 3 (1 : DirichletCharacter ℂ 3) (one_pow 2) (le_refl 2) 0`, described in
+the file as "a harmless instance" and in fact **the counterexample** — the very instance the
+repaired binder forbids. ⇒ 🔑 *A uniform constant's own properties belong OUTSIDE the binder that
+ranges over instances*; carried inside, a sign is reachable only through an instantiation, which is
+how a false statement became load-bearing three theorems downstream.
+
+**Cost: three landed theorems, no executor wave.** `hb_S3_at_hb_point` is now the ONLY site that
+instantiates the ∀, and it already bound `hx`/`hx'` and can take `prim`/`ne` from `N9Regime` and
+`3·log z ≤ log q` from the new `n9_z_cube` (the regime's `z` sits at `hbS ≥ 99`, far inside
+`q^{1/3}`, so the restored hypothesis is slack). `hb_theorem1` and `crown_handover_k1` used their
+instances for the four signs and nothing else, so both now take `hN7.1` and instantiate nothing.
+`three_le_of_ne_one` moved earlier in the file, unchanged in statement and proof.
+
+**Found by** the non-author refuter pass on the 2026-09-08 N7 route freeze — three of five
+refuters independently, one of them from the coverage slot *"find the question I did not ask."*
+⇒ 🔑 **The author's own six kill-checks all audited the ROUTE — achievable, priced, attributed —
+and none asked whether the TARGET was true.** A campaign's destination is audited less than its
+leaves precisely because it is assumed.

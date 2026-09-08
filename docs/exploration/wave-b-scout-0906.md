@@ -183,8 +183,23 @@ hypotheses that retire it — `2 ∣ α`, `Coprime δ₁ α`, `Coprime w₁ α` 
 lines. A paper's "support conditions" are where it puts the facts it needs and does not discuss.
 
 ⇒ **CONSUMER-FACING CONSEQUENCE: Wave B should route through D7, not D4.** D7's `q`-side hypothesis
-is `χ.IsPrimitive`, which the regime already carries (`N9Regime.prim`); D4's is `v₂(q) ≤ 8`, which
-would have to be threaded. **Nothing needs bounding by the consumer and nothing needs a new binder.**
+is `χ.IsPrimitive`; D4's is `v₂(q) ≤ 8`, which would have to be threaded.
+
+⛔⛔ **STRUCK 2026-09-08 — THE TWO CLAUSES THAT FOLLOWED THIS PARAGRAPH WERE FALSE, AND FALSE IN THE
+DIRECTION THAT FORECLOSES A CHECK.** They read that D7's primitivity is the one *"the regime already
+carries (`N9Regime.prim`)"* and that *"nothing needs bounding by the consumer and nothing needs a new
+binder."* Measured at the object: `factorization_two_le_three_of_isPrimitive`
+(`Salt/HB/EstermannRoad.lean:46`) and `norm_kloosterman_estermann_road_of_isPrimitive` (`:63`) both
+bind **`χ : DirichletCharacter ℤ q`**, while `N9Regime.prim` (`Salt/HB/CrownTheorem1.lean`) is
+`χ.IsPrimitive` for **`χ : DirichletCharacter ℂ q`**. **Different rings; the regime's `prim` does not
+type against D7.** Routing through D7 therefore DOES need a new binder — or a ℤ-side transfer of
+primitivity, which is real work: there is **no `RingHom ℂ ℤ` at all**, so no `ringHomComp`
+composition exists to carry it (verified independently by the 09/08 refuter pass, R2).
+
+⇒ 🔑 ***A SCOUT THAT SAYS NOTHING INVITES A CHECK; ONE THAT SAYS "NOTHING NEEDS A NEW BINDER"
+FORECLOSES IT.*** This is verbatim the type-blind read that seal v1's R9 self-corrected — repeated in
+the sibling scout on the same day, which is why it is struck here in place rather than left to a
+reader's diff. **An executor pulling B-6/B-7 must price the ℂ→ℤ primitivity transfer as OPEN.**
 
 ⚠️ **AND A CORRECTION TO THIS SCOUT'S OWN FIRST READING OF IT.** I first reported the `q`-side
 hypothesis as discharged by *"χ real primitive ⇒ `q` cube-free ⇒ `v₂(q) ≤ 2"*, an inference from

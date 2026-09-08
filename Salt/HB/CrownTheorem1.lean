@@ -440,12 +440,55 @@ structure N9Regime (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (β₀ �
 
 /-- **N7's exit, as the ∀-statement N9 consumes.**  Wave C-2 (row C2-10) produces `Lemma5Eval`
 at the N8 wire with UNIFORM `Cerr CA CA' CC` and per-instance `C₀ A A'`; `LL` and `κ` are the two
-seams above.  A HYPOTHESIS of every row from T1 on, until Wave C lands. -/
+seams above.  A HYPOTHESIS of every row from T1 on, until Wave C lands.
+
+⛔⛔ **REPAIRED 2026-09-08 — THE PREVIOUS SPELLING WAS FALSE, NOT MERELY BROAD.**  Until this
+commit the binder read
+`∀ q [NeZero q] (χ) (hsq : χ ^ 2 = 1) {z} (hz : 2 ≤ z) (x : ℕ), …`
+and carried **none** of the four hypotheses HB's Lemma 5 states (p.199, under the standing
+assumptions of p.196): `3 ≤ q`, `χ.IsPrimitive`, `z ≤ q^{1/3}`, and the range (1.13)
+`q^250 ≤ x ≤ q^500`.  Only **(1.11)** — the zero — was ever de-scoped in writing
+(`docs/sources/hb1983-notes.md:1007-1009`), and (1.11) is none of these four.  What was left is
+refuted twice, independently:
+* **at the principal character** — `Admissible χ z d` (`Salt/HB/TwistChain.lean`) requires some
+  `p < z` with `chiRe χ p = −1`; at `χ` principal `chiRe ∈ {0,1}`, so `Admissible` is VACUOUSLY
+  true, `LamStar` has every term `≥ 0` with its `d = 1` term equal to `log n`, and `S 1` grows
+  like `x(log x)²` against an allowance linear in `x`.  `eval` fails for large `x`, **for every
+  choice of `Cerr CA CA' CC`**;
+* **at `q = 1`** — `NeZero 1` holds, `L = log 1 = 0` zeroes the allowance, `C₀_le` forces
+  `C₀ = 0` and `d³ ≤ exp 0` forces `d = 1`, so `eval` becomes an exact identity against a step
+  function.  ⇒ **`IsPrimitive` alone does not repair the statement**; `3 ≤ q` is independently
+  needed, and that is why both are here.
+⇒ `heathBrownDichotomy_of_N7` was a correct machine-checked theorem and was **VACUOUS**: nothing
+was unsound, the mathematics was untouched (HB's Lemma 5 is a real published theorem), and the
+defect was this Lean statement of it.  Found by the non-author refuter pass on the 2026-09-08 N7
+route freeze — three of five refuters, independently.  Record: `docs/blueprints/flags.md`.
+
+🔑 **WHY THE FOUR SIGNS ARE EXPLICIT CONJUNCTS AND NOT READ OFF AN INSTANCE.**
+`0 ≤ Cerr`, `0 ≤ CA`, `0 ≤ CA'` are `Lemma5Eval` fields and `0 ≤ CC` follows from `C₀_le`, so
+before the repair `crown_handover_k1` harvested all four from
+`hN7 3 (1 : DirichletCharacter ℂ 3) …` — a `q = 3` **principal** character, i.e. the
+counterexample itself, and exactly the instance the repaired binder now forbids.  A uniform
+constant's sign is a fact about the constant, not about any instance; carrying it only inside the
+∀-body made it reachable *only* through an instantiation, which is how a false statement came to
+be load-bearing three theorems downstream.  ⇒ ***A UNIFORM CONSTANT'S OWN PROPERTIES BELONG
+OUTSIDE THE BINDER THAT RANGES OVER INSTANCES.***  Wave C-2 pays for them once, where it builds
+the constants, and no consumer needs an instance to learn a sign.
+
+📌 **What the repair costs the two real consumers: nothing they did not already have.**
+`hb_S3_at_hb_point` and `hb_theorem1` both bind `hx`/`hx'` themselves, take `prim` and `ne` from
+`N9Regime`, and get `3·log z ≤ log q` from `n9_z_cube` (the regime's `z` sits at `hbS ≥ 99`, far
+inside `q^{1/3}`).  After the repair only **one** theorem instantiates this ∀ at all. -/
 def N7Exit (Cerr CA CA' CC : ℝ) : Prop :=
-  ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
-    (x : ℕ), ∃ (C₀ : ℝ) (A A' : ℕ → ℝ),
-      Lemma5Eval (hbDataN8 χ hsq hz x) 4 x (Real.log q) (hbLL χ) (hbKappaN9 χ x z)
-        C₀ Cerr CA CA' CC A A'
+  (0 ≤ Cerr ∧ 0 ≤ CA ∧ 0 ≤ CA' ∧ 0 ≤ CC) ∧
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      3 ≤ q → χ.IsPrimitive →
+      ∀ (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z),
+        3 * Real.log (z : ℝ) ≤ Real.log (q : ℝ) →
+        ∀ x : ℕ, (q : ℝ) ^ 250 ≤ (x : ℝ) → (x : ℝ) ≤ (q : ℝ) ^ 500 →
+          ∃ (C₀ : ℝ) (A A' : ℕ → ℝ),
+            Lemma5Eval (hbDataN8 χ hsq hz x) 4 x (Real.log q) (hbLL χ) (hbKappaN9 χ x z)
+              C₀ Cerr CA CA' CC A A'
 
 /-- **The constant of Theorem 1** — a CEILING in the four N7 constants and `n9Cs`; the `2^40`
 absorbs `L2cCmain = 2^31`, the `1/(250·A)` of the first master term, and the door's `4`; the
@@ -808,6 +851,53 @@ theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (
     linarith only [h1, h2, hSge]
   exact ⟨hz2, hz100, hzLwin, hz3, hzThresh, by linarith only [hzhuge],
     by linarith only [hzhuge], le_of_eq hSeq, hlevel, by linarith only [hzhuge], hLam4⟩
+
+/-- **A non-trivial Dirichlet character has modulus `≥ 3`** (the verdict's A9): mod `1` and
+mod `2` the only character is `1` (`(ZMod 2)ˣ` is trivial).  Class **A**, cap 30.
+Consumers: `noSiegelZerosPoly_mono` (`log q ≥ 1`), and — since the 2026-09-08 `N7Exit` repair —
+`hb_S3_at_hb_point`, which supplies `N7Exit`'s `3 ≤ q` from `N9Regime.ne`.
+*(MOVED here from §5 by that repair, unchanged in statement and proof: it needs nothing but
+mathlib, and its new consumer sits ~5,500 lines above where this theorem used to.)* -/
+theorem three_le_of_ne_one [NeZero q] (χ : DirichletCharacter ℂ q) (hne : χ ≠ 1) : 3 ≤ q := by
+  rcases Nat.lt_or_ge q 3 with hlt | hge
+  swap
+  · exact hge
+  exfalso
+  have hq1 : 1 ≤ q := Nat.one_le_iff_ne_zero.mpr (NeZero.ne q)
+  apply hne
+  refine MulChar.ext fun a => ?_
+  have hu : (a : ZMod q) = 1 := by
+    have h2 : q = 1 ∨ q = 2 := by omega
+    rcases h2 with h | h <;> subst h <;> revert a <;> decide
+  rw [hu]
+  simp
+
+/-- **HB LEMMA 5's `z ≤ q^{1/3}`, IN LOG FORM, AT THE PACKET'S `z`.**  Class **A**, cap 60.
+One of the four hypotheses the 2026-09-08 `N7Exit` repair restored; this lemma is what its one
+instantiating consumer hands it.  Red-first: the packet already carries
+`3·hbS·log z = log q` (conjunct 8, `le_of_eq hSeq`) and `hbS ≥ levelE(Λ₄) + 2` (conjunct 9)
+with `Λ₄ ≥ 1/10` (conjunct 11);
+`levelE Λ = 2e^Λ/(e^Λ − 1) > 0` at `Λ > 0`, so `hbS ≥ 2`, and `log z ≥ 0` from `z ≥ 33`.
+⚠️ The regime's `z` is FAR below `q^{1/3}` — `hbS ≥ 99` — so this is slack, not a constraint;
+it is stated because HB's Lemma 5 states it and the exit must not be broader than the lemma.
+Consumers: `hb_S3_at_hb_point` (the one site that instantiates `N7Exit`'s ∀). -/
+private lemma n9_z_cube [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+    (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
+    3 * Real.log (hbZ q η : ℝ) ≤ Real.log q := by
+  obtain ⟨-, -, -, -, -, h32, -, hD, hlev, -, hLam⟩ := hbZ_packet hR hx hx'
+  have hLampos : (0 : ℝ) < Lam4 (1 / 4) (hbZ q η : ℝ) := by linarith only [hLam]
+  have hE : (1 : ℝ) < Real.exp (Lam4 (1 / 4) (hbZ q η : ℝ)) := by
+    have h := Real.add_one_le_exp (Lam4 (1 / 4) (hbZ q η : ℝ))
+    linarith only [h, hLampos]
+  have hlevpos : (0 : ℝ) < levelE (Lam4 (1 / 4) (hbZ q η : ℝ)) := by
+    have hnum : (0 : ℝ) < 2 * Real.exp (Lam4 (1 / 4) (hbZ q η : ℝ)) :=
+      by linarith only [Real.exp_pos (Lam4 (1 / 4) (hbZ q η : ℝ))]
+    simp only [levelE]
+    exact div_pos hnum (by linarith only [hE])
+  have hS1 : (1 : ℝ) ≤ hbS q η := by linarith only [hlev, hlevpos]
+  have hlogz : (0 : ℝ) ≤ Real.log (hbZ q η : ℝ) :=
+    Real.log_nonneg (by linarith only [h32])
+  nlinarith only [hD, hS1, hlogz]
 
 /-! ## §3 — THE ZERO SIDE, MADE CONSUMABLE (the `(L1)`/L3 packet discharged) -/
 
@@ -5479,7 +5569,11 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   -- the two p.200 sides
   have hlev' : levelE (Lam4 (1 / 4) ((hbZ q η : ℕ) : ℝ)) ≤ hbS q η := by linarith only [hlev]
   have hL3 : (3 : ℝ) ≤ Real.log q := by linarith only [hLhuge]
-  obtain ⟨C₀, Afun, A'fun, hL5⟩ := hN7 q χ hR.sq hz2 x
+  -- N7's exit at HB Lemma 5's OWN hypotheses (the 2026-09-08 repair): `3 ≤ q` from the regime's
+  -- `χ ≠ 1`, `prim` from the regime, `z ≤ q^{1/3}` from `n9_z_cube`, and the range (1.13) is
+  -- this theorem's own `hx`/`hx'`.
+  obtain ⟨C₀, Afun, A'fun, hL5⟩ :=
+    hN7.2 q χ (three_le_of_ne_one χ hR.ne) hR.prim hR.sq hz2 (n9_z_cube hR hx hx') x hx hx'
   have hup := hb_p200_upper χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
     (by norm_num) (by norm_num) hzt hlev' hL3 hD hPα hκ hL5
   have hlo := hb_p200_lower χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
@@ -6159,22 +6253,11 @@ theorem hb_theorem1 [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
       rw [← Real.exp_neg]; ring_nf
     rw [hneg, inv_eq_one_div, div_le_div_iff₀ hpos hPpos]
     linarith only [hge]
-  -- the constants: N7's signs, `n9K3 ≥ e^{300}`, and `n9K = 2^40·10⁴·n9K3`
-  have hzz : 2 ≤ hbZ q η := (hbZ_packet hR hx hx').1
-  obtain ⟨C₀, A, A', hL5⟩ := hN7 q χ hR.sq hzz x
-  have hCerr : 0 ≤ Cerr := hL5.Cerr_nonneg
-  have hCA : 0 ≤ CA := hL5.CA_nonneg
-  have hCA' : 0 ≤ CA' := hL5.CA'_nonneg
-  have hCC : 0 ≤ CC := by
-    rcases le_or_gt 0 CC with h | h
-    · exact h
-    · exfalso
-      have hden : 0 < (Real.log q + |hbLL χ|) * Real.log q :=
-        mul_pos (by linarith only [hL, abs_nonneg (hbLL χ)]) hL
-      have hneg := mul_neg_of_neg_of_pos h hden
-      have hab := hL5.C₀_le
-      have habs : (0 : ℝ) ≤ |C₀| := abs_nonneg _
-      nlinarith only [hab, habs, hneg]
+  -- the constants: N7's signs, `n9K3 ≥ e^{300}`, and `n9K = 2^40·10⁴·n9K3`.
+  -- ⭐ Since the 2026-09-08 repair the four signs are `N7Exit`'s OWN first conjunct, so this
+  -- theorem needs no instance of the ∀ at all: it used `hL5` for the signs and nothing else,
+  -- and the `hCC` route through `C₀_le` (which needed `L > 0`) is gone with it.
+  obtain ⟨hCerr, hCA, hCA', hCC⟩ := hN7.1
   have hn8C6 : 0 ≤ n8C6 CA CA' CC := by
     have h1 : (0 : ℝ) ≤ 64 * CA' := by linarith only [hCA']
     have h2 : (0 : ℝ) ≤ (128 * CA) ^ 2 := sq_nonneg _
@@ -6346,23 +6429,6 @@ Consumer: the crown ruling (Arm B's target). -/
 theorem heathBrownDichotomyPoly_one_iff : HeathBrownDichotomyPoly 1 ↔ HeathBrownDichotomy := by
   simp only [HeathBrownDichotomyPoly, HeathBrownDichotomy]
   exact or_congr Iff.rfl noSiegelZerosPoly_one_iff
-
-/-- **A non-trivial Dirichlet character has modulus `≥ 3`** (the verdict's A9): mod `1` and
-mod `2` the only character is `1` (`(ZMod 2)ˣ` is trivial).  Class **A**, cap 30.
-Consumer: `noSiegelZerosPoly_mono` (`log q ≥ 1`). -/
-theorem three_le_of_ne_one [NeZero q] (χ : DirichletCharacter ℂ q) (hne : χ ≠ 1) : 3 ≤ q := by
-  rcases Nat.lt_or_ge q 3 with hlt | hge
-  swap
-  · exact hge
-  exfalso
-  have hq1 : 1 ≤ q := Nat.one_le_iff_ne_zero.mpr (NeZero.ne q)
-  apply hne
-  refine MulChar.ext fun a => ?_
-  have hu : (a : ZMod q) = 1 := by
-    have h2 : q = 1 ∨ q = 2 := by omega
-    rcases h2 with h | h <;> subst h <;> revert a <;> decide
-  rw [hu]
-  simp
 
 /-- **The family is monotone in `k`**: `c/(log q)^{k′} ≤ c/(log q)^k` for `k ≤ k′` once
 `log q ≥ 1`.  This is the theorem behind "`Poly 14` is weaker than the frozen crown" (with
@@ -6567,26 +6633,12 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
   classical
   -- the frozen spelling of the threshold IS `n9Cq`, by `rfl`
   have hFq : FulcrumQualityMin (n9Cq Cerr CA CA' CC) := hF
-  -- N7's signs, read once at a harmless instance, and `n9K ≥ 10`
-  haveI : NeZero (3 : ℕ) := ⟨by norm_num⟩
-  obtain ⟨C₀, A, A', hL5⟩ := hN7 3 (1 : DirichletCharacter ℂ 3) (one_pow 2) (le_refl 2) 0
-  have hl3 : (0 : ℝ) < Real.log ((3 : ℕ) : ℝ) := by
-    have h : ((3 : ℕ) : ℝ) = 3 := by norm_num
-    rw [h]; exact Real.log_pos (by norm_num)
-  have hCerr : 0 ≤ Cerr := hL5.Cerr_nonneg
-  have hCA : 0 ≤ CA := hL5.CA_nonneg
-  have hCA' : 0 ≤ CA' := hL5.CA'_nonneg
-  have hCC : 0 ≤ CC := by
-    rcases le_or_gt 0 CC with h | h
-    · exact h
-    · exfalso
-      have hden : 0 < (Real.log ((3 : ℕ) : ℝ) + |hbLL (1 : DirichletCharacter ℂ 3)|)
-          * Real.log ((3 : ℕ) : ℝ) :=
-        mul_pos (by linarith only [hl3, abs_nonneg (hbLL (1 : DirichletCharacter ℂ 3))]) hl3
-      have hneg := mul_neg_of_neg_of_pos h hden
-      have hab := hL5.C₀_le
-      have habs : (0 : ℝ) ≤ |C₀| := abs_nonneg _
-      nlinarith only [hab, habs, hneg]
+  -- ⛔⛔ N7's signs.  Until 2026-09-08 these four were read off
+  -- `hN7 3 (1 : DirichletCharacter ℂ 3) (one_pow 2) (le_refl 2) 0` — described in this file as
+  -- "a harmless instance", and in fact **the counterexample**: `q = 3` at the PRINCIPAL
+  -- character, where `Admissible` is vacuous and `N7Exit`'s old spelling is false.  The repaired
+  -- statement forbids that instance and carries the signs as its own first conjunct instead.
+  obtain ⟨hCerr, hCA, hCA', hCC⟩ := hN7.1
   have hn8C6 : 0 ≤ n8C6 CA CA' CC := by
     have h1 : (0 : ℝ) ≤ 64 * CA' := by linarith only [hCA']
     have h2 : (0 : ℝ) ≤ (128 * CA) ^ 2 := sq_nonneg _

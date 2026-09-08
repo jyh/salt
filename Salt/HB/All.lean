@@ -459,6 +459,26 @@ tail-integral error term is `500(1 + 2 log η)/η` in place of `500(1 + 2 log(η
 **`heathBrownDichotomy_of_N7 : N7Exit Cerr CA CA' CC → HeathBrownDichotomy`** — the FROZEN crown
 statement (`Salt/TwinBar/SiegelTwin.lean`, byte-untouched) on ONE binder.  It is a dichotomy
 conditional on N7, and nothing in it bears on twin primes.
+
+⛔⛔ **RE-STAMPED 2026-09-08 — `N7Exit`'S STATEMENT MOVED, AND IT MOVED BECAUSE IT WAS FALSE.**
+No name below is removed and no PROOF below changed shape, but the binder every row from T1 on
+carries is not the one it carried yesterday.  `N7Exit` dropped four of Heath-Brown's own Lemma 5
+hypotheses — `3 ≤ q`, `χ.IsPrimitive`, `z ≤ q^{1/3}`, the range (1.13) `q^250 ≤ x ≤ q^500` — and
+what was left is refuted at the principal character and again at `q = 1`.  ⇒ every theorem in
+stanzas ⟦B3⟧ and below that takes `hN7` was a **correct machine-checked theorem with an
+unsatisfiable antecedent**: sound, and VACUOUS.  Nothing here was ever unsound and the mathematics
+is untouched; the defect was our Lean statement of HB's lemma.  The repaired `N7Exit` restores the
+four hypotheses inside the ∀ **and carries `0 ≤ Cerr ∧ 0 ≤ CA ∧ 0 ≤ CA' ∧ 0 ≤ CC` as an explicit
+first conjunct outside it** — because `crown_handover_k1` had been reading those four signs off
+`hN7 3 (1 : DirichletCharacter ℂ 3) …`, the principal character at `q = 3`, i.e. **the
+counterexample itself**.  Three landed theorems absorbed the change and none needed a new input:
+`hb_S3_at_hb_point` is now the ONLY site that instantiates the ∀, and `hb_theorem1` and
+`crown_handover_k1` take `hN7.1` and instantiate nothing.  `three_le_of_ne_one` (registered below,
+statement and proof unchanged) MOVED earlier in `CrownTheorem1.lean` to reach its two new
+consumers.  Record and full refutation: `docs/blueprints/flags.md`, entry `2026-09-08 N7Exit`.
+⇒ 🔑 ***A UNIFORM CONSTANT'S OWN PROPERTIES BELONG OUTSIDE THE BINDER THAT RANGES OVER
+INSTANCES*** — carried inside, a sign is reachable only through an instantiation, and that is how
+a false statement came to be load-bearing three theorems downstream.
 -/
 
 section N9
