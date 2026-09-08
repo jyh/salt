@@ -10,19 +10,19 @@ The ruling-5 refutation-channel migration landed in `saltworks/docs/QUEUE.md` §
 (all its debts name saltworks objects). This queue carries salt work only; repo-qualify
 every QUEUE citation — both repos have a `docs/QUEUE.md`.
 
-## ⚖️⭐⭐ **THE BLOCK REGISTER — RATIFIED FLEET LAW, COUNCIL 2026-08-26 item ⑤ (the Captain's
-## generalization of math's proposal): NO SEAT BLOCKS INDEFINITELY. Every blocking condition —
-## queue item, freeze, gate, wait-on-approval, parked watch — carries AT ISSUE an explicit
-## RELEASE CONDITION, a named OWNER, and a RE-MEASURE TIMEOUT (default: next sitting close, read
-## by the helm's forecast sweep). A timeout fires a MEASUREMENT, never a dissolution: discharged
-## by its own terms → dissolve by execution with a receipt · still live → escalate to the owner
-## with the measurement and a new date · unmeasurable → that is itself a finding. AND A BLOCKED
-## ITEM NEVER BLOCKS A SEAT: pull the next item at your tier. Reach clause: a rule binding more
-## than one seat lives where all bound seats read, or is bus-posted at issue.**
-## *Evidence it was needed: three holds outlived their conditions in ONE night (the saltworks
-## freeze below, item 7's "gated on W-F3", P2b's "No Tao PDF exists") — all TRUE WHEN WRITTEN. A
-## stale GO is caught by the next build; a stale STOP is caught by nobody, because a hold being
-## obeyed and a hold still needed look identical from inside.*
+## ⚖️⭐⭐ **THE BLOCK REGISTER — RATIFIED FLEET LAW (council 2026-08-26 item ⑤, the Captain's
+## generalization of math's proposal). THE LAW LIVES IN THE FLEET'S BLOCK-REGISTER BRIEF AND IS
+## POINTED AT FROM THE FLEET `CLAUDE.md` THAT EVERY SESSION INHERITS. It is NOT restated here.**
+## *Pointed rather than copied 2026-09-08 by the 30th helm head, on `kent`'s catch: this file kept a
+## second copy of a law binding every seat, against that law's OWN reach clause. A duplicated law
+## drifts — measured three separate times on 2026-09-08, in this fleet's map, in the blocks page's
+## preamble, and in a seat's boot brief. Verified clause by clause before pointing: every clause of
+## the text removed here is carried at the fleet home, including the evidence paragraph naming the
+## three holds that outlived their conditions in one night. **Superseded and safe-to-remove are
+## different questions and only the second one matters**, so this was read before it was replaced.*
+## ⛔ **WHAT IS NOT A DUPLICATE AND STAYS BELOW: salt's OWN standing-blocks table.** Those rows are
+## this campaign's data, they exist nowhere else, and the register's requirement that they carry a
+## release condition, an owner and a re-measure is exactly why they are kept in the routing file.
 ##
 ## **THE STANDING BLOCKS, first sweep 2026-08-26 11:2x (helm, against ORIGIN — a local checkout
 ## may be behind). Each row: release condition · owner · re-measure.**
