@@ -180,8 +180,15 @@ The clause above is not toothless in general — it is toothless AT `P₁ = 2`. 
 bound `η/16 < 1/96` for every admissible `η < 1/6`.  **The clause REFUSES.**
 
 ⇒ 🔑 ***A CONTROL IS A MEASUREMENT AND HAS TO BE MEASURED TOO*** — without this name, the
-theorem above reads as "the (A.1) clause is weak", which is false; what is true is that its
-DENOMINATOR CHANGES SIGN at `P₁ = 2`, and the sign change is the whole content. -/
+statement above reads as "the (A.1) clause is weak", which is false; what is true is that
+its DENOMINATOR CHANGES SIGN at `P₁ = 2`, and the sign change is the whole content.
+
+⛔ **AND THE WORD "statement" IN THE LINE ABOVE IS LOAD-BEARING FOR AN INSTRUMENT, NOT FOR A
+READER.**  It first read "theorem", wrapped to column 0, and `blueprint_lint.py`'s own
+`DECL_LINE_RE` (`^\s*…(?:theorem|lemma|def|abbrev|instance)\s+([A-Za-z_]…)`) then extracted a
+PHANTOM declaration named `above` from this docstring — nine declarations where there are eight.
+⇒ ***PROSE THAT WRAPS A DECLARATION KEYWORD TO COLUMN 0 IS AN INPUT TO EVERY DECLARATION GATE.***
+Keep `theorem`, `lemma`, `def`, `abbrev` and `instance` off the left margin inside a docstring. -/
 theorem mrtBands_A1_binds_at_Pseq_one_three {η : ℝ} (hη0 : 0 < η) (hη : η < 1 / 6)
     {Pseq Qseq : ℕ → ℕ} (hP : Pseq 1 = 3)
     (hQ : 1 ≤ Real.log (Real.log (Qseq 2))) :
