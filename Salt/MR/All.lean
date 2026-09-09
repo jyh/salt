@@ -428,6 +428,7 @@ import Salt.MR.AffineSupplyH
 import Salt.MR.StridePairReceipt
 import Salt.MR.StrideEntropyReceipt
 import Salt.MR.StrideGradeWalls
+import Salt.MR.StrideGradeReach
 import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGradeReceipt
 import Salt.MR.HalaszWeighted
@@ -9831,6 +9832,41 @@ open Salt.Tactic in
   Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_h_g
   Salt.MR.s15Arm_log_le_scaled_g
   Salt.MR.s15ArmH_log_le_g
+
+/-! ⟦STRIDE GRADE REACH⟧ — THE `h`-CAP RAISED TO `log h ≤ 14` (`StrideGradeReach`, 2026-09-08,
+math — λ-BV wave 2-S step F5 γ, on the Captain's council ruling ⑤, his word "(B)": reach IS
+wanted, target `h ≤ 10⁶`).  F5-β's graded walls re-cut from `log h ≤ 7` (`h ≤ 1096`) to
+`log h ≤ 14` (`h ≤ ⌊e^14⌋ = 1202604`), which clears the ordered target by `1.2026×`.  EVERY NAME
+IS NEW AND CARRIES ITS OWN BINDER `hh14`: no landed declaration moves and no landed statement is
+re-pointed, so this is the wave's EXECUTOR half and not its statement half.  Four numeral
+families move — the `c`-ceiling `2^11·1202604² = 2961933067911168`, `hlogc` at `36`, the charge
+`hρlog` at `439` (`403 + 36` and `411 + 2·14` agreeing, as the landed `403 + 22 = 411 + 14 =
+425`), and the `128·838400·c` group at `4·10^23` — and ONE wall that is NOT a numeral: the
+capgate leaf's `4096` is the `k^12` of `log H ≤ √H/k`, moved `k = 2 ↦ 4` by
+`capfloor_logH_le_quarter_sqrt` for `4^12 = 16777216`, `13.95×` above the new cap.  Three of the
+seven §0 pins are CONTROLS that the landed numerals REFUSE the ordered target, including
+`reach14_countpin_refuses_stride_two`: the `2^539` count pin gives `a·h ≤ 2261670` at the
+obligation and `1738699` on the landed proof's own `3^40` majorant (the corpus's published
+`159.47` bits is the SECOND figure, re-derived and confirmed), and the control states the refusal
+at the LOOSER of the two — so this is a reach in the SHIFT and not in the STRIDE.  Numerals
+and one structural factor; nothing here proves an estimate, and nothing bears on twin primes.
+15 obligations, 15 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.reach14_ceiling_eq
+  Salt.MR.reach14_reaches_the_million
+  Salt.MR.reach14_arm_family_fits
+  Salt.MR.reach14_capgate_room
+  Salt.MR.landed_ceiling_refuses_the_million
+  Salt.MR.landed_capgate_refuses_the_million
+  Salt.MR.reach14_countpin_refuses_stride_two
+  Salt.MR.h_le_1202604_of_hh14
+  Salt.MR.capfloor_logH_le_quarter_sqrt
+  Salt.MR.flat_half_line_g14
+  Salt.MR.flat_anchor_line_wide_g14
+  Salt.MR.flat_gP1_line_g14
+  Salt.MR.flat_lvl_line_g14
+  Salt.MR.s15Arm_log_le_scaled_g14
+  Salt.MR.s15ArmH_log_le_g14
 
 /-! ⟦STRIDE PAIR RECEIPT G⟧ — THE `h`-LANE DOOR RECEIPT AT THE GRADED PIN (`StridePairReceiptG`,
 2026-09-04, math — λ-BV wave 2-S step F5 β; fired 21:0x — ONE Opus executor, 11/11, every name at
