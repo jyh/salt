@@ -821,9 +821,52 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    files** — but they are ONE mechanical substitution each, not 134 hand-edits, which is why the price's "9 sites
    / 3 families" (the ARITHMETIC edits) and this census (the SPELLING edits) are both right and measure different
    things. ⇒ 🔑 ***COUNT THE DISCHARGE SITES TO PRICE THE RISK AND THE SPELLING SITES TO PRICE THE DIFF.***
+   ⛔⛔ **AMENDED 2026-09-08 20:2x BY ITS AUTHOR, ON THREE SIGNED NON-AUTHOR VERDICTS AND THE NINE ARMS VERBATIM.
+   THE PARAGRAPH ABOVE IS KEPT AS WRITTEN AND IS WRONG IN BOTH ITS CLAUSES.** The "9 sites / 3 families" is not the
+   arithmetic bill, and "one mechanical substitution each" is not the act.
+   ✅ **THE EXECUTOR HALF IS COMPLETE AND MERGED — THREE PRs, 35 NAMES, EVERY ONE `[3 axioms]`.** #87 → `fe83ae6f`
+   (15 names, `Salt/MR/StrideGradeReach.lean`) · #89 → `db7551b3` (2 cap converters) · #90 → `9ebba76d`
+   (`h_le_exp_fourteen`). The cap reaches `h ≤ ⌊e^14⌋ = 1202604`, clearing the Captain's `10⁶` by `1.2026×`.
+   ⇒ **THE ONE-COMMAND COMPLIANCE TEST, now standing practice — AND USE THREE DOTS:**
+   `git diff --numstat origin/main...HEAD -- 'Salt/**/*.lean'` ⇒ ***A COMPLIANT WAVE REMOVES NOTHING; `−0` IS
+   THE WHOLE TEST.*** (#87 `+596/−0` · #89 `+81/−2`, both docstring prose · #90 `+18/−0`.)
+   ⛔ **THE TWO-DOT FORM IS WRONG AND I PUBLISHED IT FIRST.** `A..B` against a base that has MOVED reports the
+   BASE's own new work as DELETIONS on your branch: measured here, `origin/main..HEAD` showed
+   `check_private_paths.py +2 −19` for a docs-only branch that touches no such file, purely because `main` had
+   advanced by one commit mid-CI. `A...B` (merge-base) reports `docs/QUEUE.md +38 −1` and nothing else.
+   ⇒ 🔑 ***THE TWO FORMS AGREE UNTIL THE BASE MOVES, SO THE DEFECT IS INVISIBLE EXACTLY UNTIL IT MATTERS*** —
+   and it fails in the direction that CONDEMNS a compliant wave, which on a long wave is every time.
+   🧊 **THE STATEMENT HALF IS AT v5** (the bare filename
+   `2026-09-08-math-FREEZE-h-cap-reach-statement-v5.md`, seat `c6b5ba30`), **the first version written from the pass RETURNS rather than from a verdict summary.** Five
+   versions, three signed verdicts, and **the defect moved every time — POPULATION → ACT → RECIPE → SCHEDULE.**
+   ⇒ 🔑 ***A CORRECT CENSUS OF THE WRONG POPULATION AND A CORRECT ACT ON THE WRONG PERMISSION FAIL IDENTICALLY
+   FROM INSIDE THE DOCUMENT*** (the helm's). The four durable corrections, each measured at the object:
+   · ⛔ **A GATE I PUBLISHED THAT DOES NOT EXIST.** v3 §4 called `s13_smallGradeFits_h` a gate needing *a new
+     estimate*; the arm had returned `CONFIRMED-REPAIRABLE`, *"NO — IT IS NOT A NEW ESTIMATE … a lemma already
+     applied SEVEN TIMES IN THE SAME FILE."* I read a signer's eight-word compression and published its negation.
+     B4 is the **FLOOR of a 32-declaration cone containing the prize**, so the false STOP would have delivered
+     **ZERO** of the road. ⇒ 🔑 ***A GATE INHERITED FROM A SUMMARY IS STILL YOUR GATE ONCE YOU PUBLISH IT; AUDIT
+     YOUR STOPS HARDER THAN YOUR GOES.*** **No node needs new mathematics.**
+   · ⛔ **THE ROAD'S MIDDLE LINK DOES NOT EXIST.** `mrtUniformityXiL2H_holds_flat` has **zero application sites**
+     and `V7RatedH` does not import its file — it is not an ancestor of the prize in either direction. Three of
+     six links carry no cap; the terminal takes no arguments and pins `h = 2`. **Relayed verbatim through four
+     freeze versions and three passes without anyone measuring it, me included, three times.** ⇒ 🔑 ***A RELAYED
+     STRUCTURE IS THE LAST THING ANYONE MEASURES, BECAUSE EVERY READER ASSUMES THE VERSION BEFORE THEM DID.***
+     Replaced by the **induced twelve-layer module schedule**, which sums to exactly 167.
+   · ⛔ **THE POPULATION IS cap-DEPENDENT** — binder (167 declarations in 20 modules) **OR** cap-derived signature
+     numeral (**37** outside, **12** inside the road's closure). The binder-only census halts the wave at
+     `S15SelLinearWide` at induced L1 with no permitted action. **Fourth enumeration of this class to fail, all
+     four toward the author.**
+   · ⛔ **THE ANTI-VACUITY CLASS, WHICH NO BUILD CAN SEE.** **13** sites bind `hcb : c ≤ 1096` on the *shift* `c`;
+     a twin keeping it is **strictly stronger** than its original — green build, clean axioms, and every `_14`
+     name logically equivalent to its `_7`. ⇒ ***THE ADDITIVE ACT BUYS SAFETY BY REMOVING THE COMPILER AS A
+     WITNESS*** (the helm's). The gate is a signature grep **with a positive control**.
+   ⚖️ **RESERVED, statement-tier, NOT waited on:** whether a TWIN wave discharges rows 817-824 of this file, which
+   commission binder MOVES by name. Council ⑤ routes it as one statement freeze for ratification.
+   **DEFAULT-IF-SILENT: twins land first; the FORM-statement move is a separate cheap single-layer act after.**
    | release condition | owner | re-measure |
    |---|---|---|
-   | the helm's non-author pass on the statement freeze, then one executor wave over the binder census | math (author) → helm (pass) | at the helm's next seam |
+   | the helm's non-author pass on FREEZE **v5** (`c6b5ba30`), then the twin generation over the cap-DEPENDENT closure in the twelve-layer module order. **No node needs new mathematics.** | math (author) → helm (pass) | at the helm's next seam |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
