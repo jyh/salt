@@ -318,6 +318,21 @@ C1-01/C1-02/C2-03 (780–1,500, ABSENT under the sibling control), and C2-07's m
 (300–600). Calibration for the range: HB's Lemma 7 (§4, one lemma) cost ~6,200 ln in this corpus
 across `Lemma7{,Prod,F,EF,Kappa}.lean`; §6 is a comparable but wider block.
 
+⛔ **CORRECTION STAMP 2026-09-09 (h2c, Fable, the N7 route-freeze sitting; found by refuter K-TOT on 09/09 and re-measured by two
+arms of the helm's signed pass the same day; stamped here rather than edited over, because the freezes that priced Wave C cite the
+rows above by line).** The three PRINTED totals in this section do not sum from their own rows, and the two section headers carry
+the same stale numbers:
+- **C-1** header and totals line read **1,450–3,150**; the ten C-1 rows re-add to **1,780–3,450**
+  (80+200+40+200+60+250+300+150+300+200 / 150+350+80+400+120+450+600+300+600+400).
+- **C-2** header and totals line read **4,000–7,900**; the ten C-2 rows re-add to **4,600–9,100**
+  (200+600+500+300+400+1200+300+300+400+400 / 400+1200+1000+500+800+2400+600+600+800+800) — the gap is **exactly C2-02, Stone 2
+  (600–1,200)**, the row this section itself calls out as absent from mathlib and unknown on 08/06.
+- **Wave C** therefore reads **6,380–12,550 ln**, not 5,450–11,050, and the comparison with the 08/06 dossier's 4,000–9,000 is
+  +60 % / +39 %, not "~25–35 %".
+The rows are the record; every wave table built on this scout since 09/03 (route freezes v1, v2, v2.1, v2.2) re-added the rows and
+printed the sums above, with this note — so a reader auditing those freezes against the headers here finds a disagreement in the
+freezes' favour. Nothing in the rows themselves changes.
+
 ---
 
 ## §7 — WHAT I COULD NOT DETERMINE

@@ -136,10 +136,26 @@ cancels the `k^{−1/4}` outside, so the V-part degenerates to `V · q^{3/2} · 
 damping at all**. Measured against `δ₁q^{5/2}x^{15/16}` over `x = 2⁴⁰…2³⁰⁰`: ratio
 **2.76 → 114 → 1.22e4 → 2.64e6 → 1.28e10**, growth exactly `x^{1/8}` — which is the dropped
 `k^{1/4}`. ⇒ **The seal's TWO-TERM form is what `B-6` consumes**
-(`E/k^{1/4} + (1 + k^{1/4}·V)·q^{3/2}·(E+k)/√k`); the `k^{−1/2} ≤ k^{−1/4}` weakening that produced
+(`E/k^{1/4} + (1 + (2+k^{1/4})·V)·q^{3/2}·(E+k)/√k`); the `k^{−1/2} ≤ k^{−1/4}` weakening that produced
 the old one-term shape is **struck** in freeze v1. If a one-term form is wanted it is HB's own,
 as now written above — measured bounded (aggregate ratio 0.030–0.050, **flat in `x`**).
 🔑 **The `√k` in the denominator is load-bearing and cannot be weakened to `k^{1/4}`.**
+
+⛔ **V-SLOT CORRECTED 2026-09-08 18:1x (h2c, from the helm's SIGNED non-author verdict on
+the N7 Wave A seal v3 — its blocking defect BD1).** The slot
+above read `(1 + k^{1/4}·V)` until this stamp. **`k^{1/4}` is not what the chain delivers**: HB's factor
+is `(1 + K·|T|·E^{−1}·k^{−1})` with `K = 2 + k^{1/4}`, and since `K > k^{1/4}` the shorter form is
+*strictly smaller than the chain gives* — i.e. it is a **stronger claim than anything upstream proves**,
+and an upper bound whose substitution runs small is not an upper bound. Seven refuters found it in the
+seal; **it had been sitting in this consumer-side spec too, uncited by any version of the seal.**
+
+**WHAT THE CORRECTION COSTS THE CONSUMER, so nobody has to re-derive it:** the V-term inflates by
+`(2 + k^{1/4})/k^{1/4} = 1 + 2/k^{1/4}` — **bounded by 2.6818 at `k = 2`, monotone decreasing, → 1**.
+It is a **constant, never a power of `x`**, so it cannot move the asymptotic reach that the 2026-09-06
+correction above was about; measured at `k = x^{1/2}` it is 1.0625 at `x = 2^40`, 1.00195 at `2^80` and
+1.000061 at `2^120`. ⇒ **B-6's V-budget must absorb a factor ≤ 2.68 and nothing worse.**
+📌 *Recorded here rather than only in the seal because a seal repaired in isolation still lands against
+a wrong consumer spec — which is exactly how this defect survived three freezes.*
 
 three points about that shape, each a [SCOUT] claim:
 
