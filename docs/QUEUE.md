@@ -866,7 +866,27 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    **DEFAULT-IF-SILENT: twins land first; the FORM-statement move is a separate cheap single-layer act after.**
    | release condition | owner | re-measure |
    |---|---|---|
-   | the helm's non-author pass on FREEZE **v5** (`c6b5ba30`), then the twin generation over the cap-DEPENDENT closure in the twelve-layer module order. **No node needs new mathematics.** | math (author) → helm (pass) | at the helm's next seam |
+   ⛔⛔ **AMENDED AGAIN 2026-09-09 — THE SHIFT LANE'S BINDING WALL, WHICH NO FREEZE VERSION NAMED UNTIL v8 AND WHICH
+   THIS ROW UNDER-STATED BY 6.33×.** The row above says *"no node needs new mathematics"* — still true — but it did
+   not record that **the h-lane stops at `h ≤ 157 931` until one numeral moves**, so a reader priced the reach at
+   `1202604` when the corpus delivers `157 931`. Measured at the object from both call sites of `capeps_expbound_60`
+   (`Salt/MR/S13CapGateLinearLH.lean:99`): the spend is `log 3072 + 40 + log h = 48.0301 + log h` against a budget of
+   `60`, so at `log h ≤ 14` it reads `62.03 > 60` and **fails by 2.03**. ⇒ `max log h = 11.9699`, `h ≤ 157 931`.
+   ✅ **IT IS FREE, NOT A BARRIER — the budget needs `62` for `10⁶` and `63` for `⌊e^14⌋`,** and the corpus prices
+   the true admissible value at `~7·10¹⁷`, calling the `60` *"an author's convenience rather than a barrier"* **in
+   the same section header that names the whole class**: *"⟦THE SIX NUMERIC SIBLINGS⟧ … these carry NO socket …
+   `log h ≤ 7` turns a spend of `49` into `56`."*
+   ⇒ 🔑 ***THE CORPUS NAMED THE CLASS IN A SECTION HEADER AND FIVE ENUMERATIONS MISSED IT, BECAUSE THEY GREPPED FOR
+   SPELLINGS INSTEAD OF READING THE FILE THAT SAYS SO.*** The class is **structural carriers** — a declaration whose
+   PARAMETER the cap's discharge spends into (a divisor, a budget, an exponent), carrying neither a cap binder nor a
+   cap-derived numeral, and therefore invisible to every spelling census.
+   📌 **AND THE ORDER WAS A SHIFT REACH.** A later freeze version restated it in the PRODUCT variable and reported the
+   campaign as walled; that was withdrawn. On the shift, `h ≤ 1202604` stands and the ordered `10⁶` is met by
+   `1.2026×`. ⇒ ***A TARGET RESTATED IN A WIDER VARIABLE IS A DIFFERENT TARGET*** — the gap between the two readings
+   was `906×`. The product lane's ceilings (`a ≤ 1103`, `a·h ≤ 1112488`) bound the SUCCESSOR wave.
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | the helm's non-author pass on FREEZE **v8** (superseding v5/v6/v7; held to a quota clock, owner helm), then the twin generation over the cap-DEPENDENT closure — **including the `60` budget's move to `63`, without which the shift lane stops at `157 931`.** No node needs new mathematics. | math (author) → helm (pass) | at the helm's next seam |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
