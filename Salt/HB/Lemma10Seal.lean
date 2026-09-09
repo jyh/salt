@@ -118,4 +118,33 @@ theorem head_reindex (k q : ℕ) (b : ℤ) (I : Finset ℤ) (f : ℤ → ℝ) (K
   rw [norm_lem10ExpSumZ]
   norm_num
 
+/-! ## R1 — the truncation parameter `K`, pinned as a natural BY FLOOR -/
+
+/-- HB's truncation parameter `K = 2 + k^{1/4}`, pinned as a natural.
+
+**FLOOR, NEVER CEILING.**  With a ceiling `sealK_le` is false at `k = 2`
+(`2 + ⌈2^{1/4}⌉ = 4 > 3.189`), and `sealK_le` is what lets `log_Kk_le` apply. -/
+noncomputable def sealK (k : ℕ) : ℕ := 2 + ⌊(k : ℝ) ^ ((1 : ℝ) / 4)⌋₊
+
+/-- `2 ≤ sealK k`, by construction. -/
+theorem sealK_ge_two (k : ℕ) : 2 ≤ sealK k := Nat.le_add_right 2 _
+
+/-- `sealK` dominates `k^{1/4}` — this is what turns the assembly's `E/K` into the
+conclusion's `E/k^{1/4}`. -/
+theorem sealK_ge_rpow (k : ℕ) : (k : ℝ) ^ ((1 : ℝ) / 4) ≤ sealK k := by
+  have h0 : (0 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 4) := Real.rpow_nonneg (by positivity) _
+  have h1 : (k : ℝ) ^ ((1 : ℝ) / 4) < (⌊(k : ℝ) ^ ((1 : ℝ) / 4)⌋₊ : ℝ) + 1 :=
+    Nat.lt_floor_add_one _
+  have h2 : ((sealK k : ℕ) : ℝ) = 2 + (⌊(k : ℝ) ^ ((1 : ℝ) / 4)⌋₊ : ℝ) := by
+    simp [sealK]
+  rw [h2]; linarith
+
+/-- `sealK` is dominated by `2 + k^{1/4}` — this is what lets `log_Kk_le` apply to it. -/
+theorem sealK_le (k : ℕ) : (sealK k : ℝ) ≤ 2 + (k : ℝ) ^ ((1 : ℝ) / 4) := by
+  have h0 : (0 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 4) := Real.rpow_nonneg (by positivity) _
+  have h2 : ((sealK k : ℕ) : ℝ) = 2 + (⌊(k : ℝ) ^ ((1 : ℝ) / 4)⌋₊ : ℝ) := by
+    simp [sealK]
+  rw [h2]
+  have := Nat.floor_le h0
+  linarith
 end Salt.N7
