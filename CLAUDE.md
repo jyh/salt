@@ -95,6 +95,18 @@ lake env lean Scratch.lean        # for #print axioms checks (don't commit Scrat
 python3 scripts/blueprint_lint.py # docs↔code consistency + axiom audit (phase 1)
 ```
 
+⛔⛔ **NEVER `grep -r` FROM `~/projects/claude` — IT SEARCHES THREE FILES AND RETURNS A CLEAN ZERO.**
+Here `grep` is a shell function wrapping `ugrep -G --ignore-files`, `--ignore-files` honours
+`.gitignore`, and the fleet root's `.gitignore` is `*` with three exceptions — so **every tree,
+including this one, is ignored.** The false zero exits **rc=1 with an empty stderr, byte-identical
+to a true absence.** Driven 2026-09-09: `grep -rl theorem ~/projects/claude` → **0**, the same
+needle scoped to `~/projects/claude/salt` → **5221**.
+✅ Scope inside the tree (`grep -r <needle> ~/projects/claude/salt`), or use `git grep`.
+⇒ This is the MECHANISM under the standing rule that **an empty grep is not evidence of absence** —
+which matters here more than anywhere, because absence claims about mathlib and about this corpus
+are how nodes get classified and how "no such lemma exists" gets written down. Always `grep -F`
+for Lean identifiers.
+
 If `lake` is not on PATH: `~/.elan/bin/lake`.
 
 ## Public-repo commit hygiene (ratified 2026-08-23)
