@@ -147,4 +147,66 @@ theorem sealK_le (k : ℕ) : (sealK k : ℝ) ≤ 2 + (k : ℝ) ^ ((1 : ℝ) / 4)
   rw [h2]
   have := Nat.floor_le h0
   linarith
+/-! ## R2 — the logarithmic envelope at `K·k` -/
+
+/-- `c ≤ x^{1/4}` from `c^4 ≤ x`.  Private: it is R2's own scaffolding. -/
+private lemma le_rpow4 {x c : ℝ} (hc : 0 ≤ c) (hx : 0 ≤ x) (h : c ^ (4 : ℕ) ≤ x) :
+    c ≤ x ^ ((1 : ℝ) / 4) := by
+  rw [one_div, Real.le_rpow_inv_iff_of_pos hc hx (by norm_num)]
+  rw [show ((4 : ℝ)) = ((4 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  exact h
+
+/-- **R2.**  `log ((2 + k^{1/4})·k) ≤ 1.337 · log (2k)` for `k ≥ 2`.
+
+`1337/1000` because `(1337/1000)³ = 2.389979753 ≤ 239/100` exactly by rational `norm_num`;
+the constant is pinned on both sides (the attained maximum of the ratio is `r(2) = 1.3365989`,
+the ceiling is `(2.39)^{1/3} = 1.3370038`), so the window is 4.05e-4 wide and `1338/1000`
+FAILS.  ⛔ Do NOT state it at `13366/10000`: it is true there by 1.1e-6 and no `nlinarith`
+survives that margin.
+
+The route is a SINGLE regime — no case split, no monotonicity, no `interval_cases`: the
+envelope `2 + k^{1/4} ≤ (1 + 2·2^{-1/4})·k^{1/4} ≤ 2.682·k^{1/4}` is tangent at `k = 2`, and
+the envelope constant closes off the anchor `8/3 = 3·log 2 − log 3` with margin 4.6e-4 (no
+`log 5`).  ⚠️ The ratio dips to 1.1756 at `k = 498`; that is not a regime seam — do not split
+there. -/
+theorem log_Kk_le (k : ℕ) (hk : 2 ≤ k) :
+    Real.log ((2 + (k : ℝ) ^ ((1 : ℝ) / 4)) * k) ≤ 1337 / 1000 * Real.log (2 * (k : ℝ)) := by
+  have hk2 : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hkpos : (0 : ℝ) < (k : ℝ) := by linarith
+  have ht : (11892071 : ℝ) / 10000000 ≤ (k : ℝ) ^ ((1 : ℝ) / 4) :=
+    le_rpow4 (by norm_num) (le_of_lt hkpos) (by nlinarith)
+  have ht0 : (0 : ℝ) < (k : ℝ) ^ ((1 : ℝ) / 4) := by linarith
+  -- (1) THE ENVELOPE, tangent at k = 2:  2 + k^{1/4} ≤ 2.682 · k^{1/4}
+  have henv : 2 + (k : ℝ) ^ ((1 : ℝ) / 4) ≤ 2682 / 1000 * (k : ℝ) ^ ((1 : ℝ) / 4) := by
+    nlinarith [ht]
+  -- (2) push through · k and take logs
+  have hmul : (2 + (k : ℝ) ^ ((1 : ℝ) / 4)) * k
+      ≤ 2682 / 1000 * ((k : ℝ) ^ ((1 : ℝ) / 4) * (k : ℝ)) := by
+    have := mul_le_mul_of_nonneg_right henv (le_of_lt hkpos); linarith [this]
+  have hpos : (0 : ℝ) < (2 + (k : ℝ) ^ ((1 : ℝ) / 4)) * k := by positivity
+  have hlogsplit : Real.log (2682 / 1000 * ((k : ℝ) ^ ((1 : ℝ) / 4) * (k : ℝ)))
+      = Real.log (2682 / 1000) + (5 / 4) * Real.log (k : ℝ) := by
+    rw [Real.log_mul (by norm_num) (by positivity),
+      Real.log_mul (ne_of_gt ht0) (ne_of_gt hkpos), Real.log_rpow hkpos]
+    ring
+  -- (3) the log-2 / log-3 bound on the envelope constant, anchor 8/3
+  have hc : Real.log ((2682 : ℝ) / 1000) ≤ 3 * Real.log 2 - Real.log 3 + (8046 / 8000 - 1) := by
+    have e : ((8 : ℝ)/3) * (8046 / 8000) = 2682 / 1000 := by ring
+    have h83 : Real.log ((8 : ℝ)/3) = 3 * Real.log 2 - Real.log 3 := by
+      rw [Real.log_div (by norm_num) (by norm_num),
+        show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]
+      push_cast; ring
+    rw [← e, Real.log_mul (by norm_num) (by norm_num), h83]
+    linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < (8046 : ℝ)/8000 by norm_num)]
+  -- (4) close:  log (2k) = log 2 + log k,  and log k ≥ log 2
+  have h2k : Real.log (2 * (k : ℝ)) = Real.log 2 + Real.log (k : ℝ) := by
+    rw [Real.log_mul (by norm_num) (ne_of_gt hkpos)]
+  have hlk : Real.log 2 ≤ Real.log (k : ℝ) := Real.log_le_log (by norm_num) hk2
+  calc Real.log ((2 + (k : ℝ) ^ ((1 : ℝ) / 4)) * k)
+      ≤ Real.log (2682 / 1000 * ((k : ℝ) ^ ((1 : ℝ) / 4) * (k : ℝ))) :=
+        Real.log_le_log hpos hmul
+    _ = Real.log (2682 / 1000) + (5 / 4) * Real.log (k : ℝ) := hlogsplit
+    _ ≤ 1337 / 1000 * Real.log (2 * (k : ℝ)) := by
+        rw [h2k]
+        nlinarith [hc, hlk, Real.log_two_gt_d9, Real.log_two_lt_d9, Real.log_three_gt_d9]
 end Salt.N7
