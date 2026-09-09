@@ -241,4 +241,153 @@ theorem t4_log_sealK_le (k : ℕ) (hk : 2 ≤ k) :
   have h6 : (1 : ℝ) ≤ 722/1000 * Real.log (2 * (k : ℝ)) := by
     nlinarith [Real.log_two_gt_d9, h4, h5]
   linarith [h1, h2, hR2, h6]
+/-! ## R3′ — the Fourier/majorant split of the ψ-sum, ℤ-indexed in HEAD and BRACKET -/
+
+/-- `‖lem10ExpSumZ‖ ≤ #I`, off the landed ℕ row through the bridge. -/
+private lemma norm_lem10ExpSumZ_le_card (k q : ℕ) (b : ℤ) (I : Finset ℤ) (m : ℤ) (f : ℤ → ℝ) :
+    ‖lem10ExpSumZ k q b I m f‖ ≤ (I.card : ℝ) := by
+  rw [norm_lem10ExpSumZ]
+  exact norm_lem10ExpSum_le_card _ _ _ _ _ _
+
+/-- The sawtooth majorant is nonnegative. -/
+private lemma majorant_nonneg (K : ℕ) (hK : 1 ≤ K) (θ : ℝ) : 0 ≤ sawtoothMajorant K θ := by
+  rw [sawtoothMajorant_eq_inv_max hK]
+  have h : (0:ℝ) < max ((K : ℝ) * dist₁ θ 0) 1 := lt_of_lt_of_le zero_lt_one (le_max_right _ _)
+  positivity
+
+/-- The head: the truncated Fourier sum, bounded term by term by the ℤ-indexed exponential
+sums over the punctured symmetric range. -/
+private lemma fourier_norm (k q : ℕ) (b : ℤ) (I : Finset ℤ) (f : ℤ → ℝ) (K : ℕ) :
+    ‖∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothFourier K (f n)‖
+      ≤ ∑ m ∈ (Finset.Icc (-(K:ℤ)) (K:ℤ)).erase 0,
+          ‖lem10ExpSumZ k q b I m f‖ / (2 * Real.pi * |(m:ℝ)|) := by
+  set T := I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b) with hT
+  set E := (Finset.Icc (-(K:ℤ)) (K:ℤ)).erase 0
+  have hd : ∀ m : ℤ, ‖(2 * (Real.pi : ℂ) * Complex.I * (m : ℂ))‖ = 2 * Real.pi * |(m:ℝ)| := by
+    intro m
+    simp [Complex.norm_I, abs_of_nonneg Real.pi_nonneg]
+  have hstep : ∑ n ∈ T, sawtoothFourier K (f n)
+      = ∑ m ∈ E, (-(lem10ExpSumZ k q b I m f / (2 * (Real.pi:ℂ) * Complex.I * (m:ℂ)))) := by
+    simp only [sawtoothFourier, ← Finset.sum_neg_distrib]
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl (fun m _ => ?_)
+    simp only [lem10ExpSumZ, ← Finset.sum_div, Finset.sum_neg_distrib]
+    rw [hT]
+  rw [hstep]
+  refine le_trans (norm_sum_le _ _) ?_
+  refine Finset.sum_le_sum (fun m _ => ?_)
+  rw [norm_neg, norm_div, hd m]
+
+/-- The `±m` collapse, WITH the ℤ head: the punctured symmetric range folds onto
+`Finset.Icc (1:ℤ) (K:ℤ)`, the head of the frozen statement. -/
+private lemma foldZ (k q : ℕ) (b : ℤ) (I : Finset ℤ) (f : ℤ → ℝ) (K : ℕ) :
+    ∑ m ∈ (Finset.Icc (-(K:ℤ)) (K:ℤ)).erase 0,
+        ‖lem10ExpSumZ k q b I m f‖ / (2 * Real.pi * |(m:ℝ)|)
+      = ∑ m ∈ Finset.Icc (1:ℤ) (K:ℤ), ‖lem10ExpSumZ k q b I m f‖ / (Real.pi * m) := by
+  have hE : (Finset.Icc (-(K:ℤ)) (K:ℤ)).erase 0
+      = Finset.Icc (-(K:ℤ)) (-1) ∪ Finset.Icc (1:ℤ) (K:ℤ) := by
+    ext m; simp only [Finset.mem_erase, Finset.mem_Icc, Finset.mem_union]; omega
+  have hdisj : Disjoint (Finset.Icc (-(K:ℤ)) (-1)) (Finset.Icc (1:ℤ) (K:ℤ)) := by
+    rw [Finset.disjoint_left]; intro a ha hb
+    simp only [Finset.mem_Icc] at ha hb; omega
+  have hneg : ∑ m ∈ Finset.Icc (-(K:ℤ)) (-1),
+        ‖lem10ExpSumZ k q b I m f‖ / (2 * Real.pi * |(m:ℝ)|)
+      = ∑ m ∈ Finset.Icc (1:ℤ) (K:ℤ),
+        ‖lem10ExpSumZ k q b I m f‖ / (2 * Real.pi * |(m:ℝ)|) := by
+    refine Finset.sum_nbij' (i := fun m : ℤ => -m) (j := fun m : ℤ => -m) ?_ ?_ ?_ ?_ ?_
+    · intro a ha; simp only [Finset.mem_Icc] at ha ⊢; omega
+    · intro a ha; simp only [Finset.mem_Icc] at ha ⊢; omega
+    · intro a _; ring
+    · intro a _; ring
+    · intro a _
+      rw [norm_lem10ExpSumZ, norm_lem10ExpSumZ, Int.natAbs_neg]
+      congr 2
+      push_cast
+      rw [abs_neg]
+  rw [hE, Finset.sum_union hdisj, hneg, ← two_mul, Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun m hm => ?_)
+  simp only [Finset.mem_Icc] at hm
+  have hm0 : (0:ℝ) < (m:ℝ) := by exact_mod_cast (by omega : (0:ℤ) < m)
+  rw [abs_of_pos hm0]
+  have hpi : Real.pi ≠ 0 := Real.pi_ne_zero
+  field_simp
+
+/-- The tail: the sawtooth remainder is bounded by `5/2` times the majorant, and the majorant
+sum is bounded by the ℤ-indexed majorant bracket. -/
+private lemma majorant_bracket (k q : ℕ) (b : ℤ) (I : Finset ℤ) (f : ℤ → ℝ) {K : ℕ}
+    (hK : 2 ≤ K) :
+    ∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothMajorant K (f n)
+      ≤ ∑' m : ℤ, ‖majorantCoeff K m‖ * ‖lem10ExpSumZ k q b I m f‖ := by
+  set T := I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b) with hT
+  have hsummable : Summable (fun m : ℤ => ‖majorantCoeff K m‖ * ‖lem10ExpSumZ k q b I m f‖) := by
+    refine Summable.of_nonneg_of_le (fun m => by positivity) (fun m => ?_)
+      ((summable_norm_majorantCoeff hK).mul_right (I.card : ℝ))
+    exact mul_le_mul_of_nonneg_left (norm_lem10ExpSumZ_le_card k q b I m f) (norm_nonneg _)
+  have hHS : HasSum (fun m : ℤ => majorantCoeff K m * lem10ExpSumZ k q b I m f)
+      (((∑ n ∈ T, sawtoothMajorant K (f n) : ℝ)) : ℂ) := by
+    have h := hasSum_sum (s := T)
+      (f := fun (n : ℤ) (m : ℤ) => majorantCoeff K m * e ((m : ℝ) * f n))
+      (a := fun n : ℤ => ((sawtoothMajorant K (f n) : ℝ) : ℂ))
+      (fun n _ => hasSum_majorantCoeff hK (f n))
+    have hfun : (fun m : ℤ => ∑ n ∈ T, majorantCoeff K m * e ((m : ℝ) * f n))
+        = fun m : ℤ => majorantCoeff K m * lem10ExpSumZ k q b I m f := by
+      funext m; rw [lem10ExpSumZ, Finset.mul_sum, hT]
+    rw [hfun] at h
+    have hc : ((∑ n ∈ T, sawtoothMajorant K (f n) : ℝ) : ℂ)
+        = ∑ n ∈ T, ((sawtoothMajorant K (f n) : ℝ) : ℂ) := by push_cast; rfl
+    rw [hc]
+    exact h
+  have hnn : (0:ℝ) ≤ ∑ n ∈ T, sawtoothMajorant K (f n) :=
+    Finset.sum_nonneg (fun n _ => majorant_nonneg K (le_trans (by norm_num) hK) (f n))
+  calc ∑ n ∈ T, sawtoothMajorant K (f n)
+      = ‖(((∑ n ∈ T, sawtoothMajorant K (f n) : ℝ)) : ℂ)‖ := by
+        rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hnn]
+    _ = ‖∑' m : ℤ, majorantCoeff K m * lem10ExpSumZ k q b I m f‖ := by rw [hHS.tsum_eq]
+    _ ≤ ∑' m : ℤ, ‖majorantCoeff K m * lem10ExpSumZ k q b I m f‖ := by
+        refine norm_tsum_le_tsum_norm ?_
+        simpa only [norm_mul] using hsummable
+    _ = ∑' m : ℤ, ‖majorantCoeff K m‖ * ‖lem10ExpSumZ k q b I m f‖ := by
+        simp only [norm_mul]
+
+/-- **R3′ — the split row.**  The ψ-sum of (7.1) is bounded by the truncated Fourier head over
+`Finset.Icc (1:ℤ) (K:ℤ)` plus `5/2` times the majorant bracket.
+
+⭐ **BOTH TERMS ARE ℤ-INDEXED.**  One index type in the statement, so R-A6 clause 3 — "never
+mix the index types inside a single statement" — holds literally of the assembly statement,
+not merely "in the bracket".  The ℕ workhorses (`lem10_m1_bound` at `m = 1`,
+`lem10_dyadic_bound` on `Finset.Ioc M (2M)`) are reached through `norm_lem10ExpSumZ` and
+`head_reindex` in the CONSUMER, which is precisely what R-A6's bridge is for. -/
+theorem lem10PsiSum_le_fourier_split (k q : ℕ) (b : ℤ) (I : Finset ℤ) (f : ℤ → ℝ) {K : ℕ}
+    (hK : 2 ≤ K) :
+    |lem10PsiSum k q b I f|
+      ≤ (∑ m ∈ Finset.Icc (1 : ℤ) (K : ℤ), ‖lem10ExpSumZ k q b I m f‖ / (Real.pi * m))
+        + (5 / 2) * ∑' m : ℤ, ‖majorantCoeff K m‖ * ‖lem10ExpSumZ k q b I m f‖ := by
+  have hcast : ((lem10PsiSum k q b I f : ℝ) : ℂ)
+      = (∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothFourier K (f n))
+        + (∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothRem K (f n)) := by
+    rw [lem10PsiSum]
+    push_cast
+    rw [← Finset.sum_add_distrib]
+    exact Finset.sum_congr rfl (fun n _ => sawtooth_fourier_expansion K (f n))
+  have h1 : |lem10PsiSum k q b I f|
+      ≤ ‖∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothFourier K (f n)‖
+        + ‖∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothRem K (f n)‖ := by
+    have hn : |lem10PsiSum k q b I f| = ‖((lem10PsiSum k q b I f : ℝ) : ℂ)‖ := by
+      rw [Complex.norm_real, Real.norm_eq_abs]
+    rw [hn, hcast]
+    exact norm_add_le _ _
+  have hF := le_trans (fourier_norm k q b I f K) (le_of_eq (foldZ k q b I f K))
+  have hR : ‖∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b), sawtoothRem K (f n)‖
+      ≤ (5/2) * ∑' m : ℤ, ‖majorantCoeff K m‖ * ‖lem10ExpSumZ k q b I m f‖ := by
+    refine le_trans (norm_sum_le _ _) ?_
+    have hstep : ∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b),
+          ‖sawtoothRem K (f n)‖
+        ≤ (5/2) * ∑ n ∈ I.filter (fun n => Int.gcd n k = 1 ∧ (q : ℤ) ∣ n - b),
+          sawtoothMajorant K (f n) := by
+      rw [Finset.mul_sum]
+      exact Finset.sum_le_sum
+        (fun n _ => norm_sawtoothRem_le (le_trans (by norm_num) hK) (f n))
+    refine le_trans hstep ?_
+    exact mul_le_mul_of_nonneg_left (majorant_bracket k q b I f hK) (by norm_num)
+  linarith
 end Salt.N7
