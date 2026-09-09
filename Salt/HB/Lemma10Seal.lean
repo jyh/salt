@@ -593,4 +593,128 @@ theorem lem10_m1_bound [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q
     _ = (1 + 4 * Real.pi * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
           * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
           * (E + (k : ℝ)) / Real.sqrt (k : ℝ) := by ring
+/-! ## The road twins — the 2-adic factor bounded by `16` and paid in the constant
+
+⛔ The factor `√(2^{v₂ k})` is **not removed** by these rows: it is BOUNDED BY `16` from the
+row's own binder `hv2k : k.factorization 2 ≤ 8` and paid in the constant, which is exactly what
+the literals `128 = 8·16` and `256 = 16·16` encode.  Each row is a `le_trans` onto its landed
+twin (`klPhaseSum_bound`, `lem10_dyadic_bound`, and `lem10_m1_bound` above) through the one
+shared helper below.  A genuine re-proof through the road modulus would deliver statements
+`16×` sharper than these; that is a different row, and iron rule 1 forbids writing it here. -/
+
+/-- `√(2^{v₂ k}) ≤ 16` from `hv2k : v₂ k ≤ 8` — the whole content of the road collapse. -/
+private lemma sqrt_two_pow_v2_le_16 (hv2k : k.factorization 2 ≤ 8) :
+    Real.sqrt ((2 : ℝ) ^ k.factorization 2) ≤ 16 := by
+  have h1 : ((2 : ℝ) ^ k.factorization 2) ≤ (2 : ℝ) ^ (8 : ℕ) :=
+    pow_le_pow_right₀ (by norm_num) hv2k
+  calc Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+      ≤ Real.sqrt ((2 : ℝ) ^ (8 : ℕ)) := Real.sqrt_le_sqrt h1
+    _ = 16 := by
+        rw [show ((2 : ℝ) ^ (8 : ℕ)) = (16 : ℝ) ^ 2 by norm_num]
+        exact Real.sqrt_sq (by norm_num)
+
+/-- **The road twin of `klPhaseSum_bound`** (HB (7.7)), at the constant `128 = 8·16`. -/
+theorem klPhaseSum_bound_road [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (hv2k : k.factorization 2 ≤ 8)
+    (b A B c : ℤ) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E) :
+    ‖klPhaseSum k q b A B c‖
+      ≤ 128 * (k.divisors.card : ℝ) * (q : ℝ) ^ ((3 : ℝ) / 2) / Real.sqrt k
+          * (E * Real.sqrt (Nat.gcd (k / q) c.natAbs : ℝ)
+              + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+                  * Real.log (2 * ((k / q : ℕ) : ℝ))) := by
+  have hk₀R : (1 : ℝ) ≤ ((k / q : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.one_le_div_iff hq).mpr (Nat.le_of_dvd (by omega) hqk)
+  have hBIG : 0 ≤ E * Real.sqrt (Nat.gcd (k / q) c.natAbs : ℝ)
+      + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+          * Real.log (2 * ((k / q : ℕ) : ℝ)) :=
+    add_nonneg (mul_nonneg (by linarith) (Real.sqrt_nonneg _))
+      (mul_nonneg (by positivity) (Real.log_nonneg (by linarith)))
+  have hS := sqrt_two_pow_v2_le_16 (k := k) hv2k
+  have hnum : 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ)
+        * (q : ℝ) ^ ((3 : ℝ) / 2)
+      ≤ 128 * (k.divisors.card : ℝ) * (q : ℝ) ^ ((3 : ℝ) / 2) := by
+    have hDQ : (0 : ℝ) ≤ (k.divisors.card : ℝ) * (q : ℝ) ^ ((3 : ℝ) / 2) := by positivity
+    nlinarith [hS, hDQ]
+  refine le_trans (klPhaseSum_bound hk hq hqk b A B c hE hlen) ?_
+  refine mul_le_mul_of_nonneg_right ?_ hBIG
+  rw [div_eq_mul_inv, div_eq_mul_inv]
+  exact mul_le_mul_of_nonneg_right hnum (by positivity)
+
+/-- **The road twin of `lem10_dyadic_bound`** (HB (7.8)), at the constant `256 = 16·16`. -/
+theorem lem10_dyadic_bound_road [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (hv2k : k.factorization 2 ≤ 8)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q)) (M : ℕ) :
+    ∑ m ∈ Finset.Ioc M (2 * M),
+        ‖lem10ExpSum k q b (Finset.Ioc A B) m
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (1 + 4 * Real.pi * M * V) * 256
+          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+          * M * (E + k) / Real.sqrt k := by
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg fun n _ => abs_nonneg _) hvar
+  have hP : (0 : ℝ) ≤ 1 + 4 * Real.pi * (M : ℝ) * V := by positivity
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hL : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hW : (0 : ℝ) ≤ (1 + 4 * Real.pi * (M : ℝ) * V) * 16 * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (M : ℝ) * (E + (k : ℝ)) :=
+    mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg
+      (mul_nonneg hP (by norm_num)) (by positivity)) hL) (by positivity))
+      (by positivity)) (by linarith)
+  have hS := sqrt_two_pow_v2_le_16 (k := k) hv2k
+  refine le_trans (lem10_dyadic_bound hk hq hqk b A B hAB hE hlen g hvar c hc M) ?_
+  rw [div_eq_mul_inv, div_eq_mul_inv]
+  refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+  calc (1 + 4 * Real.pi * (M : ℝ) * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+        * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+        * (M : ℝ) * (E + (k : ℝ))
+      = Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+        * ((1 + 4 * Real.pi * (M : ℝ) * V) * 16 * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (M : ℝ) * (E + (k : ℝ))) := by
+        ring
+    _ ≤ 16 * ((1 + 4 * Real.pi * (M : ℝ) * V) * 16 * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (M : ℝ) * (E + (k : ℝ))) :=
+        mul_le_mul_of_nonneg_right hS hW
+    _ = (1 + 4 * Real.pi * (M : ℝ) * V) * 256 * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (M : ℝ) * (E + (k : ℝ)) := by
+        ring
+
+/-- **The road twin of `lem10_m1_bound`** (BD3), at the constant `256 = 16·16`.
+
+Without this row the road seal is not assemblable at all: its `m = 1` term would still carry a
+`√(2^{v₂ k})` while every other term had been collapsed.  It is `le_trans` onto
+`lem10_m1_bound` above — the missing *link*, not a missing convenience. -/
+theorem lem10_m1_bound_road [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (hv2k : k.factorization 2 ≤ 8)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q)) :
+    ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (1 + 4 * Real.pi * V) * 256
+          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+          * (E + k) / Real.sqrt k := by
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg fun n _ => abs_nonneg _) hvar
+  have hP : (0 : ℝ) ≤ 1 + 4 * Real.pi * V := by positivity
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hL : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hW : (0 : ℝ) ≤ (1 + 4 * Real.pi * V) * 16 * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ)) :=
+    mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg
+      (mul_nonneg hP (by norm_num)) (by positivity)) hL) (by positivity)) (by linarith)
+  have hS := sqrt_two_pow_v2_le_16 (k := k) hv2k
+  refine le_trans (lem10_m1_bound hk hq hqk b A B hAB hE hlen g hvar c hc) ?_
+  rw [div_eq_mul_inv, div_eq_mul_inv]
+  refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+  calc (1 + 4 * Real.pi * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+        * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+        * (E + (k : ℝ))
+      = Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+        * ((1 + 4 * Real.pi * V) * 16 * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))) := by ring
+    _ ≤ 16 * ((1 + 4 * Real.pi * V) * 16 * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))) :=
+        mul_le_mul_of_nonneg_right hS hW
+    _ = (1 + 4 * Real.pi * V) * 256 * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ)) := by ring
 end Salt.N7
