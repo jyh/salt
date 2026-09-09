@@ -892,10 +892,25 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
 4. **The Estermann 2-adic landing** — ✅ DONE 08/20 `4efcc2b1`: HB (7.1)
    verbatim, no 2-adic factor.
-5. **W-F3 — THE h-SHELL** — the fork road's arc-finisher: the
+5. ✅✅ **W-F3 — THE h-SHELL — COMPLETE. STAMPED 2026-09-09 (math), MEASURED AT THE OBJECT, NOT READ
+   OFF THE SUB-ITEMS.** Every sub-item below (5a · 5b · 5c) has carried ✅ LANDED since 08/23, and
+   this header has read as open work ever since — **a P1 header is the first thing a fresh seat
+   prices, and it was pricing a wave that no longer exists.**
+   `[OBJECT @salt@864e6e31 — each name grepped at its declaration, not inferred from the row]`
+   ```
+     log_chowla_two_shell_xi_h   Theorem23Shell.lean:488   the named arc-finisher
+     circle_method_estimate_h    ShiftFork.lean:404        ingredient 1, named in this header
+     contradiction_of_mrtDoorXiH ShiftFork.lean:345        ingredient 2, named in this header
+     ppLevel_holds               PpAssembly.lean:928       5a's trophy
+     BUILD-GATED: Salt/Entropy/All.lean:180 carries log_chowla_two_shell_xi_h in #audit_axioms
+   ```
+   ⇒ 🔑 ***A ROUTING ARTIFACT AGES IN ONE DIRECTION ONLY — FALSELY-OPEN*** (this campaign's own carded
+   law). A discharged item that still reads open invites a redundant wave, and nothing downstream
+   corrects it, because the next reader prices the header and stops.
+   *(Original header, kept verbatim: the fork road's arc-finisher — the
    Theorem23Shell h-analogue consuming circle_method_estimate_h +
    contradiction_of_mrtDoorXiH, yielding the door-conditional h-family
-   terminal. The byte-identity seam guarantee is already proven
+   terminal.)* The byte-identity seam guarantee is already proven
    (5b5c0ed3's record). Design-block-first; one Opus executor wave.
    [DONE, for the record: the two ports landed 08/16–19; E4a CLOSED
    08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
