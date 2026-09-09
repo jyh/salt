@@ -390,4 +390,206 @@ theorem lem10PsiSum_le_fourier_split (k q : ℕ) (b : ℤ) (I : Finset ℤ) (f :
     refine le_trans hstep ?_
     exact mul_le_mul_of_nonneg_left (majorant_bracket k q b I f hK) (by norm_num)
   linarith
+/-! ## R4 — the `m = 1` composite bound -/
+
+/-- **R4.**  The `m = 1` term of the assembly, as its own row.
+
+⛔ **WHY IT IS A ROW AND NOT A BLOCK:** `lem10_dyadic_bound` sums over `Finset.Ioc M (2M)`,
+and no block of that shape contains `m = 1`; the `m = 1` term has to be composed from
+`lem10_abel_transfer` and `klPhaseSum_bound` directly, and it carries no gcd SUM, so it pays
+none of the dyadic row's averaging factor.
+
+**The numeral.**  The route closes at `8` and even at `4` (the `C = 2` mutant fails in its
+first `ring` identity, so `4` is this route's floor); the row is STATED at `16` because `16`
+is what the p.223 assembly consumes, and a frozen statement is not moved to fit a proof.  The
+last `calc` step is therefore `8·X ≤ 16·X` on a nonnegative product.  ⚠️ The `(1 + 4πV)`
+factor is likewise weaker than the `(1 + 2πV)` that `lem10_abel_transfer` gives at `m = 1`;
+it is the assembly's spelling and must not be read as load-bearing. -/
+theorem lem10_m1_bound [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q)) :
+    ‖lem10ExpSum k q b (Finset.Ioc A B) 1 (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (1 + 4 * Real.pi * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+          * (E + k) / Real.sqrt k := by
+  classical
+  have hkpos : 0 < k := by omega
+  have hkne : k ≠ 0 := by omega
+  have hk₀dvd : (k / q) ∣ k := Nat.div_dvd_of_dvd hqk
+  have hk₀pos : 0 < k / q := Nat.div_pos (Nat.le_of_dvd hkpos hqk) hq
+  have hV0 : (0 : ℝ) ≤ V :=
+    le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
+  have hE0 : (0 : ℝ) < E := lt_of_lt_of_le zero_lt_one hE
+  -- the `m = 1` gcd is 1, by `hc`
+  have hgcd1 : Nat.gcd (k / q) c.natAbs = 1 := Nat.Coprime.symm hc
+  -- the (7.7) W
+  have hW : ∀ n : ℤ, n ≤ B →
+      ‖lem10ExpSum k q b (Finset.Ioc A n) 1 (fun x => (c : ℝ) * (invMod x k : ℝ) / k)‖
+        ≤ 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ)
+              * (q : ℝ) ^ ((3 : ℝ) / 2) / Real.sqrt (k : ℝ)
+            * (E * Real.sqrt ((Nat.gcd (k / q) c.natAbs : ℕ) : ℝ)
+                + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+                  * Real.log (2 * ((k / q : ℕ) : ℝ))) := by
+    intro n hnB
+    have hlen' : (((n - A).toNat : ℕ) : ℝ) ≤ 2 * E := by
+      have h1 : (n - A).toNat ≤ (B - A).toNat := by omega
+      have h2 : (((n - A).toNat : ℕ) : ℝ) ≤ (((B - A).toNat : ℕ) : ℝ) := by exact_mod_cast h1
+      linarith [hlen]
+    exact klPhaseSum_bound (k := k) hk hq hqk b A n c hE hlen'
+  have habel := lem10_abel_transfer k q b A B hAB 1 g
+    (fun x => (c : ℝ) * (invMod x k : ℝ) / k) hW hvar
+  refine le_trans habel ?_
+  -- the numeric close: no factor 2, because there is no gcd SUM at `m = 1`
+  rw [hgcd1]
+  have hd1 : (1 : ℝ) ≤ (k.divisors.card : ℝ) := by
+    have : 1 ≤ k.divisors.card :=
+      Finset.card_pos.mpr ⟨1, Nat.one_mem_divisors.mpr hkne⟩
+    exact_mod_cast this
+  have hlog1 : (1 : ℝ) ≤ Real.log (2 * (k : ℝ)) := by
+    have hk2 : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+    have h4 : (4 : ℝ) ≤ 2 * (k : ℝ) := by linarith
+    have h : Real.log 4 ≤ Real.log (2 * (k : ℝ)) := Real.log_le_log (by norm_num) h4
+    have h4eq : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+    rw [h4eq] at h
+    nlinarith [Real.log_two_gt_d9]
+  have hKle : ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+        * Real.log (2 * ((k / q : ℕ) : ℝ))
+      ≤ (k : ℝ) * (k.divisors.card : ℝ) * Real.log (2 * (k : ℝ)) := by
+    have h1 : ((k / q : ℕ) : ℝ) ≤ (k : ℝ) := by
+      exact_mod_cast Nat.le_of_dvd hkpos hk₀dvd
+    have h2 : (((k / q).divisors.card : ℕ) : ℝ) ≤ (k.divisors.card : ℝ) := by
+      exact_mod_cast card_divisors_le_of_dvd hkne hk₀dvd
+    have h3 : Real.log (2 * ((k / q : ℕ) : ℝ)) ≤ Real.log (2 * (k : ℝ)) := by
+      refine Real.log_le_log (by positivity) ?_
+      linarith
+    have h4 : (0 : ℝ) ≤ Real.log (2 * ((k / q : ℕ) : ℝ)) := by
+      refine Real.log_nonneg ?_
+      have : (1 : ℝ) ≤ ((k / q : ℕ) : ℝ) := by exact_mod_cast hk₀pos
+      linarith
+    have h5 : (0 : ℝ) ≤ ((k / q : ℕ) : ℝ) := by positivity
+    have h6 : (0 : ℝ) ≤ (((k / q).divisors.card : ℕ) : ℝ) := by positivity
+    have hkR0 : (0 : ℝ) ≤ (k : ℝ) := by positivity
+    calc ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+            * Real.log (2 * ((k / q : ℕ) : ℝ))
+        ≤ (k : ℝ) * ((k / q).divisors.card : ℝ) * Real.log (2 * ((k / q : ℕ) : ℝ)) :=
+          mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right h1 h6) h4
+      _ ≤ (k : ℝ) * (k.divisors.card : ℝ) * Real.log (2 * ((k / q : ℕ) : ℝ)) :=
+          mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left h2 hkR0) h4
+      _ ≤ (k : ℝ) * (k.divisors.card : ℝ) * Real.log (2 * (k : ℝ)) :=
+          mul_le_mul_of_nonneg_left h3 (by positivity)
+  -- the inner bound, WITHOUT the factor 2 the dyadic row pays for its gcd average
+  have hinner : (k.divisors.card : ℝ)
+        * (E * Real.sqrt ((1 : ℕ) : ℝ)
+            + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+              * Real.log (2 * ((k / q : ℕ) : ℝ)))
+      ≤ (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (E + (k : ℝ)) := by
+    have hs1 : Real.sqrt ((1 : ℕ) : ℝ) = 1 := by norm_num
+    rw [hs1, mul_one]
+    have hd0 : (0 : ℝ) ≤ (k.divisors.card : ℝ) := by positivity
+    have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := by linarith
+    have hkR : (0 : ℝ) ≤ (k : ℝ) := by positivity
+    have hdsq : (1 : ℝ) ≤ (k.divisors.card : ℝ) ^ 2 := by nlinarith [hd1]
+    have h1 : (1 : ℝ) ≤ (k.divisors.card : ℝ) ^ 2 * Real.log (2 * (k : ℝ)) := by
+      nlinarith [hdsq, hlog1]
+    have hA : (k.divisors.card : ℝ)
+          * (E + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+              * Real.log (2 * ((k / q : ℕ) : ℝ)))
+        ≤ (k.divisors.card : ℝ) * (E + (k : ℝ) * (k.divisors.card : ℝ)
+              * Real.log (2 * (k : ℝ))) :=
+      mul_le_mul_of_nonneg_left (by linarith [hKle]) hd0
+    have hC : (k.divisors.card : ℝ) * E
+        ≤ (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * E := by
+      have h2 : (k.divisors.card : ℝ) * (1 * E)
+          ≤ (k.divisors.card : ℝ)
+              * ((k.divisors.card : ℝ) ^ 2 * Real.log (2 * (k : ℝ)) * E) :=
+        mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_right h1 hE0.le) hd0
+      calc (k.divisors.card : ℝ) * E = (k.divisors.card : ℝ) * (1 * E) := by ring
+        _ ≤ (k.divisors.card : ℝ)
+              * ((k.divisors.card : ℝ) ^ 2 * Real.log (2 * (k : ℝ)) * E) := h2
+        _ = (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * E := by ring
+    have h3 : (k.divisors.card : ℝ) ^ 2 ≤ (k.divisors.card : ℝ) ^ 3 := by
+      nlinarith [hd1, hd0]
+    have hD : (k.divisors.card : ℝ) ^ 2 * ((k : ℝ) * Real.log (2 * (k : ℝ)))
+        ≤ (k.divisors.card : ℝ) ^ 3 * ((k : ℝ) * Real.log (2 * (k : ℝ))) :=
+      mul_le_mul_of_nonneg_right h3 (mul_nonneg hkR hL0)
+    calc (k.divisors.card : ℝ)
+          * (E + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+              * Real.log (2 * ((k / q : ℕ) : ℝ)))
+        ≤ (k.divisors.card : ℝ) * (E + (k : ℝ) * (k.divisors.card : ℝ)
+              * Real.log (2 * (k : ℝ))) := hA
+      _ = (k.divisors.card : ℝ) * E
+            + (k.divisors.card : ℝ) ^ 2 * ((k : ℝ) * Real.log (2 * (k : ℝ))) := by ring
+      _ ≤ (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * E
+            + (k.divisors.card : ℝ) ^ 3 * ((k : ℝ) * Real.log (2 * (k : ℝ))) := by
+          linarith [hC, hD]
+      _ = (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (E + (k : ℝ)) := by ring
+  have hPre : (0 : ℝ) ≤ 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+      * (q : ℝ) ^ ((3 : ℝ) / 2) / Real.sqrt (k : ℝ) := by positivity
+  have hstep : 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ)
+          * (q : ℝ) ^ ((3 : ℝ) / 2) / Real.sqrt (k : ℝ)
+        * (E * Real.sqrt ((1 : ℕ) : ℝ)
+            + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+              * Real.log (2 * ((k / q : ℕ) : ℝ)))
+      ≤ 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
+          / Real.sqrt (k : ℝ) := by
+    have h := mul_le_mul_of_nonneg_left hinner hPre
+    calc 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ)
+            * (q : ℝ) ^ ((3 : ℝ) / 2) / Real.sqrt (k : ℝ)
+          * (E * Real.sqrt ((1 : ℕ) : ℝ)
+              + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+                * Real.log (2 * ((k / q : ℕ) : ℝ)))
+        = (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (q : ℝ) ^ ((3 : ℝ) / 2)
+              / Real.sqrt (k : ℝ))
+            * ((k.divisors.card : ℝ)
+              * (E * Real.sqrt ((1 : ℕ) : ℝ)
+                  + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+                    * Real.log (2 * ((k / q : ℕ) : ℝ)))) := by ring
+      _ ≤ (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (q : ℝ) ^ ((3 : ℝ) / 2)
+              / Real.sqrt (k : ℝ))
+            * ((k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (E + (k : ℝ))) := h
+      _ = 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+            * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
+            / Real.sqrt (k : ℝ) := by ring
+  have hfac : (1 : ℝ) + 2 * Real.pi * ((1 : ℕ) : ℝ) * V ≤ 1 + 4 * Real.pi * V := by
+    have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+    push_cast
+    nlinarith [mul_nonneg hpi.le hV0]
+  have hnn : (0 : ℝ) ≤ 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
+      / Real.sqrt (k : ℝ) := by
+    have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := by linarith
+    have : (0 : ℝ) ≤ E + (k : ℝ) := by positivity
+    positivity
+  have hfac0 : (0 : ℝ) ≤ (1 : ℝ) + 2 * Real.pi * ((1 : ℕ) : ℝ) * V := by
+    have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+    push_cast
+    nlinarith [mul_nonneg hpi.le hV0]
+  -- the ONE licensed deviation from the receipt: its `8` is carried to the frozen `16`
+  have hfac4 : (0 : ℝ) ≤ 1 + 4 * Real.pi * V := by
+    have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+    nlinarith [mul_nonneg hpi.le hV0]
+  calc ((1 : ℝ) + 2 * Real.pi * ((1 : ℕ) : ℝ) * V)
+        * (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ)
+            * (q : ℝ) ^ ((3 : ℝ) / 2) / Real.sqrt (k : ℝ)
+          * (E * Real.sqrt ((1 : ℕ) : ℝ)
+              + ((k / q : ℕ) : ℝ) * ((k / q).divisors.card : ℝ)
+                * Real.log (2 * ((k / q : ℕ) : ℝ))))
+      ≤ ((1 : ℝ) + 2 * Real.pi * ((1 : ℕ) : ℝ) * V)
+        * (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+            * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
+            / Real.sqrt (k : ℝ)) := mul_le_mul_of_nonneg_left hstep hfac0
+    _ ≤ (1 + 4 * Real.pi * V)
+        * (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+            * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
+            / Real.sqrt (k : ℝ)) := mul_le_mul_of_nonneg_right hfac hnn
+    _ = (1 + 4 * Real.pi * V) * 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+          * (E + (k : ℝ)) / Real.sqrt (k : ℝ) := by ring
+    _ ≤ (1 + 4 * Real.pi * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+          * (E + (k : ℝ)) / Real.sqrt (k : ℝ) := by
+        linarith [mul_nonneg hfac4 hnn]
 end Salt.N7
