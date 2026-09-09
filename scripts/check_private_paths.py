@@ -198,7 +198,8 @@ def self_id() -> str:
 # otherwise pass vacuously by excluding the one file that matters.
 # ---------------------------------------------------------------------------
 _SEAT = "se" + "at"                    # the commons/memory-mirror repo
-_EMPLOYER = ["lo" + "ca", "ho" + "ll", "pcc-" + "bios", "safe_" + "dav1d", "safe_" + "gif"]
+_EMPLOYER = ["lo" + "ca", "ho" + "ll", "pcc-" + "bios", "safe_" + "dav1d", "safe_" + "gif",
+             "anu" + "bis"]   # EMPLOYER lane, commissioned at council 2026-09-09
 # ⛔⛔ ROW IB — TWO PRIVATE TREES WERE UNWATCHED FOR TWO WEEKS AND THIS FILE SAID SO ON EVERY RUN.
 #   Measured 2026-09-08 by evidence WITH A POSITIVE CONTROL: one synthetic commit carrying four
 #   private roots, one line each. This gate CAUGHT the seat repo and an employer root (so the
@@ -297,7 +298,13 @@ _ROOTLESS_INTO = ("(?<![A-Za-z0-9_./" + _BS + _BS + "-])(?:"
 # returns the same verdict wherever it executes. A lane changes WHERE a gate
 # runs; only the pattern changes WHAT it can match.
 _SEP = r"[/\\]+"
-_INTO = rf"(?<![A-Za-z0-9_-])(?:{_ROOT_ALT}){_SEP}[A-Za-z0-9_.-]+"
+# ⛔ THE LEFT GUARD EXCLUDES A PRECEDING DOT (2026-09-09, row JC). `_ROOTLESS_INTO` has
+# carried "." in its lookbehind since it was written; this pattern did not, so a DOT-PREFIXED
+# directory whose name is a root matched the root itself. Measured on a live branch: 27
+# findings, 23 of them a cell-local scratch dir. ⇒ A GUARD THAT REFUSES FOR A WRONG REASON IS
+# HOW A GUARD GETS BYPASSED. "/" is deliberately NOT added: an absolute path carries a slash
+# immediately before the root and MUST still be caught.
+_INTO = rf"(?<![A-Za-z0-9_.-])(?:{_ROOT_ALT}){_SEP}[A-Za-z0-9_.-]+"
 
 FORBIDDEN = [
     (re.compile(_INTO),
