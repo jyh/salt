@@ -585,11 +585,12 @@ theorem lem10_m1_bound [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q
         * (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
             * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
             / Real.sqrt (k : ℝ)) := mul_le_mul_of_nonneg_right hfac hnn
-    _ = (1 + 4 * Real.pi * V) * 8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+    _ ≤ (1 + 4 * Real.pi * V)
+        * (2 * (8 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+            * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ))
+            / Real.sqrt (k : ℝ))) :=
+        mul_le_mul_of_nonneg_left (by linarith [hnn]) hfac4
+    _ = (1 + 4 * Real.pi * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
           * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
           * (E + (k : ℝ)) / Real.sqrt (k : ℝ) := by ring
-    _ ≤ (1 + 4 * Real.pi * V) * 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
-          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
-          * (E + (k : ℝ)) / Real.sqrt (k : ℝ) := by
-        linarith [mul_nonneg hfac4 hnn]
 end Salt.N7
