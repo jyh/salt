@@ -1168,6 +1168,23 @@ theorem h_le_exp_seven {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) :
   have hz := Real.exp_le_exp.mpr hh7
   rwa [Real.exp_log hh0] at hz
 
+/-- **⟦`h ≤ e^14` — THE RAISED-CAP TWIN⟧ (class A)** — `h_le_exp_seven` at `log h ≤ 14`, for the
+`h`-cap reach (council 2026-09-08 ruling ⑤, "(B)", target `h ≤ 10⁶`).
+
+⛔ **WHY THIS IS A NEW NAME AND NOT AN EDIT, AND IT IS THE SHARPEST CASE IN THE WAVE.**
+`h_le_exp_seven` carries the numeral in its **CONCLUSION**, not only its binder.  A substitution
+that moved the binder alone — the shape the reach's first freeze declared for the whole wave —
+would leave `log h ≤ 14 → (h : ℝ) ≤ Real.exp 7`, which is **FALSE on `1097 ≤ h ≤ 10⁶`**.  The
+elaborator refuses it (the proof yields `exp 14`), so nothing unsound could land; but the freeze's
+claim *"the conclusions do not move"* was false here, and this name is the repair.
+⇒ ***A CAP IN A CONCLUSION IS NOT WEAKENED BY WEAKENING ITS BINDER — IT IS FALSIFIED.***
+`h_le_exp_seven` and its three consumers are untouched. -/
+theorem h_le_exp_fourteen {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
+    (h : ℝ) ≤ Real.exp 14 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hz := Real.exp_le_exp.mpr hh14
+  rwa [Real.exp_log hh0] at hz
+
 /-- ⟦SIBLING of `capeps_row_phi` (`S13CapEps:242`) at `φ ≤ h·u¹²`⟧ — `11 → 18`. -/
 theorem capeps_row_phi_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)

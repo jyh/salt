@@ -9445,6 +9445,7 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.capfloor_floor4_LH
   Salt.MR.s13CapFloor_all_LH_gk
   Salt.MR.h_le_exp_seven
+  Salt.MR.h_le_exp_fourteen
   Salt.MR.capeps_row_phi_h
   Salt.MR.capeps_row_tail_h
   Salt.MR.capeps_row_p2_h
