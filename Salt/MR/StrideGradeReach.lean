@@ -555,6 +555,58 @@ theorem s15ArmH_log_le_g14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤
     rw [Real.log_mul hhR.ne' hbpos.ne'] at hlog
     linarith
 
+/-! ## §5 — THE ARM AT THE **UNGRADED** PIN, AT THE RAISED CAP
+
+`s15ArmH_log_le_g14` above is the graded lane's (`1/(838400·2^11·h²) ≤ δ₀`).  The landed `h`-lane
+also carries the UNGRADED pin `1/(838400·h²) ≤ δ₀` (`s15ArmH_log_le`, `S16ProducersH.lean:793`),
+and it needs its own twin — but not its own `scaled` lemma: at `c = h²` and `h ≤ 1202604` the
+ceiling is `1.4463·10^12` and `log c ≤ 28`, both comfortably inside §4's `2961933067911168` and
+`36`.  ⇒ **the wide ceiling covers BOTH pins**, which is why this is four lines of instantiation
+and not a second body. -/
+
+/-- **⟦THE ARM'S LOG AT SHIFT `h`, UNGRADED PIN, AT THE RAISED CAP⟧ (class A)** —
+`s15ArmH_log_le` (`S16ProducersH.lean:793`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
+conclusion unchanged.  Routed through `s15Arm_log_le_scaled_g14` at `c = h²`: `hcb` is
+`h² ≤ 1202604² = 1446256380816 ≤ 2961933067911168` (a factor `2048` of room — exactly the `2^11`
+the graded pin spends) and `hlogc` is `2·log h ≤ 28 ≤ 36`.  **A NEW name with its OWN binder;
+`s15ArmH_log_le` is untouched.** -/
+theorem s15ArmH_log_le_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {δ₀ Kc : ℝ}
+    (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
+    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
+    (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hc1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1R]
+  have h1202604 : (h : ℝ) ≤ 1202604 := by exact_mod_cast h_le_1202604_of_hh14 hh hh14
+  have hcb : (h : ℝ) ^ 2 ≤ 2961933067911168 := by nlinarith [hh1R, h1202604]
+  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 36 := by
+    rw [Real.log_pow]; push_cast; linarith
+  have hbase := s15Arm_log_le_scaled_g14 hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
+  have hle := s15ArmH_le_mul hh δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω
+  have hleR : ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ (h : ℝ) * ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
+    exact_mod_cast hle
+  have hω0 : 0 ≤ Real.log ((ω : ℕ) : ℝ) := Real.log_natCast_nonneg ω
+  have hh0 : 0 ≤ Real.log (h : ℝ) := Real.log_natCast_nonneg h
+  have hHhi0 : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
+  rcases Nat.eq_zero_or_pos (s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω)
+    with hz | hpos
+  · rw [hz]; simp only [Nat.cast_zero, Real.log_zero]; linarith
+  · have hposR : (0 : ℝ)
+        < ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
+      exact_mod_cast hpos
+    have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+    have hbpos : (0 : ℝ)
+        < ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
+      by_contra hcon
+      have hb0 : ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) ≤ 0 :=
+        not_lt.mp hcon
+      nlinarith [hleR, hposR, hhR, hb0]
+    have hlog := Real.log_le_log hposR hleR
+    rw [Real.log_mul hhR.ne' hbpos.ne'] at hlog
+    linarith
+
 end Salt.MR
 
 end

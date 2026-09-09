@@ -9850,7 +9850,8 @@ obligation and `1738699` on the landed proof's own `3^40` majorant (the corpus's
 `159.47` bits is the SECOND figure, re-derived and confirmed), and the control states the refusal
 at the LOOSER of the two — so this is a reach in the SHIFT and not in the STRIDE.  Numerals
 and one structural factor; nothing here proves an estimate, and nothing bears on twin primes.
-15 obligations, 15 landed. -/
+16 obligations, 16 landed (the 16th, `s15ArmH_log_le_14`, is the UNGRADED pin's
+twin: the wide ceiling covers both pins, so it is an instantiation and not a second body). -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.reach14_ceiling_eq
   Salt.MR.reach14_reaches_the_million
@@ -9867,6 +9868,7 @@ open Salt.Tactic in
   Salt.MR.flat_lvl_line_g14
   Salt.MR.s15Arm_log_le_scaled_g14
   Salt.MR.s15ArmH_log_le_g14
+  Salt.MR.s15ArmH_log_le_14
 
 /-! ⟦STRIDE PAIR RECEIPT G⟧ — THE `h`-LANE DOOR RECEIPT AT THE GRADED PIN (`StridePairReceiptG`,
 2026-09-04, math — λ-BV wave 2-S step F5 β; fired 21:0x — ONE Opus executor, 11/11, every name at

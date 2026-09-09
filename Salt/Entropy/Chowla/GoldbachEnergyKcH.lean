@@ -119,6 +119,28 @@ theorem h_le_1096_of_log_le_seven {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : �
   have : (h : ℝ) < 1097 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
+/-- **⟦THE SHIFT'S `ℕ` BOUND AT THE RAISED CAP⟧ (class A)** — the `log h ≤ 14` twin of
+`h_le_1096_of_log_le_seven`, for the `h`-cap reach (council 2026-09-08 ruling ⑤, "(B)":
+target `h ≤ 10⁶`).  `e^14 = 1202604.284…`, so `h ≤ ⌊e^14⌋ = 1202604`, which clears `10⁶` by
+`1.2026×`.  ⚠️ `Salt.MR.h_le_1202604_of_hh14` (`StrideGradeReach.lean`) is the MR-side twin of
+this, for the same reason the `7` pair is duplicated: the MR side imports Entropy and not the
+reverse.  **This is a NEW name with its OWN binder — `h_le_1096_of_log_le_seven` is untouched and
+every one of its consumers is unaffected.**  BODY: the sibling's, at the `14`th power. -/
+theorem h_le_1202604_of_log_le_fourteen {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
+    h ≤ 1202604 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp 14 := by
+    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh14
+  have he14 : Real.exp 14 < 1202605 := by
+    have h3 : Real.exp 14 = (Real.exp 1) ^ (14 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have h5 : (Real.exp 1) ^ (14 : ℕ) < (2.7182818286 : ℝ) ^ (14 : ℕ) :=
+      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
+    have h6 : (2.7182818286 : ℝ) ^ (14 : ℕ) < 1202605 := by norm_num
+    rw [h3]; linarith
+  have : (h : ℝ) < 1202605 := by linarith
+  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
+
 /-! ## §3 — the `hpt` twin at `ε = 1/(500·h)` -/
 
 set_option exponentiation.threshold 4000 in
