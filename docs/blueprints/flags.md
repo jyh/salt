@@ -25147,3 +25147,23 @@ refuters independently, one of them from the coverage slot *"find the question I
 ⇒ 🔑 **The author's own six kill-checks all audited the ROUTE — achievable, priced, attributed —
 and none asked whether the TARGET was true.** A campaign's destination is audited less than its
 leaves precisely because it is assumed.
+
+## 2026-09-09 hbEulerLog_tendsto — a RED-FIRST CAP-DOCSTRING STANDING ABOVE A LANDED THEOREM (h2c, Fable; found by the helm's signed non-author pass over the N7 route freeze v2.1)
+
+**The object.** `Salt/HB/CrownTheorem1.lean:3586-3588` — `theorem hbEulerLog_tendsto [NeZero q] {χ} {β₀ η} (hR : N9Regime q χ β₀ η)
+{z : ℝ} (hz : 3 ≤ z) : ∃ A, Tendsto (fun Y => hbEulerLog χ z Y) atTop (𝓝 A)` — is LANDED, sorry-free, and audits at
+`[propext, Classical.choice, Quot.sound]`. It is the ⟦CHAR-TRIO⟧ flag's **step 1** (`hlimP`, the ordered Euler log-product converges),
+discharged from the regime alone.
+
+**The defect.** Its docstring (`:3573-3585`) still reads *"the CHAR-TRIO flag's step 1, **never produced** — every occurrence in the
+corpus is a hypothesis … Class **C**, cap 300. Red-first: …"* — the red-first PLAN of the row, left standing above the theorem that
+closed it. Measured cost, 2026-09-09: the sentence was read as a corpus census by one route freeze (v2.1 §7(a) — *"`hbL1_split_indep :204`
+needs CHAR-TRIO"*) and by two of eight refuter arms, each concluding that κ's transfer between split points owed a second unpaid credit.
+It does not: `hbL1_split_indep` (`Salt/HB/CharTrio.lean:204-209`) takes two `Tendsto` binders and this theorem supplies both from
+`N9Regime`; the transfer `hbKappaN9 χ x z = hbKappaN9 χ x z′` closes in ~8 lines from it (the signer's probe, 09/09). A cap-docstring
+is a plan, and reading one as a census cost one freeze a whole slot and two arms their central answer.
+
+**What this entry is and is not.** A RECORD, so the next reader of ⟦CHAR-TRIO⟧ (`:20542` above) learns that step 1 is landed at this
+theorem. The docstring EDIT itself is a one-line change to a file behind the N7 fence and is not made here; it is owed as its own
+docstring-only PR when the fence's owner says so. ⇒ 🔑 *A docstring that prices a row is a promise; when the row lands, the promise
+must be struck in the same commit, or it outlives the proof and is read as the state of the tree.*
