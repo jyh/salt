@@ -786,6 +786,44 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    the prize are untouched. Nothing here bears on twin primes. (A) Route I's P3 row is the helm's (minute E4).
    *Statement below untouched — status field only.* — behind the refuter-passed block; executor-sized
    nodes named by the block itself.
+   ⚖️⭐⭐ **WAVE 2-S STEP F5 γ — THE `h`-CAP REACH. THE CAPTAIN'S COUNCIL RULING ⑤, 2026-09-08 evening,
+   his word "(B)": REACH IS WANTED, TARGET `h ≤ 10⁶`.** Homed here 2026-09-08 by math on the PM's sweep
+   (bus `43203417`), which measured that this ruling's ONLY surface was math's own gate — and ⇒ 🔑 **A GATE IS
+   A DELIVERY CHANNEL, NOT A STORAGE SURFACE: IT IS CONSUMED BY THE ACT IT TRIGGERS.** The wave as ruled: the
+   `425` family + the `S13CapGate 4096` line as EXECUTOR work now; the statement binders return as ONE
+   STATEMENT FREEZE for ratification (statement-tier by the delegation), the helm running the non-author pass.
+   Arm (A) — the free `1.207×` the helm adopted earlier that day — is SUBSUMED. Price: `2026-09-08-math-PRICE-h-cap-log-seven.md`.
+   ✅ **THE EXECUTOR HALF IS LANDED — `Salt/MR/StrideGradeReach.lean`, 15 names, every one `[3 axioms]`,
+   rows in `Salt/MR/All.lean` ⟦STRIDE GRADE REACH⟧.** The cap moves `log h ≤ 7 ↦ log h ≤ 14`, i.e.
+   `h ≤ 1096 ↦ h ≤ ⌊e^14⌋ = 1202604`, **clearing the ordered `10⁶` by `1.2026×`**. Four numeral families move
+   (the `c`-ceiling `2^11·1202604² = 2961933067911168`, `hlogc` at `36`, the charge `hρlog` at `439` — both
+   routes `403 + 36` and `411 + 2·14` agreeing as the landed `425` does — and the `128·838400·c` group at
+   `4·10²³`). **Every name is NEW and carries its OWN binder `hh14`: no landed declaration moved and no landed
+   statement was re-pointed** (iron rules 1 and 5).
+   ⛔⭐ **AND THE PRICE WAS WRONG IN ONE PLACE, MEASURED AT THE OBJECT: `S13CapGate`'s `4096` IS NOT A NUMERAL.**
+   It is the `k^12` of `log H ≤ √H/k` (`capfloor_logH_le_half_sqrt`, `k = 2`), and its docstring's *"margin 3.7×"*
+   is `4096/1096` — a margin on `h` computed AT the landed `k`. ⇒ 🔑 ***A FACTOR THAT IS A PARAMETER RAISED TO A
+   POWER LOOKS LIKE A CONSTANT IN EVERY GREP, AND A MARGIN QUOTED AT ONE VALUE OF IT READS AS A CEILING.***
+   `capfloor_logH_le_quarter_sqrt` takes `k = 2 ↦ 4` (`4^12 = 16777216`, `13.95×` over the new cap; its own
+   inequality has `32.89×` at the floor `H ≥ 4·10⁶`).
+   ⛔ **THE LIMIT OF THE REACH, IN THE KERNEL BESIDE THE POSITIVES.** The first wall with CONTENT is the `2^539`
+   count pin through `(a·h)^15`, RE-DERIVED not quoted: `a·h ≤ 2261670` at the obligation (`exp 40`), `1738699`
+   on the landed proof's own `3^40` majorant — and the corpus's published `159.47` bits is the SECOND of those,
+   confirmed to the digit. ⇒ 🔑 ***A MARGIN QUOTED AGAINST A PROOF STEP IS NOT A MARGIN AGAINST THE OBLIGATION***,
+   the same law one wall over from where this campaign first learned it. At `a = 1` the new cap fits under both
+   (`1.881×` / `1.446×`); **at `a = 2` it REFUSES under both**, and `reach14_countpin_refuses_stride_two` states
+   the refusal at the LOOSER ceiling. ⇒ **this is a reach in the SHIFT, not in the STRIDE.**
+   Three of the seven §0 pins are CONTROLS that the LANDED numerals refuse the ordered target.
+   ⛔ **OWED, AND IT IS THE STATEMENT HALF: the freeze.** `2026-09-08-math-FREEZE-h-cap-reach-statement.md` —
+   the `hh7`/`h ≤ 1096` binder moves that carry the raise into the lane's FORM statements, which is what actually
+   delivers reach to the campaign. **CENSUSED AT THE OBJECT, and it is bigger than §4's "~14":
+   134 `Real.log (h : ℝ) ≤ 7` sites in 17 files, +28 in the unascribed spelling, and 90 `≤ 1096` sites in 18
+   files** — but they are ONE mechanical substitution each, not 134 hand-edits, which is why the price's "9 sites
+   / 3 families" (the ARITHMETIC edits) and this census (the SPELLING edits) are both right and measure different
+   things. ⇒ 🔑 ***COUNT THE DISCHARGE SITES TO PRICE THE RISK AND THE SPELLING SITES TO PRICE THE DIFF.***
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | the helm's non-author pass on the statement freeze, then one executor wave over the binder census | math (author) → helm (pass) | at the helm's next seam |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
