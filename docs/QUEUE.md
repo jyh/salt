@@ -892,10 +892,25 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
 4. **The Estermann 2-adic landing** — ✅ DONE 08/20 `4efcc2b1`: HB (7.1)
    verbatim, no 2-adic factor.
-5. **W-F3 — THE h-SHELL** — the fork road's arc-finisher: the
+5. ✅✅ **W-F3 — THE h-SHELL — COMPLETE. STAMPED 2026-09-09 (math), MEASURED AT THE OBJECT, NOT READ
+   OFF THE SUB-ITEMS.** Every sub-item below (5a · 5b · 5c) has carried ✅ LANDED since 08/23, and
+   this header has read as open work ever since — **a P1 header is the first thing a fresh seat
+   prices, and it was pricing a wave that no longer exists.**
+   `[OBJECT @salt@864e6e31 — each name grepped at its declaration, not inferred from the row]`
+   ```
+     log_chowla_two_shell_xi_h   Theorem23Shell.lean:488   the named arc-finisher
+     circle_method_estimate_h    ShiftFork.lean:404        ingredient 1, named in this header
+     contradiction_of_mrtDoorXiH ShiftFork.lean:345        ingredient 2, named in this header
+     ppLevel_holds               PpAssembly.lean:928       5a's trophy
+     BUILD-GATED: Salt/Entropy/All.lean:180 carries log_chowla_two_shell_xi_h in #audit_axioms
+   ```
+   ⇒ 🔑 ***A ROUTING ARTIFACT AGES IN ONE DIRECTION ONLY — FALSELY-OPEN*** (this campaign's own carded
+   law). A discharged item that still reads open invites a redundant wave, and nothing downstream
+   corrects it, because the next reader prices the header and stops.
+   *(Original header, kept verbatim: the fork road's arc-finisher — the
    Theorem23Shell h-analogue consuming circle_method_estimate_h +
    contradiction_of_mrtDoorXiH, yielding the door-conditional h-family
-   terminal. The byte-identity seam guarantee is already proven
+   terminal.)* The byte-identity seam guarantee is already proven
    (5b5c0ed3's record). Design-block-first; one Opus executor wave.
    [DONE, for the record: the two ports landed 08/16–19; E4a CLOSED
    08/19-20 — the even ground unconditional, E5–E7 landed 08/20.]
@@ -1211,7 +1226,30 @@ RESURRECTS THEM:**
     ⛔ **THE `E-5c` CLAUSE ON THE NEXT LINE IS SUPERSEDED — SEE THE STAMP AT :766. IT LANDED
     08/27 (`mrtS_dilate`, `mrtS_indicator_mul_dilate`, both `[3 axioms]`); WHAT REMAINS OF IT IS
     WORKER-TIER, NOT A PARAGRAPH. Line kept whole, status corrected above, never edited in place.**
-    📐 **REMAINING on item 12 after this:** E-5c (helm/Fable, one paragraph of statement) · the two
+    ✅⭐⭐ **BOTH ε-THRESHOLDS ARE LANDED — STAMPED 2026-09-09 (math). THE LINE BELOW IS THE ROW'S OWN
+    LAW FIRING A FOURTH TIME, AND THIS TIME ON THE PARAGRAPH THAT LISTS WHAT IS LEFT.** The line is
+    kept whole and is corrected here, never edited in place.
+    `[OBJECT @salt@864e6e31 — `Salt/MR/DoorFloor.lean`, whose §-header reads *"The two ε-dependent MRT
+    thresholds — QUEUE item 12's remaining worker-tier arm"* and quotes this row's own seam sentence]`
+    ```
+      H0mrt          :352   = ⌈exp (4/ε)⌉₊          the h-side floor
+      HplusStar      :356   = ⌈exp ((1/ε)^50)⌉₊     the X-side floor
+      HplusStar70    :416   = ⌈exp ((1/ε)^70)⌉₊
+      H0mrt_pos :359 · HplusStar_pos :361 · mrt_middle_le_of_H0mrt :378
+      mrt_tail_le_of_HplusStar70 :420 · mrt_tail_le_of_HplusStar :445
+      CONSUMED, not merely landed: budget_head_at_mrt_floors :503 · _sq_ :580 · _34 :612 · _sq_34 :636
+    ```
+    ⛔ **AND A HOLE I DID NOT REPORT, BECAUSE IT IS NOT ONE.** Ten of the twelve names sit in an
+    `#audit_axioms` roll-call and the two `def`s (`H0mrt`, `HplusStar`) do not — which reads as an
+    iron-rule-3 gap and is not: **`#audit_axioms` is TRANSITIVE** (`Salt/Tactic/AuditAxioms.lean:12-17`,
+    `Lean.collectAxioms`), and both defs appear in the STATEMENTS of audited theorems
+    (`mrt_middle_le_of_H0mrt`, `mrt_tail_le_of_HplusStar`), so their axioms are measured by the build.
+    ⇒ 🔑 ***A ROLL-CALL IS A LIST OF NAMES, NOT A LIST OF WHAT IS COVERED — ASK WHAT THE GATE
+    TRAVERSES BEFORE CALLING AN ABSENCE FROM IT A HOLE.***
+    ⇒ **Item 12's worker-tier remainder is EMPTY at the object.** What is left is 12b's dyadic node
+    (design-tier, held as briefed) and the unbuilt major arc that would consume all of it.
+    📐 **REMAINING on item 12 after this** *(kept verbatim; both ε-thresholds are discharged above)*:
+    E-5c (helm/Fable, one paragraph of statement) · the two
     ε-dependent thresholds `H₀mrt(ε)` / `H₊*(ε)`, whose port instruction v2 §4 corrects to
     *"instantiate the existing `extraFloor` binder — ZERO edits inside `SpineFinal`"* (the v1 target
     `SpineFinal.lean:461` is a SUPERSEDED terminal) · and 12b's dyadic node, still held.
