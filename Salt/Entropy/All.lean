@@ -1154,9 +1154,12 @@ does not, which is what made the obvious uniform route false at `h = 1, 2`.
 📌 `eps_line_h` is minted although the helm's bus line withdrew the name, because the H2b/H2c
 commission cites it twice; the conflict is recorded in its docstring rather than resolved
 silently.  `h_le_1096_of_log_le_seven` duplicates `Salt.MR.h_le_1096_of_hh7` deliberately: MR
-imports Entropy and not the reverse.
+imports Entropy and not the reverse.  `h_le_1202604_of_log_le_fourteen` (2026-09-08, the
+`h`-cap reach — council ⑤, "(B)", target `h ≤ 10⁶`) is that pair's `log h ≤ 14` twin,
+`h ≤ ⌊e^14⌋ = 1202604`; it is a NEW name with its OWN binder and the `7` pair is untouched.
 Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing. -/
 #audit_axioms Salt.Entropy.Chowla.h_le_1096_of_log_le_seven
+  Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen
   Salt.Entropy.Chowla.hpt_const_le_pow35_h
   Salt.Entropy.Chowla.hpt_holds_500h
   Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin
