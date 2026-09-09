@@ -56,6 +56,7 @@ import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
 import Salt.HB.Lemma10
 import Salt.HB.Lemma10Chain
+import Salt.HB.Lemma10Seal
 import Salt.HB.EstermannRoad
 import Salt.HB.Lemma3Floor
 import Salt.HB.SieveWire
@@ -330,6 +331,19 @@ open Salt.Tactic in
   Salt.N7.gcd_natAbs_eq_of_dvd_sub Salt.N7.sqrt_gcd_mul_le Salt.N7.dist₁_shift_lower
   Salt.N7.sum_sqrt_gcd_min_le Salt.N7.klPhaseSum_bound Salt.N7.lem10_dyadic_bound
   Salt.N7.e_neg_eq_conj Salt.N7.norm_lem10ExpSum_neg
+  -- node N7 WAVE A SEAL (Salt/HB/Lemma10Seal.lean): the INPUTS of the p.223 assembly — the
+  -- ψ-sum of (7.1) and the ℤ-indexed exponential sum, the R-A6 `±m` conjugation bridge and the
+  -- ℤ→ℕ head reindex, the truncation parameter `K = 2 + ⌊k^{1/4}⌋` (a FLOOR) with its three
+  -- service rows, the two logarithmic envelopes at the literal constants 1337/1000 and 206/100,
+  -- the ℤ-indexed Fourier/majorant split, the `m = 1` composite at the numeral 16, and the three
+  -- road twins in which `√(2^{v₂ k})` is BOUNDED by 16 from `hv2k` and paid in the constant
+  -- (128 = 8·16, 256 = 16·16).  `hb_lemma10` itself is NOT here — it is the assembly, the next
+  -- wave, and the file header says so.
+  Salt.N7.lem10PsiSum Salt.N7.lem10ExpSumZ Salt.N7.norm_lem10ExpSumZ Salt.N7.head_reindex
+  Salt.N7.sealK Salt.N7.sealK_ge_two Salt.N7.sealK_ge_rpow Salt.N7.sealK_le
+  Salt.N7.log_Kk_le Salt.N7.t4_log_sealK_le Salt.N7.lem10PsiSum_le_fourier_split
+  Salt.N7.lem10_m1_bound Salt.N7.klPhaseSum_bound_road Salt.N7.lem10_dyadic_bound_road
+  Salt.N7.lem10_m1_bound_road
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
