@@ -9952,3 +9952,30 @@ door at all grades, nothing more — which is why the direct road at fixed `z` d
 Nothing bears on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.logChowla2_epsFamily_of_allGrades
+
+/-! ⟦THE RAISED-CAP `_hh7` TWINS⟧ — THE COST-1 RUNG OF ARM (A) (`StridePairReceipt`,
+`StridePairReceiptG`, 2026-09-09, math).  Four twins at the raised cap `log h ≤ 14`.  Each is the
+named landed declaration's proof term VERBATIM with its single **unused** cap binder
+`(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to `(_hh14 : Real.log (h : ℝ) ≤ 14)`; the delta is two
+tokens — the declaration name and that binder — and the body is byte-identical, which is why the
+landed term closes the twin unchanged.  Every name is new: **no landed declaration moves and no
+landed statement is re-pointed**, and each twin is the strictly stronger theorem (same conclusion,
+weaker hypothesis), so the family is additive and inert.
+
+⛔ **THESE FOUR HAVE NO CONSUMERS.**  They buy headroom for a future consumer that holds only
+`log h ≤ 14`; **nothing in the corpus reads them today.**  The rung moves no citable number — not
+`z`, not `h` in any published statement.  What it buys is that arm (A)'s completion gate is
+satisfied at cost 1, i.e. that the arm is DIVISIBLE.  Anyone reading this as progress on the
+twin-prime program is reading it wrong.  Nothing here proves an estimate, and nothing here bears
+on twin primes.
+
+📌 Registered in its OWN block rather than appended to the `#87` wave's block above, whose
+docstring closes *"16 obligations, 16 landed"* — appending would put 20 names under a header
+asserting 16, and the landed docstring is not editable.  Rule 8 applies PER TWIN and not by
+transitivity: `#audit_axioms` is transitive, but these four have no consumers, so no terminal sits
+above them and each twin IS its own terminal.  4 obligations, 4 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_roadExit_generic_h_14
+  Salt.MR.flat_door_head_xceil_h_14
+  Salt.MR.flat_roadExit_generic_h_g14
+  Salt.MR.flat_door_head_xceil_h_g14

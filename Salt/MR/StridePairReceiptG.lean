@@ -1310,6 +1310,147 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g (a b h : ℕ) (ha : 0 < a) (hh
       nlinarith [hmul, hρ0, haR]
     linarith [hratmul, hEnd0, hEnd1]
 
+
+/-! ## §5 — the raised-cap twins (`log h ≤ 14`)
+
+Each declaration below is the named landed theorem's proof term verbatim, with its single
+**unused** cap binder `(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to
+`(_hh14 : Real.log (h : ℝ) ≤ 14)`.  Every name is new; **no landed declaration moves** and no
+landed statement is re-pointed.  Each twin is the strictly stronger theorem (same conclusion,
+weaker hypothesis), so the family is additive and inert.
+
+**These four have no consumers.**  They buy headroom for a future consumer that holds only
+`log h ≤ 14`; nothing in the corpus reads them today.  Nothing here proves an estimate, and
+nothing here bears on twin primes. -/
+
+
+/-- **flat_roadExit_generic_h_g14** — the raised-cap twin of `flat_roadExit_generic_h_g`.
+The graded road-exit twin at the raised cap.  Identical conclusion, weaker
+hypothesis: the cap binder is `Real.log h ≤ 14` where the landed form takes `≤ 7`.  The binder is
+unused in the proof term, so this is the landed term verbatim.
+-/
+theorem flat_roadExit_generic_h_g14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h : ℝ) ≤ 14)
+    (Xi : XiFamily)
+    (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
+      ∀ ξ ∈ Xi eps H, NearRatTight ((h : ℝ) * arcDen 12 H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (P : ChowlaRegime → Prop) (hhead : FlatHeadFormHG h Xi P) :
+    FlatRoadExitFormHG h P := by
+  obtain ⟨Cg, hCg, hCgle, hreg⟩ := m4_second_road_L2_Set_gk_flatRoot_L_khoist h hh Xi harcXi
+  obtain ⟨ε, Kb, δ₀, β, Hopq, hε, hKb, hKbb, hδ₀, hεpin, hδpin, hβ, hhd0⟩ := hhead
+  obtain ⟨H₀, hH₀⟩ := hreg ε hε
+  refine ⟨Cg, ε, Kb, δ₀, β, max Hopq H₀, hCg, hCgle, hε, hKb, hKbb, hδ₀, hεpin, hδpin, hβ, ?_⟩
+  intro K A hA162 hAge
+  obtain ⟨Hcap, hCapEq, hhd⟩ := hhd0 A (by linarith) hAge
+  refine ⟨max Hcap H₀, by rw [hCapEq]; exact flatRootCapH_arc_k _ _ _ _ _, ?_⟩
+  intro a U1floor g ha ha1096 hg
+  obtain ⟨R, hReps, hRextra, hRU1, hRg, hstride, hRx, hcount, hRtow, hRcap, hR⟩ :=
+    hhd a H₀ U1floor g ha ha1096 hg
+  refine ⟨R, hReps, hRU1, hRg, hstride, hRx, hRtow, le_trans hRcap (by omega), ?_⟩
+  intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
+    hdgate hdrift hceil hbudget hrow
+  have hdoor := hH₀ K R hReps hRextra δ Bceil Kb RS RSan RStr Braw M k j₀ hgates hM hRSan0
+    hRStr0 hBraw0 han hG1 hG2 harc3 hdgate hdrift hceil hcount hKb.le hrow
+  refine hR δ₀ hδ₀ le_rfl ?_
+  intro H _ hlo hhi
+  exact le_trans (hdoor H hlo hhi) hbudget
+
+/-- **flat_door_head_xceil_h_g14** — the raised-cap twin of `flat_door_head_xceil_h_g`.
+The graded door-head twin at the raised cap.  Identical conclusion, weaker
+hypothesis: the cap binder is `Real.log h ≤ 14` where the landed form takes `≤ 7`.  The binder is
+unused in the proof term, so this is the landed term verbatim.
+-/
+theorem flat_door_head_xceil_h_g14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h : ℝ) ≤ 14)
+    (Xi : XiFamily)
+    (hcount : ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
+      ((Xi (1 / (500 * (h : ℚ))) H).card : ℝ) ≤ C) :
+    FlatHeadFormHG h Xi (MRTDoorReceiptSetG h Xi) := by
+  classical
+  unfold FlatHeadFormHG
+  have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
+  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
+  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
+  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
+  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
+  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
+  have hC : 0 < C := by rw [hCval]; positivity
+  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
+  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
+  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
+  have hεQpos : 0 < ε := by exact_mod_cast hεR0
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
+    rw [hεdef]
+    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·h²·(1 + 8·log 2))`
+  have hval : cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11
+      = 1 / (128000 * 2 ^ 11 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by
+    rw [hcD3def, hCval, hεR]
+    field_simp
+    ring
+  have hsq0 : (0 : ℝ) ≤ (h : ℝ) ^ 2 := sq_nonneg _
+  have hδ₀ge : (1 : ℝ) / (838400 * 2 ^ 11 * (h : ℝ) ^ 2)
+      ≤ cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11 := by
+    rw [hval]
+    refine one_div_le_one_div_of_le (by positivity) ?_
+    have hnum : 128000 * (1 + 8 * Real.log 2) ≤ 838400 := by linarith
+    nlinarith [hnum, hsq0]
+  have hδ₀le : cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11
+      ≤ 1 / (837782 * 2 ^ 11 * (h : ℝ) ^ 2) := by
+    rw [hval]
+    refine one_div_le_one_div_of_le (by positivity) ?_
+    have hnum : (837782 : ℝ) ≤ 128000 * (1 + 8 * Real.log 2) := by linarith
+    nlinarith [hnum, hsq0]
+  -- ⟦THE COUNT HOOK AT THE PIN⟧ carrying `K ≤ 2^539`
+  obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := hcount
+  obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
+  have hβpos : 0 < β := by
+    rw [hβdef]; exact div_pos (mul_pos hcD3 hεR0) (by positivity)
+  -- ⟦THE HEAD'S OWN FLOOR⟧ the count hook's alone — the door-head has no tail
+  obtain ⟨Hopq, hOpqdef⟩ : ∃ n : ℕ, n = H₀xi := ⟨_, rfl⟩
+  refine ⟨ε, K, cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11, β, Hopq, hεQpos, hK, hKb,
+    div_pos (div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num))
+      (by positivity),
+    hεdef.ge, hδ₀ge, hβpos, ?_⟩
+  -- ⟦THE HOIST⟧ as in the head
+  intro A hA26 _hAge
+  obtain ⟨F, hFdef⟩ : ∃ n : ℕ, n = max Hopq (budgetFloorFlat (ε : ℝ) β A) := ⟨_, rfl⟩
+  refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
+  intro a extraFloor U1floor g₅ ha ha1096 hg₅
+  obtain ⟨Rf, hReps, _hRA, hRHlo, hRg, hstride, _hRcapEq, hRwid, hRx⟩ :=
+    chowlaRegimeFlat_exists_param_head_xceil_mul a ha ha1096 A hA26 ε hεQpos hεQ1
+      (max F (max extraFloor U1floor)) g₅ hg₅
+  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
+  have hxiHlo : H₀xi ≤ Rf.Hlo := by
+    rw [hFdef, hOpqdef] at hFlo
+    exact le_trans (le_max_left _ _) hFlo
+  -- ⟦THE COUNT GATE⟧ at this head's own `ε`, reused for the receipt's own conjunct
+  have hcountR : ∀ (H' : ℕ) [NeZero H'], Rf.Hlo ≤ H' → H' ≤ Rf.Hhi →
+      ((Xi Rf.eps H').card : ℝ) ≤ K := by
+    intro H' _ hlo' _
+    rw [hReps, hεdef]
+    exact hxi H' (le_trans hxiHlo hlo')
+  refine ⟨Rf.toChowlaRegime, hReps,
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hstride, hRx,
+    hcountR, fun _ => hRwid, ?_, ?_⟩
+  · -- ⟦THE CAP⟧ the flat base equation, shuffled onto the consumer's floors
+    rw [_hRcapEq]
+    exact flatCapH_shuffle _ _ _ _ _
+  · -- ⟦THE DOOR, HANDED OUT INSTEAD OF SPENT⟧ with the pin and the count beside it
+    intro ρ hρpos hρ hdoor
+    exact ⟨by rw [hReps, hεdef], ⟨K, hK, hKb, hcountR⟩, ρ, hρpos,
+      le_trans hρ hδ₀le, hdoor⟩
+
 end Salt.MR
 
 end
