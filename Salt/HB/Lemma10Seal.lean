@@ -209,4 +209,36 @@ theorem log_Kk_le (k : ℕ) (hk : 2 ≤ k) :
     _ ≤ 1337 / 1000 * Real.log (2 * (k : ℝ)) := by
         rw [h2k]
         nlinarith [hc, hlk, Real.log_two_gt_d9, Real.log_two_lt_d9, Real.log_three_gt_d9]
+/-! ## T4 — the logarithmic envelope at `1 + log K` -/
+
+/-- **T4.**  `1 + log (sealK k) ≤ 2.06 · log (2k)` for `k ≥ 2` — the `log K` half of the
+`(log Kk)³` factor, a corollary of R2's conclusion and `sealK_le` (with `sealK_ge_two` only
+for `0 < sealK k`).  `sealK_ge_rpow` is not needed here; it is the assembly's.
+
+`2.06` is sound because `1/log 4 + 1.337 = 2.0583`.  The step `1 ≤ 0.722 · log (2k)` is stated
+at `722/1000` deliberately: the floor is `1/log 4 = 0.72134752…`, so `7213476/10000000` would
+leave 8e-8 of headroom — the bottom 0.005 % of the valid window — while `722/1000` leaves
+6.5e-4 at the same cost. -/
+theorem t4_log_sealK_le (k : ℕ) (hk : 2 ≤ k) :
+    1 + Real.log (sealK k) ≤ 206/100 * Real.log (2*(k:ℝ)) := by
+  have hR2 := log_Kk_le k hk
+  have hk2 : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hkpos : (0 : ℝ) < (k : ℝ) := by linarith
+  have hbase : (0 : ℝ) < 2 + (k : ℝ) ^ ((1 : ℝ)/4) := by positivity
+  have hK0 : (0 : ℝ) < (sealK k : ℝ) := by
+    have h := sealK_ge_two k
+    have h2 : (2:ℝ) ≤ (sealK k : ℝ) := by exact_mod_cast h
+    linarith
+  have h1 : Real.log (sealK k) ≤ Real.log (2 + (k : ℝ) ^ ((1 : ℝ)/4)) :=
+    Real.log_le_log hK0 (sealK_le k)
+  have h2 : Real.log (2 + (k : ℝ) ^ ((1 : ℝ)/4))
+      ≤ Real.log ((2 + (k : ℝ) ^ ((1 : ℝ)/4)) * (k : ℝ)) := by
+    refine Real.log_le_log hbase ?_; nlinarith [hbase, hk2]
+  have h4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4:ℝ) = 2^2 by norm_num, Real.log_pow]; ring
+  have h5 : Real.log 4 ≤ Real.log (2 * (k : ℝ)) := by
+    refine Real.log_le_log (by norm_num) ?_; linarith
+  have h6 : (1 : ℝ) ≤ 722/1000 * Real.log (2 * (k : ℝ)) := by
+    nlinarith [Real.log_two_gt_d9, h4, h5]
+  linarith [h1, h2, hR2, h6]
 end Salt.N7
