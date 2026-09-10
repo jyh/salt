@@ -1361,4 +1361,24 @@ theorem majorant_rangeA_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk
   rw [← hfin]
   exact add_le_add hgeo hmul
 
+
+/-- **R10 row R — the majorant's Fourier coefficients are even in modulus**: `‖a_{−m}‖ = ‖a_m‖`.
+
+The ℤ-fold of the bracket needs this and the corpus did not have it.  ⛔ An ARM will not do:
+`‖a_m‖ ≤ arm(|m|)` is an UPPER bound, so `negative half ≤ ∑ arm(m)‖S_m‖` does NOT give
+`≤ ∑ ‖a_m‖‖S_m‖` — the inequality runs the wrong way, and the rows that consume the fold are
+stated in literal coefficient norms.  Cheap because `intervalIntegral_conj` carries no
+integrability hypothesis. -/
+theorem norm_majorantCoeff_neg (K : ℕ) (m : ℤ) :
+    ‖majorantCoeff K (-m)‖ = ‖majorantCoeff K m‖ := by
+  have hstep : majorantCoeff K (-m) = (starRingEnd ℂ) (majorantCoeff K m) := by
+    unfold majorantCoeff
+    rw [← intervalIntegral.intervalIntegral_conj]
+    refine intervalIntegral.integral_congr (fun θ _ => ?_)
+    rw [map_mul, Complex.conj_ofReal, ← e_neg_eq_conj]
+    congr 1
+    push_cast
+    ring
+  rw [hstep, RCLike.norm_conj]
+
 end Salt.N7
