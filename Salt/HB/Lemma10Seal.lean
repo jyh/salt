@@ -37,17 +37,21 @@ and the corpus did not yet have.
   BY `16` from the row's own binder `hv2k : k.factorization 2 ≤ 8` and paid in the constant
   (`128 = 8·16`, `256 = 16·16`).
 
-⛔ **NOT LANDED: `hb_lemma10` itself, nor `hb_lemma10_road`, `hb_lemma10_const`,
-`hb_lemma10_inv`.**  Everything here is an *input* of the p.223 assembly.  The assembly — the
-truncation at `K = 2 + k^{1/4}`, the dyadic cover of `0 < |m| ≤ K` by blocks `(2^j, 2^{j+1}]`,
-the exchange of the finite `n`-sum with the absolutely convergent `m`-sum of (7.3), and the
-four `m`-ranges — is a wave of its own size and is deliberately not half-built here.  Nothing
-in this file bears on twin primes.
+⛔ **NOT LANDED: `hb_lemma10_road`, `hb_lemma10_const`,
+`hb_lemma10_inv`.**  Everything above is an *input* of the p.223 assembly; the assembly
+itself, `hb_lemma10`, is landed at the end of this file out of those inputs.  It splits the
+majorant bracket at the cut `N = 2 ^ Nat.log 2 (sealK k * ⌈√k⌉₊)` into the five `m`-ranges
+`m = 0`, `m = 1`, `2 ≤ m ≤ K`, `K < m ≤ N` and `m > N`, covers the two middle ranges
+dyadically by blocks `(2^j, 2^{j+1}]`, and exchanges the finite `n`-sum with the absolutely
+convergent `m`-sum of (7.3).  Nothing in this file bears on twin primes.
 
 **Numerals.**  Every constant below is the written ledger's, unmoved: `5/2` on the majorant
 bracket, `1337/1000` and `206/100` on the two envelopes, `16` on the `m = 1` composite, and
 `128` / `256` on the road twins.  The `m = 1` route is provable at `8` and at `4`; the row is
-stated at `16` because that is what the assembly consumes.
+stated at `16` because that is what the assembly consumes.  The R10 rows below add `2/π²` and
+`8K` on the head `2 ≤ m ≤ K`, `4/π²` on the range `K < m ≤ N`, `K/(π²N)` on the tail `m > N`,
+`2E` on the trivial-bound slot of (7.5), and `2^13` on the assembly — each of these is the
+written ledger's too, unmoved.
 -/
 
 open Finset Salt.Weil Salt.LS
