@@ -722,4 +722,138 @@ theorem lem10_m1_bound_road [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hq
         mul_le_mul_of_nonneg_right hS hW
     _ = (1 + 4 * Real.pi * V) * 256 * (k.divisors.card : ℝ) ^ 3
           * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + (k : ℝ)) := by ring
+
+/-! ## R10 — the p.223 assembly of Lemma 10
+
+The majorant bracket of `lem10PsiSum_le_fourier_split` is split at the cut `N` into the five
+`m`-ranges `m = 0`, `m = 1`, `2 ≤ m ≤ K`, `K < m ≤ N` and `m > N`; the two middle ranges and
+the Fourier column are covered by ONE dyadic machine, `weighted_dyadic_block_sum_le`, invoked
+three times at three weights.  `K` and `N` are free naturals in every row below, under `hK`
+and the cut hypothesis each row needs; `hb_lemma10` instantiates them at `sealK k` and at
+`N = 2 ^ Nat.log 2 (sealK k * ⌈√k⌉₊)`.
+
+Each row carries the binder prefix of `lem10_dyadic_bound` whole, even where the linter reports
+one of its binders unused: the rows compose with each other and with the landed chain, and a
+prefix that varies row by row costs more at the assembly than the warnings cost here. -/
+
+/-- Every partial sum of the majorant tail `m > N` is under `K/(π²N)·2E`.
+
+Private: this is the whole content of row B, and it is stated at `Finset.range M` rather than
+as the `tsum` because BOTH consumers below want it in that shape — the bound itself and the
+summability companion that keeps the bound from being vacuously true. -/
+private lemma majorant_tail_range_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K N : ℕ} (hK : 2 ≤ K) (hN : 1 ≤ N) (M : ℕ) :
+    ∑ i ∈ Finset.range M, ‖majorantCoeff K ((i + N + 1 : ℕ) : ℤ)‖
+        * ‖lem10ExpSum k q b (Finset.Ioc A B) (i + N + 1)
+            (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖
+      ≤ ((K : ℝ) / (Real.pi ^ 2 * N)) * (2 * E) := by
+  have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hN
+  -- THE E-SLOT ADAPTER: `Int.card_Ioc` and `hlen`, with nothing left over.
+  have hcard : ((Finset.Ioc A B).card : ℝ) ≤ 2 * E := by
+    rw [Int.card_Ioc]; exact hlen
+  -- the trivial bound (7.5) on every term
+  have hS : ∀ m : ℕ, ‖lem10ExpSum k q b (Finset.Ioc A B) m
+        (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖ ≤ 2 * E :=
+    fun m => le_trans (norm_lem10ExpSum_le_card k q b _ m _) hcard
+  -- the `K/m²` arm on the coefficient
+  have ha : ∀ n : ℕ, ‖majorantCoeff K ((n + N + 1 : ℕ) : ℤ)‖
+      ≤ (K : ℝ) / (Real.pi ^ 2 * (((n + N + 1 : ℕ)) : ℝ) ^ 2) := by
+    intro n
+    have hm0 : (n + N + 1 : ℕ) ≠ 0 := Nat.succ_ne_zero _
+    have hm : ((n + N + 1 : ℕ) : ℤ) ≠ 0 := by exact_mod_cast hm0
+    have h := norm_majorantCoeff_le_sq hK hm
+    have hc2 : ((((n + N + 1 : ℕ) : ℤ)) : ℝ) = (((n + N + 1 : ℕ)) : ℝ) := by push_cast; ring
+    rwa [hc2] at h
+  -- termwise
+  have hterm : ∀ n : ℕ, ‖majorantCoeff K ((n + N + 1 : ℕ) : ℤ)‖
+        * ‖lem10ExpSum k q b (Finset.Ioc A B) (n + N + 1)
+            (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖
+      ≤ (2 * E) * ((K : ℝ) / Real.pi ^ 2) * ((((n + N + 1 : ℕ)) : ℝ) ^ 2)⁻¹ := by
+    intro n
+    have hmpos : (0 : ℝ) < (((n + N + 1 : ℕ)) : ℝ) := by
+      have : 0 < n + N + 1 := Nat.succ_pos _
+      exact_mod_cast this
+    have key : ‖majorantCoeff K ((n + N + 1 : ℕ) : ℤ)‖
+          * ‖lem10ExpSum k q b (Finset.Ioc A B) (n + N + 1)
+              (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖
+        ≤ ((K : ℝ) / (Real.pi ^ 2 * (((n + N + 1 : ℕ)) : ℝ) ^ 2)) * (2 * E) :=
+      mul_le_mul (ha n) (hS (n + N + 1)) (norm_nonneg _) (by positivity)
+    refine le_trans key (le_of_eq ?_)
+    have hne : (((n + N + 1 : ℕ)) : ℝ) ≠ 0 := ne_of_gt hmpos
+    field_simp
+  -- the reindexed p-series tail
+  have hsum : ∑ i ∈ Finset.range M, ((((i + N + 1 : ℕ)) : ℝ) ^ 2)⁻¹ ≤ ((N : ℝ))⁻¹ := by
+    have hre : ∑ i ∈ Finset.range M, ((((i + N + 1 : ℕ)) : ℝ) ^ 2)⁻¹
+        = ∑ j ∈ Finset.Ioc N (N + M), (((j : ℕ) : ℝ) ^ 2)⁻¹ := by
+      refine Finset.sum_nbij' (i := fun i => i + N + 1) (j := fun j => j - N - 1)
+        ?_ ?_ ?_ ?_ ?_
+      · intro a ha'; simp only [Finset.mem_range] at ha'; simp only [Finset.mem_Ioc]; omega
+      · intro a ha'; simp only [Finset.mem_Ioc] at ha'; simp only [Finset.mem_range]; omega
+      · intro a ha'; omega
+      · intro a ha'; simp only [Finset.mem_Ioc] at ha'; omega
+      · intro a _; rfl
+    rw [hre]
+    have h1 : ∑ j ∈ Finset.Ioc N (N + M), (((j : ℕ) : ℝ) ^ 2)⁻¹
+        ≤ ((N : ℝ))⁻¹ - (((N + M : ℕ)) : ℝ)⁻¹ :=
+      sum_Ioc_inv_sq_le_sub (by omega) (by omega)
+    have h2 : (0 : ℝ) ≤ (((N + M : ℕ)) : ℝ)⁻¹ := by positivity
+    linarith
+  have hYnn : (0 : ℝ) ≤ (2 * E) * ((K : ℝ) / Real.pi ^ 2) := by positivity
+  calc ∑ i ∈ Finset.range M, ‖majorantCoeff K ((i + N + 1 : ℕ) : ℤ)‖
+          * ‖lem10ExpSum k q b (Finset.Ioc A B) (i + N + 1)
+              (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖
+      ≤ ∑ i ∈ Finset.range M,
+          (2 * E) * ((K : ℝ) / Real.pi ^ 2) * ((((i + N + 1 : ℕ)) : ℝ) ^ 2)⁻¹ :=
+        Finset.sum_le_sum (fun i _ => hterm i)
+    _ = (2 * E) * ((K : ℝ) / Real.pi ^ 2)
+          * ∑ i ∈ Finset.range M, ((((i + N + 1 : ℕ)) : ℝ) ^ 2)⁻¹ := by
+        rw [Finset.mul_sum]
+    _ ≤ (2 * E) * ((K : ℝ) / Real.pi ^ 2) * ((N : ℝ))⁻¹ :=
+        mul_le_mul_of_nonneg_left hsum hYnn
+    _ = ((K : ℝ) / Real.pi ^ 2 * ((N : ℝ))⁻¹) * (2 * E) := by ring
+    _ = ((K : ℝ) / (Real.pi ^ 2 * N)) * (2 * E) := by
+        rw [div_mul_eq_div_div, div_eq_mul_inv ((K : ℝ) / Real.pi ^ 2) ((N : ℝ))]
+
+/-- The tail of the majorant bracket is summable.
+
+⛔ Without this the row above would be true and EMPTY: in Lean `∑' n, f n = 0` by definition
+when `f` is not summable, so a `tsum` bound on a non-summable family says nothing.  The corpus
+names the trap at `Salt/Weil/Sawtooth.lean:1420-1423`; it is answered here by the same range
+bound the row itself consumes. -/
+private lemma majorant_tail_summable [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K N : ℕ} (hK : 2 ≤ K) (hN : 1 ≤ N) :
+    Summable (fun n : ℕ => ‖majorantCoeff K ((n + N + 1 : ℕ) : ℤ)‖
+      * ‖lem10ExpSum k q b (Finset.Ioc A B) (n + N + 1)
+          (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖) :=
+  summable_of_sum_range_le (fun _ => by positivity)
+    (fun M => majorant_tail_range_le hk hq hqk b A B hAB hE hlen g hvar c hc hK hN M)
+
+/-- **R10 row B — the majorant tail `m > N`.**  `∑_{m > N} ‖a_m‖·‖S_m‖ ≤ K/(π²N)·2E`.
+
+The `K/m²` arm of (7.4) on the coefficient, the trivial bound (7.5) on the exponential sum, and
+`sum_Ioc_inv_sq_le_sub` on what is left.  It depends on nothing else in the assembly.
+
+**The `2E` is tight, and the `2E + 1` a first draft carried is not needed.**  `#I ≤ 2E` comes
+from `Int.card_Ioc` and `hlen` with nothing left over; `card_le_of_mem_Ioc`'s `E + 1` is a
+different route, whose hypothesis says WHERE the interval sits and which this row's binders
+never supply.  At the assembly's own worst point (`E = 1`) the difference is `1.5×`, so the
+slack is worth naming rather than inheriting. -/
+theorem majorant_tail_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K N : ℕ} (hK : 2 ≤ K) (hN : 1 ≤ N) :
+    ∑' n : ℕ, ‖majorantCoeff K ((n + N + 1 : ℕ) : ℤ)‖
+        * ‖lem10ExpSum k q b (Finset.Ioc A B) (n + N + 1)
+            (fun x => g x + (c : ℝ) * (invMod x k : ℝ) / k)‖
+      ≤ ((K : ℝ) / (Real.pi ^ 2 * N)) * (2 * E) :=
+  Real.tsum_le_of_sum_range_le (fun _ => by positivity)
+    (fun M => majorant_tail_range_le hk hq hqk b A B hAB hE hlen g hvar c hc hK hN M)
+
 end Salt.N7
