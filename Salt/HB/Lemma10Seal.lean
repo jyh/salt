@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.Lemma10Chain
 import Salt.Weil.MajorantExpansion
+import Salt.Tactic.DyadicRec
 
 /-!
 # HB 1983 §7 — the INPUTS of the p.223 assembly (Lemma 10), N7 Wave A seal
