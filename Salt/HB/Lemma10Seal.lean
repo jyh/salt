@@ -1097,4 +1097,126 @@ theorem fourier_column_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk 
     ring
   linarith
 
+
+/-- The `K/m²` arm of (7.4) at the BOTTOM of the dyadic block: on `(2^j, 2^{j+1}]` every
+coefficient obeys `‖a_m‖ ≤ K/(π²4^j)`.  Private, and SHARED by rows H and A.
+
+⛔ Stated as `∀ m : ℕ, m ∈ Finset.Ioc …` and not as `∀ m ∈ Finset.Ioc …`: the latter elaborates
+`m` over `ℤ`, builds green, and then does not apply to the ℕ-indexed cover. -/
+private lemma hcj_sq {K : ℕ} (hK : 2 ≤ K) (j : ℕ) :
+    ∀ m : ℕ, m ∈ Finset.Ioc (2 ^ j) (2 ^ (j + 1)) →
+      ‖majorantCoeff K ((m : ℕ) : ℤ)‖ ≤ (K : ℝ) / (Real.pi ^ 2 * 4 ^ j) := by
+  intro m hm
+  have hb := Finset.mem_Ioc.mp hm
+  have hm0 : ((m : ℤ)) ≠ 0 := by have : 2 ^ j < m := hb.1; omega
+  have h4 : ((4 : ℝ)) ^ j ≤ ((m : ℝ)) ^ 2 := by
+    have h1 : (2 : ℕ) ^ j < m := hb.1
+    have h2 : ((2 : ℝ)) ^ j ≤ (m : ℝ) := by
+      have h2' : ((2 ^ j : ℕ) : ℝ) ≤ (m : ℝ) := by exact_mod_cast h1.le
+      simpa using h2'
+    have hx : ((2 : ℝ) ^ j) ^ 2 = (4 : ℝ) ^ j := by
+      rw [← pow_mul, mul_comm j 2, pow_mul]; norm_num
+    nlinarith [hx, pow_nonneg (by norm_num : (0 : ℝ) ≤ 2) j]
+  refine (norm_majorantCoeff_le_sq hK hm0).trans ?_
+  push_cast
+  have hd1 : (0 : ℝ) < Real.pi ^ 2 * ((m : ℝ)) ^ 2 := by
+    have : (0 : ℝ) < (m : ℝ) := by
+      have : (0 : ℕ) < m := by omega
+      exact_mod_cast this
+    positivity
+  have hd2 : (0 : ℝ) < Real.pi ^ 2 * (4 : ℝ) ^ j := by positivity
+  rw [div_le_div_iff₀ hd1 hd2]
+  nlinarith [mul_nonneg (by positivity : (0 : ℝ) ≤ (K : ℝ) * Real.pi ^ 2) (sub_nonneg.mpr h4)]
+
+/-- **Row H's close, generic in the per-block coefficient.**  Any `cj` dominated by the `K/m²`
+arm at the block bottom closes at H's constant.  Private.
+
+Per block the term is an EQUALITY `(KC/π²)(½)^j + 4VKC/π` for the sq arm; the `V`-free half
+sums by `geom_half_range_le` (stated at `(1/2)^i`, so three bridging lines), and the `V` half
+is the block count times `4πV·2^j·(K/(π²4^j))·C·2^j = 4VKC/π` — ⛔ the per-block `V` factor is
+`4·π·M·V`, one `π` weaker than a `/π²` reading of it. -/
+private lemma head_close_of_le_sq {K : ℕ} (hK : 2 ≤ K) {V C : ℝ} (hV : 0 ≤ V) (hC : 0 ≤ C)
+    (cj : ℕ → ℝ) (hcj : ∀ j, cj j ≤ (K : ℝ) / (Real.pi ^ 2 * 4 ^ j)) :
+    ∑ j ∈ Finset.range (Nat.log 2 (K - 1) + 1),
+        cj j * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+      ≤ (2 / Real.pi ^ 2 + 4 * V * (Real.logb 2 K + 1) / Real.pi) * (K : ℝ) * C := by
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  set n : ℕ := Nat.log 2 (K - 1) + 1 with hn
+  have hpt : ∀ j ∈ Finset.range n,
+      cj j * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+        ≤ (K : ℝ) * C / Real.pi ^ 2 * (1 / 2 : ℝ) ^ j + 4 * V * (K : ℝ) * C / Real.pi := by
+    intro j _
+    have h2j : ((2 ^ j : ℕ) : ℝ) = (2 : ℝ) ^ j := by push_cast; ring
+    have hBnn : (0 : ℝ) ≤ (1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ) := by
+      have : (0 : ℝ) ≤ 1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V := by positivity
+      positivity
+    refine le_trans (mul_le_mul_of_nonneg_right (hcj j) hBnn) (le_of_eq ?_)
+    rw [h2j]
+    have hpow : ((4 : ℝ)) ^ j = ((2 : ℝ)) ^ j * ((2 : ℝ)) ^ j := by
+      rw [← mul_pow]; norm_num
+    have hhalf : ((1 : ℝ) / 2) ^ j = 1 / (2 : ℝ) ^ j := by
+      rw [div_pow]; norm_num
+    have h2pos : (0 : ℝ) < (2 : ℝ) ^ j := by positivity
+    rw [hpow, hhalf]
+    field_simp
+    try ring
+  calc ∑ j ∈ Finset.range n,
+          cj j * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+      ≤ ∑ j ∈ Finset.range n,
+          ((K : ℝ) * C / Real.pi ^ 2 * (1 / 2 : ℝ) ^ j + 4 * V * (K : ℝ) * C / Real.pi) :=
+        Finset.sum_le_sum hpt
+    _ = (K : ℝ) * C / Real.pi ^ 2 * (∑ j ∈ Finset.range n, (1 / 2 : ℝ) ^ j)
+          + (n : ℝ) * (4 * V * (K : ℝ) * C / Real.pi) := by
+        rw [Finset.sum_add_distrib, ← Finset.mul_sum, Finset.sum_const, Finset.card_range,
+          nsmul_eq_mul]
+    _ ≤ (K : ℝ) * C / Real.pi ^ 2 * 2 + (Real.logb 2 K + 1) * (4 * V * (K : ℝ) * C / Real.pi) := by
+        have hg := Salt.Tactic.geom_half_range_le n
+        have hcoef : (0 : ℝ) ≤ (K : ℝ) * C / Real.pi ^ 2 := by positivity
+        have hVcoef : (0 : ℝ) ≤ 4 * V * (K : ℝ) * C / Real.pi := by positivity
+        have hnle : (n : ℝ) ≤ Real.logb 2 K + 1 := by
+          rw [hn]; push_cast; exact blockcount_le hK
+        exact add_le_add (mul_le_mul_of_nonneg_left hg hcoef)
+          (mul_le_mul_of_nonneg_right hnle hVcoef)
+    _ = (2 / Real.pi ^ 2 + 4 * V * (Real.logb 2 K + 1) / Real.pi) * (K : ℝ) * C := by
+        field_simp
+        try ring
+
+/-- **R10 row H — the majorant head `2 ≤ m ≤ K`.**
+`∑_{2 ≤ m ≤ K} ‖a_m‖‖S_m‖ ≤ (2/π² + 4V(logb 2 K + 1)/π)·K·C`.
+
+The SECOND instantiation of the machine, at `w m = ‖a_m‖` and `cj j = K/(π²4^j)`.
+
+**The `K/m²` arm ALONE, with no `min`.**  R5″(a)'s threshold `K²/(2π²(1 + log K))` is below `1`
+for every `K ≤ 7`, i.e. for every `k < 1296`, so on this range the `min` of (7.4)'s two arms is
+identically its `K/m²` branch and the uniform arm buys `1.0000×`.  The uniform arm survives
+only at `m = 0`, where the `K/m²` arm is false — that term is in `majorant_tsum_split`. -/
+theorem majorant_head_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K : ℕ} (hK : 2 ≤ K) :
+    ∑ m ∈ Finset.Icc 2 K, ‖majorantCoeff K (m : ℤ)‖
+          * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+              (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (2 / Real.pi ^ 2 + 4 * V * (Real.logb 2 K + 1) / Real.pi) * (K : ℝ)
+          * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) := by
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
+  have hE0 : (0 : ℝ) ≤ E := le_trans zero_le_one hE
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hEk : (0 : ℝ) ≤ E + (k : ℝ) := by positivity
+  have hC0 : (0 : ℝ) ≤ 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k := by
+    positivity
+  refine le_trans (weighted_dyadic_block_sum_le hk hq hqk b A B hAB hE hlen g hvar c hc
+      (fun m => ‖majorantCoeff K ((m : ℕ) : ℤ)‖) (fun j => (K : ℝ) / (Real.pi ^ 2 * 4 ^ j))
+      (hcj_sq hK) (fun j => by positivity) (a := 2) (bN := K) (lo := 0)
+      le_rfl (fun m _ => Nat.zero_le _)) ?_
+  have hset : Finset.Icc 0 (Nat.log 2 (K - 1)) = Finset.range (Nat.log 2 (K - 1) + 1) := by
+    ext x; simp only [Finset.mem_Icc, Finset.mem_range]; omega
+  rw [hset]
+  exact head_close_of_le_sq hK hV0 hC0 _ (fun _ => le_refl _)
+
 end Salt.N7
