@@ -1381,4 +1381,140 @@ theorem norm_majorantCoeff_neg (K : ℕ) (m : ℤ) :
     ring
   rw [hstep, RCLike.norm_conj]
 
+
+/-- The ℕ fold of row S, as an EQUALITY: every index is hit exactly once.  Private.
+
+⛔ `Summable.sum_add_tsum_nat_add` is the PROTECTED form; the root-level
+`sum_add_tsum_nat_add` is `ℝ≥0`-valued and will not unify.  At `K = 2` the middle block is a
+singleton and at `N = K` the outer one is empty; both degenerate correctly. -/
+private lemma tsum_nat_fold (F : ℕ → ℝ) (hF : Summable F) (K N : ℕ) (hK : 2 ≤ K) (hN : K ≤ N) :
+    ∑' n : ℕ, F n
+      = F 0 + F 1 + (∑ m ∈ Finset.Icc 2 K, F m) + (∑ m ∈ Finset.Ioc K N, F m)
+        + ∑' n : ℕ, F (n + N + 1) := by
+  have h1 : (∑ i ∈ Finset.range (N + 1), F i) + ∑' i : ℕ, F (i + (N + 1)) = ∑' i, F i :=
+    hF.sum_add_tsum_nat_add (N + 1)
+  have h2 : ∑' i : ℕ, F (i + (N + 1)) = ∑' n : ℕ, F (n + N + 1) := by
+    refine tsum_congr (fun n => ?_); congr 1
+  have e1 : (∑ m ∈ Finset.Ioc 0 1, F m) + ∑ m ∈ Finset.Ioc 1 K, F m
+      = ∑ m ∈ Finset.Ioc 0 K, F m := Finset.sum_Ioc_consecutive F (by omega) (by omega)
+  have e2 : (∑ m ∈ Finset.Ioc 0 K, F m) + ∑ m ∈ Finset.Ioc K N, F m
+      = ∑ m ∈ Finset.Ioc 0 N, F m := Finset.sum_Ioc_consecutive F (by omega) hN
+  have e3 : ∑ m ∈ Finset.Ioc 0 1, F m = F 1 := by
+    have hs : Finset.Ioc 0 1 = ({1} : Finset ℕ) := by
+      ext x; simp only [Finset.mem_Ioc, Finset.mem_singleton]; omega
+    rw [hs, Finset.sum_singleton]
+  have e4 : Finset.Ioc 1 K = Finset.Icc 2 K := by
+    ext x; simp only [Finset.mem_Ioc, Finset.mem_Icc]; omega
+  have hset : Finset.range (N + 1) = insert 0 (Finset.Ioc 0 N) := by
+    ext x; simp only [Finset.mem_range, Finset.mem_Ioc, Finset.mem_insert]; omega
+  have e5 : ∑ i ∈ Finset.range (N + 1), F i = F 0 + ∑ m ∈ Finset.Ioc 0 N, F m := by
+    rw [hset, Finset.sum_insert (by simp)]
+  rw [e4] at e1
+  rw [← h1, h2, e5, ← e2, ← e1, e3]
+  ring
+
+/-- The ℤ fold of row S: the negative half is dominated by the positive one, so the whole `tsum`
+sits under the `m = 0` term plus TWICE the positive side.  Private.
+
+⛔ `tsum_of_nat_of_neg_add_one` is the tool, not `tsum_nat_add_neg_add_one`: the latter delivers
+one `tsum` of PAIRS, coupling `m = 0` with `m = −1`, which must be re-split before this shape is
+readable.  The one-sided summabilities come from `comp_injective`. -/
+private lemma tsum_int_fold {f : ℤ → ℝ} (hf : Summable f)
+    (hrefl : ∀ n : ℕ, f (-(n + 1)) ≤ f (n + 1)) {K N : ℕ} (hK : 2 ≤ K) (hN : K ≤ N) :
+    ∑' m : ℤ, f m
+      ≤ f 0 + 2 * (f 1 + (∑ m ∈ Finset.Icc 2 K, f (m : ℤ))
+          + (∑ m ∈ Finset.Ioc K N, f (m : ℤ)) + ∑' n : ℕ, f ((n + N + 1 : ℕ) : ℤ)) := by
+  have hnat : Summable (fun n : ℕ => f (n : ℤ)) := hf.comp_injective Nat.cast_injective
+  have hneg : Summable (fun n : ℕ => f (-(n + 1))) := hf.comp_injective (@Int.negSucc.inj)
+  have hpos1 : Summable (fun n : ℕ => f ((n : ℤ) + 1)) := by
+    have h := (summable_nat_add_iff (f := fun n : ℕ => f (n : ℤ)) 1).2 hnat
+    simpa using h
+  have hsplit : ∑' m : ℤ, f m = (∑' n : ℕ, f n) + ∑' n : ℕ, f (-(n + 1)) :=
+    tsum_of_nat_of_neg_add_one hnat hneg
+  have hle : ∑' n : ℕ, f (-(n + 1)) ≤ ∑' n : ℕ, f ((n : ℤ) + 1) :=
+    Summable.tsum_le_tsum hrefl hneg hpos1
+  have hB : ∑' m : ℤ, f m ≤ (∑' n : ℕ, f n) + ∑' n : ℕ, f ((n : ℤ) + 1) := by
+    rw [hsplit]; linarith
+  have hA := tsum_nat_fold (fun n : ℕ => f (n : ℤ)) hnat K N hK hN
+  have hzero : ∑' n : ℕ, f (n : ℤ) = f 0 + ∑' n : ℕ, f (((n + 1 : ℕ) : ℤ)) :=
+    hnat.tsum_eq_zero_add
+  have hs1 : ∑' n : ℕ, f (((n + 1 : ℕ) : ℤ)) = ∑' n : ℕ, f ((n : ℤ) + 1) := by
+    refine tsum_congr (fun n => ?_); push_cast; ring_nf
+  simp only [Nat.cast_zero, Nat.cast_one] at hA
+  rw [hzero, hs1] at hA
+  rw [hzero, hs1] at hB
+  linarith
+
+/-- **R10 row S — the ℤ-tsum split of the majorant bracket.**  The bracket of
+`lem10PsiSum_le_fourier_split` is bounded by its `m = 0` term at the uniform arm of (7.4), plus
+TWICE the four positive-`m` pieces the rows above supply.
+
+⛔ The `m = 0` term takes the UNIFORM arm `2(1 + log K)/K`, not the `K/m²` arm, which is FALSE
+at `m = 0`; every other range takes the `K/m²` arm.  The factor `2` and the coefficient `1` on
+the `m = 0` term are exact: `tsum_int_fold` hits every `m ∈ ℤ` once. -/
+theorem majorant_tsum_split [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K N : ℕ} (hK : 2 ≤ K) (hN : K ≤ N) :
+    ∑' m : ℤ, ‖majorantCoeff K m‖
+        * ‖lem10ExpSumZ k q b (Finset.Ioc A B) m
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (2 * (1 + Real.log K) / K) * (2 * E)
+        + 2 * (‖majorantCoeff K 1‖
+                * ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+                    (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+              + (∑ m ∈ Finset.Icc 2 K, ‖majorantCoeff K (m : ℤ)‖
+                  * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+                      (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖)
+              + (∑ m ∈ Finset.Ioc K N, ‖majorantCoeff K (m : ℤ)‖
+                  * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+                      (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖)
+              + ∑' n : ℕ, ‖majorantCoeff K ((n + N + 1 : ℕ) : ℤ)‖
+                  * ‖lem10ExpSum k q b (Finset.Ioc A B) (n + N + 1)
+                      (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖) := by
+  -- (i) summability of the bracket: `majorant_bracket`'s own `have`, re-proved as a hypothesis
+  have hsummable : Summable (fun m : ℤ => ‖majorantCoeff K m‖
+      * ‖lem10ExpSumZ k q b (Finset.Ioc A B) m
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖) := by
+    refine Summable.of_nonneg_of_le (fun m => by positivity) (fun m => ?_)
+      ((summable_norm_majorantCoeff hK).mul_right ((Finset.Ioc A B).card : ℝ))
+    exact mul_le_mul_of_nonneg_left (norm_lem10ExpSumZ_le_card k q b _ m _) (norm_nonneg _)
+  -- (ii) the reflection, on both factors
+  have hmnat : ∀ m : ℕ, ((m : ℤ)).natAbs = m := fun m => by omega
+  have hrefl : ∀ n : ℕ, ‖majorantCoeff K (-((n : ℤ) + 1))‖
+        * ‖lem10ExpSumZ k q b (Finset.Ioc A B) (-((n : ℤ) + 1))
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ ‖majorantCoeff K ((n : ℤ) + 1)‖
+        * ‖lem10ExpSumZ k q b (Finset.Ioc A B) ((n : ℤ) + 1)
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ := by
+    intro n
+    have hnabs : ((-((n : ℤ) + 1))).natAbs = (((n : ℤ) + 1)).natAbs := by omega
+    rw [norm_majorantCoeff_neg K ((n : ℤ) + 1), norm_lem10ExpSumZ, norm_lem10ExpSumZ, hnabs]
+  -- (iii) the fold
+  refine le_trans (tsum_int_fold hsummable hrefl hK hN) ?_
+  -- (iv) the ℤ→ℕ bridge on every positive index
+  have hZnat : ∀ m : ℕ, ‖lem10ExpSumZ k q b (Finset.Ioc A B) (m : ℤ)
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      = ‖lem10ExpSum k q b (Finset.Ioc A B) m
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ := by
+    intro m; rw [norm_lem10ExpSumZ, hmnat m]
+  have hZ1 : ‖lem10ExpSumZ k q b (Finset.Ioc A B) 1
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      = ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ := by
+    rw [norm_lem10ExpSumZ]; norm_num
+  simp only [hZnat, hZ1]
+  -- (v) T2: the `m = 0` term at the UNIFORM arm
+  have hcard : ((Finset.Ioc A B).card : ℝ) ≤ 2 * E := by rw [Int.card_Ioc]; exact hlen
+  have hKR : (1 : ℝ) ≤ (K : ℝ) := by exact_mod_cast le_trans (by norm_num) hK
+  have hlogK : (0 : ℝ) ≤ Real.log K := Real.log_nonneg hKR
+  have hT2 : ‖majorantCoeff K 0‖
+        * ‖lem10ExpSumZ k q b (Finset.Ioc A B) 0
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (2 * (1 + Real.log K) / K) * (2 * E) :=
+    mul_le_mul (norm_majorantCoeff_le hK 0)
+      (le_trans (norm_lem10ExpSumZ_le_card k q b _ 0 _) hcard) (norm_nonneg _) (by positivity)
+  linarith
+
 end Salt.N7
