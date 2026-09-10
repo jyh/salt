@@ -932,19 +932,13 @@ theorem weighted_dyadic_block_sum_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0
         exact le_refl _
 
 
-/-- **R10 row P — the `m = 1` majorant term.**  `‖a_1‖·‖S_1‖ ≤ (K/π²)·(1 + 4πV)·C`.
+/-- `min a b ≤ √(ab)` for `a, b ≥ 0`.  The geometric-mean step of rows P′ and H′. -/
+private lemma min_le_sqrt_mul {a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) : min a b ≤ Real.sqrt (a * b) :=
+  Real.le_sqrt_of_sq_le (by nlinarith [min_le_left a b, min_le_right a b, le_min ha hb])
 
-The `K/m²` arm of (7.4) at `m = 1` against the landed `m = 1` composite `lem10_m1_bound`.
-
-**Why the `K/m²` arm and not the uniform one.**  At `m = 1` the two arms of (7.4) are
-`K/π² = 0.304 K` and `2(1 + log K)/K`, and the first is the smaller for every `K ≤ 7` — that
-is, for every `k < 1296`, the assembly's own worst region.  Naming the arm here rather than
-leaving it to the assembly is deliberate: the choice is worth `4.6×` on this term.
-
-⚠️ This row is consumed TWICE by `hb_lemma10`, once inside the majorant bracket at the
-coefficient `‖a_1‖` and once in the Fourier column at the weight `1/π`.  That is two consumers
-of one landed lemma, not a term counted twice: the two occurrences are different summands of
-the split. -/
+/-- **R10 row P′ — the `m = 1` majorant term, min-composed.**
+`‖a_1‖·‖S_1‖ ≤ (√(2(1+log K))/π + 4VK/π)·C`: the V-free half by the GEOMETRIC MEAN of
+(7.4)'s two arms, the V half by the `K/m²` arm alone. -/
 theorem majorant_m1_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
     (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
     (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
@@ -953,20 +947,41 @@ theorem majorant_m1_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q
     ‖majorantCoeff K (1 : ℤ)‖
         * ‖lem10ExpSum k q b (Finset.Ioc A B) 1
             (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
-      ≤ ((K : ℝ) / Real.pi ^ 2)
-          * ((1 + 4 * Real.pi * V)
-            * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
-                * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)) := by
-  have harm : ‖majorantCoeff K (1 : ℤ)‖ ≤ (K : ℝ) / Real.pi ^ 2 := by
-    have h := norm_majorantCoeff_le_sq hK (m := (1 : ℤ)) one_ne_zero
-    simpa using h
-  have hS : ‖lem10ExpSum k q b (Finset.Ioc A B) 1
-        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
-      ≤ (1 + 4 * Real.pi * V)
+      ≤ (Real.sqrt (2 * (1 + Real.log K)) / Real.pi + 4 * V * (K : ℝ) / Real.pi)
           * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
-              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) :=
-    le_trans (lem10_m1_bound hk hq hqk b A B hAB hE hlen g hvar c hc) (le_of_eq (by ring))
-  exact mul_le_mul harm hS (norm_nonneg _) (by positivity)
+              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) := by
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
+  have hE0 : (0 : ℝ) ≤ E := le_trans zero_le_one hE
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  set C : ℝ := 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k with hCdef
+  have hC0 : (0 : ℝ) ≤ C := by rw [hCdef]; positivity
+  have hgm : min (2 * (1 + Real.log K) / K) ((K : ℝ) / Real.pi ^ 2)
+      ≤ Real.sqrt (2 * (1 + Real.log K)) / Real.pi := by
+    refine le_trans (min_le_sqrt_mul (by positivity) (by positivity)) (le_of_eq ?_)
+    rw [show (2 * (1 + Real.log K) / K) * ((K : ℝ) / Real.pi ^ 2)
+          = (2 * (1 + Real.log K)) / Real.pi ^ 2 by field_simp,
+      Real.sqrt_div (by nlinarith [Real.log_nonneg (by linarith : (1:ℝ) ≤ (K:ℝ))]),
+      Real.sqrt_sq Real.pi_pos.le]
+  refine le_trans (mul_le_mul (le_min (norm_majorantCoeff_le hK 1)
+      (by simpa using norm_majorantCoeff_le_sq hK (m := (1 : ℤ)) one_ne_zero))
+    (le_trans (lem10_m1_bound hk hq hqk b A B hAB hE hlen g hvar c hc)
+      (le_of_eq (by rw [hCdef]; ring)) :
+        ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ ≤ (1 + 4 * Real.pi * V) * C)
+    (norm_nonneg _) (le_min (by positivity) (by positivity))) ?_
+  have hpi : Real.pi ≠ 0 := Real.pi_ne_zero
+  calc min (2 * (1 + Real.log K) / K) ((K : ℝ) / Real.pi ^ 2) * ((1 + 4 * Real.pi * V) * C)
+      = min (2 * (1 + Real.log K) / K) ((K : ℝ) / Real.pi ^ 2) * C
+        + min (2 * (1 + Real.log K) / K) ((K : ℝ) / Real.pi ^ 2) * (4 * Real.pi * V * C) := by ring
+    _ ≤ Real.sqrt (2 * (1 + Real.log K)) / Real.pi * C
+        + (K : ℝ) / Real.pi ^ 2 * (4 * Real.pi * V * C) :=
+        add_le_add (mul_le_mul_of_nonneg_right hgm hC0)
+          (mul_le_mul_of_nonneg_right (min_le_right _ _) (by positivity))
+    _ = (Real.sqrt (2 * (1 + Real.log K)) / Real.pi + 4 * V * (K : ℝ) / Real.pi) * C := by
+        field_simp
 
 
 /-- On the dyadic block `(2^j, 2^{j+1}]` the Fourier weight `1/(π m)` is dominated by its
