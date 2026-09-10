@@ -344,6 +344,14 @@ open Salt.Tactic in
   Salt.N7.log_Kk_le Salt.N7.t4_log_sealK_le Salt.N7.lem10PsiSum_le_fourier_split
   Salt.N7.lem10_m1_bound Salt.N7.klPhaseSum_bound_road Salt.N7.lem10_dyadic_bound_road
   Salt.N7.lem10_m1_bound_road
+  -- node N7 WAVE A R10 (Salt/HB/Lemma10Seal.lean, continued): the five `m`-ranges of the p.223
+  -- assembly, the one dyadic machine three of them share, and `hb_lemma10` itself.  ⚠️ The
+  -- `m = 1` and `2 ≤ m ≤ K` rows are MIN-COMPOSED: the `K/m²` arm of (7.4) alone outgrew the
+  -- frozen statement's `log(2k)²` budget near `k ≈ 1.3·10²⁴` (`docs/blueprints/flags.md`,
+  -- 2026-09-09), and the geometric mean of the two arms closes uniformly in `k`.
+  Salt.N7.majorant_tail_le Salt.N7.weighted_dyadic_block_sum_le Salt.N7.majorant_m1_le
+  Salt.N7.fourier_column_le Salt.N7.majorant_head_le Salt.N7.majorant_rangeA_le
+  Salt.N7.norm_majorantCoeff_neg Salt.N7.majorant_tsum_split Salt.N7.hb_lemma10
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
