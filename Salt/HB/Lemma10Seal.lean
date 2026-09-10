@@ -1219,4 +1219,146 @@ theorem majorant_head_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk :
   rw [hset]
   exact head_close_of_le_sq hK hV0 hC0 _ (fun _ => le_refl _)
 
+
+/-- `K/2 ≤ 2^{log₂ K}`, from `Nat.lt_pow_succ_log_self`.  Private: row A's scaffolding. -/
+private lemma two_pow_log_ge {K : ℕ} (_hK : 1 ≤ K) : (K : ℝ) / 2 ≤ (2 : ℝ) ^ (Nat.log 2 K) := by
+  have h : K < 2 ^ (Nat.log 2 K + 1) := Nat.lt_pow_succ_log_self (by norm_num) K
+  have hR : (K : ℝ) < (2 : ℝ) ^ (Nat.log 2 K + 1) := by exact_mod_cast h
+  rw [pow_succ] at hR; linarith
+
+/-- **Row A's block count**: `log₂(N−1) + 1 − log₂K ≤ logb 2 N − logb 2 K + 2`.  Private.
+
+⛔ The `+2` is NOT slack: minimum slack `0.00070` at `(K, N) = (4095, 4097)`, and `+1` is FALSE
+there.  BOTH log conversions are needed — forward on `N`, and the reverse
+`logb 2 K < log₂K + 1` through `Real.natFloor_logb_natCast` — and so is the empty branch:
+`Nat.card_Icc`'s subtraction is truncated, so the cast is `0` while the right side still needs
+`logb 2 K ≤ logb 2 N`. -/
+private lemma block_count_le {K N : ℕ} (hK : 2 ≤ K) (hN : K ≤ N) :
+    ((Nat.log 2 (N - 1) + 1 - Nat.log 2 K : ℕ) : ℝ)
+      ≤ Real.logb 2 N - Real.logb 2 K + 2 := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hb : (1 : ℝ) < 2 := by norm_num
+  have hKN : Real.logb 2 (K : ℝ) ≤ Real.logb 2 (N : ℝ) :=
+    Real.logb_le_logb_of_le hb (by linarith) (by exact_mod_cast hN)
+  have hfl : (⌊Real.logb 2 (K : ℝ)⌋₊ : ℕ) = Nat.log 2 K := Real.natFloor_logb_natCast 2 K
+  have hlt : Real.logb 2 (K : ℝ) < (Nat.log 2 K : ℝ) + 1 := by
+    have h := Nat.lt_floor_add_one (Real.logb 2 (K : ℝ)); rwa [hfl] at h
+  rcases le_or_gt (Nat.log 2 K) (Nat.log 2 (N - 1) + 1) with hle | hgt
+  · have hcast : ((Nat.log 2 (N - 1) + 1 - Nat.log 2 K : ℕ) : ℝ)
+        = ((Nat.log 2 (N - 1) : ℕ) : ℝ) + 1 - ((Nat.log 2 K : ℕ) : ℝ) := by
+      rw [Nat.cast_sub hle]; push_cast; ring
+    rw [hcast]
+    have ha : ((Nat.log 2 (N - 1) : ℕ) : ℝ) ≤ Real.logb 2 ((N - 1 : ℕ) : ℝ) :=
+      Real.natLog_le_logb (N - 1) 2
+    have hb1R : (1 : ℝ) ≤ ((N - 1 : ℕ) : ℝ) := by
+      have : (1 : ℕ) ≤ N - 1 := by omega
+      exact_mod_cast this
+    have hb2 : ((N - 1 : ℕ) : ℝ) ≤ (N : ℝ) := by
+      have : (N - 1 : ℕ) ≤ N := Nat.sub_le _ _
+      exact_mod_cast this
+    have hbb : Real.logb 2 ((N - 1 : ℕ) : ℝ) ≤ Real.logb 2 (N : ℝ) :=
+      Real.logb_le_logb_of_le hb (by linarith) hb2
+    linarith
+  · have hz : (Nat.log 2 (N - 1) + 1 - Nat.log 2 K : ℕ) = 0 := by omega
+    rw [hz]; push_cast; linarith
+
+/-- **Row A's geometric close**: `∑_{log₂K ≤ j ≤ J} (D·K)(½)^j ≤ 4D`.  Private, and BOUNDED —
+no logarithm survives.  The `4` is sharp: `3·D` is false as `K → 2^{m+1} − 1`.
+
+Named `geom_close_lo` because it is the `Icc`-from-`log₂K` form; row F's `geom_close` is the
+different, `V`-part sum from `0`. -/
+private lemma geom_close_lo {K J : ℕ} (hK : 2 ≤ K) {D : ℝ} (hD : 0 ≤ D) :
+    ∑ j ∈ Finset.Icc (Nat.log 2 K) J, (D * (K : ℝ)) * (1 / 2 : ℝ) ^ j ≤ 4 * D := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hc : (0 : ℝ) ≤ D * (K : ℝ) := by positivity
+  refine (Salt.Tactic.geom_sum_le_bot_Icc (r := (1 / 2 : ℝ)) (c := D * (K : ℝ)) hc
+      (by norm_num) (by norm_num) (Nat.log 2 K) J).trans ?_
+  have h2 := two_pow_log_ge (K := K) (by omega)
+  have hpos : (0 : ℝ) < (2 : ℝ) ^ (Nat.log 2 K) := by positivity
+  have hhalf : (1 / 2 : ℝ) ^ (Nat.log 2 K) = 1 / (2 : ℝ) ^ (Nat.log 2 K) := by
+    rw [div_pow]; norm_num
+  have key : (K : ℝ) * (1 / 2 : ℝ) ^ (Nat.log 2 K) ≤ 2 := by
+    rw [hhalf, mul_one_div, div_le_iff₀ hpos]; linarith
+  have hrw : D * (K : ℝ) * (1 / 2 : ℝ) ^ (Nat.log 2 K) / (1 - 1 / 2)
+      = 2 * (D * ((K : ℝ) * (1 / 2 : ℝ) ^ (Nat.log 2 K))) := by
+    rw [show (1 : ℝ) - 1 / 2 = 1 / 2 by norm_num]; ring
+  rw [hrw]
+  have := mul_le_mul_of_nonneg_left key hD
+  linarith
+
+/-- **R10 row A — the majorant range `K < m ≤ N`.**
+`∑_{K < m ≤ N} ‖a_m‖‖S_m‖ ≤ (4/π² + 4V(logb 2 N − logb 2 K + 2)K/π)·C`.
+
+The THIRD instantiation of the machine, at `w m = ‖a_m‖`, `cj j = K/(π²4^j)`, from the cut
+`lo = log₂K`.  The `K/m²` arm is the min on every block of THIS range too, and here the reason
+is the cut: `4^j ≥ 4^{log₂K} > K²/4`, by a factor `≥ 4.93` at `K = 2`.  Without `lo ≤ j` the
+domination is genuinely false (at `K = 100`, `j = 0`).
+
+The `V`-free half is BOUNDED — `geom_close_lo` gives `4C/π²` with no logarithm — and the `V`
+half carries the block count, which is HB's dyadic log. -/
+theorem majorant_rangeA_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K N : ℕ} (hK : 2 ≤ K) (hN : K ≤ N) :
+    ∑ m ∈ Finset.Ioc K N, ‖majorantCoeff K (m : ℤ)‖
+          * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+              (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (4 / Real.pi ^ 2
+          + 4 * V * (Real.logb 2 N - Real.logb 2 K + 2) * (K : ℝ) / Real.pi)
+        * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+            * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) := by
+  have hpi0 : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
+  have hE0 : (0 : ℝ) ≤ E := le_trans zero_le_one hE
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hEk : (0 : ℝ) ≤ E + (k : ℝ) := by positivity
+  have hC0 : (0 : ℝ) ≤ 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k := by
+    positivity
+  -- (i) `Ioc K N = Icc (K+1) N` is not defeq
+  have hset : Finset.Ioc K N = Finset.Icc (K + 1) N := by
+    ext x; simp only [Finset.mem_Ioc, Finset.mem_Icc]; omega
+  -- (ii) the machine, in the CUT form, from `lo = log₂K`
+  rw [hset]
+  refine le_trans (weighted_dyadic_block_sum_le hk hq hqk b A B hAB hE hlen g hvar c hc
+      (fun m => ‖majorantCoeff K ((m : ℕ) : ℤ)‖) (fun j => (K : ℝ) / (Real.pi ^ 2 * 4 ^ j))
+      (hcj_sq hK) (fun j => by positivity) (a := K + 1) (bN := N) (lo := Nat.log 2 K)
+      (by omega) (fun m hm => by
+        rw [Finset.mem_Icc] at hm; exact Nat.log_mono_right (by omega))) ?_
+  -- (iii) the per-block identity `B j = (DK/π²)(½)^j + 4VDK/π`
+  have hid : ∀ (D : ℝ) (j : ℕ),
+      ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j))
+          * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * D * ((2 ^ j : ℕ) : ℝ))
+        = (D / Real.pi ^ 2 * (K : ℝ)) * (1 / 2 : ℝ) ^ j + 4 * V * D * (K : ℝ) / Real.pi := by
+    intro D j
+    have h2c : ((2 ^ j : ℕ) : ℝ) = (2 : ℝ) ^ j := by push_cast; ring
+    have h4 : (4 : ℝ) ^ j = (2 : ℝ) ^ j * (2 : ℝ) ^ j := by rw [← mul_pow]; norm_num
+    have hhalf : (1 / 2 : ℝ) ^ j = 1 / (2 : ℝ) ^ j := by rw [div_pow]; norm_num
+    have h2ne : ((2 : ℝ) ^ j) ≠ 0 := by positivity
+    rw [h2c, h4, hhalf]
+    field_simp
+    try ring
+  rw [Finset.sum_congr rfl (fun j _ => hid _ j), Finset.sum_add_distrib, Finset.sum_const,
+    Nat.card_Icc, nsmul_eq_mul]
+  -- (iv) the two closes
+  have hgeo := geom_close_lo (K := K) (J := Nat.log 2 (N - 1)) hK
+      (D := (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+        * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)
+        / Real.pi ^ 2) (div_nonneg hC0 (by positivity))
+  have hcnt := block_count_le hK hN
+  have hcoef : (0 : ℝ) ≤ 4 * V * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+      * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+      * (E + k) / Real.sqrt k) * (K : ℝ) / Real.pi :=
+    div_nonneg (mul_nonneg (mul_nonneg (by linarith) hC0) (by positivity)) hpi0.le
+  have hmul := mul_le_mul_of_nonneg_right hcnt hcoef
+  have hfin : ∀ D : ℝ, (4 : ℝ) * (D / Real.pi ^ 2)
+      + (Real.logb 2 N - Real.logb 2 K + 2) * (4 * V * D * (K : ℝ) / Real.pi)
+      = (4 / Real.pi ^ 2
+          + 4 * V * (Real.logb 2 N - Real.logb 2 K + 2) * (K : ℝ) / Real.pi) * D := by
+    intro D; field_simp; try ring
+  rw [← hfin]
+  exact add_le_add hgeo hmul
+
 end Salt.N7
