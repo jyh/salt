@@ -37,16 +37,15 @@ and the corpus did not yet have.
   BY `16` from the row's own binder `hv2k : k.factorization 2 ≤ 8` and paid in the constant
   (`128 = 8·16`, `256 = 16·16`).
 
-⛔ **NOT LANDED: `hb_lemma10` itself, nor `hb_lemma10_road`, `hb_lemma10_const`,
-`hb_lemma10_inv`.**  What the R10 section below adds are the *ranges* of the assembly, not the
-assembly: the majorant bracket split at the cut `N = 2 ^ Nat.log 2 (sealK k * ⌈√k⌉₊)` into the
-five `m`-ranges `m = 0` (inside `majorant_tsum_split`), `m = 1`, `2 ≤ m ≤ K`, `K < m ≤ N` and
-`m > N`, with the two middle ranges and the Fourier column covered dyadically by blocks
-`(2^j, 2^{j+1}]` through one machine.  ⛔ **The p.223 assembly does NOT close from these rows
-as they stand**: at `V = 0` the `m = 1` and `2 ≤ m ≤ K` rows spend the `K/m²` arm of (7.4),
-whose contribution grows like `K = 2 + ⌊k^{1/4}⌋`, against a budget growing like
-`log(2k)²` — the two cross near `k ≈ 1.3·10²⁴`.  See `docs/blueprints/flags.md`.  Nothing in
-this file bears on twin primes.
+⛔ **NOT LANDED: `hb_lemma10_road`, `hb_lemma10_const`, `hb_lemma10_inv`.**  What the R10
+section below adds are the *ranges* of the assembly and then `hb_lemma10` itself: the majorant
+bracket split at the cut `N = 2 ^ Nat.log 2 (sealK k * ⌈√k⌉₊)` into the five `m`-ranges `m = 0`
+(inside `majorant_tsum_split`), `m = 1`, `2 ≤ m ≤ K`, `K < m ≤ N` and `m > N`, with the two
+middle ranges and the Fourier column covered dyadically by blocks `(2^j, 2^{j+1}]` through one
+machine.  ⚠️ The `m = 1` and `2 ≤ m ≤ K` rows are MIN-COMPOSED, and had to be: the `K/m²` arm of
+(7.4) alone grows like `K = 2 + ⌊k^{1/4}⌋` against a budget growing like `log(2k)²`, and the two
+cross near `k ≈ 1.3·10²⁴`.  See `docs/blueprints/flags.md`.  Nothing in this file bears on twin
+primes.
 
 **Numerals.**  Every constant below is the written ledger's, unmoved: `5/2` on the majorant
 bracket, `1337/1000` and `206/100` on the two envelopes, `16` on the `m = 1` composite, and

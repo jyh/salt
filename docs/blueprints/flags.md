@@ -25210,3 +25210,5 @@ carried forward is that the assembly needs the other arm above that.
 `majorant_head_le` are LANDED, sorry-free, kernel-checked and TRUE as stated — they are simply
 the wrong arm for this consumer at large `k`. Re-cutting a row is the author's act after a pass,
 never the executor's; this entry is the post.
+
+**RESOLVED 2026-09-09, freeze v4** — the author re-cut `majorant_m1_le` and `majorant_head_le` in place (min-composed: the geometric mean of (7.4)'s two arms carries the `V`-free half, the `K/m²` arm the `V` half) and `hb_lemma10` landed at `eb79d0bc`, sorry-free, three axioms, the frozen statement unmoved — the C-slot now clears `512·L²` uniformly in `k`.
