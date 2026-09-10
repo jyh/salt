@@ -856,4 +856,76 @@ theorem majorant_tail_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk :
   Real.tsum_le_of_sum_range_le (fun _ => by positivity)
     (fun M => majorant_tail_range_le hk hq hqk b A B hAB hE hlen g hvar c hc hK hN M)
 
+
+/-- **R10 row M — the weighted dyadic-block machine.**  A weight `w` dominated on each dyadic
+block `(2^j, 2^{j+1}]` by a constant `cj j` turns `∑_{a ≤ m ≤ bN} w m ‖S_m‖` into a sum of
+`lem10_dyadic_bound`'s per-block bound against those constants.
+
+⭐ **THIS ROW IS THE COVER, AND IT IS PAID ONCE.**  Rows F, H and A are three instantiations of
+it — at `w m = 1/(π m)`, at `w m = ‖a_m‖` on `2 ≤ m ≤ K`, and at `w m = ‖a_m‖` on `K < m ≤ N` —
+and none of them re-proves a fibering.  `hcj` is where each consumer pays for its own weight.
+
+⛔ **The block range is not a token match with the landed row and is not defeq.**
+`lem10_dyadic_bound` sums over `Finset.Ioc M (2 * M)`; the fibering hands you
+`Finset.Ioc (2^j) (2^(j+1))`, and `Nat.pow_succ` is not `rfl` here because `Nat.mul` recurses
+on its second argument.  The two `congr 1; ring` lines are that step.
+
+`hlo` is passed through to `dyadic_cover_sum_le` in one token: the cut form's conclusion is
+already indexed by `Finset.Icc lo (Nat.log 2 (bN - 1))`. -/
+theorem weighted_dyadic_block_sum_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    (w : ℕ → ℝ) (cj : ℕ → ℝ)
+    (hcj : ∀ j, ∀ m ∈ Finset.Ioc (2 ^ j) (2 ^ (j + 1)), w m ≤ cj j) (hcj0 : ∀ j, 0 ≤ cj j)
+    {a bN lo : ℕ} (ha : 2 ≤ a) (hlo : ∀ m ∈ Finset.Icc a bN, lo ≤ Nat.log 2 (m - 1)) :
+    ∑ m ∈ Finset.Icc a bN, w m * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ ∑ j ∈ Finset.Icc lo (Nat.log 2 (bN - 1)),
+          cj j * ((1 + 4 * Real.pi * (2 ^ j : ℕ) * V)
+            * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+                * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)
+            * (2 ^ j : ℕ)) := by
+  classical
+  refine Salt.Tactic.dyadic_cover_sum_le (Finset.Subset.refl _) hlo _ _ ?_
+  intro j _
+  -- the fibre lands in the dyadic block
+  have hsub : ((Finset.Icc a bN).filter (fun m => Nat.log 2 (m - 1) = j))
+      ⊆ Finset.Ioc (2 ^ j) (2 ^ (j + 1)) := by
+    intro m hm
+    simp only [Finset.mem_filter, Finset.mem_Icc] at hm
+    obtain ⟨⟨ham, _⟩, hlogm⟩ := hm
+    have h2m : 2 ≤ m := le_trans ha ham
+    obtain ⟨h1, h2⟩ := Salt.Tactic.mem_dyadic_block h2m hlogm
+    exact Finset.mem_Ioc.mpr ⟨h1, h2⟩
+  have hblk : Finset.Ioc (2 ^ j) (2 ^ (j + 1)) = Finset.Ioc (2 ^ j) (2 * 2 ^ j) := by
+    congr 1; ring
+  have hland := lem10_dyadic_bound (k := k) hk hq hqk b A B hAB hE hlen g hvar c hc (2 ^ j)
+  calc ∑ m ∈ (Finset.Icc a bN).filter (fun m => Nat.log 2 (m - 1) = j),
+          w m * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ ∑ m ∈ (Finset.Icc a bN).filter (fun m => Nat.log 2 (m - 1) = j),
+          cj j * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ := by
+        refine Finset.sum_le_sum ?_
+        intro m hm
+        exact mul_le_mul_of_nonneg_right (hcj j m (hsub hm)) (norm_nonneg _)
+    _ = cj j * ∑ m ∈ (Finset.Icc a bN).filter (fun m => Nat.log 2 (m - 1) = j),
+          ‖lem10ExpSum k q b (Finset.Ioc A B) m
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ := by
+        rw [Finset.mul_sum]
+    _ ≤ cj j * ∑ m ∈ Finset.Ioc (2 ^ j) (2 * 2 ^ j),
+          ‖lem10ExpSum k q b (Finset.Ioc A B) m
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ := by
+        refine mul_le_mul_of_nonneg_left ?_ (hcj0 j)
+        refine Finset.sum_le_sum_of_subset_of_nonneg (hblk ▸ hsub) ?_
+        intro i _ _; exact norm_nonneg _
+    _ ≤ cj j * ((1 + 4 * Real.pi * (2 ^ j : ℕ) * V)
+            * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+                * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)
+            * (2 ^ j : ℕ)) := by
+        refine mul_le_mul_of_nonneg_left (le_trans hland ?_) (hcj0 j)
+        ring_nf
+        exact le_refl _
+
 end Salt.N7
