@@ -1383,10 +1383,8 @@ theorem norm_majorantCoeff_neg (K : ℕ) (m : ℤ) :
 
 
 /-- The ℕ fold of row S, as an EQUALITY: every index is hit exactly once.  Private.
-
 ⛔ `Summable.sum_add_tsum_nat_add` is the PROTECTED form; the root-level
-`sum_add_tsum_nat_add` is `ℝ≥0`-valued and will not unify.  At `K = 2` the middle block is a
-singleton and at `N = K` the outer one is empty; both degenerate correctly. -/
+`sum_add_tsum_nat_add` is `ℝ≥0`-valued and will not unify. -/
 private lemma tsum_nat_fold (F : ℕ → ℝ) (hF : Summable F) (K N : ℕ) (hK : 2 ≤ K) (hN : K ≤ N) :
     ∑' n : ℕ, F n
       = F 0 + F 1 + (∑ m ∈ Finset.Icc 2 K, F m) + (∑ m ∈ Finset.Ioc K N, F m)
@@ -1415,10 +1413,8 @@ private lemma tsum_nat_fold (F : ℕ → ℝ) (hF : Summable F) (K N : ℕ) (hK 
 
 /-- The ℤ fold of row S: the negative half is dominated by the positive one, so the whole `tsum`
 sits under the `m = 0` term plus TWICE the positive side.  Private.
-
 ⛔ `tsum_of_nat_of_neg_add_one` is the tool, not `tsum_nat_add_neg_add_one`: the latter delivers
-one `tsum` of PAIRS, coupling `m = 0` with `m = −1`, which must be re-split before this shape is
-readable.  The one-sided summabilities come from `comp_injective`. -/
+one `tsum` of PAIRS, coupling `m = 0` with `m = −1`. -/
 private lemma tsum_int_fold {f : ℤ → ℝ} (hf : Summable f)
     (hrefl : ∀ n : ℕ, f (-(n + 1)) ≤ f (n + 1)) {K N : ℕ} (hK : 2 ≤ K) (hN : K ≤ N) :
     ∑' m : ℤ, f m
@@ -1448,10 +1444,7 @@ private lemma tsum_int_fold {f : ℤ → ℝ} (hf : Summable f)
 /-- **R10 row S — the ℤ-tsum split of the majorant bracket.**  The bracket of
 `lem10PsiSum_le_fourier_split` is bounded by its `m = 0` term at the uniform arm of (7.4), plus
 TWICE the four positive-`m` pieces the rows above supply.
-
-⛔ The `m = 0` term takes the UNIFORM arm `2(1 + log K)/K`, not the `K/m²` arm, which is FALSE
-at `m = 0`; every other range takes the `K/m²` arm.  The factor `2` and the coefficient `1` on
-the `m = 0` term are exact: `tsum_int_fold` hits every `m ∈ ℤ` once. -/
+⛔ The `m = 0` term takes the UNIFORM arm `2(1 + log K)/K`; the `K/m²` arm is FALSE there. -/
 theorem majorant_tsum_split [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
     (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
     (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
