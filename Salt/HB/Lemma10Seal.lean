@@ -928,4 +928,41 @@ theorem weighted_dyadic_block_sum_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0
         ring_nf
         exact le_refl _
 
+
+/-- **R10 row P — the `m = 1` majorant term.**  `‖a_1‖·‖S_1‖ ≤ (K/π²)·(1 + 4πV)·C`.
+
+The `K/m²` arm of (7.4) at `m = 1` against the landed `m = 1` composite `lem10_m1_bound`.
+
+**Why the `K/m²` arm and not the uniform one.**  At `m = 1` the two arms of (7.4) are
+`K/π² = 0.304 K` and `2(1 + log K)/K`, and the first is the smaller for every `K ≤ 7` — that
+is, for every `k < 1296`, the assembly's own worst region.  Naming the arm here rather than
+leaving it to the assembly is deliberate: the choice is worth `4.6×` on this term.
+
+⚠️ This row is consumed TWICE by `hb_lemma10`, once inside the majorant bracket at the
+coefficient `‖a_1‖` and once in the Fourier column at the weight `1/π`.  That is two consumers
+of one landed lemma, not a term counted twice: the two occurrences are different summands of
+the split. -/
+theorem majorant_m1_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K : ℕ} (hK : 2 ≤ K) :
+    ‖majorantCoeff K (1 : ℤ)‖
+        * ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+            (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ ((K : ℝ) / Real.pi ^ 2)
+          * ((1 + 4 * Real.pi * V)
+            * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+                * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)) := by
+  have harm : ‖majorantCoeff K (1 : ℤ)‖ ≤ (K : ℝ) / Real.pi ^ 2 := by
+    have h := norm_majorantCoeff_le_sq hK (m := (1 : ℤ)) one_ne_zero
+    simpa using h
+  have hS : ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (1 + 4 * Real.pi * V)
+          * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) :=
+    le_trans (lem10_m1_bound hk hq hqk b A B hAB hE hlen g hvar c hc) (le_of_eq (by ring))
+  exact mul_le_mul harm hS (norm_nonneg _) (by positivity)
+
 end Salt.N7
