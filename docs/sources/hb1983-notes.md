@@ -750,7 +750,15 @@ the main terms contribute `M ∫_x^{2x} S(d;t) dt` with `S(d;t)` given by (6.12)
 
     S(d;t) = Σ_{d_i,r_i, r_i ≤ l_i(t)} S(d₁,r₁)S(d₂,r₂),                            (6.12)
     S(d_i,r_i) = χ(r_i)(r_id_i)^{−1} log(l_i(t)/r_i) M(r_i) Σ_{h_i ∣ (d_i,r_i)} h_i Σ_{j_i ∣ h_i} μ(j_i)/j_i,
-    M(r) = Σ_{m ∣ Q, m² ≤ r} μ(m),
+    M(r) = Σ_{m ∣ Q, m² ∣ r, m < q} μ(m),
+
+> **[corrected 2026-09-10, from the source p.218]** `M(r)` was transcribed as `Σ_{m ∣ Q, m² ≤ r} μ(m)`.
+> The paper reads `Σ_{m ∣ Q, m² ∣ r, m < q} μ(m)` — DIVISIBILITY `m² ∣ r`, not size, and the `m < q`
+> truncation of `Λ*` (p.210) rides into (6.12)/(6.13) and into (6.15)'s `M(r) − N(r)` comparison,
+> which p.219 bounds as a divisibility tail `Σ_{n² ∣ r, (n,P)=1, n ≥ z} 1`. Structural check: after
+> p.218's substitution `r_i = w_i m_i² h_i`, `m_i² ∣ r_i` is automatic and `m² ≤ r` would be a different,
+> non-Möbius condition. A Lean statement written from the old line would define a different function.
+> Found by the Wave B v1.1 freeze's refuter pass at the PDF page image and text layer.
 
     S(d;t) = Σ_{r_i ≤ l_i(t), d = d₁d₂} χ(r₁r₂)(d r₁r₂)^{−1} log(l₁(t)/r₁) log(l₂(t)/r₂)
                  M(r₁)M(r₂)(d₁,r₁)(d₂,r₂),                                          (6.13)

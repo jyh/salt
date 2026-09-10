@@ -363,3 +363,52 @@ freezes' favour. Nothing in the rows themselves changes.
    I did not verify that (5.19) as Wave B will state it matches (6.2)'s summand shape.
 8. **Every pin above is bytes-say-so.** No `lake build` was run (read-only order). Statement-read ≠
    kernel-checked: an executor's build replays them.
+
+---
+
+## §8 — HAND-OFFS FROM WAVE B v1.1, REGISTERED HERE (2026-09-10; this ledger is the surface Wave C reads)
+
+Wave B's freeze v1.1 (HB §5 through (5.17), cut on a 14-arm refuter pass that read pp.210–219 at the PDF)
+found five things §6 consumes that this ledger either lacks, mis-records, or presupposes. They are recorded
+on THIS surface so a Wave C executor meets them here, not in another campaign's freeze.
+
+1. **The `m_i < q` truncation is a PRECONDITION of (6.11), not an additive error.** C1-10 consumes
+   `δ₁δ₂ ≤ q⁴d²` as a given. With `δ_i = m_i² d_i j_i` (Lemma 9's carrier, p.218), `δ₁δ₂ ≤ q⁴d²` IS
+   `m_i < q` and nothing else. An untruncated Lemma 9 (all `m_i ∣ Q`, `Q = exp(Θ(z))` with `z ≤ q^{1/3}`)
+   gives `δ₁δ₂ ≤ Q⁴d²`, super-polynomial in `q`, and (6.11)'s second error term then exceeds
+   `x^{1+ε}q^{−1}` at `x ≥ q^{250}` — (6.11) FAILS on the untruncated form; there is no slack to absorb it.
+   HB pays the truncation ONE PAGE EARLIER, at the `Λ*` level (p.210: `≪ Σ_{m ≥ q} x^{1+ε}m^{−2}`), before
+   any hyperbola or integral. **Wave B delivers BOTH forms** — `hb_lemma9_general` (exact, all `m_i ∣ Q`)
+   and `hb_lemma9_trunc` (exact for `Λ*_{<q}`, the object `LamStarTrunc`, HB's own p.211 display without
+   its error term). **Wave C owes the Λ*-level tail, stated in Wave B's objects:**
+   `|S(d) − S_{<q}(d)| ≪ x^{1+ε} q^{−1}`, where `S_{<q}(d) := Σ_{n ∈ window, d ∣ l₁l₂} Λ*_{<q}(l₁ n) Λ*_{<q}(l₂ n)`,
+   from `|Λ*(n) − Λ*_{<q}(n)| ≤ d(n) log n · #{m : m² ∣ n, m ≥ q}` per `n` and the corpus's
+   `sq_dvd_count_le` / `sq_recip_tail_le` (`Salt/HB/StarStep.lean:270, :303`). Class B, 150–300.
+   It is consumed BEFORE C1-10 — a new row ahead of (6.9)/(6.11) in this ledger, not a tail after it.
+2. **(6.12)'s `M(r)` at `:62` above copies a transcription defect** — the notes' `:753` read
+   `Σ_{m ∣ Q, m² ≤ r} μ(m)`; the paper reads `Σ_{m ∣ Q, m² ∣ r, m < q} μ(m)` (corrected in the notes in this
+   commit). C2-04, written from that row, must be written from the corrected line: `m² ∣ r` is a
+   divisibility, and the `m < q` is the same truncation as item 1, riding into (6.12)–(6.15).
+3. **"q is cube-free" is spent TWICE MORE in §6, and neither use is retired by Wave B's `hΔ`.**
+   p.215: `(α_i, q/Δ) = 1, by (1.9), since q is cube-free`; p.216: `(Δ, q/Δ) = 1, since q is cube-free` —
+   both feed the `a₁`-count `∏_{p ∣ q/Δ}(p − 2) = qΔ^{−1}M`. At the twin instance both FAIL at
+   `v₂(q) = 3`: `Δ = gcd(4, q) = 4`, `q/Δ` has `v₂ = 1`, so `(Δ, q/Δ) = (α_i, q/Δ) = 2` — and `q = 8` carries
+   the real primitive `χ₈`. Wave B's `hΔ : gcd α₁ q = gcd α₂ q` replaces the sentence at (5.4)/(5.5) ONLY.
+   The (6.3)(6.4) row above (`:57`) lists "q cube-free" as consumed without this hole; Wave C owes both
+   coprimalities under a hypothesis it can state (e.g. `v₂(q) ≤ 2`, or the two facts as binders).
+4. **HB's "appropriate analogues of (5.19) when `S_i ≤ R_i` fails" (p.214) are WORKING STEPS of §6's
+   regimes (b) (p.216, `Σ_{w₁,v₂} K^{−1}(w₁v₂)^{−1}A′`) and (c) (pp.216–217, both indices swapped)** —
+   not a footnote, and not Wave B-7's. They are (5.14)/(5.17) at SWAPPED cell parameters
+   (`(R₂, a₂) ↔ (S₂, b₂)` for (b); both indices for (c)); **Wave B delivers the enabling swap symmetry**
+   `cellCount_swap₁/₂`. The (6.5)(6.6) and (6.7)(6.8) rows above presuppose the analogues' output and
+   price only the character-sum kill; each owes one line: "via `cellCount_swap`, then (5.14)/(5.17)".
+5. **The `V`-vanishing (p.218, "the sums `S(δ₁,δ₂;V₁,V₂)` vanish for `V_i ≫ x`") is delivered by Wave B**
+   (`truncChiSum_eq_zero_of_le`, `bilinearS_eq_zero_of_le₁/₂`: `bilinearS = 0` once `V_i ≥ l_i(2x)`).
+   Without it the `Ioi`-ray integrals cannot be truncated to `V_i ≤ x` and the product-measure integrability
+   for the (6.2)/`A(w₁,w₂)` Fubini step cannot be shown — that interchange, in `(V₁, V₂, t)`, is C1-09/C1-10's
+   own obligation and needs the vanishing FIRST (the integrand is a signed character sum; Tonelli does not
+   apply directly). Lemma 9 as Wave B states it is ITERATED, as HB's p.211 display is; the seam meets.
+
+Every claim above was measured at the PDF and at the corpus by the pass; none is a statement in this file's
+tables, which are unchanged.
+
