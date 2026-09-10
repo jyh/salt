@@ -965,4 +965,136 @@ theorem majorant_m1_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q
     le_trans (lem10_m1_bound hk hq hqk b A B hAB hE hlen g hvar c hc) (le_of_eq (by ring))
   exact mul_le_mul harm hS (norm_nonneg _) (by positivity)
 
+
+/-- On the dyadic block `(2^j, 2^{j+1}]` the Fourier weight `1/(π m)` is dominated by its
+value at the bottom of the block.  Private: row F's own direction check.
+
+There is no boundary case and no `min`: on the block `2^j < m` is STRICT, so
+`one_div_le_one_div_of_le` has all the room it needs. -/
+private lemma direction_check (j : ℕ) :
+    ∀ m ∈ Finset.Ioc ((2 : ℕ) ^ j) ((2 : ℕ) ^ (j + 1)),
+      1 / (Real.pi * (m : ℝ)) ≤ 1 / (Real.pi * ((2 ^ j : ℕ) : ℝ)) := by
+  intro m hm
+  have h1 : (2 : ℕ) ^ j < m := (Finset.mem_Ioc.mp hm).1
+  have hlt : ((2 ^ j : ℕ) : ℝ) < (m : ℝ) := by exact_mod_cast h1
+  have hpos : (0 : ℝ) < Real.pi * ((2 ^ j : ℕ) : ℝ) := by positivity
+  exact one_div_le_one_div_of_le hpos (by nlinarith [Real.pi_pos])
+
+/-- **The dyadic block count as a real logarithm**: `log₂(K−1) + 1 ≤ logb 2 K + 1`.
+
+Private, and SHARED by rows F and H: a dyadic block count is a base-2 logarithm, and every
+consumer that turns one into an analytic bound pays this conversion once.  `Nat.log_mono_right`
+then mathlib's `Real.natLog_le_logb` — whose argument order is `(n, b)`, i.e. `K` then `2`. -/
+private lemma blockcount_le {K : ℕ} (hK : 2 ≤ K) :
+    ((Nat.log 2 (K - 1) : ℕ) : ℝ) + 1 ≤ Real.logb 2 K + 1 := by
+  have h1 : Nat.log 2 (K - 1) ≤ Nat.log 2 K := Nat.log_mono_right (by omega)
+  have h2 : ((Nat.log 2 K : ℕ) : ℝ) ≤ Real.logb 2 K := Real.natLog_le_logb K 2
+  have h3 : ((Nat.log 2 (K - 1) : ℕ) : ℝ) ≤ ((Nat.log 2 K : ℕ) : ℝ) := by exact_mod_cast h1
+  linarith
+
+/-- **The geometric close of row F's `V`-part**: `∑_{j ≤ log₂(K−1)} 2^j ≤ 2K`.
+
+Private.  The seam `Icc 0 J = range (J+1)` is not `rfl` and is taken by `ext`; then
+`geom_two_pow_range_le` and `Nat.pow_log_le_self`, whose side condition `K − 1 ≠ 0` is `hK`
+itself, so there is no corner case.  Nothing is surrendered here: the constant is exact. -/
+private lemma geom_close {K : ℕ} (hK : 2 ≤ K) :
+    ∑ j ∈ Finset.Icc 0 (Nat.log 2 (K - 1)), ((2 ^ j : ℕ) : ℝ) ≤ 2 * (K : ℝ) := by
+  have hset : Finset.Icc 0 (Nat.log 2 (K - 1)) = Finset.range (Nat.log 2 (K - 1) + 1) := by
+    ext x; simp only [Finset.mem_Icc, Finset.mem_range]; omega
+  have hpow : ((2 : ℕ) ^ Nat.log 2 (K - 1)) ≤ K - 1 :=
+    Nat.pow_log_le_self 2 (by omega)
+  have hpowR : ((2 : ℝ)) ^ Nat.log 2 (K - 1) ≤ (K : ℝ) - 1 := by
+    have h : (((2 : ℕ) ^ Nat.log 2 (K - 1) : ℕ) : ℝ) ≤ ((K - 1 : ℕ) : ℝ) := by exact_mod_cast hpow
+    rw [Nat.cast_sub (by omega : 1 ≤ K)] at h
+    push_cast at h ⊢
+    linarith
+  calc ∑ j ∈ Finset.Icc 0 (Nat.log 2 (K - 1)), ((2 ^ j : ℕ) : ℝ)
+      = ∑ j ∈ Finset.range (Nat.log 2 (K - 1) + 1), (2 : ℝ) ^ j := by
+        rw [hset]; push_cast; ring_nf
+    _ ≤ (2 : ℝ) ^ (Nat.log 2 (K - 1) + 1) := Salt.Tactic.geom_two_pow_range_le _
+    _ ≤ 2 * (K : ℝ) := by rw [pow_succ]; nlinarith
+
+/-- **R10 row F — the Fourier column over `2 ≤ m ≤ K`** (HB's R6′).
+`∑_{2 ≤ m ≤ K} ‖S_m‖/(π m) ≤ ((logb 2 K + 1)/π + 8KV)·C`.
+
+The FIRST of the machine's three instantiations, at the weight `w m = 1/(π m)` and the block
+constant `cj j = 1/(π 2^j)`.  The per-block term then collapses by `field_simp` to
+`C/π + 4VC·2^j`: a `V`-free part whose block count is `blockcount_le`, and a `V`-part whose
+geometric sum is `geom_close`.  The constant is EXACT — no slack is surrendered in the close.
+
+⚠️ The `m = 1` term is NOT here.  It is peeled by the assembly and carried by the landed
+`lem10_m1_bound` at the weight `1/π`; this row starts at `m = 2` because the dyadic cover
+does. -/
+theorem fourier_column_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q))
+    {K : ℕ} (hK : 2 ≤ K) :
+    ∑ m ∈ Finset.Icc 2 K, ‖lem10ExpSum k q b (Finset.Ioc A B) m
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ / (Real.pi * (m : ℝ))
+      ≤ ((Real.logb 2 K + 1) / Real.pi + 8 * (K : ℝ) * V)
+          * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) := by
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
+  have hE0 : (0 : ℝ) ≤ E := le_trans zero_le_one hE
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hEk : (0 : ℝ) ≤ E + (k : ℝ) := by positivity
+  have hC0 : (0 : ℝ) ≤ 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k := by
+    positivity
+  -- (i) F's summand is a DIVISION; the machine's is a weight times a norm.
+  have hL : ∑ m ∈ Finset.Icc 2 K, ‖lem10ExpSum k q b (Finset.Ioc A B) m
+          (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ / (Real.pi * (m : ℝ))
+      = ∑ m ∈ Finset.Icc 2 K, (1 / (Real.pi * (m : ℝ)))
+          * ‖lem10ExpSum k q b (Finset.Ioc A B) m
+              (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ :=
+    Finset.sum_congr rfl (fun m _ => by ring)
+  rw [hL]
+  -- (ii) the machine, at `w m = 1/(π m)`, `cj j = 1/(π 2^j)`, `a = 2`, `bN = K`, `lo = 0`
+  refine le_trans (weighted_dyadic_block_sum_le hk hq hqk b A B hAB hE hlen g hvar c hc
+      (fun m => 1 / (Real.pi * (m : ℝ))) (fun j => 1 / (Real.pi * ((2 ^ j : ℕ) : ℝ)))
+      direction_check (fun j => by positivity) (a := 2) (bN := K) (lo := 0)
+      le_rfl (fun m _ => Nat.zero_le _)) ?_
+  -- (iii) the per-block identity `(1/(π 2^j))·((1 + 4π 2^j V)·D·2^j) = D/π + 4VD·2^j`
+  have hterm : ∀ (D : ℝ) (j : ℕ),
+      (1 / (Real.pi * ((2 ^ j : ℕ) : ℝ)))
+          * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * D * ((2 ^ j : ℕ) : ℝ))
+        = D / Real.pi + 4 * V * D * ((2 ^ j : ℕ) : ℝ) := by
+    intro D j
+    have h2 : ((2 ^ j : ℕ) : ℝ) ≠ 0 := by positivity
+    field_simp
+    ring
+  rw [Finset.sum_congr rfl (fun j _ => hterm _ j), Finset.sum_add_distrib, Finset.sum_const,
+    ← Finset.mul_sum, Nat.card_Icc, nsmul_eq_mul]
+  -- (iv) the V-free close: the block count is a base-2 logarithm
+  have hcount : ((Nat.log 2 (K - 1) + 1 - 0 : ℕ) : ℝ) ≤ Real.logb 2 K + 1 := by
+    have h := blockcount_le hK
+    simp only [Nat.sub_zero]
+    push_cast
+    linarith
+  -- (v) the V part: the geometric sum of the block bottoms
+  have hgeom := geom_close hK
+  have hCpi : (0 : ℝ) ≤ (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+      * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+      * (E + k) / Real.sqrt k) / Real.pi := div_nonneg hC0 hpi.le
+  have hVC : (0 : ℝ) ≤ 4 * V * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+      * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2)
+      * (E + k) / Real.sqrt k) := mul_nonneg (by linarith) hC0
+  have hA := mul_le_mul_of_nonneg_right hcount hCpi
+  have hB := mul_le_mul_of_nonneg_left hgeom hVC
+  have hfin : (Real.logb 2 K + 1)
+        * ((16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+            * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)
+          / Real.pi)
+      + 4 * V * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+          * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k)
+        * (2 * (K : ℝ))
+      = ((Real.logb 2 K + 1) / Real.pi + 8 * (K : ℝ) * V)
+          * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) := by
+    ring
+  linarith
+
 end Salt.N7
