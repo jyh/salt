@@ -1065,7 +1065,7 @@ theorem fourier_column_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk 
     intro D j
     have h2 : ((2 ^ j : ℕ) : ℝ) ≠ 0 := by positivity
     field_simp
-    ring
+    try ring
   rw [Finset.sum_congr rfl (fun j _ => hterm _ j), Finset.sum_add_distrib, Finset.sum_const,
     ← Finset.mul_sum, Nat.card_Icc, nsmul_eq_mul]
   -- (iv) the V-free close: the block count is a base-2 logarithm
