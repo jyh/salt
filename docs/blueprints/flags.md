@@ -25167,3 +25167,46 @@ is a plan, and reading one as a census cost one freeze a whole slot and two arms
 theorem. The docstring EDIT itself is a one-line change to a file behind the N7 fence and is not made here; it is owed as its own
 docstring-only PR when the fence's owner says so. ⇒ 🔑 *A docstring that prices a row is a promise; when the row lands, the promise
 must be struck in the same commit, or it outlives the proof and is read as the state of the tree.*
+
+## 2026-09-09 N7-R10-hb_lemma10 opus failed
+
+**The claim that fails.** The p.223 assembly `hb_lemma10`, as frozen, does NOT follow from the
+eight R10 rows that landed with it in `Salt/HB/Lemma10Seal.lean`. The failure is at the
+**`V`-free (C-)slot of the frozen right-hand side, at large `k`**, and it is arithmetic, not
+Lean: no proof was attempted, because the composition was measured first and cannot close.
+
+**The measurement.** Write `C = 16·√(2^{v₂k})·d(k)³·log(2k)·q^{3/2}·(E+k)/√k` (the landed
+per-block constant of `lem10_dyadic_bound`), `K = sealK k = 2 + ⌊k^{1/4}⌋`, `L = log (2k)`.
+Through `lem10PsiSum_le_fourier_split` (the `5/2` on the bracket) and `majorant_tsum_split`
+(the factor `2` on the positive side), the `V = 0` demand in units of `C` is
+
+    1/π  (the m = 1 Fourier term)      + (logb 2 K + 1)/π  (fourier_column_le)
+  + 5·K/π²  (majorant_m1_le)           + 5·2K/π²  (majorant_head_le)
+  + 5·4/π²  (majorant_rangeA_le)       =  15K/π² + (logb 2 K + 1)/π + 1/π + 20/π²
+
+while the frozen statement's `V`-free budget is exactly `512·L²·C`. The demand grows like
+`K ≍ k^{1/4}`; the budget grows like `log² k`. Driven: margin **127.34× at k = 2** (which
+reproduces the freeze's own figure to four decimals, so this IS the freeze's model),
+**1980× at 10⁶**, **7.36× at 10²⁰**, **1.05× at 10²⁴**, **0.052× at 10³⁰** — the crossing is at
+**k ≈ 1.282·10²⁴**. `hb_lemma10` binds every `k ≥ 2`, so the composition is not merely loose.
+
+**Where the freeze's own sweep missed it.** The margin sweeps took the minimum over the `V`-only
+and `E` slots and never over the `V`-free one: the C-slot margin was computed with the budget
+multiplied by `(1 + (2 + k^{1/4})·V)` and then evaluated at `V = 10³⁰`, where it is
+astronomically large and carries no information, and the swept minimum was
+`min(V-slot, E-slot)`. The C-slot was therefore checked at one point, `k = 2`, and reported at
+`127.34×`. ⇒ 🔑 *A slot excluded from the minimum is not a slot that passed.*
+
+**What would close it, stated so the next session does not re-derive it — NOT DONE HERE.** The
+`K`-carrying terms are exactly the two rows that spend the `K/m²` arm of (7.4) where the uniform
+arm `2(1 + log K)/K` is the better one. That arm is `norm_majorantCoeff_le`
+(`Salt/Weil/Sawtooth.lean:666`), it is landed, and it holds at every `m`. Against the same
+machine it gives a `V`-free head of `≍ 4(1 + log K)·C = O(L·C)`, which the `512 L²` budget
+carries at every `k`. The freeze's ground for the `K/m²` arm — that it is the min at `m = 1`
+and on the head — is TRUE only for `K ≤ 7`, i.e. `k < 1296`, and it says so; what was not
+carried forward is that the assembly needs the other arm above that.
+
+⛔ Neither row is edited here. `hb_lemma10` is frozen, and `majorant_m1_le` and
+`majorant_head_le` are LANDED, sorry-free, kernel-checked and TRUE as stated — they are simply
+the wrong arm for this consumer at large `k`. Re-cutting a row is the author's act after a pass,
+never the executor's; this entry is the post.
