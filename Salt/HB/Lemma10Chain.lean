@@ -24,11 +24,18 @@ frequency fold `lem10ExpSum_kl_mul`, the (7.7) identity `klPhaseSum_eq_kloosterm
 bound `klPhaseSum_bound` (at the stated numeral `8`), the (7.8) dyadic sum `lem10_dyadic_bound`
 (at the stated numeral `16`), and the R-A6 `±m` conjugation bridge `norm_lem10ExpSum_neg`.
 
-⛔ **NOT LANDED: `hb_lemma10` and `hb_lemma10'`.**  The p.223 assembly — (7.2)'s truncation at
-`K = 2 + k^{1/4}`, the dyadic cover of `0 < |m| ≤ K` by blocks `(2^j, 2^{j+1}]`, the exchange of
-the finite `n`-sum with the absolutely convergent `m`-sum of (7.3), and the four `m`-ranges — is
-a sub-project of its own size, not a step; it is deliberately left to the next wave rather than
-half-built here.  Everything below it in the chain is proved and consumable as it stands.
+✅ **`hb_lemma10` IS LANDED — 2026-09-09, in `Salt/HB/Lemma10Seal.lean`, not here.**  The p.223
+assembly — (7.2)'s truncation at `K = sealK k = 2 + ⌊k^{1/4}⌋₊`, the cut `N = 2^{log₂(K·⌈√k⌉₊)}`,
+the exchange of the finite `n`-sum with the absolutely convergent `m`-sum of (7.3), and the five
+`m`-ranges (`m = 0` inside the split) — was left to the next wave by this header's 09/03 reading
+and was built by that wave: N7 Wave A's seal (the fifteen inputs, PR #100) and R10 (the assembly,
+PR #102, `main` at `f0071bfa`), with the `m = 1` and `2 ≤ m ≤ K` rows MIN-COMPOSED
+(`Lemma10Seal.lean`'s header; `docs/blueprints/flags.md`).  It is stated over a general phase
+`g : ℤ → ℝ` of variation `≤ V` plus the Kloosterman term `c·n̄/k`, so HB's two phase shapes are
+reached as its instances through `var_const` / `var_inv` below — the instantiations themselves,
+the seal's `hb_lemma10_const` / `hb_lemma10_inv` / `hb_lemma10_road`, are NOT landed.
+`hb_lemma10'` was never a statement and is RETIRED, not owed (the Wave B scout, item 5).
+Everything in this file is proved and consumable as it stands.
 -/
 
 open Finset Salt.Weil Salt.LS
