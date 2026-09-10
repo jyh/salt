@@ -936,6 +936,21 @@ theorem weighted_dyadic_block_sum_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0
 private lemma min_le_sqrt_mul {a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) : min a b ≤ Real.sqrt (a * b) :=
   Real.le_sqrt_of_sq_le (by nlinarith [min_le_left a b, min_le_right a b, le_min ha hb])
 
+/-- The √ algebra of the per-block geometric mean: `√((2(1+log K)/K)·(K/(π²4^j)))`
+collapses to `√(2(1+log K))/(π·2^j)`, whose product with `2^j` is j-FREE.  Private: H′'s. -/
+private lemma sqrt_block {K : ℕ} (hK : 2 ≤ K) (j : ℕ) :
+    Real.sqrt ((2 * (1 + Real.log K) / K) * ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+      = Real.sqrt (2 * (1 + Real.log K)) / (Real.pi * (2 : ℝ) ^ j) := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hK0 : (K : ℝ) ≠ 0 := by linarith
+  have h4 : (4 : ℝ) ^ j = ((2 : ℝ) ^ j) ^ 2 := by
+    rw [← pow_mul, mul_comm j 2, pow_mul]; norm_num
+  have hEq : (2 * (1 + Real.log K) / K) * ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j))
+      = (2 * (1 + Real.log K)) / (Real.pi * (2 : ℝ) ^ j) ^ 2 := by
+    rw [h4]; field_simp
+  have hlogK : (0 : ℝ) ≤ Real.log K := Real.log_nonneg (by linarith)
+  rw [hEq, Real.sqrt_div (by linarith), Real.sqrt_sq (by positivity)]
+
 /-- **R10 row P′ — the `m = 1` majorant term, min-composed.**
 `‖a_1‖·‖S_1‖ ≤ (√(2(1+log K))/π + 4VK/π)·C`: the V-free half by the GEOMETRIC MEAN of
 (7.4)'s two arms, the V half by the `K/m²` arm alone. -/
@@ -1146,69 +1161,69 @@ private lemma hcj_sq {K : ℕ} (hK : 2 ≤ K) (j : ℕ) :
   rw [div_le_div_iff₀ hd1 hd2]
   nlinarith [mul_nonneg (by positivity : (0 : ℝ) ≤ (K : ℝ) * Real.pi ^ 2) (sub_nonneg.mpr h4)]
 
-/-- **Row H's close, generic in the per-block coefficient.**  Any `cj` dominated by the `K/m²`
-arm at the block bottom closes at H's constant.  Private.
-
-Per block the term is an EQUALITY `(KC/π²)(½)^j + 4VKC/π` for the sq arm; the `V`-free half
-sums by `geom_half_range_le` (stated at `(1/2)^i`, so three bridging lines), and the `V` half
-is the block count times `4πV·2^j·(K/(π²4^j))·C·2^j = 4VKC/π` — ⛔ the per-block `V` factor is
-`4·π·M·V`, one `π` weaker than a `/π²` reading of it. -/
-private lemma head_close_of_le_sq {K : ℕ} (hK : 2 ≤ K) {V C : ℝ} (hV : 0 ≤ V) (hC : 0 ≤ C)
-    (cj : ℕ → ℝ) (hcj : ∀ j, cj j ≤ (K : ℝ) / (Real.pi ^ 2 * 4 ^ j)) :
+/-- **Row H′'s close** — the min-composed coefficient, bounded per block by the geometric
+mean.  Private.  Both halves are j-FREE, so there is no geometric series: the block sum is
+`(J+1)·(√(2(1+log K))/π + 4VK/π)·C`. -/
+private lemma head_close_min {K : ℕ} (hK : 2 ≤ K) {V C : ℝ} (hV : 0 ≤ V) (hC : 0 ≤ C) :
     ∑ j ∈ Finset.range (Nat.log 2 (K - 1) + 1),
-        cj j * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
-      ≤ (2 / Real.pi ^ 2 + 4 * V * (Real.logb 2 K + 1) / Real.pi) * (K : ℝ) * C := by
+        (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+          * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+      ≤ ((Real.logb 2 K + 1) * Real.sqrt (2 * (1 + Real.log K)) / Real.pi
+          + 4 * V * (Real.logb 2 K + 1) * (K : ℝ) / Real.pi) * C := by
   have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
   have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hlogK : (0 : ℝ) ≤ Real.log K := Real.log_nonneg (by linarith)
   set n : ℕ := Nat.log 2 (K - 1) + 1 with hn
   have hpt : ∀ j ∈ Finset.range n,
-      cj j * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
-        ≤ (K : ℝ) * C / Real.pi ^ 2 * (1 / 2 : ℝ) ^ j + 4 * V * (K : ℝ) * C / Real.pi := by
+      (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+          * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+        ≤ Real.sqrt (2 * (1 + Real.log K)) / Real.pi * C + 4 * V * (K : ℝ) * C / Real.pi := by
     intro j _
     have h2j : ((2 ^ j : ℕ) : ℝ) = (2 : ℝ) ^ j := by push_cast; ring
-    have hBnn : (0 : ℝ) ≤ (1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ) := by
-      have : (0 : ℝ) ≤ 1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V := by positivity
-      positivity
-    refine le_trans (mul_le_mul_of_nonneg_right (hcj j) hBnn) (le_of_eq ?_)
-    rw [h2j]
-    have hpow : ((4 : ℝ)) ^ j = ((2 : ℝ)) ^ j * ((2 : ℝ)) ^ j := by
+    have h4j : ((4 : ℝ)) ^ j = ((2 : ℝ) ^ j) * ((2 : ℝ) ^ j) := by
       rw [← mul_pow]; norm_num
-    have hhalf : ((1 : ℝ) / 2) ^ j = 1 / (2 : ℝ) ^ j := by
-      rw [div_pow]; norm_num
     have h2pos : (0 : ℝ) < (2 : ℝ) ^ j := by positivity
-    rw [hpow, hhalf]
-    field_simp
-    try ring
+    -- the two arms
+    have hA : (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+        ≤ Real.sqrt (2 * (1 + Real.log K)) / (Real.pi * (2 : ℝ) ^ j) := by
+      refine le_trans (min_le_sqrt_mul (by positivity) (by positivity)) ?_
+      exact le_of_eq (sqrt_block hK j)
+    have hB : (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+        ≤ (K : ℝ) / (Real.pi ^ 2 * 4 ^ j) := min_le_right _ _
+    have hsplit : (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+          * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+        = (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j))) * (C * (2 : ℝ) ^ j)
+          + (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+              * (4 * Real.pi * V * C * ((2 : ℝ) ^ j * (2 : ℝ) ^ j)) := by
+      rw [h2j]; ring
+    rw [hsplit]
+    refine add_le_add ?_ ?_
+    · refine le_trans (mul_le_mul_of_nonneg_right hA (by positivity)) (le_of_eq ?_)
+      field_simp
+    · refine le_trans (mul_le_mul_of_nonneg_right hB (by positivity)) (le_of_eq ?_)
+      rw [h4j]
+      field_simp
   calc ∑ j ∈ Finset.range n,
-          cj j * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
-      ≤ ∑ j ∈ Finset.range n,
-          ((K : ℝ) * C / Real.pi ^ 2 * (1 / 2 : ℝ) ^ j + 4 * V * (K : ℝ) * C / Real.pi) :=
+          (min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+            * ((1 + 4 * Real.pi * ((2 ^ j : ℕ) : ℝ) * V) * C * ((2 ^ j : ℕ) : ℝ))
+      ≤ ∑ _j ∈ Finset.range n,
+          (Real.sqrt (2 * (1 + Real.log K)) / Real.pi * C + 4 * V * (K : ℝ) * C / Real.pi) :=
         Finset.sum_le_sum hpt
-    _ = (K : ℝ) * C / Real.pi ^ 2 * (∑ j ∈ Finset.range n, (1 / 2 : ℝ) ^ j)
-          + (n : ℝ) * (4 * V * (K : ℝ) * C / Real.pi) := by
-        rw [Finset.sum_add_distrib, ← Finset.mul_sum, Finset.sum_const, Finset.card_range,
-          nsmul_eq_mul]
-    _ ≤ (K : ℝ) * C / Real.pi ^ 2 * 2 + (Real.logb 2 K + 1) * (4 * V * (K : ℝ) * C / Real.pi) := by
-        have hg := Salt.Tactic.geom_half_range_le n
-        have hcoef : (0 : ℝ) ≤ (K : ℝ) * C / Real.pi ^ 2 := by positivity
-        have hVcoef : (0 : ℝ) ≤ 4 * V * (K : ℝ) * C / Real.pi := by positivity
-        have hnle : (n : ℝ) ≤ Real.logb 2 K + 1 := by
-          rw [hn]; push_cast; exact blockcount_le hK
-        exact add_le_add (mul_le_mul_of_nonneg_left hg hcoef)
-          (mul_le_mul_of_nonneg_right hnle hVcoef)
-    _ = (2 / Real.pi ^ 2 + 4 * V * (Real.logb 2 K + 1) / Real.pi) * (K : ℝ) * C := by
+    _ = (n : ℝ) * (Real.sqrt (2 * (1 + Real.log K)) / Real.pi * C
+          + 4 * V * (K : ℝ) * C / Real.pi) := by
+        rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+    _ ≤ (Real.logb 2 K + 1) * (Real.sqrt (2 * (1 + Real.log K)) / Real.pi * C
+          + 4 * V * (K : ℝ) * C / Real.pi) := by
+        refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+        rw [hn]; push_cast; exact blockcount_le hK
+    _ = ((Real.logb 2 K + 1) * Real.sqrt (2 * (1 + Real.log K)) / Real.pi
+          + 4 * V * (Real.logb 2 K + 1) * (K : ℝ) / Real.pi) * C := by
         field_simp
-        try ring
 
-/-- **R10 row H — the majorant head `2 ≤ m ≤ K`.**
-`∑_{2 ≤ m ≤ K} ‖a_m‖‖S_m‖ ≤ (2/π² + 4V(logb 2 K + 1)/π)·K·C`.
-
-The SECOND instantiation of the machine, at `w m = ‖a_m‖` and `cj j = K/(π²4^j)`.
-
-**The `K/m²` arm ALONE, with no `min`.**  R5″(a)'s threshold `K²/(2π²(1 + log K))` is below `1`
-for every `K ≤ 7`, i.e. for every `k < 1296`, so on this range the `min` of (7.4)'s two arms is
-identically its `K/m²` branch and the uniform arm buys `1.0000×`.  The uniform arm survives
-only at `m = 0`, where the `K/m²` arm is false — that term is in `majorant_tsum_split`. -/
+/-- **R10 row H′ — the majorant head `2 ≤ m ≤ K`, min-composed.**  The SECOND instantiation
+of the machine, at `w = ‖a_m‖` and `cj j = min (2(1+log K)/K) (K/(π²4^j))`; per block the
+geometric mean bounds the V-free half and the `K/m²` arm the V half, so the block sum is
+`(J+1)·(√(2(1+log K))/π + 4VK/π)·C` with no geometric series. -/
 theorem majorant_head_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
     (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
     (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
@@ -1217,7 +1232,8 @@ theorem majorant_head_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk :
     ∑ m ∈ Finset.Icc 2 K, ‖majorantCoeff K (m : ℤ)‖
           * ‖lem10ExpSum k q b (Finset.Ioc A B) m
               (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
-      ≤ (2 / Real.pi ^ 2 + 4 * V * (Real.logb 2 K + 1) / Real.pi) * (K : ℝ)
+      ≤ ((Real.logb 2 K + 1) * Real.sqrt (2 * (1 + Real.log K)) / Real.pi
+          + 4 * V * (Real.logb 2 K + 1) * (K : ℝ) / Real.pi)
           * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
               * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) := by
   have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
@@ -1228,14 +1244,18 @@ theorem majorant_head_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk :
   have hC0 : (0 : ℝ) ≤ 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
       * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k := by
     positivity
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hlogK : (0 : ℝ) ≤ Real.log K := Real.log_nonneg (by linarith)
   refine le_trans (weighted_dyadic_block_sum_le hk hq hqk b A B hAB hE hlen g hvar c hc
-      (fun m => ‖majorantCoeff K ((m : ℕ) : ℤ)‖) (fun j => (K : ℝ) / (Real.pi ^ 2 * 4 ^ j))
-      (hcj_sq hK) (fun j => by positivity) (a := 2) (bN := K) (lo := 0)
+      (fun m => ‖majorantCoeff K ((m : ℕ) : ℤ)‖)
+      (fun j => min (2 * (1 + Real.log K) / K) ((K : ℝ) / (Real.pi ^ 2 * 4 ^ j)))
+      (fun j m hm => le_min (norm_majorantCoeff_le hK _) (hcj_sq hK j m hm))
+      (fun j => le_min (by positivity) (by positivity)) (a := 2) (bN := K) (lo := 0)
       le_rfl (fun m _ => Nat.zero_le _)) ?_
   have hset : Finset.Icc 0 (Nat.log 2 (K - 1)) = Finset.range (Nat.log 2 (K - 1) + 1) := by
     ext x; simp only [Finset.mem_Icc, Finset.mem_range]; omega
   rw [hset]
-  exact head_close_of_le_sq hK hV0 hC0 _ (fun _ => le_refl _)
+  exact head_close_min hK hV0 hC0
 
 
 /-- `K/2 ≤ 2^{log₂ K}`, from `Nat.lt_pow_succ_log_self`.  Private: row A's scaffolding. -/
