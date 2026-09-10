@@ -1548,4 +1548,303 @@ theorem majorant_tsum_split [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hq
       (le_trans (norm_lem10ExpSumZ_le_card k q b _ 0 _) hcard) (norm_nonneg _) (by positivity)
   linarith
 
+/-! ## R10 — the p.223 assembly -/
+
+set_option maxHeartbeats 1000000 in
+-- the assembly threads nine landed rows through one linear close and then discharges
+-- three real-numeral slot inequalities; each is within budget, the aggregate is not
+/-- **R10 — HB's Lemma 10 (p.223), assembled from the landed rows of this file.**
+The Fourier/majorant split at `K = sealK k` and the cut `N = 2^(log₂ (K·⌈√k⌉₊))`: the `m = 1`
+peel, row F on the column, rows P′ · H′ · A · B on the bracket.  The close is three
+inequalities of real numerals, one per slot — `V`-free, `V`, `E` — against the frozen `2^13`. -/
+theorem hb_lemma10 [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
+    (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)
+    (g : ℤ → ℝ) {V : ℝ} (hvar : ∑ n ∈ Finset.Ioc A (B - 1), |g (n + 1) - g n| ≤ V)
+    (c : ℤ) (hc : Nat.Coprime c.natAbs (k / q)) :
+    |lem10PsiSum k q b (Finset.Ioc A B) (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)|
+      ≤ 2 ^ 13 * Real.sqrt ((2 : ℝ) ^ k.factorization 2)
+          * (k.divisors.card : ℝ) ^ 3 * Real.log (2 * (k : ℝ)) ^ 3
+          * (E / (k : ℝ) ^ ((1 : ℝ) / 4)
+             + (1 + (2 + (k : ℝ) ^ ((1 : ℝ) / 4)) * V) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k)
+                 / Real.sqrt k) := by
+  classical
+  -- ═══ the two cut parameters ═══
+  set K : ℕ := sealK k with hKdef
+  set cc : ℕ := ⌈Real.sqrt (k : ℝ)⌉₊ with hccdef
+  set N : ℕ := 2 ^ (Nat.log 2 (K * cc)) with hNdef
+  -- ═══ elementary facts about k, K, cc, N ═══
+  have hkR : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hkpos : (0 : ℝ) < (k : ℝ) := by linarith
+  have hK : 2 ≤ K := sealK_ge_two k
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hKpos : (0 : ℝ) < (K : ℝ) := by linarith
+  have hsqrtk_gt : (1 : ℝ) < Real.sqrt (k : ℝ) := by
+    have h := (Real.sqrt_lt_sqrt_iff (le_of_lt zero_lt_one)).2 (show (1:ℝ) < (k:ℝ) by linarith)
+    simpa using h
+  have hsqrtk_le : Real.sqrt (k : ℝ) ≤ (k : ℝ) := by
+    have h : Real.sqrt (k : ℝ) ≤ Real.sqrt ((k : ℝ) ^ 2) := Real.sqrt_le_sqrt (by nlinarith)
+    rwa [Real.sqrt_sq (le_of_lt hkpos)] at h
+  have hcc2 : 2 ≤ cc := by
+    have h : 1 < cc := by rw [hccdef]; exact Nat.lt_ceil.2 (by simpa using hsqrtk_gt)
+    omega
+  have hcck : cc ≤ k := by rw [hccdef]; exact Nat.ceil_le.2 hsqrtk_le
+  have hMlt : K * cc < 2 * N := by
+    have h := Nat.lt_pow_succ_log_self (b := 2) (by norm_num) (K * cc)
+    rw [hNdef]
+    simpa [Nat.succ_eq_add_one, pow_succ, Nat.mul_comm] using h
+  have hNleM : N ≤ K * cc := by
+    rw [hNdef]; exact Nat.pow_log_le_self 2 (Nat.mul_ne_zero (by omega) (by omega))
+  have hN1 : 1 ≤ N := by rw [hNdef]; exact Nat.one_le_pow _ _ (by norm_num)
+  have hKN : K ≤ N := by
+    have h1 : 2 * K ≤ K * cc := by
+      calc 2 * K = K * 2 := Nat.mul_comm 2 K
+        _ ≤ K * cc := Nat.mul_le_mul_left K hcc2
+    exact le_of_lt (Nat.lt_of_mul_lt_mul_left (lt_of_le_of_lt h1 hMlt))
+  -- ═══ the nine landed rows, instantiated at this K and N ═══
+  have hsplit := lem10PsiSum_le_fourier_split k q b (Finset.Ioc A B)
+      (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k) hK
+  rw [head_reindex k q b (Finset.Ioc A B)
+      (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k) K] at hsplit
+  rw [show Finset.Icc 1 K = insert 1 (Finset.Icc 2 K) by
+        ext x; simp only [Finset.mem_Icc, Finset.mem_insert]; omega,
+    Finset.sum_insert (by simp)] at hsplit
+  simp only [Nat.cast_one, mul_one] at hsplit
+  have hm1 : ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖
+      ≤ (1 + 4 * Real.pi * V)
+          * (16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+              * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k) :=
+    le_trans (lem10_m1_bound hk hq hqk b A B hAB hE hlen g hvar c hc) (le_of_eq (by ring))
+  have hF := fourier_column_le hk hq hqk b A B hAB hE hlen g hvar c hc hK
+  have hS := majorant_tsum_split hk hq hqk b A B hAB hE hlen g hvar c hc hK hKN
+  have hP := majorant_m1_le hk hq hqk b A B hAB hE hlen g hvar c hc hK
+  have hH := majorant_head_le hk hq hqk b A B hAB hE hlen g hvar c hc hK
+  have hA := majorant_rangeA_le hk hq hqk b A B hAB hE hlen g hvar c hc hK hKN
+  have hB := majorant_tail_le hk hq hqk b A B hAB hE hlen g hvar c hc hK hN1
+  set C : ℝ := 16 * Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3
+      * Real.log (2 * (k : ℝ)) * (q : ℝ) ^ ((3 : ℝ) / 2) * (E + k) / Real.sqrt k with hCdef
+  have hpi : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have hpi0 : (0 : ℝ) < Real.pi := by linarith
+  have hpi2 : (9 : ℝ) < Real.pi ^ 2 := by nlinarith
+  have hV0 : (0 : ℝ) ≤ V := le_trans (Finset.sum_nonneg (fun n _ => abs_nonneg _)) hvar
+  have hE0 : (0 : ℝ) ≤ E := le_trans zero_le_one hE
+  have hL0 : (0 : ℝ) ≤ Real.log (2 * (k : ℝ)) := Real.log_nonneg (by linarith)
+  have hC0 : (0 : ℝ) ≤ C := by rw [hCdef]; positivity
+  have hm1' : ‖lem10ExpSum k q b (Finset.Ioc A B) 1
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)‖ / Real.pi
+      ≤ C / Real.pi + 4 * V * C := by
+    refine le_trans (div_le_div_of_nonneg_right hm1 (le_of_lt hpi0)) (le_of_eq ?_)
+    field_simp
+  -- ═══ THE CHAIN: seven terms, no double count and no drop ═══
+  have hchain : |lem10PsiSum k q b (Finset.Ioc A B)
+        (fun n => g n + (c : ℝ) * (invMod n k : ℝ) / k)|
+      ≤ (C / Real.pi + 4 * V * C)
+        + ((Real.logb 2 (K : ℝ) + 1) / Real.pi + 8 * (K : ℝ) * V) * C
+        + 5 / 2 * (2 * (1 + Real.log (K : ℝ)) / (K : ℝ) * (2 * E)
+            + 2 * ((Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+                      + 4 * V * (K : ℝ) / Real.pi) * C
+                + ((Real.logb 2 (K : ℝ) + 1) * Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+                      + 4 * V * (Real.logb 2 (K : ℝ) + 1) * (K : ℝ) / Real.pi) * C
+                + (4 / Real.pi ^ 2
+                      + 4 * V * (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ)
+                          / Real.pi) * C
+                + (K : ℝ) / (Real.pi ^ 2 * (N : ℝ)) * (2 * E))) := by
+    linarith [hsplit, hm1', hF, hS, hP, hH, hA, hB]
+  have hgroup : (C / Real.pi + 4 * V * C)
+        + ((Real.logb 2 (K : ℝ) + 1) / Real.pi + 8 * (K : ℝ) * V) * C
+        + 5 / 2 * (2 * (1 + Real.log (K : ℝ)) / (K : ℝ) * (2 * E)
+            + 2 * ((Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+                      + 4 * V * (K : ℝ) / Real.pi) * C
+                + ((Real.logb 2 (K : ℝ) + 1) * Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+                      + 4 * V * (Real.logb 2 (K : ℝ) + 1) * (K : ℝ) / Real.pi) * C
+                + (4 / Real.pi ^ 2
+                      + 4 * V * (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ)
+                          / Real.pi) * C
+                + (K : ℝ) / (Real.pi ^ 2 * (N : ℝ)) * (2 * E)))
+      = (1 / Real.pi + (Real.logb 2 (K : ℝ) + 1) / Real.pi
+          + 5 * (Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+              + (Real.logb 2 (K : ℝ) + 1) * Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+              + 4 / Real.pi ^ 2)) * C
+        + (4 + 8 * (K : ℝ)
+            + 5 * (4 * (K : ℝ) / Real.pi + 4 * (Real.logb 2 (K : ℝ) + 1) * (K : ℝ) / Real.pi
+                + 4 * (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ) / Real.pi))
+            * (V * C)
+        + (10 * (1 + Real.log (K : ℝ)) / (K : ℝ)
+            + 10 * (K : ℝ) / (Real.pi ^ 2 * (N : ℝ))) * E := by
+    ring
+  rw [hgroup] at hchain
+  refine le_trans hchain ?_
+  -- ═══ THE NUMERIC CLOSE, slot by slot, on the crude route ═══
+  clear hchain hgroup hsplit hS hB hm1 hm1' hF hP hH hA
+  set L : ℝ := Real.log (2 * (k : ℝ)) with hLdef
+  set kq : ℝ := (k : ℝ) ^ ((1 : ℝ) / 4) with hkqdef
+  have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2' : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hl2 : (0 : ℝ) < Real.log 2 := by linarith
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  have hL4 : Real.log 4 ≤ L := by
+    rw [hLdef]; exact Real.log_le_log (by norm_num) (by linarith)
+  have hLlo : (13862 / 10000 : ℝ) ≤ L := by rw [hlog4] at hL4; linarith
+  have hL0' : (0 : ℝ) ≤ L := by linarith
+  have hLL2 : (13862 / 10000 : ℝ) * L ≤ L ^ 2 := by nlinarith only [hLlo, hL0']
+  have hL1 : (1 : ℝ) ≤ L ^ 2 := by nlinarith only [hLlo, hL0']
+  have hL3 : (19215 / 10000 : ℝ) * L ≤ L ^ 3 := by nlinarith only [hLlo, hL0', hLL2]
+  -- the two `K` envelopes, in base 2 where the rows emit them
+  have ht : 1 + Real.log (K : ℝ) ≤ 206 / 100 * L := t4_log_sealK_le k hk
+  have hlogK0 : (0 : ℝ) ≤ Real.log (K : ℝ) := Real.log_nonneg (by linarith)
+  have hmulL : L * (0.6931471803 : ℝ) ≤ L * Real.log 2 :=
+    mul_le_mul_of_nonneg_left (le_of_lt hlog2) hL0'
+  have hlbu : Real.logb 2 (K : ℝ) * Real.log 2 = Real.log (K : ℝ) := by
+    rw [← Real.log_div_log]; field_simp
+  have hlb : Real.logb 2 (K : ℝ) + 1 ≤ 298 / 100 * L := by
+    refine le_of_mul_le_mul_right ?_ hl2
+    nlinarith only [hlbu, ht, hlog2', hmulL, hL0']
+  have hlb0 : (0 : ℝ) ≤ Real.logb 2 (K : ℝ) + 1 := by
+    have h : (0 : ℝ) ≤ Real.logb 2 (K : ℝ) :=
+      Real.logb_nonneg (by norm_num) (by linarith)
+    linarith
+  -- the `N` envelope: `N ≤ K·⌈√k⌉₊` and `⌈√k⌉₊ ≤ k`
+  have hNR0 : (0 : ℝ) < (N : ℝ) := by exact_mod_cast (show 0 < N by omega)
+  have hccR : (0 : ℝ) < (cc : ℝ) := by exact_mod_cast (show 0 < cc by omega)
+  have hlnub : Real.logb 2 (N : ℝ) ≤ Real.logb 2 (K : ℝ) + Real.logb 2 (cc : ℝ) := by
+    have h1 : (N : ℝ) ≤ (K : ℝ) * (cc : ℝ) := by exact_mod_cast hNleM
+    have h2 : Real.logb 2 (N : ℝ) ≤ Real.logb 2 ((K : ℝ) * (cc : ℝ)) :=
+      Real.logb_le_logb_of_le (by norm_num) hNR0 h1
+    rwa [Real.logb_mul (ne_of_gt hKpos) (ne_of_gt hccR)] at h2
+  have hccu : Real.logb 2 (cc : ℝ) * Real.log 2 = Real.log (cc : ℝ) := by
+    rw [← Real.log_div_log]; field_simp
+  have hlogcc : Real.log (cc : ℝ) ≤ L := by
+    rw [hLdef]
+    refine Real.log_le_log hccR ?_
+    have h : (cc : ℝ) ≤ (k : ℝ) := by exact_mod_cast hcck
+    linarith
+  have hlbn : Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2 ≤ 289 / 100 * L := by
+    have hstep : Real.logb 2 (cc : ℝ) + 2 ≤ 289 / 100 * L := by
+      refine le_of_mul_le_mul_right ?_ hl2
+      nlinarith only [hccu, hlogcc, hL4, hlog4, hmulL, hL0']
+    linarith
+  have hlbn0 : (0 : ℝ) ≤ Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2 := by
+    have h : Real.logb 2 (K : ℝ) ≤ Real.logb 2 (N : ℝ) :=
+      Real.logb_le_logb_of_le (by norm_num) hKpos (by exact_mod_cast hKN)
+    linarith
+  -- `π > 3`, spent as `x/π ≤ x/3` on every nonnegative numerator
+  have hinvpi : ∀ x : ℝ, 0 ≤ x → x / Real.pi ≤ x / 3 := by
+    intro x hx
+    rw [div_le_div_iff₀ hpi0 (by norm_num : (0 : ℝ) < 3)]
+    nlinarith only [hx, hpi]
+  have hinvpi2 : (4 : ℝ) / Real.pi ^ 2 ≤ 4 / 9 := by
+    rw [div_le_div_iff₀ (by positivity) (by norm_num : (0 : ℝ) < 9)]
+    nlinarith only [hpi2]
+  -- ── THE C-SLOT, in units of `C`: `Θ(L^{3/2})` demand against `512 L²` ──
+  have hs0 : (0 : ℝ) ≤ Real.sqrt (2 * (1 + Real.log (K : ℝ))) := Real.sqrt_nonneg _
+  have hs : Real.sqrt (2 * (1 + Real.log (K : ℝ))) ≤ 29134 / 10000 * L := by
+    have h1 : 2 * (1 + Real.log (K : ℝ)) ≤ (29134 / 10000 * L) ^ 2 := by
+      nlinarith only [ht, hLL2, hL0', hLlo]
+    have h2 := Real.sqrt_le_sqrt h1
+    rwa [Real.sqrt_sq (by linarith : (0 : ℝ) ≤ 29134 / 10000 * L)] at h2
+  have hprod : (Real.logb 2 (K : ℝ) + 1) * Real.sqrt (2 * (1 + Real.log (K : ℝ)))
+      ≤ (298 / 100 * L) * (29134 / 10000 * L) :=
+    mul_le_mul hlb hs hs0 (by linarith : (0 : ℝ) ≤ 298 / 100 * L)
+  have hslotC : 1 / Real.pi + (Real.logb 2 (K : ℝ) + 1) / Real.pi
+      + 5 * (Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+          + (Real.logb 2 (K : ℝ) + 1) * Real.sqrt (2 * (1 + Real.log (K : ℝ))) / Real.pi
+          + 4 / Real.pi ^ 2) ≤ 512 * L ^ 2 := by
+    have e1 := hinvpi 1 (by norm_num)
+    have e2 := hinvpi (Real.logb 2 (K : ℝ) + 1) hlb0
+    have e3 := hinvpi (Real.sqrt (2 * (1 + Real.log (K : ℝ)))) hs0
+    have e4 := hinvpi ((Real.logb 2 (K : ℝ) + 1) * Real.sqrt (2 * (1 + Real.log (K : ℝ))))
+      (mul_nonneg hlb0 hs0)
+    linarith only [e1, e2, e3, e4, hinvpi2, hlb, hs, hprod, hLL2, hL1]
+  -- ── THE V-SLOT, in units of `V·C`: the budget carries `K ≤ 2 + k^{1/4}` ──
+  have hKkq : (K : ℝ) ≤ 2 + kq := sealK_le k
+  have hslotV : 4 + 8 * (K : ℝ)
+      + 5 * (4 * (K : ℝ) / Real.pi + 4 * (Real.logb 2 (K : ℝ) + 1) * (K : ℝ) / Real.pi
+          + 4 * (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ) / Real.pi)
+      ≤ 512 * L ^ 2 * (2 + kq) := by
+    have e5 := hinvpi (4 * (K : ℝ)) (by linarith)
+    have e6 := hinvpi (4 * (Real.logb 2 (K : ℝ) + 1) * (K : ℝ))
+      (mul_nonneg (by linarith) (le_of_lt hKpos))
+    have e7 := hinvpi (4 * (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ))
+      (mul_nonneg (by linarith) (le_of_lt hKpos))
+    have p6 : (Real.logb 2 (K : ℝ) + 1) * (K : ℝ) ≤ (298 / 100 * L) * (K : ℝ) :=
+      mul_le_mul_of_nonneg_right hlb (le_of_lt hKpos)
+    have p7 : (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ)
+        ≤ (289 / 100 * L) * (K : ℝ) :=
+      mul_le_mul_of_nonneg_right hlbn (le_of_lt hKpos)
+    have hnum : (16667 / 1000 : ℝ) + 39134 / 1000 * L ≤ 512 * L ^ 2 := by
+      nlinarith only [hLL2, hLlo, hL1]
+    have hstep : 4 + 8 * (K : ℝ)
+        + 5 * (4 * (K : ℝ) / Real.pi + 4 * (Real.logb 2 (K : ℝ) + 1) * (K : ℝ) / Real.pi
+            + 4 * (Real.logb 2 (N : ℝ) - Real.logb 2 (K : ℝ) + 2) * (K : ℝ) / Real.pi)
+        ≤ (K : ℝ) * (16667 / 1000 + 39134 / 1000 * L) := by
+      have hLK : (0 : ℝ) ≤ L * (K : ℝ) := mul_nonneg hL0' (le_of_lt hKpos)
+      linarith only [e5, e6, e7, p6, p7, hKR, hLK]
+    have hfin : (K : ℝ) * (16667 / 1000 + 39134 / 1000 * L) ≤ (K : ℝ) * (512 * L ^ 2) :=
+      mul_le_mul_of_nonneg_left hnum (le_of_lt hKpos)
+    have hfin2 : (K : ℝ) * (512 * L ^ 2) ≤ (2 + kq) * (512 * L ^ 2) :=
+      mul_le_mul_of_nonneg_right hKkq (by positivity)
+    linarith only [hstep, hfin, hfin2]
+  -- ── THE E-SLOT, in units of `E`: `K ≥ k^{1/4}` and `N > K·√k/2` ──
+  have hkq0 : (0 : ℝ) < kq := by rw [hkqdef]; exact Real.rpow_pos_of_pos hkpos _
+  have hkq1 : (1 : ℝ) ≤ kq := by
+    have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1) (by linarith : (1 : ℝ) ≤ (k : ℝ))
+      (by norm_num : (0 : ℝ) ≤ (1 : ℝ) / 4)
+    rwa [Real.one_rpow] at h
+  have hkqK : kq ≤ (K : ℝ) := sealK_ge_rpow k
+  have hkqsq : kq ^ 2 = Real.sqrt (k : ℝ) := by
+    rw [hkqdef, Real.sqrt_eq_rpow, ← Real.rpow_natCast ((k : ℝ) ^ ((1 : ℝ) / 4)) 2,
+      ← Real.rpow_mul (le_of_lt hkpos)]
+    norm_num
+  have hkqs : kq ≤ Real.sqrt (k : ℝ) := by nlinarith only [hkq1, hkqsq]
+  have hccge : Real.sqrt (k : ℝ) ≤ (cc : ℝ) := by rw [hccdef]; exact Nat.le_ceil _
+  have hMltR : (K : ℝ) * (cc : ℝ) < 2 * (N : ℝ) := by exact_mod_cast hMlt
+  have hKsq : (K : ℝ) * Real.sqrt (k : ℝ) ≤ 2 * (N : ℝ) := by
+    nlinarith only [hccge, hMltR, hKpos]
+  have hd0 : 1 ≤ k.divisors.card :=
+    Finset.card_pos.mpr ⟨1, Nat.one_mem_divisors.mpr (by omega)⟩
+  have hdR : (1 : ℝ) ≤ (k.divisors.card : ℝ) := by exact_mod_cast hd0
+  have h2v : (1 : ℝ) ≤ Real.sqrt ((2 : ℝ) ^ k.factorization 2) := by
+    have h : (1 : ℝ) ≤ (2 : ℝ) ^ (k.factorization 2) := one_le_pow₀ (by norm_num)
+    have h2 := Real.sqrt_le_sqrt h
+    rwa [Real.sqrt_one] at h2
+  have hd3 : (1 : ℝ) ≤ (k.divisors.card : ℝ) ^ 3 := one_le_pow₀ hdR
+  have hD1 : (1 : ℝ) ≤ Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3 := by
+    nlinarith only [h2v, hd3]
+  have hslotE : 10 * (1 + Real.log (K : ℝ)) / (K : ℝ)
+        + 10 * (K : ℝ) / (Real.pi ^ 2 * (N : ℝ))
+      ≤ 8192 * (Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3)
+          * L ^ 3 / kq := by
+    have hE1 : 10 * (1 + Real.log (K : ℝ)) / (K : ℝ) ≤ (206 / 10 * L) / kq := by
+      rw [div_le_div_iff₀ hKpos hkq0]
+      nlinarith only [mul_le_mul_of_nonneg_right ht (le_of_lt hkq0),
+        mul_le_mul_of_nonneg_left hkqK (by linarith : (0 : ℝ) ≤ 206 / 100 * L)]
+    have hE2 : 10 * (K : ℝ) / (Real.pi ^ 2 * (N : ℝ)) ≤ (20 / 9 : ℝ) / kq := by
+      rw [div_le_div_iff₀ (by positivity) hkq0]
+      nlinarith only [mul_le_mul_of_nonneg_left hkqs (le_of_lt hKpos), hKsq,
+        mul_le_mul_of_nonneg_right (le_of_lt hpi2) (le_of_lt hNR0)]
+    have hnumE : 206 / 10 * L + 20 / 9
+        ≤ 8192 * (Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3)
+            * L ^ 3 := by
+      nlinarith only [hD1, hL3, hLlo, hL0',
+        mul_nonneg (sub_nonneg.2 hD1) (by positivity : (0 : ℝ) ≤ 8192 * L ^ 3)]
+    have hE3 : (206 / 10 * L) / kq + (20 / 9 : ℝ) / kq
+        ≤ 8192 * (Real.sqrt ((2 : ℝ) ^ k.factorization 2) * (k.divisors.card : ℝ) ^ 3)
+            * L ^ 3 / kq := by
+      have hcomb : (206 / 10 * L) / kq + (20 / 9 : ℝ) / kq = (206 / 10 * L + 20 / 9) / kq := by
+        ring
+      rw [hcomb, div_le_div_iff₀ hkq0 hkq0]
+      exact mul_le_mul_of_nonneg_right hnumE (le_of_lt hkq0)
+    linarith only [hE1, hE2, hE3]
+  -- ── the three slots against `2^13`, and the budget written out ──
+  have hVC0 : (0 : ℝ) ≤ V * C := mul_nonneg hV0 hC0
+  refine le_trans (add_le_add (add_le_add (mul_le_mul_of_nonneg_right hslotC hC0)
+      (mul_le_mul_of_nonneg_right hslotV hVC0))
+      (mul_le_mul_of_nonneg_right hslotE hE0)) (le_of_eq ?_)
+  rw [hCdef]
+  have h1 : Real.sqrt (k : ℝ) ≠ 0 := ne_of_gt (Real.sqrt_pos.mpr hkpos)
+  have h2 : kq ≠ 0 := ne_of_gt hkq0
+  field_simp
+  ring
+
 end Salt.N7
