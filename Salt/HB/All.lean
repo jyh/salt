@@ -360,6 +360,13 @@ open Salt.Tactic in
   -- ψ-reduction (5.14)–(5.17) into a length plus two sawtooths.  Lemma 9 (the μ-sieve of
   -- `Λ′` over `Q`, the hyperbola, the log integrals) is the sibling branch of this wave;
   -- §6 is a later wave and owes the `Lemma10Seal` import this file deliberately omits.
+  Salt.N7.HBForms.alpha₁_ne_zero Salt.N7.HBForms.alpha₂_ne_zero
+  Salt.N7.HBForms.two_le_α₁ Salt.N7.HBForms.two_le_α₂
+  Salt.N7.HBForms.one_le_β₁ Salt.N7.HBForms.one_le_β₂
+  Salt.N7.HBForms.one_le_l₁ Salt.N7.HBForms.one_le_l₂
+  Salt.N7.HBForms.odd_β₁ Salt.N7.HBForms.odd_β₂
+  Salt.N7.HBForms.odd_l₁ Salt.N7.HBForms.odd_l₂
+  Salt.N7.HBForms.coprime_l₁_α₁ Salt.N7.HBForms.coprime_l₂_α₂
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
