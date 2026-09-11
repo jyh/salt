@@ -572,6 +572,37 @@ theorem cellCount_swap₂ (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ 
     · intro p _; rfl
     · intro p _; rfl
 
+/-! ## B-4 — the CRT collapse (5.5)–(5.13) -/
+
+/-- **B-4.0 — the gcd/lcm distributive law**, absent from mathlib (`exact?` fails; `grind`,
+`omega` and `simp` all fail).  The THIRD fold of `Nat.chineseRemainder'` in B-4 needs it: its
+compatibility modulus `gcd (lcm m₁ m₂) (lcm m₃ m₄)` is none of the six pairwise gcds.  Route:
+the degenerate cases by `Nat.dvd_antisymm`, then `Nat.factorization_gcd`/`Nat.factorization_lcm`
+turn the claim into `(f ⊔ g) ⊓ h = (f ⊓ h) ⊔ (g ⊓ h)` on `ℕ →₀ ℕ`, which is pointwise
+`inf_sup_right` in the linear order ℕ. -/
+theorem gcd_lcm_distrib (a b c : ℕ) :
+    Nat.gcd (Nat.lcm a b) c = Nat.lcm (Nat.gcd a c) (Nat.gcd b c) := by
+  rcases Nat.eq_zero_or_pos c with rfl | hc
+  · simp
+  rcases Nat.eq_zero_or_pos a with rfl | ha
+  · simp only [Nat.lcm_zero_left, Nat.gcd_zero_left]
+    exact (Nat.dvd_antisymm (Nat.lcm_dvd dvd_rfl (Nat.gcd_dvd_right b c))
+      (Nat.dvd_lcm_left _ _)).symm
+  rcases Nat.eq_zero_or_pos b with rfl | hb
+  · simp only [Nat.lcm_zero_right, Nat.gcd_zero_left]
+    exact (Nat.dvd_antisymm (Nat.lcm_dvd (Nat.gcd_dvd_right a c) dvd_rfl)
+      (Nat.dvd_lcm_right _ _)).symm
+  have hl : Nat.lcm a b ≠ 0 := Nat.lcm_ne_zero ha.ne' hb.ne'
+  have hg₁ : Nat.gcd a c ≠ 0 := fun h => ha.ne' (Nat.gcd_eq_zero_iff.mp h).1
+  have hg₂ : Nat.gcd b c ≠ 0 := fun h => hb.ne' (Nat.gcd_eq_zero_iff.mp h).1
+  refine Nat.eq_of_factorization_eq (fun h => hl (Nat.gcd_eq_zero_iff.mp h).1)
+    (Nat.lcm_ne_zero hg₁ hg₂) (fun p => ?_)
+  rw [Nat.factorization_gcd hl hc.ne', Nat.factorization_lcm hg₁ hg₂,
+    Nat.factorization_lcm ha.ne' hb.ne', Nat.factorization_gcd ha.ne' hc.ne',
+    Nat.factorization_gcd hb.ne' hc.ne']
+  simp only [Finsupp.inf_apply, Finsupp.sup_apply]
+  exact inf_sup_right _ _ _
+
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
 /-- (5.15) -/
