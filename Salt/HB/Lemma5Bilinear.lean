@@ -888,10 +888,10 @@ theorem fiber_reindex (χ : DirichletCharacter ℂ q) {n e h : ℕ}
     obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
     have hhs : h ∣ p.1 := hpg ▸ Nat.gcd_dvd_left _ _
     refine Prod.ext ?_ ?_
-    · show h * (n / e / (p.2 / (e / h))) = p.1
+    · change h * (n / e / (p.2 / (e / h))) = p.1
       rw [h2, Nat.mul_div_cancel_left _ hE0, Nat.div_div_self hsN hN0,
         Nat.mul_div_cancel' hhs]
-    · show e / h * (p.2 / (e / h)) = p.2
+    · change e / h * (p.2 / (e / h)) = p.2
       rw [h2, Nat.mul_div_cancel_left _ hE0]
   · -- i ∘ j = id on the v-set
     intro v _
