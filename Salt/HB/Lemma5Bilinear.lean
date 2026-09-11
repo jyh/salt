@@ -461,6 +461,26 @@ theorem chiRe_eq_one_of_dvd_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 
         have hp1 := hbP_chi (chiReChar χ hsq) (z : ℝ) p (hsub hp)
         rwa [chiReChar_prime] at hp1
 
+/-- **B-2c — `log` as a ray integral of an indicator against `dV/V`** (p.211): the shape in
+which the carrier's `V_i`-integrals deliver HB's logarithms. -/
+theorem integral_Ioi_ite_inv {a v : ℝ} (ha : 0 < a) (hav : a ≤ v) :
+    (∫ V in Set.Ioi a, (if V < v then V⁻¹ else 0)) = Real.log (v / a) := by
+  have hfun : (fun V : ℝ => if V < v then V⁻¹ else 0)
+      = Set.indicator (Set.Iio v) (fun V : ℝ => V⁻¹) := by
+    funext V
+    by_cases h : V < v <;> simp [h]
+  have hint : (∫ V in Set.Ioi a, (if V < v then V⁻¹ else 0))
+      = ∫ V, Set.indicator (Set.Iio v) (fun V : ℝ => V⁻¹) V
+          ∂(MeasureTheory.volume.restrict (Set.Ioi a)) := by
+    rw [hfun]
+  rw [hint, MeasureTheory.integral_indicator measurableSet_Iio,
+    MeasureTheory.Measure.restrict_restrict measurableSet_Iio]
+  have hset : Set.Iio v ∩ Set.Ioi a = Set.Ioo a v := by
+    ext x; simp [Set.mem_Ioo, and_comm]
+  rw [hset, ← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+    ← intervalIntegral.integral_of_le hav]
+  exact integral_inv_of_pos ha (lt_of_lt_of_le ha hav)
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
