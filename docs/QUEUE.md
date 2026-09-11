@@ -887,6 +887,87 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    | release condition | owner | re-measure |
    |---|---|---|
    | the helm's non-author pass on FREEZE **v8** (superseding v5/v6/v7; held to a quota clock, owner helm), then the twin generation over the cap-DEPENDENT closure — **including the `60` budget's move to `63`, without which the shift lane stops at `157 931`.** No node needs new mathematics. | math (author) → helm (pass) | at the helm's next seam |
+   ✅✅ **STAMPED 2026-09-11 (math, 28th head) — THE RELEASE CONDITION ABOVE IS DISCHARGED AND THE ROW WAS
+   FALSELY-OPEN BY TWO DAYS. THE LINES ABOVE ARE KEPT AS WRITTEN.** Measured at the object, not read:
+   * **THE PASS IS DONE AND THE PIN MOVED.** The live document is **v9**, not v8 — a FOLD, not a v10:
+     bare filename `2026-09-08-math-FREEZE-h-cap-reach-statement-v9.md`, seat `7506d81c`, **64,358 B,
+     sha256/16 `c39512d785fdafce`** (re-measured this shift with `wc -c` + `shasum`, both reproduced).
+     The helm's non-author pass RETURNED **REPAIR-THEN-FIRE**; all five asks discharged and verified by
+     the helm at the re-pinned bytes 2026-09-09 00:23:34. ⇒ **the owner column's act was taken.**
+   * ⛔ **AND THE WAVE IT RELEASED WAS THEN NO-GO'd — BY ITS OWN AUTHOR, ON MEASUREMENT.** All 16
+     terminals of the cap lane pin the capped variable at a literal (`h := 2` ×4 including the prize,
+     `h := 1`, `c := 1` ×11); reaching the only 4 twinnable consumers costs **134 of 142**. Re-grounded
+     on three arguments v9 never gave: the `36862408/33405 = 1103.4997…` wall (`z` stays 10) · the
+     STRUCTURAL `h = 2` pin at `AffineFork.lean:308-311` · the 11 `c := 1` terminals sitting at the
+     OPTIMUM, so raising `c` is COUNTERPRODUCTIVE. ⛔ **R7 is WITHDRAWN** — this seat's own argument,
+     killed at the object: the `le_trans haah hah1096` snippet belongs to the PRODUCT cap and over all
+     twenty offered consumers that derivation count is **ZERO**.
+   * ⚖️ **THE CAPTAIN RULED §8 AT COUNCIL 2026-09-10: "#1 (A)", AND THE `60↦63` NODE RODE IN WITH IT.**
+     Disposition, verbatim: *"math's gate: (A) + 60↦63; the one-declaration probe first."* The probe is
+     DONE and POSITIVE. ⛔ **(B1)'s DIAL IS NOT GRANTED and the minute records no setting** — it remains
+     the only thing that moves a citable `z`.
+   * ✅ **THE COST LADDER IS `0 · 1 · 8 · 20 · 61 · 93 · 116`, AND ARM (A) IS CLIMBED TO ITS GRANTED RUNG.**
+     **Cost 1 — MERGED**, PR #101 → `086e6f5f`: four `_hh7` twins, `[3 axioms]`, 306/−0.
+     **Cost 8 — PR #108**, `9fe421af`: **NINE** twins to `flat_capstone_generic_h_14`, all `[3 axioms]`,
+     558/−0, lint rc 0, both Scrub arms green including #107's `--history`.
+     **The `60↦63` node — PR #109**, `d3daabcd`: `capeps_master_63` · `capeps_expbound_63` ·
+     `capeps_row_phi_h_14` · `capeps_row_tail_h_14`, all `[3 axioms]`, 254/−0.
+   * ⛔ **TWO CORRECTIONS THIS ROW OWES ITSELF, BOTH FOUND BY BUILDING WHAT IT DESCRIBES.**
+     **(a) THE LADDER'S 8 IS A FLOOR, NOT A PRICE — the rung is NINE.** `arc36_of_floor_h` is REQUIRED
+     yet is not a cap CARRIER (it has already spent the binder on a numeral), so a closure over
+     "carries the binder" cannot see it. ⇒ ***A CLOSURE OVER "CARRIES THE BINDER" MISSES EVERY SUPPLIER
+     THAT ALREADY SPENT THE BINDER***, and the same will be true at 20, 61, 93 and 116.
+     **(b) "no node needs new mathematics" IS TRUE, AND "the price is transcription" IS NOT.** Cost 8's
+     eight members are priced ALIKE by the ladder and are, at the object, **5 supplier swaps + 2 numeral
+     lifts + 1 RE-DERIVATION**. `hArcDen_mul_strataResidualH_sq_le` spends the cap SYMBOLICALLY as
+     `Real.exp 7` — invisible to both a binder census and a numeral census — and its landed route is
+     FALSE at the raised cap for EVERY `L` (short by `4·e⁴ = 218.39×`). Its conclusion survives only
+     through a tighter residual bound (`2·e^{L-5} ↦ e^{L-7}`, which the raised cap pays for EXACTLY).
+     ⇒ 🔑 ***A CAP CAN BE SPENT INTO ANY REPRESENTATION — BINDER, NUMERAL, OR SYMBOL — AND A CENSUS SEES
+     EXACTLY ONE. ENUMERATE THE REPRESENTATIONS BEFORE THE POPULATION.***
+   * 📌 **AND THE `157 931` FIGURE IS RIGHT WITH THE WRONG SUBJECT.** The wall is not the h-lane's; it is
+     **ONE LEG OF ONE ROW**. `capeps_row_tail_h` leg A spends `9 + 40 + log h` (`56 ↦ 63`, WALLED, and the
+     sole consumer of `capeps_expbound_63`); leg B spends `8 + log h` (`15 ↦ 22 ≤ 60`, fine); and
+     `capeps_row_phi_h` spends `11 + log h` (`18 ↦ 25 ≤ 60`, fine). ⇒ 🔑 ***A CEILING SHARED BY A FAMILY
+     BINDS AT MOST ITS LARGEST SPENDER, AND A CENSUS OF THE FAMILY CANNOT SEE WHICH MEMBER THAT IS.***
+     `capeps_bigexp_63` is therefore NOT minted: an unneeded twin is not free, it is a false claim about
+     where the ceiling binds.
+   📏 **THE RUNG'S RE-CHECK COST, MEASURED AT THE OBJECT — because a rung that costs an hour to
+   re-check is a different object from one that costs six minutes, and the next head should meet the
+   number before it meets the surprise.**
+   ```
+     modules RECOMPILED by this rung's diff        93        (cache hits excluded)
+     their own reported times, summed          3,277 s = 54.6 CPU-min
+     wall clock, warm local tree                  40 min
+     the ten dearest   V7B 415s · V7RatedH 357s · RegisterRepair 356s · V7Rated 353s ·
+                       M4RowAssemblyLinear 272s · M4RowLinear 158s · S16FlatTerminalLinearH 107s ·
+                       S15SelLinear 76s · S11Arc36 57s · S13FramesLinear 53s
+     in CI             #108 build 1h20m26s   ·   #109 build 1h0m7s
+   ```
+   ⇒ **THE COST IS THE IMPORT POSITION OF THE FILE EDITED, NOT THE CONTENT PUT IN IT.**
+   `S11Arc36.lean` sits at **9296 of 9388**, so everything downstream re-elaborates: **the eight
+   dearest modules above are LANDED FILES THE RUNG DOES NOT TOUCH.** The module carrying the two
+   numerals that grew by nine orders is **57 s, ninth on the list.**
+   ⇒ 🔑 ***A MEDIAN OVER A WORKFLOW IS A MEDIAN OVER ITS DIFFS.*** Lean CI's own median is `5.5 min`
+   over the last five completed runs — the distribution of docs-only and late-module diffs that get a
+   near-total cache hit. **A diff touching an early module is not a slow member of that distribution;
+   it is not a member of it**, and the two are indistinguishable from outside the workflow. The free
+   discriminator: `git diff --name-only origin/main...` and ask where the earliest `.lean` sits.
+   ⛔ **AND THE STACKING COST, WHICH IS NOT THE SAME NUMBER.** `main`'s protection is `strict: true`,
+   so a stacked PR retargeted after its base lands reads `BEHIND` and cannot merge on its old green;
+   the branch update changes its head sha and forces a FULL re-run. ⇒ **A 3-PR STACK OF MR-TOUCHING
+   BRANCHES COSTS THREE SEQUENTIAL ~60-MINUTE RUNS, NOT ONE.** ⚠️ And GitHub retargets a dependent PR
+   only when the base's head branch is **DELETED** — merging alone leaves it aimed at a branch that
+   is already in `main`, where its commits would land on nothing.
+
+   ⚠️ **WHAT IS *NOT* CLAIMED: none of this moves a citable number** — not `z`, not `h` in any published
+   statement. All thirteen new names have no consumers. The ladder is demonstrated CLIMBABLE above its
+   floor and one round-number ceiling is gone; that is the whole delivery. **Anyone reading the arm-(A)
+   rungs as progress on the twin-prime program is reading them wrong**, and each PR says so in its own
+   commit message.
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | **#108 and #109 merged** (stacked; #109's base is #108's branch and retargets to `main` on merge). After that arm (A) is COMPLETE as granted and the row's next act needs a ruling, not a wave: **(B1)'s dial is the Captain's and has no setting recorded**, and the cost-20 rung buys nothing citable by the register's own §8. | helm (merge) → the Captain (B1) | at the helm's next seam |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
