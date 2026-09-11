@@ -676,6 +676,46 @@ theorem cellCount_eq_zero_of_not_congr (F : HBForms) (q x δ₁ δ₂ : ℕ) (R�
     exact e1.trans e2.symm
   exact h ⟨h54₁, h54₂, h55⟩
 
+/-- **The four-fold CRT B-4's collapse runs on** — a general lemma, stated in the shape the
+three folds need: from the SIX pairwise compatibilities `X_i ≡ X_j [MOD gcd m_i m_j]` a common
+solution exists.  The first two folds are `Nat.chineseRemainder'` at `(m₁,m₂)` and `(m₃,m₄)`;
+the third needs `gcd (lcm m₁ m₂) (lcm m₃ m₄) ∣ k₁₂ − k₃₄`, which `gcd_lcm_distrib` turns into
+the four CROSS compatibilities, each obtained by transferring `k₁₂ ≡ X_i [MOD m_i]` and
+`k₃₄ ≡ X_j [MOD m_j]` down to `gcd m_i m_j` and composing with the `(i,j)` row. -/
+theorem crt_four {m₁ m₂ m₃ m₄ X₁ X₂ X₃ X₄ : ℕ}
+    (h₁₂ : X₁ ≡ X₂ [MOD Nat.gcd m₁ m₂]) (h₁₃ : X₁ ≡ X₃ [MOD Nat.gcd m₁ m₃])
+    (h₁₄ : X₁ ≡ X₄ [MOD Nat.gcd m₁ m₄]) (h₂₃ : X₂ ≡ X₃ [MOD Nat.gcd m₂ m₃])
+    (h₂₄ : X₂ ≡ X₄ [MOD Nat.gcd m₂ m₄]) (h₃₄ : X₃ ≡ X₄ [MOD Nat.gcd m₃ m₄]) :
+    ∃ Z : ℕ, Z ≡ X₁ [MOD m₁] ∧ Z ≡ X₂ [MOD m₂] ∧ Z ≡ X₃ [MOD m₃] ∧ Z ≡ X₄ [MOD m₄] := by
+  obtain ⟨k₁₂, hk₁, hk₂⟩ := Nat.chineseRemainder' h₁₂
+  obtain ⟨k₃₄, hk₃, hk₄⟩ := Nat.chineseRemainder' h₃₄
+  -- the four CROSS compatibilities
+  have cross : ∀ {mi mj Xi Xj : ℕ}, k₁₂ ≡ Xi [MOD mi] → k₃₄ ≡ Xj [MOD mj] →
+      Xi ≡ Xj [MOD Nat.gcd mi mj] → k₁₂ ≡ k₃₄ [MOD Nat.gcd mi mj] := by
+    intro mi mj Xi Xj hi hj hij
+    exact ((Nat.ModEq.of_dvd (Nat.gcd_dvd_left mi mj) hi).trans hij).trans
+      (Nat.ModEq.of_dvd (Nat.gcd_dvd_right mi mj) hj).symm
+  have c₁₃ := cross hk₁ hk₃ h₁₃
+  have c₁₄ := cross hk₁ hk₄ h₁₄
+  have c₂₃ := cross hk₂ hk₃ h₂₃
+  have c₂₄ := cross hk₂ hk₄ h₂₄
+  -- `gcd (lcm m₁ m₂) (lcm m₃ m₄)` is the lcm of the four cross gcds
+  have hsplit : Nat.gcd (Nat.lcm m₁ m₂) (Nat.lcm m₃ m₄)
+      = Nat.lcm (Nat.lcm (Nat.gcd m₃ m₁) (Nat.gcd m₄ m₁))
+          (Nat.lcm (Nat.gcd m₃ m₂) (Nat.gcd m₄ m₂)) := by
+    rw [gcd_lcm_distrib m₁ m₂ (Nat.lcm m₃ m₄), Nat.gcd_comm m₁ (Nat.lcm m₃ m₄),
+      Nat.gcd_comm m₂ (Nat.lcm m₃ m₄), gcd_lcm_distrib m₃ m₄ m₁, gcd_lcm_distrib m₃ m₄ m₂]
+  have hcompat : k₁₂ ≡ k₃₄ [MOD Nat.gcd (Nat.lcm m₁ m₂) (Nat.lcm m₃ m₄)] := by
+    rw [hsplit]
+    exact Nat.mod_lcm
+      (Nat.mod_lcm (by rwa [Nat.gcd_comm m₃ m₁]) (by rwa [Nat.gcd_comm m₄ m₁]))
+      (Nat.mod_lcm (by rwa [Nat.gcd_comm m₃ m₂]) (by rwa [Nat.gcd_comm m₄ m₂]))
+  obtain ⟨Z, hZ₁₂, hZ₃₄⟩ := Nat.chineseRemainder' hcompat
+  exact ⟨Z, (Nat.ModEq.of_dvd (Nat.dvd_lcm_left m₁ m₂) hZ₁₂).trans hk₁,
+    (Nat.ModEq.of_dvd (Nat.dvd_lcm_right m₁ m₂) hZ₁₂).trans hk₂,
+    (Nat.ModEq.of_dvd (Nat.dvd_lcm_left m₃ m₄) hZ₃₄).trans hk₃,
+    (Nat.ModEq.of_dvd (Nat.dvd_lcm_right m₃ m₄) hZ₃₄).trans hk₄⟩
+
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
 /-- (5.15) -/
