@@ -198,6 +198,31 @@ theorem coprime_l₂_α₂ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₂ n) F.α
   rw [he]
   exact (Nat.coprime_add_mul_left_left F.β₂ F.α₂ n).mpr F.cop₂.symm
 
+/-- **B-1.3 — `(l₁(n), l₂(n)) = 1`** (HB p.194).  A common prime `p` divides
+`α₁ l₂(n) − α₂ l₁(n) = α₁β₂ − α₂β₁`, so (1.7) gives `p ∣ α₁`, and then `p ∣ β₁` against (1.4).
+⛔ This consumes (1.4) and (1.7) ONLY: `even₁`/`even₂` are never invoked, so the argument is
+uniform in `p` and `p = 2` is not a case.  ((1.5) is spent on the ODDNESS half of p.194's
+sentence, `odd_l₁`/`odd_l₂` above.) -/
+theorem coprime_l (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₁ n) (F.l₂ n) := by
+  by_contra hc
+  obtain ⟨p, hp, hp1, hp2⟩ := Nat.Prime.not_coprime_iff_dvd.mp hc
+  have hz1 : (p : ℤ) ∣ (F.α₁ : ℤ) * (F.l₂ n : ℕ) := Dvd.dvd.mul_left
+    (Int.natCast_dvd_natCast.mpr hp2) _
+  have hz2 : (p : ℤ) ∣ (F.α₂ : ℤ) * (F.l₁ n : ℕ) := Dvd.dvd.mul_left
+    (Int.natCast_dvd_natCast.mpr hp1) _
+  have heq : (F.α₁ : ℤ) * ((F.l₂ n : ℕ) : ℤ) - (F.α₂ : ℤ) * ((F.l₁ n : ℕ) : ℤ)
+      = (F.α₁ : ℤ) * F.β₂ - (F.α₂ : ℤ) * F.β₁ := by
+    simp only [l₁, l₂]
+    push_cast; ring
+  have hdet : (p : ℤ) ∣ (F.α₁ : ℤ) * F.β₂ - (F.α₂ : ℤ) * F.β₁ := by
+    rw [← heq]; exact dvd_sub hz1 hz2
+  obtain ⟨hd1, _hd2⟩ := F.det_dvd p hp hdet
+  have hl1 : p ∣ F.α₁ * n + F.β₁ := hp1
+  have hb1 : p ∣ F.β₁ := (Nat.dvd_add_right (Dvd.dvd.mul_right hd1 n)).mp hl1
+  have hg : p ∣ Nat.gcd F.α₁ F.β₁ := Nat.dvd_gcd hd1 hb1
+  rw [show Nat.gcd F.α₁ F.β₁ = 1 from F.cop₁] at hg
+  exact hp.one_lt.ne' (Nat.dvd_one.mp hg)
+
 end HBForms
 
 /-- `Σ_{w v = N, v > V} χ(w)` (p.211): the inner truncated divisor sum of `S(δ₁,δ₂;V₁,V₂)`;

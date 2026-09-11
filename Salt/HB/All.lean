@@ -367,6 +367,7 @@ open Salt.Tactic in
   Salt.N7.HBForms.odd_β₁ Salt.N7.HBForms.odd_β₂
   Salt.N7.HBForms.odd_l₁ Salt.N7.HBForms.odd_l₂
   Salt.N7.HBForms.coprime_l₁_α₁ Salt.N7.HBForms.coprime_l₂_α₂
+  Salt.N7.HBForms.coprime_l
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
