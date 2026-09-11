@@ -1758,6 +1758,13 @@ theorem hbT_mem_iff (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ 
     · intro h
       have hx : (n : ℝ) ≤ 2 * (x : ℝ) := by exact_mod_cast h
       nlinarith
+  have hprod : (0 : ℝ) < (F.α₂ : ℝ) * (δ₁ : ℝ) * (w₁ : ℝ) := by positivity
+  have hexp₁ : (v₂ : ℝ) * ((F.α₁ : ℝ) * (δ₂ : ℝ) * (w₂ : ℝ))
+      = (F.α₁ : ℝ) * (F.α₂ : ℝ) * (n : ℝ) + (F.α₁ : ℝ) * (F.β₂ : ℝ) := by
+    linear_combination (-(F.α₁ : ℝ)) * hnR
+  have hexp₂ : (F.α₂ : ℝ) * (δ₁ : ℝ) * (w₁ : ℝ) * (v₁ : ℝ)
+      = (F.α₁ : ℝ) * (F.α₂ : ℝ) * (n : ℝ) + (F.α₂ : ℝ) * (F.β₁ : ℝ) := by
+    linear_combination (F.α₂ : ℝ) * hv₁R
   have e₃ : (((F.α₂ * δ₁ * w₁ : ℕ) : ℝ) * R₁ + ((F.α₁ * F.β₂ : ℕ) : ℝ)
         - ((F.α₂ * F.β₁ : ℕ) : ℝ)) / ((F.α₁ * δ₂ * w₂ : ℕ) : ℝ) < (v₂ : ℝ)
       ↔ R₁ < (v₁ : ℝ) := by
@@ -1765,9 +1772,13 @@ theorem hbT_mem_iff (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ 
     push_cast
     constructor
     · intro h
-      nlinarith
+      have h2 : (F.α₂ : ℝ) * (δ₁ : ℝ) * (w₁ : ℝ) * R₁
+          < (F.α₂ : ℝ) * (δ₁ : ℝ) * (w₁ : ℝ) * (v₁ : ℝ) := by
+        linarith [hexp₁, hexp₂]
+      exact lt_of_mul_lt_mul_left h2 hprod.le
     · intro h
-      nlinarith
+      have h2 := mul_lt_mul_of_pos_left h hprod
+      linarith [hexp₁, hexp₂, h2]
   have e₃' : (v₂ : ℝ) ≤ (2 * ((F.α₂ * δ₁ * w₁ : ℕ) : ℝ) * R₁ + ((F.α₁ * F.β₂ : ℕ) : ℝ)
         - ((F.α₂ * F.β₁ : ℕ) : ℝ)) / ((F.α₁ * δ₂ * w₂ : ℕ) : ℝ)
       ↔ (v₁ : ℝ) ≤ 2 * R₁ := by
@@ -1775,9 +1786,13 @@ theorem hbT_mem_iff (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ 
     push_cast
     constructor
     · intro h
-      nlinarith
+      have h2 : (F.α₂ : ℝ) * (δ₁ : ℝ) * (w₁ : ℝ) * (v₁ : ℝ)
+          ≤ (F.α₂ : ℝ) * (δ₁ : ℝ) * (w₁ : ℝ) * (2 * R₁) := by
+        linarith [hexp₁, hexp₂]
+      exact le_of_mul_le_mul_left h2 hprod
     · intro h
-      nlinarith
+      have h2 := mul_le_mul_of_nonneg_left h hprod.le
+      linarith [hexp₁, hexp₂, h2]
   rw [hbT₁, hbT₂, max_lt_iff, max_lt_iff, le_min_iff, le_min_iff, e₂, e₂', e₃, e₃']
   tauto
 
