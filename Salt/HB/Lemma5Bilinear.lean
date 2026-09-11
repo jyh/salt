@@ -663,4 +663,19 @@ theorem card_count_eq_sawtooth (k : ℕ) [NeZero k] {w₂ : ℕ} (hw : Nat.Copri
     rw [h2]
   rw [hcongr, card_Ioc_filter_modEq_eq_sawtooth hk _ h0 h12, hcast]
 
+/-- **B-5g — `(w₂, D δ₁ w₁) = 1` is automatic**: with `(C, k) = 1` the class `v w₂ ≡ C (k)` is
+empty unless `(w₂, k) = 1` — a prime on both `w₂` and `k` would land on `C`. -/
+theorem count_eq_zero_of_not_coprime {k : ℕ} {w₂ C : ℕ} (hC : Nat.Coprime C k)
+    (hw : ¬ Nat.Coprime w₂ k) (A B : ℕ) :
+    ((Finset.Ioc A B).filter (fun v : ℕ => v * w₂ ≡ C [MOD k])).card = 0 := by
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro v _ hv
+  obtain ⟨p, hp, hpw, hpk⟩ := Nat.Prime.not_coprime_iff_dvd.mp hw
+  have h1 : v * w₂ ≡ C [MOD p] := Nat.ModEq.of_dvd hpk hv
+  have h2 : v * w₂ ≡ 0 [MOD p] := (Nat.modEq_zero_iff_dvd).mpr (Dvd.dvd.mul_left hpw v)
+  have h3 : p ∣ C := (Nat.modEq_zero_iff_dvd).mp (h1.symm.trans h2)
+  have h4 : p ∣ Nat.gcd C k := Nat.dvd_gcd h3 hpk
+  rw [show Nat.gcd C k = 1 from hC] at h4
+  exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+
 end Salt.N7
