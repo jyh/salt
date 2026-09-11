@@ -798,6 +798,178 @@ theorem sum_swap_two_two (S₁ S₂ T₁ T₂ : Finset ℕ) (g : ℕ → ℕ →
     _ = ∑ u ∈ T₁, ∑ v ∈ T₂, ∑ x ∈ S₁, ∑ y ∈ S₂, g x y u v :=
         Finset.sum_congr rfl (fun _ _ => Finset.sum_comm)
 
+/-- The regrouping B-3a's assembly runs: eight cell indices and one `n`, into two blocks of
+four with the `n`-sum outside. -/
+theorem sum_cells_mul {α : Type*} (A B U : Finset ℕ) (t : Finset α)
+    (P Q : ℕ → ℕ → ℕ → ℕ → α → ℝ) :
+    (∑ j₁ ∈ A, ∑ k₁ ∈ B, ∑ j₂ ∈ A, ∑ k₂ ∈ B, ∑ a₁ ∈ U, ∑ b₁ ∈ U, ∑ a₂ ∈ U, ∑ b₂ ∈ U,
+      ∑ n ∈ t, P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n)
+      = ∑ n ∈ t, (∑ j₁ ∈ A, ∑ k₁ ∈ B, ∑ a₁ ∈ U, ∑ b₁ ∈ U, P j₁ k₁ a₁ b₁ n) *
+          (∑ j₂ ∈ A, ∑ k₂ ∈ B, ∑ a₂ ∈ U, ∑ b₂ ∈ U, Q j₂ k₂ a₂ b₂ n) := by
+  rw [sum_pull₈ A B A B U U U U t
+    (fun j₁ k₁ j₂ k₂ a₁ b₁ a₂ b₂ n => P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n)]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  rw [show (∑ j₁ ∈ A, ∑ k₁ ∈ B, ∑ a₁ ∈ U, ∑ b₁ ∈ U, P j₁ k₁ a₁ b₁ n) *
+        (∑ j₂ ∈ A, ∑ k₂ ∈ B, ∑ a₂ ∈ U, ∑ b₂ ∈ U, Q j₂ k₂ a₂ b₂ n)
+      = ∑ j₁ ∈ A, ∑ k₁ ∈ B, ∑ a₁ ∈ U, ∑ b₁ ∈ U,
+          ∑ j₂ ∈ A, ∑ k₂ ∈ B, ∑ a₂ ∈ U, ∑ b₂ ∈ U,
+            P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n from by
+      simp only [Finset.sum_mul, Finset.mul_sum]]
+  refine Finset.sum_congr rfl (fun j₁ _ => Finset.sum_congr rfl (fun k₁ _ => ?_))
+  exact sum_swap_two_two A B U U
+    (fun j₂ k₂ a₁ b₁ => ∑ a₂ ∈ U, ∑ b₂ ∈ U, P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n)
+
+/-- **B-3a — (5.18): the dyadic + residue decomposition, EXACT.** Cells `R_i = V_i 2^{j_i}`
+(`j_i < J`), `S_i = 2^{k_i}/2` (`k_i < K`, so `k = 0` is the cell `{1}`); residues over the
+units of `[1, q]`; the covers are guaranteed by `hJ`/`hK` at the window's largest form value.
+`(δ_i, q) = 1` is HB's standing (5.1) (p.211, "as we henceforth assume") and is what closes the
+gap between `cellCount`'s bare `Ioc` and the carrier's `(l,q) = 1` window. -/
+theorem bilinearS_eq_sum_cells (χ : DirichletCharacter ℂ q) (F : HBForms)
+    (x δ₁ δ₂ : ℕ) (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q)
+    {V₁ V₂ : ℝ} (hV₁ : 0 < V₁) (hV₂ : 0 < V₂) (J K : ℕ)
+    (hJ₁ : ((F.l₁ (2 * x) : ℕ) : ℝ) ≤ V₁ * 2 ^ J) (hJ₂ : ((F.l₂ (2 * x) : ℕ) : ℝ) ≤ V₂ * 2 ^ J)
+    (hK₁ : ((F.l₁ (2 * x) : ℕ) : ℝ) ≤ 2 ^ K / 2) (hK₂ : ((F.l₂ (2 * x) : ℕ) : ℝ) ≤ 2 ^ K / 2) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂
+      = ∑ j₁ ∈ range J, ∑ k₁ ∈ range K, ∑ j₂ ∈ range J, ∑ k₂ ∈ range K,
+        ∑ a₁ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b₁ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+        ∑ a₂ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b₂ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+          chiRe χ b₁ * chiRe χ b₂ *
+          (cellCount F q x δ₁ δ₂ (V₁ * 2 ^ j₁) (2 ^ k₁ / 2) (V₂ * 2 ^ j₂) (2 ^ k₂ / 2)
+            a₁ b₁ a₂ b₂ : ℝ) := by
+  classical
+  rcases Nat.eq_zero_or_pos q with rfl | hq
+  · -- `q = 0`: the residue sums are empty, and so is the window
+    have hL : bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+      refine Finset.sum_eq_zero (fun n hn => ?_)
+      exfalso
+      rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter, Finset.mem_Ioc] at hn
+      have hc : F.l₁ n * F.l₂ n = 1 := (Nat.coprime_zero_right _).mp hn.1.2
+      have hx : x < n := hn.1.1.1
+      have hα := F.two_le_α₁
+      have hβ := F.one_le_β₁
+      have h2 : 3 ≤ F.l₁ n := by
+        simp only [HBForms.l₁]
+        nlinarith
+      have h3 : 1 ≤ F.l₂ n := F.one_le_l₂ n
+      nlinarith
+    rw [hL, Finset.Icc_eq_empty (by omega)]
+    simp
+  -- the two index sets, and the inclusion between them
+  have hsub : (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n)
+      ⊆ (Finset.Ioc x (2 * x)).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n) := by
+    intro n hn
+    rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter] at hn
+    exact Finset.mem_filter.mpr ⟨hn.1.1, hn.2⟩
+  -- the two block sums, as functions of `n`
+  set P : ℕ → ℕ → ℕ → ℕ → ℕ → ℝ := fun j k a b n =>
+    chiRe χ b * (((F.l₁ n / δ₁).divisorsAntidiagonal.filter (fun p =>
+      V₁ * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V₁ * 2 ^ j) ∧
+      2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+      p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q])).card : ℝ) with hPdef
+  set Q : ℕ → ℕ → ℕ → ℕ → ℕ → ℝ := fun j k a b n =>
+    chiRe χ b * (((F.l₂ n / δ₂).divisorsAntidiagonal.filter (fun p =>
+      V₂ * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V₂ * 2 ^ j) ∧
+      2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+      p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q])).card : ℝ) with hQdef
+  have hU : ∀ a ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q), Nat.Coprime a q :=
+    fun a ha => (Finset.mem_filter.mp ha).2
+  -- ① on the window, each block sum is the truncated divisor sum
+  have hwin : ∀ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+      truncChiSum χ (F.l₁ n / δ₁) V₁ * truncChiSum χ (F.l₂ n / δ₂) V₂
+        = (∑ j₁ ∈ range J, ∑ k₁ ∈ range K,
+            ∑ a₁ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+            ∑ b₁ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), P j₁ k₁ a₁ b₁ n) *
+          (∑ j₂ ∈ range J, ∑ k₂ ∈ range K,
+            ∑ a₂ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+            ∑ b₂ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), Q j₂ k₂ a₂ b₂ n) := by
+    intro n hn
+    rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter, Finset.mem_Ioc] at hn
+    obtain ⟨⟨⟨hx1, hx2⟩, hcop⟩, hd₁, hd₂⟩ := hn
+    have hl₁q : Nat.Coprime (F.l₁ n) q :=
+      Nat.Coprime.coprime_dvd_left (dvd_mul_right (F.l₁ n) (F.l₂ n)) hcop
+    have hl₂q : Nat.Coprime (F.l₂ n) q :=
+      Nat.Coprime.coprime_dvd_left (dvd_mul_left (F.l₂ n) (F.l₁ n)) hcop
+    have hN₁ : Nat.Coprime (F.l₁ n / δ₁) q :=
+      Nat.Coprime.coprime_dvd_left (Nat.div_dvd_of_dvd hd₁) hl₁q
+    have hN₂ : Nat.Coprime (F.l₂ n / δ₂) q :=
+      Nat.Coprime.coprime_dvd_left (Nat.div_dvd_of_dvd hd₂) hl₂q
+    have hle₁ : ((F.l₁ n / δ₁ : ℕ) : ℝ) ≤ ((F.l₁ (2 * x) : ℕ) : ℝ) := by
+      exact_mod_cast le_trans (Nat.div_le_self _ _) (F.l₁_mono hx2)
+    have hle₂ : ((F.l₂ n / δ₂ : ℕ) : ℝ) ≤ ((F.l₂ (2 * x) : ℕ) : ℝ) := by
+      exact_mod_cast le_trans (Nat.div_le_self _ _) (F.l₂_mono hx2)
+    simp only [hPdef, hQdef]
+    rw [truncChiSum_eq_sum_cells χ hq hN₁ hV₁ J K (le_trans hle₁ hJ₁) (le_trans hle₁ hK₁),
+      truncChiSum_eq_sum_cells χ hq hN₂ hV₂ J K (le_trans hle₂ hJ₂) (le_trans hle₂ hK₂)]
+  -- ② off the window, one block sum vanishes
+  have hoff : ∀ n ∈ (Finset.Ioc x (2 * x)).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+      n ∉ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n) →
+      (∑ j₁ ∈ range J, ∑ k₁ ∈ range K,
+        ∑ a₁ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b₁ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), P j₁ k₁ a₁ b₁ n) *
+      (∑ j₂ ∈ range J, ∑ k₂ ∈ range K,
+        ∑ a₂ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b₂ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), Q j₂ k₂ a₂ b₂ n) = 0 := by
+    intro n hn hnw
+    rw [Finset.mem_filter] at hn
+    have hnotw : n ∉ hbFormsWindow F q x := by
+      intro hc
+      exact hnw (Finset.mem_filter.mpr ⟨hc, hn.2⟩)
+    rcases not_coprime_of_not_mem_window F x hn.1 hnotw with h | h
+    · refine mul_eq_zero_of_left ?_ _
+      refine Finset.sum_eq_zero (fun j _ => Finset.sum_eq_zero (fun k _ =>
+        Finset.sum_eq_zero (fun a ha => Finset.sum_eq_zero (fun b hb => ?_))))
+      simp only [hPdef]
+      rw [cell_card_eq_zero_of_not_coprime hδ₁q hn.2.1 h _ _ (hU a ha) (hU b hb)]
+      simp
+    · refine mul_eq_zero_of_right _ ?_
+      refine Finset.sum_eq_zero (fun j _ => Finset.sum_eq_zero (fun k _ =>
+        Finset.sum_eq_zero (fun a ha => Finset.sum_eq_zero (fun b hb => ?_))))
+      simp only [hQdef]
+      rw [cell_card_eq_zero_of_not_coprime hδ₂q hn.2.2 h _ _ (hU a ha) (hU b hb)]
+      simp
+  -- ③ assemble
+  calc bilinearS χ F x δ₁ δ₂ V₁ V₂
+      = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          truncChiSum χ (F.l₁ n / δ₁) V₁ * truncChiSum χ (F.l₂ n / δ₂) V₂ := rfl
+    _ = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          (∑ j₁ ∈ range J, ∑ k₁ ∈ range K,
+            ∑ a₁ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+            ∑ b₁ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), P j₁ k₁ a₁ b₁ n) *
+          (∑ j₂ ∈ range J, ∑ k₂ ∈ range K,
+            ∑ a₂ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+            ∑ b₂ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), Q j₂ k₂ a₂ b₂ n) :=
+        Finset.sum_congr rfl hwin
+    _ = ∑ n ∈ (Finset.Ioc x (2 * x)).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          (∑ j₁ ∈ range J, ∑ k₁ ∈ range K,
+            ∑ a₁ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+            ∑ b₁ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), P j₁ k₁ a₁ b₁ n) *
+          (∑ j₂ ∈ range J, ∑ k₂ ∈ range K,
+            ∑ a₂ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+            ∑ b₂ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q), Q j₂ k₂ a₂ b₂ n) :=
+        Finset.sum_subset hsub hoff
+    _ = ∑ j₁ ∈ range J, ∑ k₁ ∈ range K, ∑ j₂ ∈ range J, ∑ k₂ ∈ range K,
+        ∑ a₁ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b₁ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+        ∑ a₂ ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b₂ ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+          ∑ n ∈ (Finset.Ioc x (2 * x)).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+            P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n :=
+        (sum_cells_mul (range J) (range K) ((Icc 1 q).filter (fun a => Nat.Coprime a q))
+          ((Finset.Ioc x (2 * x)).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n)) P Q).symm
+    _ = _ := by
+        refine Finset.sum_congr rfl (fun j₁ _ => Finset.sum_congr rfl (fun k₁ _ =>
+          Finset.sum_congr rfl (fun j₂ _ => Finset.sum_congr rfl (fun k₂ _ =>
+          Finset.sum_congr rfl (fun a₁ _ => Finset.sum_congr rfl (fun b₁ _ =>
+          Finset.sum_congr rfl (fun a₂ _ => Finset.sum_congr rfl (fun b₂ _ => ?_))))))))
+        rw [cellCount]
+        push_cast
+        rw [Finset.mul_sum]
+        refine Finset.sum_congr rfl (fun n _ => ?_)
+        simp only [hPdef, hQdef]
+        ring
+
 /-- **B-3b — (5.2)'s sizes**: a non-empty cell has `α_i x < 4 δ_i R_i S_i` and
 `δ_i R_i S_i ≤ l_i(2x)`.  ⭐ The dyadic ranges give `0 < R_i` and `0 < S_i` for free
 (`R_i < v_i ≤ 2R_i` forces `R_i < 2R_i`), and `δ_i ≥ 1` because `δ_i ∣ l_i(n) ≥ 1`; the strict
