@@ -761,6 +761,259 @@ theorem LamStar_eq_moebius_hbQ (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1
       rw [Nat.div_div_eq_div_mul, hd2]
     rw [hchi, hlog]
 
+/-! ### B-2b — the hyperbola identity (p.211): the nested enumeration, the fibre split of
+`n.divisorsAntidiagonal` by `gcd(s, e)`, and the Möbius detector that selects the fibre. -/
+
+/-- The nested antidiagonal enumeration IS the triple sum over `h j k = e`: `t = (h, jk)` runs
+over `e.divisorsAntidiagonal` and `u = (j, k)` over `(jk).divisorsAntidiagonal`, and together they
+hit each factorisation `h j k = e` exactly once. -/
+theorem nested_antidiag (e : ℕ) (f : ℕ → ℕ → ℕ → ℝ) :
+    (∑ t ∈ e.divisorsAntidiagonal, ∑ u ∈ t.2.divisorsAntidiagonal, f t.1 u.1 u.2)
+      = ∑ h ∈ e.divisors, ∑ j ∈ (e / h).divisors, f h j ((e / h) / j) := by
+  rw [Nat.sum_divisorsAntidiagonal (fun h i => ∑ u ∈ i.divisorsAntidiagonal, f h u.1 u.2)]
+  exact Finset.sum_congr rfl fun h _ =>
+    Nat.sum_divisorsAntidiagonal (fun j k => f h j k)
+
+/-- **The fibre facts.**  For `(s, t)` with `s t = n` and `gcd(s, e) = h`, write `E = e/h`,
+`N = n/e` and `σ = s/h`.  Then `σ ∣ N`, `gcd(E, σ) = 1`, and `t = E · (N/σ)`.  The third is the
+one that matters: on this fibre the second coordinate is FORCED to be a multiple of `E`, which is
+what makes the reindexing below a bijection.  `σ ∣ N` is not automatic — it needs
+`gcd(σ, E) = 1` together with `σ ∣ E N`. -/
+theorem fiber_facts {n e h : ℕ} (hn : n ≠ 0) (he : e ∣ n) (hh : h ∣ e) {p : ℕ × ℕ}
+    (hp : p ∈ n.divisorsAntidiagonal) (hg : Nat.gcd p.1 e = h) :
+    p.1 / h ∣ n / e ∧ Nat.gcd (e / h) (p.1 / h) = 1 ∧
+      p.2 = e / h * (n / e / (p.1 / h)) := by
+  obtain ⟨hst, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  have hh0 : h ≠ 0 := by
+    rw [← hg]; simp [Nat.gcd_eq_zero_iff, he0]
+  have hhs : h ∣ p.1 := hg ▸ Nat.gcd_dvd_left _ _
+  have heE : h * (e / h) = e := Nat.mul_div_cancel' hh
+  have hnN : e * (n / e) = n := Nat.mul_div_cancel' he
+  have hps : h * (p.1 / h) = p.1 := Nat.mul_div_cancel' hhs
+  have hcop : Nat.gcd (p.1 / h) (e / h) = 1 := by
+    have hkey : h * Nat.gcd (p.1 / h) (e / h) = h * 1 := by
+      rw [mul_one, ← Nat.gcd_mul_left, hps, heE, hg]
+    exact Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero hh0) hkey
+  have hs0 : p.1 / h ≠ 0 := by
+    rintro h0
+    rw [h0, mul_zero] at hps
+    exact hn (by rw [← hst, ← hps, zero_mul])
+  have hmul : (p.1 / h) * p.2 = (e / h) * (n / e) := by
+    refine Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero hh0) ?_
+    calc h * ((p.1 / h) * p.2) = (h * (p.1 / h)) * p.2 := by ring
+      _ = p.1 * p.2 := by rw [hps]
+      _ = n := hst
+      _ = e * (n / e) := hnN.symm
+      _ = (h * (e / h)) * (n / e) := by rw [heE]
+      _ = h * ((e / h) * (n / e)) := by ring
+  have hdvdN : p.1 / h ∣ n / e :=
+    Nat.Coprime.dvd_of_dvd_mul_left hcop ⟨p.2, hmul.symm⟩
+  refine ⟨hdvdN, Nat.Coprime.symm hcop, ?_⟩
+  have hNs : (p.1 / h) * (n / e / (p.1 / h)) = n / e := Nat.mul_div_cancel' hdvdN
+  refine Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero hs0) ?_
+  calc (p.1 / h) * p.2 = (e / h) * (n / e) := hmul
+    _ = (e / h) * ((p.1 / h) * (n / e / (p.1 / h))) := by rw [hNs]
+    _ = (p.1 / h) * ((e / h) * (n / e / (p.1 / h))) := by ring
+
+/-- **The `(j, v)` swap.**  `{(j, v) : j ∣ E, j ∣ N, v ∣ N/j}` and `{(v, j) : v ∣ N, j ∣ E,
+j ∣ N/v}` are the same set — both say `j ∣ E` and `j v ∣ N` — so the double sum may be taken with
+`v` outside, where the `j`-range is the divisors of `gcd(E, N/v)` and the Möbius sum collapses. -/
+theorem second_reindex {E N : ℕ} (hE : E ≠ 0) (hN : N ≠ 0) (F : ℕ → ℕ → ℝ) :
+    ∑ j ∈ E.divisors, (if j ∣ N then ∑ v ∈ (N / j).divisors, F j v else 0)
+      = ∑ v ∈ N.divisors, ∑ j ∈ (Nat.gcd E (N / v)).divisors, F j v := by
+  rw [← Finset.sum_filter (fun j => j ∣ N) (fun j => ∑ v ∈ (N / j).divisors, F j v)]
+  refine Finset.sum_comm' ?_
+  intro j v
+  simp only [Finset.mem_filter, Nat.mem_divisors, Nat.dvd_gcd_iff]
+  constructor
+  · rintro ⟨⟨⟨hjE, -⟩, hjN⟩, hvNj, -⟩
+    have hjv : j * v ∣ N := (Nat.dvd_div_iff_mul_dvd hjN).mp hvNj
+    have hvN : v ∣ N := (dvd_mul_left v j).trans hjv
+    refine ⟨⟨⟨hjE, (Nat.dvd_div_iff_mul_dvd hvN).mpr (by rwa [mul_comm v j])⟩, ?_⟩, hvN, hN⟩
+    simp [Nat.gcd_eq_zero_iff, hE]
+  · rintro ⟨⟨⟨hjE, hjNv⟩, -⟩, hvN, -⟩
+    have hvj : v * j ∣ N := (Nat.dvd_div_iff_mul_dvd hvN).mp hjNv
+    have hjN : j ∣ N := (dvd_mul_left j v).trans hvj
+    have hj0 : 0 < j := Nat.pos_of_ne_zero (by rintro rfl; exact hN (Nat.eq_zero_of_zero_dvd hjN))
+    refine ⟨⟨⟨hjE, hE⟩, hjN⟩, (Nat.dvd_div_iff_mul_dvd hjN).mpr (by rwa [mul_comm j v]), ?_⟩
+    exact (Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hN) hjN) hj0).ne'
+
+/-- **The fibre, reindexed by `v = t/E`.**  The map `v ↦ (h · (N/v), E · v)` is a bijection from
+`{v ∣ N : gcd(E, N/v) = 1}` onto the fibre `{(s,t) ∈ n.divisorsAntidiagonal : gcd(s,e) = h}`, with
+inverse `(s,t) ↦ t/E`.  `gcd(h σ, h E) = h · gcd(σ, E)` (`Nat.gcd_mul_left`) is what turns the
+coprimality condition into the fibre condition. -/
+theorem fiber_reindex (χ : DirichletCharacter ℂ q) {n e h : ℕ}
+    (hn : n ≠ 0) (he : e ∣ n) (hh : h ∣ e) :
+    ∑ p ∈ n.divisorsAntidiagonal.filter (fun p => Nat.gcd p.1 e = h),
+        chiRe χ p.1 * Real.log ((p.2 : ℝ))
+      = ∑ v ∈ (n / e).divisors.filter (fun v => Nat.gcd (e / h) (n / e / v) = 1),
+          chiRe χ (h * (n / e / v)) * Real.log (((e / h : ℕ) : ℝ) * (v : ℝ)) := by
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  have hh0 : h ≠ 0 := by rintro rfl; exact he0 (Nat.eq_zero_of_zero_dvd hh)
+  have heE : h * (e / h) = e := Nat.mul_div_cancel' hh
+  have hE0 : 0 < e / h := Nat.pos_of_ne_zero (by
+    rintro h0; rw [h0, mul_zero] at heE; exact he0 heE.symm)
+  have hnN : e * (n / e) = n := Nat.mul_div_cancel' he
+  have hN0 : n / e ≠ 0 := by rintro h0; rw [h0, mul_zero] at hnN; exact hn hnN.symm
+  refine Finset.sum_nbij' (i := fun p => p.2 / (e / h))
+    (j := fun v => (h * (n / e / v), e / h * v)) ?_ ?_ ?_ ?_ ?_
+  · -- i maps into the v-set
+    intro p hp
+    obtain ⟨hpmem, hpg⟩ := Finset.mem_filter.mp hp
+    obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
+    rw [Finset.mem_filter, Nat.mem_divisors]
+    rw [h2, Nat.mul_div_cancel_left _ hE0]
+    refine ⟨⟨Nat.div_dvd_of_dvd hsN, hN0⟩, ?_⟩
+    rw [Nat.div_div_self hsN hN0]
+    exact hcop
+  · -- j maps into the fibre
+    intro v hv
+    obtain ⟨hvmem, hvc⟩ := Finset.mem_filter.mp hv
+    have hvN : v ∣ n / e := (Nat.mem_divisors.mp hvmem).1
+    rw [Finset.mem_filter, Nat.mem_divisorsAntidiagonal]
+    refine ⟨⟨?_, hn⟩, ?_⟩
+    · calc h * (n / e / v) * (e / h * v)
+          = (h * (e / h)) * ((n / e / v) * v) := by ring
+        _ = e * (n / e) := by rw [heE, Nat.div_mul_cancel hvN]
+        _ = n := hnN
+    · calc Nat.gcd (h * (n / e / v)) e
+          = Nat.gcd (h * (n / e / v)) (h * (e / h)) := by rw [heE]
+        _ = h * Nat.gcd (n / e / v) (e / h) := Nat.gcd_mul_left _ _ _
+        _ = h * 1 := by rw [Nat.gcd_comm, hvc]
+        _ = h := mul_one h
+  · -- j ∘ i = id on the fibre
+    intro p hp
+    obtain ⟨hpmem, hpg⟩ := Finset.mem_filter.mp hp
+    obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
+    have hhs : h ∣ p.1 := hpg ▸ Nat.gcd_dvd_left _ _
+    refine Prod.ext ?_ ?_
+    · show h * (n / e / (p.2 / (e / h))) = p.1
+      rw [h2, Nat.mul_div_cancel_left _ hE0, Nat.div_div_self hsN hN0,
+        Nat.mul_div_cancel' hhs]
+    · show e / h * (p.2 / (e / h)) = p.2
+      rw [h2, Nat.mul_div_cancel_left _ hE0]
+  · -- i ∘ j = id on the v-set
+    intro v _
+    exact Nat.mul_div_cancel_left _ hE0
+  · -- the summands agree
+    intro p hp
+    obtain ⟨hpmem, hpg⟩ := Finset.mem_filter.mp hp
+    obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
+    have hhs : h ∣ p.1 := hpg ▸ Nat.gcd_dvd_left _ _
+    have h1 : h * (n / e / (p.2 / (e / h))) = p.1 := by
+      rw [h2, Nat.mul_div_cancel_left _ hE0, Nat.div_div_self hsN hN0,
+        Nat.mul_div_cancel' hhs]
+    have h3 : ((e / h : ℕ) : ℝ) * ((p.2 / (e / h) : ℕ) : ℝ) = ((p.2 : ℕ) : ℝ) := by
+      rw [h2, Nat.mul_div_cancel_left _ hE0]
+      push_cast
+      ring
+    rw [h1, h3]
+
+/-- **B-2b at one fibre.**  The `j`-sum of the hyperbola identity's right-hand side, at a fixed
+`h ∣ e`, is exactly the fibre of `n.divisorsAntidiagonal` over `gcd(s, e) = h`.  Three moves: the
+`j`-term's data is `n/(e j) = N/j` and `j · (E/j) = E` (so the log's constant does NOT depend on
+`j`); the inner antidiagonal is reindexed by its SECOND coordinate, after which `χ(hj)·χ((N/j)/v)`
+is `χ(h·(N/v))` — free of `j` — because `j · ((N/j)/v) = N/v`; and the `j`-sum, now carrying only
+`μ(j)`, runs over the divisors of `gcd(E, N/v)` and is the indicator of `gcd(E, N/v) = 1`. -/
+theorem hyperbola_fiber (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {n e h : ℕ}
+    (hn : n ≠ 0) (he : e ∣ n) (hh : h ∣ e) :
+    ∑ j ∈ (e / h).divisors,
+        (if j ∣ n / e then
+          chiRe χ (h * j) * (μ j : ℝ) *
+            logDivChiSum χ (n / (e * j)) ((j * ((e / h) / j) : ℕ) : ℝ)
+        else 0)
+      = ∑ p ∈ n.divisorsAntidiagonal.filter (fun p => Nat.gcd p.1 e = h),
+          chiRe χ p.1 * Real.log ((p.2 : ℝ)) := by
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  have heE : h * (e / h) = e := Nat.mul_div_cancel' hh
+  have hE0 : e / h ≠ 0 := by rintro h0; rw [h0, mul_zero] at heE; exact he0 heE.symm
+  have hnN : e * (n / e) = n := Nat.mul_div_cancel' he
+  have hN0 : n / e ≠ 0 := by rintro h0; rw [h0, mul_zero] at hnN; exact hn hnN.symm
+  rw [fiber_reindex χ hn he hh]
+  have hAC : ∀ j ∈ (e / h).divisors,
+      (if j ∣ n / e then
+        chiRe χ (h * j) * (μ j : ℝ) *
+          logDivChiSum χ (n / (e * j)) ((j * ((e / h) / j) : ℕ) : ℝ)
+      else 0)
+      = (if j ∣ n / e then
+        ∑ v ∈ (n / e / j).divisors,
+          (μ j : ℝ) * (chiRe χ (h * (n / e / v)) * Real.log (((e / h : ℕ) : ℝ) * (v : ℝ)))
+      else 0) := by
+    intro j hj
+    have hjE : j ∣ e / h := (Nat.mem_divisors.mp hj).1
+    by_cases hjN : j ∣ n / e
+    · rw [if_pos hjN, if_pos hjN, ← Nat.div_div_eq_div_mul, Nat.mul_div_cancel' hjE,
+        logDivChiSum, Nat.sum_divisorsAntidiagonal'
+          (fun a b => chiRe χ a * Real.log (((e / h : ℕ) : ℝ) * (b : ℝ))), Finset.mul_sum]
+      refine Finset.sum_congr rfl fun v hv => ?_
+      have hvM : v ∣ n / e / j := (Nat.mem_divisors.mp hv).1
+      have hv0 : 0 < v := Nat.pos_of_ne_zero (by
+        rintro rfl
+        exact (Nat.mem_divisors.mp hv).2 (Nat.eq_zero_of_zero_dvd hvM))
+      have hjv : j * v ∣ n / e := (Nat.dvd_div_iff_mul_dvd hjN).mp hvM
+      have hNjv : (j * v) * (n / e / (j * v)) = n / e := Nat.mul_div_cancel' hjv
+      have hkey2 : n / e / v = j * (n / e / (j * v)) := by
+        refine Nat.div_eq_of_eq_mul_left hv0 ?_
+        calc n / e = (j * v) * (n / e / (j * v)) := hNjv.symm
+          _ = (j * (n / e / (j * v))) * v := by ring
+      have hkey : h * j * (n / e / j / v) = h * (n / e / v) := by
+        rw [Nat.div_div_eq_div_mul (n / e) j v, hkey2, mul_assoc]
+      have hchi : chiRe χ (h * (n / e / v)) = chiRe χ (h * j) * chiRe χ (n / e / j / v) := by
+        rw [← hkey, chiRe_mul χ hsq]
+      rw [hchi]
+      ring
+    · rw [if_neg hjN, if_neg hjN]
+  rw [Finset.sum_congr rfl hAC, second_reindex hE0 hN0
+    (fun j v => (μ j : ℝ) * (chiRe χ (h * (n / e / v)) * Real.log (((e / h : ℕ) : ℝ) * (v : ℝ)))),
+    Finset.sum_filter]
+  refine Finset.sum_congr rfl fun v _ => ?_
+  rw [← Finset.sum_mul, Salt.SW.sum_divisors_moebius_real]
+  by_cases hg : Nat.gcd (e / h) (n / e / v) = 1
+  · rw [if_pos hg, if_pos hg, one_mul]
+  · rw [if_neg hg, if_neg hg, zero_mul]
+
+/-- **B-2b — the hyperbola identity** (p.211): for `e ∣ n`,
+`Λ′(n) = Σ_{e = h j k, j ∣ n/e} χ(h j) μ(j) Σ_{n/(e j) = w v} χ(w) log(j k v)`.
+⛔ The guard `j ∣ n/e` is LOAD-BEARING: `Nat` division truncates, so without it the terms at
+`j ∤ n/e` are not zero but garbage, and the identity is false.  The proof splits
+`n.divisorsAntidiagonal` into the fibres of `gcd(s, e)` and matches each fibre against the
+`h`-block of the right-hand side. -/
+theorem LamPrime_eq_hyperbola (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {n e : ℕ}
+    (he : e ∣ n) :
+    LamPrime χ n
+      = ∑ t ∈ e.divisorsAntidiagonal, ∑ u ∈ t.2.divisorsAntidiagonal,
+          if u.1 ∣ n / e then
+            chiRe χ (t.1 * u.1) * (μ u.1 : ℝ) * logDivChiSum χ (n / (e * u.1)) ((u.1 * u.2 : ℕ) : ℝ)
+          else 0 := by
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [LamPrime, logDivChiSum]
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  calc LamPrime χ n
+      = ∑ p ∈ n.divisorsAntidiagonal, chiRe χ p.1 * Real.log ((p.2 : ℝ)) := by
+        rw [LamPrime]
+        exact (Nat.sum_divisorsAntidiagonal (fun a b => chiRe χ a * Real.log ((b : ℕ) : ℝ))).symm
+    _ = ∑ h ∈ e.divisors, ∑ p ∈ n.divisorsAntidiagonal.filter (fun p => Nat.gcd p.1 e = h),
+          chiRe χ p.1 * Real.log ((p.2 : ℝ)) := by
+        refine (Finset.sum_fiberwise_of_maps_to ?_ _).symm
+        intro p _
+        exact Nat.mem_divisors.mpr ⟨Nat.gcd_dvd_right _ _, he0⟩
+    _ = ∑ h ∈ e.divisors, ∑ j ∈ (e / h).divisors,
+          (if j ∣ n / e then
+            chiRe χ (h * j) * (μ j : ℝ) *
+              logDivChiSum χ (n / (e * j)) ((j * ((e / h) / j) : ℕ) : ℝ)
+          else 0) :=
+        Finset.sum_congr rfl fun h hh =>
+          (hyperbola_fiber χ hsq hn he (Nat.mem_divisors.mp hh).1).symm
+    _ = ∑ t ∈ e.divisorsAntidiagonal, ∑ u ∈ t.2.divisorsAntidiagonal,
+          (if u.1 ∣ n / e then
+            chiRe χ (t.1 * u.1) * (μ u.1 : ℝ) *
+              logDivChiSum χ (n / (e * u.1)) ((u.1 * u.2 : ℕ) : ℝ)
+          else 0) :=
+        (nested_antidiag e (fun h j k => if j ∣ n / e then
+          chiRe χ (h * j) * (μ j : ℝ) *
+            logDivChiSum χ (n / (e * j)) ((j * k : ℕ) : ℝ) else 0)).symm
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
