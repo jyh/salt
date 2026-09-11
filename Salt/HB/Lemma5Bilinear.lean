@@ -303,6 +303,52 @@ noncomputable def bilinearS (χ : DirichletCharacter ℂ q) (F : HBForms) (x δ�
   ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
     truncChiSum χ (F.l₁ n / δ₁) V₁ * truncChiSum χ (F.l₂ n / δ₂) V₂
 
+/-- (5.1), first clause: `S(δ₁,δ₂;V₁,V₂) = 0` unless `(δ₁, q) = 1`. -/
+theorem bilinearS_eq_zero_of_not_coprime_q₁ (χ : DirichletCharacter ℂ q) (F : HBForms)
+    (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₁ q) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  exfalso
+  rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter] at hn
+  exact h (Nat.Coprime.coprime_dvd_left (Dvd.dvd.mul_right hn.2.1 (F.l₂ n)) hn.1.2)
+theorem bilinearS_eq_zero_of_not_coprime_q₂ (χ : DirichletCharacter ℂ q) (F : HBForms)
+    (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₂ q) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  exfalso
+  rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter] at hn
+  exact h (Nat.Coprime.coprime_dvd_left (Dvd.dvd.mul_left hn.2.2 (F.l₁ n)) hn.1.2)
+/-- (5.1), second clause: `= 0` unless `(δ_i, α) = 1`.  ⛔ These two need NO window filter:
+`δ_i ∣ l_i(n)` and `(l_i(n), α_i) = 1` already give `(δ_i, α_i) = 1`, and `α ∣ α_i`. -/
+theorem bilinearS_eq_zero_of_not_coprime_α₁ (χ : DirichletCharacter ℂ q) (F : HBForms)
+    (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₁ F.α) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  exfalso
+  rw [Finset.mem_filter] at hn
+  have h₁ : Nat.Coprime δ₁ F.α₁ :=
+    Nat.Coprime.coprime_dvd_left hn.2.1 (F.coprime_l₁_α₁ n)
+  exact h (Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left F.α₁ F.α₂) h₁)
+theorem bilinearS_eq_zero_of_not_coprime_α₂ (χ : DirichletCharacter ℂ q) (F : HBForms)
+    (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₂ F.α) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  exfalso
+  rw [Finset.mem_filter] at hn
+  have h₂ : Nat.Coprime δ₂ F.α₂ :=
+    Nat.Coprime.coprime_dvd_left hn.2.2 (F.coprime_l₂_α₂ n)
+  exact h (Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_right F.α₁ F.α₂) h₂)
+/-- (5.1), third clause: `= 0` unless `(δ₁, δ₂) = 1`. -/
+theorem bilinearS_eq_zero_of_not_coprime_δ (χ : DirichletCharacter ℂ q) (F : HBForms)
+    (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₁ δ₂) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  exfalso
+  rw [Finset.mem_filter] at hn
+  have h₁ : Nat.Coprime δ₁ (F.l₂ n) :=
+    Nat.Coprime.coprime_dvd_left hn.2.1 (F.coprime_l n)
+  exact h (Nat.Coprime.coprime_dvd_right hn.2.2 h₁)
+
 /-- The `HBSieveData` at the forms `F`: HB's `S(d)` at general forms (support `hbFormsWindow`,
 `val n = l₁ n · l₂ n`, `a n = Λ*(l₁ n)·Λ*(l₂ n)`); W-a's `hbDataHB` is this at `HBForms.twin`. -/
 noncomputable def hbDataForms (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
