@@ -396,6 +396,14 @@ noncomputable def hbDataForms (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1)
     (fun n => LamStar χ z (F.l₁ n) * LamStar χ z (F.l₂ n))
     (fun n _ => mul_nonneg (LamStar_nonneg χ hsq z _) (LamStar_nonneg χ hsq z _))
 
+/-- **B-1.7 — the transfer**: `hbDataForms`'s `S d` is literally HB's `S(d)` at the forms `F`
+(true by `rfl` — the `HBSieveData.ofHbP` wire does not reshape the sum). -/
+theorem hbDataForms_S (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) :
+    (hbDataForms χ hsq hz F x).S d
+      = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+          LamStar χ z (F.l₁ n) * LamStar χ z (F.l₂ n) := rfl
+
 /-! ## B-2 — Λ′, Q, the μ-sieve, the hyperbola, the log integral, LEMMA 9 (the defs) -/
 
 /-- `Λ′(n) = Σ_{u ∣ n} χ(u) log(n/u)` (p.210): `LamTilde` without the `μ²`. -/
