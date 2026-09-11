@@ -400,6 +400,26 @@ open Salt.Tactic in
   Salt.N7.kb5f_C Salt.N7.kb5f_C_coprime Salt.N7.kb5f_C_iff
   Salt.N7.kb5f_k_pos Salt.N7.kb5f_k_two Salt.N7.kb5f_two_dvd_alpha
   Salt.N7.cellCount_eq_sum_sawtooth
+  Salt.N7.integral_Ioi_ite_inv
+  Salt.N7.integrable_term Salt.N7.integrableOn_truncChiSum_div
+  Salt.N7.integral_Ioi_truncChiSum
+  Salt.N7.hbQRad Salt.N7.hbQ_squarefree Salt.N7.hbQRad_squarefree Salt.N7.hbQRad_dvd_hbQ
+  Salt.N7.prime_dvd_hbQ_iff Salt.N7.prime_dvd_hbQRad_iff Salt.N7.hbQRad_sq_dvd
+  Salt.N7.filter_divisors_hbQ Salt.N7.hbQRad_eq_one_iff Salt.N7.moebius_step
+  Salt.N7.chiRe_sq_of_dvd_hbQ Salt.N7.chiRe_sq_mul Salt.N7.LamStar_eq_moebius_hbQ
+  Salt.N7.nested_antidiag Salt.N7.fiber_facts Salt.N7.second_reindex Salt.N7.fiber_reindex
+  Salt.N7.hyperbola_fiber Salt.N7.LamPrime_eq_hyperbola
+  Salt.N7.bilinear_double_integral Salt.N7.inner_split Salt.N7.hb_lemma9_inner
+  Salt.N7.hb_lemma9_general
+  Salt.N7.hb_lemma9_trunc
+  Salt.N7.hb_lemma9
+  Salt.N7.hb_lemma9_trunc_P
+  -- node N7 WAVE B, LEMMA 9 (Salt/HB/Lemma5Bilinear.lean, continued): HB's `Λ′` and `Q`, the
+  -- μ-sieve of `Λ*` over `Q`, the hyperbola identity of p.211, the three ray-integral rows,
+  -- and Lemma 9 itself in four forms — the inner identity at one `(m₁, m₂)`, the exact form at
+  -- `(d, Q) = 1`, the `Λ*_{<q}` truncation HB's own display carries, and the form §6 lifts.
+  Salt.N7.LamPrime Salt.N7.hbQ Salt.N7.logDivChiSum Salt.N7.LamStarTrunc
+  Salt.N7.coprime_hbQ_hbP Salt.N7.chiRe_finset_prod Salt.N7.chiRe_eq_one_of_dvd_hbP
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
