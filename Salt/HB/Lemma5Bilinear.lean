@@ -518,6 +518,31 @@ theorem integrableOn_truncChiSum_div (χ : DirichletCharacter ℂ q) (N : ℕ) {
   rw [MeasureTheory.IntegrableOn, key]
   exact MeasureTheory.integrable_finsetSum _ (fun p _ => integrable_term ha)
 
+/-- **B-2c′ — the carrier's inner sum integrates to the log-weighted sum** (p.211), `a ≤ 1`:
+each divisor pair's indicator integrates to `log(v/a)` by B-2c, and `a ≤ 1 ≤ v` is exactly
+what the consumer's `(j_i k_i)⁻¹` supplies. -/
+theorem integral_Ioi_truncChiSum (χ : DirichletCharacter ℂ q) (N : ℕ) {a : ℝ} (ha : 0 < a)
+    (ha1 : a ≤ 1) :
+    (∫ V in Set.Ioi a, truncChiSum χ N V / V) = logDivChiSum χ N a⁻¹ := by
+  have key : ∀ V : ℝ, truncChiSum χ N V / V
+      = ∑ p ∈ N.divisorsAntidiagonal, chiRe χ p.1 * (if V < (p.2 : ℝ) then V⁻¹ else 0) := by
+    intro V
+    rw [truncChiSum, Finset.sum_div]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    by_cases h : V < (p.2 : ℝ) <;> simp [h, div_eq_mul_inv]
+  simp_rw [key]
+  rw [MeasureTheory.integral_finsetSum _ (fun p _ => integrable_term ha)]
+  refine Finset.sum_congr rfl fun p hp => ?_
+  have hp2 : (1 : ℝ) ≤ (p.2 : ℝ) := by
+    have hmem := (Nat.mem_divisorsAntidiagonal.mp hp)
+    have hne : p.2 ≠ 0 := by
+      rintro h
+      exact hmem.2 (by simp [← hmem.1, h])
+    exact_mod_cast Nat.one_le_iff_ne_zero.mpr hne
+  rw [MeasureTheory.integral_const_mul, integral_Ioi_ite_inv ha (le_trans ha1 hp2)]
+  congr 1
+  rw [div_eq_inv_mul]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
