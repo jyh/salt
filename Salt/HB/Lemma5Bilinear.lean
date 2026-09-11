@@ -716,6 +716,300 @@ theorem crt_four {m₁ m₂ m₃ m₄ X₁ X₂ X₃ X₄ : ℕ}
     (Nat.ModEq.of_dvd (Nat.dvd_lcm_left m₃ m₄) hZ₃₄).trans hk₃,
     (Nat.ModEq.of_dvd (Nat.dvd_lcm_right m₃ m₄) hZ₃₄).trans hk₄⟩
 
+/-- **B-4 — (5.7)–(5.10) ⟺ (5.11)**: under (5.1), (5.3), (5.4), (5.5), (5.6) and
+`(α₁,q) = (α₂,q)`, the four congruences in `X = v₂w₂` are ONE congruence modulo
+`D δ₁ w₁`, `D = roadModulus α₂ q`, with a residue coprime to the modulus.
+
+The four are one system in `Z = α₁δ₂X + α₂β₁` at the moduli `m₁ = α₁α₂`, `m₂ = α₂δ₁w₁`,
+`m₃ = α₂q`, `m₄ = α₁δ₂q` — p.212's `(X_j; m_j)` — and `crt_four` solves it once the six
+pairwise (5.13) rows are in hand.  `C` is read off the solution by shifting it above `α₂β₁`
+(legitimate: every `m_j` divides `α₁δ₂·Dδ₁w₁`) and dividing by `α₁δ₂`.  The forward half of
+the ⟺ does NOT go back through the lcm of the four: (5.7) cancels `δ₂` mod `α₂`, (5.10) is
+already mod `q`, (5.8) cancels `α₁δ₂` mod `δ₁w₁`, and the three recombine on
+`k = lcm(lcm(α₂,q), δ₁w₁) = Dδ₁w₁`.  The coprimality is p.213's three legs. -/
+theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ) (hq : 0 < q)
+    (hδ₁ : 0 < δ₁) (hw₁ : 0 < w₁)
+    (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)
+    (hδ₁q : Nat.Coprime δ₁ q) (_hδ₂q : Nat.Coprime δ₂ q)
+    (hδ₁α : Nat.Coprime δ₁ F.α) (hδ₂α : Nat.Coprime δ₂ F.α) (hδ : Nat.Coprime δ₁ δ₂)
+    (hw₁α : Nat.Coprime w₁ F.α) (hw₁δ₂ : Nat.Coprime w₁ δ₂) (hw₁q : Nat.Coprime w₁ q)
+    (hab : Nat.Coprime (a₁ * b₁ * (a₂ * b₂)) q)
+    (h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q])
+    (h54₂ : δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q])
+    (h55 : F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+            ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α]) :
+    ∃ C : ℕ, Nat.Coprime C (roadModulus F.α₂ q * δ₁ * w₁) ∧ ∀ X : ℕ,
+      (δ₂ * X ≡ F.β₂ [MOD F.α₂] ∧
+       F.α₁ * δ₂ * X + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁] ∧
+       F.α₁ * δ₂ * X + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
+       X ≡ a₂ * b₂ [MOD q])
+      ↔ X ≡ C [MOD roadModulus F.α₂ q * δ₁ * w₁] := by
+  ---- ① positivity, and the coprimalities B-1.9 transfers off `α`
+  have hα₁ : 0 < F.α₁ := lt_of_lt_of_le (by norm_num) F.two_le_α₁
+  have hα₂ : 0 < F.α₂ := lt_of_lt_of_le (by norm_num) F.two_le_α₂
+  have hδ₂ : 0 < δ₂ := by
+    rcases Nat.eq_zero_or_pos δ₂ with h | h
+    · exfalso
+      have h1 : F.α = 1 := by
+        have hc := hδ₂α
+        rw [h, Nat.Coprime, Nat.gcd_zero_left] at hc
+        exact hc
+      have h2 : (2 : ℕ) ∣ F.α := Nat.dvd_gcd F.even₁ F.even₂
+      rw [h1] at h2
+      omega
+    · exact h
+  obtain ⟨hδ₁α₁, hδ₁α₂⟩ := (F.coprime_α_iff δ₁).mp hδ₁α
+  obtain ⟨hδ₂α₁, hδ₂α₂⟩ := (F.coprime_α_iff δ₂).mp hδ₂α
+  obtain ⟨hw₁α₁, hw₁α₂⟩ := (F.coprime_α_iff w₁).mp hw₁α
+  have hdwα₁ : Nat.Coprime (δ₁ * w₁) F.α₁ := hδ₁α₁.mul hw₁α₁
+  have hdwα₂ : Nat.Coprime (δ₁ * w₁) F.α₂ := hδ₁α₂.mul hw₁α₂
+  have hdwq : Nat.Coprime (δ₁ * w₁) q := hδ₁q.mul hw₁q
+  have hdwδ₂ : Nat.Coprime (δ₁ * w₁) δ₂ := hδ.mul hw₁δ₂
+  ---- ② the road modulus, the target modulus, and `Δ ∣ α₁`
+  have hα₂D : F.α₂ ∣ roadModulus F.α₂ q := dvd_roadModulus_left F.α₂ q
+  have hqD : q ∣ roadModulus F.α₂ q := dvd_roadModulus F.α₂ q
+  have hΔα₁ : Nat.gcd F.α₂ q ∣ F.α₁ := by rw [← hΔ]; exact Nat.gcd_dvd_left F.α₁ q
+  have hgl : Nat.gcd F.α₂ q * roadModulus F.α₂ q = F.α₂ * q := by
+    rw [roadModulus_eq_lcm]; exact Nat.gcd_mul_lcm F.α₂ q
+  obtain ⟨cD, hcD⟩ := hα₂D
+  obtain ⟨cq, hcq⟩ := hqD
+  obtain ⟨eΔ, heΔ⟩ := hΔα₁
+  ---- ③ every `m_j` divides `α₁δ₂ · Dδ₁w₁`
+  have hm₁AK : F.α₁ * F.α₂ ∣ F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) :=
+    ⟨δ₂ * cD * δ₁ * w₁, by rw [hcD]; ring⟩
+  have hm₂AK : F.α₂ * δ₁ * w₁ ∣ F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) :=
+    ⟨F.α₁ * δ₂ * cD, by rw [hcD]; ring⟩
+  have hm₃AK : F.α₂ * q ∣ F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) :=
+    ⟨eΔ * δ₂ * δ₁ * w₁, by rw [heΔ, ← hgl]; ring⟩
+  have hm₄AK : F.α₁ * δ₂ * q ∣ F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) :=
+    ⟨cq * δ₁ * w₁, by rw [hcq]; ring⟩
+  ---- ④ the six pairwise (5.13) rows
+  have c₁₂ : F.α₁ * F.β₂ + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂
+      [MOD Nat.gcd (F.α₁ * F.α₂) (F.α₂ * δ₁ * w₁)] := by
+    have hg : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * δ₁ * w₁) ∣ F.α₂ := by
+      refine Nat.Coprime.dvd_of_dvd_mul_right ?_ ?_
+      · exact (hdwα₁.mul_right hdwα₂).symm.coprime_dvd_left (Nat.gcd_dvd_left _ _)
+      · rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_right _ _
+    refine Nat.ModEq.of_dvd hg ?_
+    simpa using (Nat.ModEq.refl (F.α₁ * F.β₂)).add
+      ((Nat.modEq_zero_iff_dvd).mpr (dvd_mul_right F.α₂ F.β₁))
+  have c₁₃ : F.α₁ * F.β₂ + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁)
+      [MOD Nat.gcd (F.α₁ * F.α₂) (F.α₂ * q)] := by
+    have hg : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * q) ∣ F.α₂ * Nat.gcd F.α₂ q := by
+      have h1 : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * q) ∣ F.α₂ * F.α₁ := by
+        rw [Nat.mul_comm F.α₂ F.α₁]; exact Nat.gcd_dvd_left _ _
+      have h2 : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * q) ∣ F.α₂ * q := Nat.gcd_dvd_right _ _
+      have h3 := Nat.dvd_gcd h1 h2
+      rwa [Nat.gcd_mul_left, hΔ] at h3
+    exact Nat.ModEq.of_dvd hg ((Nat.ModEq.refl _).add (h54₁.symm.mul_left' F.α₂))
+  have c₁₄ : F.α₁ * F.β₂ + F.α₂ * F.β₁ ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁
+      [MOD Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q)] := by
+    have hg : Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q) ∣ F.α₁ * Nat.gcd F.α₂ q := by
+      have hcopδ₂ : Nat.Coprime (Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q)) δ₂ :=
+        (hδ₂α₁.mul_right hδ₂α₂).symm.coprime_dvd_left (Nat.gcd_dvd_left _ _)
+      have h2 : Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q) ∣ F.α₁ * q := by
+        refine hcopδ₂.dvd_of_dvd_mul_right ?_
+        rw [show F.α₁ * q * δ₂ = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+      have h3 := Nat.dvd_gcd (Nat.gcd_dvd_left (F.α₁ * F.α₂) (F.α₁ * δ₂ * q)) h2
+      rwa [Nat.gcd_mul_left] at h3
+    refine Nat.ModEq.of_dvd hg ?_
+    rw [show F.α₁ * δ₂ * (a₂ * b₂) = F.α₁ * (δ₂ * a₂ * b₂) by ring]
+    exact (h54₂.symm.mul_left' F.α₁).add_right (F.α₂ * F.β₁)
+  have c₂₃ : F.α₁ * F.β₂ ≡ F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁)
+      [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₂ * q)] := by
+    have hg : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₂ * q) ∣ F.α₂ := by
+      refine Nat.Coprime.dvd_of_dvd_mul_right ?_ ?_
+      · exact (hdwα₂.mul_right hdwq).symm.coprime_dvd_left (Nat.gcd_dvd_right _ _)
+      · rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_left _ _
+    refine Nat.ModEq.of_dvd hg ?_
+    simpa using (Nat.ModEq.refl (F.α₁ * F.β₂)).add
+      (((Nat.modEq_zero_iff_dvd).mpr (dvd_mul_right F.α₂ (δ₁ * a₁ * b₁))).symm)
+  have c₂₄ : F.α₁ * F.β₂ ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁
+      [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)] := by
+    have hcopdw : Nat.Coprime (Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)) (δ₁ * w₁) := by
+      refine Nat.Coprime.coprime_dvd_left ?_ ((hdwα₁.mul_right hdwδ₂).mul_right hdwq).symm
+      rw [show F.α₁ * (δ₂ * q) = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+    have hgα₂ : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₂ := by
+      refine hcopdw.dvd_of_dvd_mul_right ?_
+      rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_left _ _
+    have hcopδ₂ : Nat.Coprime (Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)) δ₂ :=
+      hδ₂α₂.symm.coprime_dvd_left hgα₂
+    have hgα₁q : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₁ * q := by
+      refine hcopδ₂.dvd_of_dvd_mul_right ?_
+      rw [show F.α₁ * q * δ₂ = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+    have hgα₁Δ : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₁ * Nat.gcd F.α₂ q := by
+      have h3 := Nat.dvd_gcd (Dvd.dvd.mul_left hgα₂ F.α₁) hgα₁q
+      rwa [Nat.gcd_mul_left] at h3
+    have e1 : F.α₁ * F.β₂ ≡ F.α₁ * (δ₂ * a₂ * b₂)
+        [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)] :=
+      Nat.ModEq.of_dvd hgα₁Δ (h54₂.symm.mul_left' F.α₁)
+    have e2 : (0 : ℕ) ≡ F.α₂ * F.β₁ [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)] :=
+      (Nat.ModEq.of_dvd hgα₂ ((Nat.modEq_zero_iff_dvd).mpr (dvd_mul_right F.α₂ F.β₁))).symm
+    rw [show F.α₁ * δ₂ * (a₂ * b₂) = F.α₁ * (δ₂ * a₂ * b₂) by ring]
+    simpa using e1.add e2
+  have c₃₄ : F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁) ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁
+      [MOD Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q)] := by
+    have hg : Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q) ∣ q * F.α := by
+      have hstep : Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q) ∣ q * Nat.gcd F.α₂ (F.α₁ * δ₂) := by
+        have h1 : Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q) ∣ q * F.α₂ := by
+          rw [Nat.mul_comm q F.α₂]; exact Nat.gcd_dvd_left _ _
+        have h2 : Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q) ∣ q * (F.α₁ * δ₂) := by
+          rw [show q * (F.α₁ * δ₂) = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+        have h3 := Nat.dvd_gcd h1 h2
+        rwa [Nat.gcd_mul_left] at h3
+      have hinner : Nat.gcd F.α₂ (F.α₁ * δ₂) ∣ F.α := by
+        have hco : Nat.Coprime (Nat.gcd F.α₂ (F.α₁ * δ₂)) δ₂ :=
+          hδ₂α₂.symm.coprime_dvd_left (Nat.gcd_dvd_left _ _)
+        exact Nat.dvd_gcd (hco.dvd_of_dvd_mul_right (Nat.gcd_dvd_right _ _))
+          (Nat.gcd_dvd_left _ _)
+      exact hstep.trans (Nat.mul_dvd_mul_left q hinner)
+    refine Nat.ModEq.of_dvd hg ?_
+    rw [show F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁) = F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ by ring,
+      show F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁ = F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁ by ring]
+    exact h55.symm
+  ---- ⑤ the common solution, shifted above `α₂β₁`, divided by `α₁δ₂`
+  obtain ⟨Z, hZ₁, hZ₂, hZ₃, hZ₄⟩ := crt_four c₁₂ c₁₃ c₁₄ c₂₃ c₂₄ c₃₄
+  have hApos : 0 < F.α₁ * δ₂ := Nat.mul_pos hα₁ hδ₂
+  have hDpos : 0 < roadModulus F.α₂ q := by
+    rw [roadModulus_eq_lcm]
+    exact Nat.pos_of_ne_zero (Nat.lcm_ne_zero hα₂.ne' hq.ne')
+  have hAKpos : 0 < F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) :=
+    Nat.mul_pos hApos (Nat.mul_pos (Nat.mul_pos hDpos hδ₁) hw₁)
+  have hZ₁ge : F.α₂ * F.β₁
+      ≤ Z + F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) * (F.α₂ * F.β₁) := by
+    have h := Nat.le_mul_of_pos_left (F.α₂ * F.β₁) hAKpos
+    omega
+  have shift : ∀ {m Y : ℕ}, m ∣ F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) → Z ≡ Y [MOD m] →
+      Z + F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) * (F.α₂ * F.β₁) ≡ Y [MOD m] := by
+    intro m Y hm hY
+    refine Nat.ModEq.trans ?_ hY
+    exact ((Nat.modEq_iff_dvd' (Nat.le_add_right Z _)).mpr
+      (by rw [Nat.add_sub_cancel_left]; exact hm.mul_right _)).symm
+  have hAdvdZ : F.α₁ * δ₂
+      ∣ Z + F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) * (F.α₂ * F.β₁) - F.α₂ * F.β₁ := by
+    have h4 := shift hm₄AK hZ₄
+    have hA4 : Z + F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) * (F.α₂ * F.β₁)
+        ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁ [MOD F.α₁ * δ₂] :=
+      Nat.ModEq.of_dvd (dvd_mul_right (F.α₁ * δ₂) q) h4
+    have hzero : F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁ ≡ F.α₂ * F.β₁ [MOD F.α₁ * δ₂] := by
+      simpa using ((Nat.modEq_zero_iff_dvd).mpr
+        (dvd_mul_right (F.α₁ * δ₂) (a₂ * b₂))).add_right (F.α₂ * F.β₁)
+    exact (Nat.modEq_iff_dvd' hZ₁ge).mp (hA4.trans hzero).symm
+  obtain ⟨C, hCdef⟩ := hAdvdZ
+  have hCeq : F.α₁ * δ₂ * C + F.α₂ * F.β₁
+      = Z + F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁) * (F.α₂ * F.β₁) := by omega
+  ---- ⑥ `C` satisfies the four
+  have hC7 : δ₂ * C ≡ F.β₂ [MOD F.α₂] := by
+    have h1 : F.α₁ * δ₂ * C + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ + F.α₂ * F.β₁ [MOD F.α₁ * F.α₂] := by
+      rw [hCeq]; exact shift hm₁AK hZ₁
+    have h2 : F.α₁ * (δ₂ * C) ≡ F.α₁ * F.β₂ [MOD F.α₁ * F.α₂] := by
+      have h3 := Nat.ModEq.add_right_cancel' (F.α₂ * F.β₁) h1
+      rwa [show F.α₁ * δ₂ * C = F.α₁ * (δ₂ * C) by ring] at h3
+    exact Nat.ModEq.mul_left_cancel' hα₁.ne' h2
+  have hC8 : F.α₁ * δ₂ * C + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁] := by
+    rw [hCeq]; exact shift hm₂AK hZ₂
+  have hC9 : F.α₁ * δ₂ * C + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁
+      [MOD F.α₂ * q] := by
+    rw [hCeq, show F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁
+      = F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁) by ring]
+    exact shift hm₃AK hZ₃
+  have hC10 : C ≡ a₂ * b₂ [MOD q] := by
+    have h1 : F.α₁ * δ₂ * C + F.α₂ * F.β₁ ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁
+        [MOD F.α₁ * δ₂ * q] := by rw [hCeq]; exact shift hm₄AK hZ₄
+    exact Nat.ModEq.mul_left_cancel' hApos.ne'
+      (Nat.ModEq.add_right_cancel' (F.α₂ * F.β₁) h1)
+  ---- ⑦ p.213's three coprimality legs
+  have hab₂ : Nat.Coprime (a₂ * b₂) q :=
+    Nat.Coprime.coprime_dvd_left (dvd_mul_left (a₂ * b₂) (a₁ * b₁)) hab
+  have hCα₂ : Nat.Coprime C F.α₂ := by
+    by_contra hcon
+    obtain ⟨p, hp, hpC, hpα₂⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
+    have h1 : δ₂ * C ≡ F.β₂ [MOD p] := Nat.ModEq.of_dvd hpα₂ hC7
+    have h2 : δ₂ * C ≡ 0 [MOD p] := (Nat.modEq_zero_iff_dvd).mpr (Dvd.dvd.mul_left hpC δ₂)
+    have h3 : p ∣ F.β₂ := (Nat.modEq_zero_iff_dvd).mp (h1.symm.trans h2)
+    have h4 : p ∣ Nat.gcd F.α₂ F.β₂ := Nat.dvd_gcd hpα₂ h3
+    rw [show Nat.gcd F.α₂ F.β₂ = 1 from F.cop₂] at h4
+    exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+  have hCq : Nat.Coprime C q := by
+    by_contra hcon
+    obtain ⟨p, hp, hpC, hpq⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
+    have h1 : C ≡ a₂ * b₂ [MOD p] := Nat.ModEq.of_dvd hpq hC10
+    have h2 : C ≡ 0 [MOD p] := (Nat.modEq_zero_iff_dvd).mpr hpC
+    have h3 : p ∣ a₂ * b₂ := (Nat.modEq_zero_iff_dvd).mp (h1.symm.trans h2)
+    have h4 : p ∣ Nat.gcd (a₂ * b₂) q := Nat.dvd_gcd h3 hpq
+    rw [show Nat.gcd (a₂ * b₂) q = 1 from hab₂] at h4
+    exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+  have hdet : ∀ p : ℕ, p.Prime → p ∣ C → p ∣ δ₁ * w₁ → False := by
+    intro p hp hpC hpd
+    have hpm₂ : p ∣ F.α₂ * δ₁ * w₁ := by
+      rw [show F.α₂ * δ₁ * w₁ = F.α₂ * (δ₁ * w₁) by ring]
+      exact Dvd.dvd.mul_left hpd F.α₂
+    have h1 : F.α₁ * δ₂ * C + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD p] := Nat.ModEq.of_dvd hpm₂ hC8
+    have h2 : F.α₁ * δ₂ * C ≡ 0 [MOD p] :=
+      (Nat.modEq_zero_iff_dvd).mpr (Dvd.dvd.mul_left hpC (F.α₁ * δ₂))
+    have h3 : F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD p] := by
+      have h4 := (h2.add_right (F.α₂ * F.β₁)).symm.trans h1
+      simpa using h4
+    have hz : (p : ℤ) ∣ (F.α₁ : ℤ) * F.β₂ - (F.α₂ : ℤ) * F.β₁ := by
+      have h5 := Nat.modEq_iff_dvd.mp h3
+      push_cast at h5
+      exact h5
+    obtain ⟨hd1, hd2⟩ := F.det_dvd p hp hz
+    have hα : p ∣ F.α := Nat.dvd_gcd hd1 hd2
+    have hpdw : p ∣ δ₁ ∨ p ∣ w₁ := (Nat.Prime.dvd_mul hp).mp hpd
+    rcases hpdw with h | h
+    · have h6 := Nat.dvd_gcd h hα
+      rw [show Nat.gcd δ₁ F.α = 1 from hδ₁α] at h6
+      exact hp.one_lt.ne' (Nat.dvd_one.mp h6)
+    · have h6 := Nat.dvd_gcd h hα
+      rw [show Nat.gcd w₁ F.α = 1 from hw₁α] at h6
+      exact hp.one_lt.ne' (Nat.dvd_one.mp h6)
+  have hCdw : Nat.Coprime C (δ₁ * w₁) := by
+    by_contra hcon
+    obtain ⟨p, hp, hpC, hpd⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
+    exact hdet p hp hpC hpd
+  have hCD : Nat.Coprime C (roadModulus F.α₂ q) := by
+    refine Nat.Coprime.coprime_dvd_right ?_ (hCα₂.mul_right hCq)
+    rw [roadModulus_eq_lcm]
+    exact Nat.lcm_dvd (dvd_mul_right F.α₂ q) (dvd_mul_left q F.α₂)
+  have hCk : Nat.Coprime C (roadModulus F.α₂ q * δ₁ * w₁) := by
+    have h1 : Nat.Coprime C (roadModulus F.α₂ q * (δ₁ * w₁)) := hCD.mul_right hCdw
+    rwa [← Nat.mul_assoc] at h1
+  ---- ⑧ the equivalence
+  have hα₂k : F.α₂ ∣ roadModulus F.α₂ q * δ₁ * w₁ := by
+    obtain ⟨c, hc⟩ := hα₂D
+    exact ⟨c * δ₁ * w₁, by rw [hc]; ring⟩
+  have hqk : q ∣ roadModulus F.α₂ q * δ₁ * w₁ := dvd_roadModulus_mul F.α₂ q δ₁ w₁
+  have hdwk : δ₁ * w₁ ∣ F.α₂ * δ₁ * w₁ := ⟨F.α₂, by ring⟩
+  have hcopDdw : Nat.Coprime (roadModulus F.α₂ q) (δ₁ * w₁) := by
+    refine Nat.Coprime.coprime_dvd_left ?_ (hdwα₂.mul_right hdwq).symm
+    rw [roadModulus_eq_lcm]
+    exact Nat.lcm_dvd (dvd_mul_right F.α₂ q) (dvd_mul_left q F.α₂)
+  refine ⟨C, hCk, fun X => ⟨?_, ?_⟩⟩
+  · rintro ⟨h7, h8, _h9, h10⟩
+    have eα₂ : X ≡ C [MOD F.α₂] :=
+      Nat.ModEq.cancel_left_of_coprime (by simpa [Nat.Coprime] using hδ₂α₂.symm)
+        (h7.trans hC7.symm)
+    have eq' : X ≡ C [MOD q] := h10.trans hC10.symm
+    have e8a : F.α₁ * δ₂ * X + F.α₂ * F.β₁ ≡ F.α₁ * δ₂ * C + F.α₂ * F.β₁ [MOD δ₁ * w₁] :=
+      (Nat.ModEq.of_dvd hdwk h8).trans (Nat.ModEq.of_dvd hdwk hC8).symm
+    have edw : X ≡ C [MOD δ₁ * w₁] :=
+      Nat.ModEq.cancel_left_of_coprime
+        (by simpa [Nat.Coprime] using (hdwα₁.mul_right hdwδ₂))
+        (Nat.ModEq.add_right_cancel' (F.α₂ * F.β₁) e8a)
+    have eD : X ≡ C [MOD roadModulus F.α₂ q] := by
+      rw [roadModulus_eq_lcm]; exact Nat.mod_lcm eα₂ eq'
+    have hfin := Nat.mod_lcm eD edw
+    rwa [hcopDdw.lcm_eq_mul, ← Nat.mul_assoc] at hfin
+  · intro hXC
+    have eα₂ : X ≡ C [MOD F.α₂] := Nat.ModEq.of_dvd hα₂k hXC
+    have eq' : X ≡ C [MOD q] := Nat.ModEq.of_dvd hqk hXC
+    have eA : F.α₁ * δ₂ * X ≡ F.α₁ * δ₂ * C
+        [MOD F.α₁ * δ₂ * (roadModulus F.α₂ q * δ₁ * w₁)] := hXC.mul_left' (F.α₁ * δ₂)
+    refine ⟨(eα₂.mul_left δ₂).trans hC7, ?_, ?_, eq'.trans hC10⟩
+    · exact ((Nat.ModEq.of_dvd hm₂AK eA).add_right (F.α₂ * F.β₁)).trans hC8
+    · exact ((Nat.ModEq.of_dvd hm₃AK eA).add_right (F.α₂ * F.β₁)).trans hC9
+
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
 /-- (5.15) -/
