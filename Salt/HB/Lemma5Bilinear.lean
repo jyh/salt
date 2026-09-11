@@ -703,43 +703,35 @@ theorem coprime_of_modEq {m a : ℕ} (h : m ≡ a [MOD q]) (ha : Nat.Coprime a q
   exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
 
 /-- **The out-of-window cells carry no mass.**  `cellCount` runs over the BARE `Ioc` while the
-carrier runs over the `(l, q) = 1` window; under `(δ_i, q) = 1` the gap between them is empty.
-A non-empty cell puts `v_i` and `w_i` in UNIT classes mod `q`, so `(l_i(n)/δ_i, q) = 1` and
-hence `(l_i(n), q) = 1`; both indices together put `n` in the window. -/
-theorem cell_card_mul_eq_zero_of_not_mem_window (F : HBForms) (x δ₁ δ₂ : ℕ)
-    (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q) {n : ℕ}
-    (hn : n ∈ Finset.Ioc x (2 * x)) (hd₁ : δ₁ ∣ F.l₁ n) (hd₂ : δ₂ ∣ F.l₂ n)
-    (hnw : n ∉ hbFormsWindow F q x) (R₁ S₁ R₂ S₂ : ℝ) {a₁ b₁ a₂ b₂ : ℕ}
-    (ha₁ : Nat.Coprime a₁ q) (hb₁ : Nat.Coprime b₁ q)
-    (ha₂ : Nat.Coprime a₂ q) (hb₂ : Nat.Coprime b₂ q) :
-    ((F.l₁ n / δ₁).divisorsAntidiagonal.filter (fun p =>
-        R₁ < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * R₁ ∧ S₁ < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * S₁ ∧
-        p.2 ≡ a₁ [MOD q] ∧ p.1 ≡ b₁ [MOD q])).card *
-    ((F.l₂ n / δ₂).divisorsAntidiagonal.filter (fun p =>
-        R₂ < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * R₂ ∧ S₂ < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * S₂ ∧
-        p.2 ≡ a₂ [MOD q] ∧ p.1 ≡ b₂ [MOD q])).card = 0 := by
-  by_contra hne
-  obtain ⟨hc₁, hc₂⟩ := Nat.mul_ne_zero_iff.mp hne
-  obtain ⟨u₁, hu₁⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc₁)
-  obtain ⟨u₂, hu₂⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc₂)
-  rw [Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hu₁ hu₂
-  have hl₁ : Nat.Coprime (F.l₁ n) q := by
-    have hN : Nat.Coprime (F.l₁ n / δ₁) q := by
-      rw [← hu₁.1.1]
-      exact (coprime_of_modEq hu₁.2.2.2.2.2 hb₁).mul_left (coprime_of_modEq hu₁.2.2.2.2.1 ha₁)
-    have he : δ₁ * (F.l₁ n / δ₁) = F.l₁ n := Nat.mul_div_cancel' hd₁
-    rw [← he]
-    exact hδ₁q.mul_left hN
-  have hl₂ : Nat.Coprime (F.l₂ n) q := by
-    have hN : Nat.Coprime (F.l₂ n / δ₂) q := by
-      rw [← hu₂.1.1]
-      exact (coprime_of_modEq hu₂.2.2.2.2.2 hb₂).mul_left (coprime_of_modEq hu₂.2.2.2.2.1 ha₂)
-    have he : δ₂ * (F.l₂ n / δ₂) = F.l₂ n := Nat.mul_div_cancel' hd₂
-    rw [← he]
-    exact hδ₂q.mul_left hN
+carrier runs over the `(l, q) = 1` window; under `(δ, q) = 1` the gap between them is empty.
+A non-empty cell puts `v` and `w` in UNIT classes mod `q`, so `(N/δ, q) = 1` and hence
+`(N, q) = 1`: a cell at an `N` NOT coprime to `q` is empty. -/
+theorem cell_card_eq_zero_of_not_coprime {δ N : ℕ} (hδq : Nat.Coprime δ q) (hd : δ ∣ N)
+    (hNq : ¬ Nat.Coprime N q) (R S : ℝ) {a b : ℕ}
+    (ha : Nat.Coprime a q) (hb : Nat.Coprime b q) :
+    ((N / δ).divisorsAntidiagonal.filter (fun p =>
+        R < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * R ∧ S < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * S ∧
+        p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q])).card = 0 := by
+  by_contra hc
+  obtain ⟨u, hu⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc)
+  rw [Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hu
+  refine hNq ?_
+  have hN : Nat.Coprime (N / δ) q := by
+    rw [← hu.1.1]
+    exact (coprime_of_modEq hu.2.2.2.2.2.2 hb).mul_left (coprime_of_modEq hu.2.2.2.2.2.1 ha)
+  have he : δ * (N / δ) = N := Nat.mul_div_cancel' hd
+  rw [← he]
+  exact hδq.mul_left hN
+
+/-- Off the window, one of the two form values shares a factor with `q`. -/
+theorem not_coprime_of_not_mem_window (F : HBForms) (x : ℕ) {n : ℕ}
+    (hn : n ∈ Finset.Ioc x (2 * x)) (hnw : n ∉ hbFormsWindow F q x) :
+    ¬ Nat.Coprime (F.l₁ n) q ∨ ¬ Nat.Coprime (F.l₂ n) q := by
+  by_contra hc
+  push_neg at hc
   refine hnw ?_
   simp only [hbFormsWindow, Finset.mem_filter]
-  exact ⟨hn, hl₁.mul_left hl₂⟩
+  exact ⟨hn, hc.1.mul_left hc.2⟩
 
 /-! ### Two `Finset.sum_comm` chains, stated once and used by B-3a's assembly -/
 
