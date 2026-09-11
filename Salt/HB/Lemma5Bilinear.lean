@@ -588,4 +588,37 @@ noncomputable def hbT₂ (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (
       ((2 * ((F.α₂ * δ₁ * w₁ : ℕ) : ℝ) * R₁ + ((F.α₁ * F.β₂ : ℕ) : ℝ) - ((F.α₂ * F.β₁ : ℕ) : ℝ))
         / ((F.α₁ * δ₂ * w₂ : ℕ) : ℝ)))
 
+/-- The nested-floor helper B-5a's four rewrites run through: `⌊T⌋₊` inside a ℚ-quotient floor
+is the same integer as the ℝ-quotient floor, for `0 ≤ T`. -/
+theorem nested (k r : ℕ) {T : ℝ} (hT : 0 ≤ T) :
+    ⌊(((⌊T⌋₊ : ℚ) - (r : ℚ)) / (k : ℚ))⌋ = ⌊(T - (r : ℝ)) / (k : ℝ)⌋ := by
+  rw [Int.floor_div_natCast, Int.floor_div_natCast, Int.floor_sub_natCast,
+    Int.floor_sub_natCast, Int.floor_natCast, Int.natCast_floor_eq_floor hT]
+
+/-- **B-5a — the residue-class count through the sawtooth** (the identity behind (5.17)). -/
+theorem card_Ioc_filter_modEq_eq_sawtooth {k : ℕ} (hk : 0 < k) (r : ℕ) {T₁ T₂ : ℝ}
+    (h0 : 0 ≤ T₁) (h12 : T₁ ≤ T₂) :
+    (((Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊).filter (fun v : ℕ => v ≡ r [MOD k])).card : ℝ)
+      = (T₂ - T₁) / k + sawtooth ((T₁ - r) / k) - sawtooth ((T₂ - r) / k) := by
+  have h0₂ : (0 : ℝ) ≤ T₂ := h0.trans h12
+  have hkR : (0 : ℝ) < (k : ℝ) := by exact_mod_cast hk
+  have hmono : (T₁ - (r : ℝ)) / (k : ℝ) ≤ (T₂ - (r : ℝ)) / (k : ℝ) := by
+    have hnn : (0 : ℝ) ≤ (T₂ - T₁) / (k : ℝ) := div_nonneg (by linarith) hkR.le
+    have e : (T₂ - (r : ℝ)) / (k : ℝ) - (T₁ - (r : ℝ)) / (k : ℝ) = (T₂ - T₁) / (k : ℝ) := by
+      ring
+    linarith
+  have key : (((Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊).filter (fun v : ℕ => v ≡ r [MOD k])).card : ℤ)
+      = ⌊(T₂ - (r : ℝ)) / (k : ℝ)⌋ - ⌊(T₁ - (r : ℝ)) / (k : ℝ)⌋ := by
+    rw [Nat.Ioc_filter_modEq_card _ _ hk r, nested k r h0₂, nested k r h0,
+      max_eq_left (sub_nonneg.mpr (Int.floor_mono hmono))]
+  have hf : ∀ y : ℝ, ((⌊y⌋ : ℤ) : ℝ) = y - Int.fract y := by
+    intro y; have := Int.floor_add_fract y; linarith
+  have hgoal : (((Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊).filter (fun v : ℕ => v ≡ r [MOD k])).card : ℝ)
+      = ((⌊(T₂ - (r : ℝ)) / (k : ℝ)⌋ : ℤ) : ℝ) - ((⌊(T₁ - (r : ℝ)) / (k : ℝ)⌋ : ℤ) : ℝ) := by
+    exact_mod_cast congrArg (fun z : ℤ => (z : ℝ)) key
+  rw [hgoal, hf, hf]
+  simp only [sawtooth]
+  ring
+
+
 end Salt.N7
