@@ -1402,6 +1402,42 @@ theorem hb_lemma9_trunc (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : 
     (Nat.mem_divisors.mp (Finset.mem_filter.mp hm₁).1).1
     (Nat.mem_divisors.mp (Finset.mem_filter.mp hm₂).1).1]
 
+/-- **B-2e — LEMMA 9 at `d ∣ P`**: the `χ(h_i j_i)` factors are `1`.  `(d, Q) = 1` comes free from
+`coprime_hbQ_hbP`, and each `t_i.1 * u_i.1` divides `t_i.1 * t_i.2 = p.i`, which divides
+`p.1 * p.2 = d`, which divides `P` — so `chiRe_eq_one_of_dvd_hbP` kills both χ factors five
+`Finset.sum_congr`s deep. -/
+theorem hb_lemma9 (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hd : d ∣ hbP (chiReChar χ hsq) (z : ℝ)) :
+    (hbDataForms χ hsq hz F x).S d
+      = ∑ m₁ ∈ (hbQ χ z).divisors, ∑ m₂ ∈ (hbQ χ z).divisors, (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have hdQ : Nat.Coprime d (hbQ χ z) :=
+    (Nat.Coprime.coprime_dvd_right hd (coprime_hbQ_hbP χ hsq z)).symm
+  rw [hb_lemma9_general χ hsq hz F x d hdQ]
+  refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+  congr 1
+  refine Finset.sum_congr rfl fun p hp => Finset.sum_congr rfl fun t₁ ht₁ =>
+    Finset.sum_congr rfl fun u₁ hu₁ => Finset.sum_congr rfl fun t₂ ht₂ =>
+    Finset.sum_congr rfl fun u₂ hu₂ => ?_
+  have h3 := (Nat.mem_divisorsAntidiagonal.mp hp).1
+  have h1 := (Nat.mem_divisorsAntidiagonal.mp ht₁).1
+  have h2 := (Nat.mem_divisorsAntidiagonal.mp hu₁).1
+  have h1' := (Nat.mem_divisorsAntidiagonal.mp ht₂).1
+  have h2' := (Nat.mem_divisorsAntidiagonal.mp hu₂).1
+  have hdvd₁ : t₁.1 * u₁.1 ∣ d :=
+    (h1 ▸ Nat.mul_dvd_mul_left t₁.1 (h2 ▸ dvd_mul_right u₁.1 u₁.2)).trans ⟨p.2, h3.symm⟩
+  have hdvd₂ : t₂.1 * u₂.1 ∣ d :=
+    (h1' ▸ Nat.mul_dvd_mul_left t₂.1 (h2' ▸ dvd_mul_right u₂.1 u₂.2)).trans
+      ⟨p.1, by rw [← h3]; ring⟩
+  rw [chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₁.trans hd), one_mul,
+    chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₂.trans hd), one_mul]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
