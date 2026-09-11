@@ -224,6 +224,30 @@ theorem coprime_l (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₁ n) (F.l₂ n) :=
   exact hp.one_lt.ne' (Nat.dvd_one.mp hg)
 
 
+/-- **B-1.9 — the (1.8) radical transfer**: coprime to `α = (α₁, α₂)` ⇒ coprime to each `α_i`
+(`same_primes`); FALSE without (1.8), e.g. `d = 4`, `α₁ = 4`, `α₂ = 3`. B-4 spends it five times. -/
+theorem coprime_α_iff (F : HBForms) (d : ℕ) :
+    Nat.Coprime d F.α ↔ Nat.Coprime d F.α₁ ∧ Nat.Coprime d F.α₂ := by
+  constructor
+  · intro h
+    refine ⟨?_, ?_⟩
+    · by_contra hc
+      obtain ⟨p, hp, hpd, hp1⟩ := Nat.Prime.not_coprime_iff_dvd.mp hc
+      have hp2 : p ∣ F.α₂ := (F.same_primes p hp).mp hp1
+      have hpα : p ∣ F.α := Nat.dvd_gcd hp1 hp2
+      have hg : p ∣ Nat.gcd d F.α := Nat.dvd_gcd hpd hpα
+      rw [show Nat.gcd d F.α = 1 from h] at hg
+      exact hp.one_lt.ne' (Nat.dvd_one.mp hg)
+    · by_contra hc
+      obtain ⟨p, hp, hpd, hp2⟩ := Nat.Prime.not_coprime_iff_dvd.mp hc
+      have hp1 : p ∣ F.α₁ := (F.same_primes p hp).mpr hp2
+      have hpα : p ∣ F.α := Nat.dvd_gcd hp1 hp2
+      have hg : p ∣ Nat.gcd d F.α := Nat.dvd_gcd hpd hpα
+      rw [show Nat.gcd d F.α = 1 from h] at hg
+      exact hp.one_lt.ne' (Nat.dvd_one.mp hg)
+  · intro h
+    exact Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left F.α₁ F.α₂) h.1
+
 /-- The twin-prime instance `(4n+1, 4n+3)` (p.195): the forms W-a's `hbDataHB` uses. -/
 def twin : HBForms where
   α₁ := 4
