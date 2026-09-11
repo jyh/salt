@@ -656,8 +656,11 @@ theorem card_count_eq_sawtooth (k : ℕ) [NeZero k] {w₂ : ℕ} (hw : Nat.Copri
   have hnn : (0 : ℤ) ≤ invMod (w₂ : ℤ) k := by
     simp only [invMod]; exact Int.natCast_nonneg _
   have hcast : ((C * (invMod (w₂ : ℤ) k).toNat : ℕ) : ℝ) = (C : ℝ) * (invMod (w₂ : ℤ) k : ℝ) := by
-    push_cast [Int.toNat_of_nonneg hnn]
-    ring
+    have h1 : (((invMod (w₂ : ℤ) k).toNat : ℕ) : ℤ) = invMod (w₂ : ℤ) k := Int.toNat_of_nonneg hnn
+    have h2 : (((invMod (w₂ : ℤ) k).toNat : ℕ) : ℝ) = ((invMod (w₂ : ℤ) k : ℤ) : ℝ) := by
+      exact_mod_cast congrArg (fun z : ℤ => (z : ℝ)) h1
+    push_cast
+    rw [h2]
   rw [hcongr, card_Ioc_filter_modEq_eq_sawtooth hk _ h0 h12, hcast]
 
 end Salt.N7
