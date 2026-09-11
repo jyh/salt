@@ -555,6 +555,141 @@ theorem unitRep_unique {q v a : ℕ} (hq : 0 < q) (ha : a ∈ Finset.Icc 1 q)
       rw [hae, Nat.mod_self] at hmod
       omega
 
+/-- Periodicity of `chiRe`: the reason a cell's residue `b` may stand in for `w`. -/
+theorem chiRe_modEq (χ : DirichletCharacter ℂ q) {m n : ℕ} (h : m ≡ n [MOD q]) :
+    chiRe χ m = chiRe χ n := by
+  unfold chiRe
+  rw [(ZMod.natCast_eq_natCast_iff m n q).mpr h]
+
+/-- **The per-`N` cell identity** — the content of (5.18) at one form value.  Every divisor pair
+`(w, v)` of `N` with `v > V` lies in exactly ONE dyadic cell `(V·2^j, 2V·2^j] × (2^k/2, 2^k]`
+with `j < J`, `k < K`, and in exactly one pair of unit residue classes mod `q`; and `χ(w)` there
+equals `χ(b)`.  `Coprime N q` is what makes the residues units; `hJ`/`hK` are exactly the covers.
+-/
+theorem truncChiSum_eq_sum_cells (χ : DirichletCharacter ℂ q) (hq : 0 < q) {N : ℕ}
+    (hN : N ≠ 0) (hNq : Nat.Coprime N q) {V : ℝ} (hV : 0 < V) (J K : ℕ)
+    (hJ : (N : ℝ) ≤ V * 2 ^ J) (hK : (N : ℝ) ≤ 2 ^ K / 2) :
+    truncChiSum χ N V
+      = ∑ j ∈ range J, ∑ k ∈ range K,
+        ∑ a ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+          chiRe χ b * ((N.divisorsAntidiagonal.filter (fun p =>
+            V * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V * 2 ^ j) ∧
+            2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+            p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q])).card : ℝ) := by
+  classical
+  -- ① every summand of the right side is an indicator sum over the whole antidiagonal
+  have hcard : ∀ j k a b : ℕ,
+      chiRe χ b * ((N.divisorsAntidiagonal.filter (fun p =>
+          V * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V * 2 ^ j) ∧
+          2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+          p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q])).card : ℝ)
+        = ∑ p ∈ N.divisorsAntidiagonal,
+            (if V * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V * 2 ^ j) ∧
+                2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+                p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q] then chiRe χ b else 0) := by
+    intro j k a b
+    simp only [Finset.card_filter, Nat.cast_sum, Nat.cast_ite, Nat.cast_one, Nat.cast_zero,
+      Finset.mul_sum, mul_ite, mul_one, mul_zero]
+  -- ② the pointwise identity on one divisor pair
+  have key : ∀ p ∈ N.divisorsAntidiagonal,
+      (∑ j ∈ range J, ∑ k ∈ range K,
+        ∑ a ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+        ∑ b ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+          (if V * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V * 2 ^ j) ∧
+              2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+              p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q] then chiRe χ b else 0))
+        = (if V < (p.2 : ℝ) then chiRe χ p.1 else 0) := by
+    intro p hp
+    rw [Nat.mem_divisorsAntidiagonal] at hp
+    obtain ⟨hmul, hNne⟩ := hp
+    have hwd : p.1 ∣ N := ⟨p.2, hmul.symm⟩
+    have hvd : p.2 ∣ N := ⟨p.1, by rw [← hmul]; ring⟩
+    have hNpos : 0 < N := Nat.pos_of_ne_zero hNne
+    have hwpos : 0 < p.1 := Nat.pos_of_dvd_of_pos hwd hNpos
+    have hwle : (p.1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast Nat.le_of_dvd hNpos hwd
+    have hvle : (p.2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast Nat.le_of_dvd hNpos hvd
+    by_cases hVv : V < (p.2 : ℝ)
+    · rw [if_pos hVv]
+      -- the unique dyadic index of `v`
+      obtain ⟨j₀, ⟨hj₀J, hj₀1, hj₀2⟩, hj₀u⟩ :=
+        exists_unique_dyadic hV hVv (le_trans hvle hJ)
+      -- the unique dyadic index of `w`, at `V = 1/2`
+      have hw1 : (1 : ℝ) / 2 < (p.1 : ℝ) := by
+        have h1 : (1 : ℝ) ≤ (p.1 : ℝ) := by exact_mod_cast hwpos
+        linarith
+      have hwK : (p.1 : ℝ) ≤ 1 / 2 * 2 ^ K := by
+        have h1 : (p.1 : ℝ) ≤ (2 : ℝ) ^ K / 2 := le_trans hwle hK
+        linarith
+      obtain ⟨k₀, ⟨hk₀K, hk₀1, hk₀2⟩, hk₀u⟩ :=
+        exists_unique_dyadic (by norm_num : (0:ℝ) < 1/2) hw1 hwK
+      have hk₀1' : (2 : ℝ) ^ k₀ / 2 < (p.1 : ℝ) := by linarith
+      have hk₀2' : (p.1 : ℝ) ≤ 2 * ((2 : ℝ) ^ k₀ / 2) := by linarith
+      -- the unique unit residues
+      have hvq : Nat.Coprime p.2 q := Nat.Coprime.coprime_dvd_left hvd hNq
+      have hwq : Nat.Coprime p.1 q := Nat.Coprime.coprime_dvd_left hwd hNq
+      have ha₀ : unitRep q p.2 ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q) :=
+        Finset.mem_filter.mpr ⟨unitRep_mem_Icc hq, unitRep_coprime hvq⟩
+      have hb₀ : unitRep q p.1 ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q) :=
+        Finset.mem_filter.mpr ⟨unitRep_mem_Icc hq, unitRep_coprime hwq⟩
+      -- collapse the four sums
+      rw [Finset.sum_eq_single_of_mem j₀ (Finset.mem_range.mpr hj₀J) ?_,
+        Finset.sum_eq_single_of_mem k₀ (Finset.mem_range.mpr hk₀K) ?_,
+        Finset.sum_eq_single_of_mem (unitRep q p.2) ha₀ ?_,
+        Finset.sum_eq_single_of_mem (unitRep q p.1) hb₀ ?_,
+        if_pos ⟨hj₀1, hj₀2, hk₀1', hk₀2', unitRep_modEq q p.2, unitRep_modEq q p.1⟩]
+      · exact (chiRe_modEq χ (unitRep_modEq q p.1)).symm
+      · intro b hb hbne
+        refine if_neg (fun hc => hbne ?_)
+        exact (unitRep_unique hq (Finset.mem_filter.mp hb).1 hc.2.2.2.2.2).symm
+      · intro a ha hane
+        refine Finset.sum_eq_zero (fun b _ => if_neg (fun hc => hane ?_))
+        exact (unitRep_unique hq (Finset.mem_filter.mp ha).1 hc.2.2.2.2.1).symm
+      · intro k hk hkne
+        refine Finset.sum_eq_zero (fun a _ => Finset.sum_eq_zero (fun b _ =>
+          if_neg (fun hc => hkne ?_)))
+        refine hk₀u k ⟨Finset.mem_range.mp hk, ?_, ?_⟩
+        · linarith [hc.2.2.1]
+        · linarith [hc.2.2.2.1]
+      · intro j hj hjne
+        refine Finset.sum_eq_zero (fun k _ => Finset.sum_eq_zero (fun a _ =>
+          Finset.sum_eq_zero (fun b _ => if_neg (fun hc => hjne ?_))))
+        exact hj₀u j ⟨Finset.mem_range.mp hj, hc.1, hc.2.1⟩
+    · rw [if_neg hVv]
+      refine Finset.sum_eq_zero (fun j hj => Finset.sum_eq_zero (fun k _ =>
+        Finset.sum_eq_zero (fun a _ => Finset.sum_eq_zero (fun b _ => if_neg (fun hc => ?_)))))
+      have hpow : (1 : ℝ) ≤ (2 : ℝ) ^ j := one_le_pow₀ (by norm_num)
+      have hle : V ≤ V * 2 ^ j := by nlinarith
+      exact hVv (lt_of_le_of_lt hle hc.1)
+  -- ③ assemble
+  calc truncChiSum χ N V
+      = ∑ p ∈ N.divisorsAntidiagonal, (if V < (p.2 : ℝ) then chiRe χ p.1 else 0) := rfl
+    _ = ∑ p ∈ N.divisorsAntidiagonal, ∑ j ∈ range J, ∑ k ∈ range K,
+          ∑ a ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+          ∑ b ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+            (if V * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V * 2 ^ j) ∧
+                2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+                p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q] then chiRe χ b else 0) :=
+        (Finset.sum_congr rfl key).symm
+    _ = ∑ j ∈ range J, ∑ k ∈ range K,
+          ∑ a ∈ (Icc 1 q).filter (fun a => Nat.Coprime a q),
+          ∑ b ∈ (Icc 1 q).filter (fun b => Nat.Coprime b q),
+          ∑ p ∈ N.divisorsAntidiagonal,
+            (if V * 2 ^ j < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * (V * 2 ^ j) ∧
+                2 ^ k / 2 < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * (2 ^ k / 2) ∧
+                p.2 ≡ a [MOD q] ∧ p.1 ≡ b [MOD q] then chiRe χ b else 0) := by
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl (fun j _ => ?_)
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl (fun k _ => ?_)
+        rw [Finset.sum_comm]
+        refine Finset.sum_congr rfl (fun a _ => ?_)
+        rw [Finset.sum_comm]
+    _ = _ := by
+        refine Finset.sum_congr rfl (fun j _ => Finset.sum_congr rfl (fun k _ =>
+          Finset.sum_congr rfl (fun a _ => Finset.sum_congr rfl (fun b _ => ?_))))
+        exact (hcard j k a b).symm
+
 /-- **B-3b — (5.2)'s sizes**: a non-empty cell has `α_i x < 4 δ_i R_i S_i` and
 `δ_i R_i S_i ≤ l_i(2x)`.  ⭐ The dyadic ranges give `0 < R_i` and `0 < S_i` for free
 (`R_i < v_i ≤ 2R_i` forces `R_i < 2R_i`), and `δ_i ≥ 1` because `δ_i ∣ l_i(n) ≥ 1`; the strict
