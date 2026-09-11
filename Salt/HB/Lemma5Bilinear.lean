@@ -1706,4 +1706,73 @@ theorem five_eight_iff (F : HBForms) (δ₁ δ₂ w₁ X n : ℕ) (hα₂ : F.α
     exact h''
 
 
+/-- **B-5d — (5.6) is automatic**: a `w₁` with a non-empty `v₂`-count is coprime to `α`, `δ₂`
+and `q`.  From the count's witness `v₂`: `w₂ > 0` (at `w₂ = 0` the first congruence forces
+`α₂ ∣ β₂`, against (1.4) and `2 ≤ α₂`), so `T₁`'s second entry is the honest bound
+`(α₂x+β₂)/(δ₂w₂)` and `v₂ > T₁` gives `δ₂v₂w₂ > α₂x+β₂ ≥ β₂`; that defines `n` with
+`l₂(n) = δ₂v₂w₂`, and `five_eight_iff` turns (5.8) into `δ₁w₁ ∣ l₁(n)`.  The three legs then
+read off `coprime_l₁_α₁`, `coprime_l` and the residue class of `w₁`. -/
+theorem coprime_w₁_of_count_ne_zero (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ)
+    (a₁ b₁ a₂ b₂ w₁ w₂ : ℕ) (_hq : 0 < q) (_hδ₁ : 0 < δ₁) (hδ₂ : 0 < δ₂)
+    (_hδ₁q : Nat.Coprime δ₁ q) (hb₁ : Nat.Coprime b₁ q) (_hb₂ : Nat.Coprime b₂ q)
+    (hw₁b : w₁ ≡ b₁ [MOD q]) (_hw₂b : w₂ ≡ b₂ [MOD q])
+    (h : ((Finset.Ioc ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊ ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊).filter
+            (fun v₂ : ℕ =>
+              δ₂ * (v₂ * w₂) ≡ F.β₂ [MOD F.α₂] ∧
+              F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁] ∧
+              F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁
+                ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
+              v₂ * w₂ ≡ a₂ * b₂ [MOD q])).card ≠ 0) :
+    Nat.Coprime w₁ F.α ∧ Nat.Coprime w₁ δ₂ ∧ Nat.Coprime w₁ q := by
+  obtain ⟨v₂, hv₂⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero h)
+  rw [Finset.mem_filter] at hv₂
+  obtain ⟨hmem, h57, h58, _h59, _h510⟩ := hv₂
+  have hα₂ : 0 < F.α₂ := lt_of_lt_of_le (by norm_num) F.two_le_α₂
+  -- `w₂ > 0`, else (5.7) reads `α₂ ∣ β₂`
+  have hw₂ : 0 < w₂ := by
+    rcases Nat.eq_zero_or_pos w₂ with h0 | h0
+    · exfalso
+      rw [h0] at h57
+      have hz : (0 : ℕ) ≡ F.β₂ [MOD F.α₂] := by simpa using h57
+      have hd : F.α₂ ∣ F.β₂ := (Nat.modEq_zero_iff_dvd).mp hz.symm
+      have hg : F.α₂ ∣ Nat.gcd F.α₂ F.β₂ := Nat.dvd_gcd dvd_rfl hd
+      rw [show Nat.gcd F.α₂ F.β₂ = 1 from F.cop₂] at hg
+      have h2 := F.two_le_α₂
+      have h3 := Nat.le_of_dvd one_pos hg
+      omega
+    · exact h0
+  have hδw : (0 : ℝ) < (δ₂ : ℝ) * (w₂ : ℝ) :=
+    mul_pos (by exact_mod_cast hδ₂) (by exact_mod_cast hw₂)
+  -- `T₁`'s second entry is a genuine lower bound, and it is nonnegative
+  have hA : ((F.α₂ * x + F.β₂ : ℕ) : ℝ) / ((δ₂ : ℝ) * (w₂ : ℝ))
+      ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := le_trans (le_max_left _ _) (le_max_right _ _)
+  have hT₁nn : 0 ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := le_trans (by positivity) hA
+  have hmem' := (mem_Ioc_floor_iff hT₁nn v₂).mp hmem
+  have hbig : ((F.α₂ * x + F.β₂ : ℕ) : ℝ) < (v₂ : ℝ) * ((δ₂ : ℝ) * (w₂ : ℝ)) :=
+    (div_lt_iff₀ hδw).mp (lt_of_le_of_lt hA hmem'.1)
+  have hbigN : F.α₂ * x + F.β₂ < v₂ * (δ₂ * w₂) := by exact_mod_cast hbig
+  have hge : F.β₂ ≤ δ₂ * (v₂ * w₂) := by
+    have hr : v₂ * (δ₂ * w₂) = δ₂ * (v₂ * w₂) := by ring
+    omega
+  -- the `n` the cell's witness names
+  obtain ⟨n, hn⟩ := (Nat.modEq_iff_dvd' hge).mp h57.symm
+  have hln : F.α₂ * n + F.β₂ = δ₂ * (v₂ * w₂) := by omega
+  have hdvd : δ₁ * w₁ ∣ F.l₁ n :=
+    (five_eight_iff F δ₁ δ₂ w₁ (v₂ * w₂) n hα₂.ne' hln).mp h58
+  have hw₁l₁ : w₁ ∣ F.l₁ n := dvd_trans (dvd_mul_left w₁ δ₁) hdvd
+  refine ⟨?_, ?_, ?_⟩
+  · exact Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left F.α₁ F.α₂)
+      (Nat.Coprime.coprime_dvd_left hw₁l₁ (F.coprime_l₁_α₁ n))
+  · refine Nat.Coprime.coprime_dvd_right ?_
+      (Nat.Coprime.coprime_dvd_left hw₁l₁ (F.coprime_l n))
+    exact ⟨v₂ * w₂, by simp only [HBForms.l₂]; omega⟩
+  · by_contra hcon
+    obtain ⟨p, hp, hpw, hpq⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
+    have h1 : w₁ ≡ b₁ [MOD p] := Nat.ModEq.of_dvd hpq hw₁b
+    have h2 : w₁ ≡ 0 [MOD p] := (Nat.modEq_zero_iff_dvd).mpr hpw
+    have h3 : p ∣ b₁ := (Nat.modEq_zero_iff_dvd).mp (h1.symm.trans h2)
+    have h4 : p ∣ Nat.gcd b₁ q := Nat.dvd_gcd h3 hpq
+    rw [show Nat.gcd b₁ q = 1 from hb₁] at h4
+    exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+
 end Salt.N7
