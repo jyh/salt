@@ -1633,4 +1633,77 @@ theorem count_eq_zero_of_not_coprime {k : ℕ} {w₂ C : ℕ} (hC : Nat.Coprime 
   rw [show Nat.gcd C k = 1 from hC] at h4
   exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
 
+
+/-! ### B-5c's top-level pieces — the floor bridge, its degenerate corner, and (5.8) ⟺ δ₁w₁ ∣ l₁ n.
+
+`five_eight_iff` is consumed by B-5d as well as by B-5c, so all three land here, above both.
+-/
+
+theorem R₂_le_hbT₁ (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ : ℕ) :
+    R₂ ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := le_max_left _ _
+
+theorem hbT₁_pos (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ : ℕ) (hR₂ : 0 < R₂) :
+    0 < hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := lt_of_lt_of_le hR₂ (R₂_le_hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂)
+
+theorem hbT₂_le_two_R₂ (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ : ℕ) :
+    hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂ ≤ 2 * R₂ := min_le_left _ _
+
+/-- The floor bridge — an IFF from `0 ≤ T₁` ALONE; nothing is owed on `T₂`. -/
+theorem mem_Ioc_floor_iff {T₁ T₂ : ℝ} (h0 : 0 ≤ T₁) (v : ℕ) :
+    v ∈ Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊ ↔ (T₁ < (v : ℝ) ∧ (v : ℝ) ≤ T₂) := by
+  rw [Finset.mem_Ioc]
+  constructor
+  · rintro ⟨h1, h2⟩
+    have hlt : T₁ < (v : ℝ) := (Nat.floor_lt h0).mp h1
+    have hv1 : 1 ≤ v := by omega
+    have hfl : 1 ≤ ⌊T₂⌋₊ := le_trans hv1 h2
+    have hT₂ : (0 : ℝ) ≤ T₂ := by
+      by_contra hc
+      have hc' : T₂ < 0 := not_le.mp hc
+      rw [Nat.floor_of_nonpos hc'.le] at hfl
+      omega
+    exact ⟨hlt, (Nat.le_floor_iff hT₂).mp h2⟩
+  · rintro ⟨h1, h2⟩
+    have hT₂ : (0 : ℝ) ≤ T₂ := le_trans (le_trans h0 h1.le) h2
+    exact ⟨(Nat.floor_lt h0).mpr h1, (Nat.le_floor_iff hT₂).mpr h2⟩
+
+/-- The degenerate corner: `T₂ < 0` is HARMLESS — both sides are empty.  It CAN happen, at
+negative determinants. -/
+theorem Ioc_floor_eq_empty_of_neg {T₁ T₂ : ℝ} (h0 : 0 ≤ T₁) (h : T₂ < 0) :
+    Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊ = ∅ := by
+  refine Finset.eq_empty_of_forall_notMem (fun v hv => ?_)
+  rw [mem_Ioc_floor_iff h0] at hv
+  have : (0 : ℝ) ≤ (v : ℝ) := Nat.cast_nonneg v
+  linarith [hv.2]
+
+/-- The hinge of B-5c's backward direction: (5.8) ⟺ `δ₁ w₁ ∣ l₁ n`, after cancelling `α₂`.
+⛔ The two sides are `α₂·l₁(n) + α₁β₂` against `0 + α₁β₂`, NOT `c*a ≡ c*b`: cancel ADDITIVELY
+first (`Nat.ModEq.add_right_cancel'`), THEN multiplicatively. -/
+theorem five_eight_iff (F : HBForms) (δ₁ δ₂ w₁ X n : ℕ) (hα₂ : F.α₂ ≠ 0)
+    (hn : F.α₂ * n + F.β₂ = δ₂ * X) :
+    (F.α₁ * δ₂ * X + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁])
+      ↔ δ₁ * w₁ ∣ F.l₁ n := by
+  have key : F.α₁ * δ₂ * X + F.α₂ * F.β₁ = F.α₂ * F.l₁ n + F.α₁ * F.β₂ := by
+    have : F.α₁ * (δ₂ * X) = F.α₁ * (F.α₂ * n + F.β₂) := by rw [hn]
+    simp only [HBForms.l₁]
+    ring_nf
+    ring_nf at this
+    omega
+  rw [key, show F.α₂ * δ₁ * w₁ = F.α₂ * (δ₁ * w₁) by ring]
+  constructor
+  · intro h
+    have h' : F.α₂ * F.l₁ n + F.α₁ * F.β₂
+        ≡ F.α₂ * 0 + F.α₁ * F.β₂ [MOD F.α₂ * (δ₁ * w₁)] := by
+      rw [Nat.mul_zero, Nat.zero_add]; exact h
+    have h'' := Nat.ModEq.add_right_cancel' (F.α₁ * F.β₂) h'
+    exact (Nat.modEq_zero_iff_dvd).mp (Nat.ModEq.mul_left_cancel' hα₂ h'')
+  · intro h
+    have h0 : F.l₁ n ≡ 0 [MOD δ₁ * w₁] := (Nat.modEq_zero_iff_dvd).mpr h
+    have h' : F.α₂ * F.l₁ n ≡ F.α₂ * 0 [MOD F.α₂ * (δ₁ * w₁)] :=
+      (Nat.ModEq.mul_left_cancel_iff' hα₂).mpr h0
+    have h'' := h'.add_right (F.α₁ * F.β₂)
+    rw [Nat.mul_zero, Nat.zero_add] at h''
+    exact h''
+
+
 end Salt.N7
