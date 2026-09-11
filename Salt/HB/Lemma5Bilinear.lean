@@ -641,10 +641,10 @@ theorem truncChiSum_eq_sum_cells (χ : DirichletCharacter ℂ q) (hq : 0 < q) {N
       · exact (chiRe_modEq χ (unitRep_modEq q p.1)).symm
       · intro b hb hbne
         refine if_neg (fun hc => hbne ?_)
-        exact (unitRep_unique hq (Finset.mem_filter.mp hb).1 hc.2.2.2.2.2).symm
+        exact unitRep_unique hq (Finset.mem_filter.mp hb).1 hc.2.2.2.2.2
       · intro a ha hane
         refine Finset.sum_eq_zero (fun b _ => if_neg (fun hc => hane ?_))
-        exact (unitRep_unique hq (Finset.mem_filter.mp ha).1 hc.2.2.2.2.1).symm
+        exact unitRep_unique hq (Finset.mem_filter.mp ha).1 hc.2.2.2.2.1
       · intro k hk hkne
         refine Finset.sum_eq_zero (fun a _ => Finset.sum_eq_zero (fun b _ =>
           if_neg (fun hc => hkne ?_)))
