@@ -57,6 +57,7 @@ import Salt.Tactic.AuditAxioms
 import Salt.HB.Lemma10
 import Salt.HB.Lemma10Chain
 import Salt.HB.Lemma10Seal
+import Salt.HB.Lemma5Bilinear
 import Salt.HB.EstermannRoad
 import Salt.HB.Lemma3Floor
 import Salt.HB.SieveWire
@@ -352,6 +353,13 @@ open Salt.Tactic in
   Salt.N7.majorant_tail_le Salt.N7.weighted_dyadic_block_sum_le Salt.N7.majorant_m1_le
   Salt.N7.fourier_column_le Salt.N7.majorant_head_le Salt.N7.majorant_rangeA_le
   Salt.N7.norm_majorantCoeff_neg Salt.N7.majorant_tsum_split Salt.N7.hb_lemma10
+  -- node N7 WAVE B (Salt/HB/Lemma5Bilinear.lean): HB 1983 §5 at a general pair of linear
+  -- forms — the carrier `S(δ₁,δ₂;V₁,V₂)` of p.211 with its (5.1) and `V`-vanishing clauses,
+  -- the dyadic/residue cell count of (5.3) and the exact decomposition (5.18), the CRT
+  -- collapse (5.5)–(5.13) of the four congruences in `X = v₂w₂` into one, and the
+  -- ψ-reduction (5.14)–(5.17) into a length plus two sawtooths.  Lemma 9 (the μ-sieve of
+  -- `Λ′` over `Q`, the hyperbola, the log integrals) is the sibling branch of this wave;
+  -- §6 is a later wave and owes the `Lemma10Seal` import this file deliberately omits.
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.
