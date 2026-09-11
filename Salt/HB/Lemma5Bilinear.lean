@@ -1438,6 +1438,69 @@ theorem hb_lemma9 (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (
   rw [chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₁.trans hd), one_mul,
     chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₂.trans hd), one_mul]
 
+/-- **B-2t″ — LEMMA 9 AS HB STATES IT** (p.211): `m_i < q` AND `d ∣ P`, with the `χ(h_i j_i)`
+factors gone.  This is the form §6 lifts at (6.11)/(6.12).
+
+NO `2 ≤ z` hypothesis — and nothing in the statement needs one, since `z` is inferred from `hd`.
+⛔ But the truncated Lemma 9 it is built on DOES carry that binder, so the two do not compose
+directly.  The bridge is `max z 2`: `hbQ χ w = 1` for every `w ≤ 2` (a prime `p < w ≤ 2` cannot
+exist), hence `hbQ χ (max z 2) = hbQ χ z` in BOTH cases — equal by `max_eq_left` when `2 ≤ z`, and
+`1 = 1` when `z < 2`.  Since `LamStarTrunc` and the truncated divisor set depend on `z` only
+through `hbQ χ z`, the truncated Lemma 9 at `max z 2` IS this statement's left- and right-hand
+sides, and `le_max_right` discharges its binder.  The χ factors then go exactly as at `d ∣ P`. -/
+theorem hb_lemma9_trunc_P (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
+    (F : HBForms) (x d : ℕ) (hd : d ∣ hbP (chiReChar χ hsq) (z : ℝ)) :
+    ∑ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+        LamStarTrunc χ z (F.l₁ n) * LamStarTrunc χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors.filter (· < q), ∑ m₂ ∈ (hbQ χ z).divisors.filter (· < q),
+          (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have hdQ : Nat.Coprime d (hbQ χ z) :=
+    (Nat.Coprime.coprime_dvd_right hd (coprime_hbQ_hbP χ hsq z)).symm
+  have hQsmall : ∀ w : ℕ, w ≤ 2 → hbQ χ w = 1 := by
+    intro w hw
+    rw [hbQ]
+    refine Finset.prod_eq_one fun p hp => ?_
+    rw [Finset.mem_filter, Finset.mem_range] at hp
+    have h2p := hp.2.1.two_le
+    have := hp.1
+    omega
+  have hQeq : hbQ χ (max z 2) = hbQ χ z := by
+    by_cases h : 2 ≤ z
+    · rw [max_eq_left h]
+    · have h' : z < 2 := Nat.lt_of_not_le h
+      rw [max_eq_right h'.le, hQsmall z h'.le, hQsmall 2 le_rfl]
+  have hdQ' : Nat.Coprime d (hbQ χ (max z 2)) := by rw [hQeq]; exact hdQ
+  have hLST : ∀ n : ℕ, LamStarTrunc χ (max z 2) n = LamStarTrunc χ z n := by
+    intro n; rw [LamStarTrunc, LamStarTrunc, hQeq]
+  have key := hb_lemma9_trunc χ hsq (le_max_right z 2) F x d hdQ'
+  simp_rw [hLST] at key
+  rw [hQeq] at key
+  rw [key]
+  refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+  congr 1
+  refine Finset.sum_congr rfl fun p hp => Finset.sum_congr rfl fun t₁ ht₁ =>
+    Finset.sum_congr rfl fun u₁ hu₁ => Finset.sum_congr rfl fun t₂ ht₂ =>
+    Finset.sum_congr rfl fun u₂ hu₂ => ?_
+  have h3 := (Nat.mem_divisorsAntidiagonal.mp hp).1
+  have h1 := (Nat.mem_divisorsAntidiagonal.mp ht₁).1
+  have h2 := (Nat.mem_divisorsAntidiagonal.mp hu₁).1
+  have h1' := (Nat.mem_divisorsAntidiagonal.mp ht₂).1
+  have h2' := (Nat.mem_divisorsAntidiagonal.mp hu₂).1
+  have hdvd₁ : t₁.1 * u₁.1 ∣ d :=
+    (h1 ▸ Nat.mul_dvd_mul_left t₁.1 (h2 ▸ dvd_mul_right u₁.1 u₁.2)).trans ⟨p.2, h3.symm⟩
+  have hdvd₂ : t₂.1 * u₂.1 ∣ d :=
+    (h1' ▸ Nat.mul_dvd_mul_left t₂.1 (h2' ▸ dvd_mul_right u₂.1 u₂.2)).trans
+      ⟨p.1, by rw [← h3]; ring⟩
+  rw [chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₁.trans hd), one_mul,
+    chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₂.trans hd), one_mul]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
