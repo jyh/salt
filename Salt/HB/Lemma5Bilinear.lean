@@ -487,7 +487,8 @@ theorem exists_unique_dyadic {V v : ℝ} (hV : 0 < V) {J : ℕ} (h1 : V < v) (h2
     by_contra hc
     have hnext : P (j + 1) := by
       have he : V * 2 ^ (j + 1) = 2 * (V * 2 ^ j) := by ring
-      rw [hP]; rw [he]; exact lt_of_not_ge hc
+      have hlt : V * 2 ^ (j + 1) < v := by rw [he]; exact lt_of_not_ge hc
+      exact hlt
     exact Nat.findGreatest_is_greatest (lt_add_one j) (by omega) hnext
   refine ⟨j, ⟨hjJ, hPj, htop⟩, ?_⟩
   rintro j' ⟨_, h1', h2'⟩
@@ -511,8 +512,8 @@ theorem unitRep_modEq (q v : ℕ) : v ≡ unitRep q v [MOD q] := by
   unfold unitRep
   split
   · rename_i h
-    show v % q = q % q
-    rw [h, Nat.mod_self]
+    have he : v % q = q % q := by rw [h, Nat.mod_self]
+    exact he
   · exact (Nat.mod_modEq v q).symm
 
 theorem unitRep_mem_Icc {q v : ℕ} (hq : 0 < q) : unitRep q v ∈ Finset.Icc 1 q := by
@@ -523,7 +524,7 @@ theorem unitRep_mem_Icc {q v : ℕ} (hq : 0 < q) : unitRep q v ∈ Finset.Icc 1 
   · rename_i h
     exact ⟨Nat.one_le_iff_ne_zero.mpr h, (Nat.mod_lt v hq).le⟩
 
-theorem unitRep_coprime {q v : ℕ} (hq : 0 < q) (hv : Nat.Coprime v q) :
+theorem unitRep_coprime {q v : ℕ} (hv : Nat.Coprime v q) :
     Nat.Coprime (unitRep q v) q := by
   by_contra hcon
   obtain ⟨p, hp, hpr, hpq⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
