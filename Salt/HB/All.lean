@@ -413,6 +413,7 @@ open Salt.Tactic in
   Salt.N7.hb_lemma9_general
   Salt.N7.hb_lemma9_trunc
   Salt.N7.hb_lemma9
+  Salt.N7.hb_lemma9_trunc_P
   -- node N7 WAVE B, LEMMA 9 (Salt/HB/Lemma5Bilinear.lean, continued): HB's `Λ′` and `Q`, the
   -- μ-sieve of `Λ*` over `Q`, the hyperbola identity of p.211, the three ray-integral rows,
   -- and Lemma 9 itself in four forms — the inner identity at one `(m₁, m₂)`, the exact form at
