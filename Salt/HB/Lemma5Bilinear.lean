@@ -2045,4 +2045,100 @@ theorem coprime_w₁_of_count_ne_zero (F : HBForms) (q x δ₁ δ₂ : ℕ) (R�
     rw [show Nat.gcd b₁ q = 1 from hb₁] at h4
     exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
 
+/-! ### B-5f's four pieces — the `dite` construction of `C`, and the modulus facts -/
+
+/-- **The residue `C` as a function of `w₁`.**  A bare `Classical.choose` does NOT type: B-4's
+`∃` is fibred over `0 < w₁` and (5.6), so the choice is made under a `dite` whose fallback `1`
+covers `w₁ = 0`.  This closes B-5f's FIRST conjunct. -/
+noncomputable def kb5f_C (F : HBForms) (q δ₁ δ₂ a₁ b₁ a₂ b₂ : ℕ) (hq : 0 < q)
+    (hδ₁ : 0 < δ₁)
+    (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)
+    (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q)
+    (hδ₁α : Nat.Coprime δ₁ F.α) (hδ₂α : Nat.Coprime δ₂ F.α) (hδ : Nat.Coprime δ₁ δ₂)
+    (hab : Nat.Coprime (a₁ * b₁ * (a₂ * b₂)) q)
+    (h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q])
+    (h54₂ : δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q])
+    (h55 : F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+            ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α]) : ℕ → ℕ :=
+  fun w₁ =>
+    if h : 0 < w₁ ∧ Nat.Coprime w₁ F.α ∧ Nat.Coprime w₁ δ₂ ∧ Nat.Coprime w₁ q then
+      Classical.choose (crt_collapse F q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ hq hδ₁ h.1 hΔ hδ₁q hδ₂q
+        hδ₁α hδ₂α hδ h.2.1 h.2.2.1 h.2.2.2 hab h54₁ h54₂ h55)
+    else 1
+
+theorem kb5f_C_coprime (F : HBForms) (q δ₁ δ₂ a₁ b₁ a₂ b₂ : ℕ) (hq : 0 < q)
+    (hδ₁ : 0 < δ₁)
+    (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)
+    (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q)
+    (hδ₁α : Nat.Coprime δ₁ F.α) (hδ₂α : Nat.Coprime δ₂ F.α) (hδ : Nat.Coprime δ₁ δ₂)
+    (hab : Nat.Coprime (a₁ * b₁ * (a₂ * b₂)) q)
+    (h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q])
+    (h54₂ : δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q])
+    (h55 : F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+            ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α]) :
+    ∀ w₁, Nat.Coprime w₁ F.α → Nat.Coprime w₁ δ₂ → Nat.Coprime w₁ q →
+      Nat.Coprime (kb5f_C F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab h54₁ h54₂
+        h55 w₁) (roadModulus F.α₂ q * δ₁ * w₁) := by
+  intro w₁ hα hδ₂' hqq
+  unfold kb5f_C
+  split
+  · rename_i h
+    exact (Classical.choose_spec (crt_collapse F q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ hq hδ₁ h.1 hΔ hδ₁q hδ₂q
+      hδ₁α hδ₂α hδ h.2.1 h.2.2.1 h.2.2.2 hab h54₁ h54₂ h55)).1
+  · exact Nat.coprime_one_left _
+
+/-- The ⟺ half of B-4, available at every `w₁` in the equation's filter — B-5f's termwise
+rewrite through `Finset.filter_congr` has its input. -/
+theorem kb5f_C_iff (F : HBForms) (q δ₁ δ₂ a₁ b₁ a₂ b₂ : ℕ) (hq : 0 < q)
+    (hδ₁ : 0 < δ₁)
+    (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)
+    (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q)
+    (hδ₁α : Nat.Coprime δ₁ F.α) (hδ₂α : Nat.Coprime δ₂ F.α) (hδ : Nat.Coprime δ₁ δ₂)
+    (hab : Nat.Coprime (a₁ * b₁ * (a₂ * b₂)) q)
+    (h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q])
+    (h54₂ : δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q])
+    (h55 : F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+            ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α]) :
+    ∀ w₁, 0 < w₁ → Nat.Coprime w₁ F.α → Nat.Coprime w₁ δ₂ → Nat.Coprime w₁ q → ∀ X : ℕ,
+      (δ₂ * X ≡ F.β₂ [MOD F.α₂] ∧
+       F.α₁ * δ₂ * X + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁] ∧
+       F.α₁ * δ₂ * X + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
+       X ≡ a₂ * b₂ [MOD q])
+      ↔ X ≡ kb5f_C F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab h54₁ h54₂ h55 w₁
+            [MOD roadModulus F.α₂ q * δ₁ * w₁] := by
+  intro w₁ hw hα hδ₂' hqq X
+  unfold kb5f_C
+  rw [dif_pos ⟨hw, hα, hδ₂', hqq⟩]
+  exact (Classical.choose_spec (crt_collapse F q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ hq hδ₁ hw hΔ hδ₁q hδ₂q
+    hδ₁α hδ₂α hδ hα hδ₂' hqq hab h54₁ h54₂ h55)).2 X
+
+/-- `0 < k` at `k = D δ₁ w₁` — B-5e demands the `NeZero` instance and B-5f must build it. -/
+theorem kb5f_k_pos (F : HBForms) (q δ₁ w₁ : ℕ) (hq : 0 < q) (hδ₁ : 0 < δ₁) (hw₁ : 0 < w₁) :
+    0 < roadModulus F.α₂ q * δ₁ * w₁ := by
+  have hα₂ : 0 < F.α₂ := lt_of_lt_of_le (by norm_num) F.two_le_α₂
+  have : 0 < roadModulus F.α₂ q := by
+    rw [roadModulus_eq_lcm]
+    exact Nat.pos_of_ne_zero (fun h => by
+      rcases Nat.lcm_eq_zero_iff.mp h with h' | h' <;> omega)
+  positivity
+
+/-- `2 ≤ k` — the next wave's own gate, recorded here where the modulus is built. -/
+theorem kb5f_k_two (F : HBForms) (q δ₁ w₁ : ℕ) (hq : 0 < q) (hδ₁ : 0 < δ₁) (hw₁ : 0 < w₁) :
+    2 ≤ roadModulus F.α₂ q * δ₁ * w₁ := by
+  have h2 : 2 ≤ F.α₂ := F.two_le_α₂
+  have hd : F.α₂ ∣ roadModulus F.α₂ q := dvd_roadModulus_left F.α₂ q
+  have hpos : 0 < roadModulus F.α₂ q * δ₁ * w₁ := kb5f_k_pos F q δ₁ w₁ hq hδ₁ hw₁
+  have : F.α₂ ≤ roadModulus F.α₂ q :=
+    Nat.le_of_dvd (by rcases Nat.eq_zero_or_pos (roadModulus F.α₂ q) with h|h
+                      · simp [h] at hpos
+                      · exact h) hd
+  calc 2 ≤ F.α₂ := h2
+    _ ≤ roadModulus F.α₂ q := this
+    _ ≤ roadModulus F.α₂ q * δ₁ := Nat.le_mul_of_pos_right _ hδ₁
+    _ ≤ roadModulus F.α₂ q * δ₁ * w₁ := Nat.le_mul_of_pos_right _ hw₁
+
+/-- `2 ∣ α`, the fact that makes B-5f's unrestricted `∀ w₁` harmless at `w₁ = 0`. -/
+theorem kb5f_two_dvd_alpha (F : HBForms) : 2 ∣ F.α := Nat.dvd_gcd F.even₁ F.even₂
+
+
 end Salt.N7
