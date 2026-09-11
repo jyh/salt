@@ -223,6 +223,45 @@ theorem coprime_l (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₁ n) (F.l₂ n) :=
   rw [show Nat.gcd F.α₁ F.β₁ = 1 from F.cop₁] at hg
   exact hp.one_lt.ne' (Nat.dvd_one.mp hg)
 
+
+/-- The twin-prime instance `(4n+1, 4n+3)` (p.195): the forms W-a's `hbDataHB` uses. -/
+def twin : HBForms where
+  α₁ := 4
+  β₁ := 1
+  α₂ := 4
+  β₂ := 3
+  cop₁ := by decide
+  cop₂ := by decide
+  even₁ := by decide
+  even₂ := by decide
+  det_ne := by decide
+  det_dvd := by
+    intro p hp hdvd
+    have h8 : p ∣ 8 := by
+      have : (p : ℤ) ∣ (8 : ℤ) := by norm_num at hdvd ⊢; exact hdvd
+      exact_mod_cast this
+    have h2 : p = 2 := by
+      have : p ∣ 2 ^ 3 := by norm_num; exact h8
+      exact (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp (hp.dvd_of_dvd_pow this)
+    subst h2; decide
+  same_primes := fun _ _ => Iff.rfl
+  sq_dvd₁ := by
+    intro p hp hdvd
+    have h2 : p = 2 := by
+      have : p ∣ 2 ^ 2 := by norm_num; exact hdvd
+      exact (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp (hp.dvd_of_dvd_pow this)
+    subst h2; decide
+  sq_dvd₂ := by
+    intro p hp hdvd
+    have h2 : p = 2 := by
+      have : p ∣ 2 ^ 2 := by norm_num; exact hdvd
+      exact (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp (hp.dvd_of_dvd_pow this)
+    subst h2; decide
+
+theorem twin_l₁ (n : ℕ) : twin.l₁ n = 4 * n + 1 := rfl
+theorem twin_l₂ (n : ℕ) : twin.l₂ n = 4 * n + 3 := rfl
+theorem twin_gcd_eq (q : ℕ) : Nat.gcd twin.α₁ q = Nat.gcd twin.α₂ q := rfl
+
 end HBForms
 
 /-- `Σ_{w v = N, v > V} χ(w)` (p.211): the inner truncated divisor sum of `S(δ₁,δ₂;V₁,V₂)`;
