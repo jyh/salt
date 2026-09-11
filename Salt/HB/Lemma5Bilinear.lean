@@ -603,6 +603,70 @@ theorem gcd_lcm_distrib (a b c : ℕ) :
   simp only [Finsupp.inf_apply, Finsupp.sup_apply]
   exact inf_sup_right _ _ _
 
+/-- **B-4z — the cell count is zero unless (5.4) and (5.5) hold** (p.212, "S will be zero
+unless"); the cells B-6 must skip.  (5.4) at `i = 1` is modulo `(α₁, q)`, which under `hΔ` is
+`(α₂, q)` — spelled so to match B-4's and B-5f's `h54₁` token for token.  From B-3b's FULL
+extraction: `δ_i a_i b_i ≡ δ_i w_i v_i = l_i(n) ≡ β_i` modulo `(α_i, q)`, and
+`α₁ · (δ₂a₂b₂) ≡ α₁α₂n + α₁β₂`, `α₂ · (δ₁a₁b₁) ≡ α₁α₂n + α₂β₁` modulo `qα`, since `α ∣ α_i`. -/
+theorem cellCount_eq_zero_of_not_congr (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ)
+    (a₁ b₁ a₂ b₂ : ℕ) (_hq : 0 < q) (hδ₁ : 0 < δ₁) (hδ₂ : 0 < δ₂)
+    (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)
+    (_hab : Nat.Coprime (a₁ * b₁ * (a₂ * b₂)) q)
+    (h : ¬ (δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q] ∧
+            δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q] ∧
+            F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+              ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α])) :
+    cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ = 0 := by
+  by_contra hne
+  obtain ⟨n, w₁, v₁, w₂, v₂, _, _, he₁, he₂, _, _, _, _, _, _, _, _, hv₁, hw₁, hv₂, hw₂⟩ :=
+    cellCount_ne_zero_extract F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ hne
+  -- `δ_i a_i b_i ≡ l_i(n)` modulo `q`, from the two residue classes
+  have hq₁ : δ₁ * a₁ * b₁ ≡ F.l₁ n [MOD q] := by
+    have hprod : δ₁ * a₁ * b₁ ≡ δ₁ * v₁ * w₁ [MOD q] :=
+      Nat.ModEq.mul (Nat.ModEq.mul_left δ₁ hv₁.symm) hw₁.symm
+    have hval : δ₁ * v₁ * w₁ = F.l₁ n := by rw [← he₁]; ring
+    rwa [hval] at hprod
+  have hq₂ : δ₂ * a₂ * b₂ ≡ F.l₂ n [MOD q] := by
+    have hprod : δ₂ * a₂ * b₂ ≡ δ₂ * v₂ * w₂ [MOD q] :=
+      Nat.ModEq.mul (Nat.ModEq.mul_left δ₂ hv₂.symm) hw₂.symm
+    have hval : δ₂ * v₂ * w₂ = F.l₂ n := by rw [← he₂]; ring
+    rwa [hval] at hprod
+  -- `l_i(n) ≡ β_i` modulo `α_i`
+  have hl₁ : F.l₁ n ≡ F.β₁ [MOD F.α₁] := by
+    have hz : F.α₁ * n ≡ 0 [MOD F.α₁] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
+    simpa [HBForms.l₁] using hz.add_right F.β₁
+  have hl₂ : F.l₂ n ≡ F.β₂ [MOD F.α₂] := by
+    have hz : F.α₂ * n ≡ 0 [MOD F.α₂] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
+    simpa [HBForms.l₂] using hz.add_right F.β₂
+  -- (5.4), both indices, modulo `(α₂, q)`
+  have h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q] := by
+    rw [← hΔ]
+    exact (Nat.ModEq.of_dvd (Nat.gcd_dvd_right F.α₁ q) hq₁).trans
+      (Nat.ModEq.of_dvd (Nat.gcd_dvd_left F.α₁ q) hl₁)
+  have h54₂ : δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q] :=
+    (Nat.ModEq.of_dvd (Nat.gcd_dvd_right F.α₂ q) hq₂).trans
+      (Nat.ModEq.of_dvd (Nat.gcd_dvd_left F.α₂ q) hl₂)
+  -- (5.5), modulo `q · α`, through `α ∣ α_i`
+  have hdvd₁ : q * F.α ∣ F.α₁ * q := by
+    rw [Nat.mul_comm F.α₁ q]
+    exact Nat.mul_dvd_mul_left q (Nat.gcd_dvd_left F.α₁ F.α₂)
+  have hdvd₂ : q * F.α ∣ F.α₂ * q := by
+    rw [Nat.mul_comm F.α₂ q]
+    exact Nat.mul_dvd_mul_left q (Nat.gcd_dvd_right F.α₁ F.α₂)
+  have hA : F.α₁ * (δ₂ * a₂ * b₂) ≡ F.α₁ * F.l₂ n [MOD q * F.α] :=
+    Nat.ModEq.of_dvd hdvd₁ (hq₂.mul_left' F.α₁)
+  have hB : F.α₂ * (δ₁ * a₁ * b₁) ≡ F.α₂ * F.l₁ n [MOD q * F.α] :=
+    Nat.ModEq.of_dvd hdvd₂ (hq₁.mul_left' F.α₂)
+  have heq : F.α₁ * F.l₂ n + F.α₂ * F.β₁ = F.α₂ * F.l₁ n + F.α₁ * F.β₂ := by
+    simp only [HBForms.l₁, HBForms.l₂]; ring
+  have h55 : F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+      ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α] := by
+    have e1 := hA.add_right (F.α₂ * F.β₁)
+    have e2 := hB.add_right (F.α₁ * F.β₂)
+    rw [heq] at e1
+    exact e1.trans e2.symm
+  exact h ⟨h54₁, h54₂, h55⟩
+
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
 /-- (5.15) -/
