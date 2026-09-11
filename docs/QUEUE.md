@@ -932,6 +932,34 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
      BINDS AT MOST ITS LARGEST SPENDER, AND A CENSUS OF THE FAMILY CANNOT SEE WHICH MEMBER THAT IS.***
      `capeps_bigexp_63` is therefore NOT minted: an unneeded twin is not free, it is a false claim about
      where the ceiling binds.
+   📏 **THE RUNG'S RE-CHECK COST, MEASURED AT THE OBJECT — because a rung that costs an hour to
+   re-check is a different object from one that costs six minutes, and the next head should meet the
+   number before it meets the surprise.**
+   ```
+     modules RECOMPILED by this rung's diff        93        (cache hits excluded)
+     their own reported times, summed          3,277 s = 54.6 CPU-min
+     wall clock, warm local tree                  40 min
+     the ten dearest   V7B 415s · V7RatedH 357s · RegisterRepair 356s · V7Rated 353s ·
+                       M4RowAssemblyLinear 272s · M4RowLinear 158s · S16FlatTerminalLinearH 107s ·
+                       S15SelLinear 76s · S11Arc36 57s · S13FramesLinear 53s
+     in CI             #108 build 1h20m26s   ·   #109 build 1h0m7s
+   ```
+   ⇒ **THE COST IS THE IMPORT POSITION OF THE FILE EDITED, NOT THE CONTENT PUT IN IT.**
+   `S11Arc36.lean` sits at **9296 of 9388**, so everything downstream re-elaborates: **the eight
+   dearest modules above are LANDED FILES THE RUNG DOES NOT TOUCH.** The module carrying the two
+   numerals that grew by nine orders is **57 s, ninth on the list.**
+   ⇒ 🔑 ***A MEDIAN OVER A WORKFLOW IS A MEDIAN OVER ITS DIFFS.*** Lean CI's own median is `5.5 min`
+   over the last five completed runs — the distribution of docs-only and late-module diffs that get a
+   near-total cache hit. **A diff touching an early module is not a slow member of that distribution;
+   it is not a member of it**, and the two are indistinguishable from outside the workflow. The free
+   discriminator: `git diff --name-only origin/main...` and ask where the earliest `.lean` sits.
+   ⛔ **AND THE STACKING COST, WHICH IS NOT THE SAME NUMBER.** `main`'s protection is `strict: true`,
+   so a stacked PR retargeted after its base lands reads `BEHIND` and cannot merge on its old green;
+   the branch update changes its head sha and forces a FULL re-run. ⇒ **A 3-PR STACK OF MR-TOUCHING
+   BRANCHES COSTS THREE SEQUENTIAL ~60-MINUTE RUNS, NOT ONE.** ⚠️ And GitHub retargets a dependent PR
+   only when the base's head branch is **DELETED** — merging alone leaves it aimed at a branch that
+   is already in `main`, where its commits would land on nothing.
+
    ⚠️ **WHAT IS *NOT* CLAIMED: none of this moves a citable number** — not `z`, not `h` in any published
    statement. All thirteen new names have no consumers. The ladder is demonstrated CLIMBABLE above its
    floor and one round-number ceiling is gone; that is the whole delivery. **Anyone reading the arm-(A)
