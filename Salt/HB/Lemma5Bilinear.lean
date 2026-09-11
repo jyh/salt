@@ -81,6 +81,123 @@ def l₂ (F : HBForms) (n : ℕ) : ℕ := F.α₂ * n + F.β₂
 /-- HB's `α = (α₁, α₂)`. -/
 def α (F : HBForms) : ℕ := Nat.gcd F.α₁ F.α₂
 
+/-- `α₁ ≠ 0`: if it were, (1.8) would force `α₂ = 0` (every prime divides `0`, and primes are
+unbounded), and (1.6) would read `0 ≠ 0`. -/
+theorem alpha₁_ne_zero (F : HBForms) : F.α₁ ≠ 0 := by
+  intro h
+  have h2 : F.α₂ = 0 := by
+    by_contra hne
+    have hpos : 0 < F.α₂ := Nat.pos_of_ne_zero hne
+    obtain ⟨p, hple, hp⟩ := Nat.exists_infinite_primes (F.α₂ + 1)
+    have hpd1 : p ∣ F.α₁ := by rw [h]; exact dvd_zero p
+    have hpd : p ∣ F.α₂ := (F.same_primes p hp).mp hpd1
+    have := Nat.le_of_dvd hpos hpd
+    omega
+  exact F.det_ne (by simp [h, h2])
+
+/-- `α₂ ≠ 0`, the mirror. -/
+theorem alpha₂_ne_zero (F : HBForms) : F.α₂ ≠ 0 := by
+  intro h
+  have h2 : F.α₁ = 0 := by
+    by_contra hne
+    have hpos : 0 < F.α₁ := Nat.pos_of_ne_zero hne
+    obtain ⟨p, hple, hp⟩ := Nat.exists_infinite_primes (F.α₁ + 1)
+    have hpd2 : p ∣ F.α₂ := by rw [h]; exact dvd_zero p
+    have hpd : p ∣ F.α₁ := (F.same_primes p hp).mpr hpd2
+    have := Nat.le_of_dvd hpos hpd
+    omega
+  exact F.det_ne (by simp [h, h2])
+
+/-- (1.5)+(1.6)+(1.8): `α₁` is a nonzero even number. -/
+theorem two_le_α₁ (F : HBForms) : 2 ≤ F.α₁ :=
+  Nat.le_of_dvd (Nat.pos_of_ne_zero (alpha₁_ne_zero F)) F.even₁
+
+theorem two_le_α₂ (F : HBForms) : 2 ≤ F.α₂ :=
+  Nat.le_of_dvd (Nat.pos_of_ne_zero (alpha₂_ne_zero F)) F.even₂
+
+/-- (1.4)+(1.5): `β₁ = 0` would make `(α₁, β₁) = α₁ = 1`, against `2 ∣ α₁`. -/
+theorem one_le_β₁ (F : HBForms) : 1 ≤ F.β₁ := by
+  rcases Nat.eq_zero_or_pos F.β₁ with h | h
+  · exfalso
+    have h1 : F.α₁ = 1 := by
+      have hc := F.cop₁
+      rw [Nat.Coprime, h, Nat.gcd_zero_right] at hc
+      exact hc
+    have h2 := F.even₁
+    rw [h1] at h2
+    omega
+  · exact h
+
+theorem one_le_β₂ (F : HBForms) : 1 ≤ F.β₂ := by
+  rcases Nat.eq_zero_or_pos F.β₂ with h | h
+  · exfalso
+    have h1 : F.α₂ = 1 := by
+      have hc := F.cop₂
+      rw [Nat.Coprime, h, Nat.gcd_zero_right] at hc
+      exact hc
+    have h2 := F.even₂
+    rw [h1] at h2
+    omega
+  · exact h
+
+/-- What `β_i : ℕ` buys: `1 ≤ l_i(n)` for EVERY `n`, with no side condition — so every
+`Nat.divisors` and `divisorsAntidiagonal` of `l_i(n)` below is a sum over a non-degenerate
+index (`Nat.divisors 0 = ∅`). -/
+theorem one_le_l₁ (F : HBForms) (n : ℕ) : 1 ≤ F.l₁ n := by
+  have := one_le_β₁ F
+  show 1 ≤ F.α₁ * n + F.β₁
+  omega
+
+theorem one_le_l₂ (F : HBForms) (n : ℕ) : 1 ≤ F.l₂ n := by
+  have := one_le_β₂ F
+  show 1 ≤ F.α₂ * n + F.β₂
+  omega
+
+/-- (1.4)+(1.5): `β_i` is odd, since `2 ∣ α_i` and `(α_i, β_i) = 1`. -/
+theorem odd_β₁ (F : HBForms) : Odd F.β₁ := by
+  rcases Nat.even_or_odd F.β₁ with he | ho
+  · exfalso
+    have hg : Nat.gcd F.α₁ F.β₁ = 1 := F.cop₁
+    have h2 : (2 : ℕ) ∣ Nat.gcd F.α₁ F.β₁ := Nat.dvd_gcd F.even₁ he.two_dvd
+    rw [hg] at h2
+    omega
+  · exact ho
+
+theorem odd_β₂ (F : HBForms) : Odd F.β₂ := by
+  rcases Nat.even_or_odd F.β₂ with he | ho
+  · exfalso
+    have hg : Nat.gcd F.α₂ F.β₂ = 1 := F.cop₂
+    have h2 : (2 : ℕ) ∣ Nat.gcd F.α₂ F.β₂ := Nat.dvd_gcd F.even₂ he.two_dvd
+    rw [hg] at h2
+    omega
+  · exact ho
+
+/-- HB p.194: (1.4)+(1.5) make `l_i(n)` odd — an even `α_i` plus an odd `β_i`. -/
+theorem odd_l₁ (F : HBForms) (n : ℕ) : Odd (F.l₁ n) := by
+  obtain ⟨k, hk⟩ := F.even₁
+  obtain ⟨m, hm⟩ := odd_β₁ F
+  refine ⟨k * n + m, ?_⟩
+  show F.α₁ * n + F.β₁ = 2 * (k * n + m) + 1
+  rw [hk, hm]; ring
+
+theorem odd_l₂ (F : HBForms) (n : ℕ) : Odd (F.l₂ n) := by
+  obtain ⟨k, hk⟩ := F.even₂
+  obtain ⟨m, hm⟩ := odd_β₂ F
+  refine ⟨k * n + m, ?_⟩
+  show F.α₂ * n + F.β₂ = 2 * (k * n + m) + 1
+  rw [hk, hm]; ring
+
+/-- `l_i(n) ≡ β_i (mod α_i)`, so (1.4) transfers: `(l_i(n), α_i) = 1`. -/
+theorem coprime_l₁_α₁ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₁ n) F.α₁ := by
+  have he : F.l₁ n = F.β₁ + F.α₁ * n := by show F.α₁ * n + F.β₁ = _; ring
+  rw [he]
+  exact (Nat.coprime_add_mul_left_left F.β₁ F.α₁ n).mpr F.cop₁.symm
+
+theorem coprime_l₂_α₂ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₂ n) F.α₂ := by
+  have he : F.l₂ n = F.β₂ + F.α₂ * n := by show F.α₂ * n + F.β₂ = _; ring
+  rw [he]
+  exact (Nat.coprime_add_mul_left_left F.β₂ F.α₂ n).mpr F.cop₂.symm
+
 end HBForms
 
 /-- `Σ_{w v = N, v > V} χ(w)` (p.211): the inner truncated divisor sum of `S(δ₁,δ₂;V₁,V₂)`;
