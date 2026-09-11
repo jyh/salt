@@ -567,7 +567,7 @@ with `j < J`, `k < K`, and in exactly one pair of unit residue classes mod `q`; 
 equals `χ(b)`.  `Coprime N q` is what makes the residues units; `hJ`/`hK` are exactly the covers.
 -/
 theorem truncChiSum_eq_sum_cells (χ : DirichletCharacter ℂ q) (hq : 0 < q) {N : ℕ}
-    (hN : N ≠ 0) (hNq : Nat.Coprime N q) {V : ℝ} (hV : 0 < V) (J K : ℕ)
+    (hNq : Nat.Coprime N q) {V : ℝ} (hV : 0 < V) (J K : ℕ)
     (hJ : (N : ℝ) ≤ V * 2 ^ J) (hK : (N : ℝ) ≤ 2 ^ K / 2) :
     truncChiSum χ N V
       = ∑ j ∈ range J, ∑ k ∈ range K,
@@ -689,6 +689,122 @@ theorem truncChiSum_eq_sum_cells (χ : DirichletCharacter ℂ q) (hq : 0 < q) {N
         refine Finset.sum_congr rfl (fun j _ => Finset.sum_congr rfl (fun k _ =>
           Finset.sum_congr rfl (fun a _ => Finset.sum_congr rfl (fun b _ => ?_))))
         exact (hcard j k a b).symm
+
+/-- A residue class of a unit is a unit. -/
+theorem coprime_of_modEq {m a : ℕ} (h : m ≡ a [MOD q]) (ha : Nat.Coprime a q) :
+    Nat.Coprime m q := by
+  by_contra hcon
+  obtain ⟨p, hp, hpm, hpq⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
+  have h1 : m ≡ a [MOD p] := Nat.ModEq.of_dvd hpq h
+  have h2 : m ≡ 0 [MOD p] := (Nat.modEq_zero_iff_dvd).mpr hpm
+  have h3 : p ∣ a := (Nat.modEq_zero_iff_dvd).mp (h1.symm.trans h2)
+  have h4 : p ∣ Nat.gcd a q := Nat.dvd_gcd h3 hpq
+  rw [show Nat.gcd a q = 1 from ha] at h4
+  exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+
+/-- **The out-of-window cells carry no mass.**  `cellCount` runs over the BARE `Ioc` while the
+carrier runs over the `(l, q) = 1` window; under `(δ_i, q) = 1` the gap between them is empty.
+A non-empty cell puts `v_i` and `w_i` in UNIT classes mod `q`, so `(l_i(n)/δ_i, q) = 1` and
+hence `(l_i(n), q) = 1`; both indices together put `n` in the window. -/
+theorem cell_card_mul_eq_zero_of_not_mem_window (F : HBForms) (x δ₁ δ₂ : ℕ)
+    (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q) {n : ℕ}
+    (hn : n ∈ Finset.Ioc x (2 * x)) (hd₁ : δ₁ ∣ F.l₁ n) (hd₂ : δ₂ ∣ F.l₂ n)
+    (hnw : n ∉ hbFormsWindow F q x) (R₁ S₁ R₂ S₂ : ℝ) {a₁ b₁ a₂ b₂ : ℕ}
+    (ha₁ : Nat.Coprime a₁ q) (hb₁ : Nat.Coprime b₁ q)
+    (ha₂ : Nat.Coprime a₂ q) (hb₂ : Nat.Coprime b₂ q) :
+    ((F.l₁ n / δ₁).divisorsAntidiagonal.filter (fun p =>
+        R₁ < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * R₁ ∧ S₁ < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * S₁ ∧
+        p.2 ≡ a₁ [MOD q] ∧ p.1 ≡ b₁ [MOD q])).card *
+    ((F.l₂ n / δ₂).divisorsAntidiagonal.filter (fun p =>
+        R₂ < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * R₂ ∧ S₂ < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * S₂ ∧
+        p.2 ≡ a₂ [MOD q] ∧ p.1 ≡ b₂ [MOD q])).card = 0 := by
+  by_contra hne
+  obtain ⟨hc₁, hc₂⟩ := Nat.mul_ne_zero_iff.mp hne
+  obtain ⟨u₁, hu₁⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc₁)
+  obtain ⟨u₂, hu₂⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc₂)
+  rw [Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hu₁ hu₂
+  have hl₁ : Nat.Coprime (F.l₁ n) q := by
+    have hN : Nat.Coprime (F.l₁ n / δ₁) q := by
+      rw [← hu₁.1.1]
+      exact (coprime_of_modEq hu₁.2.2.2.2.2 hb₁).mul_left (coprime_of_modEq hu₁.2.2.2.2.1 ha₁)
+    have he : δ₁ * (F.l₁ n / δ₁) = F.l₁ n := Nat.mul_div_cancel' hd₁
+    rw [← he]
+    exact hδ₁q.mul_left hN
+  have hl₂ : Nat.Coprime (F.l₂ n) q := by
+    have hN : Nat.Coprime (F.l₂ n / δ₂) q := by
+      rw [← hu₂.1.1]
+      exact (coprime_of_modEq hu₂.2.2.2.2.2 hb₂).mul_left (coprime_of_modEq hu₂.2.2.2.2.1 ha₂)
+    have he : δ₂ * (F.l₂ n / δ₂) = F.l₂ n := Nat.mul_div_cancel' hd₂
+    rw [← he]
+    exact hδ₂q.mul_left hN
+  refine hnw ?_
+  simp only [hbFormsWindow, Finset.mem_filter]
+  exact ⟨hn, hl₁.mul_left hl₂⟩
+
+/-! ### Two `Finset.sum_comm` chains, stated once and used by B-3a's assembly -/
+
+/-- Pulling the innermost of nine nested sums out to the front. -/
+theorem sum_pull₈ {α : Type*} (S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ : Finset ℕ) (t : Finset α)
+    (g : ℕ → ℕ → ℕ → ℕ → ℕ → ℕ → ℕ → ℕ → α → ℝ) :
+    (∑ i₁ ∈ S₁, ∑ i₂ ∈ S₂, ∑ i₃ ∈ S₃, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇,
+      ∑ i₈ ∈ S₈, ∑ n ∈ t, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+      = ∑ n ∈ t, ∑ i₁ ∈ S₁, ∑ i₂ ∈ S₂, ∑ i₃ ∈ S₃, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆,
+          ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+  have h1 : ∀ i₁ i₂ i₃ i₄ i₅ i₆ i₇ : ℕ,
+      (∑ i₈ ∈ S₈, ∑ n ∈ t, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₈ ∈ S₈, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n :=
+    fun _ _ _ _ _ _ _ => Finset.sum_comm
+  have h2 : ∀ i₁ i₂ i₃ i₄ i₅ i₆ : ℕ,
+      (∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, ∑ n ∈ t, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+    intro i₁ i₂ i₃ i₄ i₅ i₆
+    rw [Finset.sum_congr rfl (fun i₇ _ => h1 i₁ i₂ i₃ i₄ i₅ i₆ i₇), Finset.sum_comm]
+  have h3 : ∀ i₁ i₂ i₃ i₄ i₅ : ℕ,
+      (∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, ∑ n ∈ t, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+    intro i₁ i₂ i₃ i₄ i₅
+    rw [Finset.sum_congr rfl (fun i₆ _ => h2 i₁ i₂ i₃ i₄ i₅ i₆), Finset.sum_comm]
+  have h4 : ∀ i₁ i₂ i₃ i₄ : ℕ,
+      (∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, ∑ n ∈ t, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈,
+            g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+    intro i₁ i₂ i₃ i₄
+    rw [Finset.sum_congr rfl (fun i₅ _ => h3 i₁ i₂ i₃ i₄ i₅), Finset.sum_comm]
+  have h5 : ∀ i₁ i₂ i₃ : ℕ,
+      (∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, ∑ n ∈ t,
+        g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈,
+            g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+    intro i₁ i₂ i₃
+    rw [Finset.sum_congr rfl (fun i₄ _ => h4 i₁ i₂ i₃ i₄), Finset.sum_comm]
+  have h6 : ∀ i₁ i₂ : ℕ,
+      (∑ i₃ ∈ S₃, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈, ∑ n ∈ t,
+        g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₃ ∈ S₃, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈,
+            g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+    intro i₁ i₂
+    rw [Finset.sum_congr rfl (fun i₃ _ => h5 i₁ i₂ i₃), Finset.sum_comm]
+  have h7 : ∀ i₁ : ℕ,
+      (∑ i₂ ∈ S₂, ∑ i₃ ∈ S₃, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇, ∑ i₈ ∈ S₈,
+        ∑ n ∈ t, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n)
+        = ∑ n ∈ t, ∑ i₂ ∈ S₂, ∑ i₃ ∈ S₃, ∑ i₄ ∈ S₄, ∑ i₅ ∈ S₅, ∑ i₆ ∈ S₆, ∑ i₇ ∈ S₇,
+            ∑ i₈ ∈ S₈, g i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈ n := by
+    intro i₁
+    rw [Finset.sum_congr rfl (fun i₂ _ => h6 i₁ i₂), Finset.sum_comm]
+  rw [Finset.sum_congr rfl (fun i₁ _ => h7 i₁), Finset.sum_comm]
+
+/-- Swapping a block of two outer sums past a block of two inner sums. -/
+theorem sum_swap_two_two (S₁ S₂ T₁ T₂ : Finset ℕ) (g : ℕ → ℕ → ℕ → ℕ → ℝ) :
+    (∑ x ∈ S₁, ∑ y ∈ S₂, ∑ u ∈ T₁, ∑ v ∈ T₂, g x y u v)
+      = ∑ u ∈ T₁, ∑ v ∈ T₂, ∑ x ∈ S₁, ∑ y ∈ S₂, g x y u v := by
+  calc (∑ x ∈ S₁, ∑ y ∈ S₂, ∑ u ∈ T₁, ∑ v ∈ T₂, g x y u v)
+      = ∑ x ∈ S₁, ∑ u ∈ T₁, ∑ y ∈ S₂, ∑ v ∈ T₂, g x y u v :=
+        Finset.sum_congr rfl (fun _ _ => Finset.sum_comm)
+    _ = ∑ u ∈ T₁, ∑ x ∈ S₁, ∑ y ∈ S₂, ∑ v ∈ T₂, g x y u v := Finset.sum_comm
+    _ = ∑ u ∈ T₁, ∑ x ∈ S₁, ∑ v ∈ T₂, ∑ y ∈ S₂, g x y u v :=
+        Finset.sum_congr rfl (fun _ _ => Finset.sum_congr rfl (fun _ _ => Finset.sum_comm))
+    _ = ∑ u ∈ T₁, ∑ v ∈ T₂, ∑ x ∈ S₁, ∑ y ∈ S₂, g x y u v :=
+        Finset.sum_congr rfl (fun _ _ => Finset.sum_comm)
 
 /-- **B-3b — (5.2)'s sizes**: a non-empty cell has `α_i x < 4 δ_i R_i S_i` and
 `δ_i R_i S_i ≤ l_i(2x)`.  ⭐ The dyadic ranges give `0 < R_i` and `0 < S_i` for free
