@@ -1819,6 +1819,10 @@ theorem cellCount_eq_sum_w (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂
                 ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
               v₂ * w₂ ≡ a₂ * b₂ [MOD q])).card := by
   classical
+  -- ⚠ `hq` is a frozen binder this route never spends: the residue cancellations run on
+  -- `Coprime δ₁ q`, `Coprime b_i q` and `Coprime w_i q`, none of which needs `0 < q`.  It is
+  -- consumed here so the unused-variable linter stays silent; the statement is untouched.
+  have _ := hq
   have hα₁ : 0 < F.α₁ := lt_of_lt_of_le (by norm_num) F.two_le_α₁
   have hα₂ : 0 < F.α₂ := lt_of_lt_of_le (by norm_num) F.two_le_α₂
   simp only [cellCount, ← Finset.card_product, ← Finset.card_sigma]
