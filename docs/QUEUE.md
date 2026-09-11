@@ -968,6 +968,27 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    | release condition | owner | re-measure |
    |---|---|---|
    | **#108 and #109 merged** (stacked; #109's base is #108's branch and retargets to `main` on merge). After that arm (A) is COMPLETE as granted and the row's next act needs a ruling, not a wave: **(B1)'s dial is the Captain's and has no setting recorded**, and the cost-20 rung buys nothing citable by the register's own §8. | helm (merge) → the Captain (B1) | at the helm's next seam |
+   ✅✅ **SIGNED 2026-09-11 13:5x UTC (h2c, salt lead) — THE STAMP ABOVE IS VERIFIED AT THE OBJECT, CELL BY CELL,
+   AND THE ROW'S OWNER-COLUMN ACT FOR h2c ("sign; the QUEUE entry") IS DISCHARGED.** Nothing above is rewritten.
+   Each cell names the command it was read with; the receipts are the objects, this table is a layer over them.
+   | cell | the stamp says | measured at the object | verdict |
+   |---|---|---|---|
+   | v9 pin | bare filename `…-h-cap-reach-statement-v9.md`, seat `7506d81c`, 64,358 B, sha256/16 `c39512d785fdafce` | `wc -c` → 64358 · `shasum -a 256` → `c39512d785fdafce` · `git log -1 -- <file>` → `7506d81c` (2026-09-09 00:20:31 PDT) | ✅ 3/3 |
+   | the pass | REPAIR-THEN-FIRE; all five asks discharged and verified 2026-09-09 00:23:34 | the signed verdict for v9 (35th helm head, NON-AUTHOR, 10/10 returns, 8 REPAIR-THEN-FIRE · 2 HOLD · 0 FIRE); the helm's own bus post `[09/09 00:23:34, maestro]` *"CONFIRMED AT THE RE-PIN — ALL FIVE ASKS DISCHARGED"*, carrying the same three pins | ✅ |
+   | the Captain's §8 | *"#1 (A)"*; *"math's gate: (A) + 60↦63; the one-declaration probe first"*; (B1) not granted, no setting | the 2026-09-10 council minute, row "math §8, the h-cap fork": *"#1 (A)"* recorded WITH the 60↦63 node; the disposition string verbatim; no (B1) setting anywhere in the minute | ✅ |
+   | cost 1 | PR #101 → `086e6f5f`, four twins, `[3 axioms]`, 306/−0 | `gh pr view 101` MERGED 2026-09-09T22:46:05Z; the merge commit is `d3a1413b` and `086e6f5f` is its second parent (the branch head, an ancestor of main); `git diff --numstat d3a1413b^1 d3a1413b` = All.lean 27 · StridePairReceipt 138 · StridePairReceiptG 141 = **+306 −0**; the All.lean block audits `flat_roadExit_generic_h_14` · `flat_door_head_xceil_h_14` · both `_g14` twins, "4 obligations, 4 landed" | ✅ (the cited sha is the LANDED commit; the merge is `d3a1413b`) |
+   | cost 8 | PR #108, NINE twins to `flat_capstone_generic_h_14`, 558/−0 | MERGED 2026-09-11T11:22:03Z → `3b047496`; numstat All.lean 40 · S11Arc36 58 · S16ComposeLH 74 · S16FlatTerminalLinear 51 · S16ProducersH 178 · StridePairReceipt 157 = **+558 −0**; the All.lean block audits **9** names, "9 obligations, 9 landed" | ✅ |
+   | 60↦63 | PR #109: `capeps_master_63` · `capeps_expbound_63` · `capeps_row_phi_h_14` · `capeps_row_tail_h_14`, 254/−0; `capeps_bigexp_63` NOT minted | MERGED 2026-09-11T13:05:41Z → `ee5acff9`; numstat All.lean 29 · S13CapGateLinearLH 225 = **+254 −0**; the four declared at `S13CapGateLinearLH.lean:2004 · :2032 · :2053 · :2101`, audited in All.lean, "4 obligations, 4 landed"; `grep -F capeps_bigexp_63 Salt/` → 0 | ✅ |
+   | this stamp's own landing | #110 | MERGED 2026-09-11T13:26:34Z → `e8a45989` = `origin/main`; `docs/QUEUE.md` **+81 −0**, nothing else | ✅ |
+   | `[3 axioms]` on every name | asserted per PR | `#audit_axioms` is a BUILD ERROR naming the offender (`Salt/Tactic/AuditAxioms.lean`); `main` at `e8a45989` builds green (`Lean Action CI` success 13:26:37Z · `Scrub` success) with all three blocks in `Salt/MR/All.lean` ⇒ the kernel receipt is that green build; not re-run here | ✅ |
+   | "no consumers" | all thirteen new names | `grep -F` each name across `Salt/` outside `All.lean`: the capstone and the four cap-gate names have **0** hits outside their declaring file; the four names with outside hits (`…_ceiling_kwide_14` · `m4_arith_henv_constPoolH_L_gk_14` · `arc36_of_regime_h_14` · `arc36_of_floor_h_14`) are read ONLY inside the rung's own supplier chain (StridePairReceipt · S16ComposeLH · S16FlatTerminalLinear) | ✅ as "no consumer outside the rung" |
+   | the executor half | "`StrideGradeReach.lean`, 15 names" (the ✅ paragraph at this row's head) | the file holds **16** theorems and the ⟦STRIDE GRADE REACH⟧ block audits **16**: the 15 of #88 plus `s15ArmH_log_le_14`, one of #89's two cap converters (`2d445312`, 2026-09-08) — which the #89 clause lower in this row already counts separately | ⚠️ **15 → 16 in that paragraph; no name missing, no name unaudited** |
+   📌 **WHAT THIS SIGNATURE DOES NOT CLAIM.** Nothing here moves a citable number — not `z`, not `h` in any published
+   statement; the thirteen names have no consumer outside their rung. The v9 no-go (134 of 142 declarations to reach four
+   twinnable consumers) is math's finding, verified by the helm's non-author pass, and is NOT re-derived here. The row's
+   next act is **(B1)'s dial, the Captain's, unruled and with no setting recorded** — the release-condition table directly
+   above stands as written and is not re-stated. ⇒ 🔑 ***A SIGNATURE ON A STAMP VERIFIES THE STAMP'S CELLS AT THE OBJECT;
+   IT DOES NOT RE-OPEN THE RULING THE STAMP RECORDS.*** Desk row `IO` (due 2026-09-12) is thereby CLOSED for its h2c owner.
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
