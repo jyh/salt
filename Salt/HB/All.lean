@@ -401,6 +401,7 @@ open Salt.Tactic in
   Salt.N7.kb5f_k_pos Salt.N7.kb5f_k_two Salt.N7.kb5f_two_dvd_alpha
   Salt.N7.cellCount_eq_sum_sawtooth
   Salt.N7.integral_Ioi_ite_inv
+  Salt.N7.integrable_term Salt.N7.integrableOn_truncChiSum_div
   -- node N7 WAVE B, LEMMA 9 (Salt/HB/Lemma5Bilinear.lean, continued): HB's `Λ′` and `Q`, the
   -- μ-sieve of `Λ*` over `Q`, the hyperbola identity of p.211, the three ray-integral rows,
   -- and Lemma 9 itself in four forms — the inner identity at one `(m₁, m₂)`, the exact form at
