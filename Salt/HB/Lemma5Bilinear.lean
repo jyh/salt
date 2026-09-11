@@ -481,6 +481,43 @@ theorem integral_Ioi_ite_inv {a v : ℝ} (ha : 0 < a) (hav : a ≤ v) :
     ← intervalIntegral.integral_of_le hav]
   exact integral_inv_of_pos ha (lt_of_lt_of_le ha hav)
 
+/-- **B-2c″ — the integrability `integral_finsetSum` demands at B-2c′ and Lemma 9's inner row
+needs twice**: one term of the truncated divisor sum, against `dV/V` on a ray. -/
+theorem integrable_term {a v c : ℝ} (ha : 0 < a) :
+    MeasureTheory.Integrable (fun V : ℝ => c * (if V < v then V⁻¹ else 0))
+      (MeasureTheory.volume.restrict (Set.Ioi a)) := by
+  have hIoo : MeasureTheory.IntegrableOn (fun V : ℝ => V⁻¹) (Set.Ioo a v) := by
+    have hcont : ContinuousOn (fun V : ℝ => V⁻¹) (Set.Icc a v) := by
+      apply continuousOn_inv₀.mono
+      intro x hx
+      simp only [Set.mem_compl_iff, Set.mem_singleton_iff]
+      exact ne_of_gt (lt_of_lt_of_le ha hx.1)
+    exact (hcont.integrableOn_Icc).mono_set Set.Ioo_subset_Icc_self
+  have hres : MeasureTheory.IntegrableOn (fun V : ℝ => V⁻¹) (Set.Iio v)
+      (MeasureTheory.volume.restrict (Set.Ioi a)) := by
+    have hset : Set.Iio v ∩ Set.Ioi a = Set.Ioo a v := by
+      ext x; simp [Set.mem_Ioo, and_comm]
+    rw [MeasureTheory.IntegrableOn, MeasureTheory.Measure.restrict_restrict measurableSet_Iio,
+      hset]
+    exact hIoo
+  refine ((hres.integrable_indicator measurableSet_Iio).const_mul c).congr ?_
+  filter_upwards with V
+  by_cases h : V < v <;> simp [h]
+
+/-- **B-2c″ — the aggregate**: the whole truncated divisor sum over `dV/V` is integrable on the
+ray, by `integrable_finsetSum` over `integrable_term`. -/
+theorem integrableOn_truncChiSum_div (χ : DirichletCharacter ℂ q) (N : ℕ) {a : ℝ} (ha : 0 < a) :
+    MeasureTheory.IntegrableOn (fun V : ℝ => truncChiSum χ N V / V) (Set.Ioi a) := by
+  have key : (fun V : ℝ => truncChiSum χ N V / V)
+      = fun V : ℝ =>
+          ∑ p ∈ N.divisorsAntidiagonal, chiRe χ p.1 * (if V < (p.2 : ℝ) then V⁻¹ else 0) := by
+    funext V
+    rw [truncChiSum, Finset.sum_div]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    by_cases h : V < (p.2 : ℝ) <;> simp [h, div_eq_mul_inv]
+  rw [MeasureTheory.IntegrableOn, key]
+  exact MeasureTheory.integrable_finsetSum _ (fun p _ => integrable_term ha)
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
