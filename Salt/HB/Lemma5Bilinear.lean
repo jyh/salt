@@ -729,8 +729,10 @@ theorem not_coprime_of_not_mem_window (F : HBForms) (x : ℕ) {n : ℕ}
     ¬ Nat.Coprime (F.l₁ n) q ∨ ¬ Nat.Coprime (F.l₂ n) q := by
   by_cases h1 : Nat.Coprime (F.l₁ n) q
   · by_cases h2 : Nat.Coprime (F.l₂ n) q
-    · exact absurd (by simp only [hbFormsWindow, Finset.mem_filter]
-        exact ⟨hn, h1.mul_left h2⟩) hnw
+    · exfalso
+      refine hnw ?_
+      simp only [hbFormsWindow, Finset.mem_filter]
+      exact ⟨hn, h1.mul_left h2⟩
     · exact Or.inr h2
   · exact Or.inl h1
 
