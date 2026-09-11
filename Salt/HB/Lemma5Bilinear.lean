@@ -543,6 +543,224 @@ theorem integral_Ioi_truncChiSum (χ : DirichletCharacter ℂ q) (N : ℕ) {a : 
   congr 1
   rw [div_eq_inv_mul]
 
+/-! ### The μ-sieve of `Λ*` over `Q` (p.210) — the radical of the `Q`-part of the square kernel,
+the set identity it gives, the Möbius step, and the two χ facts `m ∣ Q` buys. -/
+
+/-- The radical of the `Q`-part of the square kernel of `d`: the product of the primes `p < z`
+with `χ(p) = −1` and `p² ∣ d`.  `Λ*`'s admissibility condition at `d` is exactly `hbQRad = 1`,
+and the divisors of `hbQRad` are exactly the `m ∣ Q` with `m² ∣ d` — which is what turns the
+admissibility indicator into a Möbius sum.  ⛔ Not `Salt.HB.hbG`, which is the ℝ-valued sieve
+density numerator `G(d)` of p.199 and lives in the open cone under that name. -/
+noncomputable def hbQRad (χ : DirichletCharacter ℂ q) (z d : ℕ) : ℕ :=
+  ∏ p ∈ (Finset.range z).filter (fun p => p.Prime ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d), p
+
+/-- `Q` is a product of distinct primes, hence squarefree. -/
+lemma hbQ_squarefree (χ : DirichletCharacter ℂ q) (z : ℕ) : Squarefree (hbQ χ z) :=
+  squarefree_prod_of_primes (fun _ hp => (Finset.mem_filter.mp hp).2.1)
+
+/-- So is the radical, for the same reason. -/
+lemma hbQRad_squarefree (χ : DirichletCharacter ℂ q) (z d : ℕ) : Squarefree (hbQRad χ z d) :=
+  squarefree_prod_of_primes (fun _ hp => (Finset.mem_filter.mp hp).2.1)
+
+/-- The radical's prime set is a subset of `Q`'s, so it divides `Q`. -/
+lemma hbQRad_dvd_hbQ (χ : DirichletCharacter ℂ q) (z d : ℕ) : hbQRad χ z d ∣ hbQ χ z :=
+  Finset.prod_dvd_prod_of_subset _ _ _ (by
+    intro p hp
+    rw [Finset.mem_filter] at hp ⊢
+    exact ⟨hp.1, hp.2.1, hp.2.2.1⟩)
+
+/-- The primes of `Q`, read off the product: `p ∣ Q ↔ p < z ∧ χ(p) = −1`. -/
+lemma prime_dvd_hbQ_iff {χ : DirichletCharacter ℂ q} {z p : ℕ} (hp : p.Prime) :
+    p ∣ hbQ χ z ↔ (p < z ∧ chiRe χ p = -1) := by
+  constructor
+  · intro h
+    obtain ⟨p', hp', hdvd⟩ := (hp.prime.dvd_finsetProd_iff _).mp h
+    rw [Finset.mem_filter, Finset.mem_range] at hp'
+    have hpp : p = p' := (Nat.prime_dvd_prime_iff_eq hp hp'.2.1).mp hdvd
+    subst hpp
+    exact ⟨hp'.1, hp'.2.2⟩
+  · intro h
+    exact Finset.dvd_prod_of_mem _ (Finset.mem_filter.mpr ⟨Finset.mem_range.mpr h.1, hp, h.2⟩)
+
+/-- The primes of the radical, with the extra `p² ∣ d` conjunct. -/
+lemma prime_dvd_hbQRad_iff {χ : DirichletCharacter ℂ q} {z d p : ℕ} (hp : p.Prime) :
+    p ∣ hbQRad χ z d ↔ (p < z ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d) := by
+  constructor
+  · intro h
+    obtain ⟨p', hp', hdvd⟩ := (hp.prime.dvd_finsetProd_iff _).mp h
+    rw [Finset.mem_filter, Finset.mem_range] at hp'
+    have hpp : p = p' := (Nat.prime_dvd_prime_iff_eq hp hp'.2.1).mp hdvd
+    subst hpp
+    exact ⟨hp'.1, hp'.2.2.1, hp'.2.2.2⟩
+  · intro h
+    exact Finset.dvd_prod_of_mem _
+      (Finset.mem_filter.mpr ⟨Finset.mem_range.mpr h.1, hp, h.2.1, h.2.2⟩)
+
+/-- `hbQRad² ∣ d` — the defining property, through the factorisation order
+(`Nat.factorization_le_iff_dvd`): at each prime the radical contributes at most `1` and `d`
+carries at least `2`.  ⛔ The ℕ `Finset.prod_dvd_of_coprime` route does NOT work here. -/
+lemma hbQRad_sq_dvd (χ : DirichletCharacter ℂ q) (z d : ℕ) : (hbQRad χ z d) ^ 2 ∣ d := by
+  rcases eq_or_ne d 0 with rfl | hd
+  · exact dvd_zero _
+  have hG : hbQRad χ z d ≠ 0 := (hbQRad_squarefree χ z d).ne_zero
+  rw [← Nat.factorization_le_iff_dvd (pow_ne_zero 2 hG) hd, Finsupp.le_def]
+  intro p
+  rw [Nat.factorization_pow, Finsupp.smul_apply, smul_eq_mul]
+  rcases Nat.eq_zero_or_pos ((hbQRad χ z d).factorization p) with h0 | h0
+  · simp [h0]
+  · have hpmem : p ∈ (hbQRad χ z d).primeFactors := by
+      rw [← Nat.support_factorization, Finsupp.mem_support_iff]
+      omega
+    have hp : p.Prime := Nat.prime_of_mem_primeFactors hpmem
+    have hpG : p ∣ hbQRad χ z d := Nat.dvd_of_mem_primeFactors hpmem
+    obtain ⟨-, -, hsqd⟩ := (prime_dvd_hbQRad_iff hp).mp hpG
+    have h1 : (hbQRad χ z d).factorization p ≤ 1 :=
+      (Nat.squarefree_iff_factorization_le_one hG).mp (hbQRad_squarefree χ z d) p
+    have h2 : 2 ≤ d.factorization p := (Nat.Prime.pow_dvd_iff_le_factorization hp hd).mp hsqd
+    omega
+
+/-- **The set identity the Möbius step runs on**: `{m ∣ Q : m² ∣ d}` is exactly the set of
+divisors of `hbQRad χ z d`.  `⊆` is squarefreeness of `m` plus `Nat.prod_primeFactors_of_squarefree`
+(every prime of `m` is a prime of `Q` whose square divides `d`); `⊇` is `hbQRad_dvd_hbQ` and
+`hbQRad_sq_dvd`. -/
+lemma filter_divisors_hbQ (χ : DirichletCharacter ℂ q) (z d : ℕ) :
+    (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ d) = (hbQRad χ z d).divisors := by
+  ext m
+  simp only [Finset.mem_filter, Nat.mem_divisors]
+  constructor
+  · rintro ⟨⟨hmQ, -⟩, hm2⟩
+    refine ⟨?_, (hbQRad_squarefree χ z d).ne_zero⟩
+    have hsf : Squarefree m := (hbQ_squarefree χ z).squarefree_of_dvd hmQ
+    have hsub : m.primeFactors ⊆
+        (Finset.range z).filter (fun p => p.Prime ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d) := by
+      intro p hp
+      have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+      have hpm : p ∣ m := Nat.dvd_of_mem_primeFactors hp
+      obtain ⟨hpz, hpchi⟩ := (prime_dvd_hbQ_iff hpp).mp (hpm.trans hmQ)
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_range.mpr hpz, hpp, hpchi, (pow_dvd_pow_of_dvd hpm 2).trans hm2⟩
+    calc m = ∏ p ∈ m.primeFactors, p := (Nat.prod_primeFactors_of_squarefree hsf).symm
+      _ ∣ hbQRad χ z d := Finset.prod_dvd_prod_of_subset _ _ _ hsub
+  · rintro ⟨hmG, -⟩
+    exact ⟨⟨hmG.trans (hbQRad_dvd_hbQ χ z d), (hbQ_squarefree χ z).ne_zero⟩,
+      (pow_dvd_pow_of_dvd hmG 2).trans (hbQRad_sq_dvd χ z d)⟩
+
+/-- `hbQRad = 1` is exactly `Λ*`'s admissibility condition at `d`. -/
+lemma hbQRad_eq_one_iff (χ : DirichletCharacter ℂ q) (z d : ℕ) :
+    hbQRad χ z d = 1 ↔ Admissible χ z d := by
+  constructor
+  · intro h p hp hpz hpchi hsqd
+    have hdvd : p ∣ hbQRad χ z d := (prime_dvd_hbQRad_iff hp).mpr ⟨hpz, hpchi, hsqd⟩
+    rw [h] at hdvd
+    exact hp.one_lt.ne' (Nat.dvd_one.mp hdvd)
+  · intro hA
+    have hempty : (Finset.range z).filter (fun p => p.Prime ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d) = ∅ := by
+      rw [Finset.filter_eq_empty_iff]
+      rintro p hp ⟨hpp, hpchi, hsqd⟩
+      exact hA p hpp (Finset.mem_range.mp hp) hpchi hsqd
+    rw [hbQRad, hempty, Finset.prod_empty]
+
+/-- **The Möbius step**: `Σ_{m ∣ Q, m² ∣ d} μ(m)` is the indicator of admissibility at `d`.
+The set identity turns the sum into `Σ_{m ∣ hbQRad} μ(m)`, which is `1` iff `hbQRad = 1`
+(`Salt.SW.sum_divisors_moebius_real`), and `hbQRad = 1` is admissibility. -/
+lemma moebius_step (χ : DirichletCharacter ℂ q) (z d : ℕ) :
+    ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ d), (μ m : ℝ)
+      = if Admissible χ z d then (1 : ℝ) else 0 := by
+  rw [filter_divisors_hbQ, Salt.SW.sum_divisors_moebius_real]
+  by_cases hA : Admissible χ z d
+  · rw [if_pos hA, if_pos ((hbQRad_eq_one_iff χ z d).mpr hA)]
+  · rw [if_neg hA, if_neg (fun h => hA ((hbQRad_eq_one_iff χ z d).mp h))]
+
+/-- **The χ step**: `m ∣ Q ⇒ χ(m)² = 1`.  Every prime of `Q` has `χ(p) = −1`, and `m ∣ Q` is
+squarefree, so `χ(m) = (−1)^{ω(m)} = ±1`.  ⛔ FALSE for general `m` — `χ(m) = 0` at `m` sharing a
+factor with the modulus; the hypothesis `m ∣ Q` is doing the work. -/
+lemma chiRe_sq_of_dvd_hbQ (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z m : ℕ}
+    (hm : m ∣ hbQ χ z) : (chiRe χ m) ^ 2 = 1 := by
+  have hsf : Squarefree m := (hbQ_squarefree χ z).squarefree_of_dvd hm
+  have hm' : ∏ p ∈ m.primeFactors, p = m := Nat.prod_primeFactors_of_squarefree hsf
+  have key : chiRe χ (∏ p ∈ m.primeFactors, p) = ∏ p ∈ m.primeFactors, chiRe χ p :=
+    chiRe_finset_prod χ hsq _
+  rw [hm'] at key
+  have hall : ∀ p ∈ m.primeFactors, chiRe χ p = -1 := fun p hp =>
+    ((prime_dvd_hbQ_iff (Nat.prime_of_mem_primeFactors hp)).mp
+      ((Nat.dvd_of_mem_primeFactors hp).trans hm)).2
+  rw [key, Finset.prod_congr rfl hall, Finset.prod_const, ← pow_mul, mul_comm, pow_mul]
+  norm_num
+
+/-- The χ step in the shape the reindex `d = m² v` needs. -/
+lemma chiRe_sq_mul (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z m : ℕ}
+    (hm : m ∣ hbQ χ z) (v : ℕ) : chiRe χ (m ^ 2 * v) = chiRe χ v := by
+  rw [chiRe_mul χ hsq, chiRe_pow χ hsq, chiRe_sq_of_dvd_hbQ χ hsq hm, one_mul]
+
+/-- **B-2a — `Λ*` as the μ-sieve of `Λ′` over `Q`, EXACT** (p.210, first display): no
+truncation, every `m ∣ Q` with `m² ∣ n`.  The admissibility indicator inside `Λ*` becomes the
+Möbius sum, the two sums swap (`Finset.sum_comm'` over the pairs `(d, m)` with `m² ∣ d ∣ n`),
+and the inner sum is reindexed at `d = m² v` by `Finset.sum_nbij'`, where `χ(m²v) = χ(v)` is the
+χ step and `n/(m²v) = (n/m²)/v` is `Nat.div_div_eq_div_mul`. -/
+theorem LamStar_eq_moebius_hbQ (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z n : ℕ) :
+    LamStar χ z n
+      = ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ n),
+          (μ m : ℝ) * LamPrime χ (n / m ^ 2) := by
+  classical
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [LamStar, LamPrime]
+  -- LHS: replace the admissibility indicator by the Moebius sum
+  have hL : LamStar χ z n
+      = ∑ d ∈ n.divisors, ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ d),
+          (μ m : ℝ) * (chiRe χ d * Real.log ((n / d : ℕ) : ℝ)) := by
+    rw [LamStar]
+    refine Finset.sum_congr rfl fun d _ => ?_
+    rw [← Finset.sum_mul, moebius_step χ z d]
+    by_cases hA : Admissible χ z d
+    · rw [if_pos hA, if_pos hA, one_mul]
+    · rw [if_neg hA, if_neg hA, zero_mul]
+  rw [hL]
+  -- swap the two sums
+  rw [Finset.sum_comm' (t' := (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ n))
+      (s' := fun m => n.divisors.filter (fun d => m ^ 2 ∣ d))
+      (by
+        intro d m
+        simp only [Finset.mem_filter, Nat.mem_divisors]
+        constructor
+        · rintro ⟨⟨hdn, hn0⟩, ⟨hmQ, hQ0⟩, hm2⟩
+          exact ⟨⟨⟨hdn, hn0⟩, hm2⟩, ⟨hmQ, hQ0⟩, hm2.trans hdn⟩
+        · rintro ⟨⟨⟨hdn, hn0⟩, hm2⟩, ⟨hmQ, hQ0⟩, -⟩
+          exact ⟨⟨hdn, hn0⟩, ⟨hmQ, hQ0⟩, hm2⟩)]
+  -- the inner reindex `d = m² v`
+  refine Finset.sum_congr rfl fun m hm => ?_
+  obtain ⟨hmdiv, hm2n⟩ := Finset.mem_filter.mp hm
+  have hmQ : m ∣ hbQ χ z := (Nat.mem_divisors.mp hmdiv).1
+  have hm0 : 0 < m := Nat.pos_of_mem_divisors hmdiv
+  have hm2pos : 0 < m ^ 2 := pow_pos hm0 2
+  rw [LamPrime, Finset.mul_sum]
+  refine Finset.sum_nbij' (i := fun d => d / m ^ 2) (j := fun v => m ^ 2 * v) ?_ ?_ ?_ ?_ ?_
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd ⊢
+    refine ⟨?_, ?_⟩
+    · have h1 : m ^ 2 * (d / m ^ 2) ∣ m ^ 2 * (n / m ^ 2) := by
+        rw [Nat.mul_div_cancel' hd.2, Nat.mul_div_cancel' hm2n]; exact hd.1.1
+      exact (Nat.mul_dvd_mul_iff_left hm2pos).mp h1
+    · exact (Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hn) hm2n) hm2pos).ne'
+  · intro v hv
+    simp only [Nat.mem_divisors, Finset.mem_filter] at hv ⊢
+    refine ⟨⟨?_, hn⟩, Dvd.intro v rfl⟩
+    calc m ^ 2 * v ∣ m ^ 2 * (n / m ^ 2) := Nat.mul_dvd_mul_left _ hv.1
+      _ = n := Nat.mul_div_cancel' hm2n
+  · intro d hd
+    simp only [Finset.mem_filter] at hd
+    exact Nat.mul_div_cancel' hd.2
+  · intro v _
+    exact Nat.mul_div_cancel_left v hm2pos
+  · intro d hd
+    simp only [Finset.mem_filter] at hd
+    have hd2 : m ^ 2 * (d / m ^ 2) = d := Nat.mul_div_cancel' hd.2
+    have hchi : chiRe χ d = chiRe χ (d / m ^ 2) := by
+      conv_lhs => rw [← hd2]
+      exact chiRe_sq_mul χ hsq hmQ _
+    have hlog : (n / d : ℕ) = (n / m ^ 2 / (d / m ^ 2) : ℕ) := by
+      rw [Nat.div_div_eq_div_mul, hd2]
+    rw [hchi, hlog]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
