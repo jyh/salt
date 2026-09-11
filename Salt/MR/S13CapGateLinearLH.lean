@@ -1976,4 +1976,229 @@ theorem s15_crossing_supplied_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.l
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
 
+/-! ## ⟦§4 — THE `60 ↦ 63` BUDGET MOVE, AND THE TWO ROWS THAT NEEDED IT⟧
+
+The Captain's council ruling ⑤ granted this node alongside arm (A)'s `#1`.  Without it **the
+shift lane stops at `h ≤ 157 931`, not at `⌊e^{14}⌋ = 1202604`** — the `t`-ceiling `60` in §1's
+siblings is the binding wall, and it binds by `2.03` in the log.
+
+📐 **THE ARITHMETIC, AT THE OBJECT.**  `capeps_row_tail_h` spends `log 3072 + log C + log h ≤
+9 + 40 + log h` into `capeps_expbound_60`'s `t`.  At `log h ≤ 7` that is `56 ≤ 60` — the reason
+`60` was chosen.  At `log h ≤ 14` it is **`63 > 60`**, so `max log h = 60 − 49 = 11.97`, i.e.
+`h ≤ 157 931`.  ⇒ **The wall is a round number, not mathematics** — §1's own header says so:
+the true admissible `t` is `~7·10¹⁷`, and `60` is *"seventeen orders below the barrier"*.
+
+⛔ **TWO THINGS THIS SECTION DELIBERATELY DOES NOT DO, STATED SO NEITHER READS AS AN OVERSIGHT.**
+* **`capeps_bigexp_63` IS NOT MINTED, BECAUSE NOTHING NEEDS IT.**  The tail row's OTHER leg spends
+  `log 1536 + log h ≤ 8 + 14 = 22`, and `22 ≤ 60` already.  A sibling minted "for symmetry" would
+  be an unconsumed declaration asserting a wall that is not there.
+* **`capeps_row_phi_h_14` DOES NOT USE THE RAISE EITHER.**  Its spend is `log 49920 + log h ≤
+  11 + 14 = 25`, and `25 ≤ 60`.  ⇒ **Only ONE of the two rows was ever walled**, and the row-level
+  census that produced the `157 931` figure could not see which — it measured the family.
+-/
+
+/-- ⟦SIBLING of `capeps_master_60` (§1), ceiling `60 → 63`⟧ — the `εr`-budget master line at the
+raised shift cap.  BODY: §1's, verbatim; `ht` enters only the closing `nlinarith`, linearly,
+against `(14/10000)·Λ ≥ 7·10¹⁷`.  ⭐ **The certificate travels unchanged, and that is the
+finding**: if it had not, the ceiling would have been a barrier after all. -/
+theorem capeps_master_63 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
+    (ht : t ≤ 63) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hΛ0 : (0 : ℝ) < Λ := by linarith
+  have hu2L : u ≤ 2 * Λ := by linarith
+  have hlogu : Real.log u ≤ 1 + Real.log Λ := by
+    have h1 : Real.log u ≤ Real.log (2 * Λ) := Real.log_le_log hu0 hu2L
+    have h2 : Real.log (2 * Λ) = Real.log 2 + Real.log Λ :=
+      Real.log_mul (by norm_num) (ne_of_gt hΛ0)
+    have h3 : Real.log 2 ≤ 1 := by
+      have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num); linarith
+    linarith
+  have hsq0 : (0 : ℝ) < Real.sqrt Λ := Real.sqrt_pos.mpr hΛ0
+  have hsqrt : Real.log Λ ≤ 2 * Real.sqrt Λ := by
+    have h := Real.log_le_sub_one_of_pos hsq0
+    have hs : Real.log (Real.sqrt Λ) = Real.log Λ / 2 := Real.log_sqrt hΛ0.le
+    rw [hs] at h; linarith
+  have hsu : Real.sqrt Λ * Real.sqrt Λ = Λ := Real.mul_self_sqrt hΛ0.le
+  have hLbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Λ := by
+    have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
+    linarith
+  have hs10 : (2 : ℝ) * 10 ^ (10 : ℕ) ≤ Real.sqrt Λ := by
+    nlinarith [hsu, hLbig, hsq0]
+  nlinarith [hsqrt, hsu, hs10, hsq0, hlogu, ht]
+
+/-- ⟦SIBLING of `capeps_expbound_60` (§1), ceiling `60 → 63`⟧ — the one member of the family the
+raised cap actually needs.  BODY: §1's, off `capeps_master_63`. -/
+theorem capeps_expbound_63 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (ht : t ≤ 63) :
+    Real.exp t * u ^ (12 : ℕ) * Real.log μ ≤ μ ^ (theta293 - 1 / 500) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ0 : (0 : ℝ) < Real.log μ := by linarith
+  have hmas := capeps_master_63 hu hΛ ht
+  have hθ := s13_theta293_margin_lo
+  have hlhs : Real.exp (t + 12 * Real.log u + Real.log (Real.log μ))
+      = Real.exp t * u ^ (12 : ℕ) * Real.log μ := by
+    rw [Real.exp_add, Real.exp_add, Real.exp_log hΛ0, ← capeps_pow12 hu0]
+  rw [← hlhs, Real.rpow_def_of_pos hμ0]
+  refine Real.exp_le_exp.mpr ?_
+  have : 14 / 10000 * Real.log μ ≤ Real.log μ * (theta293 - 1 / 500) := by nlinarith
+  linarith
+
+/-- ⟦`capeps_row_phi_h` AT THE RAISED CAP⟧ (`capeps_row_phi_h_14`) — the `φ ≤ h·u¹²` row at
+`log h ≤ 14`.  `11 → 25`, from `e^{11}·e^{14}`.
+⭐ **IT STILL FITS UNDER THE LANDED `60`** (`25 ≤ 60`), so this row reads `capeps_expbound_60`
+unchanged and is a pure numeral lift.  **This row was never the wall.** -/
+theorem capeps_row_phi_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14)
+    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (hφ0 : 0 ≤ φ) (hφ : φ ≤ (h : ℝ) * u ^ (12 : ℕ)) :
+    12 * (4160 * φ * μ ^ (-theta293)) ≤ μ ^ (-(1 / 500) : ℝ) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hexp14 := h_le_exp_fourteen hh hh14
+  have he11 : (49920 : ℝ) ≤ Real.exp 11 := by
+    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+    have hz : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 11
+    have : (49920 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
+    rw [hz]; linarith
+  have he25 : (49920 : ℝ) * (h : ℝ) ≤ Real.exp 25 := by
+    have hsum : Real.exp 25 = Real.exp 11 * Real.exp 14 := by rw [← Real.exp_add]; norm_num
+    rw [hsum]
+    exact mul_le_mul he11 hexp14 (by positivity) (Real.exp_pos 11).le
+  have hstone := capeps_expbound_60 hu hμ hΛ (by norm_num : (25 : ℝ) ≤ 60)
+  have hkey : 49920 * φ ≤ μ ^ (theta293 - 1 / 500) := by
+    have hchain : 49920 * φ ≤ (49920 * (h : ℝ)) * u ^ (12 : ℕ) := by nlinarith [hφ, hp12]
+    have h1 : 49920 * φ ≤ Real.exp 25 * u ^ (12 : ℕ) :=
+      le_trans hchain (mul_le_mul_of_nonneg_right he25 hp12.le)
+    have h2 : Real.exp 25 * u ^ (12 : ℕ)
+        ≤ Real.exp 25 * u ^ (12 : ℕ) * Real.log μ := by
+      nlinarith [Real.exp_pos (25 : ℝ)]
+    linarith
+  have hT0 : (0 : ℝ) < μ ^ (-theta293) := Real.rpow_pos_of_pos hμ0 _
+  have hsplit : μ ^ (-theta293) * μ ^ (theta293 - 1 / 500) = μ ^ (-(1 / 500) : ℝ) := by
+    rw [← Real.rpow_add hμ0]; congr 1; ring
+  calc 12 * (4160 * φ * μ ^ (-theta293)) = (49920 * φ) * μ ^ (-theta293) := by ring
+    _ ≤ μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) :=
+        mul_le_mul_of_nonneg_right hkey hT0.le
+    _ = μ ^ (-theta293) * μ ^ (theta293 - 1 / 500) := by ring
+    _ = μ ^ (-(1 / 500) : ℝ) := hsplit
+
+set_option maxHeartbeats 1000000 in
+-- the `(h:ℝ)·u¹²` factor doubles the monomial count in both legs' linarith tableaux
+/-- ⟦`capeps_row_tail_h` AT THE RAISED CAP⟧ (`capeps_row_tail_h_14`) — the `W ≤ 64·h·u¹²·X` row
+at `log h ≤ 14`.  **THE ONE ROW THAT WAS WALLED**, and the only consumer of `capeps_expbound_63`:
+its `A` leg spends `9 + 40 + 14 = 63`, taken at `63 ≤ 63` — **EXACTLY, with the ceiling met and
+not cleared.**  Its `B` leg spends `8 + 14 = 22` and keeps the landed `capeps_bigexp_60`.
+⚠️ `63 ≤ 63` is deliberate: the ceiling is chosen to be the smallest that admits the spend, as
+`60` was for `56`.  The margin is not in the ceiling — it is the `7·10¹⁷` the master line has
+against the spend, seventeen orders down. -/
+theorem capeps_row_tail_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14)
+    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (hX0 : 0 < X) (hXlog : Real.log X = μ)
+    (hW0 : 0 ≤ W) (hW : W ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X) (hC0 : 0 < C)
+    (hC : Real.log C ≤ 40) (hr : r ≤ 2 * (Real.log μ * μ ^ (-theta293))) :
+    12 * (W * (C * r / X + 1 / X ^ 2)) ≤ μ ^ (-(1 / 500) : ℝ) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hph : (0 : ℝ) < (h : ℝ) * u ^ (12 : ℕ) := by positivity
+  have hexp14 := h_le_exp_fourteen hh hh14
+  have hT0 : (0 : ℝ) < μ ^ (-theta293) := Real.rpow_pos_of_pos hμ0 _
+  have hXne : X ≠ 0 := ne_of_gt hX0
+  have hinv : (0 : ℝ) ≤ X⁻¹ := by positivity
+  have hstep : C * r / X + 1 / X ^ 2
+      ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2 := by
+    have h1 : C * r ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) :=
+      mul_le_mul_of_nonneg_left hr hC0.le
+    have h2 : C * r / X ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X := by
+      rw [div_eq_mul_inv, div_eq_mul_inv]
+      exact mul_le_mul_of_nonneg_right h1 hinv
+    linarith
+  have hS0 : (0 : ℝ) ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2 := by
+    have : (0 : ℝ) ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X := by positivity
+    have h2 : (0 : ℝ) ≤ 1 / X ^ 2 := by positivity
+    linarith
+  have hprod : W * (C * r / X + 1 / X ^ 2)
+      ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+        * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2) :=
+    le_trans (mul_le_mul_of_nonneg_left hstep hW0) (mul_le_mul_of_nonneg_right hW hS0)
+  have hval : 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+        * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2)
+      = 128 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+        + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X := by
+    field_simp
+    ring
+  have hCle : C ≤ Real.exp 40 := by
+    have := Real.exp_le_exp.mpr hC
+    rwa [Real.exp_log hC0] at this
+  have h3072 : (3072 : ℝ) ≤ Real.exp 9 := by
+    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+    have hz : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7182818283 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 9
+    have : (3072 : ℝ) ≤ (2.7182818283 : ℝ) ^ (9 : ℕ) := by norm_num
+    rw [hz]; linarith
+  have h63 : (3072 : ℝ) * C * (h : ℝ) ≤ Real.exp 63 := by
+    have hsum : Real.exp 63 = Real.exp 9 * Real.exp 40 * Real.exp 14 := by
+      rw [← Real.exp_add, ← Real.exp_add]; norm_num
+    rw [hsum]
+    have hCh : (3072 : ℝ) * C ≤ Real.exp 9 * Real.exp 40 :=
+      mul_le_mul h3072 hCle hC0.le (Real.exp_pos 9).le
+    exact mul_le_mul hCh hexp14 (by positivity) (by positivity)
+  have hlegA : 1536 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
+    have hstone := capeps_expbound_63 hu hμ hΛ (by norm_num : (63 : ℝ) ≤ 63)
+    have hmul : (3072 * C * (h : ℝ)) * (u ^ (12 : ℕ) * Real.log μ)
+        ≤ Real.exp 63 * (u ^ (12 : ℕ) * Real.log μ) :=
+      mul_le_mul_of_nonneg_right h63 (by positivity)
+    have h1 : 3072 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ
+        ≤ μ ^ (theta293 - 1 / 500) := by nlinarith [hmul, hstone]
+    have h2 : 3072 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+        ≤ μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) :=
+      mul_le_mul_of_nonneg_right h1 hT0.le
+    have hsplit : μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) = μ ^ (-(1 / 500) : ℝ) := by
+      rw [← Real.rpow_add hμ0]; congr 1; ring
+    rw [hsplit] at h2
+    linarith
+  have hlegB : 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X ≤ μ ^ (-(1 / 500) : ℝ) / 24 := by
+    have hstone := capeps_bigexp_60 hu hμ hΛ (by norm_num : (22 : ℝ) ≤ 60)
+    have he8 : (1536 : ℝ) ≤ Real.exp 8 := by
+      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+      have hz : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have hc : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) h1.le 8
+      have : (1536 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
+      rw [hz]; linarith
+    have he22 : (1536 : ℝ) * (h : ℝ) ≤ Real.exp 22 := by
+      have hsum : Real.exp 22 = Real.exp 8 * Real.exp 14 := by rw [← Real.exp_add]; norm_num
+      rw [hsum]
+      exact mul_le_mul he8 hexp14 (by positivity) (Real.exp_pos 8).le
+    have hμ2 : (1 : ℝ) ≤ μ ^ 2 := by nlinarith
+    have ha : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ Real.exp 22 * u ^ (12 : ℕ) := by
+      have := mul_le_mul_of_nonneg_right he22 hp12.le
+      nlinarith [this]
+    have hbb : Real.exp 22 * u ^ (12 : ℕ) ≤ Real.exp 22 * u ^ (12 : ℕ) * μ ^ 2 :=
+      le_mul_of_one_le_right (by positivity) hμ2
+    have h1 : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ Real.exp 22 * u ^ (12 : ℕ) * μ ^ 2 := by
+      linarith
+    have h2 : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ X * μ ^ (-(1 / 500) : ℝ) := by
+      rw [capeps_Xmu hX0 hXlog hμ0]; linarith
+    rw [div_le_div_iff₀ hX0 (by norm_num : (0 : ℝ) < 24)]
+    nlinarith [h2]
+  calc 12 * (W * (C * r / X + 1 / X ^ 2))
+      ≤ 12 * (64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+          * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2)) := by linarith
+    _ = 12 * (128 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+          + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X) := by rw [hval]
+    _ ≤ μ ^ (-(1 / 500) : ℝ) := by linarith
+
 end Salt.MR

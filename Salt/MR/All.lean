@@ -10019,3 +10019,32 @@ open Salt.Tactic in
   Salt.MR.hArcDen_mul_strataResidualH_sq_le_14
   Salt.MR.arc36_of_regime_h_14
   Salt.MR.arc36_of_floor_h_14
+
+/-! ⟦THE `60 ↦ 63` BUDGET MOVE⟧ — THE SHIFT LANE'S BINDING WALL, REMOVED (`S13CapGateLinearLH` §4,
+2026-09-11, math).  The Captain's council ruling ⑤ granted this node alongside arm (A)'s `#1`.
+**Without it the shift lane stops at `h ≤ 157 931`, not at the ordered `⌊e^{14}⌋ = 1202604`.**
+
+📐 `capeps_row_tail_h` spends `log 3072 + log C + log h ≤ 9 + 40 + log h` into
+`capeps_expbound_60`'s `t`-ceiling.  At `log h ≤ 7` that is `56 ≤ 60`, which is why `60` was
+chosen; at `log h ≤ 14` it is `63 > 60`, so the lane's true ceiling was `max log h = 11.97`.
+**The wall is a round number, not mathematics** — §1's own header says the true admissible `t`
+is `~7·10¹⁷` and calls `60` *"an author's convenience rather than a barrier"*.  The `_63`
+siblings carry the LANDED certificates verbatim; a certificate that stopped travelling would
+have meant the ceiling was a barrier after all, which is a finding rather than a repair.
+
+⛔ **TWO DELIBERATE ABSENCES, RECORDED SO NEITHER READS AS AN OVERSIGHT.**  `capeps_bigexp_63`
+is NOT minted — the tail row's other leg spends `8 + 14 = 22 ≤ 60` and keeps the landed
+sibling.  And `capeps_row_phi_h_14` does not use the raise either: it spends `11 + 14 = 25`.
+⇒ **Only ONE of the two rows was ever walled**, which the family-level census that produced the
+`157 931` figure could not see.  `capeps_row_tail_h_14` takes `63 ≤ 63` — met exactly, as `60`
+met `56`; the margin lives in the master line, seventeen orders down, not in the ceiling.
+
+📌 Every name is new; no landed declaration moves and no landed statement is re-pointed.  These
+four have no consumers.  The node moves no citable number — it removes a named ceiling that
+would otherwise cap the ordered reach at 13 % of its target.  Nothing here bears on twin primes.
+4 obligations, 4 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.capeps_master_63
+  Salt.MR.capeps_expbound_63
+  Salt.MR.capeps_row_phi_h_14
+  Salt.MR.capeps_row_tail_h_14
