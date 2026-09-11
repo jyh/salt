@@ -1706,6 +1706,81 @@ theorem five_eight_iff (F : HBForms) (δ₁ δ₂ w₁ X n : ℕ) (hα₂ : F.α
     exact h''
 
 
+/-- **The `v₂`-interval `(T₁, T₂]` IS the three pairs of cell conditions at once** — HB's (5.15)
+and (5.16) read backwards.  Once `α₂n + β₂ = δ₂v₂w₂` (so `n` is the cell's point) and
+`δ₁v₁w₁ = l₁(n)` (so `v₁` is the cell's first divisor), the three entries of `max`/`min` are, in
+order, `R₂ < v₂ ≤ 2R₂`, `x < n ≤ 2x` and `R₁ < v₁ ≤ 2R₁`.  This is the whole content of the
+elimination of `n` and `v₁`. -/
+theorem hbT_mem_iff (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ v₁ v₂ n : ℕ)
+    (hδ₁ : 0 < δ₁) (hδ₂ : 0 < δ₂) (hw₁ : 0 < w₁) (hw₂ : 0 < w₂)
+    (hn : F.α₂ * n + F.β₂ = δ₂ * (v₂ * w₂))
+    (hv₁ : δ₁ * (v₁ * w₁) = F.l₁ n) :
+    (hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ < (v₂ : ℝ) ∧ (v₂ : ℝ) ≤ hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂)
+      ↔ (R₂ < (v₂ : ℝ) ∧ (v₂ : ℝ) ≤ 2 * R₂ ∧ x < n ∧ n ≤ 2 * x ∧
+          R₁ < (v₁ : ℝ) ∧ (v₁ : ℝ) ≤ 2 * R₁) := by
+  have hα₁ : 0 < F.α₁ := lt_of_lt_of_le (by norm_num) F.two_le_α₁
+  have hα₂ : 0 < F.α₂ := lt_of_lt_of_le (by norm_num) F.two_le_α₂
+  have hα₁R : (0 : ℝ) < (F.α₁ : ℝ) := by exact_mod_cast hα₁
+  have hα₂R : (0 : ℝ) < (F.α₂ : ℝ) := by exact_mod_cast hα₂
+  have hδ₁R : (0 : ℝ) < (δ₁ : ℝ) := by exact_mod_cast hδ₁
+  have hδ₂R : (0 : ℝ) < (δ₂ : ℝ) := by exact_mod_cast hδ₂
+  have hw₁R : (0 : ℝ) < (w₁ : ℝ) := by exact_mod_cast hw₁
+  have hw₂R : (0 : ℝ) < (w₂ : ℝ) := by exact_mod_cast hw₂
+  have hdw : (0 : ℝ) < (δ₂ : ℝ) * (w₂ : ℝ) := mul_pos hδ₂R hw₂R
+  have hadw : (0 : ℝ) < ((F.α₁ * δ₂ * w₂ : ℕ) : ℝ) := by
+    push_cast; positivity
+  -- the two ℕ-identities, in ℝ
+  have hnR : (F.α₂ : ℝ) * (n : ℝ) + (F.β₂ : ℝ) = (δ₂ : ℝ) * ((v₂ : ℝ) * (w₂ : ℝ)) := by
+    exact_mod_cast congrArg (fun m : ℕ => (m : ℝ)) hn
+  have hv₁R : (δ₁ : ℝ) * ((v₁ : ℝ) * (w₁ : ℝ)) = (F.α₁ : ℝ) * (n : ℝ) + (F.β₁ : ℝ) := by
+    have h := congrArg (fun m : ℕ => (m : ℝ)) hv₁
+    simp only [HBForms.l₁] at h
+    push_cast at h
+    exact h
+  -- the six entries, one by one
+  have e₂ : ((F.α₂ * x + F.β₂ : ℕ) : ℝ) / ((δ₂ : ℝ) * (w₂ : ℝ)) < (v₂ : ℝ) ↔ x < n := by
+    rw [div_lt_iff₀ hdw]
+    push_cast
+    constructor
+    · intro h
+      have hx : (x : ℝ) < (n : ℝ) := by nlinarith
+      exact_mod_cast hx
+    · intro h
+      have hx : (x : ℝ) < (n : ℝ) := by exact_mod_cast h
+      nlinarith
+  have e₂' : (v₂ : ℝ) ≤ ((2 * F.α₂ * x + F.β₂ : ℕ) : ℝ) / ((δ₂ : ℝ) * (w₂ : ℝ)) ↔ n ≤ 2 * x := by
+    rw [le_div_iff₀ hdw]
+    push_cast
+    constructor
+    · intro h
+      have hx : (n : ℝ) ≤ 2 * (x : ℝ) := by nlinarith
+      exact_mod_cast hx
+    · intro h
+      have hx : (n : ℝ) ≤ 2 * (x : ℝ) := by exact_mod_cast h
+      nlinarith
+  have e₃ : (((F.α₂ * δ₁ * w₁ : ℕ) : ℝ) * R₁ + ((F.α₁ * F.β₂ : ℕ) : ℝ)
+        - ((F.α₂ * F.β₁ : ℕ) : ℝ)) / ((F.α₁ * δ₂ * w₂ : ℕ) : ℝ) < (v₂ : ℝ)
+      ↔ R₁ < (v₁ : ℝ) := by
+    rw [div_lt_iff₀ hadw]
+    push_cast
+    constructor
+    · intro h
+      nlinarith
+    · intro h
+      nlinarith
+  have e₃' : (v₂ : ℝ) ≤ (2 * ((F.α₂ * δ₁ * w₁ : ℕ) : ℝ) * R₁ + ((F.α₁ * F.β₂ : ℕ) : ℝ)
+        - ((F.α₂ * F.β₁ : ℕ) : ℝ)) / ((F.α₁ * δ₂ * w₂ : ℕ) : ℝ)
+      ↔ (v₁ : ℝ) ≤ 2 * R₁ := by
+    rw [le_div_iff₀ hadw]
+    push_cast
+    constructor
+    · intro h
+      nlinarith
+    · intro h
+      nlinarith
+  rw [hbT₁, hbT₂, max_lt_iff, max_lt_iff, le_min_iff, le_min_iff, e₂, e₂', e₃, e₃']
+  tauto
+
 /-- **B-5d — (5.6) is automatic**: a `w₁` with a non-empty `v₂`-count is coprime to `α`, `δ₂`
 and `q`.  From the count's witness `v₂`: `w₂ > 0` (at `w₂ = 0` the first congruence forces
 `α₂ ∣ β₂`, against (1.4) and `2 ≤ α₂`), so `T₁`'s second entry is the honest bound
