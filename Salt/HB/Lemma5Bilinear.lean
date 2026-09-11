@@ -621,4 +621,22 @@ theorem card_Ioc_filter_modEq_eq_sawtooth {k : ℕ} (hk : 0 < k) (r : ℕ) {T₁
   ring
 
 
+/-- **B-5b — the inversion**: for `(w, k) = 1`, `v w ≡ C ⟺ v ≡ C·w̄`, `w̄ = invMod w k`.
+`invMod w k` is `((w : ZMod k)⁻¹).val` cast to ℤ, hence `≥ 0` and its `.toNat` faithful. -/
+theorem modEq_mul_iff_modEq_invMod {k : ℕ} [NeZero k] {w : ℕ} (hw : Nat.Coprime w k) (C v : ℕ) :
+    v * w ≡ C [MOD k] ↔ v ≡ C * (invMod w k).toNat [MOD k] := by
+  have hunit : IsUnit ((w : ℕ) : ZMod k) := (ZMod.isUnit_iff_coprime w k).mpr hw
+  have hinv : (((invMod (w : ℤ) k).toNat : ℕ) : ZMod k) = ((w : ℕ) : ZMod k)⁻¹ := by
+    have h0 : (invMod (w : ℤ) k).toNat = ((((w : ℕ) : ZMod k))⁻¹).val := by
+      simp only [invMod, Int.toNat_natCast]
+      norm_cast
+    rw [h0, ZMod.natCast_val, ZMod.cast_id]
+  rw [← ZMod.natCast_eq_natCast_iff, ← ZMod.natCast_eq_natCast_iff, Nat.cast_mul, Nat.cast_mul,
+    hinv]
+  constructor
+  · intro hv
+    rw [← hv, mul_assoc, ZMod.mul_inv_of_unit _ hunit, mul_one]
+  · intro hv
+    rw [hv, mul_assoc, ZMod.inv_mul_of_unit _ hunit, mul_one]
+
 end Salt.N7
