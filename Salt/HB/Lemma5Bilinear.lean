@@ -515,11 +515,23 @@ theorem cellCount_ne_zero_bounds (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S�
     exact_mod_cast F.l₁_mono hx2
   have htop₂ : ((F.l₂ n : ℕ) : ℝ) ≤ ((F.l₂ (2 * x) : ℕ) : ℝ) := by
     exact_mod_cast F.l₂_mono hx2
+  rw [hc₁] at hlow₁ htop₁
+  rw [hc₂] at hlow₂ htop₂
   refine ⟨?_, ?_, ?_, ?_⟩
-  · rw [hc₁] at hlow₁; nlinarith
-  · rw [hc₁] at htop₁; nlinarith
-  · rw [hc₂] at hlow₂; nlinarith
-  · rw [hc₂] at htop₂; nlinarith
+  · have hprod : (w₁ : ℝ) * (v₁ : ℝ) ≤ (2 * S₁) * (2 * R₁) :=
+      mul_le_mul hS₁' hR₁' hvp₁.le (by linarith)
+    have hscale := mul_le_mul_of_nonneg_left hprod hδp₁.le
+    linarith
+  · have hprod : R₁ * S₁ ≤ (v₁ : ℝ) * (w₁ : ℝ) := mul_le_mul hR₁.le hS₁.le hSp₁.le hvp₁.le
+    have hscale := mul_le_mul_of_nonneg_left hprod hδp₁.le
+    linarith
+  · have hprod : (w₂ : ℝ) * (v₂ : ℝ) ≤ (2 * S₂) * (2 * R₂) :=
+      mul_le_mul hS₂' hR₂' hvp₂.le (by linarith)
+    have hscale := mul_le_mul_of_nonneg_left hprod hδp₂.le
+    linarith
+  · have hprod : R₂ * S₂ ≤ (v₂ : ℝ) * (w₂ : ℝ) := mul_le_mul hR₂.le hS₂.le hSp₂.le hvp₂.le
+    have hscale := mul_le_mul_of_nonneg_left hprod hδp₂.le
+    linarith
 
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
