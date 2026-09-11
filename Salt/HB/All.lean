@@ -57,6 +57,7 @@ import Salt.Tactic.AuditAxioms
 import Salt.HB.Lemma10
 import Salt.HB.Lemma10Chain
 import Salt.HB.Lemma10Seal
+import Salt.HB.Lemma5Bilinear
 import Salt.HB.EstermannRoad
 import Salt.HB.Lemma3Floor
 import Salt.HB.SieveWire
@@ -352,6 +353,73 @@ open Salt.Tactic in
   Salt.N7.majorant_tail_le Salt.N7.weighted_dyadic_block_sum_le Salt.N7.majorant_m1_le
   Salt.N7.fourier_column_le Salt.N7.majorant_head_le Salt.N7.majorant_rangeA_le
   Salt.N7.norm_majorantCoeff_neg Salt.N7.majorant_tsum_split Salt.N7.hb_lemma10
+  -- node N7 WAVE B (Salt/HB/Lemma5Bilinear.lean): HB 1983 §5 at a general pair of linear
+  -- forms — the carrier `S(δ₁,δ₂;V₁,V₂)` of p.211 with its (5.1) and `V`-vanishing clauses,
+  -- the dyadic/residue cell count of (5.3) and the exact decomposition (5.18), the CRT
+  -- collapse (5.5)–(5.13) of the four congruences in `X = v₂w₂` into one, and the
+  -- ψ-reduction (5.14)–(5.17) into a length plus two sawtooths.  Lemma 9 (the μ-sieve of
+  -- `Λ′` over `Q`, the hyperbola, the log integrals) is the sibling branch of this wave;
+  -- §6 is a later wave and owes the `Lemma10Seal` import this file deliberately omits.
+  Salt.N7.HBForms.alpha₁_ne_zero Salt.N7.HBForms.alpha₂_ne_zero
+  Salt.N7.HBForms.two_le_α₁ Salt.N7.HBForms.two_le_α₂
+  Salt.N7.HBForms.one_le_β₁ Salt.N7.HBForms.one_le_β₂
+  Salt.N7.HBForms.one_le_l₁ Salt.N7.HBForms.one_le_l₂
+  Salt.N7.HBForms.odd_β₁ Salt.N7.HBForms.odd_β₂
+  Salt.N7.HBForms.odd_l₁ Salt.N7.HBForms.odd_l₂
+  Salt.N7.HBForms.coprime_l₁_α₁ Salt.N7.HBForms.coprime_l₂_α₂
+  Salt.N7.HBForms.coprime_l
+  Salt.N7.HBForms.twin Salt.N7.HBForms.twin_l₁ Salt.N7.HBForms.twin_l₂
+  Salt.N7.HBForms.twin_gcd_eq
+  Salt.N7.HBForms.coprime_α_iff
+  Salt.N7.bilinearS_eq_zero_of_not_coprime_q₁ Salt.N7.bilinearS_eq_zero_of_not_coprime_q₂
+  Salt.N7.bilinearS_eq_zero_of_not_coprime_α₁ Salt.N7.bilinearS_eq_zero_of_not_coprime_α₂
+  Salt.N7.bilinearS_eq_zero_of_not_coprime_δ
+  Salt.N7.HBForms.l₁_mono Salt.N7.HBForms.l₂_mono
+  Salt.N7.truncChiSum_eq_zero_of_le
+  Salt.N7.bilinearS_eq_zero_of_le₁ Salt.N7.bilinearS_eq_zero_of_le₂
+  Salt.N7.hbDataForms Salt.N7.hbDataForms_S
+  Salt.N7.cellCount Salt.N7.cellCount_ne_zero_extract Salt.N7.cellCount_ne_zero_bounds
+  Salt.N7.cellCount_swap₁ Salt.N7.cellCount_swap₂
+  Salt.N7.hbT₁ Salt.N7.hbT₂ Salt.N7.nested Salt.N7.card_Ioc_filter_modEq_eq_sawtooth
+  Salt.N7.modEq_mul_iff_modEq_invMod
+  Salt.N7.card_count_eq_sawtooth
+  Salt.N7.count_eq_zero_of_not_coprime
+  Salt.N7.gcd_lcm_distrib
+  Salt.N7.cellCount_eq_zero_of_not_congr
+  Salt.N7.crt_four Salt.N7.crt_collapse
+  Salt.N7.exists_unique_dyadic Salt.N7.unitRep Salt.N7.unitRep_modEq
+  Salt.N7.unitRep_mem_Icc Salt.N7.unitRep_coprime Salt.N7.unitRep_unique
+  Salt.N7.chiRe_modEq Salt.N7.truncChiSum_eq_sum_cells Salt.N7.coprime_of_modEq
+  Salt.N7.cell_card_eq_zero_of_not_coprime Salt.N7.not_coprime_of_not_mem_window
+  Salt.N7.sum_pull₈ Salt.N7.sum_swap_two_two Salt.N7.sum_cells_mul
+  Salt.N7.bilinearS_eq_sum_cells
+  Salt.N7.R₂_le_hbT₁ Salt.N7.hbT₁_pos Salt.N7.hbT₂_le_two_R₂
+  Salt.N7.mem_Ioc_floor_iff Salt.N7.Ioc_floor_eq_empty_of_neg Salt.N7.five_eight_iff
+  Salt.N7.hbT_mem_iff Salt.N7.cellCount_eq_sum_w
+  Salt.N7.coprime_w₁_of_count_ne_zero
+  Salt.N7.kb5f_C Salt.N7.kb5f_C_coprime Salt.N7.kb5f_C_iff
+  Salt.N7.kb5f_k_pos Salt.N7.kb5f_k_two Salt.N7.kb5f_two_dvd_alpha
+  Salt.N7.cellCount_eq_sum_sawtooth
+  Salt.N7.integral_Ioi_ite_inv
+  Salt.N7.integrable_term Salt.N7.integrableOn_truncChiSum_div
+  Salt.N7.integral_Ioi_truncChiSum
+  Salt.N7.hbQRad Salt.N7.hbQ_squarefree Salt.N7.hbQRad_squarefree Salt.N7.hbQRad_dvd_hbQ
+  Salt.N7.prime_dvd_hbQ_iff Salt.N7.prime_dvd_hbQRad_iff Salt.N7.hbQRad_sq_dvd
+  Salt.N7.filter_divisors_hbQ Salt.N7.hbQRad_eq_one_iff Salt.N7.moebius_step
+  Salt.N7.chiRe_sq_of_dvd_hbQ Salt.N7.chiRe_sq_mul Salt.N7.LamStar_eq_moebius_hbQ
+  Salt.N7.nested_antidiag Salt.N7.fiber_facts Salt.N7.second_reindex Salt.N7.fiber_reindex
+  Salt.N7.hyperbola_fiber Salt.N7.LamPrime_eq_hyperbola
+  Salt.N7.bilinear_double_integral Salt.N7.inner_split Salt.N7.hb_lemma9_inner
+  Salt.N7.hb_lemma9_general
+  Salt.N7.hb_lemma9_trunc
+  Salt.N7.hb_lemma9
+  Salt.N7.hb_lemma9_trunc_P
+  -- node N7 WAVE B, LEMMA 9 (Salt/HB/Lemma5Bilinear.lean, continued): HB's `Λ′` and `Q`, the
+  -- μ-sieve of `Λ*` over `Q`, the hyperbola identity of p.211, the three ray-integral rows,
+  -- and Lemma 9 itself in four forms — the inner identity at one `(m₁, m₂)`, the exact form at
+  -- `(d, Q) = 1`, the `Λ*_{<q}` truncation HB's own display carries, and the form §6 lifts.
+  Salt.N7.LamPrime Salt.N7.hbQ Salt.N7.logDivChiSum Salt.N7.LamStarTrunc
+  Salt.N7.coprime_hbQ_hbP Salt.N7.chiRe_finset_prod Salt.N7.chiRe_eq_one_of_dvd_hbP
   -- node ESTERMANN-2ADIC (Salt/HB/EstermannRoad.lean): the road-modulus close — HB (7.1)
   -- with NO 2-adic factor, the `q`-side valuation hypothesis discharged from primitivity.
   -- The Weil-side rows D1′–D4 audit in `Salt/Weil/All.lean`.

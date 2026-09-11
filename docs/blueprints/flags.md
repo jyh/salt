@@ -25163,9 +25163,17 @@ It does not: `hbL1_split_indep` (`Salt/HB/CharTrio.lean:204-209`) takes two `Ten
 `N9Regime`; the transfer `hbKappaN9 χ x z = hbKappaN9 χ x z′` closes in ~8 lines from it (the signer's probe, 09/09). A cap-docstring
 is a plan, and reading one as a census cost one freeze a whole slot and two arms their central answer.
 
+**Two more sites of the same defect in the same file, found by the six-arm pass over route freeze v2.2 the same afternoon
+(K-PINS-V22 U2), so the owed docstring PR is THREE sites and should start with the first one a reader meets:**
+- `:88` — the MODULE docstring: *"`hcorr`'s producer needs `hlimP` (never produced — the CHAR-TRIO flag)"*, 3,498 lines above the
+  theorem at `:3586` whose own docstring calls it `hlimP`. The first surface any reader of the file hits.
+- `:1887` — *"`(L1)`, UPPER SIDE … ABSENT in the corpus … Class B, cap 200"*, standing directly above `hb_L1_upper_at_hb_point`
+  (`:1892-1894`), which is landed, sorry-free, and consumed four times in this file.
+- `:3573-3585` — the one described above.
+
 **What this entry is and is not.** A RECORD, so the next reader of ⟦CHAR-TRIO⟧ (`:20542` above) learns that step 1 is landed at this
-theorem. The docstring EDIT itself is a one-line change to a file behind the N7 fence and is not made here; it is owed as its own
-docstring-only PR when the fence's owner says so. ⇒ 🔑 *A docstring that prices a row is a promise; when the row lands, the promise
+theorem and that the `(L1)` upper side is landed too. The docstring EDITS themselves are changes to a file behind the N7 fence and are
+not made here; they are owed as one docstring-only PR when the fence's owner says so. ⇒ 🔑 *A docstring that prices a row is a promise; when the row lands, the promise
 must be struck in the same commit, or it outlives the proof and is read as the state of the tree.*
 
 ## 2026-09-09 N7-R10-hb_lemma10 opus failed
