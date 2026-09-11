@@ -639,12 +639,14 @@ theorem cellCount_eq_zero_of_not_congr (F : HBForms) (q x δ₁ δ₂ : ℕ) (R�
   -- `l_i(n) ≡ β_i` modulo `α_i`
   have hl₁ : F.l₁ n ≡ F.β₁ [MOD F.α₁] := by
     have hz : F.α₁ * n ≡ 0 [MOD F.α₁] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
-    simp only [HBForms.l₁, Nat.zero_add] at hz ⊢
-    exact hz.add_right F.β₁
+    simp only [HBForms.l₁]
+    have h1 := hz.add_right F.β₁
+    rwa [Nat.zero_add] at h1
   have hl₂ : F.l₂ n ≡ F.β₂ [MOD F.α₂] := by
     have hz : F.α₂ * n ≡ 0 [MOD F.α₂] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
-    simp only [HBForms.l₂, Nat.zero_add] at hz ⊢
-    exact hz.add_right F.β₂
+    simp only [HBForms.l₂]
+    have h1 := hz.add_right F.β₂
+    rwa [Nat.zero_add] at h1
   -- (5.4), both indices, modulo `(α₂, q)`
   have h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q] := by
     rw [← hΔ]
