@@ -761,10 +761,10 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
   obtain ⟨hδ₁α₁, hδ₁α₂⟩ := (F.coprime_α_iff δ₁).mp hδ₁α
   obtain ⟨hδ₂α₁, hδ₂α₂⟩ := (F.coprime_α_iff δ₂).mp hδ₂α
   obtain ⟨hw₁α₁, hw₁α₂⟩ := (F.coprime_α_iff w₁).mp hw₁α
-  have hdwα₁ : Nat.Coprime (δ₁ * w₁) F.α₁ := hδ₁α₁.mul hw₁α₁
-  have hdwα₂ : Nat.Coprime (δ₁ * w₁) F.α₂ := hδ₁α₂.mul hw₁α₂
-  have hdwq : Nat.Coprime (δ₁ * w₁) q := hδ₁q.mul hw₁q
-  have hdwδ₂ : Nat.Coprime (δ₁ * w₁) δ₂ := hδ.mul hw₁δ₂
+  have hdwα₁ : Nat.Coprime (δ₁ * w₁) F.α₁ := hδ₁α₁.mul_left hw₁α₁
+  have hdwα₂ : Nat.Coprime (δ₁ * w₁) F.α₂ := hδ₁α₂.mul_left hw₁α₂
+  have hdwq : Nat.Coprime (δ₁ * w₁) q := hδ₁q.mul_left hw₁q
+  have hdwδ₂ : Nat.Coprime (δ₁ * w₁) δ₂ := hδ.mul_left hw₁δ₂
   ---- ② the road modulus, the target modulus, and `Δ ∣ α₁`
   have hα₂D : F.α₂ ∣ roadModulus F.α₂ q := dvd_roadModulus_left F.α₂ q
   have hqD : q ∣ roadModulus F.α₂ q := dvd_roadModulus F.α₂ q
