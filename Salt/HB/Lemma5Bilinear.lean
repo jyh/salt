@@ -423,6 +423,44 @@ consumes at (6.11) and (6.12)); `LamStar − LamStarTrunc` is the `m ≥ q` tail
 noncomputable def LamStarTrunc (χ : DirichletCharacter ℂ q) (z n : ℕ) : ℝ :=
   ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ n ∧ m < q), (μ m : ℝ) * LamPrime χ (n / m ^ 2)
 
+/-- **B-2.1 — `Q` and `P` are coprime** (p.210): the two sifting moduli are products over
+DISJOINT sets of primes, `χ(p) = −1` against `χ(p) = 1`, so no prime divides both. -/
+theorem coprime_hbQ_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z : ℕ) :
+    Nat.Coprime (hbQ χ z) (hbP (chiReChar χ hsq) (z : ℝ)) := by
+  rw [hbQ, hbP, hbSiftSet_chiReChar]
+  refine Nat.Coprime.prod_left fun p hp => Nat.Coprime.prod_right fun p' hp' => ?_
+  rw [Finset.mem_filter] at hp hp'
+  refine (Nat.coprime_primes hp.2.1 hp'.2.1).mpr fun hpp => ?_
+  have h1 : chiRe χ p = -1 := hp.2.2
+  have h2 : chiRe χ p = 1 := by rw [hpp]; exact hp'.2.2.2
+  rw [h1] at h2
+  norm_num at h2
+
+/-- `chiRe` is multiplicative over a `Finset` product — the bridge from a prime-by-prime
+character value to the value at a squarefree number, written as its product of prime factors.
+Introduced here for `chiRe_eq_one_of_dvd_hbP`; B-2a's χ step consumes it again. -/
+lemma chiRe_finset_prod (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (s : Finset ℕ) :
+    chiRe χ (∏ p ∈ s, p) = ∏ p ∈ s, chiRe χ p := by
+  classical
+  refine Finset.induction_on s (by simp [chiRe_one]) ?_
+  intro a s ha ih
+  rw [Finset.prod_insert ha, chiRe_mul χ hsq, ih, Finset.prod_insert ha]
+
+/-- **B-2.1 — `χ = 1` on every divisor of `P`** (p.210): `P` is squarefree, so a divisor `d`
+is the product of its prime factors, each a prime of `P` and so each with `χ(p) = 1`. -/
+theorem chiRe_eq_one_of_dvd_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z : ℕ) {d : ℕ}
+    (hd : d ∣ hbP (chiReChar χ hsq) (z : ℝ)) : chiRe χ d = 1 := by
+  have hP0 : hbP (chiReChar χ hsq) (z : ℝ) ≠ 0 := (hbP_squarefree _ _).ne_zero
+  have hsf : Squarefree d := (hbP_squarefree (chiReChar χ hsq) (z : ℝ)).squarefree_of_dvd hd
+  have hd' : ∏ p ∈ d.primeFactors, p = d := Nat.prod_primeFactors_of_squarefree hsf
+  have hsub : d.primeFactors ⊆ (hbP (chiReChar χ hsq) (z : ℝ)).primeFactors :=
+    Nat.primeFactors_mono hd hP0
+  calc chiRe χ d = chiRe χ (∏ p ∈ d.primeFactors, p) := by rw [hd']
+    _ = ∏ p ∈ d.primeFactors, chiRe χ p := chiRe_finset_prod χ hsq _
+    _ = 1 := Finset.prod_eq_one fun p hp => by
+        have hp1 := hbP_chi (chiReChar χ hsq) (z : ℝ) p (hsub hp)
+        rwa [chiReChar_prime] at hp1
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
