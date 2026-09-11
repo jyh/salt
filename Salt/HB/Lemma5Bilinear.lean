@@ -786,13 +786,14 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
   ---- ④ the six pairwise (5.13) rows
   have c₁₂ : F.α₁ * F.β₂ + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂
       [MOD Nat.gcd (F.α₁ * F.α₂) (F.α₂ * δ₁ * w₁)] := by
-    have hg : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * δ₁ * w₁) ∣ F.α₂ := by
-      refine Nat.Coprime.dvd_of_dvd_mul_right ?_ ?_
-      · exact (hdwα₁.mul_right hdwα₂).symm.coprime_dvd_left (Nat.gcd_dvd_left _ _)
-      · rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_right _ _
-    refine Nat.ModEq.of_dvd hg ?_
-    simpa using (Nat.ModEq.refl (F.α₁ * F.β₂)).add
+    have hco : Nat.Coprime (Nat.gcd (F.α₁ * F.α₂) (F.α₂ * δ₁ * w₁)) (δ₁ * w₁) :=
+      Nat.Coprime.coprime_dvd_left (Nat.gcd_dvd_left _ _) (hdwα₁.mul_right hdwα₂).symm
+    have hdd : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * δ₁ * w₁) ∣ F.α₂ * (δ₁ * w₁) := by
+      rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_right _ _
+    refine Nat.ModEq.of_dvd (hco.dvd_of_dvd_mul_right hdd) ?_
+    have h0 := (Nat.ModEq.refl (F.α₁ * F.β₂)).add
       ((Nat.modEq_zero_iff_dvd).mpr (dvd_mul_right F.α₂ F.β₁))
+    rwa [Nat.add_zero] at h0
   have c₁₃ : F.α₁ * F.β₂ + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁)
       [MOD Nat.gcd (F.α₁ * F.α₂) (F.α₂ * q)] := by
     have hg : Nat.gcd (F.α₁ * F.α₂) (F.α₂ * q) ∣ F.α₂ * Nat.gcd F.α₂ q := by
@@ -808,8 +809,9 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
       have hcopδ₂ : Nat.Coprime (Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q)) δ₂ :=
         (hδ₂α₁.mul_right hδ₂α₂).symm.coprime_dvd_left (Nat.gcd_dvd_left _ _)
       have h2 : Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q) ∣ F.α₁ * q := by
-        refine hcopδ₂.dvd_of_dvd_mul_right ?_
-        rw [show F.α₁ * q * δ₂ = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+        have hdd : Nat.gcd (F.α₁ * F.α₂) (F.α₁ * δ₂ * q) ∣ F.α₁ * q * δ₂ := by
+          rw [show F.α₁ * q * δ₂ = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+        exact hcopδ₂.dvd_of_dvd_mul_right hdd
       have h3 := Nat.dvd_gcd (Nat.gcd_dvd_left (F.α₁ * F.α₂) (F.α₁ * δ₂ * q)) h2
       rwa [Nat.gcd_mul_left] at h3
     refine Nat.ModEq.of_dvd hg ?_
@@ -817,26 +819,29 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
     exact (h54₂.symm.mul_left' F.α₁).add_right (F.α₂ * F.β₁)
   have c₂₃ : F.α₁ * F.β₂ ≡ F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁)
       [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₂ * q)] := by
-    have hg : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₂ * q) ∣ F.α₂ := by
-      refine Nat.Coprime.dvd_of_dvd_mul_right ?_ ?_
-      · exact (hdwα₂.mul_right hdwq).symm.coprime_dvd_left (Nat.gcd_dvd_right _ _)
-      · rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_left _ _
-    refine Nat.ModEq.of_dvd hg ?_
-    simpa using (Nat.ModEq.refl (F.α₁ * F.β₂)).add
+    have hco : Nat.Coprime (Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₂ * q)) (δ₁ * w₁) :=
+      Nat.Coprime.coprime_dvd_left (Nat.gcd_dvd_right _ _) (hdwα₂.mul_right hdwq).symm
+    have hdd : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₂ * q) ∣ F.α₂ * (δ₁ * w₁) := by
+      rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_left _ _
+    refine Nat.ModEq.of_dvd (hco.dvd_of_dvd_mul_right hdd) ?_
+    have h0 := (Nat.ModEq.refl (F.α₁ * F.β₂)).add
       (((Nat.modEq_zero_iff_dvd).mpr (dvd_mul_right F.α₂ (δ₁ * a₁ * b₁))).symm)
+    rwa [Nat.add_zero] at h0
   have c₂₄ : F.α₁ * F.β₂ ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁
       [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)] := by
-    have hcopdw : Nat.Coprime (Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)) (δ₁ * w₁) := by
-      refine Nat.Coprime.coprime_dvd_left ?_ ((hdwα₁.mul_right hdwδ₂).mul_right hdwq).symm
-      rw [show F.α₁ * (δ₂ * q) = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+    have hcopdw : Nat.Coprime (Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)) (δ₁ * w₁) :=
+      Nat.Coprime.coprime_dvd_left (Nat.gcd_dvd_right _ _)
+        ((hdwα₁.mul_right hdwδ₂).mul_right hdwq).symm
     have hgα₂ : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₂ := by
-      refine hcopdw.dvd_of_dvd_mul_right ?_
-      rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_left _ _
+      have hdd : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₂ * (δ₁ * w₁) := by
+        rw [show F.α₂ * (δ₁ * w₁) = F.α₂ * δ₁ * w₁ by ring]; exact Nat.gcd_dvd_left _ _
+      exact hcopdw.dvd_of_dvd_mul_right hdd
     have hcopδ₂ : Nat.Coprime (Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)) δ₂ :=
       hδ₂α₂.symm.coprime_dvd_left hgα₂
     have hgα₁q : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₁ * q := by
-      refine hcopδ₂.dvd_of_dvd_mul_right ?_
-      rw [show F.α₁ * q * δ₂ = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+      have hdd : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₁ * q * δ₂ := by
+        rw [show F.α₁ * q * δ₂ = F.α₁ * δ₂ * q by ring]; exact Nat.gcd_dvd_right _ _
+      exact hcopδ₂.dvd_of_dvd_mul_right hdd
     have hgα₁Δ : Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q) ∣ F.α₁ * Nat.gcd F.α₂ q := by
       have h3 := Nat.dvd_gcd (Dvd.dvd.mul_left hgα₂ F.α₁) hgα₁q
       rwa [Nat.gcd_mul_left] at h3
@@ -846,7 +851,8 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
     have e2 : (0 : ℕ) ≡ F.α₂ * F.β₁ [MOD Nat.gcd (F.α₂ * δ₁ * w₁) (F.α₁ * δ₂ * q)] :=
       (Nat.ModEq.of_dvd hgα₂ ((Nat.modEq_zero_iff_dvd).mpr (dvd_mul_right F.α₂ F.β₁))).symm
     rw [show F.α₁ * δ₂ * (a₂ * b₂) = F.α₁ * (δ₂ * a₂ * b₂) by ring]
-    simpa using e1.add e2
+    have h0 := e1.add e2
+    rwa [Nat.add_zero] at h0
   have c₃₄ : F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁) ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁
       [MOD Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q)] := by
     have hg : Nat.gcd (F.α₂ * q) (F.α₁ * δ₂ * q) ∣ q * F.α := by
@@ -860,8 +866,8 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
       have hinner : Nat.gcd F.α₂ (F.α₁ * δ₂) ∣ F.α := by
         have hco : Nat.Coprime (Nat.gcd F.α₂ (F.α₁ * δ₂)) δ₂ :=
           hδ₂α₂.symm.coprime_dvd_left (Nat.gcd_dvd_left _ _)
-        exact Nat.dvd_gcd (hco.dvd_of_dvd_mul_right (Nat.gcd_dvd_right _ _))
-          (Nat.gcd_dvd_left _ _)
+        have hdd : Nat.gcd F.α₂ (F.α₁ * δ₂) ∣ F.α₁ * δ₂ := Nat.gcd_dvd_right _ _
+        exact Nat.dvd_gcd (hco.dvd_of_dvd_mul_right hdd) (Nat.gcd_dvd_left _ _)
       exact hstep.trans (Nat.mul_dvd_mul_left q hinner)
     refine Nat.ModEq.of_dvd hg ?_
     rw [show F.α₁ * F.β₂ + F.α₂ * (δ₁ * a₁ * b₁) = F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ by ring,
@@ -892,8 +898,9 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
         ≡ F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁ [MOD F.α₁ * δ₂] :=
       Nat.ModEq.of_dvd (dvd_mul_right (F.α₁ * δ₂) q) h4
     have hzero : F.α₁ * δ₂ * (a₂ * b₂) + F.α₂ * F.β₁ ≡ F.α₂ * F.β₁ [MOD F.α₁ * δ₂] := by
-      simpa using ((Nat.modEq_zero_iff_dvd).mpr
+      have h0 := ((Nat.modEq_zero_iff_dvd).mpr
         (dvd_mul_right (F.α₁ * δ₂) (a₂ * b₂))).add_right (F.α₂ * F.β₁)
+      rwa [Nat.zero_add] at h0
     exact (Nat.modEq_iff_dvd' hZ₁ge).mp (hA4.trans hzero).symm
   obtain ⟨C, hCdef⟩ := hAdvdZ
   have hCeq : F.α₁ * δ₂ * C + F.α₂ * F.β₁
@@ -949,7 +956,7 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
       (Nat.modEq_zero_iff_dvd).mpr (Dvd.dvd.mul_left hpC (F.α₁ * δ₂))
     have h3 : F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD p] := by
       have h4 := (h2.add_right (F.α₂ * F.β₁)).symm.trans h1
-      simpa using h4
+      rwa [Nat.zero_add] at h4
     have hz : (p : ℤ) ∣ (F.α₁ : ℤ) * F.β₂ - (F.α₂ : ℤ) * F.β₁ := by
       have h5 := Nat.modEq_iff_dvd.mp h3
       push_cast at h5
@@ -976,9 +983,8 @@ theorem crt_collapse (F : HBForms) (q δ₁ δ₂ w₁ a₁ b₁ a₂ b₂ : ℕ
     have h1 : Nat.Coprime C (roadModulus F.α₂ q * (δ₁ * w₁)) := hCD.mul_right hCdw
     rwa [← Nat.mul_assoc] at h1
   ---- ⑧ the equivalence
-  have hα₂k : F.α₂ ∣ roadModulus F.α₂ q * δ₁ * w₁ := by
-    obtain ⟨c, hc⟩ := hα₂D
-    exact ⟨c * δ₁ * w₁, by rw [hc]; ring⟩
+  have hα₂k : F.α₂ ∣ roadModulus F.α₂ q * δ₁ * w₁ :=
+    ⟨cD * δ₁ * w₁, by rw [hcD]; ring⟩
   have hqk : q ∣ roadModulus F.α₂ q * δ₁ * w₁ := dvd_roadModulus_mul F.α₂ q δ₁ w₁
   have hdwk : δ₁ * w₁ ∣ F.α₂ * δ₁ * w₁ := ⟨F.α₂, by ring⟩
   have hcopDdw : Nat.Coprime (roadModulus F.α₂ q) (δ₁ * w₁) := by
