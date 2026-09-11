@@ -1,0 +1,89 @@
+# private_paths_history_baseline.tsv -- ACCEPTED HISTORICAL DEBT: content a
+# commit INTRODUCED, which every clone receives whatever the tree now says.
+# sha<TAB>file<TAB>line-sha16<TAB>what.
+# A TREE REPAIR NEVER SHRINKS THIS FILE. Only a history rewrite does, and
+# that is a council act -- so a shrink here is a diff somebody must have ruled.
+0476b6bb26cdf24116a7a941dd92948c597d938f	docs/QUEUE.md	7ab5d5683791d019	a path into a private-record repo
+0476b6bb26cdf24116a7a941dd92948c597d938f	docs/QUEUE.md	770bc6404f8a0df4	a path into a private-record repo
+0476b6bb26cdf24116a7a941dd92948c597d938f	docs/QUEUE.md	c58680a8cfa8f9c7	a path into a private-record repo
+0476b6bb26cdf24116a7a941dd92948c597d938f	docs/QUEUE.md	860a8bb5bf35d7a8	a path into a private-record repo
+06e88ecc0c96fd142c64ba3e5943675d7b60fc0d	Salt/MR/MRTPortDatum.lean	65f65c947991ce3d	a path into a private-record repo
+0a23729905b6052ae5763968e9d0d30821c2fe5b	docs/sources/REFETCH.md	ef6ffa60d1d9f68e	a path into a private-record repo
+0a23729905b6052ae5763968e9d0d30821c2fe5b	docs/sources/REFETCH.md	7b3d153aacf1fa53	a path into a private-record repo
+0a23729905b6052ae5763968e9d0d30821c2fe5b	docs/sources/REFETCH.md	5eb96ee51440baf3	a path into a private-record repo
+0a23729905b6052ae5763968e9d0d30821c2fe5b	docs/sources/REFETCH.md	ef6ffa60d1d9f68e	the kit run surface
+0a23729905b6052ae5763968e9d0d30821c2fe5b	docs/sources/REFETCH.md	7b3d153aacf1fa53	the kit run surface
+0a23729905b6052ae5763968e9d0d30821c2fe5b	docs/sources/REFETCH.md	5eb96ee51440baf3	the kit run surface
+0ba330d0c3cc52328929775a06c59052448ca354	Salt/MR/MRTPort.lean	29e04b52b092bb5c	a path into a private-record repo
+0ba330d0c3cc52328929775a06c59052448ca354	Salt/MR/MRTPort.lean	65f65c947991ce3d	a path into a private-record repo
+1029cec04a721ad906f62ff42f7145f2dae842c6	Salt/MR/MRTPort.lean	b95a2562f8679def	a path into a private-record repo
+1029cec04a721ad906f62ff42f7145f2dae842c6	Salt/MR/MRTPort.lean	7c654a3d53b8fa2d	a path into a private-record repo
+1029cec04a721ad906f62ff42f7145f2dae842c6	Salt/MR/MRTPort.lean	6fa54c6f1302edf3	a path into a private-record repo
+1204594aca4923333676e5927b384d7d0938bfcd	docs/QUEUE.md	e0f19ec02678003b	a path into a private-record repo
+1204594aca4923333676e5927b384d7d0938bfcd	docs/QUEUE.md	6d5cea81901b8bd3	a path into a private-record repo
+16202e30f76ea07b223a10096213852f9c3a2103	docs/QUEUE.md	3e6c6e90d9e1a33e	a rootless path into the private record (briefs-/fleet-shape)
+24e35cbcceec1fee48ab994fcfd4155e1236ae0d	docs/QUEUE.md	3953079dbac0d60e	a path into a private-record repo
+24e35cbcceec1fee48ab994fcfd4155e1236ae0d	docs/QUEUE.md	8cf038855c616f6b	a path into a private-record repo
+2519799ebb457384ff939dc02082ccf39af6ee5a	docs/QUEUE.md	8e6eeaa51ced508b	a path into a private-record repo
+2519799ebb457384ff939dc02082ccf39af6ee5a	docs/QUEUE.md	8e6eeaa51ced508b	the kit run surface
+2be2e468694ce87c755be5c03f48e5c8cde2a22b	docs/QUEUE.md	1e438fcecb477186	a path into a private-record repo
+2be2e468694ce87c755be5c03f48e5c8cde2a22b	docs/QUEUE.md	039d7033b21095a6	a path into a private-record repo
+2d54a398ff8ad35720eea1704f4d2f9e9d6fe29c	docs/QUEUE.md	47c16c7c9500ad59	a path into a private-record repo
+2ef07506610936580bfdcc2cfae726df67577e52	docs/QUEUE.md	ecb801c2508e79a4	a rootless path into the private record (briefs-/fleet-shape)
+318f472f71f88a6360c5a4d4e08310f89665d9ac	Salt/MR/DoorDischarge.lean	dd9330e42a65ac6c	a path into a private-record repo
+34fa1895697ad6a5fbdb28bd8df0e045c0136f64	docs/exploration/council-0727.md	3839fd901700bf28	a path into a private-record repo
+34fa1895697ad6a5fbdb28bd8df0e045c0136f64	docs/exploration/pilot.md	d32a151dab775e14	a path into a private-record repo
+3564999e7a77de38deab1a937e1c59f684d37819	docs/QUEUE.md	16aed3d1819d3b84	a rootless path into the private record (briefs-/fleet-shape)
+36eee1d5250af13724f5da662783863c9daef6a3	Salt/TwinBar/TwinParitySieve.lean	c592c29e8709178a	a path into a private-record repo
+3d95783b454dc3ffd3166e58457862716cf07b71	docs/QUEUE.md	08d86e1b74851ca2	a path into a private-record repo
+411759ff4f9adeb0e65dd50ea1215bf30c405bc1	docs/QUEUE.md	242c94212d02ddec	a path into a private-record repo
+411759ff4f9adeb0e65dd50ea1215bf30c405bc1	docs/QUEUE.md	3954adc32e74283f	a path into a private-record repo
+48577f61952c7517480f3e9ff267785702e9e160	docs/exploration/wf3-waveb-design.md	dace3b578b8b23f8	a path into a private-record repo
+52fe5f1361bcd727995c6cc1029aecb6f2eb1275	docs/QUEUE.md	95bf70a45aea3e87	a path into a private-record repo
+67da474793b334257e6afbe38f7f2bd544ec2f05	docs/exploration/pilot.md	d5633eb8b70ce8a1	a path into a private-record repo
+6ac5ec37ca171d3e27edb6f2ad573f99e2af0382	docs/QUEUE.md	65bcb0799b32477b	a path into a private-record repo
+6ac5ec37ca171d3e27edb6f2ad573f99e2af0382	docs/QUEUE.md	65bcb0799b32477b	the kit run surface
+6ce42bafc30e57c73ec605e5208c725be7baca9b	Salt/TwinBar/All.lean	f701d3d72464d684	a path into a private-record repo
+6ce42bafc30e57c73ec605e5208c725be7baca9b	docs/QUEUE.md	3a2371e74006d9b9	a rootless path into the private record (briefs-/fleet-shape)
+6d753272cec97a0901b389a1d0a4654ed2d432c6	docs/QUEUE.md	ef985c6f8bb56171	a rootless path into the private record (briefs-/fleet-shape)
+707fb8d902722c04f65cbd070db5d5d9726c73bb	docs/QUEUE.md	c7214fe47d3a3fde	a path into a private-record repo
+7a4b5f6a1d135b4dfdaa3c8a4a7a673ad6096d61	docs/QUEUE.md	cdf90a8d110ebc45	a path into a private-record repo
+7dcd9be959a753d00d3a8555ee2d11c991bde9d2	docs/exploration/pilot.md	915c2c949e5a6f92	a path into a private-record repo
+831950d12e225569bd2eed4327a0ab82197d902c	docs/QUEUE.md	0bdaa1ace18124ff	a path into a private-record repo
+831950d12e225569bd2eed4327a0ab82197d902c	docs/QUEUE.md	0bdaa1ace18124ff	the kit run surface
+84b04a3df41ff2f1c080d90bb7421eab79075a91	docs/QUEUE.md	076b0f26e9b9ae80	a path into a private-record repo
+84b04a3df41ff2f1c080d90bb7421eab79075a91	docs/QUEUE.md	076b0f26e9b9ae80	the kit run surface
+8775f9a465f4fbefe43aa9aa60dcb6b36e2c9655	docs/QUEUE.md	989b441edccab5d7	a rootless path into the private record (briefs-/fleet-shape)
+8dccaa19399bb81db192748df32af6def64ae16d	docs/QUEUE.md	326929d646a069ef	a path into a private-record repo
+8dccaa19399bb81db192748df32af6def64ae16d	docs/QUEUE.md	326929d646a069ef	the kit run surface
+8dec0d6361f7714462642d1993c70373f1c48594	docs/QUEUE.md	4e661fce8107e518	a path into a private-record repo
+8dec0d6361f7714462642d1993c70373f1c48594	docs/QUEUE.md	01d3631b3653ab05	a path into a private-record repo
+909084393669071b9a46ed456a8d52f7003c8715	docs/blueprints/arc.md	429bb871b876cbe4	a path into a private-record repo
+9dc8591dcb9da9f8dbd131233433d95cb3cb8d52	docs/blueprints/arc.md	9923b6363dcd4ef5	a path into a private-record repo
+a686cb229c37422f9e711d7a271c41d8b652a836	docs/QUEUE.md	ba5b0a87d9f51b91	a path into a private-record repo
+ab567e66a5ba7fa305f83ea3b1438c8a4c78ad73	Salt/MR/MRTPortA1Const.lean	5b7e54432cb99d5d	a path into a private-record repo
+ab567e66a5ba7fa305f83ea3b1438c8a4c78ad73	Salt/MR/MRTPortA1Const.lean	84dd51f12200c872	a path into a private-record repo
+ab567e66a5ba7fa305f83ea3b1438c8a4c78ad73	Salt/MR/MRTPortMLower.lean	330b3abfbcbdfcea	a path into a private-record repo
+af83c96111f3c773d14c4709acbf2839de974af1	Salt/MR/All.lean	4315095f6a3de8ec	a path into a private-record repo
+af83c96111f3c773d14c4709acbf2839de974af1	Salt/MR/V7Rated.lean	5b1fe8eaf33803ae	a path into a private-record repo
+af83c96111f3c773d14c4709acbf2839de974af1	docs/QUEUE.md	c421eea58a20c010	a path into a private-record repo
+af83c96111f3c773d14c4709acbf2839de974af1	docs/blueprints/arc.md	6d96d438b9be4344	a path into a private-record repo
+af83c96111f3c773d14c4709acbf2839de974af1	docs/blueprints/arc.md	765f64de44d1b4bd	a path into a private-record repo
+bd7d300e2afa39b6d7fe9d8599105e295dca0811	docs/QUEUE.md	c30b6c4d11adc3c3	a path into a private-record repo
+bfd40df29ee54225636382f08a8c6304e8b8371a	Salt/MR/MRTPortA1.lean	9e1090b5ac2c79b1	a path into a private-record repo
+bfd40df29ee54225636382f08a8c6304e8b8371a	Salt/MR/MRTPortA1Tail.lean	bd3f286ade3e9966	a path into a private-record repo
+c2d2cbf87d55c7d03e28bff016f9a8ac9702089d	scripts/check_private_paths.py	091697a6b6d654bc	a rootless path into the private record (briefs-/fleet-shape)
+c398932ff1191f69dc8676c169227cc7229b66bb	Salt/LS/All.lean	c77dd760087304cb	a path into a private-record repo
+c398932ff1191f69dc8676c169227cc7229b66bb	Salt/Twelve/All.lean	6529c2500e2cb889	a path into a private-record repo
+c78b7d4a15686e41375e2fd25e76e75bc62813f7	docs/QUEUE.md	c4918859d09c4535	a path into a private-record repo
+c78b7d4a15686e41375e2fd25e76e75bc62813f7	docs/QUEUE.md	263dbbdeb975f47b	a path into a private-record repo
+c95ea742ec1daf78bec1d98a36bc9c18b0b8e38a	docs/QUEUE.md	5f9eeb68a0ec642b	a path into a private-record repo
+c95ea742ec1daf78bec1d98a36bc9c18b0b8e38a	docs/QUEUE.md	5f9eeb68a0ec642b	the kit run surface
+cf18349edbcd7dd9f4b3b8d0ce3892d7c5ed136a	docs/exploration/wf3-waveb-design.md	4a6445edfc087eab	a path into a private-record repo
+d06b6d2b9e8dd427a58619f18eeedc44ae4f0b79	docs/QUEUE.md	418b3349b8358e3d	a path into a private-record repo
+d06b6d2b9e8dd427a58619f18eeedc44ae4f0b79	docs/QUEUE.md	828f40e7a0965f2c	a path into a private-record repo
+dee997a3fc0a143b2770597ab8f0fbe85ccab0b5	docs/QUEUE.md	55897210d957ba50	a path into a private-record repo
+e90c5120134551ddb023a2b5a8cb202d2aa536d9	Salt/MR/HDoorArc.lean	718b5a4f081c1fdb	a path into a private-record repo
+e90c5120134551ddb023a2b5a8cb202d2aa536d9	docs/QUEUE.md	6740e193cba09c28	a path into a private-record repo
+eecf478a054999ef8af14565202f16a5db4d7a11	docs/QUEUE.md	c3ca3046533a9201	a path into a private-record repo
+fb1c7c5361683faedc8d47ad49e6dafba64a7f53	scripts/check_private_paths.py	091697a6b6d654bc	a rootless path into the private record (briefs-/fleet-shape)
