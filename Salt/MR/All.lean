@@ -9979,3 +9979,43 @@ open Salt.Tactic in
   Salt.MR.flat_door_head_xceil_h_14
   Salt.MR.flat_roadExit_generic_h_g14
   Salt.MR.flat_door_head_xceil_h_g14
+
+/-! ⟦THE COST-8 RUNG OF ARM (A)⟧ — THE RAISED-CAP SUPPLIER CHAIN (`S11Arc36`,
+`S16FlatTerminalLinear`, `S16ProducersH`, `S16ComposeLH`, `StridePairReceipt`, 2026-09-11, math).
+Nine twins at the raised cap `log h ≤ 14`, reaching `flat_capstone_generic_h` — the cost-**8**
+point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name is new; **no landed declaration
+moves, no landed statement is re-pointed, and nothing is deleted.**  Each twin is the strictly
+stronger theorem (same conclusion, weaker hypothesis).
+
+⛔ **THE RUNG IS NOT A TRANSCRIPTION, AND THE COST MODEL CANNOT SEE THAT.**  The ladder prices all
+eight members alike.  Measured at the object, they are **5 supplier swaps (one token each) + 2
+numeral lifts + 1 RE-DERIVATION**, and the re-derivation is the whole price:
+`hArcDen_mul_strataResidualH_sq_le` spends the cap SYMBOLICALLY as `Real.exp 7`, its landed route
+is false at the raised cap for EVERY `L` (short by `4·e⁴ = 218.39×`), and its conclusion survives
+only through a tighter residual bound.  ⇒ ***A CAP CAN BE SPENT INTO ANY REPRESENTATION — BINDER,
+NUMERAL, OR SYMBOL — AND A CENSUS SEES EXACTLY ONE.***
+⛔ **AND THE COUNT IS NINE, NOT EIGHT.**  `arc36_of_floor_h` is REQUIRED by the rung yet is not a
+cap CARRIER — it has already spent the binder on a numeral — so a closure over "carries the
+binder" cannot see it.  **The ladder's 8 is a FLOOR on this rung's price, not the price.**
+
+📌 **THESE NINE HAVE NO CONSUMERS.**  Nothing in the corpus reads them today; they buy headroom
+for a future consumer holding only `log h ≤ 14`.  The rung moves NO citable number — not `z`, not
+`h` in any published statement.  What it buys is that the ladder is demonstrated CLIMBABLE above
+its floor: the raised-cap family composes through a supplier CHAIN, which the cost-1 rung could
+not test because its four twins had no suppliers.  **Anyone reading this as progress on the
+twin-prime program is reading it wrong.**  Nothing here proves an estimate.
+
+📌 Registered in its OWN block, for the cost-1 block's reason: the `#87` wave's docstring closes
+*"16 obligations, 16 landed"* and landed docstrings are not editable.  `#audit_axioms` is
+TRANSITIVE, so `flat_capstone_generic_h_14` alone would cover the other eight; they are named
+anyway, because **a name that is only implied is a name nobody reads.**  9 obligations, 9 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_capstone_generic_h_14
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14
+  Salt.MR.m4_arith_henv_constPoolH_L_gk_14
+  Salt.MR.m4_arith_henv_rho_poolH_L_gk_14
+  Salt.MR.a2DoorGrade_pool_L_priced_rhoH_gk_14
+  Salt.MR.a2DoorGrade_pool_L_priced_rhoH_14
+  Salt.MR.hArcDen_mul_strataResidualH_sq_le_14
+  Salt.MR.arc36_of_regime_h_14
+  Salt.MR.arc36_of_floor_h_14

@@ -2391,6 +2391,57 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_kwide (K : �
       (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
     harith
 
+/-- **⟦gate 7 AT THE RAISED CAP, IN REGIME FORM⟧** (`arc36_of_regime_h_14`) —
+`arc36_of_regime_h` at `log h ≤ 14`.  BODY: the sibling's, with the cap binder and the four
+numeral families it drives lifted; the ROUTE is unchanged, which is the whole point of this member.
+
+⭐ **THE FLOOR IS PAID BY THE LANDED STEP AND NOTHING ABOUT IT IS CLOSE.**  The lane now demands
+`10^{175} ≤ loglogFloor50 = ⌈e^{e^{50}}⌉₊`.  The sibling routes `10^{157}` through
+`10 ≤ e³ ⇒ 10^{157} ≤ e^{471} ⇒ e^{471} ≤ e^{e^{50}}`, off `471 ≤ e^{50}`; at `175` the middle
+term is `e^{525}` and the last step needs `525 ≤ e^{50} ≈ 5.18·10^{21}`.  `arcFloor36` still
+cannot carry it — it clears `h = 1` by `1.14×` — so the tower floor is not a convenience here but
+the only floor that works at any `h ≥ 2`.
+
+⚠️ **`h ≤ 1202604` comes from `h_le_1202604_of_log_le_fourteen`** (LANDED,
+`GoldbachEnergyKcH.lean:129`), which sits OUTSIDE the 142-declaration MR population the cost
+ladder counts — which is why this rung's price does not include it.  *"Not built for my object"
+is not "not in the corpus".* -/
+theorem arc36_of_regime_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {R : ChowlaRegime}
+    (hfloor : loglogFloor50 ≤ R.Hlo) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * ((h : ℝ) * arcDen 12 H) ^ 3 ≤ (H : ℝ) := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have h1202604 : (h : ℝ) ≤ 1202604 := by
+    exact_mod_cast Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen hh hh14
+  have hcb : (h : ℝ) ^ 3 ≤ 1739273708594844864 := by
+    calc (h : ℝ) ^ 3 ≤ (1202604 : ℝ) ^ 3 := pow_le_pow_left₀ hx0.le h1202604 3
+      _ = 1739273708594844864 := by norm_num
+  have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have hfl : (10 : ℕ) ^ 175 ≤ loglogFloor50 := by
+    have he3 : (10 : ℝ) ≤ Real.exp 3 := by
+      have h3 : Real.exp 3 = (Real.exp 1) ^ (3 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have hp : (2.7 : ℝ) ^ (3 : ℕ) ≤ (Real.exp 1) ^ (3 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) he1.le 3
+      rw [h3]; nlinarith [hp]
+    have he175 : (Real.exp 3) ^ (175 : ℕ) = Real.exp 525 := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have hpow : ((10 : ℝ)) ^ (175 : ℕ) ≤ Real.exp 525 := by
+      have hle : ((10 : ℝ)) ^ (175 : ℕ) ≤ (Real.exp 3) ^ (175 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) he3 175
+      rw [← he175]; exact hle
+    have h525 : (525 : ℝ) ≤ Real.exp 50 := by
+      have h50 : Real.exp 50 = (Real.exp 1) ^ (50 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have hp : (2.7 : ℝ) ^ (50 : ℕ) ≤ (Real.exp 1) ^ (50 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) he1.le 50
+      have hn : (525 : ℝ) ≤ (2.7 : ℝ) ^ (50 : ℕ) := by norm_num
+      rw [h50]; linarith
+    have hmono : Real.exp 525 ≤ Real.exp (Real.exp 50) := Real.exp_le_exp.mpr h525
+    have hceil : Real.exp (Real.exp 50) ≤ ((loglogFloor50 : ℕ) : ℝ) := by
+      rw [loglogFloor50]; exact Nat.le_ceil _
+    have hfin : ((10 : ℝ)) ^ (175 : ℕ) ≤ ((loglogFloor50 : ℕ) : ℝ) := by linarith
+    exact_mod_cast hfin
+  intro H hlo _
+  exact arc36_of_floor_h_14 hcb (le_trans hfl (le_trans hfloor hlo))
+
 end Salt.MR
 
 end
