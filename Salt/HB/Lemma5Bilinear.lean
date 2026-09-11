@@ -2141,4 +2141,141 @@ theorem kb5f_k_two (F : HBForms) (q δ₁ w₁ : ℕ) (hq : 0 < q) (hδ₁ : 0 <
 theorem kb5f_two_dvd_alpha (F : HBForms) : 2 ∣ F.α := Nat.dvd_gcd F.even₁ F.even₂
 
 
+/-- **B-5f — (5.14)+(5.17) ASSEMBLED, the shape the next wave consumes**: under B-4's cell-level
+hypotheses, the cell count is the double sum over `(w₁, w₂)` — `w₁` under (5.6), `w₂` coprime to
+`k = D δ₁ w₁` — of `(T₂−T₁)/k + ψ((T₁ − C w̄₂)/k) − ψ((T₂ − C w̄₂)/k)`.
+
+The chain: B-5c (in ℕ) cast to ℝ; B-5d restricts `w₁` (the zero-outside is the WHOLE inner
+`w₂`-sum); B-4's ⟺ through `Finset.filter_congr` termwise, with `C` the `dite` choice `kb5f_C`;
+B-5g restricts `w₂` to the classes coprime to `k`; the `T₂ ≤ T₁` terms drop because their `Ioc`
+is empty; and B-5e closes each term, with `[NeZero k]` from `kb5f_k_pos` and `0 ≤ T₁` supplied as
+an ASCRIBED `have` (inlined it unfolds `hbT₁` and B-5e stops matching).  `hb₁`/`hb₂` come from
+`hab`; `hR₂` is redundant in truth and stays. -/
+theorem cellCount_eq_sum_sawtooth (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ)
+    (a₁ b₁ a₂ b₂ : ℕ) (hq : 0 < q) (hδ₁ : 0 < δ₁) (hδ₂ : 0 < δ₂) (hR₂ : 0 < R₂)
+    (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)
+    (hδ₁q : Nat.Coprime δ₁ q) (hδ₂q : Nat.Coprime δ₂ q)
+    (hδ₁α : Nat.Coprime δ₁ F.α) (hδ₂α : Nat.Coprime δ₂ F.α) (hδ : Nat.Coprime δ₁ δ₂)
+    (hab : Nat.Coprime (a₁ * b₁ * (a₂ * b₂)) q)
+    (h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q])
+    (h54₂ : δ₂ * a₂ * b₂ ≡ F.β₂ [MOD Nat.gcd F.α₂ q])
+    (h55 : F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
+            ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α]) :
+    ∃ C : ℕ → ℕ,
+      (∀ w₁, Nat.Coprime w₁ F.α → Nat.Coprime w₁ δ₂ → Nat.Coprime w₁ q →
+        Nat.Coprime (C w₁) (roadModulus F.α₂ q * δ₁ * w₁)) ∧
+      (cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ : ℝ)
+        = ∑ w₁ ∈ (Finset.Icc 1 ⌊2 * S₁⌋₊).filter (fun w : ℕ => S₁ < (w : ℝ) ∧ w ≡ b₁ [MOD q] ∧
+              Nat.Coprime w F.α ∧ Nat.Coprime w δ₂ ∧ Nat.Coprime w q),
+          ∑ w₂ ∈ (Finset.Icc 1 ⌊2 * S₂⌋₊).filter (fun w : ℕ => S₂ < (w : ℝ) ∧ w ≡ b₂ [MOD q] ∧
+              Nat.Coprime w (roadModulus F.α₂ q * δ₁ * w₁) ∧
+              hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w < hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w),
+            ((hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂ - hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂)
+                / (roadModulus F.α₂ q * δ₁ * w₁ : ℕ)
+              + sawtooth ((hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂
+                  - C w₁ * invMod w₂ (roadModulus F.α₂ q * δ₁ * w₁))
+                    / (roadModulus F.α₂ q * δ₁ * w₁ : ℕ))
+              - sawtooth ((hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂
+                  - C w₁ * invMod w₂ (roadModulus F.α₂ q * δ₁ * w₁))
+                    / (roadModulus F.α₂ q * δ₁ * w₁ : ℕ))) := by
+  classical
+  have hb₁ : Nat.Coprime b₁ q :=
+    Nat.Coprime.coprime_dvd_left (Dvd.dvd.mul_right (dvd_mul_left b₁ a₁) (a₂ * b₂)) hab
+  have hb₂ : Nat.Coprime b₂ q :=
+    Nat.Coprime.coprime_dvd_left ((dvd_mul_left b₂ a₂).mul_left (a₁ * b₁)) hab
+  refine ⟨kb5f_C F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab h54₁ h54₂ h55,
+    kb5f_C_coprime F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab h54₁ h54₂ h55,
+    ?_⟩
+  -- ① B-5c, cast to ℝ
+  rw [cellCount_eq_sum_w F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ hq hδ₁ hδ₂ hR₂ hδ₁q hb₁ hb₂]
+  push_cast
+  -- ② B-5d restricts `w₁`
+  rw [← Finset.sum_subset (s₁ := (Finset.Icc 1 ⌊2 * S₁⌋₊).filter
+      (fun w : ℕ => S₁ < (w : ℝ) ∧ w ≡ b₁ [MOD q] ∧
+        Nat.Coprime w F.α ∧ Nat.Coprime w δ₂ ∧ Nat.Coprime w q))
+    (s₂ := (Finset.Icc 1 ⌊2 * S₁⌋₊).filter (fun w : ℕ => S₁ < (w : ℝ) ∧ w ≡ b₁ [MOD q]))
+    ?_ ?_]
+  · -- ③ termwise in `w₁`
+    refine Finset.sum_congr rfl (fun w₁ hw₁mem => ?_)
+    rw [Finset.mem_filter] at hw₁mem
+    obtain ⟨hw₁Icc, hS₁a, hb₁', hw₁α, hw₁δ₂, hw₁q⟩ := hw₁mem
+    have hw₁ : 0 < w₁ := (Finset.mem_Icc.mp hw₁Icc).1
+    have hkpos : 0 < roadModulus F.α₂ q * δ₁ * w₁ := kb5f_k_pos F q δ₁ w₁ hq hδ₁ hw₁
+    have hCcop := kb5f_C_coprime F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab
+      h54₁ h54₂ h55 w₁ hw₁α hw₁δ₂ hw₁q
+    have hCiff := kb5f_C_iff F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab
+      h54₁ h54₂ h55 w₁ hw₁ hw₁α hw₁δ₂ hw₁q
+    -- B-4's ⟺, termwise on the `v₂`-filter
+    have hfilter : ∀ w₂ : ℕ,
+        ((Finset.Ioc ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊ ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊).filter
+          (fun v₂ : ℕ =>
+            δ₂ * (v₂ * w₂) ≡ F.β₂ [MOD F.α₂] ∧
+            F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁] ∧
+            F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁
+              ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
+            v₂ * w₂ ≡ a₂ * b₂ [MOD q]))
+        = (Finset.Ioc ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊ ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊).filter
+          (fun v₂ : ℕ => v₂ * w₂
+            ≡ kb5f_C F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab h54₁ h54₂ h55 w₁
+              [MOD roadModulus F.α₂ q * δ₁ * w₁]) := by
+      intro w₂
+      exact Finset.filter_congr (fun v₂ _ => hCiff (v₂ * w₂))
+    simp only [hfilter]
+    -- ④ B-5g restricts `w₂` to the coprime classes, and the empty `Ioc`s drop
+    rw [← Finset.sum_subset (s₁ := (Finset.Icc 1 ⌊2 * S₂⌋₊).filter
+        (fun w : ℕ => S₂ < (w : ℝ) ∧ w ≡ b₂ [MOD q] ∧
+          Nat.Coprime w (roadModulus F.α₂ q * δ₁ * w₁) ∧
+          hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w < hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w))
+      (s₂ := (Finset.Icc 1 ⌊2 * S₂⌋₊).filter (fun w : ℕ => S₂ < (w : ℝ) ∧ w ≡ b₂ [MOD q]))
+      ?_ ?_]
+    · -- ⑤ B-5e, termwise in `w₂`
+      refine Finset.sum_congr rfl (fun w₂ hw₂mem => ?_)
+      rw [Finset.mem_filter] at hw₂mem
+      obtain ⟨_, _, _, hw₂k, hT⟩ := hw₂mem
+      haveI : NeZero (roadModulus F.α₂ q * δ₁ * w₁) := ⟨hkpos.ne'⟩
+      have h0 : (0 : ℝ) ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ :=
+        (hbT₁_pos F x δ₁ δ₂ R₁ R₂ w₁ w₂ hR₂).le
+      have hkey := card_count_eq_sawtooth (roadModulus F.α₂ q * δ₁ * w₁) hw₂k
+        (kb5f_C F q δ₁ δ₂ a₁ b₁ a₂ b₂ hq hδ₁ hΔ hδ₁q hδ₂q hδ₁α hδ₂α hδ hab h54₁ h54₂ h55 w₁)
+        h0 hT.le
+      push_cast at hkey ⊢
+      linarith [hkey]
+    · intro w hw
+      rw [Finset.mem_filter] at hw ⊢
+      exact ⟨hw.1, hw.2.1, hw.2.2.1⟩
+    · intro w hwin hwout
+      rw [Finset.mem_filter] at hwin
+      by_cases hck : Nat.Coprime w (roadModulus F.α₂ q * δ₁ * w₁)
+      · have hT : ¬ (hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w < hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w) := by
+          intro hlt
+          exact hwout (Finset.mem_filter.mpr ⟨hwin.1, hwin.2.1, hwin.2.2, hck, hlt⟩)
+        have hfl : ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w⌋₊ ≤ ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w⌋₊ :=
+          Nat.floor_le_floor (not_lt.mp hT)
+        have hemp : Finset.Ioc ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w⌋₊ ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w⌋₊ = ∅ :=
+          Finset.Ioc_eq_empty (by omega)
+        rw [hemp, Finset.filter_empty, Finset.card_empty]
+        norm_num
+      · rw [count_eq_zero_of_not_coprime hCcop hck]
+        norm_num
+  · intro w hw
+    rw [Finset.mem_filter] at hw ⊢
+    exact ⟨hw.1, hw.2.1, hw.2.2.1⟩
+  · intro w hwin hwout
+    rw [Finset.mem_filter] at hwin
+    refine Finset.sum_eq_zero (fun w₂ hw₂ => ?_)
+    rw [Finset.mem_filter] at hw₂
+    by_contra hc
+    have hcard : ((Finset.Ioc ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w w₂⌋₊ ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w w₂⌋₊).filter
+        (fun v₂ : ℕ =>
+          δ₂ * (v₂ * w₂) ≡ F.β₂ [MOD F.α₂] ∧
+          F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w] ∧
+          F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁
+            ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
+          v₂ * w₂ ≡ a₂ * b₂ [MOD q])).card ≠ 0 := by
+      intro h0
+      exact hc (by rw [h0]; norm_num)
+    obtain ⟨hα, hδ₂', hqq⟩ := coprime_w₁_of_count_ne_zero F q x δ₁ δ₂ R₁ R₂ a₁ b₁ a₂ b₂ w w₂
+      hq hδ₁ hδ₂ hδ₁q hb₁ hb₂ hwin.2.2 hw₂.2.2 hcard
+    exact hwout (Finset.mem_filter.mpr ⟨hwin.1, hwin.2.1, hwin.2.2, hα, hδ₂', hqq⟩)
+
 end Salt.N7
