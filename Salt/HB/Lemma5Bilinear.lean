@@ -198,6 +198,15 @@ theorem coprime_l₂_α₂ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₂ n) F.α
   rw [he]
   exact (Nat.coprime_add_mul_left_left F.β₂ F.α₂ n).mpr F.cop₂.symm
 
+/-- `l_i` is monotone: B-1.8 needs `l_i(n) ≤ l_i(2x)` on the window. -/
+theorem l₁_mono (F : HBForms) {m n : ℕ} (h : m ≤ n) : F.l₁ m ≤ F.l₁ n := by
+  simp only [l₁]
+  exact Nat.add_le_add_right (Nat.mul_le_mul_left _ h) _
+
+theorem l₂_mono (F : HBForms) {m n : ℕ} (h : m ≤ n) : F.l₂ m ≤ F.l₂ n := by
+  simp only [l₂]
+  exact Nat.add_le_add_right (Nat.mul_le_mul_left _ h) _
+
 /-- **B-1.3 — `(l₁(n), l₂(n)) = 1`** (HB p.194).  A common prime `p` divides
 `α₁ l₂(n) − α₂ l₁(n) = α₁β₂ − α₂β₁`, so (1.7) gives `p ∣ α₁`, and then `p ∣ β₁` against (1.4).
 ⛔ This consumes (1.4) and (1.7) ONLY: `even₁`/`even₂` are never invoked, so the argument is
@@ -348,6 +357,35 @@ theorem bilinearS_eq_zero_of_not_coprime_δ (χ : DirichletCharacter ℂ q) (F :
   have h₁ : Nat.Coprime δ₁ (F.l₂ n) :=
     Nat.Coprime.coprime_dvd_left hn.2.1 (F.coprime_l n)
   exact h (Nat.Coprime.coprime_dvd_right hn.2.2 h₁)
+
+/-- **B-1.8 — the `V`-vanishing** (p.218: "the sums vanish for `V_i ≫ x`"): every `v ∣ N` has
+`v ≤ N`, so `truncChiSum χ N V = 0` once `N ≤ V`; on the window `l_i(n)/δ_i ≤ l_i(2x)`. -/
+theorem truncChiSum_eq_zero_of_le (χ : DirichletCharacter ℂ q) (N : ℕ) {V : ℝ}
+    (h : (N : ℝ) ≤ V) : truncChiSum χ N V = 0 := by
+  refine Finset.sum_eq_zero (fun p hp => ?_)
+  rw [Nat.mem_divisorsAntidiagonal] at hp
+  have hdvd : p.2 ∣ N := Dvd.intro_left p.1 hp.1
+  have hle : ((p.2 : ℕ) : ℝ) ≤ (N : ℝ) := by
+    exact_mod_cast Nat.le_of_dvd (Nat.pos_of_ne_zero hp.2) hdvd
+  exact if_neg (not_lt.mpr (le_trans hle h))
+theorem bilinearS_eq_zero_of_le₁ (χ : DirichletCharacter ℂ q) (F : HBForms) (x δ₁ δ₂ : ℕ)
+    {V₁ : ℝ} (V₂ : ℝ) (h : ((F.l₁ (2 * x) : ℕ) : ℝ) ≤ V₁) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter, Finset.mem_Ioc] at hn
+  have hstep : F.l₁ n / δ₁ ≤ F.l₁ (2 * x) :=
+    le_trans (Nat.div_le_self _ _) (F.l₁_mono hn.1.1.2)
+  have hcast : ((F.l₁ n / δ₁ : ℕ) : ℝ) ≤ V₁ := le_trans (by exact_mod_cast hstep) h
+  rw [truncChiSum_eq_zero_of_le χ _ hcast, zero_mul]
+theorem bilinearS_eq_zero_of_le₂ (χ : DirichletCharacter ℂ q) (F : HBForms) (x δ₁ δ₂ : ℕ)
+    (V₁ : ℝ) {V₂ : ℝ} (h : ((F.l₂ (2 * x) : ℕ) : ℝ) ≤ V₂) :
+    bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
+  refine Finset.sum_eq_zero (fun n hn => ?_)
+  rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter, Finset.mem_Ioc] at hn
+  have hstep : F.l₂ n / δ₂ ≤ F.l₂ (2 * x) :=
+    le_trans (Nat.div_le_self _ _) (F.l₂_mono hn.1.1.2)
+  have hcast : ((F.l₂ n / δ₂ : ℕ) : ℝ) ≤ V₂ := le_trans (by exact_mod_cast hstep) h
+  rw [truncChiSum_eq_zero_of_le χ _ hcast, mul_zero]
 
 /-- The `HBSieveData` at the forms `F`: HB's `S(d)` at general forms (support `hbFormsWindow`,
 `val n = l₁ n · l₂ n`, `a n = Λ*(l₁ n)·Λ*(l₂ n)`); W-a's `hbDataHB` is this at `HBForms.twin`. -/
