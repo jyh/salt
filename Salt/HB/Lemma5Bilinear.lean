@@ -1947,9 +1947,9 @@ theorem cellCount_eq_sum_w (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂
     simp only [hn', hv₁', Finset.mem_coe, Finset.mem_sigma, Finset.mem_product,
       Finset.mem_filter, Nat.mem_divisorsAntidiagonal, Finset.mem_Ioc]
     exact ⟨⟨⟨hx1, hx2⟩, hd₁, hd₂⟩,
-      ⟨⟨hq₁.symm, by rw [hq₁]; exact Nat.mul_ne_zero hw₁.ne' hv₁pos.ne'⟩,
+      ⟨⟨hq₁.symm, by rw [hq₁]; exact Nat.mul_ne_zero (Nat.one_le_iff_ne_zero.mp hw₁) hv₁pos.ne'⟩,
         hR₁a, hR₁b, hS₁a, hw₁2', hv₁a, hb₁'⟩,
-      ⟨hq₂.symm, by rw [hq₂]; exact Nat.mul_ne_zero hw₂.ne' hv₂pos.ne'⟩,
+      ⟨hq₂.symm, by rw [hq₂]; exact Nat.mul_ne_zero (Nat.one_le_iff_ne_zero.mp hw₂) hv₂pos.ne'⟩,
         hR₂a, hR₂b, hS₂a, hw₂2', hv₂a, hb₂'⟩
   · -- ③ `j ∘ i = id` on the cell points
     rintro ⟨n, ⟨w₁, v₁⟩, ⟨w₂, v₂⟩⟩ hz
