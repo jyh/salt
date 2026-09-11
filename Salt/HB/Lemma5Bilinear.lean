@@ -463,6 +463,97 @@ theorem cellCount_ne_zero_extract (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S�
   · rw [hm₁]; exact Nat.mul_div_cancel' hd₁
   · rw [hm₂]; exact Nat.mul_div_cancel' hd₂
 
+/-! ### B-3a's cell-index helpers — one dyadic index, one unit representative -/
+
+/-- **Each `v` in `(V, V·2^J]` lies in exactly one dyadic cell `(V·2^j, 2·(V·2^j)]`, `j < J`.**
+Both the `v`-cells (at `V = V_i`) and the `w`-cells (at `V = 1/2`, where the cells are
+`(2^k/2, 2^k]`) are instances of this one statement. -/
+theorem exists_unique_dyadic {V v : ℝ} (hV : 0 < V) {J : ℕ} (h1 : V < v) (h2 : v ≤ V * 2 ^ J) :
+    ∃! j : ℕ, j < J ∧ V * 2 ^ j < v ∧ v ≤ 2 * (V * 2 ^ j) := by
+  classical
+  have hmono : ∀ i j : ℕ, i ≤ j → V * 2 ^ i ≤ V * 2 ^ j := by
+    intro i j hij
+    exact mul_le_mul_of_nonneg_left (pow_le_pow_right₀ (by norm_num) hij) hV.le
+  set P : ℕ → Prop := fun j => V * 2 ^ j < v with hP
+  have hP0 : P 0 := by simpa [hP] using h1
+  have hPJ : ¬ P J := by simpa [hP] using h2
+  set j := Nat.findGreatest P J with hj
+  have hPj : P j := Nat.findGreatest_spec (Nat.zero_le J) hP0
+  have hjJ : j < J := by
+    rcases lt_or_eq_of_le (Nat.findGreatest_le (P := P) J) with h | h
+    · exact h
+    · exact absurd (h ▸ hPj) hPJ
+  have htop : v ≤ 2 * (V * 2 ^ j) := by
+    by_contra hc
+    have hnext : P (j + 1) := by
+      have he : V * 2 ^ (j + 1) = 2 * (V * 2 ^ j) := by ring
+      rw [hP]; rw [he]; exact lt_of_not_ge hc
+    exact Nat.findGreatest_is_greatest (lt_add_one j) (by omega) hnext
+  refine ⟨j, ⟨hjJ, hPj, htop⟩, ?_⟩
+  rintro j' ⟨_, h1', h2'⟩
+  by_contra hne
+  rcases Nat.lt_or_ge j' j with hlt | hge
+  · have : v ≤ V * 2 ^ j := le_trans h2' (by
+      have he : (2 : ℝ) * (V * 2 ^ j') = V * 2 ^ (j' + 1) := by ring
+      rw [he]; exact hmono (j' + 1) j hlt)
+    exact absurd hPj (not_lt.mpr this)
+  · have hgt : j < j' := by omega
+    have : v ≤ V * 2 ^ j' := le_trans htop (by
+      have he : (2 : ℝ) * (V * 2 ^ j) = V * 2 ^ (j + 1) := by ring
+      rw [he]; exact hmono (j + 1) j' hgt)
+    exact absurd h1' (not_lt.mpr this)
+
+/-- The unit representative of `v` modulo `q`, in `[1, q]` — the fibre map B-3a's residue split
+runs on: `v % q`, except that `0` is represented by `q`. -/
+def unitRep (q v : ℕ) : ℕ := if v % q = 0 then q else v % q
+
+theorem unitRep_modEq (q v : ℕ) : v ≡ unitRep q v [MOD q] := by
+  unfold unitRep
+  split
+  · rename_i h
+    show v % q = q % q
+    rw [h, Nat.mod_self]
+  · exact (Nat.mod_modEq v q).symm
+
+theorem unitRep_mem_Icc {q v : ℕ} (hq : 0 < q) : unitRep q v ∈ Finset.Icc 1 q := by
+  rw [Finset.mem_Icc]
+  unfold unitRep
+  split
+  · exact ⟨hq, le_rfl⟩
+  · rename_i h
+    exact ⟨Nat.one_le_iff_ne_zero.mpr h, (Nat.mod_lt v hq).le⟩
+
+theorem unitRep_coprime {q v : ℕ} (hq : 0 < q) (hv : Nat.Coprime v q) :
+    Nat.Coprime (unitRep q v) q := by
+  by_contra hcon
+  obtain ⟨p, hp, hpr, hpq⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcon
+  have h1 : v ≡ unitRep q v [MOD p] := Nat.ModEq.of_dvd hpq (unitRep_modEq q v)
+  have h2 : unitRep q v ≡ 0 [MOD p] := (Nat.modEq_zero_iff_dvd).mpr hpr
+  have h3 : p ∣ v := (Nat.modEq_zero_iff_dvd).mp (h1.trans h2)
+  have h4 : p ∣ Nat.gcd v q := Nat.dvd_gcd h3 hpq
+  rw [show Nat.gcd v q = 1 from hv] at h4
+  exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+
+theorem unitRep_unique {q v a : ℕ} (hq : 0 < q) (ha : a ∈ Finset.Icc 1 q)
+    (h : v ≡ a [MOD q]) : a = unitRep q v := by
+  rw [Finset.mem_Icc] at ha
+  have hmod : v % q = a % q := h
+  unfold unitRep
+  split
+  · rename_i h0
+    rw [h0] at hmod
+    rcases Nat.lt_or_ge a q with hlt | hge
+    · rw [Nat.mod_eq_of_lt hlt] at hmod
+      omega
+    · omega
+  · rename_i h0
+    rcases Nat.lt_or_ge a q with hlt | hge
+    · rw [Nat.mod_eq_of_lt hlt] at hmod
+      omega
+    · have hae : a = q := le_antisymm ha.2 hge
+      rw [hae, Nat.mod_self] at hmod
+      omega
+
 /-- **B-3b — (5.2)'s sizes**: a non-empty cell has `α_i x < 4 δ_i R_i S_i` and
 `δ_i R_i S_i ≤ l_i(2x)`.  ⭐ The dyadic ranges give `0 < R_i` and `0 < S_i` for free
 (`R_i < v_i ≤ 2R_i` forces `R_i < 2R_i`), and `δ_i ≥ 1` because `δ_i ∣ l_i(n) ≥ 1`; the strict
