@@ -437,6 +437,90 @@ noncomputable def cellCount (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R�
         R₂ < (p.2 : ℝ) ∧ (p.2 : ℝ) ≤ 2 * R₂ ∧ S₂ < (p.1 : ℝ) ∧ (p.1 : ℝ) ≤ 2 * S₂ ∧
         p.2 ≡ a₂ [MOD q] ∧ p.1 ≡ b₂ [MOD q])).card
 
+/-- **The FULL extraction from a non-empty cell.**  A non-zero `cellCount` hands back a window
+point `n`, a factorisation `δ_i · (w_i · v_i) = l_i(n)` of each form value, the two dyadic
+ranges, and the two residue classes.  B-3b reads the ranges off it and B-4z the residues, so it
+is authored ONCE here and consumed twice. -/
+theorem cellCount_ne_zero_extract (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ)
+    (a₁ b₁ a₂ b₂ : ℕ) (h : cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ ≠ 0) :
+    ∃ n w₁ v₁ w₂ v₂ : ℕ, x < n ∧ n ≤ 2 * x ∧
+      δ₁ * (w₁ * v₁) = F.l₁ n ∧ δ₂ * (w₂ * v₂) = F.l₂ n ∧
+      R₁ < (v₁ : ℝ) ∧ (v₁ : ℝ) ≤ 2 * R₁ ∧ S₁ < (w₁ : ℝ) ∧ (w₁ : ℝ) ≤ 2 * S₁ ∧
+      R₂ < (v₂ : ℝ) ∧ (v₂ : ℝ) ≤ 2 * R₂ ∧ S₂ < (w₂ : ℝ) ∧ (w₂ : ℝ) ≤ 2 * S₂ ∧
+      v₁ ≡ a₁ [MOD q] ∧ w₁ ≡ b₁ [MOD q] ∧ v₂ ≡ a₂ [MOD q] ∧ w₂ ≡ b₂ [MOD q] := by
+  rw [cellCount] at h
+  obtain ⟨n, hn, hne⟩ := Finset.exists_ne_zero_of_sum_ne_zero h
+  rw [Finset.mem_filter, Finset.mem_Ioc] at hn
+  obtain ⟨⟨hx1, hx2⟩, hd₁, hd₂⟩ := hn
+  obtain ⟨hc₁, hc₂⟩ := mul_ne_zero_iff.mp hne
+  obtain ⟨p₁, hp₁⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc₁)
+  obtain ⟨p₂, hp₂⟩ := Finset.card_pos.mp (Nat.pos_of_ne_zero hc₂)
+  rw [Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hp₁ hp₂
+  obtain ⟨⟨hm₁, _⟩, hA₁, hB₁, hC₁, hD₁, hE₁, hF₁⟩ := hp₁
+  obtain ⟨⟨hm₂, _⟩, hA₂, hB₂, hC₂, hD₂, hE₂, hF₂⟩ := hp₂
+  refine ⟨n, p₁.1, p₁.2, p₂.1, p₂.2, hx1, hx2, ?_, ?_, hA₁, hB₁, hC₁, hD₁, hA₂, hB₂, hC₂, hD₂,
+    hE₁, hF₁, hE₂, hF₂⟩
+  · rw [hm₁]; exact Nat.mul_div_cancel' hd₁
+  · rw [hm₂]; exact Nat.mul_div_cancel' hd₂
+
+/-- **B-3b — (5.2)'s sizes**: a non-empty cell has `α_i x < 4 δ_i R_i S_i` and
+`δ_i R_i S_i ≤ l_i(2x)`.  ⭐ The dyadic ranges give `0 < R_i` and `0 < S_i` for free
+(`R_i < v_i ≤ 2R_i` forces `R_i < 2R_i`), and `δ_i ≥ 1` because `δ_i ∣ l_i(n) ≥ 1`; the strict
+first conjunct is real, from `n > x` and `β_i ≥ 1`. -/
+theorem cellCount_ne_zero_bounds (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ)
+    (a₁ b₁ a₂ b₂ : ℕ) (h : cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ ≠ 0) :
+    ((F.α₁ * x : ℕ) : ℝ) < 4 * δ₁ * R₁ * S₁ ∧ (δ₁ : ℝ) * R₁ * S₁ ≤ (F.l₁ (2 * x) : ℕ) ∧
+    ((F.α₂ * x : ℕ) : ℝ) < 4 * δ₂ * R₂ * S₂ ∧ (δ₂ : ℝ) * R₂ * S₂ ≤ (F.l₂ (2 * x) : ℕ) := by
+  obtain ⟨n, w₁, v₁, w₂, v₂, hx1, hx2, he₁, he₂,
+    hR₁, hR₁', hS₁, hS₁', hR₂, hR₂', hS₂, hS₂', _, _, _, _⟩ :=
+      cellCount_ne_zero_extract F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ h
+  -- the two cells are non-degenerate
+  have hRp₁ : (0 : ℝ) < R₁ := by linarith
+  have hSp₁ : (0 : ℝ) < S₁ := by linarith
+  have hRp₂ : (0 : ℝ) < R₂ := by linarith
+  have hSp₂ : (0 : ℝ) < S₂ := by linarith
+  have hvp₁ : (0 : ℝ) < (v₁ : ℝ) := lt_trans hRp₁ hR₁
+  have hwp₁ : (0 : ℝ) < (w₁ : ℝ) := lt_trans hSp₁ hS₁
+  have hvp₂ : (0 : ℝ) < (v₂ : ℝ) := lt_trans hRp₂ hR₂
+  have hwp₂ : (0 : ℝ) < (w₂ : ℝ) := lt_trans hSp₂ hS₂
+  -- `δ_i ≥ 1`, since `δ_i · (w_i v_i) = l_i(n) ≥ 1`
+  have hl₁ : 1 ≤ F.l₁ n := F.one_le_l₁ n
+  have hl₂ : 1 ≤ F.l₂ n := F.one_le_l₂ n
+  have hδp₁ : (0 : ℝ) < (δ₁ : ℝ) := by
+    have : δ₁ ≠ 0 := by rintro rfl; rw [Nat.zero_mul] at he₁; omega
+    exact_mod_cast Nat.pos_of_ne_zero this
+  have hδp₂ : (0 : ℝ) < (δ₂ : ℝ) := by
+    have : δ₂ ≠ 0 := by rintro rfl; rw [Nat.zero_mul] at he₂; omega
+    exact_mod_cast Nat.pos_of_ne_zero this
+  -- the cast of the factorisation, and the two comparisons with `l_i`
+  have hc₁ : ((F.l₁ n : ℕ) : ℝ) = (δ₁ : ℝ) * ((w₁ : ℝ) * (v₁ : ℝ)) := by exact_mod_cast he₁.symm
+  have hc₂ : ((F.l₂ n : ℕ) : ℝ) = (δ₂ : ℝ) * ((w₂ : ℝ) * (v₂ : ℝ)) := by exact_mod_cast he₂.symm
+  have hlow₁ : ((F.α₁ * x : ℕ) : ℝ) < ((F.l₁ n : ℕ) : ℝ) := by
+    have hnat : F.α₁ * x < F.l₁ n := by
+      have hmul : F.α₁ * (x + 1) ≤ F.α₁ * n := Nat.mul_le_mul_left _ hx1
+      have hβ := F.one_le_β₁
+      have hα := F.two_le_α₁
+      simp only [HBForms.l₁]
+      nlinarith
+    exact_mod_cast hnat
+  have hlow₂ : ((F.α₂ * x : ℕ) : ℝ) < ((F.l₂ n : ℕ) : ℝ) := by
+    have hnat : F.α₂ * x < F.l₂ n := by
+      have hmul : F.α₂ * (x + 1) ≤ F.α₂ * n := Nat.mul_le_mul_left _ hx1
+      have hβ := F.one_le_β₂
+      have hα := F.two_le_α₂
+      simp only [HBForms.l₂]
+      nlinarith
+    exact_mod_cast hnat
+  have htop₁ : ((F.l₁ n : ℕ) : ℝ) ≤ ((F.l₁ (2 * x) : ℕ) : ℝ) := by
+    exact_mod_cast F.l₁_mono hx2
+  have htop₂ : ((F.l₂ n : ℕ) : ℝ) ≤ ((F.l₂ (2 * x) : ℕ) : ℝ) := by
+    exact_mod_cast F.l₂_mono hx2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [hc₁] at hlow₁; nlinarith
+  · rw [hc₁] at htop₁; nlinarith
+  · rw [hc₂] at hlow₂; nlinarith
+  · rw [hc₂] at htop₂; nlinarith
+
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
 /-- (5.15) -/
