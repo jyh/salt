@@ -533,6 +533,43 @@ theorem cellCount_ne_zero_bounds (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S�
     have hscale := mul_le_mul_of_nonneg_left hprod hδp₂.le
     linarith
 
+/-- **B-3c — the `v ↔ w` swap symmetry of the cell count**: HB's "appropriate analogues"
+(p.214) for §6's regimes (b)/(c) are B-5c/B-5f at swapped cell parameters.  Both sides count
+the same divisor pairs, read through `Prod.swap`: the six conjuncts of the cell filter simply
+permute. -/
+theorem cellCount_swap₁ (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ) (a₁ b₁ a₂ b₂ : ℕ) :
+    cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ = cellCount F q x δ₁ δ₂ S₁ R₁ R₂ S₂ b₁ a₁ a₂ b₂ := by
+  simp only [cellCount]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  congr 1
+  refine Finset.card_nbij' Prod.swap Prod.swap ?_ ?_ ?_ ?_
+  · intro p hp
+    simp only [Finset.mem_coe, Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hp ⊢
+    obtain ⟨⟨hmul, hne⟩, h1, h2, h3, h4, h5, h6⟩ := hp
+    exact ⟨⟨by rw [← hmul]; exact Nat.mul_comm _ _, hne⟩, h3, h4, h1, h2, h6, h5⟩
+  · intro p hp
+    simp only [Finset.mem_coe, Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hp ⊢
+    obtain ⟨⟨hmul, hne⟩, h1, h2, h3, h4, h5, h6⟩ := hp
+    exact ⟨⟨by rw [← hmul]; exact Nat.mul_comm _ _, hne⟩, h3, h4, h1, h2, h6, h5⟩
+  · intro p _; rfl
+  · intro p _; rfl
+theorem cellCount_swap₂ (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ) (a₁ b₁ a₂ b₂ : ℕ) :
+    cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ = cellCount F q x δ₁ δ₂ R₁ S₁ S₂ R₂ a₁ b₁ b₂ a₂ := by
+  simp only [cellCount]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  congr 1
+  refine Finset.card_nbij' Prod.swap Prod.swap ?_ ?_ ?_ ?_
+  · intro p hp
+    simp only [Finset.mem_coe, Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hp ⊢
+    obtain ⟨⟨hmul, hne⟩, h1, h2, h3, h4, h5, h6⟩ := hp
+    exact ⟨⟨by rw [← hmul]; exact Nat.mul_comm _ _, hne⟩, h3, h4, h1, h2, h6, h5⟩
+  · intro p hp
+    simp only [Finset.mem_coe, Finset.mem_filter, Nat.mem_divisorsAntidiagonal] at hp ⊢
+    obtain ⟨⟨hmul, hne⟩, h1, h2, h3, h4, h5, h6⟩ := hp
+    exact ⟨⟨by rw [← hmul]; exact Nat.mul_comm _ _, hne⟩, h3, h4, h1, h2, h6, h5⟩
+  · intro p _; rfl
+  · intro p _; rfl
+
 /-! ## B-5 — the ψ-reduction (5.14)–(5.17) -/
 
 /-- (5.15) -/
