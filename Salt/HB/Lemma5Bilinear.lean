@@ -423,6 +423,1084 @@ consumes at (6.11) and (6.12)); `LamStar − LamStarTrunc` is the `m ≥ q` tail
 noncomputable def LamStarTrunc (χ : DirichletCharacter ℂ q) (z n : ℕ) : ℝ :=
   ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ n ∧ m < q), (μ m : ℝ) * LamPrime χ (n / m ^ 2)
 
+/-- **B-2.1 — `Q` and `P` are coprime** (p.210): the two sifting moduli are products over
+DISJOINT sets of primes, `χ(p) = −1` against `χ(p) = 1`, so no prime divides both. -/
+theorem coprime_hbQ_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z : ℕ) :
+    Nat.Coprime (hbQ χ z) (hbP (chiReChar χ hsq) (z : ℝ)) := by
+  rw [hbQ, hbP, hbSiftSet_chiReChar]
+  refine Nat.Coprime.prod_left fun p hp => Nat.Coprime.prod_right fun p' hp' => ?_
+  rw [Finset.mem_filter] at hp hp'
+  refine (Nat.coprime_primes hp.2.1 hp'.2.1).mpr fun hpp => ?_
+  have h1 : chiRe χ p = -1 := hp.2.2
+  have h2 : chiRe χ p = 1 := by rw [hpp]; exact hp'.2.2.2
+  rw [h1] at h2
+  norm_num at h2
+
+/-- `chiRe` is multiplicative over a `Finset` product — the bridge from a prime-by-prime
+character value to the value at a squarefree number, written as its product of prime factors.
+Introduced here for `chiRe_eq_one_of_dvd_hbP`; B-2a's χ step consumes it again. -/
+lemma chiRe_finset_prod (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (s : Finset ℕ) :
+    chiRe χ (∏ p ∈ s, p) = ∏ p ∈ s, chiRe χ p := by
+  classical
+  refine Finset.induction_on s (by simp [chiRe_one]) ?_
+  intro a s ha ih
+  rw [Finset.prod_insert ha, chiRe_mul χ hsq, ih, Finset.prod_insert ha]
+
+/-- **B-2.1 — `χ = 1` on every divisor of `P`** (p.210): `P` is squarefree, so a divisor `d`
+is the product of its prime factors, each a prime of `P` and so each with `χ(p) = 1`. -/
+theorem chiRe_eq_one_of_dvd_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z : ℕ) {d : ℕ}
+    (hd : d ∣ hbP (chiReChar χ hsq) (z : ℝ)) : chiRe χ d = 1 := by
+  have hP0 : hbP (chiReChar χ hsq) (z : ℝ) ≠ 0 := (hbP_squarefree _ _).ne_zero
+  have hsf : Squarefree d := (hbP_squarefree (chiReChar χ hsq) (z : ℝ)).squarefree_of_dvd hd
+  have hd' : ∏ p ∈ d.primeFactors, p = d := Nat.prod_primeFactors_of_squarefree hsf
+  have hsub : d.primeFactors ⊆ (hbP (chiReChar χ hsq) (z : ℝ)).primeFactors :=
+    Nat.primeFactors_mono hd hP0
+  calc chiRe χ d = chiRe χ (∏ p ∈ d.primeFactors, p) := by rw [hd']
+    _ = ∏ p ∈ d.primeFactors, chiRe χ p := chiRe_finset_prod χ hsq _
+    _ = 1 := Finset.prod_eq_one fun p hp => by
+        have hp1 := hbP_chi (chiReChar χ hsq) (z : ℝ) p (hsub hp)
+        rwa [chiReChar_prime] at hp1
+
+/-- **B-2c — `log` as a ray integral of an indicator against `dV/V`** (p.211): the shape in
+which the carrier's `V_i`-integrals deliver HB's logarithms. -/
+theorem integral_Ioi_ite_inv {a v : ℝ} (ha : 0 < a) (hav : a ≤ v) :
+    (∫ V in Set.Ioi a, (if V < v then V⁻¹ else 0)) = Real.log (v / a) := by
+  have hfun : (fun V : ℝ => if V < v then V⁻¹ else 0)
+      = Set.indicator (Set.Iio v) (fun V : ℝ => V⁻¹) := by
+    funext V
+    by_cases h : V < v <;> simp [h]
+  have hint : (∫ V in Set.Ioi a, (if V < v then V⁻¹ else 0))
+      = ∫ V, Set.indicator (Set.Iio v) (fun V : ℝ => V⁻¹) V
+          ∂(MeasureTheory.volume.restrict (Set.Ioi a)) := by
+    rw [hfun]
+  rw [hint, MeasureTheory.integral_indicator measurableSet_Iio,
+    MeasureTheory.Measure.restrict_restrict measurableSet_Iio]
+  have hset : Set.Iio v ∩ Set.Ioi a = Set.Ioo a v := by
+    ext x; simp [Set.mem_Ioo, and_comm]
+  rw [hset, ← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+    ← intervalIntegral.integral_of_le hav]
+  exact integral_inv_of_pos ha (lt_of_lt_of_le ha hav)
+
+/-- **B-2c″ — the integrability `integral_finsetSum` demands at B-2c′ and Lemma 9's inner row
+needs twice**: one term of the truncated divisor sum, against `dV/V` on a ray. -/
+theorem integrable_term {a v c : ℝ} (ha : 0 < a) :
+    MeasureTheory.Integrable (fun V : ℝ => c * (if V < v then V⁻¹ else 0))
+      (MeasureTheory.volume.restrict (Set.Ioi a)) := by
+  have hIoo : MeasureTheory.IntegrableOn (fun V : ℝ => V⁻¹) (Set.Ioo a v) := by
+    have hcont : ContinuousOn (fun V : ℝ => V⁻¹) (Set.Icc a v) := by
+      apply continuousOn_inv₀.mono
+      intro x hx
+      simp only [Set.mem_compl_iff, Set.mem_singleton_iff]
+      exact ne_of_gt (lt_of_lt_of_le ha hx.1)
+    exact (hcont.integrableOn_Icc).mono_set Set.Ioo_subset_Icc_self
+  have hres : MeasureTheory.IntegrableOn (fun V : ℝ => V⁻¹) (Set.Iio v)
+      (MeasureTheory.volume.restrict (Set.Ioi a)) := by
+    have hset : Set.Iio v ∩ Set.Ioi a = Set.Ioo a v := by
+      ext x; simp [Set.mem_Ioo, and_comm]
+    rw [MeasureTheory.IntegrableOn, MeasureTheory.Measure.restrict_restrict measurableSet_Iio,
+      hset]
+    exact hIoo
+  refine ((hres.integrable_indicator measurableSet_Iio).const_mul c).congr ?_
+  filter_upwards with V
+  by_cases h : V < v <;> simp [h]
+
+/-- **B-2c″ — the aggregate**: the whole truncated divisor sum over `dV/V` is integrable on the
+ray, by `integrable_finsetSum` over `integrable_term`. -/
+theorem integrableOn_truncChiSum_div (χ : DirichletCharacter ℂ q) (N : ℕ) {a : ℝ} (ha : 0 < a) :
+    MeasureTheory.IntegrableOn (fun V : ℝ => truncChiSum χ N V / V) (Set.Ioi a) := by
+  have key : (fun V : ℝ => truncChiSum χ N V / V)
+      = fun V : ℝ =>
+          ∑ p ∈ N.divisorsAntidiagonal, chiRe χ p.1 * (if V < (p.2 : ℝ) then V⁻¹ else 0) := by
+    funext V
+    rw [truncChiSum, Finset.sum_div]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    by_cases h : V < (p.2 : ℝ) <;> simp [h, div_eq_mul_inv]
+  rw [MeasureTheory.IntegrableOn, key]
+  exact MeasureTheory.integrable_finsetSum _ (fun p _ => integrable_term ha)
+
+/-- **B-2c′ — the carrier's inner sum integrates to the log-weighted sum** (p.211), `a ≤ 1`:
+each divisor pair's indicator integrates to `log(v/a)` by B-2c, and `a ≤ 1 ≤ v` is exactly
+what the consumer's `(j_i k_i)⁻¹` supplies. -/
+theorem integral_Ioi_truncChiSum (χ : DirichletCharacter ℂ q) (N : ℕ) {a : ℝ} (ha : 0 < a)
+    (ha1 : a ≤ 1) :
+    (∫ V in Set.Ioi a, truncChiSum χ N V / V) = logDivChiSum χ N a⁻¹ := by
+  have key : ∀ V : ℝ, truncChiSum χ N V / V
+      = ∑ p ∈ N.divisorsAntidiagonal, chiRe χ p.1 * (if V < (p.2 : ℝ) then V⁻¹ else 0) := by
+    intro V
+    rw [truncChiSum, Finset.sum_div]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    by_cases h : V < (p.2 : ℝ) <;> simp [h, div_eq_mul_inv]
+  simp_rw [key]
+  rw [MeasureTheory.integral_finsetSum _ (fun p _ => integrable_term ha)]
+  refine Finset.sum_congr rfl fun p hp => ?_
+  have hp2 : (1 : ℝ) ≤ (p.2 : ℝ) := by
+    have hmem := (Nat.mem_divisorsAntidiagonal.mp hp)
+    have hne : p.2 ≠ 0 := by
+      rintro h
+      exact hmem.2 (by simp [← hmem.1, h])
+    exact_mod_cast Nat.one_le_iff_ne_zero.mpr hne
+  rw [MeasureTheory.integral_const_mul, integral_Ioi_ite_inv ha (le_trans ha1 hp2)]
+  congr 1
+  rw [div_eq_inv_mul]
+
+/-! ### The μ-sieve of `Λ*` over `Q` (p.210) — the radical of the `Q`-part of the square kernel,
+the set identity it gives, the Möbius step, and the two χ facts `m ∣ Q` buys. -/
+
+/-- The radical of the `Q`-part of the square kernel of `d`: the product of the primes `p < z`
+with `χ(p) = −1` and `p² ∣ d`.  `Λ*`'s admissibility condition at `d` is exactly `hbQRad = 1`,
+and the divisors of `hbQRad` are exactly the `m ∣ Q` with `m² ∣ d` — which is what turns the
+admissibility indicator into a Möbius sum.  ⛔ Not `Salt.HB.hbG`, which is the ℝ-valued sieve
+density numerator `G(d)` of p.199 and lives in the open cone under that name. -/
+noncomputable def hbQRad (χ : DirichletCharacter ℂ q) (z d : ℕ) : ℕ :=
+  ∏ p ∈ (Finset.range z).filter (fun p => p.Prime ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d), p
+
+/-- `Q` is a product of distinct primes, hence squarefree. -/
+lemma hbQ_squarefree (χ : DirichletCharacter ℂ q) (z : ℕ) : Squarefree (hbQ χ z) :=
+  squarefree_prod_of_primes (fun _ hp => (Finset.mem_filter.mp hp).2.1)
+
+/-- So is the radical, for the same reason. -/
+lemma hbQRad_squarefree (χ : DirichletCharacter ℂ q) (z d : ℕ) : Squarefree (hbQRad χ z d) :=
+  squarefree_prod_of_primes (fun _ hp => (Finset.mem_filter.mp hp).2.1)
+
+/-- The radical's prime set is a subset of `Q`'s, so it divides `Q`. -/
+lemma hbQRad_dvd_hbQ (χ : DirichletCharacter ℂ q) (z d : ℕ) : hbQRad χ z d ∣ hbQ χ z :=
+  Finset.prod_dvd_prod_of_subset _ _ _ (by
+    intro p hp
+    rw [Finset.mem_filter] at hp ⊢
+    exact ⟨hp.1, hp.2.1, hp.2.2.1⟩)
+
+/-- The primes of `Q`, read off the product: `p ∣ Q ↔ p < z ∧ χ(p) = −1`. -/
+lemma prime_dvd_hbQ_iff {χ : DirichletCharacter ℂ q} {z p : ℕ} (hp : p.Prime) :
+    p ∣ hbQ χ z ↔ (p < z ∧ chiRe χ p = -1) := by
+  constructor
+  · intro h
+    obtain ⟨p', hp', hdvd⟩ := (hp.prime.dvd_finsetProd_iff _).mp h
+    rw [Finset.mem_filter, Finset.mem_range] at hp'
+    have hpp : p = p' := (Nat.prime_dvd_prime_iff_eq hp hp'.2.1).mp hdvd
+    subst hpp
+    exact ⟨hp'.1, hp'.2.2⟩
+  · intro h
+    exact Finset.dvd_prod_of_mem _ (Finset.mem_filter.mpr ⟨Finset.mem_range.mpr h.1, hp, h.2⟩)
+
+/-- The primes of the radical, with the extra `p² ∣ d` conjunct. -/
+lemma prime_dvd_hbQRad_iff {χ : DirichletCharacter ℂ q} {z d p : ℕ} (hp : p.Prime) :
+    p ∣ hbQRad χ z d ↔ (p < z ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d) := by
+  constructor
+  · intro h
+    obtain ⟨p', hp', hdvd⟩ := (hp.prime.dvd_finsetProd_iff _).mp h
+    rw [Finset.mem_filter, Finset.mem_range] at hp'
+    have hpp : p = p' := (Nat.prime_dvd_prime_iff_eq hp hp'.2.1).mp hdvd
+    subst hpp
+    exact ⟨hp'.1, hp'.2.2.1, hp'.2.2.2⟩
+  · intro h
+    exact Finset.dvd_prod_of_mem _
+      (Finset.mem_filter.mpr ⟨Finset.mem_range.mpr h.1, hp, h.2.1, h.2.2⟩)
+
+/-- `hbQRad² ∣ d` — the defining property, through the factorisation order
+(`Nat.factorization_le_iff_dvd`): at each prime the radical contributes at most `1` and `d`
+carries at least `2`.  ⛔ The ℕ `Finset.prod_dvd_of_coprime` route does NOT work here. -/
+lemma hbQRad_sq_dvd (χ : DirichletCharacter ℂ q) (z d : ℕ) : (hbQRad χ z d) ^ 2 ∣ d := by
+  rcases eq_or_ne d 0 with rfl | hd
+  · exact dvd_zero _
+  have hG : hbQRad χ z d ≠ 0 := (hbQRad_squarefree χ z d).ne_zero
+  rw [← Nat.factorization_le_iff_dvd (pow_ne_zero 2 hG) hd, Finsupp.le_def]
+  intro p
+  rw [Nat.factorization_pow, Finsupp.smul_apply, smul_eq_mul]
+  rcases Nat.eq_zero_or_pos ((hbQRad χ z d).factorization p) with h0 | h0
+  · simp [h0]
+  · have hpmem : p ∈ (hbQRad χ z d).primeFactors := by
+      rw [← Nat.support_factorization, Finsupp.mem_support_iff]
+      omega
+    have hp : p.Prime := Nat.prime_of_mem_primeFactors hpmem
+    have hpG : p ∣ hbQRad χ z d := Nat.dvd_of_mem_primeFactors hpmem
+    obtain ⟨-, -, hsqd⟩ := (prime_dvd_hbQRad_iff hp).mp hpG
+    have h1 : (hbQRad χ z d).factorization p ≤ 1 :=
+      (Nat.squarefree_iff_factorization_le_one hG).mp (hbQRad_squarefree χ z d) p
+    have h2 : 2 ≤ d.factorization p := (Nat.Prime.pow_dvd_iff_le_factorization hp hd).mp hsqd
+    omega
+
+/-- **The set identity the Möbius step runs on**: `{m ∣ Q : m² ∣ d}` is exactly the set of
+divisors of `hbQRad χ z d`.  `⊆` is squarefreeness of `m` plus `Nat.prod_primeFactors_of_squarefree`
+(every prime of `m` is a prime of `Q` whose square divides `d`); `⊇` is `hbQRad_dvd_hbQ` and
+`hbQRad_sq_dvd`. -/
+lemma filter_divisors_hbQ (χ : DirichletCharacter ℂ q) (z d : ℕ) :
+    (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ d) = (hbQRad χ z d).divisors := by
+  ext m
+  simp only [Finset.mem_filter, Nat.mem_divisors]
+  constructor
+  · rintro ⟨⟨hmQ, -⟩, hm2⟩
+    refine ⟨?_, (hbQRad_squarefree χ z d).ne_zero⟩
+    have hsf : Squarefree m := (hbQ_squarefree χ z).squarefree_of_dvd hmQ
+    have hsub : m.primeFactors ⊆
+        (Finset.range z).filter (fun p => p.Prime ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d) := by
+      intro p hp
+      have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+      have hpm : p ∣ m := Nat.dvd_of_mem_primeFactors hp
+      obtain ⟨hpz, hpchi⟩ := (prime_dvd_hbQ_iff hpp).mp (hpm.trans hmQ)
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_range.mpr hpz, hpp, hpchi, (pow_dvd_pow_of_dvd hpm 2).trans hm2⟩
+    calc m = ∏ p ∈ m.primeFactors, p := (Nat.prod_primeFactors_of_squarefree hsf).symm
+      _ ∣ hbQRad χ z d := Finset.prod_dvd_prod_of_subset _ _ _ hsub
+  · rintro ⟨hmG, -⟩
+    exact ⟨⟨hmG.trans (hbQRad_dvd_hbQ χ z d), (hbQ_squarefree χ z).ne_zero⟩,
+      (pow_dvd_pow_of_dvd hmG 2).trans (hbQRad_sq_dvd χ z d)⟩
+
+/-- `hbQRad = 1` is exactly `Λ*`'s admissibility condition at `d`. -/
+lemma hbQRad_eq_one_iff (χ : DirichletCharacter ℂ q) (z d : ℕ) :
+    hbQRad χ z d = 1 ↔ Admissible χ z d := by
+  constructor
+  · intro h p hp hpz hpchi hsqd
+    have hdvd : p ∣ hbQRad χ z d := (prime_dvd_hbQRad_iff hp).mpr ⟨hpz, hpchi, hsqd⟩
+    rw [h] at hdvd
+    exact hp.one_lt.ne' (Nat.dvd_one.mp hdvd)
+  · intro hA
+    have hempty : (Finset.range z).filter (fun p => p.Prime ∧ chiRe χ p = -1 ∧ p ^ 2 ∣ d) = ∅ := by
+      rw [Finset.filter_eq_empty_iff]
+      rintro p hp ⟨hpp, hpchi, hsqd⟩
+      exact hA p hpp (Finset.mem_range.mp hp) hpchi hsqd
+    rw [hbQRad, hempty, Finset.prod_empty]
+
+/-- **The Möbius step**: `Σ_{m ∣ Q, m² ∣ d} μ(m)` is the indicator of admissibility at `d`.
+The set identity turns the sum into `Σ_{m ∣ hbQRad} μ(m)`, which is `1` iff `hbQRad = 1`
+(`Salt.SW.sum_divisors_moebius_real`), and `hbQRad = 1` is admissibility. -/
+lemma moebius_step (χ : DirichletCharacter ℂ q) (z d : ℕ) :
+    ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ d), (μ m : ℝ)
+      = if Admissible χ z d then (1 : ℝ) else 0 := by
+  rw [filter_divisors_hbQ, Salt.SW.sum_divisors_moebius_real]
+  by_cases hA : Admissible χ z d
+  · rw [if_pos hA, if_pos ((hbQRad_eq_one_iff χ z d).mpr hA)]
+  · rw [if_neg hA, if_neg (fun h => hA ((hbQRad_eq_one_iff χ z d).mp h))]
+
+/-- **The χ step**: `m ∣ Q ⇒ χ(m)² = 1`.  Every prime of `Q` has `χ(p) = −1`, and `m ∣ Q` is
+squarefree, so `χ(m) = (−1)^{ω(m)} = ±1`.  ⛔ FALSE for general `m` — `χ(m) = 0` at `m` sharing a
+factor with the modulus; the hypothesis `m ∣ Q` is doing the work. -/
+lemma chiRe_sq_of_dvd_hbQ (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z m : ℕ}
+    (hm : m ∣ hbQ χ z) : (chiRe χ m) ^ 2 = 1 := by
+  have hsf : Squarefree m := (hbQ_squarefree χ z).squarefree_of_dvd hm
+  have hm' : ∏ p ∈ m.primeFactors, p = m := Nat.prod_primeFactors_of_squarefree hsf
+  have key : chiRe χ (∏ p ∈ m.primeFactors, p) = ∏ p ∈ m.primeFactors, chiRe χ p :=
+    chiRe_finset_prod χ hsq _
+  rw [hm'] at key
+  have hall : ∀ p ∈ m.primeFactors, chiRe χ p = -1 := fun p hp =>
+    ((prime_dvd_hbQ_iff (Nat.prime_of_mem_primeFactors hp)).mp
+      ((Nat.dvd_of_mem_primeFactors hp).trans hm)).2
+  rw [key, Finset.prod_congr rfl hall, Finset.prod_const, ← pow_mul, mul_comm, pow_mul]
+  norm_num
+
+/-- The χ step in the shape the reindex `d = m² v` needs. -/
+lemma chiRe_sq_mul (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z m : ℕ}
+    (hm : m ∣ hbQ χ z) (v : ℕ) : chiRe χ (m ^ 2 * v) = chiRe χ v := by
+  rw [chiRe_mul χ hsq, chiRe_pow χ hsq, chiRe_sq_of_dvd_hbQ χ hsq hm, one_mul]
+
+/-- **B-2a — `Λ*` as the μ-sieve of `Λ′` over `Q`, EXACT** (p.210, first display): no
+truncation, every `m ∣ Q` with `m² ∣ n`.  The admissibility indicator inside `Λ*` becomes the
+Möbius sum, the two sums swap (`Finset.sum_comm'` over the pairs `(d, m)` with `m² ∣ d ∣ n`),
+and the inner sum is reindexed at `d = m² v` by `Finset.sum_nbij'`, where `χ(m²v) = χ(v)` is the
+χ step and `n/(m²v) = (n/m²)/v` is `Nat.div_div_eq_div_mul`. -/
+theorem LamStar_eq_moebius_hbQ (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z n : ℕ) :
+    LamStar χ z n
+      = ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ n),
+          (μ m : ℝ) * LamPrime χ (n / m ^ 2) := by
+  classical
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [LamStar, LamPrime]
+  -- LHS: replace the admissibility indicator by the Moebius sum
+  have hL : LamStar χ z n
+      = ∑ d ∈ n.divisors, ∑ m ∈ (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ d),
+          (μ m : ℝ) * (chiRe χ d * Real.log ((n / d : ℕ) : ℝ)) := by
+    rw [LamStar]
+    refine Finset.sum_congr rfl fun d _ => ?_
+    rw [← Finset.sum_mul, moebius_step χ z d]
+    by_cases hA : Admissible χ z d
+    · rw [if_pos hA, if_pos hA, one_mul]
+    · rw [if_neg hA, if_neg hA, zero_mul]
+  rw [hL]
+  -- swap the two sums
+  rw [Finset.sum_comm' (t' := (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ n))
+      (s' := fun m => n.divisors.filter (fun d => m ^ 2 ∣ d))
+      (by
+        intro d m
+        simp only [Finset.mem_filter, Nat.mem_divisors]
+        constructor
+        · rintro ⟨⟨hdn, hn0⟩, ⟨hmQ, hQ0⟩, hm2⟩
+          exact ⟨⟨⟨hdn, hn0⟩, hm2⟩, ⟨hmQ, hQ0⟩, hm2.trans hdn⟩
+        · rintro ⟨⟨⟨hdn, hn0⟩, hm2⟩, ⟨hmQ, hQ0⟩, -⟩
+          exact ⟨⟨hdn, hn0⟩, ⟨hmQ, hQ0⟩, hm2⟩)]
+  -- the inner reindex `d = m² v`
+  refine Finset.sum_congr rfl fun m hm => ?_
+  obtain ⟨hmdiv, hm2n⟩ := Finset.mem_filter.mp hm
+  have hmQ : m ∣ hbQ χ z := (Nat.mem_divisors.mp hmdiv).1
+  have hm0 : 0 < m := Nat.pos_of_mem_divisors hmdiv
+  have hm2pos : 0 < m ^ 2 := pow_pos hm0 2
+  rw [LamPrime, Finset.mul_sum]
+  refine Finset.sum_nbij' (i := fun d => d / m ^ 2) (j := fun v => m ^ 2 * v) ?_ ?_ ?_ ?_ ?_
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd ⊢
+    refine ⟨?_, ?_⟩
+    · have h1 : m ^ 2 * (d / m ^ 2) ∣ m ^ 2 * (n / m ^ 2) := by
+        rw [Nat.mul_div_cancel' hd.2, Nat.mul_div_cancel' hm2n]; exact hd.1.1
+      exact (Nat.mul_dvd_mul_iff_left hm2pos).mp h1
+    · exact (Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hn) hm2n) hm2pos).ne'
+  · intro v hv
+    simp only [Nat.mem_divisors, Finset.mem_filter] at hv ⊢
+    refine ⟨⟨?_, hn⟩, Dvd.intro v rfl⟩
+    calc m ^ 2 * v ∣ m ^ 2 * (n / m ^ 2) := Nat.mul_dvd_mul_left _ hv.1
+      _ = n := Nat.mul_div_cancel' hm2n
+  · intro d hd
+    simp only [Finset.mem_filter] at hd
+    exact Nat.mul_div_cancel' hd.2
+  · intro v _
+    exact Nat.mul_div_cancel_left v hm2pos
+  · intro d hd
+    simp only [Finset.mem_filter] at hd
+    have hd2 : m ^ 2 * (d / m ^ 2) = d := Nat.mul_div_cancel' hd.2
+    have hchi : chiRe χ d = chiRe χ (d / m ^ 2) := by
+      conv_lhs => rw [← hd2]
+      exact chiRe_sq_mul χ hsq hmQ _
+    have hlog : (n / d : ℕ) = (n / m ^ 2 / (d / m ^ 2) : ℕ) := by
+      rw [Nat.div_div_eq_div_mul, hd2]
+    rw [hchi, hlog]
+
+/-! ### B-2b — the hyperbola identity (p.211): the nested enumeration, the fibre split of
+`n.divisorsAntidiagonal` by `gcd(s, e)`, and the Möbius detector that selects the fibre. -/
+
+/-- The nested antidiagonal enumeration IS the triple sum over `h j k = e`: `t = (h, jk)` runs
+over `e.divisorsAntidiagonal` and `u = (j, k)` over `(jk).divisorsAntidiagonal`, and together they
+hit each factorisation `h j k = e` exactly once. -/
+theorem nested_antidiag (e : ℕ) (f : ℕ → ℕ → ℕ → ℝ) :
+    (∑ t ∈ e.divisorsAntidiagonal, ∑ u ∈ t.2.divisorsAntidiagonal, f t.1 u.1 u.2)
+      = ∑ h ∈ e.divisors, ∑ j ∈ (e / h).divisors, f h j ((e / h) / j) := by
+  rw [Nat.sum_divisorsAntidiagonal (fun h i => ∑ u ∈ i.divisorsAntidiagonal, f h u.1 u.2)]
+  exact Finset.sum_congr rfl fun h _ =>
+    Nat.sum_divisorsAntidiagonal (fun j k => f h j k)
+
+/-- **The fibre facts.**  For `(s, t)` with `s t = n` and `gcd(s, e) = h`, write `E = e/h`,
+`N = n/e` and `σ = s/h`.  Then `σ ∣ N`, `gcd(E, σ) = 1`, and `t = E · (N/σ)`.  The third is the
+one that matters: on this fibre the second coordinate is FORCED to be a multiple of `E`, which is
+what makes the reindexing below a bijection.  `σ ∣ N` is not automatic — it needs
+`gcd(σ, E) = 1` together with `σ ∣ E N`. -/
+theorem fiber_facts {n e h : ℕ} (hn : n ≠ 0) (he : e ∣ n) (hh : h ∣ e) {p : ℕ × ℕ}
+    (hp : p ∈ n.divisorsAntidiagonal) (hg : Nat.gcd p.1 e = h) :
+    p.1 / h ∣ n / e ∧ Nat.gcd (e / h) (p.1 / h) = 1 ∧
+      p.2 = e / h * (n / e / (p.1 / h)) := by
+  obtain ⟨hst, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  have hh0 : h ≠ 0 := by
+    rw [← hg]; simp [Nat.gcd_eq_zero_iff, he0]
+  have hhs : h ∣ p.1 := hg ▸ Nat.gcd_dvd_left _ _
+  have heE : h * (e / h) = e := Nat.mul_div_cancel' hh
+  have hnN : e * (n / e) = n := Nat.mul_div_cancel' he
+  have hps : h * (p.1 / h) = p.1 := Nat.mul_div_cancel' hhs
+  have hcop : Nat.gcd (p.1 / h) (e / h) = 1 := by
+    have hkey : h * Nat.gcd (p.1 / h) (e / h) = h * 1 := by
+      rw [mul_one, ← Nat.gcd_mul_left, hps, heE, hg]
+    exact Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero hh0) hkey
+  have hs0 : p.1 / h ≠ 0 := by
+    rintro h0
+    rw [h0, mul_zero] at hps
+    exact hn (by rw [← hst, ← hps, zero_mul])
+  have hmul : (p.1 / h) * p.2 = (e / h) * (n / e) := by
+    refine Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero hh0) ?_
+    calc h * ((p.1 / h) * p.2) = (h * (p.1 / h)) * p.2 := by ring
+      _ = p.1 * p.2 := by rw [hps]
+      _ = n := hst
+      _ = e * (n / e) := hnN.symm
+      _ = (h * (e / h)) * (n / e) := by rw [heE]
+      _ = h * ((e / h) * (n / e)) := by ring
+  have hdvdN : p.1 / h ∣ n / e :=
+    Nat.Coprime.dvd_of_dvd_mul_left hcop ⟨p.2, hmul.symm⟩
+  refine ⟨hdvdN, Nat.Coprime.symm hcop, ?_⟩
+  have hNs : (p.1 / h) * (n / e / (p.1 / h)) = n / e := Nat.mul_div_cancel' hdvdN
+  refine Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero hs0) ?_
+  calc (p.1 / h) * p.2 = (e / h) * (n / e) := hmul
+    _ = (e / h) * ((p.1 / h) * (n / e / (p.1 / h))) := by rw [hNs]
+    _ = (p.1 / h) * ((e / h) * (n / e / (p.1 / h))) := by ring
+
+/-- **The `(j, v)` swap.**  `{(j, v) : j ∣ E, j ∣ N, v ∣ N/j}` and `{(v, j) : v ∣ N, j ∣ E,
+j ∣ N/v}` are the same set — both say `j ∣ E` and `j v ∣ N` — so the double sum may be taken with
+`v` outside, where the `j`-range is the divisors of `gcd(E, N/v)` and the Möbius sum collapses. -/
+theorem second_reindex {E N : ℕ} (hE : E ≠ 0) (hN : N ≠ 0) (F : ℕ → ℕ → ℝ) :
+    ∑ j ∈ E.divisors, (if j ∣ N then ∑ v ∈ (N / j).divisors, F j v else 0)
+      = ∑ v ∈ N.divisors, ∑ j ∈ (Nat.gcd E (N / v)).divisors, F j v := by
+  rw [← Finset.sum_filter (fun j => j ∣ N) (fun j => ∑ v ∈ (N / j).divisors, F j v)]
+  refine Finset.sum_comm' ?_
+  intro j v
+  simp only [Finset.mem_filter, Nat.mem_divisors, Nat.dvd_gcd_iff]
+  constructor
+  · rintro ⟨⟨⟨hjE, -⟩, hjN⟩, hvNj, -⟩
+    have hjv : j * v ∣ N := (Nat.dvd_div_iff_mul_dvd hjN).mp hvNj
+    have hvN : v ∣ N := (dvd_mul_left v j).trans hjv
+    refine ⟨⟨⟨hjE, (Nat.dvd_div_iff_mul_dvd hvN).mpr (by rwa [mul_comm v j])⟩, ?_⟩, hvN, hN⟩
+    simp [Nat.gcd_eq_zero_iff, hE]
+  · rintro ⟨⟨⟨hjE, hjNv⟩, -⟩, hvN, -⟩
+    have hvj : v * j ∣ N := (Nat.dvd_div_iff_mul_dvd hvN).mp hjNv
+    have hjN : j ∣ N := (dvd_mul_left j v).trans hvj
+    have hj0 : 0 < j := Nat.pos_of_ne_zero (by rintro rfl; exact hN (Nat.eq_zero_of_zero_dvd hjN))
+    refine ⟨⟨⟨hjE, hE⟩, hjN⟩, (Nat.dvd_div_iff_mul_dvd hjN).mpr (by rwa [mul_comm j v]), ?_⟩
+    exact (Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hN) hjN) hj0).ne'
+
+/-- **The fibre, reindexed by `v = t/E`.**  The map `v ↦ (h · (N/v), E · v)` is a bijection from
+`{v ∣ N : gcd(E, N/v) = 1}` onto the fibre `{(s,t) ∈ n.divisorsAntidiagonal : gcd(s,e) = h}`, with
+inverse `(s,t) ↦ t/E`.  `gcd(h σ, h E) = h · gcd(σ, E)` (`Nat.gcd_mul_left`) is what turns the
+coprimality condition into the fibre condition. -/
+theorem fiber_reindex (χ : DirichletCharacter ℂ q) {n e h : ℕ}
+    (hn : n ≠ 0) (he : e ∣ n) (hh : h ∣ e) :
+    ∑ p ∈ n.divisorsAntidiagonal.filter (fun p => Nat.gcd p.1 e = h),
+        chiRe χ p.1 * Real.log ((p.2 : ℝ))
+      = ∑ v ∈ (n / e).divisors.filter (fun v => Nat.gcd (e / h) (n / e / v) = 1),
+          chiRe χ (h * (n / e / v)) * Real.log (((e / h : ℕ) : ℝ) * (v : ℝ)) := by
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  have hh0 : h ≠ 0 := by rintro rfl; exact he0 (Nat.eq_zero_of_zero_dvd hh)
+  have heE : h * (e / h) = e := Nat.mul_div_cancel' hh
+  have hE0 : 0 < e / h := Nat.pos_of_ne_zero (by
+    rintro h0; rw [h0, mul_zero] at heE; exact he0 heE.symm)
+  have hnN : e * (n / e) = n := Nat.mul_div_cancel' he
+  have hN0 : n / e ≠ 0 := by rintro h0; rw [h0, mul_zero] at hnN; exact hn hnN.symm
+  refine Finset.sum_nbij' (i := fun p => p.2 / (e / h))
+    (j := fun v => (h * (n / e / v), e / h * v)) ?_ ?_ ?_ ?_ ?_
+  · -- i maps into the v-set
+    intro p hp
+    obtain ⟨hpmem, hpg⟩ := Finset.mem_filter.mp hp
+    obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
+    rw [Finset.mem_filter, Nat.mem_divisors]
+    rw [h2, Nat.mul_div_cancel_left _ hE0]
+    refine ⟨⟨Nat.div_dvd_of_dvd hsN, hN0⟩, ?_⟩
+    rw [Nat.div_div_self hsN hN0]
+    exact hcop
+  · -- j maps into the fibre
+    intro v hv
+    obtain ⟨hvmem, hvc⟩ := Finset.mem_filter.mp hv
+    have hvN : v ∣ n / e := (Nat.mem_divisors.mp hvmem).1
+    rw [Finset.mem_filter, Nat.mem_divisorsAntidiagonal]
+    refine ⟨⟨?_, hn⟩, ?_⟩
+    · calc h * (n / e / v) * (e / h * v)
+          = (h * (e / h)) * ((n / e / v) * v) := by ring
+        _ = e * (n / e) := by rw [heE, Nat.div_mul_cancel hvN]
+        _ = n := hnN
+    · calc Nat.gcd (h * (n / e / v)) e
+          = Nat.gcd (h * (n / e / v)) (h * (e / h)) := by rw [heE]
+        _ = h * Nat.gcd (n / e / v) (e / h) := Nat.gcd_mul_left _ _ _
+        _ = h * 1 := by rw [Nat.gcd_comm, hvc]
+        _ = h := mul_one h
+  · -- j ∘ i = id on the fibre
+    intro p hp
+    obtain ⟨hpmem, hpg⟩ := Finset.mem_filter.mp hp
+    obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
+    have hhs : h ∣ p.1 := hpg ▸ Nat.gcd_dvd_left _ _
+    refine Prod.ext ?_ ?_
+    · change h * (n / e / (p.2 / (e / h))) = p.1
+      rw [h2, Nat.mul_div_cancel_left _ hE0, Nat.div_div_self hsN hN0,
+        Nat.mul_div_cancel' hhs]
+    · change e / h * (p.2 / (e / h)) = p.2
+      rw [h2, Nat.mul_div_cancel_left _ hE0]
+  · -- i ∘ j = id on the v-set
+    intro v _
+    exact Nat.mul_div_cancel_left _ hE0
+  · -- the summands agree
+    intro p hp
+    obtain ⟨hpmem, hpg⟩ := Finset.mem_filter.mp hp
+    obtain ⟨hsN, hcop, h2⟩ := fiber_facts hn he hh hpmem hpg
+    have hhs : h ∣ p.1 := hpg ▸ Nat.gcd_dvd_left _ _
+    have h1 : h * (n / e / (p.2 / (e / h))) = p.1 := by
+      rw [h2, Nat.mul_div_cancel_left _ hE0, Nat.div_div_self hsN hN0,
+        Nat.mul_div_cancel' hhs]
+    have h3 : ((e / h : ℕ) : ℝ) * ((p.2 / (e / h) : ℕ) : ℝ) = ((p.2 : ℕ) : ℝ) := by
+      rw [h2, Nat.mul_div_cancel_left _ hE0]
+      push_cast
+      ring
+    rw [h1, h3]
+
+/-- **B-2b at one fibre.**  The `j`-sum of the hyperbola identity's right-hand side, at a fixed
+`h ∣ e`, is exactly the fibre of `n.divisorsAntidiagonal` over `gcd(s, e) = h`.  Three moves: the
+`j`-term's data is `n/(e j) = N/j` and `j · (E/j) = E` (so the log's constant does NOT depend on
+`j`); the inner antidiagonal is reindexed by its SECOND coordinate, after which `χ(hj)·χ((N/j)/v)`
+is `χ(h·(N/v))` — free of `j` — because `j · ((N/j)/v) = N/v`; and the `j`-sum, now carrying only
+`μ(j)`, runs over the divisors of `gcd(E, N/v)` and is the indicator of `gcd(E, N/v) = 1`. -/
+theorem hyperbola_fiber (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {n e h : ℕ}
+    (hn : n ≠ 0) (he : e ∣ n) (hh : h ∣ e) :
+    ∑ j ∈ (e / h).divisors,
+        (if j ∣ n / e then
+          chiRe χ (h * j) * (μ j : ℝ) *
+            logDivChiSum χ (n / (e * j)) ((j * ((e / h) / j) : ℕ) : ℝ)
+        else 0)
+      = ∑ p ∈ n.divisorsAntidiagonal.filter (fun p => Nat.gcd p.1 e = h),
+          chiRe χ p.1 * Real.log ((p.2 : ℝ)) := by
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  have heE : h * (e / h) = e := Nat.mul_div_cancel' hh
+  have hE0 : e / h ≠ 0 := by rintro h0; rw [h0, mul_zero] at heE; exact he0 heE.symm
+  have hnN : e * (n / e) = n := Nat.mul_div_cancel' he
+  have hN0 : n / e ≠ 0 := by rintro h0; rw [h0, mul_zero] at hnN; exact hn hnN.symm
+  rw [fiber_reindex χ hn he hh]
+  have hAC : ∀ j ∈ (e / h).divisors,
+      (if j ∣ n / e then
+        chiRe χ (h * j) * (μ j : ℝ) *
+          logDivChiSum χ (n / (e * j)) ((j * ((e / h) / j) : ℕ) : ℝ)
+      else 0)
+      = (if j ∣ n / e then
+        ∑ v ∈ (n / e / j).divisors,
+          (μ j : ℝ) * (chiRe χ (h * (n / e / v)) * Real.log (((e / h : ℕ) : ℝ) * (v : ℝ)))
+      else 0) := by
+    intro j hj
+    have hjE : j ∣ e / h := (Nat.mem_divisors.mp hj).1
+    by_cases hjN : j ∣ n / e
+    · rw [if_pos hjN, if_pos hjN, ← Nat.div_div_eq_div_mul, Nat.mul_div_cancel' hjE,
+        logDivChiSum, Nat.sum_divisorsAntidiagonal'
+          (fun a b => chiRe χ a * Real.log (((e / h : ℕ) : ℝ) * (b : ℝ))), Finset.mul_sum]
+      refine Finset.sum_congr rfl fun v hv => ?_
+      have hvM : v ∣ n / e / j := (Nat.mem_divisors.mp hv).1
+      have hv0 : 0 < v := Nat.pos_of_ne_zero (by
+        rintro rfl
+        exact (Nat.mem_divisors.mp hv).2 (Nat.eq_zero_of_zero_dvd hvM))
+      have hjv : j * v ∣ n / e := (Nat.dvd_div_iff_mul_dvd hjN).mp hvM
+      have hNjv : (j * v) * (n / e / (j * v)) = n / e := Nat.mul_div_cancel' hjv
+      have hkey2 : n / e / v = j * (n / e / (j * v)) := by
+        refine Nat.div_eq_of_eq_mul_left hv0 ?_
+        calc n / e = (j * v) * (n / e / (j * v)) := hNjv.symm
+          _ = (j * (n / e / (j * v))) * v := by ring
+      have hkey : h * j * (n / e / j / v) = h * (n / e / v) := by
+        rw [Nat.div_div_eq_div_mul (n / e) j v, hkey2, mul_assoc]
+      have hchi : chiRe χ (h * (n / e / v)) = chiRe χ (h * j) * chiRe χ (n / e / j / v) := by
+        rw [← hkey, chiRe_mul χ hsq]
+      rw [hchi]
+      ring
+    · rw [if_neg hjN, if_neg hjN]
+  rw [Finset.sum_congr rfl hAC, second_reindex hE0 hN0
+    (fun j v => (μ j : ℝ) * (chiRe χ (h * (n / e / v)) * Real.log (((e / h : ℕ) : ℝ) * (v : ℝ)))),
+    Finset.sum_filter]
+  refine Finset.sum_congr rfl fun v _ => ?_
+  rw [← Finset.sum_mul, Salt.SW.sum_divisors_moebius_real]
+  by_cases hg : Nat.gcd (e / h) (n / e / v) = 1
+  · rw [if_pos hg, if_pos hg, one_mul]
+  · rw [if_neg hg, if_neg hg, zero_mul]
+
+/-- **B-2b — the hyperbola identity** (p.211): for `e ∣ n`,
+`Λ′(n) = Σ_{e = h j k, j ∣ n/e} χ(h j) μ(j) Σ_{n/(e j) = w v} χ(w) log(j k v)`.
+⛔ The guard `j ∣ n/e` is LOAD-BEARING: `Nat` division truncates, so without it the terms at
+`j ∤ n/e` are not zero but garbage, and the identity is false.  The proof splits
+`n.divisorsAntidiagonal` into the fibres of `gcd(s, e)` and matches each fibre against the
+`h`-block of the right-hand side. -/
+theorem LamPrime_eq_hyperbola (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {n e : ℕ}
+    (he : e ∣ n) :
+    LamPrime χ n
+      = ∑ t ∈ e.divisorsAntidiagonal, ∑ u ∈ t.2.divisorsAntidiagonal,
+          if u.1 ∣ n / e then
+            chiRe χ (t.1 * u.1) * (μ u.1 : ℝ) * logDivChiSum χ (n / (e * u.1)) ((u.1 * u.2 : ℕ) : ℝ)
+          else 0 := by
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [LamPrime, logDivChiSum]
+  have he0 : e ≠ 0 := by rintro rfl; exact hn (Nat.eq_zero_of_zero_dvd he)
+  calc LamPrime χ n
+      = ∑ p ∈ n.divisorsAntidiagonal, chiRe χ p.1 * Real.log ((p.2 : ℝ)) := by
+        rw [LamPrime]
+        exact (Nat.sum_divisorsAntidiagonal (fun a b => chiRe χ a * Real.log ((b : ℕ) : ℝ))).symm
+    _ = ∑ h ∈ e.divisors, ∑ p ∈ n.divisorsAntidiagonal.filter (fun p => Nat.gcd p.1 e = h),
+          chiRe χ p.1 * Real.log ((p.2 : ℝ)) := by
+        refine (Finset.sum_fiberwise_of_maps_to ?_ _).symm
+        intro p _
+        exact Nat.mem_divisors.mpr ⟨Nat.gcd_dvd_right _ _, he0⟩
+    _ = ∑ h ∈ e.divisors, ∑ j ∈ (e / h).divisors,
+          (if j ∣ n / e then
+            chiRe χ (h * j) * (μ j : ℝ) *
+              logDivChiSum χ (n / (e * j)) ((j * ((e / h) / j) : ℕ) : ℝ)
+          else 0) :=
+        Finset.sum_congr rfl fun h hh =>
+          (hyperbola_fiber χ hsq hn he (Nat.mem_divisors.mp hh).1).symm
+    _ = ∑ t ∈ e.divisorsAntidiagonal, ∑ u ∈ t.2.divisorsAntidiagonal,
+          (if u.1 ∣ n / e then
+            chiRe χ (t.1 * u.1) * (μ u.1 : ℝ) *
+              logDivChiSum χ (n / (e * u.1)) ((u.1 * u.2 : ℕ) : ℝ)
+          else 0) :=
+        (nested_antidiag e (fun h j k => if j ∣ n / e then
+          chiRe χ (h * j) * (μ j : ℝ) *
+            logDivChiSum χ (n / (e * j)) ((j * k : ℕ) : ℝ) else 0)).symm
+
+/-! ### B-2d′ — LEMMA 9's inner identity at one pair `(m₁, m₂)` of `Q`-divisors: the double ray
+integral of the carrier, the unique split `d = d₁d₂`, and the two hyperbola expansions. -/
+
+/-- **The carrier's double ray integral is a window sum of log-weighted divisor sums.**  Both
+integrals are taken with the `n`-sum inside and come out by `integral_finsetSum` (each term
+integrable by B-2c″); the inner `V₂`-integral goes FIRST, where the `V₁`-factor is constant and
+leaves by `integral_const_mul`, and the outer `V₁`-integral then by `integral_mul_const`.
+⛔ NO Fubini: the statement is iterated, as HB's own display is. -/
+theorem bilinear_double_integral (χ : DirichletCharacter ℂ q) (F : HBForms) (x δ₁ δ₂ : ℕ)
+    {a₁ a₂ : ℝ} (ha₁ : 0 < a₁) (ha₁1 : a₁ ≤ 1) (ha₂ : 0 < a₂) (ha₂1 : a₂ ≤ 1) :
+    (∫ V₁ in Set.Ioi a₁, (∫ V₂ in Set.Ioi a₂, bilinearS χ F x δ₁ δ₂ V₁ V₂ / V₂) / V₁)
+      = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          logDivChiSum χ (F.l₁ n / δ₁) a₁⁻¹ * logDivChiSum χ (F.l₂ n / δ₂) a₂⁻¹ := by
+  have hinner : ∀ V₁ : ℝ, (∫ V₂ in Set.Ioi a₂, bilinearS χ F x δ₁ δ₂ V₁ V₂ / V₂)
+      = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          truncChiSum χ (F.l₁ n / δ₁) V₁ * logDivChiSum χ (F.l₂ n / δ₂) a₂⁻¹ := by
+    intro V₁
+    have hsplit : ∀ V₂ : ℝ, bilinearS χ F x δ₁ δ₂ V₁ V₂ / V₂
+        = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+            truncChiSum χ (F.l₁ n / δ₁) V₁ * (truncChiSum χ (F.l₂ n / δ₂) V₂ / V₂) := by
+      intro V₂
+      rw [bilinearS, Finset.sum_div]
+      exact Finset.sum_congr rfl fun n _ => by ring
+    simp_rw [hsplit]
+    rw [MeasureTheory.integral_finsetSum _
+      (fun n _ => ((integrableOn_truncChiSum_div χ (F.l₂ n / δ₂) ha₂).const_mul _))]
+    refine Finset.sum_congr rfl fun n _ => ?_
+    rw [MeasureTheory.integral_const_mul, integral_Ioi_truncChiSum χ _ ha₂ ha₂1]
+  simp_rw [hinner]
+  have houter : ∀ V₁ : ℝ,
+      (∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          truncChiSum χ (F.l₁ n / δ₁) V₁ * logDivChiSum χ (F.l₂ n / δ₂) a₂⁻¹) / V₁
+      = ∑ n ∈ (hbFormsWindow F q x).filter (fun n => δ₁ ∣ F.l₁ n ∧ δ₂ ∣ F.l₂ n),
+          truncChiSum χ (F.l₁ n / δ₁) V₁ / V₁ * logDivChiSum χ (F.l₂ n / δ₂) a₂⁻¹ := by
+    intro V₁
+    rw [Finset.sum_div]
+    exact Finset.sum_congr rfl fun n _ => by ring
+  simp_rw [houter]
+  rw [MeasureTheory.integral_finsetSum _
+    (fun n _ => ((integrableOn_truncChiSum_div χ (F.l₁ n / δ₁) ha₁).mul_const _))]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  rw [MeasureTheory.integral_mul_const, integral_Ioi_truncChiSum χ _ ha₁ ha₁1]
+
+/-- **The unique split of `d` along a coprime pair.**  If `d ∣ L₁L₂` with `(L₁, L₂) = 1`, then
+`d = d₁ d₂` with `d₁ ∣ L₁` and `d₂ ∣ L₂` in EXACTLY ONE way, namely `d₁ = gcd(d, L₁)`.  Existence
+is `Nat.coprime_div_gcd_div_gcd` plus a cancellation; uniqueness is `gcd(d₁', d₂) ∣ gcd(L₁, L₂)`.
+⛔ Without coprimality of `L₁` and `L₂` the split is NOT unique and Lemma 9's `d`-sum
+double-counts. -/
+theorem inner_split {d L₁ L₂ : ℕ} (hcop : Nat.Coprime L₁ L₂) (hd : d ∣ L₁ * L₂) (hd0 : d ≠ 0) :
+    Nat.gcd d L₁ ∣ L₁ ∧ Nat.gcd d L₁ * (d / Nat.gcd d L₁) = d ∧ d / Nat.gcd d L₁ ∣ L₂ ∧
+      ∀ a b : ℕ, a * b = d → a ∣ L₁ → b ∣ L₂ → a = Nat.gcd d L₁ := by
+  have hgd : Nat.gcd d L₁ ∣ d := Nat.gcd_dvd_left d L₁
+  have hgL : Nat.gcd d L₁ ∣ L₁ := Nat.gcd_dvd_right d L₁
+  have hg0 : 0 < Nat.gcd d L₁ := Nat.pos_of_ne_zero (by
+    intro h0
+    exact hd0 (Nat.eq_zero_of_gcd_eq_zero_left h0))
+  refine ⟨hgL, Nat.mul_div_cancel' hgd, ?_, ?_⟩
+  · have hcp : Nat.Coprime (d / Nat.gcd d L₁) (L₁ / Nat.gcd d L₁) :=
+      Nat.coprime_div_gcd_div_gcd hg0
+    refine Nat.Coprime.dvd_of_dvd_mul_left hcp ?_
+    refine (Nat.mul_dvd_mul_iff_left hg0).mp ?_
+    calc Nat.gcd d L₁ * (d / Nat.gcd d L₁) = d := Nat.mul_div_cancel' hgd
+      _ ∣ L₁ * L₂ := hd
+      _ = Nat.gcd d L₁ * (L₁ / Nat.gcd d L₁) * L₂ := by rw [Nat.mul_div_cancel' hgL]
+      _ = Nat.gcd d L₁ * (L₁ / Nat.gcd d L₁ * L₂) := by ring
+  · intro a b hab haL hbL
+    refine Nat.dvd_antisymm (Nat.dvd_gcd (hab ▸ Dvd.intro b rfl) haL) ?_
+    have hcgb : Nat.Coprime (Nat.gcd d L₁) b := Nat.Coprime.coprime_dvd_left hgL
+      (Nat.Coprime.coprime_dvd_right hbL hcop)
+    refine Nat.Coprime.dvd_of_dvd_mul_right hcgb ?_
+    rw [hab]
+    exact hgd
+
+/-- **B-2d′ — LEMMA 9's INNER identity at one `(m₁, m₂)`** (p.211): the `n`-sum over the window
+at a single pair of `Q`-divisors.  Both `hb_lemma9_general` (all `m_i ∣ Q`) and `hb_lemma9_trunc`
+(`m_i < q`) are a `Finset.sum_congr` of this row after the μ-sieve.
+
+The route: the right-hand side's double integral is a window sum (above), so the whole right-hand
+side is a window sum of five nested index sums after five `Finset.sum_comm`s; then, at each `n`,
+the terms off the unique split `d = gcd(d, l₁ n) · (d / gcd(d, l₁ n))` vanish — `p.1 ∣ δ₁ ∣ l₁ n`
+and `p.2 ∣ δ₂ ∣ l₂ n` force `p` to be that split — and at the split the four remaining index sums
+factor into the two hyperbola expansions of `Λ′(l₁ n / m₁²)` and `Λ′(l₂ n / m₂²)` at
+`e := d_i`.  The chained divisibility `m_i² d_i u_i ∣ l_i n ↔ u_i ∣ (l_i n / m_i²) / d_i` is
+`Nat.dvd_div_iff_mul_dvd` twice, and `d_i ∣ l_i n / m_i²` needs `(m_i, d) = 1`, which is `hdQ`
+with `m_i ∣ Q`.  `_hz` is unreferenced by this route and is mentioned, not edited. -/
+theorem hb_lemma9_inner (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (_hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hdQ : Nat.Coprime d (hbQ χ z)) {m₁ m₂ : ℕ}
+    (hm₁ : m₁ ∣ hbQ χ z) (hm₂ : m₂ ∣ hbQ χ z) :
+    ∑ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+        (if m₁ ^ 2 ∣ F.l₁ n ∧ m₂ ^ 2 ∣ F.l₂ n then
+          LamPrime χ (F.l₁ n / m₁ ^ 2) * LamPrime χ (F.l₂ n / m₂ ^ 2) else 0)
+      = ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have _ := _hz
+  rcases eq_or_ne d 0 with rfl | hd0
+  · have hempty : (hbFormsWindow F q x).filter (fun n => (0 : ℕ) ∣ F.l₁ n * F.l₂ n) = ∅ := by
+      rw [Finset.filter_eq_empty_iff]
+      intro n _
+      rw [zero_dvd_iff]
+      exact Nat.mul_ne_zero (Nat.one_le_iff_ne_zero.mp (F.one_le_l₁ n))
+        (Nat.one_le_iff_ne_zero.mp (F.one_le_l₂ n))
+    rw [hempty, Finset.sum_empty, Nat.divisorsAntidiagonal_zero, Finset.sum_empty]
+  -- the five-fold pull of the window sum
+  have hpull : ∀ G : ℕ × ℕ → ℕ × ℕ → ℕ × ℕ → ℕ × ℕ → ℕ × ℕ → ℕ → ℝ,
+      (∑ p ∈ d.divisorsAntidiagonal, ∑ t₁ ∈ p.1.divisorsAntidiagonal,
+        ∑ u₁ ∈ t₁.2.divisorsAntidiagonal, ∑ t₂ ∈ p.2.divisorsAntidiagonal,
+        ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, ∑ n ∈ hbFormsWindow F q x, G p t₁ u₁ t₂ u₂ n)
+      = ∑ n ∈ hbFormsWindow F q x, ∑ p ∈ d.divisorsAntidiagonal,
+          ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+          ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, G p t₁ u₁ t₂ u₂ n := by
+    intro G
+    calc ∑ p ∈ d.divisorsAntidiagonal, ∑ t₁ ∈ p.1.divisorsAntidiagonal,
+            ∑ u₁ ∈ t₁.2.divisorsAntidiagonal, ∑ t₂ ∈ p.2.divisorsAntidiagonal,
+            ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, ∑ n ∈ hbFormsWindow F q x, G p t₁ u₁ t₂ u₂ n
+        = ∑ p ∈ d.divisorsAntidiagonal, ∑ t₁ ∈ p.1.divisorsAntidiagonal,
+            ∑ u₁ ∈ t₁.2.divisorsAntidiagonal, ∑ t₂ ∈ p.2.divisorsAntidiagonal,
+            ∑ n ∈ hbFormsWindow F q x, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, G p t₁ u₁ t₂ u₂ n :=
+          Finset.sum_congr rfl fun _ _ => Finset.sum_congr rfl fun _ _ =>
+            Finset.sum_congr rfl fun _ _ => Finset.sum_congr rfl fun _ _ => Finset.sum_comm
+      _ = ∑ p ∈ d.divisorsAntidiagonal, ∑ t₁ ∈ p.1.divisorsAntidiagonal,
+            ∑ u₁ ∈ t₁.2.divisorsAntidiagonal, ∑ n ∈ hbFormsWindow F q x,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, G p t₁ u₁ t₂ u₂ n :=
+          Finset.sum_congr rfl fun _ _ => Finset.sum_congr rfl fun _ _ =>
+            Finset.sum_congr rfl fun _ _ => Finset.sum_comm
+      _ = ∑ p ∈ d.divisorsAntidiagonal, ∑ t₁ ∈ p.1.divisorsAntidiagonal,
+            ∑ n ∈ hbFormsWindow F q x, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, G p t₁ u₁ t₂ u₂ n :=
+          Finset.sum_congr rfl fun _ _ => Finset.sum_congr rfl fun _ _ => Finset.sum_comm
+      _ = ∑ p ∈ d.divisorsAntidiagonal, ∑ n ∈ hbFormsWindow F q x,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, G p t₁ u₁ t₂ u₂ n :=
+          Finset.sum_congr rfl fun _ _ => Finset.sum_comm
+      _ = _ := Finset.sum_comm
+  -- each index's double integral is a window sum
+  have hstep1 : ∀ p t₁ u₁ t₂ u₂ : ℕ × ℕ, u₁ ∈ t₁.2.divisorsAntidiagonal →
+      u₂ ∈ t₂.2.divisorsAntidiagonal →
+      (∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+        (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+          bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁)
+      = ∑ n ∈ hbFormsWindow F q x,
+          (if m₁ ^ 2 * p.1 * u₁.1 ∣ F.l₁ n ∧ m₂ ^ 2 * p.2 * u₂.1 ∣ F.l₂ n then
+            logDivChiSum χ (F.l₁ n / (m₁ ^ 2 * p.1 * u₁.1)) ((u₁.1 * u₁.2 : ℕ) : ℝ) *
+            logDivChiSum χ (F.l₂ n / (m₂ ^ 2 * p.2 * u₂.1)) ((u₂.1 * u₂.2 : ℕ) : ℝ)
+          else 0) := by
+    have hone : ∀ (u : ℕ × ℕ) (N : ℕ), u ∈ N.divisorsAntidiagonal →
+        (1 : ℝ) ≤ ((u.1 * u.2 : ℕ) : ℝ) := by
+      intro u N hu
+      obtain ⟨huu, hN⟩ := Nat.mem_divisorsAntidiagonal.mp hu
+      have hne : u.1 * u.2 ≠ 0 := by rw [huu]; exact hN
+      exact_mod_cast Nat.one_le_iff_ne_zero.mpr hne
+    intro p t₁ u₁ t₂ u₂ hu₁ hu₂
+    have h1 := hone u₁ t₁.2 hu₁
+    have h2 := hone u₂ t₂.2 hu₂
+    have hp1 : (0:ℝ) < ((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹ := inv_pos.mpr (lt_of_lt_of_le one_pos h1)
+    have hp2 : (0:ℝ) < ((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹ := inv_pos.mpr (lt_of_lt_of_le one_pos h2)
+    have hq1 : ((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹ ≤ 1 := by
+      simpa using one_div_le_one_div_of_le one_pos h1
+    have hq2 : ((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹ ≤ 1 := by
+      simpa using one_div_le_one_div_of_le one_pos h2
+    rw [bilinear_double_integral χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) hp1 hq1 hp2 hq2,
+      inv_inv, inv_inv, Finset.sum_filter]
+  -- the right-hand side, as a window sum of index sums
+  have hR : (∑ p ∈ d.divisorsAntidiagonal, ∑ t₁ ∈ p.1.divisorsAntidiagonal,
+        ∑ u₁ ∈ t₁.2.divisorsAntidiagonal, ∑ t₂ ∈ p.2.divisorsAntidiagonal,
+        ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+          chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+          ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+            (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+              bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁)
+      = ∑ n ∈ hbFormsWindow F q x, ∑ p ∈ d.divisorsAntidiagonal,
+          ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+          ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+            chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+            (if m₁ ^ 2 * p.1 * u₁.1 ∣ F.l₁ n ∧ m₂ ^ 2 * p.2 * u₂.1 ∣ F.l₂ n then
+              logDivChiSum χ (F.l₁ n / (m₁ ^ 2 * p.1 * u₁.1)) ((u₁.1 * u₁.2 : ℕ) : ℝ) *
+              logDivChiSum χ (F.l₂ n / (m₂ ^ 2 * p.2 * u₂.1)) ((u₂.1 * u₂.2 : ℕ) : ℝ)
+            else 0) := by
+    rw [← hpull (fun p t₁ u₁ t₂ u₂ n =>
+      chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+        (if m₁ ^ 2 * p.1 * u₁.1 ∣ F.l₁ n ∧ m₂ ^ 2 * p.2 * u₂.1 ∣ F.l₂ n then
+          logDivChiSum χ (F.l₁ n / (m₁ ^ 2 * p.1 * u₁.1)) ((u₁.1 * u₁.2 : ℕ) : ℝ) *
+          logDivChiSum χ (F.l₂ n / (m₂ ^ 2 * p.2 * u₂.1)) ((u₂.1 * u₂.2 : ℕ) : ℝ)
+        else 0))]
+    refine Finset.sum_congr rfl fun p _ => Finset.sum_congr rfl fun t₁ _ =>
+      Finset.sum_congr rfl fun u₁ hu₁ => Finset.sum_congr rfl fun t₂ _ =>
+      Finset.sum_congr rfl fun u₂ hu₂ => ?_
+    rw [hstep1 p t₁ u₁ t₂ u₂ hu₁ hu₂, Finset.mul_sum]
+  rw [hR, Finset.sum_filter]
+  -- the factorisation of a four-fold index sum into two two-fold ones
+  have hfact : ∀ (A B : ℕ × ℕ → ℕ × ℕ → ℝ) (e₁ e₂ : ℕ),
+      (∑ t₁ ∈ e₁.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+        ∑ t₂ ∈ e₂.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, A t₁ u₁ * B t₂ u₂)
+      = (∑ t₁ ∈ e₁.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal, A t₁ u₁) *
+        (∑ t₂ ∈ e₂.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal, B t₂ u₂) := by
+    intro A B e₁ e₂
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl fun t₁ _ => ?_
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl fun u₁ _ => ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun t₂ _ => ?_
+    rw [Finset.mul_sum]
+  -- pointwise in n
+  refine Finset.sum_congr rfl fun n _ => ?_
+  by_cases hm : m₁ ^ 2 ∣ F.l₁ n ∧ m₂ ^ 2 ∣ F.l₂ n
+  swap
+  · rw [if_neg hm, ite_self]
+    refine (Finset.sum_eq_zero fun p _ => Finset.sum_eq_zero fun t₁ _ =>
+      Finset.sum_eq_zero fun u₁ _ => Finset.sum_eq_zero fun t₂ _ =>
+      Finset.sum_eq_zero fun u₂ _ => ?_).symm
+    rw [if_neg, mul_zero]
+    rintro ⟨hd₁, hd₂⟩
+    exact hm ⟨((dvd_mul_right (m₁ ^ 2) p.1).mul_right u₁.1).trans hd₁,
+      ((dvd_mul_right (m₂ ^ 2) p.2).mul_right u₂.1).trans hd₂⟩
+  by_cases hdl : d ∣ F.l₁ n * F.l₂ n
+  swap
+  · rw [if_neg hdl]
+    refine (Finset.sum_eq_zero fun p hp => Finset.sum_eq_zero fun t₁ _ =>
+      Finset.sum_eq_zero fun u₁ _ => Finset.sum_eq_zero fun t₂ _ =>
+      Finset.sum_eq_zero fun u₂ _ => ?_).symm
+    rw [if_neg, mul_zero]
+    rintro ⟨hd₁, hd₂⟩
+    refine hdl ?_
+    rw [← (Nat.mem_divisorsAntidiagonal.mp hp).1]
+    exact mul_dvd_mul (((dvd_mul_left p.1 (m₁ ^ 2)).mul_right u₁.1).trans hd₁)
+      (((dvd_mul_left p.2 (m₂ ^ 2)).mul_right u₂.1).trans hd₂)
+  rw [if_pos hdl, if_pos hm]
+  obtain ⟨hm1, hm2⟩ := hm
+  obtain ⟨hg1, hgd, hg2, huniq⟩ := inner_split (F.coprime_l n) hdl hd0
+  -- the coprimality of each `m_i` with the corresponding half of `d`
+  have hcop₁ : Nat.Coprime (m₁ ^ 2) (Nat.gcd d (F.l₁ n)) :=
+    Nat.Coprime.pow_left 2 (Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left d (F.l₁ n))
+      (Nat.Coprime.coprime_dvd_right hm₁ hdQ).symm)
+  have hcop₂ : Nat.Coprime (m₂ ^ 2) (d / Nat.gcd d (F.l₁ n)) :=
+    Nat.Coprime.pow_left 2 (Nat.Coprime.coprime_dvd_right
+      (Nat.div_dvd_of_dvd (Nat.gcd_dvd_left d (F.l₁ n)))
+      (Nat.Coprime.coprime_dvd_right hm₂ hdQ).symm)
+  have hmd₁ : m₁ ^ 2 * Nat.gcd d (F.l₁ n) ∣ F.l₁ n :=
+    Nat.Coprime.mul_dvd_of_dvd_of_dvd hcop₁ hm1 hg1
+  have hmd₂ : m₂ ^ 2 * (d / Nat.gcd d (F.l₁ n)) ∣ F.l₂ n :=
+    Nat.Coprime.mul_dvd_of_dvd_of_dvd hcop₂ hm2 hg2
+  have hL₁ : Nat.gcd d (F.l₁ n) ∣ F.l₁ n / m₁ ^ 2 := (Nat.dvd_div_iff_mul_dvd hm1).mpr hmd₁
+  have hL₂ : d / Nat.gcd d (F.l₁ n) ∣ F.l₂ n / m₂ ^ 2 := (Nat.dvd_div_iff_mul_dvd hm2).mpr hmd₂
+  -- only the split `d = gcd(d, l₁ n) · (d / gcd(d, l₁ n))` survives
+  refine Eq.trans ?_ (Finset.sum_eq_single_of_mem
+    (Nat.gcd d (F.l₁ n), d / Nat.gcd d (F.l₁ n))
+    (Nat.mem_divisorsAntidiagonal.mpr ⟨hgd, hd0⟩) ?_).symm
+  swap
+  · intro b hb hne
+    refine Finset.sum_eq_zero fun t₁ _ => Finset.sum_eq_zero fun u₁ _ =>
+      Finset.sum_eq_zero fun t₂ _ => Finset.sum_eq_zero fun u₂ _ => ?_
+    rw [if_neg, mul_zero]
+    rintro ⟨hd₁, hd₂⟩
+    refine hne ?_
+    have hb1 : b.1 ∣ F.l₁ n := ((dvd_mul_left b.1 (m₁ ^ 2)).mul_right u₁.1).trans hd₁
+    have hb2 : b.2 ∣ F.l₂ n := ((dvd_mul_left b.2 (m₂ ^ 2)).mul_right u₂.1).trans hd₂
+    have hbd := (Nat.mem_divisorsAntidiagonal.mp hb).1
+    have hfst : b.1 = Nat.gcd d (F.l₁ n) := huniq b.1 b.2 hbd hb1 hb2
+    refine Prod.ext hfst ?_
+    have hpos : 0 < Nat.gcd d (F.l₁ n) := Nat.pos_of_ne_zero (fun h0 =>
+      hd0 (Nat.eq_zero_of_gcd_eq_zero_left h0))
+    refine Nat.eq_of_mul_eq_mul_left hpos ?_
+    rw [hgd, ← hfst, hbd]
+  -- the two hyperbola expansions, and the factorisation
+  rw [LamPrime_eq_hyperbola χ hsq hL₁, LamPrime_eq_hyperbola χ hsq hL₂, ← hfact]
+  refine Finset.sum_congr rfl fun t₁ _ => Finset.sum_congr rfl fun u₁ _ =>
+    Finset.sum_congr rfl fun t₂ _ => Finset.sum_congr rfl fun u₂ _ => ?_
+  -- the two guards agree, and so do the two logarithmic sums
+  have harg₁ : F.l₁ n / (m₁ ^ 2 * Nat.gcd d (F.l₁ n) * u₁.1)
+      = F.l₁ n / m₁ ^ 2 / (Nat.gcd d (F.l₁ n) * u₁.1) := by
+    rw [Nat.div_div_eq_div_mul, mul_assoc]
+  have harg₂ : F.l₂ n / (m₂ ^ 2 * (d / Nat.gcd d (F.l₁ n)) * u₂.1)
+      = F.l₂ n / m₂ ^ 2 / (d / Nat.gcd d (F.l₁ n) * u₂.1) := by
+    rw [Nat.div_div_eq_div_mul, mul_assoc]
+  have hguard₁ : (m₁ ^ 2 * Nat.gcd d (F.l₁ n) * u₁.1 ∣ F.l₁ n)
+      ↔ (u₁.1 ∣ F.l₁ n / m₁ ^ 2 / Nat.gcd d (F.l₁ n)) := by
+    rw [Nat.dvd_div_iff_mul_dvd hL₁, Nat.div_div_eq_div_mul] at *
+    rw [Nat.dvd_div_iff_mul_dvd (Nat.dvd_trans (dvd_mul_right _ _) hmd₁), mul_assoc]
+  have hguard₂ : (m₂ ^ 2 * (d / Nat.gcd d (F.l₁ n)) * u₂.1 ∣ F.l₂ n)
+      ↔ (u₂.1 ∣ F.l₂ n / m₂ ^ 2 / (d / Nat.gcd d (F.l₁ n))) := by
+    rw [Nat.dvd_div_iff_mul_dvd hL₂, Nat.div_div_eq_div_mul] at *
+    rw [Nat.dvd_div_iff_mul_dvd (Nat.dvd_trans (dvd_mul_right _ _) hmd₂), mul_assoc]
+  dsimp only
+  by_cases hP : m₁ ^ 2 * Nat.gcd d (F.l₁ n) * u₁.1 ∣ F.l₁ n
+  · by_cases hQ : m₂ ^ 2 * (d / Nat.gcd d (F.l₁ n)) * u₂.1 ∣ F.l₂ n
+    · rw [if_pos (And.intro hP hQ), if_pos (hguard₁.mp hP), if_pos (hguard₂.mp hQ), harg₁, harg₂]
+      ring
+    · rw [if_neg (fun h : _ ∧ _ => hQ h.2), if_neg (fun h => hQ (hguard₂.mpr h)),
+        mul_zero, mul_zero]
+  · rw [if_neg (fun h : _ ∧ _ => hP h.1), if_neg (fun h => hP (hguard₁.mpr h)),
+      zero_mul, mul_zero]
+
+/-- **B-2d — LEMMA 9, general `d`, EXACT** (p.211): for `(d, Q) = 1`, the sieve datum's `S d`
+is the double `Q`-divisor sum of the inner identity — every `m_i ∣ Q`, no truncation.  The μ-sieve
+expands both `Λ*` factors, `Finset.sum_mul_sum` merges the two `m`-sums, the `n`-sum moves outside
+them by two `Finset.sum_comm`s, and B-2d′ closes each `(m₁, m₂)` term. -/
+theorem hb_lemma9_general (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hdQ : Nat.Coprime d (hbQ χ z)) :
+    (hbDataForms χ hsq hz F x).S d
+      = ∑ m₁ ∈ (hbQ χ z).divisors, ∑ m₂ ∈ (hbQ χ z).divisors, (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  rw [hbDataForms_S χ hsq hz F x d]
+  have hpt : ∀ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+      LamStar χ z (F.l₁ n) * LamStar χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors, ∑ m₂ ∈ (hbQ χ z).divisors,
+          ((μ m₁ : ℝ) * (μ m₂ : ℝ)) *
+            (if m₁ ^ 2 ∣ F.l₁ n ∧ m₂ ^ 2 ∣ F.l₂ n then
+              LamPrime χ (F.l₁ n / m₁ ^ 2) * LamPrime χ (F.l₂ n / m₂ ^ 2) else 0) := by
+    intro n _
+    rw [LamStar_eq_moebius_hbQ χ hsq z (F.l₁ n), LamStar_eq_moebius_hbQ χ hsq z (F.l₂ n),
+      Finset.sum_filter, Finset.sum_filter, Finset.sum_mul_sum]
+    refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+    by_cases h1 : m₁ ^ 2 ∣ F.l₁ n
+    · by_cases h2 : m₂ ^ 2 ∣ F.l₂ n
+      · rw [if_pos h1, if_pos h2, if_pos (And.intro h1 h2)]; ring
+      · rw [if_neg h2, if_neg (fun h : _ ∧ _ => h2 h.2), mul_zero, mul_zero]
+    · rw [if_neg h1, if_neg (fun h : _ ∧ _ => h1 h.1), zero_mul, mul_zero]
+  rw [Finset.sum_congr rfl hpt, Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₁ hm₁ => ?_
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₂ hm₂ => ?_
+  rw [← Finset.mul_sum, hb_lemma9_inner χ hsq hz F x d hdQ (Nat.mem_divisors.mp hm₁).1
+    (Nat.mem_divisors.mp hm₂).1]
+
+/-- **B-2t′ — LEMMA 9 TRUNCATED at `m_i < q`, EXACT for `Λ*_{<q}`** (p.211): HB's own Lemma 9
+display, without its `O(x^{1+ε}q^{−1})` — that term is the `Λ*`-level tail `S(d) − S_{<q}(d)`,
+paid at p.210 and handed off, not established here.  The proof is B-2d's with one extra step:
+`LamStarTrunc`'s index set `{m ∣ Q : m² ∣ l_i n ∧ m < q}` is re-read by `Finset.filter_filter` as
+the `m² ∣ l_i n` part of `{m ∣ Q : m < q}`, so the outer `m`-sums are over the truncated divisor
+set and the `m² ∣ l_i n` conjunct becomes the same `if` B-2d′ consumes.  `_hz` IS spent here — it
+is what B-2d′ asks for. -/
+theorem hb_lemma9_trunc (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (_hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hdQ : Nat.Coprime d (hbQ χ z)) :
+    ∑ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+        LamStarTrunc χ z (F.l₁ n) * LamStarTrunc χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors.filter (· < q), ∑ m₂ ∈ (hbQ χ z).divisors.filter (· < q),
+          (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have hset : ∀ N : ℕ, (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ N ∧ m < q)
+      = ((hbQ χ z).divisors.filter (fun m => m < q)).filter (fun m => m ^ 2 ∣ N) := by
+    intro N
+    rw [Finset.filter_filter]
+    exact Finset.filter_congr fun m _ => and_comm
+  have hpt : ∀ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+      LamStarTrunc χ z (F.l₁ n) * LamStarTrunc χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors.filter (fun m => m < q),
+          ∑ m₂ ∈ (hbQ χ z).divisors.filter (fun m => m < q),
+          ((μ m₁ : ℝ) * (μ m₂ : ℝ)) *
+            (if m₁ ^ 2 ∣ F.l₁ n ∧ m₂ ^ 2 ∣ F.l₂ n then
+              LamPrime χ (F.l₁ n / m₁ ^ 2) * LamPrime χ (F.l₂ n / m₂ ^ 2) else 0) := by
+    intro n _
+    rw [LamStarTrunc, LamStarTrunc, hset (F.l₁ n), hset (F.l₂ n),
+      Finset.sum_filter (fun m => m ^ 2 ∣ F.l₁ n)
+        (fun m => (μ m : ℝ) * LamPrime χ (F.l₁ n / m ^ 2)),
+      Finset.sum_filter (fun m => m ^ 2 ∣ F.l₂ n)
+        (fun m => (μ m : ℝ) * LamPrime χ (F.l₂ n / m ^ 2)),
+      Finset.sum_mul_sum]
+    refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+    by_cases h1 : m₁ ^ 2 ∣ F.l₁ n
+    · by_cases h2 : m₂ ^ 2 ∣ F.l₂ n
+      · rw [if_pos h1, if_pos h2, if_pos (And.intro h1 h2)]; ring
+      · rw [if_neg h2, if_neg (fun h : _ ∧ _ => h2 h.2), mul_zero, mul_zero]
+    · rw [if_neg h1, if_neg (fun h : _ ∧ _ => h1 h.1), zero_mul, mul_zero]
+  rw [Finset.sum_congr rfl hpt, Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₁ hm₁ => ?_
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₂ hm₂ => ?_
+  rw [← Finset.mul_sum, hb_lemma9_inner χ hsq _hz F x d hdQ
+    (Nat.mem_divisors.mp (Finset.mem_filter.mp hm₁).1).1
+    (Nat.mem_divisors.mp (Finset.mem_filter.mp hm₂).1).1]
+
+/-- **B-2e — LEMMA 9 at `d ∣ P`**: the `χ(h_i j_i)` factors are `1`.  `(d, Q) = 1` comes free from
+`coprime_hbQ_hbP`, and each `t_i.1 * u_i.1` divides `t_i.1 * t_i.2 = p.i`, which divides
+`p.1 * p.2 = d`, which divides `P` — so `chiRe_eq_one_of_dvd_hbP` kills both χ factors five
+`Finset.sum_congr`s deep. -/
+theorem hb_lemma9 (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hd : d ∣ hbP (chiReChar χ hsq) (z : ℝ)) :
+    (hbDataForms χ hsq hz F x).S d
+      = ∑ m₁ ∈ (hbQ χ z).divisors, ∑ m₂ ∈ (hbQ χ z).divisors, (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have hdQ : Nat.Coprime d (hbQ χ z) :=
+    (Nat.Coprime.coprime_dvd_right hd (coprime_hbQ_hbP χ hsq z)).symm
+  rw [hb_lemma9_general χ hsq hz F x d hdQ]
+  refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+  congr 1
+  refine Finset.sum_congr rfl fun p hp => Finset.sum_congr rfl fun t₁ ht₁ =>
+    Finset.sum_congr rfl fun u₁ hu₁ => Finset.sum_congr rfl fun t₂ ht₂ =>
+    Finset.sum_congr rfl fun u₂ hu₂ => ?_
+  have h3 := (Nat.mem_divisorsAntidiagonal.mp hp).1
+  have h1 := (Nat.mem_divisorsAntidiagonal.mp ht₁).1
+  have h2 := (Nat.mem_divisorsAntidiagonal.mp hu₁).1
+  have h1' := (Nat.mem_divisorsAntidiagonal.mp ht₂).1
+  have h2' := (Nat.mem_divisorsAntidiagonal.mp hu₂).1
+  have hdvd₁ : t₁.1 * u₁.1 ∣ d :=
+    (h1 ▸ Nat.mul_dvd_mul_left t₁.1 (h2 ▸ dvd_mul_right u₁.1 u₁.2)).trans ⟨p.2, h3.symm⟩
+  have hdvd₂ : t₂.1 * u₂.1 ∣ d :=
+    (h1' ▸ Nat.mul_dvd_mul_left t₂.1 (h2' ▸ dvd_mul_right u₂.1 u₂.2)).trans
+      ⟨p.1, by rw [← h3]; ring⟩
+  rw [chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₁.trans hd), one_mul,
+    chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₂.trans hd), one_mul]
+
+/-- **B-2t″ — LEMMA 9 AS HB STATES IT** (p.211): `m_i < q` AND `d ∣ P`, with the `χ(h_i j_i)`
+factors gone.  This is the form §6 lifts at (6.11)/(6.12).
+
+NO `2 ≤ z` hypothesis — and nothing in the statement needs one, since `z` is inferred from `hd`.
+⛔ But the truncated Lemma 9 it is built on DOES carry that binder, so the two do not compose
+directly.  The bridge is `max z 2`: `hbQ χ w = 1` for every `w ≤ 2` (a prime `p < w ≤ 2` cannot
+exist), hence `hbQ χ (max z 2) = hbQ χ z` in BOTH cases — equal by `max_eq_left` when `2 ≤ z`, and
+`1 = 1` when `z < 2`.  Since `LamStarTrunc` and the truncated divisor set depend on `z` only
+through `hbQ χ z`, the truncated Lemma 9 at `max z 2` IS this statement's left- and right-hand
+sides, and `le_max_right` discharges its binder.  The χ factors then go exactly as at `d ∣ P`. -/
+theorem hb_lemma9_trunc_P (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
+    (F : HBForms) (x d : ℕ) (hd : d ∣ hbP (chiReChar χ hsq) (z : ℝ)) :
+    ∑ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+        LamStarTrunc χ z (F.l₁ n) * LamStarTrunc χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors.filter (· < q), ∑ m₂ ∈ (hbQ χ z).divisors.filter (· < q),
+          (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have hdQ : Nat.Coprime d (hbQ χ z) :=
+    (Nat.Coprime.coprime_dvd_right hd (coprime_hbQ_hbP χ hsq z)).symm
+  have hQsmall : ∀ w : ℕ, w ≤ 2 → hbQ χ w = 1 := by
+    intro w hw
+    rw [hbQ]
+    refine Finset.prod_eq_one fun p hp => ?_
+    rw [Finset.mem_filter, Finset.mem_range] at hp
+    have h2p := hp.2.1.two_le
+    have := hp.1
+    omega
+  have hQeq : hbQ χ (max z 2) = hbQ χ z := by
+    by_cases h : 2 ≤ z
+    · rw [max_eq_left h]
+    · have h' : z < 2 := Nat.lt_of_not_le h
+      rw [max_eq_right h'.le, hQsmall z h'.le, hQsmall 2 le_rfl]
+  have hdQ' : Nat.Coprime d (hbQ χ (max z 2)) := by rw [hQeq]; exact hdQ
+  have hLST : ∀ n : ℕ, LamStarTrunc χ (max z 2) n = LamStarTrunc χ z n := by
+    intro n; rw [LamStarTrunc, LamStarTrunc, hQeq]
+  have key := hb_lemma9_trunc χ hsq (le_max_right z 2) F x d hdQ'
+  simp_rw [hLST] at key
+  rw [hQeq] at key
+  rw [key]
+  refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+  congr 1
+  refine Finset.sum_congr rfl fun p hp => Finset.sum_congr rfl fun t₁ ht₁ =>
+    Finset.sum_congr rfl fun u₁ hu₁ => Finset.sum_congr rfl fun t₂ ht₂ =>
+    Finset.sum_congr rfl fun u₂ hu₂ => ?_
+  have h3 := (Nat.mem_divisorsAntidiagonal.mp hp).1
+  have h1 := (Nat.mem_divisorsAntidiagonal.mp ht₁).1
+  have h2 := (Nat.mem_divisorsAntidiagonal.mp hu₁).1
+  have h1' := (Nat.mem_divisorsAntidiagonal.mp ht₂).1
+  have h2' := (Nat.mem_divisorsAntidiagonal.mp hu₂).1
+  have hdvd₁ : t₁.1 * u₁.1 ∣ d :=
+    (h1 ▸ Nat.mul_dvd_mul_left t₁.1 (h2 ▸ dvd_mul_right u₁.1 u₁.2)).trans ⟨p.2, h3.symm⟩
+  have hdvd₂ : t₂.1 * u₂.1 ∣ d :=
+    (h1' ▸ Nat.mul_dvd_mul_left t₂.1 (h2' ▸ dvd_mul_right u₂.1 u₂.2)).trans
+      ⟨p.1, by rw [← h3]; ring⟩
+  rw [chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₁.trans hd), one_mul,
+    chiRe_eq_one_of_dvd_hbP χ hsq z (hdvd₂.trans hd), one_mul]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
