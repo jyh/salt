@@ -1349,6 +1349,59 @@ theorem hb_lemma9_general (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z 
   rw [← Finset.mul_sum, hb_lemma9_inner χ hsq hz F x d hdQ (Nat.mem_divisors.mp hm₁).1
     (Nat.mem_divisors.mp hm₂).1]
 
+/-- **B-2t′ — LEMMA 9 TRUNCATED at `m_i < q`, EXACT for `Λ*_{<q}`** (p.211): HB's own Lemma 9
+display, without its `O(x^{1+ε}q^{−1})` — that term is the `Λ*`-level tail `S(d) − S_{<q}(d)`,
+paid at p.210 and handed off, not established here.  The proof is B-2d's with one extra step:
+`LamStarTrunc`'s index set `{m ∣ Q : m² ∣ l_i n ∧ m < q}` is re-read by `Finset.filter_filter` as
+the `m² ∣ l_i n` part of `{m ∣ Q : m < q}`, so the outer `m`-sums are over the truncated divisor
+set and the `m² ∣ l_i n` conjunct becomes the same `if` B-2d′ consumes.  `_hz` IS spent here — it
+is what B-2d′ asks for. -/
+theorem hb_lemma9_trunc (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (_hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hdQ : Nat.Coprime d (hbQ χ z)) :
+    ∑ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+        LamStarTrunc χ z (F.l₁ n) * LamStarTrunc χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors.filter (· < q), ∑ m₂ ∈ (hbQ χ z).divisors.filter (· < q),
+          (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  have hset : ∀ N : ℕ, (hbQ χ z).divisors.filter (fun m => m ^ 2 ∣ N ∧ m < q)
+      = ((hbQ χ z).divisors.filter (fun m => m < q)).filter (fun m => m ^ 2 ∣ N) := by
+    intro N
+    rw [Finset.filter_filter]
+    exact Finset.filter_congr fun m _ => and_comm
+  have hpt : ∀ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+      LamStarTrunc χ z (F.l₁ n) * LamStarTrunc χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors.filter (fun m => m < q),
+          ∑ m₂ ∈ (hbQ χ z).divisors.filter (fun m => m < q),
+          ((μ m₁ : ℝ) * (μ m₂ : ℝ)) *
+            (if m₁ ^ 2 ∣ F.l₁ n ∧ m₂ ^ 2 ∣ F.l₂ n then
+              LamPrime χ (F.l₁ n / m₁ ^ 2) * LamPrime χ (F.l₂ n / m₂ ^ 2) else 0) := by
+    intro n _
+    rw [LamStarTrunc, LamStarTrunc, hset (F.l₁ n), hset (F.l₂ n),
+      Finset.sum_filter (fun m => m ^ 2 ∣ F.l₁ n)
+        (fun m => (μ m : ℝ) * LamPrime χ (F.l₁ n / m ^ 2)),
+      Finset.sum_filter (fun m => m ^ 2 ∣ F.l₂ n)
+        (fun m => (μ m : ℝ) * LamPrime χ (F.l₂ n / m ^ 2)),
+      Finset.sum_mul_sum]
+    refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+    by_cases h1 : m₁ ^ 2 ∣ F.l₁ n
+    · by_cases h2 : m₂ ^ 2 ∣ F.l₂ n
+      · rw [if_pos h1, if_pos h2, if_pos (And.intro h1 h2)]; ring
+      · rw [if_neg h2, if_neg (fun h : _ ∧ _ => h2 h.2), mul_zero, mul_zero]
+    · rw [if_neg h1, if_neg (fun h : _ ∧ _ => h1 h.1), zero_mul, mul_zero]
+  rw [Finset.sum_congr rfl hpt, Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₁ hm₁ => ?_
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₂ hm₂ => ?_
+  rw [← Finset.mul_sum, hb_lemma9_inner χ hsq _hz F x d hdQ
+    (Nat.mem_divisors.mp (Finset.mem_filter.mp hm₁).1).1
+    (Nat.mem_divisors.mp (Finset.mem_filter.mp hm₂).1).1]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
