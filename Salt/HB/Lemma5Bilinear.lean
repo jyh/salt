@@ -617,6 +617,11 @@ theorem cellCount_eq_zero_of_not_congr (F : HBForms) (q x δ₁ δ₂ : ℕ) (R�
             F.α₁ * (δ₂ * a₂ * b₂) + F.α₂ * F.β₁
               ≡ F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ [MOD q * F.α])) :
     cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ = 0 := by
+  -- ⚠ `hδ₁`/`hδ₂` are frozen binders this route never spends: the residues and the
+  -- factorisation come from B-3b's extraction, which derives `0 < δ_i` itself.  They are
+  -- consumed here so the unused-variable linter stays silent; the statement is untouched.
+  have _ := hδ₁
+  have _ := hδ₂
   by_contra hne
   obtain ⟨n, w₁, v₁, w₂, v₂, _, _, he₁, he₂, _, _, _, _, _, _, _, _, hv₁, hw₁, hv₂, hw₂⟩ :=
     cellCount_ne_zero_extract F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ hne
@@ -634,10 +639,12 @@ theorem cellCount_eq_zero_of_not_congr (F : HBForms) (q x δ₁ δ₂ : ℕ) (R�
   -- `l_i(n) ≡ β_i` modulo `α_i`
   have hl₁ : F.l₁ n ≡ F.β₁ [MOD F.α₁] := by
     have hz : F.α₁ * n ≡ 0 [MOD F.α₁] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
-    simpa [HBForms.l₁] using hz.add_right F.β₁
+    simp only [HBForms.l₁, Nat.zero_add] at hz ⊢
+    exact hz.add_right F.β₁
   have hl₂ : F.l₂ n ≡ F.β₂ [MOD F.α₂] := by
     have hz : F.α₂ * n ≡ 0 [MOD F.α₂] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
-    simpa [HBForms.l₂] using hz.add_right F.β₂
+    simp only [HBForms.l₂, Nat.zero_add] at hz ⊢
+    exact hz.add_right F.β₂
   -- (5.4), both indices, modulo `(α₂, q)`
   have h54₁ : δ₁ * a₁ * b₁ ≡ F.β₁ [MOD Nat.gcd F.α₂ q] := by
     rw [← hΔ]
