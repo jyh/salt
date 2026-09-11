@@ -145,12 +145,12 @@ theorem one_le_β₂ (F : HBForms) : 1 ≤ F.β₂ := by
 index (`Nat.divisors 0 = ∅`). -/
 theorem one_le_l₁ (F : HBForms) (n : ℕ) : 1 ≤ F.l₁ n := by
   have := one_le_β₁ F
-  show 1 ≤ F.α₁ * n + F.β₁
+  simp only [l₁]
   omega
 
 theorem one_le_l₂ (F : HBForms) (n : ℕ) : 1 ≤ F.l₂ n := by
   have := one_le_β₂ F
-  show 1 ≤ F.α₂ * n + F.β₂
+  simp only [l₂]
   omega
 
 /-- (1.4)+(1.5): `β_i` is odd, since `2 ∣ α_i` and `(α_i, β_i) = 1`. -/
@@ -177,24 +177,24 @@ theorem odd_l₁ (F : HBForms) (n : ℕ) : Odd (F.l₁ n) := by
   obtain ⟨k, hk⟩ := F.even₁
   obtain ⟨m, hm⟩ := odd_β₁ F
   refine ⟨k * n + m, ?_⟩
-  show F.α₁ * n + F.β₁ = 2 * (k * n + m) + 1
+  simp only [l₁]
   rw [hk, hm]; ring
 
 theorem odd_l₂ (F : HBForms) (n : ℕ) : Odd (F.l₂ n) := by
   obtain ⟨k, hk⟩ := F.even₂
   obtain ⟨m, hm⟩ := odd_β₂ F
   refine ⟨k * n + m, ?_⟩
-  show F.α₂ * n + F.β₂ = 2 * (k * n + m) + 1
+  simp only [l₂]
   rw [hk, hm]; ring
 
 /-- `l_i(n) ≡ β_i (mod α_i)`, so (1.4) transfers: `(l_i(n), α_i) = 1`. -/
 theorem coprime_l₁_α₁ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₁ n) F.α₁ := by
-  have he : F.l₁ n = F.β₁ + F.α₁ * n := by show F.α₁ * n + F.β₁ = _; ring
+  have he : F.l₁ n = F.β₁ + F.α₁ * n := by simp only [l₁]; ring
   rw [he]
   exact (Nat.coprime_add_mul_left_left F.β₁ F.α₁ n).mpr F.cop₁.symm
 
 theorem coprime_l₂_α₂ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₂ n) F.α₂ := by
-  have he : F.l₂ n = F.β₂ + F.α₂ * n := by show F.α₂ * n + F.β₂ = _; ring
+  have he : F.l₂ n = F.β₂ + F.α₂ * n := by simp only [l₂]; ring
   rw [he]
   exact (Nat.coprime_add_mul_left_left F.β₂ F.α₂ n).mpr F.cop₂.symm
 
