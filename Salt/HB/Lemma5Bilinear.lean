@@ -727,11 +727,12 @@ theorem cell_card_eq_zero_of_not_coprime {δ N : ℕ} (hδq : Nat.Coprime δ q) 
 theorem not_coprime_of_not_mem_window (F : HBForms) (x : ℕ) {n : ℕ}
     (hn : n ∈ Finset.Ioc x (2 * x)) (hnw : n ∉ hbFormsWindow F q x) :
     ¬ Nat.Coprime (F.l₁ n) q ∨ ¬ Nat.Coprime (F.l₂ n) q := by
-  by_contra hc
-  push_neg at hc
-  refine hnw ?_
-  simp only [hbFormsWindow, Finset.mem_filter]
-  exact ⟨hn, hc.1.mul_left hc.2⟩
+  by_cases h1 : Nat.Coprime (F.l₁ n) q
+  · by_cases h2 : Nat.Coprime (F.l₂ n) q
+    · exact absurd (by simp only [hbFormsWindow, Finset.mem_filter]
+        exact ⟨hn, h1.mul_left h2⟩) hnw
+    · exact Or.inr h2
+  · exact Or.inl h1
 
 /-! ### Two `Finset.sum_comm` chains, stated once and used by B-3a's assembly -/
 
@@ -814,7 +815,8 @@ theorem sum_cells_mul {α : Type*} (A B U : Finset ℕ) (t : Finset α)
       = ∑ j₁ ∈ A, ∑ k₁ ∈ B, ∑ a₁ ∈ U, ∑ b₁ ∈ U,
           ∑ j₂ ∈ A, ∑ k₂ ∈ B, ∑ a₂ ∈ U, ∑ b₂ ∈ U,
             P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n from by
-      simp only [Finset.sum_mul, Finset.mul_sum]]
+      simp only [Finset.sum_mul]
+      simp only [Finset.mul_sum]]
   refine Finset.sum_congr rfl (fun j₁ _ => Finset.sum_congr rfl (fun k₁ _ => ?_))
   exact sum_swap_two_two A B U U
     (fun j₂ k₂ a₁ b₁ => ∑ a₂ ∈ U, ∑ b₂ ∈ U, P j₁ k₁ a₁ b₁ n * Q j₂ k₂ a₂ b₂ n)
