@@ -1311,6 +1311,44 @@ theorem hb_lemma9_inner (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : 
   · rw [if_neg (fun h : _ ∧ _ => hP h.1), if_neg (fun h => hP (hguard₁.mpr h)),
       zero_mul, mul_zero]
 
+/-- **B-2d — LEMMA 9, general `d`, EXACT** (p.211): for `(d, Q) = 1`, the sieve datum's `S d`
+is the double `Q`-divisor sum of the inner identity — every `m_i ∣ Q`, no truncation.  The μ-sieve
+expands both `Λ*` factors, `Finset.sum_mul_sum` merges the two `m`-sums, the `n`-sum moves outside
+them by two `Finset.sum_comm`s, and B-2d′ closes each `(m₁, m₂)` term. -/
+theorem hb_lemma9_general (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (F : HBForms) (x d : ℕ) (hdQ : Nat.Coprime d (hbQ χ z)) :
+    (hbDataForms χ hsq hz F x).S d
+      = ∑ m₁ ∈ (hbQ χ z).divisors, ∑ m₂ ∈ (hbQ χ z).divisors, (μ m₁ : ℝ) * (μ m₂ : ℝ) *
+          ∑ p ∈ d.divisorsAntidiagonal,
+            ∑ t₁ ∈ p.1.divisorsAntidiagonal, ∑ u₁ ∈ t₁.2.divisorsAntidiagonal,
+            ∑ t₂ ∈ p.2.divisorsAntidiagonal, ∑ u₂ ∈ t₂.2.divisorsAntidiagonal,
+              chiRe χ (t₁.1 * u₁.1) * chiRe χ (t₂.1 * u₂.1) * (μ u₁.1 : ℝ) * (μ u₂.1 : ℝ) *
+              ∫ V₁ in Set.Ioi (((u₁.1 * u₁.2 : ℕ) : ℝ)⁻¹),
+                (∫ V₂ in Set.Ioi (((u₂.1 * u₂.2 : ℕ) : ℝ)⁻¹),
+                  bilinearS χ F x (m₁ ^ 2 * p.1 * u₁.1) (m₂ ^ 2 * p.2 * u₂.1) V₁ V₂ / V₂) / V₁ := by
+  rw [hbDataForms_S χ hsq hz F x d]
+  have hpt : ∀ n ∈ (hbFormsWindow F q x).filter (fun n => d ∣ F.l₁ n * F.l₂ n),
+      LamStar χ z (F.l₁ n) * LamStar χ z (F.l₂ n)
+      = ∑ m₁ ∈ (hbQ χ z).divisors, ∑ m₂ ∈ (hbQ χ z).divisors,
+          ((μ m₁ : ℝ) * (μ m₂ : ℝ)) *
+            (if m₁ ^ 2 ∣ F.l₁ n ∧ m₂ ^ 2 ∣ F.l₂ n then
+              LamPrime χ (F.l₁ n / m₁ ^ 2) * LamPrime χ (F.l₂ n / m₂ ^ 2) else 0) := by
+    intro n _
+    rw [LamStar_eq_moebius_hbQ χ hsq z (F.l₁ n), LamStar_eq_moebius_hbQ χ hsq z (F.l₂ n),
+      Finset.sum_filter, Finset.sum_filter, Finset.sum_mul_sum]
+    refine Finset.sum_congr rfl fun m₁ _ => Finset.sum_congr rfl fun m₂ _ => ?_
+    by_cases h1 : m₁ ^ 2 ∣ F.l₁ n
+    · by_cases h2 : m₂ ^ 2 ∣ F.l₂ n
+      · rw [if_pos h1, if_pos h2, if_pos (And.intro h1 h2)]; ring
+      · rw [if_neg h2, if_neg (fun h : _ ∧ _ => h2 h.2), mul_zero, mul_zero]
+    · rw [if_neg h1, if_neg (fun h : _ ∧ _ => h1 h.1), zero_mul, mul_zero]
+  rw [Finset.sum_congr rfl hpt, Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₁ hm₁ => ?_
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun m₂ hm₂ => ?_
+  rw [← Finset.mul_sum, hb_lemma9_inner χ hsq hz F x d hdQ (Nat.mem_divisors.mp hm₁).1
+    (Nat.mem_divisors.mp hm₂).1]
+
 /-! ## B-3 — the dyadic cells, the residue split (5.2)–(5.4), (5.18) -/
 
 /-- HB's `S` of (5.3): the lattice count at one dyadic cell `(R_i, 2R_i] × (S_i, 2S_i]` and one
