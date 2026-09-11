@@ -1796,6 +1796,182 @@ theorem hbT_mem_iff (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ 
   rw [hbT₁, hbT₂, max_lt_iff, max_lt_iff, le_min_iff, le_min_iff, e₂, e₂', e₃, e₃']
   tauto
 
+/-- **B-5c — the elimination of `n` and `v₁`** (p.212): the cell count as a double sum over
+`(w₁, w₂)` in their cells and classes of the `v₂`-count under (5.7)–(5.10) on `T₁ < v₂ ≤ T₂`.
+
+Both sides flatten to ONE `Finset.card` (`← Finset.card_product`, `← Finset.card_sigma`) and the
+bijection is `Finset.card_nbij'` at `⟨n, ((w₁,v₁),(w₂,v₂))⟩ ↦ ⟨w₁, ⟨w₂, v₂⟩⟩`: `n` comes back
+from `α₂n + β₂ = δ₂v₂w₂` and `v₁` from `δ₁w₁v₁ = l₁(n)`, which `five_eight_iff` makes an integer.
+`hbT_mem_iff` carries the whole geometric content — the three entries of `T₁`/`T₂` ARE
+`R₂ < v₂ ≤ 2R₂`, `x < n ≤ 2x` and `R₁ < v₁ ≤ 2R₁`. The three congruence binders are each
+load-bearing: `hb₁`/`hb₂` are what let `v₁ ≡ a₁` and `v₂ ≡ a₂` be recovered from (5.9)/(5.10). -/
+theorem cellCount_eq_sum_w (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ) (a₁ b₁ a₂ b₂ : ℕ)
+    (hq : 0 < q) (hδ₁ : 0 < δ₁) (hδ₂ : 0 < δ₂) (hR₂ : 0 < R₂)
+    (hδ₁q : Nat.Coprime δ₁ q) (hb₁ : Nat.Coprime b₁ q) (hb₂ : Nat.Coprime b₂ q) :
+    cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂
+      = ∑ w₁ ∈ (Finset.Icc 1 ⌊2 * S₁⌋₊).filter (fun w : ℕ => S₁ < (w : ℝ) ∧ w ≡ b₁ [MOD q]),
+        ∑ w₂ ∈ (Finset.Icc 1 ⌊2 * S₂⌋₊).filter (fun w : ℕ => S₂ < (w : ℝ) ∧ w ≡ b₂ [MOD q]),
+          ((Finset.Ioc ⌊hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊ ⌊hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂⌋₊).filter
+            (fun v₂ : ℕ =>
+              δ₂ * (v₂ * w₂) ≡ F.β₂ [MOD F.α₂] ∧
+              F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁ ≡ F.α₁ * F.β₂ [MOD F.α₂ * δ₁ * w₁] ∧
+              F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁
+                ≡ F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ [MOD F.α₂ * q] ∧
+              v₂ * w₂ ≡ a₂ * b₂ [MOD q])).card := by
+  classical
+  have hα₁ : 0 < F.α₁ := lt_of_lt_of_le (by norm_num) F.two_le_α₁
+  have hα₂ : 0 < F.α₂ := lt_of_lt_of_le (by norm_num) F.two_le_α₂
+  simp only [cellCount, ← Finset.card_product, ← Finset.card_sigma]
+  refine Finset.card_nbij'
+    (fun z => ⟨z.2.1.1, ⟨z.2.2.1, z.2.2.2⟩⟩)
+    (fun y => ⟨(δ₂ * (y.2.2 * y.2.1) - F.β₂) / F.α₂,
+      ((y.1, F.l₁ ((δ₂ * (y.2.2 * y.2.1) - F.β₂) / F.α₂) / (δ₁ * y.1)), (y.2.1, y.2.2))⟩)
+    ?_ ?_ ?_ ?_
+  · -- ① forward: a cell point gives a `(w₁, w₂, v₂)` triple
+    rintro ⟨n, ⟨w₁, v₁⟩, ⟨w₂, v₂⟩⟩ hz
+    simp only [Finset.mem_coe, Finset.mem_sigma, Finset.mem_product, Finset.mem_filter,
+      Nat.mem_divisorsAntidiagonal, Finset.mem_Ioc] at hz
+    obtain ⟨⟨⟨hx1, hx2⟩, hd₁, hd₂⟩, ⟨⟨hm₁, hne₁⟩, hR₁a, hR₁b, hS₁a, hS₁b, ha₁', hb₁'⟩,
+      ⟨hm₂, hne₂⟩, hR₂a, hR₂b, hS₂a, hS₂b, ha₂', hb₂'⟩ := hz
+    have he₁ : δ₁ * (w₁ * v₁) = F.l₁ n := by rw [hm₁]; exact Nat.mul_div_cancel' hd₁
+    have he₂ : δ₂ * (w₂ * v₂) = F.l₂ n := by rw [hm₂]; exact Nat.mul_div_cancel' hd₂
+    have hwv₁ : w₁ * v₁ ≠ 0 := by rw [hm₁]; exact hne₁
+    have hwv₂ : w₂ * v₂ ≠ 0 := by rw [hm₂]; exact hne₂
+    have hw₁ : 0 < w₁ := Nat.pos_of_ne_zero (fun h => hwv₁ (by rw [h, Nat.zero_mul]))
+    have hw₂ : 0 < w₂ := Nat.pos_of_ne_zero (fun h => hwv₂ (by rw [h, Nat.zero_mul]))
+    have hnE : F.α₂ * n + F.β₂ = δ₂ * (v₂ * w₂) := by
+      rw [show δ₂ * (v₂ * w₂) = δ₂ * (w₂ * v₂) by ring, he₂]; rfl
+    have hv₁E : δ₁ * (v₁ * w₁) = F.l₁ n := by
+      rw [show δ₁ * (v₁ * w₁) = δ₁ * (w₁ * v₁) by ring]; exact he₁
+    have hT₁nn : (0 : ℝ) ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ :=
+      (hbT₁_pos F x δ₁ δ₂ R₁ R₂ w₁ w₂ hR₂).le
+    have hkey : F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁ = F.α₂ * F.l₁ n + F.α₁ * F.β₂ := by
+      have h : F.α₁ * (δ₂ * (v₂ * w₂)) = F.α₁ * (F.α₂ * n + F.β₂) := by rw [hnE]
+      simp only [HBForms.l₁]
+      ring_nf
+      ring_nf at h
+      omega
+    simp only [Finset.mem_coe, Finset.mem_sigma, Finset.mem_filter, Finset.mem_Icc]
+    refine ⟨⟨⟨hw₁, Nat.le_floor hS₁b⟩, hS₁a, hb₁'⟩,
+      ⟨⟨hw₂, Nat.le_floor hS₂b⟩, hS₂a, hb₂'⟩, ?_, ?_, ?_, ?_, ?_⟩
+    · rw [mem_Ioc_floor_iff hT₁nn]
+      exact (hbT_mem_iff F x δ₁ δ₂ R₁ R₂ w₁ w₂ v₁ v₂ n hδ₁ hδ₂ hw₁ hw₂ hnE hv₁E).mpr
+        ⟨hR₂a, hR₂b, hx1, hx2, hR₁a, hR₁b⟩
+    · rw [← hnE]
+      have hz0 : F.α₂ * n ≡ 0 [MOD F.α₂] := (Nat.modEq_zero_iff_dvd).mpr ⟨n, rfl⟩
+      have h1 := hz0.add_right F.β₂
+      rwa [Nat.zero_add] at h1
+    · exact (five_eight_iff F δ₁ δ₂ w₁ (v₂ * w₂) n hα₂.ne' hnE).mpr ⟨v₁, by rw [← hv₁E]; ring⟩
+    · rw [hkey]
+      have hl : F.l₁ n ≡ δ₁ * a₁ * b₁ [MOD q] := by
+        rw [← hv₁E, show δ₁ * a₁ * b₁ = δ₁ * (a₁ * b₁) by ring]
+        exact Nat.ModEq.mul_left δ₁ (Nat.ModEq.mul ha₁' hb₁')
+      have h3 := (hl.mul_left' F.α₂).add_right (F.α₁ * F.β₂)
+      rwa [show F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂
+        = F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁ by ring] at h3
+    · exact Nat.ModEq.mul ha₂' hb₂'
+  · -- ② backward: a `(w₁, w₂, v₂)` triple gives a cell point
+    rintro ⟨w₁, ⟨w₂, v₂⟩⟩ hy
+    simp only [Finset.mem_coe, Finset.mem_sigma, Finset.mem_filter, Finset.mem_Icc] at hy
+    obtain ⟨⟨⟨hw₁, hw₁2⟩, hS₁a, hb₁'⟩, ⟨⟨hw₂, hw₂2⟩, hS₂a, hb₂'⟩, hmem, c1, c2, c3, c4⟩ := hy
+    have hS₁nn : (0 : ℝ) ≤ 2 * S₁ := by
+      by_contra hc
+      rw [Nat.floor_of_nonpos (not_le.mp hc).le] at hw₁2
+      omega
+    have hS₂nn : (0 : ℝ) ≤ 2 * S₂ := by
+      by_contra hc
+      rw [Nat.floor_of_nonpos (not_le.mp hc).le] at hw₂2
+      omega
+    have hw₁2' : (w₁ : ℝ) ≤ 2 * S₁ := (Nat.le_floor_iff hS₁nn).mp hw₁2
+    have hw₂2' : (w₂ : ℝ) ≤ 2 * S₂ := (Nat.le_floor_iff hS₂nn).mp hw₂2
+    have hT₁nn : (0 : ℝ) ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ :=
+      (hbT₁_pos F x δ₁ δ₂ R₁ R₂ w₁ w₂ hR₂).le
+    have hIoc := (mem_Ioc_floor_iff hT₁nn v₂).mp hmem
+    have hv₂pos : 0 < v₂ := by
+      have h : (0 : ℝ) < (v₂ : ℝ) := lt_of_le_of_lt hT₁nn hIoc.1
+      exact_mod_cast h
+    have hdw : (0 : ℝ) < (δ₂ : ℝ) * (w₂ : ℝ) :=
+      mul_pos (by exact_mod_cast hδ₂) (by exact_mod_cast hw₂)
+    have hA : ((F.α₂ * x + F.β₂ : ℕ) : ℝ) / ((δ₂ : ℝ) * (w₂ : ℝ))
+        ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := le_trans (le_max_left _ _) (le_max_right _ _)
+    have hbigN : F.α₂ * x + F.β₂ < v₂ * (δ₂ * w₂) := by
+      exact_mod_cast (div_lt_iff₀ hdw).mp (lt_of_le_of_lt hA hIoc.1)
+    have hge : F.β₂ ≤ δ₂ * (v₂ * w₂) := by
+      have hr : v₂ * (δ₂ * w₂) = δ₂ * (v₂ * w₂) := by ring
+      omega
+    obtain ⟨n, hn⟩ := (Nat.modEq_iff_dvd' hge).mp c1.symm
+    have hnE : F.α₂ * n + F.β₂ = δ₂ * (v₂ * w₂) := by omega
+    have hn' : (δ₂ * (v₂ * w₂) - F.β₂) / F.α₂ = n := by
+      rw [hn]; exact Nat.mul_div_cancel_left n hα₂
+    obtain ⟨v₁, hv₁def⟩ := (five_eight_iff F δ₁ δ₂ w₁ (v₂ * w₂) n hα₂.ne' hnE).mp c2
+    have hv₁' : F.l₁ n / (δ₁ * w₁) = v₁ := by
+      rw [hv₁def]; exact Nat.mul_div_cancel_left v₁ (Nat.mul_pos hδ₁ hw₁)
+    have hv₁E : δ₁ * (v₁ * w₁) = F.l₁ n := by rw [hv₁def]; ring
+    have hl₁pos : 0 < F.l₁ n := F.one_le_l₁ n
+    have hv₁pos : 0 < v₁ := by
+      rcases Nat.eq_zero_or_pos v₁ with h | h
+      · rw [h, Nat.zero_mul, Nat.mul_zero] at hv₁E; omega
+      · exact h
+    obtain ⟨hR₂a, hR₂b, hx1, hx2, hR₁a, hR₁b⟩ :=
+      (hbT_mem_iff F x δ₁ δ₂ R₁ R₂ w₁ w₂ v₁ v₂ n hδ₁ hδ₂ hw₁ hw₂ hnE hv₁E).mp hIoc
+    have hkey : F.α₁ * δ₂ * (v₂ * w₂) + F.α₂ * F.β₁ = F.α₂ * F.l₁ n + F.α₁ * F.β₂ := by
+      have h : F.α₁ * (δ₂ * (v₂ * w₂)) = F.α₁ * (F.α₂ * n + F.β₂) := by rw [hnE]
+      simp only [HBForms.l₁]
+      ring_nf
+      ring_nf at h
+      omega
+    have hw₁q : Nat.Coprime w₁ q := coprime_of_modEq hb₁' hb₁
+    have hw₂q : Nat.Coprime w₂ q := coprime_of_modEq hb₂' hb₂
+    have hv₁a : v₁ ≡ a₁ [MOD q] := by
+      rw [hkey, show F.α₁ * F.β₂ + F.α₂ * δ₁ * a₁ * b₁
+        = F.α₂ * (δ₁ * a₁ * b₁) + F.α₁ * F.β₂ by ring] at c3
+      have h1 := Nat.ModEq.add_right_cancel' (F.α₁ * F.β₂) c3
+      have h2 : F.l₁ n ≡ δ₁ * a₁ * b₁ [MOD q] := Nat.ModEq.mul_left_cancel' hα₂.ne' h1
+      rw [← hv₁E, show δ₁ * a₁ * b₁ = δ₁ * (a₁ * b₁) by ring] at h2
+      have h3 : v₁ * w₁ ≡ a₁ * b₁ [MOD q] :=
+        Nat.ModEq.cancel_left_of_coprime hδ₁q.symm h2
+      exact Nat.ModEq.cancel_right_of_coprime hw₁q.symm
+        (h3.trans (Nat.ModEq.mul_left a₁ hb₁'.symm))
+    have hv₂a : v₂ ≡ a₂ [MOD q] :=
+      Nat.ModEq.cancel_right_of_coprime hw₂q.symm
+        (c4.trans (Nat.ModEq.mul_left a₂ hb₂'.symm))
+    have hd₁ : δ₁ ∣ F.l₁ n := ⟨v₁ * w₁, hv₁E.symm⟩
+    have hd₂ : δ₂ ∣ F.l₂ n := ⟨v₂ * w₂, hnE⟩
+    have hq₁ : F.l₁ n / δ₁ = w₁ * v₁ := by
+      have h : F.l₁ n = δ₁ * (w₁ * v₁) := by rw [← hv₁E]; ring
+      rw [h]; exact Nat.mul_div_cancel_left _ hδ₁
+    have hq₂ : F.l₂ n / δ₂ = w₂ * v₂ := by
+      have h : F.l₂ n = δ₂ * (w₂ * v₂) := by
+        rw [show F.l₂ n = F.α₂ * n + F.β₂ from rfl, hnE]; ring
+      rw [h]; exact Nat.mul_div_cancel_left _ hδ₂
+    simp only [hn', hv₁', Finset.mem_coe, Finset.mem_sigma, Finset.mem_product,
+      Finset.mem_filter, Nat.mem_divisorsAntidiagonal, Finset.mem_Ioc]
+    exact ⟨⟨⟨hx1, hx2⟩, hd₁, hd₂⟩,
+      ⟨⟨hq₁.symm, by rw [hq₁]; exact Nat.mul_ne_zero hw₁.ne' hv₁pos.ne'⟩,
+        hR₁a, hR₁b, hS₁a, hw₁2', hv₁a, hb₁'⟩,
+      ⟨hq₂.symm, by rw [hq₂]; exact Nat.mul_ne_zero hw₂.ne' hv₂pos.ne'⟩,
+        hR₂a, hR₂b, hS₂a, hw₂2', hv₂a, hb₂'⟩
+  · -- ③ `j ∘ i = id` on the cell points
+    rintro ⟨n, ⟨w₁, v₁⟩, ⟨w₂, v₂⟩⟩ hz
+    simp only [Finset.mem_coe, Finset.mem_sigma, Finset.mem_product, Finset.mem_filter,
+      Nat.mem_divisorsAntidiagonal, Finset.mem_Ioc] at hz
+    obtain ⟨⟨⟨hx1, hx2⟩, hd₁, hd₂⟩, ⟨⟨hm₁, hne₁⟩, _⟩, ⟨hm₂, hne₂⟩, _⟩ := hz
+    have he₁ : δ₁ * (w₁ * v₁) = F.l₁ n := by rw [hm₁]; exact Nat.mul_div_cancel' hd₁
+    have he₂ : δ₂ * (w₂ * v₂) = F.l₂ n := by rw [hm₂]; exact Nat.mul_div_cancel' hd₂
+    have hwv₁ : w₁ * v₁ ≠ 0 := by rw [hm₁]; exact hne₁
+    have hw₁ : 0 < w₁ := Nat.pos_of_ne_zero (fun h => hwv₁ (by rw [h, Nat.zero_mul]))
+    have hnE : F.α₂ * n + F.β₂ = δ₂ * (v₂ * w₂) := by
+      rw [show δ₂ * (v₂ * w₂) = δ₂ * (w₂ * v₂) by ring, he₂]; rfl
+    have hn' : (δ₂ * (v₂ * w₂) - F.β₂) / F.α₂ = n := by
+      rw [← hnE, Nat.add_sub_cancel]; exact Nat.mul_div_cancel_left n hα₂
+    have hv₁' : F.l₁ n / (δ₁ * w₁) = v₁ := by
+      rw [show F.l₁ n = δ₁ * w₁ * v₁ by rw [← he₁]; ring]
+      exact Nat.mul_div_cancel_left v₁ (Nat.mul_pos hδ₁ hw₁)
+    simp only [hn', hv₁']
+  · -- ④ `i ∘ j = id` on the triples
+    rintro ⟨w₁, ⟨w₂, v₂⟩⟩ _
+    rfl
+
 /-- **B-5d — (5.6) is automatic**: a `w₁` with a non-empty `v₂`-count is coprime to `α`, `δ₂`
 and `q`.  From the count's witness `v₂`: `w₂ > 0` (at `w₂ = 0` the first congruence forces
 `α₂ ∣ β₂`, against (1.4) and `2 ≤ α₂`), so `T₁`'s second entry is the honest bound
