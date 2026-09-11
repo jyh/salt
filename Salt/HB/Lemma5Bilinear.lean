@@ -639,4 +639,25 @@ theorem modEq_mul_iff_modEq_invMod {k : ℕ} [NeZero k] {w : ℕ} (hw : Nat.Copr
   · intro hv
     rw [hv, mul_assoc, ZMod.inv_mul_of_unit _ hunit, mul_one]
 
+/-- **B-5e — (5.17)**: for `(w₂, k) = 1`,
+`#{v : T₁ < v ≤ T₂, v w₂ ≡ C (k)} = (T₂−T₁)/k + ψ((T₁ − C w̄₂)/k) − ψ((T₂ − C w̄₂)/k)`.
+B-5b turns the filter into a bare residue class and B-5a is applied at `r := C · w̄₂` DIRECTLY
+(`Nat.Ioc_filter_modEq_card` is general in the residue — no `r < k`, no periodicity step). -/
+theorem card_count_eq_sawtooth (k : ℕ) [NeZero k] {w₂ : ℕ} (hw : Nat.Coprime w₂ k) (C : ℕ)
+    {T₁ T₂ : ℝ} (h0 : 0 ≤ T₁) (h12 : T₁ ≤ T₂) :
+    (((Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊).filter (fun v : ℕ => v * w₂ ≡ C [MOD k])).card : ℝ)
+      = (T₂ - T₁) / k + sawtooth ((T₁ - C * invMod w₂ k) / k)
+          - sawtooth ((T₂ - C * invMod w₂ k) / k) := by
+  have hk : 0 < k := Nat.pos_of_ne_zero (NeZero.ne k)
+  have hcongr : (Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊).filter (fun v : ℕ => v * w₂ ≡ C [MOD k])
+      = (Finset.Ioc ⌊T₁⌋₊ ⌊T₂⌋₊).filter
+          (fun v : ℕ => v ≡ C * (invMod w₂ k).toNat [MOD k]) :=
+    Finset.filter_congr (fun v _ => modEq_mul_iff_modEq_invMod hw C v)
+  have hnn : (0 : ℤ) ≤ invMod (w₂ : ℤ) k := by
+    simp only [invMod]; exact Int.natCast_nonneg _
+  have hcast : ((C * (invMod (w₂ : ℤ) k).toNat : ℕ) : ℝ) = (C : ℝ) * (invMod (w₂ : ℤ) k : ℝ) := by
+    push_cast [Int.toNat_of_nonneg hnn]
+    ring
+  rw [hcongr, card_Ioc_filter_modEq_eq_sawtooth hk _ h0 h12, hcast]
+
 end Salt.N7
