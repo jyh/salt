@@ -25,9 +25,9 @@ optional.
 
 **§1 (THIS CUT): THE HB WIRE.**  `hbDataHB` — Heath-Brown's own Lemma 5 instance, for the
 twin pair `(4k+1, 4k+3)` over the k-range `(x, 2x]`, whose modulus is NOT already divided out
-by its own support.  **§2–§3 are RESERVED for the next cuts and are NOT in this file yet:**
-the bridge from that wire back to the crown window, and the p.200 lower assembly re-stated at
-the HB wire.
+by its own support.  **§2 (THIS CUT): THE BRIDGE** from that wire back to the crown window at
+`X = 4x+1`, along the index map `k ↦ 4k+1`.  **§3 is RESERVED for the next cut and is NOT in
+this file yet:** the p.200 lower assembly re-stated at the HB wire.
 
 ⛔ **WHAT THIS RECORD DOES NOT SAY.**  It concerns conclusion (1) of `hbSieve_fl_sandwich` —
 the Rosser sandwich on the sifted sum — at `hbDataN8`, and nothing else.  It says NOTHING
@@ -145,5 +145,16 @@ theorem hbDataHB_S3_eq (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : �
             (fun k => Nat.Coprime ((4 * k + 1) * (4 * k + 3)) q)).filter
             (fun k => Nat.Coprime ((4 * k + 1) * (4 * k + 3)) (hbP (chiReChar χ hsq) (z : ℝ))),
           LamStar χ z (4 * k + 1) * LamStar χ z (4 * k + 3) := rfl
+
+/-! ## §2 — THE BRIDGE: FROM THE HB WIRE BACK TO THE CROWN WINDOW AT `X = 4x+1` -/
+
+/-- **W-c₁.1 — the index map lands inside the crown window.**  The image of `(x, 2x]` under
+`k ↦ 4k+1` is `[4x+5, 8x+1]`, and the crown window's index range at `X = 4x+1` is
+`(4x+1, 8x+2]`: both boundaries clear, so no membership side condition survives into the
+bridge.  Class **A**, cap 6.  Red-first: `Finset.mem_Ioc` and `omega`.  Consumer:
+`hbDataHB_S3_le_S3_window`. -/
+theorem four_mul_add_one_mem_Ioc {x k : ℕ} (hk : k ∈ Finset.Ioc x (2 * x)) :
+    4 * k + 1 ∈ Finset.Ioc (4 * x + 1) (2 * (4 * x + 1)) := by
+  simp only [Finset.mem_Ioc] at hk ⊢; omega
 
 end Salt.HB

@@ -746,7 +746,7 @@ Lemma 5 instance for the pair `(4k+1, 4k+3)` (§1), its two twin laws, the bridg
 law re-stated there (§3), and, in the one-theorem module beside it, the `rfl` identity to Wave
 B's forms wire.  Each name below is audited in the same commit that lands it, so this stanza's
 rows are the landings and not the plan.
-5 `#audit_axioms` names. -/
+6 `#audit_axioms` names. -/
 
 section W0W1
 open Salt.Tactic
@@ -755,4 +755,5 @@ open Salt.Tactic
 #audit_axioms Salt.HB.hbDataHB
 #audit_axioms Salt.HB.hbDataHB_P
 #audit_axioms Salt.HB.hbDataHB_S3_eq
+#audit_axioms Salt.HB.four_mul_add_one_mem_Ioc
 end W0W1
