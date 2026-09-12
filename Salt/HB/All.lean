@@ -744,4 +744,5 @@ landed statement; it says nothing about conclusions (2) and (3) of `hbSieve_fl_s
 section W0
 open Salt.Tactic
 #audit_axioms Salt.HB.hbDataN8_S_eq_zero
+#audit_axioms Salt.HB.lamSum_S_eq_S3
 end W0
