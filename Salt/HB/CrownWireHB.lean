@@ -157,4 +157,37 @@ theorem four_mul_add_one_mem_Ioc {x k : ℕ} (hk : k ∈ Finset.Ioc x (2 * x)) :
     4 * k + 1 ∈ Finset.Ioc (4 * x + 1) (2 * (4 * x + 1)) := by
   simp only [Finset.mem_Ioc] at hk ⊢; omega
 
+/-- **W-c₁.2 — an odd `m` coprime to `q` and to the sieve's modulus is coprime to the
+primorial.**  `excPrimorial χ z` is the product over the primes `p < z` with `χ_ℝ(p) ≠ −1`, so
+the trichotomy leaves two values per factor, and each is discharged from a DIFFERENT
+hypothesis: `χ_ℝ(p) = 0` gives `p ∣ q`, closed by `hq`; `χ_ℝ(p) = +1` with `2 < p` puts `p` in
+`hbSiftSet`, hence `p ∣ hbP`, closed by `hP`; and `p = 2` is closed by `hodd` alone.  All
+three hypotheses are load-bearing.  Class **A**, cap 40 (24 lines bare).  Red-first:
+`Nat.Coprime.prod_right`, then the trichotomy and `Nat.lt_or_ge 2 p`.  Consumer:
+`hbDataHB_S3_le_S3_window`, at `m = (4k+1)(4k+3)`. -/
+theorem coprime_excPrimorial_of_odd (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z : ℕ)
+    {m : ℕ} (hodd : ¬ 2 ∣ m) (hq : Nat.Coprime m q)
+    (hP : Nat.Coprime m (hbP (chiReChar χ hsq) (z : ℝ))) :
+    Nat.Coprime m (excPrimorial χ z) := by
+  classical
+  rw [excPrimorial]
+  refine Nat.Coprime.prod_right ?_
+  intro p hp
+  rw [Finset.mem_filter, Finset.mem_range] at hp
+  obtain ⟨hpz, hpp, hchi⟩ := hp
+  rcases chiRe_eq_one_or_neg_one_or_zero χ hsq p with h1 | hm1 | h0
+  · rcases Nat.lt_or_ge 2 p with h2 | h2
+    · have hmem : p ∈ hbSiftSet (chiReChar χ hsq) (z : ℝ) := by
+        rw [hbSiftSet_chiReChar]
+        exact Finset.mem_filter.mpr ⟨Finset.mem_range.mpr hpz, hpp, h2, h1⟩
+      have hdvd : p ∣ hbP (chiReChar χ hsq) (z : ℝ) := by
+        rw [hbP]; exact Finset.dvd_prod_of_mem (fun p => p) hmem
+      exact Nat.Coprime.coprime_dvd_right hdvd hP
+    · have hp2 : p = 2 := le_antisymm h2 hpp.two_le
+      subst hp2
+      exact ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr hodd).symm
+  · exact absurd hm1 hchi
+  · exact Nat.Coprime.coprime_dvd_right
+      ((chiRe_prime_eq_zero_iff_dvd χ hsq hpp).mp h0) hq
+
 end Salt.HB
