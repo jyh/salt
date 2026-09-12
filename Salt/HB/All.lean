@@ -730,7 +730,7 @@ open Salt.Tactic
 #audit_axioms Salt.HB.n9E0B3_nonneg
 end B3ib
 
-/-! ## ⟦W-0 0911⟧ `Salt/HB/CrownWireHB.lean` — THE N8 WIRE'S COLLAPSE, AS A KERNEL RECORD
+/-! ## ⟦W-0 · W-1 0911⟧ `Salt/HB/CrownWireHB.lean` — THE N8 WIRE'S COLLAPSE AND THE HB WIRE
 
 `hbDataN8` sifts the crown window by `hbP`, and `l2cWindow_coprime_hbP` already proves that
 `hbP` divides the primorial the window is coprime to — so the sieve's every prime is a prime
@@ -739,10 +739,18 @@ the support has removed.  `hbDataN8_S_eq_zero` reads that off as `S d = 0` for e
 this data both sides of HB's sandwich (2.2) are `S⁽³⁾` itself, for every `Λ`, every
 `side ≤ 2` and every `1 ≤ b`.  The record lands before the wire is re-cut, and touches no
 landed statement; it says nothing about conclusions (2) and (3) of `hbSieve_fl_sandwich`.
-2 `#audit_axioms` names. -/
 
-section W0
+**`W-1` extends the same module with the wire the record calls for** — `hbDataHB`, HB's own
+Lemma 5 instance for the pair `(4k+1, 4k+3)` (§1), its two twin laws, the bridge carrying its
+`S⁽³⁾` back to the crown window at `X = 4x+1` (§2), the p.200 lower assembly and the `S1 = W`
+law re-stated there (§3), and, in the one-theorem module beside it, the `rfl` identity to Wave
+B's forms wire.  Each name below is audited in the same commit that lands it, so this stanza's
+rows are the landings and not the plan.
+3 `#audit_axioms` names. -/
+
+section W0W1
 open Salt.Tactic
 #audit_axioms Salt.HB.hbDataN8_S_eq_zero
 #audit_axioms Salt.HB.lamSum_S_eq_S3
-end W0
+#audit_axioms Salt.HB.hbDataHB
+end W0W1

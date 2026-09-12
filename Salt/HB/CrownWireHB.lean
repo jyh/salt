@@ -23,9 +23,11 @@ the interface is generic in its data, and this is a fact about the DATA.  The re
 BEFORE the wire is re-cut because it is the kernel's own sentence for why the re-cut is not
 optional.
 
-**§1–§3 are RESERVED for the next cuts and are NOT in this file yet:** the HB wire
-`hbDataHB` (a modulus that is not already divided out by the support), the bridge from that
-wire back to the crown window, and the p.200 lower assembly re-stated at the HB wire.
+**§1 (THIS CUT): THE HB WIRE.**  `hbDataHB` — Heath-Brown's own Lemma 5 instance, for the
+twin pair `(4k+1, 4k+3)` over the k-range `(x, 2x]`, whose modulus is NOT already divided out
+by its own support.  **§2–§3 are RESERVED for the next cuts and are NOT in this file yet:**
+the bridge from that wire back to the crown window, and the p.200 lower assembly re-stated at
+the HB wire.
 
 ⛔ **WHAT THIS RECORD DOES NOT SAY.**  It concerns conclusion (1) of `hbSieve_fl_sandwich` —
 the Rosser sandwich on the sifted sum — at `hbDataN8`, and nothing else.  It says NOTHING
@@ -40,6 +42,8 @@ Nothing here bears on twin primes.
 namespace Salt.HB
 
 open Salt.SW Salt.BrunLower
+
+variable {q : ℕ}
 
 /-- **W1 — the vanishing.**  `S(d) = 0` for every `1 < d ∣ P` at the N8 wire: the window is
 coprime to `hbP` (`l2cWindow_coprime_hbP`), so no `n` in it has `d ∣ n(n+2)`. -/
@@ -101,5 +105,25 @@ theorem lamSum_S_eq_S3 {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 =
     rw [Finset.filter_true_of_mem (l2cWindow_coprime_hbP χ hsq z x)]
     rfl
   rw [hS1, hS3]
+
+/-! ## §1 — THE HB WIRE: HEATH-BROWN'S OWN INSTANCE, FOR THE PAIR `(4k+1, 4k+3)` -/
+
+/-- **W-a.1 — THE HB WIRE.**  The `HBSieveData` at Heath-Brown's own Lemma 5 instance for the
+twin pair `(4k+1, 4k+3)` (p. 195; the normalisation (1.3)–(1.9) at `α = (4,4)`, `β = (1,3)`):
+character `chiReChar χ hsq`, modulus `hbP`, `support := {k ∈ (x, 2x] : ((4k+1)(4k+3), q) = 1}`,
+`val k = (4k+1)(4k+3)`, `a k = Λ*(4k+1)·Λ*(4k+3)` with HB's Lemma 1 (`LamStar_nonneg`, twice)
+discharging `ofHbP`'s one obligation `a_nonneg`.  **The contrast with `hbDataN8` (§0) is the
+point of the re-cut:** there the support had already removed every prime the sieve sifts by,
+so the sieve was the identity on it; here the modulus is not divided out by the support.  The
+support's predicate is decidable exactly as `l2cWindow`'s is.  Class **A**, cap 25.  Consumers:
+`hbDataHB_S3_le_S3_window`, `hbS1_eq_W_HB`, `hb_p200_lower_HB`. -/
+noncomputable def hbDataHB (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
+    (hz : 2 ≤ z) (x : ℕ) : HBSieveData :=
+  HBSieveData.ofHbP (chiReChar χ hsq) (z := (z : ℝ)) (by exact_mod_cast hz)
+    ((Finset.Ioc x (2 * x)).filter (fun k => Nat.Coprime ((4 * k + 1) * (4 * k + 3)) q))
+    (fun k => (4 * k + 1) * (4 * k + 3))
+    (fun k => LamStar χ z (4 * k + 1) * LamStar χ z (4 * k + 3))
+    (fun k _ => mul_nonneg (LamStar_nonneg χ hsq z (4 * k + 1))
+      (LamStar_nonneg χ hsq z (4 * k + 3)))
 
 end Salt.HB
