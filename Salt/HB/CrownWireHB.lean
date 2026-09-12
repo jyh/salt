@@ -126,4 +126,24 @@ noncomputable def hbDataHB (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z
     (fun k _ => mul_nonneg (LamStar_nonneg χ hsq z (4 * k + 1))
       (LamStar_nonneg χ hsq z (4 * k + 3)))
 
+/-- **W-a.2 — the modulus did not move.**  `ofHbP` builds a wire's `P` from the character and
+`z` alone, so the HB wire sifts by the same `hbP` the N8 wire does; what moved is the support,
+the value and the weight.  Class **A**, cap 15 (with its sibling below).  By `rfl`.  Consumer:
+`hb_p200_lower_HB`'s `hPα` binder, and every `.P` read on the crown path. -/
+theorem hbDataHB_P (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (x : ℕ) : (hbDataHB χ hsq hz x).P = hbP (chiReChar χ hsq) (z : ℝ) := rfl
+
+/-- **W-a.2 — `S⁽³⁾` unfolded at the HB wire.**  The weight sum over the k-range, filtered
+twice: by `((4k+1)(4k+3), q) = 1` (the support's own condition) and by
+`((4k+1)(4k+3), P) = 1` (the sieve's) — HB's `(l, qP) = 1` read at the pair.  Class **A**,
+cap 15 (with its sibling above).  By `rfl`.  Consumer: `hbDataHB_S3_le_S3_window`, which
+rewrites the bridge's left-hand side through this equation. -/
+theorem hbDataHB_S3_eq (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (x : ℕ) :
+    (hbDataHB χ hsq hz x).S3
+      = ∑ k ∈ ((Finset.Ioc x (2 * x)).filter
+            (fun k => Nat.Coprime ((4 * k + 1) * (4 * k + 3)) q)).filter
+            (fun k => Nat.Coprime ((4 * k + 1) * (4 * k + 3)) (hbP (chiReChar χ hsq) (z : ℝ))),
+          LamStar χ z (4 * k + 1) * LamStar χ z (4 * k + 3) := rfl
+
 end Salt.HB
