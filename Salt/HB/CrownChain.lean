@@ -37,7 +37,8 @@ HB's `(l, qP) = 1` at the minimal honest modulus, the window the unconditional m
 (`S2_sub_S3_window` takes any sub-window with `excPrimorial`-coprimality, which
 `l2cWindow_excPrimorial_coprime` supplies); the door (`twinWindow (2x+2) = Ioc x (2x)`,
 `twinWindow_two_mul_add_two`) is reached by the swap `S1_Ioc_sub_S1_l2cWindow_le`; the
-sieve reaches it through the wire `hbDataN8` (`CrownAssembly.lean`).  `honestWindow` is
+sieve reaches it through the wire `hbDataHB` (`CrownWireHB.lean`, HB's own Lemma 5 instance
+since Wave W; `hbDataN8` in `CrownAssembly.lean` is the retired one).  `honestWindow` is
 SUPERSEDED for the crown path (it stays landed, untouched).
 
 ## THE TWO STATEMENT REPAIRS OF v2 (the refuter pass, 2026-09-03 18:1x)

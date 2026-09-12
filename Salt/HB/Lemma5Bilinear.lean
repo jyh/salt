@@ -257,7 +257,9 @@ theorem coprime_α_iff (F : HBForms) (d : ℕ) :
   · intro h
     exact Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left F.α₁ F.α₂) h.1
 
-/-- The twin-prime instance `(4n+1, 4n+3)` (p.195): the forms W-a's `hbDataHB` uses. -/
+/-- The twin-prime instance `(4n+1, 4n+3)` (p.195): the forms `Salt.HB.hbDataHB`
+(`CrownWireHB.lean`) uses — equal to `hbDataForms … twin` by
+`Salt.HB.hbDataHB_eq_hbDataForms_twin`. -/
 def twin : HBForms where
   α₁ := 4
   β₁ := 1
@@ -388,7 +390,8 @@ theorem bilinearS_eq_zero_of_le₂ (χ : DirichletCharacter ℂ q) (F : HBForms)
   rw [truncChiSum_eq_zero_of_le χ _ hcast, mul_zero]
 
 /-- The `HBSieveData` at the forms `F`: HB's `S(d)` at general forms (support `hbFormsWindow`,
-`val n = l₁ n · l₂ n`, `a n = Λ*(l₁ n)·Λ*(l₂ n)`); W-a's `hbDataHB` is this at `HBForms.twin`. -/
+`val n = l₁ n · l₂ n`, `a n = Λ*(l₁ n)·Λ*(l₂ n)`).  `Salt.HB.hbDataHB` (`CrownWireHB.lean`) is
+this at `HBForms.twin`, equal to it by `Salt.HB.hbDataHB_eq_hbDataForms_twin`. -/
 noncomputable def hbDataForms (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
     (hz : 2 ≤ z) (F : HBForms) (x : ℕ) : HBSieveData :=
   HBSieveData.ofHbP (chiReChar χ hsq) (z := (z : ℝ)) (by exact_mod_cast hz)
