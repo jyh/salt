@@ -190,4 +190,48 @@ theorem coprime_excPrimorial_of_odd (χ : DirichletCharacter ℂ q) (hsq : χ ^ 
   · exact Nat.Coprime.coprime_dvd_right
       ((chiRe_prime_eq_zero_iff_dvd χ hsq hpp).mp h0) hq
 
+/-- **W-c₁.3 — THE BRIDGE.**  The HB wire's sifted sum is bounded by the crown window's at
+`X = 4x+1`.  The k-indexed sum is carried to the n-indexed one along the injection
+`k ↦ 4k+1` (`Finset.sum_image`, whose `Set.InjOn` side condition is `omega`); the image lands
+in `l2cWindow χ z (4x+1)` by `four_mul_add_one_mem_Ioc` for the range and by
+`Nat.Coprime.mul_right` of the support's own `(·, q) = 1` with `coprime_excPrimorial_of_odd`
+for the rest, whose oddness input is `(4k+1)(4k+3) ≡ 1 mod 2`.  `4k+1+2` and `4k+3` are
+definitionally equal, so nothing is rewritten there.  Every crown term the image misses is
+`≥ 0`.  This is the ONE inequality through which the crown consumes the new wire.  Class
+**A**, cap 50 (33 lines bare).  Consumer: the next cut, where the crown's `S⁽³⁾` step becomes
+one-sided. -/
+theorem hbDataHB_S3_le_S3_window (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
+    (hz : 2 ≤ z) (x : ℕ) :
+    (hbDataHB χ hsq hz x).S3 ≤ S3 χ z (l2cWindow χ z (4 * x + 1)) := by
+  classical
+  have key : ∀ T : Finset ℕ, (∀ k ∈ T, 4 * k + 1 ∈ l2cWindow χ z (4 * x + 1)) →
+      ∑ k ∈ T, LamStar χ z (4 * k + 1) * LamStar χ z (4 * k + 3)
+        ≤ S3 χ z (l2cWindow χ z (4 * x + 1)) := by
+    intro T hT
+    have hinj : Set.InjOn (fun k : ℕ => 4 * k + 1) (T : Set ℕ) := by
+      intro a _ b _ h
+      have h' : 4 * a + 1 = 4 * b + 1 := h
+      omega
+    have himg : ∑ n ∈ T.image (fun k => 4 * k + 1), LamStar χ z n * LamStar χ z (n + 2)
+        = ∑ k ∈ T, LamStar χ z (4 * k + 1) * LamStar χ z (4 * k + 3) :=
+      Finset.sum_image hinj
+    change _ ≤ ∑ n ∈ l2cWindow χ z (4 * x + 1), LamStar χ z n * LamStar χ z (n + 2)
+    rw [← himg]
+    refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun n _ _ =>
+      mul_nonneg (LamStar_nonneg χ hsq z n) (LamStar_nonneg χ hsq z (n + 2)))
+    intro n hn
+    obtain ⟨k, hk, rfl⟩ := Finset.mem_image.mp hn
+    exact hT k hk
+  rw [hbDataHB_S3_eq]
+  refine key _ (fun k hk => ?_)
+  obtain ⟨hk1, hkP⟩ := Finset.mem_filter.mp hk
+  obtain ⟨hkIoc, hkq⟩ := Finset.mem_filter.mp hk1
+  have hodd : ¬ 2 ∣ (4 * k + 1) * (4 * k + 3) := by
+    have hmod : ((4 * k + 1) * (4 * k + 3)) % 2 = 1 := by
+      rw [Nat.mul_mod, show (4 * k + 1) % 2 = 1 from by omega,
+        show (4 * k + 3) % 2 = 1 from by omega]
+    omega
+  exact Finset.mem_filter.mpr ⟨four_mul_add_one_mem_Ioc hkIoc,
+    Nat.Coprime.mul_right hkq (coprime_excPrimorial_of_odd χ hsq z hodd hkq hkP)⟩
+
 end Salt.HB
