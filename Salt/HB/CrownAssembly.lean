@@ -35,6 +35,10 @@ composition wave, the `z` witness (seam S3), N9, N10 and N12 land.  N11 is close
 **S1 — the window is `l2cWindow χ z x`** (chosen in `CrownChain.lean`); the sieve reaches it
 through a second wire `hbDataN8` (the `SieveWire` pattern at this window).  `hbData`
 (`SieveWire.lean`) is SUPERSEDED for the crown path (it stays landed, untouched).
+Since Wave W the CROWN PATH's wire is `hbDataHB` (`CrownWireHB.lean`), Heath-Brown's own
+Lemma 5 instance for the pair `(4k+1, 4k+3)` over the `k`-range, and the crown reaches this
+window from it through the bridge `hbDataHB_S3_le_S3_window`; `hbDataN8` stays landed as the
+collapse record's own object (the sieve is an identity on it) and as N8's wire.
 
 **S2 — ONE `S⁽³⁾`.**  `excPrimorial χ z` is the product of the primes `p < z` with
 `χ_ℝ(p) ≠ −1`, and HB's sifting modulus `hbP` is the product of the primes `2 < p < z` with
@@ -57,7 +61,7 @@ and `hbDataN8_S3_eq` identifies the interface's sifted sum with the star step's
 
 * The VALUES `LL = L′(1,χ)/L(1,χ)` and `kappa` are free parameters here, identified by N9
   with N4's terminals (`(L1)`, `hb_L2_at_split_point_charTrio`).
-* `Lemma5Eval` is an interface: Wave C-2 (row C2-10) PRODUCES it at `H := hbDataN8 …`; the
+* `Lemma5Eval` is an interface: Wave C-2 (row C2-10) PRODUCES it at `H := hbDataHB …`; the
   p.200 rows CONSUME it.  Its constants `CA CA' CC Cerr` are literal parameters — Wave C must
   print them; N8 never writes `≪`.
 * `z` is free with the landed binders carried (`hzt hs` of the sieve, and
@@ -110,7 +114,10 @@ theorem l2cWindow_coprime_hbP (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1)
 /-- **THE N8 WIRE.**  The `HBSieveData` at the N8 window: character `chiReChar χ hsq`,
 modulus `hbP`, `support := l2cWindow χ z x`, `val n = n(n+2)`, `a n = Λ*(n)Λ*(n+2)` with
 HB's Lemma 1 (`LamStar_nonneg`) as `a_nonneg`.  A definition (no obligation).  This supersedes
-`hbData` (`SieveWire.lean`) on the crown path; both are wires, neither is an estimate. -/
+`hbData` (`SieveWire.lean`) on the crown path; both are wires, neither is an estimate.
+⛔ Superseded ON THE CROWN PATH since Wave W by `hbDataHB` (`CrownWireHB.lean`): this window is
+not HB's Lemma 5 instance and the sieve is an identity on it.  Kept landed, untouched, as the
+collapse record's object and as N8's own wire. -/
 noncomputable def hbDataN8 (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ}
     (hz : 2 ≤ z) (x : ℕ) : HBSieveData :=
   HBSieveData.ofHbP (chiReChar χ hsq) (z := (z : ℝ)) (by exact_mod_cast hz)
@@ -1179,7 +1186,8 @@ terminal).  Every `≪` of the paper is a literal parameter: **Wave C-2 (row C2-
 `CA CA' CC Cerr`, nonnegative** (the three `_nonneg` fields are v2's: the Lemma-6 rows demand
 them and the prime-wise bounds cannot supply them when `hbP = 1`), and the `x` is produced by
 the `t`-integration (scout §5), never carried.
-Producer: Wave C-2 at `H := hbDataN8 χ hsq hz x`.  Consumers: `hb_p200_upper`, `hb_p200_lower`. -/
+Producer: Wave C-2 at `H := hbDataHB χ hsq hz x` (Heath-Brown's own instance, since Wave W).
+Consumers: `hb_p200_upper`, `hb_p200_lower`, and their HB siblings in `CrownWireHB.lean`. -/
 structure Lemma5Eval (H : HBSieveData) (α : ℕ) (x L LL kappa C₀ Cerr CA CA' CC : ℝ)
     (A A' : ℕ → ℝ) : Prop where
   CA_nonneg : 0 ≤ CA
@@ -1656,8 +1664,10 @@ so `sRatio > 2` and `hD` gives `log z ≤ L/6`; `hPL : log p ≤ L` for `p ∣ P
 ν_G(d)(LL² + A² + A′ + C₀) + Σ_d λ⁺_d e_d` with `|e_d| ≤ Cerr·x·L⁴/(z·d)·4^{ω(d)}` and
 `|λ_d| ≤ 1`; the main sum is `κ(LL²·S₁′ + S₃′ + S₂′ + C₀·S₁′)`; bound `S₂′ ≤ |S₂| + |S₂′ − S₂|`
 by `moebSum_nuG_mul_additive_le` + `hb_transfer_additive` + `lamSum_nuG_sub_W_bounds`; same
-for `S₃′`.  Consumer: **N9** (`hb_theorem1`, with `kappa := hbKappa χ α x (hbL1 χ z)` and
-`LL` from N4's `(L1)`). -/
+for `S₃′`.  Consumer: **NONE since Wave W** — `hb_theorem1` became a LOWER bound at HB's own
+instance and no longer takes an upper side; this theorem is deliberately orphaned and kept as
+the N8 record's own (it was written for `kappa := hbKappa χ α x (hbL1 χ z)` and `LL` from N4's
+`(L1)`). -/
 theorem hb_p200_upper (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
     (hz : 2 ≤ z) {lam sRatio : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
     (hzt : zThresh lam ≤ (z : ℝ)) (hs : levelE (Lam4 lam (z : ℝ)) ≤ sRatio)
@@ -1686,9 +1696,11 @@ sieve's own threshold `sRatio = levelE Λ₄` the FL factor `flConst·e^{−flRa
 Λ-free constant `2e^{2λ}/(1 − λ²e^{2+2λ}) ≈ 13.82` at `λ = 1/4`, so the bracket is negative
 and the statement, though true, says nothing; it is non-vacuous once
 `sRatio ≥ levelE Λ₄ + log(13.82)/log 4 ≈ levelE Λ₄ + 1.9`, which N9's `s = z₀/3` supplies
-for free but its `hb_theorem1` must CARRY.  Consumer: **N9** (`hb_theorem1` — THIS is the
-sign the door consumes: a LOWER bound on `S⁽³⁾`, hence on `S1 (Ioc x (2x))` through
-`hb_lemma4_l2cWindow`, is what `twinPrimeConjecture_of_frequently_S1` needs). -/
+for free but its `hb_theorem1` must CARRY.  Consumer: **NONE since Wave W** — the crown now
+composes `hb_p200_core` directly at HB's own wire (`hb_p200_lower_HB`, `CrownWireHB.lean`),
+so this theorem is deliberately orphaned and kept as the N8 record's own.  Its SIGN is still
+the one the door consumes: a LOWER bound on `S⁽³⁾`, hence on `S1` through
+`hb_lemma4_l2cWindow`, is what `twinPrimeConjecture_of_frequently_S1` needs. -/
 theorem hb_p200_lower (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
     (hz : 2 ≤ z) {lam sRatio : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
     (hzt : zThresh lam ≤ (z : ℝ)) (hs : levelE (Lam4 lam (z : ℝ)) ≤ sRatio)

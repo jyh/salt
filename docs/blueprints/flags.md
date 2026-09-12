@@ -25220,3 +25220,59 @@ the wrong arm for this consumer at large `k`. Re-cutting a row is the author's a
 never the executor's; this entry is the post.
 
 **RESOLVED 2026-09-09, freeze v4** — the author re-cut `majorant_m1_le` and `majorant_head_le` in place (min-composed: the geometric mean of (7.4)'s two arms carries the `V`-free half, the `K/m²` arm the `V` half) and `hb_lemma10` landed at `eb79d0bc`, sorry-free, three axioms, the frozen statement unmoved — the C-slot now clears `512·L²` uniformly in `k`.
+
+## 2026-09-11 N7Exit Wave W statement re-cut
+⛔⛔ **`N7Exit` (`Salt/HB/CrownTheorem1.lean`) WAS STATED AT DATA THAT IS NOT HEATH-BROWN'S
+LEMMA 5 INSTANCE, AND THREE PUBLIC SURFACES PRINTED HB'S THEOREM 1 AS AN EQUALITY WHOSE
+CONSTANT IS TWICE HARDY–LITTLEWOOD'S.** Nothing landed was unsound and no proof was wrong: the
+defect was in the statements. Re-cut in the same wave as this entry, behind a fence the Captain
+lifted for exactly these acts.
+
+**What was wrong — three things, one wire.** `N7Exit` stated `Lemma5Eval` at `hbDataN8`: support
+`l2cWindow χ z x` (the crown's `n`-window), `val n = n(n+2)`, `a n = Λ*(n)Λ*(n+2)`.
+* **W1 — the sieve is an identity on that wire.** Every element of the support is already coprime
+  to `q · excPrimorial χ z`, so the inner sift removes nothing and `S = 0` identically. The
+  kernel record is `hbDataN8_S_eq_zero` and `lamSum_S_eq_S3`, landed in
+  `Salt/HB/CrownWireHB.lean`. An identity sieve is not a sieve, and it is the upper half of the
+  p.200 bracket that rested on it.
+* **W2 — the main term is one pair's, read against two pairs.** HB applies Lemma 5 (p.195) to a
+  single twin pair `(4k+1, 4k+3)` over the `k`-range `(x, 2x]`, where the mass is
+  `x·𝔖·C(4) = 2𝔖x`. The `n`-window `(X, 2X]` at `X = 4x+1` carries `𝔖X ≈ 4𝔖x` — twice as much.
+  The old equality therefore claimed a constant right for the `k`-sum at a window it does not fit.
+* **W3 — even indices.** HB's normalisation (1.3)–(1.9) is stated at `α = (4,4)`, `β = (1,3)`;
+  even `n` in the `n`-window sit outside it. At the new wire this cannot arise:
+  `(4k+1)(4k+3)` is odd for every `k`, proved at the kernel.
+
+**What moved.** `N7Exit`'s BINDER is byte-unchanged (the 2026-09-08 repair stands); its BODY
+reads `hbDataHB` in place of `hbDataN8` — one token. `hbDataHB` is HB's own instance: support
+`{k ∈ (x, 2x] : ((4k+1)(4k+3), q) = 1}`, `val k = (4k+1)(4k+3)`, `a k = Λ*(4k+1)Λ*(4k+3)`, `κ`
+unchanged at the `k`-range. The crown reaches its window through ONE new inequality,
+`hbDataHB_S3_le_S3_window` (the index map `k ↦ 4k+1`; every discarded crown term is `≥ 0`), so
+`hb_S3_at_hb_point` becomes `hb_S3_lower_at_hb_point` and ONE-SIDED, `hb_theorem1` becomes a
+LOWER BOUND at `X = 4x+1` with `hX' : 4x+1 ≤ q^500` in place of `x ≤ q^500`, `hb_theorem1_lower`
+follows it, and the door's numerals move to `7232 = 64·113` and `X/113` at the witness
+`4·q^250 + 1` — at the corpus's only singular-series bound, `𝔖 ≥ 1/28`, the old `X/28` is FALSE
+at this window, the slack being in the numeral and not in `𝔖`.
+
+**The honesty half.** Three public surfaces stated HB's Theorem 1 as an EQUALITY, conditional on
+the open hypothesis `N7Exit`: the file docstring of `CrownTheorem1.lean`,
+`Σ_{x<n≤2x}Λ(n)Λ(n+2) = 𝔖·C(4)·x·(1 + O(1/log log η))`; `hb_theorem1`,
+`S1 (Ioc x (2x)) = 𝔖·C(4)·x·(1 + δ), |δ| ≤ n9K/log ℓ′`; and `hb_S3_at_hb_point`, headed
+"THE p.200 CLOSING MOVE, BOTH SIGNS". Whether the pre-change conditional was VACUOUS is left
+OPEN by W1; this change resolves it in the right direction, because the hypothesis is now HB's
+own published Lemma 5 instance with the normalisation satisfied. After it the corpus states what
+it proves: a LOWER bound at HB's own instance, which is what the door consumes and all it ever
+needed.
+
+**What did NOT move.** The crown's statement `heathBrownDichotomy_of_N7 : N7Exit … →
+HeathBrownDichotomy` is BYTE-UNCHANGED, and so are its four siblings `crown_handover`,
+`hEngine_of_N7`, `hEngine_poly_of_N7`, `heathBrownDichotomyPoly_of_N7`; `crown_handover_k1`'s
+statement is byte-unchanged and only its door block moves. `hbDataN8` stays landed, untouched, as
+the collapse record's own object and as N8's wire, and `hb_p200_upper`/`hb_p200_lower` stay
+landed and are now deliberately ORPHANED — their docstrings say so. Nothing here is effective and
+nothing bears on twin primes: `N7Exit` is still a hypothesis and the crown is still a dichotomy.
+
+**Found by** the design pass that cut this wave, and every numeral of it re-derived and closed at
+the kernel by a non-author refuter pass before any of it was fired. ⇒ 🔑 **A wire is a statement.**
+The 2026-09-08 entry above repaired the BINDER of this same definition and asked nothing about the
+DATA the binder was quantifying over — and the data was the larger error of the two.

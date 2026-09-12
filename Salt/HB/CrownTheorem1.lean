@@ -51,9 +51,20 @@ HB's Theorem 1 (p.195): for a real primitive `χ` mod `q` with a real zero `β�
 
     Σ_{x < n ≤ 2x} Λ(n)Λ(n+2) = 𝔖·C(4)·x·(1 + O(1/log log η)).
 
-Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the two-sided p.200 bracket (N8's
-`hb_p200_upper/lower` fed by N7's `Lemma5Eval`) + Lemma 7 (N4's `(L1)` two-sided and `(L2)`)
-+ the cancellation `κS₁·(L′/L)² = x𝔖C(α)`, at `z₀ = A·log log η`, `z = q^{1/z₀}`.
+⛔ **WHAT THIS FILE LANDS IS THE LOWER HALF OF THAT, AND AT HB'S OWN INSTANCE (Wave W).**  The
+display above is HB's published statement; since Wave W the corpus states and proves
+
+    (1 − n9K/log ℓ′)·𝔖·C(4)·x  ≤  Σ_{X < n ≤ 2X} Λ(n)Λ(n+2),   X = 4x + 1,
+
+conditionally on `N7Exit`.  The constant `𝔖·C(4) = 2𝔖` is ONE of HB's two twin pairs',
+`(4k+1, 4k+3)`, summed over the `k`-range `(x, 2x]`; the earlier equality read it against the
+`n`-window, whose true mass is `𝔖X`, and its UPPER half rested on a sieve wire on which the
+sieve is an identity.  The lower bound is what the door consumes and all it ever needed.
+
+Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the p.200 bracket's LOWER side at
+HB's own wire (`hb_p200_lower_HB` fed by N7's `Lemma5Eval`) + Lemma 7 (N4's `(L1)` two-sided
+and `(L2)`) + the cancellation `κS₁·(L′/L)² = x𝔖C(α)`, at `z₀ = A·log log η`, `z = q^{1/z₀}`,
+carried to the crown's window by the bridge `hbDataHB_S3_le_S3_window`.
 
 ## What this freeze found at the object (the brief §A carries the receipts)
 
@@ -633,7 +644,7 @@ level: `hbS = L/(3 log z) ∈ [z₀/3.01, z₀/3]` and `levelE Λ₄ ≤ 2/Λ₄
 The last conjunct (the verdict's A4) licenses the corpus's ONLY numeral bound on the FL constant,
 `flConst_quarter_le` (`flConst (1/4) Λ ≤ 14·e^{31}` at `Λ ≥ 1/10`, i.e. `log log z ≥ 1500`):
 `log log z ≥ log(10⁴·L/log ℓ′) ≥ 9.2 + log L − log log ℓ′ ≥ 3·10⁶` via `ηq` + `ellBig`.
-Consumer: `hb_lemma4_at_hb_point`, `hb_S3_at_hb_point`, `hb_L2_at_hb_point`. -/
+Consumer: `hb_lemma4_at_hb_point`, `hb_S3_lower_at_hb_point`, `hb_L2_at_hb_point`. -/
 theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (hR : N9Regime q χ β₀ η)
     {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
     2 ≤ hbZ q η ∧ 100 ^ 16 ≤ hbZ q η ∧ Lwin x ^ 8 ≤ (hbZ q η : ℝ)
@@ -873,7 +884,7 @@ theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (
 /-- **A non-trivial Dirichlet character has modulus `≥ 3`** (the verdict's A9): mod `1` and
 mod `2` the only character is `1` (`(ZMod 2)ˣ` is trivial).  Class **A**, cap 30.
 Consumers: `noSiegelZerosPoly_mono` (`log q ≥ 1`), and — since the 2026-09-08 `N7Exit` repair —
-`hb_S3_at_hb_point`, which supplies `N7Exit`'s `3 ≤ q` from `N9Regime.ne`.
+`hb_S3_lower_at_hb_point`, which supplies `N7Exit`'s `3 ≤ q` from `N9Regime.ne`.
 *(MOVED here from §5 by that repair, unchanged in statement and proof: it needs nothing but
 mathlib, and its new consumer sits ~5,500 lines above where this theorem used to.)* -/
 theorem three_le_of_ne_one [NeZero q] (χ : DirichletCharacter ℂ q) (hne : χ ≠ 1) : 3 ≤ q := by
@@ -898,7 +909,7 @@ with `Λ₄ ≥ 1/10` (conjunct 11);
 `levelE Λ = 2e^Λ/(e^Λ − 1) > 0` at `Λ > 0`, so `hbS ≥ 2`, and `log z ≥ 0` from `z ≥ 33`.
 ⚠️ The regime's `z` is FAR below `q^{1/3}` — `hbS ≥ 99` — so this is slack, not a constraint;
 it is stated because HB's Lemma 5 states it and the exit must not be broader than the lemma.
-Consumers: `hb_S3_at_hb_point` (the one site that instantiates `N7Exit`'s ∀). -/
+Consumers: `hb_S3_lower_at_hb_point` (the one site that instantiates `N7Exit`'s ∀). -/
 private lemma n9_z_cube [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
     3 * Real.log (hbZ q η : ℝ) ≤ Real.log q := by
@@ -1678,7 +1689,7 @@ two antecedents paid — the `ell`-FREE entry point (`hσ'r : √ell/Lp ≤ r0/2
 `ell = ℓ′`: `ℓ′ ≥ 680²(1 + 1.39/L)²`, inside `n9E0`).  ⛔ NOT `hb_L1_one_sided`
 (`Lemma7L.lean:231`): it hard-wires `ell := log η` in its rate AND its `hSinvC`, and
 `log η/ℓ′ = 1 + (13·log L + 86)/ℓ′` is UNBOUNDED in the regime (fix `ℓ′`, let `q` grow), so
-`sinv_ball`'s `ℓ′`-scale bound cannot feed it.  Consumer: `hb_S3_at_hb_point`. -/
+`sinv_ball`'s `ℓ′`-scale bound cannot feed it.  Consumer: `hb_S3_lower_at_hb_point`. -/
 theorem hb_L1_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) :
     η * Real.log q - (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) ≤ hbLL χ := by
@@ -1906,7 +1917,7 @@ theorem neg_re_logDeriv_differenced_mult_ge {Lf : ℂ → ℂ} {Z : Finset ℂ} 
 (`hb_L1_one_sided` is the lower side only), REQUIRED by N9 twice: for `B = L + |LL|` in the
 `n8C6·B·L` error of BOTH p.200 rows, and for Theorem 1's upper half.  Class **B**, cap 200: the
 mirror of `hb_L1_lower_at_hb_point` on `neg_re_logDeriv_differenced_mult_ge`.
-Consumer: `hb_S3_at_hb_point`. -/
+Consumer: `hb_S3_lower_at_hb_point`. -/
 theorem hb_L1_upper_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) :
     hbLL χ ≤ η * Real.log q + (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) := by
@@ -3967,7 +3978,7 @@ plus the B3 tail's constant slot (`cT`, `≤ 1/100`; the unit budget goes `0.527
 `Eseg`'s `segC/log z` (the `e^{merC+segC}`-part of `n9E0`, with `L ≥ e^{401}ℓ′`), `2·64/z`.
 Class **C**, cap 500 (the ledger is the risk).  The `δ`-bound's shape: `log ℓ′/√ℓ′` from the
 kill (`L/log z ≤ z₀ = A·log ℓ′`), `1/√L` from `Etail`; the Mertens terms sit under the `1/√L`
-shape with room `e^{401}`.  Consumer: `hb_S3_at_hb_point`. -/
+shape with room `e^{401}`.  Consumer: `hb_S3_lower_at_hb_point`. -/
 theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
     ∃ δ : ℝ,

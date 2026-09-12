@@ -571,6 +571,27 @@ consumers.  Record and full refutation: `docs/blueprints/flags.md`, entry `2026-
 ⇒ 🔑 ***A UNIFORM CONSTANT'S OWN PROPERTIES BELONG OUTSIDE THE BINDER THAT RANGES OVER
 INSTANCES*** — carried inside, a sign is reachable only through an instantiation, and that is how
 a false statement came to be load-bearing three theorems downstream.
+
+⛔⛔ **RE-STAMPED A THIRD TIME 2026-09-11 (Wave W) — `N7Exit`'S STATEMENT MOVED AGAIN, THIS TIME
+BECAUSE ITS DATA WAS NOT HEATH-BROWN'S LEMMA 5 INSTANCE.**  The 2026-09-08 re-stamp repaired the
+BINDER; this one moves the WIRE the binder's `Lemma5Eval` is stated at.  `N7Exit`'s body reads
+`hbDataHB` in place of `hbDataN8` — ONE token — where `hbDataHB` (`Salt/HB/CrownWireHB.lean`) is
+HB's own instance for the pair `(4k+1, 4k+3)` over the `k`-range `(x, 2x]`, with the
+normalisation (1.3)–(1.9) satisfied at `α = (4,4)`, `β = (1,3)`.  Three defects of the old wire
+close together: the sieve was an IDENTITY on it (the kernel record in `CrownWireHB.lean`); its
+main term `x𝔖C(4) = 2𝔖x` is ONE pair's mass over the `k`-range and was being read against a
+two-pair `n`-window; and even `n` sat outside HB's normalisation.  Consequences below, all
+registered: **`hb_S3_at_hb_point` is RENAMED `hb_S3_lower_at_hb_point` and is ONE-SIDED** (the
+equality's upper half went with the retired wire); **`hb_theorem1` is a LOWER BOUND at the
+window `X = 4x+1`** the bridge `hbDataHB_S3_le_S3_window` lands in, and takes
+`hX' : 4x+1 ≤ q^500` in place of `x ≤ q^500`; `hb_theorem1_lower` follows it; and
+`crown_handover_k1`'s STATEMENT is byte-unchanged while its door block moves to the witness
+`4·q^250 + 1` and the numerals `7232 = 64·113`, `X/113`.  **The crown's own statement
+`heathBrownDichotomy_of_N7 : N7Exit … → HeathBrownDichotomy` is BYTE-UNCHANGED**, as are the
+five `N7Exit` consumers that do not read the wire.  The two re-stamps above stand as dated
+records of what moved when.  ⇒ After Wave W the corpus carries HB's Theorem 1 as a LOWER BOUND
+ONLY, at HB's own instance, and the public docstrings say so.  Record: `docs/blueprints/flags.md`,
+entry `2026-09-11 N7Exit Wave W statement re-cut`.
 -/
 
 section N9
@@ -625,7 +646,7 @@ open Salt.Tactic
 #audit_axioms Salt.HB.card_divisors_le_rpow_explicit
 #audit_axioms Salt.HB.hb_lemma4_at_hb_point
 #audit_axioms Salt.HB.n9K3
-#audit_axioms Salt.HB.hb_S3_at_hb_point
+#audit_axioms Salt.HB.hb_S3_lower_at_hb_point
 #audit_axioms Salt.HB.hb_theorem1
 #audit_axioms Salt.HB.hb_theorem1_lower
 #audit_axioms Salt.HB.FulcrumQualityPoly
