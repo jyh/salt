@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
+import Salt.HB.CrownWireHB
 import Salt.HB.MOne
 import Salt.HB.Lemma7Prod
 import Salt.HB.Lemma7EF
@@ -50,9 +51,20 @@ HB's Theorem 1 (p.195): for a real primitive `χ` mod `q` with a real zero `β�
 
     Σ_{x < n ≤ 2x} Λ(n)Λ(n+2) = 𝔖·C(4)·x·(1 + O(1/log log η)).
 
-Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the two-sided p.200 bracket (N8's
-`hb_p200_upper/lower` fed by N7's `Lemma5Eval`) + Lemma 7 (N4's `(L1)` two-sided and `(L2)`)
-+ the cancellation `κS₁·(L′/L)² = x𝔖C(α)`, at `z₀ = A·log log η`, `z = q^{1/z₀}`.
+⛔ **WHAT THIS FILE LANDS IS THE LOWER HALF OF THAT, AND AT HB'S OWN INSTANCE (Wave W).**  The
+display above is HB's published statement; since Wave W the corpus states and proves
+
+    (1 − n9K/log ℓ′)·𝔖·C(4)·x  ≤  Σ_{X < n ≤ 2X} Λ(n)Λ(n+2),   X = 4x + 1,
+
+conditionally on `N7Exit`.  The constant `𝔖·C(4) = 2𝔖` is ONE of HB's two twin pairs',
+`(4k+1, 4k+3)`, summed over the `k`-range `(x, 2x]`; the earlier equality read it against the
+`n`-window, whose true mass is `𝔖X`, and its UPPER half rested on a sieve wire on which the
+sieve is an identity.  The lower bound is what the door consumes and all it ever needed.
+
+Its proof (p.200) is Lemma 4 (N8's `hb_lemma4_l2cWindow`) + the p.200 bracket's LOWER side at
+HB's own wire (`hb_p200_lower_HB` fed by N7's `Lemma5Eval`) + Lemma 7 (N4's `(L1)` two-sided
+and `(L2)`) + the cancellation `κS₁·(L′/L)² = x𝔖C(α)`, at `z₀ = A·log log η`, `z = q^{1/z₀}`,
+carried to the crown's window by the bridge `hbDataHB_S3_le_S3_window`.
 
 ## What this freeze found at the object (the brief §A carries the receipts)
 
@@ -442,6 +454,22 @@ structure N9Regime (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (β₀ �
 at the N8 wire with UNIFORM `Cerr CA CA' CC` and per-instance `C₀ A A'`; `LL` and `κ` are the two
 seams above.  A HYPOTHESIS of every row from T1 on, until Wave C lands.
 
+⛔⛔ **RESTATED AGAIN 2026-09-11 (Wave W) — THE DATA WAS NOT HEATH-BROWN'S OWN INSTANCE.**  The
+binder above is byte-unchanged; what moved is the DATA the `Lemma5Eval` is stated at,
+`hbDataN8 → hbDataHB`.  `hbDataN8` sifts the crown's `n`-window `l2cWindow χ z x` at
+`val n = n(n+2)`; HB applies Lemma 5 (p.195) to ONE of the two twin pairs, `(4k+1, 4k+3)`, over
+the `k`-range `(x, 2x]`, with the normalisation (1.3)–(1.9) at `α = (4,4)`, `β = (1,3)`.  Three
+things were wrong at the old wire and are fixed by the move: **the sieve was an IDENTITY on it**
+(the kernel record `hbDataN8_S_eq_zero`/`lamSum_S_eq_S3` in `Salt/HB/CrownWireHB.lean`); **the main
+term** `x·𝔖·C(4) = 2𝔖x` is ONE pair's mass over the `k`-range and was being read against a
+two-pair `n`-window; and **even `n`** sat outside HB's normalisation — impossible at the new wire,
+where `(4k+1)(4k+3)` is odd for every `k`.  `κ` is unchanged and its `x` is the `k`-range.
+**The crown consumes this through ONE new inequality**, `hbDataHB_S3_le_S3_window` (the index map
+`k ↦ 4k+1`; every discarded crown term is `≥ 0`), which is why `hb_S3_lower_at_hb_point` is
+ONE-SIDED and `hb_theorem1` is a LOWER bound at the window `X = 4x+1`.  The statement is the design
+pass's, frozen before this wave fired, and the Captain lifted the N7 fence for this wave and for
+nothing else.  Record: `docs/blueprints/flags.md`.
+
 ⛔⛔ **REPAIRED 2026-09-08 — THE PREVIOUS SPELLING WAS FALSE, NOT MERELY BROAD.**  Until this
 commit the binder read
 `∀ q [NeZero q] (χ) (hsq : χ ^ 2 = 1) {z} (hz : 2 ≤ z) (x : ℕ), …`
@@ -476,9 +504,10 @@ OUTSIDE THE BINDER THAT RANGES OVER INSTANCES.***  Wave C-2 pays for them once, 
 the constants, and no consumer needs an instance to learn a sign.
 
 📌 **What the repair costs the two real consumers: nothing they did not already have.**
-`hb_S3_at_hb_point` and `hb_theorem1` both bind `hx`/`hx'` themselves, take `prim` and `ne` from
-`N9Regime`, and get `3·log z ≤ log q` from `n9_z_cube` (the regime's `z` sits at `hbS ≥ 99`, far
-inside `q^{1/3}`).  After the repair only **one** theorem instantiates this ∀ at all. -/
+`hb_S3_lower_at_hb_point` and `hb_theorem1` both bind `hx`/`hx'` themselves, take `prim` and
+`ne` from `N9Regime`, and get `3·log z ≤ log q` from `n9_z_cube` (the regime's `z` sits at
+`hbS ≥ 99`, far inside `q^{1/3}`).  After the repair only **one** theorem instantiates this ∀
+at all. -/
 def N7Exit (Cerr CA CA' CC : ℝ) : Prop :=
   (0 ≤ Cerr ∧ 0 ≤ CA ∧ 0 ≤ CA' ∧ 0 ≤ CC) ∧
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
@@ -487,7 +516,7 @@ def N7Exit (Cerr CA CA' CC : ℝ) : Prop :=
         3 * Real.log (z : ℝ) ≤ Real.log (q : ℝ) →
         ∀ x : ℕ, (q : ℝ) ^ 250 ≤ (x : ℝ) → (x : ℝ) ≤ (q : ℝ) ^ 500 →
           ∃ (C₀ : ℝ) (A A' : ℕ → ℝ),
-            Lemma5Eval (hbDataN8 χ hsq hz x) 4 x (Real.log q) (hbLL χ) (hbKappaN9 χ x z)
+            Lemma5Eval (hbDataHB χ hsq hz x) 4 x (Real.log q) (hbLL χ) (hbKappaN9 χ x z)
               C₀ Cerr CA CA' CC A A'
 
 /-- **The constant of Theorem 1** — a CEILING in the four N7 constants and `n9Cs`; the `2^40`
@@ -615,7 +644,7 @@ level: `hbS = L/(3 log z) ∈ [z₀/3.01, z₀/3]` and `levelE Λ₄ ≤ 2/Λ₄
 The last conjunct (the verdict's A4) licenses the corpus's ONLY numeral bound on the FL constant,
 `flConst_quarter_le` (`flConst (1/4) Λ ≤ 14·e^{31}` at `Λ ≥ 1/10`, i.e. `log log z ≥ 1500`):
 `log log z ≥ log(10⁴·L/log ℓ′) ≥ 9.2 + log L − log log ℓ′ ≥ 3·10⁶` via `ηq` + `ellBig`.
-Consumer: `hb_lemma4_at_hb_point`, `hb_S3_at_hb_point`, `hb_L2_at_hb_point`. -/
+Consumer: `hb_lemma4_at_hb_point`, `hb_S3_lower_at_hb_point`, `hb_L2_at_hb_point`. -/
 theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (hR : N9Regime q χ β₀ η)
     {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
     2 ≤ hbZ q η ∧ 100 ^ 16 ≤ hbZ q η ∧ Lwin x ^ 8 ≤ (hbZ q η : ℝ)
@@ -855,7 +884,7 @@ theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (
 /-- **A non-trivial Dirichlet character has modulus `≥ 3`** (the verdict's A9): mod `1` and
 mod `2` the only character is `1` (`(ZMod 2)ˣ` is trivial).  Class **A**, cap 30.
 Consumers: `noSiegelZerosPoly_mono` (`log q ≥ 1`), and — since the 2026-09-08 `N7Exit` repair —
-`hb_S3_at_hb_point`, which supplies `N7Exit`'s `3 ≤ q` from `N9Regime.ne`.
+`hb_S3_lower_at_hb_point`, which supplies `N7Exit`'s `3 ≤ q` from `N9Regime.ne`.
 *(MOVED here from §5 by that repair, unchanged in statement and proof: it needs nothing but
 mathlib, and its new consumer sits ~5,500 lines above where this theorem used to.)* -/
 theorem three_le_of_ne_one [NeZero q] (χ : DirichletCharacter ℂ q) (hne : χ ≠ 1) : 3 ≤ q := by
@@ -880,7 +909,7 @@ with `Λ₄ ≥ 1/10` (conjunct 11);
 `levelE Λ = 2e^Λ/(e^Λ − 1) > 0` at `Λ > 0`, so `hbS ≥ 2`, and `log z ≥ 0` from `z ≥ 33`.
 ⚠️ The regime's `z` is FAR below `q^{1/3}` — `hbS ≥ 99` — so this is slack, not a constraint;
 it is stated because HB's Lemma 5 states it and the exit must not be broader than the lemma.
-Consumers: `hb_S3_at_hb_point` (the one site that instantiates `N7Exit`'s ∀). -/
+Consumers: `hb_S3_lower_at_hb_point` (the one site that instantiates `N7Exit`'s ∀). -/
 private lemma n9_z_cube [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
     3 * Real.log (hbZ q η : ℝ) ≤ Real.log q := by
@@ -1660,7 +1689,7 @@ two antecedents paid — the `ell`-FREE entry point (`hσ'r : √ell/Lp ≤ r0/2
 `ell = ℓ′`: `ℓ′ ≥ 680²(1 + 1.39/L)²`, inside `n9E0`).  ⛔ NOT `hb_L1_one_sided`
 (`Lemma7L.lean:231`): it hard-wires `ell := log η` in its rate AND its `hSinvC`, and
 `log η/ℓ′ = 1 + (13·log L + 86)/ℓ′` is UNBOUNDED in the regime (fix `ℓ′`, let `q` grow), so
-`sinv_ball`'s `ℓ′`-scale bound cannot feed it.  Consumer: `hb_S3_at_hb_point`. -/
+`sinv_ball`'s `ℓ′`-scale bound cannot feed it.  Consumer: `hb_S3_lower_at_hb_point`. -/
 theorem hb_L1_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) :
     η * Real.log q - (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) ≤ hbLL χ := by
@@ -1888,7 +1917,7 @@ theorem neg_re_logDeriv_differenced_mult_ge {Lf : ℂ → ℂ} {Z : Finset ℂ} 
 (`hb_L1_one_sided` is the lower side only), REQUIRED by N9 twice: for `B = L + |LL|` in the
 `n8C6·B·L` error of BOTH p.200 rows, and for Theorem 1's upper half.  Class **B**, cap 200: the
 mirror of `hb_L1_lower_at_hb_point` on `neg_re_logDeriv_differenced_mult_ge`.
-Consumer: `hb_S3_at_hb_point`. -/
+Consumer: `hb_S3_lower_at_hb_point`. -/
 theorem hb_L1_upper_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) :
     hbLL χ ≤ η * Real.log q + (1606 + 8 * n9Cs) * (Real.log q / Real.sqrt (n9Ell q η)) := by
@@ -3949,7 +3978,7 @@ plus the B3 tail's constant slot (`cT`, `≤ 1/100`; the unit budget goes `0.527
 `Eseg`'s `segC/log z` (the `e^{merC+segC}`-part of `n9E0`, with `L ≥ e^{401}ℓ′`), `2·64/z`.
 Class **C**, cap 500 (the ledger is the risk).  The `δ`-bound's shape: `log ℓ′/√ℓ′` from the
 kill (`L/log z ≤ z₀ = A·log ℓ′`), `1/√L` from `Etail`; the Mertens terms sit under the `1/√L`
-shape with room `e^{401}`.  Consumer: `hb_S3_at_hb_point`. -/
+shape with room `e^{401}`.  Consumer: `hb_S3_lower_at_hb_point`. -/
 theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500) :
     ∃ δ : ℝ,
@@ -5396,30 +5425,39 @@ private lemma n9_singular_ge : (1 : ℝ) / 28 ≤ Salt.HardyLittlewood.twinSingu
 set_option maxHeartbeats 2000000 in
 -- The p.200 sandwich composed with `(L2)`, `(L1)` and the FL/sieve-error rows: one ledger
 -- over a context of ~120 facts, with four opaque N7 constants carried symbolically.
-/-- **THE p.200 CLOSING MOVE, BOTH SIGNS: `S⁽³⁾ = x𝔖C(4)·(1 + δ₃)`.**  Class **C**, cap 500.
-Red-first: `hb_p200_upper/lower` at `hbZ_packet`'s binders, `lam := 1/4`, `sRatio := hbS`,
-`kappa := hbKappaN9`, `LL := hbLL`, plus the two side conditions they demand that v1 omitted:
-`hPα : Nat.Coprime (hbDataN8 …).P 4` (from `HBSieveData.P_odd`) and `hκ : 0 ≤ hbKappaN9 χ x z`
-(no landed `hbKappa_nonneg`; build it from `hbWfac_pos`, `Lemma7Kappa.lean:307`, and the
-multipliability at `:330`) — ~40 ln of the cap; `hbS1_eq_W` turns `κ·W` into `(L2)`'s left side
-(`hb_L2_at_hb_point`); the two `(L1)` sides bound `LL² = (ηL)²(1 ± 2(1606+8n9Cs)/(η√ℓ′) + …)` —
+/-- **THE p.200 CLOSING MOVE, THE LOWER HALF AT HEATH-BROWN'S OWN WIRE:**
+`(1 − n9K3·shapes)·x𝔖C(4) ≤ S⁽³⁾ χ z (l2cWindow χ z (4x+1))`.  Class **C**, cap 500.
+⛔ **ONE-SIDED SINCE WAVE W, AND THAT IS THE HONEST STATEMENT.**  Until Wave W this row read
+`S⁽³⁾ = x𝔖C(4)·(1 + δ₃)` — an equality, both signs, at the retired wire and the window `x`.
+Its UPPER half rested on `hb_p200_upper` at a wire on which the sieve is an identity (the
+kernel record in `Salt/HB/CrownWireHB.lean`), and `x𝔖C(4) = 2𝔖x` is ONE twin pair's mass over
+the `k`-range, not the `n`-window's.  What survives — and what the door consumes — is the
+LOWER half at HB's own Lemma 5 instance `hbDataHB`, carried to the crown's window by the bridge.
+Red-first: `hb_p200_lower_HB` at `hbZ_packet`'s binders, `lam := 1/4`, `sRatio := hbS`,
+`kappa := hbKappaN9`, `LL := hbLL`, plus the two side conditions it demands:
+`hPα : Nat.Coprime (hbDataHB …).P 4` (from `HBSieveData.P_odd`) and `hκ : 0 ≤ hbKappaN9 χ x z`
+(no landed `hbKappa_nonneg`; built from `hbWfac_pos`, `Lemma7Kappa.lean:307`, and the
+multipliability at `:330`); `hbS1_eq_W_HB` turns `κ·W` into `(L2)`'s left side
+(`hb_L2_at_hb_point`); the `(L1)` sides bound `LL² = (ηL)²(1 ± 2(1606+8n9Cs)/(η√ℓ′) + …)` —
 the RELATIVE deviation is `η` times smaller than `1/√ℓ′` and belongs under the `1/η` shape —
 and `B = L + |LL| ≤ 3ηL` (`η ≥ 2`); `n8ErrSum_le` prices the sieve error
 `Cerr·x·L⁴/z·e^{4·mertens2C}(log z)⁴ ≤ x/z₀` (`e^{67.6}` against `log z ≥ 10⁴L/log ℓ′`); the
 FL term `flConst(1/4)(Λ₄ z)·4^{−hbS}` with `flConst (1/4) (Lam4 (1/4) z) ≤ 14·e^{31}` by
 `flConst_quarter_le` at the packet's last conjunct (`Λ₄ ≥ 1/10`); the `n8C6·B·L` term is
 `≤ 3n8C6/η` relative; `CC ≥ 0` is NOT a `Lemma5Eval` field — derive it from `C₀_le` at
-`L > 0` before using `n8C6 ≥ 0` / `n9K3 > 0`.  Every relative error is one of the four shapes in
-the bound (verified exhaustive, K9).  Consumer: `hb_theorem1`. -/
-theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+`L > 0` before using `n8C6 ≥ 0` / `n9K3 > 0`.  Every relative error is one of the four shapes
+in the bound (verified exhaustive, K9).  **THE BRIDGE:** `hb_p200_lower_HB` lands at
+`(hbDataHB …).S3`, a sum over `k ∈ (x, 2x]`; `hbDataHB_S3_le_S3_window` carries it to
+`S3 χ z (l2cWindow χ z (4x+1))` through `k ↦ 4k+1`, every discarded term `≥ 0`.
+Consumer: `hb_theorem1`. -/
+theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500)
     {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    ∃ δ₃ : ℝ,
-      S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)
-        = (1 + δ₃) * ((x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4)
-      ∧ |δ₃| ≤ n9K3 Cerr CA CA' CC
-          * (Real.log (n9Ell q η) / Real.sqrt (n9Ell q η) + 1 / Real.sqrt (Real.log q)
-              + 1 / η + Real.exp (-(Real.log 4) * hbS q η)) := by
+    (1 - n9K3 Cerr CA CA' CC
+        * (Real.log (n9Ell q η) / Real.sqrt (n9Ell q η) + 1 / Real.sqrt (Real.log q)
+            + 1 / η + Real.exp (-(Real.log 4) * hbS q η)))
+      * ((x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4)
+      ≤ S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) (4 * x + 1)) := by
   obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
   obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
   obtain ⟨hz0pos, hz0ge, hWbig, hWle, hlogzge, hlogzle⟩ := n9_scale hR
@@ -5556,17 +5594,17 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     simp only [hbKappaN9, hbKappa]
     exact mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg hx0
       (sq_nonneg (hbL1 χ ((hbZ q η : ℝ) - 1)))) hp1) hp2) htail.le
-  have hPα : Nat.Coprime (hbDataN8 χ hR.sq hz2 x).P 4 := by
-    have hPodd := (hbDataN8 χ hR.sq hz2 x).P_odd
-    have hPsf := (hbDataN8 χ hR.sq hz2 x).P_squarefree
-    have h2 : ¬ (2 ∣ (hbDataN8 χ hR.sq hz2 x).P) := by
+  have hPα : Nat.Coprime (hbDataHB χ hR.sq hz2 x).P 4 := by
+    have hPodd := (hbDataHB χ hR.sq hz2 x).P_odd
+    have hPsf := (hbDataHB χ hR.sq hz2 x).P_squarefree
+    have h2 : ¬ (2 ∣ (hbDataHB χ hR.sq hz2 x).P) := by
       intro hdvd
       exact hPodd 2 (Nat.mem_primeFactors.mpr ⟨Nat.prime_two, hdvd, hPsf.ne_zero⟩) rfl
-    have hcop2 : Nat.Coprime (hbDataN8 χ hR.sq hz2 x).P 2 :=
+    have hcop2 : Nat.Coprime (hbDataHB χ hR.sq hz2 x).P 2 :=
       Nat.coprime_comm.mp ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr h2)
     rw [show (4 : ℕ) = 2 ^ 2 by norm_num]
     exact Nat.Coprime.pow_right 2 hcop2
-  -- the two p.200 sides
+  -- the p.200 lower side, at HB's own wire
   have hlev' : levelE (Lam4 (1 / 4) ((hbZ q η : ℕ) : ℝ)) ≤ hbS q η := by linarith only [hlev]
   have hL3 : (3 : ℝ) ≤ Real.log q := by linarith only [hLhuge]
   -- N7's exit at HB Lemma 5's OWN hypotheses (the 2026-09-08 repair): `3 ≤ q` from the regime's
@@ -5574,14 +5612,12 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   -- this theorem's own `hx`/`hx'`.
   obtain ⟨C₀, Afun, A'fun, hL5⟩ :=
     hN7.2 q χ (three_le_of_ne_one χ hR.ne) hR.prim hR.sq hz2 (n9_z_cube hR hx hx') x hx hx'
-  have hup := hb_p200_upper χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
-    (by norm_num) (by norm_num) hzt hlev' hL3 hD hPα hκ hL5
-  have hlo := hb_p200_lower χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
+  have hlo := hb_p200_lower_HB χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
     (by norm_num) (by norm_num) hzt hlev' hL3 hD hPα hκ hL5
   -- `κ·W` from `(L2)`
   obtain ⟨δ, hδeq, hδle⟩ := hb_L2_at_hb_point hR hx hx'
-  have hS1W : hbS1 χ 4 ((hbZ q η : ℝ) - 1) = W (hbDataN8 χ hR.sq hz2 x).sieve :=
-    hbS1_eq_W χ hR.sq hz2 x (by norm_num) (fun p hp hpd => by
+  have hS1W : hbS1 χ 4 ((hbZ q η : ℝ) - 1) = W (hbDataHB χ hR.sq hz2 x).sieve :=
+    hbS1_eq_W_HB χ hR.sq hz2 x (by norm_num) (fun p hp hpd => by
       have hd2 : p ∣ 2 := hp.dvd_of_dvd_pow (n := 2) (by norm_num at hpd ⊢; exact hpd)
       exact (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp hd2)
   rw [hS1W] at hδeq
@@ -5601,7 +5637,7 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     nlinarith only [n9_singular_ge, hxpos]
   have hTpos : (0 : ℝ) < T := by linarith only [hT14, hxpos]
   have hP2pos : (0 : ℝ) < (η * Real.log q) ^ 2 := by positivity
-  have hKWP2 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+  have hKWP2 : hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
       * (η * Real.log q) ^ 2 = (1 + δ) * T := by
     rw [hδeq, ← hTdef]
     field_simp
@@ -5769,17 +5805,17 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
       nlinarith only [pow_nonneg hL.le 10]
     linarith only [h20, h4, h5, h6]
   have hErr : Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ)
-        * n8ErrSum (hbDataN8 χ hR.sq hz2 x).P
+        * n8ErrSum (hbDataHB χ hR.sq hz2 x).P
       ≤ T * (Cerr * Real.exp 300 * SB) := by
-    have hPz : ∀ p ∈ (hbDataN8 χ hR.sq hz2 x).P.primeFactors, p ≤ hbZ q η := by
+    have hPz : ∀ p ∈ (hbDataHB χ hR.sq hz2 x).P.primeFactors, p ≤ hbZ q η := by
       intro p hp
-      have h := (hbDataN8 χ hR.sq hz2 x).P_lt_z p hp
+      have h := (hbDataHB χ hR.sq hz2 x).P_lt_z p hp
       have h2 : (p : ℝ) < ((hbZ q η : ℕ) : ℝ) := h
       exact_mod_cast le_of_lt (by exact_mod_cast h2)
-    have hn8E := n8ErrSum_le _ (hbDataN8 χ hR.sq hz2 x).P_squarefree hz2 hPz
+    have hn8E := n8ErrSum_le _ (hbDataHB χ hR.sq hz2 x).P_squarefree hz2 hPz
     have hexp4m : Real.exp (4 * mertens2C) ≤ Real.exp 72 :=
       Real.exp_le_exp.mpr (by linarith only [hmert])
-    have hn8E' : n8ErrSum (hbDataN8 χ hR.sq hz2 x).P
+    have hn8E' : n8ErrSum (hbDataHB χ hR.sq hz2 x).P
         ≤ Real.exp 72 * Real.log q ^ 4 := by
       have h1 : Real.log (hbZ q η : ℝ) ^ 4 ≤ Real.log q ^ 4 :=
         pow_le_pow_left₀ hlogZpos.le hlogZL 4
@@ -5787,7 +5823,7 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
         Real.exp_pos (72 : ℝ)]
     have hfac : (0 : ℝ) ≤ Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ) := by positivity
     have hstep : Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ)
-          * n8ErrSum (hbDataN8 χ hR.sq hz2 x).P
+          * n8ErrSum (hbDataHB χ hR.sq hz2 x).P
         ≤ Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ) * (Real.exp 72 * Real.log q ^ 4) :=
       mul_le_mul_of_nonneg_left hn8E' hfac
     have hSBL10 : Real.log q ^ 9 ≤ SB * Real.log q ^ 10 := by
@@ -5903,14 +5939,9 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have hp2 : (0 : ℝ) ≤ Real.exp 300 * (1 + n9Cs) * n8C6 CA CA' CC := mul_nonneg hp1 hn8C60
     linarith only [hK3big, hp1, hp2]
   -- the sieve/`W` positivity and the two brackets
-  have hWpos : 0 < W (hbDataN8 χ hR.sq hz2 x).sieve := W_pos _
-  have hKW0 : 0 ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve :=
+  have hWpos : 0 < W (hbDataHB χ hR.sq hz2 x).sieve := W_pos _
+  have hKW0 : 0 ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve :=
     mul_nonneg hκ hWpos.le
-  have hδ1 : 0 ≤ 1 + δ := by
-    have h0 : (0 : ℝ) ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
-        * (η * Real.log q) ^ 2 := mul_nonneg hKW0 hP2pos.le
-    rw [hKWP2] at h0
-    nlinarith only [h0, hTpos]
   have hSCP2 : SC * (η * Real.log q) ^ 2 = η * Real.log q ^ 2 := by
     rw [hSCdef]; field_simp
   have hSC1 : SC ≤ 1 := by
@@ -5927,9 +5958,6 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
         = 3 * (n8C6 CA CA' CC) * (SC * (η * Real.log q) ^ 2) by ring, hSCP2]
       ring
     linarith only [h2, h4]
-  have hbrkU : hbLL χ ^ 2 + n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q
-      ≤ (1 + (3 * u + 3 * (n8C6 CA CA' CC) * SC)) * (η * Real.log q) ^ 2 := by
-    nlinarith only [hLLsq_hi, hn8SC, hSCP2]
   have hbrkL : (1 - (2 * u + FC * E + 6 * (n8C6 CA CA' CC) * SC)) * (η * Real.log q) ^ 2
       ≤ hbLL χ ^ 2 * (1 - FC * E)
         - n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q * (1 + FC * E) := by
@@ -5945,22 +5973,15 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
       mul_nonneg (mul_nonneg hu0 hFE0) hP2pos.le
     nlinarith only [h1, h2, h5, hFE0, hP2pos, hFCE1]
   -- the ledger, in `T`-units
-  rw [← hFCdef, ← hEdef] at hup hlo
-  obtain ⟨a, hadef⟩ : ∃ a : ℝ, a = 1 / 4 * FC * E := ⟨_, rfl⟩
-  obtain ⟨b, hbdef⟩ : ∃ b : ℝ, b = 3 * u + 3 * (n8C6 CA CA' CC) * SC := ⟨_, rfl⟩
+  rw [← hFCdef, ← hEdef] at hlo
   obtain ⟨cl, hcldef⟩ : ∃ cl : ℝ, cl = 2 * u + FC * E + 6 * (n8C6 CA CA' CC) * SC := ⟨_, rfl⟩
   obtain ⟨M, hMdef⟩ : ∃ M : ℝ, M = n9K3 Cerr CA CA' CC * (SA + SB + SC + SD) := ⟨_, rfl⟩
-  rw [← hadef] at hup
   have hd0 : (0 : ℝ) ≤ |δ| := abs_nonneg δ
   have hdub : δ ≤ |δ| := le_abs_self δ
   have hdlb : -|δ| ≤ δ := neg_abs_le δ
   have hSCn : (0 : ℝ) ≤ SC := hSC0.le
   have hecSC : (0 : ℝ) ≤ ec * SC := mul_nonneg hec0.le hSCn
   have hn8SCn : (0 : ℝ) ≤ n8C6 CA CA' CC * SC := mul_nonneg hn8C60 hSCn
-  have ha0 : (0 : ℝ) ≤ a := by rw [hadef]; positivity
-  have ha1 : a ≤ 1 / 4 := by rw [hadef]; nlinarith only [hFCE1, hFC0, hE0]
-  have hb0 : (0 : ℝ) ≤ b := by
-    rw [hbdef]; have := hSC0.le; positivity
   have hcl0 : (0 : ℝ) ≤ cl := by
     rw [hcldef]; have := hSC0.le; have := (mul_pos hFC0 hE0).le; positivity
   have hK3AB : (9 + 9 * n8C6 CA CA' CC) * (Real.exp 260 * ec) + Cerr * Real.exp 300
@@ -5981,28 +6002,11 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   have hδec2 : |δ| ≤ Real.exp 260 * ec * (SA + SB) := by
     have hn9K2ec : n9K2 = Real.exp 260 * ec := by rw [n9K2, hecdef]
     rw [← hn9K2ec]; exact hδsmall
-  have hbsmall : b ≤ 1 + 3 * n8C6 CA CA' CC := by
-    rw [hbdef]
-    nlinarith only [husmall, hu0, hSC1, hn8C60, hSC0]
   have hclsmall : cl ≤ 2 + 6 * n8C6 CA CA' CC := by
     rw [hcldef]
     nlinarith only [husmall, hu0, hSC1, hn8C60, hSC0, hFCE1]
-  have ht1 : 2 * a ≤ 14 * Real.exp 31 * SD := by
-    rw [hadef]; nlinarith only [hFCE, hSD0, Real.exp_pos (31 : ℝ)]
-  have ht2 : 2 * b ≤ (18 * ec + 9 * n8C6 CA CA' CC) * SC := by
-    rw [hbdef]; nlinarith only [huSC, hn8SCn, hecSC]
   have ht2' : cl ≤ (18 * ec + 9 * n8C6 CA CA' CC) * SC + 14 * Real.exp 31 * SD := by
     rw [hcldef]; nlinarith only [huSC, hn8SCn, hecSC, hFCE]
-  have ht3 : 2 * |δ| + 2 * b * |δ|
-      ≤ (9 + 9 * n8C6 CA CA' CC) * (Real.exp 260 * ec) * (SA + SB) := by
-    have h1 : 2 * |δ| + 2 * b * |δ| ≤ (4 + 6 * n8C6 CA CA' CC) * |δ| := by
-      nlinarith only [hbsmall, hd0, hn8C60]
-    have h2 : (4 + 6 * n8C6 CA CA' CC) * |δ|
-        ≤ (4 + 6 * n8C6 CA CA' CC) * (Real.exp 260 * ec * (SA + SB)) := by
-      nlinarith only [hδec2, hn8C60]
-    have h3 : (0 : ℝ) ≤ Real.exp 260 * ec * (SA + SB) := by
-      have := hSB0.le; positivity
-    nlinarith only [h1, h2, h3, hn8C60]
   have ht4 : (3 + 6 * n8C6 CA CA' CC) * |δ|
       ≤ (9 + 9 * n8C6 CA CA' CC) * (Real.exp 260 * ec) * (SA + SB) := by
     have h2 : (3 + 6 * n8C6 CA CA' CC) * |δ|
@@ -6011,46 +6015,17 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have h3 : (0 : ℝ) ≤ Real.exp 260 * ec * (SA + SB) := by
       have := hSB0.le; positivity
     nlinarith only [h2, h3, hn8C60]
-  have hMbound : 2 * a + 2 * b + 2 * |δ| + 2 * b * |δ| + Cerr * Real.exp 300 * SB ≤ M := by
-    rw [hMdef]; linarith only [ht1, ht2, ht3, e1, e2, e3, e4]
   have hMbound2 : cl + (3 + 6 * n8C6 CA CA' CC) * |δ| + Cerr * Real.exp 300 * SB ≤ M := by
     rw [hMdef]; linarith only [ht2', ht4, e1, e2, e3, e4]
-  -- the two sides
-  have hupperT : S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) ≤ (1 + M) * T := by
-    have hs1 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve * (1 + a)
-          * (hbLL χ ^ 2 + n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q)
-        ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve * (1 + a)
-          * ((1 + b) * (η * Real.log q) ^ 2) := by
-      refine mul_le_mul_of_nonneg_left (by rw [hbdef]; exact hbrkU) ?_
-      exact mul_nonneg hKW0 (by linarith only [ha0])
-    have hs2 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve * (1 + a)
-          * ((1 + b) * (η * Real.log q) ^ 2) = (1 + a) * (1 + b) * ((1 + δ) * T) := by
-      rw [← hKWP2]; ring
-    have halg : (1 + a) * (1 + b) * (1 + δ)
-        ≤ 1 + 2 * a + 2 * b + 2 * |δ| + 2 * b * |δ| := by
-      have s1 : (1 + a) * (1 + b) ≤ 1 + 2 * a + 2 * b := by nlinarith only [ha0, ha1, hb0]
-      have s2 : (1 + a) * (1 + b) * (1 + δ) ≤ (1 + 2 * a + 2 * b) * (1 + δ) :=
-        mul_le_mul_of_nonneg_right s1 hδ1
-      have s3 : (1 + 2 * a + 2 * b) * (1 + δ) ≤ (1 + 2 * a + 2 * b) * (1 + |δ|) :=
-        mul_le_mul_of_nonneg_left (by linarith only [hdub]) (by linarith only [ha0, hb0])
-      have s5 : 2 * a * |δ| ≤ |δ| := by nlinarith only [ha1, ha0, hd0]
-      nlinarith only [s2, s3, s5]
-    have hs3 : (1 + a) * (1 + b) * ((1 + δ) * T) ≤ (1 + 2 * a + 2 * b + 2 * |δ|
-        + 2 * b * |δ|) * T := by
-      have h1 : (1 + a) * (1 + b) * ((1 + δ) * T) = ((1 + a) * (1 + b) * (1 + δ)) * T := by ring
-      rw [h1]
-      exact mul_le_mul_of_nonneg_right halg hTpos.le
-    have hs4 : (1 + 2 * a + 2 * b + 2 * |δ| + 2 * b * |δ|) * T + T * (Cerr * Real.exp 300 * SB)
-        ≤ (1 + M) * T := by nlinarith only [hMbound, hTpos]
-    linarith only [hup, hs1, hs2, hs3, hs4, hErr]
-  have hlowerT : (1 - M) * T ≤ S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) := by
-    have hs1 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+  -- the lower side
+  have hlowerT : (1 - M) * T ≤ (hbDataHB χ hR.sq hz2 x).S3 := by
+    have hs1 : hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
           * ((1 - cl) * (η * Real.log q) ^ 2)
-        ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+        ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
           * (hbLL χ ^ 2 * (1 - FC * E)
             - n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q * (1 + FC * E)) :=
       mul_le_mul_of_nonneg_left (by rw [hcldef]; exact hbrkL) hKW0
-    have hs2 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+    have hs2 : hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
           * ((1 - cl) * (η * Real.log q) ^ 2) = (1 - cl) * ((1 + δ) * T) := by
       rw [← hKWP2]; ring
     have halg2 : 1 - cl - (3 + 6 * n8C6 CA CA' CC) * |δ| ≤ (1 - cl) * (1 + δ) := by
@@ -6068,37 +6043,38 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
         ≤ (1 - cl - (3 + 6 * n8C6 CA CA' CC) * |δ|) * T - T * (Cerr * Real.exp 300 * SB) := by
       nlinarith only [hMbound2, hTpos]
     linarith only [hlo, hs1, hs2, hs3, hs4, hErr]
-  -- the relative form
-  refine ⟨S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) / T - 1, ?_, ?_⟩
-  · rw [← hTdef]; field_simp; ring
-  · have hid : S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) / T - 1
-        = (S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) - T) / T := by field_simp
-    rw [hid, abs_div, abs_of_pos hTpos, div_le_iff₀ hTpos, abs_le]
-    rw [hSAdef, hSBdef, hSCdef, hSDdef] at hMdef
-    constructor
-    · rw [← hMdef]; linarith only [hlowerT]
-    · rw [← hMdef]; linarith only [hupperT]
+  -- the crown's window, through the bridge
+  rw [hSAdef, hSBdef, hSCdef, hSDdef] at hMdef
+  rw [← hTdef, ← hMdef]
+  exact le_trans hlowerT (hbDataHB_S3_le_S3_window χ hR.sq hz2 x)
 
-/-- **HB THEOREM 1 (p.195) AT THE TWIN INSTANCE — N9's terminal.**
+/-- **HB THEOREM 1 (p.195) AT HEATH-BROWN'S OWN INSTANCE — N9's terminal, A LOWER BOUND.**
 
-    S1 (Ioc x (2x)) = 𝔖·C(4)·x·(1 + δ),   |δ| ≤ n9K/log ℓ′,   uniformly on q^250 ≤ x ≤ q^500,
+    (1 − n9K/log ℓ′)·𝔖·C(4)·x ≤ S1 (Ioc (4x+1) (8x+2)),   on q^250 ≤ x and 4x+1 ≤ q^500,
 
 CONDITIONALLY on N7's exit and on the regime (whose `ellBig` couples `η` to `log log q` through
 the landed D–H's `dhK`; at HB's `k = 1`, `log ℓ′ = log log η + O(1)`).  Class **B**, cap 250.
-Red-first: `hb_lemma4_at_hb_point` + `hb_S3_at_hb_point`; `2^40·x/z₀ = 2^40·x/(A·log ℓ′)`
-(against `x𝔖C(4)`: `2^40/(2𝔖·hbZ0A)`, `hbCalpha 4 = 2`, `twinSingularSeries_pos`); the four
-`δ₃` shapes are each `≤ 1/log ℓ′` in the regime (`√ℓ′ ≥ (log ℓ′)²` from `ellBig`; `√L ≥ log ℓ′`
-from `ηq`; `η ≥ e^{ℓ′} ≥ log ℓ′`; `hbS ≥ z₀/3.01` so `4^{−hbS} ≤ ℓ′^{−A/2.2} ≤ 1/log ℓ′`), and
-`n9K ≥ 4·n9K3·e^{0}`… precisely `n9K/log ℓ′ ≥ 4·n9K3·(1/log ℓ′)` needs the `e^{300}` of `n9K`
-(A3) — without it the FL shape alone is `e^{140}` over budget at the regime's edge.
+⛔ **A LOWER BOUND, NOT AN EQUALITY, SINCE WAVE W.**  Until Wave W this row printed
+`S1 (Ioc x (2x)) = 𝔖·C(4)·x·(1 + δ), |δ| ≤ n9K/log ℓ′`.  Its constant `𝔖·C(4) = 2𝔖` is right
+for ONE of HB's two twin pairs summed over the `k`-range and wrong for the `n`-window the
+statement named, whose true mass is `𝔖x`; and the equality's UPPER half came through a wire on
+which the sieve is an identity.  What is proved — and what the door consumes — is the LOWER
+half at HB's own Lemma 5 instance, on the window `X = 4x+1` the bridge lands in.
+Red-first: `hb_lemma4_at_hb_point` at `x := 4x+1` + `hb_S3_lower_at_hb_point`;
+`2^40·X/z₀ = 2^40·10⁴·X/log ℓ′` with `X ≤ 70·T` (from `x/14 ≤ T` and `1 ≤ x` — the numeral is
+`70`, not the old `14`); the four `δ₃` shapes are each `≤ 1/log ℓ′` in the regime
+(`√ℓ′ ≥ (log ℓ′)²` from `ellBig`; `√L ≥ log ℓ′` from `ηq`; `η ≥ e^{ℓ′} ≥ log ℓ′`;
+`hbS ≥ z₀/3.01` so `4^{−hbS} ≤ ℓ′^{−A/2.2} ≤ 1/log ℓ′`); and
+`n9K3·30303 + 70·2^40·10⁴ ≤ 2^40·10⁴·n9K3` from `n9K3 ≥ 22801` (the exact requirement is
+`70·A/(A − 30303) = 70.000000000193`, `A = 2^40·10⁴`; margin ×325.7).
 Consumer: `hb_theorem1_lower` → `crown_handover` → `twinPrimeConjecture_of_frequently_S1`. -/
 theorem hb_theorem1 [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
-    (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500)
+    (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x)
+    (hX' : 4 * (x : ℝ) + 1 ≤ (q : ℝ) ^ 500)
     {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    ∃ δ : ℝ,
-      S1 (Finset.Ioc x (2 * x))
-        = (1 + δ) * ((x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4)
-      ∧ |δ| ≤ n9K Cerr CA CA' CC / Real.log (n9Ell q η) := by
+    (1 - n9K Cerr CA CA' CC / Real.log (n9Ell q η))
+        * ((x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4)
+      ≤ S1 (Finset.Ioc (4 * x + 1) (2 * (4 * x + 1))) := by
   obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
   obtain ⟨-, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩ := n9_num_facts hR
   have hq2 : 2 ≤ q := by exact_mod_cast hqR
@@ -6282,108 +6258,108 @@ theorem hb_theorem1 [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     have h := Real.exp_pos (300 : ℝ); linarith only [h, hK300]
   have hn9Keq : n9K Cerr CA CA' CC = 2 ^ 40 * 10 ^ 4 * n9K3 Cerr CA CA' CC := by
     simp only [n9K, n9K3, hbZ0A]; ring
-  -- the two inputs and the main term
-  obtain ⟨δ₃, heq3, hδ3⟩ := hb_S3_at_hb_point hR hx hx' hN7
-  have hL4err := hb_lemma4_at_hb_point hR hx hx'
-  have hxpos : (0 : ℝ) < (x : ℝ) := by
-    have hq250 : (1 : ℝ) ≤ (q : ℝ) ^ 250 := one_le_pow₀ (by linarith only [hqR])
-    linarith only [hx, hq250]
-  have hxne : (x : ℝ) ≠ 0 := ne_of_gt hxpos
-  set M : ℝ := (x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 with hMdef
-  have hMlow : (x : ℝ) / 14 ≤ M := by
-    rw [hMdef, n9_calpha_four]
+  -- the numeral: `n9K3 ≥ 22801`, and `n9K = 2^40·10⁴·n9K3`
+  have hexp300 : (22801 : ℝ) ≤ Real.exp 300 := by
+    have h1 : (151 : ℝ) ≤ Real.exp 150 := by
+      have h := Real.add_one_le_exp (150 : ℝ); linarith only [h]
+    have h2 : Real.exp 150 * Real.exp 150 = Real.exp 300 := by
+      rw [← Real.exp_add]; norm_num
+    nlinarith only [h1, h2]
+  have hK : (22801 : ℝ) ≤ n9K3 Cerr CA CA' CC := by linarith only [hexp300, hK300]
+  have hnum : n9K3 Cerr CA CA' CC * 30303 + 70 * 2 ^ 40 * 10 ^ 4
+      ≤ 2 ^ 40 * 10 ^ 4 * n9K3 Cerr CA CA' CC := by linarith only [hK]
+  -- the two inputs, at the window `4x + 1`
+  have hq250 : (1 : ℝ) ≤ (q : ℝ) ^ 250 := one_le_pow₀ (by linarith only [hqR])
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith only [hx, hq250]
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith only [hx1]
+  have hx' : (x : ℝ) ≤ (q : ℝ) ^ 500 := by linarith only [hX', hxpos]
+  have hL4 := hb_lemma4_at_hb_point hR (x := 4 * x + 1) (by push_cast; linarith)
+    (by push_cast; exact hX')
+  have hS3 := hb_S3_lower_at_hb_point hR hx hx' hN7
+  set T : ℝ := (x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 with hTdef
+  have hMlow : (x : ℝ) / 14 ≤ T := by
+    rw [hTdef, n9_calpha_four]
     nlinarith only [n9_singular_ge, hxpos]
-  have hMpos : 0 < M := by linarith only [hMlow, hxpos]
-  refine ⟨δ₃ + (S1 (Finset.Ioc x (2 * x))
-      - S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)) / M, ?_, ?_⟩
-  · have hMne : M ≠ 0 := ne_of_gt hMpos
-    have hexpand : (1 + (δ₃ + (S1 (Finset.Ioc x (2 * x))
-          - S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)) / M)) * M
-        = (1 + δ₃) * M + (S1 (Finset.Ioc x (2 * x))
-          - S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)) := by
+  have hTpos : 0 < T := by linarith only [hMlow, hxpos]
+  have hPne : Real.log (n9Ell q η) ≠ 0 := ne_of_gt hPpos
+  -- the four shapes, in `1/log ℓ′` units
+  have hshapes : Real.log (n9Ell q η) / Real.sqrt (n9Ell q η)
+        + 1 / Real.sqrt (Real.log q) + 1 / η
+        + Real.exp (-(Real.log 4) * hbS q η)
+      ≤ 30303 / Real.log (n9Ell q η) := by
+    have h : (1 : ℝ) / Real.log (n9Ell q η) + 1 / Real.log (n9Ell q η)
+        + 1 / Real.log (n9Ell q η) + 30300 / Real.log (n9Ell q η)
+        = 30303 / Real.log (n9Ell q η) := by ring
+    linarith only [hshapeA, hshapeB, hshapeC, hshapeD, h]
+  have hsh2 : n9K3 Cerr CA CA' CC
+        * (Real.log (n9Ell q η) / Real.sqrt (n9Ell q η) + 1 / Real.sqrt (Real.log q)
+            + 1 / η + Real.exp (-(Real.log 4) * hbS q η))
+      ≤ n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η)) :=
+    mul_le_mul_of_nonneg_left hshapes hK3pos.le
+  have hstep : (1 - n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η))) * T
+      ≤ (1 - n9K3 Cerr CA CA' CC
+          * (Real.log (n9Ell q η) / Real.sqrt (n9Ell q η) + 1 / Real.sqrt (Real.log q)
+              + 1 / η + Real.exp (-(Real.log 4) * hbS q η))) * T :=
+    mul_le_mul_of_nonneg_right (by linarith only [hsh2]) hTpos.le
+  -- Lemma 4's error at the window, priced against `T`
+  have hXle : ((4 * x + 1 : ℕ) : ℝ) ≤ 70 * T := by
+    push_cast
+    linarith only [hx1, hMlow]
+  have hz0eq : (2 : ℝ) ^ 40 * ((4 * x + 1 : ℕ) : ℝ) / hbZ0 q η
+      = 2 ^ 40 * 10 ^ 4 * ((4 * x + 1 : ℕ) : ℝ) / Real.log (n9Ell q η) := by
+    rw [hz0]; field_simp; ring
+  have hErrT : (2 : ℝ) ^ 40 * ((4 * x + 1 : ℕ) : ℝ) / hbZ0 q η
+      ≤ 70 * 2 ^ 40 * 10 ^ 4 * T / Real.log (n9Ell q η) := by
+    rw [hz0eq, div_le_div_iff₀ hPpos hPpos]
+    nlinarith only [mul_nonneg (sub_nonneg.mpr hXle) hPpos.le]
+  have hL4' := (abs_le.mp hL4).1
+  -- the close
+  have hgap : (0 : ℝ)
+      ≤ n9K Cerr CA CA' CC - n9K3 Cerr CA CA' CC * 30303 - 70 * 2 ^ 40 * 10 ^ 4 := by
+    rw [hn9Keq]; linarith only [hnum]
+  have hprod : (0 : ℝ)
+      ≤ (n9K Cerr CA CA' CC - n9K3 Cerr CA CA' CC * 30303 - 70 * 2 ^ 40 * 10 ^ 4)
+        * (T / Real.log (n9Ell q η)) :=
+    mul_nonneg hgap (div_pos hTpos hPpos).le
+  have hlast : (1 - n9K Cerr CA CA' CC / Real.log (n9Ell q η)) * T
+        + 70 * 2 ^ 40 * 10 ^ 4 * T / Real.log (n9Ell q η)
+      ≤ (1 - n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η))) * T := by
+    have hid : (1 - n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η))) * T
+        - ((1 - n9K Cerr CA CA' CC / Real.log (n9Ell q η)) * T
+          + 70 * 2 ^ 40 * 10 ^ 4 * T / Real.log (n9Ell q η))
+        = (n9K Cerr CA CA' CC - n9K3 Cerr CA CA' CC * 30303 - 70 * 2 ^ 40 * 10 ^ 4)
+          * (T / Real.log (n9Ell q η)) := by
       field_simp; ring
-    rw [hexpand, ← heq3]; ring
-  · have hEM : |(S1 (Finset.Ioc x (2 * x))
-        - S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)) / M|
-        ≤ (2 ^ 40 * (x : ℝ) / hbZ0 q η) / M := by
-      rw [abs_div, abs_of_pos hMpos, div_le_div_iff₀ hMpos hMpos]
-      exact mul_le_mul_of_nonneg_right hL4err hMpos.le
-    have hnum : (0 : ℝ) ≤ 2 ^ 40 * (x : ℝ) / hbZ0 q η :=
-      div_nonneg (by positivity) hz0pos.le
-    have hterm : (2 ^ 40 * (x : ℝ) / hbZ0 q η) / M
-        ≤ 14 * 2 ^ 40 * 10 ^ 4 / Real.log (n9Ell q η) := by
-      have h1 : (2 ^ 40 * (x : ℝ) / hbZ0 q η) / M
-          ≤ (2 ^ 40 * (x : ℝ) / hbZ0 q η) / ((x : ℝ) / 14) := by
-        rw [div_le_div_iff₀ hMpos (by positivity)]
-        exact mul_le_mul_of_nonneg_left hMlow hnum
-      have h2 : (2 ^ 40 * (x : ℝ) / hbZ0 q η) / ((x : ℝ) / 14)
-          = 14 * 2 ^ 40 * 10 ^ 4 / Real.log (n9Ell q η) := by
-        rw [hz0]; field_simp; ring
-      linarith only [h1, h2]
-    have hshapes : Real.log (n9Ell q η) / Real.sqrt (n9Ell q η)
-          + 1 / Real.sqrt (Real.log q) + 1 / η
-          + Real.exp (-(Real.log 4) * hbS q η)
-        ≤ 30303 / Real.log (n9Ell q η) := by
-      have h : (1 : ℝ) / Real.log (n9Ell q η) + 1 / Real.log (n9Ell q η)
-          + 1 / Real.log (n9Ell q η) + 30300 / Real.log (n9Ell q η)
-          = 30303 / Real.log (n9Ell q η) := by ring
-      linarith only [hshapeA, hshapeB, hshapeC, hshapeD, h]
-    have hδ3' : |δ₃| ≤ n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η)) :=
-      le_trans hδ3 (mul_le_mul_of_nonneg_left hshapes hK3pos.le)
-    have hfinal : n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η))
-        + 14 * 2 ^ 40 * 10 ^ 4 / Real.log (n9Ell q η)
-        ≤ 2 ^ 40 * 10 ^ 4 * n9K3 Cerr CA CA' CC / Real.log (n9Ell q η) := by
-      have hexp300 : (22801 : ℝ) ≤ Real.exp 300 := by
-        have h1 : (151 : ℝ) ≤ Real.exp 150 := by
-          have h := Real.add_one_le_exp (150 : ℝ); linarith only [h]
-        have h2 : Real.exp 150 * Real.exp 150 = Real.exp 300 := by
-          rw [← Real.exp_add]; norm_num
-        nlinarith only [h1, h2]
-      have hK : (22801 : ℝ) ≤ n9K3 Cerr CA CA' CC := by linarith only [hexp300, hK300]
-      have hnum2 : n9K3 Cerr CA CA' CC * 30303 + 14 * 2 ^ 40 * 10 ^ 4
-          ≤ 2 ^ 40 * 10 ^ 4 * n9K3 Cerr CA CA' CC := by linarith only [hK]
-      rw [show n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η))
-          = n9K3 Cerr CA CA' CC * 30303 / Real.log (n9Ell q η) by ring, ← add_div,
-        div_le_div_iff₀ hPpos hPpos]
-      exact mul_le_mul_of_nonneg_right hnum2 hPpos.le
-    rw [hn9Keq]
-    calc |δ₃ + (S1 (Finset.Ioc x (2 * x))
-            - S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)) / M|
-        ≤ |δ₃| + |(S1 (Finset.Ioc x (2 * x))
-            - S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)) / M| := abs_add_le _ _
-      _ ≤ n9K3 Cerr CA CA' CC * (30303 / Real.log (n9Ell q η))
-            + 14 * 2 ^ 40 * 10 ^ 4 / Real.log (n9Ell q η) := by
-          linarith only [hδ3', hEM, hterm]
-      _ ≤ 2 ^ 40 * 10 ^ 4 * n9K3 Cerr CA CA' CC / Real.log (n9Ell q η) := hfinal
+    linarith only [hprod, hid]
+  linarith only [hS3, hL4', hErrT, hstep, hlast]
 
 /-! ## §6 — THE DOOR AND THE CROWN FAMILY (N10 reduced, N11 closed, N12 parametrised) -/
 
-/-- **The lower half of Theorem 1, as the door reads it.**  Class **A**, cap 60.
-Consumer: `crown_handover`. -/
+/-- **The lower half of Theorem 1 at the crown's window, as the door reads it.**  Class **A**,
+cap 60.  Since Wave W the window is `X = 4x+1` and `hb_theorem1` is itself a lower bound, so
+this row spends only `n9K/log ℓ′ ≤ 1/2`.  Consumer: `crown_handover`. -/
 theorem hb_theorem1_lower [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
-    (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500)
+    (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x)
+    (hX' : 4 * (x : ℝ) + 1 ≤ (q : ℝ) ^ 500)
     {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     (hK : 2 * n9K Cerr CA CA' CC ≤ Real.log (n9Ell q η)) :
     (x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 / 2
-      ≤ S1 (Finset.Ioc x (2 * x)) := by
-  obtain ⟨δ, heq, hδ⟩ := hb_theorem1 hR hx hx' hN7
+      ≤ S1 (Finset.Ioc (4 * x + 1) (2 * (4 * x + 1))) := by
+  have h := hb_theorem1 hR hx hX' hN7
   obtain ⟨hqR, hLhuge, hPbig, hPsmall, hWpos, hW2L, hCR⟩ := n9_num_facts hR
   have hlogpos : 0 < Real.log (n9Ell q η) := Real.log_pos (by linarith only [hPbig])
   have hK2 : n9K Cerr CA CA' CC / Real.log (n9Ell q η) ≤ 1 / 2 := by
     rw [div_le_iff₀ hlogpos]
     linarith only [hK]
-  have hδ2 : |δ| ≤ 1 / 2 := le_trans hδ hK2
-  have hlow : (1 : ℝ) / 2 ≤ 1 + δ := by
-    have h := (abs_le.mp hδ2).1
-    linarith only [h]
   have hM : (0 : ℝ) ≤ (x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 := by
     have h1 := Salt.HardyLittlewood.twinSingularSeries_pos
     have h2 : hbCalpha 4 = 2 := n9_calpha_four
     rw [h2]
     positivity
-  rw [heq]
-  have hstep := mul_le_mul_of_nonneg_right hlow hM
-  linarith only [hstep]
+  have hhalf : (1 : ℝ) / 2 ≤ 1 - n9K Cerr CA CA' CC / Real.log (n9Ell q η) := by
+    linarith only [hK2]
+  have hstep := mul_le_mul_of_nonneg_right hhalf hM
+  linarith only [h, hstep]
 
 /-- **The fulcrum quality at POLYLOG strength `k`**: infinitely many real primitive `χ` with a
 zero `ρ` inside `‖1 − ρ‖ ≤ 1/(C·(log q)^k)`.  At `k = 1` this is `FulcrumQualityMin C`
@@ -6614,8 +6590,12 @@ on top of it); reality by `fulcrum_zero_real` with `zero_free_region_all_numeral
 the largest real zero by `beta0_max_of_zero` (its quality is at least the witness's); `ηq` from
 `siegel_theorem` at `ε := e^{−402}` — INEFFECTIVE, absorbed into the `∃ x` (the threshold `Q` may
 depend on Siegel's `C(ε)`; nothing here is claimed effective); the remaining regime fields from
-the quality at `k = 1`; `x := q^250`; `hb_theorem1_lower` with `hK` from the quality; then
-`x𝔖C(4)/2 > 4√(2x+2)·log³(2x+2)` at `x ≥ q^250`.
+the quality at `k = 1`; the witness `x := 4·q^250 + 1`, the crown window Wave W's Theorem 1
+lands in; `hb_theorem1_lower` with `hK` from the quality and `hX' : 4·q^250 + 1 ≤ q^500` (from
+`3 ≤ q` alone, through `81 ≤ q^250`); then `q^250·𝔖C(4)/2 > 4√(2X+2)·log³(2X+2)` at
+`X = 4·q^250 + 1`, whose door numerals are `7232 = 64·113` and `X/113` — at the corpus's only
+bound `𝔖 ≥ 1/28` the old `X/28` is FALSE at this window, the slack being in the numeral and
+not in `𝔖`.
 
 **Why `k = 1` suffices, and where the `+14` goes.**  The ball is now `‖1−ρ‖·(C·log q) ≤ 1`, so
 `ηL ≥ C·L` and `log(ηL) ≥ log C + log L`; at `dhK = 1` the numerator subtracts
@@ -6843,21 +6823,34 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by linarith only [hqR]
   have hxcast : (((q ^ 250 : ℕ)) : ℝ) = (q : ℝ) ^ 250 := by push_cast; ring
   have hxlo : (q : ℝ) ^ 250 ≤ (((q ^ 250 : ℕ)) : ℝ) := by rw [hxcast]
-  have hxhi : (((q ^ 250 : ℕ)) : ℝ) ≤ (q : ℝ) ^ 500 := by
-    rw [hxcast]; exact pow_le_pow_right₀ hq1R (by norm_num)
-  refine ⟨q ^ 250, ?_, ?_⟩
+  -- the `q`-side of the window, all from `3 ≤ (q : ℝ)`
+  have h4 : (q : ℝ) ^ 4 ≤ (q : ℝ) ^ 250 := pow_le_pow_right₀ hq1R (by norm_num)
+  have h3 : (3 : ℝ) ^ 4 ≤ (q : ℝ) ^ 4 := pow_le_pow_left₀ (by norm_num) hqR 4
+  have hu81 : (81 : ℝ) ≤ (q : ℝ) ^ 250 := by
+    have h3' : (81 : ℝ) ≤ (q : ℝ) ^ 4 := by norm_num at h3; linarith only [h3]
+    linarith only [h3', h4]
+  have hX' : 4 * (((q ^ 250 : ℕ)) : ℝ) + 1 ≤ (q : ℝ) ^ 500 := by
+    have hsq500 : (q : ℝ) ^ 500 = ((q : ℝ) ^ 250) ^ 2 := by ring
+    rw [hsq500, hxcast]; nlinarith only [hu81]
+  refine ⟨4 * q ^ 250 + 1, ?_, ?_⟩
   · calc N ≤ q := hqN
       _ = q ^ 1 := (pow_one q).symm
       _ ≤ q ^ 250 := Nat.pow_le_pow_right (by omega) (by norm_num)
-  have hlow := hb_theorem1_lower hR hxlo hxhi hN7 hK
-  -- the crude tail is beaten at `x = q^250`
-  set X : ℝ := (((q ^ 250 : ℕ)) : ℝ) with hXdef
-  have hXeq : X = (q : ℝ) ^ 250 := hxcast
+      _ ≤ 4 * q ^ 250 + 1 := by omega
+  have hlow := hb_theorem1_lower hR hxlo hX' hN7 hK
+  -- the crude tail is beaten at the crown window `X = 4·q^250 + 1`
+  set X : ℝ := (((4 * q ^ 250 + 1 : ℕ)) : ℝ) with hXdef
+  have hXeq : X = 4 * (q : ℝ) ^ 250 + 1 := by rw [hXdef]; push_cast; ring
   have hXpos : 0 < X := by rw [hXeq]; positivity
-  have hX1 : (1 : ℝ) ≤ X := by rw [hXeq]; exact one_le_pow₀ hq1R
-  have hu : Real.log X = 250 * Real.log q := by
-    rw [hXeq, Real.log_pow]; push_cast; ring
-  have hubig : (10 ^ 10 : ℝ) ≤ Real.log X := by rw [hu]; linarith only [hLhuge]
+  have hX1 : (1 : ℝ) ≤ X := by rw [hXeq]; linarith only [hu81]
+  have hu : 250 * Real.log q ≤ Real.log X := by
+    have hle : (q : ℝ) ^ 250 ≤ X := by rw [hXeq]; linarith only [hu81]
+    have hpos : (0 : ℝ) < (q : ℝ) ^ 250 := by linarith only [hu81]
+    have h := Real.log_le_log hpos hle
+    rw [Real.log_pow] at h
+    push_cast at h
+    linarith only [h]
+  have hubig : (10 ^ 10 : ℝ) ≤ Real.log X := by linarith only [hu, hLhuge]
   have hXexp : Real.exp (Real.log X) = X := Real.exp_log hXpos
   have hsqrt4 : Real.sqrt (4 * X) = 2 * Real.sqrt X := by
     rw [Real.sqrt_mul (by norm_num), show Real.sqrt 4 = 2 by
@@ -6870,49 +6863,49 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
       Real.log_le_log (by linarith only [hXpos]) (by linarith only [hX1])
     have h2 : Real.log (4 * X) = Real.log 4 + Real.log X :=
       Real.log_mul (by norm_num) (ne_of_gt hXpos)
-    have h3 : Real.log (4 : ℝ) ≤ 3 := by
+    have h3' : Real.log (4 : ℝ) ≤ 3 := by
       have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
       linarith only [h]
-    linarith only [h1, h2, h3, hubig]
+    linarith only [h1, h2, h3', hubig]
   have hlogwnn : 0 ≤ Real.log (2 * X + 2) :=
     Real.log_nonneg (by linarith only [hX1])
   have hsqrtXpos : 0 < Real.sqrt X := Real.sqrt_pos.mpr hXpos
   have hsqrtXsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hXpos.le
-  -- `1792·(log X)³ < √X`
+  -- `7232·(log X)³ < √X`  (`7232 = 64·113`)
   have hpow8 : (Real.log X / 8 + 1) ^ 8 ≤ X := by
     have h1 : Real.log X / 8 + 1 ≤ Real.exp (Real.log X / 8) := Real.add_one_le_exp _
     have h2 : Real.exp (Real.log X / 8) ^ 8 = X := by
       rw [← Real.exp_nat_mul, show ((8 : ℕ) : ℝ) * (Real.log X / 8) = Real.log X by
         push_cast; ring, hXexp]
-    have h3 : (Real.log X / 8 + 1) ^ 8 ≤ Real.exp (Real.log X / 8) ^ 8 :=
+    have h3' : (Real.log X / 8 + 1) ^ 8 ≤ Real.exp (Real.log X / 8) ^ 8 :=
       pow_le_pow_left₀ (by linarith only [hubig]) h1 8
-    linarith only [h2, h3]
-  have hcube : (1792 * Real.log X ^ 3 + 1) ^ 2 ≤ X := by
+    linarith only [h2, h3']
+  have hcube : (7232 * Real.log X ^ 3 + 1) ^ 2 ≤ X := by
     have hu0 : (0 : ℝ) < Real.log X := by linarith only [hubig]
     have hu1 : (1 : ℝ) ≤ Real.log X := by linarith only [hubig]
-    have hA : (1792 * Real.log X ^ 3 + 1) ^ 2 ≤ 3214849 * Real.log X ^ 6 := by
+    have hA : (7232 * Real.log X ^ 3 + 1) ^ 2 ≤ 52316289 * Real.log X ^ 6 := by
       have h36 : Real.log X ^ 3 ≤ Real.log X ^ 6 := pow_le_pow_right₀ hu1 (by norm_num)
       have h06 : (1 : ℝ) ≤ Real.log X ^ 6 := one_le_pow₀ hu1
       nlinarith only [h36, h06]
-    have hB : (3214849 : ℝ) * Real.log X ^ 6 ≤ (Real.log X / 8 + 1) ^ 8 := by
+    have hB : (52316289 : ℝ) * Real.log X ^ 6 ≤ (Real.log X / 8 + 1) ^ 8 := by
       have h1 : (Real.log X / 8) ^ 8 ≤ (Real.log X / 8 + 1) ^ 8 :=
         pow_le_pow_left₀ (by positivity) (by linarith only [hu0]) 8
       have h2 : (Real.log X / 8) ^ 8 = Real.log X ^ 8 / 16777216 := by ring
-      have h4 : Real.log X ^ 8 = Real.log X ^ 6 * Real.log X ^ 2 := by ring
+      have h4' : Real.log X ^ 8 = Real.log X ^ 6 * Real.log X ^ 2 := by ring
       have h5 : (10 : ℝ) ^ 20 ≤ Real.log X ^ 2 := by nlinarith only [hubig, hu0]
       have h6 : (0 : ℝ) ≤ Real.log X ^ 6 := by positivity
-      have h3 : (3214849 : ℝ) * Real.log X ^ 6 ≤ Real.log X ^ 8 / 16777216 := by
-        rw [h4, le_div_iff₀ (by norm_num)]
+      have h3' : (52316289 : ℝ) * Real.log X ^ 6 ≤ Real.log X ^ 8 / 16777216 := by
+        rw [h4', le_div_iff₀ (by norm_num)]
         nlinarith only [h5, h6]
-      linarith only [h1, h2, h3]
+      linarith only [h1, h2, h3']
     linarith only [hA, hB, hpow8]
-  have hsqrtgt : 1792 * Real.log X ^ 3 < Real.sqrt X := by
-    have h1 : Real.sqrt ((1792 * Real.log X ^ 3 + 1) ^ 2) ≤ Real.sqrt X :=
+  have hsqrtgt : 7232 * Real.log X ^ 3 < Real.sqrt X := by
+    have h1 : Real.sqrt ((7232 * Real.log X ^ 3 + 1) ^ 2) ≤ Real.sqrt X :=
       Real.sqrt_le_sqrt hcube
     rw [Real.sqrt_sq (by positivity)] at h1
     linarith only [h1]
   have hSS := n9_singular_ge
-  have hkey : 4 * Real.sqrt (2 * X + 2) * Real.log (2 * X + 2) ^ 3 < X / 28 := by
+  have hkey : 4 * Real.sqrt (2 * X + 2) * Real.log (2 * X + 2) ^ 3 < X / 113 := by
     have hstep1 : 4 * Real.sqrt (2 * X + 2) * Real.log (2 * X + 2) ^ 3
         ≤ 4 * (2 * Real.sqrt X) * (2 * Real.log X) ^ 3 := by
       have hc1 : Real.log (2 * X + 2) ^ 3 ≤ (2 * Real.log X) ^ 3 :=
@@ -6925,15 +6918,16 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     have hstep2 : 4 * (2 * Real.sqrt X) * (2 * Real.log X) ^ 3
         = 64 * (Real.sqrt X * Real.log X ^ 3) := by ring
     have hstep3 : 64 * (Real.sqrt X * Real.log X ^ 3)
-        < 64 * (Real.sqrt X * (Real.sqrt X / 1792)) := by
-      have h : Real.log X ^ 3 < Real.sqrt X / 1792 := by linarith only [hsqrtgt]
+        < 64 * (Real.sqrt X * (Real.sqrt X / 7232)) := by
+      have h : Real.log X ^ 3 < Real.sqrt X / 7232 := by linarith only [hsqrtgt]
       nlinarith only [h, hsqrtXpos]
-    have hstep4 : 64 * (Real.sqrt X * (Real.sqrt X / 1792)) ≤ X / 28 := by
+    have hstep4 : 64 * (Real.sqrt X * (Real.sqrt X / 7232)) ≤ X / 113 := by
       nlinarith only [hsqrtXsq]
     linarith only [hstep1, hstep2, hstep3, hstep4]
-  have hM : X / 28 ≤ X * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 / 2 := by
-    rw [n9_calpha_four]
-    nlinarith only [hSS, hXpos]
+  have hM : X / 113 ≤ (((q ^ 250 : ℕ)) : ℝ) * Salt.HardyLittlewood.twinSingularSeries
+      * hbCalpha 4 / 2 := by
+    rw [n9_calpha_four, hxcast, hXeq]
+    nlinarith only [hSS, hu81]
   linarith only [hkey, hM, hlow]
 
 /-- **THE HAND-OVER AT STRENGTH `14`** — the `k = 1` row read at the weaker hypothesis

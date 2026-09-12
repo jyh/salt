@@ -64,6 +64,8 @@ import Salt.HB.SieveWire
 import Salt.HB.DoorBridge
 import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
+import Salt.HB.CrownWireHB
+import Salt.HB.CrownWireHBForms
 import Salt.HB.CrownTheorem1
 import Salt.HB.TailShells
 
@@ -569,6 +571,27 @@ consumers.  Record and full refutation: `docs/blueprints/flags.md`, entry `2026-
 ⇒ 🔑 ***A UNIFORM CONSTANT'S OWN PROPERTIES BELONG OUTSIDE THE BINDER THAT RANGES OVER
 INSTANCES*** — carried inside, a sign is reachable only through an instantiation, and that is how
 a false statement came to be load-bearing three theorems downstream.
+
+⛔⛔ **RE-STAMPED A THIRD TIME 2026-09-11 (Wave W) — `N7Exit`'S STATEMENT MOVED AGAIN, THIS TIME
+BECAUSE ITS DATA WAS NOT HEATH-BROWN'S LEMMA 5 INSTANCE.**  The 2026-09-08 re-stamp repaired the
+BINDER; this one moves the WIRE the binder's `Lemma5Eval` is stated at.  `N7Exit`'s body reads
+`hbDataHB` in place of `hbDataN8` — ONE token — where `hbDataHB` (`Salt/HB/CrownWireHB.lean`) is
+HB's own instance for the pair `(4k+1, 4k+3)` over the `k`-range `(x, 2x]`, with the
+normalisation (1.3)–(1.9) satisfied at `α = (4,4)`, `β = (1,3)`.  Three defects of the old wire
+close together: the sieve was an IDENTITY on it (the kernel record in `CrownWireHB.lean`); its
+main term `x𝔖C(4) = 2𝔖x` is ONE pair's mass over the `k`-range and was being read against a
+two-pair `n`-window; and even `n` sat outside HB's normalisation.  Consequences below, all
+registered: **`hb_S3_at_hb_point` is RENAMED `hb_S3_lower_at_hb_point` and is ONE-SIDED** (the
+equality's upper half went with the retired wire); **`hb_theorem1` is a LOWER BOUND at the
+window `X = 4x+1`** the bridge `hbDataHB_S3_le_S3_window` lands in, and takes
+`hX' : 4x+1 ≤ q^500` in place of `x ≤ q^500`; `hb_theorem1_lower` follows it; and
+`crown_handover_k1`'s STATEMENT is byte-unchanged while its door block moves to the witness
+`4·q^250 + 1` and the numerals `7232 = 64·113`, `X/113`.  **The crown's own statement
+`heathBrownDichotomy_of_N7 : N7Exit … → HeathBrownDichotomy` is BYTE-UNCHANGED**, as are the
+five `N7Exit` consumers that do not read the wire.  The two re-stamps above stand as dated
+records of what moved when.  ⇒ After Wave W the corpus carries HB's Theorem 1 as a LOWER BOUND
+ONLY, at HB's own instance, and the public docstrings say so.  Record: `docs/blueprints/flags.md`,
+entry `2026-09-11 N7Exit Wave W statement re-cut`.
 -/
 
 section N9
@@ -623,7 +646,7 @@ open Salt.Tactic
 #audit_axioms Salt.HB.card_divisors_le_rpow_explicit
 #audit_axioms Salt.HB.hb_lemma4_at_hb_point
 #audit_axioms Salt.HB.n9K3
-#audit_axioms Salt.HB.hb_S3_at_hb_point
+#audit_axioms Salt.HB.hb_S3_lower_at_hb_point
 #audit_axioms Salt.HB.hb_theorem1
 #audit_axioms Salt.HB.hb_theorem1_lower
 #audit_axioms Salt.HB.FulcrumQualityPoly
@@ -728,3 +751,36 @@ open Salt.Tactic
 #audit_axioms Salt.HB.n9E0B3
 #audit_axioms Salt.HB.n9E0B3_nonneg
 end B3ib
+
+/-! ## ⟦W-0 · W-1 0911⟧ `Salt/HB/CrownWireHB.lean` — THE N8 WIRE'S COLLAPSE AND THE HB WIRE
+
+`hbDataN8` sifts the crown window by `hbP`, and `l2cWindow_coprime_hbP` already proves that
+`hbP` divides the primorial the window is coprime to — so the sieve's every prime is a prime
+the support has removed.  `hbDataN8_S_eq_zero` reads that off as `S d = 0` for every
+`1 < d ∣ P`, and `lamSum_S_eq_S3` collapses the Rosser weight sum to its `d = 1` term: at
+this data both sides of HB's sandwich (2.2) are `S⁽³⁾` itself, for every `Λ`, every
+`side ≤ 2` and every `1 ≤ b`.  The record lands before the wire is re-cut, and touches no
+landed statement; it says nothing about conclusions (2) and (3) of `hbSieve_fl_sandwich`.
+
+**`W-1` extends the same module with the wire the record calls for** — `hbDataHB`, HB's own
+Lemma 5 instance for the pair `(4k+1, 4k+3)` (§1), its two twin laws, the bridge carrying its
+`S⁽³⁾` back to the crown window at `X = 4x+1` (§2), the p.200 lower assembly and the `S1 = W`
+law re-stated there (§3), and, in the one-theorem module beside it, the `rfl` identity to Wave
+B's forms wire.  Each name below is audited in the same commit that lands it, so this stanza's
+rows are the landings and not the plan.
+11 `#audit_axioms` names. -/
+
+section W0W1
+open Salt.Tactic
+#audit_axioms Salt.HB.hbDataN8_S_eq_zero
+#audit_axioms Salt.HB.lamSum_S_eq_S3
+#audit_axioms Salt.HB.hbDataHB
+#audit_axioms Salt.HB.hbDataHB_P
+#audit_axioms Salt.HB.hbDataHB_S3_eq
+#audit_axioms Salt.HB.four_mul_add_one_mem_Ioc
+#audit_axioms Salt.HB.coprime_excPrimorial_of_odd
+#audit_axioms Salt.HB.hbDataHB_S3_le_S3_window
+#audit_axioms Salt.HB.hbS1_eq_W_HB
+#audit_axioms Salt.HB.hb_p200_lower_HB
+#audit_axioms Salt.HB.hbDataHB_eq_hbDataForms_twin
+end W0W1
