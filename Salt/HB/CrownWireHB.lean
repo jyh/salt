@@ -247,4 +247,28 @@ theorem hbS1_eq_W_HB (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ
     hbS1 χ α ((z : ℝ) - 1) = W (hbDataHB χ hsq hz x).sieve :=
   hbS1_eq_W χ hsq hz x hα2 hαodd
 
+/-- **W-c₄.2 — the p.200 lower assembly at the HB wire.**  The mirror of the landed
+`hb_p200_lower`, WITHOUT its `S3_eq` rewrite: `hb_p200_core` is generic in its data, so
+composing its lower half with the lower half of `hbSieve_fl_sandwich`'s conclusion (1) leaves
+the conclusion sitting at `(hbDataHB …).S3` — which is exactly where `hbDataHB_S3_le_S3_window`
+picks it up.  Dropping the rewrite is the point of the re-statement, not an omission.  Class
+**A**, cap 30.  By `le_trans` of the two landed halves.  Consumer: the crown's lower step,
+once the next cut re-points it at this wire. -/
+theorem hb_p200_lower_HB (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
+    (hz : 2 ≤ z) {lam sRatio : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
+    (hzt : zThresh lam ≤ (z : ℝ)) (hs : levelE (Lam4 lam (z : ℝ)) ≤ sRatio)
+    {α : ℕ} {L LL kappa C₀ Cerr CA CA' CC : ℝ} {A A' : ℕ → ℝ}
+    (hL3 : 3 ≤ L) (hD : 3 * sRatio * Real.log z ≤ L)
+    (hPα : Nat.Coprime (hbDataHB χ hsq hz x).P α) (hκ : 0 ≤ kappa)
+    (hL5 : Lemma5Eval (hbDataHB χ hsq hz x) α x L LL kappa C₀ Cerr CA CA' CC A A') :
+    kappa * W (hbDataHB χ hsq hz x).sieve
+        * (LL ^ 2 * (1 - flConst lam (Lam4 lam (z : ℝ)) * Real.exp (-(flRate lam) * sRatio))
+            - n8C6 CA CA' CC * (L + |LL|) * L
+                * (1 + flConst lam (Lam4 lam (z : ℝ)) * Real.exp (-(flRate lam) * sRatio)))
+      - Cerr * x * L ^ 4 / (z : ℝ) * n8ErrSum (hbDataHB χ hsq hz x).P
+      ≤ (hbDataHB χ hsq hz x).S3 :=
+  le_trans (hb_p200_core (hbDataHB χ hsq hz x) hlam hlam' hzt hs hL3 hD hPα hκ
+      (Nat.cast_nonneg x) hL5).2
+    (hbSieve_fl_sandwich (hbDataHB χ hsq hz x) hlam hlam' hzt hs).1.1
+
 end Salt.HB
