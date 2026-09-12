@@ -64,6 +64,7 @@ import Salt.HB.SieveWire
 import Salt.HB.DoorBridge
 import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
+import Salt.HB.CrownWireHB
 import Salt.HB.CrownTheorem1
 import Salt.HB.TailShells
 
@@ -728,3 +729,19 @@ open Salt.Tactic
 #audit_axioms Salt.HB.n9E0B3
 #audit_axioms Salt.HB.n9E0B3_nonneg
 end B3ib
+
+/-! ## ⟦W-0 0911⟧ `Salt/HB/CrownWireHB.lean` — THE N8 WIRE'S COLLAPSE, AS A KERNEL RECORD
+
+`hbDataN8` sifts the crown window by `hbP`, and `l2cWindow_coprime_hbP` already proves that
+`hbP` divides the primorial the window is coprime to — so the sieve's every prime is a prime
+the support has removed.  `hbDataN8_S_eq_zero` reads that off as `S d = 0` for every
+`1 < d ∣ P`, and `lamSum_S_eq_S3` collapses the Rosser weight sum to its `d = 1` term: at
+this data both sides of HB's sandwich (2.2) are `S⁽³⁾` itself, for every `Λ`, every
+`side ≤ 2` and every `1 ≤ b`.  The record lands before the wire is re-cut, and touches no
+landed statement; it says nothing about conclusions (2) and (3) of `hbSieve_fl_sandwich`.
+2 `#audit_axioms` names. -/
+
+section W0
+open Salt.Tactic
+#audit_axioms Salt.HB.hbDataN8_S_eq_zero
+end W0
