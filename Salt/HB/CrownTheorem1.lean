@@ -6579,8 +6579,12 @@ on top of it); reality by `fulcrum_zero_real` with `zero_free_region_all_numeral
 the largest real zero by `beta0_max_of_zero` (its quality is at least the witness's); `ηq` from
 `siegel_theorem` at `ε := e^{−402}` — INEFFECTIVE, absorbed into the `∃ x` (the threshold `Q` may
 depend on Siegel's `C(ε)`; nothing here is claimed effective); the remaining regime fields from
-the quality at `k = 1`; `x := q^250`; `hb_theorem1_lower` with `hK` from the quality; then
-`x𝔖C(4)/2 > 4√(2x+2)·log³(2x+2)` at `x ≥ q^250`.
+the quality at `k = 1`; the witness `x := 4·q^250 + 1`, the crown window Wave W's Theorem 1
+lands in; `hb_theorem1_lower` with `hK` from the quality and `hX' : 4·q^250 + 1 ≤ q^500` (from
+`3 ≤ q` alone, through `81 ≤ q^250`); then `q^250·𝔖C(4)/2 > 4√(2X+2)·log³(2X+2)` at
+`X = 4·q^250 + 1`, whose door numerals are `7232 = 64·113` and `X/113` — at the corpus's only
+bound `𝔖 ≥ 1/28` the old `X/28` is FALSE at this window, the slack being in the numeral and
+not in `𝔖`.
 
 **Why `k = 1` suffices, and where the `+14` goes.**  The ball is now `‖1−ρ‖·(C·log q) ≤ 1`, so
 `ηL ≥ C·L` and `log(ηL) ≥ log C + log L`; at `dhK = 1` the numerator subtracts
@@ -6808,21 +6812,34 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by linarith only [hqR]
   have hxcast : (((q ^ 250 : ℕ)) : ℝ) = (q : ℝ) ^ 250 := by push_cast; ring
   have hxlo : (q : ℝ) ^ 250 ≤ (((q ^ 250 : ℕ)) : ℝ) := by rw [hxcast]
-  have hxhi : (((q ^ 250 : ℕ)) : ℝ) ≤ (q : ℝ) ^ 500 := by
-    rw [hxcast]; exact pow_le_pow_right₀ hq1R (by norm_num)
-  refine ⟨q ^ 250, ?_, ?_⟩
+  -- the `q`-side of the window, all from `3 ≤ (q : ℝ)`
+  have h4 : (q : ℝ) ^ 4 ≤ (q : ℝ) ^ 250 := pow_le_pow_right₀ hq1R (by norm_num)
+  have h3 : (3 : ℝ) ^ 4 ≤ (q : ℝ) ^ 4 := pow_le_pow_left₀ (by norm_num) hqR 4
+  have hu81 : (81 : ℝ) ≤ (q : ℝ) ^ 250 := by
+    have h3' : (81 : ℝ) ≤ (q : ℝ) ^ 4 := by norm_num at h3; linarith only [h3]
+    linarith only [h3', h4]
+  have hX' : 4 * (((q ^ 250 : ℕ)) : ℝ) + 1 ≤ (q : ℝ) ^ 500 := by
+    have hsq500 : (q : ℝ) ^ 500 = ((q : ℝ) ^ 250) ^ 2 := by ring
+    rw [hsq500, hxcast]; nlinarith only [hu81]
+  refine ⟨4 * q ^ 250 + 1, ?_, ?_⟩
   · calc N ≤ q := hqN
       _ = q ^ 1 := (pow_one q).symm
       _ ≤ q ^ 250 := Nat.pow_le_pow_right (by omega) (by norm_num)
-  have hlow := hb_theorem1_lower hR hxlo hxhi hN7 hK
-  -- the crude tail is beaten at `x = q^250`
-  set X : ℝ := (((q ^ 250 : ℕ)) : ℝ) with hXdef
-  have hXeq : X = (q : ℝ) ^ 250 := hxcast
+      _ ≤ 4 * q ^ 250 + 1 := by omega
+  have hlow := hb_theorem1_lower hR hxlo hX' hN7 hK
+  -- the crude tail is beaten at the crown window `X = 4·q^250 + 1`
+  set X : ℝ := (((4 * q ^ 250 + 1 : ℕ)) : ℝ) with hXdef
+  have hXeq : X = 4 * (q : ℝ) ^ 250 + 1 := by rw [hXdef]; push_cast; ring
   have hXpos : 0 < X := by rw [hXeq]; positivity
-  have hX1 : (1 : ℝ) ≤ X := by rw [hXeq]; exact one_le_pow₀ hq1R
-  have hu : Real.log X = 250 * Real.log q := by
-    rw [hXeq, Real.log_pow]; push_cast; ring
-  have hubig : (10 ^ 10 : ℝ) ≤ Real.log X := by rw [hu]; linarith only [hLhuge]
+  have hX1 : (1 : ℝ) ≤ X := by rw [hXeq]; linarith only [hu81]
+  have hu : 250 * Real.log q ≤ Real.log X := by
+    have hle : (q : ℝ) ^ 250 ≤ X := by rw [hXeq]; linarith only [hu81]
+    have hpos : (0 : ℝ) < (q : ℝ) ^ 250 := by linarith only [hu81]
+    have h := Real.log_le_log hpos hle
+    rw [Real.log_pow] at h
+    push_cast at h
+    linarith only [h]
+  have hubig : (10 ^ 10 : ℝ) ≤ Real.log X := by linarith only [hu, hLhuge]
   have hXexp : Real.exp (Real.log X) = X := Real.exp_log hXpos
   have hsqrt4 : Real.sqrt (4 * X) = 2 * Real.sqrt X := by
     rw [Real.sqrt_mul (by norm_num), show Real.sqrt 4 = 2 by
@@ -6835,49 +6852,49 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
       Real.log_le_log (by linarith only [hXpos]) (by linarith only [hX1])
     have h2 : Real.log (4 * X) = Real.log 4 + Real.log X :=
       Real.log_mul (by norm_num) (ne_of_gt hXpos)
-    have h3 : Real.log (4 : ℝ) ≤ 3 := by
+    have h3' : Real.log (4 : ℝ) ≤ 3 := by
       have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
       linarith only [h]
-    linarith only [h1, h2, h3, hubig]
+    linarith only [h1, h2, h3', hubig]
   have hlogwnn : 0 ≤ Real.log (2 * X + 2) :=
     Real.log_nonneg (by linarith only [hX1])
   have hsqrtXpos : 0 < Real.sqrt X := Real.sqrt_pos.mpr hXpos
   have hsqrtXsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hXpos.le
-  -- `1792·(log X)³ < √X`
+  -- `7232·(log X)³ < √X`  (`7232 = 64·113`)
   have hpow8 : (Real.log X / 8 + 1) ^ 8 ≤ X := by
     have h1 : Real.log X / 8 + 1 ≤ Real.exp (Real.log X / 8) := Real.add_one_le_exp _
     have h2 : Real.exp (Real.log X / 8) ^ 8 = X := by
       rw [← Real.exp_nat_mul, show ((8 : ℕ) : ℝ) * (Real.log X / 8) = Real.log X by
         push_cast; ring, hXexp]
-    have h3 : (Real.log X / 8 + 1) ^ 8 ≤ Real.exp (Real.log X / 8) ^ 8 :=
+    have h3' : (Real.log X / 8 + 1) ^ 8 ≤ Real.exp (Real.log X / 8) ^ 8 :=
       pow_le_pow_left₀ (by linarith only [hubig]) h1 8
-    linarith only [h2, h3]
-  have hcube : (1792 * Real.log X ^ 3 + 1) ^ 2 ≤ X := by
+    linarith only [h2, h3']
+  have hcube : (7232 * Real.log X ^ 3 + 1) ^ 2 ≤ X := by
     have hu0 : (0 : ℝ) < Real.log X := by linarith only [hubig]
     have hu1 : (1 : ℝ) ≤ Real.log X := by linarith only [hubig]
-    have hA : (1792 * Real.log X ^ 3 + 1) ^ 2 ≤ 3214849 * Real.log X ^ 6 := by
+    have hA : (7232 * Real.log X ^ 3 + 1) ^ 2 ≤ 52316289 * Real.log X ^ 6 := by
       have h36 : Real.log X ^ 3 ≤ Real.log X ^ 6 := pow_le_pow_right₀ hu1 (by norm_num)
       have h06 : (1 : ℝ) ≤ Real.log X ^ 6 := one_le_pow₀ hu1
       nlinarith only [h36, h06]
-    have hB : (3214849 : ℝ) * Real.log X ^ 6 ≤ (Real.log X / 8 + 1) ^ 8 := by
+    have hB : (52316289 : ℝ) * Real.log X ^ 6 ≤ (Real.log X / 8 + 1) ^ 8 := by
       have h1 : (Real.log X / 8) ^ 8 ≤ (Real.log X / 8 + 1) ^ 8 :=
         pow_le_pow_left₀ (by positivity) (by linarith only [hu0]) 8
       have h2 : (Real.log X / 8) ^ 8 = Real.log X ^ 8 / 16777216 := by ring
-      have h4 : Real.log X ^ 8 = Real.log X ^ 6 * Real.log X ^ 2 := by ring
+      have h4' : Real.log X ^ 8 = Real.log X ^ 6 * Real.log X ^ 2 := by ring
       have h5 : (10 : ℝ) ^ 20 ≤ Real.log X ^ 2 := by nlinarith only [hubig, hu0]
       have h6 : (0 : ℝ) ≤ Real.log X ^ 6 := by positivity
-      have h3 : (3214849 : ℝ) * Real.log X ^ 6 ≤ Real.log X ^ 8 / 16777216 := by
-        rw [h4, le_div_iff₀ (by norm_num)]
+      have h3' : (52316289 : ℝ) * Real.log X ^ 6 ≤ Real.log X ^ 8 / 16777216 := by
+        rw [h4', le_div_iff₀ (by norm_num)]
         nlinarith only [h5, h6]
-      linarith only [h1, h2, h3]
+      linarith only [h1, h2, h3']
     linarith only [hA, hB, hpow8]
-  have hsqrtgt : 1792 * Real.log X ^ 3 < Real.sqrt X := by
-    have h1 : Real.sqrt ((1792 * Real.log X ^ 3 + 1) ^ 2) ≤ Real.sqrt X :=
+  have hsqrtgt : 7232 * Real.log X ^ 3 < Real.sqrt X := by
+    have h1 : Real.sqrt ((7232 * Real.log X ^ 3 + 1) ^ 2) ≤ Real.sqrt X :=
       Real.sqrt_le_sqrt hcube
     rw [Real.sqrt_sq (by positivity)] at h1
     linarith only [h1]
   have hSS := n9_singular_ge
-  have hkey : 4 * Real.sqrt (2 * X + 2) * Real.log (2 * X + 2) ^ 3 < X / 28 := by
+  have hkey : 4 * Real.sqrt (2 * X + 2) * Real.log (2 * X + 2) ^ 3 < X / 113 := by
     have hstep1 : 4 * Real.sqrt (2 * X + 2) * Real.log (2 * X + 2) ^ 3
         ≤ 4 * (2 * Real.sqrt X) * (2 * Real.log X) ^ 3 := by
       have hc1 : Real.log (2 * X + 2) ^ 3 ≤ (2 * Real.log X) ^ 3 :=
@@ -6890,15 +6907,16 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     have hstep2 : 4 * (2 * Real.sqrt X) * (2 * Real.log X) ^ 3
         = 64 * (Real.sqrt X * Real.log X ^ 3) := by ring
     have hstep3 : 64 * (Real.sqrt X * Real.log X ^ 3)
-        < 64 * (Real.sqrt X * (Real.sqrt X / 1792)) := by
-      have h : Real.log X ^ 3 < Real.sqrt X / 1792 := by linarith only [hsqrtgt]
+        < 64 * (Real.sqrt X * (Real.sqrt X / 7232)) := by
+      have h : Real.log X ^ 3 < Real.sqrt X / 7232 := by linarith only [hsqrtgt]
       nlinarith only [h, hsqrtXpos]
-    have hstep4 : 64 * (Real.sqrt X * (Real.sqrt X / 1792)) ≤ X / 28 := by
+    have hstep4 : 64 * (Real.sqrt X * (Real.sqrt X / 7232)) ≤ X / 113 := by
       nlinarith only [hsqrtXsq]
     linarith only [hstep1, hstep2, hstep3, hstep4]
-  have hM : X / 28 ≤ X * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4 / 2 := by
-    rw [n9_calpha_four]
-    nlinarith only [hSS, hXpos]
+  have hM : X / 113 ≤ (((q ^ 250 : ℕ)) : ℝ) * Salt.HardyLittlewood.twinSingularSeries
+      * hbCalpha 4 / 2 := by
+    rw [n9_calpha_four, hxcast, hXeq]
+    nlinarith only [hSS, hu81]
   linarith only [hkey, hM, hlow]
 
 /-- **THE HAND-OVER AT STRENGTH `14`** — the `k = 1` row read at the weaker hypothesis
