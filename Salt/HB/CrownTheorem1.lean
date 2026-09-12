@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.CrownChain
 import Salt.HB.CrownAssembly
+import Salt.HB.CrownWireHB
 import Salt.HB.MOne
 import Salt.HB.Lemma7Prod
 import Salt.HB.Lemma7EF
@@ -442,6 +443,22 @@ structure N9Regime (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (β₀ �
 at the N8 wire with UNIFORM `Cerr CA CA' CC` and per-instance `C₀ A A'`; `LL` and `κ` are the two
 seams above.  A HYPOTHESIS of every row from T1 on, until Wave C lands.
 
+⛔⛔ **RESTATED AGAIN 2026-09-11 (Wave W) — THE DATA WAS NOT HEATH-BROWN'S OWN INSTANCE.**  The
+binder above is byte-unchanged; what moved is the DATA the `Lemma5Eval` is stated at,
+`hbDataN8 → hbDataHB`.  `hbDataN8` sifts the crown's `n`-window `l2cWindow χ z x` at
+`val n = n(n+2)`; HB applies Lemma 5 (p.195) to ONE of the two twin pairs, `(4k+1, 4k+3)`, over
+the `k`-range `(x, 2x]`, with the normalisation (1.3)–(1.9) at `α = (4,4)`, `β = (1,3)`.  Three
+things were wrong at the old wire and are fixed by the move: **the sieve was an IDENTITY on it**
+(the kernel record `hbDataN8_S_eq_zero`/`lamSum_S_eq_S3` in `Salt/HB/CrownWireHB.lean`); **the main
+term** `x·𝔖·C(4) = 2𝔖x` is ONE pair's mass over the `k`-range and was being read against a
+two-pair `n`-window; and **even `n`** sat outside HB's normalisation — impossible at the new wire,
+where `(4k+1)(4k+3)` is odd for every `k`.  `κ` is unchanged and its `x` is the `k`-range.
+**The crown consumes this through ONE new inequality**, `hbDataHB_S3_le_S3_window` (the index map
+`k ↦ 4k+1`; every discarded crown term is `≥ 0`), which is why `hb_S3_lower_at_hb_point` is
+ONE-SIDED and `hb_theorem1` is a LOWER bound at the window `X = 4x+1`.  The statement is the design
+pass's, frozen before this wave fired, and the Captain lifted the N7 fence for this wave and for
+nothing else.  Record: `docs/blueprints/flags.md`.
+
 ⛔⛔ **REPAIRED 2026-09-08 — THE PREVIOUS SPELLING WAS FALSE, NOT MERELY BROAD.**  Until this
 commit the binder read
 `∀ q [NeZero q] (χ) (hsq : χ ^ 2 = 1) {z} (hz : 2 ≤ z) (x : ℕ), …`
@@ -476,9 +493,10 @@ OUTSIDE THE BINDER THAT RANGES OVER INSTANCES.***  Wave C-2 pays for them once, 
 the constants, and no consumer needs an instance to learn a sign.
 
 📌 **What the repair costs the two real consumers: nothing they did not already have.**
-`hb_S3_at_hb_point` and `hb_theorem1` both bind `hx`/`hx'` themselves, take `prim` and `ne` from
-`N9Regime`, and get `3·log z ≤ log q` from `n9_z_cube` (the regime's `z` sits at `hbS ≥ 99`, far
-inside `q^{1/3}`).  After the repair only **one** theorem instantiates this ∀ at all. -/
+`hb_S3_lower_at_hb_point` and `hb_theorem1` both bind `hx`/`hx'` themselves, take `prim` and
+`ne` from `N9Regime`, and get `3·log z ≤ log q` from `n9_z_cube` (the regime's `z` sits at
+`hbS ≥ 99`, far inside `q^{1/3}`).  After the repair only **one** theorem instantiates this ∀
+at all. -/
 def N7Exit (Cerr CA CA' CC : ℝ) : Prop :=
   (0 ≤ Cerr ∧ 0 ≤ CA ∧ 0 ≤ CA' ∧ 0 ≤ CC) ∧
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
@@ -487,7 +505,7 @@ def N7Exit (Cerr CA CA' CC : ℝ) : Prop :=
         3 * Real.log (z : ℝ) ≤ Real.log (q : ℝ) →
         ∀ x : ℕ, (q : ℝ) ^ 250 ≤ (x : ℝ) → (x : ℝ) ≤ (q : ℝ) ^ 500 →
           ∃ (C₀ : ℝ) (A A' : ℕ → ℝ),
-            Lemma5Eval (hbDataN8 χ hsq hz x) 4 x (Real.log q) (hbLL χ) (hbKappaN9 χ x z)
+            Lemma5Eval (hbDataHB χ hsq hz x) 4 x (Real.log q) (hbLL χ) (hbKappaN9 χ x z)
               C₀ Cerr CA CA' CC A A'
 
 /-- **The constant of Theorem 1** — a CEILING in the four N7 constants and `n9Cs`; the `2^40`
