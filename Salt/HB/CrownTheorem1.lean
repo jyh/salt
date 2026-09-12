@@ -5414,30 +5414,39 @@ private lemma n9_singular_ge : (1 : ℝ) / 28 ≤ Salt.HardyLittlewood.twinSingu
 set_option maxHeartbeats 2000000 in
 -- The p.200 sandwich composed with `(L2)`, `(L1)` and the FL/sieve-error rows: one ledger
 -- over a context of ~120 facts, with four opaque N7 constants carried symbolically.
-/-- **THE p.200 CLOSING MOVE, BOTH SIGNS: `S⁽³⁾ = x𝔖C(4)·(1 + δ₃)`.**  Class **C**, cap 500.
-Red-first: `hb_p200_upper/lower` at `hbZ_packet`'s binders, `lam := 1/4`, `sRatio := hbS`,
-`kappa := hbKappaN9`, `LL := hbLL`, plus the two side conditions they demand that v1 omitted:
-`hPα : Nat.Coprime (hbDataN8 …).P 4` (from `HBSieveData.P_odd`) and `hκ : 0 ≤ hbKappaN9 χ x z`
-(no landed `hbKappa_nonneg`; build it from `hbWfac_pos`, `Lemma7Kappa.lean:307`, and the
-multipliability at `:330`) — ~40 ln of the cap; `hbS1_eq_W` turns `κ·W` into `(L2)`'s left side
-(`hb_L2_at_hb_point`); the two `(L1)` sides bound `LL² = (ηL)²(1 ± 2(1606+8n9Cs)/(η√ℓ′) + …)` —
+/-- **THE p.200 CLOSING MOVE, THE LOWER HALF AT HEATH-BROWN'S OWN WIRE:**
+`(1 − n9K3·shapes)·x𝔖C(4) ≤ S⁽³⁾ χ z (l2cWindow χ z (4x+1))`.  Class **C**, cap 500.
+⛔ **ONE-SIDED SINCE WAVE W, AND THAT IS THE HONEST STATEMENT.**  Until Wave W this row read
+`S⁽³⁾ = x𝔖C(4)·(1 + δ₃)` — an equality, both signs, at the retired wire and the window `x`.
+Its UPPER half rested on `hb_p200_upper` at a wire on which the sieve is an identity (the
+kernel record in `Salt/HB/CrownWireHB.lean`), and `x𝔖C(4) = 2𝔖x` is ONE twin pair's mass over
+the `k`-range, not the `n`-window's.  What survives — and what the door consumes — is the
+LOWER half at HB's own Lemma 5 instance `hbDataHB`, carried to the crown's window by the bridge.
+Red-first: `hb_p200_lower_HB` at `hbZ_packet`'s binders, `lam := 1/4`, `sRatio := hbS`,
+`kappa := hbKappaN9`, `LL := hbLL`, plus the two side conditions it demands:
+`hPα : Nat.Coprime (hbDataHB …).P 4` (from `HBSieveData.P_odd`) and `hκ : 0 ≤ hbKappaN9 χ x z`
+(no landed `hbKappa_nonneg`; built from `hbWfac_pos`, `Lemma7Kappa.lean:307`, and the
+multipliability at `:330`); `hbS1_eq_W_HB` turns `κ·W` into `(L2)`'s left side
+(`hb_L2_at_hb_point`); the `(L1)` sides bound `LL² = (ηL)²(1 ± 2(1606+8n9Cs)/(η√ℓ′) + …)` —
 the RELATIVE deviation is `η` times smaller than `1/√ℓ′` and belongs under the `1/η` shape —
 and `B = L + |LL| ≤ 3ηL` (`η ≥ 2`); `n8ErrSum_le` prices the sieve error
 `Cerr·x·L⁴/z·e^{4·mertens2C}(log z)⁴ ≤ x/z₀` (`e^{67.6}` against `log z ≥ 10⁴L/log ℓ′`); the
 FL term `flConst(1/4)(Λ₄ z)·4^{−hbS}` with `flConst (1/4) (Lam4 (1/4) z) ≤ 14·e^{31}` by
 `flConst_quarter_le` at the packet's last conjunct (`Λ₄ ≥ 1/10`); the `n8C6·B·L` term is
 `≤ 3n8C6/η` relative; `CC ≥ 0` is NOT a `Lemma5Eval` field — derive it from `C₀_le` at
-`L > 0` before using `n8C6 ≥ 0` / `n9K3 > 0`.  Every relative error is one of the four shapes in
-the bound (verified exhaustive, K9).  Consumer: `hb_theorem1`. -/
-theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
+`L > 0` before using `n8C6 ≥ 0` / `n9K3 > 0`.  Every relative error is one of the four shapes
+in the bound (verified exhaustive, K9).  **THE BRIDGE:** `hb_p200_lower_HB` lands at
+`(hbDataHB …).S3`, a sum over `k ∈ (x, 2x]`; `hbDataHB_S3_le_S3_window` carries it to
+`S3 χ z (l2cWindow χ z (4x+1))` through `k ↦ 4k+1`, every discarded term `≥ 0`.
+Consumer: `hb_theorem1`. -/
+theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {x : ℕ} (hx : (q : ℝ) ^ 250 ≤ x) (hx' : (x : ℝ) ≤ (q : ℝ) ^ 500)
     {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC) :
-    ∃ δ₃ : ℝ,
-      S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x)
-        = (1 + δ₃) * ((x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4)
-      ∧ |δ₃| ≤ n9K3 Cerr CA CA' CC
-          * (Real.log (n9Ell q η) / Real.sqrt (n9Ell q η) + 1 / Real.sqrt (Real.log q)
-              + 1 / η + Real.exp (-(Real.log 4) * hbS q η)) := by
+    (1 - n9K3 Cerr CA CA' CC
+        * (Real.log (n9Ell q η) / Real.sqrt (n9Ell q η) + 1 / Real.sqrt (Real.log q)
+            + 1 / η + Real.exp (-(Real.log 4) * hbS q η)))
+      * ((x : ℝ) * Salt.HardyLittlewood.twinSingularSeries * hbCalpha 4)
+      ≤ S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) (4 * x + 1)) := by
   obtain ⟨hqR, hL, hβpos, hηL, hηpos, hηbig, hβhalf⟩ := n9_regime_facts hR
   obtain ⟨-, hLhuge, hPbig, hPsmall, hlog4qpos, hW2L, -⟩ := n9_num_facts hR
   obtain ⟨hz0pos, hz0ge, hWbig, hWle, hlogzge, hlogzle⟩ := n9_scale hR
@@ -5574,17 +5583,17 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     simp only [hbKappaN9, hbKappa]
     exact mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg hx0
       (sq_nonneg (hbL1 χ ((hbZ q η : ℝ) - 1)))) hp1) hp2) htail.le
-  have hPα : Nat.Coprime (hbDataN8 χ hR.sq hz2 x).P 4 := by
-    have hPodd := (hbDataN8 χ hR.sq hz2 x).P_odd
-    have hPsf := (hbDataN8 χ hR.sq hz2 x).P_squarefree
-    have h2 : ¬ (2 ∣ (hbDataN8 χ hR.sq hz2 x).P) := by
+  have hPα : Nat.Coprime (hbDataHB χ hR.sq hz2 x).P 4 := by
+    have hPodd := (hbDataHB χ hR.sq hz2 x).P_odd
+    have hPsf := (hbDataHB χ hR.sq hz2 x).P_squarefree
+    have h2 : ¬ (2 ∣ (hbDataHB χ hR.sq hz2 x).P) := by
       intro hdvd
       exact hPodd 2 (Nat.mem_primeFactors.mpr ⟨Nat.prime_two, hdvd, hPsf.ne_zero⟩) rfl
-    have hcop2 : Nat.Coprime (hbDataN8 χ hR.sq hz2 x).P 2 :=
+    have hcop2 : Nat.Coprime (hbDataHB χ hR.sq hz2 x).P 2 :=
       Nat.coprime_comm.mp ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr h2)
     rw [show (4 : ℕ) = 2 ^ 2 by norm_num]
     exact Nat.Coprime.pow_right 2 hcop2
-  -- the two p.200 sides
+  -- the p.200 lower side, at HB's own wire
   have hlev' : levelE (Lam4 (1 / 4) ((hbZ q η : ℕ) : ℝ)) ≤ hbS q η := by linarith only [hlev]
   have hL3 : (3 : ℝ) ≤ Real.log q := by linarith only [hLhuge]
   -- N7's exit at HB Lemma 5's OWN hypotheses (the 2026-09-08 repair): `3 ≤ q` from the regime's
@@ -5592,14 +5601,12 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   -- this theorem's own `hx`/`hx'`.
   obtain ⟨C₀, Afun, A'fun, hL5⟩ :=
     hN7.2 q χ (three_le_of_ne_one χ hR.ne) hR.prim hR.sq hz2 (n9_z_cube hR hx hx') x hx hx'
-  have hup := hb_p200_upper χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
-    (by norm_num) (by norm_num) hzt hlev' hL3 hD hPα hκ hL5
-  have hlo := hb_p200_lower χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
+  have hlo := hb_p200_lower_HB χ hR.sq hz2 (lam := 1 / 4) (sRatio := hbS q η) (L := Real.log q)
     (by norm_num) (by norm_num) hzt hlev' hL3 hD hPα hκ hL5
   -- `κ·W` from `(L2)`
   obtain ⟨δ, hδeq, hδle⟩ := hb_L2_at_hb_point hR hx hx'
-  have hS1W : hbS1 χ 4 ((hbZ q η : ℝ) - 1) = W (hbDataN8 χ hR.sq hz2 x).sieve :=
-    hbS1_eq_W χ hR.sq hz2 x (by norm_num) (fun p hp hpd => by
+  have hS1W : hbS1 χ 4 ((hbZ q η : ℝ) - 1) = W (hbDataHB χ hR.sq hz2 x).sieve :=
+    hbS1_eq_W_HB χ hR.sq hz2 x (by norm_num) (fun p hp hpd => by
       have hd2 : p ∣ 2 := hp.dvd_of_dvd_pow (n := 2) (by norm_num at hpd ⊢; exact hpd)
       exact (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp hd2)
   rw [hS1W] at hδeq
@@ -5619,7 +5626,7 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     nlinarith only [n9_singular_ge, hxpos]
   have hTpos : (0 : ℝ) < T := by linarith only [hT14, hxpos]
   have hP2pos : (0 : ℝ) < (η * Real.log q) ^ 2 := by positivity
-  have hKWP2 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+  have hKWP2 : hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
       * (η * Real.log q) ^ 2 = (1 + δ) * T := by
     rw [hδeq, ← hTdef]
     field_simp
@@ -5787,17 +5794,17 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
       nlinarith only [pow_nonneg hL.le 10]
     linarith only [h20, h4, h5, h6]
   have hErr : Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ)
-        * n8ErrSum (hbDataN8 χ hR.sq hz2 x).P
+        * n8ErrSum (hbDataHB χ hR.sq hz2 x).P
       ≤ T * (Cerr * Real.exp 300 * SB) := by
-    have hPz : ∀ p ∈ (hbDataN8 χ hR.sq hz2 x).P.primeFactors, p ≤ hbZ q η := by
+    have hPz : ∀ p ∈ (hbDataHB χ hR.sq hz2 x).P.primeFactors, p ≤ hbZ q η := by
       intro p hp
-      have h := (hbDataN8 χ hR.sq hz2 x).P_lt_z p hp
+      have h := (hbDataHB χ hR.sq hz2 x).P_lt_z p hp
       have h2 : (p : ℝ) < ((hbZ q η : ℕ) : ℝ) := h
       exact_mod_cast le_of_lt (by exact_mod_cast h2)
-    have hn8E := n8ErrSum_le _ (hbDataN8 χ hR.sq hz2 x).P_squarefree hz2 hPz
+    have hn8E := n8ErrSum_le _ (hbDataHB χ hR.sq hz2 x).P_squarefree hz2 hPz
     have hexp4m : Real.exp (4 * mertens2C) ≤ Real.exp 72 :=
       Real.exp_le_exp.mpr (by linarith only [hmert])
-    have hn8E' : n8ErrSum (hbDataN8 χ hR.sq hz2 x).P
+    have hn8E' : n8ErrSum (hbDataHB χ hR.sq hz2 x).P
         ≤ Real.exp 72 * Real.log q ^ 4 := by
       have h1 : Real.log (hbZ q η : ℝ) ^ 4 ≤ Real.log q ^ 4 :=
         pow_le_pow_left₀ hlogZpos.le hlogZL 4
@@ -5805,7 +5812,7 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
         Real.exp_pos (72 : ℝ)]
     have hfac : (0 : ℝ) ≤ Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ) := by positivity
     have hstep : Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ)
-          * n8ErrSum (hbDataN8 χ hR.sq hz2 x).P
+          * n8ErrSum (hbDataHB χ hR.sq hz2 x).P
         ≤ Cerr * (x : ℝ) * Real.log q ^ 4 / (hbZ q η : ℝ) * (Real.exp 72 * Real.log q ^ 4) :=
       mul_le_mul_of_nonneg_left hn8E' hfac
     have hSBL10 : Real.log q ^ 9 ≤ SB * Real.log q ^ 10 := by
@@ -5921,14 +5928,9 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have hp2 : (0 : ℝ) ≤ Real.exp 300 * (1 + n9Cs) * n8C6 CA CA' CC := mul_nonneg hp1 hn8C60
     linarith only [hK3big, hp1, hp2]
   -- the sieve/`W` positivity and the two brackets
-  have hWpos : 0 < W (hbDataN8 χ hR.sq hz2 x).sieve := W_pos _
-  have hKW0 : 0 ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve :=
+  have hWpos : 0 < W (hbDataHB χ hR.sq hz2 x).sieve := W_pos _
+  have hKW0 : 0 ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve :=
     mul_nonneg hκ hWpos.le
-  have hδ1 : 0 ≤ 1 + δ := by
-    have h0 : (0 : ℝ) ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
-        * (η * Real.log q) ^ 2 := mul_nonneg hKW0 hP2pos.le
-    rw [hKWP2] at h0
-    nlinarith only [h0, hTpos]
   have hSCP2 : SC * (η * Real.log q) ^ 2 = η * Real.log q ^ 2 := by
     rw [hSCdef]; field_simp
   have hSC1 : SC ≤ 1 := by
@@ -5945,9 +5947,6 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
         = 3 * (n8C6 CA CA' CC) * (SC * (η * Real.log q) ^ 2) by ring, hSCP2]
       ring
     linarith only [h2, h4]
-  have hbrkU : hbLL χ ^ 2 + n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q
-      ≤ (1 + (3 * u + 3 * (n8C6 CA CA' CC) * SC)) * (η * Real.log q) ^ 2 := by
-    nlinarith only [hLLsq_hi, hn8SC, hSCP2]
   have hbrkL : (1 - (2 * u + FC * E + 6 * (n8C6 CA CA' CC) * SC)) * (η * Real.log q) ^ 2
       ≤ hbLL χ ^ 2 * (1 - FC * E)
         - n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q * (1 + FC * E) := by
@@ -5963,22 +5962,15 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
       mul_nonneg (mul_nonneg hu0 hFE0) hP2pos.le
     nlinarith only [h1, h2, h5, hFE0, hP2pos, hFCE1]
   -- the ledger, in `T`-units
-  rw [← hFCdef, ← hEdef] at hup hlo
-  obtain ⟨a, hadef⟩ : ∃ a : ℝ, a = 1 / 4 * FC * E := ⟨_, rfl⟩
-  obtain ⟨b, hbdef⟩ : ∃ b : ℝ, b = 3 * u + 3 * (n8C6 CA CA' CC) * SC := ⟨_, rfl⟩
+  rw [← hFCdef, ← hEdef] at hlo
   obtain ⟨cl, hcldef⟩ : ∃ cl : ℝ, cl = 2 * u + FC * E + 6 * (n8C6 CA CA' CC) * SC := ⟨_, rfl⟩
   obtain ⟨M, hMdef⟩ : ∃ M : ℝ, M = n9K3 Cerr CA CA' CC * (SA + SB + SC + SD) := ⟨_, rfl⟩
-  rw [← hadef] at hup
   have hd0 : (0 : ℝ) ≤ |δ| := abs_nonneg δ
   have hdub : δ ≤ |δ| := le_abs_self δ
   have hdlb : -|δ| ≤ δ := neg_abs_le δ
   have hSCn : (0 : ℝ) ≤ SC := hSC0.le
   have hecSC : (0 : ℝ) ≤ ec * SC := mul_nonneg hec0.le hSCn
   have hn8SCn : (0 : ℝ) ≤ n8C6 CA CA' CC * SC := mul_nonneg hn8C60 hSCn
-  have ha0 : (0 : ℝ) ≤ a := by rw [hadef]; positivity
-  have ha1 : a ≤ 1 / 4 := by rw [hadef]; nlinarith only [hFCE1, hFC0, hE0]
-  have hb0 : (0 : ℝ) ≤ b := by
-    rw [hbdef]; have := hSC0.le; positivity
   have hcl0 : (0 : ℝ) ≤ cl := by
     rw [hcldef]; have := hSC0.le; have := (mul_pos hFC0 hE0).le; positivity
   have hK3AB : (9 + 9 * n8C6 CA CA' CC) * (Real.exp 260 * ec) + Cerr * Real.exp 300
@@ -5999,28 +5991,11 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   have hδec2 : |δ| ≤ Real.exp 260 * ec * (SA + SB) := by
     have hn9K2ec : n9K2 = Real.exp 260 * ec := by rw [n9K2, hecdef]
     rw [← hn9K2ec]; exact hδsmall
-  have hbsmall : b ≤ 1 + 3 * n8C6 CA CA' CC := by
-    rw [hbdef]
-    nlinarith only [husmall, hu0, hSC1, hn8C60, hSC0]
   have hclsmall : cl ≤ 2 + 6 * n8C6 CA CA' CC := by
     rw [hcldef]
     nlinarith only [husmall, hu0, hSC1, hn8C60, hSC0, hFCE1]
-  have ht1 : 2 * a ≤ 14 * Real.exp 31 * SD := by
-    rw [hadef]; nlinarith only [hFCE, hSD0, Real.exp_pos (31 : ℝ)]
-  have ht2 : 2 * b ≤ (18 * ec + 9 * n8C6 CA CA' CC) * SC := by
-    rw [hbdef]; nlinarith only [huSC, hn8SCn, hecSC]
   have ht2' : cl ≤ (18 * ec + 9 * n8C6 CA CA' CC) * SC + 14 * Real.exp 31 * SD := by
     rw [hcldef]; nlinarith only [huSC, hn8SCn, hecSC, hFCE]
-  have ht3 : 2 * |δ| + 2 * b * |δ|
-      ≤ (9 + 9 * n8C6 CA CA' CC) * (Real.exp 260 * ec) * (SA + SB) := by
-    have h1 : 2 * |δ| + 2 * b * |δ| ≤ (4 + 6 * n8C6 CA CA' CC) * |δ| := by
-      nlinarith only [hbsmall, hd0, hn8C60]
-    have h2 : (4 + 6 * n8C6 CA CA' CC) * |δ|
-        ≤ (4 + 6 * n8C6 CA CA' CC) * (Real.exp 260 * ec * (SA + SB)) := by
-      nlinarith only [hδec2, hn8C60]
-    have h3 : (0 : ℝ) ≤ Real.exp 260 * ec * (SA + SB) := by
-      have := hSB0.le; positivity
-    nlinarith only [h1, h2, h3, hn8C60]
   have ht4 : (3 + 6 * n8C6 CA CA' CC) * |δ|
       ≤ (9 + 9 * n8C6 CA CA' CC) * (Real.exp 260 * ec) * (SA + SB) := by
     have h2 : (3 + 6 * n8C6 CA CA' CC) * |δ|
@@ -6029,46 +6004,17 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have h3 : (0 : ℝ) ≤ Real.exp 260 * ec * (SA + SB) := by
       have := hSB0.le; positivity
     nlinarith only [h2, h3, hn8C60]
-  have hMbound : 2 * a + 2 * b + 2 * |δ| + 2 * b * |δ| + Cerr * Real.exp 300 * SB ≤ M := by
-    rw [hMdef]; linarith only [ht1, ht2, ht3, e1, e2, e3, e4]
   have hMbound2 : cl + (3 + 6 * n8C6 CA CA' CC) * |δ| + Cerr * Real.exp 300 * SB ≤ M := by
     rw [hMdef]; linarith only [ht2', ht4, e1, e2, e3, e4]
-  -- the two sides
-  have hupperT : S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) ≤ (1 + M) * T := by
-    have hs1 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve * (1 + a)
-          * (hbLL χ ^ 2 + n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q)
-        ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve * (1 + a)
-          * ((1 + b) * (η * Real.log q) ^ 2) := by
-      refine mul_le_mul_of_nonneg_left (by rw [hbdef]; exact hbrkU) ?_
-      exact mul_nonneg hKW0 (by linarith only [ha0])
-    have hs2 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve * (1 + a)
-          * ((1 + b) * (η * Real.log q) ^ 2) = (1 + a) * (1 + b) * ((1 + δ) * T) := by
-      rw [← hKWP2]; ring
-    have halg : (1 + a) * (1 + b) * (1 + δ)
-        ≤ 1 + 2 * a + 2 * b + 2 * |δ| + 2 * b * |δ| := by
-      have s1 : (1 + a) * (1 + b) ≤ 1 + 2 * a + 2 * b := by nlinarith only [ha0, ha1, hb0]
-      have s2 : (1 + a) * (1 + b) * (1 + δ) ≤ (1 + 2 * a + 2 * b) * (1 + δ) :=
-        mul_le_mul_of_nonneg_right s1 hδ1
-      have s3 : (1 + 2 * a + 2 * b) * (1 + δ) ≤ (1 + 2 * a + 2 * b) * (1 + |δ|) :=
-        mul_le_mul_of_nonneg_left (by linarith only [hdub]) (by linarith only [ha0, hb0])
-      have s5 : 2 * a * |δ| ≤ |δ| := by nlinarith only [ha1, ha0, hd0]
-      nlinarith only [s2, s3, s5]
-    have hs3 : (1 + a) * (1 + b) * ((1 + δ) * T) ≤ (1 + 2 * a + 2 * b + 2 * |δ|
-        + 2 * b * |δ|) * T := by
-      have h1 : (1 + a) * (1 + b) * ((1 + δ) * T) = ((1 + a) * (1 + b) * (1 + δ)) * T := by ring
-      rw [h1]
-      exact mul_le_mul_of_nonneg_right halg hTpos.le
-    have hs4 : (1 + 2 * a + 2 * b + 2 * |δ| + 2 * b * |δ|) * T + T * (Cerr * Real.exp 300 * SB)
-        ≤ (1 + M) * T := by nlinarith only [hMbound, hTpos]
-    linarith only [hup, hs1, hs2, hs3, hs4, hErr]
-  have hlowerT : (1 - M) * T ≤ S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) := by
-    have hs1 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+  -- the lower side
+  have hlowerT : (1 - M) * T ≤ (hbDataHB χ hR.sq hz2 x).S3 := by
+    have hs1 : hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
           * ((1 - cl) * (η * Real.log q) ^ 2)
-        ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+        ≤ hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
           * (hbLL χ ^ 2 * (1 - FC * E)
             - n8C6 CA CA' CC * (Real.log q + |hbLL χ|) * Real.log q * (1 + FC * E)) :=
       mul_le_mul_of_nonneg_left (by rw [hcldef]; exact hbrkL) hKW0
-    have hs2 : hbKappaN9 χ x (hbZ q η) * W (hbDataN8 χ hR.sq hz2 x).sieve
+    have hs2 : hbKappaN9 χ x (hbZ q η) * W (hbDataHB χ hR.sq hz2 x).sieve
           * ((1 - cl) * (η * Real.log q) ^ 2) = (1 - cl) * ((1 + δ) * T) := by
       rw [← hKWP2]; ring
     have halg2 : 1 - cl - (3 + 6 * n8C6 CA CA' CC) * |δ| ≤ (1 - cl) * (1 + δ) := by
@@ -6086,16 +6032,10 @@ theorem hb_S3_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
         ≤ (1 - cl - (3 + 6 * n8C6 CA CA' CC) * |δ|) * T - T * (Cerr * Real.exp 300 * SB) := by
       nlinarith only [hMbound2, hTpos]
     linarith only [hlo, hs1, hs2, hs3, hs4, hErr]
-  -- the relative form
-  refine ⟨S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) / T - 1, ?_, ?_⟩
-  · rw [← hTdef]; field_simp; ring
-  · have hid : S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) / T - 1
-        = (S3 χ (hbZ q η) (l2cWindow χ (hbZ q η) x) - T) / T := by field_simp
-    rw [hid, abs_div, abs_of_pos hTpos, div_le_iff₀ hTpos, abs_le]
-    rw [hSAdef, hSBdef, hSCdef, hSDdef] at hMdef
-    constructor
-    · rw [← hMdef]; linarith only [hlowerT]
-    · rw [← hMdef]; linarith only [hupperT]
+  -- the crown's window, through the bridge
+  rw [hSAdef, hSBdef, hSCdef, hSDdef] at hMdef
+  rw [← hTdef, ← hMdef]
+  exact le_trans hlowerT (hbDataHB_S3_le_S3_window χ hR.sq hz2 x)
 
 /-- **HB THEOREM 1 (p.195) AT THE TWIN INSTANCE — N9's terminal.**
 
