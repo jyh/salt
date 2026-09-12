@@ -26,8 +26,9 @@ optional.
 **§1 (THIS CUT): THE HB WIRE.**  `hbDataHB` — Heath-Brown's own Lemma 5 instance, for the
 twin pair `(4k+1, 4k+3)` over the k-range `(x, 2x]`, whose modulus is NOT already divided out
 by its own support.  **§2 (THIS CUT): THE BRIDGE** from that wire back to the crown window at
-`X = 4x+1`, along the index map `k ↦ 4k+1`.  **§3 is RESERVED for the next cut and is NOT in
-this file yet:** the p.200 lower assembly re-stated at the HB wire.
+`X = 4x+1`, along the index map `k ↦ 4k+1`.  **§3 (THIS CUT): THE TWO RE-INSTANTIATIONS** at
+the HB wire — the `S1 = W` law and the p.200 lower assembly, the second of them landing its
+conclusion at `(hbDataHB …).S3`, where the bridge picks it up.
 
 ⛔ **WHAT THIS RECORD DOES NOT SAY.**  It concerns conclusion (1) of `hbSieve_fl_sandwich` —
 the Rosser sandwich on the sifted sum — at `hbDataN8`, and nothing else.  It says NOTHING
@@ -233,5 +234,17 @@ theorem hbDataHB_S3_le_S3_window (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 =
     omega
   exact Finset.mem_filter.mpr ⟨four_mul_add_one_mem_Ioc hkIoc,
     Nat.Coprime.mul_right hkq (coprime_excPrimorial_of_odd χ hsq z hodd hkq hkP)⟩
+
+/-! ## §3 — THE TWO RE-INSTANTIATIONS AT THE HB WIRE -/
+
+/-- **W-c₄.1 — `S1 = W` at the HB wire.**  `HBSieveData.sieve` reads a wire only through `.P`,
+`.P_squarefree` and `.P_odd`, and both wires are `ofHbP (chiReChar χ hsq) …` at the same `z`,
+so the two `.sieve`s are the SAME object definitionally and the landed N8 theorem is literally
+the proof term.  Class **A**, cap 8.  By `hbS1_eq_W` at the new data.  Consumer: the crown's
+`S1 = W` step, once the next cut re-points it at this wire. -/
+theorem hbS1_eq_W_HB (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z : ℕ} (hz : 2 ≤ z)
+    (x : ℕ) {α : ℕ} (hα2 : 2 ∣ α) (hαodd : ∀ p : ℕ, p.Prime → p ∣ α → p = 2) :
+    hbS1 χ α ((z : ℝ) - 1) = W (hbDataHB χ hsq hz x).sieve :=
+  hbS1_eq_W χ hsq hz x hα2 hαodd
 
 end Salt.HB
