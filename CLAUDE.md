@@ -14,7 +14,7 @@ blueprint node workflow below applies **when and only when** a blueprint track
 is reopened by a Fable/human session; `scripts/blueprint_lint.py` still audits
 the Brun guide and still runs in CI.
 Full routing policy: `docs/MODEL_POLICY.md`. The Lean kernel is the referee:
-`lake build` checks every proof.
+`../saltbuild.sh` checks every proof (NEVER bare `lake` — see Build commands).
 
 ## Before proving anything: classify
 
@@ -72,7 +72,7 @@ Identify which model you are, then attempt only nodes at your tier or below:
    record for ALL tracks — flag there exactly as before.
 2. Write the proof in the track's file (Brun track: `Salt/Brun/` modules,
    imported from `Salt/Brun.lean`).
-3. Verify: `lake build` (must succeed, no warnings introduced), then the
+3. Verify: `../saltbuild.sh` (must succeed, no warnings introduced), then the
    axiom check (rule 3).
 4. Commit on the track branch with message `brun: N<id> <name>` and a line
    noting your model and attempt count.
@@ -89,11 +89,34 @@ and run the lint.
 
 ## Build commands
 
+⛔⛔ **NEVER BARE `lake`, NEVER BARE `lean` — EVERY Lean invocation in this repo goes through
+`../saltbuild.sh`.** Fleet-wide rule, ratified 2026-08-06 after TWO OOM incidents in one morning:
+single elaborations on salt's heavy files reach 6–9 GB, and five seats at default parallelism
+exhausted 64 GB plus 8 GB of swap. The wrapper takes an atomic cross-seat lock (one heavy job
+fleet-wide, stale-reaped) and caps `LEAN_NUM_THREADS`; this `lake` has no `-j`, so the Lean task
+pool IS the job pool.
+
 ```sh
-lake build                        # kernel-checks everything (mathlib is cached)
-lake env lean Scratch.lean        # for #print axioms checks (don't commit Scratch.lean)
-python3 scripts/blueprint_lint.py # docs↔code consistency + axiom audit (phase 1)
+../saltbuild.sh                     # full build of this repo (kernel-checks everything)
+../saltbuild.sh Salt.Brun.Foo       # targeted build — PREFER THIS while iterating
+../saltbuild.sh Scratch.lean        # audit run for #print axioms (don't commit Scratch.lean)
+python3 scripts/blueprint_lint.py   # docs↔code consistency + axiom audit (phase 1)
 ```
+
+⛔ **Judge a build ONLY on the printed `saltbuild EXIT=N` line, and READ THE NUMBER** — never a
+pipe's exit status, and never the harness's own report (it has printed "exit code 0" over a run
+whose log read `EXIT=1`). `143` is SIGTERM, the box taking your process, not Lean. Killed builds
+resume from cache; a lock timeout is safe to retry. **NEVER PIPE the wrapper.**
+⛔ **Put this rule VERBATIM in every executor/subagent brief you write** — a subagent that does not
+know it will OOM the fleet.
+
+*(This block instructed bare `lake build` until 2026-09-11, when the 51st helm head measured it:
+the rule was ratified fleet-wide, carded, re-enacted in four council minutes and present in the
+Lean seats' own boot briefs, and the string `saltbuild` occurred **ZERO** times in this file
+against a positive control of five for `lake`. ⇒ 🔑 ***A RULE CAN REACH EVERY SPECIALIST AND MISS
+THE ONE DOCUMENT EVERY SESSION READS*** — and this file did not merely omit it, it printed the
+forbidden command in the imperative. Found from the other end: `kent` was auditing whether the
+08-06 rules were the Captain's own words, which sent me to look at where they had landed.)*
 
 ⛔⛔ **NEVER `grep -r` FROM `~/projects/claude` — IT SEARCHES THREE FILES AND RETURNS A CLEAN ZERO.**
 Here `grep` is a shell function wrapping `ugrep -G --ignore-files`, `--ignore-files` honours
@@ -107,7 +130,8 @@ which matters here more than anywhere, because absence claims about mathlib and 
 are how nodes get classified and how "no such lemma exists" gets written down. Always `grep -F`
 for Lean identifiers.
 
-If `lake` is not on PATH: `~/.elan/bin/lake`.
+If the wrapper reports that `lake` is not on PATH, it lives at `~/.elan/bin/lake` —
+put it on PATH; do not reach past the wrapper to call it.
 
 ## Public-repo commit hygiene (ratified 2026-08-23)
 
