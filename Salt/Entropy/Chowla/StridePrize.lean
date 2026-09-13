@@ -285,4 +285,24 @@ theorem logChowlaAffSupplyW_of_headG (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     log_chowla_aff_composed_of_headG a b h ha hh hah7 A₀ (hheadG A₀)
   exact ⟨A, hA162, hA₀A, Ra.toChowlaRegime, hHlo, hnf⟩
 
+/-! ## ⟦β W1 E1⟧ — the graded head's conclusion at `2^12` (build freeze v2 v1.1, 2026-09-13) -/
+
+/-- **⟦β W1 E1⟧ F5-C0 at `2^12` (def) — `GradedAffHeadAt_g12b`.**  `GradedAffHeadAt` with the door's
+grade ceiling re-cut `ρ ≤ 1/(837782·2^11·(ah)²) ↦ ρ ≤ 1/(837782·2^12·(ah)²)` — the conclusion of
+`log_chowla_aff_of_door_g12b` (`StrideShellG.lean`) byte for byte.  NOTHING ELSE MOVES: the entropy
+half's own pin `1/(838400·(ah)²) ≤ δ₀` carries no grade (census band 4 row 10).  Additive only —
+`GradedAffHeadAt` is untouched. -/
+def GradedAffHeadAt_g12b (a b h : ℕ) (A₀ : ℝ) : Prop :=
+  ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+    ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+      flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+      (∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+        1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+        E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+            * (Real.log (Ra.ω : ℝ) - 1)) ∧
+        MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E)) ∧
+      ∃ δ₀ : ℝ, 0 < δ₀ ∧ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) ≤ δ₀ ∧
+        ∀ ρ' : ℝ, 0 < ρ' → ρ' ≤ δ₀ → MRTUniformityXiL2AffW h Ra ρ' →
+          ¬ logChowlaFailsAff a b h Ra.eps Ra.x Ra.ω
+
 end Salt.Entropy.Chowla

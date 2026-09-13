@@ -828,4 +828,242 @@ theorem flatDesignBase_clears_stride_floors {A : ℝ} (hA : 162 ≤ A) {eps : �
         Nat.mul_le_mul (le_refl 4) (Nat.pow_le_pow_left hceil 4)
     _ ≤ (10 : ℕ) ^ (24 : ℕ) := by norm_num
 
+/-! ## ⟦β W1 E1⟧ — the stride twins at the crown's derived bound `a ≤ 8103` / `log a ≤ 9`
+
+Build freeze v2 v1.1 (2026-09-13) §3.0: at product cap 9 the crown derives `a ≤ a·h ≤ ⌊e⁹⌋ = 8103`
+and `ε ≥ 1/(500·8103) = 1/4051500`, and nothing more; every stride site below the composition is
+twinned there.  Additive only — every declaration above is untouched.  Each twin is its source's
+statement and body with ONLY the raises `1096 ↦ 8103`, `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
+`10^24 ↦ 10^28`; no hypothesis is added and no conclusion weakened. -/
+
+/-- **F3-P19 at `log a ≤ 9`** (`loglog_mul_flatDesignBase_le_b9`) — `loglog_mul_flatDesignBase_le`
+with `ha7 ↦ ha9`.  The cap is read only in `hub`: `log a + log 2 + E ≤ 2E` at `E ≥ 519`,
+`log 2 ≤ 1`, slack `509` (census band 4 row 3).  BODY verbatim. -/
+theorem loglog_mul_flatDesignBase_le_b9 {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha : 1 ≤ a)
+    (ha9 : Real.log (a : ℝ) ≤ 9) :
+    Real.log (Real.log ((a * flatDesignBase A : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+  have hge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+    rw [flatDesignBase]; exact Nat.le_ceil _
+  have hceil : ((flatDesignBase A : ℕ) : ℝ) ≤ 2 * Real.exp (Real.exp (3.2 * A)) := by
+    rw [flatDesignBase]
+    have h1 : ((⌈Real.exp (Real.exp (3.2 * A))⌉₊ : ℕ) : ℝ)
+        ≤ Real.exp (Real.exp (3.2 * A)) + 1 := (Nat.ceil_lt_add_one (Real.exp_pos _).le).le
+    have h2 : (1 : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
+      have := Real.add_one_le_exp (Real.exp (3.2 * A)); linarith [Real.exp_pos (3.2 * A)]
+    linarith
+  have hE519 : (519 : ℝ) ≤ Real.exp (3.2 * A) := by
+    have := Real.add_one_le_exp (3.2 * A); linarith
+  have hDpos : (0 : ℝ) < ((flatDesignBase A : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hge
+  have hapos : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
+  have hlogD_ge : Real.exp (3.2 * A) ≤ Real.log ((flatDesignBase A : ℕ) : ℝ) := by
+    have h := Real.log_le_log (Real.exp_pos _) hge
+    rwa [Real.log_exp] at h
+  have hlogD_le : Real.log ((flatDesignBase A : ℕ) : ℝ)
+      ≤ Real.log 2 + Real.exp (3.2 * A) := by
+    have h := Real.log_le_log hDpos hceil
+    rwa [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp] at h
+  have hlog2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+  have hprod : Real.log ((a * flatDesignBase A : ℕ) : ℝ)
+      = Real.log (a : ℝ) + Real.log ((flatDesignBase A : ℕ) : ℝ) := by
+    rw [show ((a * flatDesignBase A : ℕ) : ℝ) = (a : ℝ) * ((flatDesignBase A : ℕ) : ℝ) by
+      push_cast; ring, Real.log_mul (ne_of_gt hapos) (ne_of_gt hDpos)]
+  have hloga : (0 : ℝ) ≤ Real.log (a : ℝ) := Real.log_nonneg (by exact_mod_cast ha)
+  have hpos2 : (0 : ℝ) < Real.log ((a * flatDesignBase A : ℕ) : ℝ) := by
+    rw [hprod]; linarith
+  have hub : Real.log ((a * flatDesignBase A : ℕ) : ℝ) ≤ 2 * Real.exp (3.2 * A) := by
+    rw [hprod]; linarith
+  calc Real.log (Real.log ((a * flatDesignBase A : ℕ) : ℝ))
+      ≤ Real.log (2 * Real.exp (3.2 * A)) := Real.log_le_log hpos2 hub
+    _ = 3.2 * A + Real.log 2 := by
+        rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
+
+/-- **F3-P20 at the pin's floor `1/4051500`** (`flatDesignBase_clears_stride_floors_b9`) —
+`flatDesignBase_clears_stride_floors` with `548000 ↦ 4051500 = 500·8103` and the intermediate
+`10^24 ↦ 10^28`: `4·4051500⁴ = 1.0778·10²⁷ ≤ 10²⁸` (the frozen `10²⁴`, and even `10²⁷`, is a
+WALL — freeze §5.1(g)), and `log 10^28 = 28·log 10 ≤ 28·9 = 252 ≤ 519`.  BODY otherwise verbatim. -/
+theorem flatDesignBase_clears_stride_floors_b9 {A : ℝ} (hA : 162 ≤ A) {eps : ℚ}
+    (heps : 1 / 4051500 ≤ eps) :
+    4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4 ≤ flatDesignBase A ∧ 4000000 ≤ flatDesignBase A := by
+  have heps0 : (0 : ℚ) < eps := lt_of_lt_of_le (by norm_num) heps
+  have hceil : ⌈(1 / eps : ℚ)⌉₊ ≤ 4051500 := by
+    refine Nat.ceil_le.mpr ?_
+    push_cast
+    rw [div_le_iff₀ heps0]
+    linarith
+  have hE519 : (519 : ℝ) ≤ Real.exp (3.2 * A) := by
+    have := Real.add_one_le_exp (3.2 * A); linarith
+  have hlog10 : Real.log 10 ≤ 9 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 10); linarith
+  have h28 : Real.log ((10 : ℝ) ^ (28 : ℕ)) ≤ 519 := by
+    rw [Real.log_pow]; push_cast; linarith
+  have h519 : ((10 : ℝ) ^ (28 : ℕ)) ≤ Real.exp 519 := by
+    have h := Real.exp_le_exp.mpr h28
+    rwa [Real.exp_log (by norm_num : (0 : ℝ) < (10 : ℝ) ^ (28 : ℕ))] at h
+  have hbig : ((10 : ℝ) ^ (28 : ℕ)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+    refine le_trans h519 (le_trans (Real.exp_le_exp.mpr hE519) ?_)
+    rw [flatDesignBase]; exact Nat.le_ceil _
+  have hbigN : (10 : ℕ) ^ (28 : ℕ) ≤ flatDesignBase A := by
+    exact_mod_cast hbig
+  refine ⟨le_trans ?_ hbigN, le_trans (by norm_num) hbigN⟩
+  calc 4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4 ≤ 4 * 4051500 ^ 4 :=
+        Nat.mul_le_mul (le_refl 4) (Nat.pow_le_pow_left hceil 4)
+    _ ≤ (10 : ℕ) ^ (28 : ℕ) := by norm_num
+
+/-- **F3-P3 at `a ≤ 8103`** (`regimeShrinkX_stride_b9`) — `regimeShrinkX_stride` (docstring from
+`:113`) with `ha1096 ↦ ha8103 : a ≤ 8103`.  The stride bound is read at exactly two sites:
+`hcop` (`ε²·Hlo'/2 ≥ 500000 ≥ 8103 ≥ a`, room `×61.7`) and `hHlo` (`a ≤ 8103 ≤ 4000000 ≤ Hlo'`).
+Every other field and step is the source's, verbatim (census band 4 rows 6–8). -/
+def regimeShrinkX_stride_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a)
+    (hloM : 4000000 ≤ R.a * R.Hlo / a) : ChowlaRegime := by
+  have htower : ∀ j : ℕ,
+      chowlaTower R.C0 a (R.a * R.Hlo / a) j = chowlaTower R.C0 R.a R.Hlo j := by
+    intro j
+    rw [chowlaTower_eq_base_one R.C0 a (R.a * R.Hlo / a) j, Nat.mul_div_cancel' hdiv]
+    exact (chowlaTower_eq_base_one R.C0 R.a R.Hlo j).symm
+  have hdrop : towerDropSum R.C0 a (R.a * R.Hlo / a) R.J
+      = towerDropSum R.C0 R.a R.Hlo R.J := by
+    rw [towerDropSum_eq_base_one R.C0 a (R.a * R.Hlo / a) R.J, Nat.mul_div_cancel' hdiv]
+    exact (towerDropSum_eq_base_one R.C0 R.a R.Hlo R.J).symm
+  have hbase : 4000000 ≤ R.a * R.Hlo :=
+    le_trans R.hHlo_floor (Nat.le_mul_of_pos_left _ R.ha)
+  have hHlohi : R.a * R.Hlo / a ≤ R.Hhi := by
+    refine le_trans (Nat.div_le_self _ _) (le_trans ?_ R.hfit)
+    have h := chowlaTower_ge_base R.hC0 hbase R.J
+    rw [← chowlaTower_eq_base_one R.C0 R.a R.Hlo R.J] at h
+    exact h
+  have hepsQ : (0 : ℚ) < R.eps := R.heps
+  have hm_ge : (1 / R.eps : ℚ) ≤ ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) := Nat.le_ceil _
+  have hem : (1 : ℚ) ≤ R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) := by
+    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt hepsQ)
+    rwa [mul_one_div, div_self (ne_of_gt hepsQ)] at h
+  have hm500 : (500 : ℚ) ≤ ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) := by
+    have hprod : (0 : ℚ) ≤ ((1 : ℚ) / 500 - R.eps) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) :=
+      mul_nonneg (by linarith) (Nat.cast_nonneg _)
+    nlinarith [hem, hprod]
+  have hHlo4Q : (4 : ℚ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4
+      ≤ ((R.a * R.Hlo / a : ℕ) : ℚ) := by exact_mod_cast hlo4
+  have hHlo4R : (4 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4
+      ≤ ((R.a * R.Hlo / a : ℕ) : ℝ) := by exact_mod_cast hlo4
+  have hemR : (1 : ℝ) ≤ (R.eps : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) := by exact_mod_cast hem
+  have hcop : (a : ℚ) ≤ R.eps ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℚ) / 2 := by
+    have haQ : (a : ℚ) ≤ 8103 := by exact_mod_cast ha8103
+    have h1 : R.eps ^ 2 * (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4)
+        ≤ R.eps ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℚ) :=
+      mul_le_mul_of_nonneg_left hHlo4Q (sq_nonneg _)
+    have hem2 : (1 : ℚ) ≤ (R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ)) ^ 2 := by
+      nlinarith [hem, sq_nonneg (R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) - 1)]
+    have hm2 : (250000 : ℚ) ≤ ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 2 := by
+      nlinarith [hm500, sq_nonneg (((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) - 500)]
+    have hprod : (250000 : ℚ)
+        ≤ (R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ)) ^ 2
+            * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 2 := by
+      nlinarith [hem2, hm2]
+    have heq : R.eps ^ 2 * (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4)
+        = 4 * (R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ)) ^ 2
+            * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 2 := by ring
+    linarith [h1, hprod, heq, haQ]
+  have hPNT : Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
+      ≤ (R.eps : ℝ) ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℝ) / 2 := by
+    have hsqrtHlo : (2 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2
+        ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := by
+      have heq : Real.sqrt (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4)
+          = 2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2 := by
+        rw [show (4 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4
+            = (2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2) ^ 2 by ring,
+          Real.sqrt_sq (by positivity)]
+      calc (2 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2
+          = Real.sqrt (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4) := heq.symm
+        _ ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := Real.sqrt_le_sqrt hHlo4R
+    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := Real.sqrt_nonneg _
+    have hHloeq : Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
+        * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) = ((R.a * R.Hlo / a : ℕ) : ℝ) :=
+      Real.mul_self_sqrt (by positivity)
+    have h2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := by
+      have hstep : (R.eps : ℝ) ^ 2 * (2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2)
+          ≤ (R.eps : ℝ) ^ 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) :=
+        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
+      nlinarith [hstep, hemR,
+        sq_nonneg ((R.eps : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) - 1)]
+    have h3 : 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
+        ≤ (R.eps : ℝ) ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℝ) := by
+      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
+      rw [mul_assoc, hHloeq] at hh
+      linarith [hh]
+    linarith [h3]
+  exact { x := R.x / a, ω := R.ω, a := a, eps := R.eps, Hlo := R.a * R.Hlo / a,
+          Hhi := R.Hhi, C0 := R.C0, J := R.J,
+          hx := hs.2.1, hω := R.hω, hωx := hs.2.2.1, ha := ha,
+          heps := R.heps, heps1 := R.heps1,
+          hHlo := le_trans ha8103 (le_trans (by norm_num : (8103 : ℕ) ≤ 4000000) hloM),
+          hHlohi := hHlohi, hC0 := R.hC0, hHlo_floor := hloM,
+          hheadroom := hs.2.2.2.1, hcoprime := hcop,
+          hfit := by rw [htower R.J]; exact R.hfit,
+          hJcon := by rw [hdrop]; exact R.hJcon,
+          hheadroom' := hs.2.2.2.2.1, hPHheadroom := hs.2.2.2.2.2.1,
+          hPNTwindow := hPNT, hωbig := R.hωbig, hxbig := hs.2.2.2.2.2.2 }
+
+/-- **F3-P4 at `a ≤ 8103`** — the projection family of `regimeShrinkX_stride_b9` (freeze §3.1
+rule 4: a `def` is twinned with its projections, in one layer).  Each is `rfl`, as at the source. -/
+theorem regimeShrinkX_stride_x_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).x = R.x / a := by
+  rfl
+
+theorem regimeShrinkX_stride_omega_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
+    (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).ω = R.ω := by
+  rfl
+
+theorem regimeShrinkX_stride_a_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).a = a := by
+  rfl
+
+theorem regimeShrinkX_stride_eps_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).eps = R.eps := by
+  rfl
+
+theorem regimeShrinkX_stride_Hlo_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).Hlo = R.a * R.Hlo / a := by
+  rfl
+
+theorem regimeShrinkX_stride_Hhi_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).Hhi = R.Hhi := by
+  rfl
+
+theorem regimeShrinkX_stride_C0_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).C0 = R.C0 := by
+  rfl
+
+theorem regimeShrinkX_stride_J_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).J = R.J := by
+  rfl
+
+/-- **F3-P6 at `a ≤ 8103`** — `regimeShrinkX_stride_x_mul` at the twin, read through
+`regimeShrinkX_stride_x_b9`. -/
+theorem regimeShrinkX_stride_x_mul_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
+    (ha8103 : a ≤ 8103)
+    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+    (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).x * a = R.x := by
+  rw [regimeShrinkX_stride_x_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM]
+  exact Nat.div_mul_cancel hs.1
+
 end Salt.Entropy.Chowla

@@ -10106,3 +10106,31 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.pell_state_periodic
   Salt.MR.pell_class_iter
   Salt.MR.zRough_oddOmega_infinite_class_of_seed
+
+/-! ⟦β W1 E1⟧ — THE ENTROPY-SIDE CAP-9 / `2^12` TWINS (`GoldbachEnergyKcH`, `StridePair`,
+`StrideShellG`, `StridePrize`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief
+W1 bundle E1).  Additive only: every landed declaration is untouched.  Each twin is its source's
+statement and body with ONLY the freeze's rule-2 raises — product cap `≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`,
+`1201216 ↦ 65658609`, stride `a ≤ 1096 ↦ a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
+`10^24 ↦ 10^28`, door grade `2^11 ↦ 2^12` — and no hypothesis added.  The Entropy converter
+`h_le_8103_of_log_le_nine` is new (`e^9 = 8103.08`, sharp); `regimeShrinkX_stride_b9` is twinned
+with its nine projections (rule 4).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.h_le_8103_of_log_le_nine
+  Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9
+  Salt.Entropy.Chowla.hpt_holds_500h_b9
+  Salt.Entropy.Chowla.loglog_mul_flatDesignBase_le_b9
+  Salt.Entropy.Chowla.flatDesignBase_clears_stride_floors_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_x_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_omega_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_a_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_eps_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hlo_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hhi_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_C0_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_J_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_x_mul_b9
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_g12b
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g12b
+  Salt.Entropy.Chowla.GradedAffHeadAt_g12b
