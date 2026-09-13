@@ -6907,8 +6907,15 @@ numbering is UNVERIFIED.
    Fixed-`z` roughness leaves `Ω` unbounded (no almost-primality; orthogonal to the
    landed `twin_almost_prime`), and **without roughness "Ω(n(n+2)) odd infinitely
    often" is a three-line elementary theorem.** Honest statement of the prize: *for
-   every fixed z, infinitely many n with n(n+2) z-rough and Ω odd* — **real, new,
-   and NOT apex-adjacent by itself.** ⇒ **08/21 moved the ROAD'S PASSABILITY, not
+   every fixed z, infinitely many n with n(n+2) z-rough and Ω odd* — **~~real, new,~~
+   and NOT apex-adjacent by itself.**
+   ⛔ **CORRECTED 2026-09-12 (helm, on a refuter pass over math's (B1) freeze): "new" is WITHDRAWN at every z the
+   fork priced.** Take `K ≡ 0 mod primorial z` with `Ω(K²−1)` odd; the Pell solutions of `k² − (K²−1)·y² = 1` give
+   `n := k − 1` with `n(n+2) = (K²−1)·y²` — Ω odd — and coprime to `primorial z` at every odd step, infinitely often.
+   **Elementary, no analytic input**; checked numerically at `K = 4620` (z-rough through 12), seeds reported to z ≤ 46;
+   **NOT kernel-checked.** It does NOT settle every z at once (that needs a seed for each z). ⇒ **What the lane
+   carries that Pell does not is the PER-CLASS supply over every admissible residue** (Pell reaches only
+   `n ≡ −1 mod primorial z`): **price the prize against a per-class statement, never against z.** ⇒ **08/21 moved the ROAD'S PASSABILITY, not
    the DESTINATION'S VALUE. A puller who forgets this will over-invest.**
 
    ✅⛔ **NODE 11a — ANSWERED 2026-08-21 19:1x (evidence pulled it at idle; helm traced
