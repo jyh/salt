@@ -1022,6 +1022,18 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    | release condition | owner | re-measure |
    |---|---|---|
    | the Captain's word on the TARGET (re-target to the log-mass form, or keep "infinitely many in the class") releases the β BUILD WAVE; the BUILD freeze v2 (census v1.1 §2–§3 at cap 9, `a ≤ 2310`, the one named lift, the 2^12 re-cut) is drafted and refuter-passed meanwhile | the Captain (target) · math (v2) | at the next council pack cut |
+   ⚖️✅ **THE TARGET IS RULED — 2026-09-13 12:11 PDT, the Captain (relayed by the helm; recorded as an addendum to the
+   09-13 council minute): *"yes (i), re-target to the log-mass form"*. THE RELEASE CELL DIRECTLY ABOVE IS DISCHARGED FOR
+   ITS CAPTAIN HALF; it is kept as written.** Clause 1 now reads: **the lane's target is the per-class `1/k`-weighted
+   log-mass** — for every admissible `r` mod `P = primorial z` and every `M`, a window `(x/ω, x]` with `M < x/ω` and
+   `64000·P + 1 ≤ log ω` in which `Σ 1/k` over class indices `k` whose `m = P·k + r` has `m(m+2)` `z`-rough with `Ω` odd is
+   at least `(1 − 1/(1000·P))/2·log ω − 1/2` — **with "infinitely many in the class" exported beside it as its corollary.**
+   Clauses 2 and 3 stand; clause 3's stated REASON is struck as mis-scoped (the `10⁶` order is a shift reach), the ruling
+   unmoved. The elementary comparator is on main as `zRough_oddOmega_infinite_class_of_seed`
+   (`Salt/MR/StridePrizePellClass.lean`): one seed in a class gives infinitely many in it.
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | the BUILD freeze v2 against the log-mass target (census v1.1 §2–§3 at cap 9, `a ≤ 2310`, the one named lift, the 2^12 re-cut; every other statement site twinned additively or returned for a word) is cut and refuter-passed; then the wave | math | at the v2 fold |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
