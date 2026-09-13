@@ -989,6 +989,39 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    next act is **(B1)'s dial, the Captain's, unruled and with no setting recorded** — the release-condition table directly
    above stands as written and is not re-stated. ⇒ 🔑 ***A SIGNATURE ON A STAMP VERIFIES THE STAMP'S CELLS AT THE OBJECT;
    IT DOES NOT RE-OPEN THE RULING THE STAMP RECORDS.*** Desk row `IO` (due 2026-09-12) is thereby CLOSED for its h2c owner.
+   ⚖️✅ **(B1) IS RULED — HOMED 2026-09-13 (math, 31st head). THE TWO RELEASE-CONDITION CELLS ABOVE THAT READ "(B1)'s dial,
+   the Captain's, unruled" ARE DISCHARGED; THEY ARE KEPT AS WRITTEN.**
+   * **09/12 (council ⑦, "accept rec"): 2^12 with the split re-cut.** math's census found the word, as priced, moves `z` by
+     **0** (the prize reads `a` only through the PRODUCT cap `log(a·h) ≤ 7` at `h = 2`, so `primorial z ≤ 548` at any
+     exponent). The helm held both statement acts and released the leaves common to both readings: **salt #118 → main
+     `9619b206`**, `Salt/MR/StrideGrade12Walls.lean`, 3 leaves + 5 census certificates, `[3 axioms]` ×8. Census:
+     the census `2026-09-12-math-FREEZE-b1-grade12-census.md` v1.1.
+   * **09/13 (council A②, his: *"yes accept rec"*), minute `2026-09-13-COUNCIL-minute.md` @ `7d548f3c5`, three clauses:**
+     (1) **the lane's TARGET is the PER-CLASS statement** — for every admissible residue class mod `primorial z`, infinitely many
+     `z`-rough twins with `Ω` odd in that class — frozen and refuter-passed BEFORE building; (2) **(β)**: α + a separate
+     `a ≤ 2310` binder on the composition twin + the lane's cap lifted `log(a·h) ≤ 7 → ≤ 9` (`z` 10 → 12), and **the `a' ≤ 1096`
+     lift inside `mrtUniformityXiL2AffSet_holds_flat_floor_g`'s statement is RULED A STATEMENT DECISION, his word given**;
+     (3) **cap 13 stays withdrawn.** Register entry `math-B1-beta` discharged at the close.
+   * 🔎 **FIRST ACT UNDER CLAUSE 1, BEFORE ANY LEAN — a finding, posted:** the per-class statement AS WORDED has an elementary
+     proof at every fixed `z`. Pell periodicity mod `primorial z` turns ONE witness in a class into infinitely many in THAT class
+     (the landed `StridePrizePell.lean` is the `K ≡ 0` case); at β's reach that is 135 admissible classes mod 2310, every one
+     witnessed (largest least witness 13787). The lane's own content is QUANTITATIVE — the class's logarithmic mass of `Ω`-odd
+     twin products in windows — and Pell cannot reach it. Both forms elaborate at the landed cap in a probe (`[3 axioms]`,
+     first attempt; a class-shifted mutant refuses). **math RECOMMENDS citing β against the log-mass form, with the "infinitely
+     many" form exported beside it as its corollary.**
+   * ⚖️⛔ **REFUTER PASS FOLDED (freeze v1.1, `6016065cb`; 4 refuters, 4 × REPAIR-THEN-FIRE, 0 kills of either statement) — AND IT
+     RETURNS THE TARGET TO THE CAPTAIN.** The rec he accepted rested on "the per-class statement escapes Pell"; the finding above
+     refutes that premise at every `z` β reaches, so re-targeting to the log-mass form is HIS act, not math's (the 09/12 ⑦
+     precedent). The periodicity reduction is now KERNEL-CHECKED as a probe (for every `z`, one seed in a class ⇒ infinitely many
+     in that class; `[3 axioms]`; a class-shifted mutant refuses). The pass also repaired the log-mass statement (an ε-scaled
+     window floor; roughness in the filter; the `1/k` class-index weight named in every sentence), and found clause 3's
+     parenthetical mis-scoped: the `10⁶` order is the SHIFT reach of the 09/08 evening minute, not a bound on this product cap.
+     Clause 2 grants the `a ≤ 2310` binder, cap 9 and the ONE named lift; every other statement site in the census is twinned
+     additively or returned for a word. Registered: blocked-on-captain `math-A2-target`.
+     Freeze: `2026-09-13-math-FREEZE-beta-per-class.md` (v1.0 `359af0b85`, v1.1 `6016065cb`).
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | the Captain's word on the TARGET (re-target to the log-mass form, or keep "infinitely many in the class") releases the β BUILD WAVE; the BUILD freeze v2 (census v1.1 §2–§3 at cap 9, `a ≤ 2310`, the one named lift, the 2^12 re-cut) is drafted and refuter-passed meanwhile | the Captain (target) · math (v2) | at the next council pack cut |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
@@ -6928,6 +6961,12 @@ numbering is UNVERIFIED.
    ⇒ **Every further seed is now a NUMERALS-ONLY certificate** (`primorial z ∣ K` and a factorisation of `K² − 1`). The
    z ≤ 46 seeds are REPORTED, NOT instantiated. **ADDITIVE ONLY:** no landed statement moves, and no cap or (B1)/β
    statement is touched. The per-class statement above is untouched by this and still prices the lane.
+   ⛔ **CORRECTED 2026-09-13 (math, on a refuter-passed freeze; annotating, not rewriting): "Pell reaches only `n ≡ −1 mod
+   primorial z`" is true of the `K ≡ 0` seed family ONLY.** Pell periodicity mod `primorial z` carries ONE seed in ANY admissible
+   class to infinitely many in THAT class, so the "infinitely many in every admissible class" form falls to Pell plus one seed per
+   class (135 classes at `primorial z = 2310`, all witnessed). **What still prices the lane is the QUANTITATIVE per-class statement,
+   the class's `1/k`-weighted log-mass of `Ω`-odd twin products in windows**, which no elementary route reaches. See the
+   λ-BV waves item, the (B1) β block; the target is on the Captain's page.
 
    ✅⛔ **NODE 11a — ANSWERED 2026-08-21 19:1x (evidence pulled it at idle; helm traced
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
