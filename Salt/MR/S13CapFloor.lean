@@ -757,5 +757,28 @@ theorem s13CapFloor_all_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ}
 
 -- #audit (temporary)
 
+/-! ### §6 — ⟦β W1 E2⟧ the cap-9 sibling (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched. -/
+
+/-- ⟦SIBLING of `capfloor_logH_le_half_sqrt` (§0), divisor `2 → 3`⟧ — `log H ≤ √H/3` at
+`H ≥ 4·10^6`, for the `q_logX` leaf at `log h ≤ 9` (`3^12 = 531441 ≥ 8103`).  BODY: §0's,
+verbatim; the closing certificate is `12·(a − 1) ≤ a²` at `a = H^{1/4} ≥ 40` in place of
+`8·(a − 1) ≤ a²`. -/
+theorem capfloor_logH_le_third_sqrt {H : ℝ} (hH : (4000000 : ℝ) ≤ H) :
+    Real.log H ≤ Real.sqrt H / 3 := by
+  have hH0 : (0 : ℝ) < H := by linarith
+  have hs0 : (0 : ℝ) < Real.sqrt H := Real.sqrt_pos.mpr hH0
+  set a : ℝ := Real.sqrt (Real.sqrt H) with ha
+  have ha0 : (0 : ℝ) < a := Real.sqrt_pos.mpr hs0
+  have ha2 : a * a = Real.sqrt H := Real.mul_self_sqrt hs0.le
+  have hloga : Real.log a = Real.log H / 4 := by
+    rw [ha, Real.log_sqrt hs0.le, Real.log_sqrt hH0.le]; ring
+  have hle : Real.log a ≤ a - 1 := Real.log_le_sub_one_of_pos ha0
+  have hs2000 : (2000 : ℝ) ≤ Real.sqrt H := by
+    nlinarith [Real.mul_self_sqrt hH0.le, hs0]
+  have ha40 : (40 : ℝ) ≤ a := by nlinarith [ha2, ha0, hs2000]
+  nlinarith [hloga, hle, ha2, ha40, ha0]
+
 end Salt.MR
 

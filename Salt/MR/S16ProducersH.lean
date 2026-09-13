@@ -1610,4 +1610,272 @@ theorem m4_arith_henv_constPoolH_L_gk_14 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh14 
   m4_arith_henv_rho_poolH_L_gk_14 K hh hh14 (π₀ := fun _ => constPool ρ R.Hhi)
     (fun _ => constPool_nonneg hρ) harith (price_at_constPool_socketH_L harith)
 
+/-! ## §7 — ⟦β W1 E2⟧ the cap-9 twins, h-lane A (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched.  Each twin is its source's statement and
+body with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, and the
+census's in-body literal `7 ↦ 9` in `hlog'`), every derived cap-dependent supplier replaced by
+its twin; no hypothesis is added and no conclusion weakened. -/
+
+/-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, CAP 9⟧ (class A)** (`h_le_8103_of_hh9`) — the
+`log h ≤ 9` twin of `h_le_1096_of_hh7`, the MR converter of the β lane (its Entropy sibling is
+`Salt.Entropy.Chowla.h_le_8103_of_log_le_nine`).  `e^9 = 8103.0839…`, so `h ≤ ⌊e^9⌋ = 8103`;
+the numeral is sharp (`h = 8103` meets `log h ≤ 9`).  BODY: the source's, at the `9`th power. -/
+theorem h_le_8103_of_hh9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) : h ≤ 8103 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp 9 := by
+    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh9
+  have he9 : Real.exp 9 < 8104 := by
+    have h3 : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have h5 : (Real.exp 1) ^ (9 : ℕ) < (2.7182818286 : ℝ) ^ (9 : ℕ) :=
+      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
+    have h6 : (2.7182818286 : ℝ) ^ (9 : ℕ) < 8104 := by norm_num
+    rw [h3]; linarith
+  have : (h : ℝ) < 8104 := by linarith
+  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
+
+/-- `s13_band_qfit_h` at `log h ≤ 9` (`s13_band_qfit_h_b9`) — TRANSPORT: the closing `linarith`
+reads `log h + 12·λ_H ≤ 9 + 12·λ_H ≤ 10·Λ` under `7000·λ_H ≤ Λ`, `1 ≤ λ_H` (slack
+`69988·λ_H − 9`).  BODY: the source's, verbatim. -/
+theorem s13_band_qfit_h_b9 {h q H Xd : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
+    (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
+    (hHfl : (1 : ℝ) ≤ Real.log (Real.log ((H : ℕ) : ℝ)))
+    (harm : 7000 * Real.log (Real.log ((H : ℕ) : ℝ))
+      ≤ Real.log (Real.log ((Xd : ℕ) : ℝ))) :
+    (q : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ) := by
+  refine le_trans hq ?_
+  have hA : arcDen 12 H = Real.exp (12 * Real.log (Real.log ((H : ℕ) : ℝ))) := by
+    rw [arcDen, Real.rpow_def_of_pos hH]; ring_nf
+  have hB : (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ)
+      = Real.exp (10 * Real.log (Real.log ((Xd : ℕ) : ℝ))) := by
+    rw [← Real.rpow_natCast (Real.log ((Xd : ℕ) : ℝ)) 10, Real.rpow_def_of_pos hX]
+    push_cast; ring_nf
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhe : (h : ℝ) = Real.exp (Real.log (h : ℝ)) := (Real.exp_log hh0).symm
+  rw [hA, hB, hhe, ← Real.exp_add]
+  exact Real.exp_le_exp.mpr (by linarith)
+
+/-- `s13_socketBase_logA_ge_sqrt_LH` at `log h ≤ 9` (`s13_socketBase_logA_ge_sqrt_LH_b9`) —
+NUMERAL-LIFT: the x-scale's `log h` is read at `9` in `hlog'` (`7 ↦ 9`); the `2000 ≤ √H` floor's
+margin absorbs it (census band 2 row 33: slack `7584` at `u = 2000`).  Every other step is the
+source's, verbatim. -/
+theorem s13_socketBase_logA_ge_sqrt_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
+    Real.sqrt (H : ℝ) ≤ Real.log (A : ℝ) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hhi : H ≤ R.Hhi := hb.2.1
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at this
+  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
+  set u : ℝ := Real.sqrt (H : ℝ) with hu
+  set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
+  have hu2 : u ^ 2 = (H : ℝ) := Real.sq_sqrt (by positivity)
+  have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
+  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
+  have hw0 : (0 : ℝ) < w := by rw [hw]; exact Real.sqrt_pos.mpr hlogH0
+  have hu2000 : (2000 : ℝ) ≤ u := by nlinarith [hu2, hu0, hHR]
+  have hw2000 : (2000 : ℝ) ≤ w := by nlinarith [hw2, hw0, hlogHbig]
+  have hlogu : Real.log u = Real.log (H : ℝ) / 2 := by
+    rw [hu]; exact Real.log_sqrt (by positivity)
+  have hlogule : Real.log u ≤ u - 1 := Real.log_le_sub_one_of_pos hu0
+  have hHu : Real.log (H : ℝ) ≤ 2 * u - 2 := by rw [hlogu] at hlogule; linarith
+  have hlogw : Real.log w = Real.log (Real.log (H : ℝ)) / 2 := by
+    rw [hw]; exact Real.log_sqrt hlogH0.le
+  have hlogwle : Real.log w ≤ w - 1 := Real.log_le_sub_one_of_pos hw0
+  have hllH : Real.log (Real.log (H : ℝ)) ≤ 2 * w - 2 := by rw [hlogw] at hlogwle; linarith
+  have hwu : w ^ 2 ≤ 2 * u := by rw [hw2]; linarith
+  -- ⟦the x-scale, in logs, at the inflated cap⟧
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    s13_socketBase_xscale_LH hb
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hAR : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hL12 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
+  have hhl : (0 : ℝ) < (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := mul_pos hh0 hL12
+  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
+  have hlog := Real.log_le_log hlhs0 hxs
+  have hL : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
+    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
+    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast; ring
+  have hRR : Real.log (2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ))
+      = Real.log 2 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
+    rw [harcpow, Real.log_mul (mul_pos two_pos hhl).ne' hAR.ne', Real.log_mul two_ne_zero hhl.ne',
+      Real.log_mul hh0.ne' hL12.ne', Real.log_pow]
+    push_cast; ring
+  rw [hL, hRR] at hlog
+  have hlog' : 4 * (m : ℝ) * Real.log 2
+      ≤ Real.log 2 + 9 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by linarith
+  have hmfl : 2 * u - 1 ≤ (m : ℝ) := by rw [hm, hu]; exact s13_socketBase_mFloor hhi
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hm0 : (0 : ℝ) ≤ (m : ℝ) := Nat.cast_nonneg _
+  nlinarith [hlog', hmfl, hllH, hwu, hw2000, hu2000, hl2lo, hl2hi, hu0, hw0]
+
+/-- `s13_socketBase_loglogA_sharp_LH` at `log h ≤ 9` — SUPPLIER-SWAP
+(`s13_socketBase_logA_ge_sqrt_LH_b9`).  BODY: the source's, verbatim. -/
+theorem s13_socketBase_loglogA_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
+    Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (A : ℝ)) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  set u : ℝ := Real.sqrt (H : ℝ) with hu
+  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
+  have hmain : u ≤ Real.log (A : ℝ) := s13_socketBase_logA_ge_sqrt_LH_b9 hh hh9 hfl hb
+  have hlogu : Real.log u = Real.log (H : ℝ) / 2 := by
+    rw [hu]; exact Real.log_sqrt (by positivity)
+  have hmono := Real.log_le_log hu0 hmain
+  rw [hlogu] at hmono
+  linarith
+
+/-- `s15_block_at_socket_gen_LH` at `log h ≤ 9` (`s15_block_at_socket_gen_LH_b9`) —
+NUMERAL-LIFT: `hlog'` reads the x-scale's `log h` at `9` (`7 ↦ 9`); `hE` needs
+`9 ≤ (18·log 2 − 12)·50 = 23.83` (census band 2 row 38, ×2.65).  Every other step is the
+source's, verbatim. -/
+theorem s15_block_at_socket_gen_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s E : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
+    2 ^ E ≤ A + s := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hhi : H ≤ R.Hhi := hb.2.1
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) :=
+    lt_of_lt_of_le (by norm_num) (one_lt_log_of_loglog_ge hHreg.1 (by norm_num) hHreg.2).le
+  have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
+    s13_loglog_le_of_range (R := R) hlo hhi
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    s13_socketBase_xscale_LH hb
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hL12 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
+  have hhl : (0 : ℝ) < (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := mul_pos hh0 hL12
+  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
+  have hlog := Real.log_le_log hlhs0 hxs
+  have hLid : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
+    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
+    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast; ring
+  have hRR : Real.log (2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ))
+      = Real.log 2 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
+    rw [harcpow, Real.log_mul (mul_pos two_pos hhl).ne' hApos.ne', Real.log_mul two_ne_zero hhl.ne',
+      Real.log_mul hh0.ne' hL12.ne', Real.log_pow]
+    push_cast; ring
+  rw [hLid, hRR] at hlog
+  have hlog' : 4 * (m : ℝ) * Real.log 2
+      ≤ Real.log 2 + 9 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by linarith
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hE : ((E : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
+    nlinarith [hblk, hlog', hllH, hHreg.2, hl2lo, hl2hi]
+  have hpow : ((2 : ℝ)) ^ E ≤ (A : ℝ) := by
+    have hlt : Real.log (((2 : ℝ)) ^ E) ≤ Real.log (A : ℝ) := by
+      rw [Real.log_pow]; linarith
+    exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
+  have hcast : ((2 ^ E : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
+  have hnat : (2 : ℕ) ^ E ≤ A := by exact_mod_cast hcast
+  omega
+
+/-- `s15_block_at_socketH_L_gk` at `log h ≤ 9` — SUPPLIER-SWAP
+(`s15_block_at_socket_gen_LH_b9`).  BODY: the source's, verbatim. -/
+theorem s15_block_at_socketH_L_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hblk : ((s13BlockExp_L_gk K M : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
+    s13BlockFloor_L_gk K M ≤ A + s := by
+  rw [s13BlockFloor_L_gk]
+  exact s15_block_at_socket_gen_LH_b9 hh hh9 hb hHreg hblk
+
+/-- `doorBandBase_family'H_L_gk` at `log h ≤ 9` (`doorBandBase_family'H_L_gk_b9`) —
+SUPPLIER-SWAP: `qfit` is `s13_band_qfit_h_b9`; `X400`/`grade`/`err` are cap-blind and applied
+as landed.  BODY: the source's, verbatim. -/
+theorem doorBandBase_family'H_L_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
+    {R : ChowlaRegime} {M x₀ : ℕ} {C' Kar ρ : ℝ} {C₁ : ℕ → ℝ}
+    (hM : 1 ≤ M) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hC1hi : ∀ n : ℕ, C₁ n ≤ 1)
+    (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hg : gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ R.Hhi ≤ (R.x : ℝ))
+    (harith : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s))
+        (s13BandM0 R ρ C₁ (A + s)) Kar ρ)
+    (hx0 : x₀ ≤ 2 ^ doorRowFloorL M)
+    (hC1one : ∀ n : ℕ, (1 : ℝ) ≤ C₁ n)
+    (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ))
+      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)))
+    (hblock : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      s13BlockFloor_L_gk K M ≤ A + s) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      DoorBandBase_L_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s))
+        (s13BandM0 R ρ C₁ (A + s)) := by
+  intro H L q j A s hbL
+  have hfr := harith H L q j A s hbL
+  have hΛ : (356600 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := hfr.loglogX_ge
+  have hμ : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := lt_trans (by norm_num) hfr.one_lt_logX
+  obtain ⟨hbig, h48, h24⟩ := s13_band_floors hμ hΛ
+  have hΛ0 : (0 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by linarith
+  have hX2 : (2 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hjfl : doorRowFloorL M ≤ j := hbL.2.2.2.2.2.2.1
+  have hfive := s13_doorRowZeroBase_five_L_gk K hM (hblock H L q j A s hbL) hjfl
+  have hreg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) := hfive.2.1
+  refine
+    { X400 := s13_band_X400_LH hM hbL
+      C₁_one := hC1one (A + s)
+      x₀_le := ?_
+      qfit := ?_
+      gHalf := ?_
+      gO1 := ?_
+      gWin := ?_
+      grade := ?_
+      err := ?_ }
+  · have hAj : 2 ^ j ≤ A := hbL.2.2.2.2.2.2.2.2.1
+    have hpow : (2 : ℕ) ^ doorRowFloorL M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
+    exact le_trans hx0 (le_trans hpow (le_trans hAj (Nat.le_add_right A s)))
+  · refine s13_band_qfit_h_b9 hh hh9 hbL.2.2.2.2.1 (lt_trans (by norm_num) hfr.one_lt_logH) hμ
+      ?_ ?_
+    · linarith [hfr.Hfloor]
+    · have := hfr.armWeak
+      have := hfr.logInvRho_nonneg
+      linarith
+  · intro k hk1 hk2
+    have h := s13_band_gHalf hX2 h48 k hk1 hk2
+    simp only [s13Aexp]
+    linarith
+  · intro k hk1 hk2
+    have hQ0 : (0 : ℝ) ≤ Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+      linarith [s13_band_log_calQK_two_ge_L_gk K hM]
+    have h := s13_band_gO1 hX2 hQ0 hreg h24 k hk1 hk2
+    simp only [s13Aexp]
+    linarith
+  · intro k hk1 hk2
+    have h := s13_band_gWin (by linarith) hX2 (s13_band_loglog_calP_one_L_gk K hM)
+      (s13_band_log_calQK_two_ge_L_gk K hM) hreg k hk1 hk2
+    simpa only [s13Aexp] using h
+  · refine le_trans hgrade ?_
+    refine Real.rpow_le_rpow (by positivity) (s13_band_baseFloor_LH hbL) ?_
+    rw [s13Aexp]; norm_num
+  · exact s13_band_err_free_LH hh hρ0 hρ1 (hC1one (A + s)) (hC1hi (A + s)) hHreg hg hbL
+
 end Salt.MR

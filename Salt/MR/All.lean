@@ -10134,3 +10134,32 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.log_chowla_aff_of_door_g12b
   Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g12b
   Salt.Entropy.Chowla.GradedAffHeadAt_g12b
+
+/-! ⟦β W1 E2⟧ — THE MR h-LANE A CAP-9 TWINS (`S13CapFloor`, `S16ProducersH`, `S13CapGateLinearLH`,
+2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1 bundle E2).  Additive only:
+every landed declaration is untouched.  Each twin is its source's statement and body with ONLY the
+freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
+`7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
+its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
+sharp); four sibling mints differ from their sources only in the named literal
+(`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`,
+`capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.capfloor_logH_le_third_sqrt
+  Salt.MR.h_le_8103_of_hh9
+  Salt.MR.s13_band_qfit_h_b9
+  Salt.MR.s13_socketBase_logA_ge_sqrt_LH_b9
+  Salt.MR.s13_socketBase_loglogA_sharp_LH_b9
+  Salt.MR.s15_block_at_socket_gen_LH_b9
+  Salt.MR.s15_block_at_socketH_L_gk_b9
+  Salt.MR.doorBandBase_family'H_L_gk_b9
+  Salt.MR.capeps_Pbig_h_e20
+  Salt.MR.capfloor_lam_core_h_232
+  Salt.MR.capfloor_floor3_numeric_h_10
+  Salt.MR.capfloor_logq_le_LH_b9
+  Salt.MR.capfloor_twoj_le_H_LH_b9
+  Salt.MR.s13CapGrid_Q2_reg_LH_gk_b9
+  Salt.MR.s13CapGrid_twoj_le_H_LH_b9
+  Salt.MR.capeps_row_p2_h_b9
+  Salt.MR.capfloor_core_LH_b9
+  Salt.MR.s13CapGrid_mu_lo_LH_b9
