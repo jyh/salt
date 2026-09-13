@@ -432,6 +432,7 @@ import Salt.MR.StrideGradeReach
 import Salt.MR.StrideGrade12Walls
 import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGradeReceipt
+import Salt.MR.StridePrizePell
 import Salt.MR.HalaszWeighted
 import Salt.Tactic.AuditAxioms
 import Salt.MR.EpsFamilyReceipt
@@ -10074,3 +10075,20 @@ open Salt.Tactic in
   Salt.MR.s16_audit_rho_ge_wide_h_g12
   Salt.MR.s16_audit_neglog_rho_le_wide_h_g12
   Salt.MR.flatDoorM_bfloor_bump_g12
+
+/-! ⟦STRIDE PRIZE PELL⟧ — THE PRIZE'S SET BY PELL, WITH NO ANALYTIC INPUT (`StridePrizePell`,
+2026-09-12, math — desk row LJ, routed by the helm on math's proposal from the refuter pass over
+the (B1) grade-12 census freeze, R1's U1).  For a seed `K` with `primorial z ∣ K` and `Ω(K² − 1)`
+odd, the Pell solutions of `x² − (K² − 1)·y² = 1` at odd index give `n = x − 1` with
+`n(n+2) = (K² − 1)·y²`: `Ω` odd, and no prime `p ≤ z` divides either factor (`p ∣ K`,
+`y_{m+2} + y_m = 2K·y_{m+1}`, `y_1 = 1`).  Mathlib's `Pell.xn`/`Pell.yn` carry the sequences.
+The instance `K = 4620` (`4620² − 1 = 31·149·4621`) gives the landed prize's `r`-free set at
+every `z ≤ 12`.  It reaches the SET only, through the one class `n ≡ −1 (mod primorial z)`; the
+per-class statement the stride supply carries is NOT reached.  Every name is new; no landed
+declaration moves and no cap or (B1) statement is touched.  These four have no consumers.
+Nothing here bears on twin primes.  4 obligations, 4 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.pell_yn_odd_not_dvd
+  Salt.MR.pell_xn_sub_one_mul
+  Salt.MR.zRough_oddOmega_infinite_of_pell_seed
+  Salt.MR.zRough_oddOmega_infinite_pell_4620
