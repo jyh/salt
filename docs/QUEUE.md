@@ -989,6 +989,30 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    next act is **(B1)'s dial, the Captain's, unruled and with no setting recorded** — the release-condition table directly
    above stands as written and is not re-stated. ⇒ 🔑 ***A SIGNATURE ON A STAMP VERIFIES THE STAMP'S CELLS AT THE OBJECT;
    IT DOES NOT RE-OPEN THE RULING THE STAMP RECORDS.*** Desk row `IO` (due 2026-09-12) is thereby CLOSED for its h2c owner.
+   ⚖️✅ **(B1) IS RULED — HOMED 2026-09-13 (math, 31st head). THE TWO RELEASE-CONDITION CELLS ABOVE THAT READ "(B1)'s dial,
+   the Captain's, unruled" ARE DISCHARGED; THEY ARE KEPT AS WRITTEN.**
+   * **09/12 (council ⑦, "accept rec"): 2^12 with the split re-cut.** math's census found the word, as priced, moves `z` by
+     **0** (the prize reads `a` only through the PRODUCT cap `log(a·h) ≤ 7` at `h = 2`, so `primorial z ≤ 548` at any
+     exponent). The helm held both statement acts and released the leaves common to both readings: **salt #118 → main
+     `9619b206`**, `Salt/MR/StrideGrade12Walls.lean`, 3 leaves + 5 census certificates, `[3 axioms]` ×8. Census:
+     the census `2026-09-12-math-FREEZE-b1-grade12-census.md` v1.1.
+   * **09/13 (council A②, his: *"yes accept rec"*), minute `2026-09-13-COUNCIL-minute.md` @ `7d548f3c5`, three clauses:**
+     (1) **the lane's TARGET is the PER-CLASS statement** — for every admissible residue class mod `primorial z`, infinitely many
+     `z`-rough twins with `Ω` odd in that class — frozen and refuter-passed BEFORE building; (2) **(β)**: α + a separate
+     `a ≤ 2310` binder on the composition twin + the lane's cap lifted `log(a·h) ≤ 7 → ≤ 9` (`z` 10 → 12), and **the `a' ≤ 1096`
+     lift inside `mrtUniformityXiL2AffSet_holds_flat_floor_g`'s statement is RULED A STATEMENT DECISION, his word given**;
+     (3) **cap 13 stays withdrawn.** Register entry `math-B1-beta` discharged at the close.
+   * 🔎 **FIRST ACT UNDER CLAUSE 1, BEFORE ANY LEAN — a finding, posted:** the per-class statement AS WORDED has an elementary
+     proof at every fixed `z`. Pell periodicity mod `primorial z` turns ONE witness in a class into infinitely many in THAT class
+     (the landed `StridePrizePell.lean` is the `K ≡ 0` case); at β's reach that is 135 admissible classes mod 2310, every one
+     witnessed (largest least witness 13787). The lane's own content is QUANTITATIVE — the class's logarithmic mass of `Ω`-odd
+     twin products in windows — and Pell cannot reach it. Both forms elaborate at the landed cap in a probe (`[3 axioms]`,
+     first attempt; a class-shifted mutant refuses). **Recommended and proceeded on: β CITED against the log-mass form, with the
+     "infinitely many" form exported beside it as its corollary.** β's Lean acts are identical under either citation.
+     Freeze: `2026-09-13-math-FREEZE-beta-per-class.md` (`359af0b85`).
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | the refuter pass on the per-class freeze folds (v1.x); then the BUILD freeze v2 is cut from census v1.1 §2–§3 at clause 2's parameters (cap 9, `a ≤ 2310`, the `a' ≤ 1096` lift) and refuter-passed; then the wave | math | at each fold |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
