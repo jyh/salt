@@ -2590,6 +2590,29 @@ theorem s13_g2_jfloor_of_MSelect'_L_gk_h_b9 {h : ℕ} (hh : 0 < h)
   rw [hsplit]
   linarith [h1 H hlo hhi, hh9]
 
+/-! ## ⟦β W2 F1⟧ the cap-9 arm census (build freeze v2 v1.1, 2026-09-13)
+
+Additive only.  The twin is its source's statement and body with ONLY `log h ≤ 7 ↦ ≤ 9`, its two
+derived cap-dependent suppliers replaced by their W1 E3 twins; no hypothesis is added. -/
+
+/-- `flat_witFloor_eq_designBase_h` at `log h ≤ 9` (`flat_witFloor_eq_designBase_h_b9`) —
+SUPPLIER-SWAP (census band 2 row 16): the two `h`-scaled arms `flat_arm_budget_le_h_b9`,
+`flat_arm_eps_le_h_b9` (W1 E3, above); the three `ε`-free arms are the landed ones.  BODY: the
+source's, verbatim. -/
+theorem flat_witFloor_eq_designBase_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {A β : ℝ} {ε : ℚ} {Hopq : ℕ} (hA : 162 ≤ A) (hβ : 0 < β)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2) (hεq : 0 < ε)
+    (hεqpin : 1 / (500 * (h : ℚ)) ≤ ε) (hbudA : budgetAFlat (ε : ℝ) β ≤ A)
+    (hopq : Hopq ≤ flatDesignBase A) :
+    flatWitFloor ε β A Hopq = flatDesignBase A := by
+  have hbud := flat_arm_budget_le_h_b9 hh hh9 hA hβ hε hε2 hbudA
+  have hepsarm := flat_arm_eps_le_h_b9 hh hh9 hA hεq hεqpin
+  have harc := flat_arm_arcFloor_le hA
+  have hll := flat_arm_loglogFloor_le hA
+  have hdf := flat_designFloor_eq_designBase hA
+  rw [flatWitFloor, hdf]
+  omega
+
 end Salt.MR
 
 end

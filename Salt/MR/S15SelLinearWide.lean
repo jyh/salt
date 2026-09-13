@@ -554,6 +554,29 @@ theorem flat_landed_ladder_break {A : ℝ} (hA : 26 ≤ A) :
   rw [hAd] at hcon
   nlinarith [hcon, hbig, hn, hl2, hn0, hA]
 
+/-! ## ⟦β W2 F1⟧ the levered `blk` line at the cap-9 shift bound (build freeze v2 v1.1, 2026-09-13)
+
+Additive only.  The twin is its source's statement and term with ONLY `c ≤ 1096 ↦ c ≤ 8103`
+(`8103 = ⌊e⁹⌋`, the cap-9 shift bound), its supplier replaced by its W1 E3 twin. -/
+
+/-- `flat_blk_line_gk` at `c ≤ 8103` (`flat_blk_line_gk_b9`) — SUPPLIER-SWAP (census band 2 row 3):
+`hcb : c ≤ 1096 ↦ c ≤ 8103`, read off W1 E3's `s15_sel''_L_gk_witness_flat_b9` at the same frozen
+dummy narrow instance.  BODY: the source's term, verbatim. -/
+theorem flat_blk_line_gk_b9 {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {c : ℕ} (hc1 : 1 ≤ c) (hcb : c ≤ 8103)
+    {R : ChowlaRegime}
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    ((s13BlockExp_L_gk Klev (flatDoorM A) : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) :=
+  (s15_sel''_L_gk_witness_flat_b9 (A := A) (Cg := 0) (δ₀ := 1 / 2 ^ 10) (Ct := 1) (K := 1)
+    (x₀ := 0) (Mfl := 0) (c := c) hA Klev hKle hc1 hcb (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by simp) (by simp)
+    (by simpa using (Real.exp_pos (Real.exp (3.2 * A) / 10)).le) heps hlo hhi).blk
+
 end Salt.MR
 
 end

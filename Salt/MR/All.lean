@@ -10225,3 +10225,35 @@ open Salt.Tactic in
   Salt.MR.FlatKswinFormHG_g12b
   Salt.MR.V7RatedFormHG_g12b
   Salt.MR.MRTDoorReceiptSetG_g12b
+
+/-! ⟦β W2 F1⟧ — SCATTERED LEAVES + ENTROPY (`StrideFork`, `StridePair`, `S15SelLinearWide`,
+`S16FlatTerminalLinear`, `HDoorSupply`, `S16ProducersH`, and the graded wall twins in the W1 module
+`StrideGrade12bWalls`; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W2 bundle
+F1).  Additive only: every landed declaration is untouched.  Each twin is its source's statement and
+body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count
+pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦
+≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the
+walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge
+`425 ↦ 429 = 411 + 2·9` — every derived supplier replaced by its twin or the landed `_g12` rung,
+and no hypothesis added.  `regimeShrinkX_stride_Hlo` was already minted by W1 E1 as
+`regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not re-minted.  Nothing here bears on twin
+primes.  18 obligations, 18 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9
+  Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_set_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hlo_b9
+  Salt.MR.flat_blk_line_gk_b9
+  Salt.MR.flat_witFloor_eq_designBase_h_b9
+  Salt.MR.s13_socketBase_loglogA_LH_b9
+  Salt.MR.s14_loglogX_ge_of_socket_LH_b9
+  Salt.MR.s12c_llX_ge_LH_b9
+  Salt.MR.s12c_eps_threshold_at_socket_flatH_b9
+  Salt.MR.s15_heps293_at_socket_flatH_b9
+  Salt.MR.s15_hband4096_at_socket_flatH_b9
+  Salt.MR.cofkL_scale_gate_at_socket_h_b9
+  Salt.MR.cofkL_threshold_at_socket_rated_h_b9
+  Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_h_b9
+  Salt.MR.s16_audit_neglog_rho_le_425_h_g12b
+  Salt.MR.s15_sel''_L_witness_flat_wide_g12b
+  Salt.MR.s15_sel''_L_gk_witness_flat_wide_g12b
+  Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_h_g12b

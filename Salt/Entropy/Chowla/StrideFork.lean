@@ -791,4 +791,84 @@ theorem sum_window_aff_eq (a x ω : ℕ) (ha : 0 < a) (f : ℕ → ℝ) :
     rw [Nat.cast_mul]
     field_simp
 
+/-! ## ⟦β W2 F1⟧ — the count pin at the product cap 9 (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched.  The twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log (a·h) ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103` at the three
+census sites), every derived cap-dependent supplier replaced by its twin; no hypothesis is added
+and no conclusion weakened. -/
+
+set_option exponentiation.threshold 4000 in
+/-- `bigXiAff_bounded_ceiling_of_pin` at `log (a·h) ≤ 9` (`bigXiAff_bounded_ceiling_of_pin_b9`) —
+NUMERAL-LIFT + SUPPLIER-SWAP (census band 4 row 1): `h_le_1096_of_log_le_seven ↦
+h_le_8103_of_log_le_nine` and `hpt_holds_500h ↦ hpt_holds_500h_b9` at `a * h`; `1096 ↦ 8103` in
+`h8103`, `hp15`, `hnum`.  The count pin `32·2^70·500^10·3^40·8103^15 = 2^422.82 ≤ 2^539` keeps
+116 bits spare.  Every other step is the source's, verbatim. -/
+theorem bigXiAff_bounded_ceiling_of_pin_b9 (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
+    (hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9)
+    (ε : ℚ) (hε : ε = 1 / (500 * ((a * h : ℕ) : ℚ))) :
+    ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
+      ((bigXiAff a b h ε H).card : ℝ) ≤ C := by
+  subst hε
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hx0 : (0 : ℝ) < ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have hx1 : (1 : ℝ) ≤ ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have hq0 : (0 : ℚ) < ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
+  have h8103 : ((a * h : ℕ) : ℝ) ≤ 8103 := by
+    exact_mod_cast h_le_8103_of_log_le_nine hkpos hah9
+  have hcast : (((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)
+      = 1 / (500 * ((a * h : ℕ) : ℝ)) := by push_cast; ring
+  have heps2 : ((((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)) ^ 2 < 1 / 2 := by
+    rw [hcast]
+    have hle : (1 : ℝ) / (500 * ((a * h : ℕ) : ℝ)) ≤ 1 / 500 := by
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
+    have h0 : (0 : ℝ) < 1 / (500 * ((a * h : ℕ) : ℝ)) := by positivity
+    nlinarith [hle, h0]
+  have hbase := bigXi_bounded_explicit (1 / (500 * ((a * h : ℕ) : ℚ))) (by positivity) heps2
+    ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) (Real.exp 40) (Real.exp_pos _)
+    hFac2_lcm_sum_le_exp40 (hpt_holds_500h_b9 (a * h) hkpos hah9)
+  refine ⟨32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+      * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ),
+    by positivity, ?_, 2, le_rfl, ?_⟩
+  · have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by
+      simpa using exp_forty_le_pow40
+    have hfold : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+          * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ)
+        = (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * ((a * h : ℕ) : ℝ) ^ (15 : ℕ) := by
+      ring
+    have hp15 : ((a * h : ℕ) : ℝ) ^ (15 : ℕ) ≤ (8103 : ℝ) ^ (15 : ℕ) :=
+      pow_le_pow_left₀ hx0.le h8103 15
+    have hnn : (0 : ℝ) ≤ 32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ) := by positivity
+    have hnum : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (8103 : ℝ) ^ (15 : ℕ)
+        ≤ 2 ^ 539 := by norm_num
+    rw [hfold]
+    calc (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * ((a * h : ℕ) : ℝ) ^ (15 : ℕ)
+        ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (8103 : ℝ) ^ (15 : ℕ) := by
+          have h1 : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40
+              ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) :=
+            mul_le_mul_of_nonneg_left h40 hnn
+          have h2 : (0 : ℝ) ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) := by
+            positivity
+          nlinarith [h1, h2, hp15, pow_nonneg hx0.le 15]
+      _ ≤ 2 ^ 539 := hnum
+  · intro H _ hH2
+    have hfib : ((bigXiAff a b h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)
+        ≤ ((a * h : ℕ) : ℝ) * ((bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ) := by
+      have hnat := bigXiAff_card_le_mul a b h hh (1 / (500 * ((a * h : ℕ) : ℚ))) H
+      exact_mod_cast hnat
+    have hb := hbase H hH2
+    have hden : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+          / ((((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)) ^ 10
+        = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) := by
+      rw [hcast]; field_simp
+    rw [hden] at hb
+    calc ((bigXiAff a b h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)
+        ≤ ((a * h : ℕ) : ℝ) * ((bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ) := hfib
+      _ ≤ ((a * h : ℕ) : ℝ) * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ)) := by
+          exact mul_le_mul_of_nonneg_left hb hx0.le
+      _ = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ) := by ring
+
 end Salt.Entropy.Chowla
