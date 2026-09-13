@@ -6913,10 +6913,21 @@ numbering is UNVERIFIED.
    fork priced.** Take `K ≡ 0 mod primorial z` with `Ω(K²−1)` odd; the Pell solutions of `k² − (K²−1)·y² = 1` give
    `n := k − 1` with `n(n+2) = (K²−1)·y²` — Ω odd — and coprime to `primorial z` at every odd step, infinitely often.
    **Elementary, no analytic input**; checked numerically at `K = 4620` (z-rough through 12), seeds reported to z ≤ 46;
-   **NOT kernel-checked.** It does NOT settle every z at once (that needs a seed for each z). ⇒ **What the lane
+   ~~**NOT kernel-checked.**~~ It does NOT settle every z at once (that needs a seed for each z). ⇒ **What the lane
    carries that Pell does not is the PER-CLASS supply over every admissible residue** (Pell reaches only
    `n ≡ −1 mod primorial z`): **price the prize against a per-class statement, never against z.** ⇒ **08/21 moved the ROAD'S PASSABILITY, not
    the DESTINATION'S VALUE. A puller who forgets this will over-invest.**
+   ✅ **KERNEL-CHECKED 2026-09-12 21:4x PDT (math, desk row LJ, class B at Opus, closed at attempt 1): `Salt/MR/StridePrizePell.lean`,
+   4 names, `[propext, Classical.choice, Quot.sound]` ×4, under the `Salt.MR.All` audit gate.**
+   `zRough_oddOmega_infinite_of_pell_seed`: for EVERY `z`, a seed `K` with `primorial z ∣ K` and `Odd Ω(K² − 1)` ⇒ the
+   prize's `r`-free set is infinite. `zRough_oddOmega_infinite_pell_4620`: that set at every `z ≤ 12`, with no hypothesis.
+   Helpers `pell_yn_odd_not_dvd` (a prime dividing the seed never divides `y` at an odd index) and
+   `pell_xn_sub_one_mul` (`(x−1)(x+1) = (K²−1)·y²`), both on mathlib's `Pell.xn`/`Pell.yn`.
+   **Its conclusion is the landed prize's proposition itself, not a restatement:** checked by `rfl` against
+   `zRough_oddOmega_infinite_primorial`, and a mutant at `z + 1` refuses.
+   ⇒ **Every further seed is now a NUMERALS-ONLY certificate** (`primorial z ∣ K` and a factorisation of `K² − 1`). The
+   z ≤ 46 seeds are REPORTED, NOT instantiated. **ADDITIVE ONLY:** no landed statement moves, and no cap or (B1)/β
+   statement is touched. The per-class statement above is untouched by this and still prices the lane.
 
    ✅⛔ **NODE 11a — ANSWERED 2026-08-21 19:1x (evidence pulled it at idle; helm traced
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
