@@ -433,6 +433,7 @@ import Salt.MR.StrideGrade12Walls
 import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGradeReceipt
 import Salt.MR.StridePrizePell
+import Salt.MR.StridePrizePellClass
 import Salt.MR.HalaszWeighted
 import Salt.Tactic.AuditAxioms
 import Salt.MR.EpsFamilyReceipt
@@ -10092,3 +10093,16 @@ open Salt.Tactic in
   Salt.MR.pell_xn_sub_one_mul
   Salt.MR.zRough_oddOmega_infinite_of_pell_seed
   Salt.MR.zRough_oddOmega_infinite_pell_4620
+
+/-! ⟦STRIDE PRIZE PELL CLASS⟧ — THE PER-CLASS SET BY PELL PERIODICITY (`StridePrizePellClass`,
+2026-09-13, math — the per-class target freeze for (B1) β, §1).  The Pell state `(x_m, x_{m+1}, y_m,
+y_{m+1})` in `ZMod P` is purely periodic (the recurrence runs both ways), so at `m = 1 + k·T` it
+reads `x ≡ n₀ + 1`, `y ≡ 1`; hence ONE `n₀ ≡ r (mod primorial z)` with `Ω(n₀(n₀+2))` odd gives
+infinitely many `z`-rough `n ≡ r` with `Ω(n(n+2))` odd, for every `z` and every admissible `r`.  It
+does not produce the seed.  Every name is new; no landed declaration moves and no cap or (B1)
+statement is touched.  These three have no consumers.  Nothing here bears on twin primes.  3
+obligations, 3 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.pell_state_periodic
+  Salt.MR.pell_class_iter
+  Salt.MR.zRough_oddOmega_infinite_class_of_seed
