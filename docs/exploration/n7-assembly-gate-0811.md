@@ -28,6 +28,7 @@ dossier froze on 8/06, all in the good direction:
    primitive character. The dossier's FINDING #1 critical path (the 2-adic constant) is clear:
    `factorization_two_roadModulus_le` (`RoadModulus.lean:107`) + `a ∈ {0,2,3}` collapse
    `2^{v₂(D)/2} ≤ 2^{3/2}` on road moduli, every link kernel-side.
+   *(⛔ Does not follow for generic `α₂` — see the ERRATUM under the 2-adic item below.)*
 3. **The p.217 two-forms bound went UNCONDITIONAL** — `sum_two_forms_le_gcd_of_isPrimitive`
    (`RealPrimStructure.lean:763`): primitivity alone, no split hypothesis. Gap row 6's
    "hypothesis-carrying until W4-a lands" is retired; nothing downstream needs to carry `hW4a`.
@@ -110,6 +111,18 @@ Statement-design constraints, each AT its site (all from the source sweep — do
 - 2-adic constant: quote `norm_kloosterman_estermann_road`, discharge its `v₂(D)` factor via
   `factorization_two_roadModulus_le` + `structure_of_isPrimitive`'s `a ∈ {0,2,3}` — the
   numeric collapse `2^{v₂(D)/2} ≤ 2^{3/2}` is now class A/B, all links named above.
+  ⛔ **ERRATUM (2026-09-12, desk row IY): THIS COLLAPSE DOES NOT FOLLOW FOR GENERIC `α₂`.**
+  `factorization_two_roadModulus_le` (`Salt/Weil/RoadModulus.lean:107`) gives only
+  `v₂(roadModulus α₂ q) ≤ max (v₂ α₂) 3` under `v₂ q ≤ 3`; `structure_of_isPrimitive` bounds the
+  `q` side and nothing here bounds `v₂ α₂`. At the twin instance `α₁ = α₂ = 4` the `2^{3/2}` bound
+  does hold, but no Lean statement instantiates `α₂ = 4`.
+  **SUPERSEDED AS A ROUTE, not repaired:** `norm_kloosterman_estermann_road_clean`
+  (`Salt/Weil/EstermannTwoAdic.lean:234`, landed `66fc5475`, 2026-08-20) is HB (7.1) with **no 2-adic
+  factor** under `v₂ α₂ ≤ 8` and `v₂ q ≤ 8` (sharp at 9: `two_pow_totient_exceeds_estermann_at_nine`),
+  and `norm_kloosterman_estermann_road_of_isPrimitive` (`Salt/HB/EstermannRoad.lean:63`) discharges
+  the `q` side from primitivity, leaving `v₂ α₂ ≤ 8` as its only valuation binder.
+  **No kernel statement consumes this line** (census at `6902d4fc`). Whether the gate is restated is a
+  design-tier ruling and stays open; this erratum changes no statement.
 
 **STATEMENT-DESIGN RULINGS for (7.5)–(7.8) [maestro sitting, 8/11 11:3x — at math's
 three-for-three escalation; source re-read at hb1983-notes.md:805-861. Iron rule 1: these are
