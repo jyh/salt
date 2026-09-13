@@ -1007,12 +1007,21 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
      (the landed `StridePrizePell.lean` is the `K ≡ 0` case); at β's reach that is 135 admissible classes mod 2310, every one
      witnessed (largest least witness 13787). The lane's own content is QUANTITATIVE — the class's logarithmic mass of `Ω`-odd
      twin products in windows — and Pell cannot reach it. Both forms elaborate at the landed cap in a probe (`[3 axioms]`,
-     first attempt; a class-shifted mutant refuses). **Recommended and proceeded on: β CITED against the log-mass form, with the
-     "infinitely many" form exported beside it as its corollary.** β's Lean acts are identical under either citation.
-     Freeze: `2026-09-13-math-FREEZE-beta-per-class.md` (`359af0b85`).
+     first attempt; a class-shifted mutant refuses). **math RECOMMENDS citing β against the log-mass form, with the "infinitely
+     many" form exported beside it as its corollary.**
+   * ⚖️⛔ **REFUTER PASS FOLDED (freeze v1.1, `6016065cb`; 4 refuters, 4 × REPAIR-THEN-FIRE, 0 kills of either statement) — AND IT
+     RETURNS THE TARGET TO THE CAPTAIN.** The rec he accepted rested on "the per-class statement escapes Pell"; the finding above
+     refutes that premise at every `z` β reaches, so re-targeting to the log-mass form is HIS act, not math's (the 09/12 ⑦
+     precedent). The periodicity reduction is now KERNEL-CHECKED as a probe (for every `z`, one seed in a class ⇒ infinitely many
+     in that class; `[3 axioms]`; a class-shifted mutant refuses). The pass also repaired the log-mass statement (an ε-scaled
+     window floor; roughness in the filter; the `1/k` class-index weight named in every sentence), and found clause 3's
+     parenthetical mis-scoped: the `10⁶` order is the SHIFT reach of the 09/08 evening minute, not a bound on this product cap.
+     Clause 2 grants the `a ≤ 2310` binder, cap 9 and the ONE named lift; every other statement site in the census is twinned
+     additively or returned for a word. Registered: blocked-on-captain `math-A2-target`.
+     Freeze: `2026-09-13-math-FREEZE-beta-per-class.md` (v1.0 `359af0b85`, v1.1 `6016065cb`).
    | release condition | owner | re-measure |
    |---|---|---|
-   | the refuter pass on the per-class freeze folds (v1.x); then the BUILD freeze v2 is cut from census v1.1 §2–§3 at clause 2's parameters (cap 9, `a ≤ 2310`, the `a' ≤ 1096` lift) and refuter-passed; then the wave | math | at each fold |
+   | the Captain's word on the TARGET (re-target to the log-mass form, or keep "infinitely many in the class") releases the β BUILD WAVE; the BUILD freeze v2 (census v1.1 §2–§3 at cap 9, `a ≤ 2310`, the one named lift, the 2^12 re-cut) is drafted and refuter-passed meanwhile | the Captain (target) · math (v2) | at the next council pack cut |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
@@ -6952,6 +6961,12 @@ numbering is UNVERIFIED.
    ⇒ **Every further seed is now a NUMERALS-ONLY certificate** (`primorial z ∣ K` and a factorisation of `K² − 1`). The
    z ≤ 46 seeds are REPORTED, NOT instantiated. **ADDITIVE ONLY:** no landed statement moves, and no cap or (B1)/β
    statement is touched. The per-class statement above is untouched by this and still prices the lane.
+   ⛔ **CORRECTED 2026-09-13 (math, on a refuter-passed freeze; annotating, not rewriting): "Pell reaches only `n ≡ −1 mod
+   primorial z`" is true of the `K ≡ 0` seed family ONLY.** Pell periodicity mod `primorial z` carries ONE seed in ANY admissible
+   class to infinitely many in THAT class, so the "infinitely many in every admissible class" form falls to Pell plus one seed per
+   class (135 classes at `primorial z = 2310`, all witnessed). **What still prices the lane is the QUANTITATIVE per-class statement,
+   the class's `1/k`-weighted log-mass of `Ω`-odd twin products in windows**, which no elementary route reaches. See the
+   λ-BV waves item, the (B1) β block; the target is on the Captain's page.
 
    ✅⛔ **NODE 11a — ANSWERED 2026-08-21 19:1x (evidence pulled it at idle; helm traced
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
