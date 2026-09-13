@@ -437,6 +437,8 @@ import Salt.MR.StridePrizePellClass
 import Salt.MR.HalaszWeighted
 import Salt.Tactic.AuditAxioms
 import Salt.MR.EpsFamilyReceipt
+import Salt.MR.StrideGrade12bWalls
+import Salt.MR.StridePairReceiptG12b
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10197,3 +10199,29 @@ open Salt.Tactic in
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9
   Salt.MR.cofkL_socket_floors_h_b9
   Salt.MR.klevF_capNumeral_h_b9
+
+/-! ⟦β W1 E4⟧ — THE MR GRADED/STRIDE TWINS (`StridePairReceipt`, NEW `StrideGrade12bWalls`, NEW
+`StridePairReceiptG12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1
+bundle E4).  Additive only: every landed declaration is untouched; the two new modules exist for
+rule 6's placement (twins beside their graded sources would make an import cycle).  Each twin is
+its source's statement and body with ONLY the freeze's rule-2 raises — the stride `a ≤ 1096 ↦
+a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9` (the bound the crown derives at cap 9), the shift cap `log h ≤ 7 ↦
+≤ 9` with `h ≤ 1096 ↦ 8103`, `1201216 ↦ 65658609`, the door grade `838400 * 2 ^ 11 ↦ 838400 *
+2 ^ 12` / `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the census's numerals (`xceil_arm_split_mul_h_b9`
+concludes `+ 9`, the stride's `log a ≤ 9`; the register's charge `425 ↦ 429 = 411 + 2·9`) — every
+derived supplier replaced by its twin or the landed `_g14` rung, and no hypothesis added.  The six
+FORM defs and the receipt predicate are registered as defs.  Nothing here bears on twin primes.
+12 obligations, 12 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9
+  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul_b9
+  Salt.MR.xceil_arm_split_mul_h_b9
+  Salt.MR.s15_sel''_L_witness_flat_charge_g12b
+  Salt.MR.s15ArmH_log_le_g12b
+  Salt.MR.FlatHeadFormHG_g12b
+  Salt.MR.FlatRoadExitFormHG_g12b
+  Salt.MR.FlatCapstoneFormHG_g12b
+  Salt.MR.FlatConditionalFormHG_g12b
+  Salt.MR.FlatKswinFormHG_g12b
+  Salt.MR.V7RatedFormHG_g12b
+  Salt.MR.MRTDoorReceiptSetG_g12b
