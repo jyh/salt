@@ -1476,4 +1476,294 @@ theorem m4_doorL2_supply_500_H_of_blockQH (h : ℕ) (hh : 0 < h) :
   exact hmint R hReps hfloor Braw Bceil δ M k hgates hBraw0
     (m4_sievedDoorSqH_of_blockQH hgates hBblk0 hgrade hblk) hceil
 
+/-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched. Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, the census's in-body `7.6932 ↦
+9.6932`, and `cofkL_mu_floor_h`'s conclusion `28 ↦ 32`), every derived cap-dependent supplier
+replaced by its twin; no hypothesis is added and no conclusion weakened.
+`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the wave's one RE-DERIVATION (its docstring). -/
+
+/-- `pieceFloor_vt_threshold_of_loglog_rated_h` at `log h ≤ 9`
+(`pieceFloor_vt_threshold_of_loglog_rated_h_b9`) — THE ONE RE-DERIVATION of the wave.
+
+The source absorbs its two widened logarithms separately: `habs2 : log(L+12Λ) ≤ log(7+12Λ)` needs
+`L ≤ 7` and is FALSE at `L = 9, Λ = 1` (short ×1.105, census band 3 row 11); `habs4` fits.  Here
+they are absorbed TOGETHER through one product, `(L+12Λ)(7+L+12Λ) ≤ 2·(7+12Λ)²`, which at
+`0 ≤ L ≤ 9`, `12Λ ≥ 12` is the identity `2(7+x)² − (L+x)(7+L+x) = x(x−12) + 15(x−12)
++ 2(9−L)(x−12) + (9−L)(L+40) + 134` (`x = 12Λ`).  Both rows enter the final `linarith` at weight
+`8`, exactly as before.  The statement differs from the source's only by `hh7 ↦ hh9`; `hbud`,
+`hthr` and the conclusion are byte-identical. -/
+theorem pieceFloor_vt_threshold_of_loglog_rated_h_b9 {q H h : ℕ} [NeZero q]
+    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ) (hh : 0 < h)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
+    (hh9 : Real.log h ≤ 9)
+    (hbud : 156 * Real.log h + 8 * Real.log 2
+      ≤ 28 * Real.log (Real.log (H : ℝ))
+        + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84)
+    (hKB : K + bandArcConst Z δ ≤ Kbig)
+    (hthr : 40 * Real.log (Real.log (Real.log X))
+        + 1900 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kbig + 32 * D
+      < Real.log (Real.log X)) :
+    40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+          + bandConstQ Z δ q + K + 25 + D)
+      < Real.log (Real.log X) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hband := bandConstQ_le_of_le_arcDen_h (q := q) (H := H) (h := h) hZ hδ hh hH hq
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  set Lh : ℝ := Real.log h with hLhdef
+  have hlogq := log_le_of_le_arcDen_h hh hH hq
+  have hcap := mertensCap_le_of_le_arcDen_h (q := q) hh hH hq
+  have hvkd := vkDebitConst_le_of_le_arcDen_h (q := q) hh hH hq
+  have hvkm := vkMidDebitSharp_le_of_le_arcDen_h (q := q) hh hH hq
+  have h7pos : (0 : ℝ) < 7 + 12 * LH := by linarith
+  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * LH) := Real.log_nonneg (by linarith)
+  have hp2 : (0 : ℝ) < Lh + 12 * LH := by linarith
+  have hp4 : (0 : ℝ) < 7 + Lh + 12 * LH := by linarith
+  have hprod : (Lh + 12 * LH) * (7 + Lh + 12 * LH) ≤ 2 * (7 + 12 * LH) ^ 2 := by
+    have hx : (0 : ℝ) ≤ 12 * LH - 12 := by linarith
+    have hL9 : (0 : ℝ) ≤ 9 - Lh := by linarith
+    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 12 * LH) hx, mul_nonneg hL9 hx,
+      mul_nonneg hL9 (by linarith : (0 : ℝ) ≤ Lh + 40)]
+  have habs24 : Real.log (Lh + 12 * LH) + Real.log (7 + Lh + 12 * LH)
+      ≤ Real.log 2 + 2 * Real.log (7 + 12 * LH) := by
+    have h1 : Real.log ((Lh + 12 * LH) * (7 + Lh + 12 * LH))
+        ≤ Real.log (2 * (7 + 12 * LH) ^ 2) :=
+      Real.log_le_log (mul_pos hp2 hp4) hprod
+    rw [Real.log_mul (ne_of_gt hp2) (ne_of_gt hp4),
+      Real.log_mul (by norm_num) (by positivity), Real.log_pow] at h1
+    push_cast at h1
+    linarith
+  linarith
+
+/-- `capFreeFloor3_pieceDatum_arcDen_rated_h` at `log h ≤ 9`
+(`capFreeFloor3_pieceDatum_arcDen_rated_h_b9`) — SUPPLIER-SWAP
+(`pieceFloor_vt_threshold_of_loglog_rated_h_b9`).  BODY: the source's. -/
+theorem capFreeFloor3_pieceDatum_arcDen_rated_h_b9 (h : ℕ) (hh : 0 < h)
+    (hh9 : Real.log h ≤ 9) :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
+      ∀ (q : ℕ) [NeZero q] (H : ℕ) (χ : DirichletCharacter ℂ q)
+        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
+      Real.exp 1 ≤ Real.log (H : ℝ) → (q : ℝ) ≤ (h : ℝ) * arcDen 12 H →
+      156 * Real.log h + 8 * Real.log 2
+          ≤ 28 * Real.log (Real.log (H : ℝ))
+            + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84 →
+      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
+      32 * diskConst q / goldenL1 q ≤ Real.log X →
+      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
+      40 * Real.log (Real.log (Real.log X))
+          + 1900 * Real.log (Real.log (H : ℝ))
+          + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+          + 2300 + 32 * K + 32 * D
+        < Real.log (Real.log X) →
+        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
+  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_vt_rated
+  refine ⟨Z, δ, K + max 0 (bandArcConst Z δ), hZ, hδ,
+    add_nonneg hK0 (le_max_left _ _), ?_⟩
+  intro q _ H χ Pseq Qseq 𝒥 X D hH harc hbud hX hD0 hgate hdebit hthr
+  exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
+    (pieceFloor_vt_threshold_of_loglog_rated_h_b9 hZ hδ hh hH harc hh9 hbud
+      (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
+
+set_option maxHeartbeats 1000000 in
+-- as the source: the floor's `nlinarith only` closes over the primorial and square-root brackets
+/-- `cofkL_logX_floor_h` at `log h ≤ 9` (`cofkL_logX_floor_h_b9`) — NUMERAL-LIFT: the `− log h`
+cost `7.6932 = 7 + 0.6932 ↦ 9.6932` in `hlow`/`hmulL`/`hsm1` (census band 3 row 7); `hsm1` still
+clears against `10^26·h^4`.  Every other step is the source's, verbatim. -/
+theorem cofkL_logX_floor_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh9 : Real.log h ≤ 9)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    (R.Hhi : ℝ) / (10 ^ 6 * (h : ℝ) ^ 2) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
+  have h11 : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    hb.2.2.2.2.2.2.2.2.2.2.1
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
+  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
+  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
+    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
+    linarith
+  have harc : (0 : ℝ) < arcDen 12 H := by
+    rw [arcDen]; exact Real.rpow_pos_of_pos hlogH0 12
+  have harcH : (0 : ℝ) < (h : ℝ) * arcDen 12 H := by positivity
+  have hlogarc : Real.log (arcDen 12 H) = 12 * Real.log (Real.log (H : ℝ)) :=
+    log_arcDen_twelve hlogH0
+  set E : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hEdef
+  have hPH0 : 8 * (((4 ^ E : ℕ) : ℝ)) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ) := R.hPHheadroom
+  have hW : (((4 ^ E : ℕ) : ℝ)) = (4 : ℝ) ^ E := by push_cast; ring
+  rw [hW] at hPH0
+  have hmul : (8 * ((4 : ℝ) ^ E) ^ 2) * (R.ω : ℝ)
+      ≤ (16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ)) * (R.ω : ℝ) := by
+    have := le_trans hPH0 h11; linarith
+  have h8w : 8 * ((4 : ℝ) ^ E) ^ 2 ≤ 16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    le_of_mul_le_mul_right hmul hω0
+  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast h8
+  have hkey : ((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)) ≤ (A : ℝ) := by
+    rw [div_le_iff₀ (by linarith)]
+    linarith
+  have hlogW : Real.log (((4 : ℝ) ^ E) ^ 2) = 2 * (E : ℝ) * Real.log 4 := by
+    rw [← pow_mul, Real.log_pow]
+    push_cast; ring
+  have harc2 : (0 : ℝ) < 2 * ((h : ℝ) * arcDen 12 H) := by linarith
+  have hW2pos : (0 : ℝ) < ((4 : ℝ) ^ E) ^ 2 := by positivity
+  have heq : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
+      = 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
+        - 12 * Real.log (Real.log (H : ℝ)) := by
+    rw [Real.log_div (ne_of_gt hW2pos) (ne_of_gt harc2), hlogW,
+      Real.log_mul (by norm_num) (ne_of_gt harcH),
+      Real.log_mul (ne_of_gt hh0) (ne_of_gt harc), hlogarc]
+    ring
+  have hlogA : 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
+      - 12 * Real.log (Real.log (H : ℝ)) ≤ Real.log (A : ℝ) := by
+    have hle : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
+        ≤ Real.log (A : ℝ) := Real.log_le_log (div_pos hW2pos harc2) hkey
+    rw [heq] at hle
+    exact hle
+  have hEfl : (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) - 1 ≤ (E : ℝ) := by
+    have hq : (R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)) < (E : ℚ) + 1 := by
+      rw [hEdef]; exact Nat.lt_floor_add_one _
+    have hR : ((R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) : ℚ) : ℝ) < ((E : ℚ) : ℝ) + 1 := by
+      exact_mod_cast hq
+    push_cast at hR
+    linarith
+  have hεh : (1 : ℝ) ≤ 500 * (h : ℝ) * (R.eps : ℝ) := by
+    have h500 : (0 : ℝ) < 500 * (h : ℝ) := by linarith
+    rw [div_le_iff₀ h500] at hε
+    linarith
+  have heps2 : (1 : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * (R.eps : ℝ) ^ 2 := by nlinarith [hεh]
+  have hepsH : (R.Hhi : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ)) := by
+    nlinarith [heps2, hHhi0]
+  have hEbig : (R.Hhi : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * ((E : ℝ) + 1) := by
+    have hstep : 250000 * (h : ℝ) ^ 2 * ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ))
+        ≤ 250000 * (h : ℝ) ^ 2 * ((E : ℝ) + 1) :=
+      mul_le_mul_of_nonneg_left (by linarith [hEfl]) (by positivity)
+    linarith [hepsH, hstep]
+  have hE0 : (0 : ℝ) ≤ (E : ℝ) := Nat.cast_nonneg _
+  have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hlogmono : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := Real.log_le_log hH0 hHle
+  have hllmono : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (R.Hhi : ℝ)) :=
+    Real.log_le_log hlogH0 hlogmono
+  have hllsub : Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (R.Hhi : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hsq : Real.log (R.Hhi : ℝ) ≤ 2 * Real.sqrt (R.Hhi : ℝ) - 2 :=
+    cofk_log_le_two_sqrt hHhi0
+  have hv : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 ≤ Real.sqrt (R.Hhi : ℝ) := by
+    have hid : ((10 : ℝ) ^ 13 * (h : ℝ) ^ 2) ^ 2 = (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 := by ring
+    have h1 : Real.sqrt (((10 : ℝ) ^ 13 * (h : ℝ) ^ 2) ^ 2) ≤ Real.sqrt (R.Hhi : ℝ) :=
+      Real.sqrt_le_sqrt (by rw [hid]; exact hHhi)
+    rwa [Real.sqrt_sq (by positivity)] at h1
+  have hvsq : Real.sqrt (R.Hhi : ℝ) * Real.sqrt (R.Hhi : ℝ) = (R.Hhi : ℝ) :=
+    Real.mul_self_sqrt hHhi0.le
+  have hv0 : (0 : ℝ) ≤ Real.sqrt (R.Hhi : ℝ) := Real.sqrt_nonneg _
+  have hprod : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) ≤ (R.Hhi : ℝ) :=
+    le_trans (mul_le_mul_of_nonneg_right hv hv0) (le_of_eq hvsq)
+  have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast
+    linarith [Real.log_two_gt_d9]
+  have hlog2 : Real.log 2 ≤ 0.6932 := by linarith [Real.log_two_lt_d9]
+  have hElog : (1.3862 : ℝ) * (E : ℝ) ≤ (E : ℝ) * Real.log 4 := by
+    have h := mul_le_mul_of_nonneg_left hlog4 hE0
+    linarith only [h]
+  have hdebit : 12 * Real.log (Real.log (H : ℝ)) ≤ 24 * Real.sqrt (R.Hhi : ℝ) := by
+    linarith only [hllmono, hllsub, hsq]
+  have hlow : 2.7724 * (E : ℝ) - 9.6932 - 24 * Real.sqrt (R.Hhi : ℝ) ≤ Real.log (A : ℝ) := by
+    linarith only [hElog, hlogA, hdebit, hlog2, hh9]
+  have hXpos : (0 : ℝ) < 10 ^ 6 * (h : ℝ) ^ 2 := by positivity
+  have hmulL : (10 ^ 6 * (h : ℝ) ^ 2)
+        * (2.7724 * (E : ℝ) - 9.6932 - 24 * Real.sqrt (R.Hhi : ℝ))
+      ≤ (10 ^ 6 * (h : ℝ) ^ 2) * Real.log (A : ℝ) :=
+    mul_le_mul_of_nonneg_left hlow hXpos.le
+  have hsm1 : 10 ^ 6 * (h : ℝ) ^ 2 * 9.6932 ≤ (R.Hhi : ℝ) := by
+    linarith only [hHhi, hh24]
+  have hhs : (0 : ℝ) ≤ (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) := by positivity
+  have hsm2 : 24 * (10 ^ 6 * ((h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ))) ≤ (R.Hhi : ℝ) := by
+    nlinarith only [hprod, hhs]
+  have hfloor : (R.Hhi : ℝ) / (10 ^ 6 * (h : ℝ) ^ 2) ≤ Real.log (A : ℝ) := by
+    rw [div_le_iff₀ hXpos]
+    nlinarith only [hmulL, hEbig, hsm1, hsm2]
+  have hA1 : (1 : ℝ) ≤ (A : ℝ) := by exact_mod_cast h8
+  have hAs : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  have hlogAs : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    Real.log_le_log (by linarith) hAs
+  linarith
+
+/-- `cofkL_mu_floor_h` at `log h ≤ 9` (`cofkL_mu_floor_h_b9`) — NUMERAL-LIFT, and the conclusion's
+numeral moves with it: `log(10^6·h²) = 6·log 10 + 2·log h ≤ 6·2.311 + 18 = 31.866 ≤ 32`, so
+`log H₊ − 28 ↦ log H₊ − 32` (census band 3 row 8: no route keeps `−28` at cap 9, slack `0.134`).
+SUPPLIER-SWAP `cofkL_logX_floor_h_b9`.  ⚠️ Its consumer `cofkR_cofactorSupply_L_gk_rated_h`
+re-spends the `28` at three sites; that twin is a later layer's, not this one's. -/
+theorem cofkL_mu_floor_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh9 : Real.log h ≤ 9)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    Real.log (R.Hhi : ℝ) - 32 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
+  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
+  have hfl := cofkL_logX_floor_h_b9 hh hh9 hb hε hHhi hH
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
+  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
+  have hbigpos : (0 : ℝ) < (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := div_pos hHhi0 hXpos
+  have hstep : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
+      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    Real.log_le_log hbigpos hfl
+  have hsplit : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
+      = Real.log (R.Hhi : ℝ) - Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
+    rw [Real.log_div (ne_of_gt hHhi0) (ne_of_gt hXpos)]
+  have h106 : Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) ≤ 32 := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    linarith [cofk_log_ten_le, hh9, hLh0]
+  rw [hsplit] at hstep
+  linarith
+
+/-- `cofkL_X_ge_expexp_h` at `log h ≤ 9` (`cofkL_X_ge_expexp_h_b9`) — SUPPLIER-SWAP
+(`cofkL_logX_floor_h_b9`).  BODY: the source's. -/
+theorem cofkL_X_ge_expexp_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh9 : Real.log h ≤ 9)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
+  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
+  have hfl := cofkL_logX_floor_h_b9 hh hh9 hb hε hHhi hH
+  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hApos : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
+    have : 1 ≤ A + s := by omega
+    have h : (1 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by exact_mod_cast this
+    linarith
+  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
+  have he : Real.exp 1 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+    have h3 : Real.exp 1 ≤ 3 := by linarith [Real.exp_one_lt_d9]
+    have h4 : (3 : ℝ) ≤ (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
+      rw [le_div_iff₀ hXpos]; nlinarith [hHhi, hh24]
+    linarith
+  have h := Real.exp_le_exp.mpr he
+  rwa [Real.exp_log hApos] at h
+
 end Salt.MR

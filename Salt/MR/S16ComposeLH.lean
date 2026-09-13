@@ -3513,4 +3513,126 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 (h : ℕ) (hh
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
 
+/-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched. Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`), every derived cap-dependent supplier
+replaced by its twin; no hypothesis is added and no conclusion weakened. -/
+
+set_option maxHeartbeats 3200000 in
+-- as the landed `_cs` twin: the wire re-elaborates with one extra prefix conjunct
+/-- `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs` at `log h ≤ 9`
+(`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9`) — TRANSPORT: the cap binder is unused
+(census band 2 row 8).  BODY: the source's, verbatim. -/
+theorem m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9 {h : ℕ} (_hh : 0 < h)
+    (_hh9 : Real.log (h : ℝ) ≤ 9) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
+      Kq ≤ 126848 / 10 ^ 8 ∧ 0 < Ks ∧
+      ∀ (K : ℕ) (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 : ℝ),
+              DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf (2 * T)
+                VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2) →
+        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, hcapstone⟩ :=
+    m4_rowChi_capstone_perBlock_bounded_cs
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, ?_⟩
+  intro K R M cU ε hcU hfam H L q j A s hb χ T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, hd⟩ :=
+    hfam H L q j A s hb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hb.2.2.2.1.ne'⟩
+  have hlogX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := hd.logX_four
+    linarith
+  have hres := hcapstone q cU hcU (calP (AdoorL M) (s13GK K M))
+    (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M)) (mrAlpha (1 / 12)) 2 Jb
+    hd.Jb_lo hd.Jb_hi hd.Hseq_two hd.alpha_nonneg
+    (2 * T) VJ V Lr (((A + s : ℕ)) : ℝ) hd.Tann_one hd.qTann_one hd.P_three hd.PQ hd.QTann
+    hd.kappa30Q hd.loglog5 hd.VJ_bound η εd hd.alpha_eta hd.eta_half hd.Tann_X hd.X_pos
+    hd.debit hd.logX_pos hd.q_logX hd.V_one hd.V_inv hd.T0_Tann hd.floor1 hd.floor2
+    hd.floor3 hd.floor4 hd.logqT_one hd.logqT_L hd.L_exp hd.logV_L
+    hd.H83_two hd.logX_exp hd.logX_four hTgate
+    (2 * (A + s)) Xd P Q Mr (winCutH (A + s) (doorCoeffU_L_gk K M)) b cf hd.cf_one hd.P_low
+    hd.Q_pos hd.Q_high hd.range hd.budget hd.Hj hd.B3 hd.BT hd.kappa30 hd.BT10 hd.WL hd.gate
+    Rbd CR hd.Rbd_nonneg hd.Rbd_grade hd.Cq_gate
+    (fun _ : DirichletCharacter ℂ q => (0 : ℝ)) hd.Rbd_binder
+    KS hd.KS_nonneg hd.KS_binder hd.KS_gate E EP2 (ε (A + s)) hd.epsr_nonneg hd.abs8640
+    hd.EP2_gate hd.E_row hd.E_binder (doorCap_hXN (A + s)) (doorCap_hN2 (A + s))
+    (fun n hn => doorRowDatumU_supp0_L_gk K M (A + s) hn)
+    (fun _ : DirichletCharacter ℂ q => (0 : ℝ))
+    (m4_hSup_door_at_zero q (winCutH (A + s) (doorCoeffU_L_gk K M)) (2 * (A + s)) hlogX1) χ
+  rw [chiBarCoeff_doorRowDatum_L_gk] at hres
+  simpa using hres
+
+set_option maxHeartbeats 3200000 in
+-- as the landed `_cs` twin: the family re-elaborates with one extra prefix conjunct
+/-- `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs` at `log h ≤ 9`
+(`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`) — SUPPLIER-SWAP
+(`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9`).  BODY: the source's. -/
+theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9 {h : ℕ} (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
+      Kq ≤ Real.exp 100 ∧ 0 < Ks ∧
+      ∀ (K : ℕ) (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+              G2Scaffold.DoorCapErrWS_L_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                      ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                        (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_L_gk K M)))
+                        (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                    → DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                        (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, hwire⟩ :=
+    m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9 hh hh9
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq,
+    le_trans hKqb kq_closed_form_le_exp_hundred, hKs, ?_⟩
+  intro K R M cU ε hc1 hcapWS
+  refine hwire K R M cU ε hc1 ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
+
 end Salt.MR

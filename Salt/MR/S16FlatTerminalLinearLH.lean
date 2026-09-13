@@ -1132,4 +1132,315 @@ theorem logChowla2_witnessed_scale_flat_LH (h : ℕ) (hh : 0 < h) (hh7 : Real.lo
     hCt hCtb hCgle hMflb hx0win heps hlo hwin
   exact hfire (flatDoorM A) hsel hcross
 
+/-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched. Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9` and the census's in-body literal `7 ↦
+9` in `hSle`), every derived cap-dependent supplier replaced by its twin; no hypothesis is added and
+no conclusion weakened. One sibling mint, `s13_g2_jfloor_of_MSelect'_L_gk_shift36`, differs from
+`…_shift28` only in the conclusion's `+ 28 ↦ + 36`. -/
+
+/-- **⟦THE `j₀`-FLOOR GATE WITH THE CAP-9 SHIFT'S `36` IN IT⟧**
+(`s13_g2_jfloor_of_MSelect'_L_gk_shift36`) — a sibling mint:
+`s13_g2_jfloor_of_MSelect'_L_gk_shift28`
+with the conclusion's `+ 28 = 4·7` raised to `+ 36 = 4·9`.  The margin is the register's own:
+`4·log 263 + 48·Λ + 36 ≤ 60 + 48·Λ ≤ 242·Λ` at `Λ ≥ 1`.  BODY: the source's, verbatim. -/
+theorem s13_g2_jfloor_of_MSelect'_L_gk_shift36 (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime}
+    {M : ℕ} (hΛ : 1 ≤ Λ) (hS : MSelect'_L_gk K Cg δ₀ Λ ρ R M) :
+    4 * Real.log 263 + 48 * Λ + 36 ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+  have hlog := s13_log263_le_six
+  have hdr : ((AdoorL M : ℕ) : ℝ) ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+    have h : AdoorL M ≤ doorRowFloorL M := by
+      rw [doorRowFloorL]
+      calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
+        _ ≤ M * AdoorL M := Nat.mul_le_mul_right _ hS.hM
+    exact_mod_cast h
+  have hgr := hS.gRows
+  nlinarith [hgr, hdr, hlog, hΛ]
+
+/-- `s13_gate8_L_gk_h` at `log h ≤ 9` (`s13_gate8_L_gk_h_b9`) — TRANSPORT: the closing `nlinarith`
+needs `9 < 155.7·Λ` at `Λ ≥ 1` (census band 2 row 18: ×17.3).  BODY: the source's, verbatim. -/
+theorem s13_gate8_L_gk_h_b9 {h : ℕ} {R : ChowlaRegime} {K M : ℕ} {Λ : ℝ} (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9)
+    (hΛ : Real.log (Real.log (R.Hhi : ℝ)) ≤ Λ) (hΛ1 : 1 ≤ Λ)
+    (hgr : 242 * Λ ≤ ((AdoorL M : ℕ) : ℝ)) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (h : ℝ) * arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+  intro H hlo hhi
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have hLH : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
+  have hL0 : (0 : ℝ) < Real.log (H : ℝ) := lt_of_lt_of_le (Real.exp_pos 1) hLH
+  have hlogarc : Real.log (arcDen 12 H) = 12 * Real.log (Real.log (H : ℝ)) := by
+    rw [arcDen, Real.log_rpow hL0]
+  have hle := le_trans (s13_loglog_le_of_range (R := R) hlo hhi) hΛ
+  have hlogP : Real.log ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)
+      = ((AdoorL M : ℕ) : ℝ) * Real.log 2 := log_calP_one_gen _ _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    have hpos : 0 < calP (AdoorL M) (s13GK K M) 1 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast hpos
+  have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hmul : 242 * Λ * Real.log 2 ≤ ((AdoorL M : ℕ) : ℝ) * Real.log 2 :=
+    mul_le_mul_of_nonneg_right hgr (by linarith)
+  have hlogmul : Real.log ((h : ℝ) * arcDen 12 H)
+      = Real.log (h : ℝ) + Real.log (arcDen 12 H) :=
+    Real.log_mul (by positivity) (by linarith)
+  have hlt : Real.log ((h : ℝ) * arcDen 12 H)
+      < Real.log ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    rw [hlogmul, hlogarc, hlogP]
+    nlinarith [hmul, hle, hh9, hΛ1, hlog2]
+  have hexp := Real.exp_lt_exp.mpr hlt
+  rwa [Real.exp_log (by nlinarith : (0 : ℝ) < (h : ℝ) * arcDen 12 H), Real.exp_log hP0] at hexp
+
+set_option maxHeartbeats 1000000 in
+-- as the source: the two log-comparison claims re-elaborate, each carrying the shift's terms
+/-- `s13_smallGradeFits_h` at `log h ≤ 9` (`s13_smallGradeFits_h_b9`) — TRANSPORT: the source's body
+verbatim.  The gate's `+ 7·log h` is the `ℓ`-witness exponent and does not move; the cap is read
+only in `hclaim1`'s `linarith`, whose supply `20.488·logΛ ≥ 40.98` meets the demand
+`4.0976·9 = 36.88` (census band 2 row 19: ×1.11; the same verbatim body is REFUSED at cap 14). -/
+theorem s13_smallGradeFits_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {j₀ H : ℕ} {ρ : ℝ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hlo : R.Hlo ≤ H)
+    (hgate : (7 / 10 : ℝ) * (j₀ : ℝ)
+        + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
+            + 2 * Real.log (strataResidualH h H) - Real.log ρ)
+        + 7 * Real.log (h : ℝ)
+      ≤ Real.log (H : ℝ)) :
+    m4SmallGradeFits j₀ (fun H => 2 * RSanDoorRhoH ρ h H)
+      (fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hlogh0 : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg hh1
+  obtain ⟨hlog3up, hlog3lo⟩ := s13_log_three_bounds
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hH0 : (0 : ℝ) < (H : ℝ) := by
+    have : (0 : ℕ) < H := by omega
+    exact_mod_cast this
+  set Λ : ℝ := Real.log (H : ℝ) with hΛdef
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have he1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+  have hexp15 : Real.exp 15 ≤ 4000000 := by
+    have h15 : Real.exp 15 = (Real.exp 1) ^ (15 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have hp : (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) :=
+      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 15
+    rw [h15]
+    calc (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) := hp
+      _ ≤ 4000000 := by norm_num
+  have hΛ15 : (15 : ℝ) ≤ Λ := by
+    rw [hΛdef, Real.le_log_iff_exp_le hH0]
+    linarith
+  have hΛ0 : (0 : ℝ) < Λ := by linarith
+  have hΛ1 : (2 : ℝ) < Λ := by linarith
+  have hexp2 : Real.exp 2 ≤ 15 := by
+    have h2 : Real.exp 2 = (Real.exp 1) ^ (2 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have hp : (Real.exp 1) ^ (2 : ℕ) ≤ (2.7182818286 : ℝ) ^ (2 : ℕ) :=
+      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 2
+    rw [h2]
+    calc (Real.exp 1) ^ (2 : ℕ) ≤ (2.7182818286 : ℝ) ^ (2 : ℕ) := hp
+      _ ≤ 15 := by norm_num
+  have hlogΛ2 : (2 : ℝ) ≤ Real.log Λ := by
+    rw [Real.le_log_iff_exp_le hΛ0]
+    linarith
+  have hlogΛ0 : (0 : ℝ) < Real.log Λ := by linarith
+  have harcpow : arcDen 12 H = Λ ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have harch : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H := one_le_hArcDen_of_regime hh hlo
+  set S : ℝ := strataResidualH h H with hSdef
+  have hS1 : (1 : ℝ) ≤ S := one_le_strataResidualH harch
+  have hS0 : (0 : ℝ) < S := by linarith
+  have hlogS0 : (0 : ℝ) ≤ Real.log S := Real.log_nonneg hS1
+  have hRSt : rStrWitness H = Λ ^ (84 : ℕ) := by
+    rw [rStrWitness, harcpow, ← pow_mul]
+    exact max_eq_right (one_le_pow₀ (by linarith))
+  set L : ℕ := Nat.log 2 H with hLdef
+  have hLpow : ((2 : ℝ)) ^ L ≤ (H : ℝ) := by
+    have h : (2 : ℕ) ^ L ≤ H := Nat.pow_log_le_self 2 (by omega)
+    have h' : ((2 ^ L : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast h
+    simpa using h'
+  have hLlog : (L : ℝ) * Real.log 2 ≤ Λ := by
+    have h := Real.log_le_log (by positivity) hLpow
+    rwa [Real.log_pow] at h
+  have hlog32 : Real.log (3 / 2 : ℝ) ≤ 24 / 41 * Real.log 2 := by
+    rw [Real.log_div (by norm_num) (by norm_num)]
+    linarith
+  have hlog320 : (0 : ℝ) ≤ Real.log (3 / 2 : ℝ) := Real.log_nonneg (by norm_num)
+  have hlog43 : Real.log (4 / 3 : ℝ) ≤ 2890 / 10000 := by
+    rw [Real.log_div (by norm_num) (by norm_num),
+      show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast
+    linarith
+  have hlog83 : Real.log (8 / 3 : ℝ) ≤ 9825 / 10000 := by
+    rw [Real.log_div (by norm_num) (by norm_num),
+      show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]
+    push_cast
+    linarith
+  have hu32 : (L : ℝ) * Real.log (3 / 2 : ℝ) ≤ 24 / 41 * Λ := by
+    have hL0 : (0 : ℝ) ≤ (L : ℝ) := Nat.cast_nonneg L
+    calc (L : ℝ) * Real.log (3 / 2 : ℝ) ≤ (L : ℝ) * (24 / 41 * Real.log 2) :=
+          mul_le_mul_of_nonneg_left hlog32 hL0
+      _ = 24 / 41 * ((L : ℝ) * Real.log 2) := by ring
+      _ ≤ 24 / 41 * Λ := by linarith
+  have hlogρ : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
+  have h9 : (0 : ℝ) ≤ Real.log 9 := Real.log_nonneg (by norm_num)
+  have hG0 : (0 : ℝ) ≤ Real.log 9 + 84 * Real.log Λ + 2 * Real.log S - Real.log ρ := by
+    linarith
+  have hj0 : (0 : ℝ) ≤ (j₀ : ℝ) := Nat.cast_nonneg j₀
+  set Q : ℝ := (H : ℝ) ^ 2 * RSanDoorRhoH ρ h H with hQdef
+  have hRS : RSanDoorRhoH ρ h H = ρ / S ^ 2 := rfl
+  have hQ0 : (0 : ℝ) < Q := by
+    rw [hQdef, hRS]; positivity
+  have hlogQ : Real.log Q = 2 * Λ + Real.log ρ - 2 * Real.log S := by
+    rw [hQdef, hRS, Real.log_mul (by positivity) (by positivity),
+      Real.log_div (by positivity) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    ring
+  have hlogD : Real.log (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
+      = Real.log 2 + 7 * Real.log (h : ℝ) + 84 * Real.log Λ := by
+    rw [Real.log_mul (by norm_num) (by positivity),
+      Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    ring
+  have hD0 : (0 : ℝ) < 2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)) := by positivity
+  have hclaim1 : 9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
+      * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) ≤ Q := by
+    have hP0 : (0 : ℝ) < 9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
+        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) := by positivity
+    have hlogP : Real.log (9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
+          * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))))
+        = Real.log (9 / 2) + (L : ℝ) * Real.log (3 / 2 : ℝ)
+          + (j₀ : ℝ) * Real.log (4 / 3 : ℝ) + Λ
+          + (Real.log 2 + 7 * Real.log (h : ℝ) + 84 * Real.log Λ) := by
+      rw [Real.log_mul (by positivity) (by positivity),
+        Real.log_mul (by positivity) (by positivity),
+        Real.log_mul (by positivity) (by positivity),
+        Real.log_mul (by positivity) (by positivity),
+        Real.log_pow, Real.log_pow, hlogD]
+    have hle : Real.log (9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
+        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))) ≤ Real.log Q := by
+      rw [hlogP, hlogQ]
+      have h92 : Real.log (9 / 2 : ℝ) + Real.log 2 = Real.log 9 := by
+        rw [← Real.log_mul (by norm_num) (by norm_num)]
+        norm_num
+      have h43 : (j₀ : ℝ) * Real.log (4 / 3 : ℝ) ≤ (j₀ : ℝ) * (2890 / 10000) :=
+        mul_le_mul_of_nonneg_left hlog43 hj0
+      linarith [hgate, hu32, h43, h92, hlogΛ2, hh9, h9, hlogS0, hlogρ, hΛ15, hlogh0]
+    have h := Real.exp_le_exp.mpr hle
+    rwa [Real.exp_log hP0, Real.exp_log hQ0] at h
+  have hclaim2 : 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
+      * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) ≤ Q := by
+    have hP0 : (0 : ℝ) < 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
+        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) := by positivity
+    have hlogP : Real.log (9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
+          * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))))
+        = Real.log (9 / 5) + (L : ℝ) * Real.log (3 / 2 : ℝ)
+          + (j₀ : ℝ) * Real.log (8 / 3 : ℝ)
+          + (Real.log 2 + 7 * Real.log (h : ℝ) + 84 * Real.log Λ) := by
+      rw [Real.log_mul (by positivity) (by positivity),
+        Real.log_mul (by positivity) (by positivity),
+        Real.log_mul (by positivity) (by positivity),
+        Real.log_pow, Real.log_pow, hlogD]
+    have hle : Real.log (9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
+        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))) ≤ Real.log Q := by
+      rw [hlogP, hlogQ]
+      have h95 : Real.log (9 / 5 : ℝ) + Real.log 2 ≤ Real.log 9 := by
+        rw [← Real.log_mul (by norm_num) (by norm_num)]
+        exact Real.log_le_log (by norm_num) (by norm_num)
+      have h83 : (j₀ : ℝ) * Real.log (8 / 3 : ℝ) ≤ (j₀ : ℝ) * (9825 / 10000) :=
+        mul_le_mul_of_nonneg_left hlog83 hj0
+      linarith [hgate, hu32, h83, h95, hlogh0, hG0]
+    have h := Real.exp_le_exp.mpr hle
+    rwa [Real.exp_log hP0, Real.exp_log hQ0] at h
+  refine m4SmallGradeFits_of_threshold (D := 2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
+    (le_of_eq (by rw [hRSt])) ?_ ?_
+  · have := RSanDoorRhoH_nonneg hρ0.le h H
+    linarith
+  · rw [← hLdef]
+    have hexpand : (9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
+          + 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀)
+            * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
+        = 9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
+            * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
+          + 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
+            * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) := by ring
+    rw [hexpand]
+    have hQ2 : (H : ℝ) ^ 2 * (2 * RSanDoorRhoH ρ h H) = 2 * Q := by rw [hQdef]; ring
+    rw [hQ2]
+    linarith
+
+/-- `s13_winFit_h_of_halfWindow_gen` at `log h ≤ 9` (`s13_winFit_h_of_halfWindow_gen_b9`) —
+NUMERAL-LIFT: the literal cap in `hSle` moves `7 ↦ 9`; the final `nlinarith` keeps slack `704519` at
+`w ≥ 2000` (census band 2 row 21).  Every other step is the source's, verbatim. -/
+theorem s13_winFit_h_of_halfWindow_gen_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {jr ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo)
+    (hhalf : (7 / 10 : ℝ) * jr + 3 * Real.log (1 / ρ) ≤ Real.log (R.Hlo : ℝ) / 2) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (7 / 10 : ℝ) * jr
+          + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
+              + 2 * Real.log (strataResidualH h H) - Real.log ρ)
+          + 7 * Real.log (h : ℝ)
+        ≤ Real.log (H : ℝ) := by
+  intro H hlo _
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hlogh0 : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg hh1
+  have hHlo4 : 4000000 ≤ R.Hlo := R.hHlo_floor
+  have hH4 : 4000000 ≤ H := le_trans hHlo4 hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hHloR : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast hHlo4
+  have hloR : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
+  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
+    Real.log_le_log (by linarith) hloR
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at this
+  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
+  set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
+  have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
+  have hw0 : (0 : ℝ) < w := by rw [hw]; exact Real.sqrt_pos.mpr hlogH0
+  have hw2000 : (2000 : ℝ) ≤ w := by nlinarith [hw2, hw0, hlogHbig]
+  have hlogw : Real.log w = Real.log (Real.log (H : ℝ)) / 2 := by
+    rw [hw]; exact Real.log_sqrt hlogH0.le
+  have hlogwle : Real.log w ≤ w - 1 := Real.log_le_sub_one_of_pos hw0
+  have hllH : Real.log (Real.log (H : ℝ)) ≤ 2 * w - 2 := by rw [hlogw] at hlogwle; linarith
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hSval : strataResidualH h H
+      = 1 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) := by
+    rw [strataResidualH, harcpow,
+      Real.log_mul (by positivity) (by positivity), Real.log_pow]
+    push_cast; ring
+  have hll0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by linarith
+  have hS1 : (1 : ℝ) ≤ strataResidualH h H := by rw [hSval]; linarith
+  have hlogS : Real.log (strataResidualH h H) ≤ strataResidualH h H - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hSle : strataResidualH h H - 1 ≤ 24 * w - 24 + 9 := by rw [hSval]; linarith
+  have hlog3 : Real.log 3 ≤ 2 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 3); linarith
+  have hlog9 : Real.log 9 ≤ 4 := by
+    rw [show (9 : ℝ) = 3 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; linarith
+  have hinv : Real.log (1 / ρ) = - Real.log ρ := by rw [one_div, Real.log_inv]
+  rw [hinv] at hhalf
+  nlinarith [hhalf, hlogmono, hllH, hlogS, hSle, hlog9, hw2, hw2000, hw0, hh9, hlogh0]
+
+/-- `s13_smallGradeFits_of_halfWindow_L_gk_h` at `log h ≤ 9`
+(`s13_smallGradeFits_of_halfWindow_L_gk_h_b9`) — SUPPLIER-SWAP (`s13_smallGradeFits_h_b9`,
+`s13_winFit_h_of_halfWindow_gen_b9`).  BODY: the source's. -/
+theorem s13_smallGradeFits_of_halfWindow_L_gk_h_b9 {h : ℕ} (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9) {R : ChowlaRegime} {M : ℕ} {ρ : ℝ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hfl : loglogFloor50 ≤ R.Hlo)
+    (hhalf : (7 / 10 : ℝ) * ((doorRowFloorL M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+      ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 2) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      m4SmallGradeFits (doorRowFloorL M) (fun H => 2 * RSanDoorRhoH ρ h H)
+        (fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H :=
+  fun H hlo hhi =>
+    s13_smallGradeFits_h_b9 hh hh9 hρ0 hρ1 hlo
+      (s13_winFit_h_of_halfWindow_gen_b9 hh hh9 hfl hhalf H hlo hhi)
+
 end Salt.MR

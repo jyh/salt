@@ -10163,3 +10163,37 @@ open Salt.Tactic in
   Salt.MR.capeps_row_p2_h_b9
   Salt.MR.capfloor_core_LH_b9
   Salt.MR.s13CapGrid_mu_lo_LH_b9
+
+/-! ⟦β W1 E3⟧ — THE MR h-LANE B CAP-9 TWINS (`S15SelLinear`, `HDoorSupply`, `S16FlatTerminalLinear`,
+`S16FlatTerminalLinearLH`, `S16ComposeLH`, `V7RatedH`, 2026-09-13, math — build freeze v2 v1.1
+§3.0/§3.1, executor brief W1 bundle E3).  Additive only: every landed declaration is untouched.
+Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
+`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
+in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
+added.  Two conclusion/hypothesis numerals move as the census prices them: `cofkL_mu_floor_h_b9`
+concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`
+reads `+ 36` in `h1`, supplied by the sibling mint `s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
+`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one RE-DERIVATION: its two log absorptions
+are merged into one product inequality, valid at `0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement
+differs from the source only by the cap.  Nothing here bears on twin primes.  19 obligations,
+19 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.s15_sel''_L_witness_flat_b9
+  Salt.MR.s15_sel''_L_gk_witness_flat_b9
+  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_h_b9
+  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_h_b9
+  Salt.MR.cofkL_logX_floor_h_b9
+  Salt.MR.cofkL_mu_floor_h_b9
+  Salt.MR.cofkL_X_ge_expexp_h_b9
+  Salt.MR.flat_arm_eps_le_h_b9
+  Salt.MR.flat_arm_budget_le_h_b9
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_h_b9
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift36
+  Salt.MR.s13_gate8_L_gk_h_b9
+  Salt.MR.s13_smallGradeFits_h_b9
+  Salt.MR.s13_winFit_h_of_halfWindow_gen_b9
+  Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_b9
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9
+  Salt.MR.cofkL_socket_floors_h_b9
+  Salt.MR.klevF_capNumeral_h_b9
