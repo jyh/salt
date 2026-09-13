@@ -429,6 +429,7 @@ import Salt.MR.StridePairReceipt
 import Salt.MR.StrideEntropyReceipt
 import Salt.MR.StrideGradeWalls
 import Salt.MR.StrideGradeReach
+import Salt.MR.StrideGrade12Walls
 import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGradeReceipt
 import Salt.MR.HalaszWeighted
@@ -10048,3 +10049,28 @@ open Salt.Tactic in
   Salt.MR.capeps_expbound_63
   Salt.MR.capeps_row_phi_h_14
   Salt.MR.capeps_row_tail_h_14
+
+/-! ⟦STRIDE GRADE 12 WALLS⟧ — (B1) AT `2^12`: THE LEAVES BOTH READINGS OF THE RUNG CONSUME, AND
+THE RUNG'S PRICE (`StrideGrade12Walls`, 2026-09-12, math — on the Captain's council word ⑦, "accept
+rec" = the door envelope at `2^12` with the split re-cut, and the helm's ruling the same evening:
+build the freeze, the census and the leaves common to both readings, and HOLD the statement acts).
+No statement here carries a cap: no `log h ≤ N`, no `log (a·h) ≤ N`, no stride bound `a ≤ 1096`.
+THREE LEAVES at the `2^12` pin: the envelope floor kept at `2^592` (×1.186), so the charge stays
+`411` and the landed charge-generic register at `425` is reused rather than twinned; and the bump
+at `838400·2^12` with its argument's ceiling at `⌊e^14⌋`, clearing `2^355` by 70 orders.  FIVE
+CENSUS CERTIFICATES consumed by no reading: the pin bridge; the door arm admitting
+`primorial 11 = 2310` at a split below `1`; and three CONTROLS — a product-only reading refuses
+`a·h = 4620` at `2^12` at every split, the landed `2^11` refuses `2310` even with a separate bound
+on `a`, and the landed door arm admits `a = 1103` while the prize's product cap at `h = 2` refuses
+it.  ⇒ at `2^12` alone the citable `z` does not move; moving it needs a separate bound on `a` and
+a lifted product cap, which are statement acts not taken here.  Numerals only; nothing here proves
+an estimate, and nothing bears on twin primes.  8 obligations, 8 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.grade12_pin_bridge
+  Salt.MR.grade12_split_admits_primorial_eleven
+  Salt.MR.grade12_product_cap_refuses_primorial_eleven
+  Salt.MR.grade11_refuses_primorial_eleven
+  Salt.MR.landed_prize_cap_refuses_primorial_eleven
+  Salt.MR.s16_audit_rho_ge_wide_h_g12
+  Salt.MR.s16_audit_neglog_rho_le_wide_h_g12
+  Salt.MR.flatDoorM_bfloor_bump_g12
