@@ -167,13 +167,33 @@ def scan_axioms(
         f.write("import Salt\n\n")
         for n in names:
             f.write(f"#print axioms {n}\n")
-    lake = os.path.expanduser("~/.elan/bin/lake")
-    if not os.path.exists(lake):
-        lake = "lake"
+    # ⛔ FLEET RULE (ratified 2026-08-06, after two OOM incidents in one morning):
+    # every Lean invocation in this repo goes through `../saltbuild.sh`, which takes
+    # the atomic cross-seat lock, caps LEAN_NUM_THREADS, passes `-M` (24000 MB by
+    # default) and records the run in the fleet audit + lock logs. An `import Salt`
+    # elaboration is exactly the shape that rule exists for.
+    # ⛔ AND THE REASON THIS IS A CONDITIONAL AND NOT A STRAIGHT SUBSTITUTION:
+    # `saltbuild.sh` is NOT TRACKED IN THIS REPO — it is a symlink to a saltworks
+    # tool that lives outside the tree — so it DOES NOT TRAVEL WITH A CLONE, and CI
+    # (`.github/workflows/lean_action_ci.yml`, which runs this script) has no wrapper
+    # to call. The direct `lake` call below is REQUIRED there and is a defect only
+    # where the wrapper exists. A CI runner is a private box with one job, so the
+    # lock and the thread cap buy nothing there; on a shared seat they buy everything.
+    # Either way the route taken is PRINTED, because a gate that silently picks one
+    # of two paths reports the same green for both.
+    wrapper = os.path.normpath(os.path.join(ROOT, os.pardir, "saltbuild.sh"))
+    if os.access(wrapper, os.X_OK):
+        cmd = [wrapper, scratch_path]
+        print(f"headliners: via {wrapper} (fleet lock + thread cap + -M)")
+    else:
+        lake = os.path.expanduser("~/.elan/bin/lake")
+        if not os.path.exists(lake):
+            lake = "lake"
+        cmd = [lake, "env", "lean", scratch_path]
+        print(f"headliners: via bare {lake} (no ../saltbuild.sh here — expected in CI)")
     try:
         out = subprocess.run(
-            [lake, "env", "lean", scratch_path],
-            capture_output=True, text=True, cwd=ROOT, timeout=600,
+            cmd, capture_output=True, text=True, cwd=ROOT, timeout=600,
         )
     finally:
         os.unlink(scratch_path)
