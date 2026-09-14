@@ -6979,13 +6979,36 @@ numbering is UNVERIFIED.
      the class quantifier — NOT one regime — and `ε` is already `b`-free by its pin.***
    * ✅ **S-4 — OFF THE CRITICAL PATH** (Fable-tier, but not blocking): without it the road is `∃ᶠ N`, which
      D9 makes sufficient. It upgrades `∃ᶠ` to `∀`, it does not gate the terminal.
-   * ⛔ **S-1 — DESIGN TIER AND UNPRICED. NOT ROUTED.** Its act is the `∀x'`-BANDED twin carrying the tight
-     `XCeil` bound as an EXPORT-ONLY third conjunct in the MAX shape; the band hypothesis on `x'` STAYS
-     LOOSE (the tight reading gives floor and ceiling the same leading coefficient and empties `S`).
-     ⛔ **UNPRICED: the population is EIGHT form defs (four head, four exit), 105 non-def hits outside
-     `All.lean`, SEVEN ceiling/xceil producers, and the `∀x'` band at ZERO sites — but that is HITS, not
-     NAMES, and the per-theorem walk is owed before any wave.**
-   * ⏳ **S-3 — WAITS ON S-1**, and D12's step inside it still owes a refuter.
+   * ✅ **S-1 — LANDED 2026-09-14 (math, 34th head, as LAUNCHER; design h2c; the helm's wave word 10:12
+     on freeze v1.2, seat `e5d575134`, after TWO non-author passes). THE ⛔ ROW ABOVE IS DISCHARGED AS TO
+     S-1 AND KEPT AS WRITTEN.** `Salt/MR/TierSBand.lean`: **31 declarations = 8 `def` + 23 `theorem`, all
+     23 audited in `All.lean` at `[propext, Classical.choice, Quot.sound]`**, `saltbuild EXIT=0` on
+     `Salt.MR.All` (9396 jobs, 0 sorry warnings), `blueprint_lint.py` rc 0. Its act is the `∀x'`-BANDED
+     twin carrying the tight `XCeil` bound as an EXPORT-ONLY conjunct in the MAX shape, with the band
+     hypothesis on `x'` LOOSE (the tight reading gives floor and ceiling the same leading coefficient and
+     empties `S`).
+     ⛔ **NO NEW UNCONDITIONAL THEOREM, AND NOTHING BEARS ON TWIN PRIMES** — the honest label is the
+     freeze's own first line and it does not move on landing: at fixed `z` this is a SECOND PROOF of a
+     terminal that already lands; `E2` stays conditional on `MRTDoorAllGrades`, which has no producer;
+     the `∃ε` tripwire is untouched.
+     📌 **THE ⛔ UNPRICED SUB-BULLET ABOVE WAS DISCHARGED BY DOING IT, AND ITS WARNING WAS RIGHT: "that is
+     HITS, not NAMES."** The per-theorem walk produced the freeze's §6 price — ≈1,180 lines of
+     transcription + ~160 new across 12 owed names — and the wave landed in THREE SEQUENTIAL waves
+     (W1 Sonnet 5 · W2 Opus 4 · W3 Sonnet 3 + audit), every name inside budget, **zero flags**.
+     ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
+     estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
+     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:570-572`) is
+     dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
+     class-C node into a transcription.***
+     ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
+     (`stmt-guard-removed.py` and `stmt-guard-blocks.py`, in the launcher's own toolkit) — every removed
+     line a bare `sorry`,
+     and all 31 declaration blocks verbatim. The module header's status clauses were rewritten by the
+     launcher in a SEPARATE labelled commit (helm ruling 10:24), where arm 1's red is recorded as a
+     known exception scoped to that sha rather than by widening the guard.
+     ⚠️ **WHAT THIS DOES NOT BUY: S-3, S-1's only consumer, is still UNWRITTEN** (freeze §5.4's table not
+     driven). This pays only if S-3 closes, and the helm said so before the wave fired, not after.
+   * ⏳ **S-3 — WAITS ON S-1, WHICH IS NOW SUPPLIED.** D12's step inside it still owes a refuter.
    📄 **A NEW NODE WAS NAMED AND IS NOT THIS ROW'S:** *can the CONSUMER's additive `A` — the constant in
    `|∑ …| ≤ ε·log M + A`, a DIFFERENT OBJECT from the builder's design parameter — be bound uniformly over
    `admClasses P`?* Routed to the Captain's 09-14 page as a CHARTER question; nobody drafts it tonight.
