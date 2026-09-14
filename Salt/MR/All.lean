@@ -439,6 +439,7 @@ import Salt.Tactic.AuditAxioms
 import Salt.MR.EpsFamilyReceipt
 import Salt.MR.StrideGrade12bWalls
 import Salt.MR.StridePairReceiptG12b
+import Salt.MR.StrideGradeReceipt12b
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10328,3 +10329,69 @@ open Salt.Tactic in
   Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9
   Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9
   Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9
+
+/-! ⟦β W34 H2⟧ — THE COMPOSITION TWIN AT `2^12`, CAP 9 (`StridePrize`, 2026-09-13, math — build
+freeze v2 v1.1 §3.0/§3.1/§5.1(f)/§6, executor brief W34 bundle H2, census band 4 row 11).  Additive
+only: `log_chowla_aff_composed_of_headG` is untouched.  The twin is its source's statement and body
+with the product cap `≤ 7 ↦ ≤ 9`, the head `GradedAffHeadAt ↦ GradedAffHeadAt_g12b`, and ONE added
+binder `a ≤ 2310` — council 2026-09-13 A② clause 2's granted binder, the only added binder in β.
+Conclusion byte-identical.  Door arm at `a ≤ 2310`: `2310·1.02·838400 ≤ 0.58·837782·4096` (×1.0075);
+`E` arm at `k ≤ 8103`: `2^-61·838400·8103² ≤ 0.42`.  Nothing here bears on twin primes.  1
+obligation, 1 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG_g12b
+
+/-! ⟦β W34 G1⟧ — THE SIX GRADED REPLAYS AT `2^12`, CAP 9 (`StridePairReceiptG12b`, 2026-09-13, math
+— build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
+24–28). Additive only: every `_g` replay in `StridePairReceiptG` is untouched. Each twin is its
+source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
+receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
+landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
+added. Named numerals: the door-head mint `2 ^ 11 ↦ 2 ^ 12` at its five sites; `flat_conditional`'s
+`:542` wall `1096 ≤ exp 7 ↦ 8103 ≤ exp 9` (via `2.7182818283^9`) with `harm'`/`hgb'`/`hsum`/`hprod`
+at `− 9` against `xceil_arm_split_mul_h_b9`'s `+ 9`, and slot 3 at `+ 36`
+(`s13_g2_jfloor_of_MSelect'_L_gk_shift36`). Nothing here bears on twin primes. 6 obligations, 6
+landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_roadExit_generic_h_g12b
+  Salt.MR.flat_door_head_xceil_h_g12b
+  Salt.MR.flat_capstone_generic_h_g12b
+  Salt.MR.flat_conditional_generic_h_g12b
+  Salt.MR.flat_kswin_generic_h_g12b
+  Salt.MR.flat_v7_generic_h_g12b
+
+/-! ⟦β W34 H1⟧ — THE SPINE AT `2^12`, CAP 9, AND THE CROWNED HEAD (`StridePairReceiptG12b`,
+`StrideGradeReceipt12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5 W4/§5.1(g)(h)/§6,
+executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive only: every `_g` source in
+`StridePairReceiptG` and `StrideGradeReceipt` is untouched. Each twin is its source's statement and
+body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt predicate / head, the ceiling
+`837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
+THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
+product cap via `h_le_8103_of_log_le_nine` (no `a ≤ 2310` binder below the composition). Crown
+numerals: `hahQ ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
+`regimeShrinkX_stride_b9` / `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`; cap-free numerals
+unchanged. No hypothesis added. Nothing here bears on twin primes. 5 obligations, 5 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_chain_generic_h_g12b
+  Salt.MR.mrtUniformityXiL2Set_holds_flat_floor_g12b
+  Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g12b
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b
+  Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g12b
+
+/-! ⟦β W34 H3⟧ — THE W4 TERMINALS: THE PER-CLASS STATEMENTS (D) AND (Q) AT `primorial z ≤ 2310`
+(`StrideGradeReceipt12b`, 2026-09-13, math — per-class freeze v1.1 §2/§6, executor brief W34 bundle
+H3). Additive only. (D) `zRough_oddOmega_logMass_class` and (Q) `zRough_oddOmega_infinite_class` are
+spelled as the freeze's §2 (scripted diff after whitespace normalisation: identical). (D) composes
+the `2^12`, cap-9 crowned head with `log_chowla_aff_composed_of_headG_g12b` (its `a ≤ 2310` supplied
+by `hz`, its cap by `hah9_of_primorial_le_2310`), `affWindow_survivorMass_ge`, the parity split, the
+regime's `hωbig` floor `64000·P + 1` and the rough-filter congruence; (Q) is derived from (D). The
+class-`(r + 1)` mutant of (D) at `z = 10, r = 11` is proved FALSE; a non-vacuity `example` at
+`z = 10, r = 209` sits in the module. (D) at fixed modulus is an instance of Tao, arXiv:1509.05422;
+the content is the kernel derivation. Nothing here bears on twin primes. 6 obligations, 6 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.hah9_of_primorial_le_2310
+  Salt.MR.one_sub_liouville_shift_two
+  Salt.MR.roughOdd_filter_eq_odd_filter
+  Salt.MR.zRough_oddOmega_logMass_class
+  Salt.MR.zRough_oddOmega_infinite_class
+  Salt.MR.zRough_oddOmega_logMass_class_mutant_false
