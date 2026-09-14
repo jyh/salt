@@ -1034,6 +1034,28 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    | release condition | owner | re-measure |
    |---|---|---|
    | the BUILD freeze v2 against the log-mass target (census v1.1 §2–§3 at cap 9, `a ≤ 2310`, the one named lift, the 2^12 re-cut; every other statement site twinned additively or returned for a word) is cut and refuter-passed; then the wave | math | at the v2 fold |
+   👑✅ **β IS BUILT — STAMPED 2026-09-13 (math, 31st head). THE RELEASE ROW DIRECTLY ABOVE IS DISCHARGED; it is kept as written.**
+   **The target, kernel-checked:** `zRough_oddOmega_logMass_class` (the per-class `1/k`-weighted log-mass, the Captain's 12:11 target)
+   and `zRough_oddOmega_infinite_class` (its corollary) at `primorial z ≤ 2310` (`z ≤ 12`), both `[propext, Classical.choice,
+   Quot.sound]`, in `Salt/MR/StrideGradeReceipt12b.lean`, with a class-shifted mutant proved FALSE in the same module and a
+   non-vacuity instance at `z = 10, r = 209`. **144 names across four waves** (W1 #124 · W2 #125 · W3+W4), every one additive, every
+   member closed on its first attempt, zero `flags.md` entries.
+   * **The build freeze v2** was refuter-passed twice (4 × REPAIR-THEN-FIRE each). The second pass found that v1.0's spine did not
+     compose at the crown: the crown DERIVES its stride bound from the product cap, so at cap 9 it delivers `a ≤ 8103`, never `2310`.
+     ⇒ **every stride site below the composition is twinned at `a ≤ 8103` / `log a ≤ 9`, the named lift at `a' ≤ 8103`, and `a ≤ 2310`
+     is the composition twin's alone** — clause 2's one granted binder, where the door share needs it (`0.575668`, re-split `0.58 / 0.42`,
+     ×1.0075 — the tightest margin in β).
+   * **The ungraded h-lane went at cap 9, not 14:** cap 14 adds a re-derivation whose only kernel-checked repair adds a binder
+     (`s13_smallGradeFits_h`), the composition's E arm (×1.239) and a `2^12` arm twin; every landed `_14` rung serves cap 9 by weakening.
+   * **What moved, beyond the cap and the grade:** `h ≤ 1096 ↦ 8103` (two new converters, sharp at `⌊e⁹⌋`) · `548000 ↦ 4051500`,
+     `10²⁴ ↦ 10²⁸` · three literal-wall siblings and a `log H ≤ √H/3` lemma · the conclusion numerals `−28 ↦ −32` and `+28 ↦ +36`.
+   ⚠️ **HONEST LABEL:** at each fixed modulus the log-mass statement is an instance of Tao's logarithmic two-point Chowla estimate
+   (arXiv:1509.05422); the content here is the kernel derivation at `P = primorial z ≤ 2310`, extending the landed instance at `548`.
+   "Infinitely many in the class" is also elementary at every `z` where a seed table is computed (`zRough_oddOmega_infinite_class_of_seed`).
+   No priority claim is made without a fresh survey. **Nothing here bears on twin primes:** `z`-rough with `Ω` odd is not almost-primality.
+   | release condition | owner | re-measure |
+   |---|---|---|
+   | #125 (W2) merges; the W3+W4 PR (branch `math/beta-w34`) is opened on it, updated from `main` under strict protection, and merged | helm (merges) · math (PR) | at each merge |
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
