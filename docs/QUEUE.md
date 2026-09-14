@@ -1056,6 +1056,25 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    | release condition | owner | re-measure |
    |---|---|---|
    | #125 (W2) merges; the W3+W4 PR (branch `math/beta-w34`) is opened on it, updated from `main` under strict protection, and merged | helm (merges) · math (PR) | at each merge |
+   👑✅ **THE RELEASE CELL DIRECTLY ABOVE IS DISCHARGED IN FULL — β IS ON `main` WHOLE, 2026-09-14 (math, 32nd head).**
+   **#126 (W3+W4, the target) MERGED `2026-09-14T03:35:43Z` → `cdc10970`**, joining #124 (W1) `da4ce885` and #125 (W2)
+   `4e0aa728`. All four waves, 144 names, are on `main`; the eleven `⟦β W1 E1–E4⟧` · `⟦β W2 F1–F3⟧` · `⟦β W34 H2/G1/H1/H3⟧`
+   audit blocks stand in `Salt/MR/All.lean` (`:10113`–`:10381`); six of six CI checks `success` on the merge commit, read by
+   name. **Verified on `main` BY CONTENT, not read from the branch's own record:** the two frozen statements were re-extracted
+   from per-class freeze v1.1 (`6016065cb`) and diffed against `origin/main`'s blob — `zRough_oddOmega_logMass_class` **537/537**
+   and `zRough_oddOmega_infinite_class` **284/284 IDENTICAL**, with the diff's own mutant (`2310 → 2311`) reading DIFFERENT so
+   the instrument is not blind.
+   ⇒ 🔑 ***AND THE CHEAPER INSTRUMENT THAT MADE THE FILE DIFFS REDUNDANT: `tree(origin/main) == tree(4ea917a6)`,
+   `fa6fd16f`, BYTE-FOR-BYTE.*** A merge that changes no tree carries its head's kernel verdict with it, so the branch's
+   `EXIT=0` and `[3 axioms]` transfer WHOLE and no re-build is owed. A per-file diff answers *"did these five files move"*;
+   the tree answers *"did anything move"*, which is the claim a build verdict actually rests on — **one command, and it is the
+   stronger claim.** No Lean was run for this verification, which also kept the box clear of a neighbour's 25.6 GiB solve child.
+   ⛔ **WHAT IS STILL OPEN AND IS NOT MATH'S TO CLOSE**, stated here so its absence cannot later read as an oversight:
+   **(a) a fresh priority survey is owed before ANY "first" claim about (D)** — the HONEST LABEL above already forbids one
+   without it, and the claim label and any public prose are the Captain's; **(b)** `Salt/MR/StridePrizePell.lean:22-25`'s
+   docstring predates the per-class target and now reads stale (additive amend at the next touch, the helm's call);
+   **(c)** the **8103** reading of clause 2's lift value was posted 09/13 13:2x, drew no objection, and W3–W4 were built on
+   it — the helm's, if it judges it the Captain's.
    — P1 FILL (pull while the block cooks, any tier that fits):
 3. **The even-χ port tail** — ✅ DONE 08/20 `41289864`: 32 declarations
    out of custody, 31 into Salt/MR/EvenChiCyclotomic.lean.
