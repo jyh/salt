@@ -3635,4 +3635,318 @@ theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9 {h : ℕ} (hh : 0 < h)
   exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
     hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
 
+/-! ## ⟦β W2 F3⟧ the cap-9 twins, h-lane B — the spine's first links (build freeze v2 v1.1,
+2026-09-13)
+
+Additive only: every declaration above is untouched.  Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`; in `capfloor_floor4_sharp_LH_b9` the
+in-body `h ≤ 1096 ↦ h ≤ 8103`), every derived cap-dependent supplier replaced by its twin; no
+hypothesis is added and no conclusion weakened. -/
+
+set_option maxHeartbeats 800000 in
+-- as the source: the LHS re-derives at the inflated cap's `log H ^ 13`
+/-- `capfloor_floor4_sharp_LH` at `log h ≤ 9` (`capfloor_floor4_sharp_LH_b9`) — NUMERAL-LIFT
+(`capfloor_core_LH_b9`, `capfloor_muLambda_LH_b9`). The inflation step spends `h ≤ 8103 ≤ 10^21 ≤
+log H` (`h_le_8103_of_hh9`; the source spent `h ≤ 1096` from `h_le_1096_of_log_le_seven`) — census
+band 2 row 5.
+BODY: the source's. -/
+theorem capfloor_floor4_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hKs : Real.exp (-(3 * Real.log (H : ℝ) / 16)) ≤ Ks) :
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) := by
+  obtain ⟨hv, -, -, -⟩ := capfloor_core_LH_b9 hh hh9 hfl hb hAN hTlo
+  obtain ⟨hmu, hLam⟩ := capfloor_muLambda_LH_b9 hh hh9 hfl hb hAN hTlo
+  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hv0 : (0 : ℝ) < Real.log (H : ℝ) := lt_of_lt_of_le h21 hv
+  have hv256 : (256 : ℝ) ≤ Real.log (H : ℝ) := le_trans (by norm_num) hv
+  have hnum1 : (1 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
+  have hv1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by linarith
+  -- ⟦LHS AT THE INFLATED CAP⟧ `q ≤ h·arcDen 12 H ≤ log H ^ 13`, exactly H2c's step
+  have hh8103N : h ≤ 8103 := h_le_8103_of_hh9 hh hh9
+  have hh8103 : (h : ℝ) ≤ 8103 := by exact_mod_cast hh8103N
+  have hnum2 : (8103 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
+  have hhle : (h : ℝ) ≤ Real.log (H : ℝ) := by linarith
+  have hqA : (q : ℝ) ≤ Real.log (H : ℝ) ^ (13 : ℕ) := by
+    have hz := hb.2.2.2.2.1
+    have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    rw [harcpow] at hz
+    have hp12 : (0 : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
+    have hid : Real.log (H : ℝ) ^ (13 : ℕ)
+        = Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := by ring
+    calc (q : ℝ) ≤ (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := hz
+      _ ≤ Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) :=
+          mul_le_mul_of_nonneg_right hhle hp12
+      _ = Real.log (H : ℝ) ^ (13 : ℕ) := hid.symm
+  have hstep1 : (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16) :=
+    Real.rpow_le_rpow (Nat.cast_nonneg q) hqA (by norm_num)
+  have hstep2 : (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16)
+      = Real.log (H : ℝ) ^ ((13 : ℝ) / 16) := by
+    rw [← Real.rpow_natCast (Real.log (H : ℝ)) 13, ← Real.rpow_mul hv0.le]
+    norm_num
+  have hstep3 : Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
+    calc Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) ^ (1 : ℝ) :=
+          Real.rpow_le_rpow_of_exponent_le hv1 (by norm_num)
+      _ = Real.log (H : ℝ) := Real.rpow_one _
+  have hLHS : (q : ℝ) ^ ((1 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
+    rw [hstep2] at hstep1; linarith
+  -- ⟦RHS leg 1⟧ the FULL exponential, as the landed sharp twin
+  have hleg1 : Real.exp (3 * Real.log (H : ℝ) / 16)
+      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4) := by
+    have hstep : (Real.exp (Real.log (H : ℝ) / 4)) ^ ((3 : ℝ) / 4)
+        ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4) :=
+      Real.rpow_le_rpow (Real.exp_nonneg _) hmu (by norm_num)
+    have heq : (Real.exp (Real.log (H : ℝ) / 4)) ^ ((3 : ℝ) / 4)
+        = Real.exp (Real.log (H : ℝ) / 4 * (3 / 4)) := by
+      rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
+    rw [heq] at hstep
+    refine le_trans (Real.exp_le_exp.mpr ?_) hstep
+    linarith
+  have hleg2 : (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
+      ≤ (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) :=
+    pow_le_pow_left₀ (by positivity) hLam 4
+  have hexp0 : (0 : ℝ) < Real.exp (3 * Real.log (H : ℝ) / 16) := Real.exp_pos _
+  have hlegs : Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
+      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) :=
+    mul_le_mul hleg1 hleg2 (by positivity) (le_trans hexp0.le hleg1)
+  have hKs0 : (0 : ℝ) < Ks := lt_of_lt_of_le (Real.exp_pos _) hKs
+  have hcancel : (1 : ℝ) ≤ Ks * Real.exp (3 * Real.log (H : ℝ) / 16) := by
+    have hprod : Real.exp (-(3 * Real.log (H : ℝ) / 16))
+        * Real.exp (3 * Real.log (H : ℝ) / 16) = 1 := by
+      rw [← Real.exp_add]; norm_num
+    nlinarith [mul_le_mul_of_nonneg_right hKs hexp0.le, hprod]
+  have hpow : (256 : ℝ) ≤ Real.log (H : ℝ) ^ (3 : ℕ) := by
+    have hid : Real.log (H : ℝ) ^ (3 : ℕ)
+        = Real.log (H : ℝ) * (Real.log (H : ℝ) * Real.log (H : ℝ)) := by ring
+    rw [hid]; nlinarith [hv256]
+  have hvq : Real.log (H : ℝ) ≤ (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by
+    have hid : (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
+        = Real.log (H : ℝ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256) := by ring
+    rw [hid]; nlinarith [hpow, hv0]
+  have hbase : (0 : ℝ) ≤ (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by positivity
+  have hgrow : (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
+      ≤ Ks * Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by
+    nlinarith [hcancel, hbase]
+  have hfinal : Ks * (Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) :=
+    mul_le_mul_of_nonneg_left hlegs hKs0.le
+  have hassoc : Ks * (Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
+      = Ks * Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by
+    ring
+  rw [hassoc] at hfinal
+  linarith [hLHS, hvq, hgrow, hfinal]
+
+/-- `capfloor_floor4_of_regimeWin_LH` at `log h ≤ 9` (`capfloor_floor4_of_regimeWin_LH_b9`) —
+SUPPLIER-SWAP (`capfloor_floor4_sharp_LH_b9`).
+BODY: the source's. -/
+theorem capfloor_floor4_of_regimeWin_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hKs0 : 0 < Ks)
+    (hwin : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16) :
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hHloR : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hloR : ((R.Hlo : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
+  have hmono : Real.log ((R.Hlo : ℕ) : ℝ) ≤ Real.log (H : ℝ) :=
+    Real.log_le_log (by linarith) hloR
+  exact capfloor_floor4_sharp_LH_b9 hh hh9 hfl hb hAN hTlo
+    (exp_neg_le_of_log_inv_le hKs0 (by linarith))
+
+set_option maxHeartbeats 1000000 in
+-- as the source: the eight-field capfloor bundle re-checks with every entry swapped
+/-- `s13CapFloor_all_LH_gk_sharpT0_kswin` at `log h ≤ 9` (`s13CapFloor_all_LH_gk_sharpT0_kswin_b9`)
+— SUPPLIER-SWAP (`capfloor_QTann_LH_gk_b9`, `capfloor_kappa30Q_LH_gk_b9`,
+`capfloor_T0_Tann_sharp_LH_b9`, `capfloor_floor{1,2,3}_LH_b9`,
+`capfloor_floor4_of_regimeWin_LH_b9`).
+BODY: the source's. -/
+theorem s13CapFloor_all_LH_gk_sharpT0_kswin_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
+    {T₀ Kq Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hM : 1 ≤ M)
+    (hAN : As ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hQ2reg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
+    (hT₀ : T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2)) (hKq : Kq ≤ Real.exp 100)
+    (hKs0 : 0 < Ks)
+    (hKsw : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16) :
+    ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ∧
+    T₀ ≤ Tann ∧
+    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
+    Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hloR : ((R.Hlo : ℕ) : ℝ) ≤ ((H : ℕ) : ℝ) := by exact_mod_cast hlo
+  have hsqm : Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2 ≤ Real.sqrt ((H : ℕ) : ℝ) / 2 := by
+    have := Real.sqrt_le_sqrt hloR
+    linarith
+  exact
+   ⟨capfloor_QTann_LH_gk_b9 hh hh9 K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_kappa30Q_LH_gk_b9 hh hh9 K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_T0_Tann_sharp_LH_b9 hh hh9 hfl hb hAN hTlo
+     (le_trans hT₀ (Real.exp_le_exp.mpr hsqm)),
+   capfloor_floor1_LH_b9 hh hh9 hfl hb hAN hTlo,
+   capfloor_floor2_LH_b9 hh hh9 hfl hb hAN hTlo,
+   capfloor_floor3_LH_b9 hh hh9 hfl hb hAN hTlo hKq,
+   capfloor_floor4_of_regimeWin_LH_b9 hh hh9 hfl hb hAN hTlo hKs0 hKsw,
+   hQ2reg⟩
+
+set_option maxHeartbeats 1000000 in
+-- as the source: 37 structure fields checked against the per-block gate in one `exact`
+/-- `s16_capGate_supply_LH_gk_sharpT0_kswin` at `log h ≤ 9`
+(`s16_capGate_supply_LH_gk_sharpT0_kswin_b9`) — SUPPLIER-SWAP (`s13CapGrid_all_LH_gk_b9`,
+`s13CapFloor_all_LH_gk_sharpT0_kswin_b9`, `s13CapEps_pins_supply_LH_b9`, `s13CapEps_all_LH_b9`,
+`s13CapGrid_Lambda_lo_LH_b9`, `s13CapGrid_mu_2000_LH_b9`).
+BODY: the source's. -/
+theorem s16_capGate_supply_LH_gk_sharpT0_kswin_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
+    {epsf : ℕ → ℝ}
+    (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo) (hcs : Real.exp (-100) ≤ cs)
+    (hblk : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s)
+    (hT₀ : T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2)) (hKq : Kq ≤ Real.exp 100)
+    (hKs0 : 0 < Ks)
+    (hKsw : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16)
+    (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hεr : ∀ A : ℕ, theta293 - 1 / 500 ≤ epsf A)
+    (hcap : S16BaseScaleCap96_LH_gk h K R M) (hcof : S16CofactorSupply_LH_gk h K Cq R M) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+        5 ≤ Real.log (Real.log (2 * T)) →
+        ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
+          S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
+            Rrad Rbd CR EP2 (epsf (A + s)) := by
+  intro H L q j A s hb T hTlo hThi hTgate hTll
+  obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
+  -- the grid wave, at the linear door
+  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
+    s13CapGrid_all_LH_gk_b9 hh hh9 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
+  -- `1 < 2T` off the annulus gate
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hT1 : (1 : ℝ) < 2 * T := by
+    have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+    linarith
+  have hT0le : (0 : ℝ) ≤ 2 * T := by linarith
+  have hAN : A ≤ A + s := Nat.le_add_right _ _
+  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
+  -- the floor wave, at the linear door
+  obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
+    s13CapFloor_all_LH_gk_sharpT0_kswin_b9 hh hh9 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs0 hKsw
+  -- the eps wave, LADDER-BLIND
+  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH_b9 hh hh9 hfl hb
+  obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
+    s13CapEps_all_LH_b9 hh hh9 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
+  refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
+    s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
+  exact
+    { logX_eight := g1
+      H83_two := g2
+      QTann := f1
+      kappa30Q := f2
+      q_logX := g3
+      T0_Tann := f3
+      floor1 := f4
+      floor2 := f5
+      floor3 := f6
+      floor4 := f7
+      logqT_L := g4
+      P_low := g5
+      Q2_reg := g6
+      Q_pos := g7
+      Q_high := g8
+      P_le_Q := g9
+      budget := fun i hi =>
+        s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
+          (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
+      Hj := g10
+      B3 := g11
+      BT := g12
+      kappa30 := g13
+      BT10 := g14
+      WL := g15
+      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb)
+        (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb)
+      Rbd_nonneg := hRbd0
+      Rbd_grade := hRbdg
+      Cq_gate := hCqg
+      Rbd_socket := hRsock
+      epsr_nonneg := e1
+      abs8640 := e2
+      EP2_gate := e3
+      q_arcDen := e4
+      phi_row := e5
+      p2_row := e6
+      tail_row := e7
+      Q_hundred := g17
+      band_product := g18 }
+
+set_option maxHeartbeats 1600000 in
+-- as the source: the eighteen-slot `hcapWS` family re-elaborates against the wire's own
+-- shape, here under the `∀ K` bracket
+/-- `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin` at `log h ≤ 9`
+(`s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`) — SUPPLIER-SWAP
+(`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`, `s16_capGate_supply_LH_gk_sharpT0_kswin_b9`).
+BODY: the source's. -/
+theorem s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9 {h : ℕ} (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9) :
+    ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
+      Kq ≤ Real.exp 100 ∧ 0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      ∀ K : ℕ,
+        (Kq ≤ Real.exp 100 →
+        ∀ (R : ChowlaRegime) (M : ℕ), 1 ≤ M → loglogFloor50 ≤ R.Hlo →
+          Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 →
+          T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2) →
+          (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s) →
+          S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
+          S15CrossingBound_LH_gk h K R M) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hwire⟩ :=
+    m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9 hh hh9
+  obtain ⟨C, hC0, hC40, hband⟩ := m4_tail_mass_at_band_bounded
+  refine ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hC0, hC40, ?_⟩
+  intro K hKq R M hM hfl hKsw hT₀ hblk hcof hcap
+  -- ⟦THE cs RIDER, SPENT FROM THE PREFIX⟧ `hcsf` is a carried conjunct, not an antecedent;
+  -- ⟦THE Ks RIDER, SPENT AS A WINDOW⟧ `hKs0` is the prefix's own positivity
+  have hgate := s16_capGate_supply_LH_gk_sharpT0_kswin_b9 hh hh9 K hM hfl hcsf hblk hT₀ hKq
+    hKs0 hKsw hC0 hC40
+    (fun _ => le_rfl) hcap hcof
+  refine hwire K R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  have hq : 1 ≤ q := hsb.2.2.2.1
+  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
+  have hNd : 1 ≤ A + s := by omega
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+  have hT1 : (1 : ℝ) < 2 * T := by linarith
+  exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
+
 end Salt.MR

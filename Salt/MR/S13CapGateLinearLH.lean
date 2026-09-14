@@ -3231,4 +3231,228 @@ theorem s13CapEps_pin_floors_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : �
       rwa [Real.exp_log hμ0] at hz
     nlinarith [hsq, hΛbig, hΛ0]
 
+/-! ## ⟦β W2 F3⟧ THE CAP-9 TWINS, h-LANE B — `S13CapGateLinearLH` depth 5–7 (build freeze v2 v1.1,
+2026-09-13)
+
+Additive only: every declaration above is untouched.  Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, and every derived cap-dependent supplier
+replaced by its twin (F2's §-block above); no hypothesis is added and no conclusion weakened. -/
+
+/-- `s13_abs8640_at_shift_LH` at `log h ≤ 9` (`s13_abs8640_at_shift_LH_b9`) — SUPPLIER-SWAP
+(`s13_abs8640_at_base_LH_b9`).
+BODY: the source's. -/
+theorem s13_abs8640_at_shift_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
+    (8640 : ℝ) ≤ (Real.log ((A + s : ℕ) : ℝ)) ^ (theta293 - 1 / 500) :=
+  s13_abs8640_at_base_LH_b9 hh hh9 hfl hb (Nat.le_add_right A s)
+
+/-- `s13CapGrid_kappa30_LH` at `log h ≤ 9` (`s13CapGrid_kappa30_LH_b9`) — SUPPLIER-SWAP
+(`s13CapGrid_Tann_one_LH_b9`, `s13CapGrid_mu_2000_LH_b9`, `s13CapGrid_Lambda_lo_LH_b9`,
+`s13CapGrid_kappa_Tann_LH_b9`).
+BODY: the source's. -/
+theorem s13CapGrid_kappa30_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
+    ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+      30 ≤ Real.log ((q : ℝ) * (2 * T))
+        / Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i) := by
+  intro i hi
+  have hq1 : 1 ≤ q := hb.2.2.2.1
+  have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq1
+  have hT1 : (1 : ℝ) < 2 * T := s13CapGrid_Tann_one_LH_b9 hh hh9 hfl hb hTlo
+  have hmul : Real.log (2 * T) ≤ Real.log ((q : ℝ) * (2 * T)) := by
+    apply Real.log_le_log (by linarith)
+    nlinarith
+  have hb3 := s13CapGrid_B3 (Nd := A + s) (s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb)
+    (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb) i hi
+  have hb3R : (3 : ℝ)
+      ≤ ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ) := by
+    exact_mod_cast hb3
+  have hlog0 : (0 : ℝ)
+      < Real.log ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ) :=
+    Real.log_pos (by linarith)
+  have hbase := s13CapGrid_kappa_Tann_LH_b9 hh hh9 hfl hb hTlo i hi
+  rw [le_div_iff₀ hlog0] at hbase ⊢
+  linarith
+
+/-- `s13CapGrid_BT_LH` at `log h ≤ 9` (`s13CapGrid_BT_LH_b9`) — SUPPLIER-SWAP
+(`s13CapGrid_mu_2000_LH_b9`, `s13CapGrid_Lambda_lo_LH_b9`, `s13CapGrid_Tann_one_LH_b9`,
+`s13CapGrid_logTann_lo_LH_b9`).
+BODY: the source's. -/
+theorem s13CapGrid_BT_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
+    ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+      ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ)
+        ≤ (q : ℝ) * (2 * T) := by
+  intro i hi
+  set μ : ℝ := Real.log (((A + s : ℕ)) : ℝ) with hμdef
+  have hμ2000 : (2000 : ℝ) ≤ μ := s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb
+  have hΛ21 : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log μ := s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb
+  have hΛ100 : (100 : ℝ) ≤ Real.log μ := by
+    have : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+    nlinarith
+  have hΛ0 : (0 : ℝ) < Real.log μ := by linarith
+  have hb3 := s13CapGrid_B3 (Nd := A + s) hμ2000 hΛ21 i hi
+  have hb3R : (3 : ℝ)
+      ≤ ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ) := by
+    exact_mod_cast hb3
+  have hT1 : (1 : ℝ) < 2 * T := s13CapGrid_Tann_one_LH_b9 hh hh9 hfl hb hTlo
+  have hq1 : 1 ≤ q := hb.2.2.2.1
+  have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq1
+  have htop := s13CapGrid_logBase_le (Nd := A + s) hμ2000 hΛ21 hi
+  have hlow := s13CapGrid_logTann_lo_LH_b9 hh hh9 hfl hb hTlo
+  rw [← hμdef] at hlow
+  have hnum := capgrid_kappa_numeric hμ2000 hΛ100
+  have hstep : Real.log ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i
+      : ℕ) : ℝ) ≤ Real.log (2 * T) := by
+    have hdiv : (0 : ℝ) ≤ μ / Real.log μ := by positivity
+    nlinarith [htop, hlow, hnum]
+  have hmono := Real.exp_le_exp.mpr hstep
+  rw [Real.exp_log (by linarith), Real.exp_log (by linarith)] at hmono
+  nlinarith [hmono, hqR, hT1]
+
+/-- `s13CapGrid_BT10_LH` at `log h ≤ 9` (`s13CapGrid_BT10_LH_b9`) — SUPPLIER-SWAP
+(`s13CapGrid_Tann_one_LH_b9`, `s13CapGrid_mu_2000_LH_b9`, `s13CapGrid_Lambda_lo_LH_b9`,
+`s13CapGrid_kappa_Tann_LH_b9`).
+BODY: the source's. -/
+theorem s13CapGrid_BT10_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
+    ∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+      ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ)
+        ≤ (2 * T) ^ 10 := by
+  intro i hi
+  exact ramQbase_le_pow_ten (s13CapGrid_Tann_one_LH_b9 hh hh9 hfl hb hTlo)
+    (s13CapGrid_B3 (Nd := A + s) (s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb)
+      (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb) i hi)
+    (s13CapGrid_kappa_Tann_LH_b9 hh hh9 hfl hb hTlo i hi)
+
+/-- `s13CapEps_abs8640_LH` at `log h ≤ 9` (`s13CapEps_abs8640_LH_b9`) — SUPPLIER-SWAP
+(`s13_capEps_register_LH_b9`, `s13_abs8640_at_shift_LH_b9`).
+BODY: the source's. -/
+theorem s13CapEps_abs8640_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {εr : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hεr : theta293 - 1 / 500 ≤ εr) :
+    (8640 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ εr := by
+  obtain ⟨-, hμ, -, -⟩ := s13_capEps_register_LH_b9 hh hh9 hfl hb
+  exact le_trans (s13_abs8640_at_shift_LH_b9 hh hh9 hfl hb)
+    (Real.rpow_le_rpow_of_exponent_le (by linarith) hεr)
+
+/-- `s13CapEps_all_LH` at `log h ≤ 9` (`s13CapEps_all_LH_b9`) — SUPPLIER-SWAP
+(`s13CapEps_abs8640_LH_b9`, `s13CapEps_EP2_gate_LH_b9`, `s13CapEps_q_arcDen_LH_b9`; the three
+socket-blind rows as landed).
+BODY: the source's. -/
+theorem s13CapEps_all_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s P Q : ℕ} {C Tann εr : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hεr : theta293 - 1 / 500 ≤ εr) (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hT0 : 0 ≤ Tann) (hTX : Tann ≤ (((A + s : ℕ)) : ℝ))
+    (hP83 : P83 (((A + s : ℕ)) : ℝ) theta293 ≤ (P : ℝ))
+    (hgrade : Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log (((A + s : ℕ)) : ℝ))
+              * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293))) :
+    0 ≤ εr
+      ∧ (8640 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ εr
+      ∧ 12 * s13CapEP2 C q (A + s) P Q Tann
+          ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + εr)
+      ∧ (q : ℝ) ≤ arcDen 12 (A + s)
+      ∧ 4160 * (q.totient : ℝ) * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)
+          ≤ s13CapEP2 C q (A + s) P Q Tann
+      ∧ 4 * (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * (A + s) : ℕ)) : ℝ) / q)
+          * (16 * Real.logb 2 (2 * (((A + s : ℕ)) : ℝ))
+              / ((((A + s : ℕ)) : ℝ) * (P : ℝ)) + endMass (A + s))
+          ≤ s13CapEP2 C q (A + s) P Q Tann
+      ∧ 4 * (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * (A + s) : ℕ)) : ℝ) / q)
+          * s13MtailBand C (A + s) P Q
+          ≤ s13CapEP2 C q (A + s) P Q Tann :=
+  ⟨s13CapEps_epsr_nonneg hεr, s13CapEps_abs8640_LH_b9 hh hh9 hfl hb hεr,
+    s13CapEps_EP2_gate_LH_b9 hh hh9 hfl hb hεr hC0 hC hT0 hTX hP83 hgrade,
+    s13CapEps_q_arcDen_LH_b9 hh hh9 hfl hb, s13CapEps_phi_row C q (A + s) P Q Tann,
+    s13CapEps_p2_row C q (A + s) P Q Tann, s13CapEps_tail_row C q (A + s) P Q Tann⟩
+
+/-- `s13CapEps_pins_supply_LH` at `log h ≤ 9` (`s13CapEps_pins_supply_LH_b9`) — SUPPLIER-SWAP
+(`s13_capEps_register_LH_b9`, `s13CapEps_pin_floors_LH_b9`).
+BODY: the source's. -/
+theorem s13CapEps_pins_supply_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
+    P83 (((A + s : ℕ)) : ℝ) theta293
+        ≤ ((⌈P83 (((A + s : ℕ)) : ℝ) theta293⌉₊ : ℕ) : ℝ)
+      ∧ Real.log ((⌈P83 (((A + s : ℕ)) : ℝ) theta293⌉₊ : ℕ) : ℝ)
+            / Real.log ((⌊Q83 (((A + s : ℕ)) : ℝ)⌋₊ : ℕ) : ℝ)
+          ≤ 2 * (Real.log (Real.log (((A + s : ℕ)) : ℝ))
+                  * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)) := by
+  obtain ⟨hu, hμ, hΛ, -⟩ := s13_capEps_register_LH_b9 hh hh9 hfl hb
+  obtain ⟨hP4, hQ4⟩ := s13CapEps_pin_floors_LH_b9 hh hh9 hfl hb
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  refine ⟨Nat.le_ceil _, m4_tail_grade_rounded (by linarith) (by linarith) hP4 hQ4⟩
+
+/-- `s13CapGrid_all_LH_gk` at `log h ≤ 9` (`s13CapGrid_all_LH_gk_b9`) — SUPPLIER-SWAP (every `LH`
+grid leaf by its `_b9` twin; the socket-blind grid lemmas as landed).
+BODY: the source's. -/
+theorem s13CapGrid_all_LH_gk_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {cs T : ℝ}
+    (hM : 1 ≤ M) (hcs : 1 ≤ cs) (hfl : loglogFloor50 ≤ R.Hlo)
+    (hb : SocketBaseLH h R M H L q j A s) (hblock : s13BlockFloor_L_gk K M ≤ A + s)
+    (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T)
+    (hThi : 2 * T ≤ (((A + s : ℕ)) : ℝ)) :
+    8 ≤ Real.log (((A + s : ℕ)) : ℝ)
+    ∧ 2 ≤ H83 (((A + s : ℕ)) : ℝ) theta293
+    ∧ (q : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ 12
+    ∧ Real.log ((q : ℝ) * (2 * T)) ≤ s13Lr (A + s)
+    ∧ P83 (((A + s : ℕ)) : ℝ) theta293 ≤ ((s13BandP (A + s) : ℕ) : ℝ)
+    ∧ Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+        ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ))
+    ∧ 0 < s13BandQ (A + s)
+    ∧ ((s13BandQ (A + s) : ℕ) : ℝ) ≤ Q83 (((A + s : ℕ)) : ℝ)
+    ∧ s13BandP (A + s) ≤ s13BandQ (A + s)
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        H83 (((A + s : ℕ)) : ℝ) theta293 ≤ (i : ℝ))
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        3 ≤ ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i)
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ)
+          ≤ (q : ℝ) * (2 * T))
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        30 ≤ Real.log ((q : ℝ) * (2 * T))
+          / Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i))
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ)
+          ≤ (2 * T) ^ 10)
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i)
+          ≤ s13Lr (A + s))
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        420 * s13Lr (A + s) * (s13Lr (A + s)) ^ ((3 : ℝ) / 4)
+            * (Real.log (s13Lr (A + s))) ^ 5
+          ≤ cs * (Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293)
+              (s13BandP (A + s)) i)) ^ 2)
+    ∧ 100 * Real.log ((s13BandQ (A + s) : ℕ) : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ)
+    ∧ ((Nat.sqrt (A + s) : ℝ) + 1)
+          * ∏ p ∈ primeBand (s13BandP (A + s)) (s13BandQ (A + s)), (1 + 3 / (p : ℝ))
+        ≤ (((A + s : ℕ)) : ℝ)
+          * (Real.log ((s13BandP (A + s) : ℕ) : ℝ)
+              / Real.log ((s13BandQ (A + s) : ℕ) : ℝ)) := by
+  have hμ : (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb
+  have hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb
+  exact ⟨s13CapGrid_logX_eight_LH_b9 hh hh9 hfl hb, s13CapGrid_H83_two hμ hΛ,
+    s13CapGrid_q_logX_LH_b9 hh hh9 hfl hb,
+    s13CapGrid_logqT_L_LH_b9 hh hh9 hfl hb hTlo hThi, s13CapGrid_P_low (A + s),
+    s13CapGrid_Q2_reg_LH_gk_b9 hh hh9 K hM hb hblock, s13CapGrid_Q_pos hμ,
+    s13CapGrid_Q_high (A + s),
+    s13CapGrid_P_le_Q hμ hΛ, s13CapGrid_Hj hμ hΛ, s13CapGrid_B3 hμ hΛ,
+    s13CapGrid_BT_LH_b9 hh hh9 hfl hb hTlo, s13CapGrid_kappa30_LH_b9 hh hh9 hfl hb hTlo,
+    s13CapGrid_BT10_LH_b9 hh hh9 hfl hb hTlo,
+    s13CapGrid_WL hμ hΛ, s13CapGrid_gate hcs hμ hΛ, s13CapGrid_Q_hundred hμ hΛ,
+    s13CapGrid_band_product hμ hΛ⟩
+
 end Salt.MR

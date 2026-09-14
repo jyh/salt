@@ -10298,3 +10298,33 @@ open Salt.Tactic in
   Salt.MR.s13CapEps_q_arcDen_LH_b9
   Salt.MR.s13CapEps_EP2_gate_LH_b9
   Salt.MR.s13CapEps_pin_floors_LH_b9
+
+/-! ⟦β W2 F3⟧ — `S13CapGateLinearLH` DEPTH 5–7 · `S16ComposeLH` · `V7RatedH` ·
+`S16FlatTerminalLinearLH` (the grid/eps assemblers at the inflated socket and the spine's first
+three links `s13CapEps_all_LH_b9` → `s16_capGate_supply_LH_gk_sharpT0_kswin_b9` →
+`s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`; 2026-09-13, math — build
+freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only: every landed declaration
+is untouched.  Each twin is its source's statement and body with ONLY the shift-cap raise `log h ≤ 7
+↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
+F2 twin, and no hypothesis added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤
+10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`); `cofkR_cofactorSupply_L_gk_rated_h_b9` takes
+`cofkL_mu_floor_h_b9`'s `−32` at its four sites (`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`),
+binding step `c ≤ 100` at margin 0.4533.  Nothing here bears on twin primes.  16 obligations, 16
+landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.s13_abs8640_at_shift_LH_b9
+  Salt.MR.s13CapGrid_kappa30_LH_b9
+  Salt.MR.s13CapGrid_BT_LH_b9
+  Salt.MR.s13CapGrid_BT10_LH_b9
+  Salt.MR.s13CapEps_abs8640_LH_b9
+  Salt.MR.s13CapEps_all_LH_b9
+  Salt.MR.s13CapEps_pins_supply_LH_b9
+  Salt.MR.s13CapGrid_all_LH_gk_b9
+  Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk_b9
+  Salt.MR.capfloor_floor4_sharp_LH_b9
+  Salt.MR.capfloor_floor4_of_regimeWin_LH_b9
+  Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin_b9
+  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin_b9
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9
+  Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9
+  Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9
