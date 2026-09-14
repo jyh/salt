@@ -10339,3 +10339,22 @@ Conclusion byte-identical.  Door arm at `a ≤ 2310`: `2310·1.02·838400 ≤ 0.
 obligation, 1 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG_g12b
+
+/-! ⟦β W34 G1⟧ — THE SIX GRADED REPLAYS AT `2^12`, CAP 9 (`StridePairReceiptG12b`, 2026-09-13, math
+— build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
+24–28). Additive only: every `_g` replay in `StridePairReceiptG` is untouched. Each twin is its
+source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
+receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
+landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
+added. Named numerals: the door-head mint `2 ^ 11 ↦ 2 ^ 12` at its five sites; `flat_conditional`'s
+`:542` wall `1096 ≤ exp 7 ↦ 8103 ≤ exp 9` (via `2.7182818283^9`) with `harm'`/`hgb'`/`hsum`/`hprod`
+at `− 9` against `xceil_arm_split_mul_h_b9`'s `+ 9`, and slot 3 at `+ 36`
+(`s13_g2_jfloor_of_MSelect'_L_gk_shift36`). Nothing here bears on twin primes. 6 obligations, 6
+landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_roadExit_generic_h_g12b
+  Salt.MR.flat_door_head_xceil_h_g12b
+  Salt.MR.flat_capstone_generic_h_g12b
+  Salt.MR.flat_conditional_generic_h_g12b
+  Salt.MR.flat_kswin_generic_h_g12b
+  Salt.MR.flat_v7_generic_h_g12b
