@@ -22,11 +22,23 @@ outer-scale ceiling as an EXPORT-ONLY conjunct in the MAX shape, with the band h
 left LOOSE.  ONE RULE produces each band form from its `StridePairReceiptG12b.lean` source, byte for
 byte otherwise:
 
-  (i)  after the loose ceiling `Real.log R.x ≤ 31/ε · R.Hhi ∧` (for `V7RatedFormHG_g12b`, which
-       carries no ceiling, after `StrideScale a R ∧`) INSERT the export-only tight conjunct
-         `Real.log R.x ≤ max (xTightCeil ε R.Hhi) (Real.log (a · g R.Hhi R.ω))`
+  (i-ω) after the loose ceiling `Real.log R.x ≤ 31/ε · R.Hhi ∧` INSERT the RIDER-FREE tight ceiling
+       on the width, `Real.log R.ω ≤ xTightCeil ε R.Hhi` — `8·P²·ω ≤ x₀` (`hPHheadroom`) against
+       `hxu` at the builder's own `x₀`; `ω` is untouched by the enlargement and by every hop;
+  (i-x) then the export-only tight bound on `x` in the MAX shape, in TWO TIERS because hop 3
+       (`flat_conditional_generic_h_g12b`, `:610`) instantiates its source at the INFLATED rider
+       `s15ArmH … + g` and a rider-relative bound cannot cross it (refuter pass v1, R2 Q2):
+         tier A (H0 · H1 · H2, the rider passes verbatim):
+           `Real.log R.x ≤ max (xTightCeil ε R.Hhi) (Real.log (a · g R.Hhi R.ω))`
+         tier B (H3 · H4 · H5 and the crown side, after the inflation):
+           `Real.log R.x ≤ max (xTightCeilArm ε h R.Hhi) (Real.log (2 · (a · g R.Hhi R.ω)))`
+         where `xTightCeilArm` = `xTightCeil` + the arm's slack `18 + log 2 + H₊/10²⁰`
+         (`s15ArmH_log_le_g12b`, `StrideGrade12bWalls.lean:93`: `log arm ≤ log ω + log h + H₊/10²⁰`,
+         spent against (i-ω) and `log a ≤ 9`, `log h ≤ 9`);
        — `XCeil.lean:494-497`'s `hxu` at the stride builder (`StridePairReceipt.lean:2703`, the
        `+ 9` is `log a ≤ 9` at `a ≤ 8103`), through the enlargement `x ↦ max x (a·g Hhi ω)`;
+  (i′) `V7RatedFormHG_g12b` carries no ceiling: after `StrideScale a R ∧` INSERT the loose ceiling,
+       then (i-ω), then (i-x) tier B;
   (ii) PREFIX the antecedent block with the band quantifier
          `∀ (x' : ℕ) (hx' : R.x ≤ x'), a ∣ x' → Real.log x' ≤ 31/ε · R.Hhi →`
        and REPLACE every occurrence of the regime `R` inside that block by `regimeEnlargeX R hx'`.
@@ -39,7 +51,8 @@ the
 band: the tight reading gives floor and ceiling the same leading coefficient and empties S-3's set
 (freeze v1.1 §2).  WHY THE MAX shape: the builder enlarges `x` to `max x (a·g Hhi ω)`, so the
 caller's own `g` is part of the answer (`All.lean:7743-7746`); at `g ≡ 0` the MAX collapses to the
-tight arm (`Real.log 0 = 0`).
+tight arm (`Real.log 0 = 0`).  Every line is wrapped to 100 columns by the generator itself, so
+`gen_band_forms.py`'s output is byte-identical to §1.
 -/
 
 noncomputable section
@@ -63,7 +76,14 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
   30 / (ε : ℝ) * Real.log ((Hhi : ℕ) : ℝ) + 9
     + 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1)
 
-/-! ## §1 — the six band forms (rule (i)+(ii) applied to `StridePairReceiptG12b.lean:47-293`) -/
+/-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
+(`StridePairReceiptG12b.lean:610`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
+log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
+`log h ≤ 9`, plus `log 2` for the sum's larger summand. -/
+def xTightCeilArm (ε : ℚ) (h : ℕ) (Hhi : ℕ) : ℝ :=
+  xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
+
+/-! ## §1 — the six band forms, by rules (i-ω) (i-x) (i′) (ii) of the header -/
 
 def FlatHeadFormHG_g12b_band (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
@@ -77,6 +97,7 @@ def FlatHeadFormHG_g12b_band (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Pro
             R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ a * g R.Hhi R.ω ≤ R.x ∧
             StrideScale a R ∧
             Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+            Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
             Real.log ((R.x : ℕ) : ℝ)
               ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
             (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
@@ -103,6 +124,7 @@ def FlatRoadExitFormHG_g12b_band (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
             ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ a * g R.Hhi R.ω ≤ R.x ∧
               StrideScale a R ∧
               Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+              Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
               Real.log ((R.x : ℕ) : ℝ)
                 ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
               (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
@@ -151,6 +173,7 @@ def FlatCapstoneFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Pr
               ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ a * g R.Hhi R.ω ≤ R.x ∧
               StrideScale a R ∧
                 Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+                Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
                 Real.log ((R.x : ℕ) : ℝ)
                   ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
                 (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
@@ -182,12 +205,12 @@ def FlatCapstoneFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Pr
                           DoorBaseFrame (A + s) j) →
                         (∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
                           374784 * Ct * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
-                            ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) (regimeEnlargeX R
-                              hx').Hhi) →
+                            ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc))
+                              (regimeEnlargeX R hx').Hhi) →
                         (∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
                           GRowsZeroGate'''_L_gk K M (A + s) Cp
-                            (constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) (regimeEnlargeX R
-                              hx').Hhi)) →
+                            (constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc))
+                              (regimeEnlargeX R hx').Hhi)) →
                         (∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
                           14 * Real.log (Real.log (((regimeEnlargeX R hx').Hhi : ℕ) : ℝ)) +
                             Real.log 376266
@@ -196,12 +219,12 @@ def FlatCapstoneFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Pr
                                 * Real.log (Real.log (((A + s : ℕ)) : ℝ))) →
                         (∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
                           (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)
-                            ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) (regimeEnlargeX R
-                              hx').Hhi) →
+                            ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc))
+                              (regimeEnlargeX R hx').Hhi) →
                         (∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
                           (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
-                            * constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) (regimeEnlargeX R
-                              hx').Hhi) →
+                            * constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc))
+                              (regimeEnlargeX R hx').Hhi) →
                         -- ⟦THE εr/ε SPLIT⟧ the absorption exponent's own window
                         (∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
                           0 ≤ epsrf (A + s) ∧ epsrf (A + s) ≤ theta293 - 1 / 500) →
@@ -257,8 +280,9 @@ def FlatConditionalFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime →
             ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ a * g R.Hhi R.ω ≤ R.x ∧
               StrideScale a R ∧
               Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+              Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
               Real.log ((R.x : ℕ) : ℝ)
-                ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
+                ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
               (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
                 Real.log (Real.log (R.Hhi : ℝ))
                   ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
@@ -291,8 +315,9 @@ def FlatKswinFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop)
             ∃ R : ChowlaRegime,
             R.eps = ε ∧ R.Hlo = U1floor ∧ a * g R.Hhi R.ω ≤ R.x ∧ StrideScale a R ∧
             Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+            Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
             Real.log ((R.x : ℕ) : ℝ)
-              ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
+              ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
             (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
               Real.log (Real.log (R.Hhi : ℝ))
                 ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
@@ -317,8 +342,9 @@ def V7RatedFormHG_g12b_band (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) :
       ∃ R : ChowlaRegime,
         R.eps = ε ∧ R.Hlo = U1floor ∧ a * g R.Hhi R.ω ≤ R.x ∧ StrideScale a R ∧
         Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+        Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
         Real.log ((R.x : ℕ) : ℝ)
-          ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
+          ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
         (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
           Real.log (Real.log (R.Hhi : ℝ))
             ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
@@ -327,7 +353,6 @@ def V7RatedFormHG_g12b_band (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) :
         ∀ (x' : ℕ) (hx' : R.x ≤ x'), a ∣ x' →
           Real.log ((x' : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
           P (regimeEnlargeX R hx')
-
 
 /-! ## §2 — the class-A pack the hops consume -/
 
@@ -367,6 +392,15 @@ theorem xTightCeil_nonneg (ε : ℚ) (hε : 0 < ε) (Hhi : ℕ) (hHhi : 4000000 
   have h30 : 0 ≤ 30 / (ε : ℝ) * Real.log ((Hhi : ℕ) : ℝ) := mul_nonneg (by positivity) hl
   linarith
 
+/-- **⟦S-1 A4⟧** the arm ceiling is nonnegative too. -/
+theorem xTightCeilArm_nonneg (ε : ℚ) (hε : 0 < ε) (h Hhi : ℕ) (hHhi : 4000000 ≤ Hhi) :
+    0 ≤ xTightCeilArm ε h Hhi := by
+  unfold xTightCeilArm
+  have h0 := xTightCeil_nonneg ε hε Hhi hHhi
+  have hl2 : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+  have hH : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
+  linarith
+
 /-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:494-497`) -/
 
 /-- **⟦S-1 B1⟧** `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean:2571`)
@@ -380,6 +414,7 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight (a : ℕ) (ha : 1
       Real.log (Real.log (R.Hhi : ℝ))
         ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) ∧
       Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+      Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil eps R.Hhi ∧
       Real.log ((R.x : ℕ) : ℝ) ≤ xTightCeil eps R.Hhi := by
   sorry
 
@@ -394,6 +429,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_b9_tight (a : ℕ) (ha : 1 
       Real.log (Real.log (R.Hhi : ℝ))
         ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) ∧
       Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+      Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil eps R.Hhi ∧
       Real.log ((R.x : ℕ) : ℝ)
         ≤ max (xTightCeil eps R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) := by
   sorry
@@ -483,8 +519,9 @@ theorem mrtUniformityXiL2Set_holds_flat_floor_g12b_band (h : ℕ) (hh : 0 < h)
       ∃ R : ChowlaRegime,
         R.eps = ε ∧ R.Hlo = U1floor ∧ a * g R.Hhi R.ω ≤ R.x ∧ StrideScale a R ∧
         Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+        Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
         Real.log ((R.x : ℕ) : ℝ)
-          ≤ max (xTightCeil ε R.Hhi) (Real.log ((a * g R.Hhi R.ω : ℕ) : ℝ)) ∧
+          ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
         (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
@@ -507,8 +544,9 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band (a b h : ℕ) (ha : 0
       ∃ R : ChowlaRegime,
         R.eps = ε ∧ R.Hlo = U1floor ∧ a' * g R.Hhi R.ω ≤ R.x ∧ StrideScale a' R ∧
         Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+        Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
         Real.log ((R.x : ℕ) : ℝ)
-          ≤ max (xTightCeil ε R.Hhi) (Real.log ((a' * g R.Hhi R.ω : ℕ) : ℝ)) ∧
+          ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a' * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
         (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
@@ -522,8 +560,9 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band (a b h : ℕ) (ha : 0
 
 /-- **⟦S-1 CROWN⟧** `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`:1140`) at the band, stated
 over
-the AFFINE scale `y = x'/a`: the band's BOTTOM `x₀` carries the tight ceiling (at the crown's own
-`g ≡ 0` the MAX collapses), the band's ROOF is the loose ceiling on `a·y`, and at every `y` in the
+the AFFINE scale `y = x'/a`: the band's BOTTOM `x₀` carries the tight ceiling WITH THE ARM'S
+SLACK (hop 3's inflation; at the crown's own `g ≡ 0` the MAX collapses), the width the bare one,
+the band's ROOF is the loose ceiling on `a·y`, and at every `y` in the
 band
 the affine door holds at an affine regime with `Ra.x = y`, the SAME `ω₀`, the SAME `Hhi₀`.  This is
 the object S-3 consumes: D12's `hwin` at fixed `ω₀` over `x ∈ [x₀, M]`. -/
@@ -532,7 +571,8 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band (a b h : ℕ) (ha : 0 
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
       ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ (x₀ ω₀ Hhi₀ : ℕ), 2 ≤ x₀ ∧ 8 ≤ ω₀ ∧ 4000000 ≤ Hhi₀ ∧
-        Real.log ((x₀ : ℕ) : ℝ) ≤ xTightCeil ε Hhi₀ ∧
+        Real.log ((ω₀ : ℕ) : ℝ) ≤ xTightCeil ε Hhi₀ ∧
+        Real.log ((x₀ : ℕ) : ℝ) ≤ xTightCeilArm ε h Hhi₀ ∧
         Real.log ((a * x₀ : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) ∧
         ∀ y : ℕ, x₀ ≤ y → Real.log ((a * y : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) →
           ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
@@ -557,7 +597,7 @@ theorem flatHeadFormHG_g12b_of_band (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime 
   obtain ⟨Hcap, hCap, hmain⟩ := hbody A hA hAge
   refine ⟨Hcap, hCap, ?_⟩
   intro a extraFloor U1floor g ha ha8103 hg
-  obtain ⟨R, hReps, hextra, hU1, hRg, hstride, hxceil, -, hcount, hwid, hcap, hband⟩ :=
+  obtain ⟨R, hReps, hextra, hU1, hRg, hstride, hxceil, -, -, hcount, hwid, hcap, hband⟩ :=
     hmain a extraFloor U1floor g ha ha8103 hg
   refine ⟨R, hReps, hextra, hU1, hRg, hstride, hxceil, hcount, hwid, hcap, ?_⟩
   intro ρ hρ hρle hdoor
@@ -574,7 +614,7 @@ theorem v7RatedFormHG_g12b_of_band (h : ℕ) (P : ChowlaRegime → Prop) (A₀ :
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCq, hcs, hcsf, hT₀, hKq, hKs, hC, hC40, hCgle, hεpin, hδpin, hMflb, hβ, hA162, hA₀A, ?_⟩
   intro U1floor a g hU hUceil ha ha8103 hg
-  obtain ⟨R, hReps, hHlo, hRg, hstride, hxceil, -, hRtow, hdes, hwin, hband⟩ :=
+  obtain ⟨R, hReps, hHlo, hRg, hstride, hxceil, -, -, hRtow, hdes, hwin, hband⟩ :=
     hbody U1floor a g hU hUceil ha ha8103 hg
   refine ⟨R, hReps, hHlo, hRg, hstride, hRtow, hdes, hwin, ?_⟩
   have h := hband R.x (le_refl _) hstride.1 hxceil
@@ -593,7 +633,7 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_of_band (a b h : ℕ) (ha :
           E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
               * (Real.log (Ra.ω : ℝ) - 1)) ∧
           MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E) := by
-  obtain ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, x₀, ω₀, Hhi₀, -, -, -, -, hx₀ceil, hband⟩ :=
+  obtain ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, x₀, ω₀, Hhi₀, -, -, -, -, -, hx₀ceil, hband⟩ :=
     mrtUniformityXiL2AffW_holds_flat_stride_g12b_band a b h ha hh hba hah9 A₀
   obtain ⟨Ra, hRa, hRb, hReps, -, -, -, hHlo, hdes, hgrade⟩ := hband x₀ le_rfl hx₀ceil
   exact ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, Ra, hRa, hRb, hReps, hHlo, hdes, hgrade⟩
