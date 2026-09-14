@@ -437,6 +437,8 @@ import Salt.MR.StridePrizePellClass
 import Salt.MR.HalaszWeighted
 import Salt.Tactic.AuditAxioms
 import Salt.MR.EpsFamilyReceipt
+import Salt.MR.StrideGrade12bWalls
+import Salt.MR.StridePairReceiptG12b
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10106,3 +10108,120 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.pell_state_periodic
   Salt.MR.pell_class_iter
   Salt.MR.zRough_oddOmega_infinite_class_of_seed
+
+/-! ⟦β W1 E1⟧ — THE ENTROPY-SIDE CAP-9 / `2^12` TWINS (`GoldbachEnergyKcH`, `StridePair`,
+`StrideShellG`, `StridePrize`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief
+W1 bundle E1).  Additive only: every landed declaration is untouched.  Each twin is its source's
+statement and body with ONLY the freeze's rule-2 raises — product cap `≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`,
+`1201216 ↦ 65658609`, stride `a ≤ 1096 ↦ a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
+`10^24 ↦ 10^28`, door grade `2^11 ↦ 2^12` — and no hypothesis added.  The Entropy converter
+`h_le_8103_of_log_le_nine` is new (`e^9 = 8103.08`, sharp); `regimeShrinkX_stride_b9` is twinned
+with its nine projections (rule 4).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.h_le_8103_of_log_le_nine
+  Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9
+  Salt.Entropy.Chowla.hpt_holds_500h_b9
+  Salt.Entropy.Chowla.loglog_mul_flatDesignBase_le_b9
+  Salt.Entropy.Chowla.flatDesignBase_clears_stride_floors_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_x_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_omega_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_a_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_eps_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hlo_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_Hhi_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_C0_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_J_b9
+  Salt.Entropy.Chowla.regimeShrinkX_stride_x_mul_b9
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_g12b
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g12b
+  Salt.Entropy.Chowla.GradedAffHeadAt_g12b
+
+/-! ⟦β W1 E2⟧ — THE MR h-LANE A CAP-9 TWINS (`S13CapFloor`, `S16ProducersH`, `S13CapGateLinearLH`,
+2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1 bundle E2).  Additive only:
+every landed declaration is untouched.  Each twin is its source's statement and body with ONLY the
+freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
+`7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
+its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
+sharp); four sibling mints differ from their sources only in the named literal
+(`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`,
+`capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.capfloor_logH_le_third_sqrt
+  Salt.MR.h_le_8103_of_hh9
+  Salt.MR.s13_band_qfit_h_b9
+  Salt.MR.s13_socketBase_logA_ge_sqrt_LH_b9
+  Salt.MR.s13_socketBase_loglogA_sharp_LH_b9
+  Salt.MR.s15_block_at_socket_gen_LH_b9
+  Salt.MR.s15_block_at_socketH_L_gk_b9
+  Salt.MR.doorBandBase_family'H_L_gk_b9
+  Salt.MR.capeps_Pbig_h_e20
+  Salt.MR.capfloor_lam_core_h_232
+  Salt.MR.capfloor_floor3_numeric_h_10
+  Salt.MR.capfloor_logq_le_LH_b9
+  Salt.MR.capfloor_twoj_le_H_LH_b9
+  Salt.MR.s13CapGrid_Q2_reg_LH_gk_b9
+  Salt.MR.s13CapGrid_twoj_le_H_LH_b9
+  Salt.MR.capeps_row_p2_h_b9
+  Salt.MR.capfloor_core_LH_b9
+  Salt.MR.s13CapGrid_mu_lo_LH_b9
+
+/-! ⟦β W1 E3⟧ — THE MR h-LANE B CAP-9 TWINS (`S15SelLinear`, `HDoorSupply`, `S16FlatTerminalLinear`,
+`S16FlatTerminalLinearLH`, `S16ComposeLH`, `V7RatedH`, 2026-09-13, math — build freeze v2 v1.1
+§3.0/§3.1, executor brief W1 bundle E3).  Additive only: every landed declaration is untouched.
+Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
+`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
+in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
+added.  Two conclusion/hypothesis numerals move as the census prices them: `cofkL_mu_floor_h_b9`
+concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`
+reads `+ 36` in `h1`, supplied by the sibling mint `s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
+`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one RE-DERIVATION: its two log absorptions
+are merged into one product inequality, valid at `0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement
+differs from the source only by the cap.  Nothing here bears on twin primes.  19 obligations,
+19 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.s15_sel''_L_witness_flat_b9
+  Salt.MR.s15_sel''_L_gk_witness_flat_b9
+  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_h_b9
+  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_h_b9
+  Salt.MR.cofkL_logX_floor_h_b9
+  Salt.MR.cofkL_mu_floor_h_b9
+  Salt.MR.cofkL_X_ge_expexp_h_b9
+  Salt.MR.flat_arm_eps_le_h_b9
+  Salt.MR.flat_arm_budget_le_h_b9
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_h_b9
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift36
+  Salt.MR.s13_gate8_L_gk_h_b9
+  Salt.MR.s13_smallGradeFits_h_b9
+  Salt.MR.s13_winFit_h_of_halfWindow_gen_b9
+  Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_b9
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9
+  Salt.MR.cofkL_socket_floors_h_b9
+  Salt.MR.klevF_capNumeral_h_b9
+
+/-! ⟦β W1 E4⟧ — THE MR GRADED/STRIDE TWINS (`StridePairReceipt`, NEW `StrideGrade12bWalls`, NEW
+`StridePairReceiptG12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1
+bundle E4).  Additive only: every landed declaration is untouched; the two new modules exist for
+rule 6's placement (twins beside their graded sources would make an import cycle).  Each twin is
+its source's statement and body with ONLY the freeze's rule-2 raises — the stride `a ≤ 1096 ↦
+a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9` (the bound the crown derives at cap 9), the shift cap `log h ≤ 7 ↦
+≤ 9` with `h ≤ 1096 ↦ 8103`, `1201216 ↦ 65658609`, the door grade `838400 * 2 ^ 11 ↦ 838400 *
+2 ^ 12` / `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the census's numerals (`xceil_arm_split_mul_h_b9`
+concludes `+ 9`, the stride's `log a ≤ 9`; the register's charge `425 ↦ 429 = 411 + 2·9`) — every
+derived supplier replaced by its twin or the landed `_g14` rung, and no hypothesis added.  The six
+FORM defs and the receipt predicate are registered as defs.  Nothing here bears on twin primes.
+12 obligations, 12 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9
+  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul_b9
+  Salt.MR.xceil_arm_split_mul_h_b9
+  Salt.MR.s15_sel''_L_witness_flat_charge_g12b
+  Salt.MR.s15ArmH_log_le_g12b
+  Salt.MR.FlatHeadFormHG_g12b
+  Salt.MR.FlatRoadExitFormHG_g12b
+  Salt.MR.FlatCapstoneFormHG_g12b
+  Salt.MR.FlatConditionalFormHG_g12b
+  Salt.MR.FlatKswinFormHG_g12b
+  Salt.MR.V7RatedFormHG_g12b
+  Salt.MR.MRTDoorReceiptSetG_g12b

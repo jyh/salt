@@ -1266,4 +1266,141 @@ example (A₀ : ℝ) :
 
 end AntiDriftH
 
+/-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched. Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, and the census's `2^20
+↦ 2^22`, `14 ↦ 16`), every derived cap-dependent supplier replaced by its twin; no hypothesis is
+added and no conclusion weakened. `cofkR_cofactorSupply_L_gk_rated_h` (the consumer of
+`cofkL_mu_floor_h_b9`) is NOT twinned here. -/
+
+/-- `cofkL_socket_floors_h` at `log h ≤ 9` (`cofkL_socket_floors_h_b9`) — TRANSPORT: the raise costs
+`26·log 10 + 4·log h ≤ 60.1 + 36 = 95.9` against `log H₊ ≥ 10^8` (census band 2 row 41).
+BODY: the source's, verbatim. -/
+theorem cofkL_socket_floors_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (4000000 : ℝ) ≤ (H : ℝ) ∧ (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ) := by
+  have h1 : R.Hlo ≤ H := hb.1
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hLhh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
+  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
+  have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
+    have h := Real.exp_le_exp.mpr hlo
+    rwa [Real.exp_log (by linarith)] at h
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
+    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
+    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
+    linarith
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
+  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
+    Real.log_le_log (by linarith) (by linarith)
+  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
+  refine ⟨hH4, ?_⟩
+  have hlogle : Real.log ((10 : ℝ) ^ 26 * (h : ℝ) ^ 4) ≤ Real.log (R.Hhi : ℝ) := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    linarith [cofk_log_ten_le, hLH8, hh9]
+  have h2' := Real.exp_le_exp.mpr hlogle
+  rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
+
+set_option maxHeartbeats 1000000 in
+-- as the source: the exponent comparison closes through `exp` rewrites and three `nlinarith` calls
+/-- `klevF_capNumeral_h` at `log h ≤ 9` (`klevF_capNumeral_h_b9`) — NUMERAL-LIFT (census band 2
+row 43): `h ≤ 8103` from `h_le_8103_of_hh9`, so `1/ε ≤ 500·h ≤ 4051500 < 2^22 = 4194304` and
+`log(1/ε) ≤ 22·log 2 = 15.25 ≤ 16` (`2^20 ↦ 2^22`, `14 ↦ 16`).  The close
+`9.6·(c' + 21) ≤ 69·e^{2t}` at `e^{2t} ≥ 100` is untouched.  Every other step is the source's. -/
+theorem klevF_capNumeral_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {A : ℝ} (hA : 26 ≤ A) {R : ChowlaRegime} {M : ℕ} (hM : 1 ≤ M)
+    (heps500 : (1 : ℚ) / (500 * (h : ℚ)) ≤ R.eps)
+    (hHhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    9.60000096 * (Real.log ((R.Hhi : ℕ) : ℝ) + Real.log (1 / (R.eps : ℝ)) + 5)
+      ≤ Real.log ((calP (AdoorL M) (s13GK (KlevF A) M) 2 : ℕ) : ℝ) := by
+  set t : ℝ := Real.exp (3.2 * A / 2) with htdef
+  have ht17 : (10 : ℝ) ^ 17 ≤ t := flat_exp_half_ge hA
+  have ht0 : (0 : ℝ) < t := by nlinarith [ht17]
+  have htbig : (100000000 : ℝ) ≤ t := by nlinarith [ht17]
+  have hHhiN : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+  have hHhiR : (4000000 : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) := by exact_mod_cast hHhiN
+  have hepsR : (0 : ℝ) < (R.eps : ℝ) := by exact_mod_cast R.heps
+  have hupos : (0 : ℝ) < 1 / (R.eps : ℝ) := div_pos one_pos hepsR
+  have hhQ : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
+  have h8103 : (h : ℝ) ≤ 8103 := by exact_mod_cast h_le_8103_of_hh9 hh hh9
+  have h5q : (1 : ℚ) ≤ 500 * (h : ℚ) * R.eps := by
+    rw [div_le_iff₀ (by positivity)] at heps500; linarith
+  have h5r : (1 : ℝ) ≤ 500 * (h : ℝ) * (R.eps : ℝ) := by exact_mod_cast h5q
+  have hinv500 : 1 / (R.eps : ℝ) ≤ 500 * (h : ℝ) := by
+    rw [div_le_iff₀ hepsR]; linarith
+  have hinvle : Real.log (1 / (R.eps : ℝ)) ≤ 16 := by
+    have h : Real.log (1 / (R.eps : ℝ)) ≤ Real.log ((2 : ℝ) ^ (22 : ℕ)) := by
+      refine Real.log_le_log hupos ?_
+      rw [show ((2 : ℝ) ^ (22 : ℕ)) = 4194304 by norm_num]
+      linarith
+    rw [Real.log_pow] at h
+    push_cast at h
+    linarith [Real.log_two_lt_d9]
+  have hlogHhipos : (0 : ℝ) < Real.log ((R.Hhi : ℕ) : ℝ) := by
+    have h : Real.log 1 < Real.log ((R.Hhi : ℕ) : ℝ) :=
+      Real.log_lt_log one_pos (by linarith)
+    simpa using h
+  have hlogHhi_le : Real.log ((R.Hhi : ℕ) : ℝ) ≤ Real.exp (2 * t) := by
+    calc Real.log ((R.Hhi : ℕ) : ℝ)
+        = Real.exp (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) := (Real.exp_log hlogHhipos).symm
+      _ ≤ Real.exp (2 * t) := Real.exp_le_exp.mpr hHhi
+  have hexp2t : (2 : ℝ) * t + 1 ≤ Real.exp (2 * t) := Real.add_one_le_exp (2 * t)
+  have hexp2t_big : (100 : ℝ) ≤ Real.exp (2 * t) := by linarith [htbig, hexp2t]
+  have hlog2lo : (0.6931 : ℝ) ≤ Real.log 2 := by linarith [Real.log_two_gt_d9]
+  have hAd : 1 ≤ AdoorL M := one_le_AdoorL hM
+  have hnat : 2 ^ (KlevF A) ≤ 4 * (AdoorL M * s13GK (KlevF A) M) := by
+    have h1 : 2 ^ (KlevF A) ≤ s13GK (KlevF A) M := by
+      rw [s13GK]
+      calc 2 ^ (KlevF A) ≤ 3072 * 2 ^ (KlevF A) := Nat.le_mul_of_pos_left _ (by norm_num)
+        _ ≤ 3072 * 2 ^ (KlevF A) * M := Nat.le_mul_of_pos_right _ (by omega)
+    calc 2 ^ (KlevF A) ≤ s13GK (KlevF A) M := h1
+      _ ≤ AdoorL M * s13GK (KlevF A) M := Nat.le_mul_of_pos_left _ (by omega)
+      _ ≤ 4 * (AdoorL M * s13GK (KlevF A) M) := Nat.le_mul_of_pos_left _ (by norm_num)
+  have hnatR : (2 : ℝ) ^ (KlevF A) ≤ ((4 * (AdoorL M * s13GK (KlevF A) M) : ℕ) : ℝ) := by
+    have h : ((2 ^ (KlevF A) : ℕ) : ℝ) ≤ ((4 * (AdoorL M * s13GK (KlevF A) M) : ℕ) : ℝ) := by
+      exact_mod_cast hnat
+    simpa using h
+  have h2K : (2 : ℝ) ^ (KlevF A) = Real.exp (((KlevF A : ℕ) : ℝ) * Real.log 2) := by
+    conv_rhs => rw [← Real.log_pow]
+    exact (Real.exp_log (by positivity)).symm
+  have hKge : (4 : ℝ) * t ≤ ((KlevF A : ℕ) : ℝ) := by
+    have h := KlevF_ge A
+    have hkc : ((kcap : ℕ) : ℝ) = 4 := by rw [kcap]; norm_num
+    rw [hkc, ← htdef] at h
+    exact h
+  have hKlog : 2 * t + 0.7724 * t ≤ ((KlevF A : ℕ) : ℝ) * Real.log 2 := by
+    nlinarith [hKge, hlog2lo, ht0]
+  have hsplit : Real.exp (2 * t + 0.7724 * t) = Real.exp (2 * t) * Real.exp (0.7724 * t) :=
+    Real.exp_add _ _
+  have hexpres : (100 : ℝ) ≤ Real.exp (0.7724 * t) := by
+    have h := Real.add_one_le_exp (0.7724 * t)
+    nlinarith [h, htbig]
+  have hpow_lo : (69 : ℝ) * Real.exp (2 * t) ≤ (2 : ℝ) ^ (KlevF A) * Real.log 2 := by
+    have hchain : Real.exp (2 * t) * Real.exp (0.7724 * t) ≤ (2 : ℝ) ^ (KlevF A) := by
+      rw [h2K, ← hsplit]
+      exact Real.exp_le_exp.mpr hKlog
+    have hexp2pos : (0 : ℝ) < Real.exp (2 * t) := Real.exp_pos _
+    have hmul : Real.exp (2 * t) * 100 ≤ Real.exp (2 * t) * Real.exp (0.7724 * t) :=
+      mul_le_mul_of_nonneg_left hexpres (le_of_lt hexp2pos)
+    have hstep1 : (100 : ℝ) * Real.exp (2 * t) ≤ (2 : ℝ) ^ (KlevF A) := by
+      linarith [hchain, hmul]
+    have h2Knn : (0 : ℝ) ≤ (2 : ℝ) ^ (KlevF A) := by positivity
+    have hstep2 : 100 * Real.exp (2 * t) * 0.6931 ≤ (2 : ℝ) ^ (KlevF A) * Real.log 2 :=
+      mul_le_mul hstep1 hlog2lo (by norm_num) h2Knn
+    linarith [hstep2, hexp2pos]
+  rw [s16_logP2]
+  have hcast : ((4 * (AdoorL M * s13GK (KlevF A) M) : ℕ) : ℝ) * Real.log 2
+      ≥ (2 : ℝ) ^ (KlevF A) * Real.log 2 :=
+    mul_le_mul_of_nonneg_right hnatR (by linarith)
+  linarith [hlogHhi_le, hinvle, hpow_lo, hcast, hexp2t_big]
+
 end Salt.MR

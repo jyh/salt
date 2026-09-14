@@ -326,6 +326,164 @@ theorem eps_line_h (h : ℕ) (hh : 0 < h) :
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   nlinarith [hq0]
 
+/-! ## §6 — ⟦β W1 E1⟧ the cap-9 twins (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched.  Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`,
+and the census's in-body numerals at cap 9); no hypothesis is added and no conclusion weakened. -/
+
+/-- **⟦THE SHIFT'S `ℕ` BOUND AT CAP 9⟧ (class A)** — the `log h ≤ 9` twin of
+`h_le_1096_of_log_le_seven`, the Entropy-side converter of the β lane (`StridePrize`, `StrideFork`
+and this file import no MR module; the MR sibling is `Salt.MR.h_le_8103_of_hh9`).
+`e^9 = 8103.0839…`, so `h ≤ ⌊e^9⌋ = 8103`; the numeral is sharp (`h = 8103` meets `log h ≤ 9`).
+BODY: `h_le_1202604_of_log_le_fourteen`'s, at the `9`th power. -/
+theorem h_le_8103_of_log_le_nine {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) :
+    h ≤ 8103 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp 9 := by
+    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh9
+  have he9 : Real.exp 9 < 8104 := by
+    have h3 : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have h5 : (Real.exp 1) ^ (9 : ℕ) < (2.7182818286 : ℝ) ^ (9 : ℕ) :=
+      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
+    have h6 : (2.7182818286 : ℝ) ^ (9 : ℕ) < 8104 := by norm_num
+    rw [h3]; linarith
+  have : (h : ℝ) < 8104 := by linarith
+  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
+
+/-- **⟦THE `C₁` NUMERAL AT SHIFT `h`, CAP 9⟧** (`hpt_const_le_pow35_h_b9`) — `hpt_const_le_pow35_h`
+at `log h ≤ 9`.  The census (band 3 row 2): `log T ≤ 41·log 2 + 2·9 = 46.419 ≤ 46.42`,
+`(log T)² ≤ 2154.8164`; the closing ratio at `h² = 4` is `0.891` (cap 7: `0.867`).  `h = 1` is
+cap-free (the landed `hpt_const_le_pow35`). -/
+theorem hpt_const_le_pow35_h_b9 (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) :
+    (800 / (1 / 256 : ℝ) + 102400 / (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2)
+        + ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) + 2
+            + 1 / (2 * ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 2))
+          * (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2
+      ≤ 2 ^ 35 * (h : ℝ) ^ 2 := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hcast : (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by
+    push_cast; ring
+  have hTcast : ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) = (2 : ℝ) ^ (41 : ℕ) * (h : ℝ) ^ 2 := by
+    push_cast; ring
+  rcases Nat.lt_or_ge h 2 with h1 | h2
+  · -- ⟦h = 1⟧ the landed lemma, whose tight `(log T)² = 807.70` is what carries it
+    have : h = 1 := by omega
+    subst this
+    have hl := hpt_const_le_pow35
+    norm_num at hl ⊢
+    -- (the source's trailing `<;> norm_num` is never executed — dropped so the twin adds no lint)
+    convert hl using 3
+  · -- ⟦h ≥ 2⟧ the uniform bound, with `h² ≥ 4` paying the `h`-free residue
+    have hx2 : (2 : ℝ) ≤ (h : ℝ) := by exact_mod_cast h2
+    have hsq4 : (4 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hx2]
+    have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+    have hlogh0 : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by linarith)
+    have hlogT : Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) = 41 * Real.log 2 + 2 * Real.log (h : ℝ) := by
+      rw [hTcast, Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
+      push_cast; ring
+    have hLnn : (0 : ℝ) ≤ Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) := by
+      rw [hlogT]; nlinarith [Real.log_two_gt_d9, hlogh0]
+    have hLub : Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) ≤ 46.42 := by
+      rw [hlogT]; linarith
+    have hLsq : (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2 ≤ 2154.8164 := by
+      have := pow_le_pow_left₀ hLnn hLub 2
+      calc (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2 ≤ (46.42 : ℝ) ^ 2 := this
+        _ = 2154.8164 := by norm_num
+    rw [hcast]
+    have e1 : (102400 : ℝ) / (1 / (500 * (h : ℝ))) ^ 2 = 25600000000 * (h : ℝ) ^ 2 := by
+      field_simp; ring
+    have e2 : (1 / (500 * (h : ℝ))) ^ 2 * ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)
+        = 2199023255552 / 250000 := by
+      rw [hTcast]; field_simp; ring
+    have e3 : (1 : ℝ) / (2 * (1 / (500 * (h : ℝ))) ^ 2) = 125000 * (h : ℝ) ^ 2 := by
+      field_simp; ring
+    have e0 : (800 : ℝ) / (1 / 256 : ℝ) = 204800 := by norm_num
+    rw [e0, e1, e2, e3]
+    -- `204800 + 2.56e10·h² + (8796093.02 + 2 + 125000·h²)·L² ≤ 2^35·h²` at `L² ≤ 2154.8164`
+    nlinarith [hLsq, hsq4, sq_nonneg (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ))]
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE `hpt` TWIN AT SHIFT `h`, CAP 9⟧** (`hpt_holds_500h_b9`) — `hpt_holds_500h` at
+`log h ≤ 9`: the shift bound from `h_le_8103_of_log_le_nine`, `hsqb : h² ≤ 65658609 = 8103²`,
+`hb : 500000^10·65658609 ≤ 2^369` (`6.41·10^64` against `1.20·10^111`, census band 3 row 3), and
+the constant from `hpt_const_le_pow35_h_b9`.  Every other step is the source's, verbatim. -/
+theorem hpt_holds_500h_b9 (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) :
+    ∀ H n : ℕ,
+      (repCount (primeWindow (1 / (500 * (h : ℚ))) H)
+          (primeWindow (1 / (500 * (h : ℚ))) H) n : ℝ)
+        ≤ ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2)
+            * ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
+  have hq1 : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
+  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hcast : (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by push_cast; ring
+  have hTcast : ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) = (2 : ℝ) ^ (41 : ℕ) * (h : ℝ) ^ 2 := by
+    push_cast; ring
+  have h8103 : (h : ℝ) ≤ 8103 := by exact_mod_cast h_le_8103_of_log_le_nine hh hh9
+  intro H n
+  refine le_trans (hpt_holds_thr (1 / (500 * (h : ℚ))) (by positivity) ?_ (1 / 256)
+    (by norm_num) 16 repCount_even_le_primorial_sixteen (2 ^ 41 * h ^ 2) ?_ ?_ ?_ ?_ H n) ?_
+  · -- `heps2 : ε² < 1/2`
+    rw [hcast]
+    have : (1 : ℝ) / (500 * (h : ℝ)) ≤ 1 / 500 := by
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
+    have h0 : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
+    nlinarith [this, h0]
+  · -- `hT0 : N0' ≤ T`
+    have : (2 : ℕ) ^ 20 ≤ 2 ^ 41 * h ^ 2 := by
+      have hh2 : 1 ≤ h ^ 2 := Nat.one_le_pow _ _ hh
+      calc (2 : ℕ) ^ 20 ≤ 2 ^ 41 := by norm_num
+        _ = 2 ^ 41 * 1 := by ring
+        _ ≤ 2 ^ 41 * h ^ 2 := Nat.mul_le_mul_left _ hh2
+    simpa [N0'] using this
+  · -- `hTA : 4 ≤ ε²·T` — h-FREE
+    have hTq : (((2 ^ 41 * h ^ 2 : ℕ) : ℚ)) = 2 ^ 41 * (h : ℚ) ^ 2 := by push_cast; ring
+    rw [hTq]
+    have hid : (1 / (500 * (h : ℚ))) ^ 2 * (2 ^ 41 * (h : ℚ) ^ 2) = 2 ^ 41 / 250000 := by
+      field_simp; ring
+    rw [hid]; norm_num
+  · -- `hTB : 16^10 ≤ T`
+    rw [hTcast]
+    have hsq1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hx1]
+    have h16 : ((16 : ℕ) : ℝ) ^ (10 : ℕ) = 1099511627776 := by norm_num
+    have h41 : (2 : ℝ) ^ (41 : ℕ) = 2199023255552 := by norm_num
+    rw [h16, h41]
+    nlinarith [hsq1]
+  · -- `hTD : (2/ε²)^10 ≤ T^9`
+    rw [hcast, hTcast]
+    have hsq1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hx1]
+    have hsqb : (h : ℝ) ^ 2 ≤ 65658609 := by nlinarith [hx1, h8103]
+    have hL : (2 : ℝ) / (1 / (500 * (h : ℝ))) ^ 2 = 500000 * (h : ℝ) ^ 2 := by
+      field_simp; ring
+    rw [hL]
+    have hexp : ((500000 : ℝ) * (h : ℝ) ^ 2) ^ (10 : ℕ)
+        = 500000 ^ (10 : ℕ) * ((h : ℝ) ^ 2) ^ (10 : ℕ) := by ring
+    have hexp9 : ((2 : ℝ) ^ (41 : ℕ) * (h : ℝ) ^ 2) ^ (9 : ℕ)
+        = (2 : ℝ) ^ (369 : ℕ) * ((h : ℝ) ^ 2) ^ (9 : ℕ) := by
+      rw [mul_pow, ← pow_mul]
+    rw [hexp, hexp9]
+    have hp9 : (0 : ℝ) < ((h : ℝ) ^ 2) ^ (9 : ℕ) := by positivity
+    have hsplit : ((h : ℝ) ^ 2) ^ (10 : ℕ) = ((h : ℝ) ^ 2) ^ (9 : ℕ) * (h : ℝ) ^ 2 := by ring
+    rw [hsplit]
+    -- `500000^10 · (h²)^9 · h² ≤ 2^369 · (h²)^9`  ⟸  `500000^10 · h² ≤ 2^369`
+    have hnum : (500000 : ℝ) ^ (10 : ℕ) * (h : ℝ) ^ 2 ≤ (2 : ℝ) ^ (369 : ℕ) := by
+      have hb : (500000 : ℝ) ^ (10 : ℕ) * 65658609 ≤ (2 : ℝ) ^ (369 : ℕ) := by norm_num
+      nlinarith [hsqb, hsq1]
+    calc (500000 : ℝ) ^ (10 : ℕ) * (((h : ℝ) ^ 2) ^ (9 : ℕ) * (h : ℝ) ^ 2)
+        = ((500000 : ℝ) ^ (10 : ℕ) * (h : ℝ) ^ 2) * ((h : ℝ) ^ 2) ^ (9 : ℕ) := by ring
+      _ ≤ (2 : ℝ) ^ (369 : ℕ) * ((h : ℝ) ^ 2) ^ (9 : ℕ) :=
+          mul_le_mul_of_nonneg_right hnum hp9.le
+  · -- the constant, from §6
+    have hnn : (0 : ℝ) ≤ ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * H / (Real.log H) ^ 2)
+        * sTrunc2 n :=
+      mul_nonneg (div_nonneg (by positivity) (sq_nonneg _)) (sTrunc2_nonneg n)
+    exact mul_le_mul_of_nonneg_right
+      (mul_le_mul_of_nonneg_right (hpt_const_le_pow35_h_b9 h hh hh9) (by positivity))
+      (sTrunc2_nonneg n)
+
 end Salt.Entropy.Chowla
 
 end

@@ -2442,6 +2442,154 @@ theorem arc36_of_regime_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) �
   intro H hlo _
   exact arc36_of_floor_h_14 hcb (le_trans hfl (le_trans hfloor hlo))
 
+/-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched. Each twin is its source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `548000 ↦ 4051500`, the
+census's in-body literals, and `h1`'s `28 ↦ 36`), every derived cap-dependent supplier replaced by
+its twin; no hypothesis is added and no conclusion weakened. The shift bound is the Entropy
+converter `h_le_8103_of_log_le_nine` (this file imports no `S16ProducersH`). -/
+
+set_option exponentiation.threshold 4000 in
+/-- `flat_arm_eps_le_h` at `log h ≤ 9` (`flat_arm_eps_le_h_b9`) — NUMERAL-LIFT: `h ≤ 8103` from
+`h_le_8103_of_log_le_nine`, so `⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and the arm is
+`4·4051500⁴ = 1.078·10^27` against `arcFloor36 = 10^138`.  BODY: the source's. -/
+theorem flat_arm_eps_le_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) {A : ℝ} {ε : ℚ}
+    (hA : 162 ≤ A) (hε : 0 < ε) (hεpin : 1 / (500 * (h : ℚ)) ≤ ε) :
+    4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 ≤ flatDesignBase A := by
+  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
+  have h8103 : h ≤ 8103 := Salt.Entropy.Chowla.h_le_8103_of_log_le_nine hh hh9
+  have hceil : ⌈(1 / ε : ℚ)⌉₊ ≤ 500 * h := by
+    refine Nat.ceil_le.mpr ?_
+    rw [div_le_iff₀ hε]
+    have hq : (1 : ℚ) / (500 * (h : ℚ)) ≤ ε := hεpin
+    rw [div_le_iff₀ (by positivity)] at hq
+    push_cast
+    nlinarith [hq, hq0, hε]
+  have hb : 500 * h ≤ 4051500 := by omega
+  have h1 : 4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 ≤ 4 * 4051500 ^ 4 :=
+    Nat.mul_le_mul_left _ (Nat.pow_le_pow_left (le_trans hceil hb) 4)
+  exact le_trans h1 (le_trans (by norm_num [arcFloor36] : 4 * 4051500 ^ 4 ≤ arcFloor36)
+    (flat_arm_arcFloor_le hA))
+
+set_option exponentiation.threshold 4000 in
+/-- `flat_arm_budget_le_h` at `log h ≤ 9` (`flat_arm_budget_le_h_b9`) — NUMERAL-LIFT (census band 2
+row 13): `h^6 ≤ 8103^6`, so `1/ε^6 ≤ 1.5625·10^16·8103^6 = 4.4228·10^39 ≤ 4.43·10^39`; the budget
+bound `4·10^39·A ↦ 10^44·A` (coefficient `3000·log 4·4.43·10^39 = 1.84·10^43`); `hE`
+`10^43 ↦ 10^47` through `exp 100 ↦ exp 110` (`log₁₀ 2.7^110 = 47.45`), and at `A = 162` the demand
+is `6.48·10^46`.  Every other step is the source's, verbatim. -/
+theorem flat_arm_budget_le_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) {A β : ℝ}
+    {ε : ℚ} (hA : 162 ≤ A) (hβ : 0 < β)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2)
+    (hbudA : budgetAFlat (ε : ℝ) β ≤ A) :
+    budgetFloorFlat (ε : ℝ) β A ≤ flatDesignBase A := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have h8103 : (h : ℝ) ≤ 8103 := by
+    exact_mod_cast Salt.Entropy.Chowla.h_le_8103_of_log_le_nine hh hh9
+  have h6b : (h : ℝ) ^ 6 ≤ (8103 : ℝ) ^ 6 := pow_le_pow_left₀ hx0.le h8103 6
+  set e : ℝ := (ε : ℝ) with hedef
+  have hepos : (0 : ℝ) < e := by
+    rw [hedef]; exact lt_of_lt_of_le (by positivity) hε
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hden : (0 : ℝ) < e ^ 6 * β ^ 2 := by positivity
+  have hbud' : 2304 * Real.log 4 ≤ A * (e ^ 6 * β ^ 2) := by
+    rw [budgetAFlat, div_le_iff₀ hden] at hbudA
+    linarith [hbudA]
+  have he6 : e ^ 6 ≤ 1 / 64 := by
+    have hp := pow_le_pow_left₀ hepos.le hε2 6
+    norm_num at hp; linarith
+  have hbsq : (1 : ℝ) / β ^ 2 ≤ A / 204352 := by
+    rw [div_le_div_iff₀ (by positivity) (by norm_num)]
+    nlinarith [hbud', he6, hl2lo, hlog4, sq_nonneg β, hβ, pow_pos hepos 6]
+  have hb1 : (1 : ℝ) / β ≤ 1 + A / 204352 := by
+    have ht : (1 : ℝ) / β ≤ 1 + 1 / β ^ 2 := by
+      have hq : (1 : ℝ) / β ^ 2 = (1 / β) ^ 2 := by field_simp
+      nlinarith [sq_nonneg (1 / β - 1), hq]
+    linarith [hbsq]
+  have he6lo : (1 : ℝ) / (15625000000000000 * (h : ℝ) ^ 6) ≤ e ^ 6 := by
+    have hp := pow_le_pow_left₀ (by positivity : (0 : ℝ) ≤ 1 / (500 * (h : ℝ))) hε 6
+    have hid : ((1 : ℝ) / (500 * (h : ℝ))) ^ 6 = 1 / (15625000000000000 * (h : ℝ) ^ 6) := by
+      field_simp; ring
+    rw [hid] at hp; exact hp
+  have hepow : (1 : ℝ) / e ^ 6 ≤ 4430000000000000000000000000000000000000 := by
+    rw [div_le_iff₀ (by positivity)]
+    have hstep : (1 : ℝ) ≤ 15625000000000000 * (h : ℝ) ^ 6 * e ^ 6 := by
+      have hpos : (0 : ℝ) < 15625000000000000 * (h : ℝ) ^ 6 := by positivity
+      have := mul_le_mul_of_nonneg_left he6lo hpos.le
+      calc (1 : ℝ) = 15625000000000000 * (h : ℝ) ^ 6 * (1 / (15625000000000000 * (h : ℝ) ^ 6)) := by
+            field_simp
+        _ ≤ 15625000000000000 * (h : ℝ) ^ 6 * e ^ 6 := this
+    have hnum : (15625000000000000 : ℝ) * (8103 : ℝ) ^ 6
+        ≤ 4430000000000000000000000000000000000000 := by norm_num
+    nlinarith [hstep, h6b, hnum, pow_pos hepos 6, hx1]
+  have hS : (1 : ℝ) / β ^ 2 + 1 / β + 1 ≤ A := by
+    have : A / 204352 + (1 + A / 204352) + 1 ≤ A := by linarith
+    linarith [hbsq, hb1]
+  have hSpos : (0 : ℝ) ≤ 1 / β ^ 2 + 1 / β + 1 := by positivity
+  have hT : (1 : ℝ) / e ^ 6 + 1 ≤ 4430000000000000000000000000000000000001 := by linarith
+  have hTpos : (0 : ℝ) ≤ 1 / e ^ 6 + 1 := by positivity
+  have hApos : (0 : ℝ) < A := by linarith
+  have hbX : budgetXFlat e β ≤ 10 ^ 44 * A := by
+    rw [budgetXFlat, budgetX]
+    have hprod : (1 / β ^ 2 + 1 / β + 1) * (1 / e ^ 6 + 1)
+        ≤ A * 4430000000000000000000000000000000000001 :=
+      mul_le_mul hS hT hTpos hApos.le
+    nlinarith [hprod, hl2hi, hlog4, hApos]
+  have hexp : 10 ^ 44 * A * 4 ≤ Real.exp (3.2 * A) := by
+    have hu : (0 : ℝ) ≤ A - 162 := by linarith
+    have hsplit : Real.exp (3.2 * A) = Real.exp 518.4 * Real.exp (3.2 * (A - 162)) := by
+      rw [← Real.exp_add]; ring_nf
+    have hlin : (1 : ℝ) + 3.2 * (A - 162) ≤ Real.exp (3.2 * (A - 162)) := by
+      have := Real.add_one_le_exp (3.2 * (A - 162)); linarith
+    have hE : (10 : ℝ) ^ 47 ≤ Real.exp 518.4 := by
+      have he110 : Real.exp 110 = (Real.exp 1) ^ (110 : ℕ) := by
+        rw [← Real.exp_nat_mul]; norm_num
+      have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+      have h110 : (10 : ℝ) ^ 47 ≤ Real.exp 110 := by
+        rw [he110]
+        calc (10 : ℝ) ^ 47 ≤ (2.7 : ℝ) ^ (110 : ℕ) := by norm_num
+          _ ≤ (Real.exp 1) ^ (110 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 110
+      exact le_trans h110 (Real.exp_le_exp.mpr (by norm_num))
+    rw [hsplit]
+    nlinarith [hE, hlin, hu, Real.exp_pos (3.2 * (A - 162))]
+  have hmax : max (4 * budgetXFlat e β) (2 * Real.log A + 2) ≤ Real.exp (3.2 * A) := by
+    refine max_le ?_ ?_
+    · nlinarith [hbX, hexp]
+    · have hlA : Real.log A ≤ A - 1 := Real.log_le_sub_one_of_pos hApos
+      have : (2 : ℝ) * A ≤ Real.exp (3.2 * A) := by
+        nlinarith [Real.add_one_le_exp (3.2 * A)]
+      linarith
+  rw [budgetFloorFlat, flatDesignBase]
+  exact Nat.ceil_le_ceil (Real.exp_le_exp.mpr hmax)
+
+/-- `s13_g2_jfloor_of_MSelect'_L_gk_h` at `log h ≤ 9` (`s13_g2_jfloor_of_MSelect'_L_gk_h_b9`) —
+NUMERAL-LIFT: the hypothesis carries the cap as `4·log h ≤ 4·9 = 36`, so `h1`'s `+ 28 ↦ + 36`
+(census band 2 row 17).  Its supplier is
+`S16FlatTerminalLinearLH.s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
+BODY: the source's. -/
+theorem s13_g2_jfloor_of_MSelect'_L_gk_h_b9 {h : ℕ} (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {F : ℝ}
+    (h1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * max 1 (arcDen 12 H)) + 36 ≤ F) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * (h : ℝ) * max 1 (arcDen 12 H)) ≤ F := by
+  intro H hlo hhi
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have hmax : (1 : ℝ) ≤ max 1 (arcDen 12 H) := le_max_left _ _
+  have hsplit : Real.log (263 * (h : ℝ) * max 1 (arcDen 12 H))
+      = Real.log (263 * max 1 (arcDen 12 H)) + Real.log (h : ℝ) := by
+    rw [show (263 : ℝ) * (h : ℝ) * max 1 (arcDen 12 H)
+        = (263 * max 1 (arcDen 12 H)) * (h : ℝ) by ring,
+      Real.log_mul (by positivity) (ne_of_gt hx0)]
+  rw [hsplit]
+  linarith [h1 H hlo hhi, hh9]
+
 end Salt.MR
 
 end

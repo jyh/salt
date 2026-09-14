@@ -2201,4 +2201,300 @@ theorem capeps_row_tail_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) �
           + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X) := by rw [hval]
     _ ≤ μ ^ (-(1 / 500) : ℝ) := by linarith
 
+/-! ## ⟦§5 — β W1 E2⟧ THE CAP-9 TWINS, h-LANE A (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched.  Three NUMERIC SIBLINGS whose statements
+differ from §1's only in the named literal (`e^18 ↦ e^20`, `216 ↦ 232`, `+8 ↦ +10` — each set
+to exactly the cap-9 spend, as §1's were to the cap-7 spend), then the depth-0/1 leaves of the
+floor, grid and `εr` pages at `log h ≤ 9`.  Each twin is its source's statement and body with
+ONLY the freeze's §3.1 rule-2 raises and every derived cap-dependent supplier replaced by its
+twin (`S16ProducersH` §7); no hypothesis is added and no conclusion weakened. -/
+
+/-- ⟦SIBLING of `capeps_Pbig_h` (§1), constant `e^18 → e^20`⟧ — the `p²` row's `1/P` leg at
+`log h ≤ 9` (`e^11·e^9`).  BODY: §1's, with the master line at `t = 20 ≤ 60`. -/
+theorem capeps_Pbig_h_e20 {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) :
+    Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)
+      ≤ Real.exp (μ ^ (1 - theta293)) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ0 : (0 : ℝ) < Real.log μ := by linarith
+  have hΛbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Real.log μ := by
+    have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
+    linarith
+  have hmas := capeps_master_60 hu hΛ (by norm_num : (20 : ℝ) ≤ 60)
+  have hlogΛ : 0 ≤ Real.log (Real.log μ) := Real.log_nonneg (by linarith)
+  have hθ32 : theta293 < 1 / 32 := theta293_lt_one_div_32
+  have hθ0 : (0 : ℝ) < theta293 := theta293_pos
+  have hrw : μ ^ (1 - theta293) = Real.exp ((1 - theta293) * Real.log μ) := by
+    rw [Real.rpow_def_of_pos hμ0]; ring_nf
+  have hhalf : Real.exp (Real.log μ / 2) ≤ μ ^ (1 - theta293) := by
+    rw [hrw]
+    exact Real.exp_le_exp.mpr (by nlinarith)
+  have hsq : (Real.log μ / 2) ^ 2 / 4 ≤ Real.exp (Real.log μ / 2) :=
+    capeps_sq_le_exp (by linarith)
+  have hbig : 2 * Real.log μ ≤ μ ^ (1 - theta293) := by nlinarith [hsq, hhalf, hΛbig, hΛ0]
+  have h500 : μ ^ ((1 : ℝ) / 500) = Real.exp (Real.log μ / 500) := by
+    rw [Real.rpow_def_of_pos hμ0]; ring_nf
+  have hlhs : Real.exp (20 + 12 * Real.log u + Real.log μ + Real.log μ / 500)
+      = Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) := by
+    rw [Real.exp_add, Real.exp_add, Real.exp_add, ← capeps_pow12 hu0, Real.exp_log hμ0,
+      ← h500]
+  rw [← hlhs]
+  exact Real.exp_le_exp.mpr (le_trans (by linarith) hbig)
+
+/-- ⟦SIBLING of `capfloor_lam_core_h` (§1), constant `216 → 232`⟧ — `floor1`'s `Λ`-leg at
+`log h ≤ 9` (`8·(20 + 9)`).  The certificate `log v ≤ v/10^10` is unchanged. -/
+theorem capfloor_lam_core_h_232 {v : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) :
+    232 + 96 * Real.log v ≤ v / 4 := by
+  have h := capfloor_logv_le hv
+  norm_num at h ⊢
+  linarith
+
+/-- ⟦SIBLING of `capfloor_floor3_numeric_h` (§1), slack `+8 → +10`⟧ — `floor3`'s numeric leg,
+absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: §1's, with `+10`. -/
+theorem capfloor_floor3_numeric_h_10 {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
+    (hW : W ≤ 12 * Real.log v + E + 10) :
+    E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by
+  have hlv := capfloor_logv_le hv
+  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hv0 : (0 : ℝ) < v := lt_of_lt_of_le h21 hv
+  have hE0 : (0 : ℝ) < E := by linarith
+  have hvbig : (1000000000000000000000 : ℝ) ≤ v := le_trans (by norm_num) hv
+  have hlv' : Real.log v ≤ v / 10000000000 := le_trans hlv (by norm_num)
+  have hWv : W ≤ v + E + 10 := by linarith
+  have hvq : (v / 4) ^ (4 : ℕ) = v ^ (4 : ℕ) / 256 := by ring
+  rw [hvq]
+  have h1 : v + E + 10 ≤ v * E := by nlinarith [hvbig, hE]
+  have hxx : (65536 : ℝ) ≤ v * v := by nlinarith [hvbig]
+  have hv3 : (256 : ℝ) ≤ v ^ (3 : ℕ) := by
+    have hid : v ^ (3 : ℕ) = v * (v * v) := by ring
+    rw [hid]; nlinarith [hvbig, hxx]
+  have hfac : (1 : ℝ) ≤ E * v ^ (3 : ℕ) / 256 := by nlinarith [hv3, hE]
+  have hpos : (0 : ℝ) ≤ E * (v * E) := by positivity
+  have h2 : E * (v * E) ≤ E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by
+    calc E * (v * E) = (E * (v * E)) * 1 := by ring
+      _ ≤ (E * (v * E)) * (E * v ^ (3 : ℕ) / 256) := mul_le_mul_of_nonneg_left hfac hpos
+      _ = E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by ring
+  have hA : E * W ≤ E * (v + E + 10) := mul_le_mul_of_nonneg_left hWv hE0.le
+  have hB : E * (v + E + 10) ≤ E * (v * E) := mul_le_mul_of_nonneg_left h1 hE0.le
+  linarith
+
+/-- `capfloor_logq_le_LH` at `log h ≤ 9` — TRANSPORT (the cap binder is unused; the conclusion
+carries `log h`, not a numeral).  BODY: the source's, verbatim. -/
+theorem capfloor_logq_le_LH_b9 {h : ℕ} (hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s) :
+    Real.log (q : ℝ) ≤ Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ))
+      ∧ (1 : ℝ) ≤ (q : ℝ) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hqp : 0 < q := hb.2.2.2.1
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hqp
+  have hqA : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H := hb.2.2.2.2.1
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  rw [harcpow] at hqA
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hpow0 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
+  refine ⟨?_, hq1⟩
+  have hstep := Real.log_le_log (by linarith : (0 : ℝ) < (q : ℝ)) hqA
+  rw [Real.log_mul (ne_of_gt hh0) (ne_of_gt hpow0), Real.log_pow] at hstep
+  push_cast at hstep
+  linarith
+
+/-- `capfloor_twoj_le_H_LH` at `log h ≤ 9` — TRANSPORT.  BODY: the source's, verbatim. -/
+theorem capfloor_twoj_le_H_LH_b9 {h : ℕ} (_hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s) : 2 ^ j ≤ H := by
+  have hjL : j ≤ Nat.log 2 L := hb.2.2.2.2.2.1
+  have hLH : L ≤ H := hb.2.2.1
+  have hH : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
+  rcases Nat.eq_zero_or_pos L with hL0 | hLpos
+  · subst hL0
+    have hj : j = 0 := by simpa using hjL
+    subst hj
+    simpa using (by omega : 1 ≤ H)
+  · exact le_trans (le_trans (Nat.pow_le_pow_right (by norm_num) hjL)
+      (Nat.pow_log_le_self 2 (by omega))) hLH
+
+/-- `s13CapGrid_Q2_reg_LH_gk` at `log h ≤ 9` — TRANSPORT.  BODY: the source's, verbatim. -/
+theorem s13CapGrid_Q2_reg_LH_gk_b9 {h : ℕ} (_hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (hM : 1 ≤ M)
+    (hb : SocketBaseLH h R M H L q j A s) (hblock : s13BlockFloor_L_gk K M ≤ A + s) :
+    Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) :=
+  (s13_doorRowZeroBase_five_L_gk K hM hblock hb.2.2.2.2.2.2.1).2.1
+
+/-- `s13CapGrid_twoj_le_H_LH` at `log h ≤ 9` — TRANSPORT.  BODY: the source's, verbatim. -/
+theorem s13CapGrid_twoj_le_H_LH_b9 {h : ℕ} (_hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s) : 2 ^ j ≤ H := by
+  have hjL : j ≤ Nat.log 2 L := hb.2.2.2.2.2.1
+  have hLH : L ≤ H := hb.2.2.1
+  have hH : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
+  rcases Nat.eq_zero_or_pos L with hL0 | hLpos
+  · subst hL0
+    have hj : j = 0 := by simpa using hjL
+    subst hj
+    simpa using (by omega : 1 ≤ H)
+  · exact le_trans (le_trans (Nat.pow_le_pow_right (by norm_num) hjL)
+      (Nat.pow_log_le_self 2 (by omega))) hLH
+
+/-- `s13CapGrid_mu_lo_LH` at `log h ≤ 9` — SUPPLIER-SWAP (`s13_socketBase_logA_ge_sqrt_LH_b9`).
+BODY: the source's, verbatim. -/
+theorem s13CapGrid_mu_lo_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
+    Real.sqrt (H : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    Real.log_le_log hA0 (by push_cast; linarith [Nat.cast_nonneg (α := ℝ) s])
+  exact le_trans (s13_socketBase_logA_ge_sqrt_LH_b9 hh hh9 hfl hb) hmono
+
+/-- `capfloor_core_LH` at `log h ≤ 9` — SUPPLIER-SWAP (`s13_socketBase_logA_ge_sqrt_LH_b9`,
+`capfloor_twoj_le_H_LH_b9`).  BODY: the source's, verbatim. -/
+theorem capfloor_core_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) :
+    (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) ∧ Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) ∧
+      0 < Tann ∧ Real.log ((Nd : ℕ) : ℝ) / 2 ≤ Real.log Tann := by
+  have hlo : R.Hlo ≤ H := hb.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at this
+  have hv : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
+    le_trans capfloor_ten21_le_exp50 hexp50
+  -- the base
+  have hsqrtH : Real.sqrt (H : ℝ) ≤ Real.log (A : ℝ) :=
+    s13_socketBase_logA_ge_sqrt_LH_b9 hh hh9 hfl hb
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hANR : (A : ℝ) ≤ ((Nd : ℕ) : ℝ) := by exact_mod_cast hAN
+  have hNd0 : (0 : ℝ) < ((Nd : ℕ) : ℝ) := lt_of_lt_of_le hA0 hANR
+  have hm : Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) :=
+    le_trans hsqrtH (Real.log_le_log hA0 hANR)
+  -- the height
+  have h2j : 2 ^ j ≤ H := capfloor_twoj_le_H_LH_b9 hh hh9 hb
+  have h2jR : ((2 ^ j : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast h2j
+  have h2j0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by positivity
+  have hTpos : 0 < Tann := lt_of_lt_of_le (div_pos hNd0 h2j0) hTlo
+  have hlogdiv : Real.log ((Nd : ℕ) : ℝ) - Real.log ((2 ^ j : ℕ) : ℝ) ≤ Real.log Tann := by
+    have hz := Real.log_le_log (div_pos hNd0 h2j0) hTlo
+    rwa [Real.log_div (ne_of_gt hNd0) (ne_of_gt h2j0)] at hz
+  have hlog2j : Real.log ((2 ^ j : ℕ) : ℝ) ≤ Real.log (H : ℝ) := Real.log_le_log h2j0 h2jR
+  have hHhalf : Real.log (H : ℝ) ≤ Real.sqrt (H : ℝ) / 2 := capfloor_logH_le_half_sqrt hHR
+  exact ⟨hv, hm, hTpos, by linarith⟩
+
+section RowsHb9
+
+variable {u μ X W C r β Pr φ : ℝ}
+
+set_option maxHeartbeats 1000000 in
+-- same cause as the source: `(h:ℝ)·u¹²` where the landed row carries `u¹²` alone
+/-- ⟦`capeps_row_p2_h` AT `log h ≤ 9`⟧ (`capeps_row_p2_h_b9`) — NUMERAL-LIFT: `e^18 → e^20`
+(leg 1, through `capeps_Pbig_h_e20`, from `e^11·e^9`) and `18 → 20` (leg 2, `capeps_bigexp_60`
+at `20 ≤ 60`).  `h ≤ e^9` is read off `hh9` in the body, as the source reads `h_le_exp_seven`.
+Every other step is the source's, verbatim. -/
+theorem capeps_row_p2_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
+    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (hX0 : 0 < X) (hXlog : Real.log X = μ)
+    (hW0 : 0 ≤ W) (hW : W ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X) (hβ0 : 0 ≤ β)
+    (hβ : β ≤ 2 * μ) (hPr : Real.exp (μ ^ (1 - theta293)) ≤ Pr) :
+    12 * (W * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)) ≤ μ ^ (-(1 / 500) : ℝ) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hexp9 : (h : ℝ) ≤ Real.exp 9 := by
+    have hz := Real.exp_le_exp.mpr hh9
+    rwa [Real.exp_log hh0] at hz
+  have hPr0 : (0 : ℝ) < Pr := lt_of_lt_of_le (Real.exp_pos _) hPr
+  have hXne : X ≠ 0 := ne_of_gt hX0
+  have hPne : Pr ≠ 0 := ne_of_gt hPr0
+  have hK0 : (0 : ℝ) < μ ^ (-(1 / 500) : ℝ) := Real.rpow_pos_of_pos hμ0 _
+  have hS0 : (0 : ℝ) ≤ 16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2 := by
+    have h1 : (0 : ℝ) ≤ 16 * β / (X * Pr) := by positivity
+    have h2 : (0 : ℝ) ≤ 4 * β ^ 2 / X ^ 2 := by positivity
+    linarith
+  have hprod : W * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)
+      ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2) :=
+    mul_le_mul_of_nonneg_right hW hS0
+  have hval : 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)
+      = 1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β / Pr
+        + 256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2 / X := by
+    field_simp
+    ring
+  have he11 : (49152 : ℝ) ≤ Real.exp 11 := by
+    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+    have hz : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 11
+    have : (49152 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
+    rw [hz]; linarith
+  have he20 : (49152 : ℝ) * (h : ℝ) ≤ Real.exp 20 := by
+    have hsum : Real.exp 20 = Real.exp 11 * Real.exp 9 := by rw [← Real.exp_add]; norm_num
+    rw [hsum]
+    exact mul_le_mul he11 hexp9 (by positivity) (Real.exp_pos 11).le
+  have hlegA : 12 * (1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β / Pr)
+      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
+    have hstone := capeps_Pbig_h_e20 hu hμ hΛ
+    have h500 : (0 : ℝ) < μ ^ ((1 : ℝ) / 500) := Real.rpow_pos_of_pos hμ0 _
+    have hPb : 49152 * ((h : ℝ) * u ^ (12 : ℕ)) * μ * μ ^ ((1 : ℝ) / 500) ≤ Pr := by
+      have h1 : (49152 * (h : ℝ)) * (u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500))
+          ≤ Real.exp 20 * (u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)) :=
+        mul_le_mul_of_nonneg_right he20 (by positivity)
+      nlinarith [h1, hstone]
+    have hmul : 49152 * ((h : ℝ) * u ^ (12 : ℕ)) * μ
+          * (μ ^ ((1 : ℝ) / 500) * μ ^ (-(1 / 500) : ℝ))
+        ≤ Pr * μ ^ (-(1 / 500) : ℝ) := by
+      have := mul_le_mul_of_nonneg_right hPb hK0.le
+      nlinarith [this]
+    have hone : μ ^ ((1 : ℝ) / 500) * μ ^ (-(1 / 500) : ℝ) = 1 := by
+      rw [← Real.rpow_add hμ0, show (1 : ℝ) / 500 + -(1 / 500) = 0 by ring, Real.rpow_zero]
+    rw [hone, mul_one] at hmul
+    have hβμ : 12 * (1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β)
+        ≤ 24576 * ((h : ℝ) * u ^ (12 : ℕ)) * μ := by nlinarith [hp12, hh0]
+    rw [mul_div_assoc', div_le_iff₀ hPr0]
+    linarith [hmul, hβμ]
+  have hlegB : 12 * (256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2 / X)
+      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
+    have hstone := capeps_bigexp_60 hu hμ hΛ (by norm_num : (20 : ℝ) ≤ 60)
+    have he20b : (24576 : ℝ) * (h : ℝ) ≤ Real.exp 20 := by
+      have hsum : Real.exp 20 = Real.exp 11 * Real.exp 9 := by rw [← Real.exp_add]; norm_num
+      rw [hsum]
+      exact mul_le_mul (by linarith : (24576 : ℝ) ≤ Real.exp 11) hexp9 (by positivity)
+        (Real.exp_pos 11).le
+    have h1 : 24576 * ((h : ℝ) * u ^ (12 : ℕ)) * μ ^ 2 ≤ X * μ ^ (-(1 / 500) : ℝ) := by
+      rw [capeps_Xmu hX0 hXlog hμ0]
+      have hmul : (24576 * (h : ℝ)) * (u ^ (12 : ℕ) * μ ^ 2)
+          ≤ Real.exp 20 * (u ^ (12 : ℕ) * μ ^ 2) :=
+        mul_le_mul_of_nonneg_right he20b (by positivity)
+      nlinarith [hmul, hstone]
+    have hβsq : β ^ 2 ≤ 4 * μ ^ 2 := by nlinarith
+    have h2 : 12 * (256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2)
+        ≤ 12288 * ((h : ℝ) * u ^ (12 : ℕ)) * μ ^ 2 := by
+      nlinarith [hp12, hh0, hβsq]
+    rw [mul_div_assoc', div_le_div_iff₀ hX0 (by norm_num : (0 : ℝ) < 2)]
+    linarith [h1, h2]
+  calc 12 * (W * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2))
+      ≤ 12 * (64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+          * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)) := by linarith
+    _ = 12 * (1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β / Pr)
+          + 12 * (256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2 / X) := by rw [hval]; ring
+    _ ≤ μ ^ (-(1 / 500) : ℝ) := by linarith
+
+end RowsHb9
+
 end Salt.MR
