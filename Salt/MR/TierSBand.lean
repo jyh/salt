@@ -1544,7 +1544,30 @@ theorem mrtUniformityXiL2Set_holds_flat_floor_g12b_band (h : ℕ) (hh : 0 < h)
           Real.log ((x' : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
           ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * (h : ℝ) ^ 2) ∧
             MRTUniformityXiL2Set Xi (regimeEnlargeX R hx') ρ := by
-  sorry
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, -, -, -, -, -, -, -, -, -,
+      -, -, -, -, -, hεpin, -, -, -, hA162, hA₀A, hbody⟩ :=
+    flat_chain_generic_h_g12b_band h hh hh9 Xi harcXi (MRTDoorReceiptSetG_g12b h Xi)
+      (flat_door_head_xceil_h_g12b_band h hh hh9 Xi hcount) A₀
+  -- ⟦THE ε-PIN EQUALITY⟧ read off `P R₀` at the TRIVIAL instantiation `x' := R₀.x`
+  have hεeq : ε = 1 / (500 * (h : ℚ)) := by
+    obtain ⟨R0, hR0eps, -, -, -, hR0ceilLoose, -, -, -, -, -, hR0Pband⟩ :=
+      hbody (flatDesignBase A) 1 (fun _ _ => 0) le_rfl (flatDesignBase_loglog_le hA162)
+        le_rfl (by norm_num) (xceilRiderStrict_zero ε)
+    have hP0 := hR0Pband R0.x (le_refl R0.x) (one_dvd _) hR0ceilLoose
+    rw [regimeEnlargeX_self] at hP0
+    rw [← hR0eps]
+    exact hP0.1
+  refine ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, ?_⟩
+  intro U1floor a g hU hUceil ha ha8103 hg
+  obtain ⟨R, hReps, hHlo, hRg, hstride, hceilLoose, hceilOmega, hceilX, -, hdes, hwin, hPband⟩ :=
+    hbody U1floor a g hU hUceil ha ha8103 hg
+  have hP0 := hPband R.x (le_refl R.x) hstride.1 hceilLoose
+  rw [regimeEnlargeX_self] at hP0
+  obtain ⟨-, hcountR, -⟩ := hP0
+  refine ⟨R, hReps, hHlo, hRg, hstride, hceilLoose, hceilOmega, hceilX, hdes, hwin, hcountR, ?_⟩
+  intro x' hx' hdvd hlogx'
+  obtain ⟨-, -, ρ, hρpos, hρle, hdoor⟩ := hPband x' hx' hdvd hlogx'
+  exact ⟨ρ, hρpos, hρle, hdoor⟩
 
 /-- **⟦S-1 C2⟧** `mrtUniformityXiL2AffSet_holds_flat_floor_g12b` (`:1105`) at the band: C1 at the
 affine set `bigXiAffD a b h`, `k = a·h`. -/
@@ -1570,7 +1593,16 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band (a b h : ℕ) (ha : 0
           ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
             MRTUniformityXiL2Set (fun eps H _ => bigXiAffD a b h eps H) (regimeEnlargeX R hx') ρ :=
               by
-  sorry
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  refine mrtUniformityXiL2Set_holds_flat_floor_g12b_band (a * h) hkpos hah9
+    (fun eps H _ => bigXiAffD a b h eps H)
+    (fun eps heps => nearRatTight_of_bigXiAffD bigXiArcTight_twelve heps ha hh) ?_ A₀
+  obtain ⟨Cc, hCc, hCcb, H₀, hH₀2, hcard⟩ :=
+    bigXiAff_bounded_ceiling_of_pin_b9 a b h ha hh hah9 _ rfl
+  refine ⟨Cc, hCc, hCcb, H₀, hH₀2, ?_⟩
+  intro H _ hH
+  refine le_trans ?_ (hcard H hH)
+  exact_mod_cast bigXiAffD_card_le a b h _ H
 
 /-- **⟦S-1 CROWN⟧** `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`:1140`) at the band, stated
 over
@@ -1597,7 +1629,165 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band (a b h : ℕ) (ha : 0 
               E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
                   * (Real.log (Ra.ω : ℝ) - 1)) ∧
               MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E) := by
-  sorry
+  have hapos : 0 < a := ha
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hah8103 : a * h ≤ 8103 :=
+    Salt.Entropy.Chowla.h_le_8103_of_log_le_nine hkpos hah9
+  have haah : a ≤ a * h := Nat.le_mul_of_pos_right a hh
+  have ha8103 : a ≤ 8103 := le_trans haah hah8103
+  have haR : (0 : ℝ) < (a : ℝ) := by exact_mod_cast hapos
+  have hloga9 : Real.log ((a : ℕ) : ℝ) ≤ 9 := by
+    refine le_trans (Real.log_le_log haR (by exact_mod_cast haah)) hah9
+  -- ⟦THE RECEIPT AT THE AFFINE SET, BANDED⟧ at the caller's floor `a · flatDesignBase A`
+  obtain ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, hbody⟩ :=
+    mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band a b h ha hh hah9 A₀
+  have hU : flatDesignBase A ≤ a * flatDesignBase A := Nat.le_mul_of_pos_left _ hapos
+  have hUceil := loglog_mul_flatDesignBase_le_b9 hA162 ha hloga9
+  obtain ⟨Rd, hReps, hHlo, hRg, hstride, hceilLoose, hceilOmega, hceilX, hdes, hwin, hcountD,
+      hband⟩ :=
+    hbody (a * flatDesignBase A) a (fun _ _ => 0) hU hUceil ha ha8103
+      (xceilRiderStrict_zero ε)
+  obtain ⟨Kc, hKc0, hKcb, hKcount⟩ := hcountD
+  have hahQ : ((a * h : ℕ) : ℚ) ≤ 8103 := by exact_mod_cast hah8103
+  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
+  have heps500 : Rd.eps ≤ 1 / 500 := by
+    rw [hReps, hεeq]
+    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
+  have heps4051500 : (1 : ℚ) / 4051500 ≤ Rd.eps := by
+    rw [hReps, hεeq]
+    exact one_div_le_one_div_of_le (by positivity) (by linarith)
+  have hdiv : a ∣ Rd.a * Rd.Hlo := by
+    rw [hHlo]
+    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
+  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
+    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
+    exact Nat.mul_div_cancel_left _ hapos
+  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
+    rw [hquot]
+    exact Nat.le_mul_of_pos_left _ Rd.ha
+  obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors_b9 hA162 heps4051500
+  have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
+  have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
+  have hb0 : b ≤ Rd.a * Rd.Hlo / a := by omega
+  have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
+  have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
+    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
+    exact hq
+  have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
+    have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
+    have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha
+    have hQ2 : (2 : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) := by linarith
+    exact_mod_cast hQ2
+  have hHmono : (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ)
+      ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_left (by exact_mod_cast Rd.hHlohi) (sq_nonneg _)
+  have hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ)) :=
+    Real.log_nonneg (by linarith)
+  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
+  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
+    rw [le_div_iff₀ hepsR0]; linarith
+  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
+    have hb2 := Rd.hωbig
+    nlinarith [mul_nonneg h16 hlognn]
+  have hω2N : 2 ≤ Rd.ω := Rd.hω
+  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
+    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast hω2N
+    linarith
+  have hω8 : 8 ≤ Rd.ω := by
+    have hsub := Real.log_le_sub_one_of_pos hωR
+    have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
+    exact_mod_cast h8
+  -- ⟦THE BAND'S OWN BOTTOM⟧ x₀ := Rd.x / a, with the tight ceiling exported at `g ≡ 0`
+  have hax0 : a * (Rd.x / a) = Rd.x := Nat.mul_div_cancel' hstride.1
+  have hx0_2 : 2 ≤ Rd.x / a := hstride.2.1
+  have hRdHhi4M : 4000000 ≤ Rd.Hhi := le_trans Rd.hHlo_floor Rd.hHlohi
+  have hRdxarm : Real.log ((Rd.x : ℕ) : ℝ) ≤ xTightCeilArm ε Rd.Hhi := by
+    have hle := hceilX
+    simp only [Nat.mul_zero, Nat.cast_zero, Real.log_zero] at hle
+    rwa [max_eq_left (xTightCeilArm_nonneg ε hε Rd.Hhi hRdHhi4M)] at hle
+  have hx0_le_Rdx : Rd.x / a ≤ Rd.x := Nat.div_le_self Rd.x a
+  have hx0pos : 0 < Rd.x / a := by omega
+  have hx0tight : Real.log ((Rd.x / a : ℕ) : ℝ) ≤ xTightCeilArm ε Rd.Hhi :=
+    le_trans (Real.log_le_log (by exact_mod_cast hx0pos) (by exact_mod_cast hx0_le_Rdx)) hRdxarm
+  refine ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, Rd.x / a, Rd.ω, Rd.Hhi, hx0_2, hω8, hRdHhi4M,
+    hceilOmega, hx0tight, by rw [hax0]; exact hceilLoose, ?_⟩
+  intro y hy hlogy
+  have hx' : Rd.x ≤ a * y := by rw [← hax0]; exact Nat.mul_le_mul_left a hy
+  have hdvd' : a ∣ a * y := dvd_mul_right a y
+  obtain ⟨ρ, hρpos, hρle, hdoorRe⟩ := hband (a * y) hx' hdvd' hlogy
+  have hstrideRe : StrideScale a (regimeEnlargeX Rd hx') :=
+    strideScale_regimeEnlargeX a Rd hx' hdvd' hstride
+  have hbRe : b ≤ (regimeShrinkX_stride_b9 (regimeEnlargeX Rd hx') a ha ha8103 heps500
+      hstrideRe hdiv hlo4 hloM).Hlo := by
+    rw [regimeShrinkX_stride_Hlo_b9]
+    exact hb0
+  have htrans := mrtUniformityXiL2AffW_of_set_b9 h (regimeEnlargeX Rd hx') a b ha ha8103
+    heps500 hstrideRe hdiv hlo4 hloM hbRe hω8 Kc ρ hKcount hdoorRe
+  have hx2' : 2 ≤ (regimeEnlargeX Rd hx').x / a := hstrideRe.2.1
+  have hωx2' : (regimeEnlargeX Rd hx').ω ≤ (regimeEnlargeX Rd hx').x / a := hstrideRe.2.2.1
+  have hlogωRe : (101 : ℝ) ≤ Real.log (((regimeEnlargeX Rd hx').ω : ℕ) : ℝ) := by
+    simp only [regimeEnlargeX_omega]; linarith
+  have hratio := strideZRatio_le (regimeEnlargeX Rd hx').x
+    ((regimeEnlargeX Rd hx').x / a) (regimeEnlargeX Rd hx').ω (regimeEnlargeX Rd hx').hx
+    hx2' (by simp only [regimeEnlargeX_omega]; exact hω2N) (regimeEnlargeX Rd hx').hωx hωx2'
+    hlogωRe
+  have hZlo := (harmonic_window_bounds hx2'
+    (by simp only [regimeEnlargeX_omega]; exact hω2N) hωx2').1
+  have hDpos : (0 : ℝ) < (a : ℝ) * (((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω
+      : ℕ) : ℝ) + 1 := by positivity
+  have hLpos : (0 : ℝ) < Real.log (((regimeEnlargeX Rd hx').ω : ℕ) : ℝ) - 1 := by
+    simp only [regimeEnlargeX_omega]; linarith
+  have hlog2Re : (2 : ℝ) ≤ Real.log (((regimeEnlargeX Rd hx').ω : ℕ) : ℝ) := by linarith
+  have hEnd0 := strideEndpoint_le Kc (a : ℝ)
+    (∑ n ∈ Finset.Ioc ((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω)
+        ((regimeEnlargeX Rd hx').x / a), (n : ℝ)⁻¹)
+    ((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω) (regimeEnlargeX Rd hx').ω
+    hKc0.le (Nat.cast_nonneg a) hlog2Re hZlo
+  have hnum : Kc * (a : ℝ) ≤ 2 ^ 539 * (a : ℝ) :=
+    mul_le_mul_of_nonneg_right hKcb (Nat.cast_nonneg a)
+  have hEnd1 : Kc * (a : ℝ)
+        / (((a : ℝ) * (((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω : ℕ) : ℝ) + 1)
+            * (Real.log (((regimeEnlargeX Rd hx').ω : ℕ) : ℝ) - 1))
+      ≤ 2 ^ 539 * (a : ℝ)
+        / (((a : ℝ) * (((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω : ℕ) : ℝ) + 1)
+            * (Real.log (((regimeEnlargeX Rd hx').ω : ℕ) : ℝ) - 1)) := by
+    rw [div_eq_mul_inv, div_eq_mul_inv]
+    exact mul_le_mul_of_nonneg_right hnum (inv_nonneg.mpr (mul_pos hDpos hLpos).le)
+  have hyeq : (regimeEnlargeX Rd hx').x / a = y := Nat.mul_div_cancel_left y hapos
+  refine ⟨ChowlaRegimeAff.ofRegime
+      (regimeShrinkX_stride_b9 (regimeEnlargeX Rd hx') a ha ha8103 heps500 hstrideRe hdiv
+        hlo4 hloM) b hbRe,
+    rfl, rfl, hReps, hyeq, rfl, rfl, ?_, ?_, ρ, 1.02,
+    2 ^ 539 * (a : ℝ)
+      / (((a : ℝ) * (((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω : ℕ) : ℝ) + 1)
+          * (Real.log (((regimeEnlargeX Rd hx').ω : ℕ) : ℝ) - 1)),
+    hρpos, hρle, by norm_num, by norm_num, by positivity, le_rfl, ?_⟩
+  · exact hBle
+  · have hDge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+      rw [flatDesignBase]; exact Nat.le_ceil _
+    have hRaR : ((flatDesignBase A : ℕ) : ℝ) ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) := by
+      exact_mod_cast hBle
+    have h1 : Real.exp (Real.exp (3.2 * A)) ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) :=
+      le_trans hDge hRaR
+    have h2 : Real.exp (3.2 * A) ≤ Real.log ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) := by
+      have h := Real.log_le_log (Real.exp_pos _) h1
+      rwa [Real.log_exp] at h
+    have h3 : 3.2 * A ≤ Real.log (Real.log ((Rd.a * Rd.Hlo / a : ℕ) : ℝ)) := by
+      have h := Real.log_le_log (Real.exp_pos _) h2
+      rwa [Real.log_exp] at h
+    exact h3
+  · refine mrtUniformityXiL2AffW_mono h _ htrans ?_
+    have hρ0 : (0 : ℝ) ≤ ρ := hρpos.le
+    have hratmul : (a : ℝ)
+        * ((∑ n ∈ Finset.Ioc ((regimeEnlargeX Rd hx').x / (regimeEnlargeX Rd hx').ω)
+              (regimeEnlargeX Rd hx').x, (n : ℝ)⁻¹)
+            / (∑ n ∈ Finset.Ioc ((regimeEnlargeX Rd hx').x / a / (regimeEnlargeX Rd hx').ω)
+                  ((regimeEnlargeX Rd hx').x / a), (n : ℝ)⁻¹)) * ρ
+        ≤ (a : ℝ) * 1.02 * ρ := by
+      have hmul := mul_le_mul_of_nonneg_left hratio haR.le
+      exact mul_le_mul_of_nonneg_right hmul hρ0
+    linarith [hratmul, hEnd0, hEnd1]
 
 /-! ## §6 — the conservativity controls K1–K7: each of the six band forms and the crown band implies
 its landed source (instantiate `x' := R.x`, resp. `y := x₀`) -/

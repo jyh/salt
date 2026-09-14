@@ -441,6 +441,7 @@ import Salt.MR.StrideGrade12bWalls
 import Salt.MR.StridePairReceiptG12b
 import Salt.MR.StrideGradeReceipt12b
 import Salt.MR.TierSSocket
+import Salt.MR.TierSBand
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10414,3 +10415,43 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.socketBaseL_inhabited_at_twice_x
   Salt.MR.socketBaseLH_inhabited_at_twice_x
   Salt.MR.socketBaseLH_at_zero_false
+
+/-! ⟦TIER S S-1⟧ — THE `∀x'`-BANDED TWIN OF THE `2^12` CHAIN, WITH THE TIGHT CEILING EXPORTED
+(TierSBand, 2026-09-14, math — S-1 freeze v1.2 §2). Additive only: no landed statement moves. S-1
+restates the landed `2^12` chain (`StridePairReceiptG12b`) at a `∀x'`-BANDED form: the same six
+hops H0–H5, the crown, and the crown's own conservativity controls K1–K7, each carrying a scale
+quantifier (`∀ x' ≥ R.x` with `a ∣ x'`, or the crown's `∀ y ≥ x₀`) so that ONE regime's door holds
+at EVERY admissible outer scale in its band, not only at the regime's own `x`. Two inequalities are
+exported alongside the band that the `2^12` chain never stated: a RIDER-FREE tight ceiling on the
+width (`log ω ≤ xTightCeil ε Hhi`) and an export-only tight bound on `x` in a MAX shape against the
+caller's own rider (`xTightCeil` on H0–H2, `xTightCeilArm` — `xTightCeil` plus hop 3's inflation
+slack — on H3–H5 and the crown). At fixed `z` (equivalently, the band's own `x' := R.x` / crown's
+`y := x₀` instantiation) this is a SECOND PROOF of a terminal that already lands — K1–K7 (and
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b_of_band`) are exactly that conservativity check,
+each recovering its `StridePairReceiptG12b` source verbatim by `regimeEnlargeX_self`. `E2` is
+conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched. NO NEW
+UNCONDITIONAL THEOREM. Nothing here bears on twin primes. 23 obligations, 23 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.regimeEnlargeX_self
+  Salt.MR.strideScale_regimeEnlargeX
+  Salt.MR.xTightCeil_nonneg
+  Salt.MR.xTightCeilArm_nonneg
+  Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight
+  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul_b9_tight
+  Salt.MR.flat_door_head_xceil_h_g12b_band
+  Salt.MR.flat_roadExit_generic_h_g12b_band
+  Salt.MR.flat_capstone_generic_h_g12b_band
+  Salt.MR.flat_conditional_generic_h_g12b_band
+  Salt.MR.flat_kswin_generic_h_g12b_band
+  Salt.MR.flat_v7_generic_h_g12b_band
+  Salt.MR.flat_chain_generic_h_g12b_band
+  Salt.MR.mrtUniformityXiL2Set_holds_flat_floor_g12b_band
+  Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_band
+  Salt.MR.flatHeadFormHG_g12b_of_band
+  Salt.MR.flatRoadExitFormHG_g12b_of_band
+  Salt.MR.flatCapstoneFormHG_g12b_of_band
+  Salt.MR.flatConditionalFormHG_g12b_of_band
+  Salt.MR.flatKswinFormHG_g12b_of_band
+  Salt.MR.v7RatedFormHG_g12b_of_band
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_of_band
