@@ -31,7 +31,7 @@ byte otherwise:
          tier A (H0 · H1 · H2, the rider passes verbatim):
            `Real.log R.x ≤ max (xTightCeil ε R.Hhi) (Real.log (a · g R.Hhi R.ω))`
          tier B (H3 · H4 · H5 and the crown side, after the inflation):
-           `Real.log R.x ≤ max (xTightCeilArm ε h R.Hhi) (Real.log (2 · (a · g R.Hhi R.ω)))`
+           `Real.log R.x ≤ max (xTightCeilArm ε R.Hhi) (Real.log (2 · (a · g R.Hhi R.ω)))`
          where `xTightCeilArm` = `xTightCeil` + the arm's slack `18 + log 2 + H₊/10²⁰`
          (`s15ArmH_log_le_g12b`, `StrideGrade12bWalls.lean:93`: `log arm ≤ log ω + log h + H₊/10²⁰`,
          spent against (i-ω) and `log a ≤ 9`, `log h ≤ 9`);
@@ -79,8 +79,10 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
 /-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
 (`StridePairReceiptG12b.lean:610`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
-`log h ≤ 9`, plus `log 2` for the sum's larger summand. -/
-def xTightCeilArm (ε : ℚ) (h : ℕ) (Hhi : ℕ) : ℝ :=
+`log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
+`18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
+crown it is `a·h` (`StridePairReceiptG12b.lean:1128`); both are covered by `log (·) ≤ 9`. -/
+def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 
 /-! ## §1 — the six band forms, by rules (i-ω) (i-x) (i′) (ii) of the header -/
@@ -282,7 +284,7 @@ def FlatConditionalFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime →
               Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
               Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
               Real.log ((R.x : ℕ) : ℝ)
-                ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
+                ≤ max (xTightCeilArm ε R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
               (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
                 Real.log (Real.log (R.Hhi : ℝ))
                   ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
@@ -317,7 +319,7 @@ def FlatKswinFormHG_g12b_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop)
             Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
             Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
             Real.log ((R.x : ℕ) : ℝ)
-              ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
+              ≤ max (xTightCeilArm ε R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
             (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
               Real.log (Real.log (R.Hhi : ℝ))
                 ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
@@ -344,7 +346,7 @@ def V7RatedFormHG_g12b_band (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) :
         Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
         Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
         Real.log ((R.x : ℕ) : ℝ)
-          ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
+          ≤ max (xTightCeilArm ε R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
         (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
           Real.log (Real.log (R.Hhi : ℝ))
             ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
@@ -393,8 +395,8 @@ theorem xTightCeil_nonneg (ε : ℚ) (hε : 0 < ε) (Hhi : ℕ) (hHhi : 4000000 
   linarith
 
 /-- **⟦S-1 A4⟧** the arm ceiling is nonnegative too. -/
-theorem xTightCeilArm_nonneg (ε : ℚ) (hε : 0 < ε) (h Hhi : ℕ) (hHhi : 4000000 ≤ Hhi) :
-    0 ≤ xTightCeilArm ε h Hhi := by
+theorem xTightCeilArm_nonneg (ε : ℚ) (hε : 0 < ε) (Hhi : ℕ) (hHhi : 4000000 ≤ Hhi) :
+    0 ≤ xTightCeilArm ε Hhi := by
   unfold xTightCeilArm
   have h0 := xTightCeil_nonneg ε hε Hhi hHhi
   have hl2 : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
@@ -521,7 +523,7 @@ theorem mrtUniformityXiL2Set_holds_flat_floor_g12b_band (h : ℕ) (hh : 0 < h)
         Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
         Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
         Real.log ((R.x : ℕ) : ℝ)
-          ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
+          ≤ max (xTightCeilArm ε R.Hhi) (Real.log ((2 * (a * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
         (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
@@ -546,7 +548,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band (a b h : ℕ) (ha : 0
         Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
         Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil ε R.Hhi ∧
         Real.log ((R.x : ℕ) : ℝ)
-          ≤ max (xTightCeilArm ε h R.Hhi) (Real.log ((2 * (a' * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
+          ≤ max (xTightCeilArm ε R.Hhi) (Real.log ((2 * (a' * g R.Hhi R.ω) : ℕ) : ℝ)) ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
         (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
@@ -572,7 +574,7 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band (a b h : ℕ) (ha : 0 
       ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ (x₀ ω₀ Hhi₀ : ℕ), 2 ≤ x₀ ∧ 8 ≤ ω₀ ∧ 4000000 ≤ Hhi₀ ∧
         Real.log ((ω₀ : ℕ) : ℝ) ≤ xTightCeil ε Hhi₀ ∧
-        Real.log ((x₀ : ℕ) : ℝ) ≤ xTightCeilArm ε h Hhi₀ ∧
+        Real.log ((x₀ : ℕ) : ℝ) ≤ xTightCeilArm ε Hhi₀ ∧
         Real.log ((a * x₀ : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) ∧
         ∀ y : ℕ, x₀ ≤ y → Real.log ((a * y : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) →
           ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
@@ -585,8 +587,8 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band (a b h : ℕ) (ha : 0 
               MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E) := by
   sorry
 
-/-! ## §6 — the conservativity controls: each band form implies its source (instantiate `x' :=
-R.x`) -/
+/-! ## §6 — the conservativity controls K1–K7: each of the six band forms and the crown band implies
+its landed source (instantiate `x' := R.x`, resp. `y := x₀`) -/
 
 /-- **⟦S-1 K1⟧** the band head form is a conservative extension of `FlatHeadFormHG_g12b`. -/
 theorem flatHeadFormHG_g12b_of_band (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop)
@@ -604,6 +606,81 @@ theorem flatHeadFormHG_g12b_of_band (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime 
   have h := hband R.x (le_refl _) hstride.1 hxceil ρ hρ hρle
     (by rw [regimeEnlargeX_self]; exact hdoor)
   rwa [regimeEnlargeX_self] at h
+
+/-- **⟦S-1 K4⟧** the band road-exit form is a conservative extension of its source. -/
+theorem flatRoadExitFormHG_g12b_of_band (h : ℕ) (P : ChowlaRegime → Prop)
+    (hb : FlatRoadExitFormHG_g12b_band h P) : FlatRoadExitFormHG_g12b h P := by
+  obtain ⟨Cg, ε, Kb, δ₀, β, Hopq, hCg, hCgle, hε, hKb, hKbb, hδ₀, hεpin, hδpin, hβ, hbody⟩ := hb
+  refine ⟨Cg, ε, Kb, δ₀, β, Hopq, hCg, hCgle, hε, hKb, hKbb, hδ₀, hεpin, hδpin, hβ, ?_⟩
+  intro K A hA hAge
+  obtain ⟨Hcap, hCap, hmain⟩ := hbody K A hA hAge
+  refine ⟨Hcap, hCap, ?_⟩
+  intro a U1floor g ha ha8103 hg
+  obtain ⟨R, hReps, hU1, hRg, hstride, hxceil, -, -, hRtow, hcap, hband⟩ :=
+    hmain a U1floor g ha ha8103 hg
+  refine ⟨R, hReps, hU1, hRg, hstride, hxceil, hRtow, hcap, ?_⟩
+  have hh := hband R.x (le_refl _) hstride.1 hxceil
+  rwa [regimeEnlargeX_self] at hh
+
+/-- **⟦S-1 K5⟧** the band capstone form is a conservative extension of its source. -/
+theorem flatCapstoneFormHG_g12b_of_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop)
+    (hb : FlatCapstoneFormHG_g12b_band h Awin P) : FlatCapstoneFormHG_g12b h Awin P := by
+  obtain ⟨Cg, ε, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc, hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb,
+    hMflb, hβ, hbody⟩ := hb
+  refine ⟨Cg, ε, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc, hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb,
+    hMflb, hβ, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hK⟩ := hbody K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro A hA hAge
+  obtain ⟨Hcap, hCap, hmain⟩ := hK A hA hAge
+  refine ⟨Hcap, hCap, ?_⟩
+  intro Cp hCp a U1floor g ha ha8103 hg
+  obtain ⟨R, hReps, hU1, hRg, hstride, hxceil, -, -, hRtow, hcap, hband⟩ :=
+    hmain Cp hCp a U1floor g ha ha8103 hg
+  refine ⟨R, hReps, hU1, hRg, hstride, hxceil, hRtow, hcap, ?_⟩
+  have hh := hband R.x (le_refl _) hstride.1 hxceil
+  rwa [regimeEnlargeX_self] at hh
+
+/-- **⟦S-1 K6⟧** the band conditional form is a conservative extension of its source. -/
+theorem flatConditionalFormHG_g12b_of_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop)
+    (hb : FlatConditionalFormHG_g12b_band h Awin P) : FlatConditionalFormHG_g12b h Awin P := by
+  obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb,
+    hMflb, hβ, hbody⟩ := hb
+  refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb,
+    hMflb, hβ, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hK⟩ := hbody K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro A hA hAge
+  obtain ⟨Hcap, hCap, hmain⟩ := hK A hA hAge
+  refine ⟨Hcap, hCap, ?_⟩
+  intro a U1floor g ha ha8103 hg hU
+  obtain ⟨R, hReps, hHlo, hRg, hstride, hxceil, -, -, hRtow, hband⟩ :=
+    hmain a U1floor g ha ha8103 hg hU
+  refine ⟨R, hReps, hHlo, hRg, hstride, hxceil, hRtow, ?_⟩
+  have hh := hband R.x (le_refl _) hstride.1 hxceil
+  rwa [regimeEnlargeX_self] at hh
+
+/-- **⟦S-1 K7⟧** the band Kswin form is a conservative extension of its source. -/
+theorem flatKswinFormHG_g12b_of_band (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop)
+    (hb : FlatKswinFormHG_g12b_band h Awin P) : FlatKswinFormHG_g12b h Awin P := by
+  obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl, hCgle,
+    hεpin, hδpin, hMflb, hβ, hCq, hcs, hcsf, hT₀, hKq, hKs, hC, hC40, hbody⟩ := hb
+  refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl, hCgle,
+    hεpin, hδpin, hMflb, hβ, hCq, hcs, hcsf, hT₀, hKq, hKs, hC, hC40, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hK⟩ := hbody K
+  refine ⟨Ct, hCt, ?_⟩
+  intro A hA hAwin hAge hKw
+  obtain ⟨hwit, hmain⟩ := hK A hA hAwin hAge hKw
+  refine ⟨hwit, ?_⟩
+  intro hx0 hopq hT hKs U1floor hU hUceil a g ha ha8103 hg
+  obtain ⟨R, hReps, hHlo, hRg, hstride, hxceil, -, -, hRtow, hdes, hwin, hband⟩ :=
+    hmain hx0 hopq hT hKs U1floor hU hUceil a g ha ha8103 hg
+  refine ⟨R, hReps, hHlo, hRg, hstride, hxceil, hRtow, hdes, hwin, ?_⟩
+  have hh := hband R.x (le_refl _) hstride.1 hxceil
+  rwa [regimeEnlargeX_self] at hh
 
 /-- **⟦S-1 K2⟧** the band V7-rated form is a conservative extension of `V7RatedFormHG_g12b`. -/
 theorem v7RatedFormHG_g12b_of_band (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ)
