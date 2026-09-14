@@ -17,10 +17,14 @@ open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 # ⟦TIER S — S-1⟧ THE `∀x'`-BANDED TWIN OF THE `2^12` CHAIN, WITH THE TIGHT CEILING EXPORTED
 (`TierSBand`)
 
-**STATEMENT-ONLY FREEZE DRAFT (S-1 design act, salt QUEUE P3 item 11).  Every body below is `sorry`;
-nothing here is proved, and nothing bears on twin primes.  This file is the kernel-elaborated form
-of
-the S-1 freeze's statements and is NOT to be merged as is.**
+**PROVED AND KERNEL-AUDITED (S-1, salt QUEUE P3 item 11).  HONEST LABEL, FIRST LINE: NO NEW
+UNCONDITIONAL THEOREM.  S-1 restates the landed `2^12` chain with a scale quantifier and two more
+exported inequalities.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands; E2
+is conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched.
+Nothing here bears on twin primes.**  Its consumer S-3 is unwritten, so this pays only if S-3
+closes.  Every statement below is byte-identical to design freeze v1.2 (seat `e5d575134`) at kernel
+sha `7cbbc511`, checked by two independent guards; the bodies were filled IN PLACE in three
+sequential waves, and the axiom audit is in `Salt/MR/All.lean`.
 
 S-1 is the `∀x'`-BANDED twin of the live (`_g12b`) generation of the flat door chain — H0 head → H1
 road-exit → H2 capstone → H3 conditional → H4 Kswin → H5 V7-rated → the crown — carrying the TIGHT
