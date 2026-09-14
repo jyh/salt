@@ -10328,3 +10328,14 @@ open Salt.Tactic in
   Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9
   Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9
   Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9
+
+/-! ⟦β W34 H2⟧ — THE COMPOSITION TWIN AT `2^12`, CAP 9 (`StridePrize`, 2026-09-13, math — build
+freeze v2 v1.1 §3.0/§3.1/§5.1(f)/§6, executor brief W34 bundle H2, census band 4 row 11).  Additive
+only: `log_chowla_aff_composed_of_headG` is untouched.  The twin is its source's statement and body
+with the product cap `≤ 7 ↦ ≤ 9`, the head `GradedAffHeadAt ↦ GradedAffHeadAt_g12b`, and ONE added
+binder `a ≤ 2310` — council 2026-09-13 A② clause 2's granted binder, the only added binder in β.
+Conclusion byte-identical.  Door arm at `a ≤ 2310`: `2310·1.02·838400 ≤ 0.58·837782·4096` (×1.0075);
+`E` arm at `k ≤ 8103`: `2^-61·838400·8103² ≤ 0.42`.  Nothing here bears on twin primes.  1
+obligation, 1 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG_g12b
