@@ -10377,3 +10377,21 @@ open Salt.Tactic in
   Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g12b
   Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b
   Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g12b
+
+/-! ⟦β W34 H3⟧ — THE W4 TERMINALS: THE PER-CLASS STATEMENTS (D) AND (Q) AT `primorial z ≤ 2310`
+(`StrideGradeReceipt12b`, 2026-09-13, math — per-class freeze v1.1 §2/§6, executor brief W34 bundle
+H3). Additive only. (D) `zRough_oddOmega_logMass_class` and (Q) `zRough_oddOmega_infinite_class` are
+spelled as the freeze's §2 (scripted diff after whitespace normalisation: identical). (D) composes
+the `2^12`, cap-9 crowned head with `log_chowla_aff_composed_of_headG_g12b` (its `a ≤ 2310` supplied
+by `hz`, its cap by `hah9_of_primorial_le_2310`), `affWindow_survivorMass_ge`, the parity split, the
+regime's `hωbig` floor `64000·P + 1` and the rough-filter congruence; (Q) is derived from (D). The
+class-`(r + 1)` mutant of (D) at `z = 10, r = 11` is proved FALSE; a non-vacuity `example` at
+`z = 10, r = 209` sits in the module. (D) at fixed modulus is an instance of Tao, arXiv:1509.05422;
+the content is the kernel derivation. Nothing here bears on twin primes. 6 obligations, 6 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.hah9_of_primorial_le_2310
+  Salt.MR.one_sub_liouville_shift_two
+  Salt.MR.roughOdd_filter_eq_odd_filter
+  Salt.MR.zRough_oddOmega_logMass_class
+  Salt.MR.zRough_oddOmega_infinite_class
+  Salt.MR.zRough_oddOmega_logMass_class_mutant_false
