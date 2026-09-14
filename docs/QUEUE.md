@@ -6959,6 +6959,41 @@ numbering is UNVERIFIED.
    argument redone against the TWO builders that actually pin `Hhi`; the socket window's
    non-emptiness as a stated obligation; and S-1's head form EXPORTING the tight upper bound
    (`XCeil.lean:494–497`) as a third conjunct.
+   ⚖️✅ **TIER S IS STAMPED — 2026-09-14 (math, 32nd head; helm-ruled at 01:31 · 01:37 · 01:53 · 02:08).
+   THE ⛔ ROW DIRECTLY ABOVE IS DISCHARGED AS TO S-0 AND S-2 AND IS KEPT AS WRITTEN.** Five states:
+   * ✅ **S-0 — LANDED.** The socket's `A`-window is inhabited at `A := 2·R.x`. salt **PR #129 → main
+     `30a5e562`**, `Salt/MR/TierSSocket.lean`: `socketBaseL_inhabited_at_twice_x` ·
+     `socketBaseLH_inhabited_at_twice_x` (carrying `1 ≤ h`) · `socketBaseLH_at_zero_false` (the in-module
+     mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
+     `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
+   * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1140`, audited
+     `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
+     `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
+     ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
+     (the `A` depends on `b` through the `Hopq` arm; the door does not transport along `regimeEnlargeX`),
+     and the downstream consumer `GradedAffHeadAt_g12b` (`StridePrize.lean:295-305`) is stated PER-`b`.
+     ⇒ 🔑 ***THE DESIGN CONFLATED TWO UNIFORMITIES: the full-range consumer needs `ε` AND `A` bound outside
+     the class quantifier — NOT one regime — and `ε` is already `b`-free by its pin.***
+   * ✅ **S-4 — OFF THE CRITICAL PATH** (Fable-tier, but not blocking): without it the road is `∃ᶠ N`, which
+     D9 makes sufficient. It upgrades `∃ᶠ` to `∀`, it does not gate the terminal.
+   * ⛔ **S-1 — DESIGN TIER AND UNPRICED. NOT ROUTED.** Its act is the `∀x'`-BANDED twin carrying the tight
+     `XCeil` bound as an EXPORT-ONLY third conjunct in the MAX shape; the band hypothesis on `x'` STAYS
+     LOOSE (the tight reading gives floor and ceiling the same leading coefficient and empties `S`).
+     ⛔ **UNPRICED: the population is EIGHT form defs (four head, four exit), 105 non-def hits outside
+     `All.lean`, SEVEN ceiling/xceil producers, and the `∀x'` band at ZERO sites — but that is HITS, not
+     NAMES, and the per-theorem walk is owed before any wave.**
+   * ⏳ **S-3 — WAITS ON S-1**, and D12's step inside it still owes a refuter.
+   📄 **A NEW NODE WAS NAMED AND IS NOT THIS ROW'S:** *can the CONSUMER's additive `A` — the constant in
+   `|∑ …| ≤ ε·log M + A`, a DIFFERENT OBJECT from the builder's design parameter — be bound uniformly over
+   `admClasses P`?* Routed to the Captain's 09-14 page as a CHARTER question; nobody drafts it tonight.
+   📐 **Design record:** freeze `2026-09-14-math-FREEZE-tierS-fullrange-supply.md` v1.0→v1.6
+   (`e971958da` → `f5a36668e` → `519962c10` → `1ff2fcc06` → v1.6), **three non-author refuter passes**
+   (`wf_105a34d0-fe1`, `wf_b9c6a8c4-9aa`, `wf_97f8a63e-1e6`; 11 arms, 0 KILL).
+   ⇒ 🔑 ***THE LESSON THIS ROW COST, AND IT IS THE SEAT'S AND THE HELM'S BOTH: FIVE FREEZE VERSIONS AND
+   FOUR RULINGS WENT INTO A STATEMENT'S SHAPE BEFORE ANYONE `git grep`-ED ITS CONCLUSION'S HEAD SYMBOL FOR
+   A THEOREM THAT ALREADY CONCLUDED IT — AND THE ONE THAT DID WAS THIS LANE'S OWN, IN THE BOOT BANNER.***
+   **Grep the conclusion FIRST; a ruling on a statement's shape presumes the statement is NEEDED.**
    ⛔ **HONEST LABEL:** no new unconditional theorem. At fixed `z` this is a SECOND PROOF of a
    terminal `zRough_oddOmega_infinite_of_affSupplyW` already lands, plus a kernel cross-check of
    the two roads. E2 is conditional on `MRTDoorAllGrades`, which has no producer. The `∃ ε`
