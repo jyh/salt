@@ -6971,7 +6971,9 @@ numbering is UNVERIFIED.
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
-     (the `A` depends on `b` through the `Hopq` arm; the door does not transport along `regimeEnlargeX`),
+     (~~the `A` depends on `b` through the `Hopq` arm~~ — ⛔ **REFUTED AT THE WITNESS 2026-09-14 by the census
+     stamped below: the ARM is right and the CONCLUSION is wrong, because that arm's landed value is the
+     literal `2`**; the door does not transport along `regimeEnlargeX`, which stands),
      and the downstream consumer `GradedAffHeadAt_g12b` (`StridePrize.lean:295-305`) is stated PER-`b`.
      ⇒ 🔑 ***THE DESIGN CONFLATED TWO UNIFORMITIES: the full-range consumer needs `ε` AND `A` bound outside
      the class quantifier — NOT one regime — and `ε` is already `b`-free by its pin.***
@@ -6987,6 +6989,36 @@ numbering is UNVERIFIED.
    📄 **A NEW NODE WAS NAMED AND IS NOT THIS ROW'S:** *can the CONSUMER's additive `A` — the constant in
    `|∑ …| ≤ ε·log M + A`, a DIFFERENT OBJECT from the builder's design parameter — be bound uniformly over
    `admClasses P`?* Routed to the Captain's 09-14 page as a CHARTER question; nobody drafts it tonight.
+   ⚖️✅ **AND THE CAPTAIN CHARTERED IT — council 2026-09-14 ⑥, his *"yes accept rec"*: a READ-ONLY census,
+   NO statement drafted. RUN AND STAMPED HERE 2026-09-14 by the 33rd head (desk MF); the full census lives in
+   the math seat's desk-MF read brief in the private record (`c3dc99a67`).**
+   * ⛔⛔ **THE OBJECT THE QUESTION NAMES IS NOT IN THIS CORPUS.** `logChowlaFailsAff`
+     (`Salt/Entropy/Chowla/AffineFork.lean:69`) and `logChowlaFails` (`ShiftFork.lean:62`) both read
+     `ε·log ω < |∑ …|` — **bare, with no additive term** — and the corpus says so itself at
+     `ShiftFork.lean:57-58`: *"UNnormalized / (RHS `ε·log ω`)"*. ⇒ ***the question has no referent as written.***
+     **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
+     quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
+   * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
+     `Salt/MR/StridePairReceiptG12b.lean:807` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
+     `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
+     **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in
+     BOTH cap routes:** `Salt/Entropy/Chowla/StrideFork.lean:807` (cap 9) and `:413` (cap 7) close at
+     `:832` and `:438` respectively with
+     `refine ⟨32·exp 40·(2^35·(a·h)²)²·(500·(a·h))^10·(a·h), by positivity, ?_, 2, le_rfl, ?_⟩` — **`H₀ = 2`**,
+     with `C` closed in `a·h`. ⇒ **`b` does not reach `A` in any landed instantiation.**
+   * ⚠️ **`β` LOOKED `b`-DEPENDENT AND IS NOT.** It is bound inside `FlatHeadFormHG_g12b`, whose type mentions
+     `Xi` (which carries `b`), with `0 < β` its only constraint. ⇒ 🔑 ***A WITNESS BOUND INSIDE A `b`-MENTIONING
+     TYPE IS NOT THEREBY `b`-DEPENDENT — the type says what is PERMITTED, the proof says what was TAKEN.***
+   * ⛔ **THE CAVEAT THAT IS THE WHOLE ANSWER: this is a property of the PROOF WITNESSES, NOT THE STATEMENTS.**
+     Every landed supplier is `∀ a b h …, ∃ ε A, …`, so `A` is chosen syntactically after `b` and **nothing
+     EXPORTS the uniformity; no consumer can use it.** ⇒ ⚖️ ***THE UNIFORMITY IS ALREADY TRUE OF WHAT WAS
+     BUILT AND IS STATED NOWHERE: the gap is a RE-STATEMENT, not new mathematics.*** Hoisting `∃ A` above
+     `∀ b` is a STATEMENT ACT — Fable/Captain tier by iron rule 1 — and **this census does not draft, price
+     or recommend it.** It reports only that the supply is there.
+   ⇒ 🔑 ***AND THE LESSON IS THIS ROW'S OWN, A SECOND TIME IN TWO SHIFTS: the S-2 parenthetical above read
+   the TYPE and stopped. A DEPENDENCE THE STATEMENT PERMITS IS A HYPOTHESIS, NOT A FINDING*** — written by
+   this lane, about this lane's own build. **The more recently we build a thing, the less we search it.**
    📐 **Design record:** freeze `2026-09-14-math-FREEZE-tierS-fullrange-supply.md` v1.0→v1.6
    (`e971958da` → `f5a36668e` → `519962c10` → `1ff2fcc06` → v1.6), **three non-author refuter passes**
    (`wf_105a34d0-fe1`, `wf_b9c6a8c4-9aa`, `wf_97f8a63e-1e6`; 11 arms, 0 KILL).
