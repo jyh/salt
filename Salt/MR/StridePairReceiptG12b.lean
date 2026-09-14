@@ -1025,6 +1025,258 @@ theorem flat_door_head_xceil_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h :
     exact ⟨by rw [hReps, hεdef], ⟨K, hK, hKb, hcountR⟩, ρ, hρpos,
       le_trans hρ hδ₀le, hdoor⟩
 
+/-! ## §9 — ⟦β W34 H1⟧ THE SPINE AT `2^12`, CAP 9: the chain, the receipts, the crown
+
+Build freeze v2 v1.1 §3.0/§3.1/§5 (W4)/§5.1(g)(h)/§6, executor brief W34 bundle H1, census band 4
+rows 23, 29, 30, 31, 32.  Each twin is its `StridePairReceiptG.lean` source's statement and body
+with ONLY the freeze's §3.1 rule-2 raises: the cap `log h ≤ 7 ↦ ≤ 9` / `log (a·h) ≤ 7 ↦ ≤ 9`, the
+FORMs and receipt predicate `_g ↦ _g12b`, the ceiling `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, the
+stride `a ≤ 1096 ↦ a ≤ 8103`, and every DERIVED cap-dependent supplier replaced by its landed
+`_b9` / `_g12b` twin.  ⚖️ The crown binds ONLY its product cap and DERIVES `a ≤ a·h ≤ 8103`
+(`h_le_8103_of_log_le_nine`) — freeze §3.0: no `a ≤ 2310` binder exists below the composition.
+No hypothesis is added, no conclusion weakened.  No landed declaration moves.
+
+HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bears on twin
+primes. -/
+
+/-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
+(StridePairReceiptG.lean:1061) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
+theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
+    (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
+      ∀ ξ ∈ Xi eps H, NearRatTight ((h : ℝ) * arcDen 12 H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (P : ChowlaRegime → Prop) (hhead : FlatHeadFormHG_g12b h Xi P) (A₀ : ℝ) :
+    V7RatedFormHG_g12b h P A₀ := by
+  exact flat_v7_generic_h_g12b h hh hh9 P
+    (fun Awin hband => flat_kswin_generic_h_g12b h hh hh9 Awin hband P
+      (flat_conditional_generic_h_g12b h hh hh9 Awin hband P
+        (flat_capstone_generic_h_g12b h hh hh9 Awin hband P
+          (flat_roadExit_generic_h_g12b h hh hh9 Xi harcXi P hhead)))) A₀
+
+/-- **⟦THE RECEIPT AT `h`, GENERIC SET, AT `2^12`⟧ — `mrtUniformityXiL2Set_holds_flat_floor_g12b`.**
+`mrtUniformityXiL2Set_holds_flat_floor_g` (:1076) with the cap `≤ 9`, the statement's stride
+`a ≤ 1096 ↦ a ≤ 8103` and ceiling `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`.  BODY verbatim at
+`flat_chain_generic_h_g12b`, `MRTDoorReceiptSetG_g12b`, `flat_door_head_xceil_h_g12b`; the `a := 1`
+ε-probe stays `norm_num` (`1 ≤ 8103`); `flatDesignBase_loglog_le` is cap-free (census row 32). -/
+theorem mrtUniformityXiL2Set_holds_flat_floor_g12b (h : ℕ) (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9)
+    (Xi : XiFamily)
+    (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
+      ∀ ξ ∈ Xi eps H, NearRatTight ((h : ℝ) * arcDen 12 H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (hcount : ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
+      ((Xi (1 / (500 * (h : ℚ))) H).card : ℝ) ≤ C)
+    (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ ε = 1 / (500 * (h : ℚ)) ∧
+      162 ≤ A ∧ A₀ ≤ A ∧
+      ∀ (U1floor a : ℕ) (g : ℕ → ℕ → ℕ), flatDesignBase A ≤ U1floor →
+        Real.log (Real.log ((U1floor : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 →
+        1 ≤ a → a ≤ 8103 → XCeilRiderStrict ε g →
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = U1floor ∧ a * g R.Hhi R.ω ≤ R.x ∧ StrideScale a R ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((Xi R.eps H).card : ℝ) ≤ K) ∧
+        ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, -, -, -, -, -, -, -, -, -,
+    -, -, -, -, -, hεpin, -, -, -, hA162, hA₀A, hbody⟩ :=
+    flat_chain_generic_h_g12b h hh hh9 Xi harcXi (MRTDoorReceiptSetG_g12b h Xi)
+      (flat_door_head_xceil_h_g12b h hh hh9 Xi hcount) A₀
+  -- ⟦THE ε-PIN EQUALITY⟧ read off `P R` at the TRIVIAL instantiation
+  have hεeq : ε = 1 / (500 * (h : ℚ)) := by
+    obtain ⟨R0, hR0eps, -, -, -, -, -, -, hP0⟩ :=
+      hbody (flatDesignBase A) 1 (fun _ _ => 0) le_rfl (flatDesignBase_loglog_le hA162)
+        le_rfl (by norm_num) (xceilRiderStrict_zero ε)
+    rw [← hR0eps]
+    exact hP0.1
+  refine ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, ?_⟩
+  intro U1floor a g hU hUceil ha ha8103 hg
+  obtain ⟨R, hReps, hHlo, hRg, hstride, -, hdes, hwin, hP⟩ :=
+    hbody U1floor a g hU hUceil ha ha8103 hg
+  obtain ⟨-, hcountR, ρ, hρpos, hρle, hdoor⟩ := hP
+  exact ⟨R, hReps, hHlo, hRg, hstride, hdes, hwin, hcountR, ρ, hρpos, hρle, hdoor⟩
+
+/-- **⟦THE NAMED LIFT⟧ — `mrtUniformityXiL2AffSet_holds_flat_floor_g12b`.**
+`mrtUniformityXiL2AffSet_holds_flat_floor_g` (:1139) with `hah7 ↦ hah9 : log (a·h) ≤ 9`, the
+statement's `a' ≤ 1096 ↦ a' ≤ 8103` (council 2026-09-13 A② clause 2's named statement lift,
+realised as a twin at the bound the crown derives — freeze §3.0/§6) and the ceiling
+`837782 * 2 ^ 12`.  BODY verbatim: the Set floor twin at `k = a·h`, and
+`bigXiAff_bounded_ceiling_of_pin ↦ bigXiAff_bounded_ceiling_of_pin_b9` (census row 29). -/
+theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
+    (hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9) (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+      ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∀ (U1floor a' : ℕ) (g : ℕ → ℕ → ℕ), flatDesignBase A ≤ U1floor →
+        Real.log (Real.log ((U1floor : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 →
+        1 ≤ a' → a' ≤ 8103 → XCeilRiderStrict ε g →
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = U1floor ∧ a' * g R.Hhi R.ω ≤ R.x ∧ StrideScale a' R ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((bigXiAffD a b h R.eps H).card : ℝ) ≤ K) ∧
+        ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          MRTUniformityXiL2Set (fun eps H _ => bigXiAffD a b h eps H) R ρ := by
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  refine mrtUniformityXiL2Set_holds_flat_floor_g12b (a * h) hkpos hah9
+    (fun eps H _ => bigXiAffD a b h eps H)
+    (fun eps heps => nearRatTight_of_bigXiAffD bigXiArcTight_twelve heps ha hh) ?_ A₀
+  obtain ⟨Cc, hCc, hCcb, H₀, hH₀2, hcard⟩ :=
+    bigXiAff_bounded_ceiling_of_pin_b9 a b h ha hh hah9 _ rfl
+  refine ⟨Cc, hCc, hCcb, H₀, hH₀2, ?_⟩
+  intro H _ hH
+  refine le_trans ?_ (hcard H hH)
+  exact_mod_cast bigXiAffD_card_le a b h _ H
+
+/-- **⟦THE CROWN AT `2^12`, CAP 9⟧ — `mrtUniformityXiL2AffW_holds_flat_stride_g12b`.**
+`mrtUniformityXiL2AffW_holds_flat_stride_g` (:1173) with `hah7 ↦ hah9` and the ceiling
+`837782 * 2 ^ 12` (the spelling `GradedAffHeadAt_g12b` and `log_chowla_aff_of_door_unslotted_g12b`'s
+`hcrown` read).  BODY verbatim with (census band 4 row 30): `a·h ≤ 1096 ↦ a·h ≤ 8103` via
+`h_le_8103_of_log_le_nine`, hence `a ≤ 8103`; `log a ≤ 9` into `loglog_mul_flatDesignBase_le_b9`;
+the AffSet lift at `a ≤ 8103`; `hahQ ≤ 8103` so `1/4051500 ≤ Rd.eps` into
+`flatDesignBase_clears_stride_floors_b9`; `regimeShrinkX_stride_b9` (+ `_Hlo_b9`) and
+`mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`.  The cap-free numerals (`1/500`, `32000`,
+`32001`, `8`, `1.02`, `2^539`) are unchanged; the `omega` aux on `a ≤ 4000000` regenerates. -/
+theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
+    (hba : b < a) (hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9) (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+      ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+        flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+        ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+          E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+              * (Real.log (Ra.ω : ℝ) - 1)) ∧
+          MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E) := by
+  have hapos : 0 < a := ha
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hah8103 : a * h ≤ 8103 :=
+    Salt.Entropy.Chowla.h_le_8103_of_log_le_nine hkpos hah9
+  have haah : a ≤ a * h := Nat.le_mul_of_pos_right a hh
+  have ha8103 : a ≤ 8103 := le_trans haah hah8103
+  have haR : (0 : ℝ) < (a : ℝ) := by exact_mod_cast hapos
+  have hloga9 : Real.log ((a : ℕ) : ℝ) ≤ 9 := by
+    refine le_trans (Real.log_le_log haR (by exact_mod_cast haah)) hah9
+  -- ⟦THE RECEIPT AT THE AFFINE SET⟧ at the caller's floor `a · flatDesignBase A`
+  obtain ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A, hbody⟩ :=
+    mrtUniformityXiL2AffSet_holds_flat_floor_g12b a b h ha hh hah9 A₀
+  have hU : flatDesignBase A ≤ a * flatDesignBase A := Nat.le_mul_of_pos_left _ hapos
+  have hUceil := loglog_mul_flatDesignBase_le_b9 hA162 ha hloga9
+  obtain ⟨Rd, hReps, hHlo, -, hstride, -, -, hcountD, ρ, hρpos, hρle, hdoor⟩ :=
+    hbody (a * flatDesignBase A) a (fun _ _ => 0) hU hUceil ha ha8103
+      (xceilRiderStrict_zero ε)
+  obtain ⟨Kc, hKc0, hKcb, hKcount⟩ := hcountD
+  -- ⟦THE ε PINS⟧ the receipt's own EQUALITY, read both ways
+  have hahQ : ((a * h : ℕ) : ℚ) ≤ 8103 := by exact_mod_cast hah8103
+  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
+  have heps500 : Rd.eps ≤ 1 / 500 := by
+    rw [hReps, hεeq]
+    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
+  have heps4051500 : (1 : ℚ) / 4051500 ≤ Rd.eps := by
+    rw [hReps, hεeq]
+    exact one_div_le_one_div_of_le (by positivity) (by linarith)
+  -- ⟦THE SHRINK'S THREE FLOORS⟧ off `flatDesignBase_clears_stride_floors_b9`
+  have hdiv : a ∣ Rd.a * Rd.Hlo := by
+    rw [hHlo]
+    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
+  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
+    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
+    exact Nat.mul_div_cancel_left _ hapos
+  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
+    rw [hquot]
+    exact Nat.le_mul_of_pos_left _ Rd.ha
+  obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors_b9 hA162 heps4051500
+  have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
+  have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
+  have hb : b ≤ (regimeShrinkX_stride_b9 Rd a ha ha8103 heps500 hstride hdiv hlo4 hloM).Hlo := by
+    rw [regimeShrinkX_stride_Hlo_b9]
+    omega
+  -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500`
+  have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
+  have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
+    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
+    exact hq
+  have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
+    have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
+    have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha
+    have hQ2 : (2 : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) := by linarith
+    exact_mod_cast hQ2
+  have hHmono : (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ)
+      ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_left (by exact_mod_cast Rd.hHlohi) (sq_nonneg _)
+  have hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ)) :=
+    Real.log_nonneg (by linarith)
+  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
+  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
+    rw [le_div_iff₀ hepsR0]; linarith
+  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
+    have hb2 := Rd.hωbig
+    nlinarith [mul_nonneg h16 hlognn]
+  have hω2N : 2 ≤ Rd.ω := Rd.hω
+  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
+    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast hω2N
+    linarith
+  have hω8 : 8 ≤ Rd.ω := by
+    have hsub := Real.log_le_sub_one_of_pos hωR
+    have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
+    exact_mod_cast h8
+  -- ⟦THE TRANSPORT⟧ F3-P16 at the shrunk regime
+  have htrans := mrtUniformityXiL2AffW_of_set_b9 h Rd a b ha ha8103 heps500 hstride hdiv hlo4
+    hloM hb hω8 Kc ρ hKcount hdoor
+  -- ⟦THE TWO MEASUREMENTS⟧ F3-P17 on the ratio, F3-P18 on the endpoint
+  have hx2 : 2 ≤ Rd.x / a := hstride.2.1
+  have hωx2 : Rd.ω ≤ Rd.x / a := hstride.2.2.1
+  have hratio := strideZRatio_le Rd.x (Rd.x / a) Rd.ω Rd.hx hx2 hω2N Rd.hωx hωx2
+    (by linarith)
+  have hZlo := (harmonic_window_bounds hx2 hω2N hωx2).1
+  have hDpos : (0 : ℝ) < (a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1 := by positivity
+  have hLpos : (0 : ℝ) < Real.log ((Rd.ω : ℕ) : ℝ) - 1 := by linarith
+  have hEnd0 := strideEndpoint_le Kc (a : ℝ)
+    (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹) (Rd.x / a / Rd.ω) Rd.ω
+    hKc0.le (Nat.cast_nonneg a) (by linarith) hZlo
+  have hnum : Kc * (a : ℝ) ≤ 2 ^ 539 * (a : ℝ) :=
+    mul_le_mul_of_nonneg_right hKcb (Nat.cast_nonneg a)
+  have hEnd1 : Kc * (a : ℝ)
+        / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1) * (Real.log ((Rd.ω : ℕ) : ℝ) - 1))
+      ≤ 2 ^ 539 * (a : ℝ)
+        / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1) * (Real.log ((Rd.ω : ℕ) : ℝ) - 1)) := by
+    rw [div_eq_mul_inv, div_eq_mul_inv]
+    exact mul_le_mul_of_nonneg_right hnum (inv_nonneg.mpr (mul_pos hDpos hLpos).le)
+  -- ⟦THE PACKAGE⟧ the grade at the slack binder, the endpoint NAMED
+  refine ⟨ε, A, hε, hεpin, hεeq, hA162, hA₀A,
+    ChowlaRegimeAff.ofRegime
+      (regimeShrinkX_stride_b9 Rd a ha ha8103 heps500 hstride hdiv hlo4 hloM) b hb,
+    rfl, rfl, hReps, ?_, ?_, ρ, 1.02,
+    2 ^ 539 * (a : ℝ)
+      / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1) * (Real.log ((Rd.ω : ℕ) : ℝ) - 1)),
+    hρpos, hρle, by norm_num, by norm_num, by positivity, le_rfl, ?_⟩
+  · exact hBle
+  · -- ⟦THE DESIGN LAW AT THE SHRUNK BASE⟧ off `flatDesignBase`'s own ceiling
+    have hDge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+      rw [flatDesignBase]; exact Nat.le_ceil _
+    have hRaR : ((flatDesignBase A : ℕ) : ℝ) ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) := by
+      exact_mod_cast hBle
+    have h1 : Real.exp (Real.exp (3.2 * A)) ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) :=
+      le_trans hDge hRaR
+    have h2 : Real.exp (3.2 * A) ≤ Real.log ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) := by
+      have h := Real.log_le_log (Real.exp_pos _) h1
+      rwa [Real.log_exp] at h
+    have h3 : 3.2 * A ≤ Real.log (Real.log ((Rd.a * Rd.Hlo / a : ℕ) : ℝ)) := by
+      have h := Real.log_le_log (Real.exp_pos _) h2
+      rwa [Real.log_exp] at h
+    exact h3
+  · -- ⟦THE GRADE⟧ the transport's literal grade, monotone up to the binder's
+    refine mrtUniformityXiL2AffW_mono h _ htrans ?_
+    have hρ0 : (0 : ℝ) ≤ ρ := hρpos.le
+    have hratmul : (a : ℝ)
+        * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+            / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) * ρ
+        ≤ (a : ℝ) * 1.02 * ρ := by
+      have hmul := mul_le_mul_of_nonneg_left hratio haR.le
+      nlinarith [hmul, hρ0, haR]
+    linarith [hratmul, hEnd0, hEnd1]
+
 end Salt.MR
 
 end

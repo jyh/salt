@@ -439,6 +439,7 @@ import Salt.Tactic.AuditAxioms
 import Salt.MR.EpsFamilyReceipt
 import Salt.MR.StrideGrade12bWalls
 import Salt.MR.StridePairReceiptG12b
+import Salt.MR.StrideGradeReceipt12b
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10358,3 +10359,21 @@ open Salt.Tactic in
   Salt.MR.flat_conditional_generic_h_g12b
   Salt.MR.flat_kswin_generic_h_g12b
   Salt.MR.flat_v7_generic_h_g12b
+
+/-! ⟦β W34 H1⟧ — THE SPINE AT `2^12`, CAP 9, AND THE CROWNED HEAD (`StridePairReceiptG12b`,
+`StrideGradeReceipt12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5 W4/§5.1(g)(h)/§6,
+executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive only: every `_g` source in
+`StridePairReceiptG` and `StrideGradeReceipt` is untouched. Each twin is its source's statement and
+body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt predicate / head, the ceiling
+`837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
+THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
+product cap via `h_le_8103_of_log_le_nine` (no `a ≤ 2310` binder below the composition). Crown
+numerals: `hahQ ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
+`regimeShrinkX_stride_b9` / `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`; cap-free numerals
+unchanged. No hypothesis added. Nothing here bears on twin primes. 5 obligations, 5 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_chain_generic_h_g12b
+  Salt.MR.mrtUniformityXiL2Set_holds_flat_floor_g12b
+  Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g12b
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b
+  Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g12b
