@@ -1066,4 +1066,141 @@ theorem regimeShrinkX_stride_x_mul_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a
   rw [regimeShrinkX_stride_x_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM]
   exact Nat.div_mul_cancel hs.1
 
+/-! ## ⟦β W2 F1⟧ — the transport at the crown's derived stride bound `a ≤ 8103`
+
+Additive only.  `regimeShrinkX_stride_Hlo` (a W2 row) is ALREADY minted by W1 E1 as
+`regimeShrinkX_stride_Hlo_b9` above and is not re-minted. -/
+
+/-- `mrtUniformityXiL2AffW_of_set` at `a ≤ 8103` (`mrtUniformityXiL2AffW_of_set_b9`) —
+SUPPLIER-SWAP (census band 4 row 4): the regime def `regimeShrinkX_stride ↦
+regimeShrinkX_stride_b9` (W1 E1) with `ha1096 ↦ ha8103 : a ≤ 8103`.  The body never reads the
+stride bound except inside the regime terms (its `omega` for `hω2` does not spend it).  BODY: the
+source's, verbatim. -/
+theorem mrtUniformityXiL2AffW_of_set_b9 (h : ℕ) (Rd : ChowlaRegime) (a b : ℕ) (ha : 1 ≤ a)
+    (ha8103 : a ≤ 8103) (heps500 : Rd.eps ≤ 1 / 500) (hs : StrideScale a Rd)
+    (hdiv : a ∣ Rd.a * Rd.Hlo) (hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a)
+    (hloM : 4000000 ≤ Rd.a * Rd.Hlo / a)
+    (hb : b ≤ (regimeShrinkX_stride_b9 Rd a ha ha8103 heps500 hs hdiv hlo4 hloM).Hlo)
+    (hω : 8 ≤ Rd.ω) (K ρ : ℝ)
+    (hK : ∀ H : ℕ, ∀ [NeZero H], Rd.Hlo ≤ H → H ≤ Rd.Hhi →
+      ((bigXiAffD a b h Rd.eps H).card : ℝ) ≤ K)
+    (hdoor : MRTUniformityXiL2Set (fun eps H _ => bigXiAffD a b h eps H) Rd ρ) :
+    MRTUniformityXiL2AffW h
+      (ChowlaRegimeAff.ofRegime (regimeShrinkX_stride_b9 Rd a ha ha8103 heps500 hs hdiv hlo4 hloM)
+        b hb)
+      ((a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+            / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) * ρ
+        + K * (a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+            * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) := by
+  have hapos : 0 < a := ha
+  have hx2 : 2 ≤ Rd.x / a := hs.2.1
+  have hωx2 : Rd.ω ≤ Rd.x / a := hs.2.2.1
+  have hω2 : 2 ≤ Rd.ω := by omega
+  have hxa : a * (Rd.x / a) = Rd.x := Nat.mul_div_cancel' hs.1
+  have hlogω : (2 : ℝ) ≤ Real.log (Rd.ω : ℝ) := by
+    have h8 : (8 : ℝ) ≤ (Rd.ω : ℝ) := by exact_mod_cast hω
+    have hexp2 : Real.exp 2 ≤ 8 := by
+      have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+      have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+      nlinarith [Real.exp_pos 1]
+    have hωpos : (0 : ℝ) < (Rd.ω : ℝ) := by linarith
+    rw [Real.le_log_iff_exp_le hωpos]
+    linarith
+  have hZP : (0 : ℝ) < ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹ := by
+    have hb2 := (harmonic_window_bounds hx2 hω2 hωx2).1
+    linarith
+  have hZQnn : (0 : ℝ) ≤ ∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹ :=
+    Finset.sum_nonneg (fun n _ => by positivity)
+  have hD : (0 : ℝ) < (a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1 := by positivity
+  have halg2 : ∀ Hs Ic Ip Av R2 D Zpv : ℝ, 0 < Hs →
+      Ic ≤ Av * R2 * Ip + Av * Hs / (D * Zpv) →
+      (1 / Hs) * Ic ≤ Av * R2 * ((1 / Hs) * Ip) + Av / (D * Zpv) := by
+    intro Hs Ic Ip Av R2 D Zpv hHs hle
+    have h1 : (0 : ℝ) < 1 / Hs := by positivity
+    calc (1 / Hs) * Ic ≤ (1 / Hs) * (Av * R2 * Ip + Av * Hs / (D * Zpv)) :=
+          mul_le_mul_of_nonneg_left hle (le_of_lt h1)
+      _ = Av * R2 * ((1 / Hs) * Ip) + Av / (D * Zpv) := by
+          field_simp
+  intro H hNZ hdvd0 hlo0 hhi0
+  haveI : NeZero H := hNZ
+  have hdvd : a ∣ H := hdvd0
+  have hhi : H ≤ Rd.Hhi := hhi0
+  have hlo1 : a * (Rd.a * Rd.Hlo / a) ≤ H := hlo0
+  rw [Nat.mul_div_cancel' hdiv] at hlo1
+  have hlo' : Rd.Hlo ≤ H := le_trans (Nat.le_mul_of_pos_left _ Rd.ha) hlo1
+  have hHR : (0 : ℝ) < (H : ℝ) := by
+    have hHp : 0 < H := Nat.pos_of_ne_zero (NeZero.ne H)
+    exact_mod_cast hHp
+  have hH2 : (0 : ℝ) < (H : ℝ) ^ 2 := by positivity
+  have hterm : ∀ ξ : ZMod H, (1 / (H : ℝ) ^ 2)
+      * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasureAff a (Rd.x / a) Rd.ω)
+      ≤ (a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+            / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹))
+          * ((1 / (H : ℝ) ^ 2) * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure Rd.x Rd.ω))
+        + (a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+            * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹) := by
+    intro ξ
+    have hf0 : ∀ m : ℕ, (0 : ℝ) ≤ ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 :=
+      fun m => sq_nonneg _
+    have hfM : ∀ m : ℕ, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 ≤ (H : ℝ) ^ 2 := by
+      intro m
+      have hnb := norm_windowExpSum_trivial H m (-(ξ.val : ℝ) / (H : ℝ))
+      nlinarith [norm_nonneg (windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ)))]
+    have h15 := integral_logMeasureAff_le_plain a (Rd.x / a) Rd.ω hapos hx2 hω hωx2
+      (fun m => ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2) ((H : ℝ) ^ 2) hf0 hfM
+    rw [hxa] at h15
+    exact halg2 _ _ _ _ _ _ _ hH2 h15
+  have hdoor' : ∑ ξ ∈ bigXiAff a b h Rd.eps H, (1 / (H : ℝ) ^ 2)
+      * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+        ∂(logMeasure Rd.x Rd.ω) ≤ ρ := by
+    have hd : ∑ ξ ∈ bigXiAffD a b h Rd.eps H, (1 / (H : ℝ) ^ 2)
+        * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure Rd.x Rd.ω) ≤ ρ := hdoor H hlo' hhi
+    rwa [bigXiAffD_of_dvd hdvd] at hd
+  have hK' : ((bigXiAff a b h Rd.eps H).card : ℝ) ≤ K := by
+    have hk := hK H hlo' hhi
+    rwa [bigXiAffD_of_dvd hdvd] at hk
+  have hc1 : (0 : ℝ) ≤ (a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+      / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) :=
+    mul_nonneg (Nat.cast_nonneg a) (div_nonneg hZQnn (le_of_lt hZP))
+  have hc2 : (0 : ℝ) ≤ (a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+      * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹) :=
+    div_nonneg (Nat.cast_nonneg a) (le_of_lt (mul_pos hD hZP))
+  have hmain : ∑ ξ ∈ bigXiAff a b h Rd.eps H, (1 / (H : ℝ) ^ 2)
+      * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasureAff a (Rd.x / a) Rd.ω)
+      ≤ (a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+            / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) * ρ
+        + K * (a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+            * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹) := by
+    calc ∑ ξ ∈ bigXiAff a b h Rd.eps H, (1 / (H : ℝ) ^ 2)
+          * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasureAff a (Rd.x / a) Rd.ω)
+        ≤ ∑ _ξ ∈ bigXiAff a b h Rd.eps H,
+            ((a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+                / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹))
+              * ((1 / (H : ℝ) ^ 2) * ∫ m, ‖windowExpSum H m (-(_ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+                  ∂(logMeasure Rd.x Rd.ω))
+            + (a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+                * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) :=
+          Finset.sum_le_sum (fun ξ _ => hterm ξ)
+      _ = (a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+              / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹))
+            * (∑ ξ ∈ bigXiAff a b h Rd.eps H, (1 / (H : ℝ) ^ 2)
+                * ∫ m, ‖windowExpSum H m (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 ∂(logMeasure Rd.x Rd.ω))
+          + ((bigXiAff a b h Rd.eps H).card : ℝ)
+              * ((a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+                * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) := by
+          rw [Finset.sum_add_distrib, ← Finset.mul_sum, Finset.sum_const, nsmul_eq_mul]
+      _ ≤ (a : ℝ) * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+              / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) * ρ
+          + K * ((a : ℝ) / (((a : ℝ) * ((Rd.x / a / Rd.ω : ℕ) : ℝ) + 1)
+                * ∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) :=
+          add_le_add (mul_le_mul_of_nonneg_left hdoor' hc1)
+            (mul_le_mul_of_nonneg_right hK' hc2)
+      _ = _ := by ring
+  exact hmain
+
 end Salt.Entropy.Chowla

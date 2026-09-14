@@ -1443,4 +1443,55 @@ theorem s13_smallGradeFits_of_halfWindow_L_gk_h_b9 {h : ℕ} (hh : 0 < h)
     s13_smallGradeFits_h_b9 hh hh9 hρ0 hρ1 hlo
       (s13_winFit_h_of_halfWindow_gen_b9 hh hh9 hfl hhalf H hlo hhi)
 
+/-! ## ⟦β W2 F3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
+
+Additive only: every declaration above is untouched.  The twin is its source's statement and body
+with ONLY the raise `log h ≤ 7 ↦ ≤ 9`, its two derived suppliers replaced by their `S16ProducersH`
+twins; no hypothesis is added and no conclusion weakened. -/
+
+/-- `s15_gRows_const_at_socket_flat_doorLH_gk` at `log h ≤ 9`
+(`s15_gRows_const_at_socket_flat_doorLH_gk_b9`) — SUPPLIER-SWAP (`s13_socketBase_loglogA_LH_b9`,
+`s12c_llX_ge_LH_b9`).
+BODY: the source's. -/
+theorem s15_gRows_const_at_socket_flat_doorLH_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h)
+    (hh9 : Real.log (h : ℝ) ≤ 9) {R : ChowlaRegime}
+    {M H L q j A s : ℕ} {ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hM : 1 ≤ M)
+    (hρ0 : 0 < ρ) (_hρ1 : ρ ≤ 1)
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
+    (hrho : -Real.log ρ ≤ 100000000000000)
+    (hlvl : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        + (1 / 3) * Real.log (Real.log ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ))
+        + (-Real.log ρ)
+      ≤ (1 / 12) * ((AdoorL M : ℕ) : ℝ) * Real.log 2) :
+    GRowsZeroGate'''_L_gk K M (A + s) 0 (constPool ρ R.Hhi) := by
+  have hlogρ : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le _hρ1
+  have hQ0 : (0 : ℝ)
+      ≤ Real.log (Real.log ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) := by
+    rw [calQK_L_one_gk_eq]; exact s15_loglogQ1_L_nonneg hM
+  obtain ⟨-, hL50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have hp2 : 27 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ ((AdoorL M : ℕ) : ℝ) * Real.log 2 + Real.log ρ := by
+    linarith [hlvl, hQ0, hL50, hlogρ]
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hAs : 0 < A + s := by omega
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_b9 hh hh9 hfl hb
+  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := Real.log_le_log hA0 hAX; linarith
+  have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hll := s12c_llX_ge_LH_b9 hh hh9 hfl hb
+  have hcore := flat_lambda_core_17 hlam50
+  have hendbud : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + (-Real.log ρ)
+      ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+    have h1 : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ 14 * Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := by linarith
+    linarith [hcore, hll, hllle, hrho, h1]
+  exact gRowsZeroGate'''_L_gk_of_budget K hM hAs hρ0 (by linarith) hp2 hendbud
+
 end Salt.MR
