@@ -440,6 +440,7 @@ import Salt.MR.EpsFamilyReceipt
 import Salt.MR.StrideGrade12bWalls
 import Salt.MR.StridePairReceiptG12b
 import Salt.MR.StrideGradeReceipt12b
+import Salt.MR.TierSSocket
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10395,3 +10396,21 @@ open Salt.Tactic in
   Salt.MR.zRough_oddOmega_logMass_class
   Salt.MR.zRough_oddOmega_infinite_class
   Salt.MR.zRough_oddOmega_logMass_class_mutant_false
+
+/-! ⟦TIER S S-0⟧ — THE SOCKET'S A-WINDOW IS INHABITED (TierSSocket, 2026-09-14, math — Tier S
+freeze v1.3 §2). Additive only: no landed statement moves. `ArithPageLinear.SocketBaseL` and
+`HDoorSupply.SocketBaseLH` each carry five `A`-conjuncts, and every landed consumer takes the
+socket as a HYPOTHESIS — so until now each was a claim about a set nobody had shown nonempty.
+`A := 2·R.x` meets all five at every regime and every admissible `(M, H, L, q, j, s)`: `0 < A`
+and `A ≤ 2x` from `R.hx`; `2 ^ j ≤ A` and `√H ≤ A` from the landed headroom chain
+`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:208-214`); the window conjunct
+`x ≤ 16·ω·arcDen 12 H·A` with a factor of 64 to spare, from `one_le_arcDen_of_regime` and
+`R.hω`. The `L = 0` branch is split out because `Nat.pow_log_le_self` carries the side
+condition `L ≠ 0` and the socket assumes no positivity of `L`; there `j ≤ Nat.log 2 0` forces
+`j = 0` instead. The `h = 0` mutant of the inflated socket is proved FALSE in module (its
+window conjunct reads `x ≤ 0`), so the inhabitation is a claim about `h ≥ 1` and not about
+every `h`. Nothing here bears on twin primes. 3 obligations, 3 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.socketBaseL_inhabited_at_twice_x
+  Salt.MR.socketBaseLH_inhabited_at_twice_x
+  Salt.MR.socketBaseLH_at_zero_false
