@@ -117,7 +117,122 @@ theorem ladder_placement (a : ℕ) (ha : 0 < a) (ha2310 : a ≤ 2310) (ε : ℚ)
     (hε : ε = 1 / (500 * ((a * 2 : ℕ) : ℚ))) (Hhi₀ : ℕ) (hH : 2 ^ 600 ≤ Hhi₀) :
     (ε : ℝ) * xTightCeil ε Hhi₀ + xTightCeilArm ε Hhi₀
       + (ε : ℝ) * Real.log (a : ℝ) + (ε : ℝ) * Real.log 3 ≤ 31 * ((Hhi₀ : ℕ) : ℝ) := by
-  sorry
+  -- §a  the stride and the pin `ε = 1/(1000·a)`
+  have haR : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
+  have haR0 : (a : ℝ) ≠ 0 := ne_of_gt haR
+  have ha1R : (1 : ℝ) ≤ (a : ℝ) := by exact_mod_cast ha
+  have ha2310R : (a : ℝ) ≤ 2310 := by exact_mod_cast ha2310
+  have hXQ : (0 : ℚ) < 500 * ((a * 2 : ℕ) : ℚ) := by
+    have h0 : 0 < a * 2 := by omega
+    have h1 : (0 : ℚ) < ((a * 2 : ℕ) : ℚ) := by exact_mod_cast h0
+    linarith
+  have heQ : (0 : ℚ) < ε := by rw [hε]; exact div_pos one_pos hXQ
+  have he : (ε : ℝ) = 1 / (1000 * (a : ℝ)) := by
+    rw [hε]; push_cast
+    rw [show (500 : ℝ) * ((a : ℝ) * 2) = 1000 * (a : ℝ) from by ring]
+  have hepos : (0 : ℝ) < (ε : ℝ) := by rw [he]; positivity
+  have he1000 : (ε : ℝ) ≤ 1 / 1000 := by
+    rw [he]; exact one_div_le_one_div_of_le (by norm_num) (by linarith)
+  have h30ub : 30 / (ε : ℝ) ≤ 69300000 := by
+    rw [div_le_iff₀ hepos, he, mul_one_div,
+      le_div_iff₀ (by linarith : (0 : ℝ) < 1000 * (a : ℝ))]
+    linarith
+  -- §b  the design floor as `2^64 ≤ Hhi₀`; `2^600` then leaves the context entirely
+  have h64N : (18446744073709551616 : ℕ) ≤ Hhi₀ := by
+    refine le_trans ?_ hH
+    set_option exponentiation.threshold 700 in norm_num
+  clear hH
+  have hH4 : 4000000 ≤ Hhi₀ := le_trans (by norm_num) h64N
+  have hH64 : (18446744073709551616 : ℝ) ≤ ((Hhi₀ : ℕ) : ℝ) := by exact_mod_cast h64N
+  have hHpos : (0 : ℝ) < ((Hhi₀ : ℕ) : ℝ) := by linarith
+  -- §c  `log H` sub-linearly: split at `2^64`, then `log t ≤ t − 1`
+  have hlogc : Real.log 18446744073709551616 = 64 * Real.log 2 := by
+    rw [show (18446744073709551616 : ℝ) = 2 ^ (64 : ℕ) from by norm_num, Real.log_pow]
+    norm_num
+  have hlog2ub : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlogH : Real.log ((Hhi₀ : ℕ) : ℝ) ≤ 45 + ((Hhi₀ : ℕ) : ℝ) / 18446744073709551616 := by
+    have hqpos : (0 : ℝ) < ((Hhi₀ : ℕ) : ℝ) / 18446744073709551616 :=
+      div_pos hHpos (by norm_num)
+    have h1 := Real.log_le_sub_one_of_pos hqpos
+    rw [Real.log_div hHpos.ne' (by norm_num), hlogc] at h1
+    linarith
+  have hlogHnn : (0 : ℝ) ≤ Real.log ((Hhi₀ : ℕ) : ℝ) := Real.log_nonneg (by linarith)
+  have hcH : (69300000 : ℝ) * (((Hhi₀ : ℕ) : ℝ) / 18446744073709551616)
+      ≤ ((Hhi₀ : ℕ) : ℝ) := by
+    rw [← mul_div_assoc, div_le_iff₀ (by norm_num : (0 : ℝ) < 18446744073709551616)]
+    linarith
+  have hLH : 30 / (ε : ℝ) * Real.log ((Hhi₀ : ℕ) : ℝ) ≤ 3118500000 + ((Hhi₀ : ℕ) : ℝ) := by
+    have hA : 30 / (ε : ℝ) * Real.log ((Hhi₀ : ℕ) : ℝ)
+        ≤ 69300000 * Real.log ((Hhi₀ : ℕ) : ℝ) :=
+      mul_le_mul_of_nonneg_right h30ub hlogHnn
+    have hB : (69300000 : ℝ) * Real.log ((Hhi₀ : ℕ) : ℝ)
+        ≤ 69300000 * (45 + ((Hhi₀ : ℕ) : ℝ) / 18446744073709551616) :=
+      mul_le_mul_of_nonneg_left hlogH (by norm_num)
+    linarith
+  -- §d  the floor term `2·log (4^n + 1)`, with `n ≤ ε²·H ≤ H/10⁶`
+  have hfloorQ : ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℚ) ≤ ε ^ 2 * (Hhi₀ : ℚ) :=
+    Nat.floor_le (by positivity)
+  have hnR : ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) ≤ (ε : ℝ) ^ 2 * ((Hhi₀ : ℕ) : ℝ) := by
+    exact_mod_cast hfloorQ
+  have he2 : (ε : ℝ) ^ 2 ≤ 1 / 1000000 := by nlinarith [hepos, he1000]
+  have hnH : ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) ≤ ((Hhi₀ : ℕ) : ℝ) / 1000000 := by
+    have h1 : (ε : ℝ) ^ 2 * ((Hhi₀ : ℕ) : ℝ) ≤ 1 / 1000000 * ((Hhi₀ : ℕ) : ℝ) :=
+      mul_le_mul_of_nonneg_right he2 hHpos.le
+    linarith
+  have hnnn : (0 : ℝ) ≤ ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) := Nat.cast_nonneg _
+  have hpow4 : ((4 ^ ⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ)
+      = (4 : ℝ) ^ (⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) := by norm_cast
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) from by norm_num, Real.log_pow]; norm_num
+  have hlogterm : Real.log (((4 ^ ⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) + 1)
+      ≤ Real.log 2 + ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) * Real.log 4 := by
+    rw [hpow4]
+    have h1 : (1 : ℝ) ≤ (4 : ℝ) ^ (⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) := one_le_pow₀ (by norm_num)
+    have hle : (4 : ℝ) ^ (⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) + 1
+        ≤ 2 * (4 : ℝ) ^ (⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) := by linarith
+    have h2 := Real.log_le_log (by positivity) hle
+    rwa [Real.log_mul (by norm_num) (by positivity), Real.log_pow] at h2
+  have hL4 : 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) + 1)
+      ≤ 2 + 3 * (((Hhi₀ : ℕ) : ℝ) / 1000000) := by
+    have hlog4ub : Real.log 4 ≤ 1.3862943616 := by rw [hlog4]; linarith
+    have hp1 : ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) * Real.log 4
+        ≤ ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) * 1.3862943616 :=
+      mul_le_mul_of_nonneg_left hlog4ub hnnn
+    have hp2 : ((⌊ε ^ 2 * (Hhi₀ : ℚ)⌋₊ : ℕ) : ℝ) * 1.3862943616
+        ≤ ((Hhi₀ : ℕ) : ℝ) / 1000000 * 1.3862943616 :=
+      mul_le_mul_of_nonneg_right hnH (by norm_num)
+    linarith
+  -- §e  the two constants: the stride's log (through hah9) and `log 3`
+  have hloga : Real.log (a : ℝ) ≤ 9 := by
+    have h1 := hah9_of_le_2310 a ha ha2310
+    have h2 : (a : ℝ) ≤ ((a * 2 : ℕ) : ℝ) := by push_cast; linarith
+    exact le_trans (Real.log_le_log haR h2) h1
+  have hlog3 : Real.log 3 ≤ 2 := by
+    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 3)
+    linarith
+  have hea : (ε : ℝ) * Real.log (a : ℝ) ≤ 9 / 1000 := by
+    have h1 : (ε : ℝ) * Real.log (a : ℝ) ≤ (ε : ℝ) * 9 :=
+      mul_le_mul_of_nonneg_left hloga hepos.le
+    linarith
+  have he3 : (ε : ℝ) * Real.log 3 ≤ 2 / 1000 := by
+    have h1 : (ε : ℝ) * Real.log 3 ≤ (ε : ℝ) * 2 :=
+      mul_le_mul_of_nonneg_left hlog3 hepos.le
+    linarith
+  -- §f  the two ceilings, bounded, then one linear close
+  have hC0 : (0 : ℝ) ≤ xTightCeil ε Hhi₀ := xTightCeil_nonneg ε heQ Hhi₀ hH4
+  have hCub : xTightCeil ε Hhi₀ ≤ 3118500020 + 2 * ((Hhi₀ : ℕ) : ℝ) := by
+    simp only [xTightCeil]
+    linarith
+  have heC : (ε : ℝ) * xTightCeil ε Hhi₀ ≤ xTightCeil ε Hhi₀ / 1000 := by
+    have h := mul_le_mul_of_nonneg_right he1000 hC0
+    linarith
+  have hH20 : ((Hhi₀ : ℕ) : ℝ) / 10 ^ 20 ≤ ((Hhi₀ : ℕ) : ℝ) :=
+    div_le_self hHpos.le (by norm_num)
+  have hArm : xTightCeilArm ε Hhi₀
+      = xTightCeil ε Hhi₀ + 18 + Real.log 2 + ((Hhi₀ : ℕ) : ℝ) / 10 ^ 20 := by
+    simp only [xTightCeilArm]
+  rw [hArm]
+  linarith
 
 /-! ## §4 — L: THE LADDER (FROZEN; `sorry`-bodied by order) -/
 
