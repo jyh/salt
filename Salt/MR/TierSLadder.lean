@@ -253,7 +253,138 @@ roof; N with the threshold from Pl (`Hhi₀ M ≥ 2^600` by `flatDesignBase_ge_p
 theorem ladder_affFullRange_g12b (P : ℕ) (hP : 0 < P) (hP2310 : P ≤ 2310) :
     ∃ (ε A : ℝ), ε = 1 / (500 * (P : ℝ)) ∧ A = 1 ∧ ∃ S : Set ℕ, S.Infinite ∧
       ∀ N ∈ S, ∀ r ∈ admClasses P, AffFullRangeAt P r 2 ε A ((N - r) / P) := by
-  sorry
+  have hah9 := hah9_of_le_2310 P hP hP2310
+  -- P2: the rounding in ℕ-subtraction
+  have p2 : ∀ (R : ℝ), 3 ≤ R → ∀ Mr : ℕ, ⌊R⌋₊ - 1 ≤ Mr → R / 3 ≤ (Mr : ℝ) := by
+    intro R hR Mr hMr
+    have h1 : R < (⌊R⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one R
+    have hK : 1 ≤ ⌊R⌋₊ := Nat.le_floor (by norm_num; linarith)
+    have hcast : ((⌊R⌋₊ - 1 : ℕ) : ℝ) = (⌊R⌋₊ : ℝ) - 1 := by
+      rw [Nat.cast_sub hK]; norm_num
+    have h2 : ((⌊R⌋₊ - 1 : ℕ) : ℝ) ≤ (Mr : ℝ) := by exact_mod_cast hMr
+    linarith
+  -- P3: the export cast
+  have p3 : 2 * (((1 / (500 * ((P * 2 : ℕ) : ℚ)) : ℚ)) : ℝ) = 1 / (500 * (P : ℝ)) := by
+    have hPR : (P : ℝ) ≠ 0 := by exact_mod_cast hP.ne'
+    push_cast
+    field_simp
+  -- P4: B's two ceilings + Pl + a scale above roof/3 ⇒ N's hypothesis
+  have p4 : ∀ (ε : ℚ), 0 < ε → ∀ (x₀ ω₀ Hhi₀ Mr : ℕ),
+      Real.log ((ω₀ : ℕ) : ℝ) ≤ xTightCeil ε Hhi₀ →
+      Real.log ((x₀ : ℕ) : ℝ) ≤ xTightCeilArm ε Hhi₀ →
+      (ε : ℝ) * xTightCeil ε Hhi₀ + xTightCeilArm ε Hhi₀
+        + (ε : ℝ) * Real.log (P : ℝ) + (ε : ℝ) * Real.log 3 ≤ 31 * ((Hhi₀ : ℕ) : ℝ) →
+      Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) / (P : ℝ) / 3 ≤ (Mr : ℝ) →
+      (ε : ℝ) * Real.log (ω₀ : ℝ) + Real.log (x₀ : ℝ) + 1 ≤ (ε : ℝ) * Real.log (Mr : ℝ) + 1 := by
+    intro ε hε0 x₀ ω₀ Hhi₀ Mr c1 c2 hPl hMr
+    have hεR : (0 : ℝ) < ε := by exact_mod_cast hε0
+    have hPR : (0 : ℝ) < P := by exact_mod_cast hP
+    have hEpos : 0 < Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) := Real.exp_pos _
+    have hpos : 0 < Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) / (P : ℝ) / 3 := by positivity
+    have hlog := Real.log_le_log hpos hMr
+    rw [Real.log_div (div_pos hEpos hPR).ne' (by norm_num), Real.log_div hEpos.ne' hPR.ne',
+      Real.log_exp] at hlog
+    have hmul : (ε : ℝ) * (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) = 31 * ((Hhi₀ : ℕ) : ℝ) := by
+      field_simp
+    have hM := mul_le_mul_of_nonneg_left hlog hεR.le
+    have hexp : (ε : ℝ) * (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) - Real.log (P : ℝ) - Real.log 3)
+        = 31 * ((Hhi₀ : ℕ) : ℝ) - (ε : ℝ) * Real.log (P : ℝ) - (ε : ℝ) * Real.log 3 := by
+      rw [mul_sub, mul_sub, hmul]
+    have hω := mul_le_mul_of_nonneg_left c1 hεR.le
+    linarith [hω, hM, c2, hPl, hexp]
+  -- P5: the per-scale core — one band per M, exporting M ≤ Hhi₀ AND 4000000 ≤ Hhi₀
+  have p5 : ∀ M : ℕ, ∃ Hhi₀ : ℕ, M ≤ Hhi₀ ∧ 4000000 ≤ Hhi₀ ∧ ∃ ε : ℚ, 0 < ε ∧
+      ε = 1 / (500 * ((P * 2 : ℕ) : ℚ)) ∧
+      ∀ r ∈ admClasses P, ∀ Mr : ℕ,
+        Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) / (P : ℝ) / 3 ≤ (Mr : ℝ) →
+        (Mr : ℝ) ≤ Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) / (P : ℝ) →
+        AffFullRangeAt P r 2 (1 / (500 * (P : ℝ))) 1 Mr := by
+    intro M
+    obtain ⟨ε, A, hε, _, heq, h162, hA0A, x₀, ω₀, Hhi₀, hx₀, hω₀, hH4, c1, c2, _c3, hfl, hall⟩ :=
+      band_not_logChowlaFailsAff_g12b P 2 hP two_pos hah9 hP2310 (M : ℝ)
+    have hMH : M ≤ Hhi₀ := by
+      have hM : M ≤ flatDesignBase (M : ℝ) := nat_le_flatDesignBase M (M : ℝ) (by
+        have hMnn : (0 : ℝ) ≤ (M : ℝ) := Nat.cast_nonneg M
+        have h1 : Real.log (Real.log (M : ℝ)) ≤ Real.log (M : ℝ) :=
+          Real.log_le_self (Real.log_natCast_nonneg M)
+        have h2 : Real.log (M : ℝ) ≤ (M : ℝ) := Real.log_le_self hMnn
+        linarith)
+      exact le_trans hM (le_trans (flatDesignBase_mono hA0A) hfl)
+    refine ⟨Hhi₀, hMH, hH4, ε, hε, heq, ?_⟩
+    intro r hr Mr hlo hhi
+    have hr' := hr
+    simp only [admClasses, Finset.mem_filter, Finset.mem_range] at hr'
+    have hgcd : Nat.gcd (r + 2) P ∣ 2 := gcd_dvd_two_of_coprime hr'.2
+    have hPR : (0 : ℝ) < P := by exact_mod_cast hP
+    have hMrpos : (0 : ℝ) < (Mr : ℝ) := lt_of_lt_of_le (by positivity) hlo
+    have hroof : Real.log ((P * Mr : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) := by
+      have hle : ((P * Mr : ℕ) : ℝ) ≤ Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ)) := by
+        have h := (le_div_iff₀ hPR).mp hhi
+        push_cast
+        linarith [mul_comm (P : ℝ) (Mr : ℝ)]
+      have hpos : (0 : ℝ) < ((P * Mr : ℕ) : ℝ) := by push_cast; positivity
+      calc Real.log ((P * Mr : ℕ) : ℝ)
+          ≤ Real.log (Real.exp (31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ))) := Real.log_le_log hpos hle
+        _ = 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) := Real.log_exp _
+    have hK2 := affFullRangeAt_band_of_not_fails P r 2 hP ε hε x₀ ω₀ Hhi₀ hx₀ hω₀
+      (hall r hr'.1 hgcd) Mr hroof
+    have hPl := ladder_placement P hP hP2310 ε heq Hhi₀
+      (le_trans (flatDesignBase_ge_pow600 h162) hfl)
+    have hthr := p4 ε hε x₀ ω₀ Hhi₀ Mr c1 c2 hPl hlo
+    have hN := affFullRangeAt_normalise P r 2 (ε : ℝ) _ Mr hthr hK2
+    have hcast : 2 * (ε : ℝ) = 1 / (500 * (P : ℝ)) := by rw [heq]; exact p3
+    rwa [hcast] at hN
+  -- the wrapper: one band per `A₀ := M`, the roof `R M`, the scale `N M := P·⌊R M⌋₊`
+  choose Hhi₀ hMH hH4 ε _hε heq hall using p5
+  have hPR : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+  have heR : ∀ M : ℕ, (ε M : ℝ) = 1 / (1000 * (P : ℝ)) := by
+    intro M
+    rw [heq M]; push_cast
+    rw [show (500 : ℝ) * ((P : ℝ) * 2) = 1000 * (P : ℝ) from by ring]
+  have h31 : ∀ M : ℕ, 31 / (ε M : ℝ) = 31000 * (P : ℝ) := by
+    intro M
+    rw [heR M, div_div_eq_mul_div, div_one]; ring
+  obtain ⟨R, hRdef⟩ : ∃ R : ℕ → ℝ,
+      ∀ M : ℕ, R M = Real.exp (31 / (ε M : ℝ) * ((Hhi₀ M : ℕ) : ℝ)) / (P : ℝ) :=
+    ⟨fun M => Real.exp (31 / (ε M : ℝ) * ((Hhi₀ M : ℕ) : ℝ)) / (P : ℝ), fun _ => rfl⟩
+  have hRge : ∀ M : ℕ, 31000 * ((Hhi₀ M : ℕ) : ℝ) ≤ R M := by
+    intro M
+    rw [hRdef M, le_div_iff₀ hPR, h31 M]
+    linarith [Real.add_one_le_exp (31000 * (P : ℝ) * ((Hhi₀ M : ℕ) : ℝ)),
+      Nat.cast_nonneg (α := ℝ) (Hhi₀ M)]
+  have hR3 : ∀ M : ℕ, (3 : ℝ) ≤ R M := by
+    intro M
+    have h4 : (4000000 : ℝ) ≤ ((Hhi₀ M : ℕ) : ℝ) := by exact_mod_cast hH4 M
+    linarith [hRge M]
+  have hR0 : ∀ M : ℕ, (0 : ℝ) ≤ R M := fun M => le_trans (by norm_num) (hR3 M)
+  have hNge : ∀ M : ℕ, M ≤ P * ⌊R M⌋₊ := by
+    intro M
+    have h2 : (M : ℝ) ≤ ((Hhi₀ M : ℕ) : ℝ) := by exact_mod_cast hMH M
+    have hMR : (M : ℝ) ≤ R M := by
+      linarith [hRge M, Nat.cast_nonneg (α := ℝ) (Hhi₀ M)]
+    exact le_trans (Nat.le_floor hMR) (Nat.le_mul_of_pos_left _ hP)
+  refine ⟨1 / (500 * (P : ℝ)), 1, rfl, rfl, Set.range (fun M : ℕ => P * ⌊R M⌋₊), ?_, ?_⟩
+  · -- `S.Infinite`: the roof is unbounded along `A₀`, since `N M ≥ M`
+    refine Set.infinite_of_not_bddAbove ?_
+    rintro ⟨b, hb⟩
+    have h1 : P * ⌊R (b + 1)⌋₊ ≤ b := hb ⟨b + 1, rfl⟩
+    have h2 := hNge (b + 1)
+    exact absurd (le_trans h2 h1) (by omega)
+  · -- Sc places the scale in `[K − 1, K]`; P2 rounds; `K ≤ R M` closes the roof side
+    rintro _ ⟨M, rfl⟩ r hr
+    have hr' := hr
+    simp only [admClasses, Finset.mem_filter, Finset.mem_range] at hr'
+    obtain ⟨hlo', hhi'⟩ := class_scale_in_band P ⌊R M⌋₊ r hP hr'.1
+    have hlo : Real.exp (31 / (ε M : ℝ) * ((Hhi₀ M : ℕ) : ℝ)) / (P : ℝ) / 3
+        ≤ (((P * ⌊R M⌋₊ - r) / P : ℕ) : ℝ) := by
+      rw [← hRdef M]; exact p2 (R M) (hR3 M) _ hlo'
+    have hhi : (((P * ⌊R M⌋₊ - r) / P : ℕ) : ℝ)
+        ≤ Real.exp (31 / (ε M : ℝ) * ((Hhi₀ M : ℕ) : ℝ)) / (P : ℝ) := by
+      rw [← hRdef M]
+      have h1 : (((P * ⌊R M⌋₊ - r) / P : ℕ) : ℝ) ≤ ((⌊R M⌋₊ : ℕ) : ℝ) := by
+        exact_mod_cast hhi'
+      exact le_trans h1 (Nat.floor_le (hR0 M))
+    exact hall M r hr ((P * ⌊R M⌋₊ - r) / P) hlo hhi
 
 /-! ## §5 — K: the consumer control (PROVED from L; reads `sorry` through L only) -/
 
