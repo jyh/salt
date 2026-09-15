@@ -6988,8 +6988,14 @@ numbering is UNVERIFIED.
      and the downstream consumer `GradedAffHeadAt_g12b` (`StridePrize.lean:295-305`) is stated PER-`b`.
      ⇒ 🔑 ***THE DESIGN CONFLATED TWO UNIFORMITIES: the full-range consumer needs `ε` AND `A` bound outside
      the class quantifier — NOT one regime — and `ε` is already `b`-free by its pin.***
-   * ✅ **S-4 — OFF THE CRITICAL PATH** (Fable-tier, but not blocking): without it the road is `∃ᶠ N`, which
+   * ✅ **S-4 (THE PLATEAU) — OFF THE CRITICAL PATH** (Fable-tier, but not blocking): without it the road is `∃ᶠ N`, which
      D9 makes sufficient. It upgrades `∃ᶠ` to `∀`, it does not gate the terminal.
+     ⛔ **NAME COLLISION — TWO DIFFERENT RUNGS ARE CALLED "S-4", AND THEY CARRY OPPOSITE PATH CLAIMS.** This one is the
+     PLATEAU argument (also named at the `What S owes its own freeze` line above), and it is OFF the critical path.
+     **h2c's S-4 is the ENTROPY-ARROW BRIDGE** — the rung after S-3, frozen 2026-09-14 (`cac43839` → v1.1 `8f0b1443`),
+     desk `NE` — and it is squarely **ON** the critical path: it is what S-3's band feeds. ⇒ 🔑 ***A READER WHO MEETS
+     THE WRONG "S-4" FIRST GETS THE REASSURING ANSWER***, so cite the bridge and the plateau by those words, never by
+     the bare number. (Helm, desk `NI`; the rename is still owed and is a design act — this pointer is the safe half.)
    * ➡️ **S-3 — CHARTERED, STATEMENT SURVIVED, §6 WAVE FIRING. THE ITEM IS AT P1, NOT COPIED HERE.**
      One line, by this file's own precedent (the block register was POINTED rather than copied, because a
      duplicated entry drifts and a second copy is a competing claim). S-3 sits in **P1** because its wave is
