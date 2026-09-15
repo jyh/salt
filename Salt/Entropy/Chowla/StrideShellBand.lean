@@ -287,7 +287,69 @@ theorem affGrade_composes_g12b (a h : ℕ) (ha : 0 < a) (hh : 0 < h)
         * (Real.log (Ra.ω : ℝ) - 1))) :
     0 < (a : ℝ) * Zr * ρ + E ∧
       (a : ℝ) * Zr * ρ + E ≤ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) := by
-  sorry
+  -- ⟦the elementary casts⟧
+  have haR : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
+  have ha1R : (1 : ℝ) ≤ (a : ℝ) := by exact_mod_cast ha
+  have hk1n : 1 ≤ a * h := Nat.mul_pos ha hh
+  have hk1 : (1 : ℝ) ≤ ((a * h : ℕ) : ℝ) := by exact_mod_cast hk1n
+  have hKpos : (0 : ℝ) < ((a * h : ℕ) : ℝ) ^ 2 := by nlinarith
+  -- ⟦the `≤ 8103` read (E arm) and the granted `a ≤ 2310` (door arm)⟧
+  have hah8103 : a * h ≤ 8103 := h_le_8103_of_log_le_nine (Nat.mul_pos ha hh) hah9
+  have haR2310 : (a : ℝ) ≤ 2310 := by exact_mod_cast ha2310
+  have hkR8103 : ((a * h : ℕ) : ℝ) ≤ 8103 := by exact_mod_cast hah8103
+  -- ⟦THE DOOR ARM⟧ `a·Zr·ρ ≤ 0.58·floor`
+  have hZrpos : (0 : ℝ) < Zr := lt_of_lt_of_le zero_lt_one hZr1
+  have hstep1 : (a : ℝ) * Zr * ρ
+      ≤ 2310 * 1.02 * (1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2)) := by
+    have h1 : (a : ℝ) * Zr ≤ 2310 * 1.02 :=
+      mul_le_mul haR2310 hZr2 (le_trans zero_le_one hZr1) (by norm_num)
+    exact mul_le_mul h1 hρle hρ.le (by norm_num)
+  have hstep2 : (2310 : ℝ) * 1.02 * (1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2))
+      ≤ 0.58 * (1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2)) := by
+    rw [mul_one_div, mul_one_div,
+      div_le_div_iff₀ (by positivity) (by positivity)]
+    nlinarith [hKpos.le]
+  have hdoorarm : (a : ℝ) * Zr * ρ ≤ 0.58 * (1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2)) := by
+    linarith
+  -- ⟦THE `E` ARM⟧ the design floor under `x/ω`, and `log ω − 1 ≥ 1`
+  have hXn : (2 : ℕ) ^ 600 ≤ Ra.x / Ra.ω :=
+    le_trans (le_trans (flatDesignBase_ge_pow600 hA162) hHlo)
+      (le_trans Ra.hHlohi Ra.hheadroom)
+  have hcast600 : (((2 : ℕ) ^ 600 : ℕ) : ℝ) = (2 : ℝ) ^ 600 := by norm_num
+  have hX : (2 : ℝ) ^ 600 ≤ ((Ra.x / Ra.ω : ℕ) : ℝ) := by
+    rw [← hcast600]
+    exact (Nat.cast_le (α := ℝ)).mpr hXn
+  have hlog129 : (129 : ℝ) ≤ Real.log (Ra.ω : ℝ) := regime_logOmega_ge Ra.toChowlaRegime
+  have hL1 : (1 : ℝ) ≤ Real.log (Ra.ω : ℝ) - 1 := by linarith
+  have hnum1 : (0 : ℝ) < (a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1 := by positivity
+  have hDge : (a : ℝ) * (2 : ℝ) ^ 600
+      ≤ ((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1) * (Real.log (Ra.ω : ℝ) - 1) := by
+    have h1 : (a : ℝ) * (2 : ℝ) ^ 600 ≤ (a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) :=
+      mul_le_mul_of_nonneg_left hX haR.le
+    have h2 : ((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1) * 1
+        ≤ ((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1) * (Real.log (Ra.ω : ℝ) - 1) :=
+      mul_le_mul_of_nonneg_left hL1 hnum1.le
+    linarith
+  have hDpos : (0 : ℝ)
+      < ((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1) * (Real.log (Ra.ω : ℝ) - 1) := by
+    have hp : (0 : ℝ) < (a : ℝ) * (2 : ℝ) ^ 600 := by positivity
+    linarith
+  have hEt : E ≤ 0.42 * (1 / (838400 * (8103 : ℝ) ^ 2)) := by
+    refine le_trans hEle ?_
+    rw [mul_one_div, div_le_div_iff₀ hDpos (by norm_num)]
+    nlinarith [hDge, haR.le]
+  have hEarm : E ≤ 0.42 * (1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2)) := by
+    have h1 : (1 : ℝ) / (838400 * (8103 : ℝ) ^ 2)
+        ≤ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) := by
+      refine one_div_le_one_div_of_le (by positivity) ?_
+      nlinarith [hk1, hkR8103]
+    linarith
+  -- ⟦THE COMPOSITION⟧ the two arms at the floor itself (the landed `δ₀` with `hδ₀ge = le_rfl`)
+  have hle : (a : ℝ) * Zr * ρ + E ≤ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) := by linarith
+  have hgpos : (0 : ℝ) < (a : ℝ) * Zr * ρ + E := by
+    have hp : (0 : ℝ) < (a : ℝ) * Zr * ρ := mul_pos (mul_pos haR hZrpos) hρ
+    linarith
+  exact ⟨hgpos, hle⟩
 
 /-! ## §3 — the conservativity control K1 (PROVED; reads no `sorry`) -/
 
