@@ -9,8 +9,9 @@ import Mathlib
 /-!
 # ⟦TIER S — S-3⟧ THE CROWN BAND WITH THE CLASS QUANTIFIER MOVED INWARD (`TierSBandU`)
 
-**STATEMENT-ONLY FREEZE (S-3, salt QUEUE P3 item 11; council 2026-09-14 afternoon ⑩).  HONEST
-LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM.**  S-3 restates S-1's crown band
+**S-3 (salt QUEUE P1; council 2026-09-14 afternoon ⑩) — FROZEN STATEMENT-ONLY at `74afa591`, PROVED
+in the §6 wave the same day: 6 obligations, 6 landed, every statement byte-identical to the freeze.
+HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM.**  S-3 restates S-1's crown band
 `mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1619`) with the margin `ε`,
 the design constant `A` AND the band `(x₀, ω₀, Hhi₀)` bound ABOVE the class quantifier `∀ b < a`.
 It exports a uniformity that is already TRUE of every landed witness and STATED by no landed
@@ -18,10 +19,11 @@ theorem.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands
 conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched.
 Nothing here bears on twin primes.
 
-Every `sorry` below is a FROZEN STATEMENT awaiting the non-author refuter's verdict (council ⑩:
-no proof attempt until the statement survives).  The one PROVED declaration is the conservativity
-control K, which reads no `sorry`: the class-uniform crown band implies S-1's crown band at every
-class, so the re-statement is conservative over what is landed.
+The statement survived the non-author refuter's pass (math, 2026-09-14: SURVIVES, no kill) before
+any proof was attempted (council ⑩), and every body below is now a proof at
+`[propext, Classical.choice, Quot.sound]`.  The conservativity control K, proved at the freeze:
+the class-uniform crown band implies S-1's crown band at every class, so the re-statement is
+conservative over what is landed.
 
 WHY THE BAND AND NOT ONLY `A` (the charter's letter names `A`): the full-range consumer D10
 (`TwinParityAtomClasses.lean:635`) demands `∀ N ∈ S, ∀ r ∈ admClasses P, AffFullRangeAt P r 2 ε A
@@ -31,7 +33,7 @@ WHY THE BAND AND NOT ONLY `A` (the charter's letter names `A`): the full-range c
 witness that makes `A` `b`-free (the design-constant census, desk MF) is the SAME regime that makes
 the band `b`-free, so the statement hoists all five and the consumer's load-bearing one is the band.
 
-THE ROUTE (priced, NOT fired): the landed crown band runs the whole `_g12b` chain at the
+THE ROUTE (as landed): the landed crown band runs the whole `_g12b` chain at the
 `b`-dependent family `bigXiAffD a b h`; the hoist runs it ONCE at the class-UNION family
 `bigXiAffU a h` (U0), whose count gate (U2) and arc-tightness (U3) are the per-class ones summed,
 and reads each class's door off the union's by subset monotonicity (U1, U4).  No landed file moves.
