@@ -12,14 +12,19 @@ import Mathlib
 /-!
 # ⟦TIER S — S-4⟧ THE BRIDGE: S-3's BAND THROUGH THE ARROW (`TierSBridge`)
 
-**S-4 (desk NE) — FROZEN STATEMENT-ONLY.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL
-THEOREM.**  The one place both sides of Tier S are in scope: S-3's class-uniform crown band
+**S-4 (desk NE) — v1.1 AFTER math's NON-AUTHOR PASS: H AND C FROZEN STATEMENT-ONLY, B PROVED
+FROM THEM.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM** (B and K2′ carry
+`sorryAx` through H and C until the wave lands them).  The one place both sides of Tier S are in
+scope: S-3's class-uniform crown band
 (`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU`, `TierSBandU.lean`, PROVED on `main`) is
 fed through S-4's arrow at every regime (`log_chowla_aff_of_door_at_regime_g12b`,
 `StrideShellBand.lean`, FROZEN) with the grade composed at each band regime
 (`affGrade_composes_g12b`, FROZEN), and the result is the sentence D12's `hwin` needs: for every
 class `b < a` with `gcd (b + h) a ∣ h` and every `y` in ONE band `[x₀, exp(31·Hhi₀/ε)/a]`,
-log-Chowla does not fail at `(a, b, h, ε, y, ω₀)`.  The control K2 (PROVED) then reads that
+log-Chowla does not fail at `(a, b, h, ε, y, ω₀)` — and the band is LINKED to the threshold by
+`flatDesignBase A ≤ Hhi₀` (v1.1's one conjunct; without it math's re-pack showed the `A₀` export
+INERT: B at `A₀ := 0` re-packs to B at every `A₀`, while the same re-pack is refused on S-3 at
+`flatDesignBase A ≤ Ra.Hlo`).  The control K2 (PROVED) then reads that
 sentence into D12 (`abs_sum_Icc_le_of_windows`, `TwinParityAtomClasses.lean:678`) and out as
 `AffFullRangeAt` at every
 `N` in the band — the demand object D5 — so the bridge's shape is D12's demand as a kernel fact and
@@ -29,7 +34,10 @@ not as prose.  The binder `a ≤ 2310` is the composition's (the Captain's grant
 What this does NOT buy: D10 wants ONE `(ε, A)` over an INFINITE set of scales; one band is a finite
 interval and its D12 constant `ε·log ω₀ + log x₀ + 1` is the band's.  The `(2ε, 1)`-normalisation
 inside a band (S-3 freeze §5) and the ladder of bands over `A₀ → ∞` are the next link, named in the
-freeze and not stated here.
+freeze and not stated here.  What v1.1 DOES buy for that link, in the kernel (K2′): along
+`A₀ → ∞` the band's `Hhi₀`, hence its roof `exp(31·Hhi₀/ε)/a`, is unbounded — every `M` is beaten.
+The normalisation reads only exported terms (`ε`, the ceilings `xTightCeil`/`xTightCeilArm` at
+`Hhi₀`, the roof); the class-scale placement `(N − r)/P` is the next link's own arithmetic.
 -/
 
 noncomputable section
@@ -63,17 +71,25 @@ theorem gradedAffHeadAt_g12b_of_at_regime_crowned (a b h : ℕ) (ha : 0 < a) (hh
 
 /-! ## §1 — THE BRIDGE: every class, every scale in one band, no failure -/
 
-/-- **⟦S-4 B⟧ (class A, THE BRIDGE) — S-3's BAND THROUGH THE ARROW.**  S-3's statement
-(`TierSBandU.lean` §2) with the per-regime door package replaced by its consequence under S-4 and
-the composition: `∃ ε A`, the band `∃ x₀ ω₀ Hhi₀` with its three ceilings, then `∀ b < a` (now
-carrying the entropy side's `hgcd`) and `∀ y` in the band, `¬ logChowlaFailsAff a b h ε y ω₀`.  The
-`A₀ ≤ A` export is kept so the ladder over `A₀ → ∞` (S-3 freeze §5.4) can be climbed.
+/-- **⟦S-4 B⟧ (class A, THE BRIDGE — PROVED FROM H AND C; `sorryAx` through them until the wave)
+— S-3's BAND THROUGH THE ARROW.**  S-3's statement (`TierSBandU.lean` §2) with the per-regime door
+package replaced by its consequence under S-4 and the composition: `∃ ε A`, the band `∃ x₀ ω₀ Hhi₀`
+with its three ceilings, then `∀ b < a` (now carrying the entropy side's `hgcd`) and `∀ y` in the
+band, `¬ logChowlaFailsAff a b h ε y ω₀`.
 
-Route (not fired): `obtain ⟨A₁, _, harrow⟩ := log_chowla_aff_of_door_at_regime_g12b a h ha hh hah9`;
-S-3 at `max A₀ A₁`; the band witnesses and ceilings forwarded; `intro b hba hgcd y hy hlogy`; S-3's
-regime `Ra` with `Ra.eps = ε`, `Ra.x = y`, `Ra.ω = ω₀`, `flatDesignBase A ≤ Ra.Hlo` and the door at
-`a·Zr·ρ + E`; `affGrade_composes_g12b` gives `0 < a·Zr·ρ + E ≤ floor`; `harrow b hba hgcd Ra …` at
-`flatDesignBase_mono (A₁ ≤ A)`; `rwa [hReps, hRx, hRω] at hnf`. -/
+**v1.1 — the band conjunct `flatDesignBase A ≤ Hhi₀` (math's finding, non-author, kernel-decided).**
+In v1 the witness `A` occurred only in `162 ≤ A ∧ A₀ ≤ A`, so the `A₀` export was INERT: B at
+`A₀ := 0` re-packed (`A := max 162 A₀`) to B at every `A₀`, while the identical re-pack on S-3 is
+refused at `flatDesignBase A ≤ Ra.Hlo`.  S-3 supplies the conjunct at no cost (its regime at class
+`0`, `y := x₀`: `Hhi₀ = Ra.Hhi ≥ Ra.Hlo ≥ flatDesignBase A`), and with it the ladder over `A₀ → ∞`
+has an unbounded roof (K2′).  A conjunct that HOLDS is not an EXPORT until something else in the
+conclusion mentions its variable.
+
+Route (math's P6, transcribed): H at `(a, h)` gives `A₁` and the arrow; S-3 at `max A₀ A₁`; the
+band witnesses and ceilings forwarded; the conjunct from S-3's regime at `(0, x₀)`; then
+`intro b hba hgcd y hy hlogy`, S-3's regime `Ra` at `(b, y)` with `Ra.eps = ε`, `Ra.x = y`,
+`Ra.ω = ω₀`, `flatDesignBase A ≤ Ra.Hlo` and the door at `a·Zr·ρ + E`; C gives
+`0 < a·Zr·ρ + E ≤ floor`; the arrow at `flatDesignBase_mono (A₁ ≤ A)`; `rwa [hReps, hRx, hRω]`. -/
 theorem band_not_logChowlaFailsAff_g12b (a h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9) (ha2310 : a ≤ 2310) (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
@@ -82,10 +98,27 @@ theorem band_not_logChowlaFailsAff_g12b (a h : ℕ) (ha : 0 < a) (hh : 0 < h)
         Real.log ((ω₀ : ℕ) : ℝ) ≤ xTightCeil ε Hhi₀ ∧
         Real.log ((x₀ : ℕ) : ℝ) ≤ xTightCeilArm ε Hhi₀ ∧
         Real.log ((a * x₀ : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) ∧
+        flatDesignBase A ≤ Hhi₀ ∧
         ∀ b : ℕ, b < a → Nat.gcd (b + h) a ∣ h →
         ∀ y : ℕ, x₀ ≤ y → Real.log ((a * y : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) →
           ¬ logChowlaFailsAff a b h ε y ω₀ := by
-  sorry
+  obtain ⟨A₁, _hA₁162, harrow⟩ := log_chowla_aff_of_door_at_regime_g12b a h ha hh hah9
+  obtain ⟨ε, A, hε, hge, heq, hA162, hA0A, x₀, ω₀, Hhi₀, hx₀, hω₀, hH4, c1, c2, c3, hall⟩ :=
+    mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU a h ha hh hah9 (max A₀ A₁)
+  have hA₀A : A₀ ≤ A := le_trans (le_max_left _ _) hA0A
+  have hA₁A : A₁ ≤ A := le_trans (le_max_right _ _) hA0A
+  refine ⟨ε, A, hε, hge, heq, hA162, hA₀A, x₀, ω₀, Hhi₀, hx₀, hω₀, hH4, c1, c2, c3, ?_, ?_⟩
+  · -- the conjunct: S-3's regime at class `0`, `y := x₀`, always in range
+    obtain ⟨Ra, _, _, _, _, _, hRH, hHlo, _⟩ := hall 0 ha x₀ le_rfl c3
+    rw [← hRH]; exact le_trans hHlo Ra.hHlohi
+  · intro b hba hgcd y hy hlogy
+    obtain ⟨Ra, hRa, hRb, hReps, hRx, hRω, _hRH, hHlo, _hdes, ρ, Zr, E, hρ, hρle, hZr1, hZr2, hE0,
+      hEle, hdoor⟩ := hall b hba y hy hlogy
+    obtain ⟨hgpos, hgle⟩ :=
+      affGrade_composes_g12b a h ha hh hah9 ha2310 Ra hA162 hHlo hρ hρle hZr1 hZr2 hE0 hEle
+    have hnf := harrow b hba hgcd Ra hRa hRb (hReps.trans heq)
+      (le_trans (flatDesignBase_mono hA₁A) hHlo) _ hgpos hgle hdoor
+    rwa [hReps, hRx, hRω] at hnf
 
 /-! ## §2 — the demand-fit control K2 (PROVED; reads no `sorry`) -/
 
@@ -127,6 +160,31 @@ theorem affFullRangeAt_band_of_not_fails (a b h : ℕ) (ha : 0 < a) (ε : ℚ) (
     (f := fun n => (ArithmeticFunction.liouville (a * n + b) : ℝ)
       * (ArithmeticFunction.liouville (a * n + b + h) : ℝ))
     hf (by omega) (by omega) hε' N hwin'
+
+/-! ## §3 — the non-inertness receipt K2′ (PROVED from B; math's P7 transcribed) -/
+
+/-- **⟦S-4 K2′⟧ (class A, PROVED from B) — THE EXPORT IS NOT INERT.**  Along `A₀ → ∞` the band's
+`Hhi₀`, hence its roof `exp(31·Hhi₀/ε)/a`, is unbounded: every bound `M` is beaten at `A₀ := M`, by
+`M ≤ flatDesignBase M ≤ flatDesignBase A ≤ Hhi₀` (`nat_le_flatDesignBase` at `loglog M ≤ 3.2·M`,
+`flatDesignBase_mono`, the v1.1 conjunct).  The frozen v1 could not deliver this: each call may
+return the same band.  Reads B, so it carries `sorryAx` through H and C until the wave lands them;
+the derivation itself is the kernel's. -/
+theorem band_Hhi_unbounded_g12b (a h : ℕ) (ha : 0 < a) (hh : 0 < h)
+    (hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9) (ha2310 : a ≤ 2310) (M : ℕ) :
+    ∃ A₀ : ℝ, ∃ (ε : ℚ) (A : ℝ), A₀ ≤ A ∧ ∃ (x₀ ω₀ Hhi₀ : ℕ), M ≤ Hhi₀ ∧
+      ∀ b : ℕ, b < a → Nat.gcd (b + h) a ∣ h →
+      ∀ y : ℕ, x₀ ≤ y → Real.log ((a * y : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi₀ : ℕ) : ℝ) →
+        ¬ logChowlaFailsAff a b h ε y ω₀ := by
+  obtain ⟨ε, A, _, _, _, _, hA0A, x₀, ω₀, Hhi₀, _, _, _, _, _, _, hfloor, hall⟩ :=
+    band_not_logChowlaFailsAff_g12b a h ha hh hah9 ha2310 (M : ℝ)
+  refine ⟨(M : ℝ), ε, A, hA0A, x₀, ω₀, Hhi₀, ?_, hall⟩
+  have hM : M ≤ flatDesignBase (M : ℝ) := nat_le_flatDesignBase M (M : ℝ) (by
+    have hMnn : (0 : ℝ) ≤ (M : ℝ) := Nat.cast_nonneg M
+    have h1 : Real.log (Real.log (M : ℝ)) ≤ Real.log (M : ℝ) :=
+      Real.log_le_self (Real.log_natCast_nonneg M)
+    have h2 : Real.log (M : ℝ) ≤ (M : ℝ) := Real.log_le_self hMnn
+    linarith)
+  exact le_trans hM (le_trans (flatDesignBase_mono hA0A) hfloor)
 
 end Salt.MR
 
