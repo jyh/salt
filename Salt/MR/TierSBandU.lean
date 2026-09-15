@@ -157,7 +157,8 @@ theorem bigXiAffU_bounded_ceiling_of_pin_b9 (a h : ℕ) (ha : 0 < a) (hh : 0 < h
 
 /-- **⟦S-3 U3⟧ (class A/B) — THE UNION IS ARC-TIGHT.**  `nearRatTight_of_bigXiAffD`
 (`StridePairReceipt.lean:605`) at every class, with ONE threshold: its `H₀` is
-`nearRatTight_of_bigXiArcTight harc heps`'s (`:520-522`), read at the PLAIN set and `b`-FREE, so
+`nearRatTight_of_bigXiArcTight harc heps`'s (obtained at `:524` inside
+`nearRatTight_of_bigXiAffArcTight`, `:520`), read at the PLAIN set and `b`-FREE, so
 either take `Finset.sup` over `range a` of the per-class thresholds (`Classical.choose` +
 `Finset.le_sup`, ~15 lines) or transcribe `nearRatTight_of_bigXiAffArcTight` with `intro b` moved
 inside `∃ H₀` (~60 lines, one line moved).  A member of the union is a member of SOME class's set
@@ -166,7 +167,19 @@ theorem nearRatTight_of_bigXiAffU {B₅ : ℝ} (harc : BigXiArcTight B₅)
     {eps : ℚ} (heps : 0 < eps) {a h : ℕ} (ha : 0 < a) (hh : 0 < h) :
     ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H → ∀ ξ ∈ bigXiAffU a h eps H,
       NearRatTight (((a * h : ℕ) : ℝ) * arcDen B₅ H) H (-(ξ.val : ℝ) / (H : ℝ)) := by
-  sorry
+  classical
+  refine ⟨(Finset.range a).sup (fun b =>
+    Classical.choose (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh)), ?_⟩
+  intro H _ hH ξ hξ
+  simp only [bigXiAffU, Finset.mem_biUnion] at hξ
+  obtain ⟨b, hb, hξb⟩ := hξ
+  have hle : Classical.choose
+      (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh) ≤ H :=
+    le_trans (Finset.le_sup (f := fun b =>
+      Classical.choose (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh))
+      hb) hH
+  exact Classical.choose_spec
+    (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh) H hle ξ hξb
 
 /-- **⟦S-3 U4⟧ (class A) — THE SET DOOR IS MONOTONE UNDER A POINTWISE-SUBSET FAMILY.**  Each
 summand of `MRTUniformityXiL2Set` (`StridePair.lean:337`) is `(1/H²)·∫‖…‖²`, non-negative
