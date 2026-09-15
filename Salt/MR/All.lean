@@ -444,6 +444,7 @@ import Salt.MR.TierSSocket
 import Salt.MR.TierSBand
 import Salt.MR.TierSBandU
 import Salt.MR.TierSBridge
+import Salt.MR.TierSLadder
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10517,3 +10518,38 @@ open Salt.Tactic in
   Salt.MR.band_not_logChowlaFailsAff_g12b
   Salt.MR.affFullRangeAt_band_of_not_fails
   Salt.MR.band_Hhi_unbounded_g12b
+/-! ⟦TIER S — THE LADDER⟧ — S-3's BAND, THROUGH THE ENTROPY-ARROW BRIDGE, TO D10's INFINITE SCALE
+SET (`TierSLadder`, 2026-09-14, h2c — THE LADDER freeze v1.1, fired on the helm's word after math's
+non-author pass NO KILL).  Additive only: no landed statement moves.  The bridge gives, per `A₀`,
+ONE band on which no admissible class fails, and K2 reads it out as `AffFullRangeAt` with a
+band-DEPENDENT constant on a FINITE interval; D10 (`twinLogWeight_support_infinite_of_affFullRange`)
+wants ONE `(ε, A)` over an INFINITE set of scales.  `affFullRangeAt_normalise` (N) absorbs the band
+constant into a doubled slope once `ε·log ω₀ + log x₀ ≤ ε·log M`; `ladder_placement` (Pl) is the
+placement of that threshold below the roof with room for the class rounding, where the design floor
+`2^600 ≤ Hhi₀` is spent (FALSE at the structure floor `4·10⁶` for `P = 2310`, crossing near
+`3.9·10⁷`); `class_scale_in_band` (Sc) places every residue at `(P·K − r)/P ∈ {K − 1, K}`;
+`ladder_affFullRange_g12b` (L) is the ladder itself — one band per `A₀ := M`, the scale
+`N(M) := P·⌊roof(M)⌋₊`, `S := range N`, infinite because the roof is unbounded along `A₀` — D10's
+hypothesis package at every `P ≤ 2310` with `ε = 1/(500·P)`, `A = 1`;
+`twinLogWeight_support_infinite_of_ladder` (K) feeds it to D10 in one `refine`; `hah9_of_le_2310`
+is the numeric leaf.  The SCALE quantifier moves here — the bridge moved the REGIME quantifier,
+S-3 the CLASS quantifier — completing the three.
+
+⚠ LABEL: NO NEW UNCONDITIONAL THEOREM; nothing here bears on twin primes.  K's set
+`{n | twinLogWeight P n ≠ 0}.Infinite` at a squarefree `P ≤ 2310` is the sieve-level set the crown
+road already lands — and `twinLogWeight_support_infinite_of_crown_g12b` (P6, THE CROWN TWIN)
+states that same set from the crown road's landed names at every `0 < P ≤ 2310`, so that K is a
+SECOND statement of the terminal on `main` and not the first (math's M11(a): the landed
+unconditional statements were at `P = primorial z` only).  What this buys: D10 fires in the kernel
+for the first time, and the two roads meet at ONE theorem.  hah9 and P6 carry math's OWN
+construction (the refuter's probes on freeze v1, transcribed by the author); they go on `main`
+without a non-author pass of their own — the S-4 B/K2′ situation, labelled again.  `P ≤ 2310` is
+the bridge's cap (the composition's `a ≤ 2310`), inherited and not added.  7 names, 7 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.affFullRangeAt_normalise
+  Salt.MR.class_scale_in_band
+  Salt.MR.hah9_of_le_2310
+  Salt.MR.ladder_placement
+  Salt.MR.ladder_affFullRange_g12b
+  Salt.MR.twinLogWeight_support_infinite_of_ladder
+  Salt.MR.twinLogWeight_support_infinite_of_crown_g12b
