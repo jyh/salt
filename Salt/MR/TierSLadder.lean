@@ -17,8 +17,8 @@ three-arm guard; N, Sc, K, and — transcribed at v1.1 — math's `hah9` leaf an
 were proved at the freeze.  7 names, 7 landed.  NO LANDED FILE TOUCHED.  HONEST LABEL, FIRST
 LINE: NO NEW UNCONDITIONAL THEOREM IS CLAIMED HERE, AND NOTHING BEARS ON TWIN PRIMES — at a fixed
 stride `P ≤ 2310` the consumer D10 is a SECOND PROOF of a terminal the crown route already lands
-(QUEUE, the Tier S block).  THE EVIDENCE FOR THAT LABEL IS IN THIS FILE (the refuter's M11(a)): the landed
-unconditional statements of K's set are at `P = primorial z` only, so §6's crown twin
+(QUEUE, the Tier S block).  THE EVIDENCE FOR THAT LABEL IS IN THIS FILE (the refuter's M11(a)):
+the landed unconditional statements of K's set are at `P = primorial z` only, so §6's crown twin
 `twinLogWeight_support_infinite_of_crown_g12b` states the SAME set from the crown road at every
 `0 < P ≤ 2310` — after the wave, K and it are the two roads meeting at one theorem.**
 
@@ -105,8 +105,8 @@ theorem hah9_of_le_2310 (P : ℕ) (hP : 0 < P) (hP2310 : P ≤ 2310) :
 /-! ## §3 — Pl: THE PLACEMENT (PROVED in the wave, 2026-09-14) -/
 
 /-- **⟦LADDER Pl⟧ (class C, PROVED in the wave) — ABOVE THE DESIGN FLOOR THE NORMALISATION
-THRESHOLD SITS BELOW THE ROOF, WITH ROOM FOR THE CLASS ROUNDING.**  At the pin `ε = 1/(500·(a·2))` and any
-`Hhi₀ ≥ 2^600` (`flatDesignBase_ge_pow600` at `A ≥ 162`, which B exports):
+THRESHOLD SITS BELOW THE ROOF, WITH ROOM FOR THE CLASS ROUNDING.**  At the pin `ε = 1/(500·(a·2))`
+and any `Hhi₀ ≥ 2^600` (`flatDesignBase_ge_pow600` at `A ≥ 162`, which B exports):
 `ε·xTightCeil ε Hhi₀ + xTightCeilArm ε Hhi₀ + ε·log a + ε·log 3 ≤ 31·Hhi₀`.  Divided by `ε` this
 is `xTightCeil + xTightCeilArm/ε ≤ 31·Hhi₀/ε − log a − log 3`: the left side bounds
 `(ε·log ω₀ + log x₀)/ε`, the threshold above which the band constant is absorbed (N); the right
@@ -238,8 +238,8 @@ theorem ladder_placement (a : ℕ) (ha : 0 < a) (ha2310 : a ≤ 2310) (ε : ℚ)
 /-! ## §4 — L: THE LADDER (PROVED in the wave, 2026-09-14) -/
 
 /-- **⟦LADDER L⟧ (class C, PROVED in the wave) — D10's HYPOTHESIS PACKAGE AT EVERY STRIDE
-`P ≤ 2310`.**  `ε = 1/(500·P)`, `A = 1`, and an INFINITE `S` such that at every `N ∈ S` and every admissible class
-`r`, `AffFullRangeAt P r 2 ε A ((N − r)/P)`.
+`P ≤ 2310`.**  `ε = 1/(500·P)`, `A = 1`, and an INFINITE `S` such that at every `N ∈ S` and every
+admissible class `r`, `AffFullRangeAt P r 2 ε A ((N − r)/P)`.
 
 Route (as fired 2026-09-14; the statement byte- and type-identical to the freeze under its guard):
 `hah9 : log (P·2) ≤ 9` from `P ≤ 2310`;
