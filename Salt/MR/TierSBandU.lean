@@ -74,7 +74,86 @@ theorem bigXiAffU_bounded_ceiling_of_pin_b9 (a h : ℕ) (ha : 0 < a) (hh : 0 < h
     (ε : ℚ) (hε : ε = 1 / (500 * ((a * h : ℕ) : ℚ))) :
     ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
       ((bigXiAffU a h ε H).card : ℝ) ≤ C := by
-  sorry
+  subst hε
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hx0 : (0 : ℝ) < ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have hx1 : (1 : ℝ) ≤ ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have h8103N : a * h ≤ 8103 := h_le_8103_of_log_le_nine hkpos hah9
+  have h8103 : ((a * h : ℕ) : ℝ) ≤ 8103 := by exact_mod_cast h8103N
+  have haN : a ≤ 8103 := le_trans (Nat.le_mul_of_pos_right a hh) h8103N
+  have haR : (a : ℝ) ≤ 8103 := by exact_mod_cast haN
+  have hcast : (((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)
+      = 1 / (500 * ((a * h : ℕ) : ℝ)) := by push_cast; ring
+  have heps2 : ((((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)) ^ 2 < 1 / 2 := by
+    rw [hcast]
+    have hle : (1 : ℝ) / (500 * ((a * h : ℕ) : ℝ)) ≤ 1 / 500 := by
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
+    have h0 : (0 : ℝ) < 1 / (500 * ((a * h : ℕ) : ℝ)) := by positivity
+    nlinarith [hle, h0]
+  have hbase := bigXi_bounded_explicit (1 / (500 * ((a * h : ℕ) : ℚ))) (by positivity) heps2
+    ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) (Real.exp 40) (Real.exp_pos _)
+    hFac2_lcm_sum_le_exp40 (hpt_holds_500h_b9 (a * h) hkpos hah9)
+  refine ⟨8103 * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+      * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ)),
+    by positivity, ?_, 2, le_rfl, ?_⟩
+  · have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by
+      simpa using exp_forty_le_pow40
+    have hfold : 8103 * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+          * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ))
+        = (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * Real.exp 40
+            * ((a * h : ℕ) : ℝ) ^ (15 : ℕ) := by
+      ring
+    have hp15 : ((a * h : ℕ) : ℝ) ^ (15 : ℕ) ≤ (8103 : ℝ) ^ (15 : ℕ) :=
+      pow_le_pow_left₀ hx0.le h8103 15
+    have hnn : (0 : ℝ) ≤ 8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) := by positivity
+    have hnum : (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * 3 ^ (40 : ℕ)
+        * (8103 : ℝ) ^ (15 : ℕ) ≤ 2 ^ 539 := by norm_num
+    rw [hfold]
+    calc (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * Real.exp 40
+            * ((a * h : ℕ) : ℝ) ^ (15 : ℕ)
+        ≤ (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * 3 ^ (40 : ℕ)
+            * (8103 : ℝ) ^ (15 : ℕ) := by
+          have h1 : (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * Real.exp 40
+              ≤ (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * 3 ^ (40 : ℕ) :=
+            mul_le_mul_of_nonneg_left h40 hnn
+          have h2 : (0 : ℝ) ≤ (8103 * (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ))) * 3 ^ (40 : ℕ) := by
+            positivity
+          nlinarith [h1, h2, hp15, pow_nonneg hx0.le 15]
+      _ ≤ 2 ^ 539 := hnum
+  · intro H _ hH2
+    have hcardU : (bigXiAffU a h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card
+        ≤ a * (a * h * (bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card) := by
+      unfold bigXiAffU
+      refine le_trans Finset.card_biUnion_le ?_
+      refine le_trans (Finset.sum_le_card_nsmul _ _
+        (a * h * (bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card) ?_) ?_
+      · intro b _
+        exact le_trans (bigXiAffD_card_le a b h _ H) (bigXiAff_card_le_mul a b h hh _ H)
+      · rw [Finset.card_range, smul_eq_mul]
+    have hfib : ((bigXiAffU a h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)
+        ≤ (a : ℝ) * (((a * h : ℕ) : ℝ)
+            * ((bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)) := by
+      exact_mod_cast hcardU
+    have hb := hbase H hH2
+    have hden : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+          / ((((1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) : ℚ) : ℝ)) ^ 10
+        = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) := by
+      rw [hcast]; field_simp
+    rw [hden] at hb
+    calc ((bigXiAffU a h (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)
+        ≤ (a : ℝ) * (((a * h : ℕ) : ℝ)
+            * ((bigXi (1 / (500 * ((a * h : ℕ) : ℚ))) H).card : ℝ)) := hfib
+      _ ≤ (a : ℝ) * (((a * h : ℕ) : ℝ) * (32 * Real.exp 40
+            * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ))) :=
+          mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hb hx0.le) (Nat.cast_nonneg a)
+      _ ≤ 8103 * (((a * h : ℕ) : ℝ) * (32 * Real.exp 40
+            * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ))) :=
+          mul_le_mul_of_nonneg_right haR (by positivity)
+      _ = 8103 * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * ((a * h : ℕ) : ℝ) ^ 2) ^ 2
+            * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ)) := by ring
 
 /-- **⟦S-3 U3⟧ (class A/B) — THE UNION IS ARC-TIGHT.**  `nearRatTight_of_bigXiAffD`
 (`StridePairReceipt.lean:605`) at every class, with ONE threshold: its `H₀` is
