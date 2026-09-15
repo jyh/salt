@@ -21,10 +21,12 @@ threshold) and the structure fields.  Nothing here produces a door: the doors ar
 terminal that already lands; E2 is conditional on `MRTDoorAllGrades`, which has no producer; the
 `∃ε` tripwire is untouched.  Nothing here bears on twin primes.
 
-⛔ THIS IS NOT the item the QUEUE's Tier S block also calls "S-4" (the plateau argument upgrading
-`∃ᶠ N` to `∀`); the helm minted the entropy-arrow bridge as S-4 on desk NE.  The QUEUE now points
-both ways (cite THE ENTROPY-ARROW BRIDGE and THE PLATEAU by those words, never the bare number);
-the rename is the helm's, still owed.
+⛔ THIS IS NOT the item the QUEUE's Tier S block USED TO CALL "S-4" (the plateau argument upgrading
+`∃ᶠ N` to `∀`); the helm minted the entropy-arrow bridge as S-4 on desk NE.  ✅ RESOLVED 2026-09-14:
+the plateau was RENAMED `S-PLATEAU` (helm, 63rd head, desk NI) and THIS rung keeps `S-4`.  The old
+name is kept in the QUEUE's S-PLATEAU card rather than erased, because every citation written before
+that date says "S-4" for either one — so cite THE ENTROPY-ARROW BRIDGE and THE PLATEAU by those
+words, never the bare number.
 
 WHY `∀ Ra` IS CONTENT AND `∀ b` IS NOT.  The landed statement cannot be instantiated at a regime of
 the consumer's choosing: its `hcrown` binder demands a regime above EVERY `A₀'`, which no single
