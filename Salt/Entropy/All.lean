@@ -102,6 +102,7 @@ import Salt.Entropy.Chowla.StrideShell
 import Salt.Entropy.Chowla.StrideCircle
 import Salt.Entropy.Chowla.StridePrize
 import Salt.Entropy.Chowla.StrideShellG
+import Salt.Entropy.Chowla.StrideShellBand
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
@@ -1542,3 +1543,27 @@ numeral.  The `∃ ε` tripwire `spine_eps_constant_floor` is untouched — this
 Nothing bears on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily
+
+/-! ⟦TIER S S-4 (ENTROPY)⟧ — THE ENTROPY ARROW AT EVERY REGIME (`StrideShellBand`, 2026-09-14,
+h2c — S-4 freeze v1.1, fired on the helm's word after math's non-author pass NO KILL).  Additive
+only: no landed statement moves.  `log_chowla_aff_of_door_at_regime_g12b` (H) is the landed entropy
+head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier moved from
+the crown's `∃ Ra` to `∀ Ra`, at the pin `ε = 1/(500·a·h)` above ONE `b`-uniform threshold `A₁`,
+with the grade floor `1/(838400·(a·h)²)` written out — the body is that head's 181 lines with step
+(4), the crown call `hcrown A₀'`, DELETED, since the landed proof reads its regime only through
+`Ra.a = a`, `Ra.b = b`, `Ra.eps = ε`, `flatDesignBase A₁ ≤ Ra.Hlo` and the structure fields (the
+circle slot is obtained per class after `intro b` from `circle_method_estimate_sq_bounded_aff`).
+`affGrade_composes_g12b` (C) is the landed composition's inequality
+`0 < a·Zr·ρ + E ≤ 1/(838400·(a·h)²)` (`log_chowla_aff_composed_of_headG_g12b`,
+`StridePrize.lean:321`) factored out at an ARBITRARY regime — the door arm from the granted
+`a ≤ 2310`, the `E` arm from the design floor `flatDesignBase A ≥ 2^600` and `log ω ≥ 129`.
+`gradedAffHeadAt_g12b_of_at_regime` (K1) is the conservativity control: H's conclusion, taken as a
+hypothesis, together with the landed head's own `hcrown` binder gives `GradedAffHeadAt_g12b a b h
+A₀` at every `A₀`; `flatDesignBase_mono` (M) is monotonicity of the design floor, what K1 and the
+bridge spend to lower a consumer's `A` to `A₁`.  NO NEW UNCONDITIONAL THEOREM (a restatement of
+landed proofs); nothing here bears on twin primes.  2 obligations, 2 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.flatDesignBase_mono
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_at_regime_g12b
+  Salt.Entropy.Chowla.affGrade_composes_g12b
+  Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime

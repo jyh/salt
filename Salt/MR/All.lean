@@ -443,6 +443,7 @@ import Salt.MR.StrideGradeReceipt12b
 import Salt.MR.TierSSocket
 import Salt.MR.TierSBand
 import Salt.MR.TierSBandU
+import Salt.MR.TierSBridge
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10488,3 +10489,31 @@ open Salt.Tactic in
   Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U
   Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU
   Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_of_bU
+
+/-! ⟦TIER S S-4 (BRIDGE)⟧ — S-3's BAND THROUGH THE ARROW (`TierSBridge`, 2026-09-14, h2c — S-4
+freeze v1.1).  Additive only: no landed statement moves.  `band_not_logChowlaFailsAff_g12b` (B)
+feeds S-3's class-uniform crown band `mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU`
+(`TierSBandU.lean`, PROVED on `main`) through S-4's arrow at every regime
+(`log_chowla_aff_of_door_at_regime_g12b`) with the grade composed at each band regime
+(`affGrade_composes_g12b`), giving: for every class `b < a` with `gcd (b + h) a ∣ h` and every `y`
+in ONE band `[x₀, exp(31·Hhi₀/ε)/a]`, log-Chowla does not fail at `(a, b, h, ε, y, ω₀)` — with the
+band LINKED to the threshold by the conjunct `flatDesignBase A ≤ Hhi₀` (v1.1's added conjunct:
+without it the `A₀` export was INERT — math's kernel finding, B at `A₀ := 0` re-packing to B at
+every `A₀`).  `affFullRangeAt_band_of_not_fails` (K2) reads that sentence into D12
+(`abs_sum_Icc_le_of_windows`, `TwinParityAtomClasses.lean:678`) and out as `AffFullRangeAt` at
+every `N` under the band's roof; `band_Hhi_unbounded_g12b` (K2′) is the receipt that along
+`A₀ → ∞` the band's `Hhi₀`, hence its roof, is unbounded; and K1′,
+`gradedAffHeadAt_g12b_of_at_regime_crowned`, is S-4's K1 with the landed crown in the binder.
+
+⚠ LABEL: B and K2′ carry math's OWN construction (the refuter's P6 and P7, transcribed by the
+author); they become unconditional with H and C WITHOUT a non-author pass of their own — the
+statement was refuted by a non-author, the repair was not.  The binder `a ≤ 2310` is the
+composition's (the Captain's granted binder), inherited and not added here.  What this does NOT
+buy: D10's ONE `(ε, A)` over an INFINITE `S` — the `(2ε, 1)`-normalisation inside a band and the
+class-scale placement are the next link.  NO NEW UNCONDITIONAL THEOREM (a composition of landed
+proofs); nothing here bears on twin primes.  4 names, 4 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.gradedAffHeadAt_g12b_of_at_regime_crowned
+  Salt.MR.band_not_logChowlaFailsAff_g12b
+  Salt.MR.affFullRangeAt_band_of_not_fails
+  Salt.MR.band_Hhi_unbounded_g12b
