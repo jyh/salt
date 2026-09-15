@@ -4,8 +4,10 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦TIER S — S-4⟧ THE ENTROPY ARROW AT EVERY REGIME (`StrideShellBand`)
 
-**S-4 (desk NE, chartered by the helm 2026-09-14 19:4x under council ⑩'s tempo order) — FROZEN
-STATEMENT-ONLY.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM.**  S-4 restates the landed
+**S-4 (desk NE, chartered by the helm 2026-09-14 19:4x under council ⑩'s tempo order) — LANDED
+2026-09-14 21:0x: H and C PROVED by ONE Opus executor at one attempt each, on the helm's word after
+math's non-author pass (NO KILL); M and K1 were proved at the freeze.  HONEST LABEL, FIRST LINE:
+NO NEW UNCONDITIONAL THEOREM (a restatement of landed proofs).**  S-4 restates the landed
 entropy head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier
 moved: the landed head proves `door Ra ρ' → ¬ logChowlaFailsAff` at the ONE regime `Ra` it obtains
 from the crown's payload `hcrown` (`∃ Ra`); S-4 states the same arrow at EVERY affine regime at the
@@ -20,8 +22,9 @@ terminal that already lands; E2 is conditional on `MRTDoorAllGrades`, which has 
 `∃ε` tripwire is untouched.  Nothing here bears on twin primes.
 
 ⛔ THIS IS NOT the item the QUEUE's Tier S block also calls "S-4" (the plateau argument upgrading
-`∃ᶠ N` to `∀`); the helm minted the entropy-arrow bridge as S-4 on desk NE, and the collision is
-reported in the freeze, not resolved here.
+`∃ᶠ N` to `∀`); the helm minted the entropy-arrow bridge as S-4 on desk NE.  The QUEUE now points
+both ways (cite THE ENTROPY-ARROW BRIDGE and THE PLATEAU by those words, never the bare number);
+the rename is the helm's, still owed.
 
 WHY `∀ Ra` IS CONTENT AND `∀ b` IS NOT.  The landed statement cannot be instantiated at a regime of
 the consumer's choosing: its `hcrown` binder demands a regime above EVERY `A₀'`, which no single
@@ -32,7 +35,8 @@ threshold is `b`-free at the witness (the leaves `hreduce_holds_final_aff` and
 `primeWindow_sum_inv_ge_bounded` carry no `b`; the circle constant `C` enters only after the
 class is fixed) and because the bridge reads it once against S-3's `∀ b` band.
 
-THE ROUTE (priced in the freeze, NOT fired): the landed head's body (`StrideShellG.lean:356-536`)
+THE ROUTE (as fired, 2026-09-14; every statement and docstring below byte-identical to the freeze
+under its guard): the landed head's body (`StrideShellG.lean:356-536`)
 with step (4) — `hcrown A₀'` — replaced by `intro b hba hgcd Ra hRa hRb hReps hHloB`, the circle
 slot discharged per class by `circle_method_estimate_sq_bounded_aff` under `hgcd`, `A ↦ A₁ :=
 max 162 (max (exp (budgetX ε₀ β')) (loglog (max H₀red H₀D3)))`, and the grade floor read directly

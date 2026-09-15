@@ -12,9 +12,10 @@ import Mathlib
 /-!
 # ⟦TIER S — S-4⟧ THE BRIDGE: S-3's BAND THROUGH THE ARROW (`TierSBridge`)
 
-**S-4 (desk NE) — v1.1 AFTER math's NON-AUTHOR PASS: H AND C FROZEN STATEMENT-ONLY, B PROVED
-FROM THEM.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM** (B and K2′ carry
-`sorryAx` through H and C until the wave lands them).  The one place both sides of Tier S are in
+**S-4 (desk NE) — LANDED 2026-09-14 21:0x: H and C proved by the wave, so B and K2′ are now
+UNCONDITIONAL.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM (a composition of landed
+proofs) — AND B and K2′ carry math's OWN construction (the refuter's P6 and P7, transcribed by
+the author): they had no non-author pass of their own.**  The one place both sides of Tier S are in
 scope: S-3's class-uniform crown band
 (`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU`, `TierSBandU.lean`, PROVED on `main`) is
 fed through S-4's arrow at every regime (`log_chowla_aff_of_door_at_regime_g12b`,
