@@ -221,7 +221,10 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U (a h : ℕ) (ha : 0
           Real.log ((x' : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
           ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
             MRTUniformityXiL2Set (bigXiAffU a h) (regimeEnlargeX R hx') ρ := by
-  sorry
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  exact mrtUniformityXiL2Set_holds_flat_floor_g12b_band (a * h) hkpos hah9 (bigXiAffU a h)
+    (fun eps heps => nearRatTight_of_bigXiAffU bigXiArcTight_twelve heps ha hh)
+    (bigXiAffU_bounded_ceiling_of_pin_b9 a h ha hh hah9 _ rfl) A₀
 
 /-! ## §2 — THE STATEMENT: the crown band with `∀ b < a` moved inward -/
 
