@@ -442,6 +442,7 @@ import Salt.MR.StridePairReceiptG12b
 import Salt.MR.StrideGradeReceipt12b
 import Salt.MR.TierSSocket
 import Salt.MR.TierSBand
+import Salt.MR.TierSBandU
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10455,3 +10456,35 @@ open Salt.Tactic in
   Salt.MR.flatKswinFormHG_g12b_of_band
   Salt.MR.v7RatedFormHG_g12b_of_band
   Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_of_band
+
+/-! ⟦TIER S S-3⟧ — THE CROWN BAND WITH THE CLASS QUANTIFIER MOVED INWARD (TierSBandU, 2026-09-14,
+h2c — S-3 freeze v1.1). Additive only: no landed statement moves. S-3 restates S-1's crown band
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` with ONE line moved: `∀ b, b < a →` now sits
+BELOW `∃ ε A` and below the band `∃ x₀ ω₀ Hhi₀` (with the three exported ceilings on them), so ONE
+margin, ONE design constant and ONE band `[x₀, exp(31·Hhi₀/ε)/a]` at width `ω₀` serve EVERY class
+`b < a`. Below that line the statement is the landed one byte for byte, `Ra.b = b` included. THE
+LOAD-BEARING EXPORT IS THE BAND, NOT `A`: `ε = 1/(500·a·h)` is already a theorem of the landed
+statement, and a per-class `A` is absorbed by a finite `max` over `admClasses P` at the consumer —
+a per-class BAND is not, since nothing bounds `Hhi₀(b)` above, so two classes' bands need not
+overlap and the full-range consumer D10 (`TwinParityAtomClasses.lean:635`, ONE scale `N` for every
+`r ∈ admClasses P`) is left with no guaranteed common `N`. The route runs the whole `_g12b` chain
+ONCE at the class-UNION family `bigXiAffU a h` (U0) rather than `a` times at `bigXiAffD a b h`: the
+union's count gate is the per-class one times `a` (U2; `8103·32·2^70·500^10·3^40·8103^15 ≤ 2^539`,
+`2^435.80`, 103 bits spare), its arc-tightness is the `Finset.sup` over `range a` of the per-class
+thresholds (U3), and each class reads its count and its door back off the union's by subset
+monotonicity (U1, U4). No landed file moves. The conservativity control is
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_of_bU` (K): the class-uniform band's conclusion,
+taken as a hypothesis, yields S-1's crown band at every class `b < a` verbatim — so the
+re-statement is conservative over what is landed. At fixed `z` Tier S is a SECOND PROOF of a
+terminal that already lands; `E2` is conditional on `MRTDoorAllGrades`, which has no producer; the
+`∃ε` tripwire is untouched. NO NEW UNCONDITIONAL THEOREM. Nothing here bears on twin primes.
+6 obligations, 6 landed. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.bigXiAffU
+  Salt.MR.bigXiAffD_subset_bigXiAffU
+  Salt.MR.bigXiAffU_bounded_ceiling_of_pin_b9
+  Salt.MR.nearRatTight_of_bigXiAffU
+  Salt.MR.mrtUniformityXiL2Set_of_subset
+  Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU
+  Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_of_bU
