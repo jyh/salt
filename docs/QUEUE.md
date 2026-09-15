@@ -241,6 +241,15 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
 
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
+⭐⭐ **S-3 — THE b-FREENESS RE-STATEMENT (chartered at council 2026-09-14 ⑩; STAMPED HERE 09-14 19:0x by the 61st helm head, which is the HOME ⑩ named and the stamp h2c asked for).**
+**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:569` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
+✅ **THE CHARTER IS DISCHARGED AND THE STATEMENT SURVIVED.** h2c froze v1 (18:32, `2c28bc6e8`); math ran the NON-AUTHOR refuter pass **pre-registering its kill-checks before reading the freeze** and returned **SURVIVES, NO KILL** (`6cf7f7e60`, desk MV); h2c folded the verdict into **v1.1 @ `d227b5700`** (R1: the BAND `(x₀, ω₀, Hhi₀)` is the load-bearing export — `ε` is a theorem of the landed statement and a per-class `A` is a finite `max` at D10; R2: every pin re-derived by grep at the tree, six moved, eleven exact). **The Lean is UNCHANGED at `74afa591` (`d354601a0bff`), so math's receipt stands over v1.1.**
+⚖️ **§6's ONE OPUS WAVE: FIRE** — the helm's word, 09-14 19:0x, on h2c's `blocked-on-helm`. The charter's precondition ("until the statement survives") is MET, and the Captain's ⑩ tempo order is explicit: *"we go for the gold, as fast as possible, the field is accelerating, we are in a race"*, with ⑩(c) *"nothing on the twin-prime path waits on a sitting"*. SHAPE, unchanged from the freeze: six names, ~310 lines, mostly class A (U1 ~5 · U2 ~55), **`sorry` replaced IN PLACE, statements BYTE-IDENTICAL** — so a failure is a failure to prove, never a moved goalpost. ONE registered executor; h2c STAYS LIT while it runs (row GE). The executor rewrites U3's `:520-522` docstring slip in U3's own commit.
+⛔ **AND THE WAVE DOES NOT FIRE FROM `jasonh`** — the helm's own migration error, caught before the word: h2c is a FABLE seat, so it was placed by the FABLE pool, and **an OPUS executor it fires draws the ALL-MODELS pool on the same credential**, which on jasonh reads **96 = EVERYONE-OFF**. h2c is moved to `jyaletheia` (all-models 69 ✅ · fable-only 54 ✅ — BOTH axes). ⇒ 🔑 ***A SEAT IS PLACED BY THE POOLS ITS EXECUTORS DRAW, NOT BY ITS OWN MODEL.***
+📌 **§8 IS ROUTED AND DELIBERATELY NOT FOLDED INTO THE WAVE.** h2c named the consumer's remaining UNSTATED link — D12's `hwin` needs `¬ logChowlaFailsAff` at EVERY `y` in the band, i.e. the entropy arrow `door Ra ρ' → ¬ fails` at every band regime — *"so the helm can price the bridge and nobody reads this freeze as the bridge"*. **That is the NEXT RUNG, not this wave's scope:** folding a new bridge into a frozen class-A wave is how a class-A wave becomes class-C. Its mechanism on `main` is already regime-generic (`spine_False_core_xi_sq_aff`, `StrideShell.lean:245`, takes an arbitrary affine regime), which is a strong prior that it is cheap — **and a prior is a reason to PRICE it, never to skip stating it.** Own row, same S-1/S-3 shape: statement first, non-author refuter.
+⚠️ **K6 and K8 are UNRUN** (K4 and K9 are author-driven and labelled weaker). math offered them as a 5.4 s module build in its own tree. **NOT a precondition of the wave** — they are checks on a statement the non-author pass already cleared — but they are cheap, and a second non-author arm on a statement we are about to build 310 lines onto is worth the seconds. Routed to math as unblocked work at its tier, in parallel with the wave.
+
+
 1. **λ-BV DESIGN BLOCK** — ✅ **BLOCK DELIVERED AND CONSUMED; WAVE 1 IS COMPLETE (08/20).**
    ⛔ **DO NOT RE-DISPATCH.** *Statement below untouched — status field only.* — math's pen: the dispersion campaign's shape
    consuming the open parity-pin door (brun_lower_ell1, 5340c7ff) and the
@@ -6979,6 +6988,11 @@ numbering is UNVERIFIED.
      the class quantifier — NOT one regime — and `ε` is already `b`-free by its pin.***
    * ✅ **S-4 — OFF THE CRITICAL PATH** (Fable-tier, but not blocking): without it the road is `∃ᶠ N`, which
      D9 makes sufficient. It upgrades `∃ᶠ` to `∀`, it does not gate the terminal.
+   * ➡️ **S-3 — CHARTERED, STATEMENT SURVIVED, §6 WAVE FIRING. THE ITEM IS AT P1, NOT COPIED HERE.**
+     One line, by this file's own precedent (the block register was POINTED rather than copied, because a
+     duplicated entry drifts and a second copy is a competing claim). S-3 sits in **P1** because its wave is
+     LIVE WORK A SEAT PULLS, while this block is where the Tier S family is AUDITED — both readers are served
+     and only one copy exists. Freeze v1.1 `d227b5700` · math's non-author SURVIVES `6cf7f7e60` · desk MV.
    * ✅ **S-1 — LANDED 2026-09-14 (math, 34th head, as LAUNCHER; design h2c; the helm's wave word 10:12
      on freeze v1.2, seat `e5d575134`, after TWO non-author passes). THE ⛔ ROW ABOVE IS DISCHARGED AS TO
      S-1 AND KEPT AS WRITTEN.** `Salt/MR/TierSBand.lean`: **31 declarations = 8 `def` + 23 `theorem`, all
