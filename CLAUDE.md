@@ -133,6 +133,21 @@ for Lean identifiers.
 If the wrapper reports that `lake` is not on PATH, it lives at `~/.elan/bin/lake` —
 put it on PATH; do not reach past the wrapper to call it.
 
+⛔⛔ **A LARGE NUMERAL HYPOTHESIS POISONS TACTICS THAT NEVER READ IT — ONE CAUSE, THREE ERRORS, AND NONE
+OF THEM NAMES IT.** Measured 2026-09-14 in THE LADDER's wave: **`norm_num` DECLINES `2 ^ 600`** — it warns
+and **leaves the goal open**, because `exponentiation.threshold` is 256 — and a `2 ^ 600 ≤ Hhi₀` hypothesis
+left sitting in the context then killed **three unrelated later tactics, `positivity`, `nlinarith` and
+`norm_cast`, all on `maximum recursion depth`**.
+✅ **THE FORM: take the SMALL floor you actually need, once, and clear the rest** — e.g. `2^64 ≤ Hhi₀`
+under a local `set_option exponentiation.threshold 700 in norm_num`, then `clear` the large hypothesis
+before the proof continues.
+⇒ 🔑 ***THE ERROR NAMES THE TACTIC THAT DIED AND NEVER THE HYPOTHESIS THAT KILLED IT, SO THE SEARCH STARTS
+IN THE WRONG PLACE — ONCE PER TACTIC.*** ⭐ The same signature arrived from the opposite direction in the
+refuter's own work: a mutation control that fed a FALSE hypothesis in expected a tidy type mismatch and got
+`maximum recursion depth` instead, and recorded it as *a refusal, disclosed as printed*. **Two readers, one
+mechanism, opposite ends, and neither could name it alone** — which is why it is written here rather than in
+either of their records.
+
 ## Public-repo commit hygiene (ratified 2026-08-23)
 
 No `Claude-Session:` trailer lines and no chat-session URLs in commit messages —
