@@ -60,7 +60,8 @@ def bigXiAffU (a h : ℕ) : XiFamily :=
 at `b ∈ Finset.range a` (`Finset.mem_range.mpr hb`). -/
 theorem bigXiAffD_subset_bigXiAffU (a b h : ℕ) (hb : b < a) (eps : ℚ) (H : ℕ) [NeZero H] :
     bigXiAffD a b h eps H ⊆ bigXiAffU a h eps H := by
-  sorry
+  unfold bigXiAffU
+  exact Finset.subset_biUnion_of_mem (fun b => bigXiAffD a b h eps H) (Finset.mem_range.mpr hb)
 
 /-- **⟦S-3 U2⟧ (class A) — THE UNION'S COUNT GATE AT THE PIN.**
 `bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork.lean:807`) with `a` copies:
@@ -95,7 +96,10 @@ corpus's own move at `:497`) bounds the sub-family's sum by the family's, at eve
 theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
     (hsub : ∀ (eps : ℚ) (H : ℕ) [NeZero H], Xi eps H ⊆ Xi' eps H) (R : ChowlaRegime) (ρ : ℝ)
     (hd : MRTUniformityXiL2Set Xi' R ρ) : MRTUniformityXiL2Set Xi R ρ := by
-  sorry
+  intro H _ hlo hhi
+  refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg (hsub R.eps H) ?_) (hd H hlo hhi)
+  intro ξ _ _
+  exact mul_nonneg (by positivity) (integral_nonneg (fun _ => sq_nonneg _))
 
 /-! ## §1 — the C2 band at the union (the route's fifth owed name) -/
 
