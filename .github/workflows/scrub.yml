@@ -75,8 +75,25 @@ jobs:
           # history is neither the "new branch" case nor the ordinary case, and
           # the old two-branch test had nowhere to put it.
           DEF="${{ github.event.repository.default_branch }}"
+          # ⛔⛔ ANCESTRY, NOT EXISTENCE — row ML finding #6, closed 2026-09-16.
+          #   `git cat-file -e BEFORE` asks whether the object EXISTS. The question is whether
+          #   it is an ANCESTOR of HEAD, and the two come apart on a REWIND: move a branch back
+          #   to an ancestor while its old tip survives on another fetched ref and BEFORE still
+          #   resolves, so `BEFORE..HEAD` is EMPTY and the gate's fail-closed fires on CLEAN
+          #   content. The `!= HEAD` half closes the no-op push, a SECOND empty-range case.
+          #   FAIL-CLOSED both ways, so this was never a leak — it was a spurious red, and a
+          #   gate whose only red is false teaches its reader to skip the red.
+          #   ⭐ Driven red-first in a scratch repo before this edit, five arms: ordinary push
+          #   AGREES (range:1), all-zeros and an unreachable sha AGREE (fallback), and the two
+          #   that differ are exactly REWIND and NO-OP — both old=empty-range, new=fallback.
+          #   ⚠️ I predicted ONE differing arm and the matrix returned TWO; the no-op case is
+          #   the `!= HEAD` clause earning its place, and I had not reasoned about it.
+          #   Reference implementation: jas `scripts/pick_scan_range.sh:42`, whose own comment
+          #   records that a mutant DELETING a redundant `cat-file -e` SURVIVED — `--is-ancestor`
+          #   already subsumes existence, so testing both is dead code. This follows that.
           if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
-             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+             && git merge-base --is-ancestor "$BEFORE" HEAD 2>/dev/null \
+             && [ "$BEFORE" != "$(git rev-parse HEAD)" ]; then
             RANGE="$BEFORE..HEAD"
             echo "push delta: $RANGE"
           elif MB=$(git merge-base "origin/$DEF" HEAD 2>/dev/null) && [ -n "$MB" ] \
@@ -147,8 +164,15 @@ jobs:
           # answers on an existing branch. Both paths are now driven as controls
           # before shipping, clean AND dirty.
           DEF="${{ github.event.repository.default_branch }}"
+          # ⛔ ANCESTRY, NOT EXISTENCE — row ML finding #6. The full reasoning, the five-arm
+          #   red-first matrix and the reference implementation are on the FIRST copy of this
+          #   test in this file (the `trailers` job above); this is the same guard, and the two
+          #   must move together. ⚠️ Kept SHORT deliberately: a 17-line rationale duplicated at
+          #   two sites is the two-hand-maintained-copies hazard this very file's siblings keep
+          #   paying for (desk PC) — one statement of the WHY, one pointer to it.
           if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
-             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+             && git merge-base --is-ancestor "$BEFORE" HEAD 2>/dev/null \
+             && [ "$BEFORE" != "$(git rev-parse HEAD)" ]; then
             RANGE="$BEFORE..HEAD"
             echo "push delta: $RANGE"
           elif MB=$(git merge-base "origin/$DEF" HEAD 2>/dev/null) && [ -n "$MB" ] \
