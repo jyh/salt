@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.DoorReceipt
 import Salt.Entropy.Chowla.StrideShell
+import Salt.MR.FlatDoorEpsChain
 import Mathlib
 
 /-!
@@ -16,7 +17,10 @@ non-author pass — NO KILL on W, Wc, E2′, E2″; Wc's cap RESTATED (K8), the 
 closed form (N10, math's construction), the lattice-top numeral proved (C7), rung 2 un-priced (N3).
 v1.2, after the helm's THIRD-PARTY confirm of v1.1 — CONFIRMED-WITH-REPAIRS, every repair on the
 record or the instrument: three docstrings repaired here (Wc's "verbatim", E2″'s bridge pin, C1's
-interval); NO statement moved, W byte- and type-identical to v1 and v1.1.)
+interval); NO statement moved, W byte- and type-identical to v1 and v1.1.  v1.3, at the fire
+(the Captain's THIRD word, rung 1 only): ONE import added, `Salt.MR.FlatDoorEpsChain` — the
+wave's own file, born empty, because this file's guard refuses a new declaration or import
+here; NO statement moved, every type byte-identical to v1.2.)
 
 **HONEST LABEL, FIRST LINE.**  Nothing here bears on twin primes.  What W-ε would land is the
 landed `L²` MRT door on the flat family (`mrtUniformityXiL2_holds_flat`, `DoorReceipt.lean:1110`,
