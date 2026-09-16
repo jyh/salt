@@ -20,7 +20,16 @@ record or the instrument: three docstrings repaired here (Wc's "verbatim", E2″
 interval); NO statement moved, W byte- and type-identical to v1 and v1.1.  v1.3, at the fire
 (the Captain's THIRD word, rung 1 only): ONE import added, `Salt.MR.FlatDoorEpsChain` — the
 wave's own file, born empty, because this file's guard refuses a new declaration or import
-here; NO statement moved, every type byte-identical to v1.2.)
+here; NO statement moved, every type byte-identical to v1.2.  v1.4, THE SPLIT (the helm's ruling
+(ii) on the rung-2 walk's verdict (b), under arm (α)): W is a NAMED `Prop`, `FlatDoorEpsFamilyW`,
+its frozen `∀`/`∃`-body token for token and no longer a `sorry`-bodied theorem; its four readers
+C3 · E2′ · E2″ · C4 take it as a FIRST binder `(hW : FlatDoorEpsFamilyW)` and are CONDITIONAL on
+it; every name here is at the three axioms, and the file is imported by `Salt/MR/All.lean` under
+`#audit_axioms`.  ⚖️ THE DISCHARGE OBLIGATION (fleet law `feedback_no_hypotheses`: a final theorem
+carries no named external hypothesis): RUNG 2 IS THE ONE THEOREM `: FlatDoorEpsFamilyW` THAT
+INHABITS IT; until it lands every reader is CONDITIONAL and NONE is a final theorem — no consumer
+on the road to a terminal may carry `hW`.  Exactly five statements moved (W and its four readers);
+the transition guard's DIFFERS set is the receipt.)
 
 **HONEST LABEL, FIRST LINE.**  Nothing here bears on twin primes.  What W-ε would land is the
 landed `L²` MRT door on the flat family (`mrtUniformityXiL2_holds_flat`, `DoorReceipt.lean:1110`,
@@ -90,10 +99,12 @@ theorem flatDoorMint_grade_at_pin :
     500 * (((1 : ℚ) / 500 : ℚ) : ℝ) / 837782 = 1 / 837782 := by
   norm_num
 
-/-! ## §2 — ⟦W-ε⟧ the door at the head's grade, `ε`-family (FROZEN) -/
+/-! ## §2 — ⟦W-ε⟧ the door at the head's grade, `ε`-family (FROZEN — v1.4: a NAMED `Prop`; rung 2
+is the ONE theorem that inhabits it) -/
 
 /-- **⟦W-ε — THE `L²` DOOR ON THE FLAT FAMILY AT EVERY `ε ≤ 1/500`, AT `ρ := δ₀`⟧**
-(`mrtUniformityXiL2_holds_flat_epsFamily`, FROZEN) — `mrtUniformityXiL2_holds_flat`
+(`FlatDoorEpsFamilyW`, FROZEN — a NAMED `Prop` from v1.4; v1–v1.3 stated it as the `sorry`-bodied
+theorem `mrtUniformityXiL2_holds_flat_epsFamily`) — `mrtUniformityXiL2_holds_flat`
 (`DoorReceipt.lean:1110`) with `ε` moved from the `∃`-prefix to a hypothesis `0 < ε ≤ 1/500`,
 the door stated AT the head's own threshold `δ₀` (not at some `ρ ≤ 1/837782`), the threshold's
 FLOOR `ε/(256·(1 + 4·log 4)) ≤ δ₀` and GRADE `δ₀ ≤ 500·ε/837782` exported, and the head's slot
@@ -106,9 +117,14 @@ landed door's verbatim: `R.eps = ε`, `R.Hlo = flatDesignBase A`, `162 ≤ A`, `
 Zero level: at `ε := 1/500` the grade is `1/837782` (C2) and the statement reduces to the landed
 door — `mrtUniformityXiL2_holds_flat_of_epsFamily` below.  What is NOT exported, on purpose: the
 count bound `K`, `β`, `Hopq`, the tower and width conjuncts — the head's other exports, none of
-which E2′ or the receipt spend; a later re-cut may add them without moving anything here. -/
-theorem mrtUniformityXiL2_holds_flat_epsFamily (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
-    (A₀ : ℝ) :
+which E2′ or the receipt spend; a later re-cut may add them without moving anything here.
+
+v1.4: the body below is v1.3's statement token for token, now the VALUE of a `Prop` — the binders
+`(ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1/500) (A₀ : ℝ)` became `∀ ε, 0 < ε → ε ≤ 1/500 → ∀ A₀`.  Rung 2
+is `theorem … : FlatDoorEpsFamilyW`; C3, E2′, E2″ and C4 read it through `(hW : FlatDoorEpsFamilyW)`
+and each is CONDITIONAL until then — none is a final theorem (`feedback_no_hypotheses`). -/
+def FlatDoorEpsFamilyW : Prop :=
+  ∀ (ε : ℚ), 0 < ε → ε ≤ 1 / 500 → ∀ A₀ : ℝ,
     ∃ (δ₀ A : ℝ), 0 < δ₀ ∧
       (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) ≤ δ₀ ∧ δ₀ ≤ 500 * (ε : ℝ) / 837782 ∧
       162 ≤ A ∧ A₀ ≤ A ∧
@@ -116,8 +132,7 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily (ε : ℚ) (hε0 : 0 < ε) (hε :
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         MRTUniformityXiL2 R δ₀ ∧
         ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
-          ¬ logChowla2Fails R.eps R.x R.ω := by
-  sorry
+          ¬ logChowla2Fails R.eps R.x R.ω
 
 /-- **⟦W-ε, CAPPED — THE FIRST RUNG⟧** (`mrtUniformityXiL2_holds_flat_epsFamily_capped`, FROZEN)
 — W-ε under the one extra hypothesis `1/(500·8103) ≤ ε`: the lattice top `h = 8103`, the largest
@@ -134,8 +149,9 @@ real-`c` helpers (`s15Arm_log_le_scaled`'s `log c ≤ 14`, the count hook's `K �
 `ε ∈ [1/(500·e⁹), 1/4051500)`, about 42 units wide in `1/ε`, on which NO natural `h` meets the
 twins' binders (math's non-author pass, K8, kernel-checked at `ε = 1/4051541`); the restatement is
 math's recommendation (i), adopted at v1.1 — a STRONGER hypothesis, so this rung is implied by
-v1's (`flatDoor_cap_restated_in_v1`).  Same conclusion as W-ε, token for token; landing W-ε
-discharges this by `mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily` below. -/
+v1's (`flatDoor_cap_restated_in_v1`).  Same conclusion as W-ε, token for token; landing W-ε (rung 2,
+`: FlatDoorEpsFamilyW`) discharges this by `…_capped_of_epsFamily` below, from `FlatDoorEpsFamilyW`.
+RUNG 1 LANDED (`f269407c`): PROVED at the three axioms, unconditional. -/
 theorem mrtUniformityXiL2_holds_flat_epsFamily_capped (ε : ℚ) (hε0 : 0 < ε)
     (hε : ε ≤ 1 / 500) (hcap : (1 : ℚ) / (500 * 8103) ≤ ε) (A₀ : ℝ) :
     ∃ (δ₀ A : ℝ), 0 < δ₀ ∧
@@ -163,20 +179,22 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily_capped (ε : ℚ) (hε0 : 0 < ε)
     flatDoorMint_floor_le_grade (ε : ℝ) hε0R.le, hA162, hA₀A, R, hReps, hHlo, hdes,
     hdoor, hslot⟩
 
-/-! ## §3 — ⟦THE CONTROLS⟧ every consumer and the zero level, PROVED from W-ε (no sorry read) -/
+/-! ## §3 — ⟦THE CONTROLS⟧ every consumer and the zero level, PROVED from W-ε — v1.4: each takes
+`hW : FlatDoorEpsFamilyW` as its first binder and is CONDITIONAL on it (sorry-free) -/
 
 /-- **⟦C3 — THE ZERO LEVEL IS THE LANDED DOOR⟧** (`mrtUniformityXiL2_holds_flat_of_epsFamily`) —
 W-ε at `ε := 1/500` yields `mrtUniformityXiL2_holds_flat`'s statement VERBATIM
 (`DoorReceipt.lean:1110`): the witness `ρ := δ₀` with `δ₀ ≤ 500·(1/500)/837782 = 1/837782`.
 This is the kernel's word that the corrected W-ε reduces to the landed receipt at the pin — the
-check the charter-request's K6 got backwards (it read the FLOOR's ordering for the GRADE's). -/
-theorem mrtUniformityXiL2_holds_flat_of_epsFamily (A₀ : ℝ) :
+check the charter-request's K6 got backwards (it read the FLOOR's ordering for the GRADE's).
+v1.4: CONDITIONAL on `hW : FlatDoorEpsFamilyW` (rung 2 discharges it); not a final theorem. -/
+theorem mrtUniformityXiL2_holds_flat_of_epsFamily (hW : FlatDoorEpsFamilyW) (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / 500 ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
         3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
         ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / 837782 ∧ MRTUniformityXiL2 R ρ := by
   obtain ⟨δ₀, A, hδ₀, -, hgrade, hA162, hA₀A, R, hReps, hHlo, hdes, hdoor, -⟩ :=
-    mrtUniformityXiL2_holds_flat_epsFamily (1 / 500) (by norm_num) le_rfl A₀
+    hW (1 / 500) (by norm_num) le_rfl A₀
   refine ⟨1 / 500, A, by norm_num, le_rfl, hA162, hA₀A, R, hReps, hHlo, hdes, δ₀, hδ₀, ?_,
     hdoor⟩
   rw [flatDoorMint_grade_at_pin] at hgrade
@@ -185,12 +203,14 @@ theorem mrtUniformityXiL2_holds_flat_of_epsFamily (A₀ : ℝ) :
 /-- **⟦E2′ — THE `∀ ε` ARM FROM THE FLAT DOOR, NO CROWN⟧** (`logChowla2_epsFamily_of_flatDoor`) —
 the door at `δ₀` fed to the slot at `δ₀` on the same regime: `hslot δ₀ hδ₀ le_rfl hdoor`.  This is
 `logChowla2_epsFamily_of_allGrades` (`EpsFamilyReceipt.lean:42`) with `mrtUniformityXiL2_of_xi`
-and the crown REMOVED, on the flat family's own regime conjuncts. -/
-theorem logChowla2_epsFamily_of_flatDoor (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500) (A₀ : ℝ) :
+and the crown REMOVED, on the flat family's own regime conjuncts.
+v1.4: CONDITIONAL on `hW : FlatDoorEpsFamilyW` (rung 2 discharges it); not a final theorem. -/
+theorem logChowla2_epsFamily_of_flatDoor (hW : FlatDoorEpsFamilyW) (ε : ℚ) (hε0 : 0 < ε)
+    (hε : ε ≤ 1 / 500) (A₀ : ℝ) :
     ∃ A : ℝ, 162 ≤ A ∧ A₀ ≤ A ∧ ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
       3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧ ¬ logChowla2Fails R.eps R.x R.ω := by
   obtain ⟨δ₀, A, hδ₀, -, -, hA162, hA₀A, R, hReps, hHlo, hdes, hdoor, hslot⟩ :=
-    mrtUniformityXiL2_holds_flat_epsFamily ε hε0 hε A₀
+    hW ε hε0 hε A₀
   exact ⟨A, hA162, hA₀A, R, hReps, hHlo, hdes, hslot δ₀ hδ₀ le_rfl hdoor⟩
 
 /-- **⟦E2′ IN E2's OWN SHAPE⟧** (`logChowla2_epsFamily_of_flatDoor_floor`) — the conclusion of
@@ -198,12 +218,14 @@ theorem logChowla2_epsFamily_of_flatDoor (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
 binder gone: `A₀ := extraFloor` and `nat_le_flatDesignBase` (`StrideShell.lean:83`) at
 `loglog extraFloor ≤ extraFloor ≤ A ≤ 3.2·A` (`Real.log_le_self` twice, the bridge's own chain
 at `TierSBridge.lean:181–186`, inside `band_Hhi_unbounded_g12b`; v1.2 — v1.1 wrote `:180`, the
-line above it, the helm's §6(1)). -/
-theorem logChowla2_epsFamily_of_flatDoor_floor (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
-    (extraFloor : ℕ) :
+line above it, the helm's §6(1)).
+v1.4: CONDITIONAL on `hW : FlatDoorEpsFamilyW`, through E2′ (rung 2 discharges it); not a final
+theorem. -/
+theorem logChowla2_epsFamily_of_flatDoor_floor (hW : FlatDoorEpsFamilyW) (ε : ℚ) (hε0 : 0 < ε)
+    (hε : ε ≤ 1 / 500) (extraFloor : ℕ) :
     ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ ¬ logChowla2Fails R.eps R.x R.ω := by
   obtain ⟨A, hA162, hA₀A, R, hReps, hHlo, -, hfails⟩ :=
-    logChowla2_epsFamily_of_flatDoor ε hε0 hε (extraFloor : ℝ)
+    logChowla2_epsFamily_of_flatDoor hW ε hε0 hε (extraFloor : ℝ)
   refine ⟨R, hReps, ?_, hfails⟩
   rw [hHlo]
   refine nat_le_flatDesignBase extraFloor A ?_
@@ -215,9 +237,11 @@ theorem logChowla2_epsFamily_of_flatDoor_floor (ε : ℚ) (hε0 : 0 < ε) (hε :
 
 /-- **⟦THE CAPPED RUNG IS IMPLIED BY THE FAMILY⟧**
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily`) — the first rung's statement from
-W-ε by dropping `hcap`; so once W-ε lands, the rung's own proof is this one line. -/
-theorem mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily (ε : ℚ) (hε0 : 0 < ε)
-    (hε : ε ≤ 1 / 500) (_hcap : (1 : ℚ) / (500 * 8103) ≤ ε) (A₀ : ℝ) :
+W-ε by dropping `hcap`; so once W-ε lands, the rung's own proof is this one line.
+v1.4: CONDITIONAL on `hW : FlatDoorEpsFamilyW` (rung 2 discharges it); not a final theorem — Wc
+itself is PROVED above, unconditionally, so this control's value is the implication W ⊢ Wc. -/
+theorem mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily (hW : FlatDoorEpsFamilyW)
+    (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500) (_hcap : (1 : ℚ) / (500 * 8103) ≤ ε) (A₀ : ℝ) :
     ∃ (δ₀ A : ℝ), 0 < δ₀ ∧
       (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) ≤ δ₀ ∧ δ₀ ≤ 500 * (ε : ℝ) / 837782 ∧
       162 ≤ A ∧ A₀ ≤ A ∧
@@ -226,7 +250,7 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily (ε : ℚ) (h
         MRTUniformityXiL2 R δ₀ ∧
         ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
           ¬ logChowla2Fails R.eps R.x R.ω :=
-  mrtUniformityXiL2_holds_flat_epsFamily ε hε0 hε A₀
+  hW ε hε0 hε A₀
 
 /-- **⟦C5 — THE PIN IS INSIDE THE CAPPED RUNG⟧** (`flatDoor_pin_in_cap`) — `1/(500·8103) ≤ 1/500`,
 so the zero level `ε = 1/500` is reached by the first rung, not only by the family. -/
