@@ -20,12 +20,377 @@ the wave's declarations live here and `FlatDoorEpsFamily`'s capped rung is assem
 place.  Nothing here bears on twin primes (the frozen file's honest label, first line).
 -/
 
+open private uniformCap_arc uniformCap_shuffle spine_False_core_xi_sq_uniform from
+  Salt.MR.S16Uniform
+
 noncomputable section
 
 open scoped BigOperators
 open Salt.Entropy.Chowla
 
+set_option exponentiation.threshold 4000
+
 namespace Salt.MR
+
+/-! ## §0 — ⟦THE NUMERALS AND THE TWO TRANSPORTS⟧ the cap's own constants -/
+
+/-- **⟦THE LATTICE TOP⟧** (`epsChain_log_top_le_nine`) — `log 8103 ≤ 9`, the `_b9` twins' other
+binder at `h := 8103` (`8103 < e⁹ = 8103.0839…`, via `Real.exp_one_gt_d9`).  The same numeral the
+frozen file proves as C7; it is restated here because the frozen file imports THIS one. -/
+theorem epsChain_log_top_le_nine : Real.log ((8103 : ℕ) : ℝ) ≤ 9 := by
+  have hcast : ((8103 : ℕ) : ℝ) = (8103 : ℝ) := by norm_num
+  rw [hcast, Real.log_le_iff_le_exp (by norm_num)]
+  have h3 : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+  have h4 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+  have h5 : (2.7182818283 : ℝ) ^ (9 : ℕ) < (Real.exp 1) ^ (9 : ℕ) :=
+    pow_lt_pow_left₀ h4 (by norm_num) (by norm_num)
+  have h6 : (8103 : ℝ) ≤ (2.7182818283 : ℝ) ^ (9 : ℕ) := by norm_num
+  rw [h3]; linarith
+
+/-- **⟦THE DOOR IS MONOTONE UP IN ITS GRADE⟧** (`mrtUniformityXiL2_mono`) — `MRTUniformityXiL2 R ρ`
+is `∀ H …, Σ … ≤ ρ` (`MRTDoor.lean`), so a door at `ρ` is a door at any `ρ' ≥ ρ`.  This is the step
+`FlatDoorPayload`'s construction names ("a door at `ρ ≤ δ₀` is a door at `δ₀`"). -/
+theorem mrtUniformityXiL2_mono {R : ChowlaRegime} {ρ ρ' : ℝ} (hle : ρ ≤ ρ')
+    (hd : MRTUniformityXiL2 R ρ) : MRTUniformityXiL2 R ρ' := by
+  intro H _ hlo hhi
+  exact le_trans (hd H hlo hhi) hle
+
+/-- **⟦THE SOCKET RELAXATION, CO-FACTOR SIDE⟧** (`s16CofactorSupply_L_of_LH`) — the inflated
+socket's supply implies the landed one, because `SocketBaseL → SocketBaseLH h`
+(`socketBaseLH_of_socketBaseL`) and the socket sits in HYPOTHESIS position in both defs. -/
+theorem s16CofactorSupply_L_of_LH {h K : ℕ} (hh : 0 < h) {Cq : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hs : S16CofactorSupply_LH_gk h K Cq R M) : S16CofactorSupply_L_gk K Cq R M := by
+  intro H L q j A s hb
+  exact hs H L q j A s (socketBaseLH_of_socketBaseL hh hb)
+
+/-- **⟦THE SOCKET RELAXATION, BASE-SCALE SIDE⟧** (`s16BaseScaleCap96_L_of_LH`) — the same one-step
+relaxation for ⟦ITEM 3⟧'s cap. -/
+theorem s16BaseScaleCap96_L_of_LH {h K : ℕ} (hh : 0 < h) {R : ChowlaRegime} {M : ℕ}
+    (hs : S16BaseScaleCap96_LH_gk h K R M) : S16BaseScaleCap96_L_gk K R M := by
+  intro H L q j A s hb
+  exact hs H L q j A s (socketBaseLH_of_socketBaseL hh hb)
+
+/-- **⟦THE SUM SPLIT'S `log 2`, PAID FROM THE TOWER AT THE CAP⟧** (`epsChain_arm_split_cap`) —
+`xceil_arm_split_h` (`XThread.lean:1153`) re-cut at the interval cap instead of at a pin: the
+margin `ε²·H₊ − H₊/10^20` covers `log 2` for every `ε ≥ 1/(500·8103)`.  The room is the gate's
+SECOND conjunct `50 ≤ loglog H₊`, which gives `log H₊ ≥ e^50 ≥ 10^21`, hence `H₊ ≥ 10^21`, against
+a demand of `1.14·10^13`: **the headroom is a tower and the corner is a constant.** -/
+theorem epsChain_arm_split_cap {ε : ℚ} (hcap : (1 : ℚ) / (500 * 8103) ≤ ε) {Hhi : ℕ}
+    (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log 2 ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have hq : (1 : ℚ) ≤ 4051500 * ε := by
+    rw [div_le_iff₀ (by norm_num)] at hcap; linarith
+  have hqR : (1 : ℝ) ≤ 4051500 * (ε : ℝ) := by exact_mod_cast hq
+  have hε0 : (0 : ℝ) < (ε : ℝ) := by linarith
+  have hε2 : (1 : ℝ) / 16414652250000 ≤ (ε : ℝ) ^ 2 := by
+    rw [div_le_iff₀ (by norm_num)]; nlinarith [hqR, hε0]
+  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  have hL0 : (0 : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := Real.log_nonneg (by linarith)
+  have hL1 : (1 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hL0 (by norm_num : (0 : ℝ) < 50) hll
+  have hexp50 : ((10 : ℝ) ^ (21 : ℕ)) ≤ Real.exp 50 := by
+    have h50 : Real.exp 50 = (Real.exp 1) ^ (50 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    rw [h50]
+    calc ((10 : ℝ) ^ (21 : ℕ)) ≤ (2.7 : ℝ) ^ (50 : ℕ) := by norm_num
+      _ ≤ (Real.exp 1) ^ (50 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 50
+  have hLexp : Real.exp 50 ≤ Real.log ((Hhi : ℕ) : ℝ) := by
+    have h1 := Real.exp_le_exp.mpr hll
+    rwa [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((Hhi : ℕ) : ℝ))] at h1
+  have hHbig : ((10 : ℝ) ^ (21 : ℕ)) ≤ ((Hhi : ℕ) : ℝ) := by
+    have := Real.log_le_sub_one_of_pos hHpos
+    linarith
+  have hstep : ((Hhi : ℕ) : ℝ) / 16414652250000 ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
+    have h := mul_le_mul_of_nonneg_right hε2 hHpos.le
+    calc ((Hhi : ℕ) : ℝ) / 16414652250000 = 1 / 16414652250000 * ((Hhi : ℕ) : ℝ) := by ring
+      _ ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := h
+  have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have e1 : ((Hhi : ℕ) : ℝ) / 16414652250000 = ((Hhi : ℕ) : ℝ) * (1 / 16414652250000) := by ring
+  have e2 : ((Hhi : ℕ) : ℝ) / (10 : ℝ) ^ 20
+      = ((Hhi : ℕ) : ℝ) * (1 / 100000000000000000000) := by norm_num; ring
+  have hkey : Real.log 2
+      ≤ ((Hhi : ℕ) : ℝ) / 16414652250000 - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+    rw [e1, e2]
+    have h21 : (1000000000000000000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by
+      calc (1000000000000000000000 : ℝ) = (10 : ℝ) ^ (21 : ℕ) := by norm_num
+        _ ≤ ((Hhi : ℕ) : ℝ) := hHbig
+    linarith
+  linarith [hkey, hstep]
+
+/-! ## §1 — ⟦THE EIGHT `ε`-FORMS⟧ each landed form with `ε` moved to a parameter under the cap
+
+Each `_Eps` sibling is its landed `def` (`DoorReceipt.lean` §1) with THREE edits and no others:
+the `∃ ε : ℚ` binder is REMOVED (`ε` is the first parameter), the conjunct `1/500 ≤ ε` is
+REPLACED by the capped rung's own `1/(500·8103) ≤ ε`, and `1/838400 ≤ δ₀` is REPLACED by the
+`ε`-free numeral `1/(838400·8103) ≤ δ₀` — the exact pin `s15Arm_log_le_scaled` asks at `c := 8103`,
+which is the ONE place the landed `δ₀` pin is read.  Every other conjunct is byte-identical. -/
+
+def FlatHeadFormEps (ε : ℚ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
+      (1 : ℚ) / (500 * 8103) ≤ ε ∧ (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧ 0 < β ∧
+      ∀ A : ℝ, 26 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap = max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), XCeilRider ε g → ∃ R : ChowlaRegime,
+            R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+            Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              ((bigXi R.eps H).card : ℝ) ≤ K) ∧
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+            R.Hlo ≤ max Hcap (max extraFloor U1floor) ∧
+            ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+              P R
+
+def FlatSocketFormEps (ε : ℚ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
+      (1 : ℚ) / (500 * 8103) ≤ ε ∧ (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧ 0 < β ∧
+      ∀ A : ℝ, 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ), XCeilRider ε g →
+            ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+              R.Hlo ≤ max Hcap U1floor ∧
+              (∀ (a e : ℕ → ℂ) (Bsieve : ℕ → ℝ) (Binsert : ℝ),
+                (∀ m, lamCoeff m = a m + e m) →
+                (∀ H : ℕ, 0 ≤ Bsieve H) →
+                (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+                  NearRatTight (arcDen 12 H) H α →
+                    (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+                      ≤ Bsieve H * (H : ℝ) ^ 2) →
+                (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+                  (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+                    ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+                      ∂(logMeasure R.x R.ω)) ≤ Binsert) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
+                P R)
+
+def FlatDoorL2FormEps (ε : ℚ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (Cg : ℝ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
+      0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 539 ∧ 0 < δ₀ ∧ (1 : ℚ) / (500 * 8103) ≤ ε ∧
+      (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧ 0 < β ∧
+      ∀ (K : ℕ) (A : ℝ), 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ), XCeilRider ε g →
+            ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+              R.Hlo ≤ max Hcap U1floor ∧
+              ∀ (Braw : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
+                M4DoorGates_L_gk K Cg R M k δ →
+                (∀ H : ℕ, 0 ≤ Braw H) →
+                M4SievedDoorSq_L_gk K R M Braw →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+                2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+                  P R
+
+def FlatRoadFormEps (ε : ℚ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (Cg : ℝ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
+      0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 539 ∧ 0 < δ₀ ∧ (1 : ℚ) / (500 * 8103) ≤ ε ∧
+      (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧ 0 < β ∧
+      ∀ (K : ℕ) (A : ℝ), 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ), XCeilRider ε g →
+            ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+              R.Hlo ≤ max Hcap U1floor ∧
+              ∀ (δ Bceil : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
+                M4DoorGates_L_gk K Cg R M k δ → 1 ≤ M →
+                (∀ H : ℕ, 0 ≤ RSan H) → (∀ H : ℕ, 0 ≤ RStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+                (∀ j H : ℕ, j₀ ≤ j → RS j H ≤ RSan H) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 7 ≤ RStr H) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  44 * RSan H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 3 ≤ (H : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H
+                    ≤ Braw H) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+                2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+                M4ChiSummedFreeRow_L_gk K R M RS →
+                  P R
+
+def FlatCapstoneFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
+    ∃ (Cg : ℝ) (Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ (1 : ℚ) / (500 * 8103) ≤ ε ∧ (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧
+      Kc ≤ 2 ^ 539 ∧
+      (∀ A : ℝ, 162 ≤ A → Awin ≤ A → Mfl ≤ flatDoorM A) ∧
+      0 < β ∧
+      ∀ K : ℕ, ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ A : ℝ, 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (Cp : ℝ), 0 ≤ Cp →
+            ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ), XCeilRider ε g →
+              ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+                Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+                (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                  Real.log (Real.log (R.Hhi : ℝ))
+                    ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+                R.Hlo ≤ max Hcap U1floor ∧
+                ∀ (M : ℕ), Mfl ≤ M → K ≤ 170000000 * M →
+                  ∃ C' : ℝ, 0 < C' ∧
+                    8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ))
+                        ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) ∧
+                    ∀ (C₁ M₀ _epsf epsrf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                      -- ⟦A⟧ THE SPINE ARITHMETIC
+                      M4DoorGates_L_gk K Cg R M k δ₀ →
+                      8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                        4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloorL M : ℕ) : ℝ)) →
+                      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                        arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                        m4SmallGradeFits (doorRowFloorL M)
+                          (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                          (fun H => 2 * rStrWitness H) H) →
+                      -- ⟦B1'⟧ THE FUSE'S OWN DEMANDS AT THE CONSTANT POOL
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s → DoorBaseFrame (A + s) j) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        374784 * Ct * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+                          ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        GRowsZeroGate'''_L_gk K M (A + s) Cp
+                          (constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi)) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266
+                            + (-Real.log (doorRhoOfDelta (s12DeltaSock δ₀ Kc)))
+                          ≤ (theta293 - epsrf (A + s))
+                              * Real.log (Real.log (((A + s : ℕ)) : ℝ))) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)
+                          ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+                          * constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi) →
+                      -- ⟦THE εr/ε SPLIT⟧ the absorption exponent's own window
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        0 ≤ epsrf (A + s) ∧ epsrf (A + s) ≤ theta293 - 1 / 500) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        calQK (AdoorL M) (s13GK K M) M 2 ≤ A + s ∧
+                          Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+                              ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                          (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                          (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                          ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                      -- ⟦B4 RAW⟧ the crossing bound, carried
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+                          (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                          2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                          5 ≤ Real.log (Real.log (2 * T)) →
+                          (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                              ‖spoly (2 * (A + s))
+                                (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                            ≤ 8 * (0 : ℝ) ^ 2
+                              + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                                    \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                                  ∩ seamTtotG (chiBarCoeff q χ liouvilleC)
+                                      (calP (AdoorL M) (s13GK K M))
+                                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                                      (mrAlpha (1 / 12)) 2,
+                                  ‖spoly (2 * (A + s))
+                                    (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                              + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                                  * (Real.log (((A + s : ℕ)) : ℝ))
+                                      ^ (-theta293 + epsrf (A + s)))) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        DoorBandBase_L_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                          (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                        P R
+
+def FlatConditionalFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
+    ∃ (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ (1 : ℚ) / (500 * 8103) ≤ ε ∧ (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧
+      Kc ≤ 2 ^ 539 ∧
+      (∀ A : ℝ, 162 ≤ A → Awin ≤ A → Mfl ≤ flatDoorM A) ∧
+      0 < β ∧
+      ∀ K : ℕ, ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ A : ℝ, 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ), XCeilRiderStrict ε g →
+            max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+            ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+              ∀ M : ℕ,
+                S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
+                 K ≤ 170000000 * M →
+                S15CrossingBound_L_gk K R M → P R
+
+def FlatKswinFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
+    ∃ (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ (1 : ℚ) / (500 * 8103) ≤ ε ∧ (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧
+      (∀ A : ℝ, 162 ≤ A → Awin ≤ A → Mfl ≤ flatDoorM A) ∧
+      0 < β ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧
+      ∀ K : ℕ, ∃ Ct : ℝ, 0 < Ct ∧
+        ∀ A : ℝ, 162 ≤ A → Awin ≤ A → budgetAFlat (ε : ℝ) β ≤ A →
+          K ≤ 170000000 * flatDoorM A →
+        (Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq = flatDesignBase A) ∧
+        ((x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) →
+          Hopq ≤ flatDesignBase A →
+          T₀ ≤ Real.exp (Real.sqrt ((flatWitFloor ε β A Hopq : ℕ) : ℝ) / 2) →
+          Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 →
+          ∀ g : ℕ → ℕ → ℕ, XCeilRiderStrict ε g → ∃ R : ChowlaRegime,
+            R.eps = ε ∧ R.Hlo = flatWitFloor ε β A Hopq ∧ g R.Hhi R.ω ≤ R.x ∧
+            Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+            3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+            Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+            (S16CofactorSupply_L_gk K Cq R (flatDoorM A) →
+              S16BaseScaleCap96_L_gk K R (flatDoorM A) →
+                P R))
+
+def V7RatedFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
+    ∃ (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ (1 : ℚ) / (500 * 8103) ≤ ε ∧
+      (1 : ℝ) / (838400 * 8103) ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        P R
 
 end Salt.MR
 
