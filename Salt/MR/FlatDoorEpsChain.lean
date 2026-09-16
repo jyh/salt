@@ -392,6 +392,146 @@ def V7RatedFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
         P R
 
+/-! ## §2 — ⟦THE COUNT LEAF⟧ `|Ξ_H| ≤ 2^539` at every `ε` in the cap, not at a pin -/
+
+/-- **⟦THE COUNT HOOK AT THE CAP⟧** (`bigXi_bounded_ceiling_of_cap`) —
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`, at `ε = 1/500`) with the pin
+replaced by the interval
+`1/(500·8103) ≤ ε ≤ 1/500`.  The route is the pinned lemma's own: `bigXi_bounded_explicit`
+(`GoldbachEnergyN0.lean:718`) at `K := e^40` (`ε`-free) and `C₁` read off the GENERIC
+`hpt_holds_thr` (`:544`) at the `ε`-free threshold `T := 2^68`.
+
+⟦THE WITNESS AND ITS SIZE⟧ `32·e^40·(2^63)²·4051500^10`.  `1/ε² ≤ 4051500² = 1.6415·10^13` carries
+`C₁ ≤ 204800 + 1.681·10^18 + 1.1888·10^15·(68·log 2)² = 4.323·10^18 ≤ 2^63`, and `ε^{-10}` gives
+`4051500^10 < 2^220`.  On the corpus's own chain (`e^40 ≤ 3^40 < 2^64`) the total is `2^414`
+against `2^539` — **125 bits spare**.  The threshold's four demands are met with room: `4 ≤ ε²·T`
+reads `1.8·10^7`, and `(2/ε²)^10 ≤ 2^450` against `T^9 = 2^612`. -/
+theorem bigXi_bounded_ceiling_of_cap (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
+    (hcap : (1 : ℚ) / (500 * 8103) ≤ ε) :
+    ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
+      ((bigXi ε H).card : ℝ) ≤ C := by
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hqcap : (1 : ℚ) ≤ 4051500 * ε := by
+    rw [div_le_iff₀ (by norm_num)] at hcap; linarith
+  have hcapR : (1 : ℝ) ≤ 4051500 * (ε : ℝ) := by exact_mod_cast hqcap
+  have hεle : (ε : ℝ) ≤ 1 / 500 := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hε
+    rwa [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+  have heps2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hεle]
+  have hsqR : (1 : ℝ) ≤ 16414652250000 * (ε : ℝ) ^ 2 := by
+    have h := one_le_pow₀ (n := 2) hcapR
+    calc (1 : ℝ) ≤ (4051500 * (ε : ℝ)) ^ 2 := h
+      _ = 16414652250000 * (ε : ℝ) ^ 2 := by ring
+  have hu : (1 : ℝ) / (ε : ℝ) ^ 2 ≤ 16414652250000 := by
+    rw [div_le_iff₀ (by positivity)]; linarith
+  have hTcastR : (((2 ^ 68 : ℕ)) : ℝ) = (2 : ℝ) ^ (68 : ℕ) := by push_cast; ring
+  -- ⟦THE THRESHOLD'S FOUR DEMANDS⟧ at the `ε`-free `T := 2^68`
+  have hT0 : N0' ≤ (2 : ℕ) ^ 68 := by unfold N0'; norm_num
+  have hTA : (4 : ℚ) ≤ ε ^ 2 * (((2 ^ 68 : ℕ)) : ℚ) := by
+    have hcast : (((2 ^ 68 : ℕ)) : ℚ) = 2 ^ (68 : ℕ) := by push_cast; ring
+    have hsq : (1 : ℚ) ≤ 16414652250000 * ε ^ 2 := by
+      have h := one_le_pow₀ (n := 2) hqcap
+      calc (1 : ℚ) ≤ (4051500 * ε) ^ 2 := h
+        _ = 16414652250000 * ε ^ 2 := by ring
+    rw [hcast]
+    norm_num
+    linarith [hsq]
+  have hTB : ((16 : ℕ) : ℝ) ^ (10 : ℕ) ≤ (((2 ^ 68 : ℕ)) : ℝ) := by
+    rw [hTcastR]; norm_num
+  have hTD : (2 / (ε : ℝ) ^ 2) ^ (10 : ℕ) ≤ ((((2 ^ 68 : ℕ)) : ℝ)) ^ (9 : ℕ) := by
+    have h1 : (2 : ℝ) / (ε : ℝ) ^ 2 ≤ 2 ^ (45 : ℕ) := by
+      rw [div_le_iff₀ (by positivity)]
+      have : (2 : ℝ) ^ (45 : ℕ) = 35184372088832 := by norm_num
+      rw [this]; linarith [hsqR]
+    rw [hTcastR]
+    calc ((2 : ℝ) / (ε : ℝ) ^ 2) ^ (10 : ℕ) ≤ ((2 : ℝ) ^ (45 : ℕ)) ^ (10 : ℕ) :=
+          pow_le_pow_left₀ (by positivity) h1 10
+      _ = (2 : ℝ) ^ (450 : ℕ) := by rw [← pow_mul]
+      _ ≤ (2 : ℝ) ^ (612 : ℕ) := pow_le_pow_right₀ (by norm_num) (by norm_num)
+      _ = ((2 : ℝ) ^ (68 : ℕ)) ^ (9 : ℕ) := by rw [← pow_mul]
+  -- ⟦THE CONSTANT⟧ the generic `hpt`, capped at `2^63`
+  have hlogT : Real.log ((((2 ^ 68 : ℕ)) : ℝ)) ≤ 47.14 := by
+    rw [hTcastR, Real.log_pow]; push_cast; linarith [Real.log_two_lt_d9]
+  have hlogT0 : (0 : ℝ) ≤ Real.log ((((2 ^ 68 : ℕ)) : ℝ)) := Real.log_natCast_nonneg _
+  have hlogTsq : (Real.log ((((2 ^ 68 : ℕ)) : ℝ))) ^ 2 ≤ 2222.2 := by
+    have h := pow_le_pow_left₀ hlogT0 hlogT 2
+    calc (Real.log ((((2 ^ 68 : ℕ)) : ℝ))) ^ 2 ≤ (47.14 : ℝ) ^ 2 := h
+      _ ≤ 2222.2 := by norm_num
+  have hpt : ∀ H n : ℕ, ((repCount (Salt.Entropy.Chowla.primeWindow ε H)
+        (Salt.Entropy.Chowla.primeWindow ε H) n : ℕ) : ℝ)
+      ≤ ((2 : ℝ) ^ (63 : ℕ)) * ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n := by
+    intro H n
+    refine le_trans (hpt_holds_thr ε hε0 heps2 (1 / 256) (by norm_num) 16
+      repCount_even_le_primorial_sixteen (2 ^ 68) hT0 hTA hTB hTD H n) ?_
+    have hF : (0 : ℝ) ≤ ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n :=
+      mul_nonneg (div_nonneg (by positivity) (sq_nonneg _)) (sTrunc2_nonneg n)
+    have hbr : (ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2)
+        ≤ 1188815000000000 := by
+      have hA : (ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) ≤ 1180591620717412 := by
+        rw [hTcastR]
+        have h68 : (2 : ℝ) ^ (68 : ℕ) = 295147905179352825856 := by norm_num
+        rw [h68]
+        nlinarith [hεR0, hεle]
+      have hB : (1 : ℝ) / (2 * (ε : ℝ) ^ 2) ≤ 8207326125000 := by
+        have hid : (1 : ℝ) / (2 * (ε : ℝ) ^ 2) = (1 / (ε : ℝ) ^ 2) / 2 := by ring
+        rw [hid]; linarith [hu]
+      calc (ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2)
+          ≤ 1180591620717412 + 2 + 8207326125000 := add_le_add (add_le_add hA le_rfl) hB
+        _ ≤ 1188815000000000 := by norm_num
+    have hbr0 : (0 : ℝ) ≤ (ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2) := by
+      positivity
+    have hprod : ((ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+          * (Real.log ((((2 ^ 68 : ℕ)) : ℝ))) ^ 2
+        ≤ 1188815000000000 * 2222.2 :=
+      mul_le_mul hbr hlogTsq (sq_nonneg _) (by norm_num)
+    have hCL : (800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2) ≤ 1680860390400204800 := by
+      have hid : (102400 : ℝ) / (ε : ℝ) ^ 2 = 102400 * (1 / (ε : ℝ) ^ 2) := by ring
+      rw [hid]
+      have h0 : (800 : ℝ) / (1 / 256 : ℝ) = 204800 := by norm_num
+      rw [h0]; linarith [hu]
+    have hCsum : (800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+          + ((ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+              * (Real.log ((((2 ^ 68 : ℕ)) : ℝ))) ^ 2
+        ≤ (2 : ℝ) ^ (63 : ℕ) := by
+      have h63 : (2 : ℝ) ^ (63 : ℕ) = 9223372036854775808 := by norm_num
+      rw [h63]; linarith [hCL, hprod]
+    calc ((800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+            + ((ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+                * (Real.log ((((2 ^ 68 : ℕ)) : ℝ))) ^ 2)
+          * ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n
+        = ((800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+            + ((ε : ℝ) ^ 2 * (((2 ^ 68 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+                * (Real.log ((((2 ^ 68 : ℕ)) : ℝ))) ^ 2)
+            * (((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n) := by ring
+      _ ≤ ((2 : ℝ) ^ (63 : ℕ)) * (((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n) :=
+          mul_le_mul_of_nonneg_right hCsum hF
+      _ = ((2 : ℝ) ^ (63 : ℕ)) * ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n := by ring
+  -- ⟦THE EXPLICIT COUNT, AND THE CEILING⟧
+  have hbase := bigXi_bounded_explicit ε hε0 heps2 ((2 : ℝ) ^ (63 : ℕ)) (Real.exp 40)
+    (Real.exp_pos _) hFac2_lcm_sum_le_exp40 hpt
+  refine ⟨32 * Real.exp 40 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 * (4051500 : ℝ) ^ (10 : ℕ),
+    by positivity, ?_, 2, le_rfl, ?_⟩
+  · have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by simpa using exp_forty_le_pow40
+    have hnn : (0 : ℝ) ≤ 32 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 * (4051500 : ℝ) ^ (10 : ℕ) := by positivity
+    have hfold : 32 * Real.exp 40 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 * (4051500 : ℝ) ^ (10 : ℕ)
+        = (32 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 * (4051500 : ℝ) ^ (10 : ℕ)) * Real.exp 40 := by ring
+    have hnum : (32 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 * (4051500 : ℝ) ^ (10 : ℕ)) * 3 ^ (40 : ℕ)
+        ≤ 2 ^ 539 := by norm_num
+    rw [hfold]
+    exact le_trans (mul_le_mul_of_nonneg_left h40 hnn) hnum
+  · intro H _ hH2
+    have hb := hbase H hH2
+    have hid : 32 * Real.exp 40 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 / (ε : ℝ) ^ 10
+        ≤ 32 * Real.exp 40 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 * (4051500 : ℝ) ^ (10 : ℕ) := by
+      rw [div_le_iff₀ (by positivity)]
+      have hp : (1 : ℝ) ≤ (4051500 * (ε : ℝ)) ^ (10 : ℕ) := one_le_pow₀ hcapR
+      have hexp : (4051500 * (ε : ℝ)) ^ (10 : ℕ)
+          = (4051500 : ℝ) ^ (10 : ℕ) * (ε : ℝ) ^ 10 := by ring
+      rw [hexp] at hp
+      have hpos : (0 : ℝ) < 32 * Real.exp 40 * ((2 : ℝ) ^ (63 : ℕ)) ^ 2 := by positivity
+      nlinarith [hp, hpos]
+    exact le_trans hb hid
+
 end Salt.MR
 
 end
