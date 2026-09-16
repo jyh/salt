@@ -146,7 +146,22 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily_capped (ε : ℚ) (hε0 : 0 < ε)
         MRTUniformityXiL2 R δ₀ ∧
         ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
           ¬ logChowla2Fails R.eps R.x R.ω := by
-  sorry
+  -- ⟦THE PAYLOAD FROM THE HEAD⟧ `FlatDoorPayload`'s body, written as the chain's slot `P`.
+  -- ⛔ It is written OUT rather than cited: `FlatDoorPayload` and C6 are declared BELOW this
+  -- theorem, so neither is in scope here, and moving a statement is what the freeze forbids.
+  -- What C6 does is done in place instead — the floor by `le_rfl`, the grade by C1 (above).
+  have hε0R : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hV := flat_chain_generic_eps ε
+    (fun R : ChowlaRegime => MRTUniformityXiL2 R ((ε : ℝ) / (256 * (1 + 4 * Real.log 4))) ∧
+      ∀ ρ : ℝ, 0 < ρ → ρ ≤ (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) →
+        MRTUniformityXiL2 R ρ → ¬ logChowla2Fails R.eps R.x R.ω)
+    (flat_head_uniform_xceil_eps ε hε0 hε hcap _ (fun _ _ hd hs => ⟨hd, hs⟩)) A₀
+  -- ⟦THE UNPACK⟧ as `mrtUniformityXiL2_holds_flat` unpacks the landed terminal, minus `ε`
+  obtain ⟨Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, -, -, -, -, -, -, -, -, -, -, -, -,
+    -, -, -, -, -, -, -, hA162, hA₀A, R, hReps, hHlo, -, hdes, -, hdoor, hslot⟩ := hV
+  exact ⟨(ε : ℝ) / (256 * (1 + 4 * Real.log 4)), A, by positivity, le_rfl,
+    flatDoorMint_floor_le_grade (ε : ℝ) hε0R.le, hA162, hA₀A, R, hReps, hHlo, hdes,
+    hdoor, hslot⟩
 
 /-! ## §3 — ⟦THE CONTROLS⟧ every consumer and the zero level, PROVED from W-ε (no sorry read) -/
 
