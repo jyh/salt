@@ -13,7 +13,10 @@ import Mathlib
 the wave is a THIRD word.  STATEMENT-ONLY AT THE FREEZE: two `sorry`-bodied statements, the
 rest PROVED from them or from numerals.  NOT imported by any aggregate.  v1.1, after math's
 non-author pass — NO KILL on W, Wc, E2′, E2″; Wc's cap RESTATED (K8), the payload landed in
-closed form (N10, math's construction), the lattice-top numeral proved (C7), rung 2 un-priced (N3).)
+closed form (N10, math's construction), the lattice-top numeral proved (C7), rung 2 un-priced (N3).
+v1.2, after the helm's THIRD-PARTY confirm of v1.1 — CONFIRMED-WITH-REPAIRS, every repair on the
+record or the instrument: three docstrings repaired here (Wc's "verbatim", E2″'s bridge pin, C1's
+interval); NO statement moved, W byte- and type-identical to v1 and v1.1.)
 
 **HONEST LABEL, FIRST LINE.**  Nothing here bears on twin primes.  What W-ε would land is the
 landed `L²` MRT door on the flat family (`mrtUniformityXiL2_holds_flat`, `DoorReceipt.lean:1110`,
@@ -65,7 +68,9 @@ namespace Salt.MR
 `ε/(256·(1 + 4·log 4))` sits below the receipt's scaled grade `500·ε/837782` for every `ε ≥ 0`:
 `837782 ≤ 128000·(1 + 8·log 2)` needs `log 2 ≥ 0.6931465`, and `Real.log_two_gt_d9` gives
 `0.6931471803`.  The interval W-ε's `δ₀` lives in is nonempty; at `ε = 1/500` it is
-`(1/837782.7, 1/837782]`, the receipt's own (`DoorReceipt.lean:80`). -/
+`[1/(128000·(1 + 8·log 2)), 1/837782]`, whose LEFT end is the receipt's own `δ₀` — the receipt
+states `δ₀ ∈ (1/837783, 1/837782)` (`DoorReceipt.lean:80`).  (v1.2; v1.1 wrote the interval as
+`(1/837782.7, 1/837782]` and called it the receipt's, which it is not — the helm's §6(2).) -/
 theorem flatDoorMint_floor_le_grade (ε : ℝ) (hε : 0 ≤ ε) :
     ε / (256 * (1 + 4 * Real.log 4)) ≤ 500 * ε / 837782 := by
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
@@ -115,8 +120,11 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily (ε : ℚ) (hε0 : 0 < ε) (hε :
 `h : ℕ` with `log h ≤ 9` (`h_le_8103_of_log_le_nine`; `log 8103 ≤ 9` is `flatDoor_cap_lattice_top`
 below).  This is EXACTLY the range on which every capped helper of the flat road applies AS
 LANDED: the `_b9` twins take `h : ℕ`, `0 < h`, `log h ≤ 9` and `1/(500·h) ≤ ε`, so at `h := 8103`
-their binders are this hypothesis and C7, verbatim (`flat_arm_eps_le_h_b9`,
-`flat_arm_budget_le_h_b9`, `flat_witFloor_eq_designBase_h_b9`, `klevF_capNumeral_h_b9`); the
+their binders are this hypothesis and C7 — verbatim for the two that take the rational cap
+(`flat_arm_eps_le_h_b9`, `klevF_capNumeral_h_b9`) and through a FOUR-line cast (`1 ≤ 4051500·ε`
+in `ℚ`, lifted, then `div_le_iff₀`; ONE `exact_mod_cast` does NOT lift a divided cap) for the
+two that take the real one (`flat_arm_budget_le_h_b9`, `flat_witFloor_eq_designBase_h_b9`) —
+v1.2, the helm's Q2, each DRIVEN at `h := 8103` in the record's Q5(e) receipt; the
 real-`c` helpers (`s15Arm_log_le_scaled`'s `log c ≤ 14`, the count hook's `K ≤ 2^539`) take
 `c := ⌈1/(500ε)⌉ ≤ 8103`.  v1 stated the cap as `log(1/(500·ε)) ≤ 9`, which admits a sliver
 `ε ∈ [1/(500·e⁹), 1/4051500)`, about 42 units wide in `1/ε`, on which NO natural `h` meets the
@@ -170,7 +178,8 @@ theorem logChowla2_epsFamily_of_flatDoor (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
 `logChowla2_epsFamily_of_allGrades` (`EpsFamilyReceipt.lean:42`) token for token, with the crown
 binder gone: `A₀ := extraFloor` and `nat_le_flatDesignBase` (`StrideShell.lean:83`) at
 `loglog extraFloor ≤ extraFloor ≤ A ≤ 3.2·A` (`Real.log_le_self` twice, the bridge's own chain
-at `TierSBridge.lean:180`). -/
+at `TierSBridge.lean:181–186`, inside `band_Hhi_unbounded_g12b`; v1.2 — v1.1 wrote `:180`, the
+line above it, the helm's §6(1)). -/
 theorem logChowla2_epsFamily_of_flatDoor_floor (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
     (extraFloor : ℕ) :
     ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ ¬ logChowla2Fails R.eps R.x R.ω := by
