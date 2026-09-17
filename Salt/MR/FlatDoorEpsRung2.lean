@@ -228,4 +228,210 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
   push_cast at h2
   linarith [Real.log_two_lt_d9]
 
+/-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
+
+The two cap sites are `S16FlatTerminalLinear.lean:2461` (`h ≤ 8103`, feeding
+`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2489` (the budget chain's
+`1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
+generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
+FIXED registers they were compared against (`10¹³⁸`, `4·10³⁹·A`) no longer dominate.  Both are
+therefore paid through `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊`'s TOWER by ONE affine hypothesis,
+
+  `hAL : 10 + 2 * L ≤ A`     (`a₀ = 10`, `a₁ = 2`),
+
+which is the walk's row 7a `A ≥ 3.05 + 1.875·log(1/ε)` re-derived at the object and rounded up:
+the budget needs `3.2·A ≥ log(4·12000·log 4·1.5626·10¹⁶) + log A + 6L ≈ 47 + log A + 6L`, and
+`a₁ = 2` leaves `0.2·A ≥ 17 + log A`, true at `A = 162` by `32.4 ≥ 22.1` and increasing.
+⛔ `hA : 162 ≤ A` is KEPT (the replays read it), so `hAL` bites only at `L > 76`. -/
+
+/-- **⟦R7a — `flat_arm_eps_le_h_b9` AT THE HEAD'S GRADE⟧** (`flat_arm_eps_le_L`) — the landed
+route `4·⌈1/ε⌉₊⁴ ≤ 4·4051500⁴ ≤ arcFloor36 ≤ flatDesignBase A` has a FIXED register in the
+middle, and at generic `L` the left end is `4·(500·h)⁴ ≤ 2.5·10¹¹ · e^{4L} ≤ e^{27 + 4L}`, which
+`10¹³⁸` cannot hold.  The `_L` route goes straight to the tower: `27 + 4L ≤ 2A + 7 ≤ e^{3.2A}`
+under `hAL`.  `⌈1/ε⌉₊ ≤ 500·h` is the source's, verbatim (it never read the cap). -/
+theorem flat_arm_eps_le_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 : 0 ≤ L)
+    (hhL : Real.log (h : ℝ) ≤ L) {A : ℝ} {ε : ℚ}
+    (hA : 162 ≤ A) (hAL : 10 + 2 * L ≤ A) (hε : 0 < ε) (hεpin : 1 / (500 * (h : ℚ)) ≤ ε) :
+    4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 ≤ flatDesignBase A := by
+  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
+  have hceil : ⌈(1 / ε : ℚ)⌉₊ ≤ 500 * h := by
+    refine Nat.ceil_le.mpr ?_
+    rw [div_le_iff₀ hε]
+    have hq : (1 : ℚ) / (500 * (h : ℚ)) ≤ ε := hεpin
+    rw [div_le_iff₀ (by positivity)] at hq
+    push_cast
+    nlinarith [hq, hq0, hε]
+  have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hceilR : ((⌈(1 / ε : ℚ)⌉₊ : ℕ) : ℝ) ≤ 500 * (h : ℝ) := by exact_mod_cast hceil
+  have hhexp : (h : ℝ) ≤ Real.exp L := by
+    calc (h : ℝ) = Real.exp (Real.log (h : ℝ)) := (Real.exp_log hhR).symm
+      _ ≤ Real.exp L := Real.exp_le_exp.mpr hhL
+  have hh4 : (h : ℝ) ^ 4 ≤ Real.exp (4 * L) := by
+    have hp := pow_le_pow_left₀ hhR.le hhexp 4
+    have hid : (Real.exp L) ^ (4 : ℕ) = Real.exp (4 * L) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    rw [hid] at hp
+    exact hp
+  have hceil4 : ((⌈(1 / ε : ℚ)⌉₊ : ℕ) : ℝ) ^ 4 ≤ (500 * (h : ℝ)) ^ 4 :=
+    pow_le_pow_left₀ (by positivity) hceilR 4
+  have hE4 : (1 : ℝ) ≤ Real.exp (4 * L) := by
+    have := Real.add_one_le_exp (4 * L); linarith
+  have hbase : ((4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 : ℕ) : ℝ) ≤ 250000000000 * Real.exp (4 * L) := by
+    push_cast
+    nlinarith [hceil4, hh4, hE4]
+  have hE27 : (250000000000 : ℝ) ≤ Real.exp 27 := by
+    have he : Real.exp 27 = (Real.exp 1) ^ (27 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    rw [he]
+    calc (250000000000 : ℝ) ≤ (2.7 : ℝ) ^ (27 : ℕ) := by norm_num
+      _ ≤ (Real.exp 1) ^ (27 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 27
+  have hfin : ((4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
+    calc ((4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 : ℕ) : ℝ)
+        ≤ 250000000000 * Real.exp (4 * L) := hbase
+      _ ≤ Real.exp 27 * Real.exp (4 * L) :=
+          mul_le_mul_of_nonneg_right hE27 (Real.exp_pos _).le
+      _ = Real.exp (27 + 4 * L) := (Real.exp_add _ _).symm
+      _ ≤ Real.exp (2 * A + 7) := Real.exp_le_exp.mpr (by linarith)
+      _ ≤ Real.exp (Real.exp (3.2 * A)) :=
+          Real.exp_le_exp.mpr (by linarith [Real.add_one_le_exp (3.2 * A)])
+  rw [flatDesignBase]
+  exact_mod_cast le_trans hfin (Nat.le_ceil _)
+
+set_option maxHeartbeats 1000000 in
+-- the `L`-cut carries the degree-2 monomial `A · e^{6L}` through `hbX` and `hexpfin` where the
+-- source compared `budgetX` against the single numeral `10^44 · A`; the closes are linear, but
+-- the `budgetX` product expansion under them is not, and it runs past the default budget.
+/-- **⟦R7b — `flat_arm_budget_le_h_b9` AT THE HEAD'S GRADE⟧** (`flat_arm_budget_le_L`) — the cap
+site `:2489` feeds ONE number, `1/ε⁶ ≤ 4.43·10³⁹`, which at generic `L` is
+`1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`; the landed `budgetXFlat ≤ 10⁴⁴·A` then reads
+`4·budgetXFlat ≤ 2.6·10²⁰ · A · e^{6L}`, and the close `4·10⁴⁴·A ≤ e^{3.2A}` becomes
+`2.6·10²⁰·A·e^{6L} ≤ e^{3A−30}·e^{0.2A+30}` under `hAL : 10 + 2L ≤ A` (which gives
+`6L ≤ 3A − 30`).  The second `max` arm (`2·log A + 2`) is the source's, untouched. -/
+theorem flat_arm_budget_le_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 : 0 ≤ L)
+    (hhL : Real.log (h : ℝ) ≤ L) {A β : ℝ} {ε : ℚ} (hA : 162 ≤ A) (hAL : 10 + 2 * L ≤ A)
+    (hβ : 0 < β) (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2)
+    (hbudA : budgetAFlat (ε : ℝ) β ≤ A) :
+    budgetFloorFlat (ε : ℝ) β A ≤ flatDesignBase A := by
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhexp : (h : ℝ) ≤ Real.exp L := by
+    calc (h : ℝ) = Real.exp (Real.log (h : ℝ)) := (Real.exp_log hx0).symm
+      _ ≤ Real.exp L := Real.exp_le_exp.mpr hhL
+  have h6b : (h : ℝ) ^ 6 ≤ Real.exp (6 * L) := by
+    have hp := pow_le_pow_left₀ hx0.le hhexp 6
+    have hid : (Real.exp L) ^ (6 : ℕ) = Real.exp (6 * L) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    rw [hid] at hp
+    exact hp
+  set e : ℝ := (ε : ℝ) with hedef
+  have hepos : (0 : ℝ) < e := by
+    rw [hedef]; exact lt_of_lt_of_le (by positivity) hε
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hden : (0 : ℝ) < e ^ 6 * β ^ 2 := by positivity
+  have hbud' : 2304 * Real.log 4 ≤ A * (e ^ 6 * β ^ 2) := by
+    rw [budgetAFlat, div_le_iff₀ hden] at hbudA
+    linarith [hbudA]
+  have he6 : e ^ 6 ≤ 1 / 64 := by
+    have hp := pow_le_pow_left₀ hepos.le hε2 6
+    norm_num at hp; linarith
+  have hbsq : (1 : ℝ) / β ^ 2 ≤ A / 204352 := by
+    rw [div_le_div_iff₀ (by positivity) (by norm_num)]
+    nlinarith [hbud', he6, hl2lo, hlog4, sq_nonneg β, hβ, pow_pos hepos 6]
+  have hb1 : (1 : ℝ) / β ≤ 1 + A / 204352 := by
+    have ht : (1 : ℝ) / β ≤ 1 + 1 / β ^ 2 := by
+      have hq : (1 : ℝ) / β ^ 2 = (1 / β) ^ 2 := by field_simp
+      nlinarith [sq_nonneg (1 / β - 1), hq]
+    linarith [hbsq]
+  have he6lo : (1 : ℝ) / (15625000000000000 * (h : ℝ) ^ 6) ≤ e ^ 6 := by
+    have hp := pow_le_pow_left₀ (by positivity : (0 : ℝ) ≤ 1 / (500 * (h : ℝ))) hε 6
+    have hid : ((1 : ℝ) / (500 * (h : ℝ))) ^ 6 = 1 / (15625000000000000 * (h : ℝ) ^ 6) := by
+      field_simp; ring
+    rw [hid] at hp; exact hp
+  have hE6 : (1 : ℝ) ≤ Real.exp (6 * L) := by
+    have := Real.add_one_le_exp (6 * L); linarith
+  have hepow : (1 : ℝ) / e ^ 6 ≤ 15625000000000000 * Real.exp (6 * L) := by
+    rw [div_le_iff₀ (by positivity)]
+    have hstep : (1 : ℝ) ≤ 15625000000000000 * (h : ℝ) ^ 6 * e ^ 6 := by
+      have hpos : (0 : ℝ) < 15625000000000000 * (h : ℝ) ^ 6 := by positivity
+      have := mul_le_mul_of_nonneg_left he6lo hpos.le
+      calc (1 : ℝ) = 15625000000000000 * (h : ℝ) ^ 6 * (1 / (15625000000000000 * (h : ℝ) ^ 6)) := by
+            field_simp
+        _ ≤ 15625000000000000 * (h : ℝ) ^ 6 * e ^ 6 := this
+    nlinarith [hstep, mul_nonneg (sub_nonneg.mpr h6b) (le_of_lt (pow_pos hepos 6))]
+  have hS : (1 : ℝ) / β ^ 2 + 1 / β + 1 ≤ A := by
+    have : A / 204352 + (1 + A / 204352) + 1 ≤ A := by linarith
+    linarith [hbsq, hb1]
+  have hSpos : (0 : ℝ) ≤ 1 / β ^ 2 + 1 / β + 1 := by positivity
+  have hTL : (1 : ℝ) / e ^ 6 + 1 ≤ 15626000000000000 * Real.exp (6 * L) := by
+    linarith [hepow, hE6]
+  have hTpos : (0 : ℝ) ≤ 1 / e ^ 6 + 1 := by positivity
+  have hApos : (0 : ℝ) < A := by linarith
+  have hprod : (1 / β ^ 2 + 1 / β + 1) * (1 / e ^ 6 + 1)
+      ≤ A * (15626000000000000 * Real.exp (6 * L)) :=
+    mul_le_mul hS hTL hTpos hApos.le
+  have hSTnn : (0 : ℝ) ≤ (1 / β ^ 2 + 1 / β + 1) * (1 / e ^ 6 + 1) := mul_nonneg hSpos hTpos
+  have hlog4hi : Real.log 4 ≤ 1.3862943616 := by rw [hlog4]; linarith
+  have hAE162 : (162 : ℝ) ≤ A * Real.exp (6 * L) := by nlinarith [hE6, hApos]
+  have hbX : 4 * budgetXFlat e β ≤ 260000000000000000000 * (A * Real.exp (6 * L)) := by
+    rw [budgetXFlat, budgetX]
+    nlinarith [hprod, hlog4hi, hSTnn, hAE162]
+  have hE62 : (10 : ℝ) ^ (26 : ℕ) ≤ Real.exp 62 := by
+    have he : Real.exp 62 = (Real.exp 1) ^ (62 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    rw [he]
+    calc (10 : ℝ) ^ (26 : ℕ) ≤ (2.7 : ℝ) ^ (62 : ℕ) := by norm_num
+      _ ≤ (Real.exp 1) ^ (62 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 62
+  have hQ : 260000000000000000000 * A ≤ Real.exp (0.2 * A + 30) := by
+    have hsp : Real.exp (0.2 * A + 30) = Real.exp 62 * Real.exp (0.2 * A - 32) := by
+      rw [← Real.exp_add]; ring_nf
+    have hlin : (0.2 : ℝ) * A - 31 ≤ Real.exp (0.2 * A - 32) := by
+      have := Real.add_one_le_exp (0.2 * A - 32); linarith
+    have hnn : (0 : ℝ) ≤ 0.2 * A - 31 := by linarith
+    have hprd : (10 : ℝ) ^ (26 : ℕ) * (0.2 * A - 31) ≤ Real.exp 62 * Real.exp (0.2 * A - 32) :=
+      mul_le_mul hE62 hlin hnn (by positivity)
+    rw [hsp]
+    nlinarith [hprd, hA]
+  have hexpfin : 260000000000000000000 * (A * Real.exp (6 * L)) ≤ Real.exp (3.2 * A) := by
+    have hEle : Real.exp (6 * L) ≤ Real.exp (3 * A - 30) := Real.exp_le_exp.mpr (by linarith)
+    have hsp2 : Real.exp (3.2 * A) = Real.exp (3 * A - 30) * Real.exp (0.2 * A + 30) := by
+      rw [← Real.exp_add]; ring_nf
+    have hP : (0 : ℝ) < Real.exp (3 * A - 30) := Real.exp_pos _
+    have hAmul : A * Real.exp (6 * L) ≤ A * Real.exp (3 * A - 30) :=
+      mul_le_mul_of_nonneg_left hEle hApos.le
+    have hstepB : Real.exp (3 * A - 30) * (260000000000000000000 * A)
+        ≤ Real.exp (3 * A - 30) * Real.exp (0.2 * A + 30) :=
+      mul_le_mul_of_nonneg_left hQ hP.le
+    rw [hsp2]
+    linarith [hAmul, hstepB]
+  have hmax : max (4 * budgetXFlat e β) (2 * Real.log A + 2) ≤ Real.exp (3.2 * A) := by
+    refine max_le ?_ ?_
+    · linarith [hbX, hexpfin]
+    · have hlA : Real.log A ≤ A - 1 := Real.log_le_sub_one_of_pos hApos
+      have h2A : (2 : ℝ) * A ≤ Real.exp (3.2 * A) := by
+        nlinarith [Real.add_one_le_exp (3.2 * A)]
+      linarith
+  rw [budgetFloorFlat, flatDesignBase]
+  exact Nat.ceil_le_ceil (Real.exp_le_exp.mpr hmax)
+
+/-- **⟦R7c — `flat_witFloor_eq_designBase_h_b9` AT THE HEAD'S GRADE⟧**
+(`flat_witFloor_eq_designBase_L`) — SUPPLIER-SWAP: the two `h`-scaled arms become `_L`
+(`flat_arm_budget_le_L`, `flat_arm_eps_le_L`); the three `ε`-free arms are the landed ones, and
+no cap site of its own.  BODY: the `_b9` twin's, verbatim. -/
+theorem flat_witFloor_eq_designBase_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 : 0 ≤ L)
+    (hhL : Real.log (h : ℝ) ≤ L) {A β : ℝ} {ε : ℚ} {Hopq : ℕ} (hA : 162 ≤ A)
+    (hAL : 10 + 2 * L ≤ A) (hβ : 0 < β)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2) (hεq : 0 < ε)
+    (hεqpin : 1 / (500 * (h : ℚ)) ≤ ε) (hbudA : budgetAFlat (ε : ℝ) β ≤ A)
+    (hopq : Hopq ≤ flatDesignBase A) :
+    flatWitFloor ε β A Hopq = flatDesignBase A := by
+  have hbud := flat_arm_budget_le_L hh hL0 hhL hA hAL hβ hε hε2 hbudA
+  have hepsarm := flat_arm_eps_le_L hh hL0 hhL hA hAL hεq hεqpin
+  have harc := flat_arm_arcFloor_le hA
+  have hll := flat_arm_loglogFloor_le hA
+  have hdf := flat_designFloor_eq_designBase hA
+  rw [flatWitFloor, hdf]
+  omega
+
 end Salt.MR
