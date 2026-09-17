@@ -1364,4 +1364,96 @@ theorem cofkL_threshold_at_socket_rated_L {R : ChowlaRegime} {h M H L q j A s : 
     linarith [hprodv, hμ, hLH8L, hL0]
   linarith
 
+set_option maxHeartbeats 1000000 in
+-- as the twin: the design floor, the budget and the four page calls elaborate in one block
+/-- `cofkL_capFreeFloor_at_socket_rated_uniform_h_b9` at generic `L`
+(`cofkL_capFreeFloor_at_socket_rated_uniform_L`) — SUPPLIER-SWAP of all four `h`-pages
+(`capFreeFloor3_pieceDatum_arcDen_rated_L`, `cofkL_X_ge_expexp_L`,
+`cofkL_scale_gate_at_socket_L`, `cofkL_threshold_at_socket_rated_L`), and **the ONE page of the
+seventeen whose tower coefficient is not `1`.**
+⛔ `k = 6`, and it is FORCED by the twin's own `hbud`, which this page DISCHARGES rather than
+takes: `hbud` reads `156·log h` against `28·loglog H`, so at the charge it needs
+`loglog H ≥ (156/28)·L = 5.572·L` — the weakest integer `k` is `6`, and the inner `hlo` therefore
+reads `518 + 6·L ≤ loglog H₋`.  At `k = 6` the budget is `156·L + 8·log 2 ≤ 14504 + 168·L + 84`,
+clear by `12·L + 14582` (the twin's own reading was `1409.5` against `14504`).
+The other three pages need only `518 + L`, which follows by `linarith` since `L ≥ 0`, so the
+root supplies ONE hypothesis for the whole wave.  `hHhi14` pays `26·log 10 + 4·L` as before.
+The conclusion is the twin's.  BODY otherwise the twin's, verbatim. -/
+theorem cofkL_capFreeFloor_at_socket_rated_uniform_L (h : ℕ) (hh : 0 < h)
+    {Lc : ℝ} (hL0 : 0 ≤ Lc) (hhL : Real.log (h : ℝ) ≤ Lc) :
+    ∃ Z δ Kvt : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ Kvt ∧
+      ∀ (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
+        SocketBaseLH h R M H L q j A s → 1 ≤ M →
+        (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) →
+        (518 : ℝ) + 6 * Lc ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        32 * Kvt + 32 * (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+          ≤ Real.log (R.Hhi : ℝ) / 4 →
+        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) := by
+  obtain ⟨Z, δ, Kvt, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_arcDen_rated_L h hh hL0 hhL
+  refine ⟨Z, δ, Kvt, hZ, hδ, hK0, ?_⟩
+  intro K R M H L q j A s χ hb hM hε hlo6 hcush 𝒥 h𝒥
+  have hlo : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith
+  have hq0 : 0 < q := hb.2.2.2.1
+  haveI : NeZero q := ⟨by omega⟩
+  have h1 : R.Hlo ≤ H := hb.1
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have harc : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H := hb.2.2.2.2.1
+  -- ⟦the design floor⟧
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
+  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH4
+  have hlogHe : Real.exp 1 ≤ Real.log (H : ℝ) := by
+    linarith [Real.exp_one_lt_d9]
+  -- ⟦`H₊` above the charge's floor⟧
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
+  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
+  obtain ⟨hlolo, hmono1, hmono2⟩ := cofk_tower_logfloor_L hL0 hb hlo
+  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
+  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) := hmono1
+  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := hmono2
+  have hLH8L : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.log (R.Hhi : ℝ) := by linarith
+  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by nlinarith [hL0]
+  have hHhi14 : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ) := by
+    have hLhh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
+    have hhpos : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+    have hlogle : Real.log ((10 : ℝ) ^ 26 * (h : ℝ) ^ 4) ≤ Real.log (R.Hhi : ℝ) := by
+      rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+      push_cast
+      linarith [cofk_log_ten_le]
+    have h2' := Real.exp_le_exp.mpr hlogle
+    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
+  -- ⟦THE BUDGET, DISCHARGED FROM THE SOCKET'S OWN `Λ`-FLOOR AT `k = 6` — no binder added⟧
+  have hΛ518 : (518 : ℝ) + 6 * Lc ≤ Real.log (Real.log (H : ℝ)) := by
+    have hmono : Real.log (Real.log (R.Hlo : ℝ)) ≤ Real.log (Real.log (H : ℝ)) :=
+      Real.log_le_log (by linarith) hlogmono
+    linarith
+  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) :=
+    Real.log_nonneg (by linarith)
+  have hbud : 156 * Real.log h + 8 * Real.log 2
+      ≤ 28 * Real.log (Real.log (H : ℝ))
+        + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84 := by
+    have h2lt := Real.log_two_lt_d9
+    linarith
+  -- ⟦the scale gate, the debit page, the threshold — all at the INFLATED socket and the charge⟧
+  have hXee : Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) :=
+    cofkL_X_ge_expexp_L hh hL0 hhL hb hε hHhi14 hH4 hlo
+  have hgate : 32 * Salt.SW.diskConst q / goldenL1 q ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    cofkL_scale_gate_at_socket_L hh hL0 hhL hb hε hlo harc
+  have hMpos : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+  have hM1 : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
+  have hD0 : (0 : ℝ) ≤ 2 * Real.log (M : ℝ) + Real.log 4 + 50 := by
+    have h1' : (0 : ℝ) ≤ Real.log (M : ℝ) := Real.log_nonneg hM1
+    have h2' : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+    linarith
+  have hdebit := cofkL_debit_bound K M (((A + s : ℕ)) : ℝ) hM 𝒥 h𝒥
+  have hthr := cofkL_threshold_at_socket_rated_L (Kvt := Kvt)
+    (D := 2 * Real.log (M : ℝ) + Real.log 4 + 50) hh hL0 hhL hb hε hlo hcush
+  exact hK q H χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 𝒥
+    (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+    hlogHe harc hbud hXee hD0 hgate hdebit hthr
+
 end Salt.MR
