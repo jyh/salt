@@ -446,6 +446,7 @@ import Salt.MR.TierSBandU
 import Salt.MR.TierSBridge
 import Salt.MR.TierSLadder
 import Salt.MR.FlatDoorEpsFamily
+import Salt.MR.FlatDoorEpsRung2
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10614,3 +10615,131 @@ open Salt.Tactic in
   Salt.MR.flat_kswin_generic_eps
   Salt.MR.flat_v7_generic_eps
   Salt.MR.flat_chain_generic_eps
+
+/-! ⟦TIER S — THE DOOR AT THE HEAD'S GRADE, ε-FAMILY — RUNG 2⟧ — W-ε IS **PROVED**: THE `L²` MRT
+DOOR ON THE FLAT FAMILY AT **EVERY** `ε ∈ (0, 1/500]`, AT THE HEAD'S OWN THRESHOLD, WITH NO CAP
+(`FlatDoorEpsRung2`, 2026-09-17, h2c — waves 1 · 4 · 5 · 2 · 3 · 1b-i · 1b-ii · 1c · 6, fired on
+the Captain's word that rung 2 may be priced and fired).  Additive only: no landed statement
+moves, and neither the frozen `FlatDoorEpsFamily` nor the rung-1 chain file is edited.
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.
+
+⚠ THE RUNG-1 BLOCK ABOVE SAYS «W IS A NAMED `Prop`, UNPROVED, RUNG 2 NOT WORDED».  That was TRUE
+when it was written and is SUPERSEDED HERE; it is left in place because it is rung 1's own dated
+record and this file's rung-2 block is what a reader reaches last.
+
+WHAT IS NOW TRUE.  `flatDoorEpsFamilyW_holds : FlatDoorEpsFamilyW` inhabits the frozen file's
+named `Prop`.  Its method: every cap rung 1 read off the lattice top `h = 8103` is re-cut as an
+`_L` sibling at ONE charge parameter `L ≥ log c`, with every threshold affine in `L`; the eight
+`ε`-forms are re-stated at `c` (`…FormEpsW`), the head and the seven replays re-threaded over
+them, and the whole charge paid ONCE by a ninth `max`-arm `162 + 2·log c` on the design constant.
+At the theorem the charge is CHOSEN — `c := ⌈1/(500·ε)⌉₊` — so `1 ≤ c` and `1/(500·c) ≤ ε` hold
+for every `ε` and nothing is assumed.
+
+⇒ C3 · E2′ · E2″ · C4 (`mrtUniformityXiL2_holds_flat_of_epsFamily`,
+`logChowla2_epsFamily_of_flatDoor`, `…_floor`, `…_capped_of_epsFamily`) are UNCONDITIONAL IN USE:
+each still carries its `(hW : FlatDoorEpsFamilyW)` binder — the frozen file is not edited, and its
+three-arm statement guard reads STATEMENTS IDENTICAL — and each is discharged by supplying
+`flatDoorEpsFamilyW_holds`.  In particular rung 1's `mrtUniformityXiL2_holds_flat_epsFamily_capped`
+now follows from rung 2 through `…_capped_of_epsFamily`, in the direction the frozen file named.
+
+⚖️ `feedback_no_hypotheses`: the ONE theorem that discharges `hW` is landed, so no consumer on the
+road to a terminal carries an open hypothesis from this track.  **NO NEW UNCONDITIONAL THEOREM
+ABOUT TWIN PRIMES**: the `∃ ε` tripwire is untouched, W-δ is not stated, and the crown stays the
+target.  95 names at the three axioms (82 theorems, 11 defs, 2 structures). -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.epsRung2_log500_le
+  Salt.MR.epsRung2_log_inv_eps_le
+  Salt.MR.klevF_capNumeral_L
+  Salt.MR.s16_baseScaleCap96_LH_at_klevF_L
+  Salt.MR.xt_log_inv_rho_le_L
+  Salt.MR.flat_arm_eps_le_L
+  Salt.MR.flat_arm_budget_le_L
+  Salt.MR.flat_witFloor_eq_designBase_L
+  Salt.MR.flatDoorM_bfloor_bump_L
+  Salt.MR.cofk_tower_logfloor_L
+  Salt.MR.s13_tower_logH_L
+  Salt.MR.capfloor_twoj_le_H_L
+  Salt.MR.s13_socketBase_logA_ge_sqrt_L
+  Salt.MR.s13_socketBase_loglogA_sharp_L
+  Salt.MR.s13CapGrid_mu_lo_L
+  Salt.MR.capfloor_core_L
+  Salt.MR.s13CapGrid_mu_2000_L
+  Salt.MR.s13CapGrid_Lambda_sharp_L
+  Salt.MR.s13CapGrid_Lambda_lo_L
+  Salt.MR.cofkL_socket_floors_L
+  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_L
+  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_L
+  Salt.MR.cofkL_logX_floor_L
+  Salt.MR.cofkL_mu_floor_L
+  Salt.MR.cofkL_X_ge_expexp_L
+  Salt.MR.cofkL_scale_gate_at_socket_L
+  Salt.MR.cofkL_threshold_at_socket_rated_L
+  Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_L
+  Salt.MR.cofkR_cofactorSupply_L_gk_rated_L
+  Salt.MR.bigXi_bounded_ceiling_eps
+  Salt.MR.epsRung2_exp25
+  Salt.MR.epsRung2_tower_charge
+  Salt.MR.s15Arm_log_le_L
+  Salt.MR.s15Arm_log_le_L_cut20
+  Salt.MR.epsChain_arm_split_L
+  Salt.MR.XCeilGateAt
+  Salt.MR.XCeilRiderAt
+  Salt.MR.XCeilRiderStrictAt
+  Salt.MR.xCeilGateAt_fifty
+  Salt.MR.xCeilRiderAt_fifty
+  Salt.MR.xCeilRiderStrictAt_fifty
+  Salt.MR.xCeilGateAt_mono
+  Salt.MR.xCeilRiderAt_mono
+  Salt.MR.xCeilRiderStrictAt_mono
+  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_at
+  Salt.MR.xCeilRiderAt_arm_add
+  Salt.MR.s16_audit_rho_ge_wide_h_L
+  Salt.MR.s16_audit_neglog_rho_le_wide_h_L
+  Salt.MR.s16_audit_neglog_rho_le_h_L
+  Salt.MR.flat_half_line_L
+  Salt.MR.flat_anchor_line_wide_L
+  Salt.MR.flat_gP1_line_L
+  Salt.MR.flat_lvl_line_L
+  Salt.MR.s15_sel''_L_witness_flat_L
+  Salt.MR.s15_sel''_L_gk_witness_flat_L
+  Salt.MR.flat_blk_line_gk_L
+  Salt.MR.S15Sel''_L_T
+  Salt.MR.S15Sel''_L_gk_T
+  Salt.MR.S15Sel''_L.toT
+  Salt.MR.S15Sel''_L_gk.toT
+  Salt.MR.S15Sel''_L_T.head
+  Salt.MR.S15Sel''_L_gk_T.head
+  Salt.MR.s15_sel''_L_gk_T_of_L_T
+  Salt.MR.s15_bandGate''_of_grade_L_gk_T
+  Salt.MR.flat_lambda_core_T
+  Salt.MR.s12c_eps_threshold_at_socket_flat_T
+  Salt.MR.s15_heps293_at_socket_flat_T
+  Salt.MR.s15_hband4096_at_socket_flat_T
+  Salt.MR.s15_gRows_const_at_socket_flat_doorL_gk_T
+  Salt.MR.s15_sel''_L_witness_flat_charge_L
+  Salt.MR.s15_sel''_L_witness_flat_wide_L
+  Salt.MR.s15_sel''_L_gk_witness_flat_wide_L
+  Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_L
+  Salt.MR.s15_replay_reads_L_gk_T
+  Salt.MR.epsRung2_log_Kb_le
+  Salt.MR.epsRung2_one_le_Kb
+  Salt.MR.FlatHeadFormEpsW
+  Salt.MR.FlatSocketFormEpsW
+  Salt.MR.FlatDoorL2FormEpsW
+  Salt.MR.FlatRoadFormEpsW
+  Salt.MR.FlatCapstoneFormEpsW
+  Salt.MR.FlatConditionalFormEpsW
+  Salt.MR.FlatKswinFormEpsW
+  Salt.MR.V7RatedFormEpsW
+  Salt.MR.xceilRiderStrictAt_zero
+  Salt.MR.flat_head_uniform_xceil_epsW
+  Salt.MR.flat_socket_generic_epsW
+  Salt.MR.flat_doorL2_generic_epsW
+  Salt.MR.flat_road_generic_epsW
+  Salt.MR.flat_capstone_generic_epsW
+  Salt.MR.flat_conditional_generic_epsW
+  Salt.MR.flat_kswin_generic_epsW
+  Salt.MR.flat_v7_generic_epsW
+  Salt.MR.flat_chain_generic_epsW
+  Salt.MR.flatDoorEpsFamilyW_holds
