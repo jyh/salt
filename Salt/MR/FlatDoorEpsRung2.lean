@@ -699,4 +699,81 @@ theorem s13_socketBase_logA_ge_sqrt_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0
     linarith
   linarith [hlog', hml, hllH, hclose, hul, hl2hi, hu0]
 
+/-- `s13_socketBase_loglogA_sharp_LH_b9` at generic `L` (`s13_socketBase_loglogA_sharp_L`) —
+SUPPLIER-SWAP (`s13_socketBase_logA_ge_sqrt_L`).  The twin spends its cap NOWHERE in its own
+body, only in the supplier call; the charge and the cap-grid tower ride through unchanged.
+BODY: the twin's, verbatim. -/
+theorem s13_socketBase_loglogA_sharp_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (A : ℝ)) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  set u : ℝ := Real.sqrt (H : ℝ) with hu
+  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
+  have hmain : u ≤ Real.log (A : ℝ) := s13_socketBase_logA_ge_sqrt_L hh hL0 hhL hfl hb hflL
+  have hlogu : Real.log u = Real.log (H : ℝ) / 2 := by
+    rw [hu]; exact Real.log_sqrt (by positivity)
+  have hmono := Real.log_le_log hu0 hmain
+  rw [hlogu] at hmono
+  linarith
+
+/-- `s13CapGrid_mu_lo_LH_b9` at generic `L` (`s13CapGrid_mu_lo_L`) — SUPPLIER-SWAP
+(`s13_socketBase_logA_ge_sqrt_L`).  The twin spends its cap only in the supplier call.
+BODY: the twin's, verbatim. -/
+theorem s13CapGrid_mu_lo_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    Real.sqrt (H : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    Real.log_le_log hA0 (by push_cast; linarith [Nat.cast_nonneg (α := ℝ) s])
+  exact le_trans (s13_socketBase_logA_ge_sqrt_L hh hL0 hhL hfl hb hflL) hmono
+
+/-- `capfloor_core_LH_b9` at generic `L` (`capfloor_core_L`) — SUPPLIER-SWAP
+(`s13_socketBase_logA_ge_sqrt_L`, `capfloor_twoj_le_H_L`).  The twin spends its cap only in the
+two supplier calls; the `10^21 ≤ log H` leg and the height leg are numeral-free in `h`.
+BODY: the twin's, verbatim. -/
+theorem capfloor_core_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) ∧ Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) ∧
+      0 < Tann ∧ Real.log ((Nd : ℕ) : ℝ) / 2 ≤ Real.log Tann := by
+  have hlo : R.Hlo ≤ H := hb.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at this
+  have hv : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
+    le_trans capfloor_ten21_le_exp50 hexp50
+  -- the base
+  have hsqrtH : Real.sqrt (H : ℝ) ≤ Real.log (A : ℝ) :=
+    s13_socketBase_logA_ge_sqrt_L hh hL0 hhL hfl hb hflL
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hANR : (A : ℝ) ≤ ((Nd : ℕ) : ℝ) := by exact_mod_cast hAN
+  have hNd0 : (0 : ℝ) < ((Nd : ℕ) : ℝ) := lt_of_lt_of_le hA0 hANR
+  have hm : Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) :=
+    le_trans hsqrtH (Real.log_le_log hA0 hANR)
+  -- the height
+  have h2j : 2 ^ j ≤ H := capfloor_twoj_le_H_L hh hL0 hhL hb
+  have h2jR : ((2 ^ j : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast h2j
+  have h2j0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by positivity
+  have hTpos : 0 < Tann := lt_of_lt_of_le (div_pos hNd0 h2j0) hTlo
+  have hlogdiv : Real.log ((Nd : ℕ) : ℝ) - Real.log ((2 ^ j : ℕ) : ℝ) ≤ Real.log Tann := by
+    have hz := Real.log_le_log (div_pos hNd0 h2j0) hTlo
+    rwa [Real.log_div (ne_of_gt hNd0) (ne_of_gt h2j0)] at hz
+  have hlog2j : Real.log ((2 ^ j : ℕ) : ℝ) ≤ Real.log (H : ℝ) := Real.log_le_log h2j0 h2jR
+  have hHhalf : Real.log (H : ℝ) ≤ Real.sqrt (H : ℝ) / 2 := capfloor_logH_le_half_sqrt hHR
+  exact ⟨hv, hm, hTpos, by linarith⟩
+
 end Salt.MR
