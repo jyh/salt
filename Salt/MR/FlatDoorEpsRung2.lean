@@ -2998,4 +2998,99 @@ theorem xCeilRiderAt_arm_add {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
   have hsum := xt_log_add_le harm' hgb'
   exact le_trans hsum (by linarith)
 
+
+/-! ## §W1b-i — the envelope at a generic count ceiling, and the four cap lines at a charge paid
+by `A`
+
+The rung-2 walk's last numeral caps on the `ρ`-side: the `_g12` walls' count ceiling `K ≤ 2 ^ 539`
+becomes a CHARGE `K ≤ Kb` with `1 ≤ Kb`, the envelope's `2 ^ 592` becomes `2 ^ 53 * Kb`
+(`2 ^ 592 = 2 ^ 53 * 2 ^ 539`, so `Kb = 2 ^ 539` IS the source), and the `_g14` cap lines' numeral
+charge ceiling `439` becomes `16 * A` — paid by the design constant itself through
+`Real.add_one_le_exp`, so `Lc` never enters those four.  `Kb` is a REAL VARIABLE throughout and is
+never unfolded; no `2 ^ 539` and no `2 ^ 592` occurs in this section.  Nothing here bears on twin
+primes. -/
+
+/-- **⟦THE ENVELOPE AT A GENERIC COUNT CEILING⟧ (class B)** — `s16_audit_rho_ge_wide_h_g12`
+(`StrideGrade12Walls.lean:92`) with its numeral count cap `K ≤ 2 ^ 539` replaced by the charge
+`(hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb)` and its envelope `2 ^ 592` by `2 ^ 53 * Kb`.
+
+BODY: the source's, with `hkey` re-cut for the extra factor —
+`1 / (2 ^ 53 * Kb) * (16 * K * 110525) ≤ 1 / 2 ^ 32`, which after `div_le_iff₀` is the LINEAR
+`16 * 110525 * K ≤ 2 ^ 21 * Kb`, closed from `K ≤ Kb` by `16 * 110525 = 1768400 ≤ 2097152 = 2 ^ 21`
+— the two `field_simp` splits carrying `Kb`, and the `≤ 1` arm from `1 ≤ Kb` and `1 ≤ h ^ 2`.
+The source's margin is UNCHANGED at `2097152 / 1768400 = 1.1859036417…×`: `Kb` cancels exactly.
+Nothing here bears on twin primes. -/
+theorem s16_audit_rho_ge_wide_h_L {h : ℕ} (hh : 0 < h) {δ₀ K Kb : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / (2 ^ 32 * (h : ℝ) ^ 2) ≤ δ₀) (hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb) :
+    (1 : ℝ) / (2 ^ 53 * Kb * (h : ℝ) ^ 2) ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hhsq : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith
+  have hh0 : (0 : ℝ) < (h : ℝ) := by linarith
+  have hKb0 : (0 : ℝ) < Kb := by linarith
+  have hinv : (0 : ℝ) < 1 / (h : ℝ) ^ 2 := by positivity
+  rw [doorRhoOfDelta, le_min_iff]
+  refine ⟨?_, ?_⟩
+  · rw [div_le_one (by positivity)]
+    nlinarith [hhsq, hKb1]
+  rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
+  -- ⟦THE SPLIT⟧ the `h²` is a common factor on both sides; peel it off so the comparison
+  -- `1768400 * K ≤ 2 ^ 21 * Kb` is seen on its own, and is LINEAR in `K` and `Kb`.
+  have hkey : 1 / ((2 : ℝ) ^ 53 * Kb) * (16 * K * 110525) ≤ 1 / (2 : ℝ) ^ 32 := by
+    have hd : (0 : ℝ) < 2 ^ 53 * Kb := by positivity
+    rw [div_mul_eq_mul_div, div_le_iff₀ hd]
+    linarith
+  have hsplit1 : 1 / ((2 : ℝ) ^ 53 * Kb * (h : ℝ) ^ 2) * (16 * K * 110525)
+      = 1 / ((2 : ℝ) ^ 53 * Kb) * (16 * K * 110525) * (1 / (h : ℝ) ^ 2) := by
+    field_simp
+  have hsplit2 : 1 / (2 : ℝ) ^ 32 * (1 / (h : ℝ) ^ 2)
+      = 1 / ((2 : ℝ) ^ 32 * (h : ℝ) ^ 2) := by
+    field_simp
+  rw [hsplit1]
+  refine le_trans (mul_le_mul_of_nonneg_right hkey hinv.le) ?_
+  rw [hsplit2]
+  exact hδb
+
+/-- **⟦THE `ρ`-CHARGE AT A GENERIC COUNT CEILING⟧ (class A)** —
+`s16_audit_neglog_rho_le_wide_h_g12` (`StrideGrade12Walls.lean:124`) with the same charge, its
+`411` replaced by `37 + Real.log Kb`.  BODY: the source's, with the envelope's log split ONCE MORE
+(`2 ^ 53 * Kb * h ^ 2` is three factors, not two) and the supplier swapped for the sibling above.
+
+THE NUMERAL: `53 * Real.log 2 = 36.7368005696…`, and the certified `Real.log 2 < 0.6931471808`
+gives `53 * 0.6931471808 = 36.7368005824`; the CEILING `37` is the round TOWARD SLACK, leaving
+`0.2631994176` nats.  At the source's pin `Kb = 2 ^ 539` this reads
+`37 + 539 * Real.log 2 = 37 + 373.6063303218… = 410.6063303218… ≤ 411`, so the sibling is NOT
+weaker than its source there.  Nothing here bears on twin primes. -/
+theorem s16_audit_neglog_rho_le_wide_h_L {h : ℕ} (hh : 0 < h) {δ₀ K Kb : ℝ} (hδ : 0 < δ₀)
+    (hK : 0 < K) (hδb : 1 / (2 ^ 32 * (h : ℝ) ^ 2) ≤ δ₀) (hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb) :
+    -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 37 + Real.log Kb + 2 * Real.log (h : ℝ) := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hKb0 : (0 : ℝ) < Kb := by linarith
+  have hge := s16_audit_rho_ge_wide_h_L hh hδ hK hδb hKb1 hKb
+  have hpos : (0 : ℝ) < 1 / (2 ^ 53 * Kb * (h : ℝ) ^ 2) := by positivity
+  have h1 : Real.log ((1 : ℝ) / (2 ^ 53 * Kb * (h : ℝ) ^ 2))
+      ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := Real.log_le_log hpos hge
+  have h2 : Real.log ((1 : ℝ) / (2 ^ 53 * Kb * (h : ℝ) ^ 2))
+      = -(53 * Real.log 2) - Real.log Kb - 2 * Real.log (h : ℝ) := by
+    rw [one_div, Real.log_inv, Real.log_mul (by positivity) (by positivity),
+      Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast; ring
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  rw [h2] at h1
+  linarith
+
+/-- **⟦THE `ρ`-CHARGE AT THE RUNG-2 INTERFACE⟧ (class A)** — the `_L` sibling of
+`s16_audit_neglog_rho_le_425_h_g12b` (`StrideGrade12bWalls.lean:151`): its cap `Real.log h ≤ 9` is
+the charge `Real.log h ≤ Lc`, its count cap is `K ≤ Kb` with the rung-2 interface's rating
+`Real.log Kb ≤ 197 + 20 * Lc`, and its numeral `429` is the affine `234 + 22 * Lc`.  BODY: the
+source's `le_trans … (by linarith)`, verbatim.
+
+THE NUMERALS, exact (no slack is spent here): the sibling above gives
+`37 + Real.log Kb + 2 * Real.log h ≤ 37 + (197 + 20 * Lc) + 2 * Lc`, and `37 + 197 = 234`,
+`20 + 2 = 22`.  Nothing here bears on twin primes. -/
+theorem s16_audit_neglog_rho_le_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hhL : Real.log (h : ℝ) ≤ Lc)
+    {δ₀ K Kb : ℝ} (hδ : 0 < δ₀) (hK : 0 < K) (hδb : 1 / (2 ^ 32 * (h : ℝ) ^ 2) ≤ δ₀)
+    (hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb) (hKbL : Real.log Kb ≤ 197 + 20 * Lc) :
+    -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 234 + 22 * Lc := by
+  exact le_trans (s16_audit_neglog_rho_le_wide_h_L hh hδ hK hδb hKb1 hKb) (by linarith)
+
 end Salt.MR
