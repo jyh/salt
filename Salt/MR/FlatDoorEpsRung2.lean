@@ -3747,5 +3747,230 @@ theorem flat_blk_line_gk_L {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by simp) (by simp)
     (by simpa using (Real.exp_pos (Real.exp (3.2 * A) / 10)).le) heps hlo hhi).blk
 
+/-! ## §W1c — the selector at a tower-relative clearing register
+
+The landed `S15Sel''_L.rho` (`S15SelLinear.lean:122`) is the FIXED numeral `-log ρ ≤ 10 ^ 14`,
+and the 2026-09-17 flag measured it REFUTED at the rung-2 charge `-log ρ ≤ 16 * A`: `16 * A`
+outgrows `10 ^ 14` and `A` is bounded above by nothing.  The register was only ever spent
+AGAINST THE TOWER — its four binding readers on the conditional road all close through one
+numeric core, `14 * e ^ (λ / 2) + 10 ^ 15 ≤ c * e ^ λ` at `e ^ λ = log H₋`.  So the siblings
+here state the register RELATIVE to the tower,
+
+    `rho : -Real.log ρ ≤ Real.log H₋ / 10000`,
+
+and every other field is the landed structure's, byte for byte, under the SAME field name — so
+every projection (`.hM`, `.blk`, `.half`, …) keeps its name at the consumers.  Nothing here
+bears on twin primes. -/
+
+/-- **⟦THE `M`-SELECTION REGISTER AT A TOWER-RELATIVE CHARGE⟧** (`S15Sel''_L_T`) —
+`S15Sel''_L` (`S15SelLinear.lean:104`) with ONE field changed: `rho`'s fixed `10 ^ 14` becomes
+`log H₋ / 10 ^ 4`.  The ten other fields, their names and their docstrings are the source's,
+byte for byte. -/
+structure S15Sel''_L_T (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop where
+  /-- the door's parameter is a modulus. -/
+  hM : 1 ≤ M
+  /-- ⟦`M`-LOWER 0⟧ the graded twin's own `ℕ`-floor. -/
+  mfloor : Mfl ≤ M
+  /-- ⟦`M`-LOWER 1⟧ `MSelect'.bfloor` = `M4DoorGates.hMδ`. -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦`M`-LOWER 2⟧ `MSelect'.gRows`, at the LINEAR anchor. -/
+  gRows : 242 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ ((AdoorL M : ℕ) : ℝ)
+  /-- ⟦RESTORED⟧ the opaque threshold at the LINEAR row floor. -/
+  x0M : x₀ ≤ 2 ^ doorRowFloorL M
+  /-- ⟦`M`-UPPER 1⟧ `MSelect'.blockCeil` AND ⟦F3⟧'s `block`, at the LINEAR block exponent. -/
+  blk : ((s13BlockExp_L M : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)
+  /-- ⟦`M`-UPPER 2⟧ THE WINDOW GATE at the LINEAR half-window floor. -/
+  half : (7 / 10 : ℝ) * ((doorRowFloorL M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+    ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 2
+  /-- ⟦THE ONE CHANGED FIELD⟧ the clearing charge RELATIVE TO THE TOWER —
+  `ρ ≥ e ^ (-(log H₋) / 10 ^ 4)`.  The landed `S15Sel''_L.rho`'s fixed `10 ^ 14` is this
+  register at `log H₋ ≥ 10 ^ 18`, so the landed structure implies this one at the landed
+  tower floor (`S15Sel''_L.toT`, below). -/
+  rho : -Real.log ρ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 10000
+  /-- ⟦THE REPAIR⟧ the `ρ`-frame's ⟦C1⟧ anchor at `DoorArithFrameRho_L.anchor`'s OWN right
+  side `3.9·10⁹·M` — LINEAR in the door's parameter, hence exponential in `λ₋`. -/
+  anchor : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log (1 / ρ) + 33
+    ≤ 39 * 10 ^ 8 * (M : ℝ)
+  /-- the `𝒯`-leg budget at `constPool`, at the LINEAR anchor. -/
+  gP1 : 29 + Real.log Ct + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ ((AdoorL M : ℕ) : ℝ) * Real.log 2 + Real.log ρ
+  /-- the `level1` budget — the const-pool line, at the LINEAR anchor. -/
+  lvl : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      + (1 / 3) * Real.log (Real.log ((calQK (AdoorL M) (3072 * M) M 1 : ℕ) : ℝ))
+      + (-Real.log ρ)
+    ≤ (1 / 12) * ((AdoorL M : ℕ) : ℝ) * Real.log 2
+
+/-- **⟦THE LEVERED REGISTER AT A TOWER-RELATIVE CHARGE⟧** (`S15Sel''_L_gk_T`) —
+`S15Sel''_L_gk` (`S15SelLinear.lean:139`) with the same ONE field changed. -/
+structure S15Sel''_L_gk_T (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    Prop where
+  /-- the door's parameter is a modulus. -/
+  hM : 1 ≤ M
+  /-- ⟦`M`-LOWER 0⟧ the graded twin's own `ℕ`-floor. -/
+  mfloor : Mfl ≤ M
+  /-- ⟦`M`-LOWER 1⟧ `MSelect'_gk K.bfloor`. -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦`M`-LOWER 2⟧ `MSelect'_gk K.gRows`, at the LINEAR anchor. -/
+  gRows : 242 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ ((AdoorL M : ℕ) : ℝ)
+  /-- ⟦RESTORED⟧ the opaque threshold at the LINEAR row floor. -/
+  x0M : x₀ ≤ 2 ^ doorRowFloorL M
+  /-- ⟦`M`-UPPER 1⟧ the block ceiling at the levered LINEAR block exponent. -/
+  blk : ((s13BlockExp_L_gk K M : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)
+  /-- ⟦`M`-UPPER 2⟧ THE WINDOW GATE at the LINEAR half-window floor. -/
+  half : (7 / 10 : ℝ) * ((doorRowFloorL M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+    ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 2
+  /-- ⟦THE ONE CHANGED FIELD⟧ the clearing charge RELATIVE TO THE TOWER. -/
+  rho : -Real.log ρ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 10000
+  /-- ⟦THE REPAIR⟧ the ⟦C1⟧ anchor at `3.9·10⁹·M`. -/
+  anchor : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log (1 / ρ) + 33
+    ≤ 39 * 10 ^ 8 * (M : ℝ)
+  /-- the `𝒯`-leg budget at `constPool`, at the LINEAR anchor. -/
+  gP1 : 29 + Real.log Ct + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ ((AdoorL M : ℕ) : ℝ) * Real.log 2 + Real.log ρ
+  /-- the `level1` budget at the LINEAR anchor. -/
+  lvl : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      + (1 / 3) * Real.log (Real.log ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ))
+      + (-Real.log ρ)
+    ≤ (1 / 12) * ((AdoorL M : ℕ) : ℝ) * Real.log 2
+
+/-- **⟦THE LANDED REGISTER IMPLIES THE TOWER-RELATIVE ONE, AT THE LANDED TOWER FLOOR⟧**
+(`S15Sel''_L.toT`) — so every rung-1 witness of `S15Sel''_L` inhabits the sibling and nothing
+is lost.  Ten fields transport verbatim; `rho` is the ONE arithmetic step.
+
+THE NUMERAL, derived: `hlam` gives `50 ≤ log (log H₋)`, and `log H₋ > 1` (so
+`e ^ (log (log H₋)) = log H₋` by `Real.exp_log`) because `R.hHlo_floor` puts `H₋ ≥ 4 · 10 ^ 6`.
+Hence `log H₋ ≥ e ^ 50 = (e ^ 25) ^ 2 ≥ (6 · 10 ^ 10) ^ 2 = 3.6 · 10 ^ 21` (`epsRung2_exp25`,
+§W3), so `log H₋ / 10 ^ 4 ≥ 3.6 · 10 ^ 17 ≥ 10 ^ 14 ≥ -log ρ`: free by `3600 ×`.
+Nothing here bears on twin primes. -/
+theorem S15Sel''_L.toT {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (h : S15Sel''_L Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) :
+    S15Sel''_L_T Cg δ₀ Ct ρ x₀ Mfl R M where
+  hM := h.hM
+  mfloor := h.mfloor
+  bfloor := h.bfloor
+  gRows := h.gRows
+  x0M := h.x0M
+  blk := h.blk
+  half := h.half
+  rho := by
+    have hHR : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast R.hHlo_floor
+    have hy : (0 : ℝ) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := Real.log_nonneg (by linarith)
+    have h1 : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+      one_lt_log_of_loglog_ge hy (by norm_num : (0 : ℝ) < 50) hlam
+    have hexp : Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) = Real.log ((R.Hlo : ℕ) : ℝ) :=
+      Real.exp_log (by linarith)
+    have h50 : Real.exp (50 : ℝ) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+      rw [← hexp]; exact Real.exp_le_exp.mpr hlam
+    have hsplit : Real.exp (50 : ℝ) = Real.exp 25 * Real.exp 25 := by
+      rw [← Real.exp_add]; norm_num
+    have h36 : (3.6e21 : ℝ) ≤ Real.exp (50 : ℝ) := by
+      rw [hsplit]; nlinarith [epsRung2_exp25, Real.exp_pos (25 : ℝ)]
+    linarith [h.rho, h36, h50]
+  anchor := h.anchor
+  gP1 := h.gP1
+  lvl := h.lvl
+
+/-- **⟦THE LANDED LEVERED REGISTER IMPLIES ITS TOWER-RELATIVE SIBLING⟧**
+(`S15Sel''_L_gk.toT`) — `S15Sel''_L.toT` at the lever; the `rho` step is the same arithmetic,
+and the ten other fields transport verbatim.  Nothing here bears on twin primes. -/
+theorem S15Sel''_L_gk.toT {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (h : S15Sel''_L_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) :
+    S15Sel''_L_gk_T K Cg δ₀ Ct ρ x₀ Mfl R M where
+  hM := h.hM
+  mfloor := h.mfloor
+  bfloor := h.bfloor
+  gRows := h.gRows
+  x0M := h.x0M
+  blk := h.blk
+  half := h.half
+  rho := by
+    have hHR : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast R.hHlo_floor
+    have hy : (0 : ℝ) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := Real.log_nonneg (by linarith)
+    have h1 : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+      one_lt_log_of_loglog_ge hy (by norm_num : (0 : ℝ) < 50) hlam
+    have hexp : Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) = Real.log ((R.Hlo : ℕ) : ℝ) :=
+      Real.exp_log (by linarith)
+    have h50 : Real.exp (50 : ℝ) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+      rw [← hexp]; exact Real.exp_le_exp.mpr hlam
+    have hsplit : Real.exp (50 : ℝ) = Real.exp 25 * Real.exp 25 := by
+      rw [← Real.exp_add]; norm_num
+    have h36 : (3.6e21 : ℝ) ≤ Real.exp (50 : ℝ) := by
+      rw [hsplit]; nlinarith [epsRung2_exp25, Real.exp_pos (25 : ℝ)]
+    linarith [h.rho, h36, h50]
+  anchor := h.anchor
+  gP1 := h.gP1
+  lvl := h.lvl
+
+/-- `S15Sel''_L.head` at the tower-relative register (`S15SelLinear.lean:172`).  STATEMENT: the
+source's with `S15Sel''_L ↦ S15Sel''_L_T`.  BODY: the source's, verbatim — it reads `blk` only.
+Nothing here bears on twin primes. -/
+theorem S15Sel''_L_T.head {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hsel : S15Sel''_L_T Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hΛ : 0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) :
+    s13BlockExp_L M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1 := by
+  have h := hsel.blk
+  have hR : ((s13BlockExp_L M : ℕ) : ℝ) ≤ ((4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+    push_cast; linarith
+  have : s13BlockExp_L M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
+  omega
+
+/-- `S15Sel''_L_gk.head` at the tower-relative register (`S15SelLinear.lean:183`).  STATEMENT:
+the source's with `S15Sel''_L_gk ↦ S15Sel''_L_gk_T`.  BODY: the source's, verbatim.
+Nothing here bears on twin primes. -/
+theorem S15Sel''_L_gk_T.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hsel : S15Sel''_L_gk_T K Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hΛ : 0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) :
+    s13BlockExp_L_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1 := by
+  have h := hsel.blk
+  have hR : ((s13BlockExp_L_gk K M : ℕ) : ℝ) ≤ ((4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+    push_cast; linarith
+  have : s13BlockExp_L_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
+  omega
+
+/-- `s15_sel''_L_gk_of_L` at the tower-relative register (`S15SelLinear.lean:524`).  STATEMENT:
+the source's with both structures suffixed `_T`.  BODY: the source's, verbatim — `rho`
+transports like the other nine, because it is the SAME field in both siblings.
+Nothing here bears on twin primes. -/
+theorem s15_sel''_L_gk_T_of_L_T (Klev : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime}
+    {M : ℕ} (hsel : S15Sel''_L_T Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hblk : ((s13BlockExp_L_gk Klev M : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
+    S15Sel''_L_gk_T Klev Cg δ₀ Ct ρ x₀ Mfl R M where
+  hM := hsel.hM
+  mfloor := hsel.mfloor
+  bfloor := hsel.bfloor
+  gRows := hsel.gRows
+  x0M := hsel.x0M
+  blk := hblk
+  half := hsel.half
+  rho := hsel.rho
+  anchor := hsel.anchor
+  gP1 := hsel.gP1
+  lvl := by rw [calQK_gk_one_eq]; exact hsel.lvl
+
+/-- `s15_bandGate''_of_grade_L_gk` at the tower-relative register
+(`S16FlatTerminalLinear.lean:800`).  STATEMENT: the source's with
+`S15Sel''_L_gk ↦ S15Sel''_L_gk_T`; the conclusion is the source's, byte for byte.  BODY: the
+source's, verbatim — it reads `x0M`, `blk` and `hM`, and never `rho`.
+Nothing here bears on twin primes. -/
+theorem s15_bandGate''_of_grade_L_gk_T (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
+    {R : ChowlaRegime} {M : ℕ} {C' : ℝ} (hfl : loglogFloor50 ≤ R.Hlo)
+    (hsel : S15Sel''_L_gk_T K Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ))
+      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))) :
+    S13BandGate'_L_gk K R M x₀ C' (fun _ => 1) where
+  x0_le := hsel.x0M
+  C1_one := fun _ => le_rfl
+  grade := hgrade
+  block := by
+    intro H L q j A s hb
+    exact s15_block_at_socket_L_gk K (socketBase_of_socketBaseL hsel.hM hb)
+      (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
+
 
 end Salt.MR
