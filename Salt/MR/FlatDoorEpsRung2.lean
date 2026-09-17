@@ -4201,5 +4201,158 @@ theorem s15_gRows_const_at_socket_flat_doorL_gk_T (K : ℕ) {R : ChowlaRegime}
     linarith [hcore, hll, hllle, hrhoE, h1, hE0]
   exact gRowsZeroGate'''_L_gk_of_budget K hM hAs hρ0 (by linarith) hp2 hendbud
 
+/-! ### §W1c(b) — R11's second half, re-targeted at the tower-relative register
+
+The four rows the 2026-09-17 flag stopped on, unchanged in every respect but their conclusion:
+they now produce the `_T` siblings, whose `rho` field the charge `-log ρ ≤ 16 * A` PAYS. -/
+
+/-- **⟦THE CHARGE CARRIER AT A CHARGE PAID BY `A`⟧** (`s15_sel''_L_witness_flat_charge_L`) —
+`s15_sel''_L_witness_flat_charge_g12b` (`StrideGrade12bWalls.lean:49`) at the rung-2 interface:
+`hcb : c ≤ 8103 ↦ hcL`/`hAL`, `hρlog : -log ρ ≤ 429 ↦ ≤ 16 * A`, `hCtb` at `2 ^ 23` kept, and
+the conclusion at `S15Sel''_L_T`.  `hbase` is §W1b-ii's `s15_sel''_L_witness_flat_L` at the same
+FROZEN dummy literals; `half`/`anchor`/`gP1`/`lvl` are §W1b-i's four `_L` cap lines at
+`c ≤ 16 * A` (the source's widening `429 ≤ 439` disappears, as priced).
+
+THE `rho` BULLET, derived — this is the row the landed `10 ^ 14` register refuted, and the one
+the tower-relative register pays.  With `E := e ^ (3.2 * A / 2)`: `Real.add_one_le_exp` gives
+`1.6 * A + 1 ≤ E`, `flat_exp_half_ge` gives `E ≥ 10 ^ 17`, `flat_exp_sq` gives
+`E ^ 2 = e ^ (3.2 * A)`, and the ONE product `hEE : 10 ^ 5 * E ≤ E ^ 2` (isolated as a `have`,
+so the close stays LINEAR) then chains
+`160000 * A ≤ 100000 * E - 100000 ≤ E ^ 2 - 100000 = e ^ (3.2 * A) - 100000 ≤ log H₋`,
+i.e. `16 * A ≤ log H₋ / 10 ^ 4`.  `hEE` needs only `E ≥ 10 ^ 5` against the register's
+`E ≥ 10 ^ 17`: free by `10 ^ 12 ×`.  Nothing here bears on twin primes. -/
+theorem s15_sel''_L_witness_flat_charge_L {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct ρ Lc : ℝ}
+    {x₀ Mfl c : ℕ} {R : ChowlaRegime} (hc1 : 1 ≤ c)
+    (hcL : Real.log (c : ℝ) ≤ Lc) (hAL : 10 + 2 * Lc ≤ A)
+    (hρlog : -Real.log ρ ≤ 16 * A)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
+    (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
+    (hMfl : Mfl ≤ flatDoorM A)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    S15Sel''_L_T Cg δ₀ Ct ρ x₀ Mfl R (flatDoorM A) := by
+  have hbase := s15_sel''_L_witness_flat_L (A := A) (Cg := 0) (δ₀ := 1 / 2 ^ 10) (Ct := 1)
+    (K := 1) (Lc := Lc) (x₀ := x₀) (Mfl := Mfl) (c := c) (R := R) hA hc1 hcL hAL (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by simp) hMfl
+    hx0win heps hlo hhi
+  have hinv : Real.log (1 / ρ) = -Real.log ρ := by rw [one_div, Real.log_inv]
+  refine
+    { hM := hbase.hM
+      mfloor := hMfl
+      bfloor := hbfl
+      gRows := hbase.gRows
+      x0M := hbase.x0M
+      blk := hbase.blk
+      half := ?_
+      rho := ?_
+      anchor := ?_
+      gP1 := ?_
+      lvl := ?_ }
+  · rw [hinv]
+    exact le_trans (flat_half_line_L hA hρlog) (by linarith [hlo])
+  · -- ⟦THE TOWER-RELATIVE REGISTER, PAID BY THE DESIGN CONSTANT⟧
+    have hE17 := flat_exp_half_ge hA
+    have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
+    have hY := flat_exp_sq A
+    have h16 : 1.6 * A + 1 ≤ Real.exp (3.2 * A / 2) := by
+      have hx := Real.add_one_le_exp (3.2 * A / 2)
+      linarith
+    have hEE : (100000 : ℝ) * Real.exp (3.2 * A / 2) ≤ Real.exp (3.2 * A / 2) ^ 2 := by
+      nlinarith [hE17, hE0]
+    linarith [hρlog, hlo, hY, hEE, h16]
+  · rw [hinv]
+    -- amended per REF-FLAT-SAT: the wide anchor line, at the doubled `Λ` slot
+    exact le_trans (by linarith [hhi]) (flat_anchor_line_wide_L hA hρlog)
+  · exact flat_gP1_line_L hA (by linarith [hρlog]) hCt hCtb hhi
+  · exact flat_lvl_line_L hA hρlog hhi
+
+/-- **⟦THE SELECTOR AT A CHARGE PAID BY `A`⟧** (`s15_sel''_L_witness_flat_wide_L`) —
+`s15_sel''_L_witness_flat_wide_g12b` (`StrideGrade12bWalls.lean:162`) at the rung-2 interface:
+`hcb`/`hh9c ↦ hcL`/`hAL`, `hKb : K ≤ 2 ^ 539 ↦ {Kb} hKb1`/`hKb`/`hKbL`, conclusion at
+`S15Sel''_L_T`.  BODY: the source's, with the charge from §W1b-i's
+`s16_audit_neglog_rho_le_h_L`.
+
+THE NUMERALS, derived: that supplier gives `-log ρ ≤ 234 + 22 * Lc`; `hAL` gives
+`Lc ≤ (A - 10) / 2`, so `234 + 22 * Lc ≤ 234 + 11 * (A - 10) = 124 + 11 * A`, and
+`124 + 11 * A ≤ 16 * A` iff `A ≥ 24.8`, against `hA : 26 ≤ A`.  Nothing here bears on twin
+primes. -/
+theorem s15_sel''_L_witness_flat_wide_L {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K Kb Lc : ℝ}
+    {x₀ Mfl c : ℕ} {R : ChowlaRegime}
+    (hc1 : 1 ≤ c) (hcL : Real.log (c : ℝ) ≤ Lc) (hAL : 10 + 2 * Lc ≤ A)
+    (hδ : 0 < δ₀) (hδb : 1 / (2 ^ 32 * (c : ℝ) ^ 2) ≤ δ₀)
+    (hK : 0 < K) (hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb) (hKbL : Real.log Kb ≤ 197 + 20 * Lc)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
+    (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
+    (hMfl : Mfl ≤ flatDoorM A)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    S15Sel''_L_T Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (flatDoorM A) :=
+  s15_sel''_L_witness_flat_charge_L hA hc1 hcL hAL
+    (le_trans (s16_audit_neglog_rho_le_h_L hc1 hcL hδ hK hδb hKb1 hKb hKbL) (by linarith))
+    hCt hCtb hbfl hMfl hx0win heps hlo hhi
+
+/-- **⟦THE LEVERED SELECTOR AT A CHARGE PAID BY `A`⟧**
+(`s15_sel''_L_gk_witness_flat_wide_L`) — `s15_sel''_L_gk_witness_flat_wide_g12b`
+(`StrideGrade12bWalls.lean:183`) at the rung-2 interface, conclusion at `S15Sel''_L_gk_T`.
+BODY: the source's, with the two suppliers swapped for their `_L` twins — the selector above
+and §W1b-ii's `flat_blk_line_gk_L` — through `s15_sel''_L_gk_T_of_L_T`.  Nothing here bears on
+twin primes. -/
+theorem s15_sel''_L_gk_witness_flat_wide_L {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K Kb Lc : ℝ} {x₀ Mfl c : ℕ}
+    {R : ChowlaRegime}
+    (hc1 : 1 ≤ c) (hcL : Real.log (c : ℝ) ≤ Lc) (hAL : 10 + 2 * Lc ≤ A)
+    (hδ : 0 < δ₀) (hδb : 1 / (2 ^ 32 * (c : ℝ) ^ 2) ≤ δ₀)
+    (hK : 0 < K) (hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb) (hKbL : Real.log Kb ≤ 197 + 20 * Lc)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
+    (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
+    (hMfl : Mfl ≤ flatDoorM A)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    S15Sel''_L_gk_T Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
+      (flatDoorM A) :=
+  s15_sel''_L_gk_T_of_L_T Klev
+    (s15_sel''_L_witness_flat_wide_L hA hc1 hcL hAL hδ hδb hK hKb1 hKb hKbL hCt hCtb hbfl hMfl
+      hx0win heps hlo hhi)
+    (flat_blk_line_gk_L hA Klev hKle hc1 hcL hAL heps hlo hhi)
+
+/-- **⟦R11's SECOND HALF, CLOSED AT A CHARGE PAID BY `A`⟧**
+(`s15_sel''_L_gk_witness_flat_bumped_win_L`) — `s15_sel''_L_gk_witness_flat_bumped_win_h_g12b`
+(`StrideGrade12bWalls.lean:210`) at the rung-2 interface: `hh9 : log h ≤ 9 ↦ {Lc} hL0`/`hhL`/
+`hAL`, `hKb : K ≤ 2 ^ 539 ↦ {Kb} hKb1`/`hKb`/`hKbL`, conclusion at `S15Sel''_L_gk_T`.  BODY:
+the source's, with the bump from §W1's `flatDoorM_bfloor_bump_L`; the bridge
+`1 / (2 ^ 32 * h ^ 2) ≤ 1 / (838400 * 2 ^ 12 * h ^ 2)` is the source's, on
+`838400 * 4096 = 3434086400 ≤ 2 ^ 32 = 4294967296`.  Nothing here bears on twin primes. -/
+theorem s15_sel''_L_gk_witness_flat_bumped_win_L {A : ℝ} (hA : 162 ≤ A) (Klev : ℕ)
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) (hAL : 10 + 2 * Lc ≤ A)
+    {Cg δ₀ Ct K Kb : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime}
+    (hδ : 0 < δ₀) (hδb : 1 / (838400 * 2 ^ 12 * (h : ℝ) ^ 2) ≤ δ₀)
+    (hK : 0 < K) (hKb1 : 1 ≤ Kb) (hKb : K ≤ Kb) (hKbL : Real.log Kb ≤ 197 + 20 * Lc)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 23)
+    (hCg : Cg ≤ 2 * 10 ^ 12) (hMfl : Mfl ≤ flatDoorM A)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
+    (heps : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    S15Sel''_L_gk_T Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
+      (flatDoorM A) := by
+  exact s15_sel''_L_gk_witness_flat_wide_L (flat162_ge_26 hA) Klev hKle hh hhL hAL hδ
+    (by
+      have h1 : (0 : ℝ) < (h : ℝ) ^ 2 := by
+        have : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+        positivity
+      have : (1 : ℝ) / (2 ^ 32 * (h : ℝ) ^ 2) ≤ 1 / (838400 * 2 ^ 12 * (h : ℝ) ^ 2) := by
+        rw [div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [h1]
+      linarith [hδb] : (1 : ℝ) / (2 ^ 32 * (h : ℝ) ^ 2) ≤ δ₀) hK hKb1 hKb hKbL hCt hCtb
+    (flatDoorM_bfloor_bump_L hh hL0 hhL hA hAL hδ hδb hCg)
+    hMfl hx0win heps hlo hhi
+
 
 end Salt.MR

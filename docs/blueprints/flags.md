@@ -25401,3 +25401,19 @@ landed frozen statement and is not an executor act.  **Owner:** the rung-2 head.
 `Lc <= 4.5e12` means `c <= e^{4.5e12}` -- so (b) costs nothing arithmetically and everything
 presentationally: it re-introduces a numeral cap on the very parameter the rung exists to free.
 (a) costs one binder and no generality, and it is honest: the binder IS the landed register.
+
+**RELEASE CONDITION MET — 2026-09-17, ROAD F RUNG 2 WAVE 1c, by a SIBLING STRUCTURE rather
+than by (a) or (b).**  The register is re-stated RELATIVE TO THE TOWER in two new structures,
+`S15Sel''_L_T` and `S15Sel''_L_gk_T` (`Salt/MR/FlatDoorEpsRung2.lean`, §W1c), whose `rho` field
+reads `-Real.log ρ ≤ Real.log H₋ / 10000` and whose other ten fields are the landed structures'
+byte for byte under the same names; the landed frozen statements are UNTOUCHED, and
+`S15Sel''_L.toT` / `S15Sel''_L_gk.toT` prove the landed registers IMPLY the siblings at the
+landed tower floor (`50 ≤ loglog H₋`), so rung 1's witnesses inhabit them and nothing is lost.
+The four binding readers are re-cut as `s12c_eps_threshold_at_socket_flat_T` ·
+`s15_heps293_at_socket_flat_T` · `s15_hband4096_at_socket_flat_T` ·
+`s15_gRows_const_at_socket_flat_doorL_gk_T` through one core `flat_lambda_core_T`, and the two
+non-reading consumers as `S15Sel''_L_gk_T.head` · `s15_bandGate''_of_grade_L_gk_T`.  G4-G7 land
+as `s15_sel''_L_witness_flat_charge_L` · `s15_sel''_L_witness_flat_wide_L` ·
+`s15_sel''_L_gk_witness_flat_wide_L` · `s15_sel''_L_gk_witness_flat_bumped_win_L`, all at
+`-Real.log ρ ≤ 16 * A` with NO numeral cap on `A`, `Lc`, `c` or `ρ` — **R11's second half is
+closed.**  Sorry-free, `[propext, Classical.choice, Quot.sound]`.
