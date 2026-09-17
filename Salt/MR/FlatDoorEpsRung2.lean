@@ -2411,7 +2411,7 @@ theorem bigXi_bounded_ceiling_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 5
 
 /-- **⟦`6·10^10 ≤ e^25`⟧** (`epsRung2_exp25`) — the numeral the arm's `v ≥ 6·10^10` witness
 needs, re-derived here by its own eight lines because `XThread`'s `xt_exp25` is `private`
-(`2.7 < e` and `2.7^25 = 6.0798…·10^10`).  No landed file gains a declaration. -/
+(`2.7 < e` and `2.7^25 = 6.0826…·10^10`).  No landed file gains a declaration. -/
 theorem epsRung2_exp25 : (6e10 : ℝ) ≤ Real.exp 25 := by
   have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp (25 : ℝ) = (Real.exp 1) ^ (25 : ℕ) := by
@@ -2656,7 +2656,7 @@ theorem s15Arm_log_le_L {c δ₀ Kc Kb Lc : ℝ} (hc1 : 1 ≤ c) (hL0 : 0 ≤ Lc
       -- ⟦SITE 5 — THE TOWER STEP⟧ `u = (e^{L/4})² ≥ (1 + L/4)²`, and with `L ≥ 3.6·10^21·c`
       -- the linear witness `u ≥ 1.8·10^21·c` is upgraded to `u ≥ 8.1·10^41·c²` — which is what
       -- buys the SHRINKING cut `H₊/(10^20·c²)`.  The headroom is a TOWER and the charge is a
-      -- factor, so the whole `c²` is free: `27·10^20 ≤ 8.1·10^41` with 21 orders to spare.
+      -- factor, so the whole `c²` is free: `27·10^20 ≤ 8.1·10^41` with 20 orders to spare.
       have hq := Real.add_one_le_exp (L / 4)
       have hq0 : (0 : ℝ) ≤ Real.exp (L / 4) := (Real.exp_pos _).le
       have hqL : (9 * 10 ^ 20 : ℝ) * c ≤ Real.exp (L / 4) := by linarith only [hq, hcL]
@@ -2714,7 +2714,7 @@ the square root instead: `u := e^{(log H₊)/2} ≥ 1 + (log H₊)/2 ≥ 1.8·10
 
 ⟦THE DEMAND⟧ `1/(500·c) ≤ ε` gives `ε² ≥ 1/(250000·c²)`, so the margin is
 `H₊/c² · (1/250000 − 10^{-20})` and the demand is `H₊/c² ≥ log 2 / (1/250000 − 10^{-20}) =
-173286.80…` against `3.24·10^42`: **the headroom is a tower and the corner is a constant**, with
+173286.7951…` against `3.24·10^42`: **the headroom is a tower and the corner is a constant**, with
 37 orders to spare. -/
 theorem epsChain_arm_split_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
     (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {Lc : ℝ} (hLc : Real.log ((c : ℕ) : ℝ) ≤ Lc)
@@ -2769,7 +2769,7 @@ theorem epsChain_arm_split_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
     mul_le_mul hu hu hnn (by linarith)
   have hHbig : (3.24e42 : ℝ) * ((c : ℕ) : ℝ) ^ 2 ≤ ((Hhi : ℕ) : ℝ) := by
     linarith [hsq2, huu]
-  -- ⟦THE MARGIN⟧ `H₊/c² ≥ 3.24·10^42` against a demand of `173286.80…`
+  -- ⟦THE MARGIN⟧ `H₊/c² ≥ 3.24·10^42` against a demand of `173286.7951…`
   have hc2pos : (0 : ℝ) < ((c : ℕ) : ℝ) ^ 2 := by positivity
   have ht : (3.24e42 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
     rw [le_div_iff₀ hc2pos]
