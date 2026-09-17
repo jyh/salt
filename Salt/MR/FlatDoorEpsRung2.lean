@@ -776,4 +776,60 @@ theorem capfloor_core_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
   have hHhalf : Real.log (H : ℝ) ≤ Real.sqrt (H : ℝ) / 2 := capfloor_logH_le_half_sqrt hHR
   exact ⟨hv, hm, hTpos, by linarith⟩
 
+/-- `s13CapGrid_mu_2000_LH_b9` at generic `L` (`s13CapGrid_mu_2000_L`) — SUPPLIER-SWAP
+(`s13CapGrid_mu_lo_L`).  The twin spends its cap only in the supplier call; the `2000 ≤ √H` step
+is numeral-free in `h`.  BODY: the twin's, verbatim. -/
+theorem s13CapGrid_mu_2000_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hs2 : Real.sqrt (H : ℝ) ^ 2 = (H : ℝ) := Real.sq_sqrt (by positivity)
+  have hs0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
+  have h2000 : (2000 : ℝ) ≤ Real.sqrt (H : ℝ) := by nlinarith [hs2, hs0, hHR]
+  exact le_trans h2000 (s13CapGrid_mu_lo_L hh hL0 hhL hfl hb hflL)
+
+/-- `s13CapGrid_Lambda_sharp_LH_b9` at generic `L` (`s13CapGrid_Lambda_sharp_L`) — SUPPLIER-SWAP
+(`s13_socketBase_logA_ge_sqrt_L`, `s13_socketBase_loglogA_sharp_L`).  The twin spends its cap only
+in the two supplier calls.  BODY: the twin's, verbatim. -/
+theorem s13CapGrid_Lambda_sharp_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hsq := s13_socketBase_logA_ge_sqrt_L hh hL0 hhL hfl hb hflL
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hs2 : Real.sqrt (H : ℝ) ^ 2 = (H : ℝ) := Real.sq_sqrt (by positivity)
+  have hs0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
+  have h2000 : (2000 : ℝ) ≤ Real.sqrt (H : ℝ) := by nlinarith [hs2, hs0, hHR]
+  have hlogA0 : (0 : ℝ) < Real.log (A : ℝ) := by linarith
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    Real.log_le_log hA0 (by push_cast; linarith [Nat.cast_nonneg (α := ℝ) s])
+  exact le_trans (s13_socketBase_loglogA_sharp_L hh hL0 hhL hfl hb hflL)
+    (Real.log_le_log hlogA0 hmono)
+
+/-- `s13CapGrid_Lambda_lo_LH_b9` at generic `L` (`s13CapGrid_Lambda_lo_L`) — SUPPLIER-SWAP
+(`s13CapGrid_Lambda_sharp_L`).  The twin spends its cap only in the supplier call; the close
+against `2·10^21 ≤ exp 50` is numeral-free in `h`.  BODY: the twin's, verbatim. -/
+theorem s13CapGrid_Lambda_lo_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at this
+  have hsharp := s13CapGrid_Lambda_sharp_L hh hL0 hhL hfl hb hflL
+  linarith [capgrid_exp50_lo]
+
 end Salt.MR
