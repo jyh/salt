@@ -113,6 +113,15 @@ population). Count `:[0-9]+:[0-9]+: error(\([^)]*\))?:`, put a plain `grep -c` b
 and treat a count that disagrees with `EXIT≠0` as a broken instrument, never as a clean build.
 ⛔ **Put this rule VERBATIM in every executor/subagent brief you write** — a subagent that does not
 know it will OOM the fleet.
+⛔⛔ **AN AXIOM AUDIT READS THE OLEANS, NOT THE SOURCE — SO `#print axioms` MISLEADS IN BOTH DIRECTIONS.** A scratch
+run through `../saltbuild.sh Scratch.lean` is compiled against the CACHE on disk: (a) a downstream name keeps `sorryAx`
+until its module is REBUILT after the upstream proof lands (h2c, the S-4 wave, 2026-09-14); (b) a declaration that
+NEVER PARSED in the current source still prints a positive-sounding line — math's second read of rung 2 (2026-09-17)
+saw `does not depend on any axioms` for three theorems that were syntax errors, and h2c met the same on its own bench
+within the hour. ✅ **THE FORM: an axiom receipt is a PAIR from ONE log — the `saltbuild EXIT=0` line with a ZERO
+tagged-error count (the rule above) AND the axioms lines — taken after rebuilding every module that names the
+declaration, with a fourth-axiom control (a planted `sorry` in the same scratch printing `sorryAx`).** An axioms line
+with no build line beside it is a claim about the cache, and a bulk audit read by list is where both readings hide.
 
 *(This block instructed bare `lake build` until 2026-09-11, when the 51st helm head measured it:
 the rule was ratified fleet-wide, carded, re-enacted in four council minutes and present in the
