@@ -1456,4 +1456,731 @@ theorem cofkL_capFreeFloor_at_socket_rated_uniform_L (h : ℕ) (hh : 0 < h)
     (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
     hlogHe harc hbud hXee hD0 hgate hdebit hthr
 
+/-! ## §W5 — the rated supply's root at generic `Lc`
+
+Wave 5, one declaration: the rated supply's ROOT, which is the single consumer of wave 4's
+nineteen `_L` siblings.  It carries the whole rung-2 charge in TWO binders — the tower
+`518 + 6·Lc` and the threshold `cofkRThr … + 2·Lc` — and its body is the twin's, verbatim, with
+the six supplier calls swapped for their `_L` siblings and the mu-floor's four `32`-sites read at
+the charge.  Nothing in §1–§W4 moves. -/
+
+set_option maxHeartbeats 24000000 in
+-- as the twin: the ~35-binder instantiation of `m4_supplier_complete` and the
+-- seventeen discharged conjuncts elaborate in ONE context
+/-- `cofkR_cofactorSupply_L_gk_rated_h_b9` at generic `L` (`cofkR_cofactorSupply_L_gk_rated_L`) —
+NUMERAL-LIFT of all six sub-suppliers to their `_L` siblings
+(`cofkL_capFreeFloor_at_socket_rated_uniform_L`, `cofkL_socket_floors_L`, `s13CapGrid_mu_2000_L`,
+`s13CapGrid_Lambda_lo_L`, `cofkL_mu_floor_L`, `capfloor_core_L`).  TWO binders carry the whole
+charge; no other numeral in the body moves.
+⚖️ **THE TOWER, `518 + 6·L`.**  `k = 6` is the uniform page's own, forced by the `hbud` that page
+DISCHARGES.  The other five need only `518 + L` (`cofkL_socket_floors_L`, `cofkL_mu_floor_L`) or
+`50 + L` (`s13CapGrid_mu_2000_L`, `s13CapGrid_Lambda_lo_L`, `capfloor_core_L`), and both follow
+from the one binder by `linarith` on `L ≥ 0` — ONE hypothesis for the whole wave.
+⛔ **THE THRESHOLD, `cofkRThr … + 2·L`, AND `k = 2` IS FORCED.**  `cofkL_mu_floor_L`'s conclusion
+is `log H₊ − (14 + 2·L)`, so `hmuF` carries `14 + 2·L`.  Along
+`cofkRThr + k·L ≤ log H₋ ≤ log H₊ ≤ loglog Xd + 14 + 2·L` the threshold reads
+`cofkRThr ≤ loglog Xd + 14 + (2 − k)·L`, so `hthrLL`, `hthr14` and `h2` carry the constant `14`
+plus a residue `(2 − k)·L`.  `hstep` closes `6666 + 3·log Z ≤ loglog Xd · 2θ₂₉₃` through
+`loglog Xd / 150`, where the `log Z` terms cancel EXACTLY (`450/150 = 3`), so it needs
+`(10^6 − 14 − (2 − k)·L)/150 ≥ 6666`, i.e. `(2 − k)·L ≤ 100 − 14 = 86`.  At `k = 2` that is
+`0 ≤ 86` at EVERY `L`, margin `(10^6 − 14)/150 − 6666 = 6666.5733… − 6666 = 0.5733` — WIDER than
+the twin's own `0.4533` from `(10^6 − 32)/150`; at `k = 1` it is spent at `L = 86`, at `k = 0` at
+`L = 43`.  So `k = 2` is the smallest that closes uniformly in `L`.
+`θ₂₉₃` is not widened and `6666` does not move.
+⚠️ The two binders are STRICTLY STRONGER than the twin's at every `L > 0` — at `L = 9` they ask
+`572` and `cofkRThr + 18` where the twin asked `518` and `cofkRThr` — which is the price of
+genericity in `h`; `hmuF` there reads `14 + 18 = 32`, the twin's own numeral.
+BODY otherwise the twin's, verbatim. -/
+theorem cofkR_cofactorSupply_L_gk_rated_L (h : ℕ) (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) :
+    ∃ (Xsk Y0 Kvt Cb : ℝ),
+      0 < Xsk ∧ pin2Gate ≤ Y0 ∧ 0 ≤ Kvt ∧ 0 ≤ Cb ∧
+      ∀ (K : ℕ) (Cq : ℝ) (R : ChowlaRegime) (M : ℕ), 1 ≤ M → 0 < Cq →
+        (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) →
+        (518 : ℝ) + 6 * Lc ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        loglogFloor50 ≤ R.Hlo →
+        cofkRThr Cq Cb Xsk Y0 + 2 * Lc ≤ Real.log (R.Hlo : ℝ) →
+        32 * Kvt + 32 * (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+          ≤ Real.log (R.Hhi : ℝ) / 4 →
+        S16CofactorSupply_LH_gk h K Cq R M := by
+  obtain ⟨Xsk, hXsk0, hsup⟩ := m4_supplier_complete
+  obtain ⟨Y0, hY0pin, hfarclose⟩ := farErr34_local_closes
+  obtain ⟨_Z, _δ, Kvt, _, _, hKvt0, hKvt⟩ :=
+    cofkL_capFreeFloor_at_socket_rated_uniform_L h hh hL0 hhL
+  obtain ⟨Cb, hCb0, hCbound⟩ := exists_shortIntervalDatum
+  refine ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, ?_⟩
+  intro K Cq R M hM hCq hε hlo hfl hgate hcush H Lw q j A s hb T hTlo hThi
+  -- the five pages below need only `518 + L` / `50 + L`; `L ≥ 0` supplies both from `hlo`
+  have hloL : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith
+  have hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith
+  have hq0 : 0 < q := hb.2.2.2.1
+  haveI : NeZero q := ⟨by omega⟩
+  obtain ⟨hH4, hHhi14⟩ := cofkL_socket_floors_L hh hL0 hhL hb hloL
+  -- ⟦THE SOCKET'S OWN SCALE FACTS⟧
+  have h2j0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by positivity
+  have hAs1 : 0 < A + s := by have := hb.2.2.2.2.2.2.2.1; omega
+  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs1
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hAsR h2j0) hTlo
+  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
+  have hmu2000 : (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    s13CapGrid_mu_2000_L hh hL0 hhL hfl hb hflL
+  have hLam : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    s13CapGrid_Lambda_lo_L hh hL0 hhL hfl hb hflL
+  have hmuF : Real.log (R.Hhi : ℝ) - (14 + 2 * Lc)
+      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    cofkL_mu_floor_L hh hL0 hhL hb hε hHhi14 hH4 hloL
+  obtain ⟨-, -, hTpos, hlogT⟩ :=
+    capfloor_core_L hh hL0 hhL hfl hb (Nat.le_add_right A s) hTflo hflL
+  have hPQ : s13BandP (A + s) ≤ s13BandQ (A + s) := s13CapGrid_P_le_Q hmu2000 hLam
+  have hQpos : 0 < s13BandQ (A + s) := s13CapGrid_Q_pos hmu2000
+  have hfloorχ : ∀ χ : DirichletCharacter ℂ q, ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+      CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
+        (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) :=
+    fun χ => hKvt K χ hb hM hε hlo hcush
+  -- ⟦THE BLOCK SCALE, NAMED ONCE⟧
+  obtain ⟨Xd, hXd⟩ : ∃ n : ℕ, A + s = n := ⟨A + s, rfl⟩
+  rw [hXd] at hmu2000 hLam hmuF hPQ hQpos hfloorχ hTflo hThi hlogT hAsR ⊢
+  -- ⟦THE SCALE ARITHMETIC⟧
+  have hLg0 : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
+  have hLgexp : Real.exp (Real.log (Real.log ((Xd : ℕ) : ℝ))) = Real.log ((Xd : ℕ) : ℝ) :=
+    Real.exp_log hLg0
+  have h21 : (10 : ℝ) ^ (21 : ℕ) = 1000000000000000000000 := by norm_num
+  rw [h21] at hLam
+  have hLg166 : Real.exp 166 ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    have h := Real.exp_le_exp.mpr (show (166 : ℝ) ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) by
+      linarith)
+    rwa [hLgexp] at h
+  have hexp165 : (2 : ℝ) ≤ Real.exp 165 := by linarith [Real.add_one_le_exp (165 : ℝ)]
+  have hexp166 : Real.exp 166 = Real.exp 1 * Real.exp 165 := by rw [← Real.exp_add]; norm_num
+  have he27 : (2.7 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hball : 2 * Real.exp 165 + 2 ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    nlinarith [hLg166, hexp166, hexp165, he27]
+  have hLgbig : (10 : ℝ) ^ 6 ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    have h : (10 : ℝ) ^ 6 ≤ Real.exp 166 := by
+      have h1 : (1 : ℝ) + 41.5 ≤ Real.exp 41.5 := by
+        linarith [Real.add_one_le_exp (41.5 : ℝ)]
+      have h2 : Real.exp 41.5 * Real.exp 41.5 = Real.exp 83 := by
+        rw [← Real.exp_add]; norm_num
+      have h3 : Real.exp 83 * Real.exp 83 = Real.exp 166 := by rw [← Real.exp_add]; norm_num
+      have h4 : (1806 : ℝ) ≤ Real.exp 83 := by nlinarith [h1, h2]
+      nlinarith [h3, h4]
+    linarith
+  -- ⟦THE THRESHOLD, READ AT THE SOCKET⟧
+  have hHloHhi : Real.log (R.Hlo : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
+    have h1 : R.Hlo ≤ H := hb.1
+    have h2 : H ≤ R.Hhi := hb.2.1
+    have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+    have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+    have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+    exact Real.log_le_log (by linarith) (by linarith)
+  have hthrLL : cofkRThr Cq Cb Xsk Y0 - 14
+      ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by linarith
+  have hZ1 : (1 : ℝ) ≤ 1 + Cq + cofkRConst Cb := by
+    linarith [cofkRConst_pos hCb0]
+  have hlogZ0 : (0 : ℝ) ≤ Real.log (1 + Cq + cofkRConst Cb) := Real.log_nonneg hZ1
+  have hY00 : (0 : ℝ) < Y0 := lt_of_lt_of_le pin2Gate_pos hY0pin
+  have hthrpieces : Xsk ≤ cofkRThr Cq Cb Xsk Y0 ∧ Y0 ≤ cofkRThr Cq Cb Xsk Y0 := by
+    rw [cofkRThr]
+    constructor <;> nlinarith [hlogZ0, hY00, hXsk0]
+  -- `log X ≥ (loglog X)²/4`, the one quadratic the constant-absorption uses
+  have hquad : Real.log (Real.log ((Xd : ℕ) : ℝ)) ^ 2 / 4 ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    have h1 : 1 + Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2
+        ≤ Real.exp (Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2) := by
+      linarith [Real.add_one_le_exp (Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2)]
+    have h2 : Real.exp (Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2)
+        * Real.exp (Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2)
+        = Real.log ((Xd : ℕ) : ℝ) := by
+      rw [← Real.exp_add, show Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2
+        + Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2
+        = Real.log (Real.log ((Xd : ℕ) : ℝ)) by ring, hLgexp]
+    nlinarith [h1, h2, hLam]
+  have habs : ∀ z : ℝ, 0 < z → z ≤ cofkRThr Cq Cb Xsk Y0 →
+      Real.log z ≤ Real.log ((Xd : ℕ) : ℝ) / 4 := by
+    intro z hz0 hzthr
+    have hlz : Real.log z ≤ z := by
+      linarith [Real.log_le_sub_one_of_pos hz0]
+    have hthr14 : cofkRThr Cq Cb Xsk Y0 ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) + 14 := by
+      linarith
+    nlinarith [hquad, hLam, hlz, hzthr, hthr14]
+  have hXskgate : Xsk ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) := by
+    have h := habs Xsk hXsk0 hthrpieces.1
+    have h2 := Real.exp_le_exp.mpr h
+    rwa [Real.exp_log hXsk0] at h2
+  have hY0gate : Y0 ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) := by
+    have h := habs Y0 hY00 hthrpieces.2
+    have h2 := Real.exp_le_exp.mpr h
+    rwa [Real.exp_log hY00] at h2
+  -- ⟦THE GRADING GATE⟧
+  have hgradegate : 1728 * Cq * (4 * cofkRConst Cb) ^ 2
+      ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293) := by
+    have hθ300 : (1 : ℝ) / 300 ≤ theta293 := by
+      have hpos : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by nlinarith
+      rw [theta293, le_div_iff₀ hpos]
+      nlinarith [Real.exp_one_lt_d9]
+    have hpow : (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293)
+        = Real.exp (Real.log (Real.log ((Xd : ℕ) : ℝ)) * (2 * theta293)) := by
+      rw [Real.rpow_def_of_pos hLg0]
+    have hstep : (6666 : ℝ) + 3 * Real.log (1 + Cq + cofkRConst Cb)
+        ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) * (2 * theta293) := by
+      have hLL0 : (0 : ℝ) ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by linarith
+      have h1 : Real.log (Real.log ((Xd : ℕ) : ℝ)) / 150
+          ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) * (2 * theta293) := by
+        nlinarith [hθ300, hLL0]
+      have h2 : (10 : ℝ) ^ 6 + 450 * Real.log (1 + Cq + cofkRConst Cb) - 14
+          ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by
+        have := hthrLL
+        rw [cofkRThr] at this
+        linarith
+      linarith
+    have hZ3 : Real.exp ((6666 : ℝ) + 3 * Real.log (1 + Cq + cofkRConst Cb))
+        = Real.exp 6666 * (1 + Cq + cofkRConst Cb) ^ 3 := by
+      rw [Real.exp_add]
+      congr 1
+      rw [show (3 : ℝ) * Real.log (1 + Cq + cofkRConst Cb)
+        = Real.log ((1 + Cq + cofkRConst Cb) ^ 3) by
+          rw [Real.log_pow]; push_cast; ring]
+      exact Real.exp_log (pow_pos (by linarith) 3)
+    have hbig : Real.exp 6666 * (1 + Cq + cofkRConst Cb) ^ 3
+        ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293) := by
+      rw [hpow, ← hZ3]
+      exact Real.exp_le_exp.mpr hstep
+    have he6666 : (27648 : ℝ) ≤ Real.exp 6666 := by
+      have h1 : (1 : ℝ) + 3333 ≤ Real.exp 3333 := by
+        linarith [Real.add_one_le_exp (3333 : ℝ)]
+      have h2 : Real.exp 3333 * Real.exp 3333 = Real.exp 6666 := by
+        rw [← Real.exp_add]; norm_num
+      nlinarith
+    have hRc0 : (0 : ℝ) < cofkRConst Cb := cofkRConst_pos hCb0
+    have hCqZ : Cq ≤ 1 + Cq + cofkRConst Cb := by linarith
+    have hRZ : cofkRConst Cb ^ 2 ≤ (1 + Cq + cofkRConst Cb) ^ 2 := by nlinarith
+    have hcube : Cq * cofkRConst Cb ^ 2 ≤ (1 + Cq + cofkRConst Cb) ^ 3 := by
+      nlinarith [hCqZ, hRZ, hCq.le, hRc0, hZ1]
+    have hid : 1728 * Cq * (4 * cofkRConst Cb) ^ 2 = 27648 * (Cq * cofkRConst Cb ^ 2) := by
+      ring
+    rw [hid]
+    have hZ0 : (0 : ℝ) ≤ (1 + Cq + cofkRConst Cb) ^ 3 := pow_nonneg (by linarith) 3
+    calc 27648 * (Cq * cofkRConst Cb ^ 2)
+        ≤ 27648 * (1 + Cq + cofkRConst Cb) ^ 3 := by linarith
+      _ ≤ Real.exp 6666 * (1 + Cq + cofkRConst Cb) ^ 3 := by nlinarith [he6666, hZ0]
+      _ ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293) := hbig
+  -- ⟦THE BAND⟧
+  have hθ0 : (0 : ℝ) < theta293 := theta293_pos
+  have hθ32 : theta293 ≤ 1 / 32 := theta293_lt_one_div_32.le
+  have hLX : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    linarith [Real.exp_one_lt_d9]
+  have hLe2 : Real.exp 2 ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_lt_d9, Real.exp_pos (1 : ℝ)]
+  have hH1 : (1 : ℝ) ≤ H83 ((Xd : ℕ) : ℝ) theta293 := by
+    rw [H83]; exact Real.one_le_rpow (by linarith) hθ0.le
+  have hH0 : (0 : ℝ) < H83 ((Xd : ℕ) : ℝ) theta293 := by linarith
+  have hPlow : P83 ((Xd : ℕ) : ℝ) theta293 ≤ ((s13BandP Xd : ℕ) : ℝ) := s13CapGrid_P_low Xd
+  have hQhigh : ((s13BandQ Xd : ℕ) : ℝ) ≤ Q83 ((Xd : ℕ) : ℝ) := s13CapGrid_Q_high Xd
+  have hQ1 : 1 ≤ s13BandQ Xd := hQpos
+  have hP83pos : (0 : ℝ) < P83 ((Xd : ℕ) : ℝ) theta293 := by rw [P83]; exact Real.exp_pos _
+  have hPexp : (2 : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - theta293) := by
+    have h1 : (Real.exp 1) ^ (1 - theta293)
+        ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - theta293) :=
+      Real.rpow_le_rpow (Real.exp_pos 1).le hLX (by linarith)
+    have h2 : (Real.exp 1) ^ (31 / 32 : ℝ) ≤ (Real.exp 1) ^ (1 - theta293) :=
+      Real.rpow_le_rpow_of_exponent_le (by linarith) (by linarith)
+    have h3 : (Real.exp 1) ^ (31 / 32 : ℝ) = Real.exp (31 / 32) := Real.exp_one_rpow _
+    have h4 := cofk_two_le_exp_31_32
+    rw [h3] at h2
+    linarith
+  have hP83log : Real.log (P83 ((Xd : ℕ) : ℝ) theta293)
+      = (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - theta293) := by rw [P83, Real.log_exp]
+  have hP83ge : (3 : ℝ) ≤ P83 ((Xd : ℕ) : ℝ) theta293 := by
+    rw [P83]
+    have h1 : Real.exp 2 ≤ Real.exp ((Real.log ((Xd : ℕ) : ℝ)) ^ (1 - theta293)) :=
+      Real.exp_le_exp.mpr hPexp
+    have h2 : (3 : ℝ) ≤ Real.exp 2 := by linarith [Real.add_one_le_exp (2 : ℝ)]
+    linarith
+  have hP3R : (3 : ℝ) ≤ ((s13BandP Xd : ℕ) : ℝ) := by linarith
+  have hP3 : 3 ≤ s13BandP Xd := by exact_mod_cast hP3R
+  have hP1 : 1 ≤ s13BandP Xd := by omega
+  have hlogP2 : (2 : ℝ) ≤ Real.log ((s13BandP Xd : ℕ) : ℝ) := by
+    have h := Real.log_le_log hP83pos hPlow
+    rw [hP83log] at h
+    linarith
+  have hQlog : Real.log ((s13BandQ Xd : ℕ) : ℝ)
+      ≤ Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ)) :=
+    log_le_of_le_Q83 hQ1 hQhigh
+  have hQL : Real.log ((s13BandQ Xd : ℕ) : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    have hdiv : Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ))
+        ≤ Real.log ((Xd : ℕ) : ℝ) := by
+      rw [div_le_iff₀ (by linarith)]
+      nlinarith
+    linarith
+  have hRrad0 : (0 : ℝ) < seamRad ((Xd : ℕ) : ℝ) := by
+    rw [seamRad]; exact Real.rpow_pos_of_pos hLg0 _
+  -- ⟦CONJUNCTS 2 AND 3: THE `T`-WINDOW IS THE SOCKET'S OWN ARITHMETIC⟧
+  have h2T0 : (0 : ℝ) < 2 * T := by linarith
+  have hQT : ((s13BandQ Xd : ℕ) : ℝ) ≤ 2 * T := by
+    have hQ0R : (0 : ℝ) < ((s13BandQ Xd : ℕ) : ℝ) := by exact_mod_cast hQpos
+    have hstep : Real.log ((s13BandQ Xd : ℕ) : ℝ) ≤ Real.log (2 * T) := by
+      have hdiv : Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ))
+          ≤ Real.log ((Xd : ℕ) : ℝ) / 2 := by
+        rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 2)]
+        nlinarith
+      linarith
+    have h := Real.exp_le_exp.mpr hstep
+    rwa [Real.exp_log hQ0R, Real.exp_log h2T0] at h
+  have h30g : 30 * (Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ)))
+      ≤ Real.log (2 * T) := by
+    have hdiv : Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ))
+        ≤ Real.log ((Xd : ℕ) : ℝ) / 60 := by
+      rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 60)]
+      nlinarith
+    linarith
+  -- ⟦THE BLOCKS⟧
+  have hBpos : ∀ v : ℕ, (0 : ℝ) < ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+    intro v
+    rw [ramRbot]
+    exact mul_pos hAsR (Real.exp_pos _)
+  have hB34 : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4)
+        ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+    intro v hv
+    have hlow := cofkR_band_log_lower hH0 hQ1 hQhigh hLe2 hv
+    have hid : (1 - 1 / Real.log (Real.log ((Xd : ℕ) : ℝ))) * Real.log ((Xd : ℕ) : ℝ)
+        = Real.log ((Xd : ℕ) : ℝ)
+          - (1 / Real.log (Real.log ((Xd : ℕ) : ℝ))) * Real.log ((Xd : ℕ) : ℝ) := by ring
+    rw [hid] at hlow
+    have hinv : (1 : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ)) ≤ 1 / 4 := by
+      rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 4)]
+      linarith
+    have hstep : 3 * Real.log ((Xd : ℕ) : ℝ) / 4
+        ≤ Real.log (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v) := by
+      nlinarith [hlow, hinv, hLg0]
+    have h := Real.exp_le_exp.mpr hstep
+    rwa [Real.exp_log (hBpos v)] at h
+  -- the three exponential comparisons every block fact below runs on
+  have hehalf : (1 : ℝ) ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) :=
+    Real.one_le_exp (by linarith)
+  have hequart : (1 : ℝ) ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) :=
+    Real.one_le_exp (by linarith)
+  have hesplit : Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4)
+      * Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2)
+      = Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have he2half : (2 : ℝ) ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := by
+    linarith [Real.add_one_le_exp (Real.log ((Xd : ℕ) : ℝ) / 2)]
+  have he2quart : (2 : ℝ) ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) := by
+    linarith [Real.add_one_le_exp (Real.log ((Xd : ℕ) : ℝ) / 4)]
+  have hquarthalf : Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4)
+      ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := Real.exp_le_exp.mpr (by linarith)
+  have hgap34 : Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) + 1
+      ≤ Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
+    nlinarith [hesplit, hehalf, he2quart]
+  have hgapq : Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) + 1
+      ≤ Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
+    nlinarith [hesplit, hehalf, he2quart, hquarthalf]
+  have hpinhalf : pin2Gate ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := by
+    rw [pin2Gate]
+    exact Real.exp_le_exp.mpr (by linarith)
+  -- the landed band facts, at the repaired scale
+  have hBX : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      2 * ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v ≤ ((Xd : ℕ) : ℝ) :=
+    fun v hv => cofkL_two_ramRbot_le hH1 hlogP2 hv
+  have hkth : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      ballQuarterThreshold + 1 ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v :=
+    fun v hv => cofk_ballQuarter_at_band hH0 hQ1 hQhigh hball hv
+  have hW5 : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      (5 : ℝ) ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v :=
+    fun v hv => cofkL_five_le_ramRbot (hkth v hv)
+  have hC16 : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      18 + Real.log (Real.log ((Xd : ℕ) : ℝ))
+          - Real.log (Real.log (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v - 1))
+        ≤ 32 * theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ)) :=
+    fun v hv => cofk_descent_at_band hH0 hQ1 hQhigh (by linarith) (by linarith) hv
+  have hRradW : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      seamRad ((Xd : ℕ) : ℝ) ≤ Real.sqrt 2 * ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v :=
+    fun v hv => cofk_seamRad_at_band hH0 hQ1 hQhigh (by linarith) hv
+  have hXskj : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Xsk ≤ Real.sqrt (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v) :=
+    fun v hv => cofk_wideThreshold_at_band hH0 hQ1 hQhigh hLe2 hXskgate hv
+  -- ⟦THE REPAIRED LADDER `D = ⌈log X⌉₊`⟧
+  have hDge : Real.log ((Xd : ℕ) : ℝ) ≤ ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) := Nat.le_ceil _
+  have hDle : ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) + 1 :=
+    le_of_lt (Nat.ceil_lt_add_one hLg0.le)
+  have hDone : 1 ≤ ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ := by
+    have h : (1 : ℝ) ≤ ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) := by linarith
+    exact_mod_cast h
+  have hWlow : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2)
+        ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+            / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) :=
+    fun v hv => cofkR_window_lower (by linarith) hDone hDle (hB34 v hv)
+  have hWpos : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      (0 : ℝ) < ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) := by
+    intro v hv; linarith [hWlow v hv, hehalf]
+  have hlogW : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      1 / 2 * Real.log ((Xd : ℕ) : ℝ)
+        ≤ Real.log (((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+            / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ)) := by
+    intro v hv
+    have h := Real.log_le_log (Real.exp_pos (Real.log ((Xd : ℕ) : ℝ) / 2)) (hWlow v hv)
+    rw [Real.log_exp] at h
+    linarith only [h]
+  have hWXle : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ≤ ((Xd : ℕ) : ℝ) := by
+    intro v hv
+    have h1 : (witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) ≤ witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v :=
+      Nat.div_le_self _ _
+    have h1R : ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ)
+        ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by exact_mod_cast h1
+    have h2 := (witKk_cut (H := H83 ((Xd : ℕ) : ℝ) theta293) (Xd := Xd) (j := v)
+      (by linarith [hW5 v hv])).1
+    linarith [hBX v hv, hBpos v]
+  -- ⟦THE WINDOW TOP⟧
+  have hMtlow : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2)
+        ≤ ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+    intro v hv
+    have h := (witMt_window (H := H83 ((Xd : ℕ) : ℝ) theta293) (Xd := Xd) (j := v)
+      (by linarith [hW5 v hv])).1
+    linarith [hB34 v hv, hgap34]
+  have hMtX : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) ≤ 2 * ramRbot
+        (H83 ((Xd : ℕ) : ℝ) theta293) Xd v :=
+    fun v hv => cofkL_Mt_le_two_ramRbot (hW5 v hv)
+  have hlogMt : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      1 / 2 * Real.log ((Xd : ℕ) : ℝ)
+        ≤ Real.log (((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)) := by
+    intro v hv
+    have h := Real.log_le_log (Real.exp_pos (Real.log ((Xd : ℕ) : ℝ) / 2)) (hMtlow v hv)
+    rw [Real.log_exp] at h
+    linarith only [h]
+  have hlogB : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      1 / 2 * Real.log ((Xd : ℕ) : ℝ)
+        ≤ Real.log (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v) := by
+    intro v hv
+    have h := Real.log_le_log (Real.exp_pos (3 * Real.log ((Xd : ℕ) : ℝ) / 4)) (hB34 v hv)
+    rw [Real.log_exp] at h
+    linarith only [h, hLg0]
+  -- ⟦THE EXIT CHARGES, AT THE REPAIRED LADDER⟧
+  have hpow0 : (0 : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := Real.rpow_nonneg hLg0.le _
+  have hcSq0 := cofk_cSq_pos
+  have hS0 : (0 : ℝ) ≤ cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) :=
+    mul_nonneg (cofkRSconst_pos hCb0).le hpow0
+  have hSbd : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      cSq * caseASwide (1 / Real.exp 1) Cb
+          (cofactorMfl ((Xd : ℕ) : ℝ) theta293
+            ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+              / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ))
+          ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+            / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ)
+          (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v)
+        + cSq * ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ^ (-(1 / 4 : ℝ))
+      ≤ cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by
+    intro v hv
+    have hW2 : (2 : ℝ) ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) := le_trans he2half (hWlow v hv)
+    have hcase := cofkR_caseASwide_priced hCb0 hW2 (hWXle v hv) hLe2 (by linarith)
+      (hlogW v hv) (hlogB v hv)
+    have hD4 : ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ^ (-(1 / 4 : ℝ))
+        ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by
+      have h1 : ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ^ (-(1 / 4 : ℝ))
+          ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 / 4 : ℝ)) :=
+        Real.rpow_le_rpow_of_nonpos hLg0 hDge (by norm_num)
+      have h2 : (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 / 4 : ℝ))
+          ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) :=
+        Real.rpow_le_rpow_of_exponent_le (by linarith only [hLgbig])
+          (by linarith only [rho293_le_seam])
+      linarith only [h1, h2]
+    have h1 := mul_le_mul_of_nonneg_left hcase hcSq0.le
+    have h2 := mul_le_mul_of_nonneg_left hD4 hcSq0.le
+    calc cSq * caseASwide (1 / Real.exp 1) Cb
+            (cofactorMfl ((Xd : ℕ) : ℝ) theta293
+              ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+                / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ))
+            ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+              / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ)
+            (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v)
+          + cSq * ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ^ (-(1 / 4 : ℝ))
+        ≤ cSq * ((3 * gradeAbsConstC (1 / Real.exp 1) Cb + 2 * farCStar2 + 8)
+              * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293))
+            + cSq * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by linarith only [h1, h2]
+      _ = cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by
+          rw [cofkRSconst]; ring
+  have hMfl0 : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      (0 : ℝ) ≤ cofactorMfl ((Xd : ℕ) : ℝ) theta293
+        ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+          / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) := by
+    intro v hv
+    exact cofkR_mfl_nonneg (le_trans he2half (hWlow v hv)) (hWXle v hv) hLe2
+      (hlogW v hv) (by linarith)
+  -- ⟦THE FAR ARM AT EVERY BLOCK⟧
+  have hfarb : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      farSupS34 ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)))
+          (seamRad ((Xd : ℕ) : ℝ))
+        ≤ 5 * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by
+    intro v hv
+    have hY0Mt : Y0 ≤ ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) :=
+      le_trans hY0gate (le_trans hquarthalf (hMtlow v hv))
+    have hB2 : (2 : ℝ) ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+      linarith [hW5 v hv]
+    have hMt0 : (0 : ℝ) < ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+      linarith [hMtlow v hv, hehalf]
+    have hlogMtle := Real.log_le_log hMt0 (hMtX v hv)
+    have hkkhalf : ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v / 2
+        ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+      linarith [cofkL_ramRbot_le_kk (hW5 v hv)]
+    have hlogkk := Real.log_le_log (by linarith : (0 : ℝ)
+      < ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v / 2) hkkhalf
+    rw [Real.log_mul (by norm_num) (ne_of_gt (hBpos v))] at hlogMtle
+    rw [Real.log_div (ne_of_gt (hBpos v)) (by norm_num)] at hlogkk
+    have hlogBbig : 3 * Real.log 2 ≤ Real.log (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v) := by
+      linarith only [hlogB v hv, Real.log_two_lt_d9, hLgbig]
+    have hlogMt2kk : Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+        ≤ 2 * Real.log ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+      linarith only [hlogMtle, hlogkk, hlogBbig]
+    exact cofkR_farSup_priced (by linarith only [hLgbig]) (hfarclose _ _ hY0Mt hlogMt2kk)
+      (hlogMt v hv)
+  -- ⟦THE `R̄₀` CEILING⟧
+  have hRbdU : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      cofactorRbdGen (cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293))
+          ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)))
+          (seamRad ((Xd : ℕ) : ℝ))
+        ≤ cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by
+    intro v hv
+    rw [cofactorRbdGen, cofkRConst]
+    have hmax : max (2 * (cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)))
+        (farSupS34 ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)))
+          (seamRad ((Xd : ℕ) : ℝ)))
+        ≤ (2 * cofkRSconst Cb + 5) * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := by
+      have hSP : (0 : ℝ) ≤ cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293) := hS0
+      exact max_le (by linarith only [hpow0])
+        (le_trans (hfarb v hv) (by linarith only [hSP]))
+    linarith only [hmax]
+  -- ⟦THE ENDPOINT CHARGE⟧
+  have hLgleB : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.log ((Xd : ℕ) : ℝ) ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+    intro v hv
+    have h1 : 1 + 3 * Real.log ((Xd : ℕ) : ℝ) / 8
+        ≤ Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8) := by
+      linarith [Real.add_one_le_exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)]
+    have h2 : Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)
+        * Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)
+        = Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
+      rw [← Real.exp_add]; congr 1; ring
+    nlinarith [hB34 v hv, h1, h2, hLg0]
+  have hsr : seamRad ((Xd : ℕ) : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
+    rw [seamRad]
+    have h1 : (Real.log ((Xd : ℕ) : ℝ)) ^ ((1 : ℝ) / 46)
+        ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
+    rwa [Real.rpow_one] at h1
+  have hs2 : (1 : ℝ) ≤ Real.sqrt 2 := by
+    have h := Real.sqrt_le_sqrt (by norm_num : (1 : ℝ) ≤ 2)
+    rwa [Real.sqrt_one] at h
+  have hendGen : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      2 / ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        ≤ cofactorRbdGen (cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293))
+            ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+              (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)))
+            (seamRad ((Xd : ℕ) : ℝ)) / 3 := by
+    intro v hv
+    have hMt0 : (0 : ℝ) < ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+      linarith [hMtlow v hv, hehalf]
+    have hkk0 : (0 : ℝ) < Real.log ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+      have h2 : (2 : ℝ) ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+        linarith only [cofkL_ramRbot_le_kk (hW5 v hv), hW5 v hv]
+      exact Real.log_pos (by linarith only [h2])
+    have hfar0 : (0 : ℝ) ≤ farErr34 ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+        ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+        (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ))) :=
+      farErr34_nonneg hkk0 (Real.log_nonneg (by linarith [hMtlow v hv, he2half]))
+        (Tstar2_pos hMt0).le
+    have hchain : 2 / ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        ≤ farSupS34 ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)))
+          (seamRad ((Xd : ℕ) : ℝ)) := by
+      rw [farSupS34]
+      have h1 : (2 : ℝ) / ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+          ≤ 2 / Real.log ((Xd : ℕ) : ℝ) :=
+        div_le_div_of_nonneg_left (by norm_num) hLg0 (hLgleB v hv)
+      have h2 : (2 : ℝ) / Real.log ((Xd : ℕ) : ℝ) ≤ 2 / seamRad ((Xd : ℕ) : ℝ) :=
+        div_le_div_of_nonneg_left (by norm_num) hRrad0 hsr
+      have hinv : (0 : ℝ) < (seamRad ((Xd : ℕ) : ℝ))⁻¹ := inv_pos.mpr hRrad0
+      have h3 : (2 : ℝ) / seamRad ((Xd : ℕ) : ℝ)
+          ≤ 2 * Real.sqrt 2 / seamRad ((Xd : ℕ) : ℝ) := by
+        rw [div_eq_mul_inv, div_eq_mul_inv]
+        nlinarith [hs2, hinv]
+      linarith
+    rw [cofactorRbdGen]
+    have hfin := le_trans hchain
+      (le_max_right (2 * (cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)))
+      (farSupS34 ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+        ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+        (Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+          (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)))
+        (seamRad ((Xd : ℕ) : ℝ))))
+    linarith only [hfin]
+  -- ⟦THE LADDER GATES⟧
+  have hLg2leB : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.log ((Xd : ℕ) : ℝ) + 2 ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+    intro v hv
+    have h1 : 1 + 3 * Real.log ((Xd : ℕ) : ℝ) / 8
+        ≤ Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8) := by
+      linarith [Real.add_one_le_exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)]
+    have h2 : Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)
+        * Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)
+        = Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
+      rw [← Real.exp_add]; congr 1; ring
+    nlinarith [hB34 v hv, h1, h2, hLgbig]
+  have hDdk : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ ≤ witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+    intro v hv
+    have hR : ((⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ)
+        ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ) := by
+      linarith only [hDle, hLg2leB v hv, cofkL_ramRbot_le_kk (hW5 v hv)]
+    exact_mod_cast hR
+  have hsqXa : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.sqrt (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v)
+        ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+            / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) := by
+    intro v hv
+    have hBle : ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ)) := by
+      rw [Real.exp_log hAsR]
+      linarith only [hBX v hv, hBpos v]
+    have hmono := Real.sqrt_le_sqrt hBle
+    have hsq : Real.sqrt (Real.exp (Real.log ((Xd : ℕ) : ℝ)))
+        = Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := by
+      have hsplit2 : Real.exp (Real.log ((Xd : ℕ) : ℝ))
+          = Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2)
+            * Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := by
+        rw [← Real.exp_add]; congr 1; ring
+      rw [hsplit2, Real.sqrt_mul_self (Real.exp_pos _).le]
+    rw [hsq] at hmono
+    linarith only [hmono, hWlow v hv]
+  have hpinW : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      pin2Gate ≤ ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+        / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) :=
+    fun v hv => le_trans hpinhalf (hWlow v hv)
+  have hXae : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      Real.exp 1 ≤ ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
+    intro v hv
+    linarith only [hW5 v hv, Real.exp_one_lt_d9]
+  -- ⟦THE TWO CONTOUR BOXES⟧
+  have hTX : (2 : ℝ) * T ≤ ((Xd : ℕ) : ℝ) := hThi
+  have hbox : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      ∀ t : ℝ, |t| ≤ 2 * T →
+        |t| + Tstar2 ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ)
+            (Real.log ((witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd v : ℕ) : ℝ))
+          ≤ 3 * ((Xd : ℕ) : ℝ) := by
+    intro v hv t ht
+    exact cofkR_box_of_le (le_trans hpinhalf (hMtlow v hv))
+      (by linarith only [hMtX v hv, hBX v hv]) (by linarith only [ht, hTX])
+  have hboxw : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      ∀ t : ℝ, |t| ≤ 2 * T → ∀ i : ℕ,
+        ((witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v
+          / ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ : ℕ) : ℝ) ≤ (i : ℝ) →
+          (i : ℝ) ≤ 2 * ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v →
+            |t| + Tstar2 (i : ℝ) (Real.log (i : ℝ)) ≤ 3 * ((Xd : ℕ) : ℝ) := by
+    intro v hv t ht i hi1 hi2
+    exact cofkR_box_of_le (le_trans (hpinW v hv) hi1)
+      (by linarith only [hi2, hBX v hv]) (by linarith only [ht, hTX])
+  -- ⟦`TLBlockGates34` AT THE WITNESS⟧
+  have hlogLs0 : (0 : ℝ) ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by linarith
+  have hrp : (0 : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4) :=
+    Real.rpow_nonneg hLg0.le _
+  have hp5 : (0 : ℝ) ≤ (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5 := pow_nonneg hlogLs0 5
+  have hcq0 : (0 : ℝ) ≤ 420 * Real.log ((Xd : ℕ) : ℝ)
+      * (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5 := by
+    have h1 : (0 : ℝ) ≤ 420 * Real.log ((Xd : ℕ) : ℝ) := by linarith
+    exact mul_nonneg (mul_nonneg h1 hrp) hp5
+  have hcqgate : 420 * Real.log ((Xd : ℕ) : ℝ)
+        * (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5
+      ≤ (420 * Real.log ((Xd : ℕ) : ℝ)
+          * (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5)
+        * (Real.log ((s13BandP Xd : ℕ) : ℝ)) ^ 2 := by
+    have hsq : (1 : ℝ) ≤ (Real.log ((s13BandP Xd : ℕ) : ℝ)) ^ 2 := by nlinarith [hlogP2]
+    nlinarith [hcq0, hsq]
+  have hblk : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
+      TLBlockGates34 (420 * Real.log ((Xd : ℕ) : ℝ)
+          * (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5)
+        (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (2 * Xd) Xd
+        (witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd)
+        (witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd)
+        (2 * T) (Real.log ((Xd : ℕ) : ℝ)) (1 / Real.exp 1) Cb
+        ((Xd : ℕ) : ℝ) theta293 (seamRad ((Xd : ℕ) : ℝ)) v := by
+    intro v hv
+    have hbaseQ : ramQbase (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) v ≤ s13BandQ Xd :=
+      ramQbase_le_top hH0 hQ1 hPQ hv
+    have hbase3 : 3 ≤ ramQbase (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) v :=
+      le_trans hP3 (ramQbase_ge_bot _ _ _)
+    have hb3R : (3 : ℝ)
+        ≤ ((ramQbase (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) v : ℕ) : ℝ) := by
+      exact_mod_cast hbase3
+    have hblog0 : (0 : ℝ)
+        < Real.log ((ramQbase (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) v : ℕ) : ℝ) :=
+      Real.log_pos (by linarith only [hb3R])
+    have hbQ : Real.log ((ramQbase (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) v : ℕ) : ℝ)
+        ≤ Real.log ((s13BandQ Xd : ℕ) : ℝ) :=
+      Real.log_le_log (by linarith only [hb3R]) (by exact_mod_cast hbaseQ)
+    have h30 : (30 : ℝ) ≤ Real.log (2 * T)
+        / Real.log ((ramQbase (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) v : ℕ) : ℝ) := by
+      rw [le_div_iff₀ hblog0]
+      linarith only [h30g, hbQ, hQlog, hblog0]
+    exact tlBlockGates34_at_witness hH1 hP3 hlogP2 hQ1 hPQ hcq0 hv hQT h30 hQL hcqgate
+      (by linarith only [hW5 v hv]) (hkth v hv) le_rfl (hBX v hv) (hC16 v hv) hRrad0
+      (hRradW v hv)
+  -- ⟦THE HEAD⟧
+  have hc0 : (0 : ℝ) < 1 / Real.exp 1 := by positivity
+  have hce : (1 : ℝ) / Real.exp 1 ≤ 1 / Real.exp 1 := le_refl _
+  have hc1 : 2 * (1 / Real.exp 1) < 1 := by
+    rw [mul_one_div, div_lt_one (by linarith [Real.exp_one_gt_d9])]
+    linarith [Real.exp_one_gt_d9]
+  -- ⟦THE EXIT⟧
+  have hRb0 : (0 : ℝ) ≤ 4 * (cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)) := by
+    linarith only [mul_nonneg (cofkRConst_pos hCb0).le hpow0]
+  refine ⟨seamRad ((Xd : ℕ) : ℝ),
+    4 * (cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)),
+    4 * cofkRConst Cb, hRb0, le_of_eq (by ring), hgradegate, ?_⟩
+  intro t₁ χ
+  have hs := hsup q χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M)
+    (H83 ((Xd : ℕ) : ℝ) theta293) (2 * Xd) Xd (s13BandP Xd) (s13BandQ Xd) 2 1
+    (witMt (H83 ((Xd : ℕ) : ℝ) theta293) Xd)
+    (witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd)
+    (fun _ : ℕ => ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊)
+    (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd)
+    (420 * Real.log ((Xd : ℕ) : ℝ)
+      * (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5)
+    (Real.log ((Xd : ℕ) : ℝ)) (1 / Real.exp 1) Cb ((Xd : ℕ) : ℝ) theta293
+    (seamRad ((Xd : ℕ) : ℝ)) (2 * T) t₁
+    (cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)) (1 / Real.exp 1)
+    (cofkRSconst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293))
+    hc0 hce hc1 hCb0 hCbound hP1 (le_refl 1) hRrad0 hθ0 hθ32 hLX hPlow hQhigh hPQ
+    (hfloorχ χ) hblk hbox (fun _ _ => hDone) hDdk hXskj hsqXa hpinW hXae hMtX hBX hMfl0
+    hboxw hS0 hSbd hendGen hRbdU
+  have he : (2 : ℝ) ^ (2 : ℕ) * (cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293))
+      = 4 * (cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)) := by norm_num
+  rwa [he] at hs
+
 end Salt.MR
