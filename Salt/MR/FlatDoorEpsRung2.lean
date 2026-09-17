@@ -613,4 +613,90 @@ theorem capfloor_twoj_le_H_L {h : ℕ} (_hh : 0 < h) {Lc : ℝ} (_hL0 : 0 ≤ Lc
   · exact le_trans (le_trans (Nat.pow_le_pow_right (by norm_num) hjL)
       (Nat.pow_log_le_self 2 (by omega))) hLH
 
+/-- `s13_socketBase_logA_ge_sqrt_LH_b9` at generic `L` (`s13_socketBase_logA_ge_sqrt_L`) — the
+cap-grid LEAF, and the one site in this section where the twin paid its cap out of a NUMERAL
+floor.  `hlog'` reads the x-scale's `log h` at `L` (`9 ↦ L`); the twin absorbed the `9` in the
+`2000 ≤ √H` margin, and NO numeral margin absorbs an unbounded `L`, so the payer is
+`s13_tower_logH_L`: `w² = log H ≥ 10^21 · (1 + L)`.  The close is LINEAR once three facts are
+taken — `L ≤ w²`, `24·w ≤ w²/50` (from `w ≥ 2000`) and `w²/2 ≤ u` (`hwu`) — which give
+`L + 24·w ≤ 4.5·u + 20` and then
+`log A ≥ 8·u·log 2 − 5·log 2 − L − 24·w + 24 ≥ 5.54517·u + 0.534 − 4.5·u ≥ u`
+(margin `0.0451·u`, and `u ≥ 2000`).  Every other step is the twin's, verbatim. -/
+theorem s13_socketBase_logA_ge_sqrt_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    Real.sqrt (H : ℝ) ≤ Real.log (A : ℝ) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hhi : H ≤ R.Hhi := hb.2.1
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at this
+  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
+  -- ⟦THE CHARGE'S PAYER — the cap grid's floor carries no `L`, this does⟧
+  have htow : (10 : ℝ) ^ 21 * (1 + Lc) ≤ Real.log (H : ℝ) := s13_tower_logH_L hL0 hb hflL
+  set u : ℝ := Real.sqrt (H : ℝ) with hu
+  set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
+  have hu2 : u ^ 2 = (H : ℝ) := Real.sq_sqrt (by positivity)
+  have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
+  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
+  have hw0 : (0 : ℝ) < w := by rw [hw]; exact Real.sqrt_pos.mpr hlogH0
+  have hu2000 : (2000 : ℝ) ≤ u := by nlinarith [hu2, hu0, hHR]
+  have hw2000 : (2000 : ℝ) ≤ w := by nlinarith [hw2, hw0, hlogHbig]
+  have hlogu : Real.log u = Real.log (H : ℝ) / 2 := by
+    rw [hu]; exact Real.log_sqrt (by positivity)
+  have hlogule : Real.log u ≤ u - 1 := Real.log_le_sub_one_of_pos hu0
+  have hHu : Real.log (H : ℝ) ≤ 2 * u - 2 := by rw [hlogu] at hlogule; linarith
+  have hlogw : Real.log w = Real.log (Real.log (H : ℝ)) / 2 := by
+    rw [hw]; exact Real.log_sqrt hlogH0.le
+  have hlogwle : Real.log w ≤ w - 1 := Real.log_le_sub_one_of_pos hw0
+  have hllH : Real.log (Real.log (H : ℝ)) ≤ 2 * w - 2 := by rw [hlogw] at hlogwle; linarith
+  have hwu : w ^ 2 ≤ 2 * u := by rw [hw2]; linarith
+  -- ⟦the x-scale, in logs, at the CHARGE⟧
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    s13_socketBase_xscale_LH hb
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hAR : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hL12 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
+  have hhl : (0 : ℝ) < (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := mul_pos hh0 hL12
+  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
+  have hlog := Real.log_le_log hlhs0 hxs
+  have hLx : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
+    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
+    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast; ring
+  have hRR : Real.log (2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ))
+      = Real.log 2 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
+    rw [harcpow, Real.log_mul (mul_pos two_pos hhl).ne' hAR.ne', Real.log_mul two_ne_zero hhl.ne',
+      Real.log_mul hh0.ne' hL12.ne', Real.log_pow]
+    push_cast; ring
+  rw [hLx, hRR] at hlog
+  have hlog' : 4 * (m : ℝ) * Real.log 2
+      ≤ Real.log 2 + Lc + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by linarith
+  have hmfl : 2 * u - 1 ≤ (m : ℝ) := by rw [hm, hu]; exact s13_socketBase_mFloor hhi
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hm0 : (0 : ℝ) ≤ (m : ℝ) := Nat.cast_nonneg _
+  -- ⟦the close, made LINEAR: the tower pays `L` and the `24·w` debit out of `w²`⟧
+  have hwL : (10 : ℝ) ^ 21 * (1 + Lc) ≤ w ^ 2 := by rw [hw2]; exact htow
+  have hwLc : Lc ≤ w ^ 2 := by linarith
+  have hww : 2000 * w ≤ w * w := mul_le_mul_of_nonneg_right hw2000 hw0.le
+  have hw24 : 24 * w ≤ w ^ 2 / 50 := by rw [pow_two]; linarith
+  have hclose : Lc + 24 * w - 20 ≤ 4.5 * u := by linarith
+  have hml : (2 * u - 1) * Real.log 2 ≤ (m : ℝ) * Real.log 2 :=
+    mul_le_mul_of_nonneg_right hmfl (by linarith)
+  have hul : 5.5451774424 * u ≤ 8 * u * Real.log 2 := by
+    have h8 : (0 : ℝ) ≤ 8 * u := by linarith
+    have hmul := mul_le_mul_of_nonneg_left hl2lo.le h8
+    linarith
+  linarith [hlog', hml, hllH, hclose, hul, hl2hi, hu0]
+
 end Salt.MR
