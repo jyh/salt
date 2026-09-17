@@ -109,8 +109,12 @@ whose log read `EXIT=1`). `143` is SIGTERM, the box taking your process, not Lea
 resume from cache; a lock timeout is safe to retry. **NEVER PIPE the wrapper.**
 ⛔ **AND NEVER JUDGE OR QUOTE AN ERROR COUNT FROM THE NEEDLE `error:`** — Lean also prints
 `error(lean.<kind>):`, and a count on the bare form reads 0 on a failed run (math, 2026-09-16, 17-log
-population). Count `:[0-9]+:[0-9]+: error(\([^)]*\))?:`, put a plain `grep -c` beside any parsed count,
-and treat a count that disagrees with `EXIT≠0` as a broken instrument, never as a clean build.
+population). ⛔ **AND THE NEEDLE MUST READ BOTH ORDERS — measured 2026-09-17 by `paris` (desk `RJ`): Lean
+writes `FILE:L:C: error(tag):` because saltbuild's AUDIT arm runs `lake env lean`, while lake writes
+`error: FILE:L:C:` because the BUILD arm runs `lake build` — two arms of ONE script, two orders, and the
+one-order needle read a failing build's 4 diagnostics as 2.** Count
+`:[0-9]+:[0-9]+: error(\([^)]*\))?:|^error: .*:[0-9]+:[0-9]+:`, put a plain `grep -c` beside any parsed
+count, and treat a count that disagrees with `EXIT≠0` as a broken instrument, never as a clean build.
 ⛔ **Put this rule VERBATIM in every executor/subagent brief you write** — a subagent that does not
 know it will OOM the fleet.
 ⛔⛔ **AN AXIOM AUDIT READS THE OLEANS, NOT THE SOURCE — SO `#print axioms` MISLEADS IN BOTH DIRECTIONS.** A scratch
