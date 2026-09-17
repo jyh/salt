@@ -2183,4 +2183,228 @@ theorem cofkR_cofactorSupply_L_gk_rated_L (h : ℕ) (hh : 0 < h) {Lc : ℝ} (hL0
       = 4 * (cofkRConst Cb * (Real.log ((Xd : ℕ) : ℝ)) ^ (-rho293)) := by norm_num
   rwa [he] at hs
 
+/-! ## §W2 — ⟦THE COUNT LEAF AT GENERIC `ε`⟧ `|Ξ_H| ≤ 2^283·c^20`, the charge being the lattice
+count `c` itself: no cap, no logarithm, and no numeral ceiling -/
+
+-- the chain file's own line (`FlatDoorEpsChain.lean:32`): `norm_num` declines an exponent above
+-- the threshold and leaves the goal OPEN, and the ceiling `2^283` is above the default 256.
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE COUNT HOOK AT THE HEAD'S GRADE⟧** (`bigXi_bounded_ceiling_eps`) —
+`bigXi_bounded_ceiling_of_cap` (`FlatDoorEpsChain.lean:410`, at the cap `1/(500·8103) ≤ ε`) with
+the cap's numeral `8103` replaced by the CHARGE `c ≥ 1`: the hypothesis reads `1/(500·c) ≤ ε`,
+and the ceiling is a FUNCTION of the charge, `2^283·c^20`.  The charge is the lattice count
+itself, so no logarithm enters.
+
+⟦THE THRESHOLD⟧ `T := 2^68·c^3` (the landed `T = 2^68` is this at `c = 1`, up to the `c^3`).
+The four demands, each with its slack: `N0' = 2^20 ≤ 2^68 ≤ T`; `4 ≤ ε²·T`, which reads
+`ε²·T ≥ 2^68·c/250000 ≥ 1.18059·10^15`; `16^10 = 2^40 ≤ 2^68 ≤ T`; and
+`(2/ε²)^10 ≤ (2·250000·c²)^10 ≤ 2^190·c^20 ≤ 2^612·c^27 = T^9`, using
+`10·log₂ 500000 = 189.3156…` and `500000 ≤ 524288 = 2^19`.
+
+⟦THE CONSTANT⟧ `1/ε ≤ 500·c` gives `1/ε² ≤ 250000·c²`, and `ε ≤ 1/500` gives `ε² ≤ 1/250000`,
+so `ε²·T ≤ 2^68·c³/250000 ≤ 1180591620717412·c³`, `1/(2ε²) ≤ 125000·c²` and
+`102400/ε² ≤ 25600000000·c²`.  `log T = 68·log 2 + 3·log c ≤ 47.14 + 3·(c−1) ≤ 47.14·c` at
+`c ≥ 1` (`68·log 2 = 47.13400…`), so `(log T)² ≤ 2222.2·c²`.  Hence
+`C₁ ≤ 25600204800·c² + 1188815000000000·2222.2·c⁵ = 2641784718600204800·c⁵ ≤ 2^62·c⁵`
+(`2^62 = 4611686018427387904`; `2^61 = 2305843009213693952` does NOT suffice).
+
+⟦THE WITNESS AND ITS SIZE⟧ `32·e^40·(2^62·c^5)²·(500·c)^10`, the `(500·c)^10` from
+`1/ε^10 ≤ (500·c)^10`.  On the corpus's own chain (`e^40 ≤ 3^40 ≤ 2^64`), with `32 = 2^5`,
+`(2^62)² = 2^124` and `500^10 ≤ 2^90` (`500 < 512`), the total is `2^(5+64+124+90) = 2^283`
+times `c^20`.  The true size is `2^282.0563…·c^20`, so `2^282` does NOT suffice: at `b = 20`,
+`a = 283` is the smallest exponent this route gives. -/
+theorem bigXi_bounded_ceiling_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
+    {c : ℕ} (hc1 : 1 ≤ c) (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) :
+    ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧
+      ∀ (H : ℕ) [NeZero H], H₀ ≤ H → ((bigXi ε H).card : ℝ) ≤ C := by
+  have hc0 : 0 < c := hc1
+  have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcQ0 : (0 : ℚ) < (c : ℚ) := by linarith
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hcR0 : (0 : ℝ) < (c : ℝ) := by linarith
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  -- ⟦THE CAP AT GENERIC `c`⟧ `1/(500·c) ≤ ε` reads `1 ≤ 500·c·ε`
+  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
+    have h := (div_le_iff₀ (show (0 : ℚ) < 500 * (c : ℚ) by linarith)).mp hcε
+    calc (1 : ℚ) ≤ ε * (500 * (c : ℚ)) := h
+      _ = 500 * (c : ℚ) * ε := by ring
+  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hεle : (ε : ℝ) ≤ 1 / 500 := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hε
+    rwa [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+  have heps2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hεle]
+  have hε2le : (ε : ℝ) ^ 2 ≤ 1 / 250000 := by nlinarith [hεR0, hεle]
+  have hsqQ : (1 : ℚ) ≤ 250000 * (c : ℚ) ^ 2 * ε ^ 2 := by
+    have h := one_le_pow₀ (n := 2) hqcap
+    calc (1 : ℚ) ≤ (500 * (c : ℚ) * ε) ^ 2 := h
+      _ = 250000 * (c : ℚ) ^ 2 * ε ^ 2 := by ring
+  have hsqR : (1 : ℝ) ≤ 250000 * (c : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by
+    have h := one_le_pow₀ (n := 2) hcapR
+    calc (1 : ℝ) ≤ (500 * (c : ℝ) * (ε : ℝ)) ^ 2 := h
+      _ = 250000 * (c : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by ring
+  have hTcastR : (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) = (2 : ℝ) ^ (68 : ℕ) * (c : ℝ) ^ 3 := by
+    push_cast; ring
+  have hTcastQ : (((2 ^ 68 * c ^ 3 : ℕ)) : ℚ) = (2 : ℚ) ^ (68 : ℕ) * (c : ℚ) ^ 3 := by
+    push_cast; ring
+  -- ⟦THE THRESHOLD'S FOUR DEMANDS⟧ at `T := 2^68 · c^3`
+  have hcpow3 : 0 < c ^ 3 := pow_pos hc0 3
+  have hT0 : N0' ≤ 2 ^ 68 * c ^ 3 :=
+    le_trans (by unfold N0'; norm_num) (Nat.le_mul_of_pos_right _ hcpow3)
+  have hTA : (4 : ℚ) ≤ ε ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℚ) := by
+    rw [hTcastQ, show (2 : ℚ) ^ (68 : ℕ) = 295147905179352825856 by norm_num]
+    have hbig : (4 : ℚ) ≤ 295147905179352825856 * (c : ℚ) / 250000 := by
+      linarith only [hcQ1]
+    calc (4 : ℚ) = 4 * 1 := by ring
+      _ ≤ (295147905179352825856 * (c : ℚ) / 250000) * (250000 * (c : ℚ) ^ 2 * ε ^ 2) :=
+          mul_le_mul hbig hsqQ (by norm_num) (by linarith only [hbig])
+      _ = ε ^ 2 * (295147905179352825856 * (c : ℚ) ^ 3) := by ring
+  have hTB : ((16 : ℕ) : ℝ) ^ (10 : ℕ) ≤ (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) := by
+    rw [hTcastR]
+    have h1 : ((16 : ℕ) : ℝ) ^ (10 : ℕ) ≤ (2 : ℝ) ^ (68 : ℕ) := by norm_num
+    have h2 : (2 : ℝ) ^ (68 : ℕ) ≤ (2 : ℝ) ^ (68 : ℕ) * (c : ℝ) ^ 3 :=
+      le_mul_of_one_le_right (by positivity) (one_le_pow₀ hcR1)
+    linarith
+  have hTD : (2 / (ε : ℝ) ^ 2) ^ (10 : ℕ) ≤ ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ)) ^ (9 : ℕ) := by
+    have h1 : (2 : ℝ) / (ε : ℝ) ^ 2 ≤ (2 : ℝ) ^ (19 : ℕ) * (c : ℝ) ^ 2 := by
+      rw [div_le_iff₀ (by positivity), show (2 : ℝ) ^ (19 : ℕ) = 524288 by norm_num]
+      linarith only [hsqR]
+    rw [hTcastR]
+    calc ((2 : ℝ) / (ε : ℝ) ^ 2) ^ (10 : ℕ)
+        ≤ ((2 : ℝ) ^ (19 : ℕ) * (c : ℝ) ^ 2) ^ (10 : ℕ) :=
+          pow_le_pow_left₀ (by positivity) h1 10
+      _ = ((2 : ℝ) ^ (19 : ℕ)) ^ (10 : ℕ) * ((c : ℝ) ^ 2) ^ (10 : ℕ) := by rw [mul_pow]
+      _ = (2 : ℝ) ^ (190 : ℕ) * (c : ℝ) ^ (20 : ℕ) := by rw [← pow_mul, ← pow_mul]
+      _ ≤ (2 : ℝ) ^ (612 : ℕ) * (c : ℝ) ^ (27 : ℕ) :=
+          mul_le_mul (pow_le_pow_right₀ (by norm_num) (by norm_num))
+            (pow_le_pow_right₀ hcR1 (by norm_num)) (by positivity) (by positivity)
+      _ = ((2 : ℝ) ^ (68 : ℕ) * (c : ℝ) ^ 3) ^ (9 : ℕ) := by
+          rw [mul_pow, ← pow_mul, ← pow_mul]
+  -- ⟦THE LOG OF THE THRESHOLD⟧ `log T = 68·log 2 + 3·log c ≤ 47.14·c`
+  have hlogT : Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ)) ≤ 47.14 * (c : ℝ) := by
+    rw [hTcastR, Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
+    have hlc : Real.log (c : ℝ) ≤ (c : ℝ) - 1 := Real.log_le_sub_one_of_pos hcR0
+    push_cast
+    linarith [Real.log_two_lt_d9, hlc, hcR1]
+  have hlogT0 : (0 : ℝ) ≤ Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ)) := Real.log_natCast_nonneg _
+  have hlogTsq : (Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ))) ^ 2 ≤ 2222.2 * (c : ℝ) ^ 2 := by
+    have h := pow_le_pow_left₀ hlogT0 hlogT 2
+    calc (Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ))) ^ 2 ≤ (47.14 * (c : ℝ)) ^ 2 := h
+      _ ≤ 2222.2 * (c : ℝ) ^ 2 := by linarith only [sq_nonneg ((c : ℝ))]
+  -- ⟦THE CONSTANT⟧ the generic `hpt`, capped at `2^62 · c^5`
+  have hpt : ∀ H n : ℕ, ((repCount (Salt.Entropy.Chowla.primeWindow ε H)
+        (Salt.Entropy.Chowla.primeWindow ε H) n : ℕ) : ℝ)
+      ≤ ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5)
+          * ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n := by
+    intro H n
+    refine le_trans (hpt_holds_thr ε hε0 heps2 (1 / 256) (by norm_num) 16
+      repCount_even_le_primorial_sixteen (2 ^ 68 * c ^ 3) hT0 hTA hTB hTD H n) ?_
+    have hF : (0 : ℝ) ≤ ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n :=
+      mul_nonneg (div_nonneg (by positivity) (sq_nonneg _)) (sTrunc2_nonneg n)
+    have hc3nn : (0 : ℝ) ≤ (c : ℝ) ^ 3 := by positivity
+    have hA : (ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) ≤ 1180591620717412 * (c : ℝ) ^ 3 := by
+      rw [hTcastR, show (2 : ℝ) ^ (68 : ℕ) = 295147905179352825856 by norm_num]
+      have hstep : (ε : ℝ) ^ 2 * (295147905179352825856 * (c : ℝ) ^ 3)
+          ≤ (1 / 250000) * (295147905179352825856 * (c : ℝ) ^ 3) :=
+        mul_le_mul_of_nonneg_right hε2le (by positivity)
+      linarith only [hstep, hc3nn]
+    have hB : (1 : ℝ) / (2 * (ε : ℝ) ^ 2) ≤ 125000 * (c : ℝ) ^ 2 := by
+      rw [div_le_iff₀ (by positivity)]; linarith only [hsqR]
+    have hc2le3 : (c : ℝ) ^ 2 ≤ (c : ℝ) ^ 3 := pow_le_pow_right₀ hcR1 (by norm_num)
+    have hc3one : (1 : ℝ) ≤ (c : ℝ) ^ 3 := one_le_pow₀ hcR1
+    have hbr : (ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2)
+        ≤ 1188815000000000 * (c : ℝ) ^ 3 := by
+      have hstep : (ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2)
+          ≤ 1180591620717412 * (c : ℝ) ^ 3 + 2 + 125000 * (c : ℝ) ^ 2 :=
+        add_le_add (add_le_add hA le_rfl) hB
+      have htail : 1180591620717412 * (c : ℝ) ^ 3 + 2 + 125000 * (c : ℝ) ^ 2
+          ≤ 1188815000000000 * (c : ℝ) ^ 3 := by
+        linarith only [hc2le3, hc3one, hc3nn]
+      exact le_trans hstep htail
+    have hprod : ((ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+          * (Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ))) ^ 2
+        ≤ (1188815000000000 * (c : ℝ) ^ 3) * (2222.2 * (c : ℝ) ^ 2) :=
+      mul_le_mul hbr hlogTsq (sq_nonneg _) (by positivity)
+    have hu2 : (102400 : ℝ) / (ε : ℝ) ^ 2 ≤ 25600000000 * (c : ℝ) ^ 2 := by
+      rw [div_le_iff₀ (by positivity)]; linarith only [hsqR]
+    have hCL : (800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2) ≤ 25600204800 * (c : ℝ) ^ 2 := by
+      have hstep : (800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+          ≤ 204800 + 25600000000 * (c : ℝ) ^ 2 :=
+        add_le_add (le_of_eq (by norm_num)) hu2
+      have htail : (204800 : ℝ) + 25600000000 * (c : ℝ) ^ 2 ≤ 25600204800 * (c : ℝ) ^ 2 := by
+        linarith only [one_le_pow₀ (n := 2) hcR1]
+      exact le_trans hstep htail
+    have hc5nn : (0 : ℝ) ≤ (c : ℝ) ^ 5 := by positivity
+    have hc2le5 : (c : ℝ) ^ 2 ≤ (c : ℝ) ^ 5 := pow_le_pow_right₀ hcR1 (by norm_num)
+    have hCsum : (800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+          + ((ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+              * (Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ))) ^ 2
+        ≤ (2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5 := by
+      have hstep := add_le_add hCL hprod
+      have htail : 25600204800 * (c : ℝ) ^ 2
+            + (1188815000000000 * (c : ℝ) ^ 3) * (2222.2 * (c : ℝ) ^ 2)
+          ≤ (2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5 := by
+        rw [show (2 : ℝ) ^ (62 : ℕ) = 4611686018427387904 by norm_num]
+        linarith only [hc2le5, hc5nn]
+      exact le_trans hstep htail
+    calc ((800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+            + ((ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+                * (Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ))) ^ 2)
+          * ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n
+        = ((800 / (1 / 256 : ℝ) + 102400 / (ε : ℝ) ^ 2)
+            + ((ε : ℝ) ^ 2 * (((2 ^ 68 * c ^ 3 : ℕ)) : ℝ) + 2 + 1 / (2 * (ε : ℝ) ^ 2))
+                * (Real.log ((((2 ^ 68 * c ^ 3 : ℕ)) : ℝ))) ^ 2)
+            * (((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n) := by ring
+      _ ≤ ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5)
+            * (((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n) :=
+          mul_le_mul_of_nonneg_right hCsum hF
+      _ = ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5)
+            * ((ε : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n := by ring
+  -- ⟦THE EXPLICIT COUNT, AND THE CEILING⟧
+  have hbase := bigXi_bounded_explicit ε hε0 heps2 ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5)
+    (Real.exp 40) (Real.exp_pos _) hFac2_lcm_sum_le_exp40 hpt
+  have hC1pos : (0 : ℝ) < (2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5 :=
+    mul_pos (by norm_num) (pow_pos hcR0 5)
+  have hApos : (0 : ℝ) < 32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 :=
+    mul_pos (mul_pos (by norm_num) (Real.exp_pos 40)) (pow_pos hC1pos 2)
+  have h500c : (0 : ℝ) < 500 * (c : ℝ) := by linarith
+  refine ⟨32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 * (500 * (c : ℝ)) ^ (10 : ℕ),
+    mul_pos hApos (pow_pos h500c 10), ?_, 2, le_rfl, ?_⟩
+  · have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by simpa using exp_forty_le_pow40
+    have hnn : (0 : ℝ) ≤ 32 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 * (500 * (c : ℝ)) ^ (10 : ℕ) :=
+      le_of_lt (mul_pos (mul_pos (by norm_num) (pow_pos hC1pos 2)) (pow_pos h500c 10))
+    have hfold : 32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2
+          * (500 * (c : ℝ)) ^ (10 : ℕ)
+        = (32 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 * (500 * (c : ℝ)) ^ (10 : ℕ))
+            * Real.exp 40 := by ring
+    have hcoef : (32 : ℝ) * ((2 : ℝ) ^ (62 : ℕ)) ^ 2 * (500 : ℝ) ^ (10 : ℕ)
+        * (3 : ℝ) ^ (40 : ℕ) ≤ (2 : ℝ) ^ (283 : ℕ) := by norm_num
+    have hexpand : (32 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 * (500 * (c : ℝ)) ^ (10 : ℕ))
+          * (3 : ℝ) ^ (40 : ℕ)
+        = ((32 : ℝ) * ((2 : ℝ) ^ (62 : ℕ)) ^ 2 * (500 : ℝ) ^ (10 : ℕ) * (3 : ℝ) ^ (40 : ℕ))
+            * (c : ℝ) ^ 20 := by ring
+    have hnum : (32 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 * (500 * (c : ℝ)) ^ (10 : ℕ))
+          * (3 : ℝ) ^ (40 : ℕ) ≤ 2 ^ 283 * (c : ℝ) ^ 20 := by
+      rw [hexpand]
+      exact mul_le_mul_of_nonneg_right hcoef (by positivity)
+    rw [hfold]
+    exact le_trans (mul_le_mul_of_nonneg_left h40 hnn) hnum
+  · intro H _ hH2
+    have hb := hbase H hH2
+    have hid : 32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2 / (ε : ℝ) ^ 10
+        ≤ 32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2
+            * (500 * (c : ℝ)) ^ (10 : ℕ) := by
+      rw [div_le_iff₀ (by positivity)]
+      have hp : (1 : ℝ) ≤ (500 * (c : ℝ) * (ε : ℝ)) ^ (10 : ℕ) := one_le_pow₀ hcapR
+      have hexp : (500 * (c : ℝ) * (ε : ℝ)) ^ (10 : ℕ)
+          = (500 * (c : ℝ)) ^ (10 : ℕ) * (ε : ℝ) ^ 10 := by ring
+      rw [hexp] at hp
+      calc 32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2
+          = (32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2) * 1 := by ring
+        _ ≤ (32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2)
+              * ((500 * (c : ℝ)) ^ (10 : ℕ) * (ε : ℝ) ^ 10) :=
+            mul_le_mul_of_nonneg_left hp (le_of_lt hApos)
+        _ = 32 * Real.exp 40 * ((2 : ℝ) ^ (62 : ℕ) * (c : ℝ) ^ 5) ^ 2
+              * (500 * (c : ℝ)) ^ (10 : ℕ) * (ε : ℝ) ^ 10 := by ring
+    exact le_trans hb hid
+
 end Salt.MR
