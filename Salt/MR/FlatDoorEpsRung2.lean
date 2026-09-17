@@ -1115,4 +1115,42 @@ theorem cofkL_logX_floor_L {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < 
     Real.log_le_log (by linarith) hAs
   linarith
 
+/-- `cofkL_mu_floor_h_b9` at generic `L` (`cofkL_mu_floor_L`) — **THE ONE STATEMENT OF THE
+SEVENTEEN WHOSE CONCLUSION MOVES.**  The twin's `32` IS its cap: `log (10^6 · h²) = 6·log 10 +
+2·log h ≤ 6 · 2.311 + 2 · 9 = 31.866 ≤ 32`.  At the charge the same reading is
+`6·log 10 + 2·L ≤ 13.866 + 2·L`, so the floor reads `log H₊ − (14 + 2·L)` — the constant is
+`13.866` rounded UP to `14`, a bound rounded toward slack, margin `0.134`, and the
+`L`-coefficient is exactly `2` (`cofk_log_ten_le : log 10 ≤ 2.311`).  At `L = 9` this is
+`14 + 18 = 32`, the twin's own numeral, so the sibling is a strict generalisation.
+⚠️ This numeral is the rated supply's input at its `hmuF`/`hthrLL`/`hthr14`/`h2` sites.
+SUPPLIER-SWAP `cofkL_logX_floor_L`.  BODY otherwise the twin's, verbatim. -/
+theorem cofkL_mu_floor_L {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    {Lc : ℝ} (hL0 : 0 ≤ Lc) (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ))
+    (hloL : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    Real.log (R.Hhi : ℝ) - (14 + 2 * Lc) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
+  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
+  have hfl := cofkL_logX_floor_L hh hL0 hhL hb hε hHhi hH hloL
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
+  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
+  have hbigpos : (0 : ℝ) < (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := div_pos hHhi0 hXpos
+  have hstep : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
+      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    Real.log_le_log hbigpos hfl
+  have hsplit : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
+      = Real.log (R.Hhi : ℝ) - Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
+    rw [Real.log_div (ne_of_gt hHhi0) (ne_of_gt hXpos)]
+  have h106 : Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) ≤ 14 + 2 * Lc := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    linarith [cofk_log_ten_le, hhL, hLh0]
+  rw [hsplit] at hstep
+  linarith
+
 end Salt.MR
