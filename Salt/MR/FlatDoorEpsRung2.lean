@@ -5620,4 +5620,64 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     hCgle, hc1, hεpin, hδpin, hMflb A hA162 hAwinA, hβ, hA162, hA₀A,
     R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
 
+/-! ### §W6.7 — ⟦THE CHAIN AND THE THEOREM⟧ -/
+
+/-- **⟦THE CHAIN, AT THE CHARGE⟧** (`flat_chain_generic_epsW`) — `flat_chain_generic_eps`
+(`FlatDoorEpsChain.lean:1340`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
+charge and the `δ₀` pin travel INSIDE the forms, so no hop takes either as a hypothesis and this
+composition is the landed one token for token. -/
+theorem flat_chain_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatHeadFormEpsW ε c P) (A₀ : ℝ) : V7RatedFormEpsW ε c P A₀ :=
+  flat_v7_generic_epsW ε c P (fun Awin hband => flat_kswin_generic_epsW ε c P Awin
+    (flat_conditional_generic_epsW ε c P Awin
+      (flat_capstone_generic_epsW ε c P
+        (flat_road_generic_epsW ε c P
+          (flat_doorL2_generic_epsW ε c P (flat_socket_generic_epsW ε c P h))) Awin hband))) A₀
+
+/-- **⟦W-ε — THE SECOND RUNG, AND THE END OF THE LADDER⟧** (`flatDoorEpsFamilyW_holds`) — the
+frozen file's named `Prop` `FlatDoorEpsFamilyW`, INHABITED: the flat door at the head's grade for
+EVERY `0 < ε ≤ 1/500`, with no cap and no numeral on `ε`.
+
+THE CHARGE IS CHOSEN, NOT ASSUMED.  `c := ⌈1/(500·ε)⌉₊`, so `1 ≤ c` (the ceiling of a positive
+rational is positive) and `1/(500·c) ≤ ε` (`Nat.le_ceil` gives `1/(500·ε) ≤ c`, hence
+`1 ≤ 500·ε·c`).  That is the whole of what rung 1 had to ASSUME.  Every numeral rung 1 read off
+`c = 8103` is read off this `c` instead, and the one place a numeral could have re-entered — the
+design constant — takes a ninth `max`-arm affine in `log c` (§W6.6).
+
+The proof is the frozen file's capped proof (`FlatDoorEpsFamily.lean:155–180`) token for token
+with `flat_chain_generic_eps` replaced by `flat_chain_generic_epsW ε c` and the payload `P`
+written out as that proof writes it; the unpack gains ONE `-` for the charge component.
+
+⇒ The frozen file's `mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily` discharges rung
+1 from this, and C3 · E2′ · E2″ · C4 become unconditional IN USE by supplying this theorem to
+their `hW` binder — their statements are untouched, and the frozen file is not edited.
+Nothing here bears on twin primes. -/
+theorem flatDoorEpsFamilyW_holds : FlatDoorEpsFamilyW := by
+  unfold FlatDoorEpsFamilyW
+  intro ε hε0 hε A₀
+  have hε0R : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  obtain ⟨c, hcdef⟩ : ∃ n : ℕ, n = ⌈(1 / (500 * ε) : ℚ)⌉₊ := ⟨_, rfl⟩
+  have hεQ0 : (0 : ℚ) < 500 * ε := by linarith
+  have hc1 : 1 ≤ c := by
+    have h : 0 < c := by
+      rw [hcdef]; exact Nat.ceil_pos.mpr (div_pos one_pos hεQ0)
+    omega
+  have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
+  have hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε := by
+    have hle : (1 : ℚ) / (500 * ε) ≤ (c : ℚ) := by rw [hcdef]; exact Nat.le_ceil _
+    rw [div_le_iff₀ hεQ0] at hle
+    rw [div_le_iff₀ hcQ0]
+    linarith
+  have hV := flat_chain_generic_epsW ε c
+    (fun R : ChowlaRegime => MRTUniformityXiL2 R ((ε : ℝ) / (256 * (1 + 4 * Real.log 4))) ∧
+      ∀ ρ : ℝ, 0 < ρ → ρ ≤ (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) →
+        MRTUniformityXiL2 R ρ → ¬ logChowla2Fails R.eps R.x R.ω)
+    (flat_head_uniform_xceil_epsW ε hε0 hε hc1 hcε _ (fun _ _ hd hs => ⟨hd, hs⟩)) A₀
+  obtain ⟨Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, -, -, -, -, -, -, -, -, -, -, -, -,
+    -, -, -, -, -, -, -, -, hA162, hA₀A, R, hReps, hHlo, -, hdes, -, hdoor, hslot⟩ := hV
+  exact ⟨(ε : ℝ) / (256 * (1 + 4 * Real.log 4)), A, by positivity, le_rfl,
+    flatDoorMint_floor_le_grade (ε : ℝ) hε0R.le, hA162, hA₀A, R, hReps, hHlo, hdes,
+    hdoor, hslot⟩
+
 end Salt.MR
