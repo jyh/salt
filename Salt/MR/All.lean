@@ -445,6 +445,7 @@ import Salt.MR.TierSBand
 import Salt.MR.TierSBandU
 import Salt.MR.TierSBridge
 import Salt.MR.TierSLadder
+import Salt.MR.FlatDoorEpsFamily
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10553,3 +10554,63 @@ open Salt.Tactic in
   Salt.MR.ladder_affFullRange_g12b
   Salt.MR.twinLogWeight_support_infinite_of_ladder
   Salt.MR.twinLogWeight_support_infinite_of_crown_g12b
+
+/-! ⟦TIER S — THE DOOR AT THE HEAD'S GRADE, ε-FAMILY — RUNG 1⟧ — THE `L²` MRT DOOR ON THE FLAT
+FAMILY AT EVERY `ε ∈ [1/(500·8103), 1/500]`, AT THE HEAD'S OWN THRESHOLD (`FlatDoorEpsFamily` +
+`FlatDoorEpsChain`, 2026-09-16, h2c — freeze v1.4 after three non-author passes with no kill; rung 1
+fired on the Captain's THIRD word and landed by one executor at `f269407c`).  Additive only: no
+landed statement moves.  Wc `mrtUniformityXiL2_holds_flat_epsFamily_capped` is PROVED,
+unconditional: the landed door `mrtUniformityXiL2_holds_flat` (one pin `ε = 1/500`) re-cut at every
+capped `ε`, stated at `δ₀ = ε/(256·(1 + 4·log 4))` with its floor and grade exported and the head's
+slot carried on the same regime; the chain file carries the eight `ε`-forms and the generic-`ε`
+replays of the flat road's eight hops (`flat_chain_generic_eps`), every step a landed name, a
+monotone transport, or a numeral edit at a site the per-hop walk measured.  C1, C2, C5, C7, C8 are
+the numerals; `FlatDoorPayload` + C6 the closed payload (math's construction, transcribed).
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.  **W IS A NAMED `Prop`, UNPROVED, RUNG 2 NOT
+WORDED:** `FlatDoorEpsFamilyW` (the full `∀ ε ≤ 1/500` family, v1.4) is a `def … : Prop`, inhabited
+by nothing on `main`; C3 · E2′ · E2″ · C4 (`mrtUniformityXiL2_holds_flat_of_epsFamily`,
+`logChowla2_epsFamily_of_flatDoor`, `…_floor`, `…_capped_of_epsFamily`) take
+`(hW : FlatDoorEpsFamilyW)` and are CONDITIONAL — NONE is a final theorem.
+⚖️ `feedback_no_hypotheses`: rung 2 is the ONE theorem `: FlatDoorEpsFamilyW` discharging `hW`;
+no consumer on the road to a terminal carries it.  Rung 2 is UNPRICED (its cap lifts walked, seven
+need a re-derivation at generic `ε`); it fires only on the Captain's word.  NO NEW UNCONDITIONAL
+THEOREM beyond Wc, which each fixed `ε` still reaches with a CONSTANT margin (the `∃ ε` tripwire is
+untouched; W-δ is not stated; the crown stays the target).  13 + 23 names at the three axioms. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.flatDoorMint_floor_le_grade
+  Salt.MR.flatDoorMint_grade_at_pin
+  Salt.MR.FlatDoorEpsFamilyW
+  Salt.MR.mrtUniformityXiL2_holds_flat_epsFamily_capped
+  Salt.MR.mrtUniformityXiL2_holds_flat_of_epsFamily
+  Salt.MR.logChowla2_epsFamily_of_flatDoor
+  Salt.MR.logChowla2_epsFamily_of_flatDoor_floor
+  Salt.MR.mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily
+  Salt.MR.flatDoor_pin_in_cap
+  Salt.MR.flatDoor_cap_lattice_top
+  Salt.MR.flatDoor_cap_restated_in_v1
+  Salt.MR.FlatDoorPayload
+  Salt.MR.mrtUniformityXiL2_holds_flat_epsFamily_of_payload
+  Salt.MR.epsChain_log_top_le_nine
+  Salt.MR.mrtUniformityXiL2_mono
+  Salt.MR.s16CofactorSupply_L_of_LH
+  Salt.MR.s16BaseScaleCap96_L_of_LH
+  Salt.MR.epsChain_arm_split_cap
+  Salt.MR.FlatHeadFormEps
+  Salt.MR.FlatSocketFormEps
+  Salt.MR.FlatDoorL2FormEps
+  Salt.MR.FlatRoadFormEps
+  Salt.MR.FlatCapstoneFormEps
+  Salt.MR.FlatConditionalFormEps
+  Salt.MR.FlatKswinFormEps
+  Salt.MR.V7RatedFormEps
+  Salt.MR.bigXi_bounded_ceiling_of_cap
+  Salt.MR.flat_head_uniform_xceil_eps
+  Salt.MR.flat_socket_generic_eps
+  Salt.MR.flat_doorL2_generic_eps
+  Salt.MR.flat_road_generic_eps
+  Salt.MR.flat_capstone_generic_eps
+  Salt.MR.flat_conditional_generic_eps
+  Salt.MR.flat_kswin_generic_eps
+  Salt.MR.flat_v7_generic_eps
+  Salt.MR.flat_chain_generic_eps
