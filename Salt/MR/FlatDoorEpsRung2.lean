@@ -832,4 +832,100 @@ theorem s13CapGrid_Lambda_lo_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc
   have hsharp := s13CapGrid_Lambda_sharp_L hh hL0 hhL hfl hb hflL
   linarith [capgrid_exp50_lo]
 
+/-- `cofkL_socket_floors_h_b9` at generic `L` (`cofkL_socket_floors_L`) — TRANSPORT, a LEAF.  The
+twin's raise cost `26·log 10 + 4·log h ≤ 60.086 + 36` against `log H₊ ≥ 10^8`; at the charge the
+cost is `26·log 10 + 4·L ≤ 60.086 + 4·L` and the payer is `cofk_tower_logfloor_L`,
+`log H₊ ≥ 10^8 · (1 + L)` — so `hlo` gains the affine term and NOTHING else moves.  The
+conclusion is the twin's, unchanged.  `26 · 2.311 = 60.086` (`cofk_log_ten_le`); the margin is
+`10^8 − 60.086` on the constant and `10^8 − 4` on the `L`-coefficient. -/
+theorem cofkL_socket_floors_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hloL : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (4000000 : ℝ) ≤ (H : ℝ) ∧ (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ) := by
+  have h1 : R.Hlo ≤ H := hb.1
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hLhh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
+  obtain ⟨hlolo, hmono1, hmono2⟩ := cofk_tower_logfloor_L hL0 hb hloL
+  have hLH8L : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.log (R.Hhi : ℝ) := by linarith
+  refine ⟨hH4, ?_⟩
+  have hlogle : Real.log ((10 : ℝ) ^ 26 * (h : ℝ) ^ 4) ≤ Real.log (R.Hhi : ℝ) := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    linarith [cofk_log_ten_le]
+  have h2' := Real.exp_le_exp.mpr hlogle
+  rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
+
+/-- `pieceFloor_vt_threshold_of_loglog_rated_h_b9` at generic `L`
+(`pieceFloor_vt_threshold_of_loglog_rated_L`) — a LEAF, and the ONE lemma of the seventeen that
+needs NO payer at all: its own binder `hbud` already bounds `log h`.  The twin spends its cap in
+a single unnamed place — the `hL9 : 0 ≤ 9 − Lh` inside `hprod`, whose `linarith` reads `hh9` from
+the CONTEXT — to absorb the two widened logarithms through one product.  At the charge that
+product is FALSE for large `L` (at `L = 100`, `Λ = 1`: `112 · 119 = 13328` against `2 · 19² =
+722`), so the bound on `Lh` is taken from `hbud` instead, which is strictly weaker than any new
+hypothesis: `log (7 + 12Λ) ≤ 6 + 12Λ` gives `156·Lh ≤ 76·Λ + 108`, i.e. `Lh ≤ 0.4872·Λ +
+0.6924`, and the product then closes with `132.07·Λ² + 231.30·Λ + 92.67 ≥ 0` to spare.  The
+charge is therefore carried as an UNSPENT binder, for one interface across the section.  Every
+other step is the twin's, verbatim. -/
+theorem pieceFloor_vt_threshold_of_loglog_rated_L {q H h : ℕ} [NeZero q]
+    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ) (hh : 0 < h)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
+    {Lc : ℝ} (_hL0 : 0 ≤ Lc) (_hhL : Real.log (h : ℝ) ≤ Lc)
+    (hbud : 156 * Real.log h + 8 * Real.log 2
+      ≤ 28 * Real.log (Real.log (H : ℝ))
+        + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84)
+    (hKB : K + bandArcConst Z δ ≤ Kbig)
+    (hthr : 40 * Real.log (Real.log (Real.log X))
+        + 1900 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kbig + 32 * D
+      < Real.log (Real.log X)) :
+    40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+          + bandConstQ Z δ q + K + 25 + D)
+      < Real.log (Real.log X) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hband := bandConstQ_le_of_le_arcDen_h (q := q) (H := H) (h := h) hZ hδ hh hH hq
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  set Lh : ℝ := Real.log h with hLhdef
+  have hlogq := log_le_of_le_arcDen_h hh hH hq
+  have hcap := mertensCap_le_of_le_arcDen_h (q := q) hh hH hq
+  have hvkd := vkDebitConst_le_of_le_arcDen_h (q := q) hh hH hq
+  have hvkm := vkMidDebitSharp_le_of_le_arcDen_h (q := q) hh hH hq
+  have h7pos : (0 : ℝ) < 7 + 12 * LH := by linarith
+  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * LH) := Real.log_nonneg (by linarith)
+  have hp2 : (0 : ℝ) < Lh + 12 * LH := by linarith
+  have hp4 : (0 : ℝ) < 7 + Lh + 12 * LH := by linarith
+  -- ⟦THE CHARGE'S PAYER — `hbud` itself, no new hypothesis⟧
+  have hlogsub : Real.log (7 + 12 * LH) ≤ 6 + 12 * LH := by
+    have h := Real.log_le_sub_one_of_pos h7pos
+    linarith
+  have hbd : 156 * Lh ≤ 76 * LH + 108 := by
+    have h2lo := Real.log_two_gt_d9
+    linarith
+  have hprod : (Lh + 12 * LH) * (7 + Lh + 12 * LH) ≤ 2 * (7 + 12 * LH) ^ 2 := by
+    have hLH0 : (0 : ℝ) ≤ LH := by linarith
+    have ha : (0 : ℝ) ≤ 76 * LH + 108 - 156 * Lh := by linarith
+    nlinarith [mul_nonneg ha hLh0, mul_nonneg ha hLH0, ha, hLH1]
+  have habs24 : Real.log (Lh + 12 * LH) + Real.log (7 + Lh + 12 * LH)
+      ≤ Real.log 2 + 2 * Real.log (7 + 12 * LH) := by
+    have h1 : Real.log ((Lh + 12 * LH) * (7 + Lh + 12 * LH))
+        ≤ Real.log (2 * (7 + 12 * LH) ^ 2) :=
+      Real.log_le_log (mul_pos hp2 hp4) hprod
+    rw [Real.log_mul (ne_of_gt hp2) (ne_of_gt hp4),
+      Real.log_mul (by norm_num) (by positivity), Real.log_pow] at h1
+    push_cast at h1
+    linarith
+  linarith
+
 end Salt.MR
