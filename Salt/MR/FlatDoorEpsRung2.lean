@@ -5328,4 +5328,123 @@ theorem flat_conditional_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime →
       (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
     harith
 
+/-! ### §W6.5 — ⟦THE TERMINAL HOP AT THE CHARGE⟧ -/
+
+/-- **⟦flat_kswin_generic, AT THE CHARGE⟧** (`flat_kswin_generic_epsW`) — the source's body
+(`FlatDoorEpsChain.lean:1121`), the two threadings, and the EIGHT sites where rung 1 spent the
+cap, each at the charge:
+
+* `:1132–1134` **the `ε`-ceiling probe's OWN design constant** — the one place in the whole
+  chain, besides the ninth arm, where an `A` is MINTED rather than passed down.  Rung 1 read one
+  regime's `heps1` at `max 162 (budgetAFlat ε β)`; at the charge the form's third `A`-binder is
+  `10 + 2·Lc ≤ A`, which that `max` does not pay — it would need `Lc ≤ 76`, a numeral cap on `c`.
+  The arm is re-minted at `162 + 2·Lc`, which pays all three binders at `0 ≤ Lc`;
+* `:1135–1139` the zero rider → §W6.1's `xceilRiderStrictAt_zero`;
+* `:1149–1158` the cap's two spellings → ONE cast: the RATIONAL spelling the `_b9` twins needed a
+  second cast for IS the form's own `hεpin` now, at `c`;
+* `:1167` and `:1175` `flat_witFloor_eq_designBase_L` (§3), twice;
+* `:1183–1186` `1/(2^9·c) ≤ 1/(500·c) ≤ ε`, at `500 ≤ 512 = 2^9`;
+* `:1191–1195` `1/(838400·2^12·c²) ≤ 1/(838400·c)`, at `c ≤ 4096·c²` for `c ≥ 1`;
+* `:1196–1198` the bumped witness → §W1c(b)'s `_L` sibling at `h := c`, `Lc := log c`,
+  `hhL := le_rfl`, whose count binders are `epsRung2_one_le_Kb`, the form's ceiling and
+  `epsRung2_log_Kb_le`.
+
+Nothing here bears on twin primes. -/
+theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ)
+    (h : FlatConditionalFormEpsW ε c P Awin) :
+    FlatKswinFormEpsW ε c P Awin := by
+  unfold FlatKswinFormEpsW
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hc1, hεpin, hδpin, hKcb, hMflb, hβ, hcondU⟩ :=
+    h
+  -- ⟦THE CROSSING CONSTANTS, HOISTED ABOVE THE LEVER⟧ — §4's windowed twin
+  obtain ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hC0, hC40,
+    hsupplyU⟩ := s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin
+  -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1`, at ONE admissible design constant
+  have hc0 : 0 < c := by omega
+  have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
+  obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
+  -- ⛔ THE ONE MINTED `A` OUTSIDE THE NINTH ARM.  Rung 1 read one regime's `heps1` at
+  -- `max 162 (budgetAFlat ε β)`; at the charge the form's third `A`-binder is
+  -- `10 + 2·Lc ≤ A`, which that `max` does NOT pay (it would need `Lc ≤ 76`, i.e. a numeral
+  -- cap on `c`).  The arm is re-minted at `162 + 2·Lc`, which pays all three at `0 ≤ Lc`.
+  obtain ⟨Hcap0, -, hbody0⟩ :=
+    hcond0 (max (162 + 2 * Real.log (c : ℝ)) (budgetAFlat (ε : ℝ) β))
+      (le_trans (by linarith) (le_max_left _ _)) (le_max_right _ _)
+      (le_trans (by linarith) (le_max_left _ _))
+  have hzero : XCeilRiderStrictAt (50 + Real.log (c : ℝ)) ε (fun _ _ : ℕ => 0) :=
+    xceilRiderStrictAt_zero _ ε
+  obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
+    hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
+  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
+    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
+    exact h
+  -- ⟦THE CHARGE, IN THE REAL SPELLING⟧ the `_L` siblings take the pin over `ℝ`; the RATIONAL
+  -- spelling the `_b9` twins needed a second cast for is now the form's own `hεpin`, at `c`.
+  have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hεR : (1 : ℝ) / (500 * (c : ℝ)) ≤ (ε : ℝ) := by
+    have hq := hεpin
+    rw [div_le_iff₀ (by linarith)] at hq
+    have h1R : (1 : ℝ) ≤ (ε : ℝ) * (500 * (c : ℝ)) := by exact_mod_cast hq
+    rw [div_le_iff₀ (by linarith)]
+    linarith
+  refine ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hc1, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hcond⟩ := hcondU K
+  have hsupply := hsupplyU K
+  refine ⟨Ct, hCt, ?_⟩
+  intro A hA26 hAwin hAge hAL hKw
+  obtain ⟨Hcap, hCapLe, hbody⟩ := hcond A hA26 hAge hAL
+  refine ⟨fun hopq => flat_witFloor_eq_designBase_L (h := c) hc0 hLc0 le_rfl hA26 hAL hβ
+    hεR hε2 hε hεpin hAge hopq, ?_⟩
+  intro hx0win hopq hT₀ hKsw g hg
+  obtain ⟨R, hReps, hHlo, hRg, hRx, hRtow, hfire⟩ :=
+    hbody (flatWitFloor ε β A Hopq) g hg (flatCap_le_flatWitFloor hCapLe)
+  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
+    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
+  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+    rw [hHlo, flat_witFloor_eq_designBase_L (h := c) hc0 hLc0 le_rfl hA26 hAL hβ
+      hεR hε2 hε hεpin hAge hopq]
+    exact flatDesignBase_loglog_le hA26
+  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
+    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
+  intro hcof hcapsc
+  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  -- `1/(2^9·c) ≤ 1/(500·c) ≤ ε`, the source's step at the charge: `500 ≤ 512 = 2^9`
+  have heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps := by
+    rw [hReps]
+    have h512 : (500 : ℚ) * (c : ℚ) ≤ 2 ^ 9 * (c : ℚ) := by
+      have h9 : (2 : ℚ) ^ 9 = 512 := by norm_num
+      rw [h9]; linarith
+    have hb : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ 1 / (500 * (c : ℚ)) :=
+      one_div_le_one_div_of_le (by linarith) h512
+    linarith [hεpin]
+  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  -- ⟦THE BRIDGE⟧ the `A`-scoped window becomes §4's regime-scoped one at the flat floor
+  have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
+  -- `1/(838400·2^12·c²) ≤ 1/(838400·c)`: `c ≤ 4096·c²` at `c ≥ 1`
+  have hδb : (1 : ℝ) / (838400 * 2 ^ 12 * (c : ℝ) ^ 2) ≤ δ₀ := by
+    refine le_trans ?_ hδpin
+    have hden : (838400 : ℝ) * (c : ℝ) ≤ 838400 * 2 ^ 12 * (c : ℝ) ^ 2 := by
+      have h12 : (2 : ℝ) ^ (12 : ℕ) = 4096 := by norm_num
+      rw [h12]; nlinarith
+    exact one_div_le_one_div_of_le (by linarith) hden
+  have hsel := s15_sel''_L_gk_witness_flat_bumped_win_L hA26 K hKw (h := c) hc0 hLc0 le_rfl hAL
+    hδ₀ hδb hKc (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1)
+    hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
+  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
+  have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
+      s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
+    intro H L q j Aw s hb
+    exact s15_block_at_socket_L_gk K (socketBase_of_socketBaseL hM1 hb)
+      (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
+  exact hfire (flatDoorM A) hsel hKw
+    (hsupply hKqb R (flatDoorM A) hM1 hfl hKswR (by rw [hHlo]; exact hT₀) hblk hcof hcapsc)
+
 end Salt.MR
