@@ -1183,4 +1183,93 @@ theorem cofkL_X_ge_expexp_L {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 <
   have h := Real.exp_le_exp.mpr he
   rwa [Real.exp_log hApos] at h
 
+set_option maxHeartbeats 1000000 in
+-- as the twin: the socket floors and the quintic's logarithm elaborate in one block
+/-- `cofkL_scale_gate_at_socket_h_b9` at generic `L` (`cofkL_scale_gate_at_socket_L`) —
+SUPPLIER-SWAP (`cofkL_mu_floor_L`, whose floor now reads `log H₊ − (14 + 2·L)`, and
+`cofkL_logX_floor_L`).  TWO cap sites, both paid by `cofk_tower_logfloor_L` through
+`hLH8L : 10^8 · (1 + L) ≤ log H₊`:
+* `hHhi14` needs `26·log 10 + 4·L ≤ 60.086 + 4·L ≤ log H₊`; the tower gives `10^8 + 10^8·L`;
+* `hchain` needs `1899 + 5·(L + 12·Λ) ≤ log H₊ − (14 + 2·L)`, and with `Λ ≤ 2·√(log H₊) − 2` and
+  `10^4 · √(log H₊) ≤ log H₊` that is `1793 + 7·L ≤ 0.988 · log H₊` — clear by `9.9·10^7` on the
+  constant and by `10^8 / 7` on the `L`-coefficient.
+So `hlo` gains the affine term and NOTHING else moves; the conclusion is the twin's.  BODY
+otherwise the twin's, verbatim. -/
+theorem cofkL_scale_gate_at_socket_L {R : ChowlaRegime} {h M H L q j A s : ℕ} [NeZero q]
+    (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc) (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hloL : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (harc : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H) :
+    32 * Salt.SW.diskConst q / goldenL1 q ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have h1 : R.Hlo ≤ H := hb.1
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
+  -- ⟦THE CHARGE'S PAYER — the `518`-tower, in place of the twin's `exp 518 ≥ 10^8`⟧
+  obtain ⟨hlolo, hmono1, hmono2⟩ := cofk_tower_logfloor_L hL0 hb hloL
+  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
+  have hHlo0 : (0 : ℝ) < (R.Hlo : ℝ) := by linarith
+  have hlogH : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) := hmono1
+  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := hmono2
+  have hLH8L : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.log (R.Hhi : ℝ) := by linarith
+  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by nlinarith [hL0]
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
+  have hHhi14 : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ) := by
+    have hLhh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
+    have hhpos : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+    have hlogle : Real.log ((10 : ℝ) ^ 26 * (h : ℝ) ^ 4) ≤ Real.log (R.Hhi : ℝ) := by
+      rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+      push_cast
+      linarith [cofk_log_ten_le]
+    have h2' := Real.exp_le_exp.mpr hlogle
+    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
+  have hHe : Real.exp 1 ≤ Real.log (H : ℝ) := by
+    have h3 : Real.exp 1 ≤ 3 := by linarith [Real.exp_one_lt_d9]
+    linarith
+  -- ⟦the `μ`-floor and the scale floor, at the INFLATED socket and the charge⟧
+  have hmu := cofkL_mu_floor_L hh hL0 hhL hb hε hHhi14 hH4 hloL
+  have hfl := cofkL_logX_floor_L hh hL0 hhL hb hε hHhi14 hH4 hloL
+  have hlogXpos : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have hbig : (0 : ℝ) < (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by positivity
+    linarith
+  -- ⟦`loglog H` against `√(log H₊)`⟧
+  have hLH0 : (0 : ℝ) < Real.log (R.Hhi : ℝ) := by linarith
+  have hΛ : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (R.Hhi : ℝ)) :=
+    Real.log_le_log (by linarith) hlogHhi
+  have hlogLH : Real.log (Real.log (R.Hhi : ℝ)) ≤ 2 * Real.sqrt (Real.log (R.Hhi : ℝ)) - 2 :=
+    cofk_log_le_two_sqrt hLH0
+  have hv : (10 : ℝ) ^ 4 ≤ Real.sqrt (Real.log (R.Hhi : ℝ)) := by
+    have h1' : Real.sqrt (((10 : ℝ) ^ 4) ^ 2) ≤ Real.sqrt (Real.log (R.Hhi : ℝ)) :=
+      Real.sqrt_le_sqrt (by nlinarith)
+    rwa [Real.sqrt_sq (by norm_num)] at h1'
+  have hv0 : (0 : ℝ) ≤ Real.sqrt (Real.log (R.Hhi : ℝ)) := Real.sqrt_nonneg _
+  have hvsq : Real.sqrt (Real.log (R.Hhi : ℝ)) * Real.sqrt (Real.log (R.Hhi : ℝ))
+      = Real.log (R.Hhi : ℝ) := Real.mul_self_sqrt hLH0.le
+  have hprodv : (10 : ℝ) ^ 4 * Real.sqrt (Real.log (R.Hhi : ℝ)) ≤ Real.log (R.Hhi : ℝ) := by
+    nlinarith [hv, hvsq, hv0]
+  -- ⟦the quintic, and its logarithm — the inflation adds `5·L`⟧
+  have hlogq : Real.log q ≤ Real.log h + 12 * Real.log (Real.log (H : ℝ)) :=
+    log_le_of_le_arcDen_h hh hHe harc
+  have hq0 : (0 : ℝ) < (q : ℝ) := by
+    have := Nat.pos_of_ne_zero (NeZero.ne q); exact_mod_cast this
+  have hqpos : (0 : ℝ) < 1900 * (q : ℝ) ^ 5 := by positivity
+  have hlogpoly : Real.log (1900 * (q : ℝ) ^ 5) = Real.log 1900 + 5 * Real.log q := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]
+    push_cast
+    ring
+  have hlog1900 : Real.log 1900 ≤ 1899 := by
+    have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 1900 by norm_num)
+    linarith
+  have hchain : Real.log (1900 * (q : ℝ) ^ 5)
+      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+    rw [hlogpoly]; linarith
+  have hfin : 1900 * (q : ℝ) ^ 5 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+    have h := Real.exp_le_exp.mpr hchain
+    rwa [Real.exp_log hqpos, Real.exp_log hlogXpos] at h
+  exact le_trans scaleGate_le_quintic hfin
+
 end Salt.MR
