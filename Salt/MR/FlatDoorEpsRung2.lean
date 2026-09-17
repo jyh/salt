@@ -3007,8 +3007,9 @@ becomes a CHARGE `K ≤ Kb` with `1 ≤ Kb`, the envelope's `2 ^ 592` becomes `2
 (`2 ^ 592 = 2 ^ 53 * 2 ^ 539`, so `Kb = 2 ^ 539` IS the source), and the `_g14` cap lines' numeral
 charge ceiling `439` becomes `16 * A` — paid by the design constant itself through
 `Real.add_one_le_exp`, so `Lc` never enters those four.  `Kb` is a REAL VARIABLE throughout and is
-never unfolded; no `2 ^ 539` and no `2 ^ 592` occurs in this section.  Nothing here bears on twin
-primes. -/
+never unfolded; `2 ^ 539` and `2 ^ 592` occur in this section's DOC COMMENTS only, never in a
+TERM — and it is a HYPOTHESIS carrying such a numeral, never a docstring, that poisons a later
+tactic.  Nothing here bears on twin primes. -/
 
 /-- **⟦THE ENVELOPE AT A GENERIC COUNT CEILING⟧ (class B)** — `s16_audit_rho_ge_wide_h_g12`
 (`StrideGrade12Walls.lean:92`) with its numeral count cap `K ≤ 2 ^ 539` replaced by the charge
