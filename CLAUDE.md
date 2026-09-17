@@ -107,6 +107,10 @@ python3 scripts/blueprint_lint.py   # docs↔code consistency + axiom audit (pha
 pipe's exit status, and never the harness's own report (it has printed "exit code 0" over a run
 whose log read `EXIT=1`). `143` is SIGTERM, the box taking your process, not Lean. Killed builds
 resume from cache; a lock timeout is safe to retry. **NEVER PIPE the wrapper.**
+⛔ **AND NEVER JUDGE OR QUOTE AN ERROR COUNT FROM THE NEEDLE `error:`** — Lean also prints
+`error(lean.<kind>):`, and a count on the bare form reads 0 on a failed run (math, 2026-09-16, 17-log
+population). Count `:[0-9]+:[0-9]+: error(\([^)]*\))?:`, put a plain `grep -c` beside any parsed count,
+and treat a count that disagrees with `EXIT≠0` as a broken instrument, never as a clean build.
 ⛔ **Put this rule VERBATIM in every executor/subagent brief you write** — a subagent that does not
 know it will OOM the fleet.
 
