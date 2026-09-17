@@ -518,4 +518,99 @@ theorem flatDoorM_bfloor_bump_L {A Cg δ₀ L : ℝ} {c : ℕ} (hc1 : 1 ≤ c) (
     nlinarith [hstepa, hstepb, hEA44]
   linarith [hstep, hlhs, htower, hMge]
 
+
+/-! ## §W4 — the rated supply's sub-suppliers at generic `L`
+
+The seventeen `_b9` lemmas BELOW the rated cofactor supply, re-cut with the rung-2 charge
+`{Lc : ℝ} (hL0 : 0 ≤ Lc) (hhL : Real.log h ≤ Lc)` in place of `(hh9 : Real.log h ≤ 9)`.
+⛔ The charge is named `Lc`, not `L`: fifteen of the seventeen landed statements already bind
+`L : ℕ`, the socket's block length inside `SocketBaseLH h R M H L q j A s`.
+
+WHERE THE CAP WAS PAID, AND WHAT PAYS IT NOW — two towers carry the whole wave, and both are the
+SAME quantity `loglog H₋`:
+* `hloL : 518 + k·Lc ≤ loglog H₋` (`k = 1` everywhere but the uniform page, where `k = 6`), for
+  every site that spent the cap against `log H₊ ≥ 10^8`.  It gives
+  `log H₋ ≥ exp (518 + Lc) = exp 518 · exp Lc ≥ 10^8 · (1 + Lc)`.
+* `hflL : 50 + Lc ≤ loglog H₋`, BESIDE (never in place of) the cap grid's numeral floor
+  `hfl : loglogFloor50 ≤ H₋`, which the bodies still spend through
+  `regime_Hfloor_of_loglogFloor50`.  It gives `log H ≥ 10^21 · (1 + Lc)`.
+Both follow from `518 + 6·Lc ≤ loglog H₋` by `linarith`, so the root (wave 5) strengthens ONE
+hypothesis.  No conclusion moves except `cofkL_mu_floor_L`'s, and NO numeral caps `Lc`.
+Nothing here bears on twin primes. -/
+
+/-- **⟦THE `518`-TOWER AT GENERIC `L`⟧** (`cofk_tower_logfloor_L`) — the rung-2 payer for every
+site whose `_b9` twin spent `log h ≤ 9` against `log H₊ ≥ 10^8`.  From `518 + L ≤ loglog H₋`,
+`log H₋ ≥ exp (518 + L) = exp 518 · exp L ≥ 10^8 · (1 + L)`, and the socket's `H₋ ≤ H ≤ H₊`
+carries it to both.  `exp 518 ≥ (1 + 518/4)^4 = 290029415.06… ≥ 10^8` (`cofk_exp_quartic`,
+margin `2.900×`) and `exp L ≥ 1 + L` (`Real.add_one_le_exp`). -/
+theorem cofk_tower_logfloor_L {R : ChowlaRegime} {h M H L q j A s : ℕ} {Lc : ℝ}
+    (hL0 : 0 ≤ Lc) (hb : SocketBaseLH h R M H L q j A s)
+    (hloL : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.log (R.Hlo : ℝ)
+      ∧ Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ)
+      ∧ Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
+  have h1 : R.Hlo ≤ H := hb.1
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
+  have hexp : Real.exp (518 + Lc) ≤ Real.log (R.Hlo : ℝ) := by
+    have h := Real.exp_le_exp.mpr hloL
+    rwa [Real.exp_log (by linarith)] at h
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
+    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
+    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
+    linarith
+  have hexpL : (1 : ℝ) + Lc ≤ Real.exp Lc := by
+    have h := Real.add_one_le_exp Lc; linarith
+  have hmul : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.exp 518 * Real.exp Lc :=
+    mul_le_mul hquart hexpL (by linarith) (Real.exp_pos _).le
+  rw [Real.exp_add] at hexp
+  exact ⟨by linarith, Real.log_le_log (by linarith) hHloH,
+    Real.log_le_log (by linarith) hHHhi⟩
+
+/-- **⟦THE CAP-GRID TOWER AT GENERIC `L`⟧** (`s13_tower_logH_L`) — the rung-2 payer for the sites
+whose `_b9` twin spent `log h ≤ 9` against the cap grid's NUMERAL floor `loglogFloor50 ≤ H₋`,
+which carries no `L` at all.  From `50 + L ≤ loglog H₋`,
+`log H ≥ log H₋ ≥ exp (50 + L) = exp 50 · exp L ≥ 10^21 · (1 + L)`
+(`capfloor_ten21_le_exp50`, `Real.add_one_le_exp`). -/
+theorem s13_tower_logH_L {R : ChowlaRegime} {h M H L q j A s : ℕ} {Lc : ℝ}
+    (hL0 : 0 ≤ Lc) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (10 : ℝ) ^ 21 * (1 + Lc) ≤ Real.log (H : ℝ) := by
+  have h1 : R.Hlo ≤ H := hb.1
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
+  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
+  have hexp : Real.exp (50 + Lc) ≤ Real.log (R.Hlo : ℝ) := by
+    have h := Real.exp_le_exp.mpr hflL
+    rwa [Real.exp_log (by linarith)] at h
+  have hexpL : (1 : ℝ) + Lc ≤ Real.exp Lc := by
+    have h := Real.add_one_le_exp Lc; linarith
+  have hmul : (10 : ℝ) ^ 21 * (1 + Lc) ≤ Real.exp 50 * Real.exp Lc :=
+    mul_le_mul capfloor_ten21_le_exp50 hexpL (by linarith) (Real.exp_pos _).le
+  have hmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
+    Real.log_le_log (by linarith) hHloH
+  rw [Real.exp_add] at hexp
+  linarith
+
+/-- `capfloor_twoj_le_H_LH_b9` at generic `L` (`capfloor_twoj_le_H_L`) — TRANSPORT, a LEAF.  The
+`_b9` twin already carries its cap as an UNSPENT binder (`_hh9`), and the charge is unspent here
+too; it is kept so every sibling in this section has ONE interface.  BODY: the twin's,
+verbatim. -/
+theorem capfloor_twoj_le_H_L {h : ℕ} (_hh : 0 < h) {Lc : ℝ} (_hL0 : 0 ≤ Lc)
+    (_hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBaseLH h R M H L q j A s) : 2 ^ j ≤ H := by
+  have hjL : j ≤ Nat.log 2 L := hb.2.2.2.2.2.1
+  have hLH : L ≤ H := hb.2.2.1
+  have hH : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
+  rcases Nat.eq_zero_or_pos L with hL0 | hLpos
+  · subst hL0
+    have hj : j = 0 := by simpa using hjL
+    subst hj
+    simpa using (by omega : 1 ≤ H)
+  · exact le_trans (le_trans (Nat.pow_le_pow_right (by norm_num) hjL)
+      (Nat.pow_log_le_self 2 (by omega))) hLH
+
 end Salt.MR
