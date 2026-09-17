@@ -959,4 +959,160 @@ theorem capFreeFloor3_pieceDatum_arcDen_rated_L (h : ℕ) (hh : 0 < h)
     (pieceFloor_vt_threshold_of_loglog_rated_L hZ hδ hh hH harc hL0 hhL hbud
       (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
 
+set_option maxHeartbeats 1000000 in
+-- as the twin: the floor's arithmetic closes over the primorial and square-root brackets in one
+-- block, and the charge adds the `h²·L` monomial to the same bracket
+/-- `cofkL_logX_floor_h_b9` at generic `L` (`cofkL_logX_floor_L`) — a LEAF, and the deepest
+NUMERAL-LIFT of the wave.  The twin's `− log h` cost is read at `9` in `hlow`/`hmulL`/`hsm1`
+(`9.6932 = 9 + 0.6932`); at the charge it is `L + 0.6932`, and `hsm1` then asks
+`10^6 · h² · (L + 0.6932) ≤ H₊`, which the twin's own `hHhi : 10^26 · h⁴ ≤ H₊` CANNOT pay —
+it would need `L ≤ 10^20`, a numeral cap, which is a STOP.  The payer is `cofk_tower_logfloor_L`,
+and it is spent MULTIPLICATIVELY so that no logarithm of a product is needed:
+`log H₊ ≥ 10^8 · (1 + L)` with the twin's own `hsq : log H₊ ≤ 2·√H₊ − 2` gives
+`√H₊ ≥ 5·10^7 · (1 + L) + 1 ≥ L + 1`, and the twin's own `hprod : 10^13 · h² · √H₊ ≤ H₊` then
+gives `10^13 · h² · (L + 1) ≤ H₊`, which covers `10^6 · h² · (L + 0.6932)` by `10^7×`.
+The final bracket keeps its margin: `hsm1` still bounds `10^6 · h² ≤ 1.443 · H₊`, so the close
+reads `10^6·h²·log A ≥ 9.0896·H₊ − 3.9995·H₊ = 5.09·H₊ ≥ H₊`.  Every other step is the twin's,
+verbatim. -/
+theorem cofkL_logX_floor_L {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    {Lc : ℝ} (hL0 : 0 ≤ Lc) (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ))
+    (hloL : (518 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (R.Hhi : ℝ) / (10 ^ 6 * (h : ℝ) ^ 2) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have h2 : H ≤ R.Hhi := hb.2.1
+  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
+  have h11 : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    hb.2.2.2.2.2.2.2.2.2.2.1
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
+  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
+  -- ⟦THE CHARGE'S PAYER — the `518`-tower, carried to `log H₊`⟧
+  obtain ⟨hlolo, hmono1, hmono2⟩ := cofk_tower_logfloor_L hL0 hb hloL
+  have hLH8L : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.log (R.Hhi : ℝ) := by linarith
+  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
+    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
+    linarith
+  have harc : (0 : ℝ) < arcDen 12 H := by
+    rw [arcDen]; exact Real.rpow_pos_of_pos hlogH0 12
+  have harcH : (0 : ℝ) < (h : ℝ) * arcDen 12 H := by positivity
+  have hlogarc : Real.log (arcDen 12 H) = 12 * Real.log (Real.log (H : ℝ)) :=
+    log_arcDen_twelve hlogH0
+  set E : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hEdef
+  have hPH0 : 8 * (((4 ^ E : ℕ) : ℝ)) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ) := R.hPHheadroom
+  have hW : (((4 ^ E : ℕ) : ℝ)) = (4 : ℝ) ^ E := by push_cast; ring
+  rw [hW] at hPH0
+  have hmul : (8 * ((4 : ℝ) ^ E) ^ 2) * (R.ω : ℝ)
+      ≤ (16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ)) * (R.ω : ℝ) := by
+    have := le_trans hPH0 h11; linarith
+  have h8w : 8 * ((4 : ℝ) ^ E) ^ 2 ≤ 16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
+    le_of_mul_le_mul_right hmul hω0
+  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast h8
+  have hkey : ((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)) ≤ (A : ℝ) := by
+    rw [div_le_iff₀ (by linarith)]
+    linarith
+  have hlogW : Real.log (((4 : ℝ) ^ E) ^ 2) = 2 * (E : ℝ) * Real.log 4 := by
+    rw [← pow_mul, Real.log_pow]
+    push_cast; ring
+  have harc2 : (0 : ℝ) < 2 * ((h : ℝ) * arcDen 12 H) := by linarith
+  have hW2pos : (0 : ℝ) < ((4 : ℝ) ^ E) ^ 2 := by positivity
+  have heq : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
+      = 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
+        - 12 * Real.log (Real.log (H : ℝ)) := by
+    rw [Real.log_div (ne_of_gt hW2pos) (ne_of_gt harc2), hlogW,
+      Real.log_mul (by norm_num) (ne_of_gt harcH),
+      Real.log_mul (ne_of_gt hh0) (ne_of_gt harc), hlogarc]
+    ring
+  have hlogA : 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
+      - 12 * Real.log (Real.log (H : ℝ)) ≤ Real.log (A : ℝ) := by
+    have hle : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
+        ≤ Real.log (A : ℝ) := Real.log_le_log (div_pos hW2pos harc2) hkey
+    rw [heq] at hle
+    exact hle
+  have hEfl : (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) - 1 ≤ (E : ℝ) := by
+    have hq : (R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)) < (E : ℚ) + 1 := by
+      rw [hEdef]; exact Nat.lt_floor_add_one _
+    have hR : ((R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) : ℚ) : ℝ) < ((E : ℚ) : ℝ) + 1 := by
+      exact_mod_cast hq
+    push_cast at hR
+    linarith
+  have hεh : (1 : ℝ) ≤ 500 * (h : ℝ) * (R.eps : ℝ) := by
+    have h500 : (0 : ℝ) < 500 * (h : ℝ) := by linarith
+    rw [div_le_iff₀ h500] at hε
+    linarith
+  have heps2 : (1 : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * (R.eps : ℝ) ^ 2 := by nlinarith [hεh]
+  have hepsH : (R.Hhi : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ)) := by
+    nlinarith [heps2, hHhi0]
+  have hEbig : (R.Hhi : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * ((E : ℝ) + 1) := by
+    have hstep : 250000 * (h : ℝ) ^ 2 * ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ))
+        ≤ 250000 * (h : ℝ) ^ 2 * ((E : ℝ) + 1) :=
+      mul_le_mul_of_nonneg_left (by linarith [hEfl]) (by positivity)
+    linarith [hepsH, hstep]
+  have hE0 : (0 : ℝ) ≤ (E : ℝ) := Nat.cast_nonneg _
+  have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
+  have hlogmono : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := Real.log_le_log hH0 hHle
+  have hllmono : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (R.Hhi : ℝ)) :=
+    Real.log_le_log hlogH0 hlogmono
+  have hllsub : Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (R.Hhi : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hsq : Real.log (R.Hhi : ℝ) ≤ 2 * Real.sqrt (R.Hhi : ℝ) - 2 :=
+    cofk_log_le_two_sqrt hHhi0
+  -- ⟦the charge, bought from the tower through `hsq` — NO log of a product⟧
+  have hLcsq : Lc + 1 ≤ Real.sqrt (R.Hhi : ℝ) := by linarith
+  have hv : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 ≤ Real.sqrt (R.Hhi : ℝ) := by
+    have hid : ((10 : ℝ) ^ 13 * (h : ℝ) ^ 2) ^ 2 = (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 := by ring
+    have h1 : Real.sqrt (((10 : ℝ) ^ 13 * (h : ℝ) ^ 2) ^ 2) ≤ Real.sqrt (R.Hhi : ℝ) :=
+      Real.sqrt_le_sqrt (by rw [hid]; exact hHhi)
+    rwa [Real.sqrt_sq (by positivity)] at h1
+  have hvsq : Real.sqrt (R.Hhi : ℝ) * Real.sqrt (R.Hhi : ℝ) = (R.Hhi : ℝ) :=
+    Real.mul_self_sqrt hHhi0.le
+  have hv0 : (0 : ℝ) ≤ Real.sqrt (R.Hhi : ℝ) := Real.sqrt_nonneg _
+  have hprod : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) ≤ (R.Hhi : ℝ) :=
+    le_trans (mul_le_mul_of_nonneg_right hv hv0) (le_of_eq hvsq)
+  have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast
+    linarith [Real.log_two_gt_d9]
+  have hlog2 : Real.log 2 ≤ 0.6932 := by linarith [Real.log_two_lt_d9]
+  have hElog : (1.3862 : ℝ) * (E : ℝ) ≤ (E : ℝ) * Real.log 4 := by
+    have h := mul_le_mul_of_nonneg_left hlog4 hE0
+    linarith only [h]
+  have hdebit : 12 * Real.log (Real.log (H : ℝ)) ≤ 24 * Real.sqrt (R.Hhi : ℝ) := by
+    linarith only [hllmono, hllsub, hsq]
+  have hlow : 2.7724 * (E : ℝ) - (Lc + 0.6932) - 24 * Real.sqrt (R.Hhi : ℝ)
+      ≤ Real.log (A : ℝ) := by
+    linarith only [hElog, hlogA, hdebit, hlog2, hhL]
+  have hXpos : (0 : ℝ) < 10 ^ 6 * (h : ℝ) ^ 2 := by positivity
+  have hmulL : (10 ^ 6 * (h : ℝ) ^ 2)
+        * (2.7724 * (E : ℝ) - (Lc + 0.6932) - 24 * Real.sqrt (R.Hhi : ℝ))
+      ≤ (10 ^ 6 * (h : ℝ) ^ 2) * Real.log (A : ℝ) :=
+    mul_le_mul_of_nonneg_left hlow hXpos.le
+  have hh2nn : (0 : ℝ) ≤ (h : ℝ) ^ 2 := by positivity
+  have hLch2 : (0 : ℝ) ≤ (h : ℝ) ^ 2 * Lc := mul_nonneg hh2nn hL0
+  have hsm1 : 10 ^ 6 * (h : ℝ) ^ 2 * (Lc + 0.6932) ≤ (R.Hhi : ℝ) := by
+    have hstep : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 * (Lc + 1)
+        ≤ (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) :=
+      mul_le_mul_of_nonneg_left hLcsq (by positivity)
+    linarith only [hstep, hprod, hLch2, hh2nn]
+  have hhs : (0 : ℝ) ≤ (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) := by positivity
+  have hsm2 : 24 * (10 ^ 6 * ((h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ))) ≤ (R.Hhi : ℝ) := by
+    nlinarith only [hprod, hhs]
+  have hfloor : (R.Hhi : ℝ) / (10 ^ 6 * (h : ℝ) ^ 2) ≤ Real.log (A : ℝ) := by
+    rw [div_le_iff₀ hXpos]
+    linarith only [hmulL, hEbig, hsm1, hsm2, hLch2]
+  have hA1 : (1 : ℝ) ≤ (A : ℝ) := by exact_mod_cast h8
+  have hAs : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  have hlogAs : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
+    Real.log_le_log (by linarith) hAs
+  linarith
+
 end Salt.MR
