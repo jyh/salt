@@ -25276,3 +25276,144 @@ nothing bears on twin primes: `N7Exit` is still a hypothesis and the crown is st
 the kernel by a non-author refuter pass before any of it was fired. ⇒ 🔑 **A wire is a statement.**
 The 2026-09-08 entry above repaired the BINDER of this same definition and asked nothing about the
 DATA the binder was quantifying over — and the data was the larger error of the two.
+---
+
+## 2026-09-16 — ROAD F, RUNG 2, WAVE 1, ROW R11: the `g12b` witness at a GENERIC `c` is a SCOPE stop, not an affinity stop
+
+**Row.** R11's second half, `s15_sel''_L_gk_witness_flat_bumped_win_L` of
+`s15_sel''_L_gk_witness_flat_bumped_win_h_g12b` (`Salt/MR/StrideGrade12bWalls.lean:210-232`,
+23 lines).  The row's FIRST half landed: `flatDoorM_bfloor_bump_L` is in
+`Salt/MR/FlatDoorEpsRung2.lean`, sorry-free, `[propext, Classical.choice, Quot.sound]`.
+
+**What was attempted.**  The witness has TWO cap sites, not one.  `:231` is the bump
+(`flatDoorM_bfloor_bump_g12 hh (le_trans (h_le_8103_of_hh9 hh hh9) (by norm_num)) …`) and it is
+now discharged at generic `c` by `flatDoorM_bfloor_bump_L`.  `:223` is the inner witness
+(`s15_sel''_L_gk_witness_flat_wide_g12b … (h_le_8103_of_hh9 hh hh9) hh9 …`), and its cap is NOT a
+term the caller supplies numerically: `c ≤ 8103` and `log c ≤ 9` are BINDERS of a landed
+statement, and so are the four numerals they reach.
+
+**The measurement (read-only, at the object).**  The `c` cap IS spent affinely all the way
+down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
+
+| # | declaration | file:line | lines | how the cap enters |
+|---|---|---|---|---|
+| 1 | `s16_audit_neglog_rho_le_425_h_g12b` | `StrideGrade12bWalls.lean:151-155` | 5 | conclusion `-log rho <= 429` is `411 + 2*9`; the supplier `s16_audit_neglog_rho_le_wide_h_g12` already proves `<= 411 + 2*log c`, **grade-free and already affine** |
+| 2 | `s15_sel''_L_witness_flat_charge_g12b` | `StrideGrade12bWalls.lean:49-84` | 36 | `hcb : c <= 8103` (`:50`) and `hrholog : -log rho <= 429` (`:51`), widened at `:64` to `<= 439` |
+| 3 | `flat_half_line_g14` | `StrideGradeReach.lean:183-203` | 21 | `hc : c <= 439`, entering as `3*c` against `e^{3.2A}/2`; slack `10^31 x` |
+| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:207-212` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
+| 5 | `flat_gP1_line_g14` | `StrideGradeReach.lean:216-236` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
+| 6 | `flat_lvl_line_g14` | `StrideGradeReach.lean:240-293` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
+| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:727-928` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
+| 8 | `s15_sel''_L_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:162-177` | 16 | carries `hcb`, `hh9c` through |
+| 9 | `s15_sel''_L_gk_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:183-201` | 19 | carries `hcb`, `hh9c` through |
+
+**Every one of rows 3-6 takes the charge LINEARLY** (`3*c`, `+ c + 33`, `+ c`, `+ c`) against an
+`e^{3.2A}`-scale register with three to thirty-one orders of slack, so at the generic charge
+`-log rho <= 411 + 2*L` each is an affine re-cut of exactly the kind rows R7 and R11a already
+carry.  The blocker is arithmetic nowhere; it is that **nine landed declarations across four
+files, ~380 lines, would each need an `_L` sibling**, and the largest (`#7`, 202 lines) is a
+wave on its own.  Wave 1 commissions FOUR small independent leaves and one file; re-cutting the
+inner charge chain is not in it, and moving any of those nine statements is forbidden.
+
+**What I did NOT do, deliberately.**  I did not write a `_g12b` witness that keeps `hh9` and
+merely takes the bump generically: that is generic in the BUMP and capped in the WITNESS, which
+is the walk's rung 1.5, not rung 2.  I did not weaken the witness's conclusion.  I did not touch
+any landed file.
+
+**Release condition.**  R11's witness half becomes a one-line supplier swap the moment the inner
+charge chain carries an `_L` rung -- the nine rows above, in the order 1, 3, 4, 5, 6, 7, 2, 8, 9.
+**Owner:** the rung-2 head, at the wave that prices the inner chain.  **Re-measure:** whenever
+the charge chain moves.  Nothing downstream of R11 is blocked by this in wave 1: R11a (the bump)
+is landed and is the only part rows R5/R7/R8/R9 reach.
+
+**And one thing wave 6 must not inherit as an assumption.**  On the same path the count cap
+`K <= 2^539` is spent ONCE, at `s16_audit_rho_ge_wide_h_g12` (`StrideGrade12Walls.lean:92-117`,
+`:107`, `nlinarith [hKb, hK]`), and its own docstring records the margin as **x1.186** --
+`16*110525 = 1768400` against `2^592/(2^539 * 2^32) = 2^21 = 2097152`, where "the landed x2.37
+had one bit to spare".  At a generic `Kb` the envelope floor `2^592` CANNOT stay fixed: it must
+move with `Kb`.  That is a real constraint on wave 6's `Kb` price and it is not visible from the
+witness.
+
+## 2026-09-17 — ROAD F, RUNG 2, WAVE 1b-ii, ROWS G4-G7 Opus statement-concern
+
+**THE LANDED `S15Sel''_L.rho` REGISTER IS A FIXED `10^14` NUMERAL, AND IT CAPS THE DESIGN
+CONSTANT.  THE CHARGE CARRIER AND THE TWO SELECTORS CANNOT BE RE-CUT AT `-log rho <= 16*A`.**
+
+**Rows.**  G4 `s15_sel''_L_witness_flat_charge_L` (of `…_charge_g12b`,
+`Salt/MR/StrideGrade12bWalls.lean:49-84`), G5 `…_witness_flat_wide_L` (`:162-177`), G6
+`…_gk_witness_flat_wide_L` (`:183-201`), G7 `…_gk_witness_flat_bumped_win_L` (`:210-232`, R11's
+second half).  G5 rides G4; G6 rides G5; G7 rides G6 -- so ONE obstruction stops all four.
+
+**What landed in the same wave, unaffected.**  G1 `s15_sel''_L_witness_flat_L`, G2
+`s15_sel''_L_gk_witness_flat_L`, G3 `flat_blk_line_gk_L`, in `Salt/MR/FlatDoorEpsRung2.lean`,
+sorry-free, each `[propext, Classical.choice, Quot.sound]`.  They are rows 7, and the levered
+witness and block line, of the wave-1 R11 flag's release order.
+
+**The obstruction, measured at the object.**  `S15Sel''_L` (`Salt/MR/S15SelLinear.lean:104`)
+carries, at `:122`, the field
+
+```
+  rho : -Real.log ρ ≤ 100000000000000
+```
+
+and `S15Sel''_L_gk` carries the same numeral at `:158`.  It is a FIXED register in a landed,
+frozen structure: no `_L` sibling can widen it, because a sibling extends and never edits.  The
+rung-2 interface replaces the charge binder `(hρlog : -log rho <= 429)` by
+`(hρlog : -log rho <= 16 * A)`, and `16 * A <= 10^14` holds only for `A <= 6.25e12`.  `A` is
+bounded BELOW by `hA : 26 <= A` and by `hAL : 10 + 2*Lc <= A`, and above by nothing.
+
+**Three attempts, all through the wrapper.**
+1. G4 written exactly as the interface specifies.  `saltbuild EXIT=1`, and the build carries
+   **exactly one error**: `linarith failed`, `case refine_2` -- the `rho` bullet.  Every other
+   field closes: `half`, `anchor`, `gP1`, `lvl` from the wave-1b-i `_L` cap lines at
+   `hc : c <= 16*A` (the source's `429 <= 439` widening does disappear, as priced), and `hM`,
+   `gRows`, `x0M`, `blk` from G1 at the frozen dummy instance.  Residual goal, verbatim:
+   `hρlog : -Real.log ρ ≤ 16 * A`, `a✝ : 100000000000000 < -Real.log ρ`, `⊢ False`.
+2. A case split `by_cases hcase : 16 * A ≤ 100000000000000`.  The first branch closes.  The
+   second leaves `hcase : 100000000000000 < 16 * A`, `⊢ False` with every hypothesis of the
+   theorem in context, and `linarith` finds no contradiction -- correctly: a large `A` is
+   consistent with `hlo`, `hhi`, `hx0win` and the rest, all of which grow with `A`.
+3. **The residual implication REFUTED at the kernel** (`saltbuild EXIT=0`), so this is a false
+   statement and not a weak tactic:
+   `¬ (∀ A rho, 26 <= A → -log rho <= 16*A → -log rho <= 10^14)`, witness `A = 10^13`,
+   `rho = exp (-(16 * 10^13))`, giving `-log rho = 1.6e14 > 1e14`.
+
+**Why no repair was taken.**  Both available repairs are the wave's own STOP conditions.
+(a) Carry the register as an extra binder on G4 (`-log rho <= 10^14`): an ADDED hypothesis, and
+the statements of this wave are the sources' with only the named interface edits.  (b) Cap the
+charge parameter: at G5-G7 the charge is not a binder but the value
+`234 + 22*Lc` that `s16_audit_neglog_rho_le_h_L` supplies, so the repair there reads
+`234 + 22*Lc <= 10^14`, i.e. `Lc <= 4545454545443.9…` -- **a numeral cap on `Lc`**, which is
+exactly what rung 2 exists to remove, and which this wave's brief names as a stop.  Neither is
+the executor's to choose.
+
+**What this does NOT block.**  Nothing that reads G1, G2 or G3 directly.  The obstruction is on
+the `rho` field alone, and it is a numeral in a frozen structure, not an estimate: every
+`A`-scale line in the register re-cuts cleanly, which rows 3-6 (wave 1b-i) and rows 7 and the
+levered pair (this wave) have now demonstrated at the kernel.
+
+**Release condition.**  A ruling on which of (a) or (b) the rung-2 walk takes -- or a decision
+to re-state `S15Sel''_L.rho`'s register in terms of the design constant, which is a change to a
+landed frozen statement and is not an executor act.  **Owner:** the rung-2 head.
+**Re-measure:** whenever `S15Sel''_L.rho` or the rung-2 charge interface moves.
+
+**One number the ruling will want.**  The cap is astronomically weak in the application --
+`Lc <= 4.5e12` means `c <= e^{4.5e12}` -- so (b) costs nothing arithmetically and everything
+presentationally: it re-introduces a numeral cap on the very parameter the rung exists to free.
+(a) costs one binder and no generality, and it is honest: the binder IS the landed register.
+
+**RELEASE CONDITION MET — 2026-09-17, ROAD F RUNG 2 WAVE 1c, by a SIBLING STRUCTURE rather
+than by (a) or (b).**  The register is re-stated RELATIVE TO THE TOWER in two new structures,
+`S15Sel''_L_T` and `S15Sel''_L_gk_T` (`Salt/MR/FlatDoorEpsRung2.lean`, §W1c), whose `rho` field
+reads `-Real.log ρ ≤ Real.log H₋ / 10000` and whose other ten fields are the landed structures'
+byte for byte under the same names; the landed frozen statements are UNTOUCHED, and
+`S15Sel''_L.toT` / `S15Sel''_L_gk.toT` prove the landed registers IMPLY the siblings at the
+landed tower floor (`50 ≤ loglog H₋`), so rung 1's witnesses inhabit them and nothing is lost.
+The four binding readers are re-cut as `s12c_eps_threshold_at_socket_flat_T` ·
+`s15_heps293_at_socket_flat_T` · `s15_hband4096_at_socket_flat_T` ·
+`s15_gRows_const_at_socket_flat_doorL_gk_T` through one core `flat_lambda_core_T`, and the two
+non-reading consumers as `S15Sel''_L_gk_T.head` · `s15_bandGate''_of_grade_L_gk_T`.  G4-G7 land
+as `s15_sel''_L_witness_flat_charge_L` · `s15_sel''_L_witness_flat_wide_L` ·
+`s15_sel''_L_gk_witness_flat_wide_L` · `s15_sel''_L_gk_witness_flat_bumped_win_L`, all at
+`-Real.log ρ ≤ 16 * A` with NO numeral cap on `A`, `Lc`, `c` or `ρ` — **R11's second half is
+closed.**  Sorry-free, `[propext, Classical.choice, Quot.sound]`.
