@@ -3093,4 +3093,164 @@ theorem s16_audit_neglog_rho_le_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hhL : Rea
     -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 234 + 22 * Lc := by
   exact le_trans (s16_audit_neglog_rho_le_wide_h_L hh hδ hK hδb hKb1 hKb) (by linarith)
 
+
+/-- **⟦THE WINDOW LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_half_line_g14`
+(`StrideGradeReach.lean:183`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the CONCLUSION is
+the source's, byte for byte.  BODY: the source's, plus ONE new fact and its use in the close.
+
+THE NEW FACT, shared by all four cap lines here: with `E := Real.exp (3.2 * A / 2)`,
+`Real.add_one_le_exp (3.2 * A / 2)` gives `1.6 * A + 1 ≤ E`, hence `16 * A + 10 ≤ 10 * E` and so
+`16 * A ≤ 10 * E`.  The charge is therefore paid by the DESIGN CONSTANT and `Lc` never enters.
+THE MARGIN, derived: the register's slack here is
+`(1 / 2 - 0.7 * 68719476736 / 96286710601) * E ^ 2 = (1 / 2 - 0.4995874655…) * E ^ 2
+= 0.0004125344510… * E ^ 2`, and the charge costs `3 * c ≤ 3 * (16 * A) ≤ 30 * E`.  The ONE
+product `hEE : 10 ^ 17 * E ≤ E ^ 2` — isolated as a `have` so the close stays LINEAR — makes
+`30 * E ≤ 0.0004125344510… * E ^ 2` hold for every `E ≥ 72722`, against the register's
+`E ≥ 10 ^ 17`: free by `1.3 * 10 ^ 12 ×`.  Nothing here bears on twin primes. -/
+theorem flat_half_line_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) :
+    (7 / 10 : ℝ) * ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ) + 3 * c ≤ Real.exp (3.2 * A) / 2 := by
+  have hE17 := flat_exp_half_ge hA
+  have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
+  have hMle := flatDoorM_le A
+  have hM0 : (0 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := Nat.cast_nonneg _
+  have hY := flat_exp_sq A
+  have hrow : ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ)
+      = 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 := by
+    rw [doorRowFloorL, AdoorL]; push_cast; ring
+  have h1 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 - ((flatDoorM A : ℕ) : ℝ) := by
+    linarith
+  have h2 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 + ((flatDoorM A : ℕ) : ℝ) := by
+    positivity
+  have hsq : ((flatDoorM A : ℕ) : ℝ) ^ 2
+      ≤ Real.exp (3.2 * A / 2) ^ 2 / 96286710601 := by
+    nlinarith [mul_nonneg h1 h2]
+  have hE2 : (10 : ℝ) ^ 34 ≤ Real.exp (3.2 * A / 2) ^ 2 := by nlinarith [hE17, hE0]
+  -- ⟦THE CHARGE, PAID BY `A`⟧ `1.6·A + 1 ≤ E` ⇒ `16·A ≤ 10·E`; and the ONE product that
+  -- lets a LINEAR close beat `30·E` with `0.000412…·E²`.
+  have h16 : 16 * A ≤ 10 * Real.exp (3.2 * A / 2) := by
+    have hx := Real.add_one_le_exp (3.2 * A / 2)
+    linarith
+  have hEE : (10 : ℝ) ^ 17 * Real.exp (3.2 * A / 2) ≤ Real.exp (3.2 * A / 2) ^ 2 := by
+    nlinarith [hE17, hE0]
+  rw [hrow, ← hY]
+  linarith [hsq, hE2, hc, h16, hEE]
+
+/-- **⟦THE `anchor` LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_anchor_line_wide_g14`
+(`StrideGradeReach.lean:207`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
+
+THE MARGIN, derived: `flatDoorM_ge` gives
+`39 * 10 ^ 8 * M ≥ 39 * 10 ^ 8 * (E / 310301 - 1) = 12568.4416099… * E - 39 * 10 ^ 8`, against a
+left side `28 * E + c + 33 ≤ 38 * E + 33`; the comparison holds for every `E ≥ 311243`, against
+`E ≥ 10 ^ 17`: free by `3.2 * 10 ^ 11 ×`.  Nothing here bears on twin primes. -/
+theorem flat_anchor_line_wide_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) :
+    14 * (2 * Real.exp (3.2 * A / 2)) + c + 33
+      ≤ 39 * 10 ^ 8 * ((flatDoorM A : ℕ) : ℝ) := by
+  have hE17 := flat_exp_half_ge hA
+  have hMge := flatDoorM_ge A
+  have h16 : 16 * A ≤ 10 * Real.exp (3.2 * A / 2) := by
+    have hx := Real.add_one_le_exp (3.2 * A / 2)
+    linarith
+  linarith
+
+/-- **⟦THE `𝒯`-LEG BUDGET AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_gP1_line_g14`
+(`StrideGradeReach.lean:216`) with `hc : -439 ≤ c` replaced by `hc : -(16 * A) ≤ c` (the charge
+enters this one with the OPPOSITE sign); the conclusion is the source's, byte for byte.  BODY: the
+source's, plus the shared new fact, used as `-c ≤ 16 * A ≤ 10 * E`.
+
+THE MARGIN, derived: the body's `hAdlog` gives `AdoorL M * Real.log 2 ≥ 153000 * E`, against a
+left side `29 + Real.log Ct + 14 * Λ ≤ 29 + 23 * 0.6931471808 + 28 * E = 44.9423851584 + 28 * E`
+and a charge of `10 * E`; `(153000 - 28 - 10) * E ≥ 44.9423851584` holds for every `E ≥ 0.0003`,
+against `E ≥ 10 ^ 17`: free by `3.3 * 10 ^ 20 ×`.  Nothing here bears on twin primes. -/
+theorem flat_gP1_line_L {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -(16 * A) ≤ c) (hCt : 0 < Ct)
+    (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
+    29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c := by
+  have hE17 := flat_exp_half_ge hA
+  have hMge := flatDoorM_ge A
+  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hAdlo : 221460 * Real.exp (3.2 * A / 2) - 68719476737
+      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) := by linarith
+  have hpos : (0 : ℝ) ≤ 221460 * Real.exp (3.2 * A / 2) - 68719476737 := by linarith
+  have h1 : (221460 * Real.exp (3.2 * A / 2) - 68719476737) * Real.log 2
+      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 :=
+    mul_le_mul_of_nonneg_right hAdlo (by linarith)
+  have hAdlog : 153000 * Real.exp (3.2 * A / 2)
+      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 := by
+    nlinarith [hpos, hlog2lo, hE17]
+  have hCtl : Real.log Ct ≤ 23 * Real.log 2 := by
+    have h := Real.log_le_log hCt hCtb
+    rwa [Real.log_pow] at h
+  have h16 : 16 * A ≤ 10 * Real.exp (3.2 * A / 2) := by
+    have hx := Real.add_one_le_exp (3.2 * A / 2)
+    linarith
+  rw [AdoorL_cast]
+  linarith
+
+/-- **⟦THE `level1` BUDGET AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_lvl_line_g14`
+(`StrideGradeReach.lean:240`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
+
+THE MARGIN, derived: the body's `hbud` gives `(1 / 12) * AdoorL M * Real.log 2 ≥ 12750 * E`,
+against a left side bounded by `26 + 28 * E + (2 / 3) * (E - 1) + 10 * E` (the last term is the
+charge).  The surviving coefficient on `E` is `12750 - 28 - 2 / 3 - 10 = 12711.33…` against the
+constant `26 - 2 / 3 = 25.33…`, so the comparison holds for every `E ≥ 0.002`, against
+`E ≥ 10 ^ 17`: free by `5 * 10 ^ 19 ×`.  Nothing here bears on twin primes. -/
+theorem flat_lvl_line_L {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A)
+    (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
+    26 + 14 * Λ + (1 / 3) * Real.log (Real.log ((calQK (AdoorL (flatDoorM A))
+        (3072 * flatDoorM A) (flatDoorM A) 1 : ℕ) : ℝ)) + c
+      ≤ (1 / 12) * ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 := by
+  have hE17 := flat_exp_half_ge hA
+  have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
+  have hMle := flatDoorM_le A
+  have hMge := flatDoorM_ge A
+  have hM0 : (0 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := Nat.cast_nonneg _
+  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hrow : ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ)
+      = 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 := by
+    rw [doorRowFloorL, AdoorL]; push_cast; ring
+  have hAdlo : 221460 * Real.exp (3.2 * A / 2) - 68719476737
+      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) := by linarith
+  have hpos : (0 : ℝ) ≤ 221460 * Real.exp (3.2 * A / 2) - 68719476737 := by linarith
+  have h1 : (221460 * Real.exp (3.2 * A / 2) - 68719476737) * Real.log 2
+      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 :=
+    mul_le_mul_of_nonneg_right hAdlo (by linarith)
+  have hAdlog : 153000 * Real.exp (3.2 * A / 2)
+      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 := by
+    nlinarith [hpos, hlog2lo, hE17]
+  rw [AdoorL_cast, s15_log_calQK_L_one, hrow]
+  have hQpos : (0 : ℝ) < 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2 := by
+    have hM1N : 1 ≤ flatDoorM A := flatDoorM_one_le hA
+    have hM1 : (1 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := by exact_mod_cast hM1N
+    have : (0 : ℝ) < Real.log 2 := by linarith
+    positivity
+  have hd1 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 - ((flatDoorM A : ℕ) : ℝ) := by
+    linarith
+  have hd2 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 + ((flatDoorM A : ℕ) : ℝ) := by
+    positivity
+  have hsq : ((flatDoorM A : ℕ) : ℝ) ^ 2
+      ≤ Real.exp (3.2 * A / 2) ^ 2 / 96286710601 := by
+    nlinarith [mul_nonneg hd1 hd2]
+  have hQle : 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2
+      ≤ Real.exp (3.2 * A / 2) ^ 2 := by
+    nlinarith [hsq, hlog2hi, sq_nonneg (Real.exp (3.2 * A / 2)), hM0,
+      sq_nonneg ((flatDoorM A : ℕ) : ℝ)]
+  have hlogQ : Real.log (68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2)
+      ≤ 2 * Real.log (Real.exp (3.2 * A / 2)) := by
+    have h := Real.log_le_log hQpos hQle
+    rw [Real.log_pow] at h
+    push_cast at h
+    linarith
+  have hlogE : Real.log (Real.exp (3.2 * A / 2)) ≤ Real.exp (3.2 * A / 2) - 1 :=
+    Real.log_le_sub_one_of_pos hE0
+  have hbud : 12750 * Real.exp (3.2 * A / 2)
+      ≤ 1 / 12 * (68719476736 * ((flatDoorM A : ℕ) : ℝ)) * Real.log 2 := by
+    linarith [hAdlog]
+  have h16 : 16 * A ≤ 10 * Real.exp (3.2 * A / 2) := by
+    have hx := Real.add_one_le_exp (3.2 * A / 2)
+    linarith
+  linarith [hΛ, hc, hlogQ, hlogE, hbud, hE17, h16]
+
 end Salt.MR
