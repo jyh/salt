@@ -2407,4 +2407,387 @@ theorem bigXi_bounded_ceiling_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 5
               * (500 * (c : ℝ)) ^ (10 : ℕ) * (ε : ℝ) ^ 10 := by ring
     exact le_trans hb hid
 
+/-! ## §W3 — the arm at a generic charge: the shrinking cut, the split, the gate -/
+
+/-- **⟦`6·10^10 ≤ e^25`⟧** (`epsRung2_exp25`) — the numeral the arm's `v ≥ 6·10^10` witness
+needs, re-derived here by its own eight lines because `XThread`'s `xt_exp25` is `private`
+(`2.7 < e` and `2.7^25 = 6.0798…·10^10`).  No landed file gains a declaration. -/
+theorem epsRung2_exp25 : (6e10 : ℝ) ≤ Real.exp 25 := by
+  have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have h : Real.exp (25 : ℝ) = (Real.exp 1) ^ (25 : ℕ) := by
+    rw [← Real.exp_nat_mul]; norm_num
+  rw [h]
+  have hc : (2.7 : ℝ) ^ (25 : ℕ) ≤ (Real.exp 1) ^ (25 : ℕ) :=
+    pow_le_pow_left₀ (by norm_num) he1.le 25
+  have hn : (6e10 : ℝ) ≤ (2.7 : ℝ) ^ (25 : ℕ) := by norm_num
+  linarith
+
+/-- **⟦THE TOWER CHARGE⟧** (`epsRung2_tower_charge`) — the ONE new fact §W3 needs, and it is the
+recipe of wave 4 one level up: a tower floor RAISED by the charge pays a FACTOR of the charge at
+the level below.  From `c = e^{log c} ≤ e^{Lc}` and `3.6·10^21 ≤ e^50 = (e^25)²`,
+
+  `3.6·10^21 · c ≤ e^50 · e^{Lc} = e^{50 + Lc} ≤ e^Λ`.
+
+At `Λ := loglog H₊` this is `3.6·10^21·c ≤ log H₊` — the source's `hLbig : 3.6·10^21 ≤ L` with a
+factor `c`, which is exactly what buys the `c²`-shrunk cut at the two tower sites below. -/
+theorem epsRung2_tower_charge {c Lc lam : ℝ} (hc1 : 1 ≤ c) (hLc : Real.log c ≤ Lc)
+    (hlam : 50 + Lc ≤ lam) : 3.6e21 * c ≤ Real.exp lam := by
+  have hc0 : (0 : ℝ) < c := by linarith
+  have hcle : c ≤ Real.exp Lc := by
+    have h := Real.exp_le_exp.mpr hLc
+    rwa [Real.exp_log hc0] at h
+  have hsq : Real.exp 25 * Real.exp 25 = Real.exp 50 := by
+    rw [← Real.exp_add]; norm_num
+  have h50 : (3.6e21 : ℝ) ≤ Real.exp 50 := by nlinarith [epsRung2_exp25, hsq]
+  calc (3.6e21 : ℝ) * c ≤ Real.exp 50 * Real.exp Lc :=
+        mul_le_mul h50 hcle (by linarith) (Real.exp_pos 50).le
+    _ = Real.exp (50 + Lc) := (Real.exp_add 50 Lc).symm
+    _ ≤ Real.exp lam := Real.exp_le_exp.mpr hlam
+
+set_option maxHeartbeats 2000000 in
+-- the arm's four summands, the double exponential's collapse and the closing budget elaborate
+-- in one block; the `L`-cut keeps the source's `u ≥ 8·10^41` tower step and multiplies it by
+-- `c²`, so the block still does not fit the previous 1000000
+/-- **⟦THE ARM, PRICED, AT A GENERIC CHARGE⟧** (`s15Arm_log_le_L`) — `s15Arm_log_le_scaled`
+(`XThread.lean:345`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
+SHRUNK to `H₊/(10^20·c²)`.  The four landed caps and their `_L` forms:
+
+* `hKcb : Kc ≤ 2^539` and `hlogc : log c ≤ 14` (the source's ONE site, `:355–356`) become the
+  count ceiling `Kb` with `log Kb ≤ 197 + 20·Lc`, through `xt_log_inv_rho_le_L`: the source's
+  `log (1/ρ) ≤ 403 + log c ≤ 417` becomes `log (1/ρ) ≤ 226 + 21·Lc` (`29 + 197 = 226`,
+  `20 + 1 = 21`).
+* `hΛ : 50 ≤ Λ` (`:363`, `:373`) becomes the gate `50 + Lc ≤ Λ`, which yields BOTH `hΛ50`
+  and the new fact `hLcΛ : Lc ≤ Λ − 50` — the charge is paid by the tower floor, not capped.
+* `hcb : c ≤ 1201216` (the source's ONE site, `:430`) is DROPPED: `hceil1` reads the pin
+  `hδpin` alone and its constant becomes `128·838400·c = 107315200·c`.
+
+⟦THE THREE ARITHMETIC SITES⟧ (1) the exponent: `E ≤ 7000Λ + 10500·Lc + 119600`, and
+`10500·Lc ≤ 10500Λ − 525000` off `hLcΛ`, so `E ≤ 17500Λ − 405400` and the source's quadratic
+step `17500Λ ≤ v²/2` closes from `Λ ≤ 2(v−1)`, `v² = L`, `v ≥ 6·10^10` exactly as before.
+(2) the envelope: the source's constant `13·10^13` becomes `107315214·c` (`128·838400 =
+107315200`; the `+14` absorbs the `4ω + 8ω` of the two small summands at `c ≥ 1`, since
+`12 ≤ 14c`), and `hfac` needs `107315214·c ≤ H₊`, which the tower gives with 34 orders to
+spare (`H₊ ≥ 3.24·10^42·c² ≥ 3.24·10^42·c`).  (3) the closing budget: `e^{L/4} ≥ 1 + L/4 ≥
+9·10^20·c`, so `u ≥ 8.1·10^41·c²` and `27·u·(10^20·c²) ≤ u·u` (`27·10^20 ≤ 8.1·10^41`).
+
+At `c = 1`, `Lc = 0` every edited site reduces to the source's line and the conclusion is the
+source's `H₊/10^20` exactly.  Nothing here bears on twin primes. -/
+theorem s15Arm_log_le_L {c δ₀ Kc Kb Lc : ℝ} (hc1 : 1 ≤ c) (hL0 : 0 ≤ Lc)
+    (hLc : Real.log c ≤ Lc) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
+    (hKc : 0 < Kc) (hKb1 : 1 ≤ Kb) (hKcb : Kc ≤ Kb)
+    (hKbL : Real.log Kb ≤ 197 + 20 * Lc) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
+    (hΛL : 50 + Lc ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / (10 ^ 20 * c ^ 2) := by
+  have hc0 : (0 : ℝ) < c := by linarith
+  set ρ : ℝ := doorRhoOfDelta (s12DeltaSock δ₀ Kc) with hρdef
+  have hδs : 0 < s12DeltaSock δ₀ Kc := s12DeltaSock_pos hδ₀ hKc
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  -- ⟦SITE 1⟧ `403 + log c ≤ 417` becomes `29 + log Kb + log c ≤ 226 + 21·Lc`
+  have hρlog : Real.log (1 / ρ) ≤ 226 + 21 * Lc :=
+    le_trans (xt_log_inv_rho_le_L hc1 hδ₀ hδpin hKc hKb1 hKcb) (by linarith)
+  -- ⟦THE SCALES⟧ `L = log H₊`, `Λ = loglog H₊`, and their two exponential witnesses
+  set L : ℝ := Real.log ((Hhi : ℕ) : ℝ) with hLdef
+  set Λ : ℝ := Real.log L with hΛdef
+  have hHhiR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hHhi
+  have hHhipos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  have hLnn : (0 : ℝ) ≤ L := Real.log_nonneg (by linarith)
+  -- ⟦SITE 2⟧ the gate at the raised floor yields the source's `hΛ` AND the charge's room
+  have hΛ50 : (50 : ℝ) ≤ Λ := by linarith
+  have hLcΛ : Lc ≤ Λ - 50 := by linarith
+  have hL1 : (1 : ℝ) < L := one_lt_log_of_loglog_ge hLnn (by norm_num : (0 : ℝ) < 50) hΛ50
+  have hΛ0 : (0 : ℝ) ≤ Λ := Real.log_nonneg hL1.le
+  -- `v := e^{Λ/2}`, so `v² = L` and `v ≥ 6·10^{10}`
+  set v : ℝ := Real.exp (Λ / 2) with hvdef
+  have hvv : v * v = L := by
+    rw [hvdef, ← Real.exp_add, show Λ / 2 + Λ / 2 = Λ by ring, hΛdef]
+    exact Real.exp_log (by linarith)
+  have hv : (6e10 : ℝ) ≤ v := by
+    refine le_trans epsRung2_exp25 ?_
+    rw [hvdef]
+    exact Real.exp_le_exp.mpr (by linarith)
+  have hΛv : Λ ≤ 2 * (v - 1) := by
+    have := Real.add_one_le_exp (Λ / 2)
+    rw [← hvdef] at this
+    linarith
+  -- ⟦THE TOWER CHARGE⟧ the source's `hLbig : 3.6·10^21 ≤ L`, with the charge's factor `c`
+  have hexpΛ : Real.exp Λ = L := by
+    rw [hΛdef]; exact Real.exp_log (by linarith)
+  have hcL : (3.6e21 : ℝ) * c ≤ L := by
+    have h := epsRung2_tower_charge hc1 hLc hΛL
+    rwa [hexpΛ] at h
+  -- `u := e^{L/2}`, so `u² = H₊`
+  set u : ℝ := Real.exp (L / 2) with hudef
+  have huu : u * u = ((Hhi : ℕ) : ℝ) := by
+    rw [hudef, ← Real.exp_add, show L / 2 + L / 2 = L by ring, hLdef]
+    exact Real.exp_log hHhipos
+  have hLu : L ≤ 2 * (u - 1) := by
+    have := Real.add_one_le_exp (L / 2)
+    rw [← hudef] at this
+    linarith
+  have huc : (1.8e21 : ℝ) * c ≤ u := by linarith
+  -- ⟦SITE 3 — THE EXPONENT⟧ `E ≤ L/2`, now through the LINEAR step `E ≤ 17500Λ − 405400`
+  set E : ℝ := 7000 * Λ + 500 * Real.log (1 / ρ) + 6600 + 36 * 0 with hEdef
+  have hE : E ≤ L / 2 := by
+    rw [hEdef]
+    have hlin : 7000 * Λ + 500 * Real.log (1 / ρ) + 6600 + 36 * 0 ≤ 17500 * Λ - 405400 := by
+      linarith [hρlog, hLcΛ]
+    have hquad : 17500 * Λ - 405400 ≤ L / 2 := by nlinarith [hΛv, hvv, hv]
+    linarith
+  have hexpE : Real.exp E ≤ u := by
+    rw [hudef]; exact Real.exp_le_exp.mpr hE
+  -- ⟦THE ARM, BOUNDED⟧
+  have hωnn : (0 : ℝ) ≤ ((ω : ℕ) : ℝ) := Nat.cast_nonneg _
+  have hlogωnn : (0 : ℝ) ≤ Real.log ((ω : ℕ) : ℝ) := Real.log_natCast_nonneg ω
+  -- the `ρ`-arm's closed form
+  have harc : arcDen 12 Hhi = Real.exp (12 * Λ) := by
+    rw [arcDen, ← hLdef, Real.rpow_def_of_pos (by linarith), hΛdef]
+    congr 1
+    ring
+  have hG : gArmDoorRho 0 0 ((ω : ℕ) : ℝ) ρ Hhi
+      = 16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by
+    have hsplit : Real.exp (12 * Λ + Real.exp E)
+        = Real.exp (12 * Λ) * Real.exp (Real.exp E) := Real.exp_add _ _
+    have hnn : (0 : ℝ) ≤ 16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ) * Real.exp (Real.exp E) := by
+      positivity
+    rw [gArmDoorRho, harc, ← hLdef, ← hΛdef, ← hEdef, max_eq_right hnn, hsplit]
+    ring
+  -- the sum, cast
+  have hcast : ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ)
+      = 2 * ((ω : ℕ) : ℝ) * (((Hhi : ℕ) : ℝ) + 2) + 8 * ((ω : ℕ) : ℝ)
+        + ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ)
+        + ((⌈gArmDoorRho 0 0 ((ω : ℕ) : ℝ) ρ Hhi⌉₊ : ℕ) : ℝ) := by
+    rw [s15Arm, s13GArm']
+    push_cast
+    ring
+  -- ⟦SITE 4 — THE CEILING⟧ the pin alone: `128·838400·c = 107315200·c`, no cap on `c`
+  have hceil1 : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ)
+      ≤ 128 * 838400 * c * ((ω : ℕ) : ℝ) + 1 := by
+    have h0 : (0 : ℝ) ≤ 128 * ((ω : ℕ) : ℝ) / δ₀ := by positivity
+    have hlt : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ) < 128 * ((ω : ℕ) : ℝ) / δ₀ + 1 :=
+      Nat.ceil_lt_add_one h0
+    have hdiv : 128 * ((ω : ℕ) : ℝ) / δ₀ ≤ 128 * 838400 * c * ((ω : ℕ) : ℝ) := by
+      rw [div_le_iff₀ hδ₀]
+      have hpin' : (1 : ℝ) ≤ δ₀ * (838400 * c) := by
+        rw [← div_le_iff₀ (by positivity : (0 : ℝ) < 838400 * c)]
+        exact hδpin
+      nlinarith [hωnn, hpin']
+    linarith
+  have hceil2 : ((⌈gArmDoorRho 0 0 ((ω : ℕ) : ℝ) ρ Hhi⌉₊ : ℕ) : ℝ)
+      ≤ 16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) + 1 := by
+    rw [hG]
+    have h0 : (0 : ℝ) ≤ 16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by positivity
+    linarith [Nat.ceil_lt_add_one h0]
+  -- ⟦THE ENVELOPE⟧ `S ≤ (ω+1)·e^Y` at `Y = L + 12λ + e^E + 6`, envelope constant `107315214·c`
+  have hX1 : (1 : ℝ) ≤ Real.exp (12 * Λ + Real.exp E) :=
+    Real.one_le_exp (by positivity)
+  have hHhibig : (107315214 : ℝ) * c ≤ ((Hhi : ℕ) : ℝ) := by
+    have hnn : (0 : ℝ) ≤ 1.8e21 * c := by positivity
+    have hsq : (1.8e21 * c) * (1.8e21 * c) ≤ u * u := mul_le_mul huc huc hnn (by linarith)
+    nlinarith [hsq, huu, hc1, hc0]
+  have he6 : (19 : ℝ) ≤ Real.exp 6 := by
+    have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    have h : Real.exp (6 : ℝ) = (Real.exp 1) ^ (6 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    rw [h]
+    have hc : (2.7 : ℝ) ^ (6 : ℕ) ≤ (Real.exp 1) ^ (6 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) he1.le 6
+    have hn : (19 : ℝ) ≤ (2.7 : ℝ) ^ (6 : ℕ) := by norm_num
+    linarith
+  have hYeq : Real.exp (L + (12 * Λ + Real.exp E) + 6)
+      = ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6 := by
+    rw [Real.exp_add, Real.exp_add, hLdef, Real.exp_log hHhipos]
+  have henv : ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ)
+      ≤ (((ω : ℕ) : ℝ) + 1) * Real.exp (L + (12 * Λ + Real.exp E) + 6) := by
+    rw [hcast, hYeq]
+    have hfac : 2 * ((Hhi : ℕ) : ℝ) + 107315214 * c
+          + 16 * Real.exp (12 * Λ + Real.exp E)
+        ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6 := by
+      have h1 : 2 * ((Hhi : ℕ) : ℝ)
+          ≤ 2 * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E)) := by
+        nlinarith [hX1, hHhiR]
+      have h2 : (107315214 : ℝ) * c
+          ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by
+        nlinarith [hX1, hHhibig, hHhiR]
+      have h3 : 16 * Real.exp (12 * Λ + Real.exp E)
+          ≤ 16 * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E)) := by
+        nlinarith [hX1, hHhiR, Real.exp_pos (12 * Λ + Real.exp E)]
+      have hprodnn : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by positivity
+      nlinarith [h1, h2, h3, he6, hprodnn]
+    -- the `+14` of the envelope constant absorbs the two small summands: `12 ≤ 14c` at `c ≥ 1`
+    have hcω : (0 : ℝ) ≤ (c - 1) * ((ω : ℕ) : ℝ) := mul_nonneg (by linarith) hωnn
+    have hstep : 2 * ((ω : ℕ) : ℝ) * (((Hhi : ℕ) : ℝ) + 2) + 8 * ((ω : ℕ) : ℝ)
+        + (128 * 838400 * c * ((ω : ℕ) : ℝ) + 1)
+        + (16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) + 1)
+        ≤ (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 107315214 * c
+            + 16 * Real.exp (12 * Λ + Real.exp E)) := by
+      nlinarith [hωnn, hX1, hHhiR, hcω, hc1, Real.exp_pos (12 * Λ + Real.exp E)]
+    have hmul : (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 107315214 * c
+          + 16 * Real.exp (12 * Λ + Real.exp E))
+        ≤ (((ω : ℕ) : ℝ) + 1)
+          * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6) :=
+      mul_le_mul_of_nonneg_left hfac (by linarith)
+    linarith [hceil1, hceil2, hstep, hmul]
+  -- ⟦THE LOG⟧
+  rcases Nat.eq_zero_or_pos (s15Arm δ₀ ρ Hhi ω) with h0 | hpos
+  · rw [h0]
+    simp only [Nat.cast_zero, Real.log_zero]
+    have : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / (10 ^ 20 * c ^ 2) := by positivity
+    linarith
+  · have hSpos : (0 : ℝ) < ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ) := by exact_mod_cast hpos
+    have hlog := Real.log_le_log hSpos henv
+    have hprod : Real.log ((((ω : ℕ) : ℝ) + 1) * Real.exp (L + (12 * Λ + Real.exp E) + 6))
+        = Real.log (((ω : ℕ) : ℝ) + 1) + (L + (12 * Λ + Real.exp E) + 6) := by
+      rw [Real.log_mul (by positivity) (by positivity), Real.log_exp]
+    -- `log(ω+1) ≤ log ω + log 2`
+    have hω1 : Real.log (((ω : ℕ) : ℝ) + 1) ≤ Real.log ((ω : ℕ) : ℝ) + Real.log 2 := by
+      rcases Nat.eq_zero_or_pos ω with hz | hz
+      · rw [hz]
+        simp only [Nat.cast_zero, Real.log_zero, zero_add, Real.log_one]
+        linarith [Real.log_two_gt_d9]
+      · have hω1R : (1 : ℝ) ≤ ((ω : ℕ) : ℝ) := by exact_mod_cast hz
+        have hle : ((ω : ℕ) : ℝ) + 1 ≤ 2 * ((ω : ℕ) : ℝ) := by linarith
+        have h := Real.log_le_log (by linarith : (0 : ℝ) < ((ω : ℕ) : ℝ) + 1) hle
+        rwa [Real.log_mul (by norm_num) (by linarith), add_comm (Real.log 2)] at h
+    -- the closing budget
+    have hΛle : Λ ≤ L := by nlinarith [hΛv, hvv, hv]
+    have hclose : Real.log 2 + (L + (12 * Λ + Real.exp E) + 6)
+        ≤ ((Hhi : ℕ) : ℝ) / (10 ^ 20 * c ^ 2) := by
+      -- ⟦SITE 5 — THE TOWER STEP⟧ `u = (e^{L/4})² ≥ (1 + L/4)²`, and with `L ≥ 3.6·10^21·c`
+      -- the linear witness `u ≥ 1.8·10^21·c` is upgraded to `u ≥ 8.1·10^41·c²` — which is what
+      -- buys the SHRINKING cut `H₊/(10^20·c²)`.  The headroom is a TOWER and the charge is a
+      -- factor, so the whole `c²` is free: `27·10^20 ≤ 8.1·10^41` with 21 orders to spare.
+      have hq := Real.add_one_le_exp (L / 4)
+      have hq0 : (0 : ℝ) ≤ Real.exp (L / 4) := (Real.exp_pos _).le
+      have hqL : (9 * 10 ^ 20 : ℝ) * c ≤ Real.exp (L / 4) := by linarith only [hq, hcL]
+      have hqnn : (0 : ℝ) ≤ (9 * 10 ^ 20 : ℝ) * c := by positivity
+      have hsq : Real.exp (L / 4) * Real.exp (L / 4) = u := by
+        rw [← Real.exp_add, show L / 4 + L / 4 = L / 2 by ring, hudef]
+      have hu41 : (8.1e41 : ℝ) * c ^ 2 ≤ u := by
+        rw [← hsq]
+        calc (8.1e41 : ℝ) * c ^ 2 = ((9 * 10 ^ 20 : ℝ) * c) * ((9 * 10 ^ 20 : ℝ) * c) := by ring
+          _ ≤ Real.exp (L / 4) * Real.exp (L / 4) := mul_le_mul hqL hqL hqnn hq0
+      -- keep every step LINEAR in `u`: the one product is isolated in `hsquare`.
+      have hupos : (0 : ℝ) < u := by rw [hudef]; exact Real.exp_pos _
+      have hlin : L + 12 * Λ + Real.exp E + 6.7 ≤ 27 * u := by
+        linarith only [hexpE, hΛle, hLu]
+      have h27 : (27 : ℝ) * 10 ^ 20 * c ^ 2 ≤ u := by linarith [hu41, sq_nonneg c]
+      have hsquare : 27 * u * (10 ^ 20 * c ^ 2) ≤ u * u := by
+        have hm := mul_le_mul_of_nonneg_right h27 hupos.le
+        linarith only [hm]
+      have hkpos : (0 : ℝ) < 10 ^ 20 * c ^ 2 := by positivity
+      have hstep : L + 12 * Λ + Real.exp E + 6.7 ≤ ((Hhi : ℕ) : ℝ) / (10 ^ 20 * c ^ 2) := by
+        rw [← huu, le_div_iff₀ hkpos]
+        have hm2 := mul_le_mul_of_nonneg_right hlin hkpos.le
+        linarith only [hm2, hsquare]
+      linarith [Real.log_two_lt_d9]
+    linarith [hlog, hprod, hω1, hclose]
+
+/-- **⟦THE ARM AT THE LANDED CUT⟧** (`s15Arm_log_le_L_cut20`) — `s15Arm_log_le_L` weakened back
+to the landed `H₊/10^20`, for the `h`-lane consumers that read that shape
+(`StrideGrade12bWalls.lean:113`).  The step is `H₊/(10^20·c²) ≤ H₊/10^20` at `c ≥ 1`; the charge
+is spent entirely inside the arm and nothing of it reaches the conclusion. -/
+theorem s15Arm_log_le_L_cut20 {c δ₀ Kc Kb Lc : ℝ} (hc1 : 1 ≤ c) (hL0 : 0 ≤ Lc)
+    (hLc : Real.log c ≤ Lc) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
+    (hKc : 0 < Kc) (hKb1 : 1 ≤ Kb) (hKcb : Kc ≤ Kb)
+    (hKbL : Real.log Kb ≤ 197 + 20 * Lc) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
+    (hΛL : 50 + Lc ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have h := s15Arm_log_le_L (ω := ω) hc1 hL0 hLc hδ₀ hδpin hKc hKb1 hKcb hKbL hHhi hΛL
+  have hc0 : (0 : ℝ) < c := by linarith
+  have hHnn : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := Nat.cast_nonneg _
+  have hc2 : (1 : ℝ) ≤ c ^ 2 := by nlinarith [hc1]
+  have hle : ((Hhi : ℕ) : ℝ) / (10 ^ 20 * c ^ 2) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+    rw [div_le_div_iff₀ (by positivity) (by norm_num : (0 : ℝ) < 10 ^ 20)]
+    nlinarith [hHnn, hc2]
+  linarith [h, hle]
+
+/-- **⟦THE SUM SPLIT'S `log 2`, AT A GENERIC CHARGE⟧** (`epsChain_arm_split_L`) —
+`epsChain_arm_split_cap` (`FlatDoorEpsChain.lean:79`) with the interval cap `ε ≥ 1/(500·8103)`
+replaced by the generic pin `ε ≥ 1/(500·c)` and the cut by the shrinking `H₊/(10^20·c²)`.
+
+⛔ THE SOURCE'S ROUTE DOES NOT SURVIVE: it bought `H₊ ≥ 10^21` from `log H₊ ≥ e^50` through
+`log H₊ ≤ H₊ − 1`, which is LINEAR in `H₊` and therefore pays no `c²` demand.  This goes through
+the square root instead: `u := e^{(log H₊)/2} ≥ 1 + (log H₊)/2 ≥ 1.8·10^21·c`, so
+`H₊ = u·u ≥ 3.24·10^42·c²`.
+
+⟦THE DEMAND⟧ `1/(500·c) ≤ ε` gives `ε² ≥ 1/(250000·c²)`, so the margin is
+`H₊/c² · (1/250000 − 10^{-20})` and the demand is `H₊/c² ≥ log 2 / (1/250000 − 10^{-20}) =
+173286.80…` against `3.24·10^42`: **the headroom is a tower and the corner is a constant**, with
+37 orders to spare. -/
+theorem epsChain_arm_split_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
+    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {Lc : ℝ} (hLc : Real.log ((c : ℕ) : ℝ) ≤ Lc)
+    {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi)
+    (hll : 50 + Lc ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log 2 ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
+  have hcR : (1 : ℝ) ≤ ((c : ℕ) : ℝ) := by exact_mod_cast hc1
+  have hcpos : (0 : ℝ) < ((c : ℕ) : ℝ) := by linarith
+  have hcne : ((c : ℕ) : ℝ) ≠ 0 := ne_of_gt hcpos
+  have hcQ : (1 : ℚ) ≤ ((c : ℕ) : ℚ) := by exact_mod_cast hc1
+  -- ⟦THE PIN AT GENERIC `c`⟧ `1/(500·c) ≤ ε` reads `1 ≤ 500·c·ε`, hence `ε² ≥ 1/(250000·c²)`
+  have hqcap : (1 : ℚ) ≤ 500 * ((c : ℕ) : ℚ) * ε := by
+    have h := (div_le_iff₀ (show (0 : ℚ) < 500 * ((c : ℕ) : ℚ) by linarith)).mp hcε
+    calc (1 : ℚ) ≤ ε * (500 * ((c : ℕ) : ℚ)) := h
+      _ = 500 * ((c : ℕ) : ℚ) * ε := by ring
+  have hcapR : (1 : ℝ) ≤ 500 * ((c : ℕ) : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hsq : (1 : ℝ) ≤ 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by
+    have h := one_le_pow₀ (n := 2) hcapR
+    calc (1 : ℝ) ≤ (500 * ((c : ℕ) : ℝ) * (ε : ℝ)) ^ 2 := h
+      _ = 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by ring
+  have hε2 : (1 : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2) ≤ (ε : ℝ) ^ 2 := by
+    rw [div_le_iff₀ (by positivity)]
+    linarith [hsq]
+  -- ⟦THE GATE⟧ the raised floor contains the landed one, since `log c ≥ 0` at `c ≥ 1`
+  have hlogc0 : (0 : ℝ) ≤ Real.log ((c : ℕ) : ℝ) := Real.log_nonneg hcR
+  have hΛ50 : (50 : ℝ) ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ)) := by linarith
+  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  have hLnn : (0 : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := Real.log_nonneg (by linarith)
+  have hL1 : (1 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hLnn (by norm_num : (0 : ℝ) < 50) hΛ50
+  have hexpΛ : Real.exp (Real.log (Real.log ((Hhi : ℕ) : ℝ))) = Real.log ((Hhi : ℕ) : ℝ) :=
+    Real.exp_log (by linarith)
+  have hcL : (3.6e21 : ℝ) * ((c : ℕ) : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := by
+    have h := epsRung2_tower_charge hcR hLc hll
+    rwa [hexpΛ] at h
+  -- ⟦THE SQUARE ROOT⟧ `u² = H₊` and `u ≥ 1.8·10^21·c`, so `H₊ ≥ 3.24·10^42·c²`
+  set u : ℝ := Real.exp (Real.log ((Hhi : ℕ) : ℝ) / 2) with hudef
+  have huu : u * u = ((Hhi : ℕ) : ℝ) := by
+    rw [hudef, ← Real.exp_add,
+      show Real.log ((Hhi : ℕ) : ℝ) / 2 + Real.log ((Hhi : ℕ) : ℝ) / 2
+        = Real.log ((Hhi : ℕ) : ℝ) by ring]
+    exact Real.exp_log hHpos
+  have hLu : Real.log ((Hhi : ℕ) : ℝ) ≤ 2 * (u - 1) := by
+    have := Real.add_one_le_exp (Real.log ((Hhi : ℕ) : ℝ) / 2)
+    rw [← hudef] at this
+    linarith
+  have hu : (1.8e21 : ℝ) * ((c : ℕ) : ℝ) ≤ u := by linarith
+  have hnn : (0 : ℝ) ≤ 1.8e21 * ((c : ℕ) : ℝ) := by positivity
+  have hsq2 : (1.8e21 * ((c : ℕ) : ℝ)) * (1.8e21 * ((c : ℕ) : ℝ)) ≤ u * u :=
+    mul_le_mul hu hu hnn (by linarith)
+  have hHbig : (3.24e42 : ℝ) * ((c : ℕ) : ℝ) ^ 2 ≤ ((Hhi : ℕ) : ℝ) := by
+    linarith [hsq2, huu]
+  -- ⟦THE MARGIN⟧ `H₊/c² ≥ 3.24·10^42` against a demand of `173286.80…`
+  have hc2pos : (0 : ℝ) < ((c : ℕ) : ℝ) ^ 2 := by positivity
+  have ht : (3.24e42 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
+    rw [le_div_iff₀ hc2pos]
+    linarith [hHbig]
+  have hsub : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2)
+      = (((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2) * (1 / 250000 - 1 / 10 ^ 20) := by
+    field_simp
+  have hlow : Real.log 2 ≤ ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
+    rw [hsub]
+    linarith [ht, Real.log_two_lt_d9]
+  have hstep : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
+    have h := mul_le_mul_of_nonneg_right hε2 hHpos.le
+    calc ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+        = 1 / (250000 * ((c : ℕ) : ℝ) ^ 2) * ((Hhi : ℕ) : ℝ) := by ring
+      _ ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := h
+  linarith [hlow, hstep]
+
 end Salt.MR
