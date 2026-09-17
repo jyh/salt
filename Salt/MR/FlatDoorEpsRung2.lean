@@ -3518,4 +3518,234 @@ theorem s15_sel''_L_witness_flat_L {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K Lc :
     linarith [hhi, hρlog, hlogQ, hlogE, hbud, hE17]
 
 
+set_option maxHeartbeats 1600000 in
+-- as the source: the levered `blk` line carries `4^K` against `e^{e^{3.2A}}` symbolically
+/-- **⟦THE LEVERED WITNESS AT A GENERIC CHARGE⟧ (class B)** — the `_L` sibling of
+`s15_sel''_L_gk_witness_flat_b9` (`S15SelLinear.lean:936`): the same interface edit as the
+sibling above (`c ≤ 8103 ↦ (hcL : Real.log c ≤ Lc)` with `(hAL : 10 + 2 * Lc ≤ A)`), its first
+step calling that sibling.  Conclusion and every other binder are the source's, byte for byte.
+
+THE ONE CAP SITE, measured by the same `clear`-probe: apart from the supplier call (`:953`,
+which is the interface edit itself), the cap is read exactly once — `hcRb` (`:1041`) into
+`hcsqb : c ^ 2 ≤ 65658609` (`:1042`), spent at `:1084` inside `hstep`.  BODY: the source's, with
+that pair replaced by the charge route, `hE2big`/`hexpmono` re-cut, `hsplit40`/`hexp40` retired
+(the `e ^ 40 ≥ 10 ^ 17` slot is what the charge now occupies), and `hstep` closed by a `calc`.
+
+THE NEW FACTS AND THEIR NUMERALS, derived.  (a) `2 * 262144 = 524288 = 2 ^ 19` and
+`Real.log 524288 = 13.1697…`, so the CEILING `14` is the round toward slack
+(`e ^ 14 = 1202604.28…` against `524288`, a factor `2.2937…`); with `c ^ 2 ≤ e ^ (2 * Lc)` this
+gives `524288 * c ^ 2 ≤ e ^ (14 + 2 * Lc)`.  (b) the source's `766 * E + 40 ≤ E ^ 2` becomes
+`14 + 2 * Lc + 766 * E ≤ E ^ 2`, paid by `2 * Lc ≤ A - 10` (`hAL`) and `A ≤ E`
+(`Real.add_one_le_exp (3.2 * A / 2)` gives `1.6 * A + 1 ≤ E`, and `A ≥ 26`), leaving
+`767 * E + 4 ≤ E ^ 2` against `E ≥ 10 ^ 17`: free by `1.3 * 10 ^ 14 ×`.  At the source's pin
+`Lc = 9` the charge reads `14 + 18 = 32`, inside the source's own `40` by `8` nats.
+Nothing here bears on twin primes. -/
+theorem s15_sel''_L_gk_witness_flat_L {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Cg δ₀ Ct K Lc : ℝ} {x₀ Mfl c : ℕ}
+    (hc1 : 1 ≤ c) (hcL : Real.log (c : ℝ) ≤ Lc) (hAL : 10 + 2 * Lc ≤ A)
+    {R : ChowlaRegime}
+    (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 10 ≤ δ₀)
+    (hK : 0 < K) (hKb : K ≤ 2 ^ 20)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 20)
+    (hbfl : 24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ))
+    (hMfl : Mfl ≤ flatDoorM A)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
+      (flatDoorM A) := by
+  refine s15_sel''_L_gk_of_L Klev
+    (s15_sel''_L_witness_flat_L hA hc1 hcL hAL hδ hδb hK hKb hCt hCtb hbfl hMfl hx0win heps hlo hhi)
+    ?_
+  set E : ℝ := Real.exp (3.2 * A / 2) with hEdef
+  set Mr : ℝ := ((flatDoorM A : ℕ) : ℝ) with hMrdef
+  have hE17 : (10 : ℝ) ^ 17 ≤ E := flat_exp_half_ge hA
+  have hE0 : (0 : ℝ) < E := by positivity
+  have hE1 : (1 : ℝ) ≤ E := by linarith [hE17]
+  have hY : E ^ 2 = Real.exp (3.2 * A) := flat_exp_sq A
+  have hMle : Mr ≤ E / 310301 := flatDoorM_le A
+  have hM1N : 1 ≤ flatDoorM A := flatDoorM_one_le hA
+  have hM0 : (0 : ℝ) ≤ Mr := Nat.cast_nonneg _
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hbeN : s13BlockExp_L_gk Klev (flatDoorM A) ≤ 2 ^ 104 * 4 ^ Klev * (flatDoorM A) ^ 6 :=
+    s13BlockExp_L_gk_le hM1N
+  have hbeR : ((s13BlockExp_L_gk Klev (flatDoorM A) : ℕ) : ℝ)
+      ≤ 2 ^ (104 : ℕ) * 4 ^ Klev * Mr ^ (6 : ℕ) := by
+    have h : ((s13BlockExp_L_gk Klev (flatDoorM A) : ℕ) : ℝ)
+        ≤ ((2 ^ 104 * 4 ^ Klev * (flatDoorM A) ^ 6 : ℕ) : ℝ) := by exact_mod_cast hbeN
+    push_cast at h
+    linarith
+  have h218 : ((2 : ℝ) ^ (18 : ℕ)) = 262144 := by norm_num
+  have hM18 : Mr * 2 ^ (18 : ℕ) ≤ E := by
+    have h : Mr * 310301 ≤ E := by
+      have hd := hMle
+      rw [le_div_iff₀ (by norm_num)] at hd
+      linarith
+    rw [h218]; linarith [h, hM0]
+  have hid6 : (Mr * 2 ^ (18 : ℕ)) ^ (6 : ℕ) = Mr ^ (6 : ℕ) * 2 ^ (108 : ℕ) := by
+    rw [mul_pow, ← pow_mul]
+  have hM6 : Mr ^ (6 : ℕ) * 2 ^ (108 : ℕ) ≤ E ^ (6 : ℕ) := by
+    rw [← hid6]; exact pow_le_pow_left₀ (by positivity) hM18 6
+  have h108 : ((2 : ℝ) ^ (108 : ℕ)) = 16 * (2 : ℝ) ^ (104 : ℕ) := by
+    rw [show (108 : ℕ) = 4 + 104 by norm_num, pow_add]; norm_num
+  have hpow104 : (2 : ℝ) ^ (104 : ℕ) * Mr ^ (6 : ℕ) ≤ E ^ (6 : ℕ) / 16 := by
+    rw [h108] at hM6; linarith [hM6]
+  have hE6exp : E ^ (6 : ℕ) ≤ Real.exp (6 * E) := by
+    have h : Real.log (E ^ (6 : ℕ)) ≤ 6 * E := by
+      rw [Real.log_pow]
+      push_cast
+      linarith [Real.log_le_sub_one_of_pos hE0]
+    have h2 := Real.exp_le_exp.mpr h
+    rwa [Real.exp_log (by positivity)] at h2
+  have hKR : (Klev : ℝ) ≤ 170000000 * Mr := by rw [hMrdef]; exact_mod_cast hKle
+  have hMr310 : Mr * 310301 ≤ E := by
+    have hd := hMle
+    rw [le_div_iff₀ (by norm_num)] at hd
+    linarith
+  have hK0 : (0 : ℝ) ≤ (Klev : ℝ) := Nat.cast_nonneg _
+  have h4K : (4 : ℝ) ^ Klev ≤ Real.exp (760 * E) := by
+    have hlog4 : Real.log ((4 : ℝ) ^ Klev) = (Klev : ℝ) * Real.log 4 := by
+      rw [Real.log_pow]
+    have hlog4v : Real.log 4 ≤ 1.3862943616 := by
+      have h : Real.log 4 = 2 * Real.log 2 := by
+        rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+      rw [h]; linarith [hlog2hi]
+    have hKE : (Klev : ℝ) ≤ 548 * E := by linarith [hKR, hMr310, hM0]
+    have hbound : Real.log ((4 : ℝ) ^ Klev) ≤ 760 * E := by
+      rw [hlog4]
+      have h1 : (Klev : ℝ) * Real.log 4 ≤ (Klev : ℝ) * 1.3862943616 :=
+        mul_le_mul_of_nonneg_left hlog4v hK0
+      nlinarith [h1, hKE]
+    have h2 := Real.exp_le_exp.mpr hbound
+    rwa [Real.exp_log (by positivity)] at h2
+  have hprodL : (2 : ℝ) ^ (104 : ℕ) * 4 ^ Klev * Mr ^ (6 : ℕ)
+      ≤ Real.exp (766 * E) / 16 := by
+    have h4K0 : (0 : ℝ) < (4 : ℝ) ^ Klev := by positivity
+    have hstep : (2 : ℝ) ^ (104 : ℕ) * 4 ^ Klev * Mr ^ (6 : ℕ)
+        ≤ (E ^ (6 : ℕ) / 16) * (4 : ℝ) ^ Klev := by
+      have h := mul_le_mul_of_nonneg_right hpow104 h4K0.le
+      linarith [h]
+    have hstep2 : (E ^ (6 : ℕ) / 16) * (4 : ℝ) ^ Klev
+        ≤ (Real.exp (6 * E) / 16) * Real.exp (760 * E) :=
+      mul_le_mul (by linarith [hE6exp]) h4K (by positivity) (by positivity)
+    have hid : (Real.exp (6 * E) / 16) * Real.exp (760 * E) = Real.exp (766 * E) / 16 := by
+      rw [show (766 : ℝ) * E = 6 * E + 760 * E by ring, Real.exp_add]
+      ring
+    linarith [hstep, hstep2, hid]
+  have hHlopos : (0 : ℝ) < ((R.Hlo : ℕ) : ℝ) := by
+    have h := R.hHlo_floor
+    have : (0 : ℕ) < R.Hlo := by omega
+    exact_mod_cast this
+  have hHhige : Real.exp (E ^ 2) ≤ ((R.Hhi : ℕ) : ℝ) := by
+    have h := Real.exp_le_exp.mpr (hY ▸ hlo)
+    rw [Real.exp_log hHlopos] at h
+    have h2 : ((R.Hlo : ℕ) : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) := by exact_mod_cast R.hHlohi
+    linarith
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hcR0 : (0 : ℝ) < (c : ℝ) := by linarith
+  -- ⟦THE ONE CAP SITE⟧ the source's `hcRb`/`hcsqb` pair, replaced by the charge route
+  -- `2 * 262144 * c ^ 2 = 524288 * c ^ 2 ≤ e ^ 14 * e ^ (2 * Lc) = e ^ (14 + 2 * Lc)`.
+  have hL0 : (0 : ℝ) ≤ Lc := le_trans (Real.log_nonneg hcR1) hcL
+  have hcE2 : 2 * 262144 * (c : ℝ) ^ 2 ≤ Real.exp (14 + 2 * Lc) := by
+    have hE14 : (524288 : ℝ) ≤ Real.exp 14 := by
+      have he : Real.exp 14 = (Real.exp 1) ^ (14 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+      rw [he]
+      calc (524288 : ℝ) ≤ (2.7 : ℝ) ^ (14 : ℕ) := by norm_num
+        _ ≤ (Real.exp 1) ^ (14 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 14
+    have hcexp : (c : ℝ) ≤ Real.exp Lc := by
+      calc (c : ℝ) = Real.exp (Real.log (c : ℝ)) := (Real.exp_log (by linarith)).symm
+        _ ≤ Real.exp Lc := Real.exp_le_exp.mpr hcL
+    have hcsqE : (c : ℝ) ^ 2 ≤ Real.exp (2 * Lc) := by
+      have hp := pow_le_pow_left₀ (by linarith : (0 : ℝ) ≤ (c : ℝ)) hcexp 2
+      have hid : (Real.exp Lc) ^ (2 : ℕ) = Real.exp (2 * Lc) := by
+        rw [← Real.exp_nat_mul]; norm_num
+      rw [hid] at hp
+      exact hp
+    calc 2 * 262144 * (c : ℝ) ^ 2 ≤ Real.exp 14 * (c : ℝ) ^ 2 := by
+          have := mul_le_mul_of_nonneg_right hE14 (by positivity : (0 : ℝ) ≤ (c : ℝ) ^ 2)
+          linarith
+      _ ≤ Real.exp 14 * Real.exp (2 * Lc) :=
+          mul_le_mul_of_nonneg_left hcsqE (Real.exp_pos _).le
+      _ = Real.exp (14 + 2 * Lc) := (Real.exp_add _ _).symm
+  have hepsR : (1 : ℝ) / (512 * (c : ℝ)) ≤ (R.eps : ℝ) := by
+    have hcast : (((1 : ℚ) / (2 ^ 9 * (c : ℚ)) : ℚ) : ℝ) ≤ ((R.eps : ℚ) : ℝ) :=
+      (Rat.cast_le (K := ℝ)).mpr heps
+    have heq : (((1 : ℚ) / (2 ^ 9 * (c : ℚ)) : ℚ) : ℝ) = 1 / (512 * (c : ℝ)) := by
+      push_cast; norm_num
+    rw [heq] at hcast
+    exact hcast
+  have hepsR0 : (0 : ℝ) ≤ 1 / (512 * (c : ℝ)) := by positivity
+  have hepssq : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) ≤ (R.eps : ℝ) ^ 2 := by
+    have hmul := mul_le_mul hepsR hepsR hepsR0 (le_trans hepsR0 hepsR)
+    calc (1 : ℝ) / (262144 * (c : ℝ) ^ 2)
+        = (1 / (512 * (c : ℝ))) * (1 / (512 * (c : ℝ))) := by field_simp; ring
+      _ ≤ (R.eps : ℝ) * (R.eps : ℝ) := hmul
+      _ = (R.eps : ℝ) ^ 2 := by ring
+  have hfloorR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1
+      ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+    have h := Nat.lt_floor_add_one (R.eps ^ 2 * (R.Hhi : ℚ))
+    have h' : ((R.eps ^ 2 * (R.Hhi : ℚ) : ℚ) : ℝ)
+        < ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1 := by exact_mod_cast h
+    push_cast at h'
+    linarith
+  have hprod : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2)
+      ≤ (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
+    mul_le_mul hepssq hHhige (Real.exp_pos _).le (by positivity)
+  -- ⟦THE CHARGE IN THE EXPONENT⟧ the source's `766 * E + 40 ≤ E ^ 2`, with the fixed `40`
+  -- replaced by the charge `14 + 2 * Lc`, paid by `2 * Lc ≤ A - 10 ≤ E - 10`.
+  have hAE : A ≤ E := by
+    have hx := Real.add_one_le_exp (3.2 * A / 2)
+    rw [← hEdef] at hx
+    linarith
+  have hE2big : 14 + 2 * Lc + 766 * E ≤ E ^ 2 := by
+    have hmul : (10 : ℝ) ^ 17 * E ≤ E * E := by nlinarith [hE17, hE0]
+    nlinarith [hmul, hE17, hE0, hAE, hAL]
+  have hexpmono : Real.exp (14 + 2 * Lc + 766 * E) ≤ Real.exp (E ^ 2) :=
+    Real.exp_le_exp.mpr hE2big
+  have hbig : 2 * Real.exp (766 * E) ≤ 1 / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2) := by
+    have hexpp : (0 : ℝ) < Real.exp (766 * E) := Real.exp_pos _
+    have hstep : 2 * 262144 * (c : ℝ) ^ 2 * Real.exp (766 * E) ≤ Real.exp (E ^ 2) := by
+      calc 2 * 262144 * (c : ℝ) ^ 2 * Real.exp (766 * E)
+          ≤ Real.exp (14 + 2 * Lc) * Real.exp (766 * E) :=
+            mul_le_mul_of_nonneg_right hcE2 hexpp.le
+        _ = Real.exp (14 + 2 * Lc + 766 * E) := (Real.exp_add _ _).symm
+        _ ≤ Real.exp (E ^ 2) := hexpmono
+    have hden : (0 : ℝ) < 262144 * (c : ℝ) ^ 2 := by positivity
+    have hre : (1 : ℝ) / (262144 * (c : ℝ) ^ 2) * Real.exp (E ^ 2)
+        = Real.exp (E ^ 2) / (262144 * (c : ℝ) ^ 2) := by ring
+    rw [hre, le_div_iff₀ hden]
+    nlinarith [hstep]
+  have hEle : (18 : ℝ) * E + 5 ≤ Real.exp (766 * E) := by
+    have h1 : (1 : ℝ) + 766 * E ≤ Real.exp (766 * E) := by
+      linarith [Real.add_one_le_exp (766 * E)]
+    linarith [hE17]
+  linarith [hbeR, hprodL, hhi, hfloorR, hprod, hbig, hEle]
+
+
+/-- **⟦THE LEVERED BLOCK LINE AT A GENERIC CHARGE⟧ (class A)** — the `_L` sibling of
+`flat_blk_line_gk_b9` (`S15SelLinearWide.lean:565`): the same interface edit, read off the
+levered witness above at the SAME frozen dummy instance
+(`Cg := 0`, `δ₀ := 1 / 2 ^ 10`, `Ct := 1`, `K := 1`, `x₀ := 0`, `Mfl := 0`).  The conclusion and
+every other binder are the source's, byte for byte.  BODY: the source's term, with the supplier
+swapped and `hcb` replaced by `hcL`/`hAL`.  Nothing here bears on twin primes. -/
+theorem flat_blk_line_gk_L {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
+    (hKle : Klev ≤ 170000000 * flatDoorM A) {Lc : ℝ} {c : ℕ} (hc1 : 1 ≤ c)
+    (hcL : Real.log (c : ℝ) ≤ Lc) (hAL : 10 + 2 * Lc ≤ A)
+    {R : ChowlaRegime}
+    (heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps)
+    (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
+    ((s13BlockExp_L_gk Klev (flatDoorM A) : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) :=
+  (s15_sel''_L_gk_witness_flat_L (A := A) (Cg := 0) (δ₀ := 1 / 2 ^ 10) (Ct := 1) (K := 1)
+    (x₀ := 0) (Mfl := 0) (c := c) hA Klev hKle hc1 hcL hAL (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by simp) (by simp)
+    (by simpa using (Real.exp_pos (Real.exp (3.2 * A) / 10)).le) heps hlo hhi).blk
+
+
 end Salt.MR
