@@ -2216,7 +2216,22 @@ so `ε²·T ≤ 2^68·c³/250000 ≤ 1180591620717412·c³`, `1/(2ε²) ≤ 1250
 `1/ε^10 ≤ (500·c)^10`.  On the corpus's own chain (`e^40 ≤ 3^40 ≤ 2^64`), with `32 = 2^5`,
 `(2^62)² = 2^124` and `500^10 ≤ 2^90` (`500 < 512`), the total is `2^(5+64+124+90) = 2^283`
 times `c^20`.  The true size is `2^282.0563…·c^20`, so `2^282` does NOT suffice: at `b = 20`,
-`a = 283` is the smallest exponent this route gives. -/
+`a = 283` is the smallest exponent this route gives.
+
+⚠️ ERRATUM (2026-09-17, wave 6).  «The true size» names ONE number where there are TWO, and the
+one it names is the size AFTER the route's `e^40 ≤ 3^40` step, not the witness's own.  Both,
+derived — the `c^20` factor is exact in each, so only the constant's `log₂` is at issue, and
+`32·e^40·(2^62·c^5)²·(500·c)^10 = 2^129·e^40·500^10·c^20`:
+
+* THE WITNESS ITSELF: `129 + 40/log 2 + 10·log₂ 500 = 129 + 57.70780… + 89.65784… = 276.36564…`,
+  that is `2^276.36564…·c^20`;
+* AFTER `e^40 ≤ 3^40` (`40·log₂ 3 = 63.39850…`):
+  `129 + 63.39850… + 89.65784… = 282.05634…`, that is `2^282.05634…·c^20`.
+
+The figure in the sentence above is the SECOND, and it is the right one to test `a` against,
+because `3^40` is the bound this route actually takes.  So `a = 283` stands and the ceiling is
+unaffected; what was wrong was the NAME, which made a route-dependent figure read as the
+witness's own. -/
 theorem bigXi_bounded_ceiling_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
     {c : ℕ} (hc1 : 1 ≤ c) (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) :
     ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧
@@ -2869,7 +2884,19 @@ ONE line, the gate's discharge (`XThread.lean:178`; measured, not assumed) — b
 `hll : lam0 ≤ loglog R.Hhi`, off the regime's own design law `R.hflat : 3.2·R.A ≤ loglog R.Hlo`
 with `hRA : R.A = A`, the caller's `hlamA : lam0 ≤ 3.2·A`, and the same `Hlo ≤ Hhi` monotone
 step.  At `lam0 = 50` the hypothesis `hlamA` is `50 ≤ 3.2·A`, which `hA : 26 ≤ A` already gives
-(`3.2 · 26 = 83.2`), so this sibling is not weaker than its source at the source's own floor. -/
+(`3.2 · 26 = 83.2`), so this sibling is not weaker than its source at the source's own floor.
+
+⚠️ ERRATUM (2026-09-17, wave 6): «ONE edit» is ONE LOGICAL edit — the tower floor becomes the
+parameter — carried over THREE proof lines, measured by diffing the two bodies:
+
+* the `have`'s own statement, `hll50 : (50 : ℝ) ≤ loglog R.Hhi` ↦ `hll : lam0 ≤ loglog R.Hhi`;
+* the step that puts `A` where `R.A` stood, `have hA26 : (26 : ℝ) ≤ R.A := R.hA` ↦
+  `rw [hRA] at hflat`;
+* the read at the gate's discharge, `⟨hHhi4, hll50, hωgate⟩` ↦ `⟨hHhi4, hll, hωgate⟩`.
+
+The clause about the READ is exact and unchanged: `hll50` is read at exactly one line
+(`XThread.lean:178`, re-measured by the same diff).  Everything else in the 90-line body is the
+source's byte for byte. -/
 theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ A)
     (hlamA : lam0 ≤ 3.2 * A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ)
     (g : ℕ → ℕ → ℕ) (hg : XCeilRiderAt lam0 eps g) :
