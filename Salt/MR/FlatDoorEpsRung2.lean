@@ -434,4 +434,88 @@ theorem flat_witFloor_eq_designBase_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 : 0 
   rw [flatWitFloor, hdf]
   omega
 
+/-! ## §4 — ⟦R11⟧ the `flatDoorM` bump at a generic count `c`
+
+`flatDoorM_bfloor_bump_g12`'s cap `hcb : c ≤ 1202604` is spent in ONE place —
+`hcsqb : c ² ≤ 1446256380816`, feeding `hcap : 1.648361472·10²³ · c² ≤ 2 ³⁵⁵` — and `2 ³⁵⁵` is a
+FIXED register, so at generic `c` it cannot hold: the left end is `e^{54 + 2L}`.  The `_L` route
+replaces the register by `flatDoorM`'s own tower, `flatDoorM_ge A : e^{1.6A}/310301 − 1 ≤
+flatDoorM A`, and pays `L` by the SAME affine hypothesis §3 uses, `hAL : 10 + 2·L ≤ A`
+(`a₀ = 10`, `a₁ = 2`).  The demand is only `0.6·A ≥ 57`, i.e. `A ≥ 95`, so at `A ≥ 162` the
+row has 40 nats of headroom and `a₁ = 2` is not this row's binding constraint. -/
+
+/-- **⟦R11a — `flatDoorM_bfloor_bump_g12` AT A GENERIC COUNT⟧** (`flatDoorM_bfloor_bump_L`) —
+the landed binder `(hcb : c ≤ 1202604)` is replaced by the charge `{L} (hL0 : 0 ≤ L)
+(hcL : log c ≤ L)` and the tower hypothesis `(hAL : 10 + 2 * L ≤ A)`; `hc1`, `hA`, `hδ`, `hδb`,
+`hCg` and the conclusion are the source's.
+⚠️ `_hL0` carries the interface's `0 ≤ L` slot and is UNREFERENCED here (it is derivable:
+`1 ≤ c` gives `0 ≤ log c ≤ L`), so it is underscored; its TYPE and POSITION are unchanged and a
+consumer still supplies it.  BODY: `hkey` and `hstep` verbatim (neither reads the
+cap — `hstep`'s `24·2·10¹²·838400·4096 = 1.648361472·10²³` is EXACT at the pins); `hcsqb`,
+`hcap` and `hpow` replaced by the tower route `1.648361472·10²³·c² ≤ e^{54}·e^{2L} =
+e^{54+2L} ≤ e^{A+44} ≤ e^{1.6A}/310301 − 1 ≤ flatDoorM A`. -/
+theorem flatDoorM_bfloor_bump_L {A Cg δ₀ L : ℝ} {c : ℕ} (hc1 : 1 ≤ c) (_hL0 : 0 ≤ L)
+    (hcL : Real.log (c : ℝ) ≤ L) (hA : 162 ≤ A) (hAL : 10 + 2 * L ≤ A) (hδ : 0 < δ₀)
+    (hδb : 1 / (838400 * 2 ^ 12 * (c : ℝ) ^ 2) ≤ δ₀) (hCg : Cg ≤ 2 * 10 ^ 12) :
+    24 * Cg / δ₀ ≤ ((flatDoorM A : ℕ) : ℝ) := by
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hcsqpos : (0 : ℝ) < (c : ℝ) ^ 2 := by nlinarith [hcR1]
+  have hkey : (1 : ℝ) / (838400 * 2 ^ 12) ≤ (c : ℝ) ^ 2 * δ₀ := by
+    have h := mul_le_mul_of_nonneg_left hδb hcsqpos.le
+    calc (1 : ℝ) / (838400 * 2 ^ 12)
+        = (c : ℝ) ^ 2 * (1 / (838400 * 2 ^ 12 * (c : ℝ) ^ 2)) := by field_simp
+      _ ≤ (c : ℝ) ^ 2 * δ₀ := h
+  have hstep : 24 * Cg / δ₀ ≤ (164836147200000000000000 : ℝ) * (c : ℝ) ^ 2 := by
+    rw [div_le_iff₀ hδ]
+    nlinarith [hkey, hCg]
+  have hcexp : (c : ℝ) ≤ Real.exp L := by
+    calc (c : ℝ) = Real.exp (Real.log (c : ℝ)) := (Real.exp_log (by linarith)).symm
+      _ ≤ Real.exp L := Real.exp_le_exp.mpr hcL
+  have hcsqE : (c : ℝ) ^ 2 ≤ Real.exp (2 * L) := by
+    have hp := pow_le_pow_left₀ (by linarith : (0 : ℝ) ≤ (c : ℝ)) hcexp 2
+    have hid : (Real.exp L) ^ (2 : ℕ) = Real.exp (2 * L) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    rw [hid] at hp
+    exact hp
+  have hE54 : (164836147200000000000000 : ℝ) ≤ Real.exp 54 := by
+    have he : Real.exp 54 = (Real.exp 1) ^ (54 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    rw [he]
+    calc (164836147200000000000000 : ℝ) ≤ (2.7 : ℝ) ^ (54 : ℕ) := by norm_num
+      _ ≤ (Real.exp 1) ^ (54 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 54
+  have hlhs : (164836147200000000000000 : ℝ) * (c : ℝ) ^ 2 ≤ Real.exp (A + 44) := by
+    calc (164836147200000000000000 : ℝ) * (c : ℝ) ^ 2
+        ≤ Real.exp 54 * (c : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hE54 hcsqpos.le
+      _ ≤ Real.exp 54 * Real.exp (2 * L) :=
+          mul_le_mul_of_nonneg_left hcsqE (Real.exp_pos _).le
+      _ = Real.exp (54 + 2 * L) := (Real.exp_add _ _).symm
+      _ ≤ Real.exp (A + 44) := Real.exp_le_exp.mpr (by linarith)
+  have hE13 : (310301 : ℝ) ≤ Real.exp 13 := by
+    have he : Real.exp 13 = (Real.exp 1) ^ (13 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    rw [he]
+    calc (310301 : ℝ) ≤ (2.7 : ℝ) ^ (13 : ℕ) := by norm_num
+      _ ≤ (Real.exp 1) ^ (13 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 13
+  have hMge : Real.exp (3.2 * A / 2) / 310301 - 1 ≤ ((flatDoorM A : ℕ) : ℝ) := flatDoorM_ge A
+  have htower : Real.exp (A + 44) ≤ Real.exp (3.2 * A / 2) / 310301 - 1 := by
+    have hsp : Real.exp (3.2 * A / 2) = Real.exp (A + 57) * Real.exp (0.6 * A - 57) := by
+      rw [← Real.exp_add]; ring_nf
+    have h57 : Real.exp (A + 57) = Real.exp (A + 44) * Real.exp 13 := by
+      rw [← Real.exp_add]; ring_nf
+    have hEA44 : (1 : ℝ) ≤ Real.exp (A + 44) := by
+      have := Real.add_one_le_exp (A + 44); linarith
+    have hbig : (2 : ℝ) ≤ Real.exp (0.6 * A - 57) := by
+      have := Real.add_one_le_exp (0.6 * A - 57); linarith
+    have hstepa : (310301 : ℝ) * Real.exp (A + 44) ≤ Real.exp (A + 57) := by
+      rw [h57]
+      have := mul_le_mul_of_nonneg_left hE13 (Real.exp_pos (A + 44)).le
+      linarith
+    have hstepb : Real.exp (A + 57) + Real.exp (A + 57) ≤ Real.exp (3.2 * A / 2) := by
+      rw [hsp]
+      have := mul_le_mul_of_nonneg_left hbig (Real.exp_pos (A + 57)).le
+      linarith
+    rw [le_sub_iff_add_le, le_div_iff₀ (by norm_num : (0 : ℝ) < 310301)]
+    nlinarith [hstepa, hstepb, hEA44]
+  linarith [hstep, hlhs, htower, hMge]
+
 end Salt.MR
