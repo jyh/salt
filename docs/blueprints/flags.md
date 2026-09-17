@@ -25333,3 +25333,71 @@ is landed and is the only part rows R5/R7/R8/R9 reach.
 had one bit to spare".  At a generic `Kb` the envelope floor `2^592` CANNOT stay fixed: it must
 move with `Kb`.  That is a real constraint on wave 6's `Kb` price and it is not visible from the
 witness.
+
+## 2026-09-17 — ROAD F, RUNG 2, WAVE 1b-ii, ROWS G4-G7 Opus statement-concern
+
+**THE LANDED `S15Sel''_L.rho` REGISTER IS A FIXED `10^14` NUMERAL, AND IT CAPS THE DESIGN
+CONSTANT.  THE CHARGE CARRIER AND THE TWO SELECTORS CANNOT BE RE-CUT AT `-log rho <= 16*A`.**
+
+**Rows.**  G4 `s15_sel''_L_witness_flat_charge_L` (of `…_charge_g12b`,
+`Salt/MR/StrideGrade12bWalls.lean:49-84`), G5 `…_witness_flat_wide_L` (`:162-177`), G6
+`…_gk_witness_flat_wide_L` (`:183-201`), G7 `…_gk_witness_flat_bumped_win_L` (`:210-232`, R11's
+second half).  G5 rides G4; G6 rides G5; G7 rides G6 -- so ONE obstruction stops all four.
+
+**What landed in the same wave, unaffected.**  G1 `s15_sel''_L_witness_flat_L`, G2
+`s15_sel''_L_gk_witness_flat_L`, G3 `flat_blk_line_gk_L`, in `Salt/MR/FlatDoorEpsRung2.lean`,
+sorry-free, each `[propext, Classical.choice, Quot.sound]`.  They are rows 7, and the levered
+witness and block line, of the wave-1 R11 flag's release order.
+
+**The obstruction, measured at the object.**  `S15Sel''_L` (`Salt/MR/S15SelLinear.lean:104`)
+carries, at `:122`, the field
+
+```
+  rho : -Real.log ρ ≤ 100000000000000
+```
+
+and `S15Sel''_L_gk` carries the same numeral at `:158`.  It is a FIXED register in a landed,
+frozen structure: no `_L` sibling can widen it, because a sibling extends and never edits.  The
+rung-2 interface replaces the charge binder `(hρlog : -log rho <= 429)` by
+`(hρlog : -log rho <= 16 * A)`, and `16 * A <= 10^14` holds only for `A <= 6.25e12`.  `A` is
+bounded BELOW by `hA : 26 <= A` and by `hAL : 10 + 2*Lc <= A`, and above by nothing.
+
+**Three attempts, all through the wrapper.**
+1. G4 written exactly as the interface specifies.  `saltbuild EXIT=1`, and the build carries
+   **exactly one error**: `linarith failed`, `case refine_2` -- the `rho` bullet.  Every other
+   field closes: `half`, `anchor`, `gP1`, `lvl` from the wave-1b-i `_L` cap lines at
+   `hc : c <= 16*A` (the source's `429 <= 439` widening does disappear, as priced), and `hM`,
+   `gRows`, `x0M`, `blk` from G1 at the frozen dummy instance.  Residual goal, verbatim:
+   `hρlog : -Real.log ρ ≤ 16 * A`, `a✝ : 100000000000000 < -Real.log ρ`, `⊢ False`.
+2. A case split `by_cases hcase : 16 * A ≤ 100000000000000`.  The first branch closes.  The
+   second leaves `hcase : 100000000000000 < 16 * A`, `⊢ False` with every hypothesis of the
+   theorem in context, and `linarith` finds no contradiction -- correctly: a large `A` is
+   consistent with `hlo`, `hhi`, `hx0win` and the rest, all of which grow with `A`.
+3. **The residual implication REFUTED at the kernel** (`saltbuild EXIT=0`), so this is a false
+   statement and not a weak tactic:
+   `¬ (∀ A rho, 26 <= A → -log rho <= 16*A → -log rho <= 10^14)`, witness `A = 10^13`,
+   `rho = exp (-(16 * 10^13))`, giving `-log rho = 1.6e14 > 1e14`.
+
+**Why no repair was taken.**  Both available repairs are the wave's own STOP conditions.
+(a) Carry the register as an extra binder on G4 (`-log rho <= 10^14`): an ADDED hypothesis, and
+the statements of this wave are the sources' with only the named interface edits.  (b) Cap the
+charge parameter: at G5-G7 the charge is not a binder but the value
+`234 + 22*Lc` that `s16_audit_neglog_rho_le_h_L` supplies, so the repair there reads
+`234 + 22*Lc <= 10^14`, i.e. `Lc <= 4545454545443.9…` -- **a numeral cap on `Lc`**, which is
+exactly what rung 2 exists to remove, and which this wave's brief names as a stop.  Neither is
+the executor's to choose.
+
+**What this does NOT block.**  Nothing that reads G1, G2 or G3 directly.  The obstruction is on
+the `rho` field alone, and it is a numeral in a frozen structure, not an estimate: every
+`A`-scale line in the register re-cuts cleanly, which rows 3-6 (wave 1b-i) and rows 7 and the
+levered pair (this wave) have now demonstrated at the kernel.
+
+**Release condition.**  A ruling on which of (a) or (b) the rung-2 walk takes -- or a decision
+to re-state `S15Sel''_L.rho`'s register in terms of the design constant, which is a change to a
+landed frozen statement and is not an executor act.  **Owner:** the rung-2 head.
+**Re-measure:** whenever `S15Sel''_L.rho` or the rung-2 charge interface moves.
+
+**One number the ruling will want.**  The cap is astronomically weak in the application --
+`Lc <= 4.5e12` means `c <= e^{4.5e12}` -- so (b) costs nothing arithmetically and everything
+presentationally: it re-introduces a numeral cap on the very parameter the rung exists to free.
+(a) costs one binder and no generality, and it is honest: the binder IS the landed register.
