@@ -2790,4 +2790,170 @@ theorem epsChain_arm_split_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
       _ ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := h
   linarith [hlow, hstep]
 
+/-! ### §W3.2 — ⟦THE GATE FAMILY, ITS TOWER FLOOR A PARAMETER⟧
+
+⛔ THE DESIGN FINDING THIS SECTION ANSWERS.  The landed `XCeilGate` (`XThread.lean:68`) carries
+its tower floor as a NUMERAL — `50 ≤ loglog H₊` — and the rider a conditional hop must prove is
+quantified over EVERY `(H₊, ω)` on that gate.  On that gate the arm's heart `E ≤ (log H₊)/2` is
+`7000·50 + 10500·Lc + 119600 ≤ e^50/2`, which stops closing at
+
+  `Lc > (e^50/2 − 7000·50 − 119600)/10500 = 2.4689·10^17`,
+
+so NO `_L` arm lemma can be applied inside a rider on the LANDED gate at generic `ε`.  The three
+`def`s below are the landed three with the floor a PARAMETER; the landed gate is `Λ₀ = 50` (the
+three `_fifty` twins are `Iff.rfl`, so the new family is not a new notion), and a HIGHER floor is
+a SMALLER gate, so a rider on a lower floor is a rider on a higher one (`_mono`).  W6's forms
+carry `XCeilRiderAt (50 + Lc)` and the ninth arm on `A` pays `50 + Lc ≤ 3.2·A`. -/
+
+/-- **⟦THE WIDTH GATE, AT A PARAMETRIC TOWER FLOOR⟧** (`XCeilGateAt`) — `XCeilGate` with `50`
+replaced by `lam0`.  `XCeilGateAt 50 = XCeilGate` definitionally (`xCeilGateAt_fifty`). -/
+def XCeilGateAt (lam0 : ℝ) (eps : ℚ) (Hhi ω : ℕ) : Prop :=
+  4000000 ≤ Hhi ∧ lam0 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ)) ∧
+    Real.log ((ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
+      ≤ 31 / (eps : ℝ) * ((Hhi : ℕ) : ℝ)
+
+/-- **⟦THE BUILDER-SIDE RIDER, AT A PARAMETRIC FLOOR⟧** (`XCeilRiderAt`) — `XCeilRider` on
+`XCeilGateAt lam0`. -/
+def XCeilRiderAt (lam0 : ℝ) (eps : ℚ) (g : ℕ → ℕ → ℕ) : Prop :=
+  ∀ Hhi ω : ℕ, XCeilGateAt lam0 eps Hhi ω →
+    Real.log ((g Hhi ω : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((Hhi : ℕ) : ℝ)
+
+/-- **⟦THE CALLER-SIDE RIDER, AT A PARAMETRIC FLOOR⟧** (`XCeilRiderStrictAt`) —
+`XCeilRiderStrict` on `XCeilGateAt lam0`: the same bound with the `ε²·H₊` margin kept in hand. -/
+def XCeilRiderStrictAt (lam0 : ℝ) (eps : ℚ) (g : ℕ → ℕ → ℕ) : Prop :=
+  ∀ Hhi ω : ℕ, XCeilGateAt lam0 eps Hhi ω →
+    Real.log ((g Hhi ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
+      ≤ 31 / (eps : ℝ) * ((Hhi : ℕ) : ℝ)
+
+/-- **⟦THE TWIN AT THE LANDED NUMERAL⟧** (`xCeilGateAt_fifty`) — the new family AT `50` IS the
+landed gate, definitionally. -/
+theorem xCeilGateAt_fifty {eps : ℚ} {Hhi ω : ℕ} :
+    XCeilGateAt 50 eps Hhi ω ↔ XCeilGate eps Hhi ω := Iff.rfl
+
+/-- **⟦THE TWIN AT THE LANDED NUMERAL⟧** (`xCeilRiderAt_fifty`). -/
+theorem xCeilRiderAt_fifty {eps : ℚ} {g : ℕ → ℕ → ℕ} :
+    XCeilRiderAt 50 eps g ↔ XCeilRider eps g := Iff.rfl
+
+/-- **⟦THE TWIN AT THE LANDED NUMERAL⟧** (`xCeilRiderStrictAt_fifty`). -/
+theorem xCeilRiderStrictAt_fifty {eps : ℚ} {g : ℕ → ℕ → ℕ} :
+    XCeilRiderStrictAt 50 eps g ↔ XCeilRiderStrict eps g := Iff.rfl
+
+/-- **⟦A HIGHER FLOOR IS A SMALLER GATE⟧** (`xCeilGateAt_mono`) — the floor sits in a HYPOTHESIS
+conjunct, so raising it SHRINKS the set of `(H₊, ω)` the gate admits. -/
+theorem xCeilGateAt_mono {a b : ℝ} (hab : a ≤ b) {eps : ℚ} {Hhi ω : ℕ}
+    (h : XCeilGateAt b eps Hhi ω) : XCeilGateAt a eps Hhi ω :=
+  ⟨h.1, le_trans hab h.2.1, h.2.2⟩
+
+/-- **⟦A RIDER ON A LOWER FLOOR IS A RIDER ON A HIGHER ONE⟧** (`xCeilRiderAt_mono`) — the gate is
+in hypothesis position inside the rider, so the direction FLIPS against `xCeilGateAt_mono`. -/
+theorem xCeilRiderAt_mono {a b : ℝ} (hab : a ≤ b) {eps : ℚ} {g : ℕ → ℕ → ℕ}
+    (h : XCeilRiderAt a eps g) : XCeilRiderAt b eps g :=
+  fun Hhi ω hgate => h Hhi ω (xCeilGateAt_mono hab hgate)
+
+/-- **⟦THE SAME, STRICT⟧** (`xCeilRiderStrictAt_mono`). -/
+theorem xCeilRiderStrictAt_mono {a b : ℝ} (hab : a ≤ b) {eps : ℚ} {g : ℕ → ℕ → ℕ}
+    (h : XCeilRiderStrictAt a eps g) : XCeilRiderStrictAt b eps g :=
+  fun Hhi ω hgate => h Hhi ω (xCeilGateAt_mono hab hgate)
+
+/-- **⟦THE HEAD-SHAPED FLAT BUILDER ON THE PARAMETRIC GATE⟧**
+(`chowlaRegimeFlat_exists_param_head_xceil_at`) — `chowlaRegimeFlat_exists_param_head_xceil`
+(`XThread.lean:96`) with the rider asked on `XCeilGateAt lam0` instead of `XCeilGate`.  The seven
+exported conjuncts are the landed builder's, byte for byte.
+
+BODY: the source's, with ONE edit.  The source's `hll50 : 50 ≤ loglog R.Hhi` — read at EXACTLY
+ONE line, the gate's discharge (`XThread.lean:178`; measured, not assumed) — becomes
+`hll : lam0 ≤ loglog R.Hhi`, off the regime's own design law `R.hflat : 3.2·R.A ≤ loglog R.Hlo`
+with `hRA : R.A = A`, the caller's `hlamA : lam0 ≤ 3.2·A`, and the same `Hlo ≤ Hhi` monotone
+step.  At `lam0 = 50` the hypothesis `hlamA` is `50 ≤ 3.2·A`, which `hA : 26 ≤ A` already gives
+(`3.2 · 26 = 83.2`), so this sibling is not weaker than its source at the source's own floor. -/
+theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ A)
+    (hlamA : lam0 ≤ 3.2 * A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ)
+    (g : ℕ → ℕ → ℕ) (hg : XCeilRiderAt lam0 eps g) :
+    ∃ R : ChowlaRegimeFlat, R.eps = eps ∧ R.A = A ∧ Hlo₀ ≤ R.Hlo ∧
+      g R.Hhi R.ω ≤ R.x ∧
+      R.Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) ∧
+      Real.log (Real.log (R.Hhi : ℝ))
+        ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) ∧
+      Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
+  obtain ⟨R, hReps, hRA, hRHlo, hRcap, hRwid, hRx⟩ :=
+    chowlaRegimeFlat_exists_param_gen_ceiling A hA eps heps heps1 Hlo₀
+  have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
+  -- ⟦THE ENDPOINT FLOOR⟧
+  have hHhi4 : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+  have hHhiR : (4000000 : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) := by exact_mod_cast hHhi4
+  have hHlo4 : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast R.hHlo_floor
+  -- ⟦THE `loglog` FLOOR AT THE PARAMETER⟧ off `lam0 ≤ 3.2·A = 3.2·R.A ≤ loglog H₋`
+  have hll : lam0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) := by
+    have hflat : 3.2 * R.A ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) := R.hflat
+    rw [hRA] at hflat
+    have hlogpos : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+      Real.log_pos (by linarith)
+    have hmono : Real.log ((R.Hlo : ℕ) : ℝ) ≤ Real.log ((R.Hhi : ℕ) : ℝ) := by
+      refine Real.log_le_log (by linarith) ?_
+      exact_mod_cast R.hHlohi
+    have := Real.log_le_log hlogpos hmono
+    linarith
+  -- ⟦THE WIDTH WINDOW⟧ the majorant field read against the ceiling
+  have hωgate : Real.log ((R.ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ)
+      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
+    set P : ℕ := 4 ^ ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hPdef
+    set n : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hndef
+    have hPH : 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) ≤ ((R.x : ℕ) : ℝ) := R.hPHheadroom
+    have hP1 : (1 : ℝ) ≤ ((P : ℕ) : ℝ) := by
+      rw [hPdef]
+      have : (1 : ℕ) ≤ 4 ^ n := Nat.one_le_pow _ _ (by norm_num)
+      exact_mod_cast this
+    have hω1 : (1 : ℝ) ≤ ((R.ω : ℕ) : ℝ) := by
+      have : (1 : ℕ) ≤ R.ω := le_trans (by norm_num) R.hω
+      exact_mod_cast this
+    -- `log 8 + 2·log P + log ω ≤ log x`
+    have hpos : (0 : ℝ) < 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) := by positivity
+    have hlogle : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
+        ≤ Real.log ((R.x : ℕ) : ℝ) := Real.log_le_log hpos hPH
+    have hsplit : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
+        = Real.log 8 + 2 * Real.log ((P : ℕ) : ℝ) + Real.log ((R.ω : ℕ) : ℝ) := by
+      rw [Real.log_mul (by positivity) (by linarith), Real.log_mul (by norm_num) (by positivity),
+        Real.log_pow]
+      push_cast
+      ring
+    -- `log P = n·log 4 ≥ (ε²H₊ − 1)·log 4`
+    have hlogP : Real.log ((P : ℕ) : ℝ) = (n : ℝ) * Real.log 4 := by
+      rw [hPdef]
+      have h4 : ((4 ^ n : ℕ) : ℝ) = (4 : ℝ) ^ n := by push_cast; ring
+      rw [h4, Real.log_pow]
+    have hnge : (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1 ≤ (n : ℝ) := by
+      have hQ : R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) < (n : ℚ) + 1 := by
+        rw [hndef]; exact Nat.lt_floor_add_one _
+      have hR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) < (n : ℝ) + 1 := by exact_mod_cast hQ
+      rw [hReps] at hR
+      linarith
+    have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
+      have h : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+        rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+      rw [h]; linarith [Real.log_two_gt_d9]
+    have hlog8 : (2.0794 : ℝ) ≤ Real.log 8 := by
+      have h : Real.log (8 : ℝ) = 3 * Real.log 2 := by
+        rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+      rw [h]; linarith [Real.log_two_gt_d9]
+    -- ⟦THE COPRIMALITY FLOOR⟧ `ε²·H₊ ≥ 2`
+    have hcop : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) := by
+      have hQ : ((R.a : ℕ) : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) / 2 := R.hcoprime
+      have ha1 : (1 : ℚ) ≤ ((R.a : ℕ) : ℚ) := by exact_mod_cast R.ha
+      have hQ2 : (2 : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) := by linarith
+      have hR2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast hQ2
+      rw [hReps] at hR2
+      have hmono : (eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
+        mul_le_mul_of_nonneg_left (by exact_mod_cast R.hHlohi) (sq_nonneg _)
+      linarith
+    have hnn : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg _
+    nlinarith [hlogle, hsplit, hlogP, hnge, hlog4, hlog8, hRx, hcop, hnn]
+  have hgx : Real.log ((g R.Hhi R.ω : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
+    hg R.Hhi R.ω ⟨hHhi4, hll, hωgate⟩
+  refine ⟨regimeFlatEnlargeX R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRA, hRHlo,
+    le_max_right _ _, hRcap, hRwid, ?_⟩
+  simp only [regimeFlatEnlargeX_x, regimeFlatEnlargeX_Hhi]
+  rcases le_total R.x (g R.Hhi R.ω) with h | h
+  · rw [max_eq_right h]; exact hgx
+  · rw [max_eq_left h]; exact hRx
+
 end Salt.MR
