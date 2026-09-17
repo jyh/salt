@@ -5201,4 +5201,131 @@ theorem flat_capstone_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pr
     rw [hval]
     linarith [hend]
 
+/-! ### §W6.4 — ⟦THE CONDITIONAL HOP ON THE GENERIC GATE⟧ -/
+
+/-- **⟦flat_conditional_generic, AT THE CHARGE⟧** (`flat_conditional_generic_epsW`) — the
+source's body (`FlatDoorEpsChain.lean:993`) with the two threadings and TWO edits:
+
+* **the rider block** (`:1014–1041`, 28 lines): rung 1 priced the substituted arm
+  `g' = s15Arm δ₀ ρ + g` inline — `log 8103 ≤ 9`, `s15Arm_log_le_scaled` at `c := 8103`, the
+  sum split by `epsChain_arm_split_cap`, `xt_log_add_le`.  §W3.3's `xCeilRiderAt_arm_add` is that
+  whole block as ONE lemma at a generic count, so the hop is now ONE call.  The count ceiling
+  enters through its LOG alone (`epsRung2_log_Kb_le`), never as a numeral — and the call needs no
+  `rw [hρdef, hδsdef]`, because `set` leaves `ρ` and `δs` definitionally where the lemma wants
+  them;
+* **the six selector reads** (`:1083–1108`): the form now carries `S15Sel''_L_gk_T`, the
+  tower-relative register (§W1c), so `hsel.head` is unchanged (dot notation finds the sibling's
+  own `head`) and the other five readers become their `_T` twins with argument lists identical.
+  Every other projection — `.hM`, `.mfloor`, `.bfloor`, `.gRows`, `.half`, `.anchor`, `.gP1`,
+  `.lvl`, `.blk`, `.rho` — keeps its name.
+
+Nothing here bears on twin primes. -/
+theorem flat_conditional_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ)
+    (h : FlatCapstoneFormEpsW ε c P Awin) :
+    FlatConditionalFormEpsW ε c P Awin := by
+  unfold FlatConditionalFormEpsW
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc, hδ₀, hMfl,
+    hCgle, hc1, hεpin, hδpin, hKcb, hMflb, hβ, hcapU⟩ :=
+    h
+  refine ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl,
+    hCgle, hc1, hεpin, hδpin, hKcb, hMflb, hβ, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hcapK⟩ := hcapU K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro A hA26 hAge hAL
+  obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge hAL
+  refine ⟨Hcap, hCapLe, ?_⟩
+  intro U1floor g hg hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  -- ⟦THE ONE GENUINE ESTIMATE, SPENT⟧ the substituted `g' = s15Arm δ₀ ρ + g` still obeys the
+  -- builder-side rider.  THE ONE EDIT ON THIS HOP, at the charge: rung 1 priced the arm inline by
+  -- `s15Arm_log_le_scaled` at `c := 8103` and paid the sum split's `log 2` by
+  -- `epsChain_arm_split_cap`; §W3.3's `xCeilRiderAt_arm_add` is that whole block as ONE lemma at a
+  -- generic count, so the hop reads it in one call.  The count ceiling enters only through its
+  -- LOG (`epsRung2_log_Kb_le`), never as a numeral.
+  have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
+  have hg' : XCeilRiderAt (50 + Real.log (c : ℝ)) ε
+      (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) :=
+    xCeilRiderAt_arm_add hc1 hεpin hLc0 le_rfl hδ₀ hδpin hKc
+      (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1) hg
+  obtain ⟨R, hReps, hU1, hRg, hRx, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) hg'
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRx, hRtow, ?_⟩
+  intro M hsel hKw
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
+  intro hcap
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
+  have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
+    hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧
+  have hS : MSelect'_L_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_L_of_halfWindow_gk K hsel.hM hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦the band register⟧
+  have hgate : S13BandGate'_L_gk K R M x₀ C' (fun _ => 1) :=
+    s15_bandGate''_of_grade_L_gk_T K hfl hsel hgrade
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor_gen le_rfl (s13_g2_jfloor_of_MSelect'_L_gk K (by linarith) hS))
+    (s13_gate8_L_gk le_rfl (s13_gate8_of_MSelect'_L_gk K (by linarith) hS))
+    (s13_smallGradeFits_of_MSelect'_L_gk K hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket_L hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_flat_doorL_gk_T K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+        hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hlam50 htow
+        hsel.rho le_rfl)
+    (fun H L q j A s hb =>
+      s15_heps293_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hρ0 hlam50 htow
+        hsel.rho)
+    (fun H L q j A s hb =>
+      s15_hband4096_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hρ0 hlam50 htow
+        hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_L_gk K hsel.hM (hgate.block H L q j A s hb)
+        hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family'_L_gk K hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+      (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
+    harith
+
 end Salt.MR
