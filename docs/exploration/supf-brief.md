@@ -59,4 +59,4 @@ JYH-visible budget).
   the branch-sharing wrinkle); the runbook lesson (per-run branches).
 - The week's fixed points: Zulip return + walkthrough Thursday (the
   mathlib adaptation executor must run tomorrow), PR Friday,
-  SaltBench Saturday, the the approval review Sunday.
+  SaltBench Saturday, a scheduled review.

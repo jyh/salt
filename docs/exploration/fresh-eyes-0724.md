@@ -2,7 +2,7 @@
 
 *The ratified fresh-eyes pass (council item 1, run Friday eve per the granted
 flexibility). Reviewer: a cold Opus 5 agent with ZERO session context — by
-design the freshest read available before Sunday's the approval review. Read the
+design the freshest read available before a scheduled review. Read the
 full 782 lines cold, then verified a dozen claimed declarations against the
 Lean source (all names exist — no fabrication). READ-ONLY: no edits made;
 every edit below is JYH-gated (paper edits only through ratified rounds).
