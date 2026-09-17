@@ -3972,5 +3972,234 @@ theorem s15_bandGate''_of_grade_L_gk_T (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mf
     exact s15_block_at_socket_L_gk K (socketBase_of_socketBaseL hsel.hM hb)
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
 
+/-- **⟦THE λ-ENGINE AT A TOWER-RELATIVE REGISTER⟧** (`flat_lambda_core_T`) —
+`flat_lambda_core` (`TowerFlatExport.lean:212`) with the additive constant `10 ^ 15` cut to
+`1000` and the coefficient `2 · 10 ^ (-4)` raised to `8 · 10 ^ (-4)`.  BODY: the source's, with
+its inline `2.7 < e` / `2.7 ^ 25` derivation replaced by the landed `epsRung2_exp25` (§W3),
+which is that derivation's own conclusion.
+
+THE MARGIN, derived: with `u = e ^ (λ / 2) ≥ e ^ 25 ≥ 6 · 10 ^ 10` and `e ^ λ = u ^ 2`, the
+demand is `14 * u + 1000 ≤ 0.0008 * u ^ 2`; at the floor `u = 6 · 10 ^ 10` the right side is
+`0.0008 * 3.6 · 10 ^ 21 = 2.88 · 10 ^ 18` against a left side `8.4 · 10 ^ 11 + 1000`, free by
+`3.4 · 10 ^ 6 ×`, and improving in `u`.  Nothing here bears on twin primes. -/
+theorem flat_lambda_core_T {lam : ℝ} (hlam : 50 ≤ lam) :
+    14 * Real.exp (lam / 2) + 1000 ≤ 0.0008 * Real.exp lam := by
+  set u : ℝ := Real.exp (lam / 2) with hu
+  have hupos : (0 : ℝ) < u := Real.exp_pos _
+  have husq : u * u = Real.exp lam := by
+    rw [hu, ← Real.exp_add]; congr 1; ring
+  have h25 : Real.exp (25 : ℝ) ≤ u := by
+    rw [hu]; exact Real.exp_le_exp.mpr (by linarith)
+  have hulo : (6e10 : ℝ) ≤ u := le_trans epsRung2_exp25 h25
+  nlinarith [hulo, hupos, husq]
+
+/-- `s12c_eps_threshold_at_socket_flat` at the tower-relative register
+(`FlatConsumers.lean:72`).  STATEMENT: the source's with the ONE binder
+`hrho : -log ρ ≤ 10 ^ 14` replaced by `hrho : -log ρ ≤ log H₋ / 10 ^ 4`; the conclusion is the
+source's, byte for byte.  BODY: the source's, with `flat_lambda_core ↦ flat_lambda_core_T` and
+`hrho` rewritten to the tower atom `e ^ (log (log H₋)) / 10 ^ 4` (which the `set` then folds to
+`e ^ lam / 10 ^ 4`) before the close.  ⚠️ There is NO `hρ : 0 < ρ` binder here and none is
+needed.
+
+THE MARGIN, derived: the close needs `14 * u + 13 + (-log ρ) ≤ (θ - ε) * ll`, and the register
+now pays `0.0001 * e ^ lam` where `hll`/`hprod` supply `(θ - ε) * ll ≥ ll / 500 ≥
+0.001 * e ^ lam`.  So `0.0008` (the core) `+ 0.0001` (the register) `= 0.0009 ≤ 0.001`: the
+slack coefficient on `e ^ lam` is `0.0001`, plus the core's own `1000 - 13 = 987`.  This is the
+TIGHTEST of the four readers.  Nothing here bears on twin primes. -/
+theorem s12c_eps_threshold_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ ε : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s)
+    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
+    (hrho : -Real.log ρ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 10000)
+    (hε : ε ≤ theta293 - 1 / 500) :
+    14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
+      ≤ (theta293 - ε) * Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  obtain ⟨hlogHlo0, -⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hlogHlo1 : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hlogHlo0 (by norm_num : (0 : ℝ) < 50) hlam
+  have hrhoE : -Real.log ρ ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) / 10000 := by
+    rw [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ))]; exact hrho
+  set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
+  set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
+  set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
+  have hll := s12c_llX_ge hfl hb
+  have hcore := flat_lambda_core_T hlam
+  have hlog376 := s12c_log376266
+  have hexp0 : (0 : ℝ) < Real.exp lam := Real.exp_pos _
+  have hll0 : (0 : ℝ) ≤ ll := by linarith
+  have hcoef : (1 : ℝ) / 500 ≤ theta293 - ε := by linarith
+  have hprod : (1 : ℝ) / 500 * ll ≤ (theta293 - ε) * ll :=
+    mul_le_mul_of_nonneg_right hcoef hll0
+  have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith
+  linarith
+
+/-- `s15_heps293_at_socket_flat` at the tower-relative register (`FlatConsumers.lean:117`).
+STATEMENT: the source's with the ONE `hrho` binder moved to the tower; the conclusion is the
+source's, byte for byte.  BODY: the source's, with `flat_lambda_core_17 ↦ flat_lambda_core_T`
+and `hrho ↦ hrhoE` in `hkey`'s close.
+
+THE MARGIN, derived: `hkey` needs `14 * u + 13 + 0.0001 * e ^ lam ≤ θ * ll`, and `h2` supplies
+`θ * ll ≥ 0.0017 * e ^ lam`; `0.0008 + 0.0001 = 0.0009 ≤ 0.0017`, slack coefficient `0.0008`.
+Nothing here bears on twin primes. -/
+theorem s15_heps293_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hρ : 0 < ρ)
+    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
+    (hrho : -Real.log ρ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 10000) :
+    (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi := by
+  obtain ⟨hlogHlo0, -⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hlogHlo1 : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hlogHlo0 (by norm_num : (0 : ℝ) < 50) hlam
+  have hrhoE : -Real.log ρ ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) / 10000 := by
+    rw [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ))]; exact hrho
+  set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
+  set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
+  set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
+  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := Real.log_le_log hA0 hAX; linarith
+  have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
+    rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
+      Real.exp_log (by norm_num : (0 : ℝ) < 376266), div_div]
+  have hlhs : (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) = Real.exp (-(theta293 * ll)) := by
+    rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
+  rw [hlhs, hpool]
+  refine Real.exp_le_exp.mpr ?_
+  have hθ : (0.0034 : ℝ) ≤ theta293 := by have := s13_theta293_margin_lo; linarith
+  have hll := s12c_llX_ge hfl hb
+  have hcore := flat_lambda_core_T hlam
+  have hlog376 := s12c_log376266
+  have hexp0 : (0 : ℝ) < Real.exp lam := Real.exp_pos _
+  have hll0 : (0 : ℝ) ≤ ll := by
+    have : (0 : ℝ) < Real.exp lam / 2 := by positivity
+    linarith [hll]
+  have hkey : 14 * Λ + 13 + (-Real.log ρ) ≤ theta293 * ll := by
+    have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith [htow]
+    have h2 : theta293 * ll ≥ 0.0034 * (Real.exp lam / 2) := by
+      nlinarith [hθ, hll, hll0]
+    nlinarith [h1, h2, hcore, hrhoE]
+  linarith [hkey, hlog376]
+
+/-- `s15_hband4096_at_socket_flat` at the tower-relative register (`FlatConsumers.lean:159`).
+STATEMENT: the source's with the ONE `hrho` binder moved to the tower; the conclusion is the
+source's, byte for byte.  BODY: the source's, with `flat_lambda_core_17 ↦ flat_lambda_core_T`
+and `hrho ↦ hrhoE` in the close.
+
+THE MARGIN, derived: the close needs `14 * u + 9 + 13 + 0.0001 * e ^ lam ≤ 0.998 * ll`, and
+`h2` supplies `0.998 * ll ≥ 0.0017 * e ^ lam`; `0.0009 ≤ 0.0017`, slack coefficient `0.0008`.
+Nothing here bears on twin primes. -/
+theorem s15_hband4096_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hρ : 0 < ρ)
+    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
+    (hrho : -Real.log ρ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 10000) :
+    (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500) * constPool ρ R.Hhi := by
+  obtain ⟨hlogHlo0, -⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hlogHlo1 : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hlogHlo0 (by norm_num : (0 : ℝ) < 50) hlam
+  have hrhoE : -Real.log ρ ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) / 10000 := by
+    rw [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ))]; exact hrho
+  set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
+  set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
+  set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
+  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := Real.log_le_log hA0 hAX; linarith
+  have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
+    rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
+      Real.exp_log (by norm_num : (0 : ℝ) < 376266), div_div]
+  have hlhs : (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+      = Real.exp ((1 - (1 : ℝ) / 500) * ll) := by
+    rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
+  rw [hlhs, hpool, ← Real.exp_add]
+  have h4096 : (4096 : ℝ) ≤ Real.exp 9 := by
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    have h : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 9
+    have hn : (4096 : ℝ) ≤ (2.7 : ℝ) ^ (9 : ℕ) := by norm_num
+    rw [h]; linarith
+  refine le_trans h4096 (Real.exp_le_exp.mpr ?_)
+  have hll := s12c_llX_ge hfl hb
+  have hcore := flat_lambda_core_T hlam
+  have hlog376 := s12c_log376266
+  have hexp0 : (0 : ℝ) < Real.exp lam := Real.exp_pos _
+  have hll0 : (0 : ℝ) ≤ ll := by
+    have : (0 : ℝ) < Real.exp lam / 2 := by positivity
+    linarith [hll]
+  have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith [htow]
+  have h2 : (1 - (1 : ℝ) / 500) * ll ≥ 0.0017 * Real.exp lam := by nlinarith [hll, hll0]
+  linarith [h1, h2, hcore, hrhoE, hlog376]
+
+/-- `s15_gRows_const_at_socket_flat_doorL_gk` at the tower-relative register
+(`S16FlatTerminalLinear.lean:964`).  STATEMENT: the source's with the ONE `hrho` binder moved
+to the tower; the conclusion is the source's, byte for byte.  BODY: the source's, with
+`flat_lambda_core_17 ↦ flat_lambda_core_T`, `hrho ↦ hrhoE` in `hendbud`'s close, and the ONE
+positivity fact `hE0` the smaller core no longer carries for free (the landed `10 ^ 15` inside
+`flat_lambda_core_17` had bounded `e ^ lam` below all by itself).
+
+THE MARGIN, derived: `hendbud` needs `26 + 14 * u + 0.0001 * e ^ lam ≤ log (A + s)`, and
+`hll`/`hllle` supply `log (A + s) ≥ e ^ lam / 2 + 1`; `0.0009 ≤ 0.5`, slack coefficient
+`0.4991`.  This is the SLACKEST of the four readers.  Nothing here bears on twin primes. -/
+theorem s15_gRows_const_at_socket_flat_doorL_gk_T (K : ℕ) {R : ChowlaRegime}
+    {M H L q j A s : ℕ} {ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseL R M H L q j A s) (hM : 1 ≤ M)
+    (hρ0 : 0 < ρ) (_hρ1 : ρ ≤ 1)
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
+    (hrho : -Real.log ρ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 10000)
+    (hlvl : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        + (1 / 3) * Real.log (Real.log ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ))
+        + (-Real.log ρ)
+      ≤ (1 / 12) * ((AdoorL M : ℕ) : ℝ) * Real.log 2) :
+    GRowsZeroGate'''_L_gk K M (A + s) 0 (constPool ρ R.Hhi) := by
+  obtain ⟨hlogHlo0, hlamT⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hlogHlo1 : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hlogHlo0 (by norm_num : (0 : ℝ) < 50) hlamT
+  have hrhoE : -Real.log ρ ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) / 10000 := by
+    rw [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ))]; exact hrho
+  have hE0 : (0 : ℝ) < Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) := Real.exp_pos _
+  have hbb : SocketBase R M H L q j A s := socketBase_of_socketBaseL hM hb
+  have hlogρ : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le _hρ1
+  have hQ0 : (0 : ℝ)
+      ≤ Real.log (Real.log ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) := by
+    rw [calQK_L_one_gk_eq]; exact s15_loglogQ1_L_nonneg hM
+  obtain ⟨-, hL50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have hp2 : 27 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ ((AdoorL M : ℕ) : ℝ) * Real.log 2 + Real.log ρ := by
+    linarith [hlvl, hQ0, hL50, hlogρ]
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hA : 0 < A := hbb.2.2.2.2.2.2.2.1
+  have hAs : 0 < A + s := by omega
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hbb
+  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := Real.log_le_log hA0 hAX; linarith
+  have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hll := s12c_llX_ge hfl hbb
+  have hcore := flat_lambda_core_T hlam50
+  have hendbud : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + (-Real.log ρ)
+      ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+    have h1 : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ 14 * Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := by linarith
+    linarith [hcore, hll, hllle, hrhoE, h1, hE0]
+  exact gRowsZeroGate'''_L_gk_of_budget K hM hAs hρ0 (by linarith) hp2 hendbud
+
 
 end Salt.MR
