@@ -10577,7 +10577,13 @@ by nothing on `main`; C3 · E2′ · E2″ · C4 (`mrtUniformityXiL2_holds_flat_
 no consumer on the road to a terminal carries it.  Rung 2 is UNPRICED (its cap lifts walked, seven
 need a re-derivation at generic `ε`); it fires only on the Captain's word.  NO NEW UNCONDITIONAL
 THEOREM beyond Wc, which each fixed `ε` still reaches with a CONSTANT margin (the `∃ ε` tripwire is
-untouched; W-δ is not stated; the crown stays the target).  13 + 23 names at the three axioms. -/
+untouched; W-δ is not stated; the crown stays the target).  13 + 23 names at the three axioms.
+
+⚠️ ERRATUM (2026-09-17).  THE PARAGRAPH ABOVE IS LEFT IN PLACE AS RUNG 1's DATED RECORD AND IS
+SUPERSEDED: `FlatDoorEpsFamilyW` IS NOW INHABITED — `flatDoorEpsFamilyW_holds`, the RUNG 2 block
+below.  C3 · E2′ · E2″ · C4 still carry `(hW : FlatDoorEpsFamilyW)` in their TYPES and are
+discharged IN USE by supplying that theorem; rung 2 was priced and fired on the Captain's word.
+Nothing here bears on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.flatDoorMint_floor_le_grade
   Salt.MR.flatDoorMint_grade_at_pin
