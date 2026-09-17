@@ -4354,5 +4354,42 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_L {A : ℝ} (hA : 162 ≤ A) (Kle
     (flatDoorM_bfloor_bump_L hh hL0 hhL hA hAL hδ hδb hCg)
     hMfl hx0win heps hlo hhi
 
+/-- **⟦THE CONDITIONAL HOP'S SIX READS, ON THE NEW SELECTOR⟧** (`s15_replay_reads_L_gk_T`) —
+this wave's END-TO-END CHECK.  It takes a `S15Sel''_L_gk_T` and the conditional replay's own
+context hypotheses and produces, by calling `s15_bandGate''_of_grade_L_gk_T` and the four `_T`
+readers EXACTLY as `FlatDoorEpsChain.lean:1086` and `:1098-1108` call their sources, the five
+facts those six lines produce.
+
+⭐ THE POINT: `hsel.rho` feeds all four `_T` consumers with NO conversion — the register's new
+shape is exactly the shape the four readers now want, so the hop composes with the argument
+lists byte for byte.  The third conjunct's `ε` is pinned by the replay's own `le_rfl`
+(`:1102`), which is why it reads `theta293 - (theta293 - 1 / 500)`.  Nothing here bears on twin
+primes. -/
+theorem s15_replay_reads_L_gk_T (K : ℕ) {R : ChowlaRegime} {Cg δ₀ Ct ρ C' : ℝ}
+    {x₀ Mfl M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo)
+    (hsel : S15Sel''_L_gk_T K Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ))
+      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)))
+    (hb : SocketBaseL R M H L q j A s) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (hlam50 : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2)) :
+    S13BandGate'_L_gk K R M x₀ C' (fun _ => 1)
+      ∧ GRowsZeroGate'''_L_gk K M (A + s) 0 (constPool ρ R.Hhi)
+      ∧ 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
+          ≤ (theta293 - (theta293 - 1 / 500)) * Real.log (Real.log (((A + s : ℕ)) : ℝ))
+      ∧ (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi
+      ∧ (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+          * constPool ρ R.Hhi :=
+  ⟨s15_bandGate''_of_grade_L_gk_T K hfl hsel hgrade,
+   s15_gRows_const_at_socket_flat_doorL_gk_T K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho hsel.lvl,
+   s12c_eps_threshold_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hlam50 htow
+     hsel.rho le_rfl,
+   s15_heps293_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hρ0 hlam50 htow
+     hsel.rho,
+   s15_hband4096_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hρ0 hlam50 htow
+     hsel.rho⟩
+
 
 end Salt.MR
