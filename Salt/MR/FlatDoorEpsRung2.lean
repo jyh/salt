@@ -2956,4 +2956,46 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ 
   · rw [max_eq_right h]; exact hgx
   · rw [max_eq_left h]; exact hRx
 
+/-! ### §W3.3 — ⟦THE RIDER STEP⟧ the conditional hop's `hg'` block, as a lemma on the new gate -/
+
+/-- **⟦THE RIDER STEP AT A GENERIC CHARGE⟧** (`xCeilRiderAt_arm_add`) — the conditional hop's
+`hg'` block (`FlatDoorEpsChain.lean:1022–1041`) lifted out as a standalone lemma and re-cut on
+`XCeilGateAt (50 + Lc)`: if `g` satisfies the STRICT rider on that gate, then `s15Arm + g`
+satisfies the plain one.  This is what proves the new conclusion has the shape its consumer
+needs, and it is the wave's END-TO-END CHECK: the arm's cut and the split's cut must be the SAME
+TERM, token for token, or the two closing `linarith`s see two atoms.
+
+BODY: the source block with `epsChain_arm_split_cap ↦ epsChain_arm_split_L`,
+`s15Arm_log_le_scaled (c := 8103) ↦ s15Arm_log_le_L (c := ((c : ℕ) : ℝ))`, `hHdiv` at the new
+cut `H₊/(10^20·c²)`, and the closing `xt_log_add_le` unchanged.  The source's `rw [hρdef, hδsdef]`
+is gone because the `ρ` of the statement here is already written out.  Nothing here bears on twin
+primes. -/
+theorem xCeilRiderAt_arm_add {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
+    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hLc : Real.log ((c : ℕ) : ℝ) ≤ Lc) {δ₀ Kc Kb : ℝ} (hδ₀ : 0 < δ₀)
+    (hδpin : 1 / (838400 * ((c : ℕ) : ℝ)) ≤ δ₀) (hKc : 0 < Kc) (hKb1 : 1 ≤ Kb)
+    (hKcb : Kc ≤ Kb) (hKbL : Real.log Kb ≤ 197 + 20 * Lc) {g : ℕ → ℕ → ℕ}
+    (hg : XCeilRiderStrictAt (50 + Lc) ε g) :
+    XCeilRiderAt (50 + Lc) ε
+      (fun Hhi ω => s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω + g Hhi ω) := by
+  intro Hhi ω hgate
+  obtain ⟨hH4, hll, hωw⟩ := hgate
+  have hcR : (1 : ℝ) ≤ ((c : ℕ) : ℝ) := by exact_mod_cast hc1
+  have hHnn : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by positivity
+  have hsplit2 : Real.log 2
+      ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
+        - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) :=
+    epsChain_arm_split_L hc1 hcε hLc hH4 hll
+  have harm : Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) :=
+    s15Arm_log_le_L (c := ((c : ℕ) : ℝ)) hcR hL0 hLc hδ₀ hδpin hKc hKb1 hKcb hKbL hH4 hll
+  have hgb := hg Hhi ω ⟨hH4, hll, hωw⟩
+  have hHdiv : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by positivity
+  have harm' : Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) - Real.log 2 := by linarith
+  have hgb' : Real.log ((g Hhi ω : ℕ) : ℝ)
+      ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) - Real.log 2 := by linarith
+  have hsum := xt_log_add_le harm' hgb'
+  exact le_trans hsum (by linarith)
+
 end Salt.MR
