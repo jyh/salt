@@ -5707,4 +5707,49 @@ theorem flatDoorEpsFamilyW_holds : FlatDoorEpsFamilyW := by
     flatDoorMint_floor_le_grade (ε : ℝ) hε0R.le, hA162, hA₀A, R, hReps, hHlo, hdes,
     hdoor, hslot⟩
 
+/-! ### §W6.8 — ⟦THE COMPOSITION, EXHIBITED⟧ (2026-09-17, the second outside read's finding 1)
+
+Until this section NO landed declaration APPLIED `flatDoorEpsFamilyW_holds`: «unconditional IN
+USE» named a composition that had been run only in scratch (by the author at the harvest, and by
+the outside reader, each at the three axioms).  The two theorems below LAND it for the two
+consumers whose applied statement is NEW — E2′ and its `_floor` twin — by supplying the theorem
+to their `hW` binder and nothing else.
+
+The other two consumers are NOT applied here, on purpose.  Supplying `hW` to C3
+(`mrtUniformityXiL2_holds_flat_of_epsFamily`) yields the statement of
+`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:1110`), and supplying it to C4
+(`mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily`) yields rung 1's
+(`mrtUniformityXiL2_holds_flat_epsFamily_capped`); both are ALREADY LANDED with no hypothesis, so
+an applied copy would land no new statement.  The value of C3 and C4 is the implication each
+states.
+
+⚠ READER'S NOTE — TWO `c`s IN THIS FILE (the same read's finding 2).  The CHARGE is `c : ℕ`
+throughout.  The four cap lines of §W1b-i (`flat_half_line_L` · `flat_anchor_line_wide_L` ·
+`flat_gP1_line_L` · `flat_lvl_line_L`) bind a REAL `c`: it is their landed sources' slack binder,
+kept so that each conclusion stays its source's byte for byte, and at its one call site, in
+§W1c(b), it is instantiated from the clearing register `Real.log ρ` (through
+`hρlog : -Real.log ρ ≤ 16 * A`), never from the charge.  Nothing here bears on twin primes. -/
+
+/-- **⟦E2′, WITH `hW` SUPPLIED⟧** (`logChowla2_epsFamily_flatDoor_holds`) — the frozen file's
+`logChowla2_epsFamily_of_flatDoor` (`FlatDoorEpsFamily.lean:208`) applied to
+`flatDoorEpsFamilyW_holds`: its statement token for token with the `(hW : FlatDoorEpsFamilyW)`
+binder GONE, under no hypothesis but `0 < ε ≤ 1/500`.  It is an EXISTENCE statement on the flat
+family's own regime, not a statement about every regime.  Nothing here bears on twin primes. -/
+theorem logChowla2_epsFamily_flatDoor_holds (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500) (A₀ : ℝ) :
+    ∃ A : ℝ, 162 ≤ A ∧ A₀ ≤ A ∧ ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+      3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧ ¬ logChowla2Fails R.eps R.x R.ω :=
+  logChowla2_epsFamily_of_flatDoor flatDoorEpsFamilyW_holds ε hε0 hε A₀
+
+/-- **⟦E2's CONCLUSION, NO CROWN AND NO `hW`⟧** (`logChowla2_epsFamily_flatDoor_floor_holds`) —
+`logChowla2_epsFamily_of_flatDoor_floor` (`FlatDoorEpsFamily.lean:224`) applied to
+`flatDoorEpsFamilyW_holds`: the conclusion of E2 (`logChowla2_epsFamily_of_allGrades`,
+`EpsFamilyReceipt.lean:42`) token for token, under E2's binders in E2's order MINUS its leading
+`(hcrown : MRTDoorAllGrades)`.  ⚠ This does NOT discharge E2's `hcrown`: E2 is untouched, its
+binder stands, and the crown still has no producer.  What this shows is that E2's CONCLUSION is
+reached by a second route, the flat door.  Nothing here bears on twin primes. -/
+theorem logChowla2_epsFamily_flatDoor_floor_holds (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
+    (extraFloor : ℕ) :
+    ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ ¬ logChowla2Fails R.eps R.x R.ω :=
+  logChowla2_epsFamily_of_flatDoor_floor flatDoorEpsFamilyW_holds ε hε0 hε extraFloor
+
 end Salt.MR

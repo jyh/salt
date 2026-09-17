@@ -10649,10 +10649,20 @@ three-arm statement guard reads STATEMENTS IDENTICAL — and each is discharged 
 `flatDoorEpsFamilyW_holds`.  In particular rung 1's `mrtUniformityXiL2_holds_flat_epsFamily_capped`
 now follows from rung 2 through `…_capped_of_epsFamily`, in the direction the frozen file named.
 
+⚠ WHAT IS EXHIBITED, AND WHAT IS NOT (2026-09-17, the second outside read's finding 1: until
+then NO landed declaration APPLIED the theorem, and this block did not say so).  The composition
+is LANDED for E2′ and E2″, the two consumers whose applied statement is new —
+`logChowla2_epsFamily_flatDoor_holds` and `logChowla2_epsFamily_flatDoor_floor_holds`
+(`FlatDoorEpsRung2` §W6.8) — the second being E2's conclusion token for token with no crown binder
+and no `hW`; E2's own `hcrown` binder STANDS and the crown still has no producer.  It is NOT
+landed for C3 and C4, on purpose: with `hW` supplied they state `mrtUniformityXiL2_holds_flat`
+and rung 1's `mrtUniformityXiL2_holds_flat_epsFamily_capped`, both already landed with no
+hypothesis, so an applied copy would land no new statement.
+
 ⚖️ `feedback_no_hypotheses`: the ONE theorem that discharges `hW` is landed, so no consumer on the
 road to a terminal carries an open hypothesis from this track.  **NO NEW UNCONDITIONAL THEOREM
 ABOUT TWIN PRIMES**: the `∃ ε` tripwire is untouched, W-δ is not stated, and the crown stays the
-target.  95 names at the three axioms (82 theorems, 11 defs, 2 structures). -/
+target.  97 names at the three axioms (84 theorems, 11 defs, 2 structures). -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.epsRung2_log500_le
   Salt.MR.epsRung2_log_inv_eps_le
@@ -10749,3 +10759,5 @@ open Salt.Tactic in
   Salt.MR.flat_v7_generic_epsW
   Salt.MR.flat_chain_generic_epsW
   Salt.MR.flatDoorEpsFamilyW_holds
+  Salt.MR.logChowla2_epsFamily_flatDoor_holds
+  Salt.MR.logChowla2_epsFamily_flatDoor_floor_holds
