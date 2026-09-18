@@ -447,6 +447,8 @@ import Salt.MR.TierSBridge
 import Salt.MR.TierSLadder
 import Salt.MR.FlatDoorEpsFamily
 import Salt.MR.FlatDoorEpsRung2
+import Salt.MR.FlatDoorNonVacuity
+import Salt.MR.FlatDoorAllGrades
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10761,3 +10763,53 @@ open Salt.Tactic in
   Salt.MR.flatDoorEpsFamilyW_holds
   Salt.MR.logChowla2_epsFamily_flatDoor_holds
   Salt.MR.logChowla2_epsFamily_flatDoor_floor_holds
+
+/-! ⟦TIER S — ROAD F, THE GRADE AXIS⟧ — W-δ IS **STATED AND PROVED**: THE `L²` MRT DOOR ON THE
+FLAT FAMILY AT **EVERY** GRADE `ρ > 0` AND EVERY `ε ∈ (0, 1/500]`; AND THE FLAT DOOR IS **NOT
+VACUOUS** (`FlatDoorNonVacuity`, `FlatDoorAllGrades`, 2026-09-18, h2c — a transcription of two
+measured scratch receipts).  Additive only: no landed statement moves and no landed file is
+edited.
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.
+
+⚠ THE RUNG-2 BLOCK ABOVE SAYS «W-δ is not stated».  That was TRUE when it was written and is
+SUPERSEDED HERE; it is left in place because it is rung 2's own dated record and this block is
+what a reader reaches last.  The same sentence, or «the flat door has ONE grade», stands in
+landed docstrings outside this file; their dated errata are OWED and are not in this change.
+
+WHAT IS NOW TRUE.  `flatDoorAllGradesW_holds : FlatDoorAllGradesW`.  Rung 2's `L`-charge design
+put the threshold INSIDE the head form, which reads it at exactly three conjuncts; so a head at
+charge `c` is a head at ANY threshold on the pin `1/(838400·c)` (`flatHeadFormEpsW_at_grade`), a
+charge pinning both `ε` and the target grade always exists (`crownWd_exists_charge`), and the
+landed head and the landed chain do the rest.  Two controls are stated FROM the statement:
+`crownWd_zero_level_landed` (at `ε := 1/500`, `ρ := 1/837782` it is the landed door's statement)
+and `crownWd_L1_on_flat` (the `L¹` door at every grade, through `ρ := δ²`).
+
+NON-VACUITY LANDS AS SEPARATE THEOREMS, NOT AS A CONJUNCT OF THE STATEMENT.  The door sums over
+`Ξ_H = bigXi R.eps H`; `crownNV_landedW_nonvacuous` (about LANDED W) and
+`crownNV_Wdelta_nonvacuous_holds` (about W-δ) say the built regimes can be taken with `0 ∈ Ξ_H`
+at EVERY `H` at or above their `Hlo`, through the pinned Mertens leaf
+`primeWindow_sum_inv_ge_bounded`, with both floors paid out of the door's own `∀ A₀`.
+
+⚠ WHAT IS NOT SAID.  The shape is `∀ A₀ ∃ R` on the FLAT family, NOT the crown's `∃ H₀ ∀ R`:
+the crown still has no producer and E2's `hcrown` binder STANDS.  The Mertens floor is
+NON-EFFECTIVE.  `0 ∈ Ξ_H` says the sum is non-empty; that the `ξ = 0` TERM is strictly positive
+(a parity floor at odd `H`) is NOT proved.  No rate is exported.
+
+⚖️ `feedback_no_hypotheses`: `crownNV_Wdelta_nonvacuous` and the two controls carry
+`(hWd : FlatDoorAllGradesW)` on purpose — they read the STATEMENT — and the one theorem that
+discharges it is landed.  **NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  12 names at the
+three axioms (11 theorems, 1 def). -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.crownNV_expSum_zero
+  Salt.MR.crownNV_zero_mem_bigXi
+  Salt.MR.crownNV_above_flat_floor
+  Salt.MR.crownNV_landedW_nonvacuous
+  Salt.MR.FlatDoorAllGradesW
+  Salt.MR.crownWd_exists_charge
+  Salt.MR.flatHeadFormEpsW_at_grade
+  Salt.MR.flatDoorAllGradesW_holds
+  Salt.MR.crownWd_zero_level_landed
+  Salt.MR.crownWd_L1_on_flat
+  Salt.MR.crownNV_Wdelta_nonvacuous
+  Salt.MR.crownNV_Wdelta_nonvacuous_holds
