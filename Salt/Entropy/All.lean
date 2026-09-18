@@ -1196,7 +1196,7 @@ as its `(1, 0)` member (`logChowlaFailsAff_one_zero`).  `LogChowlaAffSupply a b 
 SUPPLY DEMAND — a `def`, produced at `(1, 0)` in `Salt/MR/AffineSupplyH.lean` and by NOBODY at
 `a ≥ 2` (that is wave 2-S, a port of Tao's general-`a` case; the freeze prices it ≥ the h-fork
 and, at strides beyond the one-grade door's numeral budget, co-dependent on the unproved crown
-`MRTDoorAllGrades`).
+`MRTDoorAllGrades`).  ⚠️ ERRATUM: END OF FILE.
 
 ⭐ The finding the block rests on: AT ONE RESIDUE CLASS THE WINDOW'S OWN NORMALISATION IS THE
 MAIN TERM.  Where the affine atom does not fail, `Σ (1 − λλ)/n ≥ (1 − ε)·log ω − 1 ≥ 63.5 > 0`
@@ -1567,3 +1567,15 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.log_chowla_aff_of_door_at_regime_g12b
   Salt.Entropy.Chowla.affGrade_composes_g12b
   Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime
+
+/-! ⟦ERRATUM TO THE ⟦AFFINE FORK⟧ BLOCK: «THE ONE-GRADE DOOR»⟧
+
+⚠️ ERRATUM (2026-09-18, tier-S road F).  THE BLOCK'S SENTENCE IS LEFT IN PLACE.  ITS LABEL IS
+STALE AND ITS CLAIM STANDS.  «The one-grade door» named the plain flat `L²` door while the `MR`
+lane produced it at ONE grade; on the flat family that door now holds at EVERY grade `ρ > 0`
+(`flatDoorAllGradesW_holds`, `Salt/MR/FlatDoorAllGrades.lean`).  THE CO-DEPENDENCE ON THE UNPROVED
+CROWN IS NOT RELIEVED BY THAT: the every-grade door is stated on the plain `bigXi` forms only,
+while the stride lane reads the `Xi`-generic / affine door (`MRTUniformityXiL2Set`,
+`MRTUniformityXiL2AffW`), which none of the flat-door files names.  `MRTDoorAllGrades` still has NO
+producer.  Nothing bears on twin primes.
+-/

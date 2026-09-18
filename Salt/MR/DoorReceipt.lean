@@ -1209,7 +1209,7 @@ literature; the `ξ = 0` instance is unconditional Matomäki–Radziwiłł.  Two
 the freeze: a `δ`-parametric inhabitation of the M4 class road's register (class C, large) and
 the E-ladder at `f = λχ` (class D).  ⛔ NOT proved, NO producer, NOT claimed reachable by this
 file; and the flat receipts above are a FIXED family at ONE grade, NOT an instance of this
-universal — no pin between them is claimed. -/
+universal — no pin between them is claimed.  ⚠️ ERRATUM: END OF FILE. -/
 def MRTDoorAllGrades : Prop :=
   ∀ δ : ℝ, 0 < δ → ∀ ε : ℚ, 0 < ε → ε ≤ 1 / 2 →
     ∃ H₀ : ℕ, ∀ R : ChowlaRegime, R.eps = ε → H₀ ≤ R.Hlo → MRTUniformityXi R δ
@@ -1217,3 +1217,20 @@ def MRTDoorAllGrades : Prop :=
 end Salt.MR
 
 end
+
+/-! ## ⟦ERRATUM TO `MRTDoorAllGrades`'s DOCSTRING: «A FIXED FAMILY AT ONE GRADE»⟧
+
+⚠️ ERRATUM (2026-09-18, tier-S road F).  THE SENTENCE IS LEFT IN PLACE AND IS NO LONGER THE WHOLE
+PICTURE.  «The flat receipts above are a FIXED family at ONE grade» is still true of the receipts
+IN THIS FILE.  It is no longer true of the flat family: `flatDoorEpsFamilyW_holds`
+(`Salt/MR/FlatDoorEpsRung2.lean`) gives the `L²` door on the flat family at every
+`ε ∈ (0, 1/500]` at the flat head's own grade, and `flatDoorAllGradesW_holds`
+(`Salt/MR/FlatDoorAllGrades.lean`) gives it at EVERY grade `ρ > 0`; from that statement
+`crownWd_L1_on_flat` reads the `L¹` door on the flat family at every grade `δ`.
+
+WHAT STAYS TRUE, AND IT IS THE LOAD-BEARING HALF.  `MRTDoorAllGrades` is still NOT proved and
+still has NO producer, and the flat door at every grade is still NOT an instance of it.  The two
+differ on exactly two axes: `∃ H₀ ∀ R` there against `∀ A₀ ∃ R` on the FLAT family here, and
+`ε ≤ 1/2` there against `ε ≤ 1/500` here.  No pin between them is claimed.  Nothing bears on twin
+primes.
+-/
