@@ -31,7 +31,7 @@ the produced one — the row's "exchange rate, not a wall" — and only the crow
 the pinned one (QUEUE item 11, fence (2)), and the tripwire keeps guarding the `∃ ε` terminal.
 
 Honest label: no new unconditional theorem; a restatement whose value is the exported
-exchange rate.  Nothing bears on twin primes.  STATEMENT-ONLY at the freeze.
+exchange rate.  Nothing bears on twin primes.  STATEMENT-ONLY at the freeze. ⚠ ERRATUM: END OF FILE.
 -/
 
 -- The pinned head's core and the two cap helpers are `private` in `HloExport`; they are reached
@@ -166,3 +166,25 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily (ε : ℚ) (hε0 
     ht hg hgle hI hbudget1 hbudget2 hfail
 
 end Salt.Entropy.Chowla
+
+/-! ## ⟦ERRATUM TO THE HEADER: «THE `MR` LANE PRODUCES IT AT ONE GRADE»⟧
+
+⚠️ ERRATUM (2026-09-18, tier-S road F).  THE HEADER'S PARAGRAPH IS LEFT IN PLACE AS THIS FILE'S
+DATED RECORD.  ONE CLAUSE IS SUPERSEDED AND ONE STANDS.
+
+SUPERSEDED — «the `MR` lane PRODUCES it at ONE grade … at `ε ≥ 1/500`».  On the FLAT family the
+`MR` lane now produces the `L²` door at every `ε ∈ (0, 1/500]`: at the flat head's own grade
+(`flatDoorEpsFamilyW_holds`, `Salt/MR/FlatDoorEpsRung2.lean`) and at EVERY grade `ρ > 0`
+(`flatDoorAllGradesW_holds`, `Salt/MR/FlatDoorAllGrades.lean`).
+
+STANDS — «only the crown `MRTDoorAllGrades` … supplies it», read of THIS head.  The head's door
+is a binder on the regime `R` that THIS head builds.  The flat doors hold on regimes the flat
+route builds for itself (`R.Hlo = flatDesignBase A`), and no landed theorem discharges this binder
+with them: this head's one consumer is still E2 under `hcrown`
+(`Salt/MR/EpsFamilyReceipt.lean`).  What changed is E2's CONCLUSION, which now has a second route
+that names neither this head nor the crown (`logChowla2_epsFamily_of_flatDoor_floor`; that file's
+own end-of-file erratum compares the two).
+
+The crown still has NO producer; the tripwire `spine_eps_constant_floor` is untouched.  Nothing
+bears on twin primes.
+-/
