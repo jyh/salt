@@ -533,7 +533,25 @@ def finding_lines(rows) -> list[str]:
     for ident, what, line in rows:
         out.append(f"  {str(ident)[:40]}  {what}")
         if line:
-            out.append(f"      {line[:110]}")
+            # ⛔ THE MATCHED TEXT IS NEVER PRINTED — council 2026-09-17 ⑲, desk PX.
+            #    These verdicts land in PUBLIC CI logs. Until this landed the line
+            #    was echoed as `line[:110]`, TRUNCATED AND NOT REDACTED, and it had
+            #    already fired 25 times across 4 public repos (salt · saltworks ·
+            #    saltbench · jas), 228 echoed lines, most recent the same day.
+            #    The LABEL line above carries identity and shape, which is what a
+            #    reader needs in order to act; the digest lets two findings be told
+            #    apart, and a maintainer confirm a fix, WITHOUT republishing them.
+            #    ⭐ IT ALSO CLOSES A SECOND HAZARD FOR FREE: a byte/character slice
+            #    of arbitrary text can emit a PARTIAL UTF-8 CHARACTER, which makes
+            #    the interactive grep refuse the WHOLE FILE and return a silent
+            #    false zero. Emitting no slice at all cannot do that.
+            #    ⭐ THE DIGEST IS `line_sha`, THE SAME KEY THE BASELINES AND PINS
+            #    ARE STORED UNDER — so the withheld line is not merely
+            #    distinguishable, it is LOOKUP-ABLE: an operator reads this
+            #    digest straight into a pin or a baseline row without ever
+            #    needing the text. A digest nobody can act on would have
+            #    satisfied the ruling and helped no one.
+            out.append(f"      text withheld — len={len(line)} line_sha={line_sha(line)}")
     return out
 
 
@@ -973,8 +991,32 @@ def self_test() -> int:
         failures.append("finding_lines must carry the finding's identity")
     if not any("some shape" in l for l in named):
         failures.append("finding_lines must carry the finding's shape")
-    if not any("offending excerpt" in l for l in named):
-        failures.append("finding_lines must carry the line excerpt")
+    # ⛔ THE EXCERPT IS WITHHELD — council 2026-09-17 ⑲, desk PX: "the scrub gates
+    #    print a location + digest, never the matched text". These runs are PUBLIC
+    #    CI logs; the echo had already fired 25 times across 4 public repos, most
+    #    recently the day this landed. The LABEL line still carries identity and
+    #    shape, which is what a reader needs to act.
+    if any("offending excerpt" in l for l in named):
+        failures.append("finding_lines must NOT echo the matched text (council ⑲)")
+    # ⛔ AND A DIGEST THAT IS CONSTANT WOULD PASS THE ARM ABOVE WHILE BEING USELESS.
+    #    Both arms must DIFFER: the same text must digest the same, different text
+    #    must digest differently, or the field discriminates nothing.
+    if not any("line_sha=" in l for l in named):
+        failures.append("finding_lines must print a digest of the withheld text")
+    # ⭐ AND THE DIGEST MUST BE THE PIN KEY, not merely some hash: an operator
+    #    reads it straight into a baseline row. If these two ever diverge the
+    #    report becomes un-actionable while still looking redacted and correct.
+    if f"line_sha={line_sha('the offending excerpt')}" not in "\n".join(named):
+        failures.append("the printed digest must BE line_sha(), the pin key")
+    dig_a = finding_lines([("i", "w", "the offending excerpt")])[-1]
+    dig_b = finding_lines([("i", "w", "a DIFFERENT offending line")])[-1]
+    dig_a2 = finding_lines([("i", "w", "the offending excerpt")])[-1]
+    if dig_a == dig_b:
+        failures.append("two different excerpts must not produce the same digest")
+    if dig_a != dig_a2:
+        failures.append("the same excerpt must produce the same digest (stable)")
+    if "len=" not in dig_a:
+        failures.append("the digest line must carry the withheld text's length")
     if len(finding_lines([("x", "w", "")])) != 1:
         failures.append("an empty excerpt prints identity+shape alone, never a blank")
 
