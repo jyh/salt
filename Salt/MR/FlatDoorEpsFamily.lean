@@ -54,7 +54,7 @@ never provably meets a slot `∀ ρ ≤ δ₀'` on another regime — not even w
 exported un-rounded (`ε/1675.565 < ε/1675.564`).  The door and the slot are therefore stated at
 ONE `δ₀` on ONE regime, which is what the chain proves (the socket hands the door out at
 `ρ := δ₀`, `XThread.lean:723`); the floor and the grade are exports ABOUT `δ₀`, never a
-substitute for it.
+substitute for it.  ⚠️ ERRATUM to «W-δ … is not stated» above: END OF FILE.
 
 **THE ROUTE (road F, h2c's per-hop walk of 2026-09-15 in the seat record):** the flat road's
 eight hops re-cut at generic `ε ≤ 1/500` — the pin `1/500 ≤ ε` enters at ONE site
@@ -330,3 +330,19 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily_of_payload (ε : ℚ) (hε0 : 0 <
 end Salt.MR
 
 end
+
+/-! ## ⟦ERRATUM TO THE HEADER: «W-δ … IS NOT STATED»⟧
+
+⚠️ ERRATUM (2026-09-18, tier-S road F).  THE HEADER'S SENTENCE IS LEFT IN PLACE AS THIS FILE'S
+DATED RECORD AND IS NO LONGER TRUE OF THE CORPUS.  «W-δ (a grade `→ 0` at fixed `ε`) is not
+stated» was true when this file landed.  W-δ is now STATED AND PROVED in
+`Salt/MR/FlatDoorAllGrades.lean`: `FlatDoorAllGradesW` is the statement — the `L²` door on the
+flat family at EVERY grade `ρ > 0`, every `ε ∈ (0, 1/500]`, above every floor `A₀` — and
+`flatDoorAllGradesW_holds` is its proof, one formal step from rung 2's head
+(`Salt/MR/FlatDoorEpsRung2.lean`).  No statement in THIS file moved.
+
+WHAT STAYS TRUE.  The crown `MRTDoorAllGrades` still has NO producer: W-δ's quantifier shape is
+`∀ A₀ ∃ R` on the FLAT family, not the crown's `∃ H₀ ∀ R`, and its `ε`-range is `(0, 1/500]`, not
+`(0, 1/2]`.  The `∃ ε` tripwire `spine_eps_constant_floor` is untouched.  W-δ exports no RATE.
+Nothing bears on twin primes.
+-/
