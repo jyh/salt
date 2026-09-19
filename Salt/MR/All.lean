@@ -449,6 +449,7 @@ import Salt.MR.FlatDoorEpsFamily
 import Salt.MR.FlatDoorEpsRung2
 import Salt.MR.FlatDoorNonVacuity
 import Salt.MR.FlatDoorAllGrades
+import Salt.MR.FlatDoorParityFloor
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -10813,3 +10814,47 @@ open Salt.Tactic in
   Salt.MR.crownWd_L1_on_flat
   Salt.MR.crownNV_Wdelta_nonvacuous
   Salt.MR.crownNV_Wdelta_nonvacuous_holds
+
+/-! ⟦TIER S — ROAD F, THE PARITY FLOOR⟧ — THE `ξ = 0` TERM OF THE `L²` DOOR IS `≥ 1/H²` AT ODD
+`H`, AND ON THE FLAT FAMILY THE ORDER `∀ ρ ∃ R` IS FORCED (`FlatDoorParityFloor`, 2026-09-19,
+h2c).  Additive only: no landed statement moves; four landed comment sites gain a label sentence
+(three declaration docstrings and the `FlatDoorNonVacuity` module header).
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.
+
+⚠ THE BLOCK ABOVE SAYS «that the `ξ = 0` TERM is strictly positive (a parity floor at odd `H`)
+is NOT proved».  That was TRUE when it was written and is SUPERSEDED HERE; it is left in place
+as that block's own dated record, and this block is what a reader reaches last.
+
+WHAT IS NOW TRUE.  `windowExpSum H n 0` is the integer sum of `H` Liouville values, each `±1`
+(`crownK6_windowExpSum_zero`); at odd `H` that sum is odd (`crownK6_window_sum_odd`), so its
+norm is `≥ 1` (`crownK6_one_le_norm_of_odd`) and, `logMeasure` being a probability measure,
+`1 ≤ ∫ ‖windowExpSum H n 0‖²` (`crownK6_integral_floor`).  EVERY `ChowlaRegime` has
+`R.Hlo + 1 ≤ R.Hhi` (`crownK6_one_le_J`, `crownK6_Hlo_succ_le_Hhi`: `hJcon` forces a tower
+step, and a step at least doubles), so an odd `H` is in range (`crownK6_odd_in_range`).  Hence a
+regime with `0 ∈ Ξ_H` on its range carries the door only at grades `ρ ≥ 1/(R.Hlo + 1)²`
+(`crownK6_grade_floor_at`, `crownK6_grade_floor`) and NOT at every grade
+(`crownK6_not_every_grade`); `crownK6_flat_order_forced` says so of every flat regime above
+`FlatDoorNonVacuity`'s floors.  THE CONTROL `crownK6_Wdelta_regime_moves`: the class is
+inhabited by W-δ's own regime, which carries the door at its `ρ` and not at every grade.
+
+⚠ WHAT IS NOT SAID.  `¬ ∃ R, ∀ ρ > 0, MRTUniformityXiL2 R ρ` over ALL regimes is NOT proved: the
+floor `H₀` is the Mertens leaf's, NON-EFFECTIVE, and a regime below it is out of reach.  W-δ's
+truth never depended on this (`∃ R ∀ ρ` would IMPLY W-δ).  Even `H` is untouched.  The crown
+still has no producer and E2's `hcrown` binder STANDS.  No rate is exported.
+
+**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  12 names at the three axioms (12
+theorems). -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.crownK6_windowExpSum_zero
+  Salt.MR.crownK6_window_sum_odd
+  Salt.MR.crownK6_one_le_norm_of_odd
+  Salt.MR.crownK6_integral_floor
+  Salt.MR.crownK6_one_le_J
+  Salt.MR.crownK6_Hlo_succ_le_Hhi
+  Salt.MR.crownK6_odd_in_range
+  Salt.MR.crownK6_grade_floor_at
+  Salt.MR.crownK6_grade_floor
+  Salt.MR.crownK6_not_every_grade
+  Salt.MR.crownK6_flat_order_forced
+  Salt.MR.crownK6_Wdelta_regime_moves

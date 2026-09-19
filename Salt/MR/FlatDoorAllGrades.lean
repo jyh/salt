@@ -144,7 +144,9 @@ theorem crownWd_L1_on_flat (hWd : FlatDoorAllGradesW) (δ : ℝ) (hδ : 0 < δ) 
 
 /-- **⟦W-δ, NON-VACUOUS — FROM W-δ⟧** (`crownNV_Wdelta_nonvacuous`) — W-δ's body VERBATIM plus
 ONE conjunct: the regime can be taken with `0 ∈ Ξ_H` at EVERY `H` at or above its `Hlo`.  The
-floor argument of `crownNV_landedW_nonvacuous`, run on the statement W-δ. -/
+floor argument of `crownNV_landedW_nonvacuous`, run on the statement W-δ.  NON-VACUOUS means
+`0 ∈ Ξ_H` and NO MORE: the sum is non-empty.  That its `ξ = 0` term is `≥ 1/H²` at odd `H` is
+`FlatDoorParityFloor`, not this. -/
 theorem crownNV_Wdelta_nonvacuous (hWd : FlatDoorAllGradesW) :
     ∀ (ε : ℚ), 0 < ε → ε ≤ 1 / 500 → ∀ ρ : ℝ, 0 < ρ → ∀ A₀ : ℝ,
       ∃ A : ℝ, 162 ≤ A ∧ A₀ ≤ A ∧
@@ -165,7 +167,8 @@ theorem crownNV_Wdelta_nonvacuous (hWd : FlatDoorAllGradesW) :
 
 /-- **⟦W-δ, NON-VACUOUS — UNCONDITIONAL⟧** (`crownNV_Wdelta_nonvacuous_holds`) —
 `crownNV_Wdelta_nonvacuous` with `flatDoorAllGradesW_holds` supplied, so no reader carries the
-`hWd` binder as an open hypothesis. -/
+`hWd` binder as an open hypothesis.  NON-VACUOUS means `0 ∈ Ξ_H` and NO MORE (the sum is
+non-empty); the positivity of the `ξ = 0` term at odd `H` is `FlatDoorParityFloor`. -/
 theorem crownNV_Wdelta_nonvacuous_holds :
     ∀ (ε : ℚ), 0 < ε → ε ≤ 1 / 500 → ∀ ρ : ℝ, 0 < ρ → ∀ A₀ : ℝ,
       ∃ A : ℝ, 162 ≤ A ∧ A₀ ≤ A ∧

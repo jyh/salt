@@ -30,8 +30,8 @@ and `crownNV_landedW_nonvacuous` pays the two floors out of the landed door's ow
 
 ⚠ WHAT THIS DOES NOT SAY.  The floor `H₀` is the Mertens leaf's and is NON-EFFECTIVE (an `∃`, not
 a numeral).  Membership of `0` says the sum is non-empty; that the `ξ = 0` TERM of the door is
-strictly positive is a separate fact (a parity floor at odd `H`) and is NOT proved here.  Nothing
-here bears on twin primes.
+strictly positive is a separate fact (a parity floor at odd `H`) and is NOT proved here — it is
+proved downstream, in `FlatDoorParityFloor`.  Nothing here bears on twin primes.
 
 Inside `namespace Salt.MR` the bare name `primeWindow` is `Salt.MR.primeWindow (P : ℝ) (n : ℕ)`,
 NOT the Chowla prime window; every occurrence below is QUALIFIED for that reason.
@@ -135,7 +135,8 @@ theorem crownNV_above_flat_floor :
 `FlatDoorEpsFamilyW`'s body VERBATIM plus ONE conjunct: the regime can be taken with `0 ∈ Ξ_H` at
 EVERY `H` at or above its `Hlo`, so at every `H` the door quantifies over.  The two floors of
 `crownNV_above_flat_floor` are paid out of the landed door's own `∀ A₀`, by asking it for
-`max A₀ (max H₀ ((2/ε²)²))`. -/
+`max A₀ (max H₀ ((2/ε²)²))`.  NON-VACUOUS means `0 ∈ Ξ_H` and NO MORE: the door's sum is
+non-empty.  That its `ξ = 0` term is `≥ 1/H²` at odd `H` is `FlatDoorParityFloor`, not this. -/
 theorem crownNV_landedW_nonvacuous :
     ∀ (ε : ℚ), 0 < ε → ε ≤ 1 / 500 → ∀ A₀ : ℝ,
       ∃ (δ₀ A : ℝ), 0 < δ₀ ∧
