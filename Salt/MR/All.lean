@@ -10817,7 +10817,8 @@ open Salt.Tactic in
 
 /-! ⟦TIER S — ROAD F, THE PARITY FLOOR⟧ — THE `ξ = 0` TERM OF THE `L²` DOOR IS `≥ 1/H²` AT ODD
 `H`, AND ON THE FLAT FAMILY THE ORDER `∀ ρ ∃ R` IS FORCED (`FlatDoorParityFloor`, 2026-09-19,
-h2c).  Additive only: no landed statement moves; three landed docstrings gain a label sentence.
+h2c).  Additive only: no landed statement moves; four landed comment sites gain a label sentence
+(three declaration docstrings and the `FlatDoorNonVacuity` module header).
 
 ⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.
 
