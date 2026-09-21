@@ -496,41 +496,57 @@ _WORKFLOW = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..",
                          ".github", "workflows", "scrub.yml")
 
 
-def edited_trigger_armed(path: str = _WORKFLOW):
-    """True when the Scrub workflow's `pull_request` trigger lists `edited`;
-    False when it does not; None when no such trigger can be read here.
-    READ FROM THE WORKFLOW'S BYTES, never asserted: the remedy promises that
-    saving an edit re-runs this check, and that promise is exactly as true as
-    the trigger list. Three states on purpose -- an unreadable workflow is not
-    an unarmed one."""
+_DEFAULT_TYPES = frozenset({"opened", "synchronize", "reopened"})
+_REQUIRED_TYPES = _DEFAULT_TYPES | {"edited"}
+
+
+def _no_comment(line: str) -> str:
+    """A YAML comment is not configuration. None of the values read here can
+    contain `#`, so everything from the first one is dropped."""
+    return line.split("#", 1)[0]
+
+
+def pull_request_types(path: str = _WORKFLOW):
+    """The Scrub workflow's `pull_request` activity types, as a frozenset: the
+    list it declares, or the Actions DEFAULTS when it declares none -- `types:`
+    REPLACES the defaults, so the SET matters and not only one member. None when
+    no such trigger can be read here: an unreadable workflow is not an unarmed
+    one. READ FROM THE WORKFLOW'S BYTES, never asserted, and comments are
+    dropped first (a non-author read found `# edited ...` reading as armed)."""
     try:
         with open(path, encoding="utf-8") as fh:
-            lines = fh.read().splitlines()
+            lines = [_no_comment(l) for l in fh.read().splitlines()]
     except OSError:
         return None
     for i, line in enumerate(lines):
         if line.rstrip() != "  pull_request:":
             continue
-        in_types = False
+        types, in_types = None, False
         for nxt in lines[i + 1:]:
             s = nxt.strip()
-            if not s or s.startswith("#"):
+            if not s:
                 continue
             if not nxt.startswith("    "):
-                return False  # the next trigger or top-level key: default types
+                break  # the next trigger or a top-level key
             if in_types:
                 if s.startswith("- "):
-                    if s[2:].strip().strip("'\"") == "edited":
-                        return True
+                    types.add(s[2:].strip().strip("'\""))
                     continue
-                return False  # the block list ended without it
+                in_types = False
             if s.startswith("types:"):
                 inline = s[len("types:"):].strip()
-                if inline:
-                    return "edited" in re.findall(r"[a-z_]+", inline)
-                in_types = True
-        return False
+                types = set(re.findall(r"[a-z_]+", inline))
+                in_types = not inline
+        return frozenset(types) if types is not None else _DEFAULT_TYPES
     return None
+
+
+def edited_trigger_armed(path: str = _WORKFLOW):
+    """True when a PR title/body edit re-runs this check (the trigger lists
+    `edited`), False when it does not, None when the trigger is unreadable.
+    This is the question the REMEDY needs; the self-test asks the wider one."""
+    types = pull_request_types(path)
+    return None if types is None else "edited" in types
 
 
 def rerun_note_lines(armed) -> list[str]:
@@ -1026,6 +1042,28 @@ def self_test() -> int:
         if edited_trigger_armed(wf(top + "    types:\n      - opened\n  workflow_dispatch:\n"
                                    )) is not False:
             failures.append("a block list that ends without `edited` is NOT armed")
+        # The non-author read's two findings, each planted with its control.
+        # (1) A COMMENT IS NOT CONFIGURATION: `edited` in a trailing comment must
+        # not read armed -- a false ARMED promises a re-run the trigger cannot give.
+        if edited_trigger_armed(wf(top + "    types: [opened, synchronize]  "
+                                   "# edited is deliberately NOT listed\n")) is not False:
+            failures.append("`edited` inside a trailing COMMENT must NOT read armed")
+        if edited_trigger_armed(wf(top + "    types:\n      - opened  # not edited\n"
+                                   "      - edited  # re-run on a body edit\n")) is not True:
+            failures.append("a block item with a trailing comment must still be read")
+        if edited_trigger_armed(wf("on:\n  push:\n  pull_request:  # why\n    types: "
+                                   "[edited]\n")) is not True:
+            failures.append("a trigger line with a trailing comment must still be found")
+        # (2) THE SET, NOT THE MEMBER: `types:` REPLACES the Actions defaults, so
+        # `types: [edited]` is armed for the REMEDY while the gate stops running
+        # on opened/synchronize. The set is readable, and the defaults are named.
+        if pull_request_types(wf(top + "    types: [edited]\n")) != frozenset({"edited"}):
+            failures.append("pull_request_types must return the SET it read")
+        if pull_request_types(wf(top + "\npermissions:\n")) != _DEFAULT_TYPES:
+            failures.append("a bare pull_request trigger means the Actions DEFAULT types")
+        if _REQUIRED_TYPES <= pull_request_types(wf(top + "    types: [edited]\n")):
+            failures.append("`types: [edited]` must FAIL the required-set test: the "
+                            "gate would stop running on opened and synchronize")
         if edited_trigger_armed(wf("on:\n  push:\n")) is not None:
             failures.append("no pull_request trigger at all is UNREADABLE, not unarmed")
         if edited_trigger_armed(os.path.join(d, "absent.yml")) is not None:
@@ -1039,12 +1077,15 @@ def self_test() -> int:
         if "by itself" in text or "gh run rerun" not in text or "NO run" not in text:
             failures.append(f"the {label} note must NOT promise a re-run, and must "
                             "say to re-run the failed job by hand")
-    here = edited_trigger_armed()
-    if here is not True:
+    here = pull_request_types()
+    if here is None or not _REQUIRED_TYPES <= here:
+        read = "unreadable" if here is None else (
+            "not listed" if "edited" not in here else
+            "missing " + ", ".join(sorted(_REQUIRED_TYPES - here)))
         failures.append("THIS repository's .github/workflows/scrub.yml must list "
-                        "`edited` in its pull_request types (read: "
-                        f"{'not listed' if here is False else 'unreadable'}) -- "
-                        "the remedy this gate prints depends on it")
+                        "ALL of opened, synchronize, reopened and `edited` in its "
+                        f"pull_request types (read: {read}) -- `types:` REPLACES the "
+                        "defaults, and the remedy this gate prints depends on `edited`")
     failures += _subject_arms()
     for f in failures:
         print(f"SELF-TEST FAIL: {f}")
@@ -1054,7 +1095,8 @@ def self_test() -> int:
           f"[gate {gate.self_id()}]: OK (title+body arms both directions; "
           f"session arm both surfaces, never echoed; "
           f"ref_vs_run all five branches; sibling vocabulary reached via import; "
-          f"edited-trigger read from the workflow's bytes, seven planted states; "
+          f"pull_request types read from the workflow's bytes as a SET, comments "
+          f"dropped, thirteen planted states; "
           f"subject arm: {_vocab_id()}, every word planted in its surfaces, "
           f"rec (4) subject-only plant in a scratch repository, range/history/"
           f"msg-file modes in both directions, --open through a fake forge, "
