@@ -910,6 +910,343 @@ theorem s13_g2_jfloor_of_MSelect'_L_gk_h_L {h : ℕ} (hh : 0 < h) {L : ℝ}
   rw [hsplit]
   linarith [h1 H hlo hhi, hhL]
 
+/-! ## §G — THE SEVEN CHARGE TWINS OF THE CAPSTONE'S `_14` CHAIN, AT THE TOWER FLOOR
+
+G12b's capstone reads the twist cap `log h ≤ 14` at two suppliers, and both are FALSE at a free
+twist over the fixed floor `50 ≤ loglog H`: the room for `h` is `(log H)²` against
+`h·(1 + 13·loglog H)²`.  Each twin below is its `_14` source with the cap binder replaced by the
+charge `{Lc} (0 ≤ Lc) (log h ≤ Lc)` and the fixed floor replaced by the TOWER floor
+`50 + Lc ≤ loglog H` (on a regime: at every `H ∈ [R.Hlo, R.Hhi]`).  The exponent `14` in
+`exp (14·loglog H)` is a BUDGET, not the cap, and stays.  The capstone (§H) supplies the tower
+floor from the design floor `flatDesignFloor A` (the road-F freeze of ARM Z, cell 14). -/
+
+/-- **⟦THE `H`-SIDE PRICE AT THE CHARGE⟧** (`hArcDen_mul_strataResidualH_sq_le_L`) —
+`hArcDen_mul_strataResidualH_sq_le_14` at `log h ≤ Lc` and the tower floor `50 + Lc ≤ Λ`,
+`Λ := loglog H`.  THE ROOM, exact in the exponent: `h ≤ e^{Λ-50}` (from `log h ≤ Lc ≤ Λ − 50`),
+`arcDen 12 H = e^{12Λ}`, and `strataResidualH h H = 1 + 12Λ + log h ≤ 1 + 13Λ ≤ e^{Λ/2+25}`
+(`26 ≤ e^{25}` and `Λ/2 + 1 ≤ e^{Λ/2}`, so `e^{Λ/2+25} ≥ 26·(Λ/2+1) = 13Λ + 26`); then
+`e^{Λ-50}·e^{12Λ}·e^{Λ+50} = e^{14Λ}`.  This is `(1 + 13Λ)² ≤ e^{Λ+50}`, true at every
+`Λ ≥ 50` (at `Λ = 50`: `651` against `e^{50} = 5.18·10^{21}`).  The source's device
+(`Real.add_one_le_exp`, a split exponential) is kept; only its split point moves. -/
+theorem hArcDen_mul_strataResidualH_sq_le_L {h H : ℕ} (hh : 0 < h) {Lc : ℝ} (hLc0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 + Lc ≤ Real.log (Real.log (H : ℝ))) :
+    (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
+      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ))) := by
+  set L : ℝ := Real.log (Real.log (H : ℝ)) with hLdef
+  have hlam50 : 50 ≤ L := by linarith
+  have hL1 : 1 < Real.log (H : ℝ) := one_lt_log_of_loglog_ge hL0 (by norm_num) hlam50
+  have hL : 0 < Real.log (H : ℝ) := by linarith
+  have harc : arcDen 12 H = Real.exp (12 * L) := by
+    rw [arcDen, Real.rpow_def_of_pos hL, ← hLdef]
+    congr 1
+    ring
+  have hsH : strataResidualH h H = strataResidual H + Real.log (h : ℝ) :=
+    strataResidualH_eq hh hL
+  have hstr : strataResidual H = 1 + 12 * L := strataResidual_eq_of_pos hL
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp (L - 50) := by
+    rw [← Real.exp_log hh0]
+    exact Real.exp_le_exp.mpr (by linarith)
+  have hlogh0 : 0 ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
+  -- the residual bound: `1 + 12L + log h ≤ 1 + 13L ≤ 26·(L/2 + 1) ≤ e^{25}·e^{L/2}`
+  have he25 : (26 : ℝ) ≤ Real.exp 25 := by
+    have := Real.add_one_le_exp (25 : ℝ)
+    linarith
+  have hlin : L / 2 + 1 ≤ Real.exp (L / 2) := Real.add_one_le_exp _
+  have hsplit : Real.exp (L / 2 + 25) = Real.exp 25 * Real.exp (L / 2) := by
+    rw [← Real.exp_add]
+    congr 1
+    ring
+  have hprod : (26 : ℝ) * (L / 2 + 1) ≤ Real.exp 25 * Real.exp (L / 2) :=
+    mul_le_mul he25 hlin (by linarith) (Real.exp_pos 25).le
+  have hres : strataResidualH h H ≤ Real.exp (L / 2 + 25) := by
+    rw [hsH, hstr, hsplit]
+    linarith
+  have hres0 : 0 ≤ strataResidualH h H := by rw [hsH, hstr]; linarith
+  have hsq : strataResidualH h H ^ 2 ≤ Real.exp (L / 2 + 25) ^ 2 :=
+    pow_le_pow_left₀ hres0 hres 2
+  have hE : Real.exp (L - 50) * Real.exp (12 * L) * (Real.exp (L / 2 + 25) ^ 2)
+      = Real.exp (14 * L) := by
+    rw [sq, ← Real.exp_add, ← Real.exp_add, ← Real.exp_add]
+    congr 1
+    ring
+  have harc0 : (0 : ℝ) ≤ arcDen 12 H := arcDen_nonneg 12 H
+  have hsq0 : (0 : ℝ) ≤ strataResidualH h H ^ 2 := sq_nonneg _
+  calc (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
+      ≤ Real.exp (L - 50) * arcDen 12 H * strataResidualH h H ^ 2 := by
+        gcongr
+    _ = Real.exp (L - 50) * Real.exp (12 * L) * strataResidualH h H ^ 2 := by rw [harc]
+    _ ≤ Real.exp (L - 50) * Real.exp (12 * L) * (Real.exp (L / 2 + 25) ^ 2) := by
+        gcongr
+    _ = Real.exp (14 * L) := hE
+
+/-- `a2DoorGrade_pool_L_priced_rhoH_14` at the charge (`a2DoorGrade_pool_L_priced_rhoH_L`).
+SUPPLIER-SWAP: the `H`-side price is `hArcDen_mul_strataResidualH_sq_le_L`, fed the tower floor
+`hHL : 50 + Lc ≤ loglog H`; the budget and the five summand prices are cap-blind.  BODY: the
+source's. -/
+theorem a2DoorGrade_pool_L_priced_rhoH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {M H j : ℕ} {X C₁ M₀ K ρ π₀ : ℝ}
+    (hfr : DoorArithFrameRho_L M H j X C₁ M₀ K ρ)
+    (hHL : 50 + Lc ≤ Real.log (Real.log (H : ℝ))) (hpool : 0 ≤ π₀)
+    (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
+    (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
+      ≤ RSanDoorRhoH ρ h H := by
+  have hLX : 1 < Real.log X := hfr.one_lt_logX
+  have hLrho : 0 ≤ Real.log (1 / ρ) := hfr.logInvRho_nonneg
+  have hstrpos : (0 : ℝ) < strataResidualH h H := by
+    have := one_le_strataResidualH (one_le_hArcDen_of_loglog hh hfr.logH_nonneg hfr.Hfloor)
+    linarith
+  have hgrade0 : (0 : ℝ) ≤ a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by
+    refine a2DoorGrade_pool_L_nonneg hfr.Mpos (by linarith) ?_ hpool
+    have : (0 : ℝ) < (2 : ℝ) ^ j := by positivity
+    push_cast
+    exact this
+  have hwt := hArcDen_mul_strataResidualH_sq_le_L hh hL0 hhL hfr.logH_nonneg hHL
+  rw [RSanDoorRhoH, le_div_iff₀ (pow_pos hstrpos 2)]
+  have hkey : (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
+        * strataResidualH h H ^ 2
+      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ)))
+          * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by
+    have hid : (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
+          * strataResidualH h H ^ 2
+        = ((h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2)
+            * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by ring
+    rw [hid]
+    exact mul_le_mul_of_nonneg_right hwt hgrade0
+  refine le_trans hkey ?_
+  have h1 := doorGrade_summand1_priced_rho (H := H) hfr.rho_pos hfr.C1_nonneg hfr.logX_nonneg
+    hLX hfr.M0_window
+  have h2 := doorGrade_summand2_priced_rho_L (H := H) hfr.rho_pos hfr.Mpos hfr.anchor
+  have h3 := doorGrade_summand3_priced_rho_pool (H := H) hprice
+  have h4 := doorGrade_summand4_priced_rho (H := H) hfr.rho_pos hLrho hLX hfr.Hfloor
+    hfr.armWeak
+  have h5 := doorGrade_summand5_priced_rho (H := H) (j := j) hfr.rho_pos hLrho hfr.Hfloor
+    hfr.jfloor
+  rw [a2DoorGrade_pool_L]
+  ring_nf
+  ring_nf at h1 h2 h3 h4 h5
+  linarith
+
+/-- `a2DoorGrade_pool_L_priced_rhoH_gk_14` at the charge (`a2DoorGrade_pool_L_priced_rhoH_gk_L`),
+at the lever (`a2Level1_L` is K-invariant).  SUPPLIER-SWAP; BODY: the source's. -/
+theorem a2DoorGrade_pool_L_priced_rhoH_gk_L (K : ℕ) {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {M H j : ℕ} {X C₁ M₀ Kar ρ π₀ : ℝ}
+    (hfr : DoorArithFrameRho_L M H j X C₁ M₀ Kar ρ)
+    (hHL : 50 + Lc ≤ Real.log (Real.log (H : ℝ))) (hpool : 0 ≤ π₀)
+    (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
+    (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L_gk K M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
+      ≤ RSanDoorRhoH ρ h H := by
+  have heq : a2DoorGrade_pool_L_gk K M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
+      = a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := rfl
+  rw [heq]
+  exact a2DoorGrade_pool_L_priced_rhoH_L hh hL0 hhL hfr hHL hpool hprice
+
+/-- `m4_arith_henv_rho_poolH_L_gk_14` at the charge (`m4_arith_henv_rho_poolH_L_gk_L`).  The
+tower floor is a regime binder `hfloor`, read at the socket's `R.Hlo ≤ H ≤ R.Hhi`
+(`hb.1`, `hb.2.1`).  SUPPLIER-SWAP; BODY: the source's. -/
+theorem m4_arith_henv_rho_poolH_L_gk_L (K : ℕ) {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M : ℕ} {C₁ M₀ π₀ : ℕ → ℝ} {Kar ρ : ℝ}
+    (hfloor : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 50 + Lc ≤ Real.log (Real.log (H : ℝ)))
+    (hpool : ∀ A : ℕ, 0 ≤ π₀ A)
+    (harith : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ)
+    (hprice : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      188133 * π₀ (A + s) * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      (h : ℝ) * arcDen 12 H
+          * a2DoorGrade_pool_L_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ)
+              (C₁ (A + s)) (M₀ (A + s)) (π₀ (A + s))
+        ≤ RSanDoorRhoH ρ h H :=
+  fun H L q j A s hb =>
+    a2DoorGrade_pool_L_priced_rhoH_gk_L K hh hL0 hhL (harith H L q j A s hb)
+      (hfloor H hb.1 hb.2.1) (hpool (A + s)) (hprice H L q j A s hb)
+
+/-- **⟦THE ARITHMETIC GATE AT THE CONSTANT POOL, AT THE CHARGE⟧**
+(`m4_arith_henv_constPoolH_L_gk_L`) — `m4_arith_henv_constPoolH_L_gk_14` at `log h ≤ Lc` and the
+regime tower floor `hfloor`.  The price wrapper `price_at_constPool_socketH_L` is cap-blind.
+SUPPLIER-SWAP; BODY: the source's. -/
+theorem m4_arith_henv_constPoolH_L_gk_L (K : ℕ) {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ} {Kar ρ : ℝ}
+    (hfloor : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 50 + Lc ≤ Real.log (Real.log (H : ℝ)))
+    (hρ : 0 ≤ ρ)
+    (harith : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      (h : ℝ) * arcDen 12 H
+          * a2DoorGrade_pool_L_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+              (M₀ (A + s)) (constPool ρ R.Hhi)
+        ≤ RSanDoorRhoH ρ h H :=
+  m4_arith_henv_rho_poolH_L_gk_L K hh hL0 hhL (π₀ := fun _ => constPool ρ R.Hhi) hfloor
+    (fun _ => constPool_nonneg hρ) harith (price_at_constPool_socketH_L harith)
+
+set_option maxHeartbeats 1000000 in
+-- the landed fuse's own budget: sixteen socket-framed hypotheses re-elaborate here too
+/-- ⟦WIDE CEILING TWIN, AT THE CHARGE⟧
+(`m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_L`) — the `_14` fuse at `log h ≤ Lc`.
+The chain's ONE cap read is the arithmetic gate, now `m4_arith_henv_constPoolH_L_gk_L`; it reads
+the regime tower floor, which this twin takes as ONE new inner binder, placed first after the
+`∀ (R …) (t₁ …)` binder block (before `1 ≤ M`):
+`∀ H, R.Hlo ≤ H → H ≤ R.Hhi → 50 + Lc ≤ loglog H`.  The slot and the assembly take no cap binder.
+BODY: the source's. -/
+theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_L (h : ℕ) (hh : 0 < h)
+    {Lc : ℝ} (hL0 : 0 ≤ Lc) (hhL : Real.log (h : ℝ) ≤ Lc) (K : ℕ) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kc ρ : ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 50 + Lc ≤ Real.log (Real.log (H : ℝ))) →
+        1 ≤ M → K ≤ 170000000 * M → 0 < ρ → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) →
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → DoorBaseFrame (A + s) j) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          374784 * Ct * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+            ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          GRowsZeroGate'''_L_gk K M (A + s) Cp (constPool ρ R.Hhi)) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
+            ≤ (theta293 - ε (A + s)) * Real.log (Real.log (((A + s : ℕ)) : ℝ))) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+            * constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_L_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
+                  (M₀ (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kc ρ) →
+        M4ChiSummedFreeRowH_L_gk h K R M
+          (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H)) := by
+  obtain ⟨Ct, hCt, hCtb, hslot⟩ := m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide h K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro Cp hCp R M C₁ M₀ ε Kc ρ cU bU t₁ hfloor hM hKw hρ hb1 hc1 hbf hgP1 hgRows hthr _heps293
+    hband4096 hbase hcap hband harith
+  refine m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk h K (Cs := fun _ => Ct)
+    (Ccc := fun _ => Cp) (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := fun _ => constPool ρ R.Hhi)
+    (RSbig := fun _ H => RSanDoorRhoH ρ h H) hM ?_
+    (hslot Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap) hband
+    (fun _ => constPool_nonneg hρ.le)
+    (m4_arith_henv_constPoolH_L_gk_L K hh hL0 hhL hfloor hρ.le harith)
+  intro H L q j A s hb
+  have hXd : 1 ≤ A + s := by
+    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+    omega
+  exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
+    (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
+    (hband4096 H L q j A s hb)
+
+/-- **⟦gate 7 AT THE CHARGE, IN REGIME FORM⟧** (`arc36_of_regime_h_L`) — `arc36_of_regime_h_14`
+at `log h ≤ Lc` and the regime tower floor `hfloor` (in place of `loglogFloor50 ≤ R.Hlo`).  The
+conclusion is the source's byte for byte; the ROUTE is direct in logarithms, since the source's
+`h ≤ 1202604` is a numeral cap.  THE ROOM, `Λ := loglog H`: `h ≤ e^{Λ-50}` and
+`arcDen 12 H = e^{12Λ}`, so `128·(h·arcDen 12 H)³ ≤ e^5·e^{39Λ-150} = e^{39Λ-145}`
+(`128 ≤ 2.7⁵ = 143.49 < e^5`), against `H = e^{e^Λ}`; and `39Λ − 145 ≤ e^Λ` from
+`e^Λ = e^{50}·e^{Λ-50} ≥ 2000·(Λ − 49)` (`2000 ≤ 2.7^{50} = 3.70·10^{21}`), whose excess over
+`39Λ − 145` is `1961·Λ − 97855 ≥ 195` at `Λ ≥ 50`.  No `open private` is needed. -/
+theorem arc36_of_regime_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (_hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) {R : ChowlaRegime}
+    (hfloor : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 50 + Lc ≤ Real.log (Real.log (H : ℝ))) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * ((h : ℝ) * arcDen 12 H) ^ 3 ≤ (H : ℝ) := by
+  intro H hlo hhi
+  have hΛ := hfloor H hlo hhi
+  set L : ℝ := Real.log (Real.log (H : ℝ)) with hLdef
+  have hL0H : 0 ≤ Real.log (H : ℝ) := Real.log_natCast_nonneg H
+  have hL1 : 1 < Real.log (H : ℝ) :=
+    one_lt_log_of_loglog_ge hL0H (by norm_num : (0 : ℝ) < 50) (by linarith)
+  have hL : 0 < Real.log (H : ℝ) := by linarith
+  have hHpos : (0 : ℝ) < (H : ℝ) := by
+    rcases Nat.eq_zero_or_pos H with h0 | h0
+    · subst h0
+      simp at hL1
+      linarith
+    · exact_mod_cast h0
+  have harc : arcDen 12 H = Real.exp (12 * L) := by
+    rw [arcDen, Real.rpow_def_of_pos hL, ← hLdef]
+    congr 1
+    ring
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp (L - 50) := by
+    rw [← Real.exp_log hx0]
+    exact Real.exp_le_exp.mpr (by linarith)
+  have hprod : (h : ℝ) * arcDen 12 H ≤ Real.exp (13 * L - 50) := by
+    rw [harc]
+    calc (h : ℝ) * Real.exp (12 * L) ≤ Real.exp (L - 50) * Real.exp (12 * L) :=
+          mul_le_mul_of_nonneg_right hhle (Real.exp_pos _).le
+      _ = Real.exp (13 * L - 50) := by
+          rw [← Real.exp_add]
+          congr 1
+          ring
+  have hprod0 : (0 : ℝ) ≤ (h : ℝ) * arcDen 12 H := mul_nonneg hx0.le (arcDen_nonneg 12 H)
+  have hcube : ((h : ℝ) * arcDen 12 H) ^ 3 ≤ Real.exp (39 * L - 150) := by
+    have hc := pow_le_pow_left₀ hprod0 hprod 3
+    have he : Real.exp (13 * L - 50) ^ 3 = Real.exp (39 * L - 150) := by
+      rw [← Real.exp_nat_mul]
+      congr 1
+      push_cast
+      ring
+    rw [he] at hc
+    exact hc
+  have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have h128 : (128 : ℝ) ≤ Real.exp 5 := by
+    have h5 : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hp : (2.7 : ℝ) ^ (5 : ℕ) ≤ (Real.exp 1) ^ (5 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) he1.le 5
+    have hn : (128 : ℝ) ≤ (2.7 : ℝ) ^ (5 : ℕ) := by norm_num
+    rw [h5]; linarith
+  have h2000 : (2000 : ℝ) ≤ Real.exp 50 := by
+    have h50 : Real.exp 50 = (Real.exp 1) ^ (50 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hp : (2.7 : ℝ) ^ (50 : ℕ) ≤ (Real.exp 1) ^ (50 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) he1.le 50
+    have hn : (2000 : ℝ) ≤ (2.7 : ℝ) ^ (50 : ℕ) := by norm_num
+    rw [h50]; linarith
+  have hkey : 39 * L - 145 ≤ Real.exp L := by
+    have hlin : (L - 50) + 1 ≤ Real.exp (L - 50) := Real.add_one_le_exp _
+    have hsplit : Real.exp L = Real.exp 50 * Real.exp (L - 50) := by
+      rw [← Real.exp_add]
+      congr 1
+      ring
+    have hm : (2000 : ℝ) * (L - 49) ≤ Real.exp 50 * Real.exp (L - 50) :=
+      mul_le_mul h2000 (by linarith) (by linarith) (Real.exp_pos 50).le
+    rw [hsplit]
+    linarith
+  have hHexp : (H : ℝ) = Real.exp (Real.exp L) := by
+    rw [hLdef, Real.exp_log hL, Real.exp_log hHpos]
+  calc 128 * ((h : ℝ) * arcDen 12 H) ^ 3 ≤ Real.exp 5 * Real.exp (39 * L - 150) :=
+        mul_le_mul h128 hcube (pow_nonneg hprod0 3) (Real.exp_pos 5).le
+    _ = Real.exp (39 * L - 145) := by
+        rw [← Real.exp_add]
+        congr 1
+        ring
+    _ ≤ Real.exp (Real.exp L) := Real.exp_le_exp.mpr hkey
+    _ = (H : ℝ) := hHexp.symm
+
 end Salt.MR
 
 end
