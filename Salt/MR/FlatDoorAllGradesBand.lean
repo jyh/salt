@@ -7,6 +7,13 @@ import Salt.MR.FlatDoorAllGrades
 import Salt.MR.TierSBand
 import Mathlib
 
+-- Needed to transcribe §4's band head and §5's socket hop: the two names rung 2 itself
+-- opens for the identical purpose (`FlatDoorEpsRung2.lean:25-26`).  MEASURED, not assumed:
+-- `#check @uniformCap_shuffle` and `#check @uniformCap_arc` both fail without this line
+-- (`Unknown identifier`), and `regimeFlatEnlargeX` needs no such line — it is public in
+-- `Salt.Entropy.Chowla`, which is opened below.
+open private uniformCap_arc uniformCap_shuffle from Salt.MR.S16Uniform
+
 /-!
 # ⟦TIER S — ROAD F, THE REGIME AXIS: THE FLAT DOOR ON THE BAND (ARM R)⟧
 (`FlatDoorAllGradesBand`)
@@ -446,6 +453,131 @@ def V7RatedFormEpsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ 
         ∀ (x' : ℕ) (hx' : R.x ≤ x'),
           Real.log ((x' : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
           P (regimeEnlargeX R hx')
+
+/-! ## §3 — the builder twin B2′: B1's tight bound and the gate fact, both EXPORTED -/
+
+/-- **⟦ARM R B2′ — THE BUILDER TWIN ON B1 AT STRIDE 1⟧**
+(`chowlaRegimeFlat_exists_param_head_xceil_at_tight`) — rung 2's
+`chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2900`, body 90 lines) with
+its first `obtain` taken from the landed S-1 builder B1
+(`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight`, `TierSBand.lean:420`) at stride
+`a := 1` — `strideScale_one` makes that a flat regime — instead of from
+`chowlaRegimeFlat_exists_param_gen_ceiling`.  Everything else is the source's body byte for byte;
+THREE conjuncts move, and they are the whole reason this twin exists:
+
+* B1's conclusion has NINE conjuncts where the source's builder has six.  Its FOURTH,
+  `StrideScale 1 R.toChowlaRegime`, is DROPPED with `-`; its LAST TWO are what is harvested.
+* `hRωtight` (`log R.ω ≤ xTightCeil eps R.Hhi`) is EXPORTED unchanged — `ω` is carried verbatim
+  by the enlargement — and `hRxtight` (`log R.x ≤ xTightCeil eps R.Hhi`) is carried through the
+  enlargement `x ↦ max x (g Hhi ω)` into the MAX shape by the two `rcases` on `le_total`, exactly
+  as the landed B2 does it (`TierSBand.lean:615`), minus the stride's division by `a`.
+* `hll` (`lam0 ≤ log (log R.Hhi)`, the source's own `:2917`) is EXPORTED as the last conjunct
+  instead of being spent silently at the rider gate.  The five tier-A band forms of §2 carry it
+  and HALF 2's conditional hop spends it; it reads `Hhi` only, so the enlargement does not move
+  it.  At `lam0 = 50` the hypothesis `hlamA` is `50 ≤ 3.2·A`, which `hA : 26 ≤ A` already gives
+  (`3.2 · 26 = 83.2`), so this twin is not weaker than its source at the source's own floor.
+
+Nothing here bears on twin primes. -/
+theorem chowlaRegimeFlat_exists_param_head_xceil_at_tight (lam0 A : ℝ) (hA : 26 ≤ A)
+    (hlamA : lam0 ≤ 3.2 * A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ)
+    (g : ℕ → ℕ → ℕ) (hg : XCeilRiderAt lam0 eps g) :
+    ∃ R : ChowlaRegimeFlat, R.eps = eps ∧ R.A = A ∧ Hlo₀ ≤ R.Hlo ∧
+      g R.Hhi R.ω ≤ R.x ∧
+      R.Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) ∧
+      Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) ∧
+      Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) ∧
+      Real.log ((R.ω : ℕ) : ℝ) ≤ xTightCeil eps R.Hhi ∧
+      Real.log ((R.x : ℕ) : ℝ) ≤ max (xTightCeil eps R.Hhi) (Real.log ((g R.Hhi R.ω : ℕ) : ℝ)) ∧
+      lam0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) := by
+  obtain ⟨R, hReps, hRA, hRHlo, -, hRcap, hRwid, hRx, hRωtight, hRxtight⟩ :=
+    chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight 1 le_rfl (by norm_num) A hA eps heps
+      heps1 Hlo₀
+  have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
+  -- ⟦THE ENDPOINT FLOOR⟧
+  have hHhi4 : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+  have hHhiR : (4000000 : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) := by exact_mod_cast hHhi4
+  have hHlo4 : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast R.hHlo_floor
+  -- ⟦THE `loglog` FLOOR AT THE PARAMETER⟧ off `lam0 ≤ 3.2·A = 3.2·R.A ≤ loglog H₋`
+  have hll : lam0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) := by
+    have hflat : 3.2 * R.A ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) := R.hflat
+    rw [hRA] at hflat
+    have hlogpos : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+      Real.log_pos (by linarith)
+    have hmono : Real.log ((R.Hlo : ℕ) : ℝ) ≤ Real.log ((R.Hhi : ℕ) : ℝ) := by
+      refine Real.log_le_log (by linarith) ?_
+      exact_mod_cast R.hHlohi
+    have := Real.log_le_log hlogpos hmono
+    linarith
+  -- ⟦THE WIDTH WINDOW⟧ the majorant field read against the ceiling
+  have hωgate : Real.log ((R.ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ)
+      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
+    set P : ℕ := 4 ^ ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hPdef
+    set n : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hndef
+    have hPH : 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) ≤ ((R.x : ℕ) : ℝ) := R.hPHheadroom
+    have hP1 : (1 : ℝ) ≤ ((P : ℕ) : ℝ) := by
+      rw [hPdef]
+      have : (1 : ℕ) ≤ 4 ^ n := Nat.one_le_pow _ _ (by norm_num)
+      exact_mod_cast this
+    have hω1 : (1 : ℝ) ≤ ((R.ω : ℕ) : ℝ) := by
+      have : (1 : ℕ) ≤ R.ω := le_trans (by norm_num) R.hω
+      exact_mod_cast this
+    -- `log 8 + 2·log P + log ω ≤ log x`
+    have hpos : (0 : ℝ) < 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) := by positivity
+    have hlogle : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
+        ≤ Real.log ((R.x : ℕ) : ℝ) := Real.log_le_log hpos hPH
+    have hsplit : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
+        = Real.log 8 + 2 * Real.log ((P : ℕ) : ℝ) + Real.log ((R.ω : ℕ) : ℝ) := by
+      rw [Real.log_mul (by positivity) (by linarith), Real.log_mul (by norm_num) (by positivity),
+        Real.log_pow]
+      push_cast
+      ring
+    -- `log P = n·log 4 ≥ (ε²H₊ − 1)·log 4`
+    have hlogP : Real.log ((P : ℕ) : ℝ) = (n : ℝ) * Real.log 4 := by
+      rw [hPdef]
+      have h4 : ((4 ^ n : ℕ) : ℝ) = (4 : ℝ) ^ n := by push_cast; ring
+      rw [h4, Real.log_pow]
+    have hnge : (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1 ≤ (n : ℝ) := by
+      have hQ : R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) < (n : ℚ) + 1 := by
+        rw [hndef]; exact Nat.lt_floor_add_one _
+      have hR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) < (n : ℝ) + 1 := by exact_mod_cast hQ
+      rw [hReps] at hR
+      linarith
+    have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
+      have h : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+        rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+      rw [h]; linarith [Real.log_two_gt_d9]
+    have hlog8 : (2.0794 : ℝ) ≤ Real.log 8 := by
+      have h : Real.log (8 : ℝ) = 3 * Real.log 2 := by
+        rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+      rw [h]; linarith [Real.log_two_gt_d9]
+    -- ⟦THE COPRIMALITY FLOOR⟧ `ε²·H₊ ≥ 2`
+    have hcop : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) := by
+      have hQ : ((R.a : ℕ) : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) / 2 := R.hcoprime
+      have ha1 : (1 : ℚ) ≤ ((R.a : ℕ) : ℚ) := by exact_mod_cast R.ha
+      have hQ2 : (2 : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) := by linarith
+      have hR2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast hQ2
+      rw [hReps] at hR2
+      have hmono : (eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
+        mul_le_mul_of_nonneg_left (by exact_mod_cast R.hHlohi) (sq_nonneg _)
+      linarith
+    have hnn : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg _
+    nlinarith [hlogle, hsplit, hlogP, hnge, hlog4, hlog8, hRx, hcop, hnn]
+  have hgx : Real.log ((g R.Hhi R.ω : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
+    hg R.Hhi R.ω ⟨hHhi4, hll, hωgate⟩
+  refine ⟨regimeFlatEnlargeX R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRA, hRHlo,
+    le_max_right _ _, hRcap, hRwid, ?_, ?_, ?_, ?_⟩
+  · simp only [regimeFlatEnlargeX_x, regimeFlatEnlargeX_Hhi]
+    rcases le_total R.x (g R.Hhi R.ω) with h | h
+    · rw [max_eq_right h]; exact hgx
+    · rw [max_eq_left h]; exact hRx
+  · simp only [regimeFlatEnlargeX_omega, regimeFlatEnlargeX_Hhi]
+    exact hRωtight
+  · simp only [regimeFlatEnlargeX_x, regimeFlatEnlargeX_omega, regimeFlatEnlargeX_Hhi]
+    rcases le_total R.x (g R.Hhi R.ω) with h | h
+    · rw [max_eq_right h]; exact le_max_right _ _
+    · rw [max_eq_left h]; exact le_trans hRxtight (le_max_left _ _)
+  · simp only [regimeFlatEnlargeX_Hhi]
+    exact hll
 
 end Salt.MR
 
