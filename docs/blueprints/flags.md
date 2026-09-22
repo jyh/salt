@@ -25462,3 +25462,4 @@ the design floor `flatDesignFloor A` (which gives `3.2*A <= loglog H_lo` and, at
 against that floor (the latter needs the module-private `log_le_rpow_inv_72`); and a restated split
 whose `10^-20` term scales with `h` (or is dropped).  **Owner:** the road-F head (freeze author).
 **Re-measure:** when the half-2 brief is cut, since the conditional also calls the split.
+**2026-09-22, part (1) DISCHARGED:** `flat_capstone_generic_h_Z` landed on the design floor (cell 14) with the seven `_L` twins of its `_14` chain (`Salt/MR/StrideDoorAllGrades.lean` §G–§H), sorry-free, `[propext, Classical.choice, Quot.sound]`; part (2), the split lift, stays open for half 2.
