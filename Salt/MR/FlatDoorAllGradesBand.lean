@@ -1009,6 +1009,182 @@ theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime �
     linarith [hend]
 
 
+/-! ## §6 — the conditional hop, and the ONE export block: tier A → tier B
+
+Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5250`) at the band forms.  It is the only hop
+of this file that does arithmetic rather than pass a conjunct through, and the arithmetic is
+forced by rule (i-x)'s TWO TIERS: this hop instantiates its source at the INFLATED rider
+`g' = s15Arm δ₀ ρ + g`, so the tier-A bound it receives is stated at `g'` and the tier-B bound it
+must export is stated at `2 · g`.  The block below is that conversion. -/
+
+/-- **⟦ARM R H4→H5⟧** (`flat_conditional_generic_epsW_band`) — rung 2's
+`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5250`) at the band forms.
+
+THREE THINGS HAPPEN HERE, and only the third is new work:
+* the source's `hg'` (the substituted rider `s15Arm δ₀ ρ + g` still obeys the builder-side gate,
+  through `xCeilRiderAt_arm_add`) and the whole fire are the source's, token for token, with the
+  regime read as `regimeEnlargeX R hx'` inside the band block and the arm's demotion discharged
+  at `x'` rather than at `R.x` (`hRarm' := le_trans hRarm hx'`);
+* the (i-ω) export `hRωtight` passes through unchanged — `ω` is untouched by the enlargement and
+  by the rider — and so does the tower conjunct;
+* ⟦S-1 (i-x) TIER A → TIER B⟧ the rider inflation, paid at the arm's own slack.  The capstone
+  band form hands us `log R.x ≤ max (xTightCeil ε R.Hhi) (log (g' R.Hhi R.ω))` at `g' = arm + g`;
+  the conditional band form demands `log R.x ≤ max (xTightCeilArm ε R.Hhi) (log (2 · g R.Hhi
+  R.ω))`.  `xTightCeilArm = xTightCeil + 18 + log 2 + H₊/10²⁰` (`TierSBand.lean:95`), and at
+  stride 1 this hop spends only `log 2 + H₊/10²⁰` of that — the `18` is the landed definition's
+  slack for the stride lane's two `log (·) ≤ 9` shifts, which do not exist here.  The case split
+  is on which summand of `g'` is the larger: at the arm, `log (arm + g) ≤ log 2 + log arm ≤
+  log 2 + log ω + H₊/10²⁰ ≤ xTightCeilArm` by `s15Arm_log_le_L_cut20` and the (i-ω) export; at
+  `g`, `arm + g ≤ 2 · g` in ℕ and the `max`'s right arm takes it.  The gate hypothesis
+  `50 + log c ≤ loglog R.Hhi` that the arm lemma needs is the (i-gate) conjunct the builder twin
+  B2′ of §3 exports and the five tier-A forms carry; THIS hop is what spends it, and `log c` does
+  NOT reach the conclusion — it is consumed entirely inside the arm's own cut.
+
+The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1149`, the block
+opening ⟦S-1 (i-x) TIER A → TIER B⟧); this transcription drops that block's `a` multiplier
+throughout (no `Real.log_mul`, no zero-product case) and its `log h` term, and reads the arm
+through `s15Arm_log_le_L_cut20` instead of `s15ArmH_log_le_g12b`.
+
+⚠️ ONE STEP IS NOT THE SOURCE'S TOKEN FOR TOKEN, and it is the instrument difference half 1 paid
+twice: the two `MSelect'`-derived gates are fired at the enlarged regime, whose `Hhi` projection
+is not the same ATOM as `R.Hhi`, so each `by linarith` gains a `simp only [regimeEnlargeX_Hhi]`
+in front.  Same two facts, one rewrite apart.  Nothing here bears on twin primes. -/
+theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ)
+    (h : FlatCapstoneFormEpsW_band ε c P Awin) :
+    FlatConditionalFormEpsW_band ε c P Awin := by
+  unfold FlatConditionalFormEpsW_band
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc, hδ₀, hMfl,
+    hCgle, hc1, hεpin, hδpin, hKcb, hMflb, hβ, hcapU⟩ :=
+    h
+  refine ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl,
+    hCgle, hc1, hεpin, hδpin, hKcb, hMflb, hβ, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hcapK⟩ := hcapU K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro A hA26 hAge hAL
+  obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge hAL
+  refine ⟨Hcap, hCapLe, ?_⟩
+  intro U1floor g hg hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hg' : XCeilRiderAt (50 + Real.log (c : ℝ)) ε
+      (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) :=
+    xCeilRiderAt_arm_add hc1 hεpin hLc0 le_rfl hδ₀ hδpin hKc
+      (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1) hg
+  obtain ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hgate, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) hg'
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRx, hRωtight, ?_, hRtow, ?_⟩
+  · -- the tier A to tier B export
+    have hH4R : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+    have harmR : Real.log ((s15Arm δ₀ ρ R.Hhi R.ω : ℕ) : ℝ)
+        ≤ Real.log ((R.ω : ℕ) : ℝ) + ((R.Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+      rw [hρdef, hδsdef]
+      exact s15Arm_log_le_L_cut20 (c := ((c : ℕ) : ℝ)) hcR1 hLc0 le_rfl hδ₀ hδpin hKc
+        (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1) hH4R hgate
+    have hlogmono : ∀ {m n : ℕ}, m ≤ n → Real.log ((m : ℕ) : ℝ) ≤ Real.log ((n : ℕ) : ℝ) := by
+      intro m n hmn
+      rcases Nat.eq_zero_or_pos m with hm0 | hm
+      · rw [hm0]
+        simpa using Real.log_natCast_nonneg n
+      · exact Real.log_le_log (by exact_mod_cast hm) (by exact_mod_cast hmn)
+    have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+    have hH20 : (0 : ℝ) ≤ ((R.Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
+    have hTC0 : 0 ≤ xTightCeil ε R.Hhi := xTightCeil_nonneg ε hε R.Hhi hH4R
+    have hTCA0 : 0 ≤ xTightCeilArm ε R.Hhi := xTightCeilArm_nonneg ε hε R.Hhi hH4R
+    have hArmCeil : xTightCeil ε R.Hhi ≤ xTightCeilArm ε R.Hhi := by
+      unfold xTightCeilArm; linarith
+    rcases le_max_iff.mp hRxtight with hA | hB
+    · exact le_trans (le_trans hA hArmCeil) (le_max_left _ _)
+    · rcases le_total (g R.Hhi R.ω) (s15Arm δ₀ ρ R.Hhi R.ω) with hge | hgg
+      · refine le_trans hB (le_trans ?_ (le_max_left _ _))
+        have hsum : Real.log (((s15Arm δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω : ℕ)) : ℝ)
+            ≤ Real.log 2 + Real.log ((s15Arm δ₀ ρ R.Hhi R.ω : ℕ) : ℝ) :=
+          xt_log_add_le le_rfl (hlogmono hge)
+        unfold xTightCeilArm
+        linarith [hRωtight]
+      · refine le_trans hB (le_trans ?_ (le_max_right _ _))
+        refine hlogmono ?_
+        omega
+  intro x' hx' hxc M hsel hKw
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire x' hx' hxc M hsel.mfloor hKw
+  intro hcap
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hRarm' : s15Arm δ₀ ρ R.Hhi R.ω ≤ x' := le_trans hRarm hx'
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ x' :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm'
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ ((x' : ℕ) : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm')
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  have harith := s15_doorArithFrameRho_L_family'' (R := regimeEnlargeX R hx')
+    (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  have hS : MSelect'_L_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ
+      (regimeEnlargeX R hx') M :=
+    s13_MSelect'_L_of_halfWindow_gk K hsel.hM hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by simp only [regimeEnlargeX_Hhi]; linarith))
+  have hbgate : S13BandGate'_L_gk K (regimeEnlargeX R hx') M x₀ C' (fun _ => 1) :=
+    s15_bandGate''_of_grade_L_gk_T K hfl hsel hgrade
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 (regimeEnlargeX R hx') ρ (fun _ => (1 : ℝ)))
+    (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount (regimeEnlargeX R hx').ω)
+    (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor_gen le_rfl (s13_g2_jfloor_of_MSelect'_L_gk K
+      (by simp only [regimeEnlargeX_Hhi]; linarith) hS))
+    (s13_gate8_L_gk le_rfl (s13_gate8_of_MSelect'_L_gk K
+      (by simp only [regimeEnlargeX_Hhi]; linarith) hS))
+    (s13_smallGradeFits_of_MSelect'_L_gk K hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket_L hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_flat_doorL_gk_T K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+        hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hlam50 htow
+        hsel.rho le_rfl)
+    (fun H L q j A s hb =>
+      s15_heps293_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hρ0 hlam50 htow
+        hsel.rho)
+    (fun H L q j A s hb =>
+      s15_hband4096_at_socket_flat_T hfl (socketBase_of_socketBaseL hsel.hM hb) hρ0 hlam50 htow
+        hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_L_gk K hsel.hM (hbgate.block H L q j A s hb)
+        hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family'_L_gk K hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+      (hgarm R.Hhi R.hHlohi le_rfl) harith hbgate)
+    harith
+
+
 end Salt.MR
 
 end
