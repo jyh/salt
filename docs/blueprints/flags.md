@@ -25417,3 +25417,48 @@ as `s15_sel''_L_witness_flat_charge_L` · `s15_sel''_L_witness_flat_wide_L` ·
 `s15_sel''_L_gk_witness_flat_wide_L` · `s15_sel''_L_gk_witness_flat_bumped_win_L`, all at
 `-Real.log ρ ≤ 16 * A` with NO numeral cap on `A`, `Lc`, `c` or `ρ` — **R11's second half is
 closed.**  Sorry-free, `[propext, Classical.choice, Quot.sound]`.
+
+---
+
+## ROAD F, ARM Z, HALF 1 -- the capstone hop and the stride-arm split lift STOP (2026-09-22)
+
+**Nodes.**  `flat_capstone_generic_h_Z` (the H1->H2 hop at the charge, the road-F freeze of ARM Z,
+deliverable D7) and its named lift `xceil_arm_split_mul_h_L`.  Model: Claude Opus 5.5.  Everything
+else in half 1 landed (`Salt/MR/StrideDoorAllGrades.lean`: the statement, the payload, the six
+forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, the shrink, the
+road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
+
+**(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:355`
+and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
+(measured: `git grep` finds only the base and `_14` variants of each):
+- `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
+  arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
+  `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1468`):
+  `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
+  `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
+  `h` breaks at any fixed tower floor;
+- `:432` `arc36_of_regime_h_14` (gate 7, `128 (h * arcDen 12 H)^3 <= H` for `H >= R.Hlo >=
+  loglogFloor50`), again false for a free `h` at the fixed floor `loglogFloor50`.
+Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-dependent regime
+floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
+
+**(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
+(`StridePairReceipt.lean:2870`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+`L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
+`250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
+Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and
+`log 2 + 2 log (10^8) > 0`.  No tower floor rescues it: the `10^20` is a cap-tied constant.
+
+**What was tried.**  One read of each body and its suppliers at `827b59cc7`; one kernel check of
+the counterexample.  No capped twin was transcribed (a numeral cap on `h` or `L` is itself a
+stop condition).
+
+**Release condition.**  A design ruling on the capstone's regime floor at a free twist: route
+the design floor `flatDesignFloor A` (which gives `3.2*A <= loglog H_lo` and, at the form's
+`10 + 2*Lc <= A`, `log h <= L <= loglog H_lo / 6.4`) into the capstone's `U1floor` slot in place of
+`loglogFloor50`, and mint `_L` twins of the five-deep pricing chain above and of `arc36_of_regime_h`
+against that floor (the latter needs the module-private `log_le_rpow_inv_72`); and a restated split
+whose `10^-20` term scales with `h` (or is dropped).  **Owner:** the road-F head (freeze author).
+**Re-measure:** when the half-2 brief is cut, since the conditional also calls the split.

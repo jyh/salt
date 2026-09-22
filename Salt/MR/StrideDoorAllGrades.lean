@@ -14,6 +14,9 @@ open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 -- The door-head's cap shuffle, opened by `StridePairReceiptG12b.lean:28` for the same body.
 -- MEASURED: `#check @flatCapH_shuffle` fails without this line (`Unknown identifier`).
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
+-- The road-exit's cap join, opened by `StridePairReceiptG12b.lean:30` for the same body.
+-- MEASURED: `#check @flatRootCapH_arc_k` fails without this line (`Unknown identifier`).
+open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 
 /-!
 # ⟦TIER S — ROAD F, THE STRIDE AXIS: THE AFFINE DOOR AT EVERY STRIDE, TWIST AND GRADE (ARM Z)⟧
@@ -841,6 +844,70 @@ theorem flatHeadFormHG_Z_at_grade {h : ℕ} {ε : ℚ} {c : ℕ} {L : ℝ} {Xi :
     hR a extraFloor U1floor g ha haL hg
   exact ⟨R, hReps, hef, hU1, hRg, hstride, hRx, hcount, htow, hcap,
     fun ρ _ hle hdoor => ⟨⟨K, hK, hKb, hcount⟩, mrtUniformityXiL2Set_mono hdoor hle⟩⟩
+
+/-! ## §F — THE ROAD-EXIT HOP AT THE CHARGE, AND THE CONDITIONAL'S `j`-FLOOR LIFT
+
+The capstone hop (`flat_capstone_generic_h_Z`) and the stride-arm split lift
+(`xceil_arm_split_mul_h_L`) are NOT in this file: the capstone reads the twist cap `log h ≤ 14` at
+two suppliers (`m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`,
+`arc36_of_regime_h_14`) that have no charge-form twin, and the split's landed statement is FALSE
+at a free twist (its right side `H₊·(1/(250000·h²) − 10⁻²⁰)` is negative once `h > 2·10⁷`).
+Both are recorded in `docs/blueprints/flags.md`. -/
+
+/-- **⟦H0→H1 AT THE CHARGE⟧** (`flat_roadExit_generic_h_Z`) — G12b's
+`flat_roadExit_generic_h_g12b` (`StridePairReceiptG12b.lean:320`) on the Z forms: the head's five
+charge conjuncts (`1 ≤ c`, `0 ≤ L`, `log h ≤ L`, the ε-pin, the charge pin) are passed through the
+tuple, the `A`-application gains the charge binder `hAL`, and the stride bound is
+`haL : log a ≤ L` where G12b has `a ≤ 8103`.  The road `m4_second_road_L2_Set_gk_flatRoot_L_khoist`
+is called exactly as G12b calls it (it carries no cap).  No cap is read here. -/
+theorem flat_roadExit_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ) (Xi : XiFamily)
+    (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
+      ∀ ξ ∈ Xi eps H, NearRatTight ((h : ℝ) * arcDen 12 H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (P : ChowlaRegime → Prop) (hhead : FlatHeadFormHG_Z h ε c L Xi P) :
+    FlatRoadExitFormHG_Z h ε c L P := by
+  obtain ⟨Cg, hCg, hCgle, hreg⟩ := m4_second_road_L2_Set_gk_flatRoot_L_khoist h hh Xi harcXi
+  obtain ⟨Kb, δ₀, β, Hopq, hε, hKb, hKbb, hδ₀, hc1, hL0, hhL, hεpin, hcε, hδpin, hβ, hhd0⟩ :=
+    hhead
+  obtain ⟨H₀, hH₀⟩ := hreg ε hε
+  refine ⟨Cg, Kb, δ₀, β, max Hopq H₀, hCg, hCgle, hε, hKb, hKbb, hδ₀, hc1, hL0, hhL, hεpin, hcε,
+    hδpin, hβ, ?_⟩
+  intro K A hA162 hAge hAL
+  obtain ⟨Hcap, hCapEq, hhd⟩ := hhd0 A (by linarith) hAge hAL
+  refine ⟨max Hcap H₀, by rw [hCapEq]; exact flatRootCapH_arc_k _ _ _ _ _, ?_⟩
+  intro a U1floor g ha haL hg
+  obtain ⟨R, hReps, hRextra, hRU1, hRg, hstride, hRx, hcount, hRtow, hRcap, hR⟩ :=
+    hhd a H₀ U1floor g ha haL hg
+  refine ⟨R, hReps, hRU1, hRg, hstride, hRx, hRtow, le_trans hRcap (by omega), ?_⟩
+  intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
+    hdgate hdrift hceil hbudget hrow
+  have hdoor := hH₀ K R hReps hRextra δ Bceil Kb RS RSan RStr Braw M k j₀ hgates hM hRSan0
+    hRStr0 hBraw0 han hG1 hG2 harc3 hdgate hdrift hceil hcount hKb.le hrow
+  refine hR δ₀ hδ₀ le_rfl ?_
+  intro H _ hlo hhi
+  exact le_trans (hdoor H hlo hhi) hbudget
+
+/-- **⟦THE `j`-FLOOR AT THE CHARGE⟧** (`s13_g2_jfloor_of_MSelect'_L_gk_h_L`) —
+`s13_g2_jfloor_of_MSelect'_L_gk_h_b9` (`S16FlatTerminalLinear.lean:2574`) at `hhL : log h ≤ L`:
+the hypothesis carries the twist as `4·log h ≤ 4·L`, so `h1`'s `+ 36 = 4·9` is `+ 4·L`.  BODY:
+the source's, with `L` for `9`. -/
+theorem s13_g2_jfloor_of_MSelect'_L_gk_h_L {h : ℕ} (hh : 0 < h) {L : ℝ}
+    (hhL : Real.log (h : ℝ) ≤ L)
+    {R : ChowlaRegime} {F : ℝ}
+    (h1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * max 1 (arcDen 12 H)) + 4 * L ≤ F) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * (h : ℝ) * max 1 (arcDen 12 H)) ≤ F := by
+  intro H hlo hhi
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have hmax : (1 : ℝ) ≤ max 1 (arcDen 12 H) := le_max_left _ _
+  have hsplit : Real.log (263 * (h : ℝ) * max 1 (arcDen 12 H))
+      = Real.log (263 * max 1 (arcDen 12 H)) + Real.log (h : ℝ) := by
+    rw [show (263 : ℝ) * (h : ℝ) * max 1 (arcDen 12 H)
+        = (263 * max 1 (arcDen 12 H)) * (h : ℝ) by ring,
+      Real.log_mul (by positivity) (ne_of_gt hx0)]
+  rw [hsplit]
+  linarith [h1 H hlo hhi, hhL]
 
 end Salt.MR
 
