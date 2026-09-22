@@ -1185,6 +1185,291 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
     harith
 
 
+/-! ## §7 — the terminal hop, the rated hop and the chain -/
+
+/-- **⟦ARM R H5→H6⟧** (`flat_kswin_generic_epsW_band`) — rung 2's `flat_kswin_generic_epsW`
+(`FlatDoorEpsRung2.lean:5380`) at the band forms.  Everything above the band quantifier is the
+source's token for token: the hoisted crossing constants, the `ε`-ceiling probe at the re-minted
+design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the two
+`flat_witFloor_eq_designBase_L` reads and the width price.  The (i-ω) and tier-B exports pass
+straight through — `ω` is untouched and the tier-B bound was already converted one hop below.
+
+THE BAND-ONLY WORK IS FIFTEEN LINES, and it is the same shape as the landed stride-lane band
+hop (`TierSBand.lean:1272`): the `M`-selection register and the block floor are built at
+`regimeEnlargeX R hx'` rather than at `R`, and the crossing supply is fired there.  Every
+hypothesis those two consumers read — `R.eps` (through `heps`), `R.Hlo` (through `hfl`, `hlo`,
+`hKswR`) and `R.Hhi` (through `hwin`) — is carried VERBATIM by the enlargement, so each is
+supplied unchanged; the ONE place a projection is written into a goal rather than read out of a
+hypothesis is the `T₀` tolerance, where `rw [hHlo]` needs the `Hlo` projection reduced first
+(`simp only [regimeEnlargeX_Hlo]`).  The probe's `ε`-ceiling obtain gains two `-` for the two
+new export conjuncts.  Nothing here bears on twin primes. -/
+theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ)
+    (h : FlatConditionalFormEpsW_band ε c P Awin) :
+    FlatKswinFormEpsW_band ε c P Awin := by
+  unfold FlatKswinFormEpsW_band
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hc1, hεpin, hδpin, hKcb, hMflb, hβ, hcondU⟩ :=
+    h
+  obtain ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hC0, hC40,
+    hsupplyU⟩ := s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin
+  have hc0 : 0 < c := by omega
+  have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
+  obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
+  obtain ⟨Hcap0, -, hbody0⟩ :=
+    hcond0 (max (162 + 2 * Real.log (c : ℝ)) (budgetAFlat (ε : ℝ) β))
+      (le_trans (by linarith) (le_max_left _ _)) (le_max_right _ _)
+      (le_trans (by linarith) (le_max_left _ _))
+  have hzero : XCeilRiderStrictAt (50 + Real.log (c : ℝ)) ε (fun _ _ : ℕ => 0) :=
+    xceilRiderStrictAt_zero _ ε
+  obtain ⟨R0, hR0eps, -, -, -, -, -, -⟩ :=
+    hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
+  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
+    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
+    exact h
+  have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hεR : (1 : ℝ) / (500 * (c : ℝ)) ≤ (ε : ℝ) := by
+    have hq := hεpin
+    rw [div_le_iff₀ (by linarith)] at hq
+    have h1R : (1 : ℝ) ≤ (ε : ℝ) * (500 * (c : ℝ)) := by exact_mod_cast hq
+    rw [div_le_iff₀ (by linarith)]
+    linarith
+  refine ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hc1, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hcond⟩ := hcondU K
+  have hsupply := hsupplyU K
+  refine ⟨Ct, hCt, ?_⟩
+  intro A hA26 hAwin hAge hAL hKw
+  obtain ⟨Hcap, hCapLe, hbody⟩ := hcond A hA26 hAge hAL
+  refine ⟨fun hopq => flat_witFloor_eq_designBase_L (h := c) hc0 hLc0 le_rfl hA26 hAL hβ
+    hεR hε2 hε hεpin hAge hopq, ?_⟩
+  intro hx0win hopq hT₀ hKsw g hg
+  obtain ⟨R, hReps, hHlo, hRg, hRx, hRωtight, hRxtight, hRtow, hfire⟩ :=
+    hbody (flatWitFloor ε β A Hopq) g hg (flatCap_le_flatWitFloor hCapLe)
+  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
+    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
+  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+    rw [hHlo, flat_witFloor_eq_designBase_L (h := c) hc0 hLc0 le_rfl hA26 hAL hβ
+      hεR hε2 hε hεpin hAge hopq]
+    exact flatDesignBase_loglog_le hA26
+  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
+    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  refine ⟨R, hReps, hHlo, hRg, hRx, hRωtight, hRxtight, hRtow, hdes, hwin, ?_⟩
+  intro x' hx' hxc hcof hcapsc
+  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  have heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps := by
+    rw [hReps]
+    have h512 : (500 : ℚ) * (c : ℚ) ≤ 2 ^ 9 * (c : ℚ) := by
+      have h9 : (2 : ℚ) ^ 9 = 512 := by norm_num
+      rw [h9]; linarith
+    have hb : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ 1 / (500 * (c : ℚ)) :=
+      one_div_le_one_div_of_le (by linarith) h512
+    linarith [hεpin]
+  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
+  have hδb : (1 : ℝ) / (838400 * 2 ^ 12 * (c : ℝ) ^ 2) ≤ δ₀ := by
+    refine le_trans ?_ hδpin
+    have hden : (838400 : ℝ) * (c : ℝ) ≤ 838400 * 2 ^ 12 * (c : ℝ) ^ 2 := by
+      have h12 : (2 : ℝ) ^ (12 : ℕ) = 4096 := by norm_num
+      rw [h12]; nlinarith
+    exact one_div_le_one_div_of_le (by linarith) hden
+  have hsel := s15_sel''_L_gk_witness_flat_bumped_win_L (R := regimeEnlargeX R hx')
+    hA26 K hKw (h := c) hc0 hLc0 le_rfl hAL
+    hδ₀ hδb hKc (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1)
+    hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
+  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
+  have hblk : ∀ H L q j Aw s : ℕ,
+      SocketBaseL (regimeEnlargeX R hx') (flatDoorM A) H L q j Aw s →
+      s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
+    intro H L q j Aw s hb
+    exact s15_block_at_socket_L_gk K (socketBase_of_socketBaseL hM1 hb)
+      (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
+  exact hfire x' hx' hxc (flatDoorM A) hsel hKw
+    (hsupply hKqb (regimeEnlargeX R hx') (flatDoorM A) hM1 hfl hKswR
+      (by simp only [regimeEnlargeX_Hlo]; rw [hHlo]; exact hT₀) hblk hcof hcapsc)
+
+/-- **⟦ARM R H6→H7⟧** (`flat_v7_generic_epsW_band`) — rung 2's `flat_v7_generic_epsW`
+(`FlatDoorEpsRung2.lean:5505`) at the band forms.  The ninth arm, the eight-arm design constant,
+the rated co-factor supply and every `le_max` chain are the source's, unchanged: the design
+constant is chosen before any regime exists, so the band does not reach it.
+
+TWO THINGS ARE BAND WORK.
+* **THE MAX COLLAPSE AT THE EXHIBITED CALLER.**  This hop is the ONE caller of the chain, and it
+  calls at the zero rider `g ≡ 0` (`xceilRiderStrictAt_zero`).  The Kswin band form's tier-B
+  conjunct is then `log R.x ≤ max (xTightCeilArm ε R.Hhi) (log ((2 · 0 : ℕ) : ℝ))`, and
+  `log 0 = 0 ≤ xTightCeilArm` (`xTightCeilArm_nonneg` at `4000000 ≤ R.Hhi`, which is
+  `R.hHlo_floor` through `R.hHlohi`), so the `max` is its LEFT arm.  That collapsed bound is
+  rule (i′)'s third inserted conjunct and is what the crown side reads in §9 — there is no `g`
+  left to put in a `max`.  The landed collapse is `TierSBandU.lean:338-341`, at stride 1 here.
+* **THE OUTER-SCALE CEILING IS RE-PROVED FROM THE BAND HYPOTHESIS.**  The source spends `hRx`
+  once, at `s16_baseScaleCap96_LH_at_klevF_L`, to cap the base scale.  At the band that consumer
+  is fired at `regimeEnlargeX R hx'`, whose `x` is `x'` — and `hRx` says nothing about `x'`.  The
+  band hypothesis `hxc` IS the statement it needs, so `hxceil` is rebuilt from `hxc` by the five
+  `@[simp]` projections.  ⛔ This is the ONLY place in the whole arm where `x` is bounded from
+  ABOVE, which is why the band quantifier carries that ceiling as a hypothesis rather than as a
+  conclusion.  The rated co-factor supply beside it reads `Hlo` and `Hhi` only and is fired at
+  the enlarged regime with the source's own arguments.
+
+The V7 band form also gains the LOOSE ceiling on `R.x` (rule (i′)) — that is the Kswin form's own
+`hRx`, passed through — and `hRωtight`.  Nothing here bears on twin primes. -/
+theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : ∀ Awin : ℝ, S16BandLaneCBoundedL_winU Awin → FlatKswinFormEpsW_band ε c P Awin)
+    (A₀ : ℝ) :
+    V7RatedFormEpsW_band ε c P A₀ := by
+  unfold V7RatedFormEpsW_band
+  obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinL_holdsU
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hc1, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hmainU⟩ :=
+    h Awin hband
+  have hc0 : 0 < c := by omega
+  have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
+  obtain ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, hcofR⟩ :=
+    cofkR_cofactorSupply_L_gk_rated_L c hc0 hLc0 le_rfl
+  obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
+      (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
+        (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
+  obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (162 + 2 * Real.log (c : ℝ)) (max (armVt Kvt) A') :=
+    ⟨_, rfl⟩
+  have hA162b : 162 + 2 * Real.log (c : ℝ) ≤ A := by rw [hAdef]; exact le_max_left _ _
+  have hAL : 10 + 2 * Real.log (c : ℝ) ≤ A := by linarith
+  have harmA : armVt Kvt ≤ A := by
+    rw [hAdef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hlift : A' ≤ A := by
+    rw [hAdef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
+  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
+  have hT₀A : T₀ ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hA162 : (162 : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
+      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
+      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hA₀A : A₀ ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
+      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
+      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hAwinA : Awin ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
+      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
+      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
+      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
+      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
+      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
+  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
+  have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
+    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+      Real.add_one_le_exp _
+    linarith
+  have hopq : Hopq ≤ flatDesignBase A := by
+    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
+    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
+    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
+    rw [flatDesignBase]; exact_mod_cast hceil
+  have hA26 : (26 : ℝ) ≤ A := by linarith
+  have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
+  obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
+  obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge hAL hKw
+  have hT₀ : T₀ ≤ Real.exp (Real.sqrt ((flatDesignBase A : ℕ) : ℝ) / 2) :=
+    t0_arm_le_tolerance hA162 hT₀A
+  obtain ⟨R, hReps, hHlo, -, hRx, hRωtight, hceilX, hRtow, hdes, hwin, hfire2⟩ :=
+    hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin (fun _ _ : ℕ => 0)
+      (xceilRiderStrictAt_zero _ ε)
+  -- ⟦THE MAX COLLAPSE AT THE EXHIBITED CALLER `g ≡ 0`⟧ `log ((2·0 : ℕ) : ℝ) = 0` and the arm
+  -- ceiling is nonnegative, so the tier-B MAX is its LEFT arm: the V7 band form's collapsed
+  -- conjunct.  This is the landed collapse of `TierSBandU.lean:338-341` at stride 1.
+  have hHhi4 : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+  have hRxArm : Real.log ((R.x : ℕ) : ℝ) ≤ xTightCeilArm ε R.Hhi := by
+    have hle := hceilX
+    simp only [Nat.mul_zero, Nat.cast_zero, Real.log_zero] at hle
+    rwa [max_eq_left (xTightCeilArm_nonneg ε hε R.Hhi hHhi4)] at hle
+  have heps500 : (1 : ℚ) / (500 * (c : ℚ)) ≤ R.eps := by
+    rw [hReps]; exact hεpin
+  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have heps500R : (1 : ℝ) / (500 * (c : ℝ)) ≤ (R.eps : ℝ) := by
+    rw [hReps]
+    have hq := hεpin
+    rw [div_le_iff₀ (by linarith)] at hq
+    have h1R : (1 : ℝ) ≤ (ε : ℝ) * (500 * (c : ℝ)) := by exact_mod_cast hq
+    rw [div_le_iff₀ (by linarith)]
+    linarith
+  have h518 : (518 : ℝ) + 6 * Real.log (c : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
+    linarith [hdes, hA162b, hLc0]
+  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
+  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact flatWitFloor_log_ge hA162
+  have hthrgate : cofkRThr Cq Cb Xsk Y0 + 2 * Real.log (c : ℝ)
+      ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    linarith [hthrA, hlo, hexp1, hAL, hA162]
+  have hexp16 : 3.2 * A / 2 + 1 ≤ Real.exp (3.2 * A / 2) := Real.add_one_le_exp _
+  have hLt : Real.log (c : ℝ) ≤ Real.exp (3.2 * A / 2) := by linarith
+  refine ⟨Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hc1, hεpin, hδpin, hMflb A hA162 hAwinA, hβ, hA162, hA₀A,
+    R, hReps, by rw [hHlo]; exact hbase hopq, hRx, hRωtight, hRxArm, hRtow, hdes, hwin, ?_⟩
+  -- ⟦RULE (ii) AT HOP 5⟧ both suppliers fired at `regimeEnlargeX R hx'`; the base-scale cap
+  -- reads its outer-scale ceiling FROM THE BAND HYPOTHESIS, not from `hRx`
+  intro x' hx' hxc
+  have hKvtcush : 32 * Kvt
+      + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
+      ≤ Real.log (((regimeEnlargeX R hx').Hhi : ℕ) : ℝ) / 4 :=
+    cofkR_cushion_of_armVt (regimeEnlargeX R hx') hKvt0 harmA hlo
+  have hcofsupply : S16CofactorSupply_L_gk (KlevF A) Cq (regimeEnlargeX R hx') (flatDoorM A) :=
+    s16CofactorSupply_L_of_LH hc0
+      (hcofR (KlevF A) Cq (regimeEnlargeX R hx') (flatDoorM A) hM1 hCq heps500R h518 hfl
+        hthrgate hKvtcush)
+  have hxceil : Real.log (((regimeEnlargeX R hx').x : ℕ) : ℝ)
+      ≤ 31 / (((regimeEnlargeX R hx').eps : ℚ) : ℝ)
+        * (((regimeEnlargeX R hx').Hhi : ℕ) : ℝ) := by
+    simp only [regimeEnlargeX_x, regimeEnlargeX_eps, regimeEnlargeX_Hhi]
+    rw [hReps]; exact hxc
+  exact hfire2 x' hx' hxc hcofsupply
+    (s16BaseScaleCap96_L_of_LH hc0
+      (s16_baseScaleCap96_LH_at_klevF_L (R := regimeEnlargeX R hx') (h := c) hc0 hLc0 le_rfl
+        hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
+
+/-- **⟦ARM R — THE CHAIN⟧** (`flat_chain_generic_epsW_band`) — rung 2's
+`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5656`) over the `_band` hops, token for token.
+The charge and the `δ₀` pin travel INSIDE the forms and the band quantifier travels inside their
+last conjunct, so no hop takes either as a hypothesis and this composition is the landed one with
+six names changed.  Nothing here bears on twin primes. -/
+theorem flat_chain_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatHeadFormEpsW_band ε c P) (A₀ : ℝ) : V7RatedFormEpsW_band ε c P A₀ :=
+  flat_v7_generic_epsW_band ε c P (fun Awin hband => flat_kswin_generic_epsW_band ε c P Awin
+    (flat_conditional_generic_epsW_band ε c P Awin
+      (flat_capstone_generic_epsW_band ε c P
+        (flat_road_generic_epsW_band ε c P
+          (flat_doorL2_generic_epsW_band ε c P
+            (flat_socket_generic_epsW_band ε c P h))) Awin hband))) A₀
+
+
 end Salt.MR
 
 end
