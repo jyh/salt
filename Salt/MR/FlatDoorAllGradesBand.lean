@@ -18,8 +18,8 @@ open private uniformCap_arc uniformCap_shuffle from Salt.MR.S16Uniform
 # ⟦TIER S — ROAD F, THE REGIME AXIS: THE FLAT DOOR ON THE BAND (ARM R)⟧
 (`FlatDoorAllGradesBand`)
 
-**HONEST LABEL, FIRST LINE — HALF 1 OF TWO, AND THE THEOREM IS NOT IN IT.  NOTHING HERE BEARS ON
-TWIN PRIMES, AND ARM R HAS NO KERNEL READER.**  Landed W-δ (`FlatDoorAllGradesW`,
+**HONEST LABEL, FIRST LINE — NOTHING HERE BEARS ON TWIN PRIMES, AND ARM R HAS NO KERNEL
+READER.**  Landed W-δ (`FlatDoorAllGradesW`,
 `FlatDoorAllGrades.lean:50`) is the `L²` MRT door on the flat family at every grade `ρ > 0`.  ARM
 R states the same door at EVERY outer scale `x'` of a LONG band above the built regime, which is
 the corpus's own idiom for moving the crown's regime quantifier (`∃ H₀ ∀ R` against W-δ's
@@ -27,15 +27,15 @@ the corpus's own idiom for moving the crown's regime quantifier (`∃ H₀ ∀ R
 buy the class road's residual (`x` large against `exp H₊`), it does not buy the `ε`-range
 `(1/500, 1/2]`, and it does not buy a rate.
 
-⛔ **WHAT THIS FILE OWES.  HALF 2 IS NOT WRITTEN**, and in particular the theorem
-`: FlatDoorAllGradesBandW` DOES NOT EXIST YET: the statement of record below is a named `Prop`
-with no inhabitant in this file, never a theorem with an unproved body.  Half 2 owes the
-conditional hop, Kswin, V7, the chain, the shrink's band twin, W-δ on the band, the long-band
-numeric lemma at the arm ceiling, the zero level
-`FlatDoorAllGradesBandW → FlatDoorAllGradesW`, and the
-registration under `#audit_axioms` in `Salt/MR/All.lean`.  Until then nothing in this file is a
-new unconditional theorem: §1's `def` is a statement, §2's eight `def`s are statements, and
-§3–§5's six theorems are the landed rung-2 chain replayed at the enlarged regime.
+⛔ **WHAT THIS FILE DOES NOT BUY, STATED BEFORE WHAT IT DOES.**  `FlatDoorAllGradesBandW` is
+INHABITED here (§8), but it is landed W-δ with ONE more export and nothing else: the crown
+`MRTDoorAllGrades` still has no producer, the quantifier shape is still `∀ A₀ ∃ R` on the FLAT
+family, no rate is exported, the `ε`-range `(1/500, 1/2]` is not bought, and the class road's
+residual is not bought.  Every theorem in this file is either the landed rung-2 chain replayed
+at the enlarged regime (§3–§7) or a re-packing of its conclusion (§8–§9); the ONE genuinely new
+piece of arithmetic is §6's tier A → tier B export, and the ONE new numeric lemma is §8's
+long-band bound, which is class A.  §9's zero level proves ARM R is never weaker than landed
+W-δ, and the `example` beside it is the control that the two compose.
 
 ## §2's RULE — the eight band forms are GENERATED, never typed
 ONE RULE turns each of rung 2's eight forms (`FlatDoorEpsRung2.lean:4478 · 4499 · 4529 · 4554 ·
@@ -90,7 +90,17 @@ projections of `RegimeHead.lean:137`.
 * §3 `chowlaRegimeFlat_exists_param_head_xceil_at_tight` — the builder twin B2′;
 * §4 `flat_head_uniform_xceil_epsW_band` — the band head at the trivial payload;
 * §5 `flat_socket_generic_epsW_band`, `flat_doorL2_generic_epsW_band`,
-  `flat_road_generic_epsW_band`, `flat_capstone_generic_epsW_band` — the four pass-through hops.
+  `flat_road_generic_epsW_band`, `flat_capstone_generic_epsW_band` — the four pass-through hops;
+* §6 `flat_conditional_generic_epsW_band` — the conditional hop, and the ONE export block
+  (tier A → tier B), which is the only arithmetic on the chain;
+* §7 `flat_kswin_generic_epsW_band`, `flat_v7_generic_epsW_band` (with the MAX collapse at the
+  exhibited caller `g ≡ 0`), `flat_chain_generic_epsW_band` — the terminal, rated and composed
+  hops;
+* §8 `flatHeadFormEpsW_band_at_grade` (the shrink's band twin), `crownBand_long_of_tight` and
+  `crownBand_long_of_tightArm` (the long-band numeric lemma, at both ceilings), and
+  `flatDoorAllGradesBandW_holds` — ARM R, PROVED;
+* §9 `crownBand_door_at_bottom`, `crownBand_zero_level` — the zero level, plus a one-line
+  `example` that ARM R gives landed W-δ.
 -/
 
 noncomputable section
@@ -1468,6 +1478,269 @@ theorem flat_chain_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
         (flat_road_generic_epsW_band ε c P
           (flat_doorL2_generic_epsW_band ε c P
             (flat_socket_generic_epsW_band ε c P h))) Awin hband))) A₀
+
+
+/-! ## §8 — the shrink's band twin, the long-band numeric lemma, and W-δ ON THE BAND -/
+
+/-- **⟦THE THRESHOLD SHRINK, ON THE BAND FORM⟧** (`flatHeadFormEpsW_band_at_grade`) —
+`flatHeadFormEpsW_at_grade` (`FlatDoorAllGrades.lean:89`) at the band head form.  The head form
+reads its threshold `δ₀` at exactly the same three conjuncts as its landed twin (`0 < δ₀`, the
+pin, and the final arrow), and the band quantifier sits INSIDE that final arrow, so the shrink
+is the landed one with the arrow's two extra binders threaded through: the old payload `Q` is
+dropped and the new arrow is `fun x' hx' hxc ρ _ hle hd => mrtUniformityXiL2_mono hle hd`, the
+monotonicity read at the ENLARGED regime because that is where the door now lives.
+
+The three new export conjuncts of rules (i-ω) (i-x) (i-gate) pass straight through — the shrink
+touches the threshold and nothing else.  ⚠️ NO `toChowlaRegime`/`regimeEnlargeX` compatibility
+lemma is needed here and none is introduced: the shrink never runs a spine, it re-packs a tuple.
+Nothing here bears on twin primes. -/
+theorem flatHeadFormEpsW_band_at_grade {ε : ℚ} {c : ℕ} {Q : ChowlaRegime → Prop}
+    (h : FlatHeadFormEpsW_band ε c Q) {ρt : ℝ} (hρt : 0 < ρt)
+    (hpin : (1 : ℝ) / (838400 * (c : ℝ)) ≤ ρt) :
+    FlatHeadFormEpsW_band ε c (fun R => MRTUniformityXiL2 R ρt) := by
+  unfold FlatHeadFormEpsW_band at h ⊢
+  obtain ⟨K, δ₀, β, Hopq, hε, hK, hKb, -, hc1, hcε, -, hβ, hbody⟩ := h
+  refine ⟨K, ρt, β, Hopq, hε, hK, hKb, hρt, hc1, hcε, hpin, hβ, ?_⟩
+  intro A hA hbud hcA
+  obtain ⟨Hcap, hHcap, hR⟩ := hbody A hA hbud hcA
+  refine ⟨Hcap, hHcap, ?_⟩
+  intro extraFloor U1floor g hg
+  obtain ⟨R, hReps, hef, hU1, hRg, hRx, hRωtight, hRxtight, hll, hcount, htow, hcap, -⟩ :=
+    hR extraFloor U1floor g hg
+  exact ⟨R, hReps, hef, hU1, hRg, hRx, hRωtight, hRxtight, hll, hcount, htow, hcap,
+    fun x' hx' hxc ρ _ hle hd => mrtUniformityXiL2_mono hle hd⟩
+
+/-- **⟦THE LONG-BAND NUMERIC LEMMA (class A)⟧** (`crownBand_long_of_tight`) — from the tight
+ceiling `log x ≤ xTightCeil ε Hhi` the long-band conjunct `2·log x ≤ (31/ε)·Hhi` follows for
+every `ε ≤ 1/500` at every `Hhi ≥ 4·10⁶`.  This is what makes the band's LENGTH clause
+derivable rather than assumed: it says the band reaches `R.x²`.
+
+THE NUMERALS, DERIVED.  `2·xTightCeil ε Hhi = (60/ε)·log Hhi + 18 + 4·log (4^⌊ε²Hhi⌋ + 1)`.
+Only `Real.log_le_sub_one_of_pos` is spent, three times: `log 4 ≤ 3`, `log 2 ≤ 1` and
+`log Hhi ≤ Hhi/10⁴ + 10⁴` (the last by splitting `log Hhi = log (Hhi/10⁴) + log 10⁴`).  Hence
+`log (4^n + 1) ≤ 1 + 3n` and `n ≤ ε²·Hhi`, so after multiplying through by `ε > 0` every term
+is linear in `Hhi` except `ε³·Hhi`, which is bounded by `(1/500)³·Hhi = 8·10⁻⁹·Hhi`.
+AT THE FLOOR, at `ε = 1/500` and `Hhi = 4·10⁶`: `xTightCeil = 228 080.4` against
+`(31/ε)·Hhi = 6.2·10¹⁰`, so `2·xTightCeil` uses one part in **1.359·10⁵** of the budget; as
+`Hhi → ∞` at that `ε` the ratio grows to `6.99·10⁸`, so the FLOOR is the binding point and the
+lemma is not tight anywhere.  Nothing here bears on twin primes. -/
+theorem crownBand_long_of_tight (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500) (Hhi : ℕ)
+    (hHhi : 4000000 ≤ Hhi) (x : ℕ) (hx : Real.log ((x : ℕ) : ℝ) ≤ xTightCeil ε Hhi) :
+    2 * Real.log ((x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) := by
+  have hεR : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hε500 : (ε : ℝ) ≤ 1 / 500 := by
+    have h : ((ε : ℚ) : ℝ) ≤ ((1 / 500 : ℚ) : ℝ) := Rat.cast_le.mpr hε
+    push_cast at h
+    exact h
+  have hH : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hHhi
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  obtain ⟨n, hndef⟩ : ∃ n : ℕ, n = ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ := ⟨_, rfl⟩
+  have hn_le : ((n : ℕ) : ℝ) ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
+    have h1 : ((n : ℕ) : ℚ) ≤ ε ^ 2 * (Hhi : ℚ) := by
+      rw [hndef]; exact Nat.floor_le (by positivity)
+    have h2 : (((n : ℕ) : ℚ) : ℝ) ≤ ((ε ^ 2 * (Hhi : ℚ) : ℚ) : ℝ) := by exact_mod_cast h1
+    push_cast at h2
+    exact h2
+  have hn0 : (0 : ℝ) ≤ ((n : ℕ) : ℝ) := by positivity
+  have hL4 : Real.log 4 ≤ 3 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4); linarith
+  have hL2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+  have hP : Real.log (((4 ^ n : ℕ) : ℝ) + 1) ≤ 1 + 3 * ((n : ℕ) : ℝ) := by
+    have h4n : (0 : ℝ) < ((4 ^ n : ℕ) : ℝ) := by positivity
+    have h1 : (1 : ℝ) ≤ ((4 ^ n : ℕ) : ℝ) := by
+      exact_mod_cast Nat.one_le_pow _ _ (by norm_num)
+    have hle : ((4 ^ n : ℕ) : ℝ) + 1 ≤ 2 * ((4 ^ n : ℕ) : ℝ) := by linarith
+    have hlog : Real.log (((4 ^ n : ℕ) : ℝ) + 1) ≤ Real.log (2 * ((4 ^ n : ℕ) : ℝ)) :=
+      Real.log_le_log (by positivity) hle
+    have hsplit : Real.log (2 * ((4 ^ n : ℕ) : ℝ))
+        = Real.log 2 + ((n : ℕ) : ℝ) * Real.log 4 := by
+      rw [Real.log_mul (by norm_num) h4n.ne', Nat.cast_pow, Real.log_pow]
+      norm_num
+    have hn4 : ((n : ℕ) : ℝ) * Real.log 4 ≤ ((n : ℕ) : ℝ) * 3 :=
+      mul_le_mul_of_nonneg_left hL4 hn0
+    linarith
+  have hlogH : Real.log ((Hhi : ℕ) : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10000 + 10000 := by
+    have h1 : Real.log (((Hhi : ℕ) : ℝ) / 10000) ≤ ((Hhi : ℕ) : ℝ) / 10000 - 1 :=
+      Real.log_le_sub_one_of_pos (by positivity)
+    have h2 : Real.log (10000 : ℝ) ≤ 10000 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+    have h3 : Real.log ((Hhi : ℕ) : ℝ)
+        = Real.log (((Hhi : ℕ) : ℝ) / 10000) + Real.log 10000 := by
+      rw [← Real.log_mul (by positivity) (by norm_num)]
+      congr 1
+      field_simp
+    linarith
+  have hxε : Real.log ((x : ℕ) : ℝ) * (ε : ℝ)
+      ≤ 30 * Real.log ((Hhi : ℕ) : ℝ) + 9 * (ε : ℝ)
+        + 2 * (ε : ℝ) * Real.log (((4 ^ n : ℕ) : ℝ) + 1) := by
+    have h := mul_le_mul_of_nonneg_right hx hεR.le
+    have e : xTightCeil ε Hhi * (ε : ℝ)
+        = 30 * Real.log ((Hhi : ℕ) : ℝ) + 9 * (ε : ℝ)
+          + 2 * (ε : ℝ) * Real.log (((4 ^ n : ℕ) : ℝ) + 1) := by
+      unfold xTightCeil
+      rw [← hndef]
+      field_simp
+    linarith
+  have hεP : (ε : ℝ) * Real.log (((4 ^ n : ℕ) : ℝ) + 1) ≤ (ε : ℝ) * (1 + 3 * ((n : ℕ) : ℝ)) :=
+    mul_le_mul_of_nonneg_left hP hεR.le
+  have hεn : (ε : ℝ) * ((n : ℕ) : ℝ) ≤ (ε : ℝ) * ((ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)) :=
+    mul_le_mul_of_nonneg_left hn_le hεR.le
+  have hε3 : (ε : ℝ) ^ 3 ≤ (1 / 500) ^ 3 := pow_le_pow_left₀ hεR.le hε500 3
+  have hε3H : (ε : ℝ) ^ 3 * ((Hhi : ℕ) : ℝ) ≤ (1 / 500) ^ 3 * ((Hhi : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_right hε3 hHpos.le
+  have hcube : (ε : ℝ) * ((ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ))
+      = (ε : ℝ) ^ 3 * ((Hhi : ℕ) : ℝ) := by ring
+  rw [div_mul_eq_mul_div, le_div_iff₀ hεR]
+  nlinarith [hxε, hεP, hεn, hε3H, hcube, hlogH, hH, hε500, hεR]
+
+/-- **⟦THE LONG-BAND LEMMA AT THE ARM CEILING (class A)⟧** (`crownBand_long_of_tightArm`) — the
+twin of `crownBand_long_of_tight` at `xTightCeilArm = xTightCeil + 18 + log 2 + Hhi/10²⁰`
+(`TierSBand.lean:95`), which is the ceiling the V7 band form actually exports after the
+conditional hop's rider inflation.
+
+THE ADDED TERM, DERIVED, AND WHY IT IS FREE: doubling the ceiling adds
+`2·(18 + log 2 + Hhi/10²⁰) ≤ 38 + 2·10⁻²⁰·Hhi`, which at the floor `Hhi = 4·10⁶` is `37.386…`
+against a slack of `6.2·10¹⁰ − 4.562·10⁵`, i.e. **6.03·10⁻¹⁰ of the room**; and its `Hhi`
+coefficient `2·10⁻²⁰` is negligible beside the budget's `31/ε ≥ 15 500`.  The proof is
+`crownBand_long_of_tight`'s with `xTightCeilArm` unfolded ONTO `xTightCeil`'s own `ε`-scaled
+identity — so the `field_simp` step is shared, not re-derived — and three extra product facts
+for the closing `nlinarith`: `ε·log 2 ≤ ε`, `18·ε ≤ 18/500` and `ε·(Hhi/10²⁰) ≤ Hhi/(500·10²⁰)`.
+Nothing here bears on twin primes. -/
+theorem crownBand_long_of_tightArm (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500) (Hhi : ℕ)
+    (hHhi : 4000000 ≤ Hhi) (x : ℕ)
+    (hx : Real.log ((x : ℕ) : ℝ) ≤ xTightCeilArm ε Hhi) :
+    2 * Real.log ((x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) := by
+  have hεR : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hε500 : (ε : ℝ) ≤ 1 / 500 := by
+    have h : ((ε : ℚ) : ℝ) ≤ ((1 / 500 : ℚ) : ℝ) := Rat.cast_le.mpr hε
+    push_cast at h
+    exact h
+  have hH : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hHhi
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  obtain ⟨n, hndef⟩ : ∃ n : ℕ, n = ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ := ⟨_, rfl⟩
+  have hn_le : ((n : ℕ) : ℝ) ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
+    have h1 : ((n : ℕ) : ℚ) ≤ ε ^ 2 * (Hhi : ℚ) := by
+      rw [hndef]; exact Nat.floor_le (by positivity)
+    have h2 : (((n : ℕ) : ℚ) : ℝ) ≤ ((ε ^ 2 * (Hhi : ℚ) : ℚ) : ℝ) := by exact_mod_cast h1
+    push_cast at h2
+    exact h2
+  have hn0 : (0 : ℝ) ≤ ((n : ℕ) : ℝ) := by positivity
+  have hL4 : Real.log 4 ≤ 3 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4); linarith
+  have hL2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+  have hP : Real.log (((4 ^ n : ℕ) : ℝ) + 1) ≤ 1 + 3 * ((n : ℕ) : ℝ) := by
+    have h4n : (0 : ℝ) < ((4 ^ n : ℕ) : ℝ) := by positivity
+    have h1 : (1 : ℝ) ≤ ((4 ^ n : ℕ) : ℝ) := by
+      exact_mod_cast Nat.one_le_pow _ _ (by norm_num)
+    have hle : ((4 ^ n : ℕ) : ℝ) + 1 ≤ 2 * ((4 ^ n : ℕ) : ℝ) := by linarith
+    have hlog : Real.log (((4 ^ n : ℕ) : ℝ) + 1) ≤ Real.log (2 * ((4 ^ n : ℕ) : ℝ)) :=
+      Real.log_le_log (by positivity) hle
+    have hsplit : Real.log (2 * ((4 ^ n : ℕ) : ℝ))
+        = Real.log 2 + ((n : ℕ) : ℝ) * Real.log 4 := by
+      rw [Real.log_mul (by norm_num) h4n.ne', Nat.cast_pow, Real.log_pow]
+      norm_num
+    have hn4 : ((n : ℕ) : ℝ) * Real.log 4 ≤ ((n : ℕ) : ℝ) * 3 :=
+      mul_le_mul_of_nonneg_left hL4 hn0
+    linarith
+  have hlogH : Real.log ((Hhi : ℕ) : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10000 + 10000 := by
+    have h1 : Real.log (((Hhi : ℕ) : ℝ) / 10000) ≤ ((Hhi : ℕ) : ℝ) / 10000 - 1 :=
+      Real.log_le_sub_one_of_pos (by positivity)
+    have h2 : Real.log (10000 : ℝ) ≤ 10000 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+    have h3 : Real.log ((Hhi : ℕ) : ℝ)
+        = Real.log (((Hhi : ℕ) : ℝ) / 10000) + Real.log 10000 := by
+      rw [← Real.log_mul (by positivity) (by norm_num)]
+      congr 1
+      field_simp
+    linarith
+  have hxε : Real.log ((x : ℕ) : ℝ) * (ε : ℝ)
+      ≤ 30 * Real.log ((Hhi : ℕ) : ℝ) + 9 * (ε : ℝ)
+        + 2 * (ε : ℝ) * Real.log (((4 ^ n : ℕ) : ℝ) + 1)
+        + 18 * (ε : ℝ) + (ε : ℝ) * Real.log 2
+        + (ε : ℝ) * (((Hhi : ℕ) : ℝ) / 10 ^ 20) := by
+    have h := mul_le_mul_of_nonneg_right hx hεR.le
+    have e0 : xTightCeil ε Hhi * (ε : ℝ)
+        = 30 * Real.log ((Hhi : ℕ) : ℝ) + 9 * (ε : ℝ)
+          + 2 * (ε : ℝ) * Real.log (((4 ^ n : ℕ) : ℝ) + 1) := by
+      unfold xTightCeil
+      rw [← hndef]
+      field_simp
+    have e : xTightCeilArm ε Hhi * (ε : ℝ)
+        = xTightCeil ε Hhi * (ε : ℝ) + 18 * (ε : ℝ) + (ε : ℝ) * Real.log 2
+          + (ε : ℝ) * (((Hhi : ℕ) : ℝ) / 10 ^ 20) := by
+      unfold xTightCeilArm
+      ring
+    linarith
+  have hεP : (ε : ℝ) * Real.log (((4 ^ n : ℕ) : ℝ) + 1) ≤ (ε : ℝ) * (1 + 3 * ((n : ℕ) : ℝ)) :=
+    mul_le_mul_of_nonneg_left hP hεR.le
+  have hεn : (ε : ℝ) * ((n : ℕ) : ℝ) ≤ (ε : ℝ) * ((ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)) :=
+    mul_le_mul_of_nonneg_left hn_le hεR.le
+  have hε3 : (ε : ℝ) ^ 3 ≤ (1 / 500) ^ 3 := pow_le_pow_left₀ hεR.le hε500 3
+  have hε3H : (ε : ℝ) ^ 3 * ((Hhi : ℕ) : ℝ) ≤ (1 / 500) ^ 3 * ((Hhi : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_right hε3 hHpos.le
+  have hcube : (ε : ℝ) * ((ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ))
+      = (ε : ℝ) ^ 3 * ((Hhi : ℕ) : ℝ) := by ring
+  have hεL2 : (ε : ℝ) * Real.log 2 ≤ (ε : ℝ) * 1 := mul_le_mul_of_nonneg_left hL2 hεR.le
+  have hεH20 : (ε : ℝ) * (((Hhi : ℕ) : ℝ) / 10 ^ 20)
+      ≤ (1 / 500) * (((Hhi : ℕ) : ℝ) / 10 ^ 20) :=
+    mul_le_mul_of_nonneg_right hε500 (by positivity)
+  rw [div_mul_eq_mul_div, le_div_iff₀ hεR]
+  nlinarith [hxε, hεP, hεn, hε3H, hcube, hlogH, hH, hε500, hεR, hεL2, hεH20]
+
+/-- **⟦ARM R IS PROVED — W-δ ON THE BAND⟧** (`flatDoorAllGradesBandW_holds`) — the statement of
+record of §1, INHABITED.  `flatDoorAllGradesW_holds` (`FlatDoorAllGrades.lean:107`) on the band
+forms: the charge of `crownWd_exists_charge`, the band head of §4 at the trivial payload, the
+shrink of this section at the target grade `ρ`, and the band chain of §7.
+
+TWO CONJUNCTS COME FROM SOMEWHERE ELSE, and they are the whole difference from landed W-δ.  The
+LONG-BAND clause is `crownBand_long_of_tightArm` applied to the V7 band form's own COLLAPSED
+tier-B export `log R.x ≤ xTightCeilArm ε R.Hhi` (rule (i′)), at `4000000 ≤ R.Hhi` read off
+`R.hHlo_floor` through `R.hHlohi` — so it is DERIVED from a conjunct the chain exports and is not
+a new assumption anywhere.  The BAND clause is the V7 band form's own last conjunct, at the
+payload the shrink installed.
+
+⚠ WHAT THIS DOES NOT SAY, beyond landed W-δ's own disclaimer: the quantifier shape is still
+`∀ A₀ ∃ R` on the FLAT family and NOT the crown's `∃ H₀ ∀ R`; the crown still has no producer.
+The band is a band ABOVE the built regime's own `R.x`, not a statement about every scale.  No
+rate is exported.  ARM R has no kernel reader, and nothing here bears on twin primes. -/
+theorem flatDoorAllGradesBandW_holds : FlatDoorAllGradesBandW := by
+  intro ε hε0 hε ρ hρ A₀
+  obtain ⟨c, hc1, hcε, hpin⟩ := crownWd_exists_charge ε hε0 ρ hρ
+  have hhead : FlatHeadFormEpsW_band ε c (fun _ => True) :=
+    flat_head_uniform_xceil_epsW_band ε hε0 hε hc1 hcε
+  have hV := flat_chain_generic_epsW_band ε c (fun R => MRTUniformityXiL2 R ρ)
+    (flatHeadFormEpsW_band_at_grade hhead hρ hpin) A₀
+  obtain ⟨Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, -, -, -, -, -, -, -, -, -, -, -, -,
+    -, -, -, -, -, -, -, -, hA162, hA₀A, R, hReps, hHlo, -, -, hRxArm, -, hdes, -, hband⟩ := hV
+  have hHhi4 : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+  exact ⟨A, hA162, hA₀A, R, hReps, hHlo, hdes,
+    crownBand_long_of_tightArm ε hε0 hε R.Hhi hHhi4 R.x hRxArm,
+    fun x' hx' hxc => hband x' hx' hxc⟩
+
+/-! ## §9 — the zero level: ARM R gives landed W-δ, so it is never weaker -/
+
+/-- **⟦THE BAND'S BOTTOM POINT IS THE REGIME⟧** (`crownBand_door_at_bottom`) — enlarging `x` to
+itself changes no field the door reads, so the band clause at `x' := R.x` IS the door at `R`.
+It is definitional (`regimeEnlargeX R (le_refl R.x)` and `R` have the same eight fields), which
+is why the proof is the hypothesis itself. -/
+theorem crownBand_door_at_bottom (R : ChowlaRegime) (ρ : ℝ)
+    (h : MRTUniformityXiL2 (regimeEnlargeX R (le_refl R.x)) ρ) : MRTUniformityXiL2 R ρ := h
+
+/-- **⟦ZERO LEVEL OF ARM R⟧** (`crownBand_zero_level`) — the banded statement gives landed W-δ
+(`FlatDoorAllGradesW`), so ARM R is never weaker than what it extends.  The band hypothesis at
+the bottom point is discharged from the LONG-BAND conjunct: `log R.x ≥ 0` (at `R.hx : 2 ≤ R.x`)
+and `2·log R.x ≤ (31/ε)·R.Hhi` give `log R.x ≤ (31/ε)·R.Hhi`, which is the clause's own
+ceiling at `x' = R.x`.  Stated FROM `FlatDoorAllGradesBandW`, so it reads the STATEMENT and not
+its proof; the `example` below is the one-line control that the two compose. -/
+theorem crownBand_zero_level (hR : FlatDoorAllGradesBandW) : FlatDoorAllGradesW := by
+  intro ε hε0 hε ρ hρ A₀
+  obtain ⟨A, hA162, hA₀A, R, hReps, hHlo, hdes, hlong, hband⟩ := hR ε hε0 hε ρ hρ A₀
+  refine ⟨A, hA162, hA₀A, R, hReps, hHlo, hdes, ?_⟩
+  have hx0 : (0 : ℝ) ≤ Real.log ((R.x : ℕ) : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast le_trans (by norm_num : 1 ≤ 2) R.hx)
+  exact crownBand_door_at_bottom R ρ (hband R.x (le_refl R.x) (by linarith))
+
+example : FlatDoorAllGradesW := crownBand_zero_level flatDoorAllGradesBandW_holds
 
 
 end Salt.MR
