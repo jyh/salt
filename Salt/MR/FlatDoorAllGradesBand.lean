@@ -579,6 +579,113 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at_tight (lam0 A : ℝ) (hA : 2
   · simp only [regimeFlatEnlargeX_Hhi]
     exact hll
 
+/-! ## §4 — the band head at the trivial payload -/
+
+/-- **⟦ARM R H0 — THE BAND HEAD AT THE TRIVIAL PAYLOAD⟧**
+(`flat_head_uniform_xceil_epsW_band`) — rung 2's `flat_head_uniform_xceil_epsW`
+(`FlatDoorEpsRung2.lean:4783`, body 169 lines) at the band form, at `P := fun _ => True`.
+
+**THE PAYLOAD IS DROPPED, BINDER AND ALL.**  The landed head takes a four-clause `hP` and spends
+it in a SLOT that runs the door-head's spine at the regime it built; this twin takes no `hP`, and
+its last conjunct is `fun x' hx' hxc ρ _ _ _ => trivial`.  That is cell (3) of the road-F freeze
+of ARM R, and it is what keeps K10 out of this wave: the slot's spine is never run at the
+enlarged regime, so NO `toChowlaRegime`/`regimeEnlargeX` compatibility lemma is needed.  It is
+also the landed idiom rather than a new one — `flatDoorAllGradesW_holds`
+(`FlatDoorAllGrades.lean:110`) already calls the landed head at `P := fun _ => True` and swaps
+the payload in afterwards by the shrink.
+
+WHAT SURVIVES, AND WHY: every `obtain`/`have` the FORM's conjuncts read — the count `K` through
+`bigXi_bounded_ceiling_eps`, the mint `δ₀ = cD3/(16·C)·ε/4` with its pin `1/(838400·c) ≤ δ₀`,
+`β`, `Hopq`, `Hcap`'s equation, the builder call (now B2′ of §3 at `lam0 := 50 + log c`, with
+`hlamA` paid exactly as the landed head pays it), the tower conjunct and the cap conjunct.  The
+count conjunct is stated at `R`, not at the enlarged regime, exactly as the landed band head does
+it (`TierSBand.lean:115`) — it reads `Hlo`, `Hhi`, `eps` only.  THE THREE NEW EXPORTS come
+straight from B2′'s conclusion: `hRωtight`, `hRxtight` in the MAX shape, and `hll`, at the
+positions rules (i-ω) (i-x) (i-gate) put them.
+
+WHAT WAS DROPPED, MEASURED BY A `clear`-PROBE ON A SCRATCH COPY rather than by reading: the full
+transcription with every landed step present elaborates (`EXIT=0`), and so does this one with the
+whole set below absent — so each member is individually unnecessary, not merely jointly.  The set
+is `hreduce_holds_final_bounded`'s five names, `primeWindow_sum_inv_ge_bounded`'s five, the
+circle-method estimate's four, `hcD3ge`, `hCle`, `hεle`, `hεcE`, `hε_half_lt`, `hε_D3`,
+`hε_D3C`, `hbudHlo`, `hredHlo`, and the ~45-line slot itself.  `Hopq` is then witnessed by
+`H₀xi` alone, since the two floors the landed head maxes into it came from the first two dropped
+`obtain`s.  Nothing here bears on twin primes. -/
+theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
+    {c : ℕ} (hc1 : 1 ≤ c) (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) :
+    FlatHeadFormEpsW_band ε c (fun _ => True) := by
+  classical
+  unfold FlatHeadFormEpsW_band
+  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:1012–1021`)
+  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
+  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
+  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
+  have hC : 0 < C := by rw [hCdef]; positivity
+  have hCnum : C ≤ 655 / 100 := by rw [hCdef, hlog4eq]; linarith
+  -- ⟦THE `ε` BOUNDS⟧ only the two the FORM reads survive here
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have h2 : (1 : ℚ) / 500 ≤ 1 / 2 := by norm_num
+    linarith
+  -- ⟦THE MINT⟧ the head's `δ₀` at the pinned witnesses IS the frozen file's term, exactly
+  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
+    rw [hcD3def, hCdef]
+    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
+    field_simp
+    ring
+  -- ⟦THE MINT AGAINST THE PIN, AT THE CHARGE⟧ the source's `hqcap`/`hcapR`/`hδnum` at `c`
+  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
+  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
+    rw [div_le_iff₀ hcQ0] at hcε; linarith
+  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
+    linarith
+  -- ⟦THE COUNT HOOK AT THE CAP⟧ §2, in place of the pinned hook
+  obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded_ceiling_eps ε hε0 hε hc1 hcε
+  obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
+  have hβpos : 0 < β := by
+    rw [hβdef]; exact div_pos (mul_pos hcD3 hεR0) (by positivity)
+  obtain ⟨Hopq, hOpqdef⟩ : ∃ n : ℕ, n = H₀xi := ⟨_, rfl⟩
+  refine ⟨K, cD3 / (16 * C) * (ε : ℝ) / 4, β, Hopq, hε0, hK, hKb,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num),
+    hc1, hcε, hδnum, hβpos, ?_⟩
+  -- ⟦THE HOIST⟧ the landed proof chose `A := max A₀ (budgetAFlat ε β)` HERE
+  intro A hA26 hAge hAL
+  -- ⟦THE TOWER FLOOR THE NINTH ARM PAYS⟧ `50 + Lc ≤ 45 + A/2 ≤ 3.2·A` at `A ≥ 26`
+  have hlamA : 50 + Real.log (c : ℝ) ≤ 3.2 * A := by linarith
+  obtain ⟨F, hFdef⟩ : ∃ n : ℕ, n = max Hopq (budgetFloorFlat (ε : ℝ) β A) := ⟨_, rfl⟩
+  refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
+  intro extraFloor U1floor g₅ hg₅
+  obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid, hRx, hRωtight, hRxtight, hll⟩ :=
+    chowlaRegimeFlat_exists_param_head_xceil_at_tight (50 + Real.log (c : ℝ)) A hA26 hlamA ε hε0
+      hεQ1 (max F (max extraFloor U1floor)) g₅ hg₅
+  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
+  have hxiHlo : H₀xi ≤ Rf.Hlo := by
+    rw [hFdef, hOpqdef] at hFlo
+    exact le_trans (le_max_left _ _) hFlo
+  refine ⟨Rf.toChowlaRegime, hReps,
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hRx,
+    hRωtight, hRxtight, hll, ?_, fun _ => hRwid, ?_, ?_⟩
+  · -- ⟦THE EXPORTED COUNT GATE⟧ the road's `hXi`, at this head's own `ε`
+    intro H' _ hlo' _
+    rw [hReps]
+    exact hxi H' (le_trans hxiHlo hlo')
+  · -- ⟦THE CAP⟧ the flat base equation, shuffled onto the consumer's floors
+    rw [_hRcapEq]
+    exact uniformCap_shuffle _ _ _ _ _
+  · -- ⟦THE DOOR, HANDED OUT INSTEAD OF SPENT⟧ at the trivial payload
+    exact fun x' hx' hxc ρ _ _ _ => trivial
+
 end Salt.MR
 
 end
