@@ -11,6 +11,9 @@ import Mathlib
 -- same line for the same body).  MEASURED, not assumed: `#check @xceil_flat_P` and
 -- `#check @xceil_flat_step` both fail without this line (`Unknown identifier`).
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
+-- The door-head's cap shuffle, opened by `StridePairReceiptG12b.lean:28` for the same body.
+-- MEASURED: `#check @flatCapH_shuffle` fails without this line (`Unknown identifier`).
+open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 
 /-!
 # ⟦TIER S — ROAD F, THE STRIDE AXIS: THE AFFINE DOOR AT EVERY STRIDE, TWIST AND GRADE (ARM Z)⟧
@@ -719,6 +722,125 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_at_L (a : ℕ) (ha : 1 ≤ 
     · rw [max_eq_left hc, hxa]; exact hRx
   · simp only [regimeFlatEnlargeX_Hhi]
     exact hll
+
+/-! ## §E — THE HEAD AT THE TRIVIAL PAYLOAD, AND THE SHRINK -/
+
+/-- **⟦THE DOOR-HEAD AT THE CHARGE⟧** (`flat_door_head_xceil_h_Z`) — G12b's
+`flat_door_head_xceil_h_g12b` (`StridePairReceiptG12b.lean:936`) at the charge and at the TRIVIAL
+payload `fun _ => True`: (a) the count `2^539 ↦ 2^283·c^20·h` is `hcount`'s, read at `Xi ε`; the
+ε-pin `1/(500h) ≤ ε` is the binder `hεh`, with the charge pin `hcε` beside it; the grade pin
+`1/(838400·c) ≤ δ₀` is proved from `hcε` exactly as rung 2's head proves its pin
+(`FlatDoorEpsRung2.lean`, `flat_head_uniform_xceil_epsW`: `δ₀ := ε/(256·(1 + 4·log 4))`,
+`838400·c·ε ≥ 1676.8` against `256·(1 + 8·log 2) ≤ 1675.5654262784`); (b) the form's conjuncts
+`1 ≤ c ∧ 0 ≤ L ∧ log h ≤ L` are the binders; (c) the form's `A`-binder `10 + 2·Lc ≤ A` pays the
+builder's `50 + Lc ≤ 3.2·A` (`≤ 45 + A/2` at `A ≥ 26`) and `log c ≥ 0` pays `L ≤ 50 + Lc`; (d) the
+builder is `chowlaRegimeFlat_exists_param_head_xceil_mul_at_L` at `lam0 := 50 + Lc`; (e) the
+payload apparatus is DROPPED — G12b's `hδ₀le` (the receipt's `837782·2^12·h²` ceiling) and the
+`h`-positivity facts that served its `h`-carrying mint have no role (measured by a `clear`-probe),
+and the twist positivity `0 < h` is read by nothing, so it is bound as `_hh`.  The tower, cap and
+count conjuncts are G12b's. -/
+theorem flat_door_head_xceil_h_Z (h : ℕ) (_hh : 0 < h) (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
+    (hεh : (1 : ℚ) / (500 * (h : ℚ)) ≤ ε) {c : ℕ} (hc1 : 1 ≤ c)
+    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {L : ℝ} (hL0 : 0 ≤ L) (hhL : Real.log (h : ℝ) ≤ L)
+    (Xi : XiFamily)
+    (hcount : ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 283 * (c : ℝ) ^ 20 * (h : ℝ) ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧
+      ∀ (H : ℕ) [NeZero H], H₀ ≤ H → ((Xi ε H).card : ℝ) ≤ C) :
+    FlatHeadFormHG_Z h ε c L Xi (fun _ => True) := by
+  classical
+  unfold FlatHeadFormHG_Z
+  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, the upper `d9` bound on `log 2`
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
+  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
+  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
+  have hC : 0 < C := by rw [hCdef]; positivity
+  -- ⟦THE `ε` BOUNDS⟧ off `ε ≤ 1/500`
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have h2 : (1 : ℚ) / 500 ≤ 1 / 2 := by norm_num
+    linarith
+  -- ⟦THE MINT⟧ the head's `δ₀` at the pinned witnesses is rung 2's term, exactly
+  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
+    rw [hcD3def, hCdef]
+    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
+    field_simp
+    ring
+  -- ⟦THE MINT AGAINST THE PIN, AT THE CHARGE⟧ rung 2's `hqcap`/`hcapR`/`hδnum`: `1 ≤ 500·c·ε`
+  -- gives `838400·c·ε ≥ 1676.8`, against the mint's denominator
+  -- `256·(1 + 8·log 2) ≤ 256 · 6.5451774464 = 1675.5654262784`
+  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
+  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
+    rw [div_le_iff₀ hcQ0] at hcε; linarith
+  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
+    linarith
+  -- ⟦THE COUNT HOOK AT THE CHARGE⟧ carrying `K ≤ 2^283·c^20·h`
+  obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := hcount
+  obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
+  have hβpos : 0 < β := by
+    rw [hβdef]; exact div_pos (mul_pos hcD3 hεR0) (by positivity)
+  -- ⟦THE HEAD'S OWN FLOOR⟧ the count hook's alone — the door-head has no tail
+  obtain ⟨Hopq, hOpqdef⟩ : ∃ n : ℕ, n = H₀xi := ⟨_, rfl⟩
+  refine ⟨K, cD3 / (16 * C) * (ε : ℝ) / 4, β, Hopq, hε0, hK, hKb,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num),
+    hc1, hL0, hhL, hεh, hcε, hδnum, hβpos, ?_⟩
+  -- ⟦THE HOIST⟧ as in the head; the charge's `A`-binder pays the builder's floor
+  intro A hA26 _hAge hAL
+  have hlogc : 0 ≤ Real.log (c : ℝ) := Real.log_nonneg hcR1
+  -- ⟦THE TOWER FLOOR⟧ `50 + Lc ≤ 45 + A/2 ≤ 3.2·A` at `A ≥ 26`
+  have hlamA : 50 + (Real.log (c : ℝ) + L) ≤ 3.2 * A := by linarith
+  have hLlam : L ≤ 50 + (Real.log (c : ℝ) + L) := by linarith
+  obtain ⟨F, hFdef⟩ : ∃ n : ℕ, n = max Hopq (budgetFloorFlat (ε : ℝ) β A) := ⟨_, rfl⟩
+  refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
+  intro a extraFloor U1floor g₅ ha haL hg₅
+  obtain ⟨Rf, hReps, _hRA, hRHlo, hRg, hstride, _hRcapEq, hRwid, hRx, _hll⟩ :=
+    chowlaRegimeFlat_exists_param_head_xceil_mul_at_L a ha hL0 haL (50 + (Real.log (c : ℝ) + L))
+      A hA26 hlamA hLlam ε hε0 hεQ1 (max F (max extraFloor U1floor)) g₅ hg₅
+  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
+  have hxiHlo : H₀xi ≤ Rf.Hlo := by
+    rw [hFdef, hOpqdef] at hFlo
+    exact le_trans (le_max_left _ _) hFlo
+  -- ⟦THE COUNT GATE⟧ at this head's own `ε`
+  have hcountR : ∀ (H' : ℕ) [NeZero H'], Rf.Hlo ≤ H' → H' ≤ Rf.Hhi →
+      ((Xi Rf.eps H').card : ℝ) ≤ K := by
+    intro H' _ hlo' _
+    rw [hReps]
+    exact hxi H' (le_trans hxiHlo hlo')
+  refine ⟨Rf.toChowlaRegime, hReps,
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hstride, hRx,
+    hcountR, fun _ => hRwid, ?_, fun _ _ _ _ => trivial⟩
+  -- ⟦THE CAP⟧ the flat base equation, shuffled onto the consumer's floors
+  rw [_hRcapEq]
+  exact flatCapH_shuffle _ _ _ _ _
+
+/-- **⟦THE THRESHOLD SHRINK, ON THE Z HEAD FORM⟧** (`flatHeadFormHG_Z_at_grade`) — W-δ's
+`flatHeadFormEpsW_at_grade` (`FlatDoorAllGrades.lean:89`) on `FlatHeadFormHG_Z`: the form reads its
+threshold `δ₀` at exactly three conjuncts (`0 < δ₀`, the pin `1/(838400·c) ≤ δ₀`, the final arrow),
+so any Z head at the charge `c` is a Z head whose threshold is ANY `ρt` on the pin, with the
+receipt `MRTDoorReceiptSetG_Z h c Xi ρt` as its payload: the count is the tuple's own `K` with the
+regime's count conjunct, and the door at `ρt` is `mrtUniformityXiL2Set_mono`.  The old payload `Q`
+is dropped. -/
+theorem flatHeadFormHG_Z_at_grade {h : ℕ} {ε : ℚ} {c : ℕ} {L : ℝ} {Xi : XiFamily}
+    {Q : ChowlaRegime → Prop} (hd : FlatHeadFormHG_Z h ε c L Xi Q) {ρt : ℝ} (hρt : 0 < ρt)
+    (hpin : (1 : ℝ) / (838400 * (c : ℝ)) ≤ ρt) :
+    FlatHeadFormHG_Z h ε c L Xi (MRTDoorReceiptSetG_Z h c Xi ρt) := by
+  unfold FlatHeadFormHG_Z at hd ⊢
+  obtain ⟨K, δ₀, β, Hopq, hε, hK, hKb, -, hc1, hL0, hhL, hεh, hcε, -, hβ, hbody⟩ := hd
+  refine ⟨K, ρt, β, Hopq, hε, hK, hKb, hρt, hc1, hL0, hhL, hεh, hcε, hpin, hβ, ?_⟩
+  intro A hA hbud hcA
+  obtain ⟨Hcap, hHcap, hR⟩ := hbody A hA hbud hcA
+  refine ⟨Hcap, hHcap, ?_⟩
+  intro a extraFloor U1floor g ha haL hg
+  obtain ⟨R, hReps, hef, hU1, hRg, hstride, hRx, hcount, htow, hcap, -⟩ :=
+    hR a extraFloor U1floor g ha haL hg
+  exact ⟨R, hReps, hef, hU1, hRg, hstride, hRx, hcount, htow, hcap,
+    fun ρ _ hle hdoor => ⟨⟨K, hK, hKb, hcount⟩, mrtUniformityXiL2Set_mono hdoor hle⟩⟩
 
 end Salt.MR
 
