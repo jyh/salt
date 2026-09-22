@@ -686,6 +686,329 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
   · -- ⟦THE DOOR, HANDED OUT INSTEAD OF SPENT⟧ at the trivial payload
     exact fun x' hx' hxc ρ _ _ _ => trivial
 
+/-! ## §5 — the four pass-through hops, at the enlarged regime
+
+Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4952 · 4978 · 5023 · 5086`) at the band
+forms.  In each one the source's tuple gains the THREE new export conjuncts of rules (i-ω) (i-x)
+(i-gate) — `hRωtight`, `hRxtight`, `hll` — which are passed straight through, and the source's
+antecedent block gains `intro x' hx' hxc` in front and is then RUN AT `R' := regimeEnlargeX R hx'`
+rather than at `R`.  That is legal for the same reason the whole arm is: the regime's fields these
+bodies spend (`R.hx`, `R.hω`, `R.hωx`, `R.hheadroom`, `R.hHlo_floor`) are `R'`'s own fields, and
+`R'.eps`, `R'.Hlo`, `R'.Hhi` are `R`'s verbatim.  MEASURED over all four bodies: not one of them
+bounds `x` from ABOVE anywhere — every read of `x` is a lower bound and so survives `x ↦ x'` — so
+the band hypothesis `hxc` is consumed by nothing here but the next form's own block.  The worked
+precedent is the landed road-exit band hop (`TierSBand.lean:844`), which merges rung 2's three
+into one; these are three separate hops making the same moves, plus the capstone. -/
+
+/-- **⟦ARM R H0→H1⟧** (`flat_socket_generic_epsW_band`) — rung 2's `flat_socket_generic_epsW`
+(`:4952`) at the band forms.  The head's one estimate is re-fired at the enlarged regime: `hReps`
+and the `H₀` floor are transported by the `@[simp]` projections (`regimeEnlargeX_eps`,
+`regimeEnlargeX_Hlo`), and the COUNT hypothesis passes verbatim — it reads `Hlo`, `Hhi` and `eps`
+only, all carried by the enlargement. -/
+theorem flat_socket_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatHeadFormEpsW_band ε c P) :
+    FlatSocketFormEpsW_band ε c P := by
+  unfold FlatSocketFormEpsW_band
+  obtain ⟨K, δ₀, β, Hopq, hε, hK, hKb, hδ₀, hc1, hεpin, hδpin, hβ, hhead⟩ :=
+    h
+  obtain ⟨H₀, hH₀⟩ := sum_bigXi_norm_windowExpSum_sq_le_twelve ε hε
+  refine ⟨K, δ₀, β, max Hopq H₀, hε, hK, hKb, hδ₀, hc1, hεpin, hδpin, hβ, ?_⟩
+  intro A hA162 hAge hAL
+  obtain ⟨Hcap, hCapEq, hhd⟩ := hhead A (by linarith) hAge hAL
+  refine ⟨max Hcap H₀, by rw [hCapEq]; exact uniformCap_arc _ _ _ _ _, ?_⟩
+  intro U1floor g hg
+  obtain ⟨R, hReps, _, hRU1, hRg, hRx, hRωtight, hRxtight, hll, hcount, hRtow, hRcap, hR⟩ :=
+    hhd 0 (max U1floor H₀) g hg
+  have hU1 : U1floor ≤ R.Hlo := le_trans (le_max_left _ _) hRU1
+  have harc : H₀ ≤ R.Hlo := le_trans (le_max_right _ _) hRU1
+  refine ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hll, hRtow,
+    le_trans hRcap (by omega), ?_⟩
+  intro x' hx' hxc a e Bsieve Binsert hsplit hB0 hsock hins hρ
+  have hReps' : (regimeEnlargeX R hx').eps = ε := by
+    simp only [regimeEnlargeX_eps]; exact hReps
+  have harc' : H₀ ≤ (regimeEnlargeX R hx').Hlo := by
+    simp only [regimeEnlargeX_Hlo]; exact harc
+  refine hR x' hx' hxc δ₀ hδ₀ le_rfl ?_
+  intro H _ hlo hhi
+  exact le_trans (hH₀ (regimeEnlargeX R hx') hReps' harc' a e Bsieve K Binsert hsplit hB0 hsock
+    hcount hins H hlo hhi) (hρ H hlo hhi)
+
+/-- **⟦ARM R H1→H2⟧** (`flat_doorL2_generic_epsW_band`) — rung 2's `flat_doorL2_generic_epsW`
+(`:4978`) at the band forms.  This is the hop whose body reads the REGIME'S OWN FIELDS (`:4995`):
+`R.hω`, `R.hheadroom`, `R.hx`, `R.hωx` feed `hHx` and the Parseval insert estimate.  All four are
+`R'`'s own fields — the enlargement weakens none of them, since every `x`-constraint of
+`ChowlaRegime` is a LOWER bound on `x` (`RegimeHead.lean:104`) — so the body runs at `R'`
+unchanged.  The insert budget's `8·2^k/R.x` term likewise only gets smaller at `x' ≥ R.x`. -/
+theorem flat_doorL2_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatSocketFormEpsW_band ε c P) :
+    FlatDoorL2FormEpsW_band ε c P := by
+  unfold FlatDoorL2FormEpsW_band
+  obtain ⟨Cg, hCg, hCgle, hpars⟩ := parseval_insert_budget_door_bounded
+  obtain ⟨Kb, δ₀, β, Hopq, hε, hKb, hKbb, hδ₀, hc1, hεpin, hδpin, hβ, hsk⟩ :=
+    h
+  refine ⟨Cg, Kb, δ₀, β, Hopq, hCg, hCgle, hε, hKb, hKbb, hδ₀, hc1, hεpin, hδpin, hβ, ?_⟩
+  intro K A hA162 hAge hAL
+  obtain ⟨Hcap, hCapLe, hexit⟩ := hsk A hA162 hAge hAL
+  refine ⟨Hcap, hCapLe, ?_⟩
+  intro U1floor g hg
+  obtain ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hll, hRtow, hRcap, hR⟩ :=
+    hexit U1floor g hg
+  refine ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hll, hRtow, hRcap, ?_⟩
+  intro x' hx' hxc Braw Bceil δ M k hgates hBraw0 hsock hceil hbudget
+  set R' : ChowlaRegime := regimeEnlargeX R hx' with hR'def
+  have hA : 1 ≤ AdoorL M := one_le_AdoorL hgates.hM
+  have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
+  have hHx : ∀ H : ℕ, H ≤ R'.Hhi → H + 1 ≤ R'.x := by
+    intro H hhi
+    have hdiv : R'.x / R'.ω ≤ R'.x / 2 := Nat.div_le_div_left R'.hω (by norm_num)
+    have hle : H ≤ R'.x / 2 := le_trans (le_trans hhi R'.hheadroom) hdiv
+    have h2 : 2 ≤ R'.x := R'.hx
+    omega
+  refine hR x' hx' hxc
+    (memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2
+      liouvilleC)
+    (fun m => lamCoeff m - memSCoeff (calP (AdoorL M) (s13GK K M))
+      (calQK (AdoorL M) (s13GK K M) M) 2 liouvilleC m)
+    Braw (δ / 4 + 4 * 2 ^ k / (R'.x : ℝ)) (fun m => by ring) hBraw0
+    (hsock m4_bandTransport) ?_ ?_
+  · intro H _ hlo hhi
+    rw [sum_bigXi_insert_spelling_eq R'
+      (memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2 liouvilleC) H]
+    simp only [lamCoeff_eq_liouvilleC]
+    exact hpars (AdoorL M) (s13GK K M) M 2 R'.x R'.ω H k liouvilleC δ (bigXi R'.eps H)
+      liouvilleC_norm_le_one hA hG hgates.hM hgates.hδ hgates.hMδ R'.hx R'.hω R'.hωx
+      hgates.hlogω (hHx H hhi) (hgates.hreach H hlo hhi) hgates.hpow hgates.hcount
+      (hgates.hblocks H hlo hhi)
+  · intro H hlo hhi
+    rw [l2_budget_line Kb (Braw H) δ (R'.x : ℝ) k]
+    have hmono : 2 * Kb * Braw H ≤ 2 * Kb * Bceil :=
+      mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
+    linarith
+
+/-- **⟦ARM R H2→H3⟧** (`flat_road_generic_epsW_band`) — rung 2's `flat_road_generic_epsW`
+(`:5023`) at the band forms.  The body reads no field of the regime directly; its regime-relative
+steps (`one_le_arcDen_of_regime`, `blockLen_narrow`, `blockLen_drift`) take `R'` as their named
+regime argument and are supplied the `R'`-relative floors the band block hands them. -/
+theorem flat_road_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatDoorL2FormEpsW_band ε c P) :
+    FlatRoadFormEpsW_band ε c P := by
+  unfold FlatRoadFormEpsW_band
+  obtain ⟨Cg, Kb, δ₀, β, Hopq, hCg, hCgle, hε, hKb, hKbb, hδ₀, hc1, hεpin, hδpin, hβ, hdoor⟩ :=
+    h
+  refine ⟨Cg, Kb, δ₀, β, Hopq, hCg, hCgle, hε, hKb, hKbb, hδ₀, hc1, hεpin, hδpin, hβ, ?_⟩
+  intro K A hA162 hAge hAL
+  obtain ⟨Hcap, hCapLe, hmain⟩ := hdoor K A hA162 hAge hAL
+  refine ⟨Hcap, hCapLe, ?_⟩
+  intro U1floor g hg
+  obtain ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hll, hRtow, hRcap, hR⟩ :=
+    hmain U1floor g hg
+  refine ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hll, hRtow, hRcap, ?_⟩
+  intro x' hx' hxc δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2
+    harc3 hdgate hdrift hceil hbudget hrow
+  set R' : ChowlaRegime := regimeEnlargeX R hx' with hR'def
+  have harc8 : ∀ H : ℕ, R'.Hlo ≤ H → H ≤ R'.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
+    nlinarith [h1, harc1]
+  have harc : ∀ H : ℕ, R'.Hlo ≤ H → H ≤ R'.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
+    nlinarith [h1, harc1]
+  have hchi : M4ChiSummedBlockMeanSqN_L_gk K R' M
+      (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
+    m4_chiSummedN_supplied_L_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+    fun H => m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
+  have hblk2 :=
+    m4_blockMeanSqBlk2_of_chiSummed_L_gk K (k := k) hM hBcl0 hdgate harc hgates.hcount hchi
+  have hBblk0 : ∀ H : ℕ, 0 ≤ 8 * strataResidual H ^ 2
+      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
+    intro H
+    have := hBcl0 H
+    positivity
+  have hcov := m4_cover_assembly_blk2_L_gk K hgates hBblk0 hblk2
+  refine hR x' hx' hxc Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  refine m4_sievedDoorSq_of_blk2_L_gk K (ℓ := blockLen)
+    (fun H => by have := hBblk0 H; positivity)
+    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
+  · intro H q hlo hhi _ _
+    have h1 := harc H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
+    have hH1 : 1 ≤ H := by
+      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+      exact_mod_cast this
+    exact blockLen_le H q hH1
+  · intro H q hlo hhi _ _
+    exact blockLen_narrow (R := R') hlo (harc H hlo hhi)
+  · intro H q hlo hhi hq _
+    exact blockLen_drift (R := R') hlo hq (harc H hlo hhi)
+  · intro H hlo hhi
+    have h := hdrift H hlo hhi
+    have hres0 : (0 : ℝ) ≤ strataResidual H :=
+      strataResidual_nonneg (one_le_arcDen_of_regime (R := R') hlo)
+    have hB := hBcl0 H
+    nlinarith [h]
+
+/-- **⟦ARM R H3→H4⟧** (`flat_capstone_generic_epsW_band`) — rung 2's
+`flat_capstone_generic_epsW` (`:5086`) at the band forms.  `Awin` and `hband` are unchanged; the
+whole spine — the constant-pool fuse, the row bundle, the share table and the four gates — runs
+at `R'`.  ONE step is not the source's token for token, and it is an instrument difference rather
+than a mathematical one: the source closes `0 < H` by `have := R.hHlo_floor; omega`, and with the
+enlarged regime bound by `set` that projection is no longer an omega atom, so the bound is taken
+to `H` itself first (`le_trans R'.hHlo_floor hlo`) and omega is handed a fact about `H` alone.
+Same two facts, one `le_trans` apart. -/
+theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatRoadFormEpsW_band ε c P) (Awin : ℝ) (hband : S16BandLaneCBoundedL_winU Awin) :
+    FlatCapstoneFormEpsW_band ε c P Awin := by
+  unfold FlatCapstoneFormEpsW_band
+  obtain ⟨Cg, Kc, δ₀, β, Hopq, hCg, hCgle, hε, hKc, hKcb, hδ₀, hc1, hεpin, hδpin, hβ, hroadU⟩ :=
+    h
+  obtain ⟨x₀, Cband, hCband0, hCbandwin, hbandsplit⟩ := hband
+  refine ⟨Cg, Kc, δ₀, β, x₀,
+    max Hopq (max arcFloor36 loglogFloor50),
+    s11GradeFloor (Cband * (4 : ℝ) ^ (s13Aexp)
+      * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1),
+    hCg, hε, hKc, hδ₀, s11GradeFloor_one_le _, hCgle,
+    hc1, hεpin, hδpin, hKcb,
+    (fun A hA162 hAw => flatDoorM_gradeFloor_win hA162 hCband0 (by linarith)),
+    hβ, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hfuse⟩ := m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro A hA26 hAge hAL
+  obtain ⟨Hcap, hCapLe, hroad⟩ := hroadU K A hA26 hAge hAL
+  refine ⟨max Hcap (max arcFloor36 loglogFloor50), flatCap_join_floor hCapLe, ?_⟩
+  intro Cp hCp U1floor g hg
+  obtain ⟨R, hReps, hU1, hRg, hRx, hRωtight, hRxtight, hll, hRtow, hRcap, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g hg
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRx, hRωtight, hRxtight, hll,
+    hRtow, by omega, ?_⟩
+  intro x' hx' hxc M hMfloor hKw
+  set R' : ChowlaRegime := regimeEnlargeX R hx' with hR'def
+  have hM : 1 ≤ M := le_trans (s11GradeFloor_one_le _) hMfloor
+  obtain ⟨C', hC'pos, hC'le, hbandslot⟩ := hbandsplit K M hM
+  refine ⟨C', hC'pos, s11_grade_absorption'_L _ M hMfloor C' hC'le, ?_⟩
+  intro C₁ M₀ _epsf epsrf Kf k hgates hend hj0 hdgate hfit hbf hgP1 hgRows hthr _heps293
+    hband4096 _hepsr hbase5 hcapraw hbandbase harith
+  -- ⟦the two absorbed floors⟧
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R'.Hlo ≤ H → H ≤ R'.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
+  have hbase : ∀ H L q j A s : ℕ, SocketBaseL R' M H L q j A s →
+      DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (AdoorL M) (s13GK K M))
+          (calQK (AdoorL M) (s13GK K M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness_L_gk K (A + s) hM, h2, h3, h4, h5⟩
+  -- ⟦ITEM 11, FROM THE CONSTANT-POOL FUSE⟧ at the door pin `t₁ ≡ 0`
+  have hrow : M4ChiSummedFreeRow_L_gk K R' M
+      (m4ChiRowGraded_L M (fun _ H => RSanDoorRho ρ H)) :=
+    hfuse Cp hCp R' M C₁ M₀ epsrf Kf ρ liouvilleC
+      (fun i => memSPunctCoeff (calP (AdoorL M) (s13GK K M))
+        (calQK (AdoorL M) (s13GK K M) M) 2 i liouvilleC)
+      (fun _ _ => (0 : ℝ)) hM hKw hρpos (fun i m => norm_doorPunctCoeffU_le_one_L_gk K M i m)
+      (fun p => liouvilleC_norm_le_one p) hbf hgP1 hgRows hthr _heps293 hband4096 hbase
+      hcapraw (hbandslot R' C₁ M₀ hbandbase) harith
+  -- ⟦THE TWO TERMINAL CONJUNCTS⟧
+  have hgate4 : ∀ j H : ℕ, doorRowFloorL M ≤ j →
+      m4ChiRowGraded_L M (fun _ H => RSanDoorRho ρ H) j H ≤ RSanDoorRho ρ H :=
+    m4_arith_gate4_rho_L M ρ
+  have hceilconj : ∀ H : ℕ, R'.Hlo ≤ H → H ≤ R'.Hhi →
+      96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSanDoorRho ρ H)
+        ≤ δs ^ 2 := by
+    intro H hlo hhi
+    exact m4_arith_rs_ceiling_met_of_delta hδs.ne' (hHreg H hlo hhi).1 (hHreg H hlo hhi).2
+  -- ⟦the road, fired at the share table⟧
+  refine hR x' hx' hxc δ₀ (δ₀ / (8 * Kc))
+    (m4ChiRowGraded_L M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloorL M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloorL M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · -- ⟦gate 3c⟧ `0 ≤ Braw`
+    intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloorL M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
+    intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloorL M) (hj0 H hlo hhi)
+    linarith
+  · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
+    intro H hlo hhi
+    have hH0 : 0 < H := by
+      -- `set`-bound `R'` is not an omega atom the way the source's `R` is: give omega the
+      -- bound on `H` itself rather than on `R'.Hlo`.  Same two facts, one `le_trans` apart.
+      have h4 : 4000000 ≤ H := le_trans R'.hHlo_floor hlo
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloorL M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
+    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
+
 end Salt.MR
 
 end
