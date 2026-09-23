@@ -2232,6 +2232,451 @@ theorem s13_g2_jfloor_of_MSelect'_L_gk_shiftL (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {
   have hgr := hS.gRows
   nlinarith [hgr, hdr, hlog, hΛ, hLΛ]
 
+/-! ## §J — THE CONDITIONAL AT THE CHARGE: THE ONE STRIDE-SPENDING SITE, PAID BY THE BINDER
+
+The split at Z is Z1 (`zSplit_arm_L`, transcribed from the per-hop walk's scratch, three axioms
+there) re-stated as `zSplit_arm_L2`; the multiplier-pin split `xceil_arm_split_mul_h_L` is FALSE at
+a free twist and is not in this file. -/
+
+
+/-- **Z1 — THE RIDER SPLIT WITH THE STRIDE'S `+L` RESERVED.**  `epsChain_arm_split_L`
+(`FlatDoorEpsRung2.lean:2738`) with `+ L` on the left for every `0 ≤ L ≤ Lc`.  Room: the gate
+`50 + Lc ≤ loglog H₊` gives `log H₊ ≥ e^{50}·e^{Lc}`, `e^{Lc} ≥ c` and `e^{Lc} ≥ 1 + L`, and
+`H₊ = e^{log H₊} ≥ (log H₊)³/6`, so `H₊/c² ≥ 2^{150}·(1 + L)/6`, against a demand of
+`250001·(log 2 + L)`. -/
+theorem zSplit_arm_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
+    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {Lc : ℝ} (hLc : Real.log ((c : ℕ) : ℝ) ≤ Lc)
+    {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi)
+    (hll : 50 + Lc ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ)))
+    {L : ℝ} (hL0 : 0 ≤ L) (hLLc : L ≤ Lc) :
+    Real.log 2 + L ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
+  have hcR : (1 : ℝ) ≤ ((c : ℕ) : ℝ) := by exact_mod_cast hc1
+  have hcpos : (0 : ℝ) < ((c : ℕ) : ℝ) := by linarith
+  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  have hlogHpos : (0 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) := Real.log_pos (by linarith)
+  -- ⟦THE PIN⟧ `ε² ≥ 1/(250000·c²)` — the landed derivation
+  have hcQ : (1 : ℚ) ≤ ((c : ℕ) : ℚ) := by exact_mod_cast hc1
+  have hqcap : (1 : ℚ) ≤ 500 * ((c : ℕ) : ℚ) * ε := by
+    have h := (div_le_iff₀ (show (0 : ℚ) < 500 * ((c : ℕ) : ℚ) by linarith)).mp hcε
+    calc (1 : ℚ) ≤ ε * (500 * ((c : ℕ) : ℚ)) := h
+      _ = 500 * ((c : ℕ) : ℚ) * ε := by ring
+  have hcapR : (1 : ℝ) ≤ 500 * ((c : ℕ) : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hsq : (1 : ℝ) ≤ 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by
+    have h := one_le_pow₀ (n := 2) hcapR
+    calc (1 : ℝ) ≤ (500 * ((c : ℕ) : ℝ) * (ε : ℝ)) ^ 2 := h
+      _ = 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by ring
+  have hε2 : (1 : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2) ≤ (ε : ℝ) ^ 2 := by
+    rw [div_le_iff₀ (by positivity)]
+    linarith [hsq]
+  -- ⟦THE TOWER⟧ `log H₊ ≥ e^{50 + Lc} = e^{50}·e^{Lc}`
+  have hy : Real.exp (50 + Lc) ≤ Real.log ((Hhi : ℕ) : ℝ) := by
+    have h := Real.exp_le_exp.mpr hll
+    rwa [Real.exp_log hlogHpos] at h
+  have hE2 : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
+  have hE50 : (2 : ℝ) ^ 50 ≤ Real.exp 50 := by
+    have h := pow_le_pow_left₀ (by norm_num) hE2 50
+    rw [Real.exp_one_pow] at h
+    exact_mod_cast h
+  have hcexp : ((c : ℕ) : ℝ) ≤ Real.exp Lc := by
+    have h := Real.exp_le_exp.mpr hLc
+    rwa [Real.exp_log hcpos] at h
+  have hLexp : 1 + L ≤ Real.exp Lc := by
+    have h := Real.add_one_le_exp Lc
+    linarith
+  have hexppos : (0 : ℝ) < Real.exp Lc := Real.exp_pos _
+  -- `(log H₊)³ ≥ (e^{50})³·(e^{Lc})³ ≥ 2^{150}·c²·(1 + L)`
+  have hsplit : Real.exp (50 + Lc) = Real.exp 50 * Real.exp Lc := Real.exp_add _ _
+  have hyy : Real.exp 50 * Real.exp Lc ≤ Real.log ((Hhi : ℕ) : ℝ) := by rw [← hsplit]; exact hy
+  have hexp3 : ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 3 := by
+    have h1 : ((c : ℕ) : ℝ) ^ 2 ≤ (Real.exp Lc) ^ 2 := pow_le_pow_left₀ hcpos.le hcexp 2
+    have h2 : ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 2 * Real.exp Lc :=
+      mul_le_mul h1 hLexp (by linarith) (by positivity)
+    calc ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 2 * Real.exp Lc := h2
+      _ = (Real.exp Lc) ^ 3 := by ring
+  have hE150 : (2 : ℝ) ^ 150 ≤ (Real.exp 50) ^ 3 := by
+    have h := pow_le_pow_left₀ (by positivity) hE50 3
+    calc (2 : ℝ) ^ 150 = ((2 : ℝ) ^ 50) ^ 3 := by norm_num
+      _ ≤ (Real.exp 50) ^ 3 := h
+  have hcube : (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L)) ≤ (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 := by
+    have h1 : (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L))
+        ≤ (Real.exp 50) ^ 3 * (Real.exp Lc) ^ 3 :=
+      mul_le_mul hE150 hexp3 (by positivity) (by positivity)
+    have h2 : (Real.exp 50) ^ 3 * (Real.exp Lc) ^ 3 = (Real.exp 50 * Real.exp Lc) ^ 3 := by ring
+    have h3 : (Real.exp 50 * Real.exp Lc) ^ 3 ≤ (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 :=
+      pow_le_pow_left₀ (by positivity) hyy 3
+    linarith
+  -- `H₊ = e^{log H₊} ≥ (log H₊)³/6`
+  have hH3 : (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 / 6 ≤ ((Hhi : ℕ) : ℝ) := by
+    have h := Real.pow_div_factorial_le_exp _ hlogHpos.le 3
+    rw [Real.exp_log hHpos] at h
+    have h6 : ((Nat.factorial 3 : ℕ) : ℝ) = 6 := by norm_num [Nat.factorial]
+    rw [h6] at h
+    exact h
+  -- ⟦THE MARGIN⟧ `H₊/c² ≥ 2^{150}·(1 + L)/6 ≥ 250001·(log 2 + L)`
+  have hc2pos : (0 : ℝ) < ((c : ℕ) : ℝ) ^ 2 := by positivity
+  have hHc : (2 : ℝ) ^ 150 / 6 * (1 + L) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
+    rw [le_div_iff₀ hc2pos]
+    have : (2 : ℝ) ^ 150 / 6 * (1 + L) * ((c : ℕ) : ℝ) ^ 2
+        = (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L)) / 6 := by ring
+    rw [this]
+    linarith [hcube, hH3]
+  have hlog2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+  have hdemand : 250001 * (Real.log 2 + L) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
+    have h1 : 250001 * (Real.log 2 + L) ≤ 250001 * (1 + L) := by linarith
+    have h2 : (250001 : ℝ) * (1 + L) ≤ (2 : ℝ) ^ 150 / 6 * (1 + L) :=
+      mul_le_mul_of_nonneg_right (by norm_num) (by linarith)
+    linarith
+  -- ⟦THE LANDED TAIL⟧ (`:2796–2810`), with `1/250001 ≤ 1/250000 − 1/10^20`
+  have hsub : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2)
+      = (((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2) * (1 / 250000 - 1 / 10 ^ 20) := by
+    field_simp
+  have hlow : Real.log 2 + L ≤ ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
+    rw [hsub]
+    have hq : (1 : ℝ) / 250001 ≤ 1 / 250000 - 1 / 10 ^ 20 := by norm_num
+    have hpos : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by positivity
+    have h := mul_le_mul_of_nonneg_left hq hpos
+    have h' : Real.log 2 + L ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 * (1 / 250001) := by
+      have := hdemand; nlinarith
+    linarith
+  have hstep : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
+    have h := mul_le_mul_of_nonneg_right hε2 hHpos.le
+    calc ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+        = 1 / (250000 * ((c : ℕ) : ℝ) ^ 2) * ((Hhi : ℕ) : ℝ) := by ring
+      _ ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := h
+  linarith [hlow, hstep]
+
+/-- **Z1 RE-STATED FOR THE CONDITIONAL'S SPLIT (`zSplit_arm_L2`).**  `zSplit_arm_L` with its binder
+`L ≤ Lc` widened to `L ≤ 2·Lc`, because the conditional reserves `log 2 + (log h + L)` and
+`log h + L ≤ 2·L ≤ 2·Lc`.  Same proof shape; THE ONE CHANGED INEQUALITY, derived:
+`1 + L ≤ 1 + 2·Lc ≤ 2·(1 + Lc) ≤ 2·e^{Lc}` (where Z1 had `1 + L ≤ e^{Lc}`), so the room halves:
+`H₊/c² ≥ 2^{150}·(1 + L)/12` against the demand `250001·(log 2 + L) ≤ 250001·(1 + L)`, and
+`2^{150}/12 = 1.1893·10^{44} ≥ 250001`.  No cap on `c`, `L` or `h` enters. -/
+theorem zSplit_arm_L2 {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
+    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {Lc : ℝ} (hLc : Real.log ((c : ℕ) : ℝ) ≤ Lc)
+    {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi)
+    (hll : 50 + Lc ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ)))
+    {L : ℝ} (hL0 : 0 ≤ L) (hL2 : L ≤ 2 * Lc) :
+    Real.log 2 + L ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
+  have hcR : (1 : ℝ) ≤ ((c : ℕ) : ℝ) := by exact_mod_cast hc1
+  have hcpos : (0 : ℝ) < ((c : ℕ) : ℝ) := by linarith
+  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
+  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+  have hlogHpos : (0 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) := Real.log_pos (by linarith)
+  -- ⟦THE PIN⟧ `ε² ≥ 1/(250000·c²)` — the landed derivation
+  have hcQ : (1 : ℚ) ≤ ((c : ℕ) : ℚ) := by exact_mod_cast hc1
+  have hqcap : (1 : ℚ) ≤ 500 * ((c : ℕ) : ℚ) * ε := by
+    have h := (div_le_iff₀ (show (0 : ℚ) < 500 * ((c : ℕ) : ℚ) by linarith)).mp hcε
+    calc (1 : ℚ) ≤ ε * (500 * ((c : ℕ) : ℚ)) := h
+      _ = 500 * ((c : ℕ) : ℚ) * ε := by ring
+  have hcapR : (1 : ℝ) ≤ 500 * ((c : ℕ) : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hsq : (1 : ℝ) ≤ 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by
+    have h := one_le_pow₀ (n := 2) hcapR
+    calc (1 : ℝ) ≤ (500 * ((c : ℕ) : ℝ) * (ε : ℝ)) ^ 2 := h
+      _ = 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by ring
+  have hε2 : (1 : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2) ≤ (ε : ℝ) ^ 2 := by
+    rw [div_le_iff₀ (by positivity)]
+    linarith [hsq]
+  -- ⟦THE TOWER⟧ `log H₊ ≥ e^{50 + Lc} = e^{50}·e^{Lc}`
+  have hy : Real.exp (50 + Lc) ≤ Real.log ((Hhi : ℕ) : ℝ) := by
+    have h := Real.exp_le_exp.mpr hll
+    rwa [Real.exp_log hlogHpos] at h
+  have hE2 : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
+  have hE50 : (2 : ℝ) ^ 50 ≤ Real.exp 50 := by
+    have h := pow_le_pow_left₀ (by norm_num) hE2 50
+    rw [Real.exp_one_pow] at h
+    exact_mod_cast h
+  have hcexp : ((c : ℕ) : ℝ) ≤ Real.exp Lc := by
+    have h := Real.exp_le_exp.mpr hLc
+    rwa [Real.exp_log hcpos] at h
+  -- ⟦THE ONE CHANGED INEQUALITY⟧ `1 + L ≤ 1 + 2·Lc ≤ 2·(1 + Lc) ≤ 2·e^{Lc}`
+  have hLexp : 1 + L ≤ 2 * Real.exp Lc := by
+    have h := Real.add_one_le_exp Lc
+    have hLc0 : 0 ≤ Lc := by linarith
+    linarith
+  have hexppos : (0 : ℝ) < Real.exp Lc := Real.exp_pos _
+  -- `2·(log H₊)³ ≥ 2·(e^{50})³·(e^{Lc})³ ≥ 2^{150}·c²·(1 + L)`
+  have hsplit : Real.exp (50 + Lc) = Real.exp 50 * Real.exp Lc := Real.exp_add _ _
+  have hyy : Real.exp 50 * Real.exp Lc ≤ Real.log ((Hhi : ℕ) : ℝ) := by rw [← hsplit]; exact hy
+  have hexp3 : ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ 2 * (Real.exp Lc) ^ 3 := by
+    have h1 : ((c : ℕ) : ℝ) ^ 2 ≤ (Real.exp Lc) ^ 2 := pow_le_pow_left₀ hcpos.le hcexp 2
+    have h2 : ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 2 * (2 * Real.exp Lc) :=
+      mul_le_mul h1 hLexp (by linarith) (by positivity)
+    calc ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 2 * (2 * Real.exp Lc) := h2
+      _ = 2 * (Real.exp Lc) ^ 3 := by ring
+  have hE150 : (2 : ℝ) ^ 150 ≤ (Real.exp 50) ^ 3 := by
+    have h := pow_le_pow_left₀ (by positivity) hE50 3
+    calc (2 : ℝ) ^ 150 = ((2 : ℝ) ^ 50) ^ 3 := by norm_num
+      _ ≤ (Real.exp 50) ^ 3 := h
+  have hcube : (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L))
+      ≤ 2 * (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 := by
+    have h1 : (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L))
+        ≤ (Real.exp 50) ^ 3 * (2 * (Real.exp Lc) ^ 3) :=
+      mul_le_mul hE150 hexp3 (by positivity) (by positivity)
+    have h2 : (Real.exp 50) ^ 3 * (Real.exp Lc) ^ 3 = (Real.exp 50 * Real.exp Lc) ^ 3 := by ring
+    have h3 : (Real.exp 50 * Real.exp Lc) ^ 3 ≤ (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 :=
+      pow_le_pow_left₀ (by positivity) hyy 3
+    linarith
+  -- `H₊ = e^{log H₊} ≥ (log H₊)³/6`
+  have hH3 : (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 / 6 ≤ ((Hhi : ℕ) : ℝ) := by
+    have h := Real.pow_div_factorial_le_exp _ hlogHpos.le 3
+    rw [Real.exp_log hHpos] at h
+    have h6 : ((Nat.factorial 3 : ℕ) : ℝ) = 6 := by norm_num [Nat.factorial]
+    rw [h6] at h
+    exact h
+  -- ⟦THE MARGIN⟧ `H₊/c² ≥ 2^{150}·(1 + L)/12 ≥ 250001·(log 2 + L)`
+  have hc2pos : (0 : ℝ) < ((c : ℕ) : ℝ) ^ 2 := by positivity
+  have hHc : (2 : ℝ) ^ 150 / 12 * (1 + L) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
+    rw [le_div_iff₀ hc2pos]
+    have : (2 : ℝ) ^ 150 / 12 * (1 + L) * ((c : ℕ) : ℝ) ^ 2
+        = (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L)) / 12 := by ring
+    rw [this]
+    linarith [hcube, hH3]
+  have hlog2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+  have hdemand : 250001 * (Real.log 2 + L) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
+    have h1 : 250001 * (Real.log 2 + L) ≤ 250001 * (1 + L) := by linarith
+    have h2 : (250001 : ℝ) * (1 + L) ≤ (2 : ℝ) ^ 150 / 12 * (1 + L) :=
+      mul_le_mul_of_nonneg_right (by norm_num) (by linarith)
+    linarith
+  -- ⟦THE LANDED TAIL⟧ (`:2796–2810`), with `1/250001 ≤ 1/250000 − 1/10^20`
+  have hsub : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2)
+      = (((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2) * (1 / 250000 - 1 / 10 ^ 20) := by
+    field_simp
+  have hlow : Real.log 2 + L ≤ ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
+    rw [hsub]
+    have hq : (1 : ℝ) / 250001 ≤ 1 / 250000 - 1 / 10 ^ 20 := by norm_num
+    have hpos : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by positivity
+    have h := mul_le_mul_of_nonneg_left hq hpos
+    have h' : Real.log 2 + L ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 * (1 / 250001) := by
+      have := hdemand; nlinarith
+    linarith
+  have hstep : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+      ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
+    have h := mul_le_mul_of_nonneg_right hε2 hHpos.le
+    calc ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
+        = 1 / (250000 * ((c : ℕ) : ℝ) ^ 2) * ((Hhi : ℕ) : ℝ) := by ring
+      _ ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := h
+  linarith [hlow, hstep]
+
+/-- **⟦H2→H3 AT THE CHARGE⟧ — `flat_conditional_generic_h_Z`.** G12b's
+`flat_conditional_generic_h_g12b` (`StridePairReceiptG12b.lean:504`) on the Z forms.  THE ONE
+STRIDE-SPENDING SITE: G12b's `hlogA : log a ≤ 9` (from `a ≤ 8103`) is DELETED and `hprod` reads
+the form's binder `haL : log a ≤ L`; every other read of `a` is cap-free `ℕ` arithmetic,
+transcribed.  THE RIDER at the gate `50 + Lc` (`Lc := log c + L`): the arm is priced by
+`s15ArmH_log_le_L` (slack `H₊/(10^20·c²)`), the split by `zSplit_arm_L2` at `log h + L ≤ 2·Lc`,
+and the four budget sites move `− 9 ↦ − L`.  THE FLOOR (rule (i), v1.1): `flatDesignBase A ≤ R.Hlo`
+gives `3.2·A ≤ loglog H` on the window, hence the tower floor `50 + Lc ≤ loglog H` (and the block's
+`3·Lc ≤ loglog H`) from `10 + 2·Lc ≤ A`, `162 ≤ A`.  THE FIRE: every capped supplier at its `_L`
+twin (§F, §I).  No numeral cap on `h`, `c`, `L` or `a` is read. -/
+theorem flat_conditional_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ)
+    (Awin : ℝ) (_hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
+    (hcap : FlatCapstoneFormHG_Z h ε c L Awin P) :
+    FlatConditionalFormHG_Z h ε c L Awin P := by
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc, hδ₀, hMfl, hCgle, hc1, hL0, hhL,
+    hεpin, hcε, hδpin, hKcb, hMflb, hβ, hcapU⟩ := hcap
+  refine ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl, hCgle, hc1, hL0, hhL,
+    hεpin, hcε, hδpin, hKcb, hMflb, hβ, ?_⟩
+  intro K
+  obtain ⟨Ct, hCt, hCtb, hcapK⟩ := hcapU K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro A hA26 hAge hAL
+  obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge hAL
+  refine ⟨Hcap, hCapLe, ?_⟩
+  intro a U1floor g ha haL hg hU
+  have hapos : 0 < a := ha
+  have haR0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast hapos
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  -- ⟦THE CHARGE⟧ `Lc := log c + L` carries the twist; the count ceiling `Kb := 2^283·c^20·h`
+  have hc0 : 0 ≤ Real.log (c : ℝ) := Real.log_natCast_nonneg c
+  have hLc0 : 0 ≤ Real.log (c : ℝ) + L := by linarith
+  have hhLc : Real.log (h : ℝ) ≤ Real.log (c : ℝ) + L := by linarith
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hKb1 : (1 : ℝ) ≤ 2 ^ 283 * (c : ℝ) ^ 20 * (h : ℝ) := by
+    have h1 := epsRung2_one_le_Kb hc1
+    nlinarith
+  have hKbL : Real.log (2 ^ 283 * (c : ℝ) ^ 20 * (h : ℝ)) ≤ 197 + 20 * (Real.log (c : ℝ) + L) :=
+    zCount_form (by linarith) le_rfl hc1 hh hhL hL0
+  -- ⟦THE ONE GENUINE ESTIMATE, SPENT AT SHIFT `h`⟧ the substituted `a·(arm + g)` obeys the
+  -- builder-side rider at the gate `50 + Lc`
+  have hg' : XCeilRiderAt (50 + (Real.log (c : ℝ) + L)) ε
+      (fun Hhi ω => a * (s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)) := by
+    intro Hhi ω hgate
+    obtain ⟨hH4, hll, hωw⟩ := hgate
+    have hHhiR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
+    -- ⟦THE ARM⟧ at the charge, slack `H₊/(10^20·c²)`
+    have harm : Real.log ((s15ArmH h δ₀ ρ Hhi ω : ℕ) : ℝ)
+        ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ)
+          + ((Hhi : ℕ) : ℝ) / (10 ^ 20 * (c : ℝ) ^ 2) := by
+      rw [hρdef, hδsdef]
+      exact s15ArmH_log_le_L hh hcR1 hLc0 (by linarith) hδ₀ hδpin hKc hKb1 hKcb hKbL hH4 hll
+    -- ⟦THE SPLIT⟧ Z1 re-stated, reserving `log 2 + (log h + L)`, `log h + L ≤ 2·(log c + L)`
+    have hlogh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_natCast_nonneg h
+    have hsplit := zSplit_arm_L2 hc1 hcε (Lc := Real.log (c : ℝ) + L) (by linarith) hH4 hll
+      (L := Real.log (h : ℝ) + L) (by linarith) (by linarith)
+    have hgb := hg Hhi ω ⟨hH4, hll, hωw⟩
+    have hslack0 : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / (10 ^ 20 * (c : ℝ) ^ 2) := by positivity
+    have harm' : Real.log ((s15ArmH h δ₀ ρ Hhi ω : ℕ) : ℝ)
+        ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) - Real.log 2 - L := by linarith
+    have hgb' : Real.log ((g Hhi ω : ℕ) : ℝ)
+        ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) - Real.log 2 - L := by linarith
+    have hsum : Real.log (((s15ArmH h δ₀ ρ Hhi ω + g Hhi ω : ℕ)) : ℝ)
+        ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) - L :=
+      le_trans (xt_log_add_le harm' hgb') (by linarith)
+    -- ⟦THE MULTIPLIER — THE ONE STRIDE-SPENDING SITE⟧
+    -- `log(a·(arm + g)) = log a + log(arm + g) ≤ L + (31/ε·H₊ − L)`, `haL : log a ≤ L`
+    have hprod : Real.log (((a * (s15ArmH h δ₀ ρ Hhi ω + g Hhi ω) : ℕ)) : ℝ)
+        ≤ 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) := by
+      rcases Nat.eq_zero_or_pos (a * (s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)) with hz | hp
+      · rw [hz]
+        simp only [Nat.cast_zero, Real.log_zero]
+        have hεpos : (0 : ℚ) < ε := hε
+        have hεR : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hεpos
+        have hbig : (0 : ℝ) < 31 / (ε : ℝ) * ((Hhi : ℕ) : ℝ) := by
+          have : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
+          positivity
+        linarith
+      · have hne : a * (s15ArmH h δ₀ ρ Hhi ω + g Hhi ω) ≠ 0 := hp.ne'
+        have hsne : (0 : ℝ) < ((s15ArmH h δ₀ ρ Hhi ω + g Hhi ω : ℕ) : ℝ) := by
+          have hs0 : 0 < s15ArmH h δ₀ ρ Hhi ω + g Hhi ω :=
+            Nat.pos_of_ne_zero (fun hc => hne (by rw [hc, Nat.mul_zero]))
+          exact_mod_cast hs0
+        have hcast : (((a * (s15ArmH h δ₀ ρ Hhi ω + g Hhi ω) : ℕ)) : ℝ)
+            = ((a : ℕ) : ℝ) * ((s15ArmH h δ₀ ρ Hhi ω + g Hhi ω : ℕ) : ℝ) := by
+          push_cast; ring
+        rw [hcast, Real.log_mul (ne_of_gt haR0) (ne_of_gt hsne)]
+        linarith
+    exact hprod
+  obtain ⟨R, hReps, hU1, hRg, hstride, hRx, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl a U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω) ha haL hg'
+  have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by
+    have hstep : s15ArmH h δ₀ ρ R.Hhi R.ω
+        ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) := by
+      have h1 : s15ArmH h δ₀ ρ R.Hhi R.ω
+          ≤ 1 * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) := by omega
+      exact le_trans h1 (Nat.mul_le_mul_right _ ha)
+    omega
+  have hRgg : a * g R.Hhi R.ω ≤ R.x := by
+    have hstep : a * g R.Hhi R.ω
+        ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
+      Nat.mul_le_mul_left a (by omega)
+    omega
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  -- ⟦THE DESIGN FLOOR ON THE REGIME (rule (i), v1.1)⟧ `flatDesignBase A ≤ R.Hlo`
+  have hdesR : flatDesignBase A ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  have hdesH : ∀ H : ℕ, R.Hlo ≤ H → 3.2 * A ≤ Real.log (Real.log (H : ℝ)) := by
+    intro H hlo
+    have hDge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+      rw [flatDesignBase]; exact Nat.le_ceil _
+    have hBH : ((flatDesignBase A : ℕ) : ℝ) ≤ (H : ℝ) := by
+      exact_mod_cast le_trans hdesR hlo
+    have h1 : Real.exp (Real.exp (3.2 * A)) ≤ (H : ℝ) := le_trans hDge hBH
+    have h2 : Real.exp (3.2 * A) ≤ Real.log (H : ℝ) := by
+      have h := Real.log_le_log (Real.exp_pos _) h1
+      rwa [Real.log_exp] at h
+    have h := Real.log_le_log (Real.exp_pos _) h2
+    rwa [Real.log_exp] at h
+  -- the TOWER floor: `50 + Lc ≤ 45 + A/2 ≤ 3.2·A` from `10 + 2·Lc ≤ A` and `162 ≤ A`
+  have hfloor : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      50 + (Real.log (c : ℝ) + L) ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => by linarith [hdesH H hlo]
+  -- the block's floor: `3·Lc ≤ 3.2·(10 + 2·Lc)/2 ≤ 3.2·A` at `0 ≤ Lc`
+  have hfloor3 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      3 * (Real.log (c : ℝ) + L) ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => by linarith [hdesH H hlo]
+  refine ⟨R, hReps, hHlo, hRgg, hstride, hRx, hRtow, ?_⟩
+  intro M hKw hsel
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
+  intro hcap
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hLcΛ : Real.log (c : ℝ) + L ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) := by
+    linarith [hfloor R.Hhi R.hHlohi le_rfl]
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
+  have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
+  have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
+    hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧ — the register and its bridges are SOCKET-BLIND
+  have hS : MSelect'_L_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_L_of_halfWindow_gk K hsel.hM hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦slot 3⟧ the outer step over the `h`-free family, with `4·L` in the gate (G12b: `36`)
+  have hLΛ : L ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) := by linarith
+  have hj0raw : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * max 1 (arcDen 12 H)) + 4 * L ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+    have hgate := s13_g2_jfloor_of_MSelect'_L_gk_shiftL K hLΛ (by linarith) hS
+    have hbase := s13_g2_jfloor_gen (R := R)
+      (F := ((doorRowFloorL M : ℕ) : ℝ) - 4 * L) le_rfl (by linarith)
+    intro H hlo hhi
+    linarith [hbase H hlo hhi]
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor_of_MSelect'_L_gk_h_L hh hhL hj0raw)
+    (s13_gate8_L_gk_h_L hh hLc0 hhLc hLcΛ le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_L hh hLc0 hhLc hρ0 hρ1 hfl hfloor hsel.half)
+    (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_flat_doorLH_gk_L K hh hLc0 hhLc hfl hb hfloor hsel.hM hρ0 hρ1
+        htow hsel.rho hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket_flatH_L hh hLc0 hhLc hfl hb hfloor htow hsel.rho le_rfl)
+    (fun H L q j A s hb =>
+      s15_heps293_at_socket_flatH_L hh hLc0 hhLc hfl hb hρ0 hfloor htow hsel.rho)
+    (fun H L q j A s hb =>
+      s15_hband4096_at_socket_flatH_L hh hLc0 hhLc hfl hb hρ0 hfloor htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_L_gk K hsel.hM
+        (s15_block_at_socketH_L_gk_L K hh hLc0 hhLc hb (hHreg H hb.1 hb.2.1)
+          (hfloor3 H hb.1 hb.2.1) hsel.blk)
+        hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family'H_L_gk_L K hh hLc0 hhLc hsel.hM hρ0 hρ1 (fun _ => le_rfl) hfloor
+      (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
+      (fun H L q j A s hb =>
+        s15_block_at_socketH_L_gk_L K hh hLc0 hhLc hb (hHreg H hb.1 hb.2.1)
+          (hfloor3 H hb.1 hb.2.1) hsel.blk))
+    harith
+
 end Salt.MR
 
 end
