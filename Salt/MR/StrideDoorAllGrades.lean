@@ -40,11 +40,14 @@ ARM Z), and each G12b hop is RE-RUN at the charge `Lc := log c + L` (`1 ≤ c`, 
 `log a ≤ L`), calling rung 2's `_L`/`_T` suppliers at the TRUE `h` where G12b called its capped
 twins at the pin, and new `_L` twins where none exists.
 
-(c) WHAT IS OWED.  This file is HALF 1 of 3: the statement, the payload and the six forms; four
-transcribed receipts and the Set-door monotonicity; the builder pair at the charge; the head at the
-trivial payload; the shrink; the road-exit and capstone hops.  HALVES 2–3 (the conditional, kswin,
-v7, the chain, the count floor, the affine assembly, the terminal, the zero levels, the
-registration) are OWED, and the theorem `: StrideDoorAllGradesW` does NOT yet exist.
+(c) WHAT IS OWED.  HALF 1 landed the statement, the payload and the six forms; four transcribed
+receipts and the Set-door monotonicity; the builder pair at the charge; the head at the trivial
+payload; the shrink; the road-exit and capstone hops.  HALF 2 landed the conditional (§J) and v7
+(§K) with ten of the eleven charge twins of the H-socket suppliers (§I).  OWED: the kswin hop and
+its crossing spine head (twin 9, whose capped callees have no charge twin; recorded in
+`docs/blueprints/flags.md`), then HALF 3 (the chain, the count floor, the affine assembly, the
+terminal, the zero levels, the registration).  The theorem `: StrideDoorAllGradesW` does NOT yet
+exist.
 -/
 
 noncomputable section
@@ -2676,6 +2679,161 @@ theorem flat_conditional_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ)
         s15_block_at_socketH_L_gk_L K hh hLc0 hhLc hb (hHreg H hb.1 hb.2.1)
           (hfloor3 H hb.1 hb.2.1) hsel.blk))
     harith
+
+/-! ## §K — V7 AT THE CHARGE
+
+The kswin hop (H3→H4) is NOT in this file: its crossing spine head has no charge twin (see (c)
+above).  v7 takes the kswin form as a hypothesis and is proved here. -/
+
+/-- **⟦H4→H5 AT THE CHARGE⟧ — `flat_v7_generic_h_Z`.** G12b's `flat_v7_generic_h_g12b`
+(`StridePairReceiptG12b.lean:811`) on the Z forms.  The two capped suppliers are rung 2's
+h-generic ones AT THE TRUE `h` (rule (i)): `cofkR_cofactorSupply_L_gk_rated_L h hh` and
+`s16_baseScaleCap96_LH_at_klevF_L (h := h) hh`, each at `Lc := log c + L`.  The supply's `obtain`
+moves below the terminal's (as rung 2's v7 does), because the charge conjuncts are components of
+the form.  THE DESIGN CONSTANT: G12b's eight arms verbatim inside rung 2's NINTH arm
+`162 + 2·Lc`, OUTERMOST, which pays `10 + 2·Lc ≤ A` (the forms' binder),
+`518 + 6·Lc ≤ loglog H₋` (`3.2·(162 + 2·Lc) = 518.4 + 6.4·Lc`), `cofkRThr + 2·Lc ≤ log H₋`
+(`cofkRThr ≤ A`, `2·Lc ≤ A`, `2·A ≤ 3.2·A + 1 ≤ e^{3.2·A}`) and `Lc ≤ e^{3.2·A/2}`
+(`Lc ≤ A ≤ 1.6·A + 1`). -/
+theorem flat_v7_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ)
+    (P : ChowlaRegime → Prop)
+    (hk : ∀ Awin : ℝ, S16BandLaneCBoundedLH_winU h Awin → FlatKswinFormHG_Z h ε c L Awin P)
+    (A₀ : ℝ) :
+    V7RatedFormHG_Z h ε c L P A₀ := by
+  obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinLH_holdsU h hh
+  -- ⟦THE cs-FREE, Ks-WINDOWED FLAT TERMINAL⟧ V7Ks §5
+  obtain ⟨Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hc1, hL0, hhL, hεpin, hcε, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0,
+    hC40, hmainU⟩ := hk Awin hband
+  -- ⟦THE CHARGE⟧ `Lc := log c + L` carries the twist
+  have hc0 : 0 ≤ Real.log (c : ℝ) := Real.log_natCast_nonneg c
+  have hLc0 : 0 ≤ Real.log (c : ℝ) + L := by linarith
+  have hhLc : Real.log (h : ℝ) ≤ Real.log (c : ℝ) + L := by linarith
+  -- ⟦THE RATED CO-FACTOR SUPPLY⟧ at the TRUE `h` (rule (i)); still minted BEFORE the lever
+  obtain ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, hcofR⟩ :=
+    cofkR_cofactorSupply_L_gk_rated_L h hh hLc0 hhLc
+  -- ⟦THE DESIGN CONSTANT, EIGHT ARMS⟧ as in the source
+  obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
+      (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
+        (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
+  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5367`)
+  obtain ⟨A, hAdef⟩ : ∃ a : ℝ,
+      a = max (162 + 2 * (Real.log (c : ℝ) + L)) (max (armVt Kvt) A') := ⟨_, rfl⟩
+  have hA162b : 162 + 2 * (Real.log (c : ℝ) + L) ≤ A := by rw [hAdef]; exact le_max_left _ _
+  have hAL : 10 + 2 * (Real.log (c : ℝ) + L) ≤ A := by linarith
+  have harmA : armVt Kvt ≤ A := by
+    rw [hAdef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hlift : A' ≤ A := by
+    rw [hAdef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
+  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
+  have hT₀A : T₀ ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hA162 : (162 : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
+      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
+      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hA₀A : A₀ ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
+      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
+      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hAwinA : Awin ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
+      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
+      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
+      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
+      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
+      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
+  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
+  -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
+  have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
+    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+      Real.add_one_le_exp _
+    linarith
+  have hopq : Hopq ≤ flatDesignBase A := by
+    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
+    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
+    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
+    rw [flatDesignBase]; exact_mod_cast hceil
+  have hA26 : (26 : ℝ) ≤ A := by linarith
+  have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
+  obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
+  obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge hAL hKw
+  -- ⟦THE `T₀` ARM⟧ V7-C's discharge, as in the parent
+  have hT₀ : T₀ ≤ Real.exp (Real.sqrt ((flatDesignBase A : ℕ) : ℝ) / 2) :=
+    t0_arm_le_tolerance hA162 hT₀A
+  refine ⟨Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hc1, hL0, hhL, hεpin, hcε, hδpin, hMflb A hA162 hAwinA, hβ, hA162, hA₀A, ?_⟩
+  -- ⟦Δ3⟧ the caller's floor and ceiling, forwarded into the kswin form
+  intro U1floor a g hU hUceil ha haL hg
+  obtain ⟨R, hReps, hHlo, hRg, hstride, hRx, hRtow, hdes, hwin, hfire2⟩ :=
+    hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin U1floor
+      (by rw [hbase hopq]; exact hU) hUceil a g ha haL hg
+  -- ⟦THE BASE-SCALE CAP⟧ at `K = KlevF A`, as in the parent
+  have heps500 : (1 : ℚ) / (500 * (h : ℚ)) ≤ R.eps := by rw [hReps]; exact hεpin
+  have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
+    rw [hReps]; exact hRx
+  -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
+  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  have heps500R : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) := by
+    rw [hReps]
+    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
+      push_cast; ring] at hq
+  -- ⟦THE NINTH ARM, FIRST READER⟧ `3.2·(162 + 2·Lc) = 518.4 + 6.4·Lc ≥ 518 + 6·Lc`
+  have h518 : (518 : ℝ) + 6 * (Real.log (c : ℝ) + L) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
+    linarith [hdes, hA162b, hLc0]
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    rw [hHlo]
+    refine le_trans ?_ hU
+    have hw := flatWitFloor_ll ε β A Hopq
+    rwa [hbase hopq] at hw
+  have hllreg := regime_Hfloor_of_loglogFloor50 hfl
+  have hlogpos : (1 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) :=
+    one_lt_log_of_loglog_ge hllreg.1 (by norm_num : (0 : ℝ) < 50) hllreg.2
+  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    have h1 := Real.exp_le_exp.mpr hdes
+    rwa [Real.exp_log (by linarith)] at h1
+  -- ⟦THE NINTH ARM, SECOND READER⟧ `cofkRThr ≤ A`, `2·Lc ≤ A`, `2·A ≤ 3.2·A + 1 ≤ e^(3.2A)`
+  have hthrgate : cofkRThr Cq Cb Xsk Y0 + 2 * (Real.log (c : ℝ) + L)
+      ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    linarith [hthrA, hlo, hexp1, hAL, hA162]
+  have hKvtcush : 32 * Kvt
+      + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
+      ≤ Real.log (R.Hhi : ℝ) / 4 :=
+    cofkR_cushion_of_armVt R hKvt0 harmA hlo
+  have hcofsupply : S16CofactorSupply_LH_gk h (KlevF A) Cq R (flatDoorM A) :=
+    hcofR (KlevF A) Cq R (flatDoorM A) hM1 hCq heps500R h518 hfl hthrgate hKvtcush
+  -- ⟦THE NINTH ARM, THIRD READER⟧ `Lc ≤ A ≤ 1.6·A + 1 ≤ e^(1.6·A)`
+  have hexp16 : 3.2 * A / 2 + 1 ≤ Real.exp (3.2 * A / 2) := Real.add_one_le_exp _
+  have hLt : Real.log (c : ℝ) + L ≤ Real.exp (3.2 * A / 2) := by linarith
+  have hfireR : P R :=
+    hfire2 hcofsupply
+      (s16_baseScaleCap96_LH_at_klevF_L (h := h) hh hLc0 hhLc hA26 hLt (flatDoorM_one_le hA26)
+        heps500 hxceil hwin)
+  exact ⟨R, hReps, hHlo, hRg, hstride, hRtow, hdes, hwin, hfireR⟩
 
 end Salt.MR
 

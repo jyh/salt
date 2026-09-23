@@ -25463,3 +25463,38 @@ against that floor (the latter needs the module-private `log_le_rpow_inv_72`); a
 whose `10^-20` term scales with `h` (or is dropped).  **Owner:** the road-F head (freeze author).
 **Re-measure:** when the half-2 brief is cut, since the conditional also calls the split.
 **2026-09-22, part (1) DISCHARGED:** `flat_capstone_generic_h_Z` landed on the design floor (cell 14) with the seven `_L` twins of its `_14` chain (`Salt/MR/StrideDoorAllGrades.lean` §G–§H), sorry-free, `[propext, Classical.choice, Quot.sound]`; part (2), the split lift, stays open for half 2.
+**2026-09-22, part (2) SUPERSEDED at half 2:** the lift was not written; the conditional's split is Z1 (`zSplit_arm_L`) re-stated as `zSplit_arm_L2` (`L ≤ 2·Lc`), landed with `flat_conditional_generic_h_Z` (§J), sorry-free, `[propext, Classical.choice, Quot.sound]`.
+
+## ROAD F, ARM Z, HALF 2 -- twin 9 (the kswin crossing spine head) and the kswin hop STOP (2026-09-22)
+
+**Nodes.**  `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_L` (the brief's twin 9)
+and `flat_kswin_generic_h_Z` (deliverable D3), which calls it.  Model: Claude Opus 5.  Everything
+else in half 2 landed in `Salt/MR/StrideDoorAllGrades.lean`: ten of the eleven twins with seven
+`_L` helpers (§I), the conditional with Z1 and its re-statement (§J), and v7 (§K).
+
+**The finding: a SCOPE stop, not an arithmetic one.**  The brief priced twin 9 at its source's
+38 lines (`S16ComposeLH.lean:3915`, "SUPPLIER-SWAP").  The source's body calls two capped
+suppliers (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`,
+`s16_capGate_supply_LH_gk_sharpT0_kswin_b9`), and their capped dependency tree, walked by name
+at `881de30f` (every identifier ending `_b9`/`_g12b`/`_14` in each body, recursively), is
+**53 declarations, 1,629 lines** (the root included), of which **8** have a landed `_L` twin (rung 2's cap-grid
+leaves: `s13_socketBase_logA_ge_sqrt_L`, `s13_socketBase_loglogA_sharp_L`, `s13CapGrid_mu_lo_L`,
+`s13CapGrid_mu_2000_L`, `s13CapGrid_Lambda_sharp_L`, `s13CapGrid_Lambda_lo_L`, `capfloor_core_L`,
+`capfloor_twoj_le_H_L`) and **45 have none** (the root among them) — the `s13CapEps_*`, `s13CapGrid_*`, `capfloor_*`
+and `capeps_row_*` families of `S13CapGateLinearLH.lean` and the `capfloor_floor4_*` /
+`s13CapFloor_all_*` / `m4_hcap_*` rows of `S16ComposeLH.lean`.  Two of the 45 are `_14` rows
+(`capeps_row_phi_h_14`, `capeps_row_tail_h_14`), which read `h ≤ e^14` into a NUMERAL exponent
+stone (`capeps_expbound_60` at `11 + 14 = 25`, `capeps_expbound_63` at `9 + 40 + 14 = 63`); at a free
+twist each needs an exponent-generic stone at `t ≤ 25 + Lc` (resp. `49 + Lc`).  Priced from the
+bodies, not kernel-checked: the stone's room is `μ^{θ−1/500} ≥ e^{0.0007·u}` against
+`e^t·u^12·log μ`, so it is expected TRUE with room, not walled.
+
+**What was tried.**  One scripted census of the dependency tree (above) and one read of the two
+`_14` rows and their stones.  No partial twin was committed.  The kswin hop was not written:
+without twin 9 its `S15CrossingBound_LH_gk` supply is unmet, and taking the supply as a
+hypothesis would change the hop's statement.
+
+**Release condition.**  A half-2b brief that prices the 45 twins (44 callees and the root) (class A/B each, the two
+`capeps` rows class B with a new exponent-generic stone), then kswin as specified (rule (ii)
+calls, `zCount_form` for `hKbL`, the block at `3·Lc ≤ loglog H` from `hdes`).  **Owner:** the
+road-F head (freeze author).  **Re-measure:** when the half-2b brief is cut.
