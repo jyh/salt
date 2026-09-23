@@ -10974,10 +10974,12 @@ each exponent `≤ 2.56·A² ≤ e^{3.2A}`: room `67184.64` against `679` at `A 
 `2^283/(128000·e^{e^{518.4}})` against `1`).
 
 THE CONTROLS, stated FROM the statement.  `strideDoor_zero_level_flat` (Z at `(1, 0, 1)` is W-δ's
-body at `ε = 1/500`), with an `example` meeting it at the landed theorem.  ⚠ ZERO LEVEL A
-(`strideDoor_zero_level_g12b`, Z at the pin re-packs the landed crown) is HELD, NOT REGISTERED: it
-elaborated at the three axioms, but it states G12b's capped conclusion verbatim and the wave's
-guard refuses its cap tokens in the new file; recorded in `docs/blueprints/flags.md`.
+body at `ε = 1/500`) and `strideDoor_zero_level_g12b` (Z at the pin re-packs the landed crown:
+G12b's capped conclusion VERBATIM, `Zr := 1`, `E := 0`, the cap `hah9` a binder read nowhere),
+each with an `example` meeting it at the landed theorem, both registered below.  Zero level A was
+HELD at half 3 (the wave's guard refuses its cap tokens) and landed in `65adb024` under the
+guard's one named exemption; its flag entry in `docs/blueprints/flags.md` carries the DISCHARGED
+line.
 
 ⚠ WHAT IS NOT SAID.  The shape is `∀ A₀ ∃ Ra` on the flat family, NOT the crown's `∃ H₀ ∀ R`: the
 crown still has no producer and E2's `hcrown` binder STANDS.  The `ε`-floor `1/(500·a·h)` is
@@ -11007,7 +11009,7 @@ NOTHING GOES FALSE.  (d) `docs/QUEUE.md`'s road-F line («NEXT: road F has NO co
 HELM-OWNED and goes STALE with this landing: OWED BY THE HELM, not edited here.  NO ERRATUM IS
 APPENDED IN EITHER AGGREGATE FILE BY THIS CHANGE beyond this paragraph.
 
-**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  120 names at the three axioms (111 theorems,
+**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  121 names at the three axioms (112 theorems,
 9 defs). -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.FlatHeadFormHG_Z
@@ -11129,4 +11131,5 @@ open Salt.Tactic in
   Salt.MR.flat_chain_generic_h_Z
   Salt.MR.zCount_affine
   Salt.MR.strideDoorAllGradesW_holds
+  Salt.MR.strideDoor_zero_level_g12b
   Salt.MR.strideDoor_zero_level_flat

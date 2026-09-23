@@ -50,8 +50,9 @@ payload; the shrink; the road-exit and capstone hops.  HALF 2 landed the conditi
 (§K) with ten of the eleven charge twins of the H-socket suppliers (§I).  HALF 2b landed the
 crossing closure (§L–§M) and the kswin hop (§N).  HALF 3 landed the chain, the count floor, the
 stride lifts, the charge and E-beating lemmas, the terminal and zero level B (§O–§R); the theorem
-`: StrideDoorAllGradesW` EXISTS (`strideDoorAllGradesW_holds`).  OWED: registration (this commit's
-successor); zero level A, HELD at the guard (§R).
+`: StrideDoorAllGradesW` EXISTS (`strideDoorAllGradesW_holds`); registered in `Salt/MR/All.lean`
+(`3cc5b8e8`).  ZERO LEVEL A, held at the guard at half 3, LANDED in `65adb024` under the guard's
+one named exemption (§R) and is registered beside the terminal.
 -/
 
 noncomputable section
@@ -5793,11 +5794,12 @@ theorem strideDoorAllGradesW_holds : StrideDoorAllGradesW := by
 The zero levels are VERBATIM from the road-F freeze of ARM Z (its scratch archive, where they
 elaborated at three axioms): each is stated FROM the statement (it takes `hZ`), so each is a
 control on `StrideDoorAllGradesW` itself, and an `example` instantiates it at the landed
-`strideDoorAllGradesW_holds`.  ⚠ ZERO LEVEL A (`strideDoor_zero_level_g12b`: Z at the pin re-packs
-the landed crown's conclusion) is HELD, not landed: it elaborates at three axioms, but it states
-G12b's capped conclusion verbatim, so its code carries the cap tokens (`hah9`, `837782 * 2 ^ 12`,
-`2 ^ 539`) that the wave's guard refuses in this file (arm E).  Recorded in
-`docs/blueprints/flags.md`; the guard's amendment is the freeze author's. -/
+`strideDoorAllGradesW_holds`.  ZERO LEVEL A (`strideDoor_zero_level_g12b`: Z at the pin re-packs
+the landed crown's conclusion) states G12b's capped conclusion verbatim ON PURPOSE, so its code
+carries the cap tokens (`hah9`, `837782 * 2 ^ 12`, `2 ^ 539`) that the wave's guard refuses
+everywhere else in this file (arm E): held by half 3's executor, it LANDED in `65adb024` once the
+guard gained one named exemption for exactly this theorem and its `example`; the flag entry in
+`docs/blueprints/flags.md` carries its DISCHARGED line. -/
 
 /-- **⟦ZERO LEVEL A — Z AT THE PIN IS THE LANDED CROWN⟧** (`strideDoor_zero_level_g12b`) — from
 `StrideDoorAllGradesW` at `ε := 1/(500·a·h)` and grade `a·ρ₀` (`ρ₀` the landed ceiling), the

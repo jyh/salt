@@ -25574,3 +25574,5 @@ crown ON PURPOSE, as the control), then zero level A and its example appended to
 The other arm, not taken: placing it in `Salt/MR/All.lean`, which arm E does not scan — that
 would pass the guard by moving the text out of its reach, not by meeting it.
 **Owner:** the road-F head (freeze author).  **Re-measure:** at the guard's amendment.
+
+**2026-09-23, DISCHARGED:** the guard gained the named exemption (freeze ADDENDUM 7: `check_z_half.py` arm E cuts exactly `theorem strideDoor_zero_level_g12b` and its `example` from the cap census, driven red-first; re-cut under ADDENDUM 8 on the non-author read's LG so a cap token between that `example` and zero level B, or in a declaration whose name merely extends this one, fires), and zero level A with its `example` landed VERBATIM in `65adb024` (§R) at `[propext, Classical.choice, Quot.sound]`; registered under `#audit_axioms` in `Salt/MR/All.lean` in the commit that carries this line (the read's LR).
