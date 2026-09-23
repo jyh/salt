@@ -25498,3 +25498,48 @@ hypothesis would change the hop's statement.
 `capeps` rows class B with a new exponent-generic stone), then kswin as specified (rule (ii)
 calls, `zCount_form` for `hKbL`, the block at `3·Lc ≤ loglog H` from `hdes`).  **Owner:** the
 road-F head (freeze author).  **Re-measure:** when the half-2b brief is cut.
+
+## ROAD F, ARM Z, HALF 2b -- the crossing closure STOP: three floor rows read the cap where the brief did not name it (2026-09-23)
+
+**Nodes.**  `capfloor_floor1_LH_L`, `capfloor_floor2_LH_L`, `capfloor_floor3_LH_L` (rows 32, 33, 35
+of the half-2b population), and everything above them: `s13CapFloor_all_LH_gk_sharpT0_kswin_L`
+(row 37), `s16_capGate_supply_LH_gk_sharpT0_kswin_L` (row 52), the crossing spine head (row 53)
+and `flat_kswin_generic_h_Z`.  Model: Claude Opus 5.  Nothing was written into
+`Salt/MR/StrideDoorAllGrades.lean`; this entry is the only change.
+
+**The finding.**  The half-2b brief (the road-F freeze of ARM Z, ADDENDUM 2, cell 17) names the
+closure's cap reads as rows 6 and 14 (`h ≤ 8103`) and rows 46–49 (`h ≤ e^14` / `e^9` into the
+exponent stones), and makes any OTHER cap read a STOP.  Three more exist, all in the cap-floor
+family of `Salt/MR/S13CapGateLinearLH.lean`, all reading `log h ≤ 9` through
+`capfloor_logq_le_LH_b9`'s `log q ≤ log h + 12·loglog H` inside a closing `linarith` (so no
+identifier names the cap, and a numeral census ≥ 1000 cannot see them):
+- **floor1** (`:2963`, close `:2982`): spends `8·(20 + 9 + 12·loglog H) = 232 + 96·loglog H` —
+  the numeral stone `capfloor_lam_core_h_232` (`:2249`) IS the cap (`232 = 8·(20 + 9)`).
+- **floor2** (`:2987`, close `:3017`): the landed `capfloor_lam_core_h` (216) is read as-is, but
+  the closing `linarith` still needs `log h ≤ 9` to bound `log q`.
+- **floor3** (`:3023`, `hW` at `:3053–3055`): the slack `+10` is `9 + 1` (`log h ≤ 9` plus the
+  box's `+1`), fed to the numeral stone `capfloor_floor3_numeric_h_10` (`:2257`).
+
+**What was tried (1 attempt each, kernel-checked in a root scratch against the module at
+`04ef8310`).**  Each source body transcribed VERBATIM with `hh9 ↦ hhL : log h ≤ Lc` (callees at
+the charge: `capfloor_core_L`, a scratch twin of row 5, a scratch twin of row 25; both compiled —
+the positive control).  All three closing steps FAIL, `linarith failed`, with `hlq : log q ≤ log h
++ 12·loglog H` and `hhL : log h ≤ Lc` in context and no upper bound on `Lc`: floor1 at the
+negated goal `loglog(5T+1) < 8·(log 200000000 + log q)` against `hcore : 232 + 96·loglog H ≤
+log H/4`; floor2 at `loglog(5T+1) < 8 + log(100000000·q + 162080000)/100`; floor3 at
+`12·loglog H + E + 10 < log q + log(exp E + 3)`.
+
+**Priced remedy (from the bodies, NOT kernel-checked).**  floor1 and floor2 close with the tower
+alone — add `hflL`, take `s13_tower_logH_L hL0 hb hflL : 10^21·(1 + Lc) ≤ log H` and
+`capfloor_logv_le hv : loglog H ≤ log H/10^10`; the demand `160 + 8·Lc + 96·loglog H ≤ log H/4`
+has room ×2.6·10^7 (floor2's is larger).  floor3 needs a NEW numeric stone,
+`capfloor_floor3_numeric_h_L` (`W ≤ 12·log v + E + 1 + Lc` with `Lc ≤ v`; its `v + E + 10 ≤ v·E`
+step becomes `2·v + E + 1 ≤ v·E`, still true with room), ≈ 25 lines — new mathematics the brief
+does not authorise (its only new mathematics is four capeps stones and two tower helpers).
+
+**Release condition.**  A brief revision that names the three rows' cap reads (floor1 and floor2
+paid by the tower; floor3 by a floor3 stone at the charge, red-first against `+10`), then
+half 2b as written.  **Owner:** the road-F head (freeze author).  **Re-measure:** when the
+revision is cut; the census that missed these scanned numerals ≥ 1000, `exp N` and stone names —
+`232` and `+10` are below the first, and the stone names `capfloor_lam_core_h_232` /
+`capfloor_floor3_numeric_h_10` evidently were not in the third's list; floor2 names nothing.
