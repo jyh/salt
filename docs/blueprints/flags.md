@@ -25543,3 +25543,30 @@ half 2b as written.  **Owner:** the road-F head (freeze author).  **Re-measure:*
 revision is cut; the census that missed these scanned numerals ≥ 1000, `exp N` and stone names —
 `232` and `+10` are below the first, and the stone names `capfloor_lam_core_h_232` /
 `capfloor_floor3_numeric_h_10` evidently were not in the third's list; floor2 names nothing.
+
+## ROAD F, ARM Z, HALF 3 -- zero level A HELD: the guard refuses the verbatim capped conclusion (2026-09-23)
+
+**Node.**  Row Z0, zero level A: `strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) …`, the
+road-F freeze's archived scratch (lines 346–408), and its `example` at `strideDoorAllGradesW_holds`.
+**Model:** Opus 5.5 executor.  **Attempts:** 1 (it elaborates; the refusal is the guard's, not
+Lean's).
+
+**What happened.**  Zero level A states G12b's crown's CONCLUSION verbatim (Z at the pin re-packs
+it with `Zr := 1`, `E := 0`), so its code necessarily carries the cap tokens `hah9` (the unread
+binder `_hah9`, and the example's), `837782 * 2 ^ 12` and `2 ^ 539`.  The wave's guard, arm E,
+refuses every cap token in the code of `Salt/MR/StrideDoorAllGrades.lean`, with no exemption for a
+zero level: at the commit-2 tree it printed `E  cap census (code only): {'hah9': [5297, 5371,
+5381], '837782 * 2 ^ 12': [5302, 5316, 5319, 5348, 5376], '2 ^ 539': [5304, 5378]}` and
+`GUARD RED ['E']` — every hit inside zero level A or its example.  In a root scratch against the
+module (terminal included) the theorem and its example elaborated with `saltbuild EXIT=0`, and
+`#print axioms` on the module build of the same text (before it was withdrawn) read
+`[propext, Classical.choice, Quot.sound]`.
+
+**What landed instead.**  The terminal, zero level B (`strideDoor_zero_level_flat`, no cap token)
+and its example.  Zero level A's text is kept verbatim for the freeze author.
+
+**Release condition.**  A guard amendment that exempts zero level A's block (it states the capped
+crown ON PURPOSE, as the control), then zero level A and its example appended to §R verbatim.
+The other arm, not taken: placing it in `Salt/MR/All.lean`, which arm E does not scan — that
+would pass the guard by moving the text out of its reach, not by meeting it.
+**Owner:** the road-F head (freeze author).  **Re-measure:** at the guard's amendment.

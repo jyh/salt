@@ -48,9 +48,10 @@ twins at the pin, and new `_L` twins where none exists.
 receipts and the Set-door monotonicity; the builder pair at the charge; the head at the trivial
 payload; the shrink; the road-exit and capstone hops.  HALF 2 landed the conditional (§J) and v7
 (§K) with ten of the eleven charge twins of the H-socket suppliers (§I).  HALF 2b landed the
-crossing closure (§L–§M) and the kswin hop (§N).  OWED: HALF 3 (the chain, the count floor, the
-affine assembly, the terminal, the zero levels, the registration).  The theorem
-`: StrideDoorAllGradesW` does NOT yet exist.
+crossing closure (§L–§M) and the kswin hop (§N).  HALF 3 landed the chain, the count floor, the
+stride lifts, the charge and E-beating lemmas, the terminal and zero level B (§O–§R); the theorem
+`: StrideDoorAllGradesW` EXISTS (`strideDoorAllGradesW_holds`).  OWED: registration (this commit's
+successor); zero level A, HELD at the guard (§R).
 -/
 
 noncomputable section
@@ -5590,6 +5591,242 @@ theorem zCount_affine (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (ε : ℚ) (hε0 :
     have hNR : ((bigXiAffD a b h ε H).card : ℝ) ≤ ((a * h : ℕ) : ℝ) * ((bigXi ε H).card : ℝ) := by
       exact_mod_cast hN
     exact le_trans hNR (mul_le_mul_of_nonneg_left (hcard H hH) hkR.le)
+
+/-- **⟦ARM Z — THE AFFINE DOOR AT EVERY STRIDE, TWIST AND GRADE, PROVED⟧**
+(`strideDoorAllGradesW_holds`) — G12b's crown `mrtUniformityXiL2AffW_holds_flat_stride_g12b`
+(`StridePairReceiptG12b.lean:1140–1283`) transcribed at the charge.  The route: the MULTIPLIER
+`k := a·h` and the charge `L := log k`; the charge `c` from `zCharge_exists` pins `ε` and the
+TARGET grade `ρt := ρ/(2.04·a)`; the head at the trivial payload at `h := k` with the cap-free
+count floor `zCount_affine`, shrunk to `ρt`; the chain `flat_chain_generic_h_Z` at the affine
+arc supply; the body fired at `U1floor := a·flatDesignBase A`, stride `a`, `g := 0`; the shrink
+`regimeShrinkX_stride_L` with its two former cap sites (`hcop`, `hHlo`) paid from
+`flatDesignBase_clears_stride_floors_L`'s third floor `500000·k³ ≤ flatDesignBase A` and the pin
+`1/(500·k) ≤ ε` (`ε²·Hlo'/2 ≥ (1/(500k))²·500000·k³/2 = k ≥ a`); the transport
+`mrtUniformityXiL2AffW_of_set_L`; and the grade `a·Zr·ρt + E ≤ a·1.02·ρt + ρ/2 = ρ/2 + ρ/2 = ρ`,
+the endpoint `E` beaten by the floor (`zE_beaten`).
+⚠ THE TERMINAL RAISES `A₀` BY THE CHARGE: the chain is fired at
+`A₀' := max (max A₀ A_E) (162 + 2·(log c + L))`, where `A_E` is the E-beating floor
+`log (max 1 (log (max 1 (2^283·c^20·k/(128000·ρ)))))/3.2` and `162 + 2·Lc` pays the lifts'
+`L ≤ A` (the form `V7RatedFormHG_Z` does not export `10 + 2·Lc ≤ A`).  The statement's
+`A₀ ≤ A` is `A₀ ≤ A₀' ≤ A`.  Nothing here bears on twin primes; the shape is `∀ A₀ ∃ Ra`, not the
+crown's `∃ H₀ ∀ R`. -/
+theorem strideDoorAllGradesW_holds : StrideDoorAllGradesW := by
+  intro a b h ha hba hh ε hεk hε500 ρ hρ A₀
+  -- ⟦THE MULTIPLIER⟧ `k := a·h`; the charge `L := log k`; `0 < ε` off the pin
+  have hapos : 0 < a := ha
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hkQ : (0 : ℚ) < ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
+  have hε0 : (0 : ℚ) < ε := lt_of_lt_of_le (div_pos one_pos (mul_pos (by norm_num) hkQ)) hεk
+  have haR : (0 : ℝ) < (a : ℝ) := by exact_mod_cast hapos
+  have haah : a ≤ a * h := Nat.le_mul_of_pos_right a hh
+  obtain ⟨c, hc1, hcε, hpin⟩ := zCharge_exists a ha ε hε0 ρ hρ
+  have hkR1 : (1 : ℝ) ≤ ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  set L : ℝ := Real.log ((a * h : ℕ) : ℝ) with hLdef
+  have hL0 : 0 ≤ L := Real.log_nonneg hkR1
+  have haL : Real.log (a : ℝ) ≤ L := Real.log_le_log haR (by exact_mod_cast haah)
+  set ρt : ℝ := ρ / (2.04 * (a : ℝ)) with hρtdef
+  have hρt : 0 < ρt := div_pos hρ (mul_pos (by norm_num) haR)
+  have hlogc : 0 ≤ Real.log (c : ℝ) := Real.log_natCast_nonneg c
+  -- ⟦THE DESIGN FLOOR FOR E⟧ (cell 23) and the raise of `A₀` by the charge
+  obtain ⟨AE, hAEdef⟩ : ∃ x : ℝ, x = Real.log (max 1 (Real.log (max 1
+      (2 ^ 283 * (c : ℝ) ^ 20 * ((a * h : ℕ) : ℝ) / (128000 * ρ))))) / 3.2 := ⟨_, rfl⟩
+  obtain ⟨A₀', hA₀'def⟩ : ∃ x : ℝ,
+      x = max (max A₀ AE) (162 + 2 * (Real.log (c : ℝ) + L)) := ⟨_, rfl⟩
+  -- ⟦THE HEAD AT THE TRIVIAL PAYLOAD, AT `h := k`⟧ (§E), with the count floor (row K)
+  have hhead := flat_door_head_xceil_h_Z (a * h) hkpos ε hε0 hε500 hεk hc1 hcε hL0 le_rfl
+    (fun eps H _ => bigXiAffD a b h eps H) (zCount_affine a b h ha hh ε hε0 hε500 hc1 hcε)
+  -- ⟦THE SHRINK AT `ρt`⟧ (§E)
+  have hhead' := flatHeadFormHG_Z_at_grade hhead hρt hpin
+  -- ⟦THE CHAIN⟧ at the affine arc supply
+  have hV := flat_chain_generic_h_Z (a * h) hkpos ε c L _ (fun eps heps =>
+    nearRatTight_of_bigXiAffD bigXiArcTight_twelve heps ha hh) _ hhead' A₀'
+  obtain ⟨Cg, Kc0, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C, -, -, -, -, -, -, -, -, -, -, -, -, -,
+    -, -, -, -, -, -, -, -, -, -, hA162, hA₀'A, hbody⟩ := hV
+  have hA₀'A' : max (max A₀ AE) (162 + 2 * (Real.log (c : ℝ) + L)) ≤ A := by
+    rw [← hA₀'def]; exact hA₀'A
+  have hA₀A : A₀ ≤ A := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hA₀'A'
+  have hAEA : AE ≤ A := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hA₀'A'
+  have hLA : L ≤ A := by
+    have h1 := le_trans (le_max_right _ _) hA₀'A'
+    linarith
+  -- ⟦FIRE THE BODY⟧ at `U1floor := a · flatDesignBase A`, stride `a`, `g := 0`
+  have hU : flatDesignBase A ≤ a * flatDesignBase A := Nat.le_mul_of_pos_left _ hapos
+  have hUceil := loglog_mul_flatDesignBase_le_L hA162 ha haL hLA
+  obtain ⟨Rd, hReps, hHlo, -, hstride, -, -, -, hP⟩ :=
+    hbody (a * flatDesignBase A) a (fun _ _ => 0) hU hUceil ha haL
+      (xceilRiderStrictAt_zero (50 + (Real.log (c : ℝ) + L)) ε)
+  obtain ⟨⟨Kc, hKc0, hKcb, hKcount⟩, hdoor⟩ := hP
+  -- ⟦THE ε PINS⟧ `Rd.eps ≤ 1/500` and the multiplier pin, at `Rd.eps`
+  have heps500 : Rd.eps ≤ 1 / 500 := by rw [hReps]; exact hε500
+  have hεk' : (1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) ≤ Rd.eps := by rw [hReps]; exact hεk
+  -- ⟦THE SHRINK'S FLOORS⟧ off `flatDesignBase_clears_stride_floors_L`
+  have hdiv : a ∣ Rd.a * Rd.Hlo := by
+    rw [hHlo]
+    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
+  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
+    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
+    exact Nat.mul_div_cancel_left _ hapos
+  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
+    rw [hquot]
+    exact Nat.le_mul_of_pos_left _ Rd.ha
+  obtain ⟨hf1, hf2, hf3⟩ := flatDesignBase_clears_stride_floors_L hA162 hkpos le_rfl hLA hεk'
+  have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
+  have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
+  -- ⟦THE FORMER CAP SITE `hcop`⟧ `ε²·Hlo'/2 ≥ (1/(500k))²·500000·k³/2 = k ≥ a`
+  have hcop : (a : ℚ) ≤ Rd.eps ^ 2 * ((Rd.a * Rd.Hlo / a : ℕ) : ℚ) / 2 := by
+    have hk500 : (0 : ℚ) < 500 * ((a * h : ℕ) : ℚ) := by linarith
+    have hpin1 : (1 : ℚ) ≤ 500 * ((a * h : ℕ) : ℚ) * Rd.eps := by
+      have h1 := (div_le_iff₀ hk500).mp hεk'
+      linarith
+    have hsq : (1 : ℚ) ≤ 250000 * ((a * h : ℕ) : ℚ) ^ 2 * Rd.eps ^ 2 := by
+      have h1 := one_le_pow₀ (n := 2) hpin1
+      calc (1 : ℚ) ≤ (500 * ((a * h : ℕ) : ℚ) * Rd.eps) ^ 2 := h1
+        _ = 250000 * ((a * h : ℕ) : ℚ) ^ 2 * Rd.eps ^ 2 := by ring
+    have hf3Q : (500000 : ℚ) * ((a * h : ℕ) : ℚ) ^ 3 ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℚ) := by
+      have h1 := le_trans hf3 hBle
+      exact_mod_cast h1
+    have hakQ : (a : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast haah
+    have hstep : Rd.eps ^ 2 * (500000 * ((a * h : ℕ) : ℚ) ^ 3)
+        ≤ Rd.eps ^ 2 * ((Rd.a * Rd.Hlo / a : ℕ) : ℚ) :=
+      mul_le_mul_of_nonneg_left hf3Q (sq_nonneg _)
+    have heq : Rd.eps ^ 2 * (500000 * ((a * h : ℕ) : ℚ) ^ 3)
+        = 2 * ((a * h : ℕ) : ℚ) * (250000 * ((a * h : ℕ) : ℚ) ^ 2 * Rd.eps ^ 2) := by ring
+    have h2k : 2 * ((a * h : ℕ) : ℚ)
+        ≤ 2 * ((a * h : ℕ) : ℚ) * (250000 * ((a * h : ℕ) : ℚ) ^ 2 * Rd.eps ^ 2) := by
+      have h1 := mul_le_mul_of_nonneg_left hsq (by linarith : (0 : ℚ) ≤ 2 * ((a * h : ℕ) : ℚ))
+      linarith
+    linarith
+  -- ⟦THE FORMER CAP SITE `hHlo`⟧ `a ≤ k ≤ k³ ≤ 500000·k³ ≤ flatDesignBase A ≤ Hlo'`
+  have hHloS : a ≤ Rd.a * Rd.Hlo / a := by
+    have h2 : a * h ≤ (a * h) ^ 3 := Nat.le_self_pow (by norm_num) _
+    have h3 : (a * h) ^ 3 ≤ 500000 * (a * h) ^ 3 := Nat.le_mul_of_pos_left _ (by norm_num)
+    exact le_trans haah (le_trans h2 (le_trans h3 (le_trans hf3 hBle)))
+  have hb : b ≤ (regimeShrinkX_stride_L Rd a ha heps500 hstride hdiv hlo4 hloM hcop hHloS).Hlo := by
+    rw [regimeShrinkX_stride_Hlo_L]
+    exact le_trans hba.le hHloS
+  -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500` (G12b :1185–1216, verbatim)
+  have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
+  have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
+    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
+    exact hq
+  have hcop2 : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
+    have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
+    have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha
+    have hQ2 : (2 : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) := by linarith
+    exact_mod_cast hQ2
+  have hHmono : (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ)
+      ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_left (by exact_mod_cast Rd.hHlohi) (sq_nonneg _)
+  have hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ)) :=
+    Real.log_nonneg (by linarith)
+  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
+  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
+    rw [le_div_iff₀ hepsR0]; linarith
+  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
+    have hb2 := Rd.hωbig
+    nlinarith [mul_nonneg h16 hlognn]
+  have hω2N : 2 ≤ Rd.ω := Rd.hω
+  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
+    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast hω2N
+    linarith
+  have hω8 : 8 ≤ Rd.ω := by
+    have hsub := Real.log_le_sub_one_of_pos hωR
+    have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
+    exact_mod_cast h8
+  -- ⟦THE TRANSPORT⟧ F3-P16 at the shrunk regime, at the target grade `ρt`
+  have htrans := mrtUniformityXiL2AffW_of_set_L h Rd a b ha heps500 hstride hdiv hlo4 hloM hcop
+    hHloS hb hω8 Kc ρt hKcount hdoor
+  -- ⟦THE TWO MEASUREMENTS⟧ F3-P17 on the ratio, F3-P18 on the endpoint (verbatim)
+  have hx2 : 2 ≤ Rd.x / a := hstride.2.1
+  have hωx2 : Rd.ω ≤ Rd.x / a := hstride.2.2.1
+  have hratio := strideZRatio_le Rd.x (Rd.x / a) Rd.ω Rd.hx hx2 hω2N Rd.hωx hωx2
+    (by linarith)
+  have hZlo := (harmonic_window_bounds hx2 hω2N hωx2).1
+  have hEnd0 := strideEndpoint_le Kc (a : ℝ)
+    (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹) (Rd.x / a / Rd.ω) Rd.ω
+    hKc0.le (Nat.cast_nonneg a) (by linarith) hZlo
+  -- ⟦THE E-BEATING⟧ (cell 23) at the shrunk regime's fields
+  have hAE : Real.log (max 1 (Real.log (max 1
+      (2 ^ 283 * (c : ℝ) ^ 20 * ((a * h : ℕ) : ℝ) / (128000 * ρ))))) / 3.2 ≤ A := by
+    rw [← hAEdef]; exact hAEA
+  have hDRd : flatDesignBase A ≤ Rd.Hhi :=
+    le_trans hU (le_trans (le_of_eq hHlo.symm) Rd.hHlohi)
+  have hHhi : ((flatDesignBase A : ℕ) : ℝ) ≤ ((Rd.Hhi : ℕ) : ℝ) := by exact_mod_cast hDRd
+  have hE := zE_beaten hKc0 hKcb hc1 hkpos ha hρ hA162 hAE hHhi hstride.2.2.2.2.1 hlogω
+    (le_trans hf2 hDRd)
+  -- ⟦THE PACKAGE⟧
+  refine ⟨A, hA162, hA₀A,
+    ChowlaRegimeAff.ofRegime
+      (regimeShrinkX_stride_L Rd a ha heps500 hstride hdiv hlo4 hloM hcop hHloS) b hb,
+    rfl, rfl, hReps, hBle, ?_, ?_⟩
+  · -- ⟦THE DESIGN LAW AT THE SHRUNK BASE⟧ off `flatDesignBase`'s own ceiling (verbatim)
+    have hDge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+      rw [flatDesignBase]; exact Nat.le_ceil _
+    have hRaR : ((flatDesignBase A : ℕ) : ℝ) ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) := by
+      exact_mod_cast hBle
+    have h1 : Real.exp (Real.exp (3.2 * A)) ≤ ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) :=
+      le_trans hDge hRaR
+    have h2 : Real.exp (3.2 * A) ≤ Real.log ((Rd.a * Rd.Hlo / a : ℕ) : ℝ) := by
+      have h := Real.log_le_log (Real.exp_pos _) h1
+      rwa [Real.log_exp] at h
+    have h3 : 3.2 * A ≤ Real.log (Real.log ((Rd.a * Rd.Hlo / a : ℕ) : ℝ)) := by
+      have h := Real.log_le_log (Real.exp_pos _) h2
+      rwa [Real.log_exp] at h
+    exact h3
+  · -- ⟦THE GRADE⟧ `a·Zr·ρt + E ≤ a·1.02·ρt + ρ/2 = ρ/2 + ρ/2 = ρ`
+    refine mrtUniformityXiL2AffW_mono h _ htrans ?_
+    have hρ0 : (0 : ℝ) ≤ ρt := hρt.le
+    have hratmul : (a : ℝ)
+        * ((∑ n ∈ Finset.Ioc (Rd.x / Rd.ω) Rd.x, (n : ℝ)⁻¹)
+            / (∑ n ∈ Finset.Ioc (Rd.x / a / Rd.ω) (Rd.x / a), (n : ℝ)⁻¹)) * ρt
+        ≤ (a : ℝ) * 1.02 * ρt := by
+      exact mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hratio haR.le) hρ0
+    have hid : (a : ℝ) * 1.02 * ρt = ρ / 2 := by
+      rw [hρtdef]
+      field_simp
+      ring
+    linarith only [hratmul, hEnd0, hE, hid]
+
+/-! ## §R — THE ZERO LEVELS (the freeze's row Z0), AND THE STATEMENT MEETING ITS INHABITANT
+
+The zero levels are VERBATIM from the road-F freeze of ARM Z (its scratch archive, where they
+elaborated at three axioms): each is stated FROM the statement (it takes `hZ`), so each is a
+control on `StrideDoorAllGradesW` itself, and an `example` instantiates it at the landed
+`strideDoorAllGradesW_holds`.  ⚠ ZERO LEVEL A (`strideDoor_zero_level_g12b`: Z at the pin re-packs
+the landed crown's conclusion) is HELD, not landed: it elaborates at three axioms, but it states
+G12b's capped conclusion verbatim, so its code carries the cap tokens (`hah9`, `837782 * 2 ^ 12`,
+`2 ^ 539`) that the wave's guard refuses in this file (arm E).  Recorded in
+`docs/blueprints/flags.md`; the guard's amendment is the freeze author's. -/
+
+/-! ## §D — THE ZERO LEVELS -/
+
+/-- **⟦ZERO LEVEL B — Z AT `(1, 0, 1)` IS THE FLAT DOOR AT `ε = 1/500`, EVERY GRADE⟧**
+(`strideDoor_zero_level_flat`) — W-δ's body (`FlatDoorAllGradesW`, FlatDoorAllGrades.lean:50–55) at
+`ε = 1/500`: at stride 1 and twist 1 the affine set is `bigXi` (`bigXiAff_one_zero`,
+`bigXi_eq_bigXiH_one`), the affine measure is `logMeasure` (`logMeasureAff_one`), and the range
+`1 ∣ H ∧ 1·Hlo ≤ H` is the regime's own.  ⚠ Z's ε-floor is `1/(500·a·h)`, so at `a = h = 1` the
+only `ε` Z reaches is `1/500` — W-δ's `∀ ε ∈ (0, 1/500]` is NOT recovered by Z (freeze §5). -/
+theorem strideDoor_zero_level_flat (hZ : StrideDoorAllGradesW) (ρ : ℝ) (hρ : 0 < ρ) (A₀ : ℝ) :
+    ∃ A : ℝ, 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime, R.eps = 1 / 500 ∧ flatDesignBase A ≤ R.Hlo ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        MRTUniformityXiL2 R ρ := by
+  obtain ⟨A, hA162, hA₀A, Ra, hRa, hRb, hReps, hHlo, hdes, hdoor⟩ :=
+    hZ 1 0 1 one_pos one_pos one_pos (1 / 500) (by norm_num) le_rfl ρ hρ A₀
+  refine ⟨A, hA162, hA₀A, Ra.toChowlaRegime, hReps, hHlo, hdes, ?_⟩
+  intro H _ hlo hhi
+  have hd := hdoor H (by rw [hRa]; exact one_dvd H) (by rw [hRa, one_mul]; exact hlo) hhi
+  rw [hRa, hRb, bigXiAff_one_zero, ← bigXi_eq_bigXiH_one, logMeasureAff_one] at hd
+  exact hd
+
+/-- The zero level B at the landed theorem: Z at `(1, 0, 1)` is the flat door at `ε = 1/500`. -/
+example (ρ : ℝ) (hρ : 0 < ρ) (A₀ : ℝ) :
+    ∃ A : ℝ, 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime, R.eps = 1 / 500 ∧ flatDesignBase A ≤ R.Hlo ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        MRTUniformityXiL2 R ρ :=
+  strideDoor_zero_level_flat strideDoorAllGradesW_holds ρ hρ A₀
 
 end Salt.MR
 
