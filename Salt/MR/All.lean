@@ -449,6 +449,7 @@ import Salt.MR.FlatDoorEpsFamily
 import Salt.MR.FlatDoorEpsRung2
 import Salt.MR.FlatDoorNonVacuity
 import Salt.MR.FlatDoorAllGrades
+import Salt.MR.FlatDoorAllGradesBand
 import Salt.MR.FlatDoorParityFloor
 
 /-!
@@ -10858,3 +10859,80 @@ open Salt.Tactic in
   Salt.MR.crownK6_not_every_grade
   Salt.MR.crownK6_flat_order_forced
   Salt.MR.crownK6_Wdelta_regime_moves
+
+/-! ⟦TIER S — ROAD F, THE REGIME AXIS⟧ — ARM R: W-δ **ON THE BAND** IS **STATED AND PROVED** —
+the `L²` MRT door at EVERY outer scale `x'` of a LONG band above the built regime
+(`FlatDoorAllGradesBand`, 2026-09-22, h2c).  Additive only: no landed statement moves and the
+only landed file edited is THIS one, by appending.
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES, AND ARM R HAS NO KERNEL READER.
+
+WHAT IS NOW TRUE.  `flatDoorAllGradesBandW_holds : FlatDoorAllGradesBandW` — W-δ's own
+conclusion with ONE more export: the built regime carries the door at every `x'` from its own
+`R.x` up to the flat ceiling `log x' ≤ (31/ε)·R.Hhi` (the landed band idiom, `regimeEnlargeX`),
+and the band is LONG (`2·log R.x ≤ (31/ε)·R.Hhi`: it reaches `R.x²`), so the clause is not
+inert.  THE ROUTE is rung 2's eight forms re-cut by ONE rule — the tight ceilings on `ω` and `x`
+exported, the antecedent block prefixed by the band quantifier and re-read at
+`regimeEnlargeX R hx'` — and rung 2's chain RE-RUN at the enlarged regime rather than
+transported, because the door at `R` does not imply the door at the enlarged regime.  Every read
+of `x` on that chain is a LOWER bound except V7's one ceiling, which the band hypothesis IS.
+
+THE ONE PIECE OF ARITHMETIC is the conditional hop's tier A → tier B export: that hop
+instantiates its source at the inflated rider `s15Arm δ₀ ρ + g`, so the bound it receives is
+stated at `arm + g` and the bound it must export is stated at `2·g`, and the conversion is paid
+out of `xTightCeilArm = xTightCeil + 18 + log 2 + H₊/10²⁰`.  THE ONE NEW NUMERIC LEMMA is
+`crownBand_long_of_tightArm` (class A): at the floor `ε = 1/500`, `H₊ = 4·10⁶` the doubled
+ceiling is `4.562·10⁵` against a budget of `6.2·10¹⁰`, one part in `1.359·10⁵`.
+
+TWO CONTROLS, both stated FROM the statement: `crownBand_door_at_bottom` (the band's bottom
+point IS the regime) and `crownBand_zero_level` (ARM R gives landed W-δ, so it is never weaker).
+
+⚠ WHAT IS NOT SAID.  The shape is STILL `∀ A₀ ∃ R` on the FLAT family, NOT the crown's
+`∃ H₀ ∀ R`: the crown still has no producer and E2's `hcrown` binder STANDS.  The band is a band
+ABOVE the built regime's own `R.x`, not a statement about every scale.  The `ε`-range
+`(1/500, 1/2]` is not bought, the class road's residual (`x` large against `exp H₊`) is not
+bought, and no rate is exported.
+
+⚖️ THE DOCSTRING-ERRATUM CENSUS WAS RUN AND FOUND NOTHING TO CORRECT, which is recorded here
+rather than left implicit because an unrun census and an empty one read the same.  FOUR sites
+were read WHOLE, not by needle: `Salt/MR/FlatDoorAllGrades.lean` (the module header, the
+`FlatDoorAllGradesW` docstring and its four consumers); `MRTDoorAllGrades`'s docstring and its
+end-of-file erratum in `Salt/MR/DoorReceipt.lean`; the ⟦GRADE AXIS⟧ block above together with
+the rung-2 and parity blocks beside it; and the ⟦AFFINE FORK⟧ erratum in `Salt/Entropy/All.lean`.
+NOT ONE SENTENCE GOES FALSE: ARM R moves neither the quantifier shape, nor the crown's producer
+status, nor the `ε`-range, nor the rate, and the two phrases a landing on this axis would most
+likely falsify score ZERO in the whole population by two methods (`regime axis` 0, `last hop` 0
+per line and flattened, against a live control).  `Salt/Entropy/All.lean`'s absence claim also
+STANDS, re-measured: `MRTUniformityXiL2Set` and `MRTUniformityXiL2AffW` are each 0 in all FIVE
+flat-door files including the new one, against a control of 5 for the plain `MRTUniformityXiL2`.
+NO ERRATUM IS OWED BY THIS CHANGE — the errata this campaign already owes outside these files
+(«the flat door has ONE grade») are the 09-18 block's, unchanged and still owed.
+
+**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  25 names at the three axioms (16 theorems,
+9 defs). -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.FlatDoorAllGradesBandW
+  Salt.MR.FlatHeadFormEpsW_band
+  Salt.MR.FlatSocketFormEpsW_band
+  Salt.MR.FlatDoorL2FormEpsW_band
+  Salt.MR.FlatRoadFormEpsW_band
+  Salt.MR.FlatCapstoneFormEpsW_band
+  Salt.MR.FlatConditionalFormEpsW_band
+  Salt.MR.FlatKswinFormEpsW_band
+  Salt.MR.V7RatedFormEpsW_band
+  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_at_tight
+  Salt.MR.flat_head_uniform_xceil_epsW_band
+  Salt.MR.flat_socket_generic_epsW_band
+  Salt.MR.flat_doorL2_generic_epsW_band
+  Salt.MR.flat_road_generic_epsW_band
+  Salt.MR.flat_capstone_generic_epsW_band
+  Salt.MR.flat_conditional_generic_epsW_band
+  Salt.MR.flat_kswin_generic_epsW_band
+  Salt.MR.flat_v7_generic_epsW_band
+  Salt.MR.flat_chain_generic_epsW_band
+  Salt.MR.flatHeadFormEpsW_band_at_grade
+  Salt.MR.crownBand_long_of_tight
+  Salt.MR.crownBand_long_of_tightArm
+  Salt.MR.flatDoorAllGradesBandW_holds
+  Salt.MR.crownBand_door_at_bottom
+  Salt.MR.crownBand_zero_level
