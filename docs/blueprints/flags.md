@@ -25499,6 +25499,8 @@ hypothesis would change the hop's statement.
 calls, `zCount_form` for `hKbL`, the block at `3·Lc ≤ loglog H` from `hdes`).  **Owner:** the
 road-F head (freeze author).  **Re-measure:** when the half-2b brief is cut.
 
+**2026-09-23, DISCHARGED:** twin 9 landed as `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_L` with the crossing closure's 44 charge twins (`Salt/MR/StrideDoorAllGrades.lean` §L–§M, commits `6209643d` · `d5a2630e`), and the kswin hop as `flat_kswin_generic_h_Z` (§N, `3d9b432a`); every name at `[propext, Classical.choice, Quot.sound]`; the half-2b brief that the release condition names was cut and fired the same night.
+
 ## ROAD F, ARM Z, HALF 2b -- the crossing closure STOP: three floor rows read the cap where the brief did not name it (2026-09-23)
 
 **Nodes.**  `capfloor_floor1_LH_L`, `capfloor_floor2_LH_L`, `capfloor_floor3_LH_L` (rows 32, 33, 35
@@ -25543,6 +25545,8 @@ half 2b as written.  **Owner:** the road-F head (freeze author).  **Re-measure:*
 revision is cut; the census that missed these scanned numerals ≥ 1000, `exp N` and stone names —
 `232` and `+10` are below the first, and the stone names `capfloor_lam_core_h_232` /
 `capfloor_floor3_numeric_h_10` evidently were not in the third's list; floor2 names nothing.
+
+**2026-09-23, DISCHARGED:** the brief was revised (§1b: `capfloor_floor1/2/3_LH_L` paid by the tower through `capfloor_lam_core_h_L` and `capfloor_floor3_numeric_h_L`, red-first against `232`/`216`/`+10`), the census build failed at exactly the eight named rows, and all three rows landed in `6209643d` (`Salt/MR/StrideDoorAllGrades.lean` §M); the terminal above them, `strideDoorAllGradesW_holds`, landed in `550eb13d`.
 
 ## ROAD F, ARM Z, HALF 3 -- zero level A HELD: the guard refuses the verbatim capped conclusion (2026-09-23)
 

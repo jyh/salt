@@ -932,7 +932,7 @@ floor from the design floor `flatDesignFloor A` (the road-F freeze of ARM Z, cel
 `arcDen 12 H = e^{12Λ}`, and `strataResidualH h H = 1 + 12Λ + log h ≤ 1 + 13Λ ≤ e^{Λ/2+25}`
 (`26 ≤ e^{25}` and `Λ/2 + 1 ≤ e^{Λ/2}`, so `e^{Λ/2+25} ≥ 26·(Λ/2+1) = 13Λ + 26`); then
 `e^{Λ-50}·e^{12Λ}·e^{Λ+50} = e^{14Λ}`.  This is `(1 + 13Λ)² ≤ e^{Λ+50}`, true at every
-`Λ ≥ 50` (at `Λ = 50`: `651` against `e^{50} = 5.18·10^{21}`).  The source's device
+`Λ ≥ 50` (at `Λ = 50`: `651² = 423,801` against `e^{50} = 5.18·10^{21}`).  The source's device
 (`Real.add_one_le_exp`, a split exponential) is kept; only its split point moves. -/
 theorem hArcDen_mul_strataResidualH_sq_le_L {h H : ℕ} (hh : 0 < h) {Lc : ℝ} (hLc0 : 0 ≤ Lc)
     (hhL : Real.log (h : ℝ) ≤ Lc)
@@ -5799,7 +5799,82 @@ G12b's capped conclusion verbatim, so its code carries the cap tokens (`hah9`, `
 `2 ^ 539`) that the wave's guard refuses in this file (arm E).  Recorded in
 `docs/blueprints/flags.md`; the guard's amendment is the freeze author's. -/
 
-/-! ## §D — THE ZERO LEVELS -/
+/-- **⟦ZERO LEVEL A — Z AT THE PIN IS THE LANDED CROWN⟧** (`strideDoor_zero_level_g12b`) — from
+`StrideDoorAllGradesW` at `ε := 1/(500·a·h)` and grade `a·ρ₀` (`ρ₀` the landed ceiling), the
+conclusion of `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (StridePairReceiptG12b.lean:1140)
+VERBATIM, with `Zr := 1`, `E := 0`.  The cap `hah9` is a binder here so the two statements can be
+laid side by side; it is READ NOWHERE (the linter would say so). -/
+theorem strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) (a b h : ℕ) (ha : 0 < a)
+    (hh : 0 < h) (hba : b < a) (_hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9) (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+      ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+        flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+        ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+          E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+              * (Real.log (Ra.ω : ℝ) - 1)) ∧
+          MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E) := by
+  have hkpos : 0 < a * h := Nat.mul_pos ha hh
+  have hkQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
+  have hkR1 : (1 : ℝ) ≤ ((a * h : ℕ) : ℝ) := by exact_mod_cast hkpos
+  have haR : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
+  -- ⟦THE PIN⟧ `ε := 1/(500·k)`, inside Z's range
+  have hε0 : (0 : ℚ) < 1 / (500 * ((a * h : ℕ) : ℚ)) := by positivity
+  have hε500 : (1 : ℚ) / (500 * ((a * h : ℕ) : ℚ)) ≤ 1 / 500 :=
+    one_div_le_one_div_of_le (by norm_num) (by linarith)
+  -- ⟦THE GRADE⟧ `a · ρ₀` at the landed ceiling
+  have hρ₀ : (0 : ℝ) < 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) := by positivity
+  obtain ⟨A, hA162, hA₀A, Ra, hRa, hRb, hReps, hHlo, hdes, hdoor⟩ :=
+    hZ a b h ha hba hh (1 / (500 * ((a * h : ℕ) : ℚ))) le_rfl hε500
+      ((a : ℝ) * (1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2))) (by positivity) A₀
+  -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500` — G12b :1200–1216,
+  -- verbatim at `Ra`
+  have heps500 : Ra.eps ≤ 1 / 500 := by rw [hReps]; exact hε500
+  have hepsR0 : (0 : ℝ) < (Ra.eps : ℝ) := by exact_mod_cast Ra.heps
+  have hcop : (2 : ℝ) ≤ (Ra.eps : ℝ) ^ 2 * ((Ra.Hlo : ℕ) : ℝ) := by
+    have hQ : ((Ra.a : ℕ) : ℚ) ≤ Ra.eps ^ 2 * ((Ra.Hlo : ℕ) : ℚ) / 2 := Ra.hcoprime
+    have ha1 : (1 : ℚ) ≤ ((Ra.a : ℕ) : ℚ) := by exact_mod_cast Ra.ha
+    have hQ2 : (2 : ℚ) ≤ Ra.eps ^ 2 * ((Ra.Hlo : ℕ) : ℚ) := by linarith
+    exact_mod_cast hQ2
+  have hHmono : (Ra.eps : ℝ) ^ 2 * ((Ra.Hlo : ℕ) : ℝ)
+      ≤ (Ra.eps : ℝ) ^ 2 * ((Ra.Hhi : ℕ) : ℝ) :=
+    mul_le_mul_of_nonneg_left (by exact_mod_cast Ra.hHlohi) (sq_nonneg _)
+  have hlognn : (0 : ℝ) ≤ Real.log ((Ra.eps : ℝ) ^ 2 * ((Ra.Hhi : ℕ) : ℝ)) :=
+    Real.log_nonneg (by linarith)
+  have h16 : (0 : ℝ) ≤ 16 / (Ra.eps : ℝ) := by positivity
+  have heps500R : (Ra.eps : ℝ) ≤ 1 / 500 := by
+    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
+    exact hq
+  have h64 : (32000 : ℝ) ≤ 64 / (Ra.eps : ℝ) := by
+    rw [le_div_iff₀ hepsR0]; linarith
+  have hlogω : (32001 : ℝ) ≤ Real.log ((Ra.ω : ℕ) : ℝ) := by
+    have hb2 := Ra.hωbig
+    nlinarith [mul_nonneg h16 hlognn]
+  have hDpos : (0 : ℝ) < (a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1 := by positivity
+  have hLpos : (0 : ℝ) < Real.log ((Ra.ω : ℕ) : ℝ) - 1 := by linarith
+  -- ⟦THE PACKAGE⟧ `Zr := 1`, `E := 0`; the door at `a·1·ρ₀ + 0 = a·ρ₀` is Z's, by monotonicity
+  refine ⟨1 / (500 * ((a * h : ℕ) : ℚ)), A, hε0, le_rfl, rfl, hA162, hA₀A, Ra, hRa, hRb, hReps,
+    hHlo, hdes, 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2), 1, 0, hρ₀, le_rfl, le_rfl,
+    by norm_num, le_rfl, ?_, ?_⟩
+  · exact div_nonneg (by positivity) (mul_pos hDpos hLpos).le
+  · refine mrtUniformityXiL2AffW_mono h Ra hdoor (le_of_eq ?_)
+    ring
+
+/-- The zero level A at the landed theorem: Z at the pin re-packs the landed crown's conclusion. -/
+example (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
+    (hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9) (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+      ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+        flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+        ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+          E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+              * (Real.log (Ra.ω : ℝ) - 1)) ∧
+          MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E) :=
+  strideDoor_zero_level_g12b strideDoorAllGradesW_holds a b h ha hh hba hah9 A₀
 
 /-- **⟦ZERO LEVEL B — Z AT `(1, 0, 1)` IS THE FLAT DOOR AT `ε = 1/500`, EVERY GRADE⟧**
 (`strideDoor_zero_level_flat`) — W-δ's body (`FlatDoorAllGradesW`, FlatDoorAllGrades.lean:50–55) at
