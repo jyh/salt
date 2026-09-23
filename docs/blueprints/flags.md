@@ -25417,3 +25417,162 @@ as `s15_sel''_L_witness_flat_charge_L` · `s15_sel''_L_witness_flat_wide_L` ·
 `s15_sel''_L_gk_witness_flat_wide_L` · `s15_sel''_L_gk_witness_flat_bumped_win_L`, all at
 `-Real.log ρ ≤ 16 * A` with NO numeral cap on `A`, `Lc`, `c` or `ρ` — **R11's second half is
 closed.**  Sorry-free, `[propext, Classical.choice, Quot.sound]`.
+
+---
+
+## ROAD F, ARM Z, HALF 1 -- the capstone hop and the stride-arm split lift STOP (2026-09-22)
+
+**Nodes.**  `flat_capstone_generic_h_Z` (the H1->H2 hop at the charge, the road-F freeze of ARM Z,
+deliverable D7) and its named lift `xceil_arm_split_mul_h_L`.  Model: Claude Opus 5.5.  Everything
+else in half 1 landed (`Salt/MR/StrideDoorAllGrades.lean`: the statement, the payload, the six
+forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, the shrink, the
+road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
+
+**(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:355`
+and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
+(measured: `git grep` finds only the base and `_14` variants of each):
+- `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
+  arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
+  `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1468`):
+  `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
+  `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
+  `h` breaks at any fixed tower floor;
+- `:432` `arc36_of_regime_h_14` (gate 7, `128 (h * arcDen 12 H)^3 <= H` for `H >= R.Hlo >=
+  loglogFloor50`), again false for a free `h` at the fixed floor `loglogFloor50`.
+Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-dependent regime
+floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
+
+**(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
+(`StridePairReceipt.lean:2870`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+`L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
+`250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
+Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and
+`log 2 + 2 log (10^8) > 0`.  No tower floor rescues it: the `10^20` is a cap-tied constant.
+
+**What was tried.**  One read of each body and its suppliers at `827b59cc7`; one kernel check of
+the counterexample.  No capped twin was transcribed (a numeral cap on `h` or `L` is itself a
+stop condition).
+
+**Release condition.**  A design ruling on the capstone's regime floor at a free twist: route
+the design floor `flatDesignFloor A` (which gives `3.2*A <= loglog H_lo` and, at the form's
+`10 + 2*Lc <= A`, `log h <= L <= loglog H_lo / 6.4`) into the capstone's `U1floor` slot in place of
+`loglogFloor50`, and mint `_L` twins of the five-deep pricing chain above and of `arc36_of_regime_h`
+against that floor (the latter needs the module-private `log_le_rpow_inv_72`); and a restated split
+whose `10^-20` term scales with `h` (or is dropped).  **Owner:** the road-F head (freeze author).
+**Re-measure:** when the half-2 brief is cut, since the conditional also calls the split.
+**2026-09-22, part (1) DISCHARGED:** `flat_capstone_generic_h_Z` landed on the design floor (cell 14) with the seven `_L` twins of its `_14` chain (`Salt/MR/StrideDoorAllGrades.lean` §G–§H), sorry-free, `[propext, Classical.choice, Quot.sound]`; part (2), the split lift, stays open for half 2.
+**2026-09-22, part (2) SUPERSEDED at half 2:** the lift was not written; the conditional's split is Z1 (`zSplit_arm_L`) re-stated as `zSplit_arm_L2` (`L ≤ 2·Lc`), landed with `flat_conditional_generic_h_Z` (§J), sorry-free, `[propext, Classical.choice, Quot.sound]`.
+
+## ROAD F, ARM Z, HALF 2 -- twin 9 (the kswin crossing spine head) and the kswin hop STOP (2026-09-22)
+
+**Nodes.**  `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_L` (the brief's twin 9)
+and `flat_kswin_generic_h_Z` (deliverable D3), which calls it.  Model: Claude Opus 5.  Everything
+else in half 2 landed in `Salt/MR/StrideDoorAllGrades.lean`: ten of the eleven twins with seven
+`_L` helpers (§I), the conditional with Z1 and its re-statement (§J), and v7 (§K).
+
+**The finding: a SCOPE stop, not an arithmetic one.**  The brief priced twin 9 at its source's
+38 lines (`S16ComposeLH.lean:3915`, "SUPPLIER-SWAP").  The source's body calls two capped
+suppliers (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`,
+`s16_capGate_supply_LH_gk_sharpT0_kswin_b9`), and their capped dependency tree, walked by name
+at `881de30f` (every identifier ending `_b9`/`_g12b`/`_14` in each body, recursively), is
+**53 declarations, 1,629 lines** (the root included), of which **8** have a landed `_L` twin (rung 2's cap-grid
+leaves: `s13_socketBase_logA_ge_sqrt_L`, `s13_socketBase_loglogA_sharp_L`, `s13CapGrid_mu_lo_L`,
+`s13CapGrid_mu_2000_L`, `s13CapGrid_Lambda_sharp_L`, `s13CapGrid_Lambda_lo_L`, `capfloor_core_L`,
+`capfloor_twoj_le_H_L`) and **45 have none** (the root among them) — the `s13CapEps_*`, `s13CapGrid_*`, `capfloor_*`
+and `capeps_row_*` families of `S13CapGateLinearLH.lean` and the `capfloor_floor4_*` /
+`s13CapFloor_all_*` / `m4_hcap_*` rows of `S16ComposeLH.lean`.  Two of the 45 are `_14` rows
+(`capeps_row_phi_h_14`, `capeps_row_tail_h_14`), which read `h ≤ e^14` into a NUMERAL exponent
+stone (`capeps_expbound_60` at `11 + 14 = 25`, `capeps_expbound_63` at `9 + 40 + 14 = 63`); at a free
+twist each needs an exponent-generic stone at `t ≤ 25 + Lc` (resp. `49 + Lc`).  Priced from the
+bodies, not kernel-checked: the stone's room is `μ^{θ−1/500} ≥ e^{0.0007·u}` against
+`e^t·u^12·log μ`, so it is expected TRUE with room, not walled.
+
+**What was tried.**  One scripted census of the dependency tree (above) and one read of the two
+`_14` rows and their stones.  No partial twin was committed.  The kswin hop was not written:
+without twin 9 its `S15CrossingBound_LH_gk` supply is unmet, and taking the supply as a
+hypothesis would change the hop's statement.
+
+**Release condition.**  A half-2b brief that prices the 45 twins (44 callees and the root) (class A/B each, the two
+`capeps` rows class B with a new exponent-generic stone), then kswin as specified (rule (ii)
+calls, `zCount_form` for `hKbL`, the block at `3·Lc ≤ loglog H` from `hdes`).  **Owner:** the
+road-F head (freeze author).  **Re-measure:** when the half-2b brief is cut.
+
+**2026-09-23, DISCHARGED:** twin 9 landed as `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_L` with the crossing closure's 44 charge twins (`Salt/MR/StrideDoorAllGrades.lean` §L–§M, commits `6209643d` · `d5a2630e`), and the kswin hop as `flat_kswin_generic_h_Z` (§N, `3d9b432a`); every name at `[propext, Classical.choice, Quot.sound]`; the half-2b brief that the release condition names was cut and fired the same night.
+
+## ROAD F, ARM Z, HALF 2b -- the crossing closure STOP: three floor rows read the cap where the brief did not name it (2026-09-23)
+
+**Nodes.**  `capfloor_floor1_LH_L`, `capfloor_floor2_LH_L`, `capfloor_floor3_LH_L` (rows 32, 33, 35
+of the half-2b population), and everything above them: `s13CapFloor_all_LH_gk_sharpT0_kswin_L`
+(row 37), `s16_capGate_supply_LH_gk_sharpT0_kswin_L` (row 52), the crossing spine head (row 53)
+and `flat_kswin_generic_h_Z`.  Model: Claude Opus 5.  Nothing was written into
+`Salt/MR/StrideDoorAllGrades.lean`; this entry is the only change.
+
+**The finding.**  The half-2b brief (the road-F freeze of ARM Z, ADDENDUM 2, cell 17) names the
+closure's cap reads as rows 6 and 14 (`h ≤ 8103`) and rows 46–49 (`h ≤ e^14` / `e^9` into the
+exponent stones), and makes any OTHER cap read a STOP.  Three more exist, all in the cap-floor
+family of `Salt/MR/S13CapGateLinearLH.lean`, all reading `log h ≤ 9` through
+`capfloor_logq_le_LH_b9`'s `log q ≤ log h + 12·loglog H` inside a closing `linarith` (so no
+identifier names the cap, and a numeral census ≥ 1000 cannot see them):
+- **floor1** (`:2963`, close `:2982`): spends `8·(20 + 9 + 12·loglog H) = 232 + 96·loglog H` —
+  the numeral stone `capfloor_lam_core_h_232` (`:2249`) IS the cap (`232 = 8·(20 + 9)`).
+- **floor2** (`:2987`, close `:3017`): the landed `capfloor_lam_core_h` (216) is read as-is, but
+  the closing `linarith` still needs `log h ≤ 9` to bound `log q`.
+- **floor3** (`:3023`, `hW` at `:3053–3055`): the slack `+10` is `9 + 1` (`log h ≤ 9` plus the
+  box's `+1`), fed to the numeral stone `capfloor_floor3_numeric_h_10` (`:2257`).
+
+**What was tried (1 attempt each, kernel-checked in a root scratch against the module at
+`04ef8310`).**  Each source body transcribed VERBATIM with `hh9 ↦ hhL : log h ≤ Lc` (callees at
+the charge: `capfloor_core_L`, a scratch twin of row 5, a scratch twin of row 25; both compiled —
+the positive control).  All three closing steps FAIL, `linarith failed`, with `hlq : log q ≤ log h
++ 12·loglog H` and `hhL : log h ≤ Lc` in context and no upper bound on `Lc`: floor1 at the
+negated goal `loglog(5T+1) < 8·(log 200000000 + log q)` against `hcore : 232 + 96·loglog H ≤
+log H/4`; floor2 at `loglog(5T+1) < 8 + log(100000000·q + 162080000)/100`; floor3 at
+`12·loglog H + E + 10 < log q + log(exp E + 3)`.
+
+**Priced remedy (from the bodies, NOT kernel-checked).**  floor1 and floor2 close with the tower
+alone — add `hflL`, take `s13_tower_logH_L hL0 hb hflL : 10^21·(1 + Lc) ≤ log H` and
+`capfloor_logv_le hv : loglog H ≤ log H/10^10`; the demand `160 + 8·Lc + 96·loglog H ≤ log H/4`
+has room ×2.6·10^7 (floor2's is larger).  floor3 needs a NEW numeric stone,
+`capfloor_floor3_numeric_h_L` (`W ≤ 12·log v + E + 1 + Lc` with `Lc ≤ v`; its `v + E + 10 ≤ v·E`
+step becomes `2·v + E + 1 ≤ v·E`, still true with room), ≈ 25 lines — new mathematics the brief
+does not authorise (its only new mathematics is four capeps stones and two tower helpers).
+
+**Release condition.**  A brief revision that names the three rows' cap reads (floor1 and floor2
+paid by the tower; floor3 by a floor3 stone at the charge, red-first against `+10`), then
+half 2b as written.  **Owner:** the road-F head (freeze author).  **Re-measure:** when the
+revision is cut; the census that missed these scanned numerals ≥ 1000, `exp N` and stone names —
+`232` and `+10` are below the first, and the stone names `capfloor_lam_core_h_232` /
+`capfloor_floor3_numeric_h_10` evidently were not in the third's list; floor2 names nothing.
+
+**2026-09-23, DISCHARGED:** the brief was revised (§1b: `capfloor_floor1/2/3_LH_L` paid by the tower through `capfloor_lam_core_h_L` and `capfloor_floor3_numeric_h_L`, red-first against `232`/`216`/`+10`), the census build failed at exactly the eight named rows, and all three rows landed in `6209643d` (`Salt/MR/StrideDoorAllGrades.lean` §M); the terminal above them, `strideDoorAllGradesW_holds`, landed in `550eb13d`.
+
+## ROAD F, ARM Z, HALF 3 -- zero level A HELD: the guard refuses the verbatim capped conclusion (2026-09-23)
+
+**Node.**  Row Z0, zero level A: `strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) …`, the
+road-F freeze's archived scratch (lines 346–408), and its `example` at `strideDoorAllGradesW_holds`.
+**Model:** Opus 5.5 executor.  **Attempts:** 1 (it elaborates; the refusal is the guard's, not
+Lean's).
+
+**What happened.**  Zero level A states G12b's crown's CONCLUSION verbatim (Z at the pin re-packs
+it with `Zr := 1`, `E := 0`), so its code necessarily carries the cap tokens `hah9` (the unread
+binder `_hah9`, and the example's), `837782 * 2 ^ 12` and `2 ^ 539`.  The wave's guard, arm E,
+refuses every cap token in the code of `Salt/MR/StrideDoorAllGrades.lean`, with no exemption for a
+zero level: at the commit-2 tree it printed `E  cap census (code only): {'hah9': [5297, 5371,
+5381], '837782 * 2 ^ 12': [5302, 5316, 5319, 5348, 5376], '2 ^ 539': [5304, 5378]}` and
+`GUARD RED ['E']` — every hit inside zero level A or its example.  In a root scratch against the
+module (terminal included) the theorem and its example elaborated with `saltbuild EXIT=0`, and
+`#print axioms` on the module build of the same text (before it was withdrawn) read
+`[propext, Classical.choice, Quot.sound]`.
+
+**What landed instead.**  The terminal, zero level B (`strideDoor_zero_level_flat`, no cap token)
+and its example.  Zero level A's text is kept verbatim for the freeze author.
+
+**Release condition.**  A guard amendment that exempts zero level A's block (it states the capped
+crown ON PURPOSE, as the control), then zero level A and its example appended to §R verbatim.
+The other arm, not taken: placing it in `Salt/MR/All.lean`, which arm E does not scan — that
+would pass the guard by moving the text out of its reach, not by meeting it.
+**Owner:** the road-F head (freeze author).  **Re-measure:** at the guard's amendment.
+
+**2026-09-23, DISCHARGED:** the guard gained the named exemption (freeze ADDENDUM 7: `check_z_half.py` arm E cuts exactly `theorem strideDoor_zero_level_g12b` and its `example` from the cap census, driven red-first; re-cut under ADDENDUM 8 on the non-author read's LG so a cap token between that `example` and zero level B, or in a declaration whose name merely extends this one, fires), and zero level A with its `example` landed VERBATIM in `65adb024` (§R) at `[propext, Classical.choice, Quot.sound]`; registered under `#audit_axioms` in `Salt/MR/All.lean` in the commit that carries this line (the read's LR).

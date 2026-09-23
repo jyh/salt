@@ -450,6 +450,7 @@ import Salt.MR.FlatDoorEpsRung2
 import Salt.MR.FlatDoorNonVacuity
 import Salt.MR.FlatDoorAllGrades
 import Salt.MR.FlatDoorAllGradesBand
+import Salt.MR.StrideDoorAllGrades
 import Salt.MR.FlatDoorParityFloor
 
 /-!
@@ -10936,3 +10937,199 @@ open Salt.Tactic in
   Salt.MR.flatDoorAllGradesBandW_holds
   Salt.MR.crownBand_door_at_bottom
   Salt.MR.crownBand_zero_level
+
+/-! ⟦TIER S — ROAD F, THE STRIDE AXIS⟧ — ARM Z: THE AFFINE DOOR AT EVERY STRIDE, TWIST AND GRADE IS
+**STATED AND PROVED** (`StrideDoorAllGrades`, 2026-09-23, h2c).  Additive only: no landed
+statement moves and the only landed file edited is THIS one, by appending.
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES, AND ARM Z HAS NO KERNEL READER.  AND ARM Z
+DOES NOT MOVE THE CROWN'S QUANTIFIER: the statement is `∀ A₀ ∃ Ra` on the FLAT family, NOT the
+crown's `∃ H₀ ∀ R`.
+
+WHAT IS NOW TRUE.  `strideDoorAllGradesW_holds : StrideDoorAllGradesW` — the graded lane's crown
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b` with its THREE caps gone: the stride `a` and the
+twist `h` FREE (no `log (a·h) ≤ 9`), the grade a QUANTIFIER `∀ ρ > 0` (no pin at
+`837782·2^12·(a·h)²`), and `ε` over its range `[1/(500·a·h), 1/500]` (no pin `= 1/(500·a·h)`).
+THE ROUTE is G12b's SHAPE at rung 2's CHARGE `Lc := log c + L`, `L := log (a·h)`: G12b's six forms
+re-cut by eight literal rules into the `_Z` forms, and every G12b hop RE-RUN at the charge (the
+head at the trivial payload, the shrink to the target grade `ρ/(2.04·a)`, road-exit, capstone,
+conditional, kswin, v7), calling rung 2's `_L`/`_T` suppliers at the TRUE `h` and new `_L` twins
+where none existed (the crossing closure's 44 twins, the four stride lifts); the terminal is
+G12b's crown body at the charge with the grade `a·Zr·ρt + E ≤ a·1.02·ρt + ρ/2 = ρ/2 + ρ/2 = ρ`.
+The terminal RAISES `A₀` by the charge: `A₀' := max (max A₀ A_E) (162 + 2·(log c + L))`.
+
+THE NEW ARITHMETIC, each named with its room.  Half 2b's tower helpers `zTower_loglog_at_H`,
+`zH_le_logH`, `zH_le_exp` (`h ≤ e^{Lc} ≤ log H`), and its six charge stones: `capeps_master_L`
+(the ceiling `60 ↦ 49 + Lc`; `28·√Λ + 12` against `2.8·10⁷·√Λ`), `capeps_expbound_L`,
+`capeps_bigexp_L`, `capeps_Pbig_h_L` (`20 ↦ 11 + Lc`), and the two cap-floor stones
+`capfloor_lam_core_h_L` (`232 ↦ 160 + 8·Lc`: `160 + 8·v/10²⁰ + 96·v/10¹⁰ ≤ v/4`) and
+`capfloor_floor3_numeric_h_L` (`+10 ↦ + 1 + Lc`: `2·v + E + 1 ≤ v·E`); the `q`-row
+re-derivation (`q ≤ (log H)^13 ≤ μ'^12` from `4^13 = 67108864 ≤ 44^11`, room ×1.78·10¹⁰).  This
+half's: `flatDesignBase_clears_stride_floors_L` (`4·(500k)^4 ≤ e^{31+4A}`, `500000·k³ ≤ e^{14+3A}`,
+each exponent `≤ 2.56·A² ≤ e^{3.2A}`: room `67184.64` against `679` at `A = 162`),
+`loglog_mul_flatDesignBase_le_L` (slack `e^{3.2A} − A − 1 ≥ 2.2·A ≥ 356.4`), the terminal's `hcop`
+(`ε²·Hlo'/2 ≥ (1/(500k))²·500000·k³/2 = k ≥ a`), and the E-BEATING lemma `zE_beaten` (the endpoint
+`E` beaten by the floor: `E ≤ 2^283·c^20·k/(256000·Hhi) ≤ ρ/2` once
+`Hhi ≥ e^{e^{3.2A}} ≥ 2^283·c^20·k/(128000·ρ)`; at `A = 162`, `c = k = ρ = 1` the room is
+`2^283/(128000·e^{e^{518.4}})` against `1`).
+
+THE CONTROLS, stated FROM the statement.  `strideDoor_zero_level_flat` (Z at `(1, 0, 1)` is W-δ's
+body at `ε = 1/500`) and `strideDoor_zero_level_g12b` (Z at the pin re-packs the landed crown:
+G12b's capped conclusion VERBATIM, `Zr := 1`, `E := 0`, the cap `hah9` a binder read nowhere),
+each with an `example` meeting it at the landed theorem, both registered below.  Zero level A was
+HELD at half 3 (the wave's guard refuses its cap tokens) and landed in `65adb024` under the
+guard's one named exemption; its flag entry in `docs/blueprints/flags.md` carries the DISCHARGED
+line.
+
+⚠ WHAT IS NOT SAID.  The shape is `∀ A₀ ∃ Ra` on the flat family, NOT the crown's `∃ H₀ ∀ R`: the
+crown still has no producer and E2's `hcrown` binder STANDS.  The `ε`-floor `1/(500·a·h)` is
+STRUCTURAL (it is the form's own pin at the multiplier), so W-δ's `∀ ε ∈ (0, 1/500]` is NOT
+recovered (at `a = h = 1` Z reaches `ε = 1/500` only).  The range `(1/500, 1/2]` is not bought.
+No rate is exported.  The class road's residual and the band are not bought.
+
+⚖️ THE DOCSTRING-ERRATUM CENSUS WAS RUN, and its result is written here because an unrun census and
+an empty one read the same.  FOUR sites, read WHOLE.  (a) `StridePairReceiptG12b.lean`'s module
+header and the crown's docstring (`:1131–1139`, the theorem at `:1140`), with its §9 header: every
+sentence describes G12b's OWN objects at cap 9 (`8103 = ⌊e⁹⌋` "the bound the crown derives from its
+product cap"), and none claims the caps are the lane's last word — NOTHING GOES FALSE. (b) The
+⟦AFFINE FORK⟧ erratum in `Salt/Entropy/All.lean` and ARM R's absence claim above: re-measured,
+`MRTUniformityXiL2Set` and `MRTUniformityXiL2AffW` are each 0 (by `grep -c -F`) in EVERY
+`Salt/MR/FlatDoor*.lean` file — SEVEN by that glob, not the five ARM R's block counts, against a
+live control of 3 to 14 lines per file for the plain `MRTUniformityXiL2` — so the claim's
+POPULATION, the flat-door files, is UNCHANGED: the new file is a STRIDE file, and it names them (5
+and 2 lines; 9 for the plain name).  The erratum's claim STANDS: the co-dependence on the unproved
+crown is NOT relieved by ARM Z, because the stride lane reads the crown through E2's `hcrown`
+binder, which Z does not discharge.  Its sentence «the every-grade door is stated on the plain
+`bigXi` forms only» remains literally true of the door it names (`flatDoorAllGradesW_holds`) and is
+now INCOMPLETE: an every-grade AFFINE door exists on the flat family (`strideDoorAllGradesW_holds`,
+in a stride file), still of the shape `∀ A₀ ∃ Ra`.  Recorded HERE, beside nothing edited.  (c)
+`MRTDoorAllGrades`'s docstring and its end-of-file erratum in `Salt/MR/DoorReceipt.lean`: "NOT
+proved, NO producer" and the two axes of difference (`∃ H₀ ∀ R` there, `ε ≤ 1/2` there) STAND —
+NOTHING GOES FALSE.  (d) `docs/QUEUE.md`'s road-F line («NEXT: road F has NO commissioned hop») is
+HELM-OWNED and goes STALE with this landing: OWED BY THE HELM, not edited here.  NO ERRATUM IS
+APPENDED IN EITHER AGGREGATE FILE BY THIS CHANGE beyond this paragraph.
+
+**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  121 names at the three axioms (112 theorems,
+9 defs). -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.FlatHeadFormHG_Z
+  Salt.MR.FlatRoadExitFormHG_Z
+  Salt.MR.FlatCapstoneFormHG_Z
+  Salt.MR.FlatConditionalFormHG_Z
+  Salt.MR.FlatKswinFormHG_Z
+  Salt.MR.V7RatedFormHG_Z
+  Salt.MR.MRTDoorReceiptSetG_Z
+  Salt.MR.StrideDoorAllGradesW
+  Salt.MR.zHead_A_pays
+  Salt.MR.zCount_form
+  Salt.MR.zBuilder_absorb_L
+  Salt.MR.mrtUniformityXiL2Set_mono
+  Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul_L
+  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul_at_L
+  Salt.MR.flat_door_head_xceil_h_Z
+  Salt.MR.flatHeadFormHG_Z_at_grade
+  Salt.MR.flat_roadExit_generic_h_Z
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_h_L
+  Salt.MR.hArcDen_mul_strataResidualH_sq_le_L
+  Salt.MR.a2DoorGrade_pool_L_priced_rhoH_L
+  Salt.MR.a2DoorGrade_pool_L_priced_rhoH_gk_L
+  Salt.MR.m4_arith_henv_rho_poolH_L_gk_L
+  Salt.MR.m4_arith_henv_constPoolH_L_gk_L
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_L
+  Salt.MR.arc36_of_regime_h_L
+  Salt.MR.flat_capstone_generic_h_Z
+  Salt.MR.s13_socketBase_loglogA_LH_L
+  Salt.MR.s14_loglogX_ge_of_socket_LH_L
+  Salt.MR.s12c_llX_ge_LH_L
+  Salt.MR.s13_band_qfit_h_L
+  Salt.MR.s15_block_at_socket_gen_LH_L
+  Salt.MR.s13_smallGradeFits_h_L
+  Salt.MR.s13_winFit_h_of_halfWindow_gen_L
+  Salt.MR.s12c_eps_threshold_at_socket_flatH_L
+  Salt.MR.s15_heps293_at_socket_flatH_L
+  Salt.MR.s15_hband4096_at_socket_flatH_L
+  Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk_L
+  Salt.MR.doorBandBase_family'H_L_gk_L
+  Salt.MR.s15_block_at_socketH_L_gk_L
+  Salt.MR.s13_gate8_L_gk_h_L
+  Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_L
+  Salt.MR.s15ArmH_log_le_L
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shiftL
+  Salt.MR.zSplit_arm_L
+  Salt.MR.zSplit_arm_L2
+  Salt.MR.flat_conditional_generic_h_Z
+  Salt.MR.flat_v7_generic_h_Z
+  Salt.MR.zTower_loglog_at_H
+  Salt.MR.zH_le_logH
+  Salt.MR.zH_le_exp
+  Salt.MR.capfloor_lam_core_h_L
+  Salt.MR.capfloor_floor3_numeric_h_L
+  Salt.MR.capeps_master_L
+  Salt.MR.capeps_expbound_L
+  Salt.MR.capeps_bigexp_L
+  Salt.MR.capeps_Pbig_h_L
+  Salt.MR.capfloor_muLambda_LH_L
+  Salt.MR.capfloor_floor4_sharp_LH_L
+  Salt.MR.s13CapGrid_logX_eight_LH_L
+  Salt.MR.s13CapGrid_q_logX_LH_L
+  Salt.MR.s13CapGrid_logqT_L_LH_L
+  Salt.MR.s13CapGrid_Q2_reg_LH_gk_L
+  Salt.MR.s13CapGrid_twoj_le_H_LH_L
+  Salt.MR.s13CapGrid_logTann_lo_LH_L
+  Salt.MR.s13CapGrid_Tann_one_LH_L
+  Salt.MR.s13CapGrid_BT_LH_L
+  Salt.MR.s13CapGrid_kappa_Tann_LH_L
+  Salt.MR.s13CapGrid_kappa30_LH_L
+  Salt.MR.s13CapGrid_BT10_LH_L
+  Salt.MR.s13CapGrid_all_LH_gk_L
+  Salt.MR.capfloor_logq_le_LH_L
+  Salt.MR.capfloor_tannGate_LH_L
+  Salt.MR.capfloor_QTann_gen_LH_L
+  Salt.MR.capfloor_QTann_LH_gk_L
+  Salt.MR.capfloor_kappa30Q_gen_LH_L
+  Salt.MR.capfloor_kappa30Q_LH_gk_L
+  Salt.MR.capfloor_T0_Tann_sharp_LH_L
+  Salt.MR.capfloor_floor1_LH_L
+  Salt.MR.capfloor_floor2_LH_L
+  Salt.MR.capfloor_rhs_legs_LH_L
+  Salt.MR.capfloor_floor3_LH_L
+  Salt.MR.capfloor_floor4_of_regimeWin_LH_L
+  Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin_L
+  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_L
+  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L
+  Salt.MR.s13_capEps_register_LH_L
+  Salt.MR.s13CapEps_pin_floors_LH_L
+  Salt.MR.s13CapEps_pins_supply_LH_L
+  Salt.MR.s13_abs8640_of_socketBase_LH_L
+  Salt.MR.s13_abs8640_at_base_LH_L
+  Salt.MR.s13_abs8640_at_shift_LH_L
+  Salt.MR.s13CapEps_abs8640_LH_L
+  Salt.MR.capeps_row_phi_h_L
+  Salt.MR.capeps_row_tail_h_L
+  Salt.MR.capeps_row_p2_h_L
+  Salt.MR.s13CapEps_EP2_gate_LH_L
+  Salt.MR.s13CapEps_q_arcDen_LH_L
+  Salt.MR.s13CapEps_all_LH_L
+  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin_L
+  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_L
+  Salt.MR.flat_kswin_generic_h_Z
+  Salt.MR.loglog_mul_flatDesignBase_le_L
+  Salt.MR.flatDesignBase_clears_stride_floors_L
+  Salt.MR.regimeShrinkX_stride_L
+  Salt.MR.regimeShrinkX_stride_x_L
+  Salt.MR.regimeShrinkX_stride_omega_L
+  Salt.MR.regimeShrinkX_stride_a_L
+  Salt.MR.regimeShrinkX_stride_eps_L
+  Salt.MR.regimeShrinkX_stride_Hlo_L
+  Salt.MR.regimeShrinkX_stride_Hhi_L
+  Salt.MR.regimeShrinkX_stride_C0_L
+  Salt.MR.regimeShrinkX_stride_J_L
+  Salt.MR.regimeShrinkX_stride_x_mul_L
+  Salt.MR.mrtUniformityXiL2AffW_of_set_L
+  Salt.MR.zCharge_exists
+  Salt.MR.zE_beaten
+  Salt.MR.flat_chain_generic_h_Z
+  Salt.MR.zCount_affine
+  Salt.MR.strideDoorAllGradesW_holds
+  Salt.MR.strideDoor_zero_level_g12b
+  Salt.MR.strideDoor_zero_level_flat
