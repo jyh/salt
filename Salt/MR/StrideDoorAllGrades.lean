@@ -3989,6 +3989,828 @@ theorem s13CapFloor_all_LH_gk_sharpT0_kswin_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} 
    capfloor_floor4_of_regimeWin_LH_L hh hL0 hhL hfl hb hflL hAN hTlo hKs0 hKsw,
    hQ2reg⟩
 
+/-! ### §M, continued — the `εr` rows, the cap-gate supply and the crossing spine head
+
+The per-block wire and its fused transport first (rows 1 and 7 — no floor: their bodies never
+read the cap), then the register, pins and `εr` family (the three rows of §2 re-cut through §L's
+exponent stones, and the row that supplies their tower floor `hLu`), the spine, and the root. -/
+
+set_option maxHeartbeats 3200000 in
+-- as the landed `_cs` twin: the wire re-elaborates with one extra prefix conjunct
+/-- `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs` at the charge — TRANSPORT of the twin at
+`log h ≤ 9`: its cap binder is unused, and so is the charge; no floor.  BODY: the source's,
+verbatim. -/
+theorem m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_L {h : ℕ} (_hh : 0 < h)
+    {Lc : ℝ} (_hL0 : 0 ≤ Lc)
+    (_hhL : Real.log (h : ℝ) ≤ Lc) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
+      Kq ≤ 126848 / 10 ^ 8 ∧ 0 < Ks ∧
+      ∀ (K : ℕ) (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 : ℝ),
+              DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf (2 * T)
+                VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2) →
+        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, hcapstone⟩ :=
+    m4_rowChi_capstone_perBlock_bounded_cs
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, ?_⟩
+  intro K R M cU ε hcU hfam H L q j A s hb χ T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, hd⟩ :=
+    hfam H L q j A s hb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hb.2.2.2.1.ne'⟩
+  have hlogX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := hd.logX_four
+    linarith
+  have hres := hcapstone q cU hcU (calP (AdoorL M) (s13GK K M))
+    (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M)) (mrAlpha (1 / 12)) 2 Jb
+    hd.Jb_lo hd.Jb_hi hd.Hseq_two hd.alpha_nonneg
+    (2 * T) VJ V Lr (((A + s : ℕ)) : ℝ) hd.Tann_one hd.qTann_one hd.P_three hd.PQ hd.QTann
+    hd.kappa30Q hd.loglog5 hd.VJ_bound η εd hd.alpha_eta hd.eta_half hd.Tann_X hd.X_pos
+    hd.debit hd.logX_pos hd.q_logX hd.V_one hd.V_inv hd.T0_Tann hd.floor1 hd.floor2
+    hd.floor3 hd.floor4 hd.logqT_one hd.logqT_L hd.L_exp hd.logV_L
+    hd.H83_two hd.logX_exp hd.logX_four hTgate
+    (2 * (A + s)) Xd P Q Mr (winCutH (A + s) (doorCoeffU_L_gk K M)) b cf hd.cf_one hd.P_low
+    hd.Q_pos hd.Q_high hd.range hd.budget hd.Hj hd.B3 hd.BT hd.kappa30 hd.BT10 hd.WL hd.gate
+    Rbd CR hd.Rbd_nonneg hd.Rbd_grade hd.Cq_gate
+    (fun _ : DirichletCharacter ℂ q => (0 : ℝ)) hd.Rbd_binder
+    KS hd.KS_nonneg hd.KS_binder hd.KS_gate E EP2 (ε (A + s)) hd.epsr_nonneg hd.abs8640
+    hd.EP2_gate hd.E_row hd.E_binder (doorCap_hXN (A + s)) (doorCap_hN2 (A + s))
+    (fun n hn => doorRowDatumU_supp0_L_gk K M (A + s) hn)
+    (fun _ : DirichletCharacter ℂ q => (0 : ℝ))
+    (m4_hSup_door_at_zero q (winCutH (A + s) (doorCoeffU_L_gk K M)) (2 * (A + s)) hlogX1) χ
+  rw [chiBarCoeff_doorRowDatum_L_gk] at hres
+  simpa using hres
+
+set_option maxHeartbeats 3200000 in
+-- as the landed `_cs` twin: the family re-elaborates with one extra prefix conjunct
+/-- `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs` at the charge — SUPPLIER-SWAP of the twin at
+`log h ≤ 9`: the cap binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L`
+twin.  BODY: the source's, verbatim. -/
+theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L {h : ℕ} (hh : 0 < h)
+    {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
+      Kq ≤ Real.exp 100 ∧ 0 < Ks ∧
+      ∀ (K : ℕ) (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+              G2Scaffold.DoorCapErrWS_L_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                      ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                        (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_L_gk K M)))
+                        (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                    → DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                        (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, hwire⟩ :=
+    m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_L hh hL0 hhL
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq,
+    le_trans hKqb kq_closed_form_le_exp_hundred, hKs, ?_⟩
+  intro K R M cU ε hc1 hcapWS
+  refine hwire K R M cU ε hc1 ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
+
+/-- `s13_capEps_register_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap
+binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor
+`hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13_capEps_register_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ)
+      ∧ (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ)
+      ∧ Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ))
+      ∧ (q.totient : ℝ) ≤ (h : ℝ) * (Real.log (H : ℝ)) ^ (12 : ℕ) := by
+  have hlo : R.Hlo ≤ H := hb.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have hz := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogH0] at hz
+  have hu21 : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
+    le_trans capeps_ten21_le_exp50 hexp50
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
+  have hsharp := s13_socketBase_loglogA_sharp_L hh hL0 hhL hfl hb hflL
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := Real.log_le_log hA0 hAX
+  have hll : Real.log (Real.log (A : ℝ)) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    Real.log_le_log (by linarith) hmono
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hqQ : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H := hb.2.2.2.2.1
+  rw [harcpow] at hqQ
+  have htot : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  exact ⟨hu21, by linarith, by linarith, by linarith⟩
+
+/-- `s13CapEps_pin_floors_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap
+binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor
+`hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13CapEps_pin_floors_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (4 : ℝ) ≤ Real.log (P83 (((A + s : ℕ)) : ℝ) theta293)
+      ∧ (4 : ℝ) ≤ Real.log (Q83 (((A + s : ℕ)) : ℝ)) := by
+  obtain ⟨hu, hμ, hΛ, -⟩ := s13_capEps_register_LH_L hh hL0 hhL hfl hb hflL
+  set X : ℝ := (((A + s : ℕ)) : ℝ) with hXdef
+  set μ : ℝ := Real.log X with hμdef
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Real.log μ := by
+    have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
+    linarith
+  have hΛ0 : (0 : ℝ) < Real.log μ := by linarith
+  have hθ32 : theta293 < 1 / 32 := theta293_lt_one_div_32
+  have hθ0 : (0 : ℝ) < theta293 := theta293_pos
+  constructor
+  · rw [P83, Real.log_exp]
+    have hrw : μ ^ (1 - theta293) = Real.exp ((1 - theta293) * Real.log μ) := by
+      rw [Real.rpow_def_of_pos hμ0]; ring_nf
+    have hhalf : Real.exp (Real.log μ / 2) ≤ μ ^ (1 - theta293) := by
+      rw [hrw]
+      exact Real.exp_le_exp.mpr (by nlinarith)
+    have hlin : Real.log μ / 2 + 1 ≤ Real.exp (Real.log μ / 2) :=
+      Real.add_one_le_exp _
+    linarith
+  · rw [Q83, Real.log_exp, le_div_iff₀ hΛ0]
+    have hsq : (Real.log μ) ^ 2 / 4 ≤ μ := by
+      have hz := capeps_sq_le_exp hΛ0.le
+      rwa [Real.exp_log hμ0] at hz
+    nlinarith [hsq, hΛbig, hΛ0]
+
+/-- `s13CapEps_pins_supply_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap
+binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor
+`hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13CapEps_pins_supply_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    P83 (((A + s : ℕ)) : ℝ) theta293
+        ≤ ((⌈P83 (((A + s : ℕ)) : ℝ) theta293⌉₊ : ℕ) : ℝ)
+      ∧ Real.log ((⌈P83 (((A + s : ℕ)) : ℝ) theta293⌉₊ : ℕ) : ℝ)
+            / Real.log ((⌊Q83 (((A + s : ℕ)) : ℝ)⌋₊ : ℕ) : ℝ)
+          ≤ 2 * (Real.log (Real.log (((A + s : ℕ)) : ℝ))
+                  * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)) := by
+  obtain ⟨hu, hμ, hΛ, -⟩ := s13_capEps_register_LH_L hh hL0 hhL hfl hb hflL
+  obtain ⟨hP4, hQ4⟩ := s13CapEps_pin_floors_LH_L hh hL0 hhL hfl hb hflL
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  refine ⟨Nat.le_ceil _, m4_tail_grade_rounded (by linarith) (by linarith) hP4 hQ4⟩
+
+/-- `s13_abs8640_of_socketBase_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the
+cap binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower
+floor `hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13_abs8640_of_socketBase_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (8640 : ℝ) ≤ (Real.log (A : ℝ)) ^ (theta293 - 1 / 500) := by
+  obtain ⟨h1, h2⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
+  exact s13_abs8640_of_loglog (by linarith) h2
+
+/-- `s13_abs8640_at_base_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap
+binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor
+`hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13_abs8640_at_base_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s B : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) (hAB : A ≤ B) :
+    (8640 : ℝ) ≤ (Real.log (B : ℝ)) ^ (theta293 - 1 / 500) := by
+  obtain ⟨h1, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
+  have hcore := s13_abs8640_of_socketBase_LH_L hh hL0 hhL hfl hb hflL
+  have hABR : (A : ℝ) ≤ (B : ℝ) := by exact_mod_cast hAB
+  have hA0 : (0 : ℝ) < (A : ℝ) := by
+    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+    exact_mod_cast hA
+  have hmono : Real.log (A : ℝ) ≤ Real.log (B : ℝ) := Real.log_le_log hA0 hABR
+  have hθ : (0 : ℝ) ≤ theta293 - 1 / 500 := by have := s13_theta293_margin_lo; linarith
+  exact le_trans hcore (Real.rpow_le_rpow (by linarith) hmono hθ)
+
+/-- `s13_abs8640_at_shift_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap
+binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor
+`hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13_abs8640_at_shift_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (8640 : ℝ) ≤ (Real.log ((A + s : ℕ) : ℝ)) ^ (theta293 - 1 / 500) :=
+  s13_abs8640_at_base_LH_L hh hL0 hhL hfl hb hflL (Nat.le_add_right A s)
+
+/-- `s13CapEps_abs8640_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap binder
+becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor `hflL`
+passed down.  BODY: the source's, verbatim. -/
+theorem s13CapEps_abs8640_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ} {εr : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hεr : theta293 - 1 / 500 ≤ εr) :
+    (8640 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ εr := by
+  obtain ⟨-, hμ, -, -⟩ := s13_capEps_register_LH_L hh hL0 hhL hfl hb hflL
+  exact le_trans (s13_abs8640_at_shift_LH_L hh hL0 hhL hfl hb hflL)
+    (Real.rpow_le_rpow_of_exponent_le (by linarith) hεr)
+
+section RowsHL
+
+variable {u μ X W C r β Pr φ : ℝ}
+
+/-- ⟦`capeps_row_phi_h` AT THE CHARGE⟧ — the raised-cap row read `h ≤ e^14` and `25 = 11 + 14
+≤ 60` into `capeps_expbound_60`.  At the charge: `h ≤ e^Lc` (`zH_le_exp`), `25 ↦ 11 + Lc`, and
+`capeps_expbound_L` at `11 + Lc ≤ 49 + Lc` under the tower floor `hLu : 50 + Lc ≤ log u`. -/
+theorem capeps_row_phi_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (hLu : (50 : ℝ) + Lc ≤ Real.log u) (hφ0 : 0 ≤ φ)
+    (hφ : φ ≤ (h : ℝ) * u ^ (12 : ℕ)) :
+    12 * (4160 * φ * μ ^ (-theta293)) ≤ μ ^ (-(1 / 500) : ℝ) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hexpL := zH_le_exp hh hhL
+  have he11 : (49920 : ℝ) ≤ Real.exp 11 := by
+    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+    have hz : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 11
+    have : (49920 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
+    rw [hz]; linarith
+  -- `25 = 11 + 14 ↦ 11 + Lc`
+  have he25 : (49920 : ℝ) * (h : ℝ) ≤ Real.exp (11 + Lc) := by
+    have hsum : Real.exp (11 + Lc) = Real.exp 11 * Real.exp Lc := Real.exp_add 11 Lc
+    rw [hsum]
+    exact mul_le_mul he11 hexpL (by positivity) (Real.exp_pos 11).le
+  have hstone := capeps_expbound_L hu hμ hΛ hL0 hLu (by linarith : (11 : ℝ) + Lc ≤ 49 + Lc)
+  have hkey : 49920 * φ ≤ μ ^ (theta293 - 1 / 500) := by
+    have hchain : 49920 * φ ≤ (49920 * (h : ℝ)) * u ^ (12 : ℕ) := by nlinarith [hφ, hp12]
+    have h1 : 49920 * φ ≤ Real.exp (11 + Lc) * u ^ (12 : ℕ) :=
+      le_trans hchain (mul_le_mul_of_nonneg_right he25 hp12.le)
+    have h2 : Real.exp (11 + Lc) * u ^ (12 : ℕ)
+        ≤ Real.exp (11 + Lc) * u ^ (12 : ℕ) * Real.log μ := by
+      nlinarith [Real.exp_pos (11 + Lc)]
+    linarith
+  have hT0 : (0 : ℝ) < μ ^ (-theta293) := Real.rpow_pos_of_pos hμ0 _
+  have hsplit : μ ^ (-theta293) * μ ^ (theta293 - 1 / 500) = μ ^ (-(1 / 500) : ℝ) := by
+    rw [← Real.rpow_add hμ0]; congr 1; ring
+  calc 12 * (4160 * φ * μ ^ (-theta293)) = (49920 * φ) * μ ^ (-theta293) := by ring
+    _ ≤ μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) :=
+        mul_le_mul_of_nonneg_right hkey hT0.le
+    _ = μ ^ (-theta293) * μ ^ (theta293 - 1 / 500) := by ring
+    _ = μ ^ (-(1 / 500) : ℝ) := hsplit
+
+set_option maxHeartbeats 1000000 in
+-- the `(h:ℝ)·u¹²` factor doubles the monomial count in both legs' linarith tableaux
+/-- ⟦`capeps_row_tail_h` AT THE CHARGE⟧ — the raised-cap row read `h ≤ e^14` into its two legs.
+A leg: `63 = 9 + 40 + 14 ↦ 49 + Lc`, `capeps_expbound_L` at `49 + Lc ≤ 49 + Lc`; B leg:
+`22 = 8 + 14 ↦ 8 + Lc`, `capeps_bigexp_L` at `8 + Lc ≤ 49 + Lc`; `h ≤ e^Lc` (`zH_le_exp`),
+under the tower floor `hLu : 50 + Lc ≤ log u`.  Every other step is the source's. -/
+theorem capeps_row_tail_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (hLu : (50 : ℝ) + Lc ≤ Real.log u) (hX0 : 0 < X)
+    (hXlog : Real.log X = μ)
+    (hW0 : 0 ≤ W) (hW : W ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X) (hC0 : 0 < C)
+    (hC : Real.log C ≤ 40) (hr : r ≤ 2 * (Real.log μ * μ ^ (-theta293))) :
+    12 * (W * (C * r / X + 1 / X ^ 2)) ≤ μ ^ (-(1 / 500) : ℝ) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hph : (0 : ℝ) < (h : ℝ) * u ^ (12 : ℕ) := by positivity
+  have hexpL := zH_le_exp hh hhL
+  have hT0 : (0 : ℝ) < μ ^ (-theta293) := Real.rpow_pos_of_pos hμ0 _
+  have hXne : X ≠ 0 := ne_of_gt hX0
+  have hinv : (0 : ℝ) ≤ X⁻¹ := by positivity
+  have hstep : C * r / X + 1 / X ^ 2
+      ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2 := by
+    have h1 : C * r ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) :=
+      mul_le_mul_of_nonneg_left hr hC0.le
+    have h2 : C * r / X ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X := by
+      rw [div_eq_mul_inv, div_eq_mul_inv]
+      exact mul_le_mul_of_nonneg_right h1 hinv
+    linarith
+  have hS0 : (0 : ℝ) ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2 := by
+    have : (0 : ℝ) ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X := by positivity
+    have h2 : (0 : ℝ) ≤ 1 / X ^ 2 := by positivity
+    linarith
+  have hprod : W * (C * r / X + 1 / X ^ 2)
+      ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+        * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2) :=
+    le_trans (mul_le_mul_of_nonneg_left hstep hW0) (mul_le_mul_of_nonneg_right hW hS0)
+  have hval : 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+        * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2)
+      = 128 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+        + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X := by
+    field_simp
+    ring
+  have hCle : C ≤ Real.exp 40 := by
+    have := Real.exp_le_exp.mpr hC
+    rwa [Real.exp_log hC0] at this
+  have h3072 : (3072 : ℝ) ≤ Real.exp 9 := by
+    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+    have hz : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7182818283 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 9
+    have : (3072 : ℝ) ≤ (2.7182818283 : ℝ) ^ (9 : ℕ) := by norm_num
+    rw [hz]; linarith
+  -- A leg: `63 = 9 + 40 + 14 ↦ 49 + Lc`
+  have h63 : (3072 : ℝ) * C * (h : ℝ) ≤ Real.exp (49 + Lc) := by
+    have hsum : Real.exp (49 + Lc) = Real.exp 9 * Real.exp 40 * Real.exp Lc := by
+      rw [← Real.exp_add, ← Real.exp_add]; norm_num
+    rw [hsum]
+    have hCh : (3072 : ℝ) * C ≤ Real.exp 9 * Real.exp 40 :=
+      mul_le_mul h3072 hCle hC0.le (Real.exp_pos 9).le
+    exact mul_le_mul hCh hexpL (by positivity) (by positivity)
+  have hlegA : 1536 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
+    have hstone := capeps_expbound_L hu hμ hΛ hL0 hLu (le_refl (49 + Lc))
+    have hmul : (3072 * C * (h : ℝ)) * (u ^ (12 : ℕ) * Real.log μ)
+        ≤ Real.exp (49 + Lc) * (u ^ (12 : ℕ) * Real.log μ) :=
+      mul_le_mul_of_nonneg_right h63 (by positivity)
+    have h1 : 3072 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ
+        ≤ μ ^ (theta293 - 1 / 500) := by nlinarith [hmul, hstone]
+    have h2 : 3072 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+        ≤ μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) :=
+      mul_le_mul_of_nonneg_right h1 hT0.le
+    have hsplit : μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) = μ ^ (-(1 / 500) : ℝ) := by
+      rw [← Real.rpow_add hμ0]; congr 1; ring
+    rw [hsplit] at h2
+    linarith
+  have hlegB : 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X ≤ μ ^ (-(1 / 500) : ℝ) / 24 := by
+    -- B leg: `22 = 8 + 14 ↦ 8 + Lc`
+    have hstone := capeps_bigexp_L hu hμ hΛ hL0 hLu (by linarith : (8 : ℝ) + Lc ≤ 49 + Lc)
+    have he8 : (1536 : ℝ) ≤ Real.exp 8 := by
+      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+      have hz : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have hc : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
+        pow_le_pow_left₀ (by norm_num) h1.le 8
+      have : (1536 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
+      rw [hz]; linarith
+    have he22 : (1536 : ℝ) * (h : ℝ) ≤ Real.exp (8 + Lc) := by
+      have hsum : Real.exp (8 + Lc) = Real.exp 8 * Real.exp Lc := Real.exp_add 8 Lc
+      rw [hsum]
+      exact mul_le_mul he8 hexpL (by positivity) (Real.exp_pos 8).le
+    have hμ2 : (1 : ℝ) ≤ μ ^ 2 := by nlinarith
+    have ha : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ Real.exp (8 + Lc) * u ^ (12 : ℕ) := by
+      have := mul_le_mul_of_nonneg_right he22 hp12.le
+      nlinarith [this]
+    have hbb : Real.exp (8 + Lc) * u ^ (12 : ℕ) ≤ Real.exp (8 + Lc) * u ^ (12 : ℕ) * μ ^ 2 :=
+      le_mul_of_one_le_right (by positivity) hμ2
+    have h1 : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ Real.exp (8 + Lc) * u ^ (12 : ℕ) * μ ^ 2 := by
+      linarith
+    have h2 : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ X * μ ^ (-(1 / 500) : ℝ) := by
+      rw [capeps_Xmu hX0 hXlog hμ0]; linarith
+    rw [div_le_div_iff₀ hX0 (by norm_num : (0 : ℝ) < 24)]
+    nlinarith [h2]
+  calc 12 * (W * (C * r / X + 1 / X ^ 2))
+      ≤ 12 * (64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+          * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2)) := by linarith
+    _ = 12 * (128 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
+          + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X) := by rw [hval]
+    _ ≤ μ ^ (-(1 / 500) : ℝ) := by linarith
+
+set_option maxHeartbeats 1000000 in
+-- same cause as the source: `(h:ℝ)·u¹²` where the landed row carries `u¹²` alone
+/-- ⟦`capeps_row_p2_h` AT THE CHARGE⟧ — the twin at `log h ≤ 9` read `h ≤ e^9` into two legs.
+Leg A: `20 = 11 + 9 ↦ 11 + Lc`, `capeps_Pbig_h_L`; leg B: `20 ↦ 11 + Lc`, `capeps_bigexp_L` at
+`11 + Lc ≤ 49 + Lc`; `h ≤ e^Lc` (`zH_le_exp`), under the tower floor `hLu : 50 + Lc ≤ log u`.
+Every other step is the source's. -/
+theorem capeps_row_p2_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) (hLu : (50 : ℝ) + Lc ≤ Real.log u) (hX0 : 0 < X)
+    (hXlog : Real.log X = μ)
+    (hW0 : 0 ≤ W) (hW : W ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X) (hβ0 : 0 ≤ β)
+    (hβ : β ≤ 2 * μ) (hPr : Real.exp (μ ^ (1 - theta293)) ≤ Pr) :
+    12 * (W * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)) ≤ μ ^ (-(1 / 500) : ℝ) := by
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hexpL : (h : ℝ) ≤ Real.exp Lc := zH_le_exp hh hhL
+  have hPr0 : (0 : ℝ) < Pr := lt_of_lt_of_le (Real.exp_pos _) hPr
+  have hXne : X ≠ 0 := ne_of_gt hX0
+  have hPne : Pr ≠ 0 := ne_of_gt hPr0
+  have hK0 : (0 : ℝ) < μ ^ (-(1 / 500) : ℝ) := Real.rpow_pos_of_pos hμ0 _
+  have hS0 : (0 : ℝ) ≤ 16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2 := by
+    have h1 : (0 : ℝ) ≤ 16 * β / (X * Pr) := by positivity
+    have h2 : (0 : ℝ) ≤ 4 * β ^ 2 / X ^ 2 := by positivity
+    linarith
+  have hprod : W * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)
+      ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2) :=
+    mul_le_mul_of_nonneg_right hW hS0
+  have hval : 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)
+      = 1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β / Pr
+        + 256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2 / X := by
+    field_simp
+    ring
+  have he11 : (49152 : ℝ) ≤ Real.exp 11 := by
+    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+    have hz : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
+      pow_le_pow_left₀ (by norm_num) h1.le 11
+    have : (49152 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
+    rw [hz]; linarith
+  -- leg A: `20 = 11 + 9 ↦ 11 + Lc`
+  have he20 : (49152 : ℝ) * (h : ℝ) ≤ Real.exp (11 + Lc) := by
+    have hsum : Real.exp (11 + Lc) = Real.exp 11 * Real.exp Lc := Real.exp_add 11 Lc
+    rw [hsum]
+    exact mul_le_mul he11 hexpL (by positivity) (Real.exp_pos 11).le
+  have hlegA : 12 * (1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β / Pr)
+      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
+    have hstone := capeps_Pbig_h_L hu hμ hΛ hL0 hLu
+    have h500 : (0 : ℝ) < μ ^ ((1 : ℝ) / 500) := Real.rpow_pos_of_pos hμ0 _
+    have hPb : 49152 * ((h : ℝ) * u ^ (12 : ℕ)) * μ * μ ^ ((1 : ℝ) / 500) ≤ Pr := by
+      have h1 : (49152 * (h : ℝ)) * (u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500))
+          ≤ Real.exp (11 + Lc) * (u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)) :=
+        mul_le_mul_of_nonneg_right he20 (by positivity)
+      nlinarith [h1, hstone]
+    have hmul : 49152 * ((h : ℝ) * u ^ (12 : ℕ)) * μ
+          * (μ ^ ((1 : ℝ) / 500) * μ ^ (-(1 / 500) : ℝ))
+        ≤ Pr * μ ^ (-(1 / 500) : ℝ) := by
+      have := mul_le_mul_of_nonneg_right hPb hK0.le
+      nlinarith [this]
+    have hone : μ ^ ((1 : ℝ) / 500) * μ ^ (-(1 / 500) : ℝ) = 1 := by
+      rw [← Real.rpow_add hμ0, show (1 : ℝ) / 500 + -(1 / 500) = 0 by ring, Real.rpow_zero]
+    rw [hone, mul_one] at hmul
+    have hβμ : 12 * (1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β)
+        ≤ 24576 * ((h : ℝ) * u ^ (12 : ℕ)) * μ := by nlinarith [hp12, hh0]
+    rw [mul_div_assoc', div_le_iff₀ hPr0]
+    linarith [hmul, hβμ]
+  have hlegB : 12 * (256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2 / X)
+      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
+    -- leg B: `20 = 11 + 9 ↦ 11 + Lc`
+    have hstone := capeps_bigexp_L hu hμ hΛ hL0 hLu (by linarith : (11 : ℝ) + Lc ≤ 49 + Lc)
+    have he20b : (24576 : ℝ) * (h : ℝ) ≤ Real.exp (11 + Lc) := by
+      have hsum : Real.exp (11 + Lc) = Real.exp 11 * Real.exp Lc := Real.exp_add 11 Lc
+      rw [hsum]
+      exact mul_le_mul (by linarith : (24576 : ℝ) ≤ Real.exp 11) hexpL (by positivity)
+        (Real.exp_pos 11).le
+    have h1 : 24576 * ((h : ℝ) * u ^ (12 : ℕ)) * μ ^ 2 ≤ X * μ ^ (-(1 / 500) : ℝ) := by
+      rw [capeps_Xmu hX0 hXlog hμ0]
+      have hmul : (24576 * (h : ℝ)) * (u ^ (12 : ℕ) * μ ^ 2)
+          ≤ Real.exp (11 + Lc) * (u ^ (12 : ℕ) * μ ^ 2) :=
+        mul_le_mul_of_nonneg_right he20b (by positivity)
+      nlinarith [hmul, hstone]
+    have hβsq : β ^ 2 ≤ 4 * μ ^ 2 := by nlinarith
+    have h2 : 12 * (256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2)
+        ≤ 12288 * ((h : ℝ) * u ^ (12 : ℕ)) * μ ^ 2 := by
+      nlinarith [hp12, hh0, hβsq]
+    rw [mul_div_assoc', div_le_div_iff₀ hX0 (by norm_num : (0 : ℝ) < 2)]
+    linarith [h1, h2]
+  calc 12 * (W * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2))
+      ≤ 12 * (64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
+          * (16 * β / (X * Pr) + 4 * β ^ 2 / X ^ 2)) := by linarith
+    _ = 12 * (1024 * ((h : ℝ) * u ^ (12 : ℕ)) * β / Pr)
+          + 12 * (256 * ((h : ℝ) * u ^ (12 : ℕ)) * β ^ 2 / X) := by rw [hval]; ring
+    _ ≤ μ ^ (-(1 / 500) : ℝ) := by linarith
+
+end RowsHL
+
+set_option maxHeartbeats 400000 in
+-- the charge adds three binders and `hLu` to the source's context; its closing `linarith`s
+-- ran out of the default budget (census build of this half)
+/-- `s13CapEps_EP2_gate_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`, and the row
+that SUPPLIES the three `εr` rows' tower floor: `hLu : 50 + Lc ≤ log u` at `u := log H` is
+`zTower_loglog_at_H hb hflL`, and the twin's weakening of its cap to the raised-cap rows' is
+gone.  Every other step is the source's. -/
+theorem s13CapEps_EP2_gate_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s P Q : ℕ} {C Tann εr : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hεr : theta293 - 1 / 500 ≤ εr) (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hT0 : 0 ≤ Tann) (hTX : Tann ≤ (((A + s : ℕ)) : ℝ))
+    (hP83 : P83 (((A + s : ℕ)) : ℝ) theta293 ≤ (P : ℝ))
+    (hgrade : Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log (((A + s : ℕ)) : ℝ))
+              * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293))) :
+    12 * s13CapEP2 C q (A + s) P Q Tann
+      ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + εr) := by
+  obtain ⟨hu, hμ, hΛ, hφ⟩ := s13_capEps_register_LH_L hh hL0 hhL hfl hb hflL
+  set u : ℝ := Real.log (H : ℝ) with hudef
+  -- ⟦AT THE CHARGE⟧ the three rows' tower floor `50 + Lc ≤ log u` IS `50 + Lc ≤ loglog H`
+  have hLu : (50 : ℝ) + Lc ≤ Real.log u := zTower_loglog_at_H hb hflL
+  set X : ℝ := (((A + s : ℕ)) : ℝ) with hXdef
+  set μ : ℝ := Real.log X with hμdef
+  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hμ0 : (0 : ℝ) < μ := by linarith
+  have hX1 : (1 : ℝ) < X := by
+    rcases lt_or_ge 1 X with hc | hc
+    · exact hc
+    · have hnp : Real.log X ≤ 0 := Real.log_nonpos (by positivity) hc
+      rw [← hμdef] at hnp
+      linarith
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
+  have hu121 : (1 : ℝ) ≤ u ^ (12 : ℕ) := one_le_pow₀ (by linarith)
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hhu121 : (1 : ℝ) ≤ (h : ℝ) * u ^ (12 : ℕ) := by nlinarith
+  have hhu0 : (0 : ℝ) < (h : ℝ) * u ^ (12 : ℕ) := by linarith
+  have hφ0 : (0 : ℝ) ≤ (q.totient : ℝ) := Nat.cast_nonneg _
+  have hq : 0 < q := hb.2.2.2.1
+  have hqR : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq
+  have htot : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  have hWval : s13CapEpsW q (A + s) Tann
+      = 4 * (2 * (q.totient : ℝ) * Tann + 7 * (q.totient : ℝ) * (2 * X) / q) := by
+    simp only [s13CapEpsW, hXdef]
+    push_cast
+    ring
+  have hW0 : 0 ≤ s13CapEpsW q (A + s) Tann := by
+    rw [hWval]
+    have h1 : (0 : ℝ) ≤ 2 * (q.totient : ℝ) * Tann := by positivity
+    have h2 : (0 : ℝ) ≤ 7 * (q.totient : ℝ) * (2 * X) / q := by positivity
+    linarith
+  have hW : s13CapEpsW q (A + s) Tann ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X := by
+    rw [hWval]
+    have h1 : 2 * (q.totient : ℝ) * Tann ≤ 2 * ((h : ℝ) * u ^ (12 : ℕ)) * X := by nlinarith
+    have hfrac : 7 * (q.totient : ℝ) * (2 * X) / q ≤ 14 * X := by
+      rw [div_le_iff₀ hqR]
+      nlinarith
+    nlinarith
+  have hrow1 : 12 * (4160 * (q.totient : ℝ) * μ ^ (-theta293)) ≤ μ ^ (-(1 / 500) : ℝ) :=
+    capeps_row_phi_h_L hh hL0 hhL hu hμ hΛ hLu hφ0 hφ
+  have hrow3 : 12 * (s13CapEpsW q (A + s) Tann * s13MtailBand C (A + s) P Q)
+      ≤ μ ^ (-(1 / 500) : ℝ) := by
+    rw [s13MtailBand]
+    exact capeps_row_tail_h_L hh hL0 hhL hu hμ hΛ hLu hX0 rfl hW0 hW hC0 hC hgrade
+  have hrow2 : 12 * (s13CapEpsW q (A + s) Tann
+      * (16 * Real.logb 2 (2 * X) / (X * (P : ℝ)) + endMass (A + s)))
+      ≤ μ ^ (-(1 / 500) : ℝ) := by
+    have hend : endMass (A + s) = 4 * (Real.logb 2 (2 * X)) ^ 2 / X ^ 2 := by
+      rw [endMass]
+    have hβ0 : (0 : ℝ) ≤ Real.logb 2 (2 * X) :=
+      Real.logb_nonneg (by norm_num) (by linarith)
+    have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+    have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+    have hβ : Real.logb 2 (2 * X) ≤ 2 * μ := by
+      have hlog : Real.log (2 * X) = Real.log 2 + μ := by
+        rw [Real.log_mul (by norm_num) (ne_of_gt hX0)]
+      rw [Real.logb, hlog, div_le_iff₀ (by linarith)]
+      nlinarith
+    have hPr : Real.exp (μ ^ (1 - theta293)) ≤ (P : ℝ) := by
+      have hz : P83 X theta293 = Real.exp (μ ^ (1 - theta293)) := by rw [P83]
+      rw [← hz]; exact hP83
+    rw [hend]
+    exact capeps_row_p2_h_L hh hL0 hhL hu hμ hΛ hLu hX0 rfl hW0 hW hβ0 hβ hPr
+  have hmax : s13CapEP2 C q (A + s) P Q Tann ≤ μ ^ (-(1 / 500) : ℝ) / 12 := by
+    rw [s13CapEP2]
+    refine max_le (by linarith) (max_le ?_ (by linarith))
+    have := hrow2
+    linarith
+  have hmono : μ ^ (-(1 / 500) : ℝ) ≤ μ ^ (-theta293 + εr) :=
+    Real.rpow_le_rpow_of_exponent_le (by linarith) (by linarith)
+  linarith
+
+/-- `s13CapEps_q_arcDen_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap
+binder becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor
+`hflL` passed down.  BODY: the source's, verbatim. -/
+theorem s13CapEps_q_arcDen_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    (q : ℝ) ≤ arcDen 12 (A + s) := by
+  have harcpow : arcDen 12 (A + s) = Real.log (((A + s : ℕ)) : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  rw [harcpow]
+  exact s13CapGrid_q_logX_LH_L hh hL0 hhL hfl hb hflL
+
+/-- `s13CapEps_all_LH` at the charge — SUPPLIER-SWAP of the twin at `log h ≤ 9`: the cap binder
+becomes `{Lc} (0 ≤ Lc) (log h ≤ Lc)`, every capped callee its `_L` twin, the tower floor `hflL`
+passed down.  BODY: the source's, verbatim. -/
+theorem s13CapEps_all_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    {R : ChowlaRegime} {M H L q j A s P Q : ℕ} {C Tann εr : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hεr : theta293 - 1 / 500 ≤ εr) (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hT0 : 0 ≤ Tann) (hTX : Tann ≤ (((A + s : ℕ)) : ℝ))
+    (hP83 : P83 (((A + s : ℕ)) : ℝ) theta293 ≤ (P : ℝ))
+    (hgrade : Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log (((A + s : ℕ)) : ℝ))
+              * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293))) :
+    0 ≤ εr
+      ∧ (8640 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ εr
+      ∧ 12 * s13CapEP2 C q (A + s) P Q Tann
+          ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + εr)
+      ∧ (q : ℝ) ≤ arcDen 12 (A + s)
+      ∧ 4160 * (q.totient : ℝ) * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)
+          ≤ s13CapEP2 C q (A + s) P Q Tann
+      ∧ 4 * (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * (A + s) : ℕ)) : ℝ) / q)
+          * (16 * Real.logb 2 (2 * (((A + s : ℕ)) : ℝ))
+              / ((((A + s : ℕ)) : ℝ) * (P : ℝ)) + endMass (A + s))
+          ≤ s13CapEP2 C q (A + s) P Q Tann
+      ∧ 4 * (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * (A + s) : ℕ)) : ℝ) / q)
+          * s13MtailBand C (A + s) P Q
+          ≤ s13CapEP2 C q (A + s) P Q Tann :=
+  ⟨s13CapEps_epsr_nonneg hεr, s13CapEps_abs8640_LH_L hh hL0 hhL hfl hb hflL hεr,
+    s13CapEps_EP2_gate_LH_L hh hL0 hhL hfl hb hflL hεr hC0 hC hT0 hTX hP83 hgrade,
+    s13CapEps_q_arcDen_LH_L hh hL0 hhL hfl hb hflL, s13CapEps_phi_row C q (A + s) P Q Tann,
+    s13CapEps_p2_row C q (A + s) P Q Tann, s13CapEps_tail_row C q (A + s) P Q Tann⟩
+
+set_option maxHeartbeats 1000000 in
+-- as the source: 37 structure fields checked against the per-block gate in one `exact`
+/-- `s16_capGate_supply_LH_gk_sharpT0_kswin` at the charge — THE SPINE: SUPPLIER-SWAP of the twin
+at `log h ≤ 9` (the grid, floor, pins and `εr` waves and the two grid leaves, each by its `_L`
+twin); the tower floor `hflL : 50 + Lc ≤ loglog R.Hlo` is a binder beside `hfl`.  BODY: the
+source's. -/
+theorem s16_capGate_supply_LH_gk_sharpT0_kswin_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc)
+    (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
+    {epsf : ℕ → ℝ}
+    (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo)
+    (hflL : (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ))) (hcs : Real.exp (-100) ≤ cs)
+    (hblk : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s)
+    (hT₀ : T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2)) (hKq : Kq ≤ Real.exp 100)
+    (hKs0 : 0 < Ks)
+    (hKsw : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16)
+    (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hεr : ∀ A : ℕ, theta293 - 1 / 500 ≤ epsf A)
+    (hcap : S16BaseScaleCap96_LH_gk h K R M) (hcof : S16CofactorSupply_LH_gk h K Cq R M) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+        5 ≤ Real.log (Real.log (2 * T)) →
+        ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
+          S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
+            Rrad Rbd CR EP2 (epsf (A + s)) := by
+  intro H L q j A s hb T hTlo hThi hTgate hTll
+  obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
+  -- the grid wave, at the linear door
+  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
+    s13CapGrid_all_LH_gk_L hh hL0 hhL K hM (le_refl (1 : ℝ)) hfl hb hflL (hblk H L q j A s hb) hTlo
+      hThi
+  -- `1 < 2T` off the annulus gate
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hT1 : (1 : ℝ) < 2 * T := by
+    have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+    linarith
+  have hT0le : (0 : ℝ) ≤ 2 * T := by linarith
+  have hAN : A ≤ A + s := Nat.le_add_right _ _
+  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
+  -- the floor wave, at the linear door
+  obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
+    s13CapFloor_all_LH_gk_sharpT0_kswin_L hh hL0 hhL K hfl hb hflL hM hAN hTflo g6 hT₀ hKq hKs0 hKsw
+  -- the eps wave, LADDER-BLIND
+  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH_L hh hL0 hhL hfl hb hflL
+  obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
+    s13CapEps_all_LH_L hh hL0 hhL hfl hb hflL (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
+  refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
+    s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
+  exact
+    { logX_eight := g1
+      H83_two := g2
+      QTann := f1
+      kappa30Q := f2
+      q_logX := g3
+      T0_Tann := f3
+      floor1 := f4
+      floor2 := f5
+      floor3 := f6
+      floor4 := f7
+      logqT_L := g4
+      P_low := g5
+      Q2_reg := g6
+      Q_pos := g7
+      Q_high := g8
+      P_le_Q := g9
+      budget := fun i hi =>
+        s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
+          (s13CapGrid_Lambda_lo_L hh hL0 hhL hfl hb hflL) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
+      Hj := g10
+      B3 := g11
+      BT := g12
+      kappa30 := g13
+      BT10 := g14
+      WL := g15
+      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_L hh hL0 hhL hfl hb hflL)
+        (s13CapGrid_Lambda_lo_L hh hL0 hhL hfl hb hflL)
+      Rbd_nonneg := hRbd0
+      Rbd_grade := hRbdg
+      Cq_gate := hCqg
+      Rbd_socket := hRsock
+      epsr_nonneg := e1
+      abs8640 := e2
+      EP2_gate := e3
+      q_arcDen := e4
+      phi_row := e5
+      p2_row := e6
+      tail_row := e7
+      Q_hundred := g17
+      band_product := g18 }
+
+set_option maxHeartbeats 1600000 in
+-- as the source: the eighteen-slot `hcapWS` family re-elaborates against the wire's own
+-- shape, here under the `∀ K` bracket
+/-- `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin` at the charge — THE ROOT
+(half 2's twin 9): SUPPLIER-SWAP of the twin at `log h ≤ 9` (the fused wire and the cap-gate
+supply, by their `_L` twins).  The tower floor `50 + Lc ≤ loglog R.Hlo` is an ANTECEDENT after
+`loglogFloor50 ≤ R.Hlo` inside the `∀ R M` block, passed to the supply.  BODY: the source's. -/
+theorem s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_L {h : ℕ} (hh : 0 < h)
+    {Lc : ℝ} (hL0 : 0 ≤ Lc)
+    (hhL : Real.log (h : ℝ) ≤ Lc) :
+    ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
+      Kq ≤ Real.exp 100 ∧ 0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      ∀ K : ℕ,
+        (Kq ≤ Real.exp 100 →
+        ∀ (R : ChowlaRegime) (M : ℕ), 1 ≤ M → loglogFloor50 ≤ R.Hlo →
+          (50 : ℝ) + Lc ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 →
+          T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2) →
+          (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s) →
+          S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
+          S15CrossingBound_LH_gk h K R M) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hwire⟩ :=
+    m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L hh hL0 hhL
+  obtain ⟨C, hC0, hC40, hband⟩ := m4_tail_mass_at_band_bounded
+  refine ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hC0, hC40, ?_⟩
+  intro K hKq R M hM hfl hflL hKsw hT₀ hblk hcof hcap
+  -- ⟦THE cs RIDER, SPENT FROM THE PREFIX⟧ `hcsf` is a carried conjunct, not an antecedent;
+  -- ⟦THE Ks RIDER, SPENT AS A WINDOW⟧ `hKs0` is the prefix's own positivity
+  have hgate := s16_capGate_supply_LH_gk_sharpT0_kswin_L hh hL0 hhL K hM hfl hflL hcsf hblk hT₀ hKq
+    hKs0 hKsw hC0 hC40
+    (fun _ => le_rfl) hcap hcof
+  refine hwire K R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  have hq : 1 ≤ q := hsb.2.2.2.1
+  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
+  have hNd : 1 ≤ A + s := by omega
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+  have hT1 : (1 : ℝ) < 2 * T := by linarith
+  exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
+
 end Salt.MR
 
 end
