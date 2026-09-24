@@ -6361,6 +6361,21 @@ three days and was carried into a council as an open item before measurement kil
    census, never from taste; a candidate with no measured population is not pulled. Every period's planning asks the
    question once, in writing, and records the answer here. A tactic never alters a statement (iron rule 1); nothing
    here bears on twin primes, and the caveat rides first on every landing.
+   ⚑ **FIRST PULL — THE CENSUS IS DELIVERED, 2026-09-24 (h2c, life 100; seat `3f2fab874`, brief
+   `2026-09-24-h2c-CENSUS-O15-proof-shapes`). Population: 72 modules (`stride|tierS|ladder|door|supply|shellband`), 1,090
+   tactic-mode proofs, 35,945 proof lines. BY LINES: `have` is 42 % of tactic lines; the cast-lift one-liner (819 sites) and the
+   hand-applied monotone step (2,731 lines) are one line each already — NOT levers (this refutes T4 `salt_cast` as a line lever);
+   the one multi-line shape is the NUMERIC TRANSCENDENTAL FACT (`c ≤ exp n`, `log d ≤ k`, `log 2 < 0.6931471808`): 581 sites, 1,316
+   lines, 283 multi-line; its integer-exponent core 111 sites · 379 lines · 268 lines saved at one line per site. BY COST (one
+   5,755-line module profiled whole): `nlinarith` = 408.7 s of 441 s of tactic time (124 calls, 3.3 s each) vs 46 ms per
+   `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
+   **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
+   `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1602`): lines 175 → 163,
+   heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
+   replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
+   ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
+   price, for the helm and the Captain. Nothing bears on twin primes; no tactic written; nothing committed to salt but this rider.
 
 ⛔ *Kept, byte-untouched, as the record of what was true when written:*
 ⚑ **JAS — ONE FLEET-ATTENTION FLAG (added 08/22 at the fold; the ruling is the
