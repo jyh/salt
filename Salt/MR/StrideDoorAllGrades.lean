@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.StridePairReceiptG12b
 import Salt.MR.FlatDoorEpsRung2
+import Salt.Tactic.ExpLogNum
 import Mathlib
 
 -- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean:93` opens the
@@ -1621,28 +1622,15 @@ theorem s13_smallGradeFits_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hhL : Real.log
     exact_mod_cast this
   set Λ : ℝ := Real.log (H : ℝ) with hΛdef
   have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have he1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hexp15 : Real.exp 15 ≤ 4000000 := by
-    have h15 : Real.exp 15 = (Real.exp 1) ^ (15 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have hp : (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) :=
-      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 15
-    rw [h15]
-    calc (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) := hp
-      _ ≤ 4000000 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 15 (c := 4000000) (by norm_num)
   have hΛ15 : (15 : ℝ) ≤ Λ := by
     rw [hΛdef, Real.le_log_iff_exp_le hH0]
     linarith
   have hΛ0 : (0 : ℝ) < Λ := by linarith
   have hΛ1 : (2 : ℝ) < Λ := by linarith
   have hexp2 : Real.exp 2 ≤ 15 := by
-    have h2 : Real.exp 2 = (Real.exp 1) ^ (2 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have hp : (Real.exp 1) ^ (2 : ℕ) ≤ (2.7182818286 : ℝ) ^ (2 : ℕ) :=
-      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 2
-    rw [h2]
-    calc (Real.exp 1) ^ (2 : ℕ) ≤ (2.7182818286 : ℝ) ^ (2 : ℕ) := hp
-      _ ≤ 15 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 15) (by norm_num)
   have hlogΛ2 : (2 : ℝ) ≤ Real.log Λ := by
     rw [Real.le_log_iff_exp_le hΛ0]
     linarith
