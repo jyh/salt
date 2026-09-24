@@ -553,6 +553,9 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    count on the `ℤ/aHℤ` grid, and an OFFSET binder `ChowlaRegime` does not have) — and at large `z` it is **CO-DEPENDENT ON
    THE UNPROVED CROWN `MRTDoorAllGrades`**: the landed one-grade door (ρ ≤ 1/837782) caps the stride inside a numeral
    budget while `a = primorial z` exceeds it by `z ≈ 11`.
+   ⚠ RIDER 2026-09-24 (ARM S, h2c): "CO-DEPENDENT ON THE UNPROVED CROWN" (this paragraph) is SUPERSEDED at Z + S — the
+   numeral budget is gone (Z: the grade a quantifier; S: the stride supply at every `(a, b, h)` with no cap) and the crown
+   is not read (`Salt/MR/StrideSupplyAllStrides.lean`). The dated stamp above is left as written.
    **10:42 FREEZE v2 POSTED; WAVES 2-W (W1–W9 + W6b/W6c) AND 2-P FIRING** by class (Sonnet A/B · Opus C), one attempt per
    name, branch **`math/lbv-w2-affine` off `origin/main`**, PR then merge on green, honest conditional labels on every
    docstring (W8 conditional on S1 at `a ≥ 2`; block P conditional on `LiouvilleTwinDispLog`; W9 elementary).
@@ -604,6 +607,9 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    UNPROVED CROWN `MRTDoorAllGrades`. **NEXT:** S-0 census (read-only, in flight 09/03) → a 2-S
    design block → its refuter pass. Growing-`z` λ-BV (binder C) DRY on every route; Route I T1
    evaluated · T2/T4 NOT FIRED · T3 no. Nothing here bears on twin primes.
+   ⚠ RIDER 2026-09-24 (ARM S, h2c): "CO-DEPENDENT ON THE UNPROVED CROWN" (this paragraph) is SUPERSEDED at Z + S — the
+   numeral budget (the one-grade door's `ρ ≤ 1/837782`, the stride cap) is gone (Z: the grade a quantifier; S: the stride
+   supply at every `(a, b, h)` with no cap) and the crown is not read. The dated stamp above is left as written.
    ✅⭐ **WAVE 2-S STEP F1 LANDED — STAMPED 2026-09-03 14:0x (math).** The Captain's 12:46 fire
    (desk EY): freeze `2026-09-03-math-FREEZE-lambda-bv-wave2S-stride.md` (13:10, v1.1 13:13, v1.2 =
    §7 after the helm's REPAIR-THEN-FIRE 6/6 verdict 13:30). `Salt/Entropy/Chowla/StrideFork.lean` on
@@ -625,6 +631,10 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    cap only (`log 420 = 6.04 ≤ 7`); its GRADE is UNMEASURED** (demand `δ/(a·h)²` × supply `1.02·a`;
    the "10²¹ slack" was log-scale). `11 ≤ z ≤ 23` waits on a numeral re-cut of the budget lines FIRST;
    the crown `MRTDoorAllGrades` gates unbounded `z` only. Nothing here bears on twin primes.
+   ⚠ RE-STAMPED 2026-09-24 (ARM S, h2c): the sentence above is DISCHARGED — `strideSupplyAllStridesW_holds`
+   (`Salt/MR/StrideSupplyAllStrides.lean`) lands `LogChowlaAffSupplyW a b h` at EVERY stride with NO cap, so unbounded `z`
+   is gated by nothing landed and the crown gates no landed statement (its kernel reader E2 is discharged without it, and
+   this was its last prose reader). Nothing bears on twin primes.
    ✅⭐ **WAVE 2-S STEP F2 LANDED — STAMPED 2026-09-04 10:4x (math).** The 09/04 council's word (minute
    §2: "F2: YES. math fires one Opus on salt bb7e656e"), on the helm's REPAIR-THEN-FIRE 6/6 verdict of
    09/03 18:1x (freeze `2026-09-03-math-FREEZE-lambda-bv-wave2S-F2.md` v2, §7 the changelog).
@@ -767,6 +777,11 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    `2026-09-04-math-FREEZE-lbv-w2S-F5-beta.md`; verdict `2026-09-04-helm-REFUTER-VERDICT-lbv-w2S-F5-beta.md`. NEXT: the
    PR, merge on green by the re-drive law; then the helm's word on what follows F5 (the crown's grade is unbounded `z`'s
    gate). Nothing here bears on twin primes.
+   ⚠ RE-STAMPED 2026-09-24 (ARM S, h2c): "`z ≥ 11` rides on the unproved crown" (this paragraph's honest label) is DISCHARGED — the prize's
+   `z`-gate (primorial `≤ 548`) WAS the capped supplier's `log(ah) ≤ 7`; `strideSupplyAllStridesW_holds` has no cap, and
+   `zRough_oddOmega_infinite_of_affSupplyW_primorial` (`StridePrize.lean:150`) composes the prize at every `z` in a few lines
+   from landed names — NO landed name STATES it (math's L2); what is stated is `twinLogWeight_support_infinite_all_P`, the
+   terminal at every `P > 0`. The crown is not read. Nothing bears on twin primes.
    ✅✅⭐⭐ **λ-BV WAVE 2-S + β — DONE AT ITS TERMS — STAMPED 2026-09-04 21:48 (math), on the helm's 21:34 word.** FOUR
    MERGES on salt `main` today: F4a `984b553f` (PR #39) · F4b `4885bfed` (PR #41) · F5 ripe `9a2b3053` (PR #42) · β
    `9c9a4910` (PR #44); main's own Lean CI on the last merge `33944639370` GREEN (build 8m13s), Scrub `33944639372` green.
@@ -779,6 +794,11 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    `z ≥ 11` = THE CROWN'S `k = 1` STATEMENT by the Captain's 19:16 ruling (desk FI, "Arm B": the crown's statement
    stays the frozen `HeathBrownDichotomy` at `k = 1`; h2c's B2-by-Jutila block carries it) — on THIS lane it reads as
    `MRTDoorAllGrades`'s unbounded-`z` gate, no producer, not a worker pull.
+   ⚠ RIDER 2026-09-24 (ARM S, h2c) — beside his ruling, never an edit of it: the second clause ("on THIS lane it reads as
+   `MRTDoorAllGrades`'s unbounded-`z` gate, no producer") is DISCHARGED — the lane's unbounded-`z` supply is landed WITHOUT
+   the crown (`strideSupplyAllStridesW_holds`, `Salt/MR/StrideSupplyAllStrides.lean`); the first clause ("`z ≥ 11` = the
+   crown's `k = 1` statement", desk FI) is his naming and stands as written — whether the crown stays road F's target is the
+   standing question the 09-24 pack carries (freeze v1 §5), not a claim this landing makes. Nothing bears on twin primes.
    ✅ **THE DEFERRED AUDITS ARE RETIRED BY ROWS, MEASURED AT `9c9a4910`:** 0 ⟦AUDIT DEFERRED⟧ markers under `Salt/`; the
    37 β names + the 9 F5-ripe names = 46/46 in `#audit_axioms` rows BY EXACT NAME (⟦STRIDE GRADE WALLS⟧ 14 · ⟦STRIDE
    PAIR RECEIPT G⟧ 18 · ⟦STRIDE GRADE RECEIPT⟧ 3 in `Salt/MR/All.lean`; ⟦STRIDE SHELL G⟧ 2 · ⟦STRIDE PRIZE⟧ 9 in

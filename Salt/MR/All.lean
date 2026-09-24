@@ -451,6 +451,7 @@ import Salt.MR.FlatDoorNonVacuity
 import Salt.MR.FlatDoorAllGrades
 import Salt.MR.FlatDoorAllGradesBand
 import Salt.MR.StrideDoorAllGrades
+import Salt.MR.StrideSupplyAllStrides
 import Salt.MR.FlatDoorParityFloor
 
 /-!
@@ -11133,3 +11134,48 @@ open Salt.Tactic in
   Salt.MR.strideDoorAllGradesW_holds
   Salt.MR.strideDoor_zero_level_g12b
   Salt.MR.strideDoor_zero_level_flat
+
+/-! ⟦TIER S — ROAD F, THE STRIDE SUPPLY⟧ — ARM S: `LogChowlaAffSupplyW` AT EVERY STRIDE, TWIST AND
+CLASS IS **STATED AND PROVED** (`StrideSupplyAllStrides`, 2026-09-24, h2c; council 2026-09-23 §1.2,
+his "(a)").  Additive only: no landed statement moves; the landed files edited are THIS one (by
+appending and one import) and `TierSLadder.lean` (one docstring, comment-only).
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.  ARM S DOES NOT TOUCH THE CROWN: not its
+quantifier `∃ H₀ ∀ R`, not its `ε`-range, not its family.  Its terminal is ELEMENTARY at each fixed
+`P` (`docs/QUEUE.md:1044–1048`, `StridePrizePell.lean`).
+
+WHAT IS NOW TRUE.  `strideSupplyAllStridesW_holds : StrideSupplyAllStridesW` — the per-class
+analytic supply `LogChowlaAffSupplyW a b h` at every `a > 0`, `h > 0`, `b < a` with
+`gcd(b+h, a) ∣ h` and NO cap (the landed producer `logChowlaAffSupplyW_holds` stops at
+`log(a·h) ≤ 7`; the ladder's crown twin at `P ≤ 2310`); and `twinLogWeight_support_infinite_all_P`,
+the direct road's terminal `{n | twinLogWeight P n ≠ 0}.Infinite` at EVERY `P > 0` from landed
+names.  THE ROUTE (freeze v1 2026-09-23 §3, driven in scratch `944a9509fc64` before the wave):
+S1 = S-4's entropy arrow (`StrideShellBand.lean:90–274`) with its unread cap binder `hah9` and
+the line `have _hcap := hah9` deleted, body byte-identical; S2 = ARM Z at the pin
+`ε = 1/(500·a·h)`, the grade `1/(838400·(a·h)²)` and the floor `max A₀ A₁` into the arrow;
+S3 = the ladder's P6 body with the supply in place of the crown twin.  Two defs, six theorems, all
+at the three axioms (the row below).
+
+WHAT IS NOT SAID.  The crown has NO producer; E2's `hcrown` binder stands; `docs/QUEUE.md:252`
+("E2 stays conditional on `MRTDoorAllGrades`") is STILL TRUE.  No rate.  The apex is untouched.
+
+⚖️ THE SEVEN SENTENCES THAT GO FALSE AT THIS LANDING, and where each is re-stamped (freeze §4 +
+addendum 1 L3): (i) `docs/QUEUE.md:627` — re-stamped there; (ii) `TierSLadder.lean:412–419` —
+re-stamped in that docstring; (iii) the five-levels walk's §4 (seat record) — the freeze author;
+(iv) `AffineFork.lean:91–92` "At `a ≥ 2`: NONE" — STILL TRUE, NOT re-stamped: it documents the
+EQUALITY form `LogChowlaAffSupply` (`R.Hlo = flatDesignBase A`, one producer at `(1, 0)`); S
+produces the W sibling (`≤`), and equality ⇒ W only (`StridePrize.lean:95`) — the module header
+says it whole (math's F1 on the landing corrected freeze §4 (iv)); (v) `docs/QUEUE.md:766` —
+re-stamped there;
+(vi) `docs/QUEUE.md:779–781` — the "no producer" clause discharged, a dated RIDER beside the
+Captain's naming, never an edit; (vii) `docs/QUEUE.md:554`/`:604` — dated riders.
+NO ERRATUM IS APPENDED IN EITHER AGGREGATE FILE BY THIS CHANGE beyond this paragraph. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.StrideSupplyAllStridesW
+  Salt.MR.S4ArrowUncapped
+  Salt.Entropy.Chowla.log_chowla_aff_of_door_at_regime_uncapped
+  Salt.MR.strideSupplyAllStridesW_of_arrow
+  Salt.MR.s4ArrowUncapped_holds
+  Salt.MR.strideSupplyAllStridesW_holds
+  Salt.MR.twinLogWeight_support_infinite_of_supply
+  Salt.MR.twinLogWeight_support_infinite_all_P
