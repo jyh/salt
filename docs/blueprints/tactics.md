@@ -88,6 +88,20 @@ explicit `(N²·P)·(10−π²) ≥ 0`"), `BDH`'s numeral chain (≈5792 ≤ 600
 `win_ratio_core` cert arithmetic, the `13N`/`4πN` slack discharges.
 **When:** opportunistic; a shared lemma file (`Salt/Tactic/Numerals.lean`)
 is step one and is class A.
+**FIRST CUT LANDED (2026-09-24, h2c, from the O15 proof-shape census; seat record `3f2fab874`):
+`Salt/Tactic/ExpLogNum.lean`, rung (a) — six lemmas closing numeral `exp`/`log` bounds at integer
+exponent (`c ≤ exp n` · `exp n ≤ c` · `exp n < c` · `log d ≤ k` · `k ≤ log d`) in one line each,
+by `exp n = (exp 1)^n` + `Real.exp_one_gt_d9`/`lt_d9` raised to `n` + one `norm_num`. The census
+measured the shape at 581 sites / 1,316 lines over 72 ladder/door/supply modules (111 sites,
+379 lines in the integer-exponent coverage); first consumer `Salt.MR.s13_smallGradeFits_h_L`,
+two 8-line blocks rewritten, statement token-identical: lines 175 → 162, heartbeats
+90,294 → 85,228 (re-taken at the landing commit), kernel receipt unchanged (three axioms). DECLARED
+LIMITS: integer exponents only; `n > 256` needs the site's `exponentiation.threshold`; a
+`log` bound tighter than an integer (`2.0794 ≤ log 8`) is a later cut. Rung (c) (an `elab`
+reading `n` off the goal) is not landed. **The census's cost axis** (one 5,755-line module
+profiled whole: `nlinarith` 408.7 s of 441 s of tactic time, 124 calls) names the NEXT
+candidate, `nlinarith?` — a certificate-replay suggester (run the search once, print
+`linarith [products]`) — a rung-(c) metaprogram for a later word.
 
 ### T4 — `salt_cast`: cast-discipline macro + conventions — class A/B
 `push_cast`-led macro plus a curated `@[simp]`-cast set for the recurring
