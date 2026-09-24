@@ -95,7 +95,9 @@ by `exp n = (exp 1)^n` + `Real.exp_one_gt_d9`/`lt_d9` raised to `n` + one `norm_
 measured the shape at 581 sites / 1,316 lines over 72 ladder/door/supply modules (111 sites,
 379 lines in the integer-exponent coverage); first consumer `Salt.MR.s13_smallGradeFits_h_L`,
 two 8-line blocks rewritten, statement token-identical: lines 175 → 162, heartbeats
-90,294 → 85,228 (re-taken at the landing commit), kernel receipt unchanged (three axioms). DECLARED
+90,294 → 85,228 (re-taken at the landing commit under `set_option Elab.async false` — without it
+`#count_heartbeats` counts the header only, ~250, and reads plausible; math's non-author read of
+#171, 09-24), kernel receipt unchanged (three axioms). DECLARED
 LIMITS: integer exponents only; `n > 256` needs the site's `exponentiation.threshold`; a
 `log` bound tighter than an integer (`2.0794 ≤ log 8`) is a later cut. Rung (c) (an `elab`
 reading `n` off the goal) is not landed. **The census's cost axis** (one 5,755-line module
