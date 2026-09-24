@@ -6347,6 +6347,21 @@ Captain's push ruling") — and ALL SIX formerly-unpushed branches are AT ORIGIN
 equivalence-gate-cannot-skip · boolean-container-multimember-parity · stroke-align-bounds ·
 seat-path-citations), with twenty-plus PRs merged since. The flag outlived its condition by
 three days and was carried into a council as an open item before measurement killed it.**
+9b. ⚖️ **CUSTOM TACTICS — STANDING BACKGROUND AT P2 (O15, FOLDED HERE BY THE CAPTAIN, council 2026-09-23 evening
+   §1.10; his words: *"fold O13 and O15 into the salt queue's standing background --- note the custom tactics are
+   relevant to the salt method, in terms of efficiency, so I would boost them in priority"*).** The intention, in his
+   words — 2026-07-11: *"whether we can make the work shorter and the proofs more concise if we write tactics suited
+   the proof exploration. in our period planning we should also consider what tactics might be useful."* ·
+   2026-07-17: *"btw, are we writing tactics, is it useful?"*
+   **PULL RULE:** any seat at P1 idle, worker tier, one candidate per pull. A tactic is a CANDIDATE until it shortens a
+   LANDED proof measurably — lines or heartbeats, before and after, both figures in the PR — with the proof's kernel
+   receipt unchanged (`#audit_axioms` at the three axioms, the `saltbuild EXIT=0` pair). The landed tactic layer is
+   `Salt/Tactic/` (`#audit_axioms`, a build-error audit, transitive). A seat that pulls this item censuses the corpus's
+   REPEATED PROOF SHAPES FIRST — the ladder ports and the door modules are the population — and proposes from the
+   census, never from taste; a candidate with no measured population is not pulled. Every period's planning asks the
+   question once, in writing, and records the answer here. A tactic never alters a statement (iron rule 1); nothing
+   here bears on twin primes, and the caveat rides first on every landing.
+
 ⛔ *Kept, byte-untouched, as the record of what was true when written:*
 ⚑ **JAS — ONE FLEET-ATTENTION FLAG (added 08/22 at the fold; the ruling is the
 Captain's).** jas holds a VERIFIED GREEN-CI STACK FOR ITS PUBLIC REPO, UNPUSHED:
@@ -7348,6 +7363,21 @@ numbering is UNVERIFIED.
    names, one Sonnet executor); Route II continues at its terms. Nothing here bears on twin
    primes until a trigger fires.
 
+
+15. ⚖️ **THE GOLDMINE — STANDING BACKGROUND AT P3 (O13, FOLDED HERE BY THE CAPTAIN, council 2026-09-23 evening
+   §1.10).** His words — 2026-07-27: *"we now sit on a goldmine, can we gain anything from applying the fulcrum
+   technique to this goldmine? We have seen so many windmills, it suggests that the literature is overly
+   constrained."* · 2026-08-02: *"applying the fulcrum method broadly would be reasonably easy, likely to yield much
+   fruit"* · and the batcrazy half, 2026-07-20: *"some other batcrazy ideas where it will land only if we win the
+   lottery (for example, let's hunt for a Siegel zero)"*.
+   **PULL RULE:** at P1+P2 idle, any seat — a night item, like item 11. Two lanes. **(a) THE FULCRUM SWEEP:** take
+   the landed fulcrum-shaped argument (the Siegel-zero ⇄ twin-prime fulcrum of the Pi paper, O10) and apply its
+   technique to ONE neighbouring constrained result in the corpus per pull, priced by class before any Lean (the
+   repo `CLAUDE.md`'s A–D), a refuter pass on any statement before a wave, a statement change design-tier only.
+   **(b) THE SIEGEL-ZERO HUNT** — the lottery ticket, explicitly: a CENSUS of what a Siegel zero would have to look
+   like against what the landed corpus already excludes, recorded as a census, never fired as a wave without a
+   sitting's word. Both lanes record dead ends in `docs/blueprints/flags.md` as the research method requires (O43).
+   Nothing here bears on twin primes until it does; the caveat rides first on every landing.
 
 ## THE MECHANICS (the saltworks board's, verbatim in spirit)
 
