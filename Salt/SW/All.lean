@@ -108,6 +108,7 @@ import Salt.SW.JutilaRatio
 import Salt.SW.DensityStrip
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
+import Salt.SW.StandoffCert
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -270,6 +271,9 @@ open Salt.Tactic in
   Salt.SW.sum_divisors_eq_hyperbola_symm Salt.SW.dhA_hyperbola_symm
   Salt.SW.zeta_partial_em Salt.SW.zetaHol_bound
   Salt.SW.zetaApprox_strip Salt.SW.norm_zeta_sub_approx_le_strip
+  Salt.SW.NoSiegelZerosAt Salt.SW.noSiegelZeros_iff_exists_at
+  Salt.SW.psi1AP_main_bound_of_standoff Salt.SW.siegelWalfisz_of_standoff
+  Salt.SW.not_fulcrum_siegelFree_SW
   Salt.SW.dhA_mass_eq_char_count Salt.SW.inner_coprime_eq
   Salt.SW.dhA_mul_eq_sum Salt.SW.inner_cop_swap
   Salt.SW.dhA_mass_mul_eq_group Salt.SW.dhA_mass_mul_le
