@@ -17,6 +17,12 @@ honest convergent Euler product (reusing the twin-bar `twinC2`
 theory), and the order-sharp upper wrapper (Brun/Selberg C=25700).
 The sharp `(4+ε)·𝔖` constant is the registered HL-3b arc, gated on
 Mertens' third theorem (see `docs/exploration/pilot.md`).
+⟦ERRATUM 2026-09-24 (the sentence above is left as written): HL-3b LANDED 2026-07-18 at
+`C = 90` (`twinCounting_upper_sharp`, `Sharp.lean`), not at `(4+ε)·𝔖`; the `(4+ε)·𝔖 = 8·Π₂`
+target is the registered **HL-3c**, which has never fired. Its named gate is no longer a
+gate: Mertens' third theorem landed 2026-07-17 (`Salt/Mertens/Third.lean`) with the twin
+corollary MERT-5 (`Salt/Mertens/TwinDensity.lean`), which `Sharp.lean` imports. What HL-3c
+lacks is the κ = 2 singular-series density mean value, not Mertens.⟧
 -/
 
 open Salt.Tactic in
