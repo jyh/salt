@@ -55,6 +55,16 @@ that can FAIL, never a `#print axioms` line alone. ⚠️ At this freeze every p
 `sorry`, so the certificate's NOT-REACHED verdicts on these names are the VACUOUS half; it is
 armed for the wave, and the wave is not landed until the certificate is green on real proofs.
 
+## Kill-checks: status and owners (the non-author read's C6, 2026-09-24)
+
+* KC1 (a second Siegel path): ANSWERED — NOT REACHED, kernel-side (h2c, above).
+* KC2 (is the standoff strong enough at SMALL conductors, `f = 3` included; no `f`-dependence
+  left in the eventual-in-`x` absorption): **OPEN — owner: the refuter pass.**
+* KC3 (is it new; no survey run; any prose follows the claim law, "first in any PUBLIC
+  artifact as of <survey date>", and credits the textbook statement): **OPEN — owner: the
+  refuter pass.**
+* KC4 (the honest scope of "effective"): the label above.
+
 ## Token checks (order clause 7): the wave changes no landed statement
 
 * `NoSiegelZerosAt` is the body of `Salt.TwinBar.NoSiegelZeros` at one `c`, byte-for-byte
