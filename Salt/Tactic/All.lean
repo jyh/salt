@@ -7,6 +7,7 @@ import Salt.Tactic.AuditAxioms
 import Salt.Tactic.EventuallyBudget
 import Salt.Tactic.DyadicRec
 import Salt.Tactic.CertEval
+import Salt.Tactic.ExpLogNum
 
 /-!
 # Salt tactic toolkit — aggregate import
@@ -17,5 +18,7 @@ Project tactics per the ledger `docs/blueprints/tactics.md`. Landed:
 `eventually_budget` macro); `DyadicRec` (T6/T9 — the dyadic-assembly
 schema: `dyadic_cover_sum_le(_range)` fibering, the `geom_sum_le_top/bot`
 domination quartet, and the `dyadic_interval_rec` eliminator;
-verified against four landed consumers).
+verified against four landed consumers); `ExpLogNum` (T3 first cut, rung (a) —
+six lemmas closing numeral `exp`/`log` bounds at integer exponent in one line each; first
+consumer `Salt.MR.s13_smallGradeFits_h_L`, from the O15 census of 2026-09-24).
 -/
