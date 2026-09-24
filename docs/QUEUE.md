@@ -779,9 +779,9 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
    gate). Nothing here bears on twin primes.
    ⚠ RE-STAMPED 2026-09-24 (ARM S, h2c): "`z ≥ 11` rides on the unproved crown" (this paragraph's honest label) is DISCHARGED — the prize's
    `z`-gate (primorial `≤ 548`) WAS the capped supplier's `log(ah) ≤ 7`; `strideSupplyAllStridesW_holds` has no cap, and
-   `zRough_oddOmega_infinite_of_affSupplyW_primorial` (`StridePrize.lean:150`) composes the prize at every `z` from landed
-   names (`twinLogWeight_support_infinite_all_P` states the terminal at every `P > 0`). The crown is not read. Nothing bears
-   on twin primes.
+   `zRough_oddOmega_infinite_of_affSupplyW_primorial` (`StridePrize.lean:150`) composes the prize at every `z` in a few lines
+   from landed names — NO landed name STATES it (math's L2); what is stated is `twinLogWeight_support_infinite_all_P`, the
+   terminal at every `P > 0`. The crown is not read. Nothing bears on twin primes.
    ✅✅⭐⭐ **λ-BV WAVE 2-S + β — DONE AT ITS TERMS — STAMPED 2026-09-04 21:48 (math), on the helm's 21:34 word.** FOUR
    MERGES on salt `main` today: F4a `984b553f` (PR #39) · F4b `4885bfed` (PR #41) · F5 ripe `9a2b3053` (PR #42) · β
    `9c9a4910` (PR #44); main's own Lean CI on the last merge `33944639370` GREEN (build 8m13s), Scrub `33944639372` green.

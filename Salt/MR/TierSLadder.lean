@@ -418,7 +418,8 @@ on `main` at e.g. `P = 557`, and the honest label ("a second proof") would drift
 ⚠ RE-STAMPED 2026-09-24 (ARM S, `Salt/MR/StrideSupplyAllStrides.lean`): the general-`P` consumer
 now HAS an uncapped landed supplier, `strideSupplyAllStridesW_holds`, and
 `twinLogWeight_support_infinite_all_P` states this set at EVERY `P > 0` from it; this twin is KEPT
-beside it as the crown-road proof at `P ≤ 2310`.
+beside it as the crown-road proof at `P ≤ 2310` — so the set below now has THREE landed names (this
+twin, K, and the all-`P` statement), and "meet at ONE theorem" predates S.
 With it, after the wave the two roads meet at ONE theorem: this name and K state the same set.
 ⚠ LABEL: math's construction (the refuter's probe P6 on freeze v1, kernel-checked at the three
 axioms), transcribed by h2c at v1.1 — the S-4 B/K2′ situation again, labelled against our own

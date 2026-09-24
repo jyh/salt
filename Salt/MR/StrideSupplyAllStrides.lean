@@ -55,11 +55,16 @@ and where each is re-stamped.  (i) `docs/QUEUE.md:627` "the crown gates unbounde
 re-stamped there.  (ii) `TierSLadder.lean:412–419` "the general-`P` consumer's only landed
 supplier stops at `P ≤ 548`" — re-stamped in that docstring (a comment-only edit; its rebuild cone
 is one module).  (iii) the five-levels walk's §4 (seat record) — re-stamped by the freeze author.
-(iv) `AffineFork.lean:91–92` "At `a ≥ 2`: NONE — that is wave 2-S" — ALREADY FALSE since the
-capped G12b supply (`logChowlaAffSupplyW_holds`) and false without qualification after S;
-⚠ RECORDED HERE AND NOT EDITED THERE, because `AffineFork.lean` has 32 downstream modules
-(measured at `2d0e2129`) and a comment-only edit would rebuild every one of them for no
-kernel content; the re-stamp is owed to that file at its next substantive edit.  (v)
+(iv) `AffineFork.lean:91–92` "At `a ≥ 2`: NONE — that is wave 2-S" is STILL TRUE and is NOT
+re-stamped: it documents `LogChowlaAffSupply`, the EQUALITY form (`R.Hlo = flatDesignBase A`),
+whose only producer is `(1, 0)` (`logChowlaAffSupply_one_zero`, `AffineSupplyH.lean:38`); S
+produces the W sibling `LogChowlaAffSupplyW` (`flatDesignBase A ≤ R.Hlo`), to which the lane's
+consumers were ported (`StridePrize.lean:121`, `:150`), and the landed implication runs
+equality ⇒ W only (`logChowlaAffSupplyW_of_supply`, `StridePrize.lean:95`).  So the equality
+form stays unproduced at `a ≥ 2`, its sibling sentence `AffineFork.lean:300` stays true, and
+AffineFork's two equality-form consumers are SUPERSEDED by the W consumers, not discharged.
+(Freeze v1 §4 (iv) claimed the sentence false; math's non-author read of the landing, F1,
+corrected it — a site census had checked the sentence's LOCATION, not its SUBJECT.)  (v)
 `docs/QUEUE.md:766` "`z ≥ 11` rides on the unproved crown" — re-stamped there.  (vi)
 `docs/QUEUE.md:779–781`: its "no producer" clause is discharged; its first clause is the
 Captain's naming and gets a dated RIDER, never an edit.  (vii) `docs/QUEUE.md:554`/`:604`
@@ -307,7 +312,7 @@ theorem strideSupplyAllStridesW_of_arrow (hS4 : S4ArrowUncapped) : StrideSupplyA
 theorem s4ArrowUncapped_holds : S4ArrowUncapped :=
   fun a h ha hh => log_chowla_aff_of_door_at_regime_uncapped a h ha hh
 
-/-- **S HOLDS, IN SCRATCH, FROM LANDED NAMES AND THE COPIED BODY.** -/
+/-- **S HOLDS** — from landed names and the arrow of §1. -/
 theorem strideSupplyAllStridesW_holds : StrideSupplyAllStridesW :=
   strideSupplyAllStridesW_of_arrow s4ArrowUncapped_holds
 
@@ -339,7 +344,7 @@ theorem twinLogWeight_support_infinite_of_supply (hZ : StrideSupplyAllStridesW) 
   push_cast
   norm_num [hnR]
 
-/-- **THE TERMINAL AT EVERY SIEVE LEVEL, IN SCRATCH.** -/
+/-- **THE TERMINAL AT EVERY SIEVE LEVEL** — the direct road's set at every `P > 0`. -/
 theorem twinLogWeight_support_infinite_all_P (P : ℕ) (hP : 0 < P) :
     {n : ℕ | twinLogWeight P n ≠ 0}.Infinite :=
   twinLogWeight_support_infinite_of_supply strideSupplyAllStridesW_holds P hP

@@ -11162,9 +11162,11 @@ WHAT IS NOT SAID.  The crown has NO producer; E2's `hcrown` binder stands; `docs
 ⚖️ THE SEVEN SENTENCES THAT GO FALSE AT THIS LANDING, and where each is re-stamped (freeze §4 +
 addendum 1 L3): (i) `docs/QUEUE.md:627` — re-stamped there; (ii) `TierSLadder.lean:412–419` —
 re-stamped in that docstring; (iii) the five-levels walk's §4 (seat record) — the freeze author;
-(iv) `AffineFork.lean:91–92` "At `a ≥ 2`: NONE" — ALREADY FALSE since the capped G12b supply,
-RECORDED in the module header and NOT edited there (32 downstream modules for a comment-only
-edit; owed at that file's next substantive edit); (v) `docs/QUEUE.md:766` — re-stamped there;
+(iv) `AffineFork.lean:91–92` "At `a ≥ 2`: NONE" — STILL TRUE, NOT re-stamped: it documents the
+EQUALITY form `LogChowlaAffSupply` (`R.Hlo = flatDesignBase A`, one producer at `(1, 0)`); S
+produces the W sibling (`≤`), and equality ⇒ W only (`StridePrize.lean:95`) — the module header
+says it whole (math's F1 on the landing corrected freeze §4 (iv)); (v) `docs/QUEUE.md:766` —
+re-stamped there;
 (vi) `docs/QUEUE.md:779–781` — the "no producer" clause discharged, a dated RIDER beside the
 Captain's naming, never an edit; (vii) `docs/QUEUE.md:554`/`:604` — dated riders.
 NO ERRATUM IS APPENDED IN EITHER AGGREGATE FILE BY THIS CHANGE beyond this paragraph. -/
