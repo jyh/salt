@@ -40,8 +40,9 @@ bound at that line. A FIXED standoff `1 − β₁ ≥ c/log f` serves every `(A,
 **"Siegel–Walfisz's only INEFFECTIVE dependence on Siegel-zero theory is one standoff
 constant"** — and Landau's per-modulus theorem (`LandauPage.lean`, effective) sits beside it
 in the closure. NEVER "effective Siegel–Walfisz": under `¬F` the standoff `c` is
-`min(c_iso(Q₀), 1/C)` and `c_iso` is nonconstructive (`ContinuousAt.eventually_ne`, the
-fulcrum Pass-2 caveat, owed at `Fulcrum/Basic.lean:169`). The theorems below remove Siegel's
+`min(c_iso · log 2, 1/C)` (`Fulcrum/Gadget.lean`) and `c_iso` is nonconstructive — it comes
+from `siegel_zeros_isolated_below` through `ContinuousAt.eventually_ne` (the fulcrum Pass-2
+caveat). The theorems below remove Siegel's
 `C(ε)`; they do not make `c` computable.
 
 ## What makes the claim checkable — a Prop cannot see it
