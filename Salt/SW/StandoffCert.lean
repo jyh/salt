@@ -48,10 +48,10 @@ proof and why this walk sees a `siegel_theorem` buried in one.
   holds for imported names. It does not see `native_decide`-style reflection (none here; the
   axiom audit is the separate `#print axioms` pair in `salt/CLAUDE.md`).
 * "Reaches" is transitive constant reference, the relation `#print axioms` uses.
-* ⚠️ **At the statement freeze every proof in `StandoffGate` is `sorry`.** The NOT-REACHED
-  verdicts on the frozen names are then the VACUOUS half: the closure is the statement's plus
-  `sorryAx`, and `#closure_report` says so in its `sorryAx` field. The certificate is armed
-  for the wave; it is EVIDENCE only when `sorryAx: false` prints beside a NOT-REACHED.
+* **STRICT:** `#assert_not_reaches` ERRORS when `sorryAx` is in the root's closure, so its
+  green is non-vacuous by construction (the non-author read's C3 recommendation, ordered by the
+  helm 2026-09-24). At the statement freeze (`f8e81b76`) the form was lenient and printed
+  `VACUOUS` beside each NOT-REACHED instead.
 * `not_fulcrum_siegelFree_SW` is REPORTED and not asserted: its `¬F` horn runs through the
   fulcrum gadget, whose closure is the fulcrum campaign's business, and the label already
   says its `c` is nonconstructive.
@@ -151,10 +151,14 @@ elab "#assert_not_reaches " r:ident t:ident : command => do
     let p := pathTo s root tgt
     logError m!"CERT FAILED: {root} REACHES {tgt} — path ({p.length} nodes): {render p}"
   else
-    let sorried := s.visited.contains ``sorryAx
-    let tail : MessageData := if sorried then m!" — VACUOUS: a sorried proof" else m!""
-    logInfo (m!"CERT OK: {root} does NOT reach {tgt} (closure {s.count}, {s.saltN} under Salt, "
-      ++ m!"sorryAx: {sorried})" ++ tail)
+    -- STRICT (the helm's order of 2026-09-24, on the non-author read's C3): a closure holding
+    -- `sorryAx` makes the NOT-REACHED vacuous, so it is an ERROR, never an OK.
+    if s.visited.contains ``sorryAx then
+      logError (m!"CERT VACUOUS: {root} does not reach {tgt}, but its closure holds sorryAx "
+        ++ m!"(closure {s.count}) — a sorried proof certifies nothing")
+    else
+      logInfo (m!"CERT OK: {root} does NOT reach {tgt} (closure {s.count}, "
+        ++ m!"{s.saltN} under Salt, sorryAx: false)")
 
 /-- Strip `n` leading binders from `new`'s type; the remainder must be `old`'s type,
 syntactically. -/
