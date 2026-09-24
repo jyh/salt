@@ -29,6 +29,12 @@ from sharp — constant `C = 25700`.  Closing the gap to `(4 + ε)·2·Pi2` (the
 order-of-magnitude upper bound, Selberg's `4·𝔖` in the twin setting) is the
 registered **HL-3b** arc, which is gated on Mertens' third theorem
 `∏_{p ≤ x} (1 − 1/p) ∼ e^{−γ}/log x`; it is *not* attempted here.
+⟦ERRATUM 2026-09-24 (the sentence above is left as written): HL-3b LANDED 2026-07-18 at
+`C = 90` (`twinCounting_upper_sharp`, `Sharp.lean`), not at `(4+ε)·𝔖`; the `(4+ε)·𝔖 = 8·Π₂`
+target is the registered **HL-3c**, which has never fired. Its named gate is no longer a
+gate: Mertens' third theorem landed 2026-07-17 (`Salt/Mertens/Third.lean`) with the twin
+corollary MERT-5 (`Salt/Mertens/TwinDensity.lean`), which `Sharp.lean` imports. What HL-3c
+lacks is the κ = 2 singular-series density mean value, not Mertens.⟧
 -/
 
 open Filter Asymptotics
@@ -113,7 +119,9 @@ theorem twinSingularSeries_lt_two : twinSingularSeries < 2 := by
 with `twinPrimeCounting N ≤ C·N/(log N)²` for all large `N` — the landed Selberg
 sieve `Salt.M5BigO.nat_absorb`, packaged as an eventual bound.  The sharp constant
 `𝔖 = 2·Π₂ ≈ 1.32` is the Hardy–Littlewood prediction; the sharp `(4+ε)·𝔖`
-order bound is the registered HL-3b arc gated on Mertens' third theorem. -/
+order bound is the registered HL-3b arc gated on Mertens' third theorem.
+⟦ERRATUM 2026-09-24: HL-3b landed at `C = 90` (`twinCounting_upper_sharp`); the
+`(4+ε)·𝔖` bound is HL-3c, never fired, and its Mertens gate landed 2026-07-17.⟧ -/
 theorem twinCounting_upper_order :
     ∃ C : ℝ, 0 < C ∧ ∀ᶠ N : ℕ in Filter.atTop,
       (twinPrimeCounting N : ℝ) ≤ C * (N : ℝ) / (Real.log N) ^ 2 := by
