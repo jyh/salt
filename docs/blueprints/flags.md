@@ -25576,3 +25576,36 @@ would pass the guard by moving the text out of its reach, not by meeting it.
 **Owner:** the road-F head (freeze author).  **Re-measure:** at the guard's amendment.
 
 **2026-09-23, DISCHARGED:** the guard gained the named exemption (freeze ADDENDUM 7: `check_z_half.py` arm E cuts exactly `theorem strideDoor_zero_level_g12b` and its `example` from the cap census, driven red-first; re-cut under ADDENDUM 8 on the non-author read's LG so a cap token between that `example` and zero level B, or in a declaration whose name merely extends this one, fires), and zero level A with its `example` landed VERBATIM in `65adb024` (§R) at `[propext, Classical.choice, Quot.sound]`; registered under `#audit_axioms` in `Salt/MR/All.lean` in the commit that carries this line (the read's LR).
+
+## GOLDMINE (QUEUE item 15) lane (a), pull 1 -- the fulcrum sweep: two dead ends, five honest zeros (2026-09-24)
+
+**Caveat, first:** nothing here bears on twin primes. This is a census, taken at `origin/main` `431c1887`; no Lean was
+written and no statement changed.  **Model:** Opus 5.5 (math seat).  **Attempts:** 1 census.
+
+**The trade swept.** The fulcrum's shape is a DEMAND AUDIT of a hypothesis: collapse a binder over every strength to the
+one strength the consumers read (W1), move what a landed theorem already implies into the conclusion (W4), and drop
+quantity to what is counted (W5). The negation then gets stronger (`not_fulcrum_implies_noSiegelZeros`).
+
+**Dead ends.**
+- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:288`): already fulcrum-shaped before the fulcrum (Q3b,
+  07-15, `EHall` consumed at one line; `WindowPNT` discharged by `windowPNT_holds`). The remaining `∀A` binder of
+  `HasLevel (3999/4000)` can collapse to one saving, but that is FORM only: `θ★ ≈ 1` stays EH in depth, as the file's own
+  θ-caveat says.
+- The crown's twin-horn use of `siegel_theorem` (`Salt/HB/CrownTheorem1.lean:6673`): the wrong horn. Under `F` a Siegel zero
+  exists, so the fixed standoff that would replace Siegel is false there by construction.
+
+**Honest zeros (the trade has nothing to act on).** Maynard under `EH (1/2)` (BV, unconditional) · `TwinB_min` (already
+minimal; there is no distributional binder) · `Z θ A₀ ↔ TPC` (an iff) · `twinPrimeConjecture_of_frequently_pos` (already
+bare unboundedness) · the exchange-rate wall (a negative result; its hypothesis was already widened to every sign function).
+Out of lane or already done: `N7Exit` (the live crown campaign; window and quality already audited) and `MRTUniformity`
+(the door lane, `DoorReceipt.lean`).
+
+**Correction to a ledger line.** `docs/exploration/fulcrum-pass2.md` C1 calls `Fold.lean:167` the *sole* consumer of
+`siegel_theorem`. That was true for Siegel-Walfisz and is not true for the corpus: at `431c1887` there are three code
+consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6673`, `MR/PortAssembly.lean:1185`).
+
+**What survived (a proposal, not a flag).** Siegel-Walfisz reads Siegel at ONE site (`Fold.lean:167`,
+`ε = 1/(4C)`), and one fixed standoff `β ≤ 1 − c/log q` serves every `(A, C)`. A Siegel-free
+`siegelWalfisz_of_standoff`, certified by a constant-closure walk that excludes `siegel_theorem`, prices at class B.
+It changes no truth value. The statement goes to the design tier, and a refuter pass comes before any wave.
+**Release condition:** none; these are records. **Re-measure:** at the next lane (a) pull.
