@@ -107,6 +107,22 @@ profiled whole: `nlinarith` 408.7 s of 441 s of tactic time, 124 calls) names th
 candidate, `nlinarith?` — a certificate-replay suggester (run the search once, print
 `linarith [products]`) — a rung-(c) metaprogram for a later word.
 
+**SECOND CUT LANDED (2026-09-25, h2c, from the O15 price brief): `Salt/Tactic/NlinarithSuggest.lean` —
+`nlinarith?`, certificate replay.** `nlinarith` multiplies every pair of comparisons before it searches
+(a ninety-comparison context hands the oracle ~4,000 facts for a certificate of ≤ 5); `nlinarith?` runs
+the search ONCE and prints the call that replays it — L1 `nlinarith only [the base hypotheses the
+certificate used]`, L2 `linarith only [… the exact products]` — both VERIFIED by re-running before they
+print, the goal closed by the strongest that verified. It owns its provenance (mathlib's `preprocess`
+carries none: `filterComparisons` drops, `natToInt` prepends, `nlinarithExtras` returns
+`squares ++ originals ++ products`), re-implementing the two private product helpers with tags.
+Measured on the census's 8.03 M-heartbeat theorem, two calls hand-replayed from the traced certificates:
+8,034,279 → 7,656,887 (one call, −377 k) → 7,377,005 (a second, linear, −280 k). Declared limits:
+equality goals and `splitNe` are refused; the negated goal as a product factor withholds L2; a replay
+that does not verify is a REFUSAL with the attempted call printed, never a suggestion. A provenance
+mutant (the aux prefix over-read by one) turned every pinned arm into that refusal — the arms are
+load-bearing. Upstream note: mathlib's own `linarith?` (v4.32.0-rc1) is index-misaligned for the same
+reason and fails on `(x y : ℚ) (h1 : x ≤ y) (h2 : y ≤ 3) ⊢ x ≤ 3`; repro in the seat record.
+
 ### T4 — `salt_cast`: cast-discipline macro + conventions — class A/B
 `push_cast`-led macro plus a curated `@[simp]`-cast set for the recurring
 ℕ-division/floor/`% q` shapes.
