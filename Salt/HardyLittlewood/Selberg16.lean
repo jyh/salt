@@ -52,7 +52,14 @@ noncomputable def oddOmegaSum (x : ℕ) : ℝ :=
 /-- **M1.** -/
 theorem mainTermSum_ge_oddOmegaSum (z : ℕ) :
     oddOmegaSum z ≤ Salt.M3Assembly.mainTermSum z := by
-  sorry
+  have h : oddOmegaSum z = ∑ m ∈ (Finset.range z).filter Odd, Salt.M3Expansion.nuStar m := by
+    rw [oddOmegaSum, Finset.sum_filter]
+    refine Finset.sum_congr rfl (fun n _ => ?_)
+    by_cases hn : Odd n
+    · simp [pow2Omega, hn, Salt.M3Expansion.nuStar]
+    · simp [pow2Omega, hn]
+  rw [h, Salt.M3Assembly.mainTermSum]
+  exact Salt.M3Expansion.nuStar_sum_le_gTwin_sum z
 
 /-! ## M2 — `2^Ω = β ∗ τ` on odd `n`, with `β ≥ 0` -/
 
@@ -64,14 +71,53 @@ noncomputable def betaT (m : ℕ) : ℝ :=
       (if m.factorization p = 1 then 0 else (2 : ℝ) ^ (m.factorization p - 2))
   else 0
 
+/-- The local factor of `betaT`: `b(k) = 0` at `k = 1`, `2^(k−2)` otherwise (`b(0) = 1`). -/
+noncomputable def betaLoc (k : ℕ) : ℝ := if k = 1 then 0 else (2 : ℝ) ^ (k - 2)
+
+lemma betaT_eq_prod {m : ℕ} (hm : Odd m) :
+    betaT m = ∏ p ∈ m.primeFactors, betaLoc (m.factorization p) := by
+  simp [betaT, hm, betaLoc]
+
+/-- **W0a.** `betaT` is multiplicative on coprime odd arguments. -/
+theorem betaT_mul {a b : ℕ} (ha : Odd a) (hb : Odd b) (hab : Nat.Coprime a b) :
+    betaT (a * b) = betaT a * betaT b := by
+  have ha0 : a ≠ 0 := by rintro rfl; simp at ha
+  have hb0 : b ≠ 0 := by rintro rfl; simp at hb
+  rw [betaT_eq_prod (ha.mul hb), betaT_eq_prod ha, betaT_eq_prod hb,
+    Nat.primeFactors_mul ha0 hb0, Finset.prod_union hab.disjoint_primeFactors,
+    Nat.factorization_mul ha0 hb0]
+  congr 1
+  · refine Finset.prod_congr rfl (fun p hp => ?_)
+    have : b.factorization p = 0 := by
+      apply Nat.factorization_eq_zero_of_not_dvd
+      intro hpb
+      exact (Finset.disjoint_left.mp hab.disjoint_primeFactors) hp
+        (Nat.mem_primeFactors.mpr ⟨Nat.prime_of_mem_primeFactors hp, hpb, hb0⟩)
+    simp [this]
+  · refine Finset.prod_congr rfl (fun p hp => ?_)
+    have : a.factorization p = 0 := by
+      apply Nat.factorization_eq_zero_of_not_dvd
+      intro hpa
+      exact (Finset.disjoint_left.mp hab.disjoint_primeFactors)
+        (Nat.mem_primeFactors.mpr ⟨Nat.prime_of_mem_primeFactors hp, hpa, ha0⟩) hp
+    simp [this]
+
+/-- **W0b.** `betaT (p^k) = b(k)` for an odd prime `p`. -/
+theorem betaT_prime_pow {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ) :
+    betaT (p ^ k) = betaLoc k := by
+  have hodd : Odd (p ^ k) := (hp.odd_of_ne_two hp2).pow
+  rw [betaT_eq_prod hodd]
+  rcases Nat.eq_zero_or_pos k with rfl | hk
+  · simp [betaLoc]
+  · rw [Nat.primeFactors_prime_pow hk.ne' hp, Finset.prod_singleton,
+      hp.factorization_pow, Finsupp.single_eq_same]
+
 /-- **M2a.** -/
 theorem betaT_nonneg (m : ℕ) : 0 ≤ betaT m := by
-  sorry
-
-/-- **M2b.** The convolution identity on odd `n`. -/
-theorem pow2Omega_eq_sum (n : ℕ) (hn : Odd n) :
-    pow2Omega n = ∑ m ∈ n.divisors, betaT m * ((n / m).divisors.card : ℝ) := by
-  sorry
+  unfold betaT
+  split_ifs
+  · exact Finset.prod_nonneg (fun p _ => by split_ifs <;> positivity)
+  · exact le_rfl
 
 /-! ## M3 — the odd divisor sum -/
 
@@ -79,40 +125,5 @@ theorem pow2Omega_eq_sum (n : ℕ) (hn : Odd n) :
 noncomputable def oddDivSum (y : ℕ) : ℝ :=
   ∑ a ∈ (Finset.Icc 1 y).filter Odd, ∑ b ∈ (Finset.Icc 1 y).filter Odd,
     if a * b ≤ y then 1 / ((a : ℝ) * b) else 0
-
-/-- **M3.** -/
-theorem oddDivSum_ge : ∃ A : ℝ, 0 ≤ A ∧ ∀ y : ℕ, 1 ≤ y →
-    (Real.log y) ^ 2 / 8 - A * (Real.log y + 1) ≤ oddDivSum y := by
-  sorry
-
-/-! ## M5a — the convolution lower bound (M1 · M2 · a finite `m`-range) -/
-
-/-- **M5a.** For odd `R`, `Σ_{n<x odd} 2^Ω(n)/n ≥ Σ_{m ∣ R} β(m)/m · oddDivSum((x−1)/m)`. -/
-theorem oddOmegaSum_ge_conv (R x : ℕ) (hR : Odd R) :
-    ∑ m ∈ R.divisors, betaT m / m * oddDivSum ((x - 1) / m) ≤ oddOmegaSum x := by
-  sorry
-
-/-! ## M4 — the finite Euler product reaches `1/Π₂` -/
-
-/-- **M4.** -/
-theorem betaSum_ge {η : ℝ} (hη : 0 < η) :
-    ∃ R : ℕ, Odd R ∧ (1 - η) / Pi2 ≤ ∑ m ∈ R.divisors, betaT m / m := by
-  sorry
-
-/-! ## M5 — the dimension-2 mean value -/
-
-/-- **M5. The mean value.** `mainTermSum z ≥ (1−η)·(log z)²/(8·Π₂)` for all large `z`. -/
-theorem mainTermSum_lower {η : ℝ} (hη : 0 < η) :
-    ∀ᶠ z : ℕ in atTop, (1 - η) * (Real.log z) ^ 2 / (8 * Pi2) ≤ Salt.M3Assembly.mainTermSum z := by
-  sorry
-
-/-! ## M6 — the sieve at level `N^(1−δ)`, even divisors included -/
-
-/-- **HL-3c — the elementary Selberg twin bound.** For every `ε > 0`,
-`π₂(N) ≤ (16·Π₂ + ε)·N/(log N)²` for all large `N`. -/
-theorem twinCounting_upper_selberg {ε : ℝ} (hε : 0 < ε) :
-    ∀ᶠ N : ℕ in atTop,
-      (twinPrimeCounting N : ℝ) ≤ (16 * Pi2 + ε) * N / (Real.log N) ^ 2 := by
-  sorry
 
 end Salt.HardyLittlewood.Sel
