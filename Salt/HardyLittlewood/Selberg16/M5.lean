@@ -7,7 +7,9 @@ import Salt.HardyLittlewood.Selberg16.M2
 import Salt.HardyLittlewood.Selberg16.M3
 import Salt.HardyLittlewood.Selberg16.M4
 
-/-! # HL-3c nodes M5a, M5 — the dimension-2 mean value (statements frozen at salt `66fd0d0d`). -/
+/-! # HL-3c nodes M5a, M5 — the dimension-2 mean value
+
+Statements frozen at salt `66fd0d0d`. -/
 
 open Finset Filter
 

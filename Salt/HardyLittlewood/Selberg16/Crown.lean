@@ -5,7 +5,9 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HardyLittlewood.Selberg16.M5
 
-/-! # HL-3c crown — `π₂(N) ≤ (16·Π₂ + ε)·N/(log N)²` (statement frozen at salt `66fd0d0d`). -/
+/-! # HL-3c crown — `π₂(N) ≤ (16·Π₂ + ε)·N/(log N)²`
+
+Statement frozen at salt `66fd0d0d`. -/
 
 open Finset Filter
 
