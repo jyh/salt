@@ -453,6 +453,7 @@ import Salt.MR.FlatDoorAllGradesBand
 import Salt.MR.StrideDoorAllGrades
 import Salt.MR.StrideSupplyAllStrides
 import Salt.MR.FlatDoorParityFloor
+import Salt.MR.FlatDoorUniform
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -11179,3 +11180,45 @@ open Salt.Tactic in
   Salt.MR.strideSupplyAllStridesW_holds
   Salt.MR.twinLogWeight_support_infinite_of_supply
   Salt.MR.twinLogWeight_support_infinite_all_P
+
+/-! ⟦TIER S — ROAD F, THE REGIME AXIS: THE UNIFORM FLAT DOOR (CANDIDATE U)⟧ — `FlatDoorUniformW` IS
+**STATED AND PROVED** (`FlatDoorUniform`, 2026-09-25, h2c; PR #183, half 1 + half 2).  Additive
+only: no landed statement moves; the landed file edited is THIS one (one import and this block).
+
+⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES.  U is IMPLIED by the crown
+(`nextHopU_of_crown`) and is NOT the crown: the crown quantifies over every `ChowlaRegime`; U over
+the FLAT CLASS `FlatClassW ε` (the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law).
+The residual is every regime off the class.  No rate.  The `ε`-range stays `(0, 1/500]`.
+
+WHAT IS NOW TRUE.  `flatDoorUniformW_holds : FlatDoorUniformW` — `∃ H₀ ∀ R ∈ FlatClassW ε,
+H₀ ≤ R.Hlo → MRTUniformityXiL2 R ρ` at every `ρ > 0`, `0 < ε ≤ 1/500`: rung 2's chain with each
+`∃ R` form turned `∀ R` (eight U-forms, seven U-hops), the arm from the regime's own fields
+(`s15Arm_le_of_regime`), and the design constant recovered per regime by the inversion
+`A := loglog Hlo / 3.2`.  `flatDoorAllGradesW_of_uniform` is the zero level fired (W-δ from U; no
+new statement).  The freeze of candidate U and its two addenda are seat-record artifacts, cited by
+role. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.charge_exists
+  Salt.MR.flatDesignBase_mono'
+  Salt.MR.le_flatDesignBase_of_loglog
+  Salt.MR.nextHopU_zero_level
+  Salt.MR.nextHopU_of_crown
+  Salt.MR.flatDesignBase_of_loglog_eq
+  Salt.MR.flatDesignBase_design
+  Salt.MR.loglogFloor50_le_flatDesignBase
+  Salt.MR.arcFloor36_le_flatDesignBase
+  Salt.MR.uArm_log_inv_grade_le
+  Salt.MR.uArm_exponent_le
+  Salt.MR.s15Arm_le_of_regime
+  Salt.MR.flat_doorL2_generic_U
+  Salt.MR.flat_road_generic_U
+  Salt.MR.flat_capstone_generic_U
+  Salt.MR.flat_socket_generic_U
+  Salt.MR.flatHeadFormU_trivial
+  Salt.MR.flatHeadFormU_at_grade
+  Salt.MR.flat_conditional_generic_U
+  Salt.MR.flat_kswin_generic_U
+  Salt.MR.flat_v7_generic_U
+  Salt.MR.flat_chain_U
+  Salt.MR.flatDoorUniformW_holds
+  Salt.MR.flatDoorAllGradesW_of_uniform
