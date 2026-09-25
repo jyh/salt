@@ -21,9 +21,6 @@ open scoped ArithmeticFunction.zeta
 lemma betaT_of_not_odd {m : ℕ} (h : ¬ Odd m) : betaT m = 0 := by
   simp [betaT, h]
 
-lemma betaT_one : betaT 1 = 1 := by
-  simp [betaT]
-
 /-- `m ↦ betaT m / m` as an arithmetic function. -/
 noncomputable def betaDiv : ArithmeticFunction ℝ :=
   ⟨fun m => betaT m / m, by simp⟩

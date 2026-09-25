@@ -46,7 +46,6 @@ lemma betaLoc_antidiag_sum (k : ℕ) :
 
 lemma betaT_zero : betaT 0 = 0 := by simp [betaT]
 
-lemma betaT_one : betaT 1 = 1 := by simp [betaT]
 
 /-- `betaT` as an arithmetic function. -/
 noncomputable def betaA : ArithmeticFunction ℝ := ⟨betaT, betaT_zero⟩

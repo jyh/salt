@@ -30,6 +30,10 @@ lossy inputs identified in the loss-budget audit:
 The classical order-sharp constants `8·Π₂ ≈ 5.3` (with the true singular-series
 density `1/(8Π₂)` in place of the harmonic-square `1/16`) remain future work; the
 harmonic-square method used here bottoms out at `C = 64` as `zS → N^(1/2)`.
+⟦ERRATUM 2026-09-25 (the paragraph above is left as written): the true density `1/(8Π₂)` on
+this odd-only sum reaches `32·Π₂`; counting even divisors too reaches `16·Π₂ = 8·𝔖`, which is
+HL-3c (`Sel.twinCounting_upper_selberg`, `Selberg16/`). `8·Π₂` is Bombieri–Davenport and needs
+Bombieri–Vinogradov level on `{p+2}`.⟧
 -/
 
 open Finset ArithmeticFunction Filter

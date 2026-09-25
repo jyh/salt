@@ -112,6 +112,8 @@ theorem betaT_prime_pow {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ) :
   · rw [Nat.primeFactors_prime_pow hk.ne' hp, Finset.prod_singleton,
       hp.factorization_pow, Finsupp.single_eq_same]
 
+lemma betaT_one : betaT 1 = 1 := by simp [betaT]
+
 /-- **M2a.** -/
 theorem betaT_nonneg (m : ℕ) : 0 ≤ betaT m := by
   unfold betaT
