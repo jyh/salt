@@ -270,4 +270,302 @@ theorem arcFloor36_le_flatDesignBase {A : ℝ} (hA : 162 ≤ A) :
     exact Nat.le_ceil _
   exact_mod_cast le_trans hR hceil
 
+/-! ## §2 — the eight U-forms: rung 2's forms with `∃ R` turned into `∀ R`
+
+Each form is its rung-2 source (`FlatDoorEpsRung2`) with ONE transformation of the regime clause:
+the export conjuncts become hypotheses in the same order, the cap conjunct
+`R.Hlo ≤ max Hcap …` is dropped, and the floor binders are replaced by the one floor hypothesis
+the form's own hop requests.  Constants, the `A`-quantifier, the `Hcap` clause, the rider and the
+slot are the source's, token for token. -/
+
+/-- **the head form, uniform** (`FlatHeadFormU`) — `FlatHeadFormEpsW`
+(`FlatDoorEpsRung2.lean:4478`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `Hcap ≤ R.Hlo`. -/
+def FlatHeadFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
+      1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
+      ∀ A : ℝ, 26 ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap = max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ),
+            XCeilRiderAt (50 + Real.log (c : ℝ)) ε g → R.eps = ε → Hcap ≤ R.Hlo →
+            g R.Hhi R.ω ≤ R.x →
+            Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              ((bigXi R.eps H).card : ℝ) ≤ K) →
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+            ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+              P R
+
+/-- **the socket form, uniform** (`FlatSocketFormU`) — `FlatSocketFormEpsW`
+(`FlatDoorEpsRung2.lean:4499`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `Hcap ≤ R.Hlo`. -/
+def FlatSocketFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
+      1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
+      ∀ A : ℝ, 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ), XCeilRiderAt (50 + Real.log (c : ℝ)) ε g →
+            R.eps = ε → Hcap ≤ R.Hlo → g R.Hhi R.ω ≤ R.x →
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+              (∀ (a e : ℕ → ℂ) (Bsieve : ℕ → ℝ) (Binsert : ℝ),
+                (∀ m, lamCoeff m = a m + e m) →
+                (∀ H : ℕ, 0 ≤ Bsieve H) →
+                (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+                  NearRatTight (arcDen 12 H) H α →
+                    (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+                      ≤ Bsieve H * (H : ℝ) ^ 2) →
+                (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+                  (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+                    ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+                      ∂(logMeasure R.x R.ω)) ≤ Binsert) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
+                P R)
+
+/-- **the `L²` door form, uniform** (`FlatDoorL2FormU`) — `FlatDoorL2FormEpsW`
+(`FlatDoorEpsRung2.lean:4529`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `Hcap ≤ R.Hlo`. -/
+def FlatDoorL2FormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (Cg : ℝ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
+      0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
+      1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧
+      (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
+      ∀ (K : ℕ) (A : ℝ), 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ), XCeilRiderAt (50 + Real.log (c : ℝ)) ε g →
+            R.eps = ε → Hcap ≤ R.Hlo → g R.Hhi R.ω ≤ R.x →
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+              ∀ (Braw : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
+                M4DoorGates_L_gk K Cg R M k δ →
+                (∀ H : ℕ, 0 ≤ Braw H) →
+                M4SievedDoorSq_L_gk K R M Braw →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+                2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+                  P R
+
+/-- **the road form, uniform** (`FlatRoadFormU`) — `FlatRoadFormEpsW`
+(`FlatDoorEpsRung2.lean:4554`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `Hcap ≤ R.Hlo`. -/
+def FlatRoadFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (Cg : ℝ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
+      0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
+      1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧
+      (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
+      ∀ (K : ℕ) (A : ℝ), 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ), XCeilRiderAt (50 + Real.log (c : ℝ)) ε g →
+            R.eps = ε → Hcap ≤ R.Hlo → g R.Hhi R.ω ≤ R.x →
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+              ∀ (δ Bceil : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
+                M4DoorGates_L_gk K Cg R M k δ → 1 ≤ M →
+                (∀ H : ℕ, 0 ≤ RSan H) → (∀ H : ℕ, 0 ≤ RStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+                (∀ j H : ℕ, j₀ ≤ j → RS j H ≤ RSan H) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 7 ≤ RStr H) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  44 * RSan H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 3 ≤ (H : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H
+                    ≤ Braw H) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+                2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+                M4ChiSummedFreeRow_L_gk K R M RS →
+                  P R
+
+/-- **the capstone form, uniform** (`FlatCapstoneFormU`) — `FlatCapstoneFormEpsW`
+(`FlatDoorEpsRung2.lean:4590`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `max Hcap (max arcFloor36 loglogFloor50) ≤ R.Hlo`. -/
+def FlatCapstoneFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
+    ∃ (Cg : ℝ) (Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧
+      Kc ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧
+      (∀ A : ℝ, 162 ≤ A → Awin ≤ A → Mfl ≤ flatDoorM A) ∧
+      0 < β ∧
+      ∀ K : ℕ, ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ A : ℝ, 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (Cp : ℝ), 0 ≤ Cp →
+            ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ), XCeilRiderAt (50 + Real.log (c : ℝ)) ε g →
+              R.eps = ε → max Hcap (max arcFloor36 loglogFloor50) ≤ R.Hlo → g R.Hhi R.ω ≤ R.x →
+                Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+                (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                  Real.log (Real.log (R.Hhi : ℝ))
+                    ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+                ∀ (M : ℕ), Mfl ≤ M → K ≤ 170000000 * M →
+                  ∃ C' : ℝ, 0 < C' ∧
+                    8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ))
+                        ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) ∧
+                    ∀ (C₁ M₀ _epsf epsrf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                      -- ⟦A⟧ THE SPINE ARITHMETIC
+                      M4DoorGates_L_gk K Cg R M k δ₀ →
+                      8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                        4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloorL M : ℕ) : ℝ)) →
+                      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                        arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                        m4SmallGradeFits (doorRowFloorL M)
+                          (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                          (fun H => 2 * rStrWitness H) H) →
+                      -- ⟦B1'⟧ THE FUSE'S OWN DEMANDS AT THE CONSTANT POOL
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s → DoorBaseFrame (A + s) j) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        374784 * Ct * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+                          ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        GRowsZeroGate'''_L_gk K M (A + s) Cp
+                          (constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi)) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266
+                            + (-Real.log (doorRhoOfDelta (s12DeltaSock δ₀ Kc)))
+                          ≤ (theta293 - epsrf (A + s))
+                              * Real.log (Real.log (((A + s : ℕ)) : ℝ))) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293)
+                          ≤ constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+                          * constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi) →
+                      -- ⟦THE εr/ε SPLIT⟧ the absorption exponent's own window
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        0 ≤ epsrf (A + s) ∧ epsrf (A + s) ≤ theta293 - 1 / 500) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        calQK (AdoorL M) (s13GK K M) M 2 ≤ A + s ∧
+                          Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+                              ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                          (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                          (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                          ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                      -- ⟦B4 RAW⟧ the crossing bound, carried
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+                          (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                          2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                          5 ≤ Real.log (Real.log (2 * T)) →
+                          (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                              ‖spoly (2 * (A + s))
+                                (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                            ≤ 8 * (0 : ℝ) ^ 2
+                              + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                                    \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                                  ∩ seamTtotG (chiBarCoeff q χ liouvilleC)
+                                      (calP (AdoorL M) (s13GK K M))
+                                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                                      (mrAlpha (1 / 12)) 2,
+                                  ‖spoly (2 * (A + s))
+                                    (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                              + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                                  * (Real.log (((A + s : ℕ)) : ℝ))
+                                      ^ (-theta293 + epsrf (A + s)))) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        DoorBandBase_L_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                      (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+                        DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                          (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                        P R
+
+/-- **the conditional form, uniform** (`FlatConditionalFormU`) — `FlatConditionalFormEpsW`
+(`FlatDoorEpsRung2.lean:4684`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `max Hcap (max arcFloor36 loglogFloor50) ≤ R.Hlo` (the source's `R.Hlo = U1floor`
+exactness, spent only on floors). -/
+def FlatConditionalFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
+    ∃ (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧
+      Kc ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧
+      (∀ A : ℝ, 162 ≤ A → Awin ≤ A → Mfl ≤ flatDoorM A) ∧
+      0 < β ∧
+      ∀ K : ℕ, ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ A : ℝ, 162 ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+        ∃ Hcap : ℕ,
+          Hcap ≤ max (flatDesignFloor A)
+            (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+          ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ), XCeilRiderStrictAt (50 + Real.log (c : ℝ)) ε g →
+            R.eps = ε → max Hcap (max arcFloor36 loglogFloor50) ≤ R.Hlo → g R.Hhi R.ω ≤ R.x →
+              Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+              ∀ M : ℕ,
+                S15Sel''_L_gk_T K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
+                 K ≤ 170000000 * M →
+                S15CrossingBound_L_gk K R M → P R
+
+/-- **the kswin form, uniform** (`FlatKswinFormU`) — `FlatKswinFormEpsW`
+(`FlatDoorEpsRung2.lean:4709`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `R.Hlo = flatDesignBase A` (the source's `R.Hlo = flatWitFloor ε β A Hopq`, under the
+form's own witness-floor conjunct), with the two design exports also turned into hypotheses. -/
+def FlatKswinFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
+    ∃ (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧
+      (∀ A : ℝ, 162 ≤ A → Awin ≤ A → Mfl ≤ flatDoorM A) ∧
+      0 < β ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧
+      ∀ K : ℕ, ∃ Ct : ℝ, 0 < Ct ∧
+        ∀ A : ℝ, 162 ≤ A → Awin ≤ A → budgetAFlat (ε : ℝ) β ≤ A → 10 + 2 * Real.log (c : ℝ) ≤ A →
+          K ≤ 170000000 * flatDoorM A →
+        (Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq = flatDesignBase A) ∧
+        ((x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) →
+          Hopq ≤ flatDesignBase A →
+          T₀ ≤ Real.exp (Real.sqrt ((flatWitFloor ε β A Hopq : ℕ) : ℝ) / 2) →
+          Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 →
+          ∀ (R : ChowlaRegime) (g : ℕ → ℕ → ℕ), XCeilRiderStrictAt (50 + Real.log (c : ℝ)) ε g →
+            R.eps = ε → R.Hlo = flatDesignBase A → g R.Hhi R.ω ≤ R.x →
+            Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+            3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) →
+            (S16CofactorSupply_L_gk K Cq R (flatDoorM A) →
+              S16BaseScaleCap96_L_gk K R (flatDoorM A) →
+                P R))
+
+/-- **the rated (v7) form, uniform** (`V7RatedFormU`) — `V7RatedFormEpsW`
+(`FlatDoorEpsRung2.lean:4738`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
+hypothesis `R.Hlo = flatDesignBase A` at the minted `A`, with the two design exports turned into
+hypotheses; no rider. -/
+def V7RatedFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
+    ∃ (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧
+      (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∀ R : ChowlaRegime,
+        R.eps = ε → R.Hlo = flatDesignBase A →
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) →
+        P R
+
 end Salt.MR
