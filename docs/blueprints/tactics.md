@@ -89,8 +89,10 @@ explicit `(N²·P)·(10−π²) ≥ 0`"), `BDH`'s numeral chain (≈5792 ≤ 600
 **When:** opportunistic; a shared lemma file (`Salt/Tactic/Numerals.lean`)
 is step one and is class A.
 **FIRST CUT LANDED (2026-09-24, h2c, from the O15 proof-shape census; seat record `3f2fab874`):
-`Salt/Tactic/ExpLogNum.lean`, rung (a) — six lemmas closing numeral `exp`/`log` bounds at integer
-exponent (`c ≤ exp n` · `exp n ≤ c` · `exp n < c` · `log d ≤ k` · `k ≤ log d`) in one line each,
+`Salt/Tactic/ExpLogNum.lean`, rung (a) — seven lemmas closing numeral `exp`/`log` bounds at integer
+exponent (`c ≤ exp n` · `c < exp n` · `exp n ≤ c` · `exp n < c` · `log d ≤ k` · `k ≤ log d`) in one
+line each (six at the landing; the strict lower form, the per-form/edge selftests and three
+`fail_if_success` refusal arms were added the same day, arms PR),
 by `exp n = (exp 1)^n` + `Real.exp_one_gt_d9`/`lt_d9` raised to `n` + one `norm_num`. The census
 measured the shape at 581 sites / 1,316 lines over 72 ladder/door/supply modules (111 sites,
 379 lines in the integer-exponent coverage); first consumer `Salt.MR.s13_smallGradeFits_h_L`,
