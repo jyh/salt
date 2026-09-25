@@ -355,6 +355,19 @@ example (n : ℕ) (x : ℝ) (h : x ≤ 0) : x * (n : ℝ) ≤ 0 := by nlinarith?
 -- A5: an equality hypothesis as a product factor (`zero_mul_eq`)
 example (a b : ℝ) (h : a = 0) (hb : 0 ≤ b) : a * b ≤ 0 := by nlinarith?
 
+/-- info: Try these (L2 exact products, then L1):
+  [apply] linarith only [ha, hb,
+    mul_nonneg_of_nonpos_of_nonpos (Mathlib.Tactic.Linarith.sub_nonpos_of_le ha)
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le hb)]
+  [apply] nlinarith only [ha, hb]
+-/
+#guard_msgs (whitespace := lax) in
+-- D1 (math's non-author read of #178, 2026-09-24 19:11): A1 with a DISTRACTOR hypothesis. The
+-- suggestion must OMIT `_hc` — a distractor is the tool's whole use case (five facts of ninety) and
+-- no earlier arm had one, so a mutant that marks every hypothesis as used survived them all; it reds
+-- here and only here. Named `_hc` because `#guard_msgs` also captures the unused-variable lint.
+example (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (_hc : c ≤ 5) : 0 ≤ a * b := by nlinarith?
+
 -- A6: a goal `nlinarith` cannot close — the tool REFUSES (no suggestion, no proof)
 example (a : ℝ) (_h : 0 ≤ a) : a ≤ 1 ∨ True := by
   fail_if_success (left; nlinarith?)
