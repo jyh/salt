@@ -1151,4 +1151,79 @@ theorem flat_socket_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
   exact le_trans (hH₀ R hReps harc a e Bsieve K Binsert hsplit hB0 hsock hcount hins
     H hlo hhi) (hρ H hlo hhi)
 
+/-- **the head at the trivial payload, uniform** (`flatHeadFormU_trivial`) — rung 2's head
+`flat_head_uniform_xceil_epsW` (`FlatDoorEpsRung2.lean:4783`) WITHOUT the spine: the ε bounds, the
+mint against the pin (`hδnum`), the count hook `bigXi_bounded_ceiling_eps`, `β`, and the head's own
+floor `Hopq = max (max H₀red H₀D3) H₀xi` (the two spine floors kept, so the `Hcap` equation is the
+source's) are the source's; the regime is GIVEN, the count is proved at it from `H₀xi ≤ Hopq ≤ Hcap
+≤ R.Hlo` exactly as at the source's `:4869–4877`, and the slot is `trivial`.  No builder, no
+entropy decrement, no spine core.  Dropped from the source (served only the spine or the builder):
+the circle-method obtain, `hlog4` · `hlog2gt` · `hCnum` · `hCle` · `hεle` · `hεcE` · `hε_half_lt`
+· `hε_D3` · `hε_D3C` · `hεQ1` · `hcD3ge` · `hlamA` and `classical`. -/
+theorem flatHeadFormU_trivial (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
+    {c : ℕ} (hc1 : 1 ≤ c) (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) :
+    FlatHeadFormU ε c (fun _ => True) := by
+  unfold FlatHeadFormU
+  obtain ⟨-, -, -, H₀red, -⟩ := hreduce_holds_final_bounded
+  obtain ⟨-, -, -, H₀D3, -⟩ := primeWindow_sum_inv_ge_bounded
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
+  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
+  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
+  have hC : 0 < C := by rw [hCdef]; positivity
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
+  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
+    rw [hcD3def, hCdef]
+    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
+    field_simp
+    ring
+  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
+  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
+    rw [div_le_iff₀ hcQ0] at hcε; linarith
+  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
+    linarith
+  obtain ⟨K, hK, hKb, H₀xi, -, hxi⟩ := bigXi_bounded_ceiling_eps ε hε0 hε hc1 hcε
+  obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
+  have hβpos : 0 < β := by
+    rw [hβdef]; exact div_pos (mul_pos hcD3 hεR0) (by positivity)
+  obtain ⟨Hopq, hOpqdef⟩ : ∃ n : ℕ, n = max (max H₀red H₀D3) H₀xi := ⟨_, rfl⟩
+  refine ⟨K, cD3 / (16 * C) * (ε : ℝ) / 4, β, Hopq, hε0, hK, hKb,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num),
+    hc1, hcε, hδnum, hβpos, ?_⟩
+  intro A _hA26 _hAge _hAL
+  obtain ⟨F, hFdef⟩ : ∃ n : ℕ, n = max Hopq (budgetFloorFlat (ε : ℝ) β A) := ⟨_, rfl⟩
+  refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
+  intro R _g _hg hReps hfl _hRg _hRx _hRtow
+  refine ⟨?_, fun _ _ _ _ => trivial⟩
+  have hFlo : F ≤ R.Hlo := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hfl
+  have hxiHlo : H₀xi ≤ R.Hlo := by
+    rw [hFdef, hOpqdef] at hFlo
+    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
+  intro H' _ hlo' _
+  rw [hReps]
+  exact hxi H' (le_trans hxiHlo hlo')
+
+/-- **the threshold shrink, uniform** (`flatHeadFormU_at_grade`) — `flatHeadFormEpsW_at_grade`
+(`FlatDoorAllGrades.lean:89`) on the re-cut head form: the threshold becomes any `ρt` on the pin,
+the count is forwarded, and the new slot is `mrtUniformityXiL2_mono`. -/
+theorem flatHeadFormU_at_grade {ε : ℚ} {c : ℕ} {Q : ChowlaRegime → Prop}
+    (h : FlatHeadFormU ε c Q) {ρt : ℝ} (hρt : 0 < ρt)
+    (hpin : (1 : ℝ) / (838400 * (c : ℝ)) ≤ ρt) :
+    FlatHeadFormU ε c (fun R => MRTUniformityXiL2 R ρt) := by
+  unfold FlatHeadFormU at h ⊢
+  obtain ⟨K, δ₀, β, Hopq, hε, hK, hKb, -, hc1, hcε, -, hβ, hbody⟩ := h
+  refine ⟨K, ρt, β, Hopq, hε, hK, hKb, hρt, hc1, hcε, hpin, hβ, ?_⟩
+  intro A hA hbud hcA
+  obtain ⟨Hcap, hHcap, hR⟩ := hbody A hA hbud hcA
+  refine ⟨Hcap, hHcap, ?_⟩
+  intro R g hg hReps hfl hRg hRx hRtow
+  obtain ⟨hcount, -⟩ := hR R g hg hReps hfl hRg hRx hRtow
+  exact ⟨hcount, fun ρ _ hle hd => mrtUniformityXiL2_mono hle hd⟩
+
 end Salt.MR
