@@ -6376,6 +6376,35 @@ three days and was carried into a council as an open item before measurement kil
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
    price, for the helm and the Captain. Nothing bears on twin primes; no tactic written; nothing committed to salt but this rider.
+   ⚑ **SECOND PULL — BOTH CANDIDATES LANDED 2026-09-24/25 (h2c, lives 101–103, on the 123rd's and 125th's orders):**
+   `explog_num` rung (a), `Salt/Tactic/ExpLogNum.lean` (#171 → `3dfc84a6`: six lemmas; `s13_smallGradeFits_h_L` rewritten IN
+   PLACE 175 → 162 lines, 90,294 → 85,228 hb, under rule 5's Fable-directed exception — the ONE in-place precedent; the arms
+   #177 → `1eaa3dda`: a seventh lemma, per-form selftests, three `fail_if_success` refusal arms, `#audit_axioms` 7/7) and
+   `nlinarith?`, `Salt/Tactic/NlinarithSuggest.lean` (#178 → `efcd025c`: certificate replay, prints `linarith [products]`;
+   arm D1 #179 → `b85838bc` on math's non-author read, CONFIRM). MEASURED on ONE landed theorem, a scratch on a COPY (never the
+   landed file): 24 of 25 `nlinarith` calls replayed by the tool's own printed suggestions, 8,034,279 → 560,127 heartbeats
+   (−93 %, 14.3×), the fleet lock 49 s vs ~5.5 min, statement token-identical, the kernel receipt PAIR re-taken. No landed
+   proof was converted by it: converting is the DEBT LANE below and waits on that lane's gate.
+   ⚖️ **THE COPIED-LADDER DEBT LANE — P3, MINTED 2026-09-25 ON THE CAPTAIN'S RULING (council 2026-09-25 §A6, desk XY; his
+   *"yes, accept rec"*).** THE DEBT, measured (the census's §2·S5 and §6; the table `dup-census.txt` beside it): **39 families
+   · 117 members · 10,856 redundant lines = 30 % of the population's tactic-mode proof lines** are COPIES BY POLICY — the H2c
+   rule *"landed files UNTOUCHED — every numeric stone gets an `_h` SIBLING in the new file, never an edit"* — bodies
+   byte-identical or one numeral apart, only the STATEMENT's socket or grade differing. The five largest:
+   `m4_meansq_per_chi_gen_*` ×9 (`M4LadderLinear`, 1,569 redundant) · `m4_meansq_or_trivial_*` ×8 (1,017) ·
+   `flat_capstone_generic_h*` ×5 (604) · `m4_dyadicRow_carried_join*` ×4 (543) · `chowlaRegimeFlat_exists_param_gen_ceiling_mul*`
+   ×4 (543). **RULED:** (i) the sibling policy ADMITS REPLACE-BY-GENERIC — ONE FAMILY PER WAVE, never on a live wave; a generic
+   statement lands first as a NEW name, and EVERY consumer of every sibling to be retired is rebuilt through `../saltbuild.sh`
+   with the axioms PAIR (`saltbuild EXIT=0` with zero tagged errors in both orders + `#print axioms` at the three axioms + a
+   planted-`sorry` control in the SAME log — the goldmine's own receipt form) BEFORE that sibling is retired; (ii) the
+   design-tier IN-PLACE rewrite is the STANDING FORM (#171's precedent): the kernel receipt re-taken and #171's statement guard
+   used, Fable/human-directed only (rule 5). ⛔ **GATE — THIS LANE OPENS ONLY AFTER arXiv:2609.11076 v2 POSTS** (saltbench PR
+   #263 waits on his click); until then NOTHING MOVES IN A LANDED FILE, and a tactic rewrite lands as a `_tac` sibling. **PULL
+   RULE, once open:** worker tier at P3, one family per pull, the family with the smallest import cone first; each wave is a
+   freeze first (the generic statement, the members it retires, their consumers, how a retired name is handled) with a
+   non-author read; the PR carries before/after line counts, every consumer's receipt line, and the retired names; a STATEMENT
+   never changes (iron rule 1) — a generic that would change a consumer's statement is a flag, not a landing. **REVIEW at the
+   O15 slot of the objectives review** (first 2026-09-29, then every sitting that reviews O2): is the gate open; families
+   retired / remaining; whether the measured saving justifies continuing. Nothing here bears on twin primes.
 
 ⛔ *Kept, byte-untouched, as the record of what was true when written:*
 ⚑ **JAS — ONE FLEET-ATTENTION FLAG (added 08/22 at the fold; the ruling is the
