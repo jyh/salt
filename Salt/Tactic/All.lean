@@ -19,6 +19,7 @@ Project tactics per the ledger `docs/blueprints/tactics.md`. Landed:
 schema: `dyadic_cover_sum_le(_range)` fibering, the `geom_sum_le_top/bot`
 domination quartet, and the `dyadic_interval_rec` eliminator;
 verified against four landed consumers); `ExpLogNum` (T3 first cut, rung (a) —
-six lemmas closing numeral `exp`/`log` bounds at integer exponent in one line each; first
-consumer `Salt.MR.s13_smallGradeFits_h_L`, from the O15 census of 2026-09-24).
+seven lemmas closing numeral `exp`/`log` bounds at integer exponent in one line each, with
+red-first selftests and refusal arms; first consumer `Salt.MR.s13_smallGradeFits_h_L`, from the
+O15 census of 2026-09-24).
 -/
