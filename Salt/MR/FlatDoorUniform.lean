@@ -25,15 +25,15 @@ Every other export is a floor on `Hlo` (paid by `H₀`), the count (a fact about
 arm (dominated by the structure's own `hPHheadroom`), or `Hlo`-exactness (recovered by the
 inversion `A := loglog Hlo / 3.2`, `flatDesignBase_of_loglog_eq`).
 
-**THIS FILE IS HALF 1 OF 2.**  It carries the class and the statement of record
+**THIS FILE CARRIES BOTH HALVES.**  It carries the class and the statement of record
 (`FlatClassW`, `FlatDoorUniformW`), their two receipts (U gives the landed W-δ; the crown gives
 U), the inversion lemmas, the eight U-forms (rung 2's forms with `∃ R` turned into `∀ R`), the
-arm bound from the regime's own fields (`s15Arm_le_of_regime`), and three of the four
-pass-through hops (doorL2 · road · capstone).  The SOCKET hop is NOT here: it spends the head's
-count at the head's existential `K`, which the socket U-form does not carry (§4's header and
-`docs/blueprints/flags.md` state the finding).  HALF 2 — the conditional, kswin and v7 hops, the
-chain, and the theorem `: FlatDoorUniformW` — is OWED: no proof of `FlatDoorUniformW` exists in
-this file.
+arm bound from the regime's own fields (`s15Arm_le_of_regime`), the seven hops, the head at the
+trivial payload, the shrink twin, the chain, and the theorem `flatDoorUniformW_holds :
+FlatDoorUniformW` (§5).  *(Until half 2 landed this header read "HALF 1 OF 2 … HALF 2 is OWED";
+the socket hop's absence from half 1 and its cause are recorded at §4 and
+`docs/blueprints/flags.md`,
+both dated, and resolved in §5.)*
 -/
 
 noncomputable section
@@ -858,15 +858,17 @@ Each body is its rung-2 source's with ONLY the plumbing changed: where the sourc
 regime from the previous form and re-exports its tuple, the U-hop introduces the regime and its
 hypotheses and applies the previous form at the weaker floor.  Nothing below the plumbing moves.
 
-⛔ **THE SOCKET HOP IS NOT HERE, AND WHY IS A WALK FINDING.**  `flat_socket_generic_epsW` spends the
-head's COUNT export `∀ H ∈ [Hlo, Hhi], |Ξ_H| ≤ K` twice — as the head's own hypothesis and as the
-arc lemma's `hcount` — at the head's existential `K`.  `FlatHeadFormU` keeps the count as a
-HYPOTHESIS (the source has it as an export), while `FlatSocketFormU` has no count (its source
-exports none), so a hop `FlatHeadFormU ε c P → FlatSocketFormU ε c P` must produce
-`|Ξ_H| ≤ K` about an ARBITRARY regime for an arbitrary `K ≤ 2^283·c^20`, which no hypothesis of
-the socket form supplies (and `bigXi_bounded_ceiling_eps` needs `ε ≤ 1/500`, which the forms do
-not carry, and yields its own constant, not the head's).  Recorded in `docs/blueprints/flags.md`;
-the three hops below do not read it. -/
+⛔ **THE SOCKET HOP WAS NOT IN HALF 1, AND WHY WAS A WALK FINDING (dated 2026-09-25; RESOLVED in
+§5).**
+`flat_socket_generic_epsW` spends the head's COUNT export `∀ H ∈ [Hlo, Hhi], |Ξ_H| ≤ K` twice — as
+the
+head's own hypothesis and as the arc lemma's `hcount` — at the head's existential `K`.  Half 1's
+`FlatHeadFormU` kept the count as a HYPOTHESIS on the regime (the source has it as an export), while
+`FlatSocketFormU` has no count (its source exports none), so the hop could not forward it.  The
+freeze's second addendum moved the count to the head form's CONCLUSION side — an export the rung-2
+head PROVES from a floor belongs there — and the socket hop landed in §5 on the re-cut form.
+Recorded in `docs/blueprints/flags.md` with its RESOLVED line; the three hops below never read it.
+-/
 
 /-- **the `L²` door hop, uniform** (`flat_doorL2_generic_U`) — `flat_doorL2_generic_epsW`
 (`FlatDoorEpsRung2.lean:4978`) on the U-forms: the regime and its six hypotheses are introduced and
