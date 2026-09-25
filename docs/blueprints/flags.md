@@ -25645,3 +25645,4 @@ brief's rule: freeze-author tier).  The doorL2, road and capstone hops do not re
 hypothesis of the U-forms down to the capstone, or the head U-form's `K` tied to
 `bigXi_bounded_ceiling_eps` at `ε ≤ 1/500`); then the socket hop is the source's body with the
 count passed through.  **Owner:** the freeze author.  **Re-measure:** at the half-2 fire.
+RESOLVED 2026-09-25 (half 2): the head form's count moved to its conclusion side (ADDENDUM 2 §2); the hop landed at the first half-2 commit on `h2c/roadF-arm-U`, parent `ceda6db4` (a commit cannot name its own sha).

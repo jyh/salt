@@ -283,7 +283,8 @@ slot are the source's, token for token. -/
 
 /-- **the head form, uniform** (`FlatHeadFormU`) — `FlatHeadFormEpsW`
 (`FlatDoorEpsRung2.lean:4478`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
-hypothesis `Hcap ≤ R.Hlo`. -/
+hypothesis `Hcap ≤ R.Hlo`.  RE-CUT (the freeze's second addendum §2): the COUNT, which the head
+PROVES from its floor, is a CONCLUSION conjunct beside the slot, not a hypothesis on `R`. -/
 def FlatHeadFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
       1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
@@ -295,11 +296,11 @@ def FlatHeadFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
             XCeilRiderAt (50 + Real.log (c : ℝ)) ε g → R.eps = ε → Hcap ≤ R.Hlo →
             g R.Hhi R.ω ≤ R.x →
             Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
-            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
-              ((bigXi R.eps H).card : ℝ) ≤ K) →
             (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
               Real.log (Real.log (R.Hhi : ℝ))
                 ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
+            (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+              ((bigXi R.eps H).card : ℝ) ≤ K) ∧
             ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
               P R
 
@@ -552,23 +553,22 @@ def FlatKswinFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ)
                 P R))
 
 /-- **the rated (v7) form, uniform** (`V7RatedFormU`) — `V7RatedFormEpsW`
-(`FlatDoorEpsRung2.lean:4738`) with its `∃ R` tuple turned into `∀ R` + hypotheses; floor
-hypothesis `R.Hlo = flatDesignBase A` at the minted `A`, with the two design exports turned into
-hypotheses; no rider. -/
-def V7RatedFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
-    ∃ (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+(`FlatDoorEpsRung2.lean:4738`) with its `∃ R` tuple turned into `∀ R` + hypotheses, RE-CUT (the
+road-F freeze of candidate U, its second addendum §3): the design constant `A` is INTERNAL to the
+v7 hop, which chooses `A := loglog Hlo / 3.2` for the given regime, so the form exports a FLOOR
+`Hfl ≤ R.Hlo` in place of `R.Hlo = flatDesignBase A`; the class's ceiling and width law are the
+hypotheses on `R`; no rider. -/
+def V7RatedFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
+    ∃ (Cg Kc δ₀ Ct β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Hfl : ℕ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
       0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
       Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧
-      (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧
-      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
-      ∀ R : ChowlaRegime,
-        R.eps = ε → R.Hlo = flatDesignBase A →
+      (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
+      ∀ R : ChowlaRegime, R.eps = ε → Hfl ≤ R.Hlo →
+        Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (ε : ℝ) * ((R.Hhi : ℕ) : ℝ) →
         (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
           Real.log (Real.log (R.Hhi : ℝ))
             ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) →
-        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) →
         P R
 
 
@@ -1117,5 +1117,38 @@ theorem flat_capstone_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
       ring
     rw [hval]
     linarith [hend]
+
+/-! ## §5 — HALF 2: the socket hop, the head at the trivial payload, the shrink, the conditional ·
+kswin · v7 hops, the chain and `FlatDoorUniformW`
+
+The module header's "HALF 2 … is OWED" and §4's "THE SOCKET HOP IS NOT HERE" describe half 1 and
+are superseded by this section.  Two forms were RE-CUT for it (the road-F freeze of candidate U,
+its second addendum §2–§3): `FlatHeadFormU`'s count moved to its conclusion side, which is what
+lets the socket hop below forward it, and `V7RatedFormU` exports a floor. -/
+
+/-- **the socket hop, uniform** (`flat_socket_generic_U`) — `flat_socket_generic_epsW`
+(`FlatDoorEpsRung2.lean:4952`) on the U-forms: the head's floor `Hcap` sits under the socket's
+`max Hcap H₀`, the head at the given regime returns the COUNT beside its slot (the re-cut), and the
+count is spent, as at the source, as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`. -/
+theorem flat_socket_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
+    (h : FlatHeadFormU ε c P) :
+    FlatSocketFormU ε c P := by
+  unfold FlatSocketFormU
+  obtain ⟨K, δ₀, β, Hopq, hε, hK, hKb, hδ₀, hc1, hεpin, hδpin, hβ, hhead⟩ :=
+    h
+  obtain ⟨H₀, hH₀⟩ := sum_bigXi_norm_windowExpSum_sq_le_twelve ε hε
+  refine ⟨K, δ₀, β, max Hopq H₀, hε, hK, hKb, hδ₀, hc1, hεpin, hδpin, hβ, ?_⟩
+  intro A hA162 hAge hAL
+  obtain ⟨Hcap, hCapEq, hhd⟩ := hhead A (by linarith) hAge hAL
+  refine ⟨max Hcap H₀, by rw [hCapEq]; omega, ?_⟩
+  intro R g hg hReps hfl hRg hRx hRtow
+  obtain ⟨hcount, hslot⟩ :=
+    hhd R g hg hReps (le_trans (le_max_left _ _) hfl) hRg hRx hRtow
+  have harc : H₀ ≤ R.Hlo := le_trans (le_max_right _ _) hfl
+  intro a e Bsieve Binsert hsplit hB0 hsock hins hρ
+  refine hslot δ₀ hδ₀ le_rfl ?_
+  intro H _ hlo hhi
+  exact le_trans (hH₀ R hReps harc a e Bsieve K Binsert hsplit hB0 hsock hcount hins
+    H hlo hhi) (hρ H hlo hhi)
 
 end Salt.MR
