@@ -1587,4 +1587,37 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
       (s16_baseScaleCap96_LH_at_klevF_L (h := c) hc0 hLc0 le_rfl
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
+/-- **the chain, uniform** (`flat_chain_U`) — `flat_chain_generic_epsW`
+(`FlatDoorEpsRung2.lean:5656`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
+source's, `hε2 : ε ≤ 1 / 2`, for the kswin hop's first conjunct (see `flat_kswin_generic_U`). -/
+theorem flat_chain_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (hε2 : ε ≤ 1 / 2)
+    (h : FlatHeadFormU ε c P) : V7RatedFormU ε c P :=
+  flat_v7_generic_U ε c P (fun Awin hband => flat_kswin_generic_U ε c P Awin hε2
+    (flat_conditional_generic_U ε c P Awin (flat_capstone_generic_U ε c P
+      (flat_road_generic_U ε c P (flat_doorL2_generic_U ε c P (flat_socket_generic_U ε c P h)))
+      Awin hband)))
+
+/-- **⟦CANDIDATE U — THE UNIFORM FLAT DOOR, PROVED⟧** (`flatDoorUniformW_holds`) — the L² MRT door
+with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS, at every grade `ρ > 0` and every
+`ε ∈ (0, 1/500]`.  The charge is `crownWd_exists_charge`'s (it depends on `ε` and `ρ`, so the
+threshold pin holds at `ρ`); the head at the trivial payload is shrunk to grade `ρ`; the chain's
+V7 U-form exports the floor `H₀`.  ⚠ U is IMPLIED by the crown (`nextHopU_of_crown`) and is NOT
+the crown: the residual is every regime off the class.  No rate.  Nothing here bears on twin
+primes. -/
+theorem flatDoorUniformW_holds : FlatDoorUniformW := by
+  intro ε hε0 hε ρ hρ
+  obtain ⟨c, hc1, hcε, hpin⟩ := crownWd_exists_charge ε hε0 ρ hρ
+  have hhead : FlatHeadFormU ε c (fun _ => True) := flatHeadFormU_trivial ε hε0 hε hc1 hcε
+  have hV := flat_chain_U ε c (fun R => MRTUniformityXiL2 R ρ) (le_trans hε (by norm_num))
+    (flatHeadFormU_at_grade hhead hρ hpin)
+  obtain ⟨Cg, Kc, δ₀, Ct, β, Mfl, Cq, cs, T₀, Kq, Ks, C, Hfl,
+    -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, -, hall⟩ := hV
+  exact ⟨Hfl, fun R hcls hfl => hall R hcls.1 hfl hcls.2.1 hcls.2.2⟩
+
+/-- **W-δ FROM U** (`flatDoorAllGradesW_of_uniform`) — the zero level `nextHopU_zero_level`
+FIRED at `flatDoorUniformW_holds`: a second route to the landed `flatDoorAllGradesW_holds`.  It
+lands NO new statement. -/
+theorem flatDoorAllGradesW_of_uniform : FlatDoorAllGradesW :=
+  nextHopU_zero_level flatDoorUniformW_holds
+
 end Salt.MR
