@@ -25609,3 +25609,39 @@ consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6673`, `MR/PortAssembly.le
 `siegelWalfisz_of_standoff`, certified by a constant-closure walk that excludes `siegel_theorem`, prices at class B.
 It changes no truth value. The statement goes to the design tier, and a refuter pass comes before any wave.
 **Release condition:** none; these are records. **Re-measure:** at the next lane (a) pull.
+
+## ROAD F, CANDIDATE U, HALF 1 -- the socket pass-through hop STOP: the head's COUNT is not in the socket U-form (2026-09-25)
+
+**Node.**  `flat_socket_generic_U : FlatHeadFormU ε c P → FlatSocketFormU ε c P` (the road-F freeze of
+candidate U, half-1 deliverable D6).  Model: Claude Opus 5 (executor).  Attempts: 2 (the source's
+body transcribed with the count left as a named goal; the same with the goal state printed), plus a
+third by argument (below).  Everything else in half 1 landed in `Salt/MR/FlatDoorUniform.lean`:
+the class and the statement of record, the five receipts, the four inversion lemmas, the eight
+U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
+
+**What the hop needs about `R` that its U-form does not give.**  The source
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4952`) spends the head's COUNT export
+`∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
+as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
+(`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
+(its source exports it) while `FlatSocketFormU` has none (its source exports none).  At the object,
+with every other hypothesis in hand (`hReps · hfl : max Hcap H₀ ≤ R.Hlo · hRg · hRx · hRtow`), the
+one open goal is exactly
+`⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
+with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
+
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2235`) needs
+`ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
+not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
+count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof
+gap: the freeze's §1 row for the socket lists ⑥ among its reads and §2 disposes of ⑥ as "paid by
+`H₀`" — true for the ASSEMBLY (which picks `K` itself), not for a hop between two forms whose `K`
+is existential in the head.
+
+**Not done, deliberately.**  No form was changed (a count hypothesis on the socket, doorL2, road
+and capstone U-forms, or `K` pinned in the head, would each be a statement change outside the
+brief's rule: freeze-author tier).  The doorL2, road and capstone hops do not read it and landed.
+**Release condition:** the freeze author re-freezes the socket rule (e.g. the count as a
+hypothesis of the U-forms down to the capstone, or the head U-form's `K` tied to
+`bigXi_bounded_ceiling_eps` at `ε ≤ 1/500`); then the socket hop is the source's body with the
+count passed through.  **Owner:** the freeze author.  **Re-measure:** at the half-2 fire.
