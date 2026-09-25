@@ -568,4 +568,278 @@ def V7RatedFormU (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) :
         Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) →
         P R
 
+
+/-! ## §3 — U-ARM: the conditional hop's arm, from the regime's own fields
+
+The conditional hop reads `s15Arm δ₀ ρ' Hhi ω ≤ x` about the built regime.  At an arbitrary
+regime it is paid by the HBUDGET majorant `hPHheadroom` at the NINTH-ARM floor
+`518 + 6·log c ≤ loglog Hlo` (never `loglogFloor50` alone: at `loglog Hlo = 50` the arm exceeds
+the field for small enough `ρ` or `ε`, both of which U admits).  Every exponent stays symbolic. -/
+
+/-- **⟦U-ARM, the grade⟧** — the conditional hop's grade `ρ' = doorRhoOfDelta (s12DeltaSock δ₀ Kc)`
+at the pin `1/(838400·c) ≤ δ₀` and the count ceiling `Kc ≤ 2^283·c^20` has
+`0 ≤ log(1/ρ') ≤ 226 + 21·log c`: `1/ρ' ≤ max 1 (16·110525·Kc/δ₀) ≤ 1768400·838400·c·Kc`,
+`log (1768400·838400) ≤ 41·log 2 < 28.42` (`1768400·838400 = 1482626560000 ≤ 2^41`), and
+`log (2^283·c^20) ≤ 197 + 20·log c` (`epsRung2_log_Kb_le`). -/
+theorem uArm_log_inv_grade_le {c : ℕ} (hc1 : 1 ≤ c) {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀)
+    (hδpin : (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀) (hKc : 0 < Kc)
+    (hKcb : Kc ≤ 2 ^ 283 * (c : ℝ) ^ 20) :
+    0 ≤ Real.log (1 / doorRhoOfDelta (s12DeltaSock δ₀ Kc)) ∧
+      Real.log (1 / doorRhoOfDelta (s12DeltaSock δ₀ Kc)) ≤ 226 + 21 * Real.log (c : ℝ) := by
+  have hcR : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hc0 : (0 : ℝ) < (c : ℝ) := by linarith
+  have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  obtain ⟨Km, hKmdef⟩ : ∃ Km : ℝ, Km = 2 ^ 283 * (c : ℝ) ^ 20 := ⟨_, rfl⟩
+  have hKb : Real.log Km ≤ 197 + 20 * Real.log (c : ℝ) := by
+    rw [hKmdef]; exact epsRung2_log_Kb_le hc1
+  have hKm1 : (1 : ℝ) ≤ Km := by rw [hKmdef]; exact epsRung2_one_le_Kb hc1
+  rw [← hKmdef] at hKcb
+  clear hKmdef
+  have hδs2 : s12DeltaSock δ₀ Kc ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  obtain ⟨ρ', hρdef⟩ : ∃ ρ' : ℝ, ρ' = doorRhoOfDelta (s12DeltaSock δ₀ Kc) := ⟨_, rfl⟩
+  rw [← hρdef]
+  have hρ0 : 0 < ρ' := by
+    rw [hρdef]; exact doorRhoOfDelta_pos (s12DeltaSock_pos hδ₀ hKc).ne'
+  have hρ1 : ρ' ≤ 1 := by rw [hρdef]; exact doorRhoOfDelta_le_one _
+  have hinvδ : 1 / δ₀ ≤ 838400 * (c : ℝ) := by
+    rw [div_le_iff₀ hδ₀]
+    rw [div_le_iff₀ (by positivity)] at hδpin
+    linarith
+  have hB1 : (1 : ℝ) ≤ 1768400 * 838400 * (c : ℝ) * Km := by
+    have h1 : (1 : ℝ) ≤ 1768400 * 838400 * (c : ℝ) := by linarith
+    exact one_le_mul_of_one_le_of_one_le h1 hKm1
+  have hinvρ : 1 / ρ' ≤ 1768400 * 838400 * (c : ℝ) * Km := by
+    rw [hρdef, doorRhoOfDelta, hδs2]
+    rcases le_total 1 (δ₀ / (16 * Kc) / 110525) with h | h
+    · rw [min_eq_left h]; simpa using hB1
+    · rw [min_eq_right h, one_div_div]
+      have hstep : 110525 / (δ₀ / (16 * Kc)) = 1768400 * (Kc * (1 / δ₀)) := by
+        field_simp
+        ring
+      rw [hstep]
+      have h1 : Kc * (1 / δ₀) ≤ Km * (838400 * (c : ℝ)) :=
+        mul_le_mul hKcb hinvδ (by positivity) (by linarith)
+      have h2 : 1768400 * (Kc * (1 / δ₀)) ≤ 1768400 * (Km * (838400 * (c : ℝ))) :=
+        mul_le_mul_of_nonneg_left h1 (by norm_num)
+      linarith
+  refine ⟨Real.log_nonneg (by rw [le_div_iff₀ hρ0]; linarith), ?_⟩
+  have hnum : (1768400 * 838400 : ℝ) ≤ 2 ^ 41 := by norm_num
+  have hlnum : Real.log (1768400 * 838400 : ℝ) ≤ 41 * Real.log 2 := by
+    have h := Real.log_le_log (by norm_num) hnum
+    rwa [Real.log_pow, Nat.cast_ofNat] at h
+  have hlog := Real.log_le_log (by positivity) hinvρ
+  rw [Real.log_mul (by positivity) (by positivity), Real.log_mul (by positivity)
+    (by positivity)] at hlog
+  have hsum : Real.log (1768400 * 838400) + Real.log (c : ℝ) + Real.log Km
+      ≤ 41 * Real.log 2 + Real.log (c : ℝ) + (197 + 20 * Real.log (c : ℝ)) :=
+    add_le_add (add_le_add hlnum le_rfl) hKb
+  have hnum2 : 41 * Real.log 2 + Real.log (c : ℝ) + (197 + 20 * Real.log (c : ℝ))
+      ≤ 226 + 21 * Real.log (c : ℝ) := by linarith
+  exact le_trans hlog (le_trans hsum hnum2)
+
+/-- **⟦U-ARM, the exponent comparison⟧** — in the log-log domain, at the ninth-arm floor
+`518 + 6·log c ≤ u` and the grade bound `Λ ≤ 226 + 21·log c`, the arm's exponent
+`24·log 2 + 12·u + exp(7000·u + 500·Λ + 6600)` (plus `2`) sits under
+`exp(exp u − 12 − 2·log c)`.  With `F := 7000·u + 119600 + 10500·log c` the left side is
+`≤ 2·exp F ≤ exp (F + 1)`, and `F + 1 ≤ exp u − 12 − 2·log c` because
+`10502·log c ≤ 1751·u`, `119613 ≤ 231·u` and `8982·u ≤ u³/6 ≤ exp u` at `u ≥ 518`. -/
+theorem uArm_exponent_le {u Λ Lc : ℝ} (hu : 518 + 6 * Lc ≤ u) (hLc : 0 ≤ Lc)
+    (hΛ : Λ ≤ 226 + 21 * Lc) :
+    24 * Real.log 2 + 12 * u + Real.exp (7000 * u + 500 * Λ + 6600) + 2
+      ≤ Real.exp (Real.exp u - 12 - 2 * Lc) := by
+  have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hu0 : 0 ≤ u := by linarith
+  have h518u : (518 : ℝ) ≤ u := by linarith
+  have hu2 : (518 : ℝ) * 518 ≤ u * u := mul_le_mul h518u h518u (by norm_num) hu0
+  have hu3 : 268324 * u ≤ u ^ 3 := by
+    have h := mul_le_mul_of_nonneg_left hu2 hu0
+    nlinarith [h]
+  have hexpu : u ^ 3 / 6 ≤ Real.exp u := by
+    have h := Real.pow_div_factorial_le_exp u hu0 3
+    norm_num [Nat.factorial] at h
+    linarith
+  obtain ⟨F, hFdef⟩ : ∃ F : ℝ, F = 7000 * u + 119600 + 10500 * Lc := ⟨_, rfl⟩
+  have hEF : 7000 * u + 500 * Λ + 6600 ≤ F := by rw [hFdef]; linarith
+  have hFL : F + 1 ≤ Real.exp u - 12 - 2 * Lc := by rw [hFdef]; linarith
+  have hsmall : 24 * Real.log 2 + 12 * u + 2 ≤ Real.exp F := by
+    have := Real.add_one_le_exp F
+    rw [hFdef] at this ⊢
+    linarith
+  have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+  have h2F : 2 * Real.exp F ≤ Real.exp (F + 1) := by
+    rw [Real.exp_add]
+    have := mul_le_mul_of_nonneg_left he1 (Real.exp_pos F).le
+    linarith
+  have hFW : Real.exp (F + 1) ≤ Real.exp (Real.exp u - 12 - 2 * Lc) := Real.exp_le_exp.mpr hFL
+  have hEFe : Real.exp (7000 * u + 500 * Λ + 6600) ≤ Real.exp F := Real.exp_le_exp.mpr hEF
+  linarith
+
+/-- **⟦U-ARM⟧ the conditional hop's x-floor, from the regime's OWN fields**: the HBUDGET majorant
+`hPHheadroom` (`8·(4^⌊ε²·Hhi⌋₊)²·ω ≤ x`) dominates `s15Arm` at every regime whose `Hlo` clears the
+ninth-arm floor `518 + 6·log c ≤ loglog Hlo`.  Per unit `ω` every summand of the arm is at most
+`2^27·L^12·exp(exp E)` (`L = log Hhi`, `E = 7000·loglog Hhi + 500·log(1/ρ') + 6600`, using
+`Hhi ≤ exp(exp E)`, `c ≤ L`, `128·838400·c` from the pin), and
+`2^24·L^12·exp(exp E) = exp(24·log 2 + 12·u + exp E) ≤ exp(2N) ≤ 16^N`, `N = ⌊ε²·Hhi⌋₊`, by
+`uArm_exponent_le` and `2N ≥ exp(L − 12 − 2·log c) − 2` (from `ε ≥ 1/(500·c)`). -/
+theorem s15Arm_le_of_regime {c : ℕ} (hc1 : 1 ≤ c) {δ₀ Kc : ℝ} (hδ₀ : 0 < δ₀)
+    (hδpin : (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀) (hKc : 0 < Kc)
+    (hKcb : Kc ≤ 2 ^ 283 * (c : ℝ) ^ 20)
+    (R : ChowlaRegime) (hε : (1 : ℚ) / (500 * (c : ℚ)) ≤ R.eps)
+    (h518 : 518 + 6 * Real.log (c : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ))) :
+    s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) R.Hhi R.ω ≤ R.x := by
+  obtain ⟨hΛ0, hΛ⟩ := uArm_log_inv_grade_le hc1 hδ₀ hδpin hKc hKcb
+  clear hKcb
+  have hcR : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hc0 : (0 : ℝ) < (c : ℝ) := by linarith
+  have hLc0 : 0 ≤ Real.log (c : ℝ) := Real.log_nonneg hcR
+  have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  -- ⟦the scales: `L = log Hhi`, `u = log L`⟧
+  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
+  have hHloHhi : (R.Hlo : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast R.hHlohi
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
+  have hlogHlo : 0 < Real.log (R.Hlo : ℝ) := Real.log_pos (by linarith)
+  have hlogle : Real.log (R.Hlo : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
+    Real.log_le_log (by linarith) hHloHhi
+  obtain ⟨L, hLdef⟩ : ∃ L : ℝ, L = Real.log (R.Hhi : ℝ) := ⟨_, rfl⟩
+  have hL0 : 0 < L := by rw [hLdef]; linarith
+  obtain ⟨u, hudef⟩ : ∃ u : ℝ, u = Real.log L := ⟨_, rfl⟩
+  have hu518 : 518 + 6 * Real.log (c : ℝ) ≤ u := by
+    rw [hudef, hLdef]; exact le_trans h518 (Real.log_le_log hlogHlo hlogle)
+  have hLu : Real.exp u = L := by rw [hudef]; exact Real.exp_log hL0
+  have hHL : Real.exp L = (R.Hhi : ℝ) := by rw [hLdef]; exact Real.exp_log hHhi0
+  have hu0 : 0 ≤ u := by linarith
+  have hcL : (c : ℝ) ≤ L := by
+    calc (c : ℝ) = Real.exp (Real.log (c : ℝ)) := (Real.exp_log hc0).symm
+      _ ≤ Real.exp u := Real.exp_le_exp.mpr (by linarith)
+      _ = L := hLu
+  have hL1 : 1 ≤ L := le_trans hcR hcL
+  -- ⟦the arm's exponent `E`, `Q = exp(exp E)`, `P = L^12·Q`⟧
+  obtain ⟨ρ', hρdef⟩ : ∃ ρ' : ℝ, ρ' = doorRhoOfDelta (s12DeltaSock δ₀ Kc) := ⟨_, rfl⟩
+  rw [← hρdef] at hΛ0 hΛ
+  obtain ⟨E, hEdef⟩ : ∃ E : ℝ, E = 7000 * u + 500 * Real.log (1 / ρ') + 6600 := ⟨_, rfl⟩
+  obtain ⟨Q, hQdef⟩ : ∃ Q : ℝ, Q = Real.exp (Real.exp E) := ⟨_, rfl⟩
+  have hLE : L ≤ Real.exp E := by
+    rw [← hLu]; exact Real.exp_le_exp.mpr (by rw [hEdef]; linarith)
+  have hHQ : (R.Hhi : ℝ) ≤ Q := by
+    rw [← hHL, hQdef]; exact Real.exp_le_exp.mpr hLE
+  have hL12 : (1 : ℝ) ≤ L ^ 12 := one_le_pow₀ hL1
+  obtain ⟨P, hPdef⟩ : ∃ P : ℝ, P = L ^ 12 * Q := ⟨_, rfl⟩
+  have hQP : Q ≤ P := by rw [hPdef]; exact le_mul_of_one_le_left (by linarith) hL12
+  have hHP : (R.Hhi : ℝ) ≤ P := le_trans hHQ hQP
+  have hLH : L ≤ (R.Hhi : ℝ) := by rw [← hHL]; linarith [Real.add_one_le_exp L]
+  have hcP : (c : ℝ) ≤ P := by linarith
+  have hP1 : 1 ≤ P := by linarith
+  -- ⟦the headroom field: `8·(4^N)²·ω ≤ x`, `N = ⌊ε²·Hhi⌋₊`⟧
+  have hPH := R.hPHheadroom
+  obtain ⟨N, hN⟩ : ∃ N : ℕ, N = ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := ⟨_, rfl⟩
+  rw [← hN] at hPH
+  have hNlt : (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) < (N : ℝ) + 1 := by
+    have h := Nat.lt_floor_add_one (R.eps ^ 2 * (R.Hhi : ℚ))
+    rw [← hN] at h
+    have h' := (Rat.cast_lt (K := ℝ)).mpr h
+    push_cast at h'
+    exact h'
+  have hεR : (1 : ℝ) / (500 * (c : ℝ)) ≤ (R.eps : ℝ) := by
+    have h : (((1 : ℚ) / (500 * (c : ℚ)) : ℚ) : ℝ) ≤ ((R.eps : ℚ) : ℝ) := Rat.cast_le.mpr hε
+    push_cast at h
+    exact h
+  have h500 : 1 ≤ 500 * (c : ℝ) * (R.eps : ℝ) := by
+    rw [div_le_iff₀ (by positivity)] at hεR; linarith
+  have h500sq : 1 ≤ 250000 * (c : ℝ) ^ 2 * (R.eps : ℝ) ^ 2 := by
+    calc (1 : ℝ) ≤ (500 * (c : ℝ) * (R.eps : ℝ)) ^ 2 := one_le_pow₀ h500
+      _ = 250000 * (c : ℝ) ^ 2 * (R.eps : ℝ) ^ 2 := by ring
+  -- ⟦`W = exp(L − 12 − 2·log c)` sits under `2·ε²·Hhi`⟧
+  obtain ⟨W, hWdef⟩ : ∃ W : ℝ, W = Real.exp (L - 12 - 2 * Real.log (c : ℝ)) := ⟨_, rfl⟩
+  have hW0 : 0 ≤ W := by rw [hWdef]; positivity
+  have h125 : 125000 * (c : ℝ) ^ 2 ≤ Real.exp (12 + 2 * Real.log (c : ℝ)) := by
+    have hc2 : (c : ℝ) ^ 2 = Real.exp (2 * Real.log (c : ℝ)) := by
+      rw [show 2 * Real.log (c : ℝ) = ((2 : ℕ) : ℝ) * Real.log (c : ℝ) by norm_num,
+        Real.exp_nat_mul, Real.exp_log hc0]
+    have h12 : (125000 : ℝ) ≤ Real.exp 12 := by
+      have h217 : (125000 : ℝ) ≤ 2 ^ 17 := by norm_num
+      have h17 : Real.exp (17 * Real.log 2) = 2 ^ 17 := by
+        rw [show (17 : ℝ) * Real.log 2 = ((17 : ℕ) : ℝ) * Real.log 2 by norm_num,
+          Real.exp_nat_mul, Real.exp_log two_pos]
+      have hle : Real.exp (17 * Real.log 2) ≤ Real.exp 12 :=
+        Real.exp_le_exp.mpr (by linarith)
+      linarith
+    rw [Real.exp_add, hc2]
+    exact mul_le_mul_of_nonneg_right h12 (by positivity)
+  have hWH : W * (125000 * (c : ℝ) ^ 2) ≤ (R.Hhi : ℝ) := by
+    calc W * (125000 * (c : ℝ) ^ 2) ≤ W * Real.exp (12 + 2 * Real.log (c : ℝ)) :=
+          mul_le_mul_of_nonneg_left h125 hW0
+      _ = (R.Hhi : ℝ) := by
+          rw [hWdef, ← Real.exp_add, ← hHL]
+          congr 1
+          ring
+  have hepsH : W / 2 ≤ (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) := by
+    have h1 : (R.eps : ℝ) ^ 2 * (W * (125000 * (c : ℝ) ^ 2))
+        ≤ (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) := mul_le_mul_of_nonneg_left hWH (sq_nonneg _)
+    have h2 : W * (1 / 2) ≤ W * (125000 * (c : ℝ) ^ 2 * (R.eps : ℝ) ^ 2) :=
+      mul_le_mul_of_nonneg_left (by linarith) hW0
+    linarith
+  -- ⟦the exponent comparison⟧
+  have hexp := uArm_exponent_le hu518 hLc0 hΛ
+  rw [hLu, ← hWdef, ← hEdef] at hexp
+  have hkey : 24 * Real.log 2 + 12 * u + Real.exp E ≤ 2 * (N : ℝ) := by linarith
+  -- ⟦`2^24·P ≤ (4^N)²`⟧
+  have hexpP : 16777216 * P = Real.exp (24 * Real.log 2 + 12 * u + Real.exp E) := by
+    rw [Real.exp_add, Real.exp_add, hPdef, hQdef, ← hLu]
+    rw [show (24 : ℝ) * Real.log 2 = ((24 : ℕ) : ℝ) * Real.log 2 by norm_num,
+      Real.exp_nat_mul, Real.exp_log two_pos]
+    rw [show (12 : ℝ) * u = ((12 : ℕ) : ℝ) * u by norm_num, Real.exp_nat_mul]
+    ring
+  have hY : Real.exp (2 * (N : ℝ)) ≤ ((4 ^ N : ℕ) : ℝ) ^ 2 := by
+    have he2 : Real.exp 2 ≤ 16 := by
+      have h1 := Real.exp_one_lt_d9
+      have h : Real.exp 2 = Real.exp 1 ^ 2 := by rw [← Real.exp_nat_mul]; norm_num
+      have h4 : Real.exp 1 ≤ 4 := by linarith
+      rw [h]
+      calc Real.exp 1 ^ 2 ≤ 4 ^ 2 := pow_le_pow_left₀ (Real.exp_pos 1).le h4 2
+        _ = 16 := by norm_num
+    have h16 : ((4 ^ N : ℕ) : ℝ) ^ 2 = (16 : ℝ) ^ N := by
+      push_cast
+      rw [← pow_mul, mul_comm, pow_mul]
+      norm_num
+    rw [h16, show 2 * (N : ℝ) = (N : ℝ) * 2 by ring, Real.exp_nat_mul]
+    exact pow_le_pow_left₀ (Real.exp_pos 2).le he2 N
+  have h24P : 16777216 * P ≤ ((4 ^ N : ℕ) : ℝ) ^ 2 := by
+    rw [hexpP]; exact le_trans (Real.exp_le_exp.mpr hkey) hY
+  -- ⟦the goal, in `ℝ`⟧
+  rw [← hρdef, ← Nat.cast_le (α := ℝ)]
+  unfold s15Arm s13GArm'
+  push_cast
+  have hω1 : (1 : ℝ) ≤ (R.ω : ℝ) := by
+    have h := R.hω
+    exact_mod_cast (by omega : 1 ≤ R.ω)
+  have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := by linarith
+  have hinvδ : 1 / δ₀ ≤ 838400 * (c : ℝ) := by
+    rw [div_le_iff₀ hδ₀]
+    rw [div_le_iff₀ (by positivity)] at hδpin
+    linarith
+  have hceil1 : ((⌈128 * (R.ω : ℝ) / δ₀⌉₊ : ℕ) : ℝ)
+      ≤ 128 * 838400 * ((R.ω : ℝ) * (c : ℝ)) + 1 := by
+    have h1 := Nat.ceil_lt_add_one (show 0 ≤ 128 * (R.ω : ℝ) / δ₀ by positivity)
+    have h2 : 128 * (R.ω : ℝ) / δ₀ = 128 * ((R.ω : ℝ) * (1 / δ₀)) := by ring
+    have h3 : (R.ω : ℝ) * (1 / δ₀) ≤ (R.ω : ℝ) * (838400 * (c : ℝ)) :=
+      mul_le_mul_of_nonneg_left hinvδ hω0
+    linarith
+  have hgval : gArmDoorRho 0 0 (R.ω : ℝ) ρ' R.Hhi = 16 * ((R.ω : ℝ) * P) := by
+    unfold gArmDoorRho arcDen
+    rw [show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast, ← hLdef, ← hudef]
+    simp only [mul_zero, add_zero]
+    rw [max_eq_right (by positivity)]
+    rw [← hEdef, ← hQdef, hPdef]
+    ring
+  have hωP0 : 0 ≤ (R.ω : ℝ) * P := mul_nonneg hω0 (by linarith)
+  have hceil2 : ((⌈gArmDoorRho 0 0 (R.ω : ℝ) ρ' R.Hhi⌉₊ : ℕ) : ℝ)
+      ≤ 16 * ((R.ω : ℝ) * P) + 1 := by
+    rw [hgval]
+    exact (Nat.ceil_lt_add_one (by linarith)).le
+  have hωP : (R.ω : ℝ) ≤ (R.ω : ℝ) * P := le_mul_of_one_le_right hω0 hP1
+  have hωH : (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.ω : ℝ) * P := mul_le_mul_of_nonneg_left hHP hω0
+  have hωc : (R.ω : ℝ) * (c : ℝ) ≤ (R.ω : ℝ) * P := mul_le_mul_of_nonneg_left hcP hω0
+  have hfin := mul_le_mul_of_nonneg_right h24P hω0
+  linarith [hfin, hPH, hceil1, hceil2, hωP, hωH, hωc, hω1]
+
 end Salt.MR
