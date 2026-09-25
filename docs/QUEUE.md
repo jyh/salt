@@ -279,6 +279,10 @@ every QUEUE citation — both repos have a `docs/QUEUE.md`.
   - ⚠️ **WHAT IS NOT SAID — THE CAVEAT FIRST, in the result-of-record post's own words (h2c, 2026-09-23 02:06):** the shape is **`∀ A₀ ∃ Ra` on the FLAT family, NOT the crown's `∃ H₀ ∀ R`** — the crown still has no producer and E2's `hcrown` binder STANDS; the `ε`-floor `1/(500·a·h)` is structural, so W-δ's `∀ ε ∈ (0, 1/500]` is NOT recovered and `(1/500, 1/2]` is not bought; no rate is exported; the class road's residual and the band are not bought. **NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.** The registration block's WHAT IS NOT SAID carries the freeze's §5 verbatim, and this caveat rides with every surface Z reaches.
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** Nothing is commissioned past Z; h2c holds on a gate until one is ruled.
 
+✅ **ROAD F · CANDIDATE U — THE UNIFORM FLAT DOOR — LANDED 2026-09-25 (h2c; PR #183 → merge `2fb62a98` on `main`, half 1 + half 2; math's non-author read CONFIRM — vacuity PROVED as a separate theorem in its own tree, own kernel pair with a planted control).** `Salt/MR/FlatDoorUniform.lean`: `flatDoorUniformW_holds : FlatDoorUniformW` — the L² MRT door with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS (`FlatClassW ε R`: the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law), at every grade `ρ > 0` and every `ε ∈ (0, 1/500]`; landed receipts: U ⇒ W-δ (`nextHopU_zero_level`) and the crown ⇒ U (`nextHopU_of_crown`). ⛔ **CAVEAT FIRST:** U is implied by the crown and is NOT the crown — the residual is every regime OFF the class (`x` above the ceiling; `Hhi` tower-far above `Hlo`), the EM freeze's roads 2/5; no rate; the ε-range stays `(0, 1/500]`; **nothing bears on twin primes.** The freeze and its two addenda are seat-record artifacts, cited by role.
+  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4823` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
+  - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** U is the last hop the 09:48 order commissioned ("road F's next hop after arm S"); E is parked here with its read; nothing is commissioned past U. ⛔ Caveat unchanged: U is implied by the crown and is NOT the crown; nothing bears on twin primes.
+
 
 1. **λ-BV DESIGN BLOCK** — ✅ **BLOCK DELIVERED AND CONSUMED; WAVE 1 IS COMPLETE (08/20).**
    ⛔ **DO NOT RE-DISPATCH.** *Statement below untouched — status field only.* — math's pen: the dispersion campaign's shape
@@ -6385,6 +6389,16 @@ three days and was carried into a council as an open item before measurement kil
    landed file): 24 of 25 `nlinarith` calls replayed by the tool's own printed suggestions, 8,034,279 → 560,127 heartbeats
    (−93 %, 14.3×), the fleet lock 49 s vs ~5.5 min, statement token-identical, the kernel receipt PAIR re-taken. No landed
    proof was converted by it: converting is the DEBT LANE below and waits on that lane's gate.
+   ⚑ **THIRD PULL — `LogNum` LANDED AS A NEW FILE 2026-09-25 (math, 62nd head, on the helm's 13:39 order; PR #185).** The census
+   was re-taken over the WHOLE corpus (1,310 files; the first read 72 and declared it): the numeric transcendental fact is 3,494
+   sites / 6,494 lines, and **`explog_num` already reaches ~1,051 sites (≤ ~1,550 lines), against its declared 111.** That is the largest
+   measured line lever, and it is a CONVERSION, so it goes to the debt lane's review. On the cost axis: 708 `maxHeartbeats` overrides in
+   206 files, of which 121 have no search tactic at all; those are M4 register/socket plumbing, mostly copied families (debt lane,
+   not a tactic). THE CANDIDATE, the log side `ExpLogNum` declared out of scope: the log-of-numeral-power dance at 183–197 sites (at least 127
+   re-deriving `log 4 = 2·log 2`, which is also landed as a lemma SIX times, three of them `private`), ≈254 lines upper bound. Named
+   proof `chowlaRegimeFlat_exists_param_head_xceil_mul_at_L` on a scratch COPY: 120 → 114 lines, 79,094 → 72,746 heartbeats, kernel
+   receipt unchanged. Freeze → a 3-refuter non-author pass (REPAIR-THEN-FIRE ×3, no kill, four repairs) → one executor. No landed proof
+   converted (the gate). Nothing bears on twin primes.
    ⚖️ **THE COPIED-LADDER DEBT LANE — P3, MINTED 2026-09-25 ON THE CAPTAIN'S RULING (council 2026-09-25 §A6, desk XY; his
    *"yes, accept rec"*).** THE DEBT, measured (the census's §2·S5 and §6; the table `dup-census.txt` beside it): **39 families
    · 117 members · 10,856 redundant lines = 30 % of the population's tactic-mode proof lines** are COPIES BY POLICY — the H2c
