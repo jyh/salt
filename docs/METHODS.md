@@ -217,6 +217,24 @@ converged on.*
    counterexample or blocker). Undecided directions are the research
    method's version of `sorry` — not allowed in a finished expedition.
 
+7. **The four tools, and dream and play as a named phase** *(2026-09-26,
+   at the Captain's word; SALT-METHOD.md R8)*. When a road stalls at a
+   statement nobody can price as a wave, the research method has four
+   tools, to be run together rather than chosen between: (a) a
+   **literature search including conjectures and musings** — read for
+   the shape of the arguments, as-of and cited, conjectures labelled;
+   (b) a **review of the goldmine** — the landed corpus walked against
+   the question, never assumed absent (docs/RESULTS.md, the summit map);
+   (c) **hypothesis testing** — attempt the wanted statement in scratch,
+   expecting to fail, with the intent of naming the exact site and shape
+   of the break and the ingredient that would close it, each break
+   mutation-controlled so it is mathematics and not a tactic; (d) **dream
+   and play** — ideas tried for their own sake, each with a ledger line
+   (the fleet's `DREAM-LEDGER.md`, private record: tried · what happened · dead or alive).
+   The deliverable of such an expedition is a NAMED MISSING INGREDIENT or
+   the statement that none could be named and where every route broke;
+   a landing claim is refused unless a kernel receipt stands beside it.
+
 **The graduation path**: play → brainstorm → investigate → prove is
 the intended pipeline, but any stage can be entered directly, and an
 investigation that hits a provable statement should say so and stop —

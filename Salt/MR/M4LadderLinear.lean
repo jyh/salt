@@ -18,7 +18,9 @@ import Salt.MR.M4ClassPrice
 
 ⟦LADDER-L, G1 §3⟧  The `_L` twin family of `M4MeanSq`, `M4Close`, `M4MeanSqPool`,
 `M4BridgeCover`, `M4BridgePhase`, `M4MeanSqPrime`, `M4BridgeDilate` and `M4ClassPrice` at the
-LINEAR door.  Purely additive: no landed declaration moves.
+LINEAR door.  Purely additive at landing (2026-08-01): no landed declaration moved.  From
+2026-09-26 the XY debt lane retires copied siblings into their generics, one family per PR,
+each retirement noted in place (search `RETIRED INTO ITS GENERIC`).
 
 What each twin is:
 
@@ -47,87 +49,18 @@ open MeasureTheory
 open Salt.ExpSum
 open Salt.Entropy.Chowla
 
-/-! ### `M4MeanSq` :408 — `m4_cofactorSocket_at_witness` -/
-/-- **THE CO-FACTOR SOCKET AT THE WITNESS LADDER** (`m4_cofactorSocket_at_witness_L`).
-`CapFreeArm3.cofactorSocket_of_ellLin` at `b := ellLin (liouChi χ)`, `t₁ := 0`, the annulus
-height `Tann := X` (the window's TOP — the row reads it antitonely), `Mt/kk := witMt/witKk`,
-and `R̄` the uniform corner `cofactorRbd34loc(1/e, C_b, X, θ₂₉₃, kmin, Ymax, T*₂(Ymax), Rrad)`.
+/-! ### `M4MeanSq` :408 — `m4_cofactorSocket_at_witness` — RETIRED INTO ITS GENERIC
 
-`hsockA` is `CaseASocket.caseASocket2_discharged`'s body at the capstone's own `X₀`. -/
-theorem m4_cofactorSocket_at_witness_L {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
-    {cf a : ℕ → ℂ} {N Xd P Q M : ℕ}
-    {X h δ' VJ L Cb Rrad kmin Ymax EP2 cq T₀ X₀ : ℝ}
-    (hsockA : ∀ (g : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) →
-      ∀ (P' Q' : ℕ) (c' Cb' X' θ' : ℝ) (k₀' M' : ℕ) (t : ℝ),
-        0 < c' → c' ≤ 1 / Real.exp 1 → 2 * c' < 1 → 0 ≤ Cb' → ShortIntervalDatum Cb' →
-        X₀ ≤ (k₀' : ℝ) → pin2Gate ≤ (k₀' : ℝ) → k₀' ≤ M' → (M' : ℝ) ≤ 2 * (k₀' : ℝ) →
-        0 ≤ cofactorMfl X' θ' (k₀' : ℝ) →
-        CaseASocket2 g P' Q' c' Cb' X' θ' k₀' M' t)
-    (F : A2Frame3 (ellLin (liouChi χ)) cf a N Xd P Q (AdoorL M) (3072 * M) M 2
-      (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
-      (H1doorL M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀)
-    (hX0 : 0 < X) (hh4 : 4 ≤ h) (hLXe : Real.exp 1 ≤ Real.log X)
-    (hPlow : P83 X theta293 ≤ (P : ℝ)) (hQhigh : (Q : ℝ) ≤ Q83 X) (hPQ : P ≤ Q)
-    (hfloor : CapFreeFloor3 (liouChi χ) X)
-    (hCb0 : 0 ≤ Cb) (hCbound : ShortIntervalDatum Cb) (hRrad0 : 0 < Rrad)
-    (hX₀k : X₀ ≤ kmin) (hMfl0 : 0 ≤ cofactorMfl X theta293 kmin) (hk2 : 2 ≤ kmin)
-    (hkk : ∀ j ∈ ramI (H83 X theta293) P Q,
-      kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ))
-    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P Q,
-      pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ))
-    (hMtY : ∀ j ∈ ramI (H83 X theta293) P Q,
-      ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) :
-    CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0
-      (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
-        (Tstar2 Ymax (Real.log Ymax)) Rrad) (ellLin (liouChi χ)) := by
-  have hgl : ∀ p : ℕ, p.Prime → ‖liouChi χ p‖ ≤ 1 := fun p _ => norm_liouChi_le_one χ p
-  have he1 : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-  have hc0 : (0 : ℝ) < 1 / Real.exp 1 := by positivity
-  have hc1 : 2 * (1 / Real.exp 1) < 1 := by
-    rw [mul_one_div, div_lt_one (by linarith)]; linarith
-  have hh0 : (0 : ℝ) < h := by linarith
-  -- ⟦the annulus at the window's TOP⟧ `2·(X/h) ≤ X` from `4 ≤ h`
-  have h2aX : 2 * (X / h) ≤ X := by
-    rw [mul_comm, div_mul_eq_mul_div, div_le_iff₀ hh0]
-    nlinarith
-  have hblkX := F.blocks X h2aX le_rfl
-  -- ⟦SUPPLIER 1⟧ the collision socket, VACUOUSLY, at the centre `0`
-  have hsockP : PocketSocket3 (liouChi χ) P Q X theta293 0 :=
-    pocketSocket_of_floor3 hgl theta293_pos (le_of_lt theta293_lt_one_div_32) hLXe hPlow
-      hQhigh hPQ hfloor 0
-  -- ⟦SUPPLIER 2⟧ CASE A, from the discharged slice
-  have hA2 : ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ,
-      CaseASocket2 (liouChi χ) P Q (1 / Real.exp 1) Cb X theta293
-        (witKk (H83 X theta293) Xd j) (witMt (H83 X theta293) Xd j) t := by
-    intro j hj t
-    obtain ⟨-, -, -, -, -, -, hk₀th, -, hk₀lo, hk₀hi, -, -, hhigh, hMtop, -, -, -⟩ :=
-      hblkX j hj
-    have hk₀pin : pin2Gate ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
-      le_trans pin2Gate_le_ballQuarterThreshold hk₀th
-    have hk3 : (3 : ℝ) ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
-      le_trans three_le_ballQuarterThreshold hk₀th
-    have hkMR : ((witKk (H83 X theta293) Xd j : ℕ) : ℝ)
-        ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) := by linarith
-    have hkM : witKk (H83 X theta293) Xd j ≤ witMt (H83 X theta293) Xd j := by
-      exact_mod_cast hkMR
-    have hM2k : ((witMt (H83 X theta293) Xd j : ℕ) : ℝ)
-        ≤ 2 * ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) := by linarith
-    have hX₀kk : X₀ ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) := le_trans hX₀k (hkk j hj)
-    have hMflkk : (0 : ℝ) ≤ cofactorMfl X theta293 ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
-      le_trans hMfl0 (cofactorMfl_mono X theta293 (hkk j hj))
-    exact hsockA (liouChi χ) hgl P Q (1 / Real.exp 1) Cb X theta293
-      (witKk (H83 X theta293) Xd j) (witMt (H83 X theta293) Xd j) t hc0 le_rfl hc1 hCb0
-      hCbound hX₀kk hk₀pin hkM hM2k hMflkk
-  -- ⟦SUPPLIER 3⟧ the uniform ceiling
-  have hMt1 : ∀ j ∈ ramI (H83 X theta293) P Q,
-      (1 : ℝ) ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) := by
-    intro j hj
-    have h1 : (1 : ℝ) ≤ pin2Gate := Real.one_le_exp (by norm_num)
-    exact le_trans h1 (hMtpin j hj)
-  have hRbdU := Rbd34loc_uniform (H83 X theta293) P Q (witMt (H83 X theta293) Xd)
-    (witKk (H83 X theta293) Xd) (1 / Real.exp 1) Cb X theta293 Rrad kmin Ymax hc0 hc1 hCb0
-    (by linarith) hMtpin hkk hMt1 hMtY
-  exact cofactorSocket_of_ellLin hgl hc1 hCb0 hRrad0 hsockP hblkX F.box hA2 hRbdU
+⟦XY debt lane, family 01 (2026-09-26)⟧  `m4_cofactorSocket_at_witness_L` — the `_L` twin of
+`M4MeanSq`'s `m4_cofactorSocket_at_witness` at the linear door — stood here, its `A2Frame3`
+binder reading the ladder at `3072 * M`.  It is `m4_cofactorSocket_at_witness_L_gk` (below,
+§`M4MeanSq` :945) at `K = 0`: `s13GK 0 M = 3072 * M` (`s13GK_zero`), and every other binder and
+the conclusion are token-identical.  The implication generic ⇒ sibling was kernel-checked from
+the retired statement's own bytes, in a scratch whose log rides with the retiring PR, before the
+81 lines (this heading, the docstring and the theorem, `ddecb6bf` :50–130) were removed; the
+sibling had no consumer.  Comment mentions of `m4_cofactorSocket_at_witness_L` below (in binder
+lists and in proof bodies) are the historical name — read `m4_cofactorSocket_at_witness_L_gk` at
+`K = 0`. -/
 
 /-! ### `M4MeanSq` :494 — `m4_meansq_per_chi_gen` -/
 set_option maxHeartbeats 1600000 in

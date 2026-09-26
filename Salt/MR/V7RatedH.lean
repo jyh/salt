@@ -122,7 +122,7 @@ theorem cofkR_cofactorSupply_L_gk_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log
   obtain ⟨Xsk, hXsk0, hsup⟩ := m4_supplier_complete
   obtain ⟨Y0, hY0pin, hfarclose⟩ := farErr34_local_closes
   obtain ⟨_Z, _δ, Kvt, _, _, hKvt0, hKvt⟩ :=
-    cofkL_capFreeFloor_at_socket_rated_uniform_h h hh hh7
+    cofkL_capFreeFloor_at_socket_rated_uniform_h_b9 h hh (by linarith)
   obtain ⟨Cb, hCb0, hCbound⟩ := exists_shortIntervalDatum
   refine ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, ?_⟩
   intro K Cq R M hM hCq hε hlo hfl hgate hcush H Lw q j A s hb T hTlo hThi

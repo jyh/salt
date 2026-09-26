@@ -935,13 +935,13 @@ produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
-**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:921`) — `m4_cover_assembly_L`
+**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:854`) — `m4_cover_assembly_L`
 (`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
 
-**`M4DoorGates_L`** (`M4LadderLinear.lean:939`) is a **structure** — a bundle of regime data, so
+**`M4DoorGates_L`** (`M4LadderLinear.lean:872`) is a **structure** — a bundle of regime data, so
 its "producer" is an instance construction rather than a theorem.  Not measured here.
 
 ⛔ **I AM NOT CALLING THE GATES CLOSED.**  Today I made four same-signed errors reading the
