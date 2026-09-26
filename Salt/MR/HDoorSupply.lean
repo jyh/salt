@@ -788,97 +788,21 @@ theorem cofkL_X_ge_expexp_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 <
   have h := Real.exp_le_exp.mpr he
   rwa [Real.exp_log hApos] at h
 
-/-! ## §7 — the fifth-conjunct half at the socket: the scale gate and the threshold -/
+/-! ## §7 — the fifth-conjunct half at the socket: the scale gate and the threshold (both retired
+2026-09-26 into their `_b9` generics, families 05 and 04 — the notes below) -/
 
-set_option maxHeartbeats 1000000 in
-/-- **⟦THE SCALE GATE AT THE INFLATED SOCKET⟧** (`cofkL_scale_gate_at_socket_h`) — the
-`h`-family of `BandRatedSocket.cofkL_scale_gate_at_socket`.
+/-! ### THE SCALE GATE AT THE INFLATED SOCKET, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
-The gate's whole content is that two logarithms are far apart: `log(1900·q⁵)` is now
-`≤ 1899 + 5·log h + 60·loglog H` against `loglog X ≥ log H₊ − 28 ≥ 10⁴·√(log H₊) − 28`.  The
-`5·log h ≤ 35` the inflation adds is invisible at that scale, and so is ruling (a)'s further
-`− 14`; both are CARRIED, not waved. -/
-theorem cofkL_scale_gate_at_socket_h {R : ChowlaRegime} {h M H L q j A s : ℕ} [NeZero q]
-    (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
-    (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)))
-    (harc : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H) :
-    32 * diskConst q / goldenL1 q ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-  have h1 : R.Hlo ≤ H := hb.1
-  have h2 : H ≤ R.Hhi := hb.2.1
-  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
-  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
-  have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
-    have h := Real.exp_le_exp.mpr hlo
-    rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
-  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
-  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
-  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
-  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
-  have hHlo0 : (0 : ℝ) < (R.Hlo : ℝ) := by linarith
-  have hlogH : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) := Real.log_le_log hHlo0 hHloH
-  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
-    Real.log_le_log (by linarith) hHHhi
-  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
-  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
-  have hHhi14 : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ) := by
-    have hLhh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
-    have hhpos : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-    have hlogle : Real.log ((10 : ℝ) ^ 26 * (h : ℝ) ^ 4) ≤ Real.log (R.Hhi : ℝ) := by
-      rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
-      push_cast
-      linarith [cofk_log_ten_le, hLH8, hh7]
-    have h2' := Real.exp_le_exp.mpr hlogle
-    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
-  have hHe : Real.exp 1 ≤ Real.log (H : ℝ) := by
-    have h3 : Real.exp 1 ≤ 3 := by linarith [Real.exp_one_lt_d9]
-    linarith
-  -- ⟦the `μ`-floor and the scale floor, at the INFLATED socket⟧
-  have hmu := cofkL_mu_floor_h hh hh7 hb hε hHhi14 hH4
-  have hfl := cofkL_logX_floor_h hh hh7 hb hε hHhi14 hH4
-  have hlogXpos : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have hbig : (0 : ℝ) < (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by positivity
-    linarith
-  -- ⟦`loglog H` against `√(log H₊)`⟧
-  have hLH0 : (0 : ℝ) < Real.log (R.Hhi : ℝ) := by linarith
-  have hΛ : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (R.Hhi : ℝ)) :=
-    Real.log_le_log (by linarith) hlogHhi
-  have hlogLH : Real.log (Real.log (R.Hhi : ℝ)) ≤ 2 * Real.sqrt (Real.log (R.Hhi : ℝ)) - 2 :=
-    cofk_log_le_two_sqrt hLH0
-  have hv : (10 : ℝ) ^ 4 ≤ Real.sqrt (Real.log (R.Hhi : ℝ)) := by
-    have h1' : Real.sqrt (((10 : ℝ) ^ 4) ^ 2) ≤ Real.sqrt (Real.log (R.Hhi : ℝ)) :=
-      Real.sqrt_le_sqrt (by nlinarith)
-    rwa [Real.sqrt_sq (by norm_num)] at h1'
-  have hv0 : (0 : ℝ) ≤ Real.sqrt (Real.log (R.Hhi : ℝ)) := Real.sqrt_nonneg _
-  have hvsq : Real.sqrt (Real.log (R.Hhi : ℝ)) * Real.sqrt (Real.log (R.Hhi : ℝ))
-      = Real.log (R.Hhi : ℝ) := Real.mul_self_sqrt hLH0.le
-  have hprodv : (10 : ℝ) ^ 4 * Real.sqrt (Real.log (R.Hhi : ℝ)) ≤ Real.log (R.Hhi : ℝ) := by
-    nlinarith [hv, hvsq, hv0]
-  -- ⟦the quintic, and its logarithm — the inflation adds `5·log h`⟧
-  have hlogq : Real.log q ≤ Real.log h + 12 * Real.log (Real.log (H : ℝ)) :=
-    log_le_of_le_arcDen_h hh hHe harc
-  have hq0 : (0 : ℝ) < (q : ℝ) := by
-    have := Nat.pos_of_ne_zero (NeZero.ne q); exact_mod_cast this
-  have hqpos : (0 : ℝ) < 1900 * (q : ℝ) ^ 5 := by positivity
-  have hlogpoly : Real.log (1900 * (q : ℝ) ^ 5) = Real.log 1900 + 5 * Real.log q := by
-    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]
-    push_cast
-    ring
-  have hlog1900 : Real.log 1900 ≤ 1899 := by
-    have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 1900 by norm_num)
-    linarith
-  have hchain : Real.log (1900 * (q : ℝ) ^ 5)
-      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-    rw [hlogpoly]; linarith
-  have hfin : 1900 * (q : ℝ) ^ 5 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-    have h := Real.exp_le_exp.mpr hchain
-    rwa [Real.exp_log hqpos, Real.exp_log hlogXpos] at h
-  exact le_trans scaleGate_le_quintic hfin
+⟦XY debt lane, family 05 (2026-09-26)⟧  `cofkL_scale_gate_at_socket_h {R} {h M H L q j A s}
+[NeZero q] (hh : 0 < h) (hh7 : Real.log h ≤ 7) (hb) (hε) (hlo) (harc) : 32 · diskConst q /
+goldenL1 q ≤ log X` stood here, under its own `set_option maxHeartbeats 1000000 in`.  It is
+`cofkL_scale_gate_at_socket_h_b9` (below) with the hypothesis strengthened: the two statements
+differ in that ONE binder line and are token-identical elsewhere, so the generic implies it by
+`linarith` — kernel-checked from the retired statement's own bytes, with the ladder's other
+implication rungs, before the 89 lines were removed.  It had no consumer left: its one call
+site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired in family 02.  Its
+body was one of `cofkL_mu_floor_h`'s consumers (the class-D rung, kept) and one of
+`cofkL_logX_floor_h`'s; both keep other consumers. -/
 
 /-! ### THE THRESHOLD AT THE INFLATED SOCKET, RATED, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
@@ -1591,7 +1515,8 @@ is added and no conclusion weakened. -/
 
 set_option maxHeartbeats 1000000 in
 -- as the source: the socket floors and the quintic's logarithm elaborate in one block
-/-- `cofkL_scale_gate_at_socket_h` at `log h ≤ 9` (`cofkL_scale_gate_at_socket_h_b9`) —
+/-- The former `cofkL_scale_gate_at_socket_h` (retired into this,
+2026-09-26) at `log h ≤ 9` (`cofkL_scale_gate_at_socket_h_b9`) —
 SUPPLIER-SWAP (census band 3 row 9): `cofkL_mu_floor_h_b9` (whose floor reads `log H₊ − 32`) and
 `cofkL_logX_floor_h_b9`; `hHhi14` pays `26·log 10 + 4·9 ≤ 10^8`, and `hchain` clears
 `1899 + 5·(9 + 12Λ) ≤ log H₊ − 32` against `log H₊ ≥ 10⁴·√(log H₊)` by about `9.9·10⁷`.
