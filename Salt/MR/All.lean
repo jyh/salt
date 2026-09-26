@@ -8888,7 +8888,11 @@ open Salt.Tactic in
 -- ⭐⭐ COMMISSION 7b, THE PRODUCER WAVE AT h = 2 (2026-08-31 evening, math) — helm routing
 -- 17:39:57 under the Captain's 17:4x standing law, executor tier, transcription-shaped.
 -- `Salt/MR/HDoorSupply.lean`: the co-factor supply AND the door chain at the h-INFLATED arc
--- allowance `h · arcDen 12 H`.  Eleven nodes, 34 names, one attempt each.
+-- allowance `h · arcDen 12 H`.  Eleven nodes, 34 names at landing, one attempt each (from
+-- 2026-09-26 the XY debt lane retires copied `h` siblings into their `_b9` generics, noted in
+-- place — `cofkL_capFreeFloor_at_socket_rated_uniform_h` in fam02,
+-- `cofkL_threshold_at_socket_rated_h` in fam04 — so the rows below are fewer than 34 by the
+-- retirements to date).
 -- 📐 §1–§3 the single substitution `log q ≤ log h + 12·loglog H` and the five rows that follow
 -- from it (all five cap-consumers factor through `log_le_of_le_arcDen`; row coefficients on
 -- `log q` ×32 are 4 + 24 + 128 = 156, and 156×12 = 1872 reproduces the landed Λ-total, which is
@@ -8932,7 +8936,8 @@ open Salt.Tactic in
 -- own analytic content at a wider modulus range.  This wave is SILENT on that estimate.
 -- Nothing here bears on twin primes.  (`SocketBaseLH`, `M4SievedDoorSqSupH` and
 -- `M4BlockMeanSqSupQH` are defs and carry no axioms; they are audited anyway, as the block
--- above audits its own defs, so the registry row count matches the declaration count.)
+-- above audits its own defs, so the registry row count matched the declaration count at
+-- landing; a retired sibling leaves both, see the note above.)
 #audit_axioms Salt.MR.arcDen_le_h_mul_arcDen
   Salt.MR.log_le_of_le_arcDen_h
   Salt.MR.log_max_two_le_of_le_arcDen_h
@@ -10184,7 +10189,9 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E3⟧ — THE MR h-LANE B CAP-9 TWINS (`S15SelLinear`, `HDoorSupply`, `S16FlatTerminalLinear`,
 `S16FlatTerminalLinearLH`, `S16ComposeLH`, `V7RatedH`, 2026-09-13, math — build freeze v2 v1.1
-§3.0/§3.1, executor brief W1 bundle E3).  Additive only: every landed declaration is untouched.
+§3.0/§3.1, executor brief W1 bundle E3).  Additive only at landing: every landed declaration was
+untouched (from 2026-09-26 the XY debt lane retires copied `h` siblings into these `_b9` generics,
+noted in place).
 Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
 `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
 in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
@@ -10245,7 +10252,9 @@ open Salt.Tactic in
 /-! ⟦β W2 F1⟧ — SCATTERED LEAVES + ENTROPY (`StrideFork`, `StridePair`, `S15SelLinearWide`,
 `S16FlatTerminalLinear`, `HDoorSupply`, `S16ProducersH`, and the graded wall twins in the W1 module
 `StrideGrade12bWalls`; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W2 bundle
-F1).  Additive only: every landed declaration is untouched.  Each twin is its source's statement and
+F1).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
+the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place).
+Each twin is its source's statement and
 body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count
 pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦
 ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the

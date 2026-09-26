@@ -1370,7 +1370,9 @@ theorem m4_doorL2_supply_500_H_of_blockQH (h : ℕ) (hh : 0 < h) :
 
 /-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
 
-Additive only: every declaration above is untouched. Each twin is its source's statement and body
+Additive only at landing: every declaration above was untouched (from 2026-09-26 the XY debt lane
+retires copied `h` siblings above into the `_b9` generics here, noted in place).
+Each twin is its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, the census's in-body `7.6932 ↦
 9.6932`, and `cofkL_mu_floor_h`'s conclusion `28 ↦ 32`), every derived cap-dependent supplier
 replaced by its twin; no hypothesis is added and no conclusion weakened.
@@ -1659,7 +1661,8 @@ theorem cofkL_X_ge_expexp_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 
   rwa [Real.exp_log hApos] at h
 
 /-! ## ⟦β W2 F1⟧ the cap-9 twins, the rated socket's exit (build freeze v2 v1.1, 2026-09-13)
-
+Additive only at landing: every declaration above was untouched (from 2026-09-26 the XY debt lane
+retires copied `h` siblings above into the `_b9` generics here, noted in place). 
 Additive only: every declaration above is untouched.  Each twin is its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9` and the census's in-body numeral
 `cofkL_mu_floor_h`'s `28 ↦ 32` (in the threshold's typed `hμ`/`hμbig`), every derived
