@@ -17,6 +17,7 @@ import Salt.SW.SiegelClose
 import Salt.SW.LandauPage
 import Salt.Fulcrum.Dichotomy
 import Salt.Fulcrum.CZeroNumeral
+import Salt.Tactic.ExpLogNum
 
 /-!
 # THE CROWN, N9 — Heath-Brown 1983 Theorem 1 and the door hand-over: STATEMENTS ONLY
@@ -797,8 +798,7 @@ theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (
     have h3 : Real.log (4 * (q : ℝ) ^ 500) = Real.log 4 + 500 * Real.log q := by
       rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]; push_cast; ring
     have h4 : Real.log (4 : ℝ) ≤ 3 := by
-      have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
-      linarith only [h]
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
     rw [Lwin]
     linarith only [h2, h3, h4, hLnum]
   have hzLwin : Lwin x ^ 8 ≤ (hbZ q η : ℝ) := by
@@ -2272,12 +2272,9 @@ theorem real_zeros_below_zfrCeil [NeZero q] {χ : DirichletCharacter ℂ q} {β�
   have hlog3 : Real.log (3 * (q : ℝ)) = Real.log 3 + Real.log q :=
     Real.log_mul (by norm_num) (by linarith only [hqR])
   have h4le : Real.log (4 : ℝ) ≤ 3 := by
-    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
-    linarith only [h]
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   have h3ge : (1 : ℝ) ≤ Real.log (3 : ℝ) := by
-    have he := Real.exp_one_lt_d9
-    have h := Real.log_le_log (Real.exp_pos 1) (by linarith only [he] : Real.exp 1 ≤ (3 : ℝ))
-    rwa [Real.log_exp] at h
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   intro t ρ hρ him0 hne hlo hhi _him
   have hcoe : ((ρ.re : ℝ) : ℂ) = ρ := by apply Complex.ext <;> simp [him0]
   have hzr : DirichletCharacter.LFunction χ ((ρ.re : ℝ) : ℂ) = 0 := by rw [hcoe]; exact hρ
@@ -4002,14 +3999,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
   have hlogE : (14 : ℝ) ≤ Real.log (n9Ell q η) := by
     have h := Real.log_le_log (by norm_num : (0:ℝ) < 3000001) hPbig
     have h2 : (14 : ℝ) ≤ Real.log 3000001 := by
-      rw [show (14 : ℝ) = Real.log (Real.exp 14) by rw [Real.log_exp]]
-      refine Real.log_le_log (Real.exp_pos _) ?_
-      have he : Real.exp 14 = Real.exp 1 ^ 14 := by
-        rw [show (14 : ℝ) = ((14 : ℕ) : ℝ) * 1 by norm_num, Real.exp_nat_mul]
-      have h1 := Real.exp_one_lt_d9
-      have h3 : Real.exp 1 ^ 14 ≤ (2.7182818286 : ℝ) ^ 14 :=
-        pow_le_pow_left₀ (Real.exp_pos 1).le (le_of_lt h1) 14
-      rw [he]; norm_num at h3 ⊢; linarith only [h3]
+      exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 14 (by norm_num) (by norm_num)
     linarith only [h, h2]
   have hlogEsq : Real.log (n9Ell q η) ≤ 2 * Real.sqrt (n9Ell q η) :=
     n9_log_le_two_sqrt hEpos
@@ -5411,10 +5401,7 @@ private lemma n9_singular_ge : (1 : ℝ) / 28 ≤ Salt.HardyLittlewood.twinSingu
   have h4eq : Real.exp (4 : ℝ) = Real.exp 1 ^ 4 := by
     rw [← Real.exp_nat_mul]; norm_num
   have h4le : Real.exp (4 : ℝ) ≤ 56 := by
-    have hp : Real.exp 1 ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-      pow_le_pow_left₀ hpos1.le he1.le 4
-    rw [h4eq]
-    nlinarith only [hp]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 4 (c := 56) (by norm_num)
   have h4pos : (0 : ℝ) < Real.exp (4 : ℝ) := Real.exp_pos _
   have hinv : (1 : ℝ) / 56 ≤ Real.exp (-4 : ℝ) := by
     rw [Real.exp_neg, ← one_div, div_le_div_iff₀ (by norm_num) h4pos]
@@ -5537,14 +5524,7 @@ theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
   have hlogE : (14 : ℝ) ≤ Real.log (n9Ell q η) := by
     have h := Real.log_le_log (by norm_num : (0 : ℝ) < 3000001) hPbig
     have h2 : (14 : ℝ) ≤ Real.log 3000001 := by
-      rw [show (14 : ℝ) = Real.log (Real.exp 14) by rw [Real.log_exp]]
-      refine Real.log_le_log (Real.exp_pos _) ?_
-      have he : Real.exp 14 = Real.exp 1 ^ 14 := by
-        rw [show (14 : ℝ) = ((14 : ℕ) : ℝ) * 1 by norm_num, Real.exp_nat_mul]
-      have h1 := Real.exp_one_lt_d9
-      have h3 : Real.exp 1 ^ 14 ≤ (2.7182818286 : ℝ) ^ 14 :=
-        pow_le_pow_left₀ (Real.exp_pos 1).le (le_of_lt h1) 14
-      rw [he]; norm_num at h3 ⊢; linarith only [h3]
+      exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 14 (by norm_num) (by norm_num)
     linarith only [h, h2]
   have hlogEsq : Real.log (n9Ell q η) ≤ 2 * Real.sqrt (n9Ell q η) :=
     n9_log_le_two_sqrt hEpos
@@ -5742,12 +5722,7 @@ theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
       refine Real.exp_le_exp.mpr ?_
       nlinarith only [hl2, hbSbig, hlog4]
     have h14 : (14 : ℝ) ≤ Real.exp 4 := by
-      have h1 := Real.exp_one_gt_d9
-      have h2 : Real.exp 4 = Real.exp 1 ^ 4 := by
-        rw [show (4 : ℝ) = ((4 : ℕ) : ℝ) * 1 by norm_num, Real.exp_nat_mul]
-      have h3 : (2.7182818283 : ℝ) ^ 4 ≤ Real.exp 1 ^ 4 :=
-        pow_le_pow_left₀ (by norm_num) (le_of_lt h1) 4
-      rw [h2]; norm_num at h3 ⊢; linarith only [h3]
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 4 (by norm_num)
     have hFC35 : FC ≤ Real.exp 35 := by
       have h2 : Real.exp 4 * Real.exp 31 = Real.exp 35 := by rw [← Real.exp_add]; norm_num
       nlinarith only [hFCle, h14, h2, Real.exp_pos (31 : ℝ)]
@@ -5883,10 +5858,7 @@ theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
     have h2 : (11 : ℝ) ^ 30 ≤ (Real.exp 10) ^ 30 := pow_le_pow_left₀ (by norm_num) he10 30
     rw [h1]; norm_num at h2 ⊢; linarith only [h2]
   have he40 : (14641 : ℝ) ≤ Real.exp 40 := by
-    have h1 : Real.exp 40 = (Real.exp 10) ^ 4 := by
-      rw [show (40 : ℝ) = ((4 : ℕ) : ℝ) * 10 by norm_num, Real.exp_nat_mul]
-    have h2 : (11 : ℝ) ^ 4 ≤ (Real.exp 10) ^ 4 := pow_le_pow_left₀ (by norm_num) he10 4
-    rw [h1]; norm_num at h2 ⊢; linarith only [h2]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 40 (by norm_num)
   have he260 : Real.exp 260 * Real.exp 40 = Real.exp 300 := by rw [← Real.exp_add]; norm_num
   have he260p : (0 : ℝ) < Real.exp 260 := Real.exp_pos _
   have hKey : 9 * Real.exp 260 * ec ≤ Real.exp 300 * (1 + n9Cs) := by
@@ -6212,9 +6184,7 @@ theorem hb_theorem1 [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
           + 3 * Real.log (n9Ell q η) := by ring
     linarith only [h2, h3, hWP, hPleLq, hL]
   have hlog4ge : (1 : ℝ) ≤ Real.log 4 := by
-    have he := Real.exp_one_lt_d9
-    have h := Real.log_le_log (Real.exp_pos 1) (by linarith only [he] : Real.exp 1 ≤ (4 : ℝ))
-    rwa [Real.log_exp] at h
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   have hSpos : 0 < hbS q η := by linarith only [hSlow, hPpos]
   have hshapeD : Real.exp (-(Real.log 4) * hbS q η) ≤ 30300 / Real.log (n9Ell q η) := by
     have hexpo : Real.log (n9Ell q η) / 30300 ≤ Real.log 4 * hbS q η := by
@@ -6649,12 +6619,7 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     have hc := Real.add_one_le_exp (3 * 10 ^ 6 : ℝ)
     simp only [n9E0]; linarith
   have hexp20 : (253696 : ℝ) ≤ Real.exp (20 : ℝ) := by
-    have h1 : (2 : ℝ) ≤ Real.exp 1 := by
-      have h := Real.add_one_le_exp (1 : ℝ); linarith only [h]
-    have h2 : Real.exp 1 ^ 20 = Real.exp 20 := by
-      rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
-    have h3 : (2 : ℝ) ^ 20 ≤ Real.exp 1 ^ 20 := pow_le_pow_left₀ (by norm_num) h1 20
-    rw [← h2]; nlinarith only [h3]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 20 (by norm_num)
   have hdCpos := dh_spec.1
   have hdC1 := dh_spec.2.1
   have hCqpos : 0 < n9Cq Cerr CA CA' CC := by
@@ -6864,8 +6829,7 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     have h2 : Real.log (4 * X) = Real.log 4 + Real.log X :=
       Real.log_mul (by norm_num) (ne_of_gt hXpos)
     have h3' : Real.log (4 : ℝ) ≤ 3 := by
-      have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
-      linarith only [h]
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
     linarith only [h1, h2, h3', hubig]
   have hlogwnn : 0 ≤ Real.log (2 * X + 2) :=
     Real.log_nonneg (by linarith only [hX1])
