@@ -87,6 +87,21 @@ articles. Amendments are Captain-tier.**
   > benefits? What are the downsides? Be ready for a deep dive into any of the
   > suggestions."
 
+- **R8 — Dream and play** *(added at the Captain's word, 2026-09-26 council: "Dream and play -- try
+  some ideas just for fun, this is the ultimate font of creativity. We did that once, and I feel
+  like it should include this in the salt method.")*. The method has a phase whose purpose is
+  creativity rather than landing. Ideas are tried for their own sake, without expectation of
+  success, and each attempt leaves a ledger line — *tried · what happened · dead or alive* — so a
+  dead end is recorded, never re-derived. It is the fourth of the research method's four tools,
+  named the same day: a literature search including conjectures and musings; a thorough review
+  of the corpus (the goldmine); hypothesis testing — attempting the wanted statement with the
+  intent of finding where the proof breaks and naming the missing ingredient; and dream and
+  play. Its receipt is the fleet's dream ledger (`DREAM-LEDGER.md`, private record); a dream night that closes
+  without ledger lines did not happen. Graduation runs through METHODS.md Part II (play →
+  brainstorm → investigate → prove); nothing from this phase enters the record except by the
+  proving method's own path (R1–R4). *The kernel confirms a proof is valid; finding one is the
+  hard work and the creativity, and this article is where the creativity is given room.*
+
 ## ADVISORY (the reference configuration — what this program ran and measured)
 
 - **A1 — One orchestrator.** A single master orchestrator agent on the top model
