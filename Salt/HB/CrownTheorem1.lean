@@ -726,7 +726,7 @@ theorem hbZ_packet [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ} (
       have h := Real.add_one_le_exp W
       linarith only [h, hWpos]
     have he1 : (2 : ℝ) ≤ Real.exp 1 := by
-      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 1 (by norm_num)
+      have h := Real.add_one_le_exp (1 : ℝ); linarith only [h]
     rw [Real.exp_add]
     nlinarith only [hzhi', hE, he1]
   have hlogzge : W ≤ Real.log (hbZ q η : ℝ) := by
@@ -2499,7 +2499,7 @@ private lemma n9_envB3_core_le_window [NeZero q] {χ : DirichletCharacter ℂ q}
     have h2 : Real.log (2 * y) = Real.log 2 + Real.log y :=
       Real.log_mul (by norm_num) (ne_of_gt hy0)
     have h3 : Real.log 2 ≤ 1 := by
-      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
+      linarith only [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
     linarith only [h1, h2, h3]
   have hlogM0 : (0 : ℝ) ≤ Real.log M := Real.log_nonneg (by linarith only [hM3])
   have hNy : N ≤ y / 150 := by
@@ -2780,7 +2780,7 @@ private lemma n9_bceilA_gap_above [NeZero q] {χ : DirichletCharacter ℂ q} {β
     have h2 : Real.log (2 * y) = Real.log 2 + Real.log y :=
       Real.log_mul (by norm_num) (ne_of_gt hy0)
     have h3 : Real.log 2 ≤ 1 := by
-      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
+      linarith only [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
     linarith only [h1, h2, h3]
   have hlogM0 : (0 : ℝ) ≤ Real.log M := Real.log_nonneg (by linarith only [hM3])
   rw [← hMdef] at hcase
@@ -3047,7 +3047,7 @@ private lemma n9_shell_binders [NeZero q] {χ : DirichletCharacter ℂ q} {β₀
     have h2 : Real.log (2 * y) = Real.log 2 + Real.log y :=
       Real.log_mul (by norm_num) (ne_of_gt hy0)
     have h3 : Real.log 2 ≤ 1 := by
-      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
+      linarith only [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
     linarith only [h1, h2, h3, hlogy4]
   have hcube : (2685619 : ℝ) * Real.sqrt (Real.sqrt y) ≤ Real.sqrt (Real.sqrt y) ^ 4 := by
     have h2 : (139 : ℝ) ^ 3 ≤ Real.sqrt (Real.sqrt y) ^ 3 :=
@@ -3946,7 +3946,7 @@ private lemma n9_scale [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : �
       have h := Real.add_one_le_exp (Real.log q / hbZ0 q η)
       linarith only [h, hWpos]
     have he1 : (2 : ℝ) ≤ Real.exp 1 := by
-      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 1 (by norm_num)
+      have h := Real.add_one_le_exp (1 : ℝ); linarith only [h]
     rw [Real.exp_add]
     nlinarith only [hzhi', hE, he1]
   have hlogzge : Real.log q / hbZ0 q η ≤ Real.log (hbZ q η : ℝ) := by
@@ -4099,7 +4099,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     have hsplit : Real.log ((hbZ q η : ℝ) / 2) = Real.log (hbZ q η : ℝ) - Real.log 2 :=
       Real.log_div (by linarith only [hZ2]) (by norm_num)
     have hlog2 : Real.log 2 ≤ 1 := by
-      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
+      linarith only [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
     have hz0small : hbZ0 q η ≤ Real.log q / 10000 := by
       have hz0eq : hbZ0 q η = 1 / 10000 * Real.log (n9Ell q η) := by
         simp only [hbZ0, hbZ0A]
@@ -4505,7 +4505,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
     linarith only [hterm, hA1, h4]
   have hc1 : Real.exp 250 * ec / 300 + 1 / 250 + 1 / 1000 + 1 + 1 ≤ Real.exp 260 * ec := by
     have h10 : (11 : ℝ) ≤ Real.exp 10 := by
-      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 10 (by norm_num)
+      have := Real.add_one_le_exp (10 : ℝ); linarith only [this]
     have heq : Real.exp 260 = Real.exp 250 * Real.exp 10 := by
       rw [← Real.exp_add]; norm_num
     have h1 : (1 : ℝ) ≤ Real.exp 250 := by
@@ -5812,7 +5812,7 @@ theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
       have := Real.add_one_le_exp (72 : ℝ); linarith only [this]
     have he300 : (10 ^ 12 : ℝ) ≤ Real.exp 300 := by
       have he10 : (11 : ℝ) ≤ Real.exp 10 := by
-        exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 10 (by norm_num)
+        have := Real.add_one_le_exp (10 : ℝ); linarith only [this]
       have h1 : Real.exp 300 = (Real.exp 10) ^ 30 := by
         rw [show (300 : ℝ) = ((30 : ℕ) : ℝ) * 10 by norm_num, Real.exp_nat_mul]
       have h2 : (11 : ℝ) ^ 30 ≤ (Real.exp 10) ^ 30 := pow_le_pow_left₀ (by norm_num) he10 30
@@ -5851,7 +5851,7 @@ theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
     linarith only [hstep, hcore]
   -- the master constant's four coefficient rows
   have he10 : (11 : ℝ) ≤ Real.exp 10 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 10 (by norm_num)
+    have := Real.add_one_le_exp (10 : ℝ); linarith only [this]
   have he300b : (10 ^ 12 : ℝ) ≤ Real.exp 300 := by
     have h1 : Real.exp 300 = (Real.exp 10) ^ 30 := by
       rw [show (300 : ℝ) = ((30 : ℕ) : ℝ) * 10 by norm_num, Real.exp_nat_mul]
@@ -6159,7 +6159,7 @@ theorem hb_theorem1 [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
       have h := Real.add_one_le_exp (Real.log q / hbZ0 q η)
       linarith only [h, hWpos2]
     have he1 : (2 : ℝ) ≤ Real.exp 1 := by
-      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 1 (by norm_num)
+      have h := Real.add_one_le_exp (1 : ℝ); linarith only [h]
     rw [Real.exp_add]
     nlinarith only [hzhi', hE, he1]
   have hlogzle : Real.log (hbZ q η : ℝ) ≤ Real.log q / hbZ0 q η + 1 := by
@@ -6758,7 +6758,7 @@ theorem crown_handover_k1 {Cerr CA CA' CC : ℝ} (hN7 : N7Exit Cerr CA CA' CC)
     have hprod : Real.exp 401 * Real.exp (-402 : ℝ) = Real.exp (-1 : ℝ) := by
       rw [← Real.exp_add]; norm_num
     have he2 : (2 : ℝ) ≤ Real.exp 1 := by
-      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 1 (by norm_num)
+      have h := Real.add_one_le_exp (1 : ℝ); linarith only [h]
     have hem1 : Real.exp (-1 : ℝ) ≤ 1 / 2 := by
       rw [Real.exp_neg, inv_eq_one_div, div_le_div_iff₀ (Real.exp_pos 1) (by norm_num)]
       linarith only [he2]
