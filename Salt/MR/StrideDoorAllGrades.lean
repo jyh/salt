@@ -2239,7 +2239,11 @@ a free twist and is not in this file. -/
 here (111 lines) and is `zSplit_arm_L2` (below) with the one binder `hLLc : L ≤ Lc` in place of
 `hL2 : L ≤ 2 * Lc` — token-identical elsewhere — so the generic implies it by `linarith` under
 `hL0 : 0 ≤ L`.  Kernel-checked from the retired statement's own bytes before the removal; it had
-no consumer.  A docstring above names it as the Z1 split's transcription: read `zSplit_arm_L2`. -/
+no consumer.  The §J section header above and `zSplit_arm_L2`'s docstring below name it (the
+latter derives `_L2`'s room from it): read `zSplit_arm_L2`.  Its provenance, carried over from the
+retired docstring: Z1 was `epsChain_arm_split_L` (`FlatDoorEpsRung2.lean:2738`) with `+ L` on the
+left for every `0 ≤ L ≤ Lc`; room `H₊/c² ≥ 2^{150}·(1 + L)/6` from `50 + Lc ≤ loglog H₊`,
+`e^{Lc} ≥ c`, `e^{Lc} ≥ 1 + L` and `H₊ ≥ (log H₊)³/6`, against a demand of `250001·(log 2 + L)`. -/
 
 /-- **Z1 RE-STATED FOR THE CONDITIONAL'S SPLIT (`zSplit_arm_L2`).**  `zSplit_arm_L` with its binder
 `L ≤ Lc` widened to `L ≤ 2·Lc`, because the conditional reserves `log 2 + (log h + L)` and

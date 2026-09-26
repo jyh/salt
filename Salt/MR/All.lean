@@ -10944,7 +10944,9 @@ open Salt.Tactic in
 
 /-! ⟦TIER S — ROAD F, THE STRIDE AXIS⟧ — ARM Z: THE AFFINE DOOR AT EVERY STRIDE, TWIST AND GRADE IS
 **STATED AND PROVED** (`StrideDoorAllGrades`, 2026-09-23, h2c).  Additive only: no landed
-statement moves and the only landed file edited is THIS one, by appending.
+statement moves and the only landed file edited is THIS one, by appending (2026-09-26:
+`zSplit_arm_L` retired into `zSplit_arm_L2`, XY debt lane fam03 — the one landed statement that
+has since moved).
 
 ⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES, AND ARM Z HAS NO KERNEL READER.  AND ARM Z
 DOES NOT MOVE THE CROWN'S QUANTIFIER: the statement is `∀ A₀ ∃ Ra` on the FLAT family, NOT the
@@ -11013,8 +11015,8 @@ NOTHING GOES FALSE.  (d) `docs/QUEUE.md`'s road-F line («NEXT: road F has NO co
 HELM-OWNED and goes STALE with this landing: OWED BY THE HELM, not edited here.  NO ERRATUM IS
 APPENDED IN EITHER AGGREGATE FILE BY THIS CHANGE beyond this paragraph.
 
-**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  121 names at the three axioms (112 theorems,
-9 defs). -/
+**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  120 names at the three axioms (111 theorems,
+9 defs; 121 / 112 at #165 — `zSplit_arm_L` retired into `zSplit_arm_L2`, XY fam03, 2026-09-26). -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.FlatHeadFormHG_Z
   Salt.MR.FlatRoadExitFormHG_Z
