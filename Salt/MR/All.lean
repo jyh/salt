@@ -11059,7 +11059,6 @@ open Salt.Tactic in
   Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_L
   Salt.MR.s15ArmH_log_le_L
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shiftL
-  Salt.MR.zSplit_arm_L
   Salt.MR.zSplit_arm_L2
   Salt.MR.flat_conditional_generic_h_Z
   Salt.MR.flat_v7_generic_h_Z
