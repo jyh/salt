@@ -959,8 +959,7 @@ theorem hArcDen_mul_strataResidualH_sq_le_L {h H : ℕ} (hh : 0 < h) {Lc : ℝ} 
   have hlogh0 : 0 ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
   -- the residual bound: `1 + 12L + log h ≤ 1 + 13L ≤ 26·(L/2 + 1) ≤ e^{25}·e^{L/2}`
   have he25 : (26 : ℝ) ≤ Real.exp 25 := by
-    have := Real.add_one_le_exp (25 : ℝ)
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 25 (by norm_num)
   have hlin : L / 2 + 1 ≤ Real.exp (L / 2) := Real.add_one_le_exp _
   have hsplit : Real.exp (L / 2 + 25) = Real.exp 25 * Real.exp (L / 2) := by
     rw [← Real.exp_add]
@@ -1223,11 +1222,7 @@ theorem arc36_of_regime_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (_hL0 : 0 ≤ Lc)
     exact hc
   have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h128 : (128 : ℝ) ≤ Real.exp 5 := by
-    have h5 : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hp : (2.7 : ℝ) ^ (5 : ℕ) ≤ (Real.exp 1) ^ (5 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) he1.le 5
-    have hn : (128 : ℝ) ≤ (2.7 : ℝ) ^ (5 : ℕ) := by norm_num
-    rw [h5]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 5 (by norm_num)
   have h2000 : (2000 : ℝ) ≤ Real.exp 50 := by
     have h50 : Real.exp 50 = (Real.exp 1) ^ (50 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
     have hp : (2.7 : ℝ) ^ (50 : ℕ) ≤ (Real.exp 1) ^ (50 : ℕ) :=
@@ -1953,12 +1948,7 @@ theorem s15_hband4096_at_socket_flatH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 :
     rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
   rw [hlhs, hpool, ← Real.exp_add]
   have h4096 : (4096 : ℝ) ≤ Real.exp 9 := by
-    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-    have h : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 9
-    have hn : (4096 : ℝ) ≤ (2.7 : ℝ) ^ (9 : ℕ) := by norm_num
-    rw [h]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   refine le_trans h4096 (Real.exp_le_exp.mpr ?_)
   have hll := s12c_llX_ge_LH_L hh hL0 hhL hfl hb hflL
   have hcore := flat_lambda_core_T hlam
@@ -3665,9 +3655,7 @@ theorem capfloor_floor1_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
       = Real.log 200000000 + Real.log (q : ℝ) :=
     Real.log_mul (by norm_num) (by linarith)
   have hnum : Real.log 200000000 ≤ 20 := by
-    have hz := Real.log_le_log (by norm_num : (0 : ℝ) < 200000000)
-      (le_trans (by norm_num : (200000000 : ℝ) ≤ 300000000) capfloor_twoE8_le_exp20)
-    rwa [Real.log_exp] at hz
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 20 (by norm_num) (by norm_num)
   -- ⟦AT THE CHARGE⟧ the tower pays `Lc`: `10^21·(1 + Lc) ≤ log H` ⇒ `Lc ≤ log H / 10^20`
   have htow := s13_tower_logH_L hL0 hb hflL
   have hLv : Lc ≤ Real.log (H : ℝ) / 10 ^ 20 := by
@@ -3702,8 +3690,7 @@ theorem capfloor_floor2_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
       = Real.log 300000000 + Real.log (q : ℝ) :=
     Real.log_mul (by norm_num) (by linarith)
   have hnum : Real.log 300000000 ≤ 20 := by
-    have hz := Real.log_le_log (by norm_num : (0 : ℝ) < 300000000) capfloor_twoE8_le_exp20
-    rwa [Real.log_exp] at hz
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 20 (by norm_num) (by norm_num)
   -- ⟦AT THE CHARGE⟧ the tower pays `Lc`: `10^21·(1 + Lc) ≤ log H` ⇒ `Lc ≤ log H / 10^20`
   have htow := s13_tower_logH_L hL0 hb hflL
   have hLv : Lc ≤ Real.log (H : ℝ) / 10 ^ 20 := by
@@ -4174,12 +4161,7 @@ theorem capeps_row_phi_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
   have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
   have hexpL := zH_le_exp hh hhL
   have he11 : (49920 : ℝ) ≤ Real.exp 11 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have hz : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 11
-    have : (49920 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
-    rw [hz]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 11 (by norm_num)
   -- `25 = 11 + 14 ↦ 11 + Lc`
   have he25 : (49920 : ℝ) * (h : ℝ) ≤ Real.exp (11 + Lc) := by
     have hsum : Real.exp (11 + Lc) = Real.exp 11 * Real.exp Lc := Real.exp_add 11 Lc
@@ -4254,12 +4236,7 @@ theorem capeps_row_tail_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
     have := Real.exp_le_exp.mpr hC
     rwa [Real.exp_log hC0] at this
   have h3072 : (3072 : ℝ) ≤ Real.exp 9 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have hz : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7182818283 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 9
-    have : (3072 : ℝ) ≤ (2.7182818283 : ℝ) ^ (9 : ℕ) := by norm_num
-    rw [hz]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   -- A leg: `63 = 9 + 40 + 14 ↦ 49 + Lc`
   have h63 : (3072 : ℝ) * C * (h : ℝ) ≤ Real.exp (49 + Lc) := by
     have hsum : Real.exp (49 + Lc) = Real.exp 9 * Real.exp 40 * Real.exp Lc := by
@@ -4287,12 +4264,7 @@ theorem capeps_row_tail_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
     -- B leg: `22 = 8 + 14 ↦ 8 + Lc`
     have hstone := capeps_bigexp_L hu hμ hΛ hL0 hLu (by linarith : (8 : ℝ) + Lc ≤ 49 + Lc)
     have he8 : (1536 : ℝ) ≤ Real.exp 8 := by
-      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have hz : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hc : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
-        pow_le_pow_left₀ (by norm_num) h1.le 8
-      have : (1536 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
-      rw [hz]; linarith
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
     have he22 : (1536 : ℝ) * (h : ℝ) ≤ Real.exp (8 + Lc) := by
       have hsum : Real.exp (8 + Lc) = Real.exp 8 * Real.exp Lc := Real.exp_add 8 Lc
       rw [hsum]
@@ -4354,12 +4326,7 @@ theorem capeps_row_p2_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ Lc)
     field_simp
     ring
   have he11 : (49152 : ℝ) ≤ Real.exp 11 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have hz : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 11
-    have : (49152 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
-    rw [hz]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 11 (by norm_num)
   -- leg A: `20 = 11 + 9 ↦ 11 + Lc`
   have he20 : (49152 : ℝ) * (h : ℝ) ≤ Real.exp (11 + Lc) := by
     have hsum : Real.exp (11 + Lc) = Real.exp 11 * Real.exp Lc := Real.exp_add 11 Lc
@@ -4971,11 +4938,7 @@ theorem flatDesignBase_clears_stride_floors_L {A : ℝ} (hA : 162 ≤ A) {k : �
   -- ⟦THE TWO NUMERALS⟧ `500 ≤ exp 7`, `500000 ≤ exp 14`, off `e > 2.7182818283`
   have he : (2.7182818283 : ℝ) ≤ Real.exp 1 := Real.exp_one_gt_d9.le
   have h7 : (500 : ℝ) ≤ Real.exp 7 := by
-    have hpow : (2.7182818283 : ℝ) ^ 7 ≤ Real.exp 1 ^ 7 := pow_le_pow_left₀ (by norm_num) he 7
-    rw [← Real.exp_nat_mul] at hpow
-    have h7e : ((7 : ℕ) : ℝ) * 1 = 7 := by norm_num
-    rw [h7e] at hpow
-    linarith [show (500 : ℝ) ≤ 2.7182818283 ^ 7 by norm_num]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 7 (by norm_num)
   have h14 : (500000 : ℝ) ≤ Real.exp 14 := by
     have hpow : (2.7182818283 : ℝ) ^ 14 ≤ Real.exp 1 ^ 14 := pow_le_pow_left₀ (by norm_num) he 14
     rw [← Real.exp_nat_mul] at hpow
@@ -5215,9 +5178,7 @@ theorem mrtUniformityXiL2AffW_of_set_L (h : ℕ) (Rd : ChowlaRegime) (a b : ℕ)
   have hlogω : (2 : ℝ) ≤ Real.log (Rd.ω : ℝ) := by
     have h8 : (8 : ℝ) ≤ (Rd.ω : ℝ) := by exact_mod_cast hω
     have hexp2 : Real.exp 2 ≤ 8 := by
-      have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-      have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-      nlinarith [Real.exp_pos 1]
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
     have hωpos : (0 : ℝ) < (Rd.ω : ℝ) := by linarith
     rw [Real.le_log_iff_exp_le hωpos]
     linarith
