@@ -880,103 +880,20 @@ theorem cofkL_scale_gate_at_socket_h {R : ChowlaRegime} {h M H L q j A s : ℕ} 
     rwa [Real.exp_log hqpos, Real.exp_log hlogXpos] at h
   exact le_trans scaleGate_le_quintic hfin
 
-set_option maxHeartbeats 1000000 in
-/-- **⟦THE THRESHOLD AT THE INFLATED SOCKET, RATED⟧** (`cofkL_threshold_at_socket_rated_h`) —
-the `h`-family of `BandRatedSocket.cofkL_threshold_at_socket_rated`.
+/-! ### THE THRESHOLD AT THE INFLATED SOCKET, RATED, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
-⭐ **THE NUMERALS DO NOT MOVE AND THE CUSHION DOES NOT MOVE.**  This page never reads the fifth
-conjunct at all — its `H`-side legs are `loglog H` against `√(log H₊)` — so the only route by
-which `h` could reach it is the `μ`-floor, i.e. the ELEVENTH conjunct, and §6 has already shown
-that costs `log h` against a floor linear in `H₊`.  The statement is byte-identical to the
-landed one apart from the socket it reads and the `ε`-floor's `h` (block E).
-
-⭐ **AND RULING (a)'s EXTRA 14 IS INVISIBLE HERE, MEASURED.**  The μ-floor now reads
-`LH − 28`; the close is `hmargin : 4280·√LH + 2420 + LH/4 < μ/2 + μ/4`, whose slack is
-`≥ 720·√LH − 2430 ≥ 7.2·10⁶` against a cost of `3·28/4 = 21`. -/
-theorem cofkL_threshold_at_socket_rated_h {R : ChowlaRegime} {h M H L q j A s : ℕ}
-    {Kvt D : ℝ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
-    (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)))
-    (hcush : 32 * Kvt + 32 * D ≤ Real.log (R.Hhi : ℝ) / 4) :
-    40 * Real.log (Real.log (Real.log (((A + s : ℕ)) : ℝ)))
-        + 1900 * Real.log (Real.log (H : ℝ))
-        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-        + 2300 + 32 * Kvt + 32 * D
-      < Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-  have h1 : R.Hlo ≤ H := hb.1
-  have h2 : H ≤ R.Hhi := hb.2.1
-  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
-  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
-  have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
-    have h := Real.exp_le_exp.mpr hlo
-    rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
-  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
-  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
-  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
-  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
-  have hHlo0 : (0 : ℝ) < (R.Hlo : ℝ) := by linarith
-  have hlogH : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) := Real.log_le_log hHlo0 hHloH
-  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
-    Real.log_le_log (by linarith) hHHhi
-  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
-  have hlogH1 : (1 : ℝ) < Real.log (H : ℝ) := by linarith
-  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
-  have hHhi14 : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ) := by
-    have hLhh : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
-    have hhpos : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-    have hlogle : Real.log ((10 : ℝ) ^ 26 * (h : ℝ) ^ 4) ≤ Real.log (R.Hhi : ℝ) := by
-      rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
-      push_cast
-      linarith [cofk_log_ten_le, hLH8, hh7]
-    have h2' := Real.exp_le_exp.mpr hlogle
-    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
-  -- ⟦THE `μ`-FLOOR, at the INFLATED socket⟧
-  have hmu := cofkL_mu_floor_h hh hh7 hb hε hHhi14 hH4
-  set μ : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hμdef
-  set LH : ℝ := Real.log (R.Hhi : ℝ) with hLHdef
-  have hμ : LH - 28 ≤ μ := hmu
-  have hμbig : (10 : ℝ) ^ 8 - 28 ≤ μ := by linarith
-  have hμ0 : (0 : ℝ) < μ := by nlinarith
-  -- ⟦the `logloglog` leg⟧ `40·log μ ≤ μ/4`
-  have hlogμ : Real.log μ ≤ 2 * Real.sqrt μ - 2 := cofk_log_le_two_sqrt hμ0
-  have hsμ : (320 : ℝ) ≤ Real.sqrt μ := by
-    have h1' : Real.sqrt ((320 : ℝ) ^ 2) ≤ Real.sqrt μ := Real.sqrt_le_sqrt (by nlinarith)
-    rwa [Real.sqrt_sq (by norm_num)] at h1'
-  have hsμ0 : (0 : ℝ) ≤ Real.sqrt μ := Real.sqrt_nonneg _
-  have hsμsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ0.le
-  have hprodμ : 320 * Real.sqrt μ ≤ μ := by nlinarith [hsμ, hsμsq, hsμ0]
-  have hleg1 : 40 * Real.log μ ≤ μ / 4 := by linarith
-  -- ⟦the `loglog H` legs⟧ dominated by `4280·√(log H₊)`
-  have hΛ : Real.log (Real.log (H : ℝ)) ≤ Real.log LH :=
-    Real.log_le_log (by linarith) hlogHhi
-  have hLH0 : (0 : ℝ) < LH := by linarith
-  have hlogLH : Real.log LH ≤ 2 * Real.sqrt LH - 2 := cofk_log_le_two_sqrt hLH0
-  have hΛ0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := Real.log_nonneg (by linarith)
-  have hv : (10 : ℝ) ^ 4 ≤ Real.sqrt LH := by
-    have h1' : Real.sqrt (((10 : ℝ) ^ 4) ^ 2) ≤ Real.sqrt LH := Real.sqrt_le_sqrt (by nlinarith)
-    rwa [Real.sqrt_sq (by norm_num)] at h1'
-  have hv0 : (0 : ℝ) ≤ Real.sqrt LH := Real.sqrt_nonneg _
-  have hvsq : Real.sqrt LH * Real.sqrt LH = LH := Real.mul_self_sqrt hLH0.le
-  have hprodv : (10 : ℝ) ^ 4 * Real.sqrt LH ≤ LH := by nlinarith [hv, hvsq, hv0]
-  have hlogterm : Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-      ≤ 6 + 24 * Real.sqrt LH := by
-    have hpos : (0 : ℝ) < 7 + 12 * Real.log (Real.log (H : ℝ)) := by linarith
-    have hsub : Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-        ≤ 7 + 12 * Real.log (Real.log (H : ℝ)) - 1 :=
-      Real.log_le_sub_one_of_pos hpos
-    linarith
-  have hleg2 : 1900 * Real.log (Real.log (H : ℝ))
-      + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 2300
-      ≤ 4280 * Real.sqrt LH + 2420 := by linarith
-  -- ⟦the close⟧
-  have hmargin : 4280 * Real.sqrt LH + 2420 + LH / 4 < μ / 2 + μ / 4 := by
-    nlinarith [hprodv, hv, hμ, hv0]
-  linarith
+⟦XY debt lane, family 04 (2026-09-26)⟧  `cofkL_threshold_at_socket_rated_h {R} {h M H L q j A s}
+{Kvt D : ℝ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) …` stood here, under its own
+`set_option maxHeartbeats 1000000 in`.  It is `cofkL_threshold_at_socket_rated_h_b9` (below) with
+the hypothesis strengthened: the two statements differ in that ONE binder line and are
+token-identical elsewhere, so the generic implies it by `linarith` — kernel-checked from the
+retired statement's own bytes, with the ladder's other implication rungs, before the 97
+lines were removed.  It had no consumer left: its one call site was the body of
+`cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired in family 02.  Its own close `hmargin`
+has slack ≥ 7.2·10⁶ against a cost `3·28/4 = 21`, which becomes `3·32/4 = 24` at `_b9`, as the
+`_b9` docstring says.  §8 below is NOT about this page: its tight ×1.09 margin is §4's `hbud`,
+discharged at the socket exit `cofkL_capFreeFloor_at_socket_rated_uniform_h` (retired in family
+02, note below) from `hlo : 518 ≤ loglog H₋`; that exit's `_b9` pays `hbud` at `1409.5 ≤ 14504`. -/
 
 /-! ## §8 — the exit at the inflated socket, and where the tight margin goes
 
@@ -994,7 +911,10 @@ margin is a property of the PAGE stated in isolation, not of the program.
 
 The binding constraint at the socket is therefore `hh7 : log h ≤ 7` (`h ≤ 1096`), which comes
 from the `mertensCap` row's absorption in §4 and the `log X` floor's subtraction in §6 — not
-from the `Λ`-budget at all. -/
+from the `Λ`-budget at all.
+
+(2026-09-26: the pages this section describes carried `hh7 : log h ≤ 7`; both were retired into
+their `_b9` generics — families 02 and 04 — whose binder is `hh9 : log h ≤ 9`, `h ≤ 8103`.) -/
 
 /-! ### THE RATED SOCKET AT THE INFLATED CAP, `K`-UNIFORM, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
@@ -1760,7 +1680,8 @@ theorem cofkL_scale_gate_at_socket_h_b9 {R : ChowlaRegime} {h M H L q j A s : �
 
 set_option maxHeartbeats 1000000 in
 -- as the source: the three legs and the square-root close elaborate in one block
-/-- `cofkL_threshold_at_socket_rated_h` at `log h ≤ 9` (`cofkL_threshold_at_socket_rated_h_b9`) —
+/-- The former `cofkL_threshold_at_socket_rated_h` (retired into this,
+2026-09-26) at `log h ≤ 9` (`cofkL_threshold_at_socket_rated_h_b9`) —
 NUMERAL-LIFT + SUPPLIER-SWAP (census band 3 row 10): `cofkL_mu_floor_h_b9`, and the typed
 `hμ : LH − 28 ≤ μ`, `hμbig : 10^8 − 28 ≤ μ` carry its numeral `28 ↦ 32`; `hHhi14` pays
 `26·log 10 + 4·9`.  `hmargin`'s slack `720·√LH ≥ 7.2·10⁶` against a cost `3·32/4 = 24`.  The
