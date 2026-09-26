@@ -6411,8 +6411,13 @@ three days and was carried into a council as an open item before measurement kil
    with the axioms PAIR (`saltbuild EXIT=0` with zero tagged errors in both orders + `#print axioms` at the three axioms + a
    planted-`sorry` control in the SAME log — the goldmine's own receipt form) BEFORE that sibling is retired; (ii) the
    design-tier IN-PLACE rewrite is the STANDING FORM (#171's precedent): the kernel receipt re-taken and #171's statement guard
-   used, Fable/human-directed only (rule 5). ⛔ **GATE — THIS LANE OPENS ONLY AFTER arXiv:2609.11076 v2 POSTS** (saltbench PR
-   #263 waits on his click); until then NOTHING MOVES IN A LANDED FILE, and a tactic rewrite lands as a `_tac` sibling. **PULL
+   used, Fable/human-directed only (rule 5). ⚖️ **GATE — RULED OPEN 2026-09-26 (council §A4, his word "accept rec"): the 09-25 "after F" he accepted meant MODE F
+   (the saltbench mode, DONE 09-25), NOT the arXiv v2 posting — THIS LANE IS OPEN; the stacked DRAFTs #186 → #187 → #189 →
+   #190 → #191 merge in order on their receipt pairs (math's #188 the same, MERGED 10:21).** *(This sentence read "THIS LANE
+   OPENS ONLY AFTER arXiv:2609.11076 v2 POSTS (saltbench PR #263 waits on his click); until then NOTHING MOVES IN A LANDED
+   FILE" from 09-25 to 09-26 — a hardening of the minute's "after the paper's version posts" that the desk row's author did
+   not mean; kept as its own dated record; the ruling is in the 2026-09-26 council minute, the fleet's private record, blob 1ef4f162db9a §1.)* A tactic rewrite still
+   lands as a `_tac` sibling. **PULL
    RULE, once open:** worker tier at P3, one family per pull, the family with the smallest import cone first; each wave is a
    freeze first (the generic statement, the members it retires, their consumers, how a retired name is handled) with a
    non-author read; the PR carries before/after line counts, every consumer's receipt line, and the retired names; a STATEMENT
