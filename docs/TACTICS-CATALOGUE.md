@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `bcb06b94` · source digest `459c0af86a56ba1d` (the same digest as items 1–3).
-> Receipt: files 1319 · decls 22698 · with_body 22698 · tactic_lines 311489 · runs 36337 · blocks 1553.
+> Base: last commit touching `Salt/` = `cf4e1b01` · source digest `899e669a658ef33a` (the same digest as items 1–3).
+> Receipt: files 1319 · decls 22698 · with_body 22698 · tactic_lines 311453 · runs 36329 · blocks 1552.
 
 ## LIMITS (read before any number below)
 
@@ -74,8 +74,8 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_eq_pow` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | qualified 4 | `MR/StrideDoorAllGrades.lean` 3, `HB/CrownTheorem1.lean` 1 |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_lt_of_pow_lt` | 0 | - | - |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | qualified 11 | `MR/StrideDoorAllGrades.lean` 8, `HB/CrownTheorem1.lean` 3 |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.log_le_nat_of_le_pow` | 5 | qualified 5 | `HB/CrownTheorem1.lean` 3, `MR/StrideDoorAllGrades.lean` 2 |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 19 | qualified 19 | `MR/S13CapGateLinearLH.lean` 8, `MR/StrideDoorAllGrades.lean` 8, `HB/CrownTheorem1.lean` 3 |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.log_le_nat_of_le_pow` | 9 | qualified 9 | `MR/S13CapGateLinearLH.lean` 4, `HB/CrownTheorem1.lean` 3, `MR/StrideDoorAllGrades.lean` 2 |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.lt_exp_nat_of_lt_pow` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | qualified 4 | `HB/CrownTheorem1.lean` 4 |
 | `LogNum.lean` | T3 | `Salt.Tactic.LogNum.le_log_two_pow` | 0 | - | - |
@@ -93,20 +93,20 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 | name | at base (seat, lines) | here: qualified tokens | here: all forms |
 |---|---:|---:|---:|
-| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 11 | 11 |
+| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 19 | 19 |
 | `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | 4 | 4 |
-| `Salt.Tactic.log_le_nat_of_le_pow` | 5 | 5 | 5 |
+| `Salt.Tactic.log_le_nat_of_le_pow` | 5 | 9 | 9 |
 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | 4 | 4 |
 
 ## 2. Tactic usage (first token of each tactic line)
 
-311489 tactic lines. Top 30:
+311453 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 138751 | 44.5% |
-| 2 | `rw` | 49660 | 15.9% |
-| 3 | `exact` | 17599 | 5.6% |
+| 1 | `have` | 138715 | 44.5% |
+| 2 | `rw` | 49652 | 15.9% |
+| 3 | `exact` | 17599 | 5.7% |
 | 4 | `intro` | 14082 | 4.5% |
 | 5 | `refine` | 12818 | 4.1% |
 | 6 | `linarith` | 9978 | 3.2% |
@@ -117,12 +117,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 11 | `nlinarith` | 4871 | 1.6% |
 | 12 | `apply` | 4381 | 1.4% |
 | 13 | `unfold` | 2615 | 0.8% |
-| 14 | `exact_mod_cast` | 2433 | 0.8% |
+| 14 | `exact_mod_cast` | 2445 | 0.8% |
 | 15 | `ring` | 2204 | 0.7% |
 | 16 | `rcases` | 2122 | 0.7% |
 | 17 | `push_cast` | 2112 | 0.7% |
 | 18 | `field_simp` | 1955 | 0.6% |
-| 19 | `rwa` | 1695 | 0.5% |
+| 19 | `rwa` | 1691 | 0.5% |
 | 20 | `by_cases` | 1642 | 0.5% |
 | 21 | `norm_num` | 1485 | 0.5% |
 | 22 | `omega` | 1478 | 0.5% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3302 | `have` 1532, `rw` 560, `exact` 173, `linarith` 138, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 128917 | `have` 60601, `rw` 17489, `exact` 7156, `refine` 6860, `intro` 6135, `linarith` 5572, `obtain` 4702, `nlinarith` 2450 |
+| Matomaki-Radziwill / Halasz (short intervals) | 128881 | `have` 60565, `rw` 17481, `exact` 7156, `refine` 6860, `intro` 6135, `linarith` 5572, `obtain` 4702, `nlinarith` 2450 |
 | (no family) | 21352 | `have` 8437, `rw` 3733, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `apply` 570 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1553 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1552 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
