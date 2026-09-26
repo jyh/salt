@@ -25,7 +25,7 @@ hyp	Salt.BV.PsiToPiCore'	DISCHARGED	Salt/BV/AbelCore.lean:436	0	Salt.BV.psiToPiC
 hyp	Salt.BV.PsiToPiTransfer	DISCHARGED	Salt/BV/PsiToPi.lean:117	2	Salt.BV.psiToPiTransfer_holds				
 hyp	Salt.BV.SiegelWalfisz	DISCHARGED	Salt/BV/Defs.lean:35	9	Salt.SW.siegelWalfisz_holds				
 hyp	Salt.BrunLower.IsLowerMoebius	DISCHARGED	Salt/BrunLower/LowerMoebius.lean:36	4	Salt.BrunLower.isLowerMoebius_moebius_chiTwo!g,Salt.Chen.TruncSieve.isLowerMoebius!g,Salt.Chen.rosserSieve_isLowerMoebius,Salt.TwinBar.isLowerMoebius_zero				
-hyp	Salt.BrunLower.capPred	OPEN	Salt/BrunLower/Remainder.lean:178	0					
+hyp	Salt.BrunLower.capPred	FRAME	Salt/BrunLower/Remainder.lean:178	0					
 hyp	Salt.BrunLower.chi	DISCHARGED	Salt/BrunLower/Defs.lean:149	8	Salt.BrunLower.chi_one!g,Salt.BrunLower.chi_prime!g,Salt.HB.mem_failSet				
 hyp	Salt.Chen.Feasible	DISCHARGED	Salt/Chen/WeightNoGo.lean:55	4	Salt.Chen.corpus_feasible!g				
 hyp	Salt.Chen.IsE2	OPEN	Salt/Chen/TwinDeficit.lean:106	0					
@@ -65,8 +65,8 @@ hyp	Salt.Entropy.Chowla.PmNormalized	DISCHARGED	Salt/Entropy/Chowla/TransportWal
 hyp	Salt.Entropy.Chowla.StrideScale	DISCHARGED	Salt/Entropy/Chowla/StridePair.lean:74	10	Salt.Entropy.Chowla.strideScale_one				
 hyp	Salt.Entropy.Chowla.TwinDetecting	DISCHARGED	Salt/Entropy/Chowla/TransportWall.lean:91	1	Salt.Entropy.Chowla.slack_witness_twinDetecting,Salt.Entropy.Chowla.chi4w_detecting				
 hyp	Salt.Entropy.Chowla.TwinDetecting'	DISCHARGED	Salt/Entropy/Chowla/PinDichotomy.lean:75	2	Salt.Entropy.Chowla.liouville_pinned,Salt.Entropy.Chowla.chi4w_detecting'				
-hyp	Salt.Entropy.Chowla.XCeilGate	OPEN	Salt/MR/XThread.lean:68	0					
-hyp	Salt.Entropy.Chowla.XCeilRider	OPEN	Salt/MR/XThread.lean:75	12					
+hyp	Salt.Entropy.Chowla.XCeilGate	FRAME	Salt/MR/XThread.lean:68	0					
+hyp	Salt.Entropy.Chowla.XCeilRider	FRAME	Salt/MR/XThread.lean:75	12					
 hyp	Salt.Entropy.Chowla.XCeilRiderStrict	DISCHARGED	Salt/MR/XThread.lean:82	12	Salt.MR.xceilRiderStrict_zero				
 hyp	Salt.Entropy.Chowla.collapseCharacterization_candidate	OPEN	Salt/Entropy/Chowla/BoundaryMap.lean:137	0					
 hyp	Salt.Entropy.Chowla.logChowla2Fails	OPEN	Salt/Entropy/Chowla/ChowlaFailure.lean:59	15					
@@ -114,17 +114,17 @@ hyp	Salt.MR.CapFreeFloor	DISCHARGED	Salt/MR/CapFreeArm.lean:111	6	Salt.MR.capFre
 hyp	Salt.MR.CapFreeFloor3	DISCHARGED	Salt/MR/CapFreeArm3.lean:76	13	Salt.MR.capFreeFloor3_pieceDatum_vt_rated!g,Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated!g,Salt.MR.capFreeFloor3_of_row_floor!g,Salt.MR.capFreeFloor3_all_chi!g,Salt.MR.cffK_spec!g,Salt.MR.capFreeFloor3_liouChi_all!g,Salt.MR.capFreeFloor3_all_chi_sharp!g,Salt.MR.cffKSharp_spec!g,Salt.MR.capFreeFloor3_liouChi_all_sharp!g,Salt.MR.capFreeFloor3_pieceDatum_sharp!g,Salt.MR.capFreeFloor3_pieceDatum!g,Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_L!g,Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_h!g,Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_two!g,Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_h_b9!g,Salt.MR.m4_capfree_of_joint!g,Salt.MR.capFreeFloor3_pieceDatum_arcDen!g,Salt.MR.capFreeFloor3_lamChi_unconditional_sharp!g,Salt.MR.capFreeFloor3_all_chi_vt!g,Salt.MR.cffKVt_spec!g,Salt.MR.capFreeFloor3_liouChi_all_vt!g,Salt.MR.capFreeFloor3_pieceDatum_vt!g,Salt.MR.capFreeFloor3_lamChi_unconditional!g				
 hyp	Salt.MR.CaseASocket2	OPEN	Salt/MR/USetGradedPrice.lean:122	10					
 hyp	Salt.MR.CaseASocketGen	DISCHARGED	Salt/MR/CofactorSupplier.lean:542	6	Salt.MR.caseASocketGen_of_inner!g				
-hyp	Salt.MR.CellGates	OPEN	Salt/MR/TLegKill.lean:383	2					
+hyp	Salt.MR.CellGates	FRAME	Salt/MR/TLegKill.lean:383	2					
 hyp	Salt.MR.CofactorBulkL	OPEN	Salt/MR/CofactorBulk.lean:266	3					
 hyp	Salt.MR.CofactorSocket	OPEN	Salt/MR/CapFreeArm3.lean:258	47					
-hyp	Salt.MR.DoorArithFrame	OPEN	Salt/MR/M4ArithPage.lean:291	26					
-hyp	Salt.MR.DoorArithFrameRho	OPEN	Salt/MR/M4ArithRho.lean:176	16					
-hyp	Salt.MR.DoorArithFrameRho_L	OPEN	Salt/MR/ArithPageLinear.lean:315	71					
-hyp	Salt.MR.DoorBandBase	OPEN	Salt/MR/M4SocketDischarge.lean:262	11					
-hyp	Salt.MR.DoorBandBase_L	OPEN	Salt/MR/M4SocketLinear.lean:207	4					
-hyp	Salt.MR.DoorBandBase_L_gk	OPEN	Salt/MR/M4SocketLinear.lean:450	25					
-hyp	Salt.MR.DoorBandBase_gk	OPEN	Salt/MR/M4SocketDischarge.lean:545	3					
-hyp	Salt.MR.DoorBaseFrame	OPEN	Salt/MR/M4ArithPrime.lean:109	41					
+hyp	Salt.MR.DoorArithFrame	FRAME	Salt/MR/M4ArithPage.lean:291	26					
+hyp	Salt.MR.DoorArithFrameRho	FRAME	Salt/MR/M4ArithRho.lean:176	16					
+hyp	Salt.MR.DoorArithFrameRho_L	FRAME	Salt/MR/ArithPageLinear.lean:315	71					
+hyp	Salt.MR.DoorBandBase	FRAME	Salt/MR/M4SocketDischarge.lean:262	11					
+hyp	Salt.MR.DoorBandBase_L	FRAME	Salt/MR/M4SocketLinear.lean:207	4					
+hyp	Salt.MR.DoorBandBase_L_gk	FRAME	Salt/MR/M4SocketLinear.lean:450	25					
+hyp	Salt.MR.DoorBandBase_gk	FRAME	Salt/MR/M4SocketDischarge.lean:545	3					
+hyp	Salt.MR.DoorBaseFrame	FRAME	Salt/MR/M4ArithPrime.lean:109	41					
 hyp	Salt.MR.DoorCapBase	OPEN	Salt/MR/M4CapWire.lean:179	3					
 hyp	Salt.MR.DoorCapBasePerBlock	OPEN	Salt/MR/M4CapWire.lean:612	2					
 hyp	Salt.MR.DoorCapBasePerBlock_L	OPEN	Salt/MR/M4CapWireLinear.lean:350	0					
@@ -177,7 +177,7 @@ hyp	Salt.MR.DoorRowEndBase	OPEN	Salt/MR/M4RowsChiEnd.lean:779	5
 hyp	Salt.MR.DoorRowEndBase_L	OPEN	Salt/MR/M4RowLinear.lean:336	5					
 hyp	Salt.MR.DoorRowEndBase_L_gk	OPEN	Salt/MR/M4RowAssemblyLinear.lean:5278	13					
 hyp	Salt.MR.DoorRowEndBase_gk	OPEN	Salt/MR/M4RowsChiEnd.lean:1080	0					
-hyp	Salt.MR.DoorRowT0Gates	OPEN	Salt/MR/M4T0Discharge.lean:571	0					
+hyp	Salt.MR.DoorRowT0Gates	FRAME	Salt/MR/M4T0Discharge.lean:571	0					
 hyp	Salt.MR.DoorRowZeroBase	OPEN	Salt/MR/M4RowsChiZero.lean:723	12					
 hyp	Salt.MR.DoorRowZeroBase_L	OPEN	Salt/MR/M4RowLinear.lean:383	7					
 hyp	Salt.MR.DoorRowZeroBase_L_gk	OPEN	Salt/MR/M4RowSpineLinear.lean:1433	35					
@@ -194,7 +194,7 @@ hyp	Salt.MR.FlatCapstoneFormHG_Z	OPEN	Salt/MR/StrideDoorAllGrades.lean:148	1
 hyp	Salt.MR.FlatCapstoneFormHG_g12b	OPEN	Salt/MR/StridePairReceiptG12b.lean:111	1					
 hyp	Salt.MR.FlatCapstoneFormHG_g12b_band	OPEN	Salt/MR/TierSBand.lean:170	2					
 hyp	Salt.MR.FlatCapstoneFormU	OPEN	Salt/MR/FlatDoorUniform.lean:404	1					
-hyp	Salt.MR.FlatClassW	OPEN	Salt/MR/FlatDoorUniform.lean:56	0					
+hyp	Salt.MR.FlatClassW	FRAME	Salt/MR/FlatDoorUniform.lean:56	0					
 hyp	Salt.MR.FlatConditionalForm	OPEN	Salt/MR/DoorReceipt.lean:580	1					
 hyp	Salt.MR.FlatConditionalFormEps	OPEN	Salt/MR/FlatDoorEpsChain.lean:328	1					
 hyp	Salt.MR.FlatConditionalFormEpsW	OPEN	Salt/MR/FlatDoorEpsRung2.lean:4684	1					
@@ -250,8 +250,8 @@ hyp	Salt.MR.FlatSocketFormEps	OPEN	Salt/MR/FlatDoorEpsChain.lean:149	1
 hyp	Salt.MR.FlatSocketFormEpsW	OPEN	Salt/MR/FlatDoorEpsRung2.lean:4499	1					
 hyp	Salt.MR.FlatSocketFormEpsW_band	OPEN	Salt/MR/FlatDoorAllGradesBand.lean:164	1					
 hyp	Salt.MR.FlatSocketFormU	OPEN	Salt/MR/FlatDoorUniform.lean:310	1					
-hyp	Salt.MR.G2Scaffold.DoorBandBase_L	OPEN	Salt/MR/M4RowLinear.lean:407	0					
-hyp	Salt.MR.G2Scaffold.DoorBandBase_L_gk	OPEN	Salt/MR/M4RowLinear.lean:442	0					
+hyp	Salt.MR.G2Scaffold.DoorBandBase_L	FRAME	Salt/MR/M4RowLinear.lean:407	0					
+hyp	Salt.MR.G2Scaffold.DoorBandBase_L_gk	FRAME	Salt/MR/M4RowLinear.lean:442	0					
 hyp	Salt.MR.G2Scaffold.DoorCapBase_L	OPEN	Salt/MR/M4RowLinear.lean:472	0					
 hyp	Salt.MR.G2Scaffold.DoorCapBase_L_gk	OPEN	Salt/MR/M4RowLinear.lean:631	0					
 hyp	Salt.MR.G2Scaffold.DoorCapErrWS_L	OPEN	Salt/MR/M4RowLinear.lean:795	0					
@@ -278,22 +278,22 @@ hyp	Salt.MR.G2Scaffold.M4SievedDoorSqBlk_L	OPEN	Salt/MR/M4RowLinear.lean:1058	0
 hyp	Salt.MR.G2Scaffold.M4SievedDoorSqBlk_L_gk	OPEN	Salt/MR/M4RowLinear.lean:1068	0					
 hyp	Salt.MR.G2Scaffold.S13CapGate_L	OPEN	Salt/MR/M4RowLinear.lean:1093	0					
 hyp	Salt.MR.G2Scaffold.S13CapGate_L_gk	OPEN	Salt/MR/M4RowLinear.lean:1212	0					
-hyp	Salt.MR.GRowsZeroGate	OPEN	Salt/MR/M4ArithZero.lean:397	1					
-hyp	Salt.MR.GRowsZeroGate'	OPEN	Salt/MR/M4ArithZero.lean:595	0					
-hyp	Salt.MR.GRowsZeroGate''	OPEN	Salt/MR/M4ArithPrime.lean:71	3					
-hyp	Salt.MR.GRowsZeroGate'''	OPEN	Salt/MR/M4ClosureRepair.lean:278	0					
+hyp	Salt.MR.GRowsZeroGate	FRAME	Salt/MR/M4ArithZero.lean:397	1					
+hyp	Salt.MR.GRowsZeroGate'	FRAME	Salt/MR/M4ArithZero.lean:595	0					
+hyp	Salt.MR.GRowsZeroGate''	FRAME	Salt/MR/M4ArithPrime.lean:71	3					
+hyp	Salt.MR.GRowsZeroGate'''	FRAME	Salt/MR/M4ClosureRepair.lean:278	0					
 hyp	Salt.MR.GRowsZeroGate'''_L	DISCHARGED	Salt/MR/ArithPageLinear.lean:881	5	Salt.MR.gRowsZeroGate'''_L_of_budget!g				
 hyp	Salt.MR.GRowsZeroGate'''_L_gk	DISCHARGED	Salt/MR/M4ClosureRepairLinear.lean:719	31	Salt.MR.gRowsZeroGate'''_L_gk_of_budget!g				
-hyp	Salt.MR.GRowsZeroGate'''_gk	OPEN	Salt/MR/M4ClosureRepair.lean:1174	3					
-hyp	Salt.MR.GRowsZeroGate''_L	OPEN	Salt/MR/M4ArithZeroLinear.lean:679	1					
-hyp	Salt.MR.GRowsZeroGate''_L_gk	OPEN	Salt/MR/M4ArithZeroLinear.lean:1283	0					
-hyp	Salt.MR.GRowsZeroGate''_gk	OPEN	Salt/MR/M4ArithPrime.lean:264	0					
-hyp	Salt.MR.GRowsZeroGate'_L	OPEN	Salt/MR/M4ArithZeroLinear.lean:274	0					
-hyp	Salt.MR.GRowsZeroGate'_L_gk	OPEN	Salt/MR/M4ArithZeroLinear.lean:962	0					
-hyp	Salt.MR.GRowsZeroGate'_gk	OPEN	Salt/MR/M4ArithZero.lean:895	0					
-hyp	Salt.MR.GRowsZeroGate_L	OPEN	Salt/MR/M4ArithZeroLinear.lean:127	0					
-hyp	Salt.MR.GRowsZeroGate_L_gk	OPEN	Salt/MR/M4ArithZeroLinear.lean:914	0					
-hyp	Salt.MR.GRowsZeroGate_gk	OPEN	Salt/MR/M4ArithZero.lean:846	0					
+hyp	Salt.MR.GRowsZeroGate'''_gk	FRAME	Salt/MR/M4ClosureRepair.lean:1174	3					
+hyp	Salt.MR.GRowsZeroGate''_L	FRAME	Salt/MR/M4ArithZeroLinear.lean:679	1					
+hyp	Salt.MR.GRowsZeroGate''_L_gk	FRAME	Salt/MR/M4ArithZeroLinear.lean:1283	0					
+hyp	Salt.MR.GRowsZeroGate''_gk	FRAME	Salt/MR/M4ArithPrime.lean:264	0					
+hyp	Salt.MR.GRowsZeroGate'_L	FRAME	Salt/MR/M4ArithZeroLinear.lean:274	0					
+hyp	Salt.MR.GRowsZeroGate'_L_gk	FRAME	Salt/MR/M4ArithZeroLinear.lean:962	0					
+hyp	Salt.MR.GRowsZeroGate'_gk	FRAME	Salt/MR/M4ArithZero.lean:895	0					
+hyp	Salt.MR.GRowsZeroGate_L	FRAME	Salt/MR/M4ArithZeroLinear.lean:127	0					
+hyp	Salt.MR.GRowsZeroGate_L_gk	FRAME	Salt/MR/M4ArithZeroLinear.lean:914	0					
+hyp	Salt.MR.GRowsZeroGate_gk	FRAME	Salt/MR/M4ArithZero.lean:846	0					
 hyp	Salt.MR.HalaszIntegersChi	OPEN	Salt/MR/USetChiTS.lean:124	3					
 hyp	Salt.MR.HalaszIntegersChiPhi	DISCHARGED	Salt/MR/HalaszIntegersChiClose.lean:247	0	Salt.MR.halaszIntegersChiPhi_holds				
 hyp	Salt.MR.HalaszPrimesChi	DISCHARGED	Salt/MR/USetChi.lean:571	4	Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded!g,Salt.MR.halaszPrimesChi_pointwise_of_gates!g,Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs!g				
@@ -309,7 +309,7 @@ hyp	Salt.MR.LFunctionInvShallowVk	OPEN	Salt/MR/MobiusChiRate.lean:732	0
 hyp	Salt.MR.LFunctionInvShallowVkSharp	DISCHARGED	Salt/MR/LFunctionInvShallow.lean:1240	0	Salt.MR.lFunctionInvShallowVkSharp_holds				
 hyp	Salt.MR.LambdaChiSummatory	DISCHARGED	Salt/MR/LambdaRateTwisted.lean:522	0	Salt.MR.lambdaChiSummatory_holds_gated!g				
 hyp	Salt.MR.Lemma4Comparison	OPEN	Salt/MR/Sec9Glue.lean:366	5					
-hyp	Salt.MR.Lemma4Datum	OPEN	Salt/MR/Eq26Bridge.lean:311	1					
+hyp	Salt.MR.Lemma4Datum	FRAME	Salt/MR/Eq26Bridge.lean:311	1					
 hyp	Salt.MR.LevelGates	DISCHARGED	Salt/MR/TLegExit.lean:720	11	Salt.MR.levelGates_calibrated_door!g,Salt.MR.levelGates_calibrated_door_gk!g,Salt.MR.levelGates_calibrated_doorH1!g,Salt.MR.levelGates_calibrated_doorH1_gk!g,Salt.MR.levelGates_calibrated_doorH1_L!g,Salt.MR.levelGates_calibrated_doorH1_L_gk!g,Salt.MR.levelGates_calibrated_Ah_L!g,Salt.MR.levelGates_calibrated_doorL!g,Salt.MR.levelGates_calibrated_doorL_gk!g,Salt.MR.levelGates_calibrated_Ah!g				
 hyp	Salt.MR.LogChowla2WitnessedScale	OPEN	Salt/MR/S14Compose.lean:442	0					
 hyp	Salt.MR.M4BandTransport	DISCHARGED	Salt/MR/M4Close.lean:350	0	Salt.MR.m4_bandTransport				
@@ -431,7 +431,7 @@ hyp	Salt.MR.M4SievedDoorSq_L	OPEN	Salt/MR/M4LadderLinear.lean:921	0
 hyp	Salt.MR.M4SievedDoorSq_L_gk	OPEN	Salt/MR/M4LadderLinear.lean:961	5					
 hyp	Salt.MR.M4SievedDoorSq_gk	DISCHARGED	Salt/MR/M4Close.lean:847	0	Salt.MR.m4_sievedDoorSq_trivial_gk				
 hyp	Salt.MR.MRTBandCount	OPEN	Salt/MR/MRTPropA3.lean:68	3					
-hyp	Salt.MR.MRTBands	OPEN	Salt/MR/MRTPropA3.lean:58	8					
+hyp	Salt.MR.MRTBands	FRAME	Salt/MR/MRTPropA3.lean:58	8					
 hyp	Salt.MR.MRTDoorAllGrades	OPEN	Salt/MR/DoorReceipt.lean:1213	2					
 hyp	Salt.MR.MRTDoorReceipt	OPEN	Salt/MR/DoorReceipt.lean:84	0					
 hyp	Salt.MR.MRTDoorReceiptSet	OPEN	Salt/MR/StridePairReceipt.lean:1859	0					
@@ -461,7 +461,7 @@ hyp	Salt.MR.MRTParsevalConstantMatch_34	OPEN	Salt/MR/MRTPropA3.lean:4586	1
 hyp	Salt.MR.MRTProp24	OPEN	Salt/MR/MRTProp24.lean:267	0					
 hyp	Salt.MR.MRTProp24Statement	OPEN	Salt/MR/MRTProp24.lean:284	0					
 hyp	Salt.MR.MRTPropA3	OPEN	Salt/MR/MRTPropA3.lean:96	1					
-hyp	Salt.MR.MRTPropA3Ambient	OPEN	Salt/MR/MRTPropA3.lean:91	2					
+hyp	Salt.MR.MRTPropA3Ambient	FRAME	Salt/MR/MRTPropA3.lean:91	2					
 hyp	Salt.MR.MRTPropA3Ambient34	OPEN	Salt/MR/MRTPropA3.lean:4509	0					
 hyp	Salt.MR.MRTPropA3Statement	OPEN	Salt/MR/MRTPropA3.lean:151	0					
 hyp	Salt.MR.MRTPropA3_34	OPEN	Salt/MR/MRTPropA3.lean:4540	0					
@@ -500,11 +500,11 @@ hyp	Salt.MR.PocketSocket	OPEN	Salt/MR/CapFreeArm.lean:195	8
 hyp	Salt.MR.PocketSocket3	OPEN	Salt/MR/CapFreeArm3.lean:143	2					
 hyp	Salt.MR.PocketSocket3Gen	OPEN	Salt/MR/CofactorSupplier.lean:491	3					
 hyp	Salt.MR.PrimeTailShiftBounded	DISCHARGED	Salt/MR/PrimeSigmaShift.lean:435	3	Salt.MR.prime_tail_shift				
-hyp	Salt.MR.S13BandGate	OPEN	Salt/MR/S13BandBase.lean:481	0					
-hyp	Salt.MR.S13BandGate'	OPEN	Salt/MR/S13BandBase.lean:725	0					
+hyp	Salt.MR.S13BandGate	FRAME	Salt/MR/S13BandBase.lean:481	0					
+hyp	Salt.MR.S13BandGate'	FRAME	Salt/MR/S13BandBase.lean:725	0					
 hyp	Salt.MR.S13BandGate'_L_gk	OPEN	Salt/MR/S16FlatTerminalLinear.lean:787	1					
-hyp	Salt.MR.S13BandGate'_gk	OPEN	Salt/MR/S13BandBase.lean:994	0					
-hyp	Salt.MR.S13BandGate_gk	OPEN	Salt/MR/S13BandBase.lean:864	0					
+hyp	Salt.MR.S13BandGate'_gk	FRAME	Salt/MR/S13BandBase.lean:994	0					
+hyp	Salt.MR.S13BandGate_gk	FRAME	Salt/MR/S13BandBase.lean:864	0					
 hyp	Salt.MR.S13CapGate	OPEN	Salt/MR/S13FramesB.lean:248	3					
 hyp	Salt.MR.S13CapGatePerBlock	OPEN	Salt/MR/S13FramesB.lean:990	0					
 hyp	Salt.MR.S13CapGatePerBlock_L_gk	OPEN	Salt/MR/S13CapGateLinear.lean:91	3					
@@ -514,7 +514,7 @@ hyp	Salt.MR.S15CrossingBound	OPEN	Salt/MR/S15Compose.lean:799	0
 hyp	Salt.MR.S15CrossingBound_LH_gk	OPEN	Salt/MR/S16FlatTerminalLinearLH.lean:86	5					
 hyp	Salt.MR.S15CrossingBound_L_gk	OPEN	Salt/MR/S16FlatTerminalLinear.lean:1008	10					
 hyp	Salt.MR.S15CrossingBound_gk	OPEN	Salt/MR/S15Compose.lean:2016	1					
-hyp	Salt.MR.S15Sel	OPEN	Salt/MR/S15Compose.lean:724	0					
+hyp	Salt.MR.S15Sel	FRAME	Salt/MR/S15Compose.lean:724	0					
 hyp	Salt.MR.S15Sel'	DISCHARGED	Salt/MR/S15Compose.lean:1217	0	Salt.MR.s15_sel'_witness!g				
 hyp	Salt.MR.S15Sel''	DISCHARGED	Salt/MR/S15Compose.lean:1568	0	Salt.MR.s15_sel''_witness!g				
 hyp	Salt.MR.S15Sel''_L	DISCHARGED	Salt/MR/S15SelLinear.lean:104	6	Salt.MR.s15_sel''_L_witness_flat_L!g,Salt.MR.s15_sel''_L_witness_flat!g,Salt.MR.s15_sel''_L_witness_flat_b9!g,Salt.MR.s15_sel''_L_witness_flat_charge!g,Salt.MR.s15_sel''_L_witness_flat_wide!g,Salt.MR.s15_sel''_L_witness_flat_charge_g12b!g,Salt.MR.s15_sel''_L_witness_flat_wide_g12b!g,Salt.MR.s15_sel''_L_witness_flat_charge_g!g,Salt.MR.s15_sel''_L_witness_flat_wide_g!g				
@@ -523,7 +523,7 @@ hyp	Salt.MR.S15Sel''_L_gk	DISCHARGED	Salt/MR/S15SelLinear.lean:139	19	Salt.MR.s1
 hyp	Salt.MR.S15Sel''_L_gk_T	DISCHARGED	Salt/MR/FlatDoorEpsRung2.lean:3837	3	Salt.MR.s15_sel''_L_gk_witness_flat_wide_L!g,Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_L!g				
 hyp	Salt.MR.S15Sel''_gk	DISCHARGED	Salt/MR/S15Compose.lean:2564	1	Salt.MR.s15_sel''_witness_gk!g,Salt.MR.s15_sel''_witness_gk'!g,Salt.MR.s15_sel''_witness_wide!g				
 hyp	Salt.MR.S15Sel'_gk	DISCHARGED	Salt/MR/S15Compose.lean:2311	0	Salt.MR.s15_sel'_witness_gk!g				
-hyp	Salt.MR.S15Sel_gk	OPEN	Salt/MR/S15Compose.lean:1952	0					
+hyp	Salt.MR.S15Sel_gk	FRAME	Salt/MR/S15Compose.lean:1952	0					
 hyp	Salt.MR.S15Supply	OPEN	Salt/MR/S15Compose.lean:954	0					
 hyp	Salt.MR.S15SupplyGraded	OPEN	Salt/MR/S15Compose.lean:1152	0					
 hyp	Salt.MR.S15SupplyGraded_gk	OPEN	Salt/MR/S15Compose.lean:2290	0					
@@ -540,12 +540,12 @@ hyp	Salt.MR.S16BandLaneCBoundedL_winU	OPEN	Salt/MR/S16ComposeV4.lean:74	14
 hyp	Salt.MR.S16BandT0CBounded	OPEN	Salt/MR/S16Budget.lean:1404	0					
 hyp	Salt.MR.S16BaseScaleCap96_LH_gk	DISCHARGED	Salt/MR/S13CapGateLinearLH.lean:226	6	Salt.MR.s16_baseScaleCap96_LH_at_klevF_L!g,Salt.MR.s16_baseScaleCap96_LH_at_klevF!g,Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9!g				
 hyp	Salt.MR.S16BaseScaleCap96_L_gk	DISCHARGED	Salt/MR/S13CapGateLinear.lean:891	3	Salt.MR.s16_baseScaleCap96_L_at_klevF!g,Salt.MR.s16_baseScaleCap96_L_of_xwindow!g,Salt.MR.s16_baseScaleCap96_L_of_x_small!g,Salt.MR.s16_baseScaleCap96_L_of_xceil!g,Salt.MR.s16_baseScaleCap96_L_supplied!g				
-hyp	Salt.MR.S16BaseScaleCap96_gk	OPEN	Salt/MR/S16Budget.lean:2064	1					
+hyp	Salt.MR.S16BaseScaleCap96_gk	FRAME	Salt/MR/S16Budget.lean:2064	1					
 hyp	Salt.MR.S16BaseScaleCapEnd_LH_gk	DISCHARGED	Salt/MR/V7RatedH.lean:811	1	Salt.MR.s16_baseScaleCapEnd_LH_of_xceil!g				
 hyp	Salt.MR.S16BaseScaleCapEnd_L_gk	DISCHARGED	Salt/MR/KLever.lean:203	2	Salt.MR.s16_baseScaleCapEnd_L_of_xceil!g				
-hyp	Salt.MR.S16BaseScaleCapL96_gk	OPEN	Salt/MR/DoorLinear.lean:479	0					
-hyp	Salt.MR.S16BaseScaleCapL_gk	OPEN	Salt/MR/DoorLinear.lean:473	1					
-hyp	Salt.MR.S16BaseScaleCap_gk	OPEN	Salt/MR/S16Budget.lean:467	1					
+hyp	Salt.MR.S16BaseScaleCapL96_gk	FRAME	Salt/MR/DoorLinear.lean:479	0					
+hyp	Salt.MR.S16BaseScaleCapL_gk	FRAME	Salt/MR/DoorLinear.lean:473	1					
+hyp	Salt.MR.S16BaseScaleCap_gk	FRAME	Salt/MR/S16Budget.lean:467	1					
 hyp	Salt.MR.S16CofactorSupply_LH_gk	DISCHARGED	Salt/MR/S13CapGateLinearLH.lean:233	6	Salt.MR.cofkR_cofactorSupply_L_gk_rated_L!g,Salt.MR.cofkR_cofactorSupply_L_gk_rated_h!g,Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9!g				
 hyp	Salt.MR.S16CofactorSupply_L_gk	DISCHARGED	Salt/MR/S13CapGateLinear.lean:897	5	Salt.MR.cofkR_cofactorSupply_L_gk!g,Salt.MR.cofkR_cofactorSupply_L_gk_rated!g				
 hyp	Salt.MR.S16CofactorSupply_gk	OPEN	Salt/MR/S16Budget.lean:473	0					
@@ -582,8 +582,8 @@ hyp	Salt.MR.V7RatedFormU	OPEN	Salt/MR/FlatDoorUniform.lean:567	0
 hyp	Salt.MR.VkTwistUB	DISCHARGED	Salt/MR/VkTwistClose.lean:109	7	Salt.MR.plog_socket!g,Salt.MR.vkTwistUB_of_primitive!g,Salt.MR.vkTwistUB_holds!g				
 hyp	Salt.MR.WellSpaced	STRUCTURAL	Salt/MR/LargeValues.lean:48	53					
 hyp	Salt.MR.WindowSmooth	DISCHARGED	Salt/MR/MobiusChiRamare.lean:175	3	Salt.MR.lamTailWeight_support!g,Salt.MR.windowSmooth_one,Salt.MR.ramTailWeight_support!g,Salt.MR.ramTailWeight_zero_param				
-hyp	Salt.MR.XCeilGateAt	OPEN	Salt/MR/FlatDoorEpsRung2.lean:2829	1					
-hyp	Salt.MR.XCeilRiderAt	OPEN	Salt/MR/FlatDoorEpsRung2.lean:2836	4					
+hyp	Salt.MR.XCeilGateAt	FRAME	Salt/MR/FlatDoorEpsRung2.lean:2829	1					
+hyp	Salt.MR.XCeilRiderAt	FRAME	Salt/MR/FlatDoorEpsRung2.lean:2836	4					
 hyp	Salt.MR.XCeilRiderStrictAt	DISCHARGED	Salt/MR/FlatDoorEpsRung2.lean:2842	2	Salt.MR.xceilRiderStrictAt_zero				
 hyp	Salt.MR.XiCarveWidth	DISCHARGED	Salt/MR/MobiusChiRateClose.lean:1104	7	Salt.MR.xiCarveWidth_of_half!g				
 hyp	Salt.MR.XiFamily	DISCHARGED	Salt/MR/StridePairReceipt.lean:109	28	Salt.MR.bigXiAffU				
@@ -635,8 +635,8 @@ hyp	Salt.Twelve.WinSlackM	OPEN	Salt/Twelve/FrontierM.lean:121	0
 hyp	Salt.TwinBar.Admissible	OPEN	Salt/TwinBar/Constrained.lean:179	1					
 hyp	Salt.TwinBar.AffFullRangeAt	OPEN	Salt/TwinBar/TwinParityAtomClasses.lean:494	5					
 hyp	Salt.TwinBar.BadHyp	OPEN	Salt/TwinBar/SiegelTwin.lean:103	0					
-hyp	Salt.TwinBar.CorrWindow	OPEN	Salt/TwinBar/SiegelCorr.lean:89	3					
-hyp	Salt.TwinBar.CorrWindowStrong	OPEN	Salt/TwinBar/SiegelCorrStrong.lean:53	1					
+hyp	Salt.TwinBar.CorrWindow	FRAME	Salt/TwinBar/SiegelCorr.lean:89	3					
+hyp	Salt.TwinBar.CorrWindowStrong	FRAME	Salt/TwinBar/SiegelCorrStrong.lean:53	1					
 hyp	Salt.TwinBar.FourBar	DISCHARGED	Salt/TwinBar/FourBar.lean:427	1	Salt.TwinBar.fourBar_holds				
 hyp	Salt.TwinBar.HeathBrownDichotomy	OPEN	Salt/TwinBar/SiegelTwin.lean:97	0					
 hyp	Salt.TwinBar.HeathBrownStatement	OPEN	Salt/TwinBar/SiegelTwin.lean:92	0					

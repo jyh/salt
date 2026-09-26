@@ -21,6 +21,8 @@ set) it counts, over EVERY declaration in `Salt/` (not only audited ones):
 
   FULCRUM-SHAPED  F-consumers >= 1 AND ¬F-consumers >= 1 (both horns deliver something)
   HALF-SHAPED     item 2 status OPEN, F-consumers >= 1, ¬F-consumers = 0 (the pull question: what would ¬P give?)
+                  -- a SOCKET; the same shape at item 2 status FRAME is a HALF-SHAPED FRAME, counted and
+                  listed but never ranked (¬P is "the parameters are out of range").
 
 Pure Python 3 stdlib, source-level only -- every limit is printed at the TOP of the page.
 
@@ -206,7 +208,8 @@ def census(decls, props, status, prod, condp, witness):
         c = C[P]
         fc = sorted(set(c["fcons_d"]) | set(c["fcons_e"]))
         nc = sorted(set(c["ncons_d"]) | set(c["ncons_e"]))
-        cls = "FULCRUM" if fc and nc else ("HALF" if status[P] == "OPEN" and fc else "-")
+        cls = "FULCRUM" if fc and nc else ("HALF" if status[P] == "OPEN" and fc else
+                                           ("FRAME" if status[P] == "FRAME" and fc else "-"))
         rows[P] = dict(c, fc=fc, nc=nc, cls=cls, status=status[P],
                        fprod_u=[(x, g) for x, g in prod.get(P, [])], fprod_c=list(condp.get(P, [])),
                        fprod_w=list(witness.get(P, [])))
@@ -215,7 +218,7 @@ def census(decls, props, status, prod, condp, witness):
 
 def build(files, ledgers):
     decls, props, audited, kinds, hyps = mc.load_corpus(files, ledgers)
-    status, prod, condp, hang, witness = mc.hypothesis_status(decls, props, audited, kinds, hyps)
+    status, prod, condp, hang, witness, frame = mc.hypothesis_status(decls, props, audited, kinds, hyps)
     rows, sites, negb = census(decls, props, status, prod, condp, witness)
     for P in rows: rows[P]["hang"] = len(hang.get(P, []))
     aud_uncond_neg = sorted(n for n in negb if n in audited and kinds.get(n) == "unconditional")
@@ -298,10 +301,11 @@ def render(B, base: str, digest: str) -> str:
     A("## Population receipt")
     A("")
     A("| declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results "
-      "| FULCRUM-SHAPED | HALF-SHAPED | neither | disjunction/case-split sites |")
-    A("|---|---|---|---|---|---|---|---|")
-    A("| %d | %d | %d | %d | %d | %d | %d | %d |" % (r["decls"], r["props"], r["consumers_scanned"], r["audited"],
-                                                 cls_n["FULCRUM"], cls_n["HALF"], cls_n["-"], len(S)))
+      "| FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |")
+    A("|---|---|---|---|---|---|---|---|---|")
+    A("| %d | %d | %d | %d | %d | %d | %d | %d | %d |" % (r["decls"], r["props"], r["consumers_scanned"], r["audited"],
+                                                      cls_n["FULCRUM"], cls_n["HALF"], cls_n["FRAME"], cls_n["-"],
+                                                      len(S)))
     A("")
     A("Per-polarity totals over the %d Props: with F-consumers %d · with ¬F-consumers %d · with F-producers "
       "(any kind) %d · with ¬F-producers (any kind) %d." % (
@@ -328,8 +332,8 @@ def render(B, base: str, digest: str) -> str:
             ex(D, x["nc"]), ex(D, x["fc"])))
     A("")
     hl = sorted((P for P, x in R.items() if x["cls"] == "HALF"), key=lambda P: (-len(R[P]["fc"]), P))
-    A("## HALF-SHAPED — top %d of %d by F-consumer count (status OPEN, no ¬F-consumer: *what would ¬P give?*)"
-      % (min(HALF_TOP, len(hl)), len(hl)))
+    A("## HALF-SHAPED SOCKETS — top %d of %d by F-consumer count (status OPEN, not FRAME, no ¬F-consumer: "
+      "*what would ¬P give?*)" % (min(HALF_TOP, len(hl)), len(hl)))
     A("")
     A("| # | P | defined at | status | F-cons (direct/engine) | audited hang (item 2) | ∃-witness producers "
       "| cond. producers | ¬F-prod | sites | F-consumer examples |")
@@ -341,6 +345,14 @@ def render(B, base: str, digest: str) -> str:
             x["hang"], ex(D, x["fprod_w"], 2), len(x["fprod_c"]),
             len(x["nprod_u"]) + len(x["nprod_c"]) + len(x["nprod_f"]),
             len(set(x["disj"])) + len(x["split"]), ex(D, x["fc"])))
+    A("")
+    frl = sorted((P for P, x in R.items() if x["cls"] == "FRAME"), key=lambda P: (-len(R[P]["fc"]), P))
+    A("## HALF-SHAPED FRAMES (%d) — status FRAME (item 2's parameter-frame rule), no ¬F-consumer" % len(frl))
+    A("")
+    A("A FRAME is a bundle of order relations over its own parameters; ¬P is 'the parameters are out of range', "
+      "never a fulcrum horn, so these are listed and not ranked. Name (F-consumers):")
+    A("")
+    A(", ".join("`%s` (%d)" % (rc.md_escape(P), len(R[P]["fc"])) for P in frl) if frl else "(none)")
     A("")
     nl = sorted((P for P, x in R.items() if x["cls"] != "FULCRUM" and (x["nprod_u"] or x["nprod_c"] or x["nprod_f"])),
                 key=lambda P: (-(len(R[P]["nprod_u"]) + len(R[P]["nprod_c"]) + len(R[P]["nprod_f"])), P))
@@ -397,6 +409,7 @@ def HA (n : ℕ) : Prop := ∀ x : ℕ, ∃ y, x + n ≤ y
 def HP : Prop := ∀ x : ℕ, ∃ y, x + 1 ≤ y
 def HN (n : ℕ) : Prop := ∀ x : ℕ, ∃ y, x + n < y
 def HR : Prop := ∀ x : ℕ, ∃ y, x + 2 < y
+def HFr (X j : ℕ) : Prop := 3 ≤ X ∧ 4 ≤ 2 ^ j
 end Salt.Fx
 ''',
     "Salt/Fx/Main.lean": '''
@@ -409,6 +422,7 @@ theorem dich {C : ℕ} (hC : 0 < C) (hEngine : FQ C → TPC) : HBD := by
   · exact Or.inl (hEngine hF)
   · exact Or.inr (not_fq hC hF)
 theorem uses_open (h : HOpen) : True := trivial
+theorem uses_frame (h : HFr 5 2) : True := trivial
 theorem uses_open2 (h : HOpen) (h2 : HA 1) : True := trivial
 theorem neg_as_arrow (h : HA 1 → False) : True := trivial
 theorem prem_neg : ¬ HP → True := fun _ => trivial
@@ -435,6 +449,7 @@ EXPECT = {
     "Salt.Fx.HR": ("-", 0, 0, 1, 0, 0),
     "Salt.Fx.TPC": ("HALF", 1, 0, 0, 1, 0),
     "Salt.Fx.NSZ": ("-", 0, 0, 0, 1, 0),
+    "Salt.Fx.HFr": ("FRAME", 1, 0, 0, 0, 0),
 }
 EXPECT_KINDS = {  # (P, key) -> names
     ("Salt.Fx.FQ", "ncons_d"): ["Salt.Fx.not_fq"], ("Salt.Fx.FQ", "fcons_e"): ["Salt.Fx.dich"],
@@ -480,6 +495,8 @@ MUTANTS = [
      "theorem hopen_holds : HOpen := fun x => ⟨x, le_rfl⟩\nend Salt.Fx"),
     ("FULCRUM class: HOpen gains a ¬ consumer", "Salt/Fx/Main.lean", "end Salt.Fx",
      "theorem neg_open (h : ¬ HOpen) : True := trivial\nend Salt.Fx"),
+    ("FRAME split: the frame gains an ∃ (becomes a socket)", "Salt/Fx/Defs.lean",
+     "3 ≤ X ∧ 4 ≤ 2 ^ j", "3 ≤ X ∧ ∃ k, 4 ≤ 2 ^ k"),
     ("comment stripping: commented ¬ consumer made live", "Salt/Fx/Main.lean",
      "-- theorem fake (h : ¬ HOpen) : True := trivial", "theorem fake (h : ¬ HOpen) : True := trivial"),
 ]
@@ -519,8 +536,8 @@ def main(argv):
         f.write(page)
     n = defaultdict(int)
     for x in B["rows"].values(): n[x["cls"]] += 1
-    print("wrote %s (%d B): FULCRUM=%d HALF=%d neither=%d sites=%d" % (PAGE, len(page.encode()), n["FULCRUM"],
-                                                                     n["HALF"], n["-"], len(B["sites"])))
+    print("wrote %s (%d B): FULCRUM=%d HALF=%d FRAME=%d neither=%d sites=%d" % (PAGE, len(page.encode()), n["FULCRUM"],
+                                                                     n["HALF"], n["FRAME"], n["-"], len(B["sites"])))
     return 0
 
 
