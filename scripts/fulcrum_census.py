@@ -284,10 +284,13 @@ def render(B, base: str, digest: str) -> str:
       "does not say the two horns are the SAME instance of P (arguments are not compared) nor that either horn "
       "is unconditional.")
     nb, au = B["negb"], B["aud_uncond_neg"]
-    A("- **A finding about item 1, surfaced by this census:** %d declarations see a corpus Prop ONLY under `¬` "
-      "in their binders; **%d of them are AUDITED results that item 1 classes `unconditional`** (its binder walk "
-      "reads `¬ P` as head `Not`, not P). Listed at the foot. Item 2's DISCHARGED status inherits this: a producer "
-      "whose only corpus premise is a `¬ P` binder counts as unconditional." % (len(nb), len(au)))
+    A("- **Regression guard on item 1's `¬`-binder walk:** %d declarations see a corpus Prop ONLY under `¬` "
+      "in their binders; **%d of them are AUDITED results that item 1 classes `unconditional`** (this census found "
+      "31 on 2026-09-26, when item 1's walk read `¬ P` as head `Not`; item 1 now records such a binder as the "
+      "hypothesis `¬P`). The residue listed at the foot is expected to be binders of shape `¬ P → Q`, where `¬P` sits "
+      "in the binder's ANTECEDENT and the hypothesis is on Q — item 1 reads those correctly and this census's "
+      "positional polarity scan over-counts them (5 such at 2026-09-26, each read at source); a name of any "
+      "other shape at the foot is a regression." % (len(nb), len(au)))
     A("")
     r = B["receipt"]
     cls_n = defaultdict(int)
@@ -453,7 +456,7 @@ def check_fixture(fx) -> list:
         if got != (cls, fc, nc, npd, dj, sp): errs.append("%s: %s, want %s" % (P, got, (cls, fc, nc, npd, dj, sp)))
     for (P, k), ns in EXPECT_KINDS.items():
         if P in R and sorted(set(R[P][k])) != ns: errs.append("%s %s: %s, want %s" % (P, k, R[P][k], ns))
-    if B["aud_uncond_neg"] != ["Salt.Fx.not_fq"]: errs.append("aud_uncond_neg %s" % B["aud_uncond_neg"])
+    if B["aud_uncond_neg"] != []: errs.append("aud_uncond_neg %s (item 1 ¬-walk regressed)" % B["aud_uncond_neg"])
     return errs
 
 
