@@ -8890,9 +8890,8 @@ open Salt.Tactic in
 -- `Salt/MR/HDoorSupply.lean`: the co-factor supply AND the door chain at the h-INFLATED arc
 -- allowance `h · arcDen 12 H`.  Eleven nodes, 34 names at landing, one attempt each (from
 -- 2026-09-26 the XY debt lane retires copied `h` siblings into their `_b9` generics, noted in
--- place — `cofkL_capFreeFloor_at_socket_rated_uniform_h` in fam02,
--- `cofkL_threshold_at_socket_rated_h` in fam04 — so the rows below are fewer than 34 by the
--- retirements to date).
+-- place — the retirement notes in `HDoorSupply.lean` name them — so the rows below are fewer
+-- than 34 by the retirements to date).
 -- 📐 §1–§3 the single substitution `log q ≤ log h + 12·loglog H` and the five rows that follow
 -- from it (all five cap-consumers factor through `log_le_of_le_arcDen`; row coefficients on
 -- `log q` ×32 are 4 + 24 + 128 = 156, and 156×12 = 1872 reproduces the landed Λ-total, which is
