@@ -7019,8 +7019,9 @@ the re-fire needs the LADDER re-cut, not only the register. -/
 the door a SECOND time, through the LADDER `calP (Adoor M) (s13GK K M)`, a copy the
 register's re-cut missed.  These four pages carry the `_L` twin family of the
 coefficient + door-page layer (import-depth band 83–103) at `AdoorL M = 2^36·M`,
-with the `G`-slot unchanged (`3072·M`, resp. `s13GK K M`).  Purely additive: no
-landed declaration moves, and every twin is a RESTATEMENT with the landed body
+with the `G`-slot unchanged (`3072·M`, resp. `s13GK K M`).  Purely additive at landing: no
+landed declaration moved (from 2026-09-26 the XY debt lane retires copied siblings into their
+generics, noted in place), and every twin is a RESTATEMENT with the landed body
 replayed — the analytic chain below the door is `(A,G)`-parametric, so the anchor
 never leaves its symbol slot.
 
@@ -7045,6 +7046,7 @@ levered frames — which is exactly what the linear re-cut buys. -/
   Salt.MR.a2Rows_of_capfree3'_L_gk
   Salt.MR.thm_a2'_of_rows'_L
   Salt.MR.m4_meansq_per_chi_gen_L
+  Salt.MR.m4_cofactorSocket_at_witness_L_gk
   Salt.MR.m4_meansq_or_trivial_L_gk
   Salt.MR.m4_meansq_per_chi_gen_pool_L
   Salt.MR.m4_meansq_per_chi_gen_join_L
