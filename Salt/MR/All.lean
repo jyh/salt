@@ -8954,7 +8954,6 @@ open Salt.Tactic in
   Salt.MR.cofkL_logX_floor_h
   Salt.MR.cofkL_mu_floor_h
   Salt.MR.cofkL_X_ge_expexp_h
-  Salt.MR.cofkL_scale_gate_at_socket_h
   Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_two
   Salt.MR.abs_mul_window_le_of_cap
   Salt.MR.norm_phase_sum_cap_drift
