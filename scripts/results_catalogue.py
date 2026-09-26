@@ -270,6 +270,29 @@ def heads(t: str) -> list[str]:
     return [m.group(0)] if m else []
 
 
+def hyp_heads(t: str) -> list:
+    """Binder heads WITH POLARITY: `(h, neg)`. A binder `¬ P …` or `P … → False` is a
+    hypothesis on P at NEGATIVE polarity — reading its head as `Not`/`False` (the walk
+    before 2026-09-26) classed such results unconditional (31 audited names; found by
+    scripts/fulcrum_census.py)."""
+    parts = arrow_parts(t)
+    concl = strip_parens(parts[-1])
+    if concl == "False" and len(parts) > 1:
+        return [(h, True) for h in heads(parts[-2])]
+    out = []
+    for h in heads(t):
+        if h == "Not":
+            c = concl
+            conj = split_top(c, "∧")
+            for piece in (conj if len(conj) > 1 else [c]):
+                piece = strip_parens(piece)
+                if piece.startswith("¬"):
+                    out += [(g, True) for g in heads(piece[1:])]
+        else:
+            out.append((h, False))
+    return out
+
+
 class Scope:
     def __init__(self, kind, name, parts):
         self.kind, self.name, self.parts = kind, name, parts
@@ -502,9 +525,11 @@ def classify(d, propdefs):
         types += arrow_parts(concl)[:-1]
     hyps = []
     for t in types:
-        for h in heads(t):
+        for h, neg in hyp_heads(t):
             r = resolve(h, d.ns, d.opens, propdefs)
-            if r and r not in hyps: hyps.append(r)
+            if r:
+                r = ("¬" + r) if neg else r
+                if r not in hyps: hyps.append(r)
     return ("conditional" if hyps else "unconditional"), hyps
 
 
@@ -656,7 +681,9 @@ def render(rows, receipt, base_sha: str, digest: str) -> str:
              "section, never dropped. Unresolved ≠ absent from Lean." % r["unresolved"])
     L.append("- **The conditional test** is the binder's HEAD SYMBOL (walked through leading `∀`/`→` and through `∧`) "
              "resolved against the corpus Prop-valued set; premises `A → …` at the top of the conclusion count as "
-             "binders. A hypothesis whose head is a mathlib or infix Prop (`2 ≤ x`, `Tendsto …`, `Squarefree P`) "
+             "binders. A binder `¬ P …` or `P … → False` is a hypothesis on P at NEGATIVE polarity, listed as "
+             "`¬P` (since 2026-09-26; before, 31 such results read as unconditional); a `¬ P` in a binder's own "
+             "ANTECEDENT (`¬ P → Q`) is not walked — the hypothesis there is Q. A hypothesis whose head is a mathlib or infix Prop (`2 ≤ x`, `Tendsto …`, `Squarefree P`) "
              "does not make a result conditional. The Prop-valued set is itself heuristic: `: Prop` / `: … → Prop` "
              "ascriptions, structures/classes all of whose fields look Prop-shaped, and untyped defs whose body is "
              "`∀`/`∃`/relational.")
@@ -759,6 +786,8 @@ theorem cond_bundle [Bundle] : True := trivial
 theorem uncond_named (hSW : 2 ≤ 3) (hzeta : Tendsto f atTop atTop) : True := trivial
 theorem cond_premise : PairHyp 1 2 → True := fun _ => trivial
 theorem uncond_plain (x : ℕ) : x + 0 = x := by simp
+theorem cond_neg (h : ¬ SWHyp 4) : True := trivial
+theorem cond_negfalse (h : SWHyp 4 → False) : True := trivial
 /-- docstring naming SWHyp must not matter -/
 theorem ident_rfl (n : ℕ) : weight n = (n : ℝ) := rfl
 end Salt.Fx
@@ -773,6 +802,7 @@ import Salt.Fx.Main
 #audit_axioms Salt.Fx.cond_forall Salt.Fx.cond_bundle Salt.Fx.cond_premise
 #audit_axioms Salt.Fx.uncond_named Salt.Fx.uncond_plain Salt.Fx.ident_rfl
 #audit_axioms Salt.Fx.weight_eq Salt.Fx.missing_name
+#audit_axioms Salt.Fx.cond_neg Salt.Fx.cond_negfalse
 namespace Salt.Fx
 #print axioms cond_simple
 end Salt.Fx
@@ -786,9 +816,11 @@ EXPECT = {
     "Salt.Fx.cond_bundle": "conditional", "Salt.Fx.cond_premise": "conditional",
     "Salt.Fx.uncond_named": "unconditional", "Salt.Fx.uncond_plain": "unconditional",
     "Salt.Fx.missing_name": "unresolved",
+    "Salt.Fx.cond_neg": "conditional", "Salt.Fx.cond_negfalse": "conditional",
 }
 EXPECT_HYPS = {"Salt.Fx.cond_simple": ["Salt.Fx.SWHyp"], "Salt.Fx.cond_forall": ["Salt.Fx.SWHyp"],
-               "Salt.Fx.cond_bundle": ["Salt.Fx.Bundle"], "Salt.Fx.cond_premise": ["Salt.Fx.PairHyp"]}
+               "Salt.Fx.cond_bundle": ["Salt.Fx.Bundle"], "Salt.Fx.cond_premise": ["Salt.Fx.PairHyp"],
+               "Salt.Fx.cond_neg": ["¬Salt.Fx.SWHyp"], "Salt.Fx.cond_negfalse": ["¬Salt.Fx.SWHyp"]}
 
 
 def check_fixture(fx) -> list[str]:
@@ -803,7 +835,7 @@ def check_fixture(fx) -> list[str]:
         if n in got and got[n]["hyps"] != hs: errs.append("%s: hyps %s, want %s" % (n, got[n]["hyps"], hs))
     extra = set(got) - set(EXPECT)
     if extra: errs.append("unexpected names %s" % sorted(extra))
-    if rc["parsed"] != 15 or rc["distinct"] != 14 or rc["repeats"] != 1:
+    if rc["parsed"] != 17 or rc["distinct"] != 16 or rc["repeats"] != 1:
         errs.append("receipt %s" % {k: rc[k] for k in ("parsed", "distinct", "repeats")})
     if got.get("Salt.Fx.cond_simple", {}).get("line") != 6: errs.append("cond_simple line %s" %
                                                                          got.get("Salt.Fx.cond_simple", {}).get("line"))
@@ -828,6 +860,10 @@ MUTANTS = [
      "PairHyp 1 2 → True := fun _ => trivial", "True := trivial"),
     ("unconditional arm: uncond_named gains a corpus hypothesis", "Salt/Fx/Main.lean",
      "(hSW : 2 ≤ 3)", "(hSW : SWHyp 3)"),
+    ("negative-polarity arm (¬): cond_neg's negated head becomes infix", "Salt/Fx/Main.lean",
+     "(h : ¬ SWHyp 4)", "(h : ¬ 4 ≤ 5)"),
+    ("negative-polarity arm (→ False): cond_negfalse's False becomes True", "Salt/Fx/Main.lean",
+     "SWHyp 4 → False", "SWHyp 4 → True"),
     ("unresolved arm: missing_name gets a declaration", "Salt/Fx/Main.lean",
      "end Salt.Fx", "theorem missing_name : True := trivial\nend Salt.Fx"),
     ("comment stripping: the commented decl is un-commented", "Salt/Fx/Main.lean",

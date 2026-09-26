@@ -16,15 +16,15 @@
 - **Disjunction sites are VISIBLE ONLY:** a theorem conclusion that is a top-level `∨`, or a Prop-def body that is one. A theorem concluding a NAMED disjunction (e.g. `HeathBrownDichotomy`) is not unfolded — the Prop-def row carries it.
 - **Case splits are a TOKEN SCAN** of proof bodies: `by_cases [h :] P`, `em P`, `Classical.em P`, `Decidable.em P`, `Classical.byCases P`, with P's head resolved against the corpus Prop set in the declaration's namespace/open context. A split on an unfolded or `have`-named proposition is invisible.
 - **The classes are SHAPES, not verdicts.** FULCRUM-SHAPED says both polarities are consumed somewhere; it does not say the two horns are the SAME instance of P (arguments are not compared) nor that either horn is unconditional.
-- **A finding about item 1, surfaced by this census:** 73 declarations see a corpus Prop ONLY under `¬` in their binders; **31 of them are AUDITED results that item 1 classes `unconditional`** (its binder walk reads `¬ P` as head `Not`, not P). Listed at the foot. Item 2's DISCHARGED status inherits this: a producer whose only corpus premise is a `¬ P` binder counts as unconditional.
+- **Regression guard on item 1's `¬`-binder walk:** 73 declarations see a corpus Prop ONLY under `¬` in their binders; **5 of them are AUDITED results that item 1 classes `unconditional`** (this census found 31 on 2026-09-26, when item 1's walk read `¬ P` as head `Not`; item 1 now records such a binder as the hypothesis `¬P`). The residue listed at the foot is expected to be binders of shape `¬ P → Q`, where `¬P` sits in the binder's ANTECEDENT and the hypothesis is on Q — item 1 reads those correctly and this census's positional polarity scan over-counts them (5 such at 2026-09-26, each read at source); a name of any other shape at the foot is a regression.
 
 ## Population receipt
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|
-| 22703 | 668 | 22025 | 9087 | 13 | 318 | 337 | 86 |
+| 22703 | 668 | 22025 | 9087 | 13 | 321 | 334 | 86 |
 
-Per-polarity totals over the 668 Props: with F-consumers 519 · with ¬F-consumers 21 · with F-producers (any kind) 438 · with ¬F-producers (any kind) 59.
+Per-polarity totals over the 668 Props: with F-consumers 519 · with ¬F-consumers 21 · with F-producers (any kind) 437 · with ¬F-producers (any kind) 59.
 
 ## FULCRUM-SHAPED (13) — both polarities consumed
 
@@ -46,7 +46,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | `Salt.MR.NearRat` | Salt/MR/BigXiArc.lean:144 | DISCHARGED | 1 (1/0) | 2 (2/0) | 3/3/0 | 0/0/0 | 0/0 | `Salt.MR.exists_large_den_of_minor` (Salt/MR/BigXiArc.lean:331), `Salt.MR.exists_large_den_of_not_nearRat` (Salt/MR/BigXiArc.lean:274) | `Salt.MR.nearRat_mono` (Salt/MR/BigXiArc.lean:188) |
 | `Salt.MR.MemS` | Salt/MR/Sec9Glue.lean:118 | OPEN | 1 (1/0) | 1 (1/0) | 0/0/0 | 4/0/0 | 0/6 | `Salt.MR.memSCoeff_eq_zero_of_not_memS` (Salt/MR/M4Band.lean:359) | `Salt.MR.memSPunct_of_memS` (Salt/MR/M4Puncture.lean:69) |
 
-## HALF-SHAPED — top 40 of 318 by F-consumer count (status OPEN, no ¬F-consumer: *what would ¬P give?*)
+## HALF-SHAPED — top 40 of 321 by F-consumer count (status OPEN, no ¬F-consumer: *what would ¬P give?*)
 
 | # | P | defined at | status | F-cons (direct/engine) | audited hang (item 2) | ∃-witness producers | cond. producers | ¬F-prod | sites | F-consumer examples |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -243,37 +243,11 @@ By kind: case split `by_cases` 83 · prop-def body 2 · theorem conclusion 1.
 | prop-def body | `Salt.TwinBar.HeathBrownDichotomy` | Salt/TwinBar/SiegelTwin.lean:97 | `TwinPrimeConjecture`, `Salt.TwinBar.NoSiegelZeros` |
 | case split `by_cases` | `Salt.TwinBar.heathBrown_iff_dichotomy` | Salt/TwinBar/SiegelTwin.lean:142 | `Salt.TwinBar.NoSiegelZeros` |
 
-## Audited results item 1 classes `unconditional` whose only corpus-Prop binder is under ¬ (31)
+## Audited results item 1 classes `unconditional` whose only corpus-Prop binder is under ¬ (5)
 
 - `Salt.Chen.chen_weight_le_indicator` (Salt/Chen/WeightTrivia.lean:373)
-- `Salt.Chen.chen_weight_struct` (Salt/Chen/WeightTrivia.lean:391)
-- `Salt.Entropy.Chowla.affWindow_survivorMass_ge` (Salt/Entropy/Chowla/AffineFork.lean:107)
 - `Salt.Entropy.Chowla.decrement_exists_of_tower` (Salt/Entropy/Chowla/Endpoints.lean:98)
 - `Salt.Entropy.Chowla.decrement_exists_of_tower_aff` (Salt/Entropy/Chowla/StrideDecrement.lean:688)
-- `Salt.Entropy.Chowla.exists_affSurvivor_of_not_failsAff` (Salt/Entropy/Chowla/AffineFork.lean:153)
-- `Salt.Entropy.Chowla.sign_split_fifth` (Salt/Entropy/Chowla/SignSplit.lean:278)
-- `Salt.Entropy.Chowla.sign_split_of_not_fails` (Salt/Entropy/Chowla/SignSplit.lean:209)
-- `Salt.Entropy.Chowla.sign_split_quarter_log` (Salt/Entropy/Chowla/SignSplit.lean:252)
-- `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` (Salt/Fulcrum/Dichotomy.lean:82)
-- `Salt.HB.exists_firstFailure` (Salt/HB/RosserDim4FL.lean:557)
-- `Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly` (Salt/HB/CrownTheorem1.lean:6414)
-- `Salt.MR.a2_row_cap_of_not_capFreeFloor` (Salt/MR/ThmA2.lean:686)
-- `Salt.MR.affFullRangeAt_band_of_not_fails` (Salt/MR/TierSBridge.lean:135)
-- `Salt.MR.approx_reduced` (Salt/MR/MinorArcExit.lean:333)
-- `Salt.MR.exists_large_den_of_minor` (Salt/MR/BigXiArc.lean:331)
-- `Salt.MR.exists_large_den_of_minorTight` (Salt/MR/BigXiArc.lean:712)
-- `Salt.MR.exists_large_den_of_not_nearRat` (Salt/MR/BigXiArc.lean:274)
-- `Salt.MR.exists_large_den_of_not_nearRatTight` (Salt/MR/BigXiArc.lean:684)
-- `Salt.MR.exists_q_expSum_le` (Salt/MR/MinorArcExit.lean:895)
 - `Salt.MR.flat_head_uniform_xceil_eps` (Salt/MR/FlatDoorEpsChain.lean:552)
 - `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4783)
-- `Salt.MR.gradedAffHeadAt_g12b_of_at_regime_crowned` (Salt/MR/TierSBridge.lean:61)
-- `Salt.MR.lamTailWeightMask_eq_zero_of_not_smooth` (Salt/MR/LambdaChiMask.lean:150)
-- `Salt.MR.memSCoeff_eq_zero_of_not_memS` (Salt/MR/M4Band.lean:359)
-- `Salt.MR.not_blockSmallG_witness` (Salt/MR/USetGradedThin.lean:140)
-- `Salt.MR.ramI_nonempty_of_not_blockSmallG` (Salt/MR/USetGradedThin.lean:152)
-- `Salt.MR.ramTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamare.lean:204)
-- `Salt.MR.sPart_eq_zero_of_not_squarefull` (Salt/MR/SPartCore.lean:170)
-- `Salt.Parity.Z_trivial_of_not_completion` (Salt/Parity/Z.lean:125)
-- `Salt.SW.not_fulcrum_siegelFree_SW` (Salt/SW/StandoffGate.lean:805)
 
