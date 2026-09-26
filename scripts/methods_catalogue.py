@@ -37,7 +37,7 @@ REPO = rc.REPO
 PAGE = os.path.join("docs", "METHODS-CATALOGUE.md")
 TSV = os.path.join("docs", "methods-catalogue.tsv")
 COMMAND = "python3 scripts/methods_catalogue.py"
-STATUSES = ["DISCHARGED", "STRUCTURAL", "OPEN"]
+STATUSES = ["DISCHARGED", "STRUCTURAL", "FRAME", "OPEN"]
 RESULT_ROW_CAP = 300   # per-result rows on the page; the TSV carries all of them
 REF_CAP_TSV = 8        # direct references listed per TSV row (the count is always full)
 
@@ -264,6 +264,91 @@ def structural_body_ok(d, decls, props, structural) -> bool:
     return True
 
 
+# ---------------------------------------------------------------- FRAME (DATA -- A HEURISTIC, O13 pull 2)
+FRAME_RULE = dict(
+    relations=["≤", "<", "=", "≠", "≥", ">", "∣", "∈", "∉"],
+    binder_types=["ℕ", "ℝ", "ℚ", "ℤ"],
+    forbidden_substrings=["∃", "∨", "↔", "¬", "Tendsto", "atTop", "=O[", "=o[", "=ᶠ[", "≤ᶠ[", "~[", "∫", "∑", "∏",
+                          "tsum", "limsup", "liminf", "Summable", "HasSum", "deriv", "Filter", "∀ᶠ", "∃ᶠ", "volume",
+                          "Measure", "ℂ", "‖", "LFunction", "DirichletCharacter", "riemannZeta", "Complex"],
+    # closed-form ℕ/ℝ-valued arithmetic in their own arguments (each body read at source, O13 pull 2):
+    # no sum, no set, no ℂ, no corpus analytic object; each references only mathlib or this list.
+    allowed_corpus_helpers=[
+        "Salt.MR.calE", "Salt.MR.calP", "Salt.MR.calQK", "Salt.MR.s13GK", "Salt.MR.Adoor", "Salt.MR.AdoorL",
+        "Salt.MR.doorRowFloor", "Salt.MR.theta293", "Salt.MR.rho293", "Salt.MR.s13Aexp", "Salt.MR.s13Eta",
+        "Salt.MR.ramQbase", "Salt.MR.a2Level1", "Salt.MR.a2Level1_L", "Salt.MR.H1door", "Salt.MR.H1doorL",
+        "Salt.MR.Q83", "Salt.MR.P83", "Salt.MR.H83", "Salt.MR.vkStripConst", "Salt.MR.s13Mr", "Salt.MR.calH",
+        "Salt.MR.s13Lr", "Salt.MR.s13EpsD", "Salt.MR.mrAlpha", "Salt.MR.arcDen", "Salt.MR.s13BlockExp",
+        "Salt.MR.s13BlockExp_gk", "Salt.MR.s13BlockFloor", "Salt.MR.s13BlockFloor_gk", "Salt.MR.Tstar",
+        "Salt.MR.ballMertensThreshold", "Salt.MR.ramRbot", "Salt.MR.seamT0",
+    ],
+)
+FRAME_TEXT = (
+    "P is FRAME iff its readable definition body (def/abbrev body after any `fun … =>`, or a Prop structure's OWN "
+    "fields joined by ∧) (i) contains none of `forbidden_substrings`; (ii) after walking leading ∀-binders — each "
+    "binder's type in `binder_types`, untyped, or bounded by a relation (`n ∈ A`) — and → premises and top-level ∧, "
+    "every atom is an ORDER RELATION (a depth-0 symbol from `relations`), `True`, or a FRAME corpus Prop (fixpoint); "
+    "(iii) every token of the body that resolves to a corpus declaration is a FRAME corpus Prop or is in "
+    "`allowed_corpus_helpers`. Mathlib functions (`Real.log`, `Real.exp`, `Nat.log`, casts) are outside the corpus and "
+    "are not restricted beyond (i). Precedence: DISCHARGED, then STRUCTURAL (unchanged), then FRAME, then OPEN. "
+    "A FRAME name is a bundle of range conditions on its own parameters: its negation is 'the parameters are out of "
+    "range', never a fulcrum horn.")
+
+
+def _frame_binder_ok(bnd: str) -> bool:
+    R = FRAME_RULE
+    bnd = bnd.strip()
+    if any(rc.find_top(bnd, lambda t, i, r=r: t.startswith(r, i)) >= 0 for r in R["relations"]):
+        return True                                           # a bounded binder: `n ∈ A`, `x ≤ y`
+    bs, rest = rc.parse_binders(bnd)
+    if bs:
+        return not rest.strip() and all(t.strip() in R["binder_types"] for _, _, t in bs)
+    k = rc.top_colon(bnd)
+    return k < 0 or bnd[k + 1:].strip() in R["binder_types"]
+
+
+def _frame_shape_ok(s: str, d, props, frame) -> bool:
+    R = FRAME_RULE
+    s = rc.strip_parens(s)
+    if not s: return False
+    if s.startswith("∀"):
+        c = rc.find_top(s, lambda t, i: t[i] == ",")
+        if c < 0 or not _frame_binder_ok(s[1:c]): return False
+        return _frame_shape_ok(s[c + 1:], d, props, frame)
+    parts = [p.strip() for p in rc.split_top(s, "→")]
+    if len(parts) > 1: return all(_frame_shape_ok(p, d, props, frame) for p in parts)
+    conj = rc.split_top(s, "∧")
+    if len(conj) > 1: return all(_frame_shape_ok(c, d, props, frame) for c in conj)
+    if s == "True": return True
+    if any(rc.find_top(s, lambda t, i, r=r: t.startswith(r, i)) >= 0 for r in R["relations"]): return True
+    m = rc.IDENT_RE.match(s.lstrip("@"))
+    if not m: return False
+    r = rc.resolve(m.group(0), d.ns, d.opens, props)
+    return bool(r) and r != d.name and r in frame
+
+
+def frame_body_ok(d, decls, props, frame) -> bool:
+    R = FRAME_RULE
+    b = def_body(d, decls)
+    if not b or any(x in b for x in R["forbidden_substrings"]): return False
+    for m in rc.IDENT_RE.finditer(b):
+        if m.start() and b[m.start() - 1] in ".'_": continue
+        r = rc.resolve(m.group(0), d.ns, d.opens, decls)
+        if r and r != d.name and not (r in props and r in frame) and r not in R["allowed_corpus_helpers"]:
+            return False
+    return _frame_shape_ok(b, d, props, frame)
+
+
+def frame_set(decls, props) -> set:
+    """The FRAME rule's fixpoint over EVERY corpus Prop (status-blind; the status precedence is applied after)."""
+    frame: set = set()
+    for _ in range(12):
+        new = {P for P in props if frame_body_ok(decls[P], decls, props, frame)}
+        if new == frame: break
+        frame = new
+    return frame
+
+
 def hypothesis_status(decls, props, audited, kinds, hyps):
     producers = defaultdict(list)     # P -> [(name, guarded)]
     cond_producers = defaultdict(list)
@@ -289,10 +374,12 @@ def hypothesis_status(decls, props, audited, kinds, hyps):
                and structural_body_ok(decls[P], decls, props, structural)}
         if new == structural: break
         structural = new
+    frame = frame_set(decls, props)
     status = {}
     for P in props:
-        status[P] = "DISCHARGED" if producers.get(P) else ("STRUCTURAL" if P in structural else "OPEN")
-    return status, producers, cond_producers, hang, witness
+        status[P] = "DISCHARGED" if producers.get(P) else ("STRUCTURAL" if P in structural else
+                                                            ("FRAME" if P in frame else "OPEN"))
+    return status, producers, cond_producers, hang, witness, frame
 
 
 # ---------------------------------------------------------------- deliverable B
@@ -371,7 +458,7 @@ def build(files: dict, ledgers: list, families=None):
     if families is not None: FAMILIES = families
     try:
         decls, props, audited, kinds, hyps = load_corpus(files, ledgers)
-        status, producers, condp, hang, witness = hypothesis_status(decls, props, audited, kinds, hyps)
+        status, producers, condp, hang, witness, frame = hypothesis_status(decls, props, audited, kinds, hyps)
         names, idx, succ = build_graph(decls)
         fam = [family_of(decls[nm]) for nm in names]
         aud_list = sorted(audited)
@@ -403,7 +490,7 @@ def build(files: dict, ledgers: list, families=None):
                                top=[(names[v], bin(anc[v]).count("1")) for v in top]))
         receipt = dict(decls=len(decls), props=len(props), audited=len(audited),
                        edges=sum(len(s) for s in succ), with_body=sum(1 for d in decls.values() if d.proof.strip()))
-        return dict(decls=decls, props=props, status=status, producers=producers, condp=condp, hang=hang, witness=witness,
+        return dict(decls=decls, props=props, status=status, frame=frame, producers=producers, condp=condp, hang=hang, witness=witness,
                     results=results, fstats=fstats, receipt=receipt, audited=audited, families=list(FAMILIES))
     finally:
         FAMILIES = saved
@@ -416,6 +503,11 @@ def fams_str(mask, families, codes=False) -> str:
 
 
 # ---------------------------------------------------------------- render
+CONTROLS = (("Salt.MR.FlatDoorAllGradesW", "DISCHARGED"), ("Salt.MR.MRTDoorAllGrades", "OPEN"),
+            ("Salt.MR.DoorBaseFrame", "FRAME"), ("Salt.MR.DoorArithFrameRho_L", "FRAME"),
+            ("Salt.MR.CofactorSocket", "OPEN"), ("Salt.Fulcrum.FulcrumQualityMin", "OPEN"))
+
+
 def render(B, base: str, digest: str) -> tuple[str, str]:
     st, prod, condp, hang, res, fs, decls = (B["status"], B["producers"], B["condp"], B["hang"], B["results"],
                                              B["fstats"], B["decls"])
@@ -448,6 +540,13 @@ def render(B, base: str, digest: str) -> tuple[str, str]:
     L.append("Of the DISCHARGED, %d are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop "
              "premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments)." % len(guarded_only))
     L.append("")
+    fr = B["frame"]
+    L.append("FRAME overlap (the FRAME rule is evaluated on EVERY corpus Prop, status-blind; precedence then assigns one "
+             "status): %d Props pass the FRAME rule — %d are DISCHARGED, %d are STRUCTURAL (STRUCTURAL kept, not "
+             "re-labelled), %d carry status FRAME. STRUCTURAL Props that FAIL the FRAME rule: %d."
+             % (len(fr), sum(1 for P in fr if st[P] == "DISCHARGED"), sum(1 for P in fr if st[P] == "STRUCTURAL"),
+                sum(1 for P in fr if st[P] == "FRAME"), sum(1 for P in st if st[P] == "STRUCTURAL" and P not in fr)))
+    L.append("")
     L.append("## LIMITS — read these beside every count above")
     L.append("")
     L.append("- **Everything item 1's LIMITS say applies** (source-level parse, no elaboration; macros/`alias`/"
@@ -465,6 +564,13 @@ def render(B, base: str, digest: str) -> tuple[str, str]:
     L.append("- **STRUCTURAL is a HEURISTIC** (rule below, as data). It only separates benign predicates "
              "(bounded arithmetic / membership conditions) from unproved hypotheses; a STRUCTURAL name is not "
              "proved anywhere, its instances are expected to be produced by a proof step at the use site.")
+    L.append("- **FRAME is a HEURISTIC** (rule below, as data): a bundle of order relations over the Prop's own "
+             "parameters, built only from mathlib functions and a WRITTEN allow-list of corpus arithmetic helpers. It "
+             "is not proved anywhere; it is separated from OPEN because its negation is 'the parameters are out of "
+             "range', never a fulcrum horn. A frame that references a corpus helper NOT on the allow-list stays OPEN "
+             "(the rule errs toward OPEN); a local variable sharing a corpus name also keeps a Prop OPEN. A projection of "
+             "a PARAMETER (`R.Hlo` for `R : ChowlaRegime`) is not a corpus token, so a range condition on a regime's "
+             "fields can be FRAME even though the regime's type is a corpus structure.")
     L.append("- **Hang counts are over AUDITED conditional results only**, as in item 1's payoff table.")
     L.append("- **References are TOKENS in the proof body** that resolve in item 1's name index with item 1's "
              "namespace/`open` resolution. Dot/field notation (`h.foo`, `(x).bar`), notation, `simp` sets named by "
@@ -486,6 +592,15 @@ def render(B, base: str, digest: str) -> tuple[str, str]:
     L.append("")
     L.append("</details>")
     L.append("")
+    L.append("<details><summary>FRAME rule (data in the script)</summary>")
+    L.append("")
+    L.append(FRAME_TEXT)
+    L.append("")
+    for k, v in FRAME_RULE.items():
+        L.append("- `%s`: %s" % (k, rc.md_escape(", ".join("`%s`" % x for x in v) if isinstance(v, list) else str(v))))
+    L.append("")
+    L.append("</details>")
+    L.append("")
     L.append("<details><summary>Method family map — A CHOICE (data in the script)</summary>")
     L.append("")
     L.append("| family | rules |")
@@ -498,7 +613,7 @@ def render(B, base: str, digest: str) -> tuple[str, str]:
     L.append("")
     L.append("## Positive controls")
     L.append("")
-    for P, want in (("Salt.MR.FlatDoorAllGradesW", "DISCHARGED"), ("Salt.MR.MRTDoorAllGrades", "OPEN")):
+    for P, want in CONTROLS:
         got = st.get(P, "ABSENT")
         pr = ", ".join("`%s`" % n for n, _ in prod.get(P, [])[:3]) or "none"
         L.append("- `%s`: **%s** (expected %s) · producers: %s · conditional producers: %d · hang count: %d"
@@ -633,6 +748,12 @@ def HStruct (q : ℕ) (A : Finset ℕ) : Prop :=
 def HNested : Prop := ∀ x : ℕ, x ≤ x + 1
 def HWit (c : ℕ) : Prop := ∀ x : ℕ, x ≤ x + c
 def fxw (n : ℕ) : ℕ := n
+def HGate (x T : ℝ) : Prop := Real.exp (30 * Real.log x) ≤ T
+structure HFrame (X j : ℕ) : Prop where
+  X_three : (3 : ℝ) ≤ (X : ℝ)
+  h_four : 4 ≤ 2 ^ j ∧ j ≠ 0
+  gate : HGate (X : ℝ) (2 * (X : ℝ))
+def HSock (b : ℕ → ℕ) (R : ℕ) : Prop := ∀ n : ℕ, n ≤ R → fxw (b n) ≤ R
 end Salt.Fx
 ''',
     "Salt/LS/Fx.lean": '''
@@ -670,9 +791,11 @@ end Salt.Fx
 #audit_axioms Salt.Entropy.ent_uses_ls Salt.LS.ls_core Salt.Entropy.ent_core Salt.Fx.hdis_holds
 ''',
 }
-EXPECT_STATUS = {"Salt.Fx.HDis": "DISCHARGED", "Salt.Fx.HConj": "DISCHARGED", "Salt.Fx.HIff": "OPEN",
-                 "Salt.Fx.HCondProd": "OPEN", "Salt.Fx.HOpen": "OPEN", "Salt.Fx.HStruct": "STRUCTURAL",
-                 "Salt.Fx.HNested": "OPEN", "Salt.Fx.HWit": "OPEN"}
+EXPECT_STATUS = {"Salt.Fx.HDis": "DISCHARGED", "Salt.Fx.HConj": "DISCHARGED", "Salt.Fx.HIff": "FRAME",
+                 "Salt.Fx.HCondProd": "FRAME", "Salt.Fx.HOpen": "OPEN", "Salt.Fx.HStruct": "STRUCTURAL",
+                 "Salt.Fx.HNested": "FRAME", "Salt.Fx.HWit": "FRAME",
+                 # FRAME (O13): a structure frame by fixpoint through a gate, and a socket that must NOT be FRAME
+                 "Salt.Fx.HGate": "FRAME", "Salt.Fx.HFrame": "FRAME", "Salt.Fx.HSock": "OPEN"}
 FI = {f: i for i, (f, _) in enumerate(FAMILIES)}
 ENT, LS = 1 << FI["entropy decrement"], 1 << FI["large sieve"]
 EXPECT_GRAPH = {  # name -> (direct family mask, transitive family mask, transitive in-degree)
@@ -733,6 +856,14 @@ MUTANTS = [
      "∀ n ∈ A, n ≠ 0", "∀ n ∈ A, fxw n ≠ 0", None),
     ("A STRUCTURAL use rule: its only user removed", "Salt/Fx/Main.lean",
      "theorem top_c (h : HStruct 3 ∅) : True", "theorem top_c : True", None),
+    ("A FRAME (iii): a non-allow-listed corpus name enters the frame", "Salt/Fx/Defs.lean",
+     "X_three : (3 : ℝ) ≤ (X : ℝ)", "X_three : (3 : ℝ) ≤ (fxw X : ℝ)", None),
+    ("A FRAME fixpoint: the gate stops being a frame", "Salt/Fx/Defs.lean",
+     "Real.exp (30 * Real.log x) ≤ T", "∃ y : ℝ, Real.exp (30 * Real.log x) ≤ y + T", None),
+    ("A FRAME (ii): a field that is not an order relation", "Salt/Fx/Defs.lean",
+     "4 ≤ 2 ^ j ∧ j ≠ 0", "4 ≤ 2 ^ j ∧ Nat.Prime j", None),
+    ("A FRAME socket: its corpus call removed (becomes a frame)", "Salt/Fx/Defs.lean",
+     "fxw (b n) ≤ R", "b n ≤ R", None),
     ("B direct-ref arm: top_b's reference removed", "Salt/Fx/Main.lean",
      "top_b : 2 ≤ 3 := Salt.Entropy.ent_core", "top_b : 2 ≤ 3 := by norm_num", None),
     ("B open-resolution arm: `open` dropped", "Salt/Fx/Main.lean", "open Salt.Entropy\n", "\n", None),
@@ -770,6 +901,9 @@ def main(argv):
     page, tsv, B = generate()
     if "--check" in argv:
         bad = []
+        for P, want in CONTROLS:
+            if B["status"].get(P) != want:
+                bad.append("control %s is %s, want %s" % (P, B["status"].get(P), want))
         for p, want in ((PAGE, page), (TSV, tsv)):
             try:
                 cur = open(os.path.join(REPO, p), encoding="utf-8").read()
