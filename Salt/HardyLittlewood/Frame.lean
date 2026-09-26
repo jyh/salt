@@ -35,6 +35,10 @@ target is the registered **HL-3c**, which has never fired. Its named gate is no 
 gate: Mertens' third theorem landed 2026-07-17 (`Salt/Mertens/Third.lean`) with the twin
 corollary MERT-5 (`Salt/Mertens/TwinDensity.lean`), which `Sharp.lean` imports. What HL-3c
 lacks is the κ = 2 singular-series density mean value, not Mertens.⟧
+⟦ERRATUM 2026-09-25 (the rider above is left as written): the dimension-2 Selberg sieve on
+`n(n+2)` reaches `(8+ε)·𝔖 = (16+ε)·Π₂`, not `(4+ε)·𝔖`. HL-3c is that bound, landed as
+`Sel.twinCounting_upper_selberg` (`Selberg16/`). `(4+ε)·𝔖 = 8·Π₂` is Bombieri–Davenport's
+constant, which sieves the shifted primes `{p+2}` at Bombieri–Vinogradov level; it is not built.⟧
 -/
 
 open Filter Asymptotics
@@ -121,7 +125,9 @@ sieve `Salt.M5BigO.nat_absorb`, packaged as an eventual bound.  The sharp consta
 `𝔖 = 2·Π₂ ≈ 1.32` is the Hardy–Littlewood prediction; the sharp `(4+ε)·𝔖`
 order bound is the registered HL-3b arc gated on Mertens' third theorem.
 ⟦ERRATUM 2026-09-24: HL-3b landed at `C = 90` (`twinCounting_upper_sharp`); the
-`(4+ε)·𝔖` bound is HL-3c, never fired, and its Mertens gate landed 2026-07-17.⟧ -/
+`(4+ε)·𝔖` bound is HL-3c, never fired, and its Mertens gate landed 2026-07-17.⟧
+⟦ERRATUM 2026-09-25: HL-3c is `(8+ε)·𝔖 = (16+ε)·Π₂` (`Sel.twinCounting_upper_selberg`);
+`(4+ε)·𝔖` is Bombieri–Davenport, not built.⟧ -/
 theorem twinCounting_upper_order :
     ∃ C : ℝ, 0 < C ∧ ∀ᶠ N : ℕ in Filter.atTop,
       (twinPrimeCounting N : ℝ) ≤ C * (N : ℝ) / (Real.log N) ^ 2 := by

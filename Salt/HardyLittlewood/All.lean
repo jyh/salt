@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HardyLittlewood.Frame
 import Salt.HardyLittlewood.Sharp
+import Salt.HardyLittlewood.Selberg16.Crown
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -23,6 +24,10 @@ target is the registered **HL-3c**, which has never fired. Its named gate is no 
 gate: Mertens' third theorem landed 2026-07-17 (`Salt/Mertens/Third.lean`) with the twin
 corollary MERT-5 (`Salt/Mertens/TwinDensity.lean`), which `Sharp.lean` imports. What HL-3c
 lacks is the κ = 2 singular-series density mean value, not Mertens.⟧
+⟦ERRATUM 2026-09-25 (the rider above is left as written): the dimension-2 Selberg sieve on
+`n(n+2)` reaches `(8+ε)·𝔖 = (16+ε)·Π₂`, not `(4+ε)·𝔖`. HL-3c is that bound, landed as
+`Sel.twinCounting_upper_selberg` (`Selberg16/`). `(4+ε)·𝔖 = 8·Π₂` is Bombieri–Davenport's
+constant, which sieves the shifted primes `{p+2}` at Bombieri–Vinogradov level; it is not built.⟧
 -/
 
 open Salt.Tactic in
@@ -34,3 +39,7 @@ open Salt.Tactic in
   Salt.HardyLittlewood.twinSingularSeries_pos
   Salt.HardyLittlewood.twinSingularSeries_lt_two
   Salt.HardyLittlewood.twinCounting_upper_order
+  Salt.HardyLittlewood.Sel.twinCounting_upper_selberg
+  Salt.HardyLittlewood.Sel.mainTermSum_lower
+  Salt.HardyLittlewood.Sel.twin_le_sel
+  Salt.HardyLittlewood.Sel.selbergBoundingSum_sel_ge
