@@ -7019,8 +7019,9 @@ the re-fire needs the LADDER re-cut, not only the register. -/
 the door a SECOND time, through the LADDER `calP (Adoor M) (s13GK K M)`, a copy the
 register's re-cut missed.  These four pages carry the `_L` twin family of the
 coefficient + door-page layer (import-depth band 83–103) at `AdoorL M = 2^36·M`,
-with the `G`-slot unchanged (`3072·M`, resp. `s13GK K M`).  Purely additive: no
-landed declaration moves, and every twin is a RESTATEMENT with the landed body
+with the `G`-slot unchanged (`3072·M`, resp. `s13GK K M`).  Purely additive at landing: no
+landed declaration moved (from 2026-09-26 the XY debt lane retires copied siblings into their
+generics, noted in place), and every twin is a RESTATEMENT with the landed body
 replayed — the analytic chain below the door is `(A,G)`-parametric, so the anchor
 never leaves its symbol slot.
 
@@ -7045,6 +7046,7 @@ levered frames — which is exactly what the linear re-cut buys. -/
   Salt.MR.a2Rows_of_capfree3'_L_gk
   Salt.MR.thm_a2'_of_rows'_L
   Salt.MR.m4_meansq_per_chi_gen_L
+  Salt.MR.m4_cofactorSocket_at_witness_L_gk
   Salt.MR.m4_meansq_or_trivial_L_gk
   Salt.MR.m4_meansq_per_chi_gen_pool_L
   Salt.MR.m4_meansq_per_chi_gen_join_L
@@ -8886,7 +8888,10 @@ open Salt.Tactic in
 -- ⭐⭐ COMMISSION 7b, THE PRODUCER WAVE AT h = 2 (2026-08-31 evening, math) — helm routing
 -- 17:39:57 under the Captain's 17:4x standing law, executor tier, transcription-shaped.
 -- `Salt/MR/HDoorSupply.lean`: the co-factor supply AND the door chain at the h-INFLATED arc
--- allowance `h · arcDen 12 H`.  Eleven nodes, 34 names, one attempt each.
+-- allowance `h · arcDen 12 H`.  Eleven nodes, 34 names at landing, one attempt each (from
+-- 2026-09-26 the XY debt lane retires copied `h` siblings into their `_b9` generics, noted in
+-- place — the retirement notes in `HDoorSupply.lean` name them — so the rows below are fewer
+-- than 34 by the retirements to date).
 -- 📐 §1–§3 the single substitution `log q ≤ log h + 12·loglog H` and the five rows that follow
 -- from it (all five cap-consumers factor through `log_le_of_le_arcDen`; row coefficients on
 -- `log q` ×32 are 4 + 24 + 128 = 156, and 156×12 = 1872 reproduces the landed Λ-total, which is
@@ -8930,7 +8935,8 @@ open Salt.Tactic in
 -- own analytic content at a wider modulus range.  This wave is SILENT on that estimate.
 -- Nothing here bears on twin primes.  (`SocketBaseLH`, `M4SievedDoorSqSupH` and
 -- `M4BlockMeanSqSupQH` are defs and carry no axioms; they are audited anyway, as the block
--- above audits its own defs, so the registry row count matches the declaration count.)
+-- above audits its own defs, so the registry row count matched the declaration count at
+-- landing; a retired sibling leaves both, see the note above.)
 #audit_axioms Salt.MR.arcDen_le_h_mul_arcDen
   Salt.MR.log_le_of_le_arcDen_h
   Salt.MR.log_max_two_le_of_le_arcDen_h
@@ -8948,9 +8954,6 @@ open Salt.Tactic in
   Salt.MR.cofkL_logX_floor_h
   Salt.MR.cofkL_mu_floor_h
   Salt.MR.cofkL_X_ge_expexp_h
-  Salt.MR.cofkL_scale_gate_at_socket_h
-  Salt.MR.cofkL_threshold_at_socket_rated_h
-  Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_h
   Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_two
   Salt.MR.abs_mul_window_le_of_cap
   Salt.MR.norm_phase_sum_cap_drift
@@ -10183,7 +10186,9 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E3⟧ — THE MR h-LANE B CAP-9 TWINS (`S15SelLinear`, `HDoorSupply`, `S16FlatTerminalLinear`,
 `S16FlatTerminalLinearLH`, `S16ComposeLH`, `V7RatedH`, 2026-09-13, math — build freeze v2 v1.1
-§3.0/§3.1, executor brief W1 bundle E3).  Additive only: every landed declaration is untouched.
+§3.0/§3.1, executor brief W1 bundle E3).  Additive only at landing: every landed declaration was
+untouched (from 2026-09-26 the XY debt lane retires copied `h` siblings into these `_b9` generics,
+noted in place).
 Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
 `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
 in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
@@ -10244,7 +10249,9 @@ open Salt.Tactic in
 /-! ⟦β W2 F1⟧ — SCATTERED LEAVES + ENTROPY (`StrideFork`, `StridePair`, `S15SelLinearWide`,
 `S16FlatTerminalLinear`, `HDoorSupply`, `S16ProducersH`, and the graded wall twins in the W1 module
 `StrideGrade12bWalls`; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W2 bundle
-F1).  Additive only: every landed declaration is untouched.  Each twin is its source's statement and
+F1).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
+the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place).
+Each twin is its source's statement and
 body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count
 pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦
 ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the
@@ -10942,7 +10949,9 @@ open Salt.Tactic in
 
 /-! ⟦TIER S — ROAD F, THE STRIDE AXIS⟧ — ARM Z: THE AFFINE DOOR AT EVERY STRIDE, TWIST AND GRADE IS
 **STATED AND PROVED** (`StrideDoorAllGrades`, 2026-09-23, h2c).  Additive only: no landed
-statement moves and the only landed file edited is THIS one, by appending.
+statement moves and the only landed file edited is THIS one, by appending (2026-09-26:
+`zSplit_arm_L` retired into `zSplit_arm_L2`, XY debt lane fam03 — the one landed statement that
+has since moved).
 
 ⚠ LABEL, FIRST: NOTHING HERE BEARS ON TWIN PRIMES, AND ARM Z HAS NO KERNEL READER.  AND ARM Z
 DOES NOT MOVE THE CROWN'S QUANTIFIER: the statement is `∀ A₀ ∃ Ra` on the FLAT family, NOT the
@@ -11011,8 +11020,8 @@ NOTHING GOES FALSE.  (d) `docs/QUEUE.md`'s road-F line («NEXT: road F has NO co
 HELM-OWNED and goes STALE with this landing: OWED BY THE HELM, not edited here.  NO ERRATUM IS
 APPENDED IN EITHER AGGREGATE FILE BY THIS CHANGE beyond this paragraph.
 
-**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  121 names at the three axioms (112 theorems,
-9 defs). -/
+**NO NEW UNCONDITIONAL THEOREM ABOUT TWIN PRIMES.**  120 names at the three axioms (111 theorems,
+9 defs; 121 / 112 at #165 — `zSplit_arm_L` retired into `zSplit_arm_L2`, XY fam03, 2026-09-26). -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.FlatHeadFormHG_Z
   Salt.MR.FlatRoadExitFormHG_Z
@@ -11057,7 +11066,6 @@ open Salt.Tactic in
   Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_L
   Salt.MR.s15ArmH_log_le_L
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shiftL
-  Salt.MR.zSplit_arm_L
   Salt.MR.zSplit_arm_L2
   Salt.MR.flat_conditional_generic_h_Z
   Salt.MR.flat_v7_generic_h_Z

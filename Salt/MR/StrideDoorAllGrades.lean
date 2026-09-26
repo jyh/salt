@@ -2235,117 +2235,15 @@ there) re-stated as `zSplit_arm_L2`; the multiplier-pin split `xceil_arm_split_m
 a free twist and is not in this file. -/
 
 
-/-- **Z1 — THE RIDER SPLIT WITH THE STRIDE'S `+L` RESERVED.**  `epsChain_arm_split_L`
-(`FlatDoorEpsRung2.lean:2738`) with `+ L` on the left for every `0 ≤ L ≤ Lc`.  Room: the gate
-`50 + Lc ≤ loglog H₊` gives `log H₊ ≥ e^{50}·e^{Lc}`, `e^{Lc} ≥ c` and `e^{Lc} ≥ 1 + L`, and
-`H₊ = e^{log H₊} ≥ (log H₊)³/6`, so `H₊/c² ≥ 2^{150}·(1 + L)/6`, against a demand of
-`250001·(log 2 + L)`. -/
-theorem zSplit_arm_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
-    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) {Lc : ℝ} (hLc : Real.log ((c : ℕ) : ℝ) ≤ Lc)
-    {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi)
-    (hll : 50 + Lc ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ)))
-    {L : ℝ} (hL0 : 0 ≤ L) (hLLc : L ≤ Lc) :
-    Real.log 2 + L ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ)
-      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
-  have hcR : (1 : ℝ) ≤ ((c : ℕ) : ℝ) := by exact_mod_cast hc1
-  have hcpos : (0 : ℝ) < ((c : ℕ) : ℝ) := by linarith
-  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
-  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
-  have hlogHpos : (0 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) := Real.log_pos (by linarith)
-  -- ⟦THE PIN⟧ `ε² ≥ 1/(250000·c²)` — the landed derivation
-  have hcQ : (1 : ℚ) ≤ ((c : ℕ) : ℚ) := by exact_mod_cast hc1
-  have hqcap : (1 : ℚ) ≤ 500 * ((c : ℕ) : ℚ) * ε := by
-    have h := (div_le_iff₀ (show (0 : ℚ) < 500 * ((c : ℕ) : ℚ) by linarith)).mp hcε
-    calc (1 : ℚ) ≤ ε * (500 * ((c : ℕ) : ℚ)) := h
-      _ = 500 * ((c : ℕ) : ℚ) * ε := by ring
-  have hcapR : (1 : ℝ) ≤ 500 * ((c : ℕ) : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
-  have hsq : (1 : ℝ) ≤ 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by
-    have h := one_le_pow₀ (n := 2) hcapR
-    calc (1 : ℝ) ≤ (500 * ((c : ℕ) : ℝ) * (ε : ℝ)) ^ 2 := h
-      _ = 250000 * ((c : ℕ) : ℝ) ^ 2 * (ε : ℝ) ^ 2 := by ring
-  have hε2 : (1 : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2) ≤ (ε : ℝ) ^ 2 := by
-    rw [div_le_iff₀ (by positivity)]
-    linarith [hsq]
-  -- ⟦THE TOWER⟧ `log H₊ ≥ e^{50 + Lc} = e^{50}·e^{Lc}`
-  have hy : Real.exp (50 + Lc) ≤ Real.log ((Hhi : ℕ) : ℝ) := by
-    have h := Real.exp_le_exp.mpr hll
-    rwa [Real.exp_log hlogHpos] at h
-  have hE2 : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
-  have hE50 : (2 : ℝ) ^ 50 ≤ Real.exp 50 := by
-    have h := pow_le_pow_left₀ (by norm_num) hE2 50
-    rw [Real.exp_one_pow] at h
-    exact_mod_cast h
-  have hcexp : ((c : ℕ) : ℝ) ≤ Real.exp Lc := by
-    have h := Real.exp_le_exp.mpr hLc
-    rwa [Real.exp_log hcpos] at h
-  have hLexp : 1 + L ≤ Real.exp Lc := by
-    have h := Real.add_one_le_exp Lc
-    linarith
-  have hexppos : (0 : ℝ) < Real.exp Lc := Real.exp_pos _
-  -- `(log H₊)³ ≥ (e^{50})³·(e^{Lc})³ ≥ 2^{150}·c²·(1 + L)`
-  have hsplit : Real.exp (50 + Lc) = Real.exp 50 * Real.exp Lc := Real.exp_add _ _
-  have hyy : Real.exp 50 * Real.exp Lc ≤ Real.log ((Hhi : ℕ) : ℝ) := by rw [← hsplit]; exact hy
-  have hexp3 : ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 3 := by
-    have h1 : ((c : ℕ) : ℝ) ^ 2 ≤ (Real.exp Lc) ^ 2 := pow_le_pow_left₀ hcpos.le hcexp 2
-    have h2 : ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 2 * Real.exp Lc :=
-      mul_le_mul h1 hLexp (by linarith) (by positivity)
-    calc ((c : ℕ) : ℝ) ^ 2 * (1 + L) ≤ (Real.exp Lc) ^ 2 * Real.exp Lc := h2
-      _ = (Real.exp Lc) ^ 3 := by ring
-  have hE150 : (2 : ℝ) ^ 150 ≤ (Real.exp 50) ^ 3 := by
-    have h := pow_le_pow_left₀ (by positivity) hE50 3
-    calc (2 : ℝ) ^ 150 = ((2 : ℝ) ^ 50) ^ 3 := by norm_num
-      _ ≤ (Real.exp 50) ^ 3 := h
-  have hcube : (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L)) ≤ (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 := by
-    have h1 : (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L))
-        ≤ (Real.exp 50) ^ 3 * (Real.exp Lc) ^ 3 :=
-      mul_le_mul hE150 hexp3 (by positivity) (by positivity)
-    have h2 : (Real.exp 50) ^ 3 * (Real.exp Lc) ^ 3 = (Real.exp 50 * Real.exp Lc) ^ 3 := by ring
-    have h3 : (Real.exp 50 * Real.exp Lc) ^ 3 ≤ (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 :=
-      pow_le_pow_left₀ (by positivity) hyy 3
-    linarith
-  -- `H₊ = e^{log H₊} ≥ (log H₊)³/6`
-  have hH3 : (Real.log ((Hhi : ℕ) : ℝ)) ^ 3 / 6 ≤ ((Hhi : ℕ) : ℝ) := by
-    have h := Real.pow_div_factorial_le_exp _ hlogHpos.le 3
-    rw [Real.exp_log hHpos] at h
-    have h6 : ((Nat.factorial 3 : ℕ) : ℝ) = 6 := by norm_num [Nat.factorial]
-    rw [h6] at h
-    exact h
-  -- ⟦THE MARGIN⟧ `H₊/c² ≥ 2^{150}·(1 + L)/6 ≥ 250001·(log 2 + L)`
-  have hc2pos : (0 : ℝ) < ((c : ℕ) : ℝ) ^ 2 := by positivity
-  have hHc : (2 : ℝ) ^ 150 / 6 * (1 + L) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
-    rw [le_div_iff₀ hc2pos]
-    have : (2 : ℝ) ^ 150 / 6 * (1 + L) * ((c : ℕ) : ℝ) ^ 2
-        = (2 : ℝ) ^ 150 * (((c : ℕ) : ℝ) ^ 2 * (1 + L)) / 6 := by ring
-    rw [this]
-    linarith [hcube, hH3]
-  have hlog2 : Real.log 2 ≤ 1 := by
-    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
-  have hdemand : 250001 * (Real.log 2 + L) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by
-    have h1 : 250001 * (Real.log 2 + L) ≤ 250001 * (1 + L) := by linarith
-    have h2 : (250001 : ℝ) * (1 + L) ≤ (2 : ℝ) ^ 150 / 6 * (1 + L) :=
-      mul_le_mul_of_nonneg_right (by norm_num) (by linarith)
-    linarith
-  -- ⟦THE LANDED TAIL⟧ (`:2796–2810`), with `1/250001 ≤ 1/250000 − 1/10^20`
-  have hsub : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
-      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2)
-      = (((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2) * (1 / 250000 - 1 / 10 ^ 20) := by
-    field_simp
-  have hlow : Real.log 2 + L ≤ ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
-      - ((Hhi : ℕ) : ℝ) / (10 ^ 20 * ((c : ℕ) : ℝ) ^ 2) := by
-    rw [hsub]
-    have hq : (1 : ℝ) / 250001 ≤ 1 / 250000 - 1 / 10 ^ 20 := by norm_num
-    have hpos : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 := by positivity
-    have h := mul_le_mul_of_nonneg_left hq hpos
-    have h' : Real.log 2 + L ≤ ((Hhi : ℕ) : ℝ) / ((c : ℕ) : ℝ) ^ 2 * (1 / 250001) := by
-      have := hdemand; nlinarith
-    linarith
-  have hstep : ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
-      ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := by
-    have h := mul_le_mul_of_nonneg_right hε2 hHpos.le
-    calc ((Hhi : ℕ) : ℝ) / (250000 * ((c : ℕ) : ℝ) ^ 2)
-        = 1 / (250000 * ((c : ℕ) : ℝ) ^ 2) * ((Hhi : ℕ) : ℝ) := by ring
-      _ ≤ (ε : ℝ) ^ 2 * ((Hhi : ℕ) : ℝ) := h
-  linarith [hlow, hstep]
+/-! `zSplit_arm_L` — RETIRED INTO ITS GENERIC ⟦XY debt lane, family 03 (2026-09-26)⟧: it stood
+here (111 lines) and is `zSplit_arm_L2` (below) with the one binder `hLLc : L ≤ Lc` in place of
+`hL2 : L ≤ 2 * Lc` — token-identical elsewhere — so the generic implies it by `linarith` under
+`hL0 : 0 ≤ L`.  Kernel-checked from the retired statement's own bytes before the removal; it had
+no consumer.  The §J section header above and `zSplit_arm_L2`'s docstring below name it (the
+latter derives `_L2`'s room from it): read `zSplit_arm_L2`.  Its provenance, carried over from the
+retired docstring: Z1 was `epsChain_arm_split_L` (`FlatDoorEpsRung2.lean:2738`) with `+ L` on the
+left for every `0 ≤ L ≤ Lc`; room `H₊/c² ≥ 2^{150}·(1 + L)/6` from `50 + Lc ≤ loglog H₊`,
+`e^{Lc} ≥ c`, `e^{Lc} ≥ 1 + L` and `H₊ ≥ (log H₊)³/6`, against a demand of `250001·(log 2 + L)`. -/
 
 /-- **Z1 RE-STATED FOR THE CONDITIONAL'S SPLIT (`zSplit_arm_L2`).**  `zSplit_arm_L` with its binder
 `L ≤ Lc` widened to `L ≤ 2·Lc`, because the conditional reserves `log 2 + (log h + L)` and

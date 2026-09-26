@@ -400,7 +400,7 @@ def M4SievedDoorSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ
           ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
 
 /-- **THE DOOR AT THE INFLATED CAP, ON THE TERMINAL'S LANE** — `M4SievedDoorSq_L_gk`
-(`M4LadderLinear.lean:961`) with the `α`-binder at `NearRatTight ((h:ℝ) * arcDen 12 H) H α`.
+(`M4LadderLinear.lean:894`) with the `α`-binder at `NearRatTight ((h:ℝ) * arcDen 12 H) H α`.
 This is the object the base-lane `M4SievedDoorSqH` (`HDoorArc.lean:441`) is the wrong-lane
 twin of; that one is left alone. -/
 def M4SievedDoorSqH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
