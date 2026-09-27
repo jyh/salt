@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.XThread
+import Salt.Tactic.ExpLogNum
 
 /-!
 # THE SOCKET'S PRODUCERS AT SHIFT `h` — wave P of the `_L_gk` h-family
@@ -190,11 +191,7 @@ theorem hArcDen_mul_strataResidualH_sq_le {h H : ℕ} (hh : 0 < h) (hh7 : Real.l
     rw [← hE']
     ring
   have he3 : (4 : ℝ) ≤ Real.exp 3 := by
-    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-    have h3 : Real.exp 3 = (Real.exp 1) ^ (3 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7 : ℝ) ^ (3 : ℕ) ≤ (Real.exp 1) ^ (3 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 3
-    have hn : (4 : ℝ) ≤ (2.7 : ℝ) ^ (3 : ℕ) := by norm_num
-    rw [h3]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 3 (by norm_num)
   have h4 : 4 * Real.exp (14 * L - 3) ≤ Real.exp (14 * L) := by
     rw [Real.exp_sub, mul_div_assoc']
     rw [div_le_iff₀ (Real.exp_pos 3)]
@@ -664,12 +661,7 @@ theorem s15_hband4096_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h �
     rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
   rw [hlhs, hpool, ← Real.exp_add]
   have h4096 : (4096 : ℝ) ≤ Real.exp 9 := by
-    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-    have h : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 9
-    have hn : (4096 : ℝ) ≤ (2.7 : ℝ) ^ (9 : ℕ) := by norm_num
-    rw [h]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   refine le_trans h4096 (Real.exp_le_exp.mpr ?_)
   have hll := s12c_llX_ge_LH hh hh7 hfl hb
   have hcore := flat_lambda_core_17 hlam
@@ -767,14 +759,7 @@ theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hhle : (h : ℝ) ≤ Real.exp 7 := by
     rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh7
-  have he7 : Real.exp 7 < 1097 := by
-    have h3 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h5 : (Real.exp 1) ^ (7 : ℕ) < (2.7182818286 : ℝ) ^ (7 : ℕ) :=
-      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
-    have h6 : (2.7182818286 : ℝ) ^ (7 : ℕ) < 1097 := by norm_num
-    rw [h3]; linarith
+  have he7 : Real.exp 7 < 1097 := by exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 7 (by norm_num)
   have : (h : ℝ) < 1097 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
@@ -1486,12 +1471,7 @@ theorem hArcDen_mul_strataResidualH_sq_le_14 {h H : ℕ} (hh : 0 < h) (hh14 : Re
   have hlogh0 : 0 ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
   -- the tightened residual bound: `1 + 12L + log h ≤ 15 + 12L ≤ e^{L-7}`
   have he7 : (1046 : ℝ) ≤ Real.exp 7 := by
-    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-    have h7 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7 : ℝ) ^ (7 : ℕ) ≤ (Real.exp 1) ^ (7 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 7
-    have hn : (1046 : ℝ) ≤ (2.7 : ℝ) ^ (7 : ℕ) := by norm_num
-    rw [h7]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 7 (by norm_num)
   have hlin : (L - 14) + 1 ≤ Real.exp (L - 14) := Real.add_one_le_exp _
   have hsplit : Real.exp (L - 7) = Real.exp 7 * Real.exp (L - 14) := by
     rw [← Real.exp_add]
@@ -1625,14 +1605,7 @@ theorem h_le_8103_of_hh9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hhle : (h : ℝ) ≤ Real.exp 9 := by
     rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh9
-  have he9 : Real.exp 9 < 8104 := by
-    have h3 : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h5 : (Real.exp 1) ^ (9 : ℕ) < (2.7182818286 : ℝ) ^ (9 : ℕ) :=
-      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
-    have h6 : (2.7182818286 : ℝ) ^ (9 : ℕ) < 8104 := by norm_num
-    rw [h3]; linarith
+  have he9 : Real.exp 9 < 8104 := by exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 9 (by norm_num)
   have : (h : ℝ) < 8104 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
@@ -2045,12 +2018,7 @@ theorem s15_hband4096_at_socket_flatH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log 
     rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
   rw [hlhs, hpool, ← Real.exp_add]
   have h4096 : (4096 : ℝ) ≤ Real.exp 9 := by
-    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-    have h : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 9
-    have hn : (4096 : ℝ) ≤ (2.7 : ℝ) ^ (9 : ℕ) := by norm_num
-    rw [h]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   refine le_trans h4096 (Real.exp_le_exp.mpr ?_)
   have hll := s12c_llX_ge_LH_b9 hh hh9 hfl hb
   have hcore := flat_lambda_core_17 hlam
