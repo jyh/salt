@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Goldbach.Asm6
 import Salt.Chen.FinLed3
+import Salt.Tactic.ExpLogNum
 
 /-!
 # The Goldbach F2 ledger, part 1 — depth facts, the `W`-comparison, the punctured `W`-ratio
@@ -428,8 +429,7 @@ theorem gold_hWy_at_op : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ a : ℕ
       have := Real.exp_le_exp.mpr hz38
       rwa [Real.exp_log (by linarith : (0 : ℝ) < ((opZ N : ℕ) : ℝ))] at this
     have h3 : (18 : ℝ) ≤ Real.exp 38 := by
-      have := Real.add_one_le_exp (38 : ℝ)
-      linarith
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 38 (by norm_num)
     linarith
   have hcard : ((primesInWindow ((opZ N : ℕ) : ℝ) ((opY N : ℕ) : ℝ)).filter
       (fun q => q ∣ N)).card ≤ 8 :=
@@ -478,8 +478,7 @@ theorem gold_rho_le : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
   -- `z ≥ e⁴⁹ ≥ 8⁷ = 2097152`, so the puncturing residual is `≤ 16/2097150`
   have hlogz49 : (49 : ℝ) ≤ Real.log (opZ N) := by linarith
   have hexp7 : (8 : ℝ) ≤ Real.exp 7 := by
-    have := Real.add_one_le_exp (7 : ℝ)
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 7 (by norm_num)
   have hexp49 : (2097152 : ℝ) ≤ Real.exp 49 := by
     have h : Real.exp (((7 : ℕ) : ℝ) * (7 : ℝ)) = Real.exp 7 ^ (7 : ℕ) :=
       Real.exp_nat_mul 7 7

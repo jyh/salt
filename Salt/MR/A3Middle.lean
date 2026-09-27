@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.ThmA2Prime
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ⟦R3-A — THE A3 MIDDLE⟧: the primed row thread (`A3Middle`)
@@ -494,8 +495,7 @@ theorem a2Rows_of_capfree3_end' :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -862,8 +862,7 @@ theorem a2Rows_of_capfree3' :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1017,8 +1016,7 @@ theorem a2Rows_of_capfree3_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1134,8 +1132,7 @@ theorem a2Rows_of_capfree3'_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
