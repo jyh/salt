@@ -10,7 +10,7 @@ import Salt.Vk.GrowthPow
 
 Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
 Landed theorem certified: `Salt.Vk.zeta_zero_free_region_pow`
-(`Salt/Vk/GrowthPow.lean:1044`). Paper: Theorem `thm:pow`.
+(`Salt/Vk/GrowthPow.lean · zeta_zero_free_region_pow`). Paper: Theorem `thm:pow`.
 
 ## WHAT THE THEOREM SAYS, in one sentence
 **There is a region hugging the line `Re s = 1` that contains no zero of `ζ`** — and it
@@ -38,7 +38,7 @@ The landed statement begins `∃ c T₀ : ℝ`, which on its face says only that
 constants exist. **Pi calls them "effective", and that is correct**: the proof
 constructs them, and the chain bottoms out in explicit numbers.
 ```
-zeta_growth_pow  supplies  K = 8104,  t₀ = exp (exp 100)     (GrowthPow.lean:978)
+zeta_growth_pow  supplies  K = 8104,  t₀ = exp (exp 100)     (GrowthPow.lean)
 zeta_zero_free_region_pow_of_growth  then sets
                  A = 8 · log (20000 · K) + 1100              (PowRegion.lean:360)
                  and derives c, T₀ from A.
