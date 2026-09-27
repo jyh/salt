@@ -77,8 +77,9 @@ hypotheses trivial and the door's grade `2·Binsert` — consistent.
 
 (2026-09-26, XY debt lane family 10: the head-shaped builder at `a ≤ 1096` was retired into its
 cap-9 twin.  The four door-heads that called it read that twin, as `flat_door_head_xceil_h_g12b`
-already did; the twin reads the builder's own twin at `log a ≤ 9`.  Δ2's builder
-`chowlaRegimeFlat_exists_param_gen_ceiling_mul` stands, with no call site.)
+already did; that twin reads `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`, the twin of Δ2's
+builder, at `log a ≤ 9`.  Δ2's builder `chowlaRegimeFlat_exists_param_gen_ceiling_mul` stands,
+with no call site.)
 -/
 import Salt.Entropy.Chowla.StridePair
 import Salt.MR.DoorReceipt
@@ -415,7 +416,7 @@ own fields exactly as XThread does (`hHhi4`, `hll50` off `hflat` at `A ≥ 26`, 
 below both of this file's consumers of the page retired above.  The twins read nothing declared
 in this file except, for the second, the first; their docstrings, statements and bodies are
 byte-identical to the ones that stood in that section, except the first line of the second's
-docstring, which is dated. -/
+docstring, which is dated and now wraps to two lines. -/
 
 /-- `chowlaRegimeFlat_exists_param_gen_ceiling_mul` at the cap-9 stride
 (`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`) — STRIDE: `ha1096 : a ≤ 1096 ↦ a ≤ 8103`, and
