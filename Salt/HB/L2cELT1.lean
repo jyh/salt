@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cEL
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the `E_L` T1 family budget (node HB-L2c, Wave 3 input; the `J1` row)
@@ -205,10 +206,7 @@ lemma T1_logz_le_logZf {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3
 /-- `6 ≤ log z` (`z ≥ 100^16` and `e² < 10`). -/
 lemma T1_log_z_ge {z : ℕ} (hz100 : 100 ^ 16 ≤ z) : 6 ≤ Real.log z := by
   have hexp2 : Real.exp 2 < 10 := by
-    have h1 := Real.exp_one_lt_d9
-    have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
-      rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 2 (c := 10) (by norm_num)
   have hlog10 : (2 : ℝ) ≤ Real.log 10 :=
     (Real.le_log_iff_exp_le (by norm_num)).mpr hexp2.le
   have hz : ((100 : ℝ) ^ 16) ≤ (z : ℝ) := by exact_mod_cast hz100
@@ -299,10 +297,7 @@ lemma T1_mertens_le {z : ℕ} (hz100 : 100 ^ 16 ≤ z) :
       (fun i _ _ => div_nonneg vonMangoldt_nonneg (Nat.cast_nonneg i))
   have h2 := mertens_vonMangoldt_div_le (N := z) (by omega : 1 ≤ z)
   have hlog4 : Real.log 4 ≤ 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
-    have := Real.log_two_lt_d9
-    norm_num
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
   linarith
 
 /-! ## §2 — the T1 per-term structure

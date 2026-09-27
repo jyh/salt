@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Goldbach.Asm2
 import Salt.Goldbach.Op2
 import Salt.Chen.AggDiag
+import Salt.Tactic.ExpLogNum
 
 /-!
 # G-ASM §3 — the op-arithmetic rows, discharged (`gold_hBVblocksW_at_op_closed`)
@@ -52,11 +53,7 @@ theorem gold_nu_sum_le_log : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     (fun p hp => by exact_mod_cast goldOpPs_py N p hp)
   -- the carrier-free log reduction (the `nu_sum_le_log_at_op` tail, transcribed)
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
-    have h := Real.exp_one_lt_d9
-    have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    have hexp2 : Real.exp 2 ≤ 10 := by nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
-    have := Real.log_le_log (Real.exp_pos 2) hexp2
-    rwa [Real.log_exp] at this
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 2 (by norm_num) (by norm_num)
   have hlogw2 : (2 : ℝ) ≤ Real.log (w0R opEps) := by
     have h1 : Real.log ((10 : ℝ) ^ 6) ≤ Real.log (w0R opEps) :=
       Real.log_le_log (by norm_num) opf_w0R_big
@@ -209,9 +206,7 @@ theorem gold_hRCE_row : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
     have hrw : (N : ℝ) ^ ((1 : ℝ) / 8) = Real.exp (Real.log N * (1 / 8)) := by
       rw [Real.rpow_def_of_pos (by positivity : (0 : ℝ) < (N : ℝ))]
     have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-      have hmul : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
-        rw [← Real.exp_add]; norm_num
-      nlinarith [Real.exp_one_gt_d9]
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
     rw [hrw]; linarith
   have hz2 : (N : ℝ) ^ ((1 : ℝ) / 8) / 4 ≤ (opZ N : ℝ) - 1 := by linarith [hzge, h4]
   have hz1p : (0 : ℝ) < (opZ N : ℝ) - 1 := by linarith [hz2, h4]

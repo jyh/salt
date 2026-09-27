@@ -258,14 +258,7 @@ theorem doorBaseFrame_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {C₁ M
     linarith
   · -- ⟦`ceil5`⟧
     have he5 : Real.exp 5 ≤ 1000 := by
-      have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-      have hh : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hpos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-      rw [hh]
-      have hc : (Real.exp 1) ^ (5 : ℕ) ≤ (2.7182818286 : ℝ) ^ (5 : ℕ) :=
-        pow_le_pow_left₀ hpos.le he.le 5
-      have hn : (2.7182818286 : ℝ) ^ (5 : ℕ) ≤ 1000 := by norm_num
-      linarith
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 5 (c := 1000) (by norm_num)
     have hlog : Real.exp 5
         ≤ Real.log (2 * ((((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ))) := by
       have h1 : Real.log (((A + s : ℕ)) : ℝ) - Real.log (H : ℝ)
@@ -410,9 +403,7 @@ theorem hL4096_of_frame {M H j : ℕ} {X C₁ M₀ K ρ : ℝ}
       = Real.exp (Real.log (Real.log X) * (1 - (1 : ℝ) / 500 - theta293)) :=
     Real.rpow_def_of_pos (by linarith) _
   have h9 : (4096 : ℝ) ≤ Real.exp 9 := by
-    have h := pow_27_le_exp 9
-    norm_num at h
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   have hmul : (356600 : ℝ) * (98 / 100)
       ≤ Real.log (Real.log X) * (1 - (1 : ℝ) / 500 - theta293) :=
     mul_le_mul hmu ha (by norm_num) (by linarith)
