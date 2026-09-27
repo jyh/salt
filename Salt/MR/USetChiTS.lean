@@ -323,12 +323,7 @@ lemma logpow_gate_of_exp_floor (X ε : ℝ) (k : ℕ) (hk : k ≤ 6) (hε : 1 / 
     have h1 : Real.sqrt (Real.exp 40) ≤ Real.sqrt L := Real.sqrt_le_sqrt hX
     rwa [hsq, Real.sqrt_sq (Real.exp_pos 20).le] at h1
   have h6000 : (6000 : ℝ) ≤ Real.exp 20 := by
-    have h20 : Real.exp 20 = Real.exp 1 ^ (20 : ℕ) := by
-      have h := Real.exp_nat_mul 1 20
-      rw [← h]; norm_num
-    rw [h20]
-    calc (6000 : ℝ) ≤ 2.7 ^ (20 : ℕ) := by norm_num
-      _ ≤ Real.exp 1 ^ (20 : ℕ) := pow_le_pow_left₀ (by norm_num) he 20
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 20 (by norm_num)
   have hkey : 6000 * Real.log L ≤ L := by
     have h1 : (6000 : ℝ) ≤ Real.sqrt L := le_trans h6000 hexp20
     have h2 : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt (le_of_lt hL0)

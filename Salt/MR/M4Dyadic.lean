@@ -26,7 +26,7 @@ MRT's step (c) is three moves, and this file is exactly those three:
 
 ## ⟦WHY THIS ROW IS NOT SUBSUMED BY THE SUMMIT⟧
 
-`thm_a2'_of_rows` (`ThmA2.lean:466`) is **single-scale**: its carrier is
+`thm_a2'_of_rows` (`ThmA2.lean`) is **single-scale**: its carrier is
 `(1/X)∫_X^{2X}‖(1/h)·shortSum a s₀ x h‖²dx` at ONE `X`, with `X ≤ N ≤ 2X`.  The *outer*
 cover over scales `X′ ∈ (X/W^{10}, X]` is a different object entirely and is untouched by
 the S8 arc.  Nothing here instantiates `thm_a2'` (that is M4-5), closes the arithmetic
@@ -52,7 +52,7 @@ the S8 arc.  Nothing here instantiates `thm_a2'` (that is M4-5), closes the arit
   so `log W = 12·loglog H` and the count is `≤ 120·loglog H/log 2 + 2 ≤ 174·loglog H + 2`
   — `dyadCount_logPow_le` / `dyadCount_logPow_le_numeral`.  It is NEVER `loglog X`.
 * **The index is `dyadIdx`, never `K`.**  `K` in this corpus is the Perron dyadic depth
-  (`ThmA2.lean:88–90`'s glyph list) and the `K`-family's parameter; the outer cover's index
+  (`ThmA2.lean` §"Glyph traps honoured"'s glyph list) and the `K`-family's parameter; the outer cover's index
   is `i`, its top index `dyadIdx W`, and the number of scales `dyadCount W = dyadIdx W + 1`.
 
 ## The `d₀`-dilation is CONSUMED, not re-derived

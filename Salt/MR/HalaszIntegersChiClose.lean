@@ -53,8 +53,8 @@ therefore not a "conditional but honest" discharge; it is a non-route.
 ### THE DEMANDED GRADE, with the arithmetic
 
 The slot is consumed at exactly three sites, all in `USetChiTS.lean`:
-`ramRChi_sq_sum_le` (:136) → `TSChi_branch_meansq` (:435) → `usetChi_TS_branch_meanvalue`
-(:477).  The last one is the exit, and it consumes the row ONLY through the combination
+`ramRChi_sq_sum_le` → `TSChi_branch_meansq` → `usetChi_TS_branch_meanvalue`
+.  The last one is the exit, and it consumes the row ONLY through the combination
 
   `(M + |ℰ|·√T) ≤ 2M`     (the razor's budget `bundle·X^{1−2η+ε} ≤ M` clears `|ℰ|√T ≤ M`),
 

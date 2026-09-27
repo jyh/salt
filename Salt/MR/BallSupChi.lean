@@ -42,7 +42,7 @@ The brief's two candidate supplies for the centre bound
   **THE HEIGHT GATE — the one real restriction, and it is IN THE STATEMENT.**  The two folds
   `MmuChiRate → MlambdaChi_rate → MlamGrChi_rate` each halve the height range:
   `|t| ≤ y` ↝ `|t| ≤ ⌊√y⌋` ↝ `|t| ≤ ⌊√⌊√y⌋⌋`.  At `y = k ≍ X` that is `|t₁| ≲ X^{1/4}`,
-  and the seam's annulus reaches `Tann ≤ X` (`ThmA2.lean:669`), so **a centre above `X^{1/4}`
+  and the seam's annulus reaches `Tann ≤ X` (`ThmA2.lean · A2Frame`), so **a centre above `X^{1/4}`
   is NOT covered by this route** — the honest statement of the death the brief anticipated.
   It does not bite at the door: `M4DoorClose.lean:61` pins the socket's ball centre at
   **`t₁ := 0`** (`Ps := 1`, `J := 2`, `Tann := X`, `Rrad := seamRad X`), and `|0| ≤ anything`
