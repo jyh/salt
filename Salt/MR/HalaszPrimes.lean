@@ -175,7 +175,7 @@ Landed tonight (all sorry-free): the four ladder sub-stones —
 (`Salt.MR.perron_trunc`) one writes `Σ_{P≤p≤2P} Λ(n) n^{iu}` as a vertical integral of
 `−ζ′/ζ(s+iu)·(kernel)`, then shifts the contour left to `σ = 1 − cR/((log T)^{3/4}(loglog T)⁴)`.
 No zeros are crossed (VK zero-free region `zeta_zero_free_region_pow`,
-`GrowthPow.lean:1044`), the shifted integrand is priced by the region bound (R2 machinery),
+`GrowthPow.lean · zeta_zero_free_region_pow`), the shifted integrand is priced by the region bound (R2 machinery),
 and the `p^{−(1−σ)}` factor supplies the R3 `exp`-decay.  Assembling
 (diagonal `+` off-diagonal `+` prime↔prime-power passage `+` `√` from `L²`-duality) then
 closes `halasz_primes_pow` in the frozen shape.

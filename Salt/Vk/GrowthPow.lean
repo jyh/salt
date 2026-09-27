@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Vk.Mid
 import Salt.Vk.Growth
 import Salt.ExpSum.Strip
+import Salt.Tactic.ExpLogNum
 
 /-!
 # VMVT-VK rung R6 (body) — the dyadic ladder `zeta_growth_pow` (`VK-GROWTH`) + THE COMPOSE
@@ -513,8 +514,7 @@ theorem vk_window_mid_prefix {t : ℝ} {N k r m : ℕ}
   have hlog4k2 : Real.log (4 * (k : ℝ) ^ 2) ≤ 2 + 56 / 100 * ℓ := by
     rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]
     have h4 : Real.log 4 ≤ 2 := by
-      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
-      push_cast; linarith [hl21]
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
     push_cast; linarith [hlnk_ub]
   have hr_ub : (r : ℝ) ≤ 6 / 10 * (k : ℝ) * ℓ := by
     rw [hr]
@@ -703,9 +703,7 @@ lemma vk_dirichlet_block_le {σ t : ℝ} {M x' : ℕ}
   rcases le_or_gt (Real.log t) (10 * Real.log M) with hhi | hjhiM
   · -- HIGH: dispatch at k = 12
     have hexp2601 : (2601 : ℝ) ≤ Real.exp 100 := by
-      have h50 : (51 : ℝ) ≤ Real.exp 50 := by linarith [Real.add_one_le_exp (50 : ℝ)]
-      have he : Real.exp 100 = Real.exp 50 * Real.exp 50 := by rw [← Real.exp_add]; norm_num
-      nlinarith [h50, he, Real.exp_pos 50]
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 100 (by norm_num)
     have hlogM260 : (260 : ℝ) ≤ Real.log M := by linarith [hhi, hL100, hexp2601]
     have hMfac : ((Nat.factorial 12 : ℝ)) ^ 6 ≤ (M : ℝ) := by
       have hfac2 : (Nat.factorial 12 : ℝ) ≤ 2 ^ 29 := by norm_num [Nat.factorial]

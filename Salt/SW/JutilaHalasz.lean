@@ -451,7 +451,7 @@ private lemma partial_summation_core {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) {
 (design v2 §A.3): Abel with `1/2 ≤ σ` (`(2σ − 1) ≥ 0`; dyadic would break F6 at `σ → 1/2`),
 `(x^{2−2σ} − 1)/(2 − 2σ) ≤ x^{2−2σ}·log x` (no `1/λ` loss), the `+ log z₂` term CARRIED. The
 constant is the row's own `∃ C` — `C = 2·max(4K_H, K_L)` from the two landed prefactors
-(`GrahamHard3.lean:2498`, `:2559`), printed as a symbol, never as S10's `K`.
+(`GrahamHard3.lean · sum_sq_sum_bvWeight_le_full`), printed as a symbol, never as S10's `K`.
 
 **The landed witness is `4·max(4K_H, K_L)`**, twice the design's: the design's factor `2` pays
 only for the `u ∈ [1, 2)` sliver, and the Abel bookkeeping's natural shape is

@@ -262,10 +262,7 @@ private lemma cfb_log_nine : Real.log 9 ≤ 2.21 := by
 private lemma cfb_log_twentytwo : Real.log 22 ≤ 3.1 := by
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
   have he3 : (20 : ℝ) < Real.exp 3 := by
-    have hsplit : Real.exp 3 = Real.exp 1 * (Real.exp 1 * Real.exp 1) := by
-      rw [← Real.exp_add, ← Real.exp_add]; norm_num
-    rw [hsplit]
-    nlinarith [Real.exp_pos (1 : ℝ)]
+    exact_mod_cast Salt.Tactic.lt_exp_nat_of_lt_pow 3 (by norm_num)
   have hpos : (0 : ℝ) < 22 / Real.exp 3 := by positivity
   have h := Real.log_le_sub_one_of_pos hpos
   rw [Real.log_div (by norm_num) (Real.exp_ne_zero 3), Real.log_exp] at h
