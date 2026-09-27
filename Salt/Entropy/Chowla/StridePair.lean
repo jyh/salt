@@ -832,7 +832,7 @@ theorem flatDesignBase_clears_stride_floors {A : ℝ} (hA : 162 ≤ A) {eps : �
 
 Build freeze v2 v1.1 (2026-09-13) §3.0: at product cap 9 the crown derives `a ≤ a·h ≤ ⌊e⁹⌋ = 8103`
 and `ε ≥ 1/(500·8103) = 1/4051500`, and nothing more; every stride site below the composition is
-twinned there.  Additive only — every declaration above is untouched.  Each twin is its source's
+twinned there.  Additive at landing — no declaration above was touched.  Each twin is its source's
 statement and body with ONLY the raises `1096 ↦ 8103`, `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
 `10^24 ↦ 10^28`; no hypothesis is added and no conclusion weakened. -/
 

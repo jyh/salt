@@ -26,9 +26,9 @@ So the graded lane is the landed text with FOUR substitutions and NOTHING landed
   (iv)  the two consumed names ↦ their graded twins (`StrideGradeWalls`), the numeral walls the
         census of the envelope found (`2^581 → 2^592`, `403 → 411`, `417 → 425`, the bump at `2^11`,
         the arm's `c`-ceiling at `2^11·1201216`) each re-cut by substitution with its slack stated.
-Every declaration below is the landed one (`StridePairReceipt.lean`, salt `021c22c1`) with the
-substitution printed in its docstring; the five replays' bodies are the landed bodies VERBATIM
-except the two name swaps; the crown's body is the landed crown's verbatim.  ⟦WHICH FORMS THE
+At landing every declaration below was the landed one (`StridePairReceipt.lean`, `021c22c1`) with
+the substitution printed in its docstring; the five replays' bodies were the landed bodies VERBATIM
+except the two name swaps; the crown's body was the landed crown's verbatim.  ⟦WHICH FORMS THE
 CROWN READS⟧ (the helm's 18:38 question, answered at the object): the crown reads THIS file's six
 forms, five replays and door-head through `mrtUniformityXiL2AffSet_holds_flat_floor` →
 `mrtUniformityXiL2Set_holds_flat_floor` → `flat_chain_generic_h`; it does NOT call the three
@@ -1315,9 +1315,9 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g (a b h : ℕ) (ha : 0 < a) (hh
 
 Each declaration below is the named landed theorem's proof term verbatim, with its single
 **unused** cap binder `(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to
-`(_hh14 : Real.log (h : ℝ) ≤ 14)`.  Every name is new; **no landed declaration moves** and no
-landed statement is re-pointed.  Each twin is the strictly stronger theorem (same conclusion,
-weaker hypothesis), so the family is additive and inert.
+`(_hh14 : Real.log (h : ℝ) ≤ 14)`.  Every name was new; **no landed declaration moved** and no
+landed statement was re-pointed, at landing.  Each twin is the strictly stronger theorem (same
+conclusion, weaker hypothesis), so the family is additive and inert.
 
 **These four have no consumers.**  They buy headroom for a future consumer that holds only
 `log h ≤ 14`; nothing in the corpus reads them today.  Nothing here proves an estimate, and

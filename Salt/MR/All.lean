@@ -9981,9 +9981,9 @@ open Salt.Tactic in
 named landed declaration's proof term VERBATIM with its single **unused** cap binder
 `(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to `(_hh14 : Real.log (h : ℝ) ≤ 14)`; the delta is two
 tokens — the declaration name and that binder — and the body is byte-identical, which is why the
-landed term closes the twin unchanged.  Every name is new: **no landed declaration moves and no
-landed statement is re-pointed**, and each twin is the strictly stronger theorem (same conclusion,
-weaker hypothesis), so the family is additive and inert.
+landed term closes the twin unchanged.  Every name was new: **no landed declaration moved and no
+landed statement was re-pointed** at landing, and each twin is the strictly stronger theorem (same
+conclusion, weaker hypothesis), so the family is additive and inert.
 
 ⛔ **THESE FOUR HAVE NO CONSUMERS.**  They buy headroom for a future consumer that holds only
 `log h ≤ 14`; **nothing in the corpus reads them today.**  The rung moves no citable number — not
@@ -10006,9 +10006,9 @@ open Salt.Tactic in
 /-! ⟦THE COST-8 RUNG OF ARM (A)⟧ — THE RAISED-CAP SUPPLIER CHAIN (`S11Arc36`,
 `S16FlatTerminalLinear`, `S16ProducersH`, `S16ComposeLH`, `StridePairReceipt`, 2026-09-11, math).
 Nine twins at the raised cap `log h ≤ 14`, reaching `flat_capstone_generic_h` — the cost-**8**
-point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name is new; **no landed declaration
-moves, no landed statement is re-pointed, and nothing is deleted.**  Each twin is the strictly
-stronger theorem (same conclusion, weaker hypothesis).
+point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name was new; **no landed declaration
+moved, no landed statement was re-pointed, and nothing was deleted** at landing.  Each twin is the
+strictly stronger theorem (same conclusion, weaker hypothesis).
 
 ⛔ **THE RUNG IS NOT A TRANSCRIPTION, AND THE COST MODEL CANNOT SEE THAT.**  The ladder prices all
 eight members alike.  Measured at the object, they are **5 supplier swaps (one token each) + 2
@@ -10129,7 +10129,7 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E1⟧ — THE ENTROPY-SIDE CAP-9 / `2^12` TWINS (`GoldbachEnergyKcH`, `StridePair`,
 `StrideShellG`, `StridePrize`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief
-W1 bundle E1).  Additive only: every landed declaration is untouched.  Each twin is its source's
+W1 bundle E1).  Additive at landing: no landed declaration was touched.  Each twin is its source's
 statement and body with ONLY the freeze's rule-2 raises — product cap `≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`,
 `1201216 ↦ 65658609`, stride `a ≤ 1096 ↦ a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
 `10^24 ↦ 10^28`, door grade `2^11 ↦ 2^12` — and no hypothesis added.  The Entropy converter
@@ -10370,7 +10370,7 @@ open Salt.Tactic in
 — build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
 24–28). Additive only at landing: every `_g` replay in `StridePairReceiptG` was untouched
 (2026-09-26: the XY pin conversion rewrote docstring pins in them; family 10 re-pointed the
-builder call of two; 2026-09-27: family 12 re-pointed a supplier call of a third). Each twin is its
+builder call of one; 2026-09-27: family 12 re-pointed a supplier call of another). Each twin is its
 source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
@@ -10389,8 +10389,8 @@ open Salt.Tactic in
 
 /-! ⟦β W34 H1⟧ — THE SPINE AT `2^12`, CAP 9, AND THE CROWNED HEAD (`StridePairReceiptG12b`,
 `StrideGradeReceipt12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5 W4/§5.1(g)(h)/§6,
-executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive only: every `_g` source in
-`StridePairReceiptG` and `StrideGradeReceipt` is untouched. Each twin is its source's statement and
+executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive at landing: no `_g` source
+in `StridePairReceiptG` or `StrideGradeReceipt` was touched. Each twin is its source's statement and
 body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt predicate / head, the ceiling
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the

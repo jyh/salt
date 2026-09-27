@@ -78,8 +78,8 @@ hypotheses trivial and the door's grade `2·Binsert` — consistent.
 (2026-09-26, XY debt lane family 10: the head-shaped builder at `a ≤ 1096` was retired into its
 cap-9 twin.  The four door-heads that called it read that twin, as `flat_door_head_xceil_h_g12b`
 already did; that twin reads `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`, the twin of Δ2's
-builder, at `log a ≤ 9`.  Δ2's builder `chowlaRegimeFlat_exists_param_gen_ceiling_mul` stands,
-with no call site.)
+builder, at `log a ≤ 9`.  Δ2's builder `chowlaRegimeFlat_exists_param_gen_ceiling_mul` stood,
+with no call site, until family 11 (below).)
 
 (2026-09-27, XY debt lane family 11: Δ2's builder `chowlaRegimeFlat_exists_param_gen_ceiling_mul`,
 at `a ≤ 1096` and with no call site, was retired into its cap-9 twin
@@ -102,7 +102,7 @@ open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:144, :135), and the road-exit
 -- replay (F3-Q8) copies the body of `m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist`
 -- (S16ComposeLH.lean), whose cap line is `flatRootCapH_arc_k`.  Opened here so the copies
--- elaborate; nothing landed moves.
+-- elaborate; the opening moves nothing landed.
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 
@@ -2336,9 +2336,9 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride (a b h : ℕ) (ha : 0 < a) (hh :
 
 Each declaration below is the named landed theorem's proof term verbatim, with its single
 **unused** cap binder `(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to
-`(_hh14 : Real.log (h : ℝ) ≤ 14)`.  Every name is new; **no landed declaration moves** and no
-landed statement is re-pointed.  Each twin is the strictly stronger theorem (same conclusion,
-weaker hypothesis), so the family is additive and inert.
+`(_hh14 : Real.log (h : ℝ) ≤ 14)`.  Every name was new; **no landed declaration moved** and no
+landed statement was re-pointed, at landing.  Each twin is the strictly stronger theorem (same
+conclusion, weaker hypothesis), so the family is additive and inert.
 
 **These four have no consumers.**  They buy headroom for a future consumer that holds only
 `log h ≤ 14`; nothing in the corpus reads them today.  Nothing here proves an estimate, and

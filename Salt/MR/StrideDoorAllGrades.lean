@@ -4855,7 +4855,7 @@ The four `_b9` stride suppliers of `Salt/Entropy/Chowla/StridePair.lean` (`:842�
 numeral cap `a ≤ 8103` (or its consequence `log a ≤ 9`, or the pin floor
 `1/4051500 = 1/(500·8103)`) at exactly the sites named in each docstring below; the `_L` lifts
 replace each such site by a binder or by the design base, and are the sources' bodies VERBATIM
-elsewhere.  The landed `StridePair.lean` is not touched. -/
+elsewhere.  These lifts did not touch the landed `StridePair.lean`. -/
 
 /-- **⟦F3-P19 AT THE CHARGE⟧** (`loglog_mul_flatDesignBase_le_L`) —
 `loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:842`) with `ha9 : log a ≤ 9` REPLACED by
