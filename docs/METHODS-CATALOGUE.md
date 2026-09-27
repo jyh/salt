@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0781e4ef` · source digest `915e5295a4ca19de` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `d235c8d0` · source digest `ab91197de9f1e5a5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22690 · with a proof/definition body: 22690 · direct corpus references (edges): 85374 · audited results: 9076 · corpus Prop-valued names: 668.
+Declarations indexed: 22690 · with a proof/definition body: 22690 · direct corpus references (edges): 85401 · audited results: 9076 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -669,7 +669,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.HalaszIntegersChiPhi` | DISCHARGED | `Salt.MR.halaszIntegersChiPhi_holds` ✓audited (Salt/MR/HalaszIntegersChiClose.lean:257) |
 | `Salt.MR.L1LowerEffectiveOdd` | DISCHARGED | `Salt.MR.L1LowerEffectiveOdd_descend` ✓audited GUARDED (Salt/MR/LandauDescent.lean:268) |
 | `Salt.MR.L1LowerOddEffective` | DISCHARGED | `Salt.MR.l1LowerOddEffective_pi` ✓audited (Salt/MR/Sawtooth.lean:845) · `Salt.MR.l1LowerOddEffective_one` ✓audited (Salt/MR/Sawtooth.lean:849) |
-| `Salt.MR.LFunctionInvShallowVkSharp` | DISCHARGED | `Salt.MR.lFunctionInvShallowVkSharp_holds` ✓audited (Salt/MR/LFunctionInvShallow.lean:1260) |
+| `Salt.MR.LFunctionInvShallowVkSharp` | DISCHARGED | `Salt.MR.lFunctionInvShallowVkSharp_holds` ✓audited (Salt/MR/LFunctionInvShallow.lean:1242) |
 | `Salt.MR.LambdaChiSummatory` | DISCHARGED | `Salt.MR.lambdaChiSummatory_holds_gated` ✓audited GUARDED (Salt/MR/PortClose.lean:163) |
 | `Salt.MR.M4BandTransport` | DISCHARGED | `Salt.MR.m4_bandTransport` ✓audited (Salt/MR/M4Close.lean:359) |
 | `Salt.MR.M4BlockMeanSqBlk_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqBlk_trivial_gk` (Salt/MR/M4BridgeBlock.lean:721) |
@@ -971,7 +971,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | exponential sums | 577 | 223 | 796 | 521 | 31 | 33 | 0 | 1381 | 1196 |
 | Mertens / PNT-type | 253 | 67 | 878 | 703 | 4 | 16 | 0 | 1601 | 1544 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 99 | 348 | 0 | 0 | 0 | 447 | 447 |
+| explog/lognum numeral tactic | 53 | 0 | 160 | 404 | 0 | 0 | 0 | 564 | 564 |
 | Matomaki-Radziwill / Halasz (short intervals) | 9759 | 5417 | 2971 | 1265 | 168 | 189 | 0 | 4593 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
@@ -1113,7 +1113,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 271 | Salt/Entropy/Chowla/RegimeParam.lean:219 |
 | `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 271 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
 
-### explog/lognum numeral tactic — 447 external dependents
+### explog/lognum numeral tactic — 564 external dependents
 
 (no audited member)
 
@@ -1153,7 +1153,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 61 | 5417 | 9759 |
-| explog/lognum numeral tactic | 447 | 0 | 53 |
+| explog/lognum numeral tactic | 564 | 0 | 53 |
 | entropy decrement | 616 | 536 | 1400 |
 | character sums / L-functions | 880 | 2155 | 4279 |
 | circle method / Fourier | 1070 | 83 | 181 |
