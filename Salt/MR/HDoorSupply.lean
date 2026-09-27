@@ -54,8 +54,8 @@ that inflates one and not the other is measuring a different object.  §5 moves 
 (2026-09-26: the XY debt lane retires this file's `log h ≤ 7` IMPLICATION rungs into their
 `log h ≤ 9` generics — the `_b9` twins of the sections headed ⟦β W1 E3⟧ and ⟦β W2 F1⟧ — each
 noted in place.  Through family 08 `cofkL_logX_floor_h` and `cofkL_mu_floor_h` (§6) stood and
-kept `hh7`; family 09 retired the first into its generic and moved the second — the class-D
-rung, kept, still carrying `hh7` — below that generic, which it now reads.  The
+kept `hh7`; family 09 retired the first into its generic and moved the second — kept, because
+its `_b9` twin does not imply it, and still carrying `hh7` — below that generic.  The
 threshold page this header calls `pieceFloor_vt_threshold_h` is one of the retired, family 08;
 the `h = 2` lane of §4, which reads its generic, and the exit at `h = 2` of §5, which reads the
 lane, were moved below that generic.)
@@ -421,7 +421,8 @@ repository could see it.**  The repair is the `h`-explicit conclusion below.
 (2026-09-26: the `log X` floor this header describes carried `hh7 : log h ≤ 7`; it was retired
 into its `_b9` generic, whose binder is `hh9 : log h ≤ 9` — family 09, the note below.  The
 `μ`-floor that read it is kept and was moved below that generic; the `e^e ≤ X` gate was retired
-in family 06, the note below.) -/
+in family 06, the note below.  No lemma that re-runs a landed one stands in this section any
+longer.) -/
 
 /-- **THE LINEAR SOCKET AT THE INFLATED CAP** (`SocketBaseLH`) — `ArithPageLinear.SocketBaseL`
 with **BOTH** occurrences of the arc denominator inflated to `h · arcDen 12 H`.
@@ -480,10 +481,18 @@ that ONE binder line and are token-identical elsewhere, so the generic implies i
 — kernel-checked from the retired statement's own bytes before the 152 lines were removed.
 The generic's body is this page's with the `− log h` cost `7.6932` raised to `9.6932` at its
 three sites and the binder renamed; it does not carry this page's ten stage comments, which
-read, in order: the arc denominator, inflated · the primorial majorant · the combination, `ω`
-cancelled · the logarithm of the floor: the inflation is exactly a `− log h` · the floor of the
-primorial exponent · the `ε` floor at the shifted pin · the two crude brackets on `H₊` · the
-square-root floor, `h`-explicit · the numeral, paying `log h ≤ 7` as well · the exit.
+read, in order and verbatim (the leading `-- ` dropped):
+
+  ⟦the arc denominator, inflated⟧
+  ⟦the primorial majorant⟧
+  ⟦the combination, `ω` cancelled⟧
+  ⟦the logarithm of the floor: the inflation is exactly a `− log h`⟧
+  ⟦the floor of the primorial exponent⟧
+  ⟦⟦(a)⟧⟧ THE `ε` FLOOR AT THE SHIFTED PIN: `1/(500h) ≤ ε` gives `250000·h²·ε² ≥ 1`
+  ⟦the two crude brackets on `H₊`⟧
+  ⟦⟦(a)⟧⟧ the square-root floor is now `h`-EXPLICIT: `√H₊ ≥ 10^13·h²`
+  ⟦the numeral: `log A ≥ H₊/(10⁶h²)`, paying `log h ≤ 7` as well⟧
+  ⟦the exit⟧
 
 This page's docstring carried the ruling's arithmetic AT `log h ≤ 7`; verbatim:
 
@@ -495,10 +504,10 @@ what `hHhi : 10²⁶·h⁴ ≤ H₊` buys (`√H₊ ≥ 10¹³·h²`, margin `4.
 `hlo : 518 ≤ loglog H₋` supplies it for free — `log H₊ ≥ 10⁸` against a cost of
 `26·log 10 + 4·log h ≤ 88.1`.  `hh7` pays the `− log h`.
 
-At this retirement the page had ONE call site, the body of `cofkL_mu_floor_h` — the class-D
-rung, kept.  That rung now reads the generic, proving `log h ≤ 9` from its own `hh7` by
-`linarith`; it is MOVED below the generic, because a same-file forward reference does not
-elaborate. -/
+At this retirement the page had ONE call site, the body of `cofkL_mu_floor_h`, which is kept:
+its `_b9` twin does not imply it.  It now reads the generic, proving `log h ≤ 9` from its own
+`hh7` by `linarith`; it is MOVED below the generic, because a same-file forward reference does
+not elaborate. -/
 
 /-! ### THE `e^e ≤ X` GATE AT THE INFLATED SOCKET, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
@@ -562,7 +571,9 @@ from the `mertensCap` row's absorption in §4 and the `log X` floor's subtractio
 from the `Λ`-budget at all.
 
 (2026-09-26: the pages this section describes carried `hh7 : log h ≤ 7`; both were retired into
-their `_b9` generics — families 02 and 04 — whose binder is `hh9 : log h ≤ 9`, `h ≤ 8103`.) -/
+their `_b9` generics — families 02 and 04 — whose binder is `hh9 : log h ≤ 9`, `h ≤ 8103`.  The
+two sources of the constraint named above were retired too — §4's threshold page in family 08,
+§6's `log X` floor in family 09 — and stand as notes.) -/
 
 /-! ### THE RATED SOCKET AT THE INFLATED CAP, `K`-UNIFORM, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
@@ -1519,8 +1530,10 @@ theorem cofkL_capFreeFloor_at_socket_rated_uniform_h_b9 (h : ℕ) (hh : 0 < h)
 /-! ## §6'S `μ`-FLOOR AT `log h ≤ 7`, MOVED BELOW THE GENERIC IT READS
 (XY debt lane, family 09, 2026-09-26)
 
-`cofkL_mu_floor_h` is the class-D rung of the `log h ≤ 7` ladder: its conclusion `log H₊ − 28`
-is not implied by its `_b9` twin's `log H₊ − 32`, so it is kept, and it keeps `hh7`.  It read
+`cofkL_mu_floor_h` is the one rung of the `log h ≤ 7` ladder that its `_b9` twin does not imply
+(the earlier notes' "class-D rung": the lane's label, not a difficulty class — the theorem is
+proved): its conclusion `log H₊ − 28` is stronger than the twin's `log H₊ − 32`, so it is kept,
+and it keeps `hh7`.  It read
 the `log h ≤ 7` floor `cofkL_logX_floor_h`, retired into `cofkL_logX_floor_h_b9` (the note in
 §6); it reads the generic, as its `_b9` twin does, proving `log h ≤ 9` from its own `hh7` by
 `linarith`, and a same-file forward reference does not elaborate, so it stands here, below the
