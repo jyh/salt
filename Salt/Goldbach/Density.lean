@@ -47,7 +47,7 @@ namespace Salt.Goldbach
 /-! ## Part A — the punctured sifting modulus `goldPs` -/
 
 /-- **The punctured Goldbach sifting modulus** `P_N = ∏_{w'≤q<z, q prime, q∤N} q`.  Mirrors the
-twin's primorial-style window product (`opP`, `HeadlineW2:27`) with the extra `q ∤ N` puncture:
+twin's primorial-style window product (`opP`, `HeadlineW2`) with the extra `q ∤ N` puncture:
 the primes dividing `N` are excluded, which is exactly what makes `Coprime d N` free for every
 `d ∣ goldPs` (the switch-seam-vanishing fact of the gate). -/
 noncomputable def goldPs (N z w' : ℕ) : ℕ :=
