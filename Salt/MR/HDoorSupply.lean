@@ -761,32 +761,17 @@ theorem cofkL_mu_floor_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
   rw [hsplit] at hstep
   linarith
 
-/-- The inflated socket's scale still clears the supplier's own gate `e^e ≤ X`
-(`cofkL_X_ge_expexp_h`). -/
-theorem cofkL_X_ge_expexp_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7)
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
-    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
-    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
-    Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) := by
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
-  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
-  have hfl := cofkL_logX_floor_h hh hh7 hb hε hHhi hH
-  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hApos : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
-    have : 1 ≤ A + s := by omega
-    have h : (1 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by exact_mod_cast this
-    linarith
-  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
-  have he : Real.exp 1 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-    have h3 : Real.exp 1 ≤ 3 := by linarith [Real.exp_one_lt_d9]
-    have h4 : (3 : ℝ) ≤ (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
-      rw [le_div_iff₀ hXpos]; nlinarith [hHhi, hh24]
-    linarith
-  have h := Real.exp_le_exp.mpr he
-  rwa [Real.exp_log hApos] at h
+/-! ### THE `e^e ≤ X` GATE AT THE INFLATED SOCKET, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
+
+⟦XY debt lane, family 06 (2026-09-26)⟧  `cofkL_X_ge_expexp_h {R} {h M H L q j A s} (hh : 0 < h)
+(hh7 : Real.log h ≤ 7) (hb) (hε) (hHhi) (hH) : Real.exp (Real.exp 1) ≤ ((A + s : ℕ) : ℝ)` stood
+here.  It is `cofkL_X_ge_expexp_h_b9` (below) with the hypothesis strengthened: the two statements
+differ in that ONE binder line and are token-identical elsewhere, so the generic implies it by
+`linarith` — kernel-checked from the retired statement's own bytes, with the ladder's other
+implication rungs, before the 26 lines were removed.  It had no consumer left: its one call
+site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired in family 02.  Its
+body was one of `cofkL_logX_floor_h`'s call sites; at this retirement that floor kept one other,
+the body of `cofkL_mu_floor_h` (the class-D rung). -/
 
 /-! ## §7 — the fifth-conjunct half at the socket: the scale gate and the threshold (both retired
 2026-09-26 into their `_b9` generics, families 05 and 04 — the notes below) -/
@@ -1477,7 +1462,8 @@ theorem cofkL_mu_floor_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 <
   rw [hsplit] at hstep
   linarith
 
-/-- `cofkL_X_ge_expexp_h` at `log h ≤ 9` (`cofkL_X_ge_expexp_h_b9`) — SUPPLIER-SWAP
+/-- The former `cofkL_X_ge_expexp_h` (retired into this,
+2026-09-26) at `log h ≤ 9` (`cofkL_X_ge_expexp_h_b9`) — SUPPLIER-SWAP
 (`cofkL_logX_floor_h_b9`).  BODY: the source's. -/
 theorem cofkL_X_ge_expexp_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
     (hh9 : Real.log h ≤ 9)
