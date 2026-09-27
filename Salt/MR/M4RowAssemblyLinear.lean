@@ -199,7 +199,7 @@ whole block by one live product plus one block prime that pushes off the window:
 At the door ladder `[P_j, Q_j] = [2^{E_j}, 2^{j²M·E_j}]` the ratio is far above `2`, so such a
 `p₁` sits next to every live `p₀`.  This is why `m4_chiFreeRowSq_sum_at_door_L` CARRIES its
 `hrowsSum` slot instead of filling it from the D2 door page, and why the landed `q = 1`
-supplier `ThmA2Rows.a2Rows_of_capfree3_end` (`ThmA2Rows.lean:1057-1060`) states the STRICT
+supplier `ThmA2Rows.a2Rows_of_capfree3_end` (`ThmA2Rows.lean`) states the STRICT
 relativized pair law `SeamRowWindowed.SeamCoefWS` instead of the global contract. -/
 theorem doorRows_global_hcoef_kills_block_L {a b c : ℕ → ℂ} {M Xd j : ℕ}
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)

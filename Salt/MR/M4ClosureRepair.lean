@@ -1129,7 +1129,7 @@ can go first.  Those four, and the two gated ⟦item 11⟧ exits they consume, a
 (`M4RowsChiEndPrime.m4_hrowsSlot_at_door_end'_gk`,
 `M4RowsChiZeroPrime.m4_hrowsSlot_at_door_zero'_gk`). -/
 
-/-- `doorFuseFrame_pool'_of_gates_decay` (:234), at the lever. -/
+/-- `doorFuseFrame_pool'_of_gates_decay`, at the lever. -/
 theorem doorFuseFrame_pool'_of_gates_decay_gk (K : ℕ) {M Xd j : ℕ} {Cs ε : ℝ}
     (hb : DoorBaseFrame Xd j)
     (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
@@ -1151,7 +1151,7 @@ theorem doorFuseFrame_pool'_of_gates_decay_gk (K : ℕ) {M Xd j : ℕ} {Cs ε : 
   band_pool := band_pool_at_decayPool
     (by have := r5_one_le_log_of_three_le hb.X_three; linarith) hL4096
 
-/-- `GRowsZeroGate'''` (:278), at the lever.  Only the `p²` field moves. -/
+/-- `GRowsZeroGate'''`, at the lever.  Only the `p²` field moves. -/
 structure GRowsZeroGate'''_gk (K : ℕ) (M Xd : ℕ) (Ccc π₀ : ℝ) : Prop where
   /-- ⟦THE LEVEL-1 SLOT⟧ base-free. -/
   level1 : 14400 * Real.exp 1 ^ 2 * a2Level1 M ≤ 1 / 4 * π₀
@@ -1164,14 +1164,14 @@ structure GRowsZeroGate'''_gk (K : ℕ) (M Xd : ℕ) (Ccc π₀ : ℝ) : Prop wh
   /-- **⟦THE DENSITY SLOT — D3⟧** the debit `GRowsZeroGate''_gk` pinned to `0`. -/
   dens : 5760 * Ccc * (2 / (M : ℝ)) ≤ 1 / 4 * π₀
 
-/-- `gRowsZeroGate''_of_gate'''` (:292), at the lever. -/
+/-- `gRowsZeroGate''_of_gate'''`, at the lever. -/
 theorem gRowsZeroGate''_of_gate'''_gk {K M Xd : ℕ} {π₀ : ℝ} (hπ : 0 ≤ π₀)
     (hg : GRowsZeroGate'''_gk K M Xd 0 π₀) : GRowsZeroGate''_gk K M Xd π₀ where
   level1 := by have := hg.level1; linarith
   endpt := by have := hg.endpt; linarith
   p2 := by have := hg.p2; linarith
 
-/-- `gRows_zero_of_gate'''` (:304), at the lever. -/
+/-- `gRows_zero_of_gate'''`, at the lever. -/
 theorem gRows_zero_of_gate'''_gk (K : ℕ) {M Xd : ℕ} {Ccc π₀ : ℝ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
     (hg : GRowsZeroGate'''_gk K M Xd Ccc π₀) :
     5760 * (a2RowsSum'_gk K M Xd + Ccc * (2 / (M : ℝ))) ≤ π₀ := by
@@ -1189,7 +1189,7 @@ theorem gRows_zero_of_gate'''_gk (K : ℕ) {M Xd : ℕ} {Ccc π₀ : ℝ} (hM : 
   rw [hid]
   linarith [hg.level1, hg.endpt, hg.p2, hg.dens]
 
-/-- `doorFuseFrame_pool'_of_gates_cc` (:324), at the lever. -/
+/-- `doorFuseFrame_pool'_of_gates_cc`, at the lever. -/
 theorem doorFuseFrame_pool'_of_gates_cc_gk (K : ℕ) {M Xd j : ℕ} {Cs Ccc ε π₀ : ℝ}
     (hb : DoorBaseFrame Xd j)
     (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) ≤ π₀)
@@ -1233,7 +1233,7 @@ theorem doorFuseFrame_pool'_of_gates_cc_gk (K : ℕ) {M Xd j : ℕ} {Cs Ccc ε �
       simpa using this
     linarith
 
-/-- `doorFuseFrame_pool'_of_gates_cc_decay` (:371), at the lever. -/
+/-- `doorFuseFrame_pool'_of_gates_cc_decay`, at the lever. -/
 theorem doorFuseFrame_pool'_of_gates_cc_decay_gk (K : ℕ) {M Xd j : ℕ} {Cs Ccc ε : ℝ}
     (hb : DoorBaseFrame Xd j)
     (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
@@ -1255,7 +1255,7 @@ theorem doorFuseFrame_pool'_of_gates_cc_decay_gk (K : ℕ) {M Xd j : ℕ} {Cs Cc
   band_pool := band_pool_at_decayPool
     (by have := r5_one_le_log_of_three_le hb.X_three; linarith) hL4096
 
-/-- `m4_chiSummedFreeRow_of_doorAssembly_join_cc` (:396), at the lever. -/
+/-- `m4_chiSummedFreeRow_of_doorAssembly_join_cc`, at the lever. -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_join_cc_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
     {Cs Ccc C₁ M₀ ε π₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
     (hM : 1 ≤ M)
@@ -1298,7 +1298,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join_cc_gk (K : ℕ) {R : ChowlaRegi
   exact doorFuseFrame_pool'_of_gates_cc_gk K (hbase H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (hone (A + s)) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
-/-- `m4_chiSummedFreeRow_of_doorAssembly_pool'_gated` (:455), at the lever. -/
+/-- `m4_chiSummedFreeRow_of_doorAssembly_pool'_gated`, at the lever. -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
     {Cs Ccc C₁ M₀ ε π₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
     (hM : 1 ≤ M)
@@ -1337,7 +1337,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_gk (K : ℕ) {R : Chowla
     hF.tann hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows
     hF.eps_pool hF.band_pool
 
-/-- `m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated` (:498), at the lever. -/
+/-- `m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated`, at the lever. -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_gk (K : ℕ)
     (hK : K ≤ 170000000) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
@@ -1383,7 +1383,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_gk (K : ℕ)
     (Ccc := fun _ => Cp) (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := π₀) hM hframe
     (hslot R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband hpool henv
 
-/-- `m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated` (:544), at the lever. -/
+/-- `m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated`, at the lever. -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_gk (K : ℕ)
     (hK : K ≤ 170000000) :
     ∃ Ct : ℝ, 0 < Ct ∧
@@ -1430,7 +1430,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_gk (K : ℕ)
     (Ccc := fun _ => Cp) (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := π₀) hM hframe
     (hslot Cp hCp.le R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband hpool henv
 
-/-- `m4_closure_fuse_end'` (:698), at the lever. -/
+/-- `m4_closure_fuse_end'`, at the lever. -/
 theorem m4_closure_fuse_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kar ρ : ℝ)
@@ -1487,7 +1487,7 @@ theorem m4_closure_fuse_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact doorFuseFrame_pool'_of_gates_cc_decay_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
-/-- `m4_closure_fuse_zero'` (:754), at the lever. -/
+/-- `m4_closure_fuse_zero'`, at the lever. -/
 theorem m4_closure_fuse_zero'_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 < Cp →
@@ -1544,7 +1544,7 @@ theorem m4_closure_fuse_zero'_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact doorFuseFrame_pool'_of_gates_cc_decay_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
-/-- `m4_arith_henv_constPool` (:904), at the lever. -/
+/-- `m4_arith_henv_constPool`, at the lever. -/
 theorem m4_arith_henv_constPool_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ}
     {Kar ρ : ℝ}
     (hρ : 0 ≤ ρ)
@@ -1557,7 +1557,7 @@ theorem m4_arith_henv_constPool_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ 
   m4_arith_henv_rho_pool_gk K (π₀ := fun _ => constPool ρ R.Hhi)
     (fun _ => constPool_nonneg hρ) harith (price_at_constPool_socket harith)
 
-/-- `doorFuseFrame_pool'_of_gates_const` (:964), at the lever. -/
+/-- `doorFuseFrame_pool'_of_gates_const`, at the lever. -/
 theorem doorFuseFrame_pool'_of_gates_const_gk (K : ℕ) {M Xd j Hhi : ℕ} {Cs Ccc ε ρ : ℝ}
     (hb : DoorBaseFrame Xd j)
     (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
@@ -1581,7 +1581,7 @@ theorem doorFuseFrame_pool'_of_gates_const_gk (K : ℕ) {M Xd j Hhi : ℕ} {Cs C
   band_pool := band_pool_of_threshold
     (by have := r5_one_le_log_of_three_le hb.X_three; linarith) hband4096
 
-/-- `m4_closure_fuse_end'_const` (:1011), at the lever. -/
+/-- `m4_closure_fuse_end'_const`, at the lever. -/
 theorem m4_closure_fuse_end'_const_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kar ρ : ℝ)
@@ -1642,7 +1642,7 @@ theorem m4_closure_fuse_end'_const_gk (K : ℕ) (hK : K ≤ 170000000) :
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
 
-/-- `m4_closure_fuse_zero'_const` (:1072), at the lever. -/
+/-- `m4_closure_fuse_zero'_const`, at the lever. -/
 theorem m4_closure_fuse_zero'_const_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 < Cp →

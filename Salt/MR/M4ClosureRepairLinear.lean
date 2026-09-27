@@ -34,7 +34,7 @@ namespace Salt.MR
 
 open Salt.Entropy.Chowla
 
-/-- `M4ClosureRepair.r5_one_le_log_of_three_le` (:113), re-proved (the landed lemma is
+/-- `M4ClosureRepair.r5_one_le_log_of_three_le`, re-proved (the landed lemma is
 `private`).  Ladder-BLIND. -/
 private lemma r5L_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ)) :
     (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by

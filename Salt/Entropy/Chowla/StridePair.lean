@@ -746,7 +746,7 @@ theorem strideEndpoint_le (K a Z : ℝ) (q ω : ℕ) (hK : 0 ≤ K) (ha : 0 ≤ 
 NOT fit the ONE consumer that reads `Hlo` from above: H6's `hbaseceil` (`DoorReceipt.lean:
 819-821` at `h = 1`; `flat_L_width_priced`'s `hbase`) wants `loglog Hlo ≤ 3.2·A + log 2`
 LITERALLY, with `log 2` of
-slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean:1535`) already spends on the
+slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean`) already spends on the
 `Nat.ceil` overshoot.  So the lemma is stated at the flat base with the factor `a` absorbed
 inside the ceiling's own margin: `log(a·B) = log a + log B ≤ 7 + (exp(3.2A) + log 2)` (the
 `B ≤ 2·exp(exp(3.2A))` step of `flatDesignBase_loglog_le`'s proof, re-derived: `B ≤ exp(exp(3.2A))
