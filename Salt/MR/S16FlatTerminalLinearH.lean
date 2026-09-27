@@ -11,7 +11,7 @@ import Salt.MR.HDoorSupply
 # THE SECOND ROAD AT SHIFT `h`, ON THE TERMINAL'S LANE — the `_L_gk` h-family
 
 ⟦WHAT THIS FILE SETTLES⟧  The flat road's terminal register
-`m4_second_road_L2_gk_flatRoot_L` (`S16FlatTerminalLinear.lean:239`) reads the arc's
+`m4_second_road_L2_gk_flatRoot_L` (`S16FlatTerminalLinear.lean`) reads the arc's
 denominator cap `arcDen 12 H` in five places and closes at `h = 1`.  The twisted `L²` door
 (`HDoorArc`, `HDoorClose`) hands the road `α`'s certified only at the `h`-inflated allowance
 `h · arcDen 12 H`, and its consumer `log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`)
@@ -1577,7 +1577,7 @@ theorem m4_doorL2_supply_500_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
 /-! ## §5 — THE REGISTER AT SHIFT `h`, DOOR FORM -/
 
 /-- **⟦THE SECOND ROAD'S TERMINAL REGISTER AT SHIFT `h`, ON THE TERMINAL'S LANE — DOOR FORM⟧**
-(`m4_second_road_L2_gk_flatRoot_L`, `S16FlatTerminalLinear.lean:239`, with every cap read at
+(`m4_second_road_L2_gk_flatRoot_L`, `S16FlatTerminalLinear.lean`, with every cap read at
 `h · arcDen 12 H`).  The five cap reads: ⟦G1⟧ `(h·arcDen)^7 ≤ RStr` · ⟦G2⟧ `87·(h·arcDen)` ·
 ⟦floor⟧ `128·(h·arcDen)^3 ≤ H` · ⟦door gate⟧ `h·arcDen < P₁` · ⟦drift⟧ `strataResidualH h H`.
 The exit is the mint (§3′), so the `Kb`/`δ₀` budget line of the `h = 1` register is replaced by

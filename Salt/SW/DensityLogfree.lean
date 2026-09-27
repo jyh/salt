@@ -42,7 +42,7 @@ route dies at once.
 
 **`q ≥ 3` is forced, so `q = 2` is vacuous.** Under `χ.IsPrimitive ∧ 2 ≤ q`,
 `ne_one_of_isPrimitive` (`Growth.lean:271`) gives `χ ≠ 1` and `three_le_of_ne_one`
-(`CrownTheorem1.lean:5540`) gives `3 ≤ q` — mod 1 and mod 2 the only character is `1`.
+(`CrownTheorem1.lean` · `three_le_of_ne_one`) gives `3 ≤ q` — mod 1 and mod 2 the only character is `1`.
 The `q = 2` numeral row below is therefore a **two-real inequality check** on the two
 sides of the bound at the worst corner, never an instantiation at a character.
 -/

@@ -19,7 +19,7 @@ gated only by `hT0band`, and the summand it feeds is
   `8448·C₁′²·exp(−M₀/e)`
 
 (**`exp(−M₀/e)`, never `exp(−M₀/2)`** — the stale halving understates the demand by `2.7×`;
-`ThmA2Rows.lean:691` is the byte).  `m4_exit_decay_of_quality` below prints exactly what the
+`ThmA2Rows.lean` · `thm_a2'` is the byte).  `m4_exit_decay_of_quality` below prints exactly what the
 demand buys: `exp(−M₀/e) ≤ W^{−5/2}`, the `W`-saving the χ-sum of M4-3 spends.
 
 ## The rewire (council C3 + SIEGEL-REGIME)

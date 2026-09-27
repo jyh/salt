@@ -45,7 +45,7 @@ replays, the door-head, the chain, the receipt) ported to the `h` lane's compose
      max Hcap (arcFloor36, loglogFloor50)`; H6 instantiates `U1floor := flatWitFloor` and H7 pins
      `flatDesignBase A`.  Here H6/H7 keep `∀ U1floor ≥ flatWitFloor` with ONE caller hypothesis,
      `loglog U1floor ≤ 3.2·A + log 2` — the single place the chain reads `Hlo` from ABOVE
-     (`hbaseceil` → `flat_L_width_priced`, S16FlatTerminalLinear:1570); every other read is a
+     (`hbaseceil` → `flat_L_width_priced`, S16FlatTerminalLinear); every other read is a
      floor and is monotone.  The caller discharges it at `U1floor := a·flatDesignBase A` by
      `loglog_mul_flatDesignBase_le` (StridePair, F3-P19).
   Δ4 THE DOOR IS HANDED OUT.  The forms end in `P R`; the door-head `flat_door_head_xceil_h`

@@ -38,10 +38,10 @@ landed one with `intro A hA hAge` moved to where the landed proof chose `A`:
 
 * §1 `flat_head_uniform`         ← `HloExportFlat.…_hloCap_pinned_flat` (:227)
 * §2 `flat_socket_uniform`       ← `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (:70)
-* §3 `flat_doorL2_uniform`       ← `S16FlatTerminalLinear.m4_doorL2_close_split_sq_…_L` (:179)
-* §4 `flat_road_uniform`         ← `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (:239)
-* §5 `flat_capstone_uniform`     ← `S16FlatTerminalLinear.logChowla2_capstone_…_flatRoot_L` (:356)
-* §6 `flat_conditional_uniform`  ← `S16FlatTerminalLinear.logChowla2_conditional_…_L` (:1033)
+* §3 `flat_doorL2_uniform`       ← `S16FlatTerminalLinear.m4_doorL2_close_split_sq_…_L`
+* §4 `flat_road_uniform`         ← `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`
+* §5 `flat_capstone_uniform`     ← `S16FlatTerminalLinear.logChowla2_capstone_…_flatRoot_L`
+* §6 `flat_conditional_uniform`  ← `S16FlatTerminalLinear.logChowla2_conditional_…_L`
 * §7 `logChowla2_witnessed_scale_flat_L_v2_uniform` ← `S16FlatFinal.…_v2` (:125)
 
 §8 is the point: `logChowla2_ineffective` — the terminal with the TWO SIEGEL RIDERS GONE.  With

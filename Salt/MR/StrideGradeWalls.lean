@@ -53,10 +53,10 @@ set_option exponentiation.threshold 4000
 
 namespace Salt.MR
 
-/-! ## §1 — THE CHARGE CHAIN AT THE GRADED PIN (`S16Budget.lean:990-1047`'s three walls) -/
+/-! ## §1 — THE CHARGE CHAIN AT THE GRADED PIN (`S16Budget.lean` · `s16_audit_rho_ge_wide_h`'s three walls) -/
 
-/-- **⟦W15 TWIN⟧ (class B)** — `s16_audit_rho_ge_wide_h` (`S16Budget.lean:990`) with `2 ^ 20 ↦
-2 ^ 31` in `hδb` and `2 ^ 581 ↦ 2 ^ 592` in the conclusion.  BODY: `S16Budget.lean:993-1015`
+/-- **⟦W15 TWIN⟧ (class B)** — `s16_audit_rho_ge_wide_h` (`S16Budget.lean`) with `2 ^ 20 ↦
+2 ^ 31` in `hδb` and `2 ^ 581 ↦ 2 ^ 592` in the conclusion.  BODY: `S16Budget.lean` · `s16_audit_rho_ge_wide_h`
 verbatim — from `hh1` through the `min 1` branch (`rw [doorRhoOfDelta, le_min_iff]`,
 `refine ⟨?_, ?_⟩`) to the closing `exact hδb` — with `2 ^ 581 ↦ 2 ^ 592` at `hkey` and `hsplit1`
 and `2 ^ 20 ↦ 2 ^ 31` at `hkey` and `hsplit2`; the `nlinarith [hKb, hK]` closing `hkey` compares
@@ -89,8 +89,8 @@ theorem s16_audit_rho_ge_wide_h_g {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 
   rw [hsplit2]
   exact hδb
 
-/-- **⟦W16 TWIN⟧ (class A)** — `s16_audit_neglog_rho_le_wide_h` (`S16Budget.lean:1023`) at `2 ^ 31`
-and `411 + 2·log h`.  BODY: `S16Budget.lean:1026-1038` verbatim (`hh0` … the closing `linarith`)
+/-- **⟦W16 TWIN⟧ (class A)** — `s16_audit_neglog_rho_le_wide_h` (`S16Budget.lean`) at `2 ^ 31`
+and `411 + 2·log h`.  BODY: `S16Budget.lean` · `s16_audit_neglog_rho_le_wide_h` verbatim (`hh0` … the closing `linarith`)
 with `s16_audit_rho_ge_wide_h_g` at `hge`, `2 ^ 581 ↦ 2 ^ 592` (`hpos`, `h1`, `h2` ×2), `581 ↦
 592` in `h2`'s normal form; the closing `linarith` has `411 − 592·0.6931471808 = 0.657` nats. -/
 theorem s16_audit_neglog_rho_le_wide_h_g {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀)
@@ -110,7 +110,7 @@ theorem s16_audit_neglog_rho_le_wide_h_g {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} 
   rw [h2] at h1
   linarith
 
-/-- **⟦W17 TWIN⟧ (class A)** — `s16_audit_neglog_rho_le_417_h` (`S16Budget.lean:1043`) at `2 ^ 31`
+/-- **⟦W17 TWIN⟧ (class A)** — `s16_audit_neglog_rho_le_417_h` (`S16Budget.lean`) at `2 ^ 31`
 and `425`.  BODY: `le_trans (s16_audit_neglog_rho_le_wide_h_g hh hδ hK hδb hKb) (by linarith)`
 — `411 + 2·7 = 425` exactly, as the landed `403 + 14 = 417`. -/
 theorem s16_audit_neglog_rho_le_425_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
@@ -403,7 +403,7 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_h_g {A : ℝ} (hA : 162 ≤ A) (K
     (flatDoorM_bfloor_bump_g hh (h_le_1096_of_hh7 hh hh7) hA hδ hδb hCg)
     hMfl hx0win heps hlo hhi
 
-/-! ## §5 — THE ARM AT THE GRADED PIN (`XThread.lean:345-533`, `S16ProducersH.lean:793-830`) -/
+/-! ## §5 — THE ARM AT THE GRADED PIN (`XThread.lean:345-533`, `S16ProducersH.lean` · `s15ArmH_log_le`) -/
 
 set_option maxHeartbeats 2000000 in
 -- as `XThread.lean:330` above the landed `s15Arm_log_le_scaled`: the arm's four summands,
@@ -621,9 +621,9 @@ theorem s15Arm_log_le_scaled_g {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 2
       linarith [Real.log_two_lt_d9]
     linarith [hlog, hprod, hω1, hclose]
 
-/-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED⟧ (class A)** — `s15ArmH_log_le` (`S16ProducersH.lean:793`)
+/-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED⟧ (class A)** — `s15ArmH_log_le` (`S16ProducersH.lean`)
 with `hδpin` at `838400 * 2 ^ 11`; conclusion unchanged — the name the graded H2→H3 replay calls.
-BODY: `S16ProducersH.lean:799-828` verbatim (`hh1R` … the closing `linarith`) with `hcb : (2 ^ 11
+BODY: `S16ProducersH.lean` · `s15ArmH_log_le` verbatim (`hh1R` … the closing `linarith`) with `hcb : (2 ^ 11
 : ℝ) * h² ≤ 2460090368` (from `h1096 : h ≤ 1096`; ⚠ EXACT — `2^11·1096² = 2460090368`, zero
 margin, safe only because `h_le_1096_of_hh7` is itself the exact `⌊e^7⌋` bound),
 `hlogc : log (2 ^ 11 * h²) ≤ 22` (`Real.log_mul`, `Real.log_pow` twice, `11·log 2 < 7.6247`,

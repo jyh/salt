@@ -294,7 +294,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as the landed HOP 3: the ~120-line residue re-elaborates against the re-cut
 -- prefix, which here gains three items and five conjuncts.
 /-- **⟦HOP 3, AT THE FLAT ROOT⟧** (`logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot`)
-— `S16Budget.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` (:1429) with its road
+— `S16Budget.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` with its road
 `obtain` re-pointed at `HloExportMRFlatRoot.m4_second_road_L2_gk_flatRoot`.
 
 Against `S16BudgetFlat`'s HOP-3 twin (which is the LANDED road plus one shape rewrite) this
