@@ -158,9 +158,9 @@ theorem bigXiAffU_bounded_ceiling_of_pin_b9 (a h : ℕ) (ha : 0 < a) (hh : 0 < h
             * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ)) := by ring
 
 /-- **⟦S-3 U3⟧ (class A/B) — THE UNION IS ARC-TIGHT.**  `nearRatTight_of_bigXiAffD`
-(`StridePairReceipt.lean:605`) at every class, with ONE threshold: its `H₀` is
-`nearRatTight_of_bigXiArcTight harc heps`'s (obtained at `:524` inside
-`nearRatTight_of_bigXiAffArcTight`, `:520`), read at the PLAIN set and `b`-FREE, so
+(`StridePairReceipt.lean`) at every class, with ONE threshold: its `H₀` is
+`nearRatTight_of_bigXiArcTight harc heps`'s (obtained inside
+`nearRatTight_of_bigXiAffArcTight`), read at the PLAIN set and `b`-FREE, so
 either take `Finset.sup` over `range a` of the per-class thresholds (`Classical.choose` +
 `Finset.le_sup`, ~15 lines) or transcribe `nearRatTight_of_bigXiAffArcTight` with `intro b` moved
 inside `∃ H₀` (~60 lines, one line moved).  A member of the union is a member of SOME class's set

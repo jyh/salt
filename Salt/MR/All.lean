@@ -9635,16 +9635,15 @@ take `log(1/Ks)` into its `max` and read `floor4` off with no numeral rider at a
 
 ⛔⛔ **AND HOP 6's `h` TWIN IS EXACTLY THE SHAPE `logChowla2_v7_rated` CONSUMES — which is why
 the headline is BLOCKED ON E and not on T.**  See the previous block's note.
-Nothing bears on twin primes. -/
+Nothing bears on twin primes.  (From 2026-09-27 the XY debt lane retires members of this chain
+into their cap-9 twins, noted in place in `S16ComposeLH.lean`; their rows leave with them.) -/
 #audit_axioms Salt.MR.capfloor_floor4_sharp_LH
   Salt.MR.capfloor_floor4_of_regimeWin_LH
   Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin
-  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
-  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
 
 /-! ⟦BLOCK E — THE `ε` SEAM CLOSED, AND THE PRIZE⟧ (`HDoorSupply` §6–§8 re-spelled in place,
@@ -9772,10 +9771,13 @@ statements, the five replays, the door-head, the chain, the receipts (the anti-d
 the tower, grade `≤ 1.02·a·ρ + E` with `ρ ≤ 1/(837782(ah)²)` — the F2 supply line at the regime it
 lives at; the affine DEMAND is still missed by `1.02·a` (F5's numeral). Nothing here bears on twin
 primes.  20 obligations, 20 landed (one Opus executor, 2026-09-04 12:2x–12:5x; 17 at one attempt).
+(From 2026-09-26 the XY debt lane retires copied siblings of this block into their cap-9 twins,
+noted in place in `StridePairReceipt.lean`; the rows below are fewer than 20 by the retirements
+to date.  From family 10 every door-head that called the retired head-shaped builder reads the
+cap-9 pair, as the G12b one already did, at `log a ≤ 9`; the builder named above stood, with no
+call site, until family 11 (2026-09-27) retired it into its cap-9 twin.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
-  Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul
-  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul
   Salt.MR.nearRatTight_of_bigXiAffArcTight
   Salt.MR.nearRatTight_of_bigXiAffD
   Salt.MR.sum_Xi_norm_windowExpSum_sq_le_parseval
@@ -9979,9 +9981,9 @@ open Salt.Tactic in
 named landed declaration's proof term VERBATIM with its single **unused** cap binder
 `(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to `(_hh14 : Real.log (h : ℝ) ≤ 14)`; the delta is two
 tokens — the declaration name and that binder — and the body is byte-identical, which is why the
-landed term closes the twin unchanged.  Every name is new: **no landed declaration moves and no
-landed statement is re-pointed**, and each twin is the strictly stronger theorem (same conclusion,
-weaker hypothesis), so the family is additive and inert.
+landed term closes the twin unchanged.  Every name was new: **no landed declaration moved and no
+landed statement was re-pointed** at landing, and each twin is the strictly stronger theorem (same
+conclusion, weaker hypothesis), so the family is additive and inert.
 
 ⛔ **THESE FOUR HAVE NO CONSUMERS.**  They buy headroom for a future consumer that holds only
 `log h ≤ 14`; **nothing in the corpus reads them today.**  The rung moves no citable number — not
@@ -10004,9 +10006,9 @@ open Salt.Tactic in
 /-! ⟦THE COST-8 RUNG OF ARM (A)⟧ — THE RAISED-CAP SUPPLIER CHAIN (`S11Arc36`,
 `S16FlatTerminalLinear`, `S16ProducersH`, `S16ComposeLH`, `StridePairReceipt`, 2026-09-11, math).
 Nine twins at the raised cap `log h ≤ 14`, reaching `flat_capstone_generic_h` — the cost-**8**
-point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name is new; **no landed declaration
-moves, no landed statement is re-pointed, and nothing is deleted.**  Each twin is the strictly
-stronger theorem (same conclusion, weaker hypothesis).
+point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name was new; **no landed declaration
+moved, no landed statement was re-pointed, and nothing was deleted** at landing.  Each twin is the
+strictly stronger theorem (same conclusion, weaker hypothesis).
 
 ⛔ **THE RUNG IS NOT A TRANSCRIPTION, AND THE COST MODEL CANNOT SEE THAT.**  The ladder prices all
 eight members alike.  Measured at the object, they are **5 supplier swaps (one token each) + 2
@@ -10127,7 +10129,7 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E1⟧ — THE ENTROPY-SIDE CAP-9 / `2^12` TWINS (`GoldbachEnergyKcH`, `StridePair`,
 `StrideShellG`, `StridePrize`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief
-W1 bundle E1).  Additive only: every landed declaration is untouched.  Each twin is its source's
+W1 bundle E1).  Additive at landing: no landed declaration was touched.  Each twin is its source's
 statement and body with ONLY the freeze's rule-2 raises — product cap `≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`,
 `1201216 ↦ 65658609`, stride `a ≤ 1096 ↦ a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
 `10^24 ↦ 10^28`, door grade `2^11 ↦ 2^12` — and no hypothesis added.  The Entropy converter
@@ -10220,7 +10222,9 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E4⟧ — THE MR GRADED/STRIDE TWINS (`StridePairReceipt`, NEW `StrideGrade12bWalls`, NEW
 `StridePairReceiptG12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1
-bundle E4).  Additive only: every landed declaration is untouched; the two new modules exist for
+bundle E4).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
+the XY debt lane retires copied siblings into these twins, noted in place); the two new
+modules exist for
 rule 6's placement (twins beside their graded sources would make an import cycle).  Each twin is
 its source's statement and body with ONLY the freeze's rule-2 raises — the stride `a ≤ 1096 ↦
 a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9` (the bound the crown derives at cap 9), the shift cap `log h ≤ 7 ↦
@@ -10323,8 +10327,10 @@ open Salt.Tactic in
 `S16FlatTerminalLinearLH` (the grid/eps assemblers at the inflated socket and the spine's first
 three links `s13CapEps_all_LH_b9` → `s16_capGate_supply_LH_gk_sharpT0_kswin_b9` →
 `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`; 2026-09-13, math — build
-freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only: every landed declaration
-is untouched.  Each twin is its source's statement and body with ONLY the shift-cap raise `log h ≤ 7
+freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only at landing: every landed
+declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` siblings into these
+`_b9` generics, noted in place).  Each twin is its source's statement and body with ONLY the
+shift-cap raise `log h ≤ 7
 ↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
 F2 twin, and no hypothesis added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤
 10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`); `cofkR_cofactorSupply_L_gk_rated_h_b9` takes
@@ -10362,7 +10368,9 @@ open Salt.Tactic in
 
 /-! ⟦β W34 G1⟧ — THE SIX GRADED REPLAYS AT `2^12`, CAP 9 (`StridePairReceiptG12b`, 2026-09-13, math
 — build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
-24–28). Additive only: every `_g` replay in `StridePairReceiptG` is untouched. Each twin is its
+24–28). Additive only at landing: every `_g` replay in `StridePairReceiptG` was untouched
+(2026-09-26: the XY pin conversion rewrote docstring pins in them; family 10 re-pointed the
+builder call of one; 2026-09-27: family 12 re-pointed a supplier call of another). Each twin is its
 source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
@@ -10381,8 +10389,8 @@ open Salt.Tactic in
 
 /-! ⟦β W34 H1⟧ — THE SPINE AT `2^12`, CAP 9, AND THE CROWNED HEAD (`StridePairReceiptG12b`,
 `StrideGradeReceipt12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5 W4/§5.1(g)(h)/§6,
-executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive only: every `_g` source in
-`StridePairReceiptG` and `StrideGradeReceipt` is untouched. Each twin is its source's statement and
+executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive at landing: no `_g` source
+in `StridePairReceiptG` or `StrideGradeReceipt` was touched. Each twin is its source's statement and
 body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt predicate / head, the ceiling
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
