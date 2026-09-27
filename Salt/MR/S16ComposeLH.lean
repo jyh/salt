@@ -41,7 +41,9 @@ in the `U1floor` join (the cap arithmetic `flatCap_join_floor` still reads it) a
 invisible at gate 10a — `m4BclGraded_le_of_fits` bounds the graded block by `2·(m4Cmax H · Fan H)`,
 in which `Ftr` does not appear — so the ceiling arithmetic is the landed one **byte for byte**.
 
-**PURELY ADDITIVE.**  No landed declaration is touched.
+**PURELY ADDITIVE AT LANDING.**  No landed declaration was touched.  (From 2026-09-27 the XY debt
+lane retires copied `h` siblings of this file into their cap-9 twins, noted in place; family 12
+moved the §12 terminal below the twins and re-pointed its one call.)
 -/
 
 noncomputable section
