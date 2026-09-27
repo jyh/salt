@@ -67,10 +67,10 @@ namespace Salt.Entropy.Chowla
 /-- **F3-P1 (def).**  What the receipt exports about the door regime's outer scale so that the
 scale can be divided by `a`: `a ∣ x` and the six `x`-fields of `ChowlaRegime` (`Regime.lean`:
 `hx`, `hωx`, `hheadroom`, `hheadroom'`, `hPHheadroom`, `hxbig`) read at `x / a` with every other
-field the regime's own.  Produced on the MR side by the multiplier builder (from 2026-09-27
-`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`, the cap-9 twin: `x := a·x₀`, the floors at
-`x₀` are the builder's own) and threaded INERT through the road (no hop reads `R.x` except
-through these fields and the ceiling).  Consumed by `regimeShrinkX_stride`. -/
+field the regime's own.  Produced on the MR side by the multiplier builder
+(`chowlaRegimeFlat_exists_param_gen_ceiling_mul`, from 2026-09-27 its `_b9` twin: `x := a·x₀`,
+the floors at `x₀` are the builder's own) and threaded INERT through the road (no hop reads
+`R.x` except through these fields and the ceiling).  Consumed by `regimeShrinkX_stride`. -/
 def StrideScale (a : ℕ) (R : ChowlaRegime) : Prop :=
   a ∣ R.x ∧ 2 ≤ R.x / a ∧ R.ω ≤ R.x / a ∧ R.Hhi ≤ R.x / a / R.ω ∧
     8 * (R.Hhi : ℝ) * Real.log R.Hhi * Real.log R.Hhi ≤ ((R.x / a / R.ω : ℕ) : ℝ) ∧
