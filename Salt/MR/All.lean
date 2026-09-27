@@ -8944,16 +8944,12 @@ open Salt.Tactic in
   Salt.MR.vkDebitConst_le_of_le_arcDen_h
   Salt.MR.vkMidDebitSharp_le_of_le_arcDen_h
   Salt.MR.bandConstQ_le_of_le_arcDen_h
-  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_h
   Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_two
-  Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_h
   Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_two
   Salt.MR.SocketBaseLH
   Salt.MR.socketBaseLH_one_iff
   Salt.MR.socketBaseLH_of_socketBaseL
-  Salt.MR.cofkL_logX_floor_h
   Salt.MR.cofkL_mu_floor_h
-  Salt.MR.cofkL_X_ge_expexp_h
   Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_two
   Salt.MR.abs_mul_window_le_of_cap
   Salt.MR.norm_phase_sum_cap_drift
@@ -9661,6 +9657,8 @@ HYPOTHESIS position of conditional statements, so no gate in the repository coul
 whole demand is spent at ONE place — `heps2` inside `cofkL_logX_floor_h` — and at `1/(500h)`
 the closing coefficient goes NEGATIVE at `h = 4`: no `H₊` closes it.  Ruling (a): the
 conclusion becomes `h`-explicit, `H₊/(10⁶·h²) ≤ log(A+s)`.
+(2026-09-26: `cofkL_logX_floor_h` was retired into `cofkL_logX_floor_h_b9`, XY debt lane
+family 09, noted in place in `HDoorSupply.lean`; `heps2` stands in the generic's body.)
 
 ⭐ **THE RE-CUT IS LOCAL, AND THAT IS A MEASUREMENT, NOT A HOPE.**  Every call site of all
 seven is inside `HDoorSupply.lean` itself; outside it, only this registry names them.  So the

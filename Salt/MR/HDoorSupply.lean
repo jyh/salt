@@ -50,6 +50,15 @@ fifth conjunct `q ≤ arcDen 12 H` (inflation STRENGTHENS the demand) and the el
 that inflates one and not the other is measuring a different object.  §5 moves both together.
 
 ⛔ **B₅ stays `12` throughout — iron rule 1.**  The exponent never moves; only the allowance.
+
+(2026-09-26: the XY debt lane retires this file's `log h ≤ 7` IMPLICATION rungs into their
+`log h ≤ 9` generics — the `_b9` twins of the sections headed ⟦β W1 E3⟧ and ⟦β W2 F1⟧ — each
+noted in place.  Through family 08 `cofkL_logX_floor_h` and `cofkL_mu_floor_h` (§6) stood and
+kept `hh7`; family 09 retired the first into its generic and moved the second — kept, because
+its `_b9` twin does not imply it, and still carrying `hh7` — below that generic.  The
+threshold page this header calls `pieceFloor_vt_threshold_h` is one of the retired, family 08;
+the `h = 2` lane of §4, which reads its generic, and the exit at `h = 2` of §5, which reads the
+lane, were moved below that generic.)
 -/
 
 namespace Salt.MR
@@ -333,102 +342,30 @@ pre-wave measurement published ×1.14 because it had not yet charged the `8·log
 second-order cost the two `log` rows carry; this is the corrected figure, and it is the one the
 kernel checks.)  At the socket's own floor `Λ ≥ 518` — in scope at every application site,
 merely not passed — the same budget clears by ×135; threading it is ESCAPE 2 and it ADDS A
-HYPOTHESIS, so it is not taken here. -/
+HYPOTHESIS, so it is not taken here.
 
-/-- **THE THRESHOLD PAGE AT THE INFLATED CAP** (`pieceFloor_vt_threshold_of_loglog_rated_h`) —
-the `h`-family of `BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`.
+(2026-09-26: the page this section describes carried `hh7 : log h ≤ 7` and absorbed its two `log`
+rows separately; it was retired into its `_b9` generic — family 08, the note below — whose binder
+is `hh9 : log h ≤ 9` and which absorbs the two rows together, through one product, at the same
+cost `8·log 2`.  `hbud`, `hthr` and the conclusion are byte-identical, so the budget above is the
+generic's too.  This section's `h = 2` lane was moved below the generic.) -/
 
-The conclusion and the `hthr` hypothesis are BYTE-IDENTICAL to the landed page's: the numerals
-`1900`, `20`, `2300` do not move, and no consumer of the landed page has to change shape.  The
-family carries its own budget as `hbud` — that is the honest statement of what an `h`-inflation
-costs, and `pieceFloor_vt_threshold_of_loglog_rated_two` discharges it at `h = 2` from `hH`
-alone.
+/-! ### THE THRESHOLD PAGE AT THE INFLATED CAP, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
-`hh7 : log h ≤ 7` is what lets the `mertensCap` row's `log(L + 12Λ)` be absorbed into the
-page's own `log(7 + 12Λ)`; it is a bound on `h` of about `1096`, far above any `h` this budget
-could otherwise afford, so it constrains nothing. -/
-theorem pieceFloor_vt_threshold_of_loglog_rated_h {q H h : ℕ} [NeZero q]
-    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ) (hh : 0 < h)
-    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
-    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
-    (hh7 : Real.log h ≤ 7)
-    (hbud : 156 * Real.log h + 8 * Real.log 2
-      ≤ 28 * Real.log (Real.log (H : ℝ))
-        + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84)
-    (hKB : K + bandArcConst Z δ ≤ Kbig)
-    (hthr : 40 * Real.log (Real.log (Real.log X))
-        + 1900 * Real.log (Real.log (H : ℝ))
-        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-        + 2300 + 32 * Kbig + 32 * D
-      < Real.log (Real.log X)) :
-    40 * Real.log (Real.log (Real.log X))
-        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
-          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
-          + bandConstQ Z δ q + K + 25 + D)
-      < Real.log (Real.log X) := by
-  have hLH1 := one_le_loglog_of_exp_le hH
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
-  have hband := bandConstQ_le_of_le_arcDen_h (q := q) (H := H) (h := h) hZ hδ hh hH hq
-  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
-  set Lh : ℝ := Real.log h with hLhdef
-  have hlogq := log_le_of_le_arcDen_h hh hH hq
-  have hcap := mertensCap_le_of_le_arcDen_h (q := q) hh hH hq
-  have hvkd := vkDebitConst_le_of_le_arcDen_h (q := q) hh hH hq
-  have hvkm := vkMidDebitSharp_le_of_le_arcDen_h (q := q) hh hH hq
-  have h7pos : (0 : ℝ) < 7 + 12 * LH := by linarith
-  have hlognn : (0 : ℝ) ≤ Real.log (7 + 12 * LH) := Real.log_nonneg (by linarith)
-  -- ⟦row 2's widened logarithm, absorbed: `L ≤ 7` puts `L + 12Λ` under `7 + 12Λ`⟧
-  have habs2 : Real.log (Lh + 12 * LH) ≤ Real.log (7 + 12 * LH) :=
-    Real.log_le_log (by linarith) (by linarith)
-  -- ⟦row 4's widened logarithm, absorbed at a cost of `log 2`: `7 + L + 12Λ ≤ 2·(7 + 12Λ)`⟧
-  have habs4 : Real.log (7 + Lh + 12 * LH) ≤ Real.log 2 + Real.log (7 + 12 * LH) := by
-    have hle : 7 + Lh + 12 * LH ≤ 2 * (7 + 12 * LH) := by linarith
-    have h1 : Real.log (7 + Lh + 12 * LH) ≤ Real.log (2 * (7 + 12 * LH)) :=
-      Real.log_le_log (by linarith) hle
-    have h2 : Real.log (2 * (7 + 12 * LH)) = Real.log 2 + Real.log (7 + 12 * LH) :=
-      Real.log_mul (by norm_num) (ne_of_gt h7pos)
-    linarith
-  linarith
-
-/-- ⭐ **THE `h = 2` LANE, AND IT ASKS FOR NOTHING THE LANDED LANE DOES NOT**
-(`pieceFloor_vt_threshold_of_loglog_rated_two`).
-
-Hypothesis-for-hypothesis this is `BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`
-with `hq` alone changed, from `q ≤ arcDen 12 H` to `q ≤ 2·arcDen 12 H`.  The budget is
-discharged from `hH`: `Λ ≥ 1` gives `28Λ ≥ 28`, and `7 + 12Λ ≥ 19 ≥ 16` gives
-`4·log(7+12Λ) ≥ 16·log 2`, so the demand `164·log 2 ≤ 112 + 16·log 2` is
-`148·log 2 ≤ 112`, i.e. `log 2 ≤ 0.7567…`. -/
-theorem pieceFloor_vt_threshold_of_loglog_rated_two {q H : ℕ} [NeZero q]
-    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ)
-    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
-    (hq : (q : ℝ) ≤ 2 * arcDen 12 H)
-    (hKB : K + bandArcConst Z δ ≤ Kbig)
-    (hthr : 40 * Real.log (Real.log (Real.log X))
-        + 1900 * Real.log (Real.log (H : ℝ))
-        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-        + 2300 + 32 * Kbig + 32 * D
-      < Real.log (Real.log X)) :
-    40 * Real.log (Real.log (Real.log X))
-        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
-          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
-          + bandConstQ Z δ q + K + 25 + D)
-      < Real.log (Real.log X) := by
-  have hLH1 := one_le_loglog_of_exp_le hH
-  have h2lt := Real.log_two_lt_d9
-  have h2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
-  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
-  have hcast : (((2 : ℕ) : ℝ)) = (2 : ℝ) := by norm_num
-  have hlog2N : Real.log ((2 : ℕ) : ℝ) = Real.log 2 := by rw [hcast]
-  -- ⟦`4·log(7+12Λ) ≥ 16·log 2`, from `7 + 12Λ ≥ 16`⟧
-  have h16 : Real.log 16 = 4 * Real.log 2 := by
-    rw [show (16 : ℝ) = 2 ^ (4 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-  have hge : Real.log 16 ≤ Real.log (7 + 12 * LH) :=
-    Real.log_le_log (by norm_num) (by linarith)
-  refine pieceFloor_vt_threshold_of_loglog_rated_h (h := 2) hZ hδ (by norm_num) hH
-    (by rw [hcast]; exact hq) (by rw [hlog2N]; linarith) ?_ hKB hthr
-  rw [hlog2N]
-  linarith
+⟦XY debt lane, family 08 (2026-09-26)⟧  `pieceFloor_vt_threshold_of_loglog_rated_h {q H h : ℕ}
+[NeZero q] {X K Kbig D Z δ : ℝ} (hZ) (hδ) (hh : 0 < h) (hH) (hq) (hh7 : Real.log h ≤ 7) (hbud)
+(hKB) (hthr)` stood here.  It is `pieceFloor_vt_threshold_of_loglog_rated_h_b9` (below) with the
+hypothesis strengthened: the two statements differ in that ONE binder line and are token-identical
+elsewhere — `hbud`, `hthr` and the conclusion byte for byte — so the generic implies it by
+`linarith`; kernel-checked from the retired statement's own bytes, with the ladder's other
+implication rungs, before the 55 lines were removed.  The generic is NOT a copy of this
+page's proof: it absorbs the two widened logarithms together, through one product, where this page
+absorbed them separately (its docstring).  At this retirement the page had ONE call site, the
+`h = 2` lane `pieceFloor_vt_threshold_of_loglog_rated_two` (its other, the body of
+`capFreeFloor3_pieceDatum_arcDen_rated_h`, was retired in family 07).  That lane now reads the
+generic, proving `log 2 ≤ 9` by the `linarith` that proved `≤ 7`; it is MOVED below the generic,
+because a same-file forward reference does not elaborate, and the exit at `h = 2`,
+`capFreeFloor3_pieceDatum_arcDen_rated_two`, which reads it, moves with it. -/
 
 /-! ## §5 — the exit at the inflated cap
 
@@ -436,66 +373,23 @@ theorem pieceFloor_vt_threshold_of_loglog_rated_two {q H : ℕ} [NeZero q]
 major-arc denominator cap reads.  Its `h`-family is the landed exit with the arc binder
 inflated and nothing else touched — the `K` it produces is still ONE symbolic nonnegative real,
 so a consumer's cushion is unchanged in SHAPE, which is the property the rated lane was built
-for. -/
+for.
 
-/-- **THE EXIT AT THE INFLATED CAP** (`capFreeFloor3_pieceDatum_arcDen_rated_h`) — the
-`h`-family of `BandRatedAssembly.capFreeFloor3_pieceDatum_arcDen_rated`.
+(2026-09-26: the `h`-family exit this section describes was retired into its `_b9` generic,
+family 07 — the note below; the exit at `h = 2` was moved below the generics, family 08.) -/
 
-Only the arc binder moves: `q ≤ arcDen 12 H ↦ q ≤ h·arcDen 12 H`.  The budget travels with it
-as `hbud`/`hh7`, exactly as on the page below. -/
-theorem capFreeFloor3_pieceDatum_arcDen_rated_h (h : ℕ) (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7) :
-    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
-      ∀ (q : ℕ) [NeZero q] (H : ℕ) (χ : DirichletCharacter ℂ q)
-        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
-      Real.exp 1 ≤ Real.log (H : ℝ) → (q : ℝ) ≤ (h : ℝ) * arcDen 12 H →
-      156 * Real.log h + 8 * Real.log 2
-          ≤ 28 * Real.log (Real.log (H : ℝ))
-            + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84 →
-      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
-      32 * diskConst q / goldenL1 q ≤ Real.log X →
-      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
-      40 * Real.log (Real.log (Real.log X))
-          + 1900 * Real.log (Real.log (H : ℝ))
-          + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-          + 2300 + 32 * K + 32 * D
-        < Real.log (Real.log X) →
-        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
-  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_vt_rated
-  refine ⟨Z, δ, K + max 0 (bandArcConst Z δ), hZ, hδ,
-    add_nonneg hK0 (le_max_left _ _), ?_⟩
-  intro q _ H χ Pseq Qseq 𝒥 X D hH harc hbud hX hD0 hgate hdebit hthr
-  exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
-    (pieceFloor_vt_threshold_of_loglog_rated_h hZ hδ hh hH harc hh7 hbud
-      (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
+/-! ### THE EXIT AT THE INFLATED CAP, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
-/-- ⭐ **THE EXIT AT `h = 2`** (`capFreeFloor3_pieceDatum_arcDen_rated_two`) — binder-for-binder
-the landed rated exit, with `q ≤ arcDen 12 H` alone replaced by `q ≤ 2·arcDen 12 H`.
-
-**No hypothesis is added and none is dropped.**  That is the whole claim of the `h = 2` lane,
-and it is what makes the producer wave for `HDoorArc.M4SievedDoorSqH` a transcription as to the
-cap rather than a design act. -/
-theorem capFreeFloor3_pieceDatum_arcDen_rated_two :
-    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
-      ∀ (q : ℕ) [NeZero q] (H : ℕ) (χ : DirichletCharacter ℂ q)
-        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
-      Real.exp 1 ≤ Real.log (H : ℝ) → (q : ℝ) ≤ 2 * arcDen 12 H →
-      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
-      32 * diskConst q / goldenL1 q ≤ Real.log X →
-      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
-      40 * Real.log (Real.log (Real.log X))
-          + 1900 * Real.log (Real.log (H : ℝ))
-          + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-          + 2300 + 32 * K + 32 * D
-        < Real.log (Real.log X) →
-        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
-  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_vt_rated
-  refine ⟨Z, δ, K + max 0 (bandArcConst Z δ), hZ, hδ,
-    add_nonneg hK0 (le_max_left _ _), ?_⟩
-  intro q _ H χ Pseq Qseq 𝒥 X D hH harc hX hD0 hgate hdebit hthr
-  exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
-    (pieceFloor_vt_threshold_of_loglog_rated_two hZ hδ hH harc
-      (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
+⟦XY debt lane, family 07 (2026-09-26)⟧  `capFreeFloor3_pieceDatum_arcDen_rated_h (h : ℕ)
+(hh : 0 < h) (hh7 : Real.log h ≤ 7) : ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧ …` stood here.  It is
+`capFreeFloor3_pieceDatum_arcDen_rated_h_b9` (below) with the hypothesis strengthened: the two
+statements differ in that ONE binder line and are token-identical elsewhere, so the generic
+implies it by `linarith` — kernel-checked from the retired statement's own bytes, with the
+ladder's other implication rungs, before the 30 lines were removed.  It had no consumer
+left: its one call site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired
+in family 02.  Its body was one of the two call sites of the threshold page
+`pieceFloor_vt_threshold_of_loglog_rated_h`; at this retirement the other was the `h = 2` lane
+`pieceFloor_vt_threshold_of_loglog_rated_two`. -/
 
 /-! ## §6 — THE SOCKET, WITH BOTH CAP SITES MOVED TOGETHER
 
@@ -522,7 +416,13 @@ nonetheless CARRIED, not waved: `hh7` appears in the statement.
 head's own pin `ε = 1/(500·h)` makes **FALSE at `h ≥ 2`**; at `1/(500h)` the closing
 coefficient of the flat conclusion `H₊/10⁶ ≤ log(A+s)` goes NEGATIVE at `h = 4`, so no `H₊`
 closes it.  Both sides were hypotheses of conditional statements, so **no gate in the
-repository could see it.**  The repair is the `h`-explicit conclusion below. -/
+repository could see it.**  The repair is the `h`-explicit conclusion below.
+
+(2026-09-26: the `log X` floor this header describes carried `hh7 : log h ≤ 7`; it was retired
+into its `_b9` generic, whose binder is `hh9 : log h ≤ 9` — family 09, the note below.  The
+`μ`-floor that read it is kept and was moved below that generic; the `e^e ≤ X` gate was retired
+in family 06, the note below.  No lemma that re-runs a landed one stands in this section any
+longer.) -/
 
 /-- **THE LINEAR SOCKET AT THE INFLATED CAP** (`SocketBaseLH`) — `ArithPageLinear.SocketBaseL`
 with **BOTH** occurrences of the arc denominator inflated to `h · arcDen 12 H`.
@@ -570,12 +470,31 @@ theorem socketBaseLH_of_socketBaseL {h : ℕ} {R : ChowlaRegime} {M H L q j A s 
   · nlinarith
   · nlinarith [mul_nonneg (mul_nonneg (by norm_num : (0:ℝ) ≤ 16) hω) hA]
 
-set_option maxHeartbeats 1000000 in
-/-- **⟦THE `log X` FLOOR AT THE INFLATED SOCKET⟧** (`cofkL_logX_floor_h`) — the `h`-family of
-`RegisterSupply.cofkL_logX_floor`, and **the eleventh-conjunct half of the two-site port**.
+/-! ### THE `log X` FLOOR AT THE INFLATED SOCKET, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
-The regime's `hPHheadroom` against the socket's inflated `x ≤ 16·ω·(h·(log H)¹²)·A` gives
-`A ≥ 4^{2⌊ε²H₊⌋}/(2·h·(log H)¹²)`, so the floor loses exactly `log h`.
+⟦XY debt lane, family 09 (2026-09-26)⟧  `cofkL_logX_floor_h {R} {h M H L q j A s} (hh : 0 < h)
+(hh7 : Real.log h ≤ 7) (hb) (hε) (hHhi) (hH) : H₊ / (10⁶ · h²) ≤ log (A + s)` stood here, under
+its own `set_option maxHeartbeats 1000000 in` — the `h`-family of
+`RegisterSupply.cofkL_logX_floor`, the eleventh-conjunct half of the two-site port.  It is
+`cofkL_logX_floor_h_b9` (below) with the hypothesis strengthened: the two statements differ in
+that ONE binder line and are token-identical elsewhere, so the generic implies it by `linarith`
+— kernel-checked from the retired statement's own bytes before the 152 lines were removed.
+The generic's body is this page's with the `− log h` cost `7.6932` raised to `9.6932` at its
+three sites and the binder renamed; it does not carry this page's ten stage comments, which
+read, in order and verbatim (the leading `-- ` dropped):
+
+  ⟦the arc denominator, inflated⟧
+  ⟦the primorial majorant⟧
+  ⟦the combination, `ω` cancelled⟧
+  ⟦the logarithm of the floor: the inflation is exactly a `− log h`⟧
+  ⟦the floor of the primorial exponent⟧
+  ⟦⟦(a)⟧⟧ THE `ε` FLOOR AT THE SHIFTED PIN: `1/(500h) ≤ ε` gives `250000·h²·ε² ≥ 1`
+  ⟦the two crude brackets on `H₊`⟧
+  ⟦⟦(a)⟧⟧ the square-root floor is now `h`-EXPLICIT: `√H₊ ≥ 10^13·h²`
+  ⟦the numeral: `log A ≥ H₊/(10⁶h²)`, paying `log h ≤ 7` as well⟧
+  ⟦the exit⟧
+
+This page's docstring carried the ruling's arithmetic AT `log h ≤ 7`; verbatim:
 
 ⭐ **⟦RULING (a)⟧ THE PIN IS THE HEAD's OWN, AND THE CONCLUSION IS `h`-EXPLICIT.**  At
 `ε ≥ 1/(500·h)` the primorial exponent floor is `E ≥ H₊/(250000·h²) − 1`, so the leading term
@@ -583,210 +502,24 @@ is `H₊/(90200·h²)` and the demand must be `H₊/(10⁶·h²)`: the gap is
 `H₊·(1.009·10⁻⁵)/h²` against a debit `24·√H₊ + 10.47`, i.e. **`√H₊ ≥ 2.38·10⁶·h²`**.  That is
 what `hHhi : 10²⁶·h⁴ ≤ H₊` buys (`√H₊ ≥ 10¹³·h²`, margin `4.2·10⁶×`), and the road's own
 `hlo : 518 ≤ loglog H₋` supplies it for free — `log H₊ ≥ 10⁸` against a cost of
-`26·log 10 + 4·log h ≤ 88.1`.  `hh7` pays the `− log h`. -/
-theorem cofkL_logX_floor_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7)
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
-    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
-    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
-    (R.Hhi : ℝ) / (10 ^ 6 * (h : ℝ) ^ 2) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-  have h2 : H ≤ R.Hhi := hb.2.1
-  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
-  have h11 : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
-    hb.2.2.2.2.2.2.2.2.2.2.1
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
-  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
-  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
-  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
-  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
-  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
-  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
-    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
-    linarith
-  -- ⟦the arc denominator, inflated⟧
-  have harc : (0 : ℝ) < arcDen 12 H := by
-    rw [arcDen]; exact Real.rpow_pos_of_pos hlogH0 12
-  have harcH : (0 : ℝ) < (h : ℝ) * arcDen 12 H := by positivity
-  have hlogarc : Real.log (arcDen 12 H) = 12 * Real.log (Real.log (H : ℝ)) :=
-    log_arcDen_twelve hlogH0
-  -- ⟦the primorial majorant⟧
-  set E : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hEdef
-  have hPH0 : 8 * (((4 ^ E : ℕ) : ℝ)) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ) := R.hPHheadroom
-  have hW : (((4 ^ E : ℕ) : ℝ)) = (4 : ℝ) ^ E := by push_cast; ring
-  rw [hW] at hPH0
-  -- ⟦the combination, `ω` cancelled⟧
-  have hmul : (8 * ((4 : ℝ) ^ E) ^ 2) * (R.ω : ℝ)
-      ≤ (16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ)) * (R.ω : ℝ) := by
-    have := le_trans hPH0 h11; linarith
-  have h8w : 8 * ((4 : ℝ) ^ E) ^ 2 ≤ 16 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
-    le_of_mul_le_mul_right hmul hω0
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast h8
-  have hkey : ((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)) ≤ (A : ℝ) := by
-    rw [div_le_iff₀ (by linarith)]
-    linarith
-  -- ⟦the logarithm of the floor: the inflation is exactly a `− log h`⟧
-  have hlogW : Real.log (((4 : ℝ) ^ E) ^ 2) = 2 * (E : ℝ) * Real.log 4 := by
-    rw [← pow_mul, Real.log_pow]
-    push_cast; ring
-  have harc2 : (0 : ℝ) < 2 * ((h : ℝ) * arcDen 12 H) := by linarith
-  have hW2pos : (0 : ℝ) < ((4 : ℝ) ^ E) ^ 2 := by positivity
-  have heq : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
-      = 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
-        - 12 * Real.log (Real.log (H : ℝ)) := by
-    rw [Real.log_div (ne_of_gt hW2pos) (ne_of_gt harc2), hlogW,
-      Real.log_mul (by norm_num) (ne_of_gt harcH),
-      Real.log_mul (ne_of_gt hh0) (ne_of_gt harc), hlogarc]
-    ring
-  have hlogA : 2 * (E : ℝ) * Real.log 4 - Real.log 2 - Real.log h
-      - 12 * Real.log (Real.log (H : ℝ)) ≤ Real.log (A : ℝ) := by
-    have hle : Real.log (((4 : ℝ) ^ E) ^ 2 / (2 * ((h : ℝ) * arcDen 12 H)))
-        ≤ Real.log (A : ℝ) := Real.log_le_log (div_pos hW2pos harc2) hkey
-    rw [heq] at hle
-    exact hle
-  -- ⟦the floor of the primorial exponent⟧
-  have hEfl : (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) - 1 ≤ (E : ℝ) := by
-    have hq : (R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)) < (E : ℚ) + 1 := by
-      rw [hEdef]; exact Nat.lt_floor_add_one _
-    have hR : ((R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) : ℚ) : ℝ) < ((E : ℚ) : ℝ) + 1 := by
-      exact_mod_cast hq
-    push_cast at hR
-    linarith
-  -- ⟦⟦(a)⟧⟧ THE `ε` FLOOR AT THE SHIFTED PIN: `1/(500h) ≤ ε` gives `250000·h²·ε² ≥ 1`
-  have hεh : (1 : ℝ) ≤ 500 * (h : ℝ) * (R.eps : ℝ) := by
-    have h500 : (0 : ℝ) < 500 * (h : ℝ) := by linarith
-    rw [div_le_iff₀ h500] at hε
-    linarith
-  have heps2 : (1 : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * (R.eps : ℝ) ^ 2 := by nlinarith [hεh]
-  have hepsH : (R.Hhi : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ)) := by
-    nlinarith [heps2, hHhi0]
-  have hEbig : (R.Hhi : ℝ) ≤ 250000 * (h : ℝ) ^ 2 * ((E : ℝ) + 1) := by
-    have hstep : 250000 * (h : ℝ) ^ 2 * ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ))
-        ≤ 250000 * (h : ℝ) ^ 2 * ((E : ℝ) + 1) :=
-      mul_le_mul_of_nonneg_left (by linarith [hEfl]) (by positivity)
-    linarith [hepsH, hstep]
-  have hE0 : (0 : ℝ) ≤ (E : ℝ) := Nat.cast_nonneg _
-  -- ⟦the two crude brackets on `H₊`⟧
-  have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
-  have hlogmono : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := Real.log_le_log hH0 hHle
-  have hllmono : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (R.Hhi : ℝ)) :=
-    Real.log_le_log hlogH0 hlogmono
-  have hllsub : Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (R.Hhi : ℝ) - 1 :=
-    Real.log_le_sub_one_of_pos (by linarith)
-  have hsq : Real.log (R.Hhi : ℝ) ≤ 2 * Real.sqrt (R.Hhi : ℝ) - 2 :=
-    cofk_log_le_two_sqrt hHhi0
-  -- ⟦⟦(a)⟧⟧ the square-root floor is now `h`-EXPLICIT: `√H₊ ≥ 10^13·h²`
-  have hv : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 ≤ Real.sqrt (R.Hhi : ℝ) := by
-    have hid : ((10 : ℝ) ^ 13 * (h : ℝ) ^ 2) ^ 2 = (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 := by ring
-    have h1 : Real.sqrt (((10 : ℝ) ^ 13 * (h : ℝ) ^ 2) ^ 2) ≤ Real.sqrt (R.Hhi : ℝ) :=
-      Real.sqrt_le_sqrt (by rw [hid]; exact hHhi)
-    rwa [Real.sqrt_sq (by positivity)] at h1
-  have hvsq : Real.sqrt (R.Hhi : ℝ) * Real.sqrt (R.Hhi : ℝ) = (R.Hhi : ℝ) :=
-    Real.mul_self_sqrt hHhi0.le
-  have hv0 : (0 : ℝ) ≤ Real.sqrt (R.Hhi : ℝ) := Real.sqrt_nonneg _
-  have hprod : (10 : ℝ) ^ 13 * (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) ≤ (R.Hhi : ℝ) :=
-    le_trans (mul_le_mul_of_nonneg_right hv hv0) (le_of_eq hvsq)
-  -- ⟦the numeral: `log A ≥ H₊/(10⁶h²)`, paying `log h ≤ 7` as well⟧
-  have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
-    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast
-    linarith [Real.log_two_gt_d9]
-  have hlog2 : Real.log 2 ≤ 0.6932 := by linarith [Real.log_two_lt_d9]
-  have hElog : (1.3862 : ℝ) * (E : ℝ) ≤ (E : ℝ) * Real.log 4 := by
-    have h := mul_le_mul_of_nonneg_left hlog4 hE0
-    linarith only [h]
-  have hdebit : 12 * Real.log (Real.log (H : ℝ)) ≤ 24 * Real.sqrt (R.Hhi : ℝ) := by
-    linarith only [hllmono, hllsub, hsq]
-  have hlow : 2.7724 * (E : ℝ) - 7.6932 - 24 * Real.sqrt (R.Hhi : ℝ) ≤ Real.log (A : ℝ) := by
-    linarith only [hElog, hlogA, hdebit, hlog2, hh7]
-  have hXpos : (0 : ℝ) < 10 ^ 6 * (h : ℝ) ^ 2 := by positivity
-  have hmulL : (10 ^ 6 * (h : ℝ) ^ 2)
-        * (2.7724 * (E : ℝ) - 7.6932 - 24 * Real.sqrt (R.Hhi : ℝ))
-      ≤ (10 ^ 6 * (h : ℝ) ^ 2) * Real.log (A : ℝ) :=
-    mul_le_mul_of_nonneg_left hlow hXpos.le
-  have hsm1 : 10 ^ 6 * (h : ℝ) ^ 2 * 7.6932 ≤ (R.Hhi : ℝ) := by
-    linarith only [hHhi, hh24]
-  have hhs : (0 : ℝ) ≤ (h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ) := by positivity
-  have hsm2 : 24 * (10 ^ 6 * ((h : ℝ) ^ 2 * Real.sqrt (R.Hhi : ℝ))) ≤ (R.Hhi : ℝ) := by
-    nlinarith only [hprod, hhs]
-  have hfloor : (R.Hhi : ℝ) / (10 ^ 6 * (h : ℝ) ^ 2) ≤ Real.log (A : ℝ) := by
-    rw [div_le_iff₀ hXpos]
-    nlinarith only [hmulL, hEbig, hsm1, hsm2]
-  -- ⟦the exit⟧
-  have hA1 : (1 : ℝ) ≤ (A : ℝ) := by exact_mod_cast h8
-  have hAs : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  have hlogAs : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) :=
-    Real.log_le_log (by linarith) hAs
-  linarith
+`26·log 10 + 4·log h ≤ 88.1`.  `hh7` pays the `− log h`.
 
-/-- **⟦THE `μ`-FLOOR AT THE INFLATED SOCKET⟧** (`cofkL_mu_floor_h`) —
-`loglog(A+s) ≥ log H₊ − 28`, the `h`-family of `RegisterSupply.cofkL_mu_floor`.  Reads the cap
-only through §6's floor.
+At this retirement the page had ONE call site, the body of `cofkL_mu_floor_h`, which is kept:
+its `_b9` twin does not imply it.  It now reads the generic, proving `log h ≤ 9` from its own
+`hh7` by `linarith`; it is MOVED below the generic, because a same-file forward reference does
+not elaborate. -/
 
-⭐ **THIS IS WHERE RULING (a)'s COST LANDS, AND IT IS THE ONLY PLACE IT LANDS.**  The landed
-`− 14` is `log(10⁶) ≤ 13.82`; at the `h`-explicit floor the subtraction is
-`log(10⁶·h²) = 6·log 10 + 2·log h ≤ 13.87 + 14 = 27.87`.  Every consumer of this floor on the
-road has `10²¹`-scale slack for the extra 14 — and the cushion
-`32·Kvt + 32·D ≤ log H₊/4` never sees it at all, because it is an ANTECEDENT carried to the
-capstones. -/
-theorem cofkL_mu_floor_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7)
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
-    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
-    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
-    Real.log (R.Hhi : ℝ) - 28 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
-  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
-  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
-  have hfl := cofkL_logX_floor_h hh hh7 hb hε hHhi hH
-  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
-  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
-  have hbigpos : (0 : ℝ) < (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := div_pos hHhi0 hXpos
-  have hstep : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
-      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
-    Real.log_le_log hbigpos hfl
-  have hsplit : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
-      = Real.log (R.Hhi : ℝ) - Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
-    rw [Real.log_div (ne_of_gt hHhi0) (ne_of_gt hXpos)]
-  have h106 : Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) ≤ 28 := by
-    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
-    push_cast
-    linarith [cofk_log_ten_le, hh7, hLh0]
-  rw [hsplit] at hstep
-  linarith
+/-! ### THE `e^e ≤ X` GATE AT THE INFLATED SOCKET, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
-/-- The inflated socket's scale still clears the supplier's own gate `e^e ≤ X`
-(`cofkL_X_ge_expexp_h`). -/
-theorem cofkL_X_ge_expexp_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7)
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
-    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
-    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
-    Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) := by
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
-  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
-  have hfl := cofkL_logX_floor_h hh hh7 hb hε hHhi hH
-  have h8 : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hApos : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
-    have : 1 ≤ A + s := by omega
-    have h : (1 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by exact_mod_cast this
-    linarith
-  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
-  have he : Real.exp 1 ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-    have h3 : Real.exp 1 ≤ 3 := by linarith [Real.exp_one_lt_d9]
-    have h4 : (3 : ℝ) ≤ (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
-      rw [le_div_iff₀ hXpos]; nlinarith [hHhi, hh24]
-    linarith
-  have h := Real.exp_le_exp.mpr he
-  rwa [Real.exp_log hApos] at h
+⟦XY debt lane, family 06 (2026-09-26)⟧  `cofkL_X_ge_expexp_h {R} {h M H L q j A s} (hh : 0 < h)
+(hh7 : Real.log h ≤ 7) (hb) (hε) (hHhi) (hH) : Real.exp (Real.exp 1) ≤ ((A + s : ℕ) : ℝ)` stood
+here.  It is `cofkL_X_ge_expexp_h_b9` (below) with the hypothesis strengthened: the two statements
+differ in that ONE binder line and are token-identical elsewhere, so the generic implies it by
+`linarith` — kernel-checked from the retired statement's own bytes, with the ladder's other
+implication rungs, before the 26 lines were removed.  It had no consumer left: its one call
+site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired in family 02.  Its
+body was one of `cofkL_logX_floor_h`'s call sites; at this retirement that floor kept one other,
+the body of `cofkL_mu_floor_h` (the class-D rung). -/
 
 /-! ## §7 — the fifth-conjunct half at the socket: the scale gate and the threshold (both retired
 2026-09-26 into their `_b9` generics, families 05 and 04 — the notes below) -/
@@ -802,7 +535,7 @@ differ in that ONE binder line and are token-identical elsewhere, so the generic
 implication rungs, before the 89 lines were removed.  It had no consumer left: its one call
 site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired in family 02.  Its
 body was one of `cofkL_mu_floor_h`'s consumers (the class-D rung, kept) and one of
-`cofkL_logX_floor_h`'s; both keep other consumers. -/
+`cofkL_logX_floor_h`'s; both kept other consumers at this retirement. -/
 
 /-! ### THE THRESHOLD AT THE INFLATED SOCKET, RATED, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
@@ -838,7 +571,9 @@ from the `mertensCap` row's absorption in §4 and the `log X` floor's subtractio
 from the `Λ`-budget at all.
 
 (2026-09-26: the pages this section describes carried `hh7 : log h ≤ 7`; both were retired into
-their `_b9` generics — families 02 and 04 — whose binder is `hh9 : log h ≤ 9`, `h ≤ 8103`.) -/
+their `_b9` generics — families 02 and 04 — whose binder is `hh9 : log h ≤ 9`, `h ≤ 8103`.  The
+two sources of the constraint named above were retired too — §4's threshold page in family 08,
+§6's `log X` floor in family 09 — and stand as notes.) -/
 
 /-! ### THE RATED SOCKET AT THE INFLATED CAP, `K`-UNIFORM, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
@@ -1222,10 +957,11 @@ with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, the census'
 replaced by its twin; no hypothesis is added and no conclusion weakened.
 `pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the wave's one RE-DERIVATION (its docstring). -/
 
-/-- `pieceFloor_vt_threshold_of_loglog_rated_h` at `log h ≤ 9`
+/-- The former `pieceFloor_vt_threshold_of_loglog_rated_h` (retired into this,
+2026-09-26) at `log h ≤ 9`
 (`pieceFloor_vt_threshold_of_loglog_rated_h_b9`) — THE ONE RE-DERIVATION of the wave.
 
-The source absorbs its two widened logarithms separately: `habs2 : log(L+12Λ) ≤ log(7+12Λ)` needs
+The source absorbed its two widened logarithms separately: `habs2 : log(L+12Λ) ≤ log(7+12Λ)` needs
 `L ≤ 7` and is FALSE at `L = 9, Λ = 1` (short ×1.105, census band 3 row 11); `habs4` fits.  Here
 they are absorbed TOGETHER through one product, `(L+12Λ)(7+L+12Λ) ≤ 2·(7+12Λ)²`, which at
 `0 ≤ L ≤ 9`, `12Λ ≥ 12` is the identity `2(7+x)² − (L+x)(7+L+x) = x(x−12) + 15(x−12)
@@ -1281,7 +1017,8 @@ theorem pieceFloor_vt_threshold_of_loglog_rated_h_b9 {q H h : ℕ} [NeZero q]
     linarith
   linarith
 
-/-- `capFreeFloor3_pieceDatum_arcDen_rated_h` at `log h ≤ 9`
+/-- The former `capFreeFloor3_pieceDatum_arcDen_rated_h` (retired into this,
+2026-09-26) at `log h ≤ 9`
 (`capFreeFloor3_pieceDatum_arcDen_rated_h_b9`) — SUPPLIER-SWAP
 (`pieceFloor_vt_threshold_of_loglog_rated_h_b9`).  BODY: the source's. -/
 theorem capFreeFloor3_pieceDatum_arcDen_rated_h_b9 (h : ℕ) (hh : 0 < h)
@@ -1312,7 +1049,8 @@ theorem capFreeFloor3_pieceDatum_arcDen_rated_h_b9 (h : ℕ) (hh : 0 < h)
 
 set_option maxHeartbeats 1000000 in
 -- as the source: the floor's `nlinarith only` closes over the primorial and square-root brackets
-/-- `cofkL_logX_floor_h` at `log h ≤ 9` (`cofkL_logX_floor_h_b9`) — NUMERAL-LIFT: the `− log h`
+/-- The former `cofkL_logX_floor_h` (retired into this, 2026-09-26) at `log h ≤ 9`
+(`cofkL_logX_floor_h_b9`) — NUMERAL-LIFT: the `− log h`
 cost `7.6932 = 7 + 0.6932 ↦ 9.6932` in `hlow`/`hmulL`/`hsm1` (census band 3 row 7); `hsm1` still
 clears against `10^26·h^4`.  Every other step is the source's, verbatim. -/
 theorem cofkL_logX_floor_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
@@ -1477,7 +1215,8 @@ theorem cofkL_mu_floor_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 <
   rw [hsplit] at hstep
   linarith
 
-/-- `cofkL_X_ge_expexp_h` at `log h ≤ 9` (`cofkL_X_ge_expexp_h_b9`) — SUPPLIER-SWAP
+/-- The former `cofkL_X_ge_expexp_h` (retired into this,
+2026-09-26) at `log h ≤ 9` (`cofkL_X_ge_expexp_h_b9`) — SUPPLIER-SWAP
 (`cofkL_logX_floor_h_b9`).  BODY: the source's. -/
 theorem cofkL_X_ge_expexp_h_b9 {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
     (hh9 : Real.log h ≤ 9)
@@ -1787,6 +1526,138 @@ theorem cofkL_capFreeFloor_at_socket_rated_uniform_h_b9 (h : ℕ) (hh : 0 < h)
   exact hK q H χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 𝒥
     (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
     hlogHe harc hbud hXee hD0 hgate hdebit hthr
+
+/-! ## §6'S `μ`-FLOOR AT `log h ≤ 7`, MOVED BELOW THE GENERIC IT READS
+(XY debt lane, family 09, 2026-09-26)
+
+`cofkL_mu_floor_h` is the one rung of the `log h ≤ 7` ladder that its `_b9` twin does not imply
+(the earlier notes' "class-D rung": the lane's label, not a difficulty class — the theorem is
+proved): its conclusion `log H₊ − 28` is stronger than the twin's `log H₊ − 32`, so it is kept,
+and it keeps `hh7`.  It read
+the `log h ≤ 7` floor `cofkL_logX_floor_h`, retired into `cofkL_logX_floor_h_b9` (the note in
+§6); it reads the generic, as its `_b9` twin does, proving `log h ≤ 9` from its own `hh7` by
+`linarith`, and a same-file forward reference does not elaborate, so it stands here, below the
+generic.  Its docstring, its statement and its body are byte-identical to the ones that stood
+in §6, except the ONE re-pointed call; "§6's floor" in its docstring is the retired page, whose
+conclusion the generic states token for token.  At this move its one call site was in another
+file, `V7RatedH` (`cofkR_cofactorSupply_L_gk_rated_h`). -/
+
+/-- **⟦THE `μ`-FLOOR AT THE INFLATED SOCKET⟧** (`cofkL_mu_floor_h`) —
+`loglog(A+s) ≥ log H₊ − 28`, the `h`-family of `RegisterSupply.cofkL_mu_floor`.  Reads the cap
+only through §6's floor.
+
+⭐ **THIS IS WHERE RULING (a)'s COST LANDS, AND IT IS THE ONLY PLACE IT LANDS.**  The landed
+`− 14` is `log(10⁶) ≤ 13.82`; at the `h`-explicit floor the subtraction is
+`log(10⁶·h²) = 6·log 10 + 2·log h ≤ 13.87 + 14 = 27.87`.  Every consumer of this floor on the
+road has `10²¹`-scale slack for the extra 14 — and the cushion
+`32·Kvt + 32·D ≤ log H₊/4` never sees it at all, because it is an ANTECEDENT carried to the
+capstones. -/
+theorem cofkL_mu_floor_h {R : ChowlaRegime} {h M H L q j A s : ℕ} (hh : 0 < h)
+    (hh7 : Real.log h ≤ 7)
+    (hb : SocketBaseLH h R M H L q j A s)
+    (hε : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ))
+    (hHhi : (10 : ℝ) ^ 26 * (h : ℝ) ^ 4 ≤ (R.Hhi : ℝ))
+    (hH : (4000000 : ℝ) ≤ (H : ℝ)) :
+    Real.log (R.Hhi : ℝ) - 28 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hLh0 : (0 : ℝ) ≤ Real.log h := Real.log_nonneg hh1
+  have hh2 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1]
+  have hh24 : (h : ℝ) ^ 2 ≤ (h : ℝ) ^ 4 := by nlinarith [hh2, sq_nonneg ((h : ℝ))]
+  have hfl := cofkL_logX_floor_h_b9 hh (by linarith) hb hε hHhi hH
+  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith [hHhi, hh2, hh24]
+  have hXpos : (0 : ℝ) < (10 : ℝ) ^ 6 * (h : ℝ) ^ 2 := by positivity
+  have hbigpos : (0 : ℝ) < (R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := div_pos hHhi0 hXpos
+  have hstep : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
+      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    Real.log_le_log hbigpos hfl
+  have hsplit : Real.log ((R.Hhi : ℝ) / ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2))
+      = Real.log (R.Hhi : ℝ) - Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) := by
+    rw [Real.log_div (ne_of_gt hHhi0) (ne_of_gt hXpos)]
+  have h106 : Real.log ((10 : ℝ) ^ 6 * (h : ℝ) ^ 2) ≤ 28 := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
+    push_cast
+    linarith [cofk_log_ten_le, hh7, hLh0]
+  rw [hsplit] at hstep
+  linarith
+
+/-! ## §4'S `h = 2` LANE AND §5'S EXIT AT `h = 2`, MOVED BELOW THEIR GENERICS
+(XY debt lane, family 08, 2026-09-26)
+
+The lane `pieceFloor_vt_threshold_of_loglog_rated_two` read the `log h ≤ 7` threshold page,
+retired into `pieceFloor_vt_threshold_of_loglog_rated_h_b9`; it reads the generic, and a same-file
+forward reference does not elaborate, so it stands here, below the generic.  The exit
+`capFreeFloor3_pieceDatum_arcDen_rated_two` reads that lane and moved with it.  Both statements
+and both bodies are byte-identical to the ones that stood in §4 and §5, except the ONE re-pointed
+call; at this move neither had a call site outside this file.  The socket's exit at `h = 2`,
+`cofkL_capFreeFloor_at_socket_rated_uniform_two`, which follows them, was moved to the file's end
+in family 02 (the note in §8). -/
+
+/-- ⭐ **THE `h = 2` LANE, AND IT ASKS FOR NOTHING THE LANDED LANE DOES NOT**
+(`pieceFloor_vt_threshold_of_loglog_rated_two`).
+
+Hypothesis-for-hypothesis this is `BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`
+with `hq` alone changed, from `q ≤ arcDen 12 H` to `q ≤ 2·arcDen 12 H`.  The budget is
+discharged from `hH`: `Λ ≥ 1` gives `28Λ ≥ 28`, and `7 + 12Λ ≥ 19 ≥ 16` gives
+`4·log(7+12Λ) ≥ 16·log 2`, so the demand `164·log 2 ≤ 112 + 16·log 2` is
+`148·log 2 ≤ 112`, i.e. `log 2 ≤ 0.7567…`. -/
+theorem pieceFloor_vt_threshold_of_loglog_rated_two {q H : ℕ} [NeZero q]
+    {X K Kbig D Z δ : ℝ} (hZ : 1 ≤ Z) (hδ : 0 < δ)
+    (hH : Real.exp 1 ≤ Real.log (H : ℝ))
+    (hq : (q : ℝ) ≤ 2 * arcDen 12 H)
+    (hKB : K + bandArcConst Z δ ≤ Kbig)
+    (hthr : 40 * Real.log (Real.log (Real.log X))
+        + 1900 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kbig + 32 * D
+      < Real.log (Real.log X)) :
+    40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+          + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+          + bandConstQ Z δ q + K + 25 + D)
+      < Real.log (Real.log X) := by
+  have hLH1 := one_le_loglog_of_exp_le hH
+  have h2lt := Real.log_two_lt_d9
+  have h2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  set LH : ℝ := Real.log (Real.log (H : ℝ)) with hLHdef
+  have hcast : (((2 : ℕ) : ℝ)) = (2 : ℝ) := by norm_num
+  have hlog2N : Real.log ((2 : ℕ) : ℝ) = Real.log 2 := by rw [hcast]
+  -- ⟦`4·log(7+12Λ) ≥ 16·log 2`, from `7 + 12Λ ≥ 16`⟧
+  have h16 : Real.log 16 = 4 * Real.log 2 := by
+    rw [show (16 : ℝ) = 2 ^ (4 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have hge : Real.log 16 ≤ Real.log (7 + 12 * LH) :=
+    Real.log_le_log (by norm_num) (by linarith)
+  refine pieceFloor_vt_threshold_of_loglog_rated_h_b9 (h := 2) hZ hδ (by norm_num) hH
+    (by rw [hcast]; exact hq) (by rw [hlog2N]; linarith) ?_ hKB hthr
+  rw [hlog2N]
+  linarith
+
+/-- ⭐ **THE EXIT AT `h = 2`** (`capFreeFloor3_pieceDatum_arcDen_rated_two`) — binder-for-binder
+the landed rated exit, with `q ≤ arcDen 12 H` alone replaced by `q ≤ 2·arcDen 12 H`.
+
+**No hypothesis is added and none is dropped.**  That is the whole claim of the `h = 2` lane,
+and it is what makes the producer wave for `HDoorArc.M4SievedDoorSqH` a transcription as to the
+cap rather than a design act. -/
+theorem capFreeFloor3_pieceDatum_arcDen_rated_two :
+    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
+      ∀ (q : ℕ) [NeZero q] (H : ℕ) (χ : DirichletCharacter ℂ q)
+        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
+      Real.exp 1 ≤ Real.log (H : ℝ) → (q : ℝ) ≤ 2 * arcDen 12 H →
+      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
+      32 * diskConst q / goldenL1 q ≤ Real.log X →
+      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
+      40 * Real.log (Real.log (Real.log X))
+          + 1900 * Real.log (Real.log (H : ℝ))
+          + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+          + 2300 + 32 * K + 32 * D
+        < Real.log (Real.log X) →
+        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
+  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_vt_rated
+  refine ⟨Z, δ, K + max 0 (bandArcConst Z δ), hZ, hδ,
+    add_nonneg hK0 (le_max_left _ _), ?_⟩
+  intro q _ H χ Pseq Qseq 𝒥 X D hH harc hX hD0 hgate hdebit hthr
+  exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
+    (pieceFloor_vt_threshold_of_loglog_rated_two hZ hδ hH harc
+      (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
 
 /-- ⭐ **THE EXIT AT `h = 2`** (`cofkL_capFreeFloor_at_socket_rated_uniform_two`) — the
 commissioned lane, with the two `h`-hypotheses discharged by `norm_num`-level arithmetic. -/

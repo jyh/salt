@@ -28,7 +28,7 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
 
 ## ⟦THE TWO CONJUNCTS THAT MOVE, AND WHERE THEY ARE READ⟧ (census, h2c step 0)
 
-`SocketBaseLH` (`HDoorSupply:535`) is 13 conjuncts; exactly two differ from `SocketBaseL`:
+`SocketBaseLH` (in `HDoorSupply`) is 13 conjuncts; exactly two differ from `SocketBaseL`:
 
 * **conjunct 5**, `q ≤ h·arcDen 12 H` — read at exactly FIVE sites: `s13CapGrid_q_logX`
   (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
