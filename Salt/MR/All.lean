@@ -9643,7 +9643,6 @@ into their cap-9 twins, noted in place in `S16ComposeLH.lean`; their rows leave 
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist
-  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
 
 /-! ⟦BLOCK E — THE `ε` SEAM CLOSED, AND THE PRIZE⟧ (`HDoorSupply` §6–§8 re-spelled in place,

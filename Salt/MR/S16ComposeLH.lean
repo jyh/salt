@@ -3153,55 +3153,23 @@ theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist {h : ℕ} (hh : 0 < h)
   exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
     hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
 
-set_option maxHeartbeats 3200000 in
--- as the landed `_cs` twin: the family re-elaborates with one extra prefix conjunct
-/-- ⟦`K`-HOISTED, `cs`-FREE, AT SHIFT `h`⟧ (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs`). -/
-theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs {h : ℕ} (hh : 0 < h)
-    (hh7 : Real.log (h : ℝ) ≤ 7) :
-    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
-      Kq ≤ Real.exp 100 ∧ 0 < Ks ∧
-      ∀ (K : ℕ) (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
-        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
-            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
-            5 ≤ Real.log (Real.log (2 * T)) →
-            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
-              (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
-              G2Scaffold.DoorCapErrWS_L_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
-                ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
-                      ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
-                        (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_L_gk K M)))
-                        (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
-                    → DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
-                        (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
-        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ 8 * (0 : ℝ) ^ 2
-                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
-                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
-                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
-                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                        (mrAlpha (1 / 12)) 2,
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
-                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
-  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, hwire⟩ :=
-    m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs hh hh7
-  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq,
-    le_trans hKqb kq_closed_form_le_exp_hundred, hKs, ?_⟩
-  intro K R M cU ε hc1 hcapWS
-  refine hwire K R M cU ε hc1 ?_
-  intro H L q j A s hsb T hTlo hThi hTgate hTll
-  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
-    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
-  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
-  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
-    hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
+/-! ### THE capWS FUSE, `K`-HOISTED AND `cs`-FREE, AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 14 (2026-09-27)⟧
+`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs {h : ℕ} (hh : 0 < h)
+(hh7 : Real.log (h : ℝ) ≤ 7) : ∃ Cq cs T₀ Kq Ks : ℝ, …` stood here, under `set_option
+maxHeartbeats 3200000 in`.  It is `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9` (in the
+⟦β W1 E3⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
+binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies
+it by `linarith` — kernel-checked from the retired statement's own bytes before the 49 lines
+were removed.  The twin's body is this page's with ONE line changed: the call of §11.2's
+per-block wire `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs`, swapped for its `_b9` twin.
+At this retirement the page had NO call site: its one caller, §11.4's crossing supplier at
+`log h ≤ 7`, was retired by family 12 (its note stands under §11.4, directly below).
+
+This page's docstring, verbatim:
+
+⟦`K`-HOISTED, `cs`-FREE, AT SHIFT `h`⟧ (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs`). -/
 
 /-! ### §11.4 — the crossing supplier, `K`-hoisted, `cs`-free and `Ks`-windowed, at shift `h` -/
 
@@ -3384,7 +3352,8 @@ theorem m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9 {h : ℕ} (_hh : 0 <
 
 set_option maxHeartbeats 3200000 in
 -- as the landed `_cs` twin: the family re-elaborates with one extra prefix conjunct
-/-- `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs` at `log h ≤ 9`
+/-- The former `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs` (retired into this, 2026-09-27)
+at `log h ≤ 9`
 (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`) — SUPPLIER-SWAP
 (`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9`).  BODY: the source's. -/
 theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9 {h : ℕ} (hh : 0 < h)
