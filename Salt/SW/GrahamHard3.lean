@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.SW.GrahamHard2
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ARM B part B2, wave **W6b-H2** — THE KEYSTONE'S HARD HALF
@@ -443,8 +444,7 @@ private lemma one_add_log_le_inv_log_two_mul (Q : ℝ) (hQ : 1 ≤ Q) :
     1 + Real.log Q ≤ (1 / Real.log 2) * Real.log (2 * Q) := by
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hlog2le : Real.log 2 ≤ 1 := by
-    have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
   have hQ0 : (0 : ℝ) < Q := by linarith
   have hlogQ : 0 ≤ Real.log Q := Real.log_nonneg hQ
   rw [Real.log_mul (by norm_num) (ne_of_gt hQ0), one_div, inv_mul_eq_div, le_div_iff₀ hlog2]
@@ -2201,8 +2201,7 @@ theorem sum_tailT_sq_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ u 
   obtain ⟨Ce3, hCe3, h7e3⟩ := sum_sum_errLower_le
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hlog2le : Real.log 2 ≤ 1 := by
-    have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
   refine ⟨2 * Cac * (1 / Real.log 2 + 1)
       + (2 * Cbk + 3 * Cb * (Ce2 + Ce3)) / Real.log 2, ?_, fun z hz u hu huz => ?_⟩
   · have h1 : 0 < 2 * Cac * (1 / Real.log 2 + 1) := by positivity

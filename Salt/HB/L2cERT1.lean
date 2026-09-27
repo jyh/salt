@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cER
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the `E_R` T1′ family (node HB-L2c, the all-plus subclass of `ER_prime_cover`)
@@ -195,8 +196,7 @@ lemma erT1_Lwin_ge_one {x : ℕ} (hx1 : (1 : ℝ) ≤ (x : ℝ)) : 1 ≤ Lwin x 
   rw [Lwin]
   have h4 : (4 : ℝ) ≤ 2 * (x : ℝ) + 2 := by linarith
   have hlog4 : (1 : ℝ) ≤ Real.log 4 := by
-    rw [Real.le_log_iff_exp_le (by norm_num)]
-    exact (Real.exp_one_lt_d9.trans (by norm_num)).le
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   calc (1 : ℝ) ≤ Real.log 4 := hlog4
     _ ≤ Real.log (2 * (x : ℝ) + 2) := Real.log_le_log (by norm_num) h4
 
@@ -497,8 +497,7 @@ lemma erT1_z0_cube_absorb {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hx1 : (1 : ℝ) 
   have h2 : Real.exp (Real.log 2 * z0 z x) ≤ Real.exp (z0 z x) := by
     refine Real.exp_le_exp.mpr ?_
     have hl2 : Real.log 2 ≤ 1 := by
-      rw [Real.log_le_iff_le_exp (by norm_num)]
-      linarith [Real.add_one_le_exp (1 : ℝ)]
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
     nlinarith [hz00]
   calc z0 z x ^ 3 * Real.exp (Real.log 2 * z0 z x)
       ≤ Real.exp (3 * z0 z x) * Real.exp (z0 z x) :=
