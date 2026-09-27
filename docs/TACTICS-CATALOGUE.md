@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `68417474` · source digest `72a3e0beef457148` (the same digest as items 1–3).
-> Receipt: files 1319 · decls 22693 · with_body 22693 · tactic_lines 311201 · runs 36303 · blocks 1547.
+> Base: last commit touching `Salt/` = `cd3c4eaa` · source digest `78b294459e3ba063` (the same digest as items 1–3).
+> Receipt: files 1319 · decls 22692 · with_body 22692 · tactic_lines 311075 · runs 36288 · blocks 1544.
 
 ## LIMITS (read before any number below)
 
@@ -85,7 +85,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `LogNum.lean` | T3 | `Salt.Tactic.LogNum.lt_log_two_pow` | 0 | - | - |
 | `NlinarithSuggest.lean` | T3 | `nlinarith?` | 0 | - | - |
 
-`#audit_axioms` in detail: **444 commands auditing 9142 identifiers** across 23 files; in the `All.lean` ledgers **437 commands, 9135 identifiers**.
+`#audit_axioms` in detail: **444 commands auditing 9141 identifiers** across 23 files; in the `All.lean` ledgers **437 commands, 9134 identifiers**.
 
 **Landed surface with ZERO call sites outside `Salt/Tactic/` (37) — each is a finding, not a defect of the count:** `Salt.CertEval.CMono`, `Salt.CertEval.CPoly`, `Salt.CertEval.Exp5`, `Salt.CertEval.FstarC`, `Salt.CertEval.J_Fstar_0_reflective`, `Salt.CertEval.cJD`, `Salt.CertEval.cJD_eq`, `Salt.CertEval.evalJcal`, `Salt.CertEval.evalJcal_FstarC_0`, `Salt.CertEval.evalJcal_eq`, `Salt.CertEval.toE`, `Salt.CertEval.toPoly`, `Salt.CertEval.toPoly_FstarC`, `Salt.Tactic.dyadic_cover_sum_le_range`, `Salt.Tactic.dyadic_interval_rec`, `Salt.Tactic.geom_half_range_le`, `Salt.Tactic.geom_inv_sqrt_two_le`, `Salt.Tactic.geom_sqrt_two_pow_le`, `Salt.Tactic.geom_sum_le_bot`, `Salt.Tactic.geom_sum_le_top`, `Salt.Tactic.eventually_add_le`, `Salt.Tactic.eventually_finset_sum_le`, `Salt.Tactic.eventually_ge_of_tendsto_gt`, `Salt.Tactic.eventually_le_of_eventually_le_const`, `Salt.Tactic.eventually_le_of_tendsto_zero`, `Salt.Tactic.eventually_lt_of_eventually_le_const`, `Salt.Tactic.eventually_sum_lt_of_pieces`, `Salt.Tactic.exists_forall_ge_of_eventually`, `eventually_budget`, `Salt.Tactic.exp_nat_eq_pow`, `Salt.Tactic.lt_exp_nat_of_lt_pow`, `Salt.Tactic.LogNum.le_log_two_pow`, `Salt.Tactic.LogNum.log_eq_nat_mul_log`, `Salt.Tactic.LogNum.log_two_pow_le`, `Salt.Tactic.LogNum.log_two_pow_lt`, `Salt.Tactic.LogNum.lt_log_two_pow`, `nlinarith?`
 
@@ -100,34 +100,34 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-311201 tactic lines. Top 30:
+311075 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 138553 | 44.5% |
-| 2 | `rw` | 49620 | 15.9% |
-| 3 | `exact` | 17590 | 5.7% |
+| 1 | `have` | 138480 | 44.5% |
+| 2 | `rw` | 49606 | 15.9% |
+| 3 | `exact` | 17578 | 5.7% |
 | 4 | `intro` | 14081 | 4.5% |
-| 5 | `refine` | 12814 | 4.1% |
-| 6 | `linarith` | 9960 | 3.2% |
-| 7 | `obtain` | 8731 | 2.8% |
-| 8 | `calc` | 7877 | 2.5% |
+| 5 | `refine` | 12812 | 4.1% |
+| 6 | `linarith` | 9954 | 3.2% |
+| 7 | `obtain` | 8724 | 2.8% |
+| 8 | `calc` | 7875 | 2.5% |
 | 9 | `set` | 5437 | 1.7% |
-| 10 | `simp` | 4985 | 1.6% |
-| 11 | `nlinarith` | 4867 | 1.6% |
+| 10 | `simp` | 4983 | 1.6% |
+| 11 | `nlinarith` | 4865 | 1.6% |
 | 12 | `apply` | 4381 | 1.4% |
 | 13 | `unfold` | 2615 | 0.8% |
 | 14 | `exact_mod_cast` | 2444 | 0.8% |
 | 15 | `ring` | 2202 | 0.7% |
-| 16 | `rcases` | 2121 | 0.7% |
-| 17 | `push_cast` | 2107 | 0.7% |
-| 18 | `field_simp` | 1955 | 0.6% |
-| 19 | `rwa` | 1689 | 0.5% |
+| 16 | `rcases` | 2120 | 0.7% |
+| 17 | `push_cast` | 2106 | 0.7% |
+| 18 | `field_simp` | 1954 | 0.6% |
+| 19 | `rwa` | 1688 | 0.5% |
 | 20 | `by_cases` | 1642 | 0.5% |
 | 21 | `norm_num` | 1485 | 0.5% |
 | 22 | `omega` | 1478 | 0.5% |
 | 23 | `show` | 1269 | 0.4% |
-| 24 | `classical` | 1222 | 0.4% |
+| 24 | `classical` | 1221 | 0.4% |
 | 25 | `rintro` | 1128 | 0.4% |
 | 26 | `congr` | 970 | 0.3% |
 | 27 | `simpa` | 828 | 0.3% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3302 | `have` 1532, `rw` 560, `exact` 173, `linarith` 138, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 128629 | `have` 60403, `rw` 17449, `exact` 7147, `refine` 6856, `intro` 6134, `linarith` 5554, `obtain` 4700, `nlinarith` 2446 |
+| Matomaki-Radziwill / Halasz (short intervals) | 128503 | `have` 60330, `rw` 17435, `exact` 7135, `refine` 6854, `intro` 6134, `linarith` 5548, `obtain` 4693, `nlinarith` 2444 |
 | (no family) | 21352 | `have` 8437, `rw` 3733, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `apply` 570 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1547 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1544 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
