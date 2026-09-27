@@ -51,10 +51,12 @@ that inflates one and not the other is measuring a different object.  §5 moves 
 
 ⛔ **B₅ stays `12` throughout — iron rule 1.**  The exponent never moves; only the allowance.
 
-(2026-09-26: the XY debt lane retires this file's `log h ≤ 7` pages into their `log h ≤ 9`
-generics — the `_b9` twins of the sections headed ⟦β W1 E3⟧ and ⟦β W2 F1⟧ — each noted in place.
-The threshold page this header calls `pieceFloor_vt_threshold_h` is one of them, family 08; the
-`h = 2` lane of §4 and the exit at `h = 2` of §5 were moved below the generics they read.)
+(2026-09-26: the XY debt lane retires this file's `log h ≤ 7` IMPLICATION rungs into their
+`log h ≤ 9` generics — the `_b9` twins of the sections headed ⟦β W1 E3⟧ and ⟦β W2 F1⟧ — each
+noted in place; `cofkL_logX_floor_h` and `cofkL_mu_floor_h` (§6) stand and keep `hh7`.  The
+threshold page this header calls `pieceFloor_vt_threshold_h` is one of the retired, family 08;
+the `h = 2` lane of §4, which reads its generic, and the exit at `h = 2` of §5, which reads the
+lane, were moved below that generic.)
 -/
 
 namespace Salt.MR
@@ -1101,7 +1103,7 @@ replaced by its twin; no hypothesis is added and no conclusion weakened.
 2026-09-26) at `log h ≤ 9`
 (`pieceFloor_vt_threshold_of_loglog_rated_h_b9`) — THE ONE RE-DERIVATION of the wave.
 
-The source absorbs its two widened logarithms separately: `habs2 : log(L+12Λ) ≤ log(7+12Λ)` needs
+The source absorbed its two widened logarithms separately: `habs2 : log(L+12Λ) ≤ log(7+12Λ)` needs
 `L ≤ 7` and is FALSE at `L = 9, Λ = 1` (short ×1.105, census band 3 row 11); `habs4` fits.  Here
 they are absorbed TOGETHER through one product, `(L+12Λ)(7+L+12Λ) ≤ 2·(7+12Λ)²`, which at
 `0 ≤ L ≤ 9`, `12Λ ≥ 12` is the identity `2(7+x)² − (L+x)(7+L+x) = x(x−12) + 15(x−12)
@@ -1674,7 +1676,9 @@ retired into `pieceFloor_vt_threshold_of_loglog_rated_h_b9`; it reads the generi
 forward reference does not elaborate, so it stands here, below the generic.  The exit
 `capFreeFloor3_pieceDatum_arcDen_rated_two` reads that lane and moved with it.  Both statements
 and both bodies are byte-identical to the ones that stood in §4 and §5, except the ONE re-pointed
-call; at this move neither had a call site outside this file. -/
+call; at this move neither had a call site outside this file.  The socket's exit at `h = 2`,
+`cofkL_capFreeFloor_at_socket_rated_uniform_two`, which follows them, was moved to the file's end
+in family 02 (the note in §8). -/
 
 /-- ⭐ **THE `h = 2` LANE, AND IT ASKS FOR NOTHING THE LANDED LANE DOES NOT**
 (`pieceFloor_vt_threshold_of_loglog_rated_two`).
