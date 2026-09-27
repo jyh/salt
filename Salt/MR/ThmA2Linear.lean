@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.DoorLadderLinear
 import Salt.MR.A3Middle
+import Salt.Tactic.ExpLogNum
 
 /-!
 # `ThmA2Linear` — the `thm_A2′` ladder at `AdoorL M = 2^36·M`
@@ -1164,8 +1165,7 @@ theorem a2Rows_of_capfree_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1322,8 +1322,7 @@ theorem a2Rows_of_cap_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1603,8 +1602,7 @@ theorem a2Rows_of_capfree3_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1737,8 +1735,7 @@ theorem a2Rows_of_capfree3_end_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1900,8 +1897,7 @@ theorem a2Rows_of_capfree_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -2033,8 +2029,7 @@ theorem a2Rows_of_cap_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -2279,8 +2274,7 @@ theorem a2Rows_of_capfree3_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -2398,8 +2392,7 @@ theorem a2Rows_of_capfree3_end_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3005,8 +2998,7 @@ theorem a2Rows_of_capfree3_end'_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3139,8 +3131,7 @@ theorem a2Rows_of_capfree3'_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3290,8 +3281,7 @@ theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3410,8 +3400,7 @@ theorem a2Rows_of_capfree3'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3546,8 +3535,7 @@ theorem a2Rows_of_capfree_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3679,8 +3667,7 @@ theorem a2Rows_of_cap_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3925,8 +3912,7 @@ theorem a2Rows_of_capfree3_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -4044,8 +4030,7 @@ theorem a2Rows_of_capfree3_end_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -4163,8 +4148,7 @@ theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -4283,8 +4267,7 @@ theorem a2Rows_of_capfree3'_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
