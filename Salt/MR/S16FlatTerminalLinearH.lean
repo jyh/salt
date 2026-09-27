@@ -1710,7 +1710,7 @@ theorem m4_chiSummedFreeRow_of_bigH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ
       hAcap s hsL
 
 /-! **THE FRAMED BASE AT THE INFLATED CAP IS ALREADY LANDED** — `SocketBaseLH`
-(`HDoorSupply.lean:535`, the 08/31 producer wave) is `SocketBaseL` with BOTH arc reads inflated,
+(in `HDoorSupply.lean`, the 08/31 producer wave) is `SocketBaseL` with BOTH arc reads inflated,
 the x-scale floor included, and `socketBaseLH_of_socketBaseL` beside it.  The signature draft
 proposed the same definition under the same name; the aggregate's environment caught the
 collision, and the landed one is REUSED here rather than redefined — which also confirms, from an
