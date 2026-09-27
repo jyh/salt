@@ -1,21 +1,21 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `cf4e1b01` · source digest `899e669a658ef33a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `85600fd8` · source digest `9280db541990d581` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22698 · with a proof/definition body: 22698 · direct corpus references (edges): 85429 · audited results: 9084 · corpus Prop-valued names: 668.
+Declarations indexed: 22697 · with a proof/definition body: 22697 · direct corpus references (edges): 85427 · audited results: 9083 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
 | status | corpus Props | hung on >= 1 audited conditional result | audited conditional results hanging on them |
 |---|---|---|---|
-| DISCHARGED | 214 | 150 | 1095 |
+| DISCHARGED | 214 | 150 | 1094 |
 | STRUCTURAL | 4 | 4 | 89 |
 | FRAME | 47 | 24 | 153 |
 | OPEN | 403 | 188 | 620 |
-| **all** | 668 | 366 | 1577 |
+| **all** | 668 | 366 | 1576 |
 
 Of the DISCHARGED, 94 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -283,7 +283,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | hypothesis | status | hang count | producer(s) |
 |---|---|---|---|
-| `Salt.MR.SocketBaseLH` | DISCHARGED | 225 | `Salt.MR.socketBaseLH_inhabited_at_twice_x` ✓audited GUARDED (Salt/MR/TierSSocket.lean:123) |
+| `Salt.MR.SocketBaseLH` | DISCHARGED | 224 | `Salt.MR.socketBaseLH_inhabited_at_twice_x` ✓audited GUARDED (Salt/MR/TierSSocket.lean:123) |
 | `Salt.MR.TannGate` | DISCHARGED | 161 | `Salt.MR.TannGate_of_row_height` ✓audited GUARDED (Salt/MR/USetPins.lean:345) |
 | `Salt.MR.M4DoorGates` | DISCHARGED | 55 | `Salt.MR.s13_doorGates_of_arm` ✓audited GUARDED (Salt/MR/S13FramesA.lean:375) · `Salt.MR.s13_doorGates_of_arm'` ✓audited GUARDED (Salt/MR/S13FramesA.lean:857) |
 | `Salt.MR.MmuChiRate` | DISCHARGED | 51 | `Salt.MR.mmuChiRate_holds_gated` ✓audited (Salt/MR/PortClose.lean:157) |
@@ -360,7 +360,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.FlatHeadFormEpsW_band` | DISCHARGED | 3 | `Salt.MR.flat_head_uniform_xceil_epsW_band` ✓audited GUARDED (Salt/MR/FlatDoorAllGradesBand.lean:624) |
 | `Salt.MR.FlatHeadFormU` | DISCHARGED | 3 | `Salt.MR.flatHeadFormU_trivial` ✓audited GUARDED (Salt/MR/FlatDoorUniform.lean:1171) |
 | `Salt.MR.M4BlockMeanSqSup` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSup_trivial` ✓audited (Salt/MR/M4Join.lean:274) |
-| `Salt.MR.M4BlockMeanSqSupQH` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSupQH_of_classPriceH` ✓audited GUARDED (Salt/MR/HDoorSupply.lean:1106) · `Salt.MR.m4_blockMeanSqSupQH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:1161) |
+| `Salt.MR.M4BlockMeanSqSupQH` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSupQH_of_classPriceH` ✓audited GUARDED (Salt/MR/HDoorSupply.lean:1091) · `Salt.MR.m4_blockMeanSqSupQH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:1146) |
 | `Salt.MR.MSelect` | DISCHARGED | 3 | `Salt.MR.s13_MSelect_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesA.lean:1030) |
 | `Salt.MR.MSelect'_L` | DISCHARGED | 3 | `Salt.MR.s13_MSelect'_L_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:652) · `Salt.MR.s13_MSelect'_L_of_halfWindow` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:709) |
 | `Salt.MR.MVHilbertUniform` | DISCHARGED | 3 | `Salt.MR.mvHilbertUniform_holds` ✓audited (Salt/MR/MVCore2.lean:575) |
@@ -389,7 +389,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4GradeGateL2` | DISCHARGED | 2 | `Salt.MR.m4_gradeGateL2_of_binder_split` ✓audited GUARDED (Salt/MR/M4DoorL2.lean:387) |
 | `Salt.MR.M4SievedDoorSqH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqH_trivial` ✓audited (Salt/MR/HDoorArc.lean:463) |
 | `Salt.MR.M4SievedDoorSqSup` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqSup_trivial` ✓audited (Salt/MR/M4BridgePhase.lean:492) |
-| `Salt.MR.M4SievedDoorSqSupH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqSupH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:1014) |
+| `Salt.MR.M4SievedDoorSqSupH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqSupH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:999) |
 | `Salt.MR.MSelect_L` | DISCHARGED | 2 | `Salt.MR.s13_MSelect_L_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:451) |
 | `Salt.MR.MSelect_L_gk` | DISCHARGED | 2 | `Salt.MR.s13_MSelect_L_of_headroom_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:476) |
 | `Salt.MR.MaskSmooth` | DISCHARGED | 2 | `Salt.MR.lamTailWeightMask_support` ✓audited GUARDED (Salt/MR/LambdaChiMask.lean:174) · `Salt.MR.maskSmooth_one` (Salt/MR/MobiusChiRamareUnion.lean:124) · `Salt.MR.maskTailWeight_support` ✓audited GUARDED (Salt/MR/MobiusChiRamareUnion.lean:219) · +1 |
@@ -964,7 +964,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | circle method / Fourier | 181 | 83 | 562 | 542 | 22 | 10 | 0 | 1136 | 1072 |
 | entropy decrement | 1400 | 536 | 530 | 424 | 78 | 38 | 0 | 1070 | 620 |
 | large sieve | 136 | 18 | 711 | 493 | 1 | 22 | 0 | 1227 | 1213 |
-| Selberg/Brun sieve | 5626 | 949 | 3748 | 1277 | 65 | 93 | 0 | 5183 | 4319 |
+| Selberg/Brun sieve | 5626 | 949 | 3748 | 1276 | 65 | 93 | 0 | 5182 | 4318 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1482 | 614 | 4 | 19 | 0 | 2119 | 1487 |
 | zero-density / zero-free regions | 724 | 292 | 1019 | 644 | 2 | 20 | 0 | 1685 | 1432 |
 | character sums / L-functions | 4280 | 2156 | 1809 | 747 | 81 | 99 | 0 | 2736 | 881 |
@@ -972,13 +972,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 253 | 67 | 881 | 704 | 4 | 16 | 0 | 1605 | 1548 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 86 | 323 | 0 | 0 | 0 | 409 | 409 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9767 | 5425 | 2975 | 1269 | 168 | 189 | 0 | 4601 | 61 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9766 | 5424 | 2975 | 1268 | 168 | 189 | 0 | 4600 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4319 external dependents
+### Selberg/Brun sieve — 4318 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1152,7 +1152,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5425 | 9767 |
+| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5424 | 9766 |
 | explog/lognum numeral tactic | 409 | 0 | 53 |
 | entropy decrement | 620 | 536 | 1400 |
 | character sums / L-functions | 881 | 2156 | 4280 |
@@ -1162,7 +1162,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | zero-density / zero-free regions | 1432 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1487 | 726 | 1609 |
 | Mertens / PNT-type | 1548 | 67 | 253 |
-| Selberg/Brun sieve | 4319 | 949 | 5626 |
+| Selberg/Brun sieve | 4318 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
