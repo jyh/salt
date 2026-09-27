@@ -403,9 +403,9 @@ theorem bigXiAff_bounded (eps : ℚ) (heps : 0 < eps) (heps2 : (eps : ℝ) ^ 2 <
 
 set_option exponentiation.threshold 4000 in
 /-- **F1-C5 (class B) — THE PINNED CEILING at the affine lane's own pin `ε = 1/(500·a·h)`**, the
-twin of `bigXiH_bounded_ceiling_of_pin` (`GoldbachEnergyKcH.lean:224-227`), carrying the terminal
+twin of `bigXiH_bounded_ceiling_of_pin` (`GoldbachEnergyKcH.lean-227`), carrying the terminal
 road's rider `C ≤ 2^539`.  The existential-only bound above is exactly the shape whose absence at
-`h` "made `Kc ≤ 2^539` unreachable" (`GoldbachEnergyKcH.lean:215-218`) — added at F1 so F5 does
+`h` "made `Kc ≤ 2^539` unreachable" (`GoldbachEnergyKcH.lean · hpt_holds_500h-218`) — added at F1 so F5 does
 not re-walk it.  Proof: the `h`-twin's script with `h ↦ a·h` in every arithmetic line —
 `h_le_1096_of_log_le_seven` at `a * h` (the cap `log(a·h) ≤ 7`), `bigXi_bounded_explicit` at the
 pin, then `bigXiAff_card_le_mul` in place of `bigXiH_card_le_mul`; the witness is

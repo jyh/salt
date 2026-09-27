@@ -1196,7 +1196,7 @@ hypothesis on `θ`: at `θ < 0` the truncation `e^{θ/σ}` is `< 1`, the prime r
 `𝔻²` is `0`, so the bound is vacuous.  A non-vacuous truncation needs `θ ≥ σ > 0`, hence
 `c ≤ e^{−θ} < 1`.  **The `c ≤ 1` here is a deliberate over-approximation of the real cap.**
 
-⭐⭐ **WHY THIS IS THE SESSION'S REAL FINDING, AND WHY IT IS NEGATIVE.**  Read `MRTLemmaA6` (:376):
+⭐⭐ **WHY THIS IS THE SESSION'S REAL FINDING, AND WHY IT IS NEGATIVE.**  Read `MRTLemmaA6`:
 its conclusion is a **SUM OF TWO TERMS**, `C·(exp(−(1/2)·M)/(1+|t−t₁|) + (log X)^{−1/16})`.  To
 PROVE A.6 a route must dominate BOTH summands, so it needs `c ≥ 1/2` **and** `ρ ≥ 1/16`.  The A6
 wave's θ-lift delivers the first EXACTLY (`theta_lift_head_rate_at_log_two`) and, by this theorem,
@@ -4331,8 +4331,8 @@ theorem vk34_constant_factors :
 
 ⚠️ **AND THIS IS A DIFFERENT BAR FROM THE ONE THE WAVE WAS CHECKED AGAINST.**
 `vk34_constant_clears_bar` (below) verifies the θ=3/4 constant against the extract's *qualitative*
-bar `3/125 = 0.024`, and it clears it.  But this file's own `mrtA5_rho_margin` (:336) and
-`mrtA5_epsilon_ceiling` (:355) use **`3/50 = 0.06`** — 2.5× larger — because that is what makes
+bar `3/125 = 0.024`, and it clears it.  But this file's own `mrtA5_rho_margin` and
+`mrtA5_epsilon_ceiling` use **`3/50 = 0.06`** — 2.5× larger — because that is what makes
 `ρ/3 > 1/50` true, and `1/50` is the rate of the third summand in **both** `MRTThmA2` and
 `MRTPropA3`.  Measured:
 ```
@@ -4355,7 +4355,7 @@ MRT's own θ=2/3 balance, and a θ=3/4 route may rebalance and demand something 
 📌 **AMENDED after a consumer trace — AND THE TRACE WENT AGAINST THE DEFLATIONARY READING I WENT
 LOOKING FOR.**  I traced this shelf expecting to find it unconsumed and the alarm therefore idle.
 Two facts came back instead:
-* **`MRTLemmaA5` (:1832) carries the constant INSIDE ITS OWN STATEMENT**, as the exponent
+* **`MRTLemmaA5` carries the constant INSIDE ITS OWN STATEMENT**, as the exponent
   `(log X)^(1/6 − 1/(3π) − ε)` — the same bare-literal-in-a-`def` pattern this file's A.6 flag
   warns about at :1128.  A re-statement at the θ=3/4 constant does not merely cite the number,
   **it installs it as a RATE in the statement.**

@@ -143,7 +143,7 @@ theorem mrtM_lamCoeff_lower :
 /-- **E3 (2) — the floor `(1/8)·loglog X ≤ M(λ; X)`, absorption done.**
 
 The target shape is the corpus's own case-split hypothesis: it appears as an unsupplied
-binder at `MRTPropA3.lean:295`, `:519`, `:538`, `:1547`, `:1556`, `:3533` (there at a
+binder at `MRTPropA3.lean · MRTLemmaA4ii`, `:519`, `:538`, `:1547`, `:1556`, `:3533` (there at a
 general `f`), so this is the first producer of that shape at `f := lamCoeff`.
 
 Threshold: `X₀ = max (max x0 16) (exp (exp (max 1 (32·K/3))))` with

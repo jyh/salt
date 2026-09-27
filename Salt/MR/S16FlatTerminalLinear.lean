@@ -2403,7 +2403,7 @@ cannot carry it — it clears `h = 1` by `1.14×` — so the tower floor is not 
 the only floor that works at any `h ≥ 2`.
 
 ⚠️ **`h ≤ 1202604` comes from `h_le_1202604_of_log_le_fourteen`** (LANDED,
-`GoldbachEnergyKcH.lean:129`), which sits OUTSIDE the 142-declaration MR population the cost
+`GoldbachEnergyKcH.lean · h_le_1202604_of_log_le_fourteen`), which sits OUTSIDE the 142-declaration MR population the cost
 ladder counts — which is why this rung's price does not include it.  *"Not built for my object"
 is not "not in the corpus".* -/
 theorem arc36_of_regime_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {R : ChowlaRegime}
