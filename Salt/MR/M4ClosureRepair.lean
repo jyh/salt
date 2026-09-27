@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.M4ArithPool
 import Salt.MR.M4ArithPrime
 import Salt.MR.M4RowsChiZeroPrime
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ⟦R5 — THE CLOSURE REPAIRS⟧ (`M4ClosureRepair`)
@@ -114,9 +115,7 @@ private lemma r5_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : ℕ
     (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
   have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) := Real.log_le_log (by norm_num) h
   have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-    rwa [Real.log_exp] at this
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   linarith
 
 /-- **⟦STONE 1 — `eps_pool` AT THE DECAYING POOL⟧** (`eps_pool_at_decayPool`).  At `ε ≤ 0`
@@ -178,16 +177,7 @@ theorem price_at_decayPool {Xd : ℕ} {ρ lam : ℝ}
     have hsplit : Real.log (376266 / ρ) = Real.log 376266 + Real.log (1 / ρ) := by
       rw [Real.log_div (by norm_num) hρ0.ne', one_div, Real.log_inv]; ring
     have h376 : Real.log 376266 ≤ 13 := by
-      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have he13 : (376266 : ℝ) ≤ Real.exp 13 := by
-        have hh : Real.exp 13 = (Real.exp 1) ^ (13 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-        rw [hh]
-        have hc : (2.7182818283 : ℝ) ^ (13 : ℕ) ≤ (Real.exp 1) ^ (13 : ℕ) :=
-          pow_le_pow_left₀ (by norm_num) h1.le 13
-        have : (376266 : ℝ) ≤ (2.7182818283 : ℝ) ^ (13 : ℕ) := by norm_num
-        linarith
-      have := Real.log_le_log (by norm_num : (0 : ℝ) < 376266) he13
-      rwa [Real.log_exp] at this
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 13 (by norm_num) (by norm_num)
     rw [hsplit]
     nlinarith [harm, hθlo, hlam, hlogrho]
   have hexp : 188133 * Real.exp (-theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ)))
@@ -644,16 +634,7 @@ theorem ege_line_of_loglog {Nd H q : ℕ}
   have hδ := theta293_sub_lower
   -- `log 49920 ≤ 11`
   have h499 : Real.log 49920 ≤ 11 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have he11 : (49920 : ℝ) ≤ Real.exp 11 := by
-      have hh : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      rw [hh]
-      have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
-        pow_le_pow_left₀ (by norm_num) h1.le 11
-      have : (49920 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
-      linarith
-    have := Real.log_le_log (by norm_num : (0 : ℝ) < 49920) he11
-    rwa [Real.log_exp] at this
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 11 (by norm_num) (by norm_num)
   -- the arc denominator in exponential form
   have harc : arcDen 12 H = Real.exp (12 * Real.log (Real.log (H : ℝ))) := by
     rw [arcDen, Real.rpow_def_of_pos hH0]; ring_nf
