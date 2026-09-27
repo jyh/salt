@@ -8944,7 +8944,6 @@ open Salt.Tactic in
   Salt.MR.vkDebitConst_le_of_le_arcDen_h
   Salt.MR.vkMidDebitSharp_le_of_le_arcDen_h
   Salt.MR.bandConstQ_le_of_le_arcDen_h
-  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_h
   Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_two
   Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_two
   Salt.MR.SocketBaseLH
