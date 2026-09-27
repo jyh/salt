@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.DoorLadderLinear
 import Salt.MR.A3Middle
+import Salt.Tactic.ExpLogNum
 
 /-!
 # `ThmA2Linear` — the `thm_A2′` ladder at `AdoorL M = 2^36·M`
@@ -1049,7 +1050,7 @@ theorem thm_a2'_of_rows_chiSummed_pool_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M 
     rw [a2RowsSum_shift_L_gk K (Ccc χ) (M := M) Xd hM]
     exact hgRows χ
 
-/-! ### `ThmA2Rows` :196 — `a2RowsSum_nonneg` -/
+/-! ### `ThmA2Rows` — `a2RowsSum_nonneg` -/
 /-- `a2RowsSum_L` is a sum of nonnegative terms (`1 ≤ X_d`, `H₁ ≥ 2`, `P_j ≥ 1`). -/
 private lemma a2RowsSum_nonneg_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum_L M Xd := by
@@ -1081,7 +1082,7 @@ private lemma a2RowsSum_nonneg_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
   have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
   linarith
 
-/-! ### `ThmA2Rows` :292 — `a2Rows_of_capfree` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_capfree` -/
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of the landed cap-free row at `Tann = 2T`, with ~60
 -- binders threaded; the elaboration of that single application is the whole cost
@@ -1164,8 +1165,7 @@ theorem a2Rows_of_capfree_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1223,7 +1223,7 @@ theorem a2Rows_of_capfree_L :
   · exact a2_term3_weigh hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :440 — `a2Rows_of_cap` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_cap` -/
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of the landed socketed row at `Tann = 2T`, `t₁ = v₀`
 /-- **THE SOCKETED ROW FAMILY** (`a2Rows_of_cap_L`).  On the `¬ CapFreeFloor` branch, the
@@ -1322,8 +1322,7 @@ theorem a2Rows_of_cap_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1388,7 +1387,7 @@ theorem a2Rows_of_cap_L :
   · exact a2_term3_ball_weigh hw1 hRS0 hC.le hM1' hCcc hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :614 — `thm_a2'` -/
+/-! ### `ThmA2Rows` — `thm_a2'` -/
 set_option maxHeartbeats 1000000 in
 -- the composition: two branch suppliers into `ThmA2.thm_a2'_of_rows_L`, one `by_cases`
 /-- **`thm_A2′`** (`thm_a2'_L`).  The frozen five-summand interface of
@@ -1527,7 +1526,7 @@ theorem thm_a2'_L :
         habs hEP2ε hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp)
       hT0band hgP1₂ hgRows₂ hεwin hL4096
 
-/-! ### `ThmA2Rows` :877 — `a2Rows_of_capfree3` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_capfree3` -/
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of the `3X`-minted cap-free row at `Tann = 2T`
 /-- **THE CAP-FREE ROW FAMILY, AT THE `3X` MINT** (`a2Rows_of_capfree3_L`).
@@ -1603,8 +1602,7 @@ theorem a2Rows_of_capfree3_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1662,7 +1660,7 @@ theorem a2Rows_of_capfree3_L :
   · exact a2_term3_weigh_mr hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :1011 — `a2Rows_of_capfree3_end` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_capfree3_end` -/
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of the strict/fused `3X`-minted row at `Tann = 2T`
 /-- **THE CAP-FREE ROW FAMILY AT THE `3X` MINT — STRICT/FUSED** (`a2Rows_of_capfree3_end_L`).
@@ -1737,8 +1735,7 @@ theorem a2Rows_of_capfree3_end_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1796,7 +1793,7 @@ theorem a2Rows_of_capfree3_end_L :
   · exact a2_term3_weigh_mr hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :1222 — `a2RowsSum_nonneg_gk` -/
+/-! ### `ThmA2Rows` — `a2RowsSum_nonneg_gk` -/
 lemma a2RowsSum_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum_L_gk K M Xd := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
@@ -1827,7 +1824,7 @@ lemma a2RowsSum_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ X
   have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
   linarith
 
-/-! ### `ThmA2Rows` :1252 — `a2Rows_of_capfree_gk` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_capfree_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -1900,8 +1897,7 @@ theorem a2Rows_of_capfree_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -1955,7 +1951,7 @@ theorem a2Rows_of_capfree_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term3_weigh hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :1377 — `a2Rows_of_cap_gk` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_cap_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -2033,8 +2029,7 @@ theorem a2Rows_of_cap_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -2095,7 +2090,7 @@ theorem a2Rows_of_cap_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term3_ball_weigh hw1 hRS0 hC.le hM1' hCcc hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :1514 — `thm_a2'_gk` -/
+/-! ### `ThmA2Rows` — `thm_a2'_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -2215,7 +2210,7 @@ theorem thm_a2'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
         habs hEP2ε hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp)
       hT0band hgP1₂ hgRows₂ hεwin hL4096
 
-/-! ### `ThmA2Rows` :1631 — `a2Rows_of_capfree3_gk` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_capfree3_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -2279,8 +2274,7 @@ theorem a2Rows_of_capfree3_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -2334,7 +2328,7 @@ theorem a2Rows_of_capfree3_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term3_weigh_mr hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
 
-/-! ### `ThmA2Rows` :1747 — `a2Rows_of_capfree3_end_gk` -/
+/-! ### `ThmA2Rows` — `a2Rows_of_capfree3_end_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -2398,8 +2392,7 @@ theorem a2Rows_of_capfree3_end_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3005,8 +2998,7 @@ theorem a2Rows_of_capfree3_end'_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3139,8 +3131,7 @@ theorem a2Rows_of_capfree3'_L :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3290,8 +3281,7 @@ theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3410,8 +3400,7 @@ theorem a2Rows_of_capfree3'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3546,8 +3535,7 @@ theorem a2Rows_of_capfree_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3679,8 +3667,7 @@ theorem a2Rows_of_cap_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -3925,8 +3912,7 @@ theorem a2Rows_of_capfree3_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -4044,8 +4030,7 @@ theorem a2Rows_of_capfree3_end_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -4163,8 +4148,7 @@ theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
@@ -4283,8 +4267,7 @@ theorem a2Rows_of_capfree3'_L_gk_kwide (K : ℕ) :
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLXe : Real.exp 1 ≤ Real.log X :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2

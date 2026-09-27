@@ -13,7 +13,7 @@ import Salt.Tactic.ExpLogNum
 ⟦WHAT THIS FILE SETTLES⟧  `S16FlatTerminalLinearH` re-stated the second road's terminal
 register at the `h`-inflated arc cap and left its socket `M4ChiSummedFreeRowH_L_gk h K R M RS`
 with NO producer at `h ≥ 2`.  This file is the producer chain the terminal path reads — the
-constant-pool fuse `m4_closure_fuse_zero'_const_nonneg_L_gk` (`S16FlatTerminalLinear.lean:109`)
+constant-pool fuse `m4_closure_fuse_zero'_const_nonneg_L_gk` (`S16FlatTerminalLinear.lean`)
 and everything under it — re-quantified over the inflated framed base `HDoorSupply.SocketBaseLH h`
 (`SocketBaseL` with conjuncts 5 and 11, the modulus cap and the x-scale floor, read at
 `h · arcDen 12 H`).
@@ -753,7 +753,7 @@ theorem s15ArmH_le_mul {h : ℕ} (hh : 0 < h) (δ₀ ρ : ℝ) (Hhi ω : ℕ) :
   exact Nat.add_le_add h1 h2
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER⟧** (`h_le_1096_of_hh7`) — the `ℕ` half of
-`hh7 : log h ≤ 7`, which the `ℝ` half at `:170` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
+`hh7 : log h ≤ 7`, which the `ℝ` half at `hArcDen_mul_strataResidualH_sq_le` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
 and `h² ≤ 1201216`.  Every numeral re-cut of wave H1 is stated against these two. -/
 theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) : h ≤ 1096 := by
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
@@ -1297,7 +1297,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk (h K : ℕ) {R : C
     hF.eps_pool hF.band_pool
 
 set_option maxHeartbeats 1000000 in
--- the landed fuse's own budget (`S16FlatTerminalLinear.lean:106`): sixteen socket-framed
+-- the landed fuse's own budget (`S16FlatTerminalLinear.lean` · `doorFuseFrame_pool'_of_gates_const_pos_L_gk`): sixteen socket-framed
 -- hypotheses re-elaborate against the re-cut prefix
 /-- **⟦THE CONSTANT-POOL FUSE AT THE INFLATED SOCKET⟧** (`m4_closure_fuse_zero'_const_nonneg_L_gk`
 at `SocketBaseLH h`) — THE BOTTOM of the terminal chain: sixteen hypotheses, every one cap-blind
@@ -1377,7 +1377,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
 applied to the socket in the SHAPE the fuse produces, with ⟦G1⟧ at `RStr := h⁷·rStrWitness`
 (`rStrWitness_G1_h`), ⟦G2⟧ at the `j₀`-floor (`g2_of_j0_floor_h`, via
 `RSanDoorRhoH ρ h H ≤ 1 ≤ rSanWitness H`), and `han` at gate 4.  This is the `h`-twin of the
-capstone's ⟦ITEM 11⟧ → ⟦gate 6⟧ wiring (`S16FlatTerminalLinear.lean:490-518`). -/
+capstone's ⟦ITEM 11⟧ → ⟦gate 6⟧ wiring (`S16FlatTerminalLinear.lean` · `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L`). -/
 theorem m4_chiSummedN_supplied_of_rowH_L_gk (h K : ℕ) (hh : 0 < h) {R : ChowlaRegime} {M : ℕ}
     {ρ : ℝ} (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
     (hj0 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →

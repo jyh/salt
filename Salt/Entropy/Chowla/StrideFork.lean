@@ -531,7 +531,7 @@ paid by the flat base.**  The mirror of `chowlaRegimeFlat_exists_param_gen`
 at stride `a` and returned as a plain `ChowlaRegime` with the SAME lower endpoint
 `Hlo = max (flatDesignFloor A) (max Hlo₀ (4·⌈1/ε⌉₊⁴))` — spelled EXACTLY as that builder spells it
 (at `A ≥ 162` the `Salt.MR` side knows `flatDesignFloor A = flatDesignBase A`,
-`S16FlatTerminalLinear.lean:1211`; this file cannot import it, so the consumer rewrites).
+`S16FlatTerminalLinear.lean` · `flat_designFloor_eq_designBase`; this file cannot import it, so the consumer rewrites).
 The two stride-sensitive fields are supplied by the caller at the base they transfer from:
 `hHloa : a ≤ flatDesignFloor A` gives `hHlo` by `flatDesignFloor A ≤ Hlo`; `hcopa :
 (a : ℚ) ≤ ε²·flatDesignFloor A / 2` gives `hcoprime` by the same monotonicity (`ε² ≥ 0`).  The

@@ -71,7 +71,7 @@ block, and the lock is violated.
 This is `M4Join` §1's ⟦THE WALL⟧ (`m4_row_cf_block_eq_zero`) alive on the K-BLOCK chain: the
 closing wave deleted `hwinPin` from the Ramaré-band pin chain, but `hwinBand` — the same law
 at the door's own blocks — was left standing, and it is the binder the door datum cannot
-inhabit.  The repair is a statement re-cut at `a2Rows_of_capfree3`'s `hwin` (ThmA2Rows:916),
+inhabit.  The repair is a statement re-cut at `a2Rows_of_capfree3`'s `hwin` (ThmA2Rows),
 upstream of the M4 wave and outside an executor's authorization.
 
 ## ⟦WALL 2 — THE UNIFORM-IN-`j` GRADE⟧ (§7) — **REPAIRED BY THE LENGTH-GRADED RE-CUT**

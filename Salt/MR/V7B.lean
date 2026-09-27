@@ -50,7 +50,7 @@ the mint by any monotonicity argument — it has to be exported from the leaves,
 §1–§2 do and what §3–§4 forward.
 
 ⟦WHERE THE RIDER DIES⟧ `S16ComposeV4.s16_capGate_supply_L_gk_sharpT0` spends `e^{-100} ≤ cs`
-at exactly one field — `gate := s16_capGrid_gate_cs hcs …` (`S16Budget.lean:2298`).  §4's
+at exactly one field — `gate := s16_capGrid_gate_cs hcs …` (`S16Budget.lean`).  §4's
 `…_csfree` twins feed it the carried conjunct instead of an antecedent, so the hypothesis
 leaves the statement.
 

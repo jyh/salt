@@ -60,7 +60,7 @@ set_option maxHeartbeats 1000000 in
 -- every socket base, here with one extra conjunct in the `∃`-prefix
 set_option maxHeartbeats 1000000 in
 /-- **⟦THE SLOT, MET, DENSITY-FREE, AT THE INFLATED SOCKET, PRICED⟧**
-(`m4_hrowsSlot_at_door_zero'H_L_gk` with `Ct ≤ 2^23`) — `S16ProducersH:1190` re-obtained off
+(`m4_hrowsSlot_at_door_zero'H_L_gk` with `Ct ≤ 2^23`) — `S16ProducersH` re-obtained off
 `NumeralCt.m4_hrowsSum_chi_door_zero'_L_gk_bounded`.  Body verbatim. -/
 theorem m4_hrowsSlot_at_door_zero'H_L_gk_ceiling (h K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
@@ -115,7 +115,7 @@ set_option maxHeartbeats 1000000 in
 -- the landed fuse's own budget: sixteen socket-framed hypotheses re-elaborate against the
 -- re-cut prefix
 /-- **⟦THE CONSTANT-POOL FUSE AT THE INFLATED SOCKET, PRICED⟧**
-(`m4_closure_fuse_zero'_const_nonneg_H_L_gk` with `Ct ≤ 2^23`) — `S16ProducersH:1322` off §1.
+(`m4_closure_fuse_zero'_const_nonneg_H_L_gk` with `Ct ≤ 2^23`) — `S16ProducersH` off §1.
 Body verbatim. -/
 theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling (h : ℕ) (hh : 0 < h)
     (hh7 : Real.log h ≤ 7) (K : ℕ) (hK : K ≤ 170000000) :

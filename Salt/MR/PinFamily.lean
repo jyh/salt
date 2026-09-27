@@ -7,6 +7,7 @@ import Salt.MR.FarStar
 import Salt.MR.Transfer34
 import Salt.MR.CofactorLocal
 import Salt.MR.LambdaMass
+import Salt.Tactic.ExpLogNum
 
 /-!
 # THE PARALLEL PIN FAMILY at `log y = L^{2/5}` (`PinFamily`)
@@ -231,13 +232,7 @@ theorem pin2_basic {k L : ℝ} (hk : pin2Gate ≤ k) (hL : L = Real.log k) :
   have hybig : (131072 : ℝ) ≤ ypin2 L := by
     have h1 : Real.exp 12 ≤ ypin2 L := Real.exp_le_exp.mpr (by linarith)
     have h2 : (131072 : ℝ) ≤ Real.exp 12 := by
-      have he : (2.7 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-      have h12 : Real.exp 12 = Real.exp 1 ^ (12 : ℕ) := by
-        rw [← Real.exp_nat_mul]; norm_num
-      have hpw := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 2.7) he 12
-      rw [h12]
-      norm_num at hpw ⊢
-      linarith
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 12 (by norm_num)
     linarith
   have hysq : ypin2 L ≤ Real.sqrt k := by
     have hkey : ypin2 L ^ 2 ≤ k := by
@@ -358,17 +353,7 @@ theorem width_pin_gate_bandwidth_fails_pin2 {L : ℝ} (hL : 1048576 ≤ L) :
       mul_le_mul_of_nonneg_right hcoef (by linarith)
     rw [h3]; linarith
   have hc : Real.log 131072 ≤ 12 := by
-    have hexp12 : (131072 : ℝ) ≤ Real.exp 12 := by
-      have he27 : (2.7 : ℝ) ≤ Real.exp 1 := by linarith
-      have h12 : Real.exp 12 = Real.exp 1 ^ (12 : ℕ) := by
-        rw [← Real.exp_nat_mul]; norm_num
-      have hpw := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 2.7) he27 12
-      rw [h12]
-      norm_num at hpw ⊢
-      linarith
-    have h6 : Real.log 131072 ≤ Real.log (Real.exp 12) :=
-      Real.log_le_log (by norm_num) hexp12
-    rwa [Real.log_exp] at h6
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 12 (by norm_num) (by norm_num)
   have hkey : Real.log (131072 * L ^ 4) < L ^ ((2 : ℝ) / 5) := by
     rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]
     push_cast
@@ -478,8 +463,7 @@ private lemma pin_rpow_scale2 {k h L c₀ : ℝ} (hk : pin2Gate ≤ k) (hL : L =
     rw [Real.log_mul hk0.ne' hk0.ne', ← hL] at h1
     linarith
   have he2 : Real.exp 2 ≤ 8 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
   have hfrac : (k + h) ^ (1 / L : ℝ) ≤ 8 := by
     rw [Real.rpow_def_of_pos hkh0]
     have hexp : Real.log (k + h) * (1 / L) ≤ 2 := by

@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.MobiusChiRate
 import Salt.MR.ChiLLower
 import Salt.Vk.Landau
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ⟦THE SHALLOW SLOT⟧ — the χ-VK inverse bound `‖1/L(σ+it,χ)‖` just inside the region
@@ -616,20 +617,7 @@ lemma boxWidth_shallow_lower {q : ℕ} [NeZero q] {c₀ H : ℝ} (hc₀pos : 0 <
       (0 : ℝ) < Real.log (q : ℝ) + Real.exp 100 + 1)]
     -- `log q + e^100 + 1 ≤ (e^100+1)(log q+1)` and `e^100 ≤ 10^26·e^75 ≤ 10^26·P`
     have hexp25 : Real.exp 25 ≤ 10 ^ 20 := by
-      have he1 : Real.exp 1 < 3 := by linarith [Real.exp_one_lt_d9]
-      have he2 : Real.exp 2 ≤ 10 := by
-        have hsq : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
-          rw [← Real.exp_add]; norm_num
-        rw [hsq]; nlinarith [Real.exp_pos (1 : ℝ)]
-      have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
-        rw [show (2 : ℝ) = Real.log (Real.exp 2) from (Real.log_exp 2).symm]
-        exact Real.log_le_log (Real.exp_pos 2) he2
-      rw [show ((10 : ℝ) ^ 20) = Real.exp (Real.log ((10 : ℝ) ^ 20)) from
-        (Real.exp_log (by positivity)).symm]
-      refine Real.exp_le_exp.mpr ?_
-      rw [Real.log_pow]
-      push_cast
-      nlinarith [hlog10]
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 25 (c := 10 ^ 20) (by norm_num)
     have h100 : Real.exp 100 ≤ 10 ^ 20 * Real.exp 75 := by
       have hsplit : Real.exp 100 = Real.exp 75 * Real.exp 25 := by
         rw [← Real.exp_add]; norm_num
@@ -724,10 +712,7 @@ lemma log_budget_bound {q : ℕ} [NeZero q] {c₄ H : ℝ} (hc₄0 : 0 < c₄) (
   rw [hsplit]
   -- the four pieces
   have hlog128 : Real.log 128 ≤ 5 := by
-    have h1 : Real.log (128 : ℝ) = 7 * Real.log 2 := by
-      rw [show (128 : ℝ) = 2 ^ 7 by norm_num, Real.log_pow]; push_cast; ring
-    have h2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-    rw [h1]; linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 5 (by norm_num) (by norm_num)
   have hlogM : Real.log (shallowGrowth q H)
       ≤ 10 + 3 * Real.log (q : ℝ) + (Real.exp 100 + 1) + (1 + 2 * Real.log (Real.log H)) := by
     rw [shallowGrowth]
@@ -1186,10 +1171,7 @@ lemma sq_div_sixteen_log_le {x : ℝ} (h0 : 0 < x) (h1 : x ≤ 1) :
     field_simp
   rw [hform, Real.log_mul (by norm_num) (by positivity), Real.log_pow]
   have hlog16 : Real.log 16 ≤ 3 := by
-    have h2 : Real.log (16 : ℝ) = 4 * Real.log 2 := by
-      rw [show (16 : ℝ) = 2 ^ 4 by norm_num, Real.log_pow]; push_cast; ring
-    have h3 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-    rw [h2]; linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   push_cast
   nlinarith [hxu1, hlog16, hu, mul_nonneg (sub_nonneg.mpr h1) h0.le,
     mul_nonneg h0.le hu]
