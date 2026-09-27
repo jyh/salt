@@ -38,7 +38,7 @@ THE NUMERALS (each re-derived here, none copied from a docstring):
   · the exponent `7000·Λ + 500·439 + 6600 ≤ e^Λ/2` at `Λ ≥ 50`: `576100 ≤ 2.59·10²¹`, `4.5·10¹⁵×`.
 
 ⭐ AND THE WALL THAT IS **NOT** A NUMERAL, WHICH IS WHY IT IS HERE.  `s13CapGrid_q_logX_LH`
-(`S13CapGateLinearLH.lean:381`) closes `q ≤ h·(log H)^12 ≤ (log X_d)^12` out of
+(`S13CapGateLinearLH.lean` · `s13CapGrid_q_logX_LH`) closes `q ≤ h·(log H)^12 ≤ (log X_d)^12` out of
 `capfloor_logH_le_half_sqrt` — `log H ≤ √H/2` — which buys exactly `2^12 = 4096` of room in `h`.
 **That `4096` is a STRUCTURAL factor `k^12`, not a numeral: it is the `k` in `log H ≤ √H/k`.**  Its
 docstring's *"margin 3.7×"* is `4096/1096` — a margin on `h` computed at the landed `k = 2` — and
@@ -129,7 +129,7 @@ theorem reach14_countpin_refuses_stride_two : ¬ (2 * 1202604 ≤ 2261670) := by
 /-! ## §1 — THE CAP CONVERTER AT `14` (`h_le_1096_of_hh7`'s twin) -/
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, AT `14`⟧ (class A)** — the twin of
-`h_le_1096_of_hh7` (`S16ProducersH.lean:766`) at the raised cap: `e^14 = 1202604.284…`, so
+`h_le_1096_of_hh7` (`S16ProducersH.lean`) at the raised cap: `e^14 = 1202604.284…`, so
 `h ≤ 1202604`.  Every numeral in this module is stated against this one.  BODY: the landed
 proof's shape with `Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
 theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
@@ -558,14 +558,14 @@ theorem s15ArmH_log_le_g14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤
 /-! ## §5 — THE ARM AT THE **UNGRADED** PIN, AT THE RAISED CAP
 
 `s15ArmH_log_le_g14` above is the graded lane's (`1/(838400·2^11·h²) ≤ δ₀`).  The landed `h`-lane
-also carries the UNGRADED pin `1/(838400·h²) ≤ δ₀` (`s15ArmH_log_le`, `S16ProducersH.lean:793`),
+also carries the UNGRADED pin `1/(838400·h²) ≤ δ₀` (`s15ArmH_log_le`, `S16ProducersH.lean`),
 and it needs its own twin — but not its own `scaled` lemma: at `c = h²` and `h ≤ 1202604` the
 ceiling is `1.4463·10^12` and `log c ≤ 28`, both comfortably inside §4's `2961933067911168` and
 `36`.  ⇒ **the wide ceiling covers BOTH pins**, which is why this is four lines of instantiation
 and not a second body. -/
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, UNGRADED PIN, AT THE RAISED CAP⟧ (class A)** —
-`s15ArmH_log_le` (`S16ProducersH.lean:793`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
+`s15ArmH_log_le` (`S16ProducersH.lean`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
 conclusion unchanged.  Routed through `s15Arm_log_le_scaled_g14` at `c = h²`: `hcb` is
 `h² ≤ 1202604² = 1446256380816 ≤ 2961933067911168` (a factor `2048` of room — exactly the `2^11`
 the graded pin spends) and `hlogc` is `2·log h ≤ 28 ≤ 36`.  **A NEW name with its OWN binder;

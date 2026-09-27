@@ -218,7 +218,7 @@ theorem cofkR_cushion_of_armVt {Kvt A : ℝ} (R : ChowlaRegime)
 The SIBLING of `RegisterRepair.cofkR_cofactorSupply_L_gk` (⛔ sibling, never an edit — the
 landed name stays byte-untouched and citable).  The refuter pass found the seam the freeze
 missed: the ksarm spine has NO socket call; the socket is consumed at
-`RegisterRepair.lean:490` INSIDE the supply theorem, whose STATEMENT hardcodes
+`RegisterRepair.lean` · `cofkR_cofactorSupply_L_gk` INSIDE the supply theorem, whose STATEMENT hardcodes
 `Kvt : ℕ → ℕ → ℝ` and the `⌈arcDen 12 R.Hhi⌉₊` cushion.  This sibling rethreads exactly that:
 `Kvt : ℝ` in the `∃`-prefix, the cushion with NO evaluation point.  Body verbatim from the
 landed name apart from FOUR mechanical edits: (i) the `choose … using
