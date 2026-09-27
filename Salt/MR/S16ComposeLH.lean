@@ -3010,68 +3010,24 @@ theorem m4_hcap_at_door_perBlock_LH_gk_bounded_khoist {h : ℕ} (_hh : 0 < h)
   rw [chiBarCoeff_doorRowDatum_L_gk] at hres
   simpa using hres
 
-set_option maxHeartbeats 3200000 in
--- as the landed `_cs` twin: the wire re-elaborates with one extra prefix conjunct
-/-- ⟦`K`-HOISTED, `cs`-FREE, AT SHIFT `h`⟧ (`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs`) —
+/-! ### THE PER-BLOCK WIRE, `K`-HOISTED AND `cs`-FREE, AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 16 (2026-09-27)⟧
+`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs {h : ℕ} (_hh : 0 < h)
+(_hh7 : Real.log (h : ℝ) ≤ 7) : ∃ Cq cs T₀ Kq Ks : ℝ, …` stood here, under `set_option
+maxHeartbeats 3200000 in`.  It is `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9` (in the
+⟦β W1 E3⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
+binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies
+it by `linarith` — kernel-checked from the retired statement's own bytes before the 62 lines
+were removed.  The twin's body is this page's, line for line: neither proof reads the cap, and
+both binders are written with a leading underscore.  At this retirement the page had NO call
+site: its one caller, §11.3's `cs`-free capWS fuse at `log h ≤ 7`, was retired by family 14 (its
+note stands under §11.3, below).
+
+This page's docstring, verbatim:
+
+⟦`K`-HOISTED, `cs`-FREE, AT SHIFT `h`⟧ (`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs`) —
 the wire above with `e^{-100} ≤ cs` CARRIED in the prefix rather than demanded of the caller. -/
-theorem m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs {h : ℕ} (_hh : 0 < h)
-    (_hh7 : Real.log (h : ℝ) ≤ 7) :
-    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧
-      Kq ≤ 126848 / 10 ^ 8 ∧ 0 < Ks ∧
-      ∀ (K : ℕ) (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
-        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
-            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
-            5 ≤ Real.log (Real.log (2 * T)) →
-            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
-              (VJ V Lr η εd Rbd CR KS E EP2 : ℝ),
-              DoorCapBasePerBlock_L_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf (2 * T)
-                VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2) →
-        ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ 8 * (0 : ℝ) ^ 2
-                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
-                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
-                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
-                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                        (mrAlpha (1 / 12)) 2,
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
-                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
-  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, hcapstone⟩ :=
-    m4_rowChi_capstone_perBlock_bounded_cs
-  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hcsf, hT₀, hKq, hKqb, hKs, ?_⟩
-  intro K R M cU ε hcU hfam H L q j A s hb χ T hTlo hThi hTgate hTll
-  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, hd⟩ :=
-    hfam H L q j A s hb T hTlo hThi hTgate hTll
-  haveI : NeZero q := ⟨hb.2.2.2.1.ne'⟩
-  have hlogX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := hd.logX_four
-    linarith
-  have hres := hcapstone q cU hcU (calP (AdoorL M) (s13GK K M))
-    (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M)) (mrAlpha (1 / 12)) 2 Jb
-    hd.Jb_lo hd.Jb_hi hd.Hseq_two hd.alpha_nonneg
-    (2 * T) VJ V Lr (((A + s : ℕ)) : ℝ) hd.Tann_one hd.qTann_one hd.P_three hd.PQ hd.QTann
-    hd.kappa30Q hd.loglog5 hd.VJ_bound η εd hd.alpha_eta hd.eta_half hd.Tann_X hd.X_pos
-    hd.debit hd.logX_pos hd.q_logX hd.V_one hd.V_inv hd.T0_Tann hd.floor1 hd.floor2
-    hd.floor3 hd.floor4 hd.logqT_one hd.logqT_L hd.L_exp hd.logV_L
-    hd.H83_two hd.logX_exp hd.logX_four hTgate
-    (2 * (A + s)) Xd P Q Mr (winCutH (A + s) (doorCoeffU_L_gk K M)) b cf hd.cf_one hd.P_low
-    hd.Q_pos hd.Q_high hd.range hd.budget hd.Hj hd.B3 hd.BT hd.kappa30 hd.BT10 hd.WL hd.gate
-    Rbd CR hd.Rbd_nonneg hd.Rbd_grade hd.Cq_gate
-    (fun _ : DirichletCharacter ℂ q => (0 : ℝ)) hd.Rbd_binder
-    KS hd.KS_nonneg hd.KS_binder hd.KS_gate E EP2 (ε (A + s)) hd.epsr_nonneg hd.abs8640
-    hd.EP2_gate hd.E_row hd.E_binder (doorCap_hXN (A + s)) (doorCap_hN2 (A + s))
-    (fun n hn => doorRowDatumU_supp0_L_gk K M (A + s) hn)
-    (fun _ : DirichletCharacter ℂ q => (0 : ℝ))
-    (m4_hSup_door_at_zero q (winCutH (A + s) (doorCoeffU_L_gk K M)) (2 * (A + s)) hlogX1) χ
-  rw [chiBarCoeff_doorRowDatum_L_gk] at hres
-  simpa using hres
 
 /-! ### §11.3 — the capWS fuse, `K`-hoisted and `cs`-free, at shift `h` -/
 
@@ -3260,7 +3216,8 @@ replaced by its twin; no hypothesis is added and no conclusion weakened. -/
 
 set_option maxHeartbeats 3200000 in
 -- as the landed `_cs` twin: the wire re-elaborates with one extra prefix conjunct
-/-- `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs` at `log h ≤ 9`
+/-- The former `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs` (retired into this, 2026-09-27)
+at `log h ≤ 9`
 (`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9`) — TRANSPORT: the cap binder is unused
 (census band 2 row 8).  BODY: the source's, verbatim. -/
 theorem m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs_b9 {h : ℕ} (_hh : 0 < h)
