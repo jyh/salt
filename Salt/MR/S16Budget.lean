@@ -168,12 +168,7 @@ theorem s16_logH2_le (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
   have hle := s16_logP1_le_logP2 K hM
   rw [s16_calH_two, Real.log_mul (by norm_num) (by linarith)]
   have hlog4 : Real.log 4 ≤ 2 := by
-    have : (4 : ℝ) ≤ Real.exp 2 := by
-      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have h2 : Real.exp 2 = (Real.exp 1) ^ (2 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      rw [h2]; nlinarith [Real.exp_pos 1]
-    calc Real.log 4 ≤ Real.log (Real.exp 2) := Real.log_le_log (by norm_num) this
-      _ = 2 := Real.log_exp 2
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
   linarith
 
 
@@ -383,11 +378,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     ring
   -- ⟦THE ASSEMBLY⟧
   have h1680 : (1680 : ℝ) ≤ Real.exp 8 := by
-    have h2 : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) Real.exp_one_gt_d9.le 8
-    have h5 : (1680 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
   rw [thinBundleGChi, hVJ, hXr]
   set E : ℝ := 2 * (Real.log ((q : ℝ) * Tann) / Lp)
     * Real.log (Real.log ((q : ℝ) * Tann)) with hEdef
@@ -1069,8 +1060,7 @@ theorem s16_audit_Ct_gP1_room :
   have hlog : Real.log (6 * Real.exp 14) = Real.log 6 + 14 := by
     rw [Real.log_mul (by norm_num) (Real.exp_ne_zero 14), Real.log_exp]
   have h6 : Real.log 6 ≤ 5 := by
-    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 6)
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 5 (by norm_num) (by norm_num)
   linarith only [Real.log_two_gt_d9, hlog, h6]
 
 /-- ⟦AUDIT⟧ **THE SECOND WALL** — at `λ₋ ≥ 492` the base-scale cap's demand
@@ -2233,11 +2223,7 @@ theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     ring
   -- ⟦THE ASSEMBLY⟧
   have h1680 : (1680 : ℝ) ≤ Real.exp 8 := by
-    have h2 : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) Real.exp_one_gt_d9.le 8
-    have h5 : (1680 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
   rw [thinBundleGChi, hVJ, hXr]
   set E : ℝ := 2 * (Real.log ((q : ℝ) * Tann) / Lp)
     * Real.log (Real.log ((q : ℝ) * Tann)) with hEdef
