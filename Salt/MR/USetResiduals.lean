@@ -757,14 +757,7 @@ theorem P2_route_64_over_Psq_insufficient {X T : ℝ} {N P : ℕ}
     (hP1 : 1 ≤ (P : ℝ)) (hPQ : (P : ℝ) ≤ Q83 X) :
     (Real.log X) ^ (-theta293) < 12 * (2 * T + 20 * (N : ℝ)) * (64 / (P : ℝ) ^ 2) := by
   have he4 : (54 : ℝ) ≤ Real.exp 4 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have h2 : Real.exp 4 = (Real.exp 1) ^ (4 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have h3 : (2.7182818283 : ℝ) ^ (4 : ℕ) ≤ (Real.exp 1) ^ (4 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 4
-    rw [h2]
-    calc (54 : ℝ) ≤ (2.7182818283 : ℝ) ^ (4 : ℕ) := by norm_num
-      _ ≤ (Real.exp 1) ^ (4 : ℕ) := h3
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 4 (by norm_num)
   have hL54 : (54 : ℝ) ≤ Real.log X := le_trans he4 hL
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL : (4 : ℝ) ≤ Real.log (Real.log X) := by

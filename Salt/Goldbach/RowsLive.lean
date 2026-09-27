@@ -7,6 +7,7 @@ import Salt.Goldbach.Op
 import Salt.Goldbach.BoxRows3
 import Salt.Chen.ChenRows1
 import Salt.Chen.PriceClose
+import Salt.Tactic.ExpLogNum
 
 /-!
 # G-ROWSLIVE — the live-geometry discharge of `gold_box_price_live_kerr`'s analytic rows (Goldbach)
@@ -119,10 +120,7 @@ theorem gold_op_scales : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
   -- `64 ≤ N^{1/3}` (`log 64 ≤ (1/3)·log N`)
   have hN13_16 : (64 : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 3) := by
     have hlog64 : Real.log 64 ≤ 6 := by
-      rw [show (64 : ℝ) = 2 ^ 6 by norm_num, Real.log_pow]
-      have : Real.log 2 ≤ 1 := by
-        linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-      push_cast; linarith
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 6 (by norm_num) (by norm_num)
     calc (64 : ℝ) = Real.exp (Real.log 64) := (Real.exp_log (by norm_num)).symm
       _ ≤ Real.exp (Real.log ((N : ℝ) ^ ((1 : ℝ) / 3))) := by
           apply Real.exp_le_exp.mpr; rw [Real.log_rpow hNpos]; linarith [hlogN]
@@ -179,9 +177,7 @@ theorem gold_box_zx_rows : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
   have hlog8eq : Real.log (8 * (opZ N : ℝ)) = Real.log 8 + Real.log (opZ N : ℝ) :=
     Real.log_mul (by norm_num) (ne_of_gt hZpos)
   have hlog8 : Real.log 8 ≤ 3 := by
-    have h8 : Real.log 8 = 3 * Real.log 2 := by
-      rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; push_cast; ring
-    rw [h8]; linarith [hlog2]
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   -- assemble hz_ratio and hx
   refine ⟨hZ1, ?_, ?_⟩
   · -- hz_ratio

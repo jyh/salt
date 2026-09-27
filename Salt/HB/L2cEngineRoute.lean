@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cMop
 import Salt.HB.MixedCount
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the χ-blind engine route (CHI-SIEVE freeze, Wave 1)
@@ -44,13 +45,7 @@ variable {q : ℕ}
 /-- `4 ≤ log 100` (via `e⁴ < 100`). -/
 lemma log_hundred_ge : (4 : ℝ) ≤ Real.log 100 := by
   have hexp4 : Real.exp 4 ≤ 100 := by
-    have h1 : Real.exp 4 = Real.exp 1 ^ 4 := by
-      rw [← Real.exp_nat_mul]; norm_num
-    rw [h1]
-    have h2 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    calc Real.exp 1 ^ 4 ≤ 2.7182818286 ^ 4 := by
-          exact pow_le_pow_left₀ (Real.exp_pos 1).le h2.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 4 (c := 100) (by norm_num)
   exact (Real.le_log_iff_exp_le (by norm_num)).mpr hexp4
 
 /-- `log 2 ≤ 0.6932`. -/

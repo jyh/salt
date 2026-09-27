@@ -192,9 +192,7 @@ theorem renormaliseConst_le_exp17 : renormaliseConst ≤ Real.exp 17 := by
     have hcoef : 28 * (1 + 2 * (Real.log 4 + 36)) ≤ 2123 := by linarith
     exact mul_le_mul_of_nonneg_right hcoef hpos.le
   have h9 : (2123 : ℝ) ≤ Real.exp 9 := by
-    have := pow_27_le_exp 9
-    norm_num at this ⊢
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   calc renormaliseConst ≤ 2123 * Real.exp 8 := hle
     _ ≤ Real.exp 9 * Real.exp 8 := by
         exact mul_le_mul_of_nonneg_right h9 (Real.exp_pos 8).le
@@ -570,10 +568,7 @@ theorem doorGrade_summand2_priced {M H : ℕ} (hM : 1 ≤ M)
       Real.log_mul (by norm_num) (by linarith)]
     ring
   have hlog687 : Real.log 68719476736 ≤ 26 := by
-    have := log_le_of_le_pow27 (c := (68719476736 : ℝ)) (by norm_num) 26 (r := 0) (by norm_num)
-      (by norm_num)
-    norm_num at this ⊢
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 26 (by norm_num) (by norm_num)
   -- ⟦the two products `m·log 2`, pinned so the finish is linear in monomials⟧
   have hml2hi : (m : ℝ) * Real.log 2 ≤ (m : ℝ) * 0.6931471808 :=
     mul_le_mul_of_nonneg_left hlog2hi.le (by linarith)
