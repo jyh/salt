@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cEL
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the T2 family budget (node HB-L2c-F-T2, Horn A keystone)
@@ -377,14 +378,7 @@ lemma t2_Lwin_ge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x
       _ ≤ (x : ℝ) := hzx
   have hxpos : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (by positivity) hx48
   have hlog100 : (4 : ℝ) ≤ Real.log 100 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 100)]
-    have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h4 : Real.exp 4 = (Real.exp 1) ^ 4 := by
-      rw [← Real.exp_nat_mul]; norm_num
-    rw [h4]
-    calc (Real.exp 1) ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-          pow_le_pow_left₀ (Real.exp_pos 1).le h1.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 4 (by norm_num) (by norm_num)
   have h1 : Real.log ((100 : ℝ) ^ 48) ≤ Real.log x := Real.log_le_log (by positivity) hx48
   rw [Real.log_pow] at h1
   have h2 : Real.log x ≤ Lwin x := by

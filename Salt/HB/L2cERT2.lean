@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cER
 import Salt.HB.L2cEL
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the `E_R` T2′ family budget (node HB-L2c-F-ER-T2′, Horn A keystone)
@@ -63,12 +64,7 @@ noncomputable def ert2K (z : ℕ) : ℕ := ⌊(z : ℝ) ^ ((1 : ℝ) / 4)⌋₊
 lemma ert2_logz_ge {z : ℕ} (hz100 : 100 ^ 16 ≤ z) : (64 : ℝ) ≤ Real.log z := by
   have hzr : (100 : ℝ) ^ 16 ≤ (z : ℝ) := by exact_mod_cast hz100
   have hlog100 : (4 : ℝ) ≤ Real.log 100 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 100)]
-    have h4 : Real.exp 4 = Real.exp 1 ^ 4 := by rw [← Real.exp_nat_mul]; norm_num
-    rw [h4]
-    calc Real.exp 1 ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-          pow_le_pow_left₀ (Real.exp_pos 1).le Real.exp_one_lt_d9.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 4 (by norm_num) (by norm_num)
   have hlog : Real.log ((100 : ℝ) ^ 16) ≤ Real.log z := Real.log_le_log (by positivity) hzr
   rw [Real.log_pow] at hlog
   push_cast at hlog
@@ -189,12 +185,7 @@ lemma ert2_Lwin_ge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 ≤
       _ ≤ (x : ℝ) := hzx
   have hxpos : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (by positivity) hx48
   have hlog100 : (4 : ℝ) ≤ Real.log 100 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 100)]
-    have h4 : Real.exp 4 = Real.exp 1 ^ 4 := by rw [← Real.exp_nat_mul]; norm_num
-    rw [h4]
-    calc Real.exp 1 ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-          pow_le_pow_left₀ (Real.exp_pos 1).le Real.exp_one_lt_d9.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 4 (by norm_num) (by norm_num)
   have h1 : Real.log ((100 : ℝ) ^ 48) ≤ Real.log x := Real.log_le_log (by positivity) hx48
   rw [Real.log_pow] at h1
   have h2 : Real.log x ≤ Lwin x := by

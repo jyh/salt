@@ -7,6 +7,7 @@ import Mathlib
 import Salt.SW.ShiftTrivChar
 import Salt.SW.ShiftVariants
 import Salt.SW.LandauPage
+import Salt.Tactic.ExpLogNum
 
 /-!
 # The SW rung, wave S6b — the per-character dispatcher
@@ -234,12 +235,7 @@ theorem logL4_le (q : ℕ) {s T : ℝ} (hq1 : 1 ≤ q) (hs1 : 1 ≤ s) (hT : T =
           Real.log_mul (by norm_num) (by linarith), Real.log_exp]
     _ ≤ 9 * s := by
         have h300 : Real.log 300 ≤ 6 := by
-          rw [show (6:ℝ) = Real.log (Real.exp 6) from (Real.log_exp 6).symm]
-          apply Real.log_le_log (by norm_num)
-          have h27 : (2.7:ℝ) < Real.exp 1 := lt_trans (by norm_num) Real.exp_one_gt_d9
-          have hp : (2.7:ℝ) ^ 6 ≤ (Real.exp 1) ^ 6 := pow_le_pow_left₀ (by norm_num) h27.le 6
-          have hexp6 : Real.exp 6 = (Real.exp 1) ^ 6 := by rw [← Real.exp_nat_mul]; norm_num
-          rw [hexp6]; nlinarith [hp]
+          exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 6 (by norm_num) (by norm_num)
         have hlogs : Real.log s ≤ s := by
           have := Real.log_le_sub_one_of_pos (by linarith : (0:ℝ) < s); linarith
         nlinarith [h300, hlogs, hs1]
@@ -273,12 +269,7 @@ theorem logM0_le {s T : ℝ} (hs1 : 1 ≤ s) (hT : T = Real.exp s) :
         rw [Real.log_mul (by norm_num) (Real.exp_pos _).ne', Real.log_exp]
     _ ≤ 9 * s := by
         have h504 : Real.log 504 ≤ 7 := by
-          rw [show (7:ℝ) = Real.log (Real.exp 7) from (Real.log_exp 7).symm]
-          apply Real.log_le_log (by norm_num)
-          have h27 : (2.7:ℝ) < Real.exp 1 := lt_trans (by norm_num) Real.exp_one_gt_d9
-          have hp : (2.7:ℝ) ^ 7 ≤ (Real.exp 1) ^ 7 := pow_le_pow_left₀ (by norm_num) h27.le 7
-          have hexp7 : Real.exp 7 = (Real.exp 1) ^ 7 := by rw [← Real.exp_nat_mul]; norm_num
-          rw [hexp7]; nlinarith [hp]
+          exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 7 (by norm_num) (by norm_num)
         linarith [h504, hs1]
 
 /-! ## 4. The per-character dispatcher -/
