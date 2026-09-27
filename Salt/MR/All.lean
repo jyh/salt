@@ -9640,7 +9640,6 @@ into their cap-9 twins, noted in place in `S16ComposeLH.lean`; their rows leave 
 #audit_axioms Salt.MR.capfloor_floor4_sharp_LH
   Salt.MR.capfloor_floor4_of_regimeWin_LH
   Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin
-  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist

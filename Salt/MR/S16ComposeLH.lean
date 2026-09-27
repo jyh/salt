@@ -2953,95 +2953,24 @@ theorem s13CapFloor_all_LH_gk_sharpT0_kswin {h : ℕ} (hh : 0 < h) (hh7 : Real.l
    capfloor_floor4_of_regimeWin_LH hh hh7 hfl hb hAN hTlo hKs0 hKsw,
    hQ2reg⟩
 
-set_option maxHeartbeats 1000000 in
--- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
-/-- ⟦`Ks`-WINDOWED TWIN AT SHIFT `h`⟧ (`s16_capGate_supply_LH_gk_sharpT0_kswin`) — §8's assembler
+/-! ### THE `Ks`-WINDOWED ASSEMBLER AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 13 (2026-09-27)⟧
+`s16_capGate_supply_LH_gk_sharpT0_kswin {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+(K : ℕ) … : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → …` stood here, under
+`set_option maxHeartbeats 1000000 in`.  It is `s16_capGate_supply_LH_gk_sharpT0_kswin_b9` (in the
+⟦β W2 F3⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
+binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies
+it by `linarith` — kernel-checked from the retired statement's own bytes before the 89 lines
+were removed.  The twin's body is this page's with SEVEN lines changed: the seven calls of the
+six suppliers that take the cap, each swapped for its own `_b9` twin.  At this retirement the
+page had NO call site: its one caller, §11.4's crossing supplier at `log h ≤ 7`, was retired by
+family 12 (its note stands under §11.4, below).
+
+This page's docstring, verbatim:
+
+⟦`Ks`-WINDOWED TWIN AT SHIFT `h`⟧ (`s16_capGate_supply_LH_gk_sharpT0_kswin`) — §8's assembler
 on the windowed floor wave above. -/
-theorem s16_capGate_supply_LH_gk_sharpT0_kswin {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
-    {epsf : ℕ → ℝ}
-    (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo) (hcs : Real.exp (-100) ≤ cs)
-    (hblk : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s)
-    (hT₀ : T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2)) (hKq : Kq ≤ Real.exp 100)
-    (hKs0 : 0 < Ks)
-    (hKsw : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16)
-    (hC0 : 0 < C) (hC : Real.log C ≤ 40)
-    (hεr : ∀ A : ℕ, theta293 - 1 / 500 ≤ epsf A)
-    (hcap : S16BaseScaleCap96_LH_gk h K R M) (hcof : S16CofactorSupply_LH_gk h K Cq R M) :
-    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
-        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
-        5 ≤ Real.log (Real.log (2 * T)) →
-        ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
-          S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
-            Rrad Rbd CR EP2 (epsf (A + s)) := by
-  intro H L q j A s hb T hTlo hThi hTgate hTll
-  obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
-  -- the grid wave, at the linear door
-  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
-    s13CapGrid_all_LH_gk hh hh7 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
-  -- `1 < 2T` off the annulus gate
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
-  have hT1 : (1 : ℝ) < 2 * T := by
-    have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
-    linarith
-  have hT0le : (0 : ℝ) ≤ 2 * T := by linarith
-  have hAN : A ≤ A + s := Nat.le_add_right _ _
-  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
-  -- the floor wave, at the linear door
-  obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
-    s13CapFloor_all_LH_gk_sharpT0_kswin hh hh7 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs0 hKsw
-  -- the eps wave, LADDER-BLIND
-  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH hh hh7 hfl hb
-  obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
-    s13CapEps_all_LH hh hh7 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
-  refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
-    s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
-  exact
-    { logX_eight := g1
-      H83_two := g2
-      QTann := f1
-      kappa30Q := f2
-      q_logX := g3
-      T0_Tann := f3
-      floor1 := f4
-      floor2 := f5
-      floor3 := f6
-      floor4 := f7
-      logqT_L := g4
-      P_low := g5
-      Q2_reg := g6
-      Q_pos := g7
-      Q_high := g8
-      P_le_Q := g9
-      budget := fun i hi =>
-        s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
-          (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
-      Hj := g10
-      B3 := g11
-      BT := g12
-      kappa30 := g13
-      BT10 := g14
-      WL := g15
-      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
-        (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb)
-      Rbd_nonneg := hRbd0
-      Rbd_grade := hRbdg
-      Cq_gate := hCqg
-      Rbd_socket := hRsock
-      epsr_nonneg := e1
-      abs8640 := e2
-      EP2_gate := e3
-      q_arcDen := e4
-      phi_row := e5
-      p2_row := e6
-      tail_row := e7
-      Q_hundred := g17
-      band_product := g18 }
 
 /-! ### §11.2 — the per-block wire, `K`-hoisted and `cs`-free, at shift `h` -/
 
@@ -3684,7 +3613,8 @@ theorem s13CapFloor_all_LH_gk_sharpT0_kswin_b9 {h : ℕ} (hh : 0 < h) (hh9 : Rea
 
 set_option maxHeartbeats 1000000 in
 -- as the source: 37 structure fields checked against the per-block gate in one `exact`
-/-- `s16_capGate_supply_LH_gk_sharpT0_kswin` at `log h ≤ 9`
+/-- The former `s16_capGate_supply_LH_gk_sharpT0_kswin` (retired into this, 2026-09-27)
+at `log h ≤ 9`
 (`s16_capGate_supply_LH_gk_sharpT0_kswin_b9`) — SUPPLIER-SWAP (`s13CapGrid_all_LH_gk_b9`,
 `s13CapFloor_all_LH_gk_sharpT0_kswin_b9`, `s13CapEps_pins_supply_LH_b9`, `s13CapEps_all_LH_b9`,
 `s13CapGrid_Lambda_lo_LH_b9`, `s13CapGrid_mu_2000_LH_b9`).
