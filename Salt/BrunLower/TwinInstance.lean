@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Mathlib
 import Salt.BrunLower.Pair
 import Salt.BrunLower.MertensDischarge
+import Salt.Tactic.ExpLogNum
 
 /-!
 # P1 — the twin almost-prime headline (blueprint `p0`, node P1)
@@ -518,14 +519,7 @@ lemma crux_numeric {L Lam : ℝ} {r : ℕ} (hLpos : 0 < L)
     rw [show (2:ℝ) * Real.log L = Real.log L + Real.log L by ring, Real.exp_add,
       Real.exp_log hLpos]; ring
   have hlog125 : Real.log 125 ≤ 5 := by
-    have hexp5gt : (143:ℝ) < Real.exp 5 := by
-      have h : (2.7:ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-      have he : Real.exp 5 = (Real.exp 1) ^ 5 := by rw [← Real.exp_nat_mul]; norm_num
-      rw [he]
-      calc (143:ℝ) < 2.7 ^ 5 := by norm_num
-        _ ≤ (Real.exp 1) ^ 5 := pow_le_pow_left₀ (by norm_num) h.le 5
-    rw [show (5:ℝ) = Real.log (Real.exp 5) from (Real.log_exp _).symm]
-    exact Real.log_le_log (by norm_num) (by linarith [hexp5gt])
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 5 (by norm_num) (by norm_num)
   have hlog25 : Real.log 25 ≤ 3.3 := by
     have hexp165 : (5:ℝ) < Real.exp 1.65 := by
       rw [show (1.65:ℝ) = 1 + 0.65 by norm_num, Real.exp_add]

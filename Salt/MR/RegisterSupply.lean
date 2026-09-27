@@ -13,9 +13,9 @@ import Salt.MR.RbdSupply
 conclusion-side supply predicates, both at the LINEAR door and the LINEAR socket:
 
 * `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` — ⟦ITEM 3⟧'s base-scale cap
-  (`S13CapGateLinear.lean:891`);
+  (`S13CapGateLinear.lean · S16BaseScaleCap96_L_gk`);
 * `S16CofactorSupply_L_gk 32000000 Cq R (flatDoorM A)` — ⟦RULING 9⟧'s co-factor debt
-  (`S13CapGateLinear.lean:897`).
+  (`S13CapGateLinear.lean · S16CofactorSupply_L_gk`).
 
 This file prices both against the socket's own fields and the regime's own fields.
 

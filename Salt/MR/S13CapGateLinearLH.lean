@@ -20,7 +20,7 @@ keeps its own consumers untouched.
 
 ## ⟦WHY THE PAGE EXISTS AT ALL⟧ — the assembler's `hbb`
 
-`s16_capGate_supply_L_gk` (`S13CapGateLinear:955`) and `s13CapGrid_all_L_gk` (`:594`) build
+`s16_capGate_supply_L_gk` (`S13CapGateLinear`) and `s13CapGrid_all_L_gk` build
 `hbb : SocketBase` out of their `SocketBaseL` binder and feed `hbb` to the WHOLE floor and
 eps pages.  `SocketBaseLH h → SocketBase` is FALSE at `h ≥ 2` — the modulus conjunct is
 `q ≤ h·arcDen 12 H`, not `q ≤ arcDen 12 H` — and no non-linear inflated socket exists.  So
@@ -223,13 +223,13 @@ drift — the same blindness that let the P/X seam ship green in H1.  The `_one_
 below is the only instrument that looks at it, which is why each is a THEOREM and not a
 docstring claim. -/
 
-/-- ⟦ITEM 3⟧'s base-scale cap at the INFLATED socket (`S13CapGateLinear:891` re-quantified). -/
+/-- ⟦ITEM 3⟧'s base-scale cap at the INFLATED socket (`S13CapGateLinear · S16BaseScaleCap96_L_gk` re-quantified). -/
 def S16BaseScaleCap96_LH_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop :=
   ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
     Real.log (Real.log (((A + s : ℕ)) : ℝ))
       ≤ Real.log ((calP (AdoorL M) (s13GK K M) 2 : ℕ) : ℝ) / 9.60000096
 
-/-- ⟦RULING 9⟧'s co-factor block at the INFLATED socket (`S13CapGateLinear:897`
+/-- ⟦RULING 9⟧'s co-factor block at the INFLATED socket (`S13CapGateLinear · S16CofactorSupply_L_gk`
 re-quantified). -/
 def S16CofactorSupply_LH_gk (h K : ℕ) (Cq : ℝ) (R : ChowlaRegime) (M : ℕ) : Prop :=
   ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
@@ -1412,7 +1412,7 @@ which is **false at `SocketBaseLH h`** with `Hreg := H` — only `q ≤ h·arcDe
 available.  ⟦R KILL 1⟧'s repair, taken here: state it at **`Hreg := A + s`** instead, where
 `arcDen 12 (A+s) = (log (A+s))^12` is exactly the `q_logX` field the grid page already proves
 at `LH` with its conclusion unchanged.  The structure field it lands in
-(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear:187`) is **read nowhere in the corpus**
+(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear`) is **read nowhere in the corpus**
 — three declarations, five `:= e4` assignments, docstrings, zero reads — and `Hreg` occurs in
 that structure only there, so no landed object changes and nothing downstream can observe the
 move. -/

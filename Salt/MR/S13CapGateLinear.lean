@@ -8,6 +8,7 @@ import Salt.MR.S13BandCapLinear
 import Salt.MR.M4CapWireLinear
 import Salt.MR.M4RowLinear
 import Salt.MR.DoorLadderLinear
+import Salt.Tactic.ExpLogNum
 
 /-!
 # `S13CapGateLinear` — THE CAP-GATE LANE AT THE LINEAR DOOR
@@ -648,12 +649,7 @@ theorem s16_logH2_le_L (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
   have hle := s16_logP1_le_logP2_L K hM
   rw [s16_calH_two, Real.log_mul (by norm_num) (by linarith)]
   have hlog4 : Real.log 4 ≤ 2 := by
-    have : (4 : ℝ) ≤ Real.exp 2 := by
-      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have hsq : Real.exp 2 = (Real.exp 1) ^ (2 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      rw [hsq]; nlinarith [Real.exp_pos 1]
-    calc Real.log 4 ≤ Real.log (Real.exp 2) := Real.log_le_log (by norm_num) this
-      _ = 2 := Real.log_exp 2
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
   linarith
 
 set_option maxHeartbeats 1600000 in
@@ -802,11 +798,7 @@ theorem s16_budget_field_L_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     ring
   -- ⟦THE ASSEMBLY⟧
   have h1680 : (1680 : ℝ) ≤ Real.exp 8 := by
-    have h2 : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) Real.exp_one_gt_d9.le 8
-    have h5 : (1680 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
   rw [thinBundleGChi, hVJ, hXr]
   set E : ℝ := 2 * (Real.log ((q : ℝ) * Tann) / Lp)
     * Real.log (Real.log ((q : ℝ) * Tann)) with hEdef
