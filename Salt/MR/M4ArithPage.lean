@@ -1030,7 +1030,7 @@ it is still the FIRST explicit binder, and every consumer passes it positionally
 which is why the `G`-free `m4_arith_henv` still plugs into the levered gated socket. -/
 
 /-- **⟦THE GATED SOCKET⟧ AT THE LEVER** — `m4_chiSummedFreeRowBig_of_doorGradeGated`
-(:662). -/
+. -/
 theorem m4_chiSummedFreeRowBig_of_doorGradeGated_gk (Klev : ℕ) {R : ChowlaRegime} {M : ℕ}
     {C₁ M₀ : ℕ → ℝ}
     {RSbig : ℕ → ℕ → ℝ}
@@ -1057,7 +1057,7 @@ theorem m4_chiSummedFreeRowBig_of_doorGradeGated_gk (Klev : ℕ) {R : ChowlaRegi
   refine le_trans (mul_le_mul_of_nonneg_right hφarc hG0) ?_
   exact henv H L q j A s hb
 
-/-- **⟦ITEM 11⟧ AT THE LEVER** — `m4_chiSummedFreeRow_of_doorArith` (:768). -/
+/-- **⟦ITEM 11⟧ AT THE LEVER** — `m4_chiSummedFreeRow_of_doorArith`. -/
 theorem m4_chiSummedFreeRow_of_doorArith_gk (Klev : ℕ) {R : ChowlaRegime} {M : ℕ}
     {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {K : ℝ}
     (hM : 1 ≤ M)
@@ -1093,7 +1093,7 @@ theorem m4_chiSummedFreeRow_of_doorArith_gk (Klev : ℕ) {R : ChowlaRegime} {M :
     hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows
     ⟨hF.eps_lo, hF.eps_hi⟩ hF.L4096
 
-/-- **THE ARITHMETIC PAGE'S EXIT AT THE LEVER** — `m4_arith_door_exit` (:936). -/
+/-- **THE ARITHMETIC PAGE'S EXIT AT THE LEVER** — `m4_arith_door_exit`. -/
 theorem m4_arith_door_exit_gk (Klev : ℕ) {R : ChowlaRegime} {M : ℕ}
     {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {K δ₀ : ℝ}
     (hM : 1 ≤ M) (hδ₀ : 2 / 10 ^ 49 ≤ δ₀)

@@ -338,7 +338,7 @@ private lemma a3_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2)
   linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 
-/-! ### `ThmA2` :495 — `thm_a2'_of_rows` -/
+/-! ### `ThmA2` — `thm_a2'_of_rows` -/
 /-- **thm_A2′, GIVEN THE ROW FAMILY** (`thm_a2'_of_rows_L`).  The frozen five-summand
 interface, with the weighted seam-row family and the `T₀`-band supplied as binders (the
 two branches of §5 are its two suppliers):
@@ -489,7 +489,7 @@ theorem thm_a2'_of_rows_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M�
   rw [hw]
   linarith
 
-/-! ### `ThmA2` :660 — `calFrameK_doorH1_at` -/
+/-! ### `ThmA2` — `calFrameK_doorH1_at` -/
 /-- **THE DOOR FRAME AT THE ROW'S SCALE.**  `CalFrameK` at `η = 1/12`, `A = AdoorL M`,
 `G = 3072M`, `Jb = 2`, `H₁ = H1doorL M` and ANY `X_d ≥ Q_{Jb}` — the landed inhabitant with
 its single `X_d`-mentioning field (`Q_le_Xd`) relaxed from equality.  This is what lets the
@@ -502,7 +502,7 @@ theorem calFrameK_doorH1_at_L (M Xd : ℕ) (hM : 1 ≤ M)
   exact ⟨hF.eta_pos, hF.eta_lt, hF.one_le_Jb, hF.one_le_G, hF.one_le_M, hF.G_gateK,
     hF.A_gate_lin, hF.A_gate_logK, hF.A_floor, hF.H1_two, hF.H1_pin, hXd⟩
 
-/-! ### `ThmA2` :935 — `a2RowsSum_shift_gk` -/
+/-! ### `ThmA2` — `a2RowsSum_shift_gk` -/
 /-- **⟦THE `Ccc`-SHIFT⟧, the row-sum slot** (`a2RowsSum_shift_L_gk`).  The twin's row-sum gate
 is the LANDED gate at the shifted free constant
 
@@ -524,14 +524,14 @@ lemma a2RowsSum_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ 
   rw [hexp, hcancel]
   ring
 
-/-! ### `ThmA2` :956 — `a2Mrow_shift_gk` -/
+/-! ### `ThmA2` — `a2Mrow_shift_gk` -/
 /-- **⟦THE `Ccc`-SHIFT⟧, the row-number slot** (`a2Mrow_shift_L_gk`). -/
 lemma a2Mrow_shift_L_gk (K : ℕ) (Cs C : ℝ) {M : ℕ} (Xd : ℕ) (X ε : ℝ) (hM : 1 ≤ M) :
     a2Mrow_L Cs (C + (M : ℝ) / 2 * (a2RowsSum_L_gk K M Xd - a2RowsSum_L M Xd)) M Xd X ε
       = a2Mrow_L_gk K Cs C M Xd X ε := by
   rw [a2Mrow_L, a2Mrow_L_gk, calP_doorL_one_gk, a2RowsSum_shift_L_gk K C Xd hM]
 
-/-! ### `ThmA2` :962 — `calFrameK_doorH1_at_gk` -/
+/-! ### `ThmA2` — `calFrameK_doorH1_at_gk` -/
 /-- **THE DOOR FRAME AT THE ROW'S SCALE, AT THE G-LEVER** (`calFrameK_doorH1_at_L_gk`).
 `calFrameK_doorH1_at_L` with `G := s13GK K M`; the single `X_d`-mentioning field is relaxed
 from equality exactly as in the landed statement. -/
@@ -561,7 +561,7 @@ theorem calFrameK_doorH1_at_L_gk_kwide (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤
   exact ⟨hF.eta_pos, hF.eta_lt, hF.one_le_Jb, hF.one_le_G, hF.one_le_M, hF.G_gateK,
     hF.A_gate_lin, hF.A_gate_logK, hF.A_floor, hF.H1_two, hF.H1_pin, hXd⟩
 
-/-! ### `ThmA2` :972 — `thm_a2'_of_rows_gk` -/
+/-! ### `ThmA2` — `thm_a2'_of_rows_gk` -/
 /-- **thm_A2′ AT THE G-LEVER** (`thm_a2'_of_rows_L_gk`).  `thm_a2'_of_rows_L` verbatim with
 `G := s13GK K M`: the row family is taken at `a2Mrow_L_gk`, the `𝒫₁` gate at the lever's `𝒫₁`
 (same symbol — level 1), and the row-sum gate at `a2RowsSum_L_gk`.  The conclusion is
