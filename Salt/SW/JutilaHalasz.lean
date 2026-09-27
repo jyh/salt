@@ -609,7 +609,7 @@ theorem sq_sum_norm_jutilaDetector_le (χ : DirichletCharacter ℂ q) {z₁ z₂
 /-! ## (ii) The floor in the `S'`-form (W9c) -/
 
 /-- The floor with the `r`-sum `S' = Σ'_r r⁻¹` UNWEAKENED — the landed `_floor_at_zero`'s own
-intermediate (`JutilaDetector.lean:1418–1424`) with Lemma 5 NOT applied, so that `φ(q)/q` cancels
+intermediate (`JutilaDetector.lean · jutilaDetector_floor_at_zero`) with Lemma 5 NOT applied, so that `φ(q)/q` cancels
 between Halász's two sides (design v2 §A.5) and no upper bound on the coprime harmonic sum is
 ever needed. -/
 theorem jutilaDetector_floor_sum [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)

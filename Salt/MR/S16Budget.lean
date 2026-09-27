@@ -829,7 +829,7 @@ interpretive; that is flagged per rider.
 ### ⟦RIDER `Ct`⟧ FALSE BY 6.88×; CEILING `2^23`; FREE
 
 Thirteen hops, every one a verbatim pass-through except the one marked:
-`final'` ← `S15Witness.logChowla2_conditional_sharp2_nonvacuous_gk'` (:1858)
+`final'` ← `S15Witness.logChowla2_conditional_sharp2_nonvacuous_gk'`
 ← `S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2757)
 ← `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1460)
 ← `S12ConstCompose.m4_closure_fuse_zero'_const_nonneg_gk` (:934)
@@ -2544,7 +2544,7 @@ set_option maxHeartbeats 1600000 in
 -- same cause as the landed `s15_sel''_witness_gk'`: eleven register lines at `M = 2^355`, the
 -- `blk` line carrying `2^(2K+1542)`-sized casts and the `x0M` line an `exp∘exp` chain
 /-- **⟦ITEM 1 — THE WIDE REGISTER⟧** (`s15_sel''_witness_wide`) — `s15_sel''_witness_gk'`
-(`S15Witness` :1745) at the WIDE ceilings `Kc ≤ 2^539` and `Ct ≤ 2^23`, the honest ones
+(`S15Witness`) at the WIDE ceilings `Kc ≤ 2^539` and `Ct ≤ 2^23`, the honest ones
 (§6.3's audit page: the witnesses are `≈ 2^538` and `6·e^{14} = 2^{22.78}`).  The `ρ`-charge
 moves `43 → 403` (`s16_audit_neglog_rho_le_wide`) and the four charge-spending register lines
 are re-closed by §6.3's certified stones: `half` (`s16_audit_half_wide`), `anchor`
