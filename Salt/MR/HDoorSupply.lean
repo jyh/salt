@@ -451,7 +451,7 @@ implies it by `linarith` — kernel-checked from the retired statement's own byt
 ladder's other implication rungs, before the 30 lines were removed.  It had no consumer
 left: its one call site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired
 in family 02.  Its body was one of the two call sites of the threshold page
-`pieceFloor_vt_threshold_of_loglog_rated_h`; at this retirement the other was the `h = 2` exit
+`pieceFloor_vt_threshold_of_loglog_rated_h`; at this retirement the other was the `h = 2` lane
 `pieceFloor_vt_threshold_of_loglog_rated_two`. -/
 
 /-- ⭐ **THE EXIT AT `h = 2`** (`capFreeFloor3_pieceDatum_arcDen_rated_two`) — binder-for-binder
