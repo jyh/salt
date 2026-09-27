@@ -68,9 +68,9 @@ namespace Salt.Entropy.Chowla
 scale can be divided by `a`: `a ∣ x` and the six `x`-fields of `ChowlaRegime` (`Regime.lean`:
 `hx`, `hωx`, `hheadroom`, `hheadroom'`, `hPHheadroom`, `hxbig`) read at `x / a` with every other
 field the regime's own.  Produced on the MR side by the multiplier builder
-(`chowlaRegimeFlat_exists_param_gen_ceiling_mul`: `x := a·x₀`, the floors at `x₀` are the
-builder's own) and threaded INERT through the road (no hop reads `R.x` except through these
-fields and the ceiling).  Consumed by `regimeShrinkX_stride`. -/
+(`chowlaRegimeFlat_exists_param_gen_ceiling_mul`, from 2026-09-27 its `_b9` twin: `x := a·x₀`,
+the floors at `x₀` are the builder's own) and threaded INERT through the road (no hop reads
+`R.x` except through these fields and the ceiling).  Consumed by `regimeShrinkX_stride`. -/
 def StrideScale (a : ℕ) (R : ChowlaRegime) : Prop :=
   a ∣ R.x ∧ 2 ≤ R.x / a ∧ R.ω ≤ R.x / a ∧ R.Hhi ≤ R.x / a / R.ω ∧
     8 * (R.Hhi : ℝ) * Real.log R.Hhi * Real.log R.Hhi ≤ ((R.x / a / R.ω : ℕ) : ℝ) ∧
@@ -832,7 +832,7 @@ theorem flatDesignBase_clears_stride_floors {A : ℝ} (hA : 162 ≤ A) {eps : �
 
 Build freeze v2 v1.1 (2026-09-13) §3.0: at product cap 9 the crown derives `a ≤ a·h ≤ ⌊e⁹⌋ = 8103`
 and `ε ≥ 1/(500·8103) = 1/4051500`, and nothing more; every stride site below the composition is
-twinned there.  Additive only — every declaration above is untouched.  Each twin is its source's
+twinned there.  Additive at landing — no declaration above was touched.  Each twin is its source's
 statement and body with ONLY the raises `1096 ↦ 8103`, `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
 `10^24 ↦ 10^28`; no hypothesis is added and no conclusion weakened. -/
 

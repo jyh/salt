@@ -10,7 +10,7 @@ The `L²` Theorem-2.3 shell at the affine forms — `log_chowla_two_shell_xi_sq_
 `bigXiAff`, the door `MRTUniformityXiL2AffW` (F3-P9) and the seam at Tao's range
 `contradiction_of_mrtDoorXiL2AffW` (F3-P11, `StridePair.lean:390`) — and above it THE AFFINE
 HEAD: at the crown's regime `Ra` (`mrtUniformityXiL2AffW_holds_flat_stride`,
-`StridePairReceipt.lean:2121`), the door at any grade `ρ' ≤ δ₀_aff` implies `¬ logChowlaFailsAff`.
+`StridePairReceipt.lean`), the door at any grade `ρ' ≤ δ₀_aff` implies `¬ logChowlaFailsAff`.
 
 THE DESIGN (price brief `2026-09-04-math-PRICE-lbv-w2S-F4-entropy-half.md` §2, Arm B — THE
 PLAIN ROAD).  The crown exports a PLAIN `ChowlaRegimeAff` whose tower fits and crosses at stride
@@ -402,7 +402,7 @@ set_option maxHeartbeats 1600000 in
 /-- **F4-S3 (class C, THE HEAD) — `log_chowla_aff_of_door`.**  For `b < a`, `0 < h`,
 `log(a·h) ≤ 7`, the circle-method SLOT `hcm` (F4b's producer, with its cap), the crown's payload
 `hcrown` (the conclusion of `mrtUniformityXiL2AffW_holds_flat_stride`,
-`StridePairReceipt.lean:2121`,
+`StridePairReceipt.lean`,
 at the caller's `A₀'` — supplied by the MR-side one-liner F4-S6, since this file cannot import
 `Salt.MR`) and every `A₀`: the regime `Ra` of the crown, its door at grade `a·Zr·ρ + E` FORWARDED,
 and beside it THE ENTROPY HALF:
