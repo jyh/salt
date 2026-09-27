@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.RegisterInhabit
+import Salt.Tactic.ExpLogNum
 
 /-!
 # `RegisterRepair` — ⟦THE CO-FACTOR REGISTER, REPAIRED AT THE `D`-LADDER⟧
@@ -133,8 +134,7 @@ theorem cofkR_band_log_lower {Xd P Q v : ℕ} {H : ℝ} (hH0 : 0 < H) (hQ1 : 1 �
     (1 - 1 / Real.log (Real.log ((Xd : ℕ) : ℝ))) * Real.log ((Xd : ℕ) : ℝ)
       ≤ Real.log (ramRbot H Xd v) := by
   have he2 : (7 : ℝ) ≤ Real.exp 2 := by
-    have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hLpos : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
   have hLL2 : (2 : ℝ) ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by
     have h := Real.log_le_log (Real.exp_pos 2) hLe2
@@ -223,8 +223,7 @@ theorem cofkR_descent_crude {X W : ℝ} (hW2 : 2 ≤ W) (hWX : W ≤ X)
     2 * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial W)
       ≤ 2 * Real.log 2 + 24 / Real.log W + 24 / Real.log X := by
   have he2 : (7 : ℝ) ≤ Real.exp 2 := by
-    have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have ha0 : (0 : ℝ) < Real.log X := by linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans hW2 hWX
   have hb0 : (0 : ℝ) < Real.log W := Real.log_pos (by linarith)
@@ -252,8 +251,7 @@ theorem cofkR_mfl_nonneg {X W : ℝ} (hW2 : 2 ≤ W) (hWX : W ≤ X)
     (hLL : (1000 : ℝ) ≤ Real.log (Real.log X)) :
     0 ≤ cofactorMfl X theta293 W := by
   have he2 : (7 : ℝ) ≤ Real.exp 2 := by
-    have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have ha0 : (0 : ℝ) < Real.log X := by linarith
   -- `loglog X ≥ 1000` puts `log X` above `e^{1000} ≥ 1001`
   have hLbig : (1000 : ℝ) ≤ Real.log X := by
@@ -362,8 +360,7 @@ theorem cofkR_caseASwide_priced {X W Xa Cb : ℝ} (hCb0 : 0 ≤ Cb)
       ≤ (3 * gradeAbsConstC (1 / Real.exp 1) Cb + 2 * farCStar2 + 8)
         * (Real.log X) ^ (-rho293) := by
   have he2 : (7 : ℝ) ≤ Real.exp 2 := by
-    have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_gt_d9]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have ha0 : (0 : ℝ) < Real.log X := by linarith
   have hLbig : (1000 : ℝ) ≤ Real.log X := by
     have h := Real.exp_le_exp.mpr hLL
