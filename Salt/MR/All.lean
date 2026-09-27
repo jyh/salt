@@ -9635,7 +9635,8 @@ take `log(1/Ks)` into its `max` and read `floor4` off with no numeral rider at a
 
 ⛔⛔ **AND HOP 6's `h` TWIN IS EXACTLY THE SHAPE `logChowla2_v7_rated` CONSUMES — which is why
 the headline is BLOCKED ON E and not on T.**  See the previous block's note.
-Nothing bears on twin primes. -/
+Nothing bears on twin primes.  (From 2026-09-27 the XY debt lane retires members of this chain
+into their cap-9 twins, noted in place in `S16ComposeLH.lean`; their rows leave with them.) -/
 #audit_axioms Salt.MR.capfloor_floor4_sharp_LH
   Salt.MR.capfloor_floor4_of_regimeWin_LH
   Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin
@@ -9644,7 +9645,6 @@ Nothing bears on twin primes. -/
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
-  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
 
 /-! ⟦BLOCK E — THE `ε` SEAM CLOSED, AND THE PRIZE⟧ (`HDoorSupply` §6–§8 re-spelled in place,
@@ -10328,8 +10328,10 @@ open Salt.Tactic in
 `S16FlatTerminalLinearLH` (the grid/eps assemblers at the inflated socket and the spine's first
 three links `s13CapEps_all_LH_b9` → `s16_capGate_supply_LH_gk_sharpT0_kswin_b9` →
 `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`; 2026-09-13, math — build
-freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only: every landed declaration
-is untouched.  Each twin is its source's statement and body with ONLY the shift-cap raise `log h ≤ 7
+freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only at landing: every landed
+declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` siblings into these
+`_b9` generics, noted in place).  Each twin is its source's statement and body with ONLY the
+shift-cap raise `log h ≤ 7
 ↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
 F2 twin, and no hypothesis added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤
 10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`); `cofkR_cofactorSupply_L_gk_rated_h_b9` takes
@@ -10369,7 +10371,7 @@ open Salt.Tactic in
 — build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
 24–28). Additive only at landing: every `_g` replay in `StridePairReceiptG` was untouched
 (2026-09-26: the XY pin conversion rewrote docstring pins in them; family 10 re-pointed the
-builder call of two of them). Each twin is its
+builder call of two; 2026-09-27: family 12 re-pointed a supplier call of a third). Each twin is its
 source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis

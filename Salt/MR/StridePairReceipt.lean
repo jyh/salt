@@ -1691,7 +1691,7 @@ theorem flat_kswin_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
   -- ⟦THE CROSSING CONSTANTS, HOISTED ABOVE THE LEVER⟧ — §11.4's windowed twin
   obtain ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hcsf, hT₀3, hKq0, hKqb, hKs0, hC0, hC40,
-    hsupplyU⟩ := s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin hh hh7
+    hsupplyU⟩ := s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9 hh (by linarith)
   -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1`, at ONE admissible design constant
   obtain ⟨Hcap0, -, hbody0⟩ :=
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
