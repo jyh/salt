@@ -14,15 +14,15 @@ THE DESIGN (price brief `2026-09-04-math-PRICE-lbv-w2S-F4-entropy-half.md` §3, 
 78 declarations of the nine landed files, 11 proofs touch a `logMeasure`-named lemma and 9 of
 those only the probability instance (`isProbabilityMeasure_logMeasure` ↦
 `isProbabilityMeasure_logMeasureAff`, `StrideFork.lean:104`); the two structural ones are
-`base_l1_le` (`Step.lean:89`) and `joint_l1_le` (`Step.lean:255`).  ⭐ THE ONE DESIGN LEMMA:
+`base_l1_le` (`Step.lean`) and `joint_l1_le` (`Step.lean`).  ⭐ THE ONE DESIGN LEMMA:
 `logMeasureAff_map_shift` — a shift by `t` with `a ∣ t` of the stride measure IS the plain
 measure shifted by `t/a` and then pushed along `a * ·` (`a·(n + t/a) = a·n + t`).  So the joint
 `ℓ¹` value at the stride measure is the generic pushforward contraction `map_real_l1_le`
-(`Step.lean:70`, `P Q : Measure ℕ`-generic) at `g := jointWindow ∘ (a * ·)` composed with
+(`Step.lean · map_real_l1_le`, `P Q : Measure ℕ`-generic) at `g := jointWindow ∘ (a * ·)` composed with
 `base_l1_le` VERBATIM at the shift `t/a` and `harmonic_shift_l1_le` verbatim: `base_l1_le` needs
 NO twin, and the bound `8·(jH/a)·ω/x ≤ 8·jH·ω/x` lets `R.hheadroom'` discharge the Fannes
 budget exactly as at stride `1`.  `R.a ∣ H` is CONSUMED here (F1's B7) where the landed lane
-carries and discards it (`Step.lean:418` `_ha`, `Tower.lean:161`).  Everything else — the
+carries and discards it (`Step.lean · condEntropy_shift_le` `_ha`, `Tower.lean:161`).  Everything else — the
 concatenation `condEntropy_kwindow_le` (`liouvilleWindow_block` + chain rules), the reduction
 spine, the tower arithmetic, the endpoints (`entropy_liouvilleWindow_le` is already `∀ μ`,
 `Windows.lean:62`) — is a copy with the measure renamed.
@@ -44,6 +44,7 @@ sorry-free.
 import Salt.Entropy.Chowla.StridePair
 import Salt.Entropy.Chowla.Decrement
 import Mathlib
+import Salt.Tactic.ExpLogNum
 
 open MeasureTheory Real ProbabilityTheory
 open scoped ENNReal NNReal BigOperators
@@ -84,7 +85,7 @@ theorem logMeasureAff_map_shift (a x ω t : ℕ) (hdvd : a ∣ t) :
 /-! ## F4-D1 — the joint-law `ℓ¹` value at the stride measure (the one twin with content) -/
 
 /-- **F4-D1 (class B) — the joint `ℓ¹` estimate at the stride measure.**  The twin of
-`joint_l1_le` (`Step.lean:255`) with the SAME bound `8·(jH)·ω/x`; `R.a ∣ H` is CONSUMED.
+`joint_l1_le` (`Step.lean`) with the SAME bound `8·(jH)·ω/x`; `R.a ∣ H` is CONSUMED.
 Recipe: set `t' := j * H / R.a` (so `R.a ∣ j * H` by `Dvd.dvd.mul_left`, and `t' ≤ j * H`);
 rewrite the shifted joint law by `logMeasureAff_map_shift` and `Measure.map_map` into
 `((logMeasure R.x R.ω).map (· + t')).map (jointWindow R.eps H 0 ∘ (R.a * ·))`, and the base
@@ -92,7 +93,7 @@ joint law into `(logMeasure R.x R.ω).map (jointWindow R.eps H 0 ∘ (R.a * ·))
 logMeasureAff; Measure.map_map`); then the landed body of `joint_l1_le` VERBATIM with `g :=
 jointWindow R.eps H 0 ∘ (R.a * ·)` (measurable by `measurable_of_countable`; its range sits in
 `jointSupport` by `jointWindow_mem_jointSupport`), `A := Finset.Ioc 0 (R.x + t')`, the two
-nullities from `logMeasure_apply` as at `Step.lean:266-284`; `map_real_l1_le` (`Step.lean:70`),
+nullities from `logMeasure_apply` as at `Step.lean · joint_l1_le-284`; `map_real_l1_le` (`Step.lean`),
 then `base_l1_le R.hx R.hω R.hωx` at `t'` and `harmonic_shift_l1_le R.hx R.hω R.hωx` at `t'`,
 finally `8·t'·ω/x ≤ 8·(jH)·ω/x` by `Nat.div_le_self` and `gcongr`. -/
 theorem joint_l1_le_aff (R : ChowlaRegime) (H j : ℕ) (hdvd : R.a ∣ H) :
@@ -260,7 +261,7 @@ theorem condEntropy_shift_le_of_l1_aff (R : ChowlaRegime) (H j : ℕ) (d : ℝ)
   linarith [hred, hdiff, hbudget]
 
 /-- **F4-D2c (class A) — the D-d headline at the stride measure.**  `condEntropy_shift_le`
-(`Step.lean:417`) with `joint_l1_le_aff` (which CONSUMES `ha`) in place of `joint_l1_le` and
+(`Step.lean · condEntropy_shift_le`) with `joint_l1_le_aff` (which CONSUMES `ha`) in place of `joint_l1_le` and
 `condEntropy_shift_le_of_l1_aff` in place of `condEntropy_shift_le_of_l1`; the budget arithmetic
 (`budget_real`, `log_jointSupport_card_le`, `R.hheadroom'`) is verbatim — the bound is the
 landed `8·(jH)·ω/x`. -/
@@ -321,9 +322,7 @@ theorem condEntropy_shift_le_aff (R : ChowlaRegime) {H k j : ℕ}
     have hlogH2 : (2:ℝ) ≤ Real.log H := by
       rw [Real.le_log_iff_exp_le (by exact_mod_cast hHpos)]
       have hexp2 : Real.exp 2 ≤ 8 := by
-        have h := Real.exp_one_lt_d9
-        have he2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-        rw [he2]; nlinarith [Real.exp_pos 1, h]
+        exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (by norm_num)
       linarith [hexp2, hHR]
     have hsq : (4:ℝ) ≤ (Real.log H)^2 := by nlinarith [hlogH2]
     have hq : 1/(Real.log H)^2 ≤ 1/4 := one_div_le_one_div_of_le (by norm_num) hsq
@@ -356,9 +355,9 @@ theorem condEntropy_shift_le_aff (R : ChowlaRegime) {H k j : ℕ}
   exact condEntropy_shift_le_of_l1_aff R H j d hd_def hd1 hbudget
 
 /-- **F4-D2d (class A) — conditional concatenation subadditivity at the stride measure.**
-`condEntropy_kwindow_le` (`Step.lean:641`): `liouvilleWindow_block` (a pointwise identity in the
+`condEntropy_kwindow_le` (`Step.lean`): `liouvilleWindow_block` (a pointwise identity in the
 sample), `condEntropy_comp_of_injective` and `condEntropy_finPi_le` (both `μ`-generic,
-`Step.lean:513/566`); the only `logMeasure` use was the instance (`:647`). -/
+`Step.lean · condEntropy_comp_of_injective/566`); the only `logMeasure` use was the instance (`:647`). -/
 theorem condEntropy_kwindow_le_aff (R : ChowlaRegime) (H k : ℕ) :
     H[liouvilleWindow (k * H) | residueWindow R.eps H ; logMeasureAff R.a R.x R.ω]
       ≤ ∑ b ∈ Finset.range k,
@@ -412,7 +411,7 @@ theorem condEntropy_kwindow_le_aff (R : ChowlaRegime) (H k : ℕ) :
     (fun b => instFiniteRangeShift H (b : ℕ))
 
 /-- **F4-D2e (class A) — the (3.11) per-step inequality at the stride measure.**
-`step_ineq_3_11` (`Step.lean:696`) with `condEntropy_kwindow_le_aff` and
+`step_ineq_3_11` (`Step.lean`) with `condEntropy_kwindow_le_aff` and
 `condEntropy_shift_le_aff` (`ha` forwarded, now consumed); the residue ceiling
 `entropy_residueWindow_le_log_PH` (`PrimeWindow.lean:65`) is `∀ μ`. -/
 theorem step_ineq_3_11_aff (R : ChowlaRegime) {H k : ℕ}
@@ -439,10 +438,7 @@ theorem step_ineq_3_11_aff (R : ChowlaRegime) {H k : ℕ}
     have hlogH3 : (3:ℝ) < Real.log H := by
       rw [Real.lt_log_iff_exp_lt hHR]
       have hexp3 : Real.exp 3 ≤ 21 := by
-        have h := Real.exp_one_lt_d9
-        have he3 : Real.exp 3 = Real.exp 1 * Real.exp 1 * Real.exp 1 := by
-          rw [← Real.exp_add, ← Real.exp_add]; norm_num
-        rw [he3]; nlinarith [Real.exp_pos 1, h]
+        exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 3 (by norm_num)
       have h21 : (21:ℝ) < (H:ℝ) := by
         have : (4000000:ℝ) ≤ (H:ℝ) := by exact_mod_cast hHfloor
         linarith

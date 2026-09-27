@@ -9357,8 +9357,8 @@ S15CrossingBound_LH_gk h K R M`.
 No landed declaration is edited: every landed numeric stone the `h` lane outgrows has a
 SIBLING here with a wider ceiling.
 
-⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` (`:955`) and
-`s13CapGrid_all_L_gk` (`:594`) derive `hbb : SocketBase` from their `SocketBaseL` binder and
+⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
+`s13CapGrid_all_L_gk` derive `hbb : SocketBase` from their `SocketBaseL` binder and
 feed `hbb` to the WHOLE floor and eps pages.  `SocketBaseLH h → SocketBase` is FALSE at
 `h ≥ 2` and no non-linear inflated socket exists, so every `SocketBase`-typed leaf under that
 assembler is re-stated here.
@@ -9400,7 +9400,7 @@ nowhere else, which is the check that the ceilings were priced from real demand.
 `q ≤ arcDen 12 H` cannot hold when the socket only gives `q ≤ h·arcDen 12 H`.  It is stated at
 `Hreg := A + s`, where `arcDen 12 (A+s) = (log (A+s))^12` is exactly the grid page's `q_logX`,
 whose `LH` conclusion is unchanged.  The field it lands in
-(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear:187`) is READ NOWHERE in the corpus —
+(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear`) is READ NOWHERE in the corpus —
 three declarations, five `:= e4` assignments, docstrings, zero reads — and `Hreg` occurs in
 that structure only there, so no landed object changes and nothing downstream observes it.
 

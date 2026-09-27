@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.FarClose
 import Salt.MR.SeamGate
+import Salt.Tactic.ExpLogNum
 
 /-!
 # FAR-STAR — the far arm re-pinned at `T* = y·k^{1/log y}` (`FarStar`)
@@ -151,8 +152,7 @@ private lemma pin_basic64T {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = R
     linarith
   have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   refine ⟨hk0, hL64, hy131072, hlogy, by rw [hη, hlogy]; positivity, ?_, ?_, ?_⟩
@@ -191,8 +191,7 @@ private lemma pin_rpow_scaleT {k h L c₀ : ℝ} (hk : Real.exp 64 ≤ k) (hL : 
     rw [Real.log_mul hk0.ne' hk0.ne', ← hL] at h1
     linarith
   have he2 : Real.exp 2 ≤ 8 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
   have hfrac : (k + h) ^ (1 / L : ℝ) ≤ 8 := by
     rw [Real.rpow_def_of_pos hkh0]
     have hexp : Real.log (k + h) * (1 / L) ≤ 2 := by
@@ -347,8 +346,7 @@ private lemma far_mass_cancel {k L : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Rea
   have hL0 : (0 : ℝ) < L := by linarith
   have hy0 : (0 : ℝ) < L ^ 4 := by positivity
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   have hlogL0 : Real.log L ≠ 0 := by linarith
@@ -381,8 +379,7 @@ theorem far_kfar_star_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ �
       rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
     rw [← h64]; exact Real.sqrt_le_sqrt hL64
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   have hlogL0 : (0 : ℝ) < Real.log L := by linarith
@@ -578,8 +575,7 @@ theorem hfar_star {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ ≤ 1) {k
       rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
     rw [← h64]; exact Real.sqrt_le_sqrt hL64
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   have hlogL0 : Real.log L ≠ 0 := by linarith

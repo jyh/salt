@@ -55,10 +55,10 @@ circular.  This file hoists past `(g, t₀)` as well:
   `∃ X₀ C_E C_R, 0 ≤ C_E ∧ 0 ≤ C_R ∧ ∀ g, (∀ p, p.Prime → ‖g p‖ ≤ 1) → ∀ t₀, ∀ {X h c₀ y η}, …`
 
 **The gate (refuter's open link, checked):** `ms_b_smooth_factor`'s witness
-(`MultShiu.lean:1908`) is `exp(M + Cm/log 8 + (e−1) + (e−1)(log 4+4)/log 8 +
+(`MultShiu.lean · ms_b_smooth_factor`) is `exp(M + Cm/log 8 + (e−1) + (e−1)(log 4+4)/log 8 +
 4(1 + 1/(β₀−1)))` with `β₀ = 2 − 2/log 8` and `(M, Cm)` from
 `Salt.Mertens.mertens_second_sharp` — numerals and Mertens constants only: **datum-free**.
-Same for `mult_shiu_MS_A`'s (`:1434`) and `mult_shiu_MS_B`'s (`:2220`).
+Same for `mult_shiu_MS_A`'s and `mult_shiu_MS_B`'s.
 
 **The route taken is cheaper than re-running those proofs**: every `g`-dependence in
 the MS-EXIT integrand is a *norm of a linearized carrier*, and each such norm is

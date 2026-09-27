@@ -542,14 +542,7 @@ theorem doorBaseFrame_at_socket_LH {h : ℕ} {R : ChowlaRegime} {M H L q j A s :
     linarith
   · -- ⟦`ceil5`⟧
     have he5 : Real.exp 5 ≤ 1000 := by
-      have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-      have hh : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hpos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-      rw [hh]
-      have hc : (Real.exp 1) ^ (5 : ℕ) ≤ (2.7182818286 : ℝ) ^ (5 : ℕ) :=
-        pow_le_pow_left₀ hpos.le he.le 5
-      have hn : (2.7182818286 : ℝ) ^ (5 : ℕ) ≤ 1000 := by norm_num
-      linarith
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 5 (c := 1000) (by norm_num)
     have hlog : Real.exp 5
         ≤ Real.log (2 * ((((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ))) := by
       have h1 : Real.log (((A + s : ℕ)) : ℝ) - Real.log (H : ℝ)
@@ -656,13 +649,7 @@ theorem s13_smallGradeFits_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
   have he1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hexp15 : Real.exp 15 ≤ 4000000 := by
-    have h15 : Real.exp 15 = (Real.exp 1) ^ (15 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have hp : (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) :=
-      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 15
-    rw [h15]
-    calc (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) := hp
-      _ ≤ 4000000 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 15 (c := 4000000) (by norm_num)
   have hΛ15 : (15 : ℝ) ≤ Λ := by
     rw [hΛdef, Real.le_log_iff_exp_le hH0]
     linarith
@@ -1221,13 +1208,7 @@ theorem s13_smallGradeFits_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ)
   have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
   have he1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hexp15 : Real.exp 15 ≤ 4000000 := by
-    have h15 : Real.exp 15 = (Real.exp 1) ^ (15 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have hp : (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) :=
-      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 15
-    rw [h15]
-    calc (Real.exp 1) ^ (15 : ℕ) ≤ (2.7182818286 : ℝ) ^ (15 : ℕ) := hp
-      _ ≤ 4000000 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 15 (c := 4000000) (by norm_num)
   have hΛ15 : (15 : ℝ) ≤ Λ := by
     rw [hΛdef, Real.le_log_iff_exp_le hH0]
     linarith

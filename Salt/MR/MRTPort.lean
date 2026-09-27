@@ -153,7 +153,7 @@ unproved.  The witness character is mathlib's `(1 : DirichletCharacter ℂ 1)`; 
 already applied and coerced — and cannot inhabit the `χ` binder.
 
 The corpus's own landed instance of exactly this move is `mrtM_nonneg`
-(`Salt/MR/MRTPropA3.lean:2595`), which likewise spends its `hX` on the nonemptiness
+(`Salt/MR/MRTPropA3.lean · mrtM_nonneg`), which likewise spends its `hX` on the nonemptiness
 witness; this proof is modelled on it.
 
 ⚠️ **Scope.**  This closes the `le_csInf` half only; the **index-uniformity** half is

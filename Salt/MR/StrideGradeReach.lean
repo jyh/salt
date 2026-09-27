@@ -108,7 +108,7 @@ gives `2^12 = 4096`, and `10⁶ > 4096` by `244×`.  This is the wall that is no
 theorem landed_capgate_refuses_the_million : ¬ ((10 : ℕ) ^ 6 ≤ 4096) := by norm_num
 
 /-- ⛔ **⟦CONTROL — THE COUNT PIN REFUSES THE NEW CAP AT STRIDE 2, EVEN AT ITS LOOSEST READING⟧
-(class A)** — the `2^539` count pin (`GoldbachEnergyKcH.lean:226`) carries the witness
+(class A)** — the `2^539` count pin (`GoldbachEnergyKcH.lean · bigXiH_bounded_ceiling_of_pin`) carries the witness
 `32·exp 40·2^70·500^10·(a·h)^15 ≤ 2^539`, and it has TWO ceilings, which is the point of stating
 this control against the LOOSER one:
 ```

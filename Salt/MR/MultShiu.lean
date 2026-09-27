@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.MR.HalaszRepAsm
+import Salt.Tactic.ExpLogNum
 
 /-!
 # MULT-SHIU — the `hfactor` secondary bound (GHS Lemma 2.4 at `κ = 1`)
@@ -1886,9 +1887,7 @@ theorem ms_b_smooth_factor (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ 
   obtain ⟨M, Cm, hCm0, hM⟩ := Salt.Mertens.mertens_second_sharp
   -- log 8 > 2  (⟹ 1/log 8 ≤ 1/2 and 2 - 2/log 8 > 1)
   have hexp2lt8 : Real.exp 2 < 8 := by
-    have h := Real.exp_one_lt_d9
-    have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_pos 1, h]
+    exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 2 (by norm_num)
   have hlog8 : (2 : ℝ) < Real.log 8 := by
     have h2 : Real.log (Real.exp 2) < Real.log 8 := Real.log_lt_log (Real.exp_pos 2) hexp2lt8
     rwa [Real.log_exp] at h2
@@ -2233,9 +2232,7 @@ theorem mult_shiu_MS_B (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 
   have hlog8pos : (0 : ℝ) < Real.log 8 := Real.log_pos (by norm_num)
   have hlog8ge2 : (2 : ℝ) < Real.log 8 := by
     have hexp2lt8 : Real.exp 2 < 8 := by
-      have h := Real.exp_one_lt_d9
-      have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-      rw [he]; nlinarith [Real.exp_pos 1, h]
+      exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 2 (by norm_num)
     have h2 : Real.log (Real.exp 2) < Real.log 8 := Real.log_lt_log (Real.exp_pos 2) hexp2lt8
     rwa [Real.log_exp] at h2
   have hlogy8 : Real.log 8 ≤ Real.log y := Real.log_le_log (by norm_num) hy

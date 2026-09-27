@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4RowsChiPrimeLinear
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ⟦LADDER-L G3 §4⟧ — `M4ArithZero` + `M4ArithPool` + `M4ArithPrime` + `M4SocketFused`
@@ -728,9 +729,7 @@ theorem doorFuseFrame_pool'_of_gates_L {M Xd j : ℕ} {Cs ε π₀ : ℝ}
       have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) :=
         Real.log_le_log (by norm_num) hb.X_three
       have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-        have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-        have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-        rwa [Real.log_exp] at this
+        exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
       linarith
     have hle : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε) ≤ 1 := by
       have : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε)
@@ -743,9 +742,7 @@ theorem doorFuseFrame_pool'_of_gates_L {M Xd j : ℕ} {Cs ε π₀ : ℝ}
       have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) :=
         Real.log_le_log (by norm_num) hb.X_three
       have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-        have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-        have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-        rwa [Real.log_exp] at this
+        exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
       linarith
     have hL0 : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
     have habs : 4096 * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500)
@@ -1330,9 +1327,7 @@ theorem doorFuseFrame_pool'_of_gates_L_gk (K : ℕ) {M Xd j : ℕ} {Cs ε π₀ 
       have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) :=
         Real.log_le_log (by norm_num) hb.X_three
       have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-        have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-        have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-        rwa [Real.log_exp] at this
+        exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
       linarith
     have hle : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε) ≤ 1 := by
       have : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε)
@@ -1345,9 +1340,7 @@ theorem doorFuseFrame_pool'_of_gates_L_gk (K : ℕ) {M Xd j : ℕ} {Cs ε π₀ 
       have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) :=
         Real.log_le_log (by norm_num) hb.X_three
       have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-        have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-        have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-        rwa [Real.log_exp] at this
+        exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
       linarith
     have hL0 : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
     have habs : 4096 * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500)

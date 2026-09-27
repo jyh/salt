@@ -15,7 +15,7 @@ PDF itself** rather than from any summary (including this repo's own
 
 ⛔ **ERRATUM 2026-08-25 (second pass).**  This block is introduced as *MRT's text,
 verbatim*, and until now it read `(loglog h)²/(log h)` — **unsquared**.  The `46b7a5a9`
-repair moved the STATEMENT at `:94` and `MRTPropA3.lean:3809` and left this QUOTATION
+repair moved the STATEMENT at `:94` and `MRTPropA3.lean · mrtA4ii_far_of_either_estimate` and left this QUOTATION
 stale, so the file convicted its own theorem of an error the quote above it still
 committed.  *A fix reaches where the pain was felt; the quotation is a separate surface
 and it was not enumerated.*  Re-read at 200 dpi from p. 20 and corrected here.
