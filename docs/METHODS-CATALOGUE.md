@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `463657a9` · source digest `6f8f3ec94894eef3` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `4786a91c` · source digest `1ebb3c2c009d0271` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22697 · with a proof/definition body: 22697 · direct corpus references (edges): 85433 · audited results: 9083 · corpus Prop-valued names: 668.
+Declarations indexed: 22696 · with a proof/definition body: 22696 · direct corpus references (edges): 85430 · audited results: 9082 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -304,7 +304,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel''_L_gk` | DISCHARGED | 19 | `Salt.MR.s15_sel''_L_gk_witness_flat_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:3574) · `Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win` ✓audited GUARDED (Salt/MR/FlatFloorBump.lean:353) · `Salt.MR.s15_sel''_L_gk_witness_flat_bumped` ✓audited GUARDED (Salt/MR/FlatFloorBump.lean:382) · +8 |
 | `Salt.Entropy.Chowla.MRTUniformityXi` | DISCHARGED | 17 | `Salt.MR.mrtUniformityXi_of_absWindowBound_twelve` ✓audited GUARDED (Salt/MR/M4Window.lean:268) |
 | `Salt.Chen.StepHypWPC` | DISCHARGED | 14 | `Salt.Chen.stepHypWPC_sharpB` ✓audited GUARDED (Salt/Chen/SharpClose.lean:125) · `Salt.Chen.stepHypWPC_const` ✓audited GUARDED (Salt/Chen/WindowedStepC.lean:79) |
-| `Salt.MR.CapFreeFloor3` | DISCHARGED | 14 | `Salt.MR.capFreeFloor3_pieceDatum_vt_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:271) · `Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:343) · `Salt.MR.capFreeFloor3_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm3.lean:89) · +20 |
+| `Salt.MR.CapFreeFloor3` | DISCHARGED | 14 | `Salt.MR.capFreeFloor3_pieceDatum_vt_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:271) · `Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:343) · `Salt.MR.capFreeFloor3_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm3.lean:89) · +19 |
 | `Salt.Entropy.Chowla.XCeilRiderStrict` | DISCHARGED | 12 | `Salt.MR.xceilRiderStrict_zero` ✓audited (Salt/MR/V7Headline.lean:91) |
 | `Salt.MR.M4GradeGateSplit` | DISCHARGED | 12 | `Salt.MR.m4_gradeGate_of_block_pricing_split` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:533) · `Salt.MR.m4_gradeGate_direct_split` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:760) · `Salt.MR.m4_gradeGate_of_pricing_split` ✓audited GUARDED (Salt/MR/M4Close.lean:686) · +1 |
 | `Salt.MR.M4SievedDoorSq` | DISCHARGED | 12 | `Salt.MR.m4_sievedDoorSq_trivial` ✓audited (Salt/MR/M4Close.lean:384) |
@@ -360,7 +360,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.FlatHeadFormEpsW_band` | DISCHARGED | 3 | `Salt.MR.flat_head_uniform_xceil_epsW_band` ✓audited GUARDED (Salt/MR/FlatDoorAllGradesBand.lean:624) |
 | `Salt.MR.FlatHeadFormU` | DISCHARGED | 3 | `Salt.MR.flatHeadFormU_trivial` ✓audited GUARDED (Salt/MR/FlatDoorUniform.lean:1171) |
 | `Salt.MR.M4BlockMeanSqSup` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSup_trivial` ✓audited (Salt/MR/M4Join.lean:274) |
-| `Salt.MR.M4BlockMeanSqSupQH` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSupQH_of_classPriceH` ✓audited GUARDED (Salt/MR/HDoorSupply.lean:1091) · `Salt.MR.m4_blockMeanSqSupQH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:1146) |
+| `Salt.MR.M4BlockMeanSqSupQH` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSupQH_of_classPriceH` ✓audited GUARDED (Salt/MR/HDoorSupply.lean:1076) · `Salt.MR.m4_blockMeanSqSupQH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:1131) |
 | `Salt.MR.MSelect` | DISCHARGED | 3 | `Salt.MR.s13_MSelect_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesA.lean:1030) |
 | `Salt.MR.MSelect'_L` | DISCHARGED | 3 | `Salt.MR.s13_MSelect'_L_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:652) · `Salt.MR.s13_MSelect'_L_of_halfWindow` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:709) |
 | `Salt.MR.MVHilbertUniform` | DISCHARGED | 3 | `Salt.MR.mvHilbertUniform_holds` ✓audited (Salt/MR/MVCore2.lean:575) |
@@ -389,7 +389,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4GradeGateL2` | DISCHARGED | 2 | `Salt.MR.m4_gradeGateL2_of_binder_split` ✓audited GUARDED (Salt/MR/M4DoorL2.lean:387) |
 | `Salt.MR.M4SievedDoorSqH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqH_trivial` ✓audited (Salt/MR/HDoorArc.lean:463) |
 | `Salt.MR.M4SievedDoorSqSup` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqSup_trivial` ✓audited (Salt/MR/M4BridgePhase.lean:492) |
-| `Salt.MR.M4SievedDoorSqSupH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqSupH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:999) |
+| `Salt.MR.M4SievedDoorSqSupH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqSupH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:984) |
 | `Salt.MR.MSelect_L` | DISCHARGED | 2 | `Salt.MR.s13_MSelect_L_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:451) |
 | `Salt.MR.MSelect_L_gk` | DISCHARGED | 2 | `Salt.MR.s13_MSelect_L_of_headroom_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:476) |
 | `Salt.MR.MaskSmooth` | DISCHARGED | 2 | `Salt.MR.lamTailWeightMask_support` ✓audited GUARDED (Salt/MR/LambdaChiMask.lean:174) · `Salt.MR.maskSmooth_one` (Salt/MR/MobiusChiRamareUnion.lean:124) · `Salt.MR.maskTailWeight_support` ✓audited GUARDED (Salt/MR/MobiusChiRamareUnion.lean:219) · +1 |
@@ -961,29 +961,29 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | family | decls in family | audited in family | unconditional | conditional | statement-only | infrastructure | unresolved | audited dependents | external dependents |
 |---|---|---|---|---|---|---|---|---|---|
-| circle method / Fourier | 181 | 83 | 562 | 542 | 22 | 10 | 0 | 1136 | 1072 |
+| circle method / Fourier | 181 | 83 | 561 | 542 | 22 | 10 | 0 | 1135 | 1071 |
 | entropy decrement | 1400 | 536 | 530 | 424 | 78 | 38 | 0 | 1070 | 620 |
-| large sieve | 136 | 18 | 711 | 493 | 1 | 22 | 0 | 1227 | 1213 |
-| Selberg/Brun sieve | 5626 | 949 | 3748 | 1276 | 65 | 93 | 0 | 5182 | 4318 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1482 | 614 | 4 | 19 | 0 | 2119 | 1487 |
-| zero-density / zero-free regions | 724 | 292 | 1019 | 644 | 2 | 20 | 0 | 1685 | 1432 |
-| character sums / L-functions | 4280 | 2156 | 1809 | 747 | 81 | 99 | 0 | 2736 | 881 |
-| exponential sums | 577 | 223 | 798 | 521 | 31 | 33 | 0 | 1383 | 1198 |
-| Mertens / PNT-type | 253 | 67 | 881 | 704 | 4 | 16 | 0 | 1605 | 1548 |
+| large sieve | 136 | 18 | 710 | 493 | 1 | 22 | 0 | 1226 | 1212 |
+| Selberg/Brun sieve | 5626 | 949 | 3747 | 1276 | 65 | 93 | 0 | 5181 | 4317 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1481 | 614 | 4 | 19 | 0 | 2118 | 1486 |
+| zero-density / zero-free regions | 724 | 292 | 1018 | 644 | 2 | 20 | 0 | 1684 | 1431 |
+| character sums / L-functions | 4279 | 2155 | 1808 | 747 | 81 | 99 | 0 | 2735 | 881 |
+| exponential sums | 577 | 223 | 797 | 521 | 31 | 33 | 0 | 1382 | 1197 |
+| Mertens / PNT-type | 253 | 67 | 880 | 704 | 4 | 16 | 0 | 1604 | 1547 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 100 | 349 | 0 | 0 | 0 | 449 | 449 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9766 | 5424 | 2975 | 1268 | 168 | 189 | 0 | 4600 | 61 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9765 | 5423 | 2974 | 1268 | 168 | 189 | 0 | 4599 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4318 external dependents
+### Selberg/Brun sieve — 4317 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.BrunLower.sum_vonMangoldt_div_ge` | 1354 | Salt/BrunLower/MertensWindow.lean:53 |
-| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1353 | Salt/BrunLower/MertensWindow.lean:340 |
+| `Salt.BrunLower.sum_vonMangoldt_div_ge` | 1353 | Salt/BrunLower/MertensWindow.lean:53 |
+| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1352 | Salt/BrunLower/MertensWindow.lean:340 |
 | `Salt.BrunLower.sum_inv_le_of_prime_window` | 630 | Salt/BrunLower/MertensWindow.lean:595 |
 | `Salt.MR.norm_memSCoeff_le_one` | 392 | Salt/MR/M4Sieve.lean:126 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 388 | Salt/Chen/MertensPNT.lean:159 |
@@ -993,52 +993,52 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 265 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
 | `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | 264 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:174 |
 
-### Mertens / PNT-type — 1548 external dependents
+### Mertens / PNT-type — 1547 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.BrunLower.sum_vonMangoldt_div_ge` | 1354 | Salt/BrunLower/MertensWindow.lean:53 |
-| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1353 | Salt/BrunLower/MertensWindow.lean:340 |
+| `Salt.BrunLower.sum_vonMangoldt_div_ge` | 1353 | Salt/BrunLower/MertensWindow.lean:53 |
+| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1352 | Salt/BrunLower/MertensWindow.lean:340 |
 | `Salt.BrunLower.sum_inv_le_of_prime_window` | 630 | Salt/BrunLower/MertensWindow.lean:595 |
-| `Salt.MR.mertens_first_upper` | 411 | Salt/MR/PrimeSigmaShift.lean:46 |
+| `Salt.MR.mertens_first_upper` | 410 | Salt/MR/PrimeSigmaShift.lean:46 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 388 | Salt/Chen/MertensPNT.lean:159 |
-| `Salt.Mertens.abel_primeZeta` | 298 | Salt/Mertens/Third.lean:414 |
-| `Salt.Mertens.loglog_integral_asymp` | 298 | Salt/Mertens/GammaIntegral.lean:323 |
-| `Salt.Mertens.mertensM_eq_sub` | 297 | Salt/Mertens/Third.lean:653 |
+| `Salt.Mertens.abel_primeZeta` | 297 | Salt/Mertens/Third.lean:414 |
+| `Salt.Mertens.loglog_integral_asymp` | 297 | Salt/Mertens/GammaIntegral.lean:323 |
+| `Salt.Mertens.mertensM_eq_sub` | 296 | Salt/Mertens/Third.lean:653 |
 | `Salt.Chen.twinWindow_mass_eq` | 257 | Salt/Chen/MertensPNT.lean:248 |
-| `Salt.Mertens.mertensB_nonneg` | 257 | Salt/Mertens/PrimePower.lean:155 |
+| `Salt.Mertens.mertensB_nonneg` | 256 | Salt/Mertens/PrimePower.lean:155 |
 
-### Bombieri-Vinogradov / Siegel-Walfisz — 1487 external dependents
+### Bombieri-Vinogradov / Siegel-Walfisz — 1486 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.SW.Zc_growth` | 927 | Salt/SW/ZetaPartialFractions.lean:851 |
+| `Salt.SW.Zc_growth` | 926 | Salt/SW/ZetaPartialFractions.lean:851 |
 | `Salt.SW.logDeriv_prod_pow` | 824 | Salt/SW/PartialFractions.lean:80 |
 | `Salt.SW.norm_deriv_le_of_re_le` | 823 | Salt/SW/ZeroCount.lean:230 |
 | `Salt.SW.norm_logDeriv_sub_sum_of_blaschke` | 822 | Salt/SW/BCBound.lean:153 |
 | `Salt.SW.norm_reflectedFactor_eq_on_sphere` | 821 | Salt/SW/MaxModulus.lean:63 |
-| `Salt.SW.LFunction_center_lower` | 813 | Salt/SW/ZeroCount.lean:99 |
-| `Salt.BV.polya_vinogradov` | 797 | Salt/BV/PolyaVinogradov.lean:234 |
-| `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | 794 | Salt/SW/Defs.lean:279 |
+| `Salt.SW.LFunction_center_lower` | 812 | Salt/SW/ZeroCount.lean:99 |
+| `Salt.BV.polya_vinogradov` | 796 | Salt/BV/PolyaVinogradov.lean:234 |
+| `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | 793 | Salt/SW/Defs.lean:279 |
 | `Salt.SW.entire_zero_count_le` | 786 | Salt/SW/ZetaPartialFractions.lean:134 |
 | `Salt.SW.entire_norm_logDeriv_sub_sum'` | 780 | Salt/SW/ZetaPartialFractions.lean:171 |
 
-### zero-density / zero-free regions — 1432 external dependents
+### zero-density / zero-free regions — 1431 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.SW.Zc_growth` | 927 | Salt/SW/ZetaPartialFractions.lean:851 |
+| `Salt.SW.Zc_growth` | 926 | Salt/SW/ZetaPartialFractions.lean:851 |
 | `Salt.SW.norm_deriv_le_of_re_le` | 823 | Salt/SW/ZeroCount.lean:230 |
-| `Salt.SW.LFunction_center_lower` | 813 | Salt/SW/ZeroCount.lean:99 |
+| `Salt.SW.LFunction_center_lower` | 812 | Salt/SW/ZeroCount.lean:99 |
 | `Salt.SW.entire_zero_count_le` | 786 | Salt/SW/ZetaPartialFractions.lean:134 |
 | `Salt.SW.entire_norm_logDeriv_sub_sum'` | 780 | Salt/SW/ZetaPartialFractions.lean:171 |
 | `Salt.SW.neg_logDeriv_zeta_le` | 666 | Salt/SW/ZetaPole.lean:189 |
-| `Salt.Vk.eR_lipschitz` | 628 | Salt/Vk/Shift.lean:45 |
+| `Salt.Vk.eR_lipschitz` | 627 | Salt/Vk/Shift.lean:45 |
 | `Salt.SW.LFunction_zero_count_le` | 614 | Salt/SW/ZeroCount.lean:179 |
-| `Salt.SW.LFunction_conj` | 613 | Salt/SW/ZeroFreeReal.lean:74 |
+| `Salt.SW.LFunction_conj` | 612 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.neg_logDeriv_zeta_split` | 607 | Salt/SW/ZetaPartialFractions.lean:98 |
 
-### large sieve — 1213 external dependents
+### large sieve — 1212 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1053,30 +1053,30 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.LS.arithmetic_LS` | 101 | Salt/LS/ArithmeticLS.lean:91 |
 | `Salt.LS.char_LS` | 100 | Salt/LS/CharLS.lean:277 |
 
-### exponential sums — 1198 external dependents
+### exponential sums — 1197 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.ExpSum.norm_eR` | 774 | Salt/ExpSum/Basic.lean:45 |
-| `Salt.ExpSum.eR_mul_conj` | 651 | Salt/ExpSum/Basic.lean:60 |
-| `Salt.ExpSum.kusmin_landau` | 577 | Salt/ExpSum/Kusmin.lean:186 |
-| `Salt.ExpSum.vdC_second_derivative` | 573 | Salt/ExpSum/VdCorput2.lean:145 |
-| `Salt.ExpSum.vdC_2nd_ZR` | 554 | Salt/ExpSum/DerivTest.lean:63 |
-| `Salt.ExpSum.weyl_vdC_sq` | 549 | Salt/ExpSum/Basic.lean:131 |
-| `Salt.ExpSum.weyl_vdC_expSum` | 548 | Salt/ExpSum/Basic.lean:258 |
-| `Salt.ExpSum.isVdCBound_16` | 540 | Salt/ExpSum/Strip.lean:182 |
-| `Salt.ExpSum.abel_antitone_prefix` | 532 | Salt/ExpSum/Strip.lean:698 |
-| `Salt.ExpSum.cpow_weight_split` | 532 | Salt/ExpSum/Strip.lean:679 |
+| `Salt.ExpSum.norm_eR` | 773 | Salt/ExpSum/Basic.lean:45 |
+| `Salt.ExpSum.eR_mul_conj` | 650 | Salt/ExpSum/Basic.lean:60 |
+| `Salt.ExpSum.kusmin_landau` | 576 | Salt/ExpSum/Kusmin.lean:186 |
+| `Salt.ExpSum.vdC_second_derivative` | 572 | Salt/ExpSum/VdCorput2.lean:145 |
+| `Salt.ExpSum.vdC_2nd_ZR` | 553 | Salt/ExpSum/DerivTest.lean:63 |
+| `Salt.ExpSum.weyl_vdC_sq` | 548 | Salt/ExpSum/Basic.lean:131 |
+| `Salt.ExpSum.weyl_vdC_expSum` | 547 | Salt/ExpSum/Basic.lean:258 |
+| `Salt.ExpSum.isVdCBound_16` | 539 | Salt/ExpSum/Strip.lean:182 |
+| `Salt.ExpSum.abel_antitone_prefix` | 531 | Salt/ExpSum/Strip.lean:698 |
+| `Salt.ExpSum.cpow_weight_split` | 531 | Salt/ExpSum/Strip.lean:679 |
 
-### circle method / Fourier — 1072 external dependents
+### circle method / Fourier — 1071 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.Vmvt.integral_eR_unit` | 553 | Salt/Vmvt/Fourier.lean:90 |
-| `Salt.Vmvt.integral_setGen_mul_conj` | 552 | Salt/Vmvt/Fourier.lean:196 |
-| `Salt.Vmvt.integral_norm_pow_eq_Jk` | 546 | Salt/Vmvt/Fourier.lean:259 |
-| `Salt.Vmvt.pairEqBox_Ncount_eq_integral` | 544 | Salt/Vmvt/Fourier.lean:271 |
-| `Salt.MR.char_sum_fourier_le` | 336 | Salt/MR/VkTwistLadder.lean:379 |
+| `Salt.Vmvt.integral_eR_unit` | 552 | Salt/Vmvt/Fourier.lean:90 |
+| `Salt.Vmvt.integral_setGen_mul_conj` | 551 | Salt/Vmvt/Fourier.lean:196 |
+| `Salt.Vmvt.integral_norm_pow_eq_Jk` | 545 | Salt/Vmvt/Fourier.lean:259 |
+| `Salt.Vmvt.pairEqBox_Ncount_eq_integral` | 543 | Salt/Vmvt/Fourier.lean:271 |
+| `Salt.MR.char_sum_fourier_le` | 335 | Salt/MR/VkTwistLadder.lean:379 |
 | `Salt.Entropy.Chowla.dft_parseval` | 319 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
 | `Salt.MR.perron_trunc_trivial` | 302 | Salt/MR/ParsevalAsm.lean:118 |
 | `Salt.MR.perron_trunc_min` | 301 | Salt/MR/ParsevalAsm.lean:189 |
@@ -1087,15 +1087,15 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.SW.LFunction_center_lower` | 813 | Salt/SW/ZeroCount.lean:99 |
-| `Salt.BV.polya_vinogradov` | 797 | Salt/BV/PolyaVinogradov.lean:234 |
-| `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | 794 | Salt/SW/Defs.lean:279 |
-| `Salt.SW.three_four_one_termwise` | 741 | Salt/SW/ThreeFourOne.lean:76 |
-| `Salt.SW.three_four_one` | 740 | Salt/SW/ThreeFourOne.lean:137 |
-| `Salt.SW.LFunction_growth` | 719 | Salt/SW/Growth.lean:400 |
+| `Salt.SW.LFunction_center_lower` | 812 | Salt/SW/ZeroCount.lean:99 |
+| `Salt.BV.polya_vinogradov` | 796 | Salt/BV/PolyaVinogradov.lean:234 |
+| `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | 793 | Salt/SW/Defs.lean:279 |
+| `Salt.SW.three_four_one_termwise` | 740 | Salt/SW/ThreeFourOne.lean:76 |
+| `Salt.SW.three_four_one` | 739 | Salt/SW/ThreeFourOne.lean:137 |
+| `Salt.SW.LFunction_growth` | 718 | Salt/SW/Growth.lean:400 |
 | `Salt.SW.three_four_one_logDeriv` | 620 | Salt/SW/ThreeFourOne.lean:180 |
 | `Salt.SW.LFunction_zero_count_le` | 614 | Salt/SW/ZeroCount.lean:179 |
-| `Salt.SW.LFunction_conj` | 613 | Salt/SW/ZeroFreeReal.lean:74 |
+| `Salt.SW.LFunction_conj` | 612 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.LFunction_growth_sphere` | 600 | Salt/SW/Growth.lean:422 |
 
 ### entropy decrement — 620 external dependents
@@ -1121,15 +1121,15 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.MR.liouvilleC` | 824 | Salt/MR/M4Residue.lean:91 |
+| `Salt.MR.liouvilleC` | 823 | Salt/MR/M4Residue.lean:91 |
 | `Salt.MR.AdoorL` | 679 | Salt/MR/DoorLinear.lean:82 |
 | `Salt.MR.calE_one` | 639 | Salt/MR/SeamCalibration.lean:113 |
 | `Salt.MR.sep_inv_sq_sum_le` | 569 | Salt/MR/MVCore.lean:222 |
 | `Salt.MR.mvHilbertUniform_holds` | 568 | Salt/MR/MVCore2.lean:575 |
-| `Salt.MR.liouvilleC_norm` | 531 | Salt/MR/M4Residue.lean:115 |
-| `Salt.MR.liouvilleC_norm_le_one` | 518 | Salt/MR/M4Residue.lean:121 |
+| `Salt.MR.liouvilleC_norm` | 530 | Salt/MR/M4Residue.lean:115 |
 | `Salt.MR.sq_norm_dpoly_eq` | 518 | Salt/MR/L2MVT.lean:55 |
 | `Salt.MR.dirichlet_poly_l2_expand` | 517 | Salt/MR/L2MVT.lean:97 |
+| `Salt.MR.liouvilleC_norm_le_one` | 517 | Salt/MR/M4Residue.lean:121 |
 | `Salt.MR.dirichlet_poly_l2_diagonal` | 516 | Salt/MR/L2MVT.lean:127 |
 
 ### certificates / explicit numerics — 0 external dependents
@@ -1152,225 +1152,225 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5424 | 9766 |
+| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5423 | 9765 |
 | explog/lognum numeral tactic | 449 | 0 | 53 |
 | entropy decrement | 620 | 536 | 1400 |
-| character sums / L-functions | 881 | 2156 | 4280 |
-| circle method / Fourier | 1072 | 83 | 181 |
-| exponential sums | 1198 | 223 | 577 |
-| large sieve | 1213 | 18 | 136 |
-| zero-density / zero-free regions | 1432 | 292 | 724 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 1487 | 726 | 1609 |
-| Mertens / PNT-type | 1548 | 67 | 253 |
-| Selberg/Brun sieve | 4318 | 949 | 5626 |
+| character sums / L-functions | 881 | 2155 | 4279 |
+| circle method / Fourier | 1071 | 83 | 181 |
+| exponential sums | 1197 | 223 | 577 |
+| large sieve | 1212 | 18 | 136 |
+| zero-density / zero-free regions | 1431 | 292 | 724 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 1486 | 726 | 1609 |
+| Mertens / PNT-type | 1547 | 67 | 253 |
+| Selberg/Brun sieve | 4317 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
 | result | kind | in-degree | direct refs | own family | direct families | transitive families |
 |---|---|---|---|---|---|---|
-| `Salt.BrunLower.sum_vonMangoldt_div_ge` | unconditional | 1354 | 3 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
-| `Salt.BrunLower.abs_Sfun_sub_log_le` | unconditional | 1353 | 7 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
-| `Salt.SW.Zc_growth` | unconditional | 927 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
-| `Salt.MR.liouvilleC` | infrastructure | 824 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
+| `Salt.BrunLower.sum_vonMangoldt_div_ge` | unconditional | 1353 | 3 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
+| `Salt.BrunLower.abs_Sfun_sub_log_le` | unconditional | 1352 | 7 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
+| `Salt.SW.Zc_growth` | unconditional | 926 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.SW.logDeriv_prod_pow` | unconditional | 824 | 0 | Bombieri-Vinogradov / Siegel-Walfisz | - | - |
+| `Salt.MR.liouvilleC` | infrastructure | 823 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.SW.norm_deriv_le_of_re_le` | unconditional | 823 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | - | - |
 | `Salt.SW.norm_logDeriv_sub_sum_of_blaschke` | unconditional | 822 | 5 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.SW.norm_reflectedFactor_eq_on_sphere` | unconditional | 821 | 1 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
-| `Salt.SW.LFunction_center_lower` | unconditional | 813 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.BV.polya_vinogradov` | unconditional | 797 | 10 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz |
-| `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | unconditional | 794 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
+| `Salt.SW.LFunction_center_lower` | unconditional | 812 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.BV.polya_vinogradov` | unconditional | 796 | 10 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz |
+| `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | unconditional | 793 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
 | `Salt.SW.entire_zero_count_le` | unconditional | 786 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | - | - |
 | `Salt.SW.entire_norm_logDeriv_sub_sum'` | unconditional | 780 | 5 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
-| `Salt.ExpSum.norm_eR` | unconditional | 774 | 1 | exponential sums | exponential sums | exponential sums |
+| `Salt.ExpSum.norm_eR` | unconditional | 773 | 1 | exponential sums | exponential sums | exponential sums |
 | `Salt.SW.kernel_identity` | unconditional | 763 | 5 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
-| `Salt.SW.LFunction_eq_growthSum` | unconditional | 757 | 4 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
+| `Salt.SW.LFunction_eq_growthSum` | unconditional | 756 | 4 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.rectBI_dslope_eq_zero` | unconditional | 743 | 3 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
-| `Salt.SW.three_four_one_termwise` | unconditional | 741 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.SW.three_four_one` | unconditional | 740 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
+| `Salt.SW.three_four_one_termwise` | unconditional | 740 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
+| `Salt.SW.three_four_one` | unconditional | 739 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.rectBI_inv_eq_two_pi_I` | unconditional | 736 | 6 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
 | `Salt.SW.rectBI_cif_eq` | unconditional | 735 | 2 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
 | `Salt.SW.rectBI_eq_zero_of_differentiableOn` | unconditional | 723 | 1 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
-| `Salt.SW.LFunction_growth` | unconditional | 719 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
+| `Salt.SW.LFunction_growth` | unconditional | 718 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.MR.AdoorL` | infrastructure | 679 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.SW.analyticOrderAt_eq_of_factorization` | unconditional | 668 | 0 | Bombieri-Vinogradov / Siegel-Walfisz | - | - |
 | `Salt.SW.neg_logDeriv_zeta_le` | unconditional | 666 | 7 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.ExpSum.eR_mul_conj` | unconditional | 651 | 2 | exponential sums | exponential sums | exponential sums |
+| `Salt.ExpSum.eR_mul_conj` | unconditional | 650 | 2 | exponential sums | exponential sums | exponential sums |
 | `Salt.MR.calE_one` | unconditional | 639 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.SW.neg_re_logDeriv_le` | unconditional | 636 | 0 | Bombieri-Vinogradov / Siegel-Walfisz | - | - |
 | `Salt.BrunLower.sum_inv_le_of_prime_window` | unconditional | 630 | 3 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
-| `Salt.Vk.eR_lipschitz` | unconditional | 628 | 4 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.eR_lipschitz` | unconditional | 627 | 4 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
 | `Salt.SW.three_four_one_logDeriv` | unconditional | 620 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.LFunction_zero_count_le` | unconditional | 614 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.SW.LFunction_conj` | unconditional | 613 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
+| `Salt.SW.LFunction_conj` | unconditional | 612 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
 | `Salt.SW.neg_logDeriv_zeta_split` | unconditional | 607 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.SW.zeta_neg_re_logDeriv_le` | unconditional | 603 | 12 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
 | `Salt.SW.LFunction_growth_sphere` | unconditional | 600 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.LFunction_norm_logDeriv_sub_sum'` | unconditional | 597 | 11 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.SW.LFunction_eq_primitive_mul` | unconditional | 588 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
-| `Salt.SW.LFunction_pos_of_one_lt` | unconditional | 583 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.SW.LFunction_apply_one_pos` | unconditional | 582 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.ExpSum.kusmin_landau` | unconditional | 577 | 15 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
-| `Salt.ExpSum.vdC_second_derivative` | unconditional | 573 | 7 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.SW.LFunction_eq_primitive_mul` | unconditional | 587 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
+| `Salt.SW.LFunction_pos_of_one_lt` | unconditional | 582 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
+| `Salt.SW.LFunction_apply_one_pos` | unconditional | 581 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
+| `Salt.ExpSum.kusmin_landau` | unconditional | 576 | 15 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.ExpSum.vdC_second_derivative` | unconditional | 572 | 7 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
 | `Salt.MR.sep_inv_sq_sum_le` | unconditional | 569 | 2 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.mvHilbertUniform_holds` | unconditional | 568 | 7 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.SW.neg_logDeriv_LFunction_trivChar_le` | unconditional | 562 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.ExpSum.vdC_2nd_ZR` | unconditional | 554 | 5 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
-| `Salt.Vmvt.integral_eR_unit` | unconditional | 553 | 3 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.integral_setGen_mul_conj` | unconditional | 552 | 13 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.residue_distinctModP` | unconditional | 551 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.ExpSum.vdC_2nd_ZR` | unconditional | 553 | 5 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.Vmvt.integral_eR_unit` | unconditional | 552 | 3 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.integral_setGen_mul_conj` | unconditional | 551 | 13 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
 | `Salt.SW.eulerCorr_ne_zero` | unconditional | 550 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.Vmvt.Jk_image_add` | unconditional | 550 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.Jk_image_mul` | unconditional | 550 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.linnik_lemma` | unconditional | 550 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.vmvtExp_step_diff` | infrastructure | 550 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.ExpSum.weyl_vdC_sq` | unconditional | 549 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
-| `Salt.Vmvt.Jk_image_affine` | unconditional | 549 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.Jk_mono` | unconditional | 549 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.Ncount_shift_le` | unconditional | 549 | 8 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.powerSum_split` | unconditional | 549 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.sum_prod_transRestBox` | unconditional | 549 | 3 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.ExpSum.weyl_vdC_expSum` | unconditional | 548 | 3 | exponential sums | exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.Vmvt.residue_distinctModP` | unconditional | 550 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.Jk_image_add` | unconditional | 549 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.Jk_image_mul` | unconditional | 549 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.linnik_lemma` | unconditional | 549 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.vmvtExp_step_diff` | infrastructure | 549 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.ExpSum.weyl_vdC_sq` | unconditional | 548 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
 | `Salt.SW.logDeriv_LFunction_eq` | unconditional | 548 | 6 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.Vmvt.Jk_restSet_le` | unconditional | 548 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.ndFibre_card_le` | unconditional | 548 | 4 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.powerSumEq_sub_const` | unconditional | 548 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.Jk_image_affine` | unconditional | 548 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.Jk_mono` | unconditional | 548 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.Ncount_shift_le` | unconditional | 548 | 8 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.powerSum_split` | unconditional | 548 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.sum_prod_transRestBox` | unconditional | 548 | 3 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.ExpSum.weyl_vdC_expSum` | unconditional | 547 | 3 | exponential sums | exponential sums | Selberg/Brun sieve; exponential sums |
 | `Salt.SW.norm_logDeriv_LFunction_sub_primitive_le` | unconditional | 547 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.Vmvt.genFun_eq_sum_residue` | unconditional | 547 | 3 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.gradedPairs_card_le` | unconditional | 547 | 6 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.mixBox_fibre_le` | unconditional | 547 | 12 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.proj_mem_gradedPairs` | unconditional | 547 | 10 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.setGen_mixBox_factor` | unconditional | 547 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.setGen_transBox_factor` | unconditional | 547 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.Jk_restSet_le` | unconditional | 547 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.ndFibre_card_le` | unconditional | 547 | 4 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.powerSumEq_sub_const` | unconditional | 547 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
 | `Salt.SW.neg_re_logDeriv_trivChar_complex_le` | unconditional | 546 | 5 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.Vmvt.Ncount_union_le` | unconditional | 546 | 6 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.integral_norm_pow_eq_Jk` | unconditional | 546 | 5 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.mixBox_Ncount_le` | unconditional | 546 | 8 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.transBox_Ncount_le_sum_mixBox` | unconditional | 546 | 14 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.vmvtExp_ge_k` | unconditional | 546 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.vmvtResid_eq` | infrastructure | 546 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.vmvt_collect_exp` | unconditional | 546 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.log_series_remainder` | unconditional | 545 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.norm_sum_eR_sub_le` | unconditional | 545 | 2 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.Jk_Icc_eq_JkI` | infrastructure | 545 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.collector_rpow` | unconditional | 545 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.multiset_map_eq_of_powerSum_eq` | unconditional | 545 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.one_add_rpow_le_exp` | unconditional | 545 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vmvt.sum_prod_filter_eq` | unconditional | 545 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vmvt.transBox_Ncount_le` | unconditional | 545 | 9 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.genFun_eq_eR_sum` | unconditional | 544 | 2 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.phi_taylor_block` | unconditional | 544 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.Jk_le_two_mul_filter_split` | unconditional | 544 | 7 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.bracket_le` | unconditional | 544 | 7 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.correction_le` | unconditional | 544 | 10 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.degenBox_Ncount_le` | unconditional | 544 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.exists_perm_of_powerSum_eq` | unconditional | 544 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.holder_step` | unconditional | 544 | 10 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.old_c0_le` | unconditional | 544 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.pairEqBox_Ncount_eq_integral` | unconditional | 544 | 2 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.rpow_self_improve` | unconditional | 544 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vmvt.setGen_pairEqBox_factor` | unconditional | 544 | 8 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.transBox_le_ih` | unconditional | 544 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.transversal_prime_exists` | unconditional | 544 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vkCoef_abs` | unconditional | 543 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.JkI_crude` | unconditional | 543 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.JkI_le_two_mul_split` | unconditional | 543 | 6 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.Jk_le_of_le` | unconditional | 543 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.distinctBox_le_card_mul_sum` | unconditional | 543 | 8 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.le_scale_pow` | unconditional | 543 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.n0_bounds` | unconditional | 543 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.Vmvt.pairEq_Ncount_le_frac` | unconditional | 543 | 14 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.pow_le_pow_base` | unconditional | 543 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.primes_in_Ioc_eff` | unconditional | 543 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
-| `Salt.Vmvt.transBox_le_const` | unconditional | 543 | 7 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.vmvtConst_eq` | infrastructure | 543 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vmvt.vmvtEta_ge` | unconditional | 543 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.choose_mul_sub_le` | unconditional | 542 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.Vk.phi_taylor_block_PY` | unconditional | 542 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.poly_shift_orbit` | unconditional | 542 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.pow_diff_abs_le` | unconditional | 542 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.Vmvt.b_le_vmvtExp` | unconditional | 542 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.exists_transversal_prime_set'` | unconditional | 542 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
-| `Salt.Vmvt.nine_ksq_r_pow_le` | unconditional | 542 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.vmvt_base` | unconditional | 542 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.vmvt_step_transversal_large` | conditional | 542 | 19 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vmvt.vmvt_trivial_branch` | unconditional | 542 | 11 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.block_reduction` | unconditional | 541 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.clip_width_ge` | unconditional | 541 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.eR_intCast` | unconditional | 541 | 1 | zero-density / zero-free regions | exponential sums | exponential sums |
-| `Salt.Vk.genFun_lipschitz` | unconditional | 541 | 3 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.orbit_tail_geom_le` | unconditional | 541 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.orbit_term_bound` | unconditional | 541 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.unitMeasure_Ioc_toReal` | unconditional | 541 | 1 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions |
-| `Salt.Vk.vk_shift_genFun_phase` | unconditional | 541 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vmvt.vmvt` | unconditional | 541 | 14 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.isVdCBound_16` | unconditional | 540 | 3 | exponential sums | exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.Vmvt.genFun_eq_sum_residue` | unconditional | 546 | 3 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.gradedPairs_card_le` | unconditional | 546 | 6 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.mixBox_fibre_le` | unconditional | 546 | 12 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.proj_mem_gradedPairs` | unconditional | 546 | 10 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.setGen_mixBox_factor` | unconditional | 546 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.setGen_transBox_factor` | unconditional | 546 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.Ncount_union_le` | unconditional | 545 | 6 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.integral_norm_pow_eq_Jk` | unconditional | 545 | 5 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.mixBox_Ncount_le` | unconditional | 545 | 8 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.transBox_Ncount_le_sum_mixBox` | unconditional | 545 | 14 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.vmvtExp_ge_k` | unconditional | 545 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.vmvtResid_eq` | infrastructure | 545 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.vmvt_collect_exp` | unconditional | 545 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.log_series_remainder` | unconditional | 544 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.norm_sum_eR_sub_le` | unconditional | 544 | 2 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.Jk_Icc_eq_JkI` | infrastructure | 544 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.collector_rpow` | unconditional | 544 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.multiset_map_eq_of_powerSum_eq` | unconditional | 544 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.one_add_rpow_le_exp` | unconditional | 544 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vmvt.sum_prod_filter_eq` | unconditional | 544 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vmvt.transBox_Ncount_le` | unconditional | 544 | 9 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.genFun_eq_eR_sum` | unconditional | 543 | 2 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.phi_taylor_block` | unconditional | 543 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.Jk_le_two_mul_filter_split` | unconditional | 543 | 7 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.bracket_le` | unconditional | 543 | 7 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.correction_le` | unconditional | 543 | 10 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.degenBox_Ncount_le` | unconditional | 543 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.exists_perm_of_powerSum_eq` | unconditional | 543 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.holder_step` | unconditional | 543 | 10 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.old_c0_le` | unconditional | 543 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.pairEqBox_Ncount_eq_integral` | unconditional | 543 | 2 | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.rpow_self_improve` | unconditional | 543 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vmvt.setGen_pairEqBox_factor` | unconditional | 543 | 8 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.transBox_le_ih` | unconditional | 543 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.transversal_prime_exists` | unconditional | 543 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vkCoef_abs` | unconditional | 542 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.JkI_crude` | unconditional | 542 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.JkI_le_two_mul_split` | unconditional | 542 | 6 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.Jk_le_of_le` | unconditional | 542 | 4 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.distinctBox_le_card_mul_sum` | unconditional | 542 | 8 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.le_scale_pow` | unconditional | 542 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.n0_bounds` | unconditional | 542 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.Vmvt.pairEq_Ncount_le_frac` | unconditional | 542 | 14 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.pow_le_pow_base` | unconditional | 542 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.primes_in_Ioc_eff` | unconditional | 542 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
+| `Salt.Vmvt.transBox_le_const` | unconditional | 542 | 7 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.vmvtConst_eq` | infrastructure | 542 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vmvt.vmvtEta_ge` | unconditional | 542 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.choose_mul_sub_le` | unconditional | 541 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.Vk.phi_taylor_block_PY` | unconditional | 541 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.poly_shift_orbit` | unconditional | 541 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.pow_diff_abs_le` | unconditional | 541 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.Vmvt.b_le_vmvtExp` | unconditional | 541 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.exists_transversal_prime_set'` | unconditional | 541 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
+| `Salt.Vmvt.nine_ksq_r_pow_le` | unconditional | 541 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.vmvt_base` | unconditional | 541 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.vmvt_step_transversal_large` | conditional | 541 | 19 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vmvt.vmvt_trivial_branch` | unconditional | 541 | 11 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
 | `Salt.SW.LFunction_norm_le_near_one` | unconditional | 540 | 7 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.Vk.fract_sub_abs_ge` | unconditional | 540 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.Vk.genFun_add_int` | unconditional | 540 | 4 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.genFun_box_variation` | unconditional | 540 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.norm_vk_shift_sum` | unconditional | 540 | 8 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.sum_Ioc_shift_boundary` | unconditional | 540 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vkBox_disjoint` | unconditional | 540 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.vkBox_measurable` | unconditional | 540 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.vkBox_measureReal_ge` | unconditional | 540 | 5 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions |
-| `Salt.Vk.vkOrbit_diff_sub_linear_bound` | unconditional | 540 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vkOrbit_linear_abs` | unconditional | 540 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vk_box_disjoint_avg` | unconditional | 540 | 6 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_eta_le` | unconditional | 540 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_shift_average` | unconditional | 540 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.vk_sum_Ioc_split` | unconditional | 540 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.Vk.fract_mem_Icc` | unconditional | 539 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.genFun_fract` | unconditional | 539 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vkDelta_prod_inv` | unconditional | 539 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vkDelta_slack_le` | unconditional | 539 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vk_box_disjoint_avg_of_centers` | unconditional | 539 | 8 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_const_le` | unconditional | 539 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_exp_ineq` | unconditional | 539 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_orbit_fract_sep` | conditional | 539 | 5 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.Vk.vk_pow_sum_le` | unconditional | 539 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.vk_shift_to_orbit` | unconditional | 539 | 8 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_two_Y_le` | unconditional | 539 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.block_reduction` | unconditional | 540 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.clip_width_ge` | unconditional | 540 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.eR_intCast` | unconditional | 540 | 1 | zero-density / zero-free regions | exponential sums | exponential sums |
+| `Salt.Vk.genFun_lipschitz` | unconditional | 540 | 3 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.orbit_tail_geom_le` | unconditional | 540 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.orbit_term_bound` | unconditional | 540 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.unitMeasure_Ioc_toReal` | unconditional | 540 | 1 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions |
+| `Salt.Vk.vk_shift_genFun_phase` | unconditional | 540 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vmvt.vmvt` | unconditional | 540 | 14 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.isVdCBound_16` | unconditional | 539 | 3 | exponential sums | exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.Vk.fract_sub_abs_ge` | unconditional | 539 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.Vk.genFun_add_int` | unconditional | 539 | 4 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.genFun_box_variation` | unconditional | 539 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.norm_vk_shift_sum` | unconditional | 539 | 8 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.sum_Ioc_shift_boundary` | unconditional | 539 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vkBox_disjoint` | unconditional | 539 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.vkBox_measurable` | unconditional | 539 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.vkBox_measureReal_ge` | unconditional | 539 | 5 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions |
+| `Salt.Vk.vkOrbit_diff_sub_linear_bound` | unconditional | 539 | 6 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vkOrbit_linear_abs` | unconditional | 539 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vk_box_disjoint_avg` | unconditional | 539 | 6 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_eta_le` | unconditional | 539 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_shift_average` | unconditional | 539 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.vk_sum_Ioc_split` | unconditional | 539 | 1 | zero-density / zero-free regions | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.Vk.fract_mem_Icc` | unconditional | 538 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.genFun_fract` | unconditional | 538 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vkDelta_prod_inv` | unconditional | 538 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vkDelta_slack_le` | unconditional | 538 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vk_box_disjoint_avg_of_centers` | unconditional | 538 | 8 | zero-density / zero-free regions | circle method / Fourier; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_const_le` | unconditional | 538 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_exp_ineq` | unconditional | 538 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_orbit_fract_sep` | conditional | 538 | 5 | zero-density / zero-free regions | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vk_pow_sum_le` | unconditional | 538 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.vk_shift_to_orbit` | unconditional | 538 | 8 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_two_Y_le` | unconditional | 538 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
 | `Salt.SW.LFunction_apply_one_norm_le` | unconditional | 535 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
-| `Salt.Vk.vk_hW1_form` | unconditional | 533 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_hW2a_form` | unconditional | 533 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_hW2b_form` | unconditional | 533 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_hW2c_form` | unconditional | 533 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.Vk.vk_logP_ge` | unconditional | 533 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.Vk.vk_logP_ub` | unconditional | 533 | 0 | zero-density / zero-free regions | - | - |
-| `Salt.ExpSum.abel_antitone_prefix` | unconditional | 532 | 1 | exponential sums | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.ExpSum.cpow_weight_split` | unconditional | 532 | 2 | exponential sums | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
-| `Salt.MR.liouvilleC_norm` | unconditional | 531 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
-| `Salt.Vk.vk_ladder_prefix` | unconditional | 531 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
-| `Salt.ExpSum.zeta_block_window_meet` | unconditional | 529 | 1 | exponential sums | Selberg/Brun sieve | Selberg/Brun sieve |
-| `Salt.ExpSum.window_coverage` | unconditional | 528 | 2 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
-| `Salt.Vk.vkTheta_pos` | unconditional | 525 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
-| `Salt.MR.liouvilleC_norm_le_one` | unconditional | 518 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
+| `Salt.Vk.vk_hW1_form` | unconditional | 532 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_hW2a_form` | unconditional | 532 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_hW2b_form` | unconditional | 532 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_hW2c_form` | unconditional | 532 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
+| `Salt.Vk.vk_logP_ge` | unconditional | 532 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.Vk.vk_logP_ub` | unconditional | 532 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.ExpSum.abel_antitone_prefix` | unconditional | 531 | 1 | exponential sums | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.ExpSum.cpow_weight_split` | unconditional | 531 | 2 | exponential sums | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
+| `Salt.MR.liouvilleC_norm` | unconditional | 530 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
+| `Salt.Vk.vk_ladder_prefix` | unconditional | 530 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.ExpSum.zeta_block_window_meet` | unconditional | 528 | 1 | exponential sums | Selberg/Brun sieve | Selberg/Brun sieve |
+| `Salt.ExpSum.window_coverage` | unconditional | 527 | 2 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
+| `Salt.Vk.vkTheta_pos` | unconditional | 524 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
 | `Salt.MR.sq_norm_dpoly_eq` | unconditional | 518 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.dirichlet_poly_l2_expand` | unconditional | 517 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
+| `Salt.MR.liouvilleC_norm_le_one` | unconditional | 517 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.SW.kernel_sum_swap` | unconditional | 517 | 2 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
 | `Salt.MR.dirichlet_poly_l2_diagonal` | unconditional | 516 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.dirichlet_poly_l2_mvt` | conditional | 515 | 10 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.dirichlet_poly_l2_mvt_final` | unconditional | 514 | 2 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
-| `Salt.ExpSum.zeta_block_vdC_prefix` | unconditional | 510 | 7 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_block_taylor_reduce` | unconditional | 509 | 7 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_block_kusmin_prefix` | unconditional | 508 | 8 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_block_prefix_collapse` | unconditional | 508 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_block_core` | unconditional | 508 | 31 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_patch_prefix` | unconditional | 506 | 1 | exponential sums | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_seam_prefix` | unconditional | 506 | 2 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_weighted_block` | unconditional | 506 | 5 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_window_prefix` | unconditional | 506 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.zeta_block_dispatch` | unconditional | 505 | 9 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.ExpSum.norm_zeta_sub_approx_le` | unconditional | 504 | 2 | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_window_prefix` | unconditional | 504 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_window_scale_prefix` | unconditional | 503 | 9 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_block_vdC_prefix` | unconditional | 509 | 7 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_block_taylor_reduce` | unconditional | 508 | 7 | zero-density / zero-free regions | zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_block_kusmin_prefix` | unconditional | 507 | 8 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_block_prefix_collapse` | unconditional | 507 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_block_core` | unconditional | 507 | 31 | zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_patch_prefix` | unconditional | 505 | 1 | exponential sums | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_seam_prefix` | unconditional | 505 | 2 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_weighted_block` | unconditional | 505 | 5 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_window_prefix` | unconditional | 505 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.zeta_block_dispatch` | unconditional | 504 | 9 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.ExpSum.norm_zeta_sub_approx_le` | unconditional | 503 | 2 | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_window_prefix` | unconditional | 503 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
 | `Salt.MR.log_calP` | unconditional | 502 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.SW.zero_free_region_primitive` | unconditional | 502 | 10 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.Vk.vk_window_mid_prefix` | unconditional | 502 | 7 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_window_scale_prefix` | unconditional | 502 | 9 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
 | `Salt.SW.zero_free_region_real` | unconditional | 501 | 10 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.Vk.vk_dirichlet_block_le` | unconditional | 501 | 8 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_window_mid_prefix` | unconditional | 501 | 7 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
 | `Salt.SW.zero_free_region_all` | unconditional | 500 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.Vk.zeta_sub_dirichlet_bound` | unconditional | 500 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_dirichlet_block_le` | unconditional | 500 | 8 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.zeta_sub_dirichlet_bound` | unconditional | 499 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | unconditional | 488 | 14 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
 | `Salt.SW.LSeriesSummable_fourfoldCoeff` | unconditional | 487 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.fourfoldCoeff_apply_one` | unconditional | 487 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
@@ -1381,7 +1381,6 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.estermannInterface'` | unconditional | 486 | 6 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.SW.estermannPositivity_core` | unconditional | 486 | 1 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
 | `Salt.SW.zeta_zero_free_strip` | unconditional | 486 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | - | - |
-| `Salt.Vk.riemannZeta_conj` | unconditional | 486 | 0 | zero-density / zero-free regions | - | - |
 | `Salt.SW.estermannInterface` | unconditional | 485 | 1 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.SW.estermannPositivity_of_interface` | conditional | 485 | 1 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz |
 | `Salt.SW.estermann_fourfold` | conditional | 485 | 5 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
@@ -1389,6 +1388,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.product_ne_one` | unconditional | 485 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
 | `Salt.SW.siegel_L_one_extract` | unconditional | 485 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
 | `Salt.SW.zeta_zero_free_region` | unconditional | 485 | 7 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
+| `Salt.Vk.riemannZeta_conj` | unconditional | 485 | 0 | zero-density / zero-free regions | - | - |
 | `Salt.SW.LFunction_one_re_le_mvt_sharp` | unconditional | 484 | 2 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.changeLevel_quadratic` | unconditional | 484 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
 | `Salt.SW.estermannPositivity` | unconditional | 484 | 2 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
@@ -1405,12 +1405,12 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.hat_mellin_bound` | unconditional | 444 | 4 | Matomaki-Radziwill / Halasz (short intervals) | Bombieri-Vinogradov / Siegel-Walfisz; Matomaki-Radziwill / Halasz (short intervals) | Bombieri-Vinogradov / Siegel-Walfisz; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.ramR_eq_spoly` | unconditional | 439 | 4 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.doorRowFloorL` | infrastructure | 433 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
-| `Salt.SW.norm_riemannZeta_le` | unconditional | 432 | 2 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
+| `Salt.SW.norm_riemannZeta_le` | unconditional | 431 | 2 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.MR.spoly_ram_decomp` | unconditional | 425 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
-| `Salt.MR.log_norm_zeta_eq_re_tsum` | unconditional | 416 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
+| `Salt.MR.log_norm_zeta_eq_re_tsum` | unconditional | 415 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.MR.arcDen_nonneg` | unconditional | 412 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.loglogFloor50` | infrastructure | 412 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
-| `Salt.MR.mertens_first_upper` | unconditional | 411 | 1 | Mertens / PNT-type; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
+| `Salt.MR.mertens_first_upper` | unconditional | 410 | 1 | Mertens / PNT-type; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
 | `Salt.MR.ramare_weight_sum` | unconditional | 409 | 5 | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.log_calP_div_log_calQK` | unconditional | 407 | 3 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.not_blockSmallG_witness` | conditional | 406 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
@@ -1436,8 +1436,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.sum_inv_prime_window_ge` | unconditional | 388 | 4 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
 | `Salt.Vk.zeta_drop_all_disc` | unconditional | 386 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.ExpSum.sum_Icc_rpow_neg_le'` | unconditional | 385 | 1 | exponential sums | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
-| `Salt.MR.norm_liouChi_le_one` | unconditional | 384 | 3 | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.Vk.Zc_ratio_sphere_bound` | unconditional | 384 | 0 | zero-density / zero-free regions | - | - |
+| `Salt.MR.norm_liouChi_le_one` | unconditional | 383 | 3 | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.regime_Hfloor_of_loglogFloor50` | unconditional | 382 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.Vk.vk_dirichlet_sum_le` | unconditional | 381 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
 | `Salt.Entropy.Chowla.integral_logMeasure_eq` | unconditional | 379 | 3 | entropy decrement | entropy decrement | entropy decrement; Selberg/Brun sieve |
@@ -1467,5 +1467,5 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.psi1_fold` | unconditional | 359 | 3 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
 | `Salt.SW.psi1_trivchar_bound` | unconditional | 359 | 8 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | large sieve; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
 | `Salt.MR.seam_sum_identity_mr` | unconditional | 358 | 7 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
-| `Salt.ExpSum.dk_eq_zero_of_diff_const` | unconditional | 357 | 3 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
+| `Salt.SW.psi1AP_sub_lower` | unconditional | 357 | 1 | Bombieri-Vinogradov / Siegel-Walfisz | Bombieri-Vinogradov / Siegel-Walfisz | large sieve; Bombieri-Vinogradov / Siegel-Walfisz |
 

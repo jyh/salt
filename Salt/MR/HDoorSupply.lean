@@ -436,38 +436,23 @@ theorem pieceFloor_vt_threshold_of_loglog_rated_two {q H : ℕ} [NeZero q]
 major-arc denominator cap reads.  Its `h`-family is the landed exit with the arc binder
 inflated and nothing else touched — the `K` it produces is still ONE symbolic nonnegative real,
 so a consumer's cushion is unchanged in SHAPE, which is the property the rated lane was built
-for. -/
+for.
 
-/-- **THE EXIT AT THE INFLATED CAP** (`capFreeFloor3_pieceDatum_arcDen_rated_h`) — the
-`h`-family of `BandRatedAssembly.capFreeFloor3_pieceDatum_arcDen_rated`.
+(2026-09-26: the `h`-family exit this section describes was retired into its `_b9` generic,
+family 07 — the note below.) -/
 
-Only the arc binder moves: `q ≤ arcDen 12 H ↦ q ≤ h·arcDen 12 H`.  The budget travels with it
-as `hbud`/`hh7`, exactly as on the page below. -/
-theorem capFreeFloor3_pieceDatum_arcDen_rated_h (h : ℕ) (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7) :
-    ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧
-      ∀ (q : ℕ) [NeZero q] (H : ℕ) (χ : DirichletCharacter ℂ q)
-        (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X D : ℝ),
-      Real.exp 1 ≤ Real.log (H : ℝ) → (q : ℝ) ≤ (h : ℝ) * arcDen 12 H →
-      156 * Real.log h + 8 * Real.log 2
-          ≤ 28 * Real.log (Real.log (H : ℝ))
-            + 4 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 84 →
-      Real.exp (Real.exp 1) ≤ X → 0 ≤ D →
-      32 * diskConst q / goldenL1 q ≤ Real.log X →
-      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
-      40 * Real.log (Real.log (Real.log X))
-          + 1900 * Real.log (Real.log (H : ℝ))
-          + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-          + 2300 + 32 * K + 32 * D
-        < Real.log (Real.log X) →
-        CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X := by
-  obtain ⟨Z, δ, K, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_vt_rated
-  refine ⟨Z, δ, K + max 0 (bandArcConst Z δ), hZ, hδ,
-    add_nonneg hK0 (le_max_left _ _), ?_⟩
-  intro q _ H χ Pseq Qseq 𝒥 X D hH harc hbud hX hD0 hgate hdebit hthr
-  exact hK q χ Pseq Qseq 𝒥 X D hX hD0 hgate hdebit
-    (pieceFloor_vt_threshold_of_loglog_rated_h hZ hδ hh hH harc hh7 hbud
-      (by linarith [le_max_right (0 : ℝ) (bandArcConst Z δ)]) hthr)
+/-! ### THE EXIT AT THE INFLATED CAP, at `log h ≤ 7` — RETIRED INTO ITS GENERIC
+
+⟦XY debt lane, family 07 (2026-09-26)⟧  `capFreeFloor3_pieceDatum_arcDen_rated_h (h : ℕ)
+(hh : 0 < h) (hh7 : Real.log h ≤ 7) : ∃ Z δ K : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ K ∧ …` stood here.  It is
+`capFreeFloor3_pieceDatum_arcDen_rated_h_b9` (below) with the hypothesis strengthened: the two
+statements differ in that ONE binder line and are token-identical elsewhere, so the generic
+implies it by `linarith` — kernel-checked from the retired statement's own bytes, with the
+ladder's other implication rungs, before the 30 lines were removed.  It had no consumer
+left: its one call site was the body of `cofkL_capFreeFloor_at_socket_rated_uniform_h`, retired
+in family 02.  Its body was one of the two call sites of the threshold page
+`pieceFloor_vt_threshold_of_loglog_rated_h`; at this retirement the other was the `h = 2` lane
+`pieceFloor_vt_threshold_of_loglog_rated_two`. -/
 
 /-- ⭐ **THE EXIT AT `h = 2`** (`capFreeFloor3_pieceDatum_arcDen_rated_two`) — binder-for-binder
 the landed rated exit, with `q ≤ arcDen 12 H` alone replaced by `q ≤ 2·arcDen 12 H`.
@@ -1266,7 +1251,8 @@ theorem pieceFloor_vt_threshold_of_loglog_rated_h_b9 {q H h : ℕ} [NeZero q]
     linarith
   linarith
 
-/-- `capFreeFloor3_pieceDatum_arcDen_rated_h` at `log h ≤ 9`
+/-- The former `capFreeFloor3_pieceDatum_arcDen_rated_h` (retired into this,
+2026-09-26) at `log h ≤ 9`
 (`capFreeFloor3_pieceDatum_arcDen_rated_h_b9`) — SUPPLIER-SWAP
 (`pieceFloor_vt_threshold_of_loglog_rated_h_b9`).  BODY: the source's. -/
 theorem capFreeFloor3_pieceDatum_arcDen_rated_h_b9 (h : ℕ) (hh : 0 < h)
