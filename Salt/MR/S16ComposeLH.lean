@@ -2886,24 +2886,24 @@ theorem capfloor_floor4_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
   rw [hassoc] at hfinal
   linarith [hLHS, hvq, hgrow, hfinal]
 
-/-- ⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:74` at
+/-! ### THE `Ks`-WINDOWED FLOOR-4 AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 17 (2026-09-27)⟧
+`capfloor_floor4_of_regimeWin_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+{R : ChowlaRegime} … : (q : ℝ) ^ ((1 : ℝ) / 16) ≤ Ks * …` stood here.  It is
+`capfloor_floor4_of_regimeWin_LH_b9` (in the ⟦β W2 F3⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`,
+and are token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from
+the retired statement's own bytes before the 18 lines were removed.  The twin's body is
+this page's with ONE line changed: the call of the sharp floor-4 `capfloor_floor4_sharp_LH`,
+swapped for its `_b9` twin.  At this retirement the page had NO call site: its one caller, the
+`Ks`-windowed floor wave at `log h ≤ 7`, was retired by family 15 (its note stands under §11.1,
+directly below).
+
+This page's docstring, verbatim:
+
+⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:74` at
 `SocketBaseLH h`: the window is read at `R.Hlo` and transported to the socket's own `H`. -/
-theorem capfloor_floor4_of_regimeWin_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
-    (hKs0 : 0 < Ks)
-    (hwin : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16) :
-    (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hHloR : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast R.hHlo_floor
-  have hloR : ((R.Hlo : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
-  have hmono : Real.log ((R.Hlo : ℕ) : ℝ) ≤ Real.log (H : ℝ) :=
-    Real.log_le_log (by linarith) hloR
-  exact capfloor_floor4_sharp_LH hh hh7 hfl hb hAN hTlo
-    (exp_neg_le_of_log_inv_le hKs0 (by linarith))
 
 /-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` -/
 
@@ -3442,7 +3442,8 @@ theorem capfloor_floor4_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : 
   rw [hassoc] at hfinal
   linarith [hLHS, hvq, hgrow, hfinal]
 
-/-- `capfloor_floor4_of_regimeWin_LH` at `log h ≤ 9` (`capfloor_floor4_of_regimeWin_LH_b9`) —
+/-- The former `capfloor_floor4_of_regimeWin_LH` (retired into this, 2026-09-27)
+at `log h ≤ 9` (`capfloor_floor4_of_regimeWin_LH_b9`) —
 SUPPLIER-SWAP (`capfloor_floor4_sharp_LH_b9`).
 BODY: the source's. -/
 theorem capfloor_floor4_of_regimeWin_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
