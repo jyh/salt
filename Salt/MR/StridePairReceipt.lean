@@ -19,7 +19,7 @@ replays, the door-head, the chain, the receipt) ported to the `h` lane's compose
 (`S16ComposeLH.lean`, `V7RatedH.lean`), with FOUR deltas, each named at the form that carries it:
 
   Δ1 THE SET IS A PARAMETER.  Every form takes `Xi : XiFamily` in place of `bigXiH h`: the road's
-     door-L2 supply (`m4_doorL2_supply_H_L_gk_khoist`, S16ComposeLH:1072) reads the set only
+     door-L2 supply (`m4_doorL2_supply_H_L_gk_khoist`, S16ComposeLH) reads the set only
      through the arc bridge `harc`, the count `hXi` and the fused insert budget `hins` —
      `parseval_insert_budget_door` (M4ParsevalStone:341) takes `Xi` as a binder — so the road is
      replayed ONCE at `Xi` with the bridge as a HYPOTHESIS
@@ -100,8 +100,9 @@ open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- the multiplier builder (F3-Q2; from 2026-09-27 its cap-9 twin, XY family 11) copies
 -- `chowlaRegimeFlat_exists_param_gen_ceiling`'s body,
 -- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:144, :135), and the road-exit
--- replay (F3-Q8) copies S16ComposeLH.lean:1869-1891, whose cap line is `flatRootCapH_arc_k`
--- (S16ComposeLH.lean:1063).  Opened here so the copies elaborate; nothing landed moves.
+-- replay (F3-Q8) copies the body of `m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist`
+-- (S16ComposeLH.lean), whose cap line is `flatRootCapH_arc_k`.  Opened here so the copies
+-- elaborate; nothing landed moves.
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 
@@ -808,7 +809,7 @@ theorem sum_Xi_norm_windowExpSum_sq_le_parseval (Xi : XiFamily) (Q : ℕ → ℝ
   exact hins H hlo hhi
 
 /-- **F3-Q6 (class B) — the door-L2 supply at a generic set.**  `m4_doorL2_supply_H_L_gk_khoist`
-(S16ComposeLH.lean:1072) with the set `Xi` and the arc bridge `harcXi` a HYPOTHESIS (at the
+(S16ComposeLH.lean) with the set `Xi` and the arc bridge `harcXi` a HYPOTHESIS (at the
 landed set it is `nearRatTight_of_bigXiArcTight_H bigXiArcTight_twelve`, the one line the landed
 body spends on the set).  Body verbatim otherwise: `parseval_insert_budget_door_bounded`, the
 `H₀` from `harcXi eps heps`, `harc` transported to the regime's `ε` by `rw [hReps]`, the four
@@ -879,7 +880,7 @@ theorem m4_doorL2_supply_Set_gk_khoist (h : ℕ) (_hh : 0 < h) (Xi : XiFamily)
   linarith
 
 /-- **F3-Q7 (class B) — the road at a generic set.**  `m4_second_road_L2_H_gk_flatRoot_L_khoist`
-(S16ComposeLH.lean:1138) with F3-Q6 in place of its first `obtain` (`m4_doorL2_supply_H_L_gk_khoist
+(S16ComposeLH.lean) with F3-Q6 in place of its first `obtain` (`m4_doorL2_supply_H_L_gk_khoist
 h hh`); body verbatim (the block-mean cover, the sieved-door socket from `blk2H`, the five cap
 reads are all set-free — the set enters only at the last `refine hH₀ …`). -/
 theorem m4_second_road_L2_Set_gk_flatRoot_L_khoist (h : ℕ) (hh : 0 < h) (Xi : XiFamily)
@@ -966,7 +967,7 @@ set `Xi`, the multiplier `a` (Δ2) and — at H6/H7 — the exposed floor (Δ3).
 landed statement (cited) with EXACTLY the edits Δ1–Δ4 name; a refuter diffs them against the
 citations. -/
 
-/-- **⟦H0 FORM⟧** `flat_head_uniform_xceil_h`'s statement (S16ComposeLH.lean:1670) with: the count
+/-- **⟦H0 FORM⟧** `flat_head_uniform_xceil_h`'s statement (S16ComposeLH.lean) with: the count
 at `Xi`; the door slot `MRTUniformityXiL2Set Xi R ρ`; the scale slot `a * g R.Hhi R.ω ≤ R.x ∧
 StrideScale a R` under `1 ≤ a → a ≤ 1096 → XCeilRider ε (a·g)`; the conclusion `P R`. -/
 def FlatHeadFormH (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
@@ -991,7 +992,7 @@ def FlatHeadFormH (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :
               P R
 
 /-- **⟦H1 FORM⟧** `m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist`'s statement
-(S16ComposeLH.lean:1833) with the scale slot and `P R`.  (`extraFloor` is instantiated at `H₀`
+(S16ComposeLH.lean) with the scale slot and `P R`.  (`extraFloor` is instantiated at `H₀`
 inside the replay, as landed; the set does not appear in this statement — it was spent at the
 door-L2 supply.) -/
 def FlatRoadExitFormH (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
@@ -1032,7 +1033,7 @@ def FlatRoadExitFormH (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
                   P R
 
 /-- **⟦H2 FORM⟧** `flat_capstone_uniform_win_xceil_kwide_khoist_h`'s statement
-(S16ComposeLH.lean:1892) with the scale slot and `P R`; `Awin` and `hband` are the form's
+(S16ComposeLH.lean) with the scale slot and `P R`; `Awin` and `hband` are the form's
 parameters as in `DoorReceipt.FlatCapstoneForm`. -/
 def FlatCapstoneFormH (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -1133,7 +1134,7 @@ def FlatCapstoneFormH (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop 
                         P R
 
 /-- **⟦H3 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist_h`'s statement
-(S16ComposeLH.lean:2143) with the scale slot under the STRICT rider and `P R`. -/
+(S16ComposeLH.lean) with the scale slot under the STRICT rider and `P R`. -/
 def FlatConditionalFormH (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -1159,7 +1160,7 @@ def FlatConditionalFormH (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Pr
                 S15CrossingBound_LH_gk h K R M → P R
 
 /-- **⟦H4 FORM⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h`'s
-statement (S16ComposeLH.lean:3338) with Δ3 — `∀ U1floor ≥ flatWitFloor ε β A Hopq` under the ONE
+statement (S16ComposeLH.lean) with Δ3 — `∀ U1floor ≥ flatWitFloor ε β A Hopq` under the ONE
 ceiling `loglog U1floor ≤ 3.2·A + log 2`, `R.Hlo = U1floor` — the scale slot, and `P R`.  The
 `T₀` arm stays stated at `flatWitFloor` (the replay lifts it to `U1floor` by monotonicity of
 `√` and `exp`). -/
@@ -1219,7 +1220,7 @@ def V7RatedFormH (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 
 /-! ## §5 — THE REPLAYS, generic in `P` (and in `Xi` where the set is still visible) -/
 
-/-- **⟦H0→H1 REPLAY⟧ (class B).**  The road exit (S16ComposeLH.lean:1869-1891) from a generic head:
+/-- **⟦H0→H1 REPLAY⟧ (class B).**  The road exit (S16ComposeLH.lean) from a generic head:
 the landed body with `flat_head_uniform_xceil_h h hh hh7` replaced by the hypothesis `hhead` and
 `m4_second_road_L2_H_gk_flatRoot_L_khoist h hh` by F3-Q7 at `Xi` with `harcXi`; the `a`-binders
 are introduced beside `U1floor g hg` and forwarded (`hhd H₀ a U1floor g ha ha1096 hg`); the
@@ -1253,9 +1254,10 @@ theorem flat_roadExit_generic_h (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ
   intro H _ hlo hhi
   exact le_trans (hdoor H hlo hhi) hbudget
 
-/-- **⟦H1→H2 REPLAY⟧ (class B).**  The capstone (S16ComposeLH.lean:2060-2142) from a generic road
-exit: body verbatim (the capstone forwards the road's regime and the caller's `g` untouched, so
-it forwards the multiplier and `StrideScale` untouched too); `hroadU` is the hypothesis. -/
+/-- **⟦H1→H2 REPLAY⟧ (class B).**  The capstone `flat_capstone_uniform_win_xceil_kwide_khoist_h`
+(S16ComposeLH.lean) from a generic road exit: body verbatim (the capstone forwards the road's
+regime and the caller's `g` untouched, so it forwards the multiplier and `StrideScale` untouched
+too); `hroadU` is the hypothesis. -/
 theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
     (hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
     (hroad : FlatRoadExitFormH h P) :
@@ -1460,9 +1462,9 @@ theorem xceil_arm_split_mul_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
     rw [e1, e2]; linarith [hHbig, hlog2, hh7]
   linarith [hkey, hr1]
 
-/-- **⟦H2→H3 REPLAY⟧ (class B).**  The conditional (S16ComposeLH.lean:2170-2325) from a generic
+/-- **⟦H2→H3 REPLAY⟧ (class B).**  The conditional (S16ComposeLH.lean) from a generic
 capstone — the one hop that MOVES `g` (`g' := s15ArmH h δ₀ ρ + g`) and now proves the rider at
-`a·g'`: the landed `hg'` block (S16ComposeLH.lean:2198-2240) with the budget `B := 31/ε·H₊ −
+`a·g'`: the landed `hg'` block (S16ComposeLH.lean) with the budget `B := 31/ε·H₊ −
 log 2 − 7` in place of `31/ε·H₊ − log 2` — `harm' : log arm ≤ B` from `harm`, the gate's
 `hωw : log ω + ε²H₊ ≤ 31/ε·H₊`, `hεsq` and `xceil_arm_split_mul_h hh hh7 hH4 hll` (v2, A1: the
 `+ 7` numeral twin above, in place of `xceil_arm_split_h`); `hgb' : log g ≤ B` from the STRICT
@@ -1670,7 +1672,7 @@ theorem flat_conditional_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
         s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
-/-- **⟦H3→H4 REPLAY⟧ (class B).**  The kswin terminal (S16ComposeLH.lean:3370-3420 region; the
+/-- **⟦H3→H4 REPLAY⟧ (class B).**  The kswin terminal (S16ComposeLH.lean; the
 `h = 1` generic twin is `DoorReceipt.flat_kswin_generic`, :775) from a generic conditional, with
 Δ3: `intro U1floor hU hUceil a g ha ha1096 hg` in place of `intro g hg`; `hbody U1floor g hg
 (le_trans (flatCap_le_flatWitFloor hCapLe) hU)` in place of `hbody (flatWitFloor …) g hg
@@ -1933,8 +1935,8 @@ def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:1001) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean:
-1670-1830): the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
+(DoorReceipt.lean:1001) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by
 `Real.log_two_gt_d9`); the count hook is the HYPOTHESIS `hcount` (at `Xi := bigXiH h` it is
