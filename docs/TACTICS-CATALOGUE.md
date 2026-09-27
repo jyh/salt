@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5ad2c9be` · source digest `ea1f973b535263db` (the same digest as items 1–3).
-> Receipt: files 1319 · decls 22695 · with_body 22695 · tactic_lines 311413 · runs 36326 · blocks 1552.
+> Base: last commit touching `Salt/` = `60a64cea` · source digest `e71d94a01484991e` (the same digest as items 1–3).
+> Receipt: files 1319 · decls 22695 · with_body 22695 · tactic_lines 311385 · runs 36321 · blocks 1547.
 
 ## LIMITS (read before any number below)
 
@@ -73,8 +73,8 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `EventuallyBudget.lean` | T2 | `eventually_budget` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_eq_pow` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | qualified 4 | `MR/StrideDoorAllGrades.lean` 3, `HB/CrownTheorem1.lean` 1 |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_lt_of_pow_lt` | 0 | - | - |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 19 | qualified 19 | `MR/S13CapGateLinearLH.lean` 8, `MR/StrideDoorAllGrades.lean` 8, `HB/CrownTheorem1.lean` 3 |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_lt_of_pow_lt` | 2 | qualified 2 | `MR/S16ProducersH.lean` 2 |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 23 | qualified 23 | `MR/S13CapGateLinearLH.lean` 8, `MR/StrideDoorAllGrades.lean` 8, `MR/S16ProducersH.lean` 4, `HB/CrownTheorem1.lean` 3 |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.log_le_nat_of_le_pow` | 9 | qualified 9 | `MR/S13CapGateLinearLH.lean` 4, `HB/CrownTheorem1.lean` 3, `MR/StrideDoorAllGrades.lean` 2 |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.lt_exp_nat_of_lt_pow` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | qualified 4 | `HB/CrownTheorem1.lean` 4 |
@@ -87,25 +87,25 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 `#audit_axioms` in detail: **444 commands auditing 9144 identifiers** across 23 files; in the `All.lean` ledgers **437 commands, 9137 identifiers**.
 
-**Landed surface with ZERO call sites outside `Salt/Tactic/` (38) — each is a finding, not a defect of the count:** `Salt.CertEval.CMono`, `Salt.CertEval.CPoly`, `Salt.CertEval.Exp5`, `Salt.CertEval.FstarC`, `Salt.CertEval.J_Fstar_0_reflective`, `Salt.CertEval.cJD`, `Salt.CertEval.cJD_eq`, `Salt.CertEval.evalJcal`, `Salt.CertEval.evalJcal_FstarC_0`, `Salt.CertEval.evalJcal_eq`, `Salt.CertEval.toE`, `Salt.CertEval.toPoly`, `Salt.CertEval.toPoly_FstarC`, `Salt.Tactic.dyadic_cover_sum_le_range`, `Salt.Tactic.dyadic_interval_rec`, `Salt.Tactic.geom_half_range_le`, `Salt.Tactic.geom_inv_sqrt_two_le`, `Salt.Tactic.geom_sqrt_two_pow_le`, `Salt.Tactic.geom_sum_le_bot`, `Salt.Tactic.geom_sum_le_top`, `Salt.Tactic.eventually_add_le`, `Salt.Tactic.eventually_finset_sum_le`, `Salt.Tactic.eventually_ge_of_tendsto_gt`, `Salt.Tactic.eventually_le_of_eventually_le_const`, `Salt.Tactic.eventually_le_of_tendsto_zero`, `Salt.Tactic.eventually_lt_of_eventually_le_const`, `Salt.Tactic.eventually_sum_lt_of_pieces`, `Salt.Tactic.exists_forall_ge_of_eventually`, `eventually_budget`, `Salt.Tactic.exp_nat_eq_pow`, `Salt.Tactic.exp_nat_lt_of_pow_lt`, `Salt.Tactic.lt_exp_nat_of_lt_pow`, `Salt.Tactic.LogNum.le_log_two_pow`, `Salt.Tactic.LogNum.log_eq_nat_mul_log`, `Salt.Tactic.LogNum.log_two_pow_le`, `Salt.Tactic.LogNum.log_two_pow_lt`, `Salt.Tactic.LogNum.lt_log_two_pow`, `nlinarith?`
+**Landed surface with ZERO call sites outside `Salt/Tactic/` (37) — each is a finding, not a defect of the count:** `Salt.CertEval.CMono`, `Salt.CertEval.CPoly`, `Salt.CertEval.Exp5`, `Salt.CertEval.FstarC`, `Salt.CertEval.J_Fstar_0_reflective`, `Salt.CertEval.cJD`, `Salt.CertEval.cJD_eq`, `Salt.CertEval.evalJcal`, `Salt.CertEval.evalJcal_FstarC_0`, `Salt.CertEval.evalJcal_eq`, `Salt.CertEval.toE`, `Salt.CertEval.toPoly`, `Salt.CertEval.toPoly_FstarC`, `Salt.Tactic.dyadic_cover_sum_le_range`, `Salt.Tactic.dyadic_interval_rec`, `Salt.Tactic.geom_half_range_le`, `Salt.Tactic.geom_inv_sqrt_two_le`, `Salt.Tactic.geom_sqrt_two_pow_le`, `Salt.Tactic.geom_sum_le_bot`, `Salt.Tactic.geom_sum_le_top`, `Salt.Tactic.eventually_add_le`, `Salt.Tactic.eventually_finset_sum_le`, `Salt.Tactic.eventually_ge_of_tendsto_gt`, `Salt.Tactic.eventually_le_of_eventually_le_const`, `Salt.Tactic.eventually_le_of_tendsto_zero`, `Salt.Tactic.eventually_lt_of_eventually_le_const`, `Salt.Tactic.eventually_sum_lt_of_pieces`, `Salt.Tactic.exists_forall_ge_of_eventually`, `eventually_budget`, `Salt.Tactic.exp_nat_eq_pow`, `Salt.Tactic.lt_exp_nat_of_lt_pow`, `Salt.Tactic.LogNum.le_log_two_pow`, `Salt.Tactic.LogNum.log_eq_nat_mul_log`, `Salt.Tactic.LogNum.log_two_pow_le`, `Salt.Tactic.LogNum.log_two_pow_lt`, `Salt.Tactic.LogNum.lt_log_two_pow`, `nlinarith?`
 
 **Positive controls (the seat's measurement at main `1a5e85e1`: `git grep -c -F` per qualified name outside `Salt/Tactic`, summed = 24):**
 
 | name | at base (seat, lines) | here: qualified tokens | here: all forms |
 |---|---:|---:|---:|
-| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 19 | 19 |
+| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 23 | 23 |
 | `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | 4 | 4 |
 | `Salt.Tactic.log_le_nat_of_le_pow` | 5 | 9 | 9 |
 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | 4 | 4 |
 
 ## 2. Tactic usage (first token of each tactic line)
 
-311413 tactic lines. Top 30:
+311385 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 138687 | 44.5% |
-| 2 | `rw` | 49651 | 15.9% |
+| 1 | `have` | 138663 | 44.5% |
+| 2 | `rw` | 49643 | 15.9% |
 | 3 | `exact` | 17598 | 5.7% |
 | 4 | `intro` | 14081 | 4.5% |
 | 5 | `refine` | 12817 | 4.1% |
@@ -117,7 +117,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 11 | `nlinarith` | 4871 | 1.6% |
 | 12 | `apply` | 4381 | 1.4% |
 | 13 | `unfold` | 2615 | 0.8% |
-| 14 | `exact_mod_cast` | 2445 | 0.8% |
+| 14 | `exact_mod_cast` | 2449 | 0.8% |
 | 15 | `ring` | 2204 | 0.7% |
 | 16 | `rcases` | 2122 | 0.7% |
 | 17 | `push_cast` | 2112 | 0.7% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3302 | `have` 1532, `rw` 560, `exact` 173, `linarith` 138, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 128841 | `have` 60537, `rw` 17480, `exact` 7155, `refine` 6859, `intro` 6134, `linarith` 5568, `obtain` 4701, `nlinarith` 2450 |
+| Matomaki-Radziwill / Halasz (short intervals) | 128813 | `have` 60513, `rw` 17472, `exact` 7155, `refine` 6859, `intro` 6134, `linarith` 5568, `obtain` 4701, `nlinarith` 2450 |
 | (no family) | 21352 | `have` 8437, `rw` 3733, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `apply` 570 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1552 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1547 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 

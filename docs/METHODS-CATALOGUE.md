@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5ad2c9be` · source digest `ea1f973b535263db` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `60a64cea` · source digest `e71d94a01484991e` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22695 · with a proof/definition body: 22695 · direct corpus references (edges): 85418 · audited results: 9081 · corpus Prop-valued names: 668.
+Declarations indexed: 22695 · with a proof/definition body: 22695 · direct corpus references (edges): 85424 · audited results: 9081 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -414,7 +414,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4BlockMeanSqSupQ` | DISCHARGED | 1 | `Salt.MR.m4_blockMeanSqSupQ_of_classPrice` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:373) |
 | `Salt.MR.M4ChiFreeShiftBlockMeanSq` | DISCHARGED | 1 | `Salt.MR.m4_chiFreeShiftBlock_trivial` ✓audited (Salt/MR/M4CoprimeSupply.lean:262) |
 | `Salt.MR.M4ChiShiftBlockMeanSq` | DISCHARGED | 1 | `Salt.MR.m4_chiShiftBlock_trivial` ✓audited (Salt/MR/M4Maximal.lean:789) |
-| `Salt.MR.M4ChiSummedFreeRowBigH_L_gk` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_poolH_L_gk` ✓audited GUARDED (Salt/MR/S16ProducersH.lean:1242) |
+| `Salt.MR.M4ChiSummedFreeRowBigH_L_gk` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_poolH_L_gk` ✓audited GUARDED (Salt/MR/S16ProducersH.lean:1227) |
 | `Salt.MR.M4ChiSummedFreeRow_gk` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_gk` GUARDED (Salt/MR/M4Assembly.lean:714) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_gk` GUARDED (Salt/MR/M4AssemblyPool.lean:478) · `Salt.MR.m4_chiSummedFreeRow_trivial_gk` (Salt/MR/M4ChiSummed.lean:1097) |
 | `Salt.MR.M4ChiSummedFreeShiftBlock` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedShiftBlock_trivial` ✓audited (Salt/MR/M4ChiSummed.lean:411) |
 | `Salt.MR.M4CoprimeBlockMeanSqN` | DISCHARGED | 1 | `Salt.MR.m4_coprimeBlockMeanSqN_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:526) |
@@ -971,7 +971,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | exponential sums | 577 | 223 | 797 | 521 | 31 | 33 | 0 | 1382 | 1197 |
 | Mertens / PNT-type | 253 | 67 | 879 | 704 | 4 | 16 | 0 | 1603 | 1546 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 86 | 323 | 0 | 0 | 0 | 409 | 409 |
+| explog/lognum numeral tactic | 53 | 0 | 100 | 349 | 0 | 0 | 0 | 449 | 449 |
 | Matomaki-Radziwill / Halasz (short intervals) | 9764 | 5422 | 2973 | 1268 | 168 | 189 | 0 | 4598 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
@@ -1113,7 +1113,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 273 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
 | `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 271 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
 
-### explog/lognum numeral tactic — 409 external dependents
+### explog/lognum numeral tactic — 449 external dependents
 
 (no audited member)
 
@@ -1153,7 +1153,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 61 | 5422 | 9764 |
-| explog/lognum numeral tactic | 409 | 0 | 53 |
+| explog/lognum numeral tactic | 449 | 0 | 53 |
 | entropy decrement | 620 | 536 | 1400 |
 | character sums / L-functions | 881 | 2155 | 4279 |
 | circle method / Fourier | 1071 | 83 | 181 |
