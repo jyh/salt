@@ -724,8 +724,8 @@ threshold.  Term-mode, as `entropy_decrement` (`Decrement.lean:49`):
 (hfail j hj))) (fun j hj => ⟨hbase j, chowlaTower_le_Hhi R (le_of_lt hj)⟩)` with `hbase j :
 R.a * R.Hlo ≤ chowlaTower R.C0 R.a R.Hlo j` by `chowlaTower_eq_base_one` + `chowlaTower_ge_base`
 (the range is TAO'S, `R.a * R.Hlo ≤ H`, not the landed `R.Hlo ≤ H` — see F4-D4e).
-The regime is the crown's `Ra` (`StridePairReceipt.lean:2121`), a plain regime with a fitting,
-crossing tower at stride `a` — nothing flat is read. -/
+The regime is the crown's `Ra` (`mrtUniformityXiL2AffW_holds_flat_stride`, `StridePairReceipt`),
+a plain regime with a fitting, crossing tower at stride `a` — nothing flat is read. -/
 theorem entropy_decrementAff (R : ChowlaRegime) :
     ∃ H : ℕ, R.a * R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧
       I[liouvilleWindow H : residueWindow R.eps H ; logMeasureAff R.a R.x R.ω]
