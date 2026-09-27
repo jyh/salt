@@ -2907,53 +2907,25 @@ theorem capfloor_floor4_of_regimeWin_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (
 
 /-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` -/
 
-set_option maxHeartbeats 1000000 in
--- as the landed windowed twin: the eight-field capfloor bundle re-checks with the `floor4` entry
--- swapped
-/-- ⟦`Ks`-WINDOWED TWIN AT SHIFT `h`⟧ (`s13CapFloor_all_LH_gk_sharpT0_kswin`) — §8's floor wave
+/-! ### THE `Ks`-WINDOWED FLOOR WAVE AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 15 (2026-09-27)⟧
+`s13CapFloor_all_LH_gk_sharpT0_kswin {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+(K : ℕ) … : … ∧ …` (eight conjuncts) stood here, under `set_option maxHeartbeats 1000000 in`.
+It is `s13CapFloor_all_LH_gk_sharpT0_kswin_b9` (in the ⟦β W2 F3⟧ section below) with the
+hypothesis strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against
+`log h ≤ 9`, and are token-identical elsewhere, so the twin implies it by `linarith` —
+kernel-checked from the retired statement's own bytes before the 47 lines were removed.
+The twin's body is this page's with SEVEN lines changed: the seven calls of the seven suppliers
+that take the cap, each swapped for its own `_b9` twin.  At this retirement the page had NO call
+site: its one caller, the `Ks`-windowed assembler at `log h ≤ 7`, was retired by family 13 (its
+note stands directly below).
+
+This page's docstring, verbatim:
+
+⟦`Ks`-WINDOWED TWIN AT SHIFT `h`⟧ (`s13CapFloor_all_LH_gk_sharpT0_kswin`) — §8's floor wave
 with the `Ks` numeral rider replaced by positivity plus the regime window.  **The only proof
 edit is the `floor4` entry.** -/
-theorem s13CapFloor_all_LH_gk_sharpT0_kswin {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
-    {T₀ Kq Ks Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hM : 1 ≤ M)
-    (hAN : As ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
-    (hQ2reg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
-    (hT₀ : T₀ ≤ Real.exp (Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2)) (hKq : Kq ≤ Real.exp 100)
-    (hKs0 : 0 < Ks)
-    (hKsw : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16) :
-    ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
-    30 ≤ Real.log ((q : ℝ) * Tann)
-      / Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ∧
-    T₀ ≤ Tann ∧
-    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
-    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
-      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
-    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
-    (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
-    Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hloR : ((R.Hlo : ℕ) : ℝ) ≤ ((H : ℕ) : ℝ) := by exact_mod_cast hlo
-  have hsqm : Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2 ≤ Real.sqrt ((H : ℕ) : ℝ) / 2 := by
-    have := Real.sqrt_le_sqrt hloR
-    linarith
-  exact
-   ⟨capfloor_QTann_LH_gk hh hh7 K hfl hb hAN hM hTlo hQ2reg,
-   capfloor_kappa30Q_LH_gk hh hh7 K hfl hb hAN hM hTlo hQ2reg,
-   capfloor_T0_Tann_sharp_LH hh hh7 hfl hb hAN hTlo
-     (le_trans hT₀ (Real.exp_le_exp.mpr hsqm)),
-   capfloor_floor1_LH hh hh7 hfl hb hAN hTlo,
-   capfloor_floor2_LH hh hh7 hfl hb hAN hTlo,
-   capfloor_floor3_LH hh hh7 hfl hb hAN hTlo hKq,
-   capfloor_floor4_of_regimeWin_LH hh hh7 hfl hb hAN hTlo hKs0 hKsw,
-   hQ2reg⟩
 
 /-! ### THE `Ks`-WINDOWED ASSEMBLER AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -3534,8 +3506,9 @@ theorem capfloor_floor4_of_regimeWin_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.lo
     (exp_neg_le_of_log_inv_le hKs0 (by linarith))
 
 set_option maxHeartbeats 1000000 in
--- as the source: the eight-field capfloor bundle re-checks with every entry swapped
-/-- `s13CapFloor_all_LH_gk_sharpT0_kswin` at `log h ≤ 9` (`s13CapFloor_all_LH_gk_sharpT0_kswin_b9`)
+-- as the source: the eight-field capfloor bundle re-checks with seven entries swapped
+/-- The former `s13CapFloor_all_LH_gk_sharpT0_kswin` (retired into this, 2026-09-27)
+at `log h ≤ 9` (`s13CapFloor_all_LH_gk_sharpT0_kswin_b9`)
 — SUPPLIER-SWAP (`capfloor_QTann_LH_gk_b9`, `capfloor_kappa30Q_LH_gk_b9`,
 `capfloor_T0_Tann_sharp_LH_b9`, `capfloor_floor{1,2,3}_LH_b9`,
 `capfloor_floor4_of_regimeWin_LH_b9`).
