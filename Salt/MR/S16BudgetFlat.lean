@@ -11,10 +11,10 @@ import Salt.MR.FlatConsumers
 
 The two terminal `S16Budget` surfaces at the flat tower conjunct:
 
-* **HOP 3** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` (`:1429`) — a
+* **HOP 3** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` — a
   pure CARRIER.  Its flat twin is the landed statement with the conjunct
   re-shaped, proved by one `pow_nine_halves_le_exp_half`.
-* **HOP 4** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl` (`:1654`) — the
+* **HOP 4** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl` — the
   first surface on this road that CONSUMES the conjunct (`htow := hRtow hlam50`,
   `:1700`) and spends it on four socket suppliers.  Its flat twin is the landed
   proof with those four swapped for the flat consumers of

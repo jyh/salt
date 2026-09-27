@@ -924,7 +924,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as the landed HOP 4: the residue re-elaborates against the prefix.
 /-- **⟦HOP 2, AT THE FLAT ROOT, THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
 (`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH`) —
-`S16FlatTerminalLinear.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`:1034`)
+`S16FlatTerminalLinear.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L`
 on §3, with moves (i)–(iii) and the crossing rider at `S15CrossingBound_LH_gk h`.
 
 ⭐ **THE REGISTER DOES NOT MOVE.**  `S15Sel''_L_gk` is SOCKET-BLIND — its twelve fields are

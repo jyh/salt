@@ -32,7 +32,7 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
 
 * **conjunct 5**, `q ≤ h·arcDen 12 H` — read at exactly FIVE sites: `s13CapGrid_q_logX`
   (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
-  `s13_capEps_register` (`S13CapEps:476`), `s13CapEps_q_arcDen` (`:530`);
+  `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`;
 * **conjunct 11**, `x ≤ 16·ω·(h·arcDen 12 H)·A` — read at exactly ONE site,
   `s13_socketBase_xscale` (`S13MSelect2:111`), reaching this page only through
   `s13_socketBase_logA_ge_sqrt` (`:182`).
@@ -67,7 +67,7 @@ open Salt.Entropy.Chowla
 
 section NumericSiblings
 
-/-- ⟦SIBLING of `capeps_master` (`S13CapEps:104`), ceiling `50 → 60`⟧ — the `εr`-budget
+/-- ⟦SIBLING of `capeps_master` (`S13CapEps`), ceiling `50 → 60`⟧ — the `εr`-budget
 master line.  `ht` enters only the closing `nlinarith`, linearly, against `(14/10000)·Λ ≥
 7·10¹⁷`; the certificate is the landed one, unchanged. -/
 theorem capeps_master_60 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
@@ -96,7 +96,7 @@ theorem capeps_master_60 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (h�
     nlinarith [hsu, hLbig, hsq0]
   nlinarith [hsqrt, hsu, hs10, hsq0, hlogu, ht]
 
-/-- ⟦SIBLING of `capeps_expbound` (`S13CapEps:142`), ceiling `50 → 60`⟧. -/
+/-- ⟦SIBLING of `capeps_expbound` (`S13CapEps`), ceiling `50 → 60`⟧. -/
 theorem capeps_expbound_60 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) (ht : t ≤ 60) :
     Real.exp t * u ^ (12 : ℕ) * Real.log μ ≤ μ ^ (theta293 - 1 / 500) := by
@@ -114,7 +114,7 @@ theorem capeps_expbound_60 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (
   have : 14 / 10000 * Real.log μ ≤ Real.log μ * (theta293 - 1 / 500) := by nlinarith
   linarith
 
-/-- ⟦SIBLING of `capeps_bigexp` (`S13CapEps:161`), ceiling `50 → 60`⟧. -/
+/-- ⟦SIBLING of `capeps_bigexp` (`S13CapEps`), ceiling `50 → 60`⟧. -/
 theorem capeps_bigexp_60 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) (ht : t ≤ 60) :
     Real.exp t * u ^ (12 : ℕ) * μ ^ 2 ≤ Real.exp (μ - Real.log μ / 500) := by
@@ -140,7 +140,7 @@ theorem capeps_bigexp_60 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (h�
   rw [← hlhs]
   exact Real.exp_le_exp.mpr (by linarith)
 
-/-- ⟦SIBLING of `capeps_Pbig` (`S13CapEps:188`), constant `e¹¹ → e¹⁸⟧` — the `p²` row's
+/-- ⟦SIBLING of `capeps_Pbig` (`S13CapEps`), constant `e¹¹ → e¹⁸⟧` — the `p²` row's
 `1/P` leg at the `h`-inflated modulus. -/
 theorem capeps_Pbig_h {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) :
@@ -1183,7 +1183,7 @@ theorem h_le_exp_fourteen {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 
   have hz := Real.exp_le_exp.mpr hh14
   rwa [Real.exp_log hh0] at hz
 
-/-- ⟦SIBLING of `capeps_row_phi` (`S13CapEps:242`) at `φ ≤ h·u¹²`⟧ — `11 → 18`. -/
+/-- ⟦SIBLING of `capeps_row_phi` (`S13CapEps`) at `φ ≤ h·u¹²`⟧ — `11 → 18`. -/
 theorem capeps_row_phi_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) (hφ0 : 0 ≤ φ) (hφ : φ ≤ (h : ℝ) * u ^ (12 : ℕ)) :
@@ -1220,7 +1220,7 @@ theorem capeps_row_phi_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
 
 set_option maxHeartbeats 1000000 in
 -- the `(h:ℝ)·u¹²` factor doubles the monomial count in both legs' linarith tableaux
-/-- ⟦SIBLING of `capeps_row_tail` (`S13CapEps:277`) at `W ≤ 64·h·u¹²·X`⟧ — `49 → 56`, `8 → 15`. -/
+/-- ⟦SIBLING of `capeps_row_tail` (`S13CapEps`) at `W ≤ 64·h·u¹²·X`⟧ — `49 → 56`, `8 → 15`. -/
 theorem capeps_row_tail_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) (hX0 : 0 < X) (hXlog : Real.log X = μ)
@@ -1316,7 +1316,7 @@ theorem capeps_row_tail_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
 
 set_option maxHeartbeats 1000000 in
 -- same cause: `(h:ℝ)·u¹²` where the landed row carries `u¹²` alone
-/-- ⟦SIBLING of `capeps_row_p2` (`S13CapEps:371`) at `W ≤ 64·h·u¹²·X`⟧ — `e^11 → e^18`
+/-- ⟦SIBLING of `capeps_row_p2` (`S13CapEps`) at `W ≤ 64·h·u¹²·X`⟧ — `e^11 → e^18`
 (leg 1, through `capeps_Pbig_h`) and `11 → 18` (leg 2). -/
 theorem capeps_row_p2_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)

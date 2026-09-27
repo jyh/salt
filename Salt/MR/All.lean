@@ -3277,7 +3277,7 @@ open Salt.Tactic in
 -- the coprime-tail triple at the door's cut datum inside the K6 existential
 -- (`m4_door_tail_supply`).  ⚠ WALL 1 — THE K-BLOCK WINDOW LAW: `band_window_ratio_lock`
 -- proves that the capstone's `hcoefBand`/`hwinBand` pair (inherited verbatim from
--- `ThmA2Rows.a2Rows_of_capfree3`'s `hcoef`/`hwin`, ThmA2Rows:914–918) locks any two block
+-- `ThmA2Rows.a2Rows_of_capfree3`'s `hcoef`/`hwin`, ThmA2Rows) locks any two block
 -- primes at which the datum is LIVE into a factor 2 of each other, while
 -- `door_block_one_wide` shows the door's level-1 K-block spans `2^{(M−1)·Adoor M}` (a factor
 -- 4 already at M ≥ 2) and the sieve `𝒮` puts live points at block primes throughout it.  This
@@ -8865,7 +8865,7 @@ open Salt.Tactic in
   -- rated socket's `∃ Z δ Kvt` over the lever (the witnesses are argument-free, so the hoist is
   -- the same proof with `intro K` after the `refine`); N1b is the co-factor supply SIBLING with
   -- FOUR Skolem REALS and a cushion carrying NO evaluation point (the refuters' seam: the spine
-  -- has no socket call — RegisterRepair:490 is where the socket is consumed); N1's `armVt`
+  -- has no socket call — RegisterRepair · cofkR_cofactorSupply_L_gk is where the socket is consumed); N1's `armVt`
   -- (eighth `max` arm, `max 162 (log(1+Kvt))`) pays that cushion out of the regime's own
   -- exponential budget (exp-beats-linear, SPEND NOTHING ON GRADE); N2 `logChowla2_v7_rated` is
   -- the headline with the `Kvt` binder and the cushion arrow GONE — the program's first
@@ -9176,14 +9176,14 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
 
 /-! ⟦THE EXIT BELOW THE REGISTER AT SHIFT `h` — WAVE X, PARTS (iii)/(iv)⟧
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
-`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal register on the
+`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
 (`S16FlatTerminalLinearH.lean:1567`) and the flat head at shift `h`
 (`Salt/Entropy/Chowla/HloExportFlatH.lean:210`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
 `h`-twins of `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (`:70`) and
-`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L` (`:179`).  NEITHER IS NEEDED.
+`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L`.  NEITHER IS NEEDED.
 Those two exist at `h = 1` because the `h = 1` register is built in the SPLIT form
 (`a`/`e`, `Bsieve`/`Binsert`) and must be walked back to a door: the socket UNFOLDS
 `MRTUniformityXiL2` into the split, the loop RE-CLOSES it.  At shift `h` that walk was already
@@ -9367,7 +9367,7 @@ assembler is re-stated here.
 **THE TWO CONJUNCTS THAT MOVE, AND WHERE THEY ARE READ** (census driven at the object).
 Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGrid_q_logX`
 (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
-`s13_capEps_register` (`S13CapEps:476`), `s13CapEps_q_arcDen` (`:530`).  Conjunct 11 is read
+`s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
 `_LH` twins are already landed in `S16ProducersH` (`:332`, `:345`, `:408`, `:425`), and on the
