@@ -9,6 +9,7 @@ import Salt.MR.S13BandCapLinear
 import Salt.MR.FlatFloorBump
 import Salt.MR.S12ConstCompose
 import Salt.MR.S12FuseCompose
+import Salt.Tactic.ExpLogNum
 
 /-!
 # THE FLAT TERMINAL AT THE LINEAR LADDER — the re-fire
@@ -71,9 +72,7 @@ private lemma ftl_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : �
     (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
   have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) := Real.log_le_log (by norm_num) h
   have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-    rwa [Real.log_exp] at this
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   linarith
 
 /-- `S12ConstCompose.doorFuseFrame_pool'_of_gates_const_pos_gk` at the linear ladder: the
@@ -690,14 +689,7 @@ theorem doorBaseFrame_at_socket_L {R : ChowlaRegime} {M H L q j A s : ℕ} {C₁
     linarith
   · -- ⟦`ceil5`⟧
     have he5 : Real.exp 5 ≤ 1000 := by
-      have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-      have hh : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hpos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-      rw [hh]
-      have hc : (Real.exp 1) ^ (5 : ℕ) ≤ (2.7182818286 : ℝ) ^ (5 : ℕ) :=
-        pow_le_pow_left₀ hpos.le he.le 5
-      have hn : (2.7182818286 : ℝ) ^ (5 : ℕ) ≤ 1000 := by norm_num
-      linarith
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 5 (by norm_num)
     have hlog : Real.exp 5
         ≤ Real.log (2 * ((((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ))) := by
       have h1 : Real.log (((A + s : ℕ)) : ℝ) - Real.log (H : ℝ)
@@ -1434,10 +1426,7 @@ theorem arc36_of_regime_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
   have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have hfl : (10 : ℕ) ^ 157 ≤ loglogFloor50 := by
     have he3 : (10 : ℝ) ≤ Real.exp 3 := by
-      have h3 : Real.exp 3 = (Real.exp 1) ^ (3 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hp : (2.7 : ℝ) ^ (3 : ℕ) ≤ (Real.exp 1) ^ (3 : ℕ) :=
-        pow_le_pow_left₀ (by norm_num) he1.le 3
-      rw [h3]; nlinarith [hp]
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 3 (by norm_num)
     have he157 : (Real.exp 3) ^ (157 : ℕ) = Real.exp 471 := by
       rw [← Real.exp_nat_mul]; norm_num
     have hpow : ((10 : ℝ)) ^ (157 : ℕ) ≤ Real.exp 471 := by
@@ -2418,10 +2407,7 @@ theorem arc36_of_regime_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) �
   have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have hfl : (10 : ℕ) ^ 175 ≤ loglogFloor50 := by
     have he3 : (10 : ℝ) ≤ Real.exp 3 := by
-      have h3 : Real.exp 3 = (Real.exp 1) ^ (3 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hp : (2.7 : ℝ) ^ (3 : ℕ) ≤ (Real.exp 1) ^ (3 : ℕ) :=
-        pow_le_pow_left₀ (by norm_num) he1.le 3
-      rw [h3]; nlinarith [hp]
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 3 (by norm_num)
     have he175 : (Real.exp 3) ^ (175 : ℕ) = Real.exp 525 := by
       rw [← Real.exp_nat_mul]; norm_num
     have hpow : ((10 : ℝ)) ^ (175 : ℕ) ≤ Real.exp 525 := by
