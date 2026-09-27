@@ -61,7 +61,7 @@ import Salt.MR.StridePairReceipt
 import Salt.MR.StrideGradeWalls
 import Mathlib
 
--- The same three `open private` lines as `StridePairReceipt.lean:87-97` — the door-head and the
+-- The same three `open private` lines as `StridePairReceipt.lean`'s head — the door-head and the
 -- road-exit replay are the same bodies and reach the same private names.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -79,9 +79,9 @@ namespace Salt.MR
 
 /-! ## §4 — THE FORMS, GRADED: the six `StridePairReceipt` forms with the pin at `838400 · 2^11`. -/
 
-/-- **⟦H0 FORM, GRADED⟧ (def).** `FlatHeadFormH` (StridePairReceipt.lean:902, 021c22c1) with the ONE
+/-- **⟦H0 FORM, GRADED⟧ (def).** `FlatHeadFormH` (StridePairReceipt.lean, 021c22c1) with the ONE
 substitution `838400 * (h : ℝ) ^ 2 ↦ 838400 * 2 ^ 11 * (h : ℝ) ^ 2` on the export conjunct — the
-road's threaded pin at the graded grade; every other byte identical. ⟦SUBSTITUTED LINES⟧ source 904.
+road's threaded pin at the graded grade; every other byte identical. ⟦SUBSTITUTED LINES⟧ `838400`.
 -/
 def FlatHeadFormHG (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
@@ -104,8 +104,8 @@ def FlatHeadFormHG (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop 
             ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2Set Xi R ρ →
               P R
 
-/-- **⟦H1 FORM, GRADED⟧ (def).** `FlatRoadExitFormH` (:927) with the pin at `838400 * 2 ^ 11` ;
-nothing else moves. ⟦SUBSTITUTED LINES⟧ source 930. -/
+/-- **⟦H1 FORM, GRADED⟧ (def).** `FlatRoadExitFormH` with the pin at `838400 * 2 ^ 11` ;
+nothing else moves. ⟦SUBSTITUTED LINES⟧ `838400`. -/
 def FlatRoadExitFormHG (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 539 ∧ 0 < δ₀ ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧
@@ -143,11 +143,11 @@ def FlatRoadExitFormHG (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
                 M4ChiSummedFreeRowH_L_gk h K R M RS →
                   P R
 
-/-- **⟦H2 FORM, GRADED⟧ (def).** `FlatCapstoneFormH` (:967) with the pin at `838400 * 2 ^ 11` . ⚠
+/-- **⟦H2 FORM, GRADED⟧ (def).** `FlatCapstoneFormH` with the pin at `838400 * 2 ^ 11` . ⚠
 the `constPool (doorRhoOfDelta (s12DeltaSock δ₀ Kc))` antecedents are UNCHANGED as text: they are
 discharged inside the graded H2→H3 replay from the register's `gP1` /`lvl`/`rho` fields, whose
-graded witnesses (`StrideGradeWalls`) pay the `+8` nats at the cap lines. ⟦SUBSTITUTED LINES⟧ source
-970. -/
+graded witnesses (`StrideGradeWalls`) pay the `+8` nats at the cap lines. ⟦SUBSTITUTED LINES⟧
+`838400`. -/
 def FlatCapstoneFormHG (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -246,9 +246,9 @@ def FlatCapstoneFormHG (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop
                           (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
                         P R
 
-/-- **⟦H3 FORM, GRADED⟧ (def).** `FlatConditionalFormH` (:1067) with the pin at `838400 * 2 ^ 11` ;
+/-- **⟦H3 FORM, GRADED⟧ (def).** `FlatConditionalFormH` with the pin at `838400 * 2 ^ 11` ;
 the register slot `S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) …` is
-text-identical — the STRUCTURE does not move, its witness does. ⟦SUBSTITUTED LINES⟧ source 1070. -/
+text-identical — the STRUCTURE does not move, its witness does. ⟦SUBSTITUTED LINES⟧ `838400`. -/
 def FlatConditionalFormHG (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -273,8 +273,8 @@ def FlatConditionalFormHG (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : P
                 S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
                 S15CrossingBound_LH_gk h K R M → P R
 
-/-- **⟦H4 FORM, GRADED⟧ (def).** `FlatKswinFormH` (:1096) with the pin at `838400 * 2 ^ 11` .
-⟦SUBSTITUTED LINES⟧ source 1099. -/
+/-- **⟦H4 FORM, GRADED⟧ (def).** `FlatKswinFormH` with the pin at `838400 * 2 ^ 11` .
+⟦SUBSTITUTED LINES⟧ `838400`. -/
 def FlatKswinFormHG (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -306,8 +306,8 @@ def FlatKswinFormHG (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
               S16BaseScaleCap96_LH_gk h K R (flatDoorM A) →
                 P R))
 
-/-- **⟦H5 FORM, GRADED⟧ (def).** `V7RatedFormH` (:1131) with the pin at `838400 * 2 ^ 11` .
-⟦SUBSTITUTED LINES⟧ source 1136. -/
+/-- **⟦H5 FORM, GRADED⟧ (def).** `V7RatedFormH` with the pin at `838400 * 2 ^ 11` .
+⟦SUBSTITUTED LINES⟧ `838400`. -/
 def V7RatedFormHG (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
@@ -329,8 +329,8 @@ def V7RatedFormHG (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 
 /-! ## §5 — THE REPLAYS, GRADED: bodies verbatim from `StridePairReceipt`, two name swaps. -/
 
-/-- **⟦H0→H1 REPLAY, GRADED⟧ (class A).** Statement: `flat_roadExit_generic_h` (:1161) at the graded
-forms. BODY: StridePairReceipt.lean:1167-1184 VERBATIM — it forwards `hδpin` opaquely (no numeral is
+/-- **⟦H0→H1 REPLAY, GRADED⟧ (class A).** Statement: `flat_roadExit_generic_h` at the graded
+forms. BODY: its body VERBATIM — it forwards `hδpin` opaquely (no numeral is
 read); the road at `Xi` (`m4_second_road_L2_Set_gk_flatRoot_L_khoist`) is δ₀-generic. ⟦SUBSTITUTED
 LINES⟧ source none (names only). -/
 theorem flat_roadExit_generic_h_g (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
@@ -358,8 +358,8 @@ theorem flat_roadExit_generic_h_g (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : �
   intro H _ hlo hhi
   exact le_trans (hdoor H hlo hhi) hbudget
 
-/-- **⟦H1→H2 REPLAY, GRADED⟧ (class B).** Statement: `flat_capstone_generic_h` (:1189) at the graded
-forms. BODY: :1193-1332 VERBATIM — `hδpin` is forwarded; the share table `δ₀/(8·Kc)` , the ceiling
+/-- **⟦H1→H2 REPLAY, GRADED⟧ (class B).** Statement: `flat_capstone_generic_h` at the graded
+forms. BODY: its body VERBATIM — `hδpin` is forwarded; the share table `δ₀/(8·Kc)` , the ceiling
 `m4_arith_rs_ceiling_met_of_deltaH` and gate 10b (`2·Kc·(δ₀/(8Kc)) = δ₀/4`) are all stated in the
 threaded `δ₀` , which is now the graded one. ⟦SUBSTITUTED LINES⟧ source none (names only). -/
 theorem flat_capstone_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
@@ -507,9 +507,9 @@ theorem flat_capstone_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
     rw [hval]
     linarith [hend]
 
-/-- **⟦H2→H3 REPLAY, GRADED⟧ (class B).** Statement: `flat_conditional_generic_h` (:1406) at the
-graded forms. BODY: :1410-1601 VERBATIM with ONE name swap:
-`s15ArmH_log_le hh hh7 hδ₀ hδpin hKc hKcb hH4 hll` (:1479) ↦ `s15ArmH_log_le_g …` (same arguments;
+/-- **⟦H2→H3 REPLAY, GRADED⟧ (class B).** Statement: `flat_conditional_generic_h` at the
+graded forms. BODY: its body VERBATIM with ONE name swap:
+`s15ArmH_log_le hh hh7 hδ₀ hδpin hKc hKcb hH4 hll` ↦ `s15ArmH_log_le_g …` (same arguments;
 `StrideGradeWalls` ), because `hδpin` now reads `1/(838400·2^11·h²) ≤ δ₀` . Every other use of
 `hδpin` in the body is a forward. The register fields `hsel.half/rho/gP1/lvl` are consumed at
 symbolic `ρ` exactly as landed. ⟦SUBSTITUTED LINES⟧ source none (names only). -/
@@ -710,10 +710,10 @@ theorem flat_conditional_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h :
         s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
-/-- **⟦H3→H4 REPLAY, GRADED⟧ (class B).** Statement: `flat_kswin_generic_h` (:1613) at the graded
-forms. BODY: :1617-1711 VERBATIM with ONE name swap:
+/-- **⟦H3→H4 REPLAY, GRADED⟧ (class B).** Statement: `flat_kswin_generic_h` at the graded
+forms. BODY: its body VERBATIM with ONE name swap:
 `s15_sel''_L_gk_witness_flat_bumped_win_h hA26 K hKw hh hh7 hδ₀ hδpin hKc hKcb hCt hCtb hCgle
-(hMflb A hA26 hAwin) hx0win heps hlo hwin` (:1693)
+(hMflb A hA26 hAwin) hx0win heps hlo hwin`
 ↦ `s15_sel''_L_gk_witness_flat_bumped_win_h_g …` (same arguments; `StrideGradeWalls` ).
 ⟦SUBSTITUTED LINES⟧ source none (names only). -/
 theorem flat_kswin_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
@@ -816,8 +816,8 @@ theorem flat_kswin_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) 
         linarith)
       hblk hcof hcapsc)
 
-/-- **⟦H4→H5 REPLAY, GRADED⟧ (class B).** Statement: `flat_v7_generic_h` (:1721) at the graded
-forms. BODY: :1725-1841 VERBATIM — `hδpin` is forwarded at :1801 only; the eight-arm design
+/-- **⟦H4→H5 REPLAY, GRADED⟧ (class B).** Statement: `flat_v7_generic_h` at the graded
+forms. BODY: its body VERBATIM — `hδpin` is forwarded at one site only; the eight-arm design
 constant, the rated supply and the base-scale cap read no pin. ⟦SUBSTITUTED LINES⟧ source none
 (names only). -/
 theorem flat_v7_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
@@ -944,25 +944,25 @@ theorem flat_v7_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
 
 /-! ## §6 — the door-head, the chain, the receipts, GRADED -/
 
-/-- **⟦THE RECEIPT PREDICATE, GRADED⟧ (def).** `MRTDoorReceiptSet` (:1859) with the door's ceiling
+/-- **⟦THE RECEIPT PREDICATE, GRADED⟧ (def).** `MRTDoorReceiptSet` with the door's ceiling
 `837782 * (h : ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * (h : ℝ) ^ 2` ; the ε-pin equality and the count ride the
-slot unchanged. ⟦SUBSTITUTED LINES⟧ source 1863. -/
+slot unchanged. ⟦SUBSTITUTED LINES⟧ `837782`. -/
 def MRTDoorReceiptSetG (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   R.eps = 1 / (500 * (h : ℚ)) ∧
   (∃ K : ℝ, 0 < K ∧ K ≤ 2 ^ 539 ∧ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
     ((Xi R.eps H).card : ℝ) ≤ K) ∧
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * 2 ^ 11 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
-/-- **⟦THE DOOR-HEAD, GRADED⟧ (class B).** Statement: `flat_door_head_xceil_h` (:1881) at
-`FlatHeadFormHG … (MRTDoorReceiptSetG h Xi)` . BODY: :1886-1968 VERBATIM with the mint moved by
-`2^11` (sites anchored by `have`-name; line numbers at `main 9a2b3053`): the witness
-`cD3 / (16 * C) * (ε : ℝ) / 4` in the `refine` (:1937) ↦ `cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11`
-(its positivity at :1938 gains one `div_pos … (by positivity)` ); `hval` (:1914-1918) gains
+/-- **⟦THE DOOR-HEAD, GRADED⟧ (class B).** Statement: `flat_door_head_xceil_h` at
+`FlatHeadFormHG … (MRTDoorReceiptSetG h Xi)` . BODY: its body VERBATIM with the mint moved by
+`2^11` (sites anchored by `have`-name): the witness
+`cD3 / (16 * C) * (ε : ℝ) / 4` in the `refine` ↦ `cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 11`
+(its positivity gains one `div_pos … (by positivity)` ); `hval` gains
 `/ 2 ^ 11` on the left and `* 2 ^ 11` inside the right denominator (`field_simp; ring` unchanged);
-`hδ₀ge` (:1920-1924) at `838400 * 2 ^ 11` with the same `hnum : 128000 * (1 + 8 * log 2) ≤ 838400`
+`hδ₀ge` at `838400 * 2 ^ 11` with the same `hnum : 128000 * (1 + 8 * log 2) ≤ 838400`
 and `nlinarith [hnum, hsq0]` now multiplying through `2 ^ 11` (state `hnum'` at `× 2 ^ 11` if
-`nlinarith` needs the product); `hδ₀le` (:1925-1929) at `837782 * 2 ^ 11` likewise; the discharge
-`le_trans hρ hδ₀le` (:1968, the body's last line) unchanged. The regime build, the count hook, the
+`nlinarith` needs the product); `hδ₀le` at `837782 * 2 ^ 11` likewise; the discharge
+`le_trans hρ hδ₀le` (the body's last line) unchanged. The regime build, the count hook, the
 hoist and the cap read NO `δ₀` . ⟦SUBSTITUTED LINES⟧ source none (names only). -/
 theorem flat_door_head_xceil_h_g (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ) ≤ 7)
     (Xi : XiFamily)
@@ -1056,7 +1056,7 @@ theorem flat_door_head_xceil_h_g (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : �
     exact ⟨by rw [hReps, hεdef], ⟨K, hK, hKb, hcountR⟩, ρ, hρpos,
       le_trans hρ hδ₀le, hdoor⟩
 
-/-- **⟦THE CHAIN, GRADED⟧ (class A).** `flat_chain_generic_h` (:1973); BODY :1978-1982 VERBATIM at
+/-- **⟦THE CHAIN, GRADED⟧ (class A).** `flat_chain_generic_h`; BODY: its body VERBATIM at
 the `_g` replays. ⟦SUBSTITUTED LINES⟧ source none (names only). -/
 theorem flat_chain_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
@@ -1070,9 +1070,9 @@ theorem flat_chain_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) 
           (flat_roadExit_generic_h_g h hh hh7 Xi harcXi P hhead)))) A₀
 
 /-- **⟦THE RECEIPT AT `h` , GENERIC SET, GRADED⟧ (class A).** Statement:
-`mrtUniformityXiL2Set_holds_flat_floor` (:1994) with the ceiling at `837782 * 2 ^ 11` . BODY:
-:2013-2029 VERBATIM at `MRTDoorReceiptSetG` , `flat_chain_generic_h_g` , `flat_door_head_xceil_h_g`
-. ⟦SUBSTITUTED LINES⟧ source 2012. -/
+`mrtUniformityXiL2Set_holds_flat_floor` with the ceiling at `837782 * 2 ^ 11` . BODY:
+its body VERBATIM at `MRTDoorReceiptSetG` , `flat_chain_generic_h_g` , `flat_door_head_xceil_h_g`
+. ⟦SUBSTITUTED LINES⟧ `837782`. -/
 theorem mrtUniformityXiL2Set_holds_flat_floor_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
@@ -1113,8 +1113,8 @@ theorem mrtUniformityXiL2Set_holds_flat_floor_g (h : ℕ) (hh : 0 < h) (hh7 : Re
 /-- **⟦THE ANTI-DRIFT INSTANCE, GRADED⟧ (class A).** The plain `h` -door on the flat family at the
 graded ceiling `1/(837782·2^11·h²)` — the conservativity control: at `h = 1` it is
 `mrtUniformityXiL2_holds_flat` (DoorReceipt) 2048× finer. Statement: `mrtUniformityXiL2H_holds_flat`
-(:2038) with the ceiling substituted; BODY :2044-2053 VERBATIM at `_g` . ⟦SUBSTITUTED LINES⟧ source
-2043. -/
+with the ceiling substituted; BODY: its body VERBATIM at `_g` . ⟦SUBSTITUTED LINES⟧
+`837782`. -/
 theorem mrtUniformityXiL2H_holds_flat_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
@@ -1133,9 +1133,9 @@ theorem mrtUniformityXiL2H_holds_flat_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (
   exact hdoor
 
 /-- **⟦THE AFFINE-SET INSTANCE, GRADED⟧ (class A).** Statement:
-`mrtUniformityXiL2AffSet_holds_flat_floor` (:2064) with
-`837782 * ((a * h : ℕ) : ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` . BODY :2079-2088
-VERBATIM at `mrtUniformityXiL2Set_holds_flat_floor_g` . ⟦SUBSTITUTED LINES⟧ source 2077. -/
+`mrtUniformityXiL2AffSet_holds_flat_floor` with
+`837782 * ((a * h : ℕ) : ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` . BODY: its body
+VERBATIM at `mrtUniformityXiL2Set_holds_flat_floor_g` . ⟦SUBSTITUTED LINES⟧ `837782`. -/
 theorem mrtUniformityXiL2AffSet_holds_flat_floor_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
@@ -1165,11 +1165,11 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g (a b h : ℕ) (ha : 0 < a) (h
 /-! ## §7 — THE CROWN, GRADED: the affine door at Tao's range at `ρ ≤ 1/(837782·2^11·(ah)²)` -/
 
 /-- **⟦THE CROWN, GRADED⟧ (class B) — `mrtUniformityXiL2AffW_holds_flat_stride_g` .** Statement: the
-landed crown (:2121) with `ρ ≤ 1 / (837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2)` — the spelling
+landed crown with `ρ ≤ 1 / (837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2)` — the spelling
 `GradedAffHeadAt` (StridePrize.lean:166) and `log_chowla_aff_of_door_g` 's `hcrown` read. BODY:
-:2132-2259 VERBATIM at `mrtUniformityXiL2AffSet_holds_flat_floor_g` — the receipt's `hρle` is
+the crown's body VERBATIM at `mrtUniformityXiL2AffSet_holds_flat_floor_g` — the receipt's `hρle` is
 forwarded through the transport and `mrtUniformityXiL2AffW_mono` untouched; no line of the crown's
-proof reads the ceiling's numeral. ⟦SUBSTITUTED LINES⟧ source 2127. -/
+proof reads the ceiling's numeral. ⟦SUBSTITUTED LINES⟧ `837782`. -/
 theorem mrtUniformityXiL2AffW_holds_flat_stride_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hba : b < a) (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧

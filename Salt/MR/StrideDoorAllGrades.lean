@@ -8,7 +8,7 @@ import Salt.MR.FlatDoorEpsRung2
 import Salt.Tactic.ExpLogNum
 import Mathlib
 
--- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean:93` opens the
+-- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean`'s head opens the
 -- same line for the same body).  MEASURED, not assumed: `#check @xceil_flat_P` and
 -- `#check @xceil_flat_step` both fail without this line (`Unknown identifier`).
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -399,7 +399,7 @@ theorem zCount_form {K : ℝ} {c h : ℕ} {L : ℝ} (hK0 : 0 < K)
   linarith
 
 /-- **Z3 — THE BUILDER'S CEILING ABSORBS `+L` WHERE IT ABSORBED `+9`.**  The landed step
-(`StridePairReceipt.lean:2712–2715`) is `log H₊ + 9/(30·u) ≤ H₊` at `u ≥ 2`; at Z the reserved room
+(the `_b9` builder's `hlogself`) is `log H₊ + 9/(30·u) ≤ H₊` at `u ≥ 2`; at Z the reserved room
 is `L ≤ log H₊` (from `L ≤ Lc ≤ loglog H₊ ≤ log H₊`), and `log H₊ ≤ H₊/10⁴ + 10⁴` pays it. -/
 theorem zBuilder_absorb_L {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi) {u L : ℝ} (hu2 : 2 ≤ u)
     (hL0 : 0 ≤ L) (hLH : L ≤ Real.log ((Hhi : ℕ) : ℝ)) :
@@ -430,7 +430,7 @@ theorem mrtUniformityXiL2Set_mono {Xi : XiFamily} {R : ChowlaRegime} {ρ ρ' : �
 /-! ## §D — THE BUILDER PAIR AT THE CHARGE -/
 
 /-- **⟦THE STRIDE BUILDER AT THE CHARGE⟧** (`chowlaRegimeFlat_exists_param_gen_ceiling_mul_L`) —
-`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean:2571`) with the stride's
+`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean`) with the stride's
 numeral cap gone: (a) `hlogA : log a ≤ 9`, derived there from `a ≤ 8103`, is the BINDER
 `haL : log a ≤ L`; (b) the `+ 9` absorbed into the ceiling is `+ L`, closed by `zBuilder_absorb_L`
 where the landed proof closes `log H₊ + 9/(30u) ≤ H₊`, its room `L ≤ log H₊` derived from
@@ -609,7 +609,7 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_L (a : ℕ) (ha : 1 ≤ a)
 
 /-- **⟦THE STRIDE HEAD BUILDER AT THE CHARGE, ON THE PARAMETRIC RIDER⟧**
 (`chowlaRegimeFlat_exists_param_head_xceil_mul_at_L`) —
-`chowlaRegimeFlat_exists_param_head_xceil_mul_b9` (`StridePairReceipt.lean:2749`) on
+`chowlaRegimeFlat_exists_param_head_xceil_mul_b9` (`StridePairReceipt.lean`) on
 `chowlaRegimeFlat_exists_param_gen_ceiling_mul_L`, with the rider at the parametric floor `lam0` as
 rung 2's `chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2900`) carries it:
 the `loglog` floor is `hll : lam0 ≤ loglog H₊`, proved from `hlamA : lam0 ≤ 3.2·A` and the design

@@ -64,7 +64,7 @@ theorem logChowlaAffSupplyW_holds (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba :
 `zRough_oddOmega_infinite_of_affSupplyW_primorial hcop (logChowlaAffSupplyW_holds (primorial z) r 2
 (primorial_pos z) two_pos hr (gcd_dvd_two_of_coprime hcop) hah7)` with `hah7 : log ((primorial z *
 2 : ℕ) : ℝ) ≤ 7` from `hz`: `primorial z * 2 ≤ 1096` and `(1096 : ℝ) ≤ exp 7` (`Real.exp_one_gt_d9`
-raised to the 7th, `2.7182818283^7 ≥ 1096`, the move at `StridePairReceipt.lean:1425-1436`), then
+raised to the 7th, `2.7182818283^7 ≥ 1096`, the move `he7` of `flat_conditional_generic_h`), then
 `Real.log_le_log` + `Real.log_exp`.  ⚠ `548` is EXACT: `549·2 = 1098 > e^7 = 1096.63`.  The binder
 `hr : r < primorial z` is the head's `hba` at `(P, r, 2)`; the set is `r`-free. -/
 theorem zRough_oddOmega_infinite_primorial {z r : ℕ} (hz : primorial z ≤ 548)
@@ -78,7 +78,7 @@ theorem zRough_oddOmega_infinite_primorial {z r : ℕ} (hz : primorial z ≤ 548
     have hR0 : (0 : ℝ) < ((primorial z * 2 : ℕ) : ℝ) := by
       have hpos : 0 < primorial z * 2 := by omega
       exact_mod_cast hpos
-    -- the `e^7` move at `StridePairReceipt.lean:1425-1436`
+    -- the `e^7` move `he7` of `flat_conditional_generic_h`
     have he7 : (1096 : ℝ) ≤ Real.exp 7 := by
       have h3 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
       have h4 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
