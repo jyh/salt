@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Entropy.Chowla.GoldbachEnergyKc
 import Salt.Entropy.Chowla.ShiftFork
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ⟦THE LARGE-SPECTRUM COUNT CONSTANT AT SHIFT `h`⟧ — wave H2a, word 1(a)–(c)
@@ -109,13 +110,7 @@ theorem h_le_1096_of_log_le_seven {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : �
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hhle : (h : ℝ) ≤ Real.exp 7 := by
     rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh7
-  have he7 : Real.exp 7 < 1097 := by
-    have h3 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h5 : (Real.exp 1) ^ (7 : ℕ) < (2.7182818286 : ℝ) ^ (7 : ℕ) :=
-      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
-    have h6 : (2.7182818286 : ℝ) ^ (7 : ℕ) < 1097 := by norm_num
-    rw [h3]; linarith
+  have he7 : Real.exp 7 < 1097 := by exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 7 (by norm_num)
   have : (h : ℝ) < 1097 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
@@ -132,12 +127,7 @@ theorem h_le_1202604_of_log_le_fourteen {h : ℕ} (hh : 0 < h) (hh14 : Real.log 
   have hhle : (h : ℝ) ≤ Real.exp 14 := by
     rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh14
   have he14 : Real.exp 14 < 1202605 := by
-    have h3 : Real.exp 14 = (Real.exp 1) ^ (14 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h5 : (Real.exp 1) ^ (14 : ℕ) < (2.7182818286 : ℝ) ^ (14 : ℕ) :=
-      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
-    have h6 : (2.7182818286 : ℝ) ^ (14 : ℕ) < 1202605 := by norm_num
-    rw [h3]; linarith
+    exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 14 (by norm_num)
   have : (h : ℝ) < 1202605 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
@@ -342,13 +332,7 @@ theorem h_le_8103_of_log_le_nine {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hhle : (h : ℝ) ≤ Real.exp 9 := by
     rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh9
-  have he9 : Real.exp 9 < 8104 := by
-    have h3 : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h5 : (Real.exp 1) ^ (9 : ℕ) < (2.7182818286 : ℝ) ^ (9 : ℕ) :=
-      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
-    have h6 : (2.7182818286 : ℝ) ^ (9 : ℕ) < 8104 := by norm_num
-    rw [h3]; linarith
+  have he9 : Real.exp 9 < 8104 := by exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 9 (by norm_num)
   have : (h : ℝ) < 8104 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 

@@ -48,6 +48,7 @@ import Salt.MR.CofactorSupplier
 import Salt.MR.Lemma14Taylor
 import Salt.MR.MVHilbertFinset
 import Salt.Mertens.Third
+import Salt.Tactic.ExpLogNum
 
 namespace Salt.MR
 
@@ -1140,8 +1141,7 @@ Prop — would be worse than this flag, because it would read as a guard while g
 theorem landed_halasz_exponent_weaker_than_a6 :
     1 / (32 * Real.exp 1) < (1 : ℝ) / 16 := by
   have h : (2 : ℝ) < Real.exp 1 := by
-    have := Real.exp_one_gt_d9
-    linarith
+    exact_mod_cast Salt.Tactic.lt_exp_nat_of_lt_pow 1 (by norm_num)
   have h32 : (0 : ℝ) < 32 * Real.exp 1 := by linarith
   rw [div_lt_div_iff₀ h32 (by norm_num : (0:ℝ) < 16)]
   linarith
@@ -1150,8 +1150,7 @@ theorem landed_halasz_exponent_weaker_than_a6 :
 `1/e < 1/2`, i.e. `2 < e`. -/
 theorem landed_halasz_M_rate_weaker_than_a6 : 1 / Real.exp 1 < (1 : ℝ) / 2 := by
   have h : (2 : ℝ) < Real.exp 1 := by
-    have := Real.exp_one_gt_d9
-    linarith
+    exact_mod_cast Salt.Tactic.lt_exp_nat_of_lt_pow 1 (by norm_num)
   have hpos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
   rw [div_lt_div_iff₀ hpos (by norm_num : (0:ℝ) < 2)]
   linarith
@@ -3006,8 +3005,7 @@ theorem mrtA3_ambient_excludes_degeneracies {X T : ℝ} {Pseq : ℕ → ℕ}
     1 < X ∧ Pseq 1 ≠ 0 ∧ T ≤ X := by
   obtain ⟨hXe, hTX, hP⟩ := h
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by
-    have := Real.add_one_le_exp (1 : ℝ)
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 1 (by norm_num)
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hXe
   refine ⟨by linarith, by omega, by linarith⟩
 
