@@ -47,11 +47,11 @@ Modulus page: `‖x^{iu}/(1+iu)‖ = (1+u²)^{−1/2} ≤ √2/(1+|u|)`, since
 
 VERDICT: **constant-tracking, not structural.**  In `Salt/MR/MultShiu.lean`,
 
-* `hall_tenenbaum_core` (`:783`) uses its `hF1 : ∀ n, F n ≤ 1` at *exactly one* leaf
-  step (`:822`), bounding `k · F(p^k) · F(m) ≤ k · F(m)` after
+* `hall_tenenbaum_core` uses its `hF1 : ∀ n, F n ≤ 1` at *exactly one* leaf
+  step, bounding `k · F(p^k) · F(m) ≤ k · F(m)` after
   `ht_valuation_partition`.  All of `ht_first_term`, `ht_second_term_swap`,
   `ht_valuation_partition`, `ht_UA_bound`, `ht_UB_bound` are κ-free.
-* `euler_exp_bound` (`:925`) uses `hF1` at *exactly one* leaf step (`:1008`),
+* `euler_exp_bound` uses `hF1` at *exactly one* leaf step,
   bounding `F(p^{i+2})/p^{i+2} ≤ p^{−(i+2)}`.  `mult_divisor_sum_prod`,
   `geom_tail_sq`, `sum_inv_sq_le` are κ-free.
 
@@ -276,7 +276,7 @@ theorem euler_exp_bound_two {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
 GS deduces (7.2) from (7.1) by *partial summation against `∫ dt/(t log t)`*, giving the
 bracket `1/log x − log(1 − log y/log x)`.  Mechanised here in the **honest constant form**
 `(2 + log y)/log x` (the freeze does not need GS's exact `2 + O(1/log x)`), by the landed
-discrete Abel engine `abel_master` (`MultShiu:65`) run against the TWO-PIECE weight
+discrete Abel engine `abel_master` (`MultShiu`) run against the TWO-PIECE weight
 `w i = min(1/(i+1), y/x)`: the `min` flattens the weight below `x/y` (so `∑_{i<N} w i ≤
 1 + (harmonic N − harmonic ⌊x/y⌋) ≤ 2 + log y`, the `log y` saving), while the linear
 partial-sum hypothesis is supplied by `hall_tenenbaum_core_two` at the *shifted* scale —

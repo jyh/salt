@@ -551,7 +551,7 @@ the hop is free — this twin takes `K ≤ 1.7·10⁸·M` directly, and at `K = 
 `M = flatDoorM A` that hypothesis is `KlevF_le_wideCeiling`.
 
 ⟦THE ROOT OF P2(b)⟧  Every `hK : K ≤ 170000000` on the L chain is spent, ultimately, here (via
-`M4RowSpineLinear:1493` and `A3Middle:1031/:1148`); this twin is where the propagation of the
+`M4RowSpineLinear:1493` and `A3Middle` · `a2Rows_of_capfree3_end'_gk` / `a2Rows_of_capfree3'_gk`); this twin is where the propagation of the
 weakened ceiling starts. -/
 theorem calFrameK_doorH1_at_L_gk_kwide (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000 * M)
     (hXd : calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd) :
@@ -2900,7 +2900,7 @@ theorem thm_a2'_of_rows'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs
   exact thm_a2'_of_rows_pool'_L_gk K hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil hrows hT0band
     hrp500.le hgP1 hgRows hgU hgBand
 
-/-! ### `A3Middle` :162 — `a2RowsSum'_nonneg` -/
+/-! ### `A3Middle` — `a2RowsSum'_nonneg` -/
 /-- `ThmA2.a2RowsSum'_L` is a sum of nonnegative terms — `ThmA2Rows.a2RowsSum_nonneg_L`'s twin,
 and STRICTLY easier: the `p²` slot is the constant `24/𝒫ⱼ`, so the `log₂(2X_d) ≥ 0` step of
 the landed proof disappears. -/
@@ -2931,7 +2931,7 @@ private lemma a2RowsSum'_nonneg_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
   have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
   linarith
 
-/-! ### `A3Middle` :424 — `a2Rows_of_capfree3_end'` -/
+/-! ### `A3Middle` — `a2Rows_of_capfree3_end'` -/
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of §3 at `Tann = 2T`
 /-- **THE CAP-FREE ROW FAMILY AT THE `3X` MINT — STRICT/FUSED, R1**
@@ -3064,7 +3064,7 @@ theorem a2Rows_of_capfree3_end'_L :
   · exact a3_term3_weigh_mr hRS0 hg3
   · exact a3_term4_weigh hZ0 hg32
 
-/-! ### `A3Middle` :791 — `a2Rows_of_capfree3'` -/
+/-! ### `A3Middle` — `a2Rows_of_capfree3'` -/
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of ⟦R1⟧'s `3X`-minted cap-free row at `Tann = 2T`
 /-- **THE CAP-FREE ROW FAMILY AT THE `3X` MINT — R1** (`a2Rows_of_capfree3'_L`) —
@@ -3198,7 +3198,7 @@ theorem a2Rows_of_capfree3'_L :
   · exact a3_term3_weigh_mr hRS0 hg3
   · exact a3_term4_weigh hZ0 hg32
 
-/-! ### `A3Middle` :932 — `a2RowsSum'_nonneg_gk` -/
+/-! ### `A3Middle` — `a2RowsSum'_nonneg_gk` -/
 lemma a2RowsSum'_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum'_L_gk K M Xd := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
@@ -3226,7 +3226,7 @@ lemma a2RowsSum'_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ 
   have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
   linarith
 
-/-! ### `A3Middle` :959 — `a2Rows_of_capfree3_end'_gk` -/
+/-! ### `A3Middle` — `a2Rows_of_capfree3_end'_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -3345,7 +3345,7 @@ theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a3_term3_weigh_mr hRS0 hg3
   · exact a3_term4_weigh hZ0 hg32
 
-/-! ### `A3Middle` :1075 — `a2Rows_of_capfree3'_gk` -/
+/-! ### `A3Middle` — `a2Rows_of_capfree3'_gk` -/
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
