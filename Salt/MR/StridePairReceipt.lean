@@ -80,6 +80,11 @@ cap-9 twin.  The four door-heads that called it read that twin, as `flat_door_he
 already did; that twin reads `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`, the twin of Δ2's
 builder, at `log a ≤ 9`.  Δ2's builder `chowlaRegimeFlat_exists_param_gen_ceiling_mul` stands,
 with no call site.)
+
+(2026-09-27, XY debt lane family 11: Δ2's builder `chowlaRegimeFlat_exists_param_gen_ceiling_mul`,
+at `a ≤ 1096` and with no call site, was retired into its cap-9 twin
+`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`, at `a ≤ 8103`.  The factor of Δ2 enters at
+that twin, whose ceiling absorbs `log a ≤ 9` where the retired builder's absorbed `log a ≤ 7`.)
 -/
 import Salt.Entropy.Chowla.StridePair
 import Salt.MR.DoorReceipt
@@ -92,7 +97,8 @@ import Mathlib
 -- corpus's sanctioned device (`DoorReceipt.lean:64` does the same for `uniformCap_shuffle`).
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- v2 (refuter R1): two "body verbatim" replays call `private` lemmas of their source modules —
--- the multiplier builder (F3-Q2) copies `chowlaRegimeFlat_exists_param_gen_ceiling`'s body,
+-- the multiplier builder (F3-Q2; from 2026-09-27 its cap-9 twin, XY family 11) copies
+-- `chowlaRegimeFlat_exists_param_gen_ceiling`'s body,
 -- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:144, :135), and the road-exit
 -- replay (F3-Q8) copies S16ComposeLH.lean:1869-1891, whose cap line is `flatRootCapH_arc_k`
 -- (S16ComposeLH.lean:1063).  Opened here so the copies elaborate; nothing landed moves.
@@ -188,7 +194,21 @@ theorem xceilRider_mul_of_strict {ε : ℚ} (heps : 1 / 548000 ≤ ε) {a : ℕ}
       linarith
   exact hgoal
 
-/-- **F3-Q2 (class B) — THE MULTIPLIER BUILDER.**  `chowlaRegimeFlat_exists_param_gen_ceiling`
+/-! ### THE MULTIPLIER BUILDER, at `a ≤ 1096` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 11 (2026-09-27)⟧  `chowlaRegimeFlat_exists_param_gen_ceiling_mul (a : ℕ)
+(ha : 1 ≤ a) (ha1096 : a ≤ 1096) (A) (hA) (eps) (heps) (heps1) (Hlo₀) : ∃ R : ChowlaRegimeFlat, …`
+stood here.  It is `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `a ≤ 1096` against `a ≤ 8103`, and
+are token-identical elsewhere, so the twin implies it by `omega` — kernel-checked from the retired
+statement's own bytes before the 187 lines were removed.  The twin's body is this page's with
+SIXTEEN lines changed, fourteen of code and two comments, each by the stride's numerals alone
+(`7 ↦ 9`, `1096 ↦ 8103`).  At this retirement the page had NO call site: its one caller, the
+head-shaped builder at `a ≤ 1096`, was retired by family 10 (the next note).
+
+This page's docstring, verbatim:
+
+**F3-Q2 (class B) — THE MULTIPLIER BUILDER.**  `chowlaRegimeFlat_exists_param_gen_ceiling`
 (XCeil.lean:386) with `x := a * x₀`: the same construction (`regime_outer_param_ceiling` at
 `(ε, H₊, P := 4^⌊ε²H₊⌋)`, XCeil.lean:185, gives `(x₀, ω)` with the eight floors and the ceiling
 `log x₀ ≤ (30/ε)·log H₊ + 2·log(P+1)`), the regime record at `x := a * x₀` (each `x`-field at
@@ -203,178 +223,6 @@ edits the record's `x` and the last `linarith`.  The body calls `xceil_flat_P` a
 the `+ 7` enters at `xceil_flat_step`'s use, whose margin `(u − 0.694)·H₊ − 1.39 ≥ 5.2·10⁶`
 grows in both `H₊` and `u = 1/ε`.  The flat fields (`A`, `hflat`, `Jf`, `hfitF`, `hJconF`) are
 untouched.  `log a ≤ 7` in the form `a ≤ 1096`. -/
-theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (A : ℝ) (hA : 26 ≤ A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) :
-    ∃ R : ChowlaRegimeFlat, R.eps = eps ∧ R.A = A ∧ Hlo₀ ≤ R.Hlo ∧
-      StrideScale a R.toChowlaRegime ∧
-      R.Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) ∧
-      Real.log (Real.log (R.Hhi : ℝ))
-        ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) ∧
-      Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-  classical
-  have hA1 : (1 : ℝ) ≤ A := by linarith
-  have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
-  -- the scale `m ≥ 1/ε`
-  obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
-  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
-  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
-    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
-    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
-  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
-  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
-  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
-  -- ⟦THE RE-BASED BASE⟧
-  obtain ⟨Hlo, hHlodef⟩ : ∃ Hlo : ℕ,
-      Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * m ^ 4)) := ⟨_, rfl⟩
-  have hHloDF : flatDesignFloor A ≤ Hlo := by rw [hHlodef]; exact le_max_left _ _
-  have hHlo_floor : 4000000 ≤ Hlo := le_trans (flatDesignFloor_house A) hHloDF
-  have hHlo0 : Hlo₀ ≤ Hlo := by
-    rw [hHlodef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
-    rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
-  have hHlo4Q : (4 : ℚ) * (m : ℚ) ^ 4 ≤ (Hlo : ℚ) := by exact_mod_cast hHlo4
-  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
-  have hHlocap : Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
-    rw [hHlodef, hmdef]
-  -- ⟦THE DESIGN LAW⟧ and the two floors it and `flatBase` supply
-  have hflat : 3.2 * A ≤ Real.log (Real.log (Hlo : ℝ)) := flatDesignFloor_design hHloDF
-  have hfl : 100 * (flatC A + Real.log (Real.log (Hlo : ℝ))) ≤ Real.log (Hlo : ℝ) :=
-    flatFloor_of_design hA hHlo_floor hflat
-  have h50 : (50 : ℝ) ≤ Real.log (Real.log (Hlo : ℝ)) := by linarith
-  -- `hcoprime : 1 ≤ ε²·Hlo/2`
-  have hcop : ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 := by
-    have hprod : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 := by
-      have h1 : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 := by nlinarith [hem, sq_nonneg (eps * (m : ℚ) - 1)]
-      have h2 : (1 : ℚ) ≤ (m : ℚ) ^ 2 := by nlinarith [hm1, sq_nonneg ((m : ℚ) - 1)]
-      exact le_trans h1 (le_mul_of_one_le_right (sq_nonneg _) h2)
-    have heq : (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 = eps ^ 2 * (m : ℚ) ^ 4 := by ring
-    have h4le : (4 : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) := by
-      have hmul : eps ^ 2 * (4 * (m : ℚ) ^ 4) ≤ eps ^ 2 * (Hlo : ℚ) :=
-        mul_le_mul_of_nonneg_left hHlo4Q (sq_nonneg eps)
-      nlinarith [hmul, hprod, heq]
-    rw [Nat.cast_one]; linarith
-  -- `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
-      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
-      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
-  -- ⟦THE TWO TOWERS⟧ at their minimal crossings, and the endpoint that hosts both
-  obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = towerJmin 2 1 Hlo := ⟨_, rfl⟩
-  obtain ⟨Jf, hJfdef⟩ : ∃ Jf : ℕ, Jf = towerFlatJmin A 1 Hlo := ⟨_, rfl⟩
-  have hJ : Real.log 2 < towerDropSum 2 1 Hlo J := by
-    rw [hJdef]; exact towerJmin_spec hHlo_floor
-  have hJf : Real.log 2 < towerDropSumFlat A 1 Hlo Jf := by
-    rw [hJfdef]; exact towerFlatJmin_spec hA1 hHlo_floor hfl
-  obtain ⟨Hhi, hHhidef⟩ : ∃ Hhi : ℕ,
-      Hhi = max (chowlaTower 2 1 Hlo J) (chowlaTowerFlat A 1 Hlo Jf) := ⟨_, rfl⟩
-  have hfitL : chowlaTower 2 1 Hlo J ≤ Hhi := by rw [hHhidef]; exact le_max_left _ _
-  have hfitFl : chowlaTowerFlat A 1 Hlo Jf ≤ Hhi := by rw [hHhidef]; exact le_max_right _ _
-  have hHlohi : Hlo ≤ Hhi := le_trans (chowlaTower_base_ge hHlo_floor J) hfitL
-  have hHhi_floor : 4000000 ≤ Hhi := le_trans hHlo_floor hHlohi
-  -- ⟦THE WIDTH EXPORT⟧ at the flat shape, on both arms of the endpoint
-  have hwidth : Real.log (Real.log (Hhi : ℝ))
-      ≤ Real.exp (Real.log (Real.log (Hlo : ℝ)) / 2) := by
-    rw [hHhidef, hJdef, hJfdef]
-    rcases le_total (chowlaTower 2 1 Hlo (towerJmin 2 1 Hlo))
-        (chowlaTowerFlat A 1 Hlo (towerFlatJmin A 1 Hlo)) with h | h
-    · rw [max_eq_right h]
-      exact towerFlat_width_export hA hHlo_floor hflat
-    · rw [max_eq_left h]
-      exact le_trans (tower_loglog_le_45 hHlo_floor h50) (pow_nine_halves_le_exp_half h50)
-  -- the outer scale at this `ε` and endpoint, WITH THE CEILING
-  obtain ⟨x, ω, hx2, hω2, hωx, hhead, hhead', hPH, homega, hxb, hxceil⟩ :=
-    regime_outer_param_ceiling eps heps heps1 Hhi (4 ^ ⌊eps ^ 2 * (Hhi : ℚ)⌋₊) hHhi_floor
-  -- ⟦THE CEILING AT THE BUILDER'S OWN `P`⟧
-  have h2q : (2 : ℚ) * eps ≤ 1 := by linarith
-  have h2r : (2 : ℝ) * (eps : ℝ) ≤ 1 := by exact_mod_cast h2q
-  have hepsHalf : (eps : ℝ) ≤ 1 / 2 := by linarith
-  have hHhiR : (4000000 : ℝ) ≤ (Hhi : ℝ) := by exact_mod_cast hHhi_floor
-  have hHhipos : (0 : ℝ) < (Hhi : ℝ) := by linarith
-  -- ⟦THE MULTIPLIER⟧ `log a ≤ 7` at `a ≤ 1096`
-  have hapos : 0 < a := ha
-  have haR0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast hapos
-  have hlogA : Real.log ((a : ℕ) : ℝ) ≤ 7 := by
-    have haR : ((a : ℕ) : ℝ) ≤ 1096 := by exact_mod_cast ha1096
-    have he7 : (1096 : ℝ) ≤ Real.exp 7 := by
-      have h3 : Real.exp 7 = (Real.exp 1) ^ (7 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have h4 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have h5 : (2.7182818283 : ℝ) ^ (7 : ℕ) ≤ (Real.exp 1) ^ (7 : ℕ) :=
-        pow_le_pow_left₀ (by norm_num) h4.le 7
-      have h6 : (1096 : ℝ) ≤ (2.7182818283 : ℝ) ^ (7 : ℕ) := by norm_num
-      rw [h3]; linarith
-    calc Real.log ((a : ℕ) : ℝ) ≤ Real.log (Real.exp 7) := Real.log_le_log haR0 (by linarith)
-      _ = 7 := Real.log_exp 7
-  -- ⟦THE CEILING AT `a·x`⟧ the landed collapse with the `+ 7` absorbed into `l`
-  have hxceil' : Real.log (((a * x : ℕ)) : ℝ) ≤ 31 / (eps : ℝ) * (Hhi : ℝ) := by
-    obtain ⟨u, hudef⟩ : ∃ u : ℝ, u = 1 / (eps : ℝ) := ⟨_, rfl⟩
-    have hu2 : (2 : ℝ) ≤ u := by rw [hudef, le_div_iff₀ hepsR]; linarith
-    have hupos : (0 : ℝ) < u := by linarith
-    have hbr30 : (30 : ℝ) / (eps : ℝ) * Real.log (Hhi : ℝ)
-        = 30 * (u * Real.log (Hhi : ℝ)) := by rw [hudef]; ring
-    have hbr31 : (31 : ℝ) / (eps : ℝ) * (Hhi : ℝ) = 31 * (u * (Hhi : ℝ)) := by
-      rw [hudef]; ring
-    have hx0R : (0 : ℝ) < ((x : ℕ) : ℝ) := by
-      have hx2R : (2 : ℝ) ≤ ((x : ℕ) : ℝ) := by exact_mod_cast hx2
-      linarith
-    have hsplit : Real.log (((a * x : ℕ)) : ℝ)
-        = Real.log ((a : ℕ) : ℝ) + Real.log ((x : ℕ) : ℝ) := by
-      push_cast
-      exact Real.log_mul (by positivity) (by positivity)
-    have hxu : Real.log (((a * x : ℕ)) : ℝ)
-        ≤ 30 * (u * (Real.log (Hhi : ℝ) + 7 / (30 * u)))
-          + 2 * Real.log (((4 ^ ⌊eps ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1) := by
-      have hcancel : 30 * (u * (Real.log (Hhi : ℝ) + 7 / (30 * u)))
-          = 30 * (u * Real.log (Hhi : ℝ)) + 7 := by
-        field_simp
-      rw [hsplit, hcancel]
-      linarith [hxceil, hbr30, hlogA]
-    have hPterm := xceil_flat_P heps hepsHalf hepsR hHhiR
-    have hlogself : Real.log (Hhi : ℝ) + 7 / (30 * u) ≤ (Hhi : ℝ) := by
-      have h1 : Real.log (Hhi : ℝ) ≤ (Hhi : ℝ) - 1 := Real.log_le_sub_one_of_pos hHhipos
-      have h2 : 7 / (30 * u) ≤ 7 / 60 := by
-        have h60 : (60 : ℝ) ≤ 30 * u := by linarith
-        exact div_le_div_of_nonneg_left (by norm_num) (by norm_num) h60
-      linarith
-    have hfin := xceil_flat_step hu2 hHhiR hlogself hxu hPterm
-    linarith [hfin, hbr31]
-  have hxle : x ≤ a * x := Nat.le_mul_of_pos_left x hapos
-  have hdivc : (a * x) / a = x := Nat.mul_div_cancel_left x hapos
-  refine ⟨regimeFlatEnlargeX
-      { x := x, ω := ω, a := 1, eps := eps, Hlo := Hlo, Hhi := Hhi, C0 := 2, J := J,
-        hx := hx2, hω := hω2, hωx := hωx, ha := le_refl 1, heps := heps, heps1 := heps1,
-        hHlo := le_trans (by norm_num) hHlo_floor, hHlohi := hHlohi, hC0 := le_refl 2,
-        hHlo_floor := hHlo_floor, hheadroom := hhead, hcoprime := hcop, hfit := hfitL,
-        hJcon := hJ, hheadroom' := hhead', hPHheadroom := hPH, hPNTwindow := hPNT,
-        hωbig := homega, hxbig := hxb,
-        A := A, hA := hA, hflat := hflat, Jf := Jf,
-        hfitF := by simpa using hfitFl, hJconF := by simpa using hJf } hxle,
-    rfl, rfl, hHlo0, ?_, hHlocap, hwidth, ?_⟩
-  · refine ⟨dvd_mul_right a x, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
-      simp only [regimeFlatEnlargeX_x, regimeFlatEnlargeX_omega, regimeFlatEnlargeX_Hhi,
-        regimeFlatEnlargeX_eps, hdivc]
-    · exact hx2
-    · exact hωx
-    · exact hhead
-    · exact hhead'
-    · exact hPH
-    · exact hxb
-  · simp only [regimeFlatEnlargeX_x, regimeFlatEnlargeX_Hhi]
-    exact hxceil'
 
 /-! ### THE HEAD-SHAPED MULTIPLIER BUILDER, at `a ≤ 1096` — RETIRED INTO ITS GENERIC
 
@@ -416,9 +264,11 @@ own fields exactly as XThread does (`hHhi4`, `hll50` off `hflat` at `A ≥ 26`, 
 below both of this file's consumers of the page retired above.  The twins read nothing declared
 in this file except, for the second, the first; their docstrings, statements and bodies are
 byte-identical to the ones that stood in that section, except the first line of the second's
-docstring, which is dated and now wraps to two lines. -/
+docstring, which is dated and now wraps to two lines.  (2026-09-27, family 11: the first line of
+the first's docstring is dated in the same way, and wraps to two lines.) -/
 
-/-- `chowlaRegimeFlat_exists_param_gen_ceiling_mul` at the cap-9 stride
+/-- The former `chowlaRegimeFlat_exists_param_gen_ceiling_mul` (retired into this,
+2026-09-27) at the cap-9 stride
 (`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`) — STRIDE: `ha1096 : a ≤ 1096 ↦ a ≤ 8103`, and
 in the body `hlogA : log a ≤ 7 ↦ ≤ 9` (from `8103 ≤ 2.7182818283⁹ = 8103.0839 ≤ e⁹`, margin 0.084),
 with the `+ 7` absorbed at `hxu`/`hcancel` and `hlogself`'s `7/(30u) ≤ 7/60` moved to `9`.  The

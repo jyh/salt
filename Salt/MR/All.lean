@@ -9775,10 +9775,10 @@ primes.  20 obligations, 20 landed (one Opus executor, 2026-09-04 12:2x–12:5x;
 (From 2026-09-26 the XY debt lane retires copied siblings of this block into their cap-9 twins,
 noted in place in `StridePairReceipt.lean`; the rows below are fewer than 20 by the retirements
 to date.  From family 10 every door-head that called the retired builder reads the cap-9 pair,
-as the G12b one already did, at `log a ≤ 9`; the builder named above stands, with no call site.)
+as the G12b one already did, at `log a ≤ 9`; the builder named above stood, with no call site,
+until family 11 (2026-09-27) retired it into `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9`.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
-  Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul
   Salt.MR.nearRatTight_of_bigXiAffArcTight
   Salt.MR.nearRatTight_of_bigXiAffD
   Salt.MR.sum_Xi_norm_windowExpSum_sq_le_parseval
