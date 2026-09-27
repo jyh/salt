@@ -753,7 +753,7 @@ theorem s15ArmH_le_mul {h : ℕ} (hh : 0 < h) (δ₀ ρ : ℝ) (Hhi ω : ℕ) :
   exact Nat.add_le_add h1 h2
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER⟧** (`h_le_1096_of_hh7`) — the `ℕ` half of
-`hh7 : log h ≤ 7`, which the `ℝ` half at `:170` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
+`hh7 : log h ≤ 7`, which the `ℝ` half at `hArcDen_mul_strataResidualH_sq_le` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
 and `h² ≤ 1201216`.  Every numeral re-cut of wave H1 is stated against these two. -/
 theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) : h ≤ 1096 := by
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh

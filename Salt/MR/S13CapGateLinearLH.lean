@@ -38,8 +38,8 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
   `s13_socketBase_logA_ge_sqrt` (`:182`).
 
 Conjunct 11 costs NOTHING new: its whole `_LH` substrate is already landed in
-`S16ProducersH` (`xscale_LH :332`, `logA_ge_sqrt_LH :345`, `loglogA_sharp_LH :408`,
-`loglogA_LH :425`).  On the grid page only `s13CapGrid_mu_lo` and `s13CapGrid_Lambda_sharp`
+`S16ProducersH` (`xscale_LH`, `logA_ge_sqrt_LH`, `loglogA_sharp_LH`,
+`loglogA_LH`).  On the grid page only `s13CapGrid_mu_lo` and `s13CapGrid_Lambda_sharp`
 touch that substrate directly; the other twelve `11`-routed leaves inherit through them.
 
 ## ⟦§1 — THE SIX NUMERIC SIBLINGS⟧

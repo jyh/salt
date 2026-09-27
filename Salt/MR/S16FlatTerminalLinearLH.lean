@@ -133,7 +133,7 @@ set_option maxHeartbeats 1000000 in
 /-- **⟦HOP 1, AT THE FLAT ROOT, THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
 (`logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH`) —
 `S16FlatTerminalLinear.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L`
-(`:356`) with the twelve statement moves of the `h` lane and no others:
+with the twelve statement moves of the `h` lane and no others:
 
 (i) `1/500 ≤ ε` → `1/(500·h) ≤ ε` and (ii) `1/838400 ≤ δ₀` → `1/(838400·h²) ≤ δ₀`, both the
 exit's own exports (`S16FlatTerminalExitH:95-96`); (iii) **`Kc ≤ 2^539` ADDED** as a conjunct
@@ -1048,7 +1048,7 @@ set_option maxHeartbeats 1000000 in
 -- against a prefix that gains `h`, two pins and a conjunct.
 /-- **⟦THE FLAT TERMINAL AT THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
 (`logChowla2_witnessed_scale_flat_LH`) — `S16FlatTerminalLinear.logChowla2_witnessed_scale_flat_L`
-(`:1672`) at shift `h`, with the `S15` register **SUPPLIED, NOT CARRIED**, from
+at shift `h`, with the `S15` register **SUPPLIED, NOT CARRIED**, from
 `FlatFloorBump.s15_sel''_L_gk_witness_flat_bumped` at `c := h`.
 
 ⭐ **`Kc ≤ 2^539` LEAVES THE DEBT LIST HERE AND BECOMES AN EXPORTED FACT.**  At `h = 1` it is
