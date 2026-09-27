@@ -1032,7 +1032,7 @@ theorem flat_door_head_xceil_h_g (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : �
   refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
   intro a extraFloor U1floor g₅ ha ha1096 hg₅
   obtain ⟨Rf, hReps, _hRA, hRHlo, hRg, hstride, _hRcapEq, hRwid, hRx⟩ :=
-    chowlaRegimeFlat_exists_param_head_xceil_mul a ha ha1096 A hA26 ε hεQpos hεQ1
+    chowlaRegimeFlat_exists_param_head_xceil_mul_b9 a ha (by omega) A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅ hg₅
   have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
   have hxiHlo : H₀xi ≤ Rf.Hlo := by
@@ -1427,7 +1427,7 @@ theorem flat_door_head_xceil_h_g14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h :
   refine ⟨max (flatDesignFloor A) (max F (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), by rw [hFdef], ?_⟩
   intro a extraFloor U1floor g₅ ha ha1096 hg₅
   obtain ⟨Rf, hReps, _hRA, hRHlo, hRg, hstride, _hRcapEq, hRwid, hRx⟩ :=
-    chowlaRegimeFlat_exists_param_head_xceil_mul a ha ha1096 A hA26 ε hεQpos hεQ1
+    chowlaRegimeFlat_exists_param_head_xceil_mul_b9 a ha (by omega) A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅ hg₅
   have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
   have hxiHlo : H₀xi ≤ Rf.Hlo := by

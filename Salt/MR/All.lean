@@ -9772,10 +9772,13 @@ statements, the five replays, the door-head, the chain, the receipts (the anti-d
 the tower, grade `≤ 1.02·a·ρ + E` with `ρ ≤ 1/(837782(ah)²)` — the F2 supply line at the regime it
 lives at; the affine DEMAND is still missed by `1.02·a` (F5's numeral). Nothing here bears on twin
 primes.  20 obligations, 20 landed (one Opus executor, 2026-09-04 12:2x–12:5x; 17 at one attempt).
+(From 2026-09-26 the XY debt lane retires copied siblings of this block into their cap-9 twins,
+noted in place in `StridePairReceipt.lean`; the rows below are fewer than 20 by the retirements
+to date.  From family 10 every door-head builds through the cap-9 pair, at `log a ≤ 9`; the
+builder named above stands, with no call site.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
   Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul
-  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul
   Salt.MR.nearRatTight_of_bigXiAffArcTight
   Salt.MR.nearRatTight_of_bigXiAffD
   Salt.MR.sum_Xi_norm_windowExpSum_sq_le_parseval
@@ -10220,7 +10223,9 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E4⟧ — THE MR GRADED/STRIDE TWINS (`StridePairReceipt`, NEW `StrideGrade12bWalls`, NEW
 `StridePairReceiptG12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1
-bundle E4).  Additive only: every landed declaration is untouched; the two new modules exist for
+bundle E4).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
+the XY debt lane retires copied siblings into these twins, noted in place); the two new
+modules exist for
 rule 6's placement (twins beside their graded sources would make an import cycle).  Each twin is
 its source's statement and body with ONLY the freeze's rule-2 raises — the stride `a ≤ 1096 ↦
 a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9` (the bound the crown derives at cap 9), the shift cap `log h ≤ 7 ↦
@@ -10362,7 +10367,9 @@ open Salt.Tactic in
 
 /-! ⟦β W34 G1⟧ — THE SIX GRADED REPLAYS AT `2^12`, CAP 9 (`StridePairReceiptG12b`, 2026-09-13, math
 — build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
-24–28). Additive only: every `_g` replay in `StridePairReceiptG` is untouched. Each twin is its
+24–28). Additive only at landing: every `_g` replay in `StridePairReceiptG` was untouched
+(2026-09-26: the XY pin conversion rewrote docstring pins in them; family 10 re-pointed the
+builder call of two of them). Each twin is its
 source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
