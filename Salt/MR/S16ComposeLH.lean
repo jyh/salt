@@ -2786,105 +2786,29 @@ theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : 
 
 /-! ## §11 — ⟦BLOCK T⟧ HOP 6's CHAIN: THE `Ks`-WINDOWED FLOOR AT SHIFT `h` -/
 
-set_option maxHeartbeats 800000 in
--- as the landed sharp twin: the LHS re-derives at the inflated cap's `log H ^ 13`
-/-- ⟦SHARP `Ks` TWIN AT SHIFT `h`⟧ (`capfloor_floor4_sharp_LH`) — `V7A.capfloor_floor4_sharp`
+/-! ### THE SHARP `Ks` FLOOR-4 AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 18 (2026-09-28)⟧
+`capfloor_floor4_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+{R : ChowlaRegime} … : (q : ℝ) ^ ((1 : ℝ) / 16) ≤ Ks * …` stood here, under `set_option
+maxHeartbeats 800000 in`.  It is `capfloor_floor4_sharp_LH_b9` (in the ⟦β W2 F3⟧ section
+below) with the hypothesis strengthened: the two statements differ in that ONE binder,
+`log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies it by
+`linarith` — kernel-checked from the retired statement's own bytes before the removal
+was committed.  The twin's body is this page's with FIVE lines changed: the calls of the two
+suppliers that take the cap (`capfloor_core_LH`, `capfloor_muLambda_LH`), each swapped for its
+`_b9` twin, and the three lines of the inflation step, which spent `h ≤ 1096` here and spend
+`h ≤ 8103` there.  At this retirement the page had NO call site: its one caller, the
+`Ks`-windowed floor-4 at `log h ≤ 7`, was retired by family 17 (its note stands directly
+below).
+
+This page's docstring, verbatim:
+
+⟦SHARP `Ks` TWIN AT SHIFT `h`⟧ (`capfloor_floor4_sharp_LH`) — `V7A.capfloor_floor4_sharp`
 at `SocketBaseLH h`.  ⭐ **The only socket read is the modulus range**, which at `h` gives
 `q ≤ h·arcDen 12 H ≤ log H ^ 13` rather than `log H ^ 12` (H2c's own step: `h ≤ 1096 ≤ 10^21 ≤
 log H`, so the inflation is absorbed into the exponent).  `13/16 < 1` still gives
 `q^{1/16} ≤ log H`, which is all the assembly spends. -/
-theorem capfloor_floor4_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
-    (hKs : Real.exp (-(3 * Real.log (H : ℝ) / 16)) ≤ Ks) :
-    (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) := by
-  obtain ⟨hv, -, -, -⟩ := capfloor_core_LH hh hh7 hfl hb hAN hTlo
-  obtain ⟨hmu, hLam⟩ := capfloor_muLambda_LH hh hh7 hfl hb hAN hTlo
-  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hv0 : (0 : ℝ) < Real.log (H : ℝ) := lt_of_lt_of_le h21 hv
-  have hv256 : (256 : ℝ) ≤ Real.log (H : ℝ) := le_trans (by norm_num) hv
-  have hnum1 : (1 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
-  have hv1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by linarith
-  -- ⟦LHS AT THE INFLATED CAP⟧ `q ≤ h·arcDen 12 H ≤ log H ^ 13`, exactly H2c's step
-  have hh1096N : h ≤ 1096 := Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7
-  have hh1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast hh1096N
-  have hnum2 : (1096 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
-  have hhle : (h : ℝ) ≤ Real.log (H : ℝ) := by linarith
-  have hqA : (q : ℝ) ≤ Real.log (H : ℝ) ^ (13 : ℕ) := by
-    have hz := hb.2.2.2.2.1
-    have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    rw [harcpow] at hz
-    have hp12 : (0 : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
-    have hid : Real.log (H : ℝ) ^ (13 : ℕ)
-        = Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := by ring
-    calc (q : ℝ) ≤ (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := hz
-      _ ≤ Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) :=
-          mul_le_mul_of_nonneg_right hhle hp12
-      _ = Real.log (H : ℝ) ^ (13 : ℕ) := hid.symm
-  have hstep1 : (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16) :=
-    Real.rpow_le_rpow (Nat.cast_nonneg q) hqA (by norm_num)
-  have hstep2 : (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16)
-      = Real.log (H : ℝ) ^ ((13 : ℝ) / 16) := by
-    rw [← Real.rpow_natCast (Real.log (H : ℝ)) 13, ← Real.rpow_mul hv0.le]
-    norm_num
-  have hstep3 : Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
-    calc Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) ^ (1 : ℝ) :=
-          Real.rpow_le_rpow_of_exponent_le hv1 (by norm_num)
-      _ = Real.log (H : ℝ) := Real.rpow_one _
-  have hLHS : (q : ℝ) ^ ((1 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
-    rw [hstep2] at hstep1; linarith
-  -- ⟦RHS leg 1⟧ the FULL exponential, as the landed sharp twin
-  have hleg1 : Real.exp (3 * Real.log (H : ℝ) / 16)
-      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4) := by
-    have hstep : (Real.exp (Real.log (H : ℝ) / 4)) ^ ((3 : ℝ) / 4)
-        ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4) :=
-      Real.rpow_le_rpow (Real.exp_nonneg _) hmu (by norm_num)
-    have heq : (Real.exp (Real.log (H : ℝ) / 4)) ^ ((3 : ℝ) / 4)
-        = Real.exp (Real.log (H : ℝ) / 4 * (3 / 4)) := by
-      rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
-    rw [heq] at hstep
-    refine le_trans (Real.exp_le_exp.mpr ?_) hstep
-    linarith
-  have hleg2 : (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
-      ≤ (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) :=
-    pow_le_pow_left₀ (by positivity) hLam 4
-  have hexp0 : (0 : ℝ) < Real.exp (3 * Real.log (H : ℝ) / 16) := Real.exp_pos _
-  have hlegs : Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
-      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) :=
-    mul_le_mul hleg1 hleg2 (by positivity) (le_trans hexp0.le hleg1)
-  have hKs0 : (0 : ℝ) < Ks := lt_of_lt_of_le (Real.exp_pos _) hKs
-  have hcancel : (1 : ℝ) ≤ Ks * Real.exp (3 * Real.log (H : ℝ) / 16) := by
-    have hprod : Real.exp (-(3 * Real.log (H : ℝ) / 16))
-        * Real.exp (3 * Real.log (H : ℝ) / 16) = 1 := by
-      rw [← Real.exp_add]; norm_num
-    nlinarith [mul_le_mul_of_nonneg_right hKs hexp0.le, hprod]
-  have hpow : (256 : ℝ) ≤ Real.log (H : ℝ) ^ (3 : ℕ) := by
-    have hid : Real.log (H : ℝ) ^ (3 : ℕ)
-        = Real.log (H : ℝ) * (Real.log (H : ℝ) * Real.log (H : ℝ)) := by ring
-    rw [hid]; nlinarith [hv256]
-  have hvq : Real.log (H : ℝ) ≤ (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by
-    have hid : (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
-        = Real.log (H : ℝ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256) := by ring
-    rw [hid]; nlinarith [hpow, hv0]
-  have hbase : (0 : ℝ) ≤ (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by positivity
-  have hgrow : (Real.log (H : ℝ) / 4) ^ (4 : ℕ)
-      ≤ Ks * Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by
-    nlinarith [hcancel, hbase]
-  have hfinal : Ks * (Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) :=
-    mul_le_mul_of_nonneg_left hlegs hKs0.le
-  have hassoc : Ks * (Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
-      = Ks * Real.exp (3 * Real.log (H : ℝ) / 16) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ) := by
-    ring
-  rw [hassoc] at hfinal
-  linarith [hLHS, hvq, hgrow, hfinal]
 
 /-! ### THE `Ks`-WINDOWED FLOOR-4 AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -3344,11 +3268,12 @@ hypothesis is added and no conclusion weakened. -/
 
 set_option maxHeartbeats 800000 in
 -- as the source: the LHS re-derives at the inflated cap's `log H ^ 13`
-/-- `capfloor_floor4_sharp_LH` at `log h ≤ 9` (`capfloor_floor4_sharp_LH_b9`) — NUMERAL-LIFT
+/-- The former `capfloor_floor4_sharp_LH` (retired into this, 2026-09-28)
+at `log h ≤ 9` (`capfloor_floor4_sharp_LH_b9`) — NUMERAL-LIFT
 (`capfloor_core_LH_b9`, `capfloor_muLambda_LH_b9`). The inflation step spends `h ≤ 8103 ≤ 10^21 ≤
 log H` (`h_le_8103_of_hh9`; the source spent `h ≤ 1096` from `h_le_1096_of_log_le_seven`) — census
 band 2 row 5.
-BODY: the source's. -/
+BODY: the retired page's, with five lines changed (its note stands above). -/
 theorem capfloor_floor4_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
     {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
