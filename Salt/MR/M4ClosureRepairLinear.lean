@@ -715,7 +715,7 @@ theorem doorFuseFrame_pool'_of_gates_decay_L_gk (K : ℕ) {M Xd j : ℕ} {Cs ε 
   band_pool := band_pool_at_decayPool
     (by have := r5L_one_le_log_of_three_le hb.X_three; linarith) hL4096
 
-/-- `GRowsZeroGate'''_L` (:278), at the lever.  Only the `p²` field moves. -/
+/-- `GRowsZeroGate'''_L`, at the lever.  Only the `p²` field moves. -/
 structure GRowsZeroGate'''_L_gk (K : ℕ) (M Xd : ℕ) (Ccc π₀ : ℝ) : Prop where
   /-- ⟦THE LEVEL-1 SLOT⟧ base-free. -/
   level1 : 14400 * Real.exp 1 ^ 2 * a2Level1_L M ≤ 1 / 4 * π₀
