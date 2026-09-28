@@ -1,21 +1,21 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `cdc0d845` · source digest `67b7cf4c99229e97` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `b466f79c` · source digest `6fc6a8671c918ce9` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22686 · with a proof/definition body: 22686 · direct corpus references (edges): 85459 · audited results: 9072 · corpus Prop-valued names: 668.
+Declarations indexed: 22685 · with a proof/definition body: 22685 · direct corpus references (edges): 85455 · audited results: 9071 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
 | status | corpus Props | hung on >= 1 audited conditional result | audited conditional results hanging on them |
 |---|---|---|---|
-| DISCHARGED | 214 | 150 | 1088 |
+| DISCHARGED | 214 | 150 | 1087 |
 | STRUCTURAL | 4 | 4 | 89 |
 | FRAME | 47 | 24 | 152 |
 | OPEN | 403 | 188 | 619 |
-| **all** | 668 | 366 | 1569 |
+| **all** | 668 | 366 | 1568 |
 
 Of the DISCHARGED, 94 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -283,7 +283,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | hypothesis | status | hang count | producer(s) |
 |---|---|---|---|
-| `Salt.MR.SocketBaseLH` | DISCHARGED | 218 | `Salt.MR.socketBaseLH_inhabited_at_twice_x` ✓audited GUARDED (Salt/MR/TierSSocket.lean:123) |
+| `Salt.MR.SocketBaseLH` | DISCHARGED | 217 | `Salt.MR.socketBaseLH_inhabited_at_twice_x` ✓audited GUARDED (Salt/MR/TierSSocket.lean:123) |
 | `Salt.MR.TannGate` | DISCHARGED | 158 | `Salt.MR.TannGate_of_row_height` ✓audited GUARDED (Salt/MR/USetPins.lean:345) |
 | `Salt.MR.M4DoorGates` | DISCHARGED | 55 | `Salt.MR.s13_doorGates_of_arm` ✓audited GUARDED (Salt/MR/S13FramesA.lean:375) · `Salt.MR.s13_doorGates_of_arm'` ✓audited GUARDED (Salt/MR/S13FramesA.lean:857) |
 | `Salt.MR.MmuChiRate` | DISCHARGED | 51 | `Salt.MR.mmuChiRate_holds_gated` ✓audited (Salt/MR/PortClose.lean:157) |
@@ -962,23 +962,23 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | decls in family | audited in family | unconditional | conditional | statement-only | infrastructure | unresolved | audited dependents | external dependents |
 |---|---|---|---|---|---|---|---|---|---|
 | circle method / Fourier | 181 | 83 | 560 | 540 | 22 | 10 | 0 | 1132 | 1068 |
-| entropy decrement | 1400 | 536 | 528 | 420 | 78 | 38 | 0 | 1064 | 614 |
+| entropy decrement | 1400 | 536 | 528 | 419 | 78 | 38 | 0 | 1063 | 613 |
 | large sieve | 136 | 18 | 709 | 491 | 1 | 22 | 0 | 1223 | 1209 |
-| Selberg/Brun sieve | 5626 | 949 | 3744 | 1270 | 65 | 93 | 0 | 5172 | 4308 |
+| Selberg/Brun sieve | 5626 | 949 | 3744 | 1269 | 65 | 93 | 0 | 5171 | 4307 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1479 | 612 | 4 | 19 | 0 | 2114 | 1482 |
 | zero-density / zero-free regions | 724 | 292 | 1016 | 642 | 2 | 20 | 0 | 1680 | 1427 |
 | character sums / L-functions | 4277 | 2153 | 1807 | 745 | 81 | 99 | 0 | 2732 | 880 |
 | exponential sums | 577 | 223 | 796 | 519 | 31 | 33 | 0 | 1379 | 1194 |
 | Mertens / PNT-type | 253 | 67 | 878 | 701 | 4 | 16 | 0 | 1599 | 1542 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 651 | 642 | 1 | 5 | 0 | 1299 | 1299 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9755 | 5413 | 2971 | 1261 | 168 | 189 | 0 | 4589 | 61 |
+| explog/lognum numeral tactic | 53 | 0 | 651 | 641 | 1 | 5 | 0 | 1298 | 1298 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9754 | 5412 | 2971 | 1260 | 168 | 189 | 0 | 4588 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4308 external dependents
+### Selberg/Brun sieve — 4307 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1038,7 +1038,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_conj` | 609 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.neg_logDeriv_zeta_split` | 604 | Salt/SW/ZetaPartialFractions.lean:98 |
 
-### explog/lognum numeral tactic — 1299 external dependents
+### explog/lognum numeral tactic — 1298 external dependents
 
 (no audited member)
 
@@ -1102,7 +1102,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_conj` | 609 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.LFunction_growth_sphere` | 597 | Salt/SW/Growth.lean:422 |
 
-### entropy decrement — 614 external dependents
+### entropy decrement — 613 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1152,17 +1152,17 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5413 | 9755 |
-| entropy decrement | 614 | 536 | 1400 |
+| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5412 | 9754 |
+| entropy decrement | 613 | 536 | 1400 |
 | character sums / L-functions | 880 | 2153 | 4277 |
 | circle method / Fourier | 1068 | 83 | 181 |
 | exponential sums | 1194 | 223 | 577 |
 | large sieve | 1209 | 18 | 136 |
-| explog/lognum numeral tactic | 1299 | 0 | 53 |
+| explog/lognum numeral tactic | 1298 | 0 | 53 |
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1482 | 726 | 1609 |
 | Mertens / PNT-type | 1542 | 67 | 253 |
-| Selberg/Brun sieve | 4308 | 949 | 5626 |
+| Selberg/Brun sieve | 4307 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
@@ -1409,8 +1409,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.spoly_ram_decomp` | unconditional | 422 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.log_norm_zeta_eq_re_tsum` | unconditional | 415 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.MR.mertens_first_upper` | unconditional | 410 | 1 | Mertens / PNT-type; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
-| `Salt.MR.arcDen_nonneg` | unconditional | 408 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
-| `Salt.MR.loglogFloor50` | infrastructure | 408 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
+| `Salt.MR.arcDen_nonneg` | unconditional | 407 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
+| `Salt.MR.loglogFloor50` | infrastructure | 407 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.MR.ramare_weight_sum` | unconditional | 407 | 5 | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.log_calP_div_log_calQK` | unconditional | 405 | 3 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.ramare_decomp` | unconditional | 404 | 3 | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
@@ -1439,8 +1439,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.ExpSum.sum_Icc_rpow_neg_le'` | unconditional | 382 | 1 | exponential sums | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
 | `Salt.Vk.Zc_ratio_sphere_bound` | unconditional | 381 | 0 | zero-density / zero-free regions | - | - |
 | `Salt.Entropy.Chowla.integral_logMeasure_eq` | unconditional | 379 | 3 | entropy decrement | entropy decrement | entropy decrement; Selberg/Brun sieve |
-| `Salt.MR.regime_Hfloor_of_loglogFloor50` | unconditional | 378 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.Vk.vk_dirichlet_sum_le` | unconditional | 378 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums; explog/lognum numeral tactic |
+| `Salt.MR.regime_Hfloor_of_loglogFloor50` | unconditional | 377 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.chiBarCoeff` | infrastructure | 376 | 0 | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.MR.ramRcoeff_mass_le` | unconditional | 375 | 3 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.spoly_abel_sup` | unconditional | 375 | 3 | Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) | Selberg/Brun sieve; Matomaki-Radziwill / Halasz (short intervals) |
