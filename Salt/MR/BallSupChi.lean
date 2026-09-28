@@ -344,8 +344,7 @@ lemma eight_le_of_ballMertensThreshold {X : ℝ} (hX : ballMertensThreshold ≤ 
   have h41 : (41 : ℝ) ≤ Real.exp 40 := exp_forty_ge
   have hmono : Real.exp 41 ≤ Real.exp (Real.exp 40) := Real.exp_le_exp.mpr h41
   have h8 : (8 : ℝ) ≤ Real.exp 41 := by
-    have := Real.add_one_le_exp (41 : ℝ)
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 41 (by norm_num)
   linarith
 
 /-- **THE BINDER, ASSEMBLED.**  `ball_sup_of_center` at `f := pieceDatum χ 𝒥 Pseq Qseq`, with

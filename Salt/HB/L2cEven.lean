@@ -281,8 +281,7 @@ lemma evenCorner_survivor_term_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 
     (hM2 : nMinus χ (n + 2) = 2 ^ e₂) :
     overshootExact χ n ≤ Real.exp (2 * z0 z x) := by
   have hlog2a : Real.log 2 ≤ 1 := by
-    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2)
-    linarith only [h]
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
   have hlog2b : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
   have hκ0 : (0 : ℝ) ≤ Real.exp (Real.log 2 * z0 z x) * Real.log 2 :=
     mul_nonneg (Real.exp_pos _).le hlog2b
