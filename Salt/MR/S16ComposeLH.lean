@@ -43,7 +43,9 @@ in which `Ftr` does not appear — so the ceiling arithmetic is the landed one *
 
 **PURELY ADDITIVE UNTIL 2026-09-27:** no declaration removed, moved or re-pointed, no statement or
 proof changed beyond a line's wrapping.  (Since then the XY debt lane retires copied `h` siblings
-into cap-9 twins, noted in place; family 12 moved the §12 terminal below them, one call re-pointed.)
+into cap-9 twins, noted in place; family 12 moved the §12 terminal below them, one call re-pointed;
+family 19 re-pointed six of the §8 assembler's seven supplier calls to their cap-9 twins, its
+statement unchanged and the capfloor bundle's call kept at the cap 7.)
 -/
 
 noncomputable section
@@ -2418,7 +2420,9 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h (h : ℕ) (hh
 Hop 5 asks the crossing supplier for `T₀ ≤ exp(√H₋/2)` **inside** the `∀ R`, where H2c's LH chain
 exports the flat `T₀ ≤ exp(exp 100)` outside it.  ⭐ **H2c already landed the only piece that is
 not bookkeeping** — `capfloor_T0_Tann_sharp_LH` — so the three names here are that chain with one
-discharger swapped and one binder moved.  Bodies otherwise verbatim.
+discharger swapped and one binder moved.  Bodies otherwise verbatim (until 2026-09-28: family 19
+of the XY debt lane re-pointed six of the assembler's seven supplier calls to cap-9 twins, one
+`have` added; the capfloor bundle's call stays at the cap 7).
 -/
 
 set_option maxHeartbeats 1000000 in
@@ -2469,7 +2473,9 @@ theorem s13CapFloor_all_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h 
 set_option maxHeartbeats 1000000 in
 -- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
 /-- ⟦SHARP `T₀` TWIN AT SHIFT `h`⟧ (`s16_capGate_supply_LH_gk_sharpT0`) — H2c's assembler on the
-capfloor bundle above. -/
+capfloor bundle above. (2026-09-28, the XY debt lane, family 19: its five `S13CapGateLinearLH`
+suppliers are called at the cap 9, `log h ≤ 9` supplied from `hh7`; the statement is unchanged;
+the capfloor bundle above is still called at the cap 7.) -/
 theorem s16_capGate_supply_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
     {epsf : ℕ → ℝ}
@@ -2487,10 +2493,11 @@ theorem s16_capGate_supply_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log 
           S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
             Rrad Rbd CR EP2 (epsf (A + s)) := by
   intro H L q j A s hb T hTlo hThi hTgate hTll
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
   -- the grid wave, at the linear door
   obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
-    s13CapGrid_all_LH_gk hh hh7 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
+    s13CapGrid_all_LH_gk_b9 hh hh9 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
   -- `1 < 2T` off the annulus gate
   have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
@@ -2507,9 +2514,9 @@ theorem s16_capGate_supply_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log 
   obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
     s13CapFloor_all_LH_gk_sharpT0 hh hh7 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs
   -- the eps wave, LADDER-BLIND
-  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH hh hh7 hfl hb
+  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH_b9 hh hh9 hfl hb
   obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
-    s13CapEps_all_LH hh hh7 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
+    s13CapEps_all_LH_b9 hh hh9 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
   refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
     s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
   exact
@@ -2531,15 +2538,15 @@ theorem s16_capGate_supply_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log 
       P_le_Q := g9
       budget := fun i hi =>
         s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
-          (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
+          (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
       Hj := g10
       B3 := g11
       BT := g12
       kappa30 := g13
       BT10 := g14
       WL := g15
-      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
-        (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb)
+      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb)
+        (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb)
       Rbd_nonneg := hRbd0
       Rbd_grade := hRbdg
       Cq_gate := hCqg
@@ -3134,7 +3141,8 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 (h : ℕ) (hh
 
 Additive only at landing: every declaration above was untouched (from 2026-09-27 the XY debt lane
 retires copied `h` siblings above into their cap-9 twins, noted in place; the §12 terminal was
-moved below the twins, family 12).  Each twin is its source's statement and body
+moved below the twins, family 12; family 19 re-pointed six of the §8 assembler's seven supplier
+calls to their cap-9 twins, 2026-09-28).  Each twin is its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`), every derived cap-dependent supplier
 replaced by its twin; no hypothesis is added and no conclusion weakened. -/
 
@@ -3260,7 +3268,8 @@ theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9 {h : ℕ} (hh : 0 < h)
 2026-09-13)
 
 Additive only at landing: every declaration above was untouched (from 2026-09-27 the XY debt lane
-retires copied `h` siblings above into the `_b9` generics here, noted in place).  Each twin is
+retires copied `h` siblings above into the `_b9` generics here, noted in place; family 19
+re-pointed six of the §8 assembler's seven supplier calls to the twins, 2026-09-28).  Each twin is
 its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`; in `capfloor_floor4_sharp_LH_b9` the
 in-body `h ≤ 1096 ↦ h ≤ 8103`), every derived cap-dependent supplier replaced by its twin; no
