@@ -265,9 +265,7 @@ theorem psi1AP_main_bound_of_standoff {c : ℝ} (hc : 0 < c) (hS : NoSiegelZeros
     calc (2:ℝ) = Real.sqrt 4 := h4.symm
       _ ≤ Real.sqrt (Real.log x) := Real.sqrt_le_sqrt (by linarith)
   have hexp2 : (4:ℝ) ≤ Real.exp 2 := by
-    have h := Real.exp_one_gt_d9
-    have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [h, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
   have hTge4 : (4:ℝ) ≤ T := by
     rw [hTdef]
     exact le_trans hexp2 (Real.exp_le_exp.mpr hs2)

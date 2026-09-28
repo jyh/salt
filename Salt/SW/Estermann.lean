@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.SW.Siegel
+import Salt.Tactic.ExpLogNum
 
 /-!
 # The SW rung, node S4b′ — Estermann's positivity lemma (the Landau truncation core)
@@ -112,9 +113,7 @@ theorem landau_truncation {a : ℕ → ℝ} {L B M y : ℝ}
     calc Real.exp 1 ≤ 2.7182818286 := Real.exp_one_lt_d9.le
       _ ≤ (10/7:ℝ)^3 := by norm_num
   have hc_fact : 1 ≤ Real.log 3 := by
-    rw [Real.le_log_iff_exp_le (by norm_num)]
-    calc Real.exp 1 ≤ 2.7182818286 := Real.exp_one_lt_d9.le
-      _ ≤ 3 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   have hb_fact : Real.log (580 / 3) ≤ 19 * c7 := by
     have h19 : (19:ℝ) * c7 = Real.log ((10/7:ℝ)^19) := by
       rw [hc7def, Real.log_pow]; push_cast; ring
