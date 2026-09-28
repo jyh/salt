@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b466f79c` · source digest `6fc6a8671c918ce9` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `2423bf5e` · source digest `d8ead70d12a6da53` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22685 · with a proof/definition body: 22685 · direct corpus references (edges): 85455 · audited results: 9071 · corpus Prop-valued names: 668.
+Declarations indexed: 22685 · with a proof/definition body: 22685 · direct corpus references (edges): 85470 · audited results: 9071 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -322,7 +322,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.MSelect'_L_gk` | DISCHARGED | 7 | `Salt.MR.s13_MSelect'_L_of_headroom_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:679) · `Salt.MR.s13_MSelect'_L_of_halfWindow_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:720) |
 | `Salt.MR.VkTwistUB` | DISCHARGED | 7 | `Salt.MR.plog_socket` GUARDED (Salt/MR/FarL2.lean:467) · `Salt.MR.vkTwistUB_of_primitive` ✓audited GUARDED (Salt/MR/VkTwistClose.lean:418) · `Salt.MR.vkTwistUB_holds` ✓audited GUARDED (Salt/MR/VkTwistLadder.lean:762) |
 | `Salt.MR.XiCarveWidth` | DISCHARGED | 7 | `Salt.MR.xiCarveWidth_of_half` ✓audited GUARDED (Salt/MR/MobiusChiRateClose.lean:1112) |
-| `Salt.MR.CapFreeFloor` | DISCHARGED | 6 | `Salt.MR.capFreeFloor_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm.lean:119) · `Salt.MR.capFreeFloor_all_chi` ✓audited GUARDED (Salt/MR/CapFreeAssembly.lean:408) · `Salt.MR.capFreeFloor_all_chi_sharp` ✓audited GUARDED (Salt/MR/CapFreeSharp.lean:260) · +1 |
+| `Salt.MR.CapFreeFloor` | DISCHARGED | 6 | `Salt.MR.capFreeFloor_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm.lean:119) · `Salt.MR.capFreeFloor_all_chi` ✓audited GUARDED (Salt/MR/CapFreeAssembly.lean:408) · `Salt.MR.capFreeFloor_all_chi_sharp` ✓audited GUARDED (Salt/MR/CapFreeSharp.lean:259) · +1 |
 | `Salt.MR.CaseASocketGen` | DISCHARGED | 6 | `Salt.MR.caseASocketGen_of_inner` ✓audited GUARDED (Salt/MR/CofactorSupplier.lean:979) |
 | `Salt.MR.M4ChiSummedFreeRow` | DISCHARGED | 6 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade` ✓audited GUARDED (Salt/MR/M4Assembly.lean:392) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool` ✓audited GUARDED (Salt/MR/M4AssemblyPool.lean:259) · `Salt.MR.m4_chiSummedFreeRow_trivial` ✓audited (Salt/MR/M4ChiSummed.lean:216) |
 | `Salt.MR.M4ChiSummedFreeRow_L_gk` | DISCHARGED | 6 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:338) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3218) · `Salt.MR.m4_chiSummedFreeRow_trivial_L_gk` (Salt/MR/M4RowLinear.lean:8011) |
@@ -420,7 +420,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4CoprimeBlockMeanSqN` | DISCHARGED | 1 | `Salt.MR.m4_coprimeBlockMeanSqN_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:526) |
 | `Salt.MR.M4CoprimeChiBlockMeanSqN` | DISCHARGED | 1 | `Salt.MR.m4_coprimeChiBlockMeanSqN_trivial` ✓audited (Salt/MR/M4CoprimeSupply.lean:152) |
 | `Salt.MR.M4SievedDoorSqBlk` | DISCHARGED | 1 | `Salt.MR.m4_sievedDoorSqBlk_trivial` ✓audited (Salt/MR/M4BridgeBlock.lean:463) |
-| `Salt.MR.MRTShortSegmentSplitting` | DISCHARGED | 1 | `Salt.MR.mrtShortSegmentSplitting_holds` ✓audited (Salt/MR/A4FMidRange.lean:416) |
+| `Salt.MR.MRTShortSegmentSplitting` | DISCHARGED | 1 | `Salt.MR.mrtShortSegmentSplitting_holds` ✓audited (Salt/MR/A4FMidRange.lean:414) |
 | `Salt.MR.NearRat` | DISCHARGED | 1 | `Salt.MR.nearRat_zero` GUARDED (Salt/MR/BigXiArc.lean:217) · `Salt.MR.nearRat_of_pos` ✓audited GUARDED (Salt/MR/BigXiArc.lean:254) · `Salt.MR.nearRat_arc_zero` ✓audited GUARDED (Salt/MR/BigXiArc.lean:494) |
 | `Salt.MR.S15Sel''_gk` | DISCHARGED | 1 | `Salt.MR.s15_sel''_witness_gk` GUARDED (Salt/MR/S15Witness.lean:1561) · `Salt.MR.s15_sel''_witness_gk'` GUARDED (Salt/MR/S15Witness.lean:1745) · `Salt.MR.s15_sel''_witness_wide` GUARDED (Salt/MR/S16Budget.lean:2553) |
 | `Salt.MR.S16BaseScaleCapEnd_LH_gk` | DISCHARGED | 1 | `Salt.MR.s16_baseScaleCapEnd_LH_of_xceil` ✓audited GUARDED (Salt/MR/V7RatedH.lean:825) |
@@ -971,7 +971,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | exponential sums | 577 | 223 | 796 | 519 | 31 | 33 | 0 | 1379 | 1194 |
 | Mertens / PNT-type | 253 | 67 | 878 | 701 | 4 | 16 | 0 | 1599 | 1542 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 651 | 641 | 1 | 5 | 0 | 1298 | 1298 |
+| explog/lognum numeral tactic | 53 | 0 | 669 | 667 | 1 | 5 | 0 | 1342 | 1342 |
 | Matomaki-Radziwill / Halasz (short intervals) | 9754 | 5412 | 2971 | 1260 | 168 | 189 | 0 | 4588 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
@@ -1038,7 +1038,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_conj` | 609 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.neg_logDeriv_zeta_split` | 604 | Salt/SW/ZetaPartialFractions.lean:98 |
 
-### explog/lognum numeral tactic — 1298 external dependents
+### explog/lognum numeral tactic — 1342 external dependents
 
 (no audited member)
 
@@ -1158,7 +1158,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | circle method / Fourier | 1068 | 83 | 181 |
 | exponential sums | 1194 | 223 | 577 |
 | large sieve | 1209 | 18 | 136 |
-| explog/lognum numeral tactic | 1298 | 0 | 53 |
+| explog/lognum numeral tactic | 1342 | 0 | 53 |
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1482 | 726 | 1609 |
 | Mertens / PNT-type | 1542 | 67 | 253 |
