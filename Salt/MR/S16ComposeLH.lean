@@ -45,7 +45,9 @@ in which `Ftr` does not appear — so the ceiling arithmetic is the landed one *
 proof changed beyond a line's wrapping.  (Since then the XY debt lane retires copied `h` siblings
 into cap-9 twins, noted in place; family 12 moved the §12 terminal below them, one call re-pointed;
 family 19 re-pointed six of the §8 assembler's seven supplier calls to their cap-9 twins, its
-statement unchanged and the capfloor bundle's call kept at the cap 7.)
+statement unchanged and the capfloor bundle's call kept at the cap 7; family 20 re-pointed six
+of that capfloor bundle's seven supplier calls to their cap-9 twins, its statement unchanged and
+`capfloor_floor4_LH`'s call kept at the cap 7.)
 -/
 
 noncomputable section
@@ -2422,13 +2424,18 @@ exports the flat `T₀ ≤ exp(exp 100)` outside it.  ⭐ **H2c already landed t
 not bookkeeping** — `capfloor_T0_Tann_sharp_LH` — so the three names here are that chain with one
 discharger swapped and one binder moved.  Bodies otherwise verbatim (until 2026-09-28: family 19
 of the XY debt lane re-pointed six of the assembler's seven supplier calls to cap-9 twins, one
-`have` added; the capfloor bundle's call stays at the cap 7).
+`have` added; the capfloor bundle's call stays at the cap 7; 2026-09-28: family 20 re-pointed six of
+the capfloor bundle's seven supplier calls likewise, one `have` added; `capfloor_floor4_LH`'s
+call stays at the cap 7).
 -/
 
 set_option maxHeartbeats 1000000 in
 -- as the landed sharp twin: the eight-field capfloor bundle re-checks under the moved binder
 /-- ⟦SHARP `T₀` TWIN AT SHIFT `h`⟧ (`s13CapFloor_all_LH_gk_sharpT0`) — H2c's
-`s13CapFloor_all_LH_gk` with `T₀ ≤ exp(√H₋/2)`, monotone up to the socket's own `H`. -/
+`s13CapFloor_all_LH_gk` with `T₀ ≤ exp(√H₋/2)`, monotone up to the socket's own `H`.
+(2026-09-28, the XY debt lane, family 20: six of its seven `S13CapGateLinearLH` suppliers are
+called at the cap 9, `log h ≤ 9` supplied from `hh7`; the statement is unchanged;
+`capfloor_floor4_LH` is still called at the cap 7.) -/
 theorem s13CapFloor_all_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
     {T₀ Kq Ks Tann : ℝ}
@@ -2454,19 +2461,20 @@ theorem s13CapFloor_all_LH_gk_sharpT0 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h 
         * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
     Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
       ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   have hlo : R.Hlo ≤ H := hb.1
   have hloR : ((R.Hlo : ℕ) : ℝ) ≤ ((H : ℕ) : ℝ) := by exact_mod_cast hlo
   have hsqm : Real.sqrt ((R.Hlo : ℕ) : ℝ) / 2 ≤ Real.sqrt ((H : ℕ) : ℝ) / 2 := by
     have := Real.sqrt_le_sqrt hloR
     linarith
   exact
-   ⟨capfloor_QTann_LH_gk hh hh7 K hfl hb hAN hM hTlo hQ2reg,
-   capfloor_kappa30Q_LH_gk hh hh7 K hfl hb hAN hM hTlo hQ2reg,
-   capfloor_T0_Tann_sharp_LH hh hh7 hfl hb hAN hTlo
+   ⟨capfloor_QTann_LH_gk_b9 hh hh9 K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_kappa30Q_LH_gk_b9 hh hh9 K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_T0_Tann_sharp_LH_b9 hh hh9 hfl hb hAN hTlo
      (le_trans hT₀ (Real.exp_le_exp.mpr hsqm)),
-   capfloor_floor1_LH hh hh7 hfl hb hAN hTlo,
-   capfloor_floor2_LH hh hh7 hfl hb hAN hTlo,
-   capfloor_floor3_LH hh hh7 hfl hb hAN hTlo hKq,
+   capfloor_floor1_LH_b9 hh hh9 hfl hb hAN hTlo,
+   capfloor_floor2_LH_b9 hh hh9 hfl hb hAN hTlo,
+   capfloor_floor3_LH_b9 hh hh9 hfl hb hAN hTlo hKq,
    capfloor_floor4_LH hh hh7 hfl hb hAN hTlo hKs,
    hQ2reg⟩
 
@@ -3142,7 +3150,8 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 (h : ℕ) (hh
 Additive only at landing: every declaration above was untouched (from 2026-09-27 the XY debt lane
 retires copied `h` siblings above into their cap-9 twins, noted in place; the §12 terminal was
 moved below the twins, family 12; family 19 re-pointed six of the §8 assembler's seven supplier
-calls to their cap-9 twins, 2026-09-28).  Each twin is its source's statement and body
+calls to their cap-9 twins, 2026-09-28; family 20 six of the §8 capfloor bundle's seven,
+2026-09-28).  Each twin is its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`), every derived cap-dependent supplier
 replaced by its twin; no hypothesis is added and no conclusion weakened. -/
 
@@ -3269,7 +3278,8 @@ theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9 {h : ℕ} (hh : 0 < h)
 
 Additive only at landing: every declaration above was untouched (from 2026-09-27 the XY debt lane
 retires copied `h` siblings above into the `_b9` generics here, noted in place; family 19
-re-pointed six of the §8 assembler's seven supplier calls to the twins, 2026-09-28).  Each twin is
+re-pointed six of the §8 assembler's seven supplier calls to the twins, 2026-09-28; family 20 six
+of the §8 capfloor bundle's seven to F2's twins, 2026-09-28).  Each twin is
 its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`; in `capfloor_floor4_sharp_LH_b9` the
 in-body `h ≤ 1096 ↦ h ≤ 8103`), every derived cap-dependent supplier replaced by its twin; no
