@@ -906,11 +906,7 @@ theorem exists_q_expSum_le {B₅ : ℝ} (hB1 : 1 ≤ B₅) {eps : ℚ} (heps : 0
     have h8 : (8 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH8
     have hmono : Real.log 8 ≤ Real.log (H : ℝ) := Real.log_le_log (by norm_num) h8
     have h2 : (2 : ℝ) ≤ Real.log 8 := by
-      have hlt := Real.log_two_gt_d9
-      have h83 : (8 : ℝ) = 2 ^ (3 : ℕ) := by norm_num
-      rw [h83, Real.log_pow]
-      push_cast
-      linarith
+      exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 2 (by norm_num) (by norm_num)
     linarith
   have hden2 : (2 : ℝ) ≤ arcDen B₅ H := by
     rw [arcDen]

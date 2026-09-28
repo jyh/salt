@@ -412,9 +412,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have hlog8_le : Real.log 8 ≤ Real.log ((goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24)) := by
         rw [Real.log_rpow hgcPos]
         have hlog8 : Real.log 8 ≤ 3 := by
-          have h8 : Real.log 8 = 3 * Real.log 2 := by
-            rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; push_cast; ring
-          rw [h8]; linarith [hlog2]
+          exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
         linarith [hlog_gc, hlog8]
       have := Real.exp_le_exp.mpr hlog8_le
       rwa [Real.exp_log (by norm_num), Real.exp_log hgcpow_pos] at this

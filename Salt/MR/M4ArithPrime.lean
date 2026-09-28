@@ -126,9 +126,7 @@ private lemma a3_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : ℕ
     (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
   have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) := Real.log_le_log (by norm_num) h
   have hlog3 : (1 : ℝ) ≤ Real.log 3 := by
-    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have := Real.log_le_log (Real.exp_pos 1) (by linarith : Real.exp 1 ≤ (3 : ℝ))
-    rwa [Real.log_exp] at this
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   linarith
 
 /-- **⟦THE FRAME AT THE JOIN, FROM FOUR GATES⟧** (`doorFuseFrame_pool'_of_gates`).  The ten
