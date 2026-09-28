@@ -254,12 +254,12 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join {R : ChowlaRegime} {M : ℕ}
 
 The `μ`-free join at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
 
-⟦K-INVARIANT, KEEPS ITS LANDED NAME⟧ `DoorBaseFrame` (:109) reads no door ladder — six purely
+⟦K-INVARIANT, KEEPS ITS LANDED NAME⟧ `DoorBaseFrame` reads no door ladder — six purely
 base-side fields — and `a3_one_le_log_of_three_le` is generic; both are reused VERBATIM.
 `a2Level1 M` is level 1, so `GRowsZeroGate''`'s `level1` and `endpt` fields do not move either;
 only its `p2` field, which reads `𝒫₁` and `𝒫₂` directly, is rewritten at the levered base. -/
 
-/-- `GRowsZeroGate''` (:71), at the lever.  `level1` and `endpt` are byte-identical; `p2` moves
+/-- `GRowsZeroGate''`, at the lever.  `level1` and `endpt` are byte-identical; `p2` moves
 with `𝒫₂` (and `𝒫₁`, which is LEVEL 1 and therefore the same symbol). -/
 structure GRowsZeroGate''_gk (K : ℕ) (M Xd : ℕ) (π₀ : ℝ) : Prop where
   /-- ⟦THE LEVEL-1 SLOT⟧ base-free. -/
@@ -271,7 +271,7 @@ structure GRowsZeroGate''_gk (K : ℕ) (M Xd : ℕ) (π₀ : ℝ) : Prop where
         + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ))
       ≤ 1 / 3 * π₀
 
-/-- `gRows_zero_of_gate''` (:88), at the lever — `M4ArithZero.a2RowsSum'_door_decomp_gk` and
+/-- `gRows_zero_of_gate''`, at the lever — `M4ArithZero.a2RowsSum'_door_decomp_gk` and
 the three slots summed, exactly as landed. -/
 theorem gRows_zero_of_gate''_gk (K : ℕ) {M Xd : ℕ} {π₀ : ℝ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
     (hg : GRowsZeroGate''_gk K M Xd π₀) :
@@ -289,7 +289,7 @@ theorem gRows_zero_of_gate''_gk (K : ℕ) {M Xd : ℕ} {π₀ : ℝ} (hM : 1 ≤
   rw [hid]
   linarith [hg.level1, hg.endpt, hg.p2]
 
-/-- `doorFuseFrame_pool'_of_gates` (:148), at the lever. -/
+/-- `doorFuseFrame_pool'_of_gates`, at the lever. -/
 theorem doorFuseFrame_pool'_of_gates_gk (K : ℕ) {M Xd j : ℕ} {Cs ε π₀ : ℝ}
     (hb : DoorBaseFrame Xd j)
     (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) ≤ π₀)
@@ -333,7 +333,7 @@ theorem doorFuseFrame_pool'_of_gates_gk (K : ℕ) {M Xd j : ℕ} {Cs ε π₀ : 
       simpa using this
     linarith
 
-/-- `m4_chiSummedFreeRow_of_doorAssembly_join` (:211), at the lever. -/
+/-- `m4_chiSummedFreeRow_of_doorAssembly_join`, at the lever. -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_join_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
     {Cs C₁ M₀ ε π₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
     (hM : 1 ≤ M)
