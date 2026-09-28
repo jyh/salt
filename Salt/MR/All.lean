@@ -9598,7 +9598,8 @@ which is what wave H1 bought by threading a scale `c` through the selector layer
 ⭐ **THE SHARP-`T₀` CHAIN IS THREE NAMES BECAUSE H2c LANDED THE ONE PIECE THAT IS NOT
 BOOKKEEPING** (`capfloor_T0_Tann_sharp_LH`): hop 5 wants `T₀ ≤ exp(√H₋/2)` INSIDE the `∀ R`
 where H2c's chain exports the flat `exp(exp 100)` outside it, so these are that chain with one
-discharger swapped and one binder moved.
+discharger swapped and one binder moved.  (2026-09-28: family 19 of the XY lane re-pointed six of
+the assembler's seven supplier calls to their cap-9 twins, its statement unchanged.)
 
 ⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
 `logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
@@ -10183,7 +10184,8 @@ open Salt.Tactic in
 `S16FlatTerminalLinearLH`, `S16ComposeLH`, `V7RatedH`, 2026-09-13, math — build freeze v2 v1.1
 §3.0/§3.1, executor brief W1 bundle E3).  Additive only at landing: every landed declaration was
 untouched (from 2026-09-26 the XY debt lane retires copied `h` siblings into these `_b9` generics,
-noted in place).
+noted in place; 2026-09-28: family 19 re-pointed six of the seven supplier calls of a landed
+`S16ComposeLH` assembler to cap-9 twins).
 Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
 `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
 in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
@@ -10279,7 +10281,8 @@ open Salt.Tactic in
 
 /-! ⟦β W2 F2⟧ — `S13CapGateLinearLH` DEPTH 2–4 (the grid, floor and `εr` pages at the inflated
 socket; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5.1, executor brief W2 bundle F2).
-Additive only: every landed declaration is untouched.  Each twin is its source's statement and body
+Additive only: every landed declaration is untouched (2026-09-28: family 19 re-pointed the §8
+assembler of `S16ComposeLH` to two twins here).  Each twin is its source's statement and body
 with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
 every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
 `s13CapGrid_mu_lo_LH_b9`, `capfloor_logq_le_LH_b9`, the `S16ProducersH` socket chain) or by the
@@ -10324,7 +10327,8 @@ three links `s13CapEps_all_LH_b9` → `s16_capGate_supply_LH_gk_sharpT0_kswin_b9
 `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`; 2026-09-13, math — build
 freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only at landing: every landed
 declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` siblings into these
-`_b9` generics, noted in place).  Each twin is its source's statement and body with ONLY the
+`_b9` generics, noted in place; 2026-09-28: family 19 re-pointed the §8 assembler of
+`S16ComposeLH` to three of them).  Each twin is its source's statement and body with ONLY the
 shift-cap raise `log h ≤ 7
 ↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
 F2 twin, and no hypothesis added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤
