@@ -41,7 +41,7 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 | 3 | `hj0` | `s13_g2_jfloor` at `Λ := loglog H₊` | `S13FramesA.lean:500` |
 | 4 | `hdgate` | `s13_gate8` at `Λ := loglog H₊` | `S13FramesA.lean:528` |
 | 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:420` |
-| 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean:167` |
+| 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |
 | 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:239` |

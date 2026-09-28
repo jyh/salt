@@ -144,7 +144,7 @@ of the `M = 2^355` register still closes (`probe_B3_*`; the binding `anchor`/`lv
 move from 0.48%/2.3% to 0.48%/2.3% — the `43` is invisible against `14·λ₊`). -/
 
 /-- **⟦THE `ρ` FLOOR, AT THE REACHABLE `δ₀`⟧** (`s15w_rho_ge'`) — `2^{-62} ≤ ρ` at
-`1/2^20 ≤ δ₀`.  `s15w_rho_ge` (:112) with the one relaxed numeral. -/
+`1/2^20 ≤ δ₀`.  `s15w_rho_ge` with the one relaxed numeral. -/
 theorem s15w_rho_ge' {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
     (hδb : 1 / 2 ^ 20 ≤ δ₀) (hKb : K ≤ 2 ^ 20) :
     (1 : ℝ) / 2 ^ 62 ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
@@ -1202,7 +1202,7 @@ theorem s15w_blockExp_le_gk (K : ℕ) {M : ℕ} (hM : M ≤ 2 ^ 56) :
   omega
 
 /-- **⟦THE WINDOW FLOOR AT AN ARBITRARY DYADIC EXPONENT⟧** (`s15w_Hhi_ge_gk`) —
-`s15w_Hhi_ge` (:221) generalised from the fixed `400` to any `n ≤ 4·10^8`, which is what the
+`s15w_Hhi_ge` generalised from the fixed `400` to any `n ≤ 4·10^8`, which is what the
 levered block exponent needs (`n = 2K + 359 ≤ 3.4·10^8` at `K ≤ 1.7·10^8`).  `log H₋ ≥ 10^30`
 buys `2^n` for every such `n` with 21 orders of margin. -/
 theorem s15w_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
@@ -1232,7 +1232,7 @@ theorem s15w_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
   exact le_trans hnat R.hHlohi
 
 /-- **⟦`M`-UPPER 1's WINDOW SIDE, AT THE LEVER⟧** (`s15w_blk_floor_gk`) —
-`2^(2K+341) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w_blk_floor` (:247) with the exponent carrying
+`2^(2K+341) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w_blk_floor` with the exponent carrying
 the lever's `2K`; the `18` bits `ε²` costs are unchanged. -/
 theorem s15w_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
@@ -1268,7 +1268,7 @@ theorem s15w_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
 set_option maxHeartbeats 800000 in
 -- eleven register lines discharged in one `refine`, each an `nlinarith`/`linarith` over casts
 -- of `2^342`-sized numerals; the default budget is exhausted by `gP1` and `lvl`
-/-- `s15_sel'_witness` (:281) at the lever.  The ONE field that moves is `blk`: the
+/-- `s15_sel'_witness` at the lever.  The ONE field that moves is `blk`: the
 levered block exponent is `2^(2K+342)`, and the tower floor `s15WitFloor` covers it. -/
 theorem s15_sel'_witness_gk (K : ℕ) (hKle : K ≤ 170000000) {Cg δ₀ Ct Kc : ℝ}
     {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -1416,7 +1416,7 @@ theorem s15_sel'_bfloor_window_num_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl
 set_option maxHeartbeats 800000 in
 -- the `∃`-block re-elaborates the capstone's instantiated prefix, as in the landed §6
 /-- **⟦THE TERMINAL TWIN⟧** (`logChowla2_conditional_sharp_nonvacuous_gk`) —
-`logChowla2_conditional_sharp_nonvacuous` (:568) at the lever, INHERITING THE PIN: the proof
+`logChowla2_conditional_sharp_nonvacuous` at the lever, INHERITING THE PIN: the proof
 fires `logChowla2_conditional_sharp_atK_gk` at `K = 500000` (whose `K ≤ 1.7·10⁸` side
 condition is `norm_num`), and `K` is exported as the FIRST component of the ∃-prefix, exactly
 as at `S15Compose.logChowla2_conditional_sharp_gk`.
@@ -1512,7 +1512,7 @@ theorem s15w2_blockExp_le_gk (K : ℕ) : s13BlockExp_gk K (2 ^ 355) ≤ 2 ^ (2 *
     _ = 2 ^ (2 * K + 1542) := by rw [← pow_add]
 
 /-- **⟦THE WINDOW FLOOR AT AN ARBITRARY DYADIC EXPONENT, RE-CUT⟧** (`s15w2_Hhi_ge_gk`) —
-`s15w2_Hhi_ge` (:881) generalised from the fixed `1600` to any `n ≤ 4·10^8`, which is what the
+`s15w2_Hhi_ge` generalised from the fixed `1600` to any `n ≤ 4·10^8`, which is what the
 levered block exponent needs (`n = 2K + 1559 ≤ 3.4·10^8` at `K ≤ 1.7·10^8`).  It is a
 strengthening of `s15w_Hhi_ge_gk`'s hypothesis, not a new estimate: `2^400 ≥ 10^30`. -/
 theorem s15w2_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
@@ -1521,7 +1521,7 @@ theorem s15w2_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
   s15w_Hhi_ge_gk n hn (le_trans (by norm_num) hlo)
 
 /-- **⟦`M`-UPPER 1's WINDOW SIDE, RE-CUT, AT THE LEVER⟧** (`s15w2_blk_floor_gk`) —
-`2^(2K+1541) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w2_blk_floor` (:903) with the exponent
+`2^(2K+1541) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w2_blk_floor` with the exponent
 carrying the lever's `2K`; the `18` bits `ε²` costs are unchanged. -/
 theorem s15w2_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
@@ -1556,7 +1556,7 @@ theorem s15w2_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
 set_option maxHeartbeats 1600000 in
 -- same cause as the landed §8.3: eleven register lines at `M = 2^355`, the `blk` line now
 -- carrying `2^(2K+1542)`-sized casts and the `x0M` line an `exp∘exp` chain
-/-- `s15_sel''_witness` (:944) at the lever.  The ONE field that moves is `blk`; see the
+/-- `s15_sel''_witness` at the lever.  The ONE field that moves is `blk`; see the
 section preamble for why the `2^355` pin, `λ₋`, `λ₊` and `x₀` all stand. -/
 theorem s15_sel''_witness_gk (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ Ct K : ℝ}
     {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -1668,7 +1668,7 @@ theorem s15_sel''_witness_gk (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ 
       linarith only [h, hlog2hi]
     exact s15w2_lvl_num hhi hQ hρlog
 
-/-- `logChowla2_conditional_sharp2_nonvacuous` (:1067) at the lever, at the pin
+/-- `logChowla2_conditional_sharp2_nonvacuous` at the lever, at the pin
 `K = 500000`.  ⚠ `hx0win` rides inside as before: `x₀` is Siegel-ineffective and NO theorem
 discharges it — the field's wall, carried honestly and named. -/
 theorem logChowla2_conditional_sharp2_nonvacuous_gk :
@@ -1740,7 +1740,7 @@ theorem s15w2_lvl_num' {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277) 
 set_option maxHeartbeats 1600000 in
 -- same cause as §GK.8: eleven register lines at `M = 2^355`, the `blk` line carrying
 -- `2^(2K+1542)`-sized casts and the `x0M` line an `exp∘exp` chain
-/-- `s15_sel''_witness_gk` (:1525) at the reachable `δ₀`.  The ONLY changes are the relaxed
+/-- `s15_sel''_witness_gk` at the reachable `δ₀`.  The ONLY changes are the relaxed
 hypothesis `1/2^20 ≤ δ₀` and the `ρ`-charge `43` in the five lines that spend it. -/
 theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ Ct K : ℝ}
     {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -1852,7 +1852,7 @@ theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀
     exact s15w2_lvl_num' hhi hQ hρlog
 
 /-- **⟦THE RE-CUT CONDITIONAL, REPAIRED⟧** (`logChowla2_conditional_sharp2_nonvacuous_gk'`) —
-`logChowla2_conditional_sharp2_nonvacuous_gk` (:1638) with the three EPSPIN riders DISCHARGED
+`logChowla2_conditional_sharp2_nonvacuous_gk` with the three EPSPIN riders DISCHARGED
 and `K` left free.  ⚠ `hx0win` rides as before: `x₀` is Siegel-ineffective and NO theorem
 discharges it — the field's wall, carried honestly and named. -/
 theorem logChowla2_conditional_sharp2_nonvacuous_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) :

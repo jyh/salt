@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.USetThin
 import Salt.MR.HalaszPrimesCore
 import Salt.Mertens.Third
+import Salt.Tactic.ExpLogNum
 
 /-!
 # USetThinTL — the `𝒯_L` branch of `hU` (U-8)
@@ -595,13 +596,7 @@ lemma tL_kill {L W V T cc : ℝ} (hcc : 0 < cc) (hL : Real.exp 1 ≤ L)
     linarith
   -- the three polynomial factors
   have h840 : (840 : ℝ) ≤ Real.exp 7 := by
-    have h1 : Real.exp (((7 : ℕ) : ℝ) * 1) = Real.exp 1 ^ (7 : ℕ) := Real.exp_nat_mul 1 7
-    have h2 : Real.exp 7 = Real.exp 1 ^ (7 : ℕ) := by rw [← h1]; norm_num
-    have he : (2.7 : ℝ) ≤ Real.exp 1 := by
-      have := Real.exp_one_gt_d9; linarith
-    rw [h2]
-    calc (840 : ℝ) ≤ 2.7 ^ (7 : ℕ) := by norm_num
-      _ ≤ Real.exp 1 ^ (7 : ℕ) := pow_le_pow_left₀ (by norm_num) he 7
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 7 (by norm_num)
   have hVsq : V ^ 2 ≤ Real.exp (200 * Real.log L) := by
     have h1 : Real.exp (2 * Real.log V) = V ^ 2 := by
       rw [show (2 : ℝ) * Real.log V = Real.log V + Real.log V from by ring, Real.exp_add,

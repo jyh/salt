@@ -12,7 +12,7 @@ import Salt.MR.ConstantsExposed
 `ConstantsExposed.typical_density_le_bounded` is the WIRED ROOT of the `Cg`
 chain: the landed `typical_density_le` conclusion re-derived with the numeral
 `C ≤ 2·10^12` in the statement.  CG-SCOPE's byte-read (recorded at
-`S15Witness.lean:67`) traced the road's `Cg` back to it through EIGHT `∃ C`
+`S15Witness.lean` §C) traced the road's `Cg` back to it through EIGHT `∃ C`
 links, links 2–8 being verbatim re-emits and link 1→2 a raise to `max C₀ 1`.
 
 This file walks that chain, one additive twin per link.  Each twin is its landed

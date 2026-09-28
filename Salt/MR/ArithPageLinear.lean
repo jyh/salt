@@ -482,10 +482,7 @@ theorem doorGrade_summand2_priced_rho_L {M H : ℕ} {ρ : ℝ} (hρ : 0 < ρ) (h
     rw [hsplit] at hstep
     linarith
   have hlog687 : Real.log 68719476736 ≤ 26 := by
-    have := log_le_of_le_pow27 (c := (68719476736 : ℝ)) (by norm_num) 26 (r := 0) (by norm_num)
-      (by norm_num)
-    norm_num at this ⊢
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 26 (by norm_num) (by norm_num)
   have h1787 := log_1787702400_le
   have hLinv : Real.log (1 / ρ) = -Real.log ρ := log_one_div_eq_neg ρ
   -- ⟦the budget: `(1/12)·2^36·M·log 2 ≥ 3.9694·10⁹·M`, the anchor spends `3.9·10⁹·M`⟧

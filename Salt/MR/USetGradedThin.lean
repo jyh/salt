@@ -167,7 +167,7 @@ lemma not_blockSmallG_witness_of_mem_UsetG {f : ℕ → ℂ} {Pseq Qseq : ℕ �
 
 /-! ## §2 — T-2: the per-block count at the graded level
 
-`ramQ_large_count` (LANDED, `USetThinTL` :207) is fed at `V := exp(α·v/H)`, i.e. at the
+`ramQ_large_count` (LANDED, `USetThinTL`) is fed at `V := exp(α·v/H)`, i.e. at the
 block's own graded threshold, and its three `v`-dependent factors are made uniform:
 
 * `T ^ (2 log V / log base) ≤ T ^ (2α)` — because `log V = α·(v/H) ≤ α·log base`, the

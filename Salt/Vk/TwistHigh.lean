@@ -230,9 +230,7 @@ theorem vk_dirichlet_block_twist_all {σ t β : ℝ} {M x' : ℕ}
   intro hhi
   -- the landed high-branch gate derivation, at `k = 12`
   have hexp2601 : (2601 : ℝ) ≤ Real.exp 100 := by
-    have h50 : (51 : ℝ) ≤ Real.exp 50 := by linarith [Real.add_one_le_exp (50 : ℝ)]
-    have he : Real.exp 100 = Real.exp 50 * Real.exp 50 := by rw [← Real.exp_add]; norm_num
-    nlinarith [h50, he, Real.exp_pos 50]
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 100 (by norm_num)
   have hlogM260 : (260 : ℝ) ≤ Real.log M := by linarith [hhi, hL100, hexp2601]
   have hMfac : ((Nat.factorial 12 : ℝ)) ^ 6 ≤ (M : ℝ) := by
     have hfac2 : (Nat.factorial 12 : ℝ) ≤ 2 ^ 29 := by norm_num [Nat.factorial]

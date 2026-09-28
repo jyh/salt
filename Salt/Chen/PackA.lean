@@ -8,6 +8,7 @@ import Salt.Chen.AssembleA3b
 import Salt.Chen.AggCE
 import Salt.Chen.AggDiag
 import Salt.Chen.PriceClose
+import Salt.Tactic.ExpLogNum
 
 /-!
 # Node PACK-A — the four A₃-side packaging rows (new file, no edits to landed files)
@@ -93,11 +94,7 @@ theorem ratio_le_of_floor {x : ℕ} {L N c : ℝ}
     rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos c)) (by norm_num),
       Real.log_rpow hxpos]
   have hlog8 : Real.log 8 ≤ 3 := by
-    have h2 : Real.log 2 ≤ 1 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-    have h8 : Real.log 8 = 3 * Real.log 2 := by
-      rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-    rw [h8]; linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   have hlogN_lb : c * Real.log x - Real.log 8 ≤ Real.log N := by rw [← heq]; exact hlogfloor
   have hstep : (10 / 31 : ℝ) * L ≤ (10 / 31 : ℝ) * (Real.log x + 3) :=
     mul_le_mul_of_nonneg_left hLup (by norm_num)

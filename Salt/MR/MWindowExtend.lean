@@ -389,12 +389,7 @@ theorem Tstar_two_mul_le_quarter {X : ℝ} (hX : Real.exp 8192 ≤ X) :
   set m : ℝ := Real.log u with hmdef
   -- `m ≥ 8`, from `e⁸ < 8192`
   have hexp8 : Real.exp 8 < 8192 := by
-    have h1 : Real.exp 8 = Real.exp 1 ^ (8 : ℕ) := by
-      rw [Real.exp_one_pow]; norm_num
-    rw [h1]
-    calc Real.exp 1 ^ (8 : ℕ) < (2.7182818286 : ℝ) ^ (8 : ℕ) :=
-          pow_lt_pow_left₀ Real.exp_one_lt_d9 (Real.exp_nonneg 1) (by norm_num)
-      _ < 8192 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 8 (by norm_num)
   have hm8 : (8 : ℝ) ≤ m := by
     rw [hmdef, ← Real.log_exp 8]
     exact Real.log_le_log (Real.exp_pos _) (by linarith)

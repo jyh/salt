@@ -10,6 +10,7 @@ import Salt.SW.BvWeight
 import Salt.SW.Growth
 import Salt.SW.ContourShift
 import Salt.SW.Psi1Identity
+import Salt.Tactic.ExpLogNum
 
 /-!
 # B2 W7 — Jutila's Lemma 6 (L6): the detected Dirichlet polynomial and its floor at a zero
@@ -1625,13 +1626,7 @@ theorem f5_exp_dominates {u : ℝ} (hu : Real.log ((10 : ℝ) ^ 20) ≤ u) :
     5625 * u ≤ Real.exp (71 / 240 * u) := by
   have hu46 : (46 : ℝ) ≤ u := le_trans le_log_ten_pow_twenty hu
   have hexp13 : (442413 : ℝ) ≤ Real.exp 13 := by
-    have h1 : Real.exp 13 = Real.exp 1 ^ (13 : ℕ) := by
-      rw [← Real.exp_nat_mul]
-      norm_num
-    rw [h1]
-    calc (442413 : ℝ) ≤ (2.7182818283 : ℝ) ^ (13 : ℕ) := by norm_num
-      _ ≤ Real.exp 1 ^ (13 : ℕ) :=
-          pow_le_pow_left₀ (by norm_num) (le_of_lt Real.exp_one_gt_d9) 13
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 13 (by norm_num)
   have hfrac : (193 : ℝ) / 120 ≤ Real.exp (73 / 120) := by
     linarith [Real.add_one_le_exp ((73 : ℝ) / 120)]
   have h46a : (711500 : ℝ) ≤ Real.exp (71 / 240 * 46) := by

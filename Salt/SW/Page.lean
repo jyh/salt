@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Mathlib
 import Salt.SW.ZeroFree
 import Salt.SW.ZeroFreeReal
+import Salt.Tactic.ExpLogNum
 
 /-!
 # The SW rung, node S4c — Page's cross-modulus theorem
@@ -330,9 +331,7 @@ theorem page_cross_modulus : ∃ c₂ : ℝ, 0 < c₂ ∧ ∀ (q₁ q₂ : ℕ) 
   set Lq : ℝ := Real.log (4 * (q₁ : ℝ) * (q₂ : ℝ)) with hLdef
   have hL2 : (2 : ℝ) ≤ Lq := by
     have hexp2 : Real.exp 2 ≤ 8 := by
-      have h1 := Real.exp_one_lt_d9
-      have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-      nlinarith [Real.exp_pos 1]
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
     have h16 : (16 : ℝ) ≤ 4 * (q₁ : ℝ) * (q₂ : ℝ) := by nlinarith [hq₁R, hq₂R]
     rw [hLdef]
     calc (2 : ℝ) = Real.log (Real.exp 2) := (Real.log_exp 2).symm

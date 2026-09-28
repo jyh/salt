@@ -215,7 +215,7 @@ theorem doorRows_global_hcoef_kills_block_L {a b c : ℕ → ℂ} {M Xd j : ℕ}
   seam_coef_contract_forces_vanishing hasupp hcoef hp₀ hP₀ hQ₀ hd₀ hlive hp₁ hP₁ hQ₁ hd₁ hoff
 
 set_option linter.unusedVariables false in
-/-- `a2DoorGrade_L` (:213), at the lever.  The body is byte-identical: the only ladder read is
+/-- `a2DoorGrade_L`, at the lever.  The body is byte-identical: the only ladder read is
 `a2Level1_L M`, which is LEVEL 1 and K-invariant.  The twin exists for uniformity of the
 family's shape (`K` first, everywhere), exactly as `M4Close.m4RawMS_gk` does. -/
 def a2DoorGrade_L_gk (K : ℕ) (M : ℕ) (X h C₁ M₀ : ℝ) : ℝ :=
@@ -226,7 +226,7 @@ def a2DoorGrade_L_gk (K : ℕ) (M : ℕ) (X h C₁ M₀ : ℝ) : ℝ :=
         * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
     + 6315000 / h
 
-/-- `a2DoorGrade_L_nonneg` (:229), at the lever. -/
+/-- `a2DoorGrade_L_nonneg`, at the lever. -/
 theorem a2DoorGrade_nonneg_L_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) {X h C₁ M₀ : ℝ}
     (hX : 0 ≤ Real.log X)
     (hh : 0 < h) : 0 ≤ a2DoorGrade_L_gk K M X h C₁ M₀ :=
@@ -3090,7 +3090,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_L {R : ChowlaRegime} {M : ℕ}
     hF.band_pool
 
 set_option linter.unusedVariables false in
-/-- `a2DoorGrade_pool_L` (:61), at the lever.  Body byte-identical (`a2Level1_L` is K-invariant);
+/-- `a2DoorGrade_pool_L`, at the lever.  Body byte-identical (`a2Level1_L` is K-invariant);
 the twin exists for uniformity of the family's shape. -/
 def a2DoorGrade_pool_L_gk (K : ℕ) (M : ℕ) (X h C₁ M₀ π₀ : ℝ) : ℝ :=
   8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
@@ -3100,7 +3100,7 @@ def a2DoorGrade_pool_L_gk (K : ℕ) (M : ℕ) (X h C₁ M₀ π₀ : ℝ) : ℝ 
         * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
     + 6315000 / h
 
-/-- `a2DoorGrade_pool_L_nonneg` (:77), at the lever. -/
+/-- `a2DoorGrade_pool_L_nonneg`, at the lever. -/
 theorem a2DoorGrade_pool_nonneg_L_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) {X h C₁ M₀ π₀ : ℝ}
     (hX : 0 ≤ Real.log X)
     (hh : 0 < h) (hπ : 0 ≤ π₀) : 0 ≤ a2DoorGrade_pool_L_gk K M X h C₁ M₀ π₀ :=

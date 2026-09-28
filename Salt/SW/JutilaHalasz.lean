@@ -451,7 +451,7 @@ private lemma partial_summation_core {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) {
 (design v2 §A.3): Abel with `1/2 ≤ σ` (`(2σ − 1) ≥ 0`; dyadic would break F6 at `σ → 1/2`),
 `(x^{2−2σ} − 1)/(2 − 2σ) ≤ x^{2−2σ}·log x` (no `1/λ` loss), the `+ log z₂` term CARRIED. The
 constant is the row's own `∃ C` — `C = 2·max(4K_H, K_L)` from the two landed prefactors
-(`GrahamHard3.lean:2498`, `:2559`), printed as a symbol, never as S10's `K`.
+(`GrahamHard3.lean · sum_sq_sum_bvWeight_le_full`), printed as a symbol, never as S10's `K`.
 
 **The landed witness is `4·max(4K_H, K_L)`**, twice the design's: the design's factor `2` pays
 only for the `u ∈ [1, 2)` sliver, and the Abel bookkeeping's natural shape is
@@ -609,7 +609,7 @@ theorem sq_sum_norm_jutilaDetector_le (χ : DirichletCharacter ℂ q) {z₁ z₂
 /-! ## (ii) The floor in the `S'`-form (W9c) -/
 
 /-- The floor with the `r`-sum `S' = Σ'_r r⁻¹` UNWEAKENED — the landed `_floor_at_zero`'s own
-intermediate (`JutilaDetector.lean:1418–1424`) with Lemma 5 NOT applied, so that `φ(q)/q` cancels
+intermediate (`JutilaDetector.lean · jutilaDetector_floor_at_zero`) with Lemma 5 NOT applied, so that `φ(q)/q` cancels
 between Halász's two sides (design v2 §A.5) and no upper bound on the coprime harmonic sum is
 ever needed. -/
 theorem jutilaDetector_floor_sum [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)
