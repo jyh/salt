@@ -2905,7 +2905,7 @@ This page's docstring, verbatim:
 ⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:74` at
 `SocketBaseLH h`: the window is read at `R.Hlo` and transported to the socket's own `H`. -/
 
-/-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` -/
+/-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` (retired 2026-09-27) -/
 
 /-! ### THE `Ks`-WINDOWED FLOOR WAVE AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -2946,7 +2946,7 @@ This page's docstring, verbatim:
 ⟦`Ks`-WINDOWED TWIN AT SHIFT `h`⟧ (`s16_capGate_supply_LH_gk_sharpT0_kswin`) — §8's assembler
 on the windowed floor wave above. -/
 
-/-! ### §11.2 — the per-block wire, `K`-hoisted and `cs`-free, at shift `h` -/
+/-! ### §11.2 — the per-block wire, `K`-hoisted, at shift `h` (`cs`-free form retired 2026-09-27) -/
 
 set_option maxHeartbeats 1600000 in
 -- as the landed original: the wire's own statement re-elaborates under one more binder layer
@@ -3029,7 +3029,7 @@ This page's docstring, verbatim:
 ⟦`K`-HOISTED, `cs`-FREE, AT SHIFT `h`⟧ (`m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs`) —
 the wire above with `e^{-100} ≤ cs` CARRIED in the prefix rather than demanded of the caller. -/
 
-/-! ### §11.3 — the capWS fuse, `K`-hoisted and `cs`-free, at shift `h` -/
+/-! ### §11.3 — the capWS fuse, `K`-hoisted, at shift `h` (`cs`-free form retired 2026-09-27) -/
 
 set_option maxHeartbeats 1600000 in
 -- as the landed original: the eighteen-slot `hcapWS` family re-elaborates against the wire
@@ -3090,16 +3090,16 @@ maxHeartbeats 3200000 in`.  It is `m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
 ⟦β W1 E3⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
 binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies
 it by `linarith` — kernel-checked from the retired statement's own bytes before the 49 lines
-were removed.  The twin's body is this page's with ONE line changed: the call of §11.2's
-per-block wire `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs`, swapped for its `_b9` twin.
-At this retirement the page had NO call site: its one caller, §11.4's crossing supplier at
-`log h ≤ 7`, was retired by family 12 (its note stands under §11.4, directly below).
+were removed.  The twin's body is this page's with ONE line changed: the call of §11.2's per-block
+wire `m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs` (since retired by family 16), swapped for
+its `_b9` twin.  At this retirement the page had NO call site: its one caller, §11.4's crossing
+supplier at `log h ≤ 7`, was retired by family 12 (its note stands under §11.4, directly below).
 
 This page's docstring, verbatim:
 
 ⟦`K`-HOISTED, `cs`-FREE, AT SHIFT `h`⟧ (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs`). -/
 
-/-! ### §11.4 — the crossing supplier, `K`-hoisted, `cs`-free and `Ks`-windowed, at shift `h` -/
+/-! ### §11.4 — the crossing supplier, `K`-hoisted, `cs`-free, `Ks`-windowed (retired 2026-09-27) -/
 
 /-! ### THE CROSSING SUPPLIER AT `log h ≤ 7` — RETIRED INTO ITS GENERIC
 
