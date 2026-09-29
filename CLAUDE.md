@@ -127,6 +127,14 @@ tagged-error count (the rule above) AND the axioms lines — taken after rebuild
 declaration, with a fourth-axiom control (a planted `sorry` in the same scratch printing `sorryAx`).** An axioms line
 with no build line beside it is a claim about the cache, and a bulk audit read by list is where both readings hide.
 
+⛔⛔ **A `have` INSIDE A TACTIC BLOCK IS NEVER LINTED — SO AN ORPHANED `have` IS DECIDED BY NAME IN SOURCE, NEVER BY THE
+WARNING COUNT.** Measured at the toolchain (h2c's fam-19 reader; Lean v4.32.0-rc1): `linter.unusedVariables.analyzeTactics`
+defaults FALSE, so a tactic-block `have` that nothing below it uses raises NO `unused variable` warning, and when a tactic-block
+binder IS reported the text reads "is not explicitly referenced", not "unused variable" (math met the symptom 2026-09-27). A
+"0 new warnings" receipt therefore says nothing about dead `have`s. ✅ **THE FORM: before calling a `have` live, `grep -F` its NAME
+in the proof text below it; before calling it dead, REMOVE it and rebuild through `../saltbuild.sh` — a removal that still builds
+is the only proof.** (The Captain's ruling, council 2026-09-29, desk `YQ`.)
+
 *(This block instructed bare `lake build` until 2026-09-11, when the 51st helm head measured it:
 the rule was ratified fleet-wide, carded, re-enacted in four council minutes and present in the
 Lean seats' own boot briefs, and the string `saltbuild` occurred **ZERO** times in this file
