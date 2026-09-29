@@ -129,9 +129,9 @@ theorem norm_LFunction_inv_shallow_of_ball {q : ℕ} [NeZero q] {χ : DirichletC
     rw [← norm_pos_iff]; exact hLcpos
   set M₀ : ℝ := 32 * M / W with hM₀def
   have hM₀ : 1 ≤ M₀ := by
-    rw [hM₀def, le_div_iff₀ hW0]; nlinarith
+    rw [hM₀def, le_div_iff₀ hW0]; linarith only [hM1, hW1]
   have hM₀pos : 0 < M₀ := lt_of_lt_of_le zero_lt_one hM₀
-  have hlog4 : 0 < Real.log (4 * M₀) := Real.log_pos (by nlinarith)
+  have hlog4 : 0 < Real.log (4 * M₀) := Real.log_pos (by linarith only [hM₀])
   -- the normalized function and its log-derivative
   have hLdiff : Differentiable ℂ (LFunction χ) := differentiable_LFunction hχ1
   have hG_diff : Differentiable ℂ (fun z => LFunction χ z / LFunction χ c) :=
@@ -151,7 +151,7 @@ theorem norm_LFunction_inv_shallow_of_ball {q : ℕ} [NeZero q] {χ : DirichletC
     have hzc : ‖z - c‖ = r := by rw [mem_sphere_iff_norm] at hz; exact hz
     have hzM := hgrow z (by rw [hzc]; exact hr)
     rw [norm_div, hM₀def, div_le_div_iff₀ hLcpos hW0]
-    nlinarith [href, norm_nonneg (LFunction χ z), hM1]
+    nlinarith only [hM1, href, hW0, hzM]
   obtain ⟨Z, m, _hh, hmemb, -, -, -, -, hnum⟩ :=
     entire_norm_logDeriv_sub_sum_scaled hG_diff hlam0 hM₀ hGc_floor
       (hsph _ le_rfl) (hsph _ (by linarith))
@@ -175,7 +175,7 @@ theorem norm_LFunction_inv_shallow_of_ball {q : ℕ} [NeZero q] {χ : DirichletC
     have hne : LFunction χ ((u : ℂ) + (t : ℂ) * I) / LFunction χ c ≠ 0 := by
       refine div_ne_zero (hzf _ ?_) hLc
       calc ‖((u : ℂ) + (t : ℂ) * I) - c‖ ≤ 23 / 20 * lam := hdist
-        _ < 3 / 2 * lam := by nlinarith
+        _ < 3 / 2 * lam := by linarith only [hreach, hW0]
     have hres := hnum ((u : ℂ) + (t : ℂ) * I) hdist hne
     rw [hLDG, hZempty] at hres
     simpa [hKdef] using hres
@@ -242,9 +242,9 @@ theorem norm_LFunction_inv_shallow_of_ball {q : ℕ} [NeZero q] {χ : DirichletC
     have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
     have hepos : 0 < Real.exp 1 := Real.exp_pos 1
     rw [le_div_iff₀ hepos]
-    nlinarith [hW0]
+    nlinarith only [hW0, he]
   rw [norm_inv, inv_eq_one_div, div_le_div_iff₀ hLσpos hW0]
-  nlinarith [hval]
+  linarith only [hval]
 
 /-! ## §2 — the two geometric hypotheses, discharged from the LANDED region and growth -/
 
@@ -308,10 +308,10 @@ lemma one_le_shallowGrowth {q : ℕ} [NeZero q] {H : ℝ}
   have hq3 : (1 : ℝ) ≤ (q : ℝ) ^ 3 := one_le_pow₀ hq1
   have hC : (1 : ℝ) ≤ 1 + Real.log (H + 1) := by linarith
   have hE5 : (1 : ℝ) ≤ Real.exp (Real.exp 100) + 5 := by linarith
-  have h1 : (1 : ℝ) ≤ 5000 * (q : ℝ) ^ 3 := by nlinarith
+  have h1 : (1 : ℝ) ≤ 5000 * (q : ℝ) ^ 3 := by linarith only [hq3]
   have h2 : (1 : ℝ) ≤ 5000 * (q : ℝ) ^ 3 * (Real.exp (Real.exp 100) + 5) := by nlinarith
   rw [shallowGrowth]
-  nlinarith
+  nlinarith only [hlog, h2, hE, hq3]
 
 /-- **The growth on the shallow ball, both arms.**  For `‖z − ((1+W)+it)‖ ≤ r` with
 `r ≤ min (1/8) (vkTheta (H+1))`:
@@ -390,7 +390,7 @@ theorem norm_LFunction_le_shallowGrowth {q : ℕ} [NeZero q] {χ : DirichletChar
       have hstep2 : 5000 * (q : ℝ) ^ 3 * 1
           ≤ 5000 * (q : ℝ) ^ 3 * (Real.exp (Real.exp 100) + 5) :=
         mul_le_mul_of_nonneg_left hE5 (by positivity)
-      nlinarith [hq3, hstep2]
+      linarith only [hstep2, hq3]
     calc ‖LFunction χ z‖ ≤ vkStripConst q * (1 + Real.log |z.im|) := hgrow
       _ ≤ 5000 * (q : ℝ) ^ 3 * (Real.exp (Real.exp 100) + 5) * (1 + Real.log (H + 1)) := by
           rw [vkStripConst]
@@ -411,8 +411,8 @@ theorem norm_LFunction_le_shallowGrowth {q : ℕ} [NeZero q] {χ : DirichletChar
       linarith
     have hlvl := LFunction_norm_le_level χ hχ1 hrelo (by linarith : z.re ≤ 4)
     have hsq : Real.sqrt (q : ℝ) ≤ (q : ℝ) := by
-      nlinarith [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ (q : ℝ)),
-        Real.sqrt_nonneg ((q : ℝ)), hq1]
+      nlinarith only [hq1, hW, hW0, Real.sq_sqrt (by positivity : (0 : ℝ) ≤ (q : ℝ)),
+          (Nat.cast_nonneg _ : 0 ≤ ↑q)]
     have hlq : 1 + Real.log (q : ℝ) ≤ (q : ℝ) := by
       have := Real.log_le_sub_one_of_pos (by linarith : (0 : ℝ) < (q : ℝ))
       linarith
@@ -444,7 +444,7 @@ theorem norm_LFunction_le_shallowGrowth {q : ℕ} [NeZero q] {χ : DirichletChar
         have hY : 5000 * ((q : ℝ) ^ 3 * (Real.exp (Real.exp 100) + 5)) * 1
             ≤ 5000 * ((q : ℝ) ^ 3 * (Real.exp (Real.exp 100) + 5)) * (1 + Real.log (H + 1)) :=
           mul_le_mul_of_nonneg_left (by linarith) (by positivity)
-        nlinarith [hX, hY]
+        linarith only [hY, hX]
       linarith [hD, hE, hF]
     linarith [hlvl, hstep]
 
@@ -480,7 +480,7 @@ lemma vkShallowWidthSharp_le {c₄ : ℝ} (hc₄ : 0 < c₄) {q : ℕ} {H : ℝ}
   have hℓ3 : (0 : ℝ) < Real.log (Real.log H) ^ (3 : ℕ) := by positivity
   rw [vkShallowWidthSharp, vkShallowWidth]
   apply div_le_div_of_nonneg_left hc₄.le (by positivity)
-  have h1 : (Real.log (q : ℝ) + 1) ≤ (Real.log (q : ℝ) + 1) ^ 2 := by nlinarith
+  have h1 : (Real.log (q : ℝ) + 1) ≤ (Real.log (q : ℝ) + 1) ^ 2 := by nlinarith only [hq0]
   have h2 : Real.log (Real.log H) ^ (3 : ℕ) ≤ Real.log (Real.log H) ^ (4 : ℕ) := by
     have := pow_le_pow_right₀ (show (1 : ℝ) ≤ Real.log (Real.log H) by linarith)
       (show 3 ≤ 4 by norm_num)
@@ -501,7 +501,7 @@ def shallowA (q : ℕ) : ℝ := 1 + Real.log (20000 * (vkStripConst q + 8104)) /
 
 lemma one_le_shallowA {q : ℕ} [NeZero q] : 1 ≤ shallowA q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
-  have h1 : (1 : ℝ) ≤ 20000 * (vkStripConst q + 8104) := by rw [vkStripConst]; nlinarith
+  have h1 : (1 : ℝ) ≤ 20000 * (vkStripConst q + 8104) := by rw [vkStripConst]; linarith only [hq1]
   have h2 := Real.log_nonneg h1
   rw [shallowA]; linarith
 
@@ -516,7 +516,7 @@ lemma shallowA_gate {q : ℕ} [NeZero q] :
 
 lemma shallowA_lb {q : ℕ} [NeZero q] : 1 + Real.log (q : ℝ) / 100 ≤ shallowA q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
-  have h : (q : ℝ) ≤ 20000 * (vkStripConst q + 8104) := by rw [vkStripConst]; nlinarith
+  have h : (q : ℝ) ≤ 20000 * (vkStripConst q + 8104) := by rw [vkStripConst]; linarith only [hq1]
   have h2 := Real.log_le_log (by linarith) h
   rw [shallowA]; linarith
 
@@ -524,11 +524,11 @@ lemma shallowA_ub {q : ℕ} [NeZero q] : shallowA q + 7 ≤ 9 * (Real.log (q : �
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlogq : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hq1
   have h1 : 20000 * (vkStripConst q + 8104) ≤ 2 ^ 28 * (q : ℝ) := by
-    rw [vkStripConst]; nlinarith
+    rw [vkStripConst]; linarith only [hq1]
   have h2 : Real.log (20000 * (vkStripConst q + 8104)) ≤ 28 * Real.log 2 + Real.log (q : ℝ) := by
     calc Real.log (20000 * (vkStripConst q + 8104)) ≤ Real.log (2 ^ 28 * (q : ℝ)) := by
           refine Real.log_le_log ?_ h1
-          rw [vkStripConst]; nlinarith
+          rw [vkStripConst]; linarith only [hq1]
       _ = 28 * Real.log 2 + Real.log (q : ℝ) := by
           rw [Real.log_mul (by norm_num) (by linarith), Real.log_pow]; push_cast; ring
   have h3 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
@@ -586,7 +586,7 @@ lemma boxWidth_shallow_lower {q : ℕ} [NeZero q] {c₀ H : ℝ} (hc₀pos : 0 <
   refine le_min ?_ (le_min ?_ ?_)
   · -- the `1/2` cap
     rw [div_le_iff₀ hden0]
-    nlinarith [hDbig, hc₀1, hc₀pos]
+    linarith only [hDbig, hc₀1]
   · -- the VK arm
     rw [vkBoxWidth]
     have hA7 : (0 : ℝ) < shallowA q + 7 := by linarith [one_le_shallowA (q := q)]
@@ -601,7 +601,7 @@ lemma boxWidth_shallow_lower {q : ℕ} [NeZero q] {c₀ H : ℝ} (hc₀pos : 0 <
         * Real.log (Real.log (H + 1)) ^ (3 : ℕ) := by positivity
     -- `c₀·10^8(A+7)·P ≤ 10^20·(log q+1)·P` since `10^8·9(log q+1) ≤ 10^20(log q+1)`
     have hkey : c₀ * (10 ^ 8 * (shallowA q + 7)) ≤ 10 ^ 20 * (Real.log (q : ℝ) + 1) := by
-      nlinarith [hAub, hc₀1, hc₀pos, hlogq]
+      nlinarith only [hc₀1, hlogq, hc₀pos, hAub]
     calc c₀ * (10 ^ 8 * (shallowA q + 7)
             * (Real.log (H + 1) ^ ((3 : ℝ) / 4) * Real.log (Real.log (H + 1)) ^ (3 : ℕ)))
         = (c₀ * (10 ^ 8 * (shallowA q + 7)))
@@ -613,7 +613,7 @@ lemma boxWidth_shallow_lower {q : ℕ} [NeZero q] {c₀ H : ℝ} (hc₀pos : 0 <
       _ = 1 * (10 ^ 20 * ((Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4)
             * Real.log (Real.log (H + 1)) ^ (3 : ℕ))) := by ring
   · -- the classical arm: this is where `exp 75` pays for `exp 100`
-    rw [clBoxWidth, div_le_div_iff₀ hden0 (by nlinarith [hlogq, hexp100] :
+    rw [clBoxWidth, div_le_div_iff₀ hden0 (by linarith only [hlogq, hexp100] :
       (0 : ℝ) < Real.log (q : ℝ) + Real.exp 100 + 1)]
     -- `log q + e^100 + 1 ≤ (e^100+1)(log q+1)` and `e^100 ≤ 10^26·e^75 ≤ 10^26·P`
     have hexp25 : Real.exp 25 ≤ 10 ^ 20 := by
@@ -622,18 +622,18 @@ lemma boxWidth_shallow_lower {q : ℕ} [NeZero q] {c₀ H : ℝ} (hc₀pos : 0 <
       have hsplit : Real.exp 100 = Real.exp 75 * Real.exp 25 := by
         rw [← Real.exp_add]; norm_num
       rw [hsplit]
-      nlinarith [Real.exp_pos (75 : ℝ), hexp25]
+      nlinarith only [hexp25, Real.exp_pos (75 : ℝ)]
     have hstep1 : Real.log (q : ℝ) + Real.exp 100 + 1
         ≤ (Real.exp 100 + 1) * (Real.log (q : ℝ) + 1) := by
-      nlinarith [hlogq, hexp100]
+      nlinarith only [hexp100, hlogq]
     have hstep2 : (Real.exp 100 + 1) ≤ 10 ^ 20 * Real.log (H + 1) ^ ((3 : ℝ) / 4) + 1 := by
-      nlinarith [hR75, h100]
+      linarith only [h100, hR75]
     -- assemble, with `P = (log q + 1)·log(H+1)^{3/4}` factored out
     have hP0 : (0 : ℝ) ≤ (Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4) := by
       positivity
     have hPge : Real.log (q : ℝ) + 1
         ≤ (Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4) := by
-      nlinarith [hR1, hlogq]
+      nlinarith only [hlogq, hR1]
     have hfin : (Real.log (q : ℝ) + Real.exp 100 + 1)
         ≤ 10 ^ 20 * ((Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4)
             * Real.log (Real.log (H + 1)) ^ (3 : ℕ)) := by
@@ -642,11 +642,11 @@ lemma boxWidth_shallow_lower {q : ℕ} [NeZero q] {c₀ H : ℝ} (hc₀pos : 0 <
         mul_le_mul_of_nonneg_right hstep2 (by linarith)
       have hstep3 : (10 ^ 20 * Real.log (H + 1) ^ ((3 : ℝ) / 4) + 1) * (Real.log (q : ℝ) + 1)
           ≤ (10 ^ 20 + 1) * ((Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4)) := by
-        nlinarith [hPge, hP0]
+        linarith only [hPge]
       have hstep4 : (10 ^ 20 + 1) * ((Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4))
           ≤ 10 ^ 20 * ((Real.log (q : ℝ) + 1) * Real.log (H + 1) ^ ((3 : ℝ) / 4)
               * Real.log (Real.log (H + 1)) ^ (3 : ℕ)) := by
-        nlinarith [mul_le_mul_of_nonneg_left hℓ3 hP0, hP0]
+        linarith only [hDbig, mul_le_mul_of_nonneg_left hℓ3 hP0]
       linarith [hstep1, hA, hstep3, hstep4]
     exact mul_le_mul_of_nonneg_left hfin hc₀pos.le
 
@@ -680,7 +680,7 @@ lemma log_budget_bound {q : ℕ} [NeZero q] {c₄ H : ℝ} (hc₄0 : 0 < c₄) (
   -- the `H+1` scales
   have hLgp : Real.log H ≤ Real.log (H + 1) := Real.log_le_log hHpos (by linarith)
   have hLgp2 : Real.log (H + 1) ≤ 2 * Real.log H := by
-    have h1 : H + 1 ≤ H * H := by nlinarith [hEbig]
+    have h1 : H + 1 ≤ H * H := by nlinarith only [hEbig, hH]
     have h2 : Real.log (H + 1) ≤ Real.log (H * H) := Real.log_le_log (by linarith) h1
     rw [Real.log_mul (by linarith) (by linarith)] at h2
     linarith
@@ -777,11 +777,11 @@ lemma log_budget_bound {q : ℕ} [NeZero q] {c₄ H : ℝ} (hc₄0 : 0 < c₄) (
       ≤ (Real.exp 100 + Real.log (1 / c₄))
         * ((Real.log (q : ℝ) + 1) * Real.log (Real.log H)) := by
     have hprod : (100 : ℝ) ≤ (Real.log (q : ℝ) + 1) * Real.log (Real.log H) := by
-      nlinarith [hlogq, hℓ]
-    nlinarith [hprod, hSnn, hexp100]
+      nlinarith only [hlogq, hℓ]
+    nlinarith only [hSnn, hprod, hexp100]
   have hint2 : 100 * Real.log (q : ℝ) ≤ Real.log (q : ℝ) * Real.log (Real.log H) := by
-    nlinarith [hlogq, hℓ]
-  nlinarith [hlog128, hlogM, hlogDw, hint1, hint2, hℓ, hlogq, hSnn, hexp100, hlogc₄]
+    nlinarith only [hlogq, hℓ]
+  linarith only [hint2, hint1, hlogDw, hlogM, hlog128, hlogc₄, hℓ, hlogq]
 
 /-- The carve-out width `vkShallowWidth (10⁻⁶) q H` dominates the region's own `boxWidth` at
 the canonical gate base — so the ξ₁ hypothesis stated at the former feeds §5's box discharge. -/
@@ -846,7 +846,7 @@ lemma boxWidth_le_carve {q : ℕ} [NeZero q] {c₀ H : ℝ}
         = (Real.log (q : ℝ) + 1) * (Real.log H ^ ((3 : ℝ) / 4)
             * Real.log (Real.log H) ^ (3 : ℕ)) := by ring
       _ ≤ _ := h1
-  nlinarith [hstep, hR'0, hA1]
+  linarith only [hstep]
 
 set_option maxHeartbeats 4000000 in
 -- The assembly threads FOUR nested scale ladders (the `H` vs `H+1` log pair, the rpow `3/4`
@@ -892,7 +892,7 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
   have hℓpge : Real.log (Real.log H) ≤ Real.log (Real.log (H + 1)) :=
     Real.log_le_log hLg0 hLgp
   have hLgp2 : Real.log (H + 1) ≤ 2 * Real.log H := by
-    have h1 : H + 1 ≤ H * H := by nlinarith [hEbig]
+    have h1 : H + 1 ≤ H * H := by nlinarith only [hEbig, hH]
     have h2 : Real.log (H + 1) ≤ Real.log (H * H) := Real.log_le_log (by linarith) h1
     rw [Real.log_mul (by linarith) (by linarith)] at h2
     linarith
@@ -921,7 +921,7 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
         (show (3 : ℝ) / 4 ≤ 1 by norm_num)
       rwa [Real.rpow_one] at this
     rw [h2] at h1
-    nlinarith [h1, h3, hR0]
+    nlinarith only [hR0, h3, h1]
   -- the budget's log bound, folded before the abbreviation
   have hlogbud := log_budget_bound (q := q) (c₄ := c₄) (H := H) hc₄0 hc₄1 hH
   have hbwlow := boxWidth_shallow_lower (q := q) (c₀ := c₀) (H := H) hc₀pos hc₀1 hH
@@ -952,7 +952,7 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
     rw [hWdef, vkShallowWidthSharp]; positivity
   have hWsmall : W ≤ 1 / 10 ^ 8 := by
     rw [hWdef, vkShallowWidthSharp, div_le_div_iff₀ hDw0 (by norm_num)]
-    nlinarith [hDwbig, hc₄1, hc₄0]
+    linarith only [hDwbig, hc₄1]
   -- THE KEY BUDGET INEQUALITY
   have hBge : (717 : ℝ) ≤ Real.exp 100 + 717 + Real.log (1 / c₄) := by
     have hS : (0 : ℝ) ≤ Real.log (1 / c₄) := by
@@ -996,7 +996,7 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
         _ = 8 * Real.log (Real.log H) ^ (3 : ℕ) := by ring
     have hprod : Real.log (H + 1) ^ ((3 : ℝ) / 4) * Real.log (Real.log (H + 1)) ^ (3 : ℕ)
         ≤ 16 * (Real.log H ^ ((3 : ℝ) / 4) * Real.log (Real.log H) ^ (3 : ℕ)) := by
-      have h := mul_le_mul hRR' hmm' (pow_pos hℓp0 3).le (by nlinarith [hR0])
+      have h := mul_le_mul hRR' hmm' (pow_pos hℓp0 3).le (by linarith only [hWsmall, hW0, hR1])
       calc Real.log (H + 1) ^ ((3 : ℝ) / 4) * Real.log (Real.log (H + 1)) ^ (3 : ℕ)
           ≤ 2 * Real.log H ^ ((3 : ℝ) / 4) * (8 * Real.log (Real.log H) ^ (3 : ℕ)) := h
         _ = 16 * (Real.log H ^ ((3 : ℝ) / 4) * Real.log (Real.log H) ^ (3 : ℕ)) := by ring
@@ -1017,8 +1017,8 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
           refine mul_le_mul_of_nonneg_left hprod ?_
           have h1 : (0 : ℝ) ≤ (Real.log (q : ℝ) + 1) ^ 2 * Real.log (Real.log H) := by
             have : (0 : ℝ) ≤ (Real.log (q : ℝ) + 1) ^ 2 := sq_nonneg _
-            nlinarith [hℓ0]
-          nlinarith [h1, hc₀pos]
+            nlinarith only [hℓ, sq_nonneg (Real.log ↑q + 1), sq_nonneg (Real.log ↑q + 1)]
+          nlinarith only [hc₀pos, h1]
       _ = (115.2 / 10 ^ 10) * (c₀ * ((Real.log (q : ℝ) + 1) ^ 2
             * Real.log H ^ ((3 : ℝ) / 4) * Real.log (Real.log H) ^ (4 : ℕ))) := by
           ring
@@ -1026,7 +1026,7 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
             * Real.log (Real.log H) ^ (4 : ℕ))) := by
           refine mul_le_mul_of_nonneg_right (by norm_num) ?_
           have := hDw0
-          nlinarith [hDw0, hc₀pos]
+          nlinarith only [hc₀pos, hDw0]
       _ = c₀ * ((Real.log (q : ℝ) + 1) ^ 2 * Real.log H ^ ((3 : ℝ) / 4)
             * Real.log (Real.log H) ^ (4 : ℕ)) := by ring
   -- consequences of the key inequality
@@ -1042,15 +1042,15 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
               * (Real.log (q : ℝ) + 1) * Real.log (Real.log H) := by
           refine mul_le_mul (mul_le_mul hb (by linarith) (by norm_num) (by linarith [hBge])) hℓ
             (by norm_num) ?_
-          nlinarith [hBge, hlogq]
+          nlinarith only [hlogq, hBge]
         linarith [hstep]
-      nlinarith [h2, hW0]
+      nlinarith only [hW0, h2]
     linarith [hkey, h1]
   set lam : ℝ := 2 / 3 * (bw / 2 + W) with hlamdef
   have hlam0 : 0 < lam := by rw [hlamdef]; positivity
-  have hreach : 2 * W ≤ 23 / 20 * lam := by rw [hlamdef]; nlinarith [hWbw, hbw0]
+  have hreach : 2 * W ≤ 23 / 20 * lam := by rw [hlamdef]; linarith only [hWbw, hW0]
   -- the growth radius sits inside the VK strip
-  have hradius : 7 / 4 * lam ≤ bw := by rw [hlamdef]; nlinarith [hWbw, hbw0]
+  have hradius : 7 / 4 * lam ≤ bw := by rw [hlamdef]; linarith only [hWbw, hW0]
   have hvkform : vkBoxWidth (shallowA q) (H + 1)
       = 1 / (10 ^ 8 * (shallowA q + 7)
           * (Real.log (H + 1) ^ ((3 : ℝ) / 4) * Real.log (Real.log (H + 1)) ^ (3 : ℕ))) := by
@@ -1071,12 +1071,12 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
   have hbwtiny : bw ≤ 1 / 8 := by
     have hprod1 : (1 : ℝ) ≤ Real.log (H + 1) ^ ((3 : ℝ) / 4)
         * Real.log (Real.log (H + 1)) ^ (3 : ℕ) := by
-      nlinarith [hR'1, hℓp3]
+      nlinarith only [hR'0, hℓp3, hc₄0, hBge, hWsmall, hW0, hR'1, hgate4, hc₀1]
     have hBIGge : (8 : ℝ) ≤ 10 ^ 8 * (shallowA q + 7)
         * (Real.log (H + 1) ^ ((3 : ℝ) / 4) * Real.log (Real.log (H + 1)) ^ (3 : ℕ)) := by
-      have h2 : (8 : ℝ) ≤ 10 ^ 8 * (shallowA q + 7) := by nlinarith [hA1]
-      nlinarith [hprod1, h2]
-    nlinarith [hbwmul, hBIGge, hbw0]
+      have h2 : (8 : ℝ) ≤ 10 ^ 8 * (shallowA q + 7) := by linarith only [hWsmall, hW0, hA1]
+      nlinarith only [hA1, hprod1, hR'0, hℓp3, hc₄0, hBge, hWsmall, hW0, hR'1, hgate4, hc₀1]
+    nlinarith only [hbw0, hBIGge, hbwmul]
   have hbwΘ : bw ≤ vkTheta (H + 1) := by
     rw [vkTheta, le_div_iff₀ (mul_pos hR'0 (pow_pos hℓp0 2))]
     have hfac : (1000 : ℝ) ≤ 10 ^ 8 * (shallowA q + 7) * Real.log (Real.log (H + 1)) := by
@@ -1166,15 +1166,15 @@ lemma sq_div_sixteen_log_le {x : ℝ} (h0 : 0 < x) (h1 : x ≤ 1) :
   have hexp : Real.log (1 / x) + 1 ≤ Real.exp (Real.log (1 / x)) :=
     Real.add_one_le_exp _
   have hxu1 : x * Real.log (1 / x) ≤ 1 := by
-    nlinarith [mul_le_mul_of_nonneg_left hexp h0.le]
+    linarith only [hxu, h0, mul_le_mul_of_nonneg_left hexp h0.le]
   have hform : (1 : ℝ) / (x ^ 2 / 16) = 16 * (1 / x) ^ 2 := by
     field_simp
   rw [hform, Real.log_mul (by norm_num) (by positivity), Real.log_pow]
   have hlog16 : Real.log 16 ≤ 3 := by
     exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   push_cast
-  nlinarith [hxu1, hlog16, hu, mul_nonneg (sub_nonneg.mpr h1) h0.le,
-    mul_nonneg h0.le hu]
+  nlinarith only [h0, hxu, hlog16, hexp, mul_nonneg (sub_nonneg.mpr h1) h0.le,
+      sq_nonneg (1 * x), sq_nonneg (1 * x)]
 
 /-- The `c₄`-gate of `norm_LFunction_inv_shallow_sharp` is satisfiable for every positive
 `c₀ ≤ 1`. -/
@@ -1190,16 +1190,16 @@ lemma exists_shallowConst {c₀ : ℝ} (h0 : 0 < c₀) (h1 : c₀ ≤ 1) :
     have : c₀ / 10 ^ 30 ≤ 1 := by
       rw [div_le_one (by norm_num)]; linarith
     linarith
-  refine ⟨x ^ 2 / 16, by positivity, by nlinarith [hx0, hx1], ?_⟩
+  refine ⟨x ^ 2 / 16, by positivity, by nlinarith only [hx0, hx1], ?_⟩
   have hS : (0 : ℝ) ≤ Real.log (1 / (x ^ 2 / 16)) := by
     apply Real.log_nonneg
     rw [le_div_iff₀ (by positivity)]
-    nlinarith [hx0, hx1]
+    nlinarith only [hx0, hx1]
   have hkey := sq_div_sixteen_log_le hx0 hx1
   have hsplit : x ^ 2 / 16 * (Real.exp 100 + 717 + Real.log (1 / (x ^ 2 / 16)))
       ≤ (Real.exp 100 + 717) * (x ^ 2 / 16 * (1 + Real.log (1 / (x ^ 2 / 16)))) := by
     have hc : (0 : ℝ) ≤ x ^ 2 / 16 := by positivity
-    nlinarith [hS, hB1, hc, mul_nonneg hc hS]
+    nlinarith only [hB1, mul_nonneg hc hS]
   have hfin : (Real.exp 100 + 717) * (x ^ 2 / 16 * (1 + Real.log (1 / (x ^ 2 / 16))))
       ≤ (Real.exp 100 + 717) * x := by
     exact mul_le_mul_of_nonneg_left hkey (by linarith)
@@ -1256,7 +1256,7 @@ theorem lFunctionInvShallowVkSharp_holds : LFunctionInvShallowVkSharp := by
     have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
     have hlogpos : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
       apply Real.log_pos
-      nlinarith [abs_nonneg ρ.im]
+      nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
     have hmono : c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2))
         ≤ c₀' / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
       (div_le_div_iff_of_pos_right hlogpos).mpr hc₀le
@@ -1328,8 +1328,8 @@ theorem lFunctionInvShallowVkSharp_holds : LFunctionInvShallowVkSharp := by
           * (Real.log H ^ ((3 : ℝ) / 4) * Real.log (Real.log H) ^ (4 : ℕ)))
         ≤ 22528 * ((Real.log (q : ℝ) + 1) ^ 2 * (Real.log H * Real.log H)) := by
       have h1 := mul_le_mul_of_nonneg_left hstep hP2
-      nlinarith [h1]
-    nlinarith [hfin, hP2]
+      linarith only [h1]
+    linarith only [hfin]
   linarith [hmain, hshape]
 
 /-! ## §6 — the interface: what the consumer must now supply, and the STOP on the literal slot
@@ -1372,12 +1372,12 @@ lemma carve_of_half {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {H : �
     have h1 : (1 : ℝ) * 1 * 1 ≤ (Real.log (q : ℝ) + 1) * Real.log H ^ ((3 : ℝ) / 4)
         * Real.log (Real.log H) ^ (3 : ℕ) := by
       refine mul_le_mul (mul_le_mul (by linarith) hR1 (by norm_num) (by linarith))
-        (by linarith [hℓ3]) (by norm_num) (by nlinarith [hR1, hlogq])
+        (by linarith [hℓ3]) (by norm_num) (by nlinarith only [hR1, hlogq])
     linarith
   have hwidth : vkShallowWidth (1 / 10 ^ 6) q H ≤ 1 / 2 := by
     rw [vkShallowWidth, div_le_iff₀ (by linarith : (0 : ℝ) < (Real.log (q : ℝ) + 1)
       * Real.log H ^ ((3 : ℝ) / 4) * Real.log (Real.log H) ^ (3 : ℕ))]
-    nlinarith [hDen]
+    linarith only [hDen]
   intro ρ hρ0 hρim
   linarith [hhalf ρ hρ0 hρim, hwidth]
 

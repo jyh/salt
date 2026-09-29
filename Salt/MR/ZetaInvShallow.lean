@@ -94,16 +94,16 @@ lemma exists_zetaShallowGate {A B : ℝ} (hA : 1 ≤ A) (hB0 : 0 < B) (hB1 : B �
   have hxB : x ≤ B := by rw [hxdef]; exact div_le_self hB0.le hA
   have hx1 : x ≤ 1 := le_trans hxB hB1
   refine ⟨x ^ 2 / 16, by positivity, ?_, ?_⟩
-  · nlinarith [hx0, hx1, hxB]
+  · nlinarith only [hx0, hxB, hB0, hB1, sq_nonneg (1 * x)]
   · have hS : (0 : ℝ) ≤ Real.log (1 / (x ^ 2 / 16)) := by
       apply Real.log_nonneg
       rw [le_div_iff₀ (by positivity)]
-      nlinarith [hx0, hx1]
+      nlinarith only [hx0, hxB, hB0, hB1]
     have hkey := sq_div_sixteen_log_le hx0 hx1
     have hc : (0 : ℝ) ≤ x ^ 2 / 16 := by positivity
     have hsplit : x ^ 2 / 16 * (A + Real.log (1 / (x ^ 2 / 16)))
         ≤ A * (x ^ 2 / 16 * (1 + Real.log (1 / (x ^ 2 / 16)))) := by
-      nlinarith [hS, hA, hc, mul_nonneg hc hS]
+      nlinarith only [hA, mul_nonneg hc hS]
     have hfin : A * (x ^ 2 / 16 * (1 + Real.log (1 / (x ^ 2 / 16)))) ≤ A * x :=
       mul_le_mul_of_nonneg_left hkey hA0.le
     have hval : A * x = B := by rw [hxdef]; field_simp
@@ -129,7 +129,7 @@ lemma zeta_shallow_scales {H : ℝ} (hH : Real.exp (Real.exp 100) + 1 ≤ H) :
     exact Real.log_le_log (Real.exp_pos _) hLg
   have hLgp : Real.log H ≤ Real.log (H + 1) := Real.log_le_log hHpos (by linarith)
   have hLgp2 : Real.log (H + 1) ≤ 2 * Real.log H := by
-    have h1 : H + 1 ≤ H * H := by nlinarith [hEbig]
+    have h1 : H + 1 ≤ H * H := by nlinarith only [hEbig, hH]
     have h2 : Real.log (H + 1) ≤ Real.log (H * H) := Real.log_le_log (by linarith) h1
     rw [Real.log_mul (by linarith) (by linarith)] at h2
     linarith
@@ -158,7 +158,7 @@ lemma zeta_budget_log_bound {Kg c₄ Lg ℓ R x : ℝ} (hKg : 1 ≤ Kg)
     (hx0 : 0 < x) (hxub : x ≤ 512 * Kg * Lg * (R * ℓ ^ (4 : ℕ)) / c₄) :
     Real.log x ≤ (675 + Real.log (512 * Kg) + Real.log (1 / c₄)) * ℓ / 100 := by
   have hℓ0 : (0 : ℝ) < ℓ := by linarith
-  have hlogKg : (0 : ℝ) ≤ Real.log (512 * Kg) := Real.log_nonneg (by nlinarith)
+  have hlogKg : (0 : ℝ) ≤ Real.log (512 * Kg) := Real.log_nonneg (by linarith only [hKg])
   have hS0 : (0 : ℝ) ≤ Real.log (1 / c₄) := by
     apply Real.log_nonneg
     rw [le_div_iff₀ hc₄0]; linarith
@@ -178,7 +178,7 @@ lemma zeta_budget_log_bound {Kg c₄ Lg ℓ R x : ℝ} (hKg : 1 ≤ Kg)
     rw [hlogc] at hS0; linarith
   have hconst : Real.log (512 * Kg) - Real.log c₄
       ≤ (Real.log (512 * Kg) - Real.log c₄) * ℓ / 100 := by
-    nlinarith [mul_nonneg hab0 (by linarith : (0 : ℝ) ≤ ℓ - 100)]
+    linarith only [mul_nonneg hab0 (by linarith : (0 : ℝ) ≤ ℓ - 100)]
   rw [hlogc]
   linarith [hmain, hconst, hlogℓ, hℓ]
 
@@ -238,7 +238,7 @@ theorem norm_Zc_lower_of_shallow_ball {τ W lam M₀ : ℝ}
     rw [sub_self, norm_zero]; positivity
   have hZccpos : 0 < ‖Zc c‖ := norm_pos_iff.mpr hZcc
   have hM₀pos : 0 < M₀ := lt_of_lt_of_le zero_lt_one hM₀
-  have hlog4 : 0 < Real.log (4 * M₀) := Real.log_pos (by nlinarith)
+  have hlog4 : 0 < Real.log (4 * M₀) := Real.log_pos (by linarith only [hM₀])
   have hZdiff : Differentiable ℂ Zc := Zc_differentiable
   have hG_diff : Differentiable ℂ (fun z => Zc z / Zc c) := fun z => (hZdiff z).div_const _
   have hGc_floor : (1 : ℝ) / 4 ≤ ‖Zc c / Zc c‖ := by
@@ -273,7 +273,7 @@ theorem norm_Zc_lower_of_shallow_ball {τ W lam M₀ : ℝ}
     have hne : Zc ((u : ℂ) + (τ : ℂ) * I) / Zc c ≠ 0 := by
       refine div_ne_zero (hzf _ ?_) hZcc
       calc ‖((u : ℂ) + (τ : ℂ) * I) - c‖ ≤ 23 / 20 * lam := hdist
-        _ < 3 / 2 * lam := by nlinarith
+        _ < 3 / 2 * lam := by linarith only [hreach, hW0]
     have hres := hnum ((u : ℂ) + (τ : ℂ) * I) hdist hne
     rw [hLDG, hZempty] at hres
     simpa [hKdef] using hres
@@ -332,7 +332,7 @@ theorem norm_Zc_lower_of_shallow_ball {τ W lam M₀ : ℝ}
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hepos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
   rw [div_le_div_iff₀ (by norm_num : (0 : ℝ) < 4) hepos]
-  nlinarith [hZccpos]
+  nlinarith only [hZccpos, he]
 
 /-! ## §2 — the ball's two hypotheses, from the LANDED VK growth and the landed floor -/
 
@@ -456,7 +456,7 @@ theorem norm_mmuG_shallow_far {Kg t₀ H W lam τ σ : ℝ} (hKg : 1 ≤ Kg)
   rcases le_or_gt σ (1 + W) with hcase | hcase
   · -- ⟦LEFT of `1+W`⟧: the core
     have hM₀ : (1 : ℝ) ≤ 64 * Kg * Real.log (H + 1) / W := by
-      rw [le_div_iff₀ hW0]; nlinarith
+      rw [le_div_iff₀ hW0]; nlinarith only [hKg, hLH0, hLH1, hreach, hlam8, hW0]
     have hball : ∀ z : ℂ, ‖z - c‖ ≤ 7 / 4 * lam →
         ‖Zc z / Zc c‖ ≤ 64 * Kg * Real.log (H + 1) / W := by
       intro z hzb
@@ -516,7 +516,7 @@ theorem norm_mmuG_shallow_far {Kg t₀ H W lam τ σ : ℝ} (hKg : 1 ≤ Kg)
       rw [hZcc, le_div_iff₀ (by norm_num : (0 : ℝ) < 4)]
       have h1 : ‖c - 1‖ * ((1 / 32 : ℝ) * W) ≤ ‖c - 1‖ * ‖riemannZeta c‖ :=
         mul_le_mul_of_nonneg_left hζc hcm1pos.le
-      nlinarith [h1]
+      linarith only [h1]
     have hZcspos : 0 < ‖Zc s‖ := lt_of_lt_of_le (by positivity) hZclow
     rw [mmuG, norm_div, div_le_div_iff₀ hZcspos hW0]
     calc ‖s - 1‖ * W ≤ (2 * ‖c - 1‖) * W := mul_le_mul_of_nonneg_right hsm1 hW0.le
@@ -531,7 +531,7 @@ theorem norm_mmuG_shallow_far {Kg t₀ H W lam τ σ : ℝ} (hKg : 1 ≤ Kg)
       exact h
     have hζspos : 0 < ‖riemannZeta s‖ := lt_of_lt_of_le (by positivity) hζs
     rw [mmuG_eq_zeta_inv' hs1, norm_inv, inv_eq_one_div, div_le_div_iff₀ hζspos hW0]
-    nlinarith [hζs, hW0]
+    linarith only [hζspos, hζs, hcase]
 
 /-- **The NEAR regime** (`|τ| ≤ T₁`, `T₁` a CONSTANT): the landed `Salt.SW.zeta_inv_shallow`
 verbatim.  Its classical width is a constant here, and so is its value; the near-pole corner
@@ -655,7 +655,7 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
   -- the gate
   set A : ℝ := 675 + Real.log (512 * Kg) with hAdef
   have hA1 : 1 ≤ A := by
-    have h : (0 : ℝ) ≤ Real.log (512 * Kg) := Real.log_nonneg (by nlinarith)
+    have h : (0 : ℝ) ≤ Real.log (512 * Kg) := Real.log_nonneg (by linarith only [hKg])
     rw [hAdef]; linarith
   set B : ℝ := min 1 (min (cR / 10 ^ 6) (c₄' / Real.log (T₁ + 2) ^ 9)) with hBdef
   have hB0 : 0 < B := by
@@ -695,7 +695,7 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
   have hRℓ40 : (0 : ℝ) < R * ℓ ^ (4 : ℕ) := by positivity
   have hRℓ41 : (1 : ℝ) ≤ R * ℓ ^ (4 : ℕ) := by
     have h1 : (1 : ℝ) ≤ ℓ ^ (4 : ℕ) := one_le_pow₀ (by linarith)
-    nlinarith
+    nlinarith only [hR0, h1, hR1]
   have hW0 : 0 < W := by rw [hWdef]; positivity
   have hWc₄ : W ≤ c₄ := by rw [hWdef, div_le_iff₀ hRℓ40]; nlinarith
   have hW1 : W ≤ 1 := by linarith
@@ -703,11 +703,11 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
   have hRℓ30 : (0 : ℝ) < R * ℓ ^ (3 : ℕ) := by positivity
   have hRℓ31 : (1 : ℝ) ≤ R * ℓ ^ (3 : ℕ) := by
     have h1 : (1 : ℝ) ≤ ℓ ^ (3 : ℕ) := one_le_pow₀ (by linarith)
-    nlinarith
+    nlinarith only [hR0, h1, hR1]
   have hlam0 : 0 < lam := by rw [hlamdef]; positivity
   have hlamsmall : lam ≤ cR / 10 ^ 5 := by
     rw [hlamdef]
-    exact div_le_div_of_nonneg_left hcR0.le (by norm_num) (by nlinarith)
+    exact div_le_div_of_nonneg_left hcR0.le (by norm_num) (by linarith only [hRℓ31])
   have hlam8 : 7 / 4 * lam ≤ 1 / 8 := by
     have h2 : cR / 10 ^ 5 ≤ 1 / 10 ^ 5 := by linarith
     linarith
@@ -724,13 +724,13 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
         (show (3 : ℝ) / 4 ≤ 1 by norm_num)
       rwa [Real.rpow_one] at h
     rw [h2] at h1
-    nlinarith [h1, h3, hR0]
+    nlinarith only [hR0, h3, h1]
   have hlamΘ : 7 / 4 * lam ≤ vkTheta (H + 1) := by
     have hstepa : 7 / 4 * lam ≤ 1 / (10 ^ 4 * (R * ℓ ^ (3 : ℕ))) := by
       rw [hlamdef, show (7 : ℝ) / 4 * (cR / (10 ^ 5 * (R * ℓ ^ (3 : ℕ))))
           = 7 * cR / (4 * (10 ^ 5 * (R * ℓ ^ (3 : ℕ)))) by ring,
         div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [hcR1, hRℓ30, hcR0]
+      nlinarith only [hcR1, hRℓ30, hRℓ31, hBcR, hB0]
     have hm'sq : Real.log (Real.log (H + 1)) ^ (2 : ℕ) ≤ 4 * ℓ ^ (2 : ℕ) := by
       have h := pow_le_pow_left₀ hm'0.le hℓp 2
       calc Real.log (Real.log (H + 1)) ^ (2 : ℕ) ≤ (2 * ℓ) ^ (2 : ℕ) := h
@@ -740,8 +740,8 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
       have hprod : Real.log (H + 1) ^ ((3 : ℝ) / 4)
             * Real.log (Real.log (H + 1)) ^ (2 : ℕ) ≤ (2 * R) * (4 * ℓ ^ (2 : ℕ)) :=
         mul_le_mul hR'2R hm'sq (by positivity) (by linarith)
-      nlinarith [hprod, hR0, hℓ0, hℓ,
-        mul_nonneg (mul_nonneg hR0.le (pow_nonneg hℓ0.le 2))
+      linarith only [hprod, mul_nonneg
+          (mul_nonneg hR0.le (pow_nonneg hℓ0.le 2))
           (by linarith : (0 : ℝ) ≤ 10 * ℓ - 8)]
     linarith
   -- ⟦the reach⟧
@@ -752,8 +752,8 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
         div_le_div_iff₀ (by positivity) (by positivity)]
       have s1 : 2 * 10 ^ 5 * c₄ ≤ cR := by linarith
       have s2 : (0 : ℝ) ≤ cR * ℓ - 2 * 10 ^ 5 * c₄ := by
-        nlinarith [mul_nonneg hcR0.le (by linarith : (0 : ℝ) ≤ ℓ - 100), s1]
-      nlinarith [mul_nonneg (mul_nonneg hR0.le (pow_nonneg hℓ0.le 3)) s2]
+        linarith only [hc₄B, hBcR, hB0, mul_nonneg hcR0.le (by linarith : (0 : ℝ) ≤ ℓ - 100)]
+      linarith only [mul_nonneg (mul_nonneg hR0.le (pow_nonneg hℓ0.le 3)) s2]
     linarith
   -- ⟦the budget⟧
   have hxub : 4 * (64 * Kg * Real.log (H + 1) / W)
@@ -762,8 +762,8 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
         = 256 * Kg * Real.log (H + 1) * (R * ℓ ^ (4 : ℕ)) / c₄ := by
       rw [hWdef]; field_simp; ring
     rw [heq, div_le_div_iff_of_pos_right hc₄0]
-    nlinarith [mul_nonneg (mul_nonneg (by positivity : (0 : ℝ) ≤ 256 * Kg) hRℓ40.le)
-      (by linarith : (0 : ℝ) ≤ 2 * Lg - Real.log (H + 1))]
+    linarith only [mul_nonneg (mul_nonneg (by positivity : (0 : ℝ) ≤ 256 * Kg) hRℓ40.le)
+        (by linarith : (0 : ℝ) ≤ 2 * Lg - Real.log (H + 1))]
   have hlogbudget : Real.log (4 * (64 * Kg * Real.log (H + 1) / W))
       ≤ (A + Real.log (1 / c₄)) * ℓ / 100 := by
     rw [hAdef]
@@ -783,8 +783,8 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
       ring
     rw [hident, hlamdef, div_le_div_iff₀ (by positivity) (by positivity)]
     have hg : c₄ * (A + Real.log (1 / c₄)) ≤ cR / 10 ^ 6 := le_trans hgate hBcR
-    nlinarith [mul_nonneg hRℓ30.le
-      (by linarith : (0 : ℝ) ≤ 5 * cR - 12 * 10 ^ 5 * (c₄ * (A + Real.log (1 / c₄))))]
+    linarith only [mul_nonneg hRℓ30.le
+        (by linarith : (0 : ℝ) ≤ 5 * cR - 12 * 10 ^ 5 * (c₄ * (A + Real.log (1 / c₄))))]
   -- ⟦the box⟧
   have hdreg : 3 / 2 * lam < cR' / (Real.log (H + 1) ^ ((3 : ℝ) / 4)
       * Real.log (Real.log (H + 1)) ^ (3 : ℕ)) := by
@@ -797,7 +797,7 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
       have h : Real.log (H + 1) ^ ((3 : ℝ) / 4) * Real.log (Real.log (H + 1)) ^ (3 : ℕ)
           ≤ (2 * R) * (8 * ℓ ^ (3 : ℕ)) :=
         mul_le_mul hR'2R hm'3 (by positivity) (by linarith)
-      nlinarith [h]
+      linarith only [h]
     have hstep1 : cR / (16 * (R * ℓ ^ (3 : ℕ)))
         ≤ cR' / (Real.log (H + 1) ^ ((3 : ℝ) / 4)
           * Real.log (Real.log (H + 1)) ^ (3 : ℕ)) := by
@@ -812,7 +812,7 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
       rw [hlamdef, show (3 : ℝ) / 2 * (cR / (10 ^ 5 * (R * ℓ ^ (3 : ℕ))))
           = 3 * cR / (2 * (10 ^ 5 * (R * ℓ ^ (3 : ℕ)))) by ring,
         div_lt_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [mul_pos hcR0 hRℓ30]
+      linarith only [mul_pos hcR0 hRℓ30]
     linarith
   have hdcl : 3 / 2 * lam < c₃ / Real.log (T₀ + 2) := by
     have h4 : c₃ / (2 * Real.log (T₀ + 2)) = c₃ / Real.log (T₀ + 2) / 2 := by
@@ -843,7 +843,7 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
     linarith
   have hshape : 256 / c₄ * Lg ^ (5 : ℕ)
       ≤ (256 / c₄ + C * Real.log (T₁ + 2) ^ 7) * Lg ^ (5 : ℕ) := by
-    nlinarith [mul_nonneg hCT (pow_nonneg hL0.le 5)]
+    linarith only [mul_nonneg hCT (pow_nonneg hL0.le 5)]
   rw [hWval]
   refine ⟨?_, ?_⟩
   · -- ⟦conjunct 1: the box is ζ-zero-free⟧
@@ -861,9 +861,9 @@ theorem zetaInvShallowVk_holds : ZetaInvShallowVk := by
         (le_trans hWc₄ (le_trans hc₄B hBnear)) hnear hσlo
       have hstep : C * Real.log (T₁ + 2) ^ 7
           ≤ (256 / c₄ + C * Real.log (T₁ + 2) ^ 7) * Lg ^ (5 : ℕ) := by
-        nlinarith [mul_nonneg
-          (by positivity : (0 : ℝ) ≤ 256 / c₄ + C * Real.log (T₁ + 2) ^ 7)
-          (by linarith : (0 : ℝ) ≤ Lg ^ (5 : ℕ) - 1)]
+        linarith only [hKpos, mul_nonneg
+            (by positivity : (0 : ℝ) ≤ 256 / c₄ + C * Real.log (T₁ + 2) ^ 7)
+            (by linarith : (0 : ℝ) ≤ Lg ^ (5 : ℕ) - 1)]
       linarith
     · -- the far regime, both signs of the height
       rcases le_or_gt 0 τ with hsign | hsign
