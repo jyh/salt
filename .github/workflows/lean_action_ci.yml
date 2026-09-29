@@ -123,6 +123,19 @@ jobs:
       #   A PR cannot restore another PR's cache, but it CAN evict main's, so a PR save
       #   is all cost and no benefit. Restoring stays on for everyone: a PR reads the
       #   base branch's entry, which is the one the seed workflow writes.
+      # Mathlib's packages, default branch only, keyed per manifest (not per sha): the
+      # insulation against mathlib's CDN that lean-action's own `.lake` cache used to
+      # provide on main — see `use-github-cache` below for why that cache is now off.
+      # The path is DISJOINT from .lake/build, so nothing restored here can overwrite
+      # the salt build cache. The key carries no 40-hex sha, so
+      # scripts/cache_retention.py classifies it as unrecognised and KEEPS it.
+      - name: Restore mathlib packages (default branch only)
+        id: pkgs
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: salt-pkgs-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Restore salt build cache
         uses: actions/cache/restore@v4
         with:
@@ -152,7 +165,19 @@ jobs:
           #   insulation where a failure is most expensive; drop it where it destroys
           #   the cap. `use-github-cache` gates BOTH the restore and the save in
           #   lean-action's action.yml (its only two uses of the input).
-          use-github-cache: ${{ github.ref == 'refs/heads/main' }}
+          # ⛔ AND ON main IT WAS UNDOING THE SEED (council 2026-09-29, ruling 3). lean-action
+          #   restores its `.lake` entry INSIDE this step, AFTER the salt restore above, and
+          #   that entry contains a `.lake/build` from main's last green sha — so it
+          #   overwrote a NEWER seed with an OLDER build. Measured in run 36434984641: the
+          #   seed restored at 14:23:35Z, lean-action's 72be91ba entry at 14:25:53Z, and
+          #   701 modules then rebuilt. So `seed_cache.yml` could never warm a main run, and
+          #   every main run after a large train ran cold (2 h 20 m – 3 h 20 m; one was
+          #   cancelled at the cap on 09-28). The order cannot be fixed from outside,
+          #   because lean-action restores and builds in the one step.
+          #   ⇒ OFF EVERYWHERE. On main, the mathlib insulation now comes from the
+          #   `.lake/packages` entry above, which cannot touch .lake/build. Per-sha store
+          #   use on main drops from ~4.3 GB to ~0.9 GB, plus one packages entry per manifest.
+          use-github-cache: false
       # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
       # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
       # the lint's phase-1/phase-3 `lake env lean` invocations elaborate a tiny
@@ -169,6 +194,14 @@ jobs:
         with:
           path: .lake/build
           key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
+      # Once per manifest: an exact-key hit means the entry already exists (a cache key
+      # cannot be overwritten), so the save runs only on a miss.
+      - name: Save mathlib packages (default branch only, on a miss)
+        if: ${{ github.ref == 'refs/heads/main' && steps.pkgs.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: .lake/packages
+          key: salt-pkgs-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       # ⛔ REMOVED 2026-08-28: `- uses: leanprover-community/docgen-action@v1`
       #    IT WAS GREEN ONLY WHEN IT DID NOTHING. The action sees this repo's `docs/`
       #    folder, sets DOCS_EXISTS=true, and tries to build a JEKYLL site from it —
