@@ -9358,7 +9358,9 @@ No landed declaration is edited (2026-09-28: the XY debt lane's family 21 moved 
 assembler chain to the file's foot, bytes verbatim, and re-pointed five of
 `s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged;
 2026-09-29: family 22 re-pointed six calls of `s16_capGate_supply_LH_gk` to five cap-9 twins, its
-statement unchanged): every
+statement unchanged; 2026-09-29: family 23 retired eight of the names audited below into their
+cap-9 twins, their rows dropped, which leaves the numeric sibling `capfloor_floor3_numeric_h`
+without a caller): every
 landed numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
@@ -9460,11 +9462,6 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.capfloor_tannGate_LH
   Salt.MR.capfloor_QTann_gen_LH
   Salt.MR.capfloor_kappa30Q_gen_LH
-  Salt.MR.capfloor_QTann_LH_gk
-  Salt.MR.capfloor_kappa30Q_LH_gk
-  Salt.MR.capfloor_floor1_LH
-  Salt.MR.capfloor_floor2_LH
-  Salt.MR.capfloor_floor3_LH
   Salt.MR.capfloor_floor4_LH
   Salt.MR.s13CapFloor_all_LH_gk
   Salt.MR.h_le_exp_seven
@@ -9476,11 +9473,8 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.s13CapEps_abs8640_LH
   Salt.MR.s13CapEps_q_arcDen_LH
   Salt.MR.s13CapEps_EP2_gate_LH
-  Salt.MR.s13CapEps_all_LH
   Salt.MR.s13CapEps_pin_floors_LH
-  Salt.MR.s13CapEps_pins_supply_LH
   Salt.MR.s13CapGrid_Q2_reg_LH_gk
-  Salt.MR.s13CapGrid_all_LH_gk
   Salt.MR.s16_capGate_supply_LH_gk
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling
@@ -10163,7 +10157,8 @@ open Salt.Tactic in
 every landed declaration is untouched (2026-09-28: the XY debt lane's family 21 re-pointed the
 cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2 twins and moved its chain to that
 file's foot; 2026-09-29: family 22 re-pointed that file's cap-gate assembler to two F2 twins and
-three F3 twins).  Each twin is its source's statement and body with ONLY the
+three F3 twins; 2026-09-29: family 23 retired eight siblings of that file into F2 and F3 twins).
+Each twin is its source's statement and body with ONLY the
 freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
 `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
 its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
@@ -10296,7 +10291,8 @@ Additive only: every landed declaration is untouched (2026-09-28: family 19 re-p
 assembler of `S16ComposeLH` to two twins here; 2026-09-28: family 20 the §8 capfloor bundle of
 `S16ComposeLH` to six twins here; 2026-09-28: family 21 the cap-7 capfloor assembler of
 `S13CapGateLinearLH` itself to five twins here, its chain moved to that file's foot; 2026-09-29:
-family 22 that file's cap-gate assembler to two twins here, by three of its calls).  Each twin is
+family 22 that file's cap-gate assembler to two twins here, by three of its calls; 2026-09-29:
+family 23 retired the sources of five twins here into them).  Each twin is
 its source's statement and body
 with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
 every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
@@ -10346,7 +10342,8 @@ declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` s
 `S16ComposeLH` to three of them; 2026-09-28: family 20 the §8 capfloor bundle of `S16ComposeLH` to
 six F2 twins; 2026-09-28: family 21 the cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2
 twins, its chain — assembler, cap-gate assembler, deliverable — moved to that file's foot;
-2026-09-29: family 22 that file's cap-gate assembler to three twins here and two of F2).  Each
+2026-09-29: family 22 that file's cap-gate assembler to three twins here and two of F2;
+2026-09-29: family 23 retired the sources of three twins here into them).  Each
 twin is its source's statement and body with ONLY the
 shift-cap raise `log h ≤ 7
 ↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
