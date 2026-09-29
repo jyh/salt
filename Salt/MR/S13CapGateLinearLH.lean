@@ -14,9 +14,11 @@ import Salt.Tactic.ExpLogNum
 /-!
 # ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
-**PURELY ADDITIVE.**  No landed declaration is edited.  Every landed numeric stone whose
-ceiling the `h` lane outgrows gets a SIBLING here with a wider ceiling; the landed stone
-keeps its own consumers untouched.
+**PURELY ADDITIVE.**  No landed declaration is edited (2026-09-28: the XY debt lane's family
+21 moved the cap-7 assembler chain to §9 at the foot, bytes verbatim, and re-pointed five of
+`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged).
+Every landed numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a wider
+ceiling; the landed stone keeps its own consumers untouched.
 
 ## ⟦WHY THE PAGE EXISTS AT ALL⟧ — the assembler's `hbb`
 
@@ -628,7 +630,9 @@ Conjunct 5 is spent here at exactly one place, `capfloor_logq_le_LH`, and `floor
 absorb it into the two numeric siblings.  `capfloor_tannGate` is NOT a spender despite
 reaching `capfloor_logq_le`: it destructures `⟨-, hq1⟩` and keeps only `1 ≤ q`, using
 `0 ≤ log q` in the favourable direction — so the whole `QTann`/`kappa30Q` razor pair below
-is `+log h`-insensitive and ports mechanically. -/
+is `+log h`-insensitive and ports mechanically.  (2026-09-28: the page's assembler
+`s13CapFloor_all_LH_gk` stands in §9 at the foot since the XY debt lane's family 21, five of its
+seven supplier calls at their cap-9 twins, its statement unchanged.) -/
 
 /-- ⭐ **⟦THE `+log h` LINE⟧** — the one new inequality the floor page reads, and the only
 place on it where conjunct 5's inflation is spent.  At `SocketBaseL` the modulus ledger gives
@@ -1099,42 +1103,6 @@ theorem capfloor_floor4_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 
       = Real.log (H : ℝ) * (E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256)) := by ring
   rw [hid2]
   nlinarith [hfac, hv0]
-
-
-theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
-    {T₀ Kq Ks Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hM : 1 ≤ M)
-    (hAN : As ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
-    (hQ2reg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
-    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
-    (hKs : Real.exp (-100) ≤ Ks) :
-    ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
-    30 ≤ Real.log ((q : ℝ) * Tann)
-      / Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ∧
-    T₀ ≤ Tann ∧
-    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
-    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
-      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
-    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
-    (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
-    Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) :=
-  ⟨capfloor_QTann_LH_gk hh hh7 K hfl hb hAN hM hTlo hQ2reg,
-   capfloor_kappa30Q_LH_gk hh hh7 K hfl hb hAN hM hTlo hQ2reg,
-   capfloor_T0_Tann_LH hh hh7 hfl hb hAN hTlo hT₀,
-   capfloor_floor1_LH hh hh7 hfl hb hAN hTlo,
-   capfloor_floor2_LH hh hh7 hfl hb hAN hTlo,
-   capfloor_floor3_LH hh hh7 hfl hb hAN hTlo hKq,
-   capfloor_floor4_LH hh hh7 hfl hb hAN hTlo hKs,
-   hQ2reg⟩
-
 
 
 /-! ## ⟦§5 — THE THREE `EP₂` ROWS AT THE INFLATED MODULUS⟧
@@ -1727,95 +1695,9 @@ inflated binder directly.
 
 The two wire lemmas and the deliverable read the socket at conjuncts 4 and 8 only — `0 < q`
 and `0 < A`, both untouched by the inflation — so they are clean re-bindings, exactly as
-⟦RH2c Q3⟧ found. -/
-
-set_option maxHeartbeats 1000000 in
--- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
-theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
-    {epsf : ℕ → ℝ}
-    (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo) (hcs : Real.exp (-100) ≤ cs)
-    (hblk : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s)
-    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
-    (hKs : Real.exp (-100) ≤ Ks) (hC0 : 0 < C) (hC : Real.log C ≤ 40)
-    (hεr : ∀ A : ℕ, theta293 - 1 / 500 ≤ epsf A)
-    (hcap : S16BaseScaleCap96_LH_gk h K R M) (hcof : S16CofactorSupply_LH_gk h K Cq R M) :
-    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
-        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
-        5 ≤ Real.log (Real.log (2 * T)) →
-        ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
-          S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
-            Rrad Rbd CR EP2 (epsf (A + s)) := by
-  intro H L q j A s hb T hTlo hThi hTgate hTll
-  obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
-  -- the grid wave, at the linear door
-  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
-    s13CapGrid_all_LH_gk hh hh7 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
-  -- `1 < 2T` off the annulus gate
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
-  have hT1 : (1 : ℝ) < 2 * T := by
-    have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
-    linarith
-  have hT0le : (0 : ℝ) ≤ 2 * T := by linarith
-  have hAN : A ≤ A + s := Nat.le_add_right _ _
-  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
-  -- the floor wave, at the linear door
-  obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
-    s13CapFloor_all_LH_gk hh hh7 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs
-  -- the eps wave, LADDER-BLIND
-  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH hh hh7 hfl hb
-  obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
-    s13CapEps_all_LH hh hh7 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
-  refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
-    s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
-  exact
-    { logX_eight := g1
-      H83_two := g2
-      QTann := f1
-      kappa30Q := f2
-      q_logX := g3
-      T0_Tann := f3
-      floor1 := f4
-      floor2 := f5
-      floor3 := f6
-      floor4 := f7
-      logqT_L := g4
-      P_low := g5
-      Q2_reg := g6
-      Q_pos := g7
-      Q_high := g8
-      P_le_Q := g9
-      budget := fun i hi =>
-        s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
-          (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
-      Hj := g10
-      B3 := g11
-      BT := g12
-      kappa30 := g13
-      BT10 := g14
-      WL := g15
-      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
-        (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb)
-      Rbd_nonneg := hRbd0
-      Rbd_grade := hRbdg
-      Cq_gate := hCqg
-      Rbd_socket := hRsock
-      epsr_nonneg := e1
-      abs8640 := e2
-      EP2_gate := e3
-      q_arcDen := e4
-      phi_row := e5
-      p2_row := e6
-      tail_row := e7
-      Q_hundred := g17
-      band_product := g18 }
-
-
+⟦RH2c Q3⟧ found.  (2026-09-28: the assembler `s16_capGate_supply_LH_gk` and the deliverable
+`s15_crossing_supplied_LH_gk_ceiling` stand in §9 at the foot since the XY debt lane's family 21,
+bytes verbatim; the two wire lemmas stay here.) -/
 
 
 theorem m4_hcap_at_door_perBlock_LH_gk_bounded {h : ℕ} (_hh : 0 < h)
@@ -1921,38 +1803,6 @@ theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.l
   haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
   exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
     hrest (G2Scaffold.m4_capE_at_door_L_gk K hws)⟩
-
-theorem s15_crossing_supplied_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (K : ℕ) :
-    ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧
-      0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
-      (Real.exp (-100) ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
-        Real.exp (-100) ≤ Ks →
-        ∀ (R : ChowlaRegime) (M : ℕ), 1 ≤ M → loglogFloor50 ≤ R.Hlo →
-          (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s) →
-          S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
-          S15CrossingBound_LH_gk h K R M) := by
-  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs0, hT₀3, hKq0, hKqb, hKs0, hwire⟩ :=
-    m4_fuse_hcap_of_capWS_LH_gk_ceiling hh hh7 K
-  obtain ⟨C, hC0, hC40, hband⟩ := m4_tail_mass_at_band_bounded
-  refine ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hT₀3, hKq0, hKqb, hKs0, hC0, hC40, ?_⟩
-  intro hcs hT₀ hKq hKs R M hM hfl hblk hcof hcap
-  have hgate := s16_capGate_supply_LH_gk hh hh7 K hM hfl hcs hblk hT₀ hKq hKs hC0 hC40
-    (fun _ => le_rfl) hcap hcof
-  refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
-  intro H L q j A s hsb T hTlo hThi hTgate hTll
-  obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
-  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
-  have hT1 : (1 : ℝ) < 2 * T := by linarith
-  exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
 
 /-! ## ⟦§4 — THE `60 ↦ 63` BUDGET MOVE, AND THE TWO ROWS THAT NEEDED IT⟧
 
@@ -3409,5 +3259,174 @@ theorem s13CapGrid_all_LH_gk_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ)
     s13CapGrid_BT10_LH_b9 hh hh9 hfl hb hTlo,
     s13CapGrid_WL hμ hΛ, s13CapGrid_gate hcs hμ hΛ, s13CapGrid_Q_hundred hμ hΛ,
     s13CapGrid_band_product hμ hΛ⟩
+
+
+/-! ## ⟦§9 — THE CAP-7 ASSEMBLER CHAIN, MOVED BELOW THE TWINS IT CALLS⟧
+(2026-09-28, the XY debt lane, family 21)
+
+Three landed declarations of §4 and §8 — `s13CapFloor_all_LH_gk` (the capfloor assembler),
+`s16_capGate_supply_LH_gk` (the cap-gate assembler) and `s15_crossing_supplied_LH_gk_ceiling`
+(the deliverable) — stand here in their original order: a declaration can only name declarations
+above it; the capfloor assembler is re-pointed to cap-9 twins of the F2 block above, the cap-gate
+assembler names it (its own twins in F2 and F3 wait for a later family), and the deliverable names
+the cap-gate assembler; the latter two are byte-identical to their pages of record.  Family 21
+re-pointed five of the capfloor assembler's seven supplier calls to their cap-9 twins (`log h ≤ 9`
+supplied at each call by `linarith` from `hh7`), its statement unchanged; `capfloor_T0_Tann_LH` and
+`capfloor_floor4_LH` have no cap-9 twin by name and are still called at the cap 7. -/
+
+-- 2026-09-28, the XY debt lane, family 21: five calls at the cap 9 (twins), two kept at the cap 7
+theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
+    {T₀ Kq Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j As s) (hM : 1 ≤ M)
+    (hAN : As ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hQ2reg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
+    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
+    (hKs : Real.exp (-100) ≤ Ks) :
+    ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ∧
+    T₀ ≤ Tann ∧
+    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
+    Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) :=
+  ⟨capfloor_QTann_LH_gk_b9 hh (by linarith) K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_kappa30Q_LH_gk_b9 hh (by linarith) K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_T0_Tann_LH hh hh7 hfl hb hAN hTlo hT₀,
+   capfloor_floor1_LH_b9 hh (by linarith) hfl hb hAN hTlo,
+   capfloor_floor2_LH_b9 hh (by linarith) hfl hb hAN hTlo,
+   capfloor_floor3_LH_b9 hh (by linarith) hfl hb hAN hTlo hKq,
+   capfloor_floor4_LH hh hh7 hfl hb hAN hTlo hKs,
+   hQ2reg⟩
+
+
+set_option maxHeartbeats 1000000 in
+-- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
+theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
+    {epsf : ℕ → ℝ}
+    (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo) (hcs : Real.exp (-100) ≤ cs)
+    (hblk : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s)
+    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
+    (hKs : Real.exp (-100) ≤ Ks) (hC0 : 0 < C) (hC : Real.log C ≤ 40)
+    (hεr : ∀ A : ℕ, theta293 - 1 / 500 ≤ epsf A)
+    (hcap : S16BaseScaleCap96_LH_gk h K R M) (hcof : S16CofactorSupply_LH_gk h K Cq R M) :
+    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+        5 ≤ Real.log (Real.log (2 * T)) →
+        ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
+          S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
+            Rrad Rbd CR EP2 (epsf (A + s)) := by
+  intro H L q j A s hb T hTlo hThi hTgate hTll
+  obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
+  -- the grid wave, at the linear door
+  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
+    s13CapGrid_all_LH_gk hh hh7 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
+  -- `1 < 2T` off the annulus gate
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hT1 : (1 : ℝ) < 2 * T := by
+    have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+    linarith
+  have hT0le : (0 : ℝ) ≤ 2 * T := by linarith
+  have hAN : A ≤ A + s := Nat.le_add_right _ _
+  have hTflo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ 2 * T := by linarith
+  -- the floor wave, at the linear door
+  obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
+    s13CapFloor_all_LH_gk hh hh7 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs
+  -- the eps wave, LADDER-BLIND
+  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH hh hh7 hfl hb
+  obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
+    s13CapEps_all_LH hh hh7 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
+  refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
+    s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
+  exact
+    { logX_eight := g1
+      H83_two := g2
+      QTann := f1
+      kappa30Q := f2
+      q_logX := g3
+      T0_Tann := f3
+      floor1 := f4
+      floor2 := f5
+      floor3 := f6
+      floor4 := f7
+      logqT_L := g4
+      P_low := g5
+      Q2_reg := g6
+      Q_pos := g7
+      Q_high := g8
+      P_le_Q := g9
+      budget := fun i hi =>
+        s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
+          (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
+      Hj := g10
+      B3 := g11
+      BT := g12
+      kappa30 := g13
+      BT10 := g14
+      WL := g15
+      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
+        (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb)
+      Rbd_nonneg := hRbd0
+      Rbd_grade := hRbdg
+      Cq_gate := hCqg
+      Rbd_socket := hRsock
+      epsr_nonneg := e1
+      abs8640 := e2
+      EP2_gate := e3
+      q_arcDen := e4
+      phi_row := e5
+      p2_row := e6
+      tail_row := e7
+      Q_hundred := g17
+      band_product := g18 }
+
+
+theorem s15_crossing_supplied_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (K : ℕ) :
+    ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧
+      0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      (Real.exp (-100) ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
+        Real.exp (-100) ≤ Ks →
+        ∀ (R : ChowlaRegime) (M : ℕ), 1 ≤ M → loglogFloor50 ≤ R.Hlo →
+          (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A + s) →
+          S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
+          S15CrossingBound_LH_gk h K R M) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs0, hT₀3, hKq0, hKqb, hKs0, hwire⟩ :=
+    m4_fuse_hcap_of_capWS_LH_gk_ceiling hh hh7 K
+  obtain ⟨C, hC0, hC40, hband⟩ := m4_tail_mass_at_band_bounded
+  refine ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hT₀3, hKq0, hKqb, hKs0, hC0, hC40, ?_⟩
+  intro hcs hT₀ hKq hKs R M hM hfl hblk hcof hcap
+  have hgate := s16_capGate_supply_LH_gk hh hh7 K hM hfl hcs hblk hT₀ hKq hKs hC0 hC40
+    (fun _ => le_rfl) hcap hcof
+  refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  have hq : 1 ≤ q := hsb.2.2.2.1
+  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
+  have hNd : 1 ≤ A + s := by omega
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+  have hT1 : (1 : ℝ) < 2 * T := by linarith
+  exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
 
 end Salt.MR

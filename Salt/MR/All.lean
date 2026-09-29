@@ -9354,8 +9354,10 @@ Nothing bears on twin primes: every object is conditional exactly where its `h =
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
-No landed declaration is edited: every landed numeric stone the `h` lane outgrows has a
-SIBLING here with a wider ceiling.
+No landed declaration is edited (2026-09-28: the XY debt lane's family 21 moved the cap-7
+assembler chain to the file's foot, bytes verbatim, and re-pointed five of
+`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged): every
+landed numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
 `s13CapGrid_all_L_gk` derive `hbb : SocketBase` from their `SocketBaseL` binder and
@@ -10155,7 +10157,9 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E2⟧ — THE MR h-LANE A CAP-9 TWINS (`S13CapFloor`, `S16ProducersH`, `S13CapGateLinearLH`,
 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1 bundle E2).  Additive only:
-every landed declaration is untouched.  Each twin is its source's statement and body with ONLY the
+every landed declaration is untouched (2026-09-28: the XY debt lane's family 21 re-pointed the
+cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2 twins and moved its chain to that
+file's foot).  Each twin is its source's statement and body with ONLY the
 freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
 `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
 its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
@@ -10286,7 +10290,9 @@ open Salt.Tactic in
 socket; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5.1, executor brief W2 bundle F2).
 Additive only: every landed declaration is untouched (2026-09-28: family 19 re-pointed the §8
 assembler of `S16ComposeLH` to two twins here; 2026-09-28: family 20 the §8 capfloor bundle of
-`S16ComposeLH` to six twins here).  Each twin is its source's statement and body
+`S16ComposeLH` to six twins here; 2026-09-28: family 21 the cap-7 capfloor assembler of
+`S13CapGateLinearLH` itself to five twins here, its chain moved to that file's foot).  Each twin is
+its source's statement and body
 with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
 every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
 `s13CapGrid_mu_lo_LH_b9`, `capfloor_logq_le_LH_b9`, the `S16ProducersH` socket chain) or by the
@@ -10333,7 +10339,9 @@ freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only at 
 declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` siblings into these
 `_b9` generics, noted in place; 2026-09-28: family 19 re-pointed the §8 assembler of
 `S16ComposeLH` to three of them; 2026-09-28: family 20 the §8 capfloor bundle of `S16ComposeLH` to
-six F2 twins).  Each twin is its source's statement and body with ONLY the
+six F2 twins; 2026-09-28: family 21 the cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2
+twins, its chain — assembler, cap-gate assembler, deliverable — moved to that file's foot).  Each
+twin is its source's statement and body with ONLY the
 shift-cap raise `log h ≤ 7
 ↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
 F2 twin, and no hypothesis added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤

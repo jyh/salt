@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `4811f38b` · source digest `a9bb4b81f1511f06` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `d9fbde4b` · source digest `ee1bd1446185d602` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -88,7 +88,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 36 | `Salt.MR.S15CrossingBound_gk` | Salt/MR/S15Compose.lean:2016 | OPEN | 9 (9/0) | 1 | `Salt.MR.s15_crossing_supplied_gk` (Salt/MR/S16Budget.lean:566), `Salt.MR.s15_crossing_supplied_bounded_gk` (Salt/MR/S16Budget.lean:1238) +1 | 0 | 0 | 0 | `Salt.MR.logChowla2_conditional_graded_gk` (Salt/MR/S15Compose.lean:2196), `Salt.MR.logChowla2_conditional_sharp2_atK_gk` (Salt/MR/S15Compose.lean:2631), `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned` (Salt/MR/S15Compose.lean:2757) +6 |
 | 37 | `Salt.Maynard.S1InnerBound` | Salt/Maynard/CollisionQuantW.lean:47 | OPEN | 9 (9/0) | 0 | - | 0 | 0 | 0 | `Salt.Maynard.S1_le_of` (Salt/Maynard/CollisionQuantW.lean:334), `Salt.Maynard.S1_upper_of` (Salt/Maynard/CollisionQuantW.lean:367), `Salt.Maynard.collision_lower_orderW_of` (Salt/Maynard/CollisionQuantW.lean:67) +6 |
 | 38 | `Salt.MR.DoorCapBasePerBlock` | Salt/MR/M4CapWire.lean:612 | OPEN | 8 (8/0) | 2 | - | 1 | 0 | 0 | `Salt.MR.logChowla2_capstone_conditional_perBlock` (Salt/MR/S12Compose.lean:471), `Salt.MR.logChowla2_capstone_final` (Salt/MR/S12Compose.lean:710), `Salt.MR.logChowla2_capstone_final'` (Salt/MR/S12FuseCompose.lean:318) +5 |
-| 39 | `Salt.MR.DoorCapBasePerBlock_L_gk` | Salt/MR/M4CapWireLinear.lean:836 | OPEN | 8 (8/0) | 8 | - | 1 | 0 | 0 | `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` (Salt/MR/S13CapGateLinearLH.lean:1879), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` (Salt/MR/S16ComposeLH.lean:2977), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L` (Salt/MR/StrideDoorAllGrades.lean:3946) +5 |
+| 39 | `Salt.MR.DoorCapBasePerBlock_L_gk` | Salt/MR/M4CapWireLinear.lean:836 | OPEN | 8 (8/0) | 8 | - | 1 | 0 | 0 | `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` (Salt/MR/S13CapGateLinearLH.lean:1761), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` (Salt/MR/S16ComposeLH.lean:2977), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L` (Salt/MR/StrideDoorAllGrades.lean:3946) +5 |
 | 40 | `Salt.MR.PocketSocket` | Salt/MR/CapFreeArm.lean:195 | OPEN | 8 (8/0) | 8 | - | 2 | 0 | 0 | `Salt.MR.cofactor_Rbd34_local_nocap` (Salt/MR/CapFreeArm.lean:281), `Salt.MR.hUG34_fully_priced_nocap` (Salt/MR/CapFreeArm.lean:517), `Salt.MR.hUG34_supplied_nocap` (Salt/MR/CapFreeArm.lean:413) +5 |
 
 ## HALF-SHAPED FRAMES (40) — status FRAME (item 2's parameter-frame rule), no ¬F-consumer

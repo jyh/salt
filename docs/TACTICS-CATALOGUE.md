@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4811f38b` · source digest `a9bb4b81f1511f06` (the same digest as items 1–3).
-> Receipt: files 1319 · decls 22685 · with_body 22685 · tactic_lines 310642 · runs 36239 · blocks 1537.
+> Base: last commit touching `Salt/` = `d9fbde4b` · source digest `ee1bd1446185d602` (the same digest as items 1–3).
+> Receipt: files 1319 · decls 22685 · with_body 22685 · tactic_lines 310643 · runs 36239 · blocks 1537.
 
 ## LIMITS (read before any number below)
 
@@ -100,7 +100,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-310642 tactic lines. Top 30:
+310643 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
@@ -109,7 +109,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 3 | `exact` | 17569 | 5.7% |
 | 4 | `intro` | 14075 | 4.5% |
 | 5 | `refine` | 12804 | 4.1% |
-| 6 | `linarith` | 9917 | 3.2% |
+| 6 | `linarith` | 9918 | 3.2% |
 | 7 | `obtain` | 8710 | 2.8% |
 | 8 | `calc` | 7858 | 2.5% |
 | 9 | `set` | 5437 | 1.8% |
@@ -150,7 +150,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3298 | `have` 1530, `rw` 559, `exact` 173, `linarith` 136, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 128180 | `have` 60108, `rw` 17384, `exact` 7129, `refine` 6846, `intro` 6128, `linarith` 5523, `obtain` 4679, `calc` 2421 |
+| Matomaki-Radziwill / Halasz (short intervals) | 128181 | `have` 60108, `rw` 17384, `exact` 7129, `refine` 6846, `intro` 6128, `linarith` 5524, `obtain` 4679, `calc` 2421 |
 | (no family) | 21337 | `have` 8427, `rw` 3727, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `apply` 570 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
