@@ -175,9 +175,7 @@ theorem mrt_mid_range_parametric :
       apply Real.exp_le_exp.mpr
       rw [← hlam]; linarith
     have he2 : (4 : ℝ) < Real.exp 2 := by
-      have h1 := Real.exp_one_gt_d9
-      have : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-      rw [this]; nlinarith
+      exact_mod_cast Salt.Tactic.lt_exp_nat_of_lt_pow 2 (by norm_num)
     linarith [hufl, hexp, he2]
   -- the cutoff
   set Mcut : ℕ := max 1 ⌈lam⌉₊ with hMcut

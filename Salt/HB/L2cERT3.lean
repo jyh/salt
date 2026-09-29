@@ -458,8 +458,7 @@ lemma ERT3'_z0cube_exp_le {z x : ℕ} (hz2 : 2 ≤ z) :
     rw [← hpow]
     exact pow_le_pow_left₀ hz0 h1 3
   have hlog2 : Real.log 2 ≤ 1 := by
-    have h := Real.log_two_lt_d9
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
   calc z0 z x ^ 3 * Real.exp (Real.log 2 * z0 z x)
       ≤ Real.exp (3 * z0 z x) * Real.exp (Real.log 2 * z0 z x) :=
         mul_le_mul_of_nonneg_right h3 (Real.exp_pos _).le

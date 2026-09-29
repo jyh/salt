@@ -170,8 +170,7 @@ theorem vk_window_mid {t : ℝ} {N k r m : ℕ}
   have hlog4k2 : Real.log (4 * (k : ℝ) ^ 2) ≤ 2 + 56 / 100 * ℓ := by
     rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]
     have h4 : Real.log 4 ≤ 2 := by
-      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
-      push_cast; linarith [hl21]
+      exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
     push_cast; linarith [hlnk_ub]
   have hr_ub : (r : ℝ) ≤ 6 / 10 * (k : ℝ) * ℓ := by
     rw [hr]
