@@ -9356,7 +9356,9 @@ prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 S15CrossingBound_LH_gk h K R M`.
 No landed declaration is edited (2026-09-28: the XY debt lane's family 21 moved the cap-7
 assembler chain to the file's foot, bytes verbatim, and re-pointed five of
-`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged): every
+`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged;
+2026-09-29: family 22 re-pointed six calls of `s16_capGate_supply_LH_gk` to five cap-9 twins, its
+statement unchanged): every
 landed numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
@@ -9603,7 +9605,8 @@ where H2c's chain exports the flat `exp(exp 100)` outside it, so these are that 
 discharger swapped and one binder moved.  (2026-09-28: family 19 of the XY lane re-pointed six of
 the assembler's seven supplier calls to their cap-9 twins, its statement unchanged; 2026-09-28:
 family 20 six of the capfloor bundle's seven, its statement unchanged and `capfloor_floor4_LH`
-kept at the cap 7.)
+kept at the cap 7; 2026-09-29: family 22 made the same six re-points in H2c's cap-gate assembler,
+whose body is the assembler's here up to the bundle's name, its statement unchanged.)
 
 ⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
 `logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
@@ -10159,7 +10162,8 @@ open Salt.Tactic in
 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1 bundle E2).  Additive only:
 every landed declaration is untouched (2026-09-28: the XY debt lane's family 21 re-pointed the
 cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2 twins and moved its chain to that
-file's foot).  Each twin is its source's statement and body with ONLY the
+file's foot; 2026-09-29: family 22 re-pointed that file's cap-gate assembler to two F2 twins and
+three F3 twins).  Each twin is its source's statement and body with ONLY the
 freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
 `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
 its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
@@ -10291,7 +10295,8 @@ socket; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5.1, executor br
 Additive only: every landed declaration is untouched (2026-09-28: family 19 re-pointed the §8
 assembler of `S16ComposeLH` to two twins here; 2026-09-28: family 20 the §8 capfloor bundle of
 `S16ComposeLH` to six twins here; 2026-09-28: family 21 the cap-7 capfloor assembler of
-`S13CapGateLinearLH` itself to five twins here, its chain moved to that file's foot).  Each twin is
+`S13CapGateLinearLH` itself to five twins here, its chain moved to that file's foot; 2026-09-29:
+family 22 that file's cap-gate assembler to two twins here, by three of its calls).  Each twin is
 its source's statement and body
 with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
 every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
@@ -10340,7 +10345,8 @@ declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` s
 `_b9` generics, noted in place; 2026-09-28: family 19 re-pointed the §8 assembler of
 `S16ComposeLH` to three of them; 2026-09-28: family 20 the §8 capfloor bundle of `S16ComposeLH` to
 six F2 twins; 2026-09-28: family 21 the cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2
-twins, its chain — assembler, cap-gate assembler, deliverable — moved to that file's foot).  Each
+twins, its chain — assembler, cap-gate assembler, deliverable — moved to that file's foot;
+2026-09-29: family 22 that file's cap-gate assembler to three twins here and two of F2).  Each
 twin is its source's statement and body with ONLY the
 shift-cap raise `log h ≤ 7
 ↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /

@@ -16,7 +16,9 @@ import Salt.Tactic.ExpLogNum
 
 **PURELY ADDITIVE.**  No landed declaration is edited (2026-09-28: the XY debt lane's family
 21 moved the cap-7 assembler chain to §9 at the foot, bytes verbatim, and re-pointed five of
-`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged).
+`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged;
+2026-09-29: family 22 re-pointed six calls of `s16_capGate_supply_LH_gk` to five cap-9 twins, its
+statement unchanged).
 Every landed numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a wider
 ceiling; the landed stone keeps its own consumers untouched.
 
@@ -1697,7 +1699,8 @@ The two wire lemmas and the deliverable read the socket at conjuncts 4 and 8 onl
 and `0 < A`, both untouched by the inflation — so they are clean re-bindings, exactly as
 ⟦RH2c Q3⟧ found.  (2026-09-28: the assembler `s16_capGate_supply_LH_gk` and the deliverable
 `s15_crossing_supplied_LH_gk_ceiling` stand in §9 at the foot since the XY debt lane's family 21,
-bytes verbatim; the two wire lemmas stay here.) -/
+bytes verbatim; the two wire lemmas stay here.  2026-09-29: family 22 re-pointed six of the
+assembler's calls to five cap-9 twins, its statement unchanged; the deliverable is as landed.) -/
 
 
 theorem m4_hcap_at_door_perBlock_LH_gk_bounded {h : ℕ} (_hh : 0 < h)
@@ -3272,7 +3275,14 @@ assembler names it (its own twins in F2 and F3 wait for a later family), and the
 the cap-gate assembler; the latter two are byte-identical to their pages of record.  Family 21
 re-pointed five of the capfloor assembler's seven supplier calls to their cap-9 twins (`log h ≤ 9`
 supplied at each call by `linarith` from `hh7`), its statement unchanged; `capfloor_T0_Tann_LH` and
-`capfloor_floor4_LH` have no cap-9 twin by name and are still called at the cap 7. -/
+`capfloor_floor4_LH` have no cap-9 twin by name and are still called at the cap 7.
+
+(2026-09-29, family 22)  The cap-gate assembler's twins no longer wait: six of its calls — of
+`s13CapGrid_all_LH_gk`, `s13CapEps_pins_supply_LH`, `s13CapEps_all_LH`, `s13CapGrid_mu_2000_LH`
+and `s13CapGrid_Lambda_lo_LH` (twice) — go to their cap-9 twins in F2 and F3, `log h ≤ 9` supplied
+once by a `have` from `hh7`; its statement is unchanged, and it is no longer byte-identical to its
+page of record; its call of the capfloor assembler stays at the cap 7; the deliverable is as
+landed. -/
 
 -- 2026-09-28, the XY debt lane, family 21: five calls at the cap 9 (twins), two kept at the cap 7
 theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
@@ -3312,6 +3322,7 @@ theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
 
 set_option maxHeartbeats 1000000 in
 -- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
+-- 2026-09-29, the XY debt lane, family 22: six calls at the cap 9 (five twins), one kept at cap 7
 theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
     {epsf : ℕ → ℝ}
@@ -3329,10 +3340,11 @@ theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
           S13CapGatePerBlock_L_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q (A + s) (2 * T)
             Rrad Rbd CR EP2 (epsf (A + s)) := by
   intro H L q j A s hb T hTlo hThi hTgate hTll
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Rrad, Rbd, CR, hRbd0, hRbdg, hCqg, hRsock⟩ := hcof H L q j A s hb T hTlo hThi
   -- the grid wave, at the linear door
   obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, -, g17, g18⟩ :=
-    s13CapGrid_all_LH_gk hh hh7 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
+    s13CapGrid_all_LH_gk_b9 hh hh9 K hM (le_refl (1 : ℝ)) hfl hb (hblk H L q j A s hb) hTlo hThi
   -- `1 < 2T` off the annulus gate
   have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
@@ -3349,9 +3361,9 @@ theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
   obtain ⟨f1, f2, f3, f4, f5, f6, f7, -⟩ :=
     s13CapFloor_all_LH_gk hh hh7 K hfl hb hM hAN hTflo g6 hT₀ hKq hKs
   -- the eps wave, LADDER-BLIND
-  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH hh hh7 hfl hb
+  obtain ⟨hP83pin, hgradepin⟩ := s13CapEps_pins_supply_LH_b9 hh hh9 hfl hb
   obtain ⟨e1, e2, e3, e4, e5, e6, e7⟩ :=
-    s13CapEps_all_LH hh hh7 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
+    s13CapEps_all_LH_b9 hh hh9 hfl hb (hεr (A + s)) hC0 hC hT0le hThi hP83pin hgradepin
   refine ⟨s13BandP (A + s), s13BandQ (A + s), Rrad, Rbd, CR,
     s13CapEP2 C q (A + s) (s13BandP (A + s)) (s13BandQ (A + s)) (2 * T), ?_⟩
   exact
@@ -3373,15 +3385,15 @@ theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
       P_le_Q := g9
       budget := fun i hi =>
         s16_budget_field_L_gk_96 K hM hb.2.2.2.1 g7 g1
-          (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
+          (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb) g3 hT1 hThi g8 g6 (hcap H L q j A s hb) hi
       Hj := g10
       B3 := g11
       BT := g12
       kappa30 := g13
       BT10 := g14
       WL := g15
-      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH hh hh7 hfl hb)
-        (s13CapGrid_Lambda_lo_LH hh hh7 hfl hb)
+      gate := s16_capGrid_gate_cs hcs (s13CapGrid_mu_2000_LH_b9 hh hh9 hfl hb)
+        (s13CapGrid_Lambda_lo_LH_b9 hh hh9 hfl hb)
       Rbd_nonneg := hRbd0
       Rbd_grade := hRbdg
       Cq_gate := hCqg
