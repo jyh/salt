@@ -123,19 +123,6 @@ jobs:
       #   A PR cannot restore another PR's cache, but it CAN evict main's, so a PR save
       #   is all cost and no benefit. Restoring stays on for everyone: a PR reads the
       #   base branch's entry, which is the one the seed workflow writes.
-      # Mathlib's packages, default branch only, keyed per manifest (not per sha): the
-      # insulation against mathlib's CDN that lean-action's own `.lake` cache used to
-      # provide on main — see `use-github-cache` below for why that cache is now off.
-      # The path is DISJOINT from .lake/build, so nothing restored here can overwrite
-      # the salt build cache. The key carries no 40-hex sha, so
-      # scripts/cache_retention.py classifies it as unrecognised and KEEPS it.
-      - name: Restore mathlib packages (default branch only)
-        id: pkgs
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: actions/cache/restore@v4
-        with:
-          path: .lake/packages
-          key: salt-pkgs-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Restore salt build cache
         uses: actions/cache/restore@v4
         with:
@@ -174,9 +161,14 @@ jobs:
           #   every main run after a large train ran cold (2 h 20 m – 3 h 20 m; one was
           #   cancelled at the cap on 09-28). The order cannot be fixed from outside,
           #   because lean-action restores and builds in the one step.
-          #   ⇒ OFF EVERYWHERE. On main, the mathlib insulation now comes from the
-          #   `.lake/packages` entry above, which cannot touch .lake/build. Per-sha store
-          #   use on main drops from ~4.3 GB to ~0.9 GB, plus one packages entry per manifest.
+          #   ⇒ OFF EVERYWHERE, main included. ⚠️ AND THE "INSULATION" ABOVE WAS NEVER REAL
+          #   (non-author read of PR #232, measured): in run 36434984641 lean-action had just
+          #   restored a 3,515,962,394 B `.lake` and `lake exe cache get` STILL printed
+          #   "Attempting to download 8564 file(s)" and fetched every one of them. mathlib's
+          #   Cache keeps the files it lacks in ~/.cache/mathlib (Cache/IO.lean), which is
+          #   outside `.lake`, and a failed download exits 1 (Cache/Requests.lean). So a CDN
+          #   outage turned main red with or without this cache, and dropping it costs
+          #   nothing but its storage: ~3.5 GB per main sha, leaving the ~1.0 GB salt entry.
           use-github-cache: false
       # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
       # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
@@ -194,14 +186,6 @@ jobs:
         with:
           path: .lake/build
           key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
-      # Once per manifest: an exact-key hit means the entry already exists (a cache key
-      # cannot be overwritten), so the save runs only on a miss.
-      - name: Save mathlib packages (default branch only, on a miss)
-        if: ${{ github.ref == 'refs/heads/main' && steps.pkgs.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v4
-        with:
-          path: .lake/packages
-          key: salt-pkgs-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       # ⛔ REMOVED 2026-08-28: `- uses: leanprover-community/docgen-action@v1`
       #    IT WAS GREEN ONLY WHEN IT DID NOTHING. The action sees this repo's `docs/`
       #    folder, sets DOCS_EXISTS=true, and tries to build a JEKYLL site from it —
@@ -226,7 +210,9 @@ jobs:
   # Council 2026-09-01, ruling 5. PR #14 stopped PRs from WRITING to the 10 GiB
   # cache cap; it does nothing about main's own history, and main writes ~4.3 GB
   # per sha across the two cache families (lean-action's `.lake` ~3.38 GB plus
-  # this workflow's `.lake/build` ~0.91 GB). Measured 20:3xZ that day, minutes
+  # this workflow's `.lake/build` ~0.91 GB). (Since PR #232 lean-action's family is
+  # no longer written, so main writes one `.lake/build` entry, ~1.0 GB, per sha.
+  # The rule is unchanged and deletes the old family's last entries.) Measured 20:3xZ that day, minutes
   # after #14 merged: two main shas + one pre-#14 PR entry = 9,509,119,693 B,
   # 88.6% of the cap. ⇒ THE CAP HOLDS TWO MAIN SHAS. Without this job the third
   # merge evicts, GitHub picks the victim, and the 2026-09-01 fixed point
