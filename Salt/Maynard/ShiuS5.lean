@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Mathlib
 import Salt.Maynard.ShiuIV
 import Salt.Maynard.ShiuBlocks
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ShiuS5 — the pinned-scale composition (wave S5)
@@ -200,8 +201,7 @@ theorem z_rpow_le_div_phi {z q : ℕ} (hq : 1 ≤ q) (hz1 : 1 ≤ z)
 /-- `1 ≤ 2·log z` for `z ≥ 2` (since `2·log z ≥ log 4 ≥ 1`). -/
 theorem one_le_two_log {z : ℕ} (hz : 2 ≤ z) : (1 : ℝ) ≤ 2 * Real.log z := by
   have hlog4 : (1 : ℝ) ≤ Real.log 4 :=
-    (Real.le_log_iff_exp_le (by norm_num)).mpr
-      (le_of_lt (lt_of_lt_of_le Real.exp_one_lt_d9 (by norm_num)))
+    by exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   have hlog2z : Real.log 2 ≤ Real.log z :=
     Real.log_le_log (by norm_num) (by exact_mod_cast hz)
   have h4eq : Real.log 4 = 2 * Real.log 2 := by
