@@ -2426,7 +2426,8 @@ discharger swapped and one binder moved.  Bodies otherwise verbatim (until 2026-
 of the XY debt lane re-pointed six of the assembler's seven supplier calls to cap-9 twins, one
 `have` added; the capfloor bundle's call stays at the cap 7; 2026-09-28: family 20 re-pointed six of
 the capfloor bundle's seven supplier calls likewise, one `have` added; `capfloor_floor4_LH`'s
-call stays at the cap 7).
+call stays at the cap 7; 2026-09-29: family 22 made the same six re-points in H2c's cap-gate
+assembler, one `have` added, so its body is the assembler's here up to the bundle's name).
 -/
 
 set_option maxHeartbeats 1000000 in
