@@ -426,7 +426,7 @@ lemma integral_Ioi_inv_c_sq_le {c T' : ℝ} (hc : 0 < c) (hT' : 0 < T') :
         rw [Set.mem_Ioi] at ht
         have ht0 : (0 : ℝ) < t := by linarith
         rw [Real.rpow_neg ht0.le, Real.rpow_two]
-        exact inv_anti₀ (pow_pos ht0 2) (by nlinarith [sq_nonneg c])
+        exact inv_anti₀ (pow_pos ht0 2) (by linarith only [sq_nonneg c])
     _ = 1 / T' := by
         rw [integral_Ioi_rpow_of_lt (show (-2 : ℝ) < -1 by norm_num) hT',
           show (-2 : ℝ) + 1 = -1 by norm_num, Real.rpow_neg_one]
@@ -769,9 +769,9 @@ theorem pole_row_sum {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T) (𝒯 : Finset �
         rw [Set.mem_Icc] at hs
         change (1 / 2) * (1 + (t - t') ^ 2)⁻¹ ≤ (1 + (s - t') ^ 2)⁻¹
         have hb : 1 + (s - t') ^ 2 ≤ 2 * (1 + (t - t') ^ 2) := by
-          nlinarith [sq_nonneg (s - 2 * t + t'),
-            mul_nonneg (by linarith [hs.1] : (0 : ℝ) ≤ s - (t - 1 / 2))
-              (by linarith [hs.2] : (0 : ℝ) ≤ (t + 1 / 2) - s)]
+          linarith only [mul_nonneg (by linarith [hs.1] : (0 : ℝ) ≤ s - (t - 1 / 2))
+              (by linarith [hs.2] : (0 : ℝ) ≤ (t + 1 / 2) - s),
+              sq_nonneg (s - 2 * t + t')]
         have hpos_s : (0 : ℝ) < 1 + (s - t') ^ 2 := by positivity
         rw [show (1 / 2) * (1 + (t - t') ^ 2)⁻¹ = (2 * (1 + (t - t') ^ 2))⁻¹ from by
           rw [mul_inv]; ring]
@@ -1153,7 +1153,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
   have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
   set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
   have hA1100 : 1100 ≤ A := by
-    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by nlinarith [hK])
+    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
     rw [hAdef]; linarith
   have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
   have hγim : Real.exp (Real.exp A) + t₀K + 3 ≤ γ := hγ
@@ -1213,12 +1213,12 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
   have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
   set Mζ : ℝ := K * L3 with hMζdef
   have hMζpos : 0 < Mζ := by rw [hMζdef]; positivity
-  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith [hK, hL3lb, hL3]
+  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith only [hK, hL3lb, hfactsγ, hMζpos]
   have hPinv2 : (2:ℝ) ≤ Pinv := by
     rw [hPinvdef]
     have h1 : (1:ℝ) ≤ L3 ^ ((3:ℝ)/4) := Real.one_le_rpow (by linarith [hL3lb, hL3]) (by norm_num)
     have h2 : (1:ℝ) ≤ ℓ3 ^ (2:ℕ) := one_le_pow₀ (by linarith [hℓ31100])
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv]; rw [div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinv2]
   have hgrowth : ∀ z : ℂ, 1 - Θ ≤ z.re → z.re ≤ 2 → γ - 1 ≤ z.im → z.im ≤ 3 * γ →
@@ -1246,7 +1246,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     rw [hWeq]; linarith [hlog20K, hℓ3ub, hlogℓ3le]
   have hW0 : 0 ≤ W := by
     rw [hWdef]; apply Real.log_nonneg
-    nlinarith [hPinv2, hMζ1, hMζpos, hPinvpos]
+    nlinarith only [hPinvpos, hMζ1, hMζpos, hPinv2]
   have hγ1 : (1:ℝ) ≤ |γ| := by rw [abs_of_nonneg hγpos.le]; linarith [hγ2]
   -- sphere discharge (verbatim, height γ)
   have hsph : ∀ R : ℝ, 0 ≤ R → R ≤ 3 / 2 * Θ →
@@ -1263,16 +1263,16 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     have himb : |z.im - γ| ≤ R := by
       have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
       rw [Complex.sub_im, hcim, hzc] at h; exact h
-    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
-    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
-    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; nlinarith [hR, hΘ12]
+    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; linarith only [this, hR]
+    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
+    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; linarith only [this, hR, hΘ12, hΘ0]
     have him2 : z.im ≤ 3 * γ := by have := (abs_le.mp himb).2; nlinarith [hR, hΘ12, hγ2]
     exact Zc_ratio_sphere_bound hΘ0 hΘ12 hγ1 hMζ1 hR0 hR hz (hgrowth z hre1 hre2 him1 him2)
-  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
-  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
+  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
   have hsphere74 := hsph (7 / 4 * (6 * Θ / 7)) (by positivity) hR74
   have hsphere32 := hsph (3 / 2 * (6 * Θ / 7)) (by positivity) hR32
-  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; nlinarith [hMζ1, hΘ12, hΘ0]
+  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; linarith only [hΘ12, hMζ1, hΘ0]
   -- === the 5T+1 denominators: positivity + monotonicity ===
   have hγ5T1 : γ ≤ 5 * T + 1 := by linarith [hγT]
   have hLTpos : 0 < LT := by rw [hLTdef]; exact Real.log_pos (by linarith [hγ2, hγT])
@@ -1308,7 +1308,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
               calc (2:ℝ) ^ ((3:ℝ)/4) ≤ (2:ℝ) ^ (1:ℝ) :=
                     Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
                 _ = 2 := Real.rpow_one 2
-            nlinarith [h2, Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)]
+            nlinarith only [h2, hΘ12, hΘ0, Real.rpow_nonneg hLTpos.le ((3 : ℝ) / 4)]
     have hℓ3sq : ℓ3 ^ (2:ℕ) ≤ 4 * ℓT ^ (2:ℕ) := by
       calc ℓ3 ^ (2:ℕ) ≤ (2 * ℓT) ^ (2:ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3_2ℓT 2
         _ = 4 * ℓT ^ (2:ℕ) := by ring
@@ -1323,21 +1323,21 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
         = (((1 - w) - (1 + Θ / 2) : ℝ) : ℂ) := by
       rw [hsdef]; push_cast; ring
     rw [hsub, Complex.norm_real, Real.norm_eq_abs]
-    have hnp : (1 - w) - (1 + Θ / 2) ≤ 0 := by nlinarith [hw0, hΘ0]
+    have hnp : (1 - w) - (1 + Θ / 2) ≤ 0 := by linarith only [hw0, hΘ0]
     rw [abs_of_nonpos hnp]
     -- goal: -(1 - w - (1 + Θ/2)) ≤ 23/20*(6Θ/7), i.e. w + Θ/2 ≤ 69Θ/70; use w ≤ 17Θ/35
     have hwPinv : w * Pinv ≤ 17 / 35 := by
       rw [hwdef, div_mul_eq_mul_div, div_le_iff₀ hD3Tpos, hD3Tdef]
-      have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by nlinarith [hsc_thr, hc_vk]
+      have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by linarith only [hsc_thr, hc_vk]
       have hAle : c_vk / 2 * Pinv ≤ c_vk / 2 * (8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ))) :=
         mul_le_mul_of_nonneg_left hPinv5 (by linarith [hc_vk])
-      nlinarith [hAle, hcc, Real.rpow_nonneg hLTpos.le ((3:ℝ)/4), pow_nonneg hℓTpos.le 2,
-        mul_nonneg (Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)) (pow_nonneg hℓTpos.le 2), hℓTpos]
+      nlinarith only [hsc_thr, hPinv5, hPinvpos,
+          hc_vk, hΘ12, hPinv2, hΘ0, hAle]
     have hsc_key : w ≤ 17 * Θ / 35 := by
       rw [hΘPinv, show (17:ℝ) * (1 / Pinv) / 35 = 17 / (35 * Pinv) by field_simp]
       rw [le_div_iff₀ (by positivity)]
-      nlinarith [hwPinv, hPinvpos]
-    nlinarith [hsc_key, hΘ0]
+      linarith only [hwPinv]
+    linarith only [hsc_key]
   have hs1 : s ≠ 1 := by
     rw [hsdef]; intro h
     have := congrArg Complex.im h; simp at this; linarith [hγ2, this]
@@ -1348,7 +1348,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     have hmr := hmargin s hζ0 him
     rw [hsre] at hmr
     have hlt : w < c_vk / D3T := by
-      rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith [hc_vk, hD3Tpos]
+      rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith only [hc_vk, hD3Tpos]
     linarith [hmr, hlt]
   have hZcs : Zc s ≠ 0 := Zc_ne_zero_of_zeta_ne hζs
   have hdist : ∀ ρ : ℂ, Zc ρ = 0 →
@@ -1360,7 +1360,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     have himb : |ρ.im - γ| ≤ 3 / 2 * (6 * Θ / 7) := by
       have h := Complex.abs_im_le_norm (ρ - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
       rw [Complex.sub_im, hcim] at h; linarith [h, hρball]
-    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by nlinarith [hΘ12, hΘ0]
+    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by linarith only [hΘ12]
     have hρim_lb : γ - 9 / 14 ≤ ρ.im := by have := (abs_le.mp himb).1; linarith [hrad]
     have hρim_ub : ρ.im ≤ γ + 9 / 14 := by have := (abs_le.mp himb).2; linarith [hrad]
     have hρimpos : 0 < ρ.im := by linarith [hρim_lb, hγ2]
@@ -1404,7 +1404,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
           mul_le_mul_of_nonneg_left hPW (by norm_num)
       _ = 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by ring
       _ ≤ 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := mul_le_mul_of_nonneg_left hℓT34 (by norm_num)
-      _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by nlinarith [hD4nn]
+      _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by linarith only [hℓT34, hD3Tpos]
   have h76pos : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
   have h76ge : (1:ℝ) / 7 ≤ Real.log (7 / 6) := by
     have h := Real.log_le_sub_one_of_pos (show (0:ℝ) < 6 / 7 by norm_num)
@@ -1538,7 +1538,7 @@ theorem shifted_edge_price :
     have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
     have hD4nn : (0:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) :=
       mul_nonneg (Real.rpow_nonneg hLTpos.le _) (pow_nonneg hℓTpos.le _)
-    have hD41 : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) := by nlinarith [hLT34ge, hℓT4ge]
+    have hD41 : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) := by nlinarith only [hLT34ge, hℓT4ge]
     -- the δ₀ condition: (c_vk/2)/D₃(5T+1) ≤ δ₀
     have hδcond : (c_vk / 2) / D3T ≤ δ₀ := by
       have hbase : c_vk / (2 * δ₀) ≤ ℓT := by
@@ -1547,7 +1547,7 @@ theorem shifted_edge_price :
         linarith [hle, hloglog]
       have hcube3 : ℓT ≤ ℓT ^ (3 : ℕ) := by
         have h2 : (1:ℝ) ≤ ℓT ^ (2:ℕ) := one_le_pow₀ hℓTge
-        nlinarith [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
+        linarith only [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
       have hD3ge : c_vk / (2 * δ₀) ≤ D3T := by
         rw [hD3Tdef]
         calc c_vk / (2 * δ₀) ≤ ℓT ^ (3 : ℕ) := le_trans hbase hcube3
@@ -1557,7 +1557,7 @@ theorem shifted_edge_price :
       have hδpos : 0 < 2 * δ₀ := by linarith [hδ₀0]
       rw [div_le_iff₀ hδpos] at hD3ge
       rw [div_le_iff₀ hD3Tpos]
-      nlinarith [hD3ge, hδ₀0, hD3Tpos]
+      linarith only [hD3ge]
     -- case split on |γ| vs H
     by_cases hcase : H ≤ |γ|
     · -- high height: disc-core (+ conjugation for γ < 0)
@@ -1962,7 +1962,7 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
   have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
   set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
   have hA1100 : 1100 ≤ A := by
-    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by nlinarith [hK])
+    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
     rw [hAdef]; linarith
   have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
   have hγim : Real.exp (Real.exp A) + t₀K + 3 ≤ γ := hγ
@@ -2022,12 +2022,12 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
   have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
   set Mζ : ℝ := K * L3 with hMζdef
   have hMζpos : 0 < Mζ := by rw [hMζdef]; positivity
-  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith [hK, hL3lb, hL3]
+  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith only [hK, hL3lb, hfactsγ, hMζpos]
   have hPinv2 : (2:ℝ) ≤ Pinv := by
     rw [hPinvdef]
     have h1 : (1:ℝ) ≤ L3 ^ ((3:ℝ)/4) := Real.one_le_rpow (by linarith [hL3lb, hL3]) (by norm_num)
     have h2 : (1:ℝ) ≤ ℓ3 ^ (2:ℕ) := one_le_pow₀ (by linarith [hℓ31100])
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv]; rw [div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinv2]
   have hgrowth : ∀ z : ℂ, 1 - Θ ≤ z.re → z.re ≤ 2 → γ - 1 ≤ z.im → z.im ≤ 3 * γ →
@@ -2055,7 +2055,7 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
     rw [hWeq]; linarith [hlog20K, hℓ3ub, hlogℓ3le]
   have hW0 : 0 ≤ W := by
     rw [hWdef]; apply Real.log_nonneg
-    nlinarith [hPinv2, hMζ1, hMζpos, hPinvpos]
+    nlinarith only [hPinvpos, hMζ1, hMζpos, hPinv2]
   have hγ1 : (1:ℝ) ≤ |γ| := by rw [abs_of_nonneg hγpos.le]; linarith [hγ2]
   -- sphere discharge (verbatim, height γ)
   have hsph : ∀ R : ℝ, 0 ≤ R → R ≤ 3 / 2 * Θ →
@@ -2072,16 +2072,16 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
     have himb : |z.im - γ| ≤ R := by
       have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
       rw [Complex.sub_im, hcim, hzc] at h; exact h
-    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
-    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
-    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; nlinarith [hR, hΘ12]
+    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; linarith only [this, hR]
+    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
+    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; linarith only [this, hR, hΘ12, hΘ0]
     have him2 : z.im ≤ 3 * γ := by have := (abs_le.mp himb).2; nlinarith [hR, hΘ12, hγ2]
     exact Zc_ratio_sphere_bound hΘ0 hΘ12 hγ1 hMζ1 hR0 hR hz (hgrowth z hre1 hre2 him1 him2)
-  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
-  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
+  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
   have hsphere74 := hsph (7 / 4 * (6 * Θ / 7)) (by positivity) hR74
   have hsphere32 := hsph (3 / 2 * (6 * Θ / 7)) (by positivity) hR32
-  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; nlinarith [hMζ1, hΘ12, hΘ0]
+  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; linarith only [hΘ12, hMζ1, hΘ0]
   -- === the 5T+1 denominators: positivity + monotonicity ===
   have hγ5T1 : γ ≤ 5 * T + 1 := by linarith [hγT]
   have hLTpos : 0 < LT := by rw [hLTdef]; exact Real.log_pos (by linarith [hγ2, hγT])
@@ -2117,7 +2117,7 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
               calc (2:ℝ) ^ ((3:ℝ)/4) ≤ (2:ℝ) ^ (1:ℝ) :=
                     Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
                 _ = 2 := Real.rpow_one 2
-            nlinarith [h2, Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)]
+            nlinarith only [h2, hΘ12, hΘ0, Real.rpow_nonneg hLTpos.le ((3 : ℝ) / 4)]
     have hℓ3sq : ℓ3 ^ (2:ℕ) ≤ 4 * ℓT ^ (2:ℕ) := by
       calc ℓ3 ^ (2:ℕ) ≤ (2 * ℓT) ^ (2:ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3_2ℓT 2
         _ = 4 * ℓT ^ (2:ℕ) := by ring
@@ -2134,17 +2134,17 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
     rw [hsub, Complex.norm_real, Real.norm_eq_abs]
     have hwPinv : w * Pinv ≤ 17 / 35 := by
       rw [hwdef, div_mul_eq_mul_div, div_le_iff₀ hD3Tpos, hD3Tdef]
-      have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by nlinarith [hsc_thr, hc_vk]
+      have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by linarith only [hsc_thr, hc_vk]
       have hAle : c_vk / 2 * Pinv ≤ c_vk / 2 * (8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ))) :=
         mul_le_mul_of_nonneg_left hPinv5 (by linarith [hc_vk])
-      nlinarith [hAle, hcc, Real.rpow_nonneg hLTpos.le ((3:ℝ)/4), pow_nonneg hℓTpos.le 2,
-        mul_nonneg (Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)) (pow_nonneg hℓTpos.le 2), hℓTpos]
+      nlinarith only [hsc_thr, hPinv5, hPinvpos,
+          hc_vk, hΘ12, hPinv2, hΘ0, hAle]
     have hsc_key : w ≤ 17 * Θ / 35 := by
       rw [hΘPinv, show (17:ℝ) * (1 / Pinv) / 35 = 17 / (35 * Pinv) by field_simp]
       rw [le_div_iff₀ (by positivity)]
-      nlinarith [hwPinv, hPinvpos]
+      linarith only [hwPinv]
     rw [abs_le]
-    exact ⟨by nlinarith [hsc_key, hΘ0, hxlb, hw0], by nlinarith [hsc_key, hΘ0, hxub, hw0]⟩
+    exact ⟨by linarith only [hsc_key, hxlb], by linarith only [hsc_key, hw0, hxub]⟩
   have hs1 : s ≠ 1 := by
     rw [hsdef]; intro h
     have := congrArg Complex.im h; simp at this; linarith [hγ2, this]
@@ -2155,7 +2155,7 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
     have hmr := hmargin s hζ0 him
     rw [hsre] at hmr
     have hlt : w < c_vk / D3T := by
-      rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith [hc_vk, hD3Tpos]
+      rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith only [hc_vk, hD3Tpos]
     linarith [hmr, hlt, hxlb]
   have hZcs : Zc s ≠ 0 := Zc_ne_zero_of_zeta_ne hζs
   have hdist : ∀ ρ : ℂ, Zc ρ = 0 →
@@ -2167,7 +2167,7 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
     have himb : |ρ.im - γ| ≤ 3 / 2 * (6 * Θ / 7) := by
       have h := Complex.abs_im_le_norm (ρ - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
       rw [Complex.sub_im, hcim] at h; linarith [h, hρball]
-    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by nlinarith [hΘ12, hΘ0]
+    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by linarith only [hΘ12]
     have hρim_lb : γ - 9 / 14 ≤ ρ.im := by have := (abs_le.mp himb).1; linarith [hrad]
     have hρim_ub : ρ.im ≤ γ + 9 / 14 := by have := (abs_le.mp himb).2; linarith [hrad]
     have hρimpos : 0 < ρ.im := by linarith [hρim_lb, hγ2]
@@ -2211,7 +2211,7 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
           mul_le_mul_of_nonneg_left hPW (by norm_num)
       _ = 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by ring
       _ ≤ 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := mul_le_mul_of_nonneg_left hℓT34 (by norm_num)
-      _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by nlinarith [hD4nn]
+      _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by linarith only [hℓT34, hD3Tpos]
   have h76pos : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
   have h76ge : (1:ℝ) / 7 ≤ Real.log (7 / 6) := by
     have h := Real.log_le_sub_one_of_pos (show (0:ℝ) < 6 / 7 by norm_num)
@@ -2321,7 +2321,7 @@ theorem shifted_edge_price_strip :
     have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
     have hD4nn : (0:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) :=
       mul_nonneg (Real.rpow_nonneg hLTpos.le _) (pow_nonneg hℓTpos.le _)
-    have hD41 : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) := by nlinarith [hLT34ge, hℓT4ge]
+    have hD41 : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) := by nlinarith only [hLT34ge, hℓT4ge]
     -- the δ₀ condition: (c_vk/2)/D₃(5T+1) ≤ δ₀
     have hδcond : (c_vk / 2) / D3T ≤ δ₀ := by
       have hbase : c_vk / (2 * δ₀) ≤ ℓT := by
@@ -2330,7 +2330,7 @@ theorem shifted_edge_price_strip :
         linarith [hle, hloglog]
       have hcube3 : ℓT ≤ ℓT ^ (3 : ℕ) := by
         have h2 : (1:ℝ) ≤ ℓT ^ (2:ℕ) := one_le_pow₀ hℓTge
-        nlinarith [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
+        linarith only [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
       have hD3ge : c_vk / (2 * δ₀) ≤ D3T := by
         rw [hD3Tdef]
         calc c_vk / (2 * δ₀) ≤ ℓT ^ (3 : ℕ) := le_trans hbase hcube3
@@ -2340,14 +2340,14 @@ theorem shifted_edge_price_strip :
       have hδpos : 0 < 2 * δ₀ := by linarith [hδ₀0]
       rw [div_le_iff₀ hδpos] at hD3ge
       rw [div_le_iff₀ hD3Tpos]
-      nlinarith [hD3ge, hδ₀0, hD3Tpos]
+      linarith only [hD3ge]
     -- the strip's upper endpoint: (c_vk/2)/D₃(5T+1) ≤ 1, so 1+w ≤ 2
     have hwle1 : (c_vk / 2) / D3T ≤ 1 := by
       rw [div_le_one hD3Tpos]
       have hchalf : c_vk / 2 ≤ ℓT := by linarith [hsc_thr, hc_vk0]
       have hcube3 : ℓT ≤ ℓT ^ (3 : ℕ) := by
         have h2 : (1:ℝ) ≤ ℓT ^ (2:ℕ) := one_le_pow₀ hℓTge
-        nlinarith [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
+        linarith only [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
       have hD3ge : ℓT ^ (3 : ℕ) ≤ D3T := by
         rw [hD3Tdef]
         calc ℓT ^ (3 : ℕ) = 1 * ℓT ^ (3 : ℕ) := (one_mul _).symm
@@ -2477,7 +2477,7 @@ theorem per_pair_contour :
       _ ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) := by
           apply mul_le_mul_of_nonneg_right hLT34ge (by positivity)
   have hwle : w ≤ 1 / 2 := by
-    rw [hwdef, div_le_div_iff₀ hD3pos (by norm_num)]; nlinarith [hD3gecvk, hc_vk0]
+    rw [hwdef, div_le_div_iff₀ hD3pos (by norm_num)]; linarith only [hD3gecvk]
   set σ₀ : ℝ := 1 - w with hσ₀def
   have hσ₀_eq : σ₀ = 1 - (c_vk / 2) / D3 := by rw [hσ₀def, hwdef]
   have hσ₀half : (1 : ℝ) / 2 ≤ σ₀ := by rw [hσ₀def]; linarith
@@ -2525,7 +2525,7 @@ theorem per_pair_contour :
       rw [hsre'] at hmr
       have : s.re < 1 := by rw [hsre'] at h1; linarith [not_le.mp h1]
       have hlt : (c_vk / 2) / D3 < c_vk / D3 := by
-        rw [div_lt_div_iff₀ hD3pos hD3pos]; nlinarith [hc_vk0, hD3pos]
+        rw [div_lt_div_iff₀ hD3pos hD3pos]; nlinarith only [hc_vk0, hD3pos]
       rw [← hD3def] at hmr
       have : σ₀ ≤ s.re := hsre.1
       rw [hσ₀def, hwdef] at this
@@ -2654,7 +2654,7 @@ theorem per_pair_contour :
         rw [show (9 : ℝ) = (3 : ℝ) ^ (2 : ℝ) by
           rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num]
         exact Real.rpow_le_rpow_of_exponent_le (by norm_num) (by linarith [hσ₀1])
-      nlinarith [h3, hPσ0nn]
+      nlinarith only [hPσ0nn, h3, hwle, hw0]
     -- ζ'/ζ bound on the left edge
     have hzetaL : ∀ v : ℝ, v ∈ Set.Icc (-Tp) Tp →
         ‖(- logDeriv riemannZeta (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I))‖ ≤ Bσ := by
@@ -2773,10 +2773,10 @@ theorem per_pair_contour :
             have h1 : (1 : ℝ) / w ≤ 2 / c_vk * D4 := by
               rw [he, show (2 : ℝ) / c_vk * D4 = 2 * D4 / c_vk by ring,
                 div_le_div_iff₀ hc_vk0 hc_vk0]
-              nlinarith [hD3leD4, hc_vk0]
+              nlinarith only [hc_vk0, hD3leD4]
             linarith [h1]
           have hπσ₀ : Real.pi / σ₀ ≤ 2 * Real.pi := by
-            rw [div_le_iff₀ hσ₀0]; nlinarith [Real.pi_pos, hσ₀half]
+            rw [div_le_iff₀ hσ₀0]; nlinarith only [hwle, hw0, Real.pi_pos]
           have hexpnn : (0 : ℝ) ≤ Real.exp (-(c_vk / 2) * Real.log P / D3) := (Real.exp_pos _).le
           rw [hPσ₀]
           have hfac_nn : (0 : ℝ) ≤ 22 * (P * Real.exp (-(c_vk / 2) * Real.log P / D3)) := by
@@ -2793,7 +2793,7 @@ theorem per_pair_contour :
             _ = CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4 := by rw [hCLdef]; ring
   -- === HORIZONTAL sub-bound infrastructure ===
   have hD41 : (1 : ℝ) ≤ D4 := by
-    rw [hD4def]; nlinarith [hLT34ge, one_le_pow₀ hℓT1 (n := 4), Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)]
+    rw [hD4def]; nlinarith only [hLT34ge, one_le_pow₀ hℓT1 (n := 4)]
   have hTle : (1 : ℝ) ≤ T := by linarith [hT3]
   have hD3leD4' : D3 ≤ D4 := by
     rw [hD3def, hD4def]
@@ -2802,7 +2802,7 @@ theorem per_pair_contour :
   have h1w_inv : (1 : ℝ) / w ≤ 2 / c_vk * D4 := by
     have he : (1 : ℝ) / w = 2 * D3 / c_vk := by rw [hwdef, one_div_div]; ring
     rw [he, show (2 : ℝ) / c_vk * D4 = 2 * D4 / c_vk by ring, div_le_div_iff₀ hc_vk0 hc_vk0]
-    nlinarith [hD3leD4', hc_vk0]
+    nlinarith only [hc_vk0, hD3leD4']
   -- ζ'/ζ bound on both horizontals
   have hζhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
       ‖(- logDeriv riemannZeta (((x : ℂ) + (τ : ℂ) * I) - (u : ℂ) * I))‖ ≤ Cζ * D4 := by
@@ -2886,7 +2886,7 @@ theorem per_pair_contour :
         _ ≤ 1 / ((1 + w) - 1) + ‖logDeriv Zc ((1 + w : ℝ) : ℂ)‖ := hpole1w
         _ ≤ 1 / w + CE * D4 := by rw [hpole1w2]; linarith [hZc1w]
         _ ≤ 2 / c_vk * D4 + CE * D4 := by linarith [h1w_inv]
-        _ ≤ Cζ * D4 := by rw [hCζdef]; nlinarith [hD41, hc_vk0, hCE0]
+        _ ≤ Cζ * D4 := by rw [hCζdef]; linarith only [hD41, hwle, hw0]
   -- kernel bound on both horizontals
   have hkerhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
       ‖windowMellin P ((x : ℂ) + (τ : ℂ) * I)‖ ≤ Kc * P / (9 * T ^ 2) := by
@@ -2924,10 +2924,10 @@ theorem per_pair_contour :
           _ = Real.exp 1 * P := hPc
       have hPxnn : (0 : ℝ) ≤ (P : ℝ) ^ x := Real.rpow_nonneg hP0.le x
       rw [hKcdef]
-      nlinarith [h3x, hPxc, hPxnn, Real.rpow_nonneg (by norm_num : (0:ℝ) ≤ 3) ((Real.log 2)⁻¹),
-        mul_nonneg (Real.rpow_nonneg (by norm_num : (0:ℝ) ≤ 3) ((Real.log 2)⁻¹)) hP0.le]
+      nlinarith only [hPxc, h3x, hPxnn, hwle, hw0,
+          Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 3) ((Real.log 2)⁻¹)]
     have hinv : (x ^ 2 + τ ^ 2)⁻¹ ≤ (9 * T ^ 2)⁻¹ := by
-      rw [hτ2]; apply inv_anti₀ (by positivity); nlinarith [sq_nonneg x]
+      rw [hτ2]; apply inv_anti₀ (by positivity); linarith only [sq_nonneg x]
     calc (2 * (2 * P + P) ^ (x + 1) / P + 2 * (P / 2 + P / 2) ^ (x + 1) / (P / 2))
             * (x ^ 2 + τ ^ 2)⁻¹
         ≤ (Kc * P) * (9 * T ^ 2)⁻¹ :=
@@ -2986,7 +2986,7 @@ theorem per_pair_contour :
         (mul_le_mul hsuma hCk hCk0 (by linarith [hlogP, hC₀0])) (by positivity)
     have hkeylog : Real.log P + C₀ ≤ (1 + C₀ / Real.log 2) * Real.log P := by
       have hlog2P : Real.log 2 ≤ Real.log P := Real.log_le_log (by norm_num) hP
-      have hh : C₀ * Real.log 2 ≤ C₀ * Real.log P := by nlinarith [hC₀0, hlog2P]
+      have hh : C₀ * Real.log 2 ≤ C₀ * Real.log P := by nlinarith only [hC₀0, hlog2P]
       rw [add_mul, one_mul, div_mul_eq_mul_div]
       have : C₀ ≤ C₀ * Real.log P / Real.log 2 := by rw [le_div_iff₀ hlog2]; linarith [hh]
       linarith
@@ -3093,7 +3093,7 @@ lemma pole_double_row {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T) {𝒯 : Finset �
           ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖ := by
     refine Finset.sum_le_sum (fun t _ => Finset.sum_le_sum (fun t' _ => ?_))
     apply mul_le_mul_of_nonneg_right _ (norm_nonneg _)
-    nlinarith [sq_nonneg (‖b t‖ - ‖b t'‖)]
+    linarith only [sq_nonneg (‖b t‖ - ‖b t'‖)]
   have hrowA : ∀ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ ≤ 44 * Real.pi * P := by
     intro t _
     have heq : ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖
@@ -3146,7 +3146,7 @@ lemma error_double_row {𝒯 : Finset ℝ} {ε : ℝ} (b : ℝ → ℂ)
     rw [norm_mul, norm_mul, Complex.norm_conj]
     calc ‖b t‖ * ‖b t'‖ * ‖K t t'‖
         ≤ (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ‖K t t'‖ :=
-          mul_le_mul_of_nonneg_right (by nlinarith [sq_nonneg (‖b t‖ - ‖b t'‖)]) (norm_nonneg _)
+          mul_le_mul_of_nonneg_right (by linarith only [sq_nonneg (‖b t‖ - ‖b t'‖)]) (norm_nonneg _)
       _ ≤ (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε :=
           mul_le_mul_of_nonneg_left (hK t ht t' ht') (by positivity)
   refine h1.trans ?_
@@ -3393,7 +3393,7 @@ theorem halasz_primes_primal_raw :
     apply div_nonneg _ hlogPpos.le
     have hcard : (0 : ℝ) ≤ (𝒯.card : ℝ) := by positivity
     have h44 : (0 : ℝ) ≤ 44 * Real.pi * P := by positivity
-    nlinarith [mul_nonneg hεnn hcard]
+    linarith only [h44, mul_nonneg hεnn hcard]
   exact (primes_dual_iff 𝒯 S hΔ0).mpr (hda T P hT hP 𝒯 hws hsub S hS) a
 
 
@@ -3434,7 +3434,7 @@ lemma loglog4_le {T : ℝ} (hLT : 1 ≤ Real.log T) :
 /-- `log (5T+1) ≤ 2 log T` for `T ≥ 6` (since `5T+1 ≤ T²`). -/
 lemma log5T1_le_two_logT {T : ℝ} (hT : 6 ≤ T) : Real.log (5 * T + 1) ≤ 2 * Real.log T := by
   have hT0 : 0 < T := by linarith
-  have hle : 5 * T + 1 ≤ T ^ 2 := by nlinarith
+  have hle : 5 * T + 1 ≤ T ^ 2 := by nlinarith only [hT]
   have h1 : Real.log (5 * T + 1) ≤ Real.log (T ^ 2) := Real.log_le_log (by linarith) hle
   rw [Real.log_pow] at h1
   push_cast at h1; linarith
@@ -3580,7 +3580,7 @@ lemma absorb_arith {C₁ C₂ C₃ K₂c P T logP logT D4' expc card exparg : �
       _ = C₁ * K₂c * (P * expc * logT ^ 2) := by ring
   have hεB : C₂ * P * logP / T ≤ 10 * C₂ * (P * expc * logT ^ 2) := by
     have hLTsq : logT ≤ logT ^ 2 := by
-      nlinarith [mul_nonneg hLT0 (by linarith : (0 : ℝ) ≤ logT - 1)]
+      linarith only [mul_nonneg hLT0 (by linarith : (0 : ℝ) ≤ logT - 1)]
     have step1 : logP * (1 / T) ≤ (10 * logT) * (1 / T) :=
       mul_le_mul_of_nonneg_right hL10 (le_of_lt (one_div_pos.mpr hT))
     have step2 : (10 * logT) * (1 / T) ≤ (10 * logT) * expc :=
@@ -3760,7 +3760,7 @@ theorem halasz_primes_pow :
     have e2 : -c * logP / D4 = -(c * logP / D4) := by ring
     rw [e2]; exact neg_le_neg hcLD4
   have hTleT2 : T ≤ T ^ 2 := by
-    nlinarith [mul_nonneg hT0.le (by linarith : (0 : ℝ) ≤ T - 1)]
+    linarith only [mul_nonneg hT0.le (by linarith : (0 : ℝ) ≤ T - 1)]
   have hT2exp : 1 / T ^ 2 ≤ Real.exp (-c * logP / D4) :=
     le_trans (one_div_le_one_div_of_le hT0 hTleT2) hTexp
   set expc := Real.exp (-c * logP / D4) with hexpcdef
