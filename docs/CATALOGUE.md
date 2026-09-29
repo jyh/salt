@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5257f59e` · source digest `a7b5b526060a07bc` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `4811f38b` · source digest `a9bb4b81f1511f06` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -3475,7 +3475,7 @@ Declarations indexed across the tree: 22685 · corpus Prop-valued names (the hyp
 | `Salt.MR.intervalIntegrable_alpha_leg'` | Salt/MR/JointPlumb.lean:455 | characters |
 | `Salt.MR.jointIntegrableAt_of_gates` | Salt/MR/JointPlumb.lean:513 | characters |
 | `Salt.MR.jointIntegrableAt_discharged` | Salt/MR/JointPlumb.lean:533 | characters |
-| `Salt.MR.jointIntegrableAt_pin` | Salt/MR/JointPlumb.lean:566 | characters |
+| `Salt.MR.jointIntegrableAt_pin` | Salt/MR/JointPlumb.lean:565 | characters |
 | `Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_gceil` | Salt/MR/KLever.lean:106 | characters |
 | `Salt.MR.exp_sixteen_eq` | Salt/MR/KLever.lean:150 | characters |
 | `Salt.MR.KlevF_ge` | Salt/MR/KLever.lean:155 | characters |
