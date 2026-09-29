@@ -205,9 +205,7 @@ theorem condEntropy_shift_leFlat (R : ChowlaRegimeFlat) {H k j : ℕ}
     have hlogH2 : (2 : ℝ) ≤ Real.log H := by
       rw [Real.le_log_iff_exp_le (by exact_mod_cast hHpos)]
       have hexp2 : Real.exp 2 ≤ 8 := by
-        have h := Real.exp_one_lt_d9
-        have he2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-        rw [he2]; nlinarith [Real.exp_pos 1, h]
+        exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
       linarith [hexp2, hHR]
     have hsq : (4 : ℝ) ≤ (Real.log H) ^ 2 := by nlinarith [hlogH2]
     have hq : 1 / (Real.log H) ^ 2 ≤ 1 / 4 := one_div_le_one_div_of_le (by norm_num) hsq

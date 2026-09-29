@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Chen.StepBound2
+import Salt.Tactic.ExpLogNum
 
 /-!
 # M4F — the operating-point window memberships (the H-glue's rounding lemmas)
@@ -99,9 +100,7 @@ private lemma window_floor_bounds (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ))
 /-- `log 10 ≥ 2`, hence `log(x) ≥ 96` for `x ≥ 10⁴⁸`. -/
 private lemma log_ge_96 (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) : (96 : ℝ) ≤ Real.log (x : ℝ) := by
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
-    rw [Real.le_log_iff_exp_le (by norm_num)]
-    have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 2 (by norm_num) (by norm_num)
   have hmono : Real.log ((10 : ℝ) ^ 48) ≤ Real.log (x : ℝ) := Real.log_le_log (by positivity) hx
   rw [Real.log_pow] at hmono
   push_cast at hmono

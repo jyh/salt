@@ -721,8 +721,7 @@ lemma tsw_countB (χ : DirichletCharacter ℂ q) {z x : ℕ} (hz100 : 100 ^ 16 �
 /-- `16 ≤ log z` (from `z ≥ 100^16` and `log 100 ≥ 1`). -/
 lemma tsw_sixteen_le_log {z : ℕ} (hz100 : 100 ^ 16 ≤ z) : (16 : ℝ) ≤ Real.log z := by
   have h100 : (1 : ℝ) ≤ Real.log 100 :=
-    (Real.le_log_iff_exp_le (by norm_num)).mpr
-      (le_trans Real.exp_one_lt_d9.le (by norm_num))
+    mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   have hcast : ((100 ^ 16 : ℕ) : ℝ) = (100 : ℝ) ^ (16 : ℕ) := by push_cast; ring
   have hle : Real.log ((100 : ℝ) ^ (16 : ℕ)) ≤ Real.log z := by
     rw [← hcast]
