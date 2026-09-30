@@ -21,9 +21,15 @@ import Salt.Tactic.ExpLogNum
 statement unchanged; 2026-09-29: family 23 retired eight siblings that no declaration called into
 their cap-9 twins, each noted where it stood; 2026-09-29: family 24 retired twelve of the thirteen
 names which that retirement left without a caller, those that have a cap-9 twin, likewise;
-2026-09-30: family 25 retired the seven siblings which that one left without a caller, likewise).
-Every landed numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a wider
-ceiling; the landed stone keeps its own consumers untouched.
+2026-09-30: family 25 retired the seven siblings which that one left without a caller, likewise;
+2026-09-30: family 26 retired the two names with a `_b9` twin that family 25's retirement left
+without a caller, likewise).  (2026-09-30, a count corrected: over every name of this file,
+family 24's retirement left NINE without a caller, not seven — the seven that family 25 retired,
+which have a `_b9` twin, and the rows `capeps_row_phi_h` and `capeps_row_tail_h`, which have none.
+Family 25's left three: the two that family 26 retired, and the numeric sibling `capeps_Pbig_h`,
+which has no `_b9` twin either.  The two rows and `capeps_Pbig_h` stand at this date.)  Every landed
+numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a wider ceiling; the
+landed stone keeps its own consumers untouched.
 
 ## ⟦WHY THE PAGE EXISTS AT ALL⟧ — the assembler's `hbb`
 
@@ -50,7 +56,7 @@ Conjunct 11 costs NOTHING new: its whole `_LH` substrate is already landed in
 touch that substrate directly; the other twelve `11`-routed leaves inherit through them.
 (2026-09-29: the XY debt lane's family 24 retired five of the twelve into their cap-9 twins; seven
 stand at the cap 7.  2026-09-30: family 25 retired three more of the twelve; four stand at the
-cap 7.)
+cap 7.  2026-09-30: family 26 retired one more of the twelve; three stand at the cap 7.)
 
 ## ⟦§1 — THE SIX NUMERIC SIBLINGS⟧
 
@@ -279,7 +285,9 @@ family 24 retired five leaves of this page that no declaration called — `s13Ca
 `s13CapGrid_logqT_L_LH`, `s13CapGrid_kappa30_LH`, `s13CapGrid_BT_LH`, `s13CapGrid_BT10_LH` — into
 their cap-9 twins; their notes stand where the pages stood.  2026-09-30: family 25 retired four more
 leaves of this page that no declaration called — `s13_abs8640_at_shift_LH`, `s13CapGrid_q_logX_LH`,
-`s13CapGrid_Tann_one_LH`, `s13CapGrid_kappa_Tann_LH` — likewise.) -/
+`s13CapGrid_Tann_one_LH`, `s13CapGrid_kappa_Tann_LH` — likewise.  2026-09-30: family 26 retired two
+more leaves of this page that no declaration called — `s13_abs8640_at_base_LH`,
+`s13CapGrid_logTann_lo_LH` — likewise.) -/
 
 theorem s13_abs8640_of_socketBase_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
@@ -288,19 +296,22 @@ theorem s13_abs8640_of_socketBase_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h :
   obtain ⟨h1, h2⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
   exact s13_abs8640_of_loglog (by linarith) h2
 
-theorem s13_abs8640_at_base_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s B : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAB : A ≤ B) :
-    (8640 : ℝ) ≤ (Real.log (B : ℝ)) ^ (theta293 - 1 / 500) := by
-  obtain ⟨h1, -⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
-  have hcore := s13_abs8640_of_socketBase_LH hh hh7 hfl hb
-  have hABR : (A : ℝ) ≤ (B : ℝ) := by exact_mod_cast hAB
-  have hA0 : (0 : ℝ) < (A : ℝ) := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    exact_mod_cast hA
-  have hmono : Real.log (A : ℝ) ≤ Real.log (B : ℝ) := Real.log_le_log hA0 hABR
-  have hθ : (0 : ℝ) ≤ theta293 - 1 / 500 := by have := s13_theta293_margin_lo; linarith
-  exact le_trans hcore (Real.rpow_le_rpow (by linarith) hmono hθ)
+/-! ### `s13_abs8640_at_base_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 26 (2026-09-30)⟧
+`s13_abs8640_at_base_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+{R : ChowlaRegime} … : (8640 : ℝ) ≤ (Real.log (B : ℝ)) ^ (theta293 - 1 / 500)` stood here.  It is
+`s13_abs8640_at_base_LH_b9` (in the ⟦β W2 F2⟧ section below) with the hypothesis strengthened: the
+two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical
+elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired statement's own
+bytes before the removal was committed.  The twin's body is this page's with TWO lines changed: the
+calls of the two suppliers that take the cap (`s13_socketBase_loglogA_LH`,
+`s13_abs8640_of_socketBase_LH`), each swapped for its `_b9` twin.  At this retirement the page had
+NO call site.  When the lane opened (main, 2026-09-25) it had one, `s13_abs8640_at_shift_LH` (§3),
+which family 25 retired into its cap-9 twin (2026-09-30); `s13_abs8640_at_shift_LH_b9` calls this
+page's twin.
+
+The page carried no docstring. -/
 
 /-! ### `s13_abs8640_at_shift_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -459,29 +470,23 @@ retirement the page had NO call site.  When the lane opened (main, 2026-09-25) i
 
 The page carried no docstring. -/
 
-theorem s13CapGrid_logTann_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
-    (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T) :
-    Real.log (((A + s : ℕ)) : ℝ) - 2 * Real.log (Real.log (((A + s : ℕ)) : ℝ))
-      ≤ Real.log (2 * T) := by
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hNd1 : (1 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    have : 1 ≤ A + s := by omega
-    exact_mod_cast this
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hpow0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by positivity
-  have h2j : ((2 ^ j : ℕ) : ℝ) ≤ (H : ℝ) := by
-    exact_mod_cast s13CapGrid_twoj_le_H_LH hh hh7 hb
-  have hdiv : (((A + s : ℕ)) : ℝ) / (H : ℝ) ≤ (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) :=
-    div_le_div_of_nonneg_left (by linarith) hpow0 h2j
-  have hdiv0 : (0 : ℝ) < (((A + s : ℕ)) : ℝ) / (H : ℝ) := by positivity
-  have hle : (((A + s : ℕ)) : ℝ) / (H : ℝ) ≤ 2 * T := by linarith
-  have hlog := Real.log_le_log hdiv0 hle
-  rw [Real.log_div (by linarith) (by linarith)] at hlog
-  have hLam := s13CapGrid_Lambda_sharp_LH hh hh7 hfl hb
-  linarith
+/-! ### `s13CapGrid_logTann_lo_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 26 (2026-09-30)⟧
+`s13CapGrid_logTann_lo_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+{R : ChowlaRegime} … : Real.log (((A + s : ℕ)) : ℝ) - 2 * Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤
+Real.log (2 * T)` stood here.  It is `s13CapGrid_logTann_lo_LH_b9` (in the ⟦β W2 F2⟧ section below)
+with the hypothesis strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against
+`log h ≤ 9`, and are token-identical elsewhere, so the twin implies it by `linarith` —
+kernel-checked from the retired statement's own bytes before the removal was committed.  The twin's
+body is this page's with TWO lines changed: the calls of the two suppliers that take the cap
+(`s13CapGrid_twoj_le_H_LH`, `s13CapGrid_Lambda_sharp_LH`), each swapped for its `_b9` twin.  At this
+retirement the page had NO call site.  When the lane opened (main, 2026-09-25) it had three:
+`s13CapGrid_BT_LH` (§3), which family 24 retired into its cap-9 twin (2026-09-29), and
+`s13CapGrid_Tann_one_LH` (§3) and `s13CapGrid_kappa_Tann_LH` (§3), which family 25 retired into
+their cap-9 twins (2026-09-30); the twin of each of them calls this page's twin.
+
+The page carried no docstring. -/
 
 /-! ### `s13CapGrid_Tann_one_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -1776,13 +1781,13 @@ Additive only: every declaration above is untouched (2026-09-28: the XY debt lan
 moved three of them to §9 at the foot; 2026-09-29: family 23 retired eight of them into twins of
 F2 and F3 below, each noted in place; 2026-09-29: family 24 retired twelve more, one into a twin
 here and eleven into twins of F2 and F3, each noted in place; 2026-09-30: family 25 retired seven
-more, one into a twin here and six into twins of F2 and F3, each noted in place).  Three NUMERIC
-SIBLINGS whose statements differ from §1's only in the named literal (`e^18 ↦ e^20`, `216 ↦ 232`,
-`+8 ↦ +10` — each set to exactly the cap-9 spend, as §1's were to the cap-7 spend), then the
-depth-0/1 leaves of the floor, grid and `εr` pages at `log h ≤ 9`.  Each twin is its source's
-statement and body with ONLY the freeze's §3.1 rule-2 raises and every derived cap-dependent
-supplier replaced by its twin (`S16ProducersH` §7); no hypothesis is added and no
-conclusion weakened. -/
+more, one into a twin here and six into twins of F2 and F3, each noted in place; 2026-09-30:
+family 26 retired two more, both into twins of F2, each noted in place).  Three NUMERIC SIBLINGS
+whose statements differ from §1's only in the named literal (`e^18 ↦ e^20`, `216 ↦ 232`, `+8 ↦ +10`
+— each set to exactly the cap-9 spend, as §1's were to the cap-7 spend), then the depth-0/1 leaves
+of the floor, grid and `εr` pages at `log h ≤ 9`.  Each twin is its source's statement and body with
+ONLY the freeze's §3.1 rule-2 raises and every derived cap-dependent supplier replaced by its twin
+(`S16ProducersH` §7); no hypothesis is added and no conclusion weakened. -/
 
 /-- ⟦SIBLING of `capeps_Pbig_h` (§1), constant `e^18 → e^20`⟧ — the `p²` row's `1/P` leg at
 `log h ≤ 9` (`e^11·e^9`).  BODY: §1's, with the master line at `t = 20 ≤ 60`. -/
@@ -2075,11 +2080,12 @@ end RowsHb9
 Additive only: every declaration above is untouched (2026-09-28: the XY debt lane's family 21
 moved three of them to §9 at the foot; 2026-09-29: family 23 retired the sources of five twins
 here into them, each noted in place; 2026-09-29: family 24 the sources of seven more; 2026-09-30:
-family 25 the sources of five more).  Each twin is its source's statement and body with ONLY the
-freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, and every derived cap-dependent supplier replaced by
-its twin (§5 above, `S16ProducersH` §7, or a landed `_14` row by weakening `≤ 9 ⇒ ≤ 14`); no
-hypothesis is added and no conclusion weakened.  ONE re-derivation: `s13CapGrid_q_logX_LH_b9`
-(`log H ≤ √H/3`, `3^12 = 531441 ≥ 8103`), conclusion unchanged. -/
+family 25 the sources of five more; 2026-09-30: family 26 the sources of two more).  Each twin is
+its source's statement and body with ONLY the freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, and
+every derived cap-dependent supplier replaced by its twin (§5 above, `S16ProducersH` §7, or a landed
+`_14` row by weakening `≤ 9 ⇒ ≤ 14`); no hypothesis is added and no conclusion weakened.  ONE
+re-derivation: `s13CapGrid_q_logX_LH_b9` (`log H ≤ √H/3`, `3^12 = 531441 ≥ 8103`),
+conclusion unchanged. -/
 
 /-- `s13_abs8640_of_socketBase_LH` at `log h ≤ 9` — SUPPLIER-SWAP
 (`s13_socketBase_loglogA_LH_b9`).  BODY: the source's, verbatim. -/
@@ -2090,7 +2096,9 @@ theorem s13_abs8640_of_socketBase_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (
   obtain ⟨h1, h2⟩ := s13_socketBase_loglogA_LH_b9 hh hh9 hfl hb
   exact s13_abs8640_of_loglog (by linarith) h2
 
-/-- `s13_abs8640_at_base_LH` at `log h ≤ 9` — SUPPLIER-SWAP.  BODY: the source's, verbatim. -/
+/-- `s13_abs8640_at_base_LH` at `log h ≤ 9` (the former `s13_abs8640_at_base_LH`, at `log h ≤ 7`,
+retired into this, 2026-09-30) — SUPPLIER-SWAP.  BODY: the retired page's, with two lines changed
+(its note stands above, in §3). -/
 theorem s13_abs8640_at_base_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
     {R : ChowlaRegime} {M H L q j A s B : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAB : A ≤ B) :
@@ -2268,8 +2276,10 @@ theorem s13CapGrid_logqT_L_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ
   have h12 : 12 * Real.log μ ≤ μ := by nlinarith [hΛsq, hs2, hs40, hs0]
   linarith
 
-/-- `s13CapGrid_logTann_lo_LH` at `log h ≤ 9` — SUPPLIER-SWAP (`s13CapGrid_twoj_le_H_LH_b9`,
-`s13CapGrid_Lambda_sharp_LH_b9`).  BODY: the source's, verbatim. -/
+/-- `s13CapGrid_logTann_lo_LH` at `log h ≤ 9` (the former `s13CapGrid_logTann_lo_LH`, at
+`log h ≤ 7`, retired into this, 2026-09-30) — SUPPLIER-SWAP (`s13CapGrid_twoj_le_H_LH_b9`,
+`s13CapGrid_Lambda_sharp_LH_b9`).  BODY: the retired page's, with two lines changed (its note stands
+above, in §3). -/
 theorem s13CapGrid_logTann_lo_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ} {T : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
