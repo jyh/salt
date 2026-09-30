@@ -49,28 +49,28 @@ private lemma vk_lnD_budget {k r : ℕ} {A ℓ : ℝ}
   have hT1 : (k : ℝ) * Real.log (16 * k) ≤ 4 / 10 * A * ℓ := by
     have h1 : (k : ℝ) * Real.log (16 * k) ≤ (11 / 10 * A) * (4 + 28 / 100 * ℓ) := by
       apply mul_le_mul hkR_ub hlog16k _ (by positivity)
-      apply Real.log_nonneg; nlinarith [hkR_lo, hA26]
-    nlinarith [h1, hA0, hℓ100, mul_nonneg hA0.le (show (0 : ℝ) ≤ ℓ by linarith)]
+      apply Real.log_nonneg; linarith only [hA26, hkR_lo]
+    nlinarith only [hkR_ub, hlnk0, hlnk_ub, hℓ100, h1, hA26, hkR_lo, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hk2 : (k : ℝ) ^ 2 ≤ (11 / 10 * A) ^ 2 := by nlinarith [hkR_ub, hkR_lo, hA0]
   have hrk : (r : ℝ) ≤ 6 / 10 * (11 / 10 * A) * ℓ := by
-    apply le_trans hr_ub; nlinarith [hkR_ub, hℓ100]
+    apply le_trans hr_ub; nlinarith only [hkR_ub, hlnk0, hlnk_ub]
   have hkr_lnk : (k : ℝ) ^ 2 * (r : ℝ) * Real.log k
       ≤ (11 / 10 * A) ^ 2 * (6 / 10 * (11 / 10 * A) * ℓ) * (28 / 100 * ℓ) :=
     mul_le_mul (mul_le_mul hk2 hrk hr0R.le (by positivity)) hlnk_ub hlnk0 (by positivity)
   have hT2 : 24 * (k : ℝ) ^ 2 * (r : ℝ) * Real.log k ≤ 6 * A ^ 3 * ℓ ^ 2 := by
-    nlinarith [hkr_lnk, hA0, hℓ0, mul_pos (pow_pos hA0 3) (pow_pos hℓ0 2)]
-  have hA2 : (676 : ℝ) ≤ A ^ 2 := by nlinarith [hA26]
+    linarith only [hkr_lnk, mul_pos (pow_pos hA0 3) (pow_pos hℓ0 2)]
+  have hA2 : (676 : ℝ) ≤ A ^ 2 := by nlinarith only [hkR_ub, hA26, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hAℓ : A * ℓ ≤ A ^ 3 * ℓ ^ 2 := by
-    have h1 : (1 : ℝ) ≤ A ^ 2 * ℓ := by nlinarith [hA2, hℓ100, hℓ0]
-    nlinarith [mul_le_mul_of_nonneg_left h1 (mul_nonneg hA0.le hℓ0.le)]
+    have h1 : (1 : ℝ) ≤ A ^ 2 * ℓ := by nlinarith only [hℓ100, hA2, sq_nonneg A]
+    linarith only [mul_le_mul_of_nonneg_left h1 (mul_nonneg hA0.le hℓ0.le)]
   linarith [hT1, hT2, hAℓ]
 
 /-- `A·ℓ ≤ A³·ℓ²` on the schedule floor `A ≥ 26`, `ℓ ≥ 100` (via `A²ℓ ≥ 1`). -/
 private lemma vk_Aℓ_cube {A ℓ : ℝ} (hA26 : (26 : ℝ) ≤ A) (hℓ100 : (100 : ℝ) ≤ ℓ)
     (hA0 : (0 : ℝ) < A) (hℓ0 : (0 : ℝ) < ℓ) : A * ℓ ≤ A ^ 3 * ℓ ^ 2 := by
-  have hA2 : (676 : ℝ) ≤ A ^ 2 := by nlinarith [hA26]
-  have h1 : (1 : ℝ) ≤ A ^ 2 * ℓ := by nlinarith [hA2, hℓ100, hℓ0]
-  nlinarith [mul_le_mul_of_nonneg_left h1 (mul_nonneg hA0.le hℓ0.le)]
+  have hA2 : (676 : ℝ) ≤ A ^ 2 := by nlinarith only [hA26]
+  have h1 : (1 : ℝ) ≤ A ^ 2 * ℓ := by nlinarith only [hℓ100, hA2, sq_nonneg A]
+  linarith only [mul_le_mul_of_nonneg_left h1 (mul_nonneg hA0.le hℓ0.le)]
 
 /-- The `P^{−ρ} → exp(−Θj)` saving, extracted: with `ρ ≥ 1/(12A²ℓ)`, `log P ≥ j/2`, the width
 `Θ = 1/(1000·A³ℓ²)` obeys `Θ·j ≤ ρ·log P` (the `A²ℓ ≫ 1` slack, `~5·10⁴ℓ³`). -/
@@ -82,10 +82,10 @@ private lemma vk_theta_saving {A ℓ j ρ LP : ℝ} (hA26 : (26 : ℝ) ≤ A) (h
   have hstep2 : (1 / (12 * A ^ 2 * ℓ)) * (j / 2) ≤ ρ * LP :=
     mul_le_mul hρlo hLP (by positivity) hρpos.le
   have hcompare : (1 / 1000 / (A ^ 3 * ℓ ^ 2)) * j ≤ (1 / (12 * A ^ 2 * ℓ)) * (j / 2) := by
-    have hAℓ2600 : (2600 : ℝ) ≤ A * ℓ := by nlinarith [hA26, hℓ100]
+    have hAℓ2600 : (2600 : ℝ) ≤ A * ℓ := by nlinarith only [hA26, hℓ100]
     have hden : 24 * (A ^ 2 * ℓ) ≤ 1000 * (A ^ 3 * ℓ ^ 2) := by
-      nlinarith [mul_nonneg (show (0 : ℝ) ≤ A ^ 2 * ℓ by positivity)
-        (show (0 : ℝ) ≤ 1000 * (A * ℓ) - 24 by linarith [hAℓ2600])]
+      linarith only [mul_nonneg (show (0 : ℝ) ≤ A ^ 2 * ℓ by positivity)
+          (show (0 : ℝ) ≤ 1000 * (A * ℓ) - 24 by linarith [hAℓ2600])]
     have hL : (1 / 1000 / (A ^ 3 * ℓ ^ 2)) * j = j / (1000 * (A ^ 3 * ℓ ^ 2)) := by
       field_simp
     have hR : (1 / (12 * A ^ 2 * ℓ)) * (j / 2) = j / (24 * (A ^ 2 * ℓ)) := by field_simp; ring
@@ -178,19 +178,19 @@ theorem vk_window_mid {t : ℝ} {N k r m : ℕ}
       apply mul_nonneg hk0R.le
       apply Real.log_nonneg
       have : (1 : ℝ) ≤ (k : ℝ) := by linarith [hA26, hkR_lo]
-      nlinarith
+      nlinarith only [hkR_lo, hA26, (Nat.cast_nonneg _ : 0 ≤ ↑k), (Nat.cast_nonneg _ : 0 ≤ ↑k)]
     have h1 : (⌈(k : ℝ) * Real.log (4 * (k : ℝ) ^ 2)⌉₊ : ℝ)
         < (k : ℝ) * Real.log (4 * (k : ℝ) ^ 2) + 1 := Nat.ceil_lt_add_one h0
     have h2 : (k : ℝ) * Real.log (4 * (k : ℝ) ^ 2) ≤ (k : ℝ) * (2 + 56 / 100 * ℓ) :=
       mul_le_mul_of_nonneg_left hlog4k2 hk0R.le
     have h3 : (k : ℝ) * 100 ≤ (k : ℝ) * ℓ := mul_le_mul_of_nonneg_left hℓ100 hk0R.le
-    nlinarith [h1, h2, h3, hk0R]
+    linarith only [h3, h2, h1, hkR_lo, hA26]
   have hr1 : 1 ≤ r := by
     rw [hr, Nat.one_le_ceil_iff]
     apply mul_pos hk0R
     apply Real.log_pos
     have : (1 : ℝ) ≤ (k : ℝ) := by linarith [hA26, hkR_lo]
-    nlinarith
+    nlinarith only [hkR_lo, hA26, (Nat.cast_nonneg _ : 0 ≤ ↑k), (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hr0R : (0 : ℝ) < (r : ℝ) := by exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one hr1
   -- ## Θ in A/ℓ form and the j floor
   have hA3eq : L ^ ((3 : ℝ) / 4) = A ^ 3 := by
@@ -203,7 +203,7 @@ theorem vk_window_mid {t : ℝ} {N k r m : ℕ}
     have h1 := hroute
     rw [hΘval] at h1
     rw [div_mul_eq_mul_div, le_div_iff₀ hD0] at h1
-    nlinarith [Real.log_two_gt_d9, hD0.le, h1]
+    nlinarith only [hl20, hj0, h1, Real.log_two_gt_d9]
   -- ## The m band
   have hLj10 : (10 : ℝ) < L / j := by rw [lt_div_iff₀ hj0]; linarith
   have hm11 : 11 ≤ m := by
@@ -217,19 +217,19 @@ theorem vk_window_mid {t : ℝ} {N k r m : ℕ}
   have hL_A4 : L = A ^ 4 := by
     rw [hAdef, ← Real.rpow_natCast (L ^ ((1 : ℝ) / 4)) 4, ← Real.rpow_mul hL0.le]
     norm_num
-  have hℓ2ge : (10000 : ℝ) ≤ ℓ ^ 2 := by nlinarith [hℓ100]
-  have hA2ge : (676 : ℝ) ≤ A ^ 2 := by nlinarith [hA26]
+  have hℓ2ge : (10000 : ℝ) ≤ ℓ ^ 2 := by nlinarith only [hℓ100]
+  have hA2ge : (676 : ℝ) ≤ A ^ 2 := by nlinarith only [hA26]
   have hLj_ub : L / j ≤ A / 693 := by
     have hstep : L * 693 ≤ A * j := by
       have h1 : A * (693 * (A ^ 3 * ℓ ^ 2)) ≤ A * j := mul_le_mul_of_nonneg_left hjlo hA0.le
       have h2 : A * (693 * (A ^ 3 * ℓ ^ 2)) = 693 * L * ℓ ^ 2 := by rw [hL_A4]; ring
       rw [h2] at h1
-      nlinarith [h1, hℓ2ge, hL0.le]
+      nlinarith only [hL0, hℓ2ge, hA2ge, h1, hL_A4, sq_nonneg A]
     rw [div_le_div_iff₀ hj0 (by norm_num)]
     linarith [hstep]
   have hmA : (m : ℝ) ≤ A / 693 + 1 := le_trans hm_ub.le (by linarith [hLj_ub])
   have hmk : m + 8 ≤ k := by
-    have h1 : (m : ℝ) + 8 ≤ (k : ℝ) := by nlinarith [hmA, hA26, hkR_lo]
+    have h1 : (m : ℝ) + 8 ≤ (k : ℝ) := by linarith only [hLj_ub, hm_ub, hLj10, hkR_lo]
     exact_mod_cast h1
   -- ## The scale window N^{m−1} < t ≤ N^m
   have hNexp : ∀ n : ℕ, (N : ℝ) ^ n = Real.exp ((n : ℝ) * j) := by
@@ -268,25 +268,25 @@ theorem vk_window_mid {t : ℝ} {N k r m : ℕ}
     rw [← hjdef]
     have hle : ((m : ℝ) + 2) / ((k : ℝ) + 1) ≤ 654 / 1000 := by
       rw [div_le_iff₀ hk1R]
-      nlinarith [hmA, hkR_lo, hA26]
+      linarith only [hLj_ub, hm_ub, hLj10, hkR_lo]
     have hβj : (346 / 1000) * j ≤ (1 - ((m : ℝ) + 2) / ((k : ℝ) + 1)) * j := by
       apply mul_le_mul_of_nonneg_right _ hj0.le
       linarith [hle]
     have hfloor : 52 * A ^ 3 * ℓ ^ 2 ≤ (346 / 1000) * j := by
       have h : (346 / 1000) * (693 * (A ^ 3 * ℓ ^ 2)) ≤ (346 / 1000) * j :=
         mul_le_mul_of_nonneg_left hjlo (by norm_num)
-      nlinarith [h, hD0.le]
+      linarith only [hjlo, hD0]
     linarith only [hlnD_ub, hfloor, hβj]
   -- ## The `j`-floor for `vk_window_scale`
   have hjf : 2 * ((k : ℝ) + 1) * Real.log 2 + 4 * Real.log k + 8 ≤ Real.log N := by
     rw [← hjdef]
     have hkℓ : 2 * ((k : ℝ) + 1) + 4 * (28 / 100) * ℓ + 8 ≤ (346 / 1000) * j := by
       have hbig : A * ℓ ≤ A ^ 3 * ℓ ^ 2 := vk_Aℓ_cube hA26 hℓ100 hA0 hℓ0
-      have hjge : 693 * (A * ℓ) ≤ j := le_trans (by nlinarith [hbig, hD0.le]) hjlo
-      nlinarith [hjge, hkR_ub, hA0, hℓ100, hA26]
+      have hjge : 693 * (A * ℓ) ≤ j := le_trans (by linarith only [hbig]) hjlo
+      nlinarith only [hℓ100, hA26, hbig, hjlo, hkR_ub]
     have h1 : 2 * ((k : ℝ) + 1) * Real.log 2 ≤ 2 * ((k : ℝ) + 1) := by nlinarith [hl21, hk0R]
     have h2 : 4 * Real.log k ≤ 4 * (28 / 100) * ℓ := by linarith [hlnk_ub]
-    have hj346 : (346 / 1000) * j ≤ j := by nlinarith [hj0]
+    have hj346 : (346 / 1000) * j ≤ j := by linarith only [hkℓ, hLj_ub, hLj10, hkR_lo, hℓ100]
     linarith only [h1, h2, hkℓ, hj346]
   -- ## Fold `P^{−ρ}` into `exp(−Θ·j)`:  ρ·log P ≥ Θ·j
   have hlPlo : (1 - ((m : ℝ) + 2) / ((k : ℝ) + 1)) * Real.log N ≤ Real.log P :=
@@ -295,19 +295,19 @@ theorem vk_window_mid {t : ℝ} {N k r m : ℕ}
   have hlP_half : j / 2 ≤ Real.log P := by
     have hβle : (1 : ℝ) / 2 ≤ 1 - ((m : ℝ) + 2) / ((k : ℝ) + 1) := by
       have hle : ((m : ℝ) + 2) / ((k : ℝ) + 1) ≤ 1 / 2 := by
-        rw [div_le_iff₀ hk1R]; nlinarith [hmA, hkR_lo, hA26]
+        rw [div_le_iff₀ hk1R]; linarith only [hLj_ub, hm_ub, hLj10, hkR_lo]
       linarith [hle]
     have hstep : (1 : ℝ) / 2 * Real.log N ≤ Real.log P :=
       le_trans (mul_le_mul_of_nonneg_right hβle hlogN0) hlPlo
     rw [hjdef]; linarith only [hstep]
   have hρpos : (0 : ℝ) < ρ := by rw [hρdef]; positivity
   have hr_ub2 : (16 * (k : ℝ) * r) ≤ 16 * (11 / 10 * A) * (6 / 10 * (11 / 10 * A) * ℓ) := by
-    apply mul_le_mul (by nlinarith [hkR_ub, hA0]) _ hr0R.le (by positivity)
-    apply le_trans hr_ub; nlinarith [hkR_ub, hℓ100]
+    apply mul_le_mul (by linarith only [hkR_ub]) _ hr0R.le (by positivity)
+    apply le_trans hr_ub; nlinarith only [hℓ100, hkR_ub]
   have h16kr : (0 : ℝ) < 16 * (k : ℝ) * r := mul_pos (mul_pos (by norm_num) hk0R) hr0R
   have hρlo : 1 / (12 * A ^ 2 * ℓ) ≤ ρ := by
     rw [hρdef, div_le_div_iff₀ (by positivity) h16kr]
-    nlinarith [hr_ub2, hA0, hℓ0]
+    linarith only [h16kr, hr_ub2]
   have hΘlogN : vkTheta t * j ≤ ρ * Real.log P := by
     rw [hΘval]
     exact vk_theta_saving hA26 hℓ100 hj0 hρpos hρlo hlP_half
