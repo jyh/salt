@@ -6417,7 +6417,7 @@ three days and was carried into a council as an open item before measurement kil
    OPENS ONLY AFTER arXiv:2609.11076 v2 POSTS (saltbench PR #263 waits on his click); until then NOTHING MOVES IN A LANDED
    FILE" from 09-25 to 09-26 — a hardening of the minute's "after the paper's version posts" that the desk row's author did
    not mean; kept as its own dated record; the ruling is in the 2026-09-26 council minute, the fleet's private record, blob 1ef4f162db9a §1.)* A tactic rewrite still
-   lands as a `_tac` sibling. **PULL
+   lands as a `_tac` sibling. ⚖️ *(2026-09-29, helm under the delegation, on math's ask: that `_tac` sentence is the OLDER form. For a TOOL-VERIFIED REPLAY conversion — `explog_num` or `nlinarith?`, each site replaced by the replay the tool printed and verified, proof bodies only, every statement token-identical, line-neutral, the kernel pair, axioms with a planted-`sorry` control, two non-author refuters with pre-registered criteria — the IN-PLACE form is the standing one, merged on green; a wave outside that form goes to the helm. First waves: salt #229, #231.)* **PULL
    RULE, once open:** worker tier at P3, one family per pull, the family with the smallest import cone first; each wave is a
    freeze first (the generic statement, the members it retires, their consumers, how a retired name is handled) with a
    non-author read; the PR carries before/after line counts, every consumer's receipt line, and the retired names; a STATEMENT
