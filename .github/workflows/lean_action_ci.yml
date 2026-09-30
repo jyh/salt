@@ -152,7 +152,24 @@ jobs:
           #   insulation where a failure is most expensive; drop it where it destroys
           #   the cap. `use-github-cache` gates BOTH the restore and the save in
           #   lean-action's action.yml (its only two uses of the input).
-          use-github-cache: ${{ github.ref == 'refs/heads/main' }}
+          # ⛔ AND ON main IT WAS UNDOING THE SEED (council 2026-09-29, ruling 3). lean-action
+          #   restores its `.lake` entry INSIDE this step, AFTER the salt restore above, and
+          #   that entry contains a `.lake/build` from main's last green sha — so it
+          #   overwrote a NEWER seed with an OLDER build. Measured in run 36434984641: the
+          #   seed restored at 14:23:35Z, lean-action's 72be91ba entry at 14:25:53Z, and
+          #   701 modules then rebuilt. So `seed_cache.yml` could never warm a main run, and
+          #   every main run after a large train ran cold (2 h 20 m – 3 h 20 m; one was
+          #   cancelled at the cap on 09-28). The order cannot be fixed from outside,
+          #   because lean-action restores and builds in the one step.
+          #   ⇒ OFF EVERYWHERE, main included. ⚠️ AND THE "INSULATION" ABOVE WAS NEVER REAL
+          #   (non-author read of PR #232, measured): in run 36434984641 lean-action had just
+          #   restored a 3,515,962,394 B `.lake` and `lake exe cache get` STILL printed
+          #   "Attempting to download 8564 file(s)" and fetched every one of them. mathlib's
+          #   Cache keeps the files it lacks in ~/.cache/mathlib (Cache/IO.lean), which is
+          #   outside `.lake`, and a failed download exits 1 (Cache/Requests.lean). So a CDN
+          #   outage turned main red with or without this cache, and dropping it costs
+          #   nothing but its storage: ~3.5 GB per main sha, leaving the ~1.0 GB salt entry.
+          use-github-cache: false
       # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
       # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
       # the lint's phase-1/phase-3 `lake env lean` invocations elaborate a tiny
@@ -193,7 +210,9 @@ jobs:
   # Council 2026-09-01, ruling 5. PR #14 stopped PRs from WRITING to the 10 GiB
   # cache cap; it does nothing about main's own history, and main writes ~4.3 GB
   # per sha across the two cache families (lean-action's `.lake` ~3.38 GB plus
-  # this workflow's `.lake/build` ~0.91 GB). Measured 20:3xZ that day, minutes
+  # this workflow's `.lake/build` ~0.91 GB). (Since PR #232 lean-action's family is
+  # no longer written, so main writes one `.lake/build` entry, ~1.0 GB, per sha.
+  # The rule is unchanged and deletes the old family's last entries.) Measured 20:3xZ that day, minutes
   # after #14 merged: two main shas + one pre-#14 PR entry = 9,509,119,693 B,
   # 88.6% of the cap. ⇒ THE CAP HOLDS TWO MAIN SHAS. Without this job the third
   # merge evicts, GitHub picks the victim, and the 2026-09-01 fixed point
