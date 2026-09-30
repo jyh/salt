@@ -9367,8 +9367,10 @@ seven, their rows dropped, which leaves three more names without a caller: the s
 `s13_abs8640_at_base_LH` and `s13CapGrid_logTann_lo_LH`, which have a cap-9 twin, and the numeric
 sibling `capeps_Pbig_h`, which has none; 2026-09-30: family 26 retired the two that have a `_b9`
 twin, their rows dropped, which leaves two more names without a caller: the siblings
-`s13_abs8640_of_socketBase_LH` and `s13CapGrid_twoj_le_H_LH`, which have a `_b9` twin): every landed
-numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
+`s13_abs8640_of_socketBase_LH` and `s13CapGrid_twoj_le_H_LH`, which have a `_b9` twin; 2026-09-30:
+family 27 retired those two, their rows dropped, which leaves no name audited here that has a `_b9`
+twin without a caller): every landed numeric stone the `h` lane outgrows has a SIBLING here with a
+wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
 `s13CapGrid_all_L_gk` derive `hbb : SocketBase` from their `SocketBaseL` binder and
@@ -9448,8 +9450,6 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.S16CofactorSupply_LH_gk
   Salt.MR.s16BaseScaleCap96LH_gk_one_iff
   Salt.MR.s16CofactorSupplyLH_gk_one_iff
-  Salt.MR.s13_abs8640_of_socketBase_LH
-  Salt.MR.s13CapGrid_twoj_le_H_LH
   Salt.MR.s13CapGrid_mu_lo_LH
   Salt.MR.s13CapGrid_mu_2000_LH
   Salt.MR.s13CapGrid_logH_le_mu_LH
@@ -10152,8 +10152,9 @@ cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2 twins and moved its 
 file's foot; 2026-09-29: family 22 re-pointed that file's cap-gate assembler to two F2 twins and
 three F3 twins; 2026-09-29: family 23 retired eight siblings of that file into F2 and F3 twins;
 2026-09-29: family 24 twelve more, one of them into a twin here; 2026-09-30: family 25 seven more,
-one of them into a twin here; 2026-09-30: family 26 two more, both into F2 twins).  Each twin is its
-source's statement and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`,
+one of them into a twin here; 2026-09-30: family 26 two more, both into F2 twins; 2026-09-30:
+family 27 two more, one into a twin here and one into an F2 twin).  Each twin is its source's
+statement and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`,
 `1096 ↦ 8103`, the census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row —
 every derived cap-dependent supplier replaced by its twin, and no hypothesis added.  The MR
 converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`, sharp); four sibling mints differ from their
@@ -10289,16 +10290,17 @@ assembler of `S16ComposeLH` to two twins here; 2026-09-28: family 20 the §8 cap
 family 22 that file's cap-gate assembler to two twins here, by three of its calls; 2026-09-29:
 family 23 retired the sources of five twins here into them; 2026-09-29: family 24 the sources of
 seven more; 2026-09-30: family 25 the sources of five more; 2026-09-30: family 26 the sources of two
-more).  Each twin is its source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9`
-(signatures byte-diffed against their sources) — every derived supplier replaced by its W1 E2 / F1
-twin (`capfloor_core_LH_b9`, `s13CapGrid_mu_lo_LH_b9`, `capfloor_logq_le_LH_b9`, the `S16ProducersH`
-socket chain) or by the landed `capeps_row_phi_h_14` / `capeps_row_tail_h_14` through `≤ 9 ⇒ ≤ 14`,
-and no hypothesis added.  Named numerals: `capfloor_floor1_LH_b9` through `capfloor_lam_core_h_232`,
-`capfloor_floor3_LH_b9` through `capfloor_floor3_numeric_h_10` (`hW`'s `+8 ↦ +10`),
-`s13CapEps_EP2_gate_LH_b9` through `capeps_row_p2_h_b9`.  ONE re-derivation,
-`s13CapGrid_q_logX_LH_b9`: `log H ≤ √H/3` (`capfloor_logH_le_third_sqrt`), `3^12 = 531441 ≥ 8103`,
-the step `8103·(x/531441) ≤ x`; its conclusion `q ≤ μ^12` is unchanged.  Nothing here bears on twin
-primes.  26 obligations, 26 landed. -/
+more; 2026-09-30: family 27 the source of one more).  Each twin is its source's statement and body
+with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
+every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
+`s13CapGrid_mu_lo_LH_b9`, `capfloor_logq_le_LH_b9`, the `S16ProducersH` socket chain) or by the
+landed `capeps_row_phi_h_14` / `capeps_row_tail_h_14` through `≤ 9 ⇒ ≤ 14`, and no hypothesis added.
+Named numerals: `capfloor_floor1_LH_b9` through `capfloor_lam_core_h_232`, `capfloor_floor3_LH_b9`
+through `capfloor_floor3_numeric_h_10` (`hW`'s `+8 ↦ +10`), `s13CapEps_EP2_gate_LH_b9` through
+`capeps_row_p2_h_b9`.  ONE re-derivation, `s13CapGrid_q_logX_LH_b9`: `log H ≤ √H/3`
+(`capfloor_logH_le_third_sqrt`), `3^12 = 531441 ≥ 8103`, the step `8103·(x/531441) ≤ x`; its
+conclusion `q ≤ μ^12` is unchanged.  Nothing here bears on twin primes.  26 obligations,
+26 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s13_abs8640_of_socketBase_LH_b9
   Salt.MR.s13_abs8640_at_base_LH_b9
