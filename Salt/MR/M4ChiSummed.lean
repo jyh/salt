@@ -426,13 +426,13 @@ theorem m4_chiSummedShiftBlock_trivial (R : ChowlaRegime) (M : ℕ) :
       intro n _
       have h := norm_sum_doorSievedWindow_le χ M (2 ^ j) n
       have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
-      nlinarith
+      nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ j))]
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
     have hcast : ((B + s - (A + s) : ℕ) : ℝ) ≤ (A : ℝ) := by
       have hnat : B + s - (A + s) ≤ A := by omega
       exact_mod_cast hnat
-    nlinarith
+    nlinarith only [hcast, sq_nonneg ↑(2 ^ j)]
   have hsum := Finset.sum_le_sum hper
   rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, card_dirichletCharacter_nat q] at hsum
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -441,7 +441,7 @@ theorem m4_chiSummedShiftBlock_trivial (R : ChowlaRegime) (M : ℕ) :
       ≤ arcDen 12 H * ((A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
     refine mul_le_mul_of_nonneg_right hφarc ?_
     positivity
-  nlinarith [hsum, hmid, mul_nonneg harc0 hP0]
+  linarith only [hmid, hsum, mul_nonneg harc0 hP0]
 
 /-- **⟦S-2a⟧ THE SHIFTED BRIDGE, MIRRORED** (`m4_chiSummedShiftBlock_of_freeRow`) — the
 χ-summed socket becomes the χ-summed shifted block datum at the grade `2·RS`.
@@ -508,7 +508,7 @@ theorem m4_chiSummedShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {RS : ℕ
       ≤ arcDen 12 H * (8 * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
     refine mul_le_mul_of_nonneg_right hφarc ?_
     positivity
-  nlinarith [h1, h2]
+  linarith only [h2, h1]
 
 /-! ## §3 — THE MAXIMAL STEP, MIRRORED
 
@@ -557,7 +557,7 @@ theorem m4_chiSummedBlockN_trivial (R : ChowlaRegime) (M : ℕ) :
       intro n _
       have h := doorChiSup_le_len χ M L n
       have h0 := doorChiSup_nonneg χ M L n
-      nlinarith
+      nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑L)]
     have hsum : ∑ n ∈ Finset.Ioc A B, (doorChiSup χ M L n) ^ 2
         ≤ ((Finset.Ioc A B).card : ℝ) * (L : ℝ) ^ 2 := by
       calc ∑ n ∈ Finset.Ioc A B, (doorChiSup χ M L n) ^ 2
@@ -569,7 +569,7 @@ theorem m4_chiSummedBlockN_trivial (R : ChowlaRegime) (M : ℕ) :
       have hn : B - A ≤ 5 * A := by omega
       exact_mod_cast hn
     have hL2 : (0 : ℝ) ≤ (L : ℝ) ^ 2 := sq_nonneg _
-    nlinarith
+    nlinarith only [hc, hsum, sq_nonneg ↑L]
   have hsum := Finset.sum_le_sum hper
   rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, card_dirichletCharacter_nat q] at hsum
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -578,7 +578,7 @@ theorem m4_chiSummedBlockN_trivial (R : ChowlaRegime) (M : ℕ) :
       ≤ arcDen 12 H * (5 * (L : ℝ) ^ 2 * (A : ℝ)) := by
     refine mul_le_mul_of_nonneg_right hφarc ?_
     positivity
-  nlinarith [hsum, hmid]
+  linarith only [hmid, hsum]
 
 set_option maxHeartbeats 3200000 in
 -- the dyadic assembly is `M4CoprimeSupply`'s at a free block with ONE further summation
@@ -741,7 +741,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
       (h2jL j hjLg) hAsq hAx hAcap (by omega) hfit
     have hFle := han j H hj₀
     have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
-    nlinarith [mul_nonneg hP0 hA0R]
+    nlinarith only [hFle, hd, mul_nonneg hP0 hA0R, sq_nonneg ↑(2 ^ j)]
   -- ⟦the trivial half: the ABSOLUTE grade `1`, φ(q) times⟧
   have hjtS : ∀ j t : ℕ, ∑ n ∈ Finset.Ioc A B, Y j t n
       ≤ arcDen 12 H * (A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
@@ -758,14 +758,14 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
         intro n _
         have h := norm_sum_doorSievedWindow_le χ M (2 ^ j) n
         have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
-        nlinarith
+        nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ j))]
       refine le_trans (Finset.sum_le_sum hterm) ?_
       rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
       have hcast : ((B + 2 ^ (j + 1) * t - (A + 2 ^ (j + 1) * t) : ℕ) : ℝ) ≤ (A : ℝ) := by
         have hnat : B + 2 ^ (j + 1) * t - (A + 2 ^ (j + 1) * t) ≤ A := by omega
         exact_mod_cast hnat
       have h2j : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by positivity
-      nlinarith
+      nlinarith only [hcast, sq_nonneg ↑(2 ^ j)]
     have hsum := Finset.sum_le_sum hper
     rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, card_dirichletCharacter_nat q] at hsum
     have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -775,7 +775,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
         ≤ arcDen 12 H * ((A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
       refine mul_le_mul_of_nonneg_right hφarc ?_
       positivity
-    nlinarith [hsum, hmid]
+    linarith only [hmid, hsum]
   -- ⟦STEP 3⟧ the per-scale count × weight
   set W : ℕ → ℝ := fun j =>
     (((L / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
@@ -831,7 +831,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
       _ = (arcDen 12 H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
   -- ⟦STEP 4⟧ THE SPLIT
   have hCan0 : (0 : ℝ) ≤ Fan H * (A : ℝ) + (2 * Fan H + 8 * arcDen 12 H) := by
-    have := hFan0 H; nlinarith
+    have := hFan0 H; nlinarith only [this, harc1, (Nat.cast_nonneg _ : 0 ≤ ↑A)]
   have harcA0 : (0 : ℝ) ≤ arcDen 12 H * (A : ℝ) := by positivity
   have hlarge : ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => j₀ ≤ j),
         (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, Y j t n)
@@ -901,7 +901,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
       have h1 : 2 * arcDen 12 H * (H : ℝ)
           ≤ 2 * arcDen 12 H * (arcDen 12 H ^ 3 * (L : ℝ)) :=
         mul_le_mul_of_nonneg_left hnar (by positivity)
-      nlinarith [h1]
+      linarith only [h1]
     have hle47 : arcDen 12 H ^ 4 ≤ arcDen 12 H ^ 7 := by
       calc arcDen 12 H ^ 4 = arcDen 12 H ^ 4 * 1 := by ring
         _ ≤ arcDen 12 H ^ 4 * arcDen 12 H ^ 3 :=
@@ -914,7 +914,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
   have hFtrL2 : arcDen 12 H * (H : ℝ) ^ 2 ≤ Ftr H * (L : ℝ) ^ 2 := by
     have hsq : (H : ℝ) ^ 2 ≤ (arcDen 12 H ^ 3 * (L : ℝ)) ^ 2 := by nlinarith [hnar, hH0R.le]
     have hstep : arcDen 12 H * (H : ℝ) ^ 2 ≤ arcDen 12 H ^ 7 * (L : ℝ) ^ 2 := by
-      nlinarith [mul_le_mul_of_nonneg_left hsq harc0.le]
+      linarith only [mul_le_mul_of_nonneg_left hsq harc0.le]
     have hstep2 : arcDen 12 H ^ 7 * (L : ℝ) ^ 2 ≤ Ftr H * (L : ℝ) ^ 2 := by
       nlinarith [mul_le_mul_of_nonneg_right hG1H (sq_nonneg ((L : ℝ)))]
     linarith
@@ -928,14 +928,14 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
             * (H : ℝ) := by
       have h := mul_le_mul_of_nonneg_left hglg
         (by positivity : (0 : ℝ) ≤ arcDen 12 H * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ)))
-      nlinarith [h, hH0R.le]
+      nlinarith only [h, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
     have hmain : arcDen 12 H * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ (Nat.log 2 H))
           * (H : ℝ)
         ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀ * Ftr H * (L : ℝ) ^ 2 := by
       have h := mul_le_mul_of_nonneg_left hFtrL
         (by positivity : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀
           * (L : ℝ))
-      nlinarith [h]
+      linarith only [h]
     linarith
   have hres : 54 / 5 * (2 * Fan H + 8 * arcDen 12 H) * (L : ℝ) ^ 2
         + arcDen 12 H * (A : ℝ) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀)
@@ -947,15 +947,15 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
       have h1 : 54 / 5 * (2 * Fan H + 8 * arcDen 12 H) * (L : ℝ) ^ 2
           ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) ^ 2 := by
         have := mul_le_mul_of_nonneg_right hg2 (sq_nonneg ((L : ℝ)))
-        nlinarith [this]
-      nlinarith [mul_le_mul_of_nonneg_left hL2A
-        (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ))]
+        linarith only [this]
+      linarith only [h1, mul_le_mul_of_nonneg_left hL2A
+          (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ))]
     have hgl : (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (2 * (A : ℝ))
         ≤ (2 / 9) * ((A : ℝ)
             * (arcDen 12 H * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ Lg))) := by
       have hbig : (1 : ℝ) ≤ arcDen 12 H * (3 / 2 : ℝ) ^ Lg := by nlinarith
-      nlinarith [mul_le_mul_of_nonneg_left hbig
-        (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (A : ℝ))]
+      linarith only [mul_le_mul_of_nonneg_left hbig
+          (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (A : ℝ))]
     have hbud := mul_le_mul_of_nonneg_left hEkey hA0R
     nlinarith [hstep, hgl, hbud]
   -- ⟦the second budget line⟧
@@ -970,7 +970,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
               * (arcDen 12 H * (H : ℝ) ^ 2) := by
         have h := mul_le_mul_of_nonneg_left hglg
           (by positivity : (0 : ℝ) ≤ 9 / 5 * (8 / 3 : ℝ) ^ j₀ * arcDen 12 H * (H : ℝ) ^ 2)
-        nlinarith [h]
+        linarith only [h]
       have h2 : 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀
             * (arcDen 12 H * (H : ℝ) ^ 2)
           ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (Ftr H * (L : ℝ) ^ 2) :=
@@ -986,7 +986,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
         field_simp
       rw [hrw, le_div_iff₀ hH2]
       linarith [hkey]
-    nlinarith [mul_le_mul_of_nonneg_left hdiv hA0R]
+    linarith only [mul_le_mul_of_nonneg_left hdiv hA0R]
   have hfinal : (Fan H * (A : ℝ) + (2 * Fan H + 8 * arcDen 12 H)) * (54 / 5 * (L : ℝ) ^ 2)
         + (arcDen 12 H * (A : ℝ)) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀
           + 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀)
@@ -1000,7 +1000,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
       unfold m4BclGraded m4Cmax
       ring
     rw [hexp]
-    nlinarith [hres, hres2]
+    linarith only [hres2, hres]
   calc ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup χ M L n) ^ 2
       ≤ SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
@@ -1269,13 +1269,13 @@ theorem m4_chiSummedShiftBlock_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ)
       intro n _
       have h := norm_sum_doorSievedWindow_le_gk K χ M (2 ^ j) n
       have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
-      nlinarith
+      nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ j))]
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
     have hcast : ((B + s - (A + s) : ℕ) : ℝ) ≤ (A : ℝ) := by
       have hnat : B + s - (A + s) ≤ A := by omega
       exact_mod_cast hnat
-    nlinarith
+    nlinarith only [hcast, sq_nonneg ↑(2 ^ j)]
   have hsum := Finset.sum_le_sum hper
   rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, card_dirichletCharacter_nat q] at hsum
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -1284,7 +1284,7 @@ theorem m4_chiSummedShiftBlock_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ)
       ≤ arcDen 12 H * ((A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
     refine mul_le_mul_of_nonneg_right hφarc ?_
     positivity
-  nlinarith [hsum, hmid, mul_nonneg harc0 hP0]
+  linarith only [hmid, hsum, mul_nonneg harc0 hP0]
 
 /-- `m4_chiSummedShiftBlock_of_freeRow` (:454), at the lever. -/
 theorem m4_chiSummedShiftBlock_of_freeRow_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {RS : ℕ → ℕ → ℝ}
@@ -1344,7 +1344,7 @@ theorem m4_chiSummedShiftBlock_of_freeRow_gk (K : ℕ) {R : ChowlaRegime} {M : �
       ≤ arcDen 12 H * (8 * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
     refine mul_le_mul_of_nonneg_right hφarc ?_
     positivity
-  nlinarith [h1, h2]
+  linarith only [h2, h1]
 
 /-- `M4ChiSummedBlockMeanSqN` (:535), at the lever. -/
 def M4ChiSummedBlockMeanSqN_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
@@ -1371,7 +1371,7 @@ theorem m4_chiSummedBlockN_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
       intro n _
       have h := doorChiSup_le_len_gk K χ M L n
       have h0 := doorChiSup_nonneg_gk K χ M L n
-      nlinarith
+      nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑L)]
     have hsum : ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
         ≤ ((Finset.Ioc A B).card : ℝ) * (L : ℝ) ^ 2 := by
       calc ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
@@ -1383,7 +1383,7 @@ theorem m4_chiSummedBlockN_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
       have hn : B - A ≤ 5 * A := by omega
       exact_mod_cast hn
     have hL2 : (0 : ℝ) ≤ (L : ℝ) ^ 2 := sq_nonneg _
-    nlinarith
+    nlinarith only [hc, hsum, sq_nonneg ↑L]
   have hsum := Finset.sum_le_sum hper
   rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, card_dirichletCharacter_nat q] at hsum
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -1392,7 +1392,7 @@ theorem m4_chiSummedBlockN_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
       ≤ arcDen 12 H * (5 * (L : ℝ) ^ 2 * (A : ℝ)) := by
     refine mul_le_mul_of_nonneg_right hφarc ?_
     positivity
-  nlinarith [hsum, hmid]
+  linarith only [hmid, hsum]
 
 set_option maxHeartbeats 3200000 in
 -- the dyadic assembly is `M4CoprimeSupply`'s at a free block with ONE further summation
@@ -1540,7 +1540,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
       (h2jL j hjLg) hAsq hAx hAcap (by omega) hfit
     have hFle := han j H hj₀
     have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
-    nlinarith [mul_nonneg hP0 hA0R]
+    nlinarith only [hFle, hd, mul_nonneg hP0 hA0R, sq_nonneg ↑(2 ^ j)]
   -- ⟦the trivial half: the ABSOLUTE grade `1`, φ(q) times⟧
   have hjtS : ∀ j t : ℕ, ∑ n ∈ Finset.Ioc A B, Y j t n
       ≤ arcDen 12 H * (A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
@@ -1557,14 +1557,14 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
         intro n _
         have h := norm_sum_doorSievedWindow_le_gk K χ M (2 ^ j) n
         have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
-        nlinarith
+        nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ j))]
       refine le_trans (Finset.sum_le_sum hterm) ?_
       rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
       have hcast : ((B + 2 ^ (j + 1) * t - (A + 2 ^ (j + 1) * t) : ℕ) : ℝ) ≤ (A : ℝ) := by
         have hnat : B + 2 ^ (j + 1) * t - (A + 2 ^ (j + 1) * t) ≤ A := by omega
         exact_mod_cast hnat
       have h2j : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by positivity
-      nlinarith
+      nlinarith only [hcast, sq_nonneg ↑(2 ^ j)]
     have hsum := Finset.sum_le_sum hper
     rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, card_dirichletCharacter_nat q] at hsum
     have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -1574,7 +1574,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
         ≤ arcDen 12 H * ((A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
       refine mul_le_mul_of_nonneg_right hφarc ?_
       positivity
-    nlinarith [hsum, hmid]
+    linarith only [hmid, hsum]
   -- ⟦STEP 3⟧ the per-scale count × weight
   set W : ℕ → ℝ := fun j =>
     (((L / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
@@ -1630,7 +1630,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
       _ = (arcDen 12 H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
   -- ⟦STEP 4⟧ THE SPLIT
   have hCan0 : (0 : ℝ) ≤ Fan H * (A : ℝ) + (2 * Fan H + 8 * arcDen 12 H) := by
-    have := hFan0 H; nlinarith
+    have := hFan0 H; nlinarith only [this, harc1, (Nat.cast_nonneg _ : 0 ≤ ↑A)]
   have harcA0 : (0 : ℝ) ≤ arcDen 12 H * (A : ℝ) := by positivity
   have hlarge : ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => j₀ ≤ j),
         (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, Y j t n)
@@ -1700,7 +1700,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
       have h1 : 2 * arcDen 12 H * (H : ℝ)
           ≤ 2 * arcDen 12 H * (arcDen 12 H ^ 3 * (L : ℝ)) :=
         mul_le_mul_of_nonneg_left hnar (by positivity)
-      nlinarith [h1]
+      linarith only [h1]
     have hle47 : arcDen 12 H ^ 4 ≤ arcDen 12 H ^ 7 := by
       calc arcDen 12 H ^ 4 = arcDen 12 H ^ 4 * 1 := by ring
         _ ≤ arcDen 12 H ^ 4 * arcDen 12 H ^ 3 :=
@@ -1713,7 +1713,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
   have hFtrL2 : arcDen 12 H * (H : ℝ) ^ 2 ≤ Ftr H * (L : ℝ) ^ 2 := by
     have hsq : (H : ℝ) ^ 2 ≤ (arcDen 12 H ^ 3 * (L : ℝ)) ^ 2 := by nlinarith [hnar, hH0R.le]
     have hstep : arcDen 12 H * (H : ℝ) ^ 2 ≤ arcDen 12 H ^ 7 * (L : ℝ) ^ 2 := by
-      nlinarith [mul_le_mul_of_nonneg_left hsq harc0.le]
+      linarith only [mul_le_mul_of_nonneg_left hsq harc0.le]
     have hstep2 : arcDen 12 H ^ 7 * (L : ℝ) ^ 2 ≤ Ftr H * (L : ℝ) ^ 2 := by
       nlinarith [mul_le_mul_of_nonneg_right hG1H (sq_nonneg ((L : ℝ)))]
     linarith
@@ -1727,14 +1727,14 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
             * (H : ℝ) := by
       have h := mul_le_mul_of_nonneg_left hglg
         (by positivity : (0 : ℝ) ≤ arcDen 12 H * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ)))
-      nlinarith [h, hH0R.le]
+      nlinarith only [h, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
     have hmain : arcDen 12 H * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ (Nat.log 2 H))
           * (H : ℝ)
         ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀ * Ftr H * (L : ℝ) ^ 2 := by
       have h := mul_le_mul_of_nonneg_left hFtrL
         (by positivity : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀
           * (L : ℝ))
-      nlinarith [h]
+      linarith only [h]
     linarith
   have hres : 54 / 5 * (2 * Fan H + 8 * arcDen 12 H) * (L : ℝ) ^ 2
         + arcDen 12 H * (A : ℝ) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀)
@@ -1746,15 +1746,15 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
       have h1 : 54 / 5 * (2 * Fan H + 8 * arcDen 12 H) * (L : ℝ) ^ 2
           ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) ^ 2 := by
         have := mul_le_mul_of_nonneg_right hg2 (sq_nonneg ((L : ℝ)))
-        nlinarith [this]
-      nlinarith [mul_le_mul_of_nonneg_left hL2A
-        (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ))]
+        linarith only [this]
+      linarith only [h1, mul_le_mul_of_nonneg_left hL2A
+          (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ))]
     have hgl : (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (2 * (A : ℝ))
         ≤ (2 / 9) * ((A : ℝ)
             * (arcDen 12 H * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ Lg))) := by
       have hbig : (1 : ℝ) ≤ arcDen 12 H * (3 / 2 : ℝ) ^ Lg := by nlinarith
-      nlinarith [mul_le_mul_of_nonneg_left hbig
-        (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (A : ℝ))]
+      linarith only [mul_le_mul_of_nonneg_left hbig
+          (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (A : ℝ))]
     have hbud := mul_le_mul_of_nonneg_left hEkey hA0R
     nlinarith [hstep, hgl, hbud]
   -- ⟦the second budget line⟧
@@ -1769,7 +1769,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
               * (arcDen 12 H * (H : ℝ) ^ 2) := by
         have h := mul_le_mul_of_nonneg_left hglg
           (by positivity : (0 : ℝ) ≤ 9 / 5 * (8 / 3 : ℝ) ^ j₀ * arcDen 12 H * (H : ℝ) ^ 2)
-        nlinarith [h]
+        linarith only [h]
       have h2 : 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀
             * (arcDen 12 H * (H : ℝ) ^ 2)
           ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (Ftr H * (L : ℝ) ^ 2) :=
@@ -1785,7 +1785,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
         field_simp
       rw [hrw, le_div_iff₀ hH2]
       linarith [hkey]
-    nlinarith [mul_le_mul_of_nonneg_left hdiv hA0R]
+    linarith only [mul_le_mul_of_nonneg_left hdiv hA0R]
   have hfinal : (Fan H * (A : ℝ) + (2 * Fan H + 8 * arcDen 12 H)) * (54 / 5 * (L : ℝ) ^ 2)
         + (arcDen 12 H * (A : ℝ)) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀
           + 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀)
@@ -1799,7 +1799,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
       unfold m4BclGraded m4Cmax
       ring
     rw [hexp]
-    nlinarith [hres, hres2]
+    linarith only [hres2, hres]
   calc ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
       ≤ SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
