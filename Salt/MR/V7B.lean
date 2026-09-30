@@ -73,9 +73,9 @@ theorem cs_floor_of_leaves {c_vk c₀ : ℝ} (h8 : 1 / 10 ^ 8 ≤ c_vk) (h9 : 1 
   have hK : (0 : ℝ) < 2 * K₄ := by rw [K₄]; positivity
   have hC : (0 : ℝ) < 2 * Cκ := by rw [Cκ]; positivity
   have h1 : (1 / 10 ^ 8 : ℝ) / (2 * K₄) ≤ c_vk / (2 * K₄) := by
-    rw [div_le_div_iff₀ hK hK]; nlinarith
+    rw [div_le_div_iff₀ hK hK]; nlinarith only [h8, hK]
   have h2 : (1 / 10 ^ 9 : ℝ) / (2 * Cκ) ≤ c₀ / (2 * Cκ) := by
-    rw [div_le_div_iff₀ hC hC]; nlinarith
+    rw [div_le_div_iff₀ hC hC]; nlinarith only [h9, hC]
   exact le_trans cs_closed_form_ge_exp_neg_hundred (min_le_min (min_le_min h1 h2) le_rfl)
 
 end Salt.MR
@@ -178,7 +178,7 @@ theorem per_pair_contour_floored :
       _ ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) := by
           apply mul_le_mul_of_nonneg_right hLT34ge (by positivity)
   have hwle : w ≤ 1 / 2 := by
-    rw [hwdef, div_le_div_iff₀ hD3pos (by norm_num)]; nlinarith [hD3gecvk, hc_vk0]
+    rw [hwdef, div_le_div_iff₀ hD3pos (by norm_num)]; linarith only [hD3gecvk]
   set σ₀ : ℝ := 1 - w with hσ₀def
   have hσ₀_eq : σ₀ = 1 - (c_vk / 2) / D3 := by rw [hσ₀def, hwdef]
   have hσ₀half : (1 : ℝ) / 2 ≤ σ₀ := by rw [hσ₀def]; linarith
@@ -226,7 +226,7 @@ theorem per_pair_contour_floored :
       rw [hsre'] at hmr
       have : s.re < 1 := by rw [hsre'] at h1; linarith [not_le.mp h1]
       have hlt : (c_vk / 2) / D3 < c_vk / D3 := by
-        rw [div_lt_div_iff₀ hD3pos hD3pos]; nlinarith [hc_vk0, hD3pos]
+        rw [div_lt_div_iff₀ hD3pos hD3pos]; nlinarith only [hc_vk0, hD3pos]
       rw [← hD3def] at hmr
       have : σ₀ ≤ s.re := hsre.1
       rw [hσ₀def, hwdef] at this
@@ -355,7 +355,7 @@ theorem per_pair_contour_floored :
         rw [show (9 : ℝ) = (3 : ℝ) ^ (2 : ℝ) by
           rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num]
         exact Real.rpow_le_rpow_of_exponent_le (by norm_num) (by linarith [hσ₀1])
-      nlinarith [h3, hPσ0nn]
+      nlinarith only [hPσ0nn, h3, hwle, hw0]
     -- ζ'/ζ bound on the left edge
     have hzetaL : ∀ v : ℝ, v ∈ Set.Icc (-Tp) Tp →
         ‖(- logDeriv riemannZeta (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I))‖ ≤ Bσ := by
@@ -474,10 +474,10 @@ theorem per_pair_contour_floored :
             have h1 : (1 : ℝ) / w ≤ 2 / c_vk * D4 := by
               rw [he, show (2 : ℝ) / c_vk * D4 = 2 * D4 / c_vk by ring,
                 div_le_div_iff₀ hc_vk0 hc_vk0]
-              nlinarith [hD3leD4, hc_vk0]
+              nlinarith only [hc_vk0, hD3leD4]
             linarith [h1]
           have hπσ₀ : Real.pi / σ₀ ≤ 2 * Real.pi := by
-            rw [div_le_iff₀ hσ₀0]; nlinarith [Real.pi_pos, hσ₀half]
+            rw [div_le_iff₀ hσ₀0]; nlinarith only [hwle, hw0, Real.pi_pos]
           have hexpnn : (0 : ℝ) ≤ Real.exp (-(c_vk / 2) * Real.log P / D3) := (Real.exp_pos _).le
           rw [hPσ₀]
           have hfac_nn : (0 : ℝ) ≤ 22 * (P * Real.exp (-(c_vk / 2) * Real.log P / D3)) := by
@@ -494,7 +494,7 @@ theorem per_pair_contour_floored :
             _ = CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4 := by rw [hCLdef]; ring
   -- === HORIZONTAL sub-bound infrastructure ===
   have hD41 : (1 : ℝ) ≤ D4 := by
-    rw [hD4def]; nlinarith [hLT34ge, one_le_pow₀ hℓT1 (n := 4), Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)]
+    rw [hD4def]; nlinarith only [hLT34ge, one_le_pow₀ hℓT1 (n := 4)]
   have hTle : (1 : ℝ) ≤ T := by linarith [hT3]
   have hD3leD4' : D3 ≤ D4 := by
     rw [hD3def, hD4def]
@@ -503,7 +503,7 @@ theorem per_pair_contour_floored :
   have h1w_inv : (1 : ℝ) / w ≤ 2 / c_vk * D4 := by
     have he : (1 : ℝ) / w = 2 * D3 / c_vk := by rw [hwdef, one_div_div]; ring
     rw [he, show (2 : ℝ) / c_vk * D4 = 2 * D4 / c_vk by ring, div_le_div_iff₀ hc_vk0 hc_vk0]
-    nlinarith [hD3leD4', hc_vk0]
+    nlinarith only [hc_vk0, hD3leD4']
   -- ζ'/ζ bound on both horizontals
   have hζhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
       ‖(- logDeriv riemannZeta (((x : ℂ) + (τ : ℂ) * I) - (u : ℂ) * I))‖ ≤ Cζ * D4 := by
@@ -587,7 +587,7 @@ theorem per_pair_contour_floored :
         _ ≤ 1 / ((1 + w) - 1) + ‖logDeriv Zc ((1 + w : ℝ) : ℂ)‖ := hpole1w
         _ ≤ 1 / w + CE * D4 := by rw [hpole1w2]; linarith [hZc1w]
         _ ≤ 2 / c_vk * D4 + CE * D4 := by linarith [h1w_inv]
-        _ ≤ Cζ * D4 := by rw [hCζdef]; nlinarith [hD41, hc_vk0, hCE0]
+        _ ≤ Cζ * D4 := by rw [hCζdef]; linarith only [hD41, hwle, hw0]
   -- kernel bound on both horizontals
   have hkerhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
       ‖windowMellin P ((x : ℂ) + (τ : ℂ) * I)‖ ≤ Kc * P / (9 * T ^ 2) := by
@@ -625,10 +625,10 @@ theorem per_pair_contour_floored :
           _ = Real.exp 1 * P := hPc
       have hPxnn : (0 : ℝ) ≤ (P : ℝ) ^ x := Real.rpow_nonneg hP0.le x
       rw [hKcdef]
-      nlinarith [h3x, hPxc, hPxnn, Real.rpow_nonneg (by norm_num : (0:ℝ) ≤ 3) ((Real.log 2)⁻¹),
-        mul_nonneg (Real.rpow_nonneg (by norm_num : (0:ℝ) ≤ 3) ((Real.log 2)⁻¹)) hP0.le]
+      nlinarith only [hPxc, h3x, hPxnn, hwle, hw0,
+          Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 3) ((Real.log 2)⁻¹)]
     have hinv : (x ^ 2 + τ ^ 2)⁻¹ ≤ (9 * T ^ 2)⁻¹ := by
-      rw [hτ2]; apply inv_anti₀ (by positivity); nlinarith [sq_nonneg x]
+      rw [hτ2]; apply inv_anti₀ (by positivity); linarith only [sq_nonneg x]
     calc (2 * (2 * P + P) ^ (x + 1) / P + 2 * (P / 2 + P / 2) ^ (x + 1) / (P / 2))
             * (x ^ 2 + τ ^ 2)⁻¹
         ≤ (Kc * P) * (9 * T ^ 2)⁻¹ :=
@@ -687,7 +687,7 @@ theorem per_pair_contour_floored :
         (mul_le_mul hsuma hCk hCk0 (by linarith [hlogP, hC₀0])) (by positivity)
     have hkeylog : Real.log P + C₀ ≤ (1 + C₀ / Real.log 2) * Real.log P := by
       have hlog2P : Real.log 2 ≤ Real.log P := Real.log_le_log (by norm_num) hP
-      have hh : C₀ * Real.log 2 ≤ C₀ * Real.log P := by nlinarith [hC₀0, hlog2P]
+      have hh : C₀ * Real.log 2 ≤ C₀ * Real.log P := by nlinarith only [hC₀0, hlog2P]
       rw [add_mul, one_mul, div_mul_eq_mul_div]
       have : C₀ ≤ C₀ * Real.log P / Real.log 2 := by rw [le_div_iff₀ hlog2]; linarith [hh]
       linarith
@@ -820,7 +820,7 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
     rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hLT100
   have hllT1 : (1 : ℝ) ≤ Real.log (Real.log T) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
-  have hqT : T ≤ (q : ℝ) * T := by nlinarith
+  have hqT : T ≤ (q : ℝ) * T := by nlinarith only [hT₀z', hq1, hc10, hc0, hT₀z]
   have hlogq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
   have hlogP10 : Real.log P ≤ 10 * Real.log T := by
     have h := Real.log_le_log (by positivity) hPT10
@@ -866,7 +866,7 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
   set ℓq : ℝ := Real.log (Real.log ((q : ℝ) * T)) with hℓqdef
   have hLqT : Real.log T ≤ Lq := by rw [hLqdef]; exact Real.log_le_log hT0 hqT
   have hLq1 : (1 : ℝ) ≤ Lq := by linarith
-  have hLqsq : Lq ≤ Lq ^ 2 := by nlinarith
+  have hLqsq : Lq ≤ Lq ^ 2 := by nlinarith only [hLqT, hLT100, hE101]
   have hLg100 : Real.exp 100 ≤ Lg := by
     rw [hLgdef]
     rw [← Real.log_exp (Real.exp 100)]
@@ -886,7 +886,7 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hD4T1 : (1 : ℝ) ≤ (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) := by
     have h1 : (1 : ℝ) ≤ (Real.log T) ^ ((3 : ℝ) / 4) := Real.one_le_rpow hLT1 (by norm_num)
     have h2 : (1 : ℝ) ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := one_le_pow₀ hllT1
-    nlinarith
+    nlinarith only [h1, h2, hc10, hc0]
   have hD4Tq : (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) ≤ D4q := by
     rw [hD4qdef, hLqdef, hℓqdef]
     exact logDn_mono 4 (by linarith [Real.exp_one_lt_d9] : Real.exp 1 ≤ T) hqT
@@ -908,7 +908,7 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
       mul_le_mul_of_nonneg_left h1 (by positivity)
     have h3 : c * K₄ * (Real.log P * D4q) ≤ (c_vk / 2) * (Real.log P * D4q) :=
       mul_le_mul_of_nonneg_right hcK₄ (by positivity)
-    nlinarith [h2, h3]
+    linarith only [h3, h2]
   have hcmp_pp : Real.exp (-(c₀ / 2) * Real.log P / D3g) ≤ expc := by
     rw [hexpcdef]
     refine Real.exp_le_exp.mpr ?_
@@ -921,22 +921,22 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
       mul_le_mul_of_nonneg_left h1 (by positivity)
     have h3 : c * Cκ * (Real.log P * D4q) ≤ (c₀ / 2) * (Real.log P * D4q) :=
       mul_le_mul_of_nonneg_right hcCκ (by positivity)
-    nlinarith [h2, h3]
+    linarith only [h3, h2]
   have hD5Lq : D5g ≤ K₅ * Lq ^ 2 := by
     have h1 : D5g ≤ K₅ * (Real.log T) ^ 2 := by
       rw [hD5gdef, hLgdef, hℓdef]; exact D5_5T1_le hT6 hLT1 hllT1
     have h2 : K₅ * (Real.log T) ^ 2 ≤ K₅ * Lq ^ 2 := by
       refine mul_le_mul_of_nonneg_left ?_ hK₅0.le
-      nlinarith [hLqT, hLT1]
+      nlinarith only [hLqT, hLT100, hE101]
     linarith
   have hD4Lq : D4g ≤ K₂ * Lq ^ 2 := by
     have h1 : D4g ≤ K₂ * (Real.log T) ^ 2 := by
       rw [hD4gdef, hLgdef, hℓdef]; exact D4_5T1_le hT6 hLT1 hllT1
     have h2 : K₂ * (Real.log T) ^ 2 ≤ K₂ * Lq ^ 2 := by
       refine mul_le_mul_of_nonneg_left ?_ hK₂0.le
-      nlinarith [hLqT, hLT1]
+      nlinarith only [hLqT, hLT100, hE101]
     linarith
-  have hlogPLq : Real.log P ≤ 10 * Lq ^ 2 := by nlinarith [hlogP10, hLqT, hLqsq]
+  have hlogPLq : Real.log P ≤ 10 * Lq ^ 2 := by linarith only [hLqsq, hLqT, hlogP10]
   have hTinv : 1 / T ≤ expc := by
     rw [hexpcdef, show (1 : ℝ) / T = Real.exp (-Real.log T) by
       rw [Real.exp_neg, Real.exp_log hT0, one_div]]
@@ -949,7 +949,7 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
     linarith
   have hT2inv : 1 / T ^ 2 ≤ expc := by
     have h : 1 / T ^ 2 ≤ 1 / T := by
-      rw [div_le_div_iff₀ (by positivity) hT0]; nlinarith
+      rw [div_le_div_iff₀ (by positivity) hT0]; nlinarith only [hT₀z', hT₀z, hEbig, hT₀e', hT₀e]
     linarith [hTinv]
   have hsqrtP : Real.sqrt P ≤ P * expc := by
     have hs : Real.sqrt P = Real.exp (Real.log P / 2) := by
@@ -961,7 +961,7 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
     refine Real.exp_le_exp.mpr ?_
     have h1 : c * Real.log P / D4q ≤ Real.log P / 2 := by
       rw [div_le_div_iff₀ hD4qpos (by norm_num : (0:ℝ) < 2)]
-      have s1 : c * Real.log P * 2 ≤ (1 / 5) * Real.log P := by nlinarith [hc10, hlogP]
+      have s1 : c * Real.log P * 2 ≤ (1 / 5) * Real.log P := by nlinarith only [hc10, hlogP]
       have s2 : (1 / 5 : ℝ) * Real.log P ≤ Real.log P * D4q := by nlinarith [hD4q1, hlogP]
       linarith
     have h2 : -c * Real.log P / D4q = -(c * Real.log P / D4q) := by ring
@@ -1930,7 +1930,7 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
     have h := (Rat.cast_le (K := ℝ)).mpr hεpin
     rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
     exact h
-  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
+  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith only [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
     rw [hHlo]; exact flatWitFloor_log_ge hA162
