@@ -115,7 +115,7 @@ lemma cofkRSconst_pos {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 0 < cofkRSconst Cb := by
   have h2 : (0 : ℝ) ≤ farCStar2 := farCStar2_nonneg
   have h3 : (0 : ℝ) < cSq := cofk_cSq_pos
   rw [cofkRSconst]
-  nlinarith
+  nlinarith only [h2, h3, h1]
 
 lemma cofkRConst_pos {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 0 < cofkRConst Cb := by
   have h := cofkRSconst_pos hCb0
@@ -162,7 +162,7 @@ theorem cofkR_band_log_lower {Xd P Q v : ℕ} {H : ℝ} (hH0 : 0 < H) (hQ1 : 1 �
   have hvH : (v : ℝ) / H
       ≤ Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ)) := by
     rw [div_le_iff₀ hH0]
-    nlinarith [hvR, mul_le_mul_of_nonneg_left hQlog hH0.le]
+    linarith only [hvR, mul_le_mul_of_nonneg_left hQlog hH0.le]
   have hrw : Real.log (ramRbot H Xd v)
       = Real.log ((Xd : ℕ) : ℝ) + (-(v : ℝ) / H) := by
     rw [ramRbot, Real.log_mul (ne_of_gt hX0) (ne_of_gt (Real.exp_pos _)), Real.log_exp]
@@ -186,7 +186,7 @@ theorem cofkR_two_rpow_three_fifths {L : ℝ} (hL : 32768 ≤ L) :
   have hmul : L ^ ((2 : ℝ) / 5) * L ^ ((3 : ℝ) / 5) = L := by
     rw [← Real.rpow_add hL0]; norm_num
   have h35 : (0 : ℝ) < L ^ ((3 : ℝ) / 5) := Real.rpow_pos_of_pos hL0 _
-  nlinarith [hmul, h25, h35]
+  nlinarith only [h25, h35, hmul, hL]
 
 /-- `T*₂(X, log X) ≤ X` above the family gate — `FrameWitness.Tstar2_le_self` with its
 threshold discharged. -/
@@ -267,13 +267,13 @@ theorem cofkR_mfl_nonneg {X W : ℝ} (hW2 : 2 ≤ W) (hWX : W ≤ X)
   have h24X : (24 : ℝ) / Real.log X ≤ 1 := by
     rw [div_le_iff₀ ha0]; linarith
   have he : (2.7 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-  have hpos : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by nlinarith
+  have hpos : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by linarith only [he]
   have hθ : theta293 ≤ 1 / 64 := by
-    rw [theta293, div_le_iff₀ hpos]; nlinarith
+    rw [theta293, div_le_iff₀ hpos]; linarith only [he]
   have hgrade : (1 / 64 : ℝ) * Real.log (Real.log X)
       ≤ (1 / 32 - theta293) * Real.log (Real.log X) := by
     have h1 : (1 / 64 : ℝ) ≤ 1 / 32 - theta293 := by linarith
-    nlinarith
+    nlinarith only [hLL, hθ]
   rw [cofactorMfl]
   linarith
 
@@ -293,14 +293,14 @@ private lemma cofkR_exp_ladder {L : ℝ} (hL : (1000 : ℝ) ≤ L) :
       linarith [Real.add_one_le_exp (L / 20)]
     have h2 : Real.exp (L / 20) * Real.exp (L / 20) = Real.exp (L / 10) := by
       rw [← Real.exp_add]; congr 1; ring
-    nlinarith [h1, h2]
+    nlinarith only [h1, hL, h2]
   · rw [← Real.exp_add]; congr 1; ring
   · have h4 : (4 : ℝ) ≤ Real.exp (3 * L / 20) := by
       have h := Real.add_one_le_exp (3 * L / 20)
       linarith
     have h2 : Real.exp (3 * L / 5) * Real.exp (3 * L / 20) = Real.exp (3 * L / 4) := by
       rw [← Real.exp_add]; congr 1; ring
-    nlinarith [h4, h2, Real.exp_pos (3 * L / 5)]
+    nlinarith only [h4, h2, Real.exp_pos (3 * L / 5)]
 
 /-- **⟦THE DIVIDED WINDOW BOTTOM⟧** (`cofkR_window_lower`).  `⌊k₀/D⌋ ≥ √X` at the repaired
 ladder: `k₀ ≥ B_v − 1 ≥ e^{3L/4} − 1`, `D ≤ L + 1 ≤ e^{L/10}`, and Nat division loses at most
@@ -334,14 +334,14 @@ theorem cofkR_window_lower {Xd v D : ℕ} {H L : ℝ}
   have he12 : (0 : ℝ) < Real.exp (L / 2) := Real.exp_pos _
   have he35 : (1 : ℝ) ≤ Real.exp (3 * L / 5) := Real.one_le_exp (by linarith)
   have hstep1 : ((D : ℕ) : ℝ) * Real.exp (L / 2) ≤ Real.exp (3 * L / 5) := by
-    nlinarith [hDexp, hmul, he12]
+    nlinarith only [hlin, he12, hD, hmul]
   have hstep2 : ((D : ℕ) : ℝ) ≤ Real.exp (3 * L / 5) := by
     have h1 : Real.exp (L / 10) ≤ Real.exp (3 * L / 5) := Real.exp_le_exp.mpr (by linarith)
     linarith
   have hfin : ((D : ℕ) : ℝ) * Real.exp (L / 2)
       ≤ ((D : ℕ) : ℝ) * ((witKk H Xd v / D : ℕ) : ℝ) := by
     have h1 : (2 : ℝ) * Real.exp (3 * L / 5) + 1 ≤ Real.exp (3 * L / 4) := by
-      nlinarith [hgap, he35]
+      linarith only [he35, hgap]
     linarith [hkk, hB, hdiv, hstep1, hstep2]
   exact le_of_mul_le_mul_left (by linarith [hfin]) hD0
 
@@ -392,7 +392,7 @@ theorem cofkR_caseASwide_priced {X W Xa Cb : ℝ} (hCb0 : 0 ≤ Cb)
       have hd : 2 * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial W) ≤ 3 / 2 := by
         linarith [Real.log_two_lt_d9]
       have hprod : (1.87 : ℝ) ≤ Real.log 2 * Real.exp 1 := by
-        nlinarith [Real.log_two_gt_d9, he1]
+        nlinarith only [he1, Real.log_two_gt_d9]
       have hid : (2 / Real.exp 1) * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial W)
           = (2 * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial W)) / Real.exp 1 := by
         ring
@@ -413,10 +413,10 @@ theorem cofkR_caseASwide_priced {X W Xa Cb : ℝ} (hCb0 : 0 ≤ Cb)
     have h2 := mul_le_mul_of_nonneg_left h1 hC10
     have h3 : (0 : ℝ) ≤ gradeAbsConstC (1 / Real.exp 1) Cb * (Real.log X) ^ (-rho293) :=
       mul_nonneg hC10 hpow0
-    nlinarith [h2, h3]
+    linarith only [h3, h2]
   -- ⟦THE TWO SHIFTED SUMMANDS⟧
   have hfar1 : (1 : ℝ) / (32 * Real.exp 1) ≤ 1 := by
-    rw [div_le_one (by nlinarith)]; nlinarith
+    rw [div_le_one (by linarith only [he1])]; linarith only [he1]
   have hB : (Real.log W) ^ (-(1 / (32 * Real.exp 1)))
       ≤ 2 * (Real.log X) ^ (-rho293) :=
     logW_rpow_le hL1 hhalfW rho293_le_far hfar1
@@ -425,7 +425,7 @@ theorem cofkR_caseASwide_priced {X W Xa Cb : ℝ} (hCb0 : 0 ≤ Cb)
     rw [hexp3]
     exact logW_rpow_le hL1 hhalfA rho293_le_desmooth (by norm_num)
   rw [caseASwide]
-  nlinarith [hA, hB, hC, farCStar2_nonneg, hpow0]
+  nlinarith only [hB, hC, hA, farCStar2_nonneg]
 
 /-- **⟦THE FAR ARM, PRICED⟧** (`cofkR_farSup_priced`).  `2√2/seamRad X ≤ 3·(log X)^{−ρ₂₉₃}`
 (`farMain_priced` at the radius pin) plus the GS-7.1 certificate `farErr34 ≤ (log Y)^{−ρ₂₉₃}`
@@ -528,7 +528,7 @@ theorem cofkR_cofactorSupply_L_gk :
   have hexp166 : Real.exp 166 = Real.exp 1 * Real.exp 165 := by rw [← Real.exp_add]; norm_num
   have he27 : (2.7 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have hball : 2 * Real.exp 165 + 2 ≤ Real.log ((Xd : ℕ) : ℝ) := by
-    nlinarith [hLg166, hexp166, hexp165, he27]
+    nlinarith only [hexp165, he27, hexp166, hLg166, hmu2000]
   have hLgbig : (10 : ℝ) ^ 6 ≤ Real.log ((Xd : ℕ) : ℝ) := by
     have h : (10 : ℝ) ^ 6 ≤ Real.exp 166 := by
       have h1 : (1 : ℝ) + 41.5 ≤ Real.exp 41.5 := by
@@ -536,7 +536,7 @@ theorem cofkR_cofactorSupply_L_gk :
       have h2 : Real.exp 41.5 * Real.exp 41.5 = Real.exp 83 := by
         rw [← Real.exp_add]; norm_num
       have h3 : Real.exp 83 * Real.exp 83 = Real.exp 166 := by rw [← Real.exp_add]; norm_num
-      have h4 : (1806 : ℝ) ≤ Real.exp 83 := by nlinarith [h1, h2]
+      have h4 : (1806 : ℝ) ≤ Real.exp 83 := by nlinarith only [h1, h2]
       nlinarith [h3, h4]
     linarith
   -- ⟦THE THRESHOLD, READ AT THE SOCKET⟧
@@ -567,7 +567,7 @@ theorem cofkR_cofactorSupply_L_gk :
       rw [← Real.exp_add, show Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2
         + Real.log (Real.log ((Xd : ℕ) : ℝ)) / 2
         = Real.log (Real.log ((Xd : ℕ) : ℝ)) by ring, hLgexp]
-    nlinarith [h1, h2, hLam]
+    nlinarith only [h1, hLam, h2]
   have habs : ∀ z : ℝ, 0 < z → z ≤ cofkRThr Cq Cb Xsk Y0 →
       Real.log z ≤ Real.log ((Xd : ℕ) : ℝ) / 4 := by
     intro z hz0 hzthr
@@ -575,7 +575,7 @@ theorem cofkR_cofactorSupply_L_gk :
       linarith [Real.log_le_sub_one_of_pos hz0]
     have hthr14 : cofkRThr Cq Cb Xsk Y0 ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) + 14 := by
       linarith
-    nlinarith [hquad, hLam, hlz, hzthr, hthr14]
+    nlinarith only [hLam, hlz, hzthr, hquad, hHloHhi, hmuF, hgate]
   have hXskgate : Xsk ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) := by
     have h := habs Xsk hXsk0 hthrpieces.1
     have h2 := Real.exp_le_exp.mpr h
@@ -588,9 +588,9 @@ theorem cofkR_cofactorSupply_L_gk :
   have hgradegate : 1728 * Cq * (4 * cofkRConst Cb) ^ 2
       ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293) := by
     have hθ300 : (1 : ℝ) / 300 ≤ theta293 := by
-      have hpos : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by nlinarith
+      have hpos : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by linarith only [he27]
       rw [theta293, le_div_iff₀ hpos]
-      nlinarith [Real.exp_one_lt_d9]
+      linarith only [Real.exp_one_lt_d9]
     have hpow : (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293)
         = Real.exp (Real.log (Real.log ((Xd : ℕ) : ℝ)) * (2 * theta293)) := by
       rw [Real.rpow_def_of_pos hLg0]
@@ -599,7 +599,7 @@ theorem cofkR_cofactorSupply_L_gk :
       have hLL0 : (0 : ℝ) ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by linarith
       have h1 : Real.log (Real.log ((Xd : ℕ) : ℝ)) / 150
           ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) * (2 * theta293) := by
-        nlinarith [hθ300, hLL0]
+        nlinarith only [hLam, hθ300]
       have h2 : (10 : ℝ) ^ 6 + 450 * Real.log (1 + Cq + cofkRConst Cb) - 14
           ≤ Real.log (Real.log ((Xd : ℕ) : ℝ)) := by
         have := hthrLL
@@ -623,19 +623,19 @@ theorem cofkR_cofactorSupply_L_gk :
         linarith [Real.add_one_le_exp (3333 : ℝ)]
       have h2 : Real.exp 3333 * Real.exp 3333 = Real.exp 6666 := by
         rw [← Real.exp_add]; norm_num
-      nlinarith
+      nlinarith only [h1, h2]
     have hRc0 : (0 : ℝ) < cofkRConst Cb := cofkRConst_pos hCb0
     have hCqZ : Cq ≤ 1 + Cq + cofkRConst Cb := by linarith
     have hRZ : cofkRConst Cb ^ 2 ≤ (1 + Cq + cofkRConst Cb) ^ 2 := by nlinarith
     have hcube : Cq * cofkRConst Cb ^ 2 ≤ (1 + Cq + cofkRConst Cb) ^ 3 := by
-      nlinarith [hCqZ, hRZ, hCq.le, hRc0, hZ1]
+      nlinarith only [hCq, hRZ, hRc0, sq_nonneg (1 + Cq + cofkRConst Cb), sq_nonneg (cofkRConst Cb)]
     have hid : 1728 * Cq * (4 * cofkRConst Cb) ^ 2 = 27648 * (Cq * cofkRConst Cb ^ 2) := by
       ring
     rw [hid]
     have hZ0 : (0 : ℝ) ≤ (1 + Cq + cofkRConst Cb) ^ 3 := pow_nonneg (by linarith) 3
     calc 27648 * (Cq * cofkRConst Cb ^ 2)
         ≤ 27648 * (1 + Cq + cofkRConst Cb) ^ 3 := by linarith
-      _ ≤ Real.exp 6666 * (1 + Cq + cofkRConst Cb) ^ 3 := by nlinarith [he6666, hZ0]
+      _ ≤ Real.exp 6666 * (1 + Cq + cofkRConst Cb) ^ 3 := by nlinarith only [he6666, hZ0]
       _ ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (2 * theta293) := hbig
   -- ⟦THE BAND⟧
   have hθ0 : (0 : ℝ) < theta293 := theta293_pos
@@ -684,7 +684,7 @@ theorem cofkR_cofactorSupply_L_gk :
     have hdiv : Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ))
         ≤ Real.log ((Xd : ℕ) : ℝ) := by
       rw [div_le_iff₀ (by linarith)]
-      nlinarith
+      nlinarith only [hLam, hmu2000, hθ32, hθ0, hquad]
     linarith
   have hRrad0 : (0 : ℝ) < seamRad ((Xd : ℕ) : ℝ) := by
     rw [seamRad]; exact Real.rpow_pos_of_pos hLg0 _
@@ -696,7 +696,7 @@ theorem cofkR_cofactorSupply_L_gk :
       have hdiv : Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ))
           ≤ Real.log ((Xd : ℕ) : ℝ) / 2 := by
         rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 2)]
-        nlinarith
+        nlinarith only [hLam, hmu2000, hθ32, hθ0, hquad]
       linarith
     have h := Real.exp_le_exp.mpr hstep
     rwa [Real.exp_log hQ0R, Real.exp_log h2T0] at h
@@ -705,7 +705,7 @@ theorem cofkR_cofactorSupply_L_gk :
     have hdiv : Real.log ((Xd : ℕ) : ℝ) / Real.log (Real.log ((Xd : ℕ) : ℝ))
         ≤ Real.log ((Xd : ℕ) : ℝ) / 60 := by
       rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 60)]
-      nlinarith
+      nlinarith only [hLam, hmu2000, hθ32, hθ0, hquad]
     linarith
   -- ⟦THE BLOCKS⟧
   have hBpos : ∀ v : ℕ, (0 : ℝ) < ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
@@ -726,7 +726,7 @@ theorem cofkR_cofactorSupply_L_gk :
       linarith
     have hstep : 3 * Real.log ((Xd : ℕ) : ℝ) / 4
         ≤ Real.log (ramRbot (H83 ((Xd : ℕ) : ℝ) theta293) Xd v) := by
-      nlinarith [hlow, hinv, hLg0]
+      nlinarith only [hmu2000, hinv, hlow]
     have h := Real.exp_le_exp.mpr hstep
     rwa [Real.exp_log (hBpos v)] at h
   -- the three exponential comparisons every block fact below runs on
@@ -746,10 +746,10 @@ theorem cofkR_cofactorSupply_L_gk :
       ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := Real.exp_le_exp.mpr (by linarith)
   have hgap34 : Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) + 1
       ≤ Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
-    nlinarith [hesplit, hehalf, he2quart]
+    nlinarith only [hehalf, hequart, hθ32, hθ0, he2quart, hesplit]
   have hgapq : Real.exp (Real.log ((Xd : ℕ) : ℝ) / 4) + 1
       ≤ Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
-    nlinarith [hesplit, hehalf, he2quart, hquarthalf]
+    linarith only [hgap34, hquarthalf]
   have hpinhalf : pin2Gate ≤ Real.exp (Real.log ((Xd : ℕ) : ℝ) / 2) := by
     rw [pin2Gate]
     exact Real.exp_le_exp.mpr (by linarith)
@@ -952,7 +952,7 @@ theorem cofkR_cofactorSupply_L_gk :
         * Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)
         = Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
       rw [← Real.exp_add]; congr 1; ring
-    nlinarith [hB34 v hv, h1, h2, hLg0]
+    nlinarith only [h1, hθ32, hθ0, hLgbig, hmu2000, hLam, h2, hquad, hB34 v hv]
   have hsr : seamRad ((Xd : ℕ) : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
     rw [seamRad]
     have h1 : (Real.log ((Xd : ℕ) : ℝ)) ^ ((1 : ℝ) / 46)
@@ -999,7 +999,7 @@ theorem cofkR_cofactorSupply_L_gk :
       have h3 : (2 : ℝ) / seamRad ((Xd : ℕ) : ℝ)
           ≤ 2 * Real.sqrt 2 / seamRad ((Xd : ℕ) : ℝ) := by
         rw [div_eq_mul_inv, div_eq_mul_inv]
-        nlinarith [hs2, hinv]
+        nlinarith only [hs2, hinv, hθ32, hθ0]
       linarith
     rw [cofactorRbdGen]
     have hfin := le_trans hchain
@@ -1021,7 +1021,7 @@ theorem cofkR_cofactorSupply_L_gk :
         * Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 8)
         = Real.exp (3 * Real.log ((Xd : ℕ) : ℝ) / 4) := by
       rw [← Real.exp_add]; congr 1; ring
-    nlinarith [hB34 v hv, h1, h2, hLgbig]
+    nlinarith only [h1, hθ32, hθ0, hLgbig, hmu2000, hLam, h2, hquad, hB34 v hv]
   have hDdk : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
       ⌈Real.log ((Xd : ℕ) : ℝ)⌉₊ ≤ witKk (H83 ((Xd : ℕ) : ℝ) theta293) Xd v := by
     intro v hv
@@ -1093,7 +1093,7 @@ theorem cofkR_cofactorSupply_L_gk :
           * (Real.log (Real.log ((Xd : ℕ) : ℝ))) ^ 5)
         * (Real.log ((s13BandP Xd : ℕ) : ℝ)) ^ 2 := by
     have hsq : (1 : ℝ) ≤ (Real.log ((s13BandP Xd : ℕ) : ℝ)) ^ 2 := by nlinarith [hlogP2]
-    nlinarith [hcq0, hsq]
+    nlinarith only [hcq0, hsq, hθ32, hθ0]
   have hblk : ∀ v ∈ ramI (H83 ((Xd : ℕ) : ℝ) theta293) (s13BandP Xd) (s13BandQ Xd),
       TLBlockGates34 (420 * Real.log ((Xd : ℕ) : ℝ)
           * (Real.log ((Xd : ℕ) : ℝ)) ^ ((3 : ℝ) / 4)
