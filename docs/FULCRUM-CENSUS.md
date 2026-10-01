@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `8b03d5eb` · source digest `2b4096c100a7d2e4` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `d8072412` · source digest `e0335a3fdccc3fb6` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 22647 | 668 | 21969 | 9033 | 13 | 281 | 40 | 334 | 86 |
+| 22646 | 668 | 21968 | 9032 | 13 | 281 | 40 | 334 | 86 |
 
 Per-polarity totals over the 668 Props: with F-consumers 519 · with ¬F-consumers 21 · with F-producers (any kind) 437 · with ¬F-producers (any kind) 59.
 
@@ -128,8 +128,8 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.M4DoorGates_L` | OPEN | HALF | 30 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L` (Salt/MR/M4RowAssemblyLinear.lean:513), `Salt.MR.m4_wave_collapsed_False_L` (Salt/MR/M4RowAssemblyLinear.lean:4196) |
 | `Salt.MR.M4DoorGates_L_gk` | DISCHARGED | - | 57 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk` (Salt/MR/M4RowAssemblyLinear.lean:645), `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide` (Salt/MR/M4RowAssemblyLinear.lean:5498) |
 | `Salt.Chen.windowDisjoint` | STRUCTURAL | - | 2 | 0/0/1 | `Salt.Chen.tripleSet_box_windowDisjoint` (Salt/Chen/SwitchDyadic.lean:206) |
-| `Salt.Entropy.Chowla.MRTUniformityXiAff` | OPEN | - | 0 | 0/0/1 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff` (Salt/Entropy/Chowla/StrideFork.lean:725) |
-| `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` | OPEN | HALF | 1 | 0/0/1 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2Aff` (Salt/Entropy/Chowla/StrideFork.lean:759) |
+| `Salt.Entropy.Chowla.MRTUniformityXiAff` | OPEN | - | 0 | 0/0/1 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff` (Salt/Entropy/Chowla/StrideFork.lean:684) |
+| `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` | OPEN | HALF | 1 | 0/0/1 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2Aff` (Salt/Entropy/Chowla/StrideFork.lean:718) |
 | `Salt.Entropy.Chowla.PmNormalized` | DISCHARGED | - | 9 | 1/0/0 | `Salt.Entropy.Chowla.delta1w_not_pmNormalized` (Salt/Entropy/Chowla/PinDichotomy.lean:333) |
 | `Salt.Entropy.Chowla.TwinDetecting'` | DISCHARGED | - | 2 | 1/0/0 | `Salt.Entropy.Chowla.slack_witness_not_twinDetecting'` (Salt/Entropy/Chowla/PinDichotomy.lean:110) |
 | `Salt.MR.BlockSmallAt` | OPEN | - | 0 | 1/0/0 | `Salt.MR.mem_UsetChi` (Salt/MR/USetChi.lean:282) |
