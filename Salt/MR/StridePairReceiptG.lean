@@ -825,7 +825,7 @@ theorem flat_v7_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
     (hk : ∀ Awin : ℝ, S16BandLaneCBoundedLH_winU h Awin → FlatKswinFormHG h Awin P) (A₀ : ℝ) :
     V7RatedFormHG h P A₀ := by
   obtain ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, hcofR⟩ :=
-    cofkR_cofactorSupply_L_gk_rated_h h hh hh7
+    cofkR_cofactorSupply_L_gk_rated_h_b9 h hh (le_trans hh7 (by norm_num))
   obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinLH_holdsU h hh
   -- ⟦THE cs-FREE, Ks-WINDOWED FLAT TERMINAL⟧ V7Ks §5
   obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
@@ -938,8 +938,8 @@ theorem flat_v7_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
   have hcofsupply : S16CofactorSupply_LH_gk h (KlevF A) Cq R (flatDoorM A) :=
     hcofR (KlevF A) Cq R (flatDoorM A) hM1 hCq heps500R h518 hfl hthrgate hKvtcush
   have hfireR : P R :=
-    hfire2 hcofsupply
-      (s16_baseScaleCap96_LH_at_klevF hh hh7 hA26 (flatDoorM_one_le hA26) heps500 hxceil hwin)
+    hfire2 hcofsupply (s16_baseScaleCap96_LH_at_klevF_b9 hh (le_trans hh7 (by norm_num)) hA26
+      (flatDoorM_one_le hA26) heps500 hxceil hwin)
   exact ⟨R, hReps, hHlo, hRg, hstride, hRtow, hdes, hwin, hfireR⟩
 
 /-! ## §6 — the door-head, the chain, the receipts, GRADED -/

@@ -9772,7 +9772,9 @@ primes.  20 obligations, 20 landed (one Opus executor, 2026-09-04 12:2x–12:5x;
 noted in place in `StridePairReceipt.lean`; the rows below are fewer than 20 by the retirements
 to date.  From family 10 every door-head that called the retired head-shaped builder reads the
 cap-9 pair, as the G12b one already did, at `log a ≤ 9`; the builder named above stood, with no
-call site, until family 11 (2026-09-27) retired it into its cap-9 twin.)
+call site, until family 11 (2026-09-27) retired it into its cap-9 twin.  2026-10-01: family 32
+re-pointed two calls of `flat_v7_generic_h` — the rated supply and the base-scale cap — to
+their cap-9 twins in `V7RatedH`, its statement unchanged; no name is retired by it.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
   Salt.MR.nearRatTight_of_bigXiAffArcTight
@@ -10359,7 +10361,11 @@ twins, its chain — assembler, cap-gate assembler, deliverable — moved to tha
 2026-09-29: family 23 retired the sources of three twins here into them; 2026-09-29: family 24 the
 sources of four more; 2026-09-30: family 25 the source of one more; 2026-09-30: family 29 re-pointed
 two landed suppliers of that file's capfloor assembler to two twins of ⟦β W1 E2⟧ and two of F2, and
-moved the two to that file's foot (recorded 2026-10-01)).  Each twin is its source's statement and
+moved the two to that file's foot (recorded 2026-10-01); 2026-10-01: family 32 re-pointed the H4→H5
+replay `flat_v7_generic_h` (`StridePairReceipt`) and its graded form `flat_v7_generic_h_g`
+(`StridePairReceiptG`) to two `V7RatedH` twins here, `cofkR_cofactorSupply_L_gk_rated_h_b9` and
+`s16_baseScaleCap96_LH_at_klevF_b9`, two calls each, their statements unchanged).  Each twin is
+its source's statement and
 body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed against their sources),
 every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis added.  Named numerals:
 `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤ 10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`);
@@ -10399,7 +10405,8 @@ open Salt.Tactic in
 — build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
 24–28). Additive only at landing: every `_g` replay in `StridePairReceiptG` was untouched
 (2026-09-26: the XY pin conversion rewrote docstring pins in them; family 10 re-pointed the
-builder call of one; 2026-09-27: family 12 re-pointed a supplier call of another). Each twin is its
+builder call of one; 2026-09-27: family 12 re-pointed a supplier call of another; 2026-10-01: family
+32 two supplier calls of a third, `flat_v7_generic_h_g`). Each twin is its
 source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
