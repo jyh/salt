@@ -1156,7 +1156,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g (a b h : ℕ) (ha : 0 < a) (h
     (fun eps H _ => bigXiAffD a b h eps H)
     (fun eps heps => nearRatTight_of_bigXiAffD bigXiArcTight_twelve heps ha hh) ?_ A₀
   obtain ⟨Cc, hCc, hCcb, H₀, hH₀2, hcard⟩ :=
-    bigXiAff_bounded_ceiling_of_pin a b h ha hh hah7 _ rfl
+    bigXiAff_bounded_ceiling_of_pin_b9 a b h ha hh (le_trans hah7 (by norm_num)) _ rfl
   refine ⟨Cc, hCc, hCcb, H₀, hH₀2, ?_⟩
   intro H _ hH
   refine le_trans ?_ (hcard H hH)
