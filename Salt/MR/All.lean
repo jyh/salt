@@ -9371,7 +9371,11 @@ twin, their rows dropped, which leaves two more names without a caller: the sibl
 family 27 retired those two, their rows dropped, which leaves no name audited here that has a `_b9`
 twin without a caller; 2026-09-30: family 28 retired three names that have no `_b9` twin into their
 relatives — the numeric sibling `capfloor_floor3_numeric_h` and the rows `capeps_row_phi_h` and
-`capeps_row_tail_h` — their registry rows dropped, which leaves `h_le_exp_seven` without a caller):
+`capeps_row_tail_h` — their registry rows dropped, which leaves `h_le_exp_seven` without a caller;
+2026-09-30: family 29 moved `capfloor_T0_Tann_LH` and `capfloor_floor4_LH` to that file's foot and
+re-pointed five of their supplier calls to cap-9 twins, their statements unchanged, which leaves
+three siblings audited below without a caller: `capfloor_logq_le_LH`, `capfloor_T0_Tann_sharp_LH`
+and `capfloor_rhs_legs_LH`):
 every landed numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
@@ -10158,7 +10162,9 @@ three F3 twins; 2026-09-29: family 23 retired eight siblings of that file into F
 2026-09-29: family 24 twelve more, one of them into a twin here; 2026-09-30: family 25 seven more,
 one of them into a twin here; 2026-09-30: family 26 two more, both into F2 twins; 2026-09-30:
 family 27 two more, one into a twin here and one into an F2 twin; 2026-09-30: family 28 three more,
-into relatives that are not `_b9` twins, one of them audited here).  Each twin is its source's
+into relatives that are not `_b9` twins, one of them audited here; 2026-09-30: family 29 re-pointed
+two landed suppliers of that file's capfloor assembler to two twins here, by three of their calls,
+and moved the two to that file's foot).  Each twin is its source's
 statement and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`,
 `1096 ↦ 8103`, the census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row —
 every derived cap-dependent supplier replaced by its twin, and no hypothesis added.  The MR
@@ -10295,7 +10301,9 @@ assembler of `S16ComposeLH` to two twins here; 2026-09-28: family 20 the §8 cap
 family 22 that file's cap-gate assembler to two twins here, by three of its calls; 2026-09-29:
 family 23 retired the sources of five twins here into them; 2026-09-29: family 24 the sources of
 seven more; 2026-09-30: family 25 the sources of five more; 2026-09-30: family 26 the sources of two
-more; 2026-09-30: family 27 the source of one more).  Each twin is its source's statement and body
+more; 2026-09-30: family 27 the source of one more; 2026-09-30: family 29 re-pointed two landed
+suppliers of that file's capfloor assembler to two twins here, by two of their calls, and moved the
+two to that file's foot).  Each twin is its source's statement and body
 with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
 every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
 `s13CapGrid_mu_lo_LH_b9`, `capfloor_logq_le_LH_b9`, the `S16ProducersH` socket chain) or by the

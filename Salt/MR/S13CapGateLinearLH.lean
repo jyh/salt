@@ -28,7 +28,11 @@ family 26's retirement left without a caller, likewise, which leaves no name of 
 `_b9` twin without a caller; 2026-09-30: family 28 retired three names that have no `_b9` twin into
 relatives whose statement is theirs with one binder weakened — `capfloor_floor3_numeric_h`,
 `capeps_row_phi_h`, `capeps_row_tail_h` — each noted where it stood, which leaves `h_le_exp_seven`
-without a caller).  (2026-09-30, a count corrected: over every name of this file, family 24's
+without a caller; 2026-09-30: family 29 moved `capfloor_T0_Tann_LH` and `capfloor_floor4_LH` to §9
+at the foot and re-pointed five of their supplier calls to cap-9 twins, their statements
+unchanged, which leaves three siblings without a caller: `capfloor_logq_le_LH`,
+`capfloor_T0_Tann_sharp_LH` and `capfloor_rhs_legs_LH`).  (2026-09-30, a count corrected: over
+every name of this file, family 24's
 retirement left NINE without a caller, not seven — the seven that family 25 retired, which have a
 `_b9` twin, and the rows `capeps_row_phi_h` and `capeps_row_tail_h`, which have none.  Family 25's
 left three: the two that family 26 retired, and the numeric sibling `capeps_Pbig_h`, which has no
@@ -604,7 +608,9 @@ called, into their cap-9 twins; their notes stand where the pages stood.  2026-0
 retired `capfloor_tannGate_LH`, which that pair had called, into its cap-9 twin; its note stands
 where the page stood.  2026-09-30: family 28 retired one of the two numeric siblings,
 `capfloor_floor3_numeric_h`, into its relative `capfloor_floor3_numeric_h_10`; its note stands
-in §1.) -/
+in §1.  2026-09-30: family 29 moved `capfloor_T0_Tann_LH` and `capfloor_floor4_LH` from this page to
+§9 at the foot, above the assembler, five of their supplier calls at cap-9 twins, their statements
+unchanged.) -/
 
 /-- ⭐ **⟦THE `+log h` LINE⟧** — the one new inequality the floor page reads, and the only
 place on it where conjunct 5's inflation is spent.  At `SocketBaseL` the modulus ledger gives
@@ -729,29 +735,6 @@ theorem capfloor_T0_Tann_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : �
     Real.exp_le_exp.mpr h1
   rw [Real.exp_log hTpos] at h2
   linarith
-
-theorem capfloor_T0_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
-    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) : T₀ ≤ Tann := by
-  obtain ⟨hv, hm, hTpos, hlogT⟩ := capfloor_core_LH hh hh7 hfl hb hAN hTlo
-  have hlo : R.Hlo ≤ H := hb.1
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
-  have hsq : Real.sqrt (H : ℝ) = Real.exp (Real.log (H : ℝ) / 2) := capfloor_sqrt_eq_exp hH0
-  -- `e^{100} ≤ √H/2`
-  have hE : Real.exp 100 ≤ Real.sqrt (H : ℝ) / 2 := by
-    have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-    have hmono : Real.exp 101 ≤ Real.exp (Real.log (H : ℝ) / 2) :=
-      Real.exp_le_exp.mpr (by nlinarith [hv, h21])
-    have hsplit : Real.exp 101 = Real.exp 100 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-    have hp : (0 : ℝ) < Real.exp 100 := Real.exp_pos _
-    rw [hsq]
-    nlinarith [hmono, hsplit, he1, hp]
-  exact capfloor_T0_Tann_sharp_LH hh hh7 hfl hb hAN hTlo (le_trans hT₀ (Real.exp_le_exp.mpr hE))
 
 theorem capfloor_rhs_legs_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
@@ -934,105 +917,6 @@ This page's docstring, verbatim:
 
 ⟦`floor3` at the inflated socket⟧ — the `Kq` arm.  `hW` picks up `log h ≤ 7`, so the
 numeric leg is `capfloor_floor3_numeric_h`'s `+8` rather than the landed `+1`. -/
-
-set_option maxHeartbeats 400000 in
--- the `q ≤ (log H)^13` re-cut adds an rpow chain on top of the landed closing block
-/-- ⟦`floor4` at the inflated socket⟧ — the `Ks` arm, and the one leaf whose LHS route is
-genuinely re-cut.  The landed proof reads `q ≤ (log H)^12` and lands on `(log H)^{3/4}`.  At
-`LH` the ledger is `q ≤ h·(log H)^12`, and rather than carry an `h^{1/16}` factor the cleanest
-route absorbs `h` into the exponent: `h ≤ 1096 ≤ log H`, so `q ≤ (log H)^13` and
-`q^{1/16} ≤ (log H)^{13/16} ≤ log H` — **the same conclusion, with no numeral at a floor**. -/
-theorem capfloor_floor4_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) (hKs : Real.exp (-100) ≤ Ks) :
-    (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) := by
-  obtain ⟨hv, -, -, -⟩ := capfloor_core_LH hh hh7 hfl hb hAN hTlo
-  obtain ⟨hlq, hq1⟩ := capfloor_logq_le_LH hh hh7 hb
-  have hlegs := capfloor_rhs_legs_LH hh hh7 hfl hb hAN hTlo
-  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hv0 : (0 : ℝ) < Real.log (H : ℝ) := lt_of_lt_of_le h21 hv
-  have hnum1 : (1 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
-  have hv1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by linarith
-  -- `h ≤ 1096 ≤ 10^21 ≤ log H`, so the inflation is absorbed into the exponent
-  have hh1096N : h ≤ 1096 := Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7
-  have hh1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast hh1096N
-  have hnum2 : (1096 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
-  have hhle : (h : ℝ) ≤ Real.log (H : ℝ) := by linarith
-  have hqA : (q : ℝ) ≤ Real.log (H : ℝ) ^ (13 : ℕ) := by
-    have hz := hb.2.2.2.2.1
-    have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    rw [harcpow] at hz
-    have hp12 : (0 : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
-    have hid : Real.log (H : ℝ) ^ (13 : ℕ)
-        = Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := by ring
-    calc (q : ℝ) ≤ (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := hz
-      _ ≤ Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) :=
-          mul_le_mul_of_nonneg_right hhle hp12
-      _ = Real.log (H : ℝ) ^ (13 : ℕ) := hid.symm
-  have hstep1 : (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16) :=
-    Real.rpow_le_rpow (Nat.cast_nonneg q) hqA (by norm_num)
-  have hstep2 : (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16)
-      = Real.log (H : ℝ) ^ ((13 : ℝ) / 16) := by
-    rw [← Real.rpow_natCast (Real.log (H : ℝ)) 13, ← Real.rpow_mul hv0.le]
-    norm_num
-  have hstep3 : Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
-    calc Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) ^ (1 : ℝ) :=
-          Real.rpow_le_rpow_of_exponent_le hv1 (by norm_num)
-      _ = Real.log (H : ℝ) := Real.rpow_one _
-  have hLHS : (q : ℝ) ^ ((1 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
-    rw [hstep2] at hstep1; linarith
-  set E : ℝ := Real.exp 100 with hEdef
-  have hE : (101 : ℝ) ≤ E := by
-    have := Real.add_one_le_exp (100 : ℝ); rw [hEdef]; linarith
-  have hE0 : (0 : ℝ) < E := by linarith
-  have hE3 : Real.exp 300 = E ^ (3 : ℕ) := by
-    rw [hEdef, ← Real.exp_nat_mul]; norm_num
-  rw [hE3] at hlegs
-  have hKsE : 1 / E ≤ Ks := by
-    have hz : Real.exp (-100 : ℝ) = 1 / E := by
-      rw [hEdef, Real.exp_neg]; simp
-    rwa [hz] at hKs
-  have hRpos : (0 : ℝ) ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) := by
-    refine le_trans ?_ hlegs
-    positivity
-  have hmul : (1 / E) * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ))
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) :=
-    mul_le_mul_of_nonneg_right hKsE hRpos
-  refine le_trans ?_ hmul
-  refine le_trans hLHS ?_
-  -- the RHS is h-blind: the landed closing chain, verbatim
-  have hinner : (1 / E) * (E ^ (3 : ℕ) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
-      ≤ (1 / E) * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) :=
-    mul_le_mul_of_nonneg_left hlegs (by positivity)
-  refine le_trans ?_ hinner
-  have hEq : (1 / E) * (E ^ (3 : ℕ) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
-      = E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (4 : ℕ) / 256) := by
-    field_simp; ring
-  rw [hEq]
-  have h256 : (256 : ℝ) ≤ Real.log (H : ℝ) := by
-    refine le_trans (by norm_num) hv
-  have hxx : (65536 : ℝ) ≤ Real.log (H : ℝ) * Real.log (H : ℝ) := by nlinarith [h256]
-  have hv3 : (256 : ℝ) ≤ Real.log (H : ℝ) ^ (3 : ℕ) := by
-    have hid : Real.log (H : ℝ) ^ (3 : ℕ)
-        = Real.log (H : ℝ) * (Real.log (H : ℝ) * Real.log (H : ℝ)) := by ring
-    rw [hid]; nlinarith [h256, hxx]
-  have hE2 : (1 : ℝ) ≤ E ^ (2 : ℕ) := by nlinarith [hE]
-  have hfac : (1 : ℝ) ≤ E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256) := by
-    have h1 : (1 : ℝ) ≤ Real.log (H : ℝ) ^ (3 : ℕ) / 256 := by linarith
-    nlinarith [hE2, h1]
-  have hid2 : E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (4 : ℕ) / 256)
-      = Real.log (H : ℝ) * (E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256)) := by ring
-  rw [hid2]
-  nlinarith [hfac, hv0]
 
 
 /-! ## ⟦§5 — THE THREE `EP₂` ROWS AT THE INFLATED MODULUS⟧
@@ -3052,7 +2936,144 @@ landed.
 (2026-09-29, family 23)  Eight of the ten pages the two assemblers called at the cap 7 when the
 lane opened and call no longer — the capfloor assembler's five, three of the cap-gate assembler's
 five — are retired into their cap-9 twins; their notes stand in §4 (THE FLOOR PAGE), §6 and §7.
-`s13CapGrid_mu_2000_LH` and `s13CapGrid_Lambda_lo_LH` have other callers and stand. -/
+`s13CapGrid_mu_2000_LH` and `s13CapGrid_Lambda_lo_LH` have other callers and stand.
+
+(2026-09-30, family 29)  Two more landed pages of §4 (THE FLOOR PAGE) stand here, above the capfloor
+assembler that calls them and in their original order: `capfloor_T0_Tann_LH` and
+`capfloor_floor4_LH`, moved for the same reason.  Five of their supplier calls go to cap-9 twins —
+`capfloor_core_LH_b9` and `capfloor_T0_Tann_sharp_LH_b9` in the first; `capfloor_core_LH_b9`,
+`capfloor_logq_le_LH_b9` and `capfloor_rhs_legs_LH_b9` in the second — `log h ≤ 9` supplied once in
+each by a `have` from `hh7`.  Their statements are unchanged: both keep the binder `log h ≤ 7`,
+the second still spends it (`h ≤ 1096`), and the capfloor assembler calls both at the cap 7 as
+before. -/
+
+-- 2026-09-30, the XY debt lane, family 29: two calls at the cap 9 (twins), none kept at the cap 7
+theorem capfloor_T0_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) : T₀ ≤ Tann := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
+  obtain ⟨hv, hm, hTpos, hlogT⟩ := capfloor_core_LH_b9 hh hh9 hfl hb hAN hTlo
+  have hlo : R.Hlo ≤ H := hb.1
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
+  have hsq : Real.sqrt (H : ℝ) = Real.exp (Real.log (H : ℝ) / 2) := capfloor_sqrt_eq_exp hH0
+  -- `e^{100} ≤ √H/2`
+  have hE : Real.exp 100 ≤ Real.sqrt (H : ℝ) / 2 := by
+    have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+    have hmono : Real.exp 101 ≤ Real.exp (Real.log (H : ℝ) / 2) :=
+      Real.exp_le_exp.mpr (by nlinarith [hv, h21])
+    have hsplit : Real.exp 101 = Real.exp 100 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+    have hp : (0 : ℝ) < Real.exp 100 := Real.exp_pos _
+    rw [hsq]
+    nlinarith [hmono, hsplit, he1, hp]
+  exact capfloor_T0_Tann_sharp_LH_b9 hh hh9 hfl hb hAN hTlo (le_trans hT₀ (Real.exp_le_exp.mpr hE))
+
+
+set_option maxHeartbeats 400000 in
+-- the `q ≤ (log H)^13` re-cut adds an rpow chain on top of the landed closing block
+-- 2026-09-30, the XY debt lane, family 29: three calls at the cap 9 (twins), one kept at the cap 7
+/-- ⟦`floor4` at the inflated socket⟧ — the `Ks` arm, and the one leaf whose LHS route is
+genuinely re-cut.  The landed proof reads `q ≤ (log H)^12` and lands on `(log H)^{3/4}`.  At
+`LH` the ledger is `q ≤ h·(log H)^12`, and rather than carry an `h^{1/16}` factor the cleanest
+route absorbs `h` into the exponent: `h ≤ 1096 ≤ log H`, so `q ≤ (log H)^13` and
+`q^{1/16} ≤ (log H)^{13/16} ≤ log H` — **the same conclusion, with no numeral at a floor**. -/
+theorem capfloor_floor4_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) (hKs : Real.exp (-100) ≤ Ks) :
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
+  obtain ⟨hv, -, -, -⟩ := capfloor_core_LH_b9 hh hh9 hfl hb hAN hTlo
+  obtain ⟨hlq, hq1⟩ := capfloor_logq_le_LH_b9 hh hh9 hb
+  have hlegs := capfloor_rhs_legs_LH_b9 hh hh9 hfl hb hAN hTlo
+  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
+  have hv0 : (0 : ℝ) < Real.log (H : ℝ) := lt_of_lt_of_le h21 hv
+  have hnum1 : (1 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
+  have hv1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by linarith
+  -- `h ≤ 1096 ≤ 10^21 ≤ log H`, so the inflation is absorbed into the exponent
+  have hh1096N : h ≤ 1096 := Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7
+  have hh1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast hh1096N
+  have hnum2 : (1096 : ℝ) ≤ (10 : ℝ) ^ (21 : ℕ) := by norm_num
+  have hhle : (h : ℝ) ≤ Real.log (H : ℝ) := by linarith
+  have hqA : (q : ℝ) ≤ Real.log (H : ℝ) ^ (13 : ℕ) := by
+    have hz := hb.2.2.2.2.1
+    have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    rw [harcpow] at hz
+    have hp12 : (0 : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
+    have hid : Real.log (H : ℝ) ^ (13 : ℕ)
+        = Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := by ring
+    calc (q : ℝ) ≤ (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := hz
+      _ ≤ Real.log (H : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) :=
+          mul_le_mul_of_nonneg_right hhle hp12
+      _ = Real.log (H : ℝ) ^ (13 : ℕ) := hid.symm
+  have hstep1 : (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16) :=
+    Real.rpow_le_rpow (Nat.cast_nonneg q) hqA (by norm_num)
+  have hstep2 : (Real.log (H : ℝ) ^ (13 : ℕ)) ^ ((1 : ℝ) / 16)
+      = Real.log (H : ℝ) ^ ((13 : ℝ) / 16) := by
+    rw [← Real.rpow_natCast (Real.log (H : ℝ)) 13, ← Real.rpow_mul hv0.le]
+    norm_num
+  have hstep3 : Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
+    calc Real.log (H : ℝ) ^ ((13 : ℝ) / 16) ≤ Real.log (H : ℝ) ^ (1 : ℝ) :=
+          Real.rpow_le_rpow_of_exponent_le hv1 (by norm_num)
+      _ = Real.log (H : ℝ) := Real.rpow_one _
+  have hLHS : (q : ℝ) ^ ((1 : ℝ) / 16) ≤ Real.log (H : ℝ) := by
+    rw [hstep2] at hstep1; linarith
+  set E : ℝ := Real.exp 100 with hEdef
+  have hE : (101 : ℝ) ≤ E := by
+    have := Real.add_one_le_exp (100 : ℝ); rw [hEdef]; linarith
+  have hE0 : (0 : ℝ) < E := by linarith
+  have hE3 : Real.exp 300 = E ^ (3 : ℕ) := by
+    rw [hEdef, ← Real.exp_nat_mul]; norm_num
+  rw [hE3] at hlegs
+  have hKsE : 1 / E ≤ Ks := by
+    have hz : Real.exp (-100 : ℝ) = 1 / E := by
+      rw [hEdef, Real.exp_neg]; simp
+    rwa [hz] at hKs
+  have hRpos : (0 : ℝ) ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) := by
+    refine le_trans ?_ hlegs
+    positivity
+  have hmul : (1 / E) * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ))
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) :=
+    mul_le_mul_of_nonneg_right hKsE hRpos
+  refine le_trans ?_ hmul
+  refine le_trans hLHS ?_
+  -- the RHS is h-blind: the landed closing chain, verbatim
+  have hinner : (1 / E) * (E ^ (3 : ℕ) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
+      ≤ (1 / E) * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) :=
+    mul_le_mul_of_nonneg_left hlegs (by positivity)
+  refine le_trans ?_ hinner
+  have hEq : (1 / E) * (E ^ (3 : ℕ) * (Real.log (H : ℝ) / 4) ^ (4 : ℕ))
+      = E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (4 : ℕ) / 256) := by
+    field_simp; ring
+  rw [hEq]
+  have h256 : (256 : ℝ) ≤ Real.log (H : ℝ) := by
+    refine le_trans (by norm_num) hv
+  have hxx : (65536 : ℝ) ≤ Real.log (H : ℝ) * Real.log (H : ℝ) := by nlinarith [h256]
+  have hv3 : (256 : ℝ) ≤ Real.log (H : ℝ) ^ (3 : ℕ) := by
+    have hid : Real.log (H : ℝ) ^ (3 : ℕ)
+        = Real.log (H : ℝ) * (Real.log (H : ℝ) * Real.log (H : ℝ)) := by ring
+    rw [hid]; nlinarith [h256, hxx]
+  have hE2 : (1 : ℝ) ≤ E ^ (2 : ℕ) := by nlinarith [hE]
+  have hfac : (1 : ℝ) ≤ E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256) := by
+    have h1 : (1 : ℝ) ≤ Real.log (H : ℝ) ^ (3 : ℕ) / 256 := by linarith
+    nlinarith [hE2, h1]
+  have hid2 : E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (4 : ℕ) / 256)
+      = Real.log (H : ℝ) * (E ^ (2 : ℕ) * (Real.log (H : ℝ) ^ (3 : ℕ) / 256)) := by ring
+  rw [hid2]
+  nlinarith [hfac, hv0]
+
 
 -- 2026-09-28, the XY debt lane, family 21: five calls at the cap 9 (twins), two kept at the cap 7
 theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
