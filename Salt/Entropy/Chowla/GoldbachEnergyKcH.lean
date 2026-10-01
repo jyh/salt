@@ -217,84 +217,8 @@ theorem hpt_holds_500h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) :
       (mul_le_mul_of_nonneg_right (hpt_const_le_pow35_h h hh hh7) (by positivity))
       (sTrunc2_nonneg n)
 
-/-! ## §4 — the count ceiling at shift `h` -/
-
-set_option exponentiation.threshold 4000 in
-/-- **⟦THE COMPOSE HOOK AT SHIFT `h`⟧** (`bigXiH_bounded_ceiling_of_pin`) —
-`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`) at the `h` lane's own pin
-`ε = 1/(500·h)`, carrying the terminal road's rider `C ≤ 2^539`.
-
-**This is the lemma whose absence made `Kc ≤ 2^539` unreachable at `h`.** The `h` head obtains
-`bigXiH_bounded` (`ShiftFork.lean:253`), which routes through the EXISTENTIAL `bigXi_bounded`
-and exports only `0 < C`; the `h = 1` head obtains the pinned hook and gets the ceiling with it.
-One `obtain` — the same shape as wave H1's `Cg` artifact.
-
-⟦THE WITNESS AND ITS SIZE⟧ `h · 32·exp 40·(2^35·h²)²·(500h)^10 = 32·exp 40·2^70·500^10·h^15`.
-The exponent is **`h^15`**: `ε^{-10}` gives ten, the squared constant `C₁(h)² = 2^70·h^4` gives
-four, the fiber bound `bigXiH_card_le_mul` gives one. On the corpus's own chain
-(`exp 40 ≤ 3^40`) that is `2^379.53` at `h ≤ 1096`, against `2^539` — **159.47 bits spare**. -/
-theorem bigXiH_bounded_ceiling_of_pin (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (ε : ℚ) (hε : ε = 1 / (500 * (h : ℚ))) :
-    ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
-      ((bigXiH h ε H).card : ℝ) ≤ C := by
-  subst hε
-  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
-  have h1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast h_le_1096_of_log_le_seven hh hh7
-  have hcast : (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by push_cast; ring
-  have heps2 : ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 2 < 1 / 2 := by
-    rw [hcast]
-    have hle : (1 : ℝ) / (500 * (h : ℝ)) ≤ 1 / 500 := by
-      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
-    have h0 : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
-    nlinarith [hle, h0]
-  have hbase := bigXi_bounded_explicit (1 / (500 * (h : ℚ))) (by positivity) heps2
-    ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) (Real.exp 40) (Real.exp_pos _) hFac2_lcm_sum_le_exp40
-    (hpt_holds_500h h hh hh7)
-  -- ⟦THE WITNESS, DIVISION-FREE⟧
-  refine ⟨32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
-      * (h : ℝ), by positivity, ?_, 2, le_rfl, ?_⟩
-  · -- ⟦THE CEILING⟧ `32·exp 40·2^70·500^10·h^15 ≤ 2^539`
-    have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by
-      simpa using exp_forty_le_pow40
-    have hexp0 : (0 : ℝ) < Real.exp 40 := Real.exp_pos _
-    have hfold : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
-        * (h : ℝ)
-        = (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * (h : ℝ) ^ (15 : ℕ) := by
-      ring
-    have hp15 : (h : ℝ) ^ (15 : ℕ) ≤ (1096 : ℝ) ^ (15 : ℕ) :=
-      pow_le_pow_left₀ hx0.le h1096 15
-    have hnn : (0 : ℝ) ≤ 32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ) := by positivity
-    have hnum : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (1096 : ℝ) ^ (15 : ℕ)
-        ≤ 2 ^ 539 := by norm_num
-    rw [hfold]
-    calc (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * (h : ℝ) ^ (15 : ℕ)
-        ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (1096 : ℝ) ^ (15 : ℕ) := by
-          have h1 : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40
-              ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) :=
-            mul_le_mul_of_nonneg_left h40 hnn
-          have h2 : (0 : ℝ) ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) := by positivity
-          nlinarith [h1, h2, hp15, pow_nonneg hx0.le 15]
-      _ ≤ 2 ^ 539 := hnum
-  · -- ⟦THE BOUND⟧ the fiber times the pinned count
-    intro H _ hH2
-    have hfib : ((bigXiH h (1 / (500 * (h : ℚ))) H).card : ℝ)
-        ≤ (h : ℝ) * ((bigXi (1 / (500 * (h : ℚ))) H).card : ℝ) := by
-      exact_mod_cast bigXiH_card_le_mul h hh (1 / (500 * (h : ℚ))) H
-    have hb := hbase H hH2
-    have hden : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2
-          / ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 10
-        = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ) := by
-      rw [hcast]; field_simp
-    rw [hden] at hb
-    calc ((bigXiH h (1 / (500 * (h : ℚ))) H).card : ℝ)
-        ≤ (h : ℝ) * ((bigXi (1 / (500 * (h : ℚ))) H).card : ℝ) := hfib
-      _ ≤ (h : ℝ) * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2
-            * (500 * (h : ℝ)) ^ (10 : ℕ)) := by
-          exact mul_le_mul_of_nonneg_left hb hx0.le
-      _ = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
-            * (h : ℝ) := by ring
+/-! (§4, the count ceiling at shift `h`, stands at the foot of this file, below §6:
+2026-10-01, the XY debt lane, family 35.) -/
 
 /-! ## §5 — the ε line at shift `h` (wave H2a word 2 — a LINE, not a name) -/
 
@@ -320,7 +244,10 @@ theorem eps_line_h (h : ℕ) (hh : 0 < h) :
 
 Additive only: every declaration above is untouched.  Each twin is its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`,
-and the census's in-body numerals at cap 9); no hypothesis is added and no conclusion weakened. -/
+and the census's in-body numerals at cap 9); no hypothesis is added and no conclusion weakened.
+(2026-10-01: the XY debt lane's family 35 moved §4's count hook, which stood above, to the foot of
+the file, below these twins, and re-pointed its one call of `hpt_holds_500h` to
+`hpt_holds_500h_b9`; its statement is unchanged.) -/
 
 /-- **⟦THE SHIFT'S `ℕ` BOUND AT CAP 9⟧ (class A)** — the `log h ≤ 9` twin of
 `h_le_1096_of_log_le_seven`, the Entropy-side converter of the β lane (`StridePrize`, `StrideFork`
@@ -467,6 +394,97 @@ theorem hpt_holds_500h_b9 (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9
     exact mul_le_mul_of_nonneg_right
       (mul_le_mul_of_nonneg_right (hpt_const_le_pow35_h_b9 h hh hh9) (by positivity))
       (sTrunc2_nonneg n)
+
+/-! ### §4, MOVED BELOW THE CAP-9 TWINS (XY debt lane, family 35, 2026-10-01)
+
+The count ceiling stood between §3 and §5.  It read §3's supplier `hpt_holds_500h`; it now calls
+that supplier's cap-9 twin `hpt_holds_500h_b9`, which stands in §6, so the page stands below it.
+The §4 header, the `set_option` line, the statement and the body are byte-identical to the ones
+that stood above, except ONE line of the body, the call re-pointed at the twin with `log h ≤ 9`
+proved there from `hh7`; the docstring gains one dated paragraph. -/
+
+/-! ## §4 — the count ceiling at shift `h` -/
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE COMPOSE HOOK AT SHIFT `h`⟧** (`bigXiH_bounded_ceiling_of_pin`) —
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`) at the `h` lane's own pin
+`ε = 1/(500·h)`, carrying the terminal road's rider `C ≤ 2^539`.
+
+**This is the lemma whose absence made `Kc ≤ 2^539` unreachable at `h`.** The `h` head obtains
+`bigXiH_bounded` (`ShiftFork.lean:253`), which routes through the EXISTENTIAL `bigXi_bounded`
+and exports only `0 < C`; the `h = 1` head obtains the pinned hook and gets the ceiling with it.
+One `obtain` — the same shape as wave H1's `Cg` artifact.
+
+⟦THE WITNESS AND ITS SIZE⟧ `h · 32·exp 40·(2^35·h²)²·(500h)^10 = 32·exp 40·2^70·500^10·h^15`.
+The exponent is **`h^15`**: `ε^{-10}` gives ten, the squared constant `C₁(h)² = 2^70·h^4` gives
+four, the fiber bound `bigXiH_card_le_mul` gives one. On the corpus's own chain
+(`exp 40 ≤ 3^40`) that is `2^379.53` at `h ≤ 1096`, against `2^539` — **159.47 bits spare**.
+
+(2026-10-01, the XY debt lane, family 35: the `hpt` supplier is called here at its cap-9 twin
+`hpt_holds_500h_b9`, `log h ≤ 9` proved at the call from `hh7`; the ceiling still reads `h ≤ 1096`
+off `hh7`.) -/
+theorem bigXiH_bounded_ceiling_of_pin (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (ε : ℚ) (hε : ε = 1 / (500 * (h : ℚ))) :
+    ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
+      ((bigXiH h ε H).card : ℝ) ≤ C := by
+  subst hε
+  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
+  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
+  have h1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast h_le_1096_of_log_le_seven hh hh7
+  have hcast : (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by push_cast; ring
+  have heps2 : ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 2 < 1 / 2 := by
+    rw [hcast]
+    have hle : (1 : ℝ) / (500 * (h : ℝ)) ≤ 1 / 500 := by
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
+    have h0 : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
+    nlinarith [hle, h0]
+  have hbase := bigXi_bounded_explicit (1 / (500 * (h : ℚ))) (by positivity) heps2
+    ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) (Real.exp 40) (Real.exp_pos _) hFac2_lcm_sum_le_exp40
+    (hpt_holds_500h_b9 h hh (le_trans hh7 (by norm_num)))
+  -- ⟦THE WITNESS, DIVISION-FREE⟧
+  refine ⟨32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
+      * (h : ℝ), by positivity, ?_, 2, le_rfl, ?_⟩
+  · -- ⟦THE CEILING⟧ `32·exp 40·2^70·500^10·h^15 ≤ 2^539`
+    have h40 : Real.exp 40 ≤ 3 ^ (40 : ℕ) := by
+      simpa using exp_forty_le_pow40
+    have hexp0 : (0 : ℝ) < Real.exp 40 := Real.exp_pos _
+    have hfold : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
+        * (h : ℝ)
+        = (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * (h : ℝ) ^ (15 : ℕ) := by
+      ring
+    have hp15 : (h : ℝ) ^ (15 : ℕ) ≤ (1096 : ℝ) ^ (15 : ℕ) :=
+      pow_le_pow_left₀ hx0.le h1096 15
+    have hnn : (0 : ℝ) ≤ 32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ) := by positivity
+    have hnum : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (1096 : ℝ) ^ (15 : ℕ)
+        ≤ 2 ^ 539 := by norm_num
+    rw [hfold]
+    calc (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40 * (h : ℝ) ^ (15 : ℕ)
+        ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) * (1096 : ℝ) ^ (15 : ℕ) := by
+          have h1 : (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * Real.exp 40
+              ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) :=
+            mul_le_mul_of_nonneg_left h40 hnn
+          have h2 : (0 : ℝ) ≤ (32 * (2 : ℝ) ^ 70 * 500 ^ (10 : ℕ)) * 3 ^ (40 : ℕ) := by positivity
+          nlinarith [h1, h2, hp15, pow_nonneg hx0.le 15]
+      _ ≤ 2 ^ 539 := hnum
+  · -- ⟦THE BOUND⟧ the fiber times the pinned count
+    intro H _ hH2
+    have hfib : ((bigXiH h (1 / (500 * (h : ℚ))) H).card : ℝ)
+        ≤ (h : ℝ) * ((bigXi (1 / (500 * (h : ℚ))) H).card : ℝ) := by
+      exact_mod_cast bigXiH_card_le_mul h hh (1 / (500 * (h : ℚ))) H
+    have hb := hbase H hH2
+    have hden : 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2
+          / ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 10
+        = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ) := by
+      rw [hcast]; field_simp
+    rw [hden] at hb
+    calc ((bigXiH h (1 / (500 * (h : ℚ))) H).card : ℝ)
+        ≤ (h : ℝ) * ((bigXi (1 / (500 * (h : ℚ))) H).card : ℝ) := hfib
+      _ ≤ (h : ℝ) * (32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2
+            * (500 * (h : ℝ)) ^ (10 : ℕ)) := by
+          exact mul_le_mul_of_nonneg_left hb hx0.le
+      _ = 32 * Real.exp 40 * ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2) ^ 2 * (500 * (h : ℝ)) ^ (10 : ℕ)
+            * (h : ℝ) := by ring
 
 end Salt.Entropy.Chowla
 

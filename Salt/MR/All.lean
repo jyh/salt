@@ -10140,7 +10140,10 @@ statement and body with ONLY the freeze's rule-2 raises — product cap `≤ 7 �
 `1201216 ↦ 65658609`, stride `a ≤ 1096 ↦ a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
 `10^24 ↦ 10^28`, door grade `2^11 ↦ 2^12` — and no hypothesis added.  The Entropy converter
 `h_le_8103_of_log_le_nine` is new (`e^9 = 8103.08`, sharp); `regimeShrinkX_stride_b9` is twinned
-with its nine projections (rule 4).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+with its nine projections (rule 4).  Nothing here bears on twin primes.  18 obligations, 18 landed.
+2026-10-01: family 35 of the XY debt lane re-pointed the one call of `hpt_holds_500h` in the
+`h`-lane count hook `bigXiH_bounded_ceiling_of_pin` (`GoldbachEnergyKcH`) to `hpt_holds_500h_b9`,
+audited here; the hook's statement is unchanged. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.h_le_8103_of_log_le_nine
   Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9
