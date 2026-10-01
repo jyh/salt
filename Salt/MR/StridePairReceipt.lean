@@ -1943,7 +1943,8 @@ so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by
 `Real.log_two_gt_d9`); the count hook is the HYPOTHESIS `hcount` (at `Xi := bigXiH h` it is
 `bigXiH_bounded_ceiling_of_pin h hh hh7 ε rfl`; at `bigXiAffD a b h` with `h := a·h` it is
-`bigXiAff_bounded_ceiling_of_pin` through `bigXiAffD_card_le`); `β := cD3·ε/(144·log 4)`;
+`bigXiAff_bounded_ceiling_of_pin` through `bigXiAffD_card_le` — from 2026-10-01 its cap-9 twin, XY
+family 33); `β := cD3·ε/(144·log 4)`;
 `Hopq := H₀xi`; the hoist `intro A hA26 hAge`; the regime from F3-Q3 (from 2026-09-26 its cap-9
 twin, XY family 10) at `max F (max extraFloor U1floor)` and the caller's `a`, `g`, `hg`; the cap
 by `flatCapH_shuffle`; the `P R` slot
@@ -2135,7 +2136,9 @@ theorem mrtUniformityXiL2H_holds_flat (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h 
 (`Nat.cast_le.mpr`).  The pin `1/(500·(a·h))` is F1-C5's.  v2 (A4/A2): the ε-pin EQUALITY
 `ε = 1/(500·(a·h))` and the count conjunct at `bigXiAffD` are F3-Q16's own at `h := a*h`, `Xi :=
 bigXiAffD a b h` — nothing to prove here beyond the instance (`Nat.cast_mul` on the pin's
-denominator if the road is stated at `(a*h : ℕ)`). -/
+denominator if the road is stated at `(a*h : ℕ)`).  (2026-10-01, the XY debt lane, family 33:
+`hcount` is from the cap-9 twin `bigXiAff_bounded_ceiling_of_pin_b9`, `log (a·h) ≤ 9` proved at
+the call from `hah7`.) -/
 theorem mrtUniformityXiL2AffSet_holds_flat_floor (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)
     (hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7) (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
@@ -2156,7 +2159,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor (a b h : ℕ) (ha : 0 < a) (hh 
     (fun eps H _ => bigXiAffD a b h eps H)
     (fun eps heps => nearRatTight_of_bigXiAffD bigXiArcTight_twelve heps ha hh) ?_ A₀
   obtain ⟨Cc, hCc, hCcb, H₀, hH₀2, hcard⟩ :=
-    bigXiAff_bounded_ceiling_of_pin a b h ha hh hah7 _ rfl
+    bigXiAff_bounded_ceiling_of_pin_b9 a b h ha hh (le_trans hah7 (by norm_num)) _ rfl
   refine ⟨Cc, hCc, hCcb, H₀, hH₀2, ?_⟩
   intro H _ hH
   refine le_trans ?_ (hcard H hH)

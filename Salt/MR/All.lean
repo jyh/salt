@@ -9774,7 +9774,10 @@ to date.  From family 10 every door-head that called the retired head-shaped bui
 cap-9 pair, as the G12b one already did, at `log a ≤ 9`; the builder named above stood, with no
 call site, until family 11 (2026-09-27) retired it into its cap-9 twin.  2026-10-01: family 32
 re-pointed two calls of `flat_v7_generic_h` — the rated supply and the base-scale cap — to
-their cap-9 twins in `V7RatedH`, its statement unchanged; no name is retired by it.)
+their cap-9 twins in `V7RatedH`, its statement unchanged; no name is retired by it.  2026-10-01:
+family 33 re-pointed the count hook of `mrtUniformityXiL2AffSet_holds_flat_floor` and of its
+graded form to the cap-9 twin `bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork`), statements
+unchanged; the cap-7 hook keeps its declaration with no call site, and no name is retired by it.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
   Salt.MR.nearRatTight_of_bigXiAffArcTight
@@ -10426,7 +10429,10 @@ open Salt.Tactic in
 /-! ⟦β W34 H1⟧ — THE SPINE AT `2^12`, CAP 9, AND THE CROWNED HEAD (`StridePairReceiptG12b`,
 `StrideGradeReceipt12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5 W4/§5.1(g)(h)/§6,
 executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive at landing: no `_g` source
-in `StridePairReceiptG` or `StrideGradeReceipt` was touched. Each twin is its source's statement and
+in `StridePairReceiptG` or `StrideGradeReceipt` was touched (2026-09-26: the XY pin conversion
+rewrote line pins in the docstrings of the four in `StridePairReceiptG`, recorded 2026-10-01;
+2026-10-01: family 33 re-pointed a supplier call of one of them,
+`mrtUniformityXiL2AffSet_holds_flat_floor_g`). Each twin is its source's statement and
 body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt predicate / head, the ceiling
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
