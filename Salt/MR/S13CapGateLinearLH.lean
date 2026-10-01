@@ -33,14 +33,16 @@ at the foot and re-pointed five of their supplier calls to cap-9 twins, their st
 unchanged, which leaves three siblings without a caller: `capfloor_logq_le_LH`,
 `capfloor_T0_Tann_sharp_LH` and `capfloor_rhs_legs_LH`; 2026-10-01: family 30 retired those three
 into their cap-9 twins, each noted where it stood, which leaves `capfloor_muLambda_LH`, which has a
-`_b9` twin, without a caller).  (2026-09-30, a count corrected: over every name of this file,
-family 24's retirement left NINE without a caller, not seven — the seven that family 25 retired,
-which have a `_b9` twin, and the rows `capeps_row_phi_h` and `capeps_row_tail_h`, which have none.
-Family 25's left three: the two that family 26 retired, and the numeric sibling `capeps_Pbig_h`,
-which has no `_b9` twin either.  The two rows and `capeps_Pbig_h` stand at this date.  Since then,
-2026-09-30: family 28 retired the two rows into their relatives at `log h ≤ 14`; `capeps_Pbig_h`
-stands.)  Every landed numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a
-wider ceiling; the landed stone keeps its own consumers untouched.
+`_b9` twin, without a caller; 2026-10-01: family 31 retired it into its cap-9 twin, noted where it
+stood, which leaves no name of this file that has a `_b9` twin without a caller).  (2026-09-30, a
+count corrected: over every name of this file, family 24's retirement left NINE without a caller,
+not seven — the seven that family 25 retired, which have a `_b9` twin, and the rows
+`capeps_row_phi_h` and `capeps_row_tail_h`, which have none.  Family 25's left three: the two that
+family 26 retired, and the numeric sibling `capeps_Pbig_h`, which has no `_b9` twin either.  The two
+rows and `capeps_Pbig_h` stand at this date.  Since then, 2026-09-30: family 28 retired the two rows
+into their relatives at `log h ≤ 14`; `capeps_Pbig_h` stands.)  Every landed numeric stone whose
+ceiling the `h` lane outgrows gets a SIBLING here with a wider ceiling; the landed stone keeps its
+own consumers untouched.
 
 ## ⟦WHY THE PAGE EXISTS AT ALL⟧ — the assembler's `hbb`
 
@@ -615,7 +617,9 @@ unchanged.  2026-10-01: family 30 retired the three siblings that move left with
 `capfloor_logq_le_LH`, `capfloor_T0_Tann_sharp_LH` and `capfloor_rhs_legs_LH` — into their cap-9
 twins; their notes stand where the pages stood.  The first is the one place named in this banner's
 first sentence; its twin `capfloor_logq_le_LH_b9`, whose body is that page's byte for byte, stands
-under ⟦§5 — β W1 E2⟧.) -/
+under ⟦§5 — β W1 E2⟧.  2026-10-01: family 31 retired `capfloor_muLambda_LH`, the one name of this
+file that family 30's retirement left without a caller, into its cap-9 twin; its note stands where
+the page stood.) -/
 
 /-! ### `capfloor_logq_le_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -692,40 +696,24 @@ theorem capfloor_core_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
   have hHhalf : Real.log (H : ℝ) ≤ Real.sqrt (H : ℝ) / 2 := capfloor_logH_le_half_sqrt hHR
   exact ⟨hv, hm, hTpos, by linarith⟩
 
-theorem capfloor_muLambda_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann) :
-    Real.exp (Real.log (H : ℝ) / 4) ≤ Real.log (5 * Tann + 1) ∧
-      Real.log (H : ℝ) / 4 ≤ Real.log (Real.log (5 * Tann + 1)) := by
-  obtain ⟨hv, hm, hTpos, hlogT⟩ := capfloor_core_LH hh hh7 hfl hb hAN hTlo
-  have hlo : R.Hlo ≤ H := hb.1
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith
-  have hv0 : (0 : ℝ) < Real.log (H : ℝ) := by nlinarith [hv, (by positivity :
-    (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ))]
-  -- `√H = e^{v/2} = e^{v/4}·e^{v/4}`
-  have hsq : Real.sqrt (H : ℝ) = Real.exp (Real.log (H : ℝ) / 2) := capfloor_sqrt_eq_exp hH0
-  have hsplit : Real.exp (Real.log (H : ℝ) / 2)
-      = Real.exp (Real.log (H : ℝ) / 4) * Real.exp (Real.log (H : ℝ) / 4) := by
-    rw [← Real.exp_add]; ring_nf
-  have hq0 : (0 : ℝ) < Real.exp (Real.log (H : ℝ) / 4) := Real.exp_pos _
-  have hq2 : (2 : ℝ) ≤ Real.exp (Real.log (H : ℝ) / 4) := by
-    have hz := Real.add_one_le_exp (Real.log (H : ℝ) / 4)
-    have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-    linarith
-  -- `log T_ann ≥ ½ log Nd ≥ ½ √H = ½ e^{v/2} ≥ e^{v/4}`
-  have hstep : Real.exp (Real.log (H : ℝ) / 4) ≤ Real.log Tann := by
-    have h1 : Real.sqrt (H : ℝ) / 2 ≤ Real.log Tann := by linarith
-    rw [hsq, hsplit] at h1
-    nlinarith [h1, hq0, hq2]
-  have hmono : Real.log Tann ≤ Real.log (5 * Tann + 1) :=
-    Real.log_le_log hTpos (by linarith)
-  refine ⟨le_trans hstep hmono, ?_⟩
-  have hpos : (0 : ℝ) < Real.exp (Real.log (H : ℝ) / 4) := Real.exp_pos _
-  have hz := Real.log_le_log hpos (le_trans hstep hmono)
-  rwa [Real.log_exp] at hz
+/-! ### `capfloor_muLambda_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 31 (2026-10-01)⟧
+`capfloor_muLambda_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+{R : ChowlaRegime} … : Real.exp (Real.log (H : ℝ) / 4) ≤ Real.log (5 * Tann + 1) ∧ Real.log (H : ℝ)
+/ 4 ≤ Real.log (Real.log (5 * Tann + 1))` stood here.  It is `capfloor_muLambda_LH_b9` (in the
+⟦β W2 F2⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
+binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies it
+by `linarith` — kernel-checked from the retired statement's own bytes before the removal was
+committed.  The twin's body is this page's with ONE line changed: the call of its supplier
+`capfloor_core_LH`, swapped for the `_b9` twin's.  At this retirement the page had NO call site.
+When the lane opened (main, 2026-09-25) it had four: `capfloor_floor4_sharp_LH` (of `S16ComposeLH`),
+which family 18 retired into its cap-9 twin (2026-09-28); `capfloor_floor1_LH` and
+`capfloor_floor2_LH` (both of §4, THE FLOOR PAGE), which family 23 retired into their cap-9 twins
+(2026-09-29); and `capfloor_rhs_legs_LH` (§4, THE FLOOR PAGE), which family 30 retired into its
+cap-9 twin (2026-10-01).  The twin of each of them calls this page's twin.
+
+The page carried no docstring. -/
 
 /-! ### `capfloor_T0_Tann_sharp_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -1618,11 +1606,12 @@ family 28 retired three more into relatives that are not `_b9` twins — one int
 `capfloor_floor3_numeric_h_10` here, two into the rows at the raised cap in §4 above — each noted in
 place; 2026-09-30: family 29 moved two more declarations to §9 at the foot (recorded 2026-10-01);
 2026-10-01: family 30 retired three more, one into a twin here and two into twins of F2, each noted
-in place).  Three NUMERIC SIBLINGS whose statements differ from §1's only in the named literal
-(`e^18 ↦ e^20`, `216 ↦ 232`, `+8 ↦ +10` — each set to exactly the cap-9 spend, as §1's were to the
-cap-7 spend), then the depth-0/1 leaves of the floor, grid and `εr` pages at `log h ≤ 9`.  Each twin
-is its source's statement and body with ONLY the freeze's §3.1 rule-2 raises and every derived
-cap-dependent supplier replaced by its twin (`S16ProducersH` §7); no hypothesis is added and no
+in place; 2026-10-01: family 31 retired one more, into a twin of F2, noted in place).  Three NUMERIC
+SIBLINGS whose statements differ from §1's only in the named literal (`e^18 ↦ e^20`, `216 ↦ 232`,
+`+8 ↦ +10` — each set to exactly the cap-9 spend, as §1's were to the cap-7 spend), then the
+depth-0/1 leaves of the floor, grid and `εr` pages at `log h ≤ 9`.  Each twin is its source's
+statement and body with ONLY the freeze's §3.1 rule-2 raises and every derived cap-dependent
+supplier replaced by its twin (`S16ProducersH` §7); no hypothesis is added and no
 conclusion weakened. -/
 
 /-- ⟦SIBLING of `capeps_Pbig_h` (§1), constant `e^18 → e^20`⟧ — the `p²` row's `1/P` leg at
@@ -1925,11 +1914,11 @@ here into them, each noted in place; 2026-09-29: family 24 the sources of seven 
 family 25 the sources of five more; 2026-09-30: family 26 the sources of two more; 2026-09-30:
 family 27 the source of one more; 2026-09-30: family 29 moved two more declarations to §9 at the
 foot (recorded 2026-10-01); 2026-10-01: family 30 retired the sources of two more twins here into
-them, each noted in place).  Each twin is its source's statement and body with ONLY the freeze's
-§3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, and every derived cap-dependent supplier replaced by its twin
-(§5 above, `S16ProducersH` §7, or a landed `_14` row by weakening `≤ 9 ⇒ ≤ 14`); no hypothesis is
-added and no conclusion weakened.  ONE re-derivation: `s13CapGrid_q_logX_LH_b9` (`log H ≤ √H/3`,
-`3^12 = 531441 ≥ 8103`), conclusion unchanged. -/
+them, each noted in place; 2026-10-01: family 31 the source of one more).  Each twin is its source's
+statement and body with ONLY the freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, and every derived
+cap-dependent supplier replaced by its twin (§5 above, `S16ProducersH` §7, or a landed `_14` row by
+weakening `≤ 9 ⇒ ≤ 14`); no hypothesis is added and no conclusion weakened.  ONE re-derivation:
+`s13CapGrid_q_logX_LH_b9` (`log H ≤ √H/3`, `3^12 = 531441 ≥ 8103`), conclusion unchanged. -/
 
 /-- `s13_abs8640_of_socketBase_LH` at `log h ≤ 9` (the former `s13_abs8640_of_socketBase_LH`, at
 `log h ≤ 7`, retired into this, 2026-09-30) — SUPPLIER-SWAP (`s13_socketBase_loglogA_LH_b9`).  BODY:
@@ -2208,8 +2197,9 @@ theorem s13CapGrid_kappa_Tann_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : 
   rw [← hμdef] at hlow
   nlinarith [htop, hlow, hnum]
 
-/-- `capfloor_muLambda_LH` at `log h ≤ 9` — SUPPLIER-SWAP (`capfloor_core_LH_b9`).  BODY: the
-source's, verbatim. -/
+/-- `capfloor_muLambda_LH` at `log h ≤ 9` (the former `capfloor_muLambda_LH`, at `log h ≤ 7`,
+retired into this, 2026-10-01) — SUPPLIER-SWAP (`capfloor_core_LH_b9`).  BODY: the retired page's,
+with one line changed (its note stands above, in §4, THE FLOOR PAGE). -/
 theorem capfloor_muLambda_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
     {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
