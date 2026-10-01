@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c3b5eee9` · source digest `a5e7c5a45cdd4dd0` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `04f838e4` · source digest `5fb690a05293c3ad` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22654 · with a proof/definition body: 22654 · direct corpus references (edges): 85310 · audited results: 9040 · corpus Prop-valued names: 668.
+Declarations indexed: 22651 · with a proof/definition body: 22651 · direct corpus references (edges): 85299 · audited results: 9037 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -971,8 +971,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | exponential sums | 577 | 223 | 796 | 519 | 31 | 33 | 0 | 1379 | 1194 |
 | Mertens / PNT-type | 253 | 67 | 878 | 699 | 4 | 16 | 0 | 1597 | 1540 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 673 | 659 | 1 | 5 | 0 | 1338 | 1338 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9723 | 5381 | 2970 | 1231 | 168 | 189 | 0 | 4558 | 61 |
+| explog/lognum numeral tactic | 53 | 0 | 671 | 659 | 1 | 5 | 0 | 1336 | 1336 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9720 | 5378 | 2967 | 1231 | 168 | 189 | 0 | 4555 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1038,7 +1038,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_conj` | 609 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.neg_logDeriv_zeta_split` | 604 | Salt/SW/ZetaPartialFractions.lean:98 |
 
-### explog/lognum numeral tactic — 1338 external dependents
+### explog/lognum numeral tactic — 1336 external dependents
 
 (no audited member)
 
@@ -1152,13 +1152,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5381 | 9723 |
+| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5378 | 9720 |
 | entropy decrement | 608 | 536 | 1400 |
 | character sums / L-functions | 880 | 2153 | 4277 |
 | circle method / Fourier | 1068 | 83 | 181 |
 | exponential sums | 1194 | 223 | 577 |
 | large sieve | 1209 | 18 | 136 |
-| explog/lognum numeral tactic | 1338 | 0 | 53 |
+| explog/lognum numeral tactic | 1336 | 0 | 53 |
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1482 | 726 | 1609 |
 | Mertens / PNT-type | 1540 | 67 | 253 |

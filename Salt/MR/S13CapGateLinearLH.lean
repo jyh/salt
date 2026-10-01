@@ -25,13 +25,17 @@ names which that retirement left without a caller, those that have a cap-9 twin,
 2026-09-30: family 26 retired the two names with a `_b9` twin that family 25's retirement left
 without a caller, likewise; 2026-09-30: family 27 retired the two names with a `_b9` twin that
 family 26's retirement left without a caller, likewise, which leaves no name of this file that has a
-`_b9` twin without a caller).  (2026-09-30, a count corrected: over every name of this file,
-family 24's retirement left NINE without a caller, not seven — the seven that family 25 retired,
-which have a `_b9` twin, and the rows `capeps_row_phi_h` and `capeps_row_tail_h`, which have none.
-Family 25's left three: the two that family 26 retired, and the numeric sibling `capeps_Pbig_h`,
-which has no `_b9` twin either.  The two rows and `capeps_Pbig_h` stand at this date.)  Every landed
-numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a wider ceiling; the
-landed stone keeps its own consumers untouched.
+`_b9` twin without a caller; 2026-09-30: family 28 retired three names that have no `_b9` twin into
+relatives whose statement is theirs with one binder weakened — `capfloor_floor3_numeric_h`,
+`capeps_row_phi_h`, `capeps_row_tail_h` — each noted where it stood, which leaves `h_le_exp_seven`
+without a caller).  (2026-09-30, a count corrected: over every name of this file, family 24's
+retirement left NINE without a caller, not seven — the seven that family 25 retired, which have a
+`_b9` twin, and the rows `capeps_row_phi_h` and `capeps_row_tail_h`, which have none.  Family 25's
+left three: the two that family 26 retired, and the numeric sibling `capeps_Pbig_h`, which has no
+`_b9` twin either.  The two rows and `capeps_Pbig_h` stand at this date.  Since then, 2026-09-30:
+family 28 retired the two rows into their relatives at `log h ≤ 14`; `capeps_Pbig_h` stands.)  Every
+landed numeric stone whose ceiling the `h` lane outgrows gets a SIBLING here with a wider ceiling;
+the landed stone keeps its own consumers untouched.
 
 ## ⟦WHY THE PAGE EXISTS AT ALL⟧ — the assembler's `hbb`
 
@@ -64,7 +68,9 @@ cap 7.  2026-09-30: family 26 retired one more of the twelve; three stand at the
 
 These carry NO socket.  They exist because three landed stones sit at a ceiling that is an
 author's convenience rather than a barrier, and the `+log h` line needs a few units more:
-`log h ≤ 7` turns a spend of `49` into `56`, and `8` into `15`.
+`log h ≤ 7` turns a spend of `49` into `56`, and `8` into `15`.  (2026-09-30: the XY debt lane's
+family 28 retired one of the six, `capfloor_floor3_numeric_h`, into its relative
+`capfloor_floor3_numeric_h_10`, noted where it stood; five stand.)
 
 ⭐ **THE CEILINGS WERE NEVER TIGHT, AND THE MARGIN IS NOT CLOSE.**  In `capeps_master` the
 hypothesis `t ≤ 50` enters the proof in exactly one place — the closing `nlinarith`, and
@@ -203,35 +209,26 @@ theorem capfloor_lam_core_h {v : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) :
   norm_num at h ⊢
   linarith
 
-/-- ⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:344`), slack `+1 → +8`⟧ — `floor3`'s
+/-! ### `capfloor_floor3_numeric_h` AT `+8` — RETIRED INTO `capfloor_floor3_numeric_h_10`
+
+⟦XY debt lane, family 28 (2026-09-30)⟧
+`capfloor_floor3_numeric_h {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
+(hW : W ≤ 12 * Real.log v + E + 8) : E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ)` stood here.  It is
+`capfloor_floor3_numeric_h_10` (in the ⟦§5 — β W1 E2⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, the slack `+8` against `+10`, and are
+token-identical elsewhere, so the relative implies it by `linarith` — kernel-checked from the
+retired statement's own bytes before the removal was committed.  The relative's body is this page's
+with FOUR lines changed, a NUMERAL-LIFT: the slack `+ 8` is `+ 10` at the local facts `hWv`, `h1`,
+`hA` and `hB`, and nothing else differs.  At this retirement the page had NO call site.  When the
+lane opened (main, 2026-09-25) it had one, `capfloor_floor3_LH` (§4, THE FLOOR PAGE), which
+family 23 retired into its cap-9 twin (2026-09-29); `capfloor_floor3_LH_b9` calls this
+page's relative.
+
+This page's docstring, verbatim:
+
+⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:344`), slack `+1 → +8`⟧ — `floor3`'s
 numeric leg, absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 7`.  (2026-09-29: `floor3` at
 `log h ≤ 7`, its one caller, is retired by the XY debt lane's family 23; nothing calls this now.) -/
-theorem capfloor_floor3_numeric_h {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
-    (hW : W ≤ 12 * Real.log v + E + 8) :
-    E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by
-  have hlv := capfloor_logv_le hv
-  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hv0 : (0 : ℝ) < v := lt_of_lt_of_le h21 hv
-  have hE0 : (0 : ℝ) < E := by linarith
-  have hvbig : (1000000000000000000000 : ℝ) ≤ v := le_trans (by norm_num) hv
-  have hlv' : Real.log v ≤ v / 10000000000 := le_trans hlv (by norm_num)
-  have hWv : W ≤ v + E + 8 := by linarith
-  have hvq : (v / 4) ^ (4 : ℕ) = v ^ (4 : ℕ) / 256 := by ring
-  rw [hvq]
-  have h1 : v + E + 8 ≤ v * E := by nlinarith [hvbig, hE]
-  have hxx : (65536 : ℝ) ≤ v * v := by nlinarith [hvbig]
-  have hv3 : (256 : ℝ) ≤ v ^ (3 : ℕ) := by
-    have hid : v ^ (3 : ℕ) = v * (v * v) := by ring
-    rw [hid]; nlinarith [hvbig, hxx]
-  have hfac : (1 : ℝ) ≤ E * v ^ (3 : ℕ) / 256 := by nlinarith [hv3, hE]
-  have hpos : (0 : ℝ) ≤ E * (v * E) := by positivity
-  have h2 : E * (v * E) ≤ E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by
-    calc E * (v * E) = (E * (v * E)) * 1 := by ring
-      _ ≤ (E * (v * E)) * (E * v ^ (3 : ℕ) / 256) := mul_le_mul_of_nonneg_left hfac hpos
-      _ = E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by ring
-  have hA : E * W ≤ E * (v + E + 8) := mul_le_mul_of_nonneg_left hWv hE0.le
-  have hB : E * (v + E + 8) ≤ E * (v * E) := mul_le_mul_of_nonneg_left h1 hE0.le
-  linarith
 
 end NumericSiblings
 
@@ -605,7 +602,9 @@ notes stand where the pages stood.  2026-09-29: family 24 retired the razor pair
 `capfloor_QTann_gen_LH` and `capfloor_kappa30Q_gen_LH`, which the first two of those pages had
 called, into their cap-9 twins; their notes stand where the pages stood.  2026-09-30: family 25
 retired `capfloor_tannGate_LH`, which that pair had called, into its cap-9 twin; its note stands
-where the page stood.) -/
+where the page stood.  2026-09-30: family 28 retired one of the two numeric siblings,
+`capfloor_floor3_numeric_h`, into its relative `capfloor_floor3_numeric_h_10`; its note stands
+in §1.) -/
 
 /-- ⭐ **⟦THE `+log h` LINE⟧** — the one new inequality the floor page reads, and the only
 place on it where conjunct 5's inflation is spent.  At `SocketBaseL` the modulus ledger gives
@@ -1056,13 +1055,19 @@ extra `log h ≤ 7` in one exponential:
 family 25 retired the third row at the cap 7, `capeps_row_p2_h`, into its cap-9 twin
 `capeps_row_p2_h_b9`, which takes `e^20` through `capeps_Pbig_h_e20`; its note stands where the page
 stood, and no declaration calls the sibling `capeps_Pbig_h` now.  The two rows that stand,
-`capeps_row_phi_h` and `capeps_row_tail_h`, have had no caller since family 24.) -/
+`capeps_row_phi_h` and `capeps_row_tail_h`, have had no caller since family 24.  2026-09-30:
+family 28 retired those two rows into their relatives at `log h ≤ 14`, `capeps_row_phi_h_14` and
+`capeps_row_tail_h_14`, each noted where it stood; no row stands in this section, the last column of
+the table above is what the three retired rows spent, the siblings `capeps_expbound_60` and
+`capeps_bigexp_60` are consumed by the rows at the raised caps below, and no declaration calls
+`h_le_exp_seven` now.) -/
 
 section RowsH
 
 variable {u μ X W C r β Pr φ : ℝ}
 
-/-- `h ≤ e^7` — the one fact about the shift these rows use. -/
+/-- `h ≤ e^7` — the one fact about the shift these rows use.  (2026-09-30: the XY debt lane's
+families 25 and 28 retired the three rows that used it; nothing calls this now.) -/
 theorem h_le_exp_seven {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) :
     (h : ℝ) ≤ Real.exp 7 := by
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
@@ -1079,143 +1084,64 @@ would leave `log h ≤ 14 → (h : ℝ) ≤ Real.exp 7`, which is **FALSE on `10
 elaborator refuses it (the proof yields `exp 14`), so nothing unsound could land; but the freeze's
 claim *"the conclusions do not move"* was false here, and this name is the repair.
 ⇒ ***A CAP IN A CONCLUSION IS NOT WEAKENED BY WEAKENING ITS BINDER — IT IS FALSIFIED.***
-`h_le_exp_seven` and its three consumers are untouched. -/
+`h_le_exp_seven` and its three consumers are untouched.  (2026-09-30: the XY debt lane's families 25
+and 28 retired the three consumers, one into its cap-9 twin and two into their relatives at
+`log h ≤ 14`; no declaration calls `h_le_exp_seven` now.) -/
 theorem h_le_exp_fourteen {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
     (h : ℝ) ≤ Real.exp 14 := by
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hz := Real.exp_le_exp.mpr hh14
   rwa [Real.exp_log hh0] at hz
 
-/-- ⟦SIBLING of `capeps_row_phi` (`S13CapEps`) at `φ ≤ h·u¹²`⟧ — `11 → 18`. -/
-theorem capeps_row_phi_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
-    (hΛ : u / 2 ≤ Real.log μ) (hφ0 : 0 ≤ φ) (hφ : φ ≤ (h : ℝ) * u ^ (12 : ℕ)) :
-    12 * (4160 * φ * μ ^ (-theta293)) ≤ μ ^ (-(1 / 500) : ℝ) := by
-  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hu0 : (0 : ℝ) < u := by linarith
-  have hμ0 : (0 : ℝ) < μ := by linarith
-  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
-  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
-  have hexp7 := h_le_exp_seven hh hh7
-  have he11 : (49920 : ℝ) ≤ Real.exp 11 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 11 (by norm_num)
-  have he18 : (49920 : ℝ) * (h : ℝ) ≤ Real.exp 18 := by
-    have hsum : Real.exp 18 = Real.exp 11 * Real.exp 7 := by rw [← Real.exp_add]; norm_num
-    rw [hsum]
-    exact mul_le_mul he11 hexp7 (by positivity) (Real.exp_pos 11).le
-  have hstone := capeps_expbound_60 hu hμ hΛ (by norm_num : (18 : ℝ) ≤ 60)
-  have hkey : 49920 * φ ≤ μ ^ (theta293 - 1 / 500) := by
-    have hchain : 49920 * φ ≤ (49920 * (h : ℝ)) * u ^ (12 : ℕ) := by nlinarith [hφ, hp12]
-    have h1 : 49920 * φ ≤ Real.exp 18 * u ^ (12 : ℕ) :=
-      le_trans hchain (mul_le_mul_of_nonneg_right he18 hp12.le)
-    have h2 : Real.exp 18 * u ^ (12 : ℕ)
-        ≤ Real.exp 18 * u ^ (12 : ℕ) * Real.log μ := by
-      nlinarith [Real.exp_pos (18 : ℝ)]
-    linarith
-  have hT0 : (0 : ℝ) < μ ^ (-theta293) := Real.rpow_pos_of_pos hμ0 _
-  have hsplit : μ ^ (-theta293) * μ ^ (theta293 - 1 / 500) = μ ^ (-(1 / 500) : ℝ) := by
-    rw [← Real.rpow_add hμ0]; congr 1; ring
-  calc 12 * (4160 * φ * μ ^ (-theta293)) = (49920 * φ) * μ ^ (-theta293) := by ring
-    _ ≤ μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) :=
-        mul_le_mul_of_nonneg_right hkey hT0.le
-    _ = μ ^ (-theta293) * μ ^ (theta293 - 1 / 500) := by ring
-    _ = μ ^ (-(1 / 500) : ℝ) := hsplit
+/-! ### `capeps_row_phi_h` AT `log h ≤ 7` — RETIRED INTO `capeps_row_phi_h_14`
 
-set_option maxHeartbeats 1000000 in
+⟦XY debt lane, family 28 (2026-09-30)⟧
+`capeps_row_phi_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+(hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) … : 12 * (4160 * φ * μ ^ (-theta293)) ≤ μ ^ (-(1 / 500) : ℝ)` stood
+here.  It is `capeps_row_phi_h_14` (under the banner THE `60 ↦ 63` BUDGET MOVE below) with the
+hypothesis strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against
+`log h ≤ 14`, and are token-identical elsewhere, so the relative implies it by `linarith` —
+kernel-checked from the retired statement's own bytes before the removal was committed.  The
+relative's body is NOT this page's line for line: it is its NUMERAL-LIFT, ten lines changed.  The
+page read `h ≤ e^7` off the cap through `h_le_exp_seven`; the relative reads `h ≤ e^14` through
+`h_le_exp_fourteen`.  So the page's `e^18`, which is `e^11·e^7`, is `e^25` in the relative, which is
+`e^11·e^14`, and `capeps_expbound_60` is taken at `25 ≤ 60` where the page took it at `18 ≤ 60`.
+The cap's binder and the local facts that carry those numerals are renamed with them: `hh7` to
+`hh14`, `hexp7` to `hexp14`, `he18` to `he25`.  After these substitutions the two bodies are the
+same, token for token.  At this retirement the page had NO call site.  When the lane opened (main,
+2026-09-25) it had one, `s13CapEps_EP2_gate_LH` (§6), which family 24 retired into its cap-9 twin
+(2026-09-29); `s13CapEps_EP2_gate_LH_b9` calls this page's relative.
+
+This page's docstring, verbatim:
+
+⟦SIBLING of `capeps_row_phi` (`S13CapEps`) at `φ ≤ h·u¹²`⟧ — `11 → 18`. -/
+
+/-! ### `capeps_row_tail_h` AT `log h ≤ 7` — RETIRED INTO `capeps_row_tail_h_14`
+
+⟦XY debt lane, family 28 (2026-09-30)⟧
+`capeps_row_tail_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+(hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) … : 12 * (W * (C * r / X + 1 / X ^ 2)) ≤ μ ^ (-(1 / 500) : ℝ)` stood
+here.  It is `capeps_row_tail_h_14` (under the banner THE `60 ↦ 63` BUDGET MOVE below) with the
+hypothesis strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against
+`log h ≤ 14`, and are token-identical elsewhere, so the relative implies it by `linarith` —
+kernel-checked from the retired statement's own bytes before the removal was committed.  The
+relative's body is NOT this page's line for line: it is its NUMERAL-LIFT, fifteen lines changed.
+The page read `h ≤ e^7` off the cap through `h_le_exp_seven`; the relative reads `h ≤ e^14` through
+`h_le_exp_fourteen`.  So at the first leg the page's `e^56`, which is `e^9·e^40·e^7`, is `e^63` in
+the relative, taken through `capeps_expbound_63` at `63 ≤ 63` where the page took
+`capeps_expbound_60` at `56 ≤ 60`; at the second leg the page's `e^15`, which is `e^8·e^7`, is
+`e^22`, taken through `capeps_bigexp_60` at `22 ≤ 60` where the page took it at `15 ≤ 60`.  The
+cap's binder and the local facts that carry those numerals are renamed with them: `hh7` to `hh14`,
+`hexp7` to `hexp14`, `h56` to `h63`, `he15` to `he22`.  After these substitutions the two bodies are
+the same, token for token.  At this retirement the page had NO call site.  When the lane opened
+(main, 2026-09-25) it had one, `s13CapEps_EP2_gate_LH` (§6), which family 24 retired into its cap-9
+twin (2026-09-29); `s13CapEps_EP2_gate_LH_b9` calls this page's relative.
+
+The page stood under the line `set_option maxHeartbeats 1000000 in` and under one comment line; the
+comment line and the page's docstring, verbatim:
+
 -- the `(h:ℝ)·u¹²` factor doubles the monomial count in both legs' linarith tableaux
-/-- ⟦SIBLING of `capeps_row_tail` (`S13CapEps`) at `W ≤ 64·h·u¹²·X`⟧ — `49 → 56`, `8 → 15`. -/
-theorem capeps_row_tail_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
-    (hΛ : u / 2 ≤ Real.log μ) (hX0 : 0 < X) (hXlog : Real.log X = μ)
-    (hW0 : 0 ≤ W) (hW : W ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X) (hC0 : 0 < C)
-    (hC : Real.log C ≤ 40) (hr : r ≤ 2 * (Real.log μ * μ ^ (-theta293))) :
-    12 * (W * (C * r / X + 1 / X ^ 2)) ≤ μ ^ (-(1 / 500) : ℝ) := by
-  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hu0 : (0 : ℝ) < u := by linarith
-  have hμ0 : (0 : ℝ) < μ := by linarith
-  have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
-  have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hph : (0 : ℝ) < (h : ℝ) * u ^ (12 : ℕ) := by positivity
-  have hexp7 := h_le_exp_seven hh hh7
-  have hT0 : (0 : ℝ) < μ ^ (-theta293) := Real.rpow_pos_of_pos hμ0 _
-  have hXne : X ≠ 0 := ne_of_gt hX0
-  have hinv : (0 : ℝ) ≤ X⁻¹ := by positivity
-  have hstep : C * r / X + 1 / X ^ 2
-      ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2 := by
-    have h1 : C * r ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) :=
-      mul_le_mul_of_nonneg_left hr hC0.le
-    have h2 : C * r / X ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X := by
-      rw [div_eq_mul_inv, div_eq_mul_inv]
-      exact mul_le_mul_of_nonneg_right h1 hinv
-    linarith
-  have hS0 : (0 : ℝ) ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2 := by
-    have : (0 : ℝ) ≤ C * (2 * (Real.log μ * μ ^ (-theta293))) / X := by positivity
-    have h2 : (0 : ℝ) ≤ 1 / X ^ 2 := by positivity
-    linarith
-  have hprod : W * (C * r / X + 1 / X ^ 2)
-      ≤ 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
-        * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2) :=
-    le_trans (mul_le_mul_of_nonneg_left hstep hW0) (mul_le_mul_of_nonneg_right hW hS0)
-  have hval : 64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
-        * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2)
-      = 128 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
-        + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X := by
-    field_simp
-    ring
-  have hCle : C ≤ Real.exp 40 := by
-    have := Real.exp_le_exp.mpr hC
-    rwa [Real.exp_log hC0] at this
-  have h3072 : (3072 : ℝ) ≤ Real.exp 9 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
-  have h56 : (3072 : ℝ) * C * (h : ℝ) ≤ Real.exp 56 := by
-    have hsum : Real.exp 56 = Real.exp 9 * Real.exp 40 * Real.exp 7 := by
-      rw [← Real.exp_add, ← Real.exp_add]; norm_num
-    rw [hsum]
-    have hCh : (3072 : ℝ) * C ≤ Real.exp 9 * Real.exp 40 :=
-      mul_le_mul h3072 hCle hC0.le (Real.exp_pos 9).le
-    exact mul_le_mul hCh hexp7 (by positivity) (by positivity)
-  have hlegA : 1536 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
-      ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
-    have hstone := capeps_expbound_60 hu hμ hΛ (by norm_num : (56 : ℝ) ≤ 60)
-    have hmul : (3072 * C * (h : ℝ)) * (u ^ (12 : ℕ) * Real.log μ)
-        ≤ Real.exp 56 * (u ^ (12 : ℕ) * Real.log μ) :=
-      mul_le_mul_of_nonneg_right h56 (by positivity)
-    have h1 : 3072 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ
-        ≤ μ ^ (theta293 - 1 / 500) := by nlinarith [hmul, hstone]
-    have h2 : 3072 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
-        ≤ μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) :=
-      mul_le_mul_of_nonneg_right h1 hT0.le
-    have hsplit : μ ^ (theta293 - 1 / 500) * μ ^ (-theta293) = μ ^ (-(1 / 500) : ℝ) := by
-      rw [← Real.rpow_add hμ0]; congr 1; ring
-    rw [hsplit] at h2
-    linarith
-  have hlegB : 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X ≤ μ ^ (-(1 / 500) : ℝ) / 24 := by
-    have hstone := capeps_bigexp_60 hu hμ hΛ (by norm_num : (15 : ℝ) ≤ 60)
-    have he8 : (1536 : ℝ) ≤ Real.exp 8 := by
-      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
-    have he15 : (1536 : ℝ) * (h : ℝ) ≤ Real.exp 15 := by
-      have hsum : Real.exp 15 = Real.exp 8 * Real.exp 7 := by rw [← Real.exp_add]; norm_num
-      rw [hsum]
-      exact mul_le_mul he8 hexp7 (by positivity) (Real.exp_pos 8).le
-    have hμ2 : (1 : ℝ) ≤ μ ^ 2 := by nlinarith
-    have ha : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ Real.exp 15 * u ^ (12 : ℕ) := by
-      have := mul_le_mul_of_nonneg_right he15 hp12.le
-      nlinarith [this]
-    have hbb : Real.exp 15 * u ^ (12 : ℕ) ≤ Real.exp 15 * u ^ (12 : ℕ) * μ ^ 2 :=
-      le_mul_of_one_le_right (by positivity) hμ2
-    have h1 : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ Real.exp 15 * u ^ (12 : ℕ) * μ ^ 2 := by
-      linarith
-    have h2 : 1536 * ((h : ℝ) * u ^ (12 : ℕ)) ≤ X * μ ^ (-(1 / 500) : ℝ) := by
-      rw [capeps_Xmu hX0 hXlog hμ0]; linarith
-    rw [div_le_div_iff₀ hX0 (by norm_num : (0 : ℝ) < 24)]
-    nlinarith [h2]
-  calc 12 * (W * (C * r / X + 1 / X ^ 2))
-      ≤ 12 * (64 * ((h : ℝ) * u ^ (12 : ℕ)) * X
-          * (C * (2 * (Real.log μ * μ ^ (-theta293))) / X + 1 / X ^ 2)) := by linarith
-    _ = 12 * (128 * C * ((h : ℝ) * u ^ (12 : ℕ)) * Real.log μ * μ ^ (-theta293)
-          + 64 * ((h : ℝ) * u ^ (12 : ℕ)) / X) := by rw [hval]
-    _ ≤ μ ^ (-(1 / 500) : ℝ) := by linarith
+⟦SIBLING of `capeps_row_tail` (`S13CapEps`) at `W ≤ 64·h·u¹²·X`⟧ — `49 → 56`, `8 → 15`. -/
 
 /-! ### `capeps_row_p2_h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -1268,7 +1194,9 @@ the pages stood; the fifth, `s13_capEps_register_LH`, stands, and no declaration
 2026-09-30: family 25 retired it into its cap-9 twin; its note stands where the page stood, and no
 declaration stands in this section now.  Of the three rows above, the third is retired likewise (its
 note stands in §5, THE THREE `EP₂` ROWS), and so is the grid page's `q_logX` leaf (its note stands
-in §3): `s13CapGrid_q_logX_LH_b9` proves that field at `log h ≤ 9`.) -/
+in §3): `s13CapGrid_q_logX_LH_b9` proves that field at `log h ≤ 9`.  2026-09-30: family 28 retired
+the other two of the three rows above into their relatives at `log h ≤ 14`; their notes stand in
+§5 likewise.) -/
 
 /-! ### `s13_capEps_register_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -1589,6 +1517,9 @@ siblings is the binding wall, and it binds by `2.03` in the log.
 `60` was chosen.  At `log h ≤ 14` it is **`63 > 60`**, so `max log h = 60 − 49 = 11.97`, i.e.
 `h ≤ 157 931`.  ⇒ **The wall is a round number, not mathematics** — §1's own header says so:
 the true admissible `t` is `~7·10¹⁷`, and `60` is *"seventeen orders below the barrier"*.
+(2026-09-30: the XY debt lane's family 28 retired `capeps_row_tail_h` into `capeps_row_tail_h_14`;
+the spend at `log h ≤ 7` above is what the retired page's body spent, and its note stands in §5, THE
+THREE `EP₂` ROWS.)
 
 ⛔ **TWO THINGS THIS SECTION DELIBERATELY DOES NOT DO, STATED SO NEITHER READS AS AN OVERSIGHT.**
 * **`capeps_bigexp_63` IS NOT MINTED, BECAUSE NOTHING NEEDS IT.**  The tail row's OTHER leg spends
@@ -1648,10 +1579,12 @@ theorem capeps_expbound_63 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (
   have : 14 / 10000 * Real.log μ ≤ Real.log μ * (theta293 - 1 / 500) := by nlinarith
   linarith
 
-/-- ⟦`capeps_row_phi_h` AT THE RAISED CAP⟧ (`capeps_row_phi_h_14`) — the `φ ≤ h·u¹²` row at
-`log h ≤ 14`.  `11 → 25`, from `e^{11}·e^{14}`.
-⭐ **IT STILL FITS UNDER THE LANDED `60`** (`25 ≤ 60`), so this row reads `capeps_expbound_60`
-unchanged and is a pure numeral lift.  **This row was never the wall.** -/
+/-- ⟦`capeps_row_phi_h` AT THE RAISED CAP⟧ (`capeps_row_phi_h_14`; the former `capeps_row_phi_h`, at
+`log h ≤ 7`, retired into this, 2026-09-30) — the `φ ≤ h·u¹²` row at `log h ≤ 14`.  `11 → 25`, from
+`e^{11}·e^{14}`.  ⭐ **IT STILL FITS UNDER THE LANDED `60`** (`25 ≤ 60`), so this row reads
+`capeps_expbound_60` unchanged and is a pure numeral lift.  **This row was never the wall.**
+(2026-09-30: the page at `log h ≤ 7` is retired into this; its note stands in §5, THE THREE
+`EP₂` ROWS.) -/
 theorem capeps_row_phi_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14)
     (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) (hφ0 : 0 ≤ φ) (hφ : φ ≤ (h : ℝ) * u ^ (12 : ℕ)) :
@@ -1688,13 +1621,15 @@ theorem capeps_row_phi_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) �
 
 set_option maxHeartbeats 1000000 in
 -- the `(h:ℝ)·u¹²` factor doubles the monomial count in both legs' linarith tableaux
-/-- ⟦`capeps_row_tail_h` AT THE RAISED CAP⟧ (`capeps_row_tail_h_14`) — the `W ≤ 64·h·u¹²·X` row
-at `log h ≤ 14`.  **THE ONE ROW THAT WAS WALLED**, and the only consumer of `capeps_expbound_63`:
-its `A` leg spends `9 + 40 + 14 = 63`, taken at `63 ≤ 63` — **EXACTLY, with the ceiling met and
-not cleared.**  Its `B` leg spends `8 + 14 = 22` and keeps the landed `capeps_bigexp_60`.
-⚠️ `63 ≤ 63` is deliberate: the ceiling is chosen to be the smallest that admits the spend, as
-`60` was for `56`.  The margin is not in the ceiling — it is the `7·10¹⁷` the master line has
-against the spend, seventeen orders down. -/
+/-- ⟦`capeps_row_tail_h` AT THE RAISED CAP⟧ (`capeps_row_tail_h_14`; the former `capeps_row_tail_h`,
+at `log h ≤ 7`, retired into this, 2026-09-30) — the `W ≤ 64·h·u¹²·X` row at `log h ≤ 14`.  **THE
+ONE ROW THAT WAS WALLED**, and the only consumer of `capeps_expbound_63`: its `A` leg spends
+`9 + 40 + 14 = 63`, taken at `63 ≤ 63` — **EXACTLY, with the ceiling met and not cleared.**  Its `B`
+leg spends `8 + 14 = 22` and keeps the landed `capeps_bigexp_60`.  ⚠️ `63 ≤ 63` is deliberate: the
+ceiling is chosen to be the smallest that admits the spend, as `60` was for `56`.  The margin is not
+in the ceiling — it is the `7·10¹⁷` the master line has against the spend, seventeen orders down.
+(2026-09-30: the page at `log h ≤ 7` is retired into this; its note stands in §5, THE THREE
+`EP₂` ROWS.) -/
 theorem capeps_row_tail_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14)
     (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) (hX0 : 0 < X) (hXlog : Real.log X = μ)
@@ -1796,11 +1731,13 @@ F2 and F3 below, each noted in place; 2026-09-29: family 24 retired twelve more,
 here and eleven into twins of F2 and F3, each noted in place; 2026-09-30: family 25 retired seven
 more, one into a twin here and six into twins of F2 and F3, each noted in place; 2026-09-30:
 family 26 retired two more, both into twins of F2, each noted in place; 2026-09-30: family 27
-retired two more, one into a twin here and one into a twin of F2, each noted in place).  Three
-NUMERIC SIBLINGS whose statements differ from §1's only in the named literal (`e^18 ↦ e^20`,
-`216 ↦ 232`, `+8 ↦ +10` — each set to exactly the cap-9 spend, as §1's were to the cap-7 spend),
-then the depth-0/1 leaves of the floor, grid and `εr` pages at `log h ≤ 9`.  Each twin is its
-source's statement and body with ONLY the freeze's §3.1 rule-2 raises and every derived
+retired two more, one into a twin here and one into a twin of F2, each noted in place; 2026-09-30:
+family 28 retired three more into relatives that are not `_b9` twins — one into
+`capfloor_floor3_numeric_h_10` here, two into the rows at the raised cap in §4 above — each noted in
+place).  Three NUMERIC SIBLINGS whose statements differ from §1's only in the named literal
+(`e^18 ↦ e^20`, `216 ↦ 232`, `+8 ↦ +10` — each set to exactly the cap-9 spend, as §1's were to the
+cap-7 spend), then the depth-0/1 leaves of the floor, grid and `εr` pages at `log h ≤ 9`.  Each twin
+is its source's statement and body with ONLY the freeze's §3.1 rule-2 raises and every derived
 cap-dependent supplier replaced by its twin (`S16ProducersH` §7); no hypothesis is added and no
 conclusion weakened. -/
 
@@ -1846,8 +1783,10 @@ theorem capfloor_lam_core_h_232 {v : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) :
   norm_num at h ⊢
   linarith
 
-/-- ⟦SIBLING of `capfloor_floor3_numeric_h` (§1), slack `+8 → +10`⟧ — `floor3`'s numeric leg,
-absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: §1's, with `+10`. -/
+/-- ⟦SIBLING of `capfloor_floor3_numeric_h` (§1), slack `+8 → +10`⟧ (the former
+`capfloor_floor3_numeric_h`, at `+8`, retired into this, 2026-09-30) — `floor3`'s numeric leg,
+absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: §1's, with `+10`.  (2026-09-30: §1's
+page is retired into this; its note stands where it stood, in §1.) -/
 theorem capfloor_floor3_numeric_h_10 {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
     (hW : W ≤ 12 * Real.log v + E + 10) :
     E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by

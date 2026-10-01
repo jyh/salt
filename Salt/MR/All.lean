@@ -9369,8 +9369,10 @@ sibling `capeps_Pbig_h`, which has none; 2026-09-30: family 26 retired the two t
 twin, their rows dropped, which leaves two more names without a caller: the siblings
 `s13_abs8640_of_socketBase_LH` and `s13CapGrid_twoj_le_H_LH`, which have a `_b9` twin; 2026-09-30:
 family 27 retired those two, their rows dropped, which leaves no name audited here that has a `_b9`
-twin without a caller): every landed numeric stone the `h` lane outgrows has a SIBLING here with a
-wider ceiling.
+twin without a caller; 2026-09-30: family 28 retired three names that have no `_b9` twin into their
+relatives — the numeric sibling `capfloor_floor3_numeric_h` and the rows `capeps_row_phi_h` and
+`capeps_row_tail_h` — their registry rows dropped, which leaves `h_le_exp_seven` without a caller):
+every landed numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
 `s13CapGrid_all_L_gk` derive `hbb : SocketBase` from their `SocketBaseL` binder and
@@ -9414,7 +9416,10 @@ exactly one place, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷` versus a le
 `686`: the true admissible `t` is ~`7·10¹⁷`.  Each sibling is consumed by exactly one row and
 nowhere else, which is the check that the ceilings were priced from real demand.  (2026-09-30: the
 XY debt lane's family 25 retired the `p²` row at the cap 7, `capeps_row_p2_h`, into its cap-9 twin;
-the sibling `capeps_Pbig_h` is consumed by no row now.)
+the sibling `capeps_Pbig_h` is consumed by no row now.  2026-09-30: family 28 retired one of the
+six, `capfloor_floor3_numeric_h`, into its relative `capfloor_floor3_numeric_h_10`, and the two rows
+that stood at the cap 7 into their relatives at `log h ≤ 14`; `capeps_expbound_60` and
+`capeps_bigexp_60` are consumed by the rows at the raised caps.)
 
 ⟦R KILL 1⟧ **`s13CapEps_all`'s FOURTH CONJUNCT IS FALSE AT `LH` AND IS RE-BASED, NOT DROPPED.**
 `q ≤ arcDen 12 H` cannot hold when the socket only gives `q ≤ h·arcDen 12 H`.  It is stated at
@@ -9445,7 +9450,6 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.capeps_bigexp_60
   Salt.MR.capeps_Pbig_h
   Salt.MR.capfloor_lam_core_h
-  Salt.MR.capfloor_floor3_numeric_h
   Salt.MR.S16BaseScaleCap96_LH_gk
   Salt.MR.S16CofactorSupply_LH_gk
   Salt.MR.s16BaseScaleCap96LH_gk_one_iff
@@ -9466,8 +9470,6 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.s13CapFloor_all_LH_gk
   Salt.MR.h_le_exp_seven
   Salt.MR.h_le_exp_fourteen
-  Salt.MR.capeps_row_phi_h
-  Salt.MR.capeps_row_tail_h
   Salt.MR.s16_capGate_supply_LH_gk
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling
@@ -10044,6 +10046,8 @@ chosen; at `log h ≤ 14` it is `63 > 60`, so the lane's true ceiling was `max l
 is `~7·10¹⁷` and calls `60` *"an author's convenience rather than a barrier"*.  The `_63`
 siblings carry the LANDED certificates verbatim; a certificate that stopped travelling would
 have meant the ceiling was a barrier after all, which is a finding rather than a repair.
+(2026-09-30: the XY debt lane's family 28 retired `capeps_row_tail_h` into `capeps_row_tail_h_14`;
+the spend at `log h ≤ 7` above is what the retired page's body spent.)
 
 ⛔ **TWO DELIBERATE ABSENCES, RECORDED SO NEITHER READS AS AN OVERSIGHT.**  `capeps_bigexp_63`
 is NOT minted — the tail row's other leg spends `8 + 14 = 22 ≤ 60` and keeps the landed
@@ -10153,7 +10157,8 @@ file's foot; 2026-09-29: family 22 re-pointed that file's cap-gate assembler to 
 three F3 twins; 2026-09-29: family 23 retired eight siblings of that file into F2 and F3 twins;
 2026-09-29: family 24 twelve more, one of them into a twin here; 2026-09-30: family 25 seven more,
 one of them into a twin here; 2026-09-30: family 26 two more, both into F2 twins; 2026-09-30:
-family 27 two more, one into a twin here and one into an F2 twin).  Each twin is its source's
+family 27 two more, one into a twin here and one into an F2 twin; 2026-09-30: family 28 three more,
+into relatives that are not `_b9` twins, one of them audited here).  Each twin is its source's
 statement and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`,
 `1096 ↦ 8103`, the census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row —
 every derived cap-dependent supplier replaced by its twin, and no hypothesis added.  The MR
