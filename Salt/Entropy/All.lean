@@ -1158,7 +1158,11 @@ silently.  `h_le_1096_of_log_le_seven` duplicates `Salt.MR.h_le_1096_of_hh7` del
 imports Entropy and not the reverse.  `h_le_1202604_of_log_le_fourteen` (2026-09-08, the
 `h`-cap reach — council ⑤, "(B)", target `h ≤ 10⁶`) is that pair's `log h ≤ 14` twin,
 `h ≤ ⌊e^14⌋ = 1202604`; it is a NEW name with its OWN binder and the `7` pair is untouched.
-Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing. -/
+Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing.
+2026-10-01: family 35 of the XY debt lane re-pointed the one call of `hpt_holds_500h` in
+`bigXiH_bounded_ceiling_of_pin` to its cap-9 twin `hpt_holds_500h_b9` (audited in `Salt/MR/All`) and
+moved the hook to the foot of its file, below the twin; its statement is unchanged, and
+`hpt_holds_500h` is left without a caller. -/
 #audit_axioms Salt.Entropy.Chowla.h_le_1096_of_log_le_seven
   Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen
   Salt.Entropy.Chowla.hpt_const_le_pow35_h
