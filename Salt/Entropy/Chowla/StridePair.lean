@@ -316,7 +316,7 @@ theorem bigXiAffD_of_dvd {a b h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] (hdvd : 
 
 /-- **F3-P7b (class A).**  The restricted set's cardinality never exceeds the affine set's:
 `split_ifs` — `le_rfl` on the grid, `Finset.card_empty ▸ Nat.zero_le` off it.  Feeds the count
-hook (`bigXiAff_bounded_ceiling_of_pin`, `StrideFork.lean:413`) to the road's `K`. -/
+hook (`bigXiAff_bounded_ceiling_of_pin_b9` of `StrideFork`) to the road's `K`. -/
 theorem bigXiAffD_card_le (a b h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
     (bigXiAffD a b h eps H).card ≤ (bigXiAff a b h eps H).card := by
   unfold bigXiAffD

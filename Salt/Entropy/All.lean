@@ -1241,7 +1241,11 @@ ChowlaRegime` by `b`, `hb : b ≤ Hlo` — Tao Lemma 2.5's `|r| ≤ H₋`), the 
 quantifier outside) with their `(1, 0)` compats and their seams (the tripwires), and the exact
 `x`-scaling of the stride measure on the sums.  Every declaration is foundational: nothing here
 produces `LogChowlaAffSupply` at any `a ≥ 2`, nothing moves the door, nothing bears on twin
-primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x–13:5x). -/
+primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x–13:5x).  (2026-10-01:
+the XY debt lane's family 34 retired the pinned ceiling at `log (a·h) ≤ 7`,
+`bigXiAff_bounded_ceiling_of_pin`, into its cap-9 twin `bigXiAff_bounded_ceiling_of_pin_b9` of the
+same file, noted where it stood; its row is dropped below, and the twin's row stands in
+`Salt/MR/All.lean`, under ⟦β W2 F1⟧.) -/
 #audit_axioms Salt.Entropy.Chowla.logMeasureAff
   Salt.Entropy.Chowla.logMeasureAff_one
   Salt.Entropy.Chowla.integral_logMeasureAff
@@ -1257,7 +1261,6 @@ primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x�
   Salt.Entropy.Chowla.bigXiAff_card_le
   Salt.Entropy.Chowla.bigXiAff_card_le_mul
   Salt.Entropy.Chowla.bigXiAff_bounded
-  Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin
   Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime
   Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime_toChowlaRegime
   Salt.Entropy.Chowla.chowlaTower_eq_base_one
