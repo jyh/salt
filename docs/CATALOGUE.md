@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0a64e4d3` · source digest `a0f57d4978cbc185` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `d8072412` · source digest `e0335a3fdccc3fb6` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 24 | 22 | 9089 | 9034 | 9033 | 1 | 0 | 55 |
+| 24 | 22 | 9088 | 9033 | 9032 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 22647 · corpus Prop-valued names (the hypothesis universe): 668.
+Declarations indexed across the tree: 22646 · corpus Prop-valued names (the hypothesis universe): 668.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6781 | 294 | 2072 | 4631 | 379 | 425 | 29 |
+| unconditional | 6780 | 294 | 2072 | 4631 | 378 | 425 | 29 |
 | conditional | 1560 | 25 | 196 | 1372 | 95 | 24 | 4 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 481 | 0 | 68 | 366 | 55 | 17 | 0 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9034 | 319 | 2340 | 6567 | 540 | 466 | 33 |
+| **all** | 9033 | 319 | 2340 | 6567 | 539 | 466 | 33 |
 
 ## LIMITS — read these beside every count above
 
@@ -489,7 +489,7 @@ Declarations indexed across the tree: 22647 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6781)
+## unconditional (6780)
 
 | name | file:line | objects |
 |---|---|---|
@@ -1537,13 +1537,12 @@ Declarations indexed across the tree: 22647 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.bigXiAff_card_le` | Salt/Entropy/Chowla/StrideFork.lean:356 | entropy |
 | `Salt.Entropy.Chowla.bigXiAff_card_le_mul` | Salt/Entropy/Chowla/StrideFork.lean:379 | entropy |
 | `Salt.Entropy.Chowla.bigXiAff_bounded` | Salt/Entropy/Chowla/StrideFork.lean:391 | entropy |
-| `Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/StrideFork.lean:413 | entropy |
-| `Salt.Entropy.Chowla.chowlaTower_eq_base_one` | Salt/Entropy/Chowla/StrideFork.lean:515 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_flat_stride` | Salt/Entropy/Chowla/StrideFork.lean:549 | entropy |
-| `Salt.Entropy.Chowla.mrtUniformityXiH_eq_xiAff_one_zero` | Salt/Entropy/Chowla/StrideFork.lean:667 | entropy |
-| `Salt.Entropy.Chowla.mrtUniformityXiL2H_eq_xiL2Aff_one_zero` | Salt/Entropy/Chowla/StrideFork.lean:692 | entropy |
-| `Salt.Entropy.Chowla.sum_window_aff_eq` | Salt/Entropy/Chowla/StrideFork.lean:782 | entropy |
-| `Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9` | Salt/Entropy/Chowla/StrideFork.lean:807 | entropy |
+| `Salt.Entropy.Chowla.chowlaTower_eq_base_one` | Salt/Entropy/Chowla/StrideFork.lean:474 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_flat_stride` | Salt/Entropy/Chowla/StrideFork.lean:508 | entropy |
+| `Salt.Entropy.Chowla.mrtUniformityXiH_eq_xiAff_one_zero` | Salt/Entropy/Chowla/StrideFork.lean:626 | entropy |
+| `Salt.Entropy.Chowla.mrtUniformityXiL2H_eq_xiL2Aff_one_zero` | Salt/Entropy/Chowla/StrideFork.lean:651 | entropy |
+| `Salt.Entropy.Chowla.sum_window_aff_eq` | Salt/Entropy/Chowla/StrideFork.lean:741 | entropy |
+| `Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9` | Salt/Entropy/Chowla/StrideFork.lean:769 | entropy |
 | `Salt.Entropy.Chowla.strideScale_one` | Salt/Entropy/Chowla/StridePair.lean:84 | entropy |
 | `Salt.Entropy.Chowla.chowlaTower_ge_base` | Salt/Entropy/Chowla/StridePair.lean:101 | entropy |
 | `Salt.Entropy.Chowla.regimeShrinkX_stride_tower` | Salt/Entropy/Chowla/StridePair.lean:282 | entropy |
@@ -7382,8 +7381,8 @@ Declarations indexed across the tree: 22647 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted` | Salt/Entropy/Chowla/StrideCircle.lean:1090 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.singleCorr_of_failsAff` | Salt/Entropy/Chowla/StrideFork.lean:138 | entropy | `Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.singleCorr_of_failsAff'` | Salt/Entropy/Chowla/StrideFork.lean:176 | entropy | `Salt.Entropy.Chowla.logChowlaFailsAff` |
-| `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff` | Salt/Entropy/Chowla/StrideFork.lean:725 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiAff` |
-| `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2Aff` | Salt/Entropy/Chowla/StrideFork.lean:759 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` |
+| `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff` | Salt/Entropy/Chowla/StrideFork.lean:684 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiAff` |
+| `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2Aff` | Salt/Entropy/Chowla/StrideFork.lean:718 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` |
 | `Salt.Entropy.Chowla.regimeShrinkX_stride_x_mul` | Salt/Entropy/Chowla/StridePair.lean:291 | entropy | `Salt.Entropy.Chowla.StrideScale` |
 | `Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_aff` | Salt/Entropy/Chowla/StridePair.lean:370 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` |
 | `Salt.Entropy.Chowla.mrtUniformityXiL2AffW_mono` | Salt/Entropy/Chowla/StridePair.lean:381 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
@@ -8849,8 +8848,8 @@ Declarations indexed across the tree: 22647 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.logChowlaFails` | Salt/Entropy/Chowla/ShiftFork.lean:62 | entropy |
 | `Salt.Entropy.Chowla.MRTUniformityXiH` | Salt/Entropy/Chowla/ShiftFork.lean:303 | entropy |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | Salt/Entropy/Chowla/ShiftFork.lean:545 | entropy |
-| `Salt.Entropy.Chowla.MRTUniformityXiAff` | Salt/Entropy/Chowla/StrideFork.lean:644 | entropy |
-| `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` | Salt/Entropy/Chowla/StrideFork.lean:652 | entropy |
+| `Salt.Entropy.Chowla.MRTUniformityXiAff` | Salt/Entropy/Chowla/StrideFork.lean:603 | entropy |
+| `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` | Salt/Entropy/Chowla/StrideFork.lean:611 | entropy |
 | `Salt.Entropy.Chowla.LogChowlaAffSupplyW` | Salt/Entropy/Chowla/StridePrize.lean:89 | entropy |
 | `Salt.Entropy.Chowla.GradedAffHeadAt` | Salt/Entropy/Chowla/StridePrize.lean:166 | entropy |
 | `Salt.Entropy.Chowla.GradedAffHeadAt_g12b` | Salt/Entropy/Chowla/StridePrize.lean:295 | entropy |
@@ -9118,9 +9117,9 @@ Declarations indexed across the tree: 22647 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.isProbabilityMeasure_logMeasureAff` | Salt/Entropy/Chowla/StrideFork.lean:102 | entropy |
 | `Salt.Entropy.Chowla.affOffset` | Salt/Entropy/Chowla/StrideFork.lean:194 | entropy |
 | `Salt.Entropy.Chowla.bigXiAff` | Salt/Entropy/Chowla/StrideFork.lean:206 | entropy |
-| `Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime` | Salt/Entropy/Chowla/StrideFork.lean:500 | entropy |
-| `Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime_toChowlaRegime` | Salt/Entropy/Chowla/StrideFork.lean:505 | entropy |
-| `Salt.Entropy.Chowla.towerDropSum_eq_base_one` | Salt/Entropy/Chowla/StrideFork.lean:523 | entropy |
+| `Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime` | Salt/Entropy/Chowla/StrideFork.lean:459 | entropy |
+| `Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime_toChowlaRegime` | Salt/Entropy/Chowla/StrideFork.lean:464 | entropy |
+| `Salt.Entropy.Chowla.towerDropSum_eq_base_one` | Salt/Entropy/Chowla/StrideFork.lean:482 | entropy |
 | `Salt.Entropy.Chowla.regimeShrinkX_stride_x` | Salt/Entropy/Chowla/StridePair.lean:229 | entropy |
 | `Salt.Entropy.Chowla.regimeShrinkX_stride_omega` | Salt/Entropy/Chowla/StridePair.lean:235 | entropy |
 | `Salt.Entropy.Chowla.regimeShrinkX_stride_a` | Salt/Entropy/Chowla/StridePair.lean:241 | entropy |

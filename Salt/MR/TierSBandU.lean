@@ -66,7 +66,7 @@ theorem bigXiAffD_subset_bigXiAffU (a b h : ℕ) (hb : b < a) (eps : ℚ) (H : �
   exact Finset.subset_biUnion_of_mem (fun b => bigXiAffD a b h eps H) (Finset.mem_range.mpr hb)
 
 /-- **⟦S-3 U2⟧ (class A) — THE UNION'S COUNT GATE AT THE PIN.**
-`bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork.lean:807`) with `a` copies:
+`bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork.lean`) with `a` copies:
 `Finset.card_biUnion_le` + `Finset.sum_le_card_nsmul` over `range a`, each class at
 `bigXiAffD_card_le` + `bigXiAff_card_le_mul` (the per-class bound is `a·h·|bigXi|`, `b`-FREE), so
 the witness is `a ·` the landed one and `H₀ = 2` again.  The numeral:

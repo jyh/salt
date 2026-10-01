@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0a64e4d3` · source digest `a0f57d4978cbc185` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `d8072412` · source digest `e0335a3fdccc3fb6` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22647 · with a proof/definition body: 22647 · direct corpus references (edges): 85293 · audited results: 9033 · corpus Prop-valued names: 668.
+Declarations indexed: 22646 · with a proof/definition body: 22646 · direct corpus references (edges): 85285 · audited results: 9032 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -166,7 +166,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 74 | `Salt.TwinBar.SiegelSequence` | 3 | 0 | — | Salt/TwinBar/SiegelCorr.lean:54 |
 | 75 | `GEH_min` | 2 | 1 | — | Salt/Maynard/GehDoor.lean:160 |
 | 76 | `Salt.Entropy.Chowla.MRTUniformityXiH` | 2 | 1 | — | Salt/Entropy/Chowla/ShiftFork.lean:303 |
-| 77 | `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` | 2 | 0 | — | Salt/Entropy/Chowla/StrideFork.lean:652 |
+| 77 | `Salt.Entropy.Chowla.MRTUniformityXiL2Aff` | 2 | 0 | — | Salt/Entropy/Chowla/StrideFork.lean:611 |
 | 78 | `Salt.Fulcrum.FulcrumQualityMin` | 2 | 2 | — | Salt/Fulcrum/Basic.lean:61 |
 | 79 | `Salt.MR.DoorCapBasePerBlock` | 2 | 1 | — | Salt/MR/M4CapWire.lean:612 |
 | 80 | `Salt.MR.DoorCapBasePerBlock_gk` | 2 | 1 | — | Salt/MR/M4CapWire.lean:1312 |
@@ -199,7 +199,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 107 | `Salt.TwinBar.TwinB_min` | 2 | 0 | — | Salt/TwinBar/TwinDoor.lean:188 |
 | 108 | `Salt.BV.PsiToPiCore` | 1 | 0 | — | Salt/BV/Abel.lean:110 |
 | 109 | `Salt.Chen.TripleP` | 1 | 0 | — | Salt/Chen/WeightTrivia.lean:281 |
-| 110 | `Salt.Entropy.Chowla.MRTUniformityXiAff` | 1 | 0 | — | Salt/Entropy/Chowla/StrideFork.lean:644 |
+| 110 | `Salt.Entropy.Chowla.MRTUniformityXiAff` | 1 | 0 | — | Salt/Entropy/Chowla/StrideFork.lean:603 |
 | 111 | `Salt.Entropy.Chowla.logChowlaFails` | 1 | 0 | — | Salt/Entropy/Chowla/ShiftFork.lean:62 |
 | 112 | `Salt.Fulcrum.SiegelModulusUnbounded` | 1 | 0 | — | Salt/Fulcrum/Basic.lean:73 |
 | 113 | `Salt.HB.NoSiegelZerosPoly` | 1 | 2 | — | Salt/HB/CrownTheorem1.lean:6348 |
@@ -961,24 +961,24 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | family | decls in family | audited in family | unconditional | conditional | statement-only | infrastructure | unresolved | audited dependents | external dependents |
 |---|---|---|---|---|---|---|---|---|---|
-| circle method / Fourier | 181 | 83 | 560 | 540 | 22 | 10 | 0 | 1132 | 1068 |
-| entropy decrement | 1400 | 536 | 528 | 414 | 78 | 38 | 0 | 1058 | 608 |
+| circle method / Fourier | 181 | 83 | 559 | 540 | 22 | 10 | 0 | 1131 | 1067 |
+| entropy decrement | 1399 | 535 | 527 | 414 | 78 | 38 | 0 | 1057 | 608 |
 | large sieve | 136 | 18 | 709 | 491 | 1 | 22 | 0 | 1223 | 1209 |
-| Selberg/Brun sieve | 5626 | 949 | 3744 | 1248 | 65 | 93 | 0 | 5150 | 4286 |
+| Selberg/Brun sieve | 5626 | 949 | 3743 | 1248 | 65 | 93 | 0 | 5149 | 4285 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1479 | 612 | 4 | 19 | 0 | 2114 | 1482 |
 | zero-density / zero-free regions | 724 | 292 | 1016 | 642 | 2 | 20 | 0 | 1680 | 1427 |
 | character sums / L-functions | 4277 | 2153 | 1807 | 745 | 81 | 99 | 0 | 2732 | 880 |
-| exponential sums | 577 | 223 | 796 | 519 | 31 | 33 | 0 | 1379 | 1194 |
+| exponential sums | 577 | 223 | 795 | 519 | 31 | 33 | 0 | 1378 | 1193 |
 | Mertens / PNT-type | 253 | 67 | 878 | 699 | 4 | 16 | 0 | 1597 | 1540 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 671 | 659 | 1 | 5 | 0 | 1336 | 1336 |
+| explog/lognum numeral tactic | 53 | 0 | 670 | 659 | 1 | 5 | 0 | 1335 | 1335 |
 | Matomaki-Radziwill / Halasz (short intervals) | 9716 | 5374 | 2967 | 1227 | 168 | 189 | 0 | 4551 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4286 external dependents
+### Selberg/Brun sieve — 4285 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -988,10 +988,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.norm_memSCoeff_le_one` | 390 | Salt/MR/M4Sieve.lean:126 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 387 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.two_le_calP` | 294 | Salt/MR/SieveGlue.lean:315 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 271 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
-| `Salt.Entropy.Chowla.nuG_mult` | 271 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 |
-| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 265 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
-| `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | 264 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:174 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 270 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
+| `Salt.Entropy.Chowla.nuG_mult` | 270 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 |
+| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 264 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
+| `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | 263 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:174 |
 
 ### Mertens / PNT-type — 1540 external dependents
 
@@ -1038,7 +1038,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_conj` | 609 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.neg_logDeriv_zeta_split` | 604 | Salt/SW/ZetaPartialFractions.lean:98 |
 
-### explog/lognum numeral tactic — 1336 external dependents
+### explog/lognum numeral tactic — 1335 external dependents
 
 (no audited member)
 
@@ -1057,7 +1057,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.LS.arithmetic_LS` | 101 | Salt/LS/ArithmeticLS.lean:91 |
 | `Salt.LS.char_LS` | 100 | Salt/LS/CharLS.lean:277 |
 
-### exponential sums — 1194 external dependents
+### exponential sums — 1193 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1072,7 +1072,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.ExpSum.abel_antitone_prefix` | 528 | Salt/ExpSum/Strip.lean:698 |
 | `Salt.ExpSum.cpow_weight_split` | 528 | Salt/ExpSum/Strip.lean:679 |
 
-### circle method / Fourier — 1068 external dependents
+### circle method / Fourier — 1067 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1081,7 +1081,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Vmvt.integral_norm_pow_eq_Jk` | 542 | Salt/Vmvt/Fourier.lean:259 |
 | `Salt.Vmvt.pairEqBox_Ncount_eq_integral` | 540 | Salt/Vmvt/Fourier.lean:271 |
 | `Salt.MR.char_sum_fourier_le` | 332 | Salt/MR/VkTwistLadder.lean:379 |
-| `Salt.Entropy.Chowla.dft_parseval` | 319 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
+| `Salt.Entropy.Chowla.dft_parseval` | 318 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
 | `Salt.MR.perron_trunc_trivial` | 302 | Salt/MR/ParsevalAsm.lean:118 |
 | `Salt.MR.perron_trunc_min` | 301 | Salt/MR/ParsevalAsm.lean:189 |
 | `Salt.MR.Aperron_representation` | 299 | Salt/MR/ParsevalAsm.lean:296 |
@@ -1108,14 +1108,14 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|
 | `Salt.Entropy.Chowla.integral_logMeasure_eq` | 379 | Salt/Entropy/Chowla/ShiftCorr.lean:42 |
 | `Salt.Entropy.Chowla.harmonic_window_bounds` | 348 | Salt/Entropy/Chowla/LogMeasure.lean:115 |
-| `Salt.Entropy.Chowla.dft_parseval` | 319 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
+| `Salt.Entropy.Chowla.dft_parseval` | 318 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
 | `Salt.Entropy.Chowla.isProbabilityMeasure_logMeasure` | 274 | Salt/Entropy/Chowla/LogMeasure.lean:70 |
 | `Salt.Entropy.Chowla.not_summable_one_div_nat_loglog` | 274 | Salt/Entropy/Chowla/Diverge.lean:230 |
-| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 274 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 |
-| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 274 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
-| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 273 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
+| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 273 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 |
+| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 273 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
+| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 272 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
 | `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 271 | Salt/Entropy/Chowla/RegimeParam.lean:219 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 271 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 270 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
 
 ### Matomaki-Radziwill / Halasz (short intervals) — 61 external dependents
 
@@ -1153,16 +1153,16 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 61 | 5374 | 9716 |
-| entropy decrement | 608 | 536 | 1400 |
+| entropy decrement | 608 | 535 | 1399 |
 | character sums / L-functions | 880 | 2153 | 4277 |
-| circle method / Fourier | 1068 | 83 | 181 |
-| exponential sums | 1194 | 223 | 577 |
+| circle method / Fourier | 1067 | 83 | 181 |
+| exponential sums | 1193 | 223 | 577 |
 | large sieve | 1209 | 18 | 136 |
-| explog/lognum numeral tactic | 1336 | 0 | 53 |
+| explog/lognum numeral tactic | 1335 | 0 | 53 |
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1482 | 726 | 1609 |
 | Mertens / PNT-type | 1540 | 67 | 253 |
-| Selberg/Brun sieve | 4286 | 949 | 5626 |
+| Selberg/Brun sieve | 4285 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
