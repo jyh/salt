@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # λ-BV wave 2-S, step F3 — THE REGIME PAIRING (Entropy half): share the tower
 
-The affine seam `contradiction_of_mrtDoorXiL2Aff` (`StrideFork.lean:759`) consumes the `L²`
+The affine seam `contradiction_of_mrtDoorXiL2Aff` (`StrideFork.lean`) consumes the `L²`
 door at the AFFINE target regime `R_aff : ChowlaRegimeAff`, through `logMeasureAff R.a R.x R.ω`
 (the log-measure of `(x/ω, x]` pushed along `n ↦ a·n`) and the set `bigXiAff`.  The landed door
 supply is the road's own `∃ R` at a PLAIN regime `R_door` through `logMeasure R.x R.ω`.  The door
@@ -350,7 +350,7 @@ theorem mrtUniformityXiL2Set_bigXiH_eq (h : ℕ) (R : ChowlaRegime) (ρ : ℝ) :
 /-! ## F3-P9 — THE STATEMENT ACT: the affine door at Tao's range -/
 
 /-- **F3-P9 (def, Fable statement act).**  The Ξ-summed `L²` door at `(a, b, h)` AT TAO'S RANGE:
-F1-D2 (`StrideFork.lean:652`) with the range `R.Hlo ≤ H` replaced by `R.a ∣ H ∧ R.a * R.Hlo ≤ H`
+F1-D2 (`StrideFork.lean`) with the range `R.Hlo ≤ H` replaced by `R.a ∣ H ∧ R.a * R.Hlo ≤ H`
 (textdump:1296-1300: `H ≡ 0 (mod a)`, `H ≥ a·H₋`).  Two reasons, both forced (freeze §3):
 (i) the affine tower windows START at `a·Hlo` (`Regime.lean:38`, index `0 = a·Hlo`) and the
 shared plain door covers `[R_door.Hlo, Hhi] = [a·Hlo_aff, Hhi]` only — the range `[Hlo_aff,
@@ -384,7 +384,7 @@ theorem mrtUniformityXiL2AffW_mono (h : ℕ) (R : ChowlaRegimeAff) {ρ ρ' : ℝ
   exact le_trans (hdoor H hdvd hlo hhi) hle
 
 /-- **F3-P11 (class A) — THE `L²` SEAM AT TAO'S RANGE.**  `contradiction_of_mrtDoorXiL2Aff`
-(`StrideFork.lean:759`) with the door fired at `hdvd hlo hhi`: `have hd := hdoor H hdvd hlo hhi;
+(`StrideFork.lean`) with the door fired at `hdvd hlo hhi`: `have hd := hdoor H hdvd hlo hhi;
 linarith`.  The entropy-side caller (F4) supplies `hdvd` from `dvd_chowlaTower` and `hlo` from the
 window's index `≥ a·Hlo`. -/
 theorem contradiction_of_mrtDoorXiL2AffW (h : ℕ) (R : ChowlaRegimeAff) {ρ c₀ ε : ℝ} {H : ℕ}
@@ -402,7 +402,7 @@ theorem contradiction_of_mrtDoorXiL2AffW (h : ℕ) (R : ChowlaRegimeAff) {ρ c�
 (the affine regime `ChowlaRegimeAff.ofRegime R 0 _` of a regime with `R.a = 1`) the windowed
 door is the landed `MRTUniformityXiL2H h`: `propext`; `1 ∣ H` is `one_dvd` and `1 * R.Hlo =
 R.Hlo` is `one_mul`, the set is `bigXiAff_one_zero`, the measure `logMeasureAff_one` — the body
-of `mrtUniformityXiL2H_eq_xiL2Aff_one_zero` (`StrideFork.lean:692`) with the two extra binders
+of `mrtUniformityXiL2H_eq_xiL2Aff_one_zero` (`StrideFork.lean`) with the two extra binders
 introduced and discharged.  Records that the range change is invisible at stride `1`, and
 nothing more (it cannot police the range at `a ≥ 2`; F3-P9's docstring carries the reasons). -/
 theorem mrtUniformityXiL2AffW_one_zero_eq (h : ℕ) (R : ChowlaRegime) (hR1 : R.a = 1) (ρ : ℝ) :
