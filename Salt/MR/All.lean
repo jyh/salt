@@ -9777,7 +9777,9 @@ re-pointed two calls of `flat_v7_generic_h` — the rated supply and the base-sc
 their cap-9 twins in `V7RatedH`, its statement unchanged; no name is retired by it.  2026-10-01:
 family 33 re-pointed the count hook of `mrtUniformityXiL2AffSet_holds_flat_floor` and of its
 graded form to the cap-9 twin `bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork`), statements
-unchanged; the cap-7 hook keeps its declaration with no call site, and no name is retired by it.)
+unchanged; the cap-7 hook keeps its declaration with no call site, and no name is retired by it.
+2026-10-01: family 34 retired that hook, `bigXiAff_bounded_ceiling_of_pin`, into the same twin,
+noted where it stood in `StrideFork`; the twin's row stands below, under ⟦β W2 F1⟧.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
   Salt.MR.nearRatTight_of_bigXiAffArcTight
@@ -10269,8 +10271,9 @@ open Salt.Tactic in
 `S16FlatTerminalLinear`, `HDoorSupply`, `S16ProducersH`, and the graded wall twins in the W1 module
 `StrideGrade12bWalls`; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W2 bundle
 F1).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
-the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place).
-Each twin is its source's statement and
+the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place; 2026-10-01:
+family 34 retired `bigXiAff_bounded_ceiling_of_pin`, the cap-7 source of the first of them, into it,
+noted in `StrideFork`).  Each twin is its source's statement and
 body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count
 pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦
 ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the
