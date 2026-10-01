@@ -1789,13 +1789,15 @@ exact hU) hUceil a g ha ha1096 hg` in place of the landed `g ≡ 0` exhibit (`xc
 is no longer needed here; the CROWN's caller supplies `g := 0`); `hfl`, `hlo`, `hthrgate`,
 `hKvtcush` (`cofkR_cushion_of_armVt R hKvt0 harmA hlo`) by monotonicity from `hU`; the
 base-scale cap `s16_baseScaleCap96_LH_at_klevF … hxceil hwin` unchanged; the terminal `hfireR :
-P R` where the parent has `¬ logChowlaFails`. -/
+P R` where the parent has `¬ logChowlaFails`.  (2026-10-01, the XY debt lane, family 32: the rated
+supply and the base-scale cap are called here at their cap-9 twins, `log h ≤ 9` proved at each
+call from `hh7`; the parent still calls the cap-7 pair.) -/
 theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (P : ChowlaRegime → Prop)
     (hk : ∀ Awin : ℝ, S16BandLaneCBoundedLH_winU h Awin → FlatKswinFormH h Awin P) (A₀ : ℝ) :
     V7RatedFormH h P A₀ := by
   obtain ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, hcofR⟩ :=
-    cofkR_cofactorSupply_L_gk_rated_h h hh hh7
+    cofkR_cofactorSupply_L_gk_rated_h_b9 h hh (le_trans hh7 (by norm_num))
   obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinLH_holdsU h hh
   -- ⟦THE cs-FREE, Ks-WINDOWED FLAT TERMINAL⟧ V7Ks §5
   obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
@@ -1908,8 +1910,8 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
   have hcofsupply : S16CofactorSupply_LH_gk h (KlevF A) Cq R (flatDoorM A) :=
     hcofR (KlevF A) Cq R (flatDoorM A) hM1 hCq heps500R h518 hfl hthrgate hKvtcush
   have hfireR : P R :=
-    hfire2 hcofsupply
-      (s16_baseScaleCap96_LH_at_klevF hh hh7 hA26 (flatDoorM_one_le hA26) heps500 hxceil hwin)
+    hfire2 hcofsupply (s16_baseScaleCap96_LH_at_klevF_b9 hh (le_trans hh7 (by norm_num)) hA26
+      (flatDoorM_one_le hA26) heps500 hxceil hwin)
   exact ⟨R, hReps, hHlo, hRg, hstride, hRtow, hdes, hwin, hfireR⟩
 
 /-! ## §6 — the door-head, the chain, the receipts -/
