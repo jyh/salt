@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c3ef3b40` · source digest `1a9d6da2b22e436f` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `10508ddd` · source digest `21e4835a218c1f50` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22646 · with a proof/definition body: 22646 · direct corpus references (edges): 85285 · audited results: 9032 · corpus Prop-valued names: 668.
+Declarations indexed: 22645 · with a proof/definition body: 22645 · direct corpus references (edges): 85278 · audited results: 9031 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -962,23 +962,23 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | decls in family | audited in family | unconditional | conditional | statement-only | infrastructure | unresolved | audited dependents | external dependents |
 |---|---|---|---|---|---|---|---|---|---|
 | circle method / Fourier | 181 | 83 | 559 | 540 | 22 | 10 | 0 | 1131 | 1067 |
-| entropy decrement | 1399 | 535 | 527 | 414 | 78 | 38 | 0 | 1057 | 608 |
+| entropy decrement | 1398 | 534 | 526 | 414 | 78 | 38 | 0 | 1056 | 608 |
 | large sieve | 136 | 18 | 709 | 491 | 1 | 22 | 0 | 1223 | 1209 |
-| Selberg/Brun sieve | 5626 | 949 | 3743 | 1248 | 65 | 93 | 0 | 5149 | 4285 |
+| Selberg/Brun sieve | 5626 | 949 | 3742 | 1248 | 65 | 93 | 0 | 5148 | 4284 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1479 | 612 | 4 | 19 | 0 | 2114 | 1482 |
 | zero-density / zero-free regions | 724 | 292 | 1016 | 642 | 2 | 20 | 0 | 1680 | 1427 |
 | character sums / L-functions | 4277 | 2153 | 1807 | 745 | 81 | 99 | 0 | 2732 | 880 |
 | exponential sums | 577 | 223 | 795 | 519 | 31 | 33 | 0 | 1378 | 1193 |
 | Mertens / PNT-type | 253 | 67 | 878 | 699 | 4 | 16 | 0 | 1597 | 1540 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
-| explog/lognum numeral tactic | 53 | 0 | 670 | 659 | 1 | 5 | 0 | 1335 | 1335 |
+| explog/lognum numeral tactic | 53 | 0 | 669 | 659 | 1 | 5 | 0 | 1334 | 1334 |
 | Matomaki-Radziwill / Halasz (short intervals) | 9716 | 5374 | 2967 | 1227 | 168 | 189 | 0 | 4551 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4285 external dependents
+### Selberg/Brun sieve — 4284 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -988,10 +988,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.norm_memSCoeff_le_one` | 390 | Salt/MR/M4Sieve.lean:126 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 387 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.two_le_calP` | 294 | Salt/MR/SieveGlue.lean:315 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 270 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
-| `Salt.Entropy.Chowla.nuG_mult` | 270 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 |
-| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 264 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
-| `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | 263 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:174 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 269 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
+| `Salt.Entropy.Chowla.nuG_mult` | 269 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 |
+| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 263 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
+| `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | 262 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:174 |
 
 ### Mertens / PNT-type — 1540 external dependents
 
@@ -1038,7 +1038,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_conj` | 609 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.SW.neg_logDeriv_zeta_split` | 604 | Salt/SW/ZetaPartialFractions.lean:98 |
 
-### explog/lognum numeral tactic — 1335 external dependents
+### explog/lognum numeral tactic — 1334 external dependents
 
 (no audited member)
 
@@ -1111,11 +1111,11 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.dft_parseval` | 318 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
 | `Salt.Entropy.Chowla.isProbabilityMeasure_logMeasure` | 274 | Salt/Entropy/Chowla/LogMeasure.lean:70 |
 | `Salt.Entropy.Chowla.not_summable_one_div_nat_loglog` | 274 | Salt/Entropy/Chowla/Diverge.lean:230 |
-| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 273 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 |
-| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 273 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
-| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 272 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
+| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 272 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 |
+| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 272 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
 | `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 271 | Salt/Entropy/Chowla/RegimeParam.lean:219 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 270 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
+| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 271 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 269 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
 
 ### Matomaki-Radziwill / Halasz (short intervals) — 61 external dependents
 
@@ -1153,16 +1153,16 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 61 | 5374 | 9716 |
-| entropy decrement | 608 | 535 | 1399 |
+| entropy decrement | 608 | 534 | 1398 |
 | character sums / L-functions | 880 | 2153 | 4277 |
 | circle method / Fourier | 1067 | 83 | 181 |
 | exponential sums | 1193 | 223 | 577 |
 | large sieve | 1209 | 18 | 136 |
-| explog/lognum numeral tactic | 1335 | 0 | 53 |
+| explog/lognum numeral tactic | 1334 | 0 | 53 |
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1482 | 726 | 1609 |
 | Mertens / PNT-type | 1540 | 67 | 253 |
-| Selberg/Brun sieve | 4285 | 949 | 5626 |
+| Selberg/Brun sieve | 4284 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
