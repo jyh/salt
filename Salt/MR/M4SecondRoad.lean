@@ -206,7 +206,7 @@ theorem blockLen_drift {R : ChowlaRegime} {H q : ℕ} (hlo : R.Hlo ≤ H) (hq : 
     rcases Nat.eq_zero_or_pos (H / (⌊arcDen 12 H⌋₊ + 1)) with hz | hpos
     · rw [hz, max_eq_left (Nat.zero_le 1)]
       push_cast
-      nlinarith
+      nlinarith only [harc1, hgate]
     · rw [max_eq_right hpos]
       have hcast := Nat.cast_div_le (α := ℝ) (m := H) (n := ⌊arcDen 12 H⌋₊ + 1)
       have hD0 : (0 : ℝ) < ((⌊arcDen 12 H⌋₊ + 1 : ℕ) : ℝ) := by
@@ -217,9 +217,9 @@ theorem blockLen_drift {R : ChowlaRegime} {H q : ℕ} (hlo : R.Hlo ≤ H) (hq : 
       have hfrac : arcDen 12 H * ((H : ℝ) / ((⌊arcDen 12 H⌋₊ + 1 : ℕ) : ℝ)) ≤ (H : ℝ) := by
         rw [mul_div_assoc'] at *
         rw [div_le_iff₀ hD0]
-        nlinarith
+        nlinarith only [hD, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
       linarith
-  nlinarith
+  nlinarith only [hq1, hkey, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
 
 /-- **THE COUNT BINDER AT THE WITNESS, WEAKENED** — `H ≤ arcDen 12 H ² · ℓ`.  This is the
 repaired binder of the module header; the landed `H ≤ arcDen·ℓ` is what pinches at `q = 1`.
@@ -249,8 +249,8 @@ theorem blockLen_narrow {R : ChowlaRegime} {H q : ℕ} (hlo : R.Hlo ≤ H)
   have hL0 : (0 : ℝ) ≤ ((blockLen H q : ℕ) : ℝ) := Nat.cast_nonneg _
   -- ⟦`H ≤ 2·arcDen·(ℓ + 1)`, then the two arc floors⟧
   have hchain : (H : ℝ) ≤ 2 * arcDen 12 H * ((blockLen H q : ℕ) : ℝ) + 2 * arcDen 12 H := by
-    nlinarith
-  nlinarith
+    nlinarith only [hD2, hmulR, (Nat.cast_nonneg _ : 0 ≤ ↑(blockLen H q))]
+  nlinarith only [harc4, hchain, hgate, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
 
 /-- **THE ARC FLOOR AT THE WITNESS** — `32·arcDen 12 H ≤ ℓ`.  What the stratified consumer
 reads to keep every stratum's re-indexed block non-degenerate. -/
@@ -277,8 +277,8 @@ theorem blockLen_arc_floor {R : ChowlaRegime} {H q : ℕ} (hlo : R.Hlo ≤ H)
     exact_mod_cast hstep
   have hL0 : (0 : ℝ) ≤ ((blockLen H q : ℕ) : ℝ) := Nat.cast_nonneg _
   have hchain : (H : ℝ) ≤ 2 * arcDen 12 H * ((blockLen H q : ℕ) : ℝ) + 2 * arcDen 12 H := by
-    nlinarith
-  nlinarith
+    nlinarith only [hD2, hmulR, (Nat.cast_nonneg _ : 0 ≤ ↑(blockLen H q))]
+  nlinarith only [harc4, hD2, hmulR, hgate, (Nat.cast_nonneg _ : 0 ≤ ↑(⌊arcDen 12 H⌋₊ + 1))]
 
 /-! ## §2 — THE RE-CUT BLOCKED SOCKET
 
@@ -506,7 +506,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
   set N := numBlocks H L with hN
   have hLarc : 32 * arcDen 12 H ≤ (L : ℝ) := blockLen_arc_floor (R := R) hlo harcH
   have hL16 : 16 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    nlinarith [harcH, sq_nonneg (arcDen 12 H)]
+    linarith only [harcH, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   -- ⟦R-P5, THE x-SCALE LADDER AT THIS RUNG⟧ the base antecedents `M4Gauss` now asks for,
   -- discharged from the ladder's geometric floor (`doorLadder_ge_x_div_four_omega`), its
   -- CEILING (`doorLadder_le_start`, the (α) base cap) and the regime's own wave-II headroom
@@ -529,13 +529,13 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
   have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by nlinarith [Real.exp_one_lt_d9]
+    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
     exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
   have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
     have hh := R.hheadroom'
     have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
     have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith [hlogHhi]
+      nlinarith only [hlogHhi]
     have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
       calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
         _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
@@ -584,7 +584,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
       exact_mod_cast (by omega : A ≤ A + m * L)
     have h2HA' : 2 * (H : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by linarith
     have hxA' : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * ((A + m * L : ℕ) : ℝ) := by
-      nlinarith [hxA, hAle, hω0]
+      nlinarith only [hAle, hxA, (Nat.cast_nonneg _ : 0 ≤ ↑R.ω)]
     have hcapA' : ((A + m * L : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
       have hnat : A + m * L ≤ 2 * R.x :=
         calc A + m * L ≤ R.x + H := Nat.add_le_add hAtop hmL
@@ -600,7 +600,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
       push_cast at this ⊢
       linarith
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
-    nlinarith [mul_le_mul_of_nonneg_left hbase hfac0]
+    linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
   have hswap : ∑ n ∈ Finset.Ioc A B, blockSupSq (doorSievedCoeff M) H L n ((b : ℝ) / (q : ℝ))
       = ∑ m ∈ Finset.range N, ∑ n ∈ Finset.Ioc A B,
@@ -713,12 +713,12 @@ theorem m4_second_road :
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -753,7 +753,7 @@ theorem m4_second_road :
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
-    nlinarith [h]
+    linarith only [h]
 
 /-! ## §5 — THE `D₀` CONSTANT (⟦T-1⟧, wave ⑤)
 
@@ -830,12 +830,12 @@ theorem truncD_admissible {δ₀ : ℝ} (hδ₀ : 0 < δ₀) {L d : ℕ}
     rw [div_le_iff₀ hs] at hL2; linarith
   have hquot : (L : ℝ) / (d : ℝ) ≤ (L : ℝ) * Real.sqrt (truncBudget δ₀) / 2 := by
     rw [div_le_iff₀ hd0]
-    nlinarith [mul_le_mul_of_nonneg_left hds.le hL0]
+    linarith only [mul_le_mul_of_nonneg_left hds.le hL0]
   have hkey : (L : ℝ) / (d : ℝ) + 1 ≤ (L : ℝ) * Real.sqrt (truncBudget δ₀) := by linarith
   have hnn : (0 : ℝ) ≤ (L : ℝ) / (d : ℝ) + 1 := by positivity
   have hsq : Real.sqrt (truncBudget δ₀) ^ 2 = truncBudget δ₀ := Real.sq_sqrt hB.le
   calc ((L : ℝ) / (d : ℝ) + 1) ^ 2
-      ≤ ((L : ℝ) * Real.sqrt (truncBudget δ₀)) ^ 2 := by nlinarith
+      ≤ ((L : ℝ) * Real.sqrt (truncBudget δ₀)) ^ 2 := by nlinarith only [hquot, hnn, hLs]
     _ = truncBudget δ₀ * (L : ℝ) ^ 2 := by rw [mul_pow, hsq]; ring
 
 /-- **⟦THE ZERO-BYTE INSTANTIATION⟧** (`stratum_sq_le_chiSummed_at_truncD`) — ⟦D0-TEST⟧'s
@@ -986,7 +986,7 @@ theorem m4_second_road_rs_ceiling {R : ChowlaRegime} {δ₀ δ : ℝ} {RSan RStr
   have hsq : Real.sqrt (Braw H) ^ 2 = Braw H := Real.sq_sqrt hBraw0
   have hBrawδ : Braw H ≤ δ₀ ^ 2 := by
     have h0 : (0 : ℝ) ≤ Real.sqrt (Braw H) := Real.sqrt_nonneg _
-    nlinarith
+    nlinarith only [htail, h0, hg, hδ, hsq]
   -- ⟦the graded price dominates its analytic half⟧
   have hhead : (0 : ℝ) ≤ (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
       + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2)
@@ -1156,7 +1156,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
   set N := numBlocks H L with hN
   have hLarc : 32 * arcDen 12 H ≤ (L : ℝ) := blockLen_arc_floor (R := R) hlo harcH
   have hL16 : 16 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    nlinarith [harcH, sq_nonneg (arcDen 12 H)]
+    linarith only [harcH, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   -- ⟦R-P5, THE x-SCALE LADDER AT THIS RUNG⟧ the base antecedents `M4Gauss` now asks for,
   -- discharged from the ladder's geometric floor (`doorLadder_ge_x_div_four_omega`), its
   -- CEILING (`doorLadder_le_start`, the (α) base cap) and the regime's own wave-II headroom
@@ -1179,13 +1179,13 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
   have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by nlinarith [Real.exp_one_lt_d9]
+    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
     exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
   have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
     have hh := R.hheadroom'
     have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
     have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith [hlogHhi]
+      nlinarith only [hlogHhi]
     have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
       calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
         _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
@@ -1234,7 +1234,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
       exact_mod_cast (by omega : A ≤ A + m * L)
     have h2HA' : 2 * (H : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by linarith
     have hxA' : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * ((A + m * L : ℕ) : ℝ) := by
-      nlinarith [hxA, hAle, hω0]
+      nlinarith only [hAle, hxA, (Nat.cast_nonneg _ : 0 ≤ ↑R.ω)]
     have hcapA' : ((A + m * L : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
       have hnat : A + m * L ≤ 2 * R.x :=
         calc A + m * L ≤ R.x + H := Nat.add_le_add hAtop hmL
@@ -1250,7 +1250,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
       push_cast at this ⊢
       linarith
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
-    nlinarith [mul_le_mul_of_nonneg_left hbase hfac0]
+    linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
   have hswap : ∑ n ∈ Finset.Ioc A B, blockSupSq (doorSievedCoeff_gk K M) H L n ((b : ℝ) / (q : ℝ))
       = ∑ m ∈ Finset.range N, ∑ n ∈ Finset.Ioc A B,
@@ -1297,12 +1297,12 @@ theorem m4_second_road_gk (K : ℕ) :
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -1338,7 +1338,7 @@ theorem m4_second_road_gk (K : ℕ) :
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
-    nlinarith [h]
+    linarith only [h]
 
 /-- `stratum_sq_le_chiSummed_at_truncD` (:848), at the lever. -/
 theorem stratum_sq_le_chiSummed_at_truncD_gk (K : ℕ) {M Kw n q d Lw : ℕ} {δ₀ : ℝ} (hM : 1 ≤ M)
