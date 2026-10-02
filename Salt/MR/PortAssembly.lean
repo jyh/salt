@@ -281,7 +281,7 @@ lemma error_double_row_gen {ι : Type*} {ℰ : Finset ι} {ε : ℝ} (b : ι →
     rw [norm_mul, norm_mul, Complex.norm_conj]
     calc ‖b r‖ * ‖b r'‖ * ‖K r r'‖
         ≤ (‖b r‖ ^ 2 + ‖b r'‖ ^ 2) / 2 * ‖K r r'‖ :=
-          mul_le_mul_of_nonneg_right (by nlinarith [sq_nonneg (‖b r‖ - ‖b r'‖)]) (norm_nonneg _)
+          mul_le_mul_of_nonneg_right (by linarith only [sq_nonneg (‖b r‖ - ‖b r'‖)]) (norm_nonneg _)
       _ ≤ (‖b r‖ ^ 2 + ‖b r'‖ ^ 2) / 2 * ε :=
           mul_le_mul_of_nonneg_left (hK r hr r' hr') (by positivity)
   refine h1.trans ?_
@@ -378,7 +378,7 @@ lemma pole_double_row_fibre {q : ℕ} {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T)
       ≤ ∑ r ∈ ℰ, ∑ r' ∈ ℰ, ((‖b r‖ ^ 2 + ‖b r'‖ ^ 2) / 2) * ‖W r r'‖ := by
     refine Finset.sum_le_sum (fun r _ => Finset.sum_le_sum (fun r' _ => ?_))
     apply mul_le_mul_of_nonneg_right _ (norm_nonneg _)
-    nlinarith [sq_nonneg (‖b r‖ - ‖b r'‖)]
+    linarith only [sq_nonneg (‖b r‖ - ‖b r'‖)]
   have hA : ∑ r ∈ ℰ, ∑ r' ∈ ℰ, ‖b r‖ ^ 2 * ‖W r r'‖ ≤ Mc * ∑ r ∈ ℰ, ‖b r‖ ^ 2 :=
     calc ∑ r ∈ ℰ, ∑ r' ∈ ℰ, ‖b r‖ ^ 2 * ‖W r r'‖
         = ∑ r ∈ ℰ, ‖b r‖ ^ 2 * ∑ r' ∈ ℰ, ‖W r r'‖ :=
@@ -750,7 +750,7 @@ lemma natLog2_floor_le_sqrt {P : ℝ} (hP : 2 ≤ P) :
     exact Real.sqrt_le_sqrt (by linarith)
   have hnl : (Nat.log 2 N : ℝ) ≤ 8 * Real.sqrt P := by
     have h0 : (0 : ℝ) ≤ (Nat.log 2 N : ℝ) := by positivity
-    nlinarith [hkey, hlogN, hlog2, h0]
+    nlinarith only [hlog2, hlogN, hkey, (Nat.cast_nonneg _ : 0 ≤ ↑(Nat.log 2 N))]
   linarith
 
 /-- **THE GATED SOCKET** — `USetChi.HalaszPrimesChi`'s conclusion under the two gates the
@@ -848,7 +848,7 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
     rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hLT100
   have hllT1 : (1 : ℝ) ≤ Real.log (Real.log T) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
-  have hqT : T ≤ (q : ℝ) * T := by nlinarith
+  have hqT : T ≤ (q : ℝ) * T := by nlinarith only [hT₀z', hq1, hc10, hc0, hT₀z]
   have hlogq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
   have hlogP10 : Real.log P ≤ 10 * Real.log T := by
     have h := Real.log_le_log (by positivity) hPT10
@@ -894,7 +894,7 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
   set ℓq : ℝ := Real.log (Real.log ((q : ℝ) * T)) with hℓqdef
   have hLqT : Real.log T ≤ Lq := by rw [hLqdef]; exact Real.log_le_log hT0 hqT
   have hLq1 : (1 : ℝ) ≤ Lq := by linarith
-  have hLqsq : Lq ≤ Lq ^ 2 := by nlinarith
+  have hLqsq : Lq ≤ Lq ^ 2 := by nlinarith only [hLqT, hLT100, hE101, hc0, hc10]
   have hLg100 : Real.exp 100 ≤ Lg := by
     rw [hLgdef]
     rw [← Real.log_exp (Real.exp 100)]
@@ -914,7 +914,7 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hD4T1 : (1 : ℝ) ≤ (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) := by
     have h1 : (1 : ℝ) ≤ (Real.log T) ^ ((3 : ℝ) / 4) := Real.one_le_rpow hLT1 (by norm_num)
     have h2 : (1 : ℝ) ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := one_le_pow₀ hllT1
-    nlinarith
+    nlinarith only [h1, h2, hc10, hc0]
   have hD4Tq : (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) ≤ D4q := by
     rw [hD4qdef, hLqdef, hℓqdef]
     exact logDn_mono 4 (by linarith [Real.exp_one_lt_d9] : Real.exp 1 ≤ T) hqT
@@ -936,7 +936,7 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
       mul_le_mul_of_nonneg_left h1 (by positivity)
     have h3 : c * K₄ * (Real.log P * D4q) ≤ (c_vk / 2) * (Real.log P * D4q) :=
       mul_le_mul_of_nonneg_right hcK₄ (by positivity)
-    nlinarith [h2, h3]
+    linarith only [h3, h2]
   have hcmp_pp : Real.exp (-(c₀ / 2) * Real.log P / D3g) ≤ expc := by
     rw [hexpcdef]
     refine Real.exp_le_exp.mpr ?_
@@ -949,22 +949,22 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
       mul_le_mul_of_nonneg_left h1 (by positivity)
     have h3 : c * Cκ * (Real.log P * D4q) ≤ (c₀ / 2) * (Real.log P * D4q) :=
       mul_le_mul_of_nonneg_right hcCκ (by positivity)
-    nlinarith [h2, h3]
+    linarith only [h3, h2]
   have hD5Lq : D5g ≤ K₅ * Lq ^ 2 := by
     have h1 : D5g ≤ K₅ * (Real.log T) ^ 2 := by
       rw [hD5gdef, hLgdef, hℓdef]; exact D5_5T1_le hT6 hLT1 hllT1
     have h2 : K₅ * (Real.log T) ^ 2 ≤ K₅ * Lq ^ 2 := by
       refine mul_le_mul_of_nonneg_left ?_ hK₅0.le
-      nlinarith [hLqT, hLT1]
+      nlinarith only [hLqT, hLT100, hE101, hc10, hc0]
     linarith
   have hD4Lq : D4g ≤ K₂ * Lq ^ 2 := by
     have h1 : D4g ≤ K₂ * (Real.log T) ^ 2 := by
       rw [hD4gdef, hLgdef, hℓdef]; exact D4_5T1_le hT6 hLT1 hllT1
     have h2 : K₂ * (Real.log T) ^ 2 ≤ K₂ * Lq ^ 2 := by
       refine mul_le_mul_of_nonneg_left ?_ hK₂0.le
-      nlinarith [hLqT, hLT1]
+      nlinarith only [hLqT, hLT100, hE101, hc10, hc0]
     linarith
-  have hlogPLq : Real.log P ≤ 10 * Lq ^ 2 := by nlinarith [hlogP10, hLqT, hLqsq]
+  have hlogPLq : Real.log P ≤ 10 * Lq ^ 2 := by linarith only [hLqsq, hLqT, hlogP10]
   have hTinv : 1 / T ≤ expc := by
     rw [hexpcdef, show (1 : ℝ) / T = Real.exp (-Real.log T) by
       rw [Real.exp_neg, Real.exp_log hT0, one_div]]
@@ -989,7 +989,7 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
     refine Real.exp_le_exp.mpr ?_
     have h1 : c * Real.log P / D4q ≤ Real.log P / 2 := by
       rw [div_le_div_iff₀ hD4qpos (by norm_num : (0:ℝ) < 2)]
-      have s1 : c * Real.log P * 2 ≤ (1 / 5) * Real.log P := by nlinarith [hc10, hlogP]
+      have s1 : c * Real.log P * 2 ≤ (1 / 5) * Real.log P := by nlinarith only [hc10, hlogP]
       have s2 : (1 / 5 : ℝ) * Real.log P ≤ Real.log P * D4q := by nlinarith [hD4q1, hlogP]
       linarith
     have h2 : -c * Real.log P / D4q = -(c * Real.log P / D4q) := by ring
@@ -1191,7 +1191,7 @@ theorem siegel_real_carve :
   have hqe0 : (0 : ℝ) < (q : ℝ) ^ ((1 : ℝ) / 16) := by linarith
   have hWK : W ≤ min (min Cs (c₀ / 32)) (1 / 2) := by
     refine le_trans ?_ hgate
-    nlinarith [hW, hqe1]
+    nlinarith only [hW, hqe1]
   have hWhalf : W ≤ 1 / 2 := le_trans hWK (min_le_right _ _)
   rcases le_or_gt (1 / 2 : ℝ) ρ.re with hre | hre
   · have hρeq : ρ = ((ρ.re : ℝ) : ℂ) := by
@@ -1226,7 +1226,7 @@ theorem siegel_real_carve :
           mul_le_mul_of_nonneg_left hce hW.le
         have h2 : (q : ℝ) ^ ((1 : ℝ) / 16) * W ≤ Cs :=
           le_trans hgate (le_trans (min_le_left _ _) (min_le_left _ _))
-        nlinarith [h1, h2]
+        linarith only [h2, h1]
       linarith [hs, hWCs]
     · -- NON-REAL character: the effective classical region, no Siegel
       have hcl : ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * 2) := by
@@ -1249,14 +1249,14 @@ theorem siegel_real_carve :
         have h3 : ((q : ℝ) ^ ((1 : ℝ) / 16) * (2 : ℝ) ^ ((1 : ℝ) / 16)) / ((1 : ℝ) / 16)
             = 16 * ((q : ℝ) ^ ((1 : ℝ) / 16) * (2 : ℝ) ^ ((1 : ℝ) / 16)) := by ring
         rw [h3] at h
-        nlinarith [h, h2, hqe0]
+        nlinarith only [hqe1, h2, h]
       have hgate' : (q : ℝ) ^ ((1 : ℝ) / 16) * W ≤ c₀ / 32 :=
         le_trans hgate (le_trans (min_le_left _ _) (min_le_right _ _))
       have hWc : W ≤ c₀ / Real.log ((q : ℝ) * 2) := by
         rw [le_div_iff₀ hlog2q]
         have h1 : W * Real.log ((q : ℝ) * 2) ≤ W * (32 * (q : ℝ) ^ ((1 : ℝ) / 16)) :=
           mul_le_mul_of_nonneg_left hlogle hW.le
-        nlinarith [h1, hgate']
+        linarith only [h1, hgate']
       linarith [hcl, hWc]
   · linarith
 
@@ -1320,11 +1320,11 @@ theorem twisted_rect_zero_free_siegel :
   have hD4pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by positivity
   have hD4ge1 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
     have h1 : (1 : ℝ) ≤ ℓ ^ (4 : ℕ) := one_le_pow₀ hℓ1
-    nlinarith
+    nlinarith only [hLg34, h1]
   -- the target width is tiny
   have hWsmall : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) ≤ 1 / 2 := by
     rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
-    nlinarith
+    linarith only [hD4ge1, hD4pos]
   by_cases hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|
   · -- ABOVE the floor: stones A+B
     have hβ1 : ρ.re < 1 := by
@@ -1403,7 +1403,7 @@ theorem twisted_rect_zero_free_siegel :
               = ((q : ℝ) ^ ((1 : ℝ) / 16) * (1 / 10 ^ 8 : ℝ))
                 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by ring
           rw [heq, div_le_iff₀ hD4pos]
-          nlinarith [hSg, hD4pos, hKs0]
+          linarith only [hSg]
         exact hsg q ψ hψ1 _ hW0 hgate ρ hρ0 him
       · have hcv : ψ.primitiveCharacter ^ 2 ≠ 1 ∨ ρ.im ≠ 0 := Or.inr him
         have hcl := hc₀ q ψ hψ1 hρ0 hre hcv
@@ -1411,7 +1411,7 @@ theorem twisted_rect_zero_free_siegel :
           have := Nat.pos_of_ne_zero (NeZero.ne q); exact_mod_cast this
         have hEq : |ρ.im| + 2 ≤ Real.exp (Real.exp 100) + 3 := by linarith
         have hlow0 : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-          apply Real.log_pos; nlinarith [abs_nonneg ρ.im]
+          apply Real.log_pos; nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
         have hlowle : Real.log ((q : ℝ) * (|ρ.im| + 2))
             ≤ Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3)) := by
           apply Real.log_le_log (by nlinarith [abs_nonneg ρ.im])
@@ -1427,7 +1427,7 @@ theorem twisted_rect_zero_free_siegel :
             have h := hKq
             rw [div_mul_eq_mul_div, one_mul, div_le_iff₀ (by positivity)] at h
             linarith
-          nlinarith [hgate']
+          linarith only [hgate']
         have hshrink : c₀ / Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
             ≤ c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
           rw [div_le_div_iff₀ hlowE0 hlow0]

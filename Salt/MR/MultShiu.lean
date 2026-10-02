@@ -89,7 +89,7 @@ theorem abel_master {a w : ℕ → ℝ} {c : ℝ} (N : ℕ)
     intro i _
     have hdec : w (i + 1) - w i ≤ 0 := by linarith [hw_dec i]
     have hAi : (∑ j ∈ Finset.range (i + 1), a j) ≤ c * ((i + 1 : ℕ) : ℝ) := hA (i + 1)
-    nlinarith [hAi, hdec]
+    nlinarith only [hdec, hAi]
   -- Assemble.
   have expand : c * (∑ i ∈ Finset.range N, w i) = c * w (N - 1) * (N : ℝ) - c * S1' := by
     rw [key2]; ring
@@ -211,7 +211,7 @@ theorem lambda_tail_shift {η : ℝ} (hη : 0 < η) (K : ℕ) :
   · subst hK0
     rw [Finset.range_zero, Finset.sum_empty]
     have : (0 : ℝ) ≤ 1 / η := le_of_lt (by positivity)
-    nlinarith [hcpos]
+    nlinarith only [hlog4, this]
   have habel := abel_master (a := fun i => (Λ (i + 1) : ℝ))
     (w := fun i => ((i + 1 : ℕ) : ℝ) ^ (-(1 + η))) (c := Real.log 4 + 4) K
     (fun m => by
@@ -307,7 +307,7 @@ theorem rough_prime_tail {y x η : ℝ} (hy : 8 ≤ y) (hη : η = 1 / Real.log 
         have heq : (1 / Real.log y) * ((Real.log 4 + 4) * (1 + Real.log y))
             = (Real.log 4 + 4) * (1 / Real.log y + 1) := by field_simp
         rw [heq]
-        nlinarith [hcpos, hinvL]
+        nlinarith only [hlog4, hinvL]
 
 /-! ## HT-1 — the Hall–Tenenbaum core (`hall_tenenbaum_core`)
 
@@ -436,7 +436,7 @@ theorem ht_valuation_partition {F : ℕ → ℝ}
     obtain ⟨⟨⟨hk1, _⟩, hm1, _⟩, _, hpkm⟩ := hq
     have hpk1 : 1 ≤ p ^ k := Nat.one_le_pow _ _ hp.pos
     rw [Finset.mem_filter, Finset.mem_Icc]
-    refine ⟨⟨by nlinarith [hpk1, hm1], hpkm⟩, ?_⟩
+    refine ⟨⟨by nlinarith only [hpk1, hm1, (Nat.cast_nonneg _ : 0 ≤ ↑m)], hpkm⟩, ?_⟩
     exact Dvd.dvd.mul_right (dvd_pow_self p (by omega : k ≠ 0)) m
   · -- left_inv : j (i n) = n
     intro n hn
@@ -522,8 +522,8 @@ theorem ht_geom_tail {r : ℝ} (hr0 : 0 ≤ r) (hr : r ≤ 1 / 2) (N : ℕ) :
   rw [htailval]
   have h1r : (0 : ℝ) < 1 - r := by linarith
   rw [sub_le_iff_le_add, div_le_iff₀ (by positivity)]
-  nlinarith [mul_nonneg (sq_nonneg r) (mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - 2 * r)
-    (by linarith : (0 : ℝ) ≤ 4 - 3 * r))]
+  linarith only [mul_nonneg (sq_nonneg r)
+      (mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - 2 * r) (by linarith : (0 : ℝ) ≤ 4 - 3 * r))]
 
 /-- Convergent `3/2`-power partial sum: `∑_{i<N} (i+1)^{-3/2} ≤ 3`.  Same
 sum/integral engine as CHEB-Λ (`sum_range_rpow_neg_le_integral`), with
@@ -543,7 +543,7 @@ theorem ht_rpow32_sum (N : ℕ) :
   have hNn : (0 : ℝ) ≤ (N : ℝ) ^ (-(1 / 2) : ℝ) := Real.rpow_nonneg (by positivity) _
   rw [div_neg, ← neg_div, neg_sub]
   have : (1 - (N : ℝ) ^ (-(1 / 2) : ℝ)) / (1 / 2) ≤ 2 := by
-    rw [div_le_iff₀ (by norm_num)]; nlinarith [hNn]
+    rw [div_le_iff₀ (by norm_num)]; linarith only [hNn]
   linarith
 
 /-- **Prime `log p / p²` bound.**  `∑_{p≤N, p prime} log p / p² ≤ 6`, uniform in
@@ -562,7 +562,7 @@ theorem ht_log_p_sq_bound (N : ℕ) :
         Real.log_le_sub_one_of_pos (Real.sqrt_pos.mpr hppos)
       have h2 : Real.log p = 2 * Real.log (Real.sqrt p) := by
         rw [Real.log_sqrt hppos.le]; ring
-      nlinarith [h1, h2, Real.sqrt_nonneg (p : ℝ)]
+      linarith only [h2, h1]
     have hconv : 2 * (p : ℝ) ^ (-(3 / 2) : ℝ) = 2 * Real.sqrt p / (p : ℝ) ^ 2 := by
       rw [Real.sqrt_eq_rpow, show (-(3 / 2) : ℝ) = (1 / 2) + (-2) from by ring,
         Real.rpow_add hppos, Real.rpow_neg hppos.le,
@@ -820,7 +820,7 @@ theorem hall_tenenbaum_core {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
       apply mul_le_mul_of_nonneg_left _ (Real.log_nonneg (by exact_mod_cast hpp.one_lt.le))
       apply Finset.sum_le_sum; intro q _
       have h0 : (0 : ℝ) ≤ (q.1 : ℝ) * F q.2 := mul_nonneg (by positivity) (hF0 q.2)
-      nlinarith [mul_nonneg h0 (by linarith [hF1 (p ^ q.1)] : (0 : ℝ) ≤ 1 - F (p ^ q.1))]
+      linarith only [mul_nonneg h0 (by linarith [hF1 (p ^ q.1)] : (0 : ℝ) ≤ 1 - F (p ^ q.1))]
     refine hstep1.trans ?_
     -- Split `U = U_A + U_B` by `k = 1` vs `k ≥ 2`.
     have hUsplit : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, Real.log p *
@@ -915,13 +915,13 @@ theorem geom_tail_sq {r : ℝ} (hr0 : 0 ≤ r) (hr : r ≤ 1 / 2) (m : ℕ) :
     rw [geom_sum_eq (ne_of_lt hr1) m, div_le_iff_of_neg (by linarith : r - 1 < 0)]
     have heq : (1 - r)⁻¹ * (r - 1) = -1 := by
       rw [inv_mul_eq_div, div_eq_iff h1r.ne']; ring
-    rw [heq]; nlinarith [pow_nonneg hr0 m]
+    rw [heq]; linarith only [pow_nonneg hr0 m]
   have hle2 : (1 - r)⁻¹ ≤ 2 := by rw [inv_le_comm₀ h1r (by norm_num)]; linarith
   calc (∑ i ∈ Finset.range m, r ^ (i + 2))
       = r ^ 2 * ∑ i ∈ Finset.range m, r ^ i := by
         rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun i _ => by rw [pow_add, mul_comm])
     _ ≤ r ^ 2 * (1 - r)⁻¹ := mul_le_mul_of_nonneg_left hgeom (by positivity)
-    _ ≤ 2 * r ^ 2 := by nlinarith [mul_le_mul_of_nonneg_left hle2 (sq_nonneg r)]
+    _ ≤ 2 * r ^ 2 := by linarith only [mul_le_mul_of_nonneg_left hle2 (sq_nonneg r)]
 
 /-- **HT-2 (`euler_exp_bound`).**  For non-negative multiplicative `F ≤ 1` with
 `F 1 = 1`, the truncated `F(n)/n` sum is bounded by the exponential of the prime
@@ -1021,7 +1021,7 @@ theorem euler_exp_bound {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
     have hsub : (∑ p ∈ P, 1 / (p : ℝ) ^ 2) ≤ ∑ n ∈ Finset.Icc 1 N, 1 / (n : ℝ) ^ 2 :=
       Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
         (fun n _ _ => by positivity)
-    nlinarith [hsub, sum_inv_sq_le N]
+    linarith only [hsub, sum_inv_sq_le N]
   linarith [htail2]
 
 /-- **Hall–Tenenbaum ∘ Euler (`hall_tenenbaum_euler`).**  The composition of HT-1 and
@@ -1071,13 +1071,13 @@ theorem geom_tail_four {r : ℝ} (hr0 : 0 ≤ r) (hr : r ≤ 3 / 4) (m : ℕ) :
     rw [geom_sum_eq (ne_of_lt hr1) m, div_le_iff_of_neg (by linarith : r - 1 < 0)]
     have heq : (1 - r)⁻¹ * (r - 1) = -1 := by
       rw [inv_mul_eq_div, div_eq_iff h1r.ne']; ring
-    rw [heq]; nlinarith [pow_nonneg hr0 m]
+    rw [heq]; linarith only [pow_nonneg hr0 m]
   have hle4 : (1 - r)⁻¹ ≤ 4 := by rw [inv_le_comm₀ h1r (by norm_num)]; linarith
   calc (∑ i ∈ Finset.range m, r ^ (i + 2))
       = r ^ 2 * ∑ i ∈ Finset.range m, r ^ i := by
         rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun i _ => by rw [pow_add, mul_comm])
     _ ≤ r ^ 2 * (1 - r)⁻¹ := mul_le_mul_of_nonneg_left hgeom (by positivity)
-    _ ≤ 4 * r ^ 2 := by nlinarith [mul_le_mul_of_nonneg_left hle4 (sq_nonneg r)]
+    _ ≤ 4 * r ^ 2 := by linarith only [mul_le_mul_of_nonneg_left hle4 (sq_nonneg r)]
 
 /-- **HT-2 shifted (`euler_exp_bound_shifted`).**  The exponent-shifted analogue of
 `euler_exp_bound` (freeze HT-2 ⟦R⟧, a SEPARATE stone — never a silent reuse of the
@@ -1162,7 +1162,7 @@ theorem euler_exp_bound_shifted {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
       have hsq : ((2 : ℝ) ^ (-1 / 2 : ℝ)) ^ 2 = 1 / 2 := by
         rw [← Real.rpow_natCast ((2 : ℝ) ^ (-1 / 2 : ℝ)) 2, ← Real.rpow_mul (by norm_num)]
         norm_num
-      nlinarith [Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 2) (-1 / 2 : ℝ), hsq]
+      nlinarith only [h2, h1, hr0, hsq]
     linarith
   have hpdvd : p ∣ N' := Nat.dvd_of_mem_primeFactors (hPF ▸ hp)
   have hvp : 1 ≤ N'.factorization p := hpp.factorization_pos_of_dvd hN'0 hpdvd
@@ -1306,7 +1306,7 @@ theorem smooth_rough_split (a b : ℕ → ℝ) (X : ℕ) :
     rw [Finset.mem_filter, Finset.mem_product, Finset.mem_Icc, Finset.mem_Icc] at hq
     obtain ⟨⟨⟨hm1, _⟩, hk1, _⟩, _, _, hmk⟩ := hq
     rw [Finset.mem_Icc]
-    exact ⟨by nlinarith [hm1, hk1], hmk⟩
+    exact ⟨by nlinarith only [hk1, hm1, (Nat.cast_nonneg _ : 0 ≤ ↑q.1)], hmk⟩
   · -- left_inv : j (i n) = n
     intro n hn
     rw [Finset.mem_Icc] at hn
@@ -1841,7 +1841,7 @@ theorem exp_le_one_add_expm1_mul {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :
   have h := convexOn_exp.2 (Set.mem_univ (0 : ℝ)) (Set.mem_univ (1 : ℝ))
     (by linarith : (0 : ℝ) ≤ 1 - t) ht0 (by ring : (1 - t) + t = 1)
   simp only [smul_eq_mul, mul_zero, mul_one, Real.exp_zero, zero_add] at h
-  nlinarith [h]
+  linarith only [h]
 
 /-- **Convergent `p`-series tail at exponent `> 1`.**  For `1 < β` and any `N`,
 `∑_{n≤N} n^{-β} ≤ 1 + 1/(β−1)`.  The sum/integral engine
@@ -1869,7 +1869,7 @@ theorem sum_Icc_rpow_neg_le {β : ℝ} (hβ : 1 < β) (N : ℕ) :
   have hval : (A - 1) / (1 - β) = (1 - A) / (β - 1) := by field_simp; ring
   rw [hval]
   have hfin : (1 - A) / (β - 1) ≤ 1 / (β - 1) := by
-    rw [div_le_div_iff₀ hd hd]; nlinarith [hAnn, hd]
+    rw [div_le_div_iff₀ hd hd]; nlinarith only [hβ, hAnn]
   linarith [hfin]
 
 /-- **MS-B smooth factor (freeze MS-B-ASM).**  For the corpus smooth carrier
@@ -2118,7 +2118,7 @@ theorem ms_b_ksum_bound {α : ℝ} (hα0 : 0 ≤ α) (hα12 : α ≤ 1 / 2) (X m
   have hmn0 : (0 : ℝ) ≤ (m : ℝ) * (n : ℝ) := hmpos.le
   have hRHS0 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
       * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
-    have h3 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) := by nlinarith [hlog44]
+    have h3 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) := by linarith only [hlog44]
     have hX0 : (0 : ℝ) ≤ (X : ℝ) ^ (1 - α) := Real.rpow_nonneg (Nat.cast_nonneg X) _
     have hm0 : (0 : ℝ) ≤ (m : ℝ) ^ (α - 1) := Real.rpow_nonneg (Nat.cast_nonneg m) _
     have hn0 : (0 : ℝ) ≤ (n : ℝ) ^ (α - 1) := Real.rpow_nonneg (Nat.cast_nonneg n) _
@@ -2157,7 +2157,7 @@ theorem ms_b_ksum_bound {α : ℝ} (hα0 : 0 ≤ α) (hα12 : α ≤ 1 / 2) (X m
       have hbr : 1 + (K : ℝ) ^ (1 - α) / (1 - α) ≤ 3 * (K : ℝ) ^ (1 - α) := by
         rw [show (K : ℝ) ^ (1 - α) / (1 - α) = (K : ℝ) ^ (1 - α) * (1 / (1 - α)) from by
           rw [mul_one_div]]
-        nlinarith [hK1α, mul_le_mul_of_nonneg_left hinv2 (Real.rpow_nonneg hK0 (1 - α))]
+        linarith only [hK1α, mul_le_mul_of_nonneg_left hinv2 (Real.rpow_nonneg hK0 (1 - α))]
       calc (Real.log 4 + 4) * (1 + (K : ℝ) ^ (1 - α) / (1 - α))
           ≤ (Real.log 4 + 4) * (3 * (K : ℝ) ^ (1 - α)) := mul_le_mul_of_nonneg_left hbr hlog44
         _ = 3 * (Real.log 4 + 4) * (K : ℝ) ^ (1 - α) := by ring
@@ -2178,7 +2178,7 @@ theorem ms_b_ksum_bound {α : ℝ} (hα0 : 0 ≤ α) (hα12 : α ≤ 1 / 2) (X m
       _ ≤ (Real.log 4 + 4) * (1 + (K : ℝ) ^ (1 - α) / (1 - α)) := hpartial
       _ ≤ 3 * (Real.log 4 + 4) * (K : ℝ) ^ (1 - α) := hle3
       _ ≤ 3 * (Real.log 4 + 4) * ((X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1)) :=
-          mul_le_mul_of_nonneg_left hKle (by nlinarith [hlog44])
+          mul_le_mul_of_nonneg_left hKle (by linarith only [hlog44])
       _ = 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
           ring
   · -- `m*n > X`: the fiber is empty
@@ -2251,7 +2251,7 @@ theorem mult_shiu_MS_B (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 
     have h := hC_s y hy 0 0 le_rfl (div_nonneg zero_le_one hylog.le)
     simpa using h
   have hcoeff0 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r :=
-    mul_nonneg (mul_nonneg (by nlinarith [hlog44]) hcoeff_part) hCr0
+    mul_nonneg (mul_nonneg (by linarith only [hlog44]) hcoeff_part) hCr0
   -- ENGINE: pointwise integrand bound
   have hpoint : ∀ α ∈ Set.Icc (0 : ℝ) η,
       (∑ q ∈ (Finset.Icc 1 X ×ˢ Finset.Icc 1 X ×ˢ Finset.Icc 1 X).filter
@@ -2361,7 +2361,7 @@ theorem mult_shiu_MS_B (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 
           ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η) :=
         Finset.sum_nonneg (fun n _ => by positivity)
       have h3lognn : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) :=
-        mul_nonneg (by nlinarith [hlog44]) (Real.rpow_nonneg (Nat.cast_nonneg X) _)
+        mul_nonneg (by linarith only [hlog44]) (Real.rpow_nonneg (Nat.cast_nonneg X) _)
       have hXx : (X : ℝ) ^ (1 - α) ≤ x ^ (1 - α) :=
         Real.rpow_le_rpow (Nat.cast_nonneg X) hXlex h1α
       calc 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
