@@ -133,8 +133,33 @@ theorem h_le_1202604_of_log_le_fourteen {h : ℕ} (hh : 0 < h) (hh14 : Real.log 
 
 /-! ## §3 — the `hpt` twin at `ε = 1/(500·h)` -/
 
-set_option exponentiation.threshold 4000 in
-/-- **⟦THE `hpt` TWIN AT SHIFT `h`⟧** (`hpt_holds_500h`) — `hpt_holds_500`
+/-! ### `hpt_holds_500h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 36 (2026-10-01)⟧
+`hpt_holds_500h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) : ∀ H n : ℕ, (repCount
+(primeWindow (1 / (500 * (h : ℚ))) H) (primeWindow (1 / (500 * (h : ℚ))) H) n : ℝ) ≤ ((2 : ℝ) ^ 35 *
+(h : ℝ) ^ 2) * ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n` stood
+here.  It is `hpt_holds_500h_b9` (in §6 below) with the hypothesis strengthened: the two statements
+differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so
+the twin implies it by `linarith` — kernel-checked from the retired statement's own bytes before the
+removal was committed.  The twin's body is NOT this page's line for line: it is its NUMERAL-LIFT
+with a SUPPLIER-SWAP, four code lines changed and one comment.  The page read `h ≤ 1096` off the cap
+through `h_le_1096_of_log_le_seven`; the twin reads `h ≤ 8103` off its own cap through
+`h_le_8103_of_log_le_nine`.  So the page's `1201216` is `65658609` in the twin, at the local facts
+`hsqb` and `hb`, and the page's supplier `hpt_const_le_pow35_h` (§1) is `hpt_const_le_pow35_h_b9` in
+the twin.  The cap's binder and the local fact that carries the shift's bound are renamed with them:
+`hh7` to `hh9`, `h1096` to `h8103`.  After these substitutions the two bodies are the same code,
+token for token; the comment that differs says where the constant comes from (§1 for the page, §6
+for the twin).  At this retirement the page had NO call site.  When the lane opened (main,
+2026-09-25) it had two: `bigXiH_bounded_ceiling_of_pin` (of this file), whose call family 35
+re-pointed to this page's twin (2026-10-01), and `bigXiAff_bounded_ceiling_of_pin` (of
+`StrideFork`), which family 34 retired into its own cap-9 twin (2026-10-01); that twin calls this
+page's twin.  The retirement leaves `hpt_const_le_pow35_h` without a caller.
+
+The page stood under the line `set_option exponentiation.threshold 4000 in`; the page's
+docstring, verbatim:
+
+**⟦THE `hpt` TWIN AT SHIFT `h`⟧** (`hpt_holds_500h`) — `hpt_holds_500`
 (`GoldbachEnergyN0.lean:829`) at `ε = 1/(500·h)` and `T = 2^41·h²`, with the numeral constant
 `2^35·h²` from §1.  The four threshold side conditions and their `h`-powers:
 `hT0 : 2^20 ≤ 2^41·h²` (h², slack `2^21·h²`) · **`hTA : 4 ≤ ε²·T = 2^41/250000 = 8 796 093.02`
@@ -142,80 +167,6 @@ set_option exponentiation.threshold 4000 in
 `hTB : 16^10 = 2^40 ≤ 2^41·h²` (h², slack `2h²`) ·
 `hTD : (500000·h²)^10 ≤ (2^41·h²)^9`, i.e. `500000^10·h² ≤ 2^369`, i.e. `h² ≤ 1.23·10^54`
 (slack `1.02·10^48` at `h = 1096`). -/
-theorem hpt_holds_500h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) :
-    ∀ H n : ℕ,
-      (repCount (primeWindow (1 / (500 * (h : ℚ))) H)
-          (primeWindow (1 / (500 * (h : ℚ))) H) n : ℝ)
-        ≤ ((2 : ℝ) ^ 35 * (h : ℝ) ^ 2)
-            * ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * H / (Real.log H) ^ 2) * sTrunc2 n := by
-  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hq0 : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
-  have hq1 : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hcast : (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by push_cast; ring
-  have hTcast : ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) = (2 : ℝ) ^ (41 : ℕ) * (h : ℝ) ^ 2 := by
-    push_cast; ring
-  have h1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast h_le_1096_of_log_le_seven hh hh7
-  intro H n
-  refine le_trans (hpt_holds_thr (1 / (500 * (h : ℚ))) (by positivity) ?_ (1 / 256)
-    (by norm_num) 16 repCount_even_le_primorial_sixteen (2 ^ 41 * h ^ 2) ?_ ?_ ?_ ?_ H n) ?_
-  · -- `heps2 : ε² < 1/2`
-    rw [hcast]
-    have : (1 : ℝ) / (500 * (h : ℝ)) ≤ 1 / 500 := by
-      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hx1]
-    have h0 : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
-    nlinarith [this, h0]
-  · -- `hT0 : N0' ≤ T`
-    have : (2 : ℕ) ^ 20 ≤ 2 ^ 41 * h ^ 2 := by
-      have hh2 : 1 ≤ h ^ 2 := Nat.one_le_pow _ _ hh
-      calc (2 : ℕ) ^ 20 ≤ 2 ^ 41 := by norm_num
-        _ = 2 ^ 41 * 1 := by ring
-        _ ≤ 2 ^ 41 * h ^ 2 := Nat.mul_le_mul_left _ hh2
-    simpa [N0'] using this
-  · -- `hTA : 4 ≤ ε²·T` — h-FREE
-    have hTq : (((2 ^ 41 * h ^ 2 : ℕ) : ℚ)) = 2 ^ 41 * (h : ℚ) ^ 2 := by push_cast; ring
-    rw [hTq]
-    have hid : (1 / (500 * (h : ℚ))) ^ 2 * (2 ^ 41 * (h : ℚ) ^ 2) = 2 ^ 41 / 250000 := by
-      field_simp; ring
-    rw [hid]; norm_num
-  · -- `hTB : 16^10 ≤ T`
-    rw [hTcast]
-    have hsq1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hx1]
-    have h16 : ((16 : ℕ) : ℝ) ^ (10 : ℕ) = 1099511627776 := by norm_num
-    have h41 : (2 : ℝ) ^ (41 : ℕ) = 2199023255552 := by norm_num
-    rw [h16, h41]
-    nlinarith [hsq1]
-  · -- `hTD : (2/ε²)^10 ≤ T^9`
-    rw [hcast, hTcast]
-    have hsq1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hx1]
-    have hsqb : (h : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hx1, h1096]
-    have hL : (2 : ℝ) / (1 / (500 * (h : ℝ))) ^ 2 = 500000 * (h : ℝ) ^ 2 := by
-      field_simp; ring
-    rw [hL]
-    have hexp : ((500000 : ℝ) * (h : ℝ) ^ 2) ^ (10 : ℕ)
-        = 500000 ^ (10 : ℕ) * ((h : ℝ) ^ 2) ^ (10 : ℕ) := by ring
-    have hexp9 : ((2 : ℝ) ^ (41 : ℕ) * (h : ℝ) ^ 2) ^ (9 : ℕ)
-        = (2 : ℝ) ^ (369 : ℕ) * ((h : ℝ) ^ 2) ^ (9 : ℕ) := by
-      rw [mul_pow, ← pow_mul]
-    rw [hexp, hexp9]
-    have hp9 : (0 : ℝ) < ((h : ℝ) ^ 2) ^ (9 : ℕ) := by positivity
-    have hsplit : ((h : ℝ) ^ 2) ^ (10 : ℕ) = ((h : ℝ) ^ 2) ^ (9 : ℕ) * (h : ℝ) ^ 2 := by ring
-    rw [hsplit]
-    -- `500000^10 · (h²)^9 · h² ≤ 2^369 · (h²)^9`  ⟸  `500000^10 · h² ≤ 2^369`
-    have hnum : (500000 : ℝ) ^ (10 : ℕ) * (h : ℝ) ^ 2 ≤ (2 : ℝ) ^ (369 : ℕ) := by
-      have hb : (500000 : ℝ) ^ (10 : ℕ) * 1201216 ≤ (2 : ℝ) ^ (369 : ℕ) := by norm_num
-      nlinarith [hsqb, hsq1]
-    calc (500000 : ℝ) ^ (10 : ℕ) * (((h : ℝ) ^ 2) ^ (9 : ℕ) * (h : ℝ) ^ 2)
-        = ((500000 : ℝ) ^ (10 : ℕ) * (h : ℝ) ^ 2) * ((h : ℝ) ^ 2) ^ (9 : ℕ) := by ring
-      _ ≤ (2 : ℝ) ^ (369 : ℕ) * ((h : ℝ) ^ 2) ^ (9 : ℕ) :=
-          mul_le_mul_of_nonneg_right hnum hp9.le
-  · -- the constant, from §1
-    have hnn : (0 : ℝ) ≤ ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * H / (Real.log H) ^ 2)
-        * sTrunc2 n :=
-      mul_nonneg (div_nonneg (by positivity) (sq_nonneg _)) (sTrunc2_nonneg n)
-    exact mul_le_mul_of_nonneg_right
-      (mul_le_mul_of_nonneg_right (hpt_const_le_pow35_h h hh hh7) (by positivity))
-      (sTrunc2_nonneg n)
 
 /-! (§4, the count ceiling at shift `h`, stands at the foot of this file, below §6:
 2026-10-01, the XY debt lane, family 35.) -/
@@ -247,7 +198,9 @@ with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8
 and the census's in-body numerals at cap 9); no hypothesis is added and no conclusion weakened.
 (2026-10-01: the XY debt lane's family 35 moved §4's count hook, which stood above, to the foot of
 the file, below these twins, and re-pointed its one call of `hpt_holds_500h` to
-`hpt_holds_500h_b9`; its statement is unchanged.) -/
+`hpt_holds_500h_b9`; its statement is unchanged.)
+(2026-10-01: the XY debt lane's family 36 retired §3's `hpt_holds_500h` into its twin
+`hpt_holds_500h_b9` below, noted where it stood.) -/
 
 /-- **⟦THE SHIFT'S `ℕ` BOUND AT CAP 9⟧ (class A)** — the `log h ≤ 9` twin of
 `h_le_1096_of_log_le_seven`, the Entropy-side converter of the β lane (`StridePrize`, `StrideFork`
@@ -316,10 +269,12 @@ theorem hpt_const_le_pow35_h_b9 (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ)
     nlinarith [hLsq, hsq4, sq_nonneg (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ))]
 
 set_option exponentiation.threshold 4000 in
-/-- **⟦THE `hpt` TWIN AT SHIFT `h`, CAP 9⟧** (`hpt_holds_500h_b9`) — `hpt_holds_500h` at
+/-- **⟦THE `hpt` TWIN AT SHIFT `h`, CAP 9⟧** (`hpt_holds_500h_b9`; the former `hpt_holds_500h`,
+at `log h ≤ 7`, retired into this, 2026-10-01) — `hpt_holds_500h` at
 `log h ≤ 9`: the shift bound from `h_le_8103_of_log_le_nine`, `hsqb : h² ≤ 65658609 = 8103²`,
 `hb : 500000^10·65658609 ≤ 2^369` (`6.41·10^64` against `1.20·10^111`, census band 3 row 3), and
-the constant from `hpt_const_le_pow35_h_b9`.  Every other step is the source's, verbatim. -/
+the constant from `hpt_const_le_pow35_h_b9`.  Every other step is the source's, verbatim (the
+retired page's; its note stands above, in §3). -/
 theorem hpt_holds_500h_b9 (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) :
     ∀ H n : ℕ,
       (repCount (primeWindow (1 / (500 * (h : ℚ))) H)

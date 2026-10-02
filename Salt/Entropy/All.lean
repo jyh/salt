@@ -1162,11 +1162,13 @@ Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing.
 2026-10-01: family 35 of the XY debt lane re-pointed the one call of `hpt_holds_500h` in
 `bigXiH_bounded_ceiling_of_pin` to its cap-9 twin `hpt_holds_500h_b9` (audited in `Salt/MR/All`) and
 moved the hook to the foot of its file, below the twin; its statement is unchanged, and
-`hpt_holds_500h` is left without a caller. -/
+`hpt_holds_500h` is left without a caller.
+2026-10-01: family 36 retired `hpt_holds_500h` into that twin, noted where it stood (§3 of
+`GoldbachEnergyKcH`); its row is dropped below, and the twin's row stands in `Salt/MR/All.lean`,
+under ⟦β W1 E1⟧.  `hpt_const_le_pow35_h` is left without a caller. -/
 #audit_axioms Salt.Entropy.Chowla.h_le_1096_of_log_le_seven
   Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen
   Salt.Entropy.Chowla.hpt_const_le_pow35_h
-  Salt.Entropy.Chowla.hpt_holds_500h
   Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin
   Salt.Entropy.Chowla.eps_line_h
 
