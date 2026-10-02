@@ -21,7 +21,7 @@
 % its paragraph tolerance, its 9pt \small and its 7pt \footnotesize, in which Appendix A's
 % listings are set (CUP-JNL-FMP.cls: \tolerance=9999; \small 9/11; \footnotesize 7/8).
 \tolerance=9999
-\emergencystretch=1em
+\emergencystretch=3em
 \makeatletter
 \renewcommand\small{\@setfontsize\small\@ixpt{11}}
 \renewcommand\footnotesize{\@setfontsize\footnotesize{7}{8}}
@@ -66,6 +66,8 @@
 % --- main.tex opens with its own \documentclass line; this build has already
 % chosen the class, so that line is read and discarded.
 \renewcommand{\documentclass}[2][]{}
+% main.tex loads hyperref; give the PDF its document-info title and author once it has.
+\AtBeginDocument{\hypersetup{pdftitle={Twin Primes and Siegel Zeros: a Fulcrum},pdfauthor={Jason Hickey}}}
 % The journal class prints its title block at \maketitle; here the Frontmatter
 % environment has already printed it.
 \renewcommand{\maketitle}{}
