@@ -92,8 +92,8 @@ lemma zeta_partial_em_free {s : ℂ} (hσ : 1 / 2 ≤ s.re) (hσ1 : s.re < 1)
   have hyp : (0 : ℝ) ≤ (y : ℝ) ^ (-s.re) := Real.rpow_nonneg (by positivity) _
   have hσinv : ‖s‖ / s.re ≤ 8 * (1 + ‖s‖) := by
     rw [div_le_iff₀ hσ0]
-    nlinarith [norm_nonneg s, hσ,
-      mul_nonneg (add_nonneg zero_le_one (norm_nonneg s)) (sub_nonneg.mpr hσ)]
+    linarith only [hσ1, hσ, mul_nonneg (add_nonneg zero_le_one (norm_nonneg s))
+        (sub_nonneg.mpr hσ), norm_nonneg s]
   calc ‖s‖ * (y : ℝ) ^ (-s.re) / s.re
       = (‖s‖ / s.re) * (y : ℝ) ^ (-s.re) := by ring
     _ ≤ (8 * (1 + ‖s‖)) * (y : ℝ) ^ (-s.re) := mul_le_mul_of_nonneg_right hσinv hyp
@@ -146,9 +146,9 @@ theorem emrho_perterm_tall {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
     have hmod : t < (t / d + 1) * d := by
       have h1 := Nat.div_add_mod t d
       have h2 : t % d < d := Nat.mod_lt t (by omega)
-      nlinarith
+      linarith only [h2, h1]
     have hR : (t : ℝ) < (((t / d : ℕ) : ℝ) + 1) * (d : ℝ) := by exact_mod_cast hmod
-    rw [div_le_iff₀ hd0]; nlinarith [hR]
+    rw [div_le_iff₀ hd0]; linarith only [hR]
   have hFE := norm_cpow_pos_floor_sub_le hσ0 hhi hdt1 hle hlt
   rw [hcastdiv] at hFE
   have hFEdiv : ‖((t / d : ℕ) : ℂ) ^ (1 - ρ) / (1 - ρ)
@@ -178,7 +178,7 @@ theorem emrho_perterm_tall {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
             - ((t : ℂ) / (d : ℂ)) ^ (1 - ρ) / (1 - ρ)‖ := norm_add_le _ _
     _ ≤ 8 * (1 + ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) + ((t / d : ℕ) : ℝ) ^ (-ρ.re) :=
         add_le_add hem hFEdiv
-    _ ≤ (9 + 8 * ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) := by nlinarith [hfnn]
+    _ ≤ (9 + 8 * ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) := by linarith only []
 
 /-- **The long-leg extraction (the `L(1,χ)` residue).** For a primitive real `χ` at a NON-REAL
 zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`),
@@ -569,7 +569,7 @@ theorem unmoll_extraction_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
     have hsq14 : (1.4 : ℝ) ≤ Real.sqrt q := le_trans hs2 (Real.sqrt_le_sqrt hq2)
     have h5e : 5 * Real.exp 1 ≤ 18 * Real.sqrt q := by nlinarith [Real.exp_one_lt_d9, hsq14]
     rw [hMdef]
-    nlinarith [hnorm, mul_le_mul_of_nonneg_right h5e hlogq0]
+    linarith only [hnorm, mul_le_mul_of_nonneg_right h5e hlogq0]
   -- R6-1@ρ : the complex kernel-Abel identity
   have hAbel : dhD0rho χ ρ x = (1 / (x : ℂ)) * (((x : ℂ) - (T : ℂ))
         * (∑ s ∈ Finset.Icc 1 T, (dhA χ s : ℂ) * (s : ℂ) ^ (-ρ))
@@ -674,7 +674,7 @@ theorem unmoll_extraction_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
             calc ∑ t ∈ Finset.Icc 1 (T - 1), (t : ℝ) ^ (1 / 2 - ρ.re)
                 ≤ ((T - 1 : ℕ) : ℝ) ^ (3 / 2 - ρ.re) / (3 / 2 - ρ.re) := h
               _ ≤ x ^ (3 / 2 - ρ.re) / (3 / 2 - ρ.re) := (div_le_div_iff_of_pos_right h32).mpr hbase
-              _ ≤ 2 * x ^ (3 / 2 - ρ.re) := by rw [div_le_iff₀ h32]; nlinarith [hxc]
+              _ ≤ 2 * x ^ (3 / 2 - ρ.re) := by rw [div_le_iff₀ h32]; nlinarith only [hhi, hxc]
         _ = 2 * Cwρ * x ^ (3 / 2 - ρ.re) := by ring
     calc ‖((x : ℂ) - (T : ℂ)) * (ST - L₁ * (T : ℂ) ^ (1 - ρ) / (1 - ρ))
             + ∑ t ∈ Finset.Icc 1 (T - 1),
@@ -1429,7 +1429,7 @@ theorem dh_master_ray_tall [NeZero q] (χ : DirichletCharacter ℂ q)
   have hLselM : L₁re * selMainTerm χ z ≤ (1 - β₀) * (2 - β₀) := by
     have hle : L₁re ≤ selHSum χ z * ((1 - β₀) * (2 - β₀)) := (div_le_iff₀ hDpos).mp hHl
     rw [hopt, mul_one_div, div_le_iff₀ hHpos]
-    nlinarith [hle]
+    linarith only [hle]
   have hKnn : (0 : ℝ) ≤ (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖) := by positivity
   have hmainρ_le : L₁re * selMainTerm χ z * (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖)
       ≤ (1 - β₀) * (2 - β₀) * (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖) := by
@@ -1484,24 +1484,24 @@ lemma C2Rho_le_tall {q : ℕ} {Z₀ Q L₂ c₀ : ℝ} {ρ : ℂ}
   -- the two TALL crude bounds
   have hρσ : ‖ρ‖ / ρ.re ≤ 2 * Q := by
     rw [div_le_iff₀ hσ0]
-    nlinarith [hρQ, hQ0.le, mul_nonneg hQ0.le (by linarith : (0 : ℝ) ≤ ρ.re - 16 / 17)]
+    linarith only [hρQ, hQ1, hσ1, hσlo, mul_nonneg hQ0.le (by linarith : (0 : ℝ) ≤ ρ.re - 16 / 17)]
   have hρσnn : 0 ≤ ‖ρ‖ / ρ.re := div_nonneg hρnn hσ0.le
   set P : ℝ := 3 * M * (1 + ‖ρ‖ / ρ.re) with hPdef
   have hPnn : 0 ≤ P := by rw [hPdef]; positivity
   have hPle : P ≤ 9 * (M * Q) := by
     rw [hPdef]
-    nlinarith [mul_le_mul_of_nonneg_left hρσ (by positivity : (0 : ℝ) ≤ 3 * M),
-      mul_nonneg hMnn (by linarith : (0 : ℝ) ≤ Q - 1)]
+    linarith only [mul_nonneg hMnn (by linarith : (0 : ℝ) ≤ Q - 1),
+        mul_le_mul_of_nonneg_left hρσ (by positivity : (0 : ℝ) ≤ 3 * M)]
   -- per-term bounds (into r and Q)
   have hA : 12 * M / ‖1 - ρ‖ ≤ 12 * M * r := by
     rw [div_eq_mul_one_div]; exact mul_le_mul_of_nonneg_left hpole (by positivity)
-  have hB' : 2 * (9 + 8 * ‖ρ‖) ≤ 34 * Q := by nlinarith [hρQ, hQ1]
+  have hB' : 2 * (9 + 8 * ‖ρ‖) ≤ 34 * Q := by linarith only [hρQ, hQ1]
   have hC : 2 * (Z₀ + 1 / ‖1 - ρ‖) * P ≤ 18 * (M * Q) * Z₀ + 18 * (M * Q) * r := by
     have h1 : Z₀ + 1 / ‖1 - ρ‖ ≤ Z₀ + r := by linarith [hpole]
     have h2 : 2 * (Z₀ + 1 / ‖1 - ρ‖) * P ≤ 2 * (Z₀ + r) * (9 * (M * Q)) := by
       apply mul_le_mul _ hPle hPnn (by positivity)
       exact mul_le_mul_of_nonneg_left h1 (by norm_num)
-    nlinarith [h2]
+    linarith only [h2]
   have hD : 2 * P ≤ 18 * (M * Q) := by linarith [hPle]
   have hE : 2 * P / (1 - ρ.re) ≤ 18 * (M * Q) * r := by
     rw [div_eq_mul_one_div]
@@ -1523,13 +1523,13 @@ lemma C2Rho_le_tall {q : ℕ} {Z₀ Q L₂ c₀ : ℝ} {ρ : ℂ}
   have hLHS1 : 3 * (12 * M / ‖1 - ρ‖ + 2 * (9 + 8 * ‖ρ‖) + 2 * (Z₀ + 1 / ‖1 - ρ‖) * P + 2 * P
         + 2 * P / (1 - ρ.re)) + 18 * M / ‖1 - ρ‖ * (5 + 4 * ‖1 - ρ‖ / (1 - ρ.re))
       ≤ 102 * Q + 54 * (M * Q) * Z₀ + 108 * ((M * Q) * r) + 54 * (M * Q) + 198 * (M * r) := by
-    nlinarith [hA, hB', hC, hD, hE, hExtra]
+    linarith only [hExtra, hE, hC, hA, hPle, hρQ, hQ1]
   -- fold 1 : ≤ (102Q + 54MQZ₀ + 162MQ + 198M)·r
   have hfold1 : 102 * Q + 54 * (M * Q) * Z₀ + 108 * ((M * Q) * r) + 54 * (M * Q) + 198 * (M * r)
       ≤ (102 * Q + 54 * (M * Q) * Z₀ + 162 * (M * Q) + 198 * M) * r := by
-    nlinarith [mul_nonneg hQ0.le (by linarith : (0 : ℝ) ≤ r - 1),
-      mul_nonneg (mul_nonneg hMQnn hZ0) (by linarith : (0 : ℝ) ≤ r - 1),
-      mul_nonneg hMQnn (by linarith : (0 : ℝ) ≤ r - 1)]
+    linarith only [mul_nonneg hMQnn (by linarith : (0 : ℝ) ≤ r - 1),
+        mul_nonneg (mul_nonneg hMQnn hZ0) (by linarith : (0 : ℝ) ≤ r - 1),
+        mul_nonneg hQ0.le (by linarith : (0 : ℝ) ≤ r - 1)]
   -- fold 2 : the coefficient collapses onto `B₂ = Q^{5/2}L₂`
   have hQ52 : Q ^ (5 / 2 : ℝ) = Q * Q * Q ^ (1 / 2 : ℝ) := by
     rw [show (5 / 2 : ℝ) = 1 + 1 + 1 / 2 by norm_num, Real.rpow_add hQ0, Real.rpow_add hQ0,
@@ -1537,11 +1537,11 @@ lemma C2Rho_le_tall {q : ℕ} {Z₀ Q L₂ c₀ : ℝ} {ρ : ℂ}
   set B₂ : ℝ := Q ^ (5 / 2 : ℝ) * L₂ with hB2def
   have hB2eq : B₂ = Q * Q * B := by rw [hB2def, hBdef, hQ52]; ring
   have hMQQ : M * Q * Q ≤ B₂ := by
-    rw [hB2eq]; nlinarith [hMQ, hQ0.le, mul_nonneg hQ0.le hQ0.le]
+    rw [hB2eq]; nlinarith only [hMQ, mul_self_nonneg Q]
   have hMQle : M * Q ≤ B₂ := by nlinarith [hMQQ, mul_nonneg hMQnn (by linarith : (0 : ℝ) ≤ Q - 1)]
-  have hMle : M ≤ B₂ := by nlinarith [hMQle, mul_nonneg hMnn (by linarith : (0 : ℝ) ≤ Q - 1)]
+  have hMle : M ≤ B₂ := by linarith only [hMQle, mul_nonneg hMnn (by linarith : (0 : ℝ) ≤ Q - 1)]
   have hQle : Q ≤ B₂ := by
-    rw [hB2eq]; nlinarith [hBnn, hBpos, hQ0.le, mul_nonneg hQ0.le hQ0.le]
+    rw [hB2eq]; nlinarith only [hQ1, hBpos, mul_self_nonneg Q]
   have hZterm : 54 * (M * Q) * Z₀ ≤ 108 * B₂ := by
     have h1 : 54 * (M * Q) * Z₀ ≤ 54 * (M * Q) * (2 * Q) :=
       mul_le_mul_of_nonneg_left hZ0Q (by positivity)
@@ -1603,7 +1603,7 @@ lemma row_Eρ_cap_tall {Q L₂ c c₀ u w σ Y z Cρ : ℝ} (a m b k : ℝ)
   have h15 : (15 : ℝ) / 34 ≤ σ - 1 / 2 := by linarith
   have hγfloor : m * (15 / 34) - 309 / 100
       ≤ -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)) := by
-    nlinarith [mul_le_mul_of_nonneg_left h15 hmpos.le]
+    linarith only [mul_le_mul_of_nonneg_left h15 hmpos.le]
   have hzpos : (0 : ℝ) < z := by linarith
   have hpoly := logz_factor_pow9_le hQ4 hL2 hu0 hu1 hz1 hzhi
   have hYexp : (1 : ℝ) / 2 - σ < 0 := by linarith
@@ -1620,9 +1620,9 @@ lemma row_Eρ_cap_tall {Q L₂ c c₀ u w σ Y z Cρ : ℝ} (a m b k : ℝ)
     (α := 5 / 2 + 12 + a * (1 / 2 - σ))
     (γ := -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
     (ε := 2 + 9) hQ1 hL2' hcc hb hk hu0 hγpos huτ
-    (by nlinarith [mul_pos (mul_pos hb hw0) hγpos, haEt,
-      mul_le_mul_of_nonneg_left h15 hapos.le])
-    (by nlinarith [mul_le_mul_of_nonneg_left hγfloor hk, hkEρ])
+    (by linarith only [haEt, mul_le_mul_of_nonneg_left h15 hapos.le,
+            mul_pos (mul_pos hb hw0) hγpos])
+    (by linarith only [hkEρ, mul_le_mul_of_nonneg_left hγfloor hk])
   have hQg : Q ^ (5 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (a * (1 / 2 - σ))
       = Q ^ (5 / 2 + 12 + a * (1 / 2 - σ)) := by
     rw [← Real.rpow_add hQ0, ← Real.rpow_add hQ0]
@@ -1641,7 +1641,7 @@ lemma row_Eρ_cap_tall {Q L₂ c c₀ u w σ Y z Cρ : ℝ} (a m b k : ℝ)
     rw [← hQg, ← hug, ← hLg]; ring
   -- nonneg facts and the product bound
   have hbnn : (0 : ℝ) ≤ 1 + Real.log (z ^ 2) := by
-    have := Real.log_nonneg (show (1 : ℝ) ≤ z ^ 2 by nlinarith [hz1]); linarith
+    have := Real.log_nonneg (show (1 : ℝ) ≤ z ^ 2 by nlinarith only [hz1]); linarith
   have hpolynn : (0 : ℝ) ≤ (1 + Real.log (z ^ 2)) ^ 9 := pow_nonneg hbnn 9
   have hYsnn : (0 : ℝ) ≤ Y ^ (1 / 2 - σ) := Real.rpow_nonneg hYpos.le _
   have hCbarnn : (0 : ℝ) ≤ 570 * (Q ^ (5 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀) := by positivity
@@ -1744,11 +1744,11 @@ lemma row_Eρ_cap_tall_k1 {Q L₂ c c₀ u w σ Y z Cρ δ' : ℝ} (a m b k : �
   -- together with `hδ′` and `hresEρ` (the conversion's cost is nonnegative)
   have hmpos : (0 : ℝ) < m := by linarith
   have hresnn : (0 : ℝ) ≤ 11 - (m / 2 - 309 / 100) := by linarith
-  have hapos : (0 : ℝ) < a := by nlinarith [mul_nonneg hδ' hresnn, haE't]
+  have hapos : (0 : ℝ) < a := by linarith only [haE't, hσ1, hσlo, mul_nonneg hδ' hresnn]
   have h15 : (15 : ℝ) / 34 ≤ σ - 1 / 2 := by linarith
   have hγfloor : m * (15 / 34) - 309 / 100
       ≤ -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)) := by
-    nlinarith [mul_le_mul_of_nonneg_left h15 hmpos.le]
+    linarith only [mul_le_mul_of_nonneg_left h15 hmpos.le]
   have hzpos : (0 : ℝ) < z := by linarith
   have hpoly := logz_factor_pow9_le hQ4 hL2 hu0 hu1 hz1 hzhi
   have hYexp : (1 : ℝ) / 2 - σ < 0 := by linarith
@@ -1765,7 +1765,7 @@ lemma row_Eρ_cap_tall_k1 {Q L₂ c c₀ u w σ Y z Cρ δ' : ℝ} (a m b k : �
   have hαconv : 5 / 2 + 12 + a * (1 / 2 - σ)
         + δ' * ((2 + 9) - 1 * (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ))))
       ≤ w * (a + δ' * m) := by
-    rw [hwdef]; nlinarith [haE't]
+    rw [hwdef]; linarith only [haE't]
   have hwγ : w * (a + δ' * m)
       ≤ b * w * (-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ))) := by
     have h1 : w * (a + δ' * m) ≤ w * (b * (m * (15 / 34) - 309 / 100)) :=
@@ -1773,13 +1773,13 @@ lemma row_Eρ_cap_tall_k1 {Q L₂ c c₀ u w σ Y z Cρ δ' : ℝ} (a m b k : �
     have h2 : (0 : ℝ) ≤ b * w * ((-(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
         - (m * (15 / 34) - 309 / 100)) :=
       mul_nonneg (mul_nonneg hb.le hw0.le) (by linarith [hγfloor])
-    nlinarith [h1, h2]
+    linarith only [h2, h1]
   have hmono := ray_pow_bound_conv (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := b)
     (k := 1) (δ' := δ')
     (α := 5 / 2 + 12 + a * (1 / 2 - σ))
     (γ := -(3 : ℝ) + -(9 / 100 : ℝ) + -(m * (1 / 2 - σ)))
     (ε := 2 + 9) hQ1 hL2' hcc hb (by norm_num) hu0 hγpos hL2hi
-    (by nlinarith [hresEρ, mul_nonneg hmpos.le hw0.le]) huτ1
+    (by nlinarith only [hwdef, hmEρ, hresEρ, mul_nonneg hmpos.le hw0.le]) huτ1
     (by linarith [hαconv, hwγ])
   have hQg : Q ^ (5 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (a * (1 / 2 - σ))
       = Q ^ (5 / 2 + 12 + a * (1 / 2 - σ)) := by
@@ -1799,7 +1799,7 @@ lemma row_Eρ_cap_tall_k1 {Q L₂ c c₀ u w σ Y z Cρ δ' : ℝ} (a m b k : �
     rw [← hQg, ← hug, ← hLg]; ring
   -- nonneg facts and the product bound
   have hbnn : (0 : ℝ) ≤ 1 + Real.log (z ^ 2) := by
-    have := Real.log_nonneg (show (1 : ℝ) ≤ z ^ 2 by nlinarith [hz1]); linarith
+    have := Real.log_nonneg (show (1 : ℝ) ≤ z ^ 2 by nlinarith only [hz1]); linarith
   have hpolynn : (0 : ℝ) ≤ (1 + Real.log (z ^ 2)) ^ 9 := pow_nonneg hbnn 9
   have hYsnn : (0 : ℝ) ≤ Y ^ (1 / 2 - σ) := Real.rpow_nonneg hYpos.le _
   have hCbarnn : (0 : ℝ) ≤ 570 * (Q ^ (5 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀) := by positivity

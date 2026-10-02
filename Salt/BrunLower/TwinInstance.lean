@@ -62,17 +62,17 @@ lemma exp_five_lt : Real.exp 5 < 148.5 := by
 lemma exp_half_le : Real.exp (1/2 : ℝ) ≤ 1.65 := by
   have h5 : Real.exp 1 < 2.7225 := by have := Real.exp_one_lt_d9; linarith
   have hsq : (Real.exp (1/2:ℝ)) ^ 2 = Real.exp 1 := by rw [← Real.exp_nat_mul]; norm_num
-  nlinarith [Real.exp_pos (1/2:ℝ), hsq, h5]
+  nlinarith only [hsq, h5]
 
 /-- `exp (5/2) ≤ 12.2`. -/
 lemma exp_five_halves_le : Real.exp (5/2 : ℝ) ≤ 12.2 := by
   have hsq : (Real.exp (5/2:ℝ)) ^ 2 = Real.exp 5 := by rw [← Real.exp_nat_mul]; norm_num
-  nlinarith [Real.exp_pos (5/2:ℝ), hsq, exp_five_lt]
+  nlinarith only [hsq, exp_five_lt]
 
 /-- `exp (5/4) < 4` (equivalently `exp 5 < 256`), the `h12` input. -/
 lemma exp_five_quarters_lt : Real.exp (5/4 : ℝ) < 4 := by
   have hpow : (Real.exp (5/4:ℝ)) ^ 4 = Real.exp 5 := by rw [← Real.exp_nat_mul]; norm_num
-  have h : (Real.exp (5/4:ℝ)) ^ 4 < (4:ℝ) ^ 4 := by rw [hpow]; nlinarith [exp_five_lt]
+  have h : (Real.exp (5/4:ℝ)) ^ 4 < (4:ℝ) ^ 4 := by rw [hpow]; linarith only [exp_five_lt]
   exact (pow_lt_pow_iff_left₀ (Real.exp_pos _).le (by norm_num) (by norm_num)).mp h
 
 /-- The second-order lower bound `1 + x + x²/2 ≤ exp x` for `x ≥ 0` (the load-bearing
@@ -99,7 +99,7 @@ lemma exp_quad_lower {x : ℝ} (hx : 0 ≤ x) : 1 + x + x ^ 2 / 2 ≤ Real.exp x
       linarith
   have := hmono (Set.self_mem_Ici) (Set.mem_Ici.mpr hx) hx
   simp only [Real.exp_zero] at this
-  nlinarith [this]
+  linarith only [this]
 
 /-! ## `π(m) ≤ m + 1` and `z^{Ω m} ≤ m` -/
 
@@ -182,7 +182,7 @@ lemma zOne_facts {z : ℝ} (hz : zOne ≤ z) :
       apply sq_le_sq' <;> nlinarith [hexppos, hllz_pos]
     have h3 : (Real.exp (Real.log (Real.log z) / 2))^2 = Real.exp (Real.log (Real.log z)) := by
       rw [sq, ← Real.exp_add]; congr 1; ring
-    nlinarith [h2, h3, hllz_pos, hlz_eq]
+    linarith only [h3, h2, hlz_eq, hllz]
   -- zThresh (1/4) ≤ z
   have hzth : zThresh (1/4) ≤ z := by
     refine le_trans ?_ hz
@@ -325,12 +325,12 @@ lemma W_twin_ge {N P : ℕ} (hP : Squarefree P) {z : ℝ} (hz2 : 2 ≤ z)
         have he1 : (2.7:ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
         rw [show Real.exp (-1:ℝ) = 1 / Real.exp 1 by rw [Real.exp_neg]; ring,
           div_le_iff₀ (Real.exp_pos 1)]
-        nlinarith [he1, hlog2gt]
+        nlinarith only [hlog2, he1, hlog2gt]
       have := Real.log_le_log (Real.exp_pos _) hexp1
       rw [Real.log_exp] at this
       linarith
     have h19 : 19 / Real.log 2 ≤ 28 := by
-      rw [div_le_iff₀ hlog2]; nlinarith [hlog2gt]
+      rw [div_le_iff₀ hlog2]; linarith only [hlog2gt, hlog2]
     linarith [hinv, hsq, hnll2, h19, hlogdiv]
   have hlogW_ge : -(2 * Real.log (Real.log z) + 70) ≤ Real.log (W s) := by
     linarith [hbound, hsumle]
@@ -368,13 +368,13 @@ lemma margin_ge :
   have he52pos : 0 < Real.exp (2 + 2 * (1/4:ℝ)) := Real.exp_pos _
   set E1 := Real.exp (2 * (1/4:ℝ)) with hE1
   set E2 := Real.exp (2 + 2 * (1/4:ℝ)) with hE2
-  have hden : 0 < 1 - (1/4:ℝ) ^ 2 * E2 := by nlinarith [he52]
+  have hden : 0 < 1 - (1/4:ℝ) ^ 2 * E2 := by linarith only [he52]
   have hnum : 2 * (1/4:ℝ) ^ (2 * 2) * E1 / (1 - (1/4) ^ 2 * E2) ≤ 1/10 := by
     rw [div_le_iff₀ hden]
     have h4 : (1/4:ℝ) ^ (2 * 2) = 1/256 := by norm_num
     have h2 : (1/4:ℝ) ^ 2 = 1/16 := by norm_num
     rw [h4, h2]
-    nlinarith [he12, he52, he12pos, he52pos]
+    linarith only [he52, he12]
   linarith [hnum]
 
 /-- **Main-term margin at `b = 1`** (`margin_ge_b1`), the primary operating point's
@@ -390,18 +390,18 @@ theorem margin_ge_b1 :
       / (1 - (1/4) ^ 2 * Real.exp (5/2)) := by
   have hsq : (Real.exp (5/2:ℝ)) ^ 2 = Real.exp 5 := by rw [← Real.exp_nat_mul]; norm_num
   have he52 : Real.exp (5/2 : ℝ) ≤ 12.19 := by
-    nlinarith [Real.exp_pos (5/2:ℝ), hsq, exp_five_lt]
+    nlinarith only [hsq, exp_five_lt]
   have he12 : Real.exp (1/2 : ℝ) ≤ 1.65 := exp_half_le
   have he12pos : 0 < Real.exp (1/2:ℝ) := Real.exp_pos _
   have he52pos : 0 < Real.exp (5/2:ℝ) := Real.exp_pos _
   set E1 := Real.exp (1/2:ℝ)
   set E2 := Real.exp (5/2:ℝ)
-  have hden : 0 < 1 - (1/4:ℝ) ^ 2 * E2 := by nlinarith [he52]
+  have hden : 0 < 1 - (1/4:ℝ) ^ 2 * E2 := by linarith only [he52]
   have hnum : 2 * (1/4:ℝ) ^ 2 * E1 / (1 - (1/4) ^ 2 * E2) ≤ 1 - 0.13158 := by
     rw [div_le_iff₀ hden]
     have h2 : (1/4:ℝ) ^ 2 = 1/16 := by norm_num
     rw [h2]
-    nlinarith [he12, he52, he12pos, he52pos]
+    linarith only [he52, he12]
   linarith [hnum]
 
 /-! ## The remainder product upper bound -/
@@ -525,7 +525,7 @@ lemma crux_numeric {L Lam : ℝ} {r : ℕ} (hLpos : 0 < L)
       rw [show (1.65:ℝ) = 1 + 0.65 by norm_num, Real.exp_add]
       have h1 : (2.7:ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
       have h2 : (1.86:ℝ) ≤ Real.exp 0.65 := by
-        have h := exp_quad_lower (show (0:ℝ) ≤ 0.65 by norm_num); nlinarith [h]
+        have h := exp_quad_lower (show (0:ℝ) ≤ 0.65 by norm_num); linarith only [h]
       have hp : (2.7:ℝ) * 1.86 ≤ Real.exp 1 * Real.exp 0.65 :=
         mul_le_mul h1.le h2 (by norm_num) (Real.exp_pos 1).le
       linarith [hp]
@@ -538,7 +538,7 @@ lemma crux_numeric {L Lam : ℝ} {r : ℕ} (hLpos : 0 < L)
     apply Real.log_le_log (Real.exp_pos _)
     rw [show Real.exp (-1:ℝ) = 1 / Real.exp 1 by rw [Real.exp_neg]; ring,
       div_le_iff₀ (Real.exp_pos 1)]
-    have := Real.exp_one_gt_d9; nlinarith [this]
+    have := Real.exp_one_gt_d9; linarith only [this]
   have h25 : (25:ℝ) ^ (r - 1) = Real.exp (↑(r - 1) * Real.log 25) := by
     rw [← Real.exp_log (show (0:ℝ) < (25:ℝ) ^ (r - 1) by positivity), Real.log_pow]
   have hLHS' : 125 * (25:ℝ) ^ (r - 1) * Real.exp (10.2 * L) * Real.exp (2 * Real.log L)
@@ -559,12 +559,12 @@ lemma crux_numeric {L Lam : ℝ} {r : ℕ} (hLpos : 0 < L)
   have h_r25' : (↑(r - 1) : ℝ) * Real.log 25 ≤ 13.24 * (Real.log L + 1) := by
     have hh : ((Real.log L + 1) / 0.2494) * 3.3 ≤ 13.24 * (Real.log L + 1) := by
       rw [div_mul_eq_mul_div, div_le_iff₀ (by norm_num : (0:ℝ) < 0.2494)]
-      nlinarith [hLL]
+      linarith only [hLL]
     linarith [h_r25, hh]
   have hprod : (50000:ℝ) * Real.log L ≤ (Real.log L) ^ 2 := by
-    nlinarith [hLL, mul_nonneg (show (0:ℝ) ≤ Real.log L by linarith [hLL])
-      (show (0:ℝ) ≤ Real.log L - 50000 by linarith [hLL])]
-  nlinarith [hlog125, hlog910, h_r25', hquad, hprod, hLL]
+    linarith only [mul_nonneg (show (0 : ℝ) ≤ Real.log L by linarith [hLL])
+        (show (0 : ℝ) ≤ Real.log L - 50000 by linarith [hLL])]
+  linarith only [hprod, h_r25', hlog910, hlog125, hquad, hLL]
 
 /-- `N(N+2) ≤ exp(20.95·L)` when `N < exp(10.3L) + 1` and `L` is large — the per-pair
 size bound giving `Ω(n(n+2)) ≤ 20`. -/
@@ -576,10 +576,10 @@ lemma expNat_prod_le {L : ℝ} {N : ℕ} (hLbig : (1000 : ℝ) ≤ L)
       have he : Real.exp (10.45 * L) = Real.exp (10.3 * L) * Real.exp (0.15 * L) := by
         rw [← Real.exp_add]; congr 1; ring
       have h2 : (2:ℝ) ≤ Real.exp (0.15 * L) := by
-        have := Real.add_one_le_exp (0.15 * L); nlinarith [this, hLbig]
+        have := Real.add_one_le_exp (0.15 * L); linarith only [this, hLbig]
       have h3 : (1:ℝ) ≤ Real.exp (10.3 * L) := Real.one_le_exp (by positivity)
-      nlinarith [he, h2, h3, mul_nonneg (Real.exp_pos (10.3 * L)).le
-        (show (0:ℝ) ≤ Real.exp (0.15 * L) - 2 by linarith [h2])]
+      linarith only [h3, he, mul_nonneg (Real.exp_pos (10.3 * L)).le
+          (show (0 : ℝ) ≤ Real.exp (0.15 * L) - 2 by linarith [h2])]
     linarith
   have hN2r : (↑(N + 2) : ℝ) ≤ Real.exp (10.5 * L) := by
     have h1 : (↑(N + 2) : ℝ) = (N : ℝ) + 2 := by push_cast; ring
@@ -587,11 +587,11 @@ lemma expNat_prod_le {L : ℝ} {N : ℕ} (hLbig : (1000 : ℝ) ≤ L)
     have he : Real.exp (10.5 * L) = Real.exp (10.45 * L) * Real.exp (0.05 * L) := by
       rw [← Real.exp_add]; congr 1; ring
     have h3 : (2:ℝ) ≤ Real.exp (0.05 * L) := by
-      have := Real.add_one_le_exp (0.05 * L); nlinarith [this, hLbig]
+      have := Real.add_one_le_exp (0.05 * L); linarith only [this, hLbig]
     have h5 : (2:ℝ) ≤ Real.exp (10.45 * L) := by
-      have := Real.add_one_le_exp (10.45 * L); nlinarith [this, hLbig]
-    nlinarith [hNr2, he, h3, h5, mul_nonneg (Real.exp_pos (10.45 * L)).le
-      (show (0:ℝ) ≤ Real.exp (0.05 * L) - 2 by linarith [h3])]
+      have := Real.add_one_le_exp (10.45 * L); linarith only [this, hLbig]
+    linarith only [h5, he, hNr2, mul_nonneg (Real.exp_pos (10.45 * L)).le
+        (show (0 : ℝ) ≤ Real.exp (0.05 * L) - 2 by linarith [h3])]
   calc ((N * (N + 2) : ℕ) : ℝ) = (N : ℝ) * (↑(N + 2)) := by push_cast; ring
     _ ≤ Real.exp (10.45 * L) * Real.exp (10.5 * L) :=
         mul_le_mul hNr2 hN2r (by positivity) (by positivity)
@@ -621,14 +621,14 @@ lemma twin_survivor {z : ℝ} (hz : zOne ≤ z) :
   have hLbig : (1000:ℝ) ≤ L := by
     have hsq : (50000:ℝ) * 50000 ≤ Real.log L * Real.log L :=
       mul_le_mul hLL hLL (by norm_num) (by linarith [hLL])
-    nlinarith [hquad, hsq]
+    linarith only [hsq, hquad]
   -- ladder scale and its bounds.
   have hLam0 : 0 < LamTwin (1/4) z := LamTwin_pos (by norm_num) (by norm_num) hzth
   have hLam_lb : (0.2494:ℝ) ≤ LamTwin (1/4) z := by
     have hllpos : (0:ℝ) < Real.log (Real.log z) := by linarith
     have hdiv : 120 / Real.log (Real.log z) ≤ 0.0024 := by
-      rw [div_le_iff₀ hllpos]; nlinarith [hLL]
-    rw [LamTwin]; nlinarith [hdiv]
+      rw [div_le_iff₀ hllpos]; linarith only [hLL]
+    rw [LamTwin]; linarith only [hdiv]
   -- the modulus and sieve.
   set P : ℕ := Pz z with hPdef
   have hP : Squarefree P := Pz_squarefree z
@@ -638,7 +638,7 @@ lemma twin_survivor {z : ℝ} (hz : zOne ≤ z) :
   set s := Salt.TwinSieve.sieve N P hP with hsdef
   -- `brun_lower` at `(b, λ, A) = (2, 1/4, 2)`.
   have h12 : (1/4:ℝ) * Real.exp (1 + 1/4) < 1 := by
-    rw [show (1 + 1/4 : ℝ) = 5/4 by norm_num]; nlinarith [exp_five_quarters_lt]
+    rw [show (1 + 1/4 : ℝ) = 5/4 by norm_num]; linarith only [exp_five_quarters_lt]
   have htotalMass : 0 ≤ s.totalMass := by
     rw [hsdef, Salt.TwinSieve.sieve_totalMass]; exact Nat.cast_nonneg N
   have hzprimes : ∀ p ∈ s.prodPrimes.primeFactors, (p : ℝ) < z := by
@@ -784,7 +784,7 @@ lemma twin_survivor {z : ℝ} (hz : zOne ≤ z) :
       have h21n : 21 ≤ Ω (n * (n + 2)) := hΩgt
       exact_mod_cast h21n
     have h2095 : Real.exp (20.95 * L) < Real.exp (21 * L) :=
-      Real.exp_lt_exp.mpr (by nlinarith [hLpos])
+      Real.exp_lt_exp.mpr (by linarith only [hLbig])
     linarith [hpow', hNub, h21, h2095]
 
 /-- **The headline** (blueprint `p0`, node P1): infinitely many `n` with

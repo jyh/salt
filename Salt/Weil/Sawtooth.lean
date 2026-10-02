@@ -220,7 +220,7 @@ private lemma dist₁_natMul_le (θ : ℝ) : ∀ i : ℕ,
       rw [heq] at hstep
       have hd0 : (0 : ℝ) ≤ dist₁ θ 0 := dist₁_nonneg _ _
       push_cast
-      nlinarith [hstep, ihj, hd0]
+      linarith only [hstep, ihj]
 
 /-- Each `m`-term of the truncation is `≤ 2‖θ‖` in modulus (`m ≥ 1`). -/
 private lemma abs_term_le (θ : ℝ) (i : ℕ) :
@@ -230,10 +230,10 @@ private lemma abs_term_le (θ : ℝ) (i : ℕ) :
   have hkey : |Real.sin (2 * Real.pi * (θ * ((i : ℝ) + 1)))|
       ≤ 2 * Real.pi * ((i : ℝ) + 1) * dist₁ θ 0 := by
     refine le_trans (abs_sin_le_two_pi_dist (θ * ((i : ℝ) + 1))) ?_
-    nlinarith [dist₁_nonneg θ 0, dist₁_natMul_le θ i, Real.pi_pos]
+    nlinarith only [hpos, dist₁_natMul_le θ i, (Nat.cast_nonneg _ : 0 ≤ ↑i)]
   rw [abs_div, abs_of_pos hpos, div_le_iff₀ hpos,
     show 2 * Real.pi * θ * ((i : ℝ) + 1) = 2 * Real.pi * (θ * ((i : ℝ) + 1)) by ring]
-  nlinarith [hkey, Real.pi_pos, dist₁_nonneg θ 0]
+  linarith only [hkey]
 
 /-- **The uniform arm of (7.2).**  `|R_K θ| ≤ 1/2 + 2K‖θ‖`, valid at every real `θ`
 (including the integers, where it reads `|R_K θ| = 1/2`). -/
@@ -288,15 +288,15 @@ private lemma two_dist_le_sin {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x ≤ 1) :
     · linarith [dist₁_nonneg x 0]
   rcases le_or_gt x (1 / 2) with hhalf | hhalf
   · have hj := Real.mul_le_sin (x := Real.pi * x) (by positivity)
-      (by nlinarith [Real.pi_pos])
+      (by nlinarith only [hhalf, Real.pi_pos])
     have : 2 / Real.pi * (Real.pi * x) = 2 * x := by
       field_simp
     rw [this] at hj
     linarith
   · have hsym : Real.sin (Real.pi * x) = Real.sin (Real.pi * (1 - x)) := by
       rw [show Real.pi * (1 - x) = Real.pi - Real.pi * x by ring, Real.sin_pi_sub]
-    have hj := Real.mul_le_sin (x := Real.pi * (1 - x)) (by nlinarith [Real.pi_pos])
-      (by nlinarith [Real.pi_pos])
+    have hj := Real.mul_le_sin (x := Real.pi * (1 - x)) (by nlinarith only [hx1, Real.pi_pos])
+      (by nlinarith only [hhalf, Real.pi_pos])
     have hcalc : 2 / Real.pi * (Real.pi * (1 - x)) = 2 * (1 - x) := by field_simp
     rw [hcalc] at hj
     rw [hsym]
@@ -427,7 +427,7 @@ theorem norm_sawtoothRem_le_dist (K : ℕ) {θ : ℝ} (hθ : dist₁ θ 0 ≠ 0)
     show (1 / Real.pi) * (2 * (1 / Real.sin (Real.pi * Int.fract θ)) * (1 / ((K : ℝ) + 1)))
       = 2 / (Real.pi * Real.sin (Real.pi * Int.fract θ) * ((K : ℝ) + 1)) by field_simp,
     div_le_div_iff₀ hA hB]
-  nlinarith [mul_le_mul_of_nonneg_left hsin2 (le_of_lt (mul_pos hpi hK1))]
+  linarith only [mul_le_mul_of_nonneg_left hsin2 (le_of_lt (mul_pos hpi hK1))]
 
 /-- **(7.2), the majorant half.**  N7 quotes this as (7.2)'s error term: for `K ≥ 1` and every
 real `θ`,
@@ -450,21 +450,21 @@ theorem norm_sawtoothRem_le {K : ℕ} (hK : 1 ≤ K) (θ : ℝ) :
     linarith
   · rw [if_neg hz]
     have hdpos : 0 < dist₁ θ 0 := lt_of_le_of_ne hd0 (Ne.symm hz)
-    have hpos : (0 : ℝ) < (K : ℝ) * dist₁ θ 0 := by nlinarith
+    have hpos : (0 : ℝ) < (K : ℝ) * dist₁ θ 0 := by nlinarith only [hKR, hd0, hdpos]
     have hinv : ((K : ℝ) * dist₁ θ 0)⁻¹ * ((K : ℝ) * dist₁ θ 0) = 1 := inv_mul_cancel₀ hpos.ne'
     have hinvpos : (0 : ℝ) < ((K : ℝ) * dist₁ θ 0)⁻¹ := inv_pos.mpr hpos
     rcases le_or_gt ((K : ℝ) * dist₁ θ 0) 1 with hsmall | hbig
     · -- the `min` is `1`
       have hmin : min (((K : ℝ) * dist₁ θ 0)⁻¹) 1 = 1 := by
         refine min_eq_right ?_
-        nlinarith [hinv, mul_nonneg (le_of_lt hinvpos) (sub_nonneg.mpr hsmall)]
+        linarith only [hinv, mul_nonneg (le_of_lt hinvpos) (sub_nonneg.mpr hsmall)]
       rw [hmin, mul_one]
       have h := norm_sawtoothRem_le_linear K θ
       linarith
     · -- the `min` is `(K‖θ‖)⁻¹`
       have hmin : min (((K : ℝ) * dist₁ θ 0)⁻¹) 1 = ((K : ℝ) * dist₁ θ 0)⁻¹ := by
         refine min_eq_left ?_
-        nlinarith [hinv, mul_nonneg (le_of_lt hinvpos) (le_of_lt (sub_pos.mpr hbig))]
+        linarith only [hinv, mul_nonneg (le_of_lt hinvpos) (le_of_lt (sub_pos.mpr hbig))]
       rw [hmin]
       refine le_trans (norm_sawtoothRem_le_dist K hz) ?_
       have hp3 : (3 : ℝ) < Real.pi := Real.pi_gt_three
@@ -480,7 +480,7 @@ theorem norm_sawtoothRem_le {K : ℕ} (hK : 1 ≤ K) (θ : ℝ) :
         simp only [mul_inv]
         rw [show ((2 : ℝ) / 5)⁻¹ = 5 / 2 by norm_num]
       rw [h25]
-      exact inv_anti₀ (by nlinarith) hgoal
+      exact inv_anti₀ (by linarith only [hbig, hdpos, hdhalf]) hgoal
 
 /-! ## S2 — (7.3)/(7.4), the majorant's own Fourier coefficients  ⚠️ **PARTIAL**
 
@@ -533,10 +533,10 @@ theorem sawtoothMajorant_eq_inv_max {K : ℕ} (hK : 1 ≤ K) (θ : ℝ) :
     rcases le_or_gt ((K : ℝ) * dist₁ θ 0) 1 with h | h
     · rw [max_eq_right h, inv_one]
       refine min_eq_right ?_
-      nlinarith [hinv, mul_nonneg (le_of_lt hinvpos) (sub_nonneg.mpr h)]
+      linarith only [hinv, mul_nonneg (le_of_lt hinvpos) (sub_nonneg.mpr h)]
     · rw [max_eq_left (le_of_lt h)]
       refine min_eq_left ?_
-      nlinarith [hinv, mul_nonneg (le_of_lt hinvpos) (le_of_lt (sub_pos.mpr h))]
+      linarith only [hinv, mul_nonneg (le_of_lt hinvpos) (le_of_lt (sub_pos.mpr h))]
 
 /-- The majorant is symmetric about `1/2`. -/
 private lemma sawtoothMajorant_one_sub (K : ℕ) (θ : ℝ) :
@@ -653,7 +653,7 @@ theorem integral_sawtoothMajorant_le {K : ℕ} (hK : 2 ≤ K) :
   have hlog : Real.log ((K : ℝ) / 2) ≤ Real.log K :=
     Real.log_le_log (by linarith) (by linarith)
   rw [div_le_div_iff₀ hKpos hKpos]
-  nlinarith [hlog, hKpos]
+  nlinarith only [hlog, (Nat.cast_nonneg _ : 0 ≤ ↑K)]
 
 /-- The (7.3) Fourier coefficient `a_m = ∫₀¹ Min(1/(K‖θ‖),1)·e(−mθ) dθ` of the majorant. -/
 noncomputable def majorantCoeff (K : ℕ) (m : ℤ) : ℂ :=
@@ -859,7 +859,7 @@ private lemma majorantCoeff_core_bound {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : 
     rw [hJdef, hIBP2, hPrw, hLsq]
     norm_num
   -- crude bounds: `|cos| ≤ 1` and `∫_{1/K}^{1/2} θ⁻³ = (K²−4)/2`; the `±4` cancel
-  have hK24 : (0 : ℝ) ≤ (K : ℝ) ^ 2 - 4 := by nlinarith
+  have hK24 : (0 : ℝ) ≤ (K : ℝ) ^ 2 - 4 := by nlinarith only [hKR, (Nat.cast_nonneg _ : 0 ≤ ↑K)]
   have hPbound : |P| ≤ ((K : ℝ) ^ 2 - 4) / 2 := by
     have hint1 : IntervalIntegrable (fun x : ℝ => |(x ^ 3)⁻¹ * Real.cos (w * x)|)
         MeasureTheory.volume L (1 / 2) := by
@@ -885,7 +885,7 @@ private lemma majorantCoeff_core_bound {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : 
       have hx0 : (0 : ℝ) < x := lt_of_lt_of_le hL0 hx.1
       have hxp : (0 : ℝ) < (x ^ 3)⁻¹ := by positivity
       rw [abs_mul, abs_of_pos hxp]
-      nlinarith [Real.abs_cos_le_one (w * x), abs_nonneg (Real.cos (w * x))]
+      nlinarith only [hxp, hL2, hL0, Real.abs_cos_le_one (w * x)]
     have h3 : (∫ x in L..(1 / 2 : ℝ), (x ^ 3)⁻¹) = ((K : ℝ) ^ 2 - 4) / 2 := by
       rw [hLdef]; exact integral_inv_cube hK
     linarith
@@ -896,21 +896,21 @@ private lemma majorantCoeff_core_bound {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : 
         rw [abs_mul, abs_div, abs_neg, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (4 : ℝ))]
         ring
       rw [he, div_le_div_iff₀ hWpos hWpos]
-      nlinarith [Real.abs_cos_le_one (w * (1 / 2 : ℝ)), hWpos]
+      nlinarith only [hWpos, Real.abs_cos_le_one (w * (1 / 2 : ℝ))]
     have b2 : |(K : ℝ) ^ 2 * (-Real.cos (w * L) / w)| ≤ (K : ℝ) ^ 2 / |w| := by
       have he : |(K : ℝ) ^ 2 * (-Real.cos (w * L) / w)|
           = (K : ℝ) ^ 2 * |Real.cos (w * L)| / |w| := by
         rw [abs_mul, abs_div, abs_neg, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (K : ℝ) ^ 2)]
         ring
       rw [he, div_le_div_iff₀ hWpos hWpos]
-      nlinarith [mul_nonneg (mul_nonneg (sq_nonneg ((K : ℝ))) hWpos.le)
-        (sub_nonneg.mpr (Real.abs_cos_le_one (w * L)))]
+      linarith only [mul_nonneg (mul_nonneg (sq_nonneg ((K : ℝ))) hWpos.le)
+          (sub_nonneg.mpr (Real.abs_cos_le_one (w * L)))]
     have b3 : |2 / w * P| ≤ ((K : ℝ) ^ 2 - 4) / |w| := by
       have he : |2 / w * P| = 2 * |P| / |w| := by
         rw [abs_mul, abs_div, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (2 : ℝ))]
         ring
       rw [he, div_le_div_iff₀ hWpos hWpos]
-      nlinarith [hPbound, hWpos]
+      nlinarith only [hWpos, hPbound]
     have htri := abs_sub_sub_le (4 * (-Real.cos (w * (1 / 2 : ℝ)) / w))
       ((K : ℝ) ^ 2 * (-Real.cos (w * L) / w)) (2 / w * P)
     rw [hJval]
@@ -1177,9 +1177,9 @@ private lemma filter_Ioc_dvd_eq_image {q : ℕ} (hq : 0 < q) (b A B : ℤ) :
       omega
     refine ⟨⟨?_, ?_⟩, ⟨c + 1 + (i : ℤ), by ring⟩⟩
     · have hi0 : (0 : ℤ) ≤ (i : ℤ) := Int.natCast_nonneg i
-      nlinarith [hAc, hq']
+      nlinarith only [hAc, (Nat.cast_nonneg _ : 0 ≤ ↑q), (Nat.cast_nonneg _ : 0 ≤ ↑i)]
     · have hle : c + 1 + (i : ℤ) ≤ d := by omega
-      nlinarith [hBd, hq']
+      nlinarith only [hidlt, hBd, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
 /-- **The geometric arm.**  Off the degenerate locus `k ∣ sq` (equivalently
 `dist₁ (sq/k) 0 ≠ 0`) the congruence-restricted sum is bounded by `(2·dist₁(sq/k, 0))⁻¹`,
@@ -1381,7 +1381,7 @@ private lemma sum_norm_majorantCoeff_finset_le_raw {K : ℕ} (hK : 2 ≤ K) (u :
           positivity
       _ ≤ 4 / Real.pi ^ 2 := by
           rw [div_mul_div_comm, div_le_div_iff₀ (by positivity) (by positivity)]
-          nlinarith [sq_nonneg Real.pi, hpi, hK0]
+          linarith only [sq_nonneg Real.pi]
   -- The close.  `(2K+1)·2/K = 4 + 2/K ≤ 5` is an **equality** at `K = 2`, which is exactly why
   -- the round constant `5(1 + log K)` is not provable on this route: the tail's `4/π²` has
   -- nowhere to go.  (The *theorem* at `5` is true — the truth is `≤ 1.26` — so `5` is a
@@ -1390,15 +1390,15 @@ private lemma sum_norm_majorantCoeff_finset_le_raw {K : ℕ} (hK : 2 ≤ K) (u :
     have hre : (2 * (K : ℝ) + 1) * (2 * (1 + Real.log K) / K)
         = (4 * (K : ℝ) + 2) * (1 + Real.log K) / K := by ring
     rw [hre, div_le_iff₀ hK0]
-    nlinarith [mul_nonneg (by linarith : (0:ℝ) ≤ 1 + Real.log K)
-      (by linarith : (0:ℝ) ≤ (K : ℝ) - 2)]
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 + Real.log K)
+        (by linarith : (0 : ℝ) ≤ (K : ℝ) - 2)]
   linarith
 
 /-- `4/π² < 0.406`, the numeral both closes below spend. -/
 private lemma four_div_pi_sq_lt : (4 : ℝ) / Real.pi ^ 2 < 0.406 := by
   have hpi : (3.14 : ℝ) < Real.pi := Real.pi_gt_d2
   rw [div_lt_iff₀ (by positivity)]
-  nlinarith [hpi, Real.pi_pos]
+  nlinarith only [hpi]
 
 private lemma sum_norm_majorantCoeff_finset_le {K : ℕ} (hK : 2 ≤ K) (u : Finset ℤ) :
     ∑ m ∈ u, ‖majorantCoeff K m‖ ≤ 6 * (1 + Real.log K) := by
