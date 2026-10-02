@@ -138,7 +138,7 @@ theorem hall_tenenbaum_core_two {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
             have hk : F (p ^ q.1) ≤ 2 := hFpp p q.1 hpp hk1
             have hbase : (0 : ℝ) ≤ (q.1 : ℝ) * F q.2 :=
               mul_nonneg (by positivity) (hF0 q.2)
-            nlinarith [hbase, hk]
+            nlinarith only [hk, hbase]
         _ = 2 * (Real.log p * ∑ q ∈ (((Finset.Icc 1 N) ×ˢ (Finset.Icc 1 N)).filter
               (fun q => ¬ p ∣ q.2 ∧ p ^ q.1 * q.2 ≤ N)), (q.1 : ℝ) * F q.2) := by
             rw [← Finset.mul_sum]; ring
@@ -268,7 +268,7 @@ theorem euler_exp_bound_two {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
     have hsub : (∑ p ∈ P, 1 / (p : ℝ) ^ 2) ≤ ∑ n ∈ Finset.Icc 1 N, 1 / (n : ℝ) ^ 2 :=
       Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
         (fun n _ _ => by positivity)
-    nlinarith [hsub, sum_inv_sq_le N]
+    linarith only [hsub, sum_inv_sq_le N]
   linarith [htail2]
 
 /-! ## R3 — the tail ratio (GS (7.2))
@@ -310,7 +310,7 @@ theorem ht_tail_ratio {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
   have hlogy2 : 2 * Real.log y ≤ Real.log x := by
     have h1 : Real.log (y ^ 2) ≤ Real.log x := Real.log_le_log (by positivity) hyx
     rwa [Real.log_pow, Nat.cast_ofNat] at h1
-  have hxy1 : (1 : ℝ) ≤ x / y := by rw [le_div_iff₀ hy0]; nlinarith
+  have hxy1 : (1 : ℝ) ≤ x / y := by rw [le_div_iff₀ hy0]; nlinarith only [hy, hyx, hx]
   have hxy0 : (0 : ℝ) < x / y := by linarith
   set L := Real.log (x / y) with hLdef
   have hLhalf : Real.log x / 2 ≤ L := by
@@ -346,7 +346,7 @@ theorem ht_tail_ratio {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
     refine min_eq_left ?_
     rw [div_le_div_iff₀ (by positivity) hx0]
     rw [div_lt_iff₀ hy0] at hiR
-    nlinarith
+    linarith only [hiR]
   -- The `abel_master` hypothesis: the SHIFTED linear partial-sum bound.
   have hA : ∀ m, (∑ i ∈ Finset.range m, a i) ≤ c * m := by
     intro m
@@ -408,7 +408,7 @@ theorem ht_tail_ratio {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
     calc (∑ i ∈ Finset.range M, a i) * L
         ≤ (∑ n ∈ Finset.Icc 1 M, F n) * L := mul_le_mul_of_nonneg_right hstep hLpos.le
       _ ≤ C₁ * (M : ℝ) * W := hfinal
-      _ ≤ C₁ * W * (m : ℝ) := by nlinarith [mul_nonneg hC₁pos.le hW0]
+      _ ≤ C₁ * W * (m : ℝ) := by nlinarith only [hMm', mul_nonneg hC₁pos.le hW0]
   -- Run the discrete Abel engine.
   have habel := abel_master (a := a) (w := w) (c := c) N hA hw_dec hw_nn
   -- Identify the left side.
@@ -483,7 +483,7 @@ theorem ht_tail_ratio {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
   have hR' : 2 * C₁ * (2 + Real.log y) / Real.log x * W
       = 2 * (C₁ * W * (2 + Real.log y)) / Real.log x := by ring
   rw [hL', hR', div_le_div_iff₀ hLpos hlogx]
-  nlinarith [hbase, hLhalf]
+  nlinarith only [hLhalf, hbase]
 
 /-! ## The unimodular power `y ↦ y^{iu}`
 
@@ -521,7 +521,7 @@ theorem one_le_norm_one_add_Iu (u : ℝ) : (1 : ℝ) ≤ ‖(1 + Complex.I * (u 
   rw [norm_one_add_Iu]
   have : (1 : ℝ) = Real.sqrt 1 := by simp
   rw [this]
-  exact Real.sqrt_le_sqrt (by nlinarith [sq_nonneg u])
+  exact Real.sqrt_le_sqrt (by linarith only [this, sq_nonneg u])
 
 /-- `‖w / (1+iu)‖ ≤ ‖w‖`. -/
 theorem norm_div_one_add_Iu_le (u : ℝ) (w : ℂ) :
@@ -530,7 +530,7 @@ theorem norm_div_one_add_Iu_le (u : ℝ) (w : ℂ) :
   rcases eq_or_lt_of_le (one_le_norm_one_add_Iu u) with h | h
   · rw [← h, div_one]
   · rw [div_le_iff₀ (by linarith)]
-    nlinarith [norm_nonneg w]
+    nlinarith only [h, norm_nonneg w]
 
 /-! ### Bridges: the `HalaszIntegers` stones restated in `eIu` form -/
 
@@ -599,7 +599,7 @@ theorem geom_sum_crude (u : ℝ) {z : ℝ} (hz : 1 ≤ z) :
       le_trans (hmono.trans_eq (sum_range_one_div_succ_eq_harmonic N))
         (harmonic_le_one_add_log N)
     have hlog : Real.log (N : ℝ) ≤ Real.log z := Real.log_le_log hN0R hNz
-    nlinarith [abs_nonneg u, hharm, hlog]
+    nlinarith only [hlog, hharm, abs_nonneg u]
   -- Piece B: the sliver `∫_{N}^{z}`, unimodular integrand, length `< 1`.
   have hB : ‖∫ t in (N : ℝ)..z, eIu u t‖ ≤ 1 := by
     have hconst : ‖∫ t in (N : ℝ)..z, eIu u t‖ ≤ 1 * |z - (N : ℝ)| :=
@@ -772,9 +772,9 @@ theorem renormalise_aux {f : ℕ → ℂ} (hf1 : f 1 = 1)
   set y := 3 + |u| * (1 + Real.log x) with hydef
   have hlogx1 : (0 : ℝ) ≤ 1 + Real.log x := by linarith
   have hy3 : (3 : ℝ) ≤ y := by
-    rw [hydef]; nlinarith [abs_nonneg u]
+    rw [hydef]; nlinarith only [hlogx, abs_nonneg u]
   have hy0 : (0 : ℝ) < y := by linarith
-  have hx9 : (9 : ℝ) ≤ x := by nlinarith
+  have hx9 : (9 : ℝ) ≤ x := by nlinarith only [hy3, hyx]
   set N := ⌊x⌋₊ with hNdef
   set D := ⌊x / y⌋₊ with hDdef
   set Wh := ∑ d ∈ Finset.Icc 1 N, mobNorm f d / d with hWhdef
@@ -841,8 +841,8 @@ theorem renormalise_aux {f : ℕ → ℂ} (hf1 : f 1 = 1)
     exact Finset.sum_Ioc_consecutive _ (Nat.zero_le D) hDN
   rw [← hsplit]
   -- STEP 6: the small-`d` leg.
-  have hxy1 : (1 : ℝ) ≤ x / y := by rw [le_div_iff₀ hy0]; nlinarith
-  have hxy2 : (2 : ℝ) ≤ x / y := by rw [le_div_iff₀ hy0]; nlinarith
+  have hxy1 : (1 : ℝ) ≤ x / y := by rw [le_div_iff₀ hy0]; nlinarith only [hy3, hx9, hyx]
+  have hxy2 : (2 : ℝ) ≤ x / y := by rw [le_div_iff₀ hy0]; nlinarith only [hy3, hx9, hyx]
   have hxy0 : (0 : ℝ) < x / y := by linarith
   have hlogy2 : 2 * Real.log y ≤ Real.log x := by
     have h1 : Real.log (y ^ 2) ≤ Real.log x := Real.log_le_log (by positivity) hyx
@@ -867,12 +867,12 @@ theorem renormalise_aux {f : ℕ → ℂ} (hf1 : f 1 = 1)
       rw [hfl] at hR
       have hlogxd : Real.log (x / (d : ℝ)) ≤ Real.log x := by
         refine Real.log_le_log (by linarith) ?_
-        rw [div_le_iff₀ hd0]; nlinarith
+        rw [div_le_iff₀ hd0]; nlinarith only [hx, hd1]
       have hRy : ‖Rt d‖ ≤ y := by
         rw [hRt_val d]
         refine hR.trans ?_
         rw [hydef]
-        nlinarith [abs_nonneg u]
+        nlinarith only [hy3, hlogxd, hlogx]
       calc mobNorm f d * ‖Rt d‖ ≤ mobNorm f d * y :=
             mul_le_mul_of_nonneg_left hRy (hF0 d)
         _ = y * mobNorm f d := by ring
@@ -895,7 +895,7 @@ theorem renormalise_aux {f : ℕ → ℂ} (hf1 : f 1 = 1)
         _ ≤ C₁ * (x / y) * Wh := by
             refine mul_le_mul_of_nonneg_left hWD ?_
             have : (0 : ℝ) ≤ x / y := by positivity
-            nlinarith
+            nlinarith only [hlog4, hxy1, hxy2]
     have h4 : 2 * y * (C₁ * (x / y) * Wh) = 2 * C₁ * x * Wh := by field_simp
     have h3 := mul_le_mul_of_nonneg_left hbnd (by linarith : (0 : ℝ) ≤ 2 * y)
     rw [h4] at h3
@@ -1014,7 +1014,7 @@ theorem renormalise {f : ℕ → ℂ} (hf1 : f 1 = 1)
   have hN1 : 1 ≤ N := Nat.le_floor (by exact_mod_cast (by linarith : (1 : ℝ) ≤ x))
   have hNx : (N : ℝ) ≤ x := Nat.floor_le hx0.le
   set y := 3 + |α| * (1 + Real.log x) with hydef
-  have hy3 : (3 : ℝ) ≤ y := by rw [hydef]; nlinarith [abs_nonneg α]
+  have hy3 : (3 : ℝ) ≤ y := by rw [hydef]; nlinarith only [hlogx, abs_nonneg α]
   have hlogy0 : 0 ≤ Real.log y := Real.log_nonneg (by linarith)
   set C₁ : ℝ := 1 + 2 * (Real.log 4 + 36) with hC₁def
   have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
@@ -1030,10 +1030,10 @@ theorem renormalise {f : ℕ → ℂ} (hf1 : f 1 = 1)
     rw [norm_eIu]
   have hRC : (28 : ℝ) ≤ renormaliseConst := by
     rw [renormaliseConst_eq]
-    nlinarith [one_le_exp_eight, hlog4]
+    nlinarith only [hlog4, one_le_exp_eight]
   rcases le_or_gt (y ^ 2) x with hyx | hyx
   · -- MAIN BRANCH
-    have hx9 : (9 : ℝ) ≤ x := by nlinarith
+    have hx9 : (9 : ℝ) ≤ x := by nlinarith only [hy3, hyx]
     set Wh := ∑ d ∈ Finset.Icc 1 N, mobNorm f d / d with hWhdef
     have hWh0 : 0 ≤ Wh :=
       Finset.sum_nonneg (fun n _ => div_nonneg (mobNorm_nonneg f n) (by positivity))
@@ -1063,7 +1063,7 @@ theorem renormalise {f : ℕ → ℂ} (hf1 : f 1 = 1)
       have hbase : (0 : ℝ) ≤ C₁ * (x / Real.log x) * Wh := by
         have : (0 : ℝ) ≤ C₁ := by linarith
         positivity
-      nlinarith [hbase, hL3y, hlogy0]
+      nlinarith only [hL3y, hbase, hlogy0]
     -- the Euler bound on `Wh`
     have hWhbnd : Wh ≤ Real.exp Esum * Real.exp 8 := by
       have hF0 : ∀ n, 0 ≤ mobNorm f n := mobNorm_nonneg f
@@ -1139,7 +1139,7 @@ theorem renormalise_factor_norm_le (v : ℝ) :
     (Real.sqrt_mul (by norm_num) _).symm
   rw [h3]
   have h4 : (1 + |v|) ^ 2 ≤ 2 * (1 + v ^ 2) := by
-    nlinarith [sq_abs v, abs_nonneg v, sq_nonneg (1 - |v|)]
+    linarith only [sq_abs v, sq_nonneg (1 - |v|)]
   have h5 := Real.sqrt_le_sqrt h4
   rwa [Real.sqrt_sq h2.le] at h5
 

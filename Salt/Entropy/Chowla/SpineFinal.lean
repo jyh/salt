@@ -103,7 +103,7 @@ private theorem spine_False_core (R : ChowlaRegime) {δ : ℝ} (hdoor : MRTUnifo
     have h : (2 : ℝ) * (R.eps : ℝ) ≤ 1 := by
       exact_mod_cast (by linarith [R.heps1] : (2 : ℚ) * R.eps ≤ 1)
     linarith
-  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith [hepshalf, hepsRpos]
+  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith only [hepsRpos, hepshalf]
   -- floor bookkeeping
   have hHnatM : 4000000 ≤ H := le_trans R.hHlo_floor hlo
   have hH3 : 3 ≤ H := by omega
@@ -138,8 +138,8 @@ private theorem spine_False_core (R : ChowlaRegime) {δ : ℝ} (hdoor : MRTUnifo
   have hterm1 : (0 : ℝ) ≤ (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ)) :=
     mul_nonneg (by positivity) hlogε2H_nn
   have h64 : (128 : ℝ) ≤ 64 / (R.eps : ℝ) := by
-    rw [le_div_iff₀ hepsRpos]; nlinarith [hepshalf]
-  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by nlinarith [hωbig, hterm1, h64]
+    rw [le_div_iff₀ hepsRpos]; linarith only [hepshalf]
+  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by linarith only [h64, hterm1, hωbig, hepshalf, hepsRpos]
   -- the D3 Mertens lower bound + nonemptiness
   set SP : ℝ := ∑ p ∈ primeWindow R.eps H, (1 / (p : ℝ)) with hSP
   have hmert : cD3 / Real.log (H : ℝ) ≤ SP := hD3 R.eps H hH₀D3 hreg hepssq
@@ -259,7 +259,7 @@ private theorem spine_False_core_xi (R : ChowlaRegime) {δ : ℝ} (hδ : 0 ≤ �
     have h : (2 : ℝ) * (R.eps : ℝ) ≤ 1 := by
       exact_mod_cast (by linarith [R.heps1] : (2 : ℚ) * R.eps ≤ 1)
     linarith
-  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith [hepshalf, hepsRpos]
+  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith only [hepsRpos, hepshalf]
   -- floor bookkeeping
   have hHnatM : 4000000 ≤ H := le_trans R.hHlo_floor hlo
   have hH3 : 3 ≤ H := by omega
@@ -294,8 +294,8 @@ private theorem spine_False_core_xi (R : ChowlaRegime) {δ : ℝ} (hδ : 0 ≤ �
   have hterm1 : (0 : ℝ) ≤ (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ)) :=
     mul_nonneg (by positivity) hlogε2H_nn
   have h64 : (128 : ℝ) ≤ 64 / (R.eps : ℝ) := by
-    rw [le_div_iff₀ hepsRpos]; nlinarith [hepshalf]
-  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by nlinarith [hωbig, hterm1, h64]
+    rw [le_div_iff₀ hepsRpos]; linarith only [hepshalf]
+  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by linarith only [h64, hterm1, hωbig, hepshalf, hepsRpos]
   -- the D3 Mertens lower bound + nonemptiness
   set SP : ℝ := ∑ p ∈ primeWindow R.eps H, (1 / (p : ℝ)) with hSP
   have hmert : cD3 / Real.log (H : ℝ) ≤ SP := hD3 R.eps H hH₀D3 hreg hepssq
@@ -386,7 +386,7 @@ theorem log_chowla_two_conditional_hoisted :
     have h : (2 : ℝ) * (R.eps : ℝ) ≤ 1 := by
       exact_mod_cast (by linarith [R.heps1] : (2 : ℚ) * R.eps ≤ 1)
     linarith
-  have heps2 : (R.eps : ℝ) ^ 2 < 1 / 2 := by nlinarith [hepshalf, hepsRpos]
+  have heps2 : (R.eps : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hepsRpos, hepshalf]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded R.eps R.heps heps2
   refine ⟨K, max (max H₀red H₀D3) H₀xi, hK, ?_⟩
   intro H hNe hlo hhi hH₀ hepsc t g κ c₀ ht hg hgle hI hbudget1 hbudget2 hfail
@@ -454,7 +454,7 @@ theorem log_chowla_two_final :
     linarith
   have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) :=
     le_of_lt (lt_of_lt_of_le hεlt (min_le_left _ _))
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hεlt_half]
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hε0, hεlt_half]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   -- build the regime at ε with the combined producer floor
   obtain ⟨R, hReps, hRHlo⟩ :=
@@ -550,7 +550,7 @@ theorem log_chowla_two_final_xi :
     linarith
   have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) :=
     le_of_lt (lt_of_lt_of_le hεlt (min_le_left _ _))
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hεlt_half]
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hε0, hεlt_half]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   -- build the regime at ε with the combined producer floor
   obtain ⟨R, hReps, hRHlo⟩ :=
@@ -661,10 +661,10 @@ theorem hbudget1_witness (R : ChowlaRegime) (H : ℕ) [NeZero H]
     have h16C : (0 : ℝ) < 16 * C := mul_pos (by norm_num) hC
     have h := (le_div_iff₀ h16C).mp hε_D3C
     rw [le_div_iff₀ (by norm_num : (0 : ℝ) < 16)]
-    nlinarith [h]
+    linarith only [h]
   -- slice S2
   have hS2 : C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2 ≤ W := by
-    have key : C * (R.eps : ℝ) ^ 2 ≤ cD3 / 16 * (R.eps : ℝ) := by nlinarith [hCε, hεpos]
+    have key : C * (R.eps : ℝ) ^ 2 ≤ cD3 / 16 * (R.eps : ℝ) := by nlinarith only [hεpos, hCε]
     rw [hW_def]
     calc C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
         = ((H : ℝ) / Real.log (H : ℝ)) * (C * (R.eps : ℝ) ^ 2) := by ring
@@ -675,7 +675,7 @@ theorem hbudget1_witness (R : ChowlaRegime) (H : ℕ) [NeZero H]
   have hshellbd : shellError R H tcap gcap κ ≤ W + W := by
     simp only [shellError, boxGrade]
     have hS3 : (R.eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) ≤ W := by
-      have key : (R.eps : ℝ) ^ 2 ≤ cD3 / 16 * (R.eps : ℝ) := by nlinarith [hε_D3, hεpos]
+      have key : (R.eps : ℝ) ^ 2 ≤ cD3 / 16 * (R.eps : ℝ) := by nlinarith only [hε_D3, hεpos]
       rw [hW_def]
       calc (R.eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
           = ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2) := by ring
@@ -699,7 +699,7 @@ theorem hbudget1_witness (R : ChowlaRegime) (H : ℕ) [NeZero H]
       mul_le_mul_of_nonneg_left hbr hcoeff_nn
     have hS4b : 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
           * ((H : ℝ) / Real.log (H : ℝ))) * β ≤ W := by
-      have h2e : (R.eps : ℝ) ^ 2 ≤ 1 / 4 := by nlinarith [hε_half, hεpos]
+      have h2e : (R.eps : ℝ) ^ 2 ≤ 1 / 4 := by nlinarith only [hε_half, hεpos]
       have hcD3εA : (0 : ℝ) ≤ cD3 * (R.eps : ℝ) * ((H : ℝ) / Real.log (H : ℝ)) :=
         mul_nonneg (mul_nonneg hcD3.le hεpos.le) hΛpos.le
       have hLHSeq : 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
@@ -780,7 +780,7 @@ theorem log_chowla_two_budget_head :
     have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
     have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
     linarith
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hε0, hε_half_lt]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   refine ⟨ε, cD3 / (16 * C) * (ε : ℝ) / (2 * K), hεQpos,
     div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0)
@@ -906,7 +906,7 @@ theorem log_chowla_two_budget_head_g :
     have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
     have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
     linarith
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hε0, hε_half_lt]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   refine ⟨ε, cD3 / (16 * C) * (ε : ℝ) / (2 * K), hεQpos,
     div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0)
@@ -1045,7 +1045,7 @@ theorem log_chowla_two_budget_head_g_45 :
     have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
     have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
     linarith
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hε0, hε_half_lt]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   refine ⟨ε, cD3 / (16 * C) * (ε : ℝ) / (2 * K), hεQpos,
     div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0)
@@ -1217,7 +1217,7 @@ private theorem spine_False_core_xi_sq (R : ChowlaRegime) {ρ : ℝ}
     have h : (2 : ℝ) * (R.eps : ℝ) ≤ 1 := by
       exact_mod_cast (by linarith [R.heps1] : (2 : ℚ) * R.eps ≤ 1)
     linarith
-  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith [hepshalf, hepsRpos]
+  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith only [hepsRpos, hepshalf]
   -- floor bookkeeping
   have hHnatM : 4000000 ≤ H := le_trans R.hHlo_floor hlo
   have hH3 : 3 ≤ H := by omega
@@ -1250,8 +1250,8 @@ private theorem spine_False_core_xi_sq (R : ChowlaRegime) {ρ : ℝ}
   have hterm1 : (0 : ℝ) ≤ (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ)) :=
     mul_nonneg (by positivity) hlogε2H_nn
   have h64 : (128 : ℝ) ≤ 64 / (R.eps : ℝ) := by
-    rw [le_div_iff₀ hepsRpos]; nlinarith [hepshalf]
-  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by nlinarith [hωbig, hterm1, h64]
+    rw [le_div_iff₀ hepsRpos]; linarith only [hepshalf]
+  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by linarith only [h64, hterm1, hωbig, hepshalf, hepsRpos]
   -- the D3 Mertens lower bound + nonemptiness
   set SP : ℝ := ∑ p ∈ primeWindow R.eps H, (1 / (p : ℝ)) with hSP
   have hmert : cD3 / Real.log (H : ℝ) ≤ SP := hD3 R.eps H hH₀D3 hreg hepssq
@@ -1396,7 +1396,7 @@ theorem log_chowla_two_budget_head_g_sq_count :
     have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
     have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
     linarith
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith only [hε0, hε_half_lt]
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   -- ⟦THE K-FREE δ₀⟧ `c₀·ε/4`, NOT `c₀·ε/(2K)`
   refine ⟨ε, K, cD3 / (16 * C) * (ε : ℝ) / 4, hεQpos, hK,
