@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `d0a0e30d` · source digest `433e8b8d56f2b6d8` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `312d2a88` · source digest `84ae81f4f6012ef5` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 24 | 22 | 9088 | 9033 | 9032 | 1 | 0 | 55 |
+| 24 | 22 | 9087 | 9032 | 9031 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 22646 · corpus Prop-valued names (the hypothesis universe): 668.
+Declarations indexed across the tree: 22645 · corpus Prop-valued names (the hypothesis universe): 668.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6780 | 294 | 2072 | 4631 | 378 | 425 | 29 |
+| unconditional | 6779 | 294 | 2072 | 4631 | 377 | 425 | 29 |
 | conditional | 1560 | 25 | 196 | 1372 | 95 | 24 | 4 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 481 | 0 | 68 | 366 | 55 | 17 | 0 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9033 | 319 | 2340 | 6567 | 539 | 466 | 33 |
+| **all** | 9032 | 319 | 2340 | 6567 | 538 | 466 | 33 |
 
 ## LIMITS — read these beside every count above
 
@@ -489,7 +489,7 @@ Declarations indexed across the tree: 22646 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6780)
+## unconditional (6779)
 
 | name | file:line | objects |
 |---|---|---|
@@ -1339,12 +1339,11 @@ Declarations indexed across the tree: 22646 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.hpt_const_le_pow35_h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:53 | entropy |
 | `Salt.Entropy.Chowla.h_le_1096_of_log_le_seven` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:108 | entropy |
 | `Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:124 | entropy |
-| `Salt.Entropy.Chowla.hpt_holds_500h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:145 | entropy |
-| `Salt.Entropy.Chowla.eps_line_h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:237 | entropy |
-| `Salt.Entropy.Chowla.h_le_8103_of_log_le_nine` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:257 | entropy |
-| `Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:270 | entropy |
-| `Salt.Entropy.Chowla.hpt_holds_500h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:323 | entropy |
-| `Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:426 | entropy |
+| `Salt.Entropy.Chowla.eps_line_h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:188 | entropy |
+| `Salt.Entropy.Chowla.h_le_8103_of_log_le_nine` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:210 | entropy |
+| `Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:223 | entropy |
+| `Salt.Entropy.Chowla.hpt_holds_500h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:278 | entropy |
+| `Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:381 | entropy |
 | `Salt.Entropy.Chowla.rhoG_prime_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 | entropy |
 | `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 | entropy |
 | `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 | entropy |
@@ -9545,5 +9544,5 @@ Declarations indexed across the tree: 22646 · corpus Prop-valued names (the hyp
 
 | name | file:line | objects |
 |---|---|---|
-| `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1192 | entropy |
+| `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1194 | entropy |
 
