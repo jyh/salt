@@ -129,7 +129,7 @@ theorem zeta_block_kusmin_prefix (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N
     have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
     have hn1 : (0 : ℝ) < (n : ℝ) + 1 := by linarith
     have hratio : ((n : ℝ) + 2) / ((n : ℝ) + 1) ≤ ((n : ℝ) + 1) / (n : ℝ) := by
-      rw [div_le_div_iff₀ hn1 hn0]; nlinarith
+      rw [div_le_div_iff₀ hn1 hn0]; linarith only [hδ0, hδ12]
     have hlogle :=
       Real.log_le_log (show (0 : ℝ) < ((n : ℝ) + 2) / ((n : ℝ) + 1) by positivity) hratio
     rw [Real.log_div (by positivity) (ne_of_gt hn1),
@@ -654,7 +654,7 @@ theorem zeta_patch_prefix (t : ℝ) (N : ℕ) (x : ℤ) (hN2 : 2 ≤ N)
       have hpiN : 18 * π * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) ^ 2 := by
         nlinarith only [Real.pi_lt_d6, sq_nonneg ↑N, sq_nonneg ↑N]
       have hNt : 56.5504 * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) * t := by
-        nlinarith [hlo, Nat.cast_nonneg (α := ℝ) N]
+        nlinarith only [hlo, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
       linarith
     linarith [step1, step2]
   have hT2 : lam ^ (-(1 / 2) : ℝ) ≤ 7.52 * (N : ℝ) ^ (1 / 2 : ℝ) := by
@@ -918,7 +918,7 @@ theorem zeta_block_dispatch (k : ℕ) (hk : 4 ≤ k) (σ t : ℝ)
     have : 6 * π * ((M : ℝ) ^ (1 - σ) / t) ≤ 6 * π * 1 :=
       mul_le_mul_of_nonneg_left hM1sig (by positivity)
     calc 6 * π * ((M : ℝ) ^ (1 - σ) / t) ≤ 6 * π * 1 := this
-      _ ≤ 1348 := by nlinarith [Real.pi_lt_four]
+      _ ≤ 1348 := by linarith only [Real.pi_lt_four]
   · rcases le_or_gt t (27 * π * (M : ℝ)) with hc2 | hc2
     · -- (ii) M < t ≤ 27πM:  patch (k=2)
       have hM2 : 2 ≤ M := by omega
