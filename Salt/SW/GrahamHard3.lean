@@ -396,7 +396,7 @@ private lemma one_le_prod_one_add (r : ℕ) :
 
 private lemma le_kappa (r : ℕ) : (r : ℝ) ≤ kappa r := by
   rw [kappa]
-  nlinarith [one_le_prod_one_add r, (Nat.cast_nonneg r : (0 : ℝ) ≤ (r : ℝ))]
+  nlinarith only [one_le_prod_one_add r, (Nat.cast_nonneg _ : 0 ≤ ↑r)]
 
 private lemma kappa_pos (r : ℕ) (hr : 1 ≤ r) : (0 : ℝ) < kappa r := by
   have h1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
@@ -426,7 +426,7 @@ private lemma abs_rho0_le_two : |rho0| ≤ 2 := by
   rw [Real.norm_eq_abs] at h
   have hpi : Real.pi < 3.15 := Real.pi_lt_d2
   have hpi0 : (0 : ℝ) < Real.pi := Real.pi_pos
-  have hbound : Real.pi ^ 2 / 6 ≤ 2 := by nlinarith
+  have hbound : Real.pi ^ 2 / 6 ≤ 2 := by nlinarith only [hpi, hpi0]
   have hr : rho0 = ∑' n : ℕ, (moebius n : ℝ) / (n : ℝ) ^ 2 := rfl
   rw [hr]
   linarith
@@ -448,7 +448,7 @@ private lemma one_add_log_le_inv_log_two_mul (Q : ℝ) (hQ : 1 ≤ Q) :
   have hQ0 : (0 : ℝ) < Q := by linarith
   have hlogQ : 0 ≤ Real.log Q := Real.log_nonneg hQ
   rw [Real.log_mul (by norm_num) (ne_of_gt hQ0), one_div, inv_mul_eq_div, le_div_iff₀ hlog2]
-  nlinarith [mul_nonneg hlogQ (by linarith : (0 : ℝ) ≤ 1 - Real.log 2)]
+  linarith only [mul_nonneg hlogQ (by linarith : (0 : ℝ) ≤ 1 - Real.log 2)]
 
 /-! ## II. THE EVALUATION (H5c instantiated) -/
 
@@ -574,7 +574,7 @@ private lemma aKernel_err_term_le {C1 C2 : ℝ} (hC1 : 0 < C1) (hC2 : 0 < C2)
   have hRHS : (0 : ℝ) ≤ (3 + 2 * Real.log Q) * (C1 + C2) / Real.log (2 * Q) ^ 4
       * (sigmaQ a / a) := by
     have h1 : (0 : ℝ) ≤ 3 + 2 * Real.log Q := by linarith
-    have h2 : (0 : ℝ) ≤ (3 + 2 * Real.log Q) * (C1 + C2) := by nlinarith
+    have h2 : (0 : ℝ) ≤ (3 + 2 * Real.log Q) * (C1 + C2) := by nlinarith only [hC2, hlogQ, hC1]
     positivity
   by_cases hsq : Squarefree a
   · have e1 := h6e a hsq Q hQ
@@ -611,7 +611,7 @@ private lemma aKernel_err_term_le {C1 C2 : ℝ} (hC1 : 0 < C1) (hC2 : 0 < C2)
     rw [abs_mul]
     have hcoef : (1 + Real.log Q) * C1 + (2 + Real.log Q) * C2
         ≤ (3 + 2 * Real.log Q) * (C1 + C2) := by
-      nlinarith [mul_nonneg hlogQ hC1.le, mul_nonneg hlogQ hC2.le]
+      linarith only [hC2, hC1, mul_nonneg hlogQ hC2.le, mul_nonneg hlogQ hC1.le]
     have hposf : (0 : ℝ) ≤ sigmaQ a / ((a : ℝ) * Real.log (2 * Q) ^ 4) := by positivity
     have hstep : |(moebius a : ℝ) / kappa a|
         * ((1 + Real.log Q) * (C1 * sigmaQ a / Real.log (2 * Q) ^ 4)
@@ -775,7 +775,7 @@ theorem abs_aKernel_sub_c0_le : ∃ C : ℝ, 0 < C ∧ ∀ Q : ℝ, 1 ≤ Q →
     rw [← Finset.mul_sum]
     have hfac : (0 : ℝ) ≤ (3 + 2 * Real.log Q) * (C1 + C2) / Real.log (2 * Q) ^ 4 := by
       have h1 : (0 : ℝ) ≤ 3 + 2 * Real.log Q := by linarith
-      have h2 : (0 : ℝ) ≤ (3 + 2 * Real.log Q) * (C1 + C2) := by nlinarith
+      have h2 : (0 : ℝ) ≤ (3 + 2 * Real.log Q) * (C1 + C2) := by nlinarith only [hC2, hlogQ, hC1]
       positivity
     refine le_trans (mul_le_mul_of_nonneg_left (h0e Q hQ) hfac) ?_
     -- `(3 + 2 log Q)(1 + log Q) ≤ 3 (log 2Q)²/log²2`
@@ -790,7 +790,7 @@ theorem abs_aKernel_sub_c0_le : ∃ C : ℝ, 0 < C ∧ ∀ Q : ℝ, 1 ≤ Q →
     have hA : (3 + 2 * Real.log Q) * (1 + Real.log Q)
         ≤ 3 * (Real.log (2 * Q) ^ 2 / Real.log 2 ^ 2) := by
       have h3 : (3 + 2 * Real.log Q) * (1 + Real.log Q) ≤ 3 * (1 + Real.log Q) ^ 2 := by
-        nlinarith
+        nlinarith only [hlogQ]
       linarith [mul_le_mul_of_nonneg_left hsqb (by norm_num : (0 : ℝ) ≤ 3)]
     have hCC : (0 : ℝ) < (C1 + C2) * C5 := by
       have : (0 : ℝ) < C1 + C2 := by linarith
@@ -866,7 +866,7 @@ theorem sum_inv_mul_abs_aKernel_le : ∃ C : ℝ, 0 < C ∧ ∀ X : ℝ, 1 ≤ X
       ≤ c0 * (1 + Real.log X) + Ca * C0 := by
         exact add_le_add (mul_le_mul_of_nonneg_left h1 hc0pos.le)
           (mul_le_mul_of_nonneg_left h2 hCa.le)
-    _ ≤ (c0 + Ca * C0) * (1 + Real.log X) := by nlinarith [mul_pos hCa hC0]
+    _ ≤ (c0 + Ca * C0) * (1 + Real.log X) := by nlinarith only [hlogX, mul_pos hCa hC0]
 
 /-! ## IV. ΣB + ΣC -/
 
@@ -884,7 +884,7 @@ private lemma log_sq_le_rpow_quarter (Q : ℝ) (hQ : 1 ≤ Q) :
         Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
       _ = 2 := Real.rpow_one 2
   have hQq : (0 : ℝ) ≤ Q ^ (1/4 : ℝ) := Real.rpow_nonneg (by linarith) _
-  nlinarith
+  nlinarith only [h2, hQq, h]
 
 /-- `√Q·log(2Q)² ≤ 128·Q` — the same helper, folded to the shape H7d's two-range
 `Σ σ(b)/log²(2b)` needs. -/
@@ -1190,7 +1190,7 @@ theorem abs_bKernel_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → ∀ Q :
     have hLb2 : (0 : ℝ) < Real.log (2 * (b : ℝ)) ^ 2 := by positivity
     have hsig : (0 : ℝ) ≤ sigmaQ b := sigmaQ_nonneg b
     have hRHS : (0 : ℝ) ≤ (C1 + 2 * C2) * sigmaQ b / Real.log (2 * (b : ℝ)) ^ 2 := by
-      have : (0 : ℝ) ≤ (C1 + 2 * C2) * sigmaQ b := by nlinarith
+      have : (0 : ℝ) ≤ (C1 + 2 * C2) * sigmaQ b := by nlinarith only [hC2, hsig, hC1]
       positivity
     by_cases hsq : Squarefree b
     · have hfl : ⌊(b : ℝ)⌋₊ = b := Nat.floor_natCast b
@@ -1436,7 +1436,7 @@ theorem sum_sum_errUpper_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → �
   have hg0 : (0 : ℝ) < (g : ℝ) := by exact_mod_cast hg
   have hgz : ((g : ℝ)) * (z : ℝ) ≤ u := by push_cast at hu; exact hu
   have hgz0 : (0 : ℝ) < (g : ℝ) * z := by positivity
-  have hu0 : (0 : ℝ) < u := lt_of_lt_of_le (by nlinarith [hz0, hg0]) hgz
+  have hu0 : (0 : ℝ) < u := lt_of_lt_of_le (by linarith only [hgz0]) hgz
   have hQ1 : (1 : ℝ) ≤ u / ((g : ℝ) * z) := (one_le_div hgz0).mpr hgz
   have hQ0 : (0 : ℝ) < u / ((g : ℝ) * z) := by linarith
   have hNQ : ((⌊u / ((g : ℝ) * z)⌋₊ : ℕ) : ℝ) ≤ u / ((g : ℝ) * z) := Nat.floor_le hQ0.le
@@ -1487,7 +1487,7 @@ theorem sum_sum_errUpper_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → �
       have h4 : (0 : ℝ) ≤ 1 + Real.log (u / ((g : ℝ) * z) / a) := by linarith
       have h5 : (0 : ℝ) ≤ 1 + Real.log (u / ((g : ℝ) * z) / b) := by linarith
       positivity
-    nlinarith [hsig, hnn, sigmaQ_nonneg a, sigmaQ_nonneg b]
+    nlinarith only [hsig, hnn]
   refine le_trans (Finset.sum_le_sum fun a ha =>
     Finset.sum_le_sum fun b hb => hbound a ha b hb) ?_
   have hcollect : ∑ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊,
@@ -1746,7 +1746,7 @@ private lemma rpow_step_three_halves' (t : ℝ) (ht : 1 ≤ t) :
   have hR2 : (t + 1) ^ (-(1/2) : ℝ) = 1 / (t + 1) ^ ((1/2 : ℝ)) := by
     rw [Real.rpow_neg ht1.le]
     ring
-  have hab : t ^ ((1/2 : ℝ)) < (t + 1) ^ ((1/2 : ℝ)) := by nlinarith only [ha2, hb2, ha0, hb0]
+  have hab : t ^ ((1/2 : ℝ)) < (t + 1) ^ ((1/2 : ℝ)) := by nlinarith only [hb0, ha0, hb2, ha2]
   have hidt : ((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
       * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ))) = 1 := by
     nlinarith only [ha2, hb2]
@@ -1770,7 +1770,7 @@ private lemma rpow_step_three_halves' (t : ℝ) (ht : 1 ≤ t) :
           * (((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
             * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ)))) := by ring
     rw [hexp, hidt]
-    nlinarith only [hab, ha0, hb0]
+    nlinarith only [hab, ha0]
   exact le_of_mul_le_mul_left hkey hsum0
 
 private lemma sum_Ioc_rpow_neg_three_halves_le' {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
@@ -1882,7 +1882,7 @@ private lemma h7_per_g {Cb Ce2 Ce3 : ℝ} (hCb : 0 < Cb)
   have hg1R : (1 : ℝ) ≤ (g : ℝ) := by exact_mod_cast hg1
   have hQz : u / ((g : ℝ) * z) ≤ (z : ℝ) := by
     rw [div_le_iff₀ hgz0]
-    nlinarith [huz, hg1R, hz0]
+    nlinarith only [hg1R, huz, sq_nonneg ↑z]
   -- membership facts on the box
   have hmem : ∀ a ∈ Finset.Icc 1 ⌊u / ((g : ℝ) * z)⌋₊, 1 ≤ a ∧ (a : ℝ) ≤ u / ((g : ℝ) * z) := by
     intro a ha
@@ -2030,7 +2030,7 @@ private lemma h7_per_g {Cb Ce2 Ce3 : ℝ} (hCb : 0 < Cb)
         rw [hprod]
         exact mul_le_mul h1 h2 (by positivity) (by linarith)
       have hg1R : (1 : ℝ) ≤ (g : ℝ) := by exact_mod_cast hg1
-      have hgzz : u ≤ (g : ℝ) * (z : ℝ) * (z : ℝ) := by nlinarith
+      have hgzz : u ≤ (g : ℝ) * (z : ℝ) * (z : ℝ) := by nlinarith only [hg1R, huz, sq_nonneg ↑z]
       have hstep2 : ((g : ℝ) * a * b) * u ≤ ((g : ℝ) * a * b) * ((g : ℝ) * (z : ℝ) * (z : ℝ)) :=
         mul_le_mul_of_nonneg_left hgzz hpos
       nlinarith
@@ -2062,8 +2062,8 @@ private lemma h7_per_g {Cb Ce2 Ce3 : ℝ} (hCb : 0 < Cb)
     rw [e3, e4] at hL
     have hmu : |(moebius a : ℝ) * (moebius b : ℝ)| ≤ 1 := by
       rw [abs_mul]
-      nlinarith [abs_moebius_cast_le_one a, abs_moebius_cast_le_one b,
-        abs_nonneg ((moebius a : ℝ)), abs_nonneg ((moebius b : ℝ))]
+      nlinarith only [abs_moebius_cast_le_one a,
+          abs_nonneg ((moebius b : ℝ)), abs_moebius_cast_le_one b]
     have hinner : |(sqfLogPair z a b (⌊u⌋₊ / (g * a * b))
             - rho0 * (((a * b : ℕ) : ℝ) / kappa (a * b)) * (u / ((g : ℝ) * a * b))
               * ((Real.log (u / ((g : ℝ) * b * z)) - 1)
@@ -2348,11 +2348,11 @@ theorem sum_tailT_sq_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ u 
     exact h
   have hcl1 : u ^ (3/2 : ℝ) / z ≤ u := by
     rw [hu32, div_le_iff₀ hz0]
-    nlinarith
+    nlinarith only [hu, hsqrtz]
   have hcl2 : Real.log (u / (z : ℝ)) ≤ Real.log (z : ℝ) := by
     refine Real.log_le_log (by positivity) ?_
     rw [div_le_iff₀ hz0]
-    nlinarith
+    linarith only [huz]
   have hcl3 : (1 : ℝ) ≤ Real.log (z : ℝ) / Real.log 2 := by
     rw [le_div_iff₀ hlog2]
     linarith
@@ -2368,12 +2368,12 @@ theorem sum_tailT_sq_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ u 
     have hnn : (0 : ℝ) ≤ 2 * u * Cac := by
       have : (0 : ℝ) ≤ 2 * u := by linarith
       exact mul_nonneg this hCac.le
-    nlinarith [mul_le_mul_of_nonneg_left hstep hnn]
+    linarith only [mul_le_mul_of_nonneg_left hstep hnn]
   have hfin2 : 2 * (Cbk * u) + 3 * (Cb * (Ce2 + Ce3) * (u ^ (3/2 : ℝ) / z))
       ≤ (2 * Cbk + 3 * Cb * (Ce2 + Ce3)) / Real.log 2 * u * Real.log (z : ℝ) := by
     have h1 : 3 * (Cb * (Ce2 + Ce3) * (u ^ (3/2 : ℝ) / z)) ≤ 3 * (Cb * (Ce2 + Ce3) * u) := by
       have h2 : (0 : ℝ) < 3 * (Cb * (Ce2 + Ce3)) := by positivity
-      nlinarith [hcl1]
+      nlinarith only [hcl1, h2]
     have h3 : (2 * Cbk + 3 * Cb * (Ce2 + Ce3)) * u
         ≤ (2 * Cbk + 3 * Cb * (Ce2 + Ce3)) / Real.log 2 * u * Real.log (z : ℝ) := by
       have hpos : (0 : ℝ) < 2 * Cbk + 3 * Cb * (Ce2 + Ce3) := by positivity
@@ -2381,7 +2381,7 @@ theorem sum_tailT_sq_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ u 
           = (2 * Cbk + 3 * Cb * (Ce2 + Ce3)) * u * (Real.log (z : ℝ) / Real.log 2) := by
         field_simp
       rw [heq]
-      nlinarith [mul_le_mul_of_nonneg_left hcl3 (mul_pos hpos hu0).le]
+      linarith only [mul_le_mul_of_nonneg_left hcl3 (mul_pos hpos hu0).le]
     linarith
   linarith [hfin1, hfin2]
 
@@ -2464,7 +2464,7 @@ theorem grahamW_sum_le_full : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → �
           ≤ 4 * (Real.log 4 + 4) * x * Real.log (z : ℝ) := by
         have hc : (0 : ℝ) ≤ 2 * (Real.log 4 + 4) * x :=
           mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * (Real.log 4 + 4)) hx0.le
-        nlinarith [mul_le_mul_of_nonneg_left hlogx hc]
+        linarith only [mul_le_mul_of_nonneg_left hlogx hc]
       have h3 : 2 * ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, tailT z n ^ 2 ≤ 2 * (C7 * x * Real.log (z : ℝ)) := by
         linarith
       linarith
@@ -2486,7 +2486,7 @@ theorem grahamW_sum_le_full : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → �
       _ = 1 + (4 * (Real.log 4 + 4) + 2 * C7) * (x / Real.log (z : ℝ)) := by
           field_simp
       _ ≤ (C9 + (1 + 4 * (Real.log 4 + 4) + 2 * C7)) * (x / Real.log (z : ℝ)) := by
-          nlinarith [mul_le_mul_of_nonneg_left hone (by linarith : (0 : ℝ) ≤ C9 + 1)]
+          linarith only [hC9, mul_le_mul_of_nonneg_left hone (by linarith : (0 : ℝ) ≤ C9 + 1)]
       _ = (C9 + (1 + 4 * (Real.log 4 + 4) + 2 * C7)) * x / Real.log (z : ℝ) := by ring
 
 /-- **S10-H (the two-level weight on the full range).** The landed S10's algebra with S9
@@ -2607,8 +2607,8 @@ theorem sum_sq_sum_bvWeight_le_low : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ,
           = 2 * Real.log (z₂ : ℝ) ^ 2 + 2 * C9 * x * Real.log x := by
         field_simp
       have h3 : 2 * C9 * x * Real.log x ≤ 2 * C9 * x * Real.log (z₂ : ℝ) := by
-        nlinarith [mul_le_mul_of_nonneg_left hlx
-          (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * C9) hx0.le)]
+        linarith only [mul_le_mul_of_nonneg_left hlx
+            (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * C9) hx0.le)]
       linarith
     have hL2sq : (0 : ℝ) ≤ Real.log (z₂ : ℝ) ^ 2 := sq_nonneg _
     have hxL : (0 : ℝ) ≤ x * Real.log (z₂ : ℝ) := mul_nonneg hx0.le hl₂.le
@@ -2628,12 +2628,12 @@ theorem sum_sq_sum_bvWeight_le_low : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ,
             = 2 * Real.log (z₁ : ℝ) ^ 2 + 2 * C9 * x * Real.log x := by
           field_simp
         have h3 : 2 * C9 * x * Real.log x ≤ 2 * C9 * x * Real.log (z₂ : ℝ) := by
-          nlinarith [mul_le_mul_of_nonneg_left hlx
-            (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * C9) hx0.le)]
+          linarith only [mul_le_mul_of_nonneg_left hlx
+              (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * C9) hx0.le)]
         have h4 : 2 * Real.log (z₁ : ℝ) ^ 2 ≤ 2 * Real.log (z₂ : ℝ) ^ 2 := by nlinarith
         linarith
-      nlinarith [hA', hB', mul_nonneg hC9.le hL2sq, mul_nonneg hC8.le hL2sq,
-        mul_nonneg hC8.le hxL, mul_nonneg hC9.le hxL, hxL, hL2sq]
+      linarith only [hB', hxL, hA', mul_nonneg hC8.le hxL,
+          mul_nonneg hC8.le hL2sq, mul_nonneg hC9.le hL2sq]
     · have hB : ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₁ n ≤ C8 * x / Real.log (z₁ : ℝ) :=
         h8 z₁ hz₁ x hgt.le
       have hB' : 2 * Real.log (z₁ : ℝ) ^ 2 * (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₁ n)
@@ -2645,11 +2645,11 @@ theorem sum_sq_sum_bvWeight_le_low : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ,
             = 2 * C8 * x * Real.log (z₁ : ℝ) := by
           field_simp
         have h3 : 2 * C8 * x * Real.log (z₁ : ℝ) ≤ 2 * C8 * x * Real.log (z₂ : ℝ) := by
-          nlinarith [mul_le_mul_of_nonneg_left hl12
-            (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * C8) hx0.le)]
+          linarith only [mul_le_mul_of_nonneg_left hl12
+              (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * C8) hx0.le)]
         linarith
-      nlinarith [hA', hB', mul_nonneg hC9.le hL2sq, mul_nonneg hC8.le hL2sq,
-        mul_nonneg hC8.le hxL, mul_nonneg hC9.le hxL, hxL, hL2sq]
+      linarith only [hB', hxL, hA', mul_nonneg hC9.le hxL, mul_nonneg hC8.le hL2sq,
+          mul_nonneg hC9.le hL2sq, sq_nonneg (Real.log ↑z₂)]
   calc ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d) ^ 2
       ≤ ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
           (2 * Real.log (z₂ : ℝ) ^ 2 * grahamW z₂ n + 2 * Real.log (z₁ : ℝ) ^ 2 * grahamW z₁ n)
