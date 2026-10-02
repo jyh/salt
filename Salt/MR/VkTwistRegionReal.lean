@@ -239,8 +239,8 @@ theorem LFunction_real_zero_free_of_disc {q : ℕ} [NeZero q] {χ : DirichletCha
   have hσ1 : 1 < σ := by rw [hσdef]; linarith [hddL]
   have hσ2le : σ ≤ 2 := by rw [hσdef]; linarith [hσΘ, hΘ2]
   have hσc : |σ - 1 - Θ / 2| ≤ 69 / 70 * Θ := by
-    rw [hσdef, abs_of_nonpos (by nlinarith [hσΘ, hddL] : (1 + dd / Lq) - 1 - Θ / 2 ≤ 0)]
-    nlinarith [hσΘ, hΘ0, hddL]
+    rw [hσdef, abs_of_nonpos (by linarith only [hσΘ] : (1 + dd / Lq) - 1 - Θ / 2 ≤ 0)]
+    linarith only [hddL, hσΘ]
   rcases le_or_gt ρ.re (1 - 11 / 14 * Θ) with hout | hin
   · linarith [hwΘ, hout]
   · -- the three legs
@@ -274,7 +274,7 @@ theorem LFunction_real_zero_free_of_disc {q : ℕ} [NeZero q] {χ : DirichletCha
       have hnum : σ - 1 ≤ 1 := by linarith [hσ2le]
       rw [one_div, Complex.inv_re, hre, hns]
       rw [div_le_div_iff₀ (by linarith) (by norm_num)]
-      nlinarith [hnum, hden, hσ1]
+      linarith only [hden, hσΘ, hΘ2]
     -- the Davenport chain
     have key : 4 * (1 / (σ - ρ.re)) ≤ 3 * (1 / (σ - 1))
         + (8 + Real.log (q : ℝ) + 5 * Cnum) := by
@@ -316,7 +316,7 @@ theorem LFunction_real_region_of_growth {q : ℕ} [NeZero q] {χ : DirichletChar
         ‖riemannZeta z‖ ≤ M) :
     ρ.re ≤ 1 - dd / (7 * Lq) := by
   have hM₀ : (1 : ℝ) ≤ 5 * M / Θ := by
-    rw [le_div_iff₀ hΘ0]; nlinarith [hM, hΘ12, hΘ0]
+    rw [le_div_iff₀ hΘ0]; linarith only [hM, hΘ12, hΘ0]
   -- the sphere geometry (shared)
   have box : ∀ (τ R : ℝ), 0 ≤ R → R ≤ 3 / 2 * Θ → ρ.im - 1 + R ≤ τ → τ + R ≤ 3 * ρ.im →
       ∀ z ∈ sphere (((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I) R,
@@ -333,12 +333,12 @@ theorem LFunction_real_region_of_growth {q : ℕ} [NeZero q] {χ : DirichletChar
       have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I))
       rw [Complex.sub_im, hcim, hzc] at h; exact h
     refine ⟨⟨?_, ?_⟩, ?_, ?_⟩
-    · have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
-    · have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
+    · have := (abs_le.mp hreb).1; linarith only [this, hR]
+    · have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
     · have := (abs_le.mp himb).1; linarith [hτlo]
     · have := (abs_le.mp himb).2; linarith [hτhi]
-  have hR74 : (7 : ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
-  have hR32 : (3 : ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR74 : (7 : ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
+  have hR32 : (3 : ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
   have hR74' : (0 : ℝ) ≤ 7 / 4 * (6 * Θ / 7) := by positivity
   have hR32' : (0 : ℝ) ≤ 3 / 2 * (6 * Θ / 7) := by positivity
   have hτ2 : (1 : ℝ) ≤ |2 * ρ.im| := by
@@ -346,20 +346,20 @@ theorem LFunction_real_region_of_growth {q : ℕ} [NeZero q] {χ : DirichletChar
   refine LFunction_real_zero_free_of_disc hχ1 hχsq hρ0 hβ1 hγ2 hΘ0 (by linarith [hΘ12]) hM₀
     hdd hddlt hLq0 hσΘ hwΘ hchainC ?_ ?_ ?_ ?_
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR74' hR74 (by nlinarith [hΘ12])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR74' hR74 (by linarith only [hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact LFunction_ratio_bound χ hΘ0 hΘ12 hM (hgrowthχ z h1 h2 h3 h4)
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR32' hR32 (by nlinarith [hΘ12])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR32' hR32 (by linarith only [hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact LFunction_ratio_bound χ hΘ0 hΘ12 hM (hgrowthχ z h1 h2 h3 h4)
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR74' hR74 (by nlinarith [hΘ12, hγ2])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR74' hR74 (by linarith only [hγ2, hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact Zc_ratio_sphere_bound hΘ0 hΘ12 hτ2 hM hR74' hR74 hz (hgrowthζ z h1 h2 h3 h4)
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR32' hR32 (by nlinarith [hΘ12, hγ2])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR32' hR32 (by linarith only [hγ2, hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact Zc_ratio_sphere_bound hΘ0 hΘ12 hτ2 hM hR32' hR32 hz (hgrowthζ z h1 h2 h3 h4)
 
 /-! ## §5 — the width law, the shape, and THE REAL ARM'S REGION -/
@@ -401,11 +401,11 @@ private lemma real_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A lq : ℝ}
   have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
   have hPinvbig : (10 : ℝ) ^ 7 ≤ Pinv := by
     rw [hPinvdef]
-    have h1 : (10000 : ℝ) ≤ ℓ3 ^ (2 : ℕ) := by nlinarith [hℓ3100]
-    nlinarith [hL31, h1]
+    have h1 : (10000 : ℝ) ≤ ℓ3 ^ (2 : ℕ) := by nlinarith only [hℓ3lb, hℓ100]
+    nlinarith only [hL31, h1, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv, div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinvbig]
-  have hM1 : 1 ≤ M := by rw [hMval]; nlinarith [hCq, hL31']
+  have hM1 : 1 ≤ M := by rw [hMval]; nlinarith only [hL3lb, hCq, hLg3, hΘ12, hΘ0]
   have hPinvΘ : 1 / Θ = Pinv := by rw [hΘPinv, one_div_one_div]
   refine ⟨hΘ0, hΘ12, hM1, ?_⟩
   rw [hPinvΘ]
@@ -441,13 +441,13 @@ private lemma real_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A lq : ℝ}
       rwa [show (100 : ℝ) = 10 ^ 2 by norm_num,
         Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 10)] at h
     have h3 : Real.sqrt ℓ3 ^ 2 = ℓ3 := Real.sq_sqrt hℓ30.le
-    nlinarith [h1, h2, h3, Real.sqrt_nonneg ℓ3]
+    nlinarith only [h2, hΘ12, hΘ0, h1, hℓ3lb, hℓ100, h3]
   have hWub : W ≤ (A + 6) * ℓ := by
     rw [hWeq]
-    nlinarith [hgate, hlog1L3, hlogℓ3le, hℓ3ub, hℓ0, hℓ100]
+    linarith only [hlogℓ3le, hlog1L3, hΘ12, hΘ0, hgate, hℓ3ub, hℓ100]
   have hW1 : (1 : ℝ) ≤ W := by
     have h20 : (40 : ℝ) ≤ 20 * M / Θ := by
-      rw [le_div_iff₀ hΘ0]; nlinarith [hM1, hΘ12]
+      rw [le_div_iff₀ hΘ0]; linarith only [hM1, hΘ12]
     have he : Real.exp 1 ≤ 20 * M / Θ :=
       le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h20
     rw [hWdef, ← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) he
@@ -461,7 +461,7 @@ private lemma real_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A lq : ℝ}
       calc (2 : ℝ) ^ ((3 : ℝ) / 4) ≤ (2 : ℝ) ^ (1 : ℝ) :=
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
         _ = 2 := Real.rpow_one 2
-    rw [h2] at h1; nlinarith [h1, h3, hLg34nn]
+    rw [h2] at h1; nlinarith only [hLg34nn, h3, h1]
   have hℓ3sqle : ℓ3 ^ (2 : ℕ) ≤ 4 * ℓ ^ (2 : ℕ) := by
     calc ℓ3 ^ (2 : ℕ) ≤ (2 * ℓ) ^ (2 : ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3ub 2
       _ = 4 * ℓ ^ (2 : ℕ) := by ring
@@ -476,17 +476,17 @@ private lemma real_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A lq : ℝ}
   -- the final comparison
   set D : ℝ := Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ) with hDdef
   have hLg341 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) := Real.one_le_rpow (by linarith) (by norm_num)
-  have hℓcube : (10 : ℝ) ^ 6 ≤ ℓ ^ (3 : ℕ) := by nlinarith [hℓ100, hℓ0]
+  have hℓcube : (10 : ℝ) ^ 6 ≤ ℓ ^ (3 : ℕ) := by nlinarith only [hℓ100, sq_nonneg ℓ]
   have hDpos : 0 < D := by rw [hDdef]; positivity
   have hDbig : (10 : ℝ) ^ 6 ≤ D := by
-    rw [hDdef]; nlinarith [hLg341, hℓcube]
+    rw [hDdef]; nlinarith only [hℓ100, hPinvle, hPinvpos, hLg341, sq_nonneg ℓ]
   have hℓD : ℓ ≤ D := by
     rw [hDdef]
-    have h1 : ℓ ≤ ℓ ^ (3 : ℕ) := by nlinarith [hℓ100, hℓ0]
-    nlinarith [h1, hLg341, hℓcube]
+    have h1 : ℓ ≤ ℓ ^ (3 : ℕ) := by nlinarith only [hℓ100, hℓcube, hΘ12, hΘ0, sq_nonneg ℓ]
+    nlinarith only [hℓ100, hPinvle, hPinvbig, hLg341, hDbig, hΘ12, hΘ0, sq_nonneg ℓ]
   have hℓ3' : ℓ ^ (2 : ℕ) * ℓ = ℓ ^ (3 : ℕ) := by ring
   have hden0 : 0 < 14 * (8 + lq + 700 * Pinv * W) := by
-    nlinarith [hPinvpos, hW1, hlq0]
+    nlinarith only [hPinvpos, hW1, hΘ12, hΘ0, hlq0]
   have step : 14 * (8 + lq + 700 * Pinv * W) ≤ 10 ^ 8 * (A + 7) * D := by
     have hgrow : 700 * Pinv * W ≤ 700 * (8000 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (2 : ℕ)))
         * ((A + 6) * ℓ) := by
@@ -500,7 +500,7 @@ private lemma real_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A lq : ℝ}
     have hlqD : lq ≤ A * D := by
       calc lq ≤ A * ℓ := hlqle
         _ ≤ A * D := mul_le_mul_of_nonneg_left hℓD (by linarith)
-    nlinarith [hgrow', hlqD, hDbig, hA1, hDpos]
+    linarith only [hlqD, hgrow, hDbig, hΘ12, hΘ0, hlq0]
   have hcmp : (1 : ℝ) / (10 ^ 8 * (A + 7) * D)
       ≤ 1 / (14 * (8 + lq + 700 * Pinv * W)) := by
     apply one_div_le_one_div_of_le hden0 step
@@ -580,7 +580,7 @@ theorem LFunction_real_zero_free_region_vk_pos {q : ℕ} [NeZero q]
     refine le_trans ?_ hgate
     apply Real.log_le_log (by linarith)
     rw [hCqdef, vkStripConst]
-    nlinarith [hq1R]
+    linarith only [hq1R]
   obtain ⟨hΘ0, hΘ12, hM1, hshape⟩ := real_width_shape hLg3 hell100 hL3lb hL3ub hell3def
     hell3lb hell3ub hCq1 hA1 hgate hlogq0 hlogqle hΘval hMdef
   -- the two growths, against the common `M`
@@ -593,14 +593,14 @@ theorem LFunction_real_zero_free_region_vk_pos {q : ℕ} [NeZero q]
     have h := vk_char_box_growth χ hχ1 hγfloor z (by rw [← hΘdef]; exact h1) h2 h3 h4
     rw [← hL3def] at h
     rw [hMdef, hCqdef]
-    nlinarith [h, hL3nn]
+    linarith only [h, hΘ12, hΘ0, hL3lb, hLgbig, hexp100]
   have hgrowthζ : ∀ z : ℂ, 1 - Θ ≤ z.re → z.re ≤ 2 → ρ.im - 1 ≤ z.im → z.im ≤ 3 * ρ.im →
       ‖riemannZeta z‖ ≤ M := by
     intro z h1 h2 h3 h4
     have h := zeta_box_growth_explicit hγfloor z (by rw [← hΘdef]; exact h1) h2 h3 h4
     rw [← hL3def] at h
     rw [hMdef, hCqdef]
-    nlinarith [h, hL3nn, hC0, hL30]
+    nlinarith only [hL3lb, hC0, hLgbig, hexp100, h, hΘ12, hΘ0]
   -- the width law at `dd = 1/2`, `Lq = 8 + log q + 700·Pinv·W`
   set Pinv : ℝ := 1 / Θ with hPinvdef
   have hPinvpos : 0 < Pinv := by rw [hPinvdef]; positivity
@@ -609,7 +609,7 @@ theorem LFunction_real_zero_free_region_vk_pos {q : ℕ} [NeZero q]
   set W : ℝ := Real.log (20 * M / Θ) with hWdef
   have hW1 : (1 : ℝ) ≤ W := by
     have h20 : (40 : ℝ) ≤ 20 * M / Θ := by
-      rw [le_div_iff₀ hΘ0]; nlinarith [hM1, hΘ12]
+      rw [le_div_iff₀ hΘ0]; linarith only [hM1, hΘ12]
     have he : Real.exp 1 ≤ 20 * M / Θ :=
       le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h20
     rw [hWdef, ← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) he
@@ -618,7 +618,7 @@ theorem LFunction_real_zero_free_region_vk_pos {q : ℕ} [NeZero q]
     rw [hLqdef]
     have hkey : 700 * Pinv * 1 ≤ 700 * Pinv * W :=
       mul_le_mul_of_nonneg_left hW1 (by positivity)
-    nlinarith [hkey, hPinvpos, hlogq0]
+    linarith only [hkey, hPinv2, hΘ12, hΘ0, hlogq0]
   have hLq0 : 0 < Lq := lt_of_lt_of_le hPinvpos hLqgeP
   have hΘPinv : Θ = 1 / Pinv := by rw [hPinvdef, one_div_one_div]
   have hσΘ : (1 : ℝ) / 2 / Lq ≤ Θ / 2 := by
@@ -627,7 +627,7 @@ theorem LFunction_real_zero_free_region_vk_pos {q : ℕ} [NeZero q]
   have hwΘ : (1 : ℝ) / 2 / (7 * Lq) ≤ 11 / 14 * Θ := by
     rw [hΘPinv, mul_one_div, div_div]
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [hLqgeP, hPinvpos, hLq0]
+    linarith only [hLqgeP, hPinv2, hΘ12, hΘ0]
   have hchainC : 8 + Real.log (q : ℝ)
       + 5 * ((120 / (6 * Θ / 7)) * Real.log (4 * (5 * M / Θ))) ≤ Lq / (2 * (1 / 2)) := by
     have h1 : (120 : ℝ) / (6 * Θ / 7) = 140 * Pinv := by
