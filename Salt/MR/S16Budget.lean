@@ -149,8 +149,8 @@ theorem s16_logP1_le_logP2 (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
   have hGr : (3072 : ℝ) ≤ ((s13GK K M : ℕ) : ℝ) := by exact_mod_cast hG
   rw [le_div_iff₀ (by norm_num)]
   push_cast
-  nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 4 * ((s13GK K M : ℕ) : ℝ) - 12288)
-    (mul_nonneg (by linarith : (0 : ℝ) ≤ ((Adoor M : ℕ) : ℝ)) hlog2.le)]
+  linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 4 * ((s13GK K M : ℕ) : ℝ) - 12288)
+      (mul_nonneg (by linarith : (0 : ℝ) ≤ ((Adoor M : ℕ) : ℝ)) hlog2.le)]
 
 /-- `log(H₂) ≤ 2 + log(𝒫₂)/73728` where `H₂ = calH (H1door M) 2`. -/
 theorem s16_logH2_le (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
@@ -182,7 +182,7 @@ theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
     (hlS0 : 0 < lS) (hlS : lS ≤ μ + 12 * Λ) (hllS : llS ≤ Λ + 1) :
     16 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + 2 * (lS / Lp) * llS + (7 / 24) * lq + μ / Λ
       ≤ (5 / 24) * μ := by
-  have hΛ0 : (0 : ℝ) < Λ := by nlinarith
+  have hΛ0 : (0 : ℝ) < Λ := by linarith only [hΛ]
   have hexp : Real.exp Λ = μ := by rw [← hμΛ]; exact Real.exp_log hμ
   have hμbig : (10 : ℝ) ^ (21 : ℕ) ≤ μ := by
     have := Real.add_one_le_exp Λ
@@ -190,31 +190,31 @@ theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
     linarith
   have hsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ.le
   have hsq0 : 0 < Real.sqrt μ := Real.sqrt_pos.mpr hμ
-  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by nlinarith [hsq, hμbig, hsq0]
+  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by linarith only [hcap, hLq, hLpq, hΛ]
   have hsqle : Real.sqrt μ ≤ μ / 10 ^ (10 : ℕ) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith [hsq, hsq10, hsq0]
+    nlinarith only [hLq, hLpq, hLp0, hcap, hμ, hΛ, hsq]
   have hLple : Lp ≤ μ / (4 * 10 ^ (10 : ℕ)) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith [hLpq, hLq, hsqle]
+    linarith only [hsqle, hLq, hLpq]
   have hΛle : Λ ≤ μ / (96 * 10 ^ (10 : ℕ)) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith [hcap, hLple]
+    linarith only [hsqle, hcap, hLq, hLpq]
   have hmain : 2 * (lS / Lp) * llS ≤ μ / 8 := by
     have hkey : 2 * lS * llS ≤ (μ / 8) * Lp := by
       have h24 : 24 * Λ ≤ Lp := by linarith
-      nlinarith [hlS, hllS, hlS0.le, hΛ0, hμbig, hΛle, h24, hμ]
+      nlinarith only [hlS0, hllS, hLq, hLpq, hLp0, hcap, hμ, hΛ, hlS, hsq]
     have : 2 * (lS / Lp) * llS = (2 * lS * llS) / Lp := by field_simp
     rw [this, div_le_iff₀ hLp0]
     linarith
   have hLqle : (7 / 24) * Lq ≤ μ / 10 ^ (10 : ℕ) := by
-    nlinarith [hLq, hsqle, hsq0]
+    linarith only [hsqle, hcap, hLq, hLpq, hΛ]
   have hlqle : (7 / 24) * lq ≤ μ / 10 ^ (10 : ℕ) := by
-    nlinarith [hlq, hΛle]
+    linarith only [hsqle, hlq, hcap, hLq, hLpq, hΛ]
   have hdivle : μ / Λ ≤ μ / 10 ^ (21 : ℕ) :=
     div_le_div_of_nonneg_left hμ.le (by norm_num) hΛ
   have h9 : (16 : ℝ) ≤ μ / 10 ^ (10 : ℕ) := by
-    rw [le_div_iff₀ (by norm_num)]; nlinarith [hμbig]
+    rw [le_div_iff₀ (by norm_num)]; linarith only [hsqle, hcap, hLq, hLpq, hΛ]
   have hLp2 : Lp / 73728 ≤ μ / 10 ^ (10 : ℕ) := by
     have h : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
     rw [h] at hLple ⊢
@@ -275,14 +275,14 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
         have := Nat.mul_le_mul hA hG; omega
       exact_mod_cast this
     have := Real.log_pos (by norm_num : (1 : ℝ) < 2)
-    nlinarith
+    nlinarith only [h4, this]
   have hLqval : Lq = ((4 * M : ℕ) : ℝ) * Lp := by rw [hLqdef, hLpdef, s16_logQK2]
   have hLpq : 4 * Lp ≤ Lq := by
     rw [hLqval]
     have : (4 : ℝ) ≤ ((4 * M : ℕ) : ℝ) := by
       have : (4 : ℕ) ≤ 4 * M := by omega
       exact_mod_cast this
-    nlinarith [hLp0]
+    nlinarith only [hcap, this, hLam]
   have hΛ0 : (0 : ℝ) < Λ := by linarith [hLam]
   -- `12Λ ≤ μ`
   have h12 : 12 * Λ ≤ μ := by
@@ -290,7 +290,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     have h1 : Λ / 2 + 1 ≤ Real.exp (Λ / 2) := Real.add_one_le_exp _
     have h2 : Real.exp (Λ / 2) * Real.exp (Λ / 2) = μ := by
       rw [← Real.exp_add, show Λ / 2 + Λ / 2 = Λ by ring, hh]
-    nlinarith [hLam, h1, h2, Real.exp_pos (Λ / 2)]
+    nlinarith only [h1, hLam, h2]
   -- `S = q·Tann`
   have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hS0 : (0 : ℝ) < (q : ℝ) * Tann := by nlinarith
@@ -312,7 +312,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     linarith
   have hllS : Real.log (Real.log ((q : ℝ) * Tann)) ≤ Λ + 1 := by
     have h2μ : Real.log ((q : ℝ) * Tann) ≤ Real.exp 1 * μ := by
-      nlinarith [Real.add_one_le_exp (1 : ℝ), h12, hlS, hμ0]
+      nlinarith only [hmu8, hlS, h12, Real.add_one_le_exp (1 : ℝ)]
     have hstep : Real.log (Real.log ((q : ℝ) * Tann)) ≤ Real.log (Real.exp 1 * μ) :=
       Real.log_le_log hlS0 h2μ
     have heq : Real.log (Real.exp 1 * μ) = 1 + Λ := by
@@ -431,7 +431,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
       calc Real.log (Q : ℝ) ≤ Real.log (Q83 X) := Real.log_le_log (by linarith) hQhigh
         _ = μ / Λ := h5
     rw [div_le_iff₀ hH830]
-    nlinarith [hH830, h1, h4]
+    nlinarith only [hH830, h4, h1]
   have hMr : 2 * X * Real.exp (-(i : ℝ) / H83 X theta293) ≤ ((s13Mr Nd i : ℕ) : ℝ) := by
     rw [hXdef, s13Mr]
     exact Nat.le_ceil _
@@ -726,8 +726,8 @@ theorem s16_recut_cap_demand_met :
   have h50 := s15WitFloor2_loglog_ge
   set u : ℝ := Real.log (Real.log ((s15WitFloor2 : ℕ) : ℝ)) with hu
   have hu0 : (0 : ℝ) ≤ u := by linarith
-  have hsq : u ^ 2 ≤ (2772589 / 10000 : ℝ) ^ 2 := by nlinarith
-  have hcb : u ^ 3 ≤ (2772589 / 10000 : ℝ) ^ 3 := by nlinarith
+  have hsq : u ^ 2 ≤ (2772589 / 10000 : ℝ) ^ 2 := by nlinarith only [hlam, h50]
+  have hcb : u ^ 3 ≤ (2772589 / 10000 : ℝ) ^ 3 := by nlinarith only [hlam, hsq, sq_nonneg (1 * u)]
   have hnum : (2772589 / 10000 : ℝ) ^ 3 ≤ 21313585 := by norm_num
   refine le_trans (le_trans hcb hnum) (le_trans ?_ (s16_recut_logLogP2_ge 32000000))
   have hl2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
@@ -954,7 +954,7 @@ theorem s16_audit_rho_ge_wide {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
   rw [doorRhoOfDelta, le_min_iff]
   refine ⟨by norm_num, ?_⟩
   rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
-  nlinarith [hKb, hδb, hK]
+  linarith only [hKb, hδb, hδ]
 
 set_option exponentiation.threshold 4000 in
 /-- ⟦AUDIT⟧ the clearing charge at the WIDE `Kc` ceiling: `log(1/ρ) ≤ 403` (was `43`). -/
@@ -982,18 +982,18 @@ theorem s16_audit_rho_ge_wide_h {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 
     (hδb : 1 / (2 ^ 20 * (h : ℝ) ^ 2) ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
     (1 : ℝ) / (2 ^ 581 * (h : ℝ) ^ 2) ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hhsq : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith
+  have hhsq : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith only [hh1, (Nat.cast_nonneg _ : 0 ≤ ↑h)]
   have hh0 : (0 : ℝ) < (h : ℝ) := by linarith
   have hinv : (0 : ℝ) < 1 / (h : ℝ) ^ 2 := by positivity
   rw [doorRhoOfDelta, le_min_iff]
   refine ⟨?_, ?_⟩
   · rw [div_le_one (by positivity)]
-    nlinarith [hhsq]
+    linarith only [hhsq]
   rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
   -- ⟦THE SPLIT⟧ the `h²` is a common factor on both sides; peel it off so the
   -- numeral comparison `1768400 ≤ 2^22` is seen by `nlinarith` on its own.
   have hkey : 1 / (2 : ℝ) ^ 581 * (16 * K * 110525) ≤ 1 / (2 : ℝ) ^ 20 := by
-    nlinarith [hKb, hK]
+    linarith only [hKb]
   have hsplit1 : 1 / ((2 : ℝ) ^ 581 * (h : ℝ) ^ 2) * (16 * K * 110525)
       = 1 / (2 : ℝ) ^ 581 * (16 * K * 110525) * (1 / (h : ℝ) ^ 2) := by
     field_simp
@@ -1073,7 +1073,7 @@ theorem s16_audit_hcap_wall {lam : ℝ} (hlam : 492 ≤ lam) {K : ℕ} (hK : K �
   have hl2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
   have hl0 : (0 : ℝ) < Real.log 2 := by linarith [Real.log_two_gt_d9]
   have hcube : (492 : ℝ) ^ 3 ≤ lam ^ 3 := by gcongr
-  nlinarith [hKR, hl2, hl0, hcube]
+  nlinarith only [hl2, hcube, hl0, hKR, (Nat.cast_nonneg _ : 0 ≤ ↑K)]
 
 
 
@@ -1146,7 +1146,7 @@ theorem blockfree_sum_le_bounded :
     · rw [if_pos hmem]
       have h1 : ‖a n‖ ^ 2 ≤ 1 := by
         have := ha n
-        nlinarith [norm_nonneg (a n)]
+        nlinarith only [this, norm_nonneg (a n)]
       exact div_le_div_of_nonneg_right h1 (by positivity) |>.trans_eq rfl
     · rw [if_neg hmem]
       have haz : a n = 0 := by
@@ -1650,11 +1650,11 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl (K : ℕ)
       have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
       unfold strataResidual
       linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith only [hSR1]
     have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
       have h1 : RSanDoorRho ρ H ≤ 1 := by
         unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
+        rw [div_le_one (by linarith only [hSRsq])]
         linarith
       exact le_trans h1 (le_max_left _ _)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
@@ -1974,7 +1974,7 @@ theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
     (hlS0 : 0 < lS) (hlS : lS ≤ μ + 12 * Λ) (hllS : llS ≤ Λ + 1) :
     16 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + 2 * (lS / Lp) * llS + (7 / 24) * lq + μ / Λ
       ≤ (5 / 24) * μ := by
-  have hΛ0 : (0 : ℝ) < Λ := by nlinarith
+  have hΛ0 : (0 : ℝ) < Λ := by linarith only [hΛ]
   have hexp : Real.exp Λ = μ := by rw [← hμΛ]; exact Real.exp_log hμ
   have hμbig : (10 : ℝ) ^ (21 : ℕ) ≤ μ := by
     have := Real.add_one_le_exp Λ
@@ -1982,19 +1982,19 @@ theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
     linarith
   have hsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ.le
   have hsq0 : 0 < Real.sqrt μ := Real.sqrt_pos.mpr hμ
-  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by nlinarith [hsq, hμbig, hsq0]
+  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by nlinarith only [hLq, hLpq, hLp0, hsq, hμbig]
   have hsqle : Real.sqrt μ ≤ μ / 10 ^ (10 : ℕ) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith [hsq, hsq10, hsq0]
+    nlinarith only [hLq, hsq10, hLpq, hLp0, hμbig, hsq]
   have hLple : Lp ≤ μ / (4 * 10 ^ (10 : ℕ)) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith [hLpq, hLq, hsqle]
+    linarith only [hsqle, hLq, hLpq]
   -- ⟦THE TIGHTER CAP⟧ `9.60000096·Λ ≤ Lp`
   have hc : 9.60000096 * Λ ≤ Lp := by
     rw [le_div_iff₀ (by norm_num)] at hcap; linarith
   have hΛle : Λ ≤ μ / (38 * 10 ^ (10 : ℕ)) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith [hc, hLple]
+    linarith only [hc, hsqle, hLq, hLpq, hΛ]
   have hΛ38 : 38 * 10 ^ (10 : ℕ) * Λ ≤ μ := by
     rw [le_div_iff₀ (by norm_num)] at hΛle; linarith
   have hmain : 2 * (lS / Lp) * llS ≤ (5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ)) := by
@@ -2007,7 +2007,7 @@ theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
     have h2 : μ * 10 ^ (21 : ℕ) ≤ μ * Λ := mul_le_mul_of_nonneg_left hΛ hμ.le
     have h3 : 10 ^ (21 : ℕ) * Λ ≤ μ * Λ := mul_le_mul_of_nonneg_right hμbig hΛ0.le
     have hstep1 : 2 * lS * llS ≤ 2 * (μ + 12 * Λ) * (Λ + 1) := by
-      nlinarith [hlS0.le, hlS, hllS, hΛ0.le]
+      nlinarith only [hlS0, hllS, hΛ, hlS]
     have hstep2 : 2 * (μ + 12 * Λ) * (Λ + 1)
         ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * (9.60000096 * Λ) := by
       have hp1 : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
@@ -2024,13 +2024,13 @@ theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
     rw [hrw, div_le_iff₀ hLp0]
     linarith
   have hLqle : (7 / 24) * Lq ≤ μ / 10 ^ (10 : ℕ) := by
-    nlinarith [hLq, hsqle, hsq0]
+    linarith only [hc, hsqle, hLq, hLpq, hΛ]
   have hlqle : (7 / 24) * lq ≤ μ / 10 ^ (10 : ℕ) := by
-    nlinarith [hlq, hΛle]
+    linarith only [hc, hsqle, hlq, hLq, hLpq, hΛ]
   have hdivle : μ / Λ ≤ μ / 10 ^ (21 : ℕ) :=
     div_le_div_of_nonneg_left hμ.le (by norm_num) hΛ
   have h9 : (16 : ℝ) ≤ μ / 10 ^ (10 : ℕ) := by
-    rw [le_div_iff₀ (by norm_num)]; nlinarith [hμbig]
+    rw [le_div_iff₀ (by norm_num)]; linarith only [hc, hsqle, hLq, hLpq, hΛ]
   have hLp2 : Lp / 73728 ≤ μ / 10 ^ (10 : ℕ) := by
     have h : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
     rw [h] at hLple ⊢
@@ -2072,7 +2072,7 @@ theorem s16_baseScaleCap96_of_baseScaleCap (K : ℕ) {R : ChowlaRegime} {M : ℕ
         have := Nat.mul_le_mul hA hG; omega
       exact_mod_cast this
     have := Real.log_pos (by norm_num : (1 : ℝ) < 2)
-    nlinarith
+    nlinarith only [h4, this]
   have hdiv : Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 24
       ≤ Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 9.60000096 :=
     div_le_div_of_nonneg_left hLp0.le (by norm_num) (by norm_num)
@@ -2120,14 +2120,14 @@ theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
         have := Nat.mul_le_mul hA hG; omega
       exact_mod_cast this
     have := Real.log_pos (by norm_num : (1 : ℝ) < 2)
-    nlinarith
+    nlinarith only [h4, this]
   have hLqval : Lq = ((4 * M : ℕ) : ℝ) * Lp := by rw [hLqdef, hLpdef, s16_logQK2]
   have hLpq : 4 * Lp ≤ Lq := by
     rw [hLqval]
     have : (4 : ℝ) ≤ ((4 * M : ℕ) : ℝ) := by
       have : (4 : ℕ) ≤ 4 * M := by omega
       exact_mod_cast this
-    nlinarith [hLp0]
+    nlinarith only [hLp0, this]
   have hΛ0 : (0 : ℝ) < Λ := by linarith [hLam]
   -- `12Λ ≤ μ`
   have h12 : 12 * Λ ≤ μ := by
@@ -2135,7 +2135,7 @@ theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     have h1 : Λ / 2 + 1 ≤ Real.exp (Λ / 2) := Real.add_one_le_exp _
     have h2 : Real.exp (Λ / 2) * Real.exp (Λ / 2) = μ := by
       rw [← Real.exp_add, show Λ / 2 + Λ / 2 = Λ by ring, hh]
-    nlinarith [hLam, h1, h2, Real.exp_pos (Λ / 2)]
+    nlinarith only [h1, hLam, h2]
   -- `S = q·Tann`
   have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hS0 : (0 : ℝ) < (q : ℝ) * Tann := by nlinarith
@@ -2157,7 +2157,7 @@ theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     linarith
   have hllS : Real.log (Real.log ((q : ℝ) * Tann)) ≤ Λ + 1 := by
     have h2μ : Real.log ((q : ℝ) * Tann) ≤ Real.exp 1 * μ := by
-      nlinarith [Real.add_one_le_exp (1 : ℝ), h12, hlS, hμ0]
+      nlinarith only [hmu8, hlS, h12, Real.add_one_le_exp (1 : ℝ)]
     have hstep : Real.log (Real.log ((q : ℝ) * Tann)) ≤ Real.log (Real.exp 1 * μ) :=
       Real.log_le_log hlS0 h2μ
     have heq : Real.log (Real.exp 1 * μ) = 1 + Λ := by
@@ -2276,7 +2276,7 @@ theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
       calc Real.log (Q : ℝ) ≤ Real.log (Q83 X) := Real.log_le_log (by linarith) hQhigh
         _ = μ / Λ := h5
     rw [div_le_iff₀ hH830]
-    nlinarith [hH830, h1, h4]
+    nlinarith only [hH830, h4, h1]
   have hMr : 2 * X * Real.exp (-(i : ℝ) / H83 X theta293) ≤ ((s13Mr Nd i : ℕ) : ℝ) := by
     rw [hXdef, s13Mr]
     exact Nat.le_ceil _
@@ -2323,7 +2323,7 @@ theorem s16_capgrid_gate_numeric_half {Λ : ℝ} (hΛ : 7800 ≤ Λ) :
   rw [hyv]
   have hstep : 420 * ((11 : ℝ) / 10) ^ (5 : ℕ)
       ≤ ((17 : ℝ) / 16000) ^ (32 : ℕ) * Λ ^ (27 : ℕ) :=
-    le_trans hc (by nlinarith [h27, hcpos])
+    le_trans hc (by linarith only [h27])
   calc 420 * (11 / 10 * Λ) ^ (5 : ℕ) = (420 * ((11 : ℝ) / 10) ^ (5 : ℕ)) * Λ ^ (5 : ℕ) := by
         ring
     _ ≤ (((17 : ℝ) / 16000) ^ (32 : ℕ) * Λ ^ (27 : ℕ)) * Λ ^ (5 : ℕ) :=
@@ -2386,7 +2386,7 @@ theorem s16_capGrid_gate_cs {Nd : ℕ} {cs : ℝ} (hcs : Real.exp (-100) ≤ cs)
       ≤ μ ^ ((3 : ℝ) / 40 - 2 * theta293) := by
     rw [Real.rpow_def_of_pos hμ0]
     refine le_trans (s16_capgrid_gate_numeric_cs hΛ7800) (Real.exp_le_exp.mpr ?_)
-    nlinarith [capgrid_gate_margin, hΛ0]
+    nlinarith only [hΛ, capgrid_gate_margin]
   have he : Real.exp (-100) * Real.exp 100 = 1 := by rw [← Real.exp_add]; norm_num
   have hgate' : 420 * (11 / 10 * Real.log μ) ^ 5
       ≤ Real.exp (-100) * μ ^ ((3 : ℝ) / 40 - 2 * theta293) := by
@@ -2600,7 +2600,7 @@ theorem s15_sel''_witness_wide (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ�
         _ = (2 : ℝ) ^ (398 : ℕ) := Real.exp_log (by positivity)
     have hrow : (2 : ℝ) ^ (398 : ℕ)
         ≤ ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2 := by
-      rw [hdrfR]; nlinarith [hlog2lo]
+      rw [hdrfR]; linarith only [hlog2hi, hlog2lo]
     have hpowid : ((2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ))
         = Real.exp (((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2) := by
       rw [← Real.log_pow]
@@ -2644,7 +2644,7 @@ theorem s15_sel''_witness_wide (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ�
       rwa [Real.log_pow] at h
     have hρ' : -(403 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
       linarith [hρlog]
-    nlinarith [hlog2lo, hhi, hCtl, hρ', hlog2hi]
+    linarith only [hCtl, hlog2hi, hlog2lo, hρlog, hhi]
   · -- the `level1` budget
     rw [hAdR, s15_log_calQK_one_gk Klev (2 ^ 355), hdrfR]
     have hQ : Real.log ((356 : ℝ) * 2 ^ 391 * Real.log 2) ≤ 277 := by
