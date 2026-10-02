@@ -75,10 +75,10 @@ theorem zeta_block_kusmin_prefix (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N
   have hδ2π : δ ≤ 1 / (2 * π) := by
     rw [hδ, div_le_div_iff₀ (by positivity) (by positivity)]
     have ht2N1 : t ≤ 2 * (N : ℝ) + 1 := by linarith [hN, Nat.cast_nonneg (α := ℝ) N]
-    nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr ht2N1)]
+    linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr ht2N1)]
   have hδ12 : δ ≤ 1 / 2 := by
     have h : 1 / (2 * π) ≤ 1 / 2 := by
-      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hpi1]
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; linarith only [hpi1]
     linarith [hδ2π]
   have hδ0 : 0 < δ := by rw [hδ]; exact div_pos ht (by positivity)
   have hg_ub : ∀ n : ℕ, N < n → n ≤ b →
@@ -95,8 +95,8 @@ theorem zeta_block_kusmin_prefix (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N
       mul_le_mul_of_nonneg_left hLlb (le_of_lt hApos)
     have hstep2 : δ ≤ t / (2 * π) * (1 / ((n : ℝ) + 1)) := by
       rw [mul_one_div, hδ, div_div, div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [mul_le_mul_of_nonneg_left hn12N
-        (mul_nonneg (le_of_lt ht) (le_of_lt (show (0 : ℝ) < 2 * π by positivity)))]
+      linarith only [mul_le_mul_of_nonneg_left hn12N
+          (mul_nonneg (le_of_lt ht) (le_of_lt (show (0 : ℝ) < 2 * π by positivity)))]
     have hcomb : δ ≤ t / (2 * π) * (Real.log ((n : ℝ) + 1) - Real.log (n : ℝ)) :=
       le_trans hstep2 hstep1
     rw [hgval n, neg_mul]; push_cast; linarith [hcomb]
@@ -116,9 +116,9 @@ theorem zeta_block_kusmin_prefix (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N
       rw [mul_one_div, div_div]
       have h1 : t / (2 * π * (n : ℝ)) ≤ 1 / (2 * π) := by
         rw [div_le_div_iff₀ (by positivity) (by positivity)]
-        nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htn)]
+        linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htn)]
       have h3 : 1 / (2 * π) + 1 / (2 * π) ≤ 1 := by
-        rw [← add_div, div_le_one (by positivity)]; nlinarith [Real.pi_gt_three]
+        rw [← add_div, div_le_one (by positivity)]; linarith only [hpi1]
       linarith [h1, hδ2π, h3]
     have hcomb : t / (2 * π) * (Real.log ((n : ℝ) + 1) - Real.log (n : ℝ)) ≤ 1 - δ :=
       le_trans hstep1 hbound
@@ -244,7 +244,7 @@ theorem zeta_block_vdC_prefix (k : ℕ) (hk : 2 ≤ k)
       have hnat : 2 * (i + 1) ≤ 2 ^ (i + 1) := two_mul_le_two_pow (i + 1) (by omega)
       have hnatR : (2 : ℝ) * ((i : ℝ) + 1) ≤ (2 : ℝ) ^ (i + 1) := by
         have h := (Nat.cast_le (α := ℝ)).mpr hnat; push_cast at h; linarith
-      rw [← mul_div_assoc, div_le_iff₀ hpp]; push_cast; nlinarith [hnatR]
+      rw [← mul_div_assoc, div_le_iff₀ hpp]; push_cast; linarith only [hnatR]
     calc (3 : ℝ) ^ (((i + 1 : ℕ) : ℝ) * (4 / (2 : ℝ) ^ (i + 1)))
         ≤ (3 : ℝ) ^ (2 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by norm_num) hle2
       _ = 9 := by rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
@@ -286,7 +286,7 @@ theorem zeta_block_vdC_prefix (k : ℕ) (hk : 2 ≤ k)
     add_nonneg (mul_nonneg hxNnn hlamα)
       (mul_nonneg (Real.rpow_nonneg hxNnn _) hlamnα)
   have hcoef : 16 * cc ^ (4 / (2 : ℝ) ^ (i + 1)) ≤ 144 := by
-    nlinarith [hcc9, hcc0]
+    linarith only [hcc9]
   calc 16 * cc ^ (4 / (2 : ℝ) ^ (i + 1))
         * (((x : ℝ) - (N : ℤ)) * lam ^ α + ((x : ℝ) - (N : ℤ)) ^ β * lam ^ (-α))
       ≤ 144 * (((x : ℝ) - (N : ℤ)) * lam ^ α
@@ -552,7 +552,7 @@ theorem zeta_seam_prefix (t : ℝ) (N : ℕ) (x : ℤ) (hN3 : 3 ≤ N)
       ring
     calc (N : ℝ) ^ (-2 : ℝ) * (2 * π * (((2 * N + 3 : ℕ) : ℝ) ^ 3))
         ≤ 54 * π * (N : ℝ) := by rw [← hB]; exact hA
-      _ ≤ 2 * t := by nlinarith [hlo]
+      _ ≤ 2 * t := by linarith only [hlo]
   have hrlo : (N : ℝ) ^ (-3 + 8 / (2 : ℝ) ^ 3) ≤ lam := by
     rw [show (-3 + 8 / (2 : ℝ) ^ 3 : ℝ) = -2 by norm_num]
     rw [← hlam_eq] at hcore_lo
@@ -573,8 +573,8 @@ theorem zeta_seam_prefix (t : ℝ) (N : ℕ) (x : ℤ) (hN3 : 3 ≤ N)
       ring
     calc 2 * t ≤ (N : ℝ) ^ 2 := by linarith [hhi]
       _ ≤ 16 * π * (N : ℝ) ^ 2 := by
-          nlinarith [mul_nonneg (show (0 : ℝ) ≤ 16 * π - 1 by linarith [Real.pi_gt_three])
-            (sq_nonneg (N : ℝ))]
+          linarith only [mul_nonneg
+              (show (0 : ℝ) ≤ 16 * π - 1 by linarith [Real.pi_gt_three]) (sq_nonneg (N : ℝ))]
       _ = (N : ℝ) ^ (-1 : ℝ) * (2 * π * (8 * (N : ℝ) ^ 3)) := hEq.symm
       _ ≤ (N : ℝ) ^ (-1 : ℝ) * (2 * π * (((2 * N + 3 : ℕ) : ℝ) ^ 3)) := hstep
   have hrhi : lam ≤ (N : ℝ) ^ (-1 : ℝ) := by
@@ -616,27 +616,27 @@ theorem zeta_patch_prefix (t : ℝ) (N : ℕ) (x : ℤ) (hN2 : 2 ≤ N)
   -- base-square bounds
   have hD2ge : (4 : ℝ) * (N : ℝ) ^ 2 ≤ ((2 * N + 2 : ℕ) : ℝ) ^ 2 := by
     have h : 2 * (N : ℝ) ≤ ((2 * N + 2 : ℕ) : ℝ) := by push_cast; linarith
-    nlinarith [pow_le_pow_left₀ (by positivity : (0:ℝ) ≤ 2 * (N:ℝ)) h 2]
+    linarith only [pow_le_pow_left₀ (by positivity : (0 : ℝ) ≤ 2 * (N : ℝ)) h 2]
   have hD2le : ((2 * N + 2 : ℕ) : ℝ) ^ 2 ≤ 9 * (N : ℝ) ^ 2 := by
     have h : ((2 * N + 2 : ℕ) : ℝ) ≤ 3 * (N : ℝ) := by
       have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN2
       push_cast; linarith
-    nlinarith [pow_le_pow_left₀ hDpos.le h 2]
+    linarith only [pow_le_pow_left₀ hDpos.le h 2]
   -- term 1:  N·√λ ≤ 1.84·√N   (via N·λ ≤ 27/8, the π cancels)
   have hNlam : (N : ℝ) * lam ≤ 27 / 8 := by
     rw [hlam2]
     rw [mul_div_assoc', div_le_iff₀ (by positivity)]
     have hNt : (N : ℝ) * t ≤ 27 * π * (N : ℝ) ^ 2 := by
-      nlinarith [mul_le_mul_of_nonneg_left hhi (Nat.cast_nonneg (α := ℝ) N)]
+      linarith only [mul_le_mul_of_nonneg_left hhi (Nat.cast_nonneg (α := ℝ) N)]
     have hRHS : 27 * π * (N : ℝ) ^ 2 ≤ 27 / 8 * (2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2) := by
-      nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr hD2ge)]
+      linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr hD2ge)]
     linarith
   have hT1 : (N : ℝ) * lam ^ (1 / 2 : ℝ) ≤ 1.84 * (N : ℝ) ^ (1 / 2 : ℝ) := by
     rw [hsqrt1, hsqrtN]
     have hT1eq : (N : ℝ) * Real.sqrt lam = Real.sqrt ((N : ℝ) ^ 2 * lam) := by
       rw [Real.sqrt_mul (sq_nonneg (N : ℝ)) lam, Real.sqrt_sq (Nat.cast_nonneg N)]
     have hle : (N : ℝ) ^ 2 * lam ≤ 3.3856 * (N : ℝ) := by
-      nlinarith [hNlam, Nat.cast_nonneg (α := ℝ) N]
+      nlinarith only [hNlam, hNRpos, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     rw [hT1eq]
     calc Real.sqrt ((N : ℝ) ^ 2 * lam)
         ≤ Real.sqrt (3.3856 * (N : ℝ)) := Real.sqrt_le_sqrt hle
@@ -649,10 +649,10 @@ theorem zeta_patch_prefix (t : ℝ) (N : ℕ) (x : ℤ) (hN2 : 2 ≤ N)
       rw [hlam2, inv_div]
     rw [hlaminv_eq, div_le_iff₀ htpos]
     have step1 : 2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2 ≤ 18 * π * (N : ℝ) ^ 2 := by
-      nlinarith [hD2le, Real.pi_pos]
+      nlinarith only [hNRpos, hhi, hD2le, hlo, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     have step2 : 18 * π * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) * t := by
       have hpiN : 18 * π * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) ^ 2 := by
-        nlinarith [Real.pi_lt_d6, sq_nonneg (N : ℝ)]
+        nlinarith only [Real.pi_lt_d6, sq_nonneg ↑N, sq_nonneg ↑N]
       have hNt : 56.5504 * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) * t := by
         nlinarith [hlo, Nat.cast_nonneg (α := ℝ) N]
       linarith
@@ -1008,7 +1008,7 @@ lemma sq_le_two_pow (k : ℕ) (hk : 4 ≤ k) : k ^ 2 ≤ 2 ^ k := by
   induction k, hk using Nat.le_induction with
   | base => norm_num
   | succ k hk ih =>
-      have h1 : 2 * k + 1 ≤ k ^ 2 := by nlinarith [hk]
+      have h1 : 2 * k + 1 ≤ k ^ 2 := by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
       have h2 : 2 * k + 1 ≤ 2 ^ k := le_trans h1 ih
       calc (k + 1) ^ 2 = k ^ 2 + (2 * k + 1) := by ring
         _ ≤ 2 ^ k + 2 ^ k := by omega
@@ -1035,7 +1035,7 @@ lemma head_coeff_le (k : ℕ) (hk : 4 ≤ k) (e : ℝ) (he0 : 0 ≤ e)
       have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < (k : ℝ) by positivity); linarith
     have hkpos : (0 : ℝ) ≤ (k : ℝ) := by positivity
     push_cast
-    nlinarith [hlogfac, mul_le_mul_of_nonneg_left hlogk hkpos]
+    linarith only [hlogfac, mul_le_mul_of_nonneg_left hlogk hkpos]
   have hln : Real.log (2 * (k.factorial : ℝ) ^ 6) ≤ Real.log 2 + 6 * (k : ℝ) ^ 2 := by
     rw [Real.log_mul (by norm_num) (by positivity)]; linarith [hlnfac]
   have hk16 : (16 : ℝ) ≤ (2 : ℝ) ^ k := by
@@ -1053,14 +1053,14 @@ lemma head_coeff_le (k : ℕ) (hk : 4 ≤ k) (e : ℝ) (he0 : 0 ≤ e)
     rw [show (1 / (2 : ℝ) ^ (k + 2)) * (Real.log 2 + 6 * (k : ℝ) ^ 2)
         = (Real.log 2 + 6 * (k : ℝ) ^ 2) / (2 : ℝ) ^ (k + 2) from by ring,
       div_le_iff₀ (by positivity), h2k2]
-    nlinarith [hk2R, hlog2, hk16]
+    linarith only [hlog2, hk2R, hk16]
   calc (2 * (k.factorial : ℝ) ^ 6) ^ e
       = Real.exp (e * Real.log (2 * (k.factorial : ℝ) ^ 6)) := by
         rw [Real.rpow_def_of_pos hbase_pos, mul_comm]
     _ ≤ Real.exp 2 := Real.exp_le_exp.mpr hεln
     _ ≤ 8 := by
         have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-        rw [h2]; nlinarith [Real.exp_pos 1, Real.exp_one_lt_d9]
+        rw [h2]; nlinarith only [Real.exp_pos 1, Real.exp_one_lt_d9]
 
 /-- **The ladder bound.**  The weighted sum over `(M₀, X]` (with `X ≤ t²` and the
 guard `t ≤ M₀^{k−1}/(k−1)!`) splits into `≤ 3(1+log t)` dyadic blocks, each bounded
@@ -1106,7 +1106,7 @@ theorem zeta_ladder_bound (k : ℕ) (hk : 4 ≤ k) (σ t : ℝ)
         by_cases hc : Y ≤ 2 ^ J * M₀
         · refine le_trans (ih Y hY0 hc hYX) ?_
           have : (0 : ℝ) ≤ (J : ℝ) := by positivity
-          push_cast; nlinarith
+          push_cast; linarith only []
         · push_neg at hc
           have hmid : M₀ ≤ 2 ^ J * M₀ := Nat.le_mul_of_pos_left M₀ (by positivity)
           have hsplit : ∑ n ∈ Finset.Ioc M₀ Y, (n : ℂ) ^ (-((σ : ℂ) + (t : ℂ) * Complex.I))
@@ -1134,7 +1134,7 @@ theorem zeta_ladder_bound (k : ℕ) (hk : 4 ≤ k) (σ t : ℝ)
   have hlogt : 0 ≤ Real.log t := Real.log_nonneg ht1
   have hJcount : (J : ℝ) ≤ 3 * (1 + Real.log t) := by
     rcases Nat.eq_zero_or_pos J with hJ0 | hJpos
-    · rw [hJ0]; push_cast; nlinarith [hlogt]
+    · rw [hJ0]; push_cast; linarith only [hlogt]
     · have hJm1 : ¬ X ≤ 2 ^ (J - 1) * M₀ := Nat.find_min hex (show J - 1 < J by omega)
       push_neg at hJm1
       have h2lt : (2 : ℝ) ^ (J - 1) < t ^ 2 := by
@@ -1150,7 +1150,7 @@ theorem zeta_ladder_bound (k : ℕ) (hk : 4 ≤ k) (σ t : ℝ)
           rw [Nat.cast_sub (by omega)]; push_cast; ring
         rw [hcast] at h; push_cast at h; linarith
       have h23 : (2 : ℝ) ≤ 3 * Real.log 2 := by
-        have := Real.log_two_gt_d9; nlinarith
+        have := Real.log_two_gt_d9; linarith only [this, hlog2pos]
       have hJm1lt : (J : ℝ) - 1 < 3 * Real.log t := by
         have hchain : ((J : ℝ) - 1) * Real.log 2 < (3 * Real.log t) * Real.log 2 := by
           calc ((J : ℝ) - 1) * Real.log 2 < 2 * Real.log t := hlogineq
@@ -1216,7 +1216,7 @@ theorem zeta_head_bound (k : ℕ) (hk : 4 ≤ k) (σ t : ℝ)
     ∑ n ∈ Finset.Icc 1 (k.factorial ^ 6 * ⌈t ^ (1 / ((k : ℝ) - 1))⌉₊), (n : ℝ) ^ (-σ)
       ≤ 16 * t ^ (1 / ((2 : ℝ) ^ (k + 2) * ((k : ℝ) - 1))) * (1 + Real.log t) := by
   have hfac1 : (1 : ℝ) ≤ (k.factorial : ℝ) ^ 6 := one_le_pow₀ (by exact_mod_cast Nat.factorial_pos k)
-  have htge4 : (4 : ℝ) ≤ t := le_trans (by nlinarith [hfac1]) ht
+  have htge4 : (4 : ℝ) ≤ t := le_trans (by linarith only [hfac1]) ht
   have htpos : (0 : ℝ) < t := by linarith
   have ht1 : (1 : ℝ) ≤ t := by linarith
   have hlogt : 0 ≤ Real.log t := Real.log_nonneg ht1
@@ -1253,16 +1253,16 @@ theorem zeta_head_bound (k : ℕ) (hk : 4 ≤ k) (σ t : ℝ)
       push_cast at hstep; linarith
     have he_inv : (1 / e) * Real.log t ≤ Real.log t := by
       have h1e : (1 / e) ≤ 1 := by rw [div_le_one hepos]; linarith
-      nlinarith [hlogt, h1e]
+      nlinarith only [hlogt, h1e]
     push_cast
-    nlinarith [hlogc, h6log, he_inv, hlogt]
+    linarith only [he_inv, h6log, hlogc]
   -- M₀^{1-σ} ≤ 8 t^{B_k}  (σ ≤ 1 arm)
   have hM01sig : σ ≤ 1 → (M₀ : ℝ) ^ (1 - σ) ≤ 8 * t ^ (1 / ((2 : ℝ) ^ (k + 2) * e)) := by
     intro hσ1
     have h1σ0 : (0 : ℝ) ≤ 1 - σ := by linarith
     have h1σε : 1 - σ ≤ 1 / (2 : ℝ) ^ (k + 2) := by linarith [hσlo]
     have hM₀le : (M₀ : ℝ) ≤ (2 * (k.factorial : ℝ) ^ 6) * tp := by
-      rw [hM₀R]; nlinarith [hcle, hfac1, htppos]
+      rw [hM₀R]; nlinarith only [hfac1, hcle]
     have hM01 : (M₀ : ℝ) ^ (1 - σ) ≤ ((2 * (k.factorial : ℝ) ^ 6) * tp) ^ (1 - σ) :=
       Real.rpow_le_rpow (by positivity) hM₀le h1σ0
     rw [Real.mul_rpow (by positivity) (le_of_lt htppos)] at hM01
@@ -1307,7 +1307,7 @@ theorem zeta_strip_family : ∃ C : ℝ, 1 ≤ C ∧ ∀ k : ℕ, 4 ≤ k → �
   have hsre : s.re = σ := by simp [hs]
   have hsim : s.im = t := by simp [hs]
   have hfac1 : (1 : ℝ) ≤ (k.factorial : ℝ) ^ 6 := one_le_pow₀ (by exact_mod_cast Nat.factorial_pos k)
-  have htge4 : (4 : ℝ) ≤ t := le_trans (by nlinarith [hfac1]) ht
+  have htge4 : (4 : ℝ) ≤ t := le_trans (by linarith only [hfac1]) ht
   have htpos : (0 : ℝ) < t := by linarith
   have ht1 : (1 : ℝ) ≤ t := by linarith
   have hlogt : 0 ≤ Real.log t := Real.log_nonneg ht1
@@ -1319,12 +1319,12 @@ theorem zeta_strip_family : ∃ C : ℝ, 1 ≤ C ∧ ∀ k : ℕ, 4 ≤ k → �
   have hσ0 : 0 < s.re := by rw [hsre]; linarith
   have him : 0 < s.im := by rw [hsim]; linarith
   set N : ℕ := ⌊t ^ 2⌋₊ with hNdef
-  have ht2ge : (16 : ℝ) ≤ t ^ 2 := by nlinarith [htge4]
+  have ht2ge : (16 : ℝ) ≤ t ^ 2 := by nlinarith only [hfac1, ht]
   have hN1 : 1 ≤ N := Nat.le_floor (by push_cast; linarith [ht2ge])
   have hNle : (N : ℝ) ≤ t ^ 2 := Nat.floor_le (by positivity)
   have hNhalf : t ^ 2 / 2 ≤ (N : ℝ) := by
     have h := Nat.lt_floor_add_one (t ^ 2)
-    rw [← hNdef] at h; nlinarith [ht2ge]
+    rw [← hNdef] at h; linarith only [h, ht2ge]
   have hσ2 : (0 : ℝ) < t ^ 2 := by positivity
   -- (A) error ≤ 16
   have hNsig : (N : ℝ) ^ (-σ) ≤ 4 * (t ^ 2) ^ (-σ) := by
@@ -1359,7 +1359,7 @@ theorem zeta_strip_family : ∃ C : ℝ, 1 ≤ C ∧ ∀ k : ℕ, 4 ≤ k → �
     have htle1 : t ^ (1 - 2 * σ) ≤ 1 :=
       Real.rpow_le_one_of_one_le_of_nonpos ht1 (by linarith)
     have htnn : (0 : ℝ) ≤ t ^ (-2 * σ) := Real.rpow_nonneg (le_of_lt htpos) _
-    nlinarith [mul_le_mul_of_nonneg_right (show (2 + t) ≤ 2 * t by linarith) htnn, htexp, htle1]
+    linarith only [htle1, htexp, mul_le_mul_of_nonneg_right (show (2 + t) ≤ 2 * t by linarith) htnn]
   -- (C) pole ≤ 1
   have hC : ‖(N : ℂ) ^ (1 - s) / (s - 1)‖ ≤ 1 := by
     rw [norm_div]
@@ -1457,8 +1457,8 @@ theorem zeta_strip_family : ∃ C : ℝ, 1 ≤ C ∧ ∀ k : ℕ, 4 ≤ k → �
   refine le_trans htri ?_
   have hBk1 : (1 : ℝ) ≤ t ^ (1 / ((2 : ℝ) ^ (k + 2) * ((k : ℝ) - 1))) :=
     Real.one_le_rpow ht1 hBkexp
-  nlinarith [hBk1, hsum_s, hlogt,
-    mul_nonneg (by linarith [hBk1] : (0:ℝ) ≤ t ^ (1 / ((2:ℝ)^(k+2)*((k:ℝ)-1))) - 1)
-      (by linarith [hsum_s] : (0:ℝ) ≤ 1 + Real.log t)]
+  linarith only [hlogt, mul_nonneg
+      (by linarith [hBk1] : (0 : ℝ) ≤ t ^ (1 / ((2 : ℝ) ^ (k + 2) * ((k : ℝ) - 1))) - 1)
+      (by linarith [hsum_s] : (0 : ℝ) ≤ 1 + Real.log t)]
 
 end Salt.ExpSum
