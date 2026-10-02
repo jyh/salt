@@ -1,0 +1,76 @@
+% ============================================================================
+% TWIN PRIMES AND SIEGEL ZEROS: A FULCRUM -- the PREPRINT build.
+%
+% main.tex is set in the Forum of Mathematics journal class (CUP-JNL-FMP.cls),
+% which prints the journal's name, a DOI placeholder, the publisher's logos and
+% a licence sentence on every page. That livery belongs on a submission to the
+% journal and on nothing else, so the public preprint (the Zenodo record of
+% 2026-10-02) is built from THIS file instead: the standard article class, a
+% few definitions standing in for the journal's frontmatter macros, and then
+% main.tex itself, unchanged, read with \input. Every sentence of the paper is
+% main.tex's own; this file adds a title block and nothing else.
+%
+% Build: tectonic preprint.tex   (or pdflatex preprint.tex, twice)
+% ============================================================================
+\documentclass[10pt]{article}
+% The journal class's own text block (CUP-JNL-FMP.cls: textwidth 144mm, textheight 612.5pt),
+% so the Lean listings in Appendix A break where the journal build breaks them.
+\usepackage[a4paper,textwidth=144mm,textheight=612.5pt]{geometry}
+\usepackage{xcolor}
+% Two of the journal class's typesetting settings, so long Lean names break as they do there:
+% its paragraph tolerance, its 9pt \small and its 7pt \footnotesize, in which Appendix A's
+% listings are set (CUP-JNL-FMP.cls: \tolerance=9999; \small 9/11; \footnotesize 7/8).
+\tolerance=9999
+\emergencystretch=3em
+\makeatletter
+\renewcommand\small{\@setfontsize\small\@ixpt{11}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{7}{8}}
+\makeatother
+\definecolor{weblmcolor}{rgb}{0.0,0.25,0.55}
+
+\makeatletter
+% --- Stand-ins for the journal class's frontmatter macros (no output of their own).
+\newcommand{\articletype}[1]{}
+\newcommand{\jyear}[1]{}
+\newcommand{\copytext}[1]{}
+\newcommand{\orcid}[1]{\def\fp@orcid{#1}}
+\newcommand{\authormark}[1]{}
+\newcommand{\orgname}[1]{#1}
+\newcommand{\fp@address}{}
+\newcommand{\address}[2][]{\def\fp@address{#2}}
+\let\fp@title\@empty
+\renewcommand{\title}[2][]{\def\fp@title{#2}}
+\renewcommand{\author}[2][]{\def\fp@author{#2}}
+\newcommand{\fp@abstract}{}
+\renewcommand{\abstract}[1]{\def\fp@abstract{#1}}
+\newcommand{\fp@keywords}{}
+\newcommand{\fp@msc}{}
+\newcommand{\keywords}[2][]{%
+  \ifx\relax#1\relax\def\fp@keywords{#2}\else\def\fp@msc{#2}\fi}
+\newcommand{\codes}[2][]{#1~#2}
+\newenvironment{Frontmatter}{}{%
+  \begin{center}
+    {\LARGE\bfseries \fp@title\par}\vspace{1.2em}
+    {\large \fp@author\par}\vspace{0.3em}
+    {\small \fp@address\par
+      ORCID \href{https://orcid.org/\fp@orcid}{\fp@orcid}\par}\vspace{0.6em}
+    {\small Preprint, 2 October 2026\par}
+  \end{center}
+  \vspace{0.8em}
+  \begin{quote}\small
+    \textbf{Abstract.} \fp@abstract\par\medskip
+    \textbf{Keywords:} \fp@keywords.\par
+    \textbf{MSC 2020:} \fp@msc.\par
+  \end{quote}
+  \vspace{0.8em}}
+% --- main.tex opens with its own \documentclass line; this build has already
+% chosen the class, so that line is read and discarded.
+\renewcommand{\documentclass}[2][]{}
+% main.tex loads hyperref; give the PDF its document-info title and author once it has.
+\AtBeginDocument{\hypersetup{pdftitle={Twin Primes and Siegel Zeros: a Fulcrum},pdfauthor={Jason Hickey}}}
+% The journal class prints its title block at \maketitle; here the Frontmatter
+% environment has already printed it.
+\renewcommand{\maketitle}{}
+\makeatother
+
+\input{main}
