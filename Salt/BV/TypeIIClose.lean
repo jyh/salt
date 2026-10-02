@@ -27,7 +27,7 @@ lemma sqrt_add_le (a b : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) :
     Real.sqrt (a + b) ≤ Real.sqrt a + Real.sqrt b := by
   have h1 : a + b ≤ (Real.sqrt a + Real.sqrt b) ^ 2 := by
     have hab : 0 ≤ Real.sqrt a * Real.sqrt b := by positivity
-    nlinarith [Real.sq_sqrt ha, Real.sq_sqrt hb, hab]
+    linarith only [hab, Real.sq_sqrt hb, Real.sq_sqrt ha]
   calc Real.sqrt (a + b) ≤ Real.sqrt ((Real.sqrt a + Real.sqrt b) ^ 2) := Real.sqrt_le_sqrt h1
     _ = Real.sqrt a + Real.sqrt b := Real.sqrt_sq (by positivity)
 
@@ -41,14 +41,14 @@ lemma sqrt_two_pow (j : ℕ) : Real.sqrt ((2 : ℝ) ^ j) = Real.sqrt 2 ^ j := by
 lemma pow_le_two_log {k n : ℕ} (h : (2 : ℝ) ^ k ≤ (n : ℝ)) :
     (k : ℝ) ≤ 2 * Real.log n := by
   have h2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
-  have h2' : (1 : ℝ) ≤ 2 * Real.log 2 := by nlinarith [Real.log_two_gt_d9]
+  have h2' : (1 : ℝ) ≤ 2 * Real.log 2 := by linarith only [h2, Real.log_two_gt_d9]
   have hpk : (1 : ℝ) ≤ (2 : ℝ) ^ k := one_le_pow₀ (by norm_num)
   have hn1 : (1 : ℝ) ≤ (n : ℝ) := le_trans hpk h
   have hlogn : 0 ≤ Real.log n := Real.log_nonneg hn1
   have hkey : (k : ℝ) * Real.log 2 ≤ Real.log n := by
     calc (k : ℝ) * Real.log 2 = Real.log ((2 : ℝ) ^ k) := by rw [Real.log_pow]
       _ ≤ Real.log n := Real.log_le_log (by positivity) h
-  nlinarith [hkey, mul_nonneg (Nat.cast_nonneg k) (sub_nonneg.mpr h2'), hlogn]
+  linarith only [hkey, mul_nonneg (Nat.cast_nonneg k) (sub_nonneg.mpr h2')]
 
 /-- `2 ^ clog 2 m ≤ 2 m` for `m ≥ 1`. -/
 lemma two_pow_clog_le (m : ℕ) (hm : 1 ≤ m) : 2 ^ (Nat.clog 2 m) ≤ 2 * m := by
@@ -91,14 +91,14 @@ lemma sum_two_pow_Icc_le (a b Q : ℕ) (hb : 2 ^ b ≤ Q) :
     _ ≤ 2 * (Q : ℝ) := by
         have hbQ : (2 : ℝ) ^ b ≤ (Q : ℝ) := by exact_mod_cast hb
         have : (2 : ℝ) ^ (b + 1) = 2 * (2 : ℝ) ^ b := by rw [pow_succ]; ring
-        nlinarith [hbQ]
+        linarith only [this, hbQ]
 
 /-- √2 facts. -/
 lemma sqrt_two_ge : (4 : ℝ) / 3 ≤ Real.sqrt 2 := by
-  nlinarith [Real.sq_sqrt (show (0:ℝ) ≤ 2 by norm_num), Real.sqrt_nonneg (2:ℝ)]
+  nlinarith only [Real.sqrt_nonneg (2 : ℝ), Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)]
 
 lemma sqrt_two_gt_one : (1 : ℝ) < Real.sqrt 2 := by
-  nlinarith [Real.sq_sqrt (show (0:ℝ) ≤ 2 by norm_num), Real.sqrt_nonneg (2:ℝ)]
+  nlinarith only [Real.sqrt_nonneg (2 : ℝ), Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)]
 
 /-- Decreasing dyadic geometric sum: `∑_{j<J} 1/√(U 2^j) ≤ 4/√U`. -/
 lemma sum_inv_sqrt_dyadic (U J : ℕ) (hU : 1 ≤ U) :
@@ -119,8 +119,8 @@ lemma sum_inv_sqrt_dyadic (U J : ℕ) (hU : 1 ≤ U) :
   have hs2pos : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
   have hinv4 : (1 - 1 / Real.sqrt 2 : ℝ)⁻¹ ≤ 4 := by
     have hd : (1 - 1 / Real.sqrt 2 : ℝ) = (Real.sqrt 2 - 1) / Real.sqrt 2 := by field_simp
-    rw [hd, inv_div, div_le_iff₀ (by nlinarith [sqrt_two_gt_one] : (0:ℝ) < Real.sqrt 2 - 1)]
-    nlinarith [sqrt_two_ge]
+    rw [hd, inv_div, div_le_iff₀ (by linarith only [sqrt_two_gt_one] : (0:ℝ) < Real.sqrt 2 - 1)]
+    linarith only [sqrt_two_ge]
   calc (Real.sqrt U)⁻¹ * ∑ j ∈ Finset.range J, (1 / Real.sqrt 2 : ℝ) ^ j
       ≤ (Real.sqrt U)⁻¹ * (1 - 1 / Real.sqrt 2)⁻¹ :=
         mul_le_mul_of_nonneg_left hgeom (by positivity)
@@ -135,8 +135,8 @@ lemma sum_sqrt_dyadic (U J : ℕ) :
   simp_rw [hterm]
   rw [← Finset.mul_sum]
   have hgeom : ∑ j ∈ Finset.range J, Real.sqrt 2 ^ j ≤ 3 * Real.sqrt 2 ^ J := by
-    rw [geom_sum_eq (by nlinarith [sqrt_two_gt_one] : Real.sqrt 2 ≠ 1)]
-    rw [div_le_iff₀ (by nlinarith [sqrt_two_gt_one] : (0:ℝ) < Real.sqrt 2 - 1)]
+    rw [geom_sum_eq (by linarith only [sqrt_two_gt_one] : Real.sqrt 2 ≠ 1)]
+    rw [div_le_iff₀ (by linarith only [sqrt_two_gt_one] : (0:ℝ) < Real.sqrt 2 - 1)]
     have hpow : (0 : ℝ) ≤ Real.sqrt 2 ^ J := by positivity
     nlinarith [mul_nonneg hpow (by nlinarith [sqrt_two_ge] : (0:ℝ) ≤ 3 * Real.sqrt 2 - 4)]
   calc Real.sqrt U * ∑ j ∈ Finset.range J, Real.sqrt 2 ^ j
@@ -160,9 +160,9 @@ lemma diag_bound (x : ℕ) (C : ℝ) (hx : 2 ≤ x) :
   have hfloor : r - 1 < (n : ℝ) := by rw [hn]; exact Nat.sub_one_lt_floor r
   have hfin : 2 * r ≤ 8 * (2 : ℝ) ^ im := by
     rcases le_or_gt 2 r with hcase | hcase
-    · nlinarith [hlt, hfloor, hcase, h2im_pos]
+    · linarith only [hcase, hfloor, hlt]
     · have h1 : (1 : ℝ) ≤ (2 : ℝ) ^ im := one_le_pow₀ (by norm_num)
-      nlinarith [h1, hcase, hrpos]
+      linarith only [h1, hfloor, hlt, h2im_pos]
   have hgoal : 2 * (1 / 2 : ℝ) ^ im ≤ 8 / r := by
     have he : 2 * (1 / 2 : ℝ) ^ im = 2 / (2 : ℝ) ^ im := by rw [div_pow, one_pow, mul_one_div]
     rw [he, div_le_div_iff₀ h2im_pos hrpos]
@@ -206,12 +206,12 @@ lemma blockBound_le_regimes (x y D F : ℕ) (hD1 : 1 ≤ D) (hDy : D ≤ y) (hF1
     rw [hsDdef, ← Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 39)]
     apply Real.sqrt_le_sqrt
     have : ((2 * D : ℕ) : ℝ) = 2 * (D : ℝ) := by push_cast; ring
-    rw [this]; nlinarith [hD1R]
+    rw [this]; linarith only [hD1R]
   have hBle : Real.sqrt (13 * (((y / D : ℕ) : ℝ) + 1)) ≤ Real.sqrt 26 * syD := by
     rw [hsyDdef, ← Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 26)]
     apply Real.sqrt_le_sqrt
     have hyD1R : (1 : ℝ) ≤ ((y / D : ℕ) : ℝ) := by exact_mod_cast hyDnat
-    nlinarith [hyD1R]
+    linarith only [hyD1R]
   -- Bound the two big square roots.
   set P := ((2 * F : ℕ) : ℝ) with hPdef
   have hP2 : P = 2 * (F : ℝ) := by rw [hPdef]; push_cast; ring
@@ -247,8 +247,8 @@ lemma blockBound_le_regimes (x y D F : ℕ) (hD1 : 1 ≤ D) (hDy : D ≤ y) (hF1
   -- Four term facts.
   have hsDsyDy : (D : ℝ) * ((y / D : ℕ) : ℝ) ≤ (y : ℝ) := hDyDnat
   have tA : 8 * Lx ^ 2 * sD * syD * (F : ℝ) ≤ 8 * Lx ^ 2 * sy * (F : ℝ) := by
-    nlinarith [mul_nonneg (show (0:ℝ) ≤ 8 * Lx ^ 2 * (F : ℝ) by positivity)
-      (sub_nonneg.mpr hDyD)]
+    linarith only [mul_nonneg (show (0 : ℝ) ≤ 8 * Lx ^ 2 * (F : ℝ) by positivity)
+        (sub_nonneg.mpr hDyD)]
   have hDsyD : (D : ℝ) * syD ≤ sy * sD := by
     have hrw : (D : ℝ) * syD = sD * (sD * syD) := by rw [← hsD_eq]; ring
     rw [hrw]
@@ -260,8 +260,8 @@ lemma blockBound_le_regimes (x y D F : ℕ) (hD1 : 1 ≤ D) (hDy : D ≤ y) (hF1
           apply mul_le_mul_of_nonneg_left hAle; positivity
       _ = 4 * Real.sqrt 39 * Lx ^ 2 * (D : ℝ) * syD := by rw [← hsD_eq]; ring
       _ ≤ 4 * Real.sqrt 39 * Lx ^ 2 * (sy * sD) := by
-          nlinarith [mul_nonneg (show (0:ℝ) ≤ 4 * Real.sqrt 39 * Lx ^ 2 by positivity)
-            (sub_nonneg.mpr hDsyD)]
+          linarith only [mul_nonneg (show (0 : ℝ) ≤ 4 * Real.sqrt 39 * Lx ^ 2 by positivity)
+              (sub_nonneg.mpr hDsyD)]
       _ = 4 * Real.sqrt 39 * Lx ^ 2 * sy * sD := by ring
   have hsDyDdiv : sD * ((y / D : ℕ) : ℝ) ≤ (y : ℝ) / sD := by
     rw [le_div_iff₀ hsDpos]
@@ -509,7 +509,7 @@ private lemma dsB_bound (x U y J₁ imin I : ℕ) (hU : 1 ≤ U)
         mul_le_mul hIcard hmid (by positivity) (by linarith)
     _ = 32 * Real.sqrt 26 * ((x : ℝ) / Real.sqrt U) * (1 + Real.log x) ^ 3 := by ring
     _ ≤ 2048 * ((x : ℝ) / Real.sqrt U) * (1 + Real.log x) ^ 3 :=
-        final_le _ _ _ _ (by nlinarith [hs26]) (le_refl _) (by positivity) (pow_nonneg h1L.le 3)
+        final_le _ _ _ _ (by linarith only [hs26]) (le_refl _) (by positivity) (pow_nonneg h1L.le 3)
 
 /-- DS3 (the `x/√V` Vaughan boundary — the `V`-term from the `j`-truncation). -/
 private lemma dsC_bound (x U V y J₁ imin I : ℕ) (hV : 1 ≤ V)
@@ -561,7 +561,7 @@ private lemma dsC_bound (x U V y J₁ imin I : ℕ) (hV : 1 ≤ V)
         rw [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ (y : ℝ))]
     _ ≤ 2048 * ((x : ℝ) / Real.sqrt V) * (1 + Real.log x) ^ 3 :=
         final_le _ _ _ _
-          (by nlinarith [hs39, hs2', Real.sqrt_nonneg (39 : ℝ), Real.sqrt_nonneg (2 : ℝ)])
+          (by nlinarith only [hs39, hs2', Real.sqrt_nonneg (2 : ℝ)])
           hT (by positivity) (pow_nonneg h1L.le 3)
 
 /-- DS4 (the diagonal `x/(log x)^C`, saved by the conductor cutoff). -/
@@ -594,7 +594,7 @@ private lemma dsD_bound (x y J₁ imin I : ℕ) (C : ℝ)
           * (8 / (Real.log x) ^ C)) := mul_le_mul hJ1 hmid (by positivity) (by linarith)
     _ = 64 * Real.sqrt 1014 * ((x : ℝ) / (Real.log x) ^ C) * (1 + Real.log x) ^ 3 := by ring
     _ ≤ 2048 * ((x : ℝ) / (Real.log x) ^ C) * (1 + Real.log x) ^ 3 :=
-        final_le _ _ _ _ (by nlinarith [hs1014]) (le_refl _)
+        final_le _ _ _ _ (by linarith only [hs1014]) (le_refl _)
           (div_nonneg (by positivity) hLCpos.le) (pow_nonneg h1L.le 3)
 
 open Classical in
@@ -666,9 +666,9 @@ theorem typeII_disc_le {x U V Q : ℕ} (hx : 2 ≤ x) (hU : 1 ≤ U) (hV : 1 ≤
       have hlog4 : Real.log 4 ≤ 2 := by
         rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
         push_cast
-        nlinarith [Real.log_two_lt_d9]
+        linarith only [Real.log_two_lt_d9]
       linarith
-    nlinarith [h2, hlog4x, hLpos]
+    linarith only [hlog4x, h2, hLpos]
   have hIcard : ((Finset.Icc imin I).card : ℝ) ≤ 2 * (1 + Real.log x) := by
     have hIle : (I : ℝ) ≤ 2 * Real.log x := by
       have h2I : 2 ^ I ≤ Q - 1 := Nat.pow_log_le_self 2 (by omega)
@@ -716,7 +716,7 @@ theorem typeII_disc_le {x U V Q : ℕ} (hx : 2 ≤ x) (hU : 1 ≤ U) (hV : 1 ≤
   have htight : (U : ℝ) * 2 ^ J₁ ≤ 2 * (y : ℝ) / (V : ℝ) := by
     rw [le_div_iff₀ (by exact_mod_cast hV : (0 : ℝ) < V)]
     have : ((U * V * 2 ^ J₁ : ℕ) : ℝ) ≤ ((2 * y : ℕ) : ℝ) := by exact_mod_cast hUV2J
-    push_cast at this ⊢; nlinarith [this]
+    push_cast at this ⊢; linarith only [this]
   have hDley : ∀ j ∈ Finset.range J₁, U * 2 ^ j ≤ y := by
     intro j hj
     rw [Finset.mem_range, hJ₁def] at hj
