@@ -229,8 +229,8 @@ private lemma vk_twist_tail_geom {t : ℝ} (hL1 : 1 ≤ Real.log t)
   set x : ℝ := (Θ / 2) * Real.log 2 with hxdef
   have hxpos : 0 < x := by rw [hxdef]; positivity
   have hΘle : Θ ≤ 1 / 1000 := by
-    rw [hΘeq, div_le_iff₀ hDpos]; nlinarith [hD1]
-  have hx1 : x ≤ 1 := by rw [hxdef]; nlinarith [hΘle, hlog2le, hΘpos.le, hlog2pos.le]
+    rw [hΘeq, div_le_iff₀ hDpos]; linarith only [hD1]
+  have hx1 : x ≤ 1 := by rw [hxdef]; nlinarith only [hΘpos, hlog2le, hΘle]
   have hrx : (2 : ℝ) ^ (-(Θ / 2)) = Real.exp (-x) := by
     have hlx : Real.log 2 * (-(Θ / 2)) = -x := by rw [hxdef]; ring
     rw [Real.rpow_def_of_pos (by norm_num), hlx]
@@ -239,7 +239,7 @@ private lemma vk_twist_tail_geom {t : ℝ} (hL1 : 1 ≤ Real.log t)
     exact one_div_le_one_div_of_le (by linarith) (by linarith [Real.add_one_le_exp x])
   have h1xpos : (0 : ℝ) < 1 + x := by linarith
   have h2 : (1 : ℝ) / (1 + x) ≤ 1 - x / 2 := by
-    rw [div_le_iff₀ h1xpos]; nlinarith [hx1, hxpos.le]
+    rw [div_le_iff₀ h1xpos]; nlinarith only [hxpos, hx1]
   have hden : x / 2 ≤ 1 - (2 : ℝ) ^ (-(Θ / 2)) := by rw [hrx]; linarith [hexpx, h2]
   have hx2pos : (0 : ℝ) < x / 2 := by linarith
   have hinv : (1 - (2 : ℝ) ^ (-(Θ / 2)))⁻¹ ≤ 2 / x := by
@@ -251,11 +251,11 @@ private lemma vk_twist_tail_geom {t : ℝ} (hL1 : 1 ≤ Real.log t)
     rw [hxdef, hΘeq]; field_simp; ring
   have h2overx : 2 / x ≤ 5772 * D := by
     rw [hxval, div_div_eq_mul_div, div_le_iff₀ hlog2pos]
-    nlinarith [hlog2gt, hDpos]
+    nlinarith only [hD1, hlog2gt, hlog2pos, hΘle, hΘpos]
   calc 1348 * (1 - (2 : ℝ) ^ (-(Θ / 2)))⁻¹
       ≤ 1348 * (2 / x) := mul_le_mul_of_nonneg_left hinv (by norm_num)
     _ ≤ 1348 * (5772 * D) := mul_le_mul_of_nonneg_left h2overx (by norm_num)
-    _ ≤ 8000000 * D := by nlinarith [hDpos]
+    _ ≤ 8000000 * D := by linarith only [hΘle, hΘpos, hD1]
 
 /-- **§1's EXIT — the twisted Dirichlet head bound.**  For `t ≥ exp(exp 100)`, `σ ≥ 1`,
 every twist `β` and every `N` with `N ≤ t² + 1`,
@@ -456,7 +456,7 @@ theorem char_sum_fourier_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
       exact χ.norm_le_one r
     have h2 := hbd a ha
     have hnn : (0 : ℝ) ≤ ‖∑ n ∈ S, eR ((a : ℝ) / (q : ℝ) * (n : ℝ)) * f n‖ := norm_nonneg _
-    nlinarith [h1, h2, hnn, norm_nonneg (χ r * eR (-((a : ℝ) * (r.val : ℝ) / (q : ℝ))))]
+    nlinarith only [h1, hnn, h2]
   have hbig : ‖(q : ℂ) * ∑ n ∈ S, χ ((n : ℕ) : ZMod q) * f n‖ ≤ (q : ℝ) * ((q : ℝ) * B) := by
     rw [hexpand]
     refine le_trans (norm_sum_le _ _) ?_
@@ -548,7 +548,7 @@ lemma one_le_vkTwistConst {q : ℕ} [NeZero q] : 1 ≤ vkTwistConst q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
   unfold vkTwistConst
-  nlinarith [hq1, hlq]
+  nlinarith only [hlq, hq1, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
 lemma vkTwistConst_mono {f q : ℕ} (hf : 1 ≤ f) (hfq : f ≤ q) :
     vkTwistConst f ≤ vkTwistConst q := by
@@ -557,7 +557,7 @@ lemma vkTwistConst_mono {f q : ℕ} (hf : 1 ≤ f) (hfq : f ≤ q) :
   have hlf : (0 : ℝ) ≤ Real.log f := Real.log_nonneg hf1
   have hlog : Real.log f ≤ Real.log q := Real.log_le_log (by linarith) hfqR
   unfold vkTwistConst
-  nlinarith [hf1, hfqR, hlf, hlog]
+  nlinarith only [hfqR, hlf, hlog, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
 /-- `vkProfile` is monotone in the constant and in the level. -/
 lemma vkProfile_mono {C C' : ℝ} {f q : ℕ} {t : ℝ} (hC0 : 0 ≤ C) (hCC' : C ≤ C')
@@ -595,7 +595,7 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
     rw [show (1 : ℝ) = Real.sqrt 1 from (Real.sqrt_one).symm]
     exact Real.sqrt_le_sqrt hq1
   have hsqq : Real.sqrt q ≤ (q : ℝ) := by
-    nlinarith [Real.sq_sqrt (le_trans zero_le_one hq1), Real.sqrt_nonneg ((q : ℝ))]
+    nlinarith only [hsq1, hq1, Real.sq_sqrt (le_trans zero_le_one hq1)]
   -- the bridge point
   have hlogX1 : (1 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
@@ -630,7 +630,7 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
       * (Real.log (Real.log |t|)) ^ (4 : ℕ) := by nlinarith [hLp1, hℓ4]
   -- the truncation length
   set N : ℕ := ⌈t ^ 2⌉₊ with hNdef
-  have ht2pos : (0 : ℝ) < t ^ 2 := by nlinarith [habs0, abs_nonneg t, sq_abs t]
+  have ht2pos : (0 : ℝ) < t ^ 2 := by nlinarith only [habs0, sq_abs t]
   have hN1 : 1 ≤ N := by rw [hNdef]; exact Nat.one_le_ceil_iff.mpr ht2pos
   have hNge : t ^ 2 ≤ (N : ℝ) := by rw [hNdef]; exact Nat.le_ceil _
   have hNle : (N : ℝ) ≤ t ^ 2 + 1 := by
@@ -666,7 +666,7 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
         ≤ 5 + 2 * |t| := by
       have hnn : (0 : ℝ) ≤ ‖(((1 + 1 / Real.log X : ℝ) : ℂ)) - (t : ℝ) * Complex.I‖ :=
         norm_nonneg _
-      nlinarith [hsnorm, hinv, hnn, habs0]
+      nlinarith only [hinv, hnn, hsnorm]
     have hNσ : (N : ℝ) ^ (-σ) ≤ 1 / (t ^ 2) := by
       have h1 : (N : ℝ) ^ (-σ) ≤ (N : ℝ) ^ (-1 : ℝ) :=
         Real.rpow_le_rpow_of_exponent_le (by exact_mod_cast hN1) (by linarith)
@@ -678,7 +678,7 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
     have hratio : (5 + 2 * |t|) * (1 / (t ^ 2)) ≤ 1 := by
       have hsqt : t ^ 2 = |t| ^ 2 := (sq_abs t).symm
       rw [hsqt, mul_one_div, div_le_one (by positivity)]
-      nlinarith [hbig, mul_le_mul_of_nonneg_right hbig (abs_nonneg t)]
+      linarith only [hbig, mul_le_mul_of_nonneg_right hbig (abs_nonneg t)]
     have hNσ0 : (0 : ℝ) ≤ (N : ℝ) ^ (-σ) := Real.rpow_nonneg hNpos.le _
     have hs0 : (0 : ℝ) ≤ Real.sqrt q * (1 + Real.log q) := by positivity
     calc Real.sqrt q * (1 + Real.log q)
@@ -721,9 +721,9 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
   have hstep : Real.sqrt q * (1 + Real.log q) + (q : ℝ) * (1 + 8000000 * D2)
       ≤ (Real.sqrt q * (1 + Real.log q) + (q : ℝ) + 8000000 * (q : ℝ)) * D := by
     have h1 : Real.sqrt q * (1 + Real.log q) ≤ Real.sqrt q * (1 + Real.log q) * D := by
-      nlinarith [mul_nonneg hA0 (sub_nonneg.mpr hD1)]
+      linarith only [mul_nonneg hA0 (sub_nonneg.mpr hD1)]
     have h2 : (q : ℝ) ≤ (q : ℝ) * D := by
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) (sub_nonneg.mpr hD1)]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) (sub_nonneg.mpr hD1)]
     have h3 : 8000000 * (q : ℝ) * D2 ≤ 8000000 * (q : ℝ) * D :=
       mul_le_mul_of_nonneg_left hD2D (by linarith)
     linarith [h1, h2, h3]
@@ -735,11 +735,11 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
       ≤ 10000000 * (q : ℝ) * (1 + Real.log q) * Real.sqrt q := by
     have e1 : Real.sqrt q * (1 + Real.log q)
         ≤ (q : ℝ) * (1 + Real.log q) * Real.sqrt q := by
-      nlinarith [mul_nonneg hA0 (sub_nonneg.mpr hq1)]
+      linarith only [mul_nonneg hA0 (sub_nonneg.mpr hq1)]
     have e2 : (q : ℝ) ≤ (q : ℝ) * (1 + Real.log q) * Real.sqrt q := by
-      nlinarith [mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) hlq)
-        (Real.sqrt_nonneg ((q : ℝ))),
-        mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) (sub_nonneg.mpr hsq1)]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) (sub_nonneg.mpr hsq1),
+          mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) hlq)
+          (Real.sqrt_nonneg ((q : ℝ)))]
     have e3 : 8000000 * (q : ℝ)
         ≤ 8000000 * ((q : ℝ) * (1 + Real.log q) * Real.sqrt q) := by linarith [e2]
     linarith [e1, e2, e3, hR0]
@@ -801,12 +801,12 @@ theorem capFreeFloor3_lamChi_unconditional :
   have hC1 : (1 : ℝ) ≤ vkEulerCorr q * vkTwistConst q := by
     have h1 := one_le_vkEulerCorr q
     have h2 := one_le_vkTwistConst (q := q)
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2]
   refine hK q χ (vkEulerCorr q * vkTwistConst q) X hC1 hχ2 hX (fun v _hv hbig => ?_) hthr
   have h2v : Real.exp (Real.exp 100) ≤ |2 * v| := by
     have : |v| ≤ |2 * v| := by
       rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
-      nlinarith [abs_nonneg v]
+      linarith only [abs_nonneg v]
     linarith
   exact vkTwistUB_holds (χ ^ 2) hχ2 hXe h2v
 
