@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `312d2a88` · source digest `84ae81f4f6012ef5` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `80100944` · source digest `b12f205407b48e3a` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 24 | 22 | 9087 | 9032 | 9031 | 1 | 0 | 55 |
+| 24 | 22 | 9086 | 9031 | 9030 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 22645 · corpus Prop-valued names (the hypothesis universe): 668.
+Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hypothesis universe): 668.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6779 | 294 | 2072 | 4631 | 377 | 425 | 29 |
+| unconditional | 6778 | 294 | 2072 | 4631 | 376 | 425 | 29 |
 | conditional | 1560 | 25 | 196 | 1372 | 95 | 24 | 4 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 481 | 0 | 68 | 366 | 55 | 17 | 0 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9032 | 319 | 2340 | 6567 | 538 | 466 | 33 |
+| **all** | 9031 | 319 | 2340 | 6567 | 537 | 466 | 33 |
 
 ## LIMITS — read these beside every count above
 
@@ -489,7 +489,7 @@ Declarations indexed across the tree: 22645 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6779)
+## unconditional (6778)
 
 | name | file:line | objects |
 |---|---|---|
@@ -1336,14 +1336,13 @@ Declarations indexed across the tree: 22645 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.bigXi_bounded_500_explicit40` | Salt/Entropy/Chowla/GoldbachEnergyKc.lean:200 | entropy |
 | `Salt.Entropy.Chowla.bigXi_bounded_500_ceiling` | Salt/Entropy/Chowla/GoldbachEnergyKc.lean:213 | entropy |
 | `Salt.Entropy.Chowla.bigXi_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/GoldbachEnergyKc.lean:231 | entropy |
-| `Salt.Entropy.Chowla.hpt_const_le_pow35_h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:53 | entropy |
-| `Salt.Entropy.Chowla.h_le_1096_of_log_le_seven` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:108 | entropy |
-| `Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:124 | entropy |
-| `Salt.Entropy.Chowla.eps_line_h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:188 | entropy |
-| `Salt.Entropy.Chowla.h_le_8103_of_log_le_nine` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:210 | entropy |
-| `Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:223 | entropy |
-| `Salt.Entropy.Chowla.hpt_holds_500h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:278 | entropy |
-| `Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:381 | entropy |
+| `Salt.Entropy.Chowla.h_le_1096_of_log_le_seven` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:89 | entropy |
+| `Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:105 | entropy |
+| `Salt.Entropy.Chowla.eps_line_h` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:169 | entropy |
+| `Salt.Entropy.Chowla.h_le_8103_of_log_le_nine` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:193 | entropy |
+| `Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:207 | entropy |
+| `Salt.Entropy.Chowla.hpt_holds_500h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:262 | entropy |
+| `Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:365 | entropy |
 | `Salt.Entropy.Chowla.rhoG_prime_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 | entropy |
 | `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 | entropy |
 | `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 | entropy |
@@ -9544,5 +9543,5 @@ Declarations indexed across the tree: 22645 · corpus Prop-valued names (the hyp
 
 | name | file:line | objects |
 |---|---|---|
-| `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1194 | entropy |
+| `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1198 | entropy |
 

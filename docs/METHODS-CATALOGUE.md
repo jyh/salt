@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `312d2a88` · source digest `84ae81f4f6012ef5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `80100944` · source digest `b12f205407b48e3a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22645 · with a proof/definition body: 22645 · direct corpus references (edges): 85278 · audited results: 9031 · corpus Prop-valued names: 668.
+Declarations indexed: 22644 · with a proof/definition body: 22644 · direct corpus references (edges): 85276 · audited results: 9030 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
@@ -962,9 +962,9 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | decls in family | audited in family | unconditional | conditional | statement-only | infrastructure | unresolved | audited dependents | external dependents |
 |---|---|---|---|---|---|---|---|---|---|
 | circle method / Fourier | 181 | 83 | 559 | 540 | 22 | 10 | 0 | 1131 | 1067 |
-| entropy decrement | 1398 | 534 | 526 | 414 | 78 | 38 | 0 | 1056 | 608 |
+| entropy decrement | 1397 | 533 | 525 | 414 | 78 | 38 | 0 | 1055 | 608 |
 | large sieve | 136 | 18 | 709 | 491 | 1 | 22 | 0 | 1223 | 1209 |
-| Selberg/Brun sieve | 5626 | 949 | 3742 | 1248 | 65 | 93 | 0 | 5148 | 4284 |
+| Selberg/Brun sieve | 5626 | 949 | 3741 | 1248 | 65 | 93 | 0 | 5147 | 4283 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1479 | 612 | 4 | 19 | 0 | 2114 | 1482 |
 | zero-density / zero-free regions | 724 | 292 | 1016 | 642 | 2 | 20 | 0 | 1680 | 1427 |
 | character sums / L-functions | 4277 | 2153 | 1807 | 745 | 81 | 99 | 0 | 2732 | 880 |
@@ -978,7 +978,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4284 external dependents
+### Selberg/Brun sieve — 4283 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1153,7 +1153,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 61 | 5374 | 9716 |
-| entropy decrement | 608 | 534 | 1398 |
+| entropy decrement | 608 | 533 | 1397 |
 | character sums / L-functions | 880 | 2153 | 4277 |
 | circle method / Fourier | 1067 | 83 | 181 |
 | exponential sums | 1193 | 223 | 577 |
@@ -1162,7 +1162,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1482 | 726 | 1609 |
 | Mertens / PNT-type | 1540 | 67 | 253 |
-| Selberg/Brun sieve | 4284 | 949 | 5626 |
+| Selberg/Brun sieve | 4283 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
