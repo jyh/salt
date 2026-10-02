@@ -27,6 +27,10 @@ which holds for every `h ≥ 2` (ratio 0.867 at `h = 2`, 0.752 at `h = 1096`) an
 `h = 1` by 1.212×** — because at `h = 1` the uniform `(log T)² ≤ 1799.4` is far looser than the
 true `807.70`.  So `h = 1` is discharged by the LANDED `hpt_const_le_pow35`
 (`GoldbachEnergyN0.lean:809`, ratio 0.955) and `h ≥ 2` by the uniform bound.  Two cases, forced.
+(2026-10-02: the numerals of ⟦THE ARITHMETIC, AND WHY IT IS TWO CASES AND NOT ONE⟧ above are those
+of the cap-7 page `hpt_const_le_pow35_h`, which the XY debt lane's family 37 retired into its cap-9
+twin `hpt_const_le_pow35_h_b9` (§6), noted in §1.  The twin's are in its docstring:
+`(log T)² ≤ 2154.8164`, closing ratio `0.891` at `h² = 4`; it keeps the two cases.)
 
 ⟦THE TOTAL⟧  The count witness is `h · 32·exp 40·(2^35·h²)²/ε^10 = 32·exp 40·2^70·500^10·h^15`.
 ⚠️ The exponent is `h^15`, not `h^11`: `ε^{-10}` gives ten, the squared constant `C₁(h)² = 2^70·h^4`
@@ -44,60 +48,37 @@ open scoped BigOperators
 
 /-! ## §1 — the `C₁` numeral at shift `h` -/
 
-/-- **⟦THE `C₁` NUMERAL AT SHIFT `h`⟧** (`hpt_const_le_pow35_h`) — `hpt_const_le_pow35`
+/-! ### `hpt_const_le_pow35_h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 37 (2026-10-02)⟧
+`hpt_const_le_pow35_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) : (800 / (1 / 256 : ℝ) +
+102400 / (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2) + ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 *
+((2 ^ 41 * h ^ 2 : ℕ) : ℝ) + 2 + 1 / (2 * ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 2)) * (Real.log
+((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2 ≤ 2 ^ 35 * (h : ℝ) ^ 2` stood here.  It is `hpt_const_le_pow35_h_b9`
+(in §6 below) with the hypothesis strengthened: the two statements differ in that ONE binder,
+`log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies it by
+`linarith` — kernel-checked from the retired statement's own bytes before the removal was committed.
+The twin's body is this page's NUMERAL-LIFT with ONE tactic dropped, five code lines changed.  The
+page's `42.42` is `46.42` in the twin, at the local fact `hLub` and in the `calc` under `hLsq`, and
+its `1799.4564` is `2154.8164`, at `hLsq` and in that `calc`.  Where the page closed its `h = 1`
+case with `convert hl using 3 <;> norm_num`, the twin has `convert hl using 3` alone, under a
+comment that says the trailing `<;> norm_num` is never executed.  After these changes the two bodies
+are the same code, token for token.  Their comments differ in three places: that comment of the
+twin's, the numeral in the comment above the closing `nlinarith`, and a two-line comment of the
+page's on the `ℕ`-cast argument of the goal's logarithm, which the twin does not carry.  Neither
+body names its cap binder.  At this retirement the page had NO call site.  When the lane opened
+(main, 2026-09-25) it had one, in `hpt_holds_500h` (§3 of this file), which family 36 retired into
+its own cap-9 twin (2026-10-01); that twin calls this page's twin.  Of the declared names the page's
+code calls, none is left without a caller.
+
+The page's docstring, verbatim:
+
+**⟦THE `C₁` NUMERAL AT SHIFT `h`⟧** (`hpt_const_le_pow35_h`) — `hpt_const_le_pow35`
 (`GoldbachEnergyN0.lean:809`) at `ε = 1/(500·h)`, `T = 2^41·h²`, `c₀ = 1/256`.
 
 The two cases are forced, not stylistic: the `hh7`-uniform `(log T)² ≤ 1799.4` overshoots at
 `h = 1` (giving `4.166·10^10 > 3.436·10^10`), while at `h = 1` the landed lemma's own tight
 `(log T)² = 807.70` gives `3.283·10^10 ≤ 3.436·10^10`. -/
-theorem hpt_const_le_pow35_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) :
-    (800 / (1 / 256 : ℝ) + 102400 / (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2)
-        + ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) ^ 2 * ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) + 2
-            + 1 / (2 * ((((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ)) ^ 2))
-          * (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2
-      ≤ 2 ^ 35 * (h : ℝ) ^ 2 := by
-  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hcast : (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by
-    push_cast; ring
-  have hTcast : ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) = (2 : ℝ) ^ (41 : ℕ) * (h : ℝ) ^ 2 := by
-    push_cast; ring
-  rcases Nat.lt_or_ge h 2 with h1 | h2
-  · -- ⟦h = 1⟧ the landed lemma, whose tight `(log T)² = 807.70` is what carries it
-    have : h = 1 := by omega
-    subst this
-    have hl := hpt_const_le_pow35
-    norm_num at hl ⊢
-    convert hl using 3 <;> norm_num
-  · -- ⟦h ≥ 2⟧ the uniform bound, with `h² ≥ 4` paying the `h`-free residue
-    have hx2 : (2 : ℝ) ≤ (h : ℝ) := by exact_mod_cast h2
-    have hsq4 : (4 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hx2]
-    have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-    have hlogh0 : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg (by linarith)
-    have hlogT : Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) = 41 * Real.log 2 + 2 * Real.log (h : ℝ) := by
-      rw [hTcast, Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
-      push_cast; ring
-    have hLnn : (0 : ℝ) ≤ Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) := by
-      rw [hlogT]; nlinarith [Real.log_two_gt_d9, hlogh0]
-    have hLub : Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ) ≤ 42.42 := by
-      rw [hlogT]; linarith
-    have hLsq : (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2 ≤ 1799.4564 := by
-      have := pow_le_pow_left₀ hLnn hLub 2
-      calc (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)) ^ 2 ≤ (42.42 : ℝ) ^ 2 := this
-        _ = 1799.4564 := by norm_num
-    -- ⚠️ the goal's log stays at the ℕ-CAST argument throughout: rewriting it to the ℝ form
-    -- would make `hLsq` speak about a DIFFERENT atom and `nlinarith` could not use it.
-    rw [hcast]
-    have e1 : (102400 : ℝ) / (1 / (500 * (h : ℝ))) ^ 2 = 25600000000 * (h : ℝ) ^ 2 := by
-      field_simp; ring
-    have e2 : (1 / (500 * (h : ℝ))) ^ 2 * ((2 ^ 41 * h ^ 2 : ℕ) : ℝ)
-        = 2199023255552 / 250000 := by
-      rw [hTcast]; field_simp; ring
-    have e3 : (1 : ℝ) / (2 * (1 / (500 * (h : ℝ))) ^ 2) = 125000 * (h : ℝ) ^ 2 := by
-      field_simp; ring
-    have e0 : (800 : ℝ) / (1 / 256 : ℝ) = 204800 := by norm_num
-    rw [e0, e1, e2, e3]
-    -- `204800 + 2.56e10·h² + (8796093.02 + 2 + 125000·h²)·L² ≤ 2^35·h²` at `L² ≤ 1799.4564`
-    nlinarith [hLsq, hsq4, sq_nonneg (Real.log ((2 ^ 41 * h ^ 2 : ℕ) : ℝ))]
 
 /-! ## §2 — the shift's own `ℕ` bound -/
 
@@ -200,7 +181,9 @@ and the census's in-body numerals at cap 9); no hypothesis is added and no concl
 the file, below these twins, and re-pointed its one call of `hpt_holds_500h` to
 `hpt_holds_500h_b9`; its statement is unchanged.)
 (2026-10-01: the XY debt lane's family 36 retired §3's `hpt_holds_500h` into its twin
-`hpt_holds_500h_b9` below, noted where it stood.) -/
+`hpt_holds_500h_b9` below, noted where it stood.)
+(2026-10-02: the XY debt lane's family 37 retired §1's `hpt_const_le_pow35_h` into its twin
+`hpt_const_le_pow35_h_b9` below, noted where it stood.) -/
 
 /-- **⟦THE SHIFT'S `ℕ` BOUND AT CAP 9⟧ (class A)** — the `log h ≤ 9` twin of
 `h_le_1096_of_log_le_seven`, the Entropy-side converter of the β lane (`StridePrize`, `StrideFork`
@@ -216,7 +199,8 @@ theorem h_le_8103_of_log_le_nine {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ
   have : (h : ℝ) < 8104 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-/-- **⟦THE `C₁` NUMERAL AT SHIFT `h`, CAP 9⟧** (`hpt_const_le_pow35_h_b9`) — `hpt_const_le_pow35_h`
+/-- **⟦THE `C₁` NUMERAL AT SHIFT `h`, CAP 9⟧** (`hpt_const_le_pow35_h_b9`; the former
+`hpt_const_le_pow35_h`, at `log h ≤ 7`, retired into this, 2026-10-02) — `hpt_const_le_pow35_h`
 at `log h ≤ 9`.  The census (band 3 row 2): `log T ≤ 41·log 2 + 2·9 = 46.419 ≤ 46.42`,
 `(log T)² ≤ 2154.8164`; the closing ratio at `h² = 4` is `0.891` (cap 7: `0.867`).  `h = 1` is
 cap-free (the landed `hpt_const_le_pow35`). -/
