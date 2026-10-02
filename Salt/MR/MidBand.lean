@@ -107,7 +107,7 @@ theorem zeta_block_secondDeriv {u : ℝ} {U : ℕ} (hU1 : 1 ≤ U) (hu : 0 < u) 
       exact_mod_cast this
     have hsq : ((n : ℝ) + 1) ^ 2 ≤ 4 * (U : ℝ) ^ 2 := by nlinarith [hnu, hU0R]
     have hstep1 : μ ≤ A / ((n : ℝ) + 1) ^ 2 := by
-      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hsq, hA0.le]
+      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hsq]
     have heq2 : A / ((n : ℝ) + 1) ^ 2 = A * (1 / ((n : ℝ) + 1) ^ 2) := by ring
     have hstep2 : A / ((n : ℝ) + 1) ^ 2
         ≤ A * (2 * Real.log ((n : ℝ) + 1) - Real.log ((n : ℝ) + 2) - Real.log (n : ℝ)) := by
@@ -130,7 +130,7 @@ theorem zeta_block_secondDeriv {u : ℝ} {U : ℕ} (hU1 : 1 ≤ U) (hu : 0 < u) 
       rw [heq2]; exact mul_le_mul_of_nonneg_left hlu hA0.le
     have h4μ : 4 * μ = A / (U : ℝ) ^ 2 := by rw [hμ]; ring
     have hstep2 : A / ((n : ℝ) * ((n : ℝ) + 2)) ≤ 4 * μ := by
-      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hUsq, hA0.le]
+      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hUsq]
     linarith [hstep1, hstep2]
   -- the vdC second-derivative test, then the sqrt algebra (no regime needed)
   have hab : (U : ℤ) ≤ 2 * U := by omega
@@ -197,7 +197,7 @@ theorem zeta_block_secondDeriv_gen {u : ℝ} {U M : ℕ}
       exact_mod_cast this
     have hsq : ((n : ℝ) + 1) ^ 2 ≤ 4 * (U : ℝ) ^ 2 := by nlinarith [hnu, hU0R]
     have hstep1 : μ ≤ A / ((n : ℝ) + 1) ^ 2 := by
-      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hsq, hA0.le]
+      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hsq]
     have heq2 : A / ((n : ℝ) + 1) ^ 2 = A * (1 / ((n : ℝ) + 1) ^ 2) := by ring
     have hstep2 : A / ((n : ℝ) + 1) ^ 2
         ≤ A * (2 * Real.log ((n : ℝ) + 1) - Real.log ((n : ℝ) + 2) - Real.log (n : ℝ)) := by
@@ -219,7 +219,7 @@ theorem zeta_block_secondDeriv_gen {u : ℝ} {U M : ℕ}
       rw [heq2]; exact mul_le_mul_of_nonneg_left hlu hA0.le
     have h4μ : 4 * μ = A / (U : ℝ) ^ 2 := by rw [hμ]; ring
     have hstep2 : A / ((n : ℝ) * ((n : ℝ) + 2)) ≤ 4 * μ := by
-      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hUsq, hA0.le]
+      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hUsq]
     linarith [hstep1, hstep2]
   have hab : (U : ℤ) ≤ (M : ℤ) := by exact_mod_cast hUM
   have hvdc := Salt.ExpSum.vdC_2nd_ZR (phi u) (U : ℤ) (M : ℤ) μ 4 hab hμ0 (by norm_num) hlb hub
@@ -237,7 +237,7 @@ theorem zeta_block_secondDeriv_gen {u : ℝ} {U M : ℕ}
   have hstep : 8 * (4 * (((M : ℤ) : ℝ) - ((U : ℤ) : ℝ)) * Real.sqrt μ + 1 / Real.sqrt μ)
       ≤ 8 * (4 * (U : ℝ) * Real.sqrt μ + 1 / Real.sqrt μ) := by
     have := mul_le_mul_of_nonneg_right hMU hsμnn
-    nlinarith [this, hsμnn]
+    linarith only [this]
   refine le_trans hstep (le_of_eq ?_)
   have hterm1 : 4 * (U : ℝ) * Real.sqrt μ = 2 * Real.sqrt A := by rw [hsm]; field_simp; ring
   have hterm2 : 1 / Real.sqrt μ = 2 * (U : ℝ) / Real.sqrt A := by rw [hsm, one_div, inv_div]
@@ -324,7 +324,7 @@ theorem halasz_socketEr_midHigh (N : ℕ) (u : ℝ)
   -- Sub-bound A: S = √(u/2π) ≤ √(1+u)
   have hSle : S ≤ Real.sqrt (1 + u) := by
     rw [hS]; apply Real.sqrt_le_sqrt
-    have h2pi1 : (1 : ℝ) ≤ 2 * π := by nlinarith [Real.pi_gt_three]
+    have h2pi1 : (1 : ℝ) ≤ 2 * π := by linarith only [hπpos, Real.pi_gt_three]
     have hdiv : u / (2 * π) ≤ u := div_le_self (by linarith) h2pi1
     linarith
   -- Sub-bound B: 1 ≤ T
@@ -346,27 +346,27 @@ theorem halasz_socketEr_midHigh (N : ℕ) (u : ℝ)
           _ ≤ 2 + u := by linarith
       rwa [Real.log_pow] at hstep
     have hlog2big : (2 / 3 : ℝ) < Real.log 2 := by have := Real.log_two_gt_d9; linarith
-    nlinarith [hJlog', hlognn,
-      mul_nonneg (show (0 : ℝ) ≤ (J : ℝ) by positivity)
+    linarith only [hJlog',
+        hlognn, mul_nonneg (show (0 : ℝ) ≤ (J : ℝ) by positivity)
         (show (0 : ℝ) ≤ Real.log 2 - 2 / 3 by linarith [hlog2big])]
   -- Sub-bound D: N/S ≤ 3√(1+u)
   have hNSle : (N : ℝ) / S ≤ 3 * Real.sqrt (1 + u) := by
     have hS2 : S ^ 2 = u / (2 * π) := by
       rw [hS]; exact Real.sq_sqrt (div_nonneg hupos.le (by positivity))
-    have h2pi9 : 2 * π ≤ 9 := by nlinarith [Real.pi_le_four]
+    have h2pi9 : 2 * π ≤ 9 := by linarith only [Real.pi_le_four]
     have hN2u2 : (N : ℝ) ^ 2 ≤ u ^ 2 := by
-      nlinarith [hNu, Nat.cast_nonneg (α := ℝ) N, hupos.le]
+      nlinarith only [hu1, hNu, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     have key : 2 * π * (N : ℝ) ^ 2 ≤ 9 * (1 + u) * u := by
-      nlinarith [hN2u2, hupos, Real.pi_pos, h2pi9,
-        mul_nonneg (show (0 : ℝ) ≤ 2 * π by positivity)
-          (show (0 : ℝ) ≤ u ^ 2 - (N : ℝ) ^ 2 by linarith [hN2u2]),
-        mul_nonneg (show (0 : ℝ) ≤ 9 - 2 * π by linarith [h2pi9]) (sq_nonneg u)]
+      linarith only [hu1, mul_nonneg
+          (show (0 : ℝ) ≤ 9 - 2 * π by linarith [h2pi9]) (sq_nonneg u),
+          mul_nonneg (show (0 : ℝ) ≤ 2 * π by positivity)
+          (show (0 : ℝ) ≤ u ^ 2 - (N : ℝ) ^ 2 by linarith [hN2u2])]
     have hsq : ((N : ℝ) / S) ^ 2 ≤ (3 * Real.sqrt (1 + u)) ^ 2 := by
       rw [div_pow, hS2, mul_pow, Real.sq_sqrt (by linarith : (0 : ℝ) ≤ 1 + u),
         div_le_iff₀ (div_pos hupos (by positivity))]
       have hrw : (3 : ℝ) ^ 2 * (1 + u) * (u / (2 * π)) = 9 * (1 + u) * u / (2 * π) := by ring
       rw [hrw, le_div_iff₀ (by positivity : (0 : ℝ) < 2 * π)]
-      nlinarith [key]
+      linarith only [key]
     have h1 : (0 : ℝ) ≤ (N : ℝ) / S := div_nonneg (Nat.cast_nonneg N) hS0.le
     have h2 : (0 : ℝ) ≤ 3 * Real.sqrt (1 + u) := by positivity
     calc (N : ℝ) / S = Real.sqrt (((N : ℝ) / S) ^ 2) := (Real.sqrt_sq h1).symm
@@ -506,7 +506,7 @@ lemma kusmin6_nat (u : ℝ) (U : ℕ) (hu1 : 1 ≤ u) (hU1 : 1 ≤ U) (huU : u �
   have hπpos : 0 < π := Real.pi_pos
   have hU0 : (1 : ℝ) ≤ (U : ℝ) := by exact_mod_cast hU1
   rw [div_le_div_iff₀ hu0 hu0]
-  nlinarith [mul_nonneg (mul_nonneg hπpos.le hu0.le) (by linarith : (0 : ℝ) ≤ (U : ℝ) - 1)]
+  linarith only [mul_nonneg (mul_nonneg hπpos.le hu0.le) (by linarith : (0 : ℝ) ≤ (U : ℝ) - 1)]
 
 /-- **STONE 6.**  The geometric Kušmin high part: for `u < 2^m ≤ N` (`u ≥ 1`), the
 ζ-phase sum over `(2^m, N]` obeys the socket-head bound `‖∑‖ ≤ 12π·N/u`. -/
@@ -553,7 +553,7 @@ theorem halasz_kusminHigh (u : ℝ) (m N : ℕ) (hu1 : 1 ≤ u)
         exact_mod_cast Nat.one_le_pow j 2 (by norm_num)
       have h2 : (0 : ℝ) < (2 : ℝ) ^ m := by positivity
       calc u ≤ (2 : ℝ) ^ m := hu2m
-        _ ≤ (2 : ℝ) ^ j * (2 : ℝ) ^ m := by nlinarith [h1, h2]
+        _ ≤ (2 : ℝ) ^ j * (2 : ℝ) ^ m := by nlinarith only [hum, h1, hu1]
         _ = ((2 ^ j * 2 ^ m : ℕ) : ℝ) := by push_cast; ring
     have hpj : (2 : ℕ) ^ (j + 1) * 2 ^ m = 2 * (2 ^ j * 2 ^ m) := by ring
     rw [hpj]
@@ -608,7 +608,7 @@ theorem halasz_kusminHigh (u : ℝ) (m N : ℕ) (hu1 : 1 ≤ u)
         exact_mod_cast Nat.one_le_pow J 2 (by norm_num)
       rw [div_le_div_iff₀ hu0 hu0]
       have hkey : (0 : ℝ) ≤ 3 * (N : ℝ) - 2 * ((2 ^ J : ℕ) : ℝ) - 1 := by linarith [h2JN', h2J1]
-      nlinarith [hkey, mul_pos hπpos hu0]
+      nlinarith only [h2JN', hN1R, mul_pos hπpos hu0]
   rw [hsplit]
   refine le_trans (norm_add_le _ _) ?_
   calc ‖∑ n ∈ Finset.Ioc (2 ^ m : ℕ) (2 ^ J), eR (phi u (n : ℤ))‖
@@ -672,7 +672,7 @@ theorem halasz_socketEr_low (N : ℕ) (u : ℝ) (hu1 : 1 ≤ u) (huN : u < (N : 
   have hlognn : 0 ≤ Real.log (2 + u) := Real.log_nonneg (by linarith)
   have hSle : S ≤ Real.sqrt (1 + u) := by
     rw [hSdef]; apply Real.sqrt_le_sqrt
-    have h2pi1 : (1 : ℝ) ≤ 2 * π := by nlinarith [Real.pi_gt_three]
+    have h2pi1 : (1 : ℝ) ≤ 2 * π := by linarith only [hπpos, Real.pi_gt_three]
     have hdiv : u / (2 * π) ≤ u := div_le_self (by linarith) h2pi1
     linarith
   have hTge1 : Real.sqrt (1 + u) ≤ T := by
@@ -692,19 +692,19 @@ theorem halasz_socketEr_low (N : ℕ) (u : ℝ) (hu1 : 1 ≤ u) (huN : u < (N : 
   have hPS : (P : ℝ) / S ≤ 3 * Real.sqrt (1 + u) := by
     have hS2 : S ^ 2 = u / (2 * π) := by
       rw [hSdef]; exact Real.sq_sqrt (div_nonneg hu0.le (by positivity))
-    have h2pi9 : 2 * π ≤ 9 := by nlinarith [Real.pi_le_four]
-    have hP2u2 : (P : ℝ) ^ 2 ≤ u ^ 2 := by nlinarith [hKu, Nat.cast_nonneg (α := ℝ) P, hu0.le]
+    have h2pi9 : 2 * π ≤ 9 := by linarith only [Real.pi_le_four]
+    have hP2u2 : (P : ℝ) ^ 2 ≤ u ^ 2 := by nlinarith only [hu1, hKu, (Nat.cast_nonneg _ : 0 ≤ ↑P)]
     have key : 2 * π * (P : ℝ) ^ 2 ≤ 9 * (1 + u) * u := by
-      nlinarith [hP2u2, hu0, Real.pi_pos, h2pi9,
-        mul_nonneg (show (0 : ℝ) ≤ 2 * π by positivity)
-          (show (0 : ℝ) ≤ u ^ 2 - (P : ℝ) ^ 2 by linarith [hP2u2]),
-        mul_nonneg (show (0 : ℝ) ≤ 9 - 2 * π by linarith [h2pi9]) (sq_nonneg u)]
+      linarith only [hu1, mul_nonneg
+          (show (0 : ℝ) ≤ 9 - 2 * π by linarith [h2pi9]) (sq_nonneg u),
+          mul_nonneg (show (0 : ℝ) ≤ 2 * π by positivity)
+          (show (0 : ℝ) ≤ u ^ 2 - (P : ℝ) ^ 2 by linarith [hP2u2])]
     have hsq : ((P : ℝ) / S) ^ 2 ≤ (3 * Real.sqrt (1 + u)) ^ 2 := by
       rw [div_pow, hS2, mul_pow, Real.sq_sqrt (by linarith : (0 : ℝ) ≤ 1 + u),
         div_le_iff₀ (div_pos hu0 (by positivity))]
       have hrw : (3 : ℝ) ^ 2 * (1 + u) * (u / (2 * π)) = 9 * (1 + u) * u / (2 * π) := by ring
       rw [hrw, le_div_iff₀ (by positivity : (0 : ℝ) < 2 * π)]
-      nlinarith [key]
+      linarith only [key]
     have h1 : (0 : ℝ) ≤ (P : ℝ) / S := div_nonneg (Nat.cast_nonneg _) hS0.le
     have h2 : (0 : ℝ) ≤ 3 * Real.sqrt (1 + u) := by positivity
     calc (P : ℝ) / S = Real.sqrt (((P : ℝ) / S) ^ 2) := (Real.sqrt_sq h1).symm
@@ -731,13 +731,13 @@ theorem halasz_socketEr_low (N : ℕ) (u : ℝ) (hu1 : 1 ≤ u) (huN : u < (N : 
       rw [show (2 : ℝ) * u = Real.sqrt ((2 * u) ^ 2) by
         rw [Real.sqrt_sq (by linarith)]]
       exact Real.sqrt_le_sqrt (by
-        nlinarith [mul_le_mul hu1 hu1 zero_le_one (by linarith : (0 : ℝ) ≤ u)])
+        linarith only [mul_le_mul hu1 hu1 zero_le_one (by linarith : (0 : ℝ) ≤ u)])
     have hspos : 0 < Real.sqrt (1 + u ^ 2) := Real.sqrt_pos.mpr (by positivity)
     have hstep : (N : ℝ) / (2 * u) ≤ (N : ℝ) / Real.sqrt (1 + u ^ 2) := by
       rw [div_le_div_iff₀ (by positivity) hspos]
       have hd : (0 : ℝ) ≤ 2 * u - Real.sqrt (1 + u ^ 2) := by linarith [hsqbnd]
-      nlinarith [hsqbnd, Nat.cast_nonneg (α := ℝ) N,
-        mul_nonneg (Nat.cast_nonneg (α := ℝ) N) hd]
+      linarith only
+          [mul_nonneg (Nat.cast_nonneg (α := ℝ) N) hd]
     have hNu_head : (N : ℝ) / u ≤ 2 * head := by
       rw [hheaddef]
       calc (N : ℝ) / u = 2 * ((N : ℝ) / (2 * u)) := by ring
@@ -791,14 +791,14 @@ theorem halasz_socketEr_pos (N : ℕ) (u : ℝ) (hu1 : 1 ≤ u) :
         mul_nonneg (Real.sqrt_nonneg _)
           (by have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + u by linarith); linarith)
       have hhead : 0 ≤ ((0 : ℕ) : ℝ) / Real.sqrt (1 + u ^ 2) := by positivity
-      nlinarith [htail, hhead]
+      linarith only [hhead, htail]
     · have hmid := halasz_socketEr_midHigh N u hNpos hu1 hge
       refine le_trans hmid ?_
       have hhead : 0 ≤ (N : ℝ) / Real.sqrt (1 + u ^ 2) := by positivity
       have htail : 0 ≤ Real.sqrt (1 + u) * (1 + Real.log (2 + u)) :=
         mul_nonneg (Real.sqrt_nonneg _)
           (by have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + u by linarith); linarith)
-      nlinarith [hhead, htail]
+      linarith only [htail, hhead]
 
 /-- **STONE 8a (socket form).**  The socket in `exp(i·u·log n)` shape for all `u ≥ 1`. -/
 theorem halasz_socket_pos (N : ℕ) (u : ℝ) (hu1 : 1 ≤ u) :
@@ -844,7 +844,7 @@ theorem halasz_socket (N : ℕ) (u : ℝ) :
     have hsqrt2 : Real.sqrt 2 ≤ 210 := by
       rw [show (210 : ℝ) = Real.sqrt (210 ^ 2) from by rw [Real.sqrt_sq (by norm_num)]]
       exact Real.sqrt_le_sqrt (by norm_num)
-    nlinarith [hrhs, hsqrt2]
+    nlinarith only [hrhs, hsqrt2]
   · rcases le_or_gt u 0 with hneg | hpos
     · have hu_neg : u < 0 := by
         rcases lt_or_eq_of_le hneg with h | h
