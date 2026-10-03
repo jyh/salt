@@ -95,7 +95,7 @@ lemma exp_inv_le_two {H : ℝ} (hH : 2 ≤ H) : Real.exp (1 / H) ≤ 2 := by
     rw [← Real.exp_add]; norm_num
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hpos : 0 < Real.exp (1 / 2) := Real.exp_pos _
-  have h2 : Real.exp (1 / 2) ≤ 2 := by nlinarith
+  have h2 : Real.exp (1 / 2) ≤ 2 := by nlinarith only [hpos, he, hsq]
   exact le_trans (Real.exp_le_exp.mpr hhalf) h2
 
 /-- Every block prime is at most twice the base (the ratio-`≤2` window). -/
@@ -111,7 +111,7 @@ lemma ramQblock_le_two_base {H : ℝ} (hH : 2 ≤ H) {P Q j p : ℕ}
   have hep : 0 < Real.exp ((j : ℝ) / H) := Real.exp_pos _
   have hlt : (p : ℝ) < 2 * (ramQbase H P j : ℝ) := by
     rw [hsplit] at hup
-    nlinarith
+    nlinarith only [hexp2, hep, hbase, hup]
   have hnat : p < 2 * ramQbase H P j := by exact_mod_cast hlt
   omega
 
@@ -306,7 +306,7 @@ theorem ramQ_large_count_Tfree {H : ℝ} (hH : 2 ≤ H) (P Q j : ℕ) (c : ℕ �
     refine Real.exp_le_exp.mpr ?_
     have h1 : Real.log T / W ≤ L / W := by gcongr
     have h2 : (0 : ℝ) ≤ Real.log T / W := by positivity
-    nlinarith
+    nlinarith only [hlogL, h1, hκ30, hLL5]
   have hV0 : (0 : ℝ) < V := by linarith
   calc (𝒮.card : ℝ)
       ≤ 840 * T ^ (2 * Real.log V / W) * V ^ 2
@@ -501,7 +501,7 @@ theorem ramQblock_inv_sum_le {H : ℝ} (hH : 2 ≤ H) {P Q j : ℕ} (hj : H ≤ 
   -- the two Mertens errors and the boundary term, all of size `H/j`
   have herrU : 12 / Real.log U₀ ≤ 12 * H / (j : ℝ) := by
     rw [hlogU, div_div_eq_mul_div, div_le_div_iff₀ (by positivity) hjpos]
-    nlinarith
+    linarith only [hH]
   have herrL : 12 / Real.log L₀ ≤ 12 * H / (j : ℝ) := by
     rw [hlogL, hvdef, div_div_eq_mul_div]
   have hfloor : 1 / (⌊L₀⌋₊ : ℝ) ≤ 2 * H / (j : ℝ) := by
@@ -515,11 +515,11 @@ theorem ramQblock_inv_sum_le {H : ℝ} (hH : 2 ≤ H) {P Q j : ℕ} (hj : H ≤ 
     have hexp : v ≤ Real.exp v := by
       have := Real.add_one_le_exp v; linarith
     have hinv : 2 / L₀ ≤ 2 / v := by
-      rw [div_le_div_iff₀ hL₀pos hvpos, hL₀def]; nlinarith
+      rw [div_le_div_iff₀ hL₀pos hvpos, hL₀def]; linarith only [hexp]
     have hvform : 2 / v = 2 * H / (j : ℝ) := by rw [hvdef]; field_simp
     linarith
   have hHj : 1 / (j : ℝ) ≤ H / (j : ℝ) := by
-    rw [div_le_div_iff₀ hjpos hjpos]; nlinarith
+    rw [div_le_div_iff₀ hjpos hjpos]; nlinarith only [hH, hj, (Nat.cast_nonneg _ : 0 ≤ ↑j)]
   rw [hsplit]
   have hfin : 12 * H / (j : ℝ) + 12 * H / (j : ℝ) + 2 * H / (j : ℝ) + H / (j : ℝ)
       = 27 * H / (j : ℝ) := by
@@ -577,7 +577,7 @@ lemma tL_kill {L W V T cc : ℝ} (hcc : 0 < cc) (hL : Real.exp 1 ≤ L)
       have hle : Real.log (Real.log T) ≤ Real.log L := Real.log_le_log hlogT0 hTL
       exact pow_le_pow_left₀ hllT0 hle 4
     have h3 : (0 : ℝ) ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := by positivity
-    nlinarith [Real.rpow_pos_of_pos hlogT0 ((3 : ℝ) / 4)]
+    nlinarith only [h2, h1, h3, Real.rpow_pos_of_pos hlogT0 ((3 : ℝ) / 4)]
   -- the gate turns into the decay lower bound
   have hKlb : 420 * (L / W) * Real.log L ≤ cc * W / D' := by
     rw [le_div_iff₀ hD'pos]
@@ -585,7 +585,7 @@ lemma tL_kill {L W V T cc : ℝ} (hcc : 0 < cc) (hL : Real.exp 1 ≤ L)
         = 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 := by
       rw [hD'def]; field_simp
     have h2 : 420 * (L / W) * Real.log L * D' * W ≤ cc * W * W := by
-      rw [hXW]; nlinarith
+      rw [hXW]; linarith only [hgate]
     exact le_of_mul_le_mul_right h2 hW0
   have hdecay : Real.exp (-cc * W / D) ≤ Real.exp (-(420 * (L / W) * Real.log L)) := by
     refine Real.exp_le_exp.mpr ?_
@@ -610,15 +610,15 @@ lemma tL_kill {L W V T cc : ℝ} (hcc : 0 < cc) (hL : Real.exp 1 ≤ L)
         Real.exp_log hLpos]
       ring
     rw [h1]
-    nlinarith
+    nlinarith only [hT1, hTL, hWL, hW0]
   -- the exponent comparison
   have hexpA : 2 * (L / W) * (Real.log V + Real.log L) ≤ 202 * (L / W) * Real.log L := by
     have hLW0 : (0 : ℝ) ≤ L / W := by linarith
-    nlinarith
+    nlinarith only [hlogV, hLW1]
   have hsum : 7 + 200 * Real.log L + 2 * (L / W) * (Real.log V + Real.log L)
       + 2 * Real.log L - 420 * (L / W) * Real.log L ≤ 0 := by
-    have h1 : (1 : ℝ) ≤ (L / W) * Real.log L := by nlinarith
-    nlinarith
+    have h1 : (1 : ℝ) ≤ (L / W) * Real.log L := by nlinarith only [hlogL1, hLW1]
+    nlinarith only [hlogL1, hLW1, h1, hexpA]
   calc 840 * V ^ 2 * Real.exp (2 * (L / W) * (Real.log V + Real.log L))
         * Real.exp (-cc * W / D) * (Real.log T) ^ 2
       ≤ Real.exp 7 * Real.exp (200 * Real.log L)
@@ -696,7 +696,7 @@ theorem tL_ramQ_sumsq_killed :
         = (ramQbase H P j : ℝ)
             * (((tLset H P Q j cf δ' 𝒯).card : ℝ) * E * (Real.log T) ^ 2) := by ring
     rw [hre]
-    nlinarith
+    nlinarith only [hcardE, (Nat.cast_nonneg _ : 0 ≤ ↑(ramQbase H P j))]
   -- the coefficient sum: `base · Σ‖c_p/p‖² ≤ Σ 1/p` (the prime-window gain's carrier)
   have hAnn : (0 : ℝ) ≤ ∑ p ∈ ramQblock H P Q j, ‖cf p / (p : ℂ)‖ ^ 2 :=
     Finset.sum_nonneg (fun p _ => sq_nonneg _)
@@ -714,7 +714,7 @@ theorem tL_ramQ_sumsq_killed :
         gcongr
         exact hcf1 p
       have hnn : (0 : ℝ) ≤ ‖cf p / (p : ℂ)‖ := norm_nonneg _
-      have hsq : ‖cf p / (p : ℂ)‖ ^ 2 ≤ (1 / (p : ℝ)) ^ 2 := by nlinarith
+      have hsq : ‖cf p / (p : ℂ)‖ ^ 2 ≤ (1 / (p : ℝ)) ^ 2 := by nlinarith only [hnorm, hnn]
       have hfin : (1 / (p : ℝ)) ^ 2 ≤ (1 / (ramQbase H P j : ℝ)) * (1 / (p : ℝ)) := by
         have h1 : (1 / (p : ℝ)) ^ 2 = 1 / ((p : ℝ) * (p : ℝ)) := by ring
         have h2 : (1 / (ramQbase H P j : ℝ)) * (1 / (p : ℝ))
@@ -798,9 +798,9 @@ theorem tL_main_sumsq :
     rw [hnorm]
     have h1 : ‖ramR H N X P Q j bb t‖ ^ 2 ≤ Rbd ^ 2 := by
       have := hR t ht
-      nlinarith [norm_nonneg (ramR H N X P Q j bb t)]
+      nlinarith only [this, hRbd, norm_nonneg (ramR H N X P Q j bb t)]
     have h2 : (0 : ℝ) ≤ ‖ramQ H P Q j cf t‖ ^ 2 := sq_nonneg _
-    nlinarith
+    nlinarith only [h1, sq_nonneg ‖ramQ H P Q j cf t‖]
   -- the prime-window gain and `1/log base ≤ H/j`
   have hgain := ramQblock_inv_sum_le (H := H) hH (P := P) (Q := Q) (j := j) hHj
   have hnn : (0 : ℝ) ≤ ∑ p ∈ ramQblock H P Q j, (1 : ℝ) / p :=
@@ -827,7 +827,7 @@ theorem tL_main_sumsq :
         exact mul_le_mul_of_nonneg_left hgain hCnn
       have hB : (0 : ℝ) ≤ 2 * C * (∑ p ∈ ramQblock H P Q j, (1 : ℝ) / p) := by positivity
       have hinv0 : (0 : ℝ) ≤ 1 / Real.log (ramQbase H P j) := by positivity
-      nlinarith
+      nlinarith only [hA, hinv0, hinvW, hB]
     have h2 : 2 * C * (27 * H / (j : ℝ)) * (H / (j : ℝ))
         = 54 * C * (H / (j : ℝ)) ^ 2 := by ring
     linarith
