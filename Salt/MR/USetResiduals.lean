@@ -105,7 +105,7 @@ theorem rho293_le_far : rho293 ≤ 1 / (32 * Real.exp 1) := by
   rw [rho293, theta293,
     show (3 : ℝ) * (1 / (32 * (3 * Real.exp 1 + 1))) = 3 / (32 * (3 * Real.exp 1 + 1)) by ring,
     div_le_div_iff₀ (by positivity) (by positivity)]
-  nlinarith
+  linarith only []
 
 /-- `ρ₂₉₃ ≤ 499/1000` — the CASE-A leading exponent is below the desmooth exponent. -/
 theorem rho293_le_desmooth : rho293 ≤ 499 / 1000 := by
@@ -114,7 +114,7 @@ theorem rho293_le_desmooth : rho293 ≤ 499 / 1000 := by
   rw [rho293, theta293,
     show (3 : ℝ) * (1 / (32 * (3 * Real.exp 1 + 1))) = 3 / (32 * (3 * Real.exp 1 + 1)) by ring,
     div_le_div_iff₀ (by positivity) (by norm_num)]
-  nlinarith
+  linarith only [he]
 
 /-- `ρ₂₉₃ ≤ 1/46` — the CASE-A leading exponent is below the RE-CUT seam-radius exponent, so
 the `2√2/R` half of `farSupS` is `(log X)^{−1/46}`-graded, better than the exit.  (The strict
@@ -125,7 +125,7 @@ theorem rho293_le_seam : rho293 ≤ 1 / 46 := by
   rw [rho293, theta293,
     show (3 : ℝ) * (1 / (32 * (3 * Real.exp 1 + 1))) = 3 / (32 * (3 * Real.exp 1 + 1)) by ring,
     div_le_div_iff₀ (by positivity) (by norm_num)]
-  nlinarith
+  linarith only [he]
 
 /-- **THE SHIFTED-SCALE TRANSFER.**  Under the live descent gate the window bottom obeys
 `log W ≥ (1/2)log X`, so a negative power of `log W` costs at most the factor `2` when read
@@ -175,7 +175,7 @@ theorem descent_factor_le {X W : ℝ} (hW2 : 2 ≤ W) (hWX : W ≤ X)
   have hhalf : 1 / 2 * Real.log X ≤ Real.log W := by
     have h1 : (1 : ℝ) / Real.log (Real.log X) ≤ 1 / 2 :=
       div_le_div_of_nonneg_left (by norm_num) (by norm_num) hL2
-    nlinarith
+    nlinarith only [he3, h1, hlX, hgate]
   have hdesc := descent_tail_le hW2 hWX hlX hgate
   have h1 : (4 : ℝ) / Real.log (Real.log X) ≤ 2 := by
     rw [div_le_iff₀ hLL0]; linarith
@@ -244,7 +244,7 @@ theorem caseAS_arm_priced {X W Cb : ℝ} (hCb0 : 0 ≤ Cb) (hW2 : 2 ≤ W) (hWX 
   have hhalf : 1 / 2 * Real.log X ≤ Real.log W := by
     have h1 : (1 : ℝ) / Real.log (Real.log X) ≤ 1 / 2 :=
       div_le_div_of_nonneg_left (by norm_num) (by norm_num) hL2
-    nlinarith
+    nlinarith only [he3, h1, hlX, hgate]
   have he2 : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have hc1 : 2 * (1 / Real.exp 1) < 1 := by
     rw [mul_one_div, div_lt_one (by linarith)]; linarith
@@ -280,7 +280,7 @@ theorem caseAS_arm_priced {X W Cb : ℝ} (hCb0 : 0 ≤ Cb) (hW2 : 2 ≤ W) (hWX 
     rw [hexp3]
     exact mul_le_mul_of_nonneg_left
       (logW_rpow_le hL1 hhalf rho293_le_desmooth (by norm_num)) (by norm_num)
-  nlinarith [hterm1, hterm2, hterm3]
+  linarith only [hterm3, hterm2, hterm1]
 
 /-- **R-1 (the far arm's MAIN term), PRICED.**  At the intended radius pin `Rrad = seamRad X`
 the trivial-centre transfer is `2√2·(log X)^{−1/46} ≤ 3·(log X)^{−ρ₂₉₃}` — ⟦V5f⟧'s
@@ -308,7 +308,7 @@ theorem farMain_priced {X Rrad : ℝ} (hL1 : 1 ≤ Real.log X) (hRlow : seamRad 
       ≤ 3 * (Real.log X) ^ (-rho293) := by
     have hp1 : (0 : ℝ) ≤ (Real.log X) ^ (-((1 : ℝ) / 46)) := Real.rpow_nonneg hL0.le _
     have hp2 : (0 : ℝ) ≤ (Real.log X) ^ (-rho293) := Real.rpow_nonneg hL0.le _
-    nlinarith
+    nlinarith only [hsqrt2, hp1, h2]
   linarith [h3 ▸ h1]
 
 /-- **R-1 — `R̄ ≤ C_R·(log X)^{−ρ₂₉₃}` at the pin `c = 1/e`**, with `C_R = gradeCR Cb`
@@ -344,7 +344,7 @@ theorem Rbd_grade_priced {X Cb kmin Ymax Dmax Rrad : ℝ}
     have h1 : (0 : ℝ) ≤ gradeAbsConstC (1 / Real.exp 1) Cb := gradeAbsConstC_nonneg hc1 hCb0
     have h2 : (0 : ℝ) ≤ farCStar := farCStar_nonneg
     have h3 : (0 : ℝ) < Real.exp 13 := Real.exp_pos _
-    rw [hCA]; nlinarith
+    rw [hCA]; nlinarith only [h1, h3, h2]
   have hA := caseAS_arm_priced (X := X) (W := kmin) (Cb := Cb) hCb0 hk2 hkX hlX hgate
   have hB : farSupS kmin Ymax (Dmax + 1) Rrad ≤ 4 * (Real.log X) ^ (-rho293) := by
     have hm := farMain_priced (X := X) (Rrad := Rrad) hL1 hRlow
@@ -353,12 +353,12 @@ theorem Rbd_grade_priced {X Cb kmin Ymax Dmax Rrad : ℝ}
   have hmax : max (2 * caseAS (1 / Real.exp 1) Cb (cofactorMfl X theta293 kmin) kmin)
       (farSupS kmin Ymax (Dmax + 1) Rrad) ≤ (2 * CA + 4) * (Real.log X) ^ (-rho293) := by
     refine max_le ?_ ?_
-    · nlinarith [hA]
-    · nlinarith [hB]
+    · linarith only [hA, hpow0]
+    · nlinarith only [hpow0, hCA0, hB]
   have hCRval : gradeCR Cb = 3 * (2 * CA + 4) := by rw [gradeCR, hCA]; ring
   unfold cofactorRbd
   rw [hCRval]
-  nlinarith [hmax]
+  linarith only [hmax]
 
 /-! ### §1b — THE FAR-ARM OBSTRUCTION (the honest verdict on R-1)
 
@@ -389,7 +389,7 @@ theorem farErr_TannGate_floor {X Tann kmin Ymax Dmax : ℝ}
     have h := Real.log_le_log hTpos hTgate
     rwa [Real.log_exp] at h
   have hY0 : (0 : ℝ) ≤ Real.log Ymax := Real.log_nonneg hY1
-  have harg : Tann ≤ 3 + (Dmax + 1) * (1 + Real.log Ymax) := by nlinarith
+  have harg : Tann ≤ 3 + (Dmax + 1) * (1 + Real.log Ymax) := by nlinarith only [hTann0, hY0, hDmax]
   have hlogarg : Real.log Tann ≤ Real.log (3 + (Dmax + 1) * (1 + Real.log Ymax)) :=
     Real.log_le_log hTann0 harg
   have hroot : (Real.log X) ^ ((1 : ℝ) / 2) = Real.sqrt (Real.log X) := rpow_half_eq_sqrt _
@@ -400,7 +400,7 @@ theorem farErr_TannGate_floor {X Tann kmin Ymax Dmax : ℝ}
   have hstep2 : 30 * Real.sqrt (Real.log X)
       ≤ Real.log (3 + (Dmax + 1) * (1 + Real.log Ymax)) := by
     rw [← hroot]; linarith
-  nlinarith [hstep1, hstep2]
+  nlinarith only [hC0, hroot, hlogarg, hlogT, hstep1]
 
 /-- **THE `R̄` FLOOR.**  `cofactorRbd` is `3·max(…, farSupS …)` and `farSupS ≥ farErr`, so the
 far error's floor is `R̄`'s floor: `R̄ ≥ 360·ballSupC` at ANY `c`, `Cb`, `Rrad > 0`. -/
@@ -534,7 +534,7 @@ theorem farErr_le_of_ambient_gate {X kmin Ymax Dmax : ℝ}
     exact Real.sqrt_le_sqrt (by linarith)
   -- the numerator's non-negativity (the window top and the ambient radius are live data)
   have hY0 : (0 : ℝ) ≤ Real.log Ymax := Real.log_nonneg hY1
-  have hargpos : (1 : ℝ) ≤ 3 + (Dmax + 1) * (1 + Real.log Ymax) := by nlinarith
+  have hargpos : (1 : ℝ) ≤ 3 + (Dmax + 1) * (1 + Real.log Ymax) := by nlinarith only [hD0, hY0]
   have hlognn : (0 : ℝ) ≤ Real.log (3 + (Dmax + 1) * (1 + Real.log Ymax)) :=
     Real.log_nonneg hargpos
   have hnum0 : (0 : ℝ) ≤ 4 * ballSupC * (1 + Real.log (3 + (Dmax + 1) * (1 + Real.log Ymax))) := by
@@ -586,7 +586,7 @@ theorem Rbd_grade_priced_of_ambient {X Cb kmin Ymax Dmax Rrad : ℝ}
   have hhalf : 1 / 2 * Real.log X ≤ Real.log kmin := by
     have h1 : (1 : ℝ) / Real.log (Real.log X) ≤ 1 / 2 :=
       div_le_div_of_nonneg_left (by norm_num) (by norm_num) hL2
-    nlinarith
+    nlinarith only [he3, h1, hlX, hgate]
   exact Rbd_grade_priced hCb0 hk2 hkX hlX hgate hRlow
     (farErr_le_of_ambient_gate hL1 (by linarith) hD0 hY1 hhalf hamb)
 
@@ -607,7 +607,7 @@ theorem ambient_cap_below_TannGate_floor {X : ℝ} (hL1 : 1 ≤ Real.log X)
       = (Real.log X) ^ ((1 : ℝ) / 2) * (Real.log X) ^ (-rho293) := by
     rw [← Real.rpow_add hL0, sub_eq_add_neg]
   rw [hsplit, div_lt_iff₀ (by positivity)]
-  nlinarith [mul_lt_mul_of_pos_left hXgate hs0]
+  linarith only [mul_lt_mul_of_pos_left hXgate hs0]
 
 /-! ## §2 — R-2: the `E`-slot and the `1/P` row's gate -/
 
@@ -773,7 +773,7 @@ theorem P2_route_64_over_Psq_insufficient {X T : ℝ} {N P : ℕ}
   have hroot0 : (0 : ℝ) < X ^ ((1 : ℝ) / 2) := Real.rpow_pos_of_pos hX0 _
   have hPsq : ((P : ℝ)) ^ 2 ≤ X ^ ((1 : ℝ) / 2) := by
     have hQ0 : (0 : ℝ) < Q83 X := by rw [hQ83]; exact Real.exp_pos _
-    have hsq : ((P : ℝ)) ^ 2 ≤ (Q83 X) ^ 2 := by nlinarith
+    have hsq : ((P : ℝ)) ^ 2 ≤ (Q83 X) ^ 2 := by nlinarith only [hPQ, (Nat.cast_nonneg _ : 0 ≤ ↑P)]
     have hQsq : (Q83 X) ^ 2 = Real.exp (2 * (Real.log X / Real.log (Real.log X))) := by
       rw [hQ83, pow_two, ← Real.exp_add]
       congr 1
@@ -792,7 +792,7 @@ theorem P2_route_64_over_Psq_insufficient {X T : ℝ} {N P : ℕ}
       _ ≤ Real.exp (1 / 2 * Real.log X) := Real.exp_le_exp.mpr hexp
   -- the route's own bound is at least `15360·√X`
   have hroot1 : (1 : ℝ) ≤ X ^ ((1 : ℝ) / 2) := Real.one_le_rpow hX1.le (by norm_num)
-  have hPsq0 : (0 : ℝ) < ((P : ℝ)) ^ 2 := by nlinarith
+  have hPsq0 : (0 : ℝ) < ((P : ℝ)) ^ 2 := by nlinarith only [hP1, (Nat.cast_nonneg _ : 0 ≤ ↑P)]
   have hinv : 64 / X ^ ((1 : ℝ) / 2) ≤ 64 / ((P : ℝ)) ^ 2 :=
     div_le_div_of_nonneg_left (by norm_num) hPsq0 hPsq
   have hne : X ^ ((1 : ℝ) / 2) ≠ 0 := ne_of_gt hroot0
@@ -810,11 +810,11 @@ theorem P2_route_64_over_Psq_insufficient {X T : ℝ} {N P : ℕ}
       _ ≤ 12 * (2 * T + 20 * (N : ℝ)) * (64 / X ^ ((1 : ℝ) / 2)) :=
           mul_le_mul_of_nonneg_right hpre (by positivity)
       _ ≤ 12 * (2 * T + 20 * (N : ℝ)) * (64 / ((P : ℝ)) ^ 2) := by
-          have hfac : (0 : ℝ) ≤ 12 * (2 * T + 20 * (N : ℝ)) := by nlinarith
+          have hfac : (0 : ℝ) ≤ 12 * (2 * T + 20 * (N : ℝ)) := by linarith only [hX1, hXN, hT0]
           exact mul_le_mul_of_nonneg_left hinv hfac
   have hsmall : (Real.log X) ^ (-theta293) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos (by linarith) (by linarith [theta293_pos])
-  nlinarith
+  linarith only [hsmall, hbig, hroot1, hroot0]
 
 /-! ## §3 — R-3: ⟦V5f⟧'s three numeral gates at explicit `X`-thresholds -/
 
