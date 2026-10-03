@@ -98,14 +98,14 @@ open scoped BigOperators
 private lemma plog_log_five_le : Real.log 5 ≤ 2 := by
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
   have hsq : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-  have h7 : (7 : ℝ) < Real.exp 2 := by rw [hsq]; nlinarith
+  have h7 : (7 : ℝ) < Real.exp 2 := by rw [hsq]; nlinarith only [he]
   have := Real.log_le_log (by norm_num : (0 : ℝ) < 5) (by linarith : (5 : ℝ) ≤ Real.exp 2)
   rwa [Real.log_exp] at this
 
 private lemma plog_log_eighteen_le : Real.log 18 ≤ 3 := by
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
   have hsq : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-  have h7 : (7 : ℝ) < Real.exp 2 := by rw [hsq]; nlinarith
+  have h7 : (7 : ℝ) < Real.exp 2 := by rw [hsq]; nlinarith only [he]
   have h3 : Real.exp 3 = Real.exp 2 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
   have h20 : (18 : ℝ) < Real.exp 3 := by rw [h3]; nlinarith
   have := Real.log_le_log (by norm_num : (0 : ℝ) < 18) (by linarith : (18 : ℝ) ≤ Real.exp 3)
@@ -136,15 +136,15 @@ private lemma plog_inner_log {X v A b c : ℝ} (hX : Real.exp (Real.exp 1) ≤ X
   have hbox : |2 * v| + b ≤ c * Real.log X ^ A := by
     rw [habs]
     have h1 : 2 * |v| ≤ 2 * Real.log X ^ A := by linarith
-    have h2 : b ≤ b * Real.log X ^ A := by nlinarith
-    nlinarith [hLA, hbc]
+    have h2 : b ≤ b * Real.log X ^ A := by nlinarith only [hb, hLA]
+    nlinarith only [hbc, hLA, h2, hv]
   have hpos : (0 : ℝ) < |2 * v| + b := by positivity
   have hc0 : (0 : ℝ) < c := by linarith
   have hstep := Real.log_le_log hpos hbox
   rw [Real.log_mul (ne_of_gt hc0) (ne_of_gt (by positivity : (0 : ℝ) < Real.log X ^ A)),
     Real.log_rpow hL0] at hstep
-  have hAL : (1 : ℝ) ≤ A * Real.log (Real.log X) := by nlinarith
-  nlinarith [hstep, hlogc, hAL]
+  have hAL : (1 : ℝ) ≤ A * Real.log (Real.log X) := by nlinarith only [hA, hLL]
+  nlinarith only [hbc, hAL, hb, hstep, hlogc]
 
 /-- **POLY-LOG DRIFT 1** (`plog_drift_loglog`).  `loglog(|2v| + 3) ≤ log(5A) + logloglog X`
 on `|v| ≤ (log X)^A`, `A ≥ 1` — the `T0BandCapFree.cfb_band_loglog` twin at a FREE height
@@ -268,7 +268,7 @@ lemma plog_vk_debit {C : ℝ} (hC : 1 ≤ C) {q : ℕ} [NeZero q] {X v A : ℝ}
   have ht2 : Real.exp (Real.exp 100) ≤ |2 * v| := by
     have hle : |v| ≤ |2 * v| := by
       rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
-      nlinarith [abs_nonneg v]
+      linarith only [abs_nonneg v]
     linarith
   obtain ⟨hg1, hg2⟩ := vk_height_facts ht2
   have hlt : (0 : ℝ) < Real.log |2 * v| := lt_of_lt_of_le (Real.exp_pos _) hg1
@@ -283,8 +283,8 @@ lemma plog_vk_debit {C : ℝ} (hC : 1 ≤ C) {q : ℕ} [NeZero q] {X v A : ℝ}
     have hstep := Real.log_le_log hpos hbox
     rw [Real.log_mul (by norm_num) (ne_of_gt (by positivity : (0 : ℝ) < Real.log X ^ A)),
       Real.log_rpow hL0] at hstep
-    have hAL : (1 : ℝ) ≤ A * Real.log (Real.log X) := by nlinarith
-    nlinarith [hstep, plog_log_two_le, hAL]
+    have hAL : (1 : ℝ) ≤ A * Real.log (Real.log X) := by nlinarith only [hA, hLL]
+    linarith only [hAL, hstep, plog_log_two_le]
   -- (ii) `loglog|2v| ≤ log(3A) + logloglog X`
   have hA0 : (0 : ℝ) < 3 * A := by linarith
   have hmid : Real.log (Real.log |2 * v|)
@@ -426,11 +426,11 @@ private lemma plog_vk_qdebit (q : ℕ) [NeZero q] :
   have hECpos : (0 : ℝ) < vkEulerCorr q := vkEulerCorr_pos q
   have hTC : vkTwistConst q ≤ 10000000 * (q : ℝ) * (q : ℝ) := by
     unfold vkTwistConst
-    nlinarith [hlq, hq1]
+    nlinarith only [hlq, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hTCpos : (0 : ℝ) < vkTwistConst q := by
     have := one_le_vkTwistConst (q := q); linarith
   have hprod : vkEulerCorr q * vkTwistConst q ≤ 10000000 * (q : ℝ) ^ 3 := by
-    nlinarith [hEC, hTC, hECpos.le, hTCpos.le, hq1]
+    nlinarith only [hEC, hTCpos, hq1, hTC]
   have hprodpos : (0 : ℝ) < vkEulerCorr q * vkTwistConst q := by positivity
   have hlogprod : Real.log (vkEulerCorr q * vkTwistConst q)
       ≤ Real.log 10000000 + 3 * Real.log q := by
@@ -470,7 +470,7 @@ private lemma plog_socket {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (
   have h2v : Real.exp (Real.exp 100) ≤ |2 * v| := by
     have hle : |v| ≤ |2 * v| := by
       rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
-      nlinarith [abs_nonneg v]
+      linarith only [abs_nonneg v]
     linarith
   exact vkTwistUB_holds (χ ^ 2) hχ2 hXe h2v
 
@@ -533,7 +533,7 @@ theorem polylog_floor_M0 (A : ℝ) (hA : 1 ≤ A) (Q : ℕ) :
       linarith
   · -- the VK arm, coefficient `1/4`, socket discharged
     have hC1 : (1 : ℝ) ≤ vkEulerCorr q * vkTwistConst q := by
-      nlinarith [one_le_vkEulerCorr q, one_le_vkTwistConst (q := q)]
+      nlinarith only [one_le_vkEulerCorr q, one_le_vkTwistConst (q := q)]
     have h := hKn q χ (vkEulerCorr q * vkTwistConst q) X v hC1 hsq hX hv
       (fun hbig => plog_socket χ hsq hXe hbig)
     have hqd := plog_vk_qdebit q
@@ -639,10 +639,10 @@ theorem band_floor_M0_vk (Q : ℕ) :
     rw [show (3 : ℝ) = ((3 : ℕ) : ℝ) from by norm_num, Real.rpow_natCast]
   rw [hpow]
   have h2L : |v| ≤ 2 * Real.log X + 1 := by linarith
-  have hL2 : (3 : ℝ) ≤ Real.log X ^ 2 := by nlinarith [hLe]
+  have hL2 : (3 : ℝ) ≤ Real.log X ^ 2 := by nlinarith only [hL1, hLe]
   have hcube : 2 * Real.log X + 1 ≤ Real.log X ^ 3 := by
     have : Real.log X ^ 3 = Real.log X * Real.log X ^ 2 := by ring
-    nlinarith [hL2, hL1]
+    nlinarith only [hL1, hLe, hL2, sq_nonneg (Real.log X)]
   linarith
 
 /-- **FREE WIN w1 — THE PLAIN BOX FLOOR VALUE** (`boxM0`).  `plogM0`'s shape at the CONTOUR
@@ -694,7 +694,7 @@ theorem box_floor_M0 (Q : ℕ) :
     · have h := hb q χ X v hq0 hsq hX (le_of_lt (not_le.mp hband)) hv
       linarith
   · have hC1 : (1 : ℝ) ≤ vkEulerCorr q * vkTwistConst q := by
-      nlinarith [one_le_vkEulerCorr q, one_le_vkTwistConst (q := q)]
+      nlinarith only [one_le_vkEulerCorr q, one_le_vkTwistConst (q := q)]
     have h := hvk q χ (vkEulerCorr q * vkTwistConst q) X v hC1 hsq hX hv
       (fun hbig => plog_socket χ hsq hXe hbig)
     have hqd := plog_vk_qdebit q
@@ -918,11 +918,11 @@ theorem crossKerFar_le_weighted_l2 {g : ℕ → ℂ} {X h y c₀ t₀ α β H : 
     have hWp0 : 0 ≤ Wp := norm_nonneg _
     have hker : ‖hatKernel X h c τ‖ ≤ 2 * (X + h) ^ (c + 1) / (h * τ ^ 2) := by
       refine (hatKernel_branch2 hX hh hc τ).trans ?_
-      have hden : h * τ ^ 2 ≤ h * (c ^ 2 + τ ^ 2) := by nlinarith [sq_nonneg c, hh.le]
+      have hden : h * τ ^ 2 ≤ h * (c ^ 2 + τ ^ 2) := by nlinarith only [hh, sq_nonneg c]
       have hnum : (0 : ℝ) ≤ 2 * (X + h) ^ (c + 1) := by
         have := Real.rpow_pos_of_pos hXh (c + 1); positivity
       exact div_le_div_of_nonneg_left hnum (by positivity) hden
-    have hamgm : Wm * Wp ≤ (Wm ^ 2 + Wp ^ 2) / 2 := by nlinarith [sq_nonneg (Wm - Wp)]
+    have hamgm : Wm * Wp ≤ (Wm ^ 2 + Wp ^ 2) / 2 := by linarith only [sq_nonneg (Wm - Wp)]
     have hstep : Wm * Wp * ‖hatKernel X h c τ‖
         ≤ ((Wm ^ 2 + Wp ^ 2) / 2) * (2 * (X + h) ^ (c + 1) / (h * τ ^ 2)) :=
       mul_le_mul hamgm hker (norm_nonneg _) (by positivity)
