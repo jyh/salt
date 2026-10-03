@@ -117,7 +117,7 @@ private lemma dpt_sum_le (M K : ℕ) :
   have hgeom : ∑ k ∈ Finset.range K, ((1 : ℝ) / 2) ^ k ≤ 2 := by
     have h : ∑ k ∈ Finset.range K, ((1 : ℝ) / 2) ^ k = 2 - 2 * ((1 : ℝ) / 2) ^ K := by
       rw [geom_sum_eq (by norm_num) K]; ring
-    rw [h]; nlinarith [pow_nonneg (by norm_num : (0:ℝ) ≤ 1 / 2) K]
+    rw [h]; linarith only [pow_nonneg (by norm_num : (0 : ℝ) ≤ 1 / 2) K]
   calc ∑ k ∈ Finset.range K, (dpt M k : ℝ)
       ≤ ∑ k ∈ Finset.range K, (M : ℝ) * ((1 : ℝ) / 2) ^ k := by
         refine Finset.sum_le_sum (fun k _ => ?_)
@@ -195,7 +195,7 @@ private lemma piece_le {Kp a b LM Ld3 w : ℝ}
   -- scalar inverse bound: 1/log b ≤ 1/LM + w/(LM·Ld3)
   have e : 1 / Real.log b - 1 / LM = (LM - Real.log b) / (Real.log b * LM) := by field_simp
   have hcross : (LM - Real.log b) / (Real.log b * LM) ≤ w / (LM * Ld3) :=
-    div_le_div₀ hw hgap (by positivity) (by nlinarith [mul_le_mul_of_nonneg_left hb hLMpos.le])
+    div_le_div₀ hw hgap (by positivity) (by linarith only [mul_le_mul_of_nonneg_left hb hLMpos.le])
   have hinv : 1 / Real.log b ≤ 1 / LM + w / (LM * Ld3) := by
     rw [← e] at hcross; linarith [hcross]
   have hA : (a - b) / Real.log b ≤ (a - b) / LM + (a - b) * w / (LM * Ld3) := by
@@ -205,11 +205,11 @@ private lemma piece_le {Kp a b LM Ld3 w : ℝ}
   have hb1 : Kp * a / Real.log a / Real.log b ≤ Kp * a / Ld3 ^ 2 := by
     rw [div_div]
     apply div_le_div_of_nonneg_left (mul_nonneg hKp hapos.le) hLd3sq
-    nlinarith [mul_le_mul ha hb hLd3pos.le hloga_pos.le]
+    linarith only [mul_le_mul ha hb hLd3pos.le hloga_pos.le]
   have hb2 : Kp * b / Real.log b / Real.log b ≤ Kp * b / Ld3 ^ 2 := by
     rw [div_div]
     apply div_le_div_of_nonneg_left (mul_nonneg hKp hbpos.le) hLd3sq
-    nlinarith [mul_le_mul hb hb hLd3pos.le hlogb_pos.le]
+    linarith only [mul_le_mul hb hb hLd3pos.le hlogb_pos.le]
   rw [add_div, add_div]
   have hsum : Kp * a / Ld3 ^ 2 + Kp * b / Ld3 ^ 2 = Kp * (a + b) / Ld3 ^ 2 := by ring
   linarith [hA, hb1, hb2, hsum]
@@ -324,31 +324,31 @@ private lemma convert_final {Kp M3 LM Ld3 t lN ly P : ℝ}
   have htnn : 0 ≤ t := le_trans hM3nn hMt
   have hlog2nn : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
   have hlog3nn : 0 ≤ Real.log 3 := Real.log_nonneg (by norm_num)
-  have hly2 : ly ^ 2 ≤ 4 * Ld3 ^ 2 := by nlinarith [hLd3_ge, hlypos.le]
-  have hlyLMLd3 : ly ^ 2 ≤ 4 * (LM * Ld3) := by nlinarith [hLM_ge, hLd3_ge, hlypos.le]
+  have hly2 : ly ^ 2 ≤ 4 * Ld3 ^ 2 := by nlinarith only [hlypos, hLd3_ge, hLd3pos]
+  have hlyLMLd3 : ly ^ 2 ≤ 4 * (LM * Ld3) := by nlinarith only [hlypos, hLM_ge, hLMpos, hLd3_ge]
   -- T1 : the leading term
   have hT1 : M3 / LM ≤ t * (ly + 4 * Real.log 2) / (lN * ly) := by
     rw [div_le_div_iff₀ hLMpos (by positivity)]
-    nlinarith [mul_nonneg (mul_nonneg htnn hlog2nn) (by linarith [hLM_ge] : (0:ℝ) ≤ 2 * LM - ly),
-      mul_nonneg (sub_nonneg.mpr hMt) (mul_nonneg hNDpos.le hlypos.le),
-      mul_nonneg (mul_nonneg htnn hlypos.le)
-        (by linarith [hND_le_LM] : (0:ℝ) ≤ LM + 2 * Real.log 2 - lN)]
+    linarith only [mul_nonneg (mul_nonneg htnn hlypos.le)
+        (by linarith [hND_le_LM] : (0 : ℝ) ≤ LM + 2 * Real.log 2 - lN),
+        mul_nonneg (sub_nonneg.mpr hMt) (mul_nonneg hNDpos.le hlypos.le), mul_nonneg
+        (mul_nonneg htnn hlog2nn) (by linarith [hLM_ge] : (0 : ℝ) ≤ 2 * LM - ly)]
   -- T2 : the log-drift correction
   have hT2 : 2 * M3 * Real.log 3 / (LM * Ld3) ≤ 16 * t * Real.log 3 / (lN * ly) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg (mul_nonneg (mul_nonneg htnn hlog3nn) hlypos.le)
-        (by linarith [hND_le_ly] : (0:ℝ) ≤ 2 * ly - lN),
-      mul_nonneg (mul_nonneg hlog3nn (sub_nonneg.mpr hMt)) (mul_nonneg hNDpos.le hlypos.le),
-      mul_nonneg (mul_nonneg htnn hlog3nn)
-        (by linarith [hlyLMLd3] : (0:ℝ) ≤ 4 * (LM * Ld3) - ly ^ 2), hlypos.le, hNDpos.le]
+    linarith only [mul_nonneg (mul_nonneg htnn hlog3nn)
+        (by linarith [hlyLMLd3] : (0 : ℝ) ≤ 4 * (LM * Ld3) - ly ^ 2), mul_nonneg
+        (mul_nonneg hlog3nn (sub_nonneg.mpr hMt)) (mul_nonneg hNDpos.le hlypos.le),
+        mul_nonneg (mul_nonneg (mul_nonneg htnn hlog3nn) hlypos.le)
+        (by linarith [hND_le_ly] : (0 : ℝ) ≤ 2 * ly - lN)]
   -- T3 : the PNT-error correction
   have hT3 : 4 * Kp * M3 / Ld3 ^ 2 ≤ 32 * Kp * t / (lN * ly) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg (mul_nonneg (mul_nonneg hKp htnn) hlypos.le)
-        (by linarith [hND_le_ly] : (0:ℝ) ≤ 2 * ly - lN),
-      mul_nonneg (mul_nonneg hKp (sub_nonneg.mpr hMt)) (mul_nonneg hNDpos.le hlypos.le),
-      mul_nonneg (mul_nonneg hKp htnn)
-        (by linarith [hly2] : (0:ℝ) ≤ 4 * Ld3 ^ 2 - ly ^ 2), hlypos.le, hNDpos.le]
+    linarith only [mul_nonneg (mul_nonneg hKp htnn)
+        (by linarith [hly2] : (0 : ℝ) ≤ 4 * Ld3 ^ 2 - ly ^ 2), mul_nonneg
+        (mul_nonneg hKp (sub_nonneg.mpr hMt)) (mul_nonneg hNDpos.le hlypos.le),
+        mul_nonneg (mul_nonneg (mul_nonneg hKp htnn) hlypos.le)
+        (by linarith [hND_le_ly] : (0 : ℝ) ≤ 2 * ly - lN)]
   have hcombine : t * (ly + 4 * Real.log 2) / (lN * ly) + 16 * t * Real.log 3 / (lN * ly)
       + 32 * Kp * t / (lN * ly)
       = (1 + (4 * Real.log 2 + 16 * Real.log 3 + 32 * Kp) / ly) * (t / lN) := by
@@ -456,7 +456,7 @@ theorem goldPerPair_pi_upper {K : ℝ} (hK0 : 0 ≤ K)
     have hlt : N < (M + 1) * (2 * q.1 * q.2) := by
       have hdm := Nat.div_add_mod N (2 * q.1 * q.2)
       have hmod := Nat.mod_lt N hd_pos
-      rw [hMdef, Lfun]; nlinarith [hdm, hmod]
+      rw [hMdef, Lfun]; linarith only [hmod, hdm]
     rw [div_lt_iff₀ (by positivity)]
     exact_mod_cast hlt
   -- `logND N q = log(2t)` and the two endpoint bounds

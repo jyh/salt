@@ -76,9 +76,9 @@ lemma prime_recip_window_bounds {X Y : ℝ} (heY : Real.exp 1 ≤ Y) (hYX : Y �
       = Salt.Mertens.SPartial Y := rfl
   rw [hSX, hSY, Real.log_div (by linarith) (by linarith)]
   have h12X : 12 / Real.log X ≤ 12 := by
-    rw [div_le_iff₀ (by linarith)]; nlinarith
+    rw [div_le_iff₀ (by linarith)]; linarith only [hlogX1]
   have h12Y : 12 / Real.log Y ≤ 12 := by
-    rw [div_le_iff₀ (by linarith)]; nlinarith
+    rw [div_le_iff₀ (by linarith)]; linarith only [hlogY1]
   have h12X0 : (0 : ℝ) ≤ 12 / Real.log X := by positivity
   have h12Y0 : (0 : ℝ) ≤ 12 / Real.log Y := by positivity
   rw [abs_le]
@@ -152,8 +152,8 @@ theorem mrt_mid_range_parametric :
   · have hΔΛ : Δ ≤ Λ₀ := by linarith [hΔle, hsmall, hlam0]
     have h1 : (1 - 2 / Real.pi) * Δ ≤ Λ₀ := by
       rcases le_or_gt Δ 0 with hΔ0 | hΔ0
-      · nlinarith
-      · nlinarith
+      · nlinarith only [h2π, hsmall, hΔle, h2π0, hQ0]
+      · nlinarith only [h2π, hsmall, hΔle, h2π0, hQ0]
     linarith [hT0, hB₁0]
   -- ## the `Y > X` branch: empty window, nonpositive demand
   rcases lt_or_ge X Y with hXY | hYX
@@ -273,7 +273,7 @@ theorem mrt_mid_range_parametric :
       -- `400·(21·lam)^5/cR ≤ exp((2/3)·lam) ≤ (log X)^{2/3} ≤ log Y`
       have hexpge : 400 * (21 * lam) ^ (5 : ℕ) / cR ≤ Real.exp (2 / 3 * lam) := by
         have h7 := div_seven_pow_seven_le_exp (x := 2 / 3 * lam) (by positivity)
-        have hlamsq : Q ≤ lam ^ 2 := by nlinarith [hlamQ, hlam1]
+        have hlamsq : Q ≤ lam ^ 2 := by nlinarith only [hlam0, hbig, h2π0, h2π, hQ0]
         have hkey : 400 * (21 * lam) ^ (5 : ℕ) / cR ≤ (2 / 3 * lam / 7) ^ (7 : ℕ) := by
           rw [div_le_iff₀ hcR0]
           have hQeq : (2 / 21 : ℝ) ^ (7 : ℕ) * cR * Q = 400 * 21 ^ (5 : ℕ) := by
@@ -303,7 +303,7 @@ theorem mrt_mid_range_parametric :
         rw [div_le_div_iff₀ hlogYpos hDpos]
         have h := hDcR
         rw [div_le_iff₀ hcR0] at h
-        nlinarith [hDpos, hcR0, hlogYpos]
+        linarith only [h, hDpos]
       have hvk := hVK X Y ((m : ℝ) * u) heY hYX hgt.le hwin
       calc _ ≤ K₂ + 1 / Real.log Y * (400 * D / cR) := hvk
         _ ≤ K₂ + 1 := by linarith
@@ -334,7 +334,7 @@ theorem mrt_mid_range_parametric :
       _ ≤ B₁ * (1 / 2) := by
           have : (Mcut : ℝ) / (2 * (Mcut : ℝ) + 1) ≤ 1 / 2 := by
             rw [div_le_div_iff₀ (by positivity) (by norm_num)]; linarith
-          nlinarith [hB₁0]
+          nlinarith only [hB₁0, this]
   -- the sifted sum split and the H1 majorization summed over primes
   have hTsplit : ∑ p ∈ W, (1 - |Real.cos (u * Real.log p / 2)|) / (p : ℝ)
       = P - ∑ p ∈ W, |Real.cos (u * Real.log p / 2)| / (p : ℝ) := by
@@ -393,7 +393,7 @@ theorem mrt_mid_range_parametric :
     have h1 : tail * P ≤ tail * (lam + 24) := mul_le_mul_of_nonneg_left hPle htail0
     have h2 : tail * (lam + 24) ≤ 6 := by
       rw [htail, div_mul_eq_mul_div, div_le_iff₀ (by positivity)]
-      nlinarith [hπ3, hMcutge, hlam1]
+      nlinarith only [hπ3, hMcutge, hbig, h2π0, h2π, hQ0, (Nat.cast_nonneg _ : 0 ≤ ↑Mcut)]
     linarith
   -- close
   have hHle := (abs_le.mp hHabs).2
@@ -401,11 +401,11 @@ theorem mrt_mid_range_parametric :
       ((-1 : ℝ) ^ (m + 1) / (4 * (m : ℝ) ^ 2 - 1)) * S m ≤ B₁ := by
     have h4π : 4 / Real.pi ≤ 2 := by rw [div_le_iff₀ hπpos]; linarith
     have h4π0 : 0 ≤ 4 / Real.pi := by positivity
-    nlinarith [hHle, h4π, h4π0, hB₁0]
+    nlinarith only [hHle, h4π0, h2π0, h2π, hB₁0, h4π]
   have hmain : (1 - 2 / Real.pi) * P ≥ (1 - 2 / Real.pi) * (Δ - 24) :=
     mul_le_mul_of_nonneg_left (by linarith [hPΔ.1]) h12
   rw [hTsplit]
-  nlinarith [hcos_sum, htailP, hH4, hmain, h12, h12', hB₁0, hΛ₀32]
+  linarith only [hmain, hH4, htailP, hcos_sum, h2π0, h2π, hQ0]
 
 /-! ## The dischargers: the pinned Props are instances of the floor -/
 
