@@ -101,7 +101,7 @@ theorem hband_discharge_param {F : Finset ℕ} {b : ℕ → ℂ} {a Cb : ℝ}
     have he12 : Real.exp (1 / 2 : ℝ) < 2 := by
       have hsq : Real.exp (1 / 2 : ℝ) ^ 2 = Real.exp 1 := by
         rw [← Real.exp_nat_mul]; norm_num
-      nlinarith [hsq, Real.exp_one_lt_d9, Real.exp_pos (1 / 2 : ℝ)]
+      nlinarith only [hsq, Real.exp_one_lt_d9]
     calc Real.exp (1 / a) ≤ Real.exp (1 / 2 : ℝ) := Real.exp_le_exp.mpr h14
       _ ≤ 2 := le_of_lt he12
   intro n hn k
@@ -371,7 +371,7 @@ private lemma diag_le_mass_widthC {F : Finset ℕ} {b : ℕ → ℂ} {c A : ℝ}
       norm_num
     have hgate : (A : ℝ) ^ 8 ≤ (n : ℝ) := by
       have := hygate n hn
-      nlinarith [pow_nonneg hA0.le 8]
+      linarith only [this, hn1]
     have h2 : ((A : ℝ) ^ 8) ^ (1 / 4 : ℝ) ≤ ((n : ℝ)) ^ (1 / 4 : ℝ) :=
       Real.rpow_le_rpow (by positivity) hgate (by norm_num)
     have h3 : ((n : ℝ)) ^ (1 / 4 : ℝ) ≤ ((n : ℝ)) ^ (c - 1 / 2 : ℝ) :=
@@ -385,7 +385,7 @@ private lemma diag_le_mass_widthC {F : Finset ℕ} {b : ℕ → ℂ} {c A : ℝ}
     have hp1 : (0 : ℝ) < (n : ℝ) ^ (1 / 2 : ℝ) := Real.rpow_pos_of_pos hn0 _
     have hp2 : (0 : ℝ) < (n : ℝ) ^ (c - 1 / 2 : ℝ) := Real.rpow_pos_of_pos hn0 _
     rw [hsplit, div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_le_mul_of_nonneg_right hA2n hp1.le]
+    nlinarith only [hbn, mul_le_mul_of_nonneg_right hA2n hp1.le, sq_nonneg (1 * A)]
   have hnn : (0 : ℝ) ≤ ‖b n‖ / (n : ℝ) ^ c := by positivity
   rw [hsq, pow_two]
   exact mul_le_mul_of_nonneg_right hterm hnn
@@ -535,7 +535,7 @@ theorem crossKer_width_sigma_bound_param (g : ℕ → ℂ) (hg : ∀ p, p.Prime 
   have hfac : 9 * Real.exp 1 * y ^ (-(2 * β)) ≤ 81 := by
     have h1 : 9 * Real.exp 1 * y ^ (-(2 * β)) ≤ 9 * Real.exp 1 * 1 :=
       mul_le_mul_of_nonneg_left hyb (by positivity)
-    nlinarith [Real.exp_one_lt_d9]
+    linarith only [h1, hLinv4, hLinv, Real.exp_one_lt_d9]
   have hF : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, 1 ≤ n := by
     intro n hn; rw [Finset.mem_Ioo] at hn; omega
   have hb : ∀ n, ‖lambdaLin (restrictAbove y g) n‖ ≤ ArithmeticFunction.vonMangoldt n :=
@@ -621,7 +621,7 @@ theorem crossKer_width_sigma_bound_param (g : ℕ → ℂ) (hg : ∀ p, p.Prime 
         have hden : A / 2 ≤ A - (c₀ - β) + 1 := by rw [hc₀]; linarith
         have hcoef : 4 * Cb / (A - (c₀ - β) + 1) ≤ 8 * Cb / A := by
           rw [div_le_div_iff₀ (by linarith) hA0]
-          nlinarith [mul_le_mul_of_nonneg_left hden (by linarith : (0 : ℝ) ≤ 8 * Cb)]
+          linarith only [mul_le_mul_of_nonneg_left hden (by linarith : (0 : ℝ) ≤ 8 * Cb)]
         refine mul_le_mul (by linarith) ?_ hSm0 (by positivity)
         calc Sm = 1 * Sm := (one_mul _).symm
           _ ≤ X ^ β * Sm := mul_le_mul_of_nonneg_right hXβ1 hSm0
@@ -643,7 +643,7 @@ theorem crossKer_width_sigma_bound_param (g : ℕ → ℂ) (hg : ∀ p, p.Prime 
       have hden : A / 2 ≤ A - (c₀ + β) + 1 := by rw [hc₀]; linarith
       have hcoef : 4 * Cb / (A - (c₀ + β) + 1) ≤ 8 * Cb / A := by
         rw [div_le_div_iff₀ (by linarith) hA0]
-        nlinarith [mul_le_mul_of_nonneg_left hden (by linarith : (0 : ℝ) ≤ 8 * Cb)]
+        linarith only [mul_le_mul_of_nonneg_left hden (by linarith : (0 : ℝ) ≤ 8 * Cb)]
       exact mul_le_mul_of_nonneg_right (by linarith) hSp0
     exact hkey.trans (le_of_eq (mul_assoc _ _ _).symm)
   have hKfac0 : (0 : ℝ) ≤ Real.pi / A * (2 / A ^ 2 + 8 * Cb / A) := by positivity
@@ -766,7 +766,7 @@ theorem pin_width_gates {X h y L : ℝ} (hL64 : 64 ≤ L) (hX0 : 0 < X)
         have h4 : (Real.sqrt L) ^ 8 = ((Real.sqrt L) * (Real.sqrt L)) ^ 4 := by ring
         rw [h4, hsq]
       rw [mul_pow, h2]; norm_num
-    nlinarith [pow_nonneg (by linarith : (0 : ℝ) ≤ 2 * (Real.sqrt L + 1)) 8]
+    linarith only [hval, hpow, pow_nonneg (by linarith : (0 : ℝ) ≤ 2 * (Real.sqrt L + 1)) 8]
 
 /-- **R-2 — the pin bracket at an ABSOLUTE numeral** (`width_pin_bracket_le`).  With
 `h = X/√L`, `y = L⁴` and `L ≥ 64`:
@@ -801,16 +801,16 @@ theorem width_pin_bracket_le {Cb X h y L : ℝ} (hCb0 : 0 ≤ Cb) (hL64 : 64 ≤
         have h4' : (Real.sqrt L) ^ 8 = ((Real.sqrt L) * (Real.sqrt L)) ^ 4 := by ring
         rw [h4', hsq]
       rw [div_pow, h4]; norm_num
-    rw [h2]; nlinarith [pow_nonneg hL0.le 4]
+    rw [h2]; linarith only [hy0, hy]
   have hA4 : (4 : ℝ) ≤ A := by linarith
   have hApos : (0 : ℝ) < A := by linarith
-  have hA2 : L / 4 ≤ A ^ 2 := by nlinarith
-  have hA3 : L ≤ A * A ^ 2 := by nlinarith
+  have hA2 : L / 4 ≤ A ^ 2 := by nlinarith only [hA0, hAlow, hs0, hsq]
+  have hA3 : L ≤ A * A ^ 2 := by nlinarith only [hAlow, hs8, hA2, sq_nonneg A, sq_nonneg A]
   -- factor 1: the `T₀` bracket
   have hLs : 8 * Real.sqrt L ≤ L := by
     have hprod : (0 : ℝ) ≤ (Real.sqrt L - 8) * Real.sqrt L :=
       mul_nonneg (by linarith) hs0.le
-    nlinarith [hsq]
+    linarith only [hprod, hsq]
   have hF1 : 4 * (2 * (X + h) / h) ^ 2 / (3 / 4) + 2 * (2 * (X + h) / h) ≤ 28 * L := by
     rw [hT]
     have hkey : 4 * (2 * (Real.sqrt L + 1)) ^ 2 / (3 / 4) + 2 * (2 * (Real.sqrt L + 1))
@@ -833,14 +833,14 @@ theorem width_pin_bracket_le {Cb X h y L : ℝ} (hCb0 : 0 ≤ Cb) (hL64 : 64 ≤
     rw [hsplit]
     have h1 : 2 * Real.pi / (A * A ^ 2) ≤ 8 / L := by
       rw [div_le_div_iff₀ (by positivity) hL0]
-      nlinarith [hA3, hL0]
+      nlinarith only [hL64, hpi4, hA3]
     have h2 : 8 * Real.pi * Cb / A ^ 2 ≤ 128 * Cb / L := by
       rw [div_le_div_iff₀ (by positivity) hL0]
-      nlinarith [mul_le_mul_of_nonneg_left hA2 (by positivity : (0 : ℝ) ≤ 128 * Cb),
-        mul_nonneg hCb0 hL0.le, hpi4]
+      nlinarith only [hpi4, mul_nonneg hCb0 hL0.le,
+          mul_le_mul_of_nonneg_left hA2 (by positivity : (0 : ℝ) ≤ 128 * Cb)]
     have h3 : 8 / L + 128 * Cb / L = (8 + 128 * Cb) / L := by ring
     have h4 : (8 + 128 * Cb) / L ≤ 128 * (1 + Cb) / L := by
-      rw [div_le_div_iff₀ hL0 hL0]; nlinarith
+      rw [div_le_div_iff₀ hL0 hL0]; linarith only [hL64]
     linarith
   have hF2nn : (0 : ℝ) ≤ Real.pi / A * (2 / A ^ 2 + 8 * Cb / A) := by positivity
   -- factor 3: the window-bridge constant
@@ -920,7 +920,7 @@ private lemma four_log_le_selfC {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L 
   have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
   have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith
+  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
 
 /-- The pin's elementary arithmetic at the `e^{64}` gate: everything `beta_integral_pin_const`
 and `rhs_grade_at_scale_const` need about `(k, L, y, η)`. -/
@@ -1225,11 +1225,11 @@ private lemma pin_rpow_scale {k h L c₀ : ℝ} (hk : Real.exp 64 ≤ k) (hL : L
   have hk1 : (1 : ℝ) ≤ k := by linarith
   -- `k + h ≤ (9/8)·k`
   have hhk : h ≤ k / 8 := by
-    rw [hh, div_le_div_iff₀ hs0 (by norm_num)]; nlinarith
+    rw [hh, div_le_div_iff₀ hs0 (by norm_num)]; nlinarith only [hk0, hs8]
   have hkh98 : k + h ≤ 9 / 8 * k := by linarith
   -- `(k+h)^{1/L} ≤ 8`
   have hlogkh : Real.log (k + h) ≤ 2 * L := by
-    have hsq : k + h ≤ k * k := by nlinarith
+    have hsq : k + h ≤ k * k := by nlinarith only [hk0, hk65, hhk]
     have h1 : Real.log (k + h) ≤ Real.log (k * k) := Real.log_le_log hkh0 hsq
     rw [Real.log_mul hk0.ne' hk0.ne', ← hL] at h1
     linarith
