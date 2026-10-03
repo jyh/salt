@@ -383,7 +383,7 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1 : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
           ≤ Real.sqrt ((((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
               * (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) :=
-        Real.sqrt_le_sqrt (by nlinarith [hXMge1])
+        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
       rwa [Real.sqrt_mul_self hXMpos.le] at h1
     linarith [hDsqrtXM, hsqrtself]
   have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
@@ -395,12 +395,12 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
         Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       rw [Real.rpow_one] at h1le
-      nlinarith [le_trans hL2 h1le, hL18ge1]
+      nlinarith only [hL18ge1, h1le, hLlow, hlog4, hlogNbig]
     have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
       have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
           = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
       rw [hexp] at hsqle
-      nlinarith [hsqle, hL18ge2, hXMhiR, mul_nonneg hDnn hDnn]
+      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
     rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
     exact Real.sqrt_le_sqrt hDDN
   have hDsq : D < (2 ^ kp + 1) * (2 ^ kp + 1) := by
@@ -440,7 +440,7 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans hDsqrtXM (le_trans hsqrt2N hsqrt2N_le)
     have hDnat : D ≤ 2 ^ kp * 2 ^ kp := by exact_mod_cast hDreal
     have hm : (1 : ℕ) ≤ 2 ^ kp := Nat.one_le_pow _ _ (by norm_num)
-    nlinarith [hDnat, hm]
+    linarith only [hDnat, hpc, (Nat.cast_nonneg _ : 0 ≤ ↑(pieceN kp))]
   -- `hD1 : 1 ≤ D` from the band floor `hDge` (`goldCut^{11/24} ≥ 8`).
   have hD1 : 1 ≤ D := by
     have h1010big : (100 : ℝ) ≤ (10 : ℝ) ^ 10 := by norm_num
@@ -448,7 +448,7 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have hlog8le : Real.log 8 ≤ 3 := by
         rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; push_cast; linarith [hlog2]
       have hlog8 : Real.log 8 ≤ (11 / 24) * Real.log (goldCut N (ka + 1) : ℝ) := by
-        nlinarith [hlog_gc, hlog8le, h1010big]
+        linarith only [hlog8le, hlog_gc]
       calc (8 : ℝ) = Real.exp (Real.log 8) := (Real.exp_log (by norm_num)).symm
         _ ≤ Real.exp ((11 / 24) * Real.log (goldCut N (ka + 1) : ℝ)) := Real.exp_le_exp.mpr hlog8
         _ = (goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) := by
@@ -505,13 +505,13 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
         have hDleN : (D : ℝ) ≤ (N : ℝ) := by
           have hself : Real.sqrt (N : ℝ) ≤ (N : ℝ) := by
             have h1 : Real.sqrt (N : ℝ) ≤ Real.sqrt ((N : ℝ) * (N : ℝ)) :=
-              Real.sqrt_le_sqrt (by nlinarith [hN1R])
+              Real.sqrt_le_sqrt (by nlinarith only [hN1R, (Nat.cast_nonneg _ : 0 ≤ ↑N)])
             rwa [Real.sqrt_mul_self hNpos.le] at h1
           linarith [hDx, hself]
         rcases Nat.eq_zero_or_pos D with h0 | hDpos
         · rw [h0]; simp only [Nat.cast_zero, Real.log_zero]; linarith [hlogN1]
         · exact Real.log_le_log (by exact_mod_cast hDpos) hDleN
-      have hlogNle7L : Real.log N ≤ 7 * L := by nlinarith [hLlow, hlog4, hL2, hlogN1]
+      have hlogNle7L : Real.log N ≤ 7 * L := by linarith only [hLlow, hlog4, hlogNbig]
       have h14le18 : L ^ (14 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
         Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       have hDL14 : (D : ℝ) * L ^ (14 : ℝ)
@@ -519,11 +519,11 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
         le_trans (mul_le_mul_of_nonneg_left h14le18 hDnn) herr_lev
       have hL14eq : L ^ (14 : ℝ) = L * L ^ (13 : ℝ) := by
         rw [show (14 : ℝ) = 1 + 13 by norm_num, Real.rpow_add hLpos, Real.rpow_one]
-      have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by nlinarith [hlogD, hlogNle7L, hL1]
+      have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by linarith only [hlogD, hLlow, hlog4, hlogNbig]
       have hstep1 : 4 * (1 + Real.log D) * (D : ℝ) * L ^ (13 : ℝ)
           ≤ 32 * ((D : ℝ) * L ^ (14 : ℝ)) := by
         rw [hL14eq]
-        nlinarith [hcoef, hDnn, hL13nn, mul_nonneg hDnn hL13nn]
+        nlinarith only [hlogD, hLlow, hlog4, hlogN, mul_nonneg hDnn hL13nn]
       have hBnn : (0 : ℝ) ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by positivity
       have hAnn : (0 : ℝ) ≤ 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := by
         positivity
@@ -568,7 +568,7 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
                 = (N : ℝ) ^ ((4 : ℝ) / 3) / 65536 := by rw [h43]; ring
             rw [hexp]; linarith [hstep]
           linarith [hkpMlo2, h2N_le]
-        nlinarith [hXMhiR, hBBlo]
+        linarith only [hBBlo, hXMhiR]
       have hAle : 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
           ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by
         have h1 := Real.sqrt_le_sqrt hAAle
@@ -679,7 +679,7 @@ theorem gold_kerrY2_geoN : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     have hle := Real.log_le_log (by positivity) hcornerR
     rw [Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow,
       Real.log_div hNne (by norm_num)] at hle
-    nlinarith [hle]
+    linarith only [hle]
   -- (h4) the WEAK middle-piece floor `log N/3 − 2·log 2 ≤ kp·log 2`
   have hyM2 : opY N < 2 ^ (kp + 1) := by unfold pieceM at hvan; omega
   have h2kp1R : (opY N : ℝ) < 2 * ((2 ^ kp : ℕ) : ℝ) := by
@@ -719,7 +719,7 @@ theorem gold_kerrY2_geoN : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     rw [hLdef]
     have hmono := Real.log_le_log hprodpos hprod_ub
     rw [Real.log_pow] at hmono
-    push_cast at hmono; nlinarith [hmono]
+    push_cast at hmono; linarith only [hmono]
   have hLlb : Real.log N / 3 - Real.log 2 ≤ L := by
     rw [hLdef]
     have hoypos : (0 : ℝ) < (opY N : ℝ) := by exact_mod_cast (by omega : 0 < opY N)
@@ -731,9 +731,9 @@ theorem gold_kerrY2_geoN : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
         (Real.log_le_log (by linarith [hMR1]) hMprod)
     linarith [hlogY_ge, hchain]
   -- the ratio core (inlined `band_ratio_core` at the weak floor)
-  have hlw : (216 : ℝ) * Real.log 2 ≤ Real.log N := by nlinarith [hlogN, hlog2le1, hlog2pos]
+  have hlw : (216 : ℝ) * Real.log 2 ≤ Real.log N := by linarith only [hlog2le1, hlogN]
   have hcore : (10 / 31 : ℝ) * (((i : ℝ) + (kp : ℝ) + 2) * Real.log 2) ≤ (kp : ℝ) * Real.log 2 := by
-    nlinarith [h3, h4, hlw, hlog2pos]
+    linarith only [h4, h3, hlog2le1, hlogN]
   have hL1 : (1 : ℝ) ≤ L := by linarith [hLlb, hlogN, hlog2le1]
   have hratio : (10 / 31 : ℝ) * L ≤ Real.log (y : ℝ) := by
     have h2kpy : Real.log ((2 ^ kp : ℕ) : ℝ) ≤ Real.log (y : ℝ) := by
