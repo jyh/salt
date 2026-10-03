@@ -196,7 +196,7 @@ theorem norm_ramGenCoeff_le_one (H : ℝ) (hH : 0 < H) (N P Q : ℕ) (hP : 1 ≤
     rw [norm_mul, norm_mul, hw]
     have h1 : ‖c σ.2.1‖ * ‖b σ.2.2‖ ≤ 1 := mul_le_one₀ (hc _) (norm_nonneg _) (hb _)
     have h2 : (0 : ℝ) ≤ 1 / ((blockOmega P Q σ.2.2 : ℝ) + 1) := by positivity
-    nlinarith [norm_nonneg (c σ.2.1), norm_nonneg (b σ.2.2)]
+    nlinarith only [h1, h2]
   have hinj : ∀ x ∈ (ramGenDom H N P Q W).filter (fun σ => σ.2.1 * σ.2.2 = n),
       ∀ y ∈ (ramGenDom H N P Q W).filter (fun σ => σ.2.1 * σ.2.2 = n),
       x.2.1 = y.2.1 → x = y := by
@@ -327,9 +327,9 @@ theorem ramGenPoly_moment (H : ℝ) (hH : 0 < H) (N M P Q : ℕ) (hP : 1 ≤ P)
     have hd : ‖ramGenCoeff H N P Q W b c n‖ ≤ 1 :=
       norm_ramGenCoeff_le_one H hH N P Q hP W b c hb hc n
     have hd0 : (0 : ℝ) ≤ ‖ramGenCoeff H N P Q W b c n‖ := norm_nonneg _
-    have hd2 : ‖ramGenCoeff H N P Q W b c n‖ ^ 2 ≤ 1 := by nlinarith
+    have hd2 : ‖ramGenCoeff H N P Q W b c n‖ ^ 2 ≤ 1 := by nlinarith only [hd, hd0]
     rw [div_le_div_iff₀ (by nlinarith) (by positivity)]
-    nlinarith
+    nlinarith only [hlo, hnlo, hd2, (Nat.cast_nonneg _ : 0 ≤ ↑n), sq_nonneg lo]
   have hcardS : (S.card : ℝ) ≤ C := by
     refine hcard S (fun n hn => ?_)
     rw [hS, Finset.mem_filter] at hn
@@ -412,7 +412,7 @@ lemma ramSeamLoW_window (H : ℝ) (N X P Q : ℕ) :
         ≤ Real.exp (((σ.1 : ℝ) + 1) / H) * ((X : ℝ) * Real.exp (-(σ.1 : ℝ) / H)) :=
       mul_le_mul hphi.le hmhi.le (by positivity) (by positivity)
     push_cast
-    nlinarith [hE2]
+    nlinarith only [hE2, hstep, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
 
 /-- **The upper seam frequency window**: `2X ≤ pm ≤ 2Xe^{1/H}` — the `X ↦ 2X` rescale of the
 lower one, and the source of the row's `4×` saving (`1/n² ≤ 1/(2X)²`). -/
@@ -438,7 +438,7 @@ lemma ramSeamUpW_window (H : ℝ) (N X P Q : ℕ) :
         ≤ Real.exp (((σ.1 : ℝ) + 1) / H) * (2 * (X : ℝ) * Real.exp (-(σ.1 : ℝ) / H)) :=
       mul_le_mul hphi.le hmhi (by positivity) (by positivity)
     push_cast
-    nlinarith [hE2]
+    nlinarith only [hE2, hstep, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
 
 /-- **M1a — the lower seam row.**  Frequencies in `[X, Xe^{1/H}]` (count `≤ 2eX/H + 1` by
 `window_card_le`), bounded coefficients, so `moment_core_bound` gives
@@ -456,7 +456,7 @@ theorem ramSeamLoPoly_moment (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 �
   refine ramGenPoly_moment H hH0 N N P Q hP (ramSeamLoW H N X) (ramSeamLoW_sub H N X) b c hb hc
     (X : ℝ) ((X : ℝ) * Real.exp (1 / H)) (2 * Real.exp 1 * (X : ℝ) / H + 1) hXR ?_
     (ramSeamLoW_window H N X P Q) ?_ T hT
-  · nlinarith
+  · nlinarith only [hexp, hNR, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
   · intro s hs
     refine window_card_le H (by linarith) X s (fun n hn => ?_)
     obtain ⟨h1, h2⟩ := hs n hn
@@ -465,7 +465,7 @@ theorem ramSeamLoPoly_moment (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 �
       refine Real.exp_le_one_iff.mpr ?_
       have : (0 : ℝ) < 1 / H := by positivity
       linarith
-    nlinarith
+    nlinarith only [this, h1, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
 
 /-- **M1b — the upper seam row** (HERR-WAVE's `Z1`).  Frequencies in `(2X, 2Xe^{1/H}]`: the
 count is `window_card_le` at `2X` (`4eX/H + 1`) and `1/n² ≤ 1/(2X)²` — the `4×` saving. -/
@@ -485,7 +485,7 @@ theorem ramSeamUpPoly_moment (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 �
     (ramSeamUpW_sub H N X) b c hb hc
     (2 * (X : ℝ)) (2 * (X : ℝ) * Real.exp (1 / H)) (4 * Real.exp 1 * (X : ℝ) / H + 1)
     (by linarith) ?_ (ramSeamUpW_window H N X P Q) ?_ T hT) ?_
-  · rw [hcast]; nlinarith
+  · rw [hcast]; nlinarith only [hexp, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
   · intro s hs
     have h := window_card_le H (by linarith) (2 * X) s (fun n hn => ?_)
     · rw [hcast2] at h
@@ -498,7 +498,7 @@ theorem ramSeamUpPoly_moment (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 �
         refine Real.exp_le_one_iff.mpr ?_
         have : (0 : ℝ) < 1 / H := by positivity
         linarith
-      nlinarith
+      nlinarith only [hle, h1, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
   · rw [hcast]
     refine mul_le_mul_of_nonneg_right (by linarith) (by positivity)
 
@@ -736,8 +736,8 @@ lemma continuous_ramSeamUpPoly (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) :
 /-! ## M3 — Lemma 12's mean square at the MR range, with NO `hwin` -/
 
 lemma norm_add_sq_le_two (u v : ℂ) : ‖u + v‖ ^ 2 ≤ 2 * ‖u‖ ^ 2 + 2 * ‖v‖ ^ 2 := by
-  nlinarith [norm_add_le u v, norm_nonneg u, norm_nonneg v, norm_nonneg (u + v),
-    sq_nonneg (‖u‖ - ‖v‖)]
+  nlinarith only [norm_add_le u v, norm_nonneg (u + v),
+      norm_nonneg v, norm_nonneg u, sq_nonneg (‖u‖ - ‖v‖)]
 
 /-- **The four-row Cauchy–Schwarz split**: `‖g₁+g₂+g₃+g₄‖² ≤ 4Σ‖gᵢ‖²`, integrated. -/
 theorem moment_split4 {f g₁ g₂ g₃ g₄ : ℝ → ℂ} (hf : Continuous f) (h1 : Continuous g₁)
@@ -869,20 +869,20 @@ theorem seam_rows_grade (H : ℝ) (hH : 2 ≤ H) (N X : ℕ) (hX : 1 ≤ X)
   have hXR : (0 : ℝ) < (X : ℝ) := by exact_mod_cast hX
   have he : Real.exp 1 ≤ 2.72 := by linarith [Real.exp_one_lt_d9]
   have he0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-  have hHX2 : H * (X : ℝ) ≤ (X : ℝ) ^ 2 := by nlinarith
+  have hHX2 : H * (X : ℝ) ≤ (X : ℝ) ^ 2 := by nlinarith only [hHX, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
   have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
   have h1 : (2 * Real.exp 1 * (X : ℝ) / H + 1) / (X : ℝ) ^ 2 ≤ 7 / (H * (X : ℝ)) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
     have hexpand : (2 * Real.exp 1 * (X : ℝ) / H + 1) * (H * (X : ℝ))
         = 2 * Real.exp 1 * (X : ℝ) ^ 2 + H * (X : ℝ) := by field_simp
     rw [hexpand]
-    nlinarith [sq_nonneg (X : ℝ)]
+    nlinarith only [he, hHX2, sq_nonneg ↑X, sq_nonneg ↑X]
   have h2 : (4 * Real.exp 1 * (X : ℝ) / H + 1) / (2 * (X : ℝ)) ^ 2 ≤ 3 / (H * (X : ℝ)) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
     have hexpand : (4 * Real.exp 1 * (X : ℝ) / H + 1) * (H * (X : ℝ))
         = 4 * Real.exp 1 * (X : ℝ) ^ 2 + H * (X : ℝ) := by field_simp
     rw [hexpand]
-    nlinarith [sq_nonneg (X : ℝ)]
+    nlinarith only [he, hHX2, sq_nonneg ↑X, sq_nonneg ↑X]
   have hd1 : (0 : ℝ) ≤ (2 * Real.exp 1 * (X : ℝ) / H + 1) / (X : ℝ) ^ 2 := by positivity
   have hd2 : (0 : ℝ) ≤ (4 * Real.exp 1 * (X : ℝ) / H + 1) / (2 * (X : ℝ)) ^ 2 := by positivity
   have hs1 : (2 * T + 20 * (N : ℝ)) * ((2 * Real.exp 1 * (X : ℝ) / H + 1) / (X : ℝ) ^ 2)

@@ -79,7 +79,7 @@ lemma sixty_mul_log_Zf_ge_Lwin {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : 
     have h := Real.log_le_log (by positivity : (0 : ℝ) < (100 : ℝ) ^ 48) hx48
     rw [Real.log_pow] at h
     push_cast at h
-    nlinarith [h, log_hundred_ge]
+    linarith only [h, log_hundred_ge]
   -- `Lwin x ≤ 2·log2 + log x`
   have hLwin_ub : Lwin x ≤ 2 * Real.log 2 + Real.log x := by
     rw [Lwin]
@@ -120,7 +120,7 @@ lemma mertens_absorb {z : ℕ} (hz100 : 100 ^ 16 ≤ z) :
     have h := Real.log_le_log (by positivity : (0 : ℝ) < (100 : ℝ) ^ 16) hz16
     rw [Real.log_pow] at h
     push_cast at h
-    nlinarith [h, log_hundred_ge]
+    linarith only [h, log_hundred_ge]
   have hlog2 := log_two_le
   have hlog4 := log_four_eq
   linarith [hlogz, hlog2, hlog4]
@@ -178,7 +178,7 @@ lemma engine_totient_fold {m : ℕ} (hm : IsPrimePow m) (ho : Odd m) :
     have : (2 : ℝ) * m ≤ 3 * Nat.totient m := by exact_mod_cast hkey
     linarith
   have h0 : (0 : ℝ) ≤ (m : ℝ) / (Nat.totient m : ℝ) := by positivity
-  nlinarith [hratio, h0]
+  nlinarith only [hratio, h0]
 
 /-- **The engine, right orientation** (`d₁ = 1`, `d₂ = m` the small odd prime-power block). -/
 theorem engineRoute_card_right {x m : ℕ} (hZ : 100 ≤ Zf x) (hm : IsPrimePow m) (ho : Odd m) :
@@ -318,7 +318,7 @@ theorem erTsw_weightedCount_unconditional (χ : DirichletCharacter ℂ q) (hsq :
   have hzR : (1 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz1
   have hzpos : 0 < Real.log z := Real.log_pos (by
     have : (100 : ℝ) ^ 16 ≤ (z : ℝ) := by exact_mod_cast hz100
-    nlinarith [this])
+    linarith only [this])
   have hLwinpos : 0 < Lwin x := by have := t2_Lwin_ge hz100 hzx; linarith
   have hLZpos : 0 < Real.log (Zf x) := by
     have h100 : (100 : ℝ) ≤ (Zf x : ℝ) := by exact_mod_cast hZ
@@ -378,7 +378,7 @@ theorem erTsw_weightedCount_unconditional (χ : DirichletCharacter ℂ q) (hsq :
     le_trans (mertens_vonMangoldt_div_le hz1) (mertens_absorb hz100)
   have hsixty := sixty_mul_log_Zf_ge_Lwin hz100 hzx
   have hLsq : Lwin x ^ 2 ≤ 3600 * Real.log (Zf x) ^ 2 := by
-    nlinarith [pow_le_pow_left₀ (Lwin_nonneg x) hsixty 2]
+    linarith only [pow_le_pow_left₀ (Lwin_nonneg x) hsixty 2]
   have hmain : 144 * ((x : ℝ) / Real.log (Zf x) ^ 2) * ∑ w ∈ Finset.Ioc 0 z, Λ w / w
       ≤ 583200 * x * Real.log z / Lwin x ^ 2 := by
     have hfactnn : 0 ≤ 144 * ((x : ℝ) / Real.log (Zf x) ^ 2) := by positivity
@@ -387,7 +387,7 @@ theorem erTsw_weightedCount_unconditional (χ : DirichletCharacter ℂ q) (hsq :
         = 162 * (x : ℝ) * Real.log z / Real.log (Zf x) ^ 2 from by ring,
       div_le_div_iff₀ (pow_pos hLZpos 2) (pow_pos hLwinpos 2)]
     have hxz0 : 0 ≤ (x : ℝ) * Real.log z := mul_nonneg (Nat.cast_nonneg x) hzpos.le
-    nlinarith [hLsq, mul_nonneg hxz0 (sub_nonneg.mpr hLsq)]
+    linarith only [mul_nonneg hxz0 (sub_nonneg.mpr hLsq)]
   have hjunk : 2 * (Zf x : ℝ) ^ 8 * ∑ w ∈ Finset.Ioc 0 z, Λ w
       ≤ x ^ ((9 : ℝ) / 10) * Lwin x := by
     calc 2 * (Zf x : ℝ) ^ 8 * ∑ w ∈ Finset.Ioc 0 z, Λ w
@@ -406,7 +406,7 @@ theorem ER_Tsw'_bound_unconditional (χ : DirichletCharacter ℂ q) (hsq : χ ^ 
     ER_Tsw' χ z x ≤ 2 ^ 21 * (x / z0 z x) + x ^ ((9 : ℝ) / 10) * Lwin x ^ 3 := by
   have hzpos : 0 < Real.log z := Real.log_pos (by
     have : (100 : ℝ) ^ 16 ≤ (z : ℝ) := by exact_mod_cast hz100
-    nlinarith [this])
+    linarith only [this])
   have hLwinpos : 0 < Lwin x := by have := t2_Lwin_ge hz100 hzx; linarith
   have hLwin100 : 100 ≤ Lwin x := t2_Lwin_ge hz100 hzx
   have hxlogz : (0 : ℝ) ≤ (x : ℝ) * Real.log z := mul_nonneg (Nat.cast_nonneg x) hzpos.le
@@ -425,7 +425,7 @@ theorem ER_Tsw'_bound_unconditional (χ : DirichletCharacter ℂ q) (hsq : χ ^ 
   · rw [show (2 : ℝ) ^ 21 * ((x : ℝ) * Real.log z / Lwin x)
         = 2 ^ 21 * ((x : ℝ) * Real.log z) / Lwin x from by ring,
       div_le_div_iff₀ hLwinpos hLwinpos]
-    nlinarith [mul_nonneg hxlogz hLwinpos.le]
+    linarith only [mul_nonneg hxlogz hLwinpos.le]
   · calc 2 * (x : ℝ) ^ ((9 : ℝ) / 10) * Lwin x ^ 2
         = 2 * ((x : ℝ) ^ ((9 : ℝ) / 10) * Lwin x ^ 2) := by ring
       _ ≤ Lwin x * ((x : ℝ) ^ ((9 : ℝ) / 10) * Lwin x ^ 2) :=
@@ -521,7 +521,7 @@ theorem cpairA_weightedCount (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) 
   have hz1 : 1 ≤ z := le_trans (Nat.one_le_pow 16 100 (by norm_num)) hz100
   have hzpos : 0 < Real.log z := Real.log_pos (by
     have : (100 : ℝ) ^ 16 ≤ (z : ℝ) := by exact_mod_cast hz100
-    nlinarith [this])
+    linarith only [this])
   have hLwinpos : 0 < Lwin x := by have := t2_Lwin_ge hz100 hzx; linarith
   have hLZpos : 0 < Real.log (Zf x) := by
     have h100 : (100 : ℝ) ≤ (Zf x : ℝ) := by exact_mod_cast hZ
@@ -581,7 +581,7 @@ theorem cpairA_weightedCount (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) 
     le_trans (mertens_vonMangoldt_div_le hz1) (mertens_absorb hz100)
   have hsixty := sixty_mul_log_Zf_ge_Lwin hz100 hzx
   have hLsq : Lwin x ^ 2 ≤ 3600 * Real.log (Zf x) ^ 2 := by
-    nlinarith [pow_le_pow_left₀ (Lwin_nonneg x) hsixty 2]
+    linarith only [pow_le_pow_left₀ (Lwin_nonneg x) hsixty 2]
   have hmain : 144 * ((x : ℝ) / Real.log (Zf x) ^ 2) * ∑ v ∈ Finset.Ioc 0 z, Λ v / v
       ≤ 583200 * x * Real.log z / Lwin x ^ 2 := by
     have hfactnn : 0 ≤ 144 * ((x : ℝ) / Real.log (Zf x) ^ 2) := by positivity
@@ -590,7 +590,7 @@ theorem cpairA_weightedCount (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) 
         = 162 * (x : ℝ) * Real.log z / Real.log (Zf x) ^ 2 from by ring,
       div_le_div_iff₀ (pow_pos hLZpos 2) (pow_pos hLwinpos 2)]
     have hxz0 : 0 ≤ (x : ℝ) * Real.log z := mul_nonneg (Nat.cast_nonneg x) hzpos.le
-    nlinarith [hLsq, mul_nonneg hxz0 (sub_nonneg.mpr hLsq)]
+    linarith only [mul_nonneg hxz0 (sub_nonneg.mpr hLsq)]
   have hjunk : 2 * (Zf x : ℝ) ^ 8 * ∑ v ∈ Finset.Ioc 0 z, Λ v
       ≤ x ^ ((9 : ℝ) / 10) * Lwin x := by
     calc 2 * (Zf x : ℝ) ^ 8 * ∑ v ∈ Finset.Ioc 0 z, Λ v
@@ -610,7 +610,7 @@ theorem cPairSum_bound_unconditional (χ : DirichletCharacter ℂ q) (hsq : χ ^
     cPairSum χ z x ≤ 2 ^ 21 * (x / z0 z x) + x ^ ((9 : ℝ) / 10) * Lwin x ^ 3 := by
   have hzpos : 0 < Real.log z := Real.log_pos (by
     have : (100 : ℝ) ^ 16 ≤ (z : ℝ) := by exact_mod_cast hz100
-    nlinarith [this])
+    linarith only [this])
   have hLwinpos : 0 < Lwin x := by have := t2_Lwin_ge hz100 hzx; linarith
   have hLwin100 : 100 ≤ Lwin x := t2_Lwin_ge hz100 hzx
   have hx0 : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (by positivity) (engine_x_ge hz100 hzx)
@@ -683,7 +683,7 @@ theorem cPairSum_bound_unconditional (χ : DirichletCharacter ℂ q) (hsq : χ ^
       calc (LamTilde χ n - Λ n) * LamTilde χ (n + 2)
           ≤ 2 * Λ (nMinus χ n) * Lwin x := cpair_summand_sharp χ hsq hmem
         _ ≤ 2 * Lwin x * Lwin x := by
-            nlinarith [mul_nonneg (sub_nonneg.mpr hΛv) (Lwin_nonneg x)]
+            linarith only [mul_nonneg (sub_nonneg.mpr hΛv) (Lwin_nonneg x)]
         _ = 2 * Lwin x ^ 2 := by ring
     calc (∑ n ∈ (cPairSet χ z x).filter (fun n => ¬ Zf x < Nat.minFac (n + 2)),
           (LamTilde χ n - Λ n) * LamTilde χ (n + 2))
@@ -739,7 +739,7 @@ theorem cPairSum_bound_unconditional (χ : DirichletCharacter ℂ q) (hsq : χ ^
     rw [show (2 : ℝ) ^ 21 * ((x : ℝ) * Real.log z / Lwin x)
         = 2 ^ 21 * ((x : ℝ) * Real.log z) / Lwin x from by ring,
       div_le_div_iff₀ hLwinpos hLwinpos]
-    nlinarith [mul_nonneg hxlogz hLwinpos.le]
+    linarith only [mul_nonneg hxlogz hLwinpos.le]
   linarith [hApeel, hB, hMain, hJ1, hJ2]
 
 end Salt.HB
