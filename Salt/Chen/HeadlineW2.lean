@@ -335,7 +335,7 @@ theorem opf_window_floor_bounds (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) {
     rw [← hlogXγ]; exact Real.log_le_log hzfpos hfloor_le
   have hratio : (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) ≤ 1000000 / 999999 := by
     rw [div_le_div_iff₀ hXγ1pos (by norm_num : (0 : ℝ) < 999999)]
-    nlinarith [hA6]
+    linarith only [hstep2, hstep1]
   have hcorr : Real.log ((x : ℝ) ^ γ) - Real.log ((x : ℝ) ^ γ - 1) ≤ 1 / 999999 := by
     have h1 : Real.log ((x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1)) ≤ (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) - 1 :=
       Real.log_le_sub_one_of_pos (by positivity)
@@ -354,7 +354,7 @@ theorem opf_log_ge_96 (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) :
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
     rw [Real.le_log_iff_exp_le (by norm_num)]
     have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    rw [he]; nlinarith only [Real.exp_one_lt_d9, Real.exp_pos 1]
   have hmono : Real.log ((10 : ℝ) ^ 48) ≤ Real.log (x : ℝ) := Real.log_le_log (by positivity) hx
   rw [Real.log_pow] at hmono
   push_cast at hmono
@@ -421,7 +421,7 @@ theorem opf_tower : ∃ x₁ : ℕ, 8 ≤ x₁ ∧ ∀ x : ℕ, x₁ ≤ x →
   have hw'x18 : ((opW' : ℕ) : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 8) := by
     rw [Real.rpow_def_of_pos hxpos]
     have hexp := Real.add_one_le_exp (Real.log (x : ℝ) * ((1 : ℝ) / 8))
-    nlinarith [hw'R, hlogx_sq, hexp, sq_nonneg ((opW' : ℝ) - 8)]
+    nlinarith only [hexp, hsq_le_T, hw'R, hlogT, sq_nonneg (↑opW' - 8)]
   have hrow3 : opW' ≤ opZ x := by
     rw [opZ]
     exact Nat.le_floor hw'x18
@@ -460,7 +460,7 @@ theorem opf_tower : ∃ x₁ : ℕ, 8 ≤ x₁ ∧ ∀ x : ℕ, x₁ ≤ x →
   have h13nn : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 3) := Real.rpow_nonneg hxpos.le _
   have hAB : 2 * ((x : ℝ) ^ ((1 : ℝ) / 3))
       ≤ (x : ℝ) ^ ((1 : ℝ) / 3) * (x : ℝ) ^ ((2 : ℝ) / 3) := by
-    nlinarith [h13nn, hx23]
+    nlinarith only [hy_leR, hx23, (Nat.cast_nonneg _ : 0 ≤ ↑(opY x))]
   have hrow8 : opY x ≤ x / 2 := by
     rw [Nat.le_div_iff_mul_le (by norm_num : 0 < 2)]
     have hR : (opY x : ℝ) * 2 ≤ (x : ℝ) := by linarith [hy_leR, hAB, hsplit13]
@@ -636,7 +636,7 @@ theorem a12_hw0 : (3 : ℝ) ≤ w0R opEps := by
   have h2 : (2 : ℝ) ≤ 40 / Real.log (1 + opEps) := by
     rw [le_div_iff₀ hlogpos]
     linarith
-  have h3 : (3 : ℝ) ≤ Real.exp 2 := by nlinarith [Real.add_one_le_exp (2 : ℝ)]
+  have h3 : (3 : ℝ) ≤ Real.exp 2 := by linarith only [Real.add_one_le_exp (2 : ℝ)]
   calc (3 : ℝ) ≤ Real.exp 2 := h3
     _ ≤ Real.exp (40 / Real.log (1 + opEps)) := Real.exp_le_exp.mpr h2
     _ = w0R opEps := by rw [w0R]
@@ -690,14 +690,14 @@ theorem a12_zyD : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   intro x hx
   obtain ⟨hexpx, hlogx⟩ := h₁ x hx
   have hxpos : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hexpx
-  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by nlinarith [Real.add_one_le_exp (200 : ℝ)]
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith only [hxpos, hexpx, Real.add_one_le_exp (200 : ℝ)]
   constructor
   · have h3 : (3 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 8) := by
       have he : Real.exp 25 ≤ (x : ℝ) ^ ((1 : ℝ) / 8) := by
         rw [Real.rpow_def_of_pos hxpos]
         apply Real.exp_le_exp.mpr
         linarith
-      nlinarith [Real.add_one_le_exp (25 : ℝ)]
+      linarith only [he, Real.add_one_le_exp (25 : ℝ)]
     simp only [opZ]
     exact Nat.le_floor (by exact_mod_cast h3)
   · have hz : (opZ x : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 8) := by
@@ -725,8 +725,8 @@ theorem a12_zyD : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
         have he : Real.exp 8 ≤ (x : ℝ) ^ ((1 : ℝ) / 24 - 9 / 100000) := by
           rw [Real.rpow_def_of_pos hxpos]
           apply Real.exp_le_exp.mpr
-          nlinarith
-        nlinarith [Real.add_one_le_exp (8 : ℝ)]
+          linarith only [hlogx]
+        linarith only [he, Real.add_one_le_exp (8 : ℝ)]
       have h11nn : (1 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) := by
         calc (1 : ℝ) = (x : ℝ) ^ (0 : ℝ) := (Real.rpow_zero _).symm
           _ ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
@@ -737,7 +737,7 @@ theorem a12_zyD : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
         _ = (x : ℝ) ^ ((1 : ℝ) / 2 - 9 / 100000) := hsplit.symm
     have hfin : ((opZ x * opY x + 1 : ℕ) : ℝ) ≤ (opD x : ℝ) := by
       push_cast
-      nlinarith [hzy, hgap, hDgt]
+      linarith only [hgap, hzy, hDgt]
     exact_mod_cast hfin
 
 /-- The aggregated `Σ 1/(p−1)` window mass, harmonically: `1/(p−1) ≤ 2/p`, then the harmonic
@@ -838,7 +838,7 @@ theorem a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
   -- the `∑ 1/φ(d)` bound via the V-ratio product (C1d, at the W instance — `nu` is defeq)
   have hb1 : (1 : ℝ) ≤ Qlev * (D : ℝ) := by
     have hD1 : (1 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-    nlinarith [hQlev, hD1]
+    nlinarith only [hQlev, hD1, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   have hMbound : ∑ d ∈ P.divisors, (1 : ℝ) / (Nat.totient d)
       ≤ (1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε) := by
     have hvr := vratio_prod_le (twinA1SieveW Qm a x P hP hPodd) P.primeFactors hε.le hw0 hwz
@@ -1122,7 +1122,7 @@ theorem a12_close : ∀ C : ℝ, 0 ≤ C → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ �
   have hQD1 : (1 : ℝ) ≤ (opQ : ℝ) * (opD x : ℝ) := by
     have hQ2R : (2 : ℝ) ≤ (opQ : ℝ) := by exact_mod_cast a12_Q2
     have hD1R : (1 : ℝ) ≤ (opD x : ℝ) := by exact_mod_cast hD1
-    nlinarith
+    nlinarith only [hD1R, hQ2R, (Nat.cast_nonneg _ : 0 ≤ ↑opQ)]
   have hlogQD_nn : 0 ≤ Real.log ((opQ : ℝ) * (opD x)) := Real.log_nonneg hQD1
   have hlogQD : Real.log ((opQ : ℝ) * (opD x)) ≤ 2 * Real.log x := by
     have hle : (opQ : ℝ) * (opD x : ℝ) ≤ (x : ℝ) * (x : ℝ) :=
@@ -1198,7 +1198,7 @@ theorem a12_close : ∀ C : ℝ, 0 ≤ C → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ �
         rw [Real.rpow_def_of_pos hxpos]
         apply Real.exp_le_exp.mpr
         linarith
-      nlinarith [Real.add_one_le_exp (100 : ℝ)]
+      linarith only [hh, Real.add_one_le_exp (100 : ℝ)]
     have hsq : (x : ℝ) ^ ((1 : ℝ) / 2) * (x : ℝ) ^ ((1 : ℝ) / 2) = (x : ℝ) := by
       rw [← Real.rpow_add hxpos, show (1 : ℝ) / 2 + 1 / 2 = 1 by norm_num, Real.rpow_one]
     calc 12 * (Real.log x) ^ 3 * ((Real.log x) ^ 10 * 2)
@@ -1241,8 +1241,8 @@ theorem a12_level2 : ∀ B : ℝ, 0 ≤ B → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ 
     have he : Real.exp (9 / 8) ≤ (x : ℝ) ^ ((9 : ℝ) / 200000) := by
       rw [Real.rpow_def_of_pos hxpos]
       apply Real.exp_le_exp.mpr
-      nlinarith [hlogx]
-    nlinarith [Real.add_one_le_exp ((9 : ℝ) / 8)]
+      linarith only [hlogx]
+    linarith only [he, Real.add_one_le_exp ((9 : ℝ) / 8)]
   have hLB : (0 : ℝ) < (Real.log x) ^ B := Real.rpow_pos_of_pos hLpos B
   rw [le_div_iff₀ hLB]
   have hγnn : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 2 - 9 / 100000) :=

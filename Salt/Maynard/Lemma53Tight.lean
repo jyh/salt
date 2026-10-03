@@ -90,11 +90,11 @@ private theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
 
 /-- The coordinate factorization (local copy of the private `tail_factor_le`). -/
@@ -277,7 +277,7 @@ theorem htail_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
   have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow 2 k (by omega)
   have hD12 : 12 ≤ D₀ k := by omega
   have hD4 : 4 ≤ D₀ k := by omega
-  have hkD : k ≤ D₀ k := by nlinarith [hD]
+  have hkD : k ≤ D₀ k := by nlinarith only [hk, hk2, hD, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hD0 : 0 < D₀ k := by omega
   have hD0R : (0 : ℝ) < (D₀ k : ℝ) := by exact_mod_cast hD0
   have hD0ne : (D₀ k : ℝ) ≠ 0 := hD0R.ne'
@@ -336,7 +336,7 @@ theorem htail_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
       rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ))]
       have h1 := abs_moebius_real_le_one (a i)
       have h2 : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by positivity
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
     calc |y a| / (∏ i, (Nat.totient (a i) : ℝ))
             * ∏ i ∈ Finset.univ.erase m,
                 |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
@@ -467,7 +467,7 @@ theorem htail_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
                     = ((gMult (r i) : ℝ) * (r i : ℝ) / (Nat.totient (r i) : ℝ) ^ 2)
                       * (1 + 4 / (D₀ k : ℝ)) from by ring]
               have hge := (gr_ratio_mem' (hsq i) (hodd i)).2
-              nlinarith [hge, (by positivity : (0:ℝ) ≤ 1 + 4 / (D₀ k : ℝ))]
+              nlinarith only [hge, (by positivity : (0 : ℝ) ≤ 1 + 4 / (D₀ k : ℝ))]
         _ = (1 + 4 / (D₀ k : ℝ)) ^ ((Finset.univ.erase m).erase j).card := by
             rw [Finset.prod_const]
         _ ≤ (Real.exp (4 / (D₀ k : ℝ))) ^ ((Finset.univ.erase m).erase j).card :=
@@ -704,8 +704,8 @@ theorem lemma53_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
           + 4 * Real.exp 4 * rankinC * (k : ℝ) * Real.log R
         ≤ (lemma53Const * (k : ℝ)) * Real.log R := by
       rw [lemma53Const]
-      nlinarith [hC₁0, hlogR, hexp4, hkR, mul_nonneg hC₁0 hlogR,
-        mul_nonneg (mul_nonneg hexp4 hC₁0) hlogR]
+      nlinarith only [hkR,
+          mul_nonneg hC₁0 hlogR]
     have hLHSeq : (2 / (D₀ k : ℝ)) * (rankinC * Real.log R)
           + (4 * Real.exp 4 * rankinC * (k : ℝ)) * Real.log R / (D₀ k : ℝ)
         = (2 * (rankinC * Real.log R)
@@ -1091,7 +1091,7 @@ theorem s2main_lower_rel_tight (k R : ℕ) (m : Fin k) (T : ℝ)
       have h1b : -(|b| * |a - b|) ≤ b * (a - b) := by
         have := neg_abs_le (b * (a - b)); rwa [abs_mul] at this
       have hstep : b ^ 2 - 2 * |b| * |a - b| ≤ a ^ 2 := by
-        nlinarith [sq_nonneg (a - b), h1b]
+        linarith only [h1b, sq_nonneg (a - b)]
       have h2b0 : (0 : ℝ) ≤ 2 * |b| := by positivity
       have hmul := mul_le_mul_of_nonneg_left herr h2b0
       linarith [hstep, hmul]
@@ -1102,7 +1102,7 @@ theorem s2main_lower_rel_tight (k R : ℕ) (m : Fin k) (T : ℝ)
       (div_le_div_iff_of_pos_right hΦpos).mpr hsqb
     have hle2 : a ^ 2 / Φ ≤ G * V ^ 2 := by
       rw [hyMsq, div_le_iff₀ hΦpos]
-      nlinarith [mul_nonneg (mul_nonneg hGpos.le (sq_nonneg V)) (sub_nonneg.mpr hGleΦ)]
+      linarith only [mul_nonneg (mul_nonneg hGpos.le (sq_nonneg V)) (sub_nonneg.mpr hGleΦ)]
     rw [heq]; exact le_trans hle1 hle2
   have hrw' :
       (∑ u ∈ (kSieveIndex k R (W k)).filter (fun u => u m = 1),
@@ -1220,20 +1220,20 @@ theorem s2CompatFormM_ge_sixteenth_tight (k R : ℕ) (T : ℝ) (m : Fin k)
   have hB2M : 0 ≤ (B1 k R (W k) T) ^ 2 * M := mul_nonneg (sq_nonneg _) hM
   have h1 : 4 * C * Real.log R / (D₀ k : ℝ) ≤ B1 k R (W k) T / 8 := by
     rw [div_le_iff₀ hD0pos] at *
-    nlinarith [hreg]
+    linarith only [hreg]
   have he1 : 4 * C * Real.log R / (D₀ k : ℝ) * (B1 k R (W k) T * M)
       ≤ 1 / 8 * ((B1 k R (W k) T) ^ 2 * M) := by
     have := mul_le_mul_of_nonneg_right h1 hB1M
-    nlinarith [this]
+    linarith only [this]
   have h2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) ≤ 1 / 16 := by
     rw [div_le_iff₀ hD0pos]
     have hk3 : (k : ℝ) ^ 3 ≤ (D₀ k : ℝ) := by exact_mod_cast hD
     have hkR : (3072 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith [hk3, hkR, sq_nonneg (k : ℝ)]
+    nlinarith only [hkR, hk3, sq_nonneg ↑k]
   have he2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * ((B1 k R (W k) T) ^ 2 * M)
       ≤ 1 / 16 * ((B1 k R (W k) T) ^ 2 * M) :=
     mul_le_mul_of_nonneg_right h2 hB2M
-  nlinarith [hbound, he1, he2]
+  linarith only [he2, he1, hbound]
 
 /-! ## `D₀ k = k³` and the Mertens `φ(W)/W` lower bound (for the regime discharge)
 
@@ -1264,13 +1264,13 @@ private lemma count_le_count_cube (k : ℕ) (hk : 20 ≤ k) :
       _ = Real.log 2 + Real.log ((k:ℝ)^3) := by rw [Real.log_mul (by norm_num) (by positivity)]
       _ = Real.log 2 + 3 * Real.log k := by rw [hlogcube]
   have hcubic : 6*(k:ℝ)^2 + 6*(k:ℝ) + 1 ≤ (k:ℝ)^3 / 2 := by
-    nlinarith [hk20R, sq_nonneg (k:ℝ),
-      mul_nonneg (show (0:ℝ) ≤ (k:ℝ) - 20 by linarith) (sq_nonneg (k:ℝ))]
-  have e2 : 6*(k:ℝ)*Real.log k ≤ 6*(k:ℝ)^2 := by nlinarith [hL, hlogk.le, hk20R]
-  have e4 : Real.log ((k:ℝ)^3+1) ≤ 1 + 3*(k:ℝ) := by nlinarith [hlogcube1, hlog2le, hL]
-  have hk3log2 : (k:ℝ)^3/2 ≤ (k:ℝ)^3 * Real.log 2 := by nlinarith [hlog2, hk3nn]
+    nlinarith only [hk20R, mul_nonneg (show (0 : ℝ) ≤ (k : ℝ) - 20 by linarith)
+        (sq_nonneg (k : ℝ)), (Nat.cast_nonneg _ : 0 ≤ ↑k)]
+  have e2 : 6*(k:ℝ)*Real.log k ≤ 6*(k:ℝ)^2 := by nlinarith only [hL, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
+  have e4 : Real.log ((k:ℝ)^3+1) ≤ 1 + 3*(k:ℝ) := by linarith only [hlogcube1, hL, hlog2le]
+  have hk3log2 : (k:ℝ)^3/2 ≤ (k:ℝ)^3 * Real.log 2 := by nlinarith only [hlog2, hk3nn]
   have hkey : (2*(k:ℝ)+1)*(3*Real.log k) ≤ (k:ℝ)^3 * Real.log 2 - Real.log ((k:ℝ)^3+1) := by
-    nlinarith [e2, e4, hcubic, hk3log2, hL, hlogk.le]
+    linarith only [hk3log2, e2, hcubic, hlogcube1, hL, hlog2le]
   have hpi := Chebyshev.pi_ge (k ^ 3)
   rw [show ((k ^ 3 : ℕ) : ℝ) = (k : ℝ) ^ 3 by norm_cast] at hpi
   rw [hlogcube] at hpi
