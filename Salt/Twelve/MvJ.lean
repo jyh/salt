@@ -251,7 +251,7 @@ private lemma inner_sum_estimate (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W'
       have hφle : (Nat.totient W' : ℝ) / W' ≤ 1 := by
         rw [div_le_one (by exact_mod_cast hpos)]
         exact_mod_cast Nat.totient_le W'
-      nlinarith [hLpos, hφle]
+      nlinarith only [hR, hφle]
     have hA0 : 0 ≤ A := by rw [hA]; positivity
     have hA1 : A ≤ 1 := by rw [hA, div_le_one hLpos]; exact hzR'
     have hB0 : 0 ≤ B := by rw [hB]; apply div_nonneg (by linarith) hLpos.le
@@ -691,7 +691,7 @@ theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       = (W' : ℝ) / (Nat.totient W' : ℝ) * (((Nat.totient W' : ℝ) / W' * Real.log R) * S) := by
     rw [← mul_assoc, hqX]
   rw [hmul]
-  nlinarith [mul_nonneg hCabs0 hXSnn, mul_nonneg hC30 hq0, hCabs0, hC30, hq0, hXSnn]
+  linarith only [mul_nonneg hC30 hq0, mul_nonneg hCabs0 hXSnn]
 
 
 /-! ## W3-6 (keystone J) — the outer square-and-sum assembly (`mv_J`) -/
@@ -782,7 +782,7 @@ private lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
       rw [show (D:ℝ) - 1 + (t+1:ℕ) = (D:ℝ) - 1 + t + 1 by push_cast; ring]
     rw [hcast, hφt, hφt1]
     have hstep1 : 1 / (a*(a+1)) = 1/a - 1/(a+1) := by field_simp; ring
-    have hle : a * (a+1) ≤ (a+1)^2 := by nlinarith
+    have hle : a * (a+1) ≤ (a+1)^2 := by linarith only [ha]
     have hstep2 : 1 / (a+1)^2 ≤ 1 / (a*(a+1)) :=
       one_div_le_one_div_of_le (mul_pos ha ha1) hle
     rw [← hstep1]; exact hstep2
@@ -808,7 +808,7 @@ private lemma prime_tail' (D R : ℕ) (hD : 3 ≤ D) :
     apply Finset.sum_le_sum_of_subset_of_nonneg hsub; intro k _ _; positivity
   have h2 : (1:ℝ) / ((D:ℝ) - 1) ≤ 2 / (D:ℝ) := by
     have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-    rw [div_le_div_iff₀ (by linarith) (by linarith)]; nlinarith
+    rw [div_le_div_iff₀ (by linarith) (by linarith)]; linarith only [h3]
   linarith [int_tail' D R hD, h1, h2]
 
 -- gMult of a prime and of 1
@@ -1031,7 +1031,7 @@ private lemma box4_g_moment (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       rw [Finset.prod_div_distrib, Finset.prod_const_one]
     refine ⟨div_nonneg hnum0 hgpos.le, ?_⟩
     rw [hprodinv, div_le_div_iff₀ hgpos hgpos]
-    nlinarith [mul_le_mul_of_nonneg_right hnum1 hgpos.le]
+    linarith only [mul_le_mul_of_nonneg_right hnum1 hgpos.le]
   have hDropPer : |MSK - MSD| ≤ Drop := by
     have hsdiff : MSD - MSK = ∑ ρ ∈ decBox 4 R W' \ kSieveIndex 4 R W',
         (∏ i, (Real.log (ρ i) / L) ^ (e i)) * ((L - ∑ i, Real.log (ρ i)) / L) ^ d
@@ -1170,7 +1170,7 @@ private lemma box4_g_moment (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   -- absorption facts
   have hB1 : (1:ℝ) ≤ 1 + X := by linarith
   have hB0 : (0:ℝ) ≤ 1 + X := by linarith
-  have hLmax : L ≤ (1 + X) / κ := by rw [le_div_iff₀ hκpos]; nlinarith [hκL1X]
+  have hLmax : L ≤ (1 + X) / κ := by rw [le_div_iff₀ hκpos]; linarith only []
   -- Drop absorption: 96 cg⁴ L⁴ / D ≤ (96 cg⁴/κ⁴)(1+X)⁴/D
   have hL4 : L ^ 4 ≤ (1 + X) ^ 4 / κ ^ 4 := by
     rw [le_div_iff₀ (pow_pos hκpos 4)]
@@ -1520,7 +1520,7 @@ private lemma MQ_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     have hp2 : (0:ℝ) < (p:ℝ) - 2 := by linarith
     have hfrac : (1 / ((p:ℝ) - 1)) * (1 / ((p:ℝ) - 2)) ≤ 2 / ((p:ℝ) - 1) ^ 2 := by
       rw [one_div_mul_one_div, div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith
+      nlinarith only [hp3R, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
     calc (1 / ((p:ℝ) - 1)) * ∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r), (1 / (gMult x : ℝ))
         ≤ (1 / ((p:ℝ) - 1)) * ((1 / ((p:ℝ) - 2)) * cg * Real.log R) :=
           mul_le_mul_of_nonneg_left hsum_le (by positivity)
@@ -2068,7 +2068,7 @@ private lemma hT2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
               + (∑ p ∈ (ρ j).primeFactors, (1 / ((p:ℝ) - 1))) ^ 2) := by
         nlinarith [sq_nonneg ((∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
           - (∑ p ∈ (ρ j).primeFactors, (1 / ((p:ℝ) - 1))))]
-      nlinarith [mul_le_mul_of_nonneg_right hamg hprodnn]
+      linarith only [mul_le_mul_of_nonneg_right hamg hprodnn]
     refine le_trans hamgm (le_of_eq ?_)
     rw [← Finset.mul_sum, Finset.sum_add_distrib, hQsqmom i, hQsqmom j]; ring
   calc ∑ i, ∑ j, (∑ ρ ∈ PB, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
@@ -2303,7 +2303,7 @@ theorem mv_J (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     have hE := hEvbd r hr
     have hI := hInnbd r hr
     have hPr := hPrnn r
-    have hbase : (1 + X * Pr r) ≥ 1 := by nlinarith [hX0, hPr]
+    have hbase : (1 + X * Pr r) ≥ 1 := by nlinarith only [hX0, hPr]
     have hδbd : |Inn r - X * Ev r| ≤ cic * (1 + X * Pr r) := hI
     have hδnn : 0 ≤ cic * (1 + X * Pr r) := mul_nonneg hcic0 (by linarith)
     have hnum : (Inn r) ^ 2 - X ^ 2 * (Ev r) ^ 2
@@ -2438,7 +2438,7 @@ theorem mv_J (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       _ ≤ (cmain + 2 * cF * cic * cg ^ 4 / κ ^ 6 + cic ^ 2 * cg ^ 4 / κ ^ 6
             + 32 * cF * cic * cg ^ 4 / κ ^ 4 + 32 * cic ^ 2 * cg ^ 4 / κ ^ 5
             + 320 * cic ^ 2 * cg ^ 4 / κ ^ 4) * (1 + X) ^ 6 * (1 / L + 1 / (D:ℝ)) := by
-          nlinarith [hm1, hm2, hm3]
+          linarith only [hm3, hm2, hm1]
   exact hgoal
 
 end Salt.Twelve
