@@ -224,12 +224,12 @@ theorem m4_second_road_L2_hloCap :
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -264,7 +264,7 @@ theorem m4_second_road_L2_hloCap :
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
-    nlinarith [h]
+    linarith only [h]
 
 /-! ## §4 — THE ROAD, PINNED: the numerals ride the `∃`-prefix -/
 
@@ -432,12 +432,12 @@ theorem m4_second_road_L2_hloCap_pinned :
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -472,7 +472,7 @@ theorem m4_second_road_L2_hloCap_pinned :
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
-    nlinarith [h]
+    linarith only [h]
 
 /-! ## §GK — the G-lever twin
 
@@ -593,12 +593,12 @@ theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -634,7 +634,7 @@ theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
-    nlinarith [h]
+    linarith only [h]
 
 /-- `m4_doorL2_close_split_sq_hloCap_pinned` (:320), at the lever. -/
 theorem m4_doorL2_close_split_sq_hloCap_pinned_gk (K : ℕ) :
@@ -736,12 +736,12 @@ theorem m4_second_road_L2_hloCap_pinned_gk (K : ℕ) :
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     intro H hlo hhi
     have h1 := harc3 H hlo hhi
     have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -777,7 +777,7 @@ theorem m4_second_road_L2_hloCap_pinned_gk (K : ℕ) :
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
-    nlinarith [h]
+    linarith only [h]
 
 end Salt.MR
 
