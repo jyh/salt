@@ -99,22 +99,22 @@ theorem zeroCountM_le_const_of_le [NeZero q] {χ : DirichletCharacter ℂ q} (h�
     zeroCountM χ σ T ≤ 137 * (2 * D₀ + 3) * Real.log (D₀ * (D₀ + 3)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hcrude := zeroCountM_le χ hχ hq hσ (by linarith : (0:ℝ) ≤ T)
-  have hD0 : (4 : ℝ) ≤ D₀ := by nlinarith
+  have hD0 : (4 : ℝ) ≤ D₀ := by nlinarith only [hT, hq2, hD, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hT' : T ≤ D₀ := by nlinarith
-  have hq' : (q : ℝ) ≤ D₀ := by nlinarith
+  have hq' : (q : ℝ) ≤ D₀ := by nlinarith only [hT, hD0, hD, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hprod : (q : ℝ) * (T + 3) ≤ D₀ * (D₀ + 3) :=
     mul_le_mul hq' (by linarith) (by linarith) (by linarith)
   have hlog : Real.log ((q : ℝ) * (T + 3)) ≤ Real.log (D₀ * (D₀ + 3)) :=
-    Real.log_le_log (by nlinarith) hprod
+    Real.log_le_log (by nlinarith only [hT, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]) hprod
   have hlognn : (0:ℝ) ≤ Real.log ((q : ℝ) * (T + 3)) := Real.log_nonneg (by nlinarith)
-  nlinarith [hcrude, hlog, hlognn, hT']
+  nlinarith only [hT', hlognn, hD0, hlog, hcrude]
 
 /-! ## (iii) The glue's monotonicity -/
 
 /-- `rpow` is monotone in the exponent above base `1`: `14(1 − σ) ≤ 150(1 − σ)` at `σ ≤ 1`. -/
 theorem rpow_mul_le_rpow_of_le_150 {Q σ : ℝ} (hQ : 1 ≤ Q) (hσ : σ ≤ 1) :
     Q ^ (14 * (1 - σ)) ≤ Q ^ (150 * (1 - σ)) := by
-  exact Real.rpow_le_rpow_of_exponent_le hQ (by nlinarith)
+  exact Real.rpow_le_rpow_of_exponent_le hQ (by linarith only [hσ])
 
 /-! ## (iv) THE STRIP (the literal `14`) -/
 
@@ -189,9 +189,9 @@ theorem zeroCountM_density_logfree_strip :
   set D₀ : ℝ := max (10 ^ 20) D₁ with hD₀def
   have h10 : (10 : ℝ) ^ 20 ≤ D₀ := le_max_left _ _
   have hD₁D₀ : D₁ ≤ D₀ := le_max_right _ _
-  have hD₀1 : (1 : ℝ) < D₀ * (D₀ + 3) := by nlinarith
+  have hD₀1 : (1 : ℝ) < D₀ * (D₀ + 3) := by nlinarith only [h10]
   have hK₀ : (0 : ℝ) < 137 * (2 * D₀ + 3) * Real.log (D₀ * (D₀ + 3)) :=
-    mul_pos (by nlinarith) (Real.log_pos hD₀1)
+    mul_pos (by linarith only [h10]) (Real.log_pos hD₀1)
   refine ⟨max (137 * (2 * D₀ + 3) * Real.log (D₀ * (D₀ + 3))) (7 / 2 * C₁ * C_r),
     lt_max_of_lt_left hK₀, ?_⟩
   intro q _ χ hχ hq σ T hσ hσ1 hT
@@ -199,7 +199,7 @@ theorem zeroCountM_density_logfree_strip :
       max (137 * (2 * D₀ + 3) * Real.log (D₀ * (D₀ + 3))) (7 / 2 * C₁ * C_r) :=
     lt_max_of_lt_left hK₀
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith
+  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith only [hT, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by linarith
   have hQ0 : (0 : ℝ) < (q : ℝ) * T := by linarith
   have hQlt : (1 : ℝ) < (q : ℝ) * T := by linarith
@@ -277,7 +277,7 @@ theorem zeroCountM_density_logfree :
   refine ⟨max 1378 C_s, 150, lt_max_of_lt_left (by norm_num), by norm_num, le_rfl, ?_⟩
   intro q _ χ hχ hq σ T hσ hσ1 hT
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith
+  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith only [hT, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by linarith
   have hpow0 : (0 : ℝ) ≤ ((q : ℝ) * T) ^ (150 * (1 - σ)) :=
     Real.rpow_nonneg (by linarith) _
