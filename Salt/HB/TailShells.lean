@@ -126,12 +126,12 @@ private lemma geom_exp_neg_sum_le (n : ℕ) :
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hr0 : (0 : ℝ) < Real.exp (-1) := Real.exp_pos _
   have hmul : Real.exp (-1) * Real.exp 1 = 1 := by rw [← Real.exp_add]; norm_num
-  have hrhalf : Real.exp (-1) ≤ 1 / 2 := by nlinarith
+  have hrhalf : Real.exp (-1) ≤ 1 / 2 := by nlinarith only [h2e, hr0, hmul]
   have hS0 : (0 : ℝ) ≤ ∑ i ∈ Finset.range n, (Real.exp (-1)) ^ i :=
     Finset.sum_nonneg fun i _ => pow_nonneg hr0.le i
   have hgm := geom_sum_mul (Real.exp (-1)) n
   have hrn : (0 : ℝ) ≤ (Real.exp (-1)) ^ n := pow_nonneg hr0.le n
-  nlinarith [hgm, hrn, mul_le_mul_of_nonneg_left hrhalf hS0]
+  linarith only [hrn, hgm, mul_le_mul_of_nonneg_left hrhalf hS0]
 
 /-- **THE SHELL SPEND** — B2 spent shell by shell at a ceiling `1 − w`. Class C. -/
 theorem zeroSum_shells_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
@@ -148,7 +148,7 @@ theorem zeroSum_shells_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
   have hL0 : (0 : ℝ) < Real.log u := by
     rcases lt_or_ge 0 (Real.log u) with hcon | hcon
     · exact hcon
-    · nlinarith [mul_nonneg hw.le (neg_nonneg.mpr hcon)]
+    · linarith only [hbig, hw1, hw, mul_nonneg hw.le (neg_nonneg.mpr hcon)]
   have hu0 : (0 : ℝ) < u := by linarith
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hqT0 : (0 : ℝ) < (q : ℝ) * T := by nlinarith
@@ -166,9 +166,9 @@ theorem zeroSum_shells_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     have h1 : w * (6 / 5 : ℝ) ^ (shellIdx w ρ) ≤ 1 / 10 := by linarith [hmem.2.1]
     have h2 := one_add_div_five_le_pow (shellIdx w ρ)
     have h3 : w * (1 + (shellIdx w ρ : ℝ) / 5) ≤ 1 / 10 := by
-      nlinarith [mul_le_mul_of_nonneg_left h2 hw.le]
+      linarith only [hmem, hb, hσa, mul_le_mul_of_nonneg_left h2 hw.le]
     have h4 : (shellIdx w ρ : ℝ) ≤ 1 / w := by
-      rw [le_div_iff₀ hw]; nlinarith
+      rw [le_div_iff₀ hw]; linarith only [h3, hw1, hw]
     have h5 : (shellIdx w ρ : ℝ) ≤ (I : ℝ) := le_trans h4 (by rw [hIdef]; exact Nat.le_ceil _)
     have h6 : shellIdx w ρ ≤ I := by exact_mod_cast h5
     exact Finset.mem_range.mpr (by omega)
@@ -244,7 +244,7 @@ theorem zeroSum_shells_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
               rw [hru]
               refine Real.exp_le_exp.mpr ?_
               rw [hAdef]
-              nlinarith [hkey]
+              linarith only [hkey]
             rw [h1, h2]
             calc n9CB2 * Real.exp (n9DB2 * (6 / 5 * (w * (6 / 5 : ℝ) ^ i))
                     * Real.log ((q : ℝ) * T))
@@ -349,7 +349,7 @@ theorem psiDefect_norm_le_raw {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
         (le_trans (le_abs_self ρ.re) (Complex.abs_re_le_norm ρ))
     have hnn : (0 : ℝ) ≤ (zeroMult χ ρ : ℝ) * u ^ ρ.re := by positivity
     rw [div_le_iff₀ (by linarith : (0 : ℝ) < ‖ρ‖)]
-    nlinarith
+    nlinarith only [hρ9, hnn]
   -- THE DE-SMOOTHING SUM, `β₀` kept apart
   have hdesm : ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 T, (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))
       = (zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
@@ -395,7 +395,7 @@ theorem psiDefect_norm_le_envelopeB3 {q : ℕ} [NeZero q] (χ : DirichletCharact
   have hHpos : 0 < efH q u := efH_pos hq hu
   have huh : (3 : ℝ) ≤ u + efH q u := by linarith
   have hlogu : (0 : ℝ) < Real.log u := Real.log_pos (by linarith)
-  have hbc1 : bceil < 1 := by nlinarith
+  have hbc1 : bceil < 1 := by nlinarith only [hlogu, hσb, hσab, hσa, hbig]
   obtain ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, hbnd⟩ :=
     psiDefect_norm_le_raw χ hχ hq hu hHpos hσa hσab hσb hT0 hβ₀1 hσbβ₀ hβ₀zero
   refine le_trans hbnd ?_
@@ -415,7 +415,7 @@ theorem psiDefect_norm_le_envelopeB3 {q : ℕ} [NeZero q] (χ : DirichletCharact
       have hD0 : (0 : ℝ) < n9DB2 := n9B2_spec.2.1
       refine le_trans
         (mul_le_mul_of_nonneg_left ?_ (by linarith : (0 : ℝ) ≤ 6 / 5 * n9DB2)) hy
-      exact Real.log_le_log (by nlinarith) (by nlinarith)
+      exact Real.log_le_log (by nlinarith) (by nlinarith only [hT, (Nat.cast_nonneg _ : 0 ≤ ↑q)])
     exact zeroSum_shells_le χ hχ hq hσ₀w hT2 hu1 (Finset.erase_subset _ _)
       (by linarith) (by linarith) hbar hyT hbig
   -- the uniformised contour budget
@@ -489,7 +489,7 @@ private lemma contB3_logqu {q : ℕ} (hq : 2 ≤ q) :
 private lemma logquB3_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
     (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+  have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith only [hu, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have he : Real.exp 1 ≤ (q : ℝ) * u :=
     le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hqu
   have h1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
@@ -513,7 +513,7 @@ private lemma contB3_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
   refine contB3_log_comp (continuousOn_const.mul ((contB3_efT0 hq).add continuousOn_const))
     (fun u hu => ne_of_gt ?_)
   have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
-  nlinarith
+  nlinarith only [h1, ha, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q), (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
 private lemma contB3_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
     ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb) (Set.Ici (3 : ℝ)) := by
@@ -651,7 +651,7 @@ theorem efEnvelopeB3_le_ledger {q : ℕ} {β₀ bceil σa σb u M N : ℝ} {m : 
       ≤ efEnvelope q β₀ b' m σa σb u + efShellRow q bceil u := by
     intro b'
     have hlogQ4 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 4)) :=
-      Real.log_nonneg (by nlinarith)
+      Real.log_nonneg (by nlinarith only [hT0, hq2, hσb, hσab, hσa, (Nat.cast_nonneg _ : 0 ≤ ↑q)])
     have hlogT2 : (0 : ℝ) ≤ Real.log (efT0 q u + 2) := Real.log_nonneg (by linarith)
     have hW1 : (0 : ℝ) ≤ efH q u * u ^ (b' - 1)
         * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))) :=
@@ -702,7 +702,7 @@ theorem efEnvelopeB3_le_ledger {q : ℕ} {β₀ bceil σa σb u M N : ℝ} {m : 
     rw [show 10 ^ 3 * M ^ 3 * N * (ε / (10 ^ 3 * M ^ 3 * N + 1))
         = 10 ^ 3 * M ^ 3 * N * ε / (10 ^ 3 * M ^ 3 * N + 1) from by ring,
       div_le_iff₀ hden]
-    nlinarith
+    linarith only [hε]
   linarith
 
 /-- **THE `E₁` BOUND** — the exponential row's tail integral. Class B. -/
@@ -733,7 +733,7 @@ theorem integral_rpow_div_log_tail_le {X ε : ℝ} (hX : 3 ≤ X) (hε : 0 < ε)
       le_trans hlogX (Real.log_le_log hX0 (le_of_lt hvX))
     have hrp : (0 : ℝ) < v ^ (-(1 : ℝ) - ε) := Real.rpow_pos_of_pos hv0 _
     rw [Real.norm_eq_abs, abs_of_nonneg (by positivity), div_le_iff₀ (by linarith)]
-    nlinarith
+    nlinarith only [hlogv, hrp]
   refine ⟨hint, ?_⟩
   have hmaj : IntegrableOn (fun v : ℝ => v ^ (-(1 : ℝ) - ε) / Real.log X) (Set.Ioi X) :=
     hg.div_const _
