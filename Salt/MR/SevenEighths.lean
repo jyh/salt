@@ -104,7 +104,7 @@ theorem norm_one_sub_sq (z : ℂ) : ‖1 - z‖ ^ 2 = 1 + ‖z‖ ^ 2 - 2 * z.re
 /-- **The device, squared form.**  For `z` in the closed unit disc, `‖1 − z‖² ≤ 2 − 2ℜz`. -/
 theorem norm_one_sub_sq_le {z : ℂ} (hz : ‖z‖ ≤ 1) : ‖1 - z‖ ^ 2 ≤ 2 - 2 * z.re := by
   have h := norm_one_sub_sq z
-  nlinarith [norm_nonneg z, hz]
+  nlinarith only [hz, h, norm_nonneg z]
 
 /-- **The device, as printed** (`|1 − z| ≤ (2 − 2ℜz)^{1/2}` for `z` in the unit disc). -/
 theorem norm_one_sub_le_sqrt {z : ℂ} (hz : ‖z‖ ≤ 1) :
@@ -186,8 +186,8 @@ theorem beta_optimisation {β : ℝ} (h2 : β ≤ 1 / 2) :
   have hs0 : 0 ≤ s := Real.sqrt_nonneg _
   have hs2 : s ^ 2 = 1 - β := Real.sq_sqrt (by linarith)
   -- `β ≤ 1/2` forces `s ≥ 1/√2 > 7/10`
-  have hs7 : (7 : ℝ) / 10 ≤ s := by nlinarith [hs0, hs2]
-  nlinarith [hs0, hs2, hs7, mul_nonneg hs0 (sub_nonneg.mpr hs7)]
+  have hs7 : (7 : ℝ) / 10 ≤ s := by nlinarith only [hs0, hs2, h2]
+  linarith only [hs2, h2, mul_nonneg hs0 (sub_nonneg.mpr hs7)]
 
 /-- The √-packaging used twice below: `√(2b)·√m ≤ K` follows from `2bm ≤ K²`. -/
 private lemma sqrt_mul_sqrt_le {b m K : ℝ} (hb : 0 ≤ b) (hK : 0 ≤ K)
@@ -212,9 +212,9 @@ theorem seven_eighths_real {a b m T : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (hab : 
   have hK : 0 ≤ 7 / 8 * T - a := by linarith
   have hquad : 2 * b * m ≤ (7 / 8 * T - a) ^ 2 := by
     have step1 : 2 * b * m ≤ 2 * (T - a) * (T / 8) := by
-      nlinarith [mul_nonneg hm (sub_nonneg.mpr hab), mul_nonneg hTa (sub_nonneg.mpr hmT)]
-    nlinarith [step1, sq_nonneg T, sq_nonneg (T / 2 - a),
-      mul_nonneg hT (by linarith : (0 : ℝ) ≤ T / 2 - a)]
+      linarith only [mul_nonneg hTa (sub_nonneg.mpr hmT), mul_nonneg hm (sub_nonneg.mpr hab)]
+    linarith only [step1, mul_nonneg hT (by linarith : (0 : ℝ) ≤ T / 2 - a),
+        sq_nonneg (1 * 7 * (1 * T) - 8 * a), sq_nonneg (1 * T - 2 * a)]
   linarith [sqrt_mul_sqrt_le hb hK hquad]
 
 /-- **The ⅞-bound survives the page's `β = 1/2 + O(1/log log X)` slack.**  The page's `β` range
@@ -231,9 +231,9 @@ theorem seven_eighths_real_slack {a b m T : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (
   have hK : 0 ≤ 7 / 8 * T - a := by linarith
   have hquad : 2 * b * m ≤ (7 / 8 * T - a) ^ 2 := by
     have step1 : 2 * b * m ≤ 2 * (T - a) * (T / 8) := by
-      nlinarith [mul_nonneg hm (sub_nonneg.mpr hab), mul_nonneg hTa (sub_nonneg.mpr hmT)]
-    nlinarith [step1, sq_nonneg T, sq_nonneg (17 / 32 * T - a),
-      mul_nonneg hT (by linarith : (0 : ℝ) ≤ 17 / 32 * T - a)]
+      linarith only [mul_nonneg hTa (sub_nonneg.mpr hmT), mul_nonneg hm (sub_nonneg.mpr hab)]
+    linarith only [step1, mul_nonneg hT (by linarith : (0 : ℝ) ≤ 17 / 32 * T - a),
+        sq_nonneg (1 * 7 * (1 * T) - 8 * a), sq_nonneg (1 * 17 * (1 * T) - 32 * a)]
   linarith [sqrt_mul_sqrt_le hb hK hquad]
 
 /-- **The real core, `log log X`-normalised** (the page's own normalisation): if the Mertens
@@ -248,13 +248,13 @@ theorem seven_eighths_real_loglog {a b m L c : ℝ} (hb : 0 ≤ b) (hab : a + b 
     rw [div_pow, mul_pow, Real.sq_sqrt hc, Real.sq_sqrt hL]; ring
   have hKnn : 0 ≤ 7 / 8 * L - a + Real.sqrt c * Real.sqrt L / 2 := by linarith
   have hq : (L - a) * L / 4 ≤ (7 / 8 * L - a) ^ 2 := by
-    nlinarith [sq_nonneg L, sq_nonneg (L / 2 - a),
-      mul_nonneg hL (by linarith : (0 : ℝ) ≤ L / 2 - a)]
+    linarith only [mul_nonneg hL (by linarith : (0 : ℝ) ≤ L / 2 - a),
+        sq_nonneg (1 * 7 * (1 * L) - 8 * a), sq_nonneg (1 * L - 2 * a)]
   have hquad : 2 * b * m ≤ (7 / 8 * L - a + Real.sqrt c * Real.sqrt L / 2) ^ 2 := by
     have hbm : 2 * b * m ≤ (L - a) * L / 4 + c * L / 4 := by
       nlinarith [mul_nonneg hm (by linarith : (0 : ℝ) ≤ L + c - a - b),
         mul_nonneg (by linarith : (0 : ℝ) ≤ L + c - a) (by linarith : (0 : ℝ) ≤ L / 8 - m)]
-    nlinarith [hbm, hq, hs2, mul_nonneg (by linarith : (0 : ℝ) ≤ 7 / 8 * L - a) hs0]
+    linarith only [hbm, hq, hs2, mul_nonneg (by linarith : (0 : ℝ) ≤ 7 / 8 * L - a) hs0]
   linarith [sqrt_mul_sqrt_le hb hKnn hquad]
 
 /-- **The real core of the page's LITERAL claim** (`≤ (7/8) log log X`, flat).  The printed
@@ -272,9 +272,9 @@ theorem seven_eighths_real_flat {a b m L c : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b)
     have hbm : 2 * b * m ≤ (L - a) * L / 4 + c * L / 4 := by
       nlinarith [mul_nonneg hm (by linarith : (0 : ℝ) ≤ L + c - a - b),
         mul_nonneg (by linarith : (0 : ℝ) ≤ L + c - a) (by linarith : (0 : ℝ) ≤ L / 8 - m)]
-    nlinarith [hbm, sq_nonneg L, sq_nonneg (L / 2 - a),
-      mul_nonneg hL (by linarith : (0 : ℝ) ≤ L / 2 - a),
-      mul_le_mul_of_nonneg_right hcL hL]
+    linarith only [hbm, mul_le_mul_of_nonneg_right hcL hL,
+        mul_nonneg hL (by linarith : (0 : ℝ) ≤ L / 2 - a),
+        sq_nonneg (1 * L - 2 * a)]
   linarith [sqrt_mul_sqrt_le hb hK hquad]
 
 /-- **THE ⅞-BOUND (main form).**  Let `S` be a finite set of primes (positivity is all that is
