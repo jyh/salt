@@ -98,7 +98,7 @@ theorem sqrt_add_le_sqrt_add_sqrt {a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) :
   have hsa : Real.sqrt a ^ 2 = a := Real.sq_sqrt ha
   have hsb : Real.sqrt b ^ 2 = b := Real.sq_sqrt hb
   have hkey : a + b ≤ (Real.sqrt a + Real.sqrt b) ^ 2 := by
-    nlinarith [Real.sqrt_nonneg a, Real.sqrt_nonneg b]
+    nlinarith only [hsb, hsa, Real.sqrt_nonneg a, Real.sqrt_nonneg b]
   calc Real.sqrt (a + b) ≤ Real.sqrt ((Real.sqrt a + Real.sqrt b) ^ 2) := Real.sqrt_le_sqrt hkey
     _ = Real.sqrt a + Real.sqrt b := Real.sqrt_sq (by positivity)
 
@@ -264,7 +264,7 @@ theorem prime_sum_to_lambda {α : ℝ} {M N : ℕ} (hM : 2 ≤ M) {B : ℝ} (hB 
     have h5 : 0 ≤ Real.log (J : ℝ) := log_nat_nonneg J
     have h6 : 2 * Real.sqrt J * Real.log J ≤ 2 * Real.sqrt N * Real.log N := by
       have : 0 ≤ Real.sqrt (J : ℝ) := Real.sqrt_nonneg _
-      nlinarith
+      nlinarith only [h3, h5, hsqN, h4]
     linarith [hbd J hJ1 hJ2]
   -- the weight rewrite
   have hrw : primePhaseSum α M K
@@ -373,7 +373,7 @@ theorem approx_reduced {Q : ℝ} {H : ℕ} {α : ℝ} (hH : 0 < H) (hQ : 0 ≤ Q
     refine hd.trans ?_
     have hle : (q' : ℝ) * (H : ℝ) ≤ (q : ℝ) * (H : ℝ) := by
       have : (q' : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq'q
-      nlinarith
+      nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
     exact div_le_div_of_nonneg_left hQ (by positivity) hle
   refine ⟨a', q', hq'0, hq'q, hcop, ?_, hrad⟩
   by_contra hcon
@@ -393,13 +393,13 @@ theorem approx_c_form {Q : ℝ} {H : ℕ} {α : ℝ} {a : ℤ} {q : ℕ} (hq : 0
   refine hd.trans ?_
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   have hstep : Q * (q : ℝ) ≤ (H : ℝ) + Q := by
-    have h1 : (q : ℝ) * Q ≤ ((H : ℝ) / Q + 1) * Q := by nlinarith
+    have h1 : (q : ℝ) * Q ≤ ((H : ℝ) / Q + 1) * Q := by nlinarith only [hQ, hqle]
     rw [add_mul, div_mul_cancel₀ _ hQ.ne', one_mul] at h1
-    nlinarith
+    linarith only [h1]
   have hexp : (1 + Q / (H : ℝ)) * ((q : ℝ) * (H : ℝ)) = ((H : ℝ) + Q) * (q : ℝ) := by
     field_simp
   rw [hexp]
-  nlinarith
+  nlinarith only [hstep, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
 /-- **L1 — the `1/p` strip.**  Abel summation against the antitone weight `1/n` on
 the dyadic window `(M, N]` turns `S_H(α)` into the *unweighted* prime phase sum,
@@ -545,13 +545,13 @@ theorem typeIIBlockBd_le_crude {q x D E : ℕ} (hq : 1 ≤ q) {lo hi : ℝ}
           mul_le_mul hΔD hPx hP0 hDR
       _ ≤ (x : ℝ) := by
           rw [mul_div_assoc', div_le_iff₀ hD1]
-          nlinarith
+          linarith only [(Nat.cast_nonneg _ : 0 ≤ ↑x)]
   have hΔP0 : 0 ≤ Δ * P := mul_nonneg hΔ0 hP0
   -- the five pieces
   have hb1 : Δ * (Δ * P) ≤ hi * (x : ℝ) := mul_le_mul hhi hprod hΔP0 hhi0
   have hb2 : 6 * (Δ * P) ^ 2 / (q : ℝ) ≤ 6 * (x : ℝ) ^ 2 / (q : ℝ) := by
     rw [div_le_div_iff₀ hqR hqR]
-    nlinarith [mul_self_le_mul_self hΔP0 hprod]
+    nlinarith only [mul_self_le_mul_self hΔP0 hprod, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hb3 : 12 * (Δ * P) * P * (1 + Real.log q)
       ≤ 12 * (x : ℝ) ^ 2 * (1 + Real.log q) / lo := by
     have h1 : (Δ * P) * P ≤ (x : ℝ) * ((x : ℝ) / lo) := mul_le_mul hprod hPlo hP0 hxR
@@ -559,11 +559,11 @@ theorem typeIIBlockBd_le_crude {q x D E : ℕ} (hq : 1 ≤ q) {lo hi : ℝ}
         = 12 * ((x : ℝ) * ((x : ℝ) / lo)) * (1 + Real.log q) := by
       field_simp
     rw [heq3]
-    nlinarith [mul_le_mul_of_nonneg_right h1 hLq]
-  have hb4 : 6 * Δ * (Δ * P) ≤ 6 * (hi * (x : ℝ)) := by nlinarith
+    linarith only [mul_le_mul_of_nonneg_right h1 hLq]
+  have hb4 : 6 * Δ * (Δ * P) ≤ 6 * (hi * (x : ℝ)) := by linarith only [hb1]
   have hb5 : 12 * (Δ * P) * (q : ℝ) * (1 + Real.log q)
       ≤ 12 * (x : ℝ) * (q : ℝ) * (1 + Real.log q) := by
-    nlinarith [mul_nonneg hqR.le hLq]
+    nlinarith only [hprod, mul_nonneg hqR.le hLq]
   set A : ℝ := 7 * hi * (x : ℝ) with hAdef
   set Bq : ℝ := 6 * (x : ℝ) ^ 2 / (q : ℝ) with hBdef
   set Cq : ℝ := 12 * (x : ℝ) ^ 2 * (1 + Real.log q) / lo with hCdef
@@ -814,7 +814,7 @@ theorem winBot_le_winTop {eps : ℚ} (heps : 0 < eps) (H : ℕ) : winBot eps H �
     rw [winBot]; exact Nat.floor_le (by positivity)
   have h2 : ((winBot eps H : ℕ) : ℝ) ≤ ((eps ^ 2 * (H : ℚ) : ℚ) : ℝ) := by
     push_cast
-    nlinarith [sq_nonneg ((eps : ℝ))]
+    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑(winBot eps H))]
   rw [winTop]
   exact Nat.le_floor (by exact_mod_cast h2)
 
@@ -934,7 +934,7 @@ theorem exists_q_expSum_le {B₅ : ℝ} (hB1 : 1 ≤ B₅) {eps : ℚ} (heps : 0
       have := mul_lt_mul_of_pos_right h1 hdenpos
       rw [add_mul, div_mul_cancel₀ _ hdenpos.ne', one_mul] at this
       linarith
-    nlinarith
+    nlinarith only [hden2, h2]
   -- the min-sum input shape
   set c : ℝ := 1 + arcDen B₅ H / (H : ℝ) with hcdef
   have hc2 : c ≤ 2 := by
