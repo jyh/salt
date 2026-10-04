@@ -423,7 +423,7 @@ lemma weighted_minSum_le (a : ℕ → ℂ) (s0 : Finset ℕ) {X y T : ℝ}
   calc ‖a m‖ * (2 * (y / (m : ℝ)) * M)
       ≤ 1 * (6 * M) := by
         refine mul_le_mul (ha m hm) ?_ ?_ zero_le_one
-        · nlinarith [hym3, hMnn]
+        · nlinarith only [hMnn, hym3]
         · exact mul_nonneg (mul_nonneg (by norm_num)
             (div_nonneg (by linarith) hm0.le)) hMnn
     _ = 6 * M := one_mul _
@@ -666,7 +666,7 @@ lemma gapMaj_nonneg (s0 : Finset ℕ) {X T δ h₁ h₂ x : ℝ} (hX : 1 ≤ X) 
   have hk1 : (0 : ℝ) ≤ 12 * X / (T * δ) := by positivity
   have hk2 : (0 : ℝ) ≤ (8 * X / T) * (1 + Real.log (3 * X)) := by
     have : (0 : ℝ) ≤ 8 * X / T := by positivity
-    nlinarith
+    nlinarith only [hlog, this]
   rw [gapMaj]
   linarith
 
@@ -722,7 +722,7 @@ theorem gapMaj_meansq_le (s0 : Finset ℕ) {X T δ h₁ h₂ : ℝ} (hX : 1 ≤ 
   have hK : (0 : ℝ) ≤ 12 * X / (T * δ) + (8 * X / T) * (1 + Real.log (3 * X)) := by
     have hk1 : (0 : ℝ) ≤ 12 * X / (T * δ) := by positivity
     have h8 : (0 : ℝ) ≤ 8 * X / T := by positivity
-    nlinarith
+    nlinarith only [hlog, h8, hk1]
   -- the pointwise square bound on `[X, 2X]`
   have hptwise : ∀ x ∈ Set.Icc X (2 * X), gapMaj s0 X T δ h₁ h₂ x ^ 2
       ≤ 864 * (Real.pi + 2 * Real.log (1 + T))
@@ -800,8 +800,8 @@ theorem gapMaj_meansq_le (s0 : Finset ℕ) {X T δ h₁ h₂ : ℝ} (hX : 1 ≤ 
         + 2 * (∫ x in X..(2 * X), bumpSum s0 δ (Real.pi + 2 * Real.log (1 + T)) 0 x)
         ≤ 4 * ((s0.card : ℝ) * (2 * δ * (Real.pi + 2 * Real.log (1 + T)))) := by
       linarith
-    nlinarith [mul_le_mul_of_nonneg_left hsum
-      (by positivity : (0 : ℝ) ≤ 864 * (Real.pi + 2 * Real.log (1 + T)))]
+    linarith only [mul_le_mul_of_nonneg_left hsum
+        (by positivity : (0 : ℝ) ≤ 864 * (Real.pi + 2 * Real.log (1 + T)))]
   -- divide by X
   have hfin := mul_le_mul_of_nonneg_left hstep (by positivity : (0 : ℝ) ≤ 1 / X)
   refine hfin.trans ?_
@@ -815,7 +815,7 @@ theorem gapMaj_meansq_le (s0 : Finset ℕ) {X T δ h₁ h₂ : ℝ} (hX : 1 ≤ 
   have hratio : (s0.card : ℝ) / X ≤ 5 := by
     rw [div_le_iff₀ hX0]; linarith
   have hpos : (0 : ℝ) ≤ δ * (Real.pi + 2 * Real.log (1 + T)) ^ 2 := by positivity
-  nlinarith [hratio, hpos, div_nonneg hcard0 hX0.le]
+  nlinarith only [hratio, hpos]
 
 /-- **The shrinking instance** — `gapMaj_meansq_le` at the balanced width `δ = √(X/T)`
 (admissible as soon as `T ≥ X`):
@@ -1071,7 +1071,7 @@ theorem lemma14_shortInterval_meansq_concrete (a : ℕ → ℂ) (s0 : Finset ℕ
     exact Real.log_le_log (Real.exp_pos 1) hX
   have hLinv1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
-  have hh2XX : h₂ ≤ X := by nlinarith [hh2X, hLinv1, hXpos]
+  have hh2XX : h₂ ≤ X := by nlinarith only [he2, hLinv1, hX, hh2X]
   have hTpos : (0 : ℝ) < 2 * (X / h₁) := by positivity
   refine lemma14_shortInterval_meansq a s0 (gapMaj s0 X (2 * (X / h₁)) δ h₁ h₂)
     hX hh1 hh12 hh2X ha hrange hMsup

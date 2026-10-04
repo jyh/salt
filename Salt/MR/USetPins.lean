@@ -360,8 +360,8 @@ theorem TannGate_of_row_height (X Tann : ℝ) (hX0 : 0 < X) (hL : 1024 ≤ Real.
   have hlog1 : Real.log (Real.sqrt (Real.log X)) ≤ Real.sqrt (Real.log X) - 1 :=
     Real.log_le_sub_one_of_pos hspos
   have hkey : 30 * Real.sqrt (Real.log X) ≤ Real.log X - Real.log (Real.log X) := by
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ Real.sqrt (Real.log X) - 32)
-      (le_of_lt hspos)]
+    linarith only [hlog1, hlogL, hsq, mul_nonneg
+        (by linarith : (0 : ℝ) ≤ Real.sqrt (Real.log X) - 32) (le_of_lt hspos)]
   have hXL : Real.exp (Real.log X - Real.log (Real.log X)) = X / Real.log X := by
     rw [← Real.log_div (ne_of_gt hX0) (ne_of_gt hL0), Real.exp_log (div_pos hX0 hL0)]
   unfold TannGate
@@ -411,7 +411,7 @@ theorem TannGate_fails_polylog_deg (X : ℝ) (k : ℕ) (hk : k ≤ 40) (hX : 1 <
   have hk40 : (k : ℝ) ≤ 40 := by exact_mod_cast hk
   have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-  nlinarith [hlogL, hmaj, hlogs0, hk40, hk0, he, hs1]
+  nlinarith only [hlogs0, he, hk40, hlogL, hmaj, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
 
 /-! ## §6  P-5 — the balance page (`θ = ρ/3`) and the exit -/
 
@@ -442,7 +442,7 @@ theorem balance_exit (X T ρ ε M R : ℝ) (hε : 0 ≤ ε) (hL : 1 ≤ Real.log
     rw [balance_main_eq_rem] at hM; linarith
   have hM'' : M ≤ (T / X + 1) * (Real.log X) ^ (-theta83 ρ + ε) := by
     refine le_trans hM' ?_
-    nlinarith [hpow0, hTX]
+    nlinarith only [hTX, hpow0]
   linarith
 
 /-! ### The numerics at the B4 grade `ρ = 1/(32e)` -/
@@ -463,18 +463,18 @@ theorem theta83_rhoB4_pos : 0 < theta83 rhoB4 := by
 `(T/X+1)(log X)^{−1/(96e)+o(1)}`, i.e. at worst `(log X)^{−1/261+o(1)}`. -/
 theorem exit_exponent_ge : (1 : ℝ) / 261 ≤ theta83 rhoB4 := by
   rw [theta83_rhoB4, div_le_div_iff₀ (by norm_num) (by positivity)]
-  nlinarith [Real.exp_one_lt_d9]
+  linarith only [Real.exp_one_lt_d9]
 
 /-- **The door's floor is cleared**: `c₀ = 1/500 ≤ θ(ρ_B4)`. -/
 theorem c0_le_exit_exponent : (1 : ℝ) / 500 ≤ theta83 rhoB4 := by
   rw [theta83_rhoB4, div_le_div_iff₀ (by norm_num) (by positivity)]
-  nlinarith [Real.exp_one_lt_d9]
+  linarith only [Real.exp_one_lt_d9]
 
 /-- **The margin — `1.916×`.**  `θ(ρ_B4) = 1/(96e) ≥ 1.916/500`: the §8.3 exit clears the
 door's `c₀ ≥ 1/500` with the ⟦V4⟧ margin. -/
 theorem exit_margin : (1.916 : ℝ) / 500 ≤ theta83 rhoB4 := by
   rw [theta83_rhoB4, div_le_div_iff₀ (by norm_num) (by positivity)]
-  nlinarith [Real.exp_one_lt_d9]
+  linarith only [Real.exp_one_lt_d9]
 
 /-- **The `o(1)` still clears the floor.**  Any `ε ≤ 1/1000` leaves `θ(ρ_B4) − ε ≥ 1/500`. -/
 theorem exit_beats_c0 (ε : ℝ) (hε : ε ≤ 1 / 1000) : (1 : ℝ) / 500 ≤ theta83 rhoB4 - ε := by
@@ -493,7 +493,7 @@ theorem halved_fails : theta83 (1 / (64 * Real.exp 1)) < 1 / 500 := by
     field_simp
     norm_num
   rw [hval, div_lt_div_iff₀ hpos (by norm_num)]
-  nlinarith [Real.exp_one_gt_d9]
+  linarith only [Real.exp_one_gt_d9]
 
 /-- **P-5 (the exit at the pin).**  The §8.3 balance exit in its concrete B4 form:
 `main + remainder ≤ 2(T/X+1)(log X)^{−1/(96e)+o(1)}`. -/
