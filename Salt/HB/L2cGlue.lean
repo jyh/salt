@@ -106,7 +106,7 @@ lemma glue_ufacts {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
     have hlp : Real.log (Lwin x) = 6 * Real.log ((Lwin x) ^ ((1 : ℝ) / 6)) := by
       conv_lhs => rw [hu6]
       rw [Real.log_pow]; push_cast; ring
-    rw [hlp]; nlinarith [hlogle, hupos]
+    rw [hlp]; linarith only [hlogle]
 
 /-! ## §2 — the four packet discharges at `zwit x` -/
 
@@ -123,7 +123,7 @@ lemma glue_hz100 {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) : 100 ^ 16 ≤ zwit 
       rw [← Real.log_pow, Real.exp_log (by positivity)]
     rw [h1]
     refine le_trans (Real.exp_le_exp.mpr ?_) hzge
-    push_cast; nlinarith [h100, hu4]
+    push_cast; linarith only [h100, hu4]
   exact_mod_cast hge
 
 /-- **(G2) `hz8` discharge.**  `Lwin x ^ 8 ≤ zwit x` for `Lwin x ≥ 20^6`.  Key arithmetic:
@@ -142,7 +142,7 @@ lemma glue_hz8 {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) : Lwin x ^ 8 ≤ (zwit
   refine le_trans (Real.exp_le_exp.mpr ?_) hzge
   push_cast
   -- 8 * log L ≤ u^4 ; log L ≤ 6u ; 48u ≤ u^3·u = u^4
-  nlinarith [hlog, hu20, hupos, hu3, mul_le_mul_of_nonneg_right hu3 hupos.le]
+  linarith only [hlog, hu20, mul_le_mul_of_nonneg_right hu3 hupos.le]
 
 /-- **(G3) `hzx` discharge.**  `(zwit x : ℝ)^3 ≤ x` for `Lwin x ≥ 20^6`.  Uses the identity
     `exp (Lwin x) = 2x+2` and `z ≤ 2·exp(u^4)`, so `z^3 ≤ 8 exp(3u^4) ≤ x` (as
@@ -166,8 +166,8 @@ lemma glue_hzx {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) : (zwit x : ℝ) ^ 3 �
   have h18 : (18 : ℝ) * Real.exp (3 * u ^ 4) ≤ Real.exp (u ^ 6) := by
     have hle : Real.exp (Real.log 18 + 3 * u ^ 4) ≤ Real.exp (u ^ 6) := by
       refine Real.exp_le_exp.mpr ?_
-      nlinarith [hlog18, hu20, hupos, pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 20) hu20 4,
-        pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 20) hu20 2]
+      nlinarith only [hL, hlog18, hLu6, pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 20) hu20 2,
+          sq_nonneg u, sq_nonneg u, sq_nonneg u, sq_nonneg u]
     rwa [Real.exp_add, Real.exp_log (by norm_num : (0 : ℝ) < 18)] at hle
   have hexp6 : Real.exp (u ^ 6) = 2 * (x : ℝ) + 2 := by rw [← hLu6, hexpL]
   have hkey : 8 * Real.exp (3 * u ^ 4) ≤ (x : ℝ) := by
@@ -212,8 +212,8 @@ lemma glue_hLz0 {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
         ≤ 6 * u * (u ^ 4 + Real.log 2) := hmul
       _ ≤ Lwin x := by
           rw [hLu6]
-          nlinarith [hu20, hupos, hlog2, pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 20) hu20 5,
-            pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 20) hu20 6]
+          nlinarith only [hu20, hlog2, hLu6, hL,
+              pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 20) hu20 5]
   calc Lwin x = Real.exp (Real.log (Lwin x)) := (Real.exp_log hLpos).symm
     _ ≤ Real.exp (z0 (zwit x) x) := Real.exp_le_exp.mpr key
 
@@ -266,10 +266,10 @@ lemma glue_junk_le {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
       have hlog4 : Real.log 4 ≤ 4 := by
         have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4); linarith
       have hp4 : (400 : ℝ) * u ^ 4 ≤ u ^ 2 * u ^ 4 := mul_le_mul_of_nonneg_right hu2 (by positivity)
-      nlinarith [hlog4, hu2, hupos, hp4]
+      linarith only [hp4, hlog4, hLu6, hL]
     rwa [Real.exp_add, Real.exp_log (by norm_num : (0 : ℝ) < 4)] at hle
   have hxge : Real.exp (10 * (u ^ 4 / 8)) ≤ (x : ℝ) := by
-    rw [hexp6] at h4E; nlinarith [h4E, hEge1]
+    rw [hexp6] at h4E; linarith only [h4E, hEge1]
   have hxpos : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hxge
   -- roots: exp(u^4/8) ≤ z^{1/8} and ≤ x^{1/10}
   have hz18 : Real.exp (u ^ 4 / 8) ≤ (zwit x : ℝ) ^ (1 / 8 : ℝ) := by
@@ -298,7 +298,7 @@ lemma glue_junk_le {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
     have hlogu : Real.log u ≤ u := by
       have := Real.log_le_sub_one_of_pos hupos; linarith
     have hlog232 : Real.log ((2 : ℝ) ^ 32) ≤ 32 := by
-      rw [Real.log_pow]; push_cast; nlinarith [hlog2]
+      rw [Real.log_pow]; push_cast; linarith only [hlog2]
     have h1pos : (0 : ℝ) < (2 : ℝ) ^ 32 * u ^ 18 := by positivity
     have h1ne : ((2 : ℝ) ^ 32 * u ^ 18) ≠ 0 := h1pos.ne'
     have h3ne : ((2 : ℝ) ^ 32) ≠ 0 := by norm_num
@@ -312,7 +312,7 @@ lemma glue_junk_le {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
         have hp2 : (400 : ℝ) * u ^ 2 ≤ u ^ 2 * u ^ 2 :=
           mul_le_mul_of_nonneg_right hu2 (by positivity)
         have hp20 : (0 : ℝ) ≤ (u - 20) * u := mul_nonneg (by linarith [hu20]) hupos.le
-        nlinarith [hu20, hu2, hupos, hp2, hp20]
+        linarith only [hp20, hp2, hu2]
       set E := Real.log ((2 : ℝ) ^ 32)
       set Lu := Real.log u
       linarith [hlog232, hlogu, hkey4]

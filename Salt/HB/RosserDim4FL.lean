@@ -199,13 +199,13 @@ lemma one_sub_lam_sq_exp_pos {lam : ℝ} (hlam : 0 < lam)
   have hsq : lam ^ 2 * Real.exp (2 + 2 * lam) = (lam * Real.exp (1 + lam)) ^ 2 := by
     rw [he]; ring
   rw [hsq]
-  nlinarith [h12, mul_pos hlam hpos]
+  nlinarith only [h12, mul_pos hlam hpos]
 
 /-- The side condition also forces `λ < 1` (needed for a positive decay rate). -/
 lemma lam_lt_one {lam : ℝ} (hlam : 0 < lam) (h12 : lam * Real.exp (1 + lam) < 1) :
     lam < 1 := by
   have h1 : (1 : ℝ) < Real.exp (1 + lam) := one_lt_exp_of_pos (by linarith)
-  nlinarith [h12, hlam]
+  nlinarith only [hlam, h1, h12]
 
 lemma flConst_pos {lam Lam : ℝ} (hlam : 0 < lam) (h12 : lam * Real.exp (1 + lam) < 1) :
     0 < flConst lam Lam := by
@@ -238,7 +238,7 @@ theorem fl_defect_le {lam Lam sRatio : ℝ} (hlam : 0 < lam)
       ≤ Real.exp (flRate lam * levelE Lam) * Real.exp (-(flRate lam) * sRatio) := by
     rw [← Real.exp_add]
     apply Real.exp_le_exp.mpr
-    nlinarith [hrate, hlt]
+    nlinarith only [hrate, hlt, hlam1, hlam]
   have hfac : (0 : ℝ) < 2 * Real.exp (2 * lam) / (1 - lam ^ 2 * Real.exp (2 + 2 * lam)) := by
     positivity
   have hrw : 2 * lam ^ (2 * b) * Real.exp (2 * lam)
@@ -286,7 +286,7 @@ lemma levelE_anti {Lam Lam' : ℝ} (h0 : 0 < Lam) (h : Lam ≤ Lam') :
   have hle : Real.exp Lam ≤ Real.exp Lam' := Real.exp_le_exp.mpr h
   have h1' : (1 : ℝ) < Real.exp Lam' := lt_of_lt_of_le h1 hle
   rw [levelE, levelE, div_le_div_iff₀ (by linarith) (by linarith)]
-  nlinarith [hle, h1, h1']
+  linarith only [hle]
 
 /-- `flRate (1/4) = 2 log 2 = log 4 = 1.3862…` — the decay rate per unit of `s` at the
 H-R parameter `λ = 1/4`. -/
@@ -320,7 +320,7 @@ lemma flConst_quarter_le {Lam : ℝ} (hLam : (1 : ℝ) / 10 ≤ Lam) :
     rw [← Real.exp_add]; norm_num
   have hypos : (0 : ℝ) < Real.exp (1 / 2 : ℝ) := Real.exp_pos _
   have he1 : Real.exp (1 : ℝ) < 2.7182818286 := Real.exp_one_lt_d9
-  have hy : Real.exp (1 / 2 : ℝ) ≤ 1.6489 := by nlinarith [hy2, hypos, he1]
+  have hy : Real.exp (1 / 2 : ℝ) ≤ 1.6489 := by nlinarith only [hypos, he1, hy2]
   have h52 : Real.exp (5 / 2 : ℝ) = Real.exp (1 / 2 : ℝ) ^ 5 := by
     rw [show (5 / 2 : ℝ) = ((5 : ℕ) : ℝ) * (1 / 2) by norm_num, Real.exp_nat_mul]
   have h52le : Real.exp (5 / 2 : ℝ) ≤ 12.19 := by
@@ -331,8 +331,8 @@ lemma flConst_quarter_le {Lam : ℝ} (hLam : (1 : ℝ) / 10 ≤ Lam) :
       ≤ 14 := by
     have h2 : (2 : ℝ) + 2 * (1 / 4) = 5 / 2 := by norm_num
     have h1 : (2 : ℝ) * (1 / 4) = 1 / 2 := by norm_num
-    rw [h2, h1, div_le_iff₀ (by nlinarith [h52le])]
-    nlinarith [hy, h52le]
+    rw [h2, h1, div_le_iff₀ (by linarith only [h52le])]
+    linarith only [h52le, hy]
   -- (B) the exponent
   have hB : flRate (1 / 4 : ℝ) * levelE Lam ≤ 31 := by
     have hE : levelE Lam ≤ 22.23 :=
@@ -340,7 +340,7 @@ lemma flConst_quarter_le {Lam : ℝ} (hLam : (1 : ℝ) / 10 ≤ Lam) :
     have hEpos : 0 < levelE Lam := levelE_pos (lt_of_lt_of_le hten hLam)
     have hl2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
     rw [flRate_quarter]
-    nlinarith [hE, hEpos, hl2, Real.log_two_gt_d9]
+    nlinarith only [hE, hl2, Real.log_two_gt_d9]
   rw [flConst]
   calc 2 * Real.exp (2 * (1 / 4 : ℝ)) / (1 - (1 / 4 : ℝ) ^ 2 * Real.exp (2 + 2 * (1 / 4)))
         * Real.exp (flRate (1 / 4 : ℝ) * levelE Lam)
