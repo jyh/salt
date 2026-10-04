@@ -137,7 +137,7 @@ theorem two_mul_dist₁_le_abs_sin (θ : ℝ) : 2 * dist₁ θ 0 ≤ |Real.sin (
   have hkey : ∀ t : ℝ, 0 ≤ t → t ≤ 1 / 2 → 2 * t ≤ Real.sin (Real.pi * t) := by
     intro t ht0 ht1
     have hjordan := Real.mul_le_sin (x := Real.pi * t) (by positivity)
-      (by nlinarith [Real.pi_pos])
+      (by nlinarith only [ht1, Real.pi_pos])
     have hid : 2 / Real.pi * (Real.pi * t) = 2 * t := by
       field_simp
     linarith
@@ -496,7 +496,7 @@ theorem minsum_block_core {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q
       rw [round_eq]
       refine Int.lt_add_one_iff.mp (Int.floor_lt.mpr ?_)
       push_cast
-      nlinarith
+      nlinarith only [hle, hQ, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
     have hcast := Int.toNat_le.mpr hbound
     omega
   -- The defining property of the band index.
@@ -547,7 +547,7 @@ theorem minsum_block_core {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q
             = ((q : ℝ) * dist₁ ((n : ℝ) * α) 0 - ((i : ℝ) + 1)) / (q : ℝ) := by
           field_simp
         rw [hrw, abs_div, abs_of_pos hQ, div_le_div_iff₀ hQ (by positivity)]
-        nlinarith [hb, hQ]
+        nlinarith only [hb, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
       have hdr : dist₁ ((n : ℝ) * α) 0 = |(n : ℝ) * α - (round ((n : ℝ) * α) : ℝ)| := by
         simp only [dist₁, sub_zero]
       rcases le_or_gt 0 ((n : ℝ) * α - (round ((n : ℝ) * α) : ℝ)) with hpos | hneg
@@ -588,13 +588,13 @@ theorem minsum_block_core {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q
       rw [abs_le] at hb
       have hdlow : ((i : ℝ) + 1) / (2 * (q : ℝ)) ≤ dist₁ ((n : ℝ) * α) 0 := by
         rw [div_le_iff₀ (by positivity)]
-        nlinarith [hb.1, hQ]
+        linarith only [hb, (Nat.cast_nonneg _ : 0 ≤ ↑i)]
       have hdpos : 0 < dist₁ ((n : ℝ) * α) 0 :=
         lt_of_lt_of_le (by positivity) hdlow
       calc f n ≤ 1 / (2 * dist₁ ((n : ℝ) * α) 0) := minTerm_le_inv _ (ne_of_gt hdpos)
         _ ≤ (q : ℝ) / ((i : ℝ) + 1) := by
             rw [div_le_div_iff₀ (by positivity) (by positivity)]
-            nlinarith [hdlow, hQ, hdpos]
+            linarith only [hb, (Nat.cast_nonneg _ : 0 ≤ ↑i)]
     have hcnt : (((Finset.Ioc M (M + q)).filter (fun n => g n = i + 1)).card : ℝ) ≤ 12 := by
       exact_mod_cast hfibcard i
     calc ∑ n ∈ (Finset.Ioc M (M + q)).filter (fun n => g n = i + 1), f n
@@ -618,7 +618,7 @@ theorem minsum_block_core {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q
           ring
       _ ≤ 12 * (q : ℝ) * (1 + Real.log q) := by
           have hh := sum_range_inv_succ_le q
-          nlinarith [hh, hQ]
+          nlinarith only [hh, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   linarith [hzero, hsum1]
 
 /-- **L3b(ii) — Montgomery p. 41, eqs. (7)+(8).**  The block form at a constant
@@ -767,7 +767,7 @@ theorem minsum_d_dependent {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ 
       have hdR : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd1
       simp only [hYw]
       rw [show 4 * (X / (q : ℝ)) = (4 * X) / (q : ℝ) by ring, div_le_div_iff₀ hdR hQ]
-      nlinarith [h4, hX]
+      nlinarith only [hX, h4]
     have hexc : ∑ d ∈ blockExc α q 0 0, Yw d ≤ 24 * (X / (q : ℝ)) := by
       calc ∑ d ∈ blockExc α q 0 0, Yw d
           ≤ (blockExc α q 0 0).card • (4 * (X / (q : ℝ))) :=
@@ -859,7 +859,7 @@ theorem minsum_d_dependent {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ 
       _ ≤ (6 * (X / (q : ℝ)) * (1 + Real.log (2 * (D : ℝ))) + 24 * (X / (q : ℝ)))
             + ((D / q : ℕ) + 1 : ℝ) * (12 * (q : ℝ) * (1 + Real.log q)) := by
           have hXq : 0 ≤ X / (q : ℝ) := by positivity
-          nlinarith [hharm, hXq, hlogq, hQ]
+          nlinarith only [hharm, hXq]
   have hblocks : ((D / q : ℕ) + 1 : ℝ) * (q : ℝ) ≤ (D : ℝ) + (q : ℝ) := by
     have : ((D / q : ℕ) : ℝ) * (q : ℝ) ≤ (D : ℝ) := by
       have h1 : (D / q) * q ≤ D := Nat.div_mul_le_self D q
@@ -875,8 +875,8 @@ theorem minsum_d_dependent {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ 
           + 12 * ((D : ℝ) + (q : ℝ)) * (1 + Real.log q) := by
         have h1 : ((D / q : ℕ) + 1 : ℝ) * (12 * (q : ℝ) * (1 + Real.log q))
             ≤ 12 * ((D : ℝ) + (q : ℝ)) * (1 + Real.log q) := by
-          nlinarith [hblocks, hlogq, hQ]
-        nlinarith [h1, hXq, hlogD]
+          nlinarith only [hlogq, hblocks]
+        nlinarith only [hlogD, hXq, h1]
 
 end Salt.MR
 
