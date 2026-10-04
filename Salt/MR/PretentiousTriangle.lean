@@ -39,7 +39,7 @@ open scoped BigOperators
 /-- `‖a‖ ≤ 1` in coordinate form: `a.re² + a.im² ≤ 1`. -/
 private lemma sq_re_add_sq_im_le {a : ℂ} (ha : ‖a‖ ≤ 1) : a.re ^ 2 + a.im ^ 2 ≤ 1 := by
   have h : a.re ^ 2 + a.im ^ 2 = ‖a‖ ^ 2 := by rw [Complex.sq_norm, Complex.normSq_apply]; ring
-  rw [h]; nlinarith [norm_nonneg a, ha]
+  rw [h]; nlinarith only [ha, norm_nonneg a]
 
 /-- The sqrt-reduction upgrade: `(w − u − v)² ≤ 4uv` (with `u, v ≥ 0`) gives the sqrt
 triangle inequality `√w ≤ √u + √v`.  Parameters kept opaque so `nlinarith` treats them as
@@ -51,8 +51,8 @@ private lemma sqrt_tri_abstract {u v w : ℝ} (hu : 0 ≤ u) (hv : 0 ≤ v)
     have hsv : Real.sqrt v ^ 2 = v := Real.sq_sqrt hv
     have huv : 0 ≤ u * v := mul_nonneg hu hv
     rcases le_or_gt (w - u - v) 0 with hle | hgt
-    · nlinarith [Real.sqrt_nonneg u, Real.sqrt_nonneg v,
-        mul_nonneg (Real.sqrt_nonneg u) (Real.sqrt_nonneg v)]
+    · linarith only [hle, hsv, hsu,
+          mul_nonneg (Real.sqrt_nonneg u) (Real.sqrt_nonneg v)]
     · have h2 : Real.sqrt (4 * u * v) = 2 * Real.sqrt (u * v) := by
         rw [show (4 : ℝ) * u * v = 2 ^ 2 * (u * v) by ring, Real.sqrt_mul (by positivity),
           Real.sqrt_sq (by norm_num)]
@@ -62,7 +62,7 @@ private lemma sqrt_tri_abstract {u v w : ℝ} (hu : 0 ≤ u) (hv : 0 ≤ v)
           _ = Real.sqrt ((w - u - v) ^ 2) := (Real.sqrt_sq_eq_abs _).symm
           _ ≤ Real.sqrt (4 * u * v) := Real.sqrt_le_sqrt hQ
       have hmul : Real.sqrt u * Real.sqrt v = Real.sqrt (u * v) := (Real.sqrt_mul hu v).symm
-      nlinarith [hmul, hsu, hsv, hle2]
+      linarith only [hmul, hle2, hsv, hsu]
   have hfin := Real.sqrt_le_sqrt hkey
   rwa [Real.sqrt_sq (by positivity)] at hfin
 
@@ -79,19 +79,19 @@ private lemma sqrt_dist_triangle_real (a1 a2 b1 b2 c1 c2 : ℝ)
   obtain ⟨sb, hsb⟩ : ∃ s : ℝ, s ^ 2 = 1 - (b1 ^ 2 + b2 ^ 2) := ⟨_, Real.sq_sqrt (by linarith)⟩
   obtain ⟨sc, hsc⟩ : ∃ s : ℝ, s ^ 2 = 1 - (c1 ^ 2 + c2 ^ 2) := ⟨_, Real.sq_sqrt (by linarith)⟩
   have hu : (0 : ℝ) ≤ 1 - (a1 * b1 + a2 * b2) := by
-    nlinarith [sq_nonneg (a1 - b1), sq_nonneg (a2 - b2)]
+    linarith only [hb, ha, sq_nonneg (a1 - b1), sq_nonneg (a2 - b2)]
   have hv : (0 : ℝ) ≤ 1 - (b1 * c1 + b2 * c2) := by
-    nlinarith [sq_nonneg (b1 - c1), sq_nonneg (b2 - c2)]
+    linarith only [hc, hb, sq_nonneg (b1 - c1), sq_nonneg (b2 - c2)]
   refine sqrt_tri_abstract hu hv ?_
-  nlinarith [sq_nonneg ((a1 - b1) * (b2 - c2) - (a2 - b2) * (b1 - c1)),
-    mul_nonneg (sq_nonneg sa) (sq_nonneg (b1 - c1)),
-    mul_nonneg (sq_nonneg sa) (sq_nonneg (b2 - c2)),
-    mul_nonneg (sq_nonneg sb) (sq_nonneg (a1 - c1)),
-    mul_nonneg (sq_nonneg sb) (sq_nonneg (a2 - c2)),
-    mul_nonneg (sq_nonneg sc) (sq_nonneg (a1 - b1)),
-    mul_nonneg (sq_nonneg sc) (sq_nonneg (a2 - b2)),
-    mul_nonneg (sq_nonneg sa) (sq_nonneg sb), mul_nonneg (sq_nonneg sa) (sq_nonneg sc),
-    mul_nonneg (sq_nonneg sb) (sq_nonneg sc), hsa, hsb, hsc]
+  nlinarith only [ha, hb,
+      hc, hsc, hsb, hsa, mul_nonneg (sq_nonneg sb) (sq_nonneg sc),
+      mul_nonneg (sq_nonneg sa) (sq_nonneg sc),
+      mul_nonneg (sq_nonneg sa) (sq_nonneg sb), sq_nonneg (b1 - c1),
+      sq_nonneg (b2 - c2), sq_nonneg (a1 - c1), sq_nonneg (a2 - c2),
+      sq_nonneg (a1 - b1), sq_nonneg (a2 - b2), sq_nonneg sa,
+      sq_nonneg sa, sq_nonneg b2, sq_nonneg b1, sq_nonneg sb,
+      sq_nonneg c2, sq_nonneg c2, sq_nonneg c1, sq_nonneg c1,
+      sq_nonneg ((a1 - b1) * (b2 - c2) - (a2 - b2) * (b1 - c1))]
 
 /-- **The pointwise pretentious triangle inequality.**  For 1-bounded `a b c : ℂ`,
 `√(1 − Re(a·conj c)) ≤ √(1 − Re(a·conj b)) + √(1 − Re(b·conj c))`.  The per-prime metric
@@ -127,7 +127,7 @@ private lemma sqrt_sum_add_sq_le {ι : Type*} (S : Finset ι) (α β : ι → �
     rw [hP, hQ, Finset.mul_sum, ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
     exact Finset.sum_congr rfl fun i _ => by ring
   have hle : ∑ i ∈ S, (α i + β i) ^ 2 ≤ (Real.sqrt P + Real.sqrt Q) ^ 2 := by
-    rw [hexp]; nlinarith [hcs2, Real.sq_sqrt hPnn, Real.sq_sqrt hQnn]
+    rw [hexp]; linarith only [hcs2, Real.sq_sqrt hQnn, Real.sq_sqrt hPnn]
   calc Real.sqrt (∑ i ∈ S, (α i + β i) ^ 2)
         ≤ Real.sqrt ((Real.sqrt P + Real.sqrt Q) ^ 2) := Real.sqrt_le_sqrt hle
     _ = Real.sqrt P + Real.sqrt Q := Real.sqrt_sq (by positivity)
@@ -140,7 +140,7 @@ private lemma sqrt_div_triangle {A B C p : ℝ} (hp : 0 < p)
   have hpinv : (0 : ℝ) ≤ p⁻¹ := by positivity
   rw [div_eq_mul_inv A p, div_eq_mul_inv B p, div_eq_mul_inv C p,
       Real.sqrt_mul' A hpinv, Real.sqrt_mul' B hpinv, Real.sqrt_mul' C hpinv]
-  nlinarith [mul_le_mul_of_nonneg_right h (Real.sqrt_nonneg p⁻¹), Real.sqrt_nonneg p⁻¹]
+  linarith only [mul_le_mul_of_nonneg_right h (Real.sqrt_nonneg p⁻¹)]
 
 /-! ## The pretentious distance and its triangle inequality -/
 
@@ -153,8 +153,8 @@ theorem pretDistSq_term_nonneg {a b : ℂ} (ha : ‖a‖ ≤ 1) (hb : ‖b‖ �
   have e : (a * (starRingEnd ℂ) b).re = a.re * b.re + a.im * b.im := by
     simp [Complex.mul_re, Complex.conj_re, Complex.conj_im]
   rw [e]
-  nlinarith [sq_re_add_sq_im_le ha, sq_re_add_sq_im_le hb,
-    sq_nonneg (a.re - b.re), sq_nonneg (a.im - b.im)]
+  linarith only [sq_re_add_sq_im_le hb, sq_re_add_sq_im_le ha,
+      sq_nonneg (a.re - b.re), sq_nonneg (a.im - b.im)]
 
 /-- `pretDistSq` is nonnegative for 1-bounded arguments (a sum of nonnegative terms). -/
 theorem pretDistSq_nonneg (f g : ℕ → ℂ) (x : ℝ)
