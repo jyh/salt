@@ -255,7 +255,7 @@ theorem norm_block_phase_sum_le {ℓ A B : ℕ} (hAB : A ≤ B) (hlen : B - A �
   have hpi : (0 : ℝ) ≤ 2 * Real.pi := by positivity
   have hstep : |θ| * ((B - A : ℕ) : ℝ) ≤ |θ| * (ℓ : ℝ) :=
     mul_le_mul_of_nonneg_left hlenR (abs_nonneg θ)
-  nlinarith
+  nlinarith only [hpi, hstep, hdrift]
 
 /-- **THE BLOCKED DRIFT COMPOSITION** — ⟦F3⟧'s payload.
 
@@ -312,12 +312,12 @@ theorem norm_absWindowSum_sq_le_drift_blocked {B₅ : ℝ} {H q n ℓ : ℕ} (hq
       ≤ (1 + 2 * Real.pi) ^ 2
           * (∑ m ∈ Finset.range (numBlocks H ℓ), subWindowSup a ℓ (n + m * ℓ) β) ^ 2 := by
     have hnn := norm_nonneg (absWindowSum a H n (β + θ))
-    nlinarith
+    nlinarith only [hlin, hnn]
   have hcs := sq_sum_le_card_mul_sum_sq (s := Finset.range (numBlocks H ℓ))
     (f := fun m => subWindowSup a ℓ (n + m * ℓ) β)
   rw [Finset.card_range] at hcs
-  nlinarith [Finset.sum_nonneg (f := fun m => (subWindowSup a ℓ (n + m * ℓ) β) ^ 2)
-    (s := Finset.range (numBlocks H ℓ)) (fun m _ => sq_nonneg _), sq_nonneg (1 + 2 * Real.pi)]
+  nlinarith only [hcs, hsq,
+      sq_nonneg (1 + 2 * Real.pi)]
 
 /-! ## §3 — THE BLOCKED SOCKET
 
@@ -341,7 +341,7 @@ theorem blockSupSq_le_of_norm_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ �
     intro m _
     have h := subWindowSup_le_of_norm_le_one ha ℓ (n + m * ℓ) β
     have h0 := subWindowSup_nonneg a ℓ (n + m * ℓ) β
-    nlinarith
+    nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑ℓ)]
   calc blockSupSq a H ℓ n β ≤ ∑ _m ∈ Finset.range (numBlocks H ℓ), (ℓ : ℝ) ^ 2 :=
         Finset.sum_le_sum hterm
     _ = (numBlocks H ℓ : ℝ) * (ℓ : ℝ) ^ 2 := by
@@ -545,7 +545,7 @@ theorem m4_blockMeanSqBlk_trivial (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → 
     exact_mod_cast hn
   have hpos := doorLadder_pos hxH (i + 1)
   have hQ : (0 : ℝ) ≤ (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2 := by positivity
-  nlinarith
+  nlinarith only [hc, hQ, hcard]
 
 /-! ## §5 — THE SHIFTED-BASE BRIDGE
 
@@ -747,7 +747,7 @@ theorem m4_blockMeanSqBlk_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ)
     exact_mod_cast hn
   have hpos := doorLadder_pos hxH (i + 1)
   have hQ : (0 : ℝ) ≤ (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2 := by positivity
-  nlinarith
+  nlinarith only [hc, hQ, hcard]
 
 -- #audit (temporary)
 
