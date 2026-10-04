@@ -22,7 +22,7 @@ flat road's own design point**, symbolically in the design constant `A`:
 ```
 λ₋ = 3.2·A        (the flat design law, `ChowlaRegimeFlat.hflat`)
 λ₊ ≤ e^{λ₋/2}     (the flat width export, `TowerFlatExport`)
-M  = ⌊e^{λ₋/2}/310301⌋      (`flatDoorM A` — the largest `M` the `half` line admits)
+M  = ⌊e^{λ₋/2}/310301⌋      (`flatDoorM A` — within 0.05 % of the largest `M` the `half` line admits; §3)
 ```
 
 ⟦THE ACCOUNTING, LINE BY LINE, AT THAT POINT⟧ (`A ≥ 26`, so `e^{1.6A} ≥ 10^{17}`)
@@ -192,8 +192,11 @@ theorem S15Sel''_L_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R 
 
 /-! ## §3 — THE FLAT DESIGN POINT
 
-`M := ⌊e^{λ₋/2}/310301⌋` at `λ₋ = 3.2·A` — the LARGEST modulus the `half` line admits at the
-linear door, because `0.7·2^36·M² ≤ e^{λ₋}/2` reads `M ≤ e^{λ₋/2}/310300.6…`.  Choosing `M`
+`M := ⌊e^{λ₋/2}/310301⌋` at `λ₋ = 3.2·A` — a modulus the `half` line admits at the linear door,
+within 0.05 % of the largest, because `0.7·2^36·M² ≤ e^{λ₋}/2` reads `M ≤ e^{λ₋/2}/310172.96…`
+(`2^18·√1.4`; ERRATUM 2026-10-04: this line read `310300.6…`, a mis-evaluated `√1.4`, found by two
+independent re-derivations; the denominator `310301` in `flatDoorM` is KEPT — larger than the exact
+one, so the choice is SAFE and nothing proved moves).  Choosing `M`
 there is what makes every `M`-LOWER line clear at once: at the landed door the same choice is
 unavailable, since `half` bounds `⌊log₂M⌋` rather than `M`. -/
 
