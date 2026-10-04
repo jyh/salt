@@ -252,7 +252,7 @@ private lemma cfb_log_nine : Real.log 9 ≤ 2.21 := by
     linarith
   have hd : (3 : ℝ) / Real.exp 1 ≤ 1.105 := by
     rw [div_le_iff₀ (Real.exp_pos 1)]
-    nlinarith
+    linarith only [he]
   have h9 : Real.log 9 = 2 * Real.log 3 := by
     rw [show (9 : ℝ) = 3 ^ (2 : ℕ) by norm_num, Real.log_pow]
     norm_num
@@ -268,7 +268,7 @@ private lemma cfb_log_twentytwo : Real.log 22 ≤ 3.1 := by
   rw [Real.log_div (by norm_num) (Real.exp_ne_zero 3), Real.log_exp] at h
   have hd : (22 : ℝ) / Real.exp 3 ≤ 1.1 := by
     rw [div_le_iff₀ (Real.exp_pos 3)]
-    nlinarith
+    linarith only [he3]
   linarith
 
 /-- **BAND DRIFT 1 — `loglog(|2v|+3) ≤ logloglog X + 1` on the band.**
@@ -339,7 +339,7 @@ theorem cfb_band_logloglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
   have hin0 : (0 : ℝ) < Real.log (|2 * v| + 16) := by linarith
   have he2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
   have hstep : Real.log (|2 * v| + 16) ≤ Real.exp 2 * Real.log (Real.log X) := by
-    have hE2 : (7 : ℝ) ≤ Real.exp 2 := by rw [he2]; nlinarith
+    have hE2 : (7 : ℝ) ≤ Real.exp 2 := by rw [he2]; nlinarith only [he]
     have hmul : (7 : ℝ) * Real.log (Real.log X) ≤ Real.exp 2 * Real.log (Real.log X) :=
       mul_le_mul_of_nonneg_right hE2 hLL0.le
     linarith
@@ -570,7 +570,7 @@ theorem cfb_gate_decay {X M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
         = 1009 / 45000 * Real.log (Real.log X) := by
       field_simp
     rw [hid] at hmul
-    nlinarith [hmul]
+    linarith only [hmul]
   have hT0 : (0 : ℝ) ≤ seamT0 X := seamT0_nonneg hL0.le
   calc seamT0 X * Real.exp (-(1 / Real.exp 1) * M₀)
       ≤ seamT0 X * Real.log X ^ (-(1009 : ℝ) / 45000) :=
@@ -623,15 +623,15 @@ theorem cfb_ballerr_le {X M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
       ≤ Real.exp (-(1 / (2 * Real.exp 1)) * M₀) := by
     refine Real.exp_le_exp.mpr ?_
     have hc : (0 : ℝ) < 1 / (2 * Real.exp 1) := by positivity
-    nlinarith [hM, hc]
+    nlinarith only [hM, hc]
   have hstep2 : Real.log X ^ (-(184 : ℝ) / 1000)
       ≤ Real.exp (-(1 / (2 * Real.exp 1)) * Real.log (Real.log X)) := by
     rw [Real.rpow_def_of_pos hL0]
     refine Real.exp_le_exp.mpr ?_
     have hc : (1 : ℝ) / (2 * Real.exp 1) ≤ 184 / 1000 := by
       rw [div_le_div_iff₀ (by positivity) (by norm_num)]
-      nlinarith
-    nlinarith [hLL, hc]
+      linarith only [he]
+    nlinarith only [hLL, hc]
   -- (ii) the named threshold moves `4` across
   have hstep3 : 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
       ≤ Real.log X ^ (-(184 : ℝ) / 1000) := by
@@ -769,10 +769,10 @@ theorem cfb_t0band_supply {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
             * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X) ≤ E := by
         refine Real.exp_le_exp.mpr ?_
         have hc : (0 : ℝ) < 1 / (2 * Real.exp 1) := by positivity
-        nlinarith [hfloor t ht, hc]
+        nlinarith only [hc, hfloor t ht]
       have hk0 : (0 : ℝ) ≤ C₁ * (k : ℝ) := by
         have : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
-        nlinarith
+        nlinarith only [hC₁, (Nat.cast_nonneg _ : 0 ≤ ↑k), (Nat.cast_nonneg _ : 0 ≤ ↑k)]
       have hstep : C₁ * (k : ℝ) * Real.exp (-(1 / (2 * Real.exp 1))
             * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)
           ≤ C₁ * (k : ℝ) * E := mul_le_mul_of_nonneg_left hmono hk0
@@ -797,7 +797,7 @@ theorem cfb_t0band_supply {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
     mul_nonneg (bandTail_nonneg hX3 hT0) (by linarith)
   have hinner : 2 * Real.sqrt 2 * (cfbC₁ X C₁ * E) ≤ t0BandS X (cfbC₁ X C₁) M₀ := by
     unfold t0BandS bandSupS
-    nlinarith [hP0, hsqrt2, htail]
+    nlinarith only [hP0, hsqrt2, hPdef, htail]
   have hinner0 : (0 : ℝ) ≤ 2 * Real.sqrt 2 * (cfbC₁ X C₁ * E) := by positivity
   have hsq : (2 * Real.sqrt 2 * (cfbC₁ X C₁ * E)) ^ 2 ≤ (t0BandS X (cfbC₁ X C₁) M₀) ^ 2 :=
     pow_le_pow_left₀ hinner0 hinner 2
@@ -819,11 +819,11 @@ theorem cfb_t0band_supply {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
     have h1 : 8 * seamT0 X * (2 * (C₁ * E + 4 * P)) ^ 2
         ≤ 32 * seamT0 X * ((C₁ + 1) ^ 2 * E ^ 2) := by
       have hE2 : (0 : ℝ) ≤ E ^ 2 := sq_nonneg E
-      nlinarith [hS₀sq, hT0]
+      nlinarith only [hT0, hS₀sq]
     have h2 : 32 * seamT0 X * ((C₁ + 1) ^ 2 * E ^ 2)
         ≤ 8 * (2 * Real.sqrt 2 * (cfbC₁ X C₁ * E)) ^ 2 := by
       rw [hexpand]
-      nlinarith [hT0, sq_nonneg E, sq_nonneg (C₁ + 1)]
+      linarith only [hexpand, sq_nonneg (2 * √2 * (cfbC₁ X C₁ * E))]
     have h3 : 8 * (2 * Real.sqrt 2 * (cfbC₁ X C₁ * E)) ^ 2
         ≤ 8 * (t0BandS X (cfbC₁ X C₁) M₀) ^ 2 := by linarith
     linarith
