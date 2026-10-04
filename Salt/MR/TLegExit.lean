@@ -129,7 +129,7 @@ theorem mrAlpha_le_quarter (η : ℝ) (hη : 0 ≤ η) {j : ℕ} (hj : 1 ≤ j) 
   have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj
   have hpos : (0 : ℝ) ≤ η * (1 + 1 / (2 * (j : ℝ))) := by
     have : (0 : ℝ) ≤ 1 / (2 * (j : ℝ)) := by positivity
-    nlinarith
+    nlinarith only [hη, this]
   rw [mrAlpha]
   linarith
 
@@ -158,7 +158,7 @@ lemma ramI_bottom_deficit {H : ℝ} (hH : 0 < H) {P Q v : ℕ} (hv : v ∈ ramI 
     Nat.lt_floor_add_one _
   have hsum : (v : ℝ) / H + 1 / H = ((v : ℝ) + 1) / H := by ring
   rw [sub_le_iff_le_add, hsum, le_div_iff₀ hH]
-  nlinarith [h, hfl]
+  linarith only [hfl, h]
 
 /-- **The block top**: `v ∈ I` gives `v/H ≤ log Q`. -/
 lemma ramI_top_le {H : ℝ} (hH : 0 < H) {P Q v : ℕ} (hQ : (1 : ℝ) ≤ (Q : ℝ))
@@ -169,7 +169,7 @@ lemma ramI_top_le {H : ℝ} (hH : 0 < H) {P Q v : ℕ} (hQ : (1 : ℝ) ≤ (Q : 
   have hfl : ((⌊H * Real.log (Q : ℝ)⌋₊ : ℕ) : ℝ) ≤ H * Real.log (Q : ℝ) :=
     Nat.floor_le (by positivity)
   rw [div_le_iff₀ hH]
-  nlinarith [h, hfl]
+  linarith only [hfl, h]
 
 /-- **The block range is positive** when the bottom is: `2 ≤ H` and `2 ≤ log P` put
 `⌊H log P⌋ ≥ 4`, so every `v ∈ I` has `0 < v`.  (`ellPin`'s arithmetic and
@@ -180,7 +180,7 @@ lemma ramI_pos_of_mem {H : ℝ} (hH : 2 ≤ H) {P Q v : ℕ} (hP : 2 ≤ Real.lo
   have h4 : (4 : ℕ) ≤ ⌊H * Real.log (P : ℝ)⌋₊ := by
     refine Nat.le_floor ?_
     push_cast
-    nlinarith
+    nlinarith only [hH, hP]
   omega
 
 /-- **The card page, doubled**: `#I ≤ 2·H log Q` whenever `1 ≤ H log Q`
@@ -212,7 +212,7 @@ theorem level_kill_budget (η u Hj : ℝ) (hη : 0 < η) (h6 : η < 1 / 6) {j : 
   have hj0 : (0 : ℝ) < (j : ℝ) := by linarith
   have hjne : ((j : ℝ)) ≠ 0 := ne_of_gt hj0
   have hdec := mrAlpha_decay_le η hη hj
-  have hjsq : (4 : ℝ) ≤ (j : ℝ) ^ 2 := by nlinarith
+  have hjsq : (4 : ℝ) ≤ (j : ℝ) ^ 2 := by nlinarith only [hj2, (Nat.cast_nonneg _ : 0 ≤ ↑j)]
   -- the net exponent per unit of `u`
   have hX : (0 : ℝ) ≤ η / (16 * (j : ℝ) ^ 2) := by positivity
   have hnet : mrAlpha η (j - 1) - mrAlpha η j + w ≤ -(η / (4 * (j : ℝ) ^ 2)) := by
@@ -227,7 +227,7 @@ theorem level_kill_budget (η u Hj : ℝ) (hη : 0 < η) (h6 : η < 1 / 6) {j : 
     have h1 : 2 * u * (mrAlpha η (j - 1) - mrAlpha η j + w)
         ≤ 2 * u * -(η / (4 * (j : ℝ) ^ 2)) :=
       mul_le_mul_of_nonneg_left hnet (by linarith)
-    nlinarith [hu, hcoef, h1]
+    nlinarith only [hu, hcoef, h6, hη, h1]
   -- the deficit's own slack is at most `1`
   have hH0 : (0 : ℝ) < Hj := by linarith
   have hslack : 2 * (η / (4 * (j : ℝ) ^ 2)) * (1 / Hj) ≤ 1 := by
@@ -235,8 +235,8 @@ theorem level_kill_budget (η u Hj : ℝ) (hη : 0 < η) (h6 : η < 1 / 6) {j : 
       rw [div_le_div_iff₀ hH0 (by norm_num : (0:ℝ) < 2)]; linarith
     have hsmall : η / (4 * (j : ℝ) ^ 2) ≤ 1 / 16 := by
       rw [div_le_div_iff₀ (by positivity) (by norm_num : (0:ℝ) < 16)]
-      nlinarith
-    nlinarith [hinv, hsmall, hcoef, one_div_pos.mpr hH0]
+      linarith only [hjsq, h6, hη]
+    nlinarith only [hcoef, hinv, h6, hη, hsmall]
   have hexp : Real.exp (2 * u * (mrAlpha η (j - 1) - mrAlpha η j + w))
       ≤ Real.exp (1 + -(2 * (η / (4 * (j : ℝ) ^ 2))) * Real.log (Pj : ℝ)) := by
     refine Real.exp_le_exp.mpr ?_
@@ -441,7 +441,7 @@ theorem cell_price_uniform (η T C lPp Hj Hp : ℝ) (j v r Xd Pj Qj Qp : ℕ)
       have h := Real.exp_le_exp.mpr (by positivity :
         (0:ℝ) ≤ 2 * Real.log 2 * ((v : ℝ) / Hj) / lPp)
       rwa [Real.exp_zero] at h
-    nlinarith [hexps1, h1]
+    nlinarith only [hexps1, h1, h6, hη]
   have hb3 : (2 * T + 20 * (((2 * ⌈Real.exp ((r : ℝ) / Hp)⌉₊) ^ (ellPin Hj Hp v r)
           * ⌈2 * ramRbot Hj Xd v⌉₊ : ℕ) : ℝ)) * (C / (Xd : ℝ))
       ≤ ((2 * T / (Xd : ℝ) + 240) * C)
@@ -467,7 +467,7 @@ theorem cell_price_uniform (η T C lPp Hj Hp : ℝ) (j v r Xd Pj Qj Qp : ℕ)
     have hmono : 2 * T * C / (Xd : ℝ)
         ≤ (2 * T * C / (Xd : ℝ))
             * (Real.exp (2 * Real.log 2 * ((v : ℝ) / Hj) / lPp) * Real.exp ((r : ℝ) / Hp)) := by
-      nlinarith [hK1, hTC]
+      nlinarith only [hK1, hTC, h6, hη]
     linarith [hstep, hid.le, hid.ge, hid2.le, hid2.ge, hmono]
   -- ⟦THE ENTRY TICKET AT THE PIN⟧
   have hb1 := exp_ellPin_cancel Hj Hp (mrAlpha η j) (mrAlpha η (j - 1)) v r hHj0 hHp0 hrpos hαp0
@@ -582,7 +582,7 @@ theorem cell_price_uniform (η T C lPp Hj Hp : ℝ) (j v r Xd Pj Qj Qp : ℕ)
   have hQsq : Real.exp ((2 * mrAlpha η (j - 1) + 1) * ((r : ℝ) / Hp)) ≤ (Qp : ℝ) ^ 2 := by
     have hlogQp : (0 : ℝ) ≤ Real.log (Qp : ℝ) := Real.log_nonneg hQp
     have h1 : (2 * mrAlpha η (j - 1) + 1) * ((r : ℝ) / Hp) ≤ 2 * Real.log (Qp : ℝ) := by
-      nlinarith [hαp4, hstop, hs0, hαp0]
+      nlinarith only [hlow, hαp4, hlPp, h6, hη, hstop]
     have h2 : (2 : ℝ) * Real.log (Qp : ℝ) = Real.log ((Qp : ℝ) ^ (2:ℕ)) := by
       rw [Real.log_pow]
       push_cast
@@ -625,7 +625,7 @@ theorem level_geometry_collapse (Hj Hp : ℝ) (j P1 Qj Qp : ℕ)
   have hr2 : (0 : ℝ) ≤ (Qp : ℝ) ^ ((1 : ℝ) / 2) := Real.rpow_nonneg hQp0.le _
   have hr6 : (0 : ℝ) ≤ (Qp : ℝ) ^ ((1 : ℝ) / 6) := Real.rpow_nonneg hQp0.le _
   have hr24 : (0 : ℝ) ≤ (Qp : ℝ) ^ ((1 : ℝ) / 24) := Real.rpow_nonneg hQp0.le _
-  have hstep1 : Hj ^ 2 * Hp ≤ Hj ^ 3 := by nlinarith [sq_nonneg Hj, hHpj]
+  have hstep1 : Hj ^ 2 * Hp ≤ Hj ^ 3 := by nlinarith only [hHpj, sq_nonneg Hj]
   have hstep4 : Hj ^ 3 ≤ (j : ℝ) ^ 6 * (Qp : ℝ) ^ ((1 : ℝ) / 2) := by
     refine le_trans hH3 (mul_le_mul_of_nonneg_left ?_ (by positivity))
     exact Real.rpow_le_rpow (Nat.cast_nonneg _) hP1Qp (by norm_num)
@@ -825,7 +825,7 @@ theorem Ej_bound_gen :
   have hg3 : 8 * Real.log (Qseq (j - 1) : ℝ) + 16 * Real.log (j : ℝ)
       ≤ (η / (j : ℝ) ^ 2) * Real.log (Pseq j : ℝ) := by
     have h := hG.cell.gate3
-    have hjsq : (0 : ℝ) < (j : ℝ) ^ 2 := by nlinarith
+    have hjsq : (0 : ℝ) < (j : ℝ) ^ 2 := by nlinarith only [hjR, (Nat.cast_nonneg _ : 0 ≤ ↑j)]
     have hmono : η / 2 / (j : ℝ) ^ 2 ≤ η / (j : ℝ) ^ 2 :=
       (div_le_div_iff_of_pos_right hjsq).mpr (by linarith)
     have hstep := mul_le_mul_of_nonneg_right hmono (by linarith : (0:ℝ) ≤ Real.log (Pseq j : ℝ))

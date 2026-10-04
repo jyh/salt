@@ -40,6 +40,10 @@ THE NUMERALS (each re-derived here, none copied from a docstring):
 ⭐ AND THE WALL THAT IS **NOT** A NUMERAL, WHICH IS WHY IT IS HERE.  `s13CapGrid_q_logX_LH`
 (`S13CapGateLinearLH.lean` · `s13CapGrid_q_logX_LH`) closes `q ≤ h·(log H)^12 ≤ (log X_d)^12` out of
 `capfloor_logH_le_half_sqrt` — `log H ≤ √H/2` — which buys exactly `2^12 = 4096` of room in `h`.
+(2026-10-03: the XY debt lane's family 25 (2026-09-30) retired `s13CapGrid_q_logX_LH` into its cap-9
+twin `s13CapGrid_q_logX_LH_b9`, which takes `k = 3` through `capfloor_logH_le_third_sqrt`, so its
+room is `3^12 = 531441`; this paragraph describes the cap-7 page, whose note in
+`S13CapGateLinearLH.lean` keeps its docstring.)
 **That `4096` is a STRUCTURAL factor `k^12`, not a numeral: it is the `k` in `log H ≤ √H/k`.**  Its
 docstring's *"margin 3.7×"* is `4096/1096` — a margin on `h` computed at the landed `k = 2` — and
 it reads as a ceiling when `k` is free.  ⇒ ***A FACTOR THAT IS A PARAMETER RAISED TO A POWER LOOKS
@@ -104,7 +108,10 @@ theorem landed_ceiling_refuses_the_million :
     ¬ ((2 : ℕ) ^ 11 * (10 ^ 6) ^ 2 ≤ 2460090368) := by norm_num
 
 /-- ⛔ **⟦CONTROL — THE LANDED CAPGATE FACTOR REFUSES THE ORDERED TARGET⟧ (class A)** — `k = 2`
-gives `2^12 = 4096`, and `10⁶ > 4096` by `244×`.  This is the wall that is not a numeral. -/
+gives `2^12 = 4096`, and `10⁶ > 4096` by `244×`.  This is the wall that is not a numeral.
+(2026-10-03: the landed factor is the cap-7 page's, which the XY debt lane's family 25 retired on
+2026-09-30; its cap-9 twin `s13CapGrid_q_logX_LH_b9` takes `k = 3`, and `3^12 = 531441` refuses
+`10⁶` by `1.88×`.) -/
 theorem landed_capgate_refuses_the_million : ¬ ((10 : ℕ) ^ 6 ≤ 4096) := by norm_num
 
 /-- ⛔ **⟦CONTROL — THE COUNT PIN REFUSES THE NEW CAP AT STRIDE 2, EVEN AT ITS LOOSEST READING⟧
@@ -151,7 +158,10 @@ theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) �
 /-! ## §2 — WALL 2, AND IT IS THE ONE THAT IS NOT A NUMERAL
 
 `log H ≤ √H/k` buys `k^12` of room in `h` at `s13CapGrid_q_logX_LH`.  The landed `k = 2`
-(`capfloor_logH_le_half_sqrt`, `S13CapFloor.lean:110`) gives `4096`; `k = 4` gives `16777216`. -/
+(`capfloor_logH_le_half_sqrt`, `S13CapFloor.lean:110`) gives `4096`; `k = 4` gives `16777216`.
+(2026-10-03: `s13CapGrid_q_logX_LH` was retired into its cap-9 twin `s13CapGrid_q_logX_LH_b9`, at
+`k = 3`, by the XY debt lane's family 25 on 2026-09-30; the `k = 2` reading above is the cap-7
+page's; the `k = 4` figure is this file's own lemma's, and no cap-grid page is built at it.) -/
 
 /-- **⟦`log H ≤ √H/4` AT `H ≥ 4·10⁶`⟧ (class B)** — `capfloor_logH_le_half_sqrt`'s `k = 4` twin,
 the same proof at a harder closing step.  With `a := H^{1/4}`, `log a = (log H)/4 ≤ a − 1` gives
