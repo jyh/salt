@@ -22,7 +22,7 @@ flat road's own design point**, symbolically in the design constant `A`:
 ```
 λ₋ = 3.2·A        (the flat design law, `ChowlaRegimeFlat.hflat`)
 λ₊ ≤ e^{λ₋/2}     (the flat width export, `TowerFlatExport`)
-M  = ⌊e^{λ₋/2}/310301⌋      (`flatDoorM A` — within 0.05 % of the largest `M` the `half` line admits; §3)
+M  = ⌊e^{λ₋/2}/310301⌋      (`flatDoorM A` — within 0.05 % of the largest `M` `half` admits; §3)
 ```
 
 ⟦THE ACCOUNTING, LINE BY LINE, AT THAT POINT⟧ (`A ≥ 26`, so `e^{1.6A} ≥ 10^{17}`)
