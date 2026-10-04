@@ -118,10 +118,10 @@ private lemma vk_strip_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
     rw [eq_div_iff (ne_of_gt hPinvpos), hΘval, hPinvdef]
     field_simp [ne_of_gt hL34pos, ne_of_gt hℓ30]
   have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
-  have hPinv2 : 2 ≤ Pinv := by rw [hPinvdef]; nlinarith [hL31, hℓ3sq1]
+  have hPinv2 : 2 ≤ Pinv := by rw [hPinvdef]; nlinarith only [hL31, hℓ3sq1, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv, div_le_div_iff₀ hPinvpos (by norm_num)]; linarith
-  have hM1 : 1 ≤ M := by rw [hMval]; nlinarith [hCq, hL31']
+  have hM1 : 1 ≤ M := by rw [hMval]; nlinarith only [hL3lb, hCq, hLg3, hΘ12, hΘ0]
   refine ⟨hΘ0, hΘ12, hM1, ?_⟩
   -- the logarithm
   set W : ℝ := Real.log (20 * M / Θ) with hWdef
@@ -157,13 +157,13 @@ private lemma vk_strip_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
       rwa [show (100 : ℝ) = 10 ^ 2 by norm_num,
         Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 10)] at h
     have h3 : Real.sqrt ℓ3 ^ 2 = ℓ3 := Real.sq_sqrt hℓ30.le
-    nlinarith [h1, h2, h3, Real.sqrt_nonneg ℓ3]
+    nlinarith only [h2, hΘ12, hΘ0, h1, hℓ3lb, hℓ100, h3]
   have hWub : W ≤ (A + 6) * ℓ := by
     rw [hWeq]
-    nlinarith [hgate, hlog1L3, hlogℓ3le, hℓ3ub, hℓ0, hℓ100]
+    linarith only [hlogℓ3le, hlog1L3, hΘ12, hΘ0, hgate, hℓ3ub, hℓ100]
   have hW1 : (1 : ℝ) ≤ W := by
     have h20 : (40 : ℝ) ≤ 20 * M / Θ := by
-      rw [le_div_iff₀ hΘ0]; nlinarith [hM1, hΘ12]
+      rw [le_div_iff₀ hΘ0]; linarith only [hM1, hΘ12]
     have he : Real.exp 1 ≤ 20 * M / Θ :=
       le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h20
     rw [hWdef, ← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) he
@@ -177,7 +177,7 @@ private lemma vk_strip_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
       calc (2 : ℝ) ^ ((3 : ℝ) / 4) ≤ (2 : ℝ) ^ (1 : ℝ) :=
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
         _ = 2 := Real.rpow_one 2
-    rw [h2] at h1; nlinarith [h1, h3, hLg34nn]
+    rw [h2] at h1; nlinarith only [hLg34nn, h3, h1]
   have hℓ3sqle : ℓ3 ^ (2 : ℕ) ≤ 4 * ℓ ^ (2 : ℕ) := by
     calc ℓ3 ^ (2 : ℕ) ≤ (2 * ℓ) ^ (2 : ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3ub 2
       _ = 4 * ℓ ^ (2 : ℕ) := by ring
@@ -190,9 +190,9 @@ private lemma vk_strip_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
           mul_le_mul_of_nonneg_left hprod (by norm_num)
       _ = 8000 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (2 : ℕ)) := by ring
   set den : ℝ := 8 * Θ + 700 * W with hdendef
-  have hden0 : 0 < den := by rw [hdendef]; nlinarith [hΘ0, hW1]
+  have hden0 : 0 < den := by rw [hdendef]; linarith only [hW1, hΘ12, hΘ0]
   have hdenub : den ≤ 704 * ((A + 6) * ℓ) := by
-    rw [hdendef]; nlinarith [hΘ12, hW1, hWub, hA1, hℓ100]
+    rw [hdendef]; linarith only [hW1, hlogℓ3le, hlog1L3, hWeq, hΘ12, hΘ0, hgate, hℓ3ub, hℓ100]
   -- the final comparison
   set D : ℝ := Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ) with hDdef
   have hDpos : 0 < D := by rw [hDdef]; positivity
