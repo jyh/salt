@@ -169,7 +169,7 @@ theorem eight_arcDen_le_of_arcFloor {H : ℕ} (hH : m4ArcFloor ≤ H) :
     exact_mod_cast h
   have h10 : (0 : ℝ) < (10 : ℝ) ^ (36 : ℕ) := by positivity
   have ht : (0 : ℝ) < (H : ℝ) := lt_of_lt_of_le h10 hHR
-  have ht1 : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+  have ht1 : (1 : ℝ) ≤ (H : ℝ) := by linarith only [hHR]
   have hL0 : 0 ≤ Real.log (H : ℝ) := Real.log_nonneg ht1
   have hstep : Real.log (H : ℝ) ≤ 24 * (H : ℝ) ^ ((1 : ℝ) / 24) := log_le_rpow_inv_24 ht
   have hhalf : ((H : ℝ) ^ ((1 : ℝ) / 24)) ^ (12 : ℕ) = Real.sqrt (H : ℝ) := by
@@ -193,7 +193,7 @@ theorem eight_arcDen_le_of_arcFloor {H : ℕ} (hH : m4ArcFloor ≤ H) :
         = Real.sqrt ((292162779488452608 : ℝ) ^ (2 : ℕ)) := (Real.sqrt_sq (by norm_num)).symm
       _ ≤ Real.sqrt (H : ℝ) := Real.sqrt_le_sqrt hle
   rw [arcDen_twelve_eq_pow]
-  nlinarith [hA, hbig, hsq, hs0]
+  nlinarith only [hs0, hbig, hsq, hA]
 
 /-- ⟦gate 13⟧, from ⟦gate 14⟧. -/
 theorem two_arcDen_le_of_arcFloor {H : ℕ} (hH : m4ArcFloor ≤ H) :
@@ -285,7 +285,7 @@ theorem m4_spine_budget_necessary
     589824 * Real.log (H : ℝ) ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + Real.log (H : ℝ) * C := by
   have hL0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
   have hL2 : (0 : ℝ) < Real.log (H : ℝ) ^ (2 : ℕ) := by positivity
-  have hL2big : (225 : ℝ) ≤ Real.log (H : ℝ) ^ (2 : ℕ) := by nlinarith
+  have hL2big : (225 : ℝ) ≤ Real.log (H : ℝ) ^ (2 : ℕ) := by nlinarith only [hL]
   -- ⟦`H` is a genuine window length⟧
   have hH1 : 1 ≤ H := by
     rcases Nat.eq_zero_or_pos H with rfl | h
@@ -341,7 +341,7 @@ theorem m4_spine_budget_necessary
         _ ≤ (M : ℝ) * (8 * C / (3 * Real.log (H : ℝ) ^ (2 : ℕ))) := hstep
         _ = (M : ℝ) * (8 * C) / (3 * Real.log (H : ℝ) ^ (2 : ℕ)) := by ring
     have h2 := (le_div_iff₀ hpos).mp h1
-    nlinarith [h2]
+    linarith only [h2]
   -- ⟦the drift line's small-length summand⟧
   have hdr := hdrift 1 (by norm_num) (by simpa using harc1)
   have hdr1 : (1 + 2 * Real.pi * arcDen 12 H) ^ 2
@@ -369,8 +369,8 @@ theorem m4_spine_budget_necessary
       rw [div_mul_eq_mul_div, div_le_div_iff_of_pos_right hH0]
       have h1 : 9 * (4 / 3 : ℝ) ^ (doorRowFloor M)
           ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ (doorRowFloor M) * 2 := by
-        nlinarith [mul_le_mul_of_nonneg_left ha1 (by positivity :
-          (0 : ℝ) ≤ 9 * (4 / 3 : ℝ) ^ (doorRowFloor M))]
+        linarith only [mul_le_mul_of_nonneg_left ha1
+            (by positivity : (0 : ℝ) ≤ 9 * (4 / 3 : ℝ) ^ (doorRowFloor M))]
       nlinarith [h1, hFtr, mul_le_mul_of_nonneg_left hFtr
         (by positivity : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H)
           * (4 / 3 : ℝ) ^ (doorRowFloor M))]
@@ -397,10 +397,10 @@ theorem m4_spine_budget_necessary
       linarith
     have hA1 : (1 : ℝ) ≤ A := by
       have hbase : (1 : ℝ) ≤ 1 + 2 * Real.pi * arcDen 12 H := by
-        nlinarith [Real.pi_pos, harc0]
+        nlinarith only [harc1, Real.pi_pos]
       rw [hAdef]
-      nlinarith [hbase]
-    have h1 : (3 : ℝ) * G ≤ A * (3 * G) := by nlinarith [hX0, hA1]
+      nlinarith only [hbase]
+    have h1 : (3 : ℝ) * G ≤ A * (3 * G) := by nlinarith only [hX0, hA1]
     linarith [hdr1]
   have hBraw0 : (0 : ℝ) ≤ Braw H := by
     have h0 : (0 : ℝ) ≤ 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) := by positivity
@@ -409,11 +409,11 @@ theorem m4_spine_budget_necessary
   have hmrC : mrtDeliveredGrade (C / 2) H ≤ C := by
     refine le_trans hmr' ?_
     rw [div_le_iff₀ (by linarith : (0 : ℝ) < 3 * Real.log (H : ℝ) ^ (2 : ℕ))]
-    nlinarith [hL2big, hC0]
+    nlinarith only [hC, hL2big, hC0]
   have hBrawC : Braw H ≤ C ^ (2 : ℕ) := by
     have h1 : Real.sqrt (Braw H) ≤ C := le_trans hdel hmrC
     have h2 : Real.sqrt (Braw H) ^ (2 : ℕ) = Braw H := Real.sq_sqrt hBraw0
-    nlinarith [h1, Real.sqrt_nonneg (Braw H)]
+    nlinarith only [hrest, hmrC, hdel, hδ, hC, h2, Real.sqrt_nonneg (Braw H)]
   -- ⟦`(4/3)^{j₀} ≤ C²·H`, hence `j₀ ≤ 8C + 4·log H`⟧
   have hpow0 : (0 : ℝ) < (4 / 3 : ℝ) ^ (doorRowFloor M) := by positivity
   have h4j : (4 / 3 : ℝ) ^ (doorRowFloor M) ≤ C ^ (2 : ℕ) * (H : ℝ) := by
@@ -458,7 +458,7 @@ theorem m4_spine_budget_necessary
     mul_le_mul_of_nonneg_right hAdoor hC0.le
   have h2 : ((doorRowFloor M : ℕ) : ℝ) * C ≤ (8 * C + 4 * Real.log (H : ℝ)) * C :=
     mul_le_mul_of_nonneg_right hj0le hC0.le
-  nlinarith [hMC, h1, h2]
+  linarith only [h2, h1, hMC]
 
 /-- **THE FORCED CONSTANT** (`m4_budget_forces_C`).  The necessary condition, read as a lower
 bound on the MRT constant: the register can only be met if `C` exceeds `log H`. -/
@@ -466,7 +466,7 @@ theorem m4_budget_forces_C {C L : ℝ} (hC : 0 ≤ C) (hL : 15 ≤ L)
     (hb : 589824 * L ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + L * C) : L ≤ C := by
   by_contra hcon
   have h : C < L := not_le.mp hcon
-  nlinarith [hb, h, hL, hC]
+  nlinarith only [hL, hcon, hC, hb]
 
 /-- **THE COLLISION** (`m4_budget_collision`).  Against the exit's own floor demand
 `H0scale C ≤ R.Hlo`, i.e. `C² ≤ log H` (`M4Exit.sq_le_log_of_H0scale_le`), the forced constant
@@ -475,7 +475,7 @@ theorem m4_budget_collision {C L : ℝ} (hC : 0 ≤ C) (hL : 15 ≤ L)
     (hb : 589824 * L ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + L * C) (hscale : C ^ (2 : ℕ) ≤ L) :
     False := by
   have hLC := m4_budget_forces_C hC hL hb
-  nlinarith [hLC, hscale, hL, hC]
+  nlinarith only [hC, hLC, hL, hscale]
 
 /-- **⟦WALL A⟧, ASSEMBLED** (`m4_spine_budget_collision`).  ⟦THE FINAL REGISTER⟧'s arithmetic
 gates, at one window length of one regime, together with the exit's own scale floor

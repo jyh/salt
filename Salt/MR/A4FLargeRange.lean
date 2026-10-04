@@ -170,7 +170,7 @@ theorem mrt_large_range_parametric :
   -- the demand is capped by `lam` at every `X` (from `1 ≤ log Y` alone)
   have hΔlam : Δ ≤ lam := by
     have hdiv : Real.log X / Real.log Y ≤ Real.log X := by
-      rw [div_le_iff₀ hlogYpos]; nlinarith
+      rw [div_le_iff₀ hlogYpos]; nlinarith only [hlogX1, hlogY1, h2π0, h2π]
     have hpos : 0 < Real.log X / Real.log Y := by positivity
     exact Real.log_le_log hpos hdiv
   -- the target sum is nonnegative
@@ -186,8 +186,8 @@ theorem mrt_large_range_parametric :
   · have hΔΛ : Δ ≤ Λ₀ := by linarith
     have h1 : (1 - 2 / Real.pi) * Δ ≤ Λ₀ := by
       rcases le_or_gt Δ 0 with hΔ0 | hΔ0
-      · nlinarith
-      · nlinarith
+      · nlinarith only [h2π, hsmall, hΔlam, hlogT₀, h2π0, hQ'0]
+      · nlinarith only [h2π, hsmall, hΔlam, hlogT₀, h2π0, hQ'0]
     linarith [hT0, hB₁0]
   -- ## the `Y > X` branch: empty window, nonpositive demand
   rcases lt_or_ge X Y with hXY | hYX
@@ -349,7 +349,7 @@ theorem mrt_large_range_parametric :
       rw [div_le_div_iff₀ hlogYpos hDpos]
       have h := hDcR
       rw [div_le_iff₀ hcR0] at h
-      nlinarith [hDpos, hcR0, hlogYpos]
+      linarith only [h, hDpos]
     have hvk := hVK X Y ((m : ℝ) * u) heY hYX hgt.le hwin
     calc _ ≤ K₂ + 1 / Real.log Y * (400 * D / cR) := hvk
       _ ≤ B₁ := by linarith [hB₁]
@@ -379,7 +379,7 @@ theorem mrt_large_range_parametric :
       _ ≤ B₁ * (1 / 2) := by
           have : (Mcut : ℝ) / (2 * (Mcut : ℝ) + 1) ≤ 1 / 2 := by
             rw [div_le_div_iff₀ (by positivity) (by norm_num)]; linarith
-          nlinarith [hB₁0]
+          nlinarith only [hK₂0, this]
   -- the sifted sum split and the H1 majorization summed over primes
   have hTsplit : ∑ p ∈ W, (1 - |Real.cos (u * Real.log p / 2)|) / (p : ℝ)
       = P - ∑ p ∈ W, |Real.cos (u * Real.log p / 2)| / (p : ℝ) := by
@@ -438,7 +438,7 @@ theorem mrt_large_range_parametric :
     have h1 : tail * P ≤ tail * (lam + 24) := mul_le_mul_of_nonneg_left hPle htail0
     have h2 : tail * (lam + 24) ≤ 6 := by
       rw [htail, div_mul_eq_mul_div, div_le_iff₀ (by positivity)]
-      nlinarith [hπ3, hMcutge, hlam1]
+      nlinarith only [hπ3, hMcutge, hbig, h2π0, h2π, hlogT₀, hQ'0, (Nat.cast_nonneg _ : 0 ≤ ↑Mcut)]
     linarith
   -- close
   have hHle := (abs_le.mp hHabs).2
@@ -446,11 +446,11 @@ theorem mrt_large_range_parametric :
       ((-1 : ℝ) ^ (m + 1) / (4 * (m : ℝ) ^ 2 - 1)) * S m ≤ B₁ := by
     have h4π : 4 / Real.pi ≤ 2 := by rw [div_le_iff₀ hπpos]; linarith
     have h4π0 : 0 ≤ 4 / Real.pi := by positivity
-    nlinarith [hHle, h4π, h4π0, hB₁0]
+    nlinarith only [hHle, h4π0, h2π0, h2π, hK₂0, h4π]
   have hmain : (1 - 2 / Real.pi) * P ≥ (1 - 2 / Real.pi) * (Δ - 24) :=
     mul_le_mul_of_nonneg_left (by linarith [hPΔ.1]) h12
   rw [hTsplit]
-  nlinarith [hcos_sum, htailP, hH4, hmain, h12, h12', hB₁0, hΛ₀32]
+  linarith only [hmain, hH4, htailP, hcos_sum, h2π0, h2π, hlogT₀, hQ'0]
 
 /-! ## The producers: D1 from the theorem, D2 from D1 -/
 
@@ -474,7 +474,7 @@ theorem mrtLargeRangeEquidistributionFixedEps_holds : MRTLargeRangeEquidistribut
   set Δ : ℝ := Real.log (Real.log X / Real.log Y) with hΔ
   have hΔlam : Δ ≤ lam := by
     have hdiv : Real.log X / Real.log Y ≤ Real.log X := by
-      rw [div_le_iff₀ hlogYpos]; nlinarith
+      rw [div_le_iff₀ hlogYpos]; nlinarith only [hlogX1, hlogY1]
     have hpos : 0 < Real.log X / Real.log Y := by positivity
     exact Real.log_le_log hpos hdiv
   have hT0 : 0 ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime).filter
@@ -495,12 +495,12 @@ theorem mrtLargeRangeEquidistributionFixedEps_holds : MRTLargeRangeEquidistribut
     have hlamle : lam ≤ (7 / ε) ^ (7 : ℕ) + 1 := by
       rcases le_or_gt lam 1 with h1 | h1
       · linarith
-      · have : lam ≤ lam ^ (2 : ℕ) := by nlinarith
+      · have : lam ≤ lam ^ (2 : ℕ) := by nlinarith only [hlam0, h1]
         linarith
     have h1 : (1 - 2 / Real.pi) * Δ ≤ (7 / ε) ^ (7 : ℕ) + 1 := by
       rcases le_or_gt Δ 0 with hΔ0 | hΔ0
-      · nlinarith
-      · nlinarith
+      · nlinarith only [hΔlam, h12, hlam0, h12', hlamle]
+      · nlinarith only [hΔlam, h12, hlam0, h12', hlamle]
     linarith [hT0, hC0]
   · -- above the threshold: `lam^5 ≤ (log X)^ε`, so D1's floor implies the theorem's
     have hlam5 : lam ^ (5 : ℕ) ≤ Real.exp (ε * lam) := by
