@@ -163,7 +163,7 @@ private lemma twentyfive_le_exp_eight_sp : (25 : ℝ) ≤ Real.exp 8 := by
   have h4 : (5 : ℝ) ≤ Real.exp 4 := by linarith [Real.add_one_le_exp (4 : ℝ)]
   have hpos : (0 : ℝ) < Real.exp 4 := Real.exp_pos 4
   rw [show (8 : ℝ) = 4 + 4 from by norm_num, Real.exp_add]
-  nlinarith
+  nlinarith only [h4]
 
 /-- `exp 2 < 10` — the numeral behind the `S1′` gate `0 < c₀ − 2η` at a free `Y`. -/
 private lemma exp_two_lt_ten_sp : Real.exp 2 < 10 := by
@@ -171,7 +171,7 @@ private lemma exp_two_lt_ten_sp : Real.exp 2 < 10 := by
   have h0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
   have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
     rw [← Real.exp_add]; norm_num
-  nlinarith
+  nlinarith only [h1, h0, h2]
 
 /-- **THE WIDE-WINDOW GRADE PAGE (`centerErrorGradeWide`) — THE SIXTH PRIVATE CLONE.**
 
@@ -334,7 +334,7 @@ theorem center_halasz_supply_wide {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
   have hX0 : (0 : ℝ) < X := Real.sqrt_pos.mp hsq0
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
   have hsq25 : (25 : ℝ) ≤ Real.sqrt X := le_trans twentyfive_le_exp_eight_sp hsq8
-  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hsqX : Real.sqrt X ≤ X := by nlinarith only [hsqXB, hsq25, _hXB0, hsqsq]
   have hX8 : Real.exp 8 ≤ X := le_trans hsq8 hsqX
   have hXB : XB ≤ X := le_trans hsqXB hsqX
   have hkXA : XA ≤ (k : ℝ) := by linarith [le_trans hsqXA1 hkw]
@@ -354,7 +354,7 @@ theorem center_halasz_supply_wide {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
   have hsqLk0 : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := by linarith
   have hh0 : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by positivity
   have hhX : (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
-    rw [div_le_iff₀ hsqLk0]; nlinarith
+    rw [div_le_iff₀ hsqLk0]; nlinarith only [hsqLk1, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   -- THE `Y`-PAGE at this scale
   have hY10k : (10 : ℝ) ≤ Y (k : ℝ) := hY10 k hkXw hkup
   have hlogY2 : (2 : ℝ) ≤ Real.log (Y (k : ℝ)) := by
@@ -408,7 +408,7 @@ theorem center_halasz_supply_wide {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
         / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
       ≤ 2 * (k : ℝ) / Real.log (k : ℝ) := by
     rw [div_le_div_iff₀ (by linarith) hLk0]
-    nlinarith
+    nlinarith only [hLklo, hhX, hLX8, hulogb, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hEle : C_E * (((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
           / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ))))
         * Real.log (Y (k : ℝ))
@@ -576,7 +576,7 @@ theorem dilated_scale_grade {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   -- the exponent: the `max` only strengthens
   have hexp : Real.exp (-c * M) ≤ Real.exp (-c * (M₀ - dilGap X Xd)) := by
     refine Real.exp_le_exp.mpr ?_
-    nlinarith
+    nlinarith only [hc0, hMlb]
   have hC0 : (0 : ℝ) ≤ gradeAbsConstC c Cb * (k : ℝ) :=
     mul_nonneg (gradeAbsConstC_nonneg hc1 hCb0) hk0.le
   have hstep : gradeAbsConstC c Cb * (k : ℝ) * Real.exp (-c * M)
@@ -776,7 +776,7 @@ private lemma eight_log_le_self_sp {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv 
   have hdiv : Real.sqrt Lv / Real.exp 1 ≤ Real.sqrt Lv / 2 :=
     div_le_div_of_nonneg_left hs0.le (by norm_num) he2
   rw [hhalf] at hlog
-  nlinarith
+  nlinarith only [hs0, hs8, hdiv, hlog, hsq]
 
 /-- **The four `Y`-gates at the corpus pin `Y x = (log x)^4`**, from the single scale gate
 `e^{4096} ≤ k`.  The binding one is the fourth, `log (Y k) = 4 log L ≤ √L`, which is
@@ -823,7 +823,7 @@ private lemma ypin4_gates_sp {k : ℝ} (hk : Real.exp 4096 ≤ k) :
     refine Real.exp_le_exp.mpr ?_
     have h8 := eight_log_le_self_sp (le_trans (by norm_num) hL)
     linarith
-  refine ⟨by nlinarith, hg2, le_trans hsqLle hL4, ?_⟩
+  refine ⟨by linarith only [hL4, hL], hg2, le_trans hsqLle hL4, ?_⟩
   rw [hlogpow]
   exact hbind
 
@@ -838,7 +838,7 @@ private lemma le_natDiv_of_le {k d : ℕ} {z : ℝ} (hd : 1 ≤ d)
     exact_mod_cast Nat.mod_lt k (show 0 < d by omega)
   have h2 : (k : ℝ) / (d : ℝ) - 1 < ((k / d : ℕ) : ℝ) := by
     rw [sub_lt_iff_lt_add, div_lt_iff₀ hd0]
-    nlinarith
+    linarith only [hlt, hmod]
   linarith
 
 
@@ -929,13 +929,13 @@ theorem seam_ball_leg_station_M_gen {F : ℕ → ℂ}
   have hX0 : (0 : ℝ) < X := Real.sqrt_pos.mp hsq0
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
   have hsq1 : (1 : ℝ) ≤ Real.sqrt X := by linarith
-  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hsqX : Real.sqrt X ≤ X := by linarith only [hXdX, hsqXd]
   have hXth : ballMertensThreshold ≤ X := le_trans hthlb hsqX
   have hX3 : (3 : ℝ) ≤ X := le_trans three_le_ballMertensThreshold hXth
   have hXexp : Real.exp 8192 ≤ X := by
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos (4096 : ℝ)]
+    nlinarith only [hsq4096, hexp4097, hX1lb, hc1, hc0, hX₁0, hsplit, hsqsq]
   have hLX : (8192 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
   have hLhalf0 : (0 : ℝ) < Real.log X / 2 := by linarith

@@ -9647,6 +9647,12 @@ into their cap-9 twins, noted in place in `S16ComposeLH.lean`; their rows leave 
 `Salt/MR/V7RatedH.lean` NEW, 2026-09-02, math — wave H3 block E).  **`logChowla2_v7_rated_h`
 stands: H3's hypothesis-free headline at every `h` with `log h ≤ 7`.**
 
+(2026-10-03: the XY debt lane's family 38 re-pointed the prize's two supplier calls — the rated
+supply and the base-scale cap — to their cap-9 twins in `V7RatedH`, its statement unchanged, and
+moved that file's §4 and §5 below its two twin blocks; `cofkR_cofactorSupply_L_gk_rated_h` and
+`s16_baseScaleCap96_LH_at_klevF` are left with no call site, their rows standing below; no name is
+retired by it.)
+
 ⛔ **WHAT WAS ACTUALLY WRONG.** The `h` head pins `ε = 1/(500·h)`; seven merged `_h` names in
 `HDoorSupply` demanded the FLAT `1/500 ≤ R.eps`, **false at `h ≥ 2`**, and both sides sat in
 HYPOTHESIS position of conditional statements, so no gate in the repository could see it.  The
@@ -9672,6 +9678,8 @@ ANTECEDENT throughout and is untouched.
 and ROWS cannot see a dependency between BLOCKS; this one was found by opening the prize's
 proof and reading its FIRST line.  Its `h` twin reads the socket at exactly six places and is
 otherwise ~650 lines of arithmetic on the block scale `A + s`.
+(2026-10-03, the XY debt lane's family 38: the headline's supplier is this page's cap-9 twin
+`cofkR_cofactorSupply_L_gk_rated_h_b9` from then on; the cap-7 page keeps its row below.)
 
 ⭐ **AND A SECOND ROUTE NOBODY NAMED: the base-scale cap.**  `s16_baseScaleCap96_L_at_klevF`
 (`KLever:427`) is `SocketBaseL`-only, and the headline closes with it.  Its port is cheap for a
@@ -10377,7 +10385,9 @@ two landed suppliers of that file's capfloor assembler to two twins of ⟦β W1 
 moved the two to that file's foot (recorded 2026-10-01); 2026-10-01: family 32 re-pointed the H4→H5
 replay `flat_v7_generic_h` (`StridePairReceipt`) and its graded form `flat_v7_generic_h_g`
 (`StridePairReceiptG`) to two `V7RatedH` twins here, `cofkR_cofactorSupply_L_gk_rated_h_b9` and
-`s16_baseScaleCap96_LH_at_klevF_b9`, two calls each, their statements unchanged).  Each twin is
+`s16_baseScaleCap96_LH_at_klevF_b9`, two calls each, their statements unchanged; 2026-10-03: family
+38 re-pointed the prize `logChowla2_v7_rated_h` (`V7RatedH` §4) to the same two twins, one call
+each, its statement unchanged, and moved that file's §4 and §5 below its twin blocks).  Each twin is
 its source's statement and
 body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed against their sources),
 every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis added.  Named numerals:

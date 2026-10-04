@@ -6,7 +6,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 integration control, λ-BV wave 2-W, 2026-09-03
 
 Two names, in `Salt/MR` because the producer is the landed prize `logChowla2_v7_rated_h`
-(`Salt/MR/V7RatedH.lean:1067`) and `Salt/Entropy` cannot import `Salt/MR`.
+(`Salt/MR/V7RatedH.lean:1933`) and `Salt/Entropy` cannot import `Salt/MR`.
 
 * `logChowlaAffSupply_one_zero` — `LogChowlaAffSupply 1 0 h` at every `h` with `log h ≤ 7`,
   by reading three of the prize's conjuncts and transporting the failure Prop through
@@ -28,8 +28,8 @@ open Salt.Entropy.Chowla
 namespace Salt.MR
 
 /-- **S2 (class A/B).**  The `a = 1` instance of the supply demand is a corollary of the landed
-prize `logChowla2_v7_rated_h` (`V7RatedH.lean:1067`) at every `h ≤ 1096`.  Its `∃ R`
-conjunct (`:1075-1082`) carries SIX conjuncts — `R.eps = ε`, `R.Hlo = flatDesignBase A`, two
+prize `logChowla2_v7_rated_h` (`V7RatedH.lean:1933`) at every `h ≤ 1096`.  Its `∃ R`
+conjunct (`:1941-1948`) carries SIX conjuncts — `R.eps = ε`, `R.Hlo = flatDesignBase A`, two
 loglog band conditions, `3.2·A ≤ loglog R.Hlo`, and `¬ logChowlaFails h R.eps R.x R.ω` — so
 the `obtain` keeps `162 ≤ A`, `A₀ ≤ A`, `R.Hlo = …` and the last conjunct and discards the
 rest; the transfer is `mt (logChowlaFailsAff_one_zero h R.eps R.x R.ω).mp` (the `¬` reverses
