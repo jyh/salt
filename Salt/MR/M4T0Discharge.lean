@@ -123,7 +123,7 @@ theorem t0d_far_exp_le : (1009 : ℝ) / 90000 ≤ 1 / (32 * Real.exp 1) := by
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have h0 : (0 : ℝ) < 32 * Real.exp 1 := by positivity
   rw [div_le_div_iff₀ (by norm_num) h0]
-  nlinarith
+  linarith only [he]
 
 /-- **THE FAR ARM, PRICED AGAINST THE GATE** (`t0d_far_le`).  `(log X/2)^{−1/(32e)} ≤
 2·(log X)^{−1009/90000}` — the factor `2` is `2^{1/(32e)} ≤ 2`, the exponent comparison is
@@ -134,7 +134,7 @@ theorem t0d_far_le {X : ℝ} (hL : (2 : ℝ) ≤ Real.log X) :
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have ha1 : 1 / (32 * Real.exp 1) ≤ 1 := by
     rw [div_le_one (by positivity)]
-    nlinarith [Real.exp_one_gt_d9]
+    linarith only [Real.exp_one_gt_d9]
   have hsplit : (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1)))
       = Real.log X ^ (-(1 / (32 * Real.exp 1))) * 2 ^ (1 / (32 * Real.exp 1)) := by
     rw [Real.div_rpow hL0.le (by norm_num),
@@ -150,7 +150,7 @@ theorem t0d_far_le {X : ℝ} (hL : (2 : ℝ) ≤ Real.log X) :
   have hp0 : (0 : ℝ) ≤ Real.log X ^ (-(1 / (32 * Real.exp 1))) := Real.rpow_nonneg hL0.le _
   have hq0 : (0 : ℝ) ≤ Real.log X ^ (-(1009 : ℝ) / 90000) := Real.rpow_nonneg hL0.le _
   rw [hsplit]
-  nlinarith
+  nlinarith only [h2, hp0, h3]
 
 /-- The dissection's own residue is dominated by the gate value (`t0d_P_le`):
 `(log X)^{−1/2+1/1000} ≤ (log X)^{−1009/90000}` at every `log X ≥ 1`. -/
@@ -180,7 +180,7 @@ theorem t0d_err_le {X : ℝ} (hL : (256 : ℝ) ≤ Real.log X) :
     rw [← Real.rpow_add hL0,
       show (43901 : ℝ) / 90000 + (-(1 : ℝ) / 2 + 1 / 1000) = -(1009 : ℝ) / 90000 by norm_num]
   have hP0 : (0 : ℝ) ≤ Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000) := Real.rpow_nonneg hL0.le _
-  nlinarith
+  nlinarith only [hstep, hP0, h4, hmul]
 
 /-- **THE DILATION PRICE IS ABSOLUTE** (`t0d_dilGap_le`).  At the wide window's own floor
 `√X ≤ X_w ≤ X` the Mertens dilation gap is at most `4`, with no `X`-dependence: the first
@@ -236,7 +236,7 @@ private lemma eight_log_le_self_t0d {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv
   have hdiv : Real.sqrt Lv / Real.exp 1 ≤ Real.sqrt Lv / 2 :=
     div_le_div_of_nonneg_left hs0.le (by norm_num) he2
   rw [hhalf] at hlog
-  nlinarith
+  nlinarith only [hs0, hs8, hdiv, hlog, hsq]
 
 private lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
     10 ≤ Real.log k ^ 4 ∧ Real.log k ^ 4 ≤ Real.sqrt k
@@ -275,7 +275,7 @@ private lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
     refine Real.exp_le_exp.mpr ?_
     have h8 := eight_log_le_self_t0d (le_trans (by norm_num) hL)
     linarith
-  refine ⟨by nlinarith, hg2, le_trans hsqLle hL4, ?_⟩
+  refine ⟨by linarith only [hL4, hL], hg2, le_trans hsqLle hL4, ?_⟩
   rw [hlogpow]
   exact hbind
 
@@ -333,11 +333,11 @@ theorem t0d_piece_hRHS (Q : ℕ) :
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
   have hexp4097 : (4097 : ℝ) ≤ Real.exp 4096 := by linarith [Real.add_one_le_exp (4096 : ℝ)]
   have hsq1 : (1 : ℝ) ≤ Real.sqrt X := by linarith
-  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hsqX : Real.sqrt X ≤ X := by linarith only [hXwX, hsqXw]
   have hXexp : Real.exp 8192 ≤ X := by
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos (4096 : ℝ)]
+    nlinarith only [hsq4096, hexp4097, hsplit, hsqsq]
   have hLX : (8192 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
   have hL0 : (0 : ℝ) < Real.log X := by linarith
@@ -381,7 +381,7 @@ theorem t0d_piece_hRHS (Q : ℕ) :
       ≤ Real.log X ^ (-(1009 : ℝ) / 90000) := by
     rw [← t0d_decay_eq hL0]
     refine Real.exp_le_exp.mpr ?_
-    nlinarith [mul_le_mul_of_nonneg_left hclear hc0.le]
+    linarith only [mul_le_mul_of_nonneg_left hclear hc0.le]
   have hfar : Real.log (k : ℝ) ^ (-(1 / (32 * Real.exp 1)))
       ≤ (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1))) := by
     have hLk : Real.log X / 2 ≤ Real.log (k : ℝ) := by
@@ -459,11 +459,11 @@ theorem m4_t0band_discharged (Q : ℕ) :
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
   have hexp4097 : (4097 : ℝ) ≤ Real.exp 4096 := by linarith [Real.add_one_le_exp (4096 : ℝ)]
   have hsq1 : (1 : ℝ) ≤ Real.sqrt X := by linarith
-  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hsqX : Real.sqrt X ≤ X := by linarith only [hXwX, hsqXw]
   have hXexp : Real.exp 8192 ≤ X := by
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos (4096 : ℝ)]
+    nlinarith only [hsq4096, hexp4097, hX₀, hX₀0, hsplit, hsqsq]
   have hLX : (8192 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
   have hL0 : (0 : ℝ) < Real.log X := by linarith
@@ -500,7 +500,7 @@ theorem m4_t0band_discharged (Q : ℕ) :
   have hFle : farCStar * (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1)))
       ≤ 2 * farCStar * Real.log X ^ (-(1009 : ℝ) / 90000) := by
     have h := t0d_far_le (X := X) (by linarith)
-    nlinarith [farCStar_nonneg]
+    nlinarith only [h, farCStar_nonneg]
   have hPle : Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
       ≤ Real.log X ^ (-(1009 : ℝ) / 90000) := t0d_P_le (by linarith)
   have hcs : cSq = 20736 := rfl
@@ -1029,11 +1029,11 @@ theorem m4_t0band_discharged_gk (K : ℕ) (Q : ℕ) :
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
   have hexp4097 : (4097 : ℝ) ≤ Real.exp 4096 := by linarith [Real.add_one_le_exp (4096 : ℝ)]
   have hsq1 : (1 : ℝ) ≤ Real.sqrt X := by linarith
-  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hsqX : Real.sqrt X ≤ X := by linarith only [hXwX, hsqXw]
   have hXexp : Real.exp 8192 ≤ X := by
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos (4096 : ℝ)]
+    nlinarith only [hsq4096, hexp4097, hX₀, hX₀0, hsplit, hsqsq]
   have hLX : (8192 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
   have hL0 : (0 : ℝ) < Real.log X := by linarith
@@ -1070,7 +1070,7 @@ theorem m4_t0band_discharged_gk (K : ℕ) (Q : ℕ) :
   have hFle : farCStar * (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1)))
       ≤ 2 * farCStar * Real.log X ^ (-(1009 : ℝ) / 90000) := by
     have h := t0d_far_le (X := X) (by linarith)
-    nlinarith [farCStar_nonneg]
+    nlinarith only [h, farCStar_nonneg]
   have hPle : Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
       ≤ Real.log X ^ (-(1009 : ℝ) / 90000) := t0d_P_le (by linarith)
   have hcs : cSq = 20736 := rfl
