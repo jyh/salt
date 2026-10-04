@@ -21,6 +21,9 @@ headline:
   actual gate on the prize;
 * §3 the base-scale cap at the inflated socket — the second route the headline closes with,
   which `KLever` states only at `SocketBaseL`;
+  (2026-10-03, the XY debt lane's family 38: the prize's two calls at §2's and §3's cap-7 terminals
+  go to their cap-9 twins, ⟦β W2 F3⟧ below; §2's terminal no longer gates the prize, and §3's route
+  closes the headline through its cap-9 twin, which still reads §3's pages.)
 * §4 **`logChowla2_v7_rated_h`**, the hypothesis-free headline at every `h` with `log h ≤ 7`.
 
 ⭐ **WHY THE PORT IS CHEAP AND THE STATEMENT IS NOT.**  The inflation touches exactly two
@@ -31,6 +34,14 @@ is otherwise arithmetic on the block scale `A + s`; what MOVES is not the argume
 
 ⛔ **WHAT DOES NOT MOVE: the conditionality.**  Every object here is conditional exactly where
 its `h = 1` twin is.  Nothing in this file bears on twin primes.
+
+(2026-10-03, the XY debt lane's family 38: §4 and §5 stand BELOW the two cap-9 twin blocks from here
+on.  The prize's two supplier calls — the rated supply (§2) and the base-scale cap (§3) — go to
+their cap-9 twins `cofkR_cofactorSupply_L_gk_rated_h_b9` and `s16_baseScaleCap96_LH_at_klevF_b9`,
+`log h ≤ 9` supplied once by a `have` from `hh7`; its third supplier call keeps the cap 7; the
+statement of `logChowla2_v7_rated_h` is unchanged, and every other declaration is byte-identical.
+The cap-7 pages `cofkR_cofactorSupply_L_gk_rated_h` and `s16_baseScaleCap96_LH_at_klevF` are left
+with no call site; no name is retired by it.)
 -/
 
 namespace Salt.MR
@@ -797,6 +808,8 @@ theorem cofkR_cofactorSupply_L_gk_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log
 end RatedSupplyH
 
 /-! ## §3 — ⟦THE SECOND ROUTE THE HEADLINE CLOSES WITH⟧ the base-scale cap at shift `h`
+(2026-10-03, the XY debt lane's family 38: the headline closes with this route through the cap-9
+twin of its terminal, ⟦β W2 F3⟧ below, which reads the pages of this section.)
 
 `logChowla2_v7_rated`'s last step is `s16_baseScaleCap96_L_at_klevF` (`KLever:427`), stated at
 `SocketBaseL` only.  The `h` twin is needed and no census named it.
@@ -1033,238 +1046,6 @@ theorem s16_baseScaleCap96_LH_at_klevF {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h
     S16BaseScaleCap96_LH_gk h (KlevF A) R M :=
   s16_baseScaleCap96_LH_of_end h (KlevF A) (s16_baseScaleCapEnd_LH_of_xceil hx)
     (klevF_capNumeral_h hh hh7 hA hM heps500 hHhi)
-
-/-! ## §4 — ⟦THE PRIZE⟧ the rated headline at shift `h` -/
-
-section RatedHeadlineH
-
-open Salt.Entropy.Chowla
-open scoped BigOperators
-
-set_option exponentiation.threshold 4000 in
-set_option maxHeartbeats 3200000 in
--- as the landed sibling: the `∃`-prefix and the window discharges re-elaborate the conclusion
--- under the raised lever
-/-- **⟦THE RATED HEADLINE AT SHIFT `h`⟧** (`logChowla2_v7_rated_h`) — H3's prize, and what
-block E exists to unblock.  `V7Rated.logChowla2_v7_rated` on the INFLATED socket, at the `h`
-head's own pin `ε ≥ 1/(500·h)`.
-
-⟦THE SURVIVING LIST⟧ outer hypotheses: `0 < h` and `log h ≤ 7` (i.e. `h ≤ 1096`) — **nothing
-else**.  Inner: NOTHING.  Every rider of the v6/v7 chain — `cs`, `T₀`, `Ks`, `XCeil`, and the
-`K_vt` cushion — is discharged inside, exactly as at `h = 1`.
-
-⟦THE SCOPE, STATED, AND IT IS THE PARENT'S⟧ the tolerance `ε` is OPAQUE and bounded only from
-BELOW, and at shift `h` that floor is `1/(500·h)`, not `1/500`; the window is `(x/ω, x]`
-weighted by `1/n`; the `2` counts the factors `λ(n)·λ(n+1)`, not the shift; the design constant
-`A` carries Siegel's ineffective constant through its seventh arm and the rated floor constant
-through its eighth. ⛔ **Nothing here bears on twin primes** — the transport wall is untouched
-at this rung, and this object is conditional in exactly the places its `h = 1` twin is.
-
-⭐ **WHAT MOVED TO GET HERE, IN ONE LINE.**  `cofkR_cofactorSupply_L_gk_rated`'s `1/500 ≤ R.eps`
-was FALSE at `h ≥ 2`; ruling (a) makes the `log X` floor `h`-explicit
-(`H₊/(10⁶·h²)`), the μ-floor pays `log H₊ − 28` instead of `− 14`, and every consumer on the
-road had `10²¹`-scale slack for it. -/
-theorem logChowla2_v7_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (A₀ : ℝ) :
-    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
-      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
-      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
-      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧
-      1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
-      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
-      ∃ R : ChowlaRegime,
-        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
-        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-          Real.log (Real.log (R.Hhi : ℝ))
-            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
-        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
-        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
-        ¬ logChowlaFails h R.eps R.x R.ω := by
-  -- ⟦THE RATED CO-FACTOR SUPPLY AT THE INFLATED SOCKET⟧ §2, four Skolem REALS
-  obtain ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, hcofR⟩ :=
-    cofkR_cofactorSupply_L_gk_rated_h h hh hh7
-  obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinLH_holdsU h hh
-  -- ⟦THE cs-FREE, Ks-WINDOWED FLAT TERMINAL⟧ V7Ks §5
-  obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
-    hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
-    hmainU⟩ :=
-    logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
-      h hh hh7 Awin hband
-  -- ⟦THE DESIGN CONSTANT, EIGHT ARMS⟧ the seven landed arms verbatim (`A'`), the eighth
-  -- (`armVt Kvt`) outermost — every constant still minted BEFORE the lever: `Kvt` arrives at
-  -- the supply obtain above, before the mint.
-  obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
-      (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
-        (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
-  obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
-  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
-  -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
-  have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
-  have hA26 : (26 : ℝ) ≤ A := by linarith
-  have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
-  obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
-  obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge hKw
-  -- ⟦THE `T₀` ARM⟧ V7-C's discharge, as in the parent
-  have hT₀ : T₀ ≤ Real.exp (Real.sqrt ((flatDesignBase A : ℕ) : ℝ) / 2) :=
-    t0_arm_le_tolerance hA162 hT₀A
-  -- ⟦THE EXHIBITED CALLER⟧ `g ≡ 0` meets the strict rider; the `g`-conjunct is discarded
-  obtain ⟨R, hReps, hHlo, -, hRx, hRtow, hdes, hwin, hfire2⟩ :=
-    hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin (fun _ _ : ℕ => 0)
-      (xceilRiderStrict_zero ε)
-  -- ⟦THE BASE-SCALE CAP⟧ at `K = KlevF A`, as in the parent
-  have heps500 : (1 : ℚ) / (500 * (h : ℚ)) ≤ R.eps := by rw [hReps]; exact hεpin
-  have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    rw [hReps]; exact hRx
-  -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
-  have heps500R : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) := by
-    rw [hReps]
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
-  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
-  have hthrgate : cofkRThr Cq Cb Xsk Y0 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    linarith [hthrA, hlo, hexp1]
-  have hKvtcush : 32 * Kvt
-      + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
-      ≤ Real.log (R.Hhi : ℝ) / 4 :=
-    cofkR_cushion_of_armVt R hKvt0 harmA hlo
-  have hcofsupply : S16CofactorSupply_LH_gk h (KlevF A) Cq R (flatDoorM A) :=
-    hcofR (KlevF A) Cq R (flatDoorM A) hM1 hCq heps500R h518 hfl hthrgate hKvtcush
-  have hfireR : ¬ logChowlaFails h R.eps R.x R.ω :=
-    hfire2 hcofsupply
-      (s16_baseScaleCap96_LH_at_klevF hh hh7 hA26 (flatDoorM_one_le hA26) heps500 hxceil hwin)
-  exact ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
-    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
-    hCgle, hεpin, hδpin, hMflb A hA162 hAwinA, hβ, hA162, hA₀A,
-    R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
-
-end RatedHeadlineH
-
-/-! ## §5 — ⟦THE ANTI-DRIFT GATE ON THE PRIZE⟧
-
-⛔ **WHY THIS IS A THEOREM AND NOT A DOCSTRING CLAIM.**  `logChowla2_v7_rated_h` is an
-`∃`-statement whose whole content sits under binders; a family that had silently drifted into a
-WEAKER object — a looser `ε` floor, a `logChowlaFails` at some other shift, a rider quietly
-added — would still elaborate at every consumer, and **no build anywhere could see it.**  The
-substitution `h := 1` is the one instrument that looks.
-
-The house pattern (V7Rated §5): a HAND-RETYPED copy of the landed statement, proved from the
-`h`-family at `h = 1`; then an `example` whose type is that same statement and whose proof term
-is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:973` fails to
-elaborate HERE. -/
-
-section AntiDriftH
-
-open Salt.Entropy.Chowla
-
-set_option exponentiation.threshold 4000 in
-/-- ⭐⭐ **THE `h`-FAMILY AT `h = 1` IS THE LANDED HEADLINE** (`logChowla2_v7_rated_h_one`) — a
-hand-retyped copy of `V7Rated.logChowla2_v7_rated`'s statement, derived from
-`logChowla2_v7_rated_h 1`.  The three substitutions the shift makes are all definitional or
-`norm_num`: `1/(500·1) = 1/500`, `1/(838400·1²) = 1/838400`, and
-`logChowlaFails 1 = logChowla2Fails` (`ShiftFork:72`, `rfl`). -/
-theorem logChowla2_v7_rated_h_one (A₀ : ℝ) :
-    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
-      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
-      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
-      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
-      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
-      ∃ R : ChowlaRegime,
-        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
-        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-          Real.log (Real.log (R.Hhi : ℝ))
-            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
-        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
-        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
-        ¬ logChowla2Fails R.eps R.x R.ω := by
-  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
-    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15,
-    hεpin, hδpin, a18, a19, a20, a21,
-    R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩ :=
-    logChowla2_v7_rated_h 1 (by norm_num) (by norm_num) A₀
-  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
-    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, ?_, ?_,
-    a18, a19, a20, a21, R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
-  · simpa using hεpin
-  · simpa using hδpin
-
-set_option exponentiation.threshold 4000 in
-/-- **⟦THE RESTATEMENT, TIED TO THE LANDED DECLARATION⟧** — the theorem above retypes
-`V7Rated:973` by hand, so on its own it certifies only that the `h`-family implies THAT TEXT.
-This `example`'s type is that statement and its proof term is the landed
-`logChowla2_v7_rated` itself, so the two are the same up to defeq and the copy is
-self-enforcing under future edits to either side. -/
-example (A₀ : ℝ) :
-    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
-      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
-      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
-      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
-      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
-      ∃ R : ChowlaRegime,
-        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
-        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-          Real.log (Real.log (R.Hhi : ℝ))
-            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
-        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
-        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
-        ¬ logChowla2Fails R.eps R.x R.ω :=
-  logChowla2_v7_rated A₀
-
-end AntiDriftH
 
 /-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
 
@@ -2117,5 +1898,239 @@ theorem s16_baseScaleCap96_LH_at_klevF_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log
     S16BaseScaleCap96_LH_gk h (KlevF A) R M :=
   s16_baseScaleCap96_LH_of_end h (KlevF A) (s16_baseScaleCapEnd_LH_of_xceil hx)
     (klevF_capNumeral_h_b9 hh hh9 hA hM heps500 hHhi)
+
+/-! ## §4 — ⟦THE PRIZE⟧ the rated headline at shift `h` -/
+
+section RatedHeadlineH
+
+open Salt.Entropy.Chowla
+open scoped BigOperators
+
+set_option exponentiation.threshold 4000 in
+set_option maxHeartbeats 3200000 in
+-- as the landed sibling: the `∃`-prefix and the window discharges re-elaborate the conclusion
+-- under the raised lever
+-- 2026-10-03, the XY debt lane, family 38: two calls at the cap 9 (twins), one kept at the cap 7
+/-- **⟦THE RATED HEADLINE AT SHIFT `h`⟧** (`logChowla2_v7_rated_h`) — H3's prize, and what
+block E exists to unblock.  `V7Rated.logChowla2_v7_rated` on the INFLATED socket, at the `h`
+head's own pin `ε ≥ 1/(500·h)`.
+
+⟦THE SURVIVING LIST⟧ outer hypotheses: `0 < h` and `log h ≤ 7` (i.e. `h ≤ 1096`) — **nothing
+else**.  Inner: NOTHING.  Every rider of the v6/v7 chain — `cs`, `T₀`, `Ks`, `XCeil`, and the
+`K_vt` cushion — is discharged inside, exactly as at `h = 1`.
+
+⟦THE SCOPE, STATED, AND IT IS THE PARENT'S⟧ the tolerance `ε` is OPAQUE and bounded only from
+BELOW, and at shift `h` that floor is `1/(500·h)`, not `1/500`; the window is `(x/ω, x]`
+weighted by `1/n`; the `2` counts the factors `λ(n)·λ(n+1)`, not the shift; the design constant
+`A` carries Siegel's ineffective constant through its seventh arm and the rated floor constant
+through its eighth. ⛔ **Nothing here bears on twin primes** — the transport wall is untouched
+at this rung, and this object is conditional in exactly the places its `h = 1` twin is.
+
+⭐ **WHAT MOVED TO GET HERE, IN ONE LINE.**  `cofkR_cofactorSupply_L_gk_rated`'s `1/500 ≤ R.eps`
+was FALSE at `h ≥ 2`; ruling (a) makes the `log X` floor `h`-explicit
+(`H₊/(10⁶·h²)`), the μ-floor pays `log H₊ − 28` instead of `− 14`, and every consumer on the
+road had `10²¹`-scale slack for it. -/
+theorem logChowla2_v7_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧
+      1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        ¬ logChowlaFails h R.eps R.x R.ω := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
+  -- ⟦THE RATED CO-FACTOR SUPPLY⟧ §2's page at its cap-9 twin (⟦β W2 F3⟧), four Skolem REALS
+  obtain ⟨Xsk, Y0, Kvt, Cb, hXsk0, hY0pin, hKvt0, hCb0, hcofR⟩ :=
+    cofkR_cofactorSupply_L_gk_rated_h_b9 h hh hh9
+  obtain ⟨Awin, -, hband⟩ := s16_bandLaneWinLH_holdsU h hh
+  -- ⟦THE cs-FREE, Ks-WINDOWED FLAT TERMINAL⟧ V7Ks §5
+  obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
+    hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hmainU⟩ :=
+    logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
+      h hh hh7 Awin hband
+  -- ⟦THE DESIGN CONSTANT, EIGHT ARMS⟧ the seven landed arms verbatim (`A'`), the eighth
+  -- (`armVt Kvt`) outermost — every constant still minted BEFORE the lever: `Kvt` arrives at
+  -- the supply obtain above, before the mint.
+  obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
+      (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
+        (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
+  obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
+  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
+  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
+  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
+  have hT₀A : T₀ ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_max_left _ _) (le_max_right _ _)
+  have hA162 : (162 : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
+      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
+      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hA₀A : A₀ ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
+      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
+      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hAwinA : Awin ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
+      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
+      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
+      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
+  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
+      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
+    refine le_trans ?_ hlift; rw [hA'def]
+    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
+      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
+      (le_max_right _ _)
+  have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
+  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
+  -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
+  have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
+    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+      Real.add_one_le_exp _
+    linarith
+  have hopq : Hopq ≤ flatDesignBase A := by
+    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
+    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
+    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
+    rw [flatDesignBase]; exact_mod_cast hceil
+  have hA26 : (26 : ℝ) ≤ A := by linarith
+  have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
+  obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
+  obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge hKw
+  -- ⟦THE `T₀` ARM⟧ V7-C's discharge, as in the parent
+  have hT₀ : T₀ ≤ Real.exp (Real.sqrt ((flatDesignBase A : ℕ) : ℝ) / 2) :=
+    t0_arm_le_tolerance hA162 hT₀A
+  -- ⟦THE EXHIBITED CALLER⟧ `g ≡ 0` meets the strict rider; the `g`-conjunct is discarded
+  obtain ⟨R, hReps, hHlo, -, hRx, hRtow, hdes, hwin, hfire2⟩ :=
+    hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin (fun _ _ : ℕ => 0)
+      (xceilRiderStrict_zero ε)
+  -- ⟦THE BASE-SCALE CAP⟧ at `K = KlevF A`, as in the parent
+  have heps500 : (1 : ℚ) / (500 * (h : ℚ)) ≤ R.eps := by rw [hReps]; exact hεpin
+  have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
+    rw [hReps]; exact hRx
+  -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
+  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  have heps500R : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) := by
+    rw [hReps]
+    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
+      push_cast; ring] at hq
+  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
+  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
+  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact flatWitFloor_log_ge hA162
+  have hthrgate : cofkRThr Cq Cb Xsk Y0 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    linarith [hthrA, hlo, hexp1]
+  have hKvtcush : 32 * Kvt
+      + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
+      ≤ Real.log (R.Hhi : ℝ) / 4 :=
+    cofkR_cushion_of_armVt R hKvt0 harmA hlo
+  have hcofsupply : S16CofactorSupply_LH_gk h (KlevF A) Cq R (flatDoorM A) :=
+    hcofR (KlevF A) Cq R (flatDoorM A) hM1 hCq heps500R h518 hfl hthrgate hKvtcush
+  have hfireR : ¬ logChowlaFails h R.eps R.x R.ω :=
+    hfire2 hcofsupply
+      (s16_baseScaleCap96_LH_at_klevF_b9 hh hh9 hA26 (flatDoorM_one_le hA26) heps500 hxceil hwin)
+  exact ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40,
+    hCgle, hεpin, hδpin, hMflb A hA162 hAwinA, hβ, hA162, hA₀A,
+    R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
+
+end RatedHeadlineH
+
+/-! ## §5 — ⟦THE ANTI-DRIFT GATE ON THE PRIZE⟧
+
+⛔ **WHY THIS IS A THEOREM AND NOT A DOCSTRING CLAIM.**  `logChowla2_v7_rated_h` is an
+`∃`-statement whose whole content sits under binders; a family that had silently drifted into a
+WEAKER object — a looser `ε` floor, a `logChowlaFails` at some other shift, a rider quietly
+added — would still elaborate at every consumer, and **no build anywhere could see it.**  The
+substitution `h := 1` is the one instrument that looks.
+
+The house pattern (V7Rated §5): a HAND-RETYPED copy of the landed statement, proved from the
+`h`-family at `h = 1`; then an `example` whose type is that same statement and whose proof term
+is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:973` fails to
+elaborate HERE. -/
+
+section AntiDriftH
+
+open Salt.Entropy.Chowla
+
+set_option exponentiation.threshold 4000 in
+/-- ⭐⭐ **THE `h`-FAMILY AT `h = 1` IS THE LANDED HEADLINE** (`logChowla2_v7_rated_h_one`) — a
+hand-retyped copy of `V7Rated.logChowla2_v7_rated`'s statement, derived from
+`logChowla2_v7_rated_h 1`.  The three substitutions the shift makes are all definitional or
+`norm_num`: `1/(500·1) = 1/500`, `1/(838400·1²) = 1/838400`, and
+`logChowlaFails 1 = logChowla2Fails` (`ShiftFork:72`, `rfl`). -/
+theorem logChowla2_v7_rated_h_one (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15,
+    hεpin, hδpin, a18, a19, a20, a21,
+    R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩ :=
+    logChowla2_v7_rated_h 1 (by norm_num) (by norm_num) A₀
+  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, ?_, ?_,
+    a18, a19, a20, a21, R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
+  · simpa using hεpin
+  · simpa using hδpin
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE RESTATEMENT, TIED TO THE LANDED DECLARATION⟧** — the theorem above retypes
+`V7Rated:973` by hand, so on its own it certifies only that the `h`-family implies THAT TEXT.
+This `example`'s type is that statement and its proof term is the landed
+`logChowla2_v7_rated` itself, so the two are the same up to defeq and the copy is
+self-enforcing under future edits to either side. -/
+example (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ Real.exp (-100) ≤ cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Real.log C ≤ 40 ∧ Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      Mfl ≤ flatDoorM A ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ R : ChowlaRegime,
+        R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+        3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+        Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+        ¬ logChowla2Fails R.eps R.x R.ω :=
+  logChowla2_v7_rated A₀
+
+end AntiDriftH
 
 end Salt.MR

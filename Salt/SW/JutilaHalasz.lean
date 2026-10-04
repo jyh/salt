@@ -192,12 +192,12 @@ theorem sum_normSq_jutilaA_div_jutilaB_le {q z₁ z₂ : ℕ} (hz₁ : 2 ≤ z�
         linarith
       have h1 : (1 : ℝ) / 2 ≤ max 0 (1 - (n : ℝ) / N) :=
         le_trans (by linarith) (le_max_right _ _)
-      nlinarith
+      nlinarith only [h1]
     have hKx : (max 0 (1 - (n : ℝ) / x)) ^ 2 ≤ 1 := by
       have hd : (0 : ℝ) ≤ (n : ℝ) / x := by positivity
       have h1 : max 0 (1 - (n : ℝ) / x) ≤ 1 := max_le (by norm_num) (by linarith)
       have h0 : (0 : ℝ) ≤ max 0 (1 - (n : ℝ) / x) := le_max_left _ _
-      nlinarith
+      nlinarith only [h1, h0]
     have hbn : jutilaB q R N M n
         = (n : ℝ)⁻¹ * (∑ r ∈ rFilter q R, (r : ℝ)⁻¹ * pseudoChar selbergPsi r n) ^ 2
             * (max 0 (1 - (n : ℝ) / N)) ^ 2 := jutilaB_eq_of_le hM0 q R hMn
@@ -248,7 +248,7 @@ theorem sum_normSq_jutilaA_div_jutilaB_le {q z₁ z₂ : ℕ} (hz₁ : 2 ≤ z�
           ≤ W * (4 * (max 0 (1 - (n : ℝ) / N)) ^ 2) := by
             refine mul_le_mul_of_nonneg_left ?_ hW0
             have h0 : (0 : ℝ) ≤ (max 0 (1 - (n : ℝ) / x)) ^ 2 := sq_nonneg _
-            nlinarith
+            nlinarith only [hKx, hKN, sq_nonneg (max 0 (1 - ↑n / x))]
         _ = 4 * (max 0 (1 - (n : ℝ) / N)) ^ 2 * W := by ring
   refine le_trans (Finset.sum_le_sum hterm) ?_
   rw [← Finset.mul_sum]
@@ -309,7 +309,7 @@ private lemma sum_rpow_neg_le {t : ℝ} (ht1 : t ≤ 1) :
             rw [div_mul_cancel₀ _ (by linarith : (n : ℝ) + 1 ≠ 0)] at hh
             linarith
           rw [hsplit]
-          nlinarith [hpp, h1]
+          nlinarith only [hpp, h1]
         linarith [ih', hB, hC]
 
 /-- `m·(m^{−t} − (m+1)^{−t}) ≤ m^{−t}` for `0 ≤ t ≤ 1` — the pointwise step that replaces the
@@ -345,7 +345,7 @@ private lemma mul_sub_rpow_le {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) {m : ℕ
     field_simp
   rw [hexp]
   refine div_nonneg ?_ (by positivity)
-  nlinarith [hkey, hpr]
+  linarith only [hpr, hkey]
 
 /-- The telescoping sum over `Icc 1 Y`. -/
 private lemma sum_Icc_telescope (f : ℕ → ℝ) (Y : ℕ) :
@@ -415,7 +415,7 @@ private lemma partial_summation_core {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) {
             + l * ((m : ℝ) ^ (-t) - ((m + 1 : ℕ) : ℝ) ^ (-t))) := by ring
       _ ≤ B * ((m : ℝ) ^ (-t) + l * ((m : ℝ) ^ (-t) - ((m + 1 : ℕ) : ℝ) ^ (-t))) := by
           have hstep := mul_sub_rpow_le ht0 ht1 hm1
-          nlinarith [hB, hstep]
+          nlinarith only [hB, hstep]
   have htel : ∑ m ∈ Finset.Icc 1 Y, ((m : ℝ) ^ (-t) - ((m + 1 : ℕ) : ℝ) ^ (-t))
       = 1 - ((Y + 1 : ℕ) : ℝ) ^ (-t) := by
     have h := sum_Icc_telescope (fun m : ℕ => ((m : ℕ) : ℝ) ^ (-t)) Y
@@ -502,10 +502,10 @@ theorem sum_sq_sum_bvWeight_mul_rpow_le : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ :
         _ ≤ 2 * max (4 * CH) CL * Real.log z₂ * ((m : ℝ) + Real.log z₂)
               / Real.log ((z₂ : ℝ) / z₁) ^ 2 := by
             refine div_le_div_right_of_le ?_ hΛ
-            nlinarith [mul_nonneg (mul_nonneg hl₂.le hm0) (sub_nonneg.mpr hK4),
-              mul_nonneg hCH.le (mul_nonneg (sub_nonneg.mpr hl12) hm0),
-              mul_nonneg (mul_nonneg hKpos.le hl₂.le) hl₂.le,
-              mul_nonneg (mul_nonneg hKpos.le hl₂.le) hm0]
+            linarith only [mul_nonneg (mul_nonneg hKpos.le hl₂.le) hm0,
+                mul_nonneg (mul_nonneg hKpos.le hl₂.le) hl₂.le,
+                mul_nonneg hCH.le (mul_nonneg (sub_nonneg.mpr hl12) hm0),
+                mul_nonneg (mul_nonneg hl₂.le hm0) (sub_nonneg.mpr hK4)]
         _ = 2 * max (4 * CH) CL * (Real.log z₂ / Real.log ((z₂ : ℝ) / z₁) ^ 2)
               * ((m : ℝ) + Real.log z₂) := by ring
     · rcases le_or_gt (2 : ℝ) (m : ℝ) with hm2 | hm2
@@ -574,10 +574,10 @@ theorem sum_sq_sum_bvWeight_mul_rpow_le : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ :
     Real.rpow_nonneg hX0.le _
   have hchain : (2 + Real.log ((⌊x⌋₊ : ℕ) : ℝ)) * ((⌊x⌋₊ : ℕ) : ℝ) ^ (1 - (2 * σ - 1))
       ≤ 2 * ((1 + Real.log x) * x ^ (1 - (2 * σ - 1))) := by
-    nlinarith [hpowX, hpowpos, hpowXpos, hlogX, hlogx0, hlogXn]
+    nlinarith only [hlogXn, hpowpos, hpowX, hlogX]
   have hKd : (0 : ℝ) ≤ max (4 * CH) CL * (Real.log z₂ / Real.log ((z₂ : ℝ) / z₁) ^ 2) :=
     mul_nonneg hKpos.le hd
-  nlinarith [hchain, hKd, hl₂]
+  nlinarith only [hBn, hchain, hl₂]
 
 /-- **HALÁSZ AT THE SYSTEM** (Lemma 7 instantiated): the sum of the detector's moduli over `J`
 zeros, squared, against the residue-block series `B(s̄_j + s_k) = halaszBTsum (jutilaB) χ χ`
@@ -681,11 +681,11 @@ theorem jutilaDetector_floor_half_sum [NeZero q] {χ : DirichletCharacter ℂ q}
   have hφ := inv_log_le_totient_div hq1
   have hlog2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hlogq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1R
-  have hqD : (q : ℝ) ≤ D := by rw [hD]; nlinarith
+  have hqD : (q : ℝ) ≤ D := by rw [hD]; nlinarith only [hT, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hlogqD : Real.log q ≤ Real.log D := Real.log_le_log (by linarith) hqD
   have hdd : Real.log q / Real.log 2 ≤ Real.log D / Real.log 2 := by
     rw [div_le_div_iff₀ hlog2pos hlog2pos]
-    nlinarith
+    nlinarith only [hlog2pos, hlogqD, hβ1, hβ]
   have hqden : (0 : ℝ) < Real.log q / Real.log 2 + 1 := by
     have hnn : (0 : ℝ) ≤ Real.log q / Real.log 2 := div_nonneg hlogq hlog2pos.le
     linarith
@@ -825,14 +825,14 @@ theorem norm_integral_resKernel_offdiag_le {s : ℂ} (hs0 : 0 ≤ s.re) (hs : s.
     refine Real.exp_le_one_iff.mpr ?_
     have hre : (-s * (u : ℂ)).re = -(s.re * u) := by simp [Complex.mul_re]
     rw [hre]
-    nlinarith [hs0, hu]
+    nlinarith only [hs0, hu]
   have hnormI : ∀ a b : ℝ, 0 ≤ a → 0 ≤ b →
       ‖∫ u in a..b, Complex.exp (-s * (u : ℂ))‖ ≤ 2 / ‖s‖ := by
     intro a b ha hb
     have h2 : ‖Complex.exp (-s * (b : ℂ)) - Complex.exp (-s * (a : ℂ))‖ ≤ 2 :=
       (norm_sub_le _ _).trans (by linarith [hexp1 a ha, hexp1 b hb])
     rw [integral_exp_mul_complex hsne, norm_div, norm_neg, div_le_div_iff₀ hspos hspos]
-    nlinarith [h2, hspos]
+    nlinarith only [hspos, h2]
   -- the double integral in CLOSED FORM
   have hinner : ∀ v : ℝ, (∫ u in η₀..η₁, resKernel s (Real.exp u) (Real.exp v))
       = K * ((∫ u in η₀..η₁, Complex.exp (-s * (u : ℂ)))
@@ -873,7 +873,7 @@ theorem norm_integral_resKernel_offdiag_le {s : ℂ} (hs0 : 0 ≤ s.re) (hs : s.
   have hKle : ‖K‖ ≤ 2 / ((59 / 60) * (119 / 60)) / ‖s‖ := by
     rw [hKdef, norm_div, norm_mul, norm_mul, norm_neg,
       show ‖(2 : ℂ)‖ = 2 from by norm_num, div_le_div_iff₀ hD (by positivity)]
-    nlinarith [mul_le_mul_of_nonneg_left hprod hspos.le, hspos]
+    linarith only [mul_le_mul_of_nonneg_left hprod hspos.le]
   -- assemble
   have hIη : ‖∫ u in η₀..η₁, Complex.exp (-s * (u : ℂ))‖ ≤ 2 / ‖s‖ :=
     hnormI η₀ η₁ hη0 (by linarith)
@@ -892,7 +892,7 @@ theorem norm_integral_resKernel_offdiag_le {s : ℂ} (hs0 : 0 ≤ s.re) (hs : s.
     have hne : s.im ^ 2 ≠ 0 := pow_ne_zero 2 him
     exact lt_of_le_of_ne (sq_nonneg _) (Ne.symm hne)
   have hms : s.im ^ 2 ≤ ‖s‖ ^ 2 := by
-    nlinarith [Complex.abs_im_le_norm s, abs_nonneg s.im, sq_abs s.im]
+    nlinarith only [hspos, Complex.abs_im_le_norm s, abs_nonneg s.im, sq_abs s.im]
   have hnn : (0 : ℝ) ≤ ((ξ₁ - ξ₀) + (η₁ - η₀)) * (2 / ‖s‖) := by positivity
   rw [houter, norm_mul]
   calc ‖K‖ * ‖((ξ₁ - ξ₀ : ℝ) : ℂ) * (∫ u in η₀..η₁, Complex.exp (-s * (u : ℂ)))
