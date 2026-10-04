@@ -75,7 +75,7 @@ theorem siegelSequence_implies_infinitely (h : SiegelSequence) :
   have h1β : 0 < 1 - β := by linarith
   have key : (1 - β) * Real.log q < c := by
     have h1 : (1 - β) * Real.log q * Real.log 2 ≤ (1 - β) * (Real.log q) ^ 2 := by
-      nlinarith [mul_le_mul_of_nonneg_left hlog2q (mul_nonneg h1β.le hlogq_pos.le)]
+      linarith only [mul_le_mul_of_nonneg_left hlog2q (mul_nonneg h1β.le hlogq_pos.le)]
     have h2 : (1 - β) * Real.log q * Real.log 2 < c * Real.log 2 := lt_of_le_of_lt h1 hcoup
     exact lt_of_mul_lt_mul_right h2 hlog2pos.le
   have hfrac : 1 - β < c / Real.log q := by
@@ -104,20 +104,20 @@ theorem corrWindow_box {q : ℕ} {β x : ℝ} (h : CorrWindow q β x) :
     (Real.le_log_iff_exp_le hxpos).mpr hfloor
   have h3x : 3 ≤ x := by
     have he : Real.exp (64 : ℝ) ≤ x :=
-      le_trans (Real.exp_le_exp.mpr (by nlinarith [hlogq_nn])) hfloor
+      le_trans (Real.exp_le_exp.mpr (by nlinarith only [hlogq_nn])) hfloor
     have h65 : (65 : ℝ) ≤ Real.exp 64 := by linarith [Real.add_one_le_exp (64 : ℝ)]
     linarith
   refine ⟨h3x, ?_⟩
   set s := Real.sqrt (Real.log x) with hs
-  have hlogx_nn : 0 ≤ Real.log x := by nlinarith [hlogq_nn, hlogx_ge]
+  have hlogx_nn : 0 ≤ Real.log x := by linarith only [hlogx_ge, sq_nonneg (Real.log ↑q + 2)]
   have hs_nn : 0 ≤ s := Real.sqrt_nonneg _
   have hs_ge : 4 * (Real.log q + 2) ≤ s := by
-    have h1 : (4 * (Real.log q + 2)) ^ 2 ≤ Real.log x := by nlinarith [hlogx_ge]
+    have h1 : (4 * (Real.log q + 2)) ^ 2 ≤ Real.log x := by linarith only [hlogx_ge]
     calc 4 * (Real.log q + 2)
         = Real.sqrt ((4 * (Real.log q + 2)) ^ 2) := (Real.sqrt_sq (by nlinarith [hlogq_nn])).symm
       _ ≤ Real.sqrt (Real.log x) := Real.sqrt_le_sqrt h1
       _ = s := hs.symm
-  have hs8 : 8 ≤ s := by nlinarith [hs_ge, hlogq_nn]
+  have hs8 : 8 ≤ s := by linarith only [hs_ge, hlogq_nn]
   have hexps4 : 4 ≤ Real.exp s := by
     have hlog4le : Real.log 4 ≤ s := by
       have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num); linarith [hs8]
@@ -135,7 +135,7 @@ theorem corrWindow_box {q : ℕ} {β x : ℝ} (h : CorrWindow q β x) :
         _ = Real.log 2 + s := by
             rw [Real.log_mul (by norm_num) (Real.exp_pos s).ne', Real.log_exp]
     have hlogq_s : Real.log q + Real.log 2 ≤ s := by
-      nlinarith [hs_ge, hlogq_nn, Real.log_two_lt_d9]
+      linarith only [hs_ge, hlogq_nn, Real.log_two_lt_d9]
     linarith [hlog_es, hlogq_s]
 
 /-- **The Siegel residue is `≥ x²/3`** — the quantitative separation. For
@@ -158,7 +158,7 @@ theorem residue_lower {q : ℕ} {β₁ x : ℝ} (h90 : 9 / 10 ≤ β₁) (hβ1 :
   have hxr : x ^ (1 - β₁ : ℝ) ≤ 3 / 2 := by
     rw [Real.rpow_def_of_pos hxpos]
     calc Real.exp (Real.log x * (1 - β₁))
-        ≤ Real.exp (Real.log (3 / 2)) := Real.exp_le_exp.mpr (by nlinarith [hcap])
+        ≤ Real.exp (Real.log (3 / 2)) := Real.exp_le_exp.mpr (by linarith only [hcap])
       _ = 3 / 2 := Real.exp_log (by norm_num)
   have hx2 : x ^ (2 : ℝ) = x ^ 2 := by
     rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
@@ -167,12 +167,12 @@ theorem residue_lower {q : ℕ} {β₁ x : ℝ} (h90 : 9 / 10 ≤ β₁) (hβ1 :
   have hRpos : 0 < x ^ (β₁ + 1 : ℝ) := Real.rpow_pos_of_pos hxpos _
   have hnumlow : 2 / 3 * x ^ 2 ≤ x ^ (β₁ + 1 : ℝ) := by
     have hslack : 0 ≤ 3 / 2 - x ^ (1 - β₁ : ℝ) := by linarith [hxr]
-    nlinarith [hprod, mul_nonneg hRpos.le hslack]
+    linarith only [hprod, mul_nonneg hRpos.le hslack]
   have hdlt : β₁ * (β₁ + 1) ≤ 2 := by
-    nlinarith [mul_pos (show (0 : ℝ) < 1 - β₁ by linarith) (show (0 : ℝ) < β₁ + 2 by linarith)]
+    linarith only [mul_pos (show (0 : ℝ) < 1 - β₁ by linarith) (show (0 : ℝ) < β₁ + 2 by linarith)]
   rw [div_le_div_iff₀ (by norm_num : (0 : ℝ) < 3) hdpos]
-  nlinarith [hnumlow,
-    mul_nonneg (sq_nonneg x) (by linarith [hdlt] : (0 : ℝ) ≤ 2 - β₁ * (β₁ + 1))]
+  linarith only [hnumlow, mul_nonneg (sq_nonneg x)
+      (by linarith [hdlt] : (0 : ℝ) ≤ 2 - β₁ * (β₁ + 1))]
 
 /-- **The correlation-or-silence dichotomy** (the HB-R2 core). Under
 `SiegelSequence`: for every strength `c` there are exceptional data `(q, χ, β₁)`
@@ -209,20 +209,20 @@ theorem siegel_correlation_dichotomy (hSeq : SiegelSequence) :
   have hlogq_lb : (0.6931 : ℝ) < Real.log q :=
     lt_of_lt_of_le (by linarith [Real.log_two_gt_d9]) (Real.log_le_log (by norm_num) hqR2)
   have hlq2ge : (0.48 : ℝ) ≤ (Real.log q) ^ 2 := by
-    nlinarith [hlogq_lb, sq_nonneg (Real.log q - 0.6931)]
+    linarith only [hlogq_lb, hlogq_pos, sq_nonneg (10000 * Real.log ↑q - 1 * 6931)]
   have h90 : 9 / 10 ≤ β₁ := by
-    nlinarith [hcoup_25, mul_le_mul_of_nonneg_left hlq2ge h1β.le]
-  have hlog4q_pos : 0 < Real.log (4 * (q : ℝ)) := Real.log_pos (by nlinarith [hqR2])
+    linarith only [hcoup_25, hβ1, mul_le_mul_of_nonneg_left hlq2ge h1β.le]
+  have hlog4q_pos : 0 < Real.log (4 * (q : ℝ)) := Real.log_pos (by linarith only [h90, hqR2, hβ1])
   have hlog4 : Real.log 4 ≤ 1.4 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast
-    nlinarith [Real.log_two_lt_d9]
+    linarith only [h90, hβ1, Real.log_two_lt_d9]
   have hlog4q : Real.log (4 * (q : ℝ)) ≤ 5 * (Real.log q) ^ 2 := by
     rw [Real.log_mul (by norm_num) hqRpos.ne']
-    nlinarith [hlog4, hlogq_lb, sq_nonneg (Real.log q - 0.6931)]
+    linarith only [hlog4, h90, hlogq_lb, hβ1, sq_nonneg (10000 * Real.log ↑q - 1 * 6931)]
   have hβwin_hyp : 1 - (1 / 5000) / Real.log (4 * (q : ℝ)) ≤ β₁ := by
     have hmul4 : (1 - β₁) * Real.log (4 * (q : ℝ)) ≤ (1 - β₁) * (5 * (Real.log q) ^ 2) :=
       mul_le_mul_of_nonneg_left hlog4q h1β.le
-    have hkey : (1 - β₁) * Real.log (4 * (q : ℝ)) < 1 / 5000 := by nlinarith [hcoup_25, hmul4]
+    have hkey : (1 - β₁) * Real.log (4 * (q : ℝ)) < 1 / 5000 := by linarith only [hmul4, hcoup_25]
     have hfrac : 1 - β₁ ≤ (1 / 5000) / Real.log (4 * (q : ℝ)) := by
       rw [le_div_iff₀ hlog4q_pos]; linarith [hkey]
     linarith [hfrac]

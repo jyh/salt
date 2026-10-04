@@ -157,7 +157,7 @@ lemma ladder_abel_le {q c : ℝ} (hq0 : 0 < q) (hq1 : q < 1) {a : ℕ → ℝ} (
       ≤ (1 - q) * (q * (c + 2 / (1 - q))) := by
     rw [hRHS, hkey, hbot]
     have hm := mul_le_mul_of_nonneg_left hmaj h1q.le
-    nlinarith [hgeom, hend, hm, htail, h1q]
+    nlinarith only [hq1, hm, hend, htail, hgeom]
   exact le_of_mul_le_mul_left (le_of_mul_le_mul_left hmul h1q) hq0
 
 /-! ### The level bound proper -/
@@ -383,15 +383,15 @@ lemma neg_log_one_sub_nu_le_dim4 (s : BoundingSieve) {p : ℕ}
         show (p : ℝ) * ((p : ℝ) + 1) - ((p : ℝ) - 1) * ((p : ℝ) - 2) = 4 * (p : ℝ) - 2 by ring]
     linarith [he ▸ h]
   have hden : (0 : ℝ) < (p : ℝ) ^ 2 * (((p : ℝ) - 1) * ((p : ℝ) - 2)) := by
-    apply mul_pos (by positivity); nlinarith [hpR]
+    apply mul_pos (by positivity); nlinarith only [hpR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   have hkey : 4 / (p : ℝ) + 33 / (p : ℝ) ^ 2 - (4 * (p : ℝ) - 2) / (((p : ℝ) - 1) * ((p : ℝ) - 2))
       = (23 * (p : ℝ) ^ 2 - 91 * (p : ℝ) + 66)
         / ((p : ℝ) ^ 2 * (((p : ℝ) - 1) * ((p : ℝ) - 2))) := by
     field_simp
     ring
   have hnum : (0 : ℝ) ≤ 23 * (p : ℝ) ^ 2 - 91 * (p : ℝ) + 66 := by
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ (p : ℝ) - 3)
-      (by linarith : (0 : ℝ) ≤ 23 * ((p : ℝ) - 3) + 47)]
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ (p : ℝ) - 3)
+        (by linarith : (0 : ℝ) ≤ 23 * ((p : ℝ) - 3) + 47)]
   have hdivnn : (0 : ℝ) ≤ (23 * (p : ℝ) ^ 2 - 91 * (p : ℝ) + 66)
       / ((p : ℝ) ^ 2 * (((p : ℝ) - 1) * ((p : ℝ) - 2))) := div_nonneg hnum hden.le
   linarith [hmono, hquad, hkey, hdivnn]
@@ -557,8 +557,8 @@ lemma M_bound_gen {lam Lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
   -- BRANCH A
   have hbranchA : Real.exp Lam * Real.log (Real.log z) ≤ 5 * lam * Real.log z := by
     have h1 : Real.exp Lam * Real.log (Real.log z) ≤ 3 * Real.log (Real.log z) := by
-      nlinarith [hexpLam3, hllz_pos]
-    nlinarith [hkey, hllz_pos]
+      nlinarith only [h400, hexpLam3, hlam', hlam]
+    linarith only [h1, hkey, h400, hlam', hlam]
   -- BRANCH B
   have hbranchB : (Real.exp ((r : ℝ) * Lam) / (r : ℝ)) * Real.log (Real.log z)
       ≤ 5 * lam * Real.log z := by
@@ -587,7 +587,7 @@ lemma M_bound_gen {lam Lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
           rw [le_div_iff₀ hlog2pos]
           have : Real.log 2 ≤ Real.log z := Real.log_le_log (by norm_num) (by linarith)
           linarith
-        nlinarith [Real.exp_pos Lam, hlogzlog2]
+        nlinarith only [hlogzlog2, hlam', hlam, Real.exp_pos Lam]
     have hr_lb : Real.log (Real.log z) - Real.log (Real.log 2) ≤ (r : ℝ) * Lam := by
       have h := exp_minLevel_ge (Lam := Lam) (z := z) hLampos hz1
       have hlogdiv : Real.log (Real.log z / Real.log 2)
@@ -625,7 +625,7 @@ lemma M_bound_gen {lam Lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
       have h2 : (Real.exp Lam * Lam * (Real.log z / Real.log 2)) * 1 ≤ 5 * lam * Real.log z := by
         rw [mul_one]
         have hbound : Real.exp Lam * Lam ≤ 3 * lam := by
-          nlinarith [hexpLam3, hLamle, hLampos.le, hlam.le]
+          nlinarith only [hLampos, hexpLam3, hlam', hlam, hLamle]
         have hlogz_div : Real.log z / Real.log 2 ≤ Real.log z / 0.6931 :=
           div_le_div_of_nonneg_left hlz_pos.le (by norm_num) hlog2ge
         calc (Real.exp Lam * Lam) * (Real.log z / Real.log 2)
@@ -633,7 +633,7 @@ lemma M_bound_gen {lam Lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
               apply mul_le_mul hbound hlogz_div (by positivity) (by positivity)
           _ ≤ 5 * lam * Real.log z := by
               rw [div_eq_mul_inv]
-              nlinarith [hlz_pos.le, hlam.le, mul_nonneg hlam.le hlz_pos.le]
+              linarith only [hkey, h400, hlam', hlam]
       linarith [h1, h2]
     linarith [mul_le_mul_of_nonneg_right hchain hllz_pos.le, hstep]
   rcases max_cases (Real.exp Lam) (Real.exp ((r : ℝ) * Lam) / (r : ℝ)) with ⟨he, _⟩ | ⟨he, _⟩
@@ -663,7 +663,7 @@ lemma Lam4_le_lam {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
   obtain ⟨_, _, _, hllz_pos, _, _, _⟩ := zThresh_facts hlam hlam' hz
   rw [Lam4]
   have h : 0 ≤ 300 / Real.log (Real.log z) := by positivity
-  nlinarith [hlam.le]
+  nlinarith only [hlam, h, hlam']
 
 /-- The exact gap: `2λ − 4·Λ₄ = 600λ/loglog z`. -/
 lemma two_lam_sub_four_Lam4 {lam z : ℝ} :
@@ -708,7 +708,7 @@ theorem hMert_dim4 (s : BoundingSieve) {lam z : ℝ}
   -- `109·M/log z ≤ 600·λ/loglog z`
   have hMdivz : 109 * M / Real.log z ≤ 600 * lam / Real.log (Real.log z) := by
     rw [div_le_div_iff₀ hlz_pos hllz_pos]
-    nlinarith [hMbound, hlz_pos.le]
+    linarith only [hMbound, hkey, h400, hlam', hlam]
   have hexp_bound : 109 * Real.exp ((n : ℝ) * Lam) / Real.log z
       ≤ 109 * (M * (n : ℝ)) / Real.log z := by
     have hnum : 109 * Real.exp ((n : ℝ) * Lam) ≤ 109 * (M * (n : ℝ)) :=
@@ -744,14 +744,14 @@ lemma lam_exp_lt_one {lam : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4) :
     have hh := Real.add_one_le_exp (-(1 / 4) : ℝ)
     rw [Real.exp_neg] at hh
     have hinv : Real.exp (1 / 4) * (Real.exp (1 / 4))⁻¹ = 1 := mul_inv_cancel₀ (ne_of_gt hpos)
-    nlinarith [hh, hpos, hinv]
+    nlinarith only [hpos, hh, hlam', hlam, hinv]
   have he : Real.exp (5 / 4) = Real.exp 1 * Real.exp (1 / 4) := by
     rw [← Real.exp_add]; norm_num
   have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have h4 : Real.exp (1 + lam) < 4 := by
     have hmono : Real.exp (1 + lam) ≤ Real.exp (5 / 4) := Real.exp_le_exp.mpr (by linarith)
-    nlinarith [hmono, he, h1, hq, hpos, Real.exp_pos (1 : ℝ)]
-  nlinarith [h4, hlam, hlam']
+    nlinarith only [hpos, h1, hlam, hlam', hmono, he, hq]
+  nlinarith only [hlam, h4, hlam']
 
 /-- **`brun_lower` AT DIMENSION 4** — H-R Théorème 2 (lower bound) instantiated at HB's
 sifting data: sieve dimension `A = 4`, ladder scale `Λ = Lam4 λ z = (λ/2)(1 − 300/loglog z)`,
