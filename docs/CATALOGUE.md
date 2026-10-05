@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `279ef639` · source digest `07daabb44a3e6898` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `97bbefd4` · source digest `bdc42741968eb880` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 24 | 22 | 9086 | 9031 | 9030 | 1 | 0 | 55 |
+| 24 | 22 | 9082 | 9027 | 9026 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hypothesis universe): 668.
+Declarations indexed across the tree: 22640 · corpus Prop-valued names (the hypothesis universe): 668.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6778 | 294 | 2072 | 4631 | 376 | 425 | 29 |
-| conditional | 1560 | 25 | 196 | 1372 | 95 | 24 | 4 |
+| unconditional | 6775 | 294 | 2072 | 4628 | 376 | 425 | 29 |
+| conditional | 1559 | 25 | 196 | 1371 | 95 | 24 | 4 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 481 | 0 | 68 | 366 | 55 | 17 | 0 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9031 | 319 | 2340 | 6567 | 537 | 466 | 33 |
+| **all** | 9027 | 319 | 2340 | 6563 | 537 | 466 | 33 |
 
 ## LIMITS — read these beside every count above
 
@@ -107,7 +107,7 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 
 | hypothesis | conditional results |
 |---|---|
-| `Salt.MR.SocketBaseLH` | 183 |
+| `Salt.MR.SocketBaseLH` | 182 |
 | `Salt.MR.TannGate` | 158 |
 | `Salt.MR.ShortIntervalDatum` | 98 |
 | `Salt.MR.DoorArithFrameRho_L` | 71 |
@@ -489,7 +489,7 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6778)
+## unconditional (6775)
 
 | name | file:line | objects |
 |---|---|---|
@@ -5913,15 +5913,12 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 | `Salt.MR.cofkR_cofactorSupply_L_gk_rated` | Salt/MR/V7Rated.lean:241 | characters |
 | `Salt.MR.logChowla2_v7_rated` | Salt/MR/V7Rated.lean:973 | characters |
 | `Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated` | Salt/MR/V7Rated.lean:1112 | characters |
-| `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h` | Salt/MR/V7RatedH.lean:122 | characters |
-| `Salt.MR.s16_baseScaleCapEnd_LH_of_xceil` | Salt/MR/V7RatedH.lean:838 | characters |
-| `Salt.MR.klevF_capNumeral_h` | Salt/MR/V7RatedH.lean:948 | characters |
-| `Salt.MR.s16_baseScaleCap96_LH_at_klevF` | Salt/MR/V7RatedH.lean:1041 | characters |
-| `Salt.MR.klevF_capNumeral_h_b9` | Salt/MR/V7RatedH.lean:1100 | characters |
-| `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9` | Salt/MR/V7RatedH.lean:1204 | characters |
-| `Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9` | Salt/MR/V7RatedH.lean:1893 | characters |
-| `Salt.MR.logChowla2_v7_rated_h` | Salt/MR/V7RatedH.lean:1933 | characters |
-| `Salt.MR.logChowla2_v7_rated_h_one` | Salt/MR/V7RatedH.lean:2087 | characters |
+| `Salt.MR.s16_baseScaleCapEnd_LH_of_xceil` | Salt/MR/V7RatedH.lean:166 | characters |
+| `Salt.MR.klevF_capNumeral_h_b9` | Salt/MR/V7RatedH.lean:371 | characters |
+| `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9` | Salt/MR/V7RatedH.lean:480 | characters |
+| `Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9` | Salt/MR/V7RatedH.lean:1170 | characters |
+| `Salt.MR.logChowla2_v7_rated_h` | Salt/MR/V7RatedH.lean:1210 | characters |
+| `Salt.MR.logChowla2_v7_rated_h_one` | Salt/MR/V7RatedH.lean:1364 | characters |
 | `Salt.MR.norm_socketSum_eq_eR` | Salt/MR/VanDerCorput.lean:91 | characters |
 | `Salt.MR.halasz_socket_large` | Salt/MR/VanDerCorput.lean:150 | characters |
 | `Salt.MR.socketBlock_kusmin` | Salt/MR/VanDerCorput.lean:190 | characters |
@@ -7272,7 +7269,7 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1560)
+## conditional (1559)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8755,9 +8752,8 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 | `Salt.MR.s16_capGate_supply_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:145 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` | Salt/MR/V7Ks.lean:294 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
 | `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/V7Rated.lean:73 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_socket_floors_h` | Salt/MR/V7RatedH.lean:62 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s16_baseScaleCap96_LH_of_end` | Salt/MR/V7RatedH.lean:927 | characters | `Salt.MR.S16BaseScaleCapEnd_LH_gk` |
-| `Salt.MR.cofkL_socket_floors_h_b9` | Salt/MR/V7RatedH.lean:1061 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s16_baseScaleCap96_LH_of_end` | Salt/MR/V7RatedH.lean:255 | characters | `Salt.MR.S16BaseScaleCapEnd_LH_gk` |
+| `Salt.MR.cofkL_socket_floors_h_b9` | Salt/MR/V7RatedH.lean:331 | characters | `Salt.MR.SocketBaseLH` |
 | `Salt.MR.halasz_integers_unconditional` | Salt/MR/VdCSocket.lean:539 | characters, exponential sums | `Salt.MR.WellSpaced` |
 | `Salt.MR.chi_floor_vk_pointwise_sharp` | Salt/MR/VkMidSharp.lean:322 | characters | `Salt.MR.VkTwistUB` |
 | `Salt.MR.capFreeFloor3_lamChi_vk_sharp` | Salt/MR/VkMidSharp.lean:372 | characters | `Salt.MR.VkTwistUB` |
@@ -9048,7 +9044,7 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 | `Salt.MR.TwistedWindowPriceGated` | Salt/MR/TwistedEdge.lean:1068 | characters |
 | `Salt.MR.HalaszPrimesChi` | Salt/MR/USetChi.lean:571 | characters |
 | `Salt.MR.HalaszIntegersChi` | Salt/MR/USetChiTS.lean:124 | characters |
-| `Salt.MR.S16BaseScaleCapEnd_LH_gk` | Salt/MR/V7RatedH.lean:824 | characters |
+| `Salt.MR.S16BaseScaleCapEnd_LH_gk` | Salt/MR/V7RatedH.lean:152 | characters |
 | `Salt.SW.NoSiegelZerosAt` | Salt/SW/StandoffGate.lean:88 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:145 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:133 | sieves |
@@ -9501,7 +9497,7 @@ Declarations indexed across the tree: 22644 · corpus Prop-valued names (the hyp
 | `Salt.MR.fibrePack` | Salt/MR/USetChiTS.lean:547 | characters |
 | `Salt.MR.ramQ_eq_spoly` | Salt/MR/USetThinTL.lean:134 | characters |
 | `Salt.MR.ramQ_eq_halaszSum` | Salt/MR/USetThinTL.lean:158 | characters |
-| `Salt.MR.s16BaseScaleCapEndLH_gk_one_iff` | Salt/MR/V7RatedH.lean:830 | characters |
+| `Salt.MR.s16BaseScaleCapEndLH_gk_one_iff` | Salt/MR/V7RatedH.lean:158 | characters |
 | `Salt.MR.vkProfile_const_mul` | Salt/MR/VkTwistClose.lean:411 | characters |
 | `Salt.MR.vkDebitConst_vkEulerCorr` | Salt/MR/VkTwistClose.lean:478 | characters |
 | `Salt.MR.vkStripConst` | Salt/MR/VkTwistStrip.lean:239 | characters |
