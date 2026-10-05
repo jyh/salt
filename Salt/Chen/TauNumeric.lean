@@ -146,14 +146,14 @@ theorem tauChen_rec {ε : ℝ} (hε : 0 < ε) (n : ℕ) (hn : 1 ≤ n) :
 theorem exp_two_lt_eight : Real.exp 2 < 8 := by
   have hx : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
   have hh := Real.exp_one_lt_d9
-  rw [hx]; nlinarith [hh, Real.exp_pos 1]
+  rw [hx]; nlinarith only [hh, Real.exp_pos 1]
 
 /-- `8 ≤ Real.exp 3` (`e³ ≈ 20.09`). -/
 theorem eight_le_exp_three : (8 : ℝ) ≤ Real.exp 3 := by
   have hh := Real.exp_one_gt_d9
   have hx : Real.exp 3 = Real.exp 1 * Real.exp 1 * Real.exp 1 := by
     rw [← Real.exp_add, ← Real.exp_add]; norm_num
-  rw [hx]; nlinarith [hh, Real.exp_pos 1]
+  rw [hx]; nlinarith only [hh, mul_self_nonneg (Real.exp 1)]
 
 /-- **`3168 ≤ cf_const 0 ε`** for `ε ≥ 0`.  The crude landed `f`-comparison constant is a large
 absolute number at `n = 0` — independent of how small `ε` is (`(1+ε) ≥ 1`).  Bounds used:
@@ -169,11 +169,11 @@ theorem cf_const_zero_ge {ε : ℝ} (hε : 0 ≤ ε) : (3168 : ℝ) ≤ cf_const
   have hlog2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hlog2lt : Real.log 2 < 1 := by have := Real.log_two_lt_d9; linarith
   have h19 : (19 : ℝ) ≤ 19 / Real.log 2 := by
-    rw [le_div_iff₀ hlog2pos]; nlinarith [hlog2lt]
+    rw [le_div_iff₀ hlog2pos]; linarith only [hlog2lt]
   have hmid : (22 : ℝ) ≤ Real.log 3 + 19 / Real.log 2 + 2 := by linarith
   have hlast : (24 : ℝ) ≤ 3 * Real.exp 3 := by linarith [eight_le_exp_three]
-  have hf1 : (6 : ℝ) ≤ 2 * (1 + ε) * 3 := by nlinarith [hε]
-  have hpos1 : (0 : ℝ) ≤ 2 * (1 + ε) * 3 := by nlinarith [hε]
+  have hf1 : (6 : ℝ) ≤ 2 * (1 + ε) * 3 := by linarith only [hε]
+  have hpos1 : (0 : ℝ) ≤ 2 * (1 + ε) * 3 := by linarith only [hlog2lt, hlog2pos, hε]
   have hstep1 : (132 : ℝ) ≤ 2 * (1 + ε) * 3 * (Real.log 3 + 19 / Real.log 2 + 2) := by
     calc (132 : ℝ) = 6 * 22 := by norm_num
       _ ≤ 2 * (1 + ε) * 3 * (Real.log 3 + 19 / Real.log 2 + 2) :=
@@ -194,10 +194,10 @@ theorem hτrec_zero_impossible {ε : ℝ} (hε0 : 0 ≤ ε) (hε1 : ε ≤ 1) (t
   have hcf : (3168 : ℝ) ≤ cf_const 0 ε := cf_const_zero_ge hε0
   have h1 : ε * Real.exp 2 ≤ 1 * 8 :=
     mul_le_mul hε1 exp_two_lt_eight.le (Real.exp_pos 2).le (by norm_num)
-  have hsmall : ε * Real.exp 2 * 3 < 3168 := by nlinarith [h1]
+  have hsmall : ε * Real.exp 2 * 3 < 3168 := by linarith only [h1]
   have hnn : 0 ≤ ε * Real.exp 2 * ch_const 0 ε * tau 0 :=
     mul_nonneg (mul_nonneg (mul_nonneg hε0 (Real.exp_pos 2).le) (ch_const_nonneg 0 hε0)) hτ0
-  nlinarith [h, hcf, hsmall, hnn]
+  linarith only [hnn, h1, hcf, h]
 
 /-! ## Part D — Finding 2: super-exponential growth (the κ₃ = 1 wall, quantified) -/
 
@@ -209,7 +209,7 @@ theorem Cabs_ge_one : (1 : ℝ) ≤ Cabs := by
   have hden : (0 : ℝ) < Real.exp 1 - 2 := by linarith
   have hf1 : (6 : ℝ) ≤ 3 * (19 / Real.log 2 + 2) := by
     have : (0 : ℝ) < 19 / Real.log 2 := by positivity
-    nlinarith [this]
+    linarith only [this]
   have hf2 : (2 : ℝ) ≤ Real.exp 1 := by linarith
   have hf3 : (1 : ℝ) ≤ Real.exp 1 / (Real.exp 1 - 2) := by
     rw [le_div_iff₀ hden]; linarith
@@ -254,7 +254,7 @@ theorem tauChen_double {ε : ℝ} (hε : 0 < ε) (n : ℕ) (hn : 1 ≤ n) :
   have hτ : 0 ≤ tauChen ε (m + 1) := tauChen_nonneg hε.le (m + 1)
   have hcf : 0 ≤ cf_const (m + 1) ε / (ε * Real.exp 2) :=
     div_nonneg (cf_const_nonneg _ hε.le) (by positivity)
-  nlinarith [mul_le_mul_of_nonneg_right hch hτ, hcf]
+  linarith only [hcf, mul_le_mul_of_nonneg_right hch hτ]
 
 /-- **The geometric lower bound.**  `3·2^m ≤ τ_{m+1}` — the τ-sequence blows up super-linearly
 (in fact geometrically) in the depth `m`. -/

@@ -354,7 +354,7 @@ theorem mmu1_contour_shift {x : ℝ} (hx : 3 ≤ x) {T σ₀ Bbox : ℝ}
     have hττ : τ ^ 2 = T ^ 2 := by rw [← sq_abs, hτ]
     have hxexp : x ^ u ≤ x ^ c := Real.rpow_le_rpow_of_exponent_le hx1 (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ u * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖mmuG ((u : ℂ) + (τ : ℂ) * I)‖
@@ -502,7 +502,7 @@ lemma pow_le_C_exp (k : ℕ) (hk : 1 ≤ k) {β : ℝ} (hβ : 0 < β) {s : ℝ} 
   have hlhs : (β * s / k) ^ k = β ^ k * s ^ k / (k : ℝ) ^ k := by rw [div_pow, mul_pow]
   rw [hlhs, div_le_iff₀ (by positivity : (0 : ℝ) < (k : ℝ) ^ k)] at hpow
   rw [div_pow, div_mul_eq_mul_div, le_div_iff₀ (by positivity : (0 : ℝ) < β ^ k)]
-  nlinarith [hpow]
+  linarith only [hpow]
 
 /-- The `sq_le_C_exp`-style absorption used in the budget: for `s ≥ 1`, `0 < a ≤ γ`,
 `s^k·exp(−γs) ≤ (2k/a)^k·exp(−(a/2)s)` — a poly factor absorbed into a slightly weaker exp decay. -/
@@ -671,8 +671,8 @@ theorem mmu1_shift_decay :
     have hℓ9eq : lg ^ 9 = lg ^ 8 * lg := by ring
     rw [hℓ9eq] at hkey
     have hℓ8gt1 : 1 < lg ^ 8 := one_lt_pow₀ hℓ1 (by norm_num)
-    nlinarith [hkey, hc₄'c₃,
-      mul_pos (mul_pos hc₃pos hℓpos) (show (0 : ℝ) < lg ^ 8 - 1 by linarith)]
+    nlinarith only [hc₄'c₃, hℓpos, hkey, mul_pos
+        (mul_pos hc₃pos hℓpos) (show (0 : ℝ) < lg ^ 8 - 1 by linarith)]
   -- apply the contour shift
   have hEshift := mmu1_contour_shift hx3 hTge2 hσ₀lo hσ₀1 hBboxnn hzf hbox
   rw [← hLdef] at hEshift
@@ -697,7 +697,7 @@ theorem mmu1_shift_decay :
     have expand : Lg * (σ₀ - 1) = -(c₄' * Lg / lg ^ 9) := by rw [hσ₀m1]; ring
     rw [expand, hγdef, neg_le_neg_iff, div_mul_eq_mul_div,
       div_le_div_iff₀ (by norm_num : (0 : ℝ) < 512) hℓ9pos]
-    nlinarith [mul_le_mul_of_nonneg_left hkeysav hc₄'pos.le]
+    linarith only [mul_le_mul_of_nonneg_left hkeysav hc₄'pos.le]
   have hxσ : x ^ σ₀ ≤ Real.exp (-(γ * sg)) * x := by
     have hxeq : x = Real.exp Lg := by rw [hLdef]; exact (Real.exp_log hxpos).symm
     have hxσeq : x ^ σ₀ = Real.exp (Lg * σ₀) := by rw [Real.rpow_def_of_pos hxpos, ← hLdef]
@@ -721,15 +721,15 @@ theorem mmu1_shift_decay :
     have h1Lg : 1 / Lg ≤ 1 := by rw [div_le_one hLpos]; linarith
     linarith [hσ₀lo, h1Lg]
   have hπσ : Real.pi / σ₀ ≤ 10 * Real.pi / 9 := by
-    rw [div_le_div_iff₀ hσ₀pos (by norm_num)]; nlinarith [Real.pi_pos, hσ₀lo]
+    rw [div_le_div_iff₀ hσ₀pos (by norm_num)]; nlinarith only [hσ₀frac, Real.pi_pos]
   have hLp1 : Lg + 1 ≤ 2 * sg ^ 10 := by rw [hs10]; linarith [hL1]
   -- the three term bounds
   have hP1 : 2 * ((1 + 1 / Lg) - σ₀) * Bbox * x ^ (1 + 1 / Lg) / Tg ^ 2
       ≤ 2 * (11 / 10) * (128 * C) * Real.exp 1 * A7 * W := by
     rw [hxc, hT2, div_eq_mul_inv, ← Real.exp_neg]
     have hfac : 2 * ((1 + 1 / Lg) - σ₀) * Bbox ≤ 2 * (11 / 10) * (128 * C * sg ^ 7) := by
-      nlinarith [mul_le_mul hcM hBbox_le hBboxnn (by norm_num : (0 : ℝ) ≤ 11 / 10),
-        hcm, hBboxnn, hBbox_le, mul_nonneg hcm hBboxnn]
+      linarith only
+          [mul_le_mul hcM hBbox_le hBboxnn (by norm_num : (0 : ℝ) ≤ 11 / 10)]
     calc 2 * ((1 + 1 / Lg) - σ₀) * Bbox * (Real.exp 1 * x) * Real.exp (-(2 * sg))
         ≤ 2 * (11 / 10) * (128 * C * sg ^ 7) * (Real.exp 1 * x) * Real.exp (-(2 * sg)) := by
           apply mul_le_mul_of_nonneg_right
