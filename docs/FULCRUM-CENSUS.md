@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `51d4e82b` · source digest `501a4723e7af3429` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `8a2caef9` · source digest `55aba9671f9ae14a` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 22645 | 668 | 21967 | 9031 | 13 | 281 | 40 | 334 | 86 |
+| 22640 | 668 | 21962 | 9026 | 13 | 281 | 40 | 334 | 86 |
 
 Per-polarity totals over the 668 Props: with F-consumers 519 · with ¬F-consumers 21 · with F-producers (any kind) 437 · with ¬F-producers (any kind) 59.
 
@@ -153,7 +153,7 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.MSelect'` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:393) |
 | `Salt.MR.MSelect'_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:577) |
 | `Salt.MR.S15Sel'` | DISCHARGED | - | 7 | 0/0/1 | `Salt.MR.s15_sel'_empty_at_closed_forms` (Salt/MR/S15Witness.lean:736) |
-| `Salt.MR.SocketBaseLH` | DISCHARGED | - | 195 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:149) |
+| `Salt.MR.SocketBaseLH` | DISCHARGED | - | 194 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:149) |
 | `Salt.TwinBar.BadHyp` | OPEN | - | 0 | 1/0/0 | `Salt.TwinBar.badHyp_false` (Salt/TwinBar/SiegelTwin.lean:153) |
 
 ## DISJUNCTION AND CASE-SPLIT SITES (86; first 86, ordered by path)

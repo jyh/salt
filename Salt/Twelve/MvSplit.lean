@@ -138,7 +138,7 @@ private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
       rw [show (D:ℝ) - 1 + (t+1:ℕ) = (D:ℝ) - 1 + t + 1 by push_cast; ring]
     rw [hcast, hφt, hφt1]
     have hstep1 : 1 / (a*(a+1)) = 1/a - 1/(a+1) := by field_simp; ring
-    have hle : a * (a+1) ≤ (a+1)^2 := by nlinarith
+    have hle : a * (a+1) ≤ (a+1)^2 := by linarith only [ha]
     have hstep2 : 1 / (a+1)^2 ≤ 1 / (a*(a+1)) :=
       one_div_le_one_div_of_le (mul_pos ha ha1) hle
     rw [← hstep1]; exact hstep2
@@ -168,7 +168,7 @@ private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
   have h2 : (1:ℝ) / ((D:ℝ) - 1) ≤ 2 / (D:ℝ) := by
     have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
     rw [div_le_div_iff₀ (by linarith) (by linarith)]
-    nlinarith
+    linarith only [h3]
   linarith [int_tail D R hD, h1, h2]
 
 /-! ## The relative pairwise-collision bound (Stage 2 kernel, `mv_I` side)
@@ -461,7 +461,7 @@ theorem mv_I_split (F : Poly) :
         rw [Finset.prod_div_distrib, Finset.prod_const_one]
       refine ⟨div_nonneg hnum0 hφpos.le, ?_⟩
       rw [hprodinv, div_le_div_iff₀ hφpos hφpos]
-      nlinarith [mul_le_mul_of_nonneg_right hnum1 hφpos.le]
+      linarith only [mul_le_mul_of_nonneg_right hnum1 hφpos.le]
     have hsdiff : MSD m - MSK m = ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
         (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
           / ∏ i, (Nat.totient (r i) : ℝ) := by
@@ -875,7 +875,7 @@ private lemma inner_sum_estimate_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 
       have hφle : (Nat.totient W' : ℝ) / W' ≤ 1 := by
         rw [div_le_one (by exact_mod_cast hpos)]
         exact_mod_cast Nat.totient_le W'
-      nlinarith [hLpos, hφle]
+      nlinarith only [hR, hφle]
     have hA0 : 0 ≤ A := by rw [hA]; positivity
     have hA1 : A ≤ 1 := by rw [hA, div_le_one hLpos]; exact hzR'
     have hB0 : 0 ≤ B := by rw [hB]; apply div_nonneg (by linarith) hLpos.le
@@ -1544,7 +1544,7 @@ private lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     have hp2 : (0:ℝ) < (p:ℝ) - 2 := by linarith
     have hfrac : (1 / ((p:ℝ) - 1)) * (1 / ((p:ℝ) - 2)) ≤ 2 / ((p:ℝ) - 1) ^ 2 := by
       rw [one_div_mul_one_div, div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith
+      nlinarith only [hp3R, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
     calc (1 / ((p:ℝ) - 1)) * ∑ x ∈ (Finset.range R).filter
             (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r), (1 / (gMult x : ℝ))
         ≤ (1 / ((p:ℝ) - 1)) * ((1 / ((p:ℝ) - 2)) * 2 * PAS) :=
@@ -1931,7 +1931,7 @@ private lemma mjs_T2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
               + (∑ p ∈ (ρ j).primeFactors, (1 / ((p:ℝ) - 1))) ^ 2) := by
         nlinarith [sq_nonneg ((∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
           - (∑ p ∈ (ρ j).primeFactors, (1 / ((p:ℝ) - 1))))]
-      nlinarith [mul_le_mul_of_nonneg_right hamg hprodnn]
+      linarith only [mul_le_mul_of_nonneg_right hamg hprodnn]
     refine le_trans hamgm (le_of_eq ?_)
     rw [← Finset.mul_sum, Finset.sum_add_distrib, hQsqmom i, hQsqmom j]; ring
   calc ∑ i, ∑ j, (∑ ρ ∈ PB, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
@@ -1968,7 +1968,7 @@ private lemma mjs_one_sub_prod_le_sum {ι : Type*} (s : Finset ι) (a : ι → �
     have hprod_nn : 0 ≤ ∏ i ∈ s, a i := Finset.prod_nonneg (fun i hi => (has i hi).1)
     have hprod_le1 : ∏ i ∈ s, a i ≤ 1 :=
       Finset.prod_le_one (fun i hi => (has i hi).1) (fun i hi => (has i hi).2)
-    nlinarith [hax.1, hax.2, hih, hsum_nn, hprod_nn, hprod_le1]
+    nlinarith only [hax, hsum_nn, hih]
 
 private lemma mjs_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
@@ -2431,7 +2431,7 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
         rw [sub_nonneg]; exact one_div_le_one_div_of_le hgpos hgleφ2
       have hEv2 : Ev' ρ ^ 2 ≤ cF ^ 2 := by
         have := hEvbd ρ (hkSieve_sub hρ)
-        nlinarith [abs_nonneg (Ev' ρ), sq_abs (Ev' ρ)]
+        nlinarith only [this, hcF0, abs_nonneg (Ev' ρ), sq_abs (Ev' ρ)]
       have hfac : Ev' ρ ^ 2 / ∏ i, (gMult (ρ i) : ℝ) - Ev' ρ ^ 2 / ∏ i, (Nat.totient (ρ i) : ℝ)
           = Ev' ρ ^ 2 * (1 / ∏ i, (gMult (ρ i) : ℝ) - 1 / ∏ i, (Nat.totient (ρ i) : ℝ)) := by
         ring
@@ -2472,11 +2472,11 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
         exact_mod_cast Nat.totient_pos.mpr this)
       have hEv2 : Ev' ρ ^ 2 ≤ cF ^ 2 := by
         have := hEvbd ρ hρd
-        nlinarith [abs_nonneg (Ev' ρ), sq_abs (Ev' ρ)]
+        nlinarith only [this, hcF0, abs_nonneg (Ev' ρ), sq_abs (Ev' ρ)]
       have hprodinv : (∏ i, (1 / (Nat.totient (ρ i) : ℝ))) = 1 / ∏ i, (Nat.totient (ρ i) : ℝ) := by
         rw [Finset.prod_div_distrib, Finset.prod_const_one]
       rw [hprodinv, mul_one_div, div_le_div_iff₀ hφpos hφpos]
-      nlinarith [hEv2, hφpos]
+      nlinarith only [hφpos, hEv2]
     have hnn : 0 ≤ ∑ ρ ∈ decBox 4 R W' \ kSieveIndex 4 R W',
         Ev' ρ ^ 2 / ∏ i, (Nat.totient (ρ i) : ℝ) :=
       Finset.sum_nonneg (fun ρ _ => by positivity)
@@ -2870,7 +2870,7 @@ theorem mv_J_split (F : Poly) (m : Fin 5) :
       have h3 : |δ ^ 2| ≤ 2 * cic ^ 2 + 2 * Q ^ 2 := by
         rw [abs_pow]
         have hsq : |δ| ^ 2 ≤ (cic + Q) ^ 2 := pow_le_pow_left₀ (abs_nonneg _) hδbd 2
-        nlinarith [hsq, sq_nonneg (cic - Q)]
+        linarith only [hsq, sq_nonneg (cic - Q)]
       have hcomb : 2 * X * cF * (cic + Q) + (2 * cic ^ 2 + 2 * Q ^ 2)
           = (2 * X * cF * cic + 2 * cic ^ 2) + 2 * X * cF * Aic * PAS * Pr r
             + 2 * Aic ^ 2 * PAS ^ 2 * (Pr r) ^ 2 := by rw [hQdef]; ring

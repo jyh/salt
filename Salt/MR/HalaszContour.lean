@@ -80,19 +80,19 @@ private lemma ratio_tendsto {c : ℝ} (hc : 0 < c) :
   · filter_upwards [eventually_gt_atTop c] with R hR
     have hR0 : 0 < R := lt_trans hc hR
     have : 0 < R ^ 2 - c ^ 2 := by
-      nlinarith [mul_pos (show (0:ℝ) < R - c by linarith) (show (0:ℝ) < R + c by linarith)]
+      linarith only [mul_pos (show (0 : ℝ) < R - c by linarith) (show (0 : ℝ) < R + c by linarith)]
     positivity
   · filter_upwards [eventually_gt_atTop c, eventually_ge_atTop (Real.sqrt 2 * c)] with R hR hR1
     have hR0 : 0 < R := lt_trans hc hR
     have hden : 0 < R ^ 2 - c ^ 2 := by
-      nlinarith [mul_pos (show (0:ℝ) < R - c by linarith) (show (0:ℝ) < R + c by linarith)]
+      linarith only [mul_pos (show (0 : ℝ) < R - c by linarith) (show (0 : ℝ) < R + c by linarith)]
     have hs2 : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
     have hexp : (Real.sqrt 2 * c) ^ 2 = 2 * c ^ 2 := by rw [mul_pow, hs2]
     have hle : 2 * c ^ 2 ≤ R ^ 2 := by
       have h := pow_le_pow_left₀ (show (0:ℝ) ≤ Real.sqrt 2 * c by positivity) hR1 2
       rwa [hexp] at h
     rw [div_le_div_iff₀ hden hR0]
-    nlinarith [hle]
+    linarith only [hle]
 
 /-! ## The residue: the boundary integral is the constant `(π/c)e^{-cθ}`. -/
 
@@ -172,7 +172,7 @@ private lemma norm_poisF_le {θ c : ℝ} (hθ : 0 ≤ θ) {s : ℂ} (hsim : 0 �
       have := norm_sub_norm_le (s ^ 2) (-(((c ^ 2 : ℝ) : ℂ)))
       simpa using this
     rw [hncsq, norm_pow] at htri
-    nlinarith [htri, hsR]
+    linarith only [htri, hsR]
   have hDpos : 0 < ‖s ^ 2 + ((c ^ 2 : ℝ) : ℂ)‖ := lt_of_lt_of_le hRc hlow
   rw [norm_poisF, heq, div_le_iff₀ hDpos]
   have hexp1 : Real.exp (-(θ * s.im)) ≤ 1 :=
@@ -200,14 +200,14 @@ private lemma top_tendsto {θ c : ℝ} (hc : 0 < c) (hθ : 0 ≤ θ) :
   filter_upwards [eventually_gt_atTop c] with R hR
   have hR0 : 0 < R := lt_trans hc hR
   have hRc : 0 < R ^ 2 - c ^ 2 := by
-    nlinarith [mul_pos (show (0:ℝ) < R - c by linarith) (show (0:ℝ) < R + c by linarith)]
+    linarith only [mul_pos (show (0 : ℝ) < R - c by linarith) (show (0 : ℝ) < R + c by linarith)]
   have hbd : ∀ x ∈ Set.uIoc (-R) R, ‖poisF θ c ((x : ℂ) + (R : ℂ) * I)‖ ≤ (R ^ 2 - c ^ 2)⁻¹ := by
     intro x _
     refine norm_poisF_le hθ ?_ hRc ?_
     · have : ((x : ℂ) + (R : ℂ) * I).im = R := by simp
       rw [this]; exact hR0.le
     · rw [Complex.norm_add_mul_I, Real.sq_sqrt (show (0:ℝ) ≤ x ^ 2 + R ^ 2 by positivity)]
-      nlinarith [sq_nonneg x]
+      linarith only [sq_nonneg x]
   have hnorm := intervalIntegral.norm_integral_le_of_norm_le_const hbd
   rw [show |R - -R| = 2 * R by rw [show R - -R = 2 * R by ring, abs_of_pos (by linarith)]] at hnorm
   calc ‖∫ x in (-R)..R, poisF θ c ((x : ℂ) + (R : ℂ) * I)‖
@@ -221,7 +221,7 @@ private lemma right_tendsto {θ c : ℝ} (hc : 0 < c) (hθ : 0 ≤ θ) :
   filter_upwards [eventually_gt_atTop c] with R hR
   have hR0 : 0 < R := lt_trans hc hR
   have hRc : 0 < R ^ 2 - c ^ 2 := by
-    nlinarith [mul_pos (show (0:ℝ) < R - c by linarith) (show (0:ℝ) < R + c by linarith)]
+    linarith only [mul_pos (show (0 : ℝ) < R - c by linarith) (show (0 : ℝ) < R + c by linarith)]
   have hbd : ∀ y ∈ Set.uIoc (0:ℝ) R, ‖poisF θ c ((R : ℂ) + (y : ℂ) * I)‖ ≤ (R ^ 2 - c ^ 2)⁻¹ := by
     intro y hy
     rw [Set.uIoc_of_le hR0.le] at hy
@@ -229,7 +229,7 @@ private lemma right_tendsto {θ c : ℝ} (hc : 0 < c) (hθ : 0 ≤ θ) :
     · have : ((R : ℂ) + (y : ℂ) * I).im = y := by simp
       rw [this]; exact hy.1.le
     · rw [Complex.norm_add_mul_I, Real.sq_sqrt (show (0:ℝ) ≤ _ by positivity)]
-      nlinarith [sq_nonneg y]
+      linarith only [sq_nonneg y]
   have hnorm := intervalIntegral.norm_integral_le_of_norm_le_const hbd
   rw [show |R - 0| = R by rw [sub_zero, abs_of_pos hR0]] at hnorm
   calc ‖∫ y in (0:ℝ)..R, poisF θ c ((R : ℂ) + (y : ℂ) * I)‖
@@ -244,7 +244,7 @@ private lemma left_tendsto {θ c : ℝ} (hc : 0 < c) (hθ : 0 ≤ θ) :
   filter_upwards [eventually_gt_atTop c] with R hR
   have hR0 : 0 < R := lt_trans hc hR
   have hRc : 0 < R ^ 2 - c ^ 2 := by
-    nlinarith [mul_pos (show (0:ℝ) < R - c by linarith) (show (0:ℝ) < R + c by linarith)]
+    linarith only [mul_pos (show (0 : ℝ) < R - c by linarith) (show (0 : ℝ) < R + c by linarith)]
   have hbd : ∀ y ∈ Set.uIoc (0:ℝ) R,
       ‖poisF θ c (((-R : ℝ) : ℂ) + (y : ℂ) * I)‖ ≤ (R ^ 2 - c ^ 2)⁻¹ := by
     intro y hy
@@ -253,7 +253,7 @@ private lemma left_tendsto {θ c : ℝ} (hc : 0 < c) (hθ : 0 ≤ θ) :
     · have : (((-R : ℝ) : ℂ) + (y : ℂ) * I).im = y := by simp
       rw [this]; exact hy.1.le
     · rw [Complex.norm_add_mul_I, Real.sq_sqrt (show (0:ℝ) ≤ _ by positivity)]
-      nlinarith [sq_nonneg y]
+      linarith only [sq_nonneg y]
   have hnorm := intervalIntegral.norm_integral_le_of_norm_le_const hbd
   rw [show |R - 0| = R by rw [sub_zero, abs_of_pos hR0]] at hnorm
   calc ‖∫ y in (0:ℝ)..R, poisF θ c (((-R : ℝ) : ℂ) + (y : ℂ) * I)‖

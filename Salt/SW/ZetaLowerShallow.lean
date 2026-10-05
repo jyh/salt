@@ -53,7 +53,7 @@ lemma zeta_norm_le_zc {w : ℂ} (hw1 : w ≠ 1) (hwre : 0 < w.re) :
   have hgrow : ‖Zc w‖ ≤ 1 + ‖w - 1‖ * (‖w‖ * (1 + 1 / w.re)) := Zc_growth hwre
   rw [hnorm] at hgrow
   rw [div_add' _ _ _ (ne_of_gt hnw), le_div_iff₀ hnw]
-  nlinarith [hgrow]
+  linarith only [hgrow]
 
 /-- **The sharp real ζ upper bound.**  For real `x > 1`,
 `‖ζ(x)‖ ≤ 1 + 1/(x−1)` (`ζ(x) = 1 + Σ_{n≥2} n^{-x} ≤ 1 + ∫₁^∞`).  Valid for *all*
@@ -115,7 +115,7 @@ lemma zeta_anchor {t : ℝ} (ht : 2 ≤ |t|) {C₁ : ℝ} (hC₁ : 1 ≤ C₁)
     have h4 : Real.log 4 ≤ Real.log (|t| + 2) := Real.log_le_log (by norm_num) (by linarith)
     have h2 := Real.log_two_gt_d9
     have : (4 : ℝ) / 3 < Real.log 4 := by
-      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; nlinarith [h2]
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; linarith only [h2]
     linarith
   have hL0 : (0 : ℝ) < L := by linarith
   have hL1 : (1 : ℝ) ≤ L := by linarith
@@ -148,9 +148,9 @@ lemma zeta_anchor {t : ℝ} (ht : 2 ≤ |t|) {C₁ : ℝ} (hC₁ : 1 ≤ C₁)
     have hinv : 1 / (σ' - 1) ≤ L ^ 9 / a := by
       rw [div_le_div_iff₀ hx' ha]
       have : a / L ^ 9 ≤ σ' - 1 := by linarith
-      rw [div_le_iff₀ hL9] at this; nlinarith [this]
+      rw [div_le_iff₀ hL9] at this; linarith only [this]
     have h1le : (1 : ℝ) ≤ L ^ 9 / a := by
-      rw [le_div_iff₀ ha]; nlinarith [one_le_pow₀ hL1 (n := 9), ha1]
+      rw [le_div_iff₀ ha]; linarith only [ha1, one_le_pow₀ hL1 (n := 9)]
     have : (2 : ℝ) * L ^ 9 / a = L ^ 9 / a + L ^ 9 / a := by ring
     linarith [hup, hinv, h1le]
   -- log factor: G ≤ 2 C₁ L
@@ -168,8 +168,8 @@ lemma zeta_anchor {t : ℝ} (ht : 2 ≤ |t|) {C₁ : ℝ} (hC₁ : 1 ≤ C₁)
         rw [Real.log_pow]; push_cast; ring]
       apply Real.log_le_log (by have := abs_nonneg (2 * t); linarith)
       have h2t' : |2 * t| = 2 * |t| := by rw [abs_mul]; norm_num
-      rw [h2t']; nlinarith [abs_nonneg t, ht]
-    nlinarith [hgl, hloglt, hC₁, hL0]
+      rw [h2t']; nlinarith only [ht]
+    nlinarith only [hC₁, hloglt, hgl]
   -- combine: 1 ≤ A³·B⁴·G, so B⁴ ≥ a³/(16 C₁ L²⁸)
   have hAG : A ^ 3 * G ≤ (2 * L ^ 9 / a) ^ 3 * (2 * C₁ * L) := by
     apply mul_le_mul (pow_le_pow_left₀ hAn hA2 3) hG2 hGn (by positivity)
@@ -215,9 +215,9 @@ lemma zeta_deriv_bound {t : ℝ} (ht : 2 ≤ |t|) {C₁ : ℝ} (hC₁ : 1 ≤ C�
   have haL9 : a / L ^ 9 ≤ 1 / (6 * L) := by
     have h3L8 : (3 : ℝ) ≤ L ^ 8 := by
       have := pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 4 / 3) (le_of_lt hLgt) 8
-      nlinarith [this]
+      linarith only [this, hr14, hr]
     rw [div_le_div_iff₀ hL9 (by positivity)]
-    nlinarith [h3L8, hL0, ha_small, mul_pos hL0 hL9]
+    nlinarith only [hLgt, h3L8, ha_small]
   -- differentiability on the closed ball (pole `1` is far: `|w−1| ≥ |Im| ≥ 7/4`)
   have hballne : ∀ w ∈ closedBall z r, w ≠ 1 := by
     intro w hw
@@ -267,7 +267,7 @@ lemma zeta_deriv_bound {t : ℝ} (ht : 2 ≤ |t|) {C₁ : ℝ} (hC₁ : 1 ≤ C�
         rw [hL, show (2 : ℝ) * Real.log (|t| + 2) = Real.log ((|t| + 2) ^ 2) by
           rw [Real.log_pow]; push_cast; ring]
         apply Real.log_le_log (by linarith [abs_nonneg w.im])
-        nlinarith [hwim_hi, hr14, abs_nonneg t, ht]
+        nlinarith only [ht, h3, hfwd, h1im, him, hr14, hr]
       have hcond : 1 - 1 / Real.log (|w.im| + 2) ≤ w.re := by
         have hlogpos : 0 < Real.log (|w.im| + 2) := Real.log_pos (by linarith [abs_nonneg w.im])
         have hinv : 1 / (2 * L) ≤ 1 / Real.log (|w.im| + 2) :=
@@ -277,7 +277,7 @@ lemma zeta_deriv_bound {t : ℝ} (ht : 2 ≤ |t|) {C₁ : ℝ} (hC₁ : 1 ≤ C�
       rw [Complex.re_add_im w] at hzl
       have : ‖riemannZeta w‖ ≤ C₁ * (2 * L) :=
         hzl.trans (mul_le_mul_of_nonneg_left hloglt (by linarith))
-      nlinarith [this]
+      linarith only [this, hr14, hr]
     · -- `|t| < 3`: near-pole `Zc` bound (a constant `≤ 18`)
       rw [not_le] at h3
       have hwrepos : 0 < w.re := by linarith [hwre_half]
@@ -343,7 +343,7 @@ theorem zeta_lower_shallow :
   have h8CP : (0 : ℝ) < 8 * C₁ * P := by positivity
   have hbpos : 0 < b := by rw [hbdef]; positivity
   have hble : b ≤ 1 / 2 := by
-    rw [hbdef, div_le_div_iff₀ h8CP (by norm_num), one_mul, hPdef]; nlinarith [hC₁]
+    rw [hbdef, div_le_div_iff₀ h8CP (by norm_num), one_mul, hPdef]; nlinarith only [hC₁]
   have hbrel : 8 * C₁ * P * b = 1 := by rw [hbdef]; field_simp
   have hbrel2 : 48 * C₁ ^ 2 * b + 432 * C₁ * b = 1 := by
     have h := hbrel; rw [hPdef] at h; linear_combination h
@@ -384,7 +384,7 @@ theorem zeta_lower_shallow :
     rw [hLHS]
     refine le_trans ?_ (hRHS ▸ han)
     apply div_le_div_of_nonneg_left (by positivity) (by positivity)
-    nlinarith [hCC, pow_pos hL0 28]
+    nlinarith only [hCC, hble, hbpos, pow_pos hL0 28]
   -- window bounds and the small-shift facts
   have hshift : (0 : ℝ) < b ^ 4 / L ^ 9 := by positivity
   by_cases hσσ₀ : σ₀ ≤ σ
@@ -392,7 +392,7 @@ theorem zeta_lower_shallow :
     refine le_trans ?_ (anchor_lb σ hσσ₀)
     rw [div_div]
     apply div_le_div_of_nonneg_left (by positivity) (by positivity)
-    nlinarith [mul_nonneg (show (0:ℝ) ≤ C₁ by linarith [hC₁]) hL7.le]
+    linarith only [mul_nonneg (show (0 : ℝ) ≤ C₁ by linarith [hC₁]) hL7.le]
   · -- transport from σ₀ down to σ
     rw [not_le] at hσσ₀
     have han0 := anchor_lb σ₀ le_rfl
@@ -448,7 +448,7 @@ theorem zeta_lower_shallow :
       have h432 : (0 : ℝ) ≤ 432 * C₁ * b * (L - 1) :=
         mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) (by linarith [hC₁])) hbpos.le)
           (by linarith [hL1])
-      nlinarith [hbrel2, h432]
+      nlinarith only [hbrel, hLgt, hble, hbpos, h432]
     have hTle : (6 * C₁ * L ^ 2 + 54 * L) * (σ₀ - σ) ≤ b ^ 3 / (4 * C₁ * L ^ 7) := by
       have hσ0σ : σ₀ - σ ≤ 2 * (b ^ 4 / L ^ 9) := by rw [hσ₀def]; linarith [hσwin]
       have hfac : (0 : ℝ) ≤ 6 * C₁ * L ^ 2 + 54 * L := by positivity

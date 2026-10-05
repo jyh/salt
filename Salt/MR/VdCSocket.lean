@@ -130,7 +130,7 @@ theorem block_strip_all_t (t : ℝ) (ht : 0 < t) (U X : ℕ) (hU1 : 1 ≤ U)
       exact_mod_cast this
     have hsq : ((n : ℝ) + 1) ^ 2 ≤ 4 * (U : ℝ) ^ 2 := by nlinarith [hnu, hURpos]
     have hstep1 : μ ≤ A / ((n : ℝ) + 1) ^ 2 := by
-      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hsq, hA0.le]
+      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hsq]
     have heq2 : A / ((n : ℝ) + 1) ^ 2 = A * (1 / ((n : ℝ) + 1) ^ 2) := by ring
     have hstep2 : A / ((n : ℝ) + 1) ^ 2
         ≤ A * (2 * Real.log ((n : ℝ) + 1) - Real.log ((n : ℝ) + 2) - Real.log (n : ℝ)) := by
@@ -153,7 +153,7 @@ theorem block_strip_all_t (t : ℝ) (ht : 0 < t) (U X : ℕ) (hU1 : 1 ≤ U)
       rw [heq2]; exact mul_le_mul_of_nonneg_left hlu hA0.le
     have h4μ : 4 * μ = A / (U : ℝ) ^ 2 := by rw [hμ]; ring
     have hstep2 : A / ((n : ℝ) * ((n : ℝ) + 2)) ≤ 4 * μ := by
-      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hUsq, hA0.le]
+      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hUsq]
     linarith [hstep1, hstep2]
   have hkey := Salt.ExpSum.vdC_second_derivative (f := fun j : ℕ => phi t (j : ℤ))
     (a := U) (b := X) (lam := μ) (c := 4) (le_of_lt hUX) hμ0 (by norm_num) hlb hub
@@ -172,7 +172,7 @@ theorem block_strip_all_t (t : ℝ) (ht : 0 < t) (U X : ℕ) (hU1 : 1 ≤ U)
         = 2 * ((X : ℝ) - (U : ℝ)) * Real.sqrt A / (U : ℝ) := by
       field_simp; ring
     rw [hsm, he, div_le_iff₀ hURpos]
-    nlinarith [mul_le_mul_of_nonneg_right hXU hsApos.le]
+    linarith only [mul_le_mul_of_nonneg_right hXU hsApos.le]
   have hterm2 : 1 / Real.sqrt μ = 2 * (U : ℝ) / Real.sqrt A := by
     rw [hsm, one_div, inv_div]
   rw [hterm2]
@@ -205,10 +205,10 @@ theorem range_kusmin_all (t : ℝ) (ht : 0 < t) (M X : ℕ) (hM1 : 1 ≤ M)
   have hδ2π : δ ≤ 1 / (2 * Real.pi) := by
     rw [hδ, div_le_div_iff₀ (by positivity) (by positivity)]
     have htX1 : t ≤ (X : ℝ) + 1 := by linarith
-    nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htX1)]
+    linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htX1)]
   have hδ12 : δ ≤ 1 / 2 := by
     have h : 1 / (2 * Real.pi) ≤ 1 / 2 := by
-      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hpi1]
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; linarith only [hpi1]
     linarith [hδ2π]
   have hδ0 : 0 < δ := by rw [hδ]; exact div_pos ht (by positivity)
   have hg_ub : ∀ n : ℕ, M < n → n ≤ X → f (n + 1) - f n ≤ ((-1 : ℤ) : ℝ) + 1 - δ := by
@@ -223,8 +223,8 @@ theorem range_kusmin_all (t : ℝ) (ht : 0 < t) (M X : ℕ) (hM1 : 1 ≤ M)
       mul_le_mul_of_nonneg_left hLlb (le_of_lt hApos)
     have hstep2 : δ ≤ t / (2 * Real.pi) * (1 / ((n : ℝ) + 1)) := by
       rw [mul_one_div, hδ, div_div, div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [mul_le_mul_of_nonneg_left hn1X
-        (mul_nonneg (le_of_lt ht) (le_of_lt (show (0 : ℝ) < 2 * Real.pi by positivity)))]
+      linarith only [mul_le_mul_of_nonneg_left hn1X
+          (mul_nonneg (le_of_lt ht) (le_of_lt (show (0 : ℝ) < 2 * Real.pi by positivity)))]
     have hcomb : δ ≤ t / (2 * Real.pi) * (Real.log ((n : ℝ) + 1) - Real.log (n : ℝ)) :=
       le_trans hstep2 hstep1
     rw [hgval n, neg_mul]; push_cast; linarith [hcomb]
@@ -242,9 +242,9 @@ theorem range_kusmin_all (t : ℝ) (ht : 0 < t) (M X : ℕ) (hM1 : 1 ≤ M)
       rw [mul_one_div, div_div]
       have h1 : t / (2 * Real.pi * (n : ℝ)) ≤ 1 / (2 * Real.pi) := by
         rw [div_le_div_iff₀ (by positivity) (by positivity)]
-        nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htn)]
+        linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htn)]
       have h3 : 1 / (2 * Real.pi) + 1 / (2 * Real.pi) ≤ 1 := by
-        rw [← add_div, div_le_one (by positivity)]; nlinarith [Real.pi_gt_three]
+        rw [← add_div, div_le_one (by positivity)]; linarith only [hpi1]
       linarith [h1, hδ2π, h3]
     have hcomb : t / (2 * Real.pi) * (Real.log ((n : ℝ) + 1) - Real.log (n : ℝ)) ≤ 1 - δ :=
       le_trans hstep1 hbound
@@ -254,7 +254,7 @@ theorem range_kusmin_all (t : ℝ) (ht : 0 < t) (M X : ℕ) (hM1 : 1 ≤ M)
     have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
     have hn1 : (0 : ℝ) < (n : ℝ) + 1 := by linarith
     have hratio : ((n : ℝ) + 2) / ((n : ℝ) + 1) ≤ ((n : ℝ) + 1) / (n : ℝ) := by
-      rw [div_le_div_iff₀ hn1 hn0]; nlinarith
+      rw [div_le_div_iff₀ hn1 hn0]; linarith only [hδ0, hδ12]
     have hlogle :=
       Real.log_le_log (show (0 : ℝ) < ((n : ℝ) + 2) / ((n : ℝ) + 1) by positivity) hratio
     rw [Real.log_div (by positivity) (ne_of_gt hn1),
@@ -293,7 +293,7 @@ theorem socket_block_strip (u : ℝ) (hu : 1 ≤ u) (U X : ℕ) (hU1 : 1 ≤ U)
   have h1 : Real.sqrt A ≤ Real.sqrt u := by
     apply Real.sqrt_le_sqrt
     rw [hA]
-    exact div_le_self hu0.le (by nlinarith [Real.pi_gt_three])
+    exact div_le_self hu0.le (by linarith only [Real.pi_gt_three])
   -- `√u ≤ (21/8)·√A`
   have h2 : Real.sqrt u ≤ 21 / 8 * Real.sqrt A := by
     have he : (21 : ℝ) / 8 * Real.sqrt A = Real.sqrt (441 / 64 * A) := by
@@ -302,10 +302,10 @@ theorem socket_block_strip (u : ℝ) (hu : 1 ≤ u) (U X : ℕ) (hU1 : 1 ≤ U)
     rw [he]
     apply Real.sqrt_le_sqrt
     rw [hA, mul_div_assoc', le_div_iff₀ (by positivity : (0 : ℝ) < 2 * Real.pi)]
-    nlinarith [two_pi_le_441_div_64, hu0]
+    nlinarith only [hu, two_pi_le_441_div_64]
   have h3 : 16 * (U : ℝ) / Real.sqrt A ≤ 42 * (U : ℝ) / Real.sqrt u := by
     rw [div_le_div_iff₀ hsApos hsupos]
-    nlinarith [mul_le_mul_of_nonneg_left h2 (by positivity : (0 : ℝ) ≤ 16 * (U : ℝ))]
+    linarith only [mul_le_mul_of_nonneg_left h2 (by positivity : (0 : ℝ) ≤ 16 * (U : ℝ))]
   linarith [h1, h3]
 
 /-- **The Kušmin–Landau range bound, socket form.**  `‖∑_{M<n≤X} n^{iu}‖ ≤ 7(X+1)/u`
@@ -391,7 +391,7 @@ theorem socket_head (u : ℝ) (hu : 1 ≤ u) :
       have hss : Real.sqrt u * Real.sqrt u = u := Real.mul_self_sqrt hu0.le
       have hdiv : 42 * (U : ℝ) / Real.sqrt u ≤ 84 * Real.sqrt u := by
         rw [div_le_iff₀ hsupos]
-        nlinarith [hUu, hss]
+        linarith only [hss, hUu]
       have hratio : (3 : ℝ) / 2 ≤ (N : ℝ) / (U : ℝ) := by
         rw [le_div_iff₀ hUpos]
         have h : (3 : ℝ) * (U : ℝ) ≤ 2 * (N : ℝ) := by exact_mod_cast h3U
@@ -407,7 +407,7 @@ theorem socket_head (u : ℝ) (hu : 1 ≤ u) :
         have hA1 : (0 : ℝ)
             ≤ Real.sqrt u * (320 * (Real.log (N : ℝ) - Real.log (U : ℝ)) - 100) :=
           mul_nonneg (by linarith) (by linarith)
-        nlinarith [hA1]
+        linarith only [hA1]
       linarith [hhead, hblk, hdiv, hkey]
 
 /-- The head grade `320√u·(1+log K)` sits inside the socket's tail term whenever
@@ -421,7 +421,7 @@ lemma head_le_target (u : ℝ) (hu : 1 ≤ u) (K : ℕ) (hK : (K : ℝ) ≤ 2 * 
     rcases Nat.eq_zero_or_pos K with rfl | hKpos
     · simp only [Nat.cast_zero, Real.log_zero]; linarith
     · have hKR : (0 : ℝ) < (K : ℝ) := by exact_mod_cast hKpos
-      have hle : (K : ℝ) ≤ (2 + u) ^ 2 := by nlinarith [hK, hu0, sq_nonneg u]
+      have hle : (K : ℝ) ≤ (2 + u) ^ 2 := by linarith only [hK, hu, sq_nonneg u]
       have h := Real.log_le_log hKR hle
       rw [Real.log_pow] at h
       push_cast at h
@@ -483,7 +483,7 @@ theorem socket_mid (u : ℝ) (hu : 1 ≤ u) (N : ℕ) :
     have htail := socket_range_kusmin u hu M N hM1 huM hMN
     have hb : Real.sqrt (1 + u ^ 2) ≤ 2 * u := by
       rw [show (2 : ℝ) * u = Real.sqrt ((2 * u) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-      exact Real.sqrt_le_sqrt (by nlinarith)
+      exact Real.sqrt_le_sqrt (by nlinarith only [hu])
     have htail2 : 7 * ((N : ℝ) + 1) / u ≤ 640 * ((N : ℝ) / Real.sqrt (1 + u ^ 2)) := by
       rw [← mul_div_assoc, div_le_div_iff₀ hu0 hsp]
       have h1 : 7 * ((N : ℝ) + 1) * Real.sqrt (1 + u ^ 2) ≤ 7 * ((N : ℝ) + 1) * (2 * u) :=

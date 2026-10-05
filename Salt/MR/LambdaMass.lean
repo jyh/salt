@@ -275,7 +275,7 @@ theorem prop21_unconditional_uniform_absC :
   have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hlogX1
   have hh0 : (0 : ℝ) < h := by rw [hh]; exact div_pos hXpos hsqlogX
-  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith [hsqge1, hXpos]
+  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith only [hXbig, hsqge1]
   have hy0 : (0 : ℝ) < y := by linarith
   have hlogy : (0 : ℝ) < Real.log y := Real.log_pos (by linarith)
   have hexp10 : Real.exp 1 ≤ 10 := by linarith [Real.exp_one_lt_three]
@@ -355,8 +355,8 @@ theorem prop21_uniform_at_scale_absC :
     have hpos : (0 : ℝ) < 1 / Real.log X := by positivity
     linarith
   have hy10 : (10 : ℝ) ≤ Real.log X ^ 4 := by
-    have h2 : (4 : ℝ) ≤ Real.log X * Real.log X := by nlinarith
-    nlinarith [h2, sq_nonneg (Real.log X * Real.log X - 4)]
+    have h2 : (4 : ℝ) ≤ Real.log X * Real.log X := by nlinarith only [hL2]
+    linarith only [h2, sq_nonneg (Real.log X * Real.log X - 4)]
   have hyX : Real.log X ^ 4 ≤ Real.sqrt X := by
     have hkey := hX₁ X hXX₁
     have h0 : (0 : ℝ) ≤ Real.sqrt X := Real.sqrt_nonneg X
@@ -421,7 +421,7 @@ theorem sum_range_maxpow_le {y σ : ℝ} (hy : 1 ≤ y) (hσ : 0 < σ) (K : ℕ)
     Real.rpow_le_rpow_of_exponent_le hy (by linarith)
   have hflatnn : (0 : ℝ) ≤ y ^ (-(1 + σ)) := Real.rpow_nonneg hy0.le _
   have hblockA : (m : ℝ) * y ^ (-(1 + σ)) ≤ y ^ (-σ) := by
-    have h1 : (m : ℝ) * y ^ (-(1 + σ)) ≤ y * y ^ (-(1 + σ)) := by nlinarith
+    have h1 : (m : ℝ) * y ^ (-(1 + σ)) ≤ y * y ^ (-(1 + σ)) := by nlinarith only [hmy, hflatnn]
     rw [mul_rpow_neg_one_add hy0] at h1
     exact h1
   rcases le_or_gt K m with hKm | hmK
@@ -437,7 +437,7 @@ theorem sum_range_maxpow_le {y σ : ℝ} (hy : 1 ≤ y) (hσ : 0 < σ) (K : ℕ)
       rw [max_eq_right hle]
     rw [Finset.sum_congr rfl hflat, Finset.sum_const, Finset.card_range, nsmul_eq_mul]
     have hKle : (K : ℝ) ≤ (m : ℝ) := by exact_mod_cast hKm
-    nlinarith
+    nlinarith only [hflatnn, hKle, hypos, hσinv, hblockA]
   · -- the flat block, then the decaying block
     have hcons := Finset.sum_Ico_consecutive
       (fun i => (max ((i + 1 : ℕ) : ℝ) y) ^ (-(1 + σ))) (Nat.zero_le m) (le_of_lt hmK)
@@ -539,7 +539,7 @@ theorem window_grade_le_logX {X y : ℝ} (hy : 1 ≤ y) (hX : 1 ≤ X) :
     Real.log (⌈X / y⌉₊ : ℝ) + (Real.log 4 + 4) ≤ Real.log X + (Real.log 4 + 5) := by
   have hy0 : (0 : ℝ) < y := by linarith
   have hXy : X / y ≤ X := by
-    rw [div_le_iff₀ hy0]; nlinarith
+    rw [div_le_iff₀ hy0]; nlinarith only [hy, hX]
   have hceil : ((⌈X / y⌉₊ : ℕ) : ℝ) ≤ X + 1 := by
     have h1 : ((⌈X / y⌉₊ : ℕ) : ℝ) < X / y + 1 := Nat.ceil_lt_add_one (by positivity)
     linarith
@@ -565,7 +565,7 @@ theorem vonMangoldt_window_damped_log {X y σ : ℝ} (hy : 1 ≤ y) (hσ : 0 ≤
   · have hempty : Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊ = ∅ := by
       rw [hK0]; exact Finset.Ioo_eq_empty (by omega)
     rw [hempty, Finset.sum_empty]
-    nlinarith [window_grade_pos (X := X) (y := y)]
+    nlinarith only [hypow, window_grade_pos (X := X) (y := y)]
   · have hstep : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
         (Λ n : ℝ) / (n : ℝ) ^ (1 + σ) ≤ y ^ (-σ) * ((Λ n : ℝ) / (n : ℝ)) := by
       intro n hn
@@ -651,11 +651,11 @@ theorem vonMangoldt_window_damped_min {X y c σ : ℝ} (hy : 1 ≤ y) (hσ : 0 <
     have hbump : y ^ (-σ) * (Real.log (⌈X / y⌉₊ : ℝ) + (Real.log 4 + 4))
         ≤ (Real.log 4 + 4) * y ^ (-σ) * (Real.log (⌈X / y⌉₊ : ℝ) + (Real.log 4 + 4)) := by
       refine mul_le_mul_of_nonneg_right ?_ window_grade_pos.le
-      nlinarith
+      nlinarith only [hypow, hc4]
     linarith
   · rw [min_eq_right hmin]
     have hI := vonMangoldt_window_damped_inv (X := X) hy hσ
-    nlinarith
+    linarith only [hI]
 
 /-! ### The shifted (low) leg — `c = 1 − δ` -/
 
@@ -672,7 +672,7 @@ theorem vonMangoldt_window_shifted_log {X y δ : ℝ} (hy : 1 ≤ y) (hX : 0 ≤
   · have hempty : Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊ = ∅ := by
       rw [hK0]; exact Finset.Ioo_eq_empty (by omega)
     rw [hempty, Finset.sum_empty]
-    nlinarith [window_grade_pos (X := X) (y := y)]
+    nlinarith only [hXypow, window_grade_pos (X := X) (y := y)]
   · have hstep : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
         (Λ n : ℝ) / (n : ℝ) ^ (1 - δ) ≤ (X / y) ^ δ * ((Λ n : ℝ) / (n : ℝ)) := by
       intro n hn
@@ -720,7 +720,7 @@ theorem vonMangoldt_window_shifted_inv {X y δ : ℝ} (hy : 1 ≤ y) (hXy : 1 �
     have h2 : (2 : ℝ) ^ δ ≤ 2 := by
       have := Real.rpow_le_rpow_of_exponent_le (by norm_num : (1 : ℝ) ≤ 2) hδ1
       rwa [Real.rpow_one] at this
-    nlinarith [Real.rpow_nonneg hXy0.le δ]
+    nlinarith only [hone, h2, h1]
   have hext : (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, (Λ n : ℝ) / (n : ℝ) ^ (1 - δ))
       ≤ ∑ i ∈ Finset.range ⌈X / y⌉₊, (Λ (i + 1) : ℝ) / ((i + 1 : ℕ) : ℝ) ^ (1 - δ) := by
     rw [← sum_Icc_one_eq_sum_range (fun n => (Λ n : ℝ) / (n : ℝ) ^ (1 - δ))]
@@ -762,11 +762,11 @@ theorem vonMangoldt_window_shifted_min {X y c δ : ℝ} (hy : 1 ≤ y) (hXy : 1 
     have hbump : (X / y) ^ δ * (Real.log (⌈X / y⌉₊ : ℝ) + (Real.log 4 + 4))
         ≤ (Real.log 4 + 4) * (X / y) ^ δ * (Real.log (⌈X / y⌉₊ : ℝ) + (Real.log 4 + 4)) := by
       refine mul_le_mul_of_nonneg_right ?_ window_grade_pos.le
-      nlinarith
+      nlinarith only [hpow, hc4]
     linarith
   · rw [min_eq_right hmin]
     have hI := vonMangoldt_window_shifted_inv (X := X) hy hXy hδ0 hδ1
-    nlinarith
+    linarith only [hI]
 
 /-! ### The consumer face — the corpus's `lambdaLin` window masses -/
 

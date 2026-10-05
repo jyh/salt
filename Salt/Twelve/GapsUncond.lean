@@ -91,7 +91,7 @@ theorem deltaPi_upper_ev :
   have hs0 : 0 < s := Real.sqrt_pos.mpr hN0
   have hss : s * s = (N' : ℝ) := Real.mul_self_sqrt hN0.le
   have hLs : L < s := by rw [div_lt_one hs0] at hsq; exact hsq
-  have hsL : L * s ≤ (N' : ℝ) := by nlinarith [hLs, hs0, hL]
+  have hsL : L * s ≤ (N' : ℝ) := by nlinarith only [hs0, hLs, hss]
   have hdmono : deltaPi 5 64 N' m ≤ (Nat.primeCounting (64 * N' + 19) : ℝ) := by
     rw [deltaPi, primesCount_one_zero_eq, primesCount_one_zero_eq]
     have h1 : (Nat.primeCounting (64 * N' + hSeq 5 m) : ℝ)
@@ -101,7 +101,7 @@ theorem deltaPi_upper_ev :
     linarith
   set x : ℝ := ((64 * N' + 19 : ℕ) : ℝ) with hxdef
   have hxN : x = 64 * (N':ℝ) + 19 := by rw [hxdef]; push_cast; ring
-  have hx1 : (1 : ℝ) < x := by rw [hxN]; nlinarith
+  have hx1 : (1 : ℝ) < x := by rw [hxN]; linarith only [hN100r]
   have hx0 : 0 < x := by linarith
   have hcheb := Chebyshev.pi_le_log4_mul_div hx1
   rw [Nat.floor_natCast] at hcheb
@@ -120,18 +120,18 @@ theorem deltaPi_upper_ev :
   have hxle : x ≤ 65 * (N':ℝ) := by rw [hxN]; linarith
   have hterm1 : Real.log 4 * x / Real.log (Real.sqrt x) ≤ 182 * (N':ℝ) / L := by
     have h_a : Real.log 4 * x ≤ 91 * (N':ℝ) := by
-      nlinarith [mul_le_mul_of_nonneg_right (le_of_lt hlog4) hx0.le,
-        mul_le_mul_of_nonneg_left hxle (show (0:ℝ) ≤ 1.4 by norm_num)]
+      linarith only [hxN, hN100r,
+          mul_le_mul_of_nonneg_right (le_of_lt hlog4) hx0.le]
     rw [div_le_div_iff₀ hlogsqrt_pos hL]
-    nlinarith [mul_le_mul_of_nonneg_right h_a hL.le,
-      mul_le_mul_of_nonneg_left hlogsqrt_ge (show (0:ℝ) ≤ 182 * (N':ℝ) by positivity)]
+    linarith only [mul_le_mul_of_nonneg_left hlogsqrt_ge
+        (show (0 : ℝ) ≤ 182 * (N' : ℝ) by positivity), mul_le_mul_of_nonneg_right h_a hL.le]
   have hsqrtx : Real.sqrt x ≤ 9 * s := by
     have h81 : x ≤ 81 * (N':ℝ) := by rw [hxN]; linarith
     calc Real.sqrt x ≤ Real.sqrt (81 * (N':ℝ)) := Real.sqrt_le_sqrt h81
       _ = 9 * s := by
           rw [Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 81), show (81:ℝ) = 9^2 by norm_num,
             Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 9)]
-  have hsN : s ≤ (N':ℝ) / L := by rw [le_div_iff₀ hL]; nlinarith [hsL]
+  have hsN : s ≤ (N':ℝ) / L := by rw [le_div_iff₀ hL]; linarith only [hsL]
   have hterm2 : Real.sqrt x ≤ 9 * (N':ℝ) / L := by
     calc Real.sqrt x ≤ 9 * s := hsqrtx
       _ ≤ 9 * ((N':ℝ)/L) := by linarith [hsN]
@@ -140,7 +140,7 @@ theorem deltaPi_upper_ev :
     _ ≤ Real.log 4 * x / Real.log (Real.sqrt x) + Real.sqrt x := hcheb
     _ ≤ 182 * (N':ℝ) / L + 9 * (N':ℝ) / L := add_le_add hterm1 hterm2
     _ ≤ 1000 * (N':ℝ) / L := by
-        rw [← add_div, div_le_div_iff₀ hL hL]; nlinarith [hN0.le, hL.le]
+        rw [← add_div, div_le_div_iff₀ hL hL]; nlinarith only [hL, (Nat.cast_nonneg _ : 0 ≤ ↑N')]
 
 /-! ## The tight `Qdiag` lower bound (error `(c/log R + A/√D)·X⁶`) -/
 
@@ -172,7 +172,7 @@ theorem qdiag_err_split (m : Fin 5) :
   have hsqD_ge1 : (1 : ℝ) ≤ Real.sqrt D := by
     rw [show (1:ℝ) = Real.sqrt 1 by simp]
     exact Real.sqrt_le_sqrt (by exact_mod_cast (by omega : 1 ≤ D))
-  have hsqD_le_D : Real.sqrt D ≤ (D : ℝ) := by nlinarith [hsqD, hsqD_ge1]
+  have hsqD_le_D : Real.sqrt D ≤ (D : ℝ) := by nlinarith only [hsqDnn, hsqD_ge1, hsqD]
   have hsqrtD_div : Real.sqrt D / (D:ℝ) = 1 / Real.sqrt D := by
     rw [div_eq_div_iff hDne hsqDne]; rw [one_mul, hsqD]
   obtain ⟨c, hc0, hb⟩ := hbridge W' D hW' hpos hUpper hD300 hDlt
@@ -219,9 +219,9 @@ theorem qdiag_err_split (m : Fin 5) :
   have hκinv2 : κinv ^ 2 ≤ 25 * (D : ℝ) := by
     have hfac : (0 : ℝ) ≤ (5 * Real.sqrt D - κinv) * (5 * Real.sqrt D + κinv) :=
       mul_nonneg (sub_nonneg.mpr hκ) (by linarith [hsqDnn, hκinv_pos.le])
-    nlinarith [hfac, hsqD]
+    linarith only [hfac, hsqD]
   have hterm1 : c * (1 + X) ^ 6 / Real.log R ≤ (64 * c / Real.log R) * X ^ 6 := by
-    have hnum : c * (1 + X) ^ 6 ≤ 64 * c * X ^ 6 := by nlinarith [h1X6, hc0, hX6nn]
+    have hnum : c * (1 + X) ^ 6 ≤ 64 * c * X ^ 6 := by nlinarith only [hc0, h1X6]
     have heq : (64 * c / Real.log R) * X ^ 6 = 64 * c * X ^ 6 / Real.log R := by ring
     rw [heq]; exact div_le_div_of_nonneg_right hnum hlogRpos.le
   have hterm2 : A * κinv * (1 + X + PAS) ^ 6 / (D : ℝ)
@@ -338,9 +338,9 @@ private lemma eventually_polylog_ratio_le (p q : ℕ) (A K : ℝ) (hpq : p < q)
       have : A * 2 ^ p ≤ K * Real.log N' := by
         rw [mul_comm A (2^p)]
         have := (div_le_iff₀ hK).mp hThr
-        nlinarith [this, hlog1]
-      nlinarith [hLqp, hK.le, this]
-    nlinarith [h1, pow_nonneg hlogNpos.le p]
+        linarith only [this]
+      nlinarith only [hK, hLqp, this]
+    nlinarith only [h1, pow_nonneg hlogNpos.le p]
   calc A * (1 + Real.log R) ^ p
       ≤ A * (2 ^ p * (Real.log N') ^ p) := mul_le_mul_of_nonneg_left hpow hA
     _ ≤ K * ((Real.log N') ^ p * (Real.log N') ^ (q - p)) := hAle
@@ -412,7 +412,7 @@ private lemma eventually_DL :
   -- hbeat : 1000 * (1 + L) ≤ N'
   have hδ0 : 0 ≤ (63 - 1 / 100) * (N':ℝ) / L - 19 := by
     rw [sub_nonneg, le_div_iff₀ hL]
-    nlinarith [hbeat, hL]
+    linarith only [hbeat, hL]
   set δ : ℝ := (63 - 1 / 100) * (N':ℝ) / L - 19 with hδdef
   have hδL : δ * L = (63 - 1 / 100) * (N':ℝ) - 19 * L := by
     rw [hδdef]; field_simp
@@ -421,7 +421,7 @@ private lemma eventually_DL :
   have hkey : δ * (4997 / 10000 * L) = 4997 / 10000 * ((63 - 1 / 100) * (N':ℝ) - 19 * L) := by
     rw [show δ * (4997 / 10000 * L) = 4997 / 10000 * (δ * L) by ring, hδL]
   rw [hkey] at hstep
-  nlinarith [hstep, hbeat, hL]
+  linarith only [hstep, hbeat, hL]
 
 /-! ## R2b — the slack discharge -/
 
@@ -442,7 +442,7 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
     simp only [hSJdef, hJcdef, hIcdef]
     rw [← Rat.cast_sum]
     exact_mod_cast theta_ratio_cert_sharp
-  have hSJpos : 0 < SJ := by nlinarith [hcert, hIcpos]
+  have hSJpos : 0 < SJ := by linarith only [hcert, hIcpos]
   obtain ⟨AF, hAF0, hyb⟩ := mv_I_split Fstar1
   obtain ⟨A1, hA10, hMb⟩ := mv_I_split onePoly
   have hqd_ex : ∀ m : Fin 5, ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ,
@@ -581,11 +581,11 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
   have h1X : (1:ℝ) ≤ X := by
     have hle : 1 / κ ≤ LR := le_trans (le_max_left _ _) hLRthr
     rw [div_le_iff₀ hκpos] at hle
-    rw [hXdef]; nlinarith [hle]
+    rw [hXdef]; linarith only [hle]
   have hXCpas : 1 + Cpas ≤ X := by
     have hle : (1 + Cpas) / κ ≤ LR := le_trans (le_max_right _ _) hLRthr
     rw [div_le_iff₀ hκpos] at hle
-    rw [hXdef]; nlinarith [hle]
+    rw [hXdef]; linarith only [hle]
   have hPASnn : 0 ≤ PAS := by
     rw [hPASdef]; unfold Salt.Maynard.phiAtomSum
     exact Finset.sum_nonneg fun r _ => by positivity

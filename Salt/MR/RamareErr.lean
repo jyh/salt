@@ -249,7 +249,7 @@ noncomputable def ramSeamCoeff (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (n 
 lemma exp_half_le_two : Real.exp (1 / 2 : ℝ) ≤ 2 := by
   have h1 : Real.exp (1 / 2 : ℝ) * Real.exp (1 / 2 : ℝ) = Real.exp 1 := by
     rw [← Real.exp_add]; norm_num
-  nlinarith [Real.exp_one_lt_d9, Real.exp_pos (1 / 2 : ℝ)]
+  nlinarith only [h1, Real.exp_one_lt_d9]
 
 /-- **The narrow window** (MR p.20): every seam frequency `n = pm` lies in
 `[Xe^{−1/H}, Xe^{1/H}]` — the block bounds on `p` and the seam bounds on `m` telescope. -/
@@ -318,7 +318,7 @@ theorem ramSeamPoly_eq_spoly (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 �
       rw [div_le_div_iff₀ hH0 (by norm_num)]; linarith
     have hle : ((σ.2.1 * σ.2.2 : ℕ) : ℝ) ≤ (N : ℝ) := by
       refine le_trans hw.2 ?_
-      nlinarith
+      nlinarith only [hexp, hNR, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
     exact_mod_cast hle
   calc ramSeamPoly H N X P Q b c t
       = ∑ j ∈ ramI H P Q, ∑ x ∈ (ramQblock H P Q j) ×ˢ (ramSeam H N X j),
@@ -409,7 +409,7 @@ theorem norm_ramSeamCoeff_le_one (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 
     have h1 : ‖c σ.2.1‖ * ‖b σ.2.2‖ ≤ 1 :=
       mul_le_one₀ (hc _) (norm_nonneg _) (hb _)
     have h2 : (0 : ℝ) ≤ 1 / ((blockOmega P Q σ.2.2 : ℝ) + 1) := by positivity
-    nlinarith [norm_nonneg (c σ.2.1), norm_nonneg (b σ.2.2)]
+    nlinarith only [h1, h2]
   -- the injection `σ ↦ p` into the block primes of `n`
   have hinj : ∀ x ∈ (ramSeamDom H N X P Q).filter (fun σ => σ.2.1 * σ.2.2 = n),
       ∀ y ∈ (ramSeamDom H N X P Q).filter (fun σ => σ.2.1 * σ.2.2 = n),
@@ -548,15 +548,15 @@ theorem ramSeamPoly_moment (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 ≤ 
     have hepos : (0 : ℝ) < Real.exp (-(1 / 2 : ℝ)) := Real.exp_pos _
     have hkey : (X : ℝ) ^ 2 ≤ Real.exp 1 * (n : ℝ) ^ 2 := by
       have h1 : ((X : ℝ) * Real.exp (-(1 / 2 : ℝ))) ^ 2 ≤ (n : ℝ) ^ 2 := by
-        nlinarith [mul_nonneg hXR.le hepos.le]
+        nlinarith only [hnlo', mul_nonneg hXR.le hepos.le, (Nat.cast_nonneg _ : 0 ≤ ↑n)]
       have h2 : ((X : ℝ) * Real.exp (-(1 / 2 : ℝ))) ^ 2 = (X : ℝ) ^ 2 * Real.exp (-1 : ℝ) := by
         rw [mul_pow]; rw [show Real.exp (-(1 / 2 : ℝ)) ^ 2
           = Real.exp (-(1 / 2 : ℝ)) * Real.exp (-(1 / 2 : ℝ)) by ring, hsq]
       rw [h2] at h1
-      nlinarith [Real.exp_pos (1 : ℝ), sq_nonneg (X : ℝ)]
+      nlinarith only [h1, hee, Real.exp_pos (1 : ℝ), sq_nonneg ↑X]
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    have hd2 : ‖ramSeamCoeff H N X P Q b c n‖ ^ 2 ≤ 1 := by nlinarith
-    nlinarith [sq_nonneg (X : ℝ), hkey, hd2]
+    have hd2 : ‖ramSeamCoeff H N X P Q b c n‖ ^ 2 ≤ 1 := by nlinarith only [hd, hd0]
+    nlinarith only [hd2, hkey, sq_nonneg ↑X]
   have hcard : (S.card : ℝ) ≤ 2 * Real.exp 1 * (X : ℝ) / H + 1 := by
     refine window_card_le H (by linarith) X S (fun n hn => ?_)
     rw [hS, Finset.mem_filter] at hn
@@ -615,8 +615,8 @@ theorem ramWindowErr_moment_grade (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX :
     rw [hexpand]
     have h6 : Real.exp 1 * H / (X : ℝ) ≤ Real.exp 1 := by
       rw [div_le_iff₀ hXR]
-      nlinarith
-    nlinarith
+      nlinarith only [hHX, he0]
+    nlinarith only [he, he0, h6]
   have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by
     have := Nat.cast_nonneg (α := ℝ) N; linarith
   calc (2 * T + 20 * (N : ℝ))
@@ -789,11 +789,11 @@ theorem seam_sum_identity_mr (H : ℝ) (hH : 2 ≤ H) (N X P Q j p : ℕ) (hX : 
   have hpL1 : (X : ℝ) ≤ (p : ℝ) * ((X : ℝ) * Real.exp (-(j : ℝ) / H)) := by
     have h := mul_le_mul_of_nonneg_right hplo
       (le_of_lt (by positivity : (0:ℝ) < (X : ℝ) * Real.exp (-(j : ℝ) / H)))
-    nlinarith [hE1]
+    nlinarith only [hE1, h, (Nat.cast_nonneg _ : 0 ≤ ↑X)]
   have hpL2 : (p : ℝ) * ((X : ℝ) * Real.exp (-(j : ℝ) / H)) < 2 * (X : ℝ) := by
     have h := mul_lt_mul_of_pos_right hphi
       (by positivity : (0:ℝ) < (X : ℝ) * Real.exp (-(j : ℝ) / H))
-    nlinarith [hE2, hexpH]
+    nlinarith only [hexpH, hE2, h, (Nat.cast_nonneg _ : 0 ≤ ↑X), (Nat.cast_nonneg _ : 0 ≤ ↑X)]
   have hFG : Real.exp (((j : ℝ) + 1) / H) * ((X : ℝ) * Real.exp (-((j : ℝ) + 1) / H))
       = (X : ℝ) := by nlinarith [hE3]
   -- the four index sets sit inside `[1,N]`
@@ -837,22 +837,22 @@ theorem seam_sum_identity_mr (H : ℝ) (hH : 2 ≤ H) (N X P Q j p : ℕ) (hX : 
     exact ⟨fun h => ⟨h.1.2, h.2⟩, fun h => ⟨⟨Finset.mem_Icc.mpr hm, h.1⟩, h.2⟩⟩
   -- the monotone transfers between the `m`-cuts and the `pm`-cuts
   have hmono1 : (X : ℝ) * Real.exp (-(j : ℝ) / H) ≤ (m : ℝ) → (X : ℝ) ≤ (p : ℝ) * (m : ℝ) := by
-    intro h; nlinarith
+    intro h; nlinarith only [h, hpL1, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   have hmono2 : (m : ℝ) < (X : ℝ) * Real.exp (-(j : ℝ) / H) → (p : ℝ) * (m : ℝ) < 2 * (X : ℝ) := by
-    intro h; nlinarith
+    intro h; nlinarith only [h, hpL2, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   have hmono3 : 2 * (X : ℝ) * Real.exp (-(j : ℝ) / H) < (m : ℝ) →
-      2 * (X : ℝ) < (p : ℝ) * (m : ℝ) := by intro h; nlinarith
+      2 * (X : ℝ) < (p : ℝ) * (m : ℝ) := by intro h; nlinarith only [hpR, h, hpL1]
   have hmono4 : (p : ℝ) * (m : ℝ) ≤ 2 * (X : ℝ) →
       (m : ℝ) ≤ 2 * (X : ℝ) * Real.exp (-(j : ℝ) / H) := by
     intro h; by_contra hcon; exact absurd h (not_le.mpr (hmono3 (not_le.mp hcon)))
   have hmono5 : (X : ℝ) ≤ (p : ℝ) * (m : ℝ) →
       (X : ℝ) * Real.exp (-((j : ℝ) + 1) / H) ≤ (m : ℝ) := by
     intro h
-    nlinarith [mul_lt_mul_of_pos_right hphi hmR, hFG]
+    nlinarith only [hphi, h, hFG, mul_lt_mul_of_pos_right hphi hmR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   have hmono6 : 2 * (X : ℝ) < (p : ℝ) * (m : ℝ) →
       2 * (X : ℝ) * Real.exp (-((j : ℝ) + 1) / H) < (m : ℝ) := by
     intro h
-    nlinarith [mul_lt_mul_of_pos_right hphi hmR, hFG]
+    nlinarith only [hphi, h, hFG, mul_lt_mul_of_pos_right hphi hmR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   -- the trichotomy of `pm` against the dyadic window `[X, 2X]`
   rcases lt_trichotomy ((p : ℝ) * (m : ℝ)) (X : ℝ) with hlt | heq | hgt
   · -- `pm < X`: nothing is counted anywhere

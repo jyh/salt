@@ -286,8 +286,8 @@ lemma neg_reLogDeriv_le_keep_two {q : ℕ} [NeZero q] (ψ : DirichletCharacter �
         have h1 := mul_self_le_mul_self (abs_nonneg ρ.im) hγ4
         rw [abs_mul_abs_self] at h1
         linarith
-      nlinarith [hβge, hβ1]
-    nlinarith [norm_nonneg ((starRingEnd ℂ) ρ - c), hsq']
+      nlinarith only [hβge, hβ1, hγsq]
+    nlinarith only [hsq']
   obtain ⟨hρZ, hmρ⟩ := mem_zeros_of_factorization hne_h hEqOn hρball hρ0
   obtain ⟨hρcZ, hmρc⟩ := mem_zeros_of_factorization hne_h hEqOn hρcball hρc0
   have hpos : ∀ ρ' ∈ Z, 0 < (s - ρ').re := by
@@ -341,15 +341,15 @@ lemma neg_reLogDeriv_le_keep_two {q : ℕ} [NeZero q] (ψ : DirichletCharacter �
   have hv1 : 1 / (σ - ρ.re) ≤ (m ρ : ℝ) * (1 / (s - ρ)).re := by
     have h1 : (1 : ℝ) ≤ (m ρ : ℝ) := by exact_mod_cast hmρ
     have h2 : (0 : ℝ) ≤ 1 / (σ - ρ.re) := by positivity
-    rw [hterm1]; nlinarith
+    rw [hterm1]; nlinarith only [h1, h2, hβ1, hβge]
   have hv2 : (σ - ρ.re) / ((σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2)
       ≤ (m ((starRingEnd ℂ) ρ) : ℝ) * (1 / (s - (starRingEnd ℂ) ρ)).re := by
     have h1 : (1 : ℝ) ≤ (m ((starRingEnd ℂ) ρ) : ℝ) := by exact_mod_cast hmρc
     have hden : (0 : ℝ) < (σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2 := by
-      nlinarith [pow_pos hσρpos 2, sq_nonneg ρ.im]
+      linarith only [pow_pos hσρpos 2, sq_nonneg ρ.im]
     have h2 : (0 : ℝ) ≤ (σ - ρ.re) / ((σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2) :=
       le_of_lt (div_pos hσρpos hden)
-    rw [hterm2]; nlinarith
+    rw [hterm2]; nlinarith only [h1, h2, hβ1, hβge]
   have hlow : 1 / (σ - ρ.re) + (σ - ρ.re) / ((σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2)
       ≤ ∑ ρ' ∈ Z, (m ρ' : ℝ) * (1 / (s - ρ')).re := by
     rw [hpair_eq] at hpair_le
@@ -366,7 +366,7 @@ lemma zero_free_extraction2 {θ β A B : ℝ} (hθ : 0 < θ) (hB : 0 < B) (hβ :
   have hη : 0 < θ + (1 - β) := by linarith
   rw [div_le_div_iff₀ hη hθ] at hchain
   rw [div_mul_eq_mul_div, div_le_iff₀ hB]
-  nlinarith [hchain]
+  linarith only [hchain]
 
 /-! ## 5. The zero-free region for real primitive characters at complex zeros -/
 
@@ -401,8 +401,8 @@ theorem zero_free_region_real :
   have hqR2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
   set Lval : ℝ := Real.log ((q : ℝ) * (|ρ.im| + 2)) with hLdef
   have hQ4 : (4 : ℝ) ≤ (q : ℝ) * (|ρ.im| + 2) := by
-    nlinarith [abs_nonneg ρ.im, hqR2,
-      mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+    linarith only [hqR2,
+        mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
   have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
   have h4 : (1 : ℝ) ≤ Real.log 4 := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp4
@@ -414,14 +414,14 @@ theorem zero_free_region_real :
   rcases le_or_gt ρ.re (3 / 4) with hβle | hβgt
   · -- trivial branch: `Re ρ ≤ 3/4 ≤ 1 − c₀/L`
     have hc0 : (1 / 126848 : ℝ) / Lval ≤ 1 / 126848 := by
-      rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+      rw [div_le_iff₀ hLpos]; linarith only [hL1]
     linarith [hc0, hβle]
   · -- the 3-4-1 machinery
     set dd : ℝ := 1 / 15856 with hdddef
     have hddpos : (0 : ℝ) < dd := by norm_num
     have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
     set σ : ℝ := 1 + dd / Lval with hσdef
-    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos]
     have hθpos : 0 < dd / Lval := div_pos hddpos hLpos
     have hσ1 : 1 < σ := by rw [hσdef]; linarith
     have hσ2 : σ < 2 := by rw [hσdef]; linarith [hddL, hddlt1]
@@ -472,8 +472,8 @@ theorem zero_free_region_real :
     have hlogq : Real.log (q : ℝ) ≤ Lval := by
       rw [hLdef]
       apply Real.log_le_log (by linarith)
-      nlinarith [abs_nonneg ρ.im, hqR2,
-        mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+      linarith only [hθpos, hddL, hQ4,
+          mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
     have hlogγ : Real.log (|ρ.im| + 2) ≤ Lval := by
       rw [hLdef]
       apply Real.log_le_log (by positivity)
@@ -501,9 +501,9 @@ theorem zero_free_region_real :
         rwa [abs_mul_abs_self] at h1
       have hpole : (σ - 1) / ((σ - 1) ^ 2 + 4 * ρ.im ^ 2) ≤ 1 / 4 * (1 / (σ - 1)) := by
         have hden : (0 : ℝ) < (σ - 1) ^ 2 + 4 * ρ.im ^ 2 := by
-          nlinarith [pow_pos hσ1' 2, sq_nonneg ρ.im]
+          linarith only [hγsq, pow_pos hσ1' 2]
         rw [mul_one_div, div_le_div_iff₀ hden hσ1']
-        nlinarith [hγsq]
+        linarith only [hden, hγsq]
       have hA2' : T2 ≤ 1 / 4 * (1 / (σ - 1)) + 1080 * Real.log (|ρ.im| + 2)
           + Real.log (q : ℝ) := by
         linarith [hA2, hpole]
@@ -554,16 +554,16 @@ theorem zero_free_region_real :
       have hconj_ge : 1 / (5 * (σ - ρ.re))
           ≤ (σ - ρ.re) / ((σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2) := by
         have hden : (0 : ℝ) < (σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2 := by
-          nlinarith [pow_pos hηpos 2, sq_nonneg ρ.im]
+          linarith only [pow_pos hηpos 2, mul_self_nonneg ρ.im]
         rw [div_le_div_iff₀ (by linarith : (0:ℝ) < 5 * (σ - ρ.re)) hden]
-        nlinarith [hγsq, mul_self_le_mul_self hσ1'.le hθη]
+        linarith only [hγsq, mul_self_le_mul_self hσ1'.le hθη]
       have hbridge : (1 : ℝ) / 5 * (1 / (σ - ρ.re)) = 1 / (5 * (σ - ρ.re)) := by
         rw [div_mul_div_comm, one_mul]
       have hpole : (σ - 1) / ((σ - 1) ^ 2 + 4 * ρ.im ^ 2) ≤ 1 / (σ - 1) := by
         have hden : (0 : ℝ) < (σ - 1) ^ 2 + 4 * ρ.im ^ 2 := by
-          nlinarith [pow_pos hσ1' 2, sq_nonneg ρ.im]
+          linarith only [pow_pos hσ1' 2, mul_self_nonneg ρ.im]
         rw [div_le_div_iff₀ hden hσ1']
-        nlinarith [sq_nonneg ρ.im]
+        linarith only [mul_self_nonneg ρ.im]
       have hA2' : T2 ≤ 1 / (σ - 1) + 1080 * Real.log (|ρ.im| + 2)
           + Real.log (q : ℝ) := by
         linarith [hA2, hpole]
@@ -615,7 +615,7 @@ theorem zero_free_region_all :
     exact_mod_cast this
   have hLpos : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
     apply Real.log_pos
-    nlinarith [abs_nonneg ρ.im, hq1]
+    nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   by_cases hsq : χ ^ 2 = 1
   · have hγ : ρ.im ≠ 0 := by
       rcases hor with h | h
