@@ -630,7 +630,7 @@ theorem s2_collision_lower_order (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ)
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0)|
@@ -640,7 +640,7 @@ theorem s2_collision_lower_order (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ)
             have h1 := abs_moebius_real_le_one t
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -932,7 +932,7 @@ theorem s2_collision_le_Qdiag (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0)|
@@ -942,7 +942,7 @@ theorem s2_collision_le_Qdiag (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
             have h1 := abs_moebius_real_le_one t
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -1612,7 +1612,7 @@ private theorem sum_gweight_occ_le (k R : ℕ) (T : ℝ) (m : Fin k)
           (Nat.prime_of_mem_primeFactors hp)
           ((Nat.dvd_of_mem_primeFactors hp).trans hn)
         have hk : 1 ≤ k := m.pos
-        have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+        have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
         omega
       -- (a) the occupied filter is the `χ ≠ 0` filter
       have hocc_eq : s.primeFactors.attach.filter
@@ -1811,7 +1811,7 @@ private theorem s2_side_bound (k R : ℕ) (T : ℝ) (m : Fin k)
                 (((q : ℕ) : ℝ) - 2)⁻¹) := by
   classical
   have hk : 1 ≤ k := m.pos
-  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hσsq : ∀ i, Squarefree (slotProd s α sel i) :=
     fun i => hs.squarefree_of_dvd (slotProd_dvd hs α sel i)
   have hupos : ∀ i, 0 < u i := fun i => kSieveIndex_coord_pos hu i
@@ -1962,7 +1962,7 @@ private theorem s2_term_majorant (k R : ℕ) (T : ℝ) (m : Fin k)
                 (((q : ℕ) : ℝ) - 2)) := by
   classical
   have hk : 1 ≤ k := m.pos
-  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hgnn : (0 : ℝ) ≤ ∏ i, (gMult (u i) : ℝ) :=
     Finset.prod_nonneg fun _ _ => Nat.cast_nonneg _
   have hB := B1_nonneg k R (W k) T hR
@@ -2117,7 +2117,7 @@ theorem s2_inner_bound_N (k R : ℕ) (T : ℝ) (m : Fin k)
           * Ndiag k R T m := by
   classical
   have hk : 1 ≤ k := m.pos
-  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hs3 : ∀ p ∈ s.primeFactors, 3 ≤ p := by
     intro p hp
     have := hsD p hp
@@ -2275,8 +2275,8 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
       ≤ 24 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * Ndiag k R T m := by
   classical
   have hk : 1 ≤ k := m.pos
-  have hD12 : 12 * k ^ 2 ≤ D₀ k := le_trans (by nlinarith) hD
-  have h24 : 24 ≤ D₀ k := le_trans (by nlinarith) hD
+  have hD12 : 12 * k ^ 2 ≤ D₀ k := le_trans (by linarith only [sq_nonneg ↑k]) hD
+  have h24 : 24 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   set 𝒮 := (kSieveIndex k R (W k)).filter (fun d => d m = 1) with h𝒮
   have hNnn : 0 ≤ Ndiag k R T m := Ndiag_nonneg k R T m
   have hDposN : 0 < D₀ k := by omega
@@ -2407,10 +2407,10 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
               show (2 : ℝ) * (((p : ℝ) - 1) ^ 2)⁻¹ = 2 / ((p : ℝ) - 1) ^ 2 from by
                 rw [div_eq_mul_inv],
               div_le_div_iff₀ h2sq h1sq]
-            nlinarith
+            nlinarith only [hpR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
           have hkk_nn : (0 : ℝ) ≤ ((k * k - k : ℕ) : ℝ) * 3 := by positivity
           have hkk_le : ((k * k - k : ℕ) : ℝ) * 3 * 2 ≤ 6 * (k : ℝ) ^ 2 := by
-            nlinarith
+            linarith only [hkkle]
           calc ((k * k - k : ℕ) : ℝ) * 3 * (((p : ℝ) - 2)⁻¹) ^ 2
               ≤ ((k * k - k : ℕ) : ℝ) * 3
                   * (2 * (((p : ℝ) - 1)⁻¹) ^ 2) :=
@@ -2431,7 +2431,7 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) (yTensor k R T) d e
                  else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2)
@@ -2473,7 +2473,7 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
   have htail := euler_tail_L k (R ^ k + 1) (6 * (k : ℝ) ^ 2)
     (by
       have hkR : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-      nlinarith)
+      nlinarith only [hkR, (Nat.cast_nonneg _ : 0 ≤ ↑k)])
     (by
       have hcast : ((24 * k ^ 2 : ℕ) : ℝ) ≤ ((D₀ k : ℕ) : ℝ) := by
         exact_mod_cast hD
