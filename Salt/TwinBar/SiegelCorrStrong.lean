@@ -113,7 +113,7 @@ private theorem psi1_forced_exceptional :
   have hs1 : 1 ≤ s := by
     rw [hs, show (1:ℝ) = Real.sqrt 1 from (Real.sqrt_one).symm]; exact Real.sqrt_le_sqrt hL1
   have hss : s ^ 2 = L := Real.sq_sqrt hLpos.le
-  have hsL : s ≤ L := by rw [← hss]; nlinarith [hs1]
+  have hsL : s ≤ L := by rw [← hss]; nlinarith only [hspos, hs1]
   have hT_eq : T = Real.exp s := hT
   have hexps : 0 < Real.exp s := Real.exp_pos s
   have hTpos : 0 < T := by rw [hT_eq]; exact hexps
@@ -135,7 +135,7 @@ private theorem psi1_forced_exceptional :
   have h2w : 2 * w = a / s := by rw [hwdef]; field_simp
   have h2ws : 2 * w * s = a := by rw [hwdef]; field_simp
   have hasa : a / s ≤ a := div_le_self ha.le hs1
-  have hw_bound : w ≤ 1 / 60000 := by nlinarith [h2w, hasa, ha30000]
+  have hw_bound : w ≤ 1 / 60000 := by linarith only [hasa, h2w, hadef, hc₀'3750]
   have hσ₀_2w : σ₀ = 1 - 2 * w := by rw [hσ₀def, ← h2w]
   have hσ₀1 : σ₀ < 1 := by rw [hσ₀_2w]; linarith [hwpos]
   have hσ₀lo : 9 / 10 ≤ σ₀ := by rw [hσ₀_2w]; linarith [hw_bound]
@@ -145,7 +145,7 @@ private theorem psi1_forced_exceptional :
   have hlogq : Real.log (q : ℝ) ≤ 2 * s := by
     have hmono : Real.log (q : ℝ) ≤ Real.log ((q : ℝ) * (T + 4)) := by
       apply Real.log_le_log hqpos
-      nlinarith [mul_nonneg hqpos.le (show (0:ℝ) ≤ T + 3 by linarith)]
+      linarith only [mul_nonneg hqpos.le (show (0 : ℝ) ≤ T + 3 by linarith)]
     linarith [hmono, hq]
   -- the edge constant B
   set L4 : ℝ := Real.log (4 * (5 * (4 + T) * Real.sqrt (q : ℝ) * (1 + Real.log (q : ℝ))))
@@ -164,7 +164,7 @@ private theorem psi1_forced_exceptional :
       calc (1:ℝ) ≤ 4 * 1 := by norm_num
         _ ≤ (4 + T) * Real.sqrt (q : ℝ) * (1 + Real.log (q : ℝ)) :=
             mul_le_mul h1 hlq (by norm_num) (by linarith [h1])
-    nlinarith [step]
+    linarith only [step]
   set Bexpr : ℝ := 120 * L4 + L4 / Real.log (7 / 6) / w with hBexprdef
   have hB0 : 0 ≤ Bexpr := by rw [hBexprdef]; positivity
   have hBs : Bexpr ≤ Kb * L := by
@@ -173,7 +173,7 @@ private theorem psi1_forced_exceptional :
     have hnum : 2 * s * L4 ≤ 18 * L := by rw [← hss]; nlinarith [hL4_9s, hs1, hL4nn]
     have hd2 : 2 * s * L4 / (a * Real.log (7 / 6)) ≤ 18 * L / (a * Real.log (7 / 6)) := by
       rw [div_le_div_iff_of_pos_right hden]; exact hnum
-    have ht1 : 120 * L4 ≤ 1080 * L := by nlinarith [hL4_9s, hsL, hL4nn]
+    have ht1 : 120 * L4 ≤ 1080 * L := by linarith only [hL4_9s, hsL]
     rw [hBform, hKbdef]
     have hsplit : (1080 + 18 / (a * Real.log (7 / 6))) * L
         = 1080 * L + 18 * L / (a * Real.log (7 / 6)) := by field_simp
@@ -186,17 +186,17 @@ private theorem psi1_forced_exceptional :
   have hβ90 : 9 / 10 ≤ β₁ := le_trans hσ₀w hbox_entry
   have hβ1_ge : 1 - 3 * w ≤ β₁ := by linarith [hbox_entry, hval]
   -- Landau window for β₁
-  have hlog4q : 0 < Real.log (4 * (q : ℝ)) := by apply Real.log_pos; nlinarith [hqR1]
+  have hlog4q : 0 < Real.log (4 * (q : ℝ)) := by apply Real.log_pos; linarith only [hqR1]
   have hlog4q_le : Real.log (4 * (q : ℝ)) ≤ 2 * s := by
     have hmono : Real.log (4 * (q : ℝ)) ≤ Real.log ((q : ℝ) * (T + 4)) := by
       apply Real.log_le_log (by positivity)
-      nlinarith [mul_nonneg hqpos.le hTpos.le]
+      linarith only [mul_nonneg hqpos.le hTpos.le]
     linarith [hmono, hq]
   have hβwin : 1 - (1 / 5000) / Real.log (4 * (q : ℝ)) ≤ β₁ := by
     have hkey : 3 * w ≤ (1 / 5000) / Real.log (4 * (q : ℝ)) := by
       rw [le_div_iff₀ hlog4q]
-      nlinarith [mul_le_mul_of_nonneg_left hlog4q_le (show (0:ℝ) ≤ 3 * w by positivity),
-        h2ws, ha30000, hspos, hwpos]
+      linarith only [hasa, h2ws, h2w, hwpos, hadef, hc₀'3750,
+          mul_le_mul_of_nonneg_left hlog4q_le (show (0 : ℝ) ≤ 3 * w by positivity)]
     linarith [hβ1_ge, hkey]
   have hsimple : analyticOrderAt (LFunction χ) (β₁ : ℂ) = 1 :=
     (landau_one_exceptional_at hχprim hχ1 hz hz hβwin hβwin).2
@@ -226,7 +226,7 @@ private theorem psi1_forced_exceptional :
       have hor : χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0 := Or.inr hne
       have hb2 : ρ.re ≤ 1 - c₀ / (2 * s) :=
         dispatch_zero_re_le χ hc₀pos (hc₀ q χ hχprim hχ1) hq1 hspos hq hρ0 hρhalf hρim hor
-      have hc0_6a : 6 * a < c₀ := by rw [hadef]; nlinarith [hc₀'c₀, hc₀pos]
+      have hc0_6a : 6 * a < c₀ := by rw [hadef]; linarith only [hc₀'c₀, hc₀pos]
       have h6as : 6 * w < c₀ / (2 * s) := by
         rw [lt_div_iff₀ (by positivity : (0:ℝ) < 2 * s)]; nlinarith [hc0_6a, h2ws]
       linarith [hρre1, hb2, hσ''w_ge, h6as]
@@ -239,8 +239,8 @@ private theorem psi1_forced_exceptional :
       have hρ_ge : 1 - 6 * w ≤ ρ.re := by linarith [hρre1, hσ''w_ge]
       have hkey : 6 * w ≤ (1 / 5000) / Real.log (4 * (q : ℝ)) := by
         rw [le_div_iff₀ hlog4q]
-        nlinarith [mul_le_mul_of_nonneg_left hlog4q_le (show (0:ℝ) ≤ 6 * w by positivity),
-          h2ws, ha30000, hspos, hwpos]
+        linarith only [h2ws, hadef, hc₀'3750, mul_le_mul_of_nonneg_left
+            hlog4q_le (show (0 : ℝ) ≤ 6 * w by positivity)]
       linarith [hρ_ge, hkey]
     have heqβ : ρ.re = β₁ := (landau_one_exceptional_at hχprim hχ1 hzρ hz hρwin hβwin).1
     rw [hρeq, heqβ]
@@ -318,7 +318,7 @@ theorem siegel_correlation_strong (hSeq : SiegelSequence) :
           = 4 * (Real.log q + 2) := by
         rw [Real.log_exp,
           show (16:ℝ) * (Real.log (q : ℝ) + 2) ^ 2 = (4 * (Real.log q + 2)) ^ 2 by ring,
-          Real.sqrt_sq (by nlinarith [hlogq_pos])]
+          Real.sqrt_sq (by linarith only [hlogq_lb, hc₄small, hc₄pos])]
       rw [hsqrt0, le_div_iff₀ (by nlinarith [hlogq_pos] : (0:ℝ) < 4 * (Real.log q + 2))]
       calc (1 - β₁) * (4 * (Real.log q + 2))
           ≤ (1 - β₁) * (30 * (Real.log q) ^ 2) :=

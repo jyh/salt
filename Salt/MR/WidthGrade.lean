@@ -103,8 +103,8 @@ theorem band_second_moment_width (F : Finset ℕ) (b : ℕ → ℂ) {c A T₀ : 
     intro τ hτ
     rw [Set.mem_Icc] at hτ
     have hd : (0 : ℝ) < A ^ 2 + τ ^ 2 := by positivity
-    have hτ2 : τ ^ 2 ≤ T₀ ^ 2 := by nlinarith [hτ.1, hτ.2]
-    have hA2 : A ^ 2 ≤ T₀ ^ 2 := by nlinarith
+    have hτ2 : τ ^ 2 ≤ T₀ ^ 2 := by nlinarith only [hτ]
+    have hA2 : A ^ 2 ≤ T₀ ^ 2 := by nlinarith only [hAT, hA]
     have hratio : (1 : ℝ) ≤ 2 * T₀ ^ 2 / (A ^ 2 + τ ^ 2) := by
       rw [le_div_iff₀ hd]; linarith
     calc ‖P τ‖ ^ 2 = ‖P τ‖ ^ 2 * 1 := (mul_one _).symm
@@ -477,12 +477,12 @@ theorem tail_lorentz_core {Pm Pp K : ℝ → ℂ} {Mm Mp cw A T₀ Bamp : ℝ}
     have hτA : A < |τ| := lt_of_le_of_lt hAT hτ
     have hA2 : A ^ 2 < τ ^ 2 := by
       have h1 : |τ| ^ 2 = τ ^ 2 := sq_abs τ
-      nlinarith [abs_nonneg τ]
-    have hcw2 : (0 : ℝ) < cw ^ 2 + τ ^ 2 := by nlinarith [sq_nonneg cw, pow_pos hA0 2]
+      nlinarith only [hτA, hA0, h1]
+    have hcw2 : (0 : ℝ) < cw ^ 2 + τ ^ 2 := by linarith only [hA2, sq_nonneg cw, sq_nonneg A]
     have hKle : ‖K τ‖ ≤ 2 * Bamp / (A ^ 2 + τ ^ 2) := by
       refine (hKb τ).trans ?_
       rw [div_le_div_iff₀ hcw2 (hd τ)]
-      nlinarith [sq_nonneg cw]
+      nlinarith only [hB0, hA2, sq_nonneg cw]
     calc ‖Pm τ‖ * ‖Pp τ‖ * ‖K τ‖
         ≤ ‖Pm τ‖ * ‖Pp τ‖ * (2 * Bamp / (A ^ 2 + τ ^ 2)) :=
           mul_le_mul_of_nonneg_left hKle (by positivity)
@@ -646,8 +646,8 @@ theorem band_weight_le_lorentz {P : ℝ → ℂ} {M cw A T₀ : ℝ}
         ≤ 2 * T₀ ^ 2 / cw * (‖P τ‖ ^ 2 / (A ^ 2 + τ ^ 2)) := by
     intro τ hτ
     rw [Set.mem_Icc] at hτ
-    have hτ2 : τ ^ 2 ≤ T₀ ^ 2 := by nlinarith [hτ.1, hτ.2]
-    have hA2 : A ^ 2 ≤ T₀ ^ 2 := by nlinarith
+    have hτ2 : τ ^ 2 ≤ T₀ ^ 2 := by nlinarith only [hτ]
+    have hA2 : A ^ 2 ≤ T₀ ^ 2 := by nlinarith only [hAT, hA0]
     have hratio : (1 : ℝ) ≤ 2 * T₀ ^ 2 / (A ^ 2 + τ ^ 2) := by
       rw [le_div_iff₀ (hd τ)]; linarith
     calc ‖P τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2)
@@ -880,7 +880,7 @@ private lemma diag_le_mass_width {F : Finset ℕ} {b : ℕ → ℂ} {c A : ℝ}
       norm_num
     have hgate : (A : ℝ) ^ 8 ≤ (n : ℝ) := by
       have := hygate n hn
-      nlinarith [pow_nonneg hA0.le 8]
+      linarith only [this, hn1]
     have h2 : ((A : ℝ) ^ 8) ^ (1 / 4 : ℝ) ≤ ((n : ℝ)) ^ (1 / 4 : ℝ) :=
       Real.rpow_le_rpow (by positivity) hgate (by norm_num)
     have h3 : ((n : ℝ)) ^ (1 / 4 : ℝ) ≤ ((n : ℝ)) ^ (c - 1 / 2 : ℝ) :=
@@ -894,7 +894,7 @@ private lemma diag_le_mass_width {F : Finset ℕ} {b : ℕ → ℂ} {c A : ℝ}
     have hp1 : (0 : ℝ) < (n : ℝ) ^ (1 / 2 : ℝ) := Real.rpow_pos_of_pos hn0 _
     have hp2 : (0 : ℝ) < (n : ℝ) ^ (c - 1 / 2 : ℝ) := Real.rpow_pos_of_pos hn0 _
     rw [hsplit, div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_le_mul_of_nonneg_right hA2n hp1.le]
+    nlinarith only [hbn, mul_le_mul_of_nonneg_right hA2n hp1.le, sq_nonneg (1 * A)]
   have hnn : (0 : ℝ) ≤ ‖b n‖ / (n : ℝ) ^ c := by positivity
   rw [hsq, pow_two]
   exact mul_le_mul_of_nonneg_right hterm hnn
@@ -1068,7 +1068,7 @@ theorem crossKer_width_sigma_bound (g : ℕ → ℂ) (hg : ∀ p, p.Prime → �
   have hfac : 9 * Real.exp 1 * y ^ (-(2 * β)) ≤ 81 := by
     have h1 : 9 * Real.exp 1 * y ^ (-(2 * β)) ≤ 9 * Real.exp 1 * 1 :=
       mul_le_mul_of_nonneg_left hyb (by positivity)
-    nlinarith [Real.exp_one_lt_d9]
+    linarith only [h1, hLinv4, hLinv, Real.exp_one_lt_d9]
   -- the window data
   have hF : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, 1 ≤ n := by
     intro n hn; rw [Finset.mem_Ioo] at hn; omega
@@ -1149,7 +1149,7 @@ theorem crossKer_width_sigma_bound (g : ℕ → ℂ) (hg : ∀ p, p.Prime → �
       have hden : A / 2 ≤ A - (c₀ - β) + 1 := by rw [hc₀]; linarith
       have hcoef : 4 * Cm / (A - (c₀ - β) + 1) ≤ 8 * Cm / A := by
         rw [div_le_div_iff₀ (by linarith) hA0]
-        nlinarith [mul_le_mul_of_nonneg_left hden (by linarith : (0 : ℝ) ≤ 8 * Cm)]
+        linarith only [mul_le_mul_of_nonneg_left hden (by linarith : (0 : ℝ) ≤ 8 * Cm)]
       refine mul_le_mul (by linarith) ?_ hSm0 (by positivity)
       calc Sm = 1 * Sm := (one_mul _).symm
         _ ≤ X ^ β * Sm := mul_le_mul_of_nonneg_right hXβ1 hSm0
