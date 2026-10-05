@@ -61,7 +61,7 @@ private lemma log_sq_le (x : ℝ) (hx : 1 ≤ x) : (Real.log x) ^ 2 ≤ 4 * x :=
   have h1 : Real.log x ≤ 2 * Real.sqrt x := by rw [hlogx]; linarith
   have hprod : (0 : ℝ) ≤ (2 * Real.sqrt x - Real.log x) * (2 * Real.sqrt x + Real.log x) :=
     mul_nonneg (by linarith) (by linarith [Real.sqrt_nonneg x])
-  nlinarith [hprod, hsx]
+  linarith only [hprod, hsx]
 
 /-- `logb 2 q ≤ 2 log x` for `1 ≤ q ≤ x`. -/
 private lemma logb2_le {q x : ℕ} (hq1 : 1 ≤ q) (hqx : q ≤ x) :
@@ -73,8 +73,8 @@ private lemma logb2_le {q x : ℕ} (hq1 : 1 ≤ q) (hqx : q ≤ x) :
   have hlogqnn : 0 ≤ Real.log (q : ℝ) := Real.log_natCast_nonneg q
   have hlogxnn : 0 ≤ Real.log (x : ℝ) := le_trans hlogqnn hlogq
   rw [Real.logb, div_le_iff₀ hlog2pos]
-  nlinarith [hlogq, hlogxnn, hlog2, hlogqnn,
-    mul_nonneg hlogxnn (show (0 : ℝ) ≤ 2 * Real.log 2 - 1 by linarith)]
+  linarith only [hlogq,
+      mul_nonneg hlogxnn (show (0 : ℝ) ≤ 2 * Real.log 2 - 1 by linarith)]
 
 /-- `1 + log Q ≤ 3 log x` for `2 ≤ Q ≤ x`. -/
 private lemma one_add_logQ_le {Q x : ℕ} (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
@@ -350,7 +350,7 @@ lemma dyadic {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) :
         have hgc : 13 * ((x : ℝ) + 1) * (∑ j ∈ Finset.range (J + 1), (1 / (2 : ℝ) ^ j))
             ≤ 13 * ((x : ℝ) + 1) * 2 := mul_le_mul_of_nonneg_left hgeom2 h13nn
         linarith
-    _ ≤ 8 * (Q : ℝ) + 39 * x := by nlinarith [h2J1, hx2]
+    _ ≤ 8 * (Q : ℝ) + 39 * x := by linarith only [hx2, h2J1]
 
 /-! ## The BDH theorem -/
 
@@ -387,7 +387,7 @@ theorem bdh {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
   have hSL6 : ∑ n ∈ Finset.Icc 1 x, (vonMangoldt n) ^ 2 ≤ 6 * (x : ℝ) * Real.log x := by
     refine hSL2le.trans ?_
     have hxL_nn : 0 ≤ (x : ℝ) * Real.log x := mul_nonneg hxnn hLnn
-    nlinarith [hlog4, hxL_nn]
+    nlinarith only [hlog4, hxL_nn]
   have hL2 : (Real.log x) ^ 2 ≤ 4 * (x : ℝ) := log_sq_le (x : ℝ) hx1r
   -- Step 2: the MAIN + ERROR split
   have hsplit : ∑ q ∈ Finset.Icc 1 Q, (1 / (q.totient : ℝ)) *
@@ -417,8 +417,8 @@ theorem bdh {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
         ≤ (‖psiChi x χ.primitiveCharacter‖ + ‖psiChi x χ - psiChi x χ.primitiveCharacter‖)
           * (‖psiChi x χ.primitiveCharacter‖ + ‖psiChi x χ - psiChi x χ.primitiveCharacter‖) :=
       mul_self_le_mul_self (norm_nonneg _) htri
-    nlinarith [hstep1,
-      sq_nonneg (‖psiChi x χ.primitiveCharacter‖ - ‖psiChi x χ - psiChi x χ.primitiveCharacter‖)]
+    linarith only [hstep1, sq_nonneg
+        (‖psiChi x χ.primitiveCharacter‖ - ‖psiChi x χ - psiChi x χ.primitiveCharacter‖)]
   -- Step 3: the MAIN piece
   have hMainNum : (∑ q ∈ Finset.Icc 1 Q, (1 / (q.totient : ℝ)) *
         ∑ χ ∈ (Finset.univ : Finset (DirichletCharacter ℂ q)).erase 1,
@@ -480,8 +480,8 @@ theorem bdh {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
           · exact mul_nonneg hc_nn (Finset.sum_nonneg fun n _ => sq_nonneg _)
           · exact hb_nn
       _ ≤ 5760 * ((Q : ℝ) * x + (x : ℝ) ^ 2) * (Real.log x) ^ 2 := by
-          nlinarith [mul_nonneg (mul_nonneg hQnn hxnn) (sq_nonneg (Real.log (x : ℝ))),
-            mul_nonneg (mul_nonneg hxnn hxnn) (sq_nonneg (Real.log (x : ℝ)))]
+          linarith only [mul_nonneg (mul_nonneg hxnn hxnn) (sq_nonneg (Real.log (x : ℝ))),
+              mul_nonneg (mul_nonneg hQnn hxnn) (sq_nonneg (Real.log (x : ℝ)))]
   -- Step 4: the ERROR piece
   have hErrNum : (∑ q ∈ Finset.Icc 1 Q, (1 / (q.totient : ℝ)) *
         ∑ χ ∈ (Finset.univ : Finset (DirichletCharacter ℂ q)).erase 1,
@@ -519,7 +519,7 @@ theorem bdh {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
                   _ ≤ (2 * Real.log x) * Real.log x := mul_le_mul_of_nonneg_right h2 hLnn
                   _ = 2 * (Real.log x) ^ 2 := by ring
               have hnn := norm_nonneg (psiChi x χ - psiChi x χ.primitiveCharacter)
-              nlinarith [hdb, hnn, sq_nonneg (Real.log x)]
+              nlinarith only [hdb, hnn, sq_nonneg (Real.log ↑x)]
             _ = (((Finset.univ : Finset (DirichletCharacter ℂ q)).erase 1).card : ℝ)
                   * (8 * (Real.log x) ^ 4) := by
               rw [Finset.sum_const, nsmul_eq_mul]
@@ -543,7 +543,7 @@ theorem bdh {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
           have hkey : 8 * (Q : ℝ) * (Real.log x) ^ 2 * (Real.log x) ^ 2
               ≤ 8 * (Q : ℝ) * (Real.log x) ^ 2 * (4 * x) :=
             mul_le_mul_of_nonneg_left hL2 (by positivity)
-          nlinarith [hkey, mul_nonneg (mul_nonneg hxnn hxnn) (sq_nonneg (Real.log (x : ℝ)))]
+          linarith only [hkey, mul_nonneg (mul_nonneg hxnn hxnn) (sq_nonneg (Real.log (x : ℝ)))]
   -- assemble
   calc ∑ q ∈ Finset.Icc 1 Q, ∑ a ∈ (Finset.range q).filter (Nat.Coprime q),
           ‖(psiAP x q a : ℂ) - psiChi x (1 : DirichletCharacter ℂ q) / (q.totient : ℂ)‖ ^ 2
@@ -553,6 +553,6 @@ theorem bdh {x Q : ℕ} (hx : 2 ≤ x) (hQ : 2 ≤ Q) (hQx : Q ≤ x) :
     _ ≤ 5760 * ((Q : ℝ) * x + (x : ℝ) ^ 2) * (Real.log x) ^ 2
           + 32 * ((Q : ℝ) * x + (x : ℝ) ^ 2) * (Real.log x) ^ 2 := add_le_add hMainNum hErrNum
     _ ≤ 6000 * ((Q : ℝ) * x + (x : ℝ) ^ 2) * (Real.log x) ^ 2 := by
-        nlinarith [mul_nonneg hPnn (sq_nonneg (Real.log (x : ℝ)))]
+        linarith only [mul_nonneg hPnn (sq_nonneg (Real.log (x : ℝ)))]
 
 end Salt.LS

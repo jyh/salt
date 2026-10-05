@@ -235,7 +235,7 @@ theorem neg_re_logDeriv_LFunction_le {f : ℕ} [NeZero f] (χ : DirichletCharact
     have hnn : (0 : ℝ) ≤ Λ n * (n : ℝ) ^ (-σ) :=
       mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (Real.rpow_nonneg (Nat.cast_nonneg n) _)
     have h := abs_le.mp (chiRe_abs_le_one χ n)
-    nlinarith [h.2]
+    nlinarith only [hnn, h]
   refine le_trans (Summable.tsum_le_tsum hdom (summable_twist_real χ h1)
     (summable_vm_real h1)) ?_
   rw [← neg_re_logDeriv_zeta_eq_tsum h1]
@@ -329,7 +329,7 @@ lemma per_zero_inv_diff_le {σ σ' r0 : ℝ} {ρ : ℂ} (hσ1 : 1 ≤ σ) (hlt :
     rw [hcast, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (by linarith)]
   rw [hnum]
   have hden : ‖ρ - 1‖ ^ 2 / 4 ≤ ‖(σ : ℂ) - ρ‖ * ‖(σ' : ℂ) - ρ‖ := by
-    nlinarith [hlow, hlow', hρ0]
+    nlinarith only [hlow, hlow', hfl, hσr, hσ1]
   have hzpos : (0 : ℝ) < ‖(σ : ℂ) - ρ‖ := by
     rcases (norm_nonneg ((σ : ℂ) - ρ)).lt_or_eq with h | h
     · exact h
@@ -339,7 +339,7 @@ lemma per_zero_inv_diff_le {σ σ' r0 : ℝ} {ρ : ℂ} (hσ1 : 1 ≤ σ) (hlt :
     · exact h
     · exact absurd (norm_eq_zero.mp h.symm) hw
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
-  nlinarith [hden, sub_nonneg.mpr hlt]
+  nlinarith only [hlt, hden]
 
 /-- **THE DIFFERENCING (HB (4.1)+(4.2)), abstract in the partial-fraction data.**  Let `Lf`
 be any function admitting the partial-fraction shape at the two real points `σ ≤ σ′`, with
@@ -428,7 +428,7 @@ theorem neg_re_logDeriv_differenced {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ
     have he2 : (m (β₀ : ℂ) : ℝ) / (σ - β₀) = (m (β₀ : ℂ) : ℝ) * (1 / (σ - β₀)) := by
       rw [mul_one_div]
     rw [he1, he2]
-    nlinarith [hstep]
+    linarith only [hstep]
   -- the remaining zeros: paid at `4(σ′−σ)‖ρ−1‖^{−2}`
   have hother : ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
       (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
@@ -630,10 +630,10 @@ theorem invSq_sum_split_le : ∃ C : ℝ, 0 < C ∧
     have hstep : ∀ ρ ∈ Zf, (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ 16 * (m ρ : ℝ) := by
       intro ρ hρ
       have hbig : (1 : ℝ) / 4 ≤ ‖ρ - 1‖ := not_lt.mp (Finset.mem_filter.mp hρ).2
-      have hsq : (1 : ℝ) / 16 ≤ ‖ρ - 1‖ ^ 2 := by nlinarith [hbig]
-      have hpos : (0 : ℝ) < ‖ρ - 1‖ ^ 2 := by nlinarith [hbig]
+      have hsq : (1 : ℝ) / 16 ≤ ‖ρ - 1‖ ^ 2 := by nlinarith only [hbig]
+      have hpos : (0 : ℝ) < ‖ρ - 1‖ ^ 2 := by linarith only [hsq]
       rw [div_le_iff₀ hpos]
-      nlinarith [hsq, Nat.cast_nonneg (α := ℝ) (m ρ)]
+      nlinarith only [hsq, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
     refine le_trans (Finset.sum_le_sum hstep) ?_
     rw [← Finset.mul_sum]
     have hsub : ∑ ρ ∈ Zf, (m ρ : ℝ) ≤ ∑ ρ ∈ Z, (m ρ : ℝ) :=
@@ -681,8 +681,8 @@ theorem hbCoreRate_at_operating_point {Lp a ell Sinv Rrem Cs : ℝ}
     ring
   have hmono : 4 * Cs * ((a - 1) * Lp / ell) ≤ 4 * Cs * (a * Lp / ell) := by
     have hstep : (a - 1) * Lp / ell ≤ a * Lp / ell :=
-      (div_le_div_iff_of_pos_right hell).mpr (by nlinarith [hL.le])
-    nlinarith [hstep, hCs]
+      (div_le_div_iff_of_pos_right hell).mpr (by linarith only [hL])
+    nlinarith only [hCs, hstep]
   have hinv : 2 * (1 / ((1 + a / Lp) - 1)) = 2 * (Lp / a) := by
     have : (1 + a / Lp) - 1 = a / Lp := by ring
     rw [this, one_div_div]
