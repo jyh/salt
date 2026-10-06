@@ -189,7 +189,7 @@ lemma caseAS_anti {c Cb M M' W W' : ℝ} (hc0 : 0 < c) (hc1 : 2 * c < 1) (hCb0 :
   have hlW' : (0 : ℝ) < Real.log W' := Real.log_pos hW1
   have hlW : Real.log W' ≤ Real.log W := Real.log_le_log (by linarith) hW
   have hcM : c * M' ≤ c * M := mul_le_mul_of_nonneg_left hM (le_of_lt hc0)
-  have h1 : Real.exp (-c * M) ≤ Real.exp (-c * M') := Real.exp_le_exp.mpr (by nlinarith)
+  have h1 : Real.exp (-c * M) ≤ Real.exp (-c * M') := Real.exp_le_exp.mpr (by linarith only [hcM])
   have h2 : Real.log W ^ (-(1 / (32 * Real.exp 1))) ≤ Real.log W' ^ (-(1 / (32 * Real.exp 1))) :=
     Real.rpow_le_rpow_of_nonpos hlW' hlW (neg_nonpos.mpr (by positivity))
   have h3 : Real.log W ^ (-(1 : ℝ) / 2 + 1 / 1000)
@@ -214,18 +214,18 @@ lemma farErr_le {W W' Y Y' Rmax : ℝ} (hW1 : 1 < W') (hW : W' ≤ W) (hRmax : 0
   have hsq : Real.sqrt (Real.log W') ≤ Real.sqrt (Real.log W) := Real.sqrt_le_sqrt hlW
   have hlY : (0 : ℝ) ≤ Real.log Y := Real.log_nonneg hY
   have hlYY : Real.log Y ≤ Real.log Y' := Real.log_le_log (by linarith) hYY
-  have hin0 : (0 : ℝ) < 3 + Rmax * (1 + Real.log Y) := by nlinarith
+  have hin0 : (0 : ℝ) < 3 + Rmax * (1 + Real.log Y) := by nlinarith only [hRmax, hlY]
   have hnum : Real.log (3 + Rmax * (1 + Real.log Y))
       ≤ Real.log (3 + Rmax * (1 + Real.log Y')) := by
     refine Real.log_le_log hin0 ?_
-    nlinarith
+    nlinarith only [hRmax, hlYY]
   have hC := ballSupC_pos
   have htop : 4 * ballSupC * (1 + Real.log (3 + Rmax * (1 + Real.log Y)))
-      ≤ 4 * ballSupC * (1 + Real.log (3 + Rmax * (1 + Real.log Y'))) := by nlinarith
+      ≤ 4 * ballSupC * (1 + Real.log (3 + Rmax * (1 + Real.log Y'))) := by nlinarith only [hnum, hC]
   have htop0 : (0 : ℝ) ≤ 4 * ballSupC * (1 + Real.log (3 + Rmax * (1 + Real.log Y'))) := by
-    have h1 : (1 : ℝ) ≤ 3 + Rmax * (1 + Real.log Y') := by nlinarith
+    have h1 : (1 : ℝ) ≤ 3 + Rmax * (1 + Real.log Y') := by nlinarith only [hRmax, hlYY, hlY]
     have := Real.log_nonneg h1
-    nlinarith
+    nlinarith only [hC, this]
   unfold farErr
   exact div_le_div₀ htop0 htop hsq' hsq
 
@@ -339,7 +339,7 @@ lemma ramI_card_le_pin (X : ℝ) (P Q : ℕ) (hQ0 : 0 < Q) (hQpin : (Q : ℝ) �
   have hcard := ramI_card_le (H83 X theta293) P Q (mul_nonneg hH0 hlogQ0)
   have hdiv : Real.log X / Real.log (Real.log X) ≤ Real.log X := by
     rw [div_le_iff₀ (by linarith)]
-    nlinarith
+    nlinarith only [he1, hLL1, hLe]
   have hmul : (Real.log X) ^ (1 + theta293) = (Real.log X) ^ theta293 * Real.log X := by
     rw [show (1 : ℝ) + theta293 = theta293 + 1 by ring, Real.rpow_add hL0, Real.rpow_one]
   have hstep : H83 X theta293 * Real.log (Q : ℝ) ≤ (Real.log X) ^ (1 + theta293) := by
@@ -435,7 +435,7 @@ theorem balance_priced_main (X H Cq CR KS Rbar : ℝ) (P Q : ℕ)
       have := mul_le_mul_of_nonneg_right
         (mul_le_mul_of_nonneg_left hcsq (by norm_num : (0 : ℝ) ≤ 4)) hKS0
       linarith
-    nlinarith [hKSgate, h2]
+    linarith only [h2, hKSgate]
   -- the `𝒯_L` leg
   have hR2 : Rbar ^ 2 ≤ CR ^ 2 * (Real.log X) ^ (-2 * rho293) := by
     calc Rbar ^ 2 = Rbar * Rbar := sq Rbar
@@ -492,7 +492,7 @@ theorem balance_priced_main (X H Cq CR KS Rbar : ℝ) (P Q : ℕ)
     rw [hcollapse] at hstep
     linarith
   rw [balance_exponent_293']
-  nlinarith [hterm1, hterm2]
+  linarith only [hterm2, hterm1]
 
 /-- **P-a (iii) — THE REMAINDER LEG, PRICED** (`rem_priced`).  `USetBalance.hU_balance`'s
 `hrem` binder from Lemma 12's error rows:
@@ -549,7 +549,7 @@ theorem rem_priced (X Tann H ε EP2 E : ℝ) (hL1 : 1 ≤ Real.log X)
       ≤ (Tann / X + 1) * ((Real.log X) ^ (-theta293) * (Real.log X) ^ ε) :=
     le_mul_of_one_le_left (mul_nonneg hB0 hE0) hA1
   rw [Real.rpow_add hL0]
-  nlinarith [hE, hrow, hEP2', hbig, hBle, hBle', hAB0]
+  linarith only [hBle', hEP2', hbig, hrow, hE]
 
 /-! ## §4 — P-d: `hU` FULLY PRICED (the row at the pins, all four slots discharged) -/
 
