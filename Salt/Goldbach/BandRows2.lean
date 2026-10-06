@@ -90,7 +90,7 @@ theorem gold_crumb_triple_tower :
   -- ============ polylog-kill toolkit ============
   have h3lelogsq : 3 * Real.log N ≤ (Real.log N) ^ (2 : ℝ) := by
     rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast, pow_two]
-    nlinarith [hlog3, hlog0]
+    nlinarith only [hlog10]
   have hlogpk : ∀ E : ℝ, 0 ≤ E → E ≤ 80 → (Real.log N) ^ E ≤ (N : ℝ) ^ ε := by
     intro E _ hE80
     exact le_trans (Real.rpow_le_rpow_of_exponent_le hlog1 hE80) hpk80
@@ -149,7 +149,7 @@ theorem gold_crumb_triple_tower :
       calc ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ) ≤ (N : ℝ) * (2 * (N : ℝ)) :=
             mul_le_mul hXR hMR (by positivity) (by positivity)
         _ = 2 * (N : ℝ) ^ 2 := by ring
-        _ ≤ (N : ℝ) ^ 3 := by nlinarith [hN2R, sq_nonneg (N : ℝ)]
+        _ ≤ (N : ℝ) ^ 3 := by nlinarith only [hN2R, sq_nonneg ↑N]
     have hLle : L ≤ Lmax := by
       rw [hLdef, hLmaxdef]
       calc Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ))
@@ -162,7 +162,7 @@ theorem gold_crumb_triple_tower :
     have hB_le : B ≤ Bmax := by
       rw [hBdef, hBmaxdef]; exact mul_le_mul_of_nonneg_left hLpow_le hDnn
     have hB_nn : (0 : ℝ) ≤ B := by rw [hBdef]; positivity
-    have hB2 : B ^ 2 ≤ Bmax ^ 2 := by nlinarith [hB_le, hB_nn, hBmax_nn]
+    have hB2 : B ^ 2 ≤ Bmax ^ 2 := by nlinarith only [hB_le, hB_nn, hBmax_nn]
     have hdiv : 2 * B ^ 2 / (Q : ℝ) ≤ 2 * Bmax ^ 2 / (Q : ℝ) := by
       rw [div_eq_mul_inv, div_eq_mul_inv]
       exact mul_le_mul_of_nonneg_right (by linarith [hB2]) (by positivity)
@@ -231,7 +231,7 @@ theorem gold_crumb_triple_tower :
           mul_le_mul hD hLmax18 hLmaxpow_nn (Real.rpow_nonneg hNpos.le _)
       _ = (N : ℝ) ^ (a + ε) := (Real.rpow_add hNpos _ _).symm
   have hBmaxsq_ub : Bmax ^ 2 ≤ (N : ℝ) ^ (2 * (a + ε)) := by
-    calc Bmax ^ 2 ≤ ((N : ℝ) ^ (a + ε)) ^ 2 := by nlinarith [hBmax_ub, hBmax_nn, hae_nn]
+    calc Bmax ^ 2 ≤ ((N : ℝ) ^ (a + ε)) ^ 2 := by nlinarith only [hae_nn, hBmax_ub, hBmax_nn]
       _ = (N : ℝ) ^ (2 * (a + ε)) := by
           rw [← Real.rpow_natCast ((N : ℝ) ^ (a + ε)) 2, ← Real.rpow_mul hNpos.le]
           congr 1; push_cast; ring
@@ -272,7 +272,7 @@ theorem gold_crumb_triple_tower :
       mul_le_mul hcR hcR hcR_nn (by linarith [hcR, hcR_nn])
     have hlp := hlogpk 2 (by norm_num) (by norm_num)
     rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast, pow_two] at hlp
-    nlinarith [hsq, hlp]
+    linarith only [hlp, hsq]
   have htriple_ub : ((c : ℕ) : ℝ) * (((c : ℕ) : ℝ) * (3 * RHSmax))
       ≤ 96 * (N : ℝ) ^ ((1 : ℝ) - 88 / 1000000) := by
     have hstep : ((c : ℕ) : ℝ) * (((c : ℕ) : ℝ) * (3 * RHSmax))
@@ -304,7 +304,7 @@ theorem gold_crumb_triple_tower :
         apply mul_le_mul_of_nonneg_left _ (by norm_num)
         apply Real.rpow_le_rpow_of_exponent_le hN1R; rw [hεdef]; norm_num
     _ = 96 * (N : ℝ) := by rw [Real.rpow_one]
-    _ ≤ 96 * Kc * (N : ℝ) := by nlinarith [hKc1, hNpos.le]
+    _ ≤ 96 * Kc * (N : ℝ) := by nlinarith only [hKc1, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
 
 /-! ## 1. The two crumb legs (the terminal's `htail` / `hbandtail` slots) -/
 
