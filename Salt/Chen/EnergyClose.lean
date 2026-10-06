@@ -152,7 +152,7 @@ theorem block_energy_le {X Y F : ℕ} (hF : 1 ≤ F) (hY : 0 < Y) (α β : ℕ �
       have hrw : (1 / (F : ℝ)) * ((f : ℝ) / (f.totient : ℝ))
           = (f : ℝ) / ((F : ℝ) * (f.totient : ℝ)) := by field_simp
       rw [hrw, div_le_div_iff₀ hφpos (mul_pos hFR hφpos)]
-      nlinarith [hFf, hφpos.le]
+      nlinarith only [hFf, (Nat.cast_nonneg _ : 0 ≤ ↑f.totient)]
     calc (1 / (f.totient : ℝ)) * bilinPrimEnergy α β X Y f
           ≤ ((1 / (F : ℝ)) * ((f : ℝ) / (f.totient : ℝ))) * bilinPrimEnergy α β X Y f :=
             mul_le_mul_of_nonneg_right hwle hEnn
@@ -190,7 +190,7 @@ theorem block_energy_le' {X Y a b : ℕ} (ha : 1 ≤ a) (hb : 2 ≤ b) (hY : 0 <
       have hrw : (1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))
           = (f : ℝ) / ((a : ℝ) * (f.totient : ℝ)) := by field_simp
       rw [hrw, div_le_div_iff₀ hφpos (mul_pos haR hφpos)]
-      nlinarith [haf, hφpos.le]
+      nlinarith only [haf, (Nat.cast_nonneg _ : 0 ≤ ↑f.totient)]
     calc (1 / (f.totient : ℝ)) * bilinPrimEnergy α β X Y f
         ≤ ((1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))) * bilinPrimEnergy α β X Y f :=
           mul_le_mul_of_nonneg_right hwle hEnn
@@ -338,12 +338,12 @@ theorem geom_shell_sum_le {X Y k0 K : ℕ} (hY : 0 < Y) :
       ≤ 2 * ((K + 1 : ℕ) : ℝ) * Real.sqrt (13 * ((X : ℝ) + 1)) := by
     rw [Finset.sum_const, nsmul_eq_mul]
     have : ((Finset.Icc k0 K).card : ℝ) ≤ ((K + 1 : ℕ) : ℝ) := by exact_mod_cast hcard
-    nlinarith [this, hu]
+    nlinarith only [hu, this]
   have hconstY : ∑ k ∈ Finset.Icc k0 K, 2 * Real.sqrt (13 * ((Y : ℝ) + 1))
       ≤ 2 * ((K + 1 : ℕ) : ℝ) * Real.sqrt (13 * ((Y : ℝ) + 1)) := by
     rw [Finset.sum_const, nsmul_eq_mul]
     have : ((Finset.Icc k0 K).card : ℝ) ≤ ((K + 1 : ℕ) : ℝ) := by exact_mod_cast hcard
-    nlinarith [this, hv]
+    nlinarith only [hv, this]
   have htail : ∑ k ∈ Finset.Icc k0 K,
         Real.sqrt (13 * ((X : ℝ) + 1)) * Real.sqrt (13 * ((Y : ℝ) + 1)) / (2 : ℝ) ^ k
       ≤ Real.sqrt (13 * ((X : ℝ) + 1)) * Real.sqrt (13 * ((Y : ℝ) + 1)) * (2 / (2 : ℝ) ^ k0) := by
@@ -528,10 +528,10 @@ theorem four_term_scale_le {X Y D k0 K : ℕ} {A B C0 : ℝ}
   have hsXY : (0 : ℝ) ≤ Real.sqrt ((X : ℝ) * (Y : ℝ)) := Real.sqrt_nonneg _
   have hu26 : Real.sqrt (13 * ((X : ℝ) + 1)) ≤ Real.sqrt 26 * Real.sqrt X := by
     rw [← Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 26)]
-    apply Real.sqrt_le_sqrt; nlinarith [hXR]
+    apply Real.sqrt_le_sqrt; linarith only [hXR]
   have hv26 : Real.sqrt (13 * ((Y : ℝ) + 1)) ≤ Real.sqrt 26 * Real.sqrt Y := by
     rw [← Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 26)]
-    apply Real.sqrt_le_sqrt; nlinarith [hYR]
+    apply Real.sqrt_le_sqrt; linarith only [hYR]
   have hs26 : (0 : ℝ) ≤ Real.sqrt 26 := Real.sqrt_nonneg _
   have hs26sq : Real.sqrt 26 * Real.sqrt 26 = 26 := Real.mul_self_sqrt (by norm_num)
   have huv : Real.sqrt (13 * ((X : ℝ) + 1)) * Real.sqrt (13 * ((Y : ℝ) + 1))
@@ -561,10 +561,10 @@ theorem four_term_scale_le {X Y D k0 K : ℕ} {A B C0 : ℝ}
       linarith
     have hKnn : (0 : ℝ) ≤ (K : ℝ) := Nat.cast_nonneg K
     have hprod : (0 : ℝ) ≤ (K : ℝ) * (Real.log 2 - 1 / 2) := mul_nonneg hKnn (by linarith)
-    nlinarith [hstep, hprod]
+    linarith only [hprod, hstep]
   have hK1_2L : ((K + 1 : ℕ) : ℝ) ≤ 2 * L := by push_cast; linarith
   have h2K1 : (2 : ℝ) ^ (K + 1) ≤ 2 * (D : ℝ) := by
-    rw [pow_succ]; nlinarith [h2K, (by positivity : (0:ℝ) ≤ (2:ℝ)^K)]
+    rw [pow_succ]; linarith only [h2K]
   have hLApos : (0 : ℝ) < L ^ (A + 1) := Real.rpow_pos_of_pos hLpos _
   have hCnn : (0 : ℝ) ≤ 2 * (1 + Real.log Y) * Real.sqrt X * Real.sqrt Y :=
     mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) h1logY) hsX) hsY
