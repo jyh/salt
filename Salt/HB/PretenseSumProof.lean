@@ -164,7 +164,7 @@ theorem two_mul_pretenseSum_le_vmPairW (χ : DirichletCharacter ℂ q) (N : ℕ)
     have hdom := hpw p hprime hple
     calc 2 * (Real.log (p : ℝ) / (p : ℝ))
         = 2 * (Real.log (p : ℝ) * (1 / (p : ℝ))) := by ring
-      _ ≤ 2 * (Real.log (p : ℝ) * w p) := by nlinarith
+      _ ≤ 2 * (Real.log (p : ℝ) * w p) := by nlinarith only [hlog, hdom]
       _ = (1 + chiRe χ p) * (Λ p * w p) := by
           rw [hchi, ArithmeticFunction.vonMangoldt_apply_prime hprime]; ring
   · intro p hp
@@ -254,7 +254,7 @@ lemma pole_cancel_le {s β₀ : ℝ} (hs : 1 < s) (hβ : β₀ ≤ 1) :
     ring
   rw [hkey]
   apply div_le_div_of_nonneg_left hu (by positivity)
-  nlinarith
+  nlinarith only [hs, hβ]
 
 /-! ## §3 — HB's optimization `a = (log η)^{1/2}` (p.206) -/
 
@@ -281,7 +281,7 @@ lemma hb_rate_optimal {A B a : ℝ} (hA : 0 ≤ A) (hB : 0 ≤ B) (ha : 0 < a) :
   have hkey : Real.sqrt (A * B) = Real.sqrt (A / a) * Real.sqrt (B * a) := by
     rw [← Real.sqrt_mul h1, h3]
   rw [hkey]
-  nlinarith [sq_nonneg (Real.sqrt (A / a) - Real.sqrt (B * a)), Real.sq_sqrt h1, Real.sq_sqrt h2]
+  linarith only [Real.sq_sqrt h2, Real.sq_sqrt h1, sq_nonneg (1 * √(A / a) - 1 * √(B * a))]
 
 /-- `L/√ℓ` in `rpow` currency: `L·ℓ^{−1/2}`, the shape the paper prints. -/
 lemma div_sqrt_eq_rpow (Lparam ell : ℝ) (hell : 0 < ell) :
@@ -417,10 +417,10 @@ theorem nearOne_invSq_sum_le : ∃ C : ℝ, 0 < C ∧
     refine ⟨?_, ?_, ?_⟩
     · rw [hgdef ρ]
       rw [le_div_iff₀ hr0] at hkle
-      nlinarith [h2kR, hr0]
+      nlinarith only [hr0, h2kR, hkle]
     · rw [hgdef ρ]
       rw [div_lt_iff₀ hr0] at hklt
-      nlinarith [hlt2R, hr0]
+      nlinarith only [hr0, hlt2R, hklt]
     · rw [hgdef ρ, hJdef]
       refine Nat.log_mono_right (Nat.floor_mono ?_)
       have hq : ‖ρ - 1‖ / r0 ≤ (1 / 4) / r0 := by
@@ -445,7 +445,7 @@ theorem nearOne_invSq_sum_le : ∃ C : ℝ, 0 < C ∧
       have hlow := (hkey ρ (hFibsub hρ)).1
       rw [hFibg ρ hρ] at hlow
       apply div_le_div_of_nonneg_left (by positivity) (by positivity)
-      nlinarith [hlow, h2j.le]
+      nlinarith only [hlow, h2j]
     have hsum2 : ∑ ρ ∈ Z.filter (fun ρ => g ρ = j), (zeroMult χ ρ : ℝ) / (r0 * 2 ^ j) ^ 2
         = efMultTotal χ (Z.filter (fun ρ => g ρ = j)) / (r0 * 2 ^ j) ^ 2 := by
       rw [efMultTotal, Finset.sum_div]
@@ -504,7 +504,7 @@ theorem nearOne_invSq_sum_le : ∃ C : ℝ, 0 < C ∧
     _ ≤ 4 * C0 * (1 / r0 ^ 2 + Lg / r0) := by
         have hA : (0 : ℝ) ≤ C0 / r0 ^ 2 := by positivity
         have hE : C0 / r0 ^ 2 * (4 / 3) ≤ 4 * C0 * (1 / r0 ^ 2) := by
-          rw [div_eq_mul_one_div]; nlinarith [hA, hC0, one_div_pos.mpr (pow_pos hr0 2)]
+          rw [div_eq_mul_one_div]; nlinarith only [hC0, one_div_pos.mpr (pow_pos hr0 2)]
         have hF : 2 * C0 * Lg / r0 * 2 = 4 * C0 * (Lg / r0) := by ring
         rw [mul_add]
         linarith
