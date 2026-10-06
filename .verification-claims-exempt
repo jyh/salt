@@ -1,0 +1,2 @@
+# Frozen records: not edited, so not read. <path> TAB <reason>. Printed with every verdict.
+papers/witness/main.tex	the source of a posted paper (arXiv, with the Zenodo archive 10.5281/zenodo.21828638); its abstract's claim is cited theorem by theorem with \leanname in the body, and editing it would fork the repository copy from the record
