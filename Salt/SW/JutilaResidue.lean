@@ -443,14 +443,14 @@ theorem norm_resKernel_le_log {s : ℝ} (hs0 : 0 ≤ s) (hs : s ≤ 1 / 60) {N M
       rw [mul_one_sub, ← Real.exp_add, ← hlin]
     have hb1 : Real.exp (Real.log M * (-s)) ≤ 1 := by
       refine Real.exp_le_one_iff.mpr ?_
-      nlinarith [hMa, hs0]
+      nlinarith only [hs0, hMa]
     have hb2 : 1 - Real.exp (-(s * Real.log (N / M))) ≤ s * Real.log (N / M) := by
       have h := Real.add_one_le_exp (-(s * Real.log (N / M)))
       linarith
     have hb3 : 0 ≤ 1 - Real.exp (-(s * Real.log (N / M))) := by
       have h : Real.exp (-(s * Real.log (N / M))) ≤ 1 := by
         refine Real.exp_le_one_iff.mpr ?_
-        nlinarith [hL, hs0]
+        nlinarith only [hs0, hL]
       linarith
     have hkey : M ^ (-s) - N ^ (-s) ≤ s * Real.log (N / M) := by
       rw [Real.rpow_def_of_pos hM0, Real.rpow_def_of_pos hN0, hexp]
@@ -577,7 +577,7 @@ theorem norm_riemannZeta_le_of_half_le {u : ℂ} (hu : 1 / 2 ≤ u.re) (hu1 : 1 
     field_simp
   rw [hexp] at h
   have hu0 : (0 : ℝ) ≤ ‖u‖ := norm_nonneg u
-  nlinarith [h, hinv1, hinv2, hu0, mul_nonneg hu0 (by linarith : (0 : ℝ) ≤ 2 - 1 / u.re)]
+  linarith only [hinv1, h, mul_nonneg hu0 (by linarith : (0 : ℝ) ≤ 2 - 1 / u.re)]
 
 /-- On the critical line: `‖ζ(1/2 + it)‖ ≤ 7/2 + 3|t|` (design v2 F5). -/
 theorem norm_riemannZeta_half_le (t : ℝ) :
@@ -1071,7 +1071,7 @@ theorem norm_integral_resIntegrand_edge_le (q : ℕ) [NeZero q] {N M : ℝ} (hM 
       (by norm_num)
       (add_nonneg (Real.rpow_nonneg hNd.le _) (Real.rpow_nonneg hMd.le _))
       (by positivity) (norm_nonneg _) le_rfl hkersum
-      (by nlinarith [hq0, hnb]) hcube
+      (by nlinarith only [hnb, (Nat.cast_nonneg _ : 0 ≤ ↑q)]) hcube
     refine (hbase.trans hstep).trans (le_of_eq ?_)
     field_simp
     ring
@@ -1187,7 +1187,7 @@ theorem integrable_resIntegrand_line (q : ℕ) [NeZero q] {N M : ℝ} (hM : 1 �
     (e₁ := ‖(((σ : ℂ) + (t : ℂ) * I) * ((σ : ℂ) + (t : ℂ) * I + 1)
       * ((σ : ℂ) + (t : ℂ) * I + 2))⁻¹‖) (e₂ := ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹)
     (by norm_num) hkn (by positivity) (norm_nonneg _) le_rfl le_rfl
-    (by nlinarith [hq0, hnb]) hcube
+    (by nlinarith only [hnb, (Nat.cast_nonneg _ : 0 ≤ ↑q)]) hcube
   refine (hbase.trans hstep).trans (le_of_eq ?_)
   ring
 
@@ -1534,7 +1534,7 @@ theorem halaszBTsum_jutilaB_expand [NeZero q] (χ : DirichletCharacter ℂ q) {R
         have h1 : N ≤ ((⌈N⌉₊ : ℕ) : ℝ) := Nat.le_ceil N
         have h2 : ((⌈N⌉₊ : ℕ) : ℝ) < (m : ℝ) := by exact_mod_cast hlt
         have h3 : (1 : ℝ) ≤ (d : ℝ) := by exact_mod_cast hd0
-        nlinarith [Nat.cast_nonneg (α := ℝ) m]
+        nlinarith only [h3, h2, h1, (Nat.cast_nonneg _ : 0 ≤ ↑m)]
       rw [hker0 N hN0 _ hge, hker0 M hM _ (le_trans hMN hge), sub_self, mul_zero]
   have hGeq : ∀ m : ℕ, ((1 : DirichletCharacter ℂ q) ((d * m : ℕ) : ℕ))
         * ((d * m : ℕ) : ℂ) ^ (-(1 : ℂ) - s)
@@ -1788,7 +1788,7 @@ theorem sum_two_pow_card_primeFactors_le {R : ℝ} (hR : 1 ≤ R) :
   have hn1R : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn1
   have hlog : Real.log (n : ℝ) ≤ Real.log R := Real.log_le_log (by linarith) hnR
   have hlogn : 0 ≤ Real.log (n : ℝ) := Real.log_nonneg hn1R
-  nlinarith [hnR, hlog, hlogn, hn1R]
+  nlinarith only [hnR, hlogn, hR, hlog]
 
 /-- `Σ'_{r,r'} (rr')⁻¹·Σ_{d ∣ rr'} |h(d; r, r')| ≤ (R(1 + log R))²`. -/
 theorem sum_rFilter_abs_hCoef_le (q : ℕ) {R : ℝ} (hR : 1 ≤ R) :
