@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `118d94b1` · source digest `7178c4ee081cf7f3` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `5d5a3569` · source digest `ca7fe9f5e413fc2e` (the same digest as items 1–3).
 > Receipt: files 1319 · decls 22635 · with_body 22635 · tactic_lines 309337 · runs 36095 · blocks 1471.
 
 ## LIMITS (read before any number below)
@@ -109,13 +109,13 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 3 | `exact` | 17528 | 5.7% |
 | 4 | `intro` | 14045 | 4.5% |
 | 5 | `refine` | 12791 | 4.1% |
-| 6 | `linarith` | 10729 | 3.5% |
+| 6 | `linarith` | 10736 | 3.5% |
 | 7 | `obtain` | 8678 | 2.8% |
 | 8 | `calc` | 7841 | 2.5% |
 | 9 | `set` | 5424 | 1.8% |
 | 10 | `simp` | 4982 | 1.6% |
 | 11 | `apply` | 4378 | 1.4% |
-| 12 | `nlinarith` | 3864 | 1.2% |
+| 12 | `nlinarith` | 3857 | 1.2% |
 | 13 | `unfold` | 2613 | 0.8% |
 | 14 | `exact_mod_cast` | 2557 | 0.8% |
 | 15 | `ring` | 2196 | 0.7% |
@@ -151,7 +151,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
 | Matomaki-Radziwill / Halasz (short intervals) | 126998 | `have` 59387, `rw` 17254, `exact` 7090, `refine` 6835, `intro` 6100, `linarith` 5897, `obtain` 4647, `calc` 2409 |
-| (no family) | 21337 | `have` 8427, `rw` 3727, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `linarith` 588 |
+| (no family) | 21337 | `have` 8427, `rw` 3727, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `linarith` 595 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
