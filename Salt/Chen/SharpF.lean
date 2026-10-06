@@ -161,7 +161,7 @@ theorem abel_pushforward (g : ℝ → ℝ) (U c : ℝ) (hc : 0 ≤ c) (x m : ℕ
       rw [hfold]
       have : c * ((x₀ - a) * g x₀) + c * ∫ v in x₀..U, g v ≤ c * ∫ v in a..U, g v := by
         have := hsplit
-        nlinarith [e2, mul_le_mul_of_nonneg_left (le_of_eq hsplit) hc]
+        linarith only [e2, mul_le_mul_of_nonneg_left (le_of_eq hsplit) hc]
       linarith [e1, this]
 
 /-! ## Part 1 — the `S ≥ 2` cell (side' = 2 even-window; side' = 1, `S ≥ 3` odd-tail) -/
@@ -311,9 +311,9 @@ theorem hf_cell_ge2 (s' : BoundingSieve) (ε : ℝ) (z D' n : ℕ)
   -- 8 + 2·(99/100) = 9.98 ≤ 20·(99/100) = 19.8
   have key : ε * fseq (mm + 1) (S - 1) + ε * fseq (mm + 1 + 1) S
       ≤ cfSharpB (mm + 1) ε * hBJS S := by
-    rw [hRHS]; nlinarith [e1, e2, hQnn]
+    rw [hRHS]; linarith only [e2, e1, hQnn]
   have hWkey := mul_le_mul_of_nonneg_left key hW.le
-  nlinarith [hWkey]
+  linarith only [hWkey]
 
 /-- **The flat-cell density floor** `e² · S · hBJS S ≥ 1` for `1 ≤ S ≤ 3` (equivalently
 `S · hBJS S ≥ e⁻²`, sharp at `S = 1`).  This keeps the `1/S` and `hBJS S` factors of the flat
@@ -335,12 +335,12 @@ theorem hBJS_flat_lb {S : ℝ} (hS1 : 1 ≤ S) (hS3 : S ≤ 3) : 1 ≤ Real.exp 
     rw [show (3 - S) * (0:ℝ) + (S - 2) * 1 = S - 2 by ring, Real.exp_zero, mul_one] at hsec
     have he := Real.exp_one_lt_d9
     have hle : Real.exp (S - 2) ≤ S := by
-      nlinarith [hsec, mul_nonneg (show (0:ℝ) ≤ S - 2 by linarith)
-        (show (0:ℝ) ≤ 2.7182818286 - Real.exp 1 by linarith [he])]
+      linarith only [hsec, hS3, mul_nonneg (show (0 : ℝ) ≤ S - 2 by linarith)
+          (show (0 : ℝ) ≤ 2.7182818286 - Real.exp 1 by linarith [he])]
     have hpos : (0:ℝ) < Real.exp (2 - S) := Real.exp_pos _
     have hid : Real.exp (S - 2) * Real.exp (2 - S) = 1 := by rw [← Real.exp_add]; norm_num
     have hkey : (1:ℝ) ≤ S * Real.exp (2 - S) := by
-      nlinarith [mul_le_mul_of_nonneg_right hle hpos.le, hid, hpos]
+      linarith only [hid, mul_le_mul_of_nonneg_right hle hpos.le]
     calc (1:ℝ) ≤ S * Real.exp (2 - S) := hkey
       _ = Real.exp 2 * (S * Real.exp (-S)) := by
           rw [show (2:ℝ) - S = 2 + -S by ring, Real.exp_add]; ring
@@ -395,7 +395,7 @@ theorem vlow_le_of_guard (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
   have hVratio : (∏ p ∈ F, (1 - s'.nu p))⁻¹ ≤ 3 * (1 + ε) / S := by
     rcases F.eq_empty_or_nonempty with hFe | hFne
     · rw [hFe, Finset.prod_empty, inv_one]
-      rw [le_div_iff₀ hS0]; nlinarith [hS3, hε, hS0]
+      rw [le_div_iff₀ hS0]; linarith only [hS3, hε]
     · set p₀ := F.min' hFne with hp₀
       have hp₀F : p₀ ∈ F := F.min'_mem hFne
       have hp₀pf : p₀ ∈ s'.prodPrimes.primeFactors := (Finset.mem_filter.mp hp₀F).1
@@ -425,7 +425,7 @@ theorem vlow_le_of_guard (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
         rw [hSdef, logRatio, mul_comm, div_mul_cancel₀ _ (ne_of_gt hlogz)]
       have hlogzp : Real.log z / Real.log p₀ ≤ 3 / S := by
         rw [div_le_div_iff₀ hlogp₀ hS0]
-        nlinarith [hlogcube, hSval, hlogz, hlogp₀]
+        linarith only [hSval, hlogcube]
       calc (∏ p ∈ F, (1 - s'.nu p))⁻¹ ≤ (1 + ε) * Real.log z / Real.log p₀ := hmain
         _ = (1 + ε) * (Real.log z / Real.log p₀) := by ring
         _ ≤ (1 + ε) * (3 / S) := mul_le_mul_of_nonneg_left hlogzp (by linarith)
@@ -662,7 +662,7 @@ theorem hf_sharp_flat (s' : BoundingSieve) (ε : ℝ) (z D' n : ℕ)
   -- main-excess ≤ 2·(99/100)·(2+ε)·P
   have hmainM : (1 + ε) ^ 2 * W * fseq (m + 1 + 1) S
       ≤ W * fseq (m + 1 + 1) S + 2 * (99 / 100) * (2 + ε) * P := by
-    have hc : (0 : ℝ) ≤ (2 + ε) * ε := by nlinarith [hε]
+    have hc : (0 : ℝ) ≤ (2 + ε) * ε := by nlinarith only [hε]
     have hmul := mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hfbnd hc) hW.le
     rw [show (2 + ε) * ε * (2 * (99 / 100) * M) * W = 2 * (99 / 100) * (2 + ε) * P by rw [hP]; ring]
       at hmul
@@ -675,7 +675,7 @@ theorem hf_sharp_flat (s' : BoundingSieve) (ε : ℝ) (z D' n : ℕ)
       = W * fseq (m + 1 + 1) S + 20 * (99 / 100) * P := by rw [hP, hM, pow_succ]; ring
   rw [hRHSeq]
   have hcoefclose : 6 * (1 + ε) + 2 * (99 / 100) * (2 + ε) ≤ 20 * (99 / 100) := by
-    nlinarith [hε, hεsmall]
+    linarith only [hεsmall]
   have hprod := mul_le_mul_of_nonneg_right hcoefclose hPnn
   have hexpand : 6 * (1 + ε) * P + 2 * (99 / 100) * (2 + ε) * P
       = (6 * (1 + ε) + 2 * (99 / 100) * (2 + ε)) * P := by ring
