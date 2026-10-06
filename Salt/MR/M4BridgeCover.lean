@@ -190,7 +190,7 @@ theorem block_weight_exchange_tight {x H i : ℕ} {f : ℕ → ℝ} (hxH : H + 1
   rw [hrw]
   refine le_trans ?_ (le_sum_div_Ioc hf)
   rw [div_le_div_iff₀ (by positivity) hXi]
-  nlinarith
+  nlinarith only [hS, h2]
 
 /-! ## §2 — THE LADDER SUM
 
@@ -255,7 +255,7 @@ theorem door_cover_weighted_le {x H ω k : ℕ} {f : ℕ → ℝ} {P E : ℝ}
     have hdiv : (∑ i ∈ Finset.range k, (2 : ℝ) ^ (i + 2)) / (x : ℝ)
         ≤ (4 * 2 ^ k) / (x : ℝ) := by
       rw [div_le_div_iff₀ hx0 hx0]
-      nlinarith
+      nlinarith only [hgs, (Nat.cast_nonneg _ : 0 ≤ ↑x)]
     calc E * ((∑ i ∈ Finset.range k, (2 : ℝ) ^ (i + 2)) / (x : ℝ))
         ≤ E * ((4 * 2 ^ k) / (x : ℝ)) := mul_le_mul_of_nonneg_left hdiv hE
       _ = 4 * 2 ^ k * E / (x : ℝ) := by ring
@@ -332,7 +332,7 @@ theorem integral_door_cover_le {x ω H k : ℕ} {g : ℕ → ℝ} {P E : ℝ}
   have hend : (4 * 2 ^ k * E / (x : ℝ)) / ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹
       ≤ 4 * 2 ^ k * E / (x : ℝ) := by
     rw [div_le_iff₀ hZ0]
-    nlinarith
+    nlinarith only [hZlo, hG0, hlogω]
   linarith
 
 /-- **THE CLEAN CASE** (`E = 0`): a per-block bound with no endpoint leakage integrates to
@@ -433,7 +433,7 @@ theorem m4_blockMeanSq_trivial (R : ChowlaRegime) (M k : ℕ) :
     intro n _
     have h := norm_absWindowSum_le (norm_doorSievedCoeff_le_one M) H n α
     have h0 := norm_nonneg (absWindowSum (doorSievedCoeff M) H n α)
-    nlinarith
+    nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have hcard : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
       ‖absWindowSum (doorSievedCoeff M) H n α‖ ^ 2
       ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ) * (H : ℝ) ^ 2 := by
@@ -452,7 +452,7 @@ theorem m4_blockMeanSq_trivial (R : ChowlaRegime) (M k : ℕ) :
       omega
     exact_mod_cast hn
   have hpos := doorLadder_pos hxH (i + 1)
-  nlinarith
+  nlinarith only [hc, hcard, sq_nonneg ↑H]
 
 /-- **THE GRADE GATE AT THE BLOCK GRADE.**  `M4Close.m4_gradeGate_of_pricing`, read at the
 assembly's own output grade `3·B_blk`: the absolute factor `3` is absorbed by asking the
@@ -624,7 +624,7 @@ theorem m4_blockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
     intro n _
     have h := norm_absWindowSum_le (norm_doorSievedCoeff_le_one_gk K M) H n α
     have h0 := norm_nonneg (absWindowSum (doorSievedCoeff_gk K M) H n α)
-    nlinarith
+    nlinarith only [h, h0, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have hcard : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
       ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2
       ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
@@ -644,7 +644,7 @@ theorem m4_blockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
       omega
     exact_mod_cast hn
   have hpos := doorLadder_pos hxH (i + 1)
-  nlinarith
+  nlinarith only [hc, hcard, sq_nonneg ↑H]
 
 /-- **THE WAVE'S EXIT AT THE PER-BLOCK HYPOTHESIS, AT THE LEVER** —
 `m4_door_contradiction_of_blockMeanSq` (:488). -/

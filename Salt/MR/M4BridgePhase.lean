@@ -337,9 +337,9 @@ theorem norm_absWindowSum_le_ratPartial {B₅ : ℝ} {H n : ℕ} (hH : 0 < H) {�
     subWindowSup_le (fun K hK => hrat b q hq hqQ K hK)
   have hpi : (0 : ℝ) ≤ 2 * Real.pi := by positivity
   have hbig : (0 : ℝ) ≤ 1 + 2 * Real.pi * arcDen B₅ H := by
-    nlinarith [arcDen_nonneg B₅ H]
+    nlinarith only [hqQ, hpi, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   refine mul_le_mul ?_ hS (subWindowSup_nonneg a H n _) hbig
-  nlinarith
+  nlinarith only [hden, hpi]
 
 /-! ## §4 — THE UNIFORMITY HOOK
 
@@ -416,7 +416,7 @@ theorem qgraded_drift_price_le {A B : ℝ} {q : ℕ} (hq : 0 < q) (hqA : (q : �
   have hle : (q : ℝ) + 2 * Real.pi * A ≤ (1 + 2 * Real.pi) * A := by rw [hexp]; linarith
   have hnn : (0 : ℝ) ≤ (q : ℝ) + 2 * Real.pi * A := by positivity
   have hsq2 : ((q : ℝ) + 2 * Real.pi * A) ^ 2 ≤ ((1 + 2 * Real.pi) * A) ^ 2 := by
-    nlinarith
+    nlinarith only [hqA, hnn]
   calc (1 + 2 * Real.pi * (A / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * B)
       = ((1 + 2 * Real.pi * (A / (q : ℝ))) ^ 2 * (q : ℝ) ^ 2) * B := by ring
     _ = ((q : ℝ) + 2 * Real.pi * A) ^ 2 * B := by rw [hsq]
@@ -493,7 +493,7 @@ theorem m4_sievedDoorSqSup_trivial (R : ChowlaRegime) (M : ℕ) :
     M4SievedDoorSqSup R M (fun _ => 1) := by
   intro _ H _ _ _ b q hq _
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith only [hq1, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
   have hle := subWindowSup_le_of_norm_le_one
     (a := memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
@@ -504,8 +504,8 @@ theorem m4_sievedDoorSqSup_trivial (R : ChowlaRegime) (M : ℕ) :
     H n ((b : ℝ) / (q : ℝ))
   have hsq : (subWindowSup (memSCoeff (calP (Adoor M) (3072 * M))
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
-      ≤ (H : ℝ) ^ 2 := by nlinarith
-  nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
+      ≤ (H : ℝ) ^ 2 := by nlinarith only [hle, h0, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
+  nlinarith only [hq2, hsq, sq_nonneg ↑H]
 
 /-! ## §GK — the G-lever twin
 
@@ -580,7 +580,7 @@ theorem m4_sievedDoorSqSup_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
     M4SievedDoorSqSup_gk K R M (fun _ => 1) := by
   intro _ H _ _ _ b q hq _
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith only [hq1, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
   have hle := subWindowSup_le_of_norm_le_one
     (a := memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC)
@@ -591,8 +591,8 @@ theorem m4_sievedDoorSqSup_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
     H n ((b : ℝ) / (q : ℝ))
   have hsq : (subWindowSup (memSCoeff (calP (Adoor M) (s13GK K M))
       (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
-      ≤ (H : ℝ) ^ 2 := by nlinarith
-  nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
+      ≤ (H : ℝ) ^ 2 := by nlinarith only [hle, h0, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
+  nlinarith only [hq2, hsq, sq_nonneg ↑H]
 
 -- #audit (temporary)
 

@@ -107,7 +107,7 @@ lemma ramRcoeff_chiBar_mass_le (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ
     exact norm_chiBarCoeff_le χ _ m
   have h0 : (0 : ℝ) ≤ ‖ramRcoeff H N X P Q j (chiBarCoeff q χ b) m‖ := norm_nonneg _
   have hsq : ‖ramRcoeff H N X P Q j (chiBarCoeff q χ b) m‖ ^ 2
-      ≤ ‖ramRcoeff H N X P Q j b m‖ ^ 2 := by nlinarith
+      ≤ ‖ramRcoeff H N X P Q j b m‖ ^ 2 := by nlinarith only [h, h0]
   exact div_le_div_of_nonneg_right hsq (by positivity)
 
 /-! ## §2 — the co-factor mean square on a pair set: the two grades -/
@@ -218,7 +218,7 @@ theorem UsetChi_thin_alpha (q : ℕ) [NeZero q] (f : ℕ → ℂ) (hf1 : ∀ n :
   have hlogP : 0 < Real.log (Pseq Jb) := Real.log_pos hP1R
   have hexp : 2 * Real.log V / Real.log (Pseq Jb) ≤ 2 * α := by
     rw [div_le_iff₀ hlogP]
-    nlinarith [hVα]
+    linarith only [hVα]
   have hrpow : ((q : ℝ) * T) ^ (2 * Real.log V / Real.log (Pseq Jb))
       ≤ ((q : ℝ) * T) ^ (2 * α) :=
     Real.rpow_le_rpow_of_exponent_le (le_of_lt hqT) hexp
@@ -315,7 +315,7 @@ lemma logpow_gate_of_exp_floor (X ε : ℝ) (k : ℕ) (hk : k ≤ 6) (hε : 1 / 
   rw [Real.log_sqrt (le_of_lt hL0)] at hstep
   have he : (2.7 : ℝ) ≤ Real.exp 1 := by
     have := Real.exp_one_gt_d9; linarith
-  have hlogL : Real.log L ≤ Real.sqrt L := by nlinarith
+  have hlogL : Real.log L ≤ Real.sqrt L := by nlinarith only [he, hsq0, hstep]
   -- `√L ≥ e^{20} ≥ 6000`
   have hexp20 : Real.exp 20 ≤ Real.sqrt L := by
     have hsq : Real.exp 40 = (Real.exp 20) ^ 2 := by
@@ -327,10 +327,10 @@ lemma logpow_gate_of_exp_floor (X ε : ℝ) (k : ℕ) (hk : k ≤ 6) (hε : 1 / 
   have hkey : 6000 * Real.log L ≤ L := by
     have h1 : (6000 : ℝ) ≤ Real.sqrt L := le_trans h6000 hexp20
     have h2 : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt (le_of_lt hL0)
-    nlinarith [Real.sqrt_nonneg L]
+    nlinarith only [hsq0, h6000, hexp20, h2, hlogL]
   have hkR : (k : ℝ) ≤ 6 := by exact_mod_cast hk
   have hlogL0 : Real.log L ≤ Real.sqrt L := hlogL
-  nlinarith [Real.sqrt_nonneg L, hkey, hkR]
+  nlinarith only [hL0, hkR, hε, hkey, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
 
 /-- **THE CHARACTER DEBIT, PRICED.**  At the port's modulus gate `q ≤ (log X)^{12}` and
 `2α ≤ 1/2`, the razor's whole character cost is `q^{2α} ≤ √q ≤ (log X)^6 ≤ X^ε` — a polylog
@@ -461,7 +461,7 @@ theorem TSChi_branch_meansq {Cint : ℝ} (hCint : 0 ≤ Cint) (hslot : HalaszInt
   have hmass : (0 : ℝ)
       ≤ ∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N X P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 :=
     Finset.sum_nonneg (fun m _ => by positivity)
-  nlinarith [mul_nonneg (sub_nonneg.mpr hA) (mul_nonneg hlog hmass), hCint]
+  nlinarith only [hCint, mul_nonneg (sub_nonneg.mpr hA) (mul_nonneg hlog hmass)]
 
 /-- **U-5, `χ`-LIFTED (exit) — the `𝒯_S` branch at the MEAN-VALUE grade.**  Once the thinness
 budget clears the co-factor length (`bundle·X^{1−2η+ε} ≤ M`, the consumer's `X^{o(1)}`
@@ -512,8 +512,8 @@ theorem usetChi_TS_branch_meanvalue {Cint : ℝ} (hCint : 0 ≤ Cint)
     have hcoef : (0 : ℝ) ≤ Cint * ((1 + Real.log (2 * T))
         * (∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)) := by
       positivity
-    nlinarith [mul_le_mul_of_nonneg_left hbr hcoef]
-  nlinarith [mul_le_mul_of_nonneg_left hstep (sq_nonneg εQ)]
+    linarith only [mul_le_mul_of_nonneg_left hbr hcoef]
+  linarith only [mul_le_mul_of_nonneg_left hstep (sq_nonneg εQ)]
 
 /-! ## §5 — the branch split and the `χ`-summed `hU` exit -/
 

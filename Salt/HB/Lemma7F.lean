@@ -107,11 +107,11 @@ lemma integrableOn_expNeg_div_Ioi {t₀ : ℝ} (ht₀ : 0 < t₀) :
   have hE : (0 : ℝ) < Real.exp (-t) := Real.exp_pos _
   rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
   rw [div_le_iff₀ ht0]
-  have h1 : Real.exp (-t) * t₀ ≤ Real.exp (-t) * t := by nlinarith
+  have h1 : Real.exp (-t) * t₀ ≤ Real.exp (-t) * t := by nlinarith only [htt, hE]
   have h2 : t₀⁻¹ * Real.exp (-t) * t = Real.exp (-t) * t / t₀ := by
     field_simp
   rw [h2, le_div_iff₀ ht₀]
-  nlinarith
+  linarith only [h1]
 
 /-- `t ↦ e^{−t} log t` is integrable on `(0, ∞)`: `|log|` dominates on `(0,1]`, and the
 `Γ`-integrand `e^{−t}t` dominates on `(1, ∞)`. -/
@@ -135,7 +135,7 @@ lemma integrableOn_expNeg_mul_log_Ioi_zero :
     have hE1 : Real.exp (-t) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith [ht.1])
     have hE0 : (0 : ℝ) < Real.exp (-t) := Real.exp_pos _
     rw [Real.norm_eq_abs, Real.norm_eq_abs, abs_mul, abs_of_pos hE0]
-    nlinarith [abs_nonneg (Real.log t)]
+    nlinarith only [hE1, abs_nonneg (Real.log t)]
   · -- `(1,∞)`: dominated by the `Γ(2)`-integrand `e^{−t}t`
     have hG : IntegrableOn (fun x : ℝ => Real.exp (-x) * x ^ ((2 : ℝ) - 1)) (Ioi (1 : ℝ)) :=
       (Real.GammaIntegral_convergent (s := 2) (by norm_num)).mono_set
@@ -155,7 +155,7 @@ lemma integrableOn_expNeg_mul_log_Ioi_zero :
     have hlog0 : (0 : ℝ) ≤ Real.log t := Real.log_nonneg ht1.le
     have hlt : Real.log t ≤ t := le_trans (Real.log_le_sub_one_of_pos (by linarith)) (by linarith)
     rw [Real.norm_eq_abs, abs_mul, abs_of_pos hE0, abs_of_nonneg hlog0]
-    nlinarith
+    nlinarith only [hE0, hlt]
 
 lemma integrableOn_expNeg_mul_log_Ioi {t₀ : ℝ} (ht₀ : 0 ≤ t₀) :
     IntegrableOn (fun t : ℝ => Real.exp (-t) * Real.log t) (Ioi t₀) :=
@@ -215,7 +215,7 @@ lemma tendsto_expNeg_mul_log_atTop :
     have hlt : Real.log Y ≤ Y :=
       le_trans (Real.log_le_sub_one_of_pos (by linarith)) (by linarith)
     have hE : (0 : ℝ) < Real.exp (-Y) := Real.exp_pos _
-    nlinarith
+    nlinarith only [hlt, hE]
 
 /-- **The integration by parts, improper.**  For `t₀ > 0`,
 
@@ -266,7 +266,7 @@ lemma abs_integral_expNeg_mul_log_Ioc_le {t₀ : ℝ} (ht₀ : 0 < t₀) (ht1 : 
         have hE1 : Real.exp (-t) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith)
         have hE0 : (0 : ℝ) < Real.exp (-t) := Real.exp_pos _
         rw [Real.norm_eq_abs, abs_mul, abs_of_pos hE0, abs_of_nonpos hlog]
-        nlinarith
+        nlinarith only [hlog, hE1]
     _ = t₀ - t₀ * Real.log t₀ := hval
 
 /-- **§1's stone — the exponential integral against `−log t₀ − γ₀`.**  For `0 < t₀ ≤ 1`,
@@ -667,7 +667,7 @@ theorem two_mul_pretenseSum_le_at_window {f : ℕ} [NeZero f] (χ : DirichletCha
   have hs1 : (1 : ℝ) ≤ Real.sqrt ell := by
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hell
   have hmul : Real.sqrt ell * Real.sqrt ell = ell := Real.mul_self_sqrt hell0.le
-  have hsle : Real.sqrt ell ≤ 2 * L := le_trans (by nlinarith [hmul]) hellL
+  have hsle : Real.sqrt ell ≤ 2 * L := le_trans (by nlinarith only [hs, hs1, hβ1, hβlo, hmul]) hellL
   have hinv0 : (0 : ℝ) < 1 / (2 * L) := by positivity
   have hinv1 : 1 / (2 * L) ≤ 1 := (div_le_one hLp).mpr hL1
   have hσ1 : (1 : ℝ) < 1 + 1 / (2 * L) := by linarith
@@ -702,7 +702,7 @@ theorem two_mul_pretenseSum_le_at_window {f : ℕ} [NeZero f] (χ : DirichletCha
       ≤ (⌊X⌋₊ : ℝ) ^ (1 / (2 * L) : ℝ)
           * ((1 - β₀) * (2 * L) ^ 2 + (2 + (802 + 4 * Cs) * ((2 * L) / Real.sqrt ell))) := by
     rw [hexp, hpole]
-    nlinarith [mul_le_mul_of_nonneg_left hrate hNn]
+    linarith only [mul_le_mul_of_nonneg_left hrate hNn]
   have hrank : (⌊X⌋₊ : ℝ) ^ (1 / (2 * L) : ℝ)
         * ((1 - β₀) * (2 * L) ^ 2 + (2 + (802 + 4 * Cs) * ((2 * L) / Real.sqrt ell)))
       ≤ Real.exp 250
