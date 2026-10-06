@@ -296,7 +296,7 @@ theorem gold_box_wge {N K kp ka i : ℕ} (hN2 : 2 ≤ N) (hZ1 : 1 ≤ opZ N)
     mul_le_mul_of_nonneg_left hsqy hZpos.le
   have hsq : (t / 16) * (t / 16) ≤ (goldCut N (ka + 1) : ℝ) / (8 * (opZ N : ℝ)) := by
     rw [le_div_iff₀ h8zpos]
-    nlinarith [hlowR, hzsq, hZpos, htpos]
+    linarith only [hzsq, hlowR, (Nat.cast_nonneg _ : 0 ≤ ↑(goldCut N (ka + 1)))]
   -- take the `^{1/2}`: `t/16 ≤ (goldCut/(8z))^{1/2}`
   have h1 : ((t / 16) * (t / 16)) ^ ((1 : ℝ) / 2) = t / 16 := by
     rw [show (t / 16) * (t / 16) = (t / 16) ^ (2 : ℕ) by ring,
@@ -551,7 +551,7 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
     have hsqrt2pos : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
     have hN16nn : (0 : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 16) := Real.rpow_nonneg hNpos.le _
     have hstep : (N : ℝ) ^ ((1 : ℝ) / 16) / 2 ≤ (N : ℝ) ^ ((1 : ℝ) / 16) / Real.sqrt 2 := by
-      rw [div_le_div_iff₀ (by norm_num) hsqrt2pos]; nlinarith [hN16nn, hsqrt2le]
+      rw [div_le_div_iff₀ (by norm_num) hsqrt2pos]; nlinarith only [hsqrt2le, hN16nn]
     linarith [hstep, hmono]
   -- `L^E ≤ √z` for `0 ≤ E ≤ 18`
   have hLEz : ∀ E : ℝ, 0 ≤ E → E ≤ 18 → L ^ E ≤ Real.sqrt (opZ N : ℝ) := by
@@ -643,13 +643,13 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
           = (goldCut N (ka + 1) : ℝ) / (2 * (opZ N : ℝ)) by field_simp; ring,
         div_le_iff₀ (by positivity)]
       have h1 : (1 : ℝ) ≤ (opZ N : ℝ) := by exact_mod_cast hZ1
-      nlinarith [hsucR, mul_nonneg hgcka0 (by linarith [h1] : (0 : ℝ) ≤ (opZ N : ℝ) - 1)]
+      linarith only [hsucR, mul_nonneg hgcka0 (by linarith [h1] : (0 : ℝ) ≤ (opZ N : ℝ) - 1)]
     have hnn : 0 ≤ 2 * w := by positivity
     have h2wle : 2 * w ≤ (goldCut N ka : ℝ) := by
       have hsqrtself : Real.sqrt (goldCut N ka : ℝ) ≤ (goldCut N ka : ℝ) := by
         have h1 : Real.sqrt (goldCut N ka : ℝ)
             ≤ Real.sqrt ((goldCut N ka : ℝ) * (goldCut N ka : ℝ)) :=
-          Real.sqrt_le_sqrt (by nlinarith [hgcka1R])
+          Real.sqrt_le_sqrt (by nlinarith only [hgcka1R, (Nat.cast_nonneg _ : 0 ≤ ↑(goldCut N ka))])
         rwa [Real.sqrt_mul_self hgcka0] at h1
       have : 2 * w ≤ Real.sqrt (goldCut N ka : ℝ) := by
         rw [show 2 * w = Real.sqrt ((2 * w) * (2 * w)) from (Real.sqrt_mul_self hnn).symm]
@@ -670,7 +670,7 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   have hDleN : (D : ℝ) ≤ (N : ℝ) := by
     have hself : Real.sqrt (N : ℝ) ≤ (N : ℝ) := by
       have h1 : Real.sqrt (N : ℝ) ≤ Real.sqrt ((N : ℝ) * (N : ℝ)) :=
-        Real.sqrt_le_sqrt (by nlinarith [hN1R])
+        Real.sqrt_le_sqrt (by nlinarith only [hN1R, (Nat.cast_nonneg _ : 0 ≤ ↑N)])
       rwa [Real.sqrt_mul_self hNpos.le] at h1
     linarith [hDx, hself]
   have hlogD : Real.log D ≤ Real.log N := by
@@ -684,7 +684,7 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       (n := 19) (by norm_num) (by norm_num) (by norm_num)
     linarith [hwge, hm]
   have h2P : 8 * (1 + Real.log D) * L ^ (13 : ℝ) ≤ w := by
-    have hb1 : 8 * (1 + Real.log D) ≤ 16 * Real.log N := by nlinarith [hlogD, hlogN1]
+    have hb1 : 8 * (1 + Real.log D) ≤ 16 * Real.log N := by linarith only [hlogD, hlogN]
     have hprod : 8 * (1 + Real.log D) * L ^ (13 : ℝ)
         ≤ 16 * Real.log N * (262144 * (N : ℝ) ^ ((1 : ℝ) / 2000)) :=
       mul_le_mul hb1 hLpow13 (by positivity) (by linarith [hlogN1])
@@ -694,14 +694,14 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
           ≤ (N : ℝ) ^ ((1 : ℝ) / 2000) * (N : ℝ) ^ ((1 : ℝ) / 2000) :=
         mul_le_mul_of_nonneg_right hlogxle (Real.rpow_nonneg hNpos.le _)
       rw [← Real.rpow_add hNpos, show (1 : ℝ) / 2000 + 1 / 2000 = 1 / 1000 by norm_num] at hh
-      nlinarith [hh]
+      linarith only [hh]
     linarith [hprod, hcombine, hwbound]
   have habs : 4 * (1 + Real.log D) * (D : ℝ)
       ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) / L ^ (13 : ℝ) := by
     rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
     have hPnn : (0 : ℝ) ≤ 4 * (1 + Real.log D) * L ^ (13 : ℝ) := by positivity
     have hkey : 4 * (1 + Real.log D) * (D : ℝ) * L ^ (13 : ℝ) ≤ w * w := by
-      nlinarith [hDhi, h2P, hwnn, hPnn, Real.rpow_nonneg hL0 (13 : ℝ)]
+      nlinarith only [hDhi, h2P, (Nat.cast_nonneg _ : 0 ≤ ↑D), (Nat.cast_nonneg _ : 0 ≤ ↑D)]
     calc 4 * (1 + Real.log D) * (D : ℝ) * L ^ (13 : ℝ) ≤ w * w := hkey
       _ ≤ ((2 ^ kp : ℕ) : ℝ) * ((2 ^ kp : ℕ) : ℝ) := by nlinarith [hwkf, hwnn]
       _ ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) :=
