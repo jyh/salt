@@ -335,7 +335,7 @@ lemma log_le_two_sqrt {x : ℝ} (hx : 0 ≤ x) : Real.log x ≤ 2 * Real.sqrt x 
   · have hs : 0 < Real.sqrt x := Real.sqrt_pos.mpr hx
     have h1 : Real.log (Real.sqrt x) ≤ Real.sqrt x - 1 := Real.log_le_sub_one_of_pos hs
     have h2 : Real.log x = 2 * Real.log (Real.sqrt x) := by rw [Real.log_sqrt hx.le]; ring
-    rw [h2]; nlinarith [Real.sqrt_nonneg x]
+    rw [h2]; linarith only [h1]
   · rw [← hx]; simp
 
 /-- The log-weighted `p`-series `∑ log n / n^k` converges for `k ≥ 2`
@@ -372,9 +372,9 @@ noncomputable def powGa (a : ℕ) : ℝ := (1 + 2 * Real.log a) / (a : ℝ) ^ 2
 noncomputable def powHc (c : ℕ) : ℝ := (1 + 3 * Real.log c) / (c : ℝ) ^ 3
 
 lemma powGa_nonneg (a : ℕ) : 0 ≤ powGa a := by
-  rw [powGa]; apply div_nonneg _ (by positivity); nlinarith [log_natCast_nonneg a]
+  rw [powGa]; apply div_nonneg _ (by positivity); linarith only [log_natCast_nonneg a]
 lemma powHc_nonneg (c : ℕ) : 0 ≤ powHc c := by
-  rw [powHc]; apply div_nonneg _ (by positivity); nlinarith [log_natCast_nonneg c]
+  rw [powHc]; apply div_nonneg _ (by positivity); linarith only [log_natCast_nonneg c]
 
 lemma summable_powGa : Summable powGa := by
   have h : powGa = fun a : ℕ => 1 / (a : ℝ) ^ 2 + 2 * (Real.log a / (a : ℝ) ^ 2) := by
@@ -391,7 +391,7 @@ lemma summable_powHc : Summable powHc := by
 
 lemma powFac_nonneg (q : ℕ × ℕ) : 0 ≤ powFac q := by
   rw [powFac]; apply div_nonneg _ (by positivity)
-  nlinarith [log_natCast_nonneg (q.1 ^ 2 * q.2 ^ 3)]
+  linarith only [log_natCast_nonneg (q.1 ^ 2 * q.2 ^ 3)]
 
 lemma powFac_le (q : ℕ × ℕ) : powFac q ≤ powGa q.1 * powHc q.2 := by
   obtain ⟨a, c⟩ := q
@@ -414,7 +414,7 @@ lemma powFac_le (q : ℕ × ℕ) : powFac q ≤ powGa q.1 * powHc q.2 := by
       push_cast; ring
     have hcast : ((a ^ 2 * c ^ 3 : ℕ) : ℝ) = (a : ℝ) ^ 2 * (c : ℝ) ^ 3 := by push_cast; ring
     rw [powFac, powGa, powHc, hcast, hlogeq, div_mul_div_comm, div_le_div_iff_of_pos_right hden]
-    nlinarith [mul_nonneg hla hlc]
+    linarith only [mul_nonneg hla hlc]
 
 lemma summable_powFac : Summable powFac :=
   Summable.of_nonneg_of_le powFac_nonneg powFac_le
@@ -470,7 +470,7 @@ noncomputable def powerfulWeight (v : ℕ) : ℝ :=
 lemma powerfulWeight_nonneg (v : ℕ) : 0 ≤ powerfulWeight v := by
   rw [powerfulWeight]
   split_ifs with h
-  · exact div_nonneg (by nlinarith [log_natCast_nonneg v]) (by positivity)
+  · exact div_nonneg (by linarith only [log_natCast_nonneg v]) (by positivity)
   · exact le_rfl
 
 /-- The powerful envelope has finite total mass, bounded by the Part-3 constant. -/

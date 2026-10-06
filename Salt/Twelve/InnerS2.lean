@@ -196,7 +196,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R W' y d e else 0)|
@@ -206,7 +206,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
             have h1 := abs_moebius_real_le_one t
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R W' y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2)
@@ -252,7 +252,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
     omega)
   -- per-`t` `(p−2)→(p−1)` conversion: `(3k²)^ω∏(p−2)⁻² ≤ (3(2k)²)^ω∏(p−1)⁻²`
   -- (each prime `p > D ≥ 48 > 3`, so `(p−2)⁻² ≤ 4(p−1)⁻²`).
-  have hDbig : 48 ≤ D := le_trans (by nlinarith [Nat.one_le_pow 2 k (by omega : 0 < k)]) hDk
+  have hDbig : 48 ≤ D := le_trans (by linarith only [hk2]) hDk
   have hconv : ∀ t ∈ (((collisionModuli k R).filter
         (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1),
       (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
@@ -285,13 +285,13 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
           field_simp
         rw [expand]
         apply div_nonneg
-        · nlinarith [mul_nonneg (by linarith : (0:ℝ) ≤ (p:ℝ) - 3)
-            (by linarith : (0:ℝ) ≤ 3 * (p:ℝ) - 5)]
+        · linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ (p : ℝ) - 3)
+              (by linarith : (0 : ℝ) ≤ 3 * (p : ℝ) - 5)]
         · positivity
       have hcast : ((2 * k : ℕ) : ℝ) ^ 2 = 4 * (k : ℝ) ^ 2 := by push_cast; ring
       rw [hcast]
       have h3k : (0 : ℝ) ≤ 3 * (k : ℝ) ^ 2 := by positivity
-      nlinarith [mul_le_mul_of_nonneg_left hconvp h3k]
+      linarith only [mul_le_mul_of_nonneg_left hconvp h3k]
   calc |s2CollisionForm k R W' m y|
       = |∑ t ∈ (collisionModuli k R).erase 1, ((μ t : ℤ) : ℝ)
           * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
