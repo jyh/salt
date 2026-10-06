@@ -132,6 +132,14 @@ jobs:
           fi
           echo "scanning $RANGE"
           python scripts/check_commit_trailers.py --range "$RANGE"
+      # ⛔ desk QF (found HERE, 2026-09-16, a6ada5c3): THE DELTA ABOVE CANNOT SEE A COMMIT WHOSE OWN RUN WAS CANCELLED. A rapid
+      #   push cancels the run on the older tip, and the next run's range `$BEFORE..HEAD` STARTS AT that tip — a `..` range
+      #   excludes its start — so the one commit that lost its scan is exactly the one the next scan begins after, while every
+      #   consumer reads green. So the WHOLE history reachable from HEAD is scanned on every run as well: the gate's default
+      #   range. Measured before this step was added: 3,921 commit messages on main, 0 forbidden strings, ~0.1 s — no baseline
+      #   is needed, and any future offender reachable from HEAD turns the run red.
+      - name: scan the whole history (desk QF)
+        run: python scripts/check_commit_trailers.py
 
   private-paths:
     name: no NEW path into the private record enters a public repo
