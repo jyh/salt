@@ -179,7 +179,7 @@ theorem halaszIntegersChi_fibre (q : ℕ) (M : ℕ) (a : ℕ → ℂ) (T : ℝ) 
       ≤ 2564 * ((M : ℝ) + (𝒯.card : ℝ) * Real.sqrt T) * (1 + Real.log (2 * T)) := by
     have hbr : (0 : ℝ) ≤ (M : ℝ) + (𝒯.card : ℝ) * Real.sqrt T := by positivity
     have h1 : (0 : ℝ) ≤ 2564 * ((M : ℝ) + (𝒯.card : ℝ) * Real.sqrt T) := by
-      nlinarith [hbr]
+      linarith only [hbr]
     exact mul_nonneg h1 hL
   calc ∑ t ∈ 𝒯, ‖dpolyChi q (Finset.Icc 1 M) a χ t‖ ^ 2
       = ∑ t ∈ 𝒯, ‖dpoly M (coeffChiTwist q χ a) t‖ ^ 2 := by
@@ -329,7 +329,7 @@ theorem TSChi_branch_meansq_phi (q : ℕ) [NeZero q] (H : ℝ) (N X P Q j M : �
   have hmass : (0 : ℝ)
       ≤ ∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N X P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 :=
     Finset.sum_nonneg (fun m _ => by positivity)
-  nlinarith [mul_nonneg (sub_nonneg.mpr hA) (mul_nonneg hlog hmass)]
+  linarith only [mul_nonneg (sub_nonneg.mpr hA) (mul_nonneg hlog hmass)]
 
 /-! ## §4 — the exit at the `φ(q)`-graded row -/
 
@@ -385,8 +385,8 @@ theorem usetChi_TS_branch_meanvalue_phi (q : ℕ) [NeZero q] (f : ℕ → ℂ)
     have hcoef : (0 : ℝ) ≤ 2564 * ((1 + Real.log (2 * T))
         * (∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)) := by
       positivity
-    nlinarith [mul_le_mul_of_nonneg_left hbr hcoef]
-  nlinarith [mul_le_mul_of_nonneg_left hstep (sq_nonneg εQ)]
+    linarith only [mul_le_mul_of_nonneg_left hbr hcoef]
+  linarith only [mul_le_mul_of_nonneg_left hstep (sq_nonneg εQ)]
 
 /-! ## §5 — the `φ(q)` debit repaid: the level re-pinning -/
 
@@ -478,7 +478,7 @@ theorem usetChi_TS_branch_exit_repinned (q : ℕ) [NeZero q] (f : ℕ → ℂ)
         * (∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)) :=
       mul_nonneg hM0 h1
     linarith
-  nlinarith [mul_le_mul_of_nonneg_left hrepin hcoef]
+  linarith only [mul_le_mul_of_nonneg_left hrepin hcoef]
 
 /-! ## §6 — the grade comparison: why the landed mean-value row cannot do this
 
@@ -510,7 +510,7 @@ lemma mvt_row_carries_T (q : ℕ) (M T : ℝ) (hM : 1 ≤ M) (_hMT : M ≤ T) :
     _ ≤ 84 * ((q.totient : ℝ) * (T + 1) + (q.totient : ℝ) * M / (q : ℝ))
           * Real.log (2 * M) := by
         refine mul_le_mul_of_nonneg_right ?_ hlog
-        nlinarith [hφ0, hextra]
+        linarith only [hextra, (Nat.cast_nonneg _ : 0 ≤ ↑q.totient)]
 
 /-- **The `φ(q)`-graded Halász row carries `M`.**  Under the razor's budget `|ℰ|√T ≤ M` the
 row of §2 collapses to `5128·φ(q)·M·(1 + log 2T)` — the `T`-dependence survives only inside
@@ -520,7 +520,7 @@ lemma phi_row_carries_M (q : ℕ) (hq : 1 ≤ q.totient) (M s L : ℝ) (hM : 0 �
     (hL : 0 ≤ L) :
     2564 * ((q.totient : ℝ) * M + s) * L ≤ 5128 * (q.totient : ℝ) * M * L := by
   have hφ1 : (1 : ℝ) ≤ (q.totient : ℝ) := by exact_mod_cast hq
-  have hbr : (q.totient : ℝ) * M + s ≤ 2 * ((q.totient : ℝ) * M) := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right hbr hL]
+  have hbr : (q.totient : ℝ) * M + s ≤ 2 * ((q.totient : ℝ) * M) := by nlinarith only [hM, hφ1, hs]
+  linarith only [mul_le_mul_of_nonneg_right hbr hL]
 
 end Salt.MR

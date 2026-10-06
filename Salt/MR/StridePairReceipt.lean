@@ -11,7 +11,7 @@ regime `R` carrying (i) `R.Hlo = U1floor` for a CALLER-CHOSEN floor `U1floor ≥
 (so that `a ∣ R.Hlo`), (ii) `StrideScale a R` (the outer scale divisible by `a` with the six
 `x`-floors met at `x/a`), and (iii) the plain `L²` door over the AFFINE set
 `bigXiAffD a b h` at a closed numeral grade.  None of the three is exported by the landed
-`h`-lane headline (`logChowla2_v7_rated_h`, V7RatedH.lean:1933): it exports `R.Hlo =
+`h`-lane headline (`logChowla2_v7_rated_h`, V7RatedH.lean:1210): it exports `R.Hlo =
 flatDesignBase A` (the floor slot is instantiated at H6/H7), `g R.Hhi R.ω ≤ R.x` at `g ≡ 0` (the
 scale slot is spent), and `¬ logChowlaFails` (the door is SPENT at the head's tail, minted over
 `bigXiH h`).  This file is `DoorReceipt.lean`'s generator (`FlatHeadForm … V7RatedForm`, the seven
@@ -1195,7 +1195,7 @@ def FlatKswinFormH (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
               S16BaseScaleCap96_LH_gk h K R (flatDoorM A) →
                 P R))
 
-/-- **⟦H5 FORM⟧** `logChowla2_v7_rated_h`'s statement (V7RatedH.lean:1933) with Δ3 — `∀ U1floor ≥
+/-- **⟦H5 FORM⟧** `logChowla2_v7_rated_h`'s statement (V7RatedH.lean:1210) with Δ3 — `∀ U1floor ≥
 flatDesignBase A` under `loglog U1floor ≤ 3.2·A + log 2`, `R.Hlo = U1floor` in place of `R.Hlo =
 flatDesignBase A` — the scale slot, and `P R`.  At `U1floor := flatDesignBase A`, `a := 1`,
 `g := 0`, `P := (¬ logChowlaFails h · · ·)` this is the landed headline's statement. -/
@@ -1782,7 +1782,7 @@ theorem flat_kswin_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
         linarith)
       hblk hcof hcapsc)
 
-/-- **⟦H4→H5 REPLAY⟧ (class B).**  The rated terminal (V7RatedH.lean:1933-2060) from a generic
+/-- **⟦H4→H5 REPLAY⟧ (class B).**  The rated terminal (V7RatedH.lean:1210-1337) from a generic
 kswin, with Δ3: after the eight-arm design constant, `intro U1floor a g hU hUceil ha ha1096 hg`
 and `hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin U1floor (by rw [hbase hopq];
 exact hU) hUceil a g ha ha1096 hg` in place of the landed `g ≡ 0` exhibit (`xceilRiderStrict_zero`

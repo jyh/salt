@@ -75,19 +75,19 @@ theorem zeroCountM_density_logfree_low {q : ℕ} [NeZero q] (χ : DirichletChara
     zeroCountM χ σ T ≤ 1378 * ((q : ℝ) * T) ^ (150 * (1 - σ)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hT0 : (0 : ℝ) ≤ T := by linarith
-  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith
+  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * T := by nlinarith only [hT, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hQ0 : (0 : ℝ) < (q : ℝ) * T := by linarith
   have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by linarith
   -- the landed count, at the numeral `137` (this is where `4/5 ≤ σ` is spent, via `1/2 ≤ σ`)
   have hcount := zeroCountM_le χ hχ hq (by linarith : (1 : ℝ) / 2 ≤ σ) hT0
   have hlognn : 0 ≤ Real.log ((q : ℝ) * (T + 3)) := by
     refine Real.log_nonneg ?_
-    nlinarith
+    linarith only [hQ4, hq2]
   have hA0 : (0 : ℝ) < ((q : ℝ) * T) ^ (1 / 4 : ℝ) := Real.rpow_pos_of_pos hQ0 _
   -- the SHARPENED crudity `T + 3 ≤ 2.5·T` (tight at `T = 2`), inside the log
   have hlog1 : Real.log ((q : ℝ) * (T + 3)) ≤ Real.log (2.5 * ((q : ℝ) * T)) := by
-    refine Real.log_le_log (by nlinarith) ?_
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) (by linarith : (0 : ℝ) ≤ T - 2)]
+    refine Real.log_le_log (by linarith only [hQ4, hq2]) ?_
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ (q : ℝ)) (by linarith : (0 : ℝ) ≤ T - 2)]
   -- the rpow step: `log y ≤ 4(y^{1/4} − 1) ≤ 4·y^{1/4}`
   have hy0 : (0 : ℝ) < 2.5 * ((q : ℝ) * T) := by linarith
   have hquarter : Real.log (2.5 * ((q : ℝ) * T))
@@ -113,15 +113,15 @@ theorem zeroCountM_density_logfree_low {q : ℕ} [NeZero q] (χ : DirichletChara
   -- the SHARPENED crudity `2T + 3 ≤ 3.5·T` (tight at `T = 2`), outside the log
   have hstep1 : 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))
       ≤ 137 * (3.5 * T) * Real.log ((q : ℝ) * (T + 3)) := by
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1.5 * T - 3) hlognn]
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1.5 * T - 3) hlognn]
   have hstep2 : 137 * (3.5 * T) * Real.log ((q : ℝ) * (T + 3))
       ≤ 137 * (3.5 * T) * (4 * (1.3 * ((q : ℝ) * T) ^ (1 / 4 : ℝ))) :=
     mul_le_mul_of_nonneg_left hL4 (by linarith)
   -- `137·3.5·4·1.3 = 2493.4 ≤ 2756 = 1378·2 ≤ 1378·q`
   have hstep3 : 137 * (3.5 * T) * (4 * (1.3 * ((q : ℝ) * T) ^ (1 / 4 : ℝ)))
       ≤ 1378 * (((q : ℝ) * T) * ((q : ℝ) * T) ^ (1 / 4 : ℝ)) := by
-    nlinarith [mul_nonneg (mul_nonneg hT0 hA0.le) (by linarith : (0 : ℝ) ≤ (q : ℝ) - 2),
-      mul_nonneg hT0 hA0.le]
+    linarith only [hstep2, hstep1, hlognn, mul_nonneg
+        (mul_nonneg hT0 hA0.le) (by linarith : (0 : ℝ) ≤ (q : ℝ) - 2)]
   have hpow : ((q : ℝ) * T) ^ (5 / 4 : ℝ)
       = ((q : ℝ) * T) * ((q : ℝ) * T) ^ (1 / 4 : ℝ) := by
     rw [show (5 / 4 : ℝ) = 1 + 1 / 4 by norm_num, Real.rpow_add hQ0, Real.rpow_one]
@@ -143,7 +143,7 @@ theorem zeroCountM_density_logfree_low {q : ℕ} [NeZero q] (χ : DirichletChara
 -- `5512`.
 example : (137 : ℝ) * 7 * Real.log 10 ≤ 1378 * (4 : ℝ) ^ (5 / 4 : ℝ) := by
   have hs2 : Real.sqrt 10 ^ 2 = 10 := Real.sq_sqrt (by norm_num)
-  have hs : Real.sqrt 10 ≤ 3.163 := by nlinarith [Real.sqrt_nonneg 10]
+  have hs : Real.sqrt 10 ≤ 3.163 := by nlinarith only [hs2]
   have hlog : Real.log 10 ≤ 4.326 := by
     have h1 : Real.log (Real.sqrt 10) ≤ Real.sqrt 10 - 1 :=
       Real.log_le_sub_one_of_pos (by positivity)
@@ -153,7 +153,7 @@ example : (137 : ℝ) * 7 * Real.log 10 ≤ 1378 * (4 : ℝ) ^ (5 / 4 : ℝ) := 
     have h := Real.rpow_le_rpow_of_exponent_le (by norm_num : (1 : ℝ) ≤ 4)
       (by norm_num : (1 : ℝ) ≤ 5 / 4)
     rwa [Real.rpow_one] at h
-  nlinarith
+  linarith only [h4, hlog]
 
 /-! ## 4. The boxes at the scale `Δ = 1/log D` (B2 W9e — W1 at height per box, the representatives)
 
@@ -278,8 +278,8 @@ theorem boxFibre_subset_closedBall {q : ℕ} [NeZero q] {χ : DirichletCharacter
     rw [hv, sub_mul, div_mul_cancel₀ _ hLne]
   have hvsq : v ^ 2 * Real.log D ^ 2 = (ρ.im * Real.log D - ((k : ℝ) + 1 / 2)) ^ 2 := by
     rw [← mul_pow, hvL]
-  have hbnd : (ρ.im * Real.log D - ((k : ℝ) + 1 / 2)) ^ 2 ≤ 1 / 4 := by nlinarith [hk1, hk2]
-  have hu : (ρ.re - 1) ^ 2 ≤ (1 - σ) ^ 2 := by nlinarith [hre, hre1]
+  have hbnd : (ρ.im * Real.log D - ((k : ℝ) + 1 / 2)) ^ 2 ≤ 1 / 4 := by nlinarith only [hk1, hk2]
+  have hu : (ρ.re - 1) ^ 2 ≤ (1 - σ) ^ 2 := by nlinarith only [hspec]
   have h1 : (ρ.re - 1) ^ 2 * Real.log D ^ 2 ≤ (1 - σ) ^ 2 * Real.log D ^ 2 :=
     mul_le_mul_of_nonneg_right hu (sq_nonneg _)
   linarith [h1, hvsq, hbnd]
@@ -319,7 +319,7 @@ theorem efMultTotal_boxFibre_le {q : ℕ} [NeZero q] {χ : DirichletCharacter �
   have hlam120 : (1 - σ) * Real.log ((q : ℝ) * T) ≤ Real.log ((q : ℝ) * T) / 120 := by
     have hprod : (0 : ℝ) ≤ (1 / 120 - (1 - σ)) * Real.log ((q : ℝ) * T) :=
       mul_nonneg (by linarith) hL.le
-    nlinarith [hprod]
+    linarith only [hprod]
   have hB0 : (0 : ℝ) ≤ C₁ * (7 / 4 + 3 / 2 * ((1 - σ) * Real.log ((q : ℝ) * T))) :=
     mul_nonneg hC₁0.le (by linarith)
   rcases Finset.eq_empty_or_nonempty (boxFibre χ σ T ((q : ℝ) * T) k) with hemp | hne
@@ -347,7 +347,7 @@ theorem efMultTotal_boxFibre_le {q : ℕ} [NeZero q] {χ : DirichletCharacter �
   have hrad : Real.sqrt (((1 - σ) * Real.log ((q : ℝ) * T)) ^ 2 + 1 / 4)
       ≤ (1 - σ) * Real.log ((q : ℝ) * T) + 1 / 2 := by
     have h1 : ((1 - σ) * Real.log ((q : ℝ) * T)) ^ 2 + 1 / 4
-        ≤ ((1 - σ) * Real.log ((q : ℝ) * T) + 1 / 2) ^ 2 := by nlinarith [hlam0]
+        ≤ ((1 - σ) * Real.log ((q : ℝ) * T) + 1 / 2) ^ 2 := by linarith only [hlam0]
     calc Real.sqrt (((1 - σ) * Real.log ((q : ℝ) * T)) ^ 2 + 1 / 4)
         ≤ Real.sqrt (((1 - σ) * Real.log ((q : ℝ) * T) + 1 / 2) ^ 2) := Real.sqrt_le_sqrt h1
       _ = (1 - σ) * Real.log ((q : ℝ) * T) + 1 / 2 := Real.sqrt_sq (by linarith)

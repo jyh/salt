@@ -87,7 +87,7 @@ private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
       have hih := ih has hss
       have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
         Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith [hih, hax, hss, hsum_nonneg]
+      nlinarith only [hax, hih, hss]
 
 /-- `μ(n)² = 1` for squarefree `n` (local copy of `Lemma53Tight.moebius_sq_one'`). -/
 private theorem moebius_sq_one' {n : ℕ} (hn : Squarefree n) :
@@ -122,11 +122,11 @@ private theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
 
 /-- Telescoping tail bound (local copy of `Lemma53.inv_sq_tele53`). -/
@@ -173,8 +173,8 @@ private theorem one_sub_sum_le_prod_one_sub {ι : Type*} (s : Finset ι) (x : ι
       have hpn : 0 ≤ ∏ p ∈ s, (1 - x p) :=
         Finset.prod_nonneg fun p hp => by linarith [hx1' p hp]
       have hsn : 0 ≤ ∑ p ∈ s, x p := Finset.sum_nonneg hx0'
-      nlinarith [hih, hxa0, hxa1, hpn, hsn,
-        mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
+      nlinarith only [hxa0, hsn,
+          mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
 
 /-- `|∏(1 − xₚ) − 1| ≤ ∑ xₚ` (local copy of `Lemma53.abs_prod_one_sub_le`). -/
 private theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ)
@@ -498,7 +498,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
   have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow 2 k (by omega)
   have hD12 : 12 ≤ D := by omega
   have hD4 : 4 ≤ D := by omega
-  have hkD : k ≤ D := by nlinarith [hDk]
+  have hkD : k ≤ D := by nlinarith only [hk, hk2, hDk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hD0 : 0 < D := by omega
   have hD0R : (0 : ℝ) < (D : ℝ) := by exact_mod_cast hD0
   have hD0ne : (D : ℝ) ≠ 0 := hD0R.ne'
@@ -557,7 +557,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
       rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ))]
       have h1 := abs_moebius_real_le_one (a i)
       have h2 : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by positivity
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
     calc |y a| / (∏ i, (Nat.totient (a i) : ℝ))
             * ∏ i ∈ Finset.univ.erase m,
                 |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
@@ -679,7 +679,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
                     = ((gMult (r i) : ℝ) * (r i : ℝ) / (Nat.totient (r i) : ℝ) ^ 2)
                       * (1 + 4 / (D : ℝ)) from by ring]
               have hge := (gr_ratio_mem' (hsq i) (hodd i)).2
-              nlinarith [hge, (by positivity : (0:ℝ) ≤ 1 + 4 / (D : ℝ))]
+              nlinarith only [hge, (by positivity : (0 : ℝ) ≤ 1 + 4 / (D : ℝ))]
         _ = (1 + 4 / (D : ℝ)) ^ ((Finset.univ.erase m).erase j).card := by
             rw [Finset.prod_const]
         _ ≤ (Real.exp (4 / (D : ℝ))) ^ ((Finset.univ.erase m).erase j).card :=
@@ -1024,7 +1024,7 @@ theorem gProd_boundW (k R W' D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D)
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have : ((p : ℝ) - 1)⁻¹ ≤ 1 := by
       rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [this, h0]
+    nlinarith only [h0, this]
   · have hsub : S ⊆ Finset.Icc (D + 1) R := by
       intro p hp
       obtain ⟨-, hpD, hpR⟩ := hSmem p hp

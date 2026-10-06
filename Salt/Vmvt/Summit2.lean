@@ -48,9 +48,9 @@ lemma succ_pow_le_sq_mul {a b : ℕ} (hb : 2 ≤ b) (hab : b ≤ a) :
             apply Real.exp_le_exp.mpr
             rw [mul_one_div, div_le_one haR]; exact_mod_cast hab
     have hb24 : Real.exp 1 ≤ (b : ℝ) ^ 2 := by
-      nlinarith [Real.exp_one_lt_d9, hbR]
+      nlinarith only [hbR, Real.exp_one_lt_d9, (Nat.cast_nonneg _ : 0 ≤ ↑b)]
     have hh := mul_le_mul_of_nonneg_left (le_trans hexp hb24) (pow_nonneg haR.le b)
-    nlinarith [hh]
+    linarith only [hh]
   exact_mod_cast key
 
 /-- `n^k ≤ k^{2n}` for `2 ≤ k ≤ n` (the tight base-vs-exponent trade). -/
@@ -109,10 +109,10 @@ theorem exists_transversal_prime_set' {k : ℕ} (hk : 2 ≤ k) :
     have h1 : Real.sqrt (y : ℝ) * Real.log (y : ℝ)
         ≤ Real.sqrt (y : ℝ) * (2 * Real.sqrt (y : ℝ)) :=
       mul_le_mul_of_nonneg_left hlog_le (Real.sqrt_nonneg _)
-    nlinarith [h1, Real.mul_self_sqrt hypos.le]
+    linarith only [h1, Real.mul_self_sqrt hypos.le]
   have hstep1 : Real.sqrt (y : ℝ) / 16 ≤ (P : ℝ) := by
     have hle : Real.sqrt (y : ℝ) / 16 ≤ (y : ℝ) / (8 * Real.log (y : ℝ)) := by
-      rw [div_le_div_iff₀ (by norm_num) (by positivity)]; nlinarith [hcross]
+      rw [div_le_div_iff₀ (by norm_num) (by positivity)]; linarith only [hcross]
     linarith [hle, hPge]
   -- `8(M+1) ≤ √y`, from `y ≥ 64k⁶` and `k·k·(k−1)+1 ≤ k³`
   have hnat3 : k * k * (k - 1) + 1 ≤ k ^ 3 := by
@@ -195,11 +195,11 @@ theorem vmvt (k r x : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 ≤ x) : VmvtBo
       have hEnn : 0 ≤ vmvtExp k n := vmvtExp_nonneg hk hn
       have hEle : vmvtExp k n ≤ 2 * (n : ℝ) * (k : ℝ) := by
         have hη := vmvtEta_le (k := k) (r := n) (by omega) hn
-        unfold vmvtExp; nlinarith [hη, hk1R]
+        unfold vmvtExp; linarith only [hη, hk1R]
       have hbase_nn : (0 : ℝ) ≤ (k : ℝ) ^ 2 + 4 * vmvtExp k n := by
-        nlinarith [hEnn, sq_nonneg (k : ℝ)]
+        nlinarith only [hEnn, sq_nonneg ↑k]
       have hklin : (k : ℝ) ^ 2 + 4 * vmvtExp k n ≤ 9 * (k : ℝ) ^ 2 * (n : ℝ) := by
-        nlinarith [hEle, hk1R, hn1R]
+        nlinarith only [hk1R, hEnn, hEle, hn1R, (Nat.cast_nonneg _ : 0 ≤ ↑k), sq_nonneg ↑k]
       have hcube : ((k : ℝ) ^ 2 + 4 * vmvtExp k n) ^ k ≤ (x' : ℝ) := by
         have hexp_le : 8 * max k n ≤ 24 * max k (n + 1) := by
           have : max k n ≤ max k (n + 1) := by omega

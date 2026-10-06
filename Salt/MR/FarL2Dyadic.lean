@@ -201,7 +201,7 @@ private lemma sq_norm_dpoly_le_blocks (a : ℕ → ℂ) {P : ℕ → ℕ} (hP0 :
   rw [Finset.card_range] at h2
   have h0 : (0 : ℝ) ≤ ∑ j ∈ Finset.range J, ‖dpoly (P (j + 1)) (blockCoeff a P j) t‖ :=
     Finset.sum_nonneg (fun _ _ => norm_nonneg _)
-  nlinarith [norm_nonneg (dpoly (P J) a t)]
+  nlinarith only [h1, h0, h2, norm_nonneg (dpoly (P J) a t)]
 
 /-- **§2 EXIT — THE DYADIC-IN-`n` MEAN VALUE** (`dpoly_block_l2_mvt`).  ⟦THE N-TERM REPAIR⟧:
 
@@ -294,14 +294,14 @@ private lemma iUnion_farShell {H : ℝ} (hH : 0 < H) :
   constructor
   · rintro ⟨i, h1, -⟩
     have h2 : (1 : ℝ) ≤ 2 ^ i := one_le_pow₀ (by norm_num)
-    nlinarith
+    nlinarith only [hH, h2, h1]
   · intro hτ
     have hex : ∃ i : ℕ, |τ| ≤ H * 2 ^ (i + 1) := by
       obtain ⟨n, hn⟩ := pow_unbounded_of_one_lt (|τ| / H) (by norm_num : (1 : ℝ) < 2)
       refine ⟨n, ?_⟩
       rw [div_lt_iff₀ hH] at hn
       have hstep : (2 : ℝ) ^ n ≤ 2 ^ (n + 1) := pow_le_pow_right₀ (by norm_num) (by omega)
-      nlinarith [hH.le]
+      nlinarith only [hH, hstep, hn]
     refine ⟨Nat.find hex, ?_, Nat.find_spec hex⟩
     rcases Nat.eq_zero_or_pos (Nat.find hex) with h0 | hpos
     · rw [h0]; simpa using hτ
@@ -340,7 +340,7 @@ private lemma farShell_integral_le {φ : ℝ → ℝ} {A B H : ℝ} (i : ℕ)
       (fun τ hτ => ?_)
     obtain ⟨h1τ, -⟩ := hτ
     have hτ2 : r ^ 2 ≤ τ ^ 2 := by
-      have : r ^ 2 ≤ |τ| ^ 2 := by nlinarith
+      have : r ^ 2 ≤ |τ| ^ 2 := by nlinarith only [h1τ, hr0]
       rwa [sq_abs] at this
     have : φ τ / τ ^ 2 ≤ φ τ / r ^ 2 :=
       div_le_div_of_nonneg_left (hφ0 τ) (by positivity) hτ2
@@ -562,7 +562,7 @@ theorem farL2_grade_clears_gate (g : ℕ → ℂ) (X y σ : ℝ) (P : ℕ → �
   have hP2 : 54 * Cp / ε ≤ H ^ 2 := by
     have hs : (0 : ℝ) ≤ 54 * Cp / ε := by positivity
     have hsq := Real.sq_sqrt hs
-    nlinarith [Real.sqrt_nonneg (54 * Cp / ε)]
+    nlinarith only [hs0, h2, hH0, hsq]
   have hP2' : 54 * Cp ≤ H ^ 2 * ε := (div_le_iff₀ hε).mp hP2
   have hB : (80 / 3) * ((J : ℝ) * winL2Price g X y σ P J / H ^ 2) ≤ ε / 2 := by
     have hH2 : (0 : ℝ) < H ^ 2 := by positivity
@@ -637,7 +637,7 @@ lemma winL2Mass_antitone (g : ℕ → ℂ) (X y : ℝ) {σ σ' : ℝ} (hσ : σ 
   have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn1
   have hp : (0 : ℝ) < (n : ℝ) ^ σ := Real.rpow_pos_of_pos (by linarith) σ
   have hle : (n : ℝ) ^ σ ≤ (n : ℝ) ^ σ' := Real.rpow_le_rpow_of_exponent_le hnR hσ
-  exact div_le_div_of_nonneg_left (by positivity) (by positivity) (by nlinarith)
+  exact div_le_div_of_nonneg_left (by positivity) (by positivity) (by nlinarith only [hle, hp])
 
 /-- The block price is antitone in `σ`. -/
 lemma winL2Price_antitone (g : ℕ → ℂ) (X y : ℝ) {σ σ' : ℝ} (hσ : σ ≤ σ') (P : ℕ → ℕ)
@@ -647,7 +647,7 @@ lemma winL2Price_antitone (g : ℕ → ℂ) (X y : ℝ) {σ σ' : ℝ} (hσ : σ
   refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum (fun n _ => ?_)) (Nat.cast_nonneg _)
   have := winL2Coeff_norm_antitone g X y hσ n
   have h0 := norm_nonneg (winL2Coeff g X y σ' n)
-  nlinarith
+  nlinarith only [this, h0]
 
 /-- The graded far tail is antitone in `σ`. -/
 lemma farL2Grade_antitone (g : ℕ → ℂ) (X y : ℝ) {σ σ' : ℝ} (hσ : σ ≤ σ') {H : ℝ} (hH : 0 < H)
@@ -733,10 +733,10 @@ private lemma fl2_log64 : (4 : ℝ) ≤ Real.log 64 := by
   have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
   have h4 : Real.exp 4 = Real.exp 2 * Real.exp 2 := by rw [← Real.exp_add]; norm_num
   have hle : Real.exp 4 ≤ 64 := by
-    have hsq : Real.exp 1 * Real.exp 1 ≤ 8 := by nlinarith
+    have hsq : Real.exp 1 * Real.exp 1 ≤ 8 := by nlinarith only [he, hp]
     have hp2 : (0 : ℝ) < Real.exp 1 * Real.exp 1 := by positivity
     rw [h4, h2]
-    nlinarith
+    nlinarith only [hsq, mul_self_nonneg (Real.exp 1)]
   rw [← Real.log_exp 4]
   exact Real.log_le_log (Real.exp_pos 4) hle
 
@@ -918,7 +918,7 @@ theorem dilated_scale_grade_polylog {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
   -- the exponent: the `max` only strengthens
   have hexp : Real.exp (-c * M) ≤ Real.exp (-c * (M₀ - dilGap X Xd)) := by
     refine Real.exp_le_exp.mpr ?_
-    nlinarith
+    nlinarith only [hc0, hMlb]
   have hC0 : (0 : ℝ) ≤ gradeAbsConstC c Cb * (k : ℝ) :=
     mul_nonneg (gradeAbsConstC_nonneg hc1 hCb0) hk0.le
   have hstep : gradeAbsConstC c Cb * (k : ℝ) * Real.exp (-c * M)

@@ -172,7 +172,7 @@ theorem sum_totient_innerG_sq_le : ∃ C₁ : ℝ, 0 < C₁ ∧ ∀ z : ℕ, 2 �
       have hb := hS4 z hz g hg
       have habs := abs_le.mp hb
       have hsq : innerG z g ^ 2 ≤ (C₀ / ((Nat.totient g : ℝ) * Real.log (z : ℝ))) ^ 2 := by
-        nlinarith [habs.1, habs.2]
+        nlinarith only [habs]
       calc (Nat.totient g : ℝ) * innerG z g ^ 2
           ≤ (Nat.totient g : ℝ) * (C₀ / ((Nat.totient g : ℝ) * Real.log (z : ℝ))) ^ 2 :=
             mul_le_mul_of_nonneg_left hsq hφR.le
@@ -342,7 +342,7 @@ private lemma sum_log_range_ge : ∀ n : ℕ, 1 ≤ n →
         have h4 : (k : ℝ) * (Real.log ((k : ℝ) + 1) - Real.log (k : ℝ))
             ≤ (k : ℝ) * (1 / (k : ℝ)) := mul_le_mul_of_nonneg_left h2 hk0.le
         have h5 : (k : ℝ) * (1 / (k : ℝ)) = 1 := by field_simp
-        nlinarith [h4, h5]
+        linarith only [h5, h4]
       rw [Finset.sum_range_succ]
       push_cast
       linarith [ihk, hlogstep]
@@ -516,7 +516,7 @@ theorem grahamW_sum_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ x :
     have hmodR : ((⌊x⌋₊ % m : ℕ) : ℝ) < (m : ℝ) := by exact_mod_cast hmod
     have hhi : (⌊x⌋₊ : ℝ) / (m : ℝ) - 1 ≤ ((⌊x⌋₊ / m : ℕ) : ℝ) := by
       rw [sub_le_iff_le_add, div_le_iff₀ hm0]
-      nlinarith
+      linarith only [hmodR, hdmR]
     have hdiff : |((⌊x⌋₊ / m : ℕ) : ℝ) - (⌊x⌋₊ : ℝ) / (m : ℝ)| ≤ 1 := by
       rw [abs_le]; constructor <;> linarith
     have hprod : grahamGc z m * (((⌊x⌋₊ / m : ℕ) : ℝ) - (⌊x⌋₊ : ℝ) / (m : ℝ))
@@ -526,7 +526,7 @@ theorem grahamW_sum_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ x :
         _ = |grahamGc z m| * |((⌊x⌋₊ / m : ℕ) : ℝ) - (⌊x⌋₊ : ℝ) / (m : ℝ)| := abs_mul _ _
         _ ≤ |grahamGc z m| * 1 := by gcongr
         _ = |grahamGc z m| := mul_one _
-    nlinarith [hprod]
+    linarith only [hprod]
   -- the `z²` error is absorbed at `x ≥ z²`
   have herr : ((z : ℝ) / Real.log z) ^ 2 ≤ (1 / Real.log 2) * x / Real.log (z : ℝ) := by
     have h1 : (z : ℝ) ^ 2 / Real.log (z : ℝ) ^ 2 ≤ x / Real.log (z : ℝ) ^ 2 := by
@@ -536,7 +536,7 @@ theorem grahamW_sum_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ x :
           = x / (Real.log 2 * Real.log (z : ℝ)) := by
         rw [one_div, inv_mul_eq_div, div_div]
       rw [heq, div_le_div_iff₀ (pow_pos hlogz 2) (mul_pos hlog2 hlogz)]
-      nlinarith [mul_nonneg hx0 (mul_nonneg hlogz.le (sub_nonneg.mpr hlog2z))]
+      linarith only [mul_nonneg hx0 (mul_nonneg hlogz.le (sub_nonneg.mpr hlog2z))]
     calc ((z : ℝ) / Real.log z) ^ 2 = (z : ℝ) ^ 2 / Real.log (z : ℝ) ^ 2 := by
           rw [div_pow]
       _ ≤ x / Real.log (z : ℝ) ^ 2 := h1
@@ -597,7 +597,7 @@ theorem sum_sq_sum_bvWeight_le : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ, 2 �
   have hx1 : (z₁ : ℝ) ^ 2 ≤ x := by
     refine le_trans ?_ hx
     have : (z₁ : ℝ) ≤ (z₂ : ℝ) := by exact_mod_cast hz.le
-    nlinarith
+    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑z₂), (Nat.cast_nonneg _ : 0 ≤ ↑z₁)]
   have hA : ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₂ n ≤ C * x / Real.log (z₂ : ℝ) :=
     hS9 z₂ hz₂ x hx
   have hB : ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₁ n ≤ C * x / Real.log (z₁ : ℝ) :=
