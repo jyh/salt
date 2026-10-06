@@ -71,10 +71,10 @@ theorem epsRung2_log_inv_eps_le {h : ℕ} (hh : 0 < h) {L : ℝ} (hhL : Real.log
   linarith [epsRung2_log500_le, hhL]
 
 set_option maxHeartbeats 1000000 in
--- as the source (`V7RatedH.lean:1313`): the exponent comparison closes through `exp` rewrites
+-- as the source (`V7RatedH.lean:364`): the exponent comparison closes through `exp` rewrites
 -- and three `nlinarith` calls, and the `L`-cut adds one more atom to the closing `linarith`.
 /-- **⟦R8 — `klevF_capNumeral_h_b9` AT THE HEAD'S GRADE⟧** (`klevF_capNumeral_L`) — the `_b9`
-twin's ONE cap site (`V7RatedH.lean:1334`, `h ≤ 8103` by `h_le_8103_of_hh9`) feeds exactly one
+twin's ONE cap site (`V7RatedH.lean:386`, `h ≤ 8103` by `h_le_8103_of_hh9`) feeds exactly one
 number, `log (1/ε) ≤ 16`.  At generic `L` it reads `log (1/ε) ≤ 6.24 + L`, and the close
 `9.6·(c' + 21) ≤ 69·e^{2t}` becomes `9.6·(c' + 11.24 + L) ≤ 69·e^{2t}`: the `L` is paid by the
 WEAKEST hypothesis the tower admits, `hLt : L ≤ e^{1.6A}` (at `A ≥ 26` that is `L ≤ 10^17`),
@@ -3127,7 +3127,7 @@ theorem s16_audit_neglog_rho_le_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hhL : Rea
 
 
 /-- **⟦THE WINDOW LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_half_line_g14`
-(`StrideGradeReach.lean:183`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the CONCLUSION is
+(`StrideGradeReach.lean:193`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the CONCLUSION is
 the source's, byte for byte.  BODY: the source's, plus ONE new fact and its use in the close.
 
 THE NEW FACT, shared by all four cap lines here: with `E := Real.exp (3.2 * A / 2)`,
@@ -3168,7 +3168,7 @@ theorem flat_half_line_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) :
   linarith [hsq, hE2, hc, h16, hEE]
 
 /-- **⟦THE `anchor` LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_anchor_line_wide_g14`
-(`StrideGradeReach.lean:207`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+(`StrideGradeReach.lean:217`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
 the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
 
 THE MARGIN, derived: `flatDoorM_ge` gives
@@ -3186,7 +3186,7 @@ theorem flat_anchor_line_wide_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) 
   linarith
 
 /-- **⟦THE `𝒯`-LEG BUDGET AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_gP1_line_g14`
-(`StrideGradeReach.lean:216`) with `hc : -439 ≤ c` replaced by `hc : -(16 * A) ≤ c` (the charge
+(`StrideGradeReach.lean:226`) with `hc : -439 ≤ c` replaced by `hc : -(16 * A) ≤ c` (the charge
 enters this one with the OPPOSITE sign); the conclusion is the source's, byte for byte.  BODY: the
 source's, plus the shared new fact, used as `-c ≤ 16 * A ≤ 10 * E`.
 
@@ -3220,7 +3220,7 @@ theorem flat_gP1_line_L {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -(16 * A) ≤ c)
   linarith
 
 /-- **⟦THE `level1` BUDGET AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_lvl_line_g14`
-(`StrideGradeReach.lean:240`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+(`StrideGradeReach.lean:250`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
 the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
 
 THE MARGIN, derived: the body's `hbud` gives `(1 / 12) * AdoorL M * Real.log 2 ≥ 12750 * E`,

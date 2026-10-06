@@ -65,7 +65,7 @@ lemma re_one_div_sub_ge {ρ : ℂ} {r : ℝ} (hr : 0 < r) (hmem : ρ ∈ closedB
   have hdecomp : ρ - 1 = ((ρ.re - 1 : ℝ) : ℂ) + ((ρ.im : ℝ) : ℂ) * I := by
     apply Complex.ext <;> simp
   have hns : (ρ.re - 1) ^ 2 + ρ.im ^ 2 ≤ r ^ 2 := by
-    have h2 : ‖ρ - 1‖ ^ 2 ≤ r ^ 2 := by nlinarith [norm_nonneg (ρ - 1), hmem]
+    have h2 : ‖ρ - 1‖ ^ 2 ≤ r ^ 2 := by nlinarith only [hmem, hr, norm_nonneg (ρ - 1)]
     rw [hdecomp, Complex.norm_add_mul_I] at h2
     rwa [Real.sq_sqrt (by positivity)] at h2
   set a := ρ.re with ha
@@ -84,7 +84,7 @@ lemma re_one_div_sub_ge {ρ : ℂ} {r : ℝ} (hr : 0 < r) (hmem : ρ ∈ closedB
     rw [one_div, Complex.inv_re, Complex.normSq_apply, hwre, hwim]
   rw [hval, le_div_iff₀ hDpos, div_mul_eq_mul_div, one_mul,
     div_le_iff₀ (by positivity : (0 : ℝ) < 5 * r)]
-  nlinarith [hden, hdr, hr, hdpos, mul_pos hr hdpos]
+  linarith only [hDpos, hns]
 
 /-! ## 2. The main count -/
 
@@ -251,8 +251,8 @@ theorem LFunction_zero_count_near_one :
     _ ≤ 7200 * (1 + r * Real.log ((q : ℝ) + 2)) := by
         have hB2 : B ≤ 1440 * Real.log ((q : ℝ) + 2) := by linarith [hBcollapse, hlog2q]
         have hrpos : 0 ≤ r := le_of_lt hr0
-        nlinarith [mul_le_mul_of_nonneg_left hB2 (by positivity : (0:ℝ) ≤ 5 * r),
-          hlogq, hr, hr0, mul_nonneg hrpos hlogq]
+        linarith only [hr, hr0,
+            mul_le_mul_of_nonneg_left hB2 (by positivity : (0 : ℝ) ≤ 5 * r)]
 
 /-- **The guarded (density) form.** In the regime `r ≥ 1/log(q+2)` — all Heath-Brown's WP2
 consumers use — the `1 +` is absorbed and the count is the pure density shape
@@ -274,7 +274,7 @@ theorem LFunction_zero_count_near_one_guarded :
   calc ((∑ᶠ u, divisor (LFunction χ) (closedBall (1 : ℂ) r) u : ℤ) : ℝ)
       ≤ C * (1 + r * Real.log ((q : ℝ) + 2)) := hmain χ hχ hq2 hr0 hr
     _ ≤ 2 * C * (r * Real.log ((q : ℝ) + 2)) := by
-        nlinarith [mul_le_mul_of_nonneg_left h1 (le_of_lt hC)]
+        linarith only [mul_le_mul_of_nonneg_left h1 (le_of_lt hC)]
 
 /-! ## 3. The count at height (B2 W1 — Jutila's Lemma 8, Linnik's density lemma)
 
@@ -363,8 +363,8 @@ theorem landau_neg_logDeriv_re_lower_of_re {q : ℕ} [NeZero q] (χ : DirichletC
         have hkey : ‖(χ (n : ZMod q) : ℂ)‖ * ‖((vonMangoldt n : ℝ) : ℂ)‖
             ≤ vonMangoldt n := by
           rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hΛ0]
-          nlinarith [DirichletCharacter.norm_le_one χ (n : ZMod q),
-            norm_nonneg (χ (n : ZMod q)), hΛ0]
+          nlinarith only [hΛ0,
+              DirichletCharacter.norm_le_one χ (n : ZMod q)]
         rw [LSeries.term_of_ne_zero hn, Pi.mul_apply, norm_div, norm_mul,
           Complex.norm_natCast_cpow_of_pos hnpos s]
         exact div_le_div_of_nonneg_right hkey (le_of_lt hd)
@@ -557,7 +557,7 @@ theorem LFunction_zero_count_near_one_at_height :
   have hlog2q : Real.log ((q : ℝ) * (|t₀| + 2)) ≤ 2 * Real.log ((q : ℝ) + |t₀| + 2) := by
     have hq0 : (0 : ℝ) ≤ (q : ℝ) := by linarith
     have hqa : (q : ℝ) * (|t₀| + 2) ≤ ((q : ℝ) + |t₀| + 2) ^ 2 := by
-      nlinarith [habs0, hq2R, hq0, mul_nonneg hq0 habs0, sq_nonneg ((q : ℝ) + |t₀|)]
+      nlinarith only [habs0, hr, hr0, hq2R, (Nat.cast_nonneg _ : 0 ≤ ↑q), sq_nonneg (↑q + |t₀|)]
     calc Real.log ((q : ℝ) * (|t₀| + 2))
         ≤ Real.log (((q : ℝ) + |t₀| + 2) ^ 2) :=
           Real.log_le_log (by nlinarith [habs0, hq2R]) hqa
@@ -570,8 +570,8 @@ theorem LFunction_zero_count_near_one_at_height :
         have hB2 : B ≤ 1440 * Real.log ((q : ℝ) + |t₀| + 2) := by
           linarith [hBcollapse, hlog2q]
         have hrpos : 0 ≤ r := le_of_lt hr0
-        nlinarith [mul_le_mul_of_nonneg_left hB2 (by positivity : (0 : ℝ) ≤ 5 * r),
-          hlogq, hr, hr0, mul_nonneg hrpos hlogq]
+        linarith only [hr, hr0,
+            mul_le_mul_of_nonneg_left hB2 (by positivity : (0 : ℝ) ≤ 5 * r)]
 
 /-- **The guarded (density) form at height.** In the regime `r ≥ 1/log(q + |t₀| + 2)` the
 `1 +` is absorbed: `≤ C·r·log(q + |t₀| + 2)`. Immediate from the height count, as
@@ -593,7 +593,7 @@ theorem LFunction_zero_count_near_one_at_height_guarded :
   calc ((∑ᶠ u, divisor (LFunction χ) (closedBall ((1 : ℂ) + (t₀ : ℂ) * I) r) u : ℤ) : ℝ)
       ≤ C * (1 + r * Real.log ((q : ℝ) + |t₀| + 2)) := hmain χ hχ hq2 t₀ hr0 hr
     _ ≤ 2 * C * (r * Real.log ((q : ℝ) + |t₀| + 2)) := by
-        nlinarith [mul_le_mul_of_nonneg_left h1 (le_of_lt hC)]
+        linarith only [mul_le_mul_of_nonneg_left h1 (le_of_lt hC)]
 
 /-- **The W1 exit row** (design v2 §4, W1): at `t₀ = 0` the height form IS the statement of
 `LFunction_zero_count_near_one` (`(0 : ℝ)·I = 0`, `|0| = 0`). It INVOKES the frozen row. The

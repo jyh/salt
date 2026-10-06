@@ -44,7 +44,7 @@ theorem region_of_uniform_growth {ρ : ℂ} (hρ0 : riemannZeta ρ = 0) (hβ1 : 
     ρ.re ≤ 1 - dd / (7 * Lq) := by
   have hγ1 : 1 ≤ |ρ.im| := by rw [abs_of_nonneg (by linarith : (0:ℝ) ≤ ρ.im)]; linarith
   have hM₀ : (1 : ℝ) ≤ 5 * Mζ / Θ := by
-    rw [le_div_iff₀ hΘ0]; nlinarith [hMζ, hΘ12, hΘ0]
+    rw [le_div_iff₀ hΘ0]; linarith only [hMζ, hΘ12, hΘ0]
   -- the growth-to-sphere discharge over a τ-centered sphere of radius `R ≤ (3/2)Θ`
   have discharge : ∀ (τ R : ℝ), 0 ≤ R → R ≤ 3 / 2 * Θ → 1 ≤ |τ| → ρ.im - 1 + R ≤ τ →
       τ + R ≤ 3 * ρ.im →
@@ -61,25 +61,25 @@ theorem region_of_uniform_growth {ρ : ℂ} (hρ0 : riemannZeta ρ = 0) (hβ1 : 
     have himb : |z.im - τ| ≤ R := by
       have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I))
       rw [Complex.sub_im, hcim, hzc] at h; exact h
-    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
-    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
+    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; linarith only [this, hR]
+    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
     have him1 : ρ.im - 1 ≤ z.im := by have := (abs_le.mp himb).1; linarith [hτlo]
     have him2 : z.im ≤ 3 * ρ.im := by have := (abs_le.mp himb).2; linarith [hτhi]
     exact Zc_ratio_sphere_bound hΘ0 hΘ12 hτ hMζ hR0 hR hz (hgrowth z hre1 hre2 him1 him2)
   -- radius bookkeeping: both sphere radii are `≤ (3/2)Θ`
-  have hR74 : (7 : ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
-  have hR32 : (3 : ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR74 : (7 : ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
+  have hR32 : (3 : ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
   have hR74' : (0 : ℝ) ≤ 7 / 4 * (6 * Θ / 7) := by positivity
   have hR32' : (0 : ℝ) ≤ 3 / 2 * (6 * Θ / 7) := by positivity
   have hγ2τ : (1 : ℝ) ≤ |2 * ρ.im| := by
     rw [abs_of_nonneg (by linarith : (0:ℝ) ≤ 2 * ρ.im)]; linarith
   refine zeta_zero_free_of_disc hρ0 hβ1 hγ1 hΘ0 (by linarith [hΘ12]) hM₀ hdd hddlt hLq0 hσΘ hwΘ
     hchainC ?_ ?_ ?_ ?_
-  · exact discharge ρ.im _ hR74' hR74 hγ1 (by nlinarith [hΘ12]) (by nlinarith [hΘ12, hγ2])
-  · exact discharge ρ.im _ hR32' hR32 hγ1 (by nlinarith [hΘ12]) (by nlinarith [hΘ12, hγ2])
-  · exact discharge (2 * ρ.im) _ hR74' hR74 hγ2τ (by nlinarith [hΘ12, hγ2])
-      (by nlinarith [hΘ12, hγ2])
-  · exact discharge (2 * ρ.im) _ hR32' hR32 hγ2τ (by nlinarith [hΘ12, hγ2])
-      (by nlinarith [hΘ12, hγ2])
+  · exact discharge ρ.im _ hR74' hR74 hγ1 (by linarith only [hΘ12, hΘ0]) (by nlinarith [hΘ12, hγ2])
+  · exact discharge ρ.im _ hR32' hR32 hγ1 (by linarith only [hΘ12, hΘ0]) (by nlinarith [hΘ12, hγ2])
+  · exact discharge (2 * ρ.im) _ hR74' hR74 hγ2τ (by linarith only [hγ2, hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0])
+  · exact discharge (2 * ρ.im) _ hR32' hR32 hγ2τ (by linarith only [hγ2, hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0])
 
 end Salt.Vk
