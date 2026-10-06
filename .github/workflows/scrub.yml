@@ -378,3 +378,22 @@ jobs:
             fi
             echo "OK   $f is $mode"
           done
+
+  verification-claims:
+    name: a public verification claim names its check
+    runs-on: ubuntu-latest
+    # Council 2026-10-06 ruling 1 (desk AAN): recs 1 and 5 of the saltworks RISC-V post-mortem
+    #   (jyh/saltworks docs/POSTMORTEM-riscv-core-2026-10.md §5), ported from saltworks.
+    #   rec 1: every "verified" / "proved" / "machine-checked" in a README or paper abstract cites the theorem or
+    #          suite whose subject it is; uncited is refused.
+    #   rec 5: a sentence asserting verification about a FENCED subject (.verification-fences) is refused whatever
+    #          it cites. No fence is declared in this repository yet; the verdict says so.
+    # The self-test runs first, in its own step, so a vacuous checker cannot print green (55 arms).
+    # The verdict prints its own limits (population, claim words, waivers, exemptions, what is NOT checked).
+    steps:
+      - uses: actions/checkout@v4
+      - name: the checker can still go red (self-test)
+        run: python3 scripts/check_verification_claims.py --self-test
+      - name: every verification claim in a README or abstract cites its check
+        if: success() || failure()
+        run: python3 scripts/check_verification_claims.py --verbose
