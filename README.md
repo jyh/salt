@@ -2,6 +2,7 @@
 
 A formal mathematics project in Lean 4 / mathlib. **Objective: a machine-checked
 proof of the Twin Prime Conjecture.**
+<!-- claim-check: not-a-claim: states the objective; nothing is claimed achieved here, and the paragraphs below say what is -->
 
 The conjecture is open, and the known method class (sieve theory) provably cannot
 close it — Polymath8b showed gaps ≤ 6 is optimal for sieve-theoretic arguments even
@@ -16,6 +17,7 @@ under the generalized Elliott–Halberstam conjecture. So the project runs two l
    never reached.
 2. **The hunt (research layer).** A barrier atlas (precise statements of why each
    known approach fails), a reduction DAG of candidate statements, and systematic
+   <!-- claim-check: not-a-claim: a published human proof in the literature, not a machine-verification claim -->
    search on the live routes: function-field transfer (Sawin–Shusterman proved the
    conjecture in 𝔽_q[T]), parity-breaking bilinear input for n(n+2), and the
    Chowla-program gap (Liouville/log-averaged → von Mangoldt).
