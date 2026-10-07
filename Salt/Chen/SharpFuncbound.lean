@@ -88,7 +88,7 @@ theorem Gtail_nonneg {c : ℝ} (hc : 3 ≤ c) : 0 ≤ Gtail c := by
   have hc0 : 0 < c := by linarith
   have ht : 0 < c⁻¹ := by positivity
   have hq : 0 < 2 * (c⁻¹) ^ 2 - c⁻¹ + 1 := by nlinarith [sq_nonneg (2 * c⁻¹ - 1), ht]
-  have hfac : 0 ≤ c⁻¹ - (c⁻¹) ^ 2 + 2 * (c⁻¹) ^ 3 := by nlinarith [mul_pos ht hq]
+  have hfac : 0 ≤ c⁻¹ - (c⁻¹) ^ 2 + 2 * (c⁻¹) ^ 3 := by linarith only [mul_pos ht hq]
   have hexp : 0 < Real.exp (-c) := Real.exp_pos _
   have h3 : 0 ≤ 3 * (c⁻¹ - (c⁻¹) ^ 2 + 2 * (c⁻¹) ^ 3) := by linarith
   positivity
@@ -148,7 +148,7 @@ theorem hBJS_intbound_from2_sharp (c : ℝ) :
     (∫ u in (2 : ℝ)..c, hBJS u) ≤ Real.exp (-2) - (1 / 9) * Real.exp (-3) := by
   have hpos : (0 : ℝ) ≤ Real.exp (-2) - (1 / 9) * Real.exp (-3) := by
     have : Real.exp (-3) ≤ Real.exp (-2) := Real.exp_le_exp.mpr (by norm_num)
-    nlinarith [Real.exp_pos (-3 : ℝ), this]
+    linarith only [this, Real.exp_pos (-3 : ℝ)]
   rcases le_total c 2 with hc2 | hc2
   · rw [intervalIntegral.integral_symm]
     have h1 : 0 ≤ ∫ u in c..(2 : ℝ), hBJS u :=
@@ -164,7 +164,7 @@ theorem hBJS_intbound_from2_sharp (c : ℝ) :
       rw [hcongr, integral_exp_neg]
       have hce : (1 / 9) * Real.exp (-3) ≤ Real.exp (-c) := by
         have h1 : Real.exp (-3) ≤ Real.exp (-c) := Real.exp_le_exp.mpr (by linarith)
-        nlinarith [Real.exp_pos (-3 : ℝ), h1]
+        linarith only [h1, Real.exp_pos (-3 : ℝ)]
       linarith
     · -- c ≥ 3: split at 3
       have hsplit : (∫ u in (2 : ℝ)..c, hBJS u)
@@ -232,11 +232,11 @@ theorem hBJS_funcbound_sharp (s c : ℝ) (hs : 2 ≤ s) :
       have := Real.add_one_le_exp (s - 2); linarith
     have hEm : (9 : ℝ) / 25 ≤ Real.exp (-1) := by
       have hmul : Real.exp (-1) * Real.exp 1 = 1 := by rw [← Real.exp_add]; norm_num
-      nlinarith [hmul, Real.exp_one_lt_d9, Real.exp_pos (1 : ℝ), Real.exp_pos (-1 : ℝ)]
+      nlinarith only [hmul, Real.exp_pos (1 : ℝ), Real.exp_pos (-1 : ℝ), Real.exp_one_lt_d9]
     have hprod : (9 / 25) * (s - 1) ≤ Real.exp (-1) * Real.exp (s - 2) :=
       mul_le_mul hEm hexp_ge (by linarith) (Real.exp_pos _).le
     have hreduced : (4 - s) * Real.exp (s - 2) - (1 / 9) * (Real.exp (-1) * Real.exp (s - 2))
-        ≤ (49 / 50) * s := by nlinarith [hpade, hprod, hs]
+        ≤ (49 / 50) * s := by linarith only [hprod, hpade, hs]
     have e2id : Real.exp (-2) = Real.exp (s - 2) * Real.exp (-s) := by
       rw [← Real.exp_add]; congr 1; ring
     have e3id : Real.exp (-3) = Real.exp (-1) * Real.exp (s - 2) * Real.exp (-s) := by
