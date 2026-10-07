@@ -346,7 +346,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1 : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
           ≤ Real.sqrt ((((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
               * (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) :=
-        Real.sqrt_le_sqrt (by nlinarith [hXMge1])
+        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
       rwa [Real.sqrt_mul_self hXMpos.le] at h1
     linarith [hDsqrtXM, hsqrtself]
   have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
@@ -358,12 +358,12 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
         Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       rw [Real.rpow_one] at h1le
-      nlinarith [le_trans hL2 h1le, hL18ge1]
+      nlinarith only [hL18ge1, h1le, hLlow, hlog4, hlogNbig]
     have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
       have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
           = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
       rw [hexp] at hsqle
-      nlinarith [hsqle, hL18ge2, hXMhiR, mul_nonneg hDnn hDnn]
+      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
     rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
     exact Real.sqrt_le_sqrt hDDN
   have hDsq : D < (2 ^ kp + 1) * (2 ^ kp + 1) := by
@@ -403,7 +403,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans hDsqrtXM (le_trans hsqrt2N hsqrt2N_le)
     have hDnat : D ≤ 2 ^ kp * 2 ^ kp := by exact_mod_cast hDreal
     have hm : (1 : ℕ) ≤ 2 ^ kp := Nat.one_le_pow _ _ (by norm_num)
-    nlinarith [hDnat, hm]
+    linarith only [hDnat, hpc, hy6, hyfloor]
   -- hD1 (from the band floor `hDge`)
   have hD1 : 1 ≤ D := by
     have hgcpow_pos : (0 : ℝ) < (goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) :=
@@ -422,14 +422,14 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   have hDleN : (D : ℝ) ≤ (N : ℝ) := by
     have hself : Real.sqrt (N : ℝ) ≤ (N : ℝ) := by
       have h1 : Real.sqrt (N : ℝ) ≤ Real.sqrt ((N : ℝ) * (N : ℝ)) :=
-        Real.sqrt_le_sqrt (by nlinarith [hN1R])
+        Real.sqrt_le_sqrt (by nlinarith only [hN1R, (Nat.cast_nonneg _ : 0 ≤ ↑N)])
       rwa [Real.sqrt_mul_self hNpos.le] at h1
     linarith [hDx, hself]
   have hlogD : Real.log D ≤ Real.log N := by
     rcases Nat.eq_zero_or_pos D with h0 | hDpos
     · rw [h0]; simp only [Nat.cast_zero, Real.log_zero]; linarith [hlogN1]
     · exact Real.log_le_log (by exact_mod_cast hDpos) hDleN
-  have hlogNle7L : Real.log N ≤ 7 * L := by nlinarith [hLlow, hlog4, hL2, hlogN1]
+  have hlogNle7L : Real.log N ≤ 7 * L := by linarith only [hLlow, hlog4, hlogNbig]
   have habs : 4 * (1 + Real.log D) * (D : ℝ)
       ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) / L ^ (13 : ℝ) := by
     rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
@@ -440,12 +440,12 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans (mul_le_mul_of_nonneg_left h14le18 hDnn) herr_lev
     have hL14eq : L ^ (14 : ℝ) = L * L ^ (13 : ℝ) := by
       rw [show (14 : ℝ) = 1 + 13 by norm_num, Real.rpow_add hLpos, Real.rpow_one]
-    have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by nlinarith [hlogD, hlogNle7L, hL1]
+    have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by linarith only [hlogD, hLlow, hlog4, hlogNbig]
     have hL13nn : (0 : ℝ) ≤ L ^ (13 : ℝ) := Real.rpow_nonneg hL0 _
     have hstep1 : 4 * (1 + Real.log D) * (D : ℝ) * L ^ (13 : ℝ)
         ≤ 32 * ((D : ℝ) * L ^ (14 : ℝ)) := by
       rw [hL14eq]
-      nlinarith [hcoef, hDnn, hL13nn, mul_nonneg hDnn hL13nn]
+      nlinarith only [hlogD, hLlow, hlog4, hlogN, mul_nonneg hDnn hL13nn]
     have hMnn : (0 : ℝ) ≤ (pieceM kp : ℝ) := by positivity
     have hBnn : (0 : ℝ) ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by positivity
     have hAnn : (0 : ℝ) ≤ 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := by
@@ -490,7 +490,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
               = (N : ℝ) ^ ((4 : ℝ) / 3) / 65536 := by rw [h43]; ring
           rw [hexp]; linarith [hstep]
         linarith [hkpMlo2, h2N_le]
-      nlinarith [hXMhiR, hBBlo]
+      linarith only [hBBlo, hXMhiR]
     have hAle : 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
         ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by
       have h1 := Real.sqrt_le_sqrt hAAle
