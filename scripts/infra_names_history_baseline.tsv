@@ -1,0 +1,34 @@
+# infra_names_history_baseline.tsv -- ACCEPTED historical commits whose ADDED LINES carry an infrastructure name (check_infra_names.py --history).
+# sha<TAB>file<TAB>count. NEVER the line and NEVER the name: an excerpt would put the name into the tree, where the tree arm correctly reds on it.
+# This list does not shrink without a force-push, which is a Captain-level call on a public repo. A GROWTH is a reviewed diff.
+1d787edb894e	docs/QUEUE.md	1
+1fda892bbd3a	docs/QUEUE.md	1
+252d76d42c8d	docs/exploration/leg1-evidence-0805.md	1
+2822be54168a	docs/exploration/council-0727.md	1
+3efd2e65f188	Salt/Entropy/Chowla/StrideCircle.lean	1
+446cb8064583	docs/QUEUE.md	1
+4744060a0694	docs/exploration/pilot.md	1
+4885bfedab4d	Salt/Entropy/Chowla/StrideCircle.lean	1
+698ac14426cb	docs/exploration/pilot.md	1
+6bc3f72191a8	docs/exploration/leg1-evidence-0805.md	2
+70c175ad72e5	docs/QUEUE.md	1
+72d59b8d44aa	docs/exploration/council-0727.md	1
+72d59b8d44aa	docs/exploration/pilot.md	1
+7828917a3b6f	docs/QUEUE.md	1
+972e1f102fc3	docs/QUEUE.md	1
+979987038c97	docs/QUEUE.md	1
+9a2b30535c58	Salt/Entropy/Chowla/StridePrize.lean	1
+a659d78f4bd4	docs/QUEUE.md	1
+a6de12264b64	docs/QUEUE.md	1
+af3b2384660f	docs/QUEUE.md	1
+bd45af293aa8	docs/exploration/council-0727.md	2
+c20fc0ed07ea	docs/exploration/pilot.md	1
+d097d12858d1	docs/exploration/pilot.md	1
+d733b56ca44e	docs/QUEUE.md	1
+dfd6b1527cba	docs/exploration/pilot.md	1
+ea0829f18a8d	Salt/Entropy/Chowla/StridePrize.lean	1
+ee92932564f7	docs/QUEUE.md	1
+f069c282f825	docs/exploration/pilot.md	1
+f38e7bf37ca7	docs/exploration/pilot.md	3
+f83d08cc01ce	docs/exploration/pilot.md	1
+fead6e17e79d	docs/QUEUE.md	1
