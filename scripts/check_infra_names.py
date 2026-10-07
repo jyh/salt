@@ -58,6 +58,23 @@ digest -- tree `sha256:<16><TAB>PATH<TAB><what>`, history `<sha><TAB>sha256:<16>
 and a line row can never accept each other's finding. Every finding names a name-bearing file by its digest, never in clear.
 To find the file a digest names, hash the tracked paths LOCALLY; never paste the answer into a public surface.
 
+EXIT CODES (2026-10-07: until this section existed, a range git could not read was a GREEN)
+-------------------------------------------------------------------------------------------
+  0  clean: every population the arm was asked to read was read, and nothing NEW was found.
+  1  a finding, or a refusal BY NAME: a NEW name, a tree baseline that is missing, a SHALLOW clone under
+     --history, an empty scan, a forbidden set smaller than declared, or --history with --range.
+  2  usage: argparse refused the command line.
+  3  GIT COULD NOT READ what the arm was asked to scan: a range end that does not resolve (a missing sha, an
+     empty side, a three-dot range, a FILE name), an object the repository does not hold, or a directory that
+     is not a repository. NOTHING was scanned, and the run never prints OK.
+WHY 3 EXISTS: the line arm and the path arm read git's stdout and never its exit status, so `--range
+<unresolvable sha>..HEAD` read git's EMPTY stdout as "nothing added" and printed OK with rc 0, and so did a
+commit whose blob is missing under --history (which then WROTE a shorter baseline). Every git call this gate
+makes now checks git's exit status. --range also RESOLVES both ends before it diffs, and every diff ends its
+revisions with `--`: without both, a range whose two ends name tracked files diffs the WORKING TREE and exits 0,
+and outside a repository git compares the two FILES and exits 0. git's own message is withheld (it can name a
+path, and a CI log is public): rerun the named git command locally to read it.
+
 """
 from __future__ import annotations
 
@@ -69,9 +86,32 @@ import re
 import subprocess
 import sys
 
-ROOT = pathlib.Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
-                                   cwd=pathlib.Path(__file__).resolve().parent,
-                                   capture_output=True, text=True, encoding="utf-8", check=True).stdout.strip())
+GIT_UNREADABLE = 3   # the exit code when git could not read what an arm was asked to scan (EXIT CODES above)
+
+
+class GitReadError(Exception):
+    """A git call this gate needs for a verdict exited nonzero. Carries the SUBCOMMAND and rc only: git's own
+    message can name a path, and the gate's output lands in a public log."""
+
+
+def _git(args: list, cwd=None, raw: bool = False):
+    """EVERY git call the gate makes for a verdict goes through here, and a nonzero exit RAISES GitReadError
+    (rc 3 at the CLI, via run_arm). git's stdout alone cannot tell "nothing" from "could not look": an
+    unresolvable revision prints nothing, exactly like an empty diff. `raw` returns bytes (for `-z` lists)."""
+    if raw:
+        r = subprocess.run(["git"] + args, cwd=cwd, capture_output=True)
+    else:
+        r = subprocess.run(["git"] + args, cwd=cwd, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace")
+    if r.returncode != 0:
+        raise GitReadError(f"`git {args[0]}` exited {r.returncode}")
+    return r.stdout
+
+
+def _root() -> pathlib.Path:
+    """The repository this script lives in: the --tree arm's default root. Resolved when an arm needs it, through
+    the checked runner, so a copy of the script outside any repository exits 3 and not with a traceback's 1."""
+    return pathlib.Path(_git(["rev-parse", "--show-toplevel"], cwd=pathlib.Path(__file__).resolve().parent).strip())
 
 # Assembled, never spelled — this gate scans itself.
 #
@@ -142,13 +182,13 @@ DECLARED_RECONCILED = "2026-10-07"
 
 def tracked_paths(root=None) -> list[str]:
     """EVERY tracked path -- binaries, symlinks and gitlinks included: the path arm reads names, not contents."""
-    out = subprocess.run(["git", "ls-files", "-z"], cwd=root or ROOT, capture_output=True, check=True).stdout
+    out = _git(["ls-files", "-z"], cwd=root or _root(), raw=True)
     return [rel for rel in out.decode("utf-8").split("\0") if rel]
 
 
 def tracked_files(root=None) -> list[tuple[str, str]]:
-    root = pathlib.Path(root or ROOT)
-    out = subprocess.run(["git", "ls-files", "-z"], cwd=root, capture_output=True, check=True).stdout
+    root = pathlib.Path(root or _root())
+    out = _git(["ls-files", "-z"], cwd=root, raw=True)
     rows = []
     for rel in out.decode("utf-8").split("\0"):
         if not rel:
@@ -365,8 +405,9 @@ class _FixtureError(Exception):
 
 
 def _self_test_paths(failures: list) -> str:
-    """Arms 7-11: THE PATH ARM AND THE DIGEST FILE COLUMN (2026-10-07). The git arms drive the SAME mode functions
-    the CLI runs, on a scratch repository built here. No failure text ever carries a fixture path or git output."""
+    """Arms 7-11: THE PATH ARM AND THE DIGEST FILE COLUMN (2026-10-07), and arms 12-16 (git's exit status), which
+    run first. The git arms drive the SAME mode functions the CLI runs, on scratch repositories built here. No
+    failure text ever carries a fixture path or git output."""
     import contextlib
     import io
     import tempfile
@@ -429,6 +470,8 @@ def _self_test_paths(failures: list) -> str:
     saved = {k: os.environ.pop(k) for k in [k for k in os.environ if k.startswith("GIT_")]}
     try:
         with tempfile.TemporaryDirectory(prefix="infra-names-selftest-", ignore_cleanup_errors=True) as tmp:
+            # git's exit status FIRST: every arm after it reads git, and a runner that misreads git breaks them all.
+            _self_test_git_rc(failures, pathlib.Path(tmp), contextlib, io)
             _self_test_git(failures, pathlib.Path(tmp), p_bad, d_bad, p_ren, d_ren, leaks, contextlib, io)
     except _FixtureError as e:
         failures.append(f"the scratch-repo fixture FAILED at {e} -- the path arms did NOT run (never a pass)")
@@ -439,7 +482,23 @@ def _self_test_paths(failures: list) -> str:
     return ("the path arm: a name-bearing path is refused under --range, --tree and --history (added and renamed-to), "
             "a digest row accepts it, a rename out is no finding, path and line rows never cross, findings name it "
             "by digest; written baselines carry no name; pre-change clear-path baselines parse and pass and are "
-            "re-written byte for byte")
+            "re-written byte for byte; git's exit status is read: an unresolvable range (a missing sha either side, "
+            "three dots, an empty side, file names, an empty string, and through the CLI) exits 3 and never OK, and "
+            "so do a missing object under --range, --history and --history --write-baseline (which writes nothing) "
+            "and a non-repository under --tree, --history, --range and the CLI; an empty VALID range still passes, "
+            "as do a ref or HEAD that shares a tracked file's name; a shallow clone under --history still refuses "
+            "by name with exit 1")
+
+
+def _fixture_git(cwd, nohooks, *args) -> str:
+    """The scratch repositories' git: identity, no signing, no hooks, and a failure is a _FixtureError, never a pass."""
+    r = subprocess.run(["git", "-c", "user.name=infra-names self-test", "-c", "user.email=self-test@example.invalid",
+                        "-c", "commit.gpgsign=false", "-c", "core.autocrlf=false", "-c", "init.defaultBranch=main",
+                        "-c", "core.hooksPath=" + str(nohooks)] + list(args),
+                       cwd=cwd, capture_output=True)
+    if r.returncode != 0:
+        raise _FixtureError(f"git {args[0]} (rc {r.returncode})")
+    return r.stdout.decode("utf-8", "replace").strip()
 
 
 def _self_test_git(failures, tmp, p_bad, d_bad, p_ren, d_ren, leaks, contextlib, io) -> None:
@@ -448,13 +507,7 @@ def _self_test_git(failures, tmp, p_bad, d_bad, p_ren, d_ren, leaks, contextlib,
     nohooks = tmp / "no-hooks"
 
     def git(*args) -> str:
-        r = subprocess.run(["git", "-c", "user.name=infra-names self-test", "-c", "user.email=self-test@example.invalid",
-                            "-c", "commit.gpgsign=false", "-c", "core.autocrlf=false", "-c", "init.defaultBranch=main",
-                            "-c", "core.hooksPath=" + str(nohooks)] + list(args),
-                           cwd=repo, capture_output=True)
-        if r.returncode != 0:
-            raise _FixtureError(f"git {args[0]} (rc {r.returncode})")
-        return r.stdout.decode("utf-8", "replace").strip()
+        return _fixture_git(repo, nohooks, *args)
 
     def put(rel: str, text: str) -> None:
         f = repo / rel
@@ -585,6 +638,167 @@ def _self_test_git(failures, tmp, p_bad, d_bad, p_ren, d_ren, leaks, contextlib,
         rc, out = drive(fn, *a, **kw)
         if rc != 1 or leaks(out) or path_digest(p_bin) not in out:
             failures.append(f"(i) a BINARY file at a name-bearing path must be refused under {label}, by digest")
+
+
+def _self_test_git_rc(failures, tmp, contextlib, io) -> None:
+    """Arms 12-16: GIT'S EXIT STATUS IS READ (2026-10-07; the docstring's EXIT CODES section says why). They drive
+    run_arm, the CLI's own door into every arm, and the CLI itself in a child process, on scratch repositories built
+    here. Each arm was proven red first, by reverting its fix as a mutant."""
+    repo = tmp / "rc"
+    repo.mkdir()
+    nohooks = tmp / "no-hooks"
+    ok_mark = ": OK ("     # every arm's OK line carries it; no FAIL line does
+
+    def git(*args, cwd=None) -> str:
+        return _fixture_git(cwd or repo, nohooks, *args)
+
+    def put(rel: str, text: str) -> None:
+        f = repo / rel
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_bytes(text.encode("utf-8"))
+
+    def commit(msg: str) -> str:
+        git("add", "-A")
+        git("commit", "-q", "--no-verify", "-m", msg)
+        return git("rev-parse", "HEAD")
+
+    def drive(label, fn, *a, **kw):
+        """rc -1 when the arm RAISED past run_arm: a crash is no exit code, and it must fail the arm that names it."""
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            try:
+                rc = run_arm(label, fn, *a, **kw)
+            except Exception:
+                rc = -1
+        return rc, buf.getvalue()
+
+    def cli(args, cwd, script=None):
+        r = subprocess.run([sys.executable, str(script or pathlib.Path(__file__).resolve())] + args,
+                           cwd=cwd, capture_output=True)
+        return r.returncode, (r.stdout + r.stderr).decode("utf-8", "replace")
+
+    def unreadable(label, rc, out) -> None:
+        """Exit 3, no OK line, and none of git's own message."""
+        if rc != GIT_UNREADABLE:
+            failures.append(f"{label} must exit {GIT_UNREADABLE} (git could not read it), got {rc}")
+        if ok_mark in out:
+            failures.append(f"{label} must never print OK")
+        if "fatal" in out:
+            failures.append(f"{label} must withhold git's own message")
+
+    git("init", "-q")
+    put("a.md", "clean\n")
+    put("HEAD", "a tracked FILE named HEAD: without `--`, `git rev-list HEAD` is ambiguous and exits 128\n")
+    c1 = commit("rc1")
+    git("branch", "b.md")      # a BRANCH named like the file below: without `--`, `git diff b.md ...` exits 128
+    put("b.md", "clean too\n")
+    c2 = commit("rc2")
+    empty_tree, empty_hist = tmp / "rc-empty-tree.tsv", tmp / "rc-empty-hist.tsv"
+    empty_tree.write_bytes(_TREE_HEADER.encode("utf-8"))
+    empty_hist.write_bytes(_HIST_HEADER.encode("utf-8"))
+    rk = {"cwd": str(repo), "baseline": str(empty_tree)}
+    hk = {"cwd": str(repo), "baseline": str(empty_hist)}
+
+    # 12. (a) AN UNRESOLVABLE RANGE FAILS: exit 3, never OK. The missing sha is shown absent first (control).
+    missing = "0123456789abcdef" * 2 + "01234567"
+    if subprocess.run(["git", "cat-file", "-e", missing], cwd=repo, capture_output=True).returncode == 0:
+        failures.append("CONTROL (a): the 'missing' sha must not be an object in the scratch repo")
+    for r in (f"{missing}..{c2}",     # the measured false green: a low end that names nothing
+              f"{c1}..{missing}",     # the high end
+              f"{c1}...{c2}",         # three dots: the split leaves `.<sha>`, which names nothing
+              f"{c1}..",              # an empty side
+              "a.md..a.md",           # FILE names: with no `--` and no resolve, git diffs the WORKING TREE, exit 0
+              ""):                    # an empty range
+        unreadable(f"(a) --range {r!r}", *drive(f"--range {r}", range_mode, r, **rk))
+    # ... and through the CLI in a child process: the exit code a caller sees, and the empty-string trap, which
+    #     used to fall through to the TREE arm and print the tree's OK.
+    for r in (f"{missing}..{c2}", ""):
+        unreadable(f"(a) the CLI's --range {r!r}", *cli(["--range", r], repo))
+
+    # 13. (b) AN EMPTY BUT VALID RANGE STILL PASSES -- and so do a clean range, the hook's one-sha root form, a range
+    #     whose end is a branch named like a tracked file, and --history over a tree with a file named HEAD (the
+    #     last two need the `--` that ends every revision list).
+    for what, fn, a, kw in (("an EMPTY valid range", range_mode, (f"{c2}..{c2}",), rk),
+                            ("a clean range", range_mode, (f"{c1}..{c2}",), rk),
+                            ("the one-sha root form", range_mode, (c1,), rk),
+                            ("a range from a branch named like a tracked file", range_mode, (f"b.md..{c2}",), rk),
+                            ("--history beside a tracked file named HEAD", history_mode, (False,), hk)):
+        rc, out = drive(what, fn, *a, **kw)
+        if rc != 0 or ok_mark not in out:
+            failures.append(f"(b) {what} must PASS, got exit {rc}")
+    rc, out = cli(["--range", f"{c2}..{c2}"], repo)
+    if rc != 0 or ok_mark not in out:
+        failures.append(f"(b) the CLI must pass an EMPTY but valid range, got exit {rc}")
+
+    # 14. (c) A SHALLOW CLONE under --history still refuses BY NAME with exit 1 (not 3, never OK), and the write
+    #     arm writes nothing there.
+    shallow = tmp / "rc-shallow"
+    git("clone", "-q", "--depth", "1", repo.as_uri(), str(shallow), cwd=tmp)
+    if git("rev-parse", "--is-shallow-repository", cwd=shallow) != "true":
+        failures.append("CONTROL (c): the --depth 1 clone must be shallow, or this arm proves nothing")
+    rc, out = drive("--history", history_mode, False, cwd=str(shallow), baseline=str(empty_hist))
+    if rc != 1 or "SHALLOW" not in out or ok_mark in out:
+        failures.append(f"(c) a SHALLOW clone under --history must refuse BY NAME with exit 1, got exit {rc}")
+    wb = tmp / "rc-shallow-hist.tsv"
+    rc, out = drive("--history --write-baseline", history_mode, True, cwd=str(shallow), baseline=str(wb))
+    if rc != 1 or "SHALLOW" not in out or wb.exists():
+        failures.append(f"(c) a SHALLOW clone under --history --write-baseline must refuse by name and write "
+                        f"nothing, got exit {rc}")
+
+    # 15. (d) AN OBJECT THE REPOSITORY DOES NOT HOLD: a commit whose blob is gone. git exits 128 with EMPTY stdout,
+    #     which the unchecked runner read as "this commit added nothing" -- under --range and --history, and under
+    #     --history --write-baseline, which then WROTE a shorter baseline. Control first: intact, the commit's
+    #     name-bearing line is SEEN (exit 1), so the arm is about the missing object and nothing else.
+    put("c.md", "clean\nran on " + FORBIDDEN[2] + " once\n")
+    c3 = commit("rc3")
+    d_arms = (("--range", range_mode, (f"{c2}..{c3}",), rk), ("--history", history_mode, (False,), hk))
+    for label, fn, a, kw in d_arms:
+        if drive(label, fn, *a, **kw)[0] != 1:
+            failures.append(f"CONTROL (d): intact, the planted line must be SEEN under {label} (exit 1)")
+    blob = git("rev-parse", f"{c3}:c.md")
+    obj = repo / ".git" / "objects" / blob[:2] / blob[2:]
+    if not obj.is_file():
+        failures.append("CONTROL (d): the planted blob must be a LOOSE object, or this arm cannot remove it")
+    else:
+        os.chmod(obj, 0o644)     # git writes objects read-only, and Windows will not unlink a read-only file
+        obj.unlink()
+        for label, fn, a, kw in d_arms:
+            unreadable(f"(d) a missing object under {label}", *drive(label, fn, *a, **kw))
+        hb = tmp / "rc-hist-written.tsv"
+        hb.write_bytes(b"SENTINEL\n")
+        unreadable("(d) a missing object under --history --write-baseline",
+                   *drive("--history --write-baseline", history_mode, True, cwd=str(repo), baseline=str(hb)))
+        if hb.read_bytes() != b"SENTINEL\n":
+            failures.append("(d) a missing object must not WRITE a history baseline (a short one is a quiet shrink)")
+
+    # 16. (e) NOT A REPOSITORY: --tree's ls-files, --history's first read and --range's resolve all exit 3 -- the
+    #     last over two FILES, where `git diff` outside a repository compares them and exits 0 -- and so does the
+    #     CLI run from a copy of this script outside any repository (it raised a traceback's 1 at import).
+    #     GIT_CEILING_DIRECTORIES stops git walking up into whatever holds the scratch directory.
+    nr = tmp / "not-a-repo"
+    nr.mkdir()
+    (nr / "a.md").write_bytes(b"clean\n")
+    loose = nr / "check_infra_names.py"
+    loose.write_bytes(pathlib.Path(__file__).read_bytes())
+    os.environ["GIT_CEILING_DIRECTORIES"] = os.pathsep.join(sorted({str(tmp), str(tmp.resolve())}))
+    try:
+        if subprocess.run(["git", "rev-parse", "--git-dir"], cwd=nr, capture_output=True).returncode == 0:
+            failures.append("CONTROL (e): the scratch directory must not be inside a repository")
+        tb = tmp / "rc-tree-written.tsv"
+        tb.write_bytes(b"SENTINEL\n")
+        unreadable("(e) --tree outside a repository",
+                   *drive("--tree", tree_mode, False, root=nr, baseline=str(empty_tree)))
+        unreadable("(e) --tree --write-baseline outside a repository",
+                   *drive("--tree --write-baseline", tree_mode, True, root=nr, baseline=str(tb)))
+        if tb.read_bytes() != b"SENTINEL\n":
+            failures.append("(e) --tree --write-baseline outside a repository must write nothing")
+        unreadable("(e) --history outside a repository",
+                   *drive("--history", history_mode, False, cwd=str(nr), baseline=str(empty_hist)))
+        unreadable("(e) --range over two FILES outside a repository",
+                   *drive("--range", range_mode, "a.md..a.md", cwd=str(nr), baseline=str(empty_tree)))
+        unreadable("(e) the CLI's --tree from a copy outside any repository", *cli(["--tree"], nr, loose))
+    finally:
+        os.environ.pop("GIT_CEILING_DIRECTORIES", None)
 
 
 def _is_empty_scan_fatal(rows) -> bool:
@@ -738,11 +952,6 @@ HIST_BASELINE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
 
-def _git(args: list, cwd=None) -> str:
-    return subprocess.run(["git"] + args, cwd=cwd, capture_output=True, text=True,
-                          encoding="utf-8", errors="replace").stdout
-
-
 _HIST_HEADER = ("# infra_names_history_baseline.tsv -- ACCEPTED historical commits whose ADDED "
                 "LINES carry an infrastructure name (check_infra_names.py --history).\n"
                 "# sha<TAB>file<TAB>count. NEVER the line and NEVER the name: an excerpt would "
@@ -787,7 +996,7 @@ def hist_verdict(per, path_per, base_set) -> tuple:
 
 def added_rows(base: str, sha: str, cwd=None) -> list:
     """(path, added text) for what this commit ADDS. A deletion is never a finding."""
-    out = _git(["diff", "--unified=0", "--no-color", base, sha], cwd)
+    out = _git(["diff", "--unified=0", "--no-color", base, sha, "--"], cwd)
     rows, path = [], "?"
     for line in out.splitlines():
         if line.startswith("+++ b/"):
@@ -800,7 +1009,7 @@ def added_rows(base: str, sha: str, cwd=None) -> list:
 def added_paths(base: str, sha: str, cwd=None) -> list:
     """The paths this range or commit ADDS, COPIES TO or RENAMES TO -- the path arm's population. The same base as
     added_rows. A deletion, a modification and the OLD side of a rename are never findings: leaving is a repair."""
-    out = _git(["diff", "--name-status", "-z", "-M", "--diff-filter=ACR", "--no-color", base, sha], cwd)
+    out = _git(["diff", "--name-status", "-z", "-M", "--diff-filter=ACR", "--no-color", base, sha, "--"], cwd)
     toks, paths, i = out.split("\0"), [], 0
     while i < len(toks):
         st = toks[i]
@@ -840,7 +1049,7 @@ def history_mode(write: bool, cwd=None, baseline=None) -> int:
               "history scans the truncation, not the history.\n"
               "      CI must check out with `fetch-depth: 0` for this job.")
         return 1
-    shas = _git(["rev-list", "HEAD"], cwd).split()
+    shas = _git(["rev-list", "HEAD", "--"], cwd).split()
     if not shas:
         print("FAIL: scanned ZERO commits from HEAD. An empty scan is not a clean scan.")
         return 1
@@ -849,7 +1058,7 @@ def history_mode(write: bool, cwd=None, baseline=None) -> int:
     total = 0
     n_paths = 0
     for sha in shas:
-        parents = _git(["rev-list", "--parents", "-n", "1", sha], cwd).split()
+        parents = _git(["rev-list", "--parents", "-n", "1", sha, "--"], cwd).split()
         # ⛔ first parent, so a merge is charged for what it BRINGS, not for the
         #   whole branch; and a root commit against the empty tree, because the
         #   first commit is exactly where a pre-gate name sits.
@@ -903,6 +1112,10 @@ def history_mode(write: bool, cwd=None, baseline=None) -> int:
 def range_mode(rev_range: str, cwd=None, baseline=None) -> int:
     """The arm CI runs on a push: what THIS delta adds, against nothing."""
     lo, hi = rev_range.split("..", 1) if ".." in rev_range else (EMPTY_TREE, rev_range)
+    # Both ends RESOLVE before anything is diffed (EXIT CODES above): an end that names nothing raises here, and
+    # so does a directory that is not a repository, where `git diff` would compare two FILES and exit 0.
+    for end in (lo, hi):
+        _git(["rev-parse", "--verify", "--end-of-options", end + "^{tree}"], cwd)
     rows = added_rows(lo, hi, cwd)
     paths = added_paths(lo, hi, cwd)
     found = scan_with_lines(rows)
@@ -929,6 +1142,18 @@ def range_mode(rev_range: str, cwd=None, baseline=None) -> int:
     return 0
 
 
+def run_arm(label: str, fn, *a, **kw) -> int:
+    """The CLI's one door into an arm, and the self-test's: a git call that could not read becomes exit 3 and a FAIL
+    line naming the arm, the git subcommand and git's rc. Never OK, and never git's own message (it can name a path)."""
+    try:
+        return fn(*a, **kw)
+    except GitReadError as e:
+        print(f"FAIL {label}: git could not read what this arm was asked to scan ({e}). NOTHING was scanned, so "
+              f"this is not a pass (exit {GIT_UNREADABLE}): an unresolvable range or object is never a clean scan. "
+              f"git's own message is withheld because it can name a path; rerun that git command locally to read it.")
+        return GIT_UNREADABLE
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--self-test", action="store_true")
@@ -943,7 +1168,9 @@ def main() -> int:
     a = ap.parse_args()
     if a.self_test:
         return self_test()
-    if a.history and a.range:
+    # `is not None`, never truthiness: an EMPTY --range (an unset variable in a caller) used to fall through to the
+    # TREE arm and print the tree's OK; now it is a range that does not resolve, and exits 3.
+    if a.history and a.range is not None:
         print("FAIL: --history and --range are separate arms; run them separately so a red names its arm.")
         return 1
     if not _declared_ok(FORBIDDEN):
@@ -951,11 +1178,12 @@ def main() -> int:
               f"(reconciled {DECLARED_RECONCILED}) -- a set that has shrunk is a gate that has been "
               f"quietly narrowed; refusing to scan.")
         return 1
+    wb = " --write-baseline" if a.write_baseline else ""
     if a.history:
-        return history_mode(a.write_baseline)
-    if a.range:
-        return range_mode(a.range)
-    return tree_mode(a.write_baseline)
+        return run_arm("--history" + wb, history_mode, a.write_baseline)
+    if a.range is not None:
+        return run_arm(f"--range {a.range}", range_mode, a.range)
+    return run_arm("--tree" + wb, tree_mode, a.write_baseline)
     rows = tracked_files()  # unreachable in salt: the bare run IS the tree ratchet (kept so the source diff vs saltbench stays small)
     if _is_empty_scan_fatal(rows):
         print("FAIL: zero tracked text files -- refusing to call an empty scan clean")
