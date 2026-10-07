@@ -9386,8 +9386,11 @@ their cap-9 twins, their rows dropped — `s13CapGrid_mu_2000_LH`, `s13CapGrid_L
 2026-10-06: family 41 retired those two into their cap-9 twins, their rows dropped, which leaves no
 name audited here that has a `_b9` twin without a caller — one such name is audited here,
 `s13CapGrid_mu_lo_LH`, and its one caller is `s13CapGrid_logH_le_mu_LH`, a theorem that no
-declaration calls): every landed numeric stone the `h` lane outgrows has a SIBLING here with a wider
-ceiling.
+declaration calls; 2026-10-07: family 42 retired that theorem by ruling (filed in `docs/QUEUE.md`
+2026-09-30, ruled RETIRE 2026-10-06; it has no twin, and no declaration had called it since its
+first commit), its row dropped, which leaves `s13CapGrid_mu_lo_LH`, audited here, which has a `_b9`
+twin, without a caller): every landed numeric stone the `h` lane outgrows has a SIBLING here with a
+wider ceiling.
 
 ⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
 `s13CapGrid_all_L_gk` derive `hbb : SocketBase` from their `SocketBaseL` binder and
@@ -9408,7 +9411,9 @@ cap 7.  2026-09-30: family 25 retired three more of the twelve; four stand at th
 2026-09-30: family 26 retired one more of the twelve; three stand at the cap 7.  2026-10-06:
 family 40 retired two more of the twelve; one stands at the cap 7.  2026-10-06: family 41 retired
 `s13CapGrid_Lambda_sharp_LH`, one of the two that touch the substrate directly, into its cap-9 twin;
-the other, `s13CapGrid_mu_lo_LH`, and one of the twelve stand at the cap 7.)
+the other, `s13CapGrid_mu_lo_LH`, and one of the twelve stand at the cap 7.  2026-10-07: family 42
+retired the one of the twelve, `s13CapGrid_logH_le_mu_LH`, by ruling; `s13CapGrid_mu_lo_LH` stands
+at the cap 7, without a caller.)
 
 ⭐ **TRANSITIVE REACHABILITY OF CONJUNCT 5 IS NOT THE SAME AS SPENDING IT.**
 `s13CapFloor_all_L_gk` reaches `capfloor_logq_le` through `QTann_L_gk → QTann_gen →
@@ -9473,7 +9478,6 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.s16BaseScaleCap96LH_gk_one_iff
   Salt.MR.s16CofactorSupplyLH_gk_one_iff
   Salt.MR.s13CapGrid_mu_lo_LH
-  Salt.MR.s13CapGrid_logH_le_mu_LH
   Salt.MR.capfloor_T0_Tann_LH
   Salt.MR.capfloor_floor4_LH
   Salt.MR.s13CapFloor_all_LH_gk

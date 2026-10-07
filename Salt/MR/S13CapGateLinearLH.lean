@@ -42,7 +42,10 @@ their last caller, a page of `V7RatedH`, left without one (2026-10-05) — which
 caller; 2026-10-06: family 41 retired those two into their cap-9 twins, each noted where it stood,
 which leaves no name of this file that has a `_b9` twin without a caller — one such name stands at
 the cap 7, `s13CapGrid_mu_lo_LH`, and its one caller is `s13CapGrid_logH_le_mu_LH`, a theorem that
-no declaration calls).  (2026-09-30, a count corrected: over every name of this file, family 24's
+no declaration calls; 2026-10-07: family 42 retired that theorem by ruling (filed in `docs/QUEUE.md`
+2026-09-30, ruled RETIRE 2026-10-06; it has no twin, and no declaration had called it since its
+first commit), noted where it stood, which leaves `s13CapGrid_mu_lo_LH`, which has a `_b9` twin,
+without a caller).  (2026-09-30, a count corrected: over every name of this file, family 24's
 retirement left NINE without a caller, not seven — the seven that family 25 retired, which have a
 `_b9` twin, and the rows `capeps_row_phi_h` and `capeps_row_tail_h`, which have none.  Family 25's
 left three: the two that family 26 retired, and the numeric sibling `capeps_Pbig_h`, which has no
@@ -79,7 +82,9 @@ stand at the cap 7.  2026-09-30: family 25 retired three more of the twelve; fou
 cap 7.  2026-09-30: family 26 retired one more of the twelve; three stand at the cap 7.  2026-10-06:
 family 40 retired two more of the twelve; one stands at the cap 7.  2026-10-06: family 41 retired
 `s13CapGrid_Lambda_sharp_LH`, one of the two that touch the substrate directly, into its cap-9 twin;
-the other, `s13CapGrid_mu_lo_LH`, and one of the twelve stand at the cap 7.)
+the other, `s13CapGrid_mu_lo_LH`, and one of the twelve stand at the cap 7.  2026-10-07: family 42
+retired the one of the twelve, `s13CapGrid_logH_le_mu_LH`, by ruling; `s13CapGrid_mu_lo_LH` stands
+at the cap 7, without a caller.)
 
 ## ⟦§1 — THE SIX NUMERIC SIBLINGS⟧
 
@@ -312,7 +317,10 @@ named in this banner's first sentence; its twin `s13CapGrid_Lambda_sharp_LH_b9`,
 page's token for token but for its two supplier calls, stands under ⟦β W2 F2⟧.  (That sentence's
 "each a single call" holds of the first place; the page retired here made two calls into that
 substrate, of `s13_socketBase_logA_ge_sqrt_LH` and `s13_socketBase_loglogA_sharp_LH`, as its twin
-does into that substrate's cap-9 twins.)) -/
+does into that substrate's cap-9 twins.)  2026-10-07: family 42 retired `s13CapGrid_logH_le_mu_LH`,
+the one leaf of this page that still inherited through the first place, by ruling (it has no twin;
+no declaration had called it since its first commit); its note stands where it stood, and the first
+place, `s13CapGrid_mu_lo_LH`, stands without a caller.) -/
 
 /-! ### `s13_abs8640_of_socketBase_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -416,13 +424,28 @@ declaration calls.
 
 The page carried no docstring. -/
 
-theorem s13CapGrid_logH_le_mu_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
-    Real.log (H : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hb.1
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  exact le_trans (capgrid_log_le_sqrt (by linarith)) (s13CapGrid_mu_lo_LH hh hh7 hfl hb)
+/-! ### `s13CapGrid_logH_le_mu_LH` AT `log h ≤ 7` — RETIRED BY RULING (NO DECLARATION CALLED IT)
+
+⟦XY debt lane, family 42 (2026-10-07)⟧
+`s13CapGrid_logH_le_mu_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {M H
+L q j A s : ℕ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) : Real.log (H :
+ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ)` stood here.  It is retired by ruling, not into a twin: it has
+none (no declared name extends it under any suffix), and no declaration called it at any commit of
+main from its first, `e4f7bdcc` (2026-09-02: the script port of `s13CapGrid_logH_le_mu` of
+`S13CapGrid`; the port of that original's one consumer took another route, so the port of this
+supplier had no consumer from its first commit), to this one — so no statement of record rests on
+it, and its conclusion stands at that original, stated at `SocketBase`.  The helm ruled it out of
+the lane's kind on 2026-09-30 (a callerless theorem is not a copied ladder) and the question was
+filed in `docs/QUEUE.md`; it was ruled RETIRE on 2026-10-06, and the entry carries the ruling.  Its
+body spent the cap in ONE call, of its supplier `s13CapGrid_mu_lo_LH` (§3); the same statement
+closes from that supplier's cap-9 twin `s13CapGrid_mu_lo_LH_b9` with `log h ≤ 9` by `linarith` from
+the statement's own `≤ 7` — kernel-checked from the retired statement's own bytes before the removal
+was committed.  At this retirement the page had NO call site, and it had none when the lane opened
+(main, 2026-09-25).  Of the declared names the page's code calls, one is left without a caller by
+this retirement: `s13CapGrid_mu_lo_LH` (§3), which has a cap-9 twin whose statement is its own at
+the raised cap (a next candidate of the lane); its row stands.
+
+The page carried no docstring. -/
 
 /-! ### `s13CapGrid_Lambda_sharp_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
