@@ -54,8 +54,8 @@ theorem Kh_nonneg (v : ℝ) : 0 ≤ Kh v := by
 theorem Kh_le (v : ℝ) : Kh v ≤ (4 / 3) * hBJS v := by
   unfold Kh hBJS
   split_ifs with h1 h2
-  · have := Real.exp_pos (-2 : ℝ); nlinarith
-  · have := Real.exp_pos (-v); nlinarith
+  · have := Real.exp_pos (-2 : ℝ); linarith only [this]
+  · have := Real.exp_pos (-v); linarith only [this]
   · have hv : (3 : ℝ) < v := not_le.mp h2
     have hi : (0 : ℝ) < v⁻¹ := inv_pos.mpr (by linarith)
     have he : (0 : ℝ) < Real.exp (-v) := Real.exp_pos _
@@ -64,7 +64,7 @@ theorem Kh_le (v : ℝ) : Kh v ≤ (4 / 3) * hBJS v := by
     have hkey : 3 * v⁻¹ ≤ 1 := by
       have h := mul_le_mul_of_nonneg_right (le_of_lt hv) hi.le
       rw [mul_comm v v⁻¹, hvv] at h; exact h
-    nlinarith [mul_le_mul_of_nonneg_right hkey hi.le, he, mul_pos hi he]
+    nlinarith only [he, mul_le_mul_of_nonneg_right hkey hi.le]
 
 theorem Kh_measurable : Measurable Kh := by
   unfold Kh
@@ -82,7 +82,7 @@ theorem Kh_intervalIntegrable (a b : ℝ) : IntervalIntegrable Kh volume a b := 
     (Filter.Eventually.of_forall (fun s => by
       rw [Real.norm_eq_abs, abs_of_nonneg (Kh_nonneg s)]
       calc Kh s ≤ (4 / 3) * hBJS s := Kh_le s
-        _ ≤ (4 / 3) * Real.exp (-2) := by nlinarith [hBJS_le_exp2 s, Real.exp_pos (-2 : ℝ)]))
+        _ ≤ (4 / 3) * Real.exp (-2) := by linarith only [hBJS_le_exp2 s]))
   rw [Real.volume_uIoc]; exact ENNReal.ofReal_ne_top
 
 /-! ## Part 1 — the branch derivatives of `hBJS` -/
@@ -571,7 +571,7 @@ theorem upset_mass_window_le (s' : BoundingSieve) (ε : ℝ) (D' : ℕ) (t : ℝ
   have hVratio : (∏ p ∈ F, (1 - s'.nu p))⁻¹ ≤ (1 + ε) * t / 3 := by
     rcases F.eq_empty_or_nonempty with hFe | hFne
     · rw [hFe, Finset.prod_empty, inv_one]
-      rw [le_div_iff₀ (by norm_num : (0:ℝ) < 3)]; nlinarith [ht3, hε]
+      rw [le_div_iff₀ (by norm_num : (0:ℝ) < 3)]; nlinarith only [hε, ht3]
     · set p₀ := F.min' hFne with hp₀
       have hp₀F : p₀ ∈ F := F.min'_mem hFne
       have hp₀win : p₀ ∈ win := (Finset.mem_filter.mp hp₀F).1
@@ -596,7 +596,7 @@ theorem upset_mass_window_le (s' : BoundingSieve) (ε : ℝ) (D' : ℕ) (t : ℝ
       have hlogzw : Real.log zw = Real.log D' / 3 := by rw [hzwdef, Real.log_exp]
       have hzwp : Real.log zw / Real.log p₀ ≤ t / 3 := by
         rw [hlogzw, div_le_div_iff₀ hlogp₀ (by norm_num : (0:ℝ) < 3)]
-        nlinarith [hp₀t', hlogp₀]
+        linarith only [hp₀t']
       calc (∏ p ∈ F, (1 - s'.nu p))⁻¹ ≤ (1 + ε) * Real.log zw / Real.log p₀ := hmain
         _ = (1 + ε) * (Real.log zw / Real.log p₀) := by ring
         _ ≤ (1 + ε) * (t / 3) := mul_le_mul_of_nonneg_left hzwp (by linarith)
@@ -616,7 +616,7 @@ theorem upset_mass_window_le (s' : BoundingSieve) (ε : ℝ) (D' : ℕ) (t : ℝ
 theorem hBJS_two_le {S : ℝ} (_hS1 : 1 ≤ S) (hS3 : S ≤ 3) : hBJS 2 ≤ 4 * hBJS S := by
   rw [hBJS_le2 (le_refl 2)]
   rcases le_total S 2 with h | h
-  · rw [hBJS_le2 h]; nlinarith [Real.exp_pos (-2 : ℝ)]
+  · rw [hBJS_le2 h]; linarith only [Real.exp_pos (-2 : ℝ)]
   · rw [hBJS_mid h hS3]
     have hid : Real.exp (-2) = Real.exp (S - 2) * Real.exp (-S) := by
       rw [← Real.exp_add]; congr 1; ring
@@ -624,7 +624,7 @@ theorem hBJS_two_le {S : ℝ} (_hS1 : 1 ≤ S) (hS3 : S ≤ 3) : hBJS 2 ≤ 4 * 
     have hle : Real.exp (S - 2) ≤ 4 := by
       calc Real.exp (S - 2) ≤ Real.exp 1 := Real.exp_le_exp.mpr (by linarith)
         _ ≤ 4 := by have := Real.exp_one_lt_d9; linarith
-    nlinarith [hle, Real.exp_pos (-S)]
+    nlinarith only [hle, Real.exp_pos (-S)]
 
 /-! ## Part 7 — the flat cell (side' = 1, `S ∈ [1,3)`) via the window-relative pushforward -/
 
@@ -758,7 +758,7 @@ theorem hh_sharp_flat (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
       _ ≤ 12 * ε * (1 + ε) * hBJS (logRatio z D') * Salt.BrunLower.W s' :=
             mul_le_of_le_one_right hRnn hSinv
   have hnum : (1 + ε) ^ 2 * (97 / 100) + 12 * ε * (1 + ε) ≤ chSharpB ε := by
-    unfold chSharpB; nlinarith [hε, hεsmall, sq_nonneg ε]
+    unfold chSharpB; nlinarith only [hεsmall, hε, sq_nonneg (1 * 1 + 1 * ε), sq_nonneg ε]
   calc ∑ p ∈ win, s'.nu p * Vbelow s' p * hBJS (logRatio p (cdiv D' p))
       ≤ ∑ p ∈ win, s'.nu p * Vbelow s' p * hBJS (logRatio p D' - 1) := hanti
     _ ≤ ε * Vlow s' D' * hBJS 2 + (1 + ε) * ((1 / 3) * A) * Vlow s' D' := hlc
