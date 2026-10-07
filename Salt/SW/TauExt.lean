@@ -107,7 +107,7 @@ lemma zetaHol_norm_le_of_lt {s : ℂ} (hσ : 1 / 2 ≤ s.re) (hσ1 : s.re < 1) :
     have h := norm_sub_norm_le (zetaHol s) (1 : ℂ)
     simpa using h
   have h2 : ‖s‖ / s.re ≤ 2 * ‖s‖ := by
-    rw [div_le_iff₀ hσ0]; nlinarith [norm_nonneg s]
+    rw [div_le_iff₀ hσ0]; nlinarith only [hσ, norm_nonneg s]
   have h3 : ‖s‖ ≤ 1 + |s.im| := by
     have h := Complex.norm_le_abs_re_add_abs_im s
     rw [abs_of_pos hσ0] at h; linarith
@@ -196,7 +196,7 @@ theorem repulsion_ceiling_of_contract {b c k Q u σ : ℝ} (hb : 0 < b) (hc : 0 
       ≤ (1 - σ) * (b * Real.log Q) := by
     rw [Real.log_div one_ne_zero (ne_of_gt hu), Real.log_div one_ne_zero (ne_of_gt hc),
       Real.log_one]
-    nlinarith [hlog]
+    linarith only [hlog]
   have hfin := (div_le_iff₀ hD).mpr hkey
   rw [repulsionCeiling]; linarith
 
@@ -219,9 +219,9 @@ lemma repulsionCeiling_mono {b c k u Q Q' : ℝ} (hb : 0 < b) (hk : 0 ≤ k)
     Real.log_le_log hP (by linarith)
   have hnum : Real.log (1 / u) - Real.log (1 / c) - k * Real.log (Real.log Q' + 2)
       ≤ Real.log (1 / u) - Real.log (1 / c) - k * Real.log (Real.log Q + 2) := by
-    nlinarith [hk, hPP]
+    nlinarith only [hk, hPP]
   have hD : 0 < b * Real.log Q := mul_pos hb hL
-  have hDD : b * Real.log Q ≤ b * Real.log Q' := by nlinarith
+  have hDD : b * Real.log Q ≤ b * Real.log Q' := by nlinarith only [hb, hLL]
   have hkey : (Real.log (1 / u) - Real.log (1 / c) - k * Real.log (Real.log Q' + 2))
         / (b * Real.log Q')
       ≤ (Real.log (1 / u) - Real.log (1 / c) - k * Real.log (Real.log Q + 2))
@@ -286,9 +286,9 @@ theorem boxZeros_re_le_of_repulsion {q : ℕ} [NeZero q] {χ : DirichletCharacte
     · -- the contract at the zero's own base `Qρ = q(|Im ρ| + 2)`, then raised to the box top
       set Qρ : ℝ := (q : ℝ) * (|ρ.im| + 2) with hQρdef
       have hQρ1 : 1 < Qρ := by
-        rw [hQρdef]; nlinarith [abs_nonneg ρ.im]
+        rw [hQρdef]; nlinarith only [hwin, hlt1, hq2, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
       have hQρle : Qρ ≤ (q : ℝ) * (T + 2) := by
-        rw [hQρdef]; nlinarith [abs_nonneg ρ.im]
+        rw [hQρdef]; nlinarith only [him, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
       have hstep := repulsion_ceiling_of_contract (σ := ρ.re) hb hc hQρ1 hu
         (hrep ρ hzero hre0 him hwin hlt1 (hord ρ hρ))
       exact le_trans hstep (repulsionCeiling_mono hb hk hQρ1 hQρle hN)

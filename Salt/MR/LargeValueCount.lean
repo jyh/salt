@@ -477,7 +477,7 @@ lemma pow_V_le (V T P : ℝ) (hV : 1 ≤ V) (hT : 0 < T) (hLP : 0 < Real.log P) 
   have hmul : 2 * Real.log V * (k : ℝ)
       ≤ 2 * Real.log V * (1 + Real.log T / Real.log P) :=
     mul_le_mul_of_nonneg_left hk (by positivity)
-  nlinarith [hmul]
+  linarith only [hmul]
 
 /-- **(c, exp leg — the transcendental heart) The exponent inequality.** The pure
 real-analysis core of the exp packaging: for `k` in the ceiling window `κ ≤ k ≤ κ+1`
@@ -497,7 +497,7 @@ lemma pack_exp_core (κ LL : ℝ) (hκ : 30 ≤ κ) (hLL5 : 5 ≤ LL) (hLLlogk :
   have hlog4 : Real.log 4 ≤ 3 := by
     have := Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ) < 4); linarith
   have hlogk : Real.log (k : ℝ) ≤ Real.log 2 + LL := by
-    have h1 : (k : ℝ) ≤ 2 * κ := by nlinarith
+    have h1 : (k : ℝ) ≤ 2 * κ := by linarith only [hk2, hκ]
     have h2 : Real.log (k : ℝ) ≤ Real.log (2 * κ) := Real.log_le_log hkpos h1
     have h3 : Real.log (2 * κ) = Real.log 2 + Real.log κ :=
       Real.log_mul (by norm_num) (ne_of_gt hκpos)
@@ -510,7 +510,7 @@ lemma pack_exp_core (κ LL : ℝ) (hκ : 30 ≤ κ) (hLL5 : 5 ≤ LL) (hLLlogk :
       (mul_le_mul_of_nonneg_right hk2 hfac_nn)
   have hprod : (κ - 2) * 5 ≤ (κ - 2) * LL :=
     mul_le_mul_of_nonneg_left hLL5 (by linarith)
-  nlinarith [step1, hprod, hκ, hLL5]
+  linarith only [hprod, step1, hκ]
 
 /-- **(c, exp leg — the packaging) `B ≤ 840·exp(2κ loglog T)`.** Wires the concrete
 coefficient block onto `pack_exp_core`: the `T+(2P)^k ≤ 2(2P)^k` domination (`T ≤ (2P)^k`
@@ -540,7 +540,7 @@ lemma pack_exp_le (P : ℕ) (T : ℝ) (hP3 : 3 ≤ P) (hT : 1 < T)
   have hκpos : 0 < κ := by rw [hκdef]; positivity
   have hκlogP : κ * Real.log P = Real.log T := by rw [hκdef]; field_simp
   have hκlogT : κ ≤ Real.log T := by
-    nlinarith [hκlogP, mul_nonneg (le_of_lt hκpos) (by linarith : (0:ℝ) ≤ Real.log P - 1)]
+    linarith only [hκlogP, mul_nonneg (le_of_lt hκpos) (by linarith : (0 : ℝ) ≤ Real.log P - 1)]
   have hLLlogk : Real.log κ ≤ LL := by rw [hLLdef]; exact Real.log_le_log hκpos hκlogT
   have hexpLL : Real.exp LL = Real.log T := by rw [hLLdef, Real.exp_log hlogT0]
   set L := Real.log (2 * (((2 * P) ^ k : ℕ) : ℝ)) with hLdef
@@ -571,9 +571,9 @@ lemma pack_exp_le (P : ℕ) (T : ℝ) (hP3 : 3 ≤ P) (hT : 1 < T)
     have hklogP : (k : ℝ) * Real.log P ≤ 2 * Real.log T := by
       have h1 : (k : ℝ) * Real.log P ≤ (κ + 1) * Real.log P :=
         mul_le_mul_of_nonneg_right hkub (le_of_lt hlogPpos)
-      nlinarith [h1, hκlogP, hlogPleT]
-    nlinarith [hlog2le1, hlog2leP, hlogPleT, hklogP, hlogTge6,
-      mul_nonneg (le_of_lt hkpos) (by linarith : (0:ℝ) ≤ Real.log P - Real.log 2)]
+      linarith only [h1, hlogPleT, hκlogP]
+    linarith only [hklogP, hlog2le1, hκlogT, hκ30, mul_nonneg
+        (le_of_lt hkpos) (by linarith : (0 : ℝ) ≤ Real.log P - Real.log 2)]
   -- domination + collapse: Y := (T+(2P)^k)·2^k/P^k ≤ 2·4^k
   have hdom : T + (((2 * P) ^ k : ℕ) : ℝ) ≤ 2 * (((2 * P) ^ k : ℕ) : ℝ) := by linarith [hTk]
   have hXval : (((2 * P) ^ k : ℕ) : ℝ) = (2 : ℝ) ^ k * (P : ℝ) ^ k := by
