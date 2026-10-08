@@ -76,8 +76,8 @@ This is `arccosh(3/2)` without invoking `arccosh`, and it is E5's whole arithmet
 theorem e4a_cosh_floor {y : ℝ} (hy : 0 ≤ y) (h : 3 ≤ 2 * Real.cosh y) :
     Real.log ((3 + Real.sqrt 5) / 2) ≤ y := by
   have h5 : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num)
-  have hs2 : 2 < Real.sqrt 5 := by nlinarith [Real.sqrt_nonneg 5, h5]
-  have hs3 : Real.sqrt 5 < 3 := by nlinarith [Real.sqrt_nonneg 5, h5]
+  have hs2 : 2 < Real.sqrt 5 := by nlinarith only [h5, Real.sqrt_nonneg 5]
+  have hs3 : Real.sqrt 5 < 3 := by nlinarith only [hs2, h5]
   set t : ℝ := Real.exp y with ht
   have ht0 : 0 < t := Real.exp_pos y
   have ht1 : 1 ≤ t := Real.one_le_exp hy
@@ -89,10 +89,10 @@ theorem e4a_cosh_floor {y : ℝ} (hy : 0 ≤ y) (h : 3 ≤ 2 * Real.cosh y) :
   have hquad : 0 ≤ t ^ 2 - 3 * t + 1 := by
     have := mul_le_mul_of_nonneg_left hsum (le_of_lt ht0)
     field_simp at this
-    nlinarith [this, ht0]
-  have hroot : (3 + Real.sqrt 5) / 2 ≤ t := by nlinarith [hquad, ht1, h5, hs2, hs3]
+    linarith only [this]
+  have hroot : (3 + Real.sqrt 5) / 2 ≤ t := by nlinarith only [ht1, hs2, hquad, h5]
   calc Real.log ((3 + Real.sqrt 5) / 2)
-      ≤ Real.log t := Real.log_le_log (by nlinarith [hs2]) hroot
+      ≤ Real.log t := Real.log_le_log (by linarith only [hs3, hs2]) hroot
     _ = y := by rw [ht, Real.log_exp]
 
 #print axioms e4a_golden_sq
