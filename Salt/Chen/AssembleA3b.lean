@@ -114,7 +114,7 @@ theorem boxPriceKerrY_nonneg {Kc : ℝ} (hKc : 0 ≤ Kc) (y k i : ℕ) (hy : 1 �
                     (Real.log (y : ℝ)) 13 18 + 15360 + 1)) := by
     have h26 : (0 : ℝ) ≤ Real.sqrt 26 := Real.sqrt_nonneg _
     have h2p : (0 : ℝ) ≤ (2 : ℝ) ^ ((13 : ℝ) + 5) := by positivity
-    nlinarith [hkb, hkm, hkb', h26, h2p]
+    nlinarith only [hkb', h2p, h26, hkm, hkb]
   have hXMnn : (0 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by positivity
   have hLpow : (0 : ℝ) ≤ (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) :=
     Real.rpow_nonneg hL0 _
@@ -328,7 +328,7 @@ theorem low_price_at_op (Ps : ℕ) (hPspos : 0 < Ps) (hQPs : Nat.Coprime opQ Ps)
         have hsx : Real.sqrt x ≤ (x : ℝ) / 2 := by
           rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by rw [Real.sqrt_sq (by positivity)]]
           apply Real.sqrt_le_sqrt
-          nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+          linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
         have hXMloR : (x : ℝ) / 2 < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by
           have hxlt : x < 2 * (x / 2 + 1) := by omega
           have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
@@ -524,7 +524,7 @@ theorem sym_price_at_op (Ps : ℕ) (hPspos : 0 < Ps) (hQPs : Nat.Coprime opQ Ps)
         have htfl : (x : ℝ) ^ ((1 : ℝ) / 3) < (opY x : ℝ) + 1 := by
           rw [opY]; exact Nat.lt_floor_add_one _
         have h2k1 : ((2 ^ (k + 1) : ℕ) : ℝ) = 2 * ((2 ^ k : ℕ) : ℝ) := by push_cast; ring
-        rw [h2k1] at h1R; push_cast at h1R htfl ⊢; nlinarith [htfl, h1R]
+        rw [h2k1] at h1R; push_cast at h1R htfl ⊢; linarith only [h1R, htfl, h4le]
       have hN₀m : N₀m ≤ opY x := by
         have hR : ((max N₀b N₀m + 4 : ℕ) : ℝ) ≤ (opY x : ℝ) := le_trans hNfl hyfloor
         have : max N₀b N₀m + 4 ≤ opY x := by exact_mod_cast hR
@@ -582,7 +582,7 @@ theorem sym_price_at_op (Ps : ℕ) (hPspos : 0 < Ps) (hQPs : Nat.Coprime opQ Ps)
             rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by
               rw [Real.sqrt_sq (by positivity)]]
             apply Real.sqrt_le_sqrt
-            nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+            linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
           have hXMloR : (x : ℝ) / 2 < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by
             have hxlt : x < 2 * (x / 2 + 1) := by omega
             have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
@@ -670,7 +670,7 @@ theorem sym_price_at_op (Ps : ℕ) (hPspos : 0 < Ps) (hQPs : Nat.Coprime opQ Ps)
             rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by
               rw [Real.sqrt_sq (by positivity)]]
             apply Real.sqrt_le_sqrt
-            nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+            linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
           have hXMloR : (x : ℝ) / 2 < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by
             have hxlt : x < 2 * (x / 2 + 1) := by omega
             have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
