@@ -36,6 +36,16 @@ as theorems rather than left as docstring claims.
 edge runs `HSeamCheck → S16FlatTerminalLinearLH`; the reverse edge is a cycle Lake rejects.
 
 **PURELY ADDITIVE.**  No landed declaration is touched.
+
+(2026-10-08, the XY debt lane's family 44: §5 and §6 stand BELOW the two cap-9 twin blocks from here
+on.  The conditional sharp form `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (§5)
+has nine of its supplier calls at cap-9 twins — six of `S16ProducersH`'s and three of this file's
+(`s13_gate8_L_gk_h_b9`, `s13_smallGradeFits_of_halfWindow_L_gk_h_b9`,
+`s15_gRows_const_at_socket_flat_doorLH_gk_b9`) — `log h ≤ 9` supplied once by a `have` from `hh7`;
+its calls of `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH` and
+`s13_g2_jfloor_of_MSelect'_L_gk_h` keep the cap 7 (neither has a cap-only twin).  Its statement is
+unchanged, and every other declaration is byte-identical.  The three cap-7 pages of §4 it called are
+left with no call site outside pages; no name is retired by it.)
 -/
 
 noncomputable section
@@ -887,237 +897,10 @@ theorem s13_smallGradeFits_of_halfWindow_L_gk_h {h : ℕ} (hh : 0 < h)
     s13_smallGradeFits_h hh hh7 hρ0 hρ1 hlo
       (s13_winFit_h_of_halfWindow_gen hh hh7 hfl hhalf H hlo hhi)
 
-/-! ## §5 — HOP 2 AT THE INFLATED SOCKET: the conditional sharp form -/
-
-/-- **⟦THE `j₀`-FLOOR GATE WITH THE SHIFT'S `28` IN IT⟧**
-(`s13_g2_jfloor_of_MSelect'_L_gk_shift28`) — `S13FramesLinear.s13_g2_jfloor_of_MSelect'_L_gk`
-with the `28` that H2a's word 6 carries in its hypothesis.  The margin is the register's own:
-`4·log 263 + 48·Λ + 28 ≤ 52 + 48·Λ ≤ 100·Λ ≤ 242·Λ ≤ AdoorL M ≤ doorRowFloorL M`, so the
-numeral is paid 2.4× over at `Λ = 1` and the ratio only improves. -/
-theorem s13_g2_jfloor_of_MSelect'_L_gk_shift28 (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime}
-    {M : ℕ} (hΛ : 1 ≤ Λ) (hS : MSelect'_L_gk K Cg δ₀ Λ ρ R M) :
-    4 * Real.log 263 + 48 * Λ + 28 ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-  have hlog := s13_log263_le_six
-  have hdr : ((AdoorL M : ℕ) : ℝ) ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-    have h : AdoorL M ≤ doorRowFloorL M := by
-      rw [doorRowFloorL]
-      calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
-        _ ≤ M * AdoorL M := Nat.mul_le_mul_right _ hS.hM
-    exact_mod_cast h
-  have hgr := hS.gRows
-  nlinarith [hgr, hdr, hlog, hΛ]
-
-set_option maxHeartbeats 1000000 in
--- Same cause as the landed HOP 4: the residue re-elaborates against the prefix.
-/-- **⟦HOP 2, AT THE FLAT ROOT, THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
-(`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH`) —
-`S16FlatTerminalLinear.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L`
-on §3, with moves (i)–(iii) and the crossing rider at `S15CrossingBound_LH_gk h`.
-
-⭐ **THE REGISTER DOES NOT MOVE.**  `S15Sel''_L_gk` is SOCKET-BLIND — its twelve fields are
-regime-level real inequalities and neither it nor `MSelect'_L_gk` mentions a socket anywhere —
-so hop 2 at shift `h` consumes the LANDED register unchanged.  That is why this wave costs
-what it costs: the expensive-looking object turned out to be `h`-invariant. -/
-theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH (h : ℕ) (hh : 0 < h)
-    (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) (hK : K ≤ 170000000)
-    (hband : S16BandLaneCBoundedLH h K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
-    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hcap Hopq Mfl : ℕ),
-      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
-      Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
-      Mfl ≤ 2 ^ 355 ∧ Kc ≤ 2 ^ 539 ∧
-      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
-      Hcap ≤ max (flatDesignFloor A)
-        (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
-      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
-        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
-        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
-          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-            Real.log (Real.log (R.Hhi : ℝ))
-              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
-          ∀ M : ℕ,
-            S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
-            S15CrossingBound_LH_gk h K R M → ¬ logChowlaFails h R.eps R.x R.ω := by
-  obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, A, β, x₀, Hcap, Hopq, Mfl, hCg, hε, hKc,
-    hδ₀, hCt, hCq, hcs, hT₀, hKq, hKs, hMfl, hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26,
-    hA₀A, hAge, hCapLe, hmain⟩ :=
-    logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH h hh hh7 K hK hband
-      A₀ hA₀
-  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
-    hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge, hCapLe, ?_⟩
-  intro U1floor g hU
-  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
-  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
-    hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
-  have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
-  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
-  intro M hsel
-  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
-  intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
-    le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
-  have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
-  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
-  -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
-  have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
-    hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
-  -- ⟦the `M`-selection system⟧ — the register and its bridges are SOCKET-BLIND
-  have hS : MSelect'_L_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
-    s13_MSelect'_L_of_halfWindow_gk K hsel.hM hfl hsel.bfloor hsel.gRows hsel.half
-      (hsel.head (by linarith))
-  -- ⟦slot 3⟧ H2a word 6's OUTER step, over the `h`-free family, with the `28` in the gate
-  have hj0raw : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      4 * Real.log (263 * max 1 (arcDen 12 H)) + 28 ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-    have hgate := s13_g2_jfloor_of_MSelect'_L_gk_shift28 K (by linarith) hS
-    have hbase := s13_g2_jfloor_gen (R := R)
-      (F := ((doorRowFloorL M : ℕ) : ℝ) - 28) le_rfl (by linarith)
-    intro H hlo hhi
-    linarith [hbase H hlo hhi]
-  -- ⟦THE FIRE⟧
-  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
-    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
-    (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
-    (s13_endpoint_of_arm' hδ₀ harmdem)
-    (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
-    (s13_gate8_L_gk_h hh hh7 le_rfl (by linarith) hsel.gRows)
-    (s13_smallGradeFits_of_halfWindow_L_gk_h hh hh7 hρ0 hρ1 hfl hsel.half)
-    (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
-    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
-    (fun H L q j A s hb =>
-      s15_gRows_const_at_socket_flat_doorLH_gk K hh hh7 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
-        hsel.lvl)
-    (fun H L q j A s hb =>
-      s12c_eps_threshold_at_socket_flatH hh hh7 hfl hb hlam50 htow hsel.rho le_rfl)
-    (fun H L q j A s hb =>
-      s15_heps293_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
-    (fun H L q j A s hb =>
-      s15_hband4096_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
-    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
-    (fun H L q j A s hb =>
-      s13_doorRowZeroBase_five_L_gk K hsel.hM
-        (s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk)
-        hb.2.2.2.2.2.2.1)
-    hcap
-    (doorBandBase_family'H_L_gk K hh hh7 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
-      (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
-      (fun H L q j A s hb =>
-        s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
-    harith
-
-/-! ## §6 — HOP 3: THE FIRST `h`-TERMINAL, WITH THE REGISTER SUPPLIED AT SHIFT `h` -/
-
-set_option maxHeartbeats 1000000 in
--- Same cause as the landed terminal: the 27-item `obtain` and the register call re-elaborate
--- against a prefix that gains `h`, two pins and a conjunct.
-/-- **⟦THE FLAT TERMINAL AT THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
-(`logChowla2_witnessed_scale_flat_LH`) — `S16FlatTerminalLinear.logChowla2_witnessed_scale_flat_L`
-at shift `h`, with the `S15` register **SUPPLIED, NOT CARRIED**, from
-`FlatFloorBump.s15_sel''_L_gk_witness_flat_bumped` at `c := h`.
-
-⭐ **`Kc ≤ 2^539` LEAVES THE DEBT LIST HERE AND BECOMES AN EXPORTED FACT.**  At `h = 1` it is
-rider 1 of the landed terminal — an ask about an opaque `∃ C, 0 < C ∧ …`.  On the `h` lane the
-head's OWN count bound `Kb` plays the register's `Kc` and carries `Kb ≤ 2^539` out of
-`S16FlatTerminalExitH` (H2a word 1d), so the rider is `REMOVED-BECAUSE-PROVEN` and appears as a
-conjunct instead.  **This is the one place the `h` lane is strictly stronger than its `h = 1`
-twin, and it is stronger because the shift forced the count to be computed rather than
-assumed.**
-
-⛔ **`Ct ≤ 2^23` IS NOT REMOVED and is carried exactly as at `h = 1`** — the constant-pool
-fuse's `Ct` is still an opaque `∃ Ct, 0 < Ct`, and nothing in the shift touches it.
-
-⟦THE SURVIVING HYPOTHESIS LIST⟧ `Ct ≤ 2^23`, the `x₀` window, `Hopq ≤ flatDesignBase A`, and
-the crossing bound at the inflated socket — the `h`-twin of the landed list minus rider 1. -/
-theorem logChowla2_witnessed_scale_flat_LH (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    (hband : S16BandLaneCBoundedLH h 32000000) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
-    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hopq Mfl : ℕ),
-      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
-      Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
-      Mfl ≤ 2 ^ 355 ∧ Kc ≤ 2 ^ 539 ∧
-      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
-      (Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq = flatDesignBase A) ∧
-      (Ct ≤ 2 ^ 23 →
-        (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) →
-        Hopq ≤ flatDesignBase A →
-        ∀ g : ℕ → ℕ → ℕ, ∃ R : ChowlaRegime,
-          R.eps = ε ∧ R.Hlo = flatWitFloor ε β A Hopq ∧ g R.Hhi R.ω ≤ R.x ∧
-          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-            Real.log (Real.log (R.Hhi : ℝ))
-              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
-          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
-          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
-          (S15CrossingBound_LH_gk h 32000000 R (flatDoorM A) →
-            ¬ logChowlaFails h R.eps R.x R.ω)) := by
-  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1,
-    hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge, hCapLe, hbody⟩ :=
-    logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH h hh hh7 32000000
-      (by norm_num) hband A₀ hA₀
-  -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1` (the census needs `ε ≤ 1/2`)
-  obtain ⟨R0, hR0eps, -, -, -, -⟩ :=
-    hbody (flatWitFloor ε β A Hopq) (fun _ _ => 0) (flatCap_le_flatWitFloor hCapLe)
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
-  -- ⟦THE `ε` PIN, CAST⟧ the shift rides inside the denominator
-  have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
-    have hc := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show ((((1 : ℚ) / (500 * (h : ℚ))) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by push_cast; ring]
-      at hc
-    exact hc
-  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hopq, Mfl,
-    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge,
-    fun hopq => flat_witFloor_eq_designBase_h hh hh7 hA26 hβ hεR hε2 hε hεpin hAge hopq, ?_⟩
-  intro hCtb hx0win hopq g
-  obtain ⟨R, hReps, hHlo, hRg, hRtow, hfire⟩ :=
-    hbody (flatWitFloor ε β A Hopq) g (flatCap_le_flatWitFloor hCapLe)
-  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
-    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
-  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
-    rw [hHlo, flat_witFloor_eq_designBase_h hh hh7 hA26 hβ hεR hε2 hε hεpin hAge hopq]
-    exact flatDesignBase_loglog_le hA26
-  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
-    flat_L_width_priced hA26 hbaseceil hdes hRtow
-  refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
-  intro hcross
-  -- ⟦THE REGISTER, SUPPLIED AT SHIFT `h`⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
-    calc (32000000 : ℕ) ≤ 170000000 * 1 := by norm_num
-      _ ≤ 170000000 * flatDoorM A := Nat.mul_le_mul_left _ hM1
-  have heps : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    exact le_trans (Salt.Entropy.Chowla.eps_line_h h hh) hεpin
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
-  have hsel := s15_sel''_L_gk_witness_flat_bumped (c := h) hA26 32000000 hKle hh
-    (Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7) hh7 hδ₀ hδpin hKc hKcb
-    hCt hCtb hCgle hMflb hx0win heps hlo hwin
-  exact hfire (flatDoorM A) hsel hcross
+/-! (§5 and §6 — the conditional sharp form
+`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` with its `j₀`-floor gate, and the
+first `h`-terminal `logChowla2_witnessed_scale_flat_LH` — stood here; they were moved to the end of
+this file, below the cap-9 twins, by the XY debt lane's family 44, 2026-10-08.) -/
 
 /-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
 
@@ -1474,5 +1257,250 @@ theorem s15_gRows_const_at_socket_flat_doorLH_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 
         ≤ 14 * Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := by linarith
     linarith [hcore, hll, hllle, hrho, h1]
   exact gRowsZeroGate'''_L_gk_of_budget K hM hAs hρ0 (by linarith) hp2 hendbud
+
+/-! ### §5 AND §6, MOVED BELOW THE CAP-9 TWINS (XY debt lane, family 44, 2026-10-08)
+
+The two sections stood above the ⟦β W1 E3⟧ section.  §5's conditional sharp form now calls three
+twins of this file — `s13_gate8_L_gk_h_b9` and `s13_smallGradeFits_of_halfWindow_L_gk_h_b9` of
+⟦β W1 E3⟧, `s15_gRows_const_at_socket_flat_doorLH_gk_b9` of ⟦β W2 F3⟧ — which stand below where it
+stood, so the two sections stand below them.  The banners, the `set_option` lines, the docstrings,
+the statements and the bodies are byte-identical to the ones that stood above, except ONE theorem,
+the conditional sharp form: a dated `--` note now stands above its docstring, its body's first line
+is new (the `have hh9`) and nine of its lines name a cap-9 twin where they named the cap-7 page.  §6
+is unchanged. -/
+
+/-! ## §5 — HOP 2 AT THE INFLATED SOCKET: the conditional sharp form -/
+
+/-- **⟦THE `j₀`-FLOOR GATE WITH THE SHIFT'S `28` IN IT⟧**
+(`s13_g2_jfloor_of_MSelect'_L_gk_shift28`) — `S13FramesLinear.s13_g2_jfloor_of_MSelect'_L_gk`
+with the `28` that H2a's word 6 carries in its hypothesis.  The margin is the register's own:
+`4·log 263 + 48·Λ + 28 ≤ 52 + 48·Λ ≤ 100·Λ ≤ 242·Λ ≤ AdoorL M ≤ doorRowFloorL M`, so the
+numeral is paid 2.4× over at `Λ = 1` and the ratio only improves. -/
+theorem s13_g2_jfloor_of_MSelect'_L_gk_shift28 (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime}
+    {M : ℕ} (hΛ : 1 ≤ Λ) (hS : MSelect'_L_gk K Cg δ₀ Λ ρ R M) :
+    4 * Real.log 263 + 48 * Λ + 28 ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+  have hlog := s13_log263_le_six
+  have hdr : ((AdoorL M : ℕ) : ℝ) ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+    have h : AdoorL M ≤ doorRowFloorL M := by
+      rw [doorRowFloorL]
+      calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
+        _ ≤ M * AdoorL M := Nat.mul_le_mul_right _ hS.hM
+    exact_mod_cast h
+  have hgr := hS.gRows
+  nlinarith [hgr, hdr, hlog, hΛ]
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as the landed HOP 4: the residue re-elaborates against the prefix.
+-- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
+/-- **⟦HOP 2, AT THE FLAT ROOT, THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
+(`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH`) —
+`S16FlatTerminalLinear.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L`
+on §3, with moves (i)–(iii) and the crossing rider at `S15CrossingBound_LH_gk h`.
+
+⭐ **THE REGISTER DOES NOT MOVE.**  `S15Sel''_L_gk` is SOCKET-BLIND — its twelve fields are
+regime-level real inequalities and neither it nor `MSelect'_L_gk` mentions a socket anywhere —
+so hop 2 at shift `h` consumes the LANDED register unchanged.  That is why this wave costs
+what it costs: the expensive-looking object turned out to be `h`-invariant. -/
+theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH (h : ℕ) (hh : 0 < h)
+    (hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) (hK : K ≤ 170000000)
+    (hband : S16BandLaneCBoundedLH h K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hcap Hopq Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
+      Mfl ≤ 2 ^ 355 ∧ Kc ≤ 2 ^ 539 ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      Hcap ≤ max (flatDesignFloor A)
+        (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          ∀ M : ℕ,
+            S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
+            S15CrossingBound_LH_gk h K R M → ¬ logChowlaFails h R.eps R.x R.ω := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
+  obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, A, β, x₀, Hcap, Hopq, Mfl, hCg, hε, hKc,
+    hδ₀, hCt, hCq, hcs, hT₀, hKq, hKs, hMfl, hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26,
+    hA₀A, hAge, hCapLe, hmain⟩ :=
+    logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH h hh hh7 K hK hband
+      A₀ hA₀
+  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
+    hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge, hCapLe, ?_⟩
+  intro U1floor g hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
+  have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
+  intro M hsel
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
+  intro hcap
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
+  have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
+  have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
+    hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧ — the register and its bridges are SOCKET-BLIND
+  have hS : MSelect'_L_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_L_of_halfWindow_gk K hsel.hM hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦slot 3⟧ H2a word 6's OUTER step, over the `h`-free family, with the `28` in the gate
+  have hj0raw : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * Real.log (263 * max 1 (arcDen 12 H)) + 28 ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+    have hgate := s13_g2_jfloor_of_MSelect'_L_gk_shift28 K (by linarith) hS
+    have hbase := s13_g2_jfloor_gen (R := R)
+      (F := ((doorRowFloorL M : ℕ) : ℝ) - 28) le_rfl (by linarith)
+    intro H hlo hhi
+    linarith [hbase H hlo hhi]
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
+    (s13_gate8_L_gk_h_b9 hh hh9 le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_b9 hh hh9 hρ0 hρ1 hfl hsel.half)
+    (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_flat_doorLH_gk_b9 K hh hh9 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+        hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket_flatH_b9 hh hh9 hfl hb hlam50 htow hsel.rho le_rfl)
+    (fun H L q j A s hb =>
+      s15_heps293_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun H L q j A s hb =>
+      s15_hband4096_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_L_gk K hsel.hM
+        (s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk)
+        hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family'H_L_gk_b9 K hh hh9 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+      (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
+      (fun H L q j A s hb =>
+        s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
+    harith
+
+/-! ## §6 — HOP 3: THE FIRST `h`-TERMINAL, WITH THE REGISTER SUPPLIED AT SHIFT `h` -/
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as the landed terminal: the 27-item `obtain` and the register call re-elaborate
+-- against a prefix that gains `h`, two pins and a conjunct.
+/-- **⟦THE FLAT TERMINAL AT THE LINEAR LADDER AND THE INFLATED SOCKET⟧**
+(`logChowla2_witnessed_scale_flat_LH`) — `S16FlatTerminalLinear.logChowla2_witnessed_scale_flat_L`
+at shift `h`, with the `S15` register **SUPPLIED, NOT CARRIED**, from
+`FlatFloorBump.s15_sel''_L_gk_witness_flat_bumped` at `c := h`.
+
+⭐ **`Kc ≤ 2^539` LEAVES THE DEBT LIST HERE AND BECOMES AN EXPORTED FACT.**  At `h = 1` it is
+rider 1 of the landed terminal — an ask about an opaque `∃ C, 0 < C ∧ …`.  On the `h` lane the
+head's OWN count bound `Kb` plays the register's `Kc` and carries `Kb ≤ 2^539` out of
+`S16FlatTerminalExitH` (H2a word 1d), so the rider is `REMOVED-BECAUSE-PROVEN` and appears as a
+conjunct instead.  **This is the one place the `h` lane is strictly stronger than its `h = 1`
+twin, and it is stronger because the shift forced the count to be computed rather than
+assumed.**
+
+⛔ **`Ct ≤ 2^23` IS NOT REMOVED and is carried exactly as at `h = 1`** — the constant-pool
+fuse's `Ct` is still an opaque `∃ Ct, 0 < Ct`, and nothing in the shift touches it.
+
+⟦THE SURVIVING HYPOTHESIS LIST⟧ `Ct ≤ 2^23`, the `x₀` window, `Hopq ≤ flatDesignBase A`, and
+the crossing bound at the inflated socket — the `h`-twin of the landed list minus rider 1. -/
+theorem logChowla2_witnessed_scale_flat_LH (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
+    (hband : S16BandLaneCBoundedLH h 32000000) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hopq Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / (500 * (h : ℚ)) ≤ ε ∧ 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀ ∧
+      Mfl ≤ 2 ^ 355 ∧ Kc ≤ 2 ^ 539 ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      (Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq = flatDesignBase A) ∧
+      (Ct ≤ 2 ^ 23 →
+        (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) →
+        Hopq ≤ flatDesignBase A →
+        ∀ g : ℕ → ℕ → ℕ, ∃ R : ChowlaRegime,
+          R.eps = ε ∧ R.Hlo = flatWitFloor ε β A Hopq ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (S15CrossingBound_LH_gk h 32000000 R (flatDoorM A) →
+            ¬ logChowlaFails h R.eps R.x R.ω)) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1,
+    hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge, hCapLe, hbody⟩ :=
+    logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH h hh hh7 32000000
+      (by norm_num) hband A₀ hA₀
+  -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1` (the census needs `ε ≤ 1/2`)
+  obtain ⟨R0, hR0eps, -, -, -, -⟩ :=
+    hbody (flatWitFloor ε β A Hopq) (fun _ _ => 0) (flatCap_le_flatWitFloor hCapLe)
+  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
+    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
+    exact h
+  -- ⟦THE `ε` PIN, CAST⟧ the shift rides inside the denominator
+  have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
+    have hc := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rw [show ((((1 : ℚ) / (500 * (h : ℚ))) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by push_cast; ring]
+      at hc
+    exact hc
+  refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hopq, Mfl,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge,
+    fun hopq => flat_witFloor_eq_designBase_h hh hh7 hA26 hβ hεR hε2 hε hεpin hAge hopq, ?_⟩
+  intro hCtb hx0win hopq g
+  obtain ⟨R, hReps, hHlo, hRg, hRtow, hfire⟩ :=
+    hbody (flatWitFloor ε β A Hopq) g (flatCap_le_flatWitFloor hCapLe)
+  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
+    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
+  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+    rw [hHlo, flat_witFloor_eq_designBase_h hh hh7 hA26 hβ hεR hε2 hε hεpin hAge hopq]
+    exact flatDesignBase_loglog_le hA26
+  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
+    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
+  intro hcross
+  -- ⟦THE REGISTER, SUPPLIED AT SHIFT `h`⟧ at the flat design modulus
+  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
+    calc (32000000 : ℕ) ≤ 170000000 * 1 := by norm_num
+      _ ≤ 170000000 * flatDoorM A := Nat.mul_le_mul_left _ hM1
+  have heps : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ R.eps := by
+    rw [hReps]
+    exact le_trans (Salt.Entropy.Chowla.eps_line_h h hh) hεpin
+  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  have hsel := s15_sel''_L_gk_witness_flat_bumped (c := h) hA26 32000000 hKle hh
+    (Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7) hh7 hδ₀ hδpin hKc hKcb
+    hCt hCtb hCgle hMflb hx0win heps hlo hwin
+  exact hfire (flatDoorM A) hsel hcross
 
 end Salt.MR

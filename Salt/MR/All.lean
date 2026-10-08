@@ -10211,13 +10211,17 @@ file, one into a twin here and two into F2 twins; 2026-10-01: family 31 one more
 2026-10-06: family 40 three more, one into a twin here and two into F2 twins; 2026-10-06: family 41
 two more, one into a twin here and one into an F2 twin; 2026-10-07: family 42 one more, by ruling
 and with no twin (this entry written by family 43); 2026-10-08: family 43 one more, into a twin
-here).  Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift
-cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20`
-in the `p²` row — every derived cap-dependent supplier replaced by its twin, and no hypothesis
-added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`, sharp); four sibling mints
-differ from their sources only in the named literal (`capfloor_logH_le_third_sqrt` `/2 ↦ /3`,
-`capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`, `capfloor_floor3_numeric_h_10`).  Nothing here bears
-on twin primes.  18 obligations, 18 landed. -/
+here; 2026-10-08: family 44 re-pointed the twelve live consumers' calls of two `S16ProducersH` pages
+to their twins here (`s15_block_at_socketH_L_gk_b9` and `doorBandBase_family'H_L_gk_b9`) and of its
+three socket tops to their twins in ⟦β W2 F1⟧, `log h ≤ 9` supplied once in each by a `have` from
+`hh7`, their statements unchanged; no name is retired by it).  Each twin is its source's statement
+and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the
+census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived
+cap-dependent supplier replaced by its twin, and no hypothesis added.  The MR converter
+`h_le_8103_of_hh9` is new (`e^9 = 8103.08`, sharp); four sibling mints differ from their sources
+only in the named literal (`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`,
+`capfloor_lam_core_h_232`, `capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18
+obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.capfloor_logH_le_third_sqrt
   Salt.MR.h_le_8103_of_hh9
@@ -10245,17 +10249,19 @@ untouched (from 2026-09-26 the XY debt lane retires copied `h` siblings into the
 noted in place; 2026-09-28: family 19 re-pointed six of the seven supplier calls of a landed
 `S16ComposeLH` assembler to cap-9 twins; 2026-09-28: family 20 six of the seven of that assembler's
 landed capfloor bundle; 2026-10-05: family 39 retired the sources of `cofkL_socket_floors_h_b9` and
-`klevF_capNumeral_h_b9` into them, noted where they stood in `V7RatedH`).
-Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
-`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
-in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
-added.  Two conclusion/hypothesis numerals move as the census prices them: `cofkL_mu_floor_h_b9`
-concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`
-reads `+ 36` in `h1`, supplied by the sibling mint `s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
-`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one RE-DERIVATION: its two log absorptions
-are merged into one product inequality, valid at `0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement
-differs from the source only by the cap.  Nothing here bears on twin primes.  19 obligations,
-19 landed. -/
+`klevF_capNumeral_h_b9` into them, noted where they stood in `V7RatedH`; 2026-10-08: family 44
+re-pointed the seven consumers of `S16FlatTerminalLinearLH`'s `s13_gate8_L_gk_h` and
+`s13_smallGradeFits_of_halfWindow_L_gk_h` to their twins here, their statements unchanged, and moved
+that file's §5 and §6 below its two twin blocks).  Each twin is its source's statement and body with
+ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`,
+`548000 ↦ 4051500`, and the census's in-body literals — every derived cap-dependent supplier
+replaced by its twin, and no hypothesis added.  Two conclusion/hypothesis numerals move as the
+census prices them: `cofkL_mu_floor_h_b9` concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and
+`s13_g2_jfloor_of_MSelect'_L_gk_h_b9` reads `+ 36` in `h1`, supplied by the sibling mint
+`s13_g2_jfloor_of_MSelect'_L_gk_shift36`.  `pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one
+RE-DERIVATION: its two log absorptions are merged into one product inequality, valid at
+`0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement differs from the source only by the cap.  Nothing
+here bears on twin primes.  19 obligations, 19 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s15_sel''_L_witness_flat_b9
   Salt.MR.s15_sel''_L_gk_witness_flat_b9
@@ -10311,15 +10317,17 @@ open Salt.Tactic in
 F1).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
 the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place; 2026-10-01:
 family 34 retired `bigXiAff_bounded_ceiling_of_pin`, the cap-7 source of the first of them, into it,
-noted in `StrideFork`).  Each twin is its source's statement and
-body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count
-pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦
-≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the
-walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge
-`425 ↦ 429 = 411 + 2·9` — every derived supplier replaced by its twin or the landed `_g12` rung,
-and no hypothesis added.  `regimeShrinkX_stride_Hlo` was already minted by W1 E1 as
-`regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not re-minted.  Nothing here bears on twin
-primes.  18 obligations, 18 landed. -/
+noted in `StrideFork`; 2026-10-08: family 44 re-pointed the seven consumers of `S16ProducersH`'s
+three socket tops — `s12c_eps_threshold_at_socket_flatH`, `s15_heps293_at_socket_flatH`,
+`s15_hband4096_at_socket_flatH` — to their twins here, their statements unchanged).  Each twin is
+its source's statement and body with ONLY the freeze's rule-2 raises — the product cap
+`log (a·h) ≤ 7 ↦ ≤ 9` with the count pin's `1096 ↦ 8103` (116 bits spare), the stride
+`a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦ ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s
+`28 ↦ 32` in the threshold's typed floors, the walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade
+`838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge `425 ↦ 429 = 411 + 2·9` — every derived supplier
+replaced by its twin or the landed `_g12` rung, and no hypothesis added.  `regimeShrinkX_stride_Hlo`
+was already minted by W1 E1 as `regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not
+re-minted.  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9
   Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_set_b9
@@ -10413,14 +10421,16 @@ replay `flat_v7_generic_h` (`StridePairReceipt`) and its graded form `flat_v7_ge
 38 re-pointed the prize `logChowla2_v7_rated_h` (`V7RatedH` §4) to the same two twins, one call
 each, its statement unchanged, and moved that file's §4 and §5 below its twin blocks; 2026-10-05:
 family 39 retired the sources of `cofkR_cofactorSupply_L_gk_rated_h_b9` and
-`s16_baseScaleCap96_LH_at_klevF_b9` into them, noted where they stood in `V7RatedH`).  Each twin is
-its source's statement and
-body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed against their sources),
-every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis added.  Named numerals:
-`capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤ 10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`);
-`cofkR_cofactorSupply_L_gk_rated_h_b9` takes `cofkL_mu_floor_h_b9`'s `−32` at its four sites
-(`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`), binding step `c ≤ 100` at margin 0.4533.  Nothing here
-bears on twin primes.  16 obligations, 16 landed. -/
+`s16_baseScaleCap96_LH_at_klevF_b9` into them, noted where they stood in `V7RatedH`; 2026-10-08:
+family 44 re-pointed the seven consumers of `s15_gRows_const_at_socket_flat_doorLH_gk`
+(`S16FlatTerminalLinearLH`) to its twin here, their statements unchanged).  Each twin is its
+source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed
+against their sources), every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis
+added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤ 10^21` through
+`h_le_8103_of_hh9` (was `h ≤ 1096`); `cofkR_cofactorSupply_L_gk_rated_h_b9` takes
+`cofkL_mu_floor_h_b9`'s `−32` at its four sites (`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`),
+binding step `c ≤ 100` at margin 0.4533.  Nothing here bears on twin primes.  16 obligations, 16
+landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s13_abs8640_at_shift_LH_b9
   Salt.MR.s13CapGrid_kappa30_LH_b9
@@ -10460,7 +10470,7 @@ source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
 added. Named numerals: the door-head mint `2 ^ 11 ↦ 2 ^ 12` at its five sites; `flat_conditional`'s
-`:542` wall `1096 ≤ exp 7 ↦ 8103 ≤ exp 9` (via `2.7182818283^9`) with `harm'`/`hgb'`/`hsum`/`hprod`
+`:556` wall `1096 ≤ exp 7 ↦ 8103 ≤ exp 9` (via `2.7182818283^9`) with `harm'`/`hgb'`/`hsum`/`hprod`
 at `− 9` against `xceil_arm_split_mul_h_b9`'s `+ 9`, and slot 3 at `+ 36`
 (`s13_g2_jfloor_of_MSelect'_L_gk_shift36`). Nothing here bears on twin primes. 6 obligations, 6
 landed. -/
