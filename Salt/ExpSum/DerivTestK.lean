@@ -141,7 +141,7 @@ lemma rpow_neg_telescope (α : ℝ) (hα0 : 0 < α) (hα1 : α < 1) (j : ℕ) :
     calc x ^ (1 - α) = A * B * x ^ (1 - α) := by rw [hAB]; ring
       _ = A * (x ^ (1 - α) * B) := by ring
       _ ≤ A * (x + α) := mul_le_mul_of_nonneg_left hAM (le_of_lt hApos)
-  rw [le_div_iff₀ h1a, hC]; nlinarith [hD, hApos]
+  rw [le_div_iff₀ h1a, hC]; linarith only [hD]
 
 /-- Down-sum (sharp): `∑_{i<H} (i+1)^{−α} ≤ H^{1−α}/(1−α)` for `0 < α < 1`. -/
 lemma sum_rpow_neg_le (α : ℝ) (hα0 : 0 < α) (hα1 : α < 1) (H : ℕ) :
@@ -177,24 +177,24 @@ lemma opt_core_gen (A2 B2 q Cp cg s sinv α : ℝ)
   have h1a : 0 < 1 - α := by linarith
   have hCp0 : 0 ≤ Cp := by linarith
   have hcg0 : 0 ≤ cg := by linarith
-  have hCpcg1 : (1 : ℝ) ≤ Cp * cg := by nlinarith [hCp, hcg]
+  have hCpcg1 : (1 : ℝ) ≤ Cp * cg := by nlinarith only [hCp, hcg]
   have hcoefA : 0 ≤ 4 * Cp * cg * A2 := by positivity
   have hCcgB : 0 ≤ Cp * cg * B2 := by positivity
   -- term 1:  2·A²/q ≤ 4·A²   (q ≥ 1/2)
   have hb1 : 2 * A2 / q ≤ 4 * A2 := by
-    rw [div_le_iff₀ hqpos]; nlinarith [mul_nonneg hA2 (by linarith : (0 : ℝ) ≤ q - 1 / 2)]
+    rw [div_le_iff₀ hqpos]; linarith only [mul_nonneg hA2 (by linarith : (0 : ℝ) ≤ q - 1 / 2)]
   -- term 2:  4·C'·cg·A²·s ≤ 4·C'·cg·A²   (s ≤ 1)
   have hb2 : 4 * Cp * cg * A2 * s ≤ 4 * Cp * cg * A2 := by
-    nlinarith [mul_le_mul_of_nonneg_left hs1 hcoefA]
+    linarith only [mul_le_mul_of_nonneg_left hs1 hcoefA]
   -- term 3:  (4·C'·cg/(1-α))·B²·sinv ≤ 16·C'·cg·B²   (1/(1-α) ≤ 2, sinv ≤ 2)
   have hb3 : 4 * Cp * cg / (1 - α) * B2 * sinv ≤ 16 * Cp * cg * B2 := by
     have hrw : 4 * Cp * cg / (1 - α) * B2 * sinv
         = 4 * Cp * cg * B2 * sinv / (1 - α) := by ring
     rw [hrw, div_le_iff₀ h1a]
     have hscalar : 4 * sinv ≤ 16 * (1 - α) := by linarith
-    nlinarith [mul_le_mul_of_nonneg_left hscalar hCcgB]
+    linarith only [mul_le_mul_of_nonneg_left hscalar hCcgB]
   -- combine:  4A² + 4C'cgA² ≤ 16C'cgA²   (C'cg ≥ 1)
-  nlinarith [hb1, hb2, hb3, mul_nonneg hA2 (sub_nonneg.mpr hCpcg1)]
+  linarith only [hb3, hb2, hb1, hcoefA, mul_nonneg hA2 (sub_nonneg.mpr hCpcg1)]
 
 /-- `4 ≤ 2ᴷ` for `K ≥ 2` (used for `α_K > 0`, `β_K ≥ 0`, denominators nonzero). -/
 lemma four_le_two_pow (K : ℕ) (hK : 2 ≤ K) : (4 : ℝ) ≤ (2 : ℝ) ^ K := by
@@ -245,8 +245,8 @@ lemma isVdCBound_two : IsVdCBound 2 8 := by
     rw [Real.rpow_neg (le_of_lt hlam), hval_a, inv_eq_one_div]
   rw [hval_c, hval_a, hval_b, hval_na]
   have hsq : 0 ≤ 1 / Real.sqrt lam := by positivity
-  nlinarith [mul_nonneg (sub_nonneg.mpr hc) hsq,
-    mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ c) hL) (Real.sqrt_nonneg lam)]
+  linarith only
+      [mul_nonneg (sub_nonneg.mpr hc) hsq]
 
 /-- **Per-shift bound (induction step).**  Given the level-`K` bound `hih` and
 level-`(K+1)` differences of `f` in `[λ, cλ]`, the positive-shift differenced
@@ -294,7 +294,7 @@ lemma Gh_bound_gen (K : ℕ) (Cp : ℝ) (hCp : 1 ≤ Cp) (hih : IsVdCBound K Cp)
     intro n hn1 hn2
     rw [dk_diff_shift f h K n]
     have hacc := diff2_accum (dk K f) hstepU n (by omega) k₀ (by rw [hk0Z]; omega)
-    rw [hk0Z, hk0R] at hacc; nlinarith [hacc]
+    rw [hk0Z, hk0R] at hacc; linarith only [hacc]
   -- apply the induction hypothesis to `g_h`
   have hbase := hih (fun x => f (x + h) - f x) a (a + (N : ℤ) - h) ((h : ℝ) * lam) c
     (by omega) hmu hc hlbφ hubφ
@@ -614,7 +614,7 @@ lemma isVdCBound_succ (K : ℕ) (hK : 2 ≤ K) (Cp : ℝ) (hCp : 1 ≤ Cp) (hih 
       rw [← Real.sqrt_one]; exact Real.sqrt_le_sqrt hCp
     have hcg1 : (1 : ℝ) ≤ c ^ (4 / (2 * p)) := Real.one_le_rpow hc (by positivity)
     have hM1 : (1 : ℝ) ≤ 4 * Real.sqrt Cp * c ^ (4 / (2 * p)) := by
-      nlinarith [hsqCp, hcg1, Real.rpow_nonneg hc0 (4 / (2 * p))]
+      nlinarith only [hsqCp, hcg1]
     have hbr_nn : (0 : ℝ) ≤ (N : ℝ) * lam ^ α' + (N : ℝ) ^ β' * lam ^ (-α') := by positivity
     refine le_trans ?_ (le_mul_of_one_le_left hbr_nn hM1)
     rcases hmain with hlt | hgt

@@ -248,8 +248,8 @@ private theorem one_sub_sum_le_prod_one_sub {ι : Type*} (s : Finset ι) (x : ι
       have hpn : 0 ≤ ∏ p ∈ s, (1 - x p) :=
         Finset.prod_nonneg fun p hp => by linarith [hx1' p hp]
       have hsn : 0 ≤ ∑ p ∈ s, x p := Finset.sum_nonneg hx0'
-      nlinarith [hih, hxa0, hxa1, hpn, hsn,
-        mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
+      nlinarith only [hxa0, hsn,
+          mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
 
 /-- `|∏(1 − xₚ) − 1| ≤ ∑ xₚ` for `0 ≤ xₚ ≤ 1`. -/
 private theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ)
@@ -345,7 +345,7 @@ theorem gProd_bound (k R : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k)
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have : ((p : ℝ) - 1)⁻¹ ≤ 1 := by
       rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [this, h0]
+    nlinarith only [h0, this]
   · -- `∑_{p∈S} (p−1)⁻² ≤ 2/D₀`
     have hsub : S ⊆ Finset.Icc (D₀ k + 1) R := by
       intro p hp
@@ -401,7 +401,7 @@ theorem phiSq_tail_bound (k M : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k)
   have honele : (1 : ℝ) ≤ (3 * (k : ℝ) ^ 2) ^ c.primeFactors.card := by
     apply one_le_pow₀
     have : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith
+    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   calc ((μ c : ℤ) : ℝ) ^ 2 / (Nat.totient c : ℝ) ^ 2
       ≤ 1 / (Nat.totient c : ℝ) ^ 2 := by gcongr
     _ = ((Nat.totient c : ℝ) ^ 2)⁻¹ := one_div _
@@ -628,11 +628,11 @@ private theorem gr_ratio_mem {ρ : ℕ} (hρ : Squarefree ρ)
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
 
 /-- **The deviating-coordinate tail (his 5.31, per coordinate).** Over squarefree
@@ -745,7 +745,7 @@ private theorem phiSq_dvd_bound (k R : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ 
   have hnn : (0 : ℝ) ≤ 1 / (Nat.totient ρ : ℝ) ^ 2 := by positivity
   rw [hsplit]
   have hmul := mul_le_mul_of_nonneg_left h12 hnn
-  nlinarith [htail, hmul]
+  linarith only [hmul, htail]
 
 /-- **The coordinate factorization (Step 3).** The divisor-guarded, `j`-deviating
 tail sum over the coupled index set factorizes across coordinates: it is
@@ -855,7 +855,7 @@ theorem htail_bound (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
       rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ))]
       have h1 := abs_moebius_real_le_one (a i)
       have h2 : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by positivity
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
     calc |y a| / (∏ i, (Nat.totient (a i) : ℝ))
             * ∏ i ∈ Finset.univ.erase m,
                 |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
@@ -976,7 +976,7 @@ theorem htail_bound (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
               rw [show (gMult (r i) : ℝ) * ((r i : ℝ) * ((1 / (Nat.totient (r i) : ℝ) ^ 2) * 2))
                     = ((gMult (r i) : ℝ) * (r i : ℝ) / (Nat.totient (r i) : ℝ) ^ 2) * 2 from by
                     ring]
-              nlinarith [(gr_ratio_mem (hsq i) (hodd i)).1, (gr_ratio_mem (hsq i) (hodd i)).2]
+              linarith only [(gr_ratio_mem (hsq i) (hodd i)).2]
         _ = (2 : ℝ) ^ ((Finset.univ.erase m).erase j).card := by rw [Finset.prod_const]
         _ ≤ (2 : ℝ) ^ k := pow_le_pow_right₀ (by norm_num) hcard
     have hrestnn : (0 : ℝ) ≤ ∏ i ∈ (Finset.univ.erase m).erase j, ((gMult (r i) : ℝ) * U i) := by
