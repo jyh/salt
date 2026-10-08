@@ -27,7 +27,7 @@ lemma le_exp_eighth {L : ℝ} (hL : 256 ≤ L) : L ≤ Real.exp (L / 8) := by
   have hsq : (L / 16) ^ 2 ≤ (Real.exp (L / 16)) ^ 2 := pow_le_pow_left₀ hnn h16 2
   have hexp2 : (Real.exp (L / 16)) ^ 2 = Real.exp (L / 8) := by
     rw [sq, ← Real.exp_add]; ring_nf
-  have hLsq : L ≤ (L / 16) ^ 2 := by nlinarith [hL]
+  have hLsq : L ≤ (L / 16) ^ 2 := by nlinarith only [hL]
   calc L ≤ (L / 16) ^ 2 := hLsq
     _ ≤ (Real.exp (L / 16)) ^ 2 := hsq
     _ = Real.exp (L / 8) := hexp2
@@ -75,7 +75,7 @@ lemma k19_add_one_le_k18 {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
   have h72 : (2 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 72) := k172_ge_two hk hlogk
   have hsplit := k18_eq_k19_k172 hk
   have h9nn : (0 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 9) := by positivity
-  nlinarith [hsplit, h9, h72, h9nn]
+  nlinarith only [h9, h72, hsplit]
 
 /-- `5 ≤ k^{1/8}` when `log k ≥ 300`. -/
 lemma k18_ge_five {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
@@ -102,7 +102,7 @@ lemma five_T_le {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
           Real.rpow_le_rpow_of_exponent_le h1 (by norm_num)
       _ = (k : ℝ) := Real.rpow_one _
   rw [← mul_div_assoc, div_le_iff₀ hlogkpos]
-  nlinarith [hk18le, hlogkpos, hkpos, hlogk]
+  nlinarith only [hlogk, hk18le, hkpos, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
 
 /-! ## Facts about `R = ⌊N'^{1/5}⌋₊` -/
 
@@ -110,7 +110,7 @@ lemma five_T_le {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
 lemma logR_lower (N' : ℕ) (hN' : (2 : ℝ) ^ 30 ≤ (N' : ℝ)) :
     Real.log N' / 6 ≤ Real.log (⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ : ℝ) := by
   set x := (N' : ℝ) with hx
-  have hx1 : (1 : ℝ) ≤ x := by nlinarith [hN']
+  have hx1 : (1 : ℝ) ≤ x := by linarith only [hN']
   have hxpos : (0 : ℝ) < x := by linarith
   set R := ⌊x ^ ((1 : ℝ) / 5)⌋₊ with hR
   have h30 : (2 : ℝ) ≤ x ^ ((1 : ℝ) / 30) := by
@@ -124,10 +124,10 @@ lemma logR_lower (N' : ℕ) (hN' : (2 : ℝ) ^ 30 ≤ (N' : ℝ)) :
   have hx6pos : (0 : ℝ) < x ^ ((1 : ℝ) / 6) := Real.rpow_pos_of_pos hxpos _
   have hx6ge1 : (1 : ℝ) ≤ x ^ ((1 : ℝ) / 6) := Real.one_le_rpow hx1 (by norm_num)
   have hbig : 2 * x ^ ((1 : ℝ) / 6) ≤ x ^ ((1 : ℝ) / 5) := by
-    rw [hsplit]; nlinarith [h30, hx6pos]
+    rw [hsplit]; nlinarith only [h30, hx6pos]
   have hfloor : x ^ ((1 : ℝ) / 5) - 1 ≤ (R : ℝ) := by
     have := Nat.lt_floor_add_one (x ^ ((1 : ℝ) / 5)); rw [← hR] at this; linarith
-  have hRge : x ^ ((1 : ℝ) / 6) ≤ (R : ℝ) := by nlinarith [hfloor, hbig, hx6ge1]
+  have hRge : x ^ ((1 : ℝ) / 6) ≤ (R : ℝ) := by linarith only [hfloor, hbig, hx6ge1]
   have hlog := Real.log_le_log hx6pos hRge
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
@@ -419,9 +419,9 @@ lemma eventually_D0_le (k₀ : ℕ) (c : ℝ) (hc : 0 < c) :
   simp only [pow_one, Real.rpow_one] at hN'
   have hD0nn : (0 : ℝ) ≤ (D₀ k₀ : ℝ) := by positivity
   have hN'' : 2 * (D₀ k₀ : ℝ) * (1 + Real.log N') ≤ c * (N' : ℝ) := by
-    rw [div_mul_eq_mul_div, div_le_iff₀ hc] at hN'; nlinarith [hN']
+    rw [div_mul_eq_mul_div, div_le_iff₀ hc] at hN'; linarith only [hN']
   rw [le_div_iff₀ (by positivity)]
-  nlinarith [hN'', hlogpos, hD0nn]
+  linarith only [hN'', (Nat.cast_nonneg _ : 0 ≤ ↑(D₀ k₀))]
 
 /-- Eventually `Cs·R²·(1+log R)^{4k₀+2} ≤ 126·N'/W` for `Cs ≥ 0`. -/
 lemma eventually_herr1 (k₀ : ℕ) (Cs : ℝ) (hCs : 0 ≤ Cs) :

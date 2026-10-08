@@ -123,7 +123,7 @@ lemma norm_logDeriv_le_of_re {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
         rw [Pi.mul_apply, norm_mul]
         have h := DirichletCharacter.norm_le_one χ (n : ZMod q)
         have hΛnn : (0 : ℝ) ≤ ‖(↗vonMangoldt) n‖ := norm_nonneg _
-        nlinarith [hΛnn]
+        nlinarith only [h, hΛnn]
       gcongr
   calc ‖LSeries (↗χ * ↗vonMangoldt) s‖
       ≤ ∑' n, ‖LSeries.term (↗χ * ↗vonMangoldt) s n‖ := norm_tsum_le_tsum_norm hSχ
@@ -165,10 +165,10 @@ lemma norm_neg_logDeriv_le_shifted {f : ℕ} [NeZero f] (χ : DirichletCharacter
     have ha : (4 : ℝ) ≤ 4 + |s.im| := by linarith [abs_nonneg s.im]
     have hp1nn : (0 : ℝ) ≤ 5 * (4 + |s.im|) := by linarith
     have p2 : (20 : ℝ) ≤ 5 * (4 + |s.im|) * Real.sqrt f := by
-      nlinarith [mul_nonneg hp1nn (by linarith [hsqrtf] : (0 : ℝ) ≤ Real.sqrt f - 1)]
+      linarith only [ha, mul_nonneg hp1nn (by linarith [hsqrtf] : (0 : ℝ) ≤ Real.sqrt f - 1)]
     have hp2nn : (0 : ℝ) ≤ 5 * (4 + |s.im|) * Real.sqrt f := by linarith
     have p3 : (20 : ℝ) ≤ 5 * (4 + |s.im|) * Real.sqrt f * (1 + Real.log f) := by
-      nlinarith [mul_nonneg hp2nn (by linarith [hlogf] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
+      linarith only [p2, mul_nonneg hp2nn (by linarith [hlogf] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
     rw [hM₀]; linarith [p3]
   have hM₀TgeM₀ : M₀ ≤ M₀T := by
     rw [hM₀, hM₀T]
@@ -283,7 +283,7 @@ lemma norm_neg_logDeriv_le_shifted {f : ℕ} [NeZero f] (χ : DirichletCharacter
           have hd := hdist ρ hρ
           have hdpos : 0 < ‖s - ρ‖ := lt_of_lt_of_le hw hd
           rw [div_le_div_iff₀ hdpos hw]
-          nlinarith [Nat.cast_nonneg (α := ℝ) (m ρ), hd]
+          nlinarith only [hd, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
       _ = (∑ ρ ∈ Z, (m ρ : ℝ)) / w := by rw [Finset.sum_div]
   have hsplit : ‖logDeriv (LFunction χ) s‖
       ≤ ‖logDeriv (LFunction χ) s - ∑ ρ ∈ Z, (m ρ : ℂ) / (s - ρ)‖
@@ -392,7 +392,7 @@ lemma tail_lorentzian_le {c T : ℝ} (hc : 0 < c) (hT : 0 < T) :
           simp only [Set.mem_Ioi] at hv
           have hvpos : 0 < v := by linarith
           rw [Real.rpow_neg hvpos.le, Real.rpow_two, inv_le_inv₀ (by positivity) (by positivity)]
-          nlinarith [sq_nonneg c]
+          linarith only [sq_nonneg c]
       _ = 1 / T := by
           rw [integral_Ioi_rpow_of_lt (by norm_num) hT, show (-2 : ℝ) + 1 = -1 by norm_num,
             Real.rpow_neg_one]
@@ -633,7 +633,7 @@ theorem psi1_contour_shift {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
     have hxexp : x ^ (u + 1) ≤ x ^ (c + 1) :=
       Real.rpow_le_rpow_of_exponent_le hx1 (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ (u + 1) * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖logDeriv (LFunction χ) ((u : ℂ) + (τ : ℂ) * I)‖
