@@ -81,7 +81,7 @@ lemma T1_totient_ratio_sq_le {d₁ d₂ : ℕ} (h1 : IsPrimePow d₁ ∨ d₁ = 
   have hratio : (d₁ * d₂ : ℝ) / (Nat.totient (d₁ * d₂)) ≤ 4 := by
     rw [div_le_iff₀ hφpos, hφ]
     push_cast
-    nlinarith [hd1, hd2, hφ1, hφ2]
+    nlinarith only [hd2, hd1, (Nat.cast_nonneg _ : 0 ≤ ↑d₁), (Nat.cast_nonneg _ : 0 ≤ ↑d₂.totient)]
   have hnn : (0 : ℝ) ≤ (d₁ * d₂ : ℝ) / (Nat.totient (d₁ * d₂)) := by positivity
   calc ((d₁ * d₂ : ℝ) / (Nat.totient (d₁ * d₂))) ^ 2 ≤ (4 : ℝ) ^ 2 :=
         pow_le_pow_left₀ hnn hratio 2
@@ -163,7 +163,7 @@ lemma T1_logx_le_logZf {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3
   have hfl : (x : ℝ) ^ ((1 : ℝ) / 48) < (Zf x : ℝ) + 1 := Nat.lt_floor_add_one _
   have hZf2 : ((Zf x : ℕ) : ℝ) + 1 ≤ ((Zf x : ℕ) : ℝ) ^ 2 := by
     have h2 : (2 : ℝ) ≤ ((Zf x : ℕ) : ℝ) := by exact_mod_cast (by omega : 2 ≤ Zf x)
-    nlinarith
+    nlinarith only [h2, (Nat.cast_nonneg _ : 0 ≤ ↑(Zf x))]
   have hxle : (x : ℝ) ≤ ((Zf x : ℕ) : ℝ) ^ 96 := by
     have hxeq : ((x : ℝ) ^ ((1 : ℝ) / 48)) ^ (48 : ℕ) = x := by
       rw [← Real.rpow_natCast ((x : ℝ) ^ ((1 : ℝ) / 48)) 48, ← Real.rpow_mul hx0.le,
@@ -180,7 +180,7 @@ lemma T1_Lwin_le_logZf {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3
     Lwin x ≤ 192 * Real.log (Zf x) := by
   have h3x : (3 : ℝ) ≤ x := le_trans (by norm_num) (T1_x_ge hz100 hzx)
   have hx0 : (0 : ℝ) < x := by linarith
-  have hsq : 2 * (x : ℝ) + 2 ≤ (x : ℝ) ^ 2 := by nlinarith
+  have hsq : 2 * (x : ℝ) + 2 ≤ (x : ℝ) ^ 2 := by nlinarith only [h3x, (Nat.cast_nonneg _ : 0 ≤ ↑x)]
   have hL2 : Lwin x ≤ 2 * Real.log x := by
     rw [Lwin]
     calc Real.log (2 * (x : ℝ) + 2) ≤ Real.log ((x : ℝ) ^ 2) :=
@@ -612,7 +612,7 @@ lemma T1_scale_main {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 �
     (mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 32768) hx0) hlogz0)
   have hint2 : (0 : ℝ) ≤ x * Real.log z * Real.log (Zf x) ^ 2 :=
     mul_nonneg (mul_nonneg hx0 hlogz0) (by positivity)
-  nlinarith [hint1, hint2]
+  linarith only [hint2, hint1]
 
 /-- The edge-row comparison: `4096·(x·L'/(log Zf)²)·(2 log z) ≤ 2^29·(x·log z/L')`. -/
 lemma T1_scale_edge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x) :
@@ -635,7 +635,7 @@ lemma T1_scale_edge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 �
     (mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 8192) hx0) hlogz0)
   have hint2 : (0 : ℝ) ≤ x * Real.log z * Real.log (Zf x) ^ 2 :=
     mul_nonneg (mul_nonneg hx0 hlogz0) (by positivity)
-  nlinarith [hint1, hint2]
+  linarith only [hint2, hint1]
 
 /-! ## §5 — the T1 slice, its sum, and the frozen `J1` bound -/
 
