@@ -47,7 +47,11 @@ into cap-9 twins, noted in place; family 12 moved the §12 terminal below them, 
 family 19 re-pointed six of the §8 assembler's seven supplier calls to their cap-9 twins, its
 statement unchanged and the capfloor bundle's call kept at the cap 7; family 20 re-pointed six
 of that capfloor bundle's seven supplier calls to their cap-9 twins, its statement unchanged and
-`capfloor_floor4_LH`'s call kept at the cap 7.)
+`capfloor_floor4_LH`'s call kept at the cap 7; 2026-10-08: family 44 re-pointed the supplier calls
+of seven theorems of this file (the conditionals of §3–§6 and the terminals of §7, §9 and §12) to
+eight cap-9 twins of `S16ProducersH` and `S16FlatTerminalLinearLH`, `log h ≤ 9` supplied once in
+each by a `have` from `hh7`, their statements unchanged; every other call keeps the cap 7
+(`flat_witFloor_eq_designBase_h`'s twin is outside this family).)
 -/
 
 noncomputable section
@@ -439,6 +443,7 @@ theorem flat_capstone_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h) (hh7 : Real.l
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed conditional: the residue re-elaborates against the prefix.
+-- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE `A`-UNIFORM CONDITIONAL, WINDOWED AND PRICED, AT SHIFT `h`⟧**
 (`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:723` on §2, with wave H2b's `h` fire
 list (`S16FlatTerminalLinearLH` §5) substituted for the `h = 1` one.
@@ -474,6 +479,7 @@ theorem flat_conditional_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
               ∀ M : ℕ,
                 S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
                 S15CrossingBound_LH_gk h K R M → ¬ logChowlaFails h R.eps R.x R.ω := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, β, x₀, Hopq, Mfl, hCg, hε, hKc,
     hδ₀, hCt, hCq, hcs, hT₀, hKq, hKs, hMfl, hCgle, hεpin, hδpin, hKcb, hCtb, hMflb,
     hβ, hcapU⟩ :=
@@ -542,29 +548,29 @@ theorem flat_conditional_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
     (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
     (s13_endpoint_of_arm' hδ₀ harmdem)
     (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
-    (s13_gate8_L_gk_h hh hh7 le_rfl (by linarith) hsel.gRows)
-    (s13_smallGradeFits_of_halfWindow_L_gk_h hh hh7 hρ0 hρ1 hfl hsel.half)
+    (s13_gate8_L_gk_h_b9 hh hh9 le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_b9 hh hh9 hρ0 hρ1 hfl hsel.half)
     (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
     (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
     (fun H L q j A s hb =>
-      s15_gRows_const_at_socket_flat_doorLH_gk K hh hh7 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+      s15_gRows_const_at_socket_flat_doorLH_gk_b9 K hh hh9 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
         hsel.lvl)
     (fun H L q j A s hb =>
-      s12c_eps_threshold_at_socket_flatH hh hh7 hfl hb hlam50 htow hsel.rho le_rfl)
+      s12c_eps_threshold_at_socket_flatH_b9 hh hh9 hfl hb hlam50 htow hsel.rho le_rfl)
     (fun H L q j A s hb =>
-      s15_heps293_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_heps293_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun H L q j A s hb =>
-      s15_hband4096_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_hband4096_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
     (fun H L q j A s hb =>
       s13_doorRowZeroBase_five_L_gk K hsel.hM
-        (s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk)
+        (s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk)
         hb.2.2.2.2.2.2.1)
     hcap
-    (doorBandBase_family'H_L_gk K hh hh7 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+    (doorBandBase_family'H_L_gk_b9 K hh hh9 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
       (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
       (fun H L q j A s hb =>
-        s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
+        s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
 /-! ## §4 — ⟦KWIDE⟧ THE WIDE-CEILING TWINS
@@ -938,6 +944,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as §3: the conditional's residue re-elaborates against the widened prefix.
+-- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- ⟦WIDE CEILING TWIN⟧ (`flat_conditional_uniform_win_ceiling_kwide_h`) — §3 on the capstone
 above, the widened antecedent carried through the `∀ M`. -/
 theorem flat_conditional_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
@@ -962,6 +969,7 @@ theorem flat_conditional_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
               ∀ M : ℕ, K ≤ 170000000 * M →
                 S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
                 S15CrossingBound_LH_gk h K R M → ¬ logChowlaFails h R.eps R.x R.ω := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, β, x₀, Hopq, Mfl, hCg, hε, hKc,
     hδ₀, hCt, hCq, hcs, hT₀, hKq, hKs, hMfl, hCgle, hεpin, hδpin, hKcb, hCtb, hMflb,
     hβ, hcapU⟩ :=
@@ -1030,29 +1038,29 @@ theorem flat_conditional_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
     (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
     (s13_endpoint_of_arm' hδ₀ harmdem)
     (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
-    (s13_gate8_L_gk_h hh hh7 le_rfl (by linarith) hsel.gRows)
-    (s13_smallGradeFits_of_halfWindow_L_gk_h hh hh7 hρ0 hρ1 hfl hsel.half)
+    (s13_gate8_L_gk_h_b9 hh hh9 le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_b9 hh hh9 hρ0 hρ1 hfl hsel.half)
     (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
     (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
     (fun H L q j A s hb =>
-      s15_gRows_const_at_socket_flat_doorLH_gk K hh hh7 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+      s15_gRows_const_at_socket_flat_doorLH_gk_b9 K hh hh9 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
         hsel.lvl)
     (fun H L q j A s hb =>
-      s12c_eps_threshold_at_socket_flatH hh hh7 hfl hb hlam50 htow hsel.rho le_rfl)
+      s12c_eps_threshold_at_socket_flatH_b9 hh hh9 hfl hb hlam50 htow hsel.rho le_rfl)
     (fun H L q j A s hb =>
-      s15_heps293_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_heps293_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun H L q j A s hb =>
-      s15_hband4096_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_hband4096_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
     (fun H L q j A s hb =>
       s13_doorRowZeroBase_five_L_gk K hsel.hM
-        (s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk)
+        (s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk)
         hb.2.2.2.2.2.2.1)
     hcap
-    (doorBandBase_family'H_L_gk K hh hh7 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+    (doorBandBase_family'H_L_gk_b9 K hh hh9 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
       (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
       (fun H L q j A s hb =>
-        s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
+        s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
 /-! ## §5 — ⟦KHOIST⟧ THE `K`-HOISTED ROAD, AND THE CAPSTONES ON IT
@@ -1520,6 +1528,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < h)
 
 set_option maxHeartbeats 1600000 in
 -- Same cause as §4's conditional: the residue re-elaborates under one more binder layer.
+-- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE CONDITIONAL, WINDOWED, WIDE-CEILINGED, `K`-HOISTED, AT SHIFT `h`⟧**
 (`flat_conditional_uniform_win_ceiling_kwide_khoist_h`) — §4's conditional under the capstone
 above, verbatim. -/
@@ -1546,6 +1555,7 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < 
               ∀ M : ℕ, K ≤ 170000000 * M →
                 S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
                 S15CrossingBound_LH_gk h K R M → ¬ logChowlaFails h R.eps R.x R.ω := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Cg, ε, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc,
     hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb, hMflb,
     hβ, hcapU⟩ :=
@@ -1617,29 +1627,29 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < 
     (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
     (s13_endpoint_of_arm' hδ₀ harmdem)
     (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
-    (s13_gate8_L_gk_h hh hh7 le_rfl (by linarith) hsel.gRows)
-    (s13_smallGradeFits_of_halfWindow_L_gk_h hh hh7 hρ0 hρ1 hfl hsel.half)
+    (s13_gate8_L_gk_h_b9 hh hh9 le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_b9 hh hh9 hρ0 hρ1 hfl hsel.half)
     (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
     (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
     (fun H L q j A s hb =>
-      s15_gRows_const_at_socket_flat_doorLH_gk K hh hh7 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+      s15_gRows_const_at_socket_flat_doorLH_gk_b9 K hh hh9 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
         hsel.lvl)
     (fun H L q j A s hb =>
-      s12c_eps_threshold_at_socket_flatH hh hh7 hfl hb hlam50 htow hsel.rho le_rfl)
+      s12c_eps_threshold_at_socket_flatH_b9 hh hh9 hfl hb hlam50 htow hsel.rho le_rfl)
     (fun H L q j A s hb =>
-      s15_heps293_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_heps293_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun H L q j A s hb =>
-      s15_hband4096_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_hband4096_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
     (fun H L q j A s hb =>
       s13_doorRowZeroBase_five_L_gk K hsel.hM
-        (s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk)
+        (s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk)
         hb.2.2.2.2.2.2.1)
     hcap
-    (doorBandBase_family'H_L_gk K hh hh7 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+    (doorBandBase_family'H_L_gk_b9 K hh hh9 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
       (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
       (fun H L q j A s hb =>
-        s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
+        s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
 /-! ## §6 — ⟦XCEIL⟧ THE `x`-CEILINGED HEAD AT SHIFT `h`, AND THE ROAD ABOVE IT
@@ -2135,6 +2145,7 @@ theorem flat_capstone_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
 
 set_option maxHeartbeats 1600000 in
 -- Same cause as §5's conditional: the residue re-elaborates, here with the rider spent.
+-- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE CONDITIONAL, WINDOWED, WIDE-CEILINGED, `K`-HOISTED, `x`-CEILINGED, AT SHIFT `h`⟧**
 (`flat_conditional_uniform_win_xceil_kwide_khoist_h`) — §5's conditional on §6's capstone.
 
@@ -2170,6 +2181,7 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
               ∀ M : ℕ, K ≤ 170000000 * M →
                 S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
                 S15CrossingBound_LH_gk h K R M → ¬ logChowlaFails h R.eps R.x R.ω := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Cg, ε, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc,
     hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb, hMflb,
     hβ, hcapU⟩ :=
@@ -2292,29 +2304,29 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
     (s13_endpoint_of_arm' hδ₀ harmdem)
     (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
-    (s13_gate8_L_gk_h hh hh7 le_rfl (by linarith) hsel.gRows)
-    (s13_smallGradeFits_of_halfWindow_L_gk_h hh hh7 hρ0 hρ1 hfl hsel.half)
+    (s13_gate8_L_gk_h_b9 hh hh9 le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_b9 hh hh9 hρ0 hρ1 hfl hsel.half)
     (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
     (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
     (fun H L q j A s hb =>
-      s15_gRows_const_at_socket_flat_doorLH_gk K hh hh7 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+      s15_gRows_const_at_socket_flat_doorLH_gk_b9 K hh hh9 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
         hsel.lvl)
     (fun H L q j A s hb =>
-      s12c_eps_threshold_at_socket_flatH hh hh7 hfl hb hlam50 htow hsel.rho le_rfl)
+      s12c_eps_threshold_at_socket_flatH_b9 hh hh9 hfl hb hlam50 htow hsel.rho le_rfl)
     (fun H L q j A s hb =>
-      s15_heps293_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_heps293_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun H L q j A s hb =>
-      s15_hband4096_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_hband4096_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
     (fun H L q j A s hb =>
       s13_doorRowZeroBase_five_L_gk K hsel.hM
-        (s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk)
+        (s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk)
         hb.2.2.2.2.2.2.1)
     hcap
-    (doorBandBase_family'H_L_gk K hh hh7 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+    (doorBandBase_family'H_L_gk_b9 K hh hh9 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
       (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
       (fun H L q j A s hb =>
-        s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
+        s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
 /-! ## §7 — ⟦BLOCK T⟧ HOP 4: THE FLAT LINEAR TERMINAL `v2`, UNIFORM, WINDOWED, AT SHIFT `h`
@@ -2329,6 +2341,7 @@ and the head pins `ε = 1/(500·h)` — so the shift cancels and the margin is t
 the selector layer instead of building four `h`-twins.
 -/
 
+-- 2026-10-08, the XY debt lane, family 44: one call at the cap 9 (one twin); the rest at cap 7
 theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
     (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
     (hband : S16BandLaneCBoundedLH_win h Awin 32000000) :
@@ -2354,6 +2367,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h (h : ℕ) (hh
             (S16CofactorSupply_LH_gk h 32000000 Cq R (flatDoorM A) →
               S16BaseScaleCap96_LH_gk h 32000000 R (flatDoorM A) →
                 ¬ logChowlaFails h R.eps R.x R.ω)) := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨ε, Cg, Kc, δ₀, Ct, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1,
     hCgle, hεpin, hδpin, hKcb, hCtb, hMflb, hβ, hcond⟩ :=
     flat_conditional_uniform_win_ceiling_h h hh hh7 32000000 (by norm_num) Awin hband
@@ -2412,7 +2426,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h (h : ℕ) (hh
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk 32000000 (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
-    exact s15_block_at_socketH_L_gk 32000000 hh hh7 hb
+    exact s15_block_at_socketH_L_gk_b9 32000000 hh hh9 hb
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (flatDoorM A) hsel
     (hsupply hcs hT₀ hKqb hKs R (flatDoorM A) hM1 hfl hblk hcof hcapsc)
@@ -2616,6 +2630,7 @@ set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 1600000 in
 -- as the landed original: the long binder prefix re-elaborates beside the crossing supply's six
 -- constants, under the `∀ K` bracket and the window's admissibility line
+-- 2026-10-08, the XY debt lane, family 44: one call at the cap 9 (one twin); the rest at cap 7
 /-- **⟦THE FLAT LINEAR TERMINAL, `v2`, `A`-UNIFORM, WINDOWED, `K`-HOISTED, `x`-CEILINGED, AT
 SHIFT `h`⟧** (`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h`) — §7 on §6's
 conditional and §8's sharp-`T₀` supplier.  ⭐ The `ε`-probe's own `g ≡ 0` obeys the strict rider
@@ -2650,6 +2665,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h (h : ℕ
             (S16CofactorSupply_LH_gk h K Cq R (flatDoorM A) →
               S16BaseScaleCap96_LH_gk h K R (flatDoorM A) →
                 ¬ logChowlaFails h R.eps R.x R.ω)) := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hKcb, hMflb, hβ, hcondU⟩ :=
     flat_conditional_uniform_win_xceil_kwide_khoist_h h hh hh7 Awin hband
@@ -2715,7 +2731,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h (h : ℕ
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
-    exact s15_block_at_socketH_L_gk K hh hh7 hb
+    exact s15_block_at_socketH_L_gk_b9 K hh hh9 hb
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (flatDoorM A) hKw hsel
     (hsupply hcs hKqb hKs R (flatDoorM A) hM1 hfl (by rw [hHlo]; exact hT₀) hblk hcof hcapsc)
@@ -3619,6 +3635,7 @@ set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 1600000 in
 -- as the landed original: the long binder prefix re-elaborates with the crossing constants
 -- hoisted out of the `∀ K` bracket
+-- 2026-10-08, the XY debt lane, family 44: one call at the cap 9 (one twin); the rest at cap 7
 /-- **⟦THE FLAT LINEAR TERMINAL, `v2`, `A`-UNIFORM, WINDOWED, `x`-CEILINGED, `cq`-HOISTED,
 `cs`-FREE, `Ks`-WINDOWED, AT SHIFT `h`⟧**
 (`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h`) — §9 on
@@ -3654,6 +3671,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
             (S16CofactorSupply_LH_gk h K Cq R (flatDoorM A) →
               S16BaseScaleCap96_LH_gk h K R (flatDoorM A) →
                 ¬ logChowlaFails h R.eps R.x R.ω)) := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hKcb, hMflb, hβ, hcondU⟩ :=
     flat_conditional_uniform_win_xceil_kwide_khoist_h h hh hh7 Awin hband
@@ -3723,7 +3741,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
-    exact s15_block_at_socketH_L_gk K hh hh7 hb
+    exact s15_block_at_socketH_L_gk_b9 K hh hh9 hb
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (flatDoorM A) hKw hsel
     (hsupply hKqb R (flatDoorM A) hM1 hfl hKswR (by rw [hHlo]; exact hT₀) hblk hcof hcapsc)

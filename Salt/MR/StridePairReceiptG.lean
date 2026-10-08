@@ -39,7 +39,10 @@ replays re-prove their bodies at a generic `P`.  The five `S16FlatTerminalLinear
 replays call (`s13_smallGradeFits_of_halfWindow_L_gk_h`, `s13_gate8_L_gk_h`,
 `doorBaseFrame_at_socket_LH`, `s15_gRows_const_at_socket_flat_doorLH_gk`,
 `s13_g2_jfloor_of_MSelect'_L_gk_shift28`) are `δ₀`/`ρ`-generic (no `838400`/`403`/`417` in any of
-their statements).  `V7RatedH`/H3 are untouched by construction: nothing here is imported by them.
+their statements).  (2026-10-08: family 44 — the replays call the cap-9 twins of three of the five,
+`s13_smallGradeFits_of_halfWindow_L_gk_h_b9`, `s13_gate8_L_gk_h_b9` and
+`s15_gRows_const_at_socket_flat_doorLH_gk_b9`, whose statements are the pages' at `log h ≤ 9`.)
+`V7RatedH`/H3 are untouched by construction: nothing here is imported by them.
 
 HONEST LABEL.  A second terminal that the crown alone reads: the landed lane keeps serving the
 `h`-prize at `1/(837782·h²)`, this lane serves the affine composition at `1/(837782·2^11·h²)`.
@@ -56,6 +59,15 @@ Degenerate values: as at `StridePairReceipt` — `a = 0` excluded by `1 ≤ a`; 
 at `a = 1`, `Xi := bigXiH h` the graded anti-drift instance `mrtUniformityXiL2H_holds_flat_g` is
 the plain `h`-door 2048× finer; `K = 0` trivialises the counts.  At `h = 1` the graded pin is
 `1/(838400·2048) = 5.82·10⁻¹⁰`, still `≥ 1/2^31 = 4.66·10⁻¹⁰` (the walls' floor).
+
+(2026-10-08, XY debt lane family 44: the graded replays `flat_conditional_generic_h_g` (§5) and
+`flat_kswin_generic_h_g` (§5) have their calls of eight cap-7 pages at the pages' cap-9 twins in
+`S16ProducersH` and `S16FlatTerminalLinearLH` — nine and one — `log h ≤ 9` supplied once in each by
+a `have` from `hh7`; their statements are unchanged; every other call keeps the cap 7 —
+`flat_witFloor_eq_designBase_h`, `s13_g2_jfloor_of_MSelect'_L_gk_h`, `s15ArmH_log_le_g`,
+`s15_sel''_L_gk_witness_flat_bumped_win_h_g` and `xceil_arm_split_mul_h`
+(`flat_witFloor_eq_designBase_h`'s twin is outside this family; the others have no cap-only twin in
+scope).  No name is retired by it.)
 -/
 import Salt.MR.StridePairReceipt
 import Salt.MR.StrideGradeWalls
@@ -507,6 +519,7 @@ theorem flat_capstone_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
     rw [hval]
     linarith [hend]
 
+-- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦H2→H3 REPLAY, GRADED⟧ (class B).** Statement: `flat_conditional_generic_h` at the
 graded forms. BODY: its body VERBATIM with ONE name swap:
 `s15ArmH_log_le hh hh7 hδ₀ hδpin hKc hKcb hH4 hll` ↦ `s15ArmH_log_le_g …` (same arguments;
@@ -517,6 +530,7 @@ theorem flat_conditional_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h :
     (Awin : ℝ) (_hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
     (hcap : FlatCapstoneFormHG h Awin P) :
     FlatConditionalFormHG h Awin P := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨Cg, ε, Kc, δ₀, β, x₀, Hopq, Mfl, hCg, hε, hKc,
     hδ₀, hMfl, hCgle, hεpin, hδpin, hKcb, hMflb,
     hβ, hcapU⟩ := hcap
@@ -685,31 +699,32 @@ theorem flat_conditional_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h :
     (s13_doorGates_of_MSelect'_L_gk K hsel.hM hδ₀ hS harmdem)
     (s13_endpoint_of_arm' hδ₀ harmdem)
     (s13_g2_jfloor_of_MSelect'_L_gk_h hh hh7 hj0raw)
-    (s13_gate8_L_gk_h hh hh7 le_rfl (by linarith) hsel.gRows)
-    (s13_smallGradeFits_of_halfWindow_L_gk_h hh hh7 hρ0 hρ1 hfl hsel.half)
+    (s13_gate8_L_gk_h_b9 hh hh9 le_rfl (by linarith) hsel.gRows)
+    (s13_smallGradeFits_of_halfWindow_L_gk_h_b9 hh hh9 hρ0 hρ1 hfl hsel.half)
     (fun H L q j A s hb => doorBaseFrame_at_socket_LH hb (harith H L q j A s hb))
     (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gen hCt hρ0 hsel.gP1)
     (fun H L q j A s hb =>
-      s15_gRows_const_at_socket_flat_doorLH_gk K hh hh7 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
+      s15_gRows_const_at_socket_flat_doorLH_gk_b9 K hh hh9 hfl hb hsel.hM hρ0 hρ1 htow hsel.rho
         hsel.lvl)
     (fun H L q j A s hb =>
-      s12c_eps_threshold_at_socket_flatH hh hh7 hfl hb hlam50 htow hsel.rho le_rfl)
+      s12c_eps_threshold_at_socket_flatH_b9 hh hh9 hfl hb hlam50 htow hsel.rho le_rfl)
     (fun H L q j A s hb =>
-      s15_heps293_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_heps293_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun H L q j A s hb =>
-      s15_hband4096_at_socket_flatH hh hh7 hfl hb hρ0 hlam50 htow hsel.rho)
+      s15_hband4096_at_socket_flatH_b9 hh hh9 hfl hb hρ0 hlam50 htow hsel.rho)
     (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
     (fun H L q j A s hb =>
       s13_doorRowZeroBase_five_L_gk K hsel.hM
-        (s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk)
+        (s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk)
         hb.2.2.2.2.2.2.1)
     hcap
-    (doorBandBase_family'H_L_gk K hh hh7 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+    (doorBandBase_family'H_L_gk_b9 K hh hh9 hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
       (s15ArmH_rho hRarm) harith hsel.x0M (fun _ => le_rfl) hgrade
       (fun H L q j A s hb =>
-        s15_block_at_socketH_L_gk K hh hh7 hb (hHreg H hb.1 hb.2.1) hsel.blk))
+        s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
+-- 2026-10-08, the XY debt lane, family 44: one call at the cap 9 (one twin); the rest at cap 7
 /-- **⟦H3→H4 REPLAY, GRADED⟧ (class B).** Statement: `flat_kswin_generic_h` at the graded
 forms. BODY: its body VERBATIM with ONE name swap:
 `s15_sel''_L_gk_witness_flat_bumped_win_h hA26 K hKw hh hh7 hδ₀ hδpin hKc hKcb hCt hCtb hCgle
@@ -720,6 +735,7 @@ theorem flat_kswin_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) 
     (_hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
     (hcond : FlatConditionalFormHG h Awin P) :
     FlatKswinFormHG h Awin P := by
+  have hh9 : Real.log (h : ℝ) ≤ 9 := le_trans hh7 (by norm_num)
   obtain ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hKcb, hMflb, hβ, hcondU⟩ := hcond
   obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
@@ -804,7 +820,7 @@ theorem flat_kswin_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) 
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
-    exact s15_block_at_socketH_L_gk K hh hh7 hb
+    exact s15_block_at_socketH_L_gk_b9 K hh hh9 hb
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (flatDoorM A) hKw hsel
     (hsupply hKqb R (flatDoorM A) hM1 hfl hKswR
