@@ -104,7 +104,7 @@ theorem sqrt_gcd_le_sum_sqrt_common_divisors (n m : ℕ) (hn : n ≠ 0) :
 /-- `√d ≤ d` for `1 ≤ d`.  (mathlib has no `Real.sqrt_le_self`; this is the two-line
 `sqrt_le_sqrt` + `sqrt_sq` route, used by both per-term cores.) -/
 private lemma sqrt_le_self_of_one_le {x : ℝ} (hx : 1 ≤ x) : Real.sqrt x ≤ x := by
-  have h1 : x ≤ x ^ 2 := by nlinarith
+  have h1 : x ≤ x ^ 2 := by nlinarith only [hx]
   calc Real.sqrt x ≤ Real.sqrt (x ^ 2) := Real.sqrt_le_sqrt h1
     _ = x := Real.sqrt_sq (by linarith)
 
@@ -153,7 +153,7 @@ private lemma rowA_term (n d : ℕ) (hn : n ≠ 0) (hd : d ∈ n.divisors) :
     have hsq : Real.sqrt (d : ℝ) ≤ (d : ℝ) := sqrt_le_self_of_one_le hd1
     rw [Nat.cast_mul]
     rw [div_le_iff₀ (by positivity), inv_mul_eq_div, le_div_iff₀ htpos]
-    nlinarith [Real.sqrt_nonneg (d : ℝ)]
+    nlinarith only [hsq, (Nat.cast_nonneg _ : 0 ≤ ↑t)]
   calc ∑ t ∈ Finset.Icc 1 (n / d), Real.sqrt (d : ℝ) / ((d * t : ℕ) : ℝ)
       ≤ ∑ t ∈ Finset.Icc 1 (n / d), ((t : ℝ))⁻¹ := Finset.sum_le_sum hterm
     _ = (harmonic (n / d) : ℝ) := by rw [harmonic_eq_sum_Icc]; push_cast; ring_nf
@@ -221,7 +221,7 @@ theorem sum_sqrt_gcd_div_le_log_two_mul (n : ℕ) (hn : n ≠ 0) :
   have hbridge : 1 + Real.log n ≤ (Real.log 2)⁻¹ * Real.log (2 * n) := by
     rw [show ((2 : ℝ) * n) = 2 * (n : ℝ) from rfl,
       Real.log_mul (by norm_num) (by exact_mod_cast hn), inv_mul_eq_div, le_div_iff₀ hl2]
-    nlinarith [hlogn, Real.log_two_lt_d9]
+    nlinarith only [hlogn, Real.log_two_lt_d9]
   calc ∑ s ∈ Finset.Icc 1 n, Real.sqrt (Nat.gcd n s : ℝ) / s
       ≤ (n.divisors.card : ℝ) * (1 + Real.log n) := sum_sqrt_gcd_div_le n hn
     _ ≤ (n.divisors.card : ℝ) * ((Real.log 2)⁻¹ * Real.log (2 * n)) := by
@@ -241,7 +241,7 @@ theorem log_two_inv_not_removable :
   have hd : (((1 : ℕ).divisors.card : ℝ)) = 1 := by norm_num
   rw [hsum, hd]
   push Not
-  nlinarith [Real.log_two_lt_d9]
+  linarith only [Real.log_two_lt_d9]
 
 /-! ### Row B — the (7.8) intermediate -/
 
@@ -333,9 +333,9 @@ theorem hdvd_is_load_bearing :
     rw [show (4:ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
   -- `√5 > 2` and `√6 > 2`, each on its own: if `√5 ≤ 2` then `5 = √5² ≤ 4`.
   have b5 : (2:ℝ) < Real.sqrt 5 := by
-    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5), Real.sqrt_nonneg (5:ℝ)]
+    nlinarith only [Real.sqrt_nonneg (5 : ℝ), Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 5)]
   have b6 : (2:ℝ) < Real.sqrt 6 := by
-    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 6), Real.sqrt_nonneg (6:ℝ)]
+    nlinarith only [Real.sqrt_nonneg (6 : ℝ), Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 6)]
   have hd : ((1 : ℕ).divisors.card : ℝ) = 1 := by norm_num
   rw [hsum, h4, hd]
   push Not
