@@ -303,10 +303,10 @@ theorem zeta_block_kusmin (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N : ℝ)
   have hδ2π : δ ≤ 1 / (2 * π) := by
     rw [hδ, div_le_div_iff₀ (by positivity) (by positivity)]
     have ht2N1 : t ≤ 2 * (N : ℝ) + 1 := by linarith [hN, Nat.cast_nonneg (α := ℝ) N]
-    nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr ht2N1)]
+    linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr ht2N1)]
   have hδ12 : δ ≤ 1 / 2 := by
     have h : 1 / (2 * π) ≤ 1 / 2 := by
-      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; nlinarith [hpi1]
+      rw [div_le_div_iff₀ (by positivity) (by norm_num)]; linarith only [hpi1]
     linarith [hδ2π]
   have hδ0 : 0 < δ := by rw [hδ]; exact div_pos ht (by positivity)
   -- Kusmin–Landau window hypotheses (m = -1)
@@ -323,8 +323,8 @@ theorem zeta_block_kusmin (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N : ℝ)
       mul_le_mul_of_nonneg_left hLlb (le_of_lt hApos)
     have hstep2 : δ ≤ t / (2 * π) * (1 / ((n : ℝ) + 1)) := by
       rw [mul_one_div, hδ, div_div, div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [mul_le_mul_of_nonneg_left hn12N
-        (mul_nonneg (le_of_lt ht) (le_of_lt (show (0 : ℝ) < 2 * π by positivity)))]
+      linarith only [mul_le_mul_of_nonneg_left hn12N
+          (mul_nonneg (le_of_lt ht) (le_of_lt (show (0 : ℝ) < 2 * π by positivity)))]
     have hcomb : δ ≤ t / (2 * π) * (Real.log ((n : ℝ) + 1) - Real.log (n : ℝ)) :=
       le_trans hstep2 hstep1
     rw [hgval n, neg_mul]; push_cast; linarith [hcomb]
@@ -344,9 +344,9 @@ theorem zeta_block_kusmin (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N : ℝ)
       rw [mul_one_div, div_div]
       have h1 : t / (2 * π * (n : ℝ)) ≤ 1 / (2 * π) := by
         rw [div_le_div_iff₀ (by positivity) (by positivity)]
-        nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htn)]
+        linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr htn)]
       have h3 : 1 / (2 * π) + 1 / (2 * π) ≤ 1 := by
-        rw [← add_div, div_le_one (by positivity)]; nlinarith [Real.pi_gt_three]
+        rw [← add_div, div_le_one (by positivity)]; linarith only [hpi1]
       linarith [h1, hδ2π, h3]
     have hcomb : t / (2 * π) * (Real.log ((n : ℝ) + 1) - Real.log (n : ℝ)) ≤ 1 - δ :=
       le_trans hstep1 hbound
@@ -357,7 +357,7 @@ theorem zeta_block_kusmin (t : ℝ) (ht : 0 < t) (N : ℕ) (hN : t ≤ (N : ℝ)
     have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
     have hn1 : (0 : ℝ) < (n : ℝ) + 1 := by linarith
     have hratio : ((n : ℝ) + 2) / ((n : ℝ) + 1) ≤ ((n : ℝ) + 1) / (n : ℝ) := by
-      rw [div_le_div_iff₀ hn1 hn0]; nlinarith
+      rw [div_le_div_iff₀ hn1 hn0]; linarith only [hδ0, hδ12]
     have hlogle :=
       Real.log_le_log (show (0 : ℝ) < ((n : ℝ) + 2) / ((n : ℝ) + 1) by positivity) hratio
     rw [Real.log_div (by positivity) (ne_of_gt hn1),

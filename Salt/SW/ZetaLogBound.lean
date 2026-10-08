@@ -52,8 +52,8 @@ lemma rpow_one_sub_le_exp {x σ L : ℝ} (hx1 : 1 ≤ x) (hℓL : Real.log x ≤
   rw [Real.rpow_def_of_pos hx0]
   apply Real.exp_le_exp.mpr
   rcases le_or_gt (1 - σ) 0 with hane | hapos
-  · nlinarith [mul_nonneg (neg_nonneg.mpr hane) hℓ0]
-  · nlinarith [mul_le_mul_of_nonneg_left hℓL (le_of_lt hapos), haL]
+  · linarith only [mul_nonneg (neg_nonneg.mpr hane) hℓ0]
+  · linarith only [haL, mul_le_mul_of_nonneg_left hℓL (le_of_lt hapos)]
 
 /-- The `n^{−σ} ≤ e·n^{−1}` refinement used on the main sum and the truncation remainder. -/
 lemma rpow_neg_le_exp_mul_inv {x σ L : ℝ} (hx1 : 1 ≤ x) (hℓL : Real.log x ≤ L)
@@ -135,7 +135,7 @@ theorem zeta_log_bound :
   have hLge_log4 : Real.log 4 ≤ L := by rw [hL]; exact Real.log_le_log (by norm_num) (by linarith)
   have hlog4 : (4 : ℝ) / 3 < Real.log 4 := by
     have h2 := Real.log_two_gt_d9
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; nlinarith [h2]
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; linarith only [h2]
   have hLge43 : (4 : ℝ) / 3 ≤ L := le_of_lt (lt_of_lt_of_le hlog4 hLge_log4)
   have hLpos : 0 < L := by linarith
   have hLge1 : (1 : ℝ) ≤ L := by linarith
@@ -279,8 +279,8 @@ theorem zeta_log_bound :
           mul_le_mul_of_nonneg_left hNσ hNpos.le
       _ = Real.exp 1 := by field_simp
   have key : σ + |t| ≤ 9 * ((N : ℝ) * σ) := by
-    nlinarith [hσ14, hNhalf, ht, mul_nonneg (show (0 : ℝ) ≤ 9 * (N : ℝ) - 1 by linarith)
-      (show (0 : ℝ) ≤ σ - 1 / 4 by linarith)]
+    linarith only [hNlt, ht, mul_nonneg (show (0 : ℝ) ≤ 9 * (N : ℝ) - 1 by linarith)
+        (show (0 : ℝ) ≤ σ - 1 / 4 by linarith)]
   have hTailbound : ‖s‖ * ((N : ℝ) ^ (-σ) / σ) ≤ 9 * Real.exp 1 := by
     rw [← mul_div_assoc, div_le_iff₀ hσpos]
     calc ‖s‖ * (N : ℝ) ^ (-σ)
@@ -294,8 +294,8 @@ theorem zeta_log_bound :
   have hTail : ‖∑' n : ℕ, dTerm s (n + N + 1)‖ ≤ 9 * Real.exp 1 := le_trans hchain hTailbound
   -- Assemble: `‖ζ‖ ≤ eL + 11e ≤ 36 L`.
   have he3 : Real.exp 1 < 3 := by have := Real.exp_one_lt_d9; linarith
-  nlinarith [htri, hMain, hB, hTail, he3, hLge1, hLpos,
-    mul_nonneg (show (0 : ℝ) ≤ 3 - Real.exp 1 by linarith) hLpos.le,
-    mul_nonneg (show (0 : ℝ) ≤ 33 by norm_num) (show (0 : ℝ) ≤ L - 1 by linarith)]
+  linarith only
+      [he3, hTailbound, hchain, hB, hMain, htri, hlog4, hLge_log4,
+      mul_nonneg (show (0 : ℝ) ≤ 3 - Real.exp 1 by linarith) hLpos.le]
 
 end Salt.SW
