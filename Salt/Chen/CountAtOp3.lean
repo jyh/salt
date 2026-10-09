@@ -430,8 +430,8 @@ theorem corr_le_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       (le_div_iff₀ hLpos).mp hI_le
     have hupos : (0 : ℝ) < u := by linarith [hLpos, hLu]
     rw [div_le_div_iff₀ hupos (by positivity : (0 : ℝ) < (Real.log x) ^ 2)]
-    nlinarith [mul_le_mul_of_nonneg_right hI_le' hLpos.le,
-      mul_le_mul_of_nonneg_left hLu (by positivity : (0 : ℝ) ≤ 3 / 2 * Real.log 2), hLpos]
+    linarith only [mul_le_mul_of_nonneg_left hLu (by positivity : (0 : ℝ) ≤ 3 / 2 * Real.log 2),
+        mul_le_mul_of_nonneg_right hI_le' hLpos.le]
   have h_zN := ifun_div_bound (opZ x : ℝ) h1Z (by linarith [hZlog, hLpos]) hZge
   have h_yN := ifun_div_bound (opY x : ℝ) h1Y (by linarith [hYlog]) hYge
   -- the dominant `(21/log zR)·Ifun zR ≤ 252·log2/(log x)²`
@@ -520,7 +520,7 @@ theorem corr_le_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       have hA : hbjs (x : ℝ) (p₁ : ℝ) (⌊Real.sqrt ((x : ℝ) / (p₁ : ℝ))⌋₊ : ℝ)
             / (⌊Real.sqrt ((x : ℝ) / (p₁ : ℝ))⌋₊ : ℝ) ≤ 3 / (Real.log x) ^ 2 := by
         rw [div_le_div_iff₀ hfloor_pos (by positivity : (0 : ℝ) < (Real.log x) ^ 2)]
-        nlinarith [mul_le_mul_of_nonneg_right hfloor_le' hLpos.le, hLfloor, hLpos]
+        linarith only [hfloor_ge_opY, hYge, mul_le_mul_of_nonneg_right hfloor_le' hLpos.le]
       have hB : (21 / Real.log yR) * hbjs (x : ℝ) (p₁ : ℝ) (Real.sqrt ((x : ℝ) / (p₁ : ℝ)))
             ≤ 189 / (Real.log x) ^ 2 := by
         have hcoef : (21 / Real.log yR) = 63 / Real.log x := by
@@ -658,9 +658,9 @@ theorem op_ls_facts (Ksw : ℝ) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   have h56nn : (0 : ℝ) ≤ (x : ℝ) ^ ((5 : ℝ) / 6) := Real.rpow_nonneg hxpos.le _
   -- `7·log x ≤ x^{1/6}` and `2·(log x)³ ≤ x^{1/6}`
   have h7L : 7 * Real.log x ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := by
-    rw [h16eq]; nlinarith [h12a, h12big, h12nn, hLpos]
+    rw [h16eq]; nlinarith only [h12a, hL96, h12big]
   have h2L3 : 2 * (Real.log x) ^ (3 : ℕ) ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := by
-    rw [h16eq]; nlinarith [h12b, h12big, h12nn]
+    rw [h16eq]; nlinarith only [h12a, hL96, h12big, h12b]
   -- `opY x · √x ≤ x^{5/6}`
   have hOY : (opY x : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 3) := by
     rw [opY]; exact Nat.floor_le (Real.rpow_nonneg hxpos.le _)
@@ -684,7 +684,7 @@ theorem op_ls_facts (Ksw : ℝ) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   · -- 7·opY·√x ≤ x/log x
     rw [le_div_iff₀ hLpos]
     calc 7 * ((opY x : ℝ) * (Nat.sqrt x : ℝ)) * Real.log x
-        ≤ 7 * (x : ℝ) ^ ((5 : ℝ) / 6) * Real.log x := by nlinarith [hpw, hLpos, h56nn]
+        ≤ 7 * (x : ℝ) ^ ((5 : ℝ) / 6) * Real.log x := by nlinarith only [hL96, hpw]
       _ = (x : ℝ) ^ ((5 : ℝ) / 6) * (7 * Real.log x) := by ring
       _ ≤ (x : ℝ) ^ ((5 : ℝ) / 6) * (x : ℝ) ^ ((1 : ℝ) / 6) :=
           mul_le_mul_of_nonneg_left h7L h56nn
@@ -695,7 +695,7 @@ theorem op_ls_facts (Ksw : ℝ) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
         ≤ 2 * (Real.log x) ^ 2 * (x : ℝ) ^ ((5 : ℝ) / 6) * Real.log x := by
           have hcoef_nn : (0 : ℝ) ≤ 2 * (Real.log x) ^ 2 * Real.log x :=
             mul_nonneg (mul_nonneg (by norm_num) (sq_nonneg _)) hLpos.le
-          nlinarith [mul_le_mul_of_nonneg_left hpw hcoef_nn]
+          linarith only [mul_le_mul_of_nonneg_left hpw hcoef_nn]
       _ = (x : ℝ) ^ ((5 : ℝ) / 6) * (2 * (Real.log x) ^ (3 : ℕ)) := by ring
       _ ≤ (x : ℝ) ^ ((5 : ℝ) / 6) * (x : ℝ) ^ ((1 : ℝ) / 6) :=
           mul_le_mul_of_nonneg_left h2L3 h56nn
@@ -710,7 +710,7 @@ theorem op_ls_facts (Ksw : ℝ) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     have hL11 : (Real.log x) ^ (11 : ℕ) = (Real.log x) ^ (10 : ℕ) * Real.log x := by
       rw [← pow_succ]
     rw [hL11]
-    nlinarith [mul_le_mul_of_nonneg_right hL10 (mul_nonneg hxpos.le hLpos.le)]
+    linarith only [mul_le_mul_of_nonneg_right hL10 (mul_nonneg hxpos.le hLpos.le)]
 
 /-! ## Section G — fold 3: the `(★)` composition `hcount_star_at_op`
 
@@ -752,7 +752,7 @@ theorem hcount_star_at_op (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
     have h1 := mul_nonneg cbar_pos.le hK0
     have h2 := mul_nonneg cbar_pos.le hlog2pos.le
     have h3 := mul_nonneg cbar_pos.le hKmass
-    nlinarith [h1, h2, h3]
+    linarith only [h3, h2, h1, hlog2pos]
   refine ⟨(cbar * (21 * K₀ + 14 * Real.log 2) + (255 * Real.log 2 + 768)
         + 2 * cbar * Kmass + 4) / 2,
     max (max xLv xA) (max (max xC xF)
@@ -956,7 +956,7 @@ theorem hcount_star_at_op (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
   have hslack_le : W - 1 ≤ 7 * (6 * K₀ + 4 * Real.log 2) / L := by
     have h1 : (6 * K₀ + 4 * Real.log 2) / L₀ ≤ 7 * (6 * K₀ + 4 * Real.log 2) / L := by
       rw [div_le_div_iff₀ hL₀pos hLpos]
-      nlinarith only [mul_nonneg h6K0nn (by linarith only [hL₀7] : (0 : ℝ) ≤ 7 * L₀ - L)]
+      linarith only [mul_nonneg h6K0nn (by linarith only [hL₀7] : (0 : ℝ) ≤ 7 * L₀ - L)]
     linarith only [hsc, h1]
   have hWslack : W * (cbar / 2) * (x : ℝ)
       ≤ cbar / 2 * (x : ℝ) + cbar * (21 * K₀ + 14 * Real.log 2) * t := by
@@ -972,7 +972,7 @@ theorem hcount_star_at_op (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
   have hml4 : (x : ℝ) / 4 ≤ (x : ℝ) / 2 - 1 - 2 * Kmass * x / L := by
     have h1 : 2 * Kmass * (x : ℝ) / L ≤ (x : ℝ) / 8 := by
       rw [div_le_div_iff₀ hLpos (by norm_num)]
-      nlinarith only [mul_le_mul_of_nonneg_left hLM hxpos.le]
+      linarith only [mul_le_mul_of_nonneg_left hLM hxpos.le]
     linarith only [h1, hx8R]
   have hlogopZ_pos : 0 < Real.log (opZ x : ℝ) := Real.log_pos (by linarith only [hZge, hL96])
   have hEge : 8 * ((cbar * (21 * K₀ + 14 * Real.log 2) + (255 * Real.log 2 + 768)
