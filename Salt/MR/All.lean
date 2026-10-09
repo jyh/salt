@@ -9330,17 +9330,17 @@ a drifted def would still elaborate at every consumer and no build could see it.
 ⛔ NOT here: word 8's `Ct ≤ 2^23` export at `h` (its statement copy alone exceeds the
 commission's own 30-line budget before any body, and it would re-cut the `Ct` slot of all three
 hops — the antecedent stays and H3 takes it); H2c's crossing supplier; H3's uniform lane.
-Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is. -/
+Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is.
+2026-10-09: the XY debt lane's family 47 retired `s13_gate8_L_gk_h`,
+`s15_gRows_const_at_socket_flat_doorLH_gk` and `s13_smallGradeFits_of_halfWindow_L_gk_h` into their
+cap-9 twins, their three rows dropped here (the twins are audited under ⟦β W1 E3⟧ and ⟦β W2 F3⟧). -/
 #audit_axioms Salt.MR.s16BandLaneCBoundedLH_one_iff
   Salt.MR.s15CrossingBound_LH_gk_one_iff
   Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.RSanDoorRhoH_le_RSanDoorRho
-  Salt.MR.s13_gate8_L_gk_h
   Salt.MR.doorBaseFrame_at_socket_LH
-  Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk
   Salt.MR.s13_smallGradeFits_h
   Salt.MR.s13_winFit_h_of_halfWindow_gen
-  Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28
   Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.logChowla2_witnessed_scale_flat_LH
@@ -10252,8 +10252,9 @@ landed capfloor bundle; 2026-10-05: family 39 retired the sources of `cofkL_sock
 `klevF_capNumeral_h_b9` into them, noted where they stood in `V7RatedH`; 2026-10-08: family 44
 re-pointed the seven consumers of `S16FlatTerminalLinearLH`'s `s13_gate8_L_gk_h` and
 `s13_smallGradeFits_of_halfWindow_L_gk_h` to their twins here, their statements unchanged, and moved
-that file's §5 and §6 below its two twin blocks).  Each twin is its source's statement and body with
-ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`,
+that file's §5 and §6 below its two twin blocks; 2026-10-09: family 47 retired those two pages into
+their twins here, noted where they stood).  Each twin is its source's statement and body with ONLY
+the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`,
 `548000 ↦ 4051500`, and the census's in-body literals — every derived cap-dependent supplier
 replaced by its twin, and no hypothesis added.  Two conclusion/hypothesis numerals move as the
 census prices them: `cofkL_mu_floor_h_b9` concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and
@@ -10424,14 +10425,14 @@ each, its statement unchanged, and moved that file's §4 and §5 below its twin 
 family 39 retired the sources of `cofkR_cofactorSupply_L_gk_rated_h_b9` and
 `s16_baseScaleCap96_LH_at_klevF_b9` into them, noted where they stood in `V7RatedH`; 2026-10-08:
 family 44 re-pointed the seven consumers of `s15_gRows_const_at_socket_flat_doorLH_gk`
-(`S16FlatTerminalLinearLH`) to its twin here, their statements unchanged).  Each twin is its
-source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed
-against their sources), every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis
-added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤ 10^21` through
-`h_le_8103_of_hh9` (was `h ≤ 1096`); `cofkR_cofactorSupply_L_gk_rated_h_b9` takes
-`cofkL_mu_floor_h_b9`'s `−32` at its four sites (`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`),
-binding step `c ≤ 100` at margin 0.4533.  Nothing here bears on twin primes.  16 obligations, 16
-landed. -/
+(`S16FlatTerminalLinearLH`) to its twin here, their statements unchanged; 2026-10-09: family 47
+retired that page into its twin here, noted where it stood).  Each twin is its source's statement
+and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed against their sources),
+every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis added.  Named numerals:
+`capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤ 10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`);
+`cofkR_cofactorSupply_L_gk_rated_h_b9` takes `cofkL_mu_floor_h_b9`'s `−32` at its four sites
+(`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`), binding step `c ≤ 100` at margin 0.4533.  Nothing here
+bears on twin primes.  16 obligations, 16 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s13_abs8640_at_shift_LH_b9
   Salt.MR.s13CapGrid_kappa30_LH_b9
