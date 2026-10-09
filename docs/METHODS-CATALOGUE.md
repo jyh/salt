@@ -1,21 +1,21 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0e7d872c` · source digest `83ca50001955b0e5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `14470a97` · source digest `1e4178145c6c83c3` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22628 · with a proof/definition body: 22628 · direct corpus references (edges): 85124 · audited results: 9014 · corpus Prop-valued names: 668.
+Declarations indexed: 22626 · with a proof/definition body: 22626 · direct corpus references (edges): 85118 · audited results: 9012 · corpus Prop-valued names: 668.
 
 ## Hypothesis status (Deliverable A)
 
 | status | corpus Props | hung on >= 1 audited conditional result | audited conditional results hanging on them |
 |---|---|---|---|
-| DISCHARGED | 214 | 150 | 1040 |
+| DISCHARGED | 214 | 150 | 1039 |
 | STRUCTURAL | 4 | 4 | 89 |
 | FRAME | 47 | 24 | 151 |
 | OPEN | 403 | 188 | 619 |
-| **all** | 668 | 366 | 1521 |
+| **all** | 668 | 366 | 1520 |
 
 Of the DISCHARGED, 94 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -283,7 +283,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | hypothesis | status | hang count | producer(s) |
 |---|---|---|---|
-| `Salt.MR.SocketBaseLH` | DISCHARGED | 170 | `Salt.MR.socketBaseLH_inhabited_at_twice_x` ✓audited GUARDED (Salt/MR/TierSSocket.lean:123) |
+| `Salt.MR.SocketBaseLH` | DISCHARGED | 169 | `Salt.MR.socketBaseLH_inhabited_at_twice_x` ✓audited GUARDED (Salt/MR/TierSSocket.lean:123) |
 | `Salt.MR.TannGate` | DISCHARGED | 158 | `Salt.MR.TannGate_of_row_height` ✓audited GUARDED (Salt/MR/USetPins.lean:345) |
 | `Salt.MR.M4DoorGates` | DISCHARGED | 55 | `Salt.MR.s13_doorGates_of_arm` ✓audited GUARDED (Salt/MR/S13FramesA.lean:375) · `Salt.MR.s13_doorGates_of_arm'` ✓audited GUARDED (Salt/MR/S13FramesA.lean:857) |
 | `Salt.MR.MmuChiRate` | DISCHARGED | 51 | `Salt.MR.mmuChiRate_holds_gated` ✓audited (Salt/MR/PortClose.lean:157) |
@@ -414,7 +414,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4BlockMeanSqSupQ` | DISCHARGED | 1 | `Salt.MR.m4_blockMeanSqSupQ_of_classPrice` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:373) |
 | `Salt.MR.M4ChiFreeShiftBlockMeanSq` | DISCHARGED | 1 | `Salt.MR.m4_chiFreeShiftBlock_trivial` ✓audited (Salt/MR/M4CoprimeSupply.lean:262) |
 | `Salt.MR.M4ChiShiftBlockMeanSq` | DISCHARGED | 1 | `Salt.MR.m4_chiShiftBlock_trivial` ✓audited (Salt/MR/M4Maximal.lean:789) |
-| `Salt.MR.M4ChiSummedFreeRowBigH_L_gk` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_poolH_L_gk` ✓audited GUARDED (Salt/MR/S16ProducersH.lean:1201) |
+| `Salt.MR.M4ChiSummedFreeRowBigH_L_gk` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_poolH_L_gk` ✓audited GUARDED (Salt/MR/S16ProducersH.lean:1182) |
 | `Salt.MR.M4ChiSummedFreeRow_gk` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_gk` GUARDED (Salt/MR/M4Assembly.lean:714) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_gk` GUARDED (Salt/MR/M4AssemblyPool.lean:478) · `Salt.MR.m4_chiSummedFreeRow_trivial_gk` (Salt/MR/M4ChiSummed.lean:1097) |
 | `Salt.MR.M4ChiSummedFreeShiftBlock` | DISCHARGED | 1 | `Salt.MR.m4_chiSummedShiftBlock_trivial` ✓audited (Salt/MR/M4ChiSummed.lean:411) |
 | `Salt.MR.M4CoprimeBlockMeanSqN` | DISCHARGED | 1 | `Salt.MR.m4_coprimeBlockMeanSqN_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:526) |
@@ -964,7 +964,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | circle method / Fourier | 181 | 83 | 558 | 540 | 22 | 10 | 0 | 1130 | 1066 |
 | entropy decrement | 1397 | 533 | 525 | 411 | 78 | 38 | 0 | 1052 | 605 |
 | large sieve | 136 | 18 | 708 | 491 | 1 | 22 | 0 | 1222 | 1208 |
-| Selberg/Brun sieve | 5626 | 949 | 3738 | 1244 | 65 | 93 | 0 | 5140 | 4276 |
+| Selberg/Brun sieve | 5626 | 949 | 3738 | 1243 | 65 | 93 | 0 | 5139 | 4275 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1478 | 612 | 4 | 19 | 0 | 2113 | 1481 |
 | zero-density / zero-free regions | 724 | 292 | 1015 | 642 | 2 | 20 | 0 | 1679 | 1426 |
 | character sums / L-functions | 4277 | 2153 | 1806 | 745 | 81 | 99 | 0 | 2731 | 879 |
@@ -972,13 +972,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 253 | 67 | 877 | 698 | 4 | 16 | 0 | 1595 | 1538 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 666 | 658 | 1 | 5 | 0 | 1330 | 1330 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9700 | 5358 | 2964 | 1215 | 168 | 189 | 0 | 4536 | 61 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9698 | 5356 | 2963 | 1214 | 168 | 189 | 0 | 4534 | 61 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4276 external dependents
+### Selberg/Brun sieve — 4275 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1152,7 +1152,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5358 | 9700 |
+| Matomaki-Radziwill / Halasz (short intervals) | 61 | 5356 | 9698 |
 | entropy decrement | 605 | 533 | 1397 |
 | character sums / L-functions | 879 | 2153 | 4277 |
 | circle method / Fourier | 1066 | 83 | 181 |
@@ -1162,7 +1162,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | zero-density / zero-free regions | 1426 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1481 | 726 | 1609 |
 | Mertens / PNT-type | 1538 | 67 | 253 |
-| Selberg/Brun sieve | 4276 | 949 | 5626 |
+| Selberg/Brun sieve | 4275 | 949 | 5626 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
@@ -1445,8 +1445,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.coprime_bandProd_of_blockOmega_zero` | unconditional | 370 | 4 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.MR.loglogFloor50` | infrastructure | 366 | 0 | Matomaki-Radziwill / Halasz (short intervals) | - | - |
 | `Salt.Vk.zeta_keep_one_disc` | unconditional | 366 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
-| `Salt.MR.arcDen_nonneg` | unconditional | 365 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.Vk.zeta_zero_free_of_disc` | unconditional | 365 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
+| `Salt.MR.arcDen_nonneg` | unconditional | 364 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.SW.sq_le_C_exp` | unconditional | 364 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | - | - |
 | `Salt.Vk.region_of_uniform_growth` | unconditional | 364 | 2 | zero-density / zero-free regions | zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.SW.E_shape_bound` | unconditional | 363 | 1 | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions | Bombieri-Vinogradov / Siegel-Walfisz; character sums / L-functions |
