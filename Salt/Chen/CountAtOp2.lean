@@ -120,10 +120,10 @@ theorem Lval_op_ge {x : ℕ} (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) :
     have hcast : (x : ℝ) = (D : ℝ) * (Lval x (opY x) : ℝ) + ((x % D : ℕ) : ℝ) := by
       rw [hLvalEq]; exact_mod_cast h.symm
     have hltR : ((x % D : ℕ) : ℝ) < (D : ℝ) := by exact_mod_cast hlt
-    nlinarith [hcast, hltR]
+    linarith only [hltR, hcast]
   have hLval_ge : (x : ℝ) / (D : ℝ) - 1 ≤ (Lval x (opY x) : ℝ) := by
     rw [sub_le_iff_le_add, div_le_iff₀ hDposR]
-    nlinarith [hkey]
+    linarith only [hkey]
   -- `x/D ≥ x/(2 x^{5/6}) = x^{1/6}/2`
   have hx56pos : (0 : ℝ) < (x : ℝ) ^ ((5 : ℝ) / 6) := Real.rpow_pos_of_pos hxpos _
   have hxD_ge : (x : ℝ) ^ ((1 : ℝ) / 6) / 2 ≤ (x : ℝ) / (D : ℝ) := by
@@ -144,7 +144,7 @@ theorem Lval_op_ge {x : ℕ} (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) :
       _ ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := Real.rpow_le_rpow (by positivity) hx (by norm_num)
   have hx16_ge4 : (4 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := le_trans (by norm_num) hx16_ge
   -- assemble
-  calc (x : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ (x : ℝ) ^ ((1 : ℝ) / 6) / 2 - 1 := by nlinarith [hx16_ge4]
+  calc (x : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ (x : ℝ) ^ ((1 : ℝ) / 6) / 2 - 1 := by linarith only [hx16_ge]
     _ ≤ (x : ℝ) / (D : ℝ) - 1 := by linarith [hxD_ge]
     _ ≤ (Lval x (opY x) : ℝ) := hLval_ge
 
@@ -183,7 +183,7 @@ theorem hcount_Lval_rows (N₀ : ℕ) :
   have hlogLval := logLval_op_ge hx48
   have hLval_ge := Lval_op_ge hx48
   -- `4 ≤ log Lval`
-  have h4 : 4 ≤ Real.log (Lval x (opY x)) := by nlinarith [hlogLval, hL96, hlog2]
+  have h4 : 4 ≤ Real.log (Lval x (opY x)) := by linarith only [hlogLval, hlog2, hL96]
   -- `x^{1/6} ≥ 10^8`
   have hx16 : (10 : ℝ) ^ 8 ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := by
     calc (10 : ℝ) ^ 8 = ((10 : ℝ) ^ 48) ^ ((1 : ℝ) / 6) := by
@@ -192,7 +192,7 @@ theorem hcount_Lval_rows (N₀ : ℕ) :
       _ ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := Real.rpow_le_rpow (by positivity) hx48 (by norm_num)
   -- `3 ≤ Lval` (nat): `Lval ≥ x^{1/6}/4 ≥ 10^8/4 ≥ 3`
   have h3 : 3 ≤ Lval x (opY x) := by
-    have : (3 : ℝ) ≤ (Lval x (opY x) : ℝ) := by nlinarith [hLval_ge, hx16]
+    have : (3 : ℝ) ≤ (Lval x (opY x) : ℝ) := by linarith only [hx16, hLval_ge]
     exact_mod_cast this
   -- `N₀ ≤ Lval` (nat): `x ≥ (4 N₀)^6 ⇒ x^{1/6} ≥ 4 N₀ ⇒ Lval ≥ x^{1/6}/4 ≥ N₀`
   have hN₀ : N₀ ≤ Lval x (opY x) := by
@@ -207,7 +207,7 @@ theorem hcount_Lval_rows (N₀ : ℕ) :
         _ ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := Real.rpow_le_rpow (by positivity) hbase (by norm_num)
     have : (N₀ : ℝ) ≤ (Lval x (opY x) : ℝ) := by
       have : (4 * N₀ : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 6) := by push_cast at h4N₀; linarith
-      nlinarith [hLval_ge, this]
+      linarith only [this, hLval_ge]
     exact_mod_cast this
   -- the `C = 2` range row: `opQ ≤ log x ≤ (log x/6 − 2 log 2)^2 ≤ (log Lval)^2`
   have hQlogx : (opQ : ℝ) ≤ Real.log x := (htower x hxt).1
@@ -216,8 +216,8 @@ theorem hcount_Lval_rows (N₀ : ℕ) :
     have hLvalpos : 0 < Real.log (Lval x (opY x)) := by linarith
     have hsq : Real.log x ≤ (Real.log (Lval x (opY x))) ^ 2 := by
       have hstep : Real.log x ≤ (Real.log x / 6 - 2 * Real.log 2) ^ 2 := by
-        nlinarith [hL96, hlog2, Real.log_pos (show (1 : ℝ) < 2 by norm_num)]
-      nlinarith [hstep, hlogLval, hLvalpos]
+        nlinarith only [hlog2, hL96, Real.log_pos (show (1 : ℝ) < 2 by norm_num)]
+      nlinarith only [hlogLval, hlog2, hL96]
     linarith [hQlogx, hsq]
   exact ⟨h3, hN₀, h4, hrange⟩
 

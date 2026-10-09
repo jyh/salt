@@ -9124,7 +9124,9 @@ Nothing bears on twin primes: every object is conditional exactly where its `h =
 the seven OPEN sockets cross to `h` unchanged.  Purely additive.  2026-10-08: the XY debt lane's
 family 45 retired five pages of `S16ProducersH` — the three socket tops, the block page and the band
 base — into their cap-9 twins, each noted where it stood, their five rows dropped here (the twins
-are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧). -/
+are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧).  2026-10-09: family 46 retired two more,
+`s15_block_at_socket_gen_LH` and `s13_band_qfit_h`, into their cap-9 twins, their two rows dropped
+here (the twins are audited under ⟦β W1 E2⟧). -/
 #audit_axioms Salt.MR.RSanDoorRhoH
   Salt.MR.RSanDoorRhoH_one
   Salt.MR.RSanDoorRhoH_nonneg
@@ -9145,7 +9147,6 @@ are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧). -/
   Salt.MR.s13_socketBase_loglogA_LH
   Salt.MR.s14_loglogX_ge_of_socket_LH
   Salt.MR.s12c_llX_ge_LH
-  Salt.MR.s15_block_at_socket_gen_LH
   Salt.MR.s13_band_X400_LH
   Salt.MR.s13_band_baseFloor_LH
   Salt.MR.s15ArmH
@@ -9157,7 +9158,6 @@ are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧). -/
   Salt.MR.s15ArmH_log_le
   Salt.MR.s15_doorArithFrameRho_L_at_socketH''
   Salt.MR.s15_doorArithFrameRho_L_familyH''
-  Salt.MR.s13_band_qfit_h
   Salt.MR.s13_band_arm_at_top_LH
   Salt.MR.s13_band_err_free_LH
   Salt.MR.m4_hband_at_door_slotH_L_gk
@@ -9403,7 +9403,7 @@ Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGri
 `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
-`_LH` twins are already landed in `S16ProducersH` (`:333`, `:346`, `:409`, `:426`), and on the
+`_LH` twins are already landed in `S16ProducersH` (`:340`, `:353`, `:416`, `:433`), and on the
 grid page only `mu_lo` and `Lambda_sharp` touch them — the other twelve inherit.  (2026-09-29: the
 XY debt lane's family 24 retired five of the twelve into their cap-9 twins; seven stand at the
 cap 7.  2026-09-30: family 25 retired three more of the twelve; four stand at the cap 7.
@@ -10213,13 +10213,15 @@ here; 2026-10-08: family 44 re-pointed the twelve live consumers' calls of two `
 to their twins here (`s15_block_at_socketH_L_gk_b9` and `doorBandBase_family'H_L_gk_b9`) and of its
 three socket tops to their twins in ⟦β W2 F1⟧, `log h ≤ 9` supplied once in each by a `have` from
 `hh7`, their statements unchanged; no name is retired by it; 2026-10-08: family 45 retired those two
-pages into their twins here, noted in place).  Each twin is its source's statement and body with
-ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body
-literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier
-replaced by its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new
-(`e^9 = 8103.08`, sharp); four sibling mints differ from their sources only in the named literal
-(`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`,
-`capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+pages into their twins here, noted in place; 2026-10-09: family 46 retired
+`s15_block_at_socket_gen_LH` and `s13_band_qfit_h` into their twins here, noted in place).  Each
+twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
+`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in
+the `p²` row — every derived cap-dependent supplier replaced by its twin, and no hypothesis added.
+The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`, sharp); four sibling mints differ from
+their sources only in the named literal (`capfloor_logH_le_third_sqrt` `/2 ↦ /3`,
+`capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`, `capfloor_floor3_numeric_h_10`).  Nothing here bears
+on twin primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.capfloor_logH_le_third_sqrt
   Salt.MR.h_le_8103_of_hh9

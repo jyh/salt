@@ -214,7 +214,7 @@ theorem TS_branch_meansq (H : ℝ) (N X P Q j M : ℕ) (b c : ℕ → ℂ)
   have hmass : (0 : ℝ)
       ≤ ∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N X P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 :=
     Finset.sum_nonneg (fun m _ => by positivity)
-  nlinarith [mul_nonneg (sub_nonneg.mpr hA) (mul_nonneg hlog hmass)]
+  linarith only [mul_nonneg (sub_nonneg.mpr hA) (mul_nonneg hlog hmass)]
 
 /-! ## §4 — the thinness arithmetic: `|𝒯|·√T ≤ W·X^{1−2η}` -/
 
@@ -269,7 +269,7 @@ theorem Uset_thin_alpha (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1) (
   have hlogP : 0 < Real.log (Pseq Jb) := Real.log_pos hP1R
   have hexp : 2 * Real.log V / Real.log (Pseq Jb) ≤ 2 * α := by
     rw [div_le_iff₀ hlogP]
-    nlinarith [hVα]
+    linarith only [hVα]
   have hrpow : T ^ (2 * Real.log V / Real.log (Pseq Jb)) ≤ T ^ (2 * α) :=
     Real.rpow_le_rpow_of_exponent_le (le_of_lt hT) hexp
   have hcount := Uset_thin f hf1 Pseq Qseq δ J Jb hJb1 hJbJ hδ0 T V hT hV hVinv hP3 hQT
@@ -377,7 +377,7 @@ theorem uset_TS_branch (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1) (P
   have hmass : (0 : ℝ)
       ≤ ∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 :=
     Finset.sum_nonneg (fun m _ => by positivity)
-  nlinarith [mul_nonneg (sub_nonneg.mpr hkill) (mul_nonneg hlog hmass)]
+  linarith only [mul_nonneg (sub_nonneg.mpr hkill) (mul_nonneg hlog hmass)]
 
 /-- **U-5 (exit) — the `𝒯_S` branch at the MEAN-VALUE grade.**  MR's actual conclusion: once
 the thinness budget clears the co-factor length (`W·X^{1−2η} ≤ M`, the consumer's `X^{o(1)}`
@@ -410,7 +410,7 @@ theorem uset_TS_branch_meanvalue (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖
       ≤ ∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 :=
     Finset.sum_nonneg (fun m _ => by positivity)
   have hε2 : (0 : ℝ) ≤ ε ^ 2 := sq_nonneg ε
-  nlinarith [mul_nonneg hε2 (mul_nonneg (sub_nonneg.mpr hbudget) (mul_nonneg hlog hmass))]
+  linarith only [mul_nonneg hε2 (mul_nonneg (sub_nonneg.mpr hbudget) (mul_nonneg hlog hmass))]
 
 /-! ## §6 — the co-factor mass (the trivial bound on Lemma 9's coefficient sum) -/
 
@@ -438,9 +438,9 @@ lemma ramRcoeff_mass_le (H : ℝ) (N X P Q j M : ℕ) (b : ℕ → ℂ) (hb : �
       rw [heq]
       exact inv_le_one_of_one_le₀ (le_add_of_nonneg_left (by positivity))
     have hbm := hb m
-    nlinarith [norm_nonneg (b m), norm_nonneg (((blockOmega P Q m : ℂ) + 1)⁻¹)]
+    nlinarith only [hw, hbm, norm_nonneg (b m)]
   have hsq : ‖ramRcoeff H N X P Q j b m‖ ^ 2 ≤ 1 := by
-    nlinarith [norm_nonneg (ramRcoeff H N X P Q j b m)]
+    nlinarith only [hnorm, norm_nonneg (ramRcoeff H N X P Q j b m)]
   exact div_le_div_of_nonneg_right hsq (by positivity)
 
 end Salt.MR
