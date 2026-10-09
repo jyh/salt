@@ -9121,7 +9121,10 @@ fuse's output with `RStr := h⁷·rStrWitness` and the `j₀`-floor `g2_of_j0_fl
 ⛔ NOT here: the exit below the register (wave X) and the six hops above it (wave H); no
 `SocketBaseH`/`S13BandGate'H`/`rStrWitnessH` def.
 Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is;
-the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
+the seven OPEN sockets cross to `h` unchanged.  Purely additive.  2026-10-08: the XY debt lane's
+family 45 retired five pages of `S16ProducersH` — the three socket tops, the block page and the band
+base — into their cap-9 twins, each noted where it stood, their five rows dropped here (the twins
+are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧). -/
 #audit_axioms Salt.MR.RSanDoorRhoH
   Salt.MR.RSanDoorRhoH_one
   Salt.MR.RSanDoorRhoH_nonneg
@@ -9145,10 +9148,6 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
   Salt.MR.s15_block_at_socket_gen_LH
   Salt.MR.s13_band_X400_LH
   Salt.MR.s13_band_baseFloor_LH
-  Salt.MR.s12c_eps_threshold_at_socket_flatH
-  Salt.MR.s15_heps293_at_socket_flatH
-  Salt.MR.s15_hband4096_at_socket_flatH
-  Salt.MR.s15_block_at_socketH_L_gk
   Salt.MR.s15ArmH
   Salt.MR.s15ArmH_one
   Salt.MR.s15ArmH_demoted
@@ -9161,7 +9160,6 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
   Salt.MR.s13_band_qfit_h
   Salt.MR.s13_band_arm_at_top_LH
   Salt.MR.s13_band_err_free_LH
-  Salt.MR.doorBandBase_family'H_L_gk
   Salt.MR.m4_hband_at_door_slotH_L_gk
   Salt.MR.rStrWitness_G1_h
   Salt.MR.rStrWitness_mul_nonneg
@@ -9405,7 +9403,7 @@ Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGri
 `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
-`_LH` twins are already landed in `S16ProducersH` (`:332`, `:345`, `:408`, `:425`), and on the
+`_LH` twins are already landed in `S16ProducersH` (`:333`, `:346`, `:409`, `:426`), and on the
 grid page only `mu_lo` and `Lambda_sharp` touch them — the other twelve inherit.  (2026-09-29: the
 XY debt lane's family 24 retired five of the twelve into their cap-9 twins; seven stand at the
 cap 7.  2026-09-30: family 25 retired three more of the twelve; four stand at the cap 7.
@@ -10214,14 +10212,14 @@ and with no twin (this entry written by family 43); 2026-10-08: family 43 one mo
 here; 2026-10-08: family 44 re-pointed the twelve live consumers' calls of two `S16ProducersH` pages
 to their twins here (`s15_block_at_socketH_L_gk_b9` and `doorBandBase_family'H_L_gk_b9`) and of its
 three socket tops to their twins in ⟦β W2 F1⟧, `log h ≤ 9` supplied once in each by a `have` from
-`hh7`, their statements unchanged; no name is retired by it).  Each twin is its source's statement
-and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the
-census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived
-cap-dependent supplier replaced by its twin, and no hypothesis added.  The MR converter
-`h_le_8103_of_hh9` is new (`e^9 = 8103.08`, sharp); four sibling mints differ from their sources
-only in the named literal (`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`,
-`capfloor_lam_core_h_232`, `capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18
-obligations, 18 landed. -/
+`hh7`, their statements unchanged; no name is retired by it; 2026-10-08: family 45 retired those two
+pages into their twins here, noted in place).  Each twin is its source's statement and body with
+ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body
+literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier
+replaced by its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new
+(`e^9 = 8103.08`, sharp); four sibling mints differ from their sources only in the named literal
+(`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`,
+`capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.capfloor_logH_le_third_sqrt
   Salt.MR.h_le_8103_of_hh9
@@ -10319,15 +10317,16 @@ the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in
 family 34 retired `bigXiAff_bounded_ceiling_of_pin`, the cap-7 source of the first of them, into it,
 noted in `StrideFork`; 2026-10-08: family 44 re-pointed the seven consumers of `S16ProducersH`'s
 three socket tops — `s12c_eps_threshold_at_socket_flatH`, `s15_heps293_at_socket_flatH`,
-`s15_hband4096_at_socket_flatH` — to their twins here, their statements unchanged).  Each twin is
-its source's statement and body with ONLY the freeze's rule-2 raises — the product cap
-`log (a·h) ≤ 7 ↦ ≤ 9` with the count pin's `1096 ↦ 8103` (116 bits spare), the stride
-`a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦ ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s
-`28 ↦ 32` in the threshold's typed floors, the walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade
-`838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge `425 ↦ 429 = 411 + 2·9` — every derived supplier
-replaced by its twin or the landed `_g12` rung, and no hypothesis added.  `regimeShrinkX_stride_Hlo`
-was already minted by W1 E1 as `regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not
-re-minted.  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+`s15_hband4096_at_socket_flatH` — to their twins here, their statements unchanged; 2026-10-08:
+family 45 retired the three into their twins here, noted in place).  Each twin is its source's
+statement and body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with
+the count pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap
+`log h ≤ 7 ↦ ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed
+floors, the walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and
+the charge `425 ↦ 429 = 411 + 2·9` — every derived supplier replaced by its twin or the landed
+`_g12` rung, and no hypothesis added.  `regimeShrinkX_stride_Hlo` was already minted by W1 E1 as
+`regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not re-minted.  Nothing here bears on twin
+primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9
   Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_set_b9
