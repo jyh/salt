@@ -67,10 +67,10 @@ lemma norm_logDeriv_le_of_ball_dist {f : ℕ} [NeZero f] (χ : DirichletCharacte
     have ha : (4 : ℝ) ≤ 4 + |s.im| := by linarith [abs_nonneg s.im]
     have hp1nn : (0 : ℝ) ≤ 5 * (4 + |s.im|) := by linarith
     have p2 : (20 : ℝ) ≤ 5 * (4 + |s.im|) * Real.sqrt f := by
-      nlinarith [mul_nonneg hp1nn (by linarith [hsqrtf] : (0 : ℝ) ≤ Real.sqrt f - 1)]
+      linarith only [ha, mul_nonneg hp1nn (by linarith [hsqrtf] : (0 : ℝ) ≤ Real.sqrt f - 1)]
     have hp2nn : (0 : ℝ) ≤ 5 * (4 + |s.im|) * Real.sqrt f := by linarith
     have p3 : (20 : ℝ) ≤ 5 * (4 + |s.im|) * Real.sqrt f * (1 + Real.log f) := by
-      nlinarith [mul_nonneg hp2nn (by linarith [hlogf] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
+      linarith only [p2, mul_nonneg hp2nn (by linarith [hlogf] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
     rw [hM₀]; linarith [p3]
   have hM₀TgeM₀ : M₀ ≤ M₀T := by
     rw [hM₀, hM₀T]
@@ -160,7 +160,7 @@ lemma norm_logDeriv_le_of_ball_dist {f : ℕ} [NeZero f] (χ : DirichletCharacte
           have hd := hdist' ρ hρ
           have hdpos : 0 < ‖s - ρ‖ := lt_of_lt_of_le hw hd
           rw [div_le_div_iff₀ hdpos hw]
-          nlinarith [Nat.cast_nonneg (α := ℝ) (m ρ), hd]
+          nlinarith only [hd, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
       _ = (∑ ρ ∈ Z, (m ρ : ℝ)) / w := by rw [Finset.sum_div]
   have hsplit : ‖logDeriv (LFunction χ) s‖
       ≤ ‖logDeriv (LFunction χ) s - ∑ ρ ∈ Z, (m ρ : ℂ) / (s - ρ)‖
@@ -588,7 +588,7 @@ theorem psi1_contour_shift_exceptional {f : ℕ} [NeZero f] (χ : DirichletChara
     have hxexp : x ^ (u + 1) ≤ x ^ (c + 1) :=
       Real.rpow_le_rpow_of_exponent_le hx1 (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ (u + 1) * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖logDeriv (LFunction χ) ((u : ℂ) + (τ : ℂ) * I)‖
