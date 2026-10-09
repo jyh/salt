@@ -47,10 +47,10 @@ theorem hcount_arith {s m q B J : ℤ}
   have hm1 : (0:ℤ) ≤ m - 1 := by linarith
   have h4ms : (0:ℤ) ≤ s - 4 * m := by linarith
   have hJk : (0:ℤ) ≤ 2 * J - (s + 1) - 4 * m - 1 := by linarith
-  nlinarith [mul_nonneg h4ms hm0, mul_nonneg h4ms hs0, mul_nonneg h4ms hm1,
-    mul_nonneg hB0 hJk, mul_nonneg hs0 hm1, mul_nonneg hs0 hm0,
-    mul_nonneg hs0 hs0, mul_nonneg hB0 hm1, mul_nonneg hB0 hm0,
-    mul_nonneg (by linarith : (0:ℤ) ≤ q - s * s) hm0, mul_nonneg hm1 hs0]
+  nlinarith only [hm, hBhi, hs0, hJhi, h4m,
+      hsq, mul_nonneg (by linarith : (0 : ℤ) ≤ q - s * s) hm0,
+      mul_nonneg hB0 hm1, mul_nonneg hs0 hm1, mul_nonneg hB0 hJk,
+      mul_nonneg h4ms hs0, mul_nonneg h4ms hm0]
 
 /-- **The post-division bound** (Harcos (13) → Theorem 7), over `ℤ`. Twice the one-sided
 degree bound `R = ℓm + B + em + (J−1)q` is `≤ ℓq + 8mℓ²`, so `2⌊R/ℓ⌋ − q ≤ 8mℓ`. Uses
@@ -61,10 +61,10 @@ theorem final_arith {m q lu B J e : ℤ}
     (hJhi : 2 * (J - 1) ≤ lu + 4 * m) :
     2 * (lu * m + B + e * m + (J - 1) * q) ≤ lu * q + 8 * m * (lu * lu) := by
   have hm0 : (0:ℤ) ≤ m := by linarith
-  nlinarith [mul_nonneg (by linarith : (0:ℤ) ≤ lu * lu - q) hm0,
-    mul_nonneg (by linarith : (0:ℤ) ≤ lu - 1) hm0,
-    mul_le_mul_of_nonneg_left hBlo (by linarith : (0:ℤ) ≤ lu),
-    mul_nonneg he0 hm0]
+  nlinarith only
+      [hJ1, he, he0, hJhi, hl, hm, hqu, hBlo,
+      mul_nonneg (by linarith : (0 : ℤ) ≤ lu - 1) hm0,
+      mul_self_nonneg lu]
 
 /-! ### Theorem 7 — the Weil–Stepanov point count for `y² = f(x)` -/
 
@@ -98,7 +98,7 @@ theorem weil_stepanov [Fintype F] (f : F[X])
   have hmq : f.natDegree + 2 ≤ Fintype.card F := by nlinarith [hq, hm]
   have hsq : s * s ≤ Fintype.card F := by rw [hs_def]; exact Nat.sqrt_le _
   have h4m : 4 * f.natDegree ≤ s := by
-    rw [hs_def]; exact Nat.le_sqrt.mpr (by nlinarith [hq])
+    rw [hs_def]; exact Nat.le_sqrt.mpr (by linarith only [hq])
   have hℓq : ℓ ≤ Fintype.card F := by
     rw [hℓ_def, hs_def]
     have := Nat.sqrt_lt_self (show 1 < Fintype.card F by omega); omega
@@ -188,7 +188,7 @@ theorem weil_stepanov [Fintype F] (f : F[X])
       (by exact_mod_cast (show 2 * e + 1 = Fintype.card F from by rw [he_def]; omega))
       (by exact_mod_cast (show 2 * (J - 1) ≤ ℓ + 4 * f.natDegree from by
         rw [hJ_def, hℓ_def]; omega))
-    rw [hR_def]; push_cast [Nat.cast_sub hJ1]; nlinarith [hfin]
+    rw [hR_def]; push_cast [Nat.cast_sub hJ1]; linarith only [hfin]
   have hfinal : 2 * (Bp:ℤ) - (Fintype.card F : ℤ) ≤ 8 * (f.natDegree : ℤ) * ℓ := by
     refine le_of_mul_le_mul_left ?_ (show (0:ℤ) < ℓ by exact_mod_cast hℓpos)
     have e1 : (ℓ:ℤ) * (2 * (Bp:ℤ) - (Fintype.card F : ℤ))
