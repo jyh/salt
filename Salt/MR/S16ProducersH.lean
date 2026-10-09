@@ -36,7 +36,9 @@ Every other shape is CAP-BLIND: its producer projects only conjuncts `{1,2,3,4,6
 carries no socket binder, and its `h`-twin is the landed proof with `SocketBaseL` read as
 `SocketBaseLH h`.  ⚠️ The socket helpers under the bridge restatements (`s13_socketBase_xscale`
 and its descendants, `s15_block_at_socket_gen`) read conjunct 11 and lose exactly `log h` in
-the log; each is restated with `hh7` absorbing it against slack of `10²¹` and more.
+the log; each descendant was restated with `hh7` absorbing it against slack of `10²¹` and more at
+the file's landing (2026-09-01).  2026-10-09: family 46 retired `s15_block_at_socket_gen_LH`, that
+restatement, into its cap-9 twin of §7 ⟦β W1 E2⟧ (at `hh9`), noted where it stood.
 
 ⟦THE RECEIPT⟧  `m4_closure_fuse_zero'_const_nonneg_H_L_gk` concludes
 `M4ChiSummedFreeRowH_L_gk h K R M (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H))` —
@@ -53,9 +55,12 @@ def, no `S13BandGate'H` structure, no `rStrWitnessH` def — each would be a sta
 by family 44, into their cap-9 twins of §7 ⟦β W1 E2⟧ and §8 ⟦β W2 F1⟧ — the three socket tops and
 the block page of §3, and the band base of §5 — each noted where it stood; of the twelve names of
 this file that have a `_b9` twin, seven stand, two of them now without a caller (`s13_band_qfit_h`,
-`s15_block_at_socket_gen_LH`).  Nothing here bears on twin primes: every object is conditional
-exactly where its `h = 1` twin is; the seven OPEN sockets (`DoorRowZeroBase`, `DoorRowEndBase`, the
-`epsrf` split, the `calQK` window, …) cross to `h` unchanged.
+`s15_block_at_socket_gen_LH`).  2026-10-09: family 46 retired those two,
+`s15_block_at_socket_gen_LH` (§2) and `s13_band_qfit_h` (§5), into their cap-9 twins of §7
+⟦β W1 E2⟧, each noted where it stood; of the names of this file that have a `_b9` twin, five stand,
+each with a caller.  Nothing here bears on twin primes: every object is conditional exactly where
+its `h = 1` twin is; the seven OPEN sockets (`DoorRowZeroBase`, `DoorRowEndBase`, the `epsrf` split,
+the `calQK` window, …) cross to `h` unchanged.
 -/
 
 noncomputable section
@@ -327,7 +332,9 @@ theorem m4_arith_henv_constPoolH_L_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Re
 `SocketBase`'s x-scale field `x ≤ 16·ω·arcDen·A` is read by `s13_socketBase_xscale` and
 everything above it; at `SocketBaseLH h` the field is `x ≤ 16·ω·(h·arcDen)·A`, so each
 descendant loses exactly `log h ≤ 7` in the log against slack of `10²¹` and more.  Each is the
-landed proof with the one extra term absorbed.  Conjuncts 1–4, 6–10, 12–13 read identically. -/
+landed proof with the one extra term absorbed.  Conjuncts 1–4, 6–10, 12–13 read identically.
+2026-10-09: family 46 retired `s15_block_at_socket_gen_LH`, the block page's supplier, into its
+cap-9 twin of §7 ⟦β W1 E2⟧, noted where it stood. -/
 
 /-- `s13_socketBase_xscale` at the inflated socket: `(4^{⌊ε²H₊⌋₊})² ≤ 2·(h·arcDen 12 H)·A`. -/
 theorem s13_socketBase_xscale_LH {h : ℕ} {R : ChowlaRegime} {M H L q j A s : ℕ}
@@ -476,56 +483,27 @@ theorem s12c_llX_ge_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
   rw [Real.exp_log hlogHlopos]
   linarith
 
-/-- `s15_block_at_socket_gen` at the inflated socket: `2^E ≤ A + s`.  The `log h ≤ 7` is
+/-! ### `s15_block_at_socket_gen_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 46 (2026-10-09)⟧
+`s15_block_at_socket_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L q
+j A s E : ℕ} (hb : SocketBaseLH h R M H L q j A s) (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log
+(Real.log (H : ℝ))) (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 4 *
+((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) : 2 ^ E ≤ A + s` stood here.  It is
+`s15_block_at_socket_gen_LH_b9` (in the §7 ⟦β W1 E2⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are
+token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired
+statement's own bytes before the removal was committed.  The twin's body is this page's with ONE
+line changed: the numeral `7` of the `hlog'` step lifted to `9` (the cap, spent there as a literal).
+At this retirement the page had NO call site.  When the lane opened (main, 2026-09-25) it had one:
+`s15_block_at_socketH_L_gk` (of this file), which family 45 retired into its cap-9 twin
+(2026-10-08); that twin calls this page's twin.  This retirement leaves no name of this file without
+a caller.
+
+The page's docstring, verbatim:
+
+`s15_block_at_socket_gen` at the inflated socket: `2^E ≤ A + s`.  The `log h ≤ 7` is
 absorbed by the `18·loglog H₊` against `12·loglog H` margin (`≥ 0.47·50 > 7`). -/
-theorem s15_block_at_socket_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s E : ℕ}
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
-    (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
-    2 ^ E ≤ A + s := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hhi : H ≤ R.Hhi := hb.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) :=
-    lt_of_lt_of_le (by norm_num) (one_lt_log_of_loglog_ge hHreg.1 (by norm_num) hHreg.2).le
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
-    s13_loglog_le_of_range (R := R) hlo hhi
-  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
-  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
-    s13_socketBase_xscale_LH hb
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hL12 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
-  have hhl : (0 : ℝ) < (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := mul_pos hh0 hL12
-  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
-  have hlog := Real.log_le_log hlhs0 hxs
-  have hLid : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
-    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
-    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast; ring
-  have hRR : Real.log (2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ))
-      = Real.log 2 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
-    rw [harcpow, Real.log_mul (mul_pos two_pos hhl).ne' hApos.ne', Real.log_mul two_ne_zero hhl.ne',
-      Real.log_mul hh0.ne' hL12.ne', Real.log_pow]
-    push_cast; ring
-  rw [hLid, hRR] at hlog
-  have hlog' : 4 * (m : ℝ) * Real.log 2
-      ≤ Real.log 2 + 7 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by linarith
-  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hE : ((E : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
-    nlinarith [hblk, hlog', hllH, hHreg.2, hl2lo, hl2hi]
-  have hpow : ((2 : ℝ)) ^ E ≤ (A : ℝ) := by
-    have hlt : Real.log (((2 : ℝ)) ^ E) ≤ Real.log (A : ℝ) := by
-      rw [Real.log_pow]; linarith
-    exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
-  have hcast : ((2 ^ E : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
-  have hnat : (2 : ℕ) ^ E ≤ A := by exact_mod_cast hcast
-  omega
 
 /-- `s13_band_X400` at the inflated socket — conjuncts 7 and 9 only (cap-blind); the LINEAR row
 floor `doorRowFloorL M = M·2^36·M ≥ 2^36 ≥ 2^9`. -/
@@ -685,7 +663,8 @@ for the `_b9` twin's.  At this retirement the page had NO call site.  When the l
 whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of them calls this page's
 twin itself.  Of the declared names the page's code calls, one is left without a caller by this
 family: `s15_block_at_socket_gen_LH`, which has a cap-9 twin whose statement is its own at the
-raised cap (a next candidate of the lane); its row stands.
+raised cap (a next candidate of the lane); its row stands.  2026-10-09: family 46 retired it into
+that twin, noted where it stood; its row is dropped.
 
 The page's docstring, verbatim:
 
@@ -904,29 +883,30 @@ theorem s15_doorArithFrameRho_L_familyH'' {h : ℕ} (hh : 0 < h)
 
 2026-10-08: family 45 retired `doorBandBase_family'H_L_gk`, the band base, into its cap-9 twin of §7
 ⟦β W1 E2⟧, noted where it stood; `s13_band_qfit_h`, which it alone called, stands without a
-caller. -/
+caller.  2026-10-09: family 46 retired `s13_band_qfit_h` into its cap-9 twin of §7 ⟦β W1 E2⟧, noted
+where it stood. -/
 
-/-- **⟦`qfit` AT SHIFT `h`⟧** (`s13_band_qfit_h`) — `q ≤ (log X_d)^{10}` from
+/-! ### `s13_band_qfit_h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 46 (2026-10-09)⟧
+`s13_band_qfit_h {h q H Xd : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) (hq : (q : ℝ) ≤ (h : ℝ) * arcDen
+12 H) (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ)) (hHfl : (1 :
+ℝ) ≤ Real.log (Real.log ((H : ℕ) : ℝ))) (harm : 7000 * Real.log (Real.log ((H : ℕ) : ℝ)) ≤ Real.log
+(Real.log ((Xd : ℕ) : ℝ))) : (q : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ)` stood here.  It is
+`s13_band_qfit_h_b9` (in the §7 ⟦β W1 E2⟧ section below) with the hypothesis strengthened: the two
+statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical
+elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired statement's own
+bytes before the removal was committed.  The twin's body is this page's, byte for byte (the cap is
+spent by the closing `linarith` without being named).  At this retirement the page had NO call site.
+When the lane opened (main, 2026-09-25) it had one: `doorBandBase_family'H_L_gk` (of this file),
+which family 45 retired into its cap-9 twin (2026-10-08); that twin calls this page's twin.  This
+retirement leaves no name of this file without a caller.
+
+The page's docstring, verbatim:
+
+**⟦`qfit` AT SHIFT `h`⟧** (`s13_band_qfit_h`) — `q ≤ (log X_d)^{10}` from
 `q ≤ h·(log H)^{12}` and the arm: `log h + 12·λ_H ≤ 7 + 12·λ_H ≤ 10·Λ` under `7000·λ_H ≤ Λ`
 and `1 ≤ λ_H`. -/
-theorem s13_band_qfit_h {h q H Xd : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
-    (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
-    (hHfl : (1 : ℝ) ≤ Real.log (Real.log ((H : ℕ) : ℝ)))
-    (harm : 7000 * Real.log (Real.log ((H : ℕ) : ℝ))
-      ≤ Real.log (Real.log ((Xd : ℕ) : ℝ))) :
-    (q : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ) := by
-  refine le_trans hq ?_
-  have hA : arcDen 12 H = Real.exp (12 * Real.log (Real.log ((H : ℕ) : ℝ))) := by
-    rw [arcDen, Real.rpow_def_of_pos hH]; ring_nf
-  have hB : (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ)
-      = Real.exp (10 * Real.log (Real.log ((Xd : ℕ) : ℝ))) := by
-    rw [← Real.rpow_natCast (Real.log ((Xd : ℕ) : ℝ)) 10, Real.rpow_def_of_pos hX]
-    push_cast; ring_nf
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hhe : (h : ℝ) = Real.exp (Real.log (h : ℝ)) := (Real.exp_log hh0).symm
-  rw [hA, hB, hhe, ← Real.exp_add]
-  exact Real.exp_le_exp.mpr (by linarith)
 
 /-- `s13_band_arm_at_top` at the inflated socket — the arm at `h·ω`. -/
 theorem s13_band_arm_at_top_LH {h : ℕ} (hh : 0 < h)
@@ -1045,7 +1025,8 @@ page had NO call site.  When the lane opened (main, 2026-09-25) it had seven:
 `StridePairReceiptG`), whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of
 them calls this page's twin itself.  Of the declared names the page's code calls, one is left
 without a caller by this family: `s13_band_qfit_h`, which has a cap-9 twin whose statement is its
-own at the raised cap (a next candidate of the lane); its row stands.
+own at the raised cap (a next candidate of the lane); its row stands.  2026-10-09: family 46 retired
+it into that twin, noted where it stood; its row is dropped.
 
 The page's docstring, verbatim:
 
@@ -1571,7 +1552,9 @@ source's statement and body with ONLY the freeze's §3.1 rule-2 raises (`log h �
 `1096 ↦ 8103`, and the census's in-body literal `7 ↦ 9` in `hlog'`), every derived cap-dependent
 supplier replaced by its twin; no hypothesis is added and no conclusion weakened.  2026-10-08:
 family 45 retired the two pages twinned here, `s15_block_at_socketH_L_gk` and
-`doorBandBase_family'H_L_gk`, into their twins, each noted where it stood. -/
+`doorBandBase_family'H_L_gk`, into their twins, each noted where it stood.  2026-10-09: family 46
+retired the two suppliers twinned here, `s15_block_at_socket_gen_LH` and `s13_band_qfit_h`, into
+their twins, each noted where it stood. -/
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, CAP 9⟧ (class A)** (`h_le_8103_of_hh9`) — the
 `log h ≤ 9` twin of `h_le_1096_of_hh7`, the MR converter of the β lane (its Entropy sibling is
@@ -1585,9 +1568,10 @@ theorem h_le_8103_of_hh9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
   have : (h : ℝ) < 8104 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-/-- `s13_band_qfit_h` at `log h ≤ 9` (`s13_band_qfit_h_b9`) — TRANSPORT: the closing `linarith`
-reads `log h + 12·λ_H ≤ 9 + 12·λ_H ≤ 10·Λ` under `7000·λ_H ≤ Λ`, `1 ≤ λ_H` (slack
-`69988·λ_H − 9`).  BODY: the source's, verbatim. -/
+/-- `s13_band_qfit_h` at `log h ≤ 9` (the former `s13_band_qfit_h`, at `log h ≤ 7`, retired into
+this, 2026-10-09) — TRANSPORT: the closing `linarith` reads `log h + 12·λ_H ≤ 9 + 12·λ_H ≤ 10·Λ`
+under `7000·λ_H ≤ Λ`, `1 ≤ λ_H` (slack `69988·λ_H − 9`).  BODY: the retired page's, verbatim (its
+note stands above, in §5, S11 at the inflated socket). -/
 theorem s13_band_qfit_h_b9 {h q H Xd : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
     (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
@@ -1691,10 +1675,10 @@ theorem s13_socketBase_loglogA_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.lo
   rw [hlogu] at hmono
   linarith
 
-/-- `s15_block_at_socket_gen_LH` at `log h ≤ 9` (`s15_block_at_socket_gen_LH_b9`) —
-NUMERAL-LIFT: `hlog'` reads the x-scale's `log h` at `9` (`7 ↦ 9`); `hE` needs
-`9 ≤ (18·log 2 − 12)·50 = 23.83` (census band 2 row 38, ×2.65).  Every other step is the
-source's, verbatim. -/
+/-- `s15_block_at_socket_gen_LH` at `log h ≤ 9` (the former `s15_block_at_socket_gen_LH`, at
+`log h ≤ 7`, retired into this, 2026-10-09) — NUMERAL-LIFT: `hlog'` reads the x-scale's `log h` at
+`9` (`7 ↦ 9`); `hE` needs `9 ≤ (18·log 2 − 12)·50 = 23.83` (census band 2 row 38, ×2.65).  BODY: the
+retired page's, with one line changed (its note stands above, in §2, the socket helpers). -/
 theorem s15_block_at_socket_gen_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s E : ℕ}
     (hb : SocketBaseLH h R M H L q j A s)
