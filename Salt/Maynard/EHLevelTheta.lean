@@ -72,7 +72,7 @@ theorem lod_error_pow_theta (k B : ℕ) (hB : 1 ≤ B) (hLoD : HasLevel (3999 / 
   -- `qmax ≤ ⌊N^{θ₊}⌋ < N`
   have hsqrtN : (N : ℝ) ^ (3999 / 4000 : ℝ) / (Real.log N) ^ B' ≤ (N : ℝ) ^ (3999 / 4000 : ℝ) := by
     rw [div_le_iff₀ hlogB'pos]
-    nlinarith [Real.rpow_nonneg hNpos.le (3999 / 4000 : ℝ), hlogB'ge1]
+    nlinarith only [hlogB'ge1, Real.rpow_nonneg hNpos.le (3999 / 4000 : ℝ)]
   have hqmaxleN : qmax < N := by
     have h1 : qmax ≤ ⌊(N : ℝ) ^ (3999 / 4000 : ℝ)⌋₊ := Nat.floor_le_floor hsqrtN
     have h2 : ⌊(N : ℝ) ^ (3999 / 4000 : ℝ)⌋₊ < N := by
@@ -169,7 +169,7 @@ theorem lod_error_pow_theta (k B : ℕ) (hB : 1 ≤ B) (hLoD : HasLevel (3999 / 
           mul_le_mul_of_nonneg_left hD htnn
         have hstep : t ≤ (N : ℝ) * t / (Nat.totient q : ℝ) := by
           rw [le_div_iff₀ hφpos]
-          nlinarith [mul_nonneg htnn (sub_nonneg.mpr hφN)]
+          linarith only [mul_nonneg htnn (sub_nonneg.mpr hφN)]
         have key2 : t * ((N : ℝ) / (Nat.totient q : ℝ) + 1)
             ≤ 2 * (N : ℝ) * (t / (Nat.totient q : ℝ)) := by
           have e1 : t * ((N : ℝ) / (Nat.totient q : ℝ) + 1)
@@ -283,10 +283,10 @@ lemma logR_lower_theta (ρ : ℝ) (hρ0 : 0 ≤ ρ) (N' : ℕ) (hN1 : 1 ≤ N')
   have hxρpos : (0 : ℝ) < x ^ (ρ : ℝ) := Real.rpow_pos_of_pos hxpos _
   have hxρge1 : (1 : ℝ) ≤ x ^ (ρ : ℝ) := Real.one_le_rpow hx1 hρ0
   have hbig : 2 * x ^ (ρ : ℝ) ≤ x ^ (1999 / 4000 : ℝ) := by
-    rw [hsplit]; nlinarith [hrest, hxρpos]
+    rw [hsplit]; nlinarith only [hrest, hxρpos]
   have hfloor : x ^ (1999 / 4000 : ℝ) - 1 ≤ (R : ℝ) := by
     have := Nat.lt_floor_add_one (x ^ (1999 / 4000 : ℝ)); rw [← hR] at this; linarith
-  have hRge : x ^ (ρ : ℝ) ≤ (R : ℝ) := by nlinarith [hfloor, hbig, hxρge1]
+  have hRge : x ^ (ρ : ℝ) ≤ (R : ℝ) := by linarith only [hfloor, hbig, hxρge1]
   have hlog := Real.log_le_log hxρpos hRge
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
@@ -415,8 +415,8 @@ lemma range_haircut_mono_theta (B' : ℝ) (hB'0 : 0 ≤ B') (N x : ℕ)
     have hstep : B' * (Real.log x - Real.log N) / Real.log N
         ≤ (3999 / 4000 : ℝ) * (Real.log x - Real.log N) := by
       rw [div_le_iff₀ hlogN]
-      nlinarith [hN2B', hba, mul_nonneg (show (0 : ℝ) ≤ Real.log N - 2 * B' by linarith) hba,
-        mul_nonneg hlogN.le hba]
+      linarith only [mul_nonneg hlogN.le hba,
+          mul_nonneg (show (0 : ℝ) ≤ Real.log N - 2 * B' by linarith) hba]
     have hchain : Real.log (Real.log x) * B' - Real.log (Real.log N) * B'
         ≤ (3999 / 4000 : ℝ) * (Real.log x - Real.log N) := by
       calc Real.log (Real.log x) * B' - Real.log (Real.log N) * B'

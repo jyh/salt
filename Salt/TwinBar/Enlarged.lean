@@ -225,7 +225,7 @@ theorem Gsc_continuousOn {δ : ℝ} (hδ : 0 < δ) {F : ℝ → ℝ → ℝ}
     refine ⟨mul_nonneg hpos.le h1, mul_nonneg hpos.le h2, ?_⟩
     have hre : (1 + δ) * p.1 + (1 + δ) * p.2 = (1 + δ) * (p.1 + p.2) := by ring
     rw [hre]
-    nlinarith [mul_le_mul_of_nonneg_left h3 hpos.le]
+    linarith only [mul_le_mul_of_nonneg_left h3 hpos.le]
   have hcont : Continuous (fun p : ℝ × ℝ => ((1 + δ) * p.1, (1 + δ) * p.2)) := by fun_prop
   have hEq : uncurry (Gsc δ F)
       = (uncurry F) ∘ (fun p : ℝ × ℝ => ((1 + δ) * p.1, (1 + δ) * p.2)) := rfl
@@ -332,7 +332,7 @@ theorem twin_bar_enlarged {δ : ℝ} (hδ : 0 < δ) (F : ℝ → ℝ → ℝ)
   have hbar := twin_bar (Gsc δ F) (Gsc_continuousOn hδ hF)
   rw [I₂e_scale hδ, J₁e_scale hδ, J₂e_scale hδ]
   have hcube : (0:ℝ) ≤ (1 + δ) ^ 3 := by positivity
-  nlinarith [mul_le_mul_of_nonneg_left hbar hcube]
+  linarith only [mul_le_mul_of_nonneg_left hbar hcube]
 
 /-- **P-A, `no_twin_weight_enlarged`.** Whenever `(1+δ)·log 2 < 1` (equivalently
 `δ < δ₀ = 1/log 2 − 1 ≈ 0.4427`; e.g. `δ ≤ 2/5` suffices), the ε-enlarged twin
@@ -356,6 +356,6 @@ theorem two_fifths_below_threshold : (1 + (2/5 : ℝ)) * Real.log 2 < 1 := by
   have h : Real.log 2 < 0.6932 := by
     have := Real.log_two_lt_d9
     linarith
-  nlinarith [h, Real.log_pos (by norm_num : (1:ℝ) < 2)]
+  linarith only [h]
 
 end Salt.TwinBar
