@@ -336,7 +336,7 @@ theorem vdC_second_derivative {f : ℕ → ℝ} {a b : ℕ} {lam c : ℝ}
         have hclam : (0 : ℝ) ≤ c * lam := mul_nonneg (by linarith) (le_of_lt hlam)
         have hgub2 : g b - g (a + 1) ≤ c * lam * ((b : ℝ) - a) := by
           have hstep : ((b : ℝ) - (a + 1)) * (c * lam) ≤ c * lam * ((b : ℝ) - a) := by
-            nlinarith [hclam]
+            linarith only [hclam]
           push_cast at hgub
           linarith [hgub, hstep]
         linarith [hKR, hfb, hfa, hgub2]
@@ -345,10 +345,10 @@ theorem vdC_second_derivative {f : ℕ → ℝ} {a b : ℕ} {lam c : ℝ}
         have hcleared : (c * lam * ((b : ℝ) - a) + 2) * (3 + 2 * δ)
             ≤ 8 * (c * ((b : ℝ) - a) * δ) * δ + 8 := by
           rw [hδsq]
-          nlinarith [hδpos, hδhalf, hLnn, hc,
-            mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ c) hLnn) (sq_nonneg δ),
-            mul_nonneg (mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ c) hLnn)
-              (sq_nonneg δ)) (by linarith : (0 : ℝ) ≤ 5 - 2 * δ)]
+          linarith only
+              [hδhalf, mul_nonneg
+              (mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ c) hLnn) (sq_nonneg δ))
+              (by linarith : (0 : ℝ) ≤ 5 - 2 * δ)]
         have e1 : (c * lam * ((b : ℝ) - a) + 2) * (3 / δ + 2)
             = ((c * lam * ((b : ℝ) - a) + 2) * (3 + 2 * δ)) / δ := by field_simp
         have e2 : 8 * (c * ((b : ℝ) - a) * δ + 1 / δ)
@@ -380,9 +380,9 @@ theorem vdC_second_derivative {f : ℕ → ℝ} {a b : ℕ} {lam c : ℝ}
         _ = ((Finset.Ioc a b).card : ℝ) := by rw [Finset.sum_const, nsmul_eq_mul, mul_one]
         _ = (b : ℝ) - a := by rw [Nat.card_Ioc, Nat.cast_sub hab]
     have hcδ : (1 : ℝ) / 2 ≤ c * δ := by
-      nlinarith [hc, hδhalf, hδpos, mul_nonneg (sub_nonneg.mpr hc) (le_of_lt hδpos)]
+      linarith only [hδhalf, mul_nonneg (sub_nonneg.mpr hc) (le_of_lt hδpos)]
     have hbound : (b : ℝ) - a ≤ 8 * (c * ((b : ℝ) - a) * δ) := by
-      nlinarith [hL, hcδ, mul_nonneg hL (by linarith [hcδ] : (0 : ℝ) ≤ c * δ - 1 / 2)]
+      linarith only [hL, mul_nonneg hL (by linarith [hcδ] : (0 : ℝ) ≤ c * δ - 1 / 2)]
     have h1δ : (0 : ℝ) ≤ 1 / δ := by positivity
     calc ‖∑ n ∈ Finset.Ioc a b, eK (f n)‖ ≤ (b : ℝ) - a := hnorm
       _ ≤ 8 * (c * ((b : ℝ) - a) * δ) := hbound
