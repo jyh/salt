@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `24fe469e` · source digest `417da2e9d569fd9d` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `60078614` · source digest `1734403feca5012a` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 22633 | 668 | 21955 | 9019 | 13 | 281 | 40 | 334 | 86 |
+| 22628 | 668 | 21950 | 9014 | 13 | 281 | 40 | 334 | 86 |
 
 Per-polarity totals over the 668 Props: with F-consumers 519 · with ¬F-consumers 21 · with F-producers (any kind) 437 · with ¬F-producers (any kind) 59.
 
@@ -74,7 +74,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 22 | `Salt.MR.DoorRowEndBase` | Salt/MR/M4RowsChiEnd.lean:779 | OPEN | 12 (12/0) | 5 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase` (Salt/MR/M4RowsChiZero.lean:742), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end` (Salt/MR/M4SocketDischarge.lean:196), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end` (Salt/MR/M4RowsChiEnd.lean:885) +9 |
 | 23 | `Salt.MR.DoorRowEndBase_gk` | Salt/MR/M4RowsChiEnd.lean:1080 | OPEN | 12 (12/0) | 0 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase_gk` (Salt/MR/M4RowsChiZero.lean:952), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end_gk` (Salt/MR/M4SocketDischarge.lean:647), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_gk` (Salt/MR/M4RowsChiEnd.lean:1169) +9 |
 | 24 | `Salt.HB.IsAdditiveOn` | Salt/HB/CrownAssembly.lean:175 | OPEN | 11 (11/0) | 8 | - | 0 | 0 | 0 | `Salt.HB.abs_A_sub_sum_ratio_le` (Salt/HB/CrownAssembly.lean:724), `Salt.HB.additive_prod` (Salt/HB/CrownAssembly.lean:299), `Salt.HB.deltaSum_nuG_mul_additive` (Salt/HB/CrownAssembly.lean:381) +8 |
-| 25 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | Salt/MR/M4RowSpineLinear.lean:1146 | OPEN | 11 (11/0) | 7 | - | 6 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_L_gk` (Salt/MR/M4RowSpineLinear.lean:1221), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk` (Salt/MR/S16ProducersH.lean:1260), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_L_gk` (Salt/MR/M4ClosureRepairLinear.lean:864) +8 |
+| 25 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | Salt/MR/M4RowSpineLinear.lean:1146 | OPEN | 11 (11/0) | 7 | - | 6 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_L_gk` (Salt/MR/M4RowSpineLinear.lean:1221), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk` (Salt/MR/S16ProducersH.lean:1234), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_L_gk` (Salt/MR/M4ClosureRepairLinear.lean:864) +8 |
 | 26 | `Salt.MR.S16BandLaneCBounded` | Salt/MR/S16Budget.lean:1371 | OPEN | 11 (11/0) | 3 | - | 1 | 0 | 0 | `Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` (Salt/MR/S16Budget.lean:1484), `Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flat` (Salt/MR/S16BudgetFlat.lean:51), `Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot` (Salt/MR/S16FlatTerminal.lean:305) +8 |
 | 27 | `GEH_min` | Salt/Maynard/GehDoor.lean:160 | OPEN | 10 (10/0) | 2 | - | 1 | 0 | 0 | `GEH_min_antitone` (Salt/Maynard/GehDoor.lean:193), `GEH_min_implies_pointwise` (Salt/Maynard/GehDoor.lean:221), `GehAnchor.pieceObligationU_of_anchored_multiblock` (Salt/Maynard/GehAnchor.lean:505) +7 |
 | 28 | `HasLevel` | Salt/Maynard/Level.lean:28 | OPEN | 10 (10/0) | 0 | - | 7 | 0 | 0 | `HasLevel_antitone` (Salt/Maynard/Level.lean:44), `Salt.Maynard.S2m_ge_compatMain_lod_uniform` (Salt/Maynard/LevelConsume.lean:326), `Salt.Maynard.analyticFrontier_lod` (Salt/Maynard/LevelConsume.lean:488) +7 |
@@ -95,7 +95,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 
 A FRAME is a bundle of order relations over its own parameters; ¬P is 'the parameters are out of range', never a fulcrum horn, so these are listed and not ranked. Name (F-consumers):
 
-`Salt.MR.DoorBaseFrame` (93), `Salt.MR.DoorArithFrameRho_L` (92), `Salt.MR.DoorArithFrameRho` (91), `Salt.MR.DoorArithFrame` (45), `Salt.MR.DoorBandBase_L_gk` (27), `Salt.MR.DoorBandBase_gk` (27), `Salt.MR.GRowsZeroGate'''_gk` (26), `Salt.MR.DoorBandBase` (21), `Salt.MR.GRowsZeroGate'''` (20), `Salt.Entropy.Chowla.XCeilRider` (11), `Salt.MR.CellGates` (7), `Salt.MR.MRTBands` (7), `Salt.MR.DoorBandBase_L` (6), `Salt.MR.S15Sel` (6), `Salt.MR.S15Sel_gk` (6), `Salt.MR.GRowsZeroGate''` (4), `Salt.MR.GRowsZeroGate''_L` (4), `Salt.MR.GRowsZeroGate''_L_gk` (4), `Salt.MR.GRowsZeroGate''_gk` (4), `Salt.MR.XCeilRiderAt` (4), `Salt.MR.S16BaseScaleCap_gk` (3), `Salt.TwinBar.CorrWindow` (3), `Salt.MR.GRowsZeroGate'_L_gk` (2), `Salt.MR.GRowsZeroGate'_gk` (2), `Salt.MR.GRowsZeroGate_L_gk` (2), `Salt.MR.GRowsZeroGate_gk` (2), `Salt.MR.MRTPropA3Ambient` (2), `Salt.MR.S16BaseScaleCap96_gk` (2), `Salt.MR.GRowsZeroGate` (1), `Salt.MR.GRowsZeroGate'` (1), `Salt.MR.GRowsZeroGate'_L` (1), `Salt.MR.GRowsZeroGate_L` (1), `Salt.MR.Lemma4Datum` (1), `Salt.MR.S13BandGate` (1), `Salt.MR.S13BandGate'` (1), `Salt.MR.S13BandGate'_gk` (1), `Salt.MR.S13BandGate_gk` (1), `Salt.MR.S16BaseScaleCapL_gk` (1), `Salt.MR.XCeilGateAt` (1), `Salt.TwinBar.CorrWindowStrong` (1)
+`Salt.MR.DoorBaseFrame` (93), `Salt.MR.DoorArithFrameRho` (91), `Salt.MR.DoorArithFrameRho_L` (91), `Salt.MR.DoorArithFrame` (45), `Salt.MR.DoorBandBase_L_gk` (27), `Salt.MR.DoorBandBase_gk` (27), `Salt.MR.GRowsZeroGate'''_gk` (26), `Salt.MR.DoorBandBase` (21), `Salt.MR.GRowsZeroGate'''` (20), `Salt.Entropy.Chowla.XCeilRider` (11), `Salt.MR.CellGates` (7), `Salt.MR.MRTBands` (7), `Salt.MR.DoorBandBase_L` (6), `Salt.MR.S15Sel` (6), `Salt.MR.S15Sel_gk` (6), `Salt.MR.GRowsZeroGate''` (4), `Salt.MR.GRowsZeroGate''_L` (4), `Salt.MR.GRowsZeroGate''_L_gk` (4), `Salt.MR.GRowsZeroGate''_gk` (4), `Salt.MR.XCeilRiderAt` (4), `Salt.MR.S16BaseScaleCap_gk` (3), `Salt.TwinBar.CorrWindow` (3), `Salt.MR.GRowsZeroGate'_L_gk` (2), `Salt.MR.GRowsZeroGate'_gk` (2), `Salt.MR.GRowsZeroGate_L_gk` (2), `Salt.MR.GRowsZeroGate_gk` (2), `Salt.MR.MRTPropA3Ambient` (2), `Salt.MR.S16BaseScaleCap96_gk` (2), `Salt.MR.GRowsZeroGate` (1), `Salt.MR.GRowsZeroGate'` (1), `Salt.MR.GRowsZeroGate'_L` (1), `Salt.MR.GRowsZeroGate_L` (1), `Salt.MR.Lemma4Datum` (1), `Salt.MR.S13BandGate` (1), `Salt.MR.S13BandGate'` (1), `Salt.MR.S13BandGate'_gk` (1), `Salt.MR.S13BandGate_gk` (1), `Salt.MR.S16BaseScaleCapL_gk` (1), `Salt.MR.XCeilGateAt` (1), `Salt.TwinBar.CorrWindowStrong` (1)
 
 ## ¬F-PRODUCED, NOT FULCRUM-SHAPED (54; first 54) — a ¬P is proved somewhere but nothing consumes it as a binder
 
@@ -153,7 +153,7 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.MSelect'` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:393) |
 | `Salt.MR.MSelect'_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:577) |
 | `Salt.MR.S15Sel'` | DISCHARGED | - | 7 | 0/0/1 | `Salt.MR.s15_sel'_empty_at_closed_forms` (Salt/MR/S15Witness.lean:736) |
-| `Salt.MR.SocketBaseLH` | DISCHARGED | - | 187 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:149) |
+| `Salt.MR.SocketBaseLH` | DISCHARGED | - | 182 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:149) |
 | `Salt.TwinBar.BadHyp` | OPEN | - | 0 | 1/0/0 | `Salt.TwinBar.badHyp_false` (Salt/TwinBar/SiegelTwin.lean:153) |
 
 ## DISJUNCTION AND CASE-SPLIT SITES (86; first 86, ordered by path)
