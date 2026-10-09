@@ -220,11 +220,11 @@ theorem vk_dirichlet_block_twist_all {σ t β : ℝ} {M x' : ℕ}
       Real.one_le_rpow (by linarith) (by norm_num)
     have h2 : (100 : ℝ) ≤ Real.log (Real.log t) := by
       rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hL100
-    have h3 : (10000 : ℝ) ≤ (Real.log (Real.log t)) ^ (2 : ℕ) := by nlinarith [h2]
+    have h3 : (10000 : ℝ) ≤ (Real.log (Real.log t)) ^ (2 : ℕ) := by nlinarith only [h2]
     have hDpos : 0 < (Real.log t) ^ ((3 : ℝ) / 4) * (Real.log (Real.log t)) ^ (2 : ℕ) := by
       positivity
     rw [div_le_iff₀ hDpos]
-    nlinarith [h1, h3, mul_le_mul h1 h3 (by norm_num) (by positivity)]
+    linarith only [mul_le_mul h1 h3 (by norm_num) (by positivity)]
   have hMpos : (0 : ℝ) < (M : ℝ) := by exact_mod_cast (by omega : 0 < M)
   refine vk_dirichlet_block_twist_le_of_high ht0 hL100 hσlo hM1 hMx' hx'2 ?_
   intro hhi
@@ -240,9 +240,9 @@ theorem vk_dirichlet_block_twist_all {σ t β : ℝ} {M x' : ℕ}
       calc Real.log (Nat.factorial 12 : ℝ) ≤ Real.log ((2 : ℝ) ^ 29) :=
             Real.log_le_log (by positivity) hfac2
         _ = 29 * Real.log 2 := by rw [Real.log_pow]; push_cast; ring
-        _ ≤ 29 := by nlinarith [hlog2le1]
+        _ ≤ 29 := by linarith only [hlog2le1]
     have hlog6 : Real.log (((Nat.factorial 12 : ℝ)) ^ 6) ≤ 174 := by
-      rw [Real.log_pow]; push_cast; nlinarith [hlogfac]
+      rw [Real.log_pow]; push_cast; linarith only [hlogfac]
     rw [show ((Nat.factorial 12 : ℝ)) ^ 6
           = Real.exp (Real.log (((Nat.factorial 12 : ℝ)) ^ 6)) from
           (Real.exp_log (by positivity)).symm]
@@ -262,7 +262,7 @@ theorem vk_dirichlet_block_twist_all {σ t β : ℝ} {M x' : ℕ}
       calc Real.log ((12 - 1).factorial : ℝ) ≤ Real.log ((2 : ℝ) ^ 26) :=
             Real.log_le_log hfac11pos hfac11
         _ = 26 * Real.log 2 := by rw [Real.log_pow]; push_cast; ring
-        _ ≤ 26 := by nlinarith [hlog2le1]
+        _ ≤ 26 := by linarith only [hlog2le1]
     have hRHSpos : (0 : ℝ) < (M : ℝ) ^ (((12 : ℕ) : ℝ) - 1) / (((12 - 1).factorial : ℝ)) :=
       div_pos (Real.rpow_pos_of_pos hMpos _) hfac11pos
     have hlogRHS : Real.log ((M : ℝ) ^ (((12 : ℕ) : ℝ) - 1) / (((12 - 1).factorial : ℝ)))
