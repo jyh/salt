@@ -443,7 +443,7 @@ lemma erT1_legality {z x p : ℕ} (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤
       refine Real.log_le_log hzpos ?_
       have := erT1_z_le_x hz100 hzx
       linarith
-    have h3 : Real.log (Zz z) ^ 2 ≤ Lwin x ^ 2 := by nlinarith [h1, h2, hlogZznn]
+    have h3 : Real.log (Zz z) ^ 2 ≤ Lwin x ^ 2 := by nlinarith only [hlogZznn, h2, h1, hL1]
     have h4 : Lwin x ^ 2 ≤ Real.sqrt z := by
       have h6 : (Lwin x ^ 2) ^ 2 ≤ (z : ℝ) := by
         calc (Lwin x ^ 2) ^ 2 = Lwin x ^ 4 := by ring
@@ -456,7 +456,7 @@ lemma erT1_legality {z x p : ℕ} (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤
   have hsznn : 0 ≤ Real.sqrt (z : ℝ) := Real.sqrt_nonneg _
   have hsxnn : 0 ≤ Real.sqrt (x : ℝ) := Real.sqrt_nonneg _
   have hzsx : (z : ℝ) ≤ Real.sqrt x := by
-    have h2 : (z : ℝ) ^ 2 ≤ (x : ℝ) := by nlinarith [hzx, hz1R]
+    have h2 : (z : ℝ) ^ 2 ≤ (x : ℝ) := by nlinarith only [hz1R, hzx, sq_nonneg ↑z]
     calc (z : ℝ) = Real.sqrt ((z : ℝ) ^ 2) := (Real.sqrt_sq hzpos.le).symm
       _ ≤ Real.sqrt x := Real.sqrt_le_sqrt h2
   have hstep : (p : ℝ) * ((Zz z : ℕ) : ℝ) ^ 8 * Real.log (Zz z) ^ 2
@@ -498,14 +498,14 @@ lemma erT1_z0_cube_absorb {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hx1 : (1 : ℝ) 
     refine Real.exp_le_exp.mpr ?_
     have hl2 : Real.log 2 ≤ 1 := by
       exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
-    nlinarith [hz00]
+    nlinarith only [hz00, hl2]
   calc z0 z x ^ 3 * Real.exp (Real.log 2 * z0 z x)
       ≤ Real.exp (3 * z0 z x) * Real.exp (z0 z x) :=
         mul_le_mul h1 h2 (Real.exp_pos _).le (Real.exp_pos _).le
     _ = Real.exp (4 * z0 z x) := by
         rw [← Real.exp_add]
         ring_nf
-    _ ≤ Real.exp (5 * z0 z x) := Real.exp_le_exp.mpr (by nlinarith [hz00])
+    _ ≤ Real.exp (5 * z0 z x) := Real.exp_le_exp.mpr (by linarith only [hz00])
 
 /-- **The `T1'` composite slice, `J2`-priced.**  Fiber by `p'' := minFac (n+2)` (a `χ=+1`
     prime in `[z, √(2x+2)]`), count each fiber by `l2c_pair_count_clean` at
@@ -609,7 +609,7 @@ theorem ER_T1'_comp_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z 
         rw [div_le_iff₀ (by linarith)]
         linarith
       have hnn : 0 ≤ (p : ℝ) / ((p : ℝ) - 1) := div_nonneg (by positivity) (by linarith)
-      nlinarith [hle2, hnn]
+      nlinarith only [hle2, hnn]
     have hlogZzpos := erT1_log_Zz_pos hz100
     have hinv2 : Real.log z ^ 2 ≤ 1024 * Real.log (Zz z) ^ 2 := by
       calc Real.log z ^ 2 ≤ (32 * Real.log (Zz z)) ^ 2 :=

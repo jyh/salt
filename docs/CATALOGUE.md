@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `14470a97` · source digest `1e4178145c6c83c3` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c7bbee20` · source digest `d489fc8129f57014` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 24 | 22 | 9068 | 9013 | 9012 | 1 | 0 | 55 |
+| 24 | 22 | 9065 | 9010 | 9009 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hypothesis universe): 668.
+Declarations indexed across the tree: 22623 · corpus Prop-valued names (the hypothesis universe): 668.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6774 | 294 | 2072 | 4627 | 376 | 425 | 29 |
-| conditional | 1546 | 25 | 196 | 1358 | 95 | 24 | 4 |
+| unconditional | 6772 | 294 | 2072 | 4625 | 376 | 425 | 29 |
+| conditional | 1545 | 25 | 196 | 1357 | 95 | 24 | 4 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 481 | 0 | 68 | 366 | 55 | 17 | 0 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9013 | 319 | 2340 | 6549 | 537 | 466 | 33 |
+| **all** | 9010 | 319 | 2340 | 6546 | 537 | 466 | 33 |
 
 ## LIMITS — read these beside every count above
 
@@ -107,7 +107,7 @@ Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hyp
 
 | hypothesis | conditional results |
 |---|---|
-| `Salt.MR.SocketBaseLH` | 169 |
+| `Salt.MR.SocketBaseLH` | 168 |
 | `Salt.MR.TannGate` | 158 |
 | `Salt.MR.ShortIntervalDatum` | 98 |
 | `Salt.MR.DoorArithFrameRho_L` | 70 |
@@ -489,7 +489,7 @@ Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6774)
+## unconditional (6772)
 
 | name | file:line | objects |
 |---|---|---|
@@ -5163,15 +5163,13 @@ Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4ChiRowGradedH_small_L` | Salt/MR/S16FlatTerminalLinearH.lean:1675 | characters |
 | `Salt.MR.m4ChiRowGradedH_an_L` | Salt/MR/S16FlatTerminalLinearH.lean:1680 | characters |
 | `Salt.MR.m4_arith_rs_ceiling_met_rhoH_two` | Salt/MR/S16FlatTerminalLinearH.lean:1731 | characters |
-| `Salt.MR.RSanDoorRhoH_le_RSanDoorRho` | Salt/MR/S16FlatTerminalLinearLH.lean:395 | characters |
-| `Salt.MR.s13_gate8_L_gk_h` | Salt/MR/S16FlatTerminalLinearLH.lean:423 | characters |
-| `Salt.MR.s13_smallGradeFits_h` | Salt/MR/S16FlatTerminalLinearLH.lean:637 | characters |
-| `Salt.MR.s13_winFit_h_of_halfWindow_gen` | Salt/MR/S16FlatTerminalLinearLH.lean:825 | characters |
-| `Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h` | Salt/MR/S16FlatTerminalLinearLH.lean:888 | characters |
-| `Salt.MR.s13_gate8_L_gk_h_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:933 | characters |
-| `Salt.MR.s13_smallGradeFits_h_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:971 | characters |
-| `Salt.MR.s13_winFit_h_of_halfWindow_gen_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:1141 | characters |
-| `Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:1198 | characters |
+| `Salt.MR.RSanDoorRhoH_le_RSanDoorRho` | Salt/MR/S16FlatTerminalLinearLH.lean:407 | characters |
+| `Salt.MR.s13_smallGradeFits_h` | Salt/MR/S16FlatTerminalLinearLH.lean:630 | characters |
+| `Salt.MR.s13_winFit_h_of_halfWindow_gen` | Salt/MR/S16FlatTerminalLinearLH.lean:818 | characters |
+| `Salt.MR.s13_gate8_L_gk_h_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:947 | characters |
+| `Salt.MR.s13_smallGradeFits_h_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:985 | characters |
+| `Salt.MR.s13_winFit_h_of_halfWindow_gen_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:1155 | characters |
+| `Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:1213 | characters |
 | `Salt.MR.RSanDoorRhoH_one` | Salt/MR/S16ProducersH.lean:84 | characters |
 | `Salt.MR.RSanDoorRhoH_nonneg` | Salt/MR/S16ProducersH.lean:87 | characters |
 | `Salt.MR.one_le_strataResidualH` | Salt/MR/S16ProducersH.lean:91 | characters |
@@ -7268,7 +7266,7 @@ Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1546)
+## conditional (1545)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8374,14 +8372,13 @@ Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_doorL2_supply_500_H_L_gk` | Salt/MR/S16FlatTerminalLinearH.lean:1547 | sieves, characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4SievedDoorSqH_L_gk` |
 | `Salt.MR.m4_second_road_L2_H_gk_flatRoot_L` | Salt/MR/S16FlatTerminalLinearH.lean:1588 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4ChiSummedFreeRowH_L_gk` |
 | `Salt.MR.m4_chiSummedFreeRow_of_bigH_L_gk` | Salt/MR/S16FlatTerminalLinearH.lean:1701 | characters | `Salt.MR.M4ChiSummedFreeRowBigH_L_gk` |
-| `Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:165 | characters | `Salt.MR.S16BandLaneCBoundedLH`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.doorBaseFrame_at_socket_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:460 | characters | `Salt.MR.SocketBaseLH`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk` | Salt/MR/S16FlatTerminalLinearLH.lean:575 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift36` | Salt/MR/S16FlatTerminalLinearLH.lean:918 | characters | `Salt.MR.MSelect'_L_gk` |
-| `Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:1220 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28` | Salt/MR/S16FlatTerminalLinearLH.lean:1279 | characters | `Salt.MR.MSelect'_L_gk` |
-| `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:1304 | characters | `Salt.MR.S16BandLaneCBoundedLH`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_LH_gk` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:1438 | characters | `Salt.MR.S16BandLaneCBoundedLH` |
+| `Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:172 | characters | `Salt.MR.S16BandLaneCBoundedLH`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.doorBaseFrame_at_socket_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:464 | characters | `Salt.MR.SocketBaseLH`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift36` | Salt/MR/S16FlatTerminalLinearLH.lean:930 | characters | `Salt.MR.MSelect'_L_gk` |
+| `Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk_b9` | Salt/MR/S16FlatTerminalLinearLH.lean:1237 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28` | Salt/MR/S16FlatTerminalLinearLH.lean:1296 | characters | `Salt.MR.MSelect'_L_gk` |
+| `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:1321 | characters | `Salt.MR.S16BandLaneCBoundedLH`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_LH_gk` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_LH` | Salt/MR/S16FlatTerminalLinearLH.lean:1455 | characters | `Salt.MR.S16BandLaneCBoundedLH` |
 | `Salt.MR.a2DoorGrade_pool_L_priced_rhoH` | Salt/MR/S16ProducersH.lean:223 | characters | `Salt.MR.DoorArithFrameRho_L` |
 | `Salt.MR.a2DoorGrade_pool_L_priced_rhoH_gk` | Salt/MR/S16ProducersH.lean:266 | characters | `Salt.MR.DoorArithFrameRho_L` |
 | `Salt.MR.price_at_constPool_socketH_L` | Salt/MR/S16ProducersH.lean:280 | characters | `Salt.MR.DoorArithFrameRho_L`, `Salt.MR.SocketBaseLH` |
@@ -9453,8 +9450,8 @@ Declarations indexed across the tree: 22626 · corpus Prop-valued names (the hyp
 | `Salt.MR.strataResidualH` | Salt/MR/S16FlatTerminalLinearH.lean:117 | characters |
 | `Salt.MR.blockLenH` | Salt/MR/S16FlatTerminalLinearH.lean:147 | characters |
 | `Salt.MR.m4ChiRowGradedH_L` | Salt/MR/S16FlatTerminalLinearH.lean:1669 | characters |
-| `Salt.MR.s16BandLaneCBoundedLH_one_iff` | Salt/MR/S16FlatTerminalLinearLH.lean:124 | characters |
-| `Salt.MR.s15CrossingBound_LH_gk_one_iff` | Salt/MR/S16FlatTerminalLinearLH.lean:132 | characters |
+| `Salt.MR.s16BandLaneCBoundedLH_one_iff` | Salt/MR/S16FlatTerminalLinearLH.lean:131 | characters |
+| `Salt.MR.s15CrossingBound_LH_gk_one_iff` | Salt/MR/S16FlatTerminalLinearLH.lean:139 | characters |
 | `Salt.MR.RSanDoorRhoH` | Salt/MR/S16ProducersH.lean:81 | characters |
 | `Salt.MR.s15ArmH` | Salt/MR/S16ProducersH.lean:682 | characters |
 | `Salt.MR.s16BandLaneCBoundedLH_win_one_iff` | Salt/MR/S16UniformLH.lean:161 | characters |
