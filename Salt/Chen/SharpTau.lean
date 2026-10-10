@@ -100,7 +100,7 @@ theorem fseq_geom_uniform {n : ℕ} (hn : 1 ≤ n) (s : ℝ) :
   simp only [Nat.add_sub_cancel]
   have h1 : fseq (m + 1) s ≤ 2 * Real.exp 2 * (99 / 100) ^ m * hbar s := fseq_le m s
   have h2 : hbar s ≤ Real.exp (-2) := by
-    unfold hbar; exact Real.exp_le_exp.mpr (by nlinarith [le_max_right s (2 : ℝ)])
+    unfold hbar; exact Real.exp_le_exp.mpr (by linarith only [le_max_right s (2 : ℝ)])
   have hpre : (0 : ℝ) ≤ 2 * Real.exp 2 * (99 / 100 : ℝ) ^ m := by positivity
   have he : Real.exp 2 * Real.exp (-2) = 1 := by rw [← Real.exp_add]; norm_num
   calc fseq (m + 1) s ≤ 2 * Real.exp 2 * (99 / 100) ^ m * hbar s := h1
@@ -114,7 +114,7 @@ theorem fseq_geom_uniform {n : ℕ} (hn : 1 ≤ n) (s : ℝ) :
 /-- `1 ≤ (99/100)·e` (`(99/100)·e ≈ 2.69`).  The exponential `e^n` out-grows the geometric
 `(99/100)^n`, so the geometric factor cannot cancel the window-conversion `e^{n+3}`. -/
 theorem one_le_geom_mul_exp : (1 : ℝ) ≤ (99 / 100) * Real.exp 1 := by
-  nlinarith [Real.exp_one_gt_d9]
+  linarith only [Real.exp_one_gt_d9]
 
 /-- `1 ≤ ((99/100)·e)ⁿ` for every `n`. -/
 theorem geom_mul_exp_pow_ge_one (n : ℕ) : (1 : ℝ) ≤ ((99 / 100) * Real.exp 1) ^ n :=
@@ -136,7 +136,7 @@ theorem ch_const_ge_exp {ε : ℝ} (hε : 0 ≤ ε) (n : ℕ) :
   have hexp : (0 : ℝ) < Real.exp ((n : ℝ) + 3) := Real.exp_pos _
   have h3 : (3 : ℝ) ≤ (1 + ε) * Cabs * ((n : ℝ) + 3) := by
     have hA : (1 : ℝ) ≤ (1 + ε) * Cabs := by
-      nlinarith [mul_nonneg hε (show (0 : ℝ) ≤ Cabs by linarith), hCabs]
+      linarith only [hCabs, mul_nonneg hε (show (0 : ℝ) ≤ Cabs by linarith)]
     have hAnn : (0 : ℝ) ≤ (1 + ε) * Cabs := by linarith
     have := mul_le_mul hA (show (3 : ℝ) ≤ (n : ℝ) + 3 by linarith) (by norm_num) hAnn
     linarith [this]
@@ -221,7 +221,7 @@ theorem tauDec_double {ε : ℝ} (hε : 0 < ε) (n : ℕ) (hn : 1 ≤ n) :
   have hτ : 0 ≤ tauDec ε (m + 1) := tauDec_nonneg hε.le (m + 1)
   have hcf : 0 ≤ (99 / 100 : ℝ) ^ (m + 1) * cf_const (m + 1) ε / (ε * Real.exp 2) :=
     div_nonneg (mul_nonneg (by positivity) (cf_const_nonneg _ hε.le)) (by positivity)
-  nlinarith [mul_le_mul_of_nonneg_right hch hτ, hcf]
+  linarith only [hcf, mul_le_mul_of_nonneg_right hch hτ]
 
 /-- **Geometric blow-up.**  `3·2^m ≤ τ_{m+1}` — the fully-decayed τ-sequence blows up
 geometrically in the depth `m`, `ε`-uniformly. -/

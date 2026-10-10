@@ -9,7 +9,7 @@ import Salt.ExpSum.Strip
 /-!
 # VMVT-VK — the Littlewood zero-free region (`σ ≥ 1 − c·log log t / log t`)
 
-The historic checkpoint.  The landed sub-Weyl growth `Salt.ExpSum.zeta_strip_family`
+The landed sub-Weyl growth `Salt.ExpSum.zeta_strip_family`
 (`‖ζ(σ+it)‖ ≤ C·t^{1/(2^{k+2}(k−1))}·(1+log t)` on `σ ≥ 1 − 2^{−(k+2)}`, `t ≥ 4(k!)^6`), fed
 through the growth-to-region bridge `region_of_uniform_growth` at the balanced short-interval
 degree `k ≈ log₂ log t`, produces a zero-free region strictly wider than de la Vallée Poussin:
@@ -400,7 +400,9 @@ theorem littlewood_bracket {C : ℝ} (hC : 1 ≤ C) {γ : ℝ}
 `c > 0` and a threshold `T₀` such that every ζ-zero `ρ` of height `|Im ρ| ≥ T₀` satisfies
 `Re ρ ≤ 1 − c·log log|Im ρ| / log|Im ρ|` — strictly wider than de la Vallée Poussin's `1/log t`.
 
-The historic checkpoint: the first machine-checked Littlewood-strength zero-free region, obtained
+The first Littlewood-strength zero-free region in any public proof-assistant artifact as of the
+2026-08-17 priority survey (`docs/priority-survey-2026-08-11.md`, row 5, which names the Littlewood
+region; `docs/priority-survey-2026-08-17-delta.md`, row 5, no movement), obtained
 from the sub-Weyl growth `Salt.ExpSum.zeta_strip_family` at the balanced degree `k ≈ log log t`
 (`littlewood_bracket`) fed through the 3-4-1 disc assembly (`zeta_zero_free_littlewood_core`).
 Negative-height zeros are handled by the conjugation shim `riemannZeta_conj_zero`.  Both `c`
