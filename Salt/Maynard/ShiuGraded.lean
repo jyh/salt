@@ -131,7 +131,7 @@ lemma one_sub_inv_le_exp {x : ℝ} (hx0 : 0 ≤ x) (hx : x ≤ 3 / 4) :
   have h1 : Real.log ((1 - x)⁻¹) ≤ (1 - x)⁻¹ - 1 := Real.log_le_sub_one_of_pos hinv
   have h3 : (1 - x)⁻¹ ≤ 1 + 4 * x := by
     rw [inv_eq_one_div, div_le_iff₀ hu]
-    nlinarith [mul_nonneg hx0 (by linarith : (0 : ℝ) ≤ 3 - 4 * x)]
+    linarith only [mul_nonneg hx0 (by linarith : (0 : ℝ) ≤ 3 - 4 * x)]
   have hkey : -Real.log (1 - x) ≤ 4 * x := by
     rw [← Real.log_inv]; linarith [h1, h3]
   calc (1 - x)⁻¹ = Real.exp (Real.log ((1 - x)⁻¹)) := (Real.exp_log hinv).symm
@@ -155,7 +155,7 @@ lemma rpow_neg_prime_le_three_quarters {p : ℕ} (hp : 2 ≤ p) {σ : ℝ} (hσ 
     have hpos : (0 : ℝ) < (2 : ℝ) ^ (-(1 / 2) : ℝ) := Real.rpow_pos_of_pos (by norm_num) _
     have hsq : (2 : ℝ) ^ (-(1 / 2) : ℝ) * (2 : ℝ) ^ (-(1 / 2) : ℝ) = 1 / 2 := by
       rw [← Real.rpow_add (by norm_num : (0 : ℝ) < 2)]; norm_num
-    nlinarith [hpos, hsq]
+    nlinarith only [hpos, hsq]
   linarith
 
 /-- The per-prime Euler-correction bound `(1 − p^{−σ})^{−2} ≤ exp(8·p^{−σ})`
@@ -416,12 +416,12 @@ lemma sum_cappedPow_inv_le {W : ℕ} (hW : 4 ≤ W) :
         rw [div_add_div _ _ hWpos.ne' hspos.ne', div_le_div_iff₀ (by positivity) hRpos]
         have hmul : Real.sqrt W * Real.sqrt W = W := Real.mul_self_sqrt hWpos.le
         have hpoly : (s : ℝ) * s + (s : ℝ) + W ≤ 4 * Real.sqrt W * s := by
-          nlinarith [hsleR, hRltS1, hspos, hRpos, hmul, hs1R,
-            mul_nonneg (sub_nonneg.mpr hsleR)
-              (by linarith [hRltS1] : (0 : ℝ) ≤ (s : ℝ) + 1 - Real.sqrt W),
-            mul_nonneg hRpos.le (by linarith [hs1R] : (0 : ℝ) ≤ 2 * (s : ℝ) - 1)]
-        nlinarith [mul_le_mul_of_nonneg_right hpoly (Real.sqrt_nonneg (W : ℝ)), hmul,
-          hRpos, hspos, hWpos]
+          linarith only [hmul,
+              mul_nonneg hRpos.le (by linarith [hs1R] : (0 : ℝ) ≤ 2 * (s : ℝ) - 1),
+              mul_nonneg (sub_nonneg.mpr hsleR)
+              (by linarith [hRltS1] : (0 : ℝ) ≤ (s : ℝ) + 1 - Real.sqrt W)]
+        nlinarith only [hmul, mul_le_mul_of_nonneg_right hpoly (Real.sqrt_nonneg (W : ℝ)),
+            (Nat.cast_nonneg _ : 0 ≤ ↑s)]
 
 /-- **The capped-power divisibility count (S4-II, consumer-shaped).**  Summed over
 primes `p ≤ W`, the number of `n ∈ [1,z]` divisible by `cappedPow(W,p)` is
