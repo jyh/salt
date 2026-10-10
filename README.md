@@ -9,12 +9,13 @@ close it — Polymath8b showed gaps ≤ 6 is optimal for sieve-theoretic argumen
 under the generalized Elliott–Halberstam conjecture. So the project runs two layers:
 
 1. **The ladder (formalization spine).** Formalize the known frontier, bottom-up:
-   Brun's theorem → Siegel–Walfisz and the large sieve (the two axioms of the
-   existing Lean Bombieri–Vinogradov formalization) → unconditional B–V → GPY →
+   Brun's theorem → Siegel–Walfisz and the large sieve (the two axioms the
+   existing Lean Bombieri–Vinogradov formalization declared; by the 2026-08-17
+   survey only Siegel–Walfisz remained one, rows 2 and 7) → unconditional B–V → GPY →
    Maynard–Tao ("gaps ≤ 600", then Polymath8b's 246) → the conditional results
    (EH → 12, GEH → 6) → the parity obstruction itself. Some rungs have public
    formalizations elsewhere (Lean Bombieri–Vinogradov modulo a Siegel–Walfisz
-   axiom, as above; AxiomMath's PrimeGapsLib for Maynard–Tao),
+   axiom; AxiomMath's PrimeGapsLib for Maynard–Tao),
    so the README makes no priority claim for the ladder. Dated, per-rung priority
    statements are in `docs/priority-survey-2026-08-11.md` and its 2026-08-17
    re-run, `docs/priority-survey-2026-08-17-delta.md`; neither has been re-run
