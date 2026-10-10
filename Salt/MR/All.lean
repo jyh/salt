@@ -9333,14 +9333,14 @@ hops — the antecedent stays and H3 takes it); H2c's crossing supplier; H3's un
 Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is.
 2026-10-09: the XY debt lane's family 47 retired `s13_gate8_L_gk_h`,
 `s15_gRows_const_at_socket_flat_doorLH_gk` and `s13_smallGradeFits_of_halfWindow_L_gk_h` into their
-cap-9 twins, their three rows dropped here (the twins are audited under ⟦β W1 E3⟧ and ⟦β W2 F3⟧). -/
+cap-9 twins, their three rows dropped here (the twins are audited under ⟦β W1 E3⟧ and ⟦β W2 F3⟧).
+2026-10-10: family 48 retired `s13_smallGradeFits_h` and `s13_winFit_h_of_halfWindow_gen` into their
+cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E3⟧). -/
 #audit_axioms Salt.MR.s16BandLaneCBoundedLH_one_iff
   Salt.MR.s15CrossingBound_LH_gk_one_iff
   Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.RSanDoorRhoH_le_RSanDoorRho
   Salt.MR.doorBaseFrame_at_socket_LH
-  Salt.MR.s13_smallGradeFits_h
-  Salt.MR.s13_winFit_h_of_halfWindow_gen
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28
   Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.logChowla2_witnessed_scale_flat_LH
@@ -10253,16 +10253,19 @@ landed capfloor bundle; 2026-10-05: family 39 retired the sources of `cofkL_sock
 re-pointed the seven consumers of `S16FlatTerminalLinearLH`'s `s13_gate8_L_gk_h` and
 `s13_smallGradeFits_of_halfWindow_L_gk_h` to their twins here, their statements unchanged, and moved
 that file's §5 and §6 below its two twin blocks; 2026-10-09: family 47 retired those two pages into
-their twins here, noted where they stood).  Each twin is its source's statement and body with ONLY
-the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`,
-`548000 ↦ 4051500`, and the census's in-body literals — every derived cap-dependent supplier
-replaced by its twin, and no hypothesis added.  Two conclusion/hypothesis numerals move as the
-census prices them: `cofkL_mu_floor_h_b9` concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and
-`s13_g2_jfloor_of_MSelect'_L_gk_h_b9` reads `+ 36` in `h1`, supplied by the sibling mint
-`s13_g2_jfloor_of_MSelect'_L_gk_shift36`.  `pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one
-RE-DERIVATION: its two log absorptions are merged into one product inequality, valid at
-`0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement differs from the source only by the cap.  Nothing
-here bears on twin primes.  19 obligations, 19 landed. -/
+their twins here, noted where they stood; 2026-10-10: family 48 retired `s13_smallGradeFits_h` and
+`s13_winFit_h_of_halfWindow_gen` into their twins here, noted where they stood; of
+`s13_smallGradeFits_h_b9`, whose source it retires, the sentence below holds of the code and the
+twin's block omits nine comment lines of its source's body — said of that twin alone).  Each twin is
+its source's statement and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`,
+`1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's in-body literals — every
+derived cap-dependent supplier replaced by its twin, and no hypothesis added.  Two
+conclusion/hypothesis numerals move as the census prices them: `cofkL_mu_floor_h_b9` concludes
+`log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and `s13_g2_jfloor_of_MSelect'_L_gk_h_b9` reads `+ 36` in
+`h1`, supplied by the sibling mint `s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
+`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one RE-DERIVATION: its two log absorptions are
+merged into one product inequality, valid at `0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement differs
+from the source only by the cap.  Nothing here bears on twin primes.  19 obligations, 19 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s15_sel''_L_witness_flat_b9
   Salt.MR.s15_sel''_L_gk_witness_flat_b9
