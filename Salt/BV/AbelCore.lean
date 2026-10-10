@@ -466,7 +466,7 @@ theorem psiToPiCore'_holds : PsiToPiCore' := by
   have hQle_val : (Q : ℝ) ≤ Real.sqrt x / (Real.log x) ^ B := Nat.floor_le (by positivity)
   have hQle_sqrt : (Q : ℝ) ≤ Real.sqrt x := by
     refine hQle_val.trans ?_
-    rw [div_le_iff₀ hLBpos]; nlinarith [hsqrtnn, hLBge1]
+    rw [div_le_iff₀ hLBpos]; nlinarith only [hLBge1, hsqrtnn]
   have hP10nn : 0 ≤ ∑ n ∈ Finset.Ioc 1 x, ppTerm n :=
     Finset.sum_nonneg (fun n _ => ppTerm_nonneg n)
   have hP10le : ∑ n ∈ Finset.Ioc 1 x, ppTerm n ≤ Real.sqrt x * Real.log x / Real.log 2 :=
@@ -602,7 +602,7 @@ theorem psiToPiCore'_holds : PsiToPiCore' := by
     have hb0 : (Real.log x)⁻¹ * ∑ q ∈ Finset.Icc 1 Q, dispDisc x q ≤ (Real.log x)⁻¹ * M :=
       mul_le_mul_of_nonneg_left (hyp x le_rfl) (inv_nonneg.mpr hLxnn)
     have hle2 : (Real.log 2)⁻¹ ≤ 2 := by
-      rw [inv_le_iff_one_le_mul₀ hlog2]; nlinarith [Real.log_two_gt_d9]
+      rw [inv_le_iff_one_le_mul₀ hlog2]; linarith only [hlog2, Real.log_two_gt_d9]
     have hcomb : (Real.log x)⁻¹ * M + (∑ i ∈ Finset.Ioc 1 (x - 1),
           ((Real.log i)⁻¹ - (Real.log ((i + 1 : ℕ) : ℝ))⁻¹)) * M ≤ 2 * M := by
       rw [← add_mul, htele]
@@ -627,7 +627,7 @@ theorem psiToPiCore'_holds : PsiToPiCore' := by
       rwa [Real.log_sqrt hxpos.le] at this
     have hlogbQ : Real.logb 2 Q ≤ Real.log x / (2 * Real.log 2) := by
       rw [Real.logb, div_le_div_iff₀ hlog2 (by positivity)]
-      nlinarith [hlogQ, hlog2]
+      nlinarith only [hlog2, hlogQ]
     have hlogQx : Real.log Q ≤ Real.log x := by linarith [hlogQ]
     have hLL2nn : 0 ≤ Real.log x / Real.log 2 := div_nonneg hLxnn hlog2.le
     have hlogQnn : 0 ≤ Real.log Q := Real.log_nonneg (by exact_mod_cast hQpos)
@@ -649,7 +649,7 @@ theorem psiToPiCore'_holds : PsiToPiCore' := by
       _ ≤ 5 * ((1 + Real.log x) ^ 2 * (1 + Real.log x)) := by
           refine mul_le_mul_of_nonneg_left ?_ (by norm_num)
           refine mul_le_mul_of_nonneg_right ?_ h1logx
-          nlinarith [hLxnn]
+          linarith only [hLxpos]
       _ = 5 * (1 + Real.log x) ^ 3 := by ring
   have hfreightTot : ∑ q ∈ Finset.Icc 1 Q, (2 * ∑ n ∈ Finset.Ioc 1 x, ppTerm n)
       ≤ 4 * x * (1 + Real.log x) / (Real.log x) ^ B := by
@@ -665,8 +665,8 @@ theorem psiToPiCore'_holds : PsiToPiCore' := by
       have heq : Real.sqrt x * (2 * (Real.sqrt x * Real.log x / Real.log 2))
           = 2 * (Real.sqrt x * Real.sqrt x) * Real.log x / Real.log 2 := by ring
       rw [heq, hsqrtsq, div_le_iff₀ hlog2]
-      nlinarith [Real.log_two_gt_d9, mul_nonneg hxpos.le hLxnn, mul_nonneg hxpos.le hlog2.le,
-        mul_nonneg (mul_nonneg hxpos.le hLxnn) hlog2.le]
+      nlinarith only [hLx1, hxR, hlog2, Real.log_two_gt_d9,
+          mul_nonneg hxpos.le hLxnn, mul_nonneg hxpos.le hlog2.le]
     rw [div_mul_eq_mul_div, div_le_div_iff₀ hLBpos hLBpos]
     exact mul_le_mul_of_nonneg_right hnum hLBpos.le
   linarith [hdispTot, homegaTot, hfreightTot]
@@ -736,8 +736,8 @@ theorem psiToPiTransfer_of_core' (hCore : PsiToPiCore') : PsiToPiTransfer := by
         (Real.rpow_le_rpow_of_exponent_le hL1 (by linarith))
     refine hstepA.trans ?_
     rw [hLA1eq, div_le_div_iff₀ (by positivity) hLApos]
-    nlinarith [mul_nonneg (mul_nonneg hxpos.le hLApos.le) (by linarith : (0 : ℝ) ≤ Real.log x - 1),
-      hLApos.le, hxpos.le]
+    linarith only [mul_nonneg (mul_nonneg hxpos.le hLApos.le)
+        (by linarith : (0 : ℝ) ≤ Real.log x - 1)]
   calc 5 * (1 + Real.log x) ^ 3 + 2 * (C' * (x : ℝ) / (Real.log x) ^ (A + 1))
           + 4 * (x : ℝ) * (1 + Real.log x) / (Real.log x) ^ (B' + A + 1)
       ≤ (x : ℝ) / (Real.log x) ^ A + 2 * (C' * (x : ℝ) / (Real.log x) ^ A)

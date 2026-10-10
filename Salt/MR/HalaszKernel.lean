@@ -388,7 +388,7 @@ lemma cpow_seg_bound {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (t :
       HasDerivWithinAt (fun y : ℝ => (y : ℂ) ^ (s + 1)) ((s + 1) * (u : ℂ) ^ s)
         (Icc X (X + h)) u := by
     intro u hu
-    have hu0 : u ≠ 0 := by rw [mem_Icc] at hu; nlinarith [hu.1]
+    have hu0 : u ≠ 0 := by rw [mem_Icc] at hu; linarith only [hu, hX]
     have h1 := (hasDerivAt_ofReal_cpow_const hu0 hr).hasDerivWithinAt (s := Icc X (X + h))
     have hpow : (s + 1) * (u : ℂ) ^ (s + 1 - 1) = (s + 1) * (u : ℂ) ^ s := by ring_nf
     rwa [hpow] at h1
@@ -419,7 +419,7 @@ theorem hat_mellin_bound {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) 
     rw [hs, Complex.norm_add_mul_I,
       show (c : ℂ) + (t : ℂ) * I + 1 = ((c + 1 : ℝ) : ℂ) + (t : ℂ) * I by push_cast; ring,
       Complex.norm_add_mul_I]
-    exact Real.sqrt_le_sqrt (by nlinarith)
+    exact Real.sqrt_le_sqrt (by linarith only [hc])
   have hseg := cpow_seg_bound hX hh hc t
   rw [← hs] at hseg
   have htri : ‖((X + h : ℝ) : ℂ) ^ (s + 1) - ((X : ℝ) : ℂ) ^ (s + 1)‖ ≤ 2 * (X + h) ^ (c + 1) := by
@@ -452,7 +452,7 @@ theorem hat_mellin_bound {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) 
       show (X + h) ^ (c + 1) = (X + h) ^ c * (X + h) by rw [Real.rpow_add hXh, Real.rpow_one]]
     have hratio : 1 ≤ ‖s + 1‖ / ‖s‖ := by rw [le_div_iff₀ hsn]; linarith
     have hp : (0 : ℝ) ≤ 2 * ((X + h) ^ c * (X + h)) := by positivity
-    nlinarith [hratio, hp]
+    nlinarith only [hratio, hp]
   exact (le_min hbranch1 hbranch2).trans_eq (mul_min_of_nonneg _ _ (by positivity)).symm
 
 /-- **The branch-2 tail bound** (`hat_tail`).  Beyond height `T`, the (dominant,
@@ -478,7 +478,7 @@ theorem hat_tail {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) {T : ℝ
         rw [Set.mem_Ioi] at ht
         have ht0 : (0 : ℝ) < t := by linarith
         rw [Real.rpow_neg ht0.le, Real.rpow_two]
-        exact inv_anti₀ (pow_pos ht0 2) (by nlinarith [sq_nonneg c])
+        exact inv_anti₀ (pow_pos ht0 2) (by linarith only [sq_nonneg c])
     _ = 2 * (X + h) ^ (c + 1) / (h * T) := by
         rw [integral_Ioi_rpow_of_lt (show (-2 : ℝ) < -1 by norm_num) hT,
           show (-2 : ℝ) + 1 = -1 by norm_num, Real.rpow_neg_one]
