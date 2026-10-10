@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `3d89f899` · source digest `07dcef68dc5ff62f` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `e133dab1` · source digest `e330ba5a14155ce3` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -504,7 +504,7 @@ Declarations indexed across the tree: 22623 · corpus Prop-valued names (the hyp
 | `Salt.BV.char_LS_max` | Salt/BV/MaxLS.lean:208 | sieves, characters |
 | `Salt.BV.psiAP_discrepancy_le` | Salt/BV/MaxReduction.lean:54 | sieves, characters |
 | `Salt.BV.psiAP_discrepancy_sup'_le` | Salt/BV/MaxReduction.lean:139 | sieves, characters |
-| `Salt.BV.polya_vinogradov` | Salt/BV/PolyaVinogradov.lean:234 | sieves, characters |
+| `Salt.BV.polya_vinogradov` | Salt/BV/PolyaVinogradov.lean:235 | sieves, characters |
 | `Salt.BV.norm_psiChi_one_sub_psiTot_le` | Salt/BV/SWChar.lean:196 | sieves, characters |
 | `Salt.BV.sup_div_log_pow_le` | Salt/BV/SWMaxY.lean:111 | sieves |
 | `Salt.BV.typeI_one_maxdisc_le` | Salt/BV/TypeI.lean:381 | sieves, characters |
@@ -825,15 +825,15 @@ Declarations indexed across the tree: 22623 · corpus Prop-valued names (the hyp
 | `Salt.Chen.hTbound_lower_of_levels` | Salt/Chen/Lemma11.lean:421 | sieves |
 | `Salt.Chen.linear_sieve_upper_rosser_assembled_final` | Salt/Chen/Lemma11.lean:484 | sieves |
 | `Salt.Chen.linear_sieve_lower_rosser_assembled_final` | Salt/Chen/Lemma11.lean:498 | sieves |
-| `Salt.Chen.TruncSieve.isUpperMoebius` | Salt/Chen/LinearSieve.lean:264 | sieves |
-| `Salt.Chen.TruncSieve.isLowerMoebius` | Salt/Chen/LinearSieve.lean:282 | sieves |
-| `Salt.Chen.linear_sieve_upper` | Salt/Chen/LinearSieve.lean:333 | sieves |
-| `Salt.Chen.linear_sieve_lower` | Salt/Chen/LinearSieve.lean:349 | sieves |
-| `Salt.Chen.linear_sieve_upper_chain` | Salt/Chen/LinearSieve.lean:377 | sieves |
-| `Salt.Chen.linear_sieve_lower_chain` | Salt/Chen/LinearSieve.lean:389 | sieves |
-| `Salt.Chen.rosserCond_one` | Salt/Chen/LinearSieve.lean:497 | sieves |
-| `Salt.Chen.rosserSieve_isUpperMoebius` | Salt/Chen/LinearSieve.lean:579 | sieves |
-| `Salt.Chen.rosserSieve_isLowerMoebius` | Salt/Chen/LinearSieve.lean:584 | sieves |
+| `Salt.Chen.TruncSieve.isUpperMoebius` | Salt/Chen/LinearSieve.lean:267 | sieves |
+| `Salt.Chen.TruncSieve.isLowerMoebius` | Salt/Chen/LinearSieve.lean:285 | sieves |
+| `Salt.Chen.linear_sieve_upper` | Salt/Chen/LinearSieve.lean:336 | sieves |
+| `Salt.Chen.linear_sieve_lower` | Salt/Chen/LinearSieve.lean:352 | sieves |
+| `Salt.Chen.linear_sieve_upper_chain` | Salt/Chen/LinearSieve.lean:380 | sieves |
+| `Salt.Chen.linear_sieve_lower_chain` | Salt/Chen/LinearSieve.lean:392 | sieves |
+| `Salt.Chen.rosserCond_one` | Salt/Chen/LinearSieve.lean:500 | sieves |
+| `Salt.Chen.rosserSieve_isUpperMoebius` | Salt/Chen/LinearSieve.lean:582 | sieves |
+| `Salt.Chen.rosserSieve_isLowerMoebius` | Salt/Chen/LinearSieve.lean:587 | sieves |
 | `Salt.Chen.log_half_le_tangent` | Salt/Chen/LogToolkit.lean:98 | sieves |
 | `Salt.Chen.log_half_ge_chord` | Salt/Chen/LogToolkit.lean:110 | sieves |
 | `Salt.Chen.integral_quad` | Salt/Chen/LogToolkit.lean:141 | sieves |
@@ -7008,7 +7008,7 @@ Declarations indexed across the tree: 22623 · corpus Prop-valued names (the hyp
 | `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:52 | zeros, exponential sums |
 | `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:105 | zeros, exponential sums |
 | `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:276 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:409 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
 | `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:103 | zeros, exponential sums |
 | `Salt.Vk.poly_shift_orbit` | Salt/Vk/Pointwise.lean:34 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_anti` | Salt/Vk/PowRegion.lean:40 | zeros, exponential sums |
@@ -7290,8 +7290,8 @@ Declarations indexed across the tree: 22623 · corpus Prop-valued names (the hyp
 | `Salt.Chen.chi_lower_lt` | Salt/Chen/BrunEll1.lean:116 | sieves | `Salt.BrunLower.chi` |
 | `Salt.Chen.rosserCond_upper_lt` | Salt/Chen/Buchstab.lean:139 | sieves | `Salt.Chen.rosserCond` |
 | `Salt.Chen.rosserCond_lower_lt` | Salt/Chen/Buchstab.lean:163 | sieves | `Salt.Chen.rosserCond` |
-| `Salt.Chen.rosserCond_dvd_closed` | Salt/Chen/LinearSieve.lean:503 | sieves | `Salt.Chen.rosserCond` |
-| `Salt.Chen.rosserCond_add_prime` | Salt/Chen/LinearSieve.lean:541 | sieves | `Salt.Chen.rosserCond` |
+| `Salt.Chen.rosserCond_dvd_closed` | Salt/Chen/LinearSieve.lean:506 | sieves | `Salt.Chen.rosserCond` |
+| `Salt.Chen.rosserCond_add_prime` | Salt/Chen/LinearSieve.lean:544 | sieves | `Salt.Chen.rosserCond` |
 | `Salt.Chen.bjs_theorem6_upper'` | Salt/Chen/StepBound2.lean:250 | sieves | `Salt.Chen.StepHyp` |
 | `Salt.Chen.bjs_theorem6_lower'` | Salt/Chen/StepBound2.lean:268 | sieves | `Salt.Chen.StepHyp` |
 | `Salt.Chen.bjs_theorem6_upper_sifted'` | Salt/Chen/StepBound2.lean:286 | sieves | `Salt.Chen.StepHyp` |

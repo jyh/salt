@@ -61,9 +61,11 @@ Green lint = "not mechanically stale", never "the prose is true".
   (S₁ and S₂ — the hardest nodes, landed first-pass), the index set and
   weights, the CRT congruence counting, the Mertens-2nd bound (built from
   scratch — absent from mathlib), the Rankin bound, the EH consumption
-  (where the hypothesis is genuinely used), and the ratio prize. To our
-  knowledge no prior formalization of this machinery exists in any
-  assistant. What remains between here and `BoundedGapsFromEH` is a
+  (where the hypothesis is genuinely used), and the ratio prize. When this
+  was written (2026-07-07) we knew of no prior formalization of this
+  machinery in any assistant; AxiomMath's PrimeGapsLib has since
+  formalized Maynard–Tao (`docs/priority-survey-2026-08-11.md`,
+  row 10). What remains between here and `BoundedGapsFromEH` is a
   chain of **sharp analytic estimates** — above all the exact-constant
   weighted transfer (N3.3) — that two serious automated attempts each
   landed only in crude form. Completing them needs either sharper
