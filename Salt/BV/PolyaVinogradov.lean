@@ -29,8 +29,9 @@ Route (classical, adapted to the landed Gauss-sum toolkit `Salt/LS/GaussSum.lean
    `harmonic_le_one_add_log`.
 4. **Assemble** using `‖τ⁻¹‖ = 1/√f` (`gaussSum_normSq` at `χ⁻¹`).
 
-This is (to our knowledge) the first machine-checked Pólya–Vinogradov in any
-library.
+When this was written (2026-07-11) we knew of no other machine-checked
+Pólya–Vinogradov in any library. The priority surveys (`docs/priority-survey-*.md`)
+did not check this claim, so it is not a priority statement.
 -/
 
 namespace Salt.BV

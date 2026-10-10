@@ -16,7 +16,7 @@ dated, lint-verified row-per-theorem register. **Read it before asserting absenc
 | 5 | [BV](../Salt/BV/) | Bombieri–Vinogradov chain | ✅ | `bounded_gaps_of_siegelWalfisz` → unconditional bounded gaps |
 | 6 | [CHEN I+II](../Salt/Chen/) | Chen's two theorems | ✅ | `chen_headline` (p+2 = P₂ i.o.); [`chen_goldbach`](../Salt/Goldbach/ChenGoldbach.lean) (large even N = p+P₂) |
 | 7 | [T-BAL](../Salt/SW/TBalR8.lean) | Deuring–Heilbronn repulsion | ✅ | `dh_repulsion_ordered` (b=680, k=14, σ₀=16/17, explicit c) |
-| 8 | [VK](../Salt/Vk/) | zero-free regions | ✅ | `zeta_zero_free_region_littlewood` (first ever); `_pow` (θ=3/4, first in any PA); [`Salt.Vmvt.vmvt`](../Salt/Vmvt/) |
+| 8 | [VK](../Salt/Vk/) | zero-free regions | ✅ | `zeta_zero_free_region_littlewood`; `_pow` (θ=3/4); both first in any public proof-assistant artifact as of the 2026-08-17 priority survey (row 5, THREATENED); [`Salt.Vmvt.vmvt`](../Salt/Vmvt/) |
 | 9 | [S5/MR-PRE](../Salt/MR/) | the pretentious floor | ✅ | `zeta_lower_all_t`; `lambda_nonpret` (residual retired 2026-07-19) |
 | 10 | [ENTROPY SPINE](../Salt/Entropy/Chowla/) | log-Chowla two-point | ✅→door | [`log_chowla_two_door_only`](../Salt/Entropy/Chowla/SpineFinal.lean) — sole hypothesis = the MRT door |
 | 11 | [FULCRUM](../Salt/Fulcrum/) | the minimized Siegel hypothesis | ✅ | `FulcrumQualityMin` (F, C⋆; reality derived, c₀ = 1/126848 certified); the Hunt ([1](exploration/fulcrum-pass1.md)·[2](exploration/fulcrum-pass2.md)·[3](exploration/fulcrum-pass3.md)); 4 walls |
@@ -39,7 +39,7 @@ windmills dissolved on close inspection (the Fable cliff; R1.1's SOS wall; GS Le
 the raw sharp Perron) — the pattern is now law: scope before escalating (#255).
 
 ## The convergence points ahead
-**SPINE**: S8 summits → `log_chowla_two` unconditional (first formal log-Chowla).
+**SPINE**: S8 summits → `log_chowla_two` unconditional (no public formal log-Chowla as of the 2026-08-17 priority survey, row 12; not re-surveyed since, and OpenAI's `openai/math`, 2026-10-06, claims two-point Chowla with ordinary averaging in Lean, unreviewed, which would imply the logarithmic form).
 **CROWN**: HB-ENGINE assembles → `TPC ∨ NoSiegelZeros` with no hypothesis.
 **PORTFOLIO** (post-planning-council): mixed-risk avenues incl. the Siegel-zero hunt
 (the batcrazy ticket: anomalously small class numbers at enormous discriminants;

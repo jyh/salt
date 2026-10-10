@@ -12,9 +12,13 @@ under the generalized Elliott–Halberstam conjecture. So the project runs two l
    Brun's theorem → Siegel–Walfisz and the large sieve (the two axioms of the
    existing Lean Bombieri–Vinogradov formalization) → unconditional B–V → GPY →
    Maynard–Tao ("gaps ≤ 600", then Polymath8b's 246) → the conditional results
-   (EH → 12, GEH → 6) → the parity obstruction itself. Every rung is a first-ever
-   formalization; the corpus is a landmark contribution even if the summit is
-   never reached.
+   (EH → 12, GEH → 6) → the parity obstruction itself. Some rungs have public
+   formalizations elsewhere (Lean Bombieri–Vinogradov modulo a Siegel–Walfisz
+   axiom, as above; AxiomMath's PrimeGapsLib for Maynard–Tao),
+   so the README makes no priority claim for the ladder. Dated, per-rung priority
+   statements are in `docs/priority-survey-2026-08-11.md` and its 2026-08-17
+   re-run, `docs/priority-survey-2026-08-17-delta.md`; neither has been re-run
+   since. The corpus is meant to be useful even if the summit is never reached.
 2. **The hunt (research layer).** A barrier atlas (precise statements of why each
    known approach fails), a reduction DAG of candidate statements, and systematic
    <!-- claim-check: not-a-claim: a published human proof in the literature, not a machine-verification claim -->

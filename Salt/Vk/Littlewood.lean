@@ -400,7 +400,8 @@ theorem littlewood_bracket {C : ℝ} (hC : 1 ≤ C) {γ : ℝ}
 `c > 0` and a threshold `T₀` such that every ζ-zero `ρ` of height `|Im ρ| ≥ T₀` satisfies
 `Re ρ ≤ 1 − c·log log|Im ρ| / log|Im ρ|` — strictly wider than de la Vallée Poussin's `1/log t`.
 
-The historic checkpoint: the first machine-checked Littlewood-strength zero-free region, obtained
+The first Littlewood-strength zero-free region in any public proof-assistant artifact as of the
+2026-08-17 priority survey (`docs/priority-survey-2026-08-17-delta.md`, row 5), obtained
 from the sub-Weyl growth `Salt.ExpSum.zeta_strip_family` at the balanced degree `k ≈ log log t`
 (`littlewood_bracket`) fed through the 3-4-1 disc assembly (`zeta_zero_free_littlewood_core`).
 Negative-height zeros are handled by the conjugation shim `riemannZeta_conj_zero`.  Both `c`
