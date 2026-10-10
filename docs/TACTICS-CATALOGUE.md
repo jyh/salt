@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e133dab1` · source digest `e330ba5a14155ce3` (the same digest as items 1–3).
-> Receipt: files 1319 · decls 22623 · with_body 22623 · tactic_lines 309145 · runs 36072 · blocks 1470.
+> Base: last commit touching `Salt/` = `f5918ee7` · source digest `57fb6362083a198a` (the same digest as items 1–3).
+> Receipt: files 1319 · decls 22621 · with_body 22621 · tactic_lines 308988 · runs 36057 · blocks 1467.
 
 ## LIMITS (read before any number below)
 
@@ -72,7 +72,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `EventuallyBudget.lean` | T2 | `Salt.Tactic.exists_forall_ge_of_eventually` | 0 | - | - |
 | `EventuallyBudget.lean` | T2 | `eventually_budget` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_eq_pow` | 0 | - | - |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_le_of_pow_le` | 28 | qualified 28 | `MR/FarStar.lean` 5, `MR/S16FlatTerminalLinearLH.lean` 3, `MR/StrideDoorAllGrades.lean` 3, `Entropy/Chowla/Step.lean` 2 (+13 files) |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_le_of_pow_le` | 27 | qualified 27 | `MR/FarStar.lean` 5, `MR/StrideDoorAllGrades.lean` 3, `Entropy/Chowla/Step.lean` 2, `Entropy/Chowla/StrideDecrement.lean` 2 (+13 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_lt_of_pow_lt` | 9 | qualified 9 | `Entropy/Chowla/GoldbachEnergyKcH.lean` 3, `MR/MultShiu.lean` 2, `MR/S16ProducersH.lean` 2, `HB/L2cELT1.lean` 1 (+1 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 75 | qualified 75 | `MR/ThmA2Linear.lean` 18, `MR/StrideDoorAllGrades.lean` 8, `MR/ThmA2Rows.lean` 8, `MR/A3Middle.lean` 4 (+22 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.log_le_nat_of_le_pow` | 34 | qualified 34 | `HB/CrownTheorem1.lean` 3, `Goldbach/RowsLive.lean` 2, `MR/LFunctionInvShallow.lean` 2, `MR/M4ClosureRepair.lean` 2 (+20 files) |
@@ -85,7 +85,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `LogNum.lean` | T3 | `Salt.Tactic.LogNum.lt_log_two_pow` | 0 | - | - |
 | `NlinarithSuggest.lean` | T3 | `nlinarith?` | 0 | - | - |
 
-`#audit_axioms` in detail: **444 commands auditing 9072 identifiers** across 23 files; in the `All.lean` ledgers **437 commands, 9065 identifiers**.
+`#audit_axioms` in detail: **444 commands auditing 9070 identifiers** across 23 files; in the `All.lean` ledgers **437 commands, 9063 identifiers**.
 
 **Landed surface with ZERO call sites outside `Salt/Tactic/` (36) — each is a finding, not a defect of the count:** `Salt.CertEval.CMono`, `Salt.CertEval.CPoly`, `Salt.CertEval.Exp5`, `Salt.CertEval.FstarC`, `Salt.CertEval.J_Fstar_0_reflective`, `Salt.CertEval.cJD`, `Salt.CertEval.cJD_eq`, `Salt.CertEval.evalJcal`, `Salt.CertEval.evalJcal_FstarC_0`, `Salt.CertEval.evalJcal_eq`, `Salt.CertEval.toE`, `Salt.CertEval.toPoly`, `Salt.CertEval.toPoly_FstarC`, `Salt.Tactic.dyadic_cover_sum_le_range`, `Salt.Tactic.dyadic_interval_rec`, `Salt.Tactic.geom_half_range_le`, `Salt.Tactic.geom_inv_sqrt_two_le`, `Salt.Tactic.geom_sqrt_two_pow_le`, `Salt.Tactic.geom_sum_le_bot`, `Salt.Tactic.geom_sum_le_top`, `Salt.Tactic.eventually_add_le`, `Salt.Tactic.eventually_finset_sum_le`, `Salt.Tactic.eventually_ge_of_tendsto_gt`, `Salt.Tactic.eventually_le_of_eventually_le_const`, `Salt.Tactic.eventually_le_of_tendsto_zero`, `Salt.Tactic.eventually_lt_of_eventually_le_const`, `Salt.Tactic.eventually_sum_lt_of_pieces`, `Salt.Tactic.exists_forall_ge_of_eventually`, `eventually_budget`, `Salt.Tactic.exp_nat_eq_pow`, `Salt.Tactic.LogNum.le_log_two_pow`, `Salt.Tactic.LogNum.log_eq_nat_mul_log`, `Salt.Tactic.LogNum.log_two_pow_le`, `Salt.Tactic.LogNum.log_two_pow_lt`, `Salt.Tactic.LogNum.lt_log_two_pow`, `nlinarith?`
 
@@ -94,43 +94,43 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | name | at base (seat, lines) | here: qualified tokens | here: all forms |
 |---|---:|---:|---:|
 | `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 75 | 75 |
-| `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | 28 | 28 |
+| `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | 27 | 27 |
 | `Salt.Tactic.log_le_nat_of_le_pow` | 5 | 34 | 34 |
 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | 21 | 21 |
 
 ## 2. Tactic usage (first token of each tactic line)
 
-309145 tactic lines. Top 30:
+308988 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 137294 | 44.4% |
-| 2 | `rw` | 49339 | 16.0% |
-| 3 | `exact` | 17520 | 5.7% |
-| 4 | `intro` | 14040 | 4.5% |
-| 5 | `refine` | 12784 | 4.1% |
-| 6 | `linarith` | 10854 | 3.5% |
-| 7 | `obtain` | 8672 | 2.8% |
-| 8 | `calc` | 7841 | 2.5% |
-| 9 | `set` | 5414 | 1.8% |
+| 1 | `have` | 137204 | 44.4% |
+| 2 | `rw` | 49313 | 16.0% |
+| 3 | `exact` | 17518 | 5.7% |
+| 4 | `intro` | 14039 | 4.5% |
+| 5 | `refine` | 12783 | 4.1% |
+| 6 | `linarith` | 10844 | 3.5% |
+| 7 | `obtain` | 8670 | 2.8% |
+| 8 | `calc` | 7839 | 2.5% |
+| 9 | `set` | 5409 | 1.8% |
 | 10 | `simp` | 4980 | 1.6% |
 | 11 | `apply` | 4378 | 1.4% |
-| 12 | `nlinarith` | 3723 | 1.2% |
+| 12 | `nlinarith` | 3722 | 1.2% |
 | 13 | `unfold` | 2613 | 0.8% |
-| 14 | `exact_mod_cast` | 2555 | 0.8% |
-| 15 | `ring` | 2196 | 0.7% |
+| 14 | `exact_mod_cast` | 2553 | 0.8% |
+| 15 | `ring` | 2194 | 0.7% |
 | 16 | `rcases` | 2116 | 0.7% |
-| 17 | `push_cast` | 2086 | 0.7% |
+| 17 | `push_cast` | 2081 | 0.7% |
 | 18 | `field_simp` | 1948 | 0.6% |
-| 19 | `rwa` | 1656 | 0.5% |
+| 19 | `rwa` | 1652 | 0.5% |
 | 20 | `by_cases` | 1642 | 0.5% |
 | 21 | `omega` | 1477 | 0.5% |
-| 22 | `norm_num` | 1474 | 0.5% |
-| 23 | `show` | 1269 | 0.4% |
+| 22 | `norm_num` | 1473 | 0.5% |
+| 23 | `show` | 1267 | 0.4% |
 | 24 | `classical` | 1221 | 0.4% |
 | 25 | `rintro` | 1128 | 0.4% |
 | 26 | `congr` | 969 | 0.3% |
-| 27 | `simpa` | 820 | 0.3% |
+| 27 | `simpa` | 819 | 0.3% |
 | 28 | `positivity` | 809 | 0.3% |
 | 29 | `constructor` | 632 | 0.2% |
 | 30 | `haveI` | 563 | 0.2% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3298 | `have` 1530, `rw` 559, `exact` 173, `linarith` 146, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 126806 | `have` 59279, `rw` 17235, `exact` 7082, `refine` 6828, `intro` 6095, `linarith` 5924, `obtain` 4641, `calc` 2409 |
+| Matomaki-Radziwill / Halasz (short intervals) | 126649 | `have` 59189, `rw` 17209, `exact` 7080, `refine` 6827, `intro` 6094, `linarith` 5914, `obtain` 4639, `calc` 2407 |
 | (no family) | 21337 | `have` 8427, `rw` 3727, `exact` 1367, `intro` 1116, `obtain` 775, `refine` 662, `calc` 634, `linarith` 598 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1470 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1467 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
