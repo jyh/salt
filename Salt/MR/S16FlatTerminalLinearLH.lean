@@ -38,7 +38,9 @@ edge runs `HSeamCheck → S16FlatTerminalLinearLH`; the reverse edge is a cycle 
 **PURELY ADDITIVE AT ITS LANDING (2026-09-01).**  No landed declaration was touched by it.
 2026-10-09: family 47 retired three declarations of §4 into their cap-9 twins, noted where they
 stood (the running list below); this sentence and the two twin banners' are amended to the past
-tense by it.
+tense by it.  2026-10-10: family 48 retired the file's last two `_b9`-twinned names,
+`s13_smallGradeFits_h` and `s13_winFit_h_of_halfWindow_gen`, into their twins, noted where they
+stood; no name of this file with a `_b9` twin remains.
 
 (2026-10-08, the XY debt lane's family 44: §5 and §6 stand BELOW the two cap-9 twin blocks from here
 on.  The conditional sharp form `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (§5)
@@ -52,7 +54,9 @@ left with no call site outside pages; no name is retired by it.  2026-10-09: fam
 three, `s13_gate8_L_gk_h`, `s15_gRows_const_at_socket_flat_doorLH_gk` and
 `s13_smallGradeFits_of_halfWindow_L_gk_h`, into their cap-9 twins (⟦β W1 E3⟧, ⟦β W2 F3⟧), each noted
 where it stood; of the names of this file that have a `_b9` twin, two stand, `s13_smallGradeFits_h`
-and `s13_winFit_h_of_halfWindow_gen`, each left without a caller by it.)
+and `s13_winFit_h_of_halfWindow_gen`, each left without a caller by it.  2026-10-10: family 48
+retired those two into their cap-9 twins (⟦β W1 E3⟧), each noted where it stood; of the names of
+this file that have a `_b9` twin, none stands.)
 -/
 
 noncomputable section
@@ -397,7 +401,9 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH (h : �
 2026-10-09: the XY debt lane's family 47 retired this section's three cap-7 pages,
 `s13_gate8_L_gk_h`, `s15_gRows_const_at_socket_flat_doorLH_gk` and
 `s13_smallGradeFits_of_halfWindow_L_gk_h`, into their cap-9 twins below (⟦β W1 E3⟧, ⟦β W2 F3⟧), each
-noted where it stood. -/
+noted where it stood.  2026-10-10: family 48 retired this section's last two cap-7 pages,
+`s13_smallGradeFits_h` and `s13_winFit_h_of_halfWindow_gen`, into their cap-9 twins below
+(⟦β W1 E3⟧), each noted where it stood. -/
 
 /-- ⭐ **THE INFLATED ENVELOPE IS THE SMALLER ONE** (`RSanDoorRhoH_le_RSanDoorRho`) — same
 numerator, larger denominator (`strataResidualH h H = strataResidual H + log h` past the
@@ -606,10 +612,28 @@ read it are re-pointed at the LH substrate already landed in `S16ProducersH`
 (`s13_socketBase_loglogA_LH`, `s12c_llX_ge_LH`, binder order `hh hh7 hfl hb`).  The socket is
 read in exactly four places and nothing else moves. -/
 
-set_option maxHeartbeats 1000000 in
--- The landed `s13_smallGradeFits`' own budget (`S13FramesA:580`): the two log-comparison
--- claims re-elaborate, here each carrying two more terms.
-/-- **⟦A-5 AT THE INFLATED SOCKET⟧** (`s13_smallGradeFits_h`, wave H2b word 5) —
+/-! ### `s13_smallGradeFits_h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 48 (2026-10-10)⟧
+`s13_smallGradeFits_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime} {j₀ H :
+ℕ} {ρ : ℝ} (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hlo : R.Hlo ≤ H) (hgate : (7 / 10 : ℝ) * (j₀ : ℝ) + 3 *
+(Real.log 9 + 84 * Real.log (Real.log (H : ℝ)) + 2 * Real.log (strataResidualH h H) - Real.log ρ) +
+7 * Real.log (h : ℝ) ≤ Real.log (H : ℝ)) : m4SmallGradeFits j₀ (fun H => 2 * RSanDoorRhoH ρ h H)
+(fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H` stood here.  It is `s13_smallGradeFits_h_b9` (in the
+⟦β W1 E3⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
+binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies it
+by `linarith` — kernel-checked from the retired statement's own bytes before the removal was
+committed.  The twin's body is this page's with one hint-list token changed (`hh7` to `hh9` in
+`hclaim1`'s `linarith`) and nine comment lines of this body omitted.  At this retirement the page
+had NO call site.  When the lane opened (main `93d7f312`, 2026-09-25) it had one caller,
+`s13_smallGradeFits_of_halfWindow_L_gk_h` of this file, which family 47 (2026-10-09) retired into
+its twin, noted where it stood below; that twin calls this page's twin.  This retirement leaves no
+name without a caller.  Its `set_option maxHeartbeats 1000000 in` and the two `--` lines over its
+docstring go with it.
+
+The page's docstring, verbatim:
+
+**⟦A-5 AT THE INFLATED SOCKET⟧** (`s13_smallGradeFits_h`, wave H2b word 5) —
 `S13FramesA.s13_smallGradeFits` with the envelope at `RSanDoorRhoH ρ h` and the `ℓ`-witness at
 `h⁷·rStrWitness`, from ONE gate that carries the shift TWICE:
 
@@ -627,183 +651,27 @@ closes with slack `0.0018·log H + 0.24·G ≥ 0`, true for free.  At `h ≥ 2` 
 `4.11·log h ≤ 28.8`, which needs `84·log(log H) ≳ 118` — i.e. `log H ≥ 4.1`.  The regime's own
 `4·10⁶ ≤ H` gives `log H ≥ 15` and `log log H ≥ 2`, and those two lines are carried explicitly
 below for exactly this reason. -/
-theorem s13_smallGradeFits_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {j₀ H : ℕ} {ρ : ℝ}
-    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hlo : R.Hlo ≤ H)
-    (hgate : (7 / 10 : ℝ) * (j₀ : ℝ)
-        + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
-            + 2 * Real.log (strataResidualH h H) - Real.log ρ)
-        + 7 * Real.log (h : ℝ)
-      ≤ Real.log (H : ℝ)) :
-    m4SmallGradeFits j₀ (fun H => 2 * RSanDoorRhoH ρ h H)
-      (fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H := by
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hlogh0 : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg hh1
-  obtain ⟨hlog3up, hlog3lo⟩ := s13_log_three_bounds
-  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  -- ⟦the window scale⟧
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hH0 : (0 : ℝ) < (H : ℝ) := by
-    have : (0 : ℕ) < H := by omega
-    exact_mod_cast this
-  set Λ : ℝ := Real.log (H : ℝ) with hΛdef
-  -- ⟦the two floors the `h` arm needs: `log H ≥ 15` and `loglog H ≥ 2`⟧
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have he1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-  have hexp15 : Real.exp 15 ≤ 4000000 := by
-    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 15 (c := 4000000) (by norm_num)
-  have hΛ15 : (15 : ℝ) ≤ Λ := by
-    rw [hΛdef, Real.le_log_iff_exp_le hH0]
-    linarith
-  have hΛ0 : (0 : ℝ) < Λ := by linarith
-  have hΛ1 : (2 : ℝ) < Λ := by linarith
-  have hexp2 : Real.exp 2 ≤ 15 := by
-    have h2 : Real.exp 2 = (Real.exp 1) ^ (2 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have hp : (Real.exp 1) ^ (2 : ℕ) ≤ (2.7182818286 : ℝ) ^ (2 : ℕ) :=
-      pow_le_pow_left₀ (Real.exp_pos 1).le he1.le 2
-    rw [h2]
-    calc (Real.exp 1) ^ (2 : ℕ) ≤ (2.7182818286 : ℝ) ^ (2 : ℕ) := hp
-      _ ≤ 15 := by norm_num
-  have hlogΛ2 : (2 : ℝ) ≤ Real.log Λ := by
-    rw [Real.le_log_iff_exp_le hΛ0]
-    linarith
-  have hlogΛ0 : (0 : ℝ) < Real.log Λ := by linarith
-  -- ⟦the arc scale, as a nat power⟧
-  have harcpow : arcDen 12 H = Λ ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-  have harch : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H := one_le_hArcDen_of_regime hh hlo
-  set S : ℝ := strataResidualH h H with hSdef
-  have hS1 : (1 : ℝ) ≤ S := one_le_strataResidualH harch
-  have hS0 : (0 : ℝ) < S := by linarith
-  have hlogS0 : (0 : ℝ) ≤ Real.log S := Real.log_nonneg hS1
-  have hRSt : rStrWitness H = Λ ^ (84 : ℕ) := by
-    rw [rStrWitness, harcpow, ← pow_mul]
-    exact max_eq_right (one_le_pow₀ (by linarith))
-  -- ⟦the dyadic index⟧
-  set L : ℕ := Nat.log 2 H with hLdef
-  have hLpow : ((2 : ℝ)) ^ L ≤ (H : ℝ) := by
-    have h : (2 : ℕ) ^ L ≤ H := Nat.pow_log_le_self 2 (by omega)
-    have h' : ((2 ^ L : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast h
-    simpa using h'
-  have hLlog : (L : ℝ) * Real.log 2 ≤ Λ := by
-    have h := Real.log_le_log (by positivity) hLpow
-    rwa [Real.log_pow] at h
-  -- ⟦the three log numerals⟧
-  have hlog32 : Real.log (3 / 2 : ℝ) ≤ 24 / 41 * Real.log 2 := by
-    rw [Real.log_div (by norm_num) (by norm_num)]
-    linarith
-  have hlog320 : (0 : ℝ) ≤ Real.log (3 / 2 : ℝ) := Real.log_nonneg (by norm_num)
-  have hlog43 : Real.log (4 / 3 : ℝ) ≤ 2890 / 10000 := by
-    rw [Real.log_div (by norm_num) (by norm_num),
-      show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast
-    linarith
-  have hlog83 : Real.log (8 / 3 : ℝ) ≤ 9825 / 10000 := by
-    rw [Real.log_div (by norm_num) (by norm_num),
-      show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]
-    push_cast
-    linarith
-  -- ⟦the `(3/2)^L` spend⟧
-  have hu32 : (L : ℝ) * Real.log (3 / 2 : ℝ) ≤ 24 / 41 * Λ := by
-    have hL0 : (0 : ℝ) ≤ (L : ℝ) := Nat.cast_nonneg L
-    calc (L : ℝ) * Real.log (3 / 2 : ℝ) ≤ (L : ℝ) * (24 / 41 * Real.log 2) :=
-          mul_le_mul_of_nonneg_left hlog32 hL0
-      _ = 24 / 41 * ((L : ℝ) * Real.log 2) := by ring
-      _ ≤ 24 / 41 * Λ := by linarith
-  -- ⟦`G ≥ 0`⟧
-  have hlogρ : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
-  have h9 : (0 : ℝ) ≤ Real.log 9 := Real.log_nonneg (by norm_num)
-  have hG0 : (0 : ℝ) ≤ Real.log 9 + 84 * Real.log Λ + 2 * Real.log S - Real.log ρ := by
-    linarith
-  have hj0 : (0 : ℝ) ≤ (j₀ : ℝ) := Nat.cast_nonneg j₀
-  -- ⟦the two claims, by log comparison⟧
-  set Q : ℝ := (H : ℝ) ^ 2 * RSanDoorRhoH ρ h H with hQdef
-  have hRS : RSanDoorRhoH ρ h H = ρ / S ^ 2 := rfl
-  have hQ0 : (0 : ℝ) < Q := by
-    rw [hQdef, hRS]; positivity
-  have hlogQ : Real.log Q = 2 * Λ + Real.log ρ - 2 * Real.log S := by
-    rw [hQdef, hRS, Real.log_mul (by positivity) (by positivity),
-      Real.log_div (by positivity) (by positivity), Real.log_pow, Real.log_pow]
-    push_cast
-    ring
-  have hlogD : Real.log (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
-      = Real.log 2 + 7 * Real.log (h : ℝ) + 84 * Real.log Λ := by
-    rw [Real.log_mul (by norm_num) (by positivity),
-      Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
-    push_cast
-    ring
-  have hD0 : (0 : ℝ) < 2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)) := by positivity
-  have hclaim1 : 9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
-      * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) ≤ Q := by
-    have hP0 : (0 : ℝ) < 9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
-        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) := by positivity
-    have hlogP : Real.log (9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
-          * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))))
-        = Real.log (9 / 2) + (L : ℝ) * Real.log (3 / 2 : ℝ)
-          + (j₀ : ℝ) * Real.log (4 / 3 : ℝ) + Λ
-          + (Real.log 2 + 7 * Real.log (h : ℝ) + 84 * Real.log Λ) := by
-      rw [Real.log_mul (by positivity) (by positivity),
-        Real.log_mul (by positivity) (by positivity),
-        Real.log_mul (by positivity) (by positivity),
-        Real.log_mul (by positivity) (by positivity),
-        Real.log_pow, Real.log_pow, hlogD]
-    have hle : Real.log (9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
-        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))) ≤ Real.log Q := by
-      rw [hlogP, hlogQ]
-      have h92 : Real.log (9 / 2 : ℝ) + Real.log 2 = Real.log 9 := by
-        rw [← Real.log_mul (by norm_num) (by norm_num)]
-        norm_num
-      have h43 : (j₀ : ℝ) * Real.log (4 / 3 : ℝ) ≤ (j₀ : ℝ) * (2890 / 10000) :=
-        mul_le_mul_of_nonneg_left hlog43 hj0
-      linarith [hgate, hu32, h43, h92, hlogΛ2, hh7, h9, hlogS0, hlogρ, hΛ15, hlogh0]
-    have h := Real.exp_le_exp.mpr hle
-    rwa [Real.exp_log hP0, Real.exp_log hQ0] at h
-  have hclaim2 : 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
-      * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) ≤ Q := by
-    have hP0 : (0 : ℝ) < 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
-        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) := by positivity
-    have hlogP : Real.log (9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
-          * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))))
-        = Real.log (9 / 5) + (L : ℝ) * Real.log (3 / 2 : ℝ)
-          + (j₀ : ℝ) * Real.log (8 / 3 : ℝ)
-          + (Real.log 2 + 7 * Real.log (h : ℝ) + 84 * Real.log Λ) := by
-      rw [Real.log_mul (by positivity) (by positivity),
-        Real.log_mul (by positivity) (by positivity),
-        Real.log_mul (by positivity) (by positivity),
-        Real.log_pow, Real.log_pow, hlogD]
-    have hle : Real.log (9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
-        * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))) ≤ Real.log Q := by
-      rw [hlogP, hlogQ]
-      have h95 : Real.log (9 / 5 : ℝ) + Real.log 2 ≤ Real.log 9 := by
-        rw [← Real.log_mul (by norm_num) (by norm_num)]
-        exact Real.log_le_log (by norm_num) (by norm_num)
-      have h83 : (j₀ : ℝ) * Real.log (8 / 3 : ℝ) ≤ (j₀ : ℝ) * (9825 / 10000) :=
-        mul_le_mul_of_nonneg_left hlog83 hj0
-      linarith [hgate, hu32, h83, h95, hlogh0, hG0]
-    have h := Real.exp_le_exp.mpr hle
-    rwa [Real.exp_log hP0, Real.exp_log hQ0] at h
-  -- ⟦assemble through the landed threshold lemma⟧
-  refine m4SmallGradeFits_of_threshold (D := 2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
-    (le_of_eq (by rw [hRSt])) ?_ ?_
-  · have := RSanDoorRhoH_nonneg hρ0.le h H
-    linarith
-  · rw [← hLdef]
-    have hexpand : (9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
-          + 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀)
-            * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
-        = 9 / 2 * ((3 : ℝ) / 2) ^ L * ((4 : ℝ) / 3) ^ j₀ * (H : ℝ)
-            * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ)))
-          + 9 / 5 * ((3 : ℝ) / 2) ^ L * ((8 : ℝ) / 3) ^ j₀
-            * (2 * ((h : ℝ) ^ 7 * Λ ^ (84 : ℕ))) := by ring
-    rw [hexpand]
-    have hQ2 : (H : ℝ) ^ 2 * (2 * RSanDoorRhoH ρ h H) = 2 * Q := by rw [hQdef]; ring
-    rw [hQ2]
-    linarith
 
-/-- **⟦THE WINDOW GATE AT THE INFLATED RESIDUAL, FROM THE HALF-WINDOW FLOOR⟧**
+/-! ### `s13_winFit_h_of_halfWindow_gen` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 48 (2026-10-10)⟧
+`s13_winFit_h_of_halfWindow_gen {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {R : ChowlaRegime}
+{jr ρ : ℝ} (hfl : loglogFloor50 ≤ R.Hlo) (hhalf : (7 / 10 : ℝ) * jr + 3 * Real.log (1 / ρ) ≤
+Real.log (R.Hlo : ℝ) / 2) : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → (7 / 10 : ℝ) * jr + 3 * (Real.log 9 +
+84 * Real.log (Real.log (H : ℝ)) + 2 * Real.log (strataResidualH h H) - Real.log ρ) + 7 * Real.log
+(h : ℝ) ≤ Real.log (H : ℝ)` stood here.  It is `s13_winFit_h_of_halfWindow_gen_b9` (in the
+⟦β W1 E3⟧ section below) with the hypothesis strengthened: the two statements differ in that ONE
+binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies it
+by `linarith` — kernel-checked from the retired statement's own bytes before the removal was
+committed.  The twin's body is this page's with the literal cap in `hSle` moved `+ 7 ↦ + 9` and the
+closing `nlinarith`'s `hh7` to `hh9`.  At this retirement the page had NO call site.  When the lane
+opened (main `93d7f312`, 2026-09-25) it had one caller, `s13_smallGradeFits_of_halfWindow_L_gk_h` of
+this file, which family 47 (2026-10-09) retired into its twin, noted where it stood below; that twin
+calls this page's twin.  This retirement leaves no name without a caller.
+
+The page's docstring, verbatim:
+
+**⟦THE WINDOW GATE AT THE INFLATED RESIDUAL, FROM THE HALF-WINDOW FLOOR⟧**
 (`s13_winFit_h_of_halfWindow_gen`) — `S13FramesLinear.s13_winFit_of_halfWindow_gen` with the
 residual read at `strataResidualH h H` and the `ℓ`-witness's `7·log h` added.
 
@@ -815,59 +683,6 @@ its own left side.  The reserve the commission correctly names — `w = √(log 
 against a spend of order `900·w` — lives in the HALF-WINDOW floor, one step upstream, which is
 exactly where the landed `_gen` lemma spends it.  So the `h` twin is taken from `hhalf`, not
 from `winFit`, and the extra `6·log h + 7·log h ≤ 91` is paid out of `w²/2 − 648·w`. -/
-theorem s13_winFit_h_of_halfWindow_gen {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
-    {R : ChowlaRegime} {jr ρ : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo)
-    (hhalf : (7 / 10 : ℝ) * jr + 3 * Real.log (1 / ρ) ≤ Real.log (R.Hlo : ℝ) / 2) :
-    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      (7 / 10 : ℝ) * jr
-          + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
-              + 2 * Real.log (strataResidualH h H) - Real.log ρ)
-          + 7 * Real.log (h : ℝ)
-        ≤ Real.log (H : ℝ) := by
-  intro H hlo _
-  have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hlogh0 : (0 : ℝ) ≤ Real.log (h : ℝ) := Real.log_nonneg hh1
-  have hHlo4 : 4000000 ≤ R.Hlo := R.hHlo_floor
-  have hH4 : 4000000 ≤ H := le_trans hHlo4 hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hHloR : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast hHlo4
-  have hloR : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
-  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
-    Real.log_le_log (by linarith) hloR
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
-  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
-  set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
-  have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
-  have hw0 : (0 : ℝ) < w := by rw [hw]; exact Real.sqrt_pos.mpr hlogH0
-  have hw2000 : (2000 : ℝ) ≤ w := by nlinarith [hw2, hw0, hlogHbig]
-  have hlogw : Real.log w = Real.log (Real.log (H : ℝ)) / 2 := by
-    rw [hw]; exact Real.log_sqrt hlogH0.le
-  have hlogwle : Real.log w ≤ w - 1 := Real.log_le_sub_one_of_pos hw0
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ 2 * w - 2 := by rw [hlogw] at hlogwle; linarith
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hSval : strataResidualH h H
-      = 1 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) := by
-    rw [strataResidualH, harcpow,
-      Real.log_mul (by positivity) (by positivity), Real.log_pow]
-    push_cast; ring
-  have hll0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by linarith
-  have hS1 : (1 : ℝ) ≤ strataResidualH h H := by rw [hSval]; linarith
-  have hlogS : Real.log (strataResidualH h H) ≤ strataResidualH h H - 1 :=
-    Real.log_le_sub_one_of_pos (by linarith)
-  have hSle : strataResidualH h H - 1 ≤ 24 * w - 24 + 7 := by rw [hSval]; linarith
-  have hlog3 : Real.log 3 ≤ 2 := by
-    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 3); linarith
-  have hlog9 : Real.log 9 ≤ 4 := by
-    rw [show (9 : ℝ) = 3 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; linarith
-  have hinv : Real.log (1 / ρ) = - Real.log ρ := by rw [one_div, Real.log_inv]
-  rw [hinv] at hhalf
-  nlinarith [hhalf, hlogmono, hllH, hlogS, hSle, hlog9, hw2, hw2000, hw0, hh7, hlogh0]
 
 /-! ### `s13_smallGradeFits_of_halfWindow_L_gk_h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
@@ -920,7 +735,11 @@ in-body literal `7 ↦ 9` in `hSle`), every derived cap-dependent supplier repla
 hypothesis is added and no conclusion weakened. One sibling mint,
 `s13_g2_jfloor_of_MSelect'_L_gk_shift36`, differs from `…_shift28` only in the conclusion's
 `+ 28 ↦ + 36`.  2026-10-09: family 47 retired two of the sources twinned here, `s13_gate8_L_gk_h`
-and `s13_smallGradeFits_of_halfWindow_L_gk_h`, into their twins, each noted where it stood. -/
+and `s13_smallGradeFits_of_halfWindow_L_gk_h`, into their twins, each noted where it stood.
+2026-10-10: family 48 retired two more, `s13_smallGradeFits_h` and `s13_winFit_h_of_halfWindow_gen`,
+into their twins, each noted where it stood; of `s13_smallGradeFits_h_b9`, whose source it retires,
+this banner's sentence that each twin carries only the rule-2 raises holds of the code, and the
+twin's block omits nine comment lines of its source's body. -/
 
 /-- **⟦THE `j₀`-FLOOR GATE WITH THE CAP-9 SHIFT'S `36` IN IT⟧**
 (`s13_g2_jfloor_of_MSelect'_L_gk_shift36`) — a sibling mint:
@@ -978,10 +797,13 @@ theorem s13_gate8_L_gk_h_b9 {h : ℕ} {R : ChowlaRegime} {K M : ℕ} {Λ : ℝ} 
 
 set_option maxHeartbeats 1000000 in
 -- as the source: the two log-comparison claims re-elaborate, each carrying the shift's terms
-/-- `s13_smallGradeFits_h` at `log h ≤ 9` (`s13_smallGradeFits_h_b9`) — TRANSPORT: the source's body
-verbatim.  The gate's `+ 7·log h` is the `ℓ`-witness exponent and does not move; the cap is read
-only in `hclaim1`'s `linarith`, whose supply `20.488·logΛ ≥ 40.98` meets the demand
-`4.0976·9 = 36.88` (census band 2 row 19: ×1.11; the same verbatim body is REFUSED at cap 14). -/
+/-- `s13_smallGradeFits_h` at `log h ≤ 9` (the former `s13_smallGradeFits_h`, at `log h ≤ 7`,
+retired into this, 2026-10-10) — TRANSPORT: the retired page's body with one line changed
+(`hclaim1`'s `linarith` names `hh9` where the page's names `hh7`) and nine of its comment lines
+omitted (its note stands above, in §4).  The gate's `+ 7·log h` is the `ℓ`-witness exponent and does
+not move; the cap is read only in `hclaim1`'s `linarith`, whose supply `20.488·logΛ ≥ 40.98` meets
+the demand `4.0976·9 = 36.88` (census band 2 row 19: ×1.11; the same verbatim body is REFUSED at cap
+14). -/
 theorem s13_smallGradeFits_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
     {R : ChowlaRegime} {j₀ H : ℕ} {ρ : ℝ}
     (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hlo : R.Hlo ≤ H)
@@ -1149,9 +971,11 @@ theorem s13_smallGradeFits_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ)
     rw [hQ2]
     linarith
 
-/-- `s13_winFit_h_of_halfWindow_gen` at `log h ≤ 9` (`s13_winFit_h_of_halfWindow_gen_b9`) —
-NUMERAL-LIFT: the literal cap in `hSle` moves `7 ↦ 9`; the final `nlinarith` keeps slack `704519` at
-`w ≥ 2000` (census band 2 row 21).  Every other step is the source's, verbatim. -/
+/-- `s13_winFit_h_of_halfWindow_gen` at `log h ≤ 9` (the former `s13_winFit_h_of_halfWindow_gen`, at
+`log h ≤ 7`, retired into this, 2026-10-10) — NUMERAL-LIFT: the literal cap in `hSle` moves `7 ↦ 9`;
+the final `nlinarith` keeps slack `704519` at `w ≥ 2000` (census band 2 row 21).  BODY: the retired
+page's, with two lines changed: `hSle`'s literal `+ 7 ↦ + 9` and the closing `nlinarith`'s `hh7` to
+`hh9` (its note stands above, in §4). -/
 theorem s13_winFit_h_of_halfWindow_gen_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
     {R : ChowlaRegime} {jr ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo)
