@@ -125,10 +125,10 @@ theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     linarith [Real.log_two_lt_d9, hlogk]
   have hlog2 : 4 * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) * Real.log 2
       ≤ (1 / 100) * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) * Real.log k := by
-    nlinarith [mul_le_mul_of_nonneg_left hlt hQ0]
+    linarith only [mul_le_mul_of_nonneg_left hlt hQ0]
   have hB1 : B1 k R W T
       ≤ (13 / 25) * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) * Real.log k := by
-    nlinarith [hsharpB, hstepB, hlog2, hEA]
+    linarith only [hlog2, hstepB, hsharpB, hEA]
   -- ==== A1 ≥ (79/100)·Q ====
   have hsharpA := A1_lower_sharp k R W T hW hk hR hT1 hX
   have hdenpos : 0 < 1 + bParam k R * Real.log (R0 k R T - 1) := by linarith [hb4]
@@ -136,9 +136,9 @@ theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     have hcancel : (1 + bParam k R * Real.log (R0 k R T - 1))
         * (1 + bParam k R * Real.log (R0 k R T - 1))⁻¹ = 1 := mul_inv_cancel₀ hdenpos.ne'
     have hinv0 : 0 ≤ (1 + bParam k R * Real.log (R0 k R T - 1))⁻¹ := inv_nonneg.mpr hdenpos.le
-    nlinarith [hcancel, hinv0,
-      mul_nonneg (show (0 : ℝ) ≤ (1 + bParam k R * Real.log (R0 k R T - 1)) - 5 by
-        linarith [hb4]) hinv0]
+    linarith only [hcancel, mul_nonneg
+        (show (0 : ℝ) ≤ (1 + bParam k R * Real.log (R0 k R T - 1)) - 5 by linarith [hb4])
+        hinv0]
   have hstepA : (Nat.totient W / W : ℝ) * (bParam k R)⁻¹ * (4 / 5)
       ≤ (Nat.totient W / W : ℝ) * (bParam k R)⁻¹
         * (1 - (1 + bParam k R * Real.log (R0 k R T - 1))⁻¹) :=

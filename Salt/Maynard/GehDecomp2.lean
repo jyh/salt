@@ -275,9 +275,9 @@ private theorem x_le_cbrt_pow4 {x : ℕ} (hx : 27 ≤ x) : x ≤ cbrt x ^ 4 := b
   have hlt := lt_cbrt_add_one_cube x
   have hc3 := cbrt_ge_three_of_le hx
   have hstep : (cbrt x + 1) ^ 3 ≤ cbrt x ^ 4 := by
-    nlinarith [hc3, mul_le_mul_of_nonneg_right hc3 (pow_nonneg (Nat.zero_le (cbrt x)) 3),
-      mul_le_mul_of_nonneg_right hc3 (pow_nonneg (Nat.zero_le (cbrt x)) 2),
-      mul_le_mul_of_nonneg_right hc3 (Nat.zero_le (cbrt x))]
+    linarith only [hc3, mul_le_mul_of_nonneg_right hc3 (Nat.zero_le (cbrt x)),
+        mul_le_mul_of_nonneg_right hc3 (pow_nonneg (Nat.zero_le (cbrt x)) 2),
+        mul_le_mul_of_nonneg_right hc3 (pow_nonneg (Nat.zero_le (cbrt x)) 3)]
   exact le_of_lt (lt_of_lt_of_le hlt hstep)
 
 /-- `2·x ≤ (cbrt x)⁴` for `x ≥ 64` (the relaxed-cap `2·N·M ≤ 2x` quartic cover).
@@ -286,9 +286,9 @@ private theorem two_x_le_cbrt_pow4 {x : ℕ} (hx : 64 ≤ x) : 2 * x ≤ cbrt x 
   have hlt := lt_cbrt_add_one_cube x
   have hc4 := cbrt_ge_four_of_le hx
   have hstep : 2 * (cbrt x + 1) ^ 3 ≤ cbrt x ^ 4 := by
-    nlinarith [hc4, mul_le_mul_of_nonneg_right hc4 (pow_nonneg (Nat.zero_le (cbrt x)) 3),
-      mul_le_mul_of_nonneg_right hc4 (pow_nonneg (Nat.zero_le (cbrt x)) 2),
-      mul_le_mul_of_nonneg_right hc4 (Nat.zero_le (cbrt x))]
+    linarith only [hc4, mul_le_mul_of_nonneg_right hc4 (Nat.zero_le (cbrt x)),
+        mul_le_mul_of_nonneg_right hc4 (pow_nonneg (Nat.zero_le (cbrt x)) 2),
+        mul_le_mul_of_nonneg_right hc4 (pow_nonneg (Nat.zero_le (cbrt x)) 3)]
   exact le_of_lt (calc 2 * x < 2 * (cbrt x + 1) ^ 3 := by omega
     _ ≤ cbrt x ^ 4 := hstep)
 
@@ -400,10 +400,10 @@ theorem anch_balance_of_le {x a b : ℕ} (hx : 64 ≤ x)
       _ ≤ 8 * (N : ℝ) ^ 3 := hmono
   have hN4s3 : (N : ℝ) ^ (4 : ℕ) ≤ ((2 * N * M : ℕ) : ℝ) ^ (3 : ℕ) := by
     rw [hseq]
-    nlinarith [mul_le_mul_of_nonneg_right hN8M3 (pow_nonneg hNr0 3)]
+    linarith only [mul_le_mul_of_nonneg_right hN8M3 (pow_nonneg hNr0 3)]
   have hM4s3 : (M : ℝ) ^ (4 : ℕ) ≤ ((2 * N * M : ℕ) : ℝ) ^ (3 : ℕ) := by
     rw [hseq]
-    nlinarith [mul_le_mul_of_nonneg_right hM8N3 (pow_nonneg hMr0 3)]
+    linarith only [mul_le_mul_of_nonneg_right hM8N3 (pow_nonneg hMr0 3)]
   exact ⟨rpow_quarter_le hsr0 hNr0 hsN4, le_rpow_three_quarter hsr0 hNr0 hN4s3,
     rpow_quarter_le hsr0 hMr0 hsM4, le_rpow_three_quarter hsr0 hMr0 hM4s3⟩
 

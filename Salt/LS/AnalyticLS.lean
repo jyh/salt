@@ -105,8 +105,8 @@ theorem analytic_LS {R N : ℕ} {δ : ℝ} {α : Fin R → ℝ} (a : ℕ → ℂ
   have hpt : ∀ t ∈ Set.Icc (0:ℝ) 1,
       10 * (N : ℝ) * (‖S t‖ * ‖deriv S t‖) ≤ 25 * (N : ℝ) ^ 2 * ‖S t‖ ^ 2 + ‖deriv S t‖ ^ 2 := by
     intro t _
-    nlinarith [sq_nonneg (5 * (N : ℝ) * ‖S t‖ - ‖deriv S t‖), norm_nonneg (S t),
-      norm_nonneg (deriv S t), hNpos.le]
+    linarith only
+        [sq_nonneg (5 * ↑N * ‖S t‖ - ‖deriv S t‖)]
   have hmono := intervalIntegral.integral_mono_on (by norm_num : (0:ℝ) ≤ 1) hint_lhs
     (hint_x2.add hint_y2) hpt
   rw [intervalIntegral.integral_const_mul, intervalIntegral.integral_add hint_x2 hint_y2,
@@ -120,10 +120,10 @@ theorem analytic_LS {R N : ℕ} {δ : ℝ} {α : Fin R → ℝ} (a : ℕ → ℂ
     have hb : 25 * (N : ℝ) ^ 2 * (∫ t in (0:ℝ)..1, ‖S t‖ ^ 2)
         + (∫ t in (0:ℝ)..1, ‖deriv S t‖ ^ 2) ≤ 65 * (N : ℝ) ^ 2 * P := by
       rw [hparse]
-      nlinarith [hL22, hkey]
+      linarith only [hkey, hL22]
     linarith [hmono, hb]
   have h5N : (0 : ℝ) < 5 * (N : ℝ) := by linarith
-  have hfin : 2 * G ≤ 13 * (N : ℝ) * P := by nlinarith [hyoung, h5N]
+  have hfin : 2 * G ≤ 13 * (N : ℝ) * P := by nlinarith only [hNpos, hyoung]
   -- combine
   have hδinv : (0 : ℝ) ≤ δ⁻¹ := by positivity
   have hA : δ⁻¹ * (∑ r, ∫ t in (α r - δ / 2)..(α r + δ / 2), ‖S t‖ ^ 2) ≤ δ⁻¹ * P := by
