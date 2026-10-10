@@ -175,8 +175,8 @@ theorem norm_kloosterman_estermann_nat (k : ℕ) [NeZero k] (A B : ℕ) :
         rw [hexpand]
         have hone : (1 : ℝ) ≤ (((2 ^ n : ℕ).divisors.card : ℕ) : ℝ)
             * Real.sqrt ((Nat.gcd (2 ^ n) (Nat.gcd A B) : ℕ) : ℝ) := by
-          nlinarith [hcardpos, hsqg]
-        nlinarith [hone, pow_pos (show (0:ℝ) < 2 by norm_num) n]
+          nlinarith only [hsqg, hcardpos, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ n).divisors.card)]
+        nlinarith only [hone, hexpand, hsq, mul_self_nonneg √(2 ^ n)]
       · -- the odd part: W1-c at constant `2 ≤ d(p^e)`
         have hfac : ((p ^ n : ℕ).factorization) 2 = 0 := by
           refine Nat.factorization_eq_zero_of_not_dvd (fun hdvd => hp2 ?_)
@@ -248,9 +248,9 @@ theorem norm_kloosterman_estermann_nat (k : ℕ) [NeZero k] (A B : ℕ) :
           exact_mod_cast this
         have := Real.sqrt_le_sqrt hle
         rw [hF₁]
-        nlinarith [this, Real.sqrt_nonneg ((Nat.gcd d₁ (Nat.gcd A₁ B₁) : ℕ) : ℝ),
-          Real.sqrt_nonneg ((2 : ℝ) ^ d₁.factorization 2), Real.sqrt_nonneg (d₁ : ℝ),
-          Nat.cast_nonneg (α := ℝ) d₁.divisors.card, hF₁0]
+        linarith only [hF₁0, this, mul_nonneg_of_nonpos_of_nonpos
+            (Mathlib.Tactic.Linarith.sub_nonpos_of_le hF₁0)
+            (Mathlib.Tactic.Linarith.sub_nonpos_of_le this)]
       have hb₂ : ‖kloosterman ((A₂ : ℕ) : ZMod d₂) ((B₂ : ℕ) : ZMod d₂)‖
           ≤ F₂ * Real.sqrt ((Nat.gcd d₂ g : ℕ) : ℝ) := by
         refine (IH₂ A₂ B₂).trans ?_
@@ -261,9 +261,9 @@ theorem norm_kloosterman_estermann_nat (k : ℕ) [NeZero k] (A B : ℕ) :
           exact_mod_cast this
         have := Real.sqrt_le_sqrt hle
         rw [hF₂]
-        nlinarith [this, Real.sqrt_nonneg ((Nat.gcd d₂ (Nat.gcd A₂ B₂) : ℕ) : ℝ),
-          Real.sqrt_nonneg ((2 : ℝ) ^ d₂.factorization 2), Real.sqrt_nonneg (d₂ : ℝ),
-          Nat.cast_nonneg (α := ℝ) d₂.divisors.card, hF₂0]
+        linarith only [hF₂0, this, mul_nonneg_of_nonpos_of_nonpos
+            (Mathlib.Tactic.Linarith.sub_nonpos_of_le hF₂0)
+            (Mathlib.Tactic.Linarith.sub_nonpos_of_le this)]
       -- the product of the two bounds
       have hstep : ‖kloosterman ((A₁ : ℕ) : ZMod d₁) ((B₁ : ℕ) : ZMod d₁)‖
             * ‖kloosterman ((A₂ : ℕ) : ZMod d₂) ((B₂ : ℕ) : ZMod d₂)‖

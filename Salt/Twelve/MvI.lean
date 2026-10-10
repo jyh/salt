@@ -127,7 +127,7 @@ private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
       rw [show (D:ℝ) - 1 + (t+1:ℕ) = (D:ℝ) - 1 + t + 1 by push_cast; ring]
     rw [hcast, hφt, hφt1]
     have hstep1 : 1 / (a*(a+1)) = 1/a - 1/(a+1) := by field_simp; ring
-    have hle : a * (a+1) ≤ (a+1)^2 := by nlinarith
+    have hle : a * (a+1) ≤ (a+1)^2 := by linarith only [ha]
     have hstep2 : 1 / (a+1)^2 ≤ 1 / (a*(a+1)) :=
       one_div_le_one_div_of_le (mul_pos ha ha1) hle
     rw [← hstep1]; exact hstep2
@@ -158,7 +158,7 @@ private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
   have h2 : (1:ℝ) / ((D:ℝ) - 1) ≤ 2 / (D:ℝ) := by
     have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
     rw [div_le_div_iff₀ (by linarith) (by linarith)]
-    nlinarith
+    linarith only [h3]
   linarith [int_tail D R hD, h1, h2]
 
 /-! ## The pairwise-collision bound (Stage 2 kernel) -/
@@ -338,7 +338,7 @@ theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   have hX0 : 0 ≤ X := by rw [hXκL]; exact mul_nonneg hκpos.le hLpos.le
   have h1X0 : 0 ≤ 1 + X := by linarith
   have hκL1X : κ * L ≤ 1 + X := by rw [← hXκL]; linarith
-  have hLmax : L ≤ (1 + X) / κ := by rw [le_div_iff₀ hκpos]; nlinarith [hκL1X]
+  have hLmax : L ≤ (1 + X) / κ := by rw [le_div_iff₀ hκpos]; linarith only []
   have hL5 : L ^ 5 ≤ (1 + X) ^ 5 / κ ^ 5 := by
     rw [le_div_iff₀ (pow_pos hκpos 5)]
     calc L ^ 5 * κ ^ 5 = (L * κ) ^ 5 := by ring
@@ -461,7 +461,7 @@ theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         rw [Finset.prod_div_distrib, Finset.prod_const_one]
       refine ⟨div_nonneg hnum0 hφpos.le, ?_⟩
       rw [hprodinv, div_le_div_iff₀ hφpos hφpos]
-      nlinarith [mul_le_mul_of_nonneg_right hnum1 hφpos.le]
+      linarith only [mul_le_mul_of_nonneg_right hnum1 hφpos.le]
     have hsdiff : MSD m - MSK m = ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
         (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
           / ∏ i, (Nat.totient (r i) : ℝ) := by
