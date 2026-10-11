@@ -598,7 +598,8 @@ page had NO call site.  When the lane opened (main, 2026-09-25) it had seven:
 `StridePairReceiptG`), whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of
 them calls this page's twin itself.  This retirement leaves ONE name without a caller, in
 `S16ProducersH`: `s12c_llX_ge_LH`, which has a cap-9 twin whose statement is its own at the raised
-cap (a next candidate of the lane); its row stands.
+cap (a next candidate of the lane); its row stands.  2026-10-11: family 49 retired it into that
+twin, noted where it stood; its row is dropped.
 
 The page's docstring, verbatim:
 
