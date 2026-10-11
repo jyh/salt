@@ -10174,7 +10174,10 @@ audited here; the hook's statement is unchanged.
 2026-10-01: family 36 retired `hpt_holds_500h` into `hpt_holds_500h_b9`, noted where it stood in
 `GoldbachEnergyKcH`; the twin's row stands below.
 2026-10-02: family 37 retired `hpt_const_le_pow35_h` into `hpt_const_le_pow35_h_b9`, noted where it
-stood in `GoldbachEnergyKcH`; the twin's row stands below. -/
+stood in `GoldbachEnergyKcH`; the twin's row stands below.  2026-10-11: family 50 retired the seven
+F3-P4 `rfl` projections of `regimeShrinkX_stride` and the F3-P6 lemma `regimeShrinkX_stride_x_mul`
+into the `_b9` twins listed here, noted where they stood in `StridePair` F3-P3; `_Hlo_b9`'s source
+stands. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.h_le_8103_of_log_le_nine
   Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9

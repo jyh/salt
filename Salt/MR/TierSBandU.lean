@@ -52,7 +52,7 @@ namespace Salt.MR
 /-! ## §0 — the class-union family and its four class-A gates (the route's owed names) -/
 
 /-- **⟦S-3 U0⟧ (def) — THE CLASS-UNION FAMILY.**  At stride `a` and shift `h`, the union over the
-classes `b < a` of the grid-restricted affine sets `bigXiAffD a b h` (`StridePair.lean:306`).
+classes `b < a` of the grid-restricted affine sets `bigXiAffD a b h` (`StridePair.lean:330`).
 `b`-free by construction; each class's set is a subset (U1).  Off the grid (`¬ a ∣ H`) every
 member is `∅`, so the union is `∅` there too, as the road's `∀ H ∈ [Hlo, Hhi]` door needs. -/
 def bigXiAffU (a h : ℕ) : XiFamily :=
@@ -184,9 +184,9 @@ theorem nearRatTight_of_bigXiAffU {B₅ : ℝ} (harc : BigXiArcTight B₅)
     (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh) H hle ξ hξb
 
 /-- **⟦S-3 U4⟧ (class A) — THE SET DOOR IS MONOTONE UNDER A POINTWISE-SUBSET FAMILY.**  Each
-summand of `MRTUniformityXiL2Set` (`StridePair.lean:337`) is `(1/H²)·∫‖…‖²`, non-negative
+summand of `MRTUniformityXiL2Set` (`StridePair.lean:361`) is `(1/H²)·∫‖…‖²`, non-negative
 (`integral_nonneg`, `sq_nonneg`, `norm_nonneg`), so `Finset.sum_le_sum_of_subset_of_nonneg` (the
-corpus's own move at `:497`) bounds the sub-family's sum by the family's, at every `H`. -/
+corpus's own move at `:521`) bounds the sub-family's sum by the family's, at every `H`. -/
 theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
     (hsub : ∀ (eps : ℚ) (H : ℕ) [NeZero H], Xi eps H ⊆ Xi' eps H) (R : ChowlaRegime) (ρ : ℝ)
     (hd : MRTUniformityXiL2Set Xi' R ρ) : MRTUniformityXiL2Set Xi R ρ := by
@@ -240,7 +240,7 @@ scale `N` for all `r ∈ admClasses P`).
 
 Route (`TierSBandU` header; not fired): C2 at the union (U5) in place of C2 at the class, the
 crown band's body verbatim to the band witnesses `⟨ε, A, …, Rd.x / a, Rd.ω, Rd.Hhi, …⟩`, then
-`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1079`)
+`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1113`)
 with its `hK` from the union's count gate through U1 (`Finset.card_le_card`) and its `hdoor` from
 the union's door through U4 ∘ U1.  Everything else in the crown band's proof is `b`-free or
 `b`-local (`hb0`, `hbRe`).  The witnesses `ε, A, x₀, ω₀, Hhi₀` are the crown band's own, read at
