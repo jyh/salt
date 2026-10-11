@@ -88,7 +88,7 @@ private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
       have hih := ih has hss
       have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
         Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith [hih, hax, hss, hsum_nonneg]
+      nlinarith only [hax, hih, hss]
 
 /-- **Node C.1 — `euler_tail_L`.** The Euler-product tail over squarefree
 moduli with all prime factors `> D₀ k`, with an arbitrary per-prime
@@ -425,7 +425,7 @@ theorem Ag_le_A1_mul (k R : ℕ) (T : ℝ) (hk : 1 ≤ k) (hR : 2 ≤ R)
     (hD : 12 * k ^ 2 ≤ D₀ k) :
     Ag k R T ≤ A1 k R (W k) T * (1 + 8 / (D₀ k : ℝ)) := by
   classical
-  have hD12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have hD12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hDpos : (0 : ℝ) < (D₀ k : ℝ) := by
     exact_mod_cast (by omega : 0 < D₀ k)
   have hA1nn : 0 ≤ A1 k R (W k) T := A1_nonneg k R (W k) T
@@ -660,7 +660,7 @@ theorem Ag_le_A1_mul (k R : ℕ) (T : ℝ) (hk : 1 ≤ k) (hR : 2 ≤ R)
     rw [hswap, ← hsplit, hone, hrestrict, hTamb]
   rw [hAg_split]
   have := htail
-  nlinarith [hA1nn, hDpos]
+  linarith only [htail]
 
 /-! ## `Gdiag` and the box relaxation -/
 
@@ -788,7 +788,7 @@ private lemma one_add_pow_le {a : ℝ} (ha : 0 ≤ a) :
       intro h
       have hcast : ((i + 1 : ℕ) : ℝ) = (i : ℝ) + 1 := by push_cast; ring
       rw [hcast] at h ⊢
-      have hia : 2 * (i : ℝ) * a ≤ 1 := by nlinarith
+      have hia : 2 * (i : ℝ) * a ≤ 1 := by linarith only [h, ha]
       have hih := ih hia
       have h1a : (0 : ℝ) ≤ 1 + a := by linarith
       have h2ia : 2 * (i : ℝ) * a * a ≤ 1 * a :=
@@ -797,7 +797,7 @@ private lemma one_add_pow_le {a : ℝ} (ha : 0 ≤ a) :
         _ ≤ (1 + 2 * (i : ℝ) * a) * (1 + a) :=
             mul_le_mul_of_nonneg_right hih h1a
         _ = 1 + 2 * (i : ℝ) * a + a + 2 * (i : ℝ) * a * a := by ring
-        _ ≤ 1 + 2 * ((i : ℝ) + 1) * a := by nlinarith
+        _ ≤ 1 + 2 * ((i : ℝ) + 1) * a := by linarith only [h2ia]
 
 /-- **Node C.3 — `Gdiag_le`.** The diagonal `G`-sum is at most `2·A₁^{k−1}`:
 box relaxation to `A_g^{k−1}`, the sum-level comparison
@@ -807,7 +807,7 @@ theorem Gdiag_le (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (hD : 12 * k ^ 2 ≤ D₀ k) :
     Gdiag k R T m ≤ 2 * (A1 k R (W k) T) ^ (k - 1) := by
   have hk : 1 ≤ k := m.pos
-  have hD12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have hD12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hDpos : (0 : ℝ) < (D₀ k : ℝ) := by
     exact_mod_cast (by omega : 0 < D₀ k)
   have ha : (0 : ℝ) ≤ 8 / (D₀ k : ℝ) := by positivity
