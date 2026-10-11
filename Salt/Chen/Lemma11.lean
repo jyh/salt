@@ -127,7 +127,7 @@ theorem T_one_filter_eq (s : BoundingSieve) (D : ℕ) :
     have hre0 : relem c 0 = c := by change (rlist c).getD 0 1 = c; rw [hrl]; simp [hcp]
     rw [hrp1, hre0] at hfail
     exact ⟨by rw [hcp]; exact Nat.mem_primeFactors.mpr ⟨hpp, hcp ▸ hcdvd,
-      s.prodPrimes_squarefree.ne_zero⟩, by nlinarith [hfail]⟩
+      s.prodPrimes_squarefree.ne_zero⟩, by linarith only [hfail]⟩
   · rintro ⟨hcpf, hD⟩
     have hpp : c.Prime := Nat.prime_of_mem_primeFactors hcpf
     have hcdvd : c ∣ s.prodPrimes := Nat.dvd_of_mem_primeFactors hcpf
@@ -136,7 +136,7 @@ theorem T_one_filter_eq (s : BoundingSieve) (D : ℕ) :
     have hrp1 : rprefix c 1 = c := by rw [rprefix, Finset.prod_range_one, hrl]; simp
     have hre0 : relem c 0 = c := by change (rlist c).getD 0 1 = c; rw [hrl]; simp
     refine ⟨⟨hcdvd, s.prodPrimes_squarefree.ne_zero⟩, ⟨by rw [hlen], by rw [hlen], ?_, ?_⟩, hlen⟩
-    · rw [hlen, hrp1, hre0]; nlinarith [hD]
+    · rw [hlen, hrp1, hre0]; linarith only [hD]
     · intro m hm1 hmlt _; rw [hlen] at hmlt; omega
 
 /-- `Vlow = V(D^{1/3}) = ∏_{p³<D}(1−ν(p))`, the untruncated Möbius density below the
@@ -249,8 +249,8 @@ theorem exp_sub_two_le (s : ℝ) (h2 : 2 ≤ s) (h3 : s ≤ 3) : Real.exp (s - 2
   simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h2'
   have hx : |s - 2| = s - 2 := by rw [abs_of_nonneg]; linarith
   rw [hx] at h2'
-  nlinarith [h2', pow_nonneg (by linarith : (0 : ℝ) ≤ s - 2) 4, sq_nonneg (s - 2),
-    sq_nonneg (s - 3)]
+  nlinarith only [h3, h2', h2, pow_nonneg (by linarith : (0 : ℝ) ≤ s - 2) 4,
+      sq_nonneg (s - 2), sq_nonneg (s - 3)]
 
 /-- **`1/s ≤ e²·hBJS(s)` on `[1,3]`** (the `τ₁ = 3` closing inequality). -/
 theorem inv_le_e2_hBJS (s : ℝ) (h1 : 1 ≤ s) (h3 : s ≤ 3) : 1 / s ≤ Real.exp 2 * hBJS s := by
@@ -290,7 +290,7 @@ theorem hlevel_one_upper (s : BoundingSieve) (D : ℕ) (sparam ε K : ℝ)
     rw [div_le_iff₀ hsp0]
     have hinv := inv_le_e2_hBJS sparam hs1 hs3
     rw [div_le_iff₀ hsp0] at hinv
-    nlinarith [mul_le_mul_of_nonneg_left hinv hε, hKe, hε]
+    linarith only [hKe, mul_le_mul_of_nonneg_left hinv hε]
   have hexpand : (3 * K / sparam) * Salt.BrunLower.W s - Salt.BrunLower.W s
       = Salt.BrunLower.W s * ((3 - sparam) / sparam)
         + Salt.BrunLower.W s * (3 * ((K - 1) / sparam)) := by
@@ -299,7 +299,7 @@ theorem hlevel_one_upper (s : BoundingSieve) (D : ℕ) (sparam ε K : ℝ)
   have hfin : Salt.BrunLower.W s * (3 * ((K - 1) / sparam))
       ≤ Salt.BrunLower.W s * (ε * 3 * Real.exp 2 * hBJS sparam) := by
     apply mul_le_mul_of_nonneg_left _ hW.le
-    nlinarith [hclose]
+    linarith only [hclose]
   linarith [hfin]
 
 /-! ## Part E — the Lemma 12 τ-close (parametric geometric domination)
