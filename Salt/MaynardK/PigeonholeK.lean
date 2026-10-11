@@ -68,7 +68,7 @@ theorem bounded_gap_of_S2_gt_S1_diam (k K₀ N R ν₀ W' : ℕ) (y : (Fin k →
   refine ⟨n + hSeq k i, n + hSeq k j, by omega, by omega, ?_, hi.2, hj.2, ?_⟩
   · have : hSeq k i ≠ hSeq k j := fun h => hij (hSeq_injective k h)
     omega
-  · -- `(q:ℤ) − (p:ℤ) = (n+hSeq k j) − (n+hSeq k i) = hSeq k j − hSeq k i`, bounded
+  · -- `(q:ℤ) − (p:ℤ) = (n+hSeq k j) − (n+hSeq k i) = hSeq k j − hSeq k i` (bounded by `hdiam i j`)
     have hd := hdiam i j
     simp only [Set.mem_Icc] at hd ⊢
     omega
