@@ -9126,7 +9126,11 @@ family 45 retired five pages of `S16ProducersH` — the three socket tops, the b
 base — into their cap-9 twins, each noted where it stood, their five rows dropped here (the twins
 are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧).  2026-10-09: family 46 retired two more,
 `s15_block_at_socket_gen_LH` and `s13_band_qfit_h`, into their cap-9 twins, their two rows dropped
-here (the twins are audited under ⟦β W1 E2⟧). -/
+here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retired the five cap-7 pages of
+`S16ProducersH` §2 — the call chain under `s12c_llX_ge_LH`: `s13_socketBase_logA_ge_sqrt_LH`,
+`s13_socketBase_loglogA_sharp_LH`, `s13_socketBase_loglogA_LH`, `s14_loglogX_ge_of_socket_LH`,
+`s12c_llX_ge_LH` — into their cap-9 twins, their five rows dropped here (the twins are audited under
+⟦β W1 E2⟧ and ⟦β W2 F1⟧); of the names of that file that have a `_b9` twin, none remains. -/
 #audit_axioms Salt.MR.RSanDoorRhoH
   Salt.MR.RSanDoorRhoH_one
   Salt.MR.RSanDoorRhoH_nonneg
@@ -9142,11 +9146,6 @@ here (the twins are audited under ⟦β W1 E2⟧). -/
   Salt.MR.m4_arith_henv_rho_poolH_L_gk
   Salt.MR.m4_arith_henv_constPoolH_L_gk
   Salt.MR.s13_socketBase_xscale_LH
-  Salt.MR.s13_socketBase_logA_ge_sqrt_LH
-  Salt.MR.s13_socketBase_loglogA_sharp_LH
-  Salt.MR.s13_socketBase_loglogA_LH
-  Salt.MR.s14_loglogX_ge_of_socket_LH
-  Salt.MR.s12c_llX_ge_LH
   Salt.MR.s13_band_X400_LH
   Salt.MR.s13_band_baseFloor_LH
   Salt.MR.s15ArmH
@@ -9403,7 +9402,7 @@ Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGri
 `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
-`_LH` twins are already landed in `S16ProducersH` (`:340`, `:353`, `:416`, `:433`), and on the
+`_LH` twins are already landed in `S16ProducersH` (`:351`, `:362`, `:385`, `:407`), and on the
 grid page only `mu_lo` and `Lambda_sharp` touch them — the other twelve inherit.  (2026-09-29: the
 XY debt lane's family 24 retired five of the twelve into their cap-9 twins; seven stand at the
 cap 7.  2026-09-30: family 25 retired three more of the twelve; four stand at the cap 7.
@@ -9414,7 +9413,10 @@ the other, `s13CapGrid_mu_lo_LH`, and one of the twelve stand at the cap 7.  202
 retired the one of the twelve, `s13CapGrid_logH_le_mu_LH`, by ruling; `s13CapGrid_mu_lo_LH` stands
 at the cap 7, without a caller.  2026-10-08: family 43 retired `s13CapGrid_mu_lo_LH`, the other of
 the two that touch the substrate directly, into its cap-9 twin; of the two and the twelve, none
-stands at the cap 7.)
+stands at the cap 7.  2026-10-11: family 49 retired three of the four `_LH` restatements pinned
+above — `s13_socketBase_logA_ge_sqrt_LH`, `s13_socketBase_loglogA_sharp_LH` and
+`s13_socketBase_loglogA_LH` — into their cap-9 twins, each noted where it stood; their three pins
+now name those notes, and the fourth still names `s13_socketBase_xscale_LH`'s declaration.)
 
 ⭐ **TRANSITIVE REACHABILITY OF CONJUNCT 5 IS NOT THE SAME AS SPENDING IT.**
 `s13CapFloor_all_L_gk` reaches `capfloor_logq_le` through `QTann_L_gk → QTann_gen →
@@ -10214,14 +10216,15 @@ to their twins here (`s15_block_at_socketH_L_gk_b9` and `doorBandBase_family'H_L
 three socket tops to their twins in ⟦β W2 F1⟧, `log h ≤ 9` supplied once in each by a `have` from
 `hh7`, their statements unchanged; no name is retired by it; 2026-10-08: family 45 retired those two
 pages into their twins here, noted in place; 2026-10-09: family 46 retired
-`s15_block_at_socket_gen_LH` and `s13_band_qfit_h` into their twins here, noted in place).  Each
-twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
-`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in
-the `p²` row — every derived cap-dependent supplier replaced by its twin, and no hypothesis added.
-The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`, sharp); four sibling mints differ from
-their sources only in the named literal (`capfloor_logH_le_third_sqrt` `/2 ↦ /3`,
-`capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`, `capfloor_floor3_numeric_h_10`).  Nothing here bears
-on twin primes.  18 obligations, 18 landed. -/
+`s15_block_at_socket_gen_LH` and `s13_band_qfit_h` into their twins here, noted in place;
+2026-10-11: family 49 retired `s13_socketBase_logA_ge_sqrt_LH` and `s13_socketBase_loglogA_sharp_LH`
+into their twins here, noted in place).  Each twin is its source's statement and body with ONLY the
+freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
+`7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
+its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
+sharp); four sibling mints differ from their sources only in the named literal
+(`capfloor_logH_le_third_sqrt` `/2 ↦ /3`, `capeps_Pbig_h_e20`, `capfloor_lam_core_h_232`,
+`capfloor_floor3_numeric_h_10`).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.capfloor_logH_le_third_sqrt
   Salt.MR.h_le_8103_of_hh9
@@ -10324,15 +10327,16 @@ family 34 retired `bigXiAff_bounded_ceiling_of_pin`, the cap-7 source of the fir
 noted in `StrideFork`; 2026-10-08: family 44 re-pointed the seven consumers of `S16ProducersH`'s
 three socket tops — `s12c_eps_threshold_at_socket_flatH`, `s15_heps293_at_socket_flatH`,
 `s15_hband4096_at_socket_flatH` — to their twins here, their statements unchanged; 2026-10-08:
-family 45 retired the three into their twins here, noted in place).  Each twin is its source's
-statement and body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with
-the count pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap
-`log h ≤ 7 ↦ ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed
-floors, the walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and
-the charge `425 ↦ 429 = 411 + 2·9` — every derived supplier replaced by its twin or the landed
-`_g12` rung, and no hypothesis added.  `regimeShrinkX_stride_Hlo` was already minted by W1 E1 as
-`regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not re-minted.  Nothing here bears on twin
-primes.  18 obligations, 18 landed. -/
+family 45 retired the three into their twins here, noted in place; 2026-10-11: family 49 retired
+`s13_socketBase_loglogA_LH`, `s14_loglogX_ge_of_socket_LH` and `s12c_llX_ge_LH` into their twins
+here, noted in place).  Each twin is its source's statement and body with ONLY the freeze's rule-2
+raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count pin's `1096 ↦ 8103` (116 bits spare),
+the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦ ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`,
+`cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the walls' floor `2 ^ 31 ↦ 2 ^ 32`
+and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge `425 ↦ 429 = 411 + 2·9` — every
+derived supplier replaced by its twin or the landed `_g12` rung, and no hypothesis added.
+`regimeShrinkX_stride_Hlo` was already minted by W1 E1 as `regimeShrinkX_stride_Hlo_b9`: recorded
+(listed below), not re-minted.  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9
   Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_set_b9
