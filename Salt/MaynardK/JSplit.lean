@@ -13,8 +13,8 @@ import Salt.MaynardK.JMainSplit
 `mv_J_split_gen_of` derives the J-side split engine from the two `Prop`s `MvJMainSplitGen` and
 `InnerContractRelGen` (ported, as a falsifier, by an Opus executor from a frozen brief, 2026-10-11);
 `mv_J_split_gen` discharges both with `mv_J_main_split_gen` (`JMainSplit`) and
-`inner_contract_rel_gen` (`ICRel`). `mv_J_split_of_gen` re-derives the landed k = 5 statement
-(its private `mv_J_main_split` entering as a hypothesis).
+`inner_contract_rel_gen` (`ICRel`). `mv_J_split_of_gen` (in `Controls`) re-derives the landed k = 5
+statement (its private `mv_J_main_split` entering as a hypothesis).
 -/
 
 open Finset
@@ -112,7 +112,6 @@ private lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
       simp only [List.map_cons, List.sum_cons]
       exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
-
 private lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
   have : gMult p = p - 2 := by rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
   rw [this, Nat.cast_sub hp.two_le]; norm_num
@@ -165,7 +164,6 @@ private lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset
         Finset.sum_nonneg (fun p hp => hga p (Finset.mem_of_mem_inter_left hp))
       linarith
     linarith [ih hgs]
-
 
 private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
@@ -544,7 +542,6 @@ private lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ### The 4-dim aggregate g-moments `T0` (opaque), `T1`, `T2` (relative) -/
 
-
 private lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1)) (F : Fin
         (n + 1) → M) :
     ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin n, F (m.succAbove i) := by
@@ -552,8 +549,6 @@ private lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : F
     rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
   rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
-
-
 
 -- factor a single "marked" coordinate over the product box (n = 4)
 private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
@@ -595,7 +590,6 @@ private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → �
     Finset.prod_congr rfl (fun k hk => if_neg (Finset.ne_of_mem_erase hk))
   rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
     Fintype.card_fin]
-
 
 private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
     (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
@@ -660,7 +654,6 @@ private lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀
         Finset.sum_le_sum_of_subset_of_nonneg hsub1 (fun ρ _ _ => hnn ρ)
     _ ≤ ∑ ρ ∈ Fintype.piFinset (fun _ : Fin n => F_R), num ρ * ∏ i, (1 / (gMult (ρ i) : ℝ)) :=
         Finset.sum_le_sum_of_subset_of_nonneg hsub2 (fun ρ _ _ => hnn ρ)
-
 
 /-! ## NEW: the general-`n` relative aggregate moments `T0`, `T1`, `T2` -/
 
@@ -1214,52 +1207,6 @@ theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin 
           linarith [hm1, hm2, hm3]
   -- the frozen goal is definitionally the `Inn/Denom/X/Y` form
   exact hgoal
-
-/-- CONTROL. The landed `mv_J_split` statement, VERBATIM, recovered as the `n = 4`,
-`P = ofPoly F` instance of `mv_J_split_gen_of`. `hIC` is supplied by the LANDED public
-`Salt.Twelve.inner_contract_rel`; `mv_J_main_split` is `private` in `MvSplit.lean`, so its
-k = 5 statement is taken VERBATIM as the hypothesis `hMain5` (it cannot be supplied from
-outside). -/
-theorem mv_J_split_of_gen (F : Poly) (m : Fin 5)
-    (hMain5 : ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
-      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
-      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
-        |(∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1),
-              eval (contractAt m F) (fun i => Real.log (r (m.succAbove i)) / Real.log R) ^ 2
-                / ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ))
-          - ((W'.totient : ℝ) / W' * Real.log R) ^ 4
-              * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
-        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 4 / Real.log R
-          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 4 / D) :
-    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
-      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
-      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
-        |(∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1),
-              (∑ u ∈ Finset.range R,
-                  yF R W' F (Function.update r m u) / (Nat.totient u : ℝ)) ^ 2
-                / ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ))
-          - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
-              * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
-        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
-          + A * (1 + (W'.totient : ℝ) / W' * Real.log R
-                   + Salt.Maynard.phiAtomSum R W') ^ 6 / D := by
-  have hcontr : contractB m (ofPoly F) = contractAt m F := by
-    simp only [contractB, ofPoly, contractAt, List.map_map]
-    apply List.map_congr_left
-    intro a _
-    simp only [Function.comp_apply, Nat.factorial_zero, mul_one, add_zero, Prod.mk.injEq,
-      true_and]
-    rw [Nat.factorial_succ]
-    have h1 : ((a.1 m).factorial : ℚ) ≠ 0 := by positivity
-    push_cast
-    field_simp
-  have hMain : MvJMainSplitGen 4 (ofPoly F) m := by
-    unfold MvJMainSplitGen; rw [hcontr]; exact hMain5
-  have hIC : InnerContractRelGen 4 (ofPoly F) m := by
-    unfold InnerContractRelGen; rw [hcontr]; exact inner_contract_rel F m
-  have h := mv_J_split_gen_of 4 (by norm_num) (ofPoly F) m hMain hIC
-  rw [hcontr] at h
-  exact h
 
 /-- **B4.2b: the J-side split engine at general `n`, unconditional.** -/
 theorem mv_J_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1)) :

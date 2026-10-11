@@ -73,7 +73,7 @@ theorem level_range_half (W' : ℕ) (hW' : 0 < W') (B' : ℝ) (hB'0 : 0 ≤ B') 
   push_cast
   exact hmul
 
-/-! ## B4.4c — the ρ-helpers at `ρ = 9999/40000` (refuter R2) -/
+/-! ## B4.4c — the ρ-helpers at `ρ = 9999/40000` -/
 
 /-- `log R ≤ (9999/40000)·log N'` (ρ-version of `logR_upper_theta`). -/
 lemma logR_upper_rho (N' : ℕ) (hN' : 1 ≤ N') :

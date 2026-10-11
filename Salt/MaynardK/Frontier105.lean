@@ -13,7 +13,7 @@ import Salt.MaynardK.Tuple105
 # C1 · B4.5d — the frontier at `k = 105`, level `1/2`
 
 `WinSlackM105`, `WinFrontierMW105` and `winFrontierMW105_of`: mirror of `FrontierM` +
-`GapsOfLevel.winFrontierMW_of_hasLevel` by blueprint v2's substitution list by role (ρ = 9999/40000,
+`GapsOfLevel.winFrontierMW_of_hasLevel` with ρ = 9999/40000,
 ε = 1/1000, h_max 743, cutoff 744, weight `F1`). `yFg_F1_abs_le_one`: `|F1| ≤ 1` on the sieve index.
 Ported by an Opus executor from a frozen brief (2026-10-11).
 -/

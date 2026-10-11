@@ -20,7 +20,10 @@ import Salt.SW.Gate
 * `maynard_105_of_slack`: the tuple form — infinitely many `n` with at least two primes
   among `n + hSeq 105 i`, `hSeq 105 = {107, …, 743}`.
 
-The k = 105 instance of Maynard's Theorem 1.3 (arXiv:1311.4600, Prop. 4.2/4.3(2)).
+Maynard's proof of Theorem 1.3 (arXiv:1311.4600v3, p. 3; Prop. 4.2 and Prop. 4.3(2),
+`M₁₀₅ > 4`) run at k = 105 with the admissible tuple of the first 105 primes greater than 105
+(his p. 7 choice), diameter 636, in place of Engelsma's tuple; Theorem 1.3's own bound 600 is
+not proved here.
 Nothing here bears on twin primes.
 -/
 
@@ -30,7 +33,7 @@ namespace Salt.MaynardK
 
 open Salt.Maynard Salt.Twelve Salt.MaynardK
 
-/-- The slack proposition: VERBATIM the body of E9b's target `winSlackM105_ev`. -/
+/-- The slack proposition: the statement of `winSlackM105_ev` (`Slack105`), verbatim. -/
 def SlackEv105 : Prop :=
   ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D → ∀ C₀ : ℝ, 0 ≤ C₀ →
     ∀ᶠ N' : ℕ in atTop, WinSlackM105 D C₀ N'
@@ -74,6 +77,5 @@ theorem maynard_105_of_slack (hS : SlackEv105) :
   have hnN : N' < n := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hn).1).1
   exact ⟨n, by omega, hcard⟩
 
-#check @gaps_le_636_of_slack
 
 end Salt.MaynardK

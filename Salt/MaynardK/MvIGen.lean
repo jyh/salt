@@ -13,13 +13,13 @@ import Salt.Maynard.KSieve
 /-!
 # C1 bridge B2 — `mv_I` at general `k` for an arbitrary budget polynomial (`mv_I_gen`)
 
-`Salt.Twelve.mv_I` (`Salt/Twelve/MvI.lean`) generalised: `Fin 5 → Fin k`, the `C(5,2)` collision
-pairs bounded by `k²`,
+`Salt.Twelve.mv_I` (`Salt/Twelve/MvI.lean`) generalised: index set `k = 5 → k`, the `C(5,2)`
+collision pairs bounded by `k²`,
 `badpair_bound`'s free factors `k − 2`, and the square `sq (ofPoly F)` replaced by an arbitrary `P :
 BPoly k` (it was only used
 through `eval_sq`). Same three stages (monomial expansion · the pairwise-coprimality drop ·
 `mv_monomial` per monomial).
-`mv_I_of_gen` recovers the landed k = 5 statement verbatim as a corollary.
+`mv_I_of_gen` (in `Controls`) recovers the landed k = 5 statement verbatim as a corollary.
 -/
 
 open Finset
@@ -645,20 +645,5 @@ theorem mv_I_gen (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
                 + (Cmain / κ) * (1 + X) ^ k * (1 / (D : ℝ))) := by ring
         rw [hRHSeq]; linarith [hP1, hP2, hR3, hR4]
 
-/-- CONTROL: the landed k = 5 keystone, its statement copied VERBATIM, is a corollary. -/
-theorem mv_I_of_gen (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
-    (hUpper : PhiUpperAtom W') (F : Poly) :
-    ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
-      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 1 ≤ Real.log R →
-      |(∑ r ∈ kSieveIndex 5 R W',
-            eval (ofPoly F) (fun i => Real.log (r i) / Real.log R) ^ 2
-              / ∏ i, (Nat.totient (r i) : ℝ))
-        - ((W'.totient : ℝ) / W' * Real.log R) ^ 5
-            * ((simplexInt (sq (ofPoly F)) : ℚ) : ℝ)|
-      ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 5
-          * (1 / Real.log R + 1 / D) := by
-  simpa only [eval_sq] using mv_I_gen W' hW' hpos hUpper 5 (by norm_num) (sq (ofPoly F))
-
 end Salt.MaynardK
-
 

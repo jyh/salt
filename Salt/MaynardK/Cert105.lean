@@ -9,7 +9,10 @@ import Mathlib.Data.Nat.Factorial.Basic
 import Mathlib.Data.Nat.Prime.Defs
 
 /-!
-# C1 — Maynard's `M₁₀₅ > 4`, by kernel reduction (the numeric gate of bounded gaps ≤ 600)
+# C1 — Maynard's `M₁₀₅ > 4`, by kernel reduction
+
+The bound is consumed through `ratio_cert_105` (`Ratio.lean`) for gaps ≤ 636; gaps ≤ 600 needs
+a different tuple and is not proved here.
 
 Basis `(1 − P₁)^b · P₂^c`, `b + 2c ≤ 11` (42 functions; Maynard, *Small gaps between primes*, Ann.
 of Math. 181 (2015), §8) at

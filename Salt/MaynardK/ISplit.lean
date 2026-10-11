@@ -9,9 +9,9 @@ import Salt.Twelve.MvSplit
 /-!
 # C1 · B4.2a — `mv_I_split` at general `k` for a budget polynomial (`mv_I_split_gen`)
 
-`Fin 5 → Fin k`, `sq (ofPoly F) → P`, `^ 5 → ^ k`, the `40 = 2·C(5,2)·2` collision constant → `2k²`
-(pair count `≤ k²`, never `decide` on a card). `mv_I_split_of_gen` recovers the landed statement.
-Ported by an Opus executor from a frozen brief (2026-10-11).
+The index set `k = 5 → k`, `sq (ofPoly F) → P`, `^ 5 → ^ k`, the `40 = 2·C(5,2)·2` collision
+constant → `2k²` (pair count `≤ k²`, never `decide` on a card). `mv_I_split_of_gen` (in `Controls`)
+recovers the landed statement. Ported by an Opus executor from a frozen brief (2026-10-11).
 -/
 
 open Finset
@@ -26,7 +26,6 @@ open Salt.Maynard
 private lemma pas_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg fun r _ => by positivity
-
 
 /-! ## General `List`-sum helpers -/
 
@@ -150,7 +149,6 @@ private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     rw [div_le_div_iff₀ (by linarith) (by linarith)]
     linarith only [h3]
   linarith [int_tail D R hD, h1, h2]
-
 
 /-! ## The relative pairwise-collision bound (Stage 2 kernel, `mv_I` side)
 
@@ -624,20 +622,5 @@ theorem mv_I_split_gen (k : ℕ) (hk : 2 ≤ k) (P : BPoly k) :
         linarith [hDropSide, hMainSide]
 
 /-! ## Helpers for `inner_contract_rel` (private copies from `MvJ.lean`) -/
-
-/-- CONTROL: the landed `MvSplit.mv_I_split` statement, VERBATIM, as the k = 5 corollary. -/
-theorem mv_I_split_of_gen (F : Poly) :
-    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
-      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
-      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
-        |(∑ r ∈ kSieveIndex 5 R W',
-              eval (ofPoly F) (fun i => Real.log (r i) / Real.log R) ^ 2
-                / ∏ i, (Nat.totient (r i) : ℝ))
-          - ((W'.totient : ℝ) / W' * Real.log R) ^ 5
-              * ((simplexInt (sq (ofPoly F)) : ℚ) : ℝ)|
-        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 5 / Real.log R
-          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 5 / D := by
-  simpa only [eval_sq] using mv_I_split_gen 5 (by norm_num) (sq (ofPoly F))
-
 
 end Salt.MaynardK

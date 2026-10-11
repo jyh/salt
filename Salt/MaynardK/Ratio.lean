@@ -12,9 +12,9 @@ import Mathlib.Tactic.Positivity
 # C1 · B4.5a — the ratio certificate at `k = 105` and its real-algebra core
 
 `ratio_cert_105`: `M₁₀₅ > 4.0015`, i.e. `40015·Iform < 10000·(105·Jform)`, by kernel reduction.
-`win_ratio_core_105`: the window-PNT slack algebra at `c_DL = 15746/1000` (blueprint v2 §2, option
-(ii): the log-R pin `4999/20000` times `63 − 1/1000`, lowered into the window that absorbs the
-δ-shift); the needed ratio is `4.0010561`, the certificate gives `4.0015`. `Iform_pos`: `0 < Iform`.
+`win_ratio_core_105`: the window-PNT slack algebra at `c_DL = 15746/1000` (the log-R pin
+`4999/20000` times `63 − 1/1000`, lowered into the window that absorbs the δ-shift); the needed
+ratio is `4.0010561`, the certificate gives `4.0015`. `Iform_pos`: `0 < Iform`.
 -/
 
 namespace Salt.MaynardK

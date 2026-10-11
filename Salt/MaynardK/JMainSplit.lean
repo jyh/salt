@@ -421,7 +421,7 @@ private lemma pow_split_g (n : ℕ) (hn : 1 ≤ n) (a : ℝ) : a ^ n = a * a ^ (
   rw [← pow_succ']; congr 1; omega
 
 
-/-- B4.2b hypothesis 1: `mv_J_main_split`'s statement, transformed (`Fin 5 → Fin (n+1)`,
+/-- B4.2b hypothesis 1: `mv_J_main_split`'s statement, transformed (index set `k = 5 → n + 1`,
 `contractAt m F → contractB m P`, `kSieveIndex 5 → kSieveIndex (n+1)`, `^ 4 → ^ n`). -/
 def MvJMainSplitGen (n : ℕ) (P : BPoly (n + 1)) (m : Fin (n + 1)) : Prop :=
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →

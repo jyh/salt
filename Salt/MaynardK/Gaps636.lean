@@ -9,9 +9,10 @@ import Salt.MaynardK.Slack105
 /-!
 # Bounded gaps between primes with gap at most 636 (C1)
 
-The k = 105 instance of Maynard's Theorem 1.3 (arXiv:1311.4600v3, via Prop. 4.2 and
-Prop. 4.3(2), `M₁₀₅ > 4`), with the admissible tuple of the first 105 primes greater
-than 105, `hSeq 105 = {107, …, 743}`, of diameter 636.
+Maynard's proof of Theorem 1.3 (arXiv:1311.4600v3, p. 3; Prop. 4.2 and Prop. 4.3(2),
+`M₁₀₅ > 4`) run at k = 105 with the admissible tuple of the first 105 primes greater than 105
+(his p. 7 choice), diameter 636, in place of Engelsma's tuple; Theorem 1.3's own bound 600 is
+not proved here. Here `hSeq 105 = {107, …, 743}`.
 
 * `maynard_105` — infinitely many `n` with at least two primes among `n + hSeq 105 i`;
 * `gaps_le_636` — infinitely many pairs of distinct primes at distance at most 636;

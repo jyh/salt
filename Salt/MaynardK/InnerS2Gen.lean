@@ -9,9 +9,9 @@ import Salt.Twelve.InnerS2
 /-!
 # C1 · B4.3b — the S₂ inner bound for a bounded weight at general `k` (`s2_inner_y_gen`)
 
-InnerS2's `Fin 5` half (`box_marked_gmoment`, `yF_V_mul_g_le`, `s2_inner_yF`) at general `k`; the
-k-generic half is imported. `s2_inner_yF_of_gen` recovers the landed `s2_inner_yF` verbatim.
-Ported by an Opus executor from a frozen brief (2026-10-11).
+InnerS2's k = 5 half (`box_marked_gmoment`, `yF_V_mul_g_le`, `s2_inner_yF`) at general `k`; the
+k-generic half is imported. `s2_inner_yF_of_gen` (in `Controls`) recovers the landed `s2_inner_yF`
+verbatim. Ported by an Opus executor from a frozen brief (2026-10-11).
 -/
 
 open Finset
@@ -760,15 +760,11 @@ private lemma s2_part_bound (k R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W
         rw [hprodadd, Finset.prod_const, hpf, Finset.card_attach]
         norm_num
 
-/-- **NC-2 s2_inner_termwise** — the full termwise+partition bound: the S₂ inner
-form is `≤ 3^ω · ∏(p−2)⁻² · ((PAS+ε)²·(2·PAS)⁴)`.  Combines `s2_term_bound` (termwise)
-+ `s2_part_bound` (partition), with the whole-`s` vanishing cases (`σₘ≠1 ∨ τₘ≠1 ⇒`
-sum `= 0` via `lamPhiContractM_eq_zero_of_coord_ne_one`).
-
-PUBLIC (de-privated, Fable review 2026-07-11): this is the POINTWISE S₂ inner
-bound — R1 (task #78) feeds it the qdiag comparison at `(primorial Dfin, Dfin)`
-directly, bypassing the universally-quantified `hQd` packaging of `s2_inner_yF`
-(see flags.md 2026-07-11 Fable review, item 2). -/
+/-- **The pointwise S₂ inner bound at general `k`** — the full termwise + partition bound:
+the S₂ inner form is `≤ 3^ω · ∏(p−2)⁻² · ((PAS+ε)²·(2·PAS)^(k−1))`. Combines the termwise
+and partition bounds, with the whole-`s` vanishing cases (`σₘ ≠ 1 ∨ τₘ ≠ 1 ⇒` sum `= 0` via
+`lamPhiContractM_eq_zero_of_coord_ne_one`). It is stated pointwise so that a comparison
+`hQd` at a single `(W', D)` can be fed in directly (`s2_inner_y_gen`). -/
 lemma s2_inner_termwise_gen (k : ℕ) (m : Fin k)
     (R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hyB : ∀ s, |y s| ≤ 1) (hysupp : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
@@ -884,8 +880,6 @@ lemma s2_inner_termwise_gen (k : ℕ) (m : Fin k)
     rw [hsum0, abs_zero]
     positivity
 
-
-
 /-- **B4.3b — a bounded weight `y` satisfies the S₂ inner atom at general `k`.**
 Termwise + contamination partition (`s2_inner_termwise_gen`) plus the step-(d)
 payload `hQd : (PAS + ε)²·(2·PAS)^{k−1} ≤ CF·Qdiag_gv k R W' m y`,
@@ -909,43 +903,6 @@ theorem s2_inner_y_gen (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ
           * (CF * Qdiag_gv k R W' m y) := by ring
   rw [hreassoc]
   exact mul_le_mul_of_nonneg_left hQd hA
-
-/-- **CONTROL** — the landed `Salt.Twelve.s2_inner_yF` statement VERBATIM, as a
-corollary of `s2_inner_y_gen` at `k = 5`, `y = yF R W' F`. -/
-theorem s2_inner_yF_of_gen (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1)
-    (hQd : ∃ CF : ℝ, 0 ≤ CF ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' → PhiUpperAtom W' →
-      300 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) →
-      ((W' : ℝ) / W'.totient ≤ 5 * Real.sqrt D) →
-      ∃ R₀ : ℕ, ∀ R : ℕ, R₀ ≤ R → 1 ≤ Real.log R →
-        (Salt.Maynard.phiAtomSum R W' + lemma53Const * 5 * Real.log R / D) ^ 2
-            * (2 * Salt.Maynard.phiAtomSum R W') ^ 4
-          ≤ CF * Qdiag_gv 5 R W' m (yF R W' F)) :
-    ∃ CF : ℝ, 0 ≤ CF ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' → PhiUpperAtom W' →
-      300 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) →
-      ((W' : ℝ) / W'.totient ≤ 5 * Real.sqrt D) →
-      ∃ R₀ : ℕ, ∀ R : ℕ, R₀ ≤ R → 1 ≤ Real.log R →
-        S2InnerBoundQC 5 R W' m (yF R W' F) CF := by
-  obtain ⟨CF, hCF, hcmp⟩ := hQd
-  refine ⟨CF, hCF, ?_⟩
-  intro W' D hW' hpos hUpper hD hDlt hκ
-  obtain ⟨R₀, hR₀⟩ := hcmp W' D hW' hpos hUpper hD hDlt hκ
-  refine ⟨max R₀ 2, ?_⟩
-  intro R hR hlogR
-  have hR2 : 2 ≤ R := le_trans (le_max_right R₀ 2) hR
-  have hqd := hR₀ R (le_trans (le_max_left R₀ 2) hR) hlogR
-  have hyB : ∀ s, |yF R W' F s| ≤ 1 := fun s =>
-    le_trans (yF_abs_le_Qabs R W' F s) (by exact_mod_cast hQ)
-  have hysupp : ∀ s, s ∉ kSieveIndex 5 R W' → yF R W' F s = 0 := by
-    intro s hs; unfold yF; rw [if_neg hs]
-  have hqd' : (Salt.Maynard.phiAtomSum R W' + lemma53Const * ((5 : ℕ) : ℝ) * Real.log R / D) ^ 2
-        * (2 * Salt.Maynard.phiAtomSum R W') ^ (5 - 1)
-      ≤ CF * Qdiag_gv 5 R W' m (yF R W' F) := by
-    have h5 : ((5 : ℕ) : ℝ) = 5 := by norm_num
-    rw [h5, show (5 - 1 : ℕ) = 4 from rfl]
-    exact hqd
-  intro s hs α hα
-  exact s2_inner_y_gen 5 R W' D m (yF R W' F) hyB hysupp hR2 hW' hpos hDlt
-    (le_trans (by norm_num) hD) CF hqd' hs α hα
 
 end Salt.MaynardK
 

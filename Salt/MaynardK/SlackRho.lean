@@ -13,7 +13,7 @@ Public ports of the private vanishing-rate helpers of `Salt/Twelve/GapsUncond.le
 (there at `R = ⌊N'^{1999/4000}⌋₊`) to the window exponent `ρ = 9999/40000`, with the
 level-`1/2` range facts of `LevelRange` (`R_ge_two_rho`, threshold 32; `R_sq_le_half`).
 
-`eventually_DL_105` is the `Δπ` pinning of blueprint v2 §2: with the log-`R` pin
+`eventually_DL_105` is the `Δπ` pinning: with the log-`R` pin
 `4999/20000` and `c_DL = 15746/1000`, `c_DL · N' ≤ δ · log R` eventually, where
 `δ = (63 − 1/1000)·N'/log N' − 743`. Nothing here bears on twin primes.
 -/

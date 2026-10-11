@@ -14,9 +14,9 @@ import Salt.MaynardK.Ratio
 
 `winSlackM105_ev`: there is an (existential) cutoff `D₀ ≥ 744` such that for every `D ≥ D₀`
 and every `C₀ ≥ 0`, the M-based ratio slack `WinSlackM105 D C₀ N'` holds for all large `N'`.
-Mirror of `Salt/Twelve/GapsUncond.lean`'s `winSlackM_ev` (k = 5) by blueprint v2's
-substitution list: window exponent `9999/40000`, level `1/2`, `c_DL = 15746/1000`,
-`ε = 1/1000`, `h_max = 743`, weight `F1`, certificate `ratio_cert_105`.
+Mirror of `Salt/Twelve/GapsUncond.lean`'s `winSlackM_ev` (k = 5) with window exponent `9999/40000`,
+level `1/2`, `c_DL = 15746/1000`, `ε = 1/1000`, `h_max = 743`, weight `F1`, certificate
+`ratio_cert_105`.
 
 The per-`N'` arithmetic is isolated in `slack_closure_105`, a lemma over real atoms, so no
 k = 105 power of a sum is ever expanded. `winFrontierMW105_all` composes the result with

@@ -13,8 +13,8 @@ import Salt.Maynard.S2DiagRestricted
 
 Steps 1–4 at general `k`/`n` for a bounded weight; step 5 consumes `mv_J_split_gen`. `A` before
 `W'`;
-the `1/D` terms carry `(1 + X + PAS)`. `qdiag_bridge_k5` recovers the landed `qdiag_bridge`
-verbatim.
+the `1/D` terms carry `(1 + X + PAS)`. `qdiag_bridge_k5` (in `Controls`) recovers the landed
+`qdiag_bridge` verbatim.
 Ported by an Opus executor from a frozen brief (2026-10-11).
 -/
 
@@ -487,44 +487,6 @@ theorem qdiag_bridge_gen_simplex (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m
               * (1 + (W'.totient : ℝ) / W' * Real.log R
                    + Salt.Maynard.phiAtomSum R W') ^ (n + 2) / D ^ 2 :=
   qdiag_bridge_gen n hn P m (yFg_abs_le_one_of_simplex P hP)
-
-/-- **CONTROL: the landed k = 5 `qdiag_bridge` statement, VERBATIM, as a corollary at `n = 4`,
-`P = ofPoly F`.** -/
-theorem qdiag_bridge_k5 (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
-    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
-      PhiUpperAtom W' → 300 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
-      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 2 ≤ R → 1 ≤ Real.log R →
-        |Qdiag_mW 5 R W' m (yF R W' F)
-          - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
-              * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
-        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
-          + A * ((W' : ℝ) / W'.totient)
-              * (1 + (W'.totient : ℝ) / W' * Real.log R
-                   + Salt.Maynard.phiAtomSum R W') ^ 6 / D
-          + A * ((W' : ℝ) / W'.totient) ^ 2
-              * (1 + (W'.totient : ℝ) / W' * Real.log R
-                   + Salt.Maynard.phiAtomSum R W') ^ 6 / D ^ 2 := by
-  have hcontr : contractB m (ofPoly F) = contractAt m F := by
-    simp only [contractB, ofPoly, contractAt, List.map_map]
-    apply List.map_congr_left
-    intro a _
-    simp only [Function.comp_apply, Nat.factorial_zero, mul_one, add_zero, Prod.mk.injEq,
-      true_and]
-    rw [Nat.factorial_succ]
-    have h1 : ((a.1 m).factorial : ℚ) ≠ 0 := by positivity
-    push_cast
-    field_simp
-  have hy1 : ∀ R W' : ℕ, ∀ s, |yFg R W' (ofPoly F) s| ≤ 1 := fun R W' s =>
-    le_trans (yF_abs_le_Qabs R W' F s) (by exact_mod_cast hQ)
-  obtain ⟨A, hA0, hA⟩ := qdiag_bridge_gen 4 (by norm_num) (ofPoly F) m hy1
-  refine ⟨A, hA0, ?_⟩
-  intro W' D hW' hpos hUpper hD hDW
-  obtain ⟨c, hc0, hc⟩ := hA W' D hW' hpos hUpper (by norm_num; omega) hDW
-  refine ⟨c, hc0, ?_⟩
-  intro R hR2 hlogR
-  have h := hc R hR2 hlogR
-  rw [hcontr] at h
-  exact h
 
 end Salt.MaynardK
 

@@ -29,3 +29,4 @@ import Salt.Tactic.All
 import Salt.Keller.All
 import Salt.Parity.All
 import Salt.Certs.All
+import Salt.MaynardK.All

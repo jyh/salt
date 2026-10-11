@@ -3,9 +3,6 @@ Copyright (c) 2026 Jason Hickey. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
-/-
-Scratch (E8, B4.5b + the frontier-conditional capstone). Not for commit.
--/
 import Salt.MaynardK.Frontier105
 import Salt.MaynardK.QBridge
 import Salt.MaynardK.CollisionS1
@@ -24,8 +21,8 @@ open Salt.Maynard Salt.Twelve Salt.MaynardK
 # B4.5b — the sieve inequality at k = 105 and the frontier-conditional capstone (C1)
 
 * `S1_lt_sum_S2mW_k`, `sharp_S1_upperM_k`: `Salt/Twelve/WinCore.lean`'s and
-  `Salt/Twelve/GapsFinal.lean`'s k = 5 lemmas at general `k`
-  (`S1_lt_sum_S2mW_k5` is the landed statement, verbatim, as the `k = 5` instance).
+  `Salt/Twelve/GapsFinal.lean`'s k = 5 lemmas at general `k` (its `k = 5` instance is checked in
+`Controls`).
 * `deltaPi_upper_ev_105`: Chebyshev `Δπ ≤ 1000·N'/log N'` with `h_max = 743`.
 * `qdiag_err_split_gen` / `qdiag_err_split_105`: `|Qdiag − X^(n+2)·J| ≤ (c/log R + A/√D)·X^(n+2)`,
   `A` before `∀ W'`, from `qdiag_bridge_gen`.
@@ -34,7 +31,10 @@ open Salt.Maynard Salt.Twelve Salt.MaynardK
 * `gaps_le_636_of_frontier105`: `WinFrontierMW105 D` gives gaps `≤ 636` through
   `bounded_gaps_reduces_diam 105 … 636 hSeq_diam_le_636`.
 
-The k = 105 instance of Maynard's Theorem 1.3 (arXiv:1311.4600), tuple {107, …, 743}.
+Maynard's proof of Theorem 1.3 (arXiv:1311.4600v3, p. 3; Prop. 4.2 and Prop. 4.3(2),
+`M₁₀₅ > 4`) run at k = 105 with the admissible tuple of the first 105 primes greater than 105
+(his p. 7 choice), diameter 636, in place of Engelsma's tuple; Theorem 1.3's own bound 600 is
+not proved here.
 Nothing here bears on twin primes.
 -/
 
@@ -65,21 +65,6 @@ theorem S1_lt_sum_S2mW_k (k K₀ N R ν₀ W' : ℕ) (y : (Fin k → ℕ) → �
     _ = ∑ m : Fin k, (δ / (Nat.totient W' : ℝ) * cval m - errEH m) := by
         rw [Finset.sum_sub_distrib]
     _ ≤ ∑ m : Fin k, S2mW k K₀ N R ν₀ W' m y := Finset.sum_le_sum (fun m _ => hlow m)
-
-/-- **CONTROL: the landed `Salt.Twelve.S1_lt_sum_S2mW` statement, VERBATIM, as the `k = 5`
-instance.** -/
-theorem S1_lt_sum_S2mW_k5 (K₀ N R ν₀ W' : ℕ) (y : (Fin 5 → ℕ) → ℝ)
-    (δ : ℝ) (errEH cval : Fin 5 → ℝ)
-    (hφ : 0 < (Nat.totient W' : ℝ)) (hcval : ∀ m : Fin 5, 0 ≤ cval m) (hδ0 : 0 ≤ δ)
-    (hDpi : ∀ m : Fin 5, δ ≤ deltaPi 5 K₀ N m)
-    (hcompat : ∀ m : Fin 5, cval m ≤ Qdiag_mW 5 R W' m y)
-    (hEHres : ∀ m : Fin 5,
-      deltaPi 5 K₀ N m / (Nat.totient W' : ℝ) * Qdiag_mW 5 R W' m y - errEH m
-        ≤ S2mW 5 K₀ N R ν₀ W' m y)
-    (hnum : S1 5 K₀ N R W' ν₀ y
-      < (∑ m : Fin 5, δ / (Nat.totient W' : ℝ) * cval m) - ∑ m : Fin 5, errEH m) :
-    S1 5 K₀ N R W' ν₀ y < ∑ m : Fin 5, S2mW 5 K₀ N R ν₀ W' m y :=
-  S1_lt_sum_S2mW_k 5 K₀ N R ν₀ W' y δ errEH cval hφ hcval hδ0 hDpi hcompat hEHres hnum
 
 /-! ## (2) `deltaPi_upper_ev_105` — Chebyshev `Δπ ≤ 1000·N'/log N'` at `h_max = 743` -/
 

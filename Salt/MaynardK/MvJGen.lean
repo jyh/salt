@@ -16,11 +16,11 @@ import Salt.Twelve.MvJ
 /-!
 # C1 bridge B3 — `mv_J` at general `k` for a budget polynomial (`mv_J_gen`)
 
-A transformation of `Salt/Twelve/MvJ.lean`: `Fin 5 → Fin (n+1)`, `Fin 4 → Fin n`, the k = 5
+A transformation of `Salt/Twelve/MvJ.lean`: index sets `k = 5 → n + 1`, `4 → n`, the k = 5
 counting constants replaced by k-dependent bounds, and the inner contraction carrying the
-budget exponent `d` of each monomial (`budget_moment … c d`). `mv_J_of_gen` recovers the landed
-k = 5 `Salt.Twelve.mv_J` statement verbatim as a corollary. Ported by an Opus executor from a frozen
-brief (2026-10-11).
+budget exponent `d` of each monomial (`budget_moment … c d`). `mv_J_of_gen` (in `Controls`)
+recovers the landed k = 5 `Salt.Twelve.mv_J` statement verbatim as a corollary. Ported by an Opus
+executor from a frozen brief (2026-10-11).
 -/
 
 open Finset
@@ -39,7 +39,6 @@ def contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) : BPoly n :=
 /-- the sieve weight of a budget polynomial (generalises `yF`). -/
 noncomputable def yFg {n : ℕ} (R W' : ℕ) (P : BPoly (n + 1)) (s : Fin (n + 1) → ℕ) : ℝ :=
   if s ∈ kSieveIndex (n + 1) R W' then eval P (fun i => Real.log (s i) / Real.log R) else 0
-
 
 /-! ## List-sum plumbing -/
 
@@ -794,7 +793,6 @@ theorem inner_contract_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   rw [hmul]
   linarith only [mul_nonneg hC30 hq0, mul_nonneg hCabs0 hXSnn]
 
-
 /-! ## W3-6 (keystone J) — the outer square-and-sum assembly (`mv_J`) -/
 
 -- The reindex bijection: filtered 5-tuples (r m = 1) ↔ kSieveIndex n.
@@ -921,7 +919,6 @@ private lemma gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = 
 private lemma gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
-
 -- g-side pairwise collision bound (general k)
 private lemma badpair_bound_g (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
@@ -1033,7 +1030,6 @@ private lemma badpair_bound_g (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
       ≤ ∏ k, h k := hstepA
     _ ≤ _ := hbnd
     _ = cg ^ k * (Real.log R) ^ k / ((p:ℝ) - 2) ^ 2 := hfinal
-
 
 set_option maxHeartbeats 1600000 in
 -- Bundles `mv_monomial_g` at `z = R` with the 6-pair g-weighted coprimality drop
@@ -1400,7 +1396,6 @@ private lemma erase_prod_removeNth {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin
     rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
   rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
-
 
 set_option maxHeartbeats 1600000 in
 -- The reindex + `eval_sq` list expansion + per-monomial `box4_g_moment` sum is a
@@ -1911,7 +1906,6 @@ private lemma MQ2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
         = 20 * cg * Real.log R / (D:ℝ) := by ring
     linarith
   linarith [hdiag, hoff, hfinal]
-
 
 -- factor a single "marked" coordinate over the product box (n = 4)
 private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
@@ -2616,39 +2610,5 @@ theorem mv_J_gen (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           linarith only [hm3, hm2, hm1]
   exact hgoal
 
-/-- CONTROL: the landed k = 5 keystone `Salt.Twelve.mv_J`, its statement copied VERBATIM,
-is the `n = 4`, `P = ofPoly F` instance of `mv_J_gen`. -/
-theorem mv_J_of_gen (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
-    (hUpper : PhiUpperAtom W') (F : Poly) (m : Fin 5) :
-    ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
-      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 1 ≤ Real.log R →
-      |(∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1),
-            (∑ u ∈ Finset.range R,
-                yF R W' F (Function.update r m u) / (Nat.totient u : ℝ)) ^ 2
-              / ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ))
-        - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
-            * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
-      ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6
-          * (1 / Real.log R + 1 / D) := by
-  have hyF : ∀ (R W' : ℕ) (s : Fin 5 → ℕ), yFg (n := 4) R W' (ofPoly F) s = yF R W' F s :=
-    fun _ _ _ => rfl
-  have hcontr : contractB m (ofPoly F) = contractAt m F := by
-    simp only [contractB, ofPoly, contractAt, List.map_map]
-    apply List.map_congr_left
-    intro a _
-    simp only [Function.comp_apply, Nat.factorial_zero, mul_one, add_zero, Prod.mk.injEq,
-      true_and]
-    rw [Nat.factorial_succ]
-    have h1 : ((a.1 m).factorial : ℚ) ≠ 0 := by positivity
-    push_cast
-    field_simp
-  obtain ⟨c, hc0, hc⟩ := mv_J_gen W' hW' hpos hUpper 4 (by norm_num) (ofPoly F) m
-  refine ⟨c, hc0, fun D R hD hDW hR => ?_⟩
-  have h := hc D R hD hDW hR
-  rw [hcontr] at h
-  simp only [hyF] at h
-  exact h
-
 end Salt.MaynardK
-
 
