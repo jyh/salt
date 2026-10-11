@@ -96,7 +96,7 @@ theorem hBJS_shift_le {S : ℝ} (hS : 1 ≤ S) : hBJS (S - 1) ≤ 4 * hBJS S := 
       have hle : Real.exp (S - 2) ≤ 4 := by
         calc Real.exp (S - 2) ≤ Real.exp 1 := Real.exp_le_exp.mpr (by linarith)
           _ ≤ 4 := by linarith
-      nlinarith [hle, hexpS]
+      nlinarith only [hexpS, hle]
     · rcases le_total S 4 with h4 | h4
       · -- 3 ≤ S ≤ 4: `hBJS S = 3S⁻¹e⁻ˢ`, `hBJS (S−1) = e^{−(S−1)}`; need `e·S ≤ 12`
         rw [hBJS_mid (by linarith) (by linarith), hBJS_ge3 h3]
@@ -106,7 +106,7 @@ theorem hBJS_shift_le {S : ℝ} (hS : 1 ≤ S) : hBJS (S - 1) ≤ 4 * hBJS S := 
         rw [hid, show (4 : ℝ) * (3 * S⁻¹ * Real.exp (-S)) = (12 * S⁻¹) * Real.exp (-S) by ring]
         apply mul_le_mul_of_nonneg_right _ (Real.exp_pos (-S)).le
         rw [show (12 : ℝ) * S⁻¹ = 12 / S by rw [div_eq_mul_inv], le_div_iff₀ hSpos]
-        nlinarith [he, h4, hSpos]
+        nlinarith only [hS, he, h4]
       · -- S ≥ 4: `hBJS S = 3S⁻¹e⁻ˢ`, `hBJS (S−1) = 3(S−1)⁻¹e^{−(S−1)}`; need `e·S ≤ 4(S−1)`
         rw [hBJS_ge3 (by linarith), hBJS_ge3 h3]
         have hSpos : (0 : ℝ) < S := by linarith
@@ -121,7 +121,7 @@ theorem hBJS_shift_le {S : ℝ} (hS : 1 ≤ S) : hBJS (S - 1) ≤ 4 * hBJS S := 
         rw [show (3 : ℝ) * Real.exp 1 * (S - 1)⁻¹ = (3 * Real.exp 1) / (S - 1) by ring,
           show (12 : ℝ) * S⁻¹ = 12 / S by ring,
           div_le_div_iff₀ hS1pos hSpos]
-        nlinarith [he, h4, hSpos]
+        nlinarith only [hS, he, h4]
 
 /-! ## Part B — the sharp up-set mass control `upset_mass_le` (BJS hypothesis (4)) -/
 
@@ -219,7 +219,7 @@ theorem upset_mass_le (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ) (t : ℝ)
     rcases F.eq_empty_or_nonempty with hFe | hFne
     · rw [hFe, Finset.prod_empty, inv_one]
       rw [le_div_iff₀ hS0]
-      nlinarith [hSt, hε, hS0]
+      nlinarith only [hε, hSt, hS1]
     · set p₀ := F.min' hFne with hp₀
       have hp₀F : p₀ ∈ F := F.min'_mem hFne
       have hp₀pf : p₀ ∈ s'.prodPrimes.primeFactors := (Finset.mem_filter.mp hp₀F).1
