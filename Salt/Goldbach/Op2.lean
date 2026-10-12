@@ -70,14 +70,14 @@ theorem gold_hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ N : ℕ, 
   have hcbar := cbar_pos
   set D : ℝ := 4 * Real.log 2 + 16 * Real.log 3 + 32 * Kcount with hDdef
   set CC : ℝ := 255 * Real.log 2 + 768 with hCCdef
-  have hDnn : 0 ≤ D := by rw [hDdef]; nlinarith [hlog2, hlog3, hKc0]
-  have hCCnn : 0 ≤ CC := by rw [hCCdef]; nlinarith [hlog2]
+  have hDnn : 0 ≤ D := by rw [hDdef]; linarith only [hlog3, hlog2, hKc0]
+  have hCCnn : 0 ≤ CC := by rw [hCCdef]; linarith only [hlog2]
   set C : ℝ := goldSeamC Kcount Kmass with hCsetdef
   have hCdef : C = 4 * cbar * D + 2 * CC + 4 * cbar * Kmass + 2 := by
     rw [hCsetdef, goldSeamC, ← hDdef, ← hCCdef]
   have hC0 : 0 ≤ C := by
     rw [hCdef]
-    nlinarith [mul_nonneg hcbar.le hDnn, hCCnn, mul_nonneg hcbar.le hKm0]
+    linarith only [hlog2, mul_nonneg hcbar.le hKm0, mul_nonneg hcbar.le hDnn]
   -- thresholds
   obtain ⟨xLK, hxLK⟩ := a12_log_ge (4 * C * Kmass)
   obtain ⟨xLD, hxLD⟩ := a12_log_ge (4 * D)
