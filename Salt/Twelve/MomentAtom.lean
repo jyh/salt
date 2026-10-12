@@ -158,7 +158,7 @@ private lemma afwd_bounds (a z : ℕ) :
     have huv : u ≤ v := log_le_log_succ r
     have hb := (pow_sub_bounds a hunn huv).1
     rw [le_div_iff₀ hpos1]
-    nlinarith [hb]
+    linarith only [hb]
   -- `midsum = target`
   have hmidsum : (∑ r ∈ Finset.range z,
         ((Real.log ((r : ℝ) + 1)) ^ (a + 1) - (Real.log (r : ℝ)) ^ (a + 1)) / ((a : ℝ) + 1))
@@ -195,7 +195,7 @@ private lemma afwd_bounds (a z : ℕ) :
         exact Finset.sum_congr rfl (fun r _ => by ring)
     _ ≤ Real.log 2 * (Real.log (z : ℝ)) ^ a := by
         have h0 : (0 : ℝ) ≤ (0 : ℝ) ^ a := pow_nonneg le_rfl a
-        nlinarith [h0, hlog2]
+        nlinarith only [hlog2, h0]
 
 /-! ## The Abel lift (generic; the mandated floor)
 
@@ -314,7 +314,7 @@ private lemma abel_lift (w : ℕ → ℝ) (M C₀ : ℝ) (hM0 : 0 ≤ M)
             rw [← Finset.sum_mul, hDisum]
         _ ≤ (Real.log (z : ℝ)) ^ a * C₀ := by
             have h00 : 0 ≤ (Real.log ((0 : ℕ) : ℝ)) ^ a := pow_nonneg (log_nat_nonneg 0) a
-            nlinarith [hfz1, h00, hC0]
+            nlinarith only [hC0, h00, hfz1]
     calc |(Real.log ((z - 1 : ℕ) : ℝ)) ^ a * E z
             - ∑ i ∈ Finset.range (z - 1),
                 ((Real.log ((i + 1 : ℕ) : ℝ)) ^ a - (Real.log (i : ℝ)) ^ a) * E (i + 1)|

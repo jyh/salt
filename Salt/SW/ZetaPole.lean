@@ -88,7 +88,7 @@ private lemma glogf_antitone {σ : ℝ} (hσ : 1 < σ) :
     have hpos : 0 < x ^ ((-σ) - 1) := Real.rpow_pos_of_pos hxpos _
     have hlogx : 1 < Real.log x :=
       lt_of_lt_of_le hlog3gt1 (Real.log_le_log (by norm_num) (by linarith))
-    have hsig : 1 ≤ σ * Real.log x := by nlinarith [hlogx, hσ]
+    have hsig : 1 ≤ σ * Real.log x := by nlinarith only [hσ, hlogx]
     exact mul_nonpos_of_nonneg_of_nonpos hpos.le (by linarith)
 
 private lemma zf_intervalIntegrable {σ : ℝ} {a b : ℝ} (ha : 0 < a) (hb : 0 < b) :
@@ -307,7 +307,7 @@ theorem neg_logDeriv_zeta_le {σ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
           = Real.log ((3:ℕ) : ℝ) * (3 : ℝ) ^ (-σ) := by rw [Nat.cast_ofNat]
         _ ≤ (2 * Real.log 2) * (1 / 3) := by
             apply mul_le_mul hlog3 h3p hrnn (by positivity)
-        _ ≤ 1 / 2 := by nlinarith [Real.log_two_lt_d9]
+        _ ≤ 1 / 2 := by linarith only [Real.log_two_lt_d9]
     linarith
   have hSlog : Slog ≤ 1 / (σ - 1) ^ 2 + 1 := by
     have hsplit : Slog = (∑ i ∈ Finset.range 4, g i) + ∑' n, g (n + 4) := by
