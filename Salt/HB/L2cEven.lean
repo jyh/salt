@@ -689,10 +689,10 @@ theorem EL_evenCorner_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {
   -- window log-scale is `≥ 1`
   have hx8 : (8 : ℝ) ≤ (x : ℝ) := by
     have h23 : (2 : ℝ) ^ 3 ≤ (z : ℝ) ^ 3 := by gcongr
-    nlinarith [hzx, h23]
+    linarith only [h23, hzx]
   have hL1 : 1 ≤ Lwin x := by
     rw [Lwin, Real.le_log_iff_exp_le (by positivity)]
-    nlinarith [hx8, Real.exp_one_lt_d9]
+    linarith only [hx8, Real.exp_one_lt_d9]
   have hLpos : 0 < Lwin x := by linarith
   -- the two conversion facts
   have hxln : (x : ℝ) / Real.log z = ((x : ℝ) / Lwin x) * z0 z x := by
@@ -740,9 +740,9 @@ theorem EL_evenCorner_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {
   have hb : Real.exp (2 * z0 z x)
       ≤ 2 * Real.exp (2 * z0 z x) * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * (Lwin x) ^ 3 := by
     have hfac : (1 : ℝ) ≤ 2 * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * (Lwin x) ^ 3 := by
-      nlinarith [hA1, hL3, mul_nonneg (by linarith [hA1] :
-        (0 : ℝ) ≤ (x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ) - 1) (by linarith [hL3] :
-        (0 : ℝ) ≤ (Lwin x) ^ 3 - 1)]
+      linarith only [hL3, hA1, mul_nonneg
+          (by linarith [hA1] : (0 : ℝ) ≤ (x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ) - 1)
+          (by linarith [hL3] : (0 : ℝ) ≤ (Lwin x) ^ 3 - 1)]
     calc Real.exp (2 * z0 z x) = Real.exp (2 * z0 z x) * 1 := (mul_one _).symm
       _ ≤ Real.exp (2 * z0 z x) * (2 * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * (Lwin x) ^ 3) :=
           mul_le_mul_of_nonneg_left hfac hexp.le

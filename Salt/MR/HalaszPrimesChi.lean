@@ -342,7 +342,7 @@ theorem halasz_primes_chi_hybridHeight :
   have hqT0 : (0 : ℝ) < (q : ℝ) * T := by positivity
   have hmono : Real.log T ≤ Real.log ((q : ℝ) * T) := by
     apply Real.log_le_log hT0
-    nlinarith
+    nlinarith only [hTT₀, hq1, hT₀]
   have hLqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * T) := by linarith
   have hllmono : Real.log (Real.log T) ≤ Real.log (Real.log ((q : ℝ) * T)) :=
     Real.log_le_log hLT0 hmono
@@ -605,11 +605,11 @@ theorem twisted_rect_zero_free_split :
   have hD4pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by positivity
   have hD4ge1 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
     have h1 : (1 : ℝ) ≤ ℓ ^ (4 : ℕ) := one_le_pow₀ hℓ1
-    nlinarith
+    nlinarith only [hLg34, h1]
   -- the target width is tiny
   have hWsmall : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) ≤ 1 / 2 := by
     rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
-    nlinarith
+    linarith only [hD4ge1, hD4pos]
   by_cases hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|
   · -- ABOVE the floor: stones A+B
     have hβ1 : ρ.re < 1 := by
@@ -683,7 +683,7 @@ theorem twisted_rect_zero_free_split :
         have := Nat.pos_of_ne_zero (NeZero.ne q); exact_mod_cast this
       have hEq : |ρ.im| + 2 ≤ Real.exp (Real.exp 100) + 3 := by linarith
       have hlow0 : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-        apply Real.log_pos; nlinarith [abs_nonneg ρ.im]
+        apply Real.log_pos; nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
       have hlowle : Real.log ((q : ℝ) * (|ρ.im| + 2))
           ≤ Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3)) := by
         apply Real.log_le_log (by nlinarith [abs_nonneg ρ.im])
@@ -699,7 +699,7 @@ theorem twisted_rect_zero_free_split :
           have h := hKq
           rw [div_mul_eq_mul_div, one_mul, div_le_iff₀ (by positivity)] at h
           linarith
-        nlinarith [hgate']
+        linarith only [hgate']
       have hshrink : c₀ / Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
           ≤ c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
         rw [div_le_div_iff₀ hlowE0 hlow0]

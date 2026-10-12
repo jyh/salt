@@ -140,8 +140,8 @@ private lemma band_ratio_core {ii kk l w : ℝ} (hw1 : w ≤ 1)
     (h3 : (ii + kk + 1) * w ≤ l) (h4 : l / 3 - w ≤ kk * w)
     (hl : (2 * 10 ^ 9 : ℝ) ≤ l) :
     (10 / 31 : ℝ) * ((ii + kk + 2) * w) ≤ kk * w := by
-  have hlw : (123 : ℝ) * w ≤ l := by nlinarith [hl, hw1]
-  nlinarith [h3, h4, hlw]
+  have hlw : (123 : ℝ) * w ≤ l := by linarith only [hl, hw1]
+  linarith only [hl, h4, h3, hw1]
 
 /-- **`gold_band_geoN_inputs` (deliverable B).**  The three `gold_band_survsum_geoN` analytic inputs
 — `hL1` (`1 ≤ log(X·M)`), `hratio` (the `(10/31)` high-pass ratio), and `hNXM`
@@ -199,7 +199,7 @@ theorem gold_band_geoN_inputs : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ 
     have hle := Real.log_le_log (by positivity) hcornerR
     rw [Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow,
       Real.log_div hNne (by norm_num)] at hle
-    nlinarith [hle]
+    linarith only [hle]
   -- (h4) the floor `log N/3 − log 2 ≤ kp·log 2`
   have hoy : (opY N : ℝ) ≤ (2 : ℝ) ^ kp := by
     have hlt : opY N < 2 ^ kp := by unfold pieceN at hfloor; omega
@@ -231,7 +231,7 @@ theorem gold_band_geoN_inputs : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ 
     rw [hLdef]
     have hmono := Real.log_le_log hprodpos hprod_ub
     rw [Real.log_pow] at hmono
-    push_cast at hmono; nlinarith [hmono]
+    push_cast at hmono; linarith only [hmono]
   -- L's lower bound `log N/3 − log 2 ≤ L`
   have hLlb : Real.log N / 3 - Real.log 2 ≤ L := by
     rw [hLdef]
