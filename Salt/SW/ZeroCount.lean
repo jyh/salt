@@ -157,7 +157,7 @@ theorem LFunction_center_lower {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
   have hle := norm_add_le ((1 : ℂ) + T) (-T)
   rw [heq, norm_neg, norm_one] at hle
   rw [hL1T]
-  have hpisq : Real.pi ^ 2 < 10.5 := by nlinarith [Real.pi_lt_d2, Real.pi_pos]
+  have hpisq : Real.pi ^ 2 < 10.5 := by nlinarith only [Real.pi_lt_d2, Real.pi_pos]
   linarith [hle, hTnorm]
 
 /-! ## 2. Z2 — the Jensen zero count -/
@@ -202,7 +202,7 @@ theorem LFunction_zero_count_le {q : ℕ} [NeZero q] (χ : DirichletCharacter �
   have hlogpos : 0 < Real.log (R / r) := Real.log_pos hRr
   have hMpos : (0 : ℝ) < M := by linarith
   have hle1 : M / ‖LFunction χ c‖ ≤ 4 * M := by
-    rw [div_le_iff₀ hcnorm]; nlinarith [hcenter, hMpos]
+    rw [div_le_iff₀ hcnorm]; nlinarith only [hM, hcenter]
   have hlog : Real.log (M / ‖LFunction χ c‖) ≤ Real.log (4 * M) :=
     Real.log_le_log (div_pos hMpos hcnorm) hle1
   rw [div_le_div_iff_of_pos_right hlogpos]
@@ -266,7 +266,7 @@ theorem norm_deriv_le_of_re_le {g : ℂ → ℂ} {M R ρ s : ℝ} {w : ℂ}
           rw [div_le_div_iff₀ hd1 hd2]
           have hprod : (0 : ℝ) ≤ 2 * M * R * (ρ + s - ‖z‖) :=
             mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) hM.le) hRpos.le) (by linarith)
-          nlinarith [hprod]
+          linarith only [hprod]
   -- Cauchy estimate at `w`
   have hfin := Complex.norm_deriv_le_of_forall_mem_sphere_norm_le hs hdcc hC
   calc ‖deriv g w‖ ≤ 2 * M * (ρ + s) / (R - ρ - s) / s := hfin
