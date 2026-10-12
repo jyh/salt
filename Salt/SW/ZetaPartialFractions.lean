@@ -149,7 +149,7 @@ theorem entire_zero_count_le {F : ℂ → ℂ} (hF : Differentiable ℂ F) {c : 
   have hRr : 1 < R / r := (one_lt_div hr).mpr hrR
   have hlogpos : 0 < Real.log (R / r) := Real.log_pos hRr
   have hMpos : (0 : ℝ) < M := by linarith
-  have hle1 : M / ‖F c‖ ≤ 4 * M := by rw [div_le_iff₀ hcnorm]; nlinarith [hFc, hMpos]
+  have hle1 : M / ‖F c‖ ≤ 4 * M := by rw [div_le_iff₀ hcnorm]; nlinarith only [hFc, hM]
   have hlog : Real.log (M / ‖F c‖) ≤ Real.log (4 * M) :=
     Real.log_le_log (div_pos hMpos hcnorm) hle1
   rw [div_le_div_iff_of_pos_right hlogpos]
@@ -867,7 +867,7 @@ end ZcGrowth
 noncomputable def M0zeta (t₀ : ℝ) : ℝ := 1 + 5 * (19 / 4 + |t₀|) * (15 / 4 + |t₀|)
 
 lemma one_le_M0zeta (t₀ : ℝ) : 1 ≤ M0zeta t₀ := by
-  have := abs_nonneg t₀; rw [M0zeta]; nlinarith [this]
+  have := abs_nonneg t₀; rw [M0zeta]; nlinarith only [this]
 
 /-- `log(4·M₀ζ(2γ)) ≤ 9·log(|γ|+2)` — the `O(log(|γ|+2))` collapse of the growth quantity
 (`4 M₀ζ(2γ) ≤ 100(|γ|+2)²`, `log 100 ≤ 7 log 2 ≤ 7 log(|γ|+2)`). -/
@@ -876,7 +876,7 @@ lemma log_4M0zeta_le (γ : ℝ) :
   have hx : (0 : ℝ) ≤ |γ| := abs_nonneg γ
   have h2γ : |2 * γ| = 2 * |γ| := by rw [abs_mul]; norm_num
   have hbound4 : 4 * M0zeta (2 * γ) ≤ 100 * (|γ| + 2) ^ 2 := by
-    rw [M0zeta, h2γ]; nlinarith [hx]
+    rw [M0zeta, h2γ]; nlinarith only [hx]
   have hM0pos : (0 : ℝ) < 4 * M0zeta (2 * γ) := by have := one_le_M0zeta (2 * γ); linarith
   have hlog2le : Real.log 2 ≤ Real.log (|γ| + 2) := Real.log_le_log (by norm_num) (by linarith)
   have hlog100 : Real.log 100 ≤ 7 * Real.log (|γ| + 2) := by
@@ -992,7 +992,7 @@ theorem zeta_neg_re_logDeriv_le {σ γ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
   -- collapse `120·log(4M₀ζ(2γ)) ≤ 1080·log(|γ|+2)`
   have hlog : 120 * Real.log (4 * M0zeta t₀) ≤ 1080 * Real.log (|γ| + 2) := by
     have := log_4M0zeta_le γ; rw [ht₀]
-    nlinarith [this]
+    linarith only [this]
   -- assemble
   rw [hsplit]
   linarith [hZcnum, hlog]

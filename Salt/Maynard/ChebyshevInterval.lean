@@ -100,11 +100,11 @@ theorem primes_in_interval_ge :
     -- `L < s` from `log N / √N < 1`.
     have hLs : L < s := by
       have h := hsqrt; rw [div_lt_one hs0] at h; exact h
-    have hsL : s * L ≤ (N : ℝ) := by nlinarith [hLs, hs0, hL]
+    have hsL : s * L ≤ (N : ℝ) := by nlinarith only [hs0, hLs, hss]
     -- `log(64N+1) < N` from `log(64N+1)/N < 1`.
     have hsucc' : Real.log (64 * (N : ℝ) + 1) < (N : ℝ) := by
       have h := hsucc; rw [div_lt_one hN0] at h; exact h
-    have h64N1 : (1 : ℝ) < 64 * (N : ℝ) := by nlinarith
+    have h64N1 : (1 : ℝ) < 64 * (N : ℝ) := by linarith only [hN1]
     have hD : 0 < Real.log (64 * (N : ℝ)) := Real.log_pos h64N1
     have hD2 : Real.log (64 * (N : ℝ)) ≤ 2 * L := by
       rw [Real.log_mul (by norm_num) (by positivity), hLdef]
@@ -138,8 +138,8 @@ theorem primes_in_interval_ge :
       linarith
     -- Assemble.
     rw [one_mul, div_le_iff₀ hL]
-    nlinarith [hπ64L, hpiN', hlog2, hlog4, hsL, hsucc', hN0, hL,
-      mul_le_mul_of_nonneg_right hlog2.le hN0.le]
+    nlinarith only [hlog4, hpiN', hπ64L, hsucc', hsL, hN1,
+        mul_le_mul_of_nonneg_right hlog2.le hN0.le, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
   obtain ⟨N₀, hN₀⟩ := eventually_atTop.mp key
   exact ⟨1, N₀, one_pos, hN₀⟩
 

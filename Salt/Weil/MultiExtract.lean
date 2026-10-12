@@ -91,7 +91,7 @@ theorem forall_norm_le_of_powerSum_bound {ι : Type*} [Fintype ι] (z : ι → �
   have ht0 : 0 ≤ t := by positivity
   have ht1 : t < 1 := by
     rw [ht_def, div_lt_one hr2_pos]
-    nlinarith [hρr, hρ, hr_pos]
+    nlinarith only [hρr, hρ]
   have h1t : 0 < 1 - t := by linarith
   -- the per-term upper bound
   have halg : ∀ n : ℕ, C ^ 2 * t ^ n = (C * ρ ^ n) ^ 2 / r ^ (2 * n) := by
@@ -129,7 +129,7 @@ theorem forall_norm_le_of_powerSum_bound {ι : Type*} [Fintype ι] (z : ι → �
             rw [eq_div_iff (ne_of_gt h1t), mul_comm]; exact hmul
           rw [hsum_range]
           gcongr
-          · nlinarith [pow_nonneg ht0 N]
+          · linarith only [pow_nonneg ht0 N]
       _ = C ^ 2 / (1 - t) := by rw [mul_one_div]
   -- B₂ : the fixed geometric-tail constant over the off-diagonal (w ≠ 1) pairs
   set B₂ : ℝ := ∑ p ∈ Finset.univ.filter (fun p => ¬ w p = 1), 2 / ‖w p - 1‖ with hB₂
@@ -219,9 +219,9 @@ theorem norm_eq_sqrt_of_pair_of_le (α β : ℂ) (q : ℝ) (hq : 0 ≤ q)
   · -- 0 < q
     have hspos : 0 < Real.sqrt q := Real.sqrt_pos.mpr hq0
     have keyα : Real.sqrt q ≤ ‖α‖ := by
-      nlinarith [norm_nonneg α, norm_nonneg β, Real.sqrt_nonneg q, hα, hβ, hab, hs, hspos]
+      nlinarith only [hspos, hβ, hs, hab, norm_nonneg α]
     have keyβ : Real.sqrt q ≤ ‖β‖ := by
-      nlinarith [norm_nonneg α, norm_nonneg β, Real.sqrt_nonneg q, hα, hβ, hab, hs, hspos]
+      nlinarith only [hspos, hα, hs, hab, norm_nonneg β]
     exact ⟨le_antisymm hα keyα, le_antisymm hβ keyβ⟩
 
 /-- Convenience corollary for the descent: `‖α + β‖ ≤ 2√q` from `‖α‖, ‖β‖ ≤ √q`. -/

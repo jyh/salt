@@ -115,7 +115,7 @@ theorem norm_inv_denom2_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
     rw [Complex.norm_eq_sqrt_sq_add_sq]; congr 1; simp
   have hC : c ≤ ‖(c : ℂ) + (t : ℂ) * I + 2‖ := by
     calc c = Real.sqrt (c ^ 2) := (Real.sqrt_sq hc.le).symm
-      _ ≤ Real.sqrt ((c + 2) ^ 2 + t ^ 2) := Real.sqrt_le_sqrt (by nlinarith [sq_nonneg t])
+      _ ≤ Real.sqrt ((c + 2) ^ 2 + t ^ 2) := Real.sqrt_le_sqrt (by linarith only [hc, sq_nonneg t])
       _ = ‖(c : ℂ) + (t : ℂ) * I + 2‖ := hnC.symm
   have h1 : ‖((c : ℂ) + (t : ℂ) * I) * ((c : ℂ) + (t : ℂ) * I + 1)‖⁻¹ ≤ (c ^ 2 + t ^ 2)⁻¹ := by
     have h := norm_inv_denom_le hc t
@@ -147,9 +147,9 @@ theorem norm_inv_denom2_cubic_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
     rw [norm_mul, norm_mul, hA, hB, hC, hcube]
     have h0 : (0 : ℝ) ≤ Real.sqrt (c ^ 2 + t ^ 2) := Real.sqrt_nonneg _
     have h1 : Real.sqrt (c ^ 2 + t ^ 2) ≤ Real.sqrt ((c + 1) ^ 2 + t ^ 2) :=
-      Real.sqrt_le_sqrt (by nlinarith [hc.le, sq_nonneg t])
+      Real.sqrt_le_sqrt (by linarith only [hc])
     have h2 : Real.sqrt (c ^ 2 + t ^ 2) ≤ Real.sqrt ((c + 2) ^ 2 + t ^ 2) :=
-      Real.sqrt_le_sqrt (by nlinarith [hc.le, sq_nonneg t])
+      Real.sqrt_le_sqrt (by linarith only [hc])
     calc Real.sqrt (c ^ 2 + t ^ 2) ^ 3
         = Real.sqrt (c ^ 2 + t ^ 2) * Real.sqrt (c ^ 2 + t ^ 2) * Real.sqrt (c ^ 2 + t ^ 2) := by
           ring

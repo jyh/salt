@@ -412,7 +412,7 @@ private theorem count_tail_le (k R : ℕ) (hk : 1 ≤ k) (hR : 2 ≤ R)
       (pow_le_pow_left₀ (Nat.cast_nonneg k) ?_ _)
       (Finset.prod_nonneg fun p _ => by positivity)
     have h1k : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith
+    nlinarith only [h1k, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have htail : (∑ c ∈ ((Finset.range R).filter
       (fun c => Squarefree c ∧ ∀ p ∈ c.primeFactors, D₀ k < p)).erase 1,
       (k : ℝ) ^ c.primeFactors.card * ((Nat.totient c : ℝ) ^ 2)⁻¹) ≤ 1 := by
@@ -793,9 +793,9 @@ theorem lamPhiContractM_abs_le_g (k R : ℕ) (T : ℝ) (m : Fin k) (v : Fin k �
           ← Finset.prod_mul_distrib, ← Finset.prod_pow]
         refine Finset.prod_le_prod (fun p hp => ?_) (fun p hp => ?_)
         · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-          nlinarith
+          nlinarith only [h3, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
         · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-          nlinarith
+          linarith only []
       rw [div_le_div_iff₀ (by positivity) hgpos]
       calc fTilde k R T (v i) * (v i : ℝ) * (gMult (v i) : ℝ)
           = fTilde k R T (v i) * ((gMult (v i) : ℝ) * (v i : ℝ)) := by ring
