@@ -206,7 +206,7 @@ theorem m4_tail_grade_rounded {X : ℝ} (hL0 : 0 < Real.log X)
   have hcU : ((⌈P83 X theta293⌉₊ : ℕ) : ℝ) ≤ P83 X theta293 * Real.exp 1 := by
     have h1 : ((⌈P83 X theta293⌉₊ : ℕ) : ℝ) < P83 X theta293 + 1 :=
       Nat.ceil_lt_add_one hP0.le
-    nlinarith
+    nlinarith only [he, hP0, he3, h1, hP5]
   have hc1 : (1 : ℝ) ≤ ((⌈P83 X theta293⌉₊ : ℕ) : ℝ) :=
     le_trans (by linarith) (Nat.le_ceil (P83 X theta293))
   have hnum : Real.log ((⌈P83 X theta293⌉₊ : ℕ) : ℝ) ≤ a + 1 := by
@@ -220,7 +220,7 @@ theorem m4_tail_grade_rounded {X : ℝ} (hL0 : 0 < Real.log X)
     have h1 : Q83 X - 1 < ((⌊Q83 X⌋₊ : ℕ) : ℝ) := Nat.sub_one_lt_floor _
     have h2 : Q83 X / Real.exp 1 ≤ Q83 X - 1 := by
       rw [div_le_iff₀ (Real.exp_pos 1)]
-      nlinarith
+      nlinarith only [he, hQ0, he3, hQ5]
     linarith
   have hden : b - 1 ≤ Real.log ((⌊Q83 X⌋₊ : ℕ) : ℝ) := by
     have hq0 : (0 : ℝ) < Q83 X / Real.exp 1 := by positivity
@@ -231,7 +231,7 @@ theorem m4_tail_grade_rounded {X : ℝ} (hL0 : 0 < Real.log X)
   have hb0 : (0 : ℝ) < b := by linarith
   have hfl0 : (0 : ℝ) < Real.log ((⌊Q83 X⌋₊ : ℕ) : ℝ) := by linarith
   rw [← m4_tail_grade_at_pins (θ := theta293) hL0 hLL0, ← ha, ← hb, div_le_iff₀ hfl0]
-  have hab : (a + 1) * b ≤ 2 * a * (b - 1) := by nlinarith
+  have hab : (a + 1) * b ≤ 2 * a * (b - 1) := by nlinarith only [hP4, hQ4, he3, he]
   have hstep : a + 1 ≤ 2 * (a / b) * (b - 1) := by
     have hid : 2 * (a / b) * (b - 1) = 2 * a * (b - 1) / b := by field_simp
     rw [hid, le_div_iff₀ hb0]
@@ -398,7 +398,7 @@ theorem m4_ep2_budget_at_band_end {C X ε : ℝ} {N Xd P Q : ℕ}
       calc (Real.log X / 5) ^ 5 ≤ Real.exp (Real.log X / 5) ^ 5 :=
             pow_le_pow_left₀ (by linarith) hfive 5
         _ = X := hXeq
-    have hu2 : (9375 : ℝ) ≤ (Real.log X) ^ 2 := by nlinarith [hL, hL0]
+    have hu2 : (9375 : ℝ) ≤ (Real.log X) ^ 2 := by nlinarith only [hL]
     have hprod := mul_le_mul_of_nonneg_left hu2 (pow_pos hL0 3).le
     have hid : (Real.log X / 5) ^ 5 = (Real.log X) ^ 5 / 3125 := by ring
     rw [hid] at h1
