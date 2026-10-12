@@ -76,7 +76,7 @@ theorem B1_ratio_lower (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 3 ≤ k) (hR
   set L := Real.log k with hLdef
   set b := B1 k R W T with hbdef
   clear_value Q L b
-  nlinarith [hsharp, hQM, hEB]
+  linarith only [hsharp, hQM, hEB]
 
 /-- **`A1_ratio_upper`.** `A₁ ≤ 9·Q`, with `Q = (φW/W)·b⁻¹`.  Uses the sharp
 upper bound `A1_upper_sharp`; the three summands are bounded by `4Q`, `4Q`, `Q`
@@ -126,7 +126,7 @@ theorem A1_ratio_upper (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 3 ≤ k) (hR
   have hstar : Real.log (R0 k R T)
         * ((1 + bParam k R * Real.log (R0 k R T - 1))⁻¹) ^ 2 ≤ (bParam k R)⁻¹ := by
     rw [inv_pow, ← div_eq_mul_inv, div_le_iff₀ hP2, inv_mul_eq_div, le_div_iff₀ hbpos]
-    nlinarith [hkey]
+    linarith only [hkey]
   have harg_pos : 0 < 1 + bParam k R * Real.log (R0 k R T) := by
     linarith [mul_nonneg hbpos.le hLR0nn]
   have hQ0 : 0 ≤ (Nat.totient W / W : ℝ) * (bParam k R)⁻¹ := by
@@ -140,7 +140,7 @@ theorem A1_ratio_upper (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 3 ≤ k) (hR
       ≤ 4 * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) := by
     have hinv0 : 0 ≤ (1 + bParam k R * Real.log (R0 k R T))⁻¹ := inv_nonneg.mpr harg_pos.le
     have hle1 : 1 - (1 + bParam k R * Real.log (R0 k R T))⁻¹ ≤ 1 := by linarith
-    have hC0 : 0 ≤ 4 * (Nat.totient W / W : ℝ) * (bParam k R)⁻¹ := by nlinarith [hQ0]
+    have hC0 : 0 ≤ 4 * (Nat.totient W / W : ℝ) * (bParam k R)⁻¹ := by linarith only [hQ0]
     calc 4 * (Nat.totient W / W : ℝ) * (bParam k R)⁻¹
             * (1 - (1 + bParam k R * Real.log (R0 k R T))⁻¹)
         ≤ 4 * (Nat.totient W / W : ℝ) * (bParam k R)⁻¹ * 1 :=

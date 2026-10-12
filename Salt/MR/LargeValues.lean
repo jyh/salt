@@ -340,14 +340,14 @@ theorem wellspaced_l2 (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : 0 ≤ T) (𝒯
       (fun s _ => two_mul_le_amgm hLLpos)
   -- mean-value bounds
   set P := 2 * (T + 1 / 2) + 20 * (N : ℝ) with hPdef
-  have hP0 : (0 : ℝ) ≤ P := by rw [hPdef]; nlinarith [hT, Nat.cast_nonneg (α := ℝ) N]
+  have hP0 : (0 : ℝ) ≤ P := by rw [hPdef]; linarith only [hN1, hT]
   have hI2 : (∫ s in (-(T + 1 / 2))..(T + 1 / 2), ‖dpoly N a s‖ ^ 2) ≤ P * S :=
     dirichlet_poly_l2_mvt_final N a (T + 1 / 2)
   have hJ2 : (∫ s in (-(T + 1 / 2))..(T + 1 / 2), ‖deriv (dpoly N a) s‖ ^ 2)
       ≤ P * (LN ^ 2 * S) := integral_deriv_dpoly_sq_le N a hT'0
   have hPS0 : (0 : ℝ) ≤ P * S := mul_nonneg hP0 hS0
   have hLLinvLN : LL⁻¹ * LN ^ 2 ≤ LL := by
-    have hsq : LN ^ 2 ≤ LL ^ 2 := by nlinarith [hLNnn, hLNLL]
+    have hsq : LN ^ 2 ≤ LL ^ 2 := by nlinarith only [hLNnn, hLNLL, hLLpos]
     have h1 : LL⁻¹ * LN ^ 2 ≤ LL⁻¹ * LL ^ 2 :=
       mul_le_mul_of_nonneg_left hsq (inv_nonneg.mpr hLLpos.le)
     have h2 : LL⁻¹ * LL ^ 2 = LL := by field_simp
@@ -382,7 +382,7 @@ theorem wellspaced_l2 (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : 0 ≤ T) (𝒯
           rw [hPdef]
           have hbig : (0 : ℝ) ≤ 80 * T + 44 * (N : ℝ) - 2 := by linarith
           have hsmall : (0 : ℝ) ≤ 38 * T + 2 * (N : ℝ) - 2 := by linarith
-          nlinarith [mul_nonneg hS0 (mul_nonneg (sub_nonneg.mpr hLLhalf) hbig),
-            mul_nonneg hS0 hsmall]
+          linarith only [mul_nonneg hS0 hsmall,
+              mul_nonneg hS0 (mul_nonneg (sub_nonneg.mpr hLLhalf) hbig)]
 
 end Salt.MR

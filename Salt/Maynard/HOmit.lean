@@ -357,7 +357,7 @@ lemma fWt_nonneg_all (k R n : ℕ) (hR : 2 ≤ R) : 0 ≤ fWt k R n := by
   have hu : 0 ≤ uVal k R n := by
     unfold uVal
     exact div_nonneg (mul_nonneg (Nat.cast_nonneg k) hlogn) hlogR.le
-  have hden : (0 : ℝ) ≤ 1 + Real.log (k : ℝ) * uVal k R n := by nlinarith [mul_nonneg hlk hu]
+  have hden : (0 : ℝ) ≤ 1 + Real.log (k : ℝ) * uVal k R n := by linarith only [mul_nonneg hlk hu]
   unfold fWt
   exact div_nonneg zero_le_one hden
 
@@ -384,7 +384,7 @@ lemma fWt_anti (k R : ℕ) (hR : 2 ≤ R) :
     unfold uVal
     exact div_nonneg (mul_nonneg (Nat.cast_nonneg k) (Real.log_natCast_nonneg a)) hlogR.le
   have hden_a_pos : (0 : ℝ) < 1 + Real.log (k : ℝ) * uVal k R a := by
-    nlinarith [mul_nonneg hlk hua]
+    linarith only [mul_nonneg hlk hua]
   unfold fWt
   exact one_div_le_one_div_of_le hden_a_pos hden_le
 
