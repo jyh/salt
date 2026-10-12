@@ -549,7 +549,7 @@ theorem pretenseSum_at_repulsion_floor {f : ℕ} [NeZero f] (χ : DirichletChara
     exact Real.sqrt_le_sqrt hell
   have hmul : Real.sqrt (Real.log η) * Real.sqrt (Real.log η) = Real.log η :=
     Real.mul_self_sqrt hell0.le
-  have hsle : Real.sqrt (Real.log η) ≤ 2 * L := by nlinarith [hmul]
+  have hsle : Real.sqrt (Real.log η) ≤ 2 * L := by nlinarith only [hs1, hβ1, hβlo, hmul, hηq, hell]
   have hinv0 : (0 : ℝ) < 1 / (2 * L) := by positivity
   have hinv1 : 1 / (2 * L) ≤ 1 := (div_le_one hL2pos).mpr (by linarith)
   have hσ1 : (1 : ℝ) < 1 + 1 / (2 * L) := by linarith
@@ -589,7 +589,7 @@ theorem pretenseSum_at_repulsion_floor {f : ℕ} [NeZero f] (χ : DirichletChara
     have hpole : (1 - β₀) / (1 / (2 * L) : ℝ) ^ 2 = (1 - β₀) * (2 * L) ^ 2 := by
       field_simp
     rw [hpole]
-    nlinarith [mul_le_mul_of_nonneg_left hrate hNn]
+    linarith only [mul_le_mul_of_nonneg_left hrate hNn]
   linarith
 
 end Salt.HB
