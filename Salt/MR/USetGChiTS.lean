@@ -245,8 +245,8 @@ theorem usetGChi_TS_branch_meanvalue_phi (q : ℕ) [NeZero q] (f : ℕ → ℂ)
     have hcoef : (0 : ℝ) ≤ 2564 * ((1 + Real.log (2 * T))
         * (∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)) := by
       positivity
-    nlinarith [mul_le_mul_of_nonneg_left hbr hcoef]
-  nlinarith [mul_le_mul_of_nonneg_left hstep (sq_nonneg εQ)]
+    linarith only [mul_le_mul_of_nonneg_left hbr hcoef]
+  linarith only [mul_le_mul_of_nonneg_left hstep (sq_nonneg εQ)]
 
 /-- **⟦ii-5⟧ — THE GRADED `𝒯_S` EXIT, RE-PINNED, AT THE `q = 1` GRADE, UNCONDITIONAL.**
 
@@ -309,7 +309,7 @@ theorem usetGChi_TS_branch_exit_repinned (q : ℕ) [NeZero q] (f : ℕ → ℂ)
         * (∑ m ∈ Finset.Icc 1 M, ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)) :=
       mul_nonneg hM0 h1
     linarith
-  nlinarith [mul_le_mul_of_nonneg_left hrepin hcoef]
+  linarith only [mul_le_mul_of_nonneg_left hrepin hcoef]
 
 /-! ## §2 — ⟦ii-6⟧ THE FIBREWISE FAMILY BRIDGE: continuous → discrete, per fibre
 
