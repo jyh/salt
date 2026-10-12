@@ -71,7 +71,7 @@ theorem primeTailConst_le_27 : primeTailConst ≤ 27 := by
   have hexp0 : (0 : ℝ) < Real.exp (-1) := Real.exp_pos _
   unfold primeTailConst
   rw [div_le_iff₀ hL]
-  nlinarith [mul_nonneg (sub_nonneg.mpr hexp) hL.le, hexp0, hlb]
+  linarith only [hexp, hub, hlb, mul_nonneg (sub_nonneg.mpr hexp) hL.le]
 
 /-- `log (2^m · x) = m·log 2 + log x`, the workhorse cut-point identity. -/
 theorem log_two_pow_mul {x : ℝ} (hx : 0 < x) (m : ℕ) :
@@ -96,10 +96,10 @@ theorem mertens_block_diff_le {x : ℝ} (hx : Real.exp 1 ≤ x) (k : ℕ) :
   have hlog2pos : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have h1k : (1:ℝ) ≤ (2:ℝ)^k := one_le_pow₀ (by norm_num)
   -- the two scales and their logs
-  have ha2 : (2:ℝ) ≤ (2:ℝ)^k * x := by nlinarith [h1k, hx2, hxpos]
+  have ha2 : (2:ℝ) ≤ (2:ℝ)^k * x := by nlinarith only [h2e, h1k, hx]
   have hb2 : (2:ℝ) ≤ (2:ℝ)^(k+1) * x := by
     have : (1:ℝ) ≤ (2:ℝ)^(k+1) := one_le_pow₀ (by norm_num)
-    nlinarith [this, hx2, hxpos]
+    nlinarith only [h2e, this, hx]
   have hLa : Real.log ((2:ℝ)^k * x) = k * Real.log 2 + Real.log x := log_two_pow_mul hxpos k
   have hLb : Real.log ((2:ℝ)^(k+1) * x) = ((k:ℝ) + 1) * Real.log 2 + Real.log x := by
     rw [log_two_pow_mul hxpos (k+1)]; push_cast; ring
@@ -311,7 +311,7 @@ theorem prime_tail_finite_le {x : ℝ} (hx : Real.exp 1 ≤ x) (P : Finset ℕ)
       calc Real.log p ≤ Real.log ((2:ℝ) ^ p) := Real.log_le_log hppos hpow
         _ = (p : ℝ) * Real.log 2 := by rw [Real.log_pow]
     have hylep : (Real.log p - Real.log x) / Real.log 2 ≤ (p : ℝ) := by
-      rw [div_le_iff₀ hlog2pos]; nlinarith [hlogp_le, hLpos]
+      rw [div_le_iff₀ hlog2pos]; linarith only [hlogp_le, hr1, hrpos, hlogx1]
     have hceil_le : ⌈(Real.log p - Real.log x) / Real.log 2⌉₊ ≤ p := Nat.ceil_le.mpr hylep
     have hbi : blockIdx x p ≤ p := by
       have : blockIdx x p = ⌈(Real.log p - Real.log x) / Real.log 2⌉₊ - 1 := rfl
@@ -327,7 +327,7 @@ theorem prime_tail_finite_le {x : ℝ} (hx : Real.exp 1 ≤ x) (P : Finset ℕ)
   -- (1-r)⁻¹ ≤ 2 log x / log 2  via  1-r ≥ log2/(2 log x)
   have hwpos : (0:ℝ) < Real.log 2 / Real.log x := div_pos hlog2pos hLpos
   have hwle : Real.log 2 / Real.log x ≤ Real.log 2 := by
-    rw [div_le_iff₀ hLpos]; nlinarith [hlog2pos, hlogx1]
+    rw [div_le_iff₀ hLpos]; nlinarith only [hlogx1, hlog2pos]
   have hexp_ge_half : (1:ℝ) / 2 ≤ r := by
     rw [hrdef, neg_div]
     have h1 : Real.exp (-(Real.log 2)) ≤ Real.exp (-(Real.log 2 / Real.log x)) :=
@@ -345,7 +345,7 @@ theorem prime_tail_finite_le {x : ℝ} (hx : Real.exp 1 ≤ x) (P : Finset ℕ)
   have hgeom : Real.log 2 / Real.log x / 2 ≤ 1 - r := by
     have hprod : (0:ℝ) ≤ (Real.log 2 / Real.log x) * (r - 1 / 2) :=
       mul_nonneg hwpos.le (by linarith [hexp_ge_half])
-    nlinarith [hkey, hprod]
+    linarith only [hprod, hkey]
   have hinv : (1 - r)⁻¹ ≤ 2 * Real.log x / Real.log 2 := by
     have hposq : (0:ℝ) < Real.log 2 / Real.log x / 2 := div_pos hwpos (by norm_num)
     have heq : (Real.log 2 / Real.log x / 2)⁻¹ = 2 * Real.log x / Real.log 2 := by

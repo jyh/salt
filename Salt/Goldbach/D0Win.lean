@@ -313,10 +313,10 @@ theorem gold_kfloor_live_annulus {Ne z y k' k i K : ℕ} (hNe : 2 ≤ Ne)
   have hknn : (0 : ℝ) ≤ (2 : ℝ) ^ k' := by positivity
   have hcutR : (x : ℝ) / 8 < (2 : ℝ) ^ i * (2 : ℝ) ^ k' := by linarith [hxR]
   have hProd : (x : ℝ) / 8 < (z : ℝ) * ((2 : ℝ) ^ k' * (2 : ℝ) ^ k') := by
-    nlinarith [hcutR, mul_le_mul_of_nonneg_right hliveR hknn]
+    linarith only [hxR, mul_le_mul_of_nonneg_right hliveR hknn]
   have hProd2 : (x : ℝ) / 8 < (x : ℝ) ^ ((1 : ℝ) / 8) * ((2 : ℝ) ^ k' * (2 : ℝ) ^ k') := by
     have hk2nn : (0 : ℝ) ≤ (2 : ℝ) ^ k' * (2 : ℝ) ^ k' := by positivity
-    nlinarith [hProd, mul_le_mul_of_nonneg_right hz hk2nn]
+    linarith only [hProd, mul_le_mul_of_nonneg_right hz hk2nn]
   have hx18pos : (0 : ℝ) < (x : ℝ) ^ ((1 : ℝ) / 8) := Real.rpow_pos_of_pos hxpos _
   have hxeq : (x : ℝ) = (x : ℝ) ^ ((7 : ℝ) / 8) * (x : ℝ) ^ ((1 : ℝ) / 8) := by
     rw [← Real.rpow_add hxpos, show (7 : ℝ) / 8 + 1 / 8 = 1 by norm_num, Real.rpow_one]
@@ -330,8 +330,8 @@ theorem gold_kfloor_live_annulus {Ne z y k' k i K : ℕ} (hNe : 2 ≤ Ne)
   have hann : (0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 16) := Real.rpow_nonneg hxpos.le _
   have h78nn : (0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 8) := Real.rpow_nonneg hxpos.le _
   rw [show ((2 ^ k' : ℕ) : ℝ) = (2 : ℝ) ^ k' by push_cast; ring]
-  nlinarith [hPsq, hxx, hann, hknn, h78nn,
-    show (0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 + (2 : ℝ) ^ k' by positivity]
+  nlinarith only [hann, hknn, hxx, hPsq,
+      mul_self_nonneg (1 * ↑x ^ (7 / 16))]
 
 /-! ## 3. The composition — `gold_box_price_engine`'s D0 rows from the two keystones (deliverable 3)
 
