@@ -83,8 +83,8 @@ The legality and endgame arithmetic need four honest scale facts at `z ≥ 100^1
 lemma ERT3'_z_le_x {z x : ℕ} (hz1 : 1 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x) : z ≤ x := by
   have h1 : (1 : ℝ) ≤ z := by exact_mod_cast hz1
   have h2 : (z : ℝ) ≤ (z : ℝ) ^ 3 := by
-    nlinarith [mul_nonneg (mul_nonneg (sub_nonneg.mpr h1) (by linarith : (0:ℝ) ≤ (z:ℝ)))
-      (by linarith : (0:ℝ) ≤ (z:ℝ) + 1)]
+    linarith only [mul_nonneg (mul_nonneg (sub_nonneg.mpr h1) (by linarith : (0 : ℝ) ≤ (z : ℝ)))
+        (by linarith : (0 : ℝ) ≤ (z : ℝ) + 1)]
   exact_mod_cast h2.trans hzx
 
 /-- The sieve floor sits strictly below the roughness floor: `Zz z < z`. -/
@@ -185,7 +185,7 @@ lemma ERT3'_logsq_le {z : ℕ} (hz100 : 100 ^ 16 ≤ z) :
     _ = 64 * ((z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 := by ring
     _ = 64 * (z : ℝ) ^ ((1 : ℝ) / 4) := by rw [hr2]
     _ ≤ 8 * ((z : ℝ) ^ ((1 : ℝ) / 4) * (z : ℝ) ^ ((1 : ℝ) / 4)) := by
-        nlinarith [h84, sq_nonneg ((z : ℝ) ^ ((1 : ℝ) / 4) - 8)]
+        nlinarith only [h84, sq_nonneg (1 * ↑z ^ (1 / 4) - 1 * 8)]
     _ = 8 * (z : ℝ) ^ ((1 : ℝ) / 2) := by rw [hquarter]
 
 /-! ## §2 — sift-floor soundness: both cofactors are coprime to `primorial (Zz z)`
@@ -465,7 +465,7 @@ lemma ERT3'_z0cube_exp_le {z x : ℕ} (hz2 : 2 ≤ z) :
     _ = Real.exp (3 * z0 z x + Real.log 2 * z0 z x) := (Real.exp_add _ _).symm
     _ ≤ Real.exp (5 * z0 z x) := by
         refine Real.exp_le_exp.mpr ?_
-        nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 2 - Real.log 2) hz0]
+        linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 2 - Real.log 2) hz0]
 
 open Classical in
 /-- **THE T3′ FAMILY BUDGET (the frozen `J2` row).**  Under the master hypothesis packet,
