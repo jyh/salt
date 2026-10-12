@@ -100,7 +100,7 @@ private lemma a2_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
   have hw1 : X / h / T ≤ 1 := (div_le_one hT0).mpr hT
   have hratio : X / h / Xd ≤ 4 / h := by
     rw [div_div, div_le_div_iff₀ (by positivity) hh0]
-    nlinarith
+    nlinarith only [hh4, hXd]
   have hr0 : (0 : ℝ) ≤ X / h / Xd := le_of_lt (div_pos hu0 hXd0)
   refine ⟨hw0, hw1, ?_, ?_, ?_, ?_⟩
   · have hid : X / h / T * (2 * T * Q1 / Xd + 1) = 2 * Q1 * (X / h / Xd) + X / h / T := by
@@ -158,7 +158,7 @@ private lemma a2_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
       = 2 * (Hq * Lq + 1) * (w * R) * Pq * Br := by ring
   rw [hid]
   refine le_trans (hkey (w * R) hR0) ?_
-  nlinarith [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
+  linarith only [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
 
 /-- The `Cs`-summand, weighted at the `244`-gate: `1536·244 = 374784`. -/
 private lemma a2_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
@@ -204,7 +204,7 @@ private lemma a2RowsSum_nonneg {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
   rw [Finset.mem_Icc] at hj
   have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
   have hcalH : (0 : ℝ) < calH (H1door M) j := by
-    rw [calH]; nlinarith
+    rw [calH]; nlinarith only [hj1, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have hP1 : (1 : ℝ) ≤ ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) := by
     have h : 1 ≤ calP (Adoor M) (3072 * M) j := by
       simp only [calP]; exact Nat.one_le_two_pow
@@ -218,7 +218,7 @@ private lemma a2RowsSum_nonneg {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
     have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ)
       / calH (H1door M) j + 1) hr
-    nlinarith
+    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
   have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ))
       / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) :=
     div_nonneg (by linarith) (by linarith)
@@ -273,7 +273,7 @@ private lemma a2_term3_ball_weigh {w R Sb RS Cst Ccc Mr : ℝ}
   have hM0 : (0 : ℝ) < Mr := by linarith
   have hq0 : (0 : ℝ) < 2 / Mr := by positivity
   have hCq : (0 : ℝ) ≤ Cst * (2 / Mr) := mul_nonneg hC0 hq0.le
-  have hball : w * (8 * Sb ^ 2) ≤ 8 * Sb ^ 2 := by nlinarith [sq_nonneg Sb]
+  have hball : w * (8 * Sb ^ 2) ≤ 8 * Sb ^ 2 := by nlinarith only [hw1, sq_nonneg Sb]
   have hrows := a2_term3_weigh (w := w) (R := R) (S := RS + Cst * (2 / Mr))
     (by linarith) hR
   have hslack : (Cst + Mr * Sb ^ 2 / 2) * (2 / Mr) ≤ Ccc * (2 / Mr) :=
@@ -1225,7 +1225,7 @@ lemma a2RowsSum_nonneg_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
   rw [Finset.mem_Icc] at hj
   have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
   have hcalH : (0 : ℝ) < calH (H1door M) j := by
-    rw [calH]; nlinarith
+    rw [calH]; nlinarith only [hj1, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have hP1 : (1 : ℝ) ≤ ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by
     have h : 1 ≤ calP (Adoor M) (s13GK K M) j := by
       simp only [calP]; exact Nat.one_le_two_pow
@@ -1239,7 +1239,7 @@ lemma a2RowsSum_nonneg_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
     have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
     have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ)
       / calH (H1door M) j + 1) hr
-    nlinarith
+    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
   have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ))
       / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) :=
     div_nonneg (by linarith) (by linarith)
