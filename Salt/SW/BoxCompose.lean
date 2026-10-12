@@ -141,7 +141,7 @@ lemma zBoxFull_finite (t : ℝ) : (zBoxFull t).Finite := by
         Complex.mul_re, Complex.mul_im]
   rw [hdecomp, Complex.norm_add_mul_I]
   have hsq : (ρ.re - 2) ^ 2 + (ρ.im - t) ^ 2 ≤ (3 : ℝ) ^ 2 := by
-    nlinarith [abs_le.mp him, h0, h1]
+    nlinarith only [h1, h0, abs_le.mp him]
   calc Real.sqrt ((ρ.re - 2) ^ 2 + (ρ.im - t) ^ 2)
       ≤ Real.sqrt ((3 : ℝ) ^ 2) := Real.sqrt_le_sqrt hsq
     _ = 3 := Real.sqrt_sq (by norm_num)

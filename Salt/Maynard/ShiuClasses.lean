@@ -475,8 +475,8 @@ theorem shiu_classI_le :
     have hbase : (0 : ℝ) ≤ (2 : ℝ) ^ K * ((z : ℝ) / (q.totient : ℝ)) * Real.log z := by
       positivity
     have hcoef : C₀ * C₁ ^ 2 * Kmain + C₀ ≤ C₀ * (C₁ ^ 2 + 1) * (Kmain + 1) := by
-      nlinarith [sq_nonneg C₁, hKm, hC₀.le, mul_nonneg hC₀.le (sq_nonneg C₁)]
-    nlinarith [mul_le_mul_of_nonneg_right hcoef hbase, hbase]
+      nlinarith only [hC₀, hKm, mul_nonneg hC₀.le (sq_nonneg C₁)]
+    linarith only [mul_le_mul_of_nonneg_right hcoef hbase]
   calc h1 * (C₁ * Real.log w) ^ 2 + h2 * ((w : ℝ) * (1 + Real.log w))
       ≤ (2 : ℝ) ^ K * C₀ * C₁ ^ 2 * Kmain * ((z : ℝ) / (q.totient : ℝ)) * Real.log z
           + (2 : ℝ) ^ K * C₀ * ((z : ℝ) / (q.totient : ℝ)) * Real.log z :=
