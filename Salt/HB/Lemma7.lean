@@ -97,7 +97,7 @@ lemma abs_one_add_mul_sub_one_le {a b : ℝ} (ha : |a| ≤ 1) :
   calc |a + b + a * b| ≤ |a + b| + |a * b| := abs_add_le _ _
     _ ≤ (|a| + |b|) + |a| * |b| := by
         rw [abs_mul]; exact add_le_add (abs_add_le _ _) le_rfl
-    _ ≤ |a| + 2 * |b| := by nlinarith [abs_nonneg b, abs_nonneg a]
+    _ ≤ |a| + 2 * |b| := by nlinarith only [ha, abs_nonneg b]
 
 /-! ## §2 — `(4.6)`: Mertens' third theorem re-indexed to a real cutoff -/
 
@@ -145,13 +145,13 @@ theorem hb_mertens_third_real :
   -- the iterated-log bridge
   have hbridge := abs_log_log_floor_sub_le hz
   -- `log z ≤ 2 log ⌊z⌋` (i.e. `z ≤ ⌊z⌋²`)
-  have hsq : z ≤ (⌊z⌋₊ : ℝ) ^ 2 := by nlinarith
+  have hsq : z ≤ (⌊z⌋₊ : ℝ) ^ 2 := by nlinarith only [hnR, hzn, (Nat.cast_nonneg _ : 0 ≤ ↑⌊z⌋₊)]
   have hdouble : Real.log z ≤ 2 * Real.log (⌊z⌋₊ : ℝ) := by
     have := Real.log_le_log (by linarith) hsq
     rwa [Real.log_pow, Nat.cast_ofNat] at this
   have hratio : C₀ / Real.log (⌊z⌋₊ : ℝ) ≤ 2 * C₀ / Real.log z := by
     rw [div_le_div_iff₀ (by linarith) (by linarith)]
-    nlinarith
+    nlinarith only [hC₀, hdouble]
   -- compose
   have htri : |Real.log (primeProdBelow z) + Real.log (Real.log z)
         + Real.eulerMascheroniConstant|
