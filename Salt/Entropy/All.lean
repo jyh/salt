@@ -1341,19 +1341,15 @@ SUBSET of the plain window, the normaliser ratio `≤ 1.02` at `log ω ≥ 101`,
 slack term) from the plain door over `bigXiAffD` to the affine door at the shrunk regime, and the
 flat-base numerals (`loglog(a·B) ≤ 3.2A + log 2` at the consumer's literal).  Nothing here produces
 a door (the receipt is `Salt.MR.StridePairReceipt`'s) or bears on twin primes.  28 obligations,
-28 landed (one Opus executor, 2026-09-04 12:0x–12:2x; 24 at one attempt). -/
+28 landed (one Opus executor, 2026-09-04 12:0x–12:2x; 24 at one attempt).  2026-10-11: family 50 of
+the XY debt lane retired the seven F3-P4 `rfl` projections of `regimeShrinkX_stride` (`_x`,
+`_omega`, `_a`, `_eps`, `_Hhi`, `_C0`, `_J`) and the F3-P6 lemma `regimeShrinkX_stride_x_mul` into
+their cap-9 twins in `StridePair` ⟦β W1 E1⟧, noted where they stood; their eight rows are dropped
+here; `regimeShrinkX_stride_Hlo` and `regimeShrinkX_stride_tower` stand. -/
 #audit_axioms Salt.Entropy.Chowla.strideScale_one
   Salt.Entropy.Chowla.chowlaTower_ge_base
-  Salt.Entropy.Chowla.regimeShrinkX_stride_x
-  Salt.Entropy.Chowla.regimeShrinkX_stride_omega
-  Salt.Entropy.Chowla.regimeShrinkX_stride_a
-  Salt.Entropy.Chowla.regimeShrinkX_stride_eps
   Salt.Entropy.Chowla.regimeShrinkX_stride_Hlo
-  Salt.Entropy.Chowla.regimeShrinkX_stride_Hhi
-  Salt.Entropy.Chowla.regimeShrinkX_stride_C0
-  Salt.Entropy.Chowla.regimeShrinkX_stride_J
   Salt.Entropy.Chowla.regimeShrinkX_stride_tower
-  Salt.Entropy.Chowla.regimeShrinkX_stride_x_mul
   Salt.Entropy.Chowla.bigXiAffD_of_dvd
   Salt.Entropy.Chowla.bigXiAffD_card_le
   Salt.Entropy.Chowla.mrtUniformityXiL2Set_bigXiH_eq
