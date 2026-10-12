@@ -593,7 +593,7 @@ primes `≤ t` (not dividing `q`), at level `t²`. -/
 noncomputable def roughSieve (y q a t : ℕ) (ht : 2 ≤ t) : SelbergSieve :=
   apSieve y q a (roughP q t) ((t : ℝ) ^ 2) (roughP_squarefree q t)
     (by have h2 : (2 : ℝ) ≤ t := by exact_mod_cast ht
-        nlinarith)
+        nlinarith only [h2, (Nat.cast_nonneg _ : 0 ≤ ↑t)])
 
 @[simp] lemma roughSieve_prodPrimes (y q a t : ℕ) (ht : 2 ≤ t) :
     (roughSieve y q a t ht).prodPrimes = roughP q t := rfl
@@ -634,7 +634,7 @@ lemma phiAtomSum_le_boundingSum (y q a t : ℕ) (ht : 2 ≤ t) :
       (roughP_squarefree q t).ne_zero⟩, ?_⟩
     have hrR : (r : ℝ) ≤ t := by exact_mod_cast (by omega : r ≤ t)
     have hr0 : (0 : ℝ) ≤ r := Nat.cast_nonneg r
-    nlinarith
+    nlinarith only [hrR, (Nat.cast_nonneg _ : 0 ≤ ↑r), (Nat.cast_nonneg _ : 0 ≤ ↑t)]
   have heq : phiAtomSum (t + 1) q
       = ∑ r ∈ sqfCop (t + 1) q, (roughSieve y q a t ht).selbergTerms r := by
     rw [phiAtomSum]
@@ -695,8 +695,8 @@ lemma err_le_cube (t : ℕ) (ht : 2 ≤ t) :
   have hlin : 1 + 2 * Real.log t ≤ 5 * Real.sqrt t := by linarith [hlogst, hsge1]
   have hlogpos : 0 ≤ Real.log t := Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ t))
   have hsq : (1 + 2 * Real.log t) ^ 2 ≤ 25 * t := by
-    nlinarith [hsqt, mul_nonneg (by linarith : (0 : ℝ) ≤ 5 * Real.sqrt t - (1 + 2 * Real.log t))
-      (by linarith : (0 : ℝ) ≤ 5 * Real.sqrt t + (1 + 2 * Real.log t))]
+    linarith only [hsqt, mul_nonneg (by linarith : (0 : ℝ) ≤ 5 * Real.sqrt t - (1 + 2 * Real.log t))
+        (by linarith : (0 : ℝ) ≤ 5 * Real.sqrt t + (1 + 2 * Real.log t))]
   calc (t : ℝ) ^ 2 * (1 + 2 * Real.log t) ^ 2
       ≤ (t : ℝ) ^ 2 * (25 * t) := mul_le_mul_of_nonneg_left hsq (by positivity)
     _ = 25 * (t : ℝ) ^ 3 := by ring
