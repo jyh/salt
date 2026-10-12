@@ -100,7 +100,7 @@ theorem mertensM_ge_neg_seventeen : (-17 : ℝ) ≤ Salt.Mertens.mertensM := by
   have hll : Real.log (Real.log 2) ≤ 0 :=
     Real.log_nonpos (le_of_lt hlog2pos) (by linarith)
   have h12 : 12 / Real.log 2 ≤ 17.4 := by
-    rw [div_le_iff₀ hlog2pos]; nlinarith
+    rw [div_le_iff₀ hlog2pos]; linarith only [hlog2lt, hlog2gt]
   linarith
 
 /-- The threshold past which the crude constant `−17 ≤ M` still closes the A.4 conversion:
@@ -204,7 +204,7 @@ private lemma sum_inv_sq_Icc_telescope {P : ℕ} (hP : 2 ≤ P) :
     have hstep : 1 / ((P : ℝ) - 1) - 1 / (P : ℝ) = 1 / ((P : ℝ) * ((P : ℝ) - 1)) := by
       field_simp; ring
     rw [hstep]
-    refine one_div_le_one_div_of_le (by nlinarith) (by nlinarith)
+    refine one_div_le_one_div_of_le (by nlinarith) (by linarith only [hP2])
   | succ Q hQ ih =>
     have hQ2 : (2 : ℝ) ≤ (Q : ℝ) := le_trans hP2 (by exact_mod_cast hQ)
     rw [Finset.sum_Icc_succ_top (by omega)]
@@ -216,7 +216,7 @@ private lemma sum_inv_sq_Icc_telescope {P : ℕ} (hP : 2 ≤ P) :
       field_simp; ring
     have hnew : 1 / ((Q : ℝ) + 1) ^ 2 ≤ 1 / (Q : ℝ) - 1 / ((Q : ℝ) + 1) := by
       rw [hstep]
-      refine one_div_le_one_div_of_le (by nlinarith) (by nlinarith)
+      refine one_div_le_one_div_of_le (by nlinarith) (by linarith only [hQ2])
     linarith
 
 /-- `∑_{P ≤ n ≤ Q} n^{−2} ≤ 2/P` for `1 ≤ P`. -/
@@ -290,7 +290,7 @@ lemma ramP2_term_norm_le {P Q : ℕ} {a b c : ℕ → ℂ}
     rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
     have := abs_ramareWeight_le_one P Q p m
     have h2 := ha (p * m)
-    nlinarith [abs_nonneg (ramareWeight P Q p m), norm_nonneg (a (p * m))]
+    nlinarith only [this, h2, norm_nonneg (a (p * m))]
   have h2 : ‖b m * c p * ((blockOmega P Q m : ℂ) + 1)⁻¹‖ ≤ 1 := by
     rw [norm_mul, norm_mul]
     have hbm := hb m
@@ -380,7 +380,7 @@ private lemma ramP2_inner_row_le (N X p : ℕ) (hX : 1 ≤ X) (hp : 0 < p) :
   rw [div_mul_div_comm]
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   ring_nf
-  nlinarith [sq_nonneg ((p : ℝ)), hX0.le, hp0.le]
+  linarith only []
 
 /-- **The whole `p²` domain sum** `∑_{σ ∈ ramP2domMR} 2/(σ.1σ.2) ≤ 8/P`: the `p`-rows
 are `≤ 4/p²`, and the block primes sit inside `[P,Q]`, where `sum_inv_sq_tail_le` gives
@@ -483,7 +483,7 @@ theorem ramP2mass_le_inv_P (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hP
   refine (ramP2mass_le N X P Q hX hN hP a b c ha hb hc).trans ?_
   have hP1 : (1 : ℝ) ≤ (P : ℝ) := by exact_mod_cast hP
   rw [div_le_div_iff₀ (by positivity) (by linarith)]
-  nlinarith
+  nlinarith only [hP1, (Nat.cast_nonneg _ : 0 ≤ ↑P)]
 
 /-- **STONE 2, exit — Lemma 12 at the MR range with the `p²` row COLLAPSED.**  The fully
 numeric consumption form: the three rows are the main term, MR's `(T/X+1)/H` seam grade,

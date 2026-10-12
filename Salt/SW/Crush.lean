@@ -82,7 +82,7 @@ lemma selG_ge_partial_geom (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {p
   have hcabs : -1 ≤ c ∧ c ≤ 1 := abs_le.mp hc1
   have h1x : 0 < 1 - x := by linarith
   have h1cx : 0 < 1 - c * x := by
-    nlinarith [mul_nonneg (show (0:ℝ) ≤ 1 - c by linarith [hcabs.2]) hx0.le, hxle]
+    linarith only [hxle, hx0, mul_nonneg (show (0 : ℝ) ≤ 1 - c by linarith [hcabs.2]) hx0.le]
   set a : ℕ → ℝ := fun e => dhA χ (p ^ e) with hadef
   have ha0 : a 0 = 1 := by simp only [hadef]; rw [pow_zero, dhA_one]
   have hanneg : ∀ e, 0 ≤ a e := fun e => by
@@ -114,14 +114,14 @@ lemma selG_ge_partial_geom (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {p
   -- bracket nonnegativity: `a (K+1) − c · a K · x = (1−x)(1 + c a_K) + x ≥ 0`
   have h1 : 0 ≤ 1 + c * a K := by have := hanneg (K + 1); rwa [hrec K] at this
   have hbrack : 0 ≤ a (K + 1) - c * a K * x := by
-    rw [hrec K]; nlinarith [mul_nonneg h1x.le h1, hx0.le]
+    rw [hrec K]; linarith only [hx0, mul_nonneg h1x.le h1]
   -- the partial sum `≤ 1/((1−x)(1−cx))`
   have hden : 0 < (1 - x) * (1 - c * x) := mul_pos h1x h1cx
   have hpartial : ∑ e ∈ Finset.range (K + 1), a e * x ^ e ≤ 1 / ((1 - x) * (1 - c * x)) := by
     rw [le_div_iff₀ hden]
     have hnn : 0 ≤ x ^ (K + 1) * (a (K + 1) - c * a K * x) :=
       mul_nonneg (pow_nonneg hx0.le _) hbrack
-    nlinarith [hid K, hnn]
+    linarith only [hnn, hid K]
   -- convert to `1 + selG` and peel the `e=0` term
   have hden_eq : (1 - x) * (1 - c * x)
       = (1 - 1 / (p : ℝ)) * (1 - chiRe χ p / (p : ℝ)) := by rw [hxdef, hcdef]; ring
@@ -242,7 +242,7 @@ theorem crush_coverage (χ : DirichletCharacter ℂ q) {β₀ : ℝ} {z : ℕ} {
       _ = 27 / 100 * (1 - β₀) := by rw [hZW, mul_one]
   -- `(27/100)(1−β₀) ≤ L₁/(2−β₀)`
   have hfloor : 27 / 100 * (1 - β₀) ≤ (DirichletCharacter.LFunction χ 1).re / (2 - β₀) := by
-    rw [le_div_iff₀ hu2]; nlinarith [hL1]
+    rw [le_div_iff₀ hu2]; linarith only [hL1]
   linarith [hstep, hfloor]
 
 end Salt.SW
