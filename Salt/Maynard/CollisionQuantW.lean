@@ -190,7 +190,7 @@ theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
                 (if t ∣ cRad d e then s1Summand k R W' y d e else 0)|
@@ -201,7 +201,7 @@ theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
             have h2 := abs_nonneg (∑ d ∈ kSieveIndex k R W',
               ∑ e ∈ kSieveIndex k R W',
                 (if t ∣ cRad d e then s1Summand k R W' y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
