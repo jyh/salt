@@ -281,7 +281,7 @@ theorem hA3_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     intro k _ i hi
     refine le_trans (priceBoxOp_le hKhat1 hx2 hlogx400 hx1R hzR hi) ?_
     exact (div_le_div_iff_of_pos_right hLpos12).mpr
-      (by nlinarith [mul_nonneg (mul_nonneg CconBox_nonneg hKhat0) hxpos.le])
+      (by linarith only [mul_nonneg (mul_nonneg CconBox_nonneg hKhat0) hxpos.le])
   have hsym : ∀ k ∈ Finset.range (Nat.log 2 x + 1),
       symPriceK Khat Khat (opZ x) x (opY x) KK k
         ≤ 6 * CconBox * Khat * (x : ℝ) / (Real.log x) ^ 12 := by
@@ -296,7 +296,7 @@ theorem hA3_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     intro k _
     refine le_trans (priceLowOp_le (k := k) (KK := KK) hKhat1 hx2 hlogx400 hyfloor) ?_
     exact (div_le_div_iff_of_pos_right hLpos12).mpr
-      (by nlinarith [mul_nonneg (mul_nonneg CconBox_nonneg hKhat0) hxpos.le])
+      (by linarith only [mul_nonneg (mul_nonneg CconBox_nonneg hKhat0) hxpos.le])
   have hWbound : 6 * CconBox * Khat * (x : ℝ) / (Real.log x) ^ 12
       ≤ (6 * CconBox * Khat) * (1 : ℝ) * (x : ℝ) / (Real.log x) ^ 12 := le_of_eq (by ring)
   have hPdiag : opPdiag x ≤ (1 : ℝ) * (1 : ℝ) * (x : ℝ) / (Real.log x) ^ 11 := by
@@ -343,7 +343,7 @@ theorem hA3_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     have h216 : 2 * (Real.log x) ^ (16 : ℕ) ≤ (Real.log x) ^ (17 : ℕ) := by
       have he : (Real.log x) ^ (17 : ℕ) = Real.log x * (Real.log x) ^ (16 : ℕ) := by ring
       rw [he]
-      nlinarith [mul_nonneg (show (0 : ℝ) ≤ Real.log x - 2 by linarith) (pow_nonneg hlogx0 16)]
+      linarith only [mul_nonneg (show (0 : ℝ) ≤ Real.log x - 2 by linarith) (pow_nonneg hlogx0 16)]
     have hstep : (Real.log x) ^ (17 : ℕ) ≤ (x : ℝ) ^ ((1 : ℝ) / 8) := by rw [← hconv]; exact hlp17
     exact le_trans h216 hstep
   have hCE := le_trans hCEsum (hRCE_at_op (x := x) (z := opZ x) (y := opY x) (Q := opQ)

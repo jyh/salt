@@ -75,14 +75,14 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
   -- ══ ecount = ecountOp Ccount N ≤ 1/100000 ══
   have hlogopZ_big : (200000 : ℝ) * Ccount ≤ Real.log (opZ N) := by
     have : (1 / 8) * Real.log N - 1 / 999999 ≥ 200000 * Ccount := by
-      nlinarith [hlogx, hCcount_nn]
+      linarith only [hlogx]
     linarith [hlogopZ_ge18, this]
   have hec_le : ecountOp Ccount N ≤ 1 / 100000 := by
     have h2 : ecountOp Ccount N ≤ 1 / 200000 := by
       rw [ecountOp, div_le_iff₀ hlogzpos]
       rcases eq_or_lt_of_le hCcount_nn with h | h
       · rw [← h]; positivity
-      · nlinarith [hlogopZ_big, h]
+      · linarith only [hlogopZ_ge18, hlogx]
     linarith
   have hec_nn : 0 ≤ ecountOp Ccount N := by
     rw [ecountOp]
@@ -116,10 +116,10 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
       exact h
     have h21 : 21 / Real.log (opZ N) ≤ 1 / 200000 := by
       rw [div_le_iff₀ hlogzpos]
-      nlinarith [hlogopZ_ge18, hlogx, hCcount_nn]
+      linarith only [hlogopZ_ge18, hlogx, hCcount_nn]
     have h2z : 2 / ((opZ N : ℝ) - 1) ≤ 1 / 200000 := by
       rw [div_le_div_iff₀ (by linarith [hz6]) (by norm_num)]
-      nlinarith [hz6]
+      linarith only [hz6]
     linarith [h21, h2z]
   have hwtail_bd : (3 + 43 / 75) * WTAIL ≤ 4342 / 1000000 := by
     have hexpand : (3 + 43 / 75) * WTAIL
@@ -137,7 +137,7 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
       have hA2w1 : A2w ≤ 1 := le_trans hA2w_hi (by norm_num)
       have hprod : A2w * (21 / Real.log (opZ N) + 2 / ((opZ N : ℝ) - 1)) ≤ 1 / 100000 :=
         le_trans (mul_le_mul hA2w1 hlp_le hlp_nn (by norm_num)) (by norm_num)
-      nlinarith [hprod, mul_nonneg hA2w_nn hlp_nn]
+      linarith only [hprod]
     rw [hexpand]
     linarith [hrazor, hvanish]
   -- ══ the raw carrier bounds (definitional regroupings) ══

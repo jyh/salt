@@ -161,7 +161,7 @@ theorem abs_le_sqrt_of_powerSum_bound {α β : ℂ} {p : ℕ} {C : ℝ} {N₀ : 
     have hxnorm_prod : ‖x‖ * ‖y‖ = (p : ℝ) := by
       rw [← norm_mul, hxy, Complex.norm_natCast]
     have hx_pos : 0 < ‖x‖ := lt_trans hs_pos hlt
-    have hy_pos : 0 < ‖y‖ := by nlinarith [hxnorm_prod, hpR, hx_pos, norm_nonneg y]
+    have hy_pos : 0 < ‖y‖ := by nlinarith only [hcon, hs_pos, hxnorm_prod, hpR]
     have hy_lt : ‖y‖ < s := by
       have h1 : s * ‖y‖ < ‖x‖ * ‖y‖ := mul_lt_mul_of_pos_right hlt hy_pos
       rw [hxnorm_prod, ← hs_sq] at h1
@@ -194,7 +194,7 @@ theorem abs_le_sqrt_of_powerSum_bound {α β : ℂ} {p : ℕ} {C : ℝ} {N₀ : 
   have hβ_le : ‖β‖ ≤ s := key β α (by rw [mul_comm]; exact hprod)
     (fun n hn => by rw [add_comm]; exact hbound n hn)
   refine ⟨le_antisymm hα_le ?_, le_antisymm hβ_le ?_⟩
-  · nlinarith [hnorm_prod, hs_sq, mul_le_mul_of_nonneg_left hβ_le (norm_nonneg α), hs_pos]
-  · nlinarith [hnorm_prod, hs_sq, mul_le_mul_of_nonneg_right hα_le (norm_nonneg β), hs_pos]
+  · nlinarith only [hs_pos, hnorm_prod, hs_sq, mul_le_mul_of_nonneg_left hβ_le (norm_nonneg α)]
+  · nlinarith only [hs_pos, hnorm_prod, hs_sq, mul_le_mul_of_nonneg_right hα_le (norm_nonneg β)]
 
 end Salt.Weil
