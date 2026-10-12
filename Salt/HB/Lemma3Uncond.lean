@@ -245,7 +245,7 @@ theorem hb_lemma3_unconditional_absorbed {f : ℕ} [NeZero f] (χ : DirichletCha
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]
     exact Real.sqrt_le_sqrt hell
   have hmul : Real.sqrt ell * Real.sqrt ell = ell := Real.mul_self_sqrt hell0.le
-  have hsle : Real.sqrt ell ≤ Lp := le_trans (by nlinarith [hmul]) hellL
+  have hsle : Real.sqrt ell ≤ Lp := le_trans (by nlinarith only [hs, hs1, hβ1, hβlo, hmul]) hellL
   have hinv0 : (0 : ℝ) < 1 / Lp := by positivity
   have hinv1 : 1 / Lp ≤ 1 := (div_le_one hL).mpr hL1
   -- the operating-point arithmetic
@@ -278,7 +278,7 @@ theorem hb_lemma3_unconditional_absorbed {f : ℕ} [NeZero f] (χ : DirichletCha
     rw [hexp]
     have hpole : (1 - β₀) / (1 / Lp : ℝ) ^ 2 = (1 - β₀) * Lp ^ 2 := by field_simp
     rw [hpole]
-    nlinarith [mul_le_mul_of_nonneg_left hrate hNn]
+    linarith only [mul_le_mul_of_nonneg_left hrate hNn]
   have hmono := mul_le_mul_of_nonneg_left hstep hcoef
   linarith
 
