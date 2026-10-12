@@ -129,7 +129,7 @@ theorem l1_error_collapse {Lp ell Sinv Cs CR mβ β₀ : ℝ}
       field_simp
     linarith
   rw [ht1]
-  nlinarith [ht2, ht3, ht4, hR1]
+  linarith only [ht4, ht3, ht2, hR, hs1]
 
 /-! ## §2 — `(L1)`, one-sided, at `s = 1` -/
 
@@ -178,7 +178,7 @@ theorem neg_re_logDeriv_one_le_mult {f : ℕ} [NeZero f] (χ : DirichletCharacte
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]
     exact Real.sqrt_le_sqrt hell
   have hmul : Real.sqrt ell * Real.sqrt ell = ell := Real.mul_self_sqrt hell0.le
-  have hsle : Real.sqrt ell ≤ Lp := le_trans (by nlinarith [hmul]) hellL
+  have hsle : Real.sqrt ell ≤ Lp := le_trans (by nlinarith only [hs, hs1, hβ1, hβlo, hmul]) hellL
   have hd0 : (0 : ℝ) < Real.sqrt ell / Lp := div_pos hs hL
   have hσ'1 : (1 : ℝ) < 1 + Real.sqrt ell / Lp := by linarith
   have hσ'2 : 1 + Real.sqrt ell / Lp ≤ 2 := by

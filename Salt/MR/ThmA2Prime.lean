@@ -85,11 +85,11 @@ private lemma spine_scale_prime {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
   have hp0 : (0 : ℝ) < p := by linarith
   have hp2pos : (0 : ℝ) < 2 * p ^ 2 := by positivity
   rw [one_div, inv_mul_eq_div, div_le_iff₀ hp2pos]
-  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith
-  have h2 : 205 * p ≤ 66 * p ^ 2 := by nlinarith
-  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right h1 hMr, mul_le_mul_of_nonneg_right h2 hBd,
-    mul_le_mul_of_nonneg_right h3 hw]
+  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith only [hp1]
+  have h2 : 205 * p ≤ 66 * p ^ 2 := by linarith only [h1, hp1]
+  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by linarith only [h1, hp1]
+  linarith only [hEg, mul_le_mul_of_nonneg_right h3 hw,
+      mul_le_mul_of_nonneg_right h2 hBd, mul_le_mul_of_nonneg_right h1 hMr]
 
 /-- **⟦THE R1×R2 JOIN⟧** (`thm_a2'_of_rows_pool'`) — `ThmA2Pool.thm_a2'_of_rows_pool` with
 its row family at `a2Mrow'` and its second grading gate at `a2RowsSum'`:
