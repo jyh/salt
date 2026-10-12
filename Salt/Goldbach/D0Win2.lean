@@ -142,7 +142,7 @@ theorem gold_kfloor_live_z {Ne z y k' k i K : ℕ} (hNe : 2 ≤ Ne)
   have hknn : (0 : ℝ) ≤ (2 : ℝ) ^ k' := by positivity
   have hcutR : (x : ℝ) / 8 < (2 : ℝ) ^ i * (2 : ℝ) ^ k' := by linarith [hxR]
   have hProd : (x : ℝ) / 8 < (z : ℝ) * ((2 : ℝ) ^ k' * (2 : ℝ) ^ k') := by
-    nlinarith [hcutR, mul_le_mul_of_nonneg_right hliveR hknn]
+    linarith only [hxR, mul_le_mul_of_nonneg_right hliveR hknn]
   -- `z ≥ 1` is forced: `x/8 > 0` needs the RHS positive.
   have hzRpos : (0 : ℝ) < (z : ℝ) := by
     rcases Nat.eq_zero_or_pos z with hz0 | hzp
@@ -152,7 +152,7 @@ theorem gold_kfloor_live_z {Ne z y k' k i K : ℕ} (hNe : 2 ≤ Ne)
   -- `x/(8z) < (2^{k'})²`.
   have hProd8 : (x : ℝ) < 8 * ((z : ℝ) * ((2 : ℝ) ^ k' * (2 : ℝ) ^ k')) := by linarith [hProd]
   have hdiv : (x : ℝ) / (8 * (z : ℝ)) < (2 : ℝ) ^ k' * (2 : ℝ) ^ k' := by
-    rw [div_lt_iff₀ h8zpos]; nlinarith [hProd8]
+    rw [div_lt_iff₀ h8zpos]; linarith only [hProd]
   -- `(x/(8z))^{1/2} ≤ 2^{k'}`.
   set f := ((x : ℝ) / (8 * (z : ℝ))) ^ ((1 : ℝ) / 2) with hfdef
   have hfnn : (0 : ℝ) ≤ f := Real.rpow_nonneg (le_of_lt (div_pos hxpos h8zpos)) _
@@ -161,7 +161,7 @@ theorem gold_kfloor_live_z {Ne z y k' k i K : ℕ} (hNe : 2 ≤ Ne)
     rw [hfdef, ← Real.rpow_add (div_pos hxpos h8zpos),
       show (1 : ℝ) / 2 + 1 / 2 = 1 by norm_num, Real.rpow_one]
   rw [show ((2 ^ k' : ℕ) : ℝ) = (2 : ℝ) ^ k' by push_cast; ring]
-  nlinarith [hf2, hdiv, hfnn, hk'pos.le, show (0 : ℝ) ≤ f + (2 : ℝ) ^ k' by positivity]
+  nlinarith only [hfnn, hknn, hf2, hdiv]
 
 /-! ## 2. `gold_d0_window_z` — the z-dependent D0-window (deliverable 2)
 

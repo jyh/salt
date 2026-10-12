@@ -51,8 +51,8 @@ theorem expZeta_apply_one {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
   have hsin : 0 < Real.sin (Real.pi * x) := sin_pi_mul_pos hx
   have hθ : (Real.pi * x - Real.pi / 2) ∈ Set.Ioc (-Real.pi) Real.pi := by
     constructor
-    · nlinarith [Real.pi_pos, hx.1, hx.2]
-    · nlinarith [Real.pi_pos, hx.1, hx.2]
+    · nlinarith only [Real.pi_pos, hx.1]
+    · nlinarith only [Real.pi_pos, hx.2, hx.1]
   have harg : Complex.arg (1 - Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I))
       = Real.pi * x - Real.pi / 2 := by
     rw [one_sub_exp_eq x]
