@@ -104,7 +104,7 @@ private lemma add_one_le_inv_one_sub {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a < 1) :
     a + 1 ≤ (1 - a)⁻¹ := by
   have h1a : (0 : ℝ) < 1 - a := by linarith
   have hne : (1 : ℝ) - a ≠ 0 := ne_of_gt h1a
-  have key : (a + 1) * (1 - a) ≤ 1 := by nlinarith [sq_nonneg a]
+  have key : (a + 1) * (1 - a) ≤ 1 := by linarith only [sq_nonneg a]
   calc a + 1 = ((a + 1) * (1 - a)) * (1 - a)⁻¹ := by field_simp
     _ ≤ 1 * (1 - a)⁻¹ := mul_le_mul_of_nonneg_right key (le_of_lt (inv_pos.mpr h1a))
     _ = (1 - a)⁻¹ := one_mul _
@@ -286,7 +286,7 @@ lemma convSum_le {x P : ℕ} (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFacto
     have hnum : (d.primeFactors.card : ℝ) * Real.log ((x - 2 : ℕ) : ℝ)
           + (d.primeFactors.card : ℝ) * Real.log ((x / 2 - 1 : ℕ) : ℝ)
         ≤ 2 * Real.log x * (Real.log bound / Real.log 3) := by
-      nlinarith [mul_le_mul homega hlx2 hL2 hlogb3, mul_le_mul homega hlx3 hL3 hlogb3]
+      linarith only [mul_le_mul homega hlx3 hL3 hlogb3, mul_le_mul homega hlx2 hL2 hlogb3]
     calc convTerm x d
         = ((d.primeFactors.card : ℝ) * Real.log ((x - 2 : ℕ) : ℝ)
             + (d.primeFactors.card : ℝ) * Real.log ((x / 2 - 1 : ℕ) : ℝ)) / (d.totient : ℝ) := by
@@ -342,7 +342,7 @@ theorem twinA1_hBV (x z D P : ℕ) (ε Q : ℝ)
   -- the `∑ 1/φ(d)` bound via the V-ratio product (C1d's `vratio_prod_le`)
   have hb1 : (1 : ℝ) ≤ Q * (D : ℝ) := by
     have hD1 : (1 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-    nlinarith [hQ, hD1]
+    nlinarith only [hQ, hD1, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   have hMbound : ∑ d ∈ P.divisors, (1 : ℝ) / (Nat.totient d)
       ≤ (1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε) := by
     have hvr := vratio_prod_le (twinA1Sieve x P hP hPodd) P.primeFactors hε.le hw0 hwz
