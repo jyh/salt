@@ -437,7 +437,7 @@ theorem ramTailWeight_mass_door (A G M z : ℕ) (hA : 2 ≤ A) (hM : 1 ≤ M) {r
       _ ≤ 2 ^ A := Nat.pow_le_pow_right (by norm_num) hA
   have hPQ : calP A G 1 ≤ calQK A G M 1 := by
     rw [hPeq, calQK, calE_one]
-    exact Nat.pow_le_pow_right (by norm_num) (by nlinarith [hM])
+    exact Nat.pow_le_pow_right (by norm_num) (by nlinarith only [hM, (Nat.cast_nonneg _ : 0 ≤ ↑A)])
   refine le_trans (ramTailWeight_mass_le _ _ z hP4 hPQ hr0 hr1) ?_
   rw [windowMassConst, loglog_calQK_sub_calP A G M (by omega) hM]
   refine Real.exp_le_exp.mpr (le_of_eq ?_)
@@ -501,7 +501,7 @@ theorem prod_band_geom_shift_le (P Q : ℕ) {σ : ℝ} (hσ0 : 0 < σ) (hσ2 : �
     have hloc : (1 - v)⁻¹ ≤ 1 + 2 * v := by
       have h1v : (0 : ℝ) < 1 - v := by linarith
       rw [inv_eq_one_div, div_le_iff₀ h1v]
-      nlinarith [mul_nonneg hv0 (by linarith : (0 : ℝ) ≤ 1 - 2 * v)]
+      linarith only [mul_nonneg hv0 (by linarith : (0 : ℝ) ≤ 1 - 2 * v)]
     calc (1 - v)⁻¹ ≤ 1 + 2 * v := hloc
       _ ≤ Real.exp (2 * v) := by linarith [Real.add_one_le_exp (2 * v)]
       _ ≤ Real.exp (2 * ((Q : ℝ) ^ σ * (1 / (p : ℝ)))) := by
