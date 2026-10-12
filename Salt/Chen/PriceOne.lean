@@ -187,7 +187,7 @@ theorem bridge_scale {X M e D : ℕ} {B : ℝ}
     rw [div_pow, hs2] at hsq
     exact hsq
   -- t^2 ≥ 4
-  have ht2ge4 : (4 : ℝ) ≤ t ^ 2 := by nlinarith [htge2, htpos]
+  have ht2ge4 : (4 : ℝ) ≤ t ^ 2 := by nlinarith only [htpos, htge2]
   have ht2pos : 0 < t ^ 2 := by positivity
   have hXRpos : 0 < XR := by linarith
   -- XR^2 < 4 q^2 e^2  (from XR < 2 q e)
@@ -200,7 +200,7 @@ theorem bridge_scale {X M e D : ℕ} {B : ℝ}
       mul_le_mul_of_nonneg_left heR2 (by positivity)
     have h2 : 4 * qR ^ 2 * ((XR * MR) / t ^ 2) ≤ qR ^ 2 * (XR * MR) := by
       rw [← mul_div_assoc, div_le_iff₀ ht2pos]
-      nlinarith [ht2ge4, mul_nonneg (sq_nonneg qR) hXMpos.le]
+      nlinarith only [ht2ge4, mul_nonneg (sq_nonneg qR) hXMpos.le]
     linarith
   have hchain : XR ^ 2 < qR ^ 2 * (XR * MR) := lt_of_lt_of_le hXR2 hstep
   -- divide by XR > 0:  XR < qR^2 · MR
@@ -655,7 +655,7 @@ example :
   have hL2 : (2 : ℝ) ≤ Real.log (((10000 : ℕ) : ℝ) * ((10000 : ℕ) : ℝ)) := by
     rw [hXM, Real.le_log_iff_exp_le (by norm_num)]
     have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    nlinarith only [he, Real.exp_one_lt_d9, Real.exp_pos 1]
   -- `hDscale : D = 2 ≤ √(10⁸)/L¹`, i.e. `log(10⁸) ≤ 5000`, via `log ≤ 4·(10⁸)^{1/4} = 400`
   have hlog_le : Real.log (((10000 : ℕ) : ℝ) * ((10000 : ℕ) : ℝ)) ≤ 400 := by
     rw [hXM]
@@ -676,7 +676,7 @@ example :
     rw [hsqrt, Real.rpow_one,
       le_div_iff₀ (by linarith : (0 : ℝ) < Real.log (((10000 : ℕ) : ℝ) * ((10000 : ℕ) : ℝ)))]
     rw [show ((2 : ℕ) : ℝ) = 2 by norm_num]
-    nlinarith [hlog_le]
+    linarith only [hlog_le]
   exact bridge_scale (M := 10000) (X := 10000) (e := 2) (D := 2) (B := 1)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num) hDscale (by norm_num) hL2
 
