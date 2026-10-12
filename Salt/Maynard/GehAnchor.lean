@@ -125,7 +125,7 @@ lemma deep_log_two_mul {F : ℝ} (hF : 0 ≤ F) {x s : ℕ} (hlx : 1 ≤ Real.lo
           ≤ Real.sqrt (Real.log x) * Real.sqrt (Real.log x) :=
             mul_le_mul_of_nonneg_right h16 hsqrt_nn
         _ = Real.log x := hmul
-    nlinarith [a1, a3]
+    linarith only [a3, a1]
   linarith [hkey, hcomb]
 
 /-- `0 ≤ log m` for every natural `m` (`log 0 = log 1 = 0`, `log ≥ 0` above). -/
@@ -362,8 +362,8 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
   have h1k : (1 : ℝ) ≤ (2 : ℝ) ^ k := one_le_pow₀ (by norm_num)
   have h2ksx : (2 : ℝ) ^ k ≤ Real.log sx := by
     have hpow : (2 : ℝ) ^ (k + 1) = 2 * (2 : ℝ) ^ k := by rw [pow_succ]; ring
-    nlinarith [hlxs, hthrB, hpow]
-  have hlogsx0 : (0 : ℝ) < Real.log sx := by nlinarith [h2ksx, h1k]
+    linarith only [hpow, hlxs, hthrB]
+  have hlogsx0 : (0 : ℝ) < Real.log sx := by linarith only [h2ksx, h1k]
   have hsx2R : (2 : ℝ) ≤ (sx : ℝ) := by
     by_contra h
     push Not at h

@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e31c984a` · source digest `95dfcd723481e2c5` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `72e2da75` · source digest `cd8b30beaca3615f` (the same digest as items 1–3).
 > Receipt: files 1352 · decls 22882 · with_body 22882 · tactic_lines 314896 · runs 36704 · blocks 1537.
 
 ## LIMITS (read before any number below)
@@ -109,13 +109,13 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 3 | `exact` | 17833 | 5.7% |
 | 4 | `intro` | 14410 | 4.6% |
 | 5 | `refine` | 12962 | 4.1% |
-| 6 | `linarith` | 10988 | 3.5% |
+| 6 | `linarith` | 10993 | 3.5% |
 | 7 | `obtain` | 8861 | 2.8% |
 | 8 | `calc` | 8045 | 2.6% |
 | 9 | `set` | 5708 | 1.8% |
 | 10 | `simp` | 5121 | 1.6% |
 | 11 | `apply` | 4575 | 1.5% |
-| 12 | `nlinarith` | 3710 | 1.2% |
+| 12 | `nlinarith` | 3705 | 1.2% |
 | 13 | `unfold` | 2662 | 0.8% |
 | 14 | `exact_mod_cast` | 2591 | 0.8% |
 | 15 | `ring` | 2218 | 0.7% |
@@ -143,10 +143,10 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | entropy decrement | 15867 | `have` 6467, `rw` 2795, `exact` 1013, `intro` 585, `refine` 561, `linarith` 477, `simp` 464, `calc` 391 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 70978 | `have` 30519, `rw` 12196, `exact` 3822, `intro` 3291, `calc` 2302, `apply` 2296, `refine` 1691, `obtain` 1479 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 35300 | `have` 15723, `rw` 6588, `exact` 1888, `intro` 1449, `refine` 1439, `calc` 1107, `linarith` 1086, `set` 888 |
-| zero-density / zero-free regions | 13808 | `have` 6372, `rw` 2427, `exact` 701, `intro` 618, `linarith` 579, `refine` 442, `set` 408, `calc` 378 |
-| character sums / L-functions | 66448 | `have` 28528, `rw` 10272, `exact` 4141, `refine` 3704, `intro` 3465, `obtain` 2368, `linarith` 2311, `calc` 1500 |
-| exponential sums | 8062 | `have` 3082, `rw` 1642, `exact` 493, `intro` 403, `refine` 372, `set` 227, `linarith` 225, `simp` 203 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 35300 | `have` 15723, `rw` 6588, `exact` 1888, `intro` 1449, `refine` 1439, `calc` 1107, `linarith` 1087, `set` 888 |
+| zero-density / zero-free regions | 13808 | `have` 6372, `rw` 2427, `exact` 701, `intro` 618, `linarith` 580, `refine` 442, `set` 408, `calc` 378 |
+| character sums / L-functions | 66448 | `have` 28528, `rw` 10272, `exact` 4141, `refine` 3704, `intro` 3465, `obtain` 2368, `linarith` 2312, `calc` 1500 |
+| exponential sums | 8062 | `have` 3082, `rw` 1642, `exact` 493, `intro` 403, `refine` 372, `set` 227, `linarith` 226, `simp` 203 |
 | Mertens / PNT-type | 3298 | `have` 1530, `rw` 559, `exact` 173, `linarith` 146, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
