@@ -111,8 +111,8 @@ theorem gold_boxPriceKerr_geo {N z y K kp ka i : ℕ} {Kc : ℝ}
   have hkb' : Kbeta'_min Kc L logN 13 18 ≤ S := by
     rw [Kbeta'_min, mul_div_assoc]; exact hterm _ _ (by norm_num) (by norm_num) (by norm_num)
   have hrpow1 : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) := Real.one_le_rpow (by norm_num) (by norm_num)
-  have hrL : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) * L := by nlinarith [hrpow1, hL1]
-  have hSge1 : (1 : ℝ) ≤ S := by rw [hSdef]; nlinarith [hKc, hrL]
+  have hrL : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) * L := by linarith only [hL1]
+  have hSge1 : (1 : ℝ) ≤ S := by rw [hSdef]; nlinarith only [hKc, hL1]
   have h26 : 32 * Real.sqrt 26 ≤ 192 := by
     have hs : Real.sqrt 26 ≤ 6 := by
       have h1 : Real.sqrt 26 ≤ Real.sqrt 36 := Real.sqrt_le_sqrt (by norm_num)
@@ -126,7 +126,7 @@ theorem gold_boxPriceKerr_geo {N z y K kp ka i : ℕ} {Kc : ℝ}
         + (6 * (Km_min Kc L logN 13 18 + 448 + 32 * Real.sqrt 26)
           + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kbeta'_min Kc L logN 13 18 + 15360 + 1))
       ≤ 281352 * S := by
-    rw [h218]; nlinarith [hkb, hkm, hkb', h26, hSge1]
+    rw [h218]; linarith only [h26, hSge1, hkb', hkm, hkb]
   set BR : ℝ := Kbeta_min Kc L logN 13 18
       + (6 * (Km_min Kc L logN 13 18 + 448 + 32 * Real.sqrt 26)
         + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kbeta'_min Kc L logN 13 18 + 15360 + 1)) with hBRdef

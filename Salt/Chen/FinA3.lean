@@ -87,7 +87,7 @@ theorem box_bracket_mono {K1 K2 L logN : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ L) (h
   have h2 := Km_min_mono_K (A := 13) (C0 := 18) hK hL hlogN
   have h3 := Kbeta'_min_mono_K (A := 13) (C0 := 18) hK hL hlogN
   have h2p : (0 : ℝ) ≤ (2 : ℝ) ^ ((13 : ℝ) + 5) := by positivity
-  nlinarith [h1, h2, h3, h2p]
+  nlinarith only [h3, h2p, h2, h1]
 
 theorem boxPriceKerr_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (k i : ℕ) :
     boxPriceKerr K1 k i ≤ boxPriceKerr K2 k i := by
@@ -108,7 +108,7 @@ theorem boxPriceKerr_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (k i : ℕ) :
     rw [hXM]
     have hXR : (1 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by exact_mod_cast hX1
     have hMR : (1 : ℝ) ≤ (pieceM k : ℝ) := by exact_mod_cast hM1
-    nlinarith [hXR, hMR]
+    nlinarith only [hMR, hXR, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ (i + 1) - 1))]
   have hlogN0 : (0 : ℝ) ≤ Real.log ((2 ^ k : ℕ) : ℝ) := by
     apply Real.log_nonneg
     have : (1 : ℕ) ≤ 2 ^ k := Nat.one_le_pow _ _ (by norm_num)
@@ -136,7 +136,7 @@ theorem boxPriceKerrY_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (y k i : ℕ) :
     rw [hXM]
     have hXR : (1 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by exact_mod_cast hX1
     have hMR : (1 : ℝ) ≤ (pieceM k : ℝ) := by exact_mod_cast hM1
-    nlinarith [hXR, hMR]
+    nlinarith only [hMR, hXR, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ (i + 1) - 1))]
   -- here the third argument of the Kerr minima is `Real.log (y:ℝ)`, possibly zero (y small)
   by_cases hy1 : (1 : ℝ) ≤ (y : ℝ)
   · have hlogY0 : (0 : ℝ) ≤ Real.log (y : ℝ) := Real.log_nonneg hy1

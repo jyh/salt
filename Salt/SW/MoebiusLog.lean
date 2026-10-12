@@ -111,8 +111,8 @@ theorem norm_logDivPhi_le {C₃ : ℝ} {x₀ : ℕ} (hC₃ : 0 < C₃)
   have A2 : (⌊t⌋₊ : ℝ) ≤ t := Nat.floor_le htpos.le
   have hfloor_ge : t - 1 < (⌊t⌋₊ : ℝ) := by have := Nat.lt_floor_add_one t; linarith
   have htsq : t ≤ (⌊t⌋₊ : ℝ) ^ 2 := by
-    nlinarith [mul_nonneg (show (0 : ℝ) ≤ (⌊t⌋₊ : ℝ) - (t - 1) by linarith)
-      (show (0 : ℝ) ≤ (⌊t⌋₊ : ℝ) + (t - 1) by linarith), ht3, sq_nonneg (t - 2)]
+    linarith only [ht3, mul_nonneg (show (0 : ℝ) ≤ (⌊t⌋₊ : ℝ) - (t - 1) by linarith)
+        (show (0 : ℝ) ≤ (⌊t⌋₊ : ℝ) + (t - 1) by linarith), sq_nonneg (t - 2)]
   have hlogt_le : Real.log t ≤ 2 * Real.log ⌊t⌋₊ := by
     have h := Real.log_le_log htpos htsq
     rw [Real.log_pow] at h; push_cast at h; linarith
@@ -146,7 +146,7 @@ theorem norm_logDivPhi_le {C₃ : ℝ} {x₀ : ℕ} (hC₃ : 0 < C₃)
     gcongr
   have step2 : Real.log t / t ^ 2 * M ≤ 8 * C₃ * (t * Real.log t ^ 2)⁻¹ := by
     rw [div_mul_eq_mul_div, ← div_eq_mul_inv, div_le_div_iff₀ ht2pos (by positivity)]
-    nlinarith [mul_le_mul_of_nonneg_left key htpos.le]
+    linarith only [mul_le_mul_of_nonneg_left key htpos.le]
   exact le_trans step1 step2
 
 /-! ## The `bigO` domination and integrability on `(1, ∞)` -/
@@ -244,7 +244,7 @@ theorem abs_sum_moebius_div_mul_log_le :
           ≤ Real.log (z : ℝ) / (z : ℝ) * (C₃ * (z : ℝ) / (Real.log (z : ℝ)) ^ 3) :=
             mul_le_mul_of_nonneg_left hb (div_nonneg hlogz_pos.le hzpos.le)
         _ = C₃ / (Real.log (z : ℝ)) ^ 2 := by field_simp
-        _ ≤ C₃ := div_le_self hC₃.le (by nlinarith [h1logz])
+        _ ≤ C₃ := div_le_self hC₃.le (by nlinarith only [hlogz_pos, h1logz])
     have htail : |∫ t in Set.Ioc (1 : ℝ) (z : ℝ), logDivPhi t| ≤ K := by
       calc |∫ t in Set.Ioc (1 : ℝ) (z : ℝ), logDivPhi t|
           = ‖∫ t in Set.Ioc (1 : ℝ) (z : ℝ), logDivPhi t‖ := (Real.norm_eq_abs _).symm

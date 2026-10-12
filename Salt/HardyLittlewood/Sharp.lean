@@ -471,17 +471,17 @@ lemma selbergBoundingSum_ge_final {N : ℕ} (hN0 : N0S ≤ N) (hN : 1 ≤ N) :
   have hlog2ub : Real.log 2 < (0.6931471808 : ℝ) := Real.log_two_lt_d9
   set L := Real.log N with hL
   set Lz := Real.log (zS N) with hLz
-  have hL166 : (166 : ℝ) ≤ L := by nlinarith [hlogN, hlog2lb]
+  have hL166 : (166 : ℝ) ≤ L := by linarith only [hlogN, hlog2ub, hlog2lb]
   -- A := (9/80)·L − (log2/4 + 1/2), nonneg and ≤ (1/4)Lz − 1/2
   have hApos : (0 : ℝ) ≤ (9 / 80) * L - (Real.log 2 / 4 + 1 / 2) := by
-    nlinarith [hL166, hlog2ub]
+    linarith only [hlogN, hlog2ub, hlog2lb]
   have hstep : (9 / 80) * L - (Real.log 2 / 4 + 1 / 2) ≤ (1 / 4) * Lz - 1 / 2 := by
     linarith [hlogzs]
   have hsq : ((9 / 80) * L - (Real.log 2 / 4 + 1 / 2)) ^ 2 ≤ ((1 / 4) * Lz - 1 / 2) ^ 2 :=
     pow_le_pow_left₀ hApos hstep 2
   have hfinal : ((9 / 80) * L - (Real.log 2 / 4 + 1 / 2)) ^ 2 ≥ L ^ 2 / 88 := by
-    nlinarith [hL166, hlog2lb, hlog2ub, mul_nonneg (by linarith : (0:ℝ) ≤ L - 166)
-      (by linarith : (0:ℝ) ≤ L)]
+    nlinarith only [hlog2lb, hlog2ub, hlogN, mul_nonneg
+        (by linarith : (0 : ℝ) ≤ L - 166) (by linarith : (0 : ℝ) ≤ L), sq_nonneg (1 * L)]
   linarith [hSge, hmts, hsq, hfinal]
 
 /-! ## The counting bound (N5.2 analog), error sum left raw -/
