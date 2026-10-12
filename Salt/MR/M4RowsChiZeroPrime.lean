@@ -97,7 +97,7 @@ private lemma logbsq_two_mul_P_le_zero {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P �
     norm_num at hbig
   have hsq : Real.sqrt (Real.log (Xd : ℝ)) * Real.sqrt (Real.log (Xd : ℝ))
       = Real.log (Xd : ℝ) := Real.mul_self_sqrt hu0
-  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith
+  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith only [hbig, hsq]
   -- `s ≤ u/100`
   have hsu : Real.sqrt (Real.log (Xd : ℝ)) ≤ Real.log (Xd : ℝ) / 100 := by nlinarith
   have hs0 : (0 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) := Real.sqrt_nonneg _
@@ -142,11 +142,11 @@ private lemma logbsq_two_mul_P_le_zero {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P �
   have hgap : 3 / 4 * Real.log (Xd : ℝ) ^ 2
       ≤ Real.exp (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) := by
     rw [← hexp3]
-    nlinarith [hcube, hu4, sq_nonneg (Real.log (Xd : ℝ))]
+    nlinarith only [hu4, hu0, hcube, sq_nonneg (Real.log ↑Xd), sq_nonneg (Real.log ↑Xd)]
   calc (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ)
       ≤ (3 / 2 * Real.log (Xd : ℝ)) ^ 2 * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
         have hLsq : (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 ≤ (3 / 2 * Real.log (Xd : ℝ)) ^ 2 := by
-          nlinarith
+          nlinarith only [hL0, hLb, hu0]
         exact mul_le_mul hLsq hPexp hP0.le (by positivity)
     _ = 3 * (3 / 4 * Real.log (Xd : ℝ) ^ 2) * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
         ring
@@ -232,8 +232,8 @@ theorem lemma12RowsMR_pricedK_end_zero' (P Q N Xd : ℕ) (H T : ℝ) (a b c : �
       ≤ 1 / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) := by
     rw [show (1 : ℝ) / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) = 12 / ((Xd : ℝ) * (P : ℝ)) by ring,
       div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg hXd0.le
-      (by linarith : (0 : ℝ) ≤ 3 * (Xd : ℝ) - (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ))]
+    linarith only [mul_nonneg hXd0.le
+        (by linarith : (0 : ℝ) ≤ 3 * (Xd : ℝ) - (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ))]
   have hp2' : (∑ n ∈ Finset.Icc 1 N,
         ‖ramP2coeffEndMR N Xd P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)
       ≤ 3 / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) := by linarith
@@ -284,7 +284,7 @@ theorem lemma12RowsMR_priced_ratioK_end_zero' (P Q N Xd : ℕ) (H T : ℝ) (a b 
     linarith
   have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
     have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
-    nlinarith [hN4, hT, hXd0]
+    linarith only [hTid, hN4, hT]
   have hstep := lemma12RowsMR_pricedK_end_zero' P Q N Xd H T a b c hP hPQ hXd hN hT hH
     hreg hbig ha hb hc hlive
   refine hstep.trans ?_
@@ -375,7 +375,7 @@ theorem sum_lemma12RowsMR_priced_calibratedK2_end_zero' (C : ℝ) (hC : 0 ≤ C)
     refine ⟨four_le_calP_zero' hA hG, calP_le_calQK hM hj.1, ?_⟩
     rw [calH]
     have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-    nlinarith
+    nlinarith only [hjR, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have h := sum_lemma12RowsMR_pricedK_end_zero' (calP A G) (calQK A G M) (calH H1) Jb N Xd T
     a b c hXd hN hT hN4 hgates hreg hbig ha hb hc hlive
   refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
@@ -516,7 +516,7 @@ theorem m4_rowChi_number_of_capstone_zero' :
     rw [Finset.mem_Icc] at hj
     have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
     rw [calH]
-    nlinarith [hF.H1_two]
+    nlinarith only [hjR, hH1two, hcalH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j, sq_nonneg ↑j]
   have hPj1 : ∀ j : ℕ, 1 ≤ calP A G j := fun j => by
     simp only [calP]; exact Nat.one_le_two_pow
   have hasuppχ := chiBarCoeff_dyadic_supp χ hasupp

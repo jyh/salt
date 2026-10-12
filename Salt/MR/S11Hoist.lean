@@ -871,7 +871,7 @@ theorem s11_wmc_le_of_ratio {P Q : ℕ} {ratio : ℝ} (hratio : 1 ≤ ratio)
   have h2 : ratio ^ c ≤ ratio ^ (1.05 : ℝ) :=
     Real.rpow_le_rpow_of_exponent_le hratio hcle
   have hpos : (0 : ℝ) < ratio ^ c := Real.rpow_pos_of_pos hr0 c
-  nlinarith [Real.exp_pos (25 * c), Real.exp_pos (26.25 : ℝ)]
+  nlinarith only [h2, h1, hpos, Real.exp_pos (25 * c)]
 
 set_option maxRecDepth 100000 in
 /-- **⟦THE `K`-FREE REPRICE⟧** (`s11_windowMassConst_door_prod_le_gk`) — the door's mass,
