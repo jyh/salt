@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `52b3a678` · source digest `00ea688253dd6a83` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `80365f88` · source digest `4d18a95642b3f119` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 25 | 23 | 9064 | 9009 | 9008 | 1 | 0 | 55 |
+| 25 | 23 | 9069 | 9014 | 9013 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 22908 · corpus Prop-valued names (the hypothesis universe): 673.
+Declarations indexed across the tree: 22910 · corpus Prop-valued names (the hypothesis universe): 673.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6777 | 294 | 2072 | 4623 | 376 | 425 | 36 |
+| unconditional | 6781 | 294 | 2072 | 4623 | 376 | 425 | 40 |
 | conditional | 1546 | 25 | 197 | 1352 | 94 | 24 | 10 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
-| infrastructure | 474 | 0 | 68 | 366 | 48 | 17 | 0 |
+| infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9009 | 319 | 2341 | 6539 | 529 | 466 | 46 |
+| **all** | 9014 | 319 | 2341 | 6539 | 529 | 466 | 51 |
 
 ## LIMITS — read these beside every count above
 
@@ -490,7 +490,7 @@ Declarations indexed across the tree: 22908 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6777)
+## unconditional (6781)
 
 | name | file:line | objects |
 |---|---|---|
@@ -6049,12 +6049,16 @@ Declarations indexed across the tree: 22908 · corpus Prop-valued names (the hyp
 | `Salt.Maynard.ppLevel_holds` | Salt/Maynard/PpAssembly.lean:928 | sieves |
 | `Salt.Maynard.s2_tensor_lower_closed` | Salt/Maynard/S2TensorClosed.lean:31 | sieves |
 | `Salt.MaynardK.S1_lt_sum_S2mW_k5` | Salt/MaynardK/Controls.lean:214 | other |
+| `Salt.MaynardK.maynard_105_tuple600` | Salt/MaynardK/Gaps600.lean:34 | other |
+| `Salt.MaynardK.gaps_le_600` | Salt/MaynardK/Gaps600.lean:41 | other |
 | `Salt.MaynardK.maynard_105` | Salt/MaynardK/Gaps636.lean:35 | other |
 | `Salt.MaynardK.gaps_le_636` | Salt/MaynardK/Gaps636.lean:40 | other |
 | `Salt.MaynardK.Jform_eq` | Salt/MaynardK/JMain.lean:253 | other |
 | `Salt.MaynardK.ratio_cert_105` | Salt/MaynardK/Ratio.lean:22 | other |
 | `Salt.MaynardK.winSlackM105_ev` | Salt/MaynardK/Slack105.lean:312 | other |
 | `Salt.MaynardK.Iform_eq` | Salt/MaynardK/Square.lean:102 | other |
+| `Salt.MaynardK.hSeq_engelsma_le_743` | Salt/MaynardK/Tuple600.lean:108 | other |
+| `Salt.MaynardK.hSeq_engelsma_diam_le_600` | Salt/MaynardK/Tuple600.lean:119 | other |
 | `Salt.Mertens.integral_exp_neg_log` | Salt/Mertens/GammaIntegral.lean:34 | sieves |
 | `Salt.Mertens.loglog_integral_asymp` | Salt/Mertens/GammaIntegral.lean:323 | sieves |
 | `Salt.Mertens.neg_log_prod_eq` | Salt/Mertens/PrimePower.lean:130 | sieves |
@@ -9039,7 +9043,7 @@ Declarations indexed across the tree: 22908 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.LiouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:145 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:133 | sieves |
 
-## infrastructure (474)
+## infrastructure (475)
 
 | name | file:line | objects |
 |---|---|---|
@@ -9484,6 +9488,7 @@ Declarations indexed across the tree: 22908 · corpus Prop-valued names (the hyp
 | `Salt.MR.vkProfile_const_mul` | Salt/MR/VkTwistClose.lean:411 | characters |
 | `Salt.MR.vkDebitConst_vkEulerCorr` | Salt/MR/VkTwistClose.lean:478 | characters |
 | `Salt.MR.vkStripConst` | Salt/MR/VkTwistStrip.lean:239 | characters |
+| `Salt.MaynardK.engelsmaTuple` | Salt/MaynardK/Tuple600.lean:98 | other |
 | `Salt.SW.coprimeSeries_one` | Salt/SW/GrahamHard2.lean:120 | sieves |
 | `Salt.SW.selbergPsi_apply` | Salt/SW/PseudoChar.lean:122 | sieves, characters |
 | `Salt.SW.hCoef_apply` | Salt/SW/PseudoCharH.lean:81 | sieves, characters |
