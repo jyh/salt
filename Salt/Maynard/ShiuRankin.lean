@@ -186,12 +186,12 @@ theorem prod_one_sub_inv_sq_le :
   have hEv : 2 * C₀ < Real.log v * Real.exp (-g) := (div_lt_iff₀ hEpos).mp hlogv_gt
   have hstep : C₀ / Real.log v ≤ Real.exp (-g) / 2 := by
     rw [div_le_div_iff₀ hlogv (by norm_num : (0:ℝ) < 2)]
-    nlinarith [hEv]
+    linarith only [hEv]
   set P := ∏ p ∈ (Finset.range (v + 1)).filter Nat.Prime, (1 - 1 / (p : ℝ)) with hPdef
   have hsplit := abs_le.mp (hmt v hv3)
   have hPlogv : Real.exp (-g) / 2 ≤ P * Real.log v := by linarith [hsplit.1, hstep]
   have hPlb : Real.exp (-g) / (2 * Real.log v) ≤ P := by
-    rw [div_le_iff₀ (by positivity)]; nlinarith [hPlogv]
+    rw [div_le_iff₀ (by positivity)]; linarith only [hsplit, hstep]
   have hPpos : 0 < P := lt_of_lt_of_le (by positivity) hPlb
   have hPinv : P⁻¹ ≤ 2 / Real.exp (-g) * Real.log v := by
     have h := inv_anti₀ (show (0:ℝ) < Real.exp (-g) / (2 * Real.log v) by positivity) hPlb

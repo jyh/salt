@@ -190,7 +190,7 @@ lemma log_natCast_nonneg (M : ℕ) : 0 ≤ Real.log (M : ℝ) := by
 
 lemma farErr_nonneg {W Y Rmax : ℝ} (hY : 0 ≤ Real.log Y) (hRmax : 0 ≤ Rmax) :
     0 ≤ farErr W Y Rmax := by
-  have h1 : (1 : ℝ) ≤ 3 + Rmax * (1 + Real.log Y) := by nlinarith
+  have h1 : (1 : ℝ) ≤ 3 + Rmax * (1 + Real.log Y) := by nlinarith only [hY, hRmax]
   have h2 : 0 ≤ Real.log (3 + Rmax * (1 + Real.log Y)) := Real.log_nonneg h1
   have h3 := ballSupC_pos
   unfold farErr
@@ -643,7 +643,7 @@ private lemma log_le_two_sqrt {u : ℝ} (hu : 0 < u) : Real.log u ≤ 2 * Real.s
 private lemma sqrt_add_one_le {u : ℝ} (hu : 0 ≤ u) : Real.sqrt (u + 1) ≤ Real.sqrt u + 1 := by
   have hsq := Real.sq_sqrt hu
   have hnn := Real.sqrt_nonneg u
-  have hstep : u + 1 ≤ (Real.sqrt u + 1) ^ 2 := by nlinarith
+  have hstep : u + 1 ≤ (Real.sqrt u + 1) ^ 2 := by linarith only [hnn, hsq]
   have := Real.sqrt_le_sqrt hstep
   rwa [Real.sqrt_sq (by positivity)] at this
 
@@ -654,7 +654,7 @@ private lemma loglog_drift {X c : ℝ} (hX : 10 ≤ X) (hc0 : 0 ≤ c) (hc : c �
     Real.log (Real.log (4 * X + c)) ≤ Real.log 2 + Real.log (Real.log X) := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hpos : (0 : ℝ) < 4 * X + c := by linarith
-  have hle : 4 * X + c ≤ X ^ 2 := by nlinarith
+  have hle : 4 * X + c ≤ X ^ 2 := by nlinarith only [hX, hc]
   have h1 : Real.log (4 * X + c) ≤ 2 * Real.log X := by
     have h := Real.log_le_log hpos hle
     rwa [Real.log_pow, Nat.cast_ofNat] at h
@@ -715,7 +715,7 @@ theorem collisionGate_discharged (C : ℝ) :
       rw [show (25 : ℝ) = 5 ^ 2 by norm_num]
       exact Real.sqrt_sq (by norm_num)
     rw [h25]
-    nlinarith [hs, hssq]
+    nlinarith only [hs, hssq, hL, hCm]
   · -- (3) the height drift at `4X+3`
     have h := loglog_drift (X := X) (c := 3) hX10 (by norm_num) (by norm_num) (by linarith)
     have hlog2 : Real.log 2 ≤ 0.7 := by
@@ -739,7 +739,7 @@ theorem collisionGate_discharged (C : ℝ) :
         ≤ Real.log (Real.log (Real.log X) + 1) := Real.log_le_log hp2 hle
     have hlog := log_le_two_sqrt (u := Real.log (Real.log X) + 1) (by linarith)
     have hsq := sqrt_add_one_le (u := Real.log (Real.log X)) hL0
-    nlinarith [hs, hssq]
+    nlinarith only [hs, hsq, hlog, hstep, hssq, hL, hCm]
   · -- (5) the floor's own constant — the source of the tower
     linarith
 
