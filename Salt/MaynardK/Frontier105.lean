@@ -13,7 +13,8 @@ import Salt.MaynardK.F1
 
 `WinSlackM105`, `WinFrontierMW105` and `winFrontierMW105_of`: mirror of `FrontierM` +
 `GapsOfLevel.winFrontierMW_of_hasLevel` with ρ = 9999/40000,
-ε = 1/1000, h_max ≤ 743, cutoff 744, weight `F1`). `yFg_F1_abs_le_one`: `|F1| ≤ 1` on the sieve index.
+ε = 1/1000, h_max ≤ 743, cutoff 744, weight `F1`). `yFg_F1_abs_le_one`: `|F1| ≤ 1` on the sieve
+index.
 Generic in the tuple (`TupleChoice`): the `105`-entries are assumed `≤ 743` (`hle`), nothing else.
 Ported by an Opus executor from a frozen brief (2026-10-11).
 -/
@@ -150,7 +151,7 @@ theorem winFrontierMW105_of (D : ℕ) (hD : 744 ≤ D) (hle : ∀ i : Fin 105, h
     exact_mod_cast Nat.totient_pos.mpr hW'pos
   have hDle : ∀ p : ℕ, p.Prime → ¬ p ∣ primorial D → D ≤ p :=
     fun p hp hnd => le_of_lt (primorial_hDlt D p hp hnd)
-  have hSeqlt : ∀ i : Fin 105, hSeq 105 i < D := fun i => by have := hle i; omega
+  have hSeqlt : ∀ i : Fin 105, hSeq 105 i < D := fun i => lt_of_le_of_lt (hle i) hD
   -- CRT residue base
   obtain ⟨ν₀, hν₀⟩ := exists_nu0W 105 (primorial D) hW'ne
   -- the level-1/2 S₂ lemma (constants obtained before choosing N')

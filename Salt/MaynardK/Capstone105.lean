@@ -77,7 +77,7 @@ theorem maynard_105_of_slack (hS : SlackEv105) (hle : ∀ i : Fin 105, hSeq 105 
     hS2low, hslack⟩ := hF windowPNT_holds
       (Salt.BV.hasLevel_half_of_siegelWalfisz Salt.SW.siegelWalfisz_holds) N
   have hgt := win_core_105 N' R ν₀ (primorial D) D δ errEH cval
-    (primorial_sqf' D) (primorial_hDlt D) (fun i => by have := hle i; omega)
+    (primorial_sqf' D) (primorial_hDlt D) (fun i => lt_of_le_of_lt (hle i) hD)
     hDk hsol hφpos hcvnn hδ0 hDpi hQlow hS2low hslack
   obtain ⟨n, hn, hcard⟩ := exists_window_two_primesW_k 105 64 N' R ν₀ (primorial D) _ hgt
   have hnN : N' < n := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hn).1).1

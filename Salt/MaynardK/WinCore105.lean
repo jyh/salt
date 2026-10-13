@@ -399,7 +399,7 @@ theorem win_core_105 (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 105 �
   exact S1_lt_sum_S2mW_k 105 64 N' R ν₀ W' (yFg R W' F1) δ errEH cval hφpos hcval hδ0 hDpi
     hQlow hS2low hnum
 
-/-! ## (6) `gaps_le_of_frontier105` — the frontier-conditional capstone, at any tuple of diameter `≤ d` -/
+/-! ## (6) `gaps_le_of_frontier105` — the frontier-conditional capstone at diameter `≤ d` -/
 
 theorem gaps_le_of_frontier105 (D : ℕ) (hD : 744 ≤ D) (hDk : 12 * 105 ^ 2 ≤ D)
     (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) (d : ℤ)
@@ -412,7 +412,7 @@ theorem gaps_le_of_frontier105 (D : ℕ) (hD : 744 ≤ D) (hDk : 12 * 105 ^ 2 �
     hS2low, hslack⟩ := hF hPNT hLoD N
   refine ⟨N', R, ν₀, yFg R (primorial D) F1, hNN', ?_⟩
   exact win_core_105 N' R ν₀ (primorial D) D δ errEH cval
-    (primorial_sqf' D) (primorial_hDlt D) (fun i => by have := hle i; omega)
+    (primorial_sqf' D) (primorial_hDlt D) (fun i => lt_of_le_of_lt (hle i) hD)
     hDk hsol hφpos hcvnn hδ0 hDpi hQlow hS2low hslack
 
 end Salt.MaynardK
