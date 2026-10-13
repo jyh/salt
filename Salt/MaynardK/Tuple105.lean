@@ -37,8 +37,9 @@ theorem hSeq_105_bounds (i : Fin 105) : 107 ≤ hSeq 105 i ∧ hSeq 105 i ≤ 74
   · rw [← nth_prime_131]; exact hmono.monotone (by omega)
 
 theorem hSeq_105_eq : hSeq 105 ⟨0, by omega⟩ = 107 ∧ hSeq 105 ⟨104, by omega⟩ = 743 := by
-  rw [hSeq_std, firstIdxAboveK_105]
-  exact ⟨nth_prime_27, nth_prime_131⟩
+  -- `rw [hSeq_std]` rewrites one `i` at a time (the two conjuncts differ in `i`), so pin each side.
+  exact ⟨by rw [hSeq_std, firstIdxAboveK_105]; exact nth_prime_27,
+         by rw [hSeq_std, firstIdxAboveK_105]; show Nat.nth Nat.Prime (27 + 104) = 743; exact nth_prime_131⟩
 
 theorem hSeq_diam_le_636 (i j : Fin 105) :
     (hSeq 105 j : ℤ) - (hSeq 105 i : ℤ) ∈ Set.Icc (-636 : ℤ) 636 := by
