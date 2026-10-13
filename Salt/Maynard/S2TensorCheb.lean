@@ -31,6 +31,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **Overshoot ≤ (1/8)·A₁^{k-1} in the regime.**  From `overshoot_cheb_composed`
 (`≤ (100·T²/k)·A₁^{k-1}`) plus `100·T²/k ≤ 1/8`, which holds because `T = k^{1/8}/log k`
 gives `k = (T·log k)^8 = T^8·(log k)^8`, so `800·T² ≤ T^8·(log k)^8 = k` (using

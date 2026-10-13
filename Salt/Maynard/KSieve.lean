@@ -18,6 +18,9 @@ used pervasively downstream.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- The Maynard sieve index set: `k`-tuples `r : Fin k → ℕ` of pairwise-

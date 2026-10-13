@@ -34,6 +34,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- `∑_{a<R} fTilde(a)/φ(a) ≤ B₁`: `fTilde = fWt` on `sqfCop(R₀,W)` and `0` off
 it, and the box `sqfCop(R₀,W)` may only contribute a subset of `range R` (all
 terms nonnegative). -/

@@ -55,6 +55,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## The collision predicate -/
 
 /-- A pair `(d,e)` of `k`-tuples is a **collision pair** if some two

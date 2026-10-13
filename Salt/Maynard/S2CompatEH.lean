@@ -32,6 +32,9 @@ regrouping, and `eh_error_pow` at both endpoints) is layered on top.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- For a prime `p`, `p ∣ lcm a b ↔ p ∣ a ∨ p ∣ b` (via `lcm ∣ a*b` and `a,b ∣ lcm`). -/

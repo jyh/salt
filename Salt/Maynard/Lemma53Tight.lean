@@ -38,6 +38,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## The shared Rankin constant (from `rankin_bound 1`) -/
 
 /-- The Rankin `L = 1` constant `∑_{q<Q,sf} 1/φ(q) ≤ rankinC·log Q`, exposed as a
@@ -1243,65 +1246,8 @@ on `φ(W k)/W k`.  Two ingredients: `D₀ k = k³` (so `log D₀ = 3 log k`; nee
 Chebyshev prime-count bound to show the admissible tuple `H k` fits under `k³`),
 and the Mertens third-theorem style bound `W/φW ≤ exp(mertensC)·log D₀`. -/
 
-/-- Chebyshev count bound: `π(k) + k ≤ π(k³)` (there are `≥ k` primes in `(k, k³]`),
-via `Chebyshev.pi_ge`.  Holds for `k ≥ 20`. -/
-private lemma count_le_count_cube (k : ℕ) (hk : 20 ≤ k) :
-    Nat.count Nat.Prime (k + 1) + k ≤ Nat.count Nat.Prime (k ^ 3 + 1) := by
-  have hk1 : 1 < k := by omega
-  have hkR : (1 : ℝ) < (k : ℝ) := by exact_mod_cast hk1
-  have hk20R : (20 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-  have hlogk : 0 < Real.log k := Real.log_pos hkR
-  have hlogcube : Real.log ((k:ℝ)^3) = 3 * Real.log k := by rw [Real.log_pow]; push_cast; ring
-  have hlog2 : (1:ℝ)/2 ≤ Real.log 2 := by have := Real.log_two_gt_d9; linarith
-  have hlog2le : Real.log 2 ≤ 1 := by have := Real.log_two_lt_d9; linarith
-  have hL : Real.log k ≤ (k:ℝ) := by
-    have := Real.log_le_sub_one_of_pos (show (0:ℝ) < (k:ℝ) by linarith); linarith
-  have hk3nn : (0:ℝ) ≤ (k:ℝ)^3 := by positivity
-  have hk3one : (1:ℝ) ≤ (k:ℝ)^3 := one_le_pow₀ (by linarith)
-  have hlogcube1 : Real.log ((k:ℝ)^3 + 1) ≤ Real.log 2 + 3 * Real.log k := by
-    have h1 : (k:ℝ)^3 + 1 ≤ 2 * (k:ℝ)^3 := by linarith [hk3one]
-    calc Real.log ((k:ℝ)^3+1) ≤ Real.log (2 * (k:ℝ)^3) := Real.log_le_log (by positivity) h1
-      _ = Real.log 2 + Real.log ((k:ℝ)^3) := by rw [Real.log_mul (by norm_num) (by positivity)]
-      _ = Real.log 2 + 3 * Real.log k := by rw [hlogcube]
-  have hcubic : 6*(k:ℝ)^2 + 6*(k:ℝ) + 1 ≤ (k:ℝ)^3 / 2 := by
-    nlinarith only [hk20R, mul_nonneg (show (0 : ℝ) ≤ (k : ℝ) - 20 by linarith)
-        (sq_nonneg (k : ℝ)), (Nat.cast_nonneg _ : 0 ≤ ↑k)]
-  have e2 : 6*(k:ℝ)*Real.log k ≤ 6*(k:ℝ)^2 := by nlinarith only [hL, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
-  have e4 : Real.log ((k:ℝ)^3+1) ≤ 1 + 3*(k:ℝ) := by linarith only [hlogcube1, hL, hlog2le]
-  have hk3log2 : (k:ℝ)^3/2 ≤ (k:ℝ)^3 * Real.log 2 := by nlinarith only [hlog2, hk3nn]
-  have hkey : (2*(k:ℝ)+1)*(3*Real.log k) ≤ (k:ℝ)^3 * Real.log 2 - Real.log ((k:ℝ)^3+1) := by
-    linarith only [hk3log2, e2, hcubic, hlogcube1, hL, hlog2le]
-  have hpi := Chebyshev.pi_ge (k ^ 3)
-  rw [show ((k ^ 3 : ℕ) : ℝ) = (k : ℝ) ^ 3 by norm_cast] at hpi
-  rw [hlogcube] at hpi
-  have h3logk : 0 < 3 * Real.log k := by linarith
-  have hpi2 : 2*(k:ℝ)+1 ≤ (Nat.primeCounting (k^3):ℝ) := by
-    refine le_trans ?_ hpi
-    rw [le_div_iff₀ h3logk]; exact hkey
-  have hpc : Nat.primeCounting (k ^ 3) = Nat.count Nat.Prime (k ^ 3 + 1) := rfl
-  have hnat : 2 * k + 1 ≤ Nat.primeCounting (k^3) := by
-    have : (2*k+1 : ℝ) ≤ (Nat.primeCounting (k^3):ℝ) := by linarith [hpi2]
-    exact_mod_cast this
-  have hcnt : Nat.count Nat.Prime (k + 1) ≤ k + 1 := Nat.count_le Nat.Prime
-  rw [← hpc]; omega
-
-/-- `(H k).sup id ≤ k³`: the largest shift of the admissible tuple `H k` (the
-`k`-th prime above `k`) is `≤ k³`, since `π(k³) − π(k) ≥ k`.  Holds for `k ≥ 20`. -/
-private lemma H_sup_le_cube (k : ℕ) (hk : 20 ≤ k) : (H k).sup id ≤ k ^ 3 := by
-  have hcnt := count_le_count_cube k hk
-  apply Finset.sup_le
-  intro h hh
-  simp only [id_eq]
-  unfold H at hh
-  simp only [Finset.mem_image, Finset.mem_range] at hh
-  obtain ⟨i, hi, rfl⟩ := hh
-  rw [← Nat.lt_succ_iff]
-  refine (Nat.lt_nth_iff_count_lt Nat.infinite_setOf_prime).mp ?_
-  change firstIdxAboveK k + i < Nat.count Nat.Prime (k ^ 3 + 1)
-  unfold firstIdxAboveK
-  omega
-
-/-- `D₀ k = k³` for `k ≥ 20` (the `k³` floor dominates the admissible-tuple sup). -/
+/-- `D₀ k = k³` for `k ≥ 20` (the `k³` floor dominates the admissible-tuple sup; the sup bound is
+the tuple choice's `sup_cube`, proved for the standard tuple in `Tuple.lean`). -/
 theorem D0_eq_cube (k : ℕ) (hk : 20 ≤ k) : D₀ k = k ^ 3 := by
   unfold D₀
   exact max_eq_left (H_sup_le_cube k hk)

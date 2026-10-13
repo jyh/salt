@@ -39,6 +39,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **S₂ main lower bound.** The `dₘ = eₘ = 1`-restricted S₂ quadratic form is
 lower-bounded by the `φ`-denominator contraction main term minus an
 `R`-free-constant · `log R` / `D₀` error.  Step 2 (`gMult_le_totient`) is applied

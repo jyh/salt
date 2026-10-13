@@ -61,6 +61,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Nonnegativity of the truncated coordinate weight `fTilde`. -/
 lemma fTilde_nonneg (k R : ℕ) (T : ℝ) (r : ℕ) (hR : 2 ≤ R) : 0 ≤ fTilde k R T r := by
   unfold fTilde

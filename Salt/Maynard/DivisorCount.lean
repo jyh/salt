@@ -28,6 +28,9 @@ induction on `k`, splitting off the first coordinate `m` (whose value ranges in
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- `k`-tuples `d : Fin k → ℕ` with every coordinate in `[1, N]` and product

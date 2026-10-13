@@ -49,6 +49,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- `fWt(1) = 1`: `u(1) = k·log 1/log R = 0`, so `fWt(1) = 1/(1+0) = 1`. -/
 lemma fWt_one (k R : ℕ) : fWt k R 1 = 1 := by
   simp [fWt, uVal, Nat.cast_one, Real.log_one]

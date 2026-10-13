@@ -37,6 +37,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **N4.2 — the S₁ trivial-error factorization (load-bearing).** The double
 sum of `|λ(d)|·|λ(e)|` against the fixed N4.1 count-error constant `2^(k+1)`
 factors as `2^(k+1)` times the square of the single sum `Σ_d |λ(d)|`. This is

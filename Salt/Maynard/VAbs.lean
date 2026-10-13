@@ -43,6 +43,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## `fTilde` antitonicity -/
 
 /-- **`fTilde` divisor-antitonicity.**  For `a ∣ b`, `b > 0`, one has

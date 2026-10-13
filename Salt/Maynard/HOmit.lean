@@ -36,6 +36,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Off-`m` product weight `owt(u) = ∏_{i≠m} fTilde(uᵢ)²/φ(uᵢ)` — the weight
 appearing in `H_main`/`H_omit`. -/
 private noncomputable def owt (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ) : ℝ :=

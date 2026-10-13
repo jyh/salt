@@ -32,6 +32,9 @@ since the coordinate is fresh to the fold).
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- **N4.3.** The joint `W`-trick + coordinate congruence system is solvable:

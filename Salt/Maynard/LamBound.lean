@@ -26,6 +26,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- The Möbius–times–index coordinate product is bounded in absolute value by
 the plain product of indices, since `|μ n| ≤ 1` and each `dᵢ ≥ 0`. -/
 theorem abs_prod_moebius_mul_le {k : ℕ} (d : Fin k → ℕ) :

@@ -35,6 +35,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Re-declared private copy of `CollisionQuant.inv_sq_tele` / `HOmit.inv_sq_tele`
 (both `private`): telescoping tail `∑_{a < n ≤ b} (n−1)⁻² ≤ (a−1)⁻¹ − (b−1)⁻¹`. -/
 private theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :

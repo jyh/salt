@@ -29,6 +29,9 @@ contraction vanish outright.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset ArithmeticFunction
 
 /-- `fTilde ≤ 1`: on `sqfCop` it is `fWt ≤ 1` (`fWt_le_one`, using squarefree ⟹
