@@ -459,7 +459,7 @@ theorem log_sq_le_self {X : ℝ} (hX : 256 ≤ X) : Real.log X ^ 2 ≤ X := by
     linarith [h256, this.symm.le, this.le]
   have hsqrtsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hXpos.le
   have h16 : 16 * Real.sqrt X ≤ X := by nlinarith [hsqrt16, hsqrtsq]
-  nlinarith [hlogX4, hlogXnn, hs2, h16, hspos]
+  nlinarith only [hlogsle, hlogXnn, hlogs, hspos, h16, hs2]
 
 /-- **THE CONTOUR REACH SITS INSIDE THE DOUBLED CAP (`contour_height_le_two_mul`).**
 For `X ≥ 256`, `X + (log X)² ≤ 2X`: MRT p. 25's max-modulus height `|t'| ≤ X + (log X)²`
