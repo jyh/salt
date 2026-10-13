@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5107e852` · source digest `40e1a8ba7cacef83` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `52b3a678` · source digest `00ea688253dd6a83` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 22882 · with a proof/definition body: 22882 · direct corpus references (edges): 86177 · audited results: 9008 · corpus Prop-valued names: 673.
+Declarations indexed: 22908 · with a proof/definition body: 22908 · direct corpus references (edges): 86214 · audited results: 9008 · corpus Prop-valued names: 673.
 
 ## Hypothesis status (Deliverable A)
 
@@ -353,7 +353,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4CoprimeBlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_coprimeBlockMeanSq_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:350) |
 | `Salt.MR.M4DoorGates_gk` | DISCHARGED | 4 | `Salt.MR.s13_doorGates_of_arm_gk` GUARDED (Salt/MR/S13FramesA.lean:1320) · `Salt.MR.s13_doorGates_of_arm'_gk` GUARDED (Salt/MR/S13FramesA.lean:1384) |
 | `Salt.TwinBar.LiouvilleTwinDisp` | DISCHARGED | 4 | `Salt.TwinBar.liouvilleTwinDisp_of_two_objects` ✓audited GUARDED (Salt/TwinBar/TwinParitySieve.lean:812) |
-| `WindowPNT` | DISCHARGED | 4 | `Salt.Maynard.windowPNT_holds` ✓audited (Salt/Maynard/GehWindowPnt.lean:91) |
+| `WindowPNT` | DISCHARGED | 4 | `Salt.Maynard.windowPNT_holds` ✓audited (Salt/Maynard/GehWindowPnt.lean:94) |
 | `ProbabilityTheory.Kernel.AEFiniteKernelSupport` | DISCHARGED | 3 | `ProbabilityTheory.Kernel.aefiniteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:606) |
 | `Salt.Entropy.Chowla.LogChowlaAffSupply` | DISCHARGED | 3 | `Salt.MR.logChowlaAffSupply_one_zero` ✓audited GUARDED (Salt/MR/AffineSupplyH.lean:37) |
 | `Salt.MR.ExitClose` | DISCHARGED | 3 | `Salt.MR.exitClose_twelve` ✓audited (Salt/MR/ExitClose.lean:742) |
@@ -656,7 +656,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | hypothesis | status | producer(s) |
 |---|---|---|
-| `BoundedGapsFromEH` | DISCHARGED | `Salt.Maynard.bounded_gaps_from_eh_complete` ✓audited (Salt/Maynard/Complete.lean:1472) · `Salt.Maynard.bounded_gaps_from_eh'` (Salt/Maynard/LevelConsume.lean:656) |
+| `BoundedGapsFromEH` | DISCHARGED | `Salt.Maynard.bounded_gaps_from_eh_complete` ✓audited (Salt/Maynard/Complete.lean:1475) · `Salt.Maynard.bounded_gaps_from_eh'` (Salt/Maynard/LevelConsume.lean:659) |
 | `BrunStatement` | DISCHARGED | `Salt.N6.N6_2` (Salt/Brun/N6.lean:231) |
 | `PpLevel` | DISCHARGED | `Salt.Maynard.ppLevel_holds` ✓audited (Salt/Maynard/PpAssembly.lean:928) |
 | `ProbabilityTheory.Kernel.FiniteKernelSupport` | DISCHARGED | `ProbabilityTheory.Kernel.finiteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:603) · `ProbabilityTheory.Kernel.finiteKernelSupport_of_finite_range` (Salt/Entropy/Mathlib/KernelDisintegration.lean:721) · `ProbabilityTheory.Kernel.FiniteKernelSupport.deterministic` (Salt/Entropy/Mathlib/KernelDisintegration.lean:728) |
@@ -705,19 +705,19 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel'_gk` | DISCHARGED | `Salt.MR.s15_sel'_witness_gk` GUARDED (Salt/MR/S15Witness.lean:1273) |
 | `Salt.MR.SeamCoefWLevels` | DISCHARGED | `Salt.MR.seamCoefWLevels_of_global` ✓audited GUARDED (Salt/MR/SeamRowWindowed.lean:163) |
 | `Salt.MR.V7RatedForm` | DISCHARGED | `Salt.MR.logChowla2_v7_rated_form` ✓audited (Salt/MR/DoorReceipt.lean:1086) · `Salt.MR.logChowla2_v7_rated_of_generic` ✓audited (Salt/MR/DoorReceipt.lean:1094) · `Salt.MR.mrtDoorReceipt_v7_form` ✓audited (Salt/MR/DoorReceipt.lean:1100) |
-| `Salt.Maynard.Admissible` | DISCHARGED | `Salt.Maynard.H_admissible` (Salt/Maynard/Tuple.lean:90) |
-| `Salt.Maynard.CompatFrontier` | DISCHARGED | `Salt.Maynard.compatFrontier_holds` GUARDED (Salt/Maynard/Complete.lean:1412) |
-| `Salt.Maynard.CrossCollisionControlled` | DISCHARGED | `Salt.Maynard.crossCollisionControlled_holds` GUARDED (Salt/Maynard/CollisionQuant.lean:2091) · `Salt.Maynard.crossCollisionControlled_holdsW` GUARDED (Salt/Maynard/CollisionQuant.lean:2538) |
+| `Salt.Maynard.Admissible` | DISCHARGED | `Salt.Maynard.admissible_of_small_primes` GUARDED (Salt/Maynard/Tuple.lean:47) · `Salt.Maynard.std_admissible` (Salt/Maynard/Tuple.lean:116) · `Salt.Maynard.H_admissible` (Salt/Maynard/Tuple.lean:223) · +1 |
+| `Salt.Maynard.CompatFrontier` | DISCHARGED | `Salt.Maynard.compatFrontier_holds` GUARDED (Salt/Maynard/Complete.lean:1415) |
+| `Salt.Maynard.CrossCollisionControlled` | DISCHARGED | `Salt.Maynard.crossCollisionControlled_holds` GUARDED (Salt/Maynard/CollisionQuant.lean:2094) · `Salt.Maynard.crossCollisionControlled_holdsW` GUARDED (Salt/Maynard/CollisionQuant.lean:2541) |
 | `Salt.Maynard.ShiuCore` | DISCHARGED | `Salt.Maynard.sum_tau_in_ap_le` (Salt/Maynard/ShiuS5b.lean:628) |
-| `Salt.MaynardK.InnerContractRelGen` | DISCHARGED | `Salt.MaynardK.inner_contract_rel_gen` GUARDED (Salt/MaynardK/ICRel.lean:619) |
-| `Salt.MaynardK.MvJMainSplitGen` | DISCHARGED | `Salt.MaynardK.mv_J_main_split_gen` GUARDED (Salt/MaynardK/JMainSplit.lean:831) |
-| `Salt.MaynardK.WinFrontierMW105` | DISCHARGED | `Salt.MaynardK.winFrontierMW105_of` GUARDED (Salt/MaynardK/Frontier105.lean:137) · `Salt.MaynardK.winFrontierMW105_all` GUARDED (Salt/MaynardK/Slack105.lean:741) |
+| `Salt.MaynardK.InnerContractRelGen` | DISCHARGED | `Salt.MaynardK.inner_contract_rel_gen` GUARDED (Salt/MaynardK/ICRel.lean:622) |
+| `Salt.MaynardK.MvJMainSplitGen` | DISCHARGED | `Salt.MaynardK.mv_J_main_split_gen` GUARDED (Salt/MaynardK/JMainSplit.lean:834) |
+| `Salt.MaynardK.WinFrontierMW105` | DISCHARGED | `Salt.MaynardK.winFrontierMW105_of` GUARDED (Salt/MaynardK/Frontier105.lean:141) · `Salt.MaynardK.winFrontierMW105_all` GUARDED (Salt/MaynardK/Slack105.lean:745) |
 | `Salt.Parity.Completion` | DISCHARGED | `Salt.Parity.oneWeight_mem` ✓audited GUARDED (Salt/Parity/Z.lean:460) · `Salt.Parity.twinFree_mem` ✓audited GUARDED (Salt/Parity/Z.lean:618) |
 | `Salt.Parity.ParityInv` | DISCHARGED | `parityInv_S1_le_S2` ✓audited (Salt/Parity/Instances.lean:37) · `parityInv_twin_bar` ✓audited (Salt/Parity/Instances.lean:45) · `parityInv_twin_gate_fails` ✓audited (Salt/Parity/Instances.lean:53) · +8 |
 | `Salt.SW.EstermannInterface'` | DISCHARGED | `Salt.SW.estermannInterface'` ✓audited (Salt/SW/EstermannInterface.lean:231) |
 | `Salt.Twelve.IsPowerful` | DISCHARGED | `Salt.Twelve.powPart_isPowerful` (Salt/Twelve/PhiUpperReindex.lean:107) |
-| `Salt.Twelve.S1InnerBoundM` | DISCHARGED | `Salt.Twelve.s1_inner_bounded` GUARDED (Salt/Twelve/InnerS1.lean:318) |
-| `Salt.Twelve.S2InnerBoundQC` | DISCHARGED | `Salt.MaynardK.s2_inner_y_gen` GUARDED (Salt/MaynardK/InnerS2Gen.lean:887) |
+| `Salt.Twelve.S1InnerBoundM` | DISCHARGED | `Salt.Twelve.s1_inner_bounded` GUARDED (Salt/Twelve/InnerS1.lean:321) |
+| `Salt.Twelve.S2InnerBoundQC` | DISCHARGED | `Salt.MaynardK.s2_inner_y_gen` GUARDED (Salt/MaynardK/InnerS2Gen.lean:890) |
 | `Salt.Twelve.WinFrontier` | DISCHARGED | `Salt.Twelve.winFrontier_of` (Salt/Twelve/WinFrontierDischarge.lean:144) |
 | `Salt.Twelve.WinFrontierMW` | DISCHARGED | `Salt.Twelve.winFrontierMW_of` ✓audited GUARDED (Salt/Twelve/FrontierM.lean:155) |
 | `Salt.TwinBar.MarginalVanish` | DISCHARGED | `Salt.TwinBar.tent_marginalVanish` (Salt/TwinBar/Constrained.lean:349) |
@@ -970,7 +970,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | circle method / Fourier | 181 | 83 | 560 | 540 | 22 | 10 | 0 | 1132 | 1068 |
 | entropy decrement | 1389 | 525 | 525 | 409 | 78 | 38 | 0 | 1050 | 604 |
 | large sieve | 136 | 18 | 710 | 491 | 1 | 22 | 0 | 1224 | 1210 |
-| Selberg/Brun sieve | 5626 | 949 | 3741 | 1249 | 65 | 93 | 0 | 5148 | 4284 |
+| Selberg/Brun sieve | 5636 | 949 | 3741 | 1249 | 65 | 93 | 0 | 5148 | 4284 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1480 | 612 | 4 | 19 | 0 | 2115 | 1483 |
 | zero-density / zero-free regions | 724 | 292 | 1017 | 641 | 2 | 20 | 0 | 1680 | 1427 |
 | character sums / L-functions | 4277 | 2153 | 1808 | 745 | 81 | 99 | 0 | 2733 | 881 |
@@ -1168,7 +1168,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | zero-density / zero-free regions | 1427 | 292 | 724 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1483 | 726 | 1609 |
 | Mertens / PNT-type | 1544 | 67 | 253 |
-| Selberg/Brun sieve | 4284 | 949 | 5626 |
+| Selberg/Brun sieve | 4284 | 949 | 5636 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
