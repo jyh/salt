@@ -54,9 +54,6 @@ open scoped BigOperators
 
 namespace Salt.Chen
 
-set_option linter.unusedSectionVars false
-variable [Salt.Maynard.TupleChoice]
-
 /-! ## Section 1 — the PNT corollary (ψ upper/lower from the gate, `A = 1`) -/
 
 /-- **The unconditional PNT bound at `A = 1`.** There is `K ≥ 0` with

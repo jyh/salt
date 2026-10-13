@@ -19,9 +19,6 @@ composition with the bridge argument gone.
 
 namespace Salt.BV
 
-set_option linter.unusedSectionVars false
-variable [Salt.Maynard.TupleChoice]
-
 /-- **Bounded prime gaps, conditional on Siegel–Walfisz + the ψ→π bridge.**
 The Bombieri–Vinogradov chain (`psi_BV_of_siegelWalfisz'` →
 `hasLevel_half_of_siegelWalfisz_of_bridge`) feeding the landed Maynard

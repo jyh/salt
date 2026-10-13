@@ -18,9 +18,6 @@ Design: `docs/blueprints/bv.md`, node `V4` and `docs/blueprints/flags.md`
 
 namespace Salt.BV
 
-set_option linter.unusedSectionVars false
-variable [Salt.Maynard.TupleChoice]
-
 open Finset Filter Salt.LS Salt.Maynard ArithmeticFunction
 open scoped BigOperators
 

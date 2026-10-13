@@ -47,9 +47,6 @@ open Salt.LS ArithmeticFunction
 
 namespace Salt.SW
 
-set_option linter.unusedSectionVars false
-variable [Salt.Maynard.TupleChoice]
-
 set_option maxHeartbeats 1200000 in
 -- The arithmetic core threads two divisions (`/φ`, `/P`) and several `h²`-scaled
 -- nlinarith closes; the elaborator needs headroom past the default.
