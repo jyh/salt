@@ -204,7 +204,7 @@ theorem row_hDsq {x k i F Krange D : ℕ} (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
       linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 10 by norm_num)]
     have hkey : (96 : ℝ) * Real.log 10 ≤ Real.log x := by
       have h9 : (96 : ℝ) * 9 ≤ (10 : ℝ) ^ 9 := by norm_num
-      nlinarith [hlog10, hlogx]
+      linarith only [hlog10, hlogx]
     calc (10 : ℝ) ^ 96 = Real.exp (Real.log ((10 : ℝ) ^ 96)) :=
           (Real.exp_log (by positivity)).symm
       _ = Real.exp ((96 : ℝ) * Real.log 10) := by rw [Real.log_pow]; push_cast; ring
@@ -466,7 +466,7 @@ theorem row_hDXM {x k i F Krange X D : ℕ} (hx : Real.exp (10 ^ 9) ≤ (x : ℝ
   have hDx := row_hDx (by linarith [hx4]) hDhi
   have hsqrtx : Real.sqrt (x : ℝ) ≤ (x : ℝ) / 2 := by
     rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt; nlinarith [hx4, hxpos]
+    apply Real.sqrt_le_sqrt; nlinarith only [hx4, (Nat.cast_nonneg _ : 0 ≤ ↑x)]
   have hhalf : (x : ℝ) / 2 < (X : ℝ) * (pieceM k : ℝ) := (xm_real_bounds hlo hhi).2.1
   linarith [hDx, hsqrtx, hhalf]
 

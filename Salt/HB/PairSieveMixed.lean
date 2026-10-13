@@ -428,7 +428,7 @@ noncomputable def mixPairSieve (x d₁ d₂ Z : ℕ) (hZ : 1 ≤ Z) : SelbergSie
   level := (Z : ℝ) ^ 2
   one_le_level := by
     have hZ1 : (1 : ℝ) ≤ (Z : ℝ) := by exact_mod_cast hZ
-    nlinarith
+    nlinarith only [hZ1, (Nat.cast_nonneg _ : 0 ≤ ↑Z)]
 
 variable {x d₁ d₂ Z : ℕ} {hZ : 1 ≤ Z}
 
