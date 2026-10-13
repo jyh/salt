@@ -713,7 +713,7 @@ theorem psi1_contour_shift_finsetM_gap {f : ℕ} [NeZero f] (χ : DirichletChara
     have hxexp : x ^ (u + 1) ≤ x ^ (c + 1) :=
       Real.rpow_le_rpow_of_exponent_le hx1 (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ (u + 1) * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖logDeriv (LFunction χ) ((u : ℂ) + (τ : ℂ) * I)‖

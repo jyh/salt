@@ -706,7 +706,7 @@ lemma cpair_exp_absorb {z x : ℕ} (hz2 : 2 ≤ z) (hLz0 : Lwin x ≤ Real.exp (
   have hlog2 : Real.log 2 ≤ 1 := by
     have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
   have hexp2log2 : Real.exp (2 * Real.log 2 * z0 z x) ≤ Real.exp (2 * z0 z x) :=
-    Real.exp_le_exp.mpr (by nlinarith [hz0, hlog2, mul_nonneg hz0 (sub_nonneg.mpr hlog2)])
+    Real.exp_le_exp.mpr (by linarith only [mul_nonneg hz0 (sub_nonneg.mpr hlog2)])
   have hL2 : Lwin x ^ 2 ≤ Real.exp (2 * z0 z x) := by
     calc Lwin x ^ 2 = Lwin x * Lwin x := by ring
       _ ≤ Real.exp (z0 z x) * Real.exp (z0 z x) := mul_le_mul hLz0 hLz0 hL0 (Real.exp_pos _).le

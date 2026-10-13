@@ -118,7 +118,7 @@ lemma rsumTerm_le_geom {A C₀ : ℝ} (hA : 1 ≤ A) (hC₀ : 0 ≤ C₀) :
     have hb : t * (Real.log A + Real.log 2 + 2) ≤ t * (Real.log t / 8) :=
       mul_le_mul_of_nonneg_left hstep ht0.le
     have h2t : 2 * t ^ (3 / 4 : ℝ) ≤ 2 * t := by linarith [h34_1]
-    nlinarith [hb, h2t]
+    linarith only [hb, h34_1]
   -- A^r = exp(r log A);  (1/2)^r = exp(-r log 2)
   have hApow : A ^ r = Real.exp (t * Real.log A) := by
     rw [← Real.rpow_natCast A r, Real.rpow_def_of_pos hApos, htdef]; ring_nf
@@ -134,7 +134,7 @@ lemma rsumTerm_le_geom {A C₀ : ℝ} (hA : 1 ≤ A) (hC₀ : 0 ≤ C₀) :
       ≤ -(t * Real.log 2) := by
     have hgoal := hP
     have hgoal2 := hmain
-    nlinarith [hP, hmain]
+    linarith only [hmain, hP]
   -- align the cast of r inside logs with t
   simpa [htdef] using this
 

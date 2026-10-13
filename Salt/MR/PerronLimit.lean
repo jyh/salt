@@ -263,7 +263,7 @@ theorem zone_sum_collapsed_wide (a : ℕ → ℂ) (s0 : Finset ℕ) {X x T : ℝ
     calc ‖a m‖ * (2 * (x / m) * M)
         ≤ 1 * (6 * M) := by
           refine mul_le_mul (ha m hm) ?_ ?_ zero_le_one
-          · nlinarith [hxm3, hMnn]
+          · nlinarith only [hMnn, hxm3]
           · exact mul_nonneg (by positivity) hMnn
       _ = 6 * M := one_mul _
   have hstepB := zone_min_sum_le_wide s0 hX hT hx (by linarith) hrange
@@ -468,7 +468,7 @@ theorem lemma14_shortInterval_concrete (a : ℕ → ℂ) (s0 : Finset ℕ) {X h�
     exact Real.log_le_log (Real.exp_pos 1) hX
   have hLinv1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
-  have hh2XX : h₂ ≤ X := by nlinarith [hh2X, hLinv1, hXpos]
+  have hh2XX : h₂ ≤ X := by nlinarith only [he2, hLinv1, hX, hh2X]
   have hTpos : (0 : ℝ) < 2 * (X / h₁) := by positivity
   refine lemma14_shortInterval_of_perron a s0 hX hh1 hh12 hh2X ha hrange hMsup ?_
   have hguards := perron_guards_ae s0 h₁ h₂ (volume.restrict (Set.Icc X (2 * X)))
