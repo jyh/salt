@@ -29,6 +29,7 @@ gives `Σ_{p ≤ D} 1/(p−1) ≤ 3/2 + (log D)/2`, hence the ratio is
 -/
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Finset
 

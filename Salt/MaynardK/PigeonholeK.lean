@@ -14,6 +14,7 @@ import Salt.Maynard.S2Eh
 -/
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

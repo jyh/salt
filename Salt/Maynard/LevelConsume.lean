@@ -25,6 +25,7 @@ consumer (`S2m_ge_compatMain_lod`) is unaffected.
 open Finset Filter
 
 namespace Salt.Maynard
+variable [Salt.Maynard.TupleChoice]
 
 /-- **L2 — the level-of-distribution error bound.** Under `HasLevel (1/2)`, the
 `(3k)^ω`-weighted discrepancy over squarefree moduli `≤ √N/(log N)^B'` is

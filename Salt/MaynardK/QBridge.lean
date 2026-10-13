@@ -22,6 +22,7 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 

@@ -31,6 +31,7 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
+variable [Salt.Maynard.TupleChoice]
 
 /-! ## Local private copies of the landed private helpers
 

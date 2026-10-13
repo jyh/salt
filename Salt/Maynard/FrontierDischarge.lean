@@ -24,7 +24,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-! ## R-uniform sharp `λ`-bound

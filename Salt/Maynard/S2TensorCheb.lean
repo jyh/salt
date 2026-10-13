@@ -31,7 +31,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- **Overshoot ≤ (1/8)·A₁^{k-1} in the regime.**  From `overshoot_cheb_composed`

@@ -35,6 +35,7 @@ mirroring `Salt.Maynard.EulerTailL`'s `inv_gMult_expand` (whose lemmas are
 open Finset
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

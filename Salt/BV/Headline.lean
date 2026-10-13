@@ -18,6 +18,7 @@ composition with the bridge argument gone.
 -/
 
 namespace Salt.BV
+variable [Salt.Maynard.TupleChoice]
 
 /-- **Bounded prime gaps, conditional on Siegel–Walfisz + the ψ→π bridge.**
 The Bombieri–Vinogradov chain (`psi_BV_of_siegelWalfisz'` →

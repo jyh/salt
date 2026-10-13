@@ -34,6 +34,7 @@ Everything is additive (`*W`-suffixed); no landed statement is touched.
 -/
 
 namespace Salt.Maynard
+variable [Salt.Maynard.TupleChoice]
 
 open Finset
 

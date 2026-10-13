@@ -19,6 +19,7 @@ open Finset Salt.Twelve
 open scoped Nat
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 /-- the `ℓ¹` norm of the coefficient list. -/
 def Qsum : ℚ := (F.map fun x => |(x.2 : ℚ)|).sum

@@ -39,7 +39,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-! ## Basic combinatorial facts about a compatible pair -/

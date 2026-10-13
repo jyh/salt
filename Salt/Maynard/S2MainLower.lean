@@ -39,7 +39,6 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- **S₂ main lower bound.** The `dₘ = eₘ = 1`-restricted S₂ quadratic form is

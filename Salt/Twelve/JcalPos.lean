@@ -21,6 +21,7 @@ locally (suffix `P`) rather than editing that module.
 -/
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 /-! ## Local replica of the `biQuad` homogeneity chain (private in `FstarNorm`) -/
 

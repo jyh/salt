@@ -35,6 +35,7 @@ the 4-dim g-weighted outer sum.
 open Finset
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

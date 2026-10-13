@@ -61,7 +61,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- Nonnegativity of the truncated coordinate weight `fTilde`. -/

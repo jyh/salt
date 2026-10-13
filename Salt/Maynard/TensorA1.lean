@@ -24,7 +24,6 @@ This file connects the abstract S₁ diagonal side
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- The truncated coordinate weight: `fWt` inside the `R₀` box (squarefree,

@@ -34,7 +34,6 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- `∑_{a<R} fTilde(a)/φ(a) ≤ B₁`: `fTilde = fWt` on `sqfCop(R₀,W)` and `0` off

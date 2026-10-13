@@ -20,6 +20,7 @@ statement (its private `mv_J_main_split` entering as a hypothesis).
 open Finset
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 

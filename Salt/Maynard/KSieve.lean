@@ -18,7 +18,6 @@ used pervasively downstream.
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

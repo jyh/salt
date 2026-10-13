@@ -35,6 +35,7 @@ Route (three stages):
 open Finset
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

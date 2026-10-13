@@ -34,7 +34,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- **Crude second moment.**  `A₁⁽²⁾ ≤ T²·A₁` (thin wrapper over

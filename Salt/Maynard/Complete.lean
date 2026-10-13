@@ -29,6 +29,7 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
+variable [Salt.Maynard.TupleChoice]
 
 /-! ## Part A — explicit Mertens second theorem (sub-one form) -/
 

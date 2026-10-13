@@ -29,6 +29,7 @@ a `budget_moment_g` GAP `≤ Cg·log R/D`, the others are crude g-moments
 open Finset
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

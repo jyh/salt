@@ -31,15 +31,13 @@ lemma nth_prime_131 : Nat.nth Nat.Prime 131 = 743 := by
 
 theorem hSeq_105_bounds (i : Fin 105) : 107 ≤ hSeq 105 i ∧ hSeq 105 i ≤ 743 := by
   have hmono := Nat.nth_strictMono Nat.infinite_setOf_prime
-  unfold hSeq
-  rw [firstIdxAboveK_105]
+  rw [hSeq_std, firstIdxAboveK_105]
   constructor
   · rw [← nth_prime_27]; exact hmono.monotone (Nat.le_add_right 27 i)
   · rw [← nth_prime_131]; exact hmono.monotone (by omega)
 
 theorem hSeq_105_eq : hSeq 105 ⟨0, by omega⟩ = 107 ∧ hSeq 105 ⟨104, by omega⟩ = 743 := by
-  unfold hSeq
-  rw [firstIdxAboveK_105]
+  rw [hSeq_std, firstIdxAboveK_105]
   exact ⟨nth_prime_27, nth_prime_131⟩
 
 theorem hSeq_diam_le_636 (i j : Fin 105) :

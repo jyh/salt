@@ -38,6 +38,7 @@ This file provides:
 -/
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

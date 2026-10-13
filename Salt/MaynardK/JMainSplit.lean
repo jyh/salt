@@ -17,6 +17,7 @@ ported off `Fin 4`. Ported by an Opus executor from a frozen brief (2026-10-11).
 open Finset
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 

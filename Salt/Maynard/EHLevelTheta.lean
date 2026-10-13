@@ -32,6 +32,7 @@ Constants: `θ★ = 1999/2000`, `θ★/2 = 1999/4000`, level `θ₊ = 3999/4000`
 open Finset Filter
 
 namespace Salt.Maynard
+variable [Salt.Maynard.TupleChoice]
 
 /-! ## The level-θ★ error bound (`lod_error_pow_theta`) -/
 

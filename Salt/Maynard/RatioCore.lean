@@ -44,7 +44,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- **`B1_ratio_lower`.** `Q·log k/18 ≤ B₁`, with `Q = (φW/W)·b⁻¹`.  Uses the

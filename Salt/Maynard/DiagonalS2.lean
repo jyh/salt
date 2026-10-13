@@ -35,7 +35,6 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-! ## Small reindexing helpers (copied from the S₁ file; `private` there) -/

@@ -55,7 +55,6 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- The explicit S₂ collision constant. -/

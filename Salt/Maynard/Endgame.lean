@@ -25,7 +25,6 @@ end-of-proof building blocks:
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

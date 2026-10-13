@@ -53,6 +53,7 @@ open Salt.LS ArithmeticFunction
 open scoped BigOperators
 
 namespace Salt.Chen
+variable [Salt.Maynard.TupleChoice]
 
 /-! ## Section 1 — the PNT corollary (ψ upper/lower from the gate, `A = 1`) -/
 

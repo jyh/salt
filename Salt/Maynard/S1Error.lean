@@ -37,7 +37,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- **N4.2 — the S₁ trivial-error factorization (load-bearing).** The double

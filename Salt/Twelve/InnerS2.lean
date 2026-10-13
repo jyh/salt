@@ -30,6 +30,7 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

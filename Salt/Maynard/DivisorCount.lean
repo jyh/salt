@@ -28,7 +28,6 @@ induction on `k`, splitting off the first coordinate `m` (whose value ranges in
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

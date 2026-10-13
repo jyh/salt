@@ -37,7 +37,6 @@ open Finset
 
 namespace Salt.Maynard
 
-set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-! ## `euler_tail_L` — the `L`-weighted Euler tail -/

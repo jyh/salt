@@ -30,6 +30,7 @@ own files, the small amount of shared machinery (log/reindex facts, the
 open Finset
 
 namespace Salt.Twelve
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 

@@ -17,6 +17,7 @@ recovers the landed statement. Ported by an Opus executor from a frozen brief (2
 open Finset
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve
 

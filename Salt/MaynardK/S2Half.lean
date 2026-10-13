@@ -15,6 +15,7 @@ import Salt.Maynard.LevelConsume
 -/
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard Salt.Twelve
 

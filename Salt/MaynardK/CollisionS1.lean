@@ -16,6 +16,7 @@ import Salt.Twelve.InnerS1
 open Finset Salt.Twelve Salt.Maynard
 
 namespace Salt.MaynardK
+variable [Salt.Maynard.TupleChoice]
 
 theorem collision_y_M (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (hk : 1 ≤ k)
     (hy1 : ∀ r, |y r| ≤ 1) (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
