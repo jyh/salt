@@ -49,6 +49,7 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- `fWt(1) = 1`: `u(1) = k·log 1/log R = 0`, so `fWt(1) = 1/(1+0) = 1`. -/

@@ -32,6 +32,7 @@ The error constant is deliberately generous (`2^(k+1)`): the caller
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

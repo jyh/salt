@@ -30,6 +30,8 @@ own files, the small amount of shared machinery (log/reindex facts, the
 open Finset
 
 namespace Salt.Twelve
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard

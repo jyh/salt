@@ -16,6 +16,8 @@ import Salt.Twelve.InnerS1
 open Finset Salt.Twelve Salt.Maynard
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 theorem collision_y_M (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (hk : 1 ≤ k)

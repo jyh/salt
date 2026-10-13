@@ -24,6 +24,7 @@ Markov argument — a bounded fraction of `A₁^k`.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- On the natural-number support `r ≥ 1`, `u(r) = k·log r/log R ≥ 0` — no `2 ≤ R`

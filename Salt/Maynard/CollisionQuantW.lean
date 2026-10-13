@@ -35,6 +35,8 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-- **W5-1 (Node A).** The one tensor-dependent atom of the S1 collision

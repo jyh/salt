@@ -17,6 +17,7 @@ open Finset Filter
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-! ## k₀-regime elementary facts -/

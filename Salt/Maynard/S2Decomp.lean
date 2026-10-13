@@ -66,6 +66,7 @@ prime-count-in-progression discrepancy — exactly the quantity N5.2 controls.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

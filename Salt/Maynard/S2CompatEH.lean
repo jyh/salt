@@ -32,6 +32,7 @@ regrouping, and `eh_error_pow` at both endpoints) is layered on top.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

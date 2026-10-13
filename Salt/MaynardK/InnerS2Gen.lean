@@ -18,6 +18,8 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard Salt.Twelve

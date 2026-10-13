@@ -25,6 +25,8 @@ consumer (`S2m_ge_compatMain_lod`) is unaffected.
 open Finset Filter
 
 namespace Salt.Maynard
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-- **L2 — the level-of-distribution error bound.** Under `HasLevel (1/2)`, the

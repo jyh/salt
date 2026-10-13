@@ -15,6 +15,8 @@ import Salt.Maynard.LevelConsume
 -/
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard Salt.Twelve

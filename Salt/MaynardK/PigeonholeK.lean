@@ -14,6 +14,8 @@ import Salt.Maynard.S2Eh
 -/
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard

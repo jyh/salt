@@ -35,6 +35,7 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- Re-declared private copy of `CollisionQuant.inv_sq_tele` / `HOmit.inv_sq_tele`

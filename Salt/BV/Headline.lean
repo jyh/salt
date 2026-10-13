@@ -18,6 +18,8 @@ composition with the bridge argument gone.
 -/
 
 namespace Salt.BV
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-- **Bounded prime gaps, conditional on Siegel–Walfisz + the ψ→π bridge.**

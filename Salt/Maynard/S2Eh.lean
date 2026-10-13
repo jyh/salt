@@ -57,6 +57,7 @@ with `w(n) = (∑_d λ_d [∀i dᵢ ∣ n+hᵢ])²` the Maynard sieve weight (`w
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 open Finset

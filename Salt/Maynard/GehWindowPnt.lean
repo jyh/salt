@@ -38,6 +38,8 @@ dividing by `log(64N)`, the normalised lower bound `count·log N/N` tends to `63
 open Filter Topology
 
 namespace Salt.Maynard
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-- `√(64N)/N → 0`: the prime-power strip term `C·√(64N)`, once normalised by the

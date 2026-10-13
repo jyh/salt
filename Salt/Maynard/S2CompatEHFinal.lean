@@ -43,6 +43,7 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- **Uniform disc bound.** A repackaging of `abs_S2m_sub_compatMain_le_disc`

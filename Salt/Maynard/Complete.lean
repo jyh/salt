@@ -29,6 +29,8 @@ open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-! ## Part A — explicit Mertens second theorem (sub-one form) -/

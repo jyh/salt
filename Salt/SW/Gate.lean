@@ -46,6 +46,8 @@ are absorbed into the single existential constant `K`.
 open Salt.LS ArithmeticFunction
 
 namespace Salt.SW
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 set_option maxHeartbeats 1200000 in

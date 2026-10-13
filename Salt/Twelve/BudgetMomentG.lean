@@ -35,6 +35,8 @@ mirroring `Salt.Maynard.EulerTailL`'s `inv_gMult_expand` (whose lemmas are
 open Finset
 
 namespace Salt.Twelve
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard

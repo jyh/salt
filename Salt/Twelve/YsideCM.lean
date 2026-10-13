@@ -34,6 +34,8 @@ via the (opaque) `mv_I` error witnesses as `hD0`; at the endgame (`F = Fstar1`,
 open Finset
 
 namespace Salt.Twelve
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard

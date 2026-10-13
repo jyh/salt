@@ -20,6 +20,8 @@ open Finset Salt.Twelve
 open scoped Nat
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-- the multinomial coefficient splits at a coordinate: `mult e = C(c, e m) · mult (removeNth m e)`.

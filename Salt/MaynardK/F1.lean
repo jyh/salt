@@ -19,6 +19,8 @@ open Finset Salt.Twelve
 open scoped Nat
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 /-- the `ℓ¹` norm of the coefficient list. -/

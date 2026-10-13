@@ -24,6 +24,7 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
 /-- `A₁ ≥ 1`: the `r = 1` term contributes `fWt(1)²/φ(1) = 1`, all others `≥ 0`. -/
