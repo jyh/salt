@@ -15,8 +15,8 @@ import Salt.MaynardK.Ratio
 `winSlackM105_ev`: there is an (existential) cutoff `D₀ ≥ 744` such that for every `D ≥ D₀`
 and every `C₀ ≥ 0`, the M-based ratio slack `WinSlackM105 D C₀ N'` holds for all large `N'`.
 Mirror of `Salt/Twelve/GapsUncond.lean`'s `winSlackM_ev` (k = 5) with window exponent `9999/40000`,
-level `1/2`, `c_DL = 15746/1000`, `ε = 1/1000`, `h_max = 743`, weight `F1`, certificate
-`ratio_cert_105`.
+level `1/2`, `c_DL = 15746/1000`, `ε = 1/1000`, `h_max ≤ 743` (the hypothesis `hle` — the module is
+generic in the tuple, `TupleChoice`), weight `F1`, certificate `ratio_cert_105`.
 
 The per-`N'` arithmetic is isolated in `slack_closure_105`, a lemma over real atoms, so no
 k = 105 power of a sum is ever expanded. `winFrontierMW105_all` composes the result with
@@ -24,6 +24,9 @@ k = 105 power of a sum is ever expanded. `winFrontierMW105_all` composes the res
 -/
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
 
 open Finset Filter
 open Salt.Maynard Salt.Twelve Salt.MaynardK
@@ -306,7 +309,8 @@ set_option maxHeartbeats 10000000 in
 -- The endgame assembly threads ~40 named bounds into `slack_closure_105`; the large local
 -- context (105-indexed `choose`s, the `∀ᶠ` bundle) makes elaboration heartbeat-heavy. Same
 -- budget as the k = 5 template.
-theorem winSlackM105_ev : ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D →
+theorem winSlackM105_ev (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) :
+    ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D →
     ∀ C₀ : ℝ, 0 ≤ C₀ → ∀ᶠ N' : ℕ in atTop, WinSlackM105 D C₀ N' := by
   classical
   -- === F-only constants (obtained before the cutoff `D₀`) ===
@@ -439,7 +443,7 @@ theorem winSlackM105_ev : ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤
     exact div_pos (mul_pos (mul_pos (by norm_num) (pow_pos hκpos 105)) hIcpos)
       (mul_pos hW'r (by norm_num))
   -- === the `∀ᶠ N'` bundle ===
-  filter_upwards [eventually_ge_atTop 32, deltaPi_upper_ev_105, eventually_R_ge_rho Rbig,
+  filter_upwards [eventually_ge_atTop 32, deltaPi_upper_ev_105 hle, eventually_R_ge_rho Rbig,
     eventually_logR_ge_rho 1, eventually_DL_105,
     eventually_div_logR_le_rho ((2:ℝ) ^ 105 * cF) (Ic / 1400000) (by positivity),
     eventually_div_logR_le_rho (12 * (105:ℝ) ^ 2 / D * (2:ℝ) ^ 105 * c1) (Ic / 1400000)
@@ -738,9 +742,10 @@ theorem winSlackM105_ev : ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤
     (hTRev := hTRev) (hHerrev := hHerrev)
 
 /-- CONTROL (the B4.6 composition): the slack discharges `WinFrontierMW105` at every `D ≥ D₀`. -/
-theorem winFrontierMW105_all : ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D → WinFrontierMW105 D := by
-  obtain ⟨D₀, hD₀, hslack⟩ := winSlackM105_ev
+theorem winFrontierMW105_all (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) :
+    ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D → WinFrontierMW105 D := by
+  obtain ⟨D₀, hD₀, hslack⟩ := winSlackM105_ev hle
   exact ⟨D₀, hD₀, fun D hD =>
-    winFrontierMW105_of D (le_trans hD₀ hD) (fun C₀ hC₀ => hslack D hD C₀ hC₀)⟩
+    winFrontierMW105_of D (le_trans hD₀ hD) hle (fun C₀ hC₀ => hslack D hD C₀ hC₀)⟩
 
 end Salt.MaynardK
