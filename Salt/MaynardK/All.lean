@@ -11,6 +11,7 @@ import Salt.MaynardK.Controls
 import Salt.MaynardK.F1
 import Salt.MaynardK.Frontier105
 import Salt.MaynardK.Gaps636
+import Salt.MaynardK.Gaps600
 import Salt.MaynardK.ICRel
 import Salt.MaynardK.InnerS2Gen
 import Salt.MaynardK.ISplit
@@ -33,12 +34,13 @@ import Salt.MaynardK.Slack105
 import Salt.MaynardK.SlackRho
 import Salt.MaynardK.Square
 import Salt.MaynardK.Tuple105
+import Salt.MaynardK.Tuple600
 import Salt.MaynardK.Vandermonde
 import Salt.MaynardK.WinCore105
 import Salt.Tactic.AuditAxioms
 
 /-!
-# `Salt.MaynardK` — bounded gaps with gap at most 636
+# `Salt.MaynardK` — bounded gaps with gap at most 636, and at most 600
 
 The k = 105 run of Maynard's proof of Theorem 1.3 (arXiv:1311.4600v3) with the first 105 primes
 greater than 105 as the admissible tuple. The capstones are `Gaps636.gaps_le_636` (no
@@ -55,3 +57,9 @@ open Salt.Tactic in
   Salt.MaynardK.mv_I_of_gen Salt.MaynardK.mv_J_of_gen Salt.MaynardK.mv_I_split_of_gen
   Salt.MaynardK.mv_J_split_of_gen Salt.MaynardK.s2_inner_yF_of_gen
   Salt.MaynardK.qdiag_bridge_k5 Salt.MaynardK.S1_lt_sum_S2mW_k5
+
+-- B5: gap at most 600 on Engelsma's tuple (Tuple600), the same chain made generic in the tuple.
+open Salt.Tactic in
+#audit_axioms Salt.MaynardK.gaps_le_600 Salt.MaynardK.maynard_105_tuple600
+  Salt.MaynardK.engelsmaTuple Salt.MaynardK.hSeq_engelsma_le_743
+  Salt.MaynardK.hSeq_engelsma_diam_le_600
