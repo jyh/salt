@@ -415,7 +415,7 @@ theorem hCoef_abs_sum_le (hr : Squarefree r) (hr' : Squarefree r') :
           Nat.mem_primeFactors.mpr ⟨hpp, hd', hr'.ne_zero⟩⟩
       rw [if_pos hd, if_pos hd', if_pos hmem,
         abs_of_nonneg (by nlinarith : (0 : ℝ) ≤ (p : ℝ) * ((p : ℝ) - 2))]
-      nlinarith
+      linarith only [hp2]
     · have hnm : p ∉ r.primeFactors ∩ r'.primeFactors := fun hq =>
         hd' (Nat.dvd_of_mem_primeFactors (Finset.mem_inter.mp hq).2)
       rw [if_pos hd, if_neg hd', if_neg hnm, abs_neg,
