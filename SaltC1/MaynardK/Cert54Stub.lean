@@ -21,7 +21,9 @@ merged while it exists: it is replaced by the real certificate (`F54`, `Iform54`
 
 open Finset Salt.Twelve
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
+
+open Salt.MaynardK
 
 /-- STUB — the `ℓ¹` norm of the k = 54 coefficient list (`Qsum` at k = 105). -/
 noncomputable opaque Qsum54 : ℚ
@@ -55,4 +57,4 @@ theorem ratio_cert_54 : (40015 : ℚ) * Iform54 < 10000 * (54 * Jform54) := by s
 /-- STUB — `Iform_pos` at k = 54. -/
 theorem Iform54_pos : 0 < Iform54 := by sorry
 
-end Salt.MaynardK
+end SaltC1.MaynardK

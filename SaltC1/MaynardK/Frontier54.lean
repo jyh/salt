@@ -19,7 +19,7 @@ Generic in the tuple (`TupleChoice`): the `54`-entries are assumed `≤ 270` (`h
 Ported from the k = 105 layer by substitution (2026-10-14).
 -/
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
 
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
@@ -259,5 +259,5 @@ theorem winFrontierMW54_of (D : ℕ) (hD : 271 ≤ D) (hle : ∀ i : Fin 54, hSe
   · -- conjunct 7 : the assembled ratio-slack (B4.5c)
     exact hslack
 
-end Salt.MaynardK
+end SaltC1.MaynardK
 

@@ -23,7 +23,7 @@ k = 54 power of a sum is ever expanded. `winFrontierMW54_all` composes the resul
 `winFrontierMW54_of`. Nothing here bears on twin primes.
 -/
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
 
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
@@ -753,4 +753,4 @@ theorem winFrontierMW54_all (hle : ∀ i : Fin 54, hSeq 54 i ≤ 270) :
   exact ⟨D₀, hD₀, fun D hD =>
     winFrontierMW54_of D (le_trans hD₀ hD) hle (fun C₀ hC₀ => hslack D hD C₀ hC₀)⟩
 
-end Salt.MaynardK
+end SaltC1.MaynardK

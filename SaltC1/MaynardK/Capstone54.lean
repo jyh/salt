@@ -30,7 +30,7 @@ Nothing here bears on twin primes.
 
 open Finset Filter Topology
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
 
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
@@ -84,4 +84,4 @@ theorem maynard_54_of_slack (hS : SlackEv54) (hle : ∀ i : Fin 54, hSeq 54 i �
   exact ⟨n, by omega, hcard⟩
 
 
-end Salt.MaynardK
+end SaltC1.MaynardK

@@ -25,7 +25,7 @@ The k = 54 instances (`n = 53`, `P = F54`) close with `J1_pos54`, which follows 
 
 open Finset
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
 
 open Salt.Maynard Salt.Twelve Salt.MaynardK
 
@@ -395,5 +395,5 @@ theorem s2_collision_floor_54 (m : Fin 54) :
   rw [hc] at h
   exact h
 
-end Salt.MaynardK
+end SaltC1.MaynardK
 

@@ -12,7 +12,7 @@ import Salt.Twelve.GapsUncond
 
 open Finset Filter Topology
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
 
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
@@ -417,5 +417,5 @@ theorem gaps_le_of_frontier54 (D : ℕ) (hD : 271 ≤ D) (hDk : 12 * 54 ^ 2 ≤ 
     (primorial_sqf' D) (primorial_hDlt D) (fun i => lt_of_le_of_lt (hle i) hD)
     hDk hsol hφpos hcvnn hδ0 hDpi hQlow hS2low hslack
 
-end Salt.MaynardK
+end SaltC1.MaynardK
 

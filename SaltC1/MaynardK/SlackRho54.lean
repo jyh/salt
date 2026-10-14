@@ -18,7 +18,7 @@ level-`1/2` range facts of `LevelRange` (`R_ge_two_rho`, threshold 32; `R_sq_le_
 `δ = (63 − 1/1000)·N'/log N' − 270`. Nothing here bears on twin primes.
 -/
 
-namespace Salt.MaynardK
+namespace SaltC1.MaynardK
 
 open Finset Filter Topology
 open Salt.Maynard Salt.MaynardK
@@ -179,4 +179,4 @@ lemma eventually_DL_54 :
   linarith only [hstep, hbeat, hL]
 
 
-end Salt.MaynardK
+end SaltC1.MaynardK
