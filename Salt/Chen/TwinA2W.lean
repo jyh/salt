@@ -638,7 +638,7 @@ lemma convSumW2_le {x P z y : ℕ} (Qm : ℕ) (hP : Squarefree P)
               * ((Qm.primeFactors.card : ℝ) + Real.log BND / Real.log 3) := by
         have hm1 := mul_le_mul homega hlx2 hL2 hWb
         have hm2 := mul_le_mul homega hlx3 hL3 hWb
-        nlinarith [hm1, hm2]
+        linarith only [hm2, hm1]
       -- φ(Qm·(p·d)) ≥ (p−1)·φ(d): divisibility-monotone φ, then φ(p·d) = (p−1)·φ(d)
       have hφQpd : (0 : ℝ) < ((Qm * (p * d)).totient : ℝ) := by
         exact_mod_cast Nat.totient_pos.mpr (Nat.mul_pos (by omega) hpdpos)
