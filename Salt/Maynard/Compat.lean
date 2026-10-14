@@ -79,6 +79,7 @@ via `Nat.Prime.dvd_primorial_iff`), and the tuple bound `hSeq k · < D` (supplie
 by `hSeq_lt_of_sup_lt`).  Instantiating `W' := W k`, `D := D₀ k + 1` recovers the
 `W k`-specific versions above. -/
 
+omit [TupleChoice] in
 /-- **Free-`(D,W')` form of `D₀_lt_of_prime_dvd_coprime`.** Any prime dividing
 something coprime to `W'` is `≥ D`, where `D` bounds the primes NOT dividing
 `W'` from below (`hD`). No squarefreeness needed. -/

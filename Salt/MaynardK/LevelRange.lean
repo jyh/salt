@@ -21,6 +21,7 @@ open Salt.Maynard
 
 open Finset Filter
 
+omit [Salt.Maynard.TupleChoice] in
 lemma R_sq_le_half (N' : ℕ) (hN' : 1 ≤ N') :
     (⌊(N' : ℝ) ^ (9999 / 40000 : ℝ)⌋₊ : ℝ) ^ 2 ≤ (N' : ℝ) ^ (19998 / 40000 : ℝ) := by
   set x := (N' : ℝ) with hx
@@ -34,6 +35,7 @@ lemma R_sq_le_half (N' : ℕ) (hN' : 1 ≤ N') :
     _ = x ^ (19998 / 40000 : ℝ) := by
         rw [← Real.rpow_natCast (x ^ (9999 / 40000 : ℝ)) 2, ← Real.rpow_mul hxpos.le]; norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 theorem level_range_half (W' : ℕ) (hW' : 0 < W') (B' : ℝ) (hB'0 : 0 ≤ B') :
     ∃ Nr : ℕ, ∀ N' : ℕ, Nr ≤ N' →
       W' * (⌊(N' : ℝ) ^ (9999 / 40000 : ℝ)⌋₊) ^ 2
@@ -78,6 +80,7 @@ theorem level_range_half (W' : ℕ) (hW' : 0 < W') (B' : ℝ) (hB'0 : 0 ≤ B') 
 
 /-! ## B4.4c — the ρ-helpers at `ρ = 9999/40000` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `log R ≤ (9999/40000)·log N'` (ρ-version of `logR_upper_theta`). -/
 lemma logR_upper_rho (N' : ℕ) (hN' : 1 ≤ N') :
     Real.log (⌊(N' : ℝ) ^ (9999 / 40000 : ℝ)⌋₊ : ℝ) ≤ (9999 / 40000 : ℝ) * Real.log N' := by
@@ -94,6 +97,7 @@ lemma logR_upper_rho (N' : ℕ) (hN' : 1 ≤ N') :
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `ρ·log N' ≤ log R` once `N'^{9999/40000 − ρ} ≥ 2` (ρ-version of `logR_lower_theta`). -/
 lemma logR_lower_rho (ρ : ℝ) (hρ0 : 0 ≤ ρ) (N' : ℕ) (hN1 : 1 ≤ N')
     (hrest : (2 : ℝ) ≤ (N' : ℝ) ^ (9999 / 40000 - ρ : ℝ)) :
@@ -116,6 +120,7 @@ lemma logR_lower_rho (ρ : ℝ) (hρ0 : 0 ≤ ρ) (N' : ℕ) (hN1 : 1 ≤ N')
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- eventually `ρ·log N' ≤ log R`, for any fixed `0 ≤ ρ < 9999/40000`. -/
 lemma eventually_logR_lower_rho (ρ : ℝ) (hρ0 : 0 ≤ ρ) (hρ : ρ < 9999 / 40000) :
     ∀ᶠ N' : ℕ in atTop,
@@ -126,6 +131,7 @@ lemma eventually_logR_lower_rho (ρ : ℝ) (hρ0 : 0 ≤ ρ) (hρ : ρ < 9999 / 
   filter_upwards [hev, eventually_ge_atTop 1] with N' h2 hN1
   exact logR_lower_rho ρ hρ0 N' hN1 h2
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `2 ≤ R = ⌊N'^{9999/40000}⌋` for `N' ≥ 32 = 2⁵` (`5·9999/40000 ≥ 1`). `N' ≥ 17` already suffices;
 the θ-chain's threshold `8` does NOT (`16^{9999/40000} < 2`). -/
 lemma R_ge_two_rho (N' : ℕ) (hN' : (32 : ℝ) ≤ (N' : ℝ)) :
@@ -143,6 +149,7 @@ lemma R_ge_two_rho (N' : ℕ) (hN' : (32 : ℝ) ≤ (N' : ℝ)) :
     linarith [h2, he]
   exact Nat.le_floor (by exact_mod_cast hge)
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `R ≤ N'` for `N' ≥ 1`. -/
 lemma R_le_N'_rho (N' : ℕ) (hN' : 1 ≤ N') :
     ⌊(N' : ℝ) ^ (9999 / 40000 : ℝ)⌋₊ ≤ N' := by

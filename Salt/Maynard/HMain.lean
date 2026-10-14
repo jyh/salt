@@ -52,6 +52,7 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
+omit [TupleChoice] in
 /-- `fWt(1) = 1`: `u(1) = k·log 1/log R = 0`, so `fWt(1) = 1/(1+0) = 1`. -/
 lemma fWt_one (k R : ℕ) : fWt k R 1 = 1 := by
   simp [fWt, uVal, Nat.cast_one, Real.log_one]
@@ -65,6 +66,7 @@ noncomputable def hmBox (k R : ℕ) (m : Fin k) (T : ℝ) : Finset (Fin k → �
 noncomputable def hmW (k R : ℕ) (m : Fin k) (_T : ℝ) (u : Fin k → ℕ) : ℝ :=
   ∏ i ∈ Finset.univ.erase m, (fWt k R (u i)) ^ 2 / (Nat.totient (u i) : ℝ)
 
+omit [TupleChoice] in
 /-- The box weight is nonnegative. -/
 lemma hmW_nonneg (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ) : 0 ≤ hmW k R m T u :=
   Finset.prod_nonneg (fun _ _ => div_nonneg (sq_nonneg _) (Nat.cast_nonneg _))

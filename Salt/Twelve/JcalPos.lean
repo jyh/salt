@@ -60,6 +60,7 @@ private lemma Jcal_Fstar1_scale (m : Fin 5) :
     Jcal m Fstar1 = ((Qabs Fstar)⁻¹) ^ 2 * Jcal m Fstar := by
   rw [Fstar1_eq_scaleP]; exact Jcal_scaleP m Fstar _
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The closed-form value of the per-`m` sieve moment at the ℓ¹-normalized
 certificate `Fstar1`: transported from `Jcal m Fstar = 191881/119750400`
 (`J_Fstar_0` .. `J_Fstar_4`) by the scale factor `(Qabs Fstar)⁻² = (1/1227)²`
@@ -74,6 +75,7 @@ theorem Jcal_Fstar1_eq (m : Fin 5) :
   | 3 => rw [J_Fstar_3]; norm_num
   | 4 => rw [J_Fstar_4]; norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `Jcal m Fstar1` is strictly positive for every `m`. -/
 theorem Jcal_Fstar1_pos (m : Fin 5) : 0 < Jcal m Fstar1 := by
   rw [Jcal_Fstar1_eq]; norm_num

@@ -38,6 +38,7 @@ open Finset
 def prodTuples (k N B : ℕ) : Finset (Fin k → ℕ) :=
   (Fintype.piFinset fun _ : Fin k => Finset.Icc 1 N).filter (fun d => ∏ i, d i ≤ B)
 
+omit [TupleChoice] in
 /-- Membership in `prodTuples` unfolds to the per-coordinate range plus the
 product bound. -/
 theorem mem_prodTuples {k N B : ℕ} {d : Fin k → ℕ} :
@@ -90,6 +91,7 @@ private theorem fiber_card (k N B m : ℕ) (hm1 : 1 ≤ m) (hmN : m ≤ N) :
     dsimp only
     rw [Fin.tail_cons]
 
+omit [TupleChoice] in
 /-- **Main divisor-count bound.**  For `B ≤ N`, the number of `k`-tuples of
 naturals in `[1, N]` with product `≤ B` is at most `B (1 + log B)^k`.  The
 bound depends only on `B` and `k`, never on the ambient range `N`. -/
@@ -167,6 +169,7 @@ theorem prodTuples_card_le (k : ℕ) : ∀ N B : ℕ, B ≤ N →
           exact harmonic_le_one_add_log B
       _ = (B : ℝ) * (1 + Real.log B) ^ (k + 1) := by ring
 
+omit [TupleChoice] in
 /-- **k-fold divisor count.**  The Maynard sieve index set has cardinality at
 most `R (1 + log R)^k`.  The constant is `1`, explicit and independent of `R`
 (only the `k`-dependence lives in the exponent).  Feeds the `S₁` trivial-error

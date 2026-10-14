@@ -34,6 +34,7 @@ variable [TupleChoice]
 `phi_ratio_le` is `R`-free).  We reorder the quantifiers so the single constant
 serves every `R ≥ 2`. -/
 
+omit [TupleChoice] in
 /-- **R-uniform `lam_abs_le_sharp`.**  A single constant `C = C₃·C₁^k` (from
 `rankin_bound`/`phi_ratio_le`, both `R`-free) bounds `|λ(d)|` by
 `C·(1+log R)^{k+1}` for *every* `R ≥ 2`, weight `|y| ≤ 1`, and `d`. -/
@@ -118,6 +119,7 @@ theorem lam_abs_le_sharp_uniform (k W : ℕ) :
 
 /-! ## R-uniform trivial `S₁` error and the assembled `S₁` upper bound -/
 
+omit [TupleChoice] in
 /-- **R-uniform `S1_trivial_error_le'`.**  The trivial error's constant `Cl²`
 (from the uniform `λ`-bound) is `R`-free. -/
 theorem S1_trivial_error_le'_uniform (k W' : ℕ) :
@@ -438,6 +440,7 @@ The `herr1`/`herr2`/`hδlb` thresholds all reduce to "a fixed power of `1+log x`
 is eventually dominated by a positive power of `x`". -/
 
 open Filter Asymptotics in
+omit [TupleChoice] in
 /-- **Polynomial beats polylog.**  For any degree `n`, exponent `a > 0`, and
 coefficient `K`, eventually `K·(1+log x)^n ≤ x^a`.  This is the analytic core of
 the `herr` thresholds (`R²·(1+log R)^{4k+2} = o(N')` at `R = ⌊N'^{1/5}⌋`). -/

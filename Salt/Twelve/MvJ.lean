@@ -499,6 +499,7 @@ private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
 
 /-! ## The frozen theorem -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **W3-5 (inner contraction, card W3-5).** The `∫dtₘ`-peel of one sieve
 coordinate: the inner sum over `u` reassembles into `X · eval (contractAt m F)`
 up to an absolute error plus the r-dependent marked-prime budget
@@ -700,6 +701,7 @@ theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 /-! ## W3-6 (keystone J) — the outer square-and-sum assembly (`mv_J`) -/
 
 -- The reindex bijection: filtered 5-tuples (r m = 1) ↔ kSieveIndex 4.
+omit [Salt.Maynard.TupleChoice] in
 lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
     (h : (Fin 4 → ℕ) → M) :
     ∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1), h (Fin.removeNth m r)
@@ -1282,6 +1284,7 @@ private lemma erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F : F
 set_option maxHeartbeats 1600000 in
 -- The reindex + `eval_sq` list expansion + per-monomial `box4_g_moment` sum is a
 -- single large elaboration exceeding the default heartbeat budget.
+omit [Salt.Maynard.TupleChoice] in
 lemma mv_J_main (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) (m : Fin 5) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
@@ -2142,6 +2145,7 @@ private lemma absorb6 (κ L X : ℝ) (hκ0 : 0 < κ) (hκ1 : κ ≤ 1) (hL1 : 1 
 set_option maxHeartbeats 2000000 in
 -- The final square-expand assembly (inner_contract substitution, the three swap
 -- sums, and the κ-power absorptions) is elaborated in one block; over budget.
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_J (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) (m : Fin 5) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →

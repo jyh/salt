@@ -281,6 +281,7 @@ private lemma badpair_bound_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ## `mv_I_split` -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_I_split (F : Poly) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
@@ -1071,6 +1072,7 @@ private lemma inner_sum_estimate_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 
 
 /-! ## `inner_contract_rel` (frozen deliverable 1) -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem inner_contract_rel (F : Poly) (m : Fin 5) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
@@ -2657,6 +2659,7 @@ set_option maxHeartbeats 2000000 in
 -- The final square-expand assembly (inner_contract_rel substitution, the three
 -- relativized swap sums, the mixed-base absorptions) elaborates in one block and
 -- exceeds the default heartbeat budget (a resource limit, not an axiom).
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_J_split (F : Poly) (m : Fin 5) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →

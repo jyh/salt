@@ -35,6 +35,7 @@ private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg (fun x _ => by positivity)
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 1 at general `k`, any weight `y`.** -/
 theorem qdiag_eq_yMsq_sum_gen (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
     Qdiag_mW k R W' m y
@@ -76,6 +77,7 @@ theorem qdiag_eq_yMsq_sum_gen (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
   · simp [hGm]
   · field_simp
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 2 at general `k`, bounded weight.** -/
 theorem yM_sub_inn_le_gen (k R W' D : ℕ) (hk : 1 ≤ k) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     (hy1 : ∀ s, |y s| ≤ 1) (hy0 : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
@@ -89,6 +91,7 @@ theorem yM_sub_inn_le_gen (k R W' D : ℕ) (hk : 1 ≤ k) (m : Fin k) (y : (Fin 
     husupp hW' hDW hk hDk
   simpa using h
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 3 ingredient at general `k`: `|Inn(u)| ≤ PAS`.** -/
 theorem absInn_le_pas_gen (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     (hy1 : ∀ s, |y s| ≤ 1) (hy0 : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
@@ -136,6 +139,7 @@ private lemma erase_prod_removeNth_e4 {n : ℕ} {M : Type*} [CommMonoid M] (m : 
   rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 4 g-moment at general `n`:** the `n`-dimensional `1/∏g`-moment over the pinned
 box is `≤ (2·PAS)ⁿ`. -/
 theorem gmoment_le_gen (n W' D R : ℕ) (m : Fin (n + 1)) (hW' : Squarefree W') (hpos : 0 < W')
@@ -191,6 +195,7 @@ theorem gmoment_le_gen (n W' D R : ℕ) (m : Fin (n + 1)) (hW' : Squarefree W') 
         rw [← hM0def, Finset.prod_const, Finset.card_univ, Fintype.card_fin]
     _ ≤ (2 * Salt.Maynard.phiAtomSum R W') ^ n := pow_le_pow_left₀ hM0nn hM0le n
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Steps (1)–(4) at general `n`, any bounded weight `y`.** -/
 theorem qdiag_gap_gen (n : ℕ) (m : Fin (n + 1)) (y : (Fin (n + 1) → ℕ) → ℝ)
     (W' D : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (hD : 12 * (n + 1) ^ 2 ≤ D)
@@ -333,6 +338,7 @@ theorem qdiag_gap_gen (n : ℕ) (m : Fin (n + 1)) (y : (Fin (n + 1) → ℕ) →
     linarith [ha1, ha2]
   exact le_trans hb1 hb2
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 5 at general `n`: the triangle with `mv_J_split_gen`.** -/
 theorem qdiag_bridge_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (Ac Aself : ℝ) (hAc0 : 0 ≤ Ac) (hAself0 : 0 ≤ Aself)
@@ -420,6 +426,7 @@ theorem qdiag_bridge_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fi
     _ = Log6 + (Ac + Aself + A') * κinv * (Y6 / D)
           + (Ac + Aself + A') * κinv ^ 2 * (Y6 / D ^ 2) := by ring
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **B4.3c — `qdiag_bridge_gen`.** The S₂ diagonal bridge at general `n` for the budget
 weight `yFg R W' P`, under the pointwise bound `hy1`. `A` is `(n, P, m)`-only and precedes
 `∀ W'`. -/
@@ -448,6 +455,7 @@ theorem qdiag_bridge_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (
     intro s hs; unfold yFg; rw [if_neg hs]
   exact qdiag_gap_gen n m (yFg R W' P) W' D hW' hpos hD hDW R hR2 hlogR (hy1 R W') hy0
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The `hy1` adapter from the simplex form** (the shape `eval_F1_abs_le_one` has): on the
 box, `tᵢ = log sᵢ / log R ≥ 0` and `∑ tᵢ = log(∏ sᵢ)/log R ≤ 1` since `∏ sᵢ < R`. -/
 theorem yFg_abs_le_one_of_simplex {n : ℕ} (P : BPoly (n + 1))
@@ -473,6 +481,7 @@ theorem yFg_abs_le_one_of_simplex {n : ℕ} (P : BPoly (n + 1))
       simpa using this
   · simp
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `qdiag_bridge_gen` with the simplex-form hypothesis (direct plug for `eval_F1_abs_le_one`). -/
 theorem qdiag_bridge_gen_simplex (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (hP : ∀ t : Fin (n + 1) → ℝ, (∀ i, 0 ≤ t i) → ∑ i, t i ≤ 1 → |eval P t| ≤ 1) :

@@ -55,6 +55,7 @@ private theorem sum_move4 {α δ : Type*} [AddCommMonoid δ] (A : Finset α)
 
 /-! ## The two hard standalone Finset lemmas (P3 + P6) -/
 
+omit [TupleChoice] in
 /-- **1-dim Möbius–gcd kernel (the fused P2/P3/P6 core).** For squarefree
 `r, s`, the twisted double divisor sum collapses to a Kronecker delta times
 the totient. This is the coordinate building block of the whole
@@ -145,6 +146,7 @@ theorem kernel1 {r s : ℕ} (hr : Squarefree r) (hs : Squarefree s) :
           · subst hur; simp [hrs]
           · simp [hur]
 
+omit [TupleChoice] in
 /-- **k-dim Möbius–gcd kernel (P3 tensor of `kernel1`).** The coordinate
 building block, tensored over `Fin k` by `Finset.prod_univ_sum`. -/
 theorem kernelK {k : ℕ} {r s : Fin k → ℕ}
@@ -182,6 +184,7 @@ theorem kernelK {k : ℕ} {r s : Fin k → ℕ}
 
 /-! ## Support/reindexing: `𝒟`-sums restrict to divisor-tuple sums -/
 
+omit [TupleChoice] in
 /-- **The support invariant.** Summing a guarded quantity `[∀ i, dᵢ ∣ rᵢ]·F d`
 over the sieve index set `𝒟` is the same as summing `F` over the tuple of
 divisor sets `∏ᵢ (rᵢ).divisors`: every such `d` lies in `𝒟` precisely because
@@ -224,6 +227,7 @@ of variables. -/
 noncomputable def lam (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (d : Fin k → ℕ) : ℝ :=
   (∏ i, ((μ (d i) : ℤ) : ℝ) * (d i : ℝ)) * wSum k R W y d
 
+omit [TupleChoice] in
 /-- **N2.4 — the k-dimensional S₁ diagonalisation.** With `λ` chosen from `y`
 by `lam`, the Selberg quadratic form over `𝒟 × 𝒟` diagonalises to
 `∑_r y(r)² / ∏ᵢ φ(rᵢ)`. -/

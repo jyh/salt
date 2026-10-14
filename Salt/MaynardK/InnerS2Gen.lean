@@ -24,6 +24,7 @@ variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard Salt.Twelve
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `lemma53_tightW` at `B = 1` for a bounded weight (general-`k` `yM_sub_inn_le`). -/
 theorem yM_sub_inn_le_gen_s2 (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     (hyB : ∀ s, |y s| ≤ 1) (hysupp : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
@@ -37,6 +38,7 @@ theorem yM_sub_inn_le_gen_s2 (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
     husupp hW' hDW m.pos hDk
   simpa using h
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `|Inn(u)| ≤ PAS` for a bounded weight (general-`k` `absInn_le_pas`). -/
 theorem absInn_le_pas_gen_s2 (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     (hyB : ∀ s, |y s| ≤ 1) (hysupp : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
@@ -86,6 +88,7 @@ product→`marked_sqf_g_rel` structure, threading the `|Q|` marks through the
 per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
 partition of `Q` under `slot`. -/
+omit [Salt.Maynard.TupleChoice] in
 theorem box_marked_gmoment_gen (k R W' D : ℕ) (m : Fin k) (Q : Finset ℕ) (slot : ℕ → Fin k)
     (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
     (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
@@ -225,6 +228,7 @@ private lemma gMult_lcm_split {a b : ℕ} (ha : Squarefree a) :
   obtain ⟨heq, hcop⟩ := lcm_split (a := a) (b := b) ha
   rw [heq, gMult_mul_cop hcop]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The S₂ termwise `V`-bound.**  `∏ᵢg(wᵢ)·|V(w)| ≤ PAS + ε`, where
 `ε = lemma53Const·5·log R/D`.  Off the pinned box `V(w) = 0` (`lamPhiContractM_vanish`);
 on it, `∏g(w)·|V(w)| = |yM(w)|` (from `yM = (∏μ·g)·V`, `μ²=1`, `g ≥ 0`), and
@@ -763,6 +767,7 @@ private lemma s2_part_bound (k R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W
         rw [hprodadd, Finset.prod_const, hpf, Finset.card_attach]
         norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The pointwise S₂ inner bound at general `k`** — the full termwise + partition bound:
 the S₂ inner form is `≤ 3^ω · ∏(p−2)⁻² · ((PAS+ε)²·(2·PAS)^(k−1))`. Combines the termwise
 and partition bounds, with the whole-`s` vanishing cases (`σₘ ≠ 1 ∨ τₘ ≠ 1 ⇒` sum `= 0` via
@@ -883,6 +888,7 @@ lemma s2_inner_termwise_gen (k : ℕ) (m : Fin k)
     rw [hsum0, abs_zero]
     positivity
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **B4.3b — a bounded weight `y` satisfies the S₂ inner atom at general `k`.**
 Termwise + contamination partition (`s2_inner_termwise_gen`) plus the step-(d)
 payload `hQd : (PAS + ε)²·(2·PAS)^{k−1} ≤ CF·Qdiag_gv k R W' m y`,

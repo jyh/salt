@@ -275,6 +275,7 @@ private lemma badpair_bound (W' : ℕ) (c₀ : ℝ) (hc₀0 : 0 ≤ c₀)
 
 /-! ## The keystone `mv_I` -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
