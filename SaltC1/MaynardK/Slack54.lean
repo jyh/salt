@@ -59,7 +59,7 @@ set_option maxHeartbeats 4000000 in
 -- ~40 named scalar bounds threaded through one linear closure (the template's own budget is 10M).
 omit [Salt.Maynard.TupleChoice] in
 /-- The per-`N'` arithmetic of `winSlackM_ev` (template lines 656–1050), at k = 54, over
-opaque atoms: `Xp = X^54`, `A1X = (1+X)^54`, `APAS = (1+PAS)^54`, `T2 = 2^54`, `S6 = 6^54`,
+uninterpreted atoms: `Xp = X^54`, `A1X = (1+X)^54`, `APAS = (1+PAS)^54`, `T2 = 2^54`, `S6 = 6^54`,
 `P2 = 2^(54+1)`, `T110 = (1+LR)^110`, `L112 = L^112`, `T218 = (1+LR)^218`, `R2 = R^2`,
 `Kp = κ^54`, `CsC = 4·Cs·54²`. Seven pieces, each `≤ U/700000`, against the certified
 ratio slack `U/100000`. -/
