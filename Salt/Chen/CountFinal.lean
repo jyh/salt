@@ -250,7 +250,7 @@ theorem S2set'_subset_insert {x yN p₁ : ℕ} {yR : ℝ}
   have hp1R : (0 : ℝ) < (p₁ : ℝ) := by exact_mod_cast hp1
   have hpxR : (p₁ : ℝ) * ((p : ℝ) * (p : ℝ)) ≤ (x : ℝ) := by exact_mod_cast hpx
   have hp2x : (p : ℝ) * (p : ℝ) ≤ (x : ℝ) / (p₁ : ℝ) := by
-    rw [le_div_iff₀ hp1R]; nlinarith [hpxR]
+    rw [le_div_iff₀ hp1R]; linarith only [hpxR]
   have hple : (p : ℝ) ≤ Real.sqrt ((x : ℝ) / (p₁ : ℝ)) := by
     rw [← Real.sqrt_mul_self (by positivity : (0 : ℝ) ≤ (p : ℝ))]
     exact Real.sqrt_le_sqrt hp2x
@@ -370,7 +370,7 @@ private lemma fiber_window {x : ℕ} {yR p₁R : ℝ}
   · -- p₁·√(x/p₁) < x: via `√(x/p₁) ≤ √x` and `p₁ < √x` (`p₁² < x`)
     have hp1sqlt : p₁R ^ 2 < (x : ℝ) := by
       have hlog2 : Real.log (p₁R ^ 2) < Real.log x := by
-        rw [Real.log_pow]; push_cast; nlinarith [hp1log, hLpos]
+        rw [Real.log_pow]; push_cast; linarith only [hLpos, hp1log]
       have hp2pos : 0 < p₁R ^ 2 := by positivity
       exact (Real.log_lt_log_iff hp2pos hxpos).mp hlog2
     have hp1ltsqrt : p₁R < Real.sqrt (x : ℝ) := (Real.lt_sqrt hp1R.le).mpr hp1sqlt
