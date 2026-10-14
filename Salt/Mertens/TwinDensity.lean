@@ -94,12 +94,12 @@ theorem neg_log_one_sub_le {y : ℝ} (hy0 : 0 ≤ y) (hy : y ≤ 1 / 4) :
   rw [← Real.log_inv]
   refine le_trans hinv ?_
   have hzc : (1 - y)⁻¹ * (1 - y) = 1 := inv_mul_cancel₀ (ne_of_gt h1y)
-  nlinarith [hzc, h1y, mul_nonneg hy0 (show (0 : ℝ) ≤ 1 - 4 * y by linarith)]
+  nlinarith only [hy, hzc, mul_nonneg hy0 (show (0 : ℝ) ≤ 1 - 4 * y by linarith)]
 
 /-- Each ℕ-indexed factor `1 − (p−1)⁻²` is positive for `p ≥ 3`. -/
 theorem factorN_pos {p : ℕ} (hp : 3 ≤ p) : 0 < 1 - (((p : ℝ) - 1) ^ 2)⁻¹ := by
   have hp3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp
-  have hz : (4 : ℝ) ≤ ((p : ℝ) - 1) ^ 2 := by nlinarith
+  have hz : (4 : ℝ) ≤ ((p : ℝ) - 1) ^ 2 := by nlinarith only [hp3, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   have hinv : (((p : ℝ) - 1) ^ 2)⁻¹ ≤ (4 : ℝ)⁻¹ := by gcongr
   have : (4 : ℝ)⁻¹ < 1 := by norm_num
   linarith
@@ -108,7 +108,7 @@ theorem factorN_pos {p : ℕ} (hp : 3 ≤ p) : 0 < 1 - (((p : ℝ) - 1) ^ 2)⁻�
 theorem factorN_arg_le {p : ℕ} (hp : 3 ≤ p) :
     (0 : ℝ) ≤ (((p : ℝ) - 1) ^ 2)⁻¹ ∧ (((p : ℝ) - 1) ^ 2)⁻¹ ≤ 1 / 4 := by
   have hp3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp
-  have hz : (4 : ℝ) ≤ ((p : ℝ) - 1) ^ 2 := by nlinarith
+  have hz : (4 : ℝ) ≤ ((p : ℝ) - 1) ^ 2 := by nlinarith only [hp3, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   refine ⟨by positivity, ?_⟩
   rw [show (1 : ℝ) / 4 = (4 : ℝ)⁻¹ by norm_num]
   gcongr

@@ -149,7 +149,7 @@ theorem tail187_integral_le {x : ℕ} {p₁ : ℝ}
   have ha_le_sqrtx : a ≤ Real.sqrt (x : ℝ) := by
     rw [ha_def]
     apply Real.sqrt_le_sqrt
-    rw [div_le_iff₀ hp1pos]; nlinarith [hxpos, hp1]
+    rw [div_le_iff₀ hp1pos]; nlinarith only [hp1, (Nat.cast_nonneg _ : 0 ≤ ↑x)]
   have hab : a ≤ b := by rw [hb_def]; linarith
   -- `log a = (LN - log p₁)/2`
   have hloga : Real.log a = (LN - Real.log p₁) / 2 := by
@@ -160,7 +160,7 @@ theorem tail187_integral_le {x : ℕ} {p₁ : ℝ}
     exact Real.sqrt_le_sqrt (by
       have : Real.exp 9 ≤ (x : ℝ) := by
         rw [← Real.exp_log hxpos]; exact Real.exp_le_exp.mpr hx
-      nlinarith [Real.add_one_le_exp (9 : ℝ)])
+      linarith only [this, hxpos, Real.add_one_le_exp (9 : ℝ)])
   have hlogb : Real.log b ≤ Real.log 2 + LN / 2 := by
     have hble : b ≤ 2 * Real.sqrt (x : ℝ) := by rw [hb_def]; linarith
     calc Real.log b ≤ Real.log (2 * Real.sqrt (x : ℝ)) := Real.log_le_log hb hble

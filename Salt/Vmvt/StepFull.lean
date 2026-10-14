@@ -184,7 +184,7 @@ theorem vmvtExp_ge_k {k : ℕ} (hk : 2 ≤ k) {r : ℕ} (hr : 1 ≤ r) : (k : �
     have hη : vmvtEta k n ≤ (1 / 2) * (k : ℝ) * ((k : ℝ) - 1) := vmvtEta_le (by omega) hn
     have hη0 : 0 ≤ vmvtEta k n := vmvtEta_nonneg (by omega) n
     have hstep : 0 ≤ 2 * (k : ℝ) - vmvtEta k n / (k : ℝ) := by
-      rw [sub_nonneg, div_le_iff₀ hkpos]; nlinarith [hη, hkpos]
+      rw [sub_nonneg, div_le_iff₀ hkpos]; linarith only [hη0, hη, hkpos]
     linarith [ih, hstep]
 
 /-- `0 ≤ E(k,r)` for `r ≥ 1`, `k ≥ 2`. -/
@@ -279,7 +279,7 @@ lemma vmvtResidExp_nonneg {k : ℕ} (hk : 2 ≤ k) {r : ℕ} (hr : 1 ≤ r) :
   unfold vmvtResidExp
   have hη := vmvtEta_le (k := k) (r := r) (by omega) hr
   have hk2 : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-  nlinarith [hη]
+  nlinarith only [hk2, hη, sq_nonneg ↑k]
 
 /-- `B(k,r) ≤ k²`: the residual prime exponent never exceeds `k²` (`η ≥ 0`). -/
 lemma vmvtResidExp_le {k : ℕ} (hk : 2 ≤ k) (r : ℕ) : vmvtResidExp k r ≤ (k : ℝ) ^ 2 := by
@@ -309,7 +309,7 @@ theorem correction_le {k r : ℕ} (x p : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r) (hx1
   have htk : t ^ (k : ℕ) = (x : ℝ) := by
     rw [htdef, ← Real.rpow_natCast, ← Real.rpow_mul hx0.le, one_div_mul_cancel hk0, Real.rpow_one]
   have hscale : (vmvtScale k x : ℝ) < t + 1 := scale_lt
-  have hpb : (p : ℝ) ≤ 2 * (t + 1) := by nlinarith [hp_le, hscale]
+  have hpb : (p : ℝ) ≤ 2 * (t + 1) := by linarith only [hscale, hp_le]
   have hpt : (p : ℝ) / t ≤ 2 + 2 / t := by
     rw [div_le_iff₀ ht0]
     have he : (2 + 2 / t) * t = 2 * t + 2 := by field_simp
@@ -332,10 +332,10 @@ theorem correction_le {k r : ℕ} (x p : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r) (hx1
           rw [div_mul_eq_mul_div, one_mul]
   have hpx4 : (p : ℝ) / (x : ℝ) ≤ 4 / t := by
     rw [div_le_div_iff₀ hx0 ht0]
-    have hp4t : (p : ℝ) ≤ 4 * t := by nlinarith [hp_le, hscale, ht1]
+    have hp4t : (p : ℝ) ≤ 4 * t := by linarith only [hscale, ht1, hp_le]
     have htt : t ^ 2 ≤ t ^ (k : ℕ) := pow_le_pow_right₀ ht1 hk
     rw [pow_two] at htt
-    nlinarith [hp4t, htt, htk, ht0]
+    nlinarith only [ht1, hscale, hp_le, htt, htk]
   have hF2 : (1 + (p : ℝ) / (x : ℝ)) ^ (vmvtExp k r) ≤ Real.exp (4 * vmvtExp k r / t) := by
     calc (1 + (p : ℝ) / (x : ℝ)) ^ (vmvtExp k r)
         ≤ Real.exp (((p : ℝ) / (x : ℝ)) * vmvtExp k r) := one_add_rpow_le_exp (by positivity) hEr0
