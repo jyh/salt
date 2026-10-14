@@ -3,7 +3,7 @@ Copyright (c) 2026 Jason Hickey. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
-import Salt.MaynardK.A2aStandIn
+import Salt.MaynardK.BasisM
 import Salt.MaynardK.F1
 
 /-!
@@ -23,9 +23,9 @@ The `M`-variable generalisation of `Square` (`Fpoly`, `Fsq`, `eval_Fsq`, `simple
   `multM_conv`, the multinomial convolution of assignment tuples (`mult_conv` once per `m`);
 * `eval_FpolyM_abs_le`: `|F| ≤ Σ|c|` on the simplex.
 
-The basis `basisPolyM` and the series `GM` are node A2a's (`SeriesM`/`BasisM`); until its merge
-they come from `A2aStandIn`, and its two results enter here as the hypotheses `BasisEvalM` and
-`BasisIntM` (discharged at the merge by `eval_basisPolyM` and `simplexInt_basisPolyM`). The
+The basis `basisPolyM` and the series `GM` are node A2a's (`SeriesM`/`BasisM`). Its two results
+enter here as the hypotheses `BasisEvalM` and `BasisIntM`, discharged in `BridgeM` by
+`eval_basisPolyM` and `simplexInt_basisPolyM` (`basisEvalM_holds`, `basisIntM_holds`). The
 statements that do not need them (`simplexInt_sq_FpolyQ`, `simplexInt_sq_FpolyM`) carry none.
 Pure polynomial algebra: nothing here bears on twin primes.
 -/

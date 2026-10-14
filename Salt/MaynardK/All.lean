@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MaynardK.Basis
 import Salt.MaynardK.BasisM
+import Salt.MaynardK.BridgeM
 import Salt.MaynardK.Capstone105
 import Salt.MaynardK.Cert105
 import Salt.MaynardK.CollisionS1
