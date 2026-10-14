@@ -60,8 +60,8 @@ theorem prod_ratio_le_card_succ (S : Finset ℕ) :
     rw [Finset.prod_insert has, Finset.card_insert_of_notMem has]
     push_cast
     rw [div_mul_eq_mul_div, div_le_iff₀ hA1]
-    nlinarith [ihs, hP0, hcardR, haR,
-      mul_le_mul_of_nonneg_left ihs (by linarith : (0 : ℝ) ≤ (a : ℝ))]
+    linarith only [hcardR,
+        mul_le_mul_of_nonneg_left ihs (by linarith : (0 : ℝ) ≤ (a : ℝ))]
 
 /-- Elementary polylog bound on `e/φ(e)`: for `3 ≤ e`, `e/φ(e) ≤ 3·log e`.
 The constant `C = 3` is honest: `ω(e) + 1 ≤ 2·log e / log 2 ≤ 3·log e` since
@@ -132,8 +132,8 @@ theorem totient_ratio_le_log (e : ℕ) (he : 3 ≤ e) :
   have hfinal : (e.primeFactors.card : ℝ) + 1 ≤ 3 * Real.log (e : ℝ) := by
     have step : ((e.primeFactors.card : ℝ) + 1) * Real.log 2
         ≤ (3 * Real.log (e : ℝ)) * Real.log 2 := by
-      nlinarith [hωlog, hloge2,
-        mul_nonneg hlogpos.le (by linarith : (0 : ℝ) ≤ 3 * Real.log 2 - 2)]
+      linarith only [hloge2, hωlog,
+          mul_nonneg hlogpos.le (by linarith : (0 : ℝ) ≤ 3 * Real.log 2 - 2)]
     exact le_of_mul_le_mul_right step hlog2pos
   calc (e : ℝ) / (Nat.totient e : ℝ)
       = ∏ p ∈ e.primeFactors, (p : ℝ) / ((p : ℝ) - 1) := hratio

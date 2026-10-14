@@ -111,12 +111,12 @@ theorem W_twinA1_ge {x P : ℕ} (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFa
         have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
         rw [show Real.exp (-1 : ℝ) = 1 / Real.exp 1 by rw [Real.exp_neg]; ring,
           div_le_iff₀ (Real.exp_pos 1)]
-        nlinarith [he1, hlog2gt]
+        nlinarith only [hlog2, he1, hlog2gt]
       have := Real.log_le_log (Real.exp_pos _) hexp1
       rw [Real.log_exp] at this
       linarith
     have h19 : 19 / Real.log 2 ≤ 28 := by
-      rw [div_le_iff₀ hlog2]; nlinarith [hlog2gt]
+      rw [div_le_iff₀ hlog2]; linarith only [hlog2gt, hlog2]
     linarith [hinv, hsq, hnll2, h19, hlogdiv]
   -- `log W ≥ −(log(log z) + 35)`, so `W ≥ exp(−(log(log z) + 35)) = exp(−35)/log z`.
   have hlogW_ge : -(Real.log (Real.log z) + 35) ≤ Real.log (Salt.BrunLower.W s) := by
