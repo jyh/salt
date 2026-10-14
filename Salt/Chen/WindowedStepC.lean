@@ -324,12 +324,12 @@ theorem cfSharpB_nonneg (n : ℕ) {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ cfSharpB n
       (by positivity)
 
 theorem chSharpB_nonneg {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ chSharpB ε := by
-  unfold chSharpB; nlinarith [hε]
+  unfold chSharpB; linarith only [hε]
 
 /-- **The contraction** `chSharpB ε < 1` for `ε < 1/249` (the gate-computed exact threshold:
 `(49/50 + 4)ε < 1/50 ⟺ 249ε < 1`).  Do NOT use `1/49`. -/
 theorem chSharpB_lt_one {ε : ℝ} (h : ε < 1 / 249) : chSharpB ε < 1 := by
-  unfold chSharpB; nlinarith [h]
+  unfold chSharpB; linarith only [h]
 
 /-- **The B-mirror sharp τ-sequence** `tauSharpB`: `τ₀ = 0`, `τ_{n+1} = (n=0 ? 3 : 20(99/100)ⁿ)
 + chSharpB ε·τₙ`, so `τ₁ = 3` exactly (the keystones' `htau1`).  The `n = 0` forcing anchor is
