@@ -84,6 +84,7 @@ theorem S1_upper_A1 (k K₀ N R ν₀ : ℕ) (T : ℝ)
   have hmul := mul_le_mul_of_nonneg_left (yside_le_A1pow k R T) hcoef
   linarith [hS1, hmul]
 
+omit [TupleChoice] in
 /-- `Nat.count p` grows by at most `h` over a window of length `h`. -/
 theorem count_le_count_add (p : ℕ → Prop) [DecidablePred p] (a h : ℕ) :
     Nat.count p (a + h) ≤ Nat.count p a + h := by
@@ -93,12 +94,14 @@ theorem count_le_count_add (p : ℕ → Prop) [DecidablePred p] (a h : ℕ) :
     rw [← Nat.add_assoc, Nat.count_succ]
     split_ifs <;> omega
 
+omit [TupleChoice] in
 /-- `Nat.primeCounting` is monotone. -/
 theorem primeCounting_mono : Monotone Nat.primeCounting := by
   intro a b hab
   unfold Nat.primeCounting Nat.primeCounting'
   exact Nat.count_monotone _ (Nat.succ_le_succ hab)
 
+omit [TupleChoice] in
 /-- `π(N+h) ≤ π(N) + h`: at most `h` primes appear in a window of length `h`. -/
 theorem primeCounting_shift_le (N h : ℕ) :
     Nat.primeCounting (N + h) ≤ Nat.primeCounting N + h := by
@@ -106,6 +109,7 @@ theorem primeCounting_shift_le (N h : ℕ) :
   rw [show N + h + 1 = (N + 1) + h by ring]
   exact count_le_count_add _ (N + 1) h
 
+omit [TupleChoice] in
 /-- `primesCount x 1 0 = π(x)` (all naturals are `≡ 0 [MOD 1]`). -/
 theorem primesCount_one_zero_eq (x : ℕ) : primesCount x 1 0 = Nat.primeCounting x := by
   rw [primesCount_one_zero]; rfl

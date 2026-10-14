@@ -863,6 +863,7 @@ private lemma absorb_g (n : ℕ) (κ L : ℝ) (hκ : 0 < κ) (hL : 1 ≤ L) :
 
 set_option maxHeartbeats 2000000 in
 -- the general-`n` square-expansion and absorption calc chains are long; the k = 5 template is too
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (hMain : MvJMainSplitGen n P m) (hIC : InnerContractRelGen n P m) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
@@ -1211,6 +1212,7 @@ theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin 
   -- the frozen goal is definitionally the `Inn/Denom/X/Y` form
   exact hgoal
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **B4.2b: the J-side split engine at general `n`, unconditional.** -/
 theorem mv_J_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1)) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →

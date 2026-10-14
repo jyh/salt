@@ -600,6 +600,7 @@ private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
       simp only [List.map_cons, List.sum_cons]
       exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The `∫dtₘ`-peel of one sieve coordinate of a budget polynomial. -/
 theorem inner_contract_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') {n : ℕ} (P : BPoly (n + 1)) (m : Fin (n + 1)) :
@@ -799,6 +800,7 @@ theorem inner_contract_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 /-! ## W3-6 (keystone J) — the outer square-and-sum assembly (`mv_J`) -/
 
 -- The reindex bijection: filtered 5-tuples (r m = 1) ↔ kSieveIndex n.
+omit [Salt.Maynard.TupleChoice] in
 lemma sum_filt_removeNth_g {n : ℕ} {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin (n + 1))
     (h : (Fin n → ℕ) → M) :
     ∑ r ∈ (kSieveIndex (n + 1) R W').filter (fun r => r m = 1), h (Fin.removeNth m r)
@@ -1403,6 +1405,7 @@ private lemma erase_prod_removeNth {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin
 set_option maxHeartbeats 1600000 in
 -- The reindex + `eval_sq` list expansion + per-monomial `box4_g_moment` sum is a
 -- single large elaboration exceeding the default heartbeat budget.
+omit [Salt.Maynard.TupleChoice] in
 lemma mv_J_main_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W')
     (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1)) :
@@ -2294,6 +2297,7 @@ private lemma absorbG (n : ℕ) (κ L X : ℝ) (hκ0 : 0 < κ) (hκ1 : κ ≤ 1)
 set_option maxHeartbeats 2000000 in
 -- The final square-expand assembly (inner_contract substitution, the three swap
 -- sums, and the κ-power absorptions) is elaborated in one block; over budget.
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_J_gen (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W')
     (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1)) :

@@ -617,6 +617,7 @@ def InnerContractRelGen (n : ℕ) (P : BPoly (n + 1)) (m : Fin (n + 1)) : Prop :
       ≤ c + A * Salt.Maynard.phiAtomSum R W'
               * ∑ p ∈ (∏ i, r i).primeFactors, (1 / ((p : ℝ) - 1))
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The `∫dtₘ`-peel of one sieve coordinate of a budget polynomial, with the PAS-relative
 coprimality drop (`inner_contract_rel` at budget power `d`). -/
 theorem inner_contract_rel_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1)) :

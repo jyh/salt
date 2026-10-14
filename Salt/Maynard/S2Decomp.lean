@@ -253,6 +253,7 @@ theorem s2_decompW (k R K₀ N ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) 
   refine Finset.sum_congr rfl (fun e _ => ?_)
   split_ifs with h <;> ring
 
+omit [TupleChoice] in
 /-- Free-modulus form of `s2Main_factor`. -/
 theorem s2Main_factorW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (deltaPi : ℝ) :
     s2FormMainW k R W' m y deltaPi

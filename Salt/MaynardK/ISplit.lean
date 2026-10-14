@@ -264,6 +264,7 @@ private lemma badpair_bound_rel_gen (k : ℕ) (hk : 2 ≤ k) (W' : ℕ) (hW' : S
 
 /-! ## `mv_I_split` -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_I_split_gen (k : ℕ) (hk : 2 ≤ k) (P : BPoly k) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →

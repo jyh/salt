@@ -160,6 +160,7 @@ private theorem box_erase_branch {k R W' : ℕ}
         · intro v _ _
           exact box_phiterm_nonneg v
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NC-1 deliverable 1 — the `k`-dim `Q`-marked crude moment.** For a finite
 set `P` of primes and two slot maps, the crude moment `∑ 1/∏φ` constrained to
 "every `q ∈ Q` divides one of its two slots" contracts by
@@ -312,6 +313,7 @@ def S1InnerBoundM (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) (B : ℝ) : Prop 
           * (∏ p ∈ s.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
           * B
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NC-1 deliverable 3 — the termwise + partition + marked-moment discharge.**
 Any bounded weight (`|y| ≤ 1`, supported on the box) satisfies the inner atom at
 the CRUDE moment `M := ∑ 1/∏φ`.  No smoothness, no domination: the sign-strip
@@ -737,6 +739,7 @@ theorem s1_inner_bounded (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ)
 
 /-! ## The constant-`B` assembly and the `yF` corollary -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NC-1 deliverable 4 — the constant-`B` copy of `collision_lower_orderW_of`.**
 The `y`-generic assembly is a mechanical transcription of the landed
 `collision_lower_orderW_of` with the weighted moment `∑ (y r)²/∏φ` replaced by
@@ -946,6 +949,7 @@ theorem collision_lower_orderW_ofM (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ
     _ ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ) * B :=
         mul_le_mul_of_nonneg_right htail hB
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NC-1 deliverable 5 — the corollary at `y = yF`.**  Maynard's polynomial
 weight `yF` (with `Qabs F ≤ 1`) satisfies the S1 collision bound at the crude
 moment `M := ∑ 1/∏φ`. -/

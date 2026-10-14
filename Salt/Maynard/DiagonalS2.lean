@@ -69,6 +69,7 @@ private theorem sum_move4' {α δ : Type*} [AddCommMonoid δ] (A : Finset α)
 
 /-! ## The key g-identity: `∑_{u ∣ n} g(u) = φ(n)` on squarefree `n` -/
 
+omit [TupleChoice] in
 /-- **The g-analog of `gcd = Σφ` (the arithmetic heart of S₂).** For squarefree
 `n`, `∑_{u ∈ n.divisors} gMult u = φ(n)`. Möbius relation `φ = 1 ∗ g` with
 `g(p) = p − 2`: over squarefree `n` the divisor sum is `∑_{t ⊆ primeFactors n}
@@ -121,6 +122,7 @@ private theorem primeFactors_lcm {d e : ℕ} (hd : d ≠ 0) (he : e ≠ 0) :
     · exact ⟨hp, (hp.prime.dvd_lcm).mpr (Or.inl hpd), Nat.lcm_ne_zero hd he⟩
     · exact ⟨hp, (hp.prime.dvd_lcm).mpr (Or.inr hpe), Nat.lcm_ne_zero hd he⟩
 
+omit [TupleChoice] in
 /-- `φ(gcd d e)·φ(lcm d e) = φ(d)·φ(e)` over `ℝ`, for squarefree `d, e`. -/
 theorem totient_gcd_mul_totient_lcm {d e : ℕ} (hd : Squarefree d) (he : Squarefree e) :
     (Nat.totient (Nat.gcd d e) : ℝ) * (Nat.totient (Nat.lcm d e) : ℝ)
@@ -140,6 +142,7 @@ theorem totient_gcd_mul_totient_lcm {d e : ℕ} (hd : Squarefree d) (he : Square
 
 /-! ## The g-kernels (mirror `kernel1` / `kernelK`) -/
 
+omit [TupleChoice] in
 /-- **1-dim g-kernel (mirror of `kernel1`).** For squarefree `r, s`, the twisted
 double divisor sum with coordinate factor `φ(gcd d e)` collapses to a Kronecker
 delta times `g(r)`. Proof structure identical to `kernel1`, with `φ(gcd)` (rewritten
@@ -232,6 +235,7 @@ theorem kernelG {r s : ℕ} (hr : Squarefree r) (hs : Squarefree s) :
           · subst hur; simp [hrs]
           · simp [hur]
 
+omit [TupleChoice] in
 /-- **k-dim g-kernel (mirror of `kernelK`).** Tensor of `kernelG` over `Fin k`. -/
 theorem kernelKG {k : ℕ} {r s : Fin k → ℕ}
     (hr : ∀ i, Squarefree (r i)) (hs : ∀ i, Squarefree (s i)) :
@@ -285,6 +289,7 @@ noncomputable def wSumG (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (u : Fin k �
 noncomputable def lamG (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (d : Fin k → ℕ) : ℝ :=
   (∏ i, ((μ (d i) : ℤ) : ℝ) * (Nat.totient (d i) : ℝ)) * wSumG k R W y d
 
+omit [TupleChoice] in
 /-- **N2.5 — the k-dimensional S₂ diagonalisation.** With `λ` chosen from `y`
 by `lamG`, the S₂ quadratic form over `𝒟 × 𝒟` — with denominator
 `∏ᵢ φ(lcm(dᵢ,eᵢ))` — diagonalises to `∑_r y(r)² / ∏ᵢ g(rᵢ)`. This is the exact

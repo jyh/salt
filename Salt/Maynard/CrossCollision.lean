@@ -100,6 +100,7 @@ noncomputable def s1CompatForm (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) : ℝ
 
 /-! ## The exact decomposition -/
 
+omit [TupleChoice] in
 /-- **Exact decomposition.** The full S₁ diagonal form splits, pair by
 pair, into its collision part and its compatible part. Unconditional. -/
 theorem s1_full_split (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
@@ -111,6 +112,7 @@ theorem s1_full_split (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
   apply Finset.sum_congr rfl; intro e _
   split_ifs <;> ring
 
+omit [TupleChoice] in
 /-- **N2.4, re-exposed.** The full S₁ diagonal form equals the y-side
 `∑_r y(r)² / ∏ᵢ φ(rᵢ)`. -/
 theorem s1_full_eq_yside (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
@@ -120,6 +122,7 @@ theorem s1_full_eq_yside (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
   unfold s1FullForm s1Summand
   exact s1_diagonalisation k R W y hy
 
+omit [TupleChoice] in
 /-- **The reduction N4.3 wants (unconditional).** The compatible
 (count-weighted) main term equals the full diagonal y-side minus the
 collision correction:
@@ -137,6 +140,7 @@ theorem s1_compat_eq (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
   rw [hfull] at hsplit
   linarith [hsplit]
 
+omit [TupleChoice] in
 /-- The y-side `∑_r y(r)² / ∏ᵢ φ(rᵢ)` is nonnegative: each summand is a
 square over a positive totient product (`φ(rᵢ) > 0` on the sieve
 support). -/
@@ -151,6 +155,7 @@ theorem s1_yside_nonneg (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
 
 /-! ## The one-sided drop (the caller's upper bound) -/
 
+omit [TupleChoice] in
 /-- **N4.4 — the cross-collision upper bound.** If the collision form is
 nonnegative, then the compatible (count-weighted) main term is bounded
 above by the full diagonal y-side `∑_r y(r)²/∏ᵢφ(rᵢ)`. This is the
@@ -216,11 +221,13 @@ noncomputable def s1AbsCollisionForm (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
       |lam k R W y d| * |lam k R W y e| / ∏ i, (Nat.lcm (d i) (e i) : ℝ)
     else 0
 
+omit [TupleChoice] in
 /-- The lcm-product denominator is nonnegative (a product of nat casts). -/
 theorem prod_lcm_nonneg {k : ℕ} (d e : Fin k → ℕ) :
     0 ≤ ∏ i, (Nat.lcm (d i) (e i) : ℝ) :=
   Finset.prod_nonneg fun i _ => by positivity
 
+omit [TupleChoice] in
 /-- Each absolute collision summand is nonnegative. -/
 theorem s1AbsCollisionForm_nonneg (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
     0 ≤ s1AbsCollisionForm k R W y := by
@@ -231,6 +238,7 @@ theorem s1AbsCollisionForm_nonneg (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
   · exact div_nonneg (mul_nonneg (abs_nonneg _) (abs_nonneg _)) (prod_lcm_nonneg d e)
   · exact le_refl 0
 
+omit [TupleChoice] in
 /-- **Genuine triangle bound.** The signed collision form is dominated in
 absolute value by the absolute collision form. Unconditional, non-vacuous:
 `|s1CollisionForm| ≤ ∑_{collision (d,e)} |lam d|·|lam e| / ∏ᵢ lcm(dᵢ,eᵢ)`. -/
@@ -256,6 +264,7 @@ theorem s1CollisionForm_abs_le (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
             abs_of_nonneg (prod_lcm_nonneg d e)]
         · rw [abs_zero]
 
+omit [TupleChoice] in
 /-- **The usable upper bound for N4.3 (unconditional, non-vacuous).** The
 compatible (count-weighted) S₁ main term is at most the full diagonal form
 plus the crude absolute collision correction. From `s1_full_split`
@@ -269,6 +278,7 @@ theorem s1Compat_le_full_add_absColl (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
   have hneg := neg_le_abs (s1CollisionForm k R W y)
   linarith
 
+omit [TupleChoice] in
 /-- **The caller-facing form (unconditional, non-vacuous).** Restating the
 previous bound with the full form rewritten to the y-side via N2.4:
 `s1CompatForm ≤ (∑_r y(r)²/∏ᵢφ(rᵢ)) + s1AbsCollisionForm`. The leading term

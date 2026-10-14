@@ -89,6 +89,7 @@ private theorem windowPNT_logratio :
   field_simp
   ring
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The discharge.**  The corpus PNT-with-rate `Salt.Chen.psiTot_pnt` proves the
 long-window hypothesis `WindowPNT` unconditionally. -/
 theorem windowPNT_holds : WindowPNT := by

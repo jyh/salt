@@ -39,6 +39,7 @@ noncomputable def yM (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (r 
 
 /-! ## Step 1–3 — the exact `sigmaMu` collapse of `lamPhiContractM` -/
 
+omit [TupleChoice] in
 /-- **The `m`-pinned `sigmaMu` tensor (his (5.30), per-coordinate).** For a
 squarefree tuple `a` with `rᵢ ∣ aᵢ` and `rₘ = 1`, the guarded Möbius/`d/φ`
 product-sum over divisor tuples of `a`, with the `m`-coordinate *pinned* to
@@ -118,6 +119,7 @@ theorem sigmaMuKpin {k : ℕ} (m : Fin k) {a r : Fin k → ℕ}
         apply Finset.prod_congr rfl; intro i hi
         rw [if_neg (Finset.ne_of_mem_erase hi)]
 
+omit [TupleChoice] in
 /-- **Steps 1–3 (his (5.28)–(5.30)) — the exact `sigmaMu` collapse.** For any `r`
 with `rₘ = 1`, Maynard's `lamPhiContractM` (the `dₘ=1`, `rᵢ∣dᵢ`-restricted
 `λ`-weighted `φ`-density) equals the single `a`-sum with the inner `d`-sum

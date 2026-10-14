@@ -24,6 +24,7 @@ namespace Salt.MaynardK
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- the multinomial coefficient splits at a coordinate: `mult e = C(c, e m) · mult (removeNth m e)`.
 -/
 lemma multinomial_split {n : ℕ} (m : Fin (n + 1)) (e : Fin (n + 1) → ℕ) :
@@ -46,6 +47,7 @@ lemma multinomial_split {n : ℕ} (m : Fin (n + 1)) (e : Fin (n + 1) → ℕ) :
           (Nat.factorial_pos _).ne'
   rw [← hc]; push_cast; field_simp
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **splitting a multi-index at coordinate `m`.** -/
 theorem sum_piAntidiag_split {n : ℕ} (m : Fin (n + 1)) (c : ℕ) (Ψ : ℕ → (Fin n → ℕ) → ℚ) :
     ∑ e ∈ piAntidiag (univ : Finset (Fin (n + 1))) c,
@@ -94,24 +96,28 @@ def FJg (cs : List ((ℕ × ℕ) × ℤ)) : List ((ℕ × ℕ) × ℚ) :=
       (p.2 : ℚ) * ((p.1.2.choose j * p.1.1.factorial * (2 * j).factorial : ℕ) : ℚ) /
         ((p.1.1 + 2 * j + 1).factorial : ℕ))
 
+omit [Salt.Maynard.TupleChoice] in
 lemma list_sum_range_q (f : ℕ → ℚ) (m : ℕ) :
     ((List.range m).map f).sum = ∑ i ∈ Finset.range m, f i := by
   induction m with
   | zero => simp
   | succ m ih => simp [List.range_succ, Finset.sum_range_succ, ih]
 
+omit [Salt.Maynard.TupleChoice] in
 lemma list_sum_flatMap {α β : Type*} (l : List α) (g : α → List β) (f : β → ℚ) :
     ((l.flatMap g).map f).sum = (l.map fun x => ((g x).map f).sum).sum := by
   induction l with
   | nil => simp
   | cons a l ih => simp [List.flatMap_cons, List.sum_append, ih]
 
+omit [Salt.Maynard.TupleChoice] in
 lemma finset_list_swap {α ι : Type*} (S : Finset ι) (l : List α) (h : ι → α → ℚ) :
     ∑ e ∈ S, (l.map (h e)).sum = (l.map fun y => ∑ e ∈ S, h e y).sum := by
   induction l with
   | nil => simp
   | cons a l ih => simp [Finset.sum_add_distrib, ih]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- the contraction of `Fpoly`, written out. -/
 lemma contractB_Fpoly {n : ℕ} (m : Fin (n + 1)) (cs : List ((ℕ × ℕ) × ℤ)) :
     contractB m (Fpoly (n + 1) cs)
@@ -125,6 +131,7 @@ lemma contractB_Fpoly {n : ℕ} (m : Fin (n + 1)) (cs : List ((ℕ × ℕ) × �
   simp only [List.map_map]
   rfl
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `Σ_h mult h · DInt'(2h, D)` is the closed form. -/
 lemma sum_mult_DInt (n D s : ℕ) :
     ∑ h ∈ piAntidiag (univ : Finset (Fin n)) s,
@@ -134,6 +141,7 @@ lemma sum_mult_DInt (n D s : ℕ) :
   rw [List.map_map, Finset.sum_map_toList]
   rfl
 
+omit [Salt.Maynard.TupleChoice] in
 /-- split BOTH multi-indices of a double sum at coordinate `m`. -/
 lemma double_split {n : ℕ} (m : Fin (n + 1)) (c c' : ℕ)
     (Φ : ℕ → (Fin n → ℕ) → ℕ → (Fin n → ℕ) → ℚ) :
@@ -170,6 +178,7 @@ lemma double_split {n : ℕ} (m : Fin (n + 1)) (c c' : ℕ)
   refine Finset.sum_congr rfl fun f' _ => ?_
   ring
 
+omit [Salt.Maynard.TupleChoice] in
 /-- one basis pair of the contracted square: the double multinomial sum collapses to closed forms.
 -/
 lemma pair_closed {n : ℕ} (m : Fin (n + 1)) (b c b' c' : ℕ) (a a' : ℚ) :
@@ -232,6 +241,7 @@ lemma pair_closed {n : ℕ} (m : Fin (n + 1)) (b c b' c' : ℕ) (a a' : ℚ) :
   rw [hB, h1, h2]
   push_cast; ring
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **B4a core:** the Dirichlet integral of the contracted square of `Fpoly`. -/
 theorem simplexInt_sq_contractB {n : ℕ} (m : Fin (n + 1)) (cs : List ((ℕ × ℕ) × ℤ)) :
     simplexInt (sq (contractB m (Fpoly (n + 1) cs)))
@@ -246,8 +256,10 @@ theorem simplexInt_sq_contractB {n : ℕ} (m : Fin (n + 1)) (cs : List ((ℕ × 
   refine congrArg List.sum (List.map_congr_left fun y _ => ?_)
   exact pair_closed m x.1.1 x.1.2 y.1.1 y.1.2 x.2 y.2
 
+omit [Salt.Maynard.TupleChoice] in
 lemma FJ_c_le : ∀ u ∈ FJ, u.1.2 ≤ 5 := by decide
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **B4a: the certificate's `J` is the Dirichlet integral of the contracted square of `F`, at EVERY
 coordinate.** -/
 theorem Jform_eq (m : Fin 105) : Jform = simplexInt (sq (contractB m (Fpoly 105 F))) := by

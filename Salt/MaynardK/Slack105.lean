@@ -36,9 +36,11 @@ open Salt.Maynard Salt.Twelve Salt.MaynardK
 /-- the constant `1` as a `BPoly 105` (one monomial, all exponents 0, budget power 0). -/
 def one105 : BPoly 105 := [(0, 0, 1)]
 
+omit [Salt.Maynard.TupleChoice] in
 lemma eval_one105 (t : Fin 105 → ℝ) : eval one105 t = 1 := by
   simp [eval, one105]
 
+omit [Salt.Maynard.TupleChoice] in
 lemma simplexInt_one105_nonneg : (0 : ℝ) ≤ ((simplexInt one105 : ℚ) : ℝ) := by
   have h : (0 : ℚ) ≤ simplexInt one105 := by
     simp only [simplexInt, one105, DInt', List.map_cons, List.map_nil, List.sum_cons,
@@ -46,6 +48,7 @@ lemma simplexInt_one105_nonneg : (0 : ℝ) ≤ ((simplexInt one105 : ℚ) : ℝ)
     positivity
   exact_mod_cast h
 
+omit [Salt.Maynard.TupleChoice] in
 lemma pas_nonneg105 (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg fun r _ => by positivity
@@ -54,6 +57,7 @@ lemma pas_nonneg105 (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
 
 set_option maxHeartbeats 4000000 in
 -- ~40 named scalar bounds threaded through one linear closure (the template's own budget is 10M).
+omit [Salt.Maynard.TupleChoice] in
 /-- The per-`N'` arithmetic of `winSlackM_ev` (template lines 656–1050), at k = 105, over
 opaque atoms: `Xp = X^105`, `A1X = (1+X)^105`, `APAS = (1+PAS)^105`, `T2 = 2^105`, `S6 = 6^105`,
 `P2 = 2^(105+1)`, `T212 = (1+LR)^212`, `L214 = L^214`, `T422 = (1+LR)^422`, `R2 = R^2`,

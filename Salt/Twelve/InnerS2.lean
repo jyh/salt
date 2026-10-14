@@ -69,6 +69,7 @@ nonnegative constant `B` in the inner bound (this is exactly the landed
 `s2_collision_le_QdiagW` with `Qdiag_gv k R W' m y` replaced by the abstract
 `B`), then instantiate at `B := CF * Qdiag_gv k R W' m y`. -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **General S₂ collision bound relative to an abstract nonneg constant `B`.**
 The landed `s2_collision_le_QdiagW` (`CollisionYF_S2.lean`) proof, with the
 concrete `Qdiag_gv k R W' m y` diagonal replaced by an opaque nonneg `B`
@@ -345,6 +346,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
           exact this
         exact mul_le_mul_of_nonneg_right hfin hyside
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Card NC-2 deliverable 3 — the CF-slotted S₂ collision assembly.** The
 CF-slotted mirror of NB-3's landed `s2_collision_le_QdiagW`: `CF` multiplies
 through the euler tail as a nonneg constant.  Collision constant `4·Cs = 48`
@@ -374,6 +376,7 @@ product→`marked_sqf_g_rel` structure, threading the `|Q|` marks through the
 per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
 partition of `Q` under `slot`. -/
+omit [Salt.Maynard.TupleChoice] in
 theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : ℕ → Fin 5)
     (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
     (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
@@ -513,6 +516,7 @@ private lemma gMult_lcm_split {a b : ℕ} (ha : Squarefree a) :
   obtain ⟨heq, hcop⟩ := lcm_split (a := a) (b := b) ha
   rw [heq, gMult_mul_cop hcop]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The contraction `V` vanishes off the pinned box.**  If `w` is not a box
 tuple with `wₘ = 1`, then `lamPhiContractM w = 0`: either `wₘ ≠ 1` (the divisor
 guard `wₘ ∣ dₘ = 1` fails) or `w ∉ box`, in which case any `d ∈ box` with
@@ -528,6 +532,7 @@ theorem lamPhiContractM_vanish (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
     exact hnb (mem_kSieveIndex_of_dvd hd.1 hall)
   · exact lamPhiContractM_eq_zero_of_coord_ne_one k R W' m y w hwm
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The S₂ termwise `V`-bound.**  `∏ᵢg(wᵢ)·|V(w)| ≤ PAS + ε`, where
 `ε = lemma53Const·5·log R/D`.  Off the pinned box `V(w) = 0` (`lamPhiContractM_vanish`);
 on it, `∏g(w)·|V(w)| = |yM(w)|` (from `yM = (∏μ·g)·V`, `μ²=1`, `g ≥ 0`), and
@@ -1061,6 +1066,7 @@ private lemma s2_part_bound (R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W')
         rw [hprodadd, Finset.prod_const, hpf, Finset.card_attach]
         norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NC-2 s2_inner_termwise** — the full termwise+partition bound: the S₂ inner
 form is `≤ 3^ω · ∏(p−2)⁻² · ((PAS+ε)²·(2·PAS)⁴)`.  Combines `s2_term_bound` (termwise)
 + `s2_part_bound` (partition), with the whole-`s` vanishing cases (`σₘ≠1 ∨ τₘ≠1 ⇒`
@@ -1181,6 +1187,7 @@ lemma s2_inner_termwise (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1)
     positivity
 
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Card NC-2 deliverable 4 — `yF` satisfies the S₂ inner atom.** The S₂ collision
 inner bound `S2InnerBoundQC` for Maynard's weight `yF`, via the design's TERMWISE +
 contamination-partition proof (`s2_inner_termwise`) plus the step-(d) `qdiag`

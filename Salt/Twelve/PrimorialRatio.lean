@@ -78,6 +78,7 @@ private lemma odd_prime_sub_one_eq {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) :
   have hcast : (p : ℝ) = 2 * (m : ℝ) + 1 := by exact_mod_cast hm
   linarith
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Elementary key estimate.** `Σ_{p ≤ D prime} 1/(p−1) ≤ 3/2 + (log D)/2`.
 No Mertens: split off `p = 2` (contributing exactly `1`); the remaining odd
 primes inject into `{1,…,⌊(D−1)/2⌋}` via `p ↦ (p−1)/2`, and the harmonic-sum
@@ -186,6 +187,7 @@ private lemma exp_three_half_le_five : Real.exp (3 / 2 : ℝ) ≤ 5 := by
   have hexp32pos : (0 : ℝ) < Real.exp (3 / 2 : ℝ) := Real.exp_pos _
   nlinarith [hsqeq, hexp3lt25, hexp32pos, sq_nonneg (Real.exp (3 / 2 : ℝ) - 5)]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The frozen deliverable (W5-4).** `primorial D / φ(primorial D) ≤ 5·√D`
 for `D ≥ 2`, elementary (no Mertens). -/
 theorem primorial_ratio_le (D : ℕ) (hD : 2 ≤ D) :

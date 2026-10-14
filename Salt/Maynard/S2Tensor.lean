@@ -118,6 +118,7 @@ noncomputable def omitMass (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ)
     (if ¬ Nat.Coprime am (∏ i ∈ Finset.univ.erase m, u i)
       then fWt k R am / (Nat.totient am : ℝ) else 0)
 
+omit [TupleChoice] in
 /-- **`uVal`-threshold ⇒ product bound.** If every coordinate is `≥ 1` and the
 total `uVal`-mass is `< k`, then `∏ᵢ rᵢ < R`.  (The forward half of the sieve
 identity `Σᵢ uVal(rᵢ) < k ⟺ ∏ᵢ rᵢ < R`, since `uVal(r) = k·log r / log R`.) -/

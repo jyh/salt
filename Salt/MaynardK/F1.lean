@@ -26,6 +26,7 @@ variable [Salt.Maynard.TupleChoice]
 /-- the `ℓ¹` norm of the coefficient list. -/
 def Qsum : ℚ := (F.map fun x => |(x.2 : ℚ)|).sum
 
+omit [Salt.Maynard.TupleChoice] in
 lemma Qsum_pos : 0 < Qsum := by decide +kernel
 
 /-- the normalised Maynard weight. -/
@@ -33,6 +34,7 @@ noncomputable def F1 : BPoly 105 := scale (1 / Qsum) (Fpoly 105 F)
 
 /-! ## the pointwise bound -/
 
+omit [Salt.Maynard.TupleChoice] in
 lemma eval_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k → ℝ) :
     eval (Fpoly k cs) t
       = (cs.map fun x => (x.2 : ℝ) * ((1 - ∑ i, t i) ^ x.1.1 * (∑ i, t i ^ 2) ^ x.1.2)).sum := by
@@ -41,6 +43,7 @@ lemma eval_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k → ℝ)
   refine congrArg List.sum (List.map_congr_left fun x _ => ?_)
   rw [eval_scale, eval_basisPoly]; push_cast; ring
 
+omit [Salt.Maynard.TupleChoice] in
 lemma basis_val_bounds {k : ℕ} (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∑ i, t i ≤ 1) (b c : ℕ) :
     0 ≤ (1 - ∑ i, t i) ^ b * (∑ i, t i ^ 2) ^ c ∧ (1 - ∑ i, t i) ^ b * (∑ i, t i ^ 2) ^ c ≤ 1 := by
   have hs0 : 0 ≤ ∑ i, t i := Finset.sum_nonneg fun i _ => ht0 i
@@ -58,6 +61,7 @@ lemma basis_val_bounds {k : ℕ} (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i) (h
   exact ⟨mul_nonneg (pow_nonneg hb0 _) (pow_nonneg hq0 _),
     mul_le_one₀ (pow_le_one₀ hb0 hb1) (pow_nonneg hq0 _) (pow_le_one₀ hq0 hq1)⟩
 
+omit [Salt.Maynard.TupleChoice] in
 lemma eval_Fpoly_abs_le {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i)
     (ht1 : ∑ i, t i ≤ 1) :
     |eval (Fpoly k cs) t| ≤ (cs.map fun x => |(x.2 : ℝ)|).sum := by
@@ -77,6 +81,7 @@ lemma eval_Fpoly_abs_le {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k �
           rw [abs_mul, abs_of_nonneg h0]
           exact mul_le_of_le_one_right (abs_nonneg _) h1
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`|F1| ≤ 1` on the simplex.** -/
 theorem eval_F1_abs_le_one (t : Fin 105 → ℝ) (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∑ i, t i ≤ 1) :
     |eval F1 t| ≤ 1 := by
@@ -96,6 +101,7 @@ theorem eval_F1_abs_le_one (t : Fin 105 → ℝ) (ht0 : ∀ i, 0 ≤ t i) (ht1 :
 
 /-! ## the two integrals -/
 
+omit [Salt.Maynard.TupleChoice] in
 lemma simplexInt_sq_scale {k : ℕ} (a : ℚ) (P : BPoly k) :
     simplexInt (sq (scale a P)) = a ^ 2 * simplexInt (sq P) := by
   rw [Salt.Twelve.sq, Salt.Twelve.sq, simplexInt_mul, simplexInt_mul]
@@ -107,6 +113,7 @@ lemma simplexInt_sq_scale {k : ℕ} (a : ℚ) (P : BPoly k) :
   refine congrArg List.sum (List.map_congr_left fun y _ => ?_)
   ring
 
+omit [Salt.Maynard.TupleChoice] in
 lemma contractB_scale {n : ℕ} (m : Fin (n + 1)) (a : ℚ) (P : BPoly (n + 1)) :
     contractB m (scale a P) = scale a (contractB m P) := by
   unfold contractB scale
@@ -115,6 +122,7 @@ lemma contractB_scale {n : ℕ} (m : Fin (n + 1)) (a : ℚ) (P : BPoly (n + 1)) 
   simp only [Function.comp_apply, Prod.mk.injEq, true_and]
   ring
 
+omit [Salt.Maynard.TupleChoice] in
 lemma Fpoly_eq {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) :
     Fpoly k cs = cs.flatMap fun x => (piAntidiag (univ : Finset (Fin k)) x.1.2).toList.map fun e =>
       ((fun i => 2 * e i), x.1.1, (x.2 : ℚ) * (Nat.multinomial univ e : ℕ)) := by
@@ -123,6 +131,7 @@ lemma Fpoly_eq {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) :
   simp only [List.map_map]
   rfl
 
+omit [Salt.Maynard.TupleChoice] in
 /-- the list square of `Fpoly` has the same Dirichlet integral as its pairwise expansion `Fsq`. -/
 theorem simplexInt_sq_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) :
     simplexInt (sq (Fpoly k cs)) = simplexInt (Fsq k cs) := by
@@ -148,11 +157,13 @@ theorem simplexInt_sq_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) :
     rw [hD]; push_cast; ring
   rw [Finset.sum_congr rfl h1, ← Finset.mul_sum, hconv]
 
+omit [Salt.Maynard.TupleChoice] in
 theorem simplexInt_sq_F1 : simplexInt (sq F1) = Iform / Qsum ^ 2 := by
   unfold F1
   rw [simplexInt_sq_scale, simplexInt_sq_Fpoly, ← Iform_eq]
   field_simp
 
+omit [Salt.Maynard.TupleChoice] in
 theorem simplexInt_sq_contractB_F1 (m : Fin 105) :
     simplexInt (sq (contractB m F1)) = Jform / Qsum ^ 2 := by
   unfold F1
