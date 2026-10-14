@@ -285,6 +285,7 @@ theorem S1_le (k K₀ N R W' ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : 
 
 /-! ## L4 — the trivial error is small -/
 
+omit [TupleChoice] in
 /-- **L4.** The trivial error is `O_k(R²·(1+log R)^(4k+2))`. The exponent is
 `4k+2 = 2·(2k+1)`: `∑_d|λ_d| ≤ card·λ_max ≤ (R(1+logR)^k)·(Cl(1+logR)^(k+1))
 = Cl·R·(1+logR)^(2k+1)`, and squaring doubles both the coefficient's power and

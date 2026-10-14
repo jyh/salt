@@ -111,6 +111,7 @@ noncomputable def s2CompatFormM (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
 
 /-! ## The exact decomposition -/
 
+omit [TupleChoice] in
 /-- **Exact decomposition.** The full `m`-restricted S₂ diagonal form splits,
 pair by pair, into its collision part and its compatible part. Unconditional. -/
 theorem s2_full_split_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
@@ -122,6 +123,7 @@ theorem s2_full_split_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) 
   apply Finset.sum_congr rfl; intro e _
   split_ifs <;> ring
 
+omit [TupleChoice] in
 /-- **The reduction C4 wants (unconditional).** The compatible (count-weighted)
 S₂ main term equals the full `m`-restricted S₂ diagonal minus the collision
 correction: `s2CompatFormM = s2FullFormM − s2CollisionForm`. -/
@@ -132,6 +134,7 @@ theorem s2_compat_eq_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
 
 /-! ## The S₂ constrained inner evaluation (the genuinely new derivation) -/
 
+omit [TupleChoice] in
 /-- **`inner_exact_S2`, the S₂ constrained diagonalisation.** The `(σ,τ)`-forced
 `dₘ = eₘ = 1`-restricted double `lam·lam/∏φ(lcm)` sum diagonalises exactly to a
 signed `u`-sum of `g`-weighted `Vₘ`-contractions.  Unlike the S₁ `inner_exact`,
@@ -268,6 +271,7 @@ theorem inner_exact_S2 (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
 
 /-! ## Structural machinery (`m`-restricted ports of the N4.4 collision lemmas) -/
 
+omit [TupleChoice] in
 /-- **`m`-restricted Möbius collision expansion.** The compatible form expands
 exactly over collision moduli with signed Möbius weights.  Port of
 `compat_moebius_expansion` with the `dₘ = eₘ = 1` filters threaded through
@@ -329,6 +333,7 @@ theorem compat_moebius_expansion_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ
         apply Finset.sum_congr rfl; intro d _
         rw [Finset.mul_sum]
 
+omit [TupleChoice] in
 /-- **`m`-restricted `inner_collision_expand`.** For squarefree `t`, the
 `t ∣ cRad`-guarded restricted double sum expands exactly over prime-to-slot
 assignments.  Port of `inner_collision_expand`; the slot machinery
@@ -759,12 +764,14 @@ the correct RHS for the S₂ collision bound: it is `≥ 0` and, by
 noncomputable def Qdiag_gv (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) : ℝ :=
   ∑ u ∈ kSieveIndex k R W, (∏ i, (gMult (u i) : ℝ)) * (lamPhiContractM k R W m y u) ^ 2
 
+omit [TupleChoice] in
 /-- `Qdiag_gv ≥ 0`: each summand is `(∏ ℕ-cast) · (·)²`. -/
 theorem Qdiag_gv_nonneg (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
     0 ≤ Qdiag_gv k R W m y := by
   apply Finset.sum_nonneg; intro u _
   exact mul_nonneg (Finset.prod_nonneg fun i _ => Nat.cast_nonneg _) (sq_nonneg _)
 
+omit [TupleChoice] in
 /-- **`s2FullFormM = Qdiag_gv`.**  The full `dₘ=eₘ=1`-restricted S₂ diagonal is the
 `g`-weighted `Vₘ²`-sum: immediate from `s2_diag_lam_restricted` after collapsing
 the (forced) `uₘ = 1` filter — any `u` with `uₘ ≠ 1` has `Vₘ(u) = 0`. -/
@@ -1070,6 +1077,7 @@ private theorem gMult_mul_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
   unfold gMult
   rw [Nat.Coprime.primeFactors_mul hab, Finset.prod_union hab.disjoint_primeFactors]
 
+omit [TupleChoice] in
 /-- **The `g`-weighted single-prime erasure (the `erase_branch` analog, LANDED).**
 Dividing the forced prime `q₀ ≥ 3` out of coordinate `i₀` contracts the
 `g`-weighted constrained tensor `∏g(uᵢ)·(∏f₀(uᵢ))²/∏φ(uᵢ)` by

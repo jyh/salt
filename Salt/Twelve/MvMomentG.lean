@@ -179,6 +179,7 @@ set_option maxHeartbeats 1600000 in
 -- The final assembly bundles the two 1-D corollaries, the per-r telescope, and the
 -- per-j product factoring in a single elaboration; the nested `calc`s over `decBox`
 -- and the product box exceed the default heartbeat budget.
+omit [Salt.Maynard.TupleChoice] in
 theorem mv_monomial_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (n : ℕ) (e : Fin n → ℕ) (d : ℕ) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D z R : ℕ, 3 ≤ D →

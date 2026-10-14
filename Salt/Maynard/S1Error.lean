@@ -40,6 +40,7 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
+omit [TupleChoice] in
 /-- **N4.2 — the S₁ trivial-error factorization (load-bearing).** The double
 sum of `|λ(d)|·|λ(e)|` against the fixed N4.1 count-error constant `2^(k+1)`
 factors as `2^(k+1)` times the square of the single sum `Σ_d |λ(d)|`. This is
@@ -58,6 +59,7 @@ theorem s1_trivial_error_le (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
   intro e _
   ring
 
+omit [TupleChoice] in
 /-- **N4.2 — explicit single-sum bound.** `Σ_{d ∈ 𝒟} |λ(d)|` is bounded by
 `R^(k+1)` times the total `y`-weight `Σ_r |y r| / ∏ᵢ φ(rᵢ)`. Route: the N2.3
 per-tuple bound `|λ(d)| ≤ (∏ᵢ dᵢ)·Σ|y|/∏φ`, then `∏ᵢ dᵢ < R` (support) and

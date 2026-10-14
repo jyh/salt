@@ -29,6 +29,7 @@ open Finset Filter
 
 /-! ## Local helpers -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Non-collision pairs have pairwise-coprime lcm coordinates (k-generic mirror). -/
 lemma lcm_pairwise_coprime_of_noncollision_k {k R W' : ℕ} {d e : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W') (he : e ∈ kSieveIndex k R W')
@@ -50,6 +51,7 @@ lemma lcm_pairwise_coprime_of_noncollision_k {k R W' : ℕ} {d e : Fin k → ℕ
   · exact absurd (hnc j i hij.symm) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdj, hei⟩)
   · exact absurd (hecop i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hei, hej⟩)
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `|yFg R W' F1| ≤ 1` everywhere (the `hy1` of the k = 105 chain, from `eval_F1_abs_le_one`). -/
 theorem yFg_F1_abs_le_one (R W' : ℕ) (s : Fin 105 → ℕ) :
     |yFg R W' F1 s| ≤ 1 := by

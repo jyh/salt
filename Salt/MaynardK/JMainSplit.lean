@@ -830,6 +830,7 @@ private lemma drop_phi_g (n : ℕ) (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < 
 
 set_option maxHeartbeats 2000000 in
 -- the general-`n` square-expansion and absorption calc chains are long; the k = 5 template is too
+omit [Salt.Maynard.TupleChoice] in
 /-- E2: `MvJMainSplitGen` holds at every `n ≥ 1` (general-`n` port of `MvSplit.mv_J_main_split`). -/
 theorem mv_J_main_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1)) :
     MvJMainSplitGen n P m := by

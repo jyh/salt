@@ -47,6 +47,7 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
+omit [TupleChoice] in
 /-- **`B1_ratio_lower`.** `Q·log k/18 ≤ B₁`, with `Q = (φW/W)·b⁻¹`.  Uses the
 sharp lower bound `B1_lower_sharp`, the regime hypothesis `hbLo` (giving
 `log(1+b·log(R₀−1)) ≥ (1/9)·log k`), and `hEB` (absorbing the `W`-only error
@@ -81,6 +82,7 @@ theorem B1_ratio_lower (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 3 ≤ k) (hR
   clear_value Q L b
   linarith only [hsharp, hQM, hEB]
 
+omit [TupleChoice] in
 /-- **`A1_ratio_upper`.** `A₁ ≤ 9·Q`, with `Q = (φW/W)·b⁻¹`.  Uses the sharp
 upper bound `A1_upper_sharp`; the three summands are bounded by `4Q`, `4Q`, `Q`
 respectively.  The middle bound uses `b·log R₀ ≤ k^{1/8} ≤ k^{2/9} ≤

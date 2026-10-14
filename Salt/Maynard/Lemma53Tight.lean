@@ -47,10 +47,13 @@ variable [TupleChoice]
 fixed real (not hidden in an `∃`) so the tight error constants are explicit. -/
 noncomputable def rankinC : ℝ := (rankin_bound 1).choose
 
+omit [TupleChoice] in
 lemma rankinC_ge_one : 1 ≤ rankinC := (rankin_bound 1).choose_spec.1
 
+omit [TupleChoice] in
 lemma rankinC_nonneg : 0 ≤ rankinC := le_trans zero_le_one rankinC_ge_one
 
+omit [TupleChoice] in
 lemma rankinC_bound (Q : ℕ) (hQ : 2 ≤ Q) :
     ∑ q ∈ (Finset.range Q).filter Squarefree, 1 / (Nat.totient q : ℝ)
       ≤ rankinC * Real.log Q := by
@@ -619,6 +622,7 @@ theorem abs_mainSum_le_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → �
 /-- The explicit linear-in-`k` Lemma 5.3 constant `rankinC·(2 + 4·exp 4)`. -/
 noncomputable def lemma53Const : ℝ := rankinC * (2 + 4 * Real.exp 4)
 
+omit [TupleChoice] in
 lemma lemma53Const_nonneg : 0 ≤ lemma53Const := by
   rw [lemma53Const]
   have := rankinC_nonneg

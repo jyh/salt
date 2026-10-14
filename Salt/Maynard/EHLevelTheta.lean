@@ -38,6 +38,7 @@ variable [Salt.Maynard.TupleChoice]
 
 /-! ## The level-θ★ error bound (`lod_error_pow_theta`) -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`lod_error_pow` at level `θ₊ = 3999/4000`.**  Verbatim `lod_error_pow`
 with the two semantic `(1/2:ℝ)` literals (the sum range `⌊N^{θ₊}/(log N)^{B'}⌋₊`
 and the `hsqrtN`/exponent-`<1` step) swapped to `(3999/4000:ℝ)`, and the level
@@ -231,6 +232,7 @@ theorem lod_error_pow_theta (k B : ℕ) (hB : 1 ≤ B) (hLoD : HasLevel (3999 / 
 
 /-! ## Facts about `R = ⌊N'^{θ★/2}⌋₊`, θ★/2 = 1999/4000 -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`R_sq_le` at θ★/2.**  `R² ≤ N'^{3998/4000} = N'^{θ★}`.  Literal swap
 `1/5 → 1999/4000`, `2/5 → 3998/4000`; `norm_num` on `2·(1999/4000) = 3998/4000`. -/
 lemma R_sq_le_theta (N' : ℕ) (hN' : 1 ≤ N') :
@@ -246,6 +248,7 @@ lemma R_sq_le_theta (N' : ℕ) (hN' : 1 ≤ N') :
     _ = x ^ (3998 / 4000 : ℝ) := by
         rw [← Real.rpow_natCast (x ^ (1999 / 4000 : ℝ)) 2, ← Real.rpow_mul hxpos.le]; norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`logR_upper` at θ★/2.**  `log R ≤ (1999/4000)·log N'`.  Literal swap. -/
 lemma logR_upper_theta (N' : ℕ) (hN' : 1 ≤ N') :
     Real.log (⌊(N' : ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) ≤ (1999 / 4000 : ℝ) * Real.log N' := by
@@ -262,6 +265,7 @@ lemma logR_upper_theta (N' : ℕ) (hN' : 1 ≤ N') :
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`logR_lower` at θ★/2 — the one C-flavored node (the ρ-split).**  Lower
 bound on `log R` for `R = ⌊N'^{θ★/2}⌋₊`, parameterized by the split constant
 `ρ`.  For any `0 ≤ ρ` and any `N'` large enough that `N'^{1999/4000 − ρ} ≥ 2`
@@ -294,6 +298,7 @@ lemma logR_lower_theta (ρ : ℝ) (hρ0 : 0 ≤ ρ) (N' : ℕ) (hN1 : 1 ≤ N')
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Eventual form of `logR_lower_theta`: for any fixed `ρ < 1999/4000`,
 eventually `ρ·log N' ≤ log R`.  This is the `∀ᶠ`-shape `win_core` consumes;
 `ρ ↑ 1999/4000` (with `logR_upper_theta` above) pins `log R/log N' → θ★/2`. -/
@@ -306,6 +311,7 @@ lemma eventually_logR_lower_theta (ρ : ℝ) (hρ0 : 0 ≤ ρ) (hρ : ρ < 1999 
   filter_upwards [hev, eventually_ge_atTop 1] with N' h2 hN1
   exact logR_lower_theta ρ hρ0 N' hN1 h2
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`R_ge_two` at θ★/2.**  `2 ≤ R` for `N' ≥ 8`.  The landed `32 = 2^5`
 threshold (exp `1/5`) becomes `8 = 2^3`: `8^{1999/4000} = 2^{5997/4000} ≥ 2`
 since `5997/4000 ≥ 1`. -/
@@ -324,6 +330,7 @@ lemma R_ge_two_theta (N' : ℕ) (hN' : (8 : ℝ) ≤ (N' : ℝ)) :
     linarith [h2, he]
   exact Nat.le_floor (by exact_mod_cast hge)
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`R_le_N'` at θ★/2.**  `R ≤ N'` for `N' ≥ 1`.  θ-agnostic (exp `< 1`);
 literal swap. -/
 lemma R_le_N'_theta (N' : ℕ) (hN' : 1 ≤ N') :
@@ -339,6 +346,7 @@ lemma R_le_N'_theta (N' : ℕ) (hN' : 1 ≤ N') :
 
 /-! ## The level-θ★ EH modulus range (`EH_range_theta`) -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`EH_range_lod` at θ★.**  For a fixed modulus `W'` and haircut `B' ≥ 0`, the
 sieve modulus range `W'·R²` (with `R = ⌊N'^{θ★/2}⌋₊`) sits inside the level-`θ₊`
 haircut range `⌊N'^{θ₊}/(log N')^{B'}⌋₊` once `N'` is large.  `W'` is a constant,
@@ -389,6 +397,7 @@ theorem EH_range_theta (W' : ℕ) (hW' : 0 < W') (B' : ℝ) (hB'0 : 0 ≤ B') :
 
 /-! ## Eventual range-monotonicity at θ★ (`range_haircut_mono_theta`) -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`range_haircut_mono` at θ★.**  Eventual monotonicity of the level-`θ₊`
 haircut range `y^{θ₊}/(log y)^{B'}` once `2·B' ≤ log N` (the landed threshold,
 stronger than the exact `(4000/3999)·B' ≤ log N` needed here).  For `2 ≤ N ≤ x`,

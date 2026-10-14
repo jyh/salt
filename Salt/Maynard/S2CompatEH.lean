@@ -37,6 +37,7 @@ variable [TupleChoice]
 
 open Finset
 
+omit [TupleChoice] in
 /-- For a prime `p`, `p ∣ lcm a b ↔ p ∣ a ∨ p ∣ b` (via `lcm ∣ a*b` and `a,b ∣ lcm`). -/
 theorem prime_dvd_lcm_iff {p a b : ℕ} (hp : p.Prime) :
     p ∣ Nat.lcm a b ↔ p ∣ a ∨ p ∣ b := by

@@ -446,6 +446,7 @@ private theorem fiberCardLeW {k R W' : ℕ} (hW' : Squarefree W') (m : Fin k) (q
 
 /-! ## The headline free-`W'` fiber bound (mirror of `compat_pair_fiber_le`) -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **W5-3 item 3 — the free-`W'` pair fiber count.**  A nonnegative `F` summed
 over compatible pairs (both in `kSieveIndex k R W'`, `dₘ = eₘ = 1`,
 non-collision), regrouped by their combined modulus `q = qModW k W' d e`, is

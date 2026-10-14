@@ -47,8 +47,10 @@ private theorem sum_move3'' {α β γ δ : Type*} [AddCommMonoid δ]
 noncomputable def nOverPhi : ArithmeticFunction ℝ :=
   ⟨fun n => (n : ℝ) / (Nat.totient n), by simp⟩
 
+omit [TupleChoice] in
 @[simp] lemma nOverPhi_apply (n : ℕ) : nOverPhi n = (n : ℝ) / (Nat.totient n) := rfl
 
+omit [TupleChoice] in
 lemma nOverPhi_isMult : nOverPhi.IsMultiplicative := by
   refine ⟨by simp, ?_⟩
   intro m n h
@@ -59,6 +61,7 @@ lemma nOverPhi_isMult : nOverPhi.IsMultiplicative := by
 
 /-! ## Deliverable 1 — the crux: `sigmaMu` -/
 
+omit [TupleChoice] in
 /-- **The `u = 1` core.** For squarefree `s`,
 `∑_{d ∣ s} μ(d)·(d/φ(d)) = μ(s)/φ(s)` (real division).  Proof: this is the
 `prodPrimeFactors_one_sub_of_squarefree` identity for the multiplicative
@@ -95,6 +98,7 @@ theorem sigmaMuCore {s : ℕ} (hs : Squarefree s) :
   field_simp
   ring
 
+omit [TupleChoice] in
 /-- **Deliverable 1 (the crux).** For squarefree `r` and `u ∣ r`, the
 Möbius/`d/φ`-weighted divisor sum, restricted to multiples of `u`, evaluates to
 `μ(r)·u/φ(r)` (real division).  Proof: reindex `d = u·t` with `t ∣ r/u`
@@ -168,6 +172,7 @@ theorem sigmaMu {r : ℕ} (hr : Squarefree r) {u : ℕ} (hur : u ∣ r) :
 
 /-! ## Deliverable 2 — the contraction `V(u) = lamPhiContract u` -/
 
+omit [TupleChoice] in
 /-- **The `k`-fold tensor of `sigmaMu`.** For squarefree `r` and `u ∣ r`
 coordinatewise, the guarded product-sum over the divisor tuples of `r` factors
 as `∏ᵢ μ(rᵢ)·uᵢ/φ(rᵢ)`.  This is the exact analog of `kernelKG`'s
@@ -212,6 +217,7 @@ noncomputable def lamPhiContract (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (u 
        y r * (∏ i, ((μ (r i) : ℤ) : ℝ)) / (∏ i, (Nat.totient (r i) : ℝ)) ^ 2
      else 0)
 
+omit [TupleChoice] in
 /-- **Deliverable 2 — the intermediate `W`-sum.** The `lam`-weighted
 `φ`-density sum, restricted to multiples of `u`, equals the full contraction
 `V(u) = lamPhiContract u`.  Proof: expand `wSum`, swap the `d`/`r` sums, and
@@ -298,6 +304,7 @@ theorem wsum_lam_phi (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (u : Fin k → 
 
 /-! ## Deliverable 3 — the corrected S₂ diagonalisation (Lemma 5.2) -/
 
+omit [TupleChoice] in
 /-- **Per-coordinate `φ(gcd)` expansion, tensored over `Fin k`.** For sieve
 tuples `d, e`, `∏ᵢ φ(gcd(dᵢ,eᵢ)) = ∑_{u∈𝒟, uᵢ∣dᵢ ∧ uᵢ∣eᵢ} ∏ᵢ g(uᵢ)`.  This is
 the `g`-analog of the `φ = 1 ∗ g` divisor identity (`sum_gMult_eq_totient`),
@@ -350,6 +357,7 @@ theorem prod_totient_gcd_expand {k R W : ℕ} {d e : Fin k → ℕ}
         · rw [if_neg hP, if_neg (fun h => hP (forall_and.mp h).1)]
         · rw [if_neg hP, if_neg (fun h => hP (forall_and.mp h).1)]
 
+omit [TupleChoice] in
 /-- **Deliverable 3 — Maynard's Lemma 5.2 (the CORRECT S₂ diagonalisation).**
 With the *actual* sieve weight `lam` (same as `S₁`), the S₂ quadratic form over
 `𝒟 × 𝒟` with denominator `∏ᵢ φ(lcm(dᵢ,eᵢ))` diagonalises to

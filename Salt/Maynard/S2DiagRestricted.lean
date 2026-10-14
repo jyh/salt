@@ -57,6 +57,7 @@ noncomputable def lamPhiContractM (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ)
   ∑ d ∈ (kSieveIndex k R W).filter (fun d => d m = 1),
     (if (∀ i, u i ∣ d i) then lam k R W y d / ∏ i, (Nat.totient (d i) : ℝ) else 0)
 
+omit [TupleChoice] in
 /-- **The `dₘ = eₘ = 1`-restricted S₂ diagonalisation.** With the *actual* sieve
 weight `lam`, the S₂ quadratic form over the pinned sub-lattice
 `{(d,e) : dₘ = eₘ = 1}` with denominator `∏ᵢ φ(lcm(dᵢ,eᵢ))` diagonalises to

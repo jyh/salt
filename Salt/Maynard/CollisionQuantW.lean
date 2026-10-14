@@ -63,6 +63,7 @@ def S1InnerBound (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) : Prop :=
           * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
 
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `y`-generic form of `collision_lower_orderW`: the tensor weight is
 replaced by the abstract atom `hInner : S1InnerBound k R W' y` (plus off-support
 vanishing `hy0`). Body is the landed proof with the single `inner_abs_le` call
@@ -289,6 +290,7 @@ theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
               (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
         mul_le_mul_of_nonneg_right htail hyside
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `y`-generic form of `crossCollisionControlled_holdsW`. -/
 theorem crossCollisionControlled_holds_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
@@ -302,6 +304,7 @@ theorem crossCollisionControlled_holds_of (k R W' D : ℕ) (y : (Fin k → ℕ) 
     positivity
   · exact collision_lower_orderW_of k R W' D y hy0 hInner hDlt hk hDk
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `y`-generic form of `compat_le_two_ysideW`. -/
 theorem compat_le_two_yside_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)

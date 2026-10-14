@@ -154,6 +154,7 @@ private lemma wc105_log_ge_of_ceil_exp (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc
   calc Lc = Real.log (Real.exp Lc) := (Real.log_exp Lc).symm
     _ ≤ Real.log R := Real.log_le_log hpos (le_trans h1 h2)
 
+omit [Salt.Maynard.TupleChoice] in
 theorem qdiag_err_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (hy1 : ∀ R W' : ℕ, ∀ s, |yFg R W' P s| ≤ 1) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ,
@@ -293,6 +294,7 @@ theorem qdiag_err_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fi
   rw [hcollect]
   linarith [hterm1, hterm2, hterm3]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`qdiag_err_split_105`** — the `n = 104`, `P = F1` instance. -/
 theorem qdiag_err_split_105 (m : Fin 105) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ,

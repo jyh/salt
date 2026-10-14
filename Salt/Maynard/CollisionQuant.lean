@@ -45,6 +45,7 @@ variable [TupleChoice]
 
 /-! ## Support helpers: divisor-closedness, prime bounds, indicators -/
 
+omit [TupleChoice] in
 /-- **Divisor-closedness of `𝒟`.** A componentwise divisor of a sieve tuple
 is a sieve tuple. -/
 theorem mem_kSieveIndex_of_dvd {k R W : ℕ} {r d : Fin k → ℕ}
@@ -67,6 +68,7 @@ theorem D₀_lt_of_prime_dvd_coord {k R : ℕ} {r : Fin k → ℕ}
     (hpi : p ∣ r i) : D₀ k < p :=
   D₀_lt_of_prime_dvd_coprime (((mem_kSieveIndex_iff r).mp hr).2.2.1 i) hp hpi
 
+omit [TupleChoice] in
 /-- **P0, uniqueness half.** By pairwise coprimality, a prime divides at
 most one coordinate of a sieve tuple. -/
 theorem prime_dvd_coord_unique {k R W : ℕ} {d : Fin k → ℕ}
@@ -112,6 +114,7 @@ private theorem sum_move3 {α β γ δ : Type*} [AddCommMonoid δ]
   apply Finset.sum_congr rfl; intro c _
   exact Finset.sum_product' A B (fun a b => F a b c)
 
+omit [TupleChoice] in
 /-- `|μ n| ≤ 1` as a real number. -/
 theorem abs_moebius_real_le_one (n : ℕ) : |((μ n : ℤ) : ℝ)| ≤ 1 := by
   rw [← Int.cast_abs]
@@ -120,6 +123,7 @@ theorem abs_moebius_real_le_one (n : ℕ) : |((μ n : ℤ) : ℝ)| ≤ 1 := by
     split_ifs <;> norm_num
   exact_mod_cast h
 
+omit [TupleChoice] in
 /-- The classical Möbius identity `∑_{t ∣ n} μ t = [n = 1]`, real-valued. -/
 theorem sum_divisors_moebius_eq (n : ℕ) :
     (∑ t ∈ n.divisors, ((μ t : ℤ) : ℝ)) = if n = 1 then 1 else 0 := by
@@ -132,6 +136,7 @@ theorem sum_divisors_moebius_eq (n : ℕ) :
     _ = ((if n = 1 then 1 else 0 : ℤ) : ℝ) := by rw [h]
     _ = if n = 1 then 1 else 0 := by split_ifs <;> simp
 
+omit [TupleChoice] in
 /-- Rewrite a divisor sum as a guarded sum over an ambient `range`. -/
 theorem sum_divisors_eq_sum_range {n M : ℕ} (hn : n ≠ 0) (hnM : n ≤ M)
     (f : ℕ → ℝ) :
@@ -154,12 +159,14 @@ cross-gcds. `cRad d e = 1` iff `(d,e)` is compatible (no collision). -/
 def cRad {k : ℕ} (d e : Fin k → ℕ) : ℕ :=
   ∏ ij ∈ (Finset.univ : Finset (Fin k)).offDiag, Nat.gcd (d ij.1) (e ij.2)
 
+omit [TupleChoice] in
 theorem cRad_pos {k R W : ℕ} {d e : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W) (_he : e ∈ kSieveIndex k R W) :
     0 < cRad d e :=
   Finset.prod_pos fun ij _ =>
     Nat.gcd_pos_of_pos_left _ (kSieveIndex_coord_pos hd ij.1)
 
+omit [TupleChoice] in
 /-- `cRad d e = 1` iff the pair is compatible. -/
 theorem cRad_eq_one_iff {k R W : ℕ} {d e : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W) (_he : e ∈ kSieveIndex k R W) :
@@ -176,6 +183,7 @@ theorem cRad_eq_one_iff {k R W : ℕ} {d e : Fin k → ℕ}
     by_contra hnc
     exact h ⟨ij.1, ij.2, hij.2.2, hnc⟩
 
+omit [TupleChoice] in
 /-- A prime divides `cRad` iff it divides some cross-pair. -/
 theorem prime_dvd_cRad_iff {k : ℕ} {d e : Fin k → ℕ} {p : ℕ} (hp : p.Prime) :
     p ∣ cRad d e
@@ -187,6 +195,7 @@ theorem prime_dvd_cRad_iff {k : ℕ} {d e : Fin k → ℕ} {p : ℕ} (hp : p.Pri
   · rintro ⟨ij, hij, h1, h2⟩
     exact ⟨ij, hij, Nat.dvd_gcd h1 h2⟩
 
+omit [TupleChoice] in
 /-- **P0 — the exact disjoint-sum collision indicator.** For sieve tuples,
 the indicator of "`p` collides" is the *sum* (not just bounded by the sum)
 of the per-pair indicators: pairwise coprimality makes the witnessing pair
@@ -217,6 +226,7 @@ theorem collision_indicator {k R W : ℕ} {d e : Fin k → ℕ}
 
 /-! ## P1 — the forced-divisor exact evaluation `T_forced` -/
 
+omit [TupleChoice] in
 /-- On the sieve support, `λ(d)/∏ᵢdᵢ = ∏ᵢμ(dᵢ) · wSum d`. -/
 theorem lam_div_prod {k R W : ℕ} (y : (Fin k → ℕ) → ℝ) {d : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W) :
@@ -228,6 +238,7 @@ theorem lam_div_prod {k R W : ℕ} (y : (Fin k → ℕ) → ℝ) {d : Fin k → 
   rw [lam, Finset.prod_mul_distrib, div_eq_iff hne]
   ring
 
+omit [TupleChoice] in
 /-- **P1 — `T_forced`.** The forced-divisor λ-sum evaluates exactly:
 `∑_{d ∈ 𝒟, v ∣ d} λ(d)/∏ᵢdᵢ = ∏ᵢμ(vᵢ) · y(v)/∏ᵢφ(vᵢ)`.
 (If `v ∉ 𝒟` both sides vanish: the Möbius delta `[r = v]` never fires on
@@ -310,6 +321,7 @@ theorem T_forced (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
 
 /-! ## P2 — the constrained diagonalisation `inner_exact` -/
 
+omit [TupleChoice] in
 /-- The tensor gcd expansion: for `d, e ∈ 𝒟`,
 `∏ᵢ gcd(dᵢ,eᵢ) = ∑_{u ∈ 𝒟, u ∣ d, u ∣ e} ∏ᵢ φ(uᵢ)` — exact, with the
 `u`-sum ranging over the *whole* sieve set thanks to divisor-closedness. -/
@@ -358,6 +370,7 @@ private theorem ite_one_mul_ite_one (P Q : Prop) [Decidable P] [Decidable Q] :
       = if P ∧ Q then (1 : ℝ) else 0 := by
   by_cases hP : P <;> by_cases hQ : Q <;> simp [hP, hQ]
 
+omit [TupleChoice] in
 /-- **P2 — `inner_exact`, the constrained diagonalisation.** The
 `(σ,τ)`-forced double λ-sum diagonalises exactly to a signed `u`-sum of
 `ŷ`-evaluations at the componentwise lcms. All inner sums stay signed. -/
@@ -670,6 +683,7 @@ theorem euler_tail (k M : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k) :
 
 /-! ## P3 helpers — lcm splitting, assignments, the erasure machinery -/
 
+omit [TupleChoice] in
 /-- For squarefree `a`: `lcm b a = b · (a/gcd(a,b))` with coprime factors. -/
 theorem lcm_split {a b : ℕ} (ha : Squarefree a) :
     Nat.lcm b a = b * (a / Nat.gcd a b) ∧ Nat.Coprime b (a / Nat.gcd a b) := by
@@ -690,6 +704,7 @@ theorem lcm_split {a b : ℕ} (ha : Squarefree a) :
     rw [hcop_g] at h2
     exact Nat.Coprime.symm (Nat.dvd_one.mp h2)
 
+omit [TupleChoice] in
 /-- Totient splitting at the lcm: for squarefree `a` and `b > 0`,
 `φ(lcm b a) = φ(b) · ∏_{p ∣ a, p ∤ b} (p−1)` (real-valued). -/
 theorem totient_lcm_split {a b : ℕ} (ha : Squarefree a) (_hb : 0 < b) :
@@ -701,6 +716,7 @@ theorem totient_lcm_split {a b : ℕ} (ha : Squarefree a) (_hb : 0 < b) :
     ha.squarefree_of_dvd (Nat.div_dvd_of_dvd (Nat.gcd_dvd_left a b))
   rw [heq, Nat.totient_mul hcop, Nat.cast_mul, totient_squarefree_cast hcsq]
 
+omit [TupleChoice] in
 /-- Prime membership in the lcm cofactor: `p ∣ a/gcd(a,b) ↔ p ∣ a ∧ p ∤ b`
 for squarefree `a`. -/
 theorem prime_dvd_cofactor_iff {a b : ℕ} (ha : Squarefree a) {p : ℕ}
@@ -735,6 +751,7 @@ def slotProd {k : ℕ} (s : ℕ)
     (sel : Fin k × Fin k → Fin k) (i : Fin k) : ℕ :=
   ∏ q ∈ s.primeFactors.attach.filter (fun q => sel (α q.1 q.2) = i), (q : ℕ)
 
+omit [TupleChoice] in
 /-- Each slot product divides `s`. -/
 theorem slotProd_dvd {k s : ℕ} (hs : Squarefree s)
     (α : (p : ℕ) → p ∈ s.primeFactors → Fin k × Fin k)
@@ -744,6 +761,7 @@ theorem slotProd_dvd {k s : ℕ} (hs : Squarefree s)
   rwa [Finset.prod_attach s.primeFactors (fun p => p),
     Nat.prod_primeFactors_of_squarefree hs] at h1
 
+omit [TupleChoice] in
 /-- Prime divisibility of a slot product: exactly the primes of `s`
 assigned to that slot. -/
 theorem prime_dvd_slotProd_iff {k s : ℕ}
@@ -1102,6 +1120,7 @@ private theorem yhat_side_le {k R W : ℕ} {y : (Fin k → ℕ) → ℝ} {f₀ :
   rw [hden]
   exact div_le_div₀ (Finset.prod_nonneg fun i _ => hf0 _) hnum hdpos (le_refl _)
 
+omit [TupleChoice] in
 /-- **P3 — `inner_abs_le`, the per-assignment collision bound.** For a
 squarefree modulus `s` and any prime-to-slot assignment `α`, the signed
 `u`-sum produced by `inner_exact` at `(σ,τ) = (slotProd fst, slotProd snd)`
@@ -1575,6 +1594,7 @@ theorem inner_abs_le (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ →
 every divisor of every `cRad d e` (`d, e ∈ 𝒟`). -/
 def collisionModuli (k R : ℕ) : Finset ℕ := Finset.range (R ^ k + 1)
 
+omit [TupleChoice] in
 /-- A squarefree number divides `n` iff each of its primes does. -/
 theorem squarefree_dvd_iff_primes {t n : ℕ} (ht : Squarefree t) :
     t ∣ n ↔ ∀ p ∈ t.primeFactors, p ∣ n := by
@@ -1586,6 +1606,7 @@ theorem squarefree_dvd_iff_primes {t n : ℕ} (ht : Squarefree t) :
     exact Finset.prod_primes_dvd n
       (fun p hp => (Nat.prime_of_mem_primeFactors hp).prime) h
 
+omit [TupleChoice] in
 /-- `cRad d e ≤ R^k` on the sieve support. -/
 theorem cRad_le {k R W : ℕ} {d e : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W) (_he : e ∈ kSieveIndex k R W) :
@@ -1616,6 +1637,7 @@ theorem cRad_le {k R W : ℕ} {d e : Fin k → ℕ}
     exact le_of_lt ((mem_kSieveIndex_iff d).mp hd).2.2.2
   omega
   
+omit [TupleChoice] in
 /-- Every divisor of a `cRad` lies in `collisionModuli`. -/
 theorem dvd_cRad_mem {k R W : ℕ} {d e : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W) (he : e ∈ kSieveIndex k R W)
@@ -1625,6 +1647,7 @@ theorem dvd_cRad_mem {k R W : ℕ} {d e : Fin k → ℕ}
   have h2 := cRad_le hd he
   omega
 
+omit [TupleChoice] in
 /-- **P4(i)+(ii) — `compat_moebius_expansion`.** The compatible form
 expands exactly over collision moduli with signed Möbius weights:
 `s1CompatForm = ∑_{t ∈ CM} μ(t) · ∑_{(d,e) : t ∣ cRad} s1Summand`. -/
@@ -1679,6 +1702,7 @@ theorem compat_moebius_expansion (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
         apply Finset.sum_congr rfl; intro d _
         rw [Finset.mul_sum]
 
+omit [TupleChoice] in
 /-- The slot products of an assignment force exactly the per-prime slot
 divisibilities. -/
 theorem slotProd_dvd_iff {k t : ℕ} (ht : Squarefree t)
@@ -1707,6 +1731,7 @@ theorem slotProd_dvd_iff {k t : ℕ} (ht : Squarefree t)
     have hq := h ⟨p, hmem⟩
     rwa [hsel] at hq
 
+omit [TupleChoice] in
 /-- **P4(iii) — `inner_collision_expand`.** For squarefree `t`, the
 `t ∣ cRad`-guarded double sum expands **exactly** (disjointness — no
 over-counting) as a sum over prime-to-slot assignments of doubly-forced
@@ -2152,6 +2177,7 @@ lower-bound hypothesis `hDlt : ∀ p prime, p ∤ W' → D < p` (satisfied by
 Instantiating `W' := W k`, `D := D₀ k` recovers the `W k`-versions above (whose
 proofs are left untouched for the landed Maynard spine). -/
 
+omit [TupleChoice] in
 /-- Free-`(D,W')` form of `D₀_lt_of_prime_dvd_coord` (strict `D < p`). -/
 theorem D_lt_of_prime_dvd_coordW {k R W' D : ℕ}
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
@@ -2162,6 +2188,7 @@ theorem D_lt_of_prime_dvd_coordW {k R W' D : ℕ}
   have hp1 : p ∣ 1 := hcop ▸ Nat.dvd_gcd hpi hpW
   exact hp.one_lt.ne' (Nat.dvd_one.mp hp1)
 
+omit [TupleChoice] in
 /-- Free-`(D,W')` form of `inner_collision_zero`. -/
 theorem inner_collision_zeroW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
@@ -2176,6 +2203,7 @@ theorem inner_collision_zeroW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
   obtain ⟨ij, _, h1, _⟩ := (prime_dvd_cRad_iff hp).mp hpc
   exact absurd (D_lt_of_prime_dvd_coordW hDlt hd hp h1) (not_lt.mpr hpD)
 
+omit [TupleChoice] in
 /-- Free-`D` form of `euler_tail`: the Euler tail over squarefree moduli whose
 prime factors all exceed `D`, with per-prime weight `3k²(p−1)⁻²`, is
 `≤ 12k²/D`.  Verbatim port of `euler_tail` with `D₀ k → D`. -/
@@ -2309,6 +2337,7 @@ theorem euler_tailW (k M D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D) :
         field_simp
         ring
 
+omit [TupleChoice] in
 /-- Free-`(D,W')` form of `collision_lower_order`. -/
 theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ → ℝ)
     (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)
@@ -2537,6 +2566,7 @@ theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f
               (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
         mul_le_mul_of_nonneg_right htail hyside
 
+omit [TupleChoice] in
 /-- Free-`(D,W')` form of `crossCollisionControlled_holds`. -/
 theorem crossCollisionControlled_holdsW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (f₀ : ℕ → ℝ)
@@ -2552,6 +2582,7 @@ theorem crossCollisionControlled_holdsW (k R W' D : ℕ) (y : (Fin k → ℕ) �
     positivity
   · exact collision_lower_orderW k R W' D y f₀ hf01 hfmono hy hDlt hk hDk
 
+omit [TupleChoice] in
 /-- Free-`(D,W')` form of `compat_le_two_yside`. -/
 theorem compat_le_two_ysideW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ → ℝ)
     (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)

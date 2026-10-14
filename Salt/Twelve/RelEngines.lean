@@ -348,6 +348,7 @@ identity `1/φ(r) = (1/φ(s))·(1/φ(r/s))`, reindex `r ↦ r/s` injectively, an
 extend the image to `sqfCop z W'`), STOPPING there instead of continuing on
 to invoke `Salt.Maynard.phiAtom_upper_lossy` for an opaque `(W',a)`-constant. -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem marked_sqf_phi_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (a : ℕ) (s z : ℕ) (hs : 0 < s) (hz : 2 ≤ z) :
     (∑ r ∈ (Finset.range z).filter
@@ -466,6 +467,7 @@ divisor-swap bound on `∑_{b} 1/g(b)` (Step B), with the constant-bearing
 `2 · phiAtomSum z W'` (the `2` is the same `exp(2/D) ≤ 2`-shaped Euler-tail
 factor as the landed proof, from `tail_full_le`). -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem marked_sqf_g_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (a : ℕ) (D s z : ℕ) (hD : 3 ≤ D)
     (hDp : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) (hs : 0 < s) (hz : 2 ≤ z) :
@@ -685,6 +687,7 @@ since `marked_sqf_phi_rel` at `a = 0` carries no `log z`/`log R` factor at
 all, the tail lands directly at `(4/D)·phiAtomSum z W'` with no `log R`
 multiplier (unlike the landed `Cg/D · log R` correction). -/
 
+omit [Salt.Maynard.TupleChoice] in
 theorem g_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (c b : ℕ) (D z R : ℕ) (hD : 3 ≤ D)
     (hDp : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p)
