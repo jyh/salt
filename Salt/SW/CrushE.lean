@@ -300,7 +300,7 @@ theorem dhAbel_leg1_cut_abs_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
       have hmod : z < (z / d + 1) * d := by
         have h1 := Nat.div_add_mod z d
         have h2 : z % d < d := Nat.mod_lt z (by omega)
-        nlinarith
+        linarith only [h2, h1]
       have hR : (z : ℝ) < (((z / d : ℕ) : ℝ) + 1) * (d : ℝ) := by exact_mod_cast hmod
       have hdivlt : (z : ℝ) / (d : ℝ) < ((z / d : ℕ) : ℝ) + 1 := (div_lt_iff₀ hd0).mpr hR
       linarith [hdivlt]
@@ -336,7 +336,7 @@ theorem dhAbel_leg1_cut_abs_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
           apply add_le_add hem hFE_bound
       _ ≤ 17 * ((z / d : ℕ) : ℝ) ^ (-β₀) := by
           have hpos : (0 : ℝ) ≤ ((z / d : ℕ) : ℝ) ^ (-β₀) := Real.rpow_nonneg hf0.le _
-          nlinarith [hpos]
+          linarith only [hFE_le, hFE_nn]
   -- STEP 5 : decompose and bound
   set Br : ℝ := ∑ d ∈ Finset.Icc 1 D, chiRe χ d * (d : ℝ) ^ (-β₀) with hBrdef
   set G : ℝ := ∑ d ∈ Finset.Icc 1 D, (chiRe χ d * (d : ℝ) ^ (-β₀))
