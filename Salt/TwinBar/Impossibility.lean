@@ -263,9 +263,9 @@ theorem twin_gate_fails (F : ℝ → ℝ → ℝ) (hF : ContinuousOn (Function.u
     {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ ≤ 1) :
     θ * (J₁ F + J₂ F) ≤ 2 * I₂ F := by
   have hbar := twin_bar F hF
-  nlinarith [hbar,
-    mul_nonneg (sub_nonneg.mpr hθ1) (add_nonneg (J₁_nonneg F) (J₂_nonneg F)),
-    mul_nonneg (by linarith [two_log_two_lt_two] : (0:ℝ) ≤ 2 - 2 * Real.log 2) (I₂_nonneg F)]
+  linarith only [hbar, mul_nonneg
+      (by linarith [two_log_two_lt_two] : (0 : ℝ) ≤ 2 - 2 * Real.log 2) (I₂_nonneg F),
+      mul_nonneg (sub_nonneg.mpr hθ1) (add_nonneg (J₁_nonneg F) (J₂_nonneg F))]
 
 /-! ## H3 — the headline impossibility -/
 
@@ -278,7 +278,7 @@ theorem no_twin_weight :
       0 < I₂ F ∧ 2 * I₂ F < J₁ F + J₂ F := by
   rintro ⟨F, hF, hI, hlt⟩
   have hbar := twin_bar F hF
-  nlinarith [hbar, hlt,
-    mul_pos (show (0:ℝ) < 2 - 2 * Real.log 2 by linarith [two_log_two_lt_two]) hI]
+  linarith only [hbar, hlt, mul_pos
+      (show (0 : ℝ) < 2 - 2 * Real.log 2 by linarith [two_log_two_lt_two]) hI]
 
 end Salt.TwinBar
