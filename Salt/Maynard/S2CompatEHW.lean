@@ -35,6 +35,9 @@ Everything is additive (`*W`-suffixed); no landed statement is touched.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Finset
 
 /-! ## The base algebraic discrepancy bound (mirror of `abs_S2m_sub_compatMain_le`) -/

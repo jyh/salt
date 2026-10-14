@@ -7,13 +7,15 @@ import Salt.MaynardK.Frontier105
 import Salt.MaynardK.QBridge
 import Salt.MaynardK.CollisionS1
 import Salt.MaynardK.PigeonholeK
-import Salt.MaynardK.Tuple105
 import Salt.Twelve.WinCore
 import Salt.Twelve.GapsUncond
 
 open Finset Filter Topology
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard Salt.Twelve Salt.MaynardK
 
@@ -23,18 +25,18 @@ open Salt.Maynard Salt.Twelve Salt.MaynardK
 * `S1_lt_sum_S2mW_k`, `sharp_S1_upperM_k`: `Salt/Twelve/WinCore.lean`'s and
   `Salt/Twelve/GapsFinal.lean`'s k = 5 lemmas at general `k` (its `k = 5` instance is checked in
 `Controls`).
-* `deltaPi_upper_ev_105`: Chebyshev `Δπ ≤ 1000·N'/log N'` with `h_max = 743`.
+* `deltaPi_upper_ev_105`: Chebyshev `Δπ ≤ 1000·N'/log N'` with `h_max ≤ 743` (the hypothesis `hle`).
 * `qdiag_err_split_gen` / `qdiag_err_split_105`: `|Qdiag − X^(n+2)·J| ≤ (c/log R + A/√D)·X^(n+2)`,
   `A` before `∀ W'`, from `qdiag_bridge_gen`.
 * `sharp_S1_upper_105`, `win_core_105`: the sharp `S₁` bound and `S₁ < Σ_m S₂ᵂ⁽ᵐ⁾` for
   `yFg R W' F1`, the slack hypothesis being conjunct 7 of `WinFrontierMW105`.
-* `gaps_le_636_of_frontier105`: `WinFrontierMW105 D` gives gaps `≤ 636` through
-  `bounded_gaps_reduces_diam 105 … 636 hSeq_diam_le_636`.
+* `gaps_le_of_frontier105`: `WinFrontierMW105 D` gives gaps `≤ d` for a tuple of diameter `≤ d`
+  (`hdiam`), through `bounded_gaps_reduces_diam 105 … d hdiam`.
 
 Maynard's proof of Theorem 1.3 (arXiv:1311.4600v3, p. 3; Prop. 4.2 and Prop. 4.3(2),
-`M₁₀₅ > 4`) run at k = 105 with the admissible tuple of the first 105 primes greater than 105
-(his p. 7 choice), diameter 636, in place of Engelsma's tuple; Theorem 1.3's own bound 600 is
-not proved here.
+`M₁₀₅ > 4`) run at k = 105. The module is generic in the tuple (`TupleChoice`): the `105`-entries
+are assumed `≤ 743` (`hle`) and the diameter `≤ d` (`hdiam`); `Gaps636` instantiates it at the
+standard tuple (the first 105 primes greater than 105, diameter 636).
 Nothing here bears on twin primes.
 -/
 
@@ -68,7 +70,7 @@ theorem S1_lt_sum_S2mW_k (k K₀ N R ν₀ W' : ℕ) (y : (Fin k → ℕ) → �
 
 /-! ## (2) `deltaPi_upper_ev_105` — Chebyshev `Δπ ≤ 1000·N'/log N'` at `h_max = 743` -/
 
-theorem deltaPi_upper_ev_105 :
+theorem deltaPi_upper_ev_105 (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) :
     ∀ᶠ N' : ℕ in atTop, ∀ m : Fin 105,
       deltaPi 105 64 N' m ≤ 1000 * (N' : ℝ) / Real.log N' := by
   have hsqrt : Tendsto (fun N : ℕ => Real.log N / Real.sqrt N) atTop (𝓝 0) := by
@@ -81,7 +83,7 @@ theorem deltaPi_upper_ev_105 :
     exact hlo.comp tendsto_natCast_atTop_atTop
   filter_upwards [eventually_ge_atTop 743,
       hsqrt.eventually_lt_const (show (0:ℝ) < 1 by norm_num)] with N' hN743 hsq m
-  have hh : hSeq 105 m ≤ 743 := (hSeq_105_bounds m).2
+  have hh : hSeq 105 m ≤ 743 := hle m
   have hN743r : (743 : ℝ) ≤ (N' : ℝ) := by exact_mod_cast hN743
   have hN1 : (1 : ℝ) < (N' : ℝ) := by linarith
   have hN0 : (0 : ℝ) < (N' : ℝ) := by linarith
@@ -397,18 +399,20 @@ theorem win_core_105 (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 105 �
   exact S1_lt_sum_S2mW_k 105 64 N' R ν₀ W' (yFg R W' F1) δ errEH cval hφpos hcval hδ0 hDpi
     hQlow hS2low hnum
 
-/-! ## (6) `gaps_le_636_of_frontier105` — the frontier-conditional capstone -/
+/-! ## (6) `gaps_le_of_frontier105` — the frontier-conditional capstone at diameter `≤ d` -/
 
-theorem gaps_le_636_of_frontier105 (D : ℕ) (hD : 744 ≤ D) (hDk : 12 * 105 ^ 2 ≤ D)
+theorem gaps_le_of_frontier105 (D : ℕ) (hD : 744 ≤ D) (hDk : 12 * 105 ^ 2 ≤ D)
+    (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) (d : ℤ)
+    (hdiam : ∀ i j : Fin 105, (hSeq 105 j : ℤ) - (hSeq 105 i : ℤ) ∈ Set.Icc (-d) d)
     (hPNT : WindowPNT) (hLoD : HasLevel (1 / 2)) (hF : WinFrontierMW105 D) :
     ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
-      (q : ℤ) - (p : ℤ) ∈ Set.Icc (-636 : ℤ) 636 := by
-  refine bounded_gaps_reduces_diam 105 (primorial D) 636 hSeq_diam_le_636 (fun N => ?_)
+      (q : ℤ) - (p : ℤ) ∈ Set.Icc (-d) d := by
+  refine bounded_gaps_reduces_diam 105 (primorial D) d hdiam (fun N => ?_)
   obtain ⟨N', R, ν₀, δ, errEH, cval, hNN', hsol, hφpos, hcvnn, hδ0, hDpi, hQlow,
     hS2low, hslack⟩ := hF hPNT hLoD N
   refine ⟨N', R, ν₀, yFg R (primorial D) F1, hNN', ?_⟩
   exact win_core_105 N' R ν₀ (primorial D) D δ errEH cval
-    (primorial_sqf' D) (primorial_hDlt D) (fun i => hSeq_105_lt_D hD i)
+    (primorial_sqf' D) (primorial_hDlt D) (fun i => lt_of_le_of_lt (hle i) hD)
     hDk hsol hφpos hcvnn hδ0 hDpi hQlow hS2low hslack
 
 end Salt.MaynardK

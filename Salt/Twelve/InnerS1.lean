@@ -38,6 +38,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## The `f₀ ≡ 1` marked moment engine -/

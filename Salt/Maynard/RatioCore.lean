@@ -44,6 +44,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **`B1_ratio_lower`.** `Q·log k/18 ≤ B₁`, with `Q = (φW/W)·b⁻¹`.  Uses the
 sharp lower bound `B1_lower_sharp`, the regime hypothesis `hbLo` (giving
 `log(1+b·log(R₀−1)) ≥ (1/9)·log k`), and `hEB` (absorbing the `W`-only error

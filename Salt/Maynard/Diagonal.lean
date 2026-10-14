@@ -21,6 +21,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## Small reindexing helper -/
 
 /-- Move the innermost of three nested sums to the front. -/

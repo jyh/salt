@@ -32,6 +32,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-! ## Local private copies of the landed private helpers
 
 These are byte-identical copies of the same-named `private` lemmas in

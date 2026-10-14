@@ -14,6 +14,9 @@ slack `1/4000 → 1/20000` (`1/2 − 2·9999/40000 = 1/20000`).
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 open Finset Filter

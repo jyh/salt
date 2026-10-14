@@ -39,6 +39,9 @@ This file provides:
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## `Qabs` and the ℓ¹-normalized certificate `Fstar1` -/

@@ -34,6 +34,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **Crude second moment.**  `A₁⁽²⁾ ≤ T²·A₁` (thin wrapper over
 `A1_2_le_Tsq_mul_A1`, matching the brief's argument shape). -/
 theorem A1_2_le_Tsq (k R : ℕ) (T : ℝ) (hk : 1 ≤ k) (hR : 2 ≤ R) (_hT : 0 ≤ T) :

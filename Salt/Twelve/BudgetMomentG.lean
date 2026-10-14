@@ -36,6 +36,9 @@ open Finset
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## `box_g_pos` and per-prime facts on the box -/

@@ -33,6 +33,9 @@ open Finset Filter
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-! ## The level-θ★ error bound (`lod_error_pow_theta`) -/
 
 /-- **`lod_error_pow` at level `θ₊ = 3999/4000`.**  Verbatim `lod_error_pow`

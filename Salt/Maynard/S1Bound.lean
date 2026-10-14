@@ -40,6 +40,9 @@ true (pairwise-coprime moduli ⇒ CRT-solvable) but its Lean construction over a
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-! ## Concrete objects -/

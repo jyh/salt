@@ -24,6 +24,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## R-uniform sharp `λ`-bound
 
 `lam_abs_le_sharp` produces the constant `C₃·C₁^k`, which is entirely

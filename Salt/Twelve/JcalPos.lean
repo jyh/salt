@@ -22,6 +22,9 @@ locally (suffix `P`) rather than editing that module.
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-! ## Local replica of the `biQuad` homogeneity chain (private in `FstarNorm`) -/
 
 private def biQuadP (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) : ℚ :=

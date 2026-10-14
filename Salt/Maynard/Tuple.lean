@@ -9,15 +9,24 @@ import Salt.Maynard
 /-!
 # The admissible tuple (blueprint M1)
 
-`H k`, the concrete admissible `k`-tuple used by the Maynard track: the
-first `k` primes strictly greater than `k`. Reproves the fixed-`W`-trick's
-existence statement (`exists_nu0`) via a genuine (if small) CRT
+The Maynard track's admissible `k`-tuple. The chain downstream of this file uses its tuple only
+through the lemmas stated here (injectivity, membership, cardinality, admissibility, the `D₀`
+bounds), so the tuple is a **choice**: the class `TupleChoice` carries it, and the default instance
+`stdTuple` is the standard one, the first `k` primes strictly greater than `k`. A statement proved
+under `[TupleChoice]` holds for every admissible choice; a caller with no other instance in scope
+gets `stdTuple`.
+
+Reproves the fixed-`W`-trick's existence statement (`exists_nu0`) via a genuine (if small) CRT
 construction over the finite set of primes dividing `W k`.
 -/
 
 namespace Salt.Maynard
 
 open Finset
+
+-- A section `[TupleChoice]` is included in every declaration of the section; the ones that do not
+-- use it (e.g. `prod_primes_squarefree`) would otherwise each raise `unusedSectionVars`.
+set_option linter.unusedSectionVars false
 
 /-! ## N1.1 — admissibility -/
 
@@ -33,29 +42,48 @@ theorem Admissible.mono {H H' : Finset ℕ} (hH' : H' ⊆ H) (h : Admissible H) 
   obtain ⟨a, ha⟩ := h p hp
   exact ⟨a, fun h hh => ha h (hH' hh)⟩
 
-/-! ## N1.2 — the concrete tuple -/
+/-- **Admissibility is decided at the small primes.** A prime `p > #S` cannot be covered by the
+`#S` residues of `S`, so only the primes `p ≤ #S` need a missed class. -/
+theorem admissible_of_small_primes {S : Finset ℕ}
+    (hsmall : ∀ p : ℕ, p.Prime → p ≤ S.card → ∃ a : ZMod p, ∀ h ∈ S, (h : ZMod p) ≠ a) :
+    Admissible S := by
+  intro p hp
+  by_cases hpk : p ≤ S.card
+  · exact hsmall p hp hpk
+  · push Not at hpk
+    haveI : NeZero p := ⟨hp.pos.ne'⟩
+    have hcard : (S.image (fun h : ℕ => (h : ZMod p))).card < Fintype.card (ZMod p) := by
+      calc (S.image (fun h : ℕ => (h : ZMod p))).card ≤ S.card := Finset.card_image_le
+        _ < p := hpk
+        _ = Fintype.card (ZMod p) := (ZMod.card p).symm
+    obtain ⟨a, ha⟩ : ∃ a : ZMod p, a ∉ S.image (fun h : ℕ => (h : ZMod p)) := by
+      by_contra hc
+      push Not at hc
+      have : S.image (fun h : ℕ => (h : ZMod p)) = Finset.univ :=
+        Finset.eq_univ_of_forall hc
+      rw [this, Finset.card_univ] at hcard
+      exact lt_irrefl _ hcard
+    exact ⟨a, fun h hh hcontra => ha (hcontra ▸ Finset.mem_image_of_mem _ hh)⟩
+
+/-! ## N1.2 — the standard tuple -/
 
 /-- The index (in the increasing enumeration of all primes) of the first
 prime strictly greater than `k`: `Nat.count Nat.Prime (k+1)` primes are
 `≤ k`, so this is exactly that count. -/
 def firstIdxAboveK (k : ℕ) : ℕ := Nat.count Nat.Prime (k + 1)
 
-/-- The `k`-tuple: the first `k` primes strictly greater than `k`. -/
-noncomputable def H (k : ℕ) : Finset ℕ :=
-  (Finset.range k).image (fun i => Nat.nth Nat.Prime (firstIdxAboveK k + i))
+/-- The standard tuple: its `i`-th entry is the `i`-th prime strictly greater than `k`. -/
+noncomputable def stdSeq (k : ℕ) (i : Fin k) : ℕ :=
+  Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ))
 
-theorem H_card (k : ℕ) : (H k).card = k := by
-  unfold H
-  rw [Finset.card_image_of_injective _ ?_, Finset.card_range]
-  intro a b hab
-  have := (Nat.nth_strictMono Nat.infinite_setOf_prime).injective hab
-  omega
+theorem stdSeq_prime (k : ℕ) (i : Fin k) : (stdSeq k i).Prime :=
+  Nat.nth_mem_of_infinite Nat.infinite_setOf_prime _
 
-theorem H_prime (k : ℕ) {h : ℕ} (hh : h ∈ H k) : h.Prime := by
-  unfold H at hh
-  simp only [Finset.mem_image, Finset.mem_range] at hh
-  obtain ⟨i, _, rfl⟩ := hh
-  exact Nat.nth_mem_of_infinite Nat.infinite_setOf_prime _
+theorem stdSeq_injective (k : ℕ) : Function.Injective (stdSeq k) := by
+  intro i j hij
+  unfold stdSeq at hij
+  have := (Nat.nth_strictMono Nat.infinite_setOf_prime).injective hij
+  exact Fin.ext (by omega)
 
 theorem firstIdxAboveK_gt (k : ℕ) : k < Nat.nth Nat.Prime (firstIdxAboveK k) := by
   unfold firstIdxAboveK
@@ -73,46 +101,129 @@ theorem firstIdxAboveK_gt (k : ℕ) : k < Nat.nth Nat.Prime (firstIdxAboveK k) :
     exact Nat.count_nth_of_infinite Nat.infinite_setOf_prime _
   omega
 
-theorem H_gt_k (k : ℕ) {h : ℕ} (hh : h ∈ H k) : k < h := by
-  unfold H at hh
-  simp only [Finset.mem_image, Finset.mem_range] at hh
-  obtain ⟨i, _, rfl⟩ := hh
+theorem stdSeq_gt_k (k : ℕ) (i : Fin k) : k < stdSeq k i := by
+  unfold stdSeq
   have hbase := firstIdxAboveK_gt k
-  have hmono := (Nat.nth_strictMono Nat.infinite_setOf_prime)
-  rcases Nat.eq_zero_or_pos i with hi0 | hipos
-  · simp [hi0]; omega
-  · have : Nat.nth Nat.Prime (firstIdxAboveK k) < Nat.nth Nat.Prime (firstIdxAboveK k + i) :=
-      hmono (by omega)
+  rcases Nat.eq_zero_or_pos (i : ℕ) with hi0 | hipos
+  · rw [hi0, Nat.add_zero]; exact hbase
+  · have : Nat.nth Nat.Prime (firstIdxAboveK k)
+        < Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ)) :=
+      (Nat.nth_strictMono Nat.infinite_setOf_prime) (by omega)
     omega
+
+/-- **N1.3 for the standard tuple.** Every entry is a prime `> k`, so at a prime `p ≤ k` the
+class `0` is missed; the primes `p > k` are free (`admissible_of_small_primes`). -/
+theorem std_admissible (k : ℕ) : Admissible ((Finset.univ : Finset (Fin k)).image (stdSeq k)) := by
+  apply admissible_of_small_primes
+  intro p hp hpS
+  have hpk : p ≤ k :=
+    hpS.trans (Finset.card_image_le.trans (by rw [Finset.card_univ, Fintype.card_fin]))
+  refine ⟨0, fun h hh hcontra => ?_⟩
+  obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hh
+  have hhp := stdSeq_prime k i
+  have hhk := stdSeq_gt_k k i
+  have hdvd : p ∣ stdSeq k i := (ZMod.natCast_eq_zero_iff _ p).mp hcontra
+  have := (Nat.prime_dvd_prime_iff_eq hp hhp).mp hdvd
+  omega
+
+/-- Chebyshev count bound: `π(k) + k ≤ π(k³)` (there are `≥ k` primes in `(k, k³]`),
+via `Chebyshev.pi_ge`.  Holds for `k ≥ 20`. (Moved here from `Lemma53Tight`, 2026-10-13.) -/
+private lemma count_le_count_cube (k : ℕ) (hk : 20 ≤ k) :
+    Nat.count Nat.Prime (k + 1) + k ≤ Nat.count Nat.Prime (k ^ 3 + 1) := by
+  have hk1 : 1 < k := by omega
+  have hkR : (1 : ℝ) < (k : ℝ) := by exact_mod_cast hk1
+  have hk20R : (20 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hlogk : 0 < Real.log k := Real.log_pos hkR
+  have hlogcube : Real.log ((k:ℝ)^3) = 3 * Real.log k := by rw [Real.log_pow]; push_cast; ring
+  have hlog2 : (1:ℝ)/2 ≤ Real.log 2 := by have := Real.log_two_gt_d9; linarith
+  have hlog2le : Real.log 2 ≤ 1 := by have := Real.log_two_lt_d9; linarith
+  have hL : Real.log k ≤ (k:ℝ) := by
+    have := Real.log_le_sub_one_of_pos (show (0:ℝ) < (k:ℝ) by linarith); linarith
+  have hk3nn : (0:ℝ) ≤ (k:ℝ)^3 := by positivity
+  have hk3one : (1:ℝ) ≤ (k:ℝ)^3 := one_le_pow₀ (by linarith)
+  have hlogcube1 : Real.log ((k:ℝ)^3 + 1) ≤ Real.log 2 + 3 * Real.log k := by
+    have h1 : (k:ℝ)^3 + 1 ≤ 2 * (k:ℝ)^3 := by linarith [hk3one]
+    calc Real.log ((k:ℝ)^3+1) ≤ Real.log (2 * (k:ℝ)^3) := Real.log_le_log (by positivity) h1
+      _ = Real.log 2 + Real.log ((k:ℝ)^3) := by rw [Real.log_mul (by norm_num) (by positivity)]
+      _ = Real.log 2 + 3 * Real.log k := by rw [hlogcube]
+  have hcubic : 6*(k:ℝ)^2 + 6*(k:ℝ) + 1 ≤ (k:ℝ)^3 / 2 := by
+    nlinarith only [hk20R, mul_nonneg (show (0 : ℝ) ≤ (k : ℝ) - 20 by linarith)
+        (sq_nonneg (k : ℝ)), (Nat.cast_nonneg _ : 0 ≤ ↑k)]
+  have e2 : 6*(k:ℝ)*Real.log k ≤ 6*(k:ℝ)^2 := by nlinarith only [hL, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
+  have e4 : Real.log ((k:ℝ)^3+1) ≤ 1 + 3*(k:ℝ) := by linarith only [hlogcube1, hL, hlog2le]
+  have hk3log2 : (k:ℝ)^3/2 ≤ (k:ℝ)^3 * Real.log 2 := by nlinarith only [hlog2, hk3nn]
+  have hkey : (2*(k:ℝ)+1)*(3*Real.log k) ≤ (k:ℝ)^3 * Real.log 2 - Real.log ((k:ℝ)^3+1) := by
+    linarith only [hk3log2, e2, hcubic, hlogcube1, hL, hlog2le]
+  have hpi := Chebyshev.pi_ge (k ^ 3)
+  rw [show ((k ^ 3 : ℕ) : ℝ) = (k : ℝ) ^ 3 by norm_cast] at hpi
+  rw [hlogcube] at hpi
+  have h3logk : 0 < 3 * Real.log k := by linarith
+  have hpi2 : 2*(k:ℝ)+1 ≤ (Nat.primeCounting (k^3):ℝ) := by
+    refine le_trans ?_ hpi
+    rw [le_div_iff₀ h3logk]; exact hkey
+  have hpc : Nat.primeCounting (k ^ 3) = Nat.count Nat.Prime (k ^ 3 + 1) := rfl
+  have hnat : 2 * k + 1 ≤ Nat.primeCounting (k^3) := by
+    have : (2*k+1 : ℝ) ≤ (Nat.primeCounting (k^3):ℝ) := by linarith [hpi2]
+    exact_mod_cast this
+  have hcnt : Nat.count Nat.Prime (k + 1) ≤ k + 1 := Nat.count_le Nat.Prime
+  rw [← hpc]; omega
+
+/-- The largest entry of the standard tuple (the `k`-th prime above `k`) is `≤ k³`, since
+`π(k³) − π(k) ≥ k`.  Holds for `k ≥ 20`. -/
+theorem std_sup_le_cube (k : ℕ) (hk : 20 ≤ k) :
+    ((Finset.univ : Finset (Fin k)).image (stdSeq k)).sup id ≤ k ^ 3 := by
+  have hcnt := count_le_count_cube k hk
+  apply Finset.sup_le
+  intro h hh
+  simp only [id_eq]
+  obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hh
+  rw [← Nat.lt_succ_iff]
+  refine (Nat.lt_nth_iff_count_lt Nat.infinite_setOf_prime).mp ?_
+  change firstIdxAboveK k + (i : ℕ) < Nat.count Nat.Prime (k ^ 3 + 1)
+  unfold firstIdxAboveK
+  have := i.isLt
+  omega
+
+/-! ## The tuple as a choice -/
+
+/-- **The tuple choice.** An injective `k`-tuple for every `k`, whose entry set is admissible and,
+for `k ≥ 20`, lies under `k³` (the floor `D₀ k = k³` rests on it). -/
+class TupleChoice where
+  /-- The `k`-tuple. -/
+  tup : (k : ℕ) → Fin k → ℕ
+  inj : ∀ k, Function.Injective (tup k)
+  admissible : ∀ k, Admissible ((Finset.univ : Finset (Fin k)).image (tup k))
+  sup_cube : ∀ k, 20 ≤ k → ((Finset.univ : Finset (Fin k)).image (tup k)).sup id ≤ k ^ 3
+
+/-- The default choice: the first `k` primes strictly greater than `k`. -/
+noncomputable instance (priority := low) stdTuple : TupleChoice :=
+  ⟨stdSeq, stdSeq_injective, std_admissible, std_sup_le_cube⟩
+
+section Tuple
+
+variable [TupleChoice]
+
+/-- The `i`-th element of the chosen `k`-tuple, as a function `Fin k → ℕ`. -/
+noncomputable def hSeq (k : ℕ) (i : Fin k) : ℕ := TupleChoice.tup k i
+
+/-- The chosen `k`-tuple as a set. -/
+noncomputable def H (k : ℕ) : Finset ℕ := (Finset.univ : Finset (Fin k)).image (hSeq k)
+
+theorem hSeq_injective (k : ℕ) : Function.Injective (hSeq k) := TupleChoice.inj k
+
+theorem H_card (k : ℕ) : (H k).card = k := by
+  unfold H
+  rw [Finset.card_image_of_injective _ (hSeq_injective k), Finset.card_univ, Fintype.card_fin]
+
+theorem hSeq_mem_H (k : ℕ) (i : Fin k) : hSeq k i ∈ H k :=
+  Finset.mem_image_of_mem _ (Finset.mem_univ i)
 
 /-! ## N1.3 — `H k` is admissible -/
 
-theorem H_admissible (k : ℕ) : Admissible (H k) := by
-  intro p hp
-  by_cases hpk : p ≤ k
-  · exact ⟨0, fun h hh => by
-      have hhp := H_prime k hh
-      have hhk := H_gt_k k hh
-      intro hcontra
-      have hdvd : p ∣ h := (ZMod.natCast_eq_zero_iff h p).mp hcontra
-      have := (Nat.prime_dvd_prime_iff_eq hp hhp).mp hdvd
-      omega⟩
-  · push Not at hpk
-    haveI : NeZero p := ⟨hp.pos.ne'⟩
-    have hcard : ((H k).image (fun h : ℕ => (h : ZMod p))).card < Fintype.card (ZMod p) := by
-      calc ((H k).image (fun h : ℕ => (h : ZMod p))).card ≤ (H k).card :=
-            Finset.card_image_le
-        _ = k := H_card k
-        _ < p := hpk
-        _ = Fintype.card (ZMod p) := (ZMod.card p).symm
-    obtain ⟨a, ha⟩ : ∃ a : ZMod p, a ∉ (H k).image (fun h : ℕ => (h : ZMod p)) := by
-      by_contra hc
-      push Not at hc
-      have : (H k).image (fun h : ℕ => (h : ZMod p)) = Finset.univ :=
-        Finset.eq_univ_of_forall hc
-      rw [this, Finset.card_univ] at hcard
-      exact lt_irrefl _ hcard
-    exact ⟨a, fun h hh hcontra => ha (hcontra ▸ Finset.mem_image_of_mem _ hh)⟩
+theorem H_admissible (k : ℕ) : Admissible (H k) := TupleChoice.admissible k
+
+/-- `(H k).sup id ≤ k³` for `k ≥ 20`. -/
+theorem H_sup_le_cube (k : ℕ) (hk : 20 ≤ k) : (H k).sup id ≤ k ^ 3 := TupleChoice.sup_cube k hk
 
 /-! ## N1.4 — the W-trick: fixed modulus, existence of `ν₀` -/
 
@@ -209,40 +320,6 @@ theorem exists_nu0 (k : ℕ) :
     ∃ ν₀ : ℕ, ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k) :=
   exists_nu0W k (W k) (W_squarefree k).ne_zero
 
-/-! ## Indexed enumeration of the tuple (shared M2/M4/M5 infrastructure)
-
-`H k` is a `Finset`; the k-dimensional sieve needs it as an ordered tuple
-`Fin k → ℕ`. `hSeq k i` is the `i`-th prime in the enumeration used to
-build `H k` (so `hSeq k` is injective with image `H k`). Added here (not
-in a downstream file) so every M2 node imports a stable definition. -/
-
-/-- The `i`-th element of the tuple `H k`, as a function `Fin k → ℕ`. -/
-noncomputable def hSeq (k : ℕ) (i : Fin k) : ℕ :=
-  Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ))
-
-theorem hSeq_prime (k : ℕ) (i : Fin k) : (hSeq k i).Prime :=
-  Nat.nth_mem_of_infinite Nat.infinite_setOf_prime _
-
-theorem hSeq_injective (k : ℕ) : Function.Injective (hSeq k) := by
-  intro i j hij
-  unfold hSeq at hij
-  have := (Nat.nth_strictMono Nat.infinite_setOf_prime).injective hij
-  exact Fin.ext (by omega)
-
-theorem hSeq_mem_H (k : ℕ) (i : Fin k) : hSeq k i ∈ H k := by
-  unfold H hSeq
-  rw [Finset.mem_image]
-  exact ⟨(i : ℕ), Finset.mem_range.mpr i.isLt, rfl⟩
-
-theorem hSeq_gt_k (k : ℕ) (i : Fin k) : k < hSeq k i := by
-  unfold hSeq
-  have hbase := firstIdxAboveK_gt k
-  rcases Nat.eq_zero_or_pos (i : ℕ) with hi0 | hipos
-  · rw [hi0, Nat.add_zero]; exact hbase
-  · have : Nat.nth Nat.Prime (firstIdxAboveK k)
-        < Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ)) :=
-      (Nat.nth_strictMono Nat.infinite_setOf_prime) (by omega)
-    omega
 
 theorem hSeq_le_D₀ (k : ℕ) (i : Fin k) : hSeq k i ≤ D₀ k :=
   le_trans (Finset.le_sup (f := id) (hSeq_mem_H k i)) (le_max_right _ _)
@@ -254,5 +331,24 @@ tails consume (mirrors how `hSeq_le_D₀` bounds `hSeq k i` by `D₀ k`). -/
 theorem hSeq_lt_of_sup_lt (k : ℕ) {D : ℕ} (hD : (H k).sup id < D) (i : Fin k) :
     hSeq k i < D :=
   lt_of_le_of_lt (Finset.le_sup (f := id) (hSeq_mem_H k i)) hD
+
+end Tuple
+
+/-! ## The standard tuple's own facts (at `stdTuple`) -/
+
+theorem hSeq_std (k : ℕ) (i : Fin k) :
+    @hSeq stdTuple k i = Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ)) := rfl
+
+theorem hSeq_prime (k : ℕ) (i : Fin k) : (@hSeq stdTuple k i).Prime := stdSeq_prime k i
+
+theorem hSeq_gt_k (k : ℕ) (i : Fin k) : k < @hSeq stdTuple k i := stdSeq_gt_k k i
+
+theorem H_prime (k : ℕ) {h : ℕ} (hh : h ∈ @H stdTuple k) : h.Prime := by
+  obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hh
+  exact stdSeq_prime k i
+
+theorem H_gt_k (k : ℕ) {h : ℕ} (hh : h ∈ @H stdTuple k) : k < h := by
+  obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hh
+  exact stdSeq_gt_k k i
 
 end Salt.Maynard

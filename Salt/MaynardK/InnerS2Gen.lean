@@ -19,6 +19,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard Salt.Twelve
 
 /-- `lemma53_tightW` at `B = 1` for a bounded weight (general-`k` `yM_sub_inn_le`). -/

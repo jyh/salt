@@ -25,6 +25,9 @@ end-of-proof building blocks:
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- **P3 — S₁ upper bound for the concrete tensor.** `fTilde` is in `[0,1]` and

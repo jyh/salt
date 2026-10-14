@@ -21,6 +21,9 @@ open Finset
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 
 /-- `phiAtomSum` is a sum of nonnegative terms. -/

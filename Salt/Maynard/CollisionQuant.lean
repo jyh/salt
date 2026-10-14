@@ -40,6 +40,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## Support helpers: divisor-closedness, prime bounds, indicators -/
 
 /-- **Divisor-closedness of `𝒟`.** A componentwise divisor of a sieve tuple

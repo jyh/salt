@@ -36,6 +36,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-- **W5-1 (Node A).** The one tensor-dependent atom of the S1 collision
 bound, isolated behind an abstract hypothesis. This is the exact conclusion of
 `inner_abs_le` (`CollisionQuant.lean`), universally quantified over the

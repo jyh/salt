@@ -77,6 +77,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-- **NB-1 constant tensor.** `ONEw R W' r = 1` on the sieve box, `0` off it —

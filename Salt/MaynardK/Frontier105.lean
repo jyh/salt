@@ -7,18 +7,22 @@ import Salt.Twelve.GapsFinal
 import Salt.MaynardK.S2Half
 import Salt.MaynardK.LevelRange
 import Salt.MaynardK.F1
-import Salt.MaynardK.Tuple105
 
 /-!
 # C1 · B4.5d — the frontier at `k = 105`, level `1/2`
 
 `WinSlackM105`, `WinFrontierMW105` and `winFrontierMW105_of`: mirror of `FrontierM` +
 `GapsOfLevel.winFrontierMW_of_hasLevel` with ρ = 9999/40000,
-ε = 1/1000, h_max 743, cutoff 744, weight `F1`). `yFg_F1_abs_le_one`: `|F1| ≤ 1` on the sieve index.
+ε = 1/1000, h_max ≤ 743, cutoff 744, weight `F1`). `yFg_F1_abs_le_one`: `|F1| ≤ 1` on the sieve
+index.
+Generic in the tuple (`TupleChoice`): the `105`-entries are assumed `≤ 743` (`hle`), nothing else.
 Ported by an Opus executor from a frozen brief (2026-10-11).
 -/
 
 namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard Salt.Twelve Salt.MaynardK
 open Finset Filter
@@ -134,7 +138,7 @@ def WinSlackM105 (D : ℕ) (C₀ : ℝ) (N' : ℕ) : Prop :=
 
 /-! ## `winFrontierMW105_of` — the discharge modulo the slack hypothesis (LEVEL route) -/
 
-theorem winFrontierMW105_of (D : ℕ) (hD : 744 ≤ D)
+theorem winFrontierMW105_of (D : ℕ) (hD : 744 ≤ D) (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743)
     (hslackEv : ∀ C₀ : ℝ, 0 ≤ C₀ → ∀ᶠ N' : ℕ in atTop, WinSlackM105 D C₀ N') :
     WinFrontierMW105 D := by
   intro hPNT hLoD N
@@ -147,7 +151,7 @@ theorem winFrontierMW105_of (D : ℕ) (hD : 744 ≤ D)
     exact_mod_cast Nat.totient_pos.mpr hW'pos
   have hDle : ∀ p : ℕ, p.Prime → ¬ p ∣ primorial D → D ≤ p :=
     fun p hp hnd => le_of_lt (primorial_hDlt D p hp hnd)
-  have hSeqlt : ∀ i : Fin 105, hSeq 105 i < D := fun i => hSeq_105_lt_D hD i
+  have hSeqlt : ∀ i : Fin 105, hSeq 105 i < D := fun i => lt_of_le_of_lt (hle i) hD
   -- CRT residue base
   obtain ⟨ν₀, hν₀⟩ := exists_nu0W 105 (primorial D) hW'ne
   -- the level-1/2 S₂ lemma (constants obtained before choosing N')
@@ -227,7 +231,7 @@ theorem winFrontierMW105_of (D : ℕ) (hD : 744 ≤ D)
   · -- conjunct 4b : `δ ≤ Δπ`
     intro m
     have hd := deltaPi_lower_of 105 (63 - 1 / 1000) Nc hNc m N' hNc'
-    have hhs : (hSeq 105 m : ℝ) ≤ 743 := by exact_mod_cast (hSeq_105_bounds m).2
+    have hhs : (hSeq 105 m : ℝ) ≤ 743 := by exact_mod_cast hle m
     rw [hδdef]; linarith [hd, hhs]
   · -- conjunct 5 : `cval m ≤ Qdiag`
     intro m; exact le_refl _

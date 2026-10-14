@@ -27,6 +27,9 @@ open Finset
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Twelve Salt.Maynard
 
 /-- the `∫₀^{s} t_m^{e_m} (s − t_m)^d dt_m` contraction of coordinate `m` of a BUDGET polynomial:

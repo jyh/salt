@@ -64,28 +64,23 @@ theorem nth_prime_seven_eq_nineteen : Nat.nth Nat.Prime 7 = 19 :=
   Nat.nth_count (show Nat.Prime 19 by norm_num)
 
 theorem hSeq_five_zero : hSeq 5 ⟨0, by omega⟩ = 7 := by
-  unfold hSeq
-  rw [firstIdxAboveK_five]
+  rw [hSeq_std, firstIdxAboveK_five]
   exact Nat.nth_prime_three_eq_seven
 
 theorem hSeq_five_one : hSeq 5 ⟨1, by omega⟩ = 11 := by
-  unfold hSeq
-  rw [firstIdxAboveK_five]
+  rw [hSeq_std, firstIdxAboveK_five]
   exact Nat.nth_prime_four_eq_eleven
 
 theorem hSeq_five_two : hSeq 5 ⟨2, by omega⟩ = 13 := by
-  unfold hSeq
-  rw [firstIdxAboveK_five]
+  rw [hSeq_std, firstIdxAboveK_five]
   exact nth_prime_five_eq_thirteen
 
 theorem hSeq_five_three : hSeq 5 ⟨3, by omega⟩ = 17 := by
-  unfold hSeq
-  rw [firstIdxAboveK_five]
+  rw [hSeq_std, firstIdxAboveK_five]
   exact nth_prime_six_eq_seventeen
 
 theorem hSeq_five_four : hSeq 5 ⟨4, by omega⟩ = 19 := by
-  unfold hSeq
-  rw [firstIdxAboveK_five]
+  rw [hSeq_std, firstIdxAboveK_five]
   exact nth_prime_seven_eq_nineteen
 
 /-- The pigeonhole-sharpening fact: every pair of values of the concrete

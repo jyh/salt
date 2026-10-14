@@ -21,6 +21,9 @@ Two load-bearing facts for the Maynard sieve's cross-term analysis:
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Every prime factor of anything coprime to `W k` exceeds `D₀ k`
 (since `W k = primorial (D₀ k)` contains every prime `≤ D₀ k`). -/
 theorem D₀_lt_of_prime_dvd_coprime {k m : ℕ} (hm : Nat.Coprime m (W k))

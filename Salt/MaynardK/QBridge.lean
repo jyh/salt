@@ -23,6 +23,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 
 private lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by

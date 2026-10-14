@@ -36,6 +36,9 @@ open Finset
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-- **Frozen definition (card W3-5).** The explicit12 sieve weight: `F`

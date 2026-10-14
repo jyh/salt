@@ -18,6 +18,9 @@ open Finset
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Twelve
 
 open Salt.Maynard

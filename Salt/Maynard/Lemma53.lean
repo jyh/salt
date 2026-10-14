@@ -28,6 +28,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **Maynard's `y^{(m)}` (his (5.23)).** For a sieve tuple `r`,
 `y^{(m)}_r = (∏ᵢ μ(rᵢ)·g(rᵢ)) · lamPhiContractM r`, where `lamPhiContractM` is
 the `m`-restricted (`dₘ = 1`) `λ`-weighted `φ`-density contraction. -/

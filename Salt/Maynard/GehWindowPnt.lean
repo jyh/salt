@@ -39,6 +39,9 @@ open Filter Topology
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-- `√(64N)/N → 0`: the prime-power strip term `C·√(64N)`, once normalised by the
 window length `N`, is negligible. -/
 private theorem windowPNT_sqrt_div :

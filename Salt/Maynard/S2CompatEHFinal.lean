@@ -43,6 +43,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **Uniform disc bound.** A repackaging of `abs_S2m_sub_compatMain_le_disc`
 that pulls the (`N`- and `m`-independent) sharp `λ`-constant `Clam` out in front
 of the `∀ m, ∀ N` quantifiers, so the coefficient

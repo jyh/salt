@@ -30,6 +30,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-! ## Part A — explicit Mertens second theorem (sub-one form) -/
 
 /-- **Explicit Mertens sub-one bound.** `∑_{p ≤ n} 1/(p−1) ≤ log log n + 20`.

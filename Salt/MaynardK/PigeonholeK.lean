@@ -15,6 +15,9 @@ import Salt.Maynard.S2Eh
 
 namespace Salt.MaynardK
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-- **(1) The counting identity, free `W'`, general `k`.** `Σ_m S₂ᵂ⁽ᵐ⁾ = Σ_{n∈window} P(n)·w(n)`,
