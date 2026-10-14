@@ -87,7 +87,7 @@ lemma neg_log_one_sub_nuChen_le {p : ℕ} (hp : Nat.Prime p) (hp3 : 3 ≤ p) :
   -- `1/(p−2) ≤ (p+6)/p² = 1/p + 6/p²`
   have h1 : 1 / ((p : ℝ) - 2) ≤ ((p : ℝ) + 6) / (p : ℝ) ^ 2 := by
     rw [div_le_div_iff₀ hp2 (by positivity)]
-    nlinarith [hpR]
+    linarith only [hpR]
   have h2 : ((p : ℝ) + 6) / (p : ℝ) ^ 2 = 1 / (p : ℝ) + 6 * (1 / (p : ℝ) ^ 2) := by
     field_simp
   linarith [hlog, h1, h2]
@@ -275,7 +275,7 @@ theorem window_prod_upper {z y : ℝ} (hz : 3 ≤ z) (hzy : z ≤ y) (hz38 : 38 
     have h38 : (38 : ℝ) / Real.log z = 2 * (19 / Real.log z) := by ring
     have hfrac : 1 / (1 - 19 / Real.log z) ≤ 1 + 38 / Real.log z := by
       rw [h38, div_le_iff₀ h1mb]
-      nlinarith [mul_nonneg hb_nonneg (show (0 : ℝ) ≤ 1 - 2 * (19 / Real.log z) by linarith)]
+      linarith only [mul_nonneg hb_nonneg (show (0 : ℝ) ≤ 1 - 2 * (19 / Real.log z) by linarith)]
     linarith [hexpb, hfrac]
   calc Prd ≤ Real.exp (-Real.log (Real.log y / Real.log z) + 19 / Real.log z) := hexp1
     _ = (Real.log z / Real.log y) * Real.exp (19 / Real.log z) := hexp2
