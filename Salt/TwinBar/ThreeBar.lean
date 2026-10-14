@@ -322,7 +322,7 @@ theorem three_halves_log_three_lt_two : (3 / 2 : ℝ) * Real.log 3 < 2 := by
     have he : Real.exp (4 / 3 : ℝ) = Real.exp 1 * Real.exp (1 / 3) := by
       rw [← Real.exp_add]; norm_num
     rw [he]
-    nlinarith [Real.exp_pos (1 / 3 : ℝ), Real.exp_pos (1 : ℝ), h1, h2]
+    nlinarith only [h1, h2]
   have hlog : Real.log 3 < 4 / 3 := by
     have h := Real.log_lt_log (by norm_num : (0:ℝ) < 3) hexp
     rwa [Real.log_exp] at h
@@ -460,7 +460,7 @@ theorem no_triple_weight_of_tripleBar (h : TripleBar) :
       0 < I₃ F ∧ 2 * I₃ F < J₁₃ F + J₂₃ F + J₃₃ F := by
   rintro ⟨F, hF, hI, hlt⟩
   have hbar := h F hF
-  nlinarith [hbar, hlt,
-    mul_pos (show (0:ℝ) < 2 - (3 / 2) * Real.log 3 by linarith [three_halves_log_three_lt_two]) hI]
+  linarith only [hbar, hlt, mul_pos
+      (show (0 : ℝ) < 2 - (3 / 2) * Real.log 3 by linarith [three_halves_log_three_lt_two]) hI]
 
 end Salt.TwinBar

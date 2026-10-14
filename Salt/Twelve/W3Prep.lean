@@ -353,10 +353,10 @@ theorem log_natCap_slip (r z : ℕ) (hr : 1 ≤ r) (hrz : r < z) :
   have hcl : (z:ℝ) ≤ 2 * ((((z - 1) / r + 1 : ℕ) : ℝ) * r) := by exact_mod_cast hlower
   have h2 : (((z - 1) / r + 1 : ℕ) : ℝ) ≤ 2 * ((z:ℝ) / r) := by
     rw [show (2:ℝ) * ((z:ℝ)/r) = (2*(z:ℝ))/r by ring, le_div_iff₀ hrR]
-    nlinarith [hcu]
+    linarith only [hcu]
   have h1 : (z:ℝ) / r ≤ 2 * (((z - 1) / r + 1 : ℕ) : ℝ) := by
     rw [div_le_iff₀ hrR]
-    nlinarith [hcl]
+    linarith only [hcl]
   have hkey : |Real.log (((z - 1) / r + 1 : ℕ) : ℝ) - Real.log ((z:ℝ)/r)| ≤ Real.log 2 :=
     abs_log_sub_le_log_two hmR hzrpos h1 h2
   have hdiv : Real.log ((z:ℝ)/r) = Real.log z - Real.log r :=
