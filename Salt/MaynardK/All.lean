@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MaynardK.Basis
+import Salt.MaynardK.BasisM
+import Salt.MaynardK.BridgeM
 import Salt.MaynardK.Capstone105
 import Salt.MaynardK.Cert105
 import Salt.MaynardK.CollisionS1
 import Salt.MaynardK.Controls
+import Salt.MaynardK.ControlsSeriesM
+import Salt.MaynardK.ControlsSquareM
 import Salt.MaynardK.F1
 import Salt.MaynardK.Frontier105
 import Salt.MaynardK.Gaps636
@@ -16,6 +20,7 @@ import Salt.MaynardK.ICRel
 import Salt.MaynardK.InnerS2Gen
 import Salt.MaynardK.ISplit
 import Salt.MaynardK.JMain
+import Salt.MaynardK.JMainM
 import Salt.MaynardK.JMainSplit
 import Salt.MaynardK.JSide
 import Salt.MaynardK.JSplit
@@ -30,9 +35,11 @@ import Salt.MaynardK.QFloor
 import Salt.MaynardK.Ratio
 import Salt.MaynardK.S2Half
 import Salt.MaynardK.Series
+import Salt.MaynardK.SeriesM
 import Salt.MaynardK.Slack105
 import Salt.MaynardK.SlackRho
 import Salt.MaynardK.Square
+import Salt.MaynardK.SquareM
 import Salt.MaynardK.Tuple105
 import Salt.MaynardK.Tuple600
 import Salt.MaynardK.Vandermonde
