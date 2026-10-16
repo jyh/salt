@@ -26,6 +26,9 @@
 #      pushed: census D #3, the population only CI's --history arm could see.
 #   2. scripts/check_private_paths.py --range -- the ruled firewall line at
 #      PATHS, over the net delta (messages, added lines, and the pin audit).
+#   5. scripts/check_cert_imports.py --rev -- SaltC1/Cert54/ imports Mathlib
+#      and Lean only, read from the pushed tree (skipped, and said, where the
+#      gate is absent).
 #   3. scripts/check_pr_descriptions.py --range -- no lane name or family
 #      reference in a commit SUBJECT, and no lane name in a commit body (desk
 #      QA). A pushed subject cannot be edited without a history rewrite, so
@@ -58,6 +61,7 @@ GATE=scripts/check_private_paths.py
 TRAILER_GATE=scripts/check_commit_trailers.py
 SUBJECT_GATE=scripts/check_pr_descriptions.py
 INFRA_GATE=scripts/check_infra_names.py
+CERT_GATE=scripts/check_cert_imports.py
 HISTORY_BASELINE=scripts/private_paths_history_baseline.tsv
 SCAN="$(cd "$(dirname "$0")" && pwd)/gate_scan.py"
 
@@ -283,6 +287,20 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     echo "  line (a role word, a pool number); the baseline grows only by a reviewed act." >&2
     bad=1
   fi
+  # ---- ARM 5: the certificates' import rule (C1 · A2e) ----------------------
+  # SaltC1/Cert54/ imports Mathlib and Lean only: its CI job builds it against
+  # Mathlib alone. Read from the TREE BEING PUSHED (`--rev`), never the working
+  # tree. A repository without the gate skips this arm and its receipt says so.
+  CERT_NOTE="cert-imports: no gate in this tree"
+  if [ -f "$ROOT/$CERT_GATE" ]; then
+    if ( cd "$ROOT" && "$PY" "$CERT_GATE" --rev "$local_sha" ) < /dev/null; then
+      CERT_NOTE="cert-imports --rev"
+    else
+      echo "pre-push REFUSED: the certificates' import gate RED on ${local_sha} (${local_ref:-<ref>} -> ${remote_ref:-<ref>})." >&2
+      echo "  SaltC1/Cert54/ may import Mathlib and Lean only (the file and line are named above)." >&2
+      bad=1
+    fi
+  fi
   if ! ( cd "$ROOT" && "$PY" "$SUBJECT_GATE" --ref "${remote_ref:-}" ) < /dev/null; then
     echo "pre-push REFUSED: the pushed ref name carries a refused word. Push the" >&2
     echo "  work under a neutral branch name: a merge subject will quote this one." >&2
@@ -295,7 +313,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   fi
 
   n=$(git rev-list --count "$RANGE" 2>/dev/null) || n="?"
-  echo "pre-push OK [per-commit trailer+paths + private-paths --range + subject gate --range + infra-names --range]: ${local_ref:-<ref>} -> ${remote_ref:-<ref>}, range ${RANGE} (${WHY}), ${n} commit(s) scanned."
+  echo "pre-push OK [per-commit trailer+paths + private-paths --range + subject gate --range + infra-names --range + ${CERT_NOTE}]: ${local_ref:-<ref>} -> ${remote_ref:-<ref>}, range ${RANGE} (${WHY}), ${n} commit(s) scanned."
 done < "$TMPIN"
 
 if [ "$seen" -eq 0 ]; then

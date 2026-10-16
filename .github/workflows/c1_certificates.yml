@@ -1,0 +1,132 @@
+name: C1 certificates
+
+# The k = 54 certificate (`SaltC1/Cert54/`, Mathlib-only) in its OWN job, so its ~30-45 min of
+# kernel work never rides on the main Lean job. It runs:
+#   * after every GREEN "Lean Action CI" run on main, on that run's own sha (workflow_run);
+#   * nightly, at the main job's cron hour;
+#   * on demand (workflow_dispatch, input `sha`);
+#   * on a pull request that touches the certificate, its scripts, the lakefile, the toolchain,
+#     the manifest or this file.
+# It builds `SaltC1` (the certificate) and `SaltC1.Cert54.Audit` (`#print axioms` on every
+# theorem), refuses any axiom beyond propext / Classical.choice / Quot.sound, and refuses any
+# import of `Salt` or `SaltC1.MaynardK` under `SaltC1/Cert54/`. The Lean workflow is not edited.
+# The cold and warm durations are measured by the pull request that lands this file.
+on:
+  workflow_run:
+    workflows: ["Lean Action CI"]
+    types: [completed]
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "commit to check (default: the dispatching ref's head)"
+        required: false
+        default: ""
+  pull_request:
+    paths:
+      - 'SaltC1/**'
+      - 'SaltC1.lean'
+      - 'lakefile.toml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - 'scripts/c1/**'
+      - 'scripts/check_cert_imports.py'
+      - '.github/workflows/c1_certificates.yml'
+
+concurrency:
+  group: c1-certs-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  cert54:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /usr/local/.ghcup /usr/share/swift /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force 2>/dev/null || true
+          df -h /
+      - name: The commit under check
+        id: sha
+        env:
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+          INPUT_SHA: ${{ github.event.inputs.sha }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then s="$RUN_SHA"
+          elif [ -n "$INPUT_SHA" ]; then s="$INPUT_SHA"
+          else s="${{ github.sha }}"; fi
+          echo "sha=$s" >> "$GITHUB_OUTPUT"
+          echo "checking $s (${{ github.event_name }})"
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.sha.outputs.sha }}
+      # After a green main run, the main job's own build cache for THAT sha must exist: a miss
+      # means the run this one follows did not save, and the job says so rather than guessing.
+      - name: Restore salt build cache (exact, after a main run)
+        if: ${{ github.event_name == 'workflow_run' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ steps.sha.outputs.sha }}
+          fail-on-cache-miss: true
+      - name: Restore salt build cache (prefix)
+        if: ${{ github.event_name != 'workflow_run' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ steps.sha.outputs.sha }}
+          restore-keys: |
+            salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      # The certificate's own build products, keyed by the sha under check (saved on main only,
+      # so a pull request can never evict main's entries).
+      - name: Restore certificate build cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .lake/build/lib/lean/SaltC1
+            .lake/build/lib/lean/SaltC1.*
+            .lake/build/ir/SaltC1
+            .lake/build/ir/SaltC1.*
+          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ steps.sha.outputs.sha }}
+          restore-keys: |
+            c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
+      - name: Install elan
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Get mathlib cache
+        run: lake exe cache get
+      - name: Import rule (SaltC1/Cert54 imports Mathlib and Lean only)
+        run: |
+          python3 scripts/check_cert_imports.py --self-test
+          python3 scripts/check_cert_imports.py
+      # ONE thread: each certificate theorem is sized to <= 3 GB of kernel memory checked alone
+      # (measured one theorem per process), and lake and Lean run that many modules and theorems
+      # at once — with the default thread count a module checks several theorems concurrently
+      # (measured locally at 4 threads: 11.9 GB for one module), which a hosted runner cannot hold.
+      - name: Build the certificate and its axiom audit
+        env:
+          LEAN_NUM_THREADS: "1"
+        run: |
+          set -o pipefail
+          lake build SaltC1 SaltC1.Cert54.Audit 2>&1 | tee c1-build.log
+      - name: Axioms (propext, Classical.choice, Quot.sound only)
+        run: python3 scripts/c1/check_axioms.py c1-build.log SaltC1/Cert54/Audit.lean
+      - name: Save certificate build cache (default branch only)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .lake/build/lib/lean/SaltC1
+            .lake/build/lib/lean/SaltC1.*
+            .lake/build/ir/SaltC1
+            .lake/build/ir/SaltC1.*
+          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ steps.sha.outputs.sha }}
