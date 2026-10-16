@@ -194,8 +194,8 @@ theorem ER_squarefull_junk (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z
         rw [Finset.sum_const, nsmul_eq_mul]
     _ ≤ Real.sqrt (2 * x) * (Real.exp (0.7 * z0 z x) * Lwin x ^ 2) := by gcongr
     _ ≤ 2 * Real.sqrt (2 * x) * Lwin x ^ 2 * Real.exp (0.7 * z0 z x) := by
-        nlinarith [mul_nonneg (mul_nonneg hsqrt_nonneg hLsq)
-          (Real.exp_pos (0.7 * z0 z x)).le]
+        linarith only [mul_nonneg (mul_nonneg hsqrt_nonneg hLsq)
+            (Real.exp_pos (0.7 * z0 z x)).le]
 
 /-! ## §3 — the `E_R` structural decomposition (prime part + squarefull junk) -/
 
