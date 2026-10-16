@@ -97,7 +97,7 @@ theorem razor_scalar_margin :
           - cbar * (3 / 8) * (243 / 100) / 2 := by
   have hlog6 : Real.log 6 ≤ 17917596 / 10000000 := log_six_le
   have hcbar : cbar ≤ 363084 / 1000000 := le_of_lt cbar_lt
-  nlinarith [hlog6, hcbar, cbar_pos]
+  linarith only [hcbar, hlog6]
 
 /-! ## Part B — the symbolic razor at named normalised bounds (FLOOR A)
 

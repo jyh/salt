@@ -64,7 +64,7 @@ theorem interval_CS {f g : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
     exact hnn
   have hdisc := discrim_le_zero key
   simp only [discrim] at hdisc
-  nlinarith [hdisc]
+  linarith only [hdisc]
 
 /-- **T3, the `J₁` direction.** Per `t₂`-slice (`a := 1 − t₂`):
 `(∫₀^a F)² ≤ log 2 · ∫₀^a w₁·F²`. The `a = 0` slice (`t₂ = 1`) is `0 ≤ 0`; for

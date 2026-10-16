@@ -134,7 +134,7 @@ theorem integral_u_sq_g_sq_le (A T : ℝ) (hA : 0 < A) (hT : 0 ≤ T) :
         have hd1 : (0:ℝ) < (1 + A * x) ^ 2 := by positivity
         have hd2 : (0:ℝ) < A ^ 2 := by positivity
         rw [div_le_iff₀ hd1, one_div, inv_mul_eq_div, le_div_iff₀ hd2]
-        nlinarith [mul_nonneg hA.le hx0]
+        linarith only [mul_nonneg hA.le hx0]
     _ = T / A ^ 2 := by
         rw [intervalIntegral.integral_const, sub_zero, smul_eq_mul]
         ring

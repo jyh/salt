@@ -245,7 +245,7 @@ theorem ledger_collect {W Ff Fh f1 hz cf ch ε e2 τn τn1 : ℝ}
   have hmass : 0 ≤ W * hz := mul_nonneg hW hhz
   have hcollect : W * hz * (cf + ε * e2 * ch * τn) ≤ W * hz * (ε * e2 * τn1) :=
     mul_le_mul_of_nonneg_left hτrec hmass
-  nlinarith [hFf, hFh', hcollect, hW, hhz, hcoef]
+  linarith only [hcollect, hFh', hFf]
 
 /-! ## Part E — `StepHyp` from the two sharp Stieltjes comparisons (the isolated remainder)
 

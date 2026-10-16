@@ -235,10 +235,16 @@ def factTerm (argStxs : Array Term) : Prov → MetaM (Option Term)
         return some (← `($(cid ``Mathlib.Tactic.Linarith.natCast_nonneg) $CS $nS))
       | none => return some (← `(($(cid ``Nat.cast_nonneg) _ : $tyS)))
     | none => return some (← `(($(cid ``Nat.cast_nonneg) _ : $tyS)))
-  | .sq e true => do
-    let eS ← PrettyPrinter.delab e; return some (← `($(cid ``sq_nonneg) $eS))
-  | .sq e false => do
-    let eS ← PrettyPrinter.delab e; return some (← `($(cid ``mul_self_nonneg) $eS))
+  | .sq e isSq => do
+    -- A square fact's term is printed with its type explicit unless it is a bare variable: `delab`
+    -- prints `((a : ℤ) - c)` as `↑a - ↑c`, which carries no target type, so on replay (and on
+    -- paste) the `↑`s elaborate elsewhere and the certificate is refused (desk ADL's successor;
+    -- math's reproducer, Salt/Vmvt/Shifted.lean:140:4, bundle 45). A variable carries its own
+    -- type, so `mul_self_nonneg x` stays as it was.
+    let eS ← PrettyPrinter.delab e
+    let eS ← if e.isFVar then pure eS else do
+      let tyS ← PrettyPrinter.delab (← inferType e); `(($eS : $tyS))
+    return some (← `($(cid (if isSq then ``sq_nonneg else ``mul_self_nonneg)) $eS))
   | _ => return none
 
 /-- Wrap a printable fact into its `_ R 0` form, as `compWithZero` does. -/
@@ -357,6 +363,17 @@ example (a b : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) : 0 ≤ a * b := by nlinarith?
 example (x y : ℝ) (h : x * x ≤ y) : 0 ≤ y := by nlinarith?
 
 /-- info: Try these (L2 exact products, then L1):
+  [apply] linarith only [sq_nonneg (↑a - ↑c : ℤ)]
+  [apply] nlinarith only [sq_nonneg (↑a - ↑c : ℤ)]
+-/
+#guard_msgs (whitespace := lax) in
+-- A10: a passed square term over a cast difference (`sq_nonneg ((a : ℤ) - c)`, math's AM–GM site) —
+-- printed with its type explicit, so the replay and the paste elaborate the `↑`s in `ℤ` (the
+-- untyped `sq_nonneg (↑a - ↑c)` was refused by the replay: desk ADL's successor).
+example (a c : ℕ) : (2 * (a * c) : ℤ) ≤ (a : ℤ) ^ 2 + (c : ℤ) ^ 2 := by
+  nlinarith? [sq_nonneg ((a : ℤ) - c)]
+
+/-- info: Try these (L2 exact products, then L1):
   [apply] linarith only [h, Mathlib.Tactic.Linarith.natCast_nonneg ℝ n,
     mul_nonneg_of_nonpos_of_nonpos
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le
@@ -443,6 +460,8 @@ theorem pasted_A5 (a b : ℝ) (h : a = 0) (hb : 0 ≤ b) : a * b ≤ 0 := by
   linarith only [h, hb,
     Mathlib.Tactic.Linarith.zero_mul_eq (sub_eq_zero_of_eq h)
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le hb)]
+theorem pasted_A10 (a c : ℕ) : (2 * (a * c) : ℤ) ≤ (a : ℤ) ^ 2 + (c : ℤ) ^ 2 := by
+  linarith only [sq_nonneg (↑a - ↑c : ℤ)]
 theorem pasted_A9 (K : ℝ) (y : ℕ) (hK0 : 0 ≤ K) : 0 ≤ K * (2 * (y : ℝ)) := by
   set Y : ℝ := (y : ℝ)
   linarith only [hK0, Mathlib.Tactic.Linarith.natCast_nonneg ℝ y,
@@ -451,6 +470,6 @@ theorem pasted_A9 (K : ℝ) (y : ℕ) (hK0 : 0 ≤ K) : 0 ≤ K * (2 * (y : ℝ)
         (Mathlib.Tactic.Linarith.natCast_nonneg ℝ y))
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le hK0)]
 
-#audit_axioms pasted_A1 pasted_A2 pasted_A4 pasted_A5 pasted_A9
+#audit_axioms pasted_A1 pasted_A2 pasted_A4 pasted_A5 pasted_A9 pasted_A10
 
 end Tests
