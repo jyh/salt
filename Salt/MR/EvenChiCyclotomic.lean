@@ -219,7 +219,7 @@ theorem e4a_prod_sin_eq_sqrt_q {m : ℕ} :
         rw [div_le_one hden]
         have hn : k + 1 ≤ 2 * m + 1 := by omega
         exact_mod_cast hn
-      nlinarith [Real.pi_pos]
+      nlinarith only [hle, Real.pi_pos]
     have := Real.sin_nonneg_of_nonneg_of_le_pi h0 h1
     linarith
   have hsq : (∏ k ∈ Finset.range m,
@@ -302,7 +302,7 @@ theorem e4a_eta_eq_quotient {q : ℕ} (s : Finset ℕ) (f : ℕ → ℤ)
   have h1 : Real.pi * ((a : ℝ) / (q : ℝ)) < Real.pi := by
     have hlt : ((a : ℝ) / (q : ℝ)) < 1 := by
       rw [div_lt_one hqR]; exact_mod_cast haq
-    nlinarith [Real.pi_pos]
+    nlinarith only [hlt, Real.pi_pos]
   have := Real.sin_pos_of_pos_of_lt_pi h0 h1
   positivity
 

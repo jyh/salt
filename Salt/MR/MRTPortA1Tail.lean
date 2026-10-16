@@ -36,9 +36,9 @@ theorem mul_exp_neg_le_two_div {M : ℝ} (hM : 0 < M) :
     Real.exp (-M) * M ≤ 2 / M := by
   have hq := Real.quadratic_le_exp_of_nonneg hM.le
   have hE : (0 : ℝ) < Real.exp M := Real.exp_pos M
-  have hsq : M ^ 2 / 2 ≤ Real.exp M := by nlinarith
+  have hsq : M ^ 2 / 2 ≤ Real.exp M := by linarith only [hq, hM]
   rw [Real.exp_neg, inv_mul_eq_div, div_le_div_iff₀ hE hM]
-  nlinarith
+  linarith only [hq, hM]
 
 theorem mrtA1_rhs_tail_le {δ : ℝ} (hδ : 0 < δ) :
     ∃ h₀ : ℝ, 0 < h₀ ∧ ∀ h X : ℝ, h₀ ≤ h → h ≤ X →
@@ -80,7 +80,7 @@ theorem mrtA1_rhs_tail_le {δ : ℝ} (hδ : 0 < δ) :
   have hll0 : (0 : ℝ) ≤ Real.log (Real.log h) := Real.log_nonneg hlog1
   have hll : Real.log (Real.log h) ≤ Real.log h ^ ((1 : ℝ) / 2) := by linarith
   have hmss := mul_self_le_mul_self hll0 hll
-  have hsq : Real.log (Real.log h) ^ 2 ≤ Real.log h := by nlinarith [hmss, hhalfsq]
+  have hsq : Real.log (Real.log h) ^ 2 ≤ Real.log h := by linarith only [hmss, hhalfsq]
   have hTle : T ≤ Real.log h := by linarith
   have h2d : 2 / δ ≤ Real.log h := le_trans hTr hTle
   have hdl : 2 ≤ δ * Real.log h := by

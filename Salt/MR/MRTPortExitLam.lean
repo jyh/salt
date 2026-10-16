@@ -61,12 +61,12 @@ theorem exit_lam_tail_absorb {c MSH Hr Hlor xr Z tk : ℝ}
     3 * (MSH * Hr ^ 2) + 4 * tk * Hr / xr / Z ≤ c * Hr ^ 2 := by
   have hxZ : (0 : ℝ) < xr * Z := mul_pos hx hZ
   have hA : 3 * (MSH * Hr ^ 2) ≤ c / 2 * Hr ^ 2 := by
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ c - 6 * MSH) (sq_nonneg Hr)]
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ c - 6 * MSH) (sq_nonneg Hr)]
   have hB : 4 * tk * Hr / xr / Z ≤ c / 2 * Hr ^ 2 := by
     rw [div_div, div_le_iff₀ hxZ]
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ c * xr * Z * Hlor - 8 * tk) hH.le,
-      mul_nonneg (by linarith : (0 : ℝ) ≤ Hr - Hlor)
-        (by positivity : (0 : ℝ) ≤ c * (xr * Z) * Hr)]
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ Hr - Hlor)
+        (by positivity : (0 : ℝ) ≤ c * (xr * Z) * Hr),
+        mul_nonneg (by linarith : (0 : ℝ) ≤ c * xr * Z * Hlor - 8 * tk) hH.le]
   linarith
 
 /-- **THE ROW CHAIN.**  `m4_doorSq_of_rowMeanSqLam` (D8) composed into

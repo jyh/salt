@@ -75,8 +75,8 @@ lemma sqrt_quad_of_threshold {B D ell : ℝ} (hB : 0 < B) (hD : 0 ≤ D)
     rwa [Real.sqrt_sq ht0.le] at h
   have hsq : Real.sqrt ell ^ 2 = ell := Real.sq_sqrt hell0
   have hDB : D / B * B = D := by field_simp
-  nlinarith [mul_nonneg (sub_nonneg.2 hs) (by positivity : (0 : ℝ) ≤ Real.sqrt ell + D / B),
-    sq_nonneg (D / B)]
+  linarith only [hDB, hsq, mul_nonneg (sub_nonneg.2 hs)
+      (by positivity : (0 : ℝ) ≤ Real.sqrt ell + D / B), sq_nonneg (1 * (D / B) : ℝ)]
 
 /-! ## §2 — the composition -/
 
@@ -229,7 +229,7 @@ theorem hsigma_largeness_satisfiable :
   have hlogη : Real.log η = 5 * 10 ^ 5 := by rw [hηdef, Real.log_exp]
   -- `η ≥ 1 + 5·10⁵`, so `η·10⁶ > 2`
   have hηbig : (5 : ℝ) * 10 ^ 5 + 1 ≤ η := by rw [hηdef]; exact Real.add_one_le_exp _
-  have hprod : (2 : ℝ) < η * 10 ^ 6 := by nlinarith
+  have hprod : (2 : ℝ) < η * 10 ^ 6 := by linarith only [hηbig]
   have hsmall : 1 / (η * (10 : ℝ) ^ 6) < 1 / 2 := by
     rw [div_lt_div_iff₀ (by positivity) (by norm_num)]; linarith
   have hpos : 0 < 1 / (η * (10 : ℝ) ^ 6) := by positivity
@@ -261,7 +261,7 @@ theorem hsigma_largeness_satisfiable :
       intro D hD0 hD1
       have he : D / 680 ≤ 1 := by rw [div_le_one (by norm_num)]; exact hD1
       have he0 : (0 : ℝ) ≤ D / 680 := by positivity
-      nlinarith [he, he0, mul_nonneg he0 (by linarith : (0 : ℝ) ≤ 1 - D / 680)]
+      linarith only [hD1, hpos, hsmall, mul_nonneg he0 (by linarith : (0 : ℝ) ≤ 1 - D / 680)]
     exact hquad _ (by linarith) (by linarith)
 
 end Salt.HB
