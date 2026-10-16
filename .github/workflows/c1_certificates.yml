@@ -95,9 +95,9 @@ jobs:
             .lake/build/lib/lean/SaltC1.*
             .lake/build/ir/SaltC1
             .lake/build/ir/SaltC1.*
-          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ steps.sha.outputs.sha }}
+          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-${{ steps.sha.outputs.sha }}
           restore-keys: |
-            c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-
+            c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-
       - name: Install elan
         run: |
           curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
@@ -108,6 +108,8 @@ jobs:
         run: |
           python3 scripts/check_cert_imports.py --self-test
           python3 scripts/check_cert_imports.py
+          python3 scripts/c1/pin_cert54_data.py --self-test
+          python3 scripts/c1/pin_cert54_data.py --check
       # ONE thread, so ONE module at a time: each certificate theorem is sized to <= 3 GB of kernel
       # memory (measured one theorem per process), and the theorem files elaborate synchronously
       # (`Elab.async false`), so a module's peak is its largest theorem's. Several modules at once
@@ -129,4 +131,4 @@ jobs:
             .lake/build/lib/lean/SaltC1.*
             .lake/build/ir/SaltC1
             .lake/build/ir/SaltC1.*
-          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml') }}-${{ steps.sha.outputs.sha }}
+          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-${{ steps.sha.outputs.sha }}

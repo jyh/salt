@@ -27,7 +27,7 @@ namespace SaltC1.Cert54
 open Lean Elab Command Meta in
 /-- Read `coef.txt` and add `cs54L : List (Nat × List Nat × Int)`. -/
 elab "cert54_coeffs " dir:str : command => do
-  let txt ← IO.FS.readFile (dir.getString ++ "/coef.txt")
+  let txt ← readPinned dir.getString "coef.txt"
   let secs ← match parseSections txt with
     | .ok s => pure s
     | .error e => throwError "coef.txt: {e}"
