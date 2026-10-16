@@ -313,7 +313,7 @@ theorem nuChen_sum_divisors_le (x z y Ps : ℕ) (hPs : Squarefree Ps)
     obtain ⟨hpos, hlt⟩ := hfacts p hp
     have h1m : (0 : ℝ) < 1 - nuChen p := by linarith
     rw [inv_eq_one_div, le_div_iff₀ h1m]
-    nlinarith [sq_nonneg (nuChen p)]
+    linarith only [sq_nonneg (nuChen p)]
   have hT : ∀ p ∈ Ps.primeFactors,
       p.Prime ∧ u ≤ (p : ℝ) ∧ (p : ℝ) < yR
         ∧ (switchSieve x z y Ps hPs hPodd).nu p ≤ 1 / ((p : ℝ) - 1) := by
