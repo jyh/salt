@@ -275,10 +275,10 @@ theorem LFunction_partialFraction {f : ℕ} [NeZero f] (χ : DirichletCharacter 
     have p1 : (20 : ℝ) ≤ 5 * (4 + |t₀|) := by linarith
     have hp1nn : (0 : ℝ) ≤ 5 * (4 + |t₀|) := by linarith
     have p2 : (20 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f := by
-      nlinarith [mul_nonneg hp1nn (by linarith [hsqrt1] : (0 : ℝ) ≤ Real.sqrt f - 1), p1]
+      linarith only [ha, mul_nonneg hp1nn (by linarith [hsqrt1] : (0 : ℝ) ≤ Real.sqrt f - 1)]
     have hp2nn : (0 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f := by linarith
     have p3 : (20 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f * (1 + Real.log f) := by
-      nlinarith [mul_nonneg hp2nn (by linarith [hll] : (0 : ℝ) ≤ (1 + Real.log f) - 1), p2]
+      linarith only [p2, mul_nonneg hp2nn (by linarith [hll] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
     rw [hM₀]; linarith [p3]
   have hsphere := LFunction_growth_sphere χ hχ hf t₀
   have hcount := LFunction_zero_count_le χ hne t₀ (r := 3 / 2) (R := 7 / 4) (M := M₀)

@@ -199,7 +199,7 @@ theorem primes_in_Ioc_ge :
   have h3r : 3 * r ≤ Y / 2 := by
     have hrr : 3 * r = 3 * K * Y / Real.log Y := by rw [hrdef]; ring
     rw [hrr, div_le_iff₀ hLy]
-    nlinarith [mul_le_mul_of_nonneg_left hylog hYnn]
+    linarith only [mul_le_mul_of_nonneg_left hylog hYnn]
   have hpsi2y : 2 * Y - K * (2 * Y) / L2 ≤ psiTot (2 * y) := by linarith [hb2.1]
   have hpsiy : psiTot y ≤ Y + r := by rw [hrdef]; linarith [hby.2]
   have hpsidiff_lb : Y / 2 ≤ psiTot (2 * y) - psiTot y := by
@@ -222,7 +222,7 @@ theorem primes_in_Ioc_ge :
   have h18 : (0 : ℝ) ≤ 1 / 8 * Y := mul_nonneg (by norm_num) hYnn
   have hfin : (1 / 8 : ℝ) * Y / Real.log Y * L2 ≤ Y / 4 := by
     rw [div_mul_eq_mul_div, div_le_iff₀ hLy]
-    nlinarith [mul_le_mul_of_nonneg_left hL2_le h18]
+    linarith only [mul_le_mul_of_nonneg_left hL2_le h18]
   have hmul : (1 / 8 : ℝ) * Y / Real.log Y * L2 ≤ cnt * L2 := le_trans hfin hcountlb
   exact le_of_mul_le_mul_right hmul hL2pos
 

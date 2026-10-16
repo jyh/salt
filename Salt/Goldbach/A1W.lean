@@ -385,7 +385,7 @@ theorem goldBVSum_W (Qm a N z D P : ℕ) (ε Qlev : ℝ)
     le_trans (dispDiscW_filtered_le_Icc Qm (N / 2 - 1) hQm1 hlevel) hbv2
   have hb1 : (1 : ℝ) ≤ Qlev * (D : ℝ) := by
     have hD1 : (1 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-    nlinarith [hQlev, hD1]
+    nlinarith only [hQlev, hD1, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   have hMbound : ∑ d ∈ P.divisors, (1 : ℝ) / (Nat.totient d)
       ≤ (1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε) := by
     have hvr := vratio_prod_le (goldA1SieveW Qm a N P hP hPodd) P.primeFactors hε.le hw0 hwz

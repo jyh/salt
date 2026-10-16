@@ -238,21 +238,21 @@ theorem s2CompatFormM_ge_sixteenth (k R : ℕ) (T : ℝ) (m : Fin k)
   -- error term 1 ≤ (1/8)·B₁²M via `4C logR/D₀ ≤ B₁/8`.
   have h1 : 4 * C * Real.log R / (D₀ k : ℝ) ≤ B1 k R (W k) T / 8 := by
     rw [div_le_iff₀ hD0pos] at *
-    nlinarith [hreg]
+    linarith only [hreg]
   have he1 : 4 * C * Real.log R / (D₀ k : ℝ) * (B1 k R (W k) T * M)
       ≤ 1 / 8 * ((B1 k R (W k) T) ^ 2 * M) := by
     have := mul_le_mul_of_nonneg_right h1 hB1M
-    nlinarith [this]
+    linarith only [this]
   -- error term 2 ≤ (1/16)·B₁²M via `192k²/D₀ ≤ 1/16`.
   have h2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) ≤ 1 / 16 := by
     rw [div_le_iff₀ hD0pos]
     have hk3 : (k : ℝ) ^ 3 ≤ (D₀ k : ℝ) := by exact_mod_cast hD
     have hkR : (3072 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith [hk3, hkR, sq_nonneg (k : ℝ)]
+    nlinarith only [hkR, hk3, sq_nonneg ↑k]
   have he2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * ((B1 k R (W k) T) ^ 2 * M)
       ≤ 1 / 16 * ((B1 k R (W k) T) ^ 2 * M) :=
     mul_le_mul_of_nonneg_right h2 hB2M
-  nlinarith [hbound, he1, he2]
+  linarith only [he2, he1, hbound]
 
 /-! ## C5 — the counting identity and pigeonhole -/
 

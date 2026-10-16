@@ -98,7 +98,7 @@ lemma stir_succ_le (m : ℕ) (hpos : 0 < m) : stir (m + 1) ≤ stir m := by
         ≤ (m : ℝ) ^ m * Real.exp 1 * Real.exp (-1) := by
           have hprod := mul_le_mul_of_nonneg_left hstep
             (mul_nonneg (by positivity : (0 : ℝ) ≤ (m : ℝ) ^ m) (Real.exp_pos (-1)).le)
-          nlinarith [hprod]
+          linarith only [hprod]
       _ = (m : ℝ) ^ m := by
           rw [mul_assoc, ← Real.exp_add, show (1 : ℝ) + -1 = 0 by norm_num,
             Real.exp_zero, mul_one]

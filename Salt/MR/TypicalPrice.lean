@@ -148,7 +148,7 @@ theorem blockfree_sum_le :
     · rw [if_pos hmem]
       have h1 : ‖a n‖ ^ 2 ≤ 1 := by
         have := ha n
-        nlinarith [norm_nonneg (a n)]
+        nlinarith only [this, norm_nonneg (a n)]
       exact div_le_div_of_nonneg_right h1 (by positivity) |>.trans_eq rfl
     · rw [if_neg hmem]
       have haz : a n = 0 := by
@@ -487,7 +487,7 @@ theorem lemma12Rows_priced :
   have e2 := mul_le_mul_of_nonneg_left h2 hpre
   have e3 := mul_le_mul_of_nonneg_left h3 hpre
   rw [lemma12Rows]
-  nlinarith [e2, e3]
+  linarith only [e3, e2]
 
 /-- **T-2, the `(T/X_d + 1)` exit** (`lemma12Rows_priced_ratio`).  MR's §8 error rows are
 stated at the grade `(T/X + 1)·(small)`; this is `lemma12Rows_priced` read at that grade, using
@@ -529,7 +529,7 @@ theorem lemma12Rows_priced_ratio :
       + (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2) := by positivity
   have hcoefle : 6 * (2 * T + 20 * (N : ℝ)) ≤ 480 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
     have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
-    nlinarith [hN4, hT, hXd0]
+    linarith only [hTid, hN4, hT]
   have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hT hreg hbig herr ha hb hc hasupp hwin
   refine hstep.trans ?_
   have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn

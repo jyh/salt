@@ -128,7 +128,7 @@ lemma g2F_le_one {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
   have h1 := g1F_le_one hB ht
   unfold g2F
   unfold g1F at h0 h1
-  nlinarith
+  nlinarith only [h0, h1]
 
 /-! ## P4 — the pointwise split bound for `A1_1`
 
@@ -605,7 +605,7 @@ lemma inv_mul_one_sub_inv_sF_two_le {k R : ℕ} (hB : 0 < bParam k R) :
   have hinv : sF k R 2 * (sF k R 2)⁻¹ = 1 := mul_inv_cancel₀ hs2pos.ne'
   have h1 : 1 - (sF k R 2)⁻¹ ≤ bParam k R * Real.log 2 := by
     have h2 : 1 - (sF k R 2)⁻¹ ≤ sF k R 2 - 1 := by
-      nlinarith [sq_nonneg (sF k R 2 - 1)]
+      nlinarith only [hs2, hinv, sq_nonneg (sF k R 2 - 1)]
     have h3 : sF k R 2 - 1 = bParam k R * Real.log 2 := by
       unfold sF
       ring

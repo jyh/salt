@@ -245,7 +245,7 @@ theorem fseq_two_window {s : ℝ} (hs2 : 2 ≤ s) (hs4 : s ≤ 4) :
     · intro t ht
       rw [uIcc_of_le hs4] at ht
       have := ht.1
-      intro h; nlinarith
+      intro h; linarith only [h, this, hs2]
   rw [integral_eq_sub_of_hasDerivAt hderiv hint]
   have hspos : (0 : ℝ) < s := by linarith
   have h43 : (4 : ℝ) - 1 = 3 := by norm_num
@@ -269,7 +269,7 @@ theorem fseq_one_antitoneOn : AntitoneOn (fseq 1) (Set.Icc 1 3) := by
     field_simp; ring
   have hge : 0 ≤ (3 - x) / x - (3 - y) / y := by
     rw [expand]
-    exact div_nonneg (by nlinarith) (mul_pos hx0 hy0).le
+    exact div_nonneg (by linarith only [hxy]) (mul_pos hx0 hy0).le
   linarith
 
 /-! ### Structural facts: measurability, boundedness, integrability

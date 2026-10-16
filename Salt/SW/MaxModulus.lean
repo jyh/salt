@@ -115,10 +115,10 @@ theorem LFunction_norm_logDeriv_sub_sum' {f : ℕ} [NeZero f] (χ : DirichletCha
     have ha : (4 : ℝ) ≤ 4 + |t₀| := by linarith [abs_nonneg t₀]
     have hp1nn : (0 : ℝ) ≤ 5 * (4 + |t₀|) := by linarith
     have p2 : (20 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f := by
-      nlinarith [mul_nonneg hp1nn (by linarith [hsqrt1] : (0 : ℝ) ≤ Real.sqrt f - 1)]
+      linarith only [ha, mul_nonneg hp1nn (by linarith [hsqrt1] : (0 : ℝ) ≤ Real.sqrt f - 1)]
     have hp2nn : (0 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f := by linarith
     have p3 : (20 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f * (1 + Real.log f) := by
-      nlinarith [mul_nonneg hp2nn (by linarith [hlog2] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
+      linarith only [p2, mul_nonneg hp2nn (by linarith [hlog2] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
     rw [hM₀def]; linarith [p3]
   -- ============================================================================
   -- Inlined `LFunction_exists_factorization` at radius `8/5` (exposing `m₈ = divisor.toNat`)
