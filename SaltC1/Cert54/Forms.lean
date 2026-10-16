@@ -22,6 +22,10 @@ evaluates); `scripts/c1/lean_cert54.py` writes this file. Nothing here bears on 
 
 set_option maxRecDepth 1000000
 set_option linter.style.longLine false
+-- One theorem at a time, and nothing of a checked theorem kept: with asynchronous elaboration each
+-- theorem's snapshot is retained to the end of the file, and a file of these theorems grows to
+-- ~15 GB (measured); synchronously the file's peak is its largest theorem's (~3 GB).
+set_option Elab.async false
 
 namespace SaltC1.Cert54
 

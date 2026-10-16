@@ -108,10 +108,10 @@ jobs:
         run: |
           python3 scripts/check_cert_imports.py --self-test
           python3 scripts/check_cert_imports.py
-      # ONE thread: each certificate theorem is sized to <= 3 GB of kernel memory checked alone
-      # (measured one theorem per process), and lake and Lean run that many modules and theorems
-      # at once — with the default thread count a module checks several theorems concurrently
-      # (measured locally at 4 threads: 11.9 GB for one module), which a hosted runner cannot hold.
+      # ONE thread, so ONE module at a time: each certificate theorem is sized to <= 3 GB of kernel
+      # memory (measured one theorem per process), and the theorem files elaborate synchronously
+      # (`Elab.async false`), so a module's peak is its largest theorem's. Several modules at once
+      # multiply that, which a hosted runner's memory does not hold.
       - name: Build the certificate and its axiom audit
         env:
           LEAN_NUM_THREADS: "1"
