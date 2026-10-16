@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Lean
+import SaltC1.Cert54.Sha256
 
 /-!
 # C1 — the `k = 54` certificate's data
@@ -16,6 +17,12 @@ The text files under `SaltC1/Cert54/data/` (written by `scripts/c1/emit_cert54.p
 command `cert54_data`, which builds each table as a constructor term and adds it with `addDecl`: one
 syntax node per table, so the build has no per-numeral information to walk. `Int` values are the
 constructor forms `Int.ofNat n` / `Int.negSucc n` over raw `Nat` literals.
+
+Every file is PINNED: `cert54Pins` names each file's SHA-256 (as `shasum -a 256` prints it), every
+reader checks the file it reads through `readPinned`, and `cert54_data` first runs `checkCert54Pins`
+— every pinned file present and matching, and no unpinned file in the directory. Lake does not track
+a file read by `IO.FS.readFile`, so without the pins a changed table could be replayed from a stale
+build; with them, a data change that is not re-pinned is refused at elaboration.
 
 * read: `coefBT` (the coefficients `enc(a, C) ↦ c`, basis order, in the bit-reversal layout of
   `BT.getB`), `WBT` (the 24!-scaled marginal, key order), `p54T`, `p53T` (the coefficients of
@@ -160,6 +167,42 @@ def parseSections (txt : String) : Except String (Array (String × Array (List I
     unless acc.size == n do throw s!"section {nm}: {acc.size} lines, header says {n}"
   return out.map fun (nm, _, acc) => (nm, acc)
 
+/-- The SHA-256 of every file under `SaltC1/Cert54/data/`, as `shasum -a 256` prints it: the five
+files `scripts/c1/emit_cert54.py` writes, and `vector-k54-eps0-d23.txt`, its input, whose digest
+each emitted file's header line 3 repeats. Derived from the files (`scripts/c1/pin_cert54_data.py`
+prints this table from them and `--check` compares it), never typed. -/
+def cert54Pins : List (String × String) := [
+  ("W.txt", "691a8389d865b19f2d266a1d326e97651a7cc534c083276ef29695e987c5ff14"),
+  ("coef.txt", "688677e411ea0e33557333446453228acf3c5fe97b62cbe69a77b84f06c28eca"),
+  ("p53.txt", "a614369a3c9aea918ae10b36c06821d9e894aa6b48079c75fec081ba6b615b1c"),
+  ("p54.txt", "0f515661b5db73cd7acdbaf678b380a5e474d80a93622ae693c43b7a2f4a35c0"),
+  ("vector-k54-eps0-d23.txt", "c93e4811c96548f613857f0100bc0506c4ea3baf003f09af88aa8b21bf722ee6"),
+  ("wterms.txt", "fd23868410dd944fe4ff77461934550392fb7c8f0fc31699677c92f6b06843f6")]
+
+/-- Read `dir/f` as text, after refusing it unless its SHA-256 is the one `cert54Pins` names. -/
+def readPinned (dir f : String) : CommandElabM String := do
+  let some pin := List.lookup f cert54Pins
+    | throwError "{f}: no SHA-256 pin in cert54Pins (pin it with scripts/c1/pin_cert54_data.py)"
+  let bytes ← IO.FS.readBinFile (dir ++ "/" ++ f)
+  let got := Sha256.hex bytes
+  unless got == pin do
+    throwError "{f}: SHA-256 {got} is not the pinned {pin}: this is not the file the certificate \
+      was emitted from (re-emit with scripts/c1/emit_cert54.py, then re-pin cert54Pins)"
+  match String.fromUTF8? bytes with
+  | some s => pure s
+  | none => throwError "{f}: not UTF-8"
+
+/-- Every pinned file present under `dir` and matching its pin, and no other file there (entries
+whose name starts with `.` are ignored). -/
+def checkCert54Pins (dir : String) : CommandElabM Unit := do
+  for (f, _) in cert54Pins do
+    let _ ← readPinned dir f
+  let entries ← System.FilePath.readDir dir
+  for e in entries do
+    unless e.fileName.startsWith "." || (List.lookup e.fileName cert54Pins).isSome do
+      throwError "{dir}/{e.fileName}: a data file with no SHA-256 pin in cert54Pins"
+  logInfo m!"cert54 pins: {cert54Pins.length} files match cert54Pins, nothing unpinned in {dir}"
+
 /-- Add a definition with a given value; the kernel checks its type. -/
 def addData (n : Name) (ty val : Expr) : CommandElabM Unit :=
   liftCoreM <| addDecl (.defnDecl { name := n, levelParams := [], type := ty, value := val,
@@ -167,8 +210,9 @@ def addData (n : Name) (ty val : Expr) : CommandElabM Unit :=
 
 /-- Read the data directory and add every table. -/
 elab "cert54_data " dir:str : command => do
+  checkCert54Pins dir.getString
   let rd (f : String) : CommandElabM (Array (String × Array (List Int))) := do
-    let txt ← IO.FS.readFile (dir.getString ++ "/" ++ f)
+    let txt ← readPinned dir.getString f
     match parseSections txt with
     | .ok s => pure s
     | .error e => throwError "{f}: {e}"
