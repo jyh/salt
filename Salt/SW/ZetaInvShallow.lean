@@ -146,7 +146,7 @@ theorem zeta_inv_shallow : ∃ c₄ > 0, ∃ C > 0, ∀ σ t : ℝ,
   have hcross : c₄ * Real.log 4 < c₃ * Real.log 2 ^ 9 := by
     have h := hc₄_leB
     rw [le_div_iff₀ h2log4pos] at h
-    nlinarith [h, mul_pos hc₃ hlog29pos]
+    linarith only [h, mul_pos hc₃ hlog29pos]
   have hcompat : 1 - a < c₃ / Real.log 4 := by
     rw [hadef]
     have : c₄ / Real.log 2 ^ 9 < c₃ / Real.log 4 :=
@@ -220,7 +220,7 @@ theorem zeta_inv_shallow : ∃ c₄ > 0, ∃ C > 0, ∀ σ t : ℝ,
         exact one_div_le_one_div_of_le (div_pos hδpos (by norm_num)) hζlb
       have hstep : 4 / δ ≤ 4 / (δ * Real.log 2 ^ 7) * L ^ 7 := by
         rw [div_mul_eq_mul_div, div_le_div_iff₀ hδpos hδlog27pos]
-        nlinarith [mul_le_mul_of_nonneg_left hL27 hδpos.le]
+        linarith only [mul_le_mul_of_nonneg_left hL27 hδpos.le]
       calc ‖(riemannZeta s)⁻¹‖ ≤ 4 / δ := hinv
         _ ≤ 4 / (δ * Real.log 2 ^ 7) * L ^ 7 := hstep
         _ ≤ C * L ^ 7 := mul_le_mul_of_nonneg_right hCge2 hL7pos.le
@@ -233,7 +233,7 @@ theorem zeta_inv_shallow : ∃ c₄ > 0, ∃ C > 0, ∀ σ t : ℝ,
         exact one_div_le_one_div_of_le (by norm_num) hζge
       have hstep : (4 : ℝ) ≤ 4 / Real.log 2 ^ 7 * L ^ 7 := by
         rw [div_mul_eq_mul_div, le_div_iff₀ hlog27pos]
-        nlinarith [hL27, hlog27pos]
+        linarith only [hL27]
       calc ‖(riemannZeta s)⁻¹‖ ≤ 4 := hinv
         _ ≤ 4 / Real.log 2 ^ 7 * L ^ 7 := hstep
         _ ≤ C * L ^ 7 := mul_le_mul_of_nonneg_right hCge3 hL7pos.le
