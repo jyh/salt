@@ -648,8 +648,8 @@ lemma sum_inv_mul_sqrt_aux (N : ℕ) (hN : 1 ≤ N) :
           linear_combination (2 * a * b) * hba
         rw [hd2, ← hb2]
         rw [div_le_div_iff₀ (by positivity) (by positivity)]
-        nlinarith [mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) hb0.le) hb0.le,
-          mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) ha0.le) hb0.le]
+        linarith only [mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) ha0.le) hb0.le,
+            mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) hb0.le) hb0.le]
       have htop : (1 : ℝ) / ((((n + 1) : ℕ) : ℝ) * Real.sqrt (((n + 1) : ℕ) : ℝ))
           = (1 : ℝ) / (((n : ℝ) + 1) * b) := by
         rw [hb]
@@ -913,7 +913,7 @@ theorem phiAtom_upper_fallback (B : ℕ) (hB : B ≠ 0) :
       ≤ 4 * ((Nat.totient B / B : ℝ) * Real.log x) + 4 * ((Nat.totient B : ℝ) + 1) := hbase
     _ ≤ 4 * Real.log x + 4 * ((Nat.totient B : ℝ) + 1) := by linarith [hstep]
     _ ≤ (4 * ((Nat.totient B : ℝ) + 1) + 4) * (1 + Real.log x) := by
-        nlinarith [mul_nonneg hφ0 hlogx, hlogx, hφ0]
+        linarith only [hlogx, mul_nonneg hφ0 hlogx]
 
 /-! ## What did NOT land: the exact-constant upper bound
 
