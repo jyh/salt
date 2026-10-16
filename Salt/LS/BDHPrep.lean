@@ -81,7 +81,7 @@ theorem sum_vonMangoldt_sq_le (x : ℕ) (hx : 2 ≤ x) :
     have hle : vonMangoldt n ≤ Real.log n := ArithmeticFunction.vonMangoldt_le_log
     have hlog : Real.log n ≤ Real.log x := Real.log_le_log (by linarith) hnx
     have hnn : 0 ≤ vonMangoldt n := ArithmeticFunction.vonMangoldt_nonneg
-    nlinarith
+    nlinarith only [hlog, hnn, hle]
   have step2 : ∑ n ∈ Finset.Icc 1 x, vonMangoldt n = Chebyshev.psi (x : ℝ) := by
     rw [Chebyshev.psi]
     simp only [Nat.floor_natCast]

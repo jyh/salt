@@ -177,8 +177,8 @@ theorem exp_pade_upper {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x ≤ 1) : (2 - x) * Rea
   simp only [Finset.sum_range_succ, Finset.sum_range_zero] at h2
   rw [abs_of_nonneg hx0] at h2
   norm_num at h2
-  nlinarith [h2, Real.exp_pos x, pow_nonneg hx0 3, pow_nonneg hx0 4, hx0, hx1,
-    mul_nonneg hx0 hx0, mul_nonneg (mul_nonneg hx0 hx0) hx0]
+  nlinarith only [hx1, h2, pow_nonneg hx0 3,
+      pow_nonneg hx0 4, mul_self_nonneg x]
 
 /-- **The `hBJS` functional integral bound** (BJS `H(s) ≤ κ₃·s·h(s)`, at the elementary
 `κ₃ = 1`).  For `s ≥ 2` and any upper limit `c`, `∫_{s-1}^c h(u) du ≤ s·h(s)`.  Region-split:

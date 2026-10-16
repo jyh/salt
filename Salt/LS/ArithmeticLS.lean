@@ -99,7 +99,7 @@ theorem arithmetic_LS {N Q : ℕ} (hQ : 2 ≤ Q) (c : ℕ → ℂ) :
   have hδ : (0 : ℝ) < 1 / (Q : ℝ) ^ 2 := one_div_pos.mpr hQsq
   have hδ2 : 1 / (Q : ℝ) ^ 2 ≤ 1 / 2 := by
     apply one_div_le_one_div_of_le (by norm_num)
-    nlinarith [hQR]
+    nlinarith only [hQR, (Nat.cast_nonneg _ : 0 ≤ ↑Q)]
   -- Pairwise spacing of the Farey system: distinct reduced pairs ⇒ distinct
   -- fractions (reducedness ⇒ injectivity) ⇒ `1/Q²`-separated by `farey_spacing`.
   have hSp : ∀ x ∈ fareyPairs Q, ∀ y ∈ fareyPairs Q, x ≠ y →
