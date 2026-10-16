@@ -128,7 +128,7 @@ lemma norm_wK (s : ℝ) : ‖wK s‖ = 1 / (2 * |Real.sin (π * s)|) := by
 lemma sin_pi_mul_pos {s : ℝ} (h0 : 0 < s) (h1 : s < 1) : 0 < Real.sin (π * s) := by
   apply Real.sin_pos_of_pos_of_lt_pi
   · positivity
-  · nlinarith [Real.pi_pos]
+  · nlinarith only [h1, Real.pi_pos]
 
 /-- Jordan's inequality, symmetrised: `sin(πs) ≥ 2δ` for `s ∈ [δ, 1-δ]`, `δ ≤ 1/2`. -/
 lemma sin_pi_mul_ge {δ s : ℝ} (hδ0 : 0 < δ) (hδ : δ ≤ 1 / 2) (hs1 : δ ≤ s)
@@ -155,10 +155,10 @@ lemma wK_im_antitone {s₁ s₂ : ℝ} (h1 : 0 < s₁) (h12 : s₁ ≤ s₂) (h2
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   have hsin : 0 ≤ Real.sin (π * s₂ - π * s₁) := by
     apply Real.sin_nonneg_of_nonneg_of_le_pi
-    · nlinarith [Real.pi_pos]
-    · nlinarith [Real.pi_pos, mul_pos Real.pi_pos h1]
+    · nlinarith only [h12, Real.pi_pos]
+    · nlinarith only [h2, h12, h1, Real.pi_pos, mul_pos Real.pi_pos h1]
   rw [Real.sin_sub] at hsin
-  nlinarith [hsin]
+  linarith only [hsin]
 
 /-- A purely imaginary complex number has norm equal to `|Im|`. -/
 lemma norm_eq_abs_im_of_re_eq_zero {z : ℂ} (h : z.re = 0) : ‖z‖ = |z.im| := by
@@ -245,8 +245,8 @@ theorem kusmin_landau {f : ℕ → ℝ} {a b : ℕ} {δ : ℝ} {m : ℤ}
       rw [hWim k hk, abs_div, abs_of_pos (mul_pos (by norm_num) hs)]
       rw [div_le_div_iff₀ (mul_pos (by norm_num) hs) (by positivity)]
       have hcos : |Real.cos (π * σ k)| ≤ 1 := Real.abs_cos_le_one _
-      nlinarith [hcos, hsg, hδ0,
-        mul_le_mul_of_nonneg_right hcos (by positivity : (0 : ℝ) ≤ 4 * δ)]
+      linarith only [hsg,
+          mul_le_mul_of_nonneg_right hcos (by positivity : (0 : ℝ) ≤ 4 * δ)]
     have hWnorm : ∀ k, k ≤ N → ‖W k‖ ≤ 1 / (4 * δ) := by
       intro k hk
       simp only [hWdef, norm_wK]

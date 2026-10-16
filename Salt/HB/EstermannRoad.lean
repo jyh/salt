@@ -94,6 +94,6 @@ theorem two_pow_totient_exceeds_estermann_at_nine :
       Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
     rwa [Real.sqrt_sq (by norm_num)] at h2
   norm_num at h1 ⊢
-  nlinarith [h1, Real.sqrt_nonneg ((2:ℝ)^9)]
+  linarith only [h1]
 
 end Salt.HB

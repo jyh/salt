@@ -87,7 +87,7 @@ noncomputable def hbPairSieve (x d₁ d₂ z : ℕ) (hz : 1 ≤ z) : SelbergSiev
   level := (z : ℝ) ^ 2
   one_le_level := by
     have hz1 : (1 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz
-    nlinarith
+    nlinarith only [hz1, Mathlib.Tactic.Linarith.natCast_nonneg ℝ z]
 
 variable {x d₁ d₂ z : ℕ} {hz : 1 ≤ z}
 

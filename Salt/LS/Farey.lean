@@ -94,7 +94,7 @@ theorem farey_spacing {q q' Q a a' : ℕ} (hq : 0 < q) (hq' : 0 < q')
   have hQR : (0 : ℝ) ≤ (Q : ℝ) := hqR.le.trans hqQR
   have hQQ : (q : ℝ) * q' ≤ (Q : ℝ) ^ 2 := by
     have hmul : (q : ℝ) * q' ≤ (Q : ℝ) * Q := mul_le_mul hqQR hq'QR hq'R.le hQR
-    nlinarith [hmul]
+    linarith only [hmul]
   have hstep : 1 / (Q : ℝ) ^ 2 ≤ 1 / ((q : ℝ) * q') :=
     one_div_le_one_div_of_le (mul_pos hqR hq'R) hQQ
   exact hstep.trans hcore

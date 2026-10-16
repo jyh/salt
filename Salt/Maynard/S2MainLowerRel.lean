@@ -324,7 +324,7 @@ theorem s2main_lower_rel (k R : ℕ) (m : Fin k) (T : ℝ)
       have h1b : -(|b| * |a - b|) ≤ b * (a - b) := by
         have := neg_abs_le (b * (a - b)); rwa [abs_mul] at this
       have hstep : b ^ 2 - 2 * |b| * |a - b| ≤ a ^ 2 := by
-        nlinarith [sq_nonneg (a - b), h1b]
+        linarith only [h1b, sq_nonneg (a - b : ℝ)]
       have h2b0 : (0 : ℝ) ≤ 2 * |b| := by positivity
       have hmul := mul_le_mul_of_nonneg_left herr h2b0
       linarith [hstep, hmul]
@@ -335,7 +335,7 @@ theorem s2main_lower_rel (k R : ℕ) (m : Fin k) (T : ℝ)
       (div_le_div_iff_of_pos_right hΦpos).mpr hsqb
     have hle2 : a ^ 2 / Φ ≤ G * V ^ 2 := by
       rw [hyMsq, div_le_iff₀ hΦpos]
-      nlinarith [mul_nonneg (mul_nonneg hGpos.le (sq_nonneg V)) (sub_nonneg.mpr hGleΦ)]
+      linarith only [mul_nonneg (mul_nonneg hGpos.le (sq_nonneg V)) (sub_nonneg.mpr hGleΦ)]
     rw [heq]; exact le_trans hle1 hle2
   -- rewrite `MAIN − K·E` as the per-`u` sum
   have hrw' :
