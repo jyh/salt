@@ -98,7 +98,7 @@ theorem hDsq_of_floor {x N D : ℕ}
     have hsplit : (x : ℝ) ^ ((2 : ℝ) / 3) = (x : ℝ) ^ ((1 : ℝ) / 2) * (x : ℝ) ^ ((1 : ℝ) / 6) := by
       rw [← Real.rpow_add hxpos, show (1 : ℝ) / 2 + 1 / 6 = 2 / 3 by norm_num]
     rw [hsplit]
-    nlinarith [hx16, h12nn]
+    nlinarith only [hsqrt_eq, hx16, hDx, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   have hx13x13 : (x : ℝ) ^ ((1 : ℝ) / 3) * (x : ℝ) ^ ((1 : ℝ) / 3) = (x : ℝ) ^ ((2 : ℝ) / 3) := by
     rw [← Real.rpow_add hxpos, show (1 : ℝ) / 3 + 1 / 3 = 2 / 3 by norm_num]
   have h8pos : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 3) / 8 := by positivity
@@ -386,7 +386,7 @@ theorem middle_k_price (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
     have hsx : Real.sqrt x ≤ (x : ℝ) / 2 := by
       rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by rw [Real.sqrt_sq (by positivity)]]
       apply Real.sqrt_le_sqrt
-      nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+      linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
     have hXMloR : (x : ℝ) / 2 < (X : ℝ) * (pieceM k : ℝ) := by
       have hxlt : x < 2 * (x / 2 + 1) := by omega
       have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt

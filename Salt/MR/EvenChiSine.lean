@@ -190,7 +190,7 @@ theorem e4a_log_eta_eq_sum {q : ℕ} (S : Finset ℕ) (e : ℕ → ℤ)
     positivity
   have h1 : Real.pi * ((a : ℝ) / (q : ℝ)) < Real.pi := by
     have hlt : ((a : ℝ) / (q : ℝ)) < 1 := by rw [div_lt_one hqR]; exact_mod_cast haq
-    nlinarith [Real.pi_pos]
+    nlinarith only [hlt, Real.pi_pos]
   have := Real.sin_pos_of_pos_of_lt_pi h0 h1
   positivity
 

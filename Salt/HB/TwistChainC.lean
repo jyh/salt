@@ -357,8 +357,8 @@ theorem LamTilde_sub_vonMangoldt_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 
         exact not_isPrimePow_mul_coprime (coprime_nPlus_nMinus χ n) hP1 hMne1
           (nPlus_pos χ n).ne' (nMinus_pos χ n).ne'
       rw [hLT, hLn0, sub_zero, hFn0, zero_mul, zero_add]
-      nlinarith [mul_nonneg (sub_nonneg.mpr (two_le_fChiSum_nPlus χ hsq hP1)) hLM_nonneg,
-        hLM_nonneg]
+      linarith only [mul_nonneg
+          (sub_nonneg.mpr (two_le_fChiSum_nPlus χ hsq hP1)) hLM_nonneg]
   · -- `ω(n₋) ≥ 2`: `Λ̃(n) = 0`
     rw [LamTilde_eq_zero_of_two_le_card χ hsq hn hcop hc]
     linarith [hR_nonneg, hLn_nonneg]

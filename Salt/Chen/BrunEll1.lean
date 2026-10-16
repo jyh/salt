@@ -164,7 +164,7 @@ theorem chi_lower_lt (s : BoundingSieve) {Lam z : ℝ} {b : ℕ}
   have hEpos : (0 : ℝ)
       < Real.exp ((((2 * b - 2 + 1 : ℕ) : ℝ) + 2 * (Real.exp Lam - 1)⁻¹) * Real.log z) :=
     Real.exp_pos _
-  nlinarith [hle, h2k, hEpos]
+  nlinarith only [hle, h2k, hdpos]
 
 /-! ## The exit -/
 

@@ -482,8 +482,8 @@ theorem LamTildeGen_sub_vonMangoldt_le (hf : IsSignFunction f) (hn : n ≠ 0) :
         exact not_isPrimePow_mul_coprime (coprime_nPlusGen_nMinusGen f n) hP1 hMne1
           (nPlusGen_pos f n).ne' (nMinusGen_pos f n).ne'
       rw [hLT, hLn0, sub_zero, hFn0, zero_mul, zero_add]
-      nlinarith [mul_nonneg (sub_nonneg.mpr (two_le_fGenSum_nPlus hf hP1)) hLM_nonneg,
-        hLM_nonneg]
+      linarith only
+          [mul_nonneg (sub_nonneg.mpr (two_le_fGenSum_nPlus hf hP1)) hLM_nonneg]
   · rw [LamTildeGen_eq_zero_of_two_le_card hf hn hc]
     linarith [hR_nonneg, hLn_nonneg]
 

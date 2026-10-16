@@ -96,7 +96,7 @@ lemma zeta_near_bridge_lower {t a b Bnd : ℝ} (hab : a ≤ b) (h1a : 1 ≤ a) (
     intro v hv
     rw [uIcc_of_le hab] at hv
     exact riemannZeta_ne_zero_of_one_le_re (by simp only [Complex.add_re, Complex.ofReal_re,
-      Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im]; nlinarith [hv.1, h1a])
+      Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im]; linarith only [h1a, hv.1])
   have hzne1 : ∀ v : ℝ, ((v : ℂ) + (t : ℂ) * I) ≠ 1 := by
     intro v h
     have him : ((v : ℂ) + (t : ℂ) * I).im = (1 : ℂ).im := by rw [h]
