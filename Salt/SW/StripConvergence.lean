@@ -122,7 +122,7 @@ lemma growthTerm_norm_le' (hf : 2 ≤ f) {M : ℝ} (hM0 : 0 ≤ M)
       have hchi0 : χ (0 : ZMod f) = 0 := MulChar.map_nonunit χ not_isUnit_zero
       simp [hchi0]
     have hRHS : M * ‖s‖ * ((0 : ℕ) : ℝ) ^ (-(s.re + 1)) = 0 := by
-      rw [Nat.cast_zero, Real.zero_rpow (by intro h; nlinarith [hσ]), mul_zero]
+      rw [Nat.cast_zero, Real.zero_rpow (by intro h; linarith only [h, hσ]), mul_zero]
     rw [hRHS]
     simp only [growthTerm, h0, zero_mul, norm_zero, le_refl]
   · have hb := cpow_diff_bound s hσ hi

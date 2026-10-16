@@ -444,7 +444,7 @@ theorem no_quad_weight_of_fourBar (h : FourBar) :
       0 < I₄ F ∧ 2 * I₄ F < J₁₄ F + J₂₄ F + J₃₄ F + J₄₄ F := by
   rintro ⟨F, hF, hI, hlt⟩
   have hbar := h F hF
-  nlinarith [hbar, hlt,
-    mul_pos (show (0:ℝ) < 2 - (4 / 3) * Real.log 4 by linarith [four_thirds_log_four_lt_two]) hI]
+  linarith only [hbar, hlt, mul_pos
+      (show (0 : ℝ) < 2 - (4 / 3) * Real.log 4 by linarith [four_thirds_log_four_lt_two]) hI]
 
 end Salt.TwinBar

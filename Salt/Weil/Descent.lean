@@ -163,7 +163,7 @@ private theorem norm_sum_descentRoot_pow_le (a b : ZMod p) (ha : a ≠ 0) (hb : 
   have hpt : (p : ℝ) * 1 ≤ (p : ℝ) * Real.sqrt (p : ℝ) ^ n :=
     mul_le_mul_of_nonneg_left hone hp0
   refine hR.trans ?_
-  nlinarith [hps, hpt, hp1]
+  linarith only [hpt, hps, hp1]
 
 /-- **The extraction.** Every eigenvalue of the family has modulus `≤ √p`: the master lemma
 `forall_norm_le_of_powerSum_bound` applied to the uniform bound, at `N₀ = 6`, `C = 33p`,
