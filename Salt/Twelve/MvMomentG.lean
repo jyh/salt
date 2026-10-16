@@ -73,7 +73,7 @@ private lemma product_gap_bound {ι : Type*} [DecidableEq ι] (s : Finset ι)
     have k1 : a x * ((∏ i ∈ s, a i) - ∏ i ∈ s, b i)
         ≤ a x * ∑ j ∈ s, (a j - b j) * ∏ i ∈ s.erase j, a i :=
       mul_le_mul_of_nonneg_left ihs hax
-    nlinarith [k1, mul_nonneg habx (sub_nonneg.mpr hprod_b_le_a)]
+    linarith only [k1, mul_nonneg habx (sub_nonneg.mpr hprod_b_le_a)]
 
 /-- Algebraic identity peeling the `w`-weight out of a product-of-inverse difference. -/
 private lemma sub_div_eq {n : ℕ} (w : ℝ) (f h : Fin n → ℝ) :
@@ -547,7 +547,7 @@ theorem mv_monomial_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           add_le_add hcompare hmain0
       _ ≤ (c1 + ∑ j : Fin n, cgap (e j) * ∏ i ∈ Finset.univ.erase j, cg (e i))
             * (1 + X) ^ (n - 1) * (1 + Real.log R / D) := by
-          nlinarith [mul_nonneg (mul_nonneg hc1_0 hP) hLD0, mul_nonneg hSK0 hP,
-            mul_nonneg (mul_nonneg hSK0 hP) hLD0]
+          linarith only [mul_nonneg hSK0 hP,
+              mul_nonneg (mul_nonneg hc1_0 hP) hLD0]
 
 end Salt.Twelve

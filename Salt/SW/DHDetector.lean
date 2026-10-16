@@ -267,9 +267,9 @@ lemma dhA_mass_floor_real (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (N 
     have h1 : (N : ℝ) < ((Nat.sqrt N : ℝ) + 1) ^ 2 := by
       have h2 := Nat.lt_succ_sqrt N
       have : (N : ℝ) < (Nat.sqrt N + 1 : ℕ) * (Nat.sqrt N + 1 : ℕ) := by exact_mod_cast h2
-      push_cast at this; nlinarith [this]
-    nlinarith [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ N), Real.sqrt_nonneg (N : ℝ),
-      Nat.cast_nonneg (α := ℝ) (Nat.sqrt N)]
+      push_cast at this; linarith only [this]
+    nlinarith only [h1, Real.sq_sqrt (by positivity : (0 : ℝ) ≤ N),
+        (Nat.cast_nonneg _ : 0 ≤ ↑N.sqrt)]
   linarith [dhA_mass_floor χ hsq N]
 
 /-! ## §4 — the log-average floor (toward `L(1,χ)`) -/
