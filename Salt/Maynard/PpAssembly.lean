@@ -62,7 +62,7 @@ lemma card_pow_residues_le {q : ℕ} (hq : 1 ≤ q) (k : ℕ) (hk : 1 ≤ k) {a 
       have hone : (1 : ℝ) ≤ 2 * (k : ℝ) * (k : ℝ) ^ (1 : ℕ).primeFactors.card := by
         rw [Nat.primeFactors_one, Finset.card_empty, pow_zero, mul_one]
         have hk1 : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-        nlinarith [hk1]
+        linarith only [hk1]
       exact hle.trans hone
   haveI : NeZero q := ⟨by omega⟩
   set â : (ZMod q)ˣ := ZMod.unitOfCoprime a ha with hâ
@@ -480,7 +480,7 @@ lemma perJ_root_bound (x Q j : ℕ) (hx : 2 ≤ x) (hj3 : 3 ≤ j) (hj8000 : j �
     apply Real.rpow_le_rpow_of_exponent_le hx1
     rw [div_le_iff₀ hjpos]
     have hj3R : (3 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj3
-    nlinarith [hj3R]
+    linarith only [hj3R]
   have h1Lx : (1 : ℝ) ≤ 1 + Real.log x := by linarith
   have hpowj : (1 + Real.log Q) ^ j ≤ (1 + Real.log x) ^ 8000 := by
     calc (1 + Real.log Q) ^ j ≤ (1 + Real.log x) ^ j := pow_le_pow_left₀ hbaseLnn hbaseL j

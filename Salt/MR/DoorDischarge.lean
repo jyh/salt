@@ -96,7 +96,7 @@ theorem regime_W_headroom_of_floor (R : ChowlaRegime)
     have := Real.log_two_lt_d9; linarith
   have hstep2 : L ^ (625 : ℕ) ≤ A * (R.Hhi : ℝ) - 2 * Real.log 2 := by
     have : Real.exp 3 * L ^ (625 : ℕ) - 2 * Real.log 2 ≥ L ^ (625 : ℕ) := by
-      nlinarith [hLpow1, hexp3, hlog2lt1]
+      nlinarith only [hLpow1, hexp3, hlog2pos, hlog2lt1]
     linarith [hstep1, this]
   -- STEP 3 : `log(x/2ω) ≥ A·H₊ − 2·log2` from `hPHheadroom`.
   set m : ℕ := ⌊(R.eps : ℚ) ^ 2 * (R.Hhi : ℚ)⌋₊ with hmdef
@@ -142,8 +142,8 @@ theorem regime_W_headroom_of_floor (R : ChowlaRegime)
     rw [hlogdiv]
     have h1 : A * (R.Hhi : ℝ) - 2 * Real.log 2 ≤ (4 * (m : ℝ) + 2) * Real.log 2 := by
       rw [hAdef]
-      nlinarith [hm_ge, hlog2pos, hepssq, hHhi_pos]
-    nlinarith [h1, hlogx, hlog2pos]
+      nlinarith only [hlog2pos, hm_ge]
+    linarith only [h1, hlogx]
   linarith [hstep2, hchain]
 
 /-! ## S10b — the OTHER arm of the same `W`-constraint, `W ≤ H^{1/250}` -/

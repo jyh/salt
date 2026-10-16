@@ -173,9 +173,9 @@ theorem emrho_perterm {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1) (him 
     have hmod : t < (t / d + 1) * d := by
       have h1 := Nat.div_add_mod t d
       have h2 : t % d < d := Nat.mod_lt t (by omega)
-      nlinarith
+      linarith only [h2, h1]
     have hR : (t : ℝ) < (((t / d : ℕ) : ℝ) + 1) * (d : ℝ) := by exact_mod_cast hmod
-    rw [div_le_iff₀ hd0]; nlinarith [hR]
+    rw [div_le_iff₀ hd0]; linarith only [hR]
   have hFE := norm_cpow_pos_floor_sub_le hσ0 hhi hdt1 hle hlt
   rw [hcastdiv] at hFE
   have hFEdiv : ‖((t / d : ℕ) : ℂ) ^ (1 - ρ) / (1 - ρ)
@@ -205,7 +205,7 @@ theorem emrho_perterm {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1) (him 
             - ((t : ℂ) / (d : ℂ)) ^ (1 - ρ) / (1 - ρ)‖ := norm_add_le _ _
     _ ≤ 8 * (1 + ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) + ((t / d : ℕ) : ℝ) ^ (-ρ.re) :=
         add_le_add hem hFEdiv
-    _ ≤ (9 + 8 * ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) := by nlinarith [hfnn]
+    _ ≤ (9 + 8 * ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) := by linarith only []
 
 /-! ## §4 — the clean-main cpow identity + the long-leg extraction -/
 
