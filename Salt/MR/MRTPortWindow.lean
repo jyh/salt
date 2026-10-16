@@ -39,9 +39,9 @@ theorem norm_sq_le_two_of_norm_sub_le {a b : ℂ} {c : ℝ} (hc : 0 < c)
   have hb : (0 : ℝ) ≤ ‖b‖ := norm_nonneg _
   have hkey : ‖a‖ ≤ ‖b‖ + 1 / c := by linarith
   have hsq1 : ‖a‖ ^ 2 ≤ (‖b‖ + 1 / c) ^ 2 := by
-    nlinarith [hkey, ha, hb, hcinv.le]
+    nlinarith only [htri, ha, h]
   have hsq2 : (‖b‖ + 1 / c) ^ 2 ≤ 2 * ‖b‖ ^ 2 + 2 * (1 / c) ^ 2 := by
-    nlinarith [sq_nonneg (‖b‖ - 1 / c)]
+    linarith only [sq_nonneg (1 * ‖b‖ - 1 * (1 / c) : ℝ)]
   have hrw : 2 * (1 / c) ^ 2 = 2 / c ^ 2 := by
     field_simp
   linarith [hsq1, hsq2, hrw.le, hrw.ge]

@@ -236,7 +236,7 @@ theorem logq_absorbed {K₁ K₂ w ε : ℝ} (hK₂ : 0 ≤ K₂) (hw : 0 ≤ w)
     have hKw : 4 * K₂ * w ≤ ε * Real.sqrt Y := by
       have h := (div_le_iff₀ hε).mp (le_trans (le_add_of_nonneg_right zero_le_one) hg1)
       linarith
-    nlinarith [hs0, hssq]
+    nlinarith only [hs0, hKw, hε, hssq]
   linarith
 
 /-- **The door's absorption, polynomial grade.**  At the door's pin `q ≤ (loglog X)⁵`, a slot
@@ -312,8 +312,8 @@ theorem door_L1_absorbed_subexp {K₁ B θ w ε : ℝ} (hB : 0 ≤ B) (hθ : 0 �
   have habs : K₁ ≤ |K₁| := le_abs_self K₁
   have habs0 : (0 : ℝ) ≤ |K₁| := abs_nonneg K₁
   have hBq : B * (q : ℝ) ^ θ ≤ B * Y ^ (θ * w) := mul_le_mul_of_nonneg_left hqθ hB
-  nlinarith [hBq, habs, hmain, mul_nonneg habs0 (by linarith : (0 : ℝ) ≤ Y ^ (θ * w) - 1),
-    mul_nonneg hB hYwθ.le, hYwθ.le]
+  linarith only [hBq, habs0, habs, hmain, hYwθ, mul_nonneg hB hYwθ.le,
+      mul_nonneg habs0 (by linarith : (0 : ℝ) ≤ Y ^ (θ * w) - 1)]
 
 /-- **The whole `chi_floor_real_of_L1` debit is `O(log q)` at a polynomial grade.**  Its
 bracket is `log 2 − log L₁ + 2log4 + (1/4)log(16 q Z diskConst q/L₁)`; with
