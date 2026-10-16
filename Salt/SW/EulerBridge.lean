@@ -206,7 +206,7 @@ theorem norm_logDeriv_eulerFactor_le {M : ℕ} (ψ : DirichletCharacter ℂ M) {
   have hprod1 : pσ * (p : ℝ) ^ s.re = 1 := by
     rw [hpσ, ← Real.rpow_add hP0, neg_add_cancel, Real.rpow_zero]
   have hpσ_half : pσ ≤ 1 / 2 := by
-    nlinarith [mul_le_mul_of_nonneg_left hge hpσ0.le]
+    linarith only [hprod1, mul_le_mul_of_nonneg_left hge hpσ0.le]
   have hden : 0 < 1 - pσ := by linarith
   -- `‖deriv‖ ≤ pσ · log p`, from the explicit derivative.
   have hderiv : deriv (eulerFactor ψ p) s = ψ p * (p : ℂ) ^ (-s) * Complex.log p :=
@@ -235,7 +235,7 @@ theorem norm_logDeriv_eulerFactor_le {M : ℕ} (ψ : DirichletCharacter ℂ M) {
   calc ‖deriv (eulerFactor ψ p) s‖
       ≤ pσ * Real.log p := hnum
     _ ≤ Real.log p * (1 - pσ) := by
-        nlinarith [mul_nonneg hLnn (show (0 : ℝ) ≤ 1 - 2 * pσ by linarith)]
+        linarith only [mul_nonneg hLnn (show (0 : ℝ) ≤ 1 - 2 * pσ by linarith)]
     _ ≤ Real.log p * ‖eulerFactor ψ p s‖ := mul_le_mul_of_nonneg_left hfac hLnn
 
 /-- **The correction bound (`C₅ = 0`).** For `χ` induced by `χ₁ = χ.primitiveCharacter`,

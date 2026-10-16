@@ -389,7 +389,7 @@ theorem twin_razor_deficit' {x z P y : ℕ} {XW a1up e2lo δ : ℝ}
     (hgap : a1up + δ ≤ e2lo) :
     p1RazorValue x z P y ≤ -δ := by
   have h := twin_razor_deficit (y := y) (by linarith : (0:ℝ) < XW) hA1up hE2lo hgap
-  nlinarith [h, mul_le_mul_of_nonneg_left hXW hδ]
+  linarith only [h, mul_le_mul_of_nonneg_left hXW hδ]
 
 /-! ## Part G — the certified floor: what the landed constants force on any discharge
 

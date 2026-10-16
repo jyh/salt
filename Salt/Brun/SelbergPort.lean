@@ -416,7 +416,7 @@ theorem selbergBoundingSum_ge {d : ℕ} (hdP : d ∣ s.prodPrimes) :
               push_cast
               have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
               have hk0 : (0 : ℝ) ≤ k := Nat.cast_nonneg k
-              nlinarith [mul_le_mul_of_nonneg_right hkd_le hm0, mul_nonneg hk0 hm0]
+              nlinarith only [mul_le_mul_of_nonneg_right hkd_le hm0, mul_nonneg hk0 hm0]
             · exact le_of_lt (s.selbergTerms_pos (Nat.dvd_of_mem_divisors hm))
             · exact le_rfl
           · apply Finset.sum_nonneg; intro m hm

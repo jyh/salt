@@ -175,7 +175,7 @@ theorem gold_band_btail_slot_firing_le {D Q : ℕ} {bnd : ℝ} (k' i : ℕ)
     rw [hXMdef]
     have hxR : (1 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by exact_mod_cast hX1
     have hmR : (1 : ℝ) ≤ (pieceM k' : ℝ) := by exact_mod_cast hM1
-    nlinarith
+    nlinarith only [hmR, hxR, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ (i + 1) - 1))]
   have hXM0 : 0 ≤ XM := by linarith
   have hlogXM0 : 0 ≤ Real.log XM := Real.log_nonneg hXM1
   have hB0 : 0 ≤ B := by rw [hBdef]; exact mul_nonneg (by positivity) (Real.rpow_nonneg hlogXM0 _)
@@ -194,7 +194,7 @@ theorem gold_band_btail_slot_firing_le {D Q : ℕ} {bnd : ℝ} (k' i : ℕ)
     have hfire : Real.sqrt XM < B := not_le.mp hw
     have hXMlt : XM < B ^ 2 := by
       have hsq : Real.sqrt XM * Real.sqrt XM = XM := Real.mul_self_sqrt hXM0
-      nlinarith [hfire, Real.sqrt_nonneg XM, hB0]
+      nlinarith only [hw, hsq, Real.sqrt_nonneg XM]
     have hmin : min (((2 ^ (i + 1) - 1 : ℕ) : ℝ)) (pieceM k' : ℝ) ≤ B := by
       have hle : min (((2 ^ (i + 1) - 1 : ℕ) : ℝ)) (pieceM k' : ℝ) ≤ Real.sqrt XM := by
         rw [hXMdef]; exact min_le_sqrt_mul (by positivity) (by positivity)

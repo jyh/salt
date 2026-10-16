@@ -185,7 +185,7 @@ lemma z0sq_exp2log2_le {z x : ℕ} (hz2 : 2 ≤ z) :
     _ ≤ Real.exp (5 * z0 z x) := by
         apply Real.exp_le_exp.mpr
         have hlog2 : Real.log 2 ≤ 1 := le_of_lt (by have := Real.log_two_lt_d9; linarith)
-        nlinarith [hz0, hlog2]
+        nlinarith only [hz0, hlog2]
 
 /-- `PretenseSum χ N ≥ 0` (each term `log p / p ≥ 0`). -/
 lemma pretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by

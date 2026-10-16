@@ -134,8 +134,8 @@ theorem zeta_nonpos {σ : ℝ} (h1 : (19 : ℝ) / 20 ≤ σ) (h2 : σ < 1) :
       have hrw : (σ : ℂ) - 1 = ((σ - 1 : ℝ) : ℂ) := by push_cast; ring
       rw [hrw, Complex.norm_real, Real.norm_eq_abs, abs_of_neg (by linarith : σ - 1 < 0)]; ring
     rw [hσ1_norm]
-    nlinarith [hR_le, h1, h2, norm_nonneg R, mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - σ)
-      (by linarith [hR_le] : (0 : ℝ) ≤ σ + 1 - ‖R‖)]
+    nlinarith only [h1, h2, mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - σ)
+        (by linarith [hR_le] : (0 : ℝ) ≤ σ + 1 - ‖R‖)]
   -- `Re(Zc σ) ≥ 9/10 > 0`
   have hZcpos : 0 < (Zc (σ : ℂ)).re := by
     rw [hZc, Complex.add_re, Complex.one_re]
@@ -164,7 +164,7 @@ theorem zeta_nonpos {σ : ℝ} (h1 : (19 : ℝ) / 20 ≤ σ) (h2 : σ < 1) :
     have hpos : 0 < (σ - 1) * (riemannZeta (σ : ℂ)).re := hre_eq ▸ hZcpos
     by_contra hc
     have hc' : 0 ≤ (riemannZeta (σ : ℂ)).re := not_lt.mp hc
-    nlinarith [mul_nonpos_of_nonpos_of_nonneg (by linarith : σ - 1 ≤ 0) hc']
+    linarith only [hre_eq, hZcpos, mul_nonpos_of_nonpos_of_nonneg (by linarith : σ - 1 ≤ 0) hc']
   refine Complex.le_def.mpr ⟨?_, ?_⟩
   · rw [Complex.zero_re]; linarith [hζre]
   · rw [Complex.zero_im]; exact hζim

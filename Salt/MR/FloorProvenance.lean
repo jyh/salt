@@ -154,7 +154,7 @@ theorem dist_one_floor_uniform :
         ≤ pretDistSq (fun _ => 1) (costwist b) X := by
   obtain ⟨Cfloor, hCfloor⟩ := dist_one_floor_pow
   have hκnn : 0 ≤ Real.log (1 + Real.log (1 + 3)) :=
-    Real.log_nonneg (by nlinarith [Real.log_nonneg (show (1 : ℝ) ≤ 1 + 3 by norm_num)])
+    Real.log_nonneg (by linarith only [Real.log_nonneg (show (1 : ℝ) ≤ 1 + 3 by norm_num)])
   -- fold the closed `log`-of-arithmetic constant to a plain variable: `linarith` cannot
   -- scale it by a rational coefficient in place (`PropA3Core`'s frozen-proof idiom)
   set κ := Real.log (1 + Real.log (1 + 3)) with hκdef

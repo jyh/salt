@@ -150,7 +150,7 @@ lemma nuG_lt_one_of_prime {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) : nuG p < 1 :
   have h3 : 3 ≤ p := by have := hp.two_le; omega
   have hpR : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast h3
   rw [nuG_prime hp, Gdens, div_lt_one (by linarith), div_lt_iff₀ (by linarith)]
-  nlinarith [hpR]
+  nlinarith only [hpR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
 
 /-- **THE DENSITY CARRIER.**  HB's sieve situation as a `BoundingSieve`, at the level the
 `W`/`mainSum` bookkeeping actually uses: `prodPrimes = P` (the sifting modulus) and

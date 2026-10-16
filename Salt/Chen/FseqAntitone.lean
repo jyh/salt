@@ -62,7 +62,7 @@ theorem fseq_one_antitoneOn_Ici : AntitoneOn (fseq 1) (Set.Ici (1 : ℝ)) := by
     have hy0 : (0 : ℝ) < y := by linarith
     have expand : (3 - x) / x - (3 - y) / y = 3 * (y - x) / (x * y) := by field_simp; ring
     have hge : 0 ≤ (3 - x) / x - (3 - y) / y := by
-      rw [expand]; exact div_nonneg (by nlinarith) (mul_pos hx0 hy0).le
+      rw [expand]; exact div_nonneg (by linarith only [hxy]) (mul_pos hx0 hy0).le
     linarith
   · -- `y > 3`: `fseq 1 y = 0 ≤ fseq 1 x`
     rw [fseq_eq_zero_of_ge 1 y (by push_cast; linarith)]

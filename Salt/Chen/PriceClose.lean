@@ -137,7 +137,7 @@ theorem hDsq_piece_of_kfloor {y k D : ℕ} (hkf : y < 2 ^ (k + 1))
   have hprod : ((y : ℝ) / 2) * ((y : ℝ) / 2) < (2 : ℝ) ^ k * (2 : ℝ) ^ k :=
     mul_lt_mul'' hyhalf hyhalf hynn hynn
   have hchain : (D : ℝ) < ((2 : ℝ) ^ k + 1) * ((2 : ℝ) ^ k + 1) := by
-    nlinarith [hDsmall, hprod, htnn]
+    linarith only [hprod, hyk, hDsmall, (Nat.cast_nonneg _ : 0 ≤ ↑y)]
   exact_mod_cast hchain
 
 /-- **`hDsmall_at_op` (deliverable 1, the operating-point hDsq smallness).**  At the operating
@@ -186,7 +186,7 @@ theorem hDsmall_at_op {x : ℕ} (hx : (10 : ℝ) ^ 96 ≤ (x : ℝ)) {D : ℕ}
         = (x : ℝ) ^ ((2 : ℝ) / 3) / 16 := by
       rw [div_mul_div_comm, ht2eq]; norm_num
     rw [hfrac, hsplit, lt_div_iff₀ (by norm_num : (0 : ℝ) < 16)]
-    nlinarith [mul_lt_mul_of_pos_left h19 h59pos]
+    linarith only [mul_lt_mul_of_pos_left h19 h59pos]
   linarith [hlt, hprod, hD]
 
 /-! ## 4. The numeric closure — the tower budget (deliverable 3)

@@ -211,7 +211,7 @@ lemma sum_inv_sq_Icc_le_sub (j₀ : ℕ) (hj₀ : 2 ≤ j₀) :
         (by linarith : ((n : ℝ) + 1) ≠ 0)]
       rw [div_le_div_iff₀ (by positivity) (by nlinarith)]
       ring_nf
-      nlinarith [hn0]
+      linarith only [hnR]
     · have hstep := ih hn
       have hcast : (((n + 1 : ℕ) : ℝ)) = (n : ℝ) + 1 := by push_cast; ring
       have hj0n : (2 : ℝ) ≤ (j₀ : ℝ) := by exact_mod_cast hj₀
@@ -222,7 +222,7 @@ lemma sum_inv_sq_Icc_le_sub (j₀ : ℕ) (hj₀ : 2 ≤ j₀) :
         rw [div_sub_div _ _ (by linarith : (n : ℝ) ≠ 0) (by linarith : ((n : ℝ) + 1) ≠ 0)]
         rw [div_le_div_iff₀ (by positivity) (by positivity)]
         ring_nf
-        nlinarith [hn0]
+        linarith only [hnj, hj0n]
       linarith
 
 /-- **THE `j`-SUM PAGE** (`sum_inv_sq_Icc_le`).  `Σ_{j∈[j₀,j₁]} 1/j² ≤ 1/(j₀−1)` for
@@ -383,7 +383,7 @@ and the per-block co-factor bound is majorised by the uniform `R̄`. -/
 lemma tL_block_weight (Cq H r Rbar : ℝ) (j : ℕ) (hCq : 0 ≤ Cq) (hr0 : 0 ≤ r)
     (hr : r ≤ Rbar) :
     54 * Cq * r ^ 2 * (H / (j : ℝ)) ^ 2 ≤ 54 * Cq * Rbar ^ 2 * H ^ 2 * (1 / (j : ℝ) ^ 2) := by
-  have hsq : r ^ 2 ≤ Rbar ^ 2 := by nlinarith
+  have hsq : r ^ 2 ≤ Rbar ^ 2 := by nlinarith only [hr, hr0]
   have hform : (H / (j : ℝ)) ^ 2 = H ^ 2 * (1 / (j : ℝ) ^ 2) := by rw [div_pow]; ring
   have hcoef : (0 : ℝ) ≤ 54 * Cq * (H ^ 2 * (1 / (j : ℝ) ^ 2)) := by positivity
   rw [hform]
