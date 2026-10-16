@@ -268,7 +268,7 @@ theorem fchain_ge_A1_of_massSums (N : ℕ) (hN : 2 ≤ N)
       ≤ (221 / 10000) * (s * (s - 1)) := by
     have hgap : (0 : ℝ) ≤ s - 39992 / 10000 := by linarith
     have hgap4 : (0 : ℝ) ≤ 4 - s := by linarith
-    nlinarith [mul_nonneg hgap hgap4, sq_nonneg (4 - s), hlo, hhi]
+    linarith only [hlo, mul_nonneg hgap hgap4]
   have hRHS : (4 - s) ^ 2 / (s * (s - 1)) + ((4 - s) / (s - 1) * (43 / 75) + 11 / 125) / s
       ≤ 221 / 10000 := by
     rw [expand, div_le_iff₀ hden]
