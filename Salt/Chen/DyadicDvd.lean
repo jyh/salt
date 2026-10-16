@@ -120,7 +120,7 @@ theorem block_energy_le_dvd {X Y a b δ : ℕ} (hδ1 : 1 ≤ δ) (ha : 1 ≤ a) 
       have hrw : (1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))
           = (f : ℝ) / ((a : ℝ) * (f.totient : ℝ)) := by field_simp
       rw [hrw, div_le_div_iff₀ hφpos (mul_pos haR hφpos)]
-      nlinarith [haf, hφpos.le]
+      nlinarith only [haf, (Nat.cast_nonneg _ : 0 ≤ ↑f.totient)]
     calc (1 / (f.totient : ℝ)) * bilinPrimEnergy α β X Y f
         ≤ ((1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))) * bilinPrimEnergy α β X Y f :=
           mul_le_mul_of_nonneg_right hwle hEnn
