@@ -689,7 +689,7 @@ theorem MlamGrChi_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) {M : ℝ} (hM 
     have hLpos : 0 < Real.log y := lt_of_lt_of_le (by positivity) hlog4
     have hL0 : (0 : ℝ) ≤ Real.log y := hLpos.le
     have hLApos : (0 : ℝ) < (Real.log y) ^ A := Real.rpow_pos_of_pos hLpos A
-    have hs1 : 1 ≤ Nat.sqrt y := Nat.le_sqrt.mpr (by nlinarith [hy16])
+    have hs1 : 1 ≤ Nat.sqrt y := Nat.le_sqrt.mpr (by linarith only [hy16])
     have hs_ge_x0 : x₀lam ≤ Nat.sqrt y := by
       rw [Nat.le_sqrt]
       calc x₀lam * x₀lam = x₀lam ^ 2 := by ring
