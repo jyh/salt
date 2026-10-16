@@ -17,9 +17,10 @@ here by the kernel: the source is cited, not trusted.
 is the standard one. Its four fields are proved here, plus the two facts the `k = 54` chain
 consumes from its tuple: every entry is `≤ 270`, and the diameter is `≤ 270`.
 
-⛔ `polymath54Tuple` is a `def`, NEVER an `instance`: a global instance at default priority would
-outrank the low-priority default `stdTuple` and silently re-point every later `hSeq`/`H`/`D₀`/`W`
-in any module that imports this one. Use it explicitly (`@… polymath54Tuple …` or `letI`).
+⛔ `polymath54Tuple` is a `def`, NEVER registered for typeclass resolution: a global registration
+at default priority would outrank the low-priority default `stdTuple` and silently re-point every
+later `hSeq`/`H`/`D₀`/`W` in any module that imports this one. Use it explicitly
+(`@… polymath54Tuple …` or `letI`).
 Nothing here bears on twin primes.
 -/
 
@@ -109,9 +110,9 @@ theorem polymath_sup_cube (k : ℕ) (hk20 : 20 ≤ k) :
   · rw [polymathSeq_ne hk]
     exact std_sup_le_cube k hk20
 
-/-- **The diameter-270 tuple as a tuple choice.** A `def`, never an `instance` (see the module
-doc); `@[reducible]` as Lean asks of a def of class type, which does not register it as an
-instance. -/
+/-- **The diameter-270 tuple as a tuple choice.** A `def`, never registered for typeclass
+resolution (see the module doc); `@[reducible]` as Lean asks of a def of class type, which does not
+register it. -/
 @[reducible] noncomputable def polymath54Tuple : TupleChoice :=
   ⟨polymathSeq, polymathSeq_injective, polymath_admissible, polymath_sup_cube⟩
 
