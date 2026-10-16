@@ -142,7 +142,7 @@ theorem abs_selbergPsi_le (n : ℕ) : |selbergPsi n| ≤ (n : ℝ) := by
   have h2 : (0 : ℝ) ≤ (Nat.totient n : ℝ) := Nat.cast_nonneg _
   have h3 : (Nat.totient n : ℝ) ≤ (n : ℝ) := by exact_mod_cast Nat.totient_le n
   rw [selbergPsi_apply, abs_mul, abs_of_nonneg h2]
-  nlinarith [abs_nonneg ((moebius n : ℤ) : ℝ)]
+  nlinarith only [h1, h3, (Nat.cast_nonneg _ : 0 ≤ ↑n.totient)]
 
 theorem abs_pseudoChar_selbergPsi_le (r n : ℕ) :
     |pseudoChar selbergPsi r n| ≤ (Nat.gcd r n : ℝ) := by

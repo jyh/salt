@@ -85,7 +85,7 @@ private theorem abs_log_le_self {y : ℝ} (hy : Real.log 2 ≤ y) : |Real.log y|
     rw [abs_of_nonpos (Real.log_nonpos hypos.le h1.le)]
     have hll2 : -Real.log 2 ≤ Real.log (Real.log 2) := by
       have h12 : Real.log (2⁻¹ : ℝ) ≤ Real.log (Real.log 2) :=
-        Real.log_le_log (by norm_num) (by nlinarith [Real.log_two_gt_d9])
+        Real.log_le_log (by norm_num) (by linarith only [h2, Real.log_two_gt_d9])
       rwa [Real.log_inv] at h12
     have hmono : Real.log (Real.log 2) ≤ Real.log y := Real.log_le_log h2 hy
     linarith

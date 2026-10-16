@@ -90,7 +90,7 @@ theorem cpow_ratio_seg_bound {c : ℝ} (hc : 0 < c) (t : ℝ) {u : ℝ} (hu : 0 
       HasDerivWithinAt (fun z : ℝ => (z : ℂ) ^ s) (s * (y : ℂ) ^ (s - 1))
         (Icc (1 : ℝ) (1 + u)) y := by
     intro y hy
-    have hy0 : y ≠ 0 := by rw [mem_Icc] at hy; nlinarith [hy.1]
+    have hy0 : y ≠ 0 := by rw [mem_Icc] at hy; linarith only [hy]
     exact (hasDerivAt_ofReal_cpow_const hy0 hsne).hasDerivWithinAt
   have hbound : ∀ y ∈ Icc (1 : ℝ) (1 + u),
       ‖s * (y : ℂ) ^ (s - 1)‖ ≤ ‖s‖ * (1 + u) ^ c := by
