@@ -48,6 +48,7 @@ PATHS_GATE="$REPO/scripts/check_private_paths.py"
 TRAILER_GATE="$REPO/scripts/check_commit_trailers.py"
 SUBJECT_GATE="$REPO/scripts/check_pr_descriptions.py"
 INFRA_GATE="$REPO/scripts/check_infra_names.py"
+CERT_GATE="$REPO/scripts/check_cert_imports.py"
 SUBJECT_BASELINE="$REPO/scripts/subject_debt_baseline.tsv"
 
 fail=0
@@ -161,6 +162,8 @@ cp "$SUBJECT_BASELINE" "$W/scripts/subject_debt_baseline.tsv"
 # fixture, or the hook refuses every push as "not in this working tree". No baseline is copied: in the
 # fixture every added name is NEW, which is exactly the arm under test.
 cp "$INFRA_GATE" "$W/scripts/check_infra_names.py"
+# ARM 5 of the hook (the certificates' import rule) runs where its gate is present.
+[ -f "$CERT_GATE" ] && cp "$CERT_GATE" "$W/scripts/check_cert_imports.py"
 git -C "$W" config core.hooksPath .githooks
 
 commit_file() { # <path> <content> <message>
@@ -648,6 +651,36 @@ else
   bad "mutation-tag: the bypassed push did not land the tag"
 fi
 
+# ARM 23 -- the certificates' import rule (hook ARM 5, C1 · A2e): a file under
+# SaltC1/Cert54/ that imports the Salt library is REFUSED, the remote unmoved; the
+# same file importing Mathlib passes, so the refusal is the import's and not the path's.
+git -C "$REMOTE" update-ref refs/heads/main "$GOOD"
+git -C "$W" reset -q --hard "$GOOD"
+if [ -f "$CERT_GATE" ]; then
+  BEFORE_TIP=$(remote_tip main)
+  mkdir -p "$W/SaltC1/Cert54"
+  note "ARM 23  a Salt import under SaltC1/Cert54/                  expect 1"
+  commit_file SaltC1/Cert54/Planted.lean "import Salt.MaynardK.Cert105" "cert: a planted import"
+  run_push 1 red-cert-import origin main
+  expect_out red-cert-import "refused import"
+  expect_out red-cert-import "the certificates' import gate RED"
+  if [ "$(remote_tip main)" = "$BEFORE_TIP" ]; then
+    printf '       +   red-cert-import: the remote ref did NOT move\n'
+  else
+    bad "red-cert-import: THE REMOTE REF MOVED"
+  fi
+  git -C "$W" reset -q --hard "$GOOD"; restore_remote
+  note "ARM 23b the same file importing Mathlib                    expect 0"
+  mkdir -p "$W/SaltC1/Cert54"
+  commit_file SaltC1/Cert54/Planted.lean "import Mathlib.Data.Int.Basic" "cert: a clean import"
+  run_push 0 green-cert-import origin main
+  expect_out green-cert-import "check_cert_imports OK"
+  expect_out green-cert-import "cert-imports --rev"
+  git -C "$W" reset -q --hard "$GOOD"; restore_remote
+else
+  note "ARM 23/23b SKIPPED: this repository has no certificates' import gate (not covered)"
+fi
+
 note ""
 if [ "$fail" -eq 0 ]; then
   note "prove_pre_push: PASS -- 3 clean pushes each SUCCEED and print a receipt"
@@ -661,7 +694,8 @@ if [ "$fail" -eq 0 ]; then
   note "  whose name carries a refused word; a missing scanner"
   note "  or subject gate refuses a clean push; a delete is allowed; and the"
   note "  mutation control lands the same commit with the hook bypassed, so the"
-  note "  refusals are the hook's."
+  note "  refusals are the hook's; and a Salt import under SaltC1/Cert54/ is"
+  note "  refused where a Mathlib import passes."
   exit 0
 fi
 note "prove_pre_push: FAILED ($fail arm(s))"

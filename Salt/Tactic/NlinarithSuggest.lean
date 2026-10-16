@@ -219,8 +219,22 @@ def factTerm (argStxs : Array Term) : Prov → MetaM (Option Term)
   | .hyp fv => return some (mkIdent (← fv.getUserName))
   | .term i => return argStxs[i]?
   | .aux ty => do
+    -- `natToInt`'s fact `(0 : C) ≤ ((n : ℕ) : C)`, printed as the very term the preprocessor built,
+    -- `Mathlib.Tactic.Linarith.natCast_nonneg C n`, with `C` EXPLICIT. The earlier form
+    -- `(Nat.cast_nonneg _ : 0 ≤ ↑n)` carried neither type: it pastes back only where the goal's own
+    -- cast atom fixes `C` again; at a goal whose cast sits inside a `set` variable's value it
+    -- elaborates elsewhere and the replay fails (desk ADL; math's reproducer,
+    -- Salt/Vmvt/PrimeCount.lean:195:34).
     let tyS ← PrettyPrinter.delab ty
-    return some (← `(($(cid ``Nat.cast_nonneg) _ : $tyS)))
+    match ty.le? with
+    | some (_, _, e) =>
+      match Mathlib.Tactic.Linarith.isNatCoe e with
+      | some (n, C) =>
+        let CS ← PrettyPrinter.delab C
+        let nS ← PrettyPrinter.delab n
+        return some (← `($(cid ``Mathlib.Tactic.Linarith.natCast_nonneg) $CS $nS))
+      | none => return some (← `(($(cid ``Nat.cast_nonneg) _ : $tyS)))
+    | none => return some (← `(($(cid ``Nat.cast_nonneg) _ : $tyS)))
   | .sq e true => do
     let eS ← PrettyPrinter.delab e; return some (← `($(cid ``sq_nonneg) $eS))
   | .sq e false => do
@@ -311,8 +325,12 @@ elab_rules : tactic
         evalTactic l1
         Lean.Meta.Tactic.TryThis.addSuggestion tk l1 (header := s!"Try this (L1{l1note}):")
       | _, _, false =>
+        let goalNote :=
+          if used.goalUsedAsFactor then ", the negated goal as a product factor" else ""
         throwError "nlinarith?: found a certificate but its replay did not verify — L1 was\n  {l1}\
-          \n(this is a refusal, not a proof; run `nlinarith` at this site and report the case)"
+          \n(this is a refusal, not a proof; run `nlinarith` at this site and report the case — \
+          the certificate used {used.hyps.size} named hypotheses, {used.terms.size} passed terms, \
+          {used.auxs.size} cast facts, {used.sqs.size} square facts{goalNote})"
 
 end Salt.Tactic.NlinarithSuggest
 
@@ -338,12 +356,20 @@ example (a b : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) : 0 ≤ a * b := by nlinarith?
 -- A2: a square term the certificate needs (`mul_self_nonneg x`), printed as an explicit term
 example (x y : ℝ) (h : x * x ≤ y) : 0 ≤ y := by nlinarith?
 
-/-- info: Try this (L1):
-  [apply] nlinarith only [h, (Nat.cast_nonneg _ : 0 ≤ ↑n)]
+/-- info: Try these (L2 exact products, then L1):
+  [apply] linarith only [h, Mathlib.Tactic.Linarith.natCast_nonneg ℝ n,
+    mul_nonneg_of_nonpos_of_nonpos
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le
+        (Mathlib.Tactic.Linarith.natCast_nonneg ℝ n))
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le h)]
+  [apply] nlinarith only [h, Mathlib.Tactic.Linarith.natCast_nonneg ℝ n]
 -/
 #guard_msgs (whitespace := lax) in
--- A4: a nat-cast atom — the `natCast_nonneg` auxiliary is used and printed with its type; L2 is
--- withheld here because its replay did not verify (the aux fact's product), which is the design
+-- A4: a nat-cast atom — the `natCast_nonneg` auxiliary is used and printed as the very term the
+-- preprocessor built, its type explicit (desk ADL: the earlier `(Nat.cast_nonneg _ : 0 ≤ ↑n)`
+-- carried no type and pasted back only where the goal's own cast atom fixed it again). L2 replays
+-- too, now: this arm read "L2 is withheld here because its replay did not verify (the aux fact's
+-- product), which is the design" — it was the same untyped term inside the product, not a design.
 example (n : ℕ) (x : ℝ) (h : x ≤ 0) : x * (n : ℝ) ≤ 0 := by nlinarith?
 
 /-- info: Try these (L2 exact products, then L1):
@@ -377,6 +403,27 @@ example (x : ℝ) (h : x ≤ 0) (h' : 0 ≤ x) : x = 0 := by
   fail_if_success nlinarith?
   linarith
 
+/-- info: Try these (L2 exact products, then L1):
+  [apply] linarith only [hK0, Mathlib.Tactic.Linarith.natCast_nonneg ℝ y,
+    mul_nonneg_of_nonpos_of_nonpos
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le
+        (Mathlib.Tactic.Linarith.natCast_nonneg ℝ y))
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le hK0)]
+  [apply] nlinarith only [hK0, Mathlib.Tactic.Linarith.natCast_nonneg ℝ y]
+-/
+#guard_msgs (whitespace := lax) in
+-- A9 (desk ADL; math's reproducer at Salt/Vmvt/PrimeCount.lean:195:34, bundle 42, reduced to its
+-- shape): a `set` variable whose value is a nat cast, the goal carrying `Y` and not `↑y`. The
+-- certificate uses `natToInt`'s fact `0 ≤ ↑y`. Printed as `(Nat.cast_nonneg _ : 0 ≤ ↑y)` that
+-- fact elaborated at ℕ when pasted here (nothing in the goal fixes the cast's type), so the
+-- replay failed and the tool refused with the generic message — the fourth failure class.
+-- Printed as the term the preprocessor built, `natCast_nonneg ℝ y`, it replays, and so does L2.
+-- RED FIRST on the old printer (the refusal, driven), GREEN after; the drive is in the seat record.
+example (K : ℝ) (y : ℕ) (hK0 : 0 ≤ K) : 0 ≤ K * (2 * (y : ℝ)) := by
+  set Y : ℝ := (y : ℝ) with hYdef
+  have hYnn : 0 ≤ Y := by rw [hYdef]; exact Nat.cast_nonneg y
+  nlinarith? [hK0, hYnn]
+
 /-! The pasted suggestions, as NAMED theorems so `#audit_axioms` can read them: each is the text
 printed above, pasted verbatim. -/
 
@@ -387,12 +434,23 @@ theorem pasted_A1 (a b : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) : 0 ≤ a * b := by
 theorem pasted_A2 (x y : ℝ) (h : x * x ≤ y) : 0 ≤ y := by
   linarith only [h, mul_self_nonneg x]
 theorem pasted_A4 (n : ℕ) (x : ℝ) (h : x ≤ 0) : x * (n : ℝ) ≤ 0 := by
-  nlinarith only [h, (Nat.cast_nonneg _ : 0 ≤ ↑n)]
+  linarith only [h, Mathlib.Tactic.Linarith.natCast_nonneg ℝ n,
+    mul_nonneg_of_nonpos_of_nonpos
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le
+        (Mathlib.Tactic.Linarith.natCast_nonneg ℝ n))
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le h)]
 theorem pasted_A5 (a b : ℝ) (h : a = 0) (hb : 0 ≤ b) : a * b ≤ 0 := by
   linarith only [h, hb,
     Mathlib.Tactic.Linarith.zero_mul_eq (sub_eq_zero_of_eq h)
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le hb)]
+theorem pasted_A9 (K : ℝ) (y : ℕ) (hK0 : 0 ≤ K) : 0 ≤ K * (2 * (y : ℝ)) := by
+  set Y : ℝ := (y : ℝ)
+  linarith only [hK0, Mathlib.Tactic.Linarith.natCast_nonneg ℝ y,
+    mul_nonneg_of_nonpos_of_nonpos
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le
+        (Mathlib.Tactic.Linarith.natCast_nonneg ℝ y))
+      (Mathlib.Tactic.Linarith.sub_nonpos_of_le hK0)]
 
-#audit_axioms pasted_A1 pasted_A2 pasted_A4 pasted_A5
+#audit_axioms pasted_A1 pasted_A2 pasted_A4 pasted_A5 pasted_A9
 
 end Tests
