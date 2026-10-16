@@ -812,7 +812,7 @@ theorem hbar_le_hBJS (s : ℝ) : hbar s ≤ hBJS s := by
         rw [← Real.exp_neg]; congr 1; ring
       rw [hexpinv, mul_inv_le_iff₀ (Real.exp_pos _)]
       calc s ≤ 3 * (1 + (1 / 5) * (s - 2) + ((1 / 5) * (s - 2)) ^ 2 / 2) := by
-            nlinarith [sq_nonneg (3 * (s - 2) - 10)]
+            linarith only [sq_nonneg (3 * (s - 2) - 10 : ℝ)]
         _ ≤ 3 * Real.exp ((1 / 5) * (s - 2)) := by
             exact mul_le_mul_of_nonneg_left hq (by norm_num)
     have hkey : Real.exp (-(1 / 5) * (s - 2)) ≤ 3 * s⁻¹ := by

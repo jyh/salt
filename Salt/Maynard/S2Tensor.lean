@@ -435,7 +435,7 @@ theorem s2_tensor_lower (k R : ℕ) (m : Fin k) (T : ℝ) (hR : 2 ≤ R)
     -- algebraic lower bound `Q² ≥ c² − 2 c·omitMass`
     have hQsq : c ^ 2 - 2 * c * omitMass k R m T u ≤ Q ^ 2 := by
       have hQom : 0 ≤ Q + omitMass k R m T u - c := by linarith
-      nlinarith [sq_nonneg (Q - c), mul_nonneg hB1 hQom]
+      linarith only [mul_nonneg hB1 hQom, sq_nonneg (Q - c : ℝ)]
     -- assemble: `(c² − 2c·omit)·W ≤ Q²·W = S²/∏φ`
     rw [hid]
     exact mul_le_mul_of_nonneg_right hQsq hWnn

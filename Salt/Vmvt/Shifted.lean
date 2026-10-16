@@ -137,7 +137,7 @@ theorem rcount_eq_zero (k b : ℕ) (B : Finset (Fin b → ℤ)) (h : Deg k → �
 /-- Elementary AM–GM over `ℕ`: `2ab ≤ a² + b²`. -/
 theorem two_mul_mul_le_sq_add_sq (a c : ℕ) : 2 * (a * c) ≤ a ^ 2 + c ^ 2 := by
   have h : (2 * (a * c) : ℤ) ≤ (a : ℤ) ^ 2 + (c : ℤ) ^ 2 := by
-    nlinarith [sq_nonneg ((a : ℤ) - c)]
+    linarith only [sq_nonneg (↑a - ↑c : ℤ)]
   exact_mod_cast h
 
 /-- Cauchy–Schwarz `(∑ f)² ≤ #s · ∑ f²` over `ℕ` (via `ℤ`). -/
