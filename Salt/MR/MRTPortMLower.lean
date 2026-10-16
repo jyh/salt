@@ -101,7 +101,7 @@ theorem log3_shift_le_linear {X : ℝ} (hX : (16 : ℝ) ≤ X) :
   have hs1' : (0 : ℝ) < Real.log (X + 16) := by linarith
   -- step A : `log (X + 16) ≤ 2 · log X`
   have hsq : X + 16 ≤ X * X := by
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ X - 16) (by linarith : (0 : ℝ) ≤ X)]
+    linarith only [hX, mul_nonneg (by linarith : (0 : ℝ) ≤ X - 16) (by linarith : (0 : ℝ) ≤ X)]
   have hA : Real.log (X + 16) ≤ 2 * Real.log X := by
     have h1 : Real.log (X + 16) ≤ Real.log (X * X) := Real.log_le_log hs0 hsq
     rw [Real.log_mul (ne_of_gt hX0) (ne_of_gt hX0)] at h1
