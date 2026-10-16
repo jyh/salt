@@ -8,7 +8,7 @@ import SaltC1.Cert54.All
 /-!
 # C1 — the `k = 54` certificate's axiom audit
 
-`#print axioms` on every theorem of `SaltC1.Cert54` (492 theorems). The CI job builds this module
+`#print axioms` on every theorem of `SaltC1.Cert54` (493 theorems). The CI job builds this module
 and `scripts/c1/check_axioms.py` refuses any axiom beyond `propext`, `Classical.choice`,
 `Quot.sound`, and any theorem below whose report is missing from the build log. Written by
 `scripts/c1/lean_cert54.py`.
@@ -507,3 +507,4 @@ Nothing here bears on twin primes.
 #print axioms SaltC1.Cert54.Dconst_eq
 #print axioms SaltC1.Cert54.cert54
 #print axioms SaltC1.Cert54.coef_keys_ok
+#print axioms SaltC1.Cert54.coef_basis_ok

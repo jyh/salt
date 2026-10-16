@@ -339,7 +339,8 @@ theorem wfold_of_chain {sh : List (List WTerm)} {p k p' k' c' : Nat} {o' : Bool}
 """
 
 W_OK = """
-/-- The marginal check on all eleven shards, from the three links (no `decide`). -/
+/-- The marginal check on all eleven shards, from the three links by rewriting; the close is one
+kernel `decide` on a literal `Bool` (no shard is re-run). -/
 theorem w_ok : checkWShards wshards = true := by
   have h0 := wfold_of_chain w_ok_0
   have h1 := wfold_of_chain w_ok_1

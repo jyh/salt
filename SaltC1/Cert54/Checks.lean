@@ -18,9 +18,10 @@ is a `Bool` the kernel evaluates by `decide +kernel`, never `native_decide`.
 * `checkRecGen` — the Miller power recurrence at one key, the box `{0 ≠ A ≤ C}` and its
   coefficients generated here: `wt(C)·p_C = Σ_{0≠A≤C} (k·wt(A) − wt(C−A))·g_A·p_{C−A}`;
 * `checkWI`, `checkWJ` — the closed forms of the two value tables;
-* `checkWChain` / `checkWShards` — the collected marginal: every term valid, its value recomputed,
-  the list strictly increasing in `(key, i, enc j)`, each key run's sum equal to `WBT`'s entry at
-  the next position, the positions and keys threaded through the shards, the count exact;
+* `checkWChain` / `checkWShards` — the collected marginal: every term valid (its digits bounded, so
+  its `(a, c)` are its coefficient's), its value recomputed, the list strictly increasing in
+  `(key, i, enc j)`, each key run's sum equal to `WBT`'s entry at the next position, the positions
+  and keys threaded through the shards, the count exact;
 * `Ihalf`, `Jhalf` — the symmetric half of the two quadratic forms, by rows.
 
 Every definition that names an `addDecl`ed table is `noncomputable` (the compiler has no code for
@@ -124,7 +125,12 @@ def wiEntriesR (lo hi : Nat) : List FEntry :=
 def wjEntriesR (lo hi : Nat) : List FEntry :=
   (keysRange 48 lo hi).flatMap fun c => (List.range (49 - wt c)).map fun a => (a, c)
 
-/-- One marginal term's `(key, value, k_i = enc(a, c))`. -/
+/-- One marginal term's `(key, value, k_i = enc(a, c))`. The third component ties the term's
+`(a, c)` to `coefBT`'s entry `i` by an `encKey` equality, which pins the digits only because
+`validT` bounds them (`a < 64`, every `c_m < 64`, 13 of them): on bounded digits `encKey` is
+injective, and without the bounds it is not (`encKey 3 [2, 0, …] = encKey 67 [1, 0, …]`; FX1 of
+math's read, 2026-10-15 — the decoding tie `decodeC kc.1` was measured at 4.1–4.3 GB per marginal
+link, over the per-theorem cap, so the bound lives in `validT` and this text is the freeze's). -/
 noncomputable def termKV (t : WTerm) : Nat × Int × Bool :=
   let e := wt t.2.2.2
   let kc := coefBT.getB t.1
@@ -132,9 +138,17 @@ noncomputable def termKV (t : WTerm) : Nat × Int × Bool :=
    kc.2 * factT.findB t.2.1 * factT.findB e * f24q (t.2.1 + e + 1) * chooseProd t.2.2.1 t.2.2.2,
    Nat.beq kc.1 (encKey t.2.1 t.2.2.1))
 
-/-- A term is valid: `i < 1236`, both lists of length 13, `j ≤ c` componentwise. -/
+/-- Every component is `< 64`: a base-64 digit. -/
+def allLt64 : List Nat → Bool
+  | [] => true
+  | c :: cs => Nat.blt c 64 && allLt64 cs
+
+/-- A term is valid: `i < 1236`, both lists of length 13, `j ≤ c` componentwise, and the digits
+bounded — `a < 64` and every `c_m < 64` (so `j_m < 64` too) — which is what makes `termKV`'s
+`encKey` tie injective (FX1). -/
 def validT (t : WTerm) : Bool :=
-  Nat.blt t.1 1236 && Nat.beq t.2.2.1.length 13 && Nat.beq t.2.2.2.length 13 && leL t.2.2.2 t.2.2.1
+  Nat.blt t.1 1236 && Nat.beq t.2.2.1.length 13 && Nat.beq t.2.2.2.length 13 &&
+    leL t.2.2.2 t.2.2.1 && Nat.blt t.2.1 64 && allLt64 t.2.2.1
 
 /-- The fold's state: `(pos, key, sum, ok, prevI, prevEj, count)`. -/
 abbrev WState := Nat × Nat × Int × Bool × Nat × Nat × Nat

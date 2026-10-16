@@ -117,7 +117,7 @@ jobs:
           LEAN_NUM_THREADS: "1"
         run: |
           set -o pipefail
-          lake build SaltC1 SaltC1.Cert54.Audit 2>&1 | tee c1-build.log
+          lake build SaltC1 SaltC1.Cert54.Audit SaltC1.Cert54.Arms 2>&1 | tee c1-build.log
       - name: Axioms (propext, Classical.choice, Quot.sound only)
         run: python3 scripts/c1/check_axioms.py c1-build.log SaltC1/Cert54/Audit.lean
       - name: Save certificate build cache (default branch only)

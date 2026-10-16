@@ -16,7 +16,10 @@ import SaltC1.Cert54.Checks
 by `cert54_coeffs`, which decodes each key into `(a, C)` and adds the list with `addDecl` (a source
 literal of this size exhausts the elaborator). `cs54` is the same list in the type of the Lean side,
 `List ((ℕ × (Fin 13 → ℕ)) × ℤ)`; `coef_keys_ok` certifies, by `decide +kernel`, that
-`coefBT.getB i` is the `i`-th entry's key and coefficient. Nothing here bears on twin primes.
+`coefBT.getB i` is the `i`-th entry's key and coefficient, and `coef_basis_ok` that every entry is a
+basis function (`a + wt C ≤ 23`, 13 exponents) — so every digit is `< 64`, the keys decode, and the
+`I` form's lookups at `k_i + k_j` lie in `wi_ok`'s range (FX2 of math's read, 2026-10-15). Nothing
+here bears on twin primes.
 -/
 
 namespace SaltC1.Cert54
@@ -51,5 +54,12 @@ noncomputable def checkCoefKeys (l : List (Nat × List Nat × Int)) : Bool :=
     Nat.beq kv.1 (encKey e.1 e.2.1) && kv.2 == e.2.2
 
 theorem coef_keys_ok : checkCoefKeys cs54L = true := by decide +kernel
+
+/-- Every entry is a basis function of the certificate: `a + wt C ≤ 23` and 13 exponents (so each
+`c_m ≤ 11`, every digit of `encKey a C` is `< 64`, and the key decodes to `(a, C)`). -/
+def checkCoefBasis (l : List (Nat × List Nat × Int)) : Bool :=
+  l.all fun e => Nat.ble (e.1 + wt e.2.1) 23 && Nat.beq e.2.1.length 13
+
+theorem coef_basis_ok : checkCoefBasis cs54L = true := by decide +kernel
 
 end SaltC1.Cert54

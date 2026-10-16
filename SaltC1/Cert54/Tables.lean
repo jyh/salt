@@ -432,7 +432,8 @@ theorem w_ok_1 : checkWChain wsh1 170 4110 = (true, 689, 16777227, 3975) := by d
 theorem w_ok_2 : checkWChain wsh2 689 16777227 = (true, 1236, 73786976294838206466, 2029) := by decide +kernel
 theorem w_close : 1236 = nW ∧ 3756 + 3975 + 2029 = expectedLen := by decide +kernel
 
-/-- The marginal check on all eleven shards, from the three links (no `decide`). -/
+/-- The marginal check on all eleven shards, from the three links by rewriting; the close is one
+kernel `decide` on a literal `Bool` (no shard is re-run). -/
 theorem w_ok : checkWShards wshards = true := by
   have h0 := wfold_of_chain w_ok_0
   have h1 := wfold_of_chain w_ok_1
