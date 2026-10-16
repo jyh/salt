@@ -125,11 +125,11 @@ theorem integral_norm_deriv_sq_le (N : ℕ) (a : ℕ → ℂ) :
   have hnN : (n : ℝ) ≤ (N : ℝ) := by
     exact_mod_cast (Finset.mem_range.mp hn).le
   have hsq : (n : ℝ) ^ 2 ≤ (N : ℝ) ^ 2 := by
-    nlinarith [hnN, Nat.cast_nonneg (α := ℝ) n]
+    nlinarith only [hnN, (Nat.cast_nonneg _ : 0 ≤ ↑N), (Nat.cast_nonneg _ : 0 ≤ ↑n)]
   have hcoef : 4 * Real.pi ^ 2 * (n : ℝ) ^ 2 ≤ (2 * Real.pi * N) ^ 2 := by
     have hexp : (2 * Real.pi * N) ^ 2 = 4 * Real.pi ^ 2 * (N : ℝ) ^ 2 := by ring
     rw [hexp]
-    nlinarith [hsq, Real.pi_pos, sq_nonneg Real.pi]
+    nlinarith only [hsq, sq_nonneg Real.pi]
   calc 4 * Real.pi ^ 2 * (n : ℝ) ^ 2 * ‖a n‖ ^ 2
       ≤ (2 * Real.pi * N) ^ 2 * ‖a n‖ ^ 2 := by
         apply mul_le_mul_of_nonneg_right hcoef (by positivity)
