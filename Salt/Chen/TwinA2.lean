@@ -161,7 +161,7 @@ theorem A2grid_le_envelope {zR yR supF : ℝ} (P : Finset ℕ) (z Dtot : ℕ) (N
       have hp1 : (0 : ℝ) < (p : ℝ) - 1 := by linarith
       rw [div_add_div _ _ (ne_of_gt hp0) (by positivity : ((p : ℝ) ^ 2) ≠ 0),
         div_le_div_iff₀ hp1 (by positivity)]
-      nlinarith [mul_nonneg hp0.le (by linarith : (0 : ℝ) ≤ (p : ℝ) - 2)]
+      linarith only [mul_nonneg hp0.le (by linarith : (0 : ℝ) ≤ (p : ℝ) - 2)]
     -- PM1 on the `Σ 1/p` main term
     have hLn : ∑ p ∈ P, (1 : ℝ) / p
         ≤ Real.log (Real.log yR / Real.log zR) + 19 / Real.log zR :=

@@ -84,7 +84,7 @@ private lemma window_floor_bounds (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ))
   -- lower: `log⌊x^γ⌋ ≥ log(x^γ − 1) ≥ γ·log x − 1/(x^γ−1) ≥ γ·log x − 1/999999`
   have hratio : (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) ≤ 1000000 / 999999 := by
     rw [div_le_div_iff₀ hXγ1pos (by norm_num : (0 : ℝ) < 999999)]
-    nlinarith [hA6]
+    linarith only [hstep2, hstep1]
   have hcorr : Real.log ((x : ℝ) ^ γ) - Real.log ((x : ℝ) ^ γ - 1) ≤ 1 / 999999 := by
     have h1 : Real.log ((x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1)) ≤ (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) - 1 :=
       Real.log_le_sub_one_of_pos (by positivity)
