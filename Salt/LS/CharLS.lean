@@ -262,7 +262,7 @@ theorem char_LS_perQ {N : ℕ} (q : ℕ) [NeZero q] (c : ℕ → ℂ) :
             ∑ a ∈ (Finset.range q).filter (Nat.Coprime q), ‖expSum N c ((a : ℝ) / q)‖ ^ 2 := by
           rw [hBunit]
   rw [div_mul_eq_mul_div, div_le_iff₀ hφpos]
-  nlinarith [hkey]
+  linarith only [hkey]
 
 open Classical in
 /-- **L7.3 — the character-form large sieve (FROZEN).** For `2 ≤ Q` and any coefficient
