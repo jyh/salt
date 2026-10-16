@@ -191,7 +191,7 @@ theorem e4a_L1_lower_even_complex [NeZero q] (hq1 : 1 < q) (χ : DirichletCharac
 theorem e4a_log_golden_le_pi : Real.log ((3 + Real.sqrt 5) / 2) ≤ Real.pi := by
   have h0 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
   have h5 : Real.sqrt 5 < 2.24 := by
-    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5), Real.sqrt_nonneg 5]
+    nlinarith only [h0, Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 5)]
   have hx : (0 : ℝ) < (3 + Real.sqrt 5) / 2 := by linarith
   have h1 := Real.log_le_sub_one_of_pos hx
   have h3 := Real.pi_gt_three

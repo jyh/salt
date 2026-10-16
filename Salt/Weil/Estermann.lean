@@ -551,7 +551,7 @@ theorem norm_kloosterman_prime_pow_gcd {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) 
             congr 1
             ring
           rw [hs]
-          nlinarith [hpp, Real.sqrt_nonneg ((p : ℕ) : ℝ)]
+          linarith only [hpp, hp_pos]
         · -- `e ≥ 2`: the descent
           obtain ⟨A', rfl⟩ := hA
           obtain ⟨B', rfl⟩ := hB
