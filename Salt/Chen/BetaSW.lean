@@ -246,7 +246,7 @@ lemma psiAP_sub_psiTot_bound {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     calc |psiTot x - (x : ℝ)| ≤ K * x / L := hb0
       _ ≤ K * x / L * (q.totient : ℝ) := by
           have : 0 ≤ K * x / L := by positivity
-          nlinarith [this, hφ1]
+          nlinarith only [hφ1, this]
   calc |(psiAP x q a - (x : ℝ) / (q.totient : ℝ)) - (psiTot x - (x : ℝ)) / (q.totient : ℝ)|
       ≤ |psiAP x q a - (x : ℝ) / (q.totient : ℝ)| + |(psiTot x - (x : ℝ)) / (q.totient : ℝ)| :=
         abs_sub _ _
@@ -409,7 +409,7 @@ theorem prime_indicator_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     have htR : (t : ℝ) ≤ 2 * N := by
       have : t ≤ 2 * N := le_trans htM hM2N; exact_mod_cast this
     have h1 : Kθ * (t : ℝ) * (Real.log N) ^ A ≤ 2 * Kθ * N * (Real.log N) ^ A := by
-      apply mul_le_mul_of_nonneg_right _ hLNApos.le; nlinarith [hKθ0, htR]
+      apply mul_le_mul_of_nonneg_right _ hLNApos.le; nlinarith only [hKθ0, htR]
     have h2 : 2 * Kθ * (N : ℝ) * (Real.log N) ^ A ≤ 2 * Kθ * N * (Real.log t) ^ A := by
       apply mul_le_mul_of_nonneg_left hLtge; positivity
     linarith
