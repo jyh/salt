@@ -219,7 +219,7 @@ lemma coprime_survivor_one_or_prime (x n : ℕ) (hn : 1 ≤ n ∧ n ≤ x)
     have hp_prime : p.Prime := Nat.minFac_prime h1
     have hp_dvd : p ∣ n := Nat.minFac_dvd n
     have hsq : p ^ 2 ≤ n := Nat.minFac_sq_le_self hpos hnp
-    have hpx : p * p ≤ x := by nlinarith [hsq, hnx]
+    have hpx : p * p ≤ x := by linarith only [hsq, hnx]
     have hple : p ≤ Nat.sqrt x := Nat.le_sqrt.mpr hpx
     have hp_dvd_prim : p ∣ primorial (Nat.sqrt x) := hp_prime.dvd_primorial_iff.mpr hple
     have hdvd : p ∣ Nat.gcd (primorial (Nat.sqrt x)) n := Nat.dvd_gcd hp_dvd_prim hp_dvd
@@ -361,7 +361,7 @@ lemma floor_frac_bound (x d : ℕ) : |((x / d : ℕ) : ℝ) - (x : ℝ) / (d : �
       have hR : (x : ℝ) = (d : ℝ) * ((x / d : ℕ) : ℝ) + ((x % d : ℕ) : ℝ) := by
         exact_mod_cast (Nat.div_add_mod x d).symm
       have hltR : ((x % d : ℕ) : ℝ) < (d : ℝ) := by exact_mod_cast Nat.mod_lt x hd
-      nlinarith [hR, hltR]
+      linarith only [hltR, hR]
     rw [abs_le]
     constructor <;> linarith
 
