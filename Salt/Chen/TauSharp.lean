@@ -144,7 +144,7 @@ theorem chSharp_nonneg {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ chSharp ε := by
 /-- **The contraction** `chSharp ε < 1` for `ε < 1/49` (`(1+ε)·49/50 < 1 ⟺ 49ε < 1`).  This
 is exactly the `κ₃ < 1` that the elementary route (`κ₃ = 1`) could not achieve. -/
 theorem chSharp_lt_one {ε : ℝ} (hε49 : ε < 1 / 49) : chSharp ε < 1 := by
-  unfold chSharp; nlinarith [hε49]
+  unfold chSharp; linarith only [hε49]
 
 /-! ## Part B — the E₁a consumption (the `(49/50)` contraction from the sharp funcbound) -/
 

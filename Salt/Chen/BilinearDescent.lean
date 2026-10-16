@@ -310,8 +310,8 @@ lemma prod_split_le {d : ℕ} (α β : ℕ → ℂ) (X Y : ℕ) (χ : DirichletC
     have := norm_sub_norm_le Ad As; linarith
   have hB : ‖Bd‖ ≤ ‖Bs‖ + ‖Bd - Bs‖ := by
     have := norm_sub_norm_le Bd Bs; linarith
-  nlinarith [norm_nonneg Ad, norm_nonneg Bd, norm_nonneg As, norm_nonneg Bs,
-    norm_nonneg (Ad - As), norm_nonneg (Bd - Bs), hA, hB]
+  nlinarith only [hB, hA,
+      norm_nonneg As, norm_nonneg Bd]
 
 open Classical in
 /-- **C3c′ — the bilinear dyadic conductor descent: the `hLargeDisc` discharge.**

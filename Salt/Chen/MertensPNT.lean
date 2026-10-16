@@ -111,7 +111,7 @@ theorem window_core_lower {w z : ℝ} (hw : 2 ≤ w) (hwz : w ≤ z) :
         = (t * Real.log t)⁻¹ - 6 * (t * Real.log t ^ 2)⁻¹ := by
       have hne : Real.log t ≠ 0 := ne_of_gt hlogt
       field_simp
-    nlinarith [hkey, hsplit]
+    linarith only [hsplit, hkey]
   have hIntA : (∫ t in w..z, -(t * Real.log t)⁻¹)
       = -(Real.log (Real.log z) - Real.log (Real.log w)) := by
     rw [intervalIntegral.integral_neg, integral_inv_tlog_real hw hwz]
