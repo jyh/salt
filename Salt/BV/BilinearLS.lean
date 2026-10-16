@@ -442,6 +442,6 @@ theorem bilinear_LS_shell {M H Q : ℕ} (hQ : 2 ≤ Q) (hH : 0 < H) (a b : ℕ �
         have hlogH : 0 ≤ Real.log H := Real.log_nonneg (by exact_mod_cast hH)
         have hle : (2 : ℝ) + Real.log H ≤ 2 * (1 + Real.log H) := by linarith
         have hprod : 0 ≤ KA * KB * Sa * Sb := by positivity
-        nlinarith [mul_le_mul_of_nonneg_right hle hprod]
+        linarith only [mul_le_mul_of_nonneg_right hle hprod]
 
 end Salt.BV

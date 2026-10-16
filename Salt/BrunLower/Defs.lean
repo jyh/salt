@@ -79,7 +79,7 @@ lemma zLev_antitone {Lam z : ℝ} (hLam : 0 ≤ Lam) (hz : 1 ≤ z) : Antitone (
   apply mul_le_mul_of_nonneg_right _ (Real.log_nonneg hz)
   apply Real.exp_le_exp.mpr
   have hmn' : (m : ℝ) ≤ (n : ℝ) := by exact_mod_cast hmn
-  nlinarith [hLam]
+  nlinarith only [hLam, hmn']
 
 /-- The level characterisation (2.14): `z_n ≤ 2 ↔ e^{nΛ} ≥ (log z)/(log 2)`. -/
 lemma zLev_le_two_iff (Lam z : ℝ) (n : ℕ) (hz : 1 < z) :
