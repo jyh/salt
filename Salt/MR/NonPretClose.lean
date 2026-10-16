@@ -67,7 +67,7 @@ theorem lambda_nonpret :
   have hmert := Salt.Mertens.mertens_second_sharp_real hx2
   rw [abs_le] at hmert
   -- `12/log x ≤ 12` for `x ≥ e`
-  have h12 : 12 / Real.log x ≤ 12 := by rw [div_le_iff₀ hLpos]; nlinarith [hlogx1]
+  have h12 : 12 / Real.log x ≤ 12 := by rw [div_le_iff₀ hLpos]; linarith only [hlogx1]
   -- `𝔻(λ, n^{it}; x)² = SPartial x + ∑_{p≤x} cos(t·log p)/p`
   have hsplit : pretDistSq lam (costwist t) x
       = Salt.Mertens.SPartial x

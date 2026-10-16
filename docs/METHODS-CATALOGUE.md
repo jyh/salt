@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a752fa4f` · source digest `84c97b180cd70db9` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `c3e64649` · source digest `939a51d66d46aa41` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23033 · with a proof/definition body: 23033 · direct corpus references (edges): 86569 · audited results: 9013 · corpus Prop-valued names: 676.
+Declarations indexed: 23033 · with a proof/definition body: 23033 · direct corpus references (edges): 86568 · audited results: 9013 · corpus Prop-valued names: 676.
 
 ## Hypothesis status (Deliverable A)
 
@@ -1443,7 +1443,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.sum_inv_prime_window_ge` | unconditional | 387 | 4 | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type | Selberg/Brun sieve; Mertens / PNT-type |
 | `Salt.Vk.zeta_drop_all_disc` | unconditional | 383 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions |
 | `Salt.ExpSum.sum_Icc_rpow_neg_le'` | unconditional | 382 | 1 | exponential sums | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
-| `Salt.MR.norm_liouChi_le_one` | unconditional | 382 | 3 | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) |
+| `Salt.MR.norm_liouChi_le_one` | unconditional | 382 | 2 | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) | character sums / L-functions; Matomaki-Radziwill / Halasz (short intervals) |
 | `Salt.Vk.Zc_ratio_sphere_bound` | unconditional | 381 | 0 | zero-density / zero-free regions | - | - |
 | `Salt.Entropy.Chowla.integral_logMeasure_eq` | unconditional | 379 | 3 | entropy decrement | entropy decrement | entropy decrement; Selberg/Brun sieve |
 | `Salt.Vk.vk_dirichlet_sum_le` | unconditional | 378 | 3 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums; explog/lognum numeral tactic |
