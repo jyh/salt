@@ -15,7 +15,8 @@ import Salt.Tactic.AuditAxioms
 
 The `k = 54` certificate (`Cert54`), its bridge to the Lean side (`Bridge54`), the k = 54 layer of
 Maynard's argument (`MaynardK`), the diameter-270 tuple (`Tuple54`) and the gap theorem
-(`Gaps270`): DHL[54, 2] and gaps at most 270 (Polymath 8b, arXiv:1407.4897v4 Thm 3.9(vii)).
+(`Gaps270`): H₁ ≤ 270 via DHL[54, 2] — Polymath 8b (arXiv:1407.4897v4) Thm 3.9(vii) (M₅₄ > 4.00238,
+p. 14) with the Bombieri–Vinogradov theorem (p. 14), and H(54) = 270 (Figure 3, p. 75).
 Nothing here bears on twin primes.
 -/
 

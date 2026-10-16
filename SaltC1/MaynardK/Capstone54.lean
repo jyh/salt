@@ -23,8 +23,9 @@ Over it:
   among `n + hSeq 54 i`.
 
 Maynard's argument (arXiv:1311.4600v3, Prop. 4.2 and Prop. 4.3) run at k = 54, towards DHL[54, 2]
-(arXiv:1407.4897v4, Thm 3.9(vii)), over the certificate `M₅₄ > 4.0015` (`ratio_cert_54`); the tuple
-itself is instantiated elsewhere.
+(Polymath 8b, arXiv:1407.4897v4: Thm 3.9(vii), M₅₄ > 4.00238, p. 14, with the Bombieri–Vinogradov
+theorem, p. 14), over the certificate `M₅₄ > 4.0015` (`ratio_cert_54`); the tuple itself is
+instantiated elsewhere.
 Nothing here bears on twin primes.
 -/
 

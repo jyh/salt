@@ -34,7 +34,8 @@ open Salt.Maynard Salt.Twelve Salt.MaynardK
   (`hdiam`), through `bounded_gaps_reduces_diam 54 … d hdiam`.
 
 Maynard's argument (arXiv:1311.4600v3, Prop. 4.2 and Prop. 4.3) run at k = 54, towards DHL[54, 2]
-(arXiv:1407.4897v4, Thm 3.9(vii)), over the certificate `M₅₄ > 4.0015` (`ratio_cert_54`). The module
+(Polymath 8b, arXiv:1407.4897v4: Thm 3.9(vii), M₅₄ > 4.00238, p. 14, with the Bombieri–Vinogradov
+theorem, p. 14), over the certificate `M₅₄ > 4.0015` (`ratio_cert_54`). The module
 is generic in the tuple (`TupleChoice`): the `54`-entries are assumed `≤ 270` (`hle`) and the
 diameter `≤ d` (`hdiam`); the tuple itself is instantiated elsewhere.
 Nothing here bears on twin primes.

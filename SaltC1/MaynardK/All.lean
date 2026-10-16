@@ -15,5 +15,7 @@ import SaltC1.MaynardK.Capstone54
 # C1 · the k = 54 layer (`SaltC1`)
 
 The k = 105 chain of `Salt/MaynardK/` re-mirrored at k = 54 (h_max ≤ 270, cutoff 271), towards
-`gaps ≤ 270` via DHL[54, 2] (arXiv:1407.4897v4, Thm 3.9(vii)). Nothing here bears on twin primes.
+`gaps ≤ 270` via DHL[54, 2] — Polymath 8b (arXiv:1407.4897v4) Thm 3.9(vii) (M₅₄ > 4.00238, p. 14)
+with the Bombieri–Vinogradov theorem (p. 14), and H(54) = 270 (Figure 3, p. 75). Nothing here bears
+on twin primes.
 -/

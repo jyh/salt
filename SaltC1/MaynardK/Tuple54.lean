@@ -9,9 +9,9 @@ import Salt.Maynard.Tuple
 # C1 · A4 — an admissible 54-tuple of diameter 270 as a tuple choice
 
 `H270` is the `k = 54` entry of A. V. Sutherland's table of narrow admissible tuples
-(`math.mit.edu/~primegaps`, file `admissible_54_270.txt`), the diameter used for DHL[54, 2] in
-Polymath 8b (arXiv:1407.4897v4, Thm 3.9(vii)). Its length, diameter and admissibility are checked
-here by the kernel: the source is cited, not trusted.
+(`math.mit.edu/~primegaps`, file `admissible_54_270.txt`): the tuple of diameter H(54) = 270 used
+for DHL[54, 2] in Polymath 8b (arXiv:1407.4897v4, Figure 3, p. 75). Its length, diameter and
+admissibility are checked here by the kernel: the source is cited, not trusted.
 
 `polymath54Tuple` is the `TupleChoice` whose `54`-tuple is `H270` and whose every other `k`-tuple
 is the standard one. Its four fields are proved here, plus the two facts the `k = 54` chain
