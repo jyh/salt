@@ -99,7 +99,7 @@ theorem hMsup_of_propA3_shape
     have hexp : u / T * (2 * T / u + 1) = 2 + u / T := by
       rw [mul_add, mul_one, hid]
     rw [hexp]
-    nlinarith [hB, hr]
+    nlinarith only [hB, hr]
   calc X / h₁ / T * ((∫ t in T..(2 * T), ‖dpolyA a s0 t‖ ^ 2)
           + ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2)
       ≤ X / h₁ / T * (∫ t in (-(2 * T))..(2 * T), ‖dpolyA a s0 t‖ ^ 2) := by
@@ -131,7 +131,7 @@ theorem one_le_X_div_h {X h : ℝ} (hX : Real.exp 1 ≤ X) (hh4 : 4 ≤ h)
   have hle1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
   have hhpos : (0 : ℝ) < h := by linarith
-  have hhle : h ≤ X := by nlinarith [hXpos, hle1, hhX]
+  have hhle : h ≤ X := by nlinarith only [hXpos, hle1, hhX]
   rw [le_div_iff₀ hhpos]; linarith
 
 /-- **THE BRIDGE AT PARSEVAL'S OWN THRESHOLD.**  Same conclusion as
@@ -233,7 +233,7 @@ theorem parseval_bound_of_propA3_shape
             ‖dpolyA a s0 t‖ ^ 2)
       ≤ 205 * Real.pi * (2 * B) := by
     have h205 : (0 : ℝ) ≤ 205 * Real.pi := by positivity
-    nlinarith [hterms, h205]
+    nlinarith only [hterms, hpi]
   -- `gcongr` reduces to the spectral-block comparison and discharges it from `hblocks`
   gcongr
 

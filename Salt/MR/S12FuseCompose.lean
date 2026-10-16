@@ -462,11 +462,11 @@ theorem logChowla2_capstone_final' (Aexp : ℝ) (hAexp : 0 < Aexp) :
       have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
       unfold strataResidual
       linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith only [hSR1]
     have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
       have h1 : RSanDoorRho ρ H ≤ 1 := by
         unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
+        rw [div_le_one (by linarith only [hSRsq])]
         linarith
       exact le_trans h1 (le_max_left _ _)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
@@ -671,11 +671,11 @@ theorem logChowla2_capstone_final_rawcap' (Aexp : ℝ) (hAexp : 0 < Aexp) :
       have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
       unfold strataResidual
       linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith only [hSR1]
     have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
       have h1 : RSanDoorRho ρ H ≤ 1 := by
         unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
+        rw [div_le_one (by linarith only [hSRsq])]
         linarith
       exact le_trans h1 (le_max_left _ _)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
@@ -1025,11 +1025,11 @@ theorem logChowla2_capstone_final'_gk (K : ℕ) (hK : K ≤ 170000000)
       have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
       unfold strataResidual
       linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith only [hSR1]
     have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
       have h1 : RSanDoorRho ρ H ≤ 1 := by
         unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
+        rw [div_le_one (by linarith only [hSRsq])]
         linarith
       exact le_trans h1 (le_max_left _ _)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
@@ -1223,11 +1223,11 @@ theorem logChowla2_capstone_final_rawcap'_gk (K : ℕ) (hK : K ≤ 170000000)
       have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
       unfold strataResidual
       linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith only [hSR1]
     have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
       have h1 : RSanDoorRho ρ H ≤ 1 := by
         unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
+        rw [div_le_one (by linarith only [hSRsq])]
         linarith
       exact le_trans h1 (le_max_left _ _)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
