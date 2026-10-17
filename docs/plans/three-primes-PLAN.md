@@ -87,35 +87,44 @@ Siegel–Walfisz allows.
 *Role: defines the two regimes. A larger P makes the minor-arc bound N P^{−1/2} of Step 6 stronger.
 Siegel–Walfisz caps P at a power of log N, and Step 7 then fixes the power B.*
 
-**Step 3. Major arcs: S near a/q.** For α = a/q + β ∈ 𝔐(q, a),
+**Step 3. Major arcs: S near a/q.** For α = a/q + β ∈ 𝔐(q, a), that is, q ≤ P, gcd(a, q) = 1 and
+|β| ≤ P/N,
 
   S(α) = (μ(q)/φ(q)) · v(β) + O(N (log N)^{−C})  for every fixed C,  where v(β) = Σ_{n ≤ N} e(nβ).
 
+The bound is **uniform** in q, a and β on the arcs, as Step 4 needs, because Step 4 integrates over
+all of them. Its implied constant depends on C and B, and it is ineffective through Siegel–Walfisz.
+
 The proof has three moves.
- (3a) Split n ≤ N by its residue r mod q: since e(an/q) depends only on n mod q,
+ (3a) Split n ≤ N by its residue r, 0 ≤ r < q. Since e has period 1 and replacing n by n + q
+ changes an/q by the integer a, e(an/q) depends only on n mod q, so
  S(a/q + β) = Σ_{r < q} e(ar/q) T_r(β), where T_r(β) sums Λ(n) e(nβ) over n ≡ r. If (r, q) > 1, every
  n ≡ r shares a factor with q, so Λ(n) ≠ 0 only for prime powers p^k with p | q. Their total weight is
- at most Σ_{p | q} log N ≤ q log N, which is negligible.
+ at most Σ_{p | q} log N ≤ q log N, since the powers of one prime up to N weigh
+ ⌊log N/log p⌋ · log p ≤ log N. With q ≤ P that is far below N (log N)^{−C}.
  (3b) For (r, q) = 1, Siegel–Walfisz gives ψ(t; q, r) = t/φ(q) + O(t (log t)^{−D}) for every D,
  uniformly for q ≤ (log t)^{C′}. (This is the form the corpus proves. The classical saving
- exp(−c√log t) is stronger and not needed.) Summing e(ar/q) over the reduced residues gives the
- Ramanujan sum c_q(a) = μ(q).
- **The uniformity is in t, not N, and Abel summation needs every t ≤ N.** Split at t = N^{1/2}. For
- t ≤ N^{1/2}, bound trivially: the contribution is O(N^{1/2} log N). For t > N^{1/2}, log t ≥ ½ log N,
- so q ≤ P = (log N)^B ≤ (log t)^{2B} once N is large, and Siegel–Walfisz with C′ = 2B applies.
+ exp(−c√log t) is stronger and not needed.) Write E(t) = ψ(t; q, r) − t/φ(q), so E(0) = 0.
+ **The uniformity is in t, not N, and the summation by parts of (3c) needs |E(t)| for every t ≤ N.**
+ Split at t = N^{1/2}. For t ≤ N^{1/2} the trivial bound suffices: |E(t)| ≤ ψ(t) + t = O(N^{1/2}), by
+ Chebyshev. For t > N^{1/2}, log t ≥ ½ log N, so q ≤ (log N)^B ≤ (¼ (log N)²)^B ≤ (log t)^{2B} once
+ log N ≥ 4, and Siegel–Walfisz with C′ = 2B gives |E(t)| ≤ K t (log t)^{−D} ≤ 2^D K N (log N)^{−D}.
+ Together, max_{t ≤ N} |E(t)| = O(N (log N)^{−D}), since N^{1/2} is smaller still.
  (3c) **Discrete Abel summation, against the constant weight 1/φ(q).** For a coprime residue r,
  compare the weights Λ(n)·[n ≡ r] with the constant weight 1/φ(q). Their partial sums up to n are
  ψ(n; q, r) and n/φ(q), so the partial sums of the difference are exactly the Siegel–Walfisz
  discrepancy E(n) = ψ(n; q, r) − n/φ(q). Summation by parts writes Σ_{n ≤ N} (difference) · e(nβ) as
  E(N) e(Nβ) − Σ_{n < N} E(n) (e((n+1)β) − e(nβ)), and each difference of phases has modulus
- |e(β) − 1| ≤ 2π|β|. So
+ |e(β) − 1| = 2|sin πβ| ≤ 2π|β|. So
    |T_r(β) − v(β)/φ(q)| ≤ max_{n ≤ N} |E(n)| · (1 + 2π|β|N).
  **The main term is exact**: the constant weight sums to v(β)/φ(q) on the nose, so no integral and
  no swap appear. Summing e(ar/q) · v(β)/φ(q) over the φ(q) coprime residues gives c_q(a)/φ(q) · v(β)
- = (μ(q)/φ(q)) v(β). The error, over φ(q) ≤ P classes with |β|N ≤ P, is O(P² · N (log N)^{−D}).
+ = (μ(q)/φ(q)) v(β), by the Ramanujan sum's value c_q(a) = μ(q) for gcd(a, q) = 1 (L5). The error,
+ over φ(q) ≤ P classes with |β|N ≤ P, is O(P² · N (log N)^{−D}).
  Since D is ours to choose, take D = C + 2B, which leaves O(N (log N)^{−C}).
  That is why the error may grow with |β|N: Siegel–Walfisz saves every power of log N, so any
- polynomial in P is paid for. It is also why it may grow only polynomially in P.
+ polynomial in P is paid for, and the count of classes, φ(q) ≤ P, is paid for the same way. It is
+ also why both may grow only polynomially in P.
 *Role: the only place primes in arithmetic progressions are used, and the only source of
 ineffectivity. (Lean: `Salt.ThreePrimes.majorArc_approx`, with the moves as `primeExpSum_split`,
 `norm_nonCoprime_part_le`, `norm_residueSum_sub_le` and `psiAP_error_uniform`.)*
