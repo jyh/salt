@@ -260,6 +260,9 @@ must supply it (see §4 for what already exists).
 
 ## 4. What the corpus already has
 
+> **Dated: this is the inventory as it stood on 2026-10-16, before any Lean was written.** Every row
+> marked ABSENT below is now proved in `Salt/ThreePrimes/`; see §5.
+
 Every entry below was read at its statement (inventory 2026-10-16, re-checked at the object for
 the starred rows). **About half of the skeleton is already proved, and it is the half most people
 would call hard.** The minor arcs are essentially done. The major arcs are not started.
@@ -309,14 +312,37 @@ consumed lemma's axioms are only `propext`, `Classical.choice` and `Quot.sound`.
 self-contained, the most pleasant to explain. Minor-arc specialisation L19: small, but it fixes B.
 Glue L2–L4, L10, L20 seam, L21: small.
 
-## 5. Lean shape (only after the non-author read)
+## 5. What the Lean proves
 
-A sketch, not acted on before O83 item 3. One directory, `Salt/ThreePrimes/`, one module per step of
-§2, in reading order: `Count` (L1–L3), `Arcs` (L4), `Ramanujan` (L5), `MajorArc` (L7–L8),
-`SingularIntegral` (L9–L10), `SingularSeries` (L11–L13), `MinorArc` (L14–L19 specialised), `Assembly`
-(L20–L21). Each module opens with the §2 paragraph it proves, and each lemma's docstring is its
-role line from §3, **written before its proof** (O83 item 4). The final theorem carries no hypotheses:
-`∃ N₀, ∀ N > N₀, Odd N → ∃ p₁ p₂ p₃, p₁.Prime ∧ p₂.Prime ∧ p₃.Prime ∧ p₁ + p₂ + p₃ = N`.
+**`Salt.ThreePrimes.three_primes`**:
+`∃ N₀, ∀ N > N₀, Odd N → ∃ p₁ p₂ p₃, p₁.Prime ∧ p₂.Prime ∧ p₃.Prime ∧ p₁ + p₂ + p₃ = N`. It carries
+no hypothesis, and its axioms are `propext`, `Classical.choice` and `Quot.sound`. Siegel–Walfisz
+enters as the corpus's proved `Salt.SW.siegelWalfisz_holds`.
+
+Every statement below was written with its explanation, and typechecked, before any proof of it
+existed. Each module opens with the paragraph of §2 it proves.
+
+| module | plan | what it proves |
+|---|---|---|
+| `Count` | L1–L3, Steps 0–1 | `R(N) = ∫₀¹ S³ e(−N·)`; `R(N) ≤ (log N)³ r(N) + C N^{3/2} (log N)³`; a large `R(N)` gives three primes |
+| `Arcs` | L4, Step 6a | the arcs are disjoint (`N > 2P³`) and inside the window `(P/N, 1 + P/N]`; off them `|S| ≤ K (2N/√P + N^{7/8}) (log N)³` |
+| `Ramanujan` | L5 | `c_q(a) = μ(q)` for `gcd(a, q) = 1`; `|c_q| ≤ φ(q)`; `c_p` |
+| `MajorArc` | L7–L8, Step 3 | `|S(a/q + β) − (μ(q)/φ(q)) v(β)| ≤ K N/(log N)^A` |
+| `SingularIntegral` | L9–L10, Step 4a | `∫₀¹ v³ e(−N·) = C(N − 1, 2)`; the truncation costs `≤ 1/(4δ²)` |
+| `SingularSeries` | L11–L13, Step 5 | absolute convergence, the Euler product, `0` for even `N`, `≥ c₀ > 0` for odd `N` |
+| `MinorArc` | L14–L19, Step 6 | `|S(α)| ≤ 1000 (N/√q + N^{7/8} + √(Nq)) (log N)³` |
+| `Assembly` | L20–L21, Steps 7–8 | the window, the split, both arcs' contributions, and `three_primes` |
+
+**Three places where the Lean departs from the text of §2, and why none changes the argument.**
+- *Step 6 takes `W = ⌊N^{1/4}⌋`, not `N^{2/5}`*, because the corpus's bound is set up for that choice
+  (two integer square roots, so `W² ≤ N` is an integer fact). The middle term is then `N^{7/8}`
+  instead of `N^{4/5}`. Step 7 only needs some power of `N` below `1`.
+- *Step 0's error is `C N^{3/2} (log N)³`*, one log more than the text, because it uses mathlib's
+  `ψ(N) − θ(N) ≤ 2√N log N`. It is still far below `N²`.
+- *Steps 4b and 7 take `P = ⌊(log N)^{10}⌋`, and the singular series' tail is only shown to tend to
+  `0`*, uniformly in `N`, with no rate. The theorem asks only for sufficiently large `N`, so every
+  error needs to be `o(N²)`, not `O(N²(log N)^{−A})`. That removes the need for a lower bound on
+  `φ(q)`.
 
 ## 6. Design choices made for the reader
 
