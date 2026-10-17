@@ -77,3 +77,61 @@ census adds to the verdicts above:
   `Salt/Chen` 10.0, `Salt/SW` 8.9 against Cert54's 1.03. The strike above was right.
 
 None of this says the prose is true of the code; the census is one tool's reading of source text.
+
+## Layer 2 on the Lean (O82, 2026-10-17): does `Salt/ThreePrimes` read like its plan?
+
+The plan (`docs/plans/three-primes-PLAN.md`) passed the layer-2 reader test before any Lean was written: two
+fresh readers given the plan alone answered 10/10 of its pre-registered "whys" with citations, against 3.5–4
+for the Cert54 control. The Lean was then written from the plan. This section is the same test aimed at the
+Lean, by a non-author of `Salt/ThreePrimes`: does the finished tree, read on its own, carry the plan's reasons?
+
+**Method.** Object: the nine files of `Salt/ThreePrimes/` at `f63df7c9` (byte-identical to the tree merged in
+#355). Control: `SaltC1/Cert54/` at the same head. Two fresh readers (Opus, not forks of anyone's session), each
+confined to an export of exactly those two trees: no `docs/`, no other `Salt/` module, no web. Four parts per
+artifact: a skeleton of the argument; "whys" answered with a `file:line` citation (an answer from outside
+knowledge with no supporting passage scores 0); the hypotheses located by theorem and binder; kills. The sixteen
+object whys are the plan's own ten (P1–P10, word for word from the plan's test) plus its six "what the Lean
+departs from" whys (R1–R6). Criteria, the answer key (written from the plan's answers and located in the Lean's
+docstrings), the pass bar (the plan's: skeleton ≥ 7/8, P ≥ 8/10, R ≥ 5/6, hypotheses ≥ 5/6, control ≤ 4/10) and a
+prediction were committed to the private record before either reader was fired; the raw outputs are kept there
+verbatim beside the scores. Scoring: full answer with citation 1 · partial or marked implicit by the reader ½ ·
+not in the artifact 0.
+
+| artifact | reader | skeleton | P whys (10) | R whys (6) | hypotheses (6) | control whys (10) |
+|---|---|---|---:|---:|---:|---:|
+| `Salt/ThreePrimes` | 1 | 8/8 | **8.0** | **5.5** | 6/6 | 5.0 |
+| `Salt/ThreePrimes` | 2 | 8/8 | **8.0** | **5.5** | 6/6 | 4.0 |
+| plan, for comparison | C, D | 8/8 | 10/10 | 6/6 (R, one reader) | 6/6 | 4 · 3.5 |
+
+**Result, said plainly.** The Lean passes every object bar, at the bar on the plan's ten whys: both readers
+score 8.0, and both lose exactly the same four half-points. P1 (why Λ-weights): the Lean states the price of
+the weights (`Count.lean`) and never the reason that the tools are Λ-statements. P3 (why N₀ is ineffective):
+`MajorArc.lean` names Siegel–Walfisz as the source and never says why that theorem's constant cannot be
+computed. P8 (why not two primes): not in the artifact. R5 (why no lower bound on φ(q) is needed): the
+mechanism is there (`Assembly.lean`), the sentence is not. Everything else the plan explains, the Lean
+explains, with the readers citing the same passages the key named. **The control did not stay under its bar
+for one reader** (5.0 and 4.0 against ≤ 4), so the pre-registered separation condition failed: on a Lean/Lean
+pair this method separates by 8 vs 4–5, not the 10 vs 3.5–4 it showed on a prose/Lean pair, because a reader
+given a certificate whose closed forms carry its normalisations reconstructs some "whys" from the formulas.
+The prediction committed in advance named the same four weak spots and their modules; it was wrong on the
+headline direction by one half-point (it predicted 7.5, a fail; P5, why P is a power of log N, scored 1 for
+both readers from `MajorArc.lean`'s stated Siegel–Walfisz range).
+
+**Kills, all confirmed at the object, none a false theorem statement.** Seven docstrings disagree with the
+code beneath them: `MinorArc.lean:33` says K ≤ 3 log N where the code uses K ≤ 4 log N; `MinorArc.lean:34` says
+the q > N case uses ψ(N) ≤ 2N where the code uses N log N; `MinorArc.lean:25` states a Step-7 inequality that is
+not the one `Assembly.lean` consumes; `Count.lean:24–25` accounts for the third logarithm differently from the
+proof, which pads (log N)² to (log N)³; the docstring at `Assembly.lean:232–233` promises three facts and the
+statement gives one; `Arcs.lean:18` says N ≥ 2P² where the theorem needs 2P² < N; `MajorArc.lean:44–45` says
+A + 2B + 1 where the code asks A + 2B. Fixing them, with the four missing sentences above, is a docs-only change
+owed by the Lean's author. Both readers' closing paragraphs add what no pre-registered why asked: the
+minor-arc estimate's content is an imported black box the nine files only parametrise, so a reader learns how
+the pieces fit and not the hard analytic estimate.
+
+**Limits.** The ten whys were written for the plan, and the plan was revised against them, so a pass shows the
+Lean answers the plan's questions, not the questions a reader would ask of Lean unprompted. Two readers of one
+model. The control bar was set for a prose/Lean pair. The scoring rule rewards a reader's candour: the same
+control content scored ½ in the plan's round when the reader added "the reason is never stated", and 1 here when
+the reader did not; a future round should score the artifact (does it state the reason?) and record the
+reader's self-mark separately. Nothing here is a verification claim about any theorem; the kernel's verdict on
+`three_primes` is its CI build, and this section measures only whether the prose explains it.
