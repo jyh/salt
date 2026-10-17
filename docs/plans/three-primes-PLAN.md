@@ -12,6 +12,15 @@ theorem, whose constant comes from Siegel's theorem and cannot be computed. Noth
 Helfgott's N₀ = 10²⁷ or the full ternary Goldbach conjecture; that is a different, much larger
 project (explicit estimates at every step) and is out of scope.
 
+**What already exists, and what this plan may claim** (field survey 2026-10-16, as far as it reaches;
+never an absolute). Vinogradov's theorem is already proved in Lean *conditional on Siegel–Walfisz*
+(Prove2Me's `ThreePrimes`). Ternary Goldbach for all odd n ≥ 7 is stated sorry-free in Lean over a
+trust boundary of named atoms (`gersh/ternary-goldbach-lean`, Apache-2.0). So this plan never claims
+a "first formal Vinogradov" or a "first formal ternary Goldbach". Two things were open as of that
+survey. (a) A Lean Vinogradov that is **unconditional**: this corpus proves Siegel–Walfisz
+(`Salt.SW.siegelWalfisz_holds`), so the theorem of §5 would carry no hypothesis. (b) **A proof written
+for human readers**, which is the deliverable.
+
 ---
 
 ## 1. The idea in one paragraph
@@ -260,6 +269,22 @@ Nothing in the corpus states a three-primes or ternary theorem (searched: `three
 `Salt/Goldbach/` tree is **Chen's binary theorem** (`Salt.Goldbach.chen_goldbach`,
 `Salt/Goldbach/ChenGoldbach.lean:41`: every large even N is p + P₂), a sieve, and contributes nothing
 here except shared tools.
+
+**Consume before writing (the 2026-10-09 ruling).** Every ABSENT piece is first looked for in prior
+art, and consumed only if it reads well: layer 1 does not mark it a certificate, and a reader can
+follow it. Consumed code keeps its licence and its provenance (repository, commit, path) in the
+header of the file that carries it. It is *ported*, not added as a dependency: the source tree
+declares 241 `axiom` lines, and a port built here through `../saltbuild.sh` is what proves that each
+consumed lemma's axioms are only `propext`, `Classical.choice` and `Quot.sound`. Prove2Me's
+`ThreePrimes` has no licence we could find, so it is read for ideas only and nothing is copied from it.
+
+| piece | candidate in `gersh/ternary-goldbach-lean` @ `27df23af` | layer 1 | decision |
+|---|---|---|---|
+| L5 c_q(a) = μ(q) | `ramanujan_coprime_eq_moebius`, `ext/analytic_nt/AnalyticNT/MeanValue/RamanujanSumCoprimeValue.lean:177` | role lines 1.00 · kernel 0 | **port**, with the plan's exposition |
+| L5 multiplicativity, prime values | `Vinogradov.ramanujanSum_mul_of_coprime`, `ramanujanSum_prime` (`Math/Problems/TernaryGoldbach/CircleMethodDecomposition/Core.lean:537`, `:718`); the def at `MathExtras/NumberTheory/Vinogradov/MajorArcExplicit.lean:302` | Core.lean role lines 0.50 · kernel 0 | **port** the lemmas we use |
+| L11–L13 𝔖(N) | `singularSeries`, `singularSeriesLocalFactor` (`Math/Problems/TernaryGoldbach/Core/Lemmas.lean:108`, `:118`); Euler product `tprod_singularSeriesRamanujanTerm_prime_pow_eq_two_singularSeries` (`Core.lean:985`) | as above | **read the proofs**; port if they reach our 𝔖 without the project's atoms |
+| L8 major arc | `MathExtras/NumberTheory/Vinogradov/MajorArcAP.lean`, `HelfgottMajorArc.lean` | the tree: role lines 0.75 | **write fresh**: it is Helfgott's explicit, smoothed variant, and `HelfgottMajorArc.lean` declares axioms |
+| L10 singular integral | to be read | — | decided at the read |
 
 **The work, by size.** Major arcs L5 + L8: the largest. Singular series L11–L13: moderate and
 self-contained, the most pleasant to explain. Minor-arc specialisation L19: small, but it fixes B.
