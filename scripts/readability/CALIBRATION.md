@@ -135,3 +135,55 @@ control content scored ½ in the plan's round when the reader added "the reason 
 the reader did not; a future round should score the artifact (does it state the reason?) and record the
 reader's self-mark separately. Nothing here is a verification claim about any theorem; the kernel's verdict on
 `three_primes` is its CI build, and this section measures only whether the prose explains it.
+
+### Round 2 (2026-10-17, after the author's docs-only fix #363): score the artifact, not the reader
+
+**Why a second round.** Round 1 left two questions. The control exceeded its bar for one reader under a rule that read a
+cell at ½ when the reader *marked* it partial, so the same control content scored 1 for a reader who did not add "the
+reason is never stated" and ½ for one who did: the rule paid the less candid reader. And the four missing sentences it
+named were then written (#363, docs only). Round 2 fixed a **by-the-artifact rule** in the private record before any of
+#363's text was read (committed 51 s after its merge; the rule's substance is in round 1's record from before #363 was
+opened), re-scored round 1's raw outputs under it, and ran two fresh readers on `Salt/ThreePrimes` at `72fc6043` with
+`SaltC1/Cert54` (byte-identical to round 1's) as the control, same protocol, same sixteen whys, same key.
+
+**The rule.** A why scores 1 if the passage the reader cites *states the reason*; ½ if the cited passages state the
+mechanism or the components and the reader derived the rest; 0 if the answer is not in the artifact or comes from outside
+knowledge. The reader's own mark ("stated", "partly", "not in artifact") is recorded in a separate column and never scores.
+
+| artifact | reader | skeleton | P whys (10) | R whys (6) | hypotheses (6) | control whys (10) |
+|---|---|---|---:|---:|---:|---:|
+| round 1 re-scored, `f63df7c9` | 1 | 8/8 | 7.5 | 5.5 | 6/6 | 4.0 |
+| round 1 re-scored, `f63df7c9` | 2 | 8/8 | 7.5 | 5.0 | 6/6 | 3.5 |
+| round 2, `72fc6043` | 1 | 8/8 | **10.0** | **6.0** | 6/6 | 3.5 |
+| round 2, `72fc6043` | 2 | 8/8 | **10.0** | **6.0** | 6/6 | 3.5 |
+
+**Result, said plainly.** Under the artifact rule the control stays at or under its bar in all four readings, so the method
+**separates a Lean object from a Lean certificate**: by 10 against 3.5 at `72fc6043`, by 7.5 against 3.5–4 at `f63df7c9`.
+Round 1's object, re-scored, reads 7.5 — *below* the bar it had passed: the artifact at `f63df7c9` stated Siegel–Walfisz's
+range and P's definition and never that the one is why the other is a power of log N (P5), and the self-mark rule had
+credited the readers' correct derivation to the text. At `72fc6043` **the four gaps are closed**: `Count.lean:18–21` says why
+Λ; `MajorArc.lean:24–27` says why Siegel–Walfisz's constant cannot be computed; `Assembly.lean:27–30` says why three primes
+and not two; `Assembly.lean:42–43` says why no lower bound on φ(q) is needed. Each is written as a reason, and both readers
+cited each without prompting. None of round 1's seven docstring kills was raised again.
+
+**Kills, confirmed at `72fc6043`, none a false theorem statement.** `Arcs.lean:25` says "1 ≤ a ≤ q because α lies in the
+window", but the proof derives a ≤ q only in the branch q ≤ P, using 1/P ≤ 1/q and 2P² < N; one reader's counterexample
+(N = 1000, P = 1, α = 1.001) stands. `Assembly.lean:42–43`, the new sentence, overstates: the Euler-product bound spends
+1/(p−1)² ≤ 4/p², a lower bound on φ at primes, so "no lower bound of the shape φ(q) ≫ q^{1−ε}" is what is true. A
+repaired sentence is a fresh claim. `SingularSeries.lean:39–40` says the product "converges, so it is at least a constant
+c₀ > 0 that does not depend on N"; convergence for each N gives no uniform bound, and the proof uses log(factor) ≥ −8/p².
+`Arcs.lean:59–60` calls 2P/N "the arcs' total width"; it is one arc's. Docs-only fixes, the author's.
+
+**What the round says about the method.** Both readers marked six cells "partly" where the artifact states the key's
+reason — each time the missing half is a counterfactual the key did not ask for ("o(N) would not do", "a power of N is
+impossible", "a rate would need φ(q) ≫ q^{1−ε}") or a sub-why it did not pose. Under round 1's self-mark rule the same
+outputs would read 9.0 on the plan's whys and 4.5 on the Lean's, failing the second bar on text that states every reason.
+Round 1's self-marks had leaned the other way, three times on the control. A rule that scores the reader's mark is
+unstable in both directions on the same kind of text; the artifact rule is the one to keep.
+
+**Limits.** The scorer wrote the rule and re-scored round 1; every cell is published in the private record with the passage
+it reads, so a non-author can re-read it, and the six "partly" cells are where to start. The four new sentences were
+written by the Lean's author knowing round 1 had named them: a pass there shows the sentences landed and read as reasons,
+not that an unprompted reader would have asked. Two readers of one model; object and control share a language; the readers'
+reports reached the record as returned text, not as files they wrote. Nothing here is a verification claim about any
+theorem; the kernel's verdict on `three_primes` is its CI build.
