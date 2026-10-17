@@ -1,13 +1,13 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `8925ade2` · source digest `0ac592d15a693dbb` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `88aaeeb9` · source digest `aec8e2ea39b1f542` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 23 | 9069 | 9014 | 9013 | 1 | 0 | 55 |
+| 26 | 24 | 9070 | 9015 | 9014 | 1 | 0 | 55 |
 
 Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hypothesis universe): 676.
 
@@ -15,12 +15,12 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6781 | 294 | 2072 | 4623 | 376 | 425 | 40 |
+| unconditional | 6782 | 294 | 2072 | 4623 | 376 | 425 | 41 |
 | conditional | 1546 | 25 | 197 | 1352 | 94 | 24 | 10 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9014 | 319 | 2341 | 6539 | 529 | 466 | 51 |
+| **all** | 9015 | 319 | 2341 | 6539 | 529 | 466 | 52 |
 
 ## LIMITS — read these beside every count above
 
@@ -490,7 +490,7 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6781)
+## unconditional (6782)
 
 | name | file:line | objects |
 |---|---|---|
@@ -6775,6 +6775,7 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | Salt/SW/ZetaZeroFree.lean:102 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_strip` | Salt/SW/ZetaZeroFree.lean:180 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_region` | Salt/SW/ZetaZeroFree.lean:235 | zeros, sieves |
+| `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:728 | other |
 | `Salt.Twelve.M5_cert` | Salt/Twelve/Certificate.lean:265 | sieves |
 | `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:155 | sieves |
 | `Salt.Twelve.collision_yF_M` | Salt/Twelve/InnerS1.lean:956 | sieves |
