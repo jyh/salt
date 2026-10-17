@@ -40,7 +40,9 @@ Take `P = ⌊(log N)^{10}⌋` and `δ = P/N`, and write `f(α) = S(α)³ e(−N�
    `Σ_{q ≤ P} = 𝔖(N) − (a tail)`. The tail is at most `Σ_{q > P} μ(q)²/φ(q)²`, which tends to `0`
    as `P → ∞`, uniformly in `N` (`tendsto_singular_tail`). **No rate is needed**: the theorem asks
    only for sufficiently large `N`. The convergence of `Σ_q μ(q)²/φ(q)²` (an Euler product) is all
-   the tail uses, so no lower bound on `φ(q)` is needed.
+   the tail uses, and that convergence spends only `φ(p) = p − 1 ≥ p/2` at each prime
+   (`abs_localFactor_sub_one_le`). No lower bound on `φ(q)` at composite `q`, such as
+   `φ(q) ≫ q^{1−ε}`, is needed.
 7. **For odd `N`, `𝔖(N) ≥ c₀ > 0`,** so `R(N) ≥ (c₀/8) N²` once `N` is large
    (`weightedCount_lower`). Counting with weights cost at most `C N^{3/2}(log N)³`, far less, so
    `N` is a sum of three primes (`three_primes`).
