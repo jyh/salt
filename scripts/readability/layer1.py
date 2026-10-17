@@ -42,7 +42,9 @@ USAGE
   python3 scripts/readability/layer1.py --selftest
 
 The selftest is a mutation suite: every metric is driven by a fixture and a mutant of it, and the
-expected direction is derived from the mutation, never typed.
+expected direction is derived from the mutation, never typed. Nine arms (2026-10-17) are properties of
+the SCANNER itself — prose, strings, comments, attributes, `example`, distinct references, cycles —
+each shown red against a mutant of the scanner before it was added.
 """
 from __future__ import annotations
 
@@ -108,6 +110,11 @@ def split_source(src: str):
             j = i + 1
             while j < n and src[j] != '"':
                 j += 2 if src[j] == "\\" else 1
+            # a string literal's CONTENT is not code: blank it (newlines kept, so line starts inside
+            # a multi-line literal cannot read as declarations), keep the quotes
+            for k in range(i + 1, min(j, n)):
+                if code[k] != "\n":
+                    code[k] = " "
             i = j + 1
             seen_code = True
             continue
@@ -360,6 +367,89 @@ def selftest() -> int:
     fa = 'import b\n/-- From `base2`. -/\ntheorem top2 : True := base2\n'
     r = measure([("a.lean", fa), ("b.lean", fb)])
     check("import-order", r["forward_prose_refs"] == 0, str(r["forward_prose_refs"]))
+
+
+    # ── nine arms added 2026-10-17 (O83 item 5a, a non-author's), each driven RED first against a mutant of
+    #    the scanner that lacks the property (the matrix is in the record). An arm that RAISES is red.
+    def arm(name, fn):
+        try:
+            cond, detail = fn()
+        except BaseException as e:  # a RecursionError without the cycle guard IS the failure, not a skip
+            cond, detail = False, f"RAISED {type(e).__name__}"
+        check(name, cond, detail)
+
+    # a declaration keyword at a LINE START inside a docstring is not a declaration
+    def _prose_decl():
+        m = FIX_READABLE.replace("/-- The middle step, from `base`. -/",
+                                 "/-- The middle step, from `base`.\ntheorem fake : True := trivial\n-/")
+        r = measure([("r.lean", m)])
+        return (r["decls"] == base["decls"] and r["theorems"] == base["theorems"],
+                f"decls {base['decls']} -> {r['decls']}")
+    arm("prose-decl-ignored", _prose_decl)
+
+    # ... nor inside a multi-line STRING LITERAL (the scanner counted this one until the literal's content
+    # was blanked; the live population in salt was 0 declarations, measured)
+    def _string_decl():
+        m = FIX_READABLE + '\n/-- A string. -/\ndef s : String := "x\ntheorem ghost : True := trivial\n"\n'
+        r = measure([("r.lean", m)])
+        return (r["decls"] == base["decls"] + 1 and r["theorems"] == base["theorems"],
+                f"decls {base['decls']} -> {r['decls']} (one for `s`), theorems {base['theorems']} -> {r['theorems']}")
+    arm("string-decl-ignored", _string_decl)
+
+    # an attribute and a modifier between the docstring and the keyword keep the role line
+    def _attr_doc():
+        m = FIX_READABLE.replace("/-- The top result, from `mid` and `base`. -/\ntheorem top",
+                                 "/-- The top result, from `mid` and `base`. -/\n@[simp] private theorem top")
+        r = measure([("r.lean", m)])
+        return (r["theorems"] == base["theorems"] and r["role_lines"] == 1.0,
+                f"theorems {r['theorems']} role {r['role_lines']}")
+    arm("attr-modifier-doc-attached", _attr_doc)
+
+    # an `example` is a declaration but not a theorem: role lines unmoved
+    def _example():
+        r = measure([("r.lean", FIX_READABLE + "\nexample : sq 2 = 4 := rfl\n")])
+        return (r["decls"] == base["decls"] + 1 and r["theorems"] == base["theorems"]
+                and r["role_lines"] == base["role_lines"],
+                f"decls {r['decls']} theorems {r['theorems']} role {r['role_lines']}")
+    arm("example-not-a-theorem", _example)
+
+    # two-digit literals are not numerals (the >= 3-digit threshold)
+    def _two_digit():
+        r = measure([("r.lean", FIX_READABLE + "\n/-- Small. -/\ndef small : Nat := 12 + 99\n")])
+        return (r["numeral_density"] == base["numeral_density"] == 0.0,
+                f"{base['numeral_density']} -> {r['numeral_density']}")
+    arm("two-digit-not-a-numeral", _two_digit)
+
+    # fan-out counts DISTINCT references: `mid` twice and `sq` thrice is 2; the expected mean is derived
+    def _fanout_distinct():
+        m = FIX_READABLE + ("\n/-- Twice. -/\ntheorem twice (a : Nat) : sq a ≤ sq (a + 1) :=\n"
+                            "  Nat.le_trans (mid a) (Nat.le_trans (mid a) (Nat.le_of_eq (congrArg sq rfl)))\n")
+        r = measure([("r.lean", m)])
+        n = base["decls"]
+        expected = round((base["fanout_mean"] * n + 2) / (n + 1), 3)
+        return r["fanout_mean"] == expected, f"mean {r['fanout_mean']} expected {expected}"
+    arm("fanout-distinct", _fanout_distinct)
+
+    # a reference cycle terminates with a finite depth
+    def _cycle():
+        r = measure([("c.lean", "theorem a1 : True := a2\ntheorem a2 : True := a1\n")])
+        return r["depth"] >= 1, f"depth {r['depth']}"
+    arm("cycle-terminates", _cycle)
+
+    # a declaration's own name in its body is not a fan-out edge
+    def _self_ref():
+        r = measure([("d.lean", "def f : Nat → Nat\n  | 0 => 0\n  | n + 1 => f n\n")])
+        return r["fanout_max"] == 0, f"fanout_max {r['fanout_max']}"
+    arm("self-ref-not-an-edge", _self_ref)
+
+    # a tactic name in a `--` line comment is not a hidden step
+    def _line_comment():
+        m = FIX_READABLE.replace("theorem top (a : Nat) : sq a ≤ sq (a + 2) :=",
+                                 "theorem top (a : Nat) : sq a ≤ sq (a + 2) := -- no simp, no decide here")
+        r = measure([("r.lean", m)])
+        return (r["automation"] == base["automation"] and r["kernel_comp"] == base["kernel_comp"],
+                f"automation {base['automation']} -> {r['automation']}")
+    arm("line-comment-tactic-ignored", _line_comment)
 
     print(f"selftest: {len(fails)} FAIL")
     return 1 if fails else 0
