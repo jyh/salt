@@ -15,11 +15,16 @@ project (explicit estimates at every step) and is out of scope.
 **What already exists, and what this plan may claim** (field survey 2026-10-16, as far as it reaches;
 never an absolute). Vinogradov's theorem is already proved in Lean *conditional on Siegel–Walfisz*
 (Prove2Me's `ThreePrimes`). Ternary Goldbach for all odd n ≥ 7 is stated sorry-free in Lean over a
-trust boundary of named atoms (`gersh/ternary-goldbach-lean`, Apache-2.0). So this plan never claims
-a "first formal Vinogradov" or a "first formal ternary Goldbach". Two things were open as of that
-survey. (a) A Lean Vinogradov that is **unconditional**: this corpus proves Siegel–Walfisz
-(`Salt.SW.siegelWalfisz_holds`), so the theorem of §5 would carry no hypothesis. (b) **A proof written
-for human readers**, which is the deliverable.
+trust boundary of named atoms (`gersh/ternary-goldbach-lean`, Apache-2.0). Siegel–Walfisz itself is
+proved in public Lean as well (`kimihiro64/bombieri-vinogradov`, Apache-2.0, in a character form), so
+an unconditional Lean Vinogradov was one join away for anyone, and a join may exist where a search
+does not reach. **This plan therefore makes no priority claim of any kind**, not even "first
+unconditional". What it says, and what its theorem checks, is a fact about this repository: the
+theorem of §5 takes no hypothesis, and Siegel–Walfisz enters it as a theorem proved here
+(`Salt.SW.siegelWalfisz_holds`). The deliverable is **a proof written for human readers**.
+*(This paragraph read "two things were open as of that survey … (a) a Lean Vinogradov that is
+unconditional" until 2026-10-16 22:2x. The survey's own author corrected it on finding the public
+Siegel–Walfisz.)*
 
 ---
 
