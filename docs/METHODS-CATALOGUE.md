@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `265df06d` · source digest `054be911999dd962` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `a7792fe9` · source digest `ffe17f14789f5e4e` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23033 · with a proof/definition body: 23033 · direct corpus references (edges): 86568 · audited results: 9013 · corpus Prop-valued names: 676.
+Declarations indexed: 23097 · with a proof/definition body: 23097 · direct corpus references (edges): 86730 · audited results: 9013 · corpus Prop-valued names: 676.
 
 ## Hypothesis status (Deliverable A)
 
@@ -977,7 +977,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1482 | 612 | 4 | 19 | 0 | 2117 | 1485 |
 | zero-density / zero-free regions | 724 | 292 | 1019 | 641 | 2 | 20 | 0 | 1682 | 1429 |
 | character sums / L-functions | 4277 | 2153 | 1810 | 745 | 81 | 99 | 0 | 2735 | 883 |
-| exponential sums | 577 | 223 | 798 | 519 | 31 | 33 | 0 | 1381 | 1196 |
+| exponential sums | 586 | 223 | 798 | 519 | 31 | 33 | 0 | 1381 | 1196 |
 | Mertens / PNT-type | 253 | 67 | 882 | 701 | 4 | 16 | 0 | 1603 | 1546 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 668 | 658 | 1 | 5 | 0 | 1332 | 1332 |
@@ -1165,7 +1165,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | entropy decrement | 604 | 525 | 1389 |
 | character sums / L-functions | 883 | 2153 | 4277 |
 | circle method / Fourier | 1070 | 83 | 181 |
-| exponential sums | 1196 | 223 | 577 |
+| exponential sums | 1196 | 223 | 586 |
 | large sieve | 1212 | 18 | 136 |
 | explog/lognum numeral tactic | 1332 | 0 | 53 |
 | zero-density / zero-free regions | 1429 | 292 | 724 |
