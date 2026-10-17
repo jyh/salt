@@ -12,19 +12,16 @@ theorem, whose constant comes from Siegel's theorem and cannot be computed. Noth
 Helfgott's N₀ = 10²⁷ or the full ternary Goldbach conjecture; that is a different, much larger
 project (explicit estimates at every step) and is out of scope.
 
-**What already exists, and what this plan may claim** (field survey 2026-10-16, as far as it reaches;
-never an absolute). Vinogradov's theorem is already proved in Lean *conditional on Siegel–Walfisz*
-(Prove2Me's `ThreePrimes`). Ternary Goldbach for all odd n ≥ 7 is stated sorry-free in Lean over a
-trust boundary of named atoms (`gersh/ternary-goldbach-lean`, Apache-2.0). Siegel–Walfisz itself is
-proved in public Lean as well (`kimihiro64/bombieri-vinogradov`, Apache-2.0, in a character form), so
-an unconditional Lean Vinogradov was one join away for anyone, and a join may exist where a search
-does not reach. **This plan therefore makes no priority claim of any kind**, not even "first
-unconditional". What it says, and what its theorem checks, is a fact about this repository: the
-theorem of §5 takes no hypothesis, and Siegel–Walfisz enters it as a theorem proved here
-(`Salt.SW.siegelWalfisz_holds`). The deliverable is **a proof written for human readers**.
-*(This paragraph read "two things were open as of that survey … (a) a Lean Vinogradov that is
-unconditional" until 2026-10-16 22:2x. The survey's own author corrected it on finding the public
-Siegel–Walfisz.)*
+**What already exists, and what this plan may claim.** Context, as of 2026-10-16 and only as far as
+our survey reaches: Prove2Me's `ThreePrimes` proves the theorem conditional on Siegel–Walfisz;
+`kimihiro64/bombieri-vinogradov` proves a Siegel–Walfisz theorem; we found no public development that
+joins the two. `gersh/ternary-goldbach-lean` proves the stronger statement for every odd n ≥ 7 under a
+stated trust boundary of 93 named computational and source atoms. **We make no priority claim.** What
+this plan says, and what its theorem checks, is a fact about this repository: the theorem of §5 takes
+no hypothesis, and Siegel–Walfisz enters it as a theorem proved here (`Salt.SW.siegelWalfisz_holds`).
+The deliverable is a proof written for human readers.
+*(Until 2026-10-16 22:2x this paragraph listed "a Lean Vinogradov that is unconditional" as open as
+of the survey. The survey's author withdrew that on finding the public Siegel–Walfisz.)*
 
 ---
 
