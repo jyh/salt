@@ -15,14 +15,20 @@ The proof counts representations `N = n₁ + n₂ + n₃` with the weight `Λ(n�
 
   `R(N) = Σ_{n₁ + n₂ + n₃ = N} Λ(n₁) Λ(n₂) Λ(n₃)`.
 
+* **Why `Λ` and not the primes themselves.** The tools speak `Λ`. Siegel–Walfisz, which the major
+  arcs use, is a statement about `ψ(x; q, a) = Σ_{n ≤ x, n ≡ a} Λ(n)`. Vaughan's identity, which the
+  minor-arc estimate rests on, splits `Λ = μ ∗ log` into bilinear pieces, and weight `1` on the
+  primes has no such identity. The price is the conversion back to primes below.
 * **Counting becomes an integral.** Expanding `S(α)³` and integrating against `e(−Nα)`,
   orthogonality keeps exactly the triples summing to `N`, so `R(N) = ∫₀¹ S(α)³ e(−Nα) dα`. This is
   the identity the whole proof evaluates. It is the same computation as the singular integral's
   count, with the weights `Λ` in place of `1`.
 * **The weights cost little, and they convert back to primes.** A triple of primes carries weight
   `log p₁ · log p₂ · log p₃ ≤ (log N)³`. Every other triple with nonzero weight has a proper prime
-  power `p^k` (`k ≥ 2`) in some slot. Those powers weigh `ψ(N) − θ(N) ≤ 2√N log N` in total, and the
-  other two slots weigh at most a constant times `N (log N)²`. So
+  power `p^k` (`k ≥ 2`) in some slot. Those powers weigh `ψ(N) − θ(N) ≤ 2√N log N` in total. Of the
+  other two slots, one sums to `ψ(N) ≤ (log 4 + 4) N` and the other is fixed by `N`, with weight at
+  most `log N`. That is a constant times `N^{3/2} (log N)²`, and since `log N ≥ 1/2` it is at most
+  twice that times `log N`. So
 
     `R(N) ≤ (log N)³ · r(N) + C N^{3/2} (log N)³`,
 
