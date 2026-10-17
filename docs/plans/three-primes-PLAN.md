@@ -332,7 +332,7 @@ existed. Each module opens with the paragraph of §2 it proves.
 | `MajorArc` | L7–L8, Step 3 | `|S(a/q + β) − (μ(q)/φ(q)) v(β)| ≤ K N/(log N)^A`, for **every** `A` (the assembly uses `A = 34 > 3B`) |
 | `SingularIntegral` | L9–L10, Step 4a | `∫₀¹ v³ e(−N·) = C(N − 1, 2)`; truncating to `|β| ≤ δ = P/N` costs `≤ 1/(4δ²)` |
 | `SingularSeries` | L11–L13, Step 5 | absolute convergence, the Euler product, `0` for even `N`, `≥ c₀ > 0` for odd `N` |
-| `MinorArc` | L14–L19, Step 6 | `|S(α)| ≤ 1000 (N/√q + N^{7/8} + √(Nq)) (log N)³` whenever `|α − a/q| ≤ 1/q²`, `gcd(a, q) = 1` |
+| `MinorArc` | L14–L19, Step 6 | `|S(α)| ≤ K (N/√q + N^{7/8} + √(Nq)) (log N)³` for one `K` (the proof takes `K = 1000`) whenever `|α − a/q| ≤ 1/q²`, `gcd(a, q) = 1` |
 | `Assembly` | L20–L21, Steps 7–8 | the window, the split, both arcs' contributions, and `three_primes` |
 
 **Three places where the Lean departs from the text of §2, and why none changes the argument.**
