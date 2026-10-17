@@ -47,12 +47,13 @@ even number is a sum of two primes, but that is a different argument.)
 
 ## 2. The skeleton
 
-Fix N odd and large, and a parameter P = (log N)^B, with B chosen at the end (B = 2A + 10 suffices
-for an error of N²(log N)^{−A}).
+Fix N odd and large, and a parameter P = (log N)^B, with B chosen at the end, in Step 7. With the
+textbook minor-arc bound, which carries (log N)⁴, B = 2A + 10 gives an error of N²(log N)^{−A}. The
+corpus's own bound carries a different power of log, and B is re-derived from it (§4, L19).
 
 **Step 0. From primes to Λ, and back.** Let r(N) = #{(p₁,p₂,p₃) : p₁+p₂+p₃ = N}. Then
 
-  R(N) ≤ (log N)³ r(N) + O(N^{3/2} (log N)³),
+  R(N) ≤ (log N)³ r(N) + O(N^{3/2} (log N)²),
 
 because of the proper prime powers p^k ≤ N (k ≥ 2). There are O(N^{1/2}) of them, with total Λ-weight
 O(N^{1/2}). For fixed n₁, the other two slots weigh Σ_{n₂+n₃ = N−n₁} Λ(n₂)Λ(n₃) ≤ N (log N)². So each
@@ -79,17 +80,23 @@ Siegel–Walfisz caps P at a power of log N, and Step 7 then fixes the power B.*
 
 **Step 3. Major arcs: S near a/q.** For α = a/q + β ∈ 𝔐(q, a),
 
-  S(α) = (μ(q)/φ(q)) · v(β) + O(P² N exp(−c√log N)),  where v(β) = Σ_{n ≤ N} e(nβ).
+  S(α) = (μ(q)/φ(q)) · v(β) + O(N (log N)^{−C})  for every fixed C,  where v(β) = Σ_{n ≤ N} e(nβ).
 
 The proof has three moves.
  (3a) Split n ≤ N by its residue r mod q. Terms with (r, q) > 1 are prime powers of primes dividing
  q, and contribute O((log N)²).
- (3b) For (r, q) = 1, Siegel–Walfisz gives ψ(x; q, r) = x/φ(q) + O(x exp(−c√log x)) uniformly for
- q ≤ P. Summing e(ar/q) over the reduced residues gives the Ramanujan sum c_q(a) = μ(q).
+ (3b) For (r, q) = 1, Siegel–Walfisz gives ψ(t; q, r) = t/φ(q) + O(t (log t)^{−D}) for every D,
+ uniformly for q ≤ (log t)^{C′}. (This is the form the corpus proves. The classical saving
+ exp(−c√log t) is stronger and not needed.) Summing e(ar/q) over the reduced residues gives the
+ Ramanujan sum c_q(a) = μ(q).
+ **The uniformity is in t, not N, and Abel summation needs every t ≤ N.** Split at t = N^{1/2}. For
+ t ≤ N^{1/2}, bound trivially: the contribution is O(N^{1/2} log N). For t > N^{1/2}, log t ≥ ½ log N,
+ so q ≤ P = (log N)^B ≤ (log t)^{2B} once N is large, and Siegel–Walfisz with C′ = 2B applies.
  (3c) Abel summation moves the twist e(nβ) onto the smooth main term. Its cost is the twist's total
- variation, 1 + |β|N ≤ 1 + P. Summed over the φ(q) ≤ P classes, the error is O(P² N exp(−c√log N)):
- any fixed power of log N, times exp(−c√log N), is still O(N (log N)^{−C}) for every C. That is why
- the error may grow with |β|N, and why it may grow only polynomially in P.
+ variation, 2π|β|N ≤ 2πP, plus 1. Summed over the φ(q) ≤ P classes, the error is
+ O(P² · N (log N)^{−D}). Since D is ours to choose, take D = C + 2B, which leaves O(N (log N)^{−C}).
+ That is why the error may grow with |β|N: Siegel–Walfisz saves every power of log N, so any
+ polynomial in P is paid for. It is also why it may grow only polynomially in P.
 *Role: the only place primes in arithmetic progressions are used, and the only source of
 ineffectivity.*
 
@@ -99,9 +106,9 @@ ineffectivity.*
 
 where 𝔖(N, P) = Σ_{q ≤ P} (μ(q)/φ(q)³) c_q(N), and J(N, P) = ∫_{|β| ≤ P/N} v(β)³ e(−Nβ) dβ.
 Two pieces of bookkeeping. **The error:** on 𝔐(q, a) write S = M + E, with M = (μ(q)/φ(q)) v(β) and
-|E| ≤ E₀ = O(P² N exp(−c√log N)). Since |S|, |M| ≤ N log N, |S³ − M³| ≪ E₀ (N log N)². The total measure
-of 𝔐 is at most P² · 2P/N, so the error integrates to O(N² P⁵ (log N)² exp(−c√log N)) =
-O(N² (log N)^{−A}). **The main term:** integrating M³ e(−Nα) over 𝔐(q, a) gives
+|E| ≤ E₀ = O(N (log N)^{−C}). Since |S| ≤ ψ(N) ≪ N and |M| ≤ N, |S³ − M³| ≪ E₀ N². The total measure
+of 𝔐 is at most P² · 2P/N, so the error integrates to O(N² P³ (log N)^{−C}) = O(N² (log N)^{−A}) with
+C = A + 3B. **The main term:** integrating M³ e(−Nα) over 𝔐(q, a) gives
 (μ(q)/φ(q))³ e(−Na/q) · ∫_{|β| ≤ P/N} v(β)³ e(−Nβ) dβ. Since μ(q)³ = μ(q), and
 Σ_{(a,q)=1} e(−Na/q) = c_q(N) (the Ramanujan sum, which is real and even in N), summing over a and q
 gives 𝔖(N, P) J(N, P).
@@ -113,14 +120,20 @@ Completing both:
  |𝔖(N, P)| = O(1) times (4a)'s tail costs O(N²/P²). Both are O(N² (log N)^{−A}) for B as in Step 7.
 *Role: the main term, N²/2 times the arithmetic density 𝔖(N).*
 
-**Step 5. The singular series is positive for odd N.** c_q(N) and μ(q)/φ(q)³ are multiplicative in
-q, so
+**Step 5. The singular series is positive for odd N.** The series converges absolutely, since its
+terms are bounded by μ²(q)/φ(q)², and Σ_q μ²(q)/φ(q)² < ∞ (the same bound as 4b). Its terms
+c_q(N) · μ(q)/φ(q)³ are multiplicative in q and vanish unless q is squarefree. So it is an Euler
+product with one factor 1 + μ(p) c_p(N)/φ(p)³ per prime, where c_p(N) = p − 1 if p | N and −1
+otherwise:
 
   𝔖(N) = Π_{p | N} (1 − 1/(p−1)²) · Π_{p ∤ N} (1 + 1/(p−1)³).
 
 At p = 2 the first kind of factor is 0, so 𝔖(N) = 0 for even N. That is the parity obstruction:
 three odd primes have an odd sum. For odd N the p = 2 factor is 2. Every factor with p ≥ 3 lies in
 [3/4, 9/8], and Π_{p ≥ 3}(1 − 1/(p−1)²) converges, so 𝔖(N) ≥ c₀ > 0 with c₀ independent of N.
+For even N the conclusion is right, not merely an artefact: three primes summing to an even N must
+include 2, so r(N) ≤ #{p + p′ = N − 2} ≪ N/(log N)², far below the N²/(log N)³ the theorem asserts
+for odd N.
 *Role: the only place oddness is used.*
 
 **Step 6. Minor arcs: Vinogradov's estimate.** For every α ∈ 𝔪,
@@ -142,11 +155,29 @@ three odd primes have an odd sum. For odd N the p = 2 factor is 2. Every factor 
  (6c) Type I: each inner sum is geometric, bounded by min(N/m, 1/(2‖mα‖)) (L9). The **reciprocal-sum
  lemma** Σ_{m ≤ M} min(X/m, 1/‖mα‖) ≪ (X/q + M + q) log(2qX), valid when |α − a/q| ≤ 1/q², finishes it.
  (6d) Type II: split m into dyadic blocks m ~ M. Apply Cauchy–Schwarz in m, using Σ_{m ~ M} τ(m)² ≪
- M (log M)³; this is where three of the four logs come from. Expanding the square gives
+ M (log M)³. Expanding the square gives
  Σ_{k, k′} Λ(k)Λ(k′) Σ_m e(m(k − k′)α), where m runs over an interval because of the coupling, so the
  inner sum is still geometric. That leaves a **variant** of the lemma, with a constant first argument:
  Σ_{h ≤ H} min(X, 1/‖hα‖) ≪ (H/q + 1)(X + q log q).
  (6e) Together: S(α) ≪ (N q^{−1/2} + N^{4/5} + N^{1/2} q^{1/2}) (log N)⁴. Insert P < q ≤ N/P.
+ **Where the four logs come from**, all in the type II piece and all under the Cauchy–Schwarz square
+ root: τ² contributes (log)^{3/2}; Λ(k)Λ(k′) ≤ (log N)² contributes 1; the variant lemma's q log q
+ contributes ½; and the dyadic split into ≈ log N blocks contributes 1. The corpus's bound (`vinoBd`)
+ does its own accounting, and that is the power B is set from.
+
+**The idea of Step 6, which the moves above implement.** Why should S(α) be small when α is far
+from every fraction with a small denominator? Because the primes have no structure that correlates
+with e(nα) there, but that has to be made quantitative, and Λ alone gives no handle. Vaughan's
+identity supplies one: it rewrites the sum as bilinear forms Σ_m Σ_k a_m b_k e(mkα), with nothing
+known about the coefficients except their size. A bilinear form whose two ranges are both long
+cannot correlate with the phase. After Cauchy–Schwarz in m, what remains is Σ_m e(m(k − k′)α) for
+each pair k, k′: a geometric series, small unless (k − k′)α is close to an integer. When α is close
+to a/q with q large, few differences h = k − k′ have hα close to an integer, about one in q, plus
+boundary effects. That is the saving. The square root from Cauchy–Schwarz halves it, which is why
+the bound gains q^{−1/2} and not q^{−1}. The type I pieces are easier: one variable is smooth, the
+inner sum is geometric at once, and the saving is the full 1/q. The other two terms mark the method's
+edges: N^{4/5} is the longest type I range (t ≤ UV), and N^{1/2}q^{1/2} takes over when q is so large
+that α is close to no fraction at all.
 *Role: the heart of the proof. It is the one estimate that is not "primes in progressions". It holds
 equally for two primes. What fails there is Step 7, not this.*
 
@@ -155,7 +186,8 @@ equally for two primes. What fails there is Step 7, not this.*
   |∫_𝔪 S(α)³ e(−Nα) dα| ≤ sup_𝔪 |S| · ∫₀¹ |S(α)|² dα = sup_𝔪 |S| · Σ_{n ≤ N} Λ(n)²
                         ≪ N (log N)⁴ P^{−1/2} · N log N.
 
-With P = (log N)^B and B ≥ 2A + 10, this is O(N² (log N)^{−A}).
+With P = (log N)^B and B ≥ 2A + 10, this is O(N² (log N)^{−A}). In general, if the minor-arc bound
+carries (log N)^c, the condition is B ≥ 2A + 2c + 2. With the textbook c = 4 that is 2A + 10.
 *Role: Parseval turns a pointwise bound into an integral bound, at the cost of one factor log N.
 This is why the minor-arc saving must beat a power of log N, not merely be o(N). It is also the step
 with no two-prime version: it needs a third copy of S to take the supremum of (§1).*
@@ -210,7 +242,7 @@ would call hard.** The minor arcs are essentially done. The major arcs are not s
 | L15 Vaughan | **have** ★ | `Salt.LS.vaughan`, `Salt/LS/Vaughan.lean:91`; `Salt.MR.vaughan_expSum` | exact identity, and its exponential-sum form |
 | L16–L18 type I/II | **have** | `typeI_bound`, `typeII_block_bound`, `typeII_dyadic_bound` (`Salt/MR/MinorArcCore.lean`) | explicit constants |
 | L19 Vinogradov | **have**, in a different shape ★ | `Salt.MR.lambdaPhase_le` → `vinoBd`, `Salt/MR/MinorArcExit.lean:706`, `:661` | U = V = W with W² ≤ x, a dyadic count K. It must be **specialised** to N P^{−1/2}(log N)^c on P < q ≤ N/P. The log power c comes out of `vinoBd`, not the textbook's 4, and B is re-derived from it |
-| L5 Ramanujan sums | **absent** | (only c_{p^e}(a) = 0, e ≥ 2, inside `Salt/Weil/GcdBranch.lean`) | new: c_q(a) = μ(q) for (a, q) = 1; multiplicativity; \|c_q(N)\| ≤ (q, N) |
+| L5 Ramanujan sums | **absent** | (only c_{p^e}(a) = 0, e ≥ 2, inside `Salt/Weil/GcdBranch.lean`) | new: c_q(a) = μ(q) for (a, q) = 1; multiplicativity; the trivial \|c_q(N)\| ≤ φ(q), which is the only bound 4b uses |
 | L8 major-arc approximation | **absent** | — | **the single biggest piece**: residue split, SW per class, Ramanujan sum, Abel summation in β |
 | L10 singular integral | **absent** | — | elementary: a count, plus the tail from L9 |
 | L11–L13 𝔖(N) | **absent** | — | the corpus's 𝔖 is the twin/binary one (`twinSingularSeries`); new: convergence, Euler product, positivity for odd N |
