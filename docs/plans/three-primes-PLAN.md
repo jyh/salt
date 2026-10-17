@@ -94,7 +94,8 @@ The proof has three moves.
  so q ≤ P = (log N)^B ≤ (log t)^{2B} once N is large, and Siegel–Walfisz with C′ = 2B applies.
  (3c) Abel summation moves the twist e(nβ) onto the smooth main term. Its cost is the twist's total
  variation, 2π|β|N ≤ 2πP, plus 1. Summed over the φ(q) ≤ P classes, the error is
- O(P² · N (log N)^{−D}). Since D is ours to choose, take D = C + 2B, which leaves O(N (log N)^{−C}).
+ O(P² · N (log N)^{−D}). (Abel summation produces (1/φ(q))∫₀^N e(tβ) dt rather than v(β)/φ(q); the
+ swap costs O(1 + P) per class and is absorbed.) Since D is ours to choose, take D = C + 2B, which leaves O(N (log N)^{−C}).
  That is why the error may grow with |β|N: Siegel–Walfisz saves every power of log N, so any
  polynomial in P is paid for. It is also why it may grow only polynomially in P.
 *Role: the only place primes in arithmetic progressions are used, and the only source of
@@ -132,7 +133,8 @@ At p = 2 the first kind of factor is 0, so 𝔖(N) = 0 for even N. That is the p
 three odd primes have an odd sum. For odd N the p = 2 factor is 2. Every factor with p ≥ 3 lies in
 [3/4, 9/8], and Π_{p ≥ 3}(1 − 1/(p−1)²) converges, so 𝔖(N) ≥ c₀ > 0 with c₀ independent of N.
 For even N the conclusion is right, not merely an artefact: three primes summing to an even N must
-include 2, so r(N) ≤ #{p + p′ = N − 2} ≪ N/(log N)², far below the N²/(log N)³ the theorem asserts
+include 2 (once, or three times if N = 6), so r(N) ≤ 3·#{(p, p′) : p + p′ = N − 2} + 1
+≪ N log log N/(log N)², by the upper-bound sieve. That is far below the N²/(log N)³ the theorem asserts
 for odd N.
 *Role: the only place oddness is used.*
 
@@ -169,15 +171,19 @@ for odd N.
 from every fraction with a small denominator? Because the primes have no structure that correlates
 with e(nα) there, but that has to be made quantitative, and Λ alone gives no handle. Vaughan's
 identity supplies one: it rewrites the sum as bilinear forms Σ_m Σ_k a_m b_k e(mkα), with nothing
-known about the coefficients except their size. A bilinear form whose two ranges are both long
-cannot correlate with the phase. After Cauchy–Schwarz in m, what remains is Σ_m e(m(k − k′)α) for
+known about the type II coefficients except their size. A bilinear form whose two ranges are both
+long cannot correlate with e(mkα) when α is near no fraction of small denominator. That is the
+heuristic; the lemmas make it quantitative. After Cauchy–Schwarz in m, what remains is Σ_m e(m(k − k′)α) for
 each pair k, k′: a geometric series, small unless (k − k′)α is close to an integer. When α is close
-to a/q with q large, few differences h = k − k′ have hα close to an integer, about one in q, plus
-boundary effects. That is the saving. The square root from Cauchy–Schwarz halves it, which is why
+to a/q with q large, in each run of q consecutive differences h = k − k′ about one has hα within
+1/q of an integer and contributes the full X; the rest contribute about q log q in all (the harmonic
+tail). Hence (H/q + 1)(X + q log q), and that is the saving. The square root from Cauchy–Schwarz halves it, which is why
 the bound gains q^{−1/2} and not q^{−1}. The type I pieces are easier: one variable is smooth, the
-inner sum is geometric at once, and the saving is the full 1/q. The other two terms mark the method's
-edges: N^{4/5} is the longest type I range (t ≤ UV), and N^{1/2}q^{1/2} takes over when q is so large
-that α is close to no fraction at all.
+inner sum is geometric at once, and its leading term saves the full 1/q. The other two terms mark the
+method's edges. N^{4/5} is where the type I range UV meets the type II losses N/√U and N/√V; U = V =
+N^{2/5} balances them. N^{1/2}q^{1/2} comes from the q log q tail of the lemmas. It dominates N q^{−1/2}
+once q > N^{1/2}, when the denominator is too large for the "one in q" count to save anything, and the
+restriction q ≤ N/P is what keeps it ≤ N P^{−1/2}.
 *Role: the heart of the proof. It is the one estimate that is not "primes in progressions". It holds
 equally for two primes. What fails there is Step 7, not this.*
 
