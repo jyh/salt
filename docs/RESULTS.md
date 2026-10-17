@@ -74,6 +74,13 @@ authority on the method's record. [METHODS.md](METHODS.md), [OPERATIONS.md](OPER
 | `Salt.Chen.chen_headline` | **Chen's theorem**, unconditional: infinitely many primes `p` with `p+2` prime or a product of two primes. | Salt/Chen/ChenTheorem.lean:32 | 2026-07-15 | `9306e04` | 3 (Salt/Chen/All.lean:193) |
 | `Salt.Goldbach.chen_goldbach` | **Chen's second theorem**, unconditional: every sufficiently large even `N` is `p + q` with `p` prime and `q` a `P₂`. | Salt/Goldbach/ChenGoldbach.lean:41 | 2026-07-16 | `d68c855` | 3 (Salt/Goldbach/All.lean:86) |
 | `Salt.Chen.no_readable_certificate` | Any certificate reading only the four carrier-row values `(a₁,a₂,a₃,s)` certifies nothing: its guaranteed twin mass is `≤ 0`. | Salt/Chen/WeightNoGo.lean:82 | 2026-07-16 | `db882a7` | 3 (Salt/Chen/All.lean:193) |
+| `Salt.ThreePrimes.three_primes` | **Vinogradov's three-primes theorem** in Lean 4: every sufficiently large odd number is a sum of three primes. The full sentence, its context and its check are below this table. | Salt/ThreePrimes/Assembly.lean:728 | 2026-10-16 | `ffd517c` | 3 (two `#print axioms` receipts; no ledger yet, see below) |
+
+**`Salt.ThreePrimes.three_primes` (campaign O82).** `Salt.ThreePrimes.three_primes` proves Vinogradov's three-primes theorem in Lean 4: every sufficiently large odd number is a sum of three primes. It takes no hypothesis, and its axioms are Lean's three foundations (`propext`, `Classical.choice`, `Quot.sound`). Siegel–Walfisz enters as a theorem proved in this repository (`Salt.SW.siegelWalfisz_holds`). The threshold N₀ is ineffective, as in Vinogradov's proof.
+
+Context, as of 2026-10-16 and only as far as our survey reaches: Prove2Me's `ThreePrimes` proves the theorem conditional on Siegel–Walfisz; `kimihiro64/bombieri-vinogradov` proves a Siegel–Walfisz theorem; we found no public development that joins the two. `gersh/ternary-goldbach-lean` proves the stronger statement for every odd n ≥ 7 under a stated trust boundary of 93 named computational and source atoms. We make no priority claim.
+
+Check: the build is Lean Action CI run [39014263528](https://github.com/jyh/salt/actions/runs/39014263528) on head `0ed8aa6c`, merged to main as `f0541d5d` (2026-10-17); the workflow is [`.github/workflows/lean_action_ci.yml`](../.github/workflows/lean_action_ci.yml). CI does not print axioms: the axiom list rests on two `#print axioms` receipts, the author's at `7776da5c` and a non-author reader's at `f868c237` (its Lean is byte-identical to `0ed8aa6c`), each with a planted `sorry` control that printed `sorryAx`. No `#audit_axioms` ledger for `Salt/ThreePrimes` exists yet.
 
 ## 3. SW / BV / bounded gaps
 
