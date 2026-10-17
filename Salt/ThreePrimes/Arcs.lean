@@ -22,8 +22,10 @@ wrapping around `0`, and every other arc sits inside it too once `N > 2P²`.
   integral be computed one arc at a time, each with its own approximation.
 * **Off the arcs, `S` is small.** For `α` in the window and on no arc, Dirichlet's theorem with
   `Q = ⌊N/P⌋` gives a fraction `a/q` in lowest terms, `q ≤ Q`, with `|α − a/q| ≤ 1/(q(Q + 1))`. That
-  is within `δ` of `a/q`, and `1 ≤ a ≤ q` because `α` lies in the window. So if `q ≤ P`, then `α` is
-  on the arc at `a/q`, which it is not. Hence `P < q ≤ N/P`, and also `|α − a/q| ≤ 1/q²`.
+  is within `δ` of `a/q`. Suppose `q ≤ P`. Then `1 ≤ a ≤ q`: `a/q` is within `δ` of `α > δ`, so
+  `a ≥ 1`; and `a > q` would give `a/q ≥ 1 + 1/q ≥ 1 + 1/P > 1 + 2δ` (as `N > 2P²`), too far above
+  `α ≤ 1 + δ`. So `α` is on the arc at `a/q`, which it is not. Hence `P < q ≤ N/P`, and also
+  `|α − a/q| ≤ 1/q²`.
   Vinogradov's estimate (`norm_primeExpSum_le_minor`) then gives `N/√q ≤ N/√P` and `√(Nq) ≤ N/√P`:
 
     `|S(α)| ≤ K (2N/√P + N^{7/8}) (log N)³`.
@@ -57,7 +59,7 @@ theorem one_div_mul_le_abs_sub_div {a q a' q' : ℕ} (hq : 0 < q) (hq' : 0 < q')
   exact div_le_div_of_nonneg_right h1 (mul_pos hqR hq'R).le
 
 /-- **The major arcs are disjoint** once `N > 2P³`: distinct fractions with denominators at most
-`P` are at least `1/P²` apart, more than the arcs' total width `2P/N`. -/
+`P` are at least `1/P²` apart, more than `2P/N`, the two arcs' half-widths added. -/
 theorem majorArc_disjoint {N P : ℕ} (hN : 2 * P ^ 3 < N) {x y : ℕ × ℕ} (hx : x ∈ arcIndex P)
     (hy : y ∈ arcIndex P) (hxy : x ≠ y) :
     Disjoint (majorArc N P x.1 x.2) (majorArc N P y.1 y.2) := by

@@ -36,9 +36,11 @@ the main term needs from it.
   `1 − 1/(p−1)²` if `p ∣ N` and `1 + 1/(p−1)³` if `p ∤ N`.
 * **It vanishes for even `N` and is bounded below for odd `N`.** At `p = 2` the factor is `0` when
   `2 ∣ N`, which is the parity obstruction: three odd primes have an odd sum. When `N` is odd that
-  factor is `2`, and every other factor is at least `1 − 1/(p−1)² ≥ 3/4`. Their product converges,
-  so it is at least a constant `c₀ > 0` that does not depend on `N`. This is the only place in the
-  proof that uses `N` odd.
+  factor is `2`, and every other factor is at least `1 − 1/(p−1)² ≥ 3/4`. That the product
+  converges for each `N` gives a positive value for each `N`, not one bound for all of them. The
+  bound that does not depend on `N` comes from the logarithms: for odd `N`, every factor has
+  `log(factor) ≥ −8/p²` (`neg_le_log_localFactor`), so the product is at least
+  `c₀ = exp(−Σ_p 8/p²) > 0`. This is the only place in the proof that uses `N` odd.
 
 The tail `Σ_{q > P}` that completes the truncated series (plan, Step 4b) is bounded where it is
 used, with the major arcs.
