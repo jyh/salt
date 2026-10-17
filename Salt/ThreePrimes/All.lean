@@ -13,6 +13,6 @@ import Salt.ThreePrimes.MajorArc
 
 Vinogradov's three-primes theorem, written for human readers. The plan, with the proof in prose, is
 `docs/plans/three-primes-PLAN.md`. The modules follow its steps: Ramanujan sums (L5), the singular
-series (L11–L13), the singular integral (L9–L10) and the major-arc approximation (L8). The minor arcs
-and the assembly are still to come.
+series (L11–L13), the singular integral (L9–L10) and the major-arc approximation (L8). The minor
+arcs and the assembly are still to come.
 -/
