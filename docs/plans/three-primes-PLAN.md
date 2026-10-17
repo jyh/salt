@@ -325,7 +325,7 @@ existed. Each module opens with the paragraph of §2 it proves.
 | module | plan | what it proves |
 |---|---|---|
 | `Count` | L1–L3, Steps 0–1 | `R(N) = ∫₀¹ S³ e(−N·)`; `R(N) ≤ (log N)³ r(N) + C N^{3/2} (log N)³`; a large `R(N)` gives three primes |
-| `Arcs` | L4, Step 6a | the arcs are disjoint (`N > 2P³`) and inside the window `(P/N, 1 + P/N]`; off them `|S| ≤ K (2N/√P + N^{7/8}) (log N)³` |
+| `Arcs` | L4, Steps 2 and 6a, with L19 applied off the arcs | the arcs are disjoint (`N > 2P³`) and inside the window `(P/N, 1 + P/N]`; off them `|S| ≤ K (2N/√P + N^{7/8}) (log N)³` |
 | `Ramanujan` | L5 | `c_q(a) = μ(q)` for `gcd(a, q) = 1`; `|c_q| ≤ φ(q)`; `c_p` |
 | `MajorArc` | L7–L8, Step 3 | `|S(a/q + β) − (μ(q)/φ(q)) v(β)| ≤ K N/(log N)^A` |
 | `SingularIntegral` | L9–L10, Step 4a | `∫₀¹ v³ e(−N·) = C(N − 1, 2)`; the truncation costs `≤ 1/(4δ²)` |
@@ -340,9 +340,24 @@ existed. Each module opens with the paragraph of §2 it proves.
 - *Step 0's error is `C N^{3/2} (log N)³`*, one log more than the text, because it uses mathlib's
   `ψ(N) − θ(N) ≤ 2√N log N`. It is still far below `N²`.
 - *Steps 4b and 7 take `P = ⌊(log N)^{10}⌋`, and the singular series' tail is only shown to tend to
-  `0`*, uniformly in `N`, with no rate. The theorem asks only for sufficiently large `N`, so every
-  error needs to be `o(N²)`, not `O(N²(log N)^{−A})`. That removes the need for a lower bound on
-  `φ(q)`.
+  `0`*, uniformly in `N`, with no rate. The theorem asks only for sufficiently large `N`: Step 8 needs
+  `R(N) ≥ (c₀/2 − η) N²` for a small fixed `η`, and then Step 0 does the rest. So every error needs to
+  be `o(N²)` **uniformly in `N`**, not `O(N²(log N)^{−A})` for every `A`. The text's rate in Step 4b,
+  `Σ_{q > P} μ²(q)/φ(q)² ≪ P^{−1+ε}`, needs `φ(q) ≫ q^{1−ε}`. A qualitative limit needs only that
+  `Σ_q μ²(q)/φ(q)²` converges, which follows from the Euler product
+  `Π_p (1 + 1/(p−1)²)`. The bound `μ²(q)/φ(q)²` does not depend on `N`, so the tail tends to `0` as
+  `P → ∞` uniformly in `N`, and times `J(N) ≤ N²` it is `o(N²)`. That is why no lower bound on `φ(q)`
+  is needed.
+
+**How `P = (log N)^{10}` is fixed.** The Lean's minor-arc bound carries `c = 3` logs, not the text's
+`4`. Step 7's integral is then `≪ (2N/√P + N^{7/8})(log N)³ · N log N
+= N²(log N)⁴/√P + N^{15/8}(log N)⁴`. Any `P = (log N)^B` with `B > 8` makes this `o(N²)`. `B = 10`
+gives `N²/log N`, which is the case `A = 1` of Step 7's rule `B ≥ 2A + 2c + 2`. (The floor costs only a
+constant: `√P ≥ (log N)⁵/2` for large `N`.) The same `B = 10` also sets the Siegel–Walfisz range in
+Step 3 (`C′ = 2B = 20`) and the disjointness condition `N > 2P³` of Step 2. The text's
+`O(N²(log N)^{−A})` for every `A`, in Steps 7 and 8, is therefore more than the Lean proves: the Lean
+proves the `o(N²)` that the theorem needs. Step 6e's accounting of four logs is the textbook's. The
+corpus's `vinoBd` makes its own, and that is the `c = 3` used here.
 
 ## 6. Design choices made for the reader
 
