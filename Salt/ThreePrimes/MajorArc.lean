@@ -29,8 +29,8 @@ ineffective constant `N₀`: it rests on Siegel–Walfisz (`Salt.SW.siegelWalfis
    `S(a/q + β) = Σ_{r < q} e(ar/q) T_r(β)`, where `T_r(β)` sums `Λ(n) e(nβ)` over `n ≡ r (mod q)`
    (`primeExpSum_split`).
 2. *Discard the residues that share a factor with `q`.* If `gcd(r, q) > 1`, every `n ≡ r`
-   shares that factor, so `Λ(n) ≠ 0` only for prime powers `p^k` with `p ∣ q`. There are few of those: their
-   total weight is at most `q log N` (`norm_nonCoprime_part_le`).
+   shares that factor, so `Λ(n) ≠ 0` only for prime powers `p^k` with `p ∣ q`. There are few of
+   those: their total weight is at most `q log N` (`norm_nonCoprime_part_le`).
 3. *Each coprime residue carries `v(β)/φ(q)`.* Siegel–Walfisz says `ψ(n; q, r) = n/φ(q) + E(n)` with
    `E` small. The weights `Λ(n)·[n ≡ r]` and the constant weight `1/φ(q)` then have partial sums
    that differ by `E(n)`. Discrete Abel summation turns the twist `e(nβ)` into differences
@@ -45,7 +45,8 @@ ineffective constant `N₀`: it rests on Siegel–Walfisz (`Salt.SW.siegelWalfis
 asking Siegel–Walfisz for a saving `A + 2B + 1` pays for both.
 **Why the uniformity needs care.** Siegel–Walfisz at height `n` covers moduli up to `(log n)^C`, not
 `(log N)^C`. For `n ≤ √N` the trivial bound is already small enough. For `n > √N`,
-`log n ≥ ½ log N`, so `q ≤ (log N)^B ≤ (log n)^{2B}` once `n` is large, and Siegel–Walfisz with `C = 2B` applies.
+`log n ≥ ½ log N`, so `q ≤ (log N)^B ≤ (log n)^{2B}` once `n` is large, and Siegel–Walfisz with
+`C = 2B` applies.
 -/
 
 namespace Salt.ThreePrimes
