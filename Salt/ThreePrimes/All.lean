@@ -11,6 +11,7 @@ import Salt.ThreePrimes.MinorArc
 import Salt.ThreePrimes.Arcs
 import Salt.ThreePrimes.Count
 import Salt.ThreePrimes.Assembly
+import Salt.Tactic.AuditAxioms
 
 /-!
 # Three primes: the aggregate
@@ -21,3 +22,8 @@ series (L11–L13), the singular integral (L9–L10), the major-arc approximatio
 minor-arc estimate (L19), the arcs (L4), counting with weights (L1–L3), and the assembly (L20–L21),
 which proves `three_primes`.
 -/
+
+-- Build-time axiom audit: `three_primes` may depend on `propext`, `Classical.choice` and
+-- `Quot.sound` only. A `sorry` or a new axiom anywhere beneath it fails `lake build` here.
+open Salt.Tactic in
+#audit_axioms Salt.ThreePrimes.three_primes
