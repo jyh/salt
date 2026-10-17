@@ -26,7 +26,8 @@ build; with them, a data change that is not re-pinned is refused at elaboration.
 
 * read: `coefBT` (the coefficients `enc(a, C) ↦ c`, basis order, in the bit-reversal layout of
   `BT.getB`), `WBT` (the 24!-scaled marginal, key order), `p54T`, `p53T` (the coefficients of
-  `GM 13 ^ 54` and `GM 13 ^ 53`), `wsh0`, `wsh1`, `wsh2` (the marginal's terms, four shards each);
+  `GM 13 ^ 54` and `GM 13 ^ 53`), `wsh0`, `wsh1`, `wsh2` (the marginal's terms: `wterms.txt`'s
+  eleven shards in file order, four to a chain link, so 4 · 4 · 3);
 * derived here by `Nat` arithmetic: `factT` (`n!`, `n ≤ 101`), `gT46`, `gT48` (`wt C! / Π c_m!`),
   and the value tables `WItree`, `WJtree` from `factT`, `p54T`, `p53T`.
 
