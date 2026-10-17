@@ -15,7 +15,7 @@ These are lemma L4 and the minor-arc half of Step 6 of the three-primes plan
 Fix `P ≥ 1` and the half-width `δ = P/N`. **The major arc** at a fraction `a/q`, with `q ≤ P`,
 `1 ≤ a ≤ q` and `gcd(a, q) = 1`, is the interval `[a/q − δ, a/q + δ]`. We work on the period window
 `(δ, 1 + δ]` instead of `[0, 1)`. The arc at `1/1` then sits inside the window, at `1`, rather than
-wrapping around `0`, and every other arc sits inside it too once `N ≥ 2P²`.
+wrapping around `0`, and every other arc sits inside it too once `N > 2P²`.
 
 * **The arcs are disjoint** once `N > 2P³`. Two distinct fractions with denominators at most `P`
   differ by at least `1/(qq′) ≥ 1/P²`, which exceeds `2δ = 2P/N`. This is what lets the major-arc

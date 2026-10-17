@@ -22,16 +22,18 @@ parameters equal to `W`, two type I sums, and the type II sum cut into dyadic bl
 
 * **The Vaughan parameter** is `W = ⌊N^{1/4}⌋`, taken as two integer square roots so that `W² ≤ N`
   is a fact about integers. The textbook takes `W = N^{2/5}`, which gives `N^{4/5}` in place of
-  `N^{7/8}`. Either exponent below `1` serves three primes: Step 7 needs only `N^{7/8} ≤ N/√P`, and
-  `P` is a power of `log N`.
+  `N^{7/8}`. Either exponent below `1` serves three primes: Step 7 needs the term `N^{7/8}`, times
+  `(log N)⁴`, to be a small multiple of `N` (`hrp` in `count_lower_of_bounds`), and any power saving
+  beats a fixed power of `log N`.
 * **The dyadic blocks** run up to `W · 2^K` with `2^K` about `N/W²`, so the widest block has width
   about `N/W`. The type II term `√(width · N)` is then about `N/√W = N^{7/8}`: a real power saving.
   A cut taken too high would make that term about `N`, and the bound would say nothing.
 * **Each term of `vinoBd` then sits under one of the three.** The type I outputs `(N/q) log²N`
   and `(W + q) log²N` are at most `N/√q` and `√(Nq)` times logs, once `q ≤ N`. The type II outputs
   are `N/√q`, `N^{7/8}` and `√(Nq)` times `log x`, the `√(log q)` from the reciprocal-sum lemma, and
-  the number of blocks `K ≤ 3 log N`. That makes at most three logs. When `q > N` the trivial bound
-  `|S(α)| ≤ ψ(N) ≤ 2N` is already below `√(Nq) (log N)³` up to the constant.
+  the number of blocks `K ≤ 4 log N`. That makes at most three logs. When `q > N` the trivial bound
+  `|S(α)| ≤ N log N` (`norm_primeExpSum_le_trivial`) is already below `√(Nq) (log N)³` up to the
+  constant, since then `√(Nq) ≥ N`.
 -/
 
 namespace Salt.ThreePrimes

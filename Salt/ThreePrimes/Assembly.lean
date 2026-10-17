@@ -24,7 +24,10 @@ Take `P = ⌊(log N)^{10}⌋` and `δ = P/N`, and write `f(α) = S(α)³ e(−N�
 3. **The minor arcs contribute `o(N²)`.** There `|S| ≤ K (2N/√P + N^{7/8}) (log N)³`, and
    `∫ |S|² ≤ Σ_{n ≤ N} Λ(n)² ≤ C N log N` by Parseval. So the minor integral is at most
    `K C (2N²(log N)⁴/√P + N^{15/8}(log N)⁴)`, and `√P ≈ (log N)⁵` beats `(log N)⁴`
-   (`norm_integral_minorArcs_le`).
+   (`norm_integral_minorArcs_le`). **This is why three primes and not two.** With three copies of
+   `S`, one is bounded pointwise and the other two by Parseval. With two copies there is no spare
+   copy to take the supremum of, and `∫ |S|² ≈ N log N` is larger than the main term, which would
+   be about `N`. Vinogradov's estimate itself holds equally for two primes.
 4. **Each major arc contributes its main term.** On the arc at `a/q`, `S = (μ(q)/φ(q)) v + E`
    with `|E| ≤ K N/(log N)^{34}` (the major-arc approximation, with `B = 10`). The cube's error is
    at most `3|E| (N log N)²`, and the arc has length `2P/N`, so the error is
@@ -36,7 +39,8 @@ Take `P = ⌊(log N)^{10}⌋` and `δ = P/N`, and write `f(α) = S(α)³ e(−N�
 6. **Complete both.** `J_δ = C(N − 1, 2) + O(N²/P²)` (the singular integral), and
    `Σ_{q ≤ P} = 𝔖(N) − (a tail)`. The tail is at most `Σ_{q > P} μ(q)²/φ(q)²`, which tends to `0`
    as `P → ∞`, uniformly in `N` (`tendsto_singular_tail`). **No rate is needed**: the theorem asks
-   only for sufficiently large `N`.
+   only for sufficiently large `N`. The convergence of `Σ_q μ(q)²/φ(q)²` (an Euler product) is all
+   the tail uses, so no lower bound on `φ(q)` is needed.
 7. **For odd `N`, `𝔖(N) ≥ c₀ > 0`,** so `R(N) ≥ (c₀/8) N²` once `N` is large
    (`weightedCount_lower`). Counting with weights cost at most `C N^{3/2}(log N)³`, far less, so
    `N` is a sum of three primes (`three_primes`).
@@ -229,8 +233,8 @@ theorem norm_moebius_div_totient_le (q : ℕ) :
     have hμ : |(moebius q : ℝ)| ≤ 1 := by exact_mod_cast abs_moebius_le_one
     exact hμ.trans hφ
 
-/-- On an arc, the denominator and the offset are within the major-arc approximation's range:
-`log N ≥ 1`, `q ≤ (log N)^{10}` and `P/N ≤ (log N)^{10}/N`. -/
+/-- The arc parameter is at most `(log N)^{10}`. So on an arc the denominator `q ≤ P` and the
+offset `|β| ≤ P/N` are within the major-arc approximation's range, with `B = 10`. -/
 theorem arcParam_le_log_pow (N : ℕ) : (arcParam N : ℝ) ≤ Real.log N ^ 10 :=
   Nat.floor_le (pow_nonneg (Real.log_natCast_nonneg N) _)
 

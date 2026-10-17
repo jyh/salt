@@ -21,7 +21,10 @@ Near a fraction `a/q` with small `q`, the prime exponential sum
 
 uniformly for `q ≤ (log N)^B`, `gcd(a, q) = 1` and `|β| ≤ (log N)^B/N`, for any fixed `A` and `B`.
 This is the only place the proof uses primes in arithmetic progressions, and the only source of the
-ineffective constant `N₀`: it rests on Siegel–Walfisz (`Salt.SW.siegelWalfisz_holds`).
+ineffective constant `N₀`: it rests on Siegel–Walfisz (`Salt.SW.siegelWalfisz_holds`). Its constant
+comes from Siegel's theorem, which bounds how close a real zero of a Dirichlet `L`-function can be
+to `1`. Its proof splits on whether some other `L`-function has such a zero, so it yields no
+constant that can be computed.
 
 **The argument, in four moves.**
 
@@ -42,7 +45,7 @@ ineffective constant `N₀`: it rests on Siegel–Walfisz (`Salt.SW.siegelWalfis
 
 **Why the error may grow with `|β|N` and with `q`.** Siegel–Walfisz saves every power of `log N`
 (`psiAP_error_uniform`), while `|β|N ≤ (log N)^B` and `q ≤ (log N)^B` cost only fixed powers. So
-asking Siegel–Walfisz for a saving `A + 2B + 1` pays for both.
+asking Siegel–Walfisz for a saving `A + 2B` pays for both.
 **Why the uniformity needs care.** Siegel–Walfisz at height `n` covers moduli up to `(log n)^C`, not
 `(log N)^C`. For `n ≤ √N` the trivial bound is already small enough. For `n > √N`,
 `log n ≥ ½ log N`, so `q ≤ (log N)^B ≤ (log n)^{2B}` once `n` is large, and Siegel–Walfisz with
