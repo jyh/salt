@@ -92,8 +92,10 @@ Siegel–Walfisz caps P at a power of log N, and Step 7 then fixes the power B.*
   S(α) = (μ(q)/φ(q)) · v(β) + O(N (log N)^{−C})  for every fixed C,  where v(β) = Σ_{n ≤ N} e(nβ).
 
 The proof has three moves.
- (3a) Split n ≤ N by its residue r mod q. Terms with (r, q) > 1 are prime powers of primes dividing
- q, and contribute O((log N)²).
+ (3a) Split n ≤ N by its residue r mod q: since e(an/q) depends only on n mod q,
+ S(a/q + β) = Σ_{r < q} e(ar/q) T_r(β), where T_r(β) sums Λ(n) e(nβ) over n ≡ r. If (r, q) > 1, every
+ n ≡ r shares a factor with q, so Λ(n) ≠ 0 only for prime powers p^k with p | q. Their total weight is
+ at most Σ_{p | q} log N ≤ q log N, which is negligible.
  (3b) For (r, q) = 1, Siegel–Walfisz gives ψ(t; q, r) = t/φ(q) + O(t (log t)^{−D}) for every D,
  uniformly for q ≤ (log t)^{C′}. (This is the form the corpus proves. The classical saving
  exp(−c√log t) is stronger and not needed.) Summing e(ar/q) over the reduced residues gives the
@@ -101,14 +103,22 @@ The proof has three moves.
  **The uniformity is in t, not N, and Abel summation needs every t ≤ N.** Split at t = N^{1/2}. For
  t ≤ N^{1/2}, bound trivially: the contribution is O(N^{1/2} log N). For t > N^{1/2}, log t ≥ ½ log N,
  so q ≤ P = (log N)^B ≤ (log t)^{2B} once N is large, and Siegel–Walfisz with C′ = 2B applies.
- (3c) Abel summation moves the twist e(nβ) onto the smooth main term. Its cost is the twist's total
- variation, 2π|β|N ≤ 2πP, plus 1. Summed over the φ(q) ≤ P classes, the error is
- O(P² · N (log N)^{−D}). (Abel summation produces (1/φ(q))∫₀^N e(tβ) dt rather than v(β)/φ(q); the
- swap costs O(1 + P) per class and is absorbed.) Since D is ours to choose, take D = C + 2B, which leaves O(N (log N)^{−C}).
+ (3c) **Discrete Abel summation, against the constant weight 1/φ(q).** For a coprime residue r,
+ compare the weights Λ(n)·[n ≡ r] with the constant weight 1/φ(q). Their partial sums up to n are
+ ψ(n; q, r) and n/φ(q), so the partial sums of the difference are exactly the Siegel–Walfisz
+ discrepancy E(n) = ψ(n; q, r) − n/φ(q). Summation by parts writes Σ_{n ≤ N} (difference) · e(nβ) as
+ E(N) e(Nβ) − Σ_{n < N} E(n) (e((n+1)β) − e(nβ)), and each difference of phases has modulus
+ |e(β) − 1| ≤ 2π|β|. So
+   |T_r(β) − v(β)/φ(q)| ≤ max_{n ≤ N} |E(n)| · (1 + 2π|β|N).
+ **The main term is exact**: the constant weight sums to v(β)/φ(q) on the nose, so no integral and
+ no swap appear. Summing e(ar/q) · v(β)/φ(q) over the φ(q) coprime residues gives c_q(a)/φ(q) · v(β)
+ = (μ(q)/φ(q)) v(β). The error, over φ(q) ≤ P classes with |β|N ≤ P, is O(P² · N (log N)^{−D}).
+ Since D is ours to choose, take D = C + 2B, which leaves O(N (log N)^{−C}).
  That is why the error may grow with |β|N: Siegel–Walfisz saves every power of log N, so any
  polynomial in P is paid for. It is also why it may grow only polynomially in P.
 *Role: the only place primes in arithmetic progressions are used, and the only source of
-ineffectivity.*
+ineffectivity. (Lean: `Salt.ThreePrimes.majorArc_approx`, with the moves as `primeExpSum_split`,
+`norm_nonCoprime_part_le`, `norm_residueSum_sub_le` and `psiAP_error_uniform`.)*
 
 **Step 4. Major arcs: the integral.** Cube, integrate over 𝔐, and complete the sums:
 
