@@ -149,7 +149,7 @@ def lean_docstrings(text):
     return re.findall(r"/-[-!](.*?)-/", text, re.S)
 
 
-def lean_mask(text):
+def lean_mask(text, strings=True):
     """Blank out Lean comments (nested /- -/ and --) and string literals, keeping every newline and offset,
     so a declaration is looked up in CODE and never in a comment or a string."""
     out, i, n, depth = [], 0, len(text), 0
@@ -167,19 +167,22 @@ def lean_mask(text):
             j = text.find("\n", i)
             j = n if j < 0 else j
             out.append(" " * (j - i)); i = j; continue
+        if text[i] == "'" and re.match(r"'(?:\\.[^']*|[^\\'])'", text[i:i + 8]):
+            m = re.match(r"'(?:\\.[^']*|[^\\'])'", text[i:i + 8])
+            out.append(m.group(0)); i += len(m.group(0)); continue          # a char literal such as '"' opens no string
         if text[i] == '"':
             j = i + 1
             while j < n and text[j] != '"':
                 j += 2 if text[j] == "\\" else 1
             j = min(j + 1, n)
-            out.append("".join("\n" if c == "\n" else " " for c in text[i:j])); i = j; continue
+            out.append("".join("\n" if c == "\n" else " " for c in text[i:j]) if strings else text[i:j]); i = j; continue
         out.append(text[i]); i += 1
     return "".join(out)
 
 
 DECL_HEAD = re.compile(r"(?m)^[ \t]*(?:@\[[^\]]*\][ \t]*)*(?:private[ \t]+|protected[ \t]+|noncomputable[ \t]+)*"
                        r"(?:theorem|lemma|def|abbrev|structure|class|inductive|instance)[ \t]+([^\s(:{\[]+)")
-NS_LINE = re.compile(r"(?m)^[ \t]*(namespace|section|end)\b[ \t]*([^\s]*)")
+NS_LINE = re.compile(r"(?m)^[ \t]*(namespace|section|mutual|end)\b[ \t]*([^\s]*)")
 
 
 def lean_decls(code):
@@ -193,7 +196,7 @@ def lean_decls(code):
                 if stack:
                     stack.pop()
             else:
-                stack.append(nm if word == "namespace" else "")
+                stack.append(nm if word == "namespace" else "")      # section and mutual: anonymous scopes
         else:
             bare = m.group(1)
             prefix = ".".join(x for x in stack if x)
@@ -228,7 +231,9 @@ def decl_statement(repo, spec):
     path, name = spec.split("::", 1)
     if path not in repo.fileset or not path.endswith(".lean"):
         return "missing", None
-    code = lean_mask(aan.read(repo.root, path))
+    raw = aan.read(repo.root, path)
+    code = lean_mask(raw)                        # for FINDING declarations: no comments, no strings
+    stmt_code = lean_mask(raw, strings=False)    # for HASHING one: a string inside a statement is part of it
     exact = [d for d in lean_decls(code) if d[0] == name]
     hits = exact or [d for d in lean_decls(code) if d[1] == name]
     if not hits:
@@ -236,7 +241,7 @@ def decl_statement(repo, spec):
     if len(hits) > 1:
         return "ambiguous", None
     start = hits[0][2]
-    return "found", flat(code[start:stmt_end(code, start)])
+    return "found", flat(stmt_code[start:stmt_end(code, start)])
 
 
 def norm_name(n):
@@ -354,6 +359,10 @@ def ratchet(root, base):
     """The baseline and the ledger prefixes may only SHRINK against BASE (the pull request's base ref): an added
     line is refused. Without this the ratchet is a habit of whoever edits the file, not a property of the gate.
     A file absent at BASE is a birth and is allowed once."""
+    probe = subprocess.run(["git", "-C", root, "rev-parse", "--verify", "--quiet", f"{base}^{{commit}}"], capture_output=True)
+    if probe.returncode != 0:
+        raise SystemExit(f"usage: --base {base!r} does not resolve to a commit here -- the ratchet cannot run, and a ratchet "
+                         f"that cannot run must not print OK (CI needs fetch-depth: 0 and the base ref fetched)")
     findings = []
     for name, cls, key in ((BASELINE_FILE, "BASELINE-GROWN", 2), (LEDGERS_FILE, "LEDGER-GROWN", 1)):
         old = git_show(root, base, name)
@@ -569,6 +578,29 @@ def self_test():
     arms += 1
     if ratchet_case({"x": "1"}, {BASELINE_FILE: bl1, LEDGERS_FILE: "docs/\n"}):
         fails.append("F1 a file absent at the base is a birth and must be allowed once")
+    # ---- the second read (N1-N4)
+    d = build({"x": "1"})
+    arms += 1
+    try:
+        ratchet(d, "origin/nonexistent")
+        fails.append("N1 an unresolvable --base must refuse, not print OK")
+    except SystemExit as e:
+        if "does not resolve" not in str(e):
+            fails.append(f"N1 wrong refusal: {e}")
+    sq = 'theorem q (h : s = "abc") : True := trivial\n'
+    s1 = lean_stmt({"S.lean": sq}, "S.lean::q")
+    s2 = lean_stmt({"S.lean": sq.replace("abc", "abcd")}, "S.lean::q")
+    arms += 1
+    if s1 == s2:
+        fails.append("N2 a string literal inside a statement must be part of the hash")
+    ch = "def q : Char := '\"'\ndef r : String := \"\ntheorem ghost : True := trivial\n\"\n"
+    expect("N3 char literal does not open a string", {"T.lean": ch, "README.md": sent + "\n",
+           READS_FILE: sentence_rec("n3", "README.md", sent, "T.lean::ghost", "0" * 12)}, ["NO-STATEMENT", "UNREAD"])
+    mu = "namespace Outer\nnamespace A\nmutual\ntheorem u : True := trivial\nend\ntheorem probe : 1 = 1 := rfl\nend A\nend Outer\n"
+    sm = lean_stmt({"M.lean": mu}, "M.lean::Outer.A.probe")
+    arms += 1
+    if sm is None:
+        fails.append("N4 a `mutual ... end` must not pop the enclosing namespace")
     if fails:
         print("check_prose_lean --self-test: FAIL")
         print("\n".join("  " + x for x in fails))
