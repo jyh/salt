@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `6253a1d5` · source digest `f8e3f174631e5b2b` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `4abab3d2` · source digest `28001b9f76d6dc6b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1132,9 +1132,9 @@ Declarations indexed across the tree: 23181 · corpus Prop-valued names (the hyp
 | `Salt.Chen.medium_smallconductor_prime_side` | Salt/Chen/TransposedBV.lean:202 | sieves |
 | `Salt.Chen.medium_band_price` | Salt/Chen/TransposedBV.lean:239 | sieves |
 | `Salt.Chen.subblocked_box_price_reduced` | Salt/Chen/TransposedBV.lean:258 | sieves |
-| `Salt.Chen.prime_count_Ioc_le` | Salt/Chen/TripleCount.lean:124 | sieves |
-| `Salt.Chen.chen_switch_const_lt` | Salt/Chen/TripleCount.lean:152 | sieves |
-| `Salt.Chen.triple_count_le` | Salt/Chen/TripleCount.lean:511 | sieves |
+| `Salt.Chen.prime_count_Ioc_le` | Salt/Chen/TripleCount.lean:125 | sieves |
+| `Salt.Chen.chen_switch_const_lt` | Salt/Chen/TripleCount.lean:153 | sieves |
+| `Salt.Chen.triple_count_le` | Salt/Chen/TripleCount.lean:512 | sieves |
 | `Salt.Chen.twinA1_hnu` | Salt/Chen/TwinA1.lean:186 | sieves |
 | `Salt.Chen.twinA1_hguard` | Salt/Chen/TwinA1.lean:193 | sieves |
 | `Salt.Chen.twinA1_rem_eq` | Salt/Chen/TwinA1.lean:320 | sieves |
@@ -6045,7 +6045,7 @@ Declarations indexed across the tree: 23181 · corpus Prop-valued names (the hyp
 | `Salt.Maynard.hshiu_wire_sharp` | Salt/Maynard/GehShiuWire.lean:84 | sieves |
 | `Salt.Maynard.window_lambda_disc_le` | Salt/Maynard/GehSmallQEst.lean:194 | sieves |
 | `tail_obligation_vP1` | Salt/Maynard/GehTail.lean:510 | sieves |
-| `Salt.Maynard.windowPNT_holds` | Salt/Maynard/GehWindowPnt.lean:270 | sieves |
+| `Salt.Maynard.windowPNT_holds` | Salt/Maynard/GehWindowPnt.lean:271 | sieves |
 | `Salt.Maynard.ppLevel_holds` | Salt/Maynard/PpAssembly.lean:928 | sieves |
 | `Salt.Maynard.s2_tensor_lower_closed` | Salt/Maynard/S2TensorClosed.lean:31 | sieves |
 | `Salt.MaynardK.S1_lt_sum_S2mW_k5` | Salt/MaynardK/Controls.lean:214 | other |
@@ -6775,7 +6775,7 @@ Declarations indexed across the tree: 23181 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | Salt/SW/ZetaZeroFree.lean:102 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_strip` | Salt/SW/ZetaZeroFree.lean:180 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_region` | Salt/SW/ZetaZeroFree.lean:235 | zeros, sieves |
-| `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:798 | other |
+| `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:800 | other |
 | `Salt.Twelve.M5_cert` | Salt/Twelve/Certificate.lean:265 | sieves |
 | `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:155 | sieves |
 | `Salt.Twelve.collision_yF_M` | Salt/Twelve/InnerS1.lean:956 | sieves |
