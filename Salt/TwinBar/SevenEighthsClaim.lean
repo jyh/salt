@@ -20,8 +20,9 @@ constant `c = (log 2)/8`: a real zero `β < 1` of a nontrivial character has `β
 
 The restatement follows OpenAI's text, except that `q` is explicit here; the two were compared by
 hand, not mechanically. OpenAI's theorem is over mathlib `d13f23b7`
-and this file is over this repository's mathlib (`360da6fa`); whether the two define the
-L-function identically has not been checked yet, so OpenAI's theorem does not discharge
+and this file is over this repository's mathlib (`360da6fa`); the two agree on the
+definitions the statement names directly, but below them 591 definitions differ structurally and
+their equivalence has not been checked, so OpenAI's theorem does not discharge
 `DirichletSevenEighths` here.
 -/
 
