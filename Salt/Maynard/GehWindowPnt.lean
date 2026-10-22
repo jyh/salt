@@ -90,8 +90,8 @@ private theorem windowPNT_logratio :
   ring
 
 omit [Salt.Maynard.TupleChoice] in
-/-- **The discharge.**  The corpus PNT-with-rate `Salt.Chen.psiTot_pnt` proves the
-long-window hypothesis `WindowPNT` unconditionally. -/
+/-- `windowPNT_holds` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem windowPNT_holds_of_SW (hSWall : Salt.BV.SiegelWalfisz) : WindowPNT := by
   obtain ⟨K, hK0, hK⟩ := Salt.Chen.psiTot_pnt_of_SW hSWall
   obtain ⟨C, hC⟩ := Chebyshev.psi_sub_theta_le_mul_sqrt
@@ -266,7 +266,8 @@ theorem windowPNT_holds_of_SW (hSWall : Salt.BV.SiegelWalfisz) : WindowPNT := by
   exact le_trans hfrac ((div_le_iff₀ hL64).mpr hMAIN)
 
 omit [Salt.Maynard.TupleChoice] in
-/-- `windowPNT_holds_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+/-- **The discharge.**  The corpus PNT-with-rate `Salt.Chen.psiTot_pnt` proves the
+long-window hypothesis `WindowPNT` unconditionally. -/
 theorem windowPNT_holds : WindowPNT :=
   windowPNT_holds_of_SW Salt.SW.siegelWalfisz_holds
 

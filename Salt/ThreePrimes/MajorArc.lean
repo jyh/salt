@@ -299,9 +299,8 @@ theorem two_le_log_of_eight_le {x : ℝ} (hx : 8 ≤ x) : 2 ≤ Real.log x := by
   have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
   nlinarith [Real.exp_pos 1]
 
-/-- **Siegel–Walfisz, uniform up to height `N`:** for any `A, B > 0` there is a `K` with
-`|ψ(n; q, r) − n/φ(q)| ≤ K N/(log N)^A` for every `n ≤ N`, every `q ≤ (log N)^B` and every `r`
-coprime to `q`. Small `n` use the trivial bound; large `n` use Siegel–Walfisz with `C = 2B`. -/
+/-- `psiAP_error_uniform` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem psiAP_error_uniform_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A B : ℝ}
     (hA : 0 < A) (hB : 0 < B) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N q r : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
@@ -371,16 +370,17 @@ theorem psiAP_error_uniform_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A B : ℝ}
       _ ≤ (K₀ * 2 ^ A + 8 * (C₁ + C₂)) * N / Real.log N ^ A := by
           gcongr; linarith
 
-/-- `psiAP_error_uniform_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+/-- **Siegel–Walfisz, uniform up to height `N`:** for any `A, B > 0` there is a `K` with
+`|ψ(n; q, r) − n/φ(q)| ≤ K N/(log N)^A` for every `n ≤ N`, every `q ≤ (log N)^B` and every `r`
+coprime to `q`. Small `n` use the trivial bound; large `n` use Siegel–Walfisz with `C = 2B`. -/
 theorem psiAP_error_uniform {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N q r : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
       Nat.Coprime r q → ∀ n ≤ N,
         |psiAP n q r - (n : ℝ) / q.totient| ≤ K * N / Real.log N ^ A :=
   psiAP_error_uniform_of_SW Salt.SW.siegelWalfisz_holds hA hB
 
-/-- **The major-arc approximation:** for any `A, B > 0` there is a `K` such that, for every `N ≥ 2`,
-every `q ≤ (log N)^B`, every `a` coprime to `q` and every `|β| ≤ (log N)^B/N`,
-`|S(a/q + β) − (μ(q)/φ(q)) v(β)| ≤ K N/(log N)^A`. -/
+/-- `majorArc_approx` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem majorArc_approx_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A B : ℝ}
     (hA : 0 < A) (hB : 0 < B) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N q a : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
@@ -480,7 +480,9 @@ theorem majorArc_approx_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A B : ℝ}
         add_le_add (hT1.trans hB1) (hT2.trans hB2)
     _ = (K₁ * (1 / Real.log 2 ^ B + 2 * Real.pi) + C₃) * N / Q := by ring
 
-/-- `majorArc_approx_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+/-- **The major-arc approximation:** for any `A, B > 0` there is a `K` such that, for every `N ≥ 2`,
+every `q ≤ (log N)^B`, every `a` coprime to `q` and every `|β| ≤ (log N)^B/N`,
+`|S(a/q + β) − (μ(q)/φ(q)) v(β)| ≤ K N/(log N)^A`. -/
 theorem majorArc_approx {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N q a : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
       Nat.Coprime q a → ∀ β : ℝ, |β| ≤ Real.log N ^ B / N →

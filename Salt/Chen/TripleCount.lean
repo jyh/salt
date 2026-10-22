@@ -56,10 +56,8 @@ namespace Salt.Chen
 
 /-! ## Section 1 — the PNT corollary (ψ upper/lower from the gate, `A = 1`) -/
 
-/-- **The unconditional PNT bound at `A = 1`.** There is `K ≥ 0` with
-`|ψ(x) − x| ≤ K·x/log x` for all `x ≥ 3`. Instantiates `siegelWalfisz_psiTot`
-(fed by the unconditional gate `siegelWalfisz_holds`) at the saving `A = 1`,
-rewriting `(log x)^(1:ℝ) = log x`. -/
+/-- `psiTot_pnt` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem psiTot_pnt_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ x : ℕ, 3 ≤ x →
       |psiTot x - (x : ℝ)| ≤ K * x / Real.log x := by
@@ -69,7 +67,10 @@ theorem psiTot_pnt_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
   have := hK x hx
   rwa [Real.rpow_one] at this
 
-/-- `psiTot_pnt_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+/-- **The unconditional PNT bound at `A = 1`.** There is `K ≥ 0` with
+`|ψ(x) − x| ≤ K·x/log x` for all `x ≥ 3`. Instantiates `siegelWalfisz_psiTot`
+(fed by the unconditional gate `siegelWalfisz_holds`) at the saving `A = 1`,
+rewriting `(log x)^(1:ℝ) = log x`. -/
 theorem psiTot_pnt :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ x : ℕ, 3 ≤ x →
       |psiTot x - (x : ℝ)| ≤ K * x / Real.log x :=
