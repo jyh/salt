@@ -16,13 +16,13 @@ OpenAI's pinned source (`openai/math` 1581d4cbdd69): the full environment of 561
 `leanchecker --fresh`, and the theorem depends on the three standard axioms only (`#print axioms`). The statement
 was matched by elaboration, not by OpenAI's comparator; OpenAI's 23 patches to third-party packages were applied
 as their build applies them, and their content was not read (mathlib is not patched); and this checks their Lean
-proof, not the preprint's argument. The steps of that run are written down, with two additions, as
+proof, not the preprint's argument. The steps of that run are written down, with two changes, as
 `scripts/replay_openai_seven_eighths.sh`, which has not itself been run end to end yet. This repository does not
 import that proof. It restates the 7/8 statement over its own mathlib as `DirichletSevenEighths` and proves that
 it implies `NoSiegelZeros` (`noSiegelZeros_of_sevenEighths`, in `Salt/TwinBar/SevenEighthsClaim.lean`). Whether
 OpenAI's mathlib (`d13f23b7`) and this repository's define the L-function identically has not been checked yet, so
 OpenAI's theorem does not discharge `DirichletSevenEighths` here.
-If the 7/8 claim is true of the L-function as mathlib defines it, the fulcrum
+If `DirichletSevenEighths` holds (the 7/8 statement over this repository's mathlib, `360da6fa`), the fulcrum
 hypothesis F(C) is false at every C > 0, including the C⋆ of the manuscript: a witness of modulus q with
 C log q > 8 has a zero ρ with |1 − ρ| < 1/8, so Re ρ > 7/8, which the claim excludes, since the
 character is nontrivial. The dichotomy TPC ∨ NoSiegelZeros is then decided

@@ -176,7 +176,7 @@ replayed by `leanchecker --fresh`, and the theorem depends on the three standard
 (`#print axioms`). The statement was matched by elaboration, not by OpenAI's comparator; OpenAI's
 23 patches to third-party packages were applied as their build applies them, and their content was
 not read (mathlib is not patched); and this checks their Lean proof, not the preprint's argument.
-The steps of that run are written down, with two additions, as
+The steps of that run are written down, with two changes, as
 `scripts/replay_openai_seven_eighths.sh`, which has not itself been run end to end yet. This
 repository does not import that proof. It restates the 7/8 statement over its own mathlib as
 `DirichletSevenEighths` and proves that it implies `NoSiegelZeros`
