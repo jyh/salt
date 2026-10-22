@@ -13,7 +13,7 @@ import Salt.Tactic.AuditAxioms
 # The fulcrum rung (`fulcrum`) — aggregate import
 
 Design: `docs/exploration/fulcrum-pass1.md` (Pass 1 VERDICT). Lands the STATEMENT
-layer of `F_min` — the refuter-survived weakest twin-prime hypothesis — beside
+layer of `F_min` — the refuter-survived hypothesis F(C) — beside
 the landed Heath-Brown statement, additively.
 
 ## Landed (FULCRUM-S1)

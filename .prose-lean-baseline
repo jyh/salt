@@ -24,10 +24,8 @@ d95dd56af6bb	docs/QUEUE.md	shape
 deca6e33fbf9	docs/QUEUE.md	shape
 25efb68194aa	docs/RESULTS.md	shape
 7ad4fca28a33	docs/RESULTS.md	shape
-8f21df33b356	docs/RESULTS.md	shape
 bbcc2b509fbb	docs/RESULTS.md	shape
 df99350fca85	docs/RESULTS.md	shape
-e89852c30db4	docs/RESULTS.md	shape
 f2d4e80a45a6	docs/RESULTS.md	shape
 31c803121d52	docs/priority-survey-2026-08-11.md	shape
 9630133e16a0	docs/priority-survey-2026-08-11.md	shape
@@ -131,7 +129,6 @@ bfa308582879	scripts/search/README.md	predates
 # lexicon epoch 2 (R5, council 2026-10-22 item 3): sentences the epoch-1 lexicon did not see, accepted as debt by the WIDENING arm; each exists at the same path in the base tree.
 1b9491cecd72	README.md	lexicon-e2
 1ccdafb07cd9	README.md	lexicon-e2
-91028849364f	README.md	lexicon-e2
 9bac3a7764a9	README.md	lexicon-e2
 a91cf1f064a1	README.md	lexicon-e2
 15615b957b26	docs/QUEUE.md	lexicon-e2
@@ -157,7 +154,6 @@ a91cf1f064a1	README.md	lexicon-e2
 6c2f497bd598	docs/RESULTS.md	lexicon-e2
 718a5ed2db3d	docs/RESULTS.md	lexicon-e2
 7b2ebdc5d5e9	docs/RESULTS.md	lexicon-e2
-7cb89df69f74	docs/RESULTS.md	lexicon-e2
 7d34fe364db0	docs/RESULTS.md	lexicon-e2
 8e0f84bea5f6	docs/RESULTS.md	lexicon-e2
 9d4532ba7ccf	docs/RESULTS.md	lexicon-e2
@@ -380,7 +376,6 @@ dadeafd4f3aa	Salt/Certs/Chen.lean	docstring
 ab4feeeded31	Salt/Certs/ChenGoldbach.lean	docstring
 ab8babdde3be	Salt/Certs/ChenGoldbach.lean	docstring
 0537f1b48b0b	Salt/Certs/ChowlaSpine.lean	docstring
-10c866b51a45	Salt/Certs/ChowlaSpine.lean	docstring
 c0a6f4aa8de4	Salt/Certs/ChowlaSpine.lean	docstring
 fe7e57e76d60	Salt/Certs/ChowlaSpine.lean	docstring
 2e80d9c57e1e	Salt/Certs/Kloosterman.lean	docstring
@@ -622,7 +617,6 @@ ab5281088a61	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 e5911aab0972	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 e9b60128e242	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 f1cb5ef2d41a	Salt/Entropy/Chowla/SpineFinal.lean	docstring
-fab5132b856c	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 c0fb06e523f0	Salt/Entropy/Chowla/SpineFlat.lean	docstring
 378919b0a20d	Salt/Entropy/Chowla/StrideBridge.lean	docstring-cited
 5df2086833b2	Salt/Entropy/Chowla/StrideBridge.lean	docstring-cited
@@ -650,9 +644,6 @@ adac8c892219	Salt/Entropy/Chowla/TransportWall.lean	docstring-cited
 60e8717bcf4c	Salt/ExpSum/ZetaBlock.lean	docstring
 eb1d8683e269	Salt/ExpSum/ZetaBlock.lean	docstring
 5ad627c9948c	Salt/ExpSum/ZetaGrowth.lean	docstring
-7cd6db122beb	Salt/Fulcrum/All.lean	docstring
-aef892fb55fb	Salt/Fulcrum/Basic.lean	docstring
-e6305a0dbf5d	Salt/Fulcrum/Basic.lean	docstring
 9562f732aa1b	Salt/Fulcrum/CZeroNumeral.lean	docstring
 8517a1b74ea7	Salt/Fulcrum/Dichotomy.lean	docstring
 de63f8d20b6b	Salt/Fulcrum/Dichotomy.lean	docstring
@@ -1377,21 +1368,7 @@ e3f9ce5225a2	Salt/MaynardK/ControlsSquareM.lean	docstring
 acd82913cf92	Salt/MaynardK/Tuple600.lean	docstring
 027832b083d2	Salt/Mertens/Third.lean	docstring
 a5de831916e5	Salt/Mertens/Third.lean	docstring
-98b45f594d3e	Salt/Parity/All.lean	docstring
-277de2e58ae2	Salt/Parity/Instances.lean	docstring
-5dfe8b0a15c0	Salt/Parity/Instances.lean	docstring
-690de0623105	Salt/Parity/Instances.lean	docstring-cited
-7219585f6d65	Salt/Parity/Instances.lean	docstring-cited
-82816fc2ced2	Salt/Parity/Instances.lean	docstring-cited
-a7f81984fe23	Salt/Parity/Instances.lean	docstring-cited
-aa64460f4a3a	Salt/Parity/Instances.lean	docstring-cited
-af5a1d95c7a6	Salt/Parity/Instances.lean	docstring-cited
-c2c7c3ac915d	Salt/Parity/Instances.lean	docstring-cited
 d3d2ff60cfd9	Salt/Parity/Instances.lean	docstring
-d9fdbe229e96	Salt/Parity/Instances.lean	docstring-cited
-e3d6950fb6c7	Salt/Parity/Instances.lean	docstring-cited
-e45b4438005f	Salt/Parity/Instances.lean	docstring-cited
-050b228d04f5	Salt/Parity/Z.lean	docstring
 ef31620564d9	Salt/SW/BCBound.lean	docstring
 2c8289558560	Salt/SW/CoprimeHarmonic.lean	docstring
 9d9b8d805c0f	Salt/SW/CoprimeHarmonic.lean	docstring

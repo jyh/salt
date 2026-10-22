@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 38, 66 and 96 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 > Provenance: the merged verdict of the 2026-08-17 pre-submission priority re-run, copied from the
 > private campaign register into salt for public citation, following the same convention as
 > `priority-survey-2026-08-11.md` (the baseline this delta is measured against). The merged verdict

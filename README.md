@@ -34,9 +34,17 @@ As of 2026-09-07, `Salt/HB/CrownTheorem1.lean` carries a machine-checked proof o
 Heath-Brown's dichotomy, `HeathBrownDichotomy = TwinPrimeConjecture ∨ NoSiegelZeros`,
 conditional on one open hypothesis: `N7Exit` (Heath-Brown's Lemma 5), which the
 theorem takes as a binder and the corpus does not prove. Neither arm of the
-dichotomy is decided, so this is not a proof of the twin prime conjecture. The
+dichotomy is decided in this corpus, so this is not a proof of the twin prime
+conjecture. The
 constants are not effective: the chain uses Siegel's ineffective threshold, and
 B2's log-free density constant `n9CB2` is a `Classical.choose`.
+
+*Dated 2026-10-22.* OpenAI's preprints dated 2026-09-30 and 2026-10-01 (published
+with Lean sources at `github.com/openai/math` from 2026-10-06) claim that no Dirichlet L-function has
+a zero with real part above 7/8, and that there are no Siegel zeros. This repository
+has not checked those claims. If the claims are correct, they decide the
+`NoSiegelZeros` arm: the dichotomy then holds outright, without the `N7Exit`
+binder (`N7Exit` itself stays open), and says nothing about twin primes.
 
 ## Trust policy
 

@@ -1,1 +1,19 @@
 # a claim record: id, path, claim-sha12, lean-decl (<tracked .lean path>::<name>), stmt-sha12, author, reader, date  -- see scripts/check_prose_lean.py
+o88-2026-10-22-01	docs/RESULTS.md	1b23a51b6cb4	Salt/MR/V7Rated.lean::logChowla2_v7_rated	a775f37e7b66	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-02	papers/flagship/ERRATA.md	7d3feed96ad8	Salt/MR/V7Rated.lean::logChowla2_v7_rated	a775f37e7b66	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-03	docs/RESULTS.md	4a9af8fc342f	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-04	papers/flagship/ERRATA.md	84a231130512	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-05	papers/flagship/ERRATA.md	8addafda3573	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-06	papers/flagship/ERRATA.md	ffd950cb4bf4	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-07	papers/flagship/ERRATA.md	47664592dafa	Salt/Vmvt/Summit2.lean::vmvt	c5e56e424407	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-08	papers/flagship/ERRATA.md	65d9e0871356	Salt/Fulcrum/Dichotomy.lean::fulcrum_dichotomy	92b21ade8ff5	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-09	papers/flagship/ERRATA.md	8b6c8e18ca9e	Salt/Fulcrum/Basic.lean::FulcrumQualityMin	f5acf2b072eb	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-10	papers/flagship/ERRATA.md	943229b53863	Salt/Fulcrum/Basic.lean::FulcrumQualityMin	f5acf2b072eb	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-11	papers/flagship/ERRATA.md	c7d85f34f041	Salt/Fulcrum/Basic.lean::FulcrumQualityMin	f5acf2b072eb	paper	o88-r1-reader	2026-10-22
+o88-2026-10-22-12	README.md	246289c6e2ec	Salt/HB/CrownTheorem1.lean::heathBrownDichotomy_of_N7	58d44b7b52c9	paper	o88-r1b-reader	2026-10-22
+o88-2026-10-22-13	docs/RESULTS.md	389112cddc30	Salt/Vk/Littlewood.lean::zeta_zero_free_region_littlewood	922e6464bc9f	paper	o88-r1b-reader	2026-10-22
+o88-2026-10-22-14	docs/RESULTS.md	870b7fc1f693	Salt/MR/V7Rated.lean::logChowla2_v7_rated	a775f37e7b66	paper	o88-r1b-reader	2026-10-22
+o88-2026-10-22-15	Salt/Certs/ChowlaSpine.lean	694ec855d00f	Salt/Certs/ChowlaSpine.lean::cert_log_chowla_door_only	07df3b76f789	paper	o88-r1c-reader	2026-10-22
+o88-2026-10-22-16	Salt/Entropy/Chowla/SpineFinal.lean	60a0aa2bbdaf	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_final	8ad20856cab9	paper	o88-r1c-reader	2026-10-22
+o88-2026-10-22-17	Salt/Fulcrum/Basic.lean	cfd7e7656711	Salt/Fulcrum/Basic.lean::FulcrumQualityMin	f5acf2b072eb	paper	o88-r1c-reader	2026-10-22
+o88-2026-10-22-18	Salt/Parity/Z.lean	de5d363a44a0	Salt/Parity/Z.lean::parityInv_of_closed	2e60e7868c31	paper	o88-r1c-reader	2026-10-22

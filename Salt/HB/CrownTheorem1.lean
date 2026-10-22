@@ -34,7 +34,7 @@ stages B3-i, B3-ii and B3):** what this file LANDS is the FROZEN CROWN'S STATEME
 with the intermediate `HeathBrownDichotomyPoly 14` it has carried since 2026-09-04.
 
 ⛔ **CONDITIONAL, AND ON AN OPEN INPUT.**  `N7Exit` is a hypothesis until wave C lands it; the row
-is a DICHOTOMY (its right horn is the still-open effective no-Siegel-zeros bound), and nothing in
+is a DICHOTOMY (its right horn is `NoSiegelZeros`, a bare existential constant, not decided in this corpus), and nothing in
 this file bears on twin primes.  What moved on 2026-09-06 is the `q`-COUPLING, not the conditioning:
 Arm B closed it — B0 ✓ (the parametric T-BAL caps, PR #40) · B1a ✓ (the D–H contract at `k = 1`,
 `dh_repulsion_k1_of_floor`, `b = 215`) · B2 ✓ (Jutila's log-free near-1 density) · the row-(iv) tail

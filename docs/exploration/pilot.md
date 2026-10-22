@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 2749–2751, 5034–5037, 9039–9041, 9087–9089, 9257–9262, 9300–9302, 9831–9832, 9839–9842 and 10887 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # Exploration pilot — the M₂ boundary probe (T3 calibration)
 
 Status: LIVE (started 2026-07-14 evening). Disclosed-and-excluded per the

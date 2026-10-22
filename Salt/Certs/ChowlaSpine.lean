@@ -23,7 +23,7 @@ as row 11's hazard in `docs/CERT-ANCHORS-0811.md`; it turned out to apply here t
 hypothesis … implies the logarithmic two-point Chowla statement at `R`"*.
 
 ## WHAT THE THEOREM SAYS, in one sentence
-**One hypothesis — and nothing else — yields the logarithmic two-point Chowla bound.**
+**One hypothesis, `MRTUniformity` at one regime, yields a bound on the two-point logarithmic Chowla sum over one window at that regime. It does not yield the limit statement.**
 The landed statement names that hypothesis `MRTUniformity` and names its conclusion
 `¬ logChowla2Fails`; **both names are opaque, and unfolding them IS this certificate.**
 

@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 23–24 and 34–35 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE WRITEUP COUNCIL BRIEF (2026-07-19 noon; house v1; JYH decides)
 
 ## The deliverable
