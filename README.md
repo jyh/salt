@@ -54,12 +54,14 @@ run; the script has not itself been run end to end. This repository does not imp
 that proof. It restates the 7/8 statement over its own mathlib as
 `DirichletSevenEighths` and proves that it implies `NoSiegelZeros`
 (`noSiegelZeros_of_sevenEighths`, in `Salt/TwinBar/SevenEighthsClaim.lean`). OpenAI's
-mathlib (`d13f23b7`) and this repository's (`360da6fa`) agree on the definitions the
-statement names directly; below them, 591 definitions differ structurally, and their
-equivalence has not been checked. So OpenAI's theorem does not discharge
-`DirichletSevenEighths` here. If `DirichletSevenEighths` holds, it decides the
-`NoSiegelZeros` arm: the dichotomy then holds outright, without the `N7Exit` binder
-(`N7Exit` itself stays open), and says nothing about twin primes.
+mathlib (`d13f23b7`) and this repository's (`360da6fa`) agree on the six definitions
+compared at the top of the statement's chain (`DirichletCharacter.LFunction`,
+`ZMod.LFunction`, `DirichletCharacter`, `MulChar`, `ZMod`, `Complex.re`); below them,
+591 definitions differ structurally, and their equivalence has not been checked. So
+OpenAI's theorem does not discharge `DirichletSevenEighths` here. If
+`DirichletSevenEighths` holds, it decides the `NoSiegelZeros` arm: the dichotomy then
+holds outright, without the `N7Exit` binder (`N7Exit` itself stays open), and says
+nothing about twin primes.
 
 ## Trust policy
 
