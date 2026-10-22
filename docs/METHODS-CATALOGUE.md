@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `6f531a9d` · source digest `036b7ba2968be89c` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `7e32bd48` · source digest `7231fef549ffc5c6` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23177 · with a proof/definition body: 23177 · direct corpus references (edges): 86951 · audited results: 9015 · corpus Prop-valued names: 676.
+Declarations indexed: 23179 · with a proof/definition body: 23179 · direct corpus references (edges): 86951 · audited results: 9015 · corpus Prop-valued names: 677.
 
 ## Hypothesis status (Deliverable A)
 
@@ -14,8 +14,8 @@ Declarations indexed: 23177 · with a proof/definition body: 23177 · direct cor
 | DISCHARGED | 221 | 150 | 1039 |
 | STRUCTURAL | 4 | 4 | 89 |
 | FRAME | 47 | 24 | 151 |
-| OPEN | 404 | 189 | 621 |
-| **all** | 676 | 367 | 1521 |
+| OPEN | 405 | 189 | 621 |
+| **all** | 677 | 367 | 1521 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -652,7 +652,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
 
-## Every corpus Prop not hung on an audited result (309)
+## Every corpus Prop not hung on an audited result (310)
 
 | hypothesis | status | producer(s) |
 |---|---|---|
@@ -956,6 +956,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Twelve.WinSlack` | OPEN | — |
 | `Salt.Twelve.WinSlackM` | OPEN | — |
 | `Salt.TwinBar.BadHyp` | OPEN | — |
+| `Salt.TwinBar.DirichletSevenEighths` | OPEN | — |
 | `Salt.TwinBar.HeathBrownDichotomy` | OPEN | — |
 | `Salt.TwinBar.HeathBrownStatement` | OPEN | — |
 | `Salt.TwinBar.NoSiegelZeros` | OPEN | — |
