@@ -49,15 +49,17 @@ standard axioms only (`#print axioms`). The statement was matched by elaboration
 by OpenAI's comparator; OpenAI's 23 patches to third-party packages were applied as
 their build applies them, and their content was not read (mathlib is not patched); and
 this checks their Lean proof, not the preprint's argument. The steps of that run are
-written down, with two changes, as `scripts/replay_openai_seven_eighths.sh`, which
-has not itself been run end to end yet. This repository does not import that proof. It
-restates the 7/8 statement over its own mathlib as `DirichletSevenEighths` and proves
-that it implies `NoSiegelZeros` (`noSiegelZeros_of_sevenEighths`, in
-`Salt/TwinBar/SevenEighthsClaim.lean`). Whether OpenAI's mathlib (`d13f23b7`) and this
-repository's define the L-function identically has not been checked yet, so OpenAI's
-theorem does not discharge `DirichletSevenEighths` here. If `DirichletSevenEighths`
-holds, it decides the `NoSiegelZeros` arm: the dichotomy then holds outright, without
-the `N7Exit` binder (`N7Exit` itself stays open), and says nothing about twin primes.
+written down as `scripts/replay_openai_seven_eighths.sh`, with checks added since the
+run; the script has not itself been run end to end. This repository does not import
+that proof. It restates the 7/8 statement over its own mathlib as
+`DirichletSevenEighths` and proves that it implies `NoSiegelZeros`
+(`noSiegelZeros_of_sevenEighths`, in `Salt/TwinBar/SevenEighthsClaim.lean`). OpenAI's
+mathlib (`d13f23b7`) and this repository's (`360da6fa`) agree on the definitions the
+statement names directly; below them, 591 definitions differ structurally, and their
+equivalence has not been checked. So OpenAI's theorem does not discharge
+`DirichletSevenEighths` here. If `DirichletSevenEighths` holds, it decides the
+`NoSiegelZeros` arm: the dichotomy then holds outright, without the `N7Exit` binder
+(`N7Exit` itself stays open), and says nothing about twin primes.
 
 ## Trust policy
 
