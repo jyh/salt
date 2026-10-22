@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `14022713` · source digest `a3616ec09e16e7bf` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `6253a1d5` · source digest `f8e3f174631e5b2b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9071 | 9016 | 9015 | 1 | 0 | 55 |
+| 26 | 24 | 9073 | 9018 | 9017 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hypothesis universe): 676.
+Declarations indexed across the tree: 23181 · corpus Prop-valued names (the hypothesis universe): 676.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6782 | 294 | 2072 | 4623 | 376 | 425 | 41 |
-| conditional | 1547 | 25 | 197 | 1352 | 94 | 24 | 11 |
+| conditional | 1549 | 25 | 197 | 1352 | 94 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9016 | 319 | 2341 | 6539 | 529 | 466 | 53 |
+| **all** | 9018 | 319 | 2341 | 6539 | 529 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -215,6 +215,7 @@ Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hyp
 | `Salt.MR.S16BaseScaleCap96_LH_gk` | 5 |
 | `Salt.MR.S16CofactorSupply_LH_gk` | 5 |
 | `Salt.MR.S16CofactorSupply_L_gk` | 5 |
+| `Salt.SW.NoSiegelZerosAt` | 5 |
 | `Salt.TwinBar.AffFullRangeAt` | 5 |
 | `Salt.TwinBar.LambdaSummatory` | 5 |
 | `¬Salt.Entropy.Chowla.logChowlaFailsAff` | 5 |
@@ -285,7 +286,6 @@ Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hyp
 | `Salt.MR.TLBlockGatesLoc` | 3 |
 | `Salt.MR.WindowSmooth` | 3 |
 | `Salt.MR.ZetaInvShallowVk` | 3 |
-| `Salt.SW.NoSiegelZerosAt` | 3 |
 | `Salt.TwinBar.CorrWindow` | 3 |
 | `Salt.TwinBar.LiouvilleTwinDispLog` | 3 |
 | `Salt.TwinBar.SiegelSequence` | 3 |
@@ -1132,9 +1132,9 @@ Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hyp
 | `Salt.Chen.medium_smallconductor_prime_side` | Salt/Chen/TransposedBV.lean:202 | sieves |
 | `Salt.Chen.medium_band_price` | Salt/Chen/TransposedBV.lean:239 | sieves |
 | `Salt.Chen.subblocked_box_price_reduced` | Salt/Chen/TransposedBV.lean:258 | sieves |
-| `Salt.Chen.prime_count_Ioc_le` | Salt/Chen/TripleCount.lean:118 | sieves |
-| `Salt.Chen.chen_switch_const_lt` | Salt/Chen/TripleCount.lean:146 | sieves |
-| `Salt.Chen.triple_count_le` | Salt/Chen/TripleCount.lean:505 | sieves |
+| `Salt.Chen.prime_count_Ioc_le` | Salt/Chen/TripleCount.lean:124 | sieves |
+| `Salt.Chen.chen_switch_const_lt` | Salt/Chen/TripleCount.lean:152 | sieves |
+| `Salt.Chen.triple_count_le` | Salt/Chen/TripleCount.lean:511 | sieves |
 | `Salt.Chen.twinA1_hnu` | Salt/Chen/TwinA1.lean:186 | sieves |
 | `Salt.Chen.twinA1_hguard` | Salt/Chen/TwinA1.lean:193 | sieves |
 | `Salt.Chen.twinA1_rem_eq` | Salt/Chen/TwinA1.lean:320 | sieves |
@@ -6045,7 +6045,7 @@ Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hyp
 | `Salt.Maynard.hshiu_wire_sharp` | Salt/Maynard/GehShiuWire.lean:84 | sieves |
 | `Salt.Maynard.window_lambda_disc_le` | Salt/Maynard/GehSmallQEst.lean:194 | sieves |
 | `tail_obligation_vP1` | Salt/Maynard/GehTail.lean:510 | sieves |
-| `Salt.Maynard.windowPNT_holds` | Salt/Maynard/GehWindowPnt.lean:95 | sieves |
+| `Salt.Maynard.windowPNT_holds` | Salt/Maynard/GehWindowPnt.lean:270 | sieves |
 | `Salt.Maynard.ppLevel_holds` | Salt/Maynard/PpAssembly.lean:928 | sieves |
 | `Salt.Maynard.s2_tensor_lower_closed` | Salt/Maynard/S2TensorClosed.lean:31 | sieves |
 | `Salt.MaynardK.S1_lt_sum_S2mW_k5` | Salt/MaynardK/Controls.lean:214 | other |
@@ -7277,7 +7277,7 @@ Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1547)
+## conditional (1549)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8769,6 +8769,8 @@ Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hyp
 | `Salt.MaynardK.s2_inner_yF_of_gen` | Salt/MaynardK/Controls.lean:139 | other | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.MaynardK.qdiag_bridge_k5` | Salt/MaynardK/Controls.lean:176 | other | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.MaynardK.gaps_le_636_of_level` | Salt/MaynardK/Gaps636.lean:45 | other | `WindowPNT`, `HasLevel` |
+| `Salt.MaynardK.gaps_le_636_of_standoff` | Salt/MaynardK/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MaynardK.gaps_le_600_of_standoff` | Salt/MaynardK/SiegelFree.lean:52 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Parity.Z_trivial_of_not_completion` | Salt/Parity/Z.lean:125 | sieves | `¬Salt.Parity.Completion` |
 | `Salt.Parity.TPC_implies_Z` | Salt/Parity/Z.lean:216 | sieves | `TwinPrimeConjecture` |
 | `Salt.Parity.sufficient_true_not_parityInv` | Salt/Parity/Z.lean:678 | sieves | `Salt.Parity.TwinSufficient` |
