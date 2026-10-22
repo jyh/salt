@@ -11,6 +11,7 @@ import Salt.ThreePrimes.MinorArc
 import Salt.ThreePrimes.Arcs
 import Salt.ThreePrimes.Count
 import Salt.ThreePrimes.Assembly
+import Salt.ThreePrimes.SiegelFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -27,3 +28,5 @@ which proves `three_primes`.
 -- `Quot.sound` only. A `sorry` or a new axiom anywhere beneath it fails `lake build` here.
 open Salt.Tactic in
 #audit_axioms Salt.ThreePrimes.three_primes
+open Salt.Tactic in
+#audit_axioms Salt.ThreePrimes.three_primes_of_standoff

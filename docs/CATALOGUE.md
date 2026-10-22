@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `038a59d4` · source digest `5ad032c3c6a026c3` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `14022713` · source digest `a3616ec09e16e7bf` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9070 | 9015 | 9014 | 1 | 0 | 55 |
+| 26 | 24 | 9071 | 9016 | 9015 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hypothesis universe): 676.
+Declarations indexed across the tree: 23177 · corpus Prop-valued names (the hypothesis universe): 676.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6782 | 294 | 2072 | 4623 | 376 | 425 | 41 |
-| conditional | 1546 | 25 | 197 | 1352 | 94 | 24 | 10 |
+| conditional | 1547 | 25 | 197 | 1352 | 94 | 24 | 11 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9015 | 319 | 2341 | 6539 | 529 | 466 | 52 |
+| **all** | 9016 | 319 | 2341 | 6539 | 529 | 466 | 53 |
 
 ## LIMITS — read these beside every count above
 
@@ -285,6 +285,7 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `Salt.MR.TLBlockGatesLoc` | 3 |
 | `Salt.MR.WindowSmooth` | 3 |
 | `Salt.MR.ZetaInvShallowVk` | 3 |
+| `Salt.SW.NoSiegelZerosAt` | 3 |
 | `Salt.TwinBar.CorrWindow` | 3 |
 | `Salt.TwinBar.LiouvilleTwinDispLog` | 3 |
 | `Salt.TwinBar.SiegelSequence` | 3 |
@@ -348,7 +349,6 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `Salt.MR.XCeilRiderStrictAt` | 2 |
 | `Salt.Parity.TwinSufficient` | 2 |
 | `Salt.SW.EstermannPositivity` | 2 |
-| `Salt.SW.NoSiegelZerosAt` | 2 |
 | `Salt.SW.WellSpacedAt` | 2 |
 | `Salt.Twelve.PiAsymp` | 2 |
 | `Salt.TwinBar.InfinitelyManySiegelZeros` | 2 |
@@ -6775,7 +6775,7 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | Salt/SW/ZetaZeroFree.lean:102 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_strip` | Salt/SW/ZetaZeroFree.lean:180 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_region` | Salt/SW/ZetaZeroFree.lean:235 | zeros, sieves |
-| `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:734 | other |
+| `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:798 | other |
 | `Salt.Twelve.M5_cert` | Salt/Twelve/Certificate.lean:265 | sieves |
 | `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:155 | sieves |
 | `Salt.Twelve.collision_yF_M` | Salt/Twelve/InnerS1.lean:956 | sieves |
@@ -7277,7 +7277,7 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1546)
+## conditional (1547)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8781,6 +8781,7 @@ Declarations indexed across the tree: 23170 · corpus Prop-valued names (the hyp
 | `Salt.SW.siegelWalfisz_of_standoff` | Salt/SW/StandoffGate.lean:574 | sieves | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.SW.not_fulcrum_siegelFree_SW` | Salt/SW/StandoffGate.lean:803 | sieves | `¬Salt.Fulcrum.FulcrumQualityMin` |
 | `Salt.SW.sum_inv_sq_sub_le_of_wellSpacedAt` | Salt/SW/WellSpacedAt.lean:93 | sieves | `Salt.SW.WellSpacedAt` |
+| `Salt.ThreePrimes.three_primes_of_standoff` | Salt/ThreePrimes/SiegelFree.lean:42 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:268 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
 | `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1061 | sieves | `WindowPNT`, `EHall` |
 | `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1204 | sieves | `Salt.Twelve.PhiUpperAtom` |

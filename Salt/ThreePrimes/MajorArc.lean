@@ -302,11 +302,12 @@ theorem two_le_log_of_eight_le {x : ℝ} (hx : 8 ≤ x) : 2 ≤ Real.log x := by
 /-- **Siegel–Walfisz, uniform up to height `N`:** for any `A, B > 0` there is a `K` with
 `|ψ(n; q, r) − n/φ(q)| ≤ K N/(log N)^A` for every `n ≤ N`, every `q ≤ (log N)^B` and every `r`
 coprime to `q`. Small `n` use the trivial bound; large `n` use Siegel–Walfisz with `C = 2B`. -/
-theorem psiAP_error_uniform {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
+theorem psiAP_error_uniform_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A B : ℝ}
+    (hA : 0 < A) (hB : 0 < B) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N q r : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
       Nat.Coprime r q → ∀ n ≤ N,
         |psiAP n q r - (n : ℝ) / q.totient| ≤ K * N / Real.log N ^ A := by
-  obtain ⟨K₀, hK₀, hSW⟩ := Salt.SW.siegelWalfisz_holds A (2 * B) hA (by linarith)
+  obtain ⟨K₀, hK₀, hSW⟩ := hSWall A (2 * B) hA (by linarith)
   obtain ⟨C₁, hC₁, hC₁b⟩ := log_rpow_le_mul_sqrt (m := A + 1) (by linarith)
   obtain ⟨C₂, hC₂, hC₂b⟩ := log_rpow_le_mul_sqrt (m := A) hA
   refine ⟨K₀ * 2 ^ A + 8 * (C₁ + C₂), by positivity, fun N q r hN hq hqB hcop n hn => ?_⟩
@@ -370,16 +371,25 @@ theorem psiAP_error_uniform {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
       _ ≤ (K₀ * 2 ^ A + 8 * (C₁ + C₂)) * N / Real.log N ^ A := by
           gcongr; linarith
 
+/-- `psiAP_error_uniform_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem psiAP_error_uniform {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ N q r : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
+      Nat.Coprime r q → ∀ n ≤ N,
+        |psiAP n q r - (n : ℝ) / q.totient| ≤ K * N / Real.log N ^ A :=
+  psiAP_error_uniform_of_SW Salt.SW.siegelWalfisz_holds hA hB
+
 /-- **The major-arc approximation:** for any `A, B > 0` there is a `K` such that, for every `N ≥ 2`,
 every `q ≤ (log N)^B`, every `a` coprime to `q` and every `|β| ≤ (log N)^B/N`,
 `|S(a/q + β) − (μ(q)/φ(q)) v(β)| ≤ K N/(log N)^A`. -/
-theorem majorArc_approx {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
+theorem majorArc_approx_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A B : ℝ}
+    (hA : 0 < A) (hB : 0 < B) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N q a : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
       Nat.Coprime q a → ∀ β : ℝ, |β| ≤ Real.log N ^ B / N →
         ‖primeExpSum N ((a : ℝ) / q + β)
             - ((moebius q : ℂ) / (q.totient : ℂ)) * expSumOne N β‖
           ≤ K * N / Real.log N ^ A := by
-  obtain ⟨K₁, hK₁, hU⟩ := psiAP_error_uniform (A := A + 2 * B) (B := B) (by positivity) hB
+  obtain ⟨K₁, hK₁, hU⟩ :=
+    psiAP_error_uniform_of_SW hSWall (A := A + 2 * B) (B := B) (by positivity) hB
   obtain ⟨C₃, hC₃, hC₃b⟩ := log_rpow_le_mul_sqrt (m := A + B + 1) (by positivity)
   refine ⟨K₁ * (1 / Real.log 2 ^ B + 2 * Real.pi) + C₃, by positivity,
     fun N q a hN hq hqB hcop β hβ => ?_⟩
@@ -469,5 +479,14 @@ theorem majorArc_approx {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
     _ ≤ K₁ * (1 / Real.log 2 ^ B + 2 * Real.pi) * N / Q + C₃ * N / Q :=
         add_le_add (hT1.trans hB1) (hT2.trans hB2)
     _ = (K₁ * (1 / Real.log 2 ^ B + 2 * Real.pi) + C₃) * N / Q := by ring
+
+/-- `majorArc_approx_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem majorArc_approx {A B : ℝ} (hA : 0 < A) (hB : 0 < B) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ N q a : ℕ, 2 ≤ N → 1 ≤ q → (q : ℝ) ≤ Real.log N ^ B →
+      Nat.Coprime q a → ∀ β : ℝ, |β| ≤ Real.log N ^ B / N →
+        ‖primeExpSum N ((a : ℝ) / q + β)
+            - ((moebius q : ℂ) / (q.totient : ℂ)) * expSumOne N β‖
+          ≤ K * N / Real.log N ^ A :=
+  majorArc_approx_of_SW Salt.SW.siegelWalfisz_holds hA hB
 
 end Salt.ThreePrimes
