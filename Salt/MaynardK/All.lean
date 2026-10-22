@@ -16,6 +16,7 @@ import Salt.MaynardK.F1
 import Salt.MaynardK.Frontier105
 import Salt.MaynardK.Gaps636
 import Salt.MaynardK.Gaps600
+import Salt.MaynardK.SiegelFree
 import Salt.MaynardK.ICRel
 import Salt.MaynardK.InnerS2Gen
 import Salt.MaynardK.ISplit
@@ -70,3 +71,7 @@ open Salt.Tactic in
 #audit_axioms Salt.MaynardK.gaps_le_600 Salt.MaynardK.maynard_105_tuple600
   Salt.MaynardK.engelsmaTuple Salt.MaynardK.hSeq_engelsma_le_743
   Salt.MaynardK.hSeq_engelsma_diam_le_600
+
+-- From a Siegel standoff (SiegelFree), by a proof term that does not use Siegel's theorem.
+open Salt.Tactic in
+#audit_axioms Salt.MaynardK.gaps_le_636_of_standoff Salt.MaynardK.gaps_le_600_of_standoff

@@ -60,14 +60,20 @@ namespace Salt.Chen
 `|ψ(x) − x| ≤ K·x/log x` for all `x ≥ 3`. Instantiates `siegelWalfisz_psiTot`
 (fed by the unconditional gate `siegelWalfisz_holds`) at the saving `A = 1`,
 rewriting `(log x)^(1:ℝ) = log x`. -/
-theorem psiTot_pnt :
+theorem psiTot_pnt_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ x : ℕ, 3 ≤ x →
       |psiTot x - (x : ℝ)| ≤ K * x / Real.log x := by
   obtain ⟨K, hK0, hK⟩ :=
-    Salt.BV.siegelWalfisz_psiTot Salt.SW.siegelWalfisz_holds (show (0:ℝ) < 1 by norm_num)
+    Salt.BV.siegelWalfisz_psiTot hSWall (show (0:ℝ) < 1 by norm_num)
   refine ⟨K, hK0, fun x hx => ?_⟩
   have := hK x hx
   rwa [Real.rpow_one] at this
+
+/-- `psiTot_pnt_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem psiTot_pnt :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ x : ℕ, 3 ≤ x →
+      |psiTot x - (x : ℝ)| ≤ K * x / Real.log x :=
+  psiTot_pnt_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## Section 2 — the inner `p₃`-count from the PNT interval mass -/
 
