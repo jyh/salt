@@ -18,7 +18,8 @@ theorem `OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re` (file
 constant `c = (log 2)/8`: a real zero `β < 1` of a nontrivial character has `β ≤ 7/8`, and
 `7/8 ≤ 1 − c/log q` for every `q ≥ 2`.
 
-The restatement is matched to OpenAI's by its text. OpenAI's theorem is over mathlib `d13f23b7`
+The restatement follows OpenAI's text, except that `q` is explicit here; the two were compared by
+hand, not mechanically. OpenAI's theorem is over mathlib `d13f23b7`
 and this file is over this repository's mathlib (`360da6fa`); whether the two define the
 L-function identically has not been checked yet, so OpenAI's theorem does not discharge
 `DirichletSevenEighths` here.
