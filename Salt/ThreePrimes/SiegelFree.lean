@@ -16,8 +16,9 @@ the unconditional names instantiate it at `Salt.SW.siegelWalfisz_holds`, whose p
 theorem.
 
 This module instantiates it at `Salt.SW.siegelWalfisz_of_standoff` instead. That proof assumes
-`NoSiegelZerosAt c`: no real nonprincipal character mod `q` has a real `L`-zero above
-`1 − c / log q`. It does not use Siegel's theorem, as `Salt.SW.StandoffCert` certifies.
+`NoSiegelZerosAt c`: for every `q > 1`, no primitive quadratic character `χ ≠ 1` mod `q` has a
+real `L`-zero `β < 1` above `1 − c / log q`. It does not use Siegel's theorem, as
+`Salt.SW.StandoffCert` certifies.
 
 ## What this does and does not say
 
@@ -34,10 +35,10 @@ This module instantiates it at `Salt.SW.siegelWalfisz_of_standoff` instead. That
 
 namespace Salt.ThreePrimes
 
-/-- **Vinogradov's three-primes theorem from a Siegel standoff.** If no real nonprincipal
-character mod `q` has a real `L`-zero above `1 − c / log q` (for one fixed `c > 0`), every
-sufficiently large odd number is a sum of three primes, by a proof that does not use Siegel's
-theorem (certified below). -/
+/-- **Vinogradov's three-primes theorem from a Siegel standoff.** If, for one fixed `c > 0`,
+no primitive quadratic character `χ ≠ 1` mod `q > 1` has a real `L`-zero `β < 1` above
+`1 − c / log q`, every sufficiently large odd number is a sum of three primes, by a proof that
+does not use Siegel's theorem (certified below). -/
 theorem three_primes_of_standoff {c : ℝ} (hc : 0 < c) (hS : Salt.SW.NoSiegelZerosAt c) :
     ∃ N₀ : ℕ, ∀ N : ℕ, N₀ < N → Odd N →
       ∃ p₁ p₂ p₃ : ℕ, p₁.Prime ∧ p₂.Prime ∧ p₃.Prime ∧ p₁ + p₂ + p₃ = N :=
