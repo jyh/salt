@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 41–43 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # MR consumption map — what the log-Chowla spine actually needs from "MR"
 
 All claims GROUNDED (file:line) unless marked MEMORY. MR is the longest-parked

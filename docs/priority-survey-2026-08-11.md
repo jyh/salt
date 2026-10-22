@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 54 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 > Provenance: copied 2026-08-14 from the private campaign register into salt for public citation.
 > The document below is preserved whole and unedited; its original stamp (state as of 2026-08-11) stands.
 > Cited by papers/flagship/main.tex; the survey re-runs before submission per its own cadence ruling.

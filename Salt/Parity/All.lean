@@ -12,9 +12,9 @@ import Salt.Tactic.AuditAxioms
 
 D4 (ratified 2026-07-19): Z — the program's gap statement — as a
 mathematical object. `Salt/Parity/Z.lean` is oracle-clean BY IMPORT
-LIST (never imports `Salt.HB`/`Salt.TwinBar`); `Instances.lean` is
-the census placing the landed corpus inside the parity-invariant
-cone. The chain L0–L6: Z ⟺ TPC over the certified window, and the
+LIST (never imports `Salt.HB`/`Salt.TwinBar`); `Instances.lean` applies
+the closure schema `parityInv_of_closed` to ten landed theorems; as its
+header says, this carries no arithmetic information. The chain L0–L6: Z ⟺ TPC over the certified window, and the
 gap theorem places every true twin-sufficient completion predicate
 outside `ParityInv`. `ParityBarrier` is stated, never assumed.
 -/

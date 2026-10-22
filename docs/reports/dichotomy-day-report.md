@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 39 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE DICHOTOMY DAY CLOSING REPORT
 ### 2026-07-19 — the Gold Window's final day; the last day of subscription Fable
 

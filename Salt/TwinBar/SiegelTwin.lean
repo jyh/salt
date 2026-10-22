@@ -61,9 +61,9 @@ strict gives the *exact* negation of the `≤` in `NoSiegelZeros`.
 
 Between Landau–Page and Siegel. `siegel_theorem` gives the ineffective
 `β ≤ 1 − C(ε)/q^ε`, which for large `q` is WEAKER than the `log q` gap asserted
-here — so the corpus genuinely does not decide `InfinitelyManySiegelZeros`; it is a
-real, open hypothesis (cf. Landau–Page for the effective one-exception bound,
-Siegel for the ineffective `q^ε` bound).
+here — so the corpus does not decide `InfinitelyManySiegelZeros` (cf. Landau–Page
+for the effective one-exception bound, Siegel for the ineffective `q^ε` bound; and
+see the dated note at the end of this file).
 -/
 
 open Complex DirichletCharacter
@@ -71,8 +71,8 @@ open Complex DirichletCharacter
 namespace Salt.TwinBar
 
 /-- **NO Siegel zeros.** Some `c > 0` pushes every real primitive quadratic
-character's real zeros below `1 − c/log q`. (Tao Thm 1 (ii); the effective
-zero-free gap for exceptional characters.) -/
+character's real zeros below `1 − c/log q`. (Tao Thm 1 (ii); the zero-free
+gap for exceptional characters (an existential constant).) -/
 def NoSiegelZeros : Prop :=
   ∃ c : ℝ, 0 < c ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
     1 < q → χ.IsPrimitive → χ ^ 2 = 1 → χ ≠ 1 →
@@ -93,7 +93,7 @@ def HeathBrownStatement : Prop :=
   InfinitelyManySiegelZeros → TwinPrimeConjecture
 
 /-- **The dichotomy corollary shape**: either the Twin Prime Conjecture holds, or
-there is an effective no-Siegel-zeros gap. -/
+there is a no-Siegel-zeros gap (`NoSiegelZeros`: some c > 0, existential). -/
 def HeathBrownDichotomy : Prop :=
   TwinPrimeConjecture ∨ NoSiegelZeros
 
@@ -105,7 +105,7 @@ def BadHyp : Prop :=
     (1 < q ∧ χ.IsPrimitive ∧ χ ^ 2 = 1 ∧ χ ≠ 1 ∧ LFunction χ β = 0 ∧ β < 1) ∧
     ∀ c : ℝ, 0 < c → 1 - c / Real.log q < β
 
-/-- The live hypothesis is the exact negation of the effective gap: infinitely
+/-- The live hypothesis is the exact negation of the gap: infinitely
 many Siegel zeros ↔ there is NO no-Siegel-zeros constant. The `∀c∃` order and the
 `<`/`≤` boundary pairing are pinned by this equivalence holding. -/
 theorem infinitely_iff_not_noSiegel :
@@ -124,7 +124,7 @@ theorem infinitely_iff_not_noSiegel :
     rw [not_le] at hle
     exact hcon ⟨q, hq0, χ, β, h1q, hprim, hsq, hne, hL, hle, hβ1⟩
 
-/-- The dual reading: an effective no-Siegel-zeros gap exists iff there are NOT
+/-- The dual reading: a no-Siegel-zeros gap exists iff there are NOT
 infinitely many Siegel zeros. -/
 theorem noSiegelZeros_iff_not_infinitely :
     NoSiegelZeros ↔ ¬ InfinitelyManySiegelZeros := by
@@ -165,3 +165,10 @@ theorem badHyp_false : ¬ BadHyp := by
   linarith
 
 end Salt.TwinBar
+
+/-! ## A dated note (2026-10-22)
+
+OpenAI's preprints dated 2026-09-30 and 2026-10-01 (Lean sources at `github.com/openai/math`,
+not checked by this repository) claim that no Dirichlet L-function has a zero with real part
+above 7/8 and that there are no Siegel zeros; if correct, `InfinitelyManySiegelZeros` is false
+and `NoSiegelZeros` holds. -/

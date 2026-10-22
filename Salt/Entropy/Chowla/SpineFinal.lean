@@ -399,12 +399,12 @@ SUPERSEDED AS CITATION (A1, 2026-07-19): the `t`/`g`/`hbudget1` residual is
 unsatisfiable at `c₀ = 1` (F0, catch #249); cite `log_chowla_two_door_only(_xi)` /
 `log_chowla_two_budget_head` instead.
 
-Tao's logarithmically-averaged
-two-point Chowla theorem (Tao arXiv:1509.05422v2, the `a=1,b=0,h=1,g₁=g₂=λ` model form),
-machine-checked: there is a witnessed regime `R` and a door-smallness threshold
-`δ₀ > 0` at which log-Chowla-2 does NOT fail, conditional ONLY on the
-Matomäki–Radziwiłł–Tao Fourier-uniformity theorem (arXiv:1503.05121) at any
-sufficiently small uniformity level `δ ≤ δ₀`.  Every other input — the entropy
+A finite-scale instance of the inequality in Tao's logarithmically-averaged
+two-point Chowla theorem (Tao arXiv:1509.05422v2, the model form): there is
+a witnessed regime `R` and a door-smallness threshold `δ₀ > 0` at which
+log-Chowla-2 does NOT fail, conditional on the hypothesis `MRTUniformity R δ` and on
+the explicit `t`/`g`/`hbudget1` residual below, at any sufficiently small uniformity
+level `δ ≤ δ₀`.  Every other input — the entropy
 decrement, the circle method, the restriction-free large-spectrum bound, the
 sieve machinery, the regime numerics — is proven in this repository from mathlib,
 axioms `[propext, Classical.choice, Quot.sound]`.

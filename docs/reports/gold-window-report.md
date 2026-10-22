@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 21 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # The Gold Window — campaign report (for JYH ratification)
 
 **Window:** 2026-07-16 → 2026-07-18 (~78h play window, this report
