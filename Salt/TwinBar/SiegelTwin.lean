@@ -168,7 +168,15 @@ end Salt.TwinBar
 
 /-! ## A dated note (2026-10-22)
 
-OpenAI's preprints dated 2026-09-30 and 2026-10-01 (Lean sources at `github.com/openai/math`,
-not checked by this repository) claim that no Dirichlet L-function has a zero with real part
-above 7/8 and that there are no Siegel zeros; if correct, `InfinitelyManySiegelZeros` is false
-and `NoSiegelZeros` holds. -/
+OpenAI's preprints dated 2026-09-30 and 2026-10-01 (Lean sources at `github.com/openai/math`)
+claim that no Dirichlet L-function has a zero with real part above 7/8 and that there are no
+Siegel zeros. The Lean proof of the 7/8 claim was kernel-checked on our machine, 2026-10-22, from
+OpenAI's pinned source (`openai/math` 1581d4cbdd69): the full environment of 561,427 declarations
+replayed by `leanchecker --fresh`; the statement matched by elaboration, not by OpenAI's
+comparator; this checks their Lean proof, not the preprint's argument. The steps of that run are
+`scripts/replay_openai_seven_eighths.sh`, not yet run end to end itself. That proof is not imported
+here. Restated over this repository's mathlib, the 7/8 statement implies `NoSiegelZeros`
+(`noSiegelZeros_of_sevenEighths`, in `Salt/TwinBar/SevenEighthsClaim.lean`). Whether OpenAI's
+mathlib (`d13f23b7`) and this repository's define the L-function identically has not been checked
+yet, so OpenAI's theorem does not discharge that hypothesis here. If the 7/8 claim holds,
+`InfinitelyManySiegelZeros` is false. -/

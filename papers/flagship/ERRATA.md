@@ -11,15 +11,25 @@ manuscript itself is kept as submitted.
 
 OpenAI's preprints dated 2026-09-30 and 2026-10-01 (published with Lean sources at `github.com/openai/math`
 from 2026-10-06) claim that no Dirichlet L-function has a zero with real part above 7/8, for every modulus and every character, and that
-there are no Siegel zeros. This repository has not checked those claims. If the 7/8 claim is correct, the fulcrum
+there are no Siegel zeros. The Lean proof of the 7/8 claim was kernel-checked on our machine, 2026-10-22, from
+OpenAI's pinned source (`openai/math` 1581d4cbdd69): the full environment of 561,427 declarations replayed by
+`leanchecker --fresh`, with the three standard axioms only; the statement matched by elaboration, not by OpenAI's
+comparator; this checks their Lean proof, not the preprint's argument. The steps of that run are
+`scripts/replay_openai_seven_eighths.sh`, which has not itself been run end to end yet. This repository does not
+import that proof.
+It restates the 7/8 statement over its own mathlib as `DirichletSevenEighths` and proves that it implies
+`NoSiegelZeros` (`noSiegelZeros_of_sevenEighths`, `Salt/TwinBar/SevenEighthsClaim.lean`). Whether OpenAI's
+mathlib (`d13f23b7`) and this repository's define the L-function identically has not been checked yet, so
+OpenAI's theorem does not discharge that hypothesis here. The no-Siegel-zeros claim was not checked
+separately. If the 7/8 claim holds, the fulcrum
 hypothesis F(C) is false at every C > 0, including the C⋆ of the manuscript: a witness of modulus q with
 C log q > 8 has a zero ρ with |1 − ρ| < 1/8, so Re ρ > 7/8, which the claim excludes, since the
 character is nontrivial. The dichotomy TPC ∨ NoSiegelZeros is then decided
 through its NoSiegelZeros side and says nothing about twin primes; the manuscript's twin horn, "Siegel zeros
 produce infinitely many twin primes", is an implication whose hypothesis would be false, so it would hold vacuously; and the reality
-theorem at C ≥ 253696 and the Deuring–Heilbronn repulsion contract hold vacuously. The claim makes no Lean statement
-the manuscript cites false.
-The manuscript's framing of F(C) as a live hypothesis is what the claim, if correct, overtakes.
+theorem at C ≥ 253696 and the Deuring–Heilbronn repulsion contract hold vacuously. These deductions are short and are
+not formalized here. The claim makes no Lean statement the manuscript cites false.
+The manuscript's framing of F(C) as a live hypothesis is what the claim, if it holds, overtakes.
 
 ## The five corrected statements (what the Lean proves)
 
