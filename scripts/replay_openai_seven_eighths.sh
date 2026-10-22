@@ -7,7 +7,9 @@
 # Theorem: OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re
 #          (module OAI.NumberTheory.DirichletL.Nonvanishing; challenge statement in
 #          lean/ComparatorChallenges/DirichletSevenEighths.lean).
-# The same statement is restated in this repository as Salt.TwinBar.DirichletSevenEighths.
+# The statement is restated, over this repository's own (older) mathlib, as
+# Salt.TwinBar.DirichletSevenEighths; the two mathlib versions are not shown to agree below the
+# definitions the statement names directly.
 #
 # Steps, each printing what it did:
 #   1  partial clone of lean/ at the pinned sha
@@ -19,8 +21,8 @@
 #   4  build the solution module
 #   5  check the challenge statement against the theorem, and print its axioms, beside a planted
 #      `sorry` that must print `sorryAx`
-#   6  CONTROL: a module holding `math78_bad : False := True.intro`, added with the kernel's check
-#      skipped; `leanchecker --fresh` on it must FAIL
+#   6  CONTROL: a module holding `replay78_bad : False := True.intro`, added with the kernel's check
+#      skipped; `leanchecker --fresh` on it must FAIL, AT that declaration; the module is removed after
 #   7  `leanchecker --fresh` on the solution module: every imported declaration replayed into an
 #      empty environment through the kernel; it stops at the first one the kernel rejects
 #
@@ -65,6 +67,9 @@ build() { # build a module or audit a file, through SALTBUILD when it is set
   else bare build "$1"
   fi
 }
+locked() { # locked CMD...: CMD under FLEET_FLOCK when it is set
+  if [ -n "${FLEET_FLOCK:-}" ]; then flock -w 14400 "$FLEET_FLOCK" "$@"; else "$@"; fi
+}
 
 say "1  clone openai/math lean/ at $SHA into $WORK/oai"
 run mkdir -p "$WORK"
@@ -108,13 +113,13 @@ EOF
 fi
 if [ -n "${SALTBUILD:-}" ]; then build ScratchReplay78.lean audit; A="$WORK/build-audit.log"
 else A="$WORK/audit.log"; printf '$ %s env lean ScratchReplay78.lean > %s\n' "$LAKE" "$A"
-  [ "$DRY" = 1 ] || "$LAKE" env lean ScratchReplay78.lean > "$A" 2>&1 || { echo "FAILED: audit (log $A)"; exit 1; }
+  [ "$DRY" = 1 ] || locked "$LAKE" env lean ScratchReplay78.lean > "$A" 2>&1 || { echo "FAILED: audit (log $A)"; exit 1; }
 fi
 if [ "$DRY" = 0 ]; then
   # the theorem's axioms must be exactly the three; the planted sorry must show sorryAx
-  tr '\n' ' ' < "$A" | grep -F -q "'$THM' depends on axioms: [propext, Classical.choice, Quot.sound]" \
+  tr -s '[:space:]' ' ' < "$A" | grep -F -q "'$THM' depends on axioms: [propext, Classical.choice, Quot.sound]" \
     || { echo "FAILED: the axioms of $THM are not the three standard ones (log $A)"; exit 1; }
-  grep -F -q "'replay78_control' depends on axioms: [sorryAx]" "$A" \
+  tr -s '[:space:]' ' ' < "$A" | grep -F -q "'replay78_control' depends on axioms: [sorryAx]" \
     || { echo "FAILED: the planted sorry did not print sorryAx, so the audit saw nothing (log $A)"; exit 1; }
   echo "AXIOMS: $THM depends on [propext, Classical.choice, Quot.sound]; the control prints [sorryAx]"
 fi
@@ -134,13 +139,17 @@ fi
 build OAI.NumberTheory.Replay78Bad control
 printf '$ %s env leanchecker --fresh OAI.NumberTheory.Replay78Bad\n' "$LAKE"
 if [ "$DRY" = 0 ]; then
-  if [ -n "${FLEET_FLOCK:-}" ]; then
-    flock -w 14400 "$FLEET_FLOCK" "$LAKE" env leanchecker --fresh OAI.NumberTheory.Replay78Bad
-  else
-    "$LAKE" env leanchecker --fresh OAI.NumberTheory.Replay78Bad
-  fi
-  if [ $? = 0 ]; then echo "CONTROL PASSED: the checker accepted a false declaration"; exit 3; fi
-  echo "CONTROL REJECTED, as it must be"
+  C="$WORK/control.log"
+  locked "$LAKE" env leanchecker --fresh OAI.NumberTheory.Replay78Bad > "$C" 2>&1
+  crc=$?
+  cat "$C"
+  rm -f -- "${L:?}/OAI/NumberTheory/Replay78Bad.lean"
+  find "$L/.lake/build" -name 'Replay78Bad.*' -delete
+  if [ "$crc" = 0 ]; then echo "CONTROL PASSED: the checker accepted a false declaration"; exit 3; fi
+  # a nonzero exit for any other reason (no leanchecker, a lock timeout, an import error) is not a rejection
+  grep -F -q "while replaying declaration 'replay78_bad'" "$C" \
+    || { echo "FAILED: the control exited $crc without rejecting replay78_bad (log $C)"; exit 1; }
+  echo "CONTROL REJECTED at replay78_bad, as it must be"
 fi
 
 say "7  leanchecker --fresh $MOD"
