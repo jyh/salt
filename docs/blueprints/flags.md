@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 18924 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # Flags and claims
 
 Append-only log. Sessions record here: node claims (to avoid duplicate work),

@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 137–138 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # PASS 2 / E1 — THE EFFECTIVE-L ENUMERATION: what ¬F buys
 
 E1 of the fulcrum Pass-2 sweep. Ground rule honored: every implication route is labeled

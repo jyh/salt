@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 106 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE FULCRUM — Pass 1 verdict (2026-07-18 22:10 PT; 11/11 agents; quality-angle survived 0/2, structure refuted 1/2)
 
 ## F_MIN

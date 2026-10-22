@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 73–75 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE FLEET-MEETING BRIEF — 2026-08-03
 ### Composed 2026-08-02 from four census-grade scout reports (FULCRUM-ROAD, MRT-ROAD, PARITY-RECON, MR-CENSUS) + HB-CENSUS + the day's five landed waves. Every claim file:line-grounded in the scout ledger; dates always; file order never.
 

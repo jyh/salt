@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 31 and 61 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE HUNT VERDICT — Pass 3 (2026-07-19 03:10 PT; 4 kill-checks, 4 KILLS, 4 walls banked; the judge re-grounded every anchor independently)
 
 ## THE VERDICT

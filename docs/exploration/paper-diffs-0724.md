@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 86–88 and 136 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # PAPER DIFFS — the ratified editing round (drafted 2026-07-24, Friday eve)
 
 **STATUS: D1–D6 ALL APPROVED BY JYH AND APPLIED verbatim (2026-07-24 evening).**

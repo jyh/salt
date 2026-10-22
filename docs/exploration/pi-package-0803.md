@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 537–539 and 540 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # The Fulcrum — submission package (2026-08-03)
 
 **Agent:** PI-PACK. **Purpose:** make `arXiv post → Pi submit` a
