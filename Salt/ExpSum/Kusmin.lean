@@ -373,7 +373,7 @@ Set `δ := √λ`.  Split on the size of `λ`:
 
 Both cases give `C' = 5`.
 
-**What the Lean build needed (the three pieces, all built in `VdCorput2.lean`).**
+**What the Lean build needed (the three pieces; `VdCorput2.lean` built (2) and (3)).**
 The elementary content above needs three pieces of `Finset` engineering, the
 middle one being a genuine sub-obstacle with no mathlib shortcut (see the
 recon: only the *identity* predicate has `filter_lt_le_eq_Ioc`):
@@ -388,7 +388,8 @@ recon: only the *identity* predicate has `filter_lt_le_eq_Ioc`):
 `kusmin_landau` (milestone 1) is stated exactly to receive the good windows
 `G_k` (single interval `m := k`, `g` increasing). The residual `VK-N2-M2` in
 `flags.md` records both the deferral and its closure (2026-07-17): `VdCorput2.lean`
-builds (1)–(3) as `fibre_is_interval`, `count_window` and `step_accum`, and its
+takes (1) from mathlib (`Finset.sum_fiberwise_of_maps_to`) and builds (2) as
+`fibre_is_interval` and (3) as `count_window` and `step_accum`, and its
 fibre count `K ≤ cλL + 2` (the step `⌊x⌋ - ⌊y⌋ ≤ x - y` above is false in general)
 lands `vdC_second_derivative` with `C' = 8` in place of the `5` derived above.
 -/
