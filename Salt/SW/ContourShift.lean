@@ -73,9 +73,11 @@ def closedRect (z w : ℂ) : Set ℂ := [[z.re, w.re]] ×ℂ [[z.im, w.im]]
 def openRect (z w : ℂ) : Set ℂ :=
   Ioo (min z.re w.re) (max z.re w.re) ×ℂ Ioo (min z.im w.im) (max z.im w.im)
 
+/-- `openRect z w` is open. -/
 lemma isOpen_openRect (z w : ℂ) : IsOpen (openRect z w) :=
   isOpen_Ioo.reProdIm isOpen_Ioo
 
+/-- `openRect z w ⊆ closedRect z w`. -/
 lemma openRect_subset_closedRect (z w : ℂ) : openRect z w ⊆ closedRect z w := by
   intro s hs
   obtain ⟨hre, him⟩ := hs

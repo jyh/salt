@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `7f9ba068` · source digest `43e3df15ecf92ff4` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `fa9c0129` · source digest `5f613325e50b8070` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -1025,7 +1025,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.SW.Zc_growth` | 937 | Salt/SW/ZetaPartialFractions.lean:851 |
+| `Salt.SW.Zc_growth` | 937 | Salt/SW/ZetaPartialFractions.lean:860 |
 | `Salt.SW.logDeriv_prod_pow` | 836 | Salt/SW/PartialFractions.lean:80 |
 | `Salt.SW.norm_deriv_le_of_re_le` | 835 | Salt/SW/ZeroCount.lean:230 |
 | `Salt.SW.norm_logDeriv_sub_sum_of_blaschke` | 834 | Salt/SW/BCBound.lean:153 |
@@ -1033,23 +1033,23 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.SW.LFunction_center_lower` | 823 | Salt/SW/ZeroCount.lean:99 |
 | `Salt.BV.polya_vinogradov` | 807 | Salt/BV/PolyaVinogradov.lean:235 |
 | `Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist` | 804 | Salt/SW/Defs.lean:279 |
-| `Salt.SW.entire_zero_count_le` | 798 | Salt/SW/ZetaPartialFractions.lean:134 |
-| `Salt.SW.entire_norm_logDeriv_sub_sum'` | 792 | Salt/SW/ZetaPartialFractions.lean:171 |
+| `Salt.SW.entire_zero_count_le` | 798 | Salt/SW/ZetaPartialFractions.lean:140 |
+| `Salt.SW.entire_norm_logDeriv_sub_sum'` | 792 | Salt/SW/ZetaPartialFractions.lean:177 |
 
 ### zero-density / zero-free regions — 1440 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.SW.Zc_growth` | 937 | Salt/SW/ZetaPartialFractions.lean:851 |
+| `Salt.SW.Zc_growth` | 937 | Salt/SW/ZetaPartialFractions.lean:860 |
 | `Salt.SW.norm_deriv_le_of_re_le` | 835 | Salt/SW/ZeroCount.lean:230 |
 | `Salt.SW.LFunction_center_lower` | 823 | Salt/SW/ZeroCount.lean:99 |
-| `Salt.SW.entire_zero_count_le` | 798 | Salt/SW/ZetaPartialFractions.lean:134 |
-| `Salt.SW.entire_norm_logDeriv_sub_sum'` | 792 | Salt/SW/ZetaPartialFractions.lean:171 |
+| `Salt.SW.entire_zero_count_le` | 798 | Salt/SW/ZetaPartialFractions.lean:140 |
+| `Salt.SW.entire_norm_logDeriv_sub_sum'` | 792 | Salt/SW/ZetaPartialFractions.lean:177 |
 | `Salt.SW.neg_logDeriv_zeta_le` | 678 | Salt/SW/ZetaPole.lean:189 |
 | `Salt.SW.LFunction_zero_count_le` | 626 | Salt/SW/ZeroCount.lean:179 |
 | `Salt.SW.LFunction_conj` | 623 | Salt/SW/ZeroFreeReal.lean:74 |
 | `Salt.Vk.eR_lipschitz` | 623 | Salt/Vk/Shift.lean:45 |
-| `Salt.SW.neg_logDeriv_zeta_split` | 619 | Salt/SW/ZetaPartialFractions.lean:98 |
+| `Salt.SW.neg_logDeriv_zeta_split` | 619 | Salt/SW/ZetaPartialFractions.lean:104 |
 
 ### explog/lognum numeral tactic — 1343 external dependents
 
@@ -1074,13 +1074,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.ExpSum.norm_eR` | 772 | Salt/ExpSum/Basic.lean:45 |
-| `Salt.ExpSum.eR_mul_conj` | 649 | Salt/ExpSum/Basic.lean:60 |
-| `Salt.ExpSum.kusmin_landau` | 572 | Salt/ExpSum/Kusmin.lean:186 |
+| `Salt.ExpSum.norm_eR` | 772 | Salt/ExpSum/Basic.lean:47 |
+| `Salt.ExpSum.eR_mul_conj` | 649 | Salt/ExpSum/Basic.lean:65 |
+| `Salt.ExpSum.kusmin_landau` | 572 | Salt/ExpSum/Kusmin.lean:198 |
 | `Salt.ExpSum.vdC_second_derivative` | 568 | Salt/ExpSum/VdCorput2.lean:145 |
 | `Salt.ExpSum.vdC_2nd_ZR` | 549 | Salt/ExpSum/DerivTest.lean:63 |
-| `Salt.ExpSum.weyl_vdC_sq` | 544 | Salt/ExpSum/Basic.lean:131 |
-| `Salt.ExpSum.weyl_vdC_expSum` | 543 | Salt/ExpSum/Basic.lean:258 |
+| `Salt.ExpSum.weyl_vdC_sq` | 544 | Salt/ExpSum/Basic.lean:136 |
+| `Salt.ExpSum.weyl_vdC_expSum` | 543 | Salt/ExpSum/Basic.lean:263 |
 | `Salt.ExpSum.isVdCBound_16` | 535 | Salt/ExpSum/Strip.lean:182 |
 | `Salt.ExpSum.abel_antitone_prefix` | 527 | Salt/ExpSum/Strip.lean:698 |
 | `Salt.ExpSum.cpow_weight_split` | 527 | Salt/ExpSum/Strip.lean:679 |

@@ -19,8 +19,9 @@
 #      checked with `git apply --check --reverse` (what its post_update hook does); the manifest is
 #      not changed
 #   4  build the solution module
-#   5  check the challenge statement against the theorem, and print its axioms, beside a planted
-#      `sorry` that must print `sorryAx`
+#   5  check the challenge statement against the theorem, and assert the axioms of both (exactly the
+#      three standard ones), beside a planted `sorry` that must print `sorryAx`; the scratch module is
+#      removed after
 #   6  CONTROL: a module holding `replay78_bad : False := True.intro`, added with the kernel's check
 #      skipped; `leanchecker --fresh` on it must FAIL, AT that declaration; the module is removed after
 #   7  `leanchecker --fresh` on the solution module: every imported declaration replayed into an
@@ -119,9 +120,12 @@ if [ "$DRY" = 0 ]; then
   # the theorem's axioms must be exactly the three; the planted sorry must show sorryAx
   tr -s '[:space:]' ' ' < "$A" | grep -F -q "'$THM' depends on axioms: [propext, Classical.choice, Quot.sound]" \
     || { echo "FAILED: the axioms of $THM are not the three standard ones (log $A)"; exit 1; }
+  tr -s '[:space:]' ' ' < "$A" | grep -F -q "'replay78_challenge_statement' depends on axioms: [propext, Classical.choice, Quot.sound]" \
+    || { echo "FAILED: the axioms of replay78_challenge_statement are not the three standard ones (log $A)"; exit 1; }
   tr -s '[:space:]' ' ' < "$A" | grep -F -q "'replay78_control' depends on axioms: [sorryAx]" \
     || { echo "FAILED: the planted sorry did not print sorryAx, so the audit saw nothing (log $A)"; exit 1; }
-  echo "AXIOMS: $THM depends on [propext, Classical.choice, Quot.sound]; the control prints [sorryAx]"
+  echo "AXIOMS: $THM and replay78_challenge_statement depend on [propext, Classical.choice, Quot.sound]; the control prints [sorryAx]"
+  rm -f -- "${L:?}/ScratchReplay78.lean"
 fi
 
 say "6  CONTROL: leanchecker --fresh on a planted false declaration must FAIL"

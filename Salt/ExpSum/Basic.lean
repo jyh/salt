@@ -23,8 +23,9 @@ differencing identity `eR_mul_conj`.
 ## The A-process (Weyl differencing / van der Corput)
 
 For a phase `f : ℤ → ℝ` we bound the exponential sum `S = ∑ eR (f n)` over a
-window `Ioc a (a+N)` by an average of *differenced* sums. This is the
-foundational inequality of the van der Corput method
+window `Ioc a (a+N)` by an average of *differenced* sums (`weyl_vdC_sq` for a complex sequence
+supported on the window, `weyl_vdC_expSum` for the phase sequence `eR (f n)`).
+This is the foundational inequality of the van der Corput method
 (Iwaniec–Kowalski Lemma 8.17, Graham–Kolesnik Lemma 2.5), absent from mathlib.
 
 We take `f : ℤ → ℝ` (not `ℕ → ℝ`): the differenced phase `f (n + h) - f n` with
@@ -42,17 +43,21 @@ open scoped ComplexConjugate
 /-- The normalized additive character `e(x) = exp(2πix)`. -/
 noncomputable def eR (x : ℝ) : ℂ := Complex.exp (2 * Real.pi * Complex.I * x)
 
+/-- `‖eR x‖ = 1`. -/
 @[simp] lemma norm_eR (x : ℝ) : ‖eR x‖ = 1 := by
   have h : eR x = Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * Complex.I) := by
     rw [eR]; congr 1; push_cast; ring
   rw [h, Complex.norm_exp_ofReal_mul_I]
 
+/-- `eR (x + y) = eR x * eR y`. -/
 lemma eR_add (x y : ℝ) : eR (x + y) = eR x * eR y := by
   rw [eR, eR, eR, ← Complex.exp_add]; congr 1; push_cast; ring
 
+/-- `eR (-x) = (eR x)⁻¹`. -/
 lemma eR_neg (x : ℝ) : eR (-x) = (eR x)⁻¹ := by
   rw [eR, eR, ← Complex.exp_neg]; congr 1; push_cast; ring
 
+/-- `conj (eR x) = eR (-x)`. -/
 lemma conj_eR (x : ℝ) : conj (eR x) = eR (-x) := by
   rw [eR_neg]; exact (Complex.inv_eq_conj (norm_eR x)).symm
 
