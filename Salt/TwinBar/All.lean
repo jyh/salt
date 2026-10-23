@@ -791,6 +791,17 @@ open Salt.Tactic in
   Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange_all
   Salt.TwinBar.abs_sum_Icc_le_of_windows
 
+-- The 7/8 statement (SevenEighthsClaim) and its implication to `NoSiegelZeros`; the certificate:
+-- the implication reaches none of the three Siegel names.
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.noSiegelZeros_of_sevenEighths
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_sevenEighths Salt.SW.siegel_theorem
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_sevenEighths Salt.SW.L1_lower_siegel
+
 -- The 7/8 statement through the standoff (SevenEighthsStandoff), by proof terms that do not use
 -- Siegel's theorem.
 open Salt.Tactic in
