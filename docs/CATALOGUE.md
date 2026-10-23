@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4c1aaf7b` · source digest `51829b84e2c331fd` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `e6f37668` · source digest `605f963f6fcc469e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1630,14 +1630,14 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `ProbabilityTheory.uniformOn_real_singleton` | Salt/Entropy/Mathlib/UniformOn.lean:68 | entropy |
 | `ProbabilityTheory.measureEntropy_dirac` | Salt/Entropy/Measure.lean:272 | entropy |
 | `ProbabilityTheory.measureEntropy_le_log_card` | Salt/Entropy/Measure.lean:406 | entropy |
-| `Salt.ExpSum.norm_eR` | Salt/ExpSum/Basic.lean:45 | exponential sums |
-| `Salt.ExpSum.eR_mul_conj` | Salt/ExpSum/Basic.lean:60 | exponential sums |
-| `Salt.ExpSum.weyl_vdC_sq` | Salt/ExpSum/Basic.lean:131 | exponential sums |
-| `Salt.ExpSum.weyl_vdC_expSum` | Salt/ExpSum/Basic.lean:258 | exponential sums |
+| `Salt.ExpSum.norm_eR` | Salt/ExpSum/Basic.lean:47 | exponential sums |
+| `Salt.ExpSum.eR_mul_conj` | Salt/ExpSum/Basic.lean:65 | exponential sums |
+| `Salt.ExpSum.weyl_vdC_sq` | Salt/ExpSum/Basic.lean:136 | exponential sums |
+| `Salt.ExpSum.weyl_vdC_expSum` | Salt/ExpSum/Basic.lean:263 | exponential sums |
 | `Salt.ExpSum.vdC_2nd_ZR` | Salt/ExpSum/DerivTest.lean:63 | exponential sums |
 | `Salt.ExpSum.vdC_third_derivative` | Salt/ExpSum/DerivTest.lean:536 | exponential sums |
 | `Salt.ExpSum.vdC_kth_derivative` | Salt/ExpSum/DerivTestK.lean:667 | exponential sums |
-| `Salt.ExpSum.kusmin_landau` | Salt/ExpSum/Kusmin.lean:186 | exponential sums |
+| `Salt.ExpSum.kusmin_landau` | Salt/ExpSum/Kusmin.lean:198 | exponential sums |
 | `Salt.ExpSum.zeta_block_kusmin_prefix` | Salt/ExpSum/Strip.lean:48 | exponential sums |
 | `Salt.ExpSum.isVdCBound_16` | Salt/ExpSum/Strip.lean:182 | exponential sums |
 | `Salt.ExpSum.zeta_block_vdC_prefix` | Salt/ExpSum/Strip.lean:198 | exponential sums |

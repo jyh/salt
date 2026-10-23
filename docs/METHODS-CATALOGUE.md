@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4c1aaf7b` · source digest `51829b84e2c331fd` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `e6f37668` · source digest `605f963f6fcc469e` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -1074,13 +1074,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | audited member | in-degree | file:line |
 |---|---|---|
-| `Salt.ExpSum.norm_eR` | 772 | Salt/ExpSum/Basic.lean:45 |
-| `Salt.ExpSum.eR_mul_conj` | 649 | Salt/ExpSum/Basic.lean:60 |
-| `Salt.ExpSum.kusmin_landau` | 572 | Salt/ExpSum/Kusmin.lean:186 |
+| `Salt.ExpSum.norm_eR` | 772 | Salt/ExpSum/Basic.lean:47 |
+| `Salt.ExpSum.eR_mul_conj` | 649 | Salt/ExpSum/Basic.lean:65 |
+| `Salt.ExpSum.kusmin_landau` | 572 | Salt/ExpSum/Kusmin.lean:198 |
 | `Salt.ExpSum.vdC_second_derivative` | 568 | Salt/ExpSum/VdCorput2.lean:145 |
 | `Salt.ExpSum.vdC_2nd_ZR` | 549 | Salt/ExpSum/DerivTest.lean:63 |
-| `Salt.ExpSum.weyl_vdC_sq` | 544 | Salt/ExpSum/Basic.lean:131 |
-| `Salt.ExpSum.weyl_vdC_expSum` | 543 | Salt/ExpSum/Basic.lean:258 |
+| `Salt.ExpSum.weyl_vdC_sq` | 544 | Salt/ExpSum/Basic.lean:136 |
+| `Salt.ExpSum.weyl_vdC_expSum` | 543 | Salt/ExpSum/Basic.lean:263 |
 | `Salt.ExpSum.isVdCBound_16` | 535 | Salt/ExpSum/Strip.lean:182 |
 | `Salt.ExpSum.abel_antitone_prefix` | 527 | Salt/ExpSum/Strip.lean:698 |
 | `Salt.ExpSum.cpow_weight_split` | 527 | Salt/ExpSum/Strip.lean:679 |
