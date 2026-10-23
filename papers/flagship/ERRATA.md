@@ -9,17 +9,30 @@ manuscript itself is kept as submitted.
 
 ## A claim dated after submission: the 7/8 claim (2026-10-22)
 
-OpenAI's preprints dated 2026-09-30 and 2026-10-01 (published with Lean sources at `github.com/openai/math`
-from 2026-10-06) claim that no Dirichlet L-function has a zero with real part above 7/8, for every modulus and every character, and that
-there are no Siegel zeros. This repository has not checked those claims. If the 7/8 claim is correct, the fulcrum
-hypothesis F(C) is false at every C > 0, including the C⋆ of the manuscript: a witness of modulus q with
-C log q > 8 has a zero ρ with |1 − ρ| < 1/8, so Re ρ > 7/8, which the claim excludes, since the
-character is nontrivial. The dichotomy TPC ∨ NoSiegelZeros is then decided
-through its NoSiegelZeros side and says nothing about twin primes; the manuscript's twin horn, "Siegel zeros
-produce infinitely many twin primes", is an implication whose hypothesis would be false, so it would hold vacuously; and the reality
-theorem at C ≥ 253696 and the Deuring–Heilbronn repulsion contract hold vacuously. The claim makes no Lean statement
-the manuscript cites false.
-The manuscript's framing of F(C) as a live hypothesis is what the claim, if correct, overtakes.
+OpenAI's preprints dated 2026-09-30 and 2026-10-01 (published with Lean sources at `github.com/openai/math` from
+2026-10-06) claim that no Dirichlet L-function has a zero with real part above 7/8, for every modulus and every
+character, and that there are no Siegel zeros. The Lean proof of the 7/8 claim was kernel-checked on our machine,
+2026-10-22, from OpenAI's pinned source (`openai/math` 1581d4cbdd69): the full environment of 561,427 declarations
+replayed by `leanchecker --fresh`, and the theorem depends on the three standard axioms only (`#print axioms`).
+The statement was matched by elaboration, not by OpenAI's comparator; OpenAI's 23 patches to third-party packages
+were applied as their build applies them, and their content was not read (mathlib is not patched); and this checks
+their Lean proof, not the preprint's argument. The steps of that run are written down as
+`scripts/replay_openai_seven_eighths.sh`, with checks added since the run; the script has not itself been run end
+to end. This repository does not import that proof. It restates the 7/8 statement over its own mathlib as
+`DirichletSevenEighths` and proves that it implies `NoSiegelZeros` (`noSiegelZeros_of_sevenEighths`, in
+`Salt/TwinBar/SevenEighthsClaim.lean`). OpenAI's mathlib (`d13f23b7`) and this repository's (`360da6fa`) agree on
+the six definitions compared at the top of the statement's chain (`DirichletCharacter.LFunction`,
+`ZMod.LFunction`, `DirichletCharacter`, `MulChar`, `ZMod`, `Complex.re`); below them, 591 definitions differ
+structurally, and their equivalence has not been checked. So OpenAI's theorem does not discharge
+`DirichletSevenEighths` here. If `DirichletSevenEighths` holds (the 7/8 statement over this repository's mathlib,
+`360da6fa`), the fulcrum hypothesis F(C) is false at every C > 0, including the C⋆ of the manuscript: a witness of
+modulus q with C log q > 8 has a zero ρ with |1 − ρ| < 1/8, so Re ρ > 7/8, which the claim excludes, since the
+character is nontrivial. The dichotomy TPC ∨ NoSiegelZeros is then decided through its NoSiegelZeros side and says
+nothing about twin primes; the manuscript's twin horn, "Siegel zeros produce infinitely many twin primes", is an
+implication whose hypothesis would be false, so it would hold vacuously; and the reality theorem at C ≥ 253696 and
+the Deuring–Heilbronn repulsion contract hold vacuously. The deductions about F(C) and the vacuous horns are short
+and are not formalized here; the step to `NoSiegelZeros` is. The claim makes no Lean statement the manuscript
+cites false. The manuscript's framing of F(C) as a live hypothesis is what the claim, if it holds, overtakes.
 
 ## The five corrected statements (what the Lean proves)
 
