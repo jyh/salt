@@ -54,9 +54,12 @@ namespace Salt.SW
 supported on `(-∞, 1]`; on `Ioi 0` it agrees with `1[Ioc 0 1]·(1 - t)`. -/
 def kern : ℝ → ℂ := fun t => ((max 0 (1 - t) : ℝ) : ℂ)
 
+/-- `kern` is continuous. -/
 lemma continuous_kern : Continuous kern :=
   Complex.continuous_ofReal.comp (continuous_const.max (continuous_const.sub continuous_id))
 
+/-- For `0 < t`, `kern t` is the difference of the two indicator functions of `Ioc 0 1`
+with values `1` and `u ↦ u`. -/
 lemma kern_eq_indicator_diff {t : ℝ} (ht : 0 < t) :
     kern t = Set.indicator (Ioc 0 1) (fun _ => (1 : ℂ)) t
            - Set.indicator (Ioc 0 1) (fun u : ℝ => (u : ℂ)) t := by
@@ -105,14 +108,17 @@ lemma hasMellin_kern {s : ℂ} (hs : 0 < s.re) :
 
 /-! ## Deliverable 2 — vertical absolute convergence -/
 
+/-- `c + t·I ≠ 0` for `0 < c`. -/
 lemma s_ne_zero {c : ℝ} (hc : 0 < c) (t : ℝ) : ((c:ℂ) + (t:ℂ) * I) ≠ 0 := by
   have hre : ((c:ℂ) + (t:ℂ) * I).re = c := by simp
   intro h; rw [h] at hre; simp at hre; linarith
 
+/-- `c + t·I + 1 ≠ 0` for `0 < c`. -/
 lemma s1_ne_zero {c : ℝ} (hc : 0 < c) (t : ℝ) : ((c:ℂ) + (t:ℂ) * I + 1) ≠ 0 := by
   have hre : ((c:ℂ) + (t:ℂ) * I + 1).re = c + 1 := by simp
   intro h; rw [h] at hre; simp at hre; linarith
 
+/-- `t ↦ (c² + t²)⁻¹` is integrable on `ℝ` for `0 < c`. -/
 lemma integrable_inv_c_sq_add_sq {c : ℝ} (hc : 0 < c) :
     Integrable (fun t : ℝ => (c ^ 2 + t ^ 2)⁻¹) := by
   have hg : Integrable (fun u : ℝ => (c ^ 2)⁻¹ * (1 + u ^ 2)⁻¹) :=
@@ -126,6 +132,7 @@ lemma integrable_inv_c_sq_add_sq {c : ℝ} (hc : 0 < c) :
   have hne : c ^ 2 + t ^ 2 ≠ 0 := by positivity
   field_simp
 
+/-- `‖((c + t·I)(c + t·I + 1))⁻¹‖ ≤ (c² + t²)⁻¹` for `0 < c`. -/
 lemma norm_inv_denom_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
     ‖(((c:ℂ) + (t:ℂ) * I) * ((c:ℂ) + (t:ℂ) * I + 1))⁻¹‖ ≤ (c ^ 2 + t ^ 2)⁻¹ := by
   have hns : ‖(c:ℂ) + (t:ℂ) * I‖ = Real.sqrt (c ^ 2 + t ^ 2) := by
@@ -143,6 +150,7 @@ lemma norm_inv_denom_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
   rw [norm_inv, norm_mul]
   gcongr
 
+/-- `t ↦ ((c + t·I)(c + t·I + 1))⁻¹` is integrable on `ℝ` for `0 < c`. -/
 lemma integrable_inv_denom {c : ℝ} (hc : 0 < c) :
     Integrable (fun t : ℝ => (((c:ℂ) + (t:ℂ) * I) * ((c:ℂ) + (t:ℂ) * I + 1))⁻¹) := by
   refine (integrable_inv_c_sq_add_sq hc).mono' ?_ ?_
@@ -152,6 +160,7 @@ lemma integrable_inv_denom {c : ℝ} (hc : 0 < c) :
     · intro t; exact mul_ne_zero (s_ne_zero hc t) (s1_ne_zero hc t)
   · filter_upwards with t; exact norm_inv_denom_le hc t
 
+/-- `mellin kern` is vertically integrable on the line `Re s = c` for `0 < c`. -/
 lemma verticalIntegrable_mellin_kern {c : ℝ} (hc : 0 < c) :
     Complex.VerticalIntegrable (mellin kern) c := by
   rw [Complex.VerticalIntegrable]
