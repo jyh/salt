@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `866377a2` · source digest `98f019d7669d1e6b` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `64b2e095` · source digest `575611fcf2365d68` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,9 +22,9 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23262 | 677 | 22574 | 9025 | 13 | 282 | 40 | 342 | 87 |
+| 23266 | 678 | 22577 | 9028 | 13 | 283 | 40 | 342 | 87 |
 
-Per-polarity totals over the 677 Props: with F-consumers 527 · with ¬F-consumers 21 · with F-producers (any kind) 444 · with ¬F-producers (any kind) 59.
+Per-polarity totals over the 678 Props: with F-consumers 528 · with ¬F-consumers 21 · with F-producers (any kind) 444 · with ¬F-producers (any kind) 59.
 
 ## FULCRUM-SHAPED (13) — both polarities consumed
 
@@ -46,7 +46,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | `Salt.MR.NearRat` | Salt/MR/BigXiArc.lean:144 | DISCHARGED | 1 (1/0) | 2 (2/0) | 3/3/0 | 0/0/0 | 0/0 | `Salt.MR.exists_large_den_of_minor` (Salt/MR/BigXiArc.lean:331), `Salt.MR.exists_large_den_of_not_nearRat` (Salt/MR/BigXiArc.lean:274) | `Salt.MR.nearRat_mono` (Salt/MR/BigXiArc.lean:188) |
 | `Salt.MR.MemS` | Salt/MR/Sec9Glue.lean:118 | OPEN | 1 (1/0) | 1 (1/0) | 0/0/0 | 4/0/0 | 0/6 | `Salt.MR.memSCoeff_eq_zero_of_not_memS` (Salt/MR/M4Band.lean:359) | `Salt.MR.memSPunct_of_memS` (Salt/MR/M4Puncture.lean:69) |
 
-## HALF-SHAPED SOCKETS — top 40 of 282 by F-consumer count (status OPEN, not FRAME, no ¬F-consumer: *what would ¬P give?*)
+## HALF-SHAPED SOCKETS — top 40 of 283 by F-consumer count (status OPEN, not FRAME, no ¬F-consumer: *what would ¬P give?*)
 
 | # | P | defined at | status | F-cons (direct/engine) | audited hang (item 2) | ∃-witness producers | cond. producers | ¬F-prod | sites | F-consumer examples |
 |---|---|---|---|---|---|---|---|---|---|---|
