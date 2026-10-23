@@ -455,6 +455,7 @@ import Salt.MR.StrideSupplyAllStrides
 import Salt.MR.FlatDoorParityFloor
 import Salt.MR.FlatDoorUniform
 import Salt.MR.FlatDoorStandoff
+import Salt.MR.FlatDoorSevenEighths
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -11386,3 +11387,16 @@ open Salt.Tactic in
   Salt.MR.flat_chain_generic_epsW_of_standoff
   Salt.MR.flatDoorEpsFamilyW_holds_of_standoff
   Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_standoff
+
+/-! ⟦O13 — THEOREM 4.25 FROM THE 7/8 STATEMENT⟧ (`FlatDoorSevenEighths`, 2026-10-23, math).
+Additive only: the landed file edited is THIS one (one import and this block).
+
+`logChowla2_epsFamily_flatDoor_floor_of_sevenEighths` composes
+`logChowla2_epsFamily_flatDoor_floor_of_standoff` with
+`Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` at `cS = (log 2)/8`.  The module's certificate: it
+reaches none of `siegel_theorem` · `siegel_L_one_exceptional` · `L1_lower_siegel`, and its
+conclusion is Theorem 4.25's, token for token.  ⚠ LIMIT: it is CONDITIONAL on
+`Salt.TwinBar.DirichletSevenEighths` as cited, and a reach certificate, not a claim that the
+result is effective. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_sevenEighths
