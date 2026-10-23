@@ -249,8 +249,8 @@ theorem one_le_log_of_one_le_arcParam {N : ℕ} (h : 1 ≤ arcParam N) : 1 ≤ R
   have h2 : (1 : ℝ) ≤ arcParam N := by exact_mod_cast h
   linarith [arcParam_le_log_pow N]
 
-/-- **Step 4, one major arc:** the integral over the arc at `a/q` is
-`(μ(q)/φ(q))³ e(−Na/q) J_δ` up to `O(P N²/(log N)^{32})`. -/
+/-- `norm_majorArc_integral_sub_le` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem norm_majorArc_integral_sub_le_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N : ℕ, 2 ≤ N → ∀ x ∈ arcIndex (arcParam N),
       ‖(∫ α in majorArc N (arcParam N) x.1 x.2, circleIntegrand N α)
@@ -326,8 +326,8 @@ theorem norm_majorArc_integral_sub_le_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
   field_simp
   ring
 
-/-- `norm_majorArc_integral_sub_le_of_SW` at the unconditional gate
-`Salt.SW.siegelWalfisz_holds`. -/
+/-- **Step 4, one major arc:** the integral over the arc at `a/q` is
+`(μ(q)/φ(q))³ e(−Na/q) J_δ` up to `O(P N²/(log N)^{32})`. -/
 theorem norm_majorArc_integral_sub_le :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ N : ℕ, 2 ≤ N → ∀ x ∈ arcIndex (arcParam N),
       ‖(∫ α in majorArc N (arcParam N) x.1 x.2, circleIntegrand N α)
@@ -479,9 +479,8 @@ theorem norm_sum_singularTerm_le (N P : ℕ) :
     (summable_moebiusSqDivTotientSq.sum_le_tsum _
       (fun q _ => moebiusSqDivTotientSq_nonneg q)))
 
-/-- **The count around its main term.** For `N ≥ 2` with `P = arcParam N ≥ 1` and `2P³ < N`,
-`R(N)` is at least `𝔖(N) C(N − 1, 2)` minus four errors: the major arcs, the minor arcs, the
-singular integral's truncation, and the singular series' tail. -/
+/-- `weightedCount_ge_main_sub_errors` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem weightedCount_ge_main_sub_errors_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ K₁ K₂ : ℝ, 0 ≤ K₁ ∧ 0 ≤ K₂ ∧ ∀ N : ℕ, 2 ≤ N → 1 ≤ arcParam N →
       2 * arcParam N ^ 3 < N →
@@ -565,8 +564,9 @@ theorem weightedCount_ge_main_sub_errors_of_SW (hSWall : Salt.BV.SiegelWalfisz) 
   have htlC := mul_le_mul_of_nonneg_right htl (Nat.cast_nonneg (α := ℝ) Cn)
   linarith
 
-/-- `weightedCount_ge_main_sub_errors_of_SW` at the unconditional gate
-`Salt.SW.siegelWalfisz_holds`. -/
+/-- **The count around its main term.** For `N ≥ 2` with `P = arcParam N ≥ 1` and `2P³ < N`,
+`R(N)` is at least `𝔖(N) C(N − 1, 2)` minus four errors: the major arcs, the minor arcs, the
+singular integral's truncation, and the singular series' tail. -/
 theorem weightedCount_ge_main_sub_errors :
     ∃ K₁ K₂ : ℝ, 0 ≤ K₁ ∧ 0 ≤ K₂ ∧ ∀ N : ℕ, 2 ≤ N → 1 ≤ arcParam N →
       2 * arcParam N ^ 3 < N →
@@ -679,7 +679,8 @@ theorem choose_two_bounds {N : ℕ} (hN : 1 ≤ N) :
   have : (1 : ℝ) ≤ N := by exact_mod_cast hN
   constructor <;> nlinarith
 
-/-- **Step 7:** for odd `N`, the weighted count is eventually at least `c N²` for some `c > 0`. -/
+/-- `weightedCount_lower` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem weightedCount_lower_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ c : ℝ, 0 < c ∧ ∀ᶠ N : ℕ in atTop, Odd N → c * (N : ℝ) ^ 2 ≤ weightedCount N := by
   obtain ⟨c₀, hc₀, hlow⟩ := singularSeries_lower_bound
@@ -756,13 +757,13 @@ theorem weightedCount_lower_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
       _ = K₁ * (c₀ / (16 * (K₁ + 1))) * N := by rw [hsplit]
       _ ≤ c₀ / 16 * N := mul_le_mul_of_nonneg_right hK hNpos.le
 
-/-- `weightedCount_lower_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+/-- **Step 7:** for odd `N`, the weighted count is eventually at least `c N²` for some `c > 0`. -/
 theorem weightedCount_lower :
     ∃ c : ℝ, 0 < c ∧ ∀ᶠ N : ℕ in atTop, Odd N → c * (N : ℝ) ^ 2 ≤ weightedCount N :=
   weightedCount_lower_of_SW Salt.SW.siegelWalfisz_holds
 
-/-- **Vinogradov's three-primes theorem:** every sufficiently large odd number is a sum of three
-primes. -/
+/-- `three_primes` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem three_primes_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ N₀ : ℕ, ∀ N : ℕ, N₀ < N → Odd N →
       ∃ p₁ p₂ p₃ : ℕ, p₁.Prime ∧ p₂.Prime ∧ p₃.Prime ∧ p₁ + p₂ + p₃ = N := by
@@ -794,7 +795,8 @@ theorem three_primes_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
         linarith
     _ = c * (N : ℝ) ^ 2 := by ring
 
-/-- `three_primes_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+/-- **Vinogradov's three-primes theorem:** every sufficiently large odd number is a sum of three
+primes. -/
 theorem three_primes :
     ∃ N₀ : ℕ, ∀ N : ℕ, N₀ < N → Odd N →
       ∃ p₁ p₂ p₃ : ℕ, p₁.Prime ∧ p₂.Prime ∧ p₃.Prime ∧ p₁ + p₂ + p₃ = N :=
