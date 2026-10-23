@@ -28,6 +28,7 @@ import Salt.TwinBar.WallUnconditional
 import Salt.TwinBar.WallCorr
 import Salt.TwinBar.SiegelTwin
 import Salt.TwinBar.SevenEighthsClaim
+import Salt.TwinBar.SevenEighthsStandoff
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
 import Salt.TwinBar.TwistedSieve
@@ -788,3 +789,10 @@ open Salt.Tactic in
   Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange
   Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange_all
   Salt.TwinBar.abs_sum_Icc_le_of_windows
+
+-- The 7/8 statement through the standoff (SevenEighthsStandoff), by proof terms that do not use
+-- Siegel's theorem.
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.TwinBar.three_primes_of_sevenEighths
+  Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.TwinBar.gaps_le_600_of_sevenEighths
+  Salt.TwinBar.chen_headline_of_sevenEighths Salt.TwinBar.chen_goldbach_of_sevenEighths
