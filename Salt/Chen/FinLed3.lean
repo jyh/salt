@@ -275,17 +275,17 @@ theorem aggSlack_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
 `1/X_W ≤ K := 4·e^{35}·(log x)²/x`.  Every crumb `N/X_W ≤ N·K` then vanishes against the concrete
 `N` (`x/(log x)^{10}`, `√x·log₂x·log x`, `log x·x/(z−1)`) by poly-beats-power. -/
 
-/-- **`crumb_reduce`** — the `X_W`-normalisation reduction.  Past a threshold, `X_W > 0` and every
-nonneg numerator `N` obeys `N/X_W ≤ N·(4·e^{35}·(log x)²/x)`. -/
-theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `crumb_reduce` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem crumb_reduce_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
           * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
       ∧ ∀ N : ℝ, 0 ≤ N →
         N / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
               * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
           ≤ N * (4 * Real.exp 35 * (Real.log x) ^ 2 / (x : ℝ)) := by
-  obtain ⟨xlo, hlo⟩ := XW_lower_at_op
-  obtain ⟨xpos, hpos⟩ := XW_pos_at_op
+  obtain ⟨xlo, hlo⟩ := (XW_lower_at_op_of_SW hSWall)
+  obtain ⟨xpos, hpos⟩ := (XW_pos_at_op_of_SW hSWall)
   obtain ⟨xt, -, htower⟩ := opf_tower
   refine ⟨max (max xlo xpos) (max xt (10 ^ 48)), fun x hx => ?_⟩
   simp only [max_le_iff] at hx
@@ -338,6 +338,17 @@ theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   calc N / XW = N * (1 / XW) := by rw [mul_one_div]
     _ ≤ N * K := mul_le_mul_of_nonneg_left h1XW hN
 
+/-- **`crumb_reduce`** — the `X_W`-normalisation reduction.  Past a threshold, `X_W > 0` and every
+nonneg numerator `N` obeys `N/X_W ≤ N·(4·e^{35}·(log x)²/x)`. -/
+theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+          * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
+      ∧ ∀ N : ℝ, 0 ≤ N →
+        N / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+              * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+          ≤ N * (4 * Real.exp 35 * (Real.log x) ^ 2 / (x : ℝ)) :=
+  crumb_reduce_of_SW Salt.SW.siegelWalfisz_holds
+
 /-- **`master_le`** — the master crumb bound.  Past a threshold, `1 ≤ log x` and
 `8·e^{35}/(log x)^7 ≤ 1/100000`; since `(log x)^k ≥ (log x)^7` for `k ≥ 7`, this dominates
 every reduced crumb. -/
@@ -372,9 +383,9 @@ theorem logpow_reduction : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   · have h := hb x hxb
     rwa [hcast, Real.rpow_natCast] at h
 
-/-- **`crumbs_le`** — the four ledger crumbs at op.  Past a threshold, `X_W > 0` and each of
-`R1/X_W`, `R2/X_W`, `log x·R3/X_W`, `e4` is below its (tiny) share. -/
-theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `crumbs_le` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem crumbs_le_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
           * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
     ∧ ((x : ℝ) / (Real.log x) ^ 10 + Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x)
@@ -393,7 +404,7 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
           / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
             * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
         ≤ 1 / 100000 := by
-  obtain ⟨xr, hr⟩ := crumb_reduce
+  obtain ⟨xr, hr⟩ := (crumb_reduce_of_SW hSWall)
   obtain ⟨xm, hm⟩ := master_le
   obtain ⟨xp, hp⟩ := logpow_reduction
   obtain ⟨xt, -, htower⟩ := opf_tower
@@ -526,6 +537,29 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   rw [add_div]
   linarith [hc_R2, hc_sqrt]
 
+/-- **`crumbs_le`** — the four ledger crumbs at op.  Past a threshold, `X_W > 0` and each of
+`R1/X_W`, `R2/X_W`, `log x·R3/X_W`, `e4` is below its (tiny) share. -/
+theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+          * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
+    ∧ ((x : ℝ) / (Real.log x) ^ 10 + Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x)
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 2 / 100000
+    ∧ (x : ℝ) / (Real.log x) ^ 10
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 1 / 100000
+    ∧ Real.log x * ((x : ℝ) / (Real.log x) ^ 10)
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 1 / 100000
+    ∧ Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1)
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 1 / 100000 :=
+  crumbs_le_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## Part E — the A₂ tail weight bound (`e2`'s vanishing `wtail` factor) -/
 
 /-- **`A2weight_le`** — `A2weight(opZ, opZ⁴, opY+1) ≤ 3000/3997`.  The denominator `4·log opZ −
@@ -639,16 +673,14 @@ theorem e3_collapse {cbar ec rho s3 crumb : ℝ}
 /-! ## Part H — the `hL` ledger bundle: `normalized_package` at the op carriers -/
 
 set_option maxHeartbeats 1000000 in -- deep op composition: normalized_package unifies 4 carriers
-/-- **`hL_bundle`** — the F2 ledger hypothesis of `chen_headline_of_A3_ledger` at the concrete
-carriers `M1`/`M2`/`M3`.  `normalized_package` at the frozen operating point, with the four error
-shares discharged (`e1 ≈ 0.0003`, `e2/2 ≈ 0.0033`, `e3/2 ≈ 0.0016`, `e4/2 ≈ 0.000005`;
-total `≈ 0.00374 < 1/200`). -/
-theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `hL_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hL_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     0 < M1 x - M2 x / 2 - M3 x / 2 - Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1) / 2 := by
-  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := hcount_seam
+  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := (hcount_seam_of_SW hSWall)
   obtain ⟨xs1, hslack1⟩ := slack1_le
   obtain ⟨xag, hag⟩ := aggSlack_le
-  obtain ⟨xcr, hcr⟩ := crumbs_le
+  obtain ⟨xcr, hcr⟩ := (crumbs_le_of_SW hSWall)
   obtain ⟨xa2, ha2⟩ := A2weight_le
   obtain ⟨xrh, hrh⟩ := rho_le
   obtain ⟨xc1, hc1⟩ := hcertA1_at_op
@@ -792,6 +824,14 @@ theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   -- ══ the error bundle `hEbundle ≤ 1/200` ══
   have he3 := e3_collapse (cbar_pos.le) (le_of_lt cbar_lt) hec_nn hec_le hrho_hi hs3_nn hs3_hi hR3XW
   linarith [hslack1 x (by omega), hR1XW, hwtail_bd, hagg_bd, hR2XW, he3, he4XW]
+
+/-- **`hL_bundle`** — the F2 ledger hypothesis of `chen_headline_of_A3_ledger` at the concrete
+carriers `M1`/`M2`/`M3`.  `normalized_package` at the frozen operating point, with the four error
+shares discharged (`e1 ≈ 0.0003`, `e2/2 ≈ 0.0033`, `e3/2 ≈ 0.0016`, `e4/2 ≈ 0.000005`;
+total `≈ 0.00374 < 1/200`). -/
+theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    0 < M1 x - M2 x / 2 - M3 x / 2 - Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1) / 2 :=
+  hL_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 /-- **The compiled endpoint.**  Given the F1 A₃ bundle `hA3` (`triplePrimeSumW ≤ M3`, supplied by
 `FinA3c`'s `hBVblocksW_discharge'` composition), the F2 ledger `hL_bundle` closes the entire Chen

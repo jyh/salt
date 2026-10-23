@@ -798,8 +798,9 @@ VERBATIM copies (public ingredients only) with `B, C` obtained from the x-indepe
 consumers (Part 6) need to choose `x₁ = x₁(B, C)`. -/
 
 set_option linter.unusedVariables false in
-/-- `twinA1_hBV_W` with `∃ B C` OUTSIDE the `∀ x` (Finding-4 rederivation; body verbatim). -/
-theorem a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+/-- `a12_hBV_A1` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem a12_hBV_A1_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a x z D P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)
       (hPz : ∀ p ∈ P.primeFactors, p < z)
@@ -816,7 +817,7 @@ theorem a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
       rosserRemainder (twinA1SieveW Qm a x P hP hPodd) (Qlev * D)
         ≤ (x : ℝ) / (Real.log x) ^ 10 := by
   obtain ⟨B, C, hB, hC, hbv⟩ :=
-    psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11 (by norm_num)
+    psi_BV_of_siegelWalfisz' hSWall 11 (by norm_num)
   refine ⟨B, C, hB, hC, ?_⟩
   intro Qm a x z D P ε Qlev hP hPodd hPz hPlow hx hε hw0 hwz hQm1 hQmP hQma hQlev hD
     hlevel hclose
@@ -867,8 +868,29 @@ theorem a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
   linarith [hsplit, hS1, hS2, hConv, hclose]
 
 set_option linter.unusedVariables false in
-/-- `twinA2_hBVagg_W` with `∃ B C` OUTSIDE the `∀ x` (Finding-4 rederivation; body verbatim). -/
-theorem a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+/-- `twinA1_hBV_W` with `∃ B C` OUTSIDE the `∀ x` (Finding-4 rederivation; body verbatim). -/
+theorem a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+    ∀ (Qm a x z D P : ℕ) (ε Qlev : ℝ)
+      (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)
+      (hPz : ∀ p ∈ P.primeFactors, p < z)
+      (hPlow : ∀ p ∈ P.primeFactors, w0R ε ≤ (p : ℝ))
+      (hx : 4 ≤ x) (hε : 0 < ε) (hw0 : 3 ≤ w0R ε)
+      (hwz : w0R ε ≤ (z : ℝ)) (hQm1 : 1 ≤ Qm) (hQmP : Nat.Coprime Qm P)
+      (hQma : Nat.Coprime Qm a) (hQlev : 1 ≤ Qlev) (hD : 1 ≤ D),
+      (Qm : ℝ) * (Qlev * D) ≤ Real.sqrt (x : ℝ) / (Real.log x) ^ B →
+      C * (x : ℝ) / (Real.log x) ^ (11 : ℝ) + C * (x : ℝ) / (Real.log x) ^ (11 : ℝ)
+          + 2 * Real.log x
+              * ((Qm.primeFactors.card : ℝ) + Real.log (Qlev * D) / Real.log 3)
+              * ((1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε))
+        ≤ (x : ℝ) / (Real.log x) ^ 10 →
+      rosserRemainder (twinA1SieveW Qm a x P hP hPodd) (Qlev * D)
+        ≤ (x : ℝ) / (Real.log x) ^ 10 :=
+  a12_hBV_A1_of_SW Salt.SW.siegelWalfisz_holds
+
+set_option linter.unusedVariables false in
+/-- `a12_hBV_A2` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem a12_hBV_A2_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a x z y Dtot P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q)
       (hPz : ∀ q ∈ P.primeFactors, q < z)
@@ -890,7 +912,7 @@ theorem a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
           rosserRemainder (twinA2SieveW Qm a x P p hP hPodd) (Qlev * (cdiv Dtot p : ℝ))
         ≤ (x : ℝ) / (Real.log x) ^ 10 := by
   obtain ⟨B, C, hB, hC, hbv⟩ :=
-    psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11 (by norm_num)
+    psi_BV_of_siegelWalfisz' hSWall 11 (by norm_num)
   refine ⟨B, C, hB, hC, ?_⟩
   intro Qm a x z y Dtot P ε Qlev hP hPodd hPz hPlow hx hz3 hε hw0 hwz hQm1 hQmP hQma
     hQmPr hQlev hD1 hlevel hclose
@@ -1011,6 +1033,31 @@ theorem a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     apply mul_le_mul_of_nonneg_right _ hSp0
     exact mul_le_mul_of_nonneg_left hMbound hK0
   linarith [hsum, hS1, hS2, hconv2, hclose]
+
+set_option linter.unusedVariables false in
+/-- `twinA2_hBVagg_W` with `∃ B C` OUTSIDE the `∀ x` (Finding-4 rederivation; body verbatim). -/
+theorem a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+    ∀ (Qm a x z y Dtot P : ℕ) (ε Qlev : ℝ)
+      (hP : Squarefree P) (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q)
+      (hPz : ∀ q ∈ P.primeFactors, q < z)
+      (hPlow : ∀ q ∈ P.primeFactors, w0R ε ≤ (q : ℝ))
+      (hx : 4 ≤ x) (hz3 : 3 ≤ z) (hε : 0 < ε) (hw0 : 3 ≤ w0R ε)
+      (hwz : w0R ε ≤ (z : ℝ))
+      (hQm1 : 1 ≤ Qm) (hQmP : Nat.Coprime Qm P) (hQma : Nat.Coprime Qm a)
+      (hQmPr : ∀ p ∈ (Finset.Icc z y).filter Nat.Prime, Nat.Coprime Qm p)
+      (hQlev : 1 ≤ Qlev) (hD1 : 1 ≤ Dtot),
+      (Qm : ℝ) * (Qlev * ((Dtot : ℝ) + (y : ℝ))) ≤ Real.sqrt (x : ℝ) / (Real.log x) ^ B →
+      C * (x : ℝ) / (Real.log x) ^ (11 : ℝ) + C * (x : ℝ) / (Real.log x) ^ (11 : ℝ)
+          + 2 * Real.log x
+              * ((Qm.primeFactors.card : ℝ)
+                  + Real.log (Qlev * ((Dtot : ℝ) + (y : ℝ))) / Real.log 3)
+              * ((1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε))
+              * (∑ p ∈ (Finset.Icc z y).filter Nat.Prime, 1 / ((p : ℝ) - 1))
+        ≤ (x : ℝ) / (Real.log x) ^ 10 →
+      ∑ p ∈ (Finset.Icc z y).filter Nat.Prime,
+          rosserRemainder (twinA2SieveW Qm a x P p hP hPodd) (Qlev * (cdiv Dtot p : ℝ))
+        ≤ (x : ℝ) / (Real.log x) ^ 10 :=
+  a12_hBV_A2_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ### Part 4 — work items (b)/(c): the A1 W-LEVEL and W-CLOSE rows
 
@@ -1525,8 +1572,9 @@ supplied by Parts 4/5, the per-prime rows by Part 6, `h4 := h4_cond_of_base`,
 `hstepWPC := stepHypWPC_sharpB`, and the Finding-4 `∃ B C`-first BV forms of Part 3. -/
 
 set_option linter.unusedVariables false in
-/-- **The `hA1` slot of `chen_of_hypotheses_W` at the frozen operating point.** -/
-theorem a12_hA1 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `a12_hA1` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem a12_hA1_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     ∀ (hP : Squarefree (opP x)) (hPodd : ∀ p ∈ (opP x).primeFactors, 3 ≤ p)
       (hPz : ∀ p ∈ (opP x).primeFactors, p < opZ x)
       (hPlow : ∀ p ∈ (opP x).primeFactors, w0R opEps ≤ (p : ℝ))
@@ -1544,7 +1592,7 @@ theorem a12_hA1 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       - (x : ℝ) / (Real.log x) ^ 10
       - Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x
     ≤ A1primeSumW opQ opA x (opP x) := by
-  obtain ⟨B, C, hB, hC, hbvfun⟩ := a12_hBV_A1
+  obtain ⟨B, C, hB, hC, hbvfun⟩ := (a12_hBV_A1_of_SW hSWall)
   obtain ⟨x₂, hlev⟩ := a12_level B hB
   obtain ⟨x₃, hcl⟩ := a12_close C hC
   refine ⟨max (max x₂ x₃) 4, ?_⟩
@@ -1570,8 +1618,31 @@ theorem a12_hA1 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   linarith [hsup, hbridge]
 
 set_option linter.unusedVariables false in
-/-- **The `hA2` slot of `chen_of_hypotheses_W` at the frozen operating point.** -/
-theorem a12_hA2 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- **The `hA1` slot of `chen_of_hypotheses_W` at the frozen operating point.** -/
+theorem a12_hA1 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    ∀ (hP : Squarefree (opP x)) (hPodd : ∀ p ∈ (opP x).primeFactors, 3 ≤ p)
+      (hPz : ∀ p ∈ (opP x).primeFactors, p < opZ x)
+      (hPlow : ∀ p ∈ (opP x).primeFactors, w0R opEps ≤ (p : ℝ))
+      (hQP : Nat.Coprime opQ (opP x))
+      (hQma : Nat.Coprime opQ opA)
+      (hz3 : 3 ≤ opZ x) (hzD : opZ x ≤ opD x) (hD1 : 1 ≤ opD x)
+      (hStop : 2 ≤ logRatio (opZ x) (opD x))
+      (hwz : w0R opEps ≤ ((opZ x : ℕ) : ℝ))
+      (hQ2 : 2 ≤ opQ) (hQlog : (opQ : ℝ) ≤ Real.log x),
+    (twinA1SieveW opQ opA x (opP x) hP hPodd).totalMass *
+        (Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) hP hPodd) *
+          (fchain (maxDepth (twinA1SieveW opQ opA x (opP x) hP hPodd))
+              (logRatio (opZ x) (opD x))
+            - opEps * CsharpB opEps * Real.exp 2 * hBJS (logRatio (opZ x) (opD x))))
+      - (x : ℝ) / (Real.log x) ^ 10
+      - Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x
+    ≤ A1primeSumW opQ opA x (opP x) :=
+  a12_hA1_of_SW Salt.SW.siegelWalfisz_holds
+
+set_option linter.unusedVariables false in
+/-- `a12_hA2` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem a12_hA2_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     ∀ (hP : Squarefree (opP x)) (hPodd : ∀ p ∈ (opP x).primeFactors, 3 ≤ p)
       (hPz : ∀ p ∈ (opP x).primeFactors, p < opZ x)
       (hPlow : ∀ p ∈ (opP x).primeFactors, w0R opEps ≤ (p : ℝ))
@@ -1595,7 +1666,7 @@ theorem a12_hA2 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
                     * (opEps * CsharpB opEps * Real.exp 2
                         * hBJS (logRatio (opZ x) (cdiv (opD x) p))))
         + (x : ℝ) / (Real.log x) ^ 10 := by
-  obtain ⟨B, C, hB, hC, hbvfun⟩ := a12_hBV_A2
+  obtain ⟨B, C, hB, hC, hbvfun⟩ := (a12_hBV_A2_of_SW hSWall)
   obtain ⟨x₂, hlev⟩ := a12_level2 B hB
   obtain ⟨x₃, hcl⟩ := a12_close2 C hC
   obtain ⟨x₄, hcd2⟩ := a12_cdiv2
@@ -1676,5 +1747,33 @@ theorem a12_hA2 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   linarith [hupper, hagg]
 
 -- END FRAGMENT A1A2
+
+set_option linter.unusedVariables false in
+/-- **The `hA2` slot of `chen_of_hypotheses_W` at the frozen operating point.** -/
+theorem a12_hA2 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    ∀ (hP : Squarefree (opP x)) (hPodd : ∀ p ∈ (opP x).primeFactors, 3 ≤ p)
+      (hPz : ∀ p ∈ (opP x).primeFactors, p < opZ x)
+      (hPlow : ∀ p ∈ (opP x).primeFactors, w0R opEps ≤ (p : ℝ))
+      (hQP : Nat.Coprime opQ (opP x))
+      (hQma : Nat.Coprime opQ opA)
+      (hQfull : ∀ q, q.Prime → q < opW' → q ∣ opQ)
+      (hPfull' : ∀ q, q.Prime → opW' ≤ q → q < opZ x → q ∣ opP x)
+      (hQa2 : Nat.Coprime opQ (opA + 2))
+      (hQmPr : ∀ p ∈ (Finset.Icc (opZ x) (opY x)).filter Nat.Prime, Nat.Coprime opQ p)
+      (hz3 : 3 ≤ opZ x) (hD1 : 1 ≤ opD x)
+      (hwz : w0R opEps ≤ ((opZ x : ℕ) : ℝ))
+      (hQ2 : 2 ≤ opQ) (hQlog : (opQ : ℝ) ≤ Real.log x)
+      (hyD : opY x ≤ opD x),
+    omegaPrimeSumW opQ opA x (opP x) (opY x)
+      ≤ ((twinA1SieveW opQ opA x (opP x) hP hPodd).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) hP hPodd))
+          * (A2grid ((Finset.Icc (opZ x) (opY x)).filter Nat.Prime) (opZ x) (opD x)
+                (fun p => maxDepth (twinA2SieveW opQ opA x (opP x) p hP hPodd))
+              + ∑ p ∈ (Finset.Icc (opZ x) (opY x)).filter Nat.Prime,
+                  (1 / ((p : ℝ) - 1))
+                    * (opEps * CsharpB opEps * Real.exp 2
+                        * hBJS (logRatio (opZ x) (cdiv (opD x) p))))
+        + (x : ℝ) / (Real.log x) ^ 10 :=
+  a12_hA2_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Chen

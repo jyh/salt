@@ -125,12 +125,9 @@ set_option maxHeartbeats 4000000 in
 -- the ~24-row wide-geometry discharge (mirror of `gold_kerrY_engine`) at the y-floor plus the band
 -- `D0`-window and the 43-hypothesis generic pricer elaborate a long rpow/sqrt-bearing chain; the
 -- whnf/defeq checks need headroom well above the default heartbeat budget.
-/-- **`gold_kerrY2_engine`.**  The y-floor Y-indicator engine.  For a middle-piece survivor
-(`2^{kp} ≤ y ≤ pieceM kp`, `opY N < pieceM kp` so the `kp`-floor `2^{kp} > N^{1/3}/4` holds) at a
-WIDE per-annulus level (`hDge`, `hDwide`), the two-cutoff sym price against `blockPrimeInd y` is
-`≤ goldBoxPriceKerrY Kc y kp i` — `KerrY.gold_kerrY_engine` with the three liveness rows swapped for
-the y-floor routes and `gold_d0_window_z` swapped for `gold_d0_window_band`. -/
-theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+/-- `gold_kerrY2_engine` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_kerrY2_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
     ∀ (N : ℕ), x₁ ≤ N →
       ∀ (β : ℕ → ℂ) (kp D y : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
         i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka)
@@ -149,7 +146,7 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
                 (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
           ≤ goldBoxPriceKerrY Kc y kp i := by
   obtain ⟨Kc, N₀, hKc, hbody⟩ :=
-    medium_survivor_price_sqrtD (A := 13) (C0 := 18) (by norm_num) (by norm_num)
+    medium_survivor_price_sqrtD_of_SW hSWall (A := 13) (C0 := 18) (by norm_num) (by norm_num)
   obtain ⟨xs, hs⟩ := gold_op_scales
   obtain ⟨xp, hp⟩ := a12_logpow_le_rpow 18 (1 / 2000) (by norm_num) (by norm_num)
   obtain ⟨xh, hh⟩ := a12_log_ge (3 * 10 ^ 10 + 10)
@@ -623,6 +620,31 @@ theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   rw [two_mul]
   exact add_le_add (hone T₂) (hone T₁)
 
+/-- **`gold_kerrY2_engine`.**  The y-floor Y-indicator engine.  For a middle-piece survivor
+(`2^{kp} ≤ y ≤ pieceM kp`, `opY N < pieceM kp` so the `kp`-floor `2^{kp} > N^{1/3}/4` holds) at a
+WIDE per-annulus level (`hDge`, `hDwide`), the two-cutoff sym price against `blockPrimeInd y` is
+`≤ goldBoxPriceKerrY Kc y kp i` — `KerrY.gold_kerrY_engine` with the three liveness rows swapped for
+the y-floor routes and `gold_d0_window_z` swapped for `gold_d0_window_band`. -/
+theorem gold_kerrY2_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N →
+      ∀ (β : ℕ → ℂ) (kp D y : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
+        i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka)
+          (goldCut N (ka + 1)) (opZ N * opY N) K →
+        2 ^ kp ≤ y →
+        y ≤ pieceM kp →
+        opY N < pieceM kp →
+        (goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+        (∀ m, ‖β m‖ ≤ 1) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) → (∀ d ∈ Dset, d ≤ D) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd y)
+              (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd y)
+                (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
+          ≤ goldBoxPriceKerrY Kc y kp i :=
+  gold_kerrY2_engine_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## 3. The outer geo grade (the `hmid` `/(log N)^{12}` grade, `Cgeo := 4^{12}·gboxConst`)
 
 The Y-mirror of `gold_band_survsum_geoN_floored`, via `gold_boxPriceKerrY_geoN` at `cr := 4`.  The
@@ -754,15 +776,9 @@ theorem gold_kerrY2_geoN : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
 set_option maxHeartbeats 800000 in
 -- the `unfold goldSymSurvSum` + `boxPriceKerrY_mono` defeq checks over the long `boxPriceKerrY`
 -- bracket need headroom above the default heartbeat budget.
-/-- **`gold_hmid_discharge`.**  The missing supplier for `Close.gold_band_hsym_wide_at_op`'s `hmid`:
-on every dyadic-boundary sym MIDDLE survivor (`pieceN k' ≤ opY N < pieceM k'`, so the max collapses
-to `opY N`) the two-cutoff sym price grades to `(4^{12}·gboxConst)·Kc·goldCut N (k+1)/(log N)^{12}`.
-The interior (`2^{k'} ≤ opY N`) prices the `blockPrimeInd (opY N)` carrier at `y := opY N`; the
-one-point boundary (`opY N = 2^{k'}−1`, where `pieceM k' = 2·opY N + 1` breaks the pricer's
-`M ≤ 2N`) prices at `y := 2^{k'}` via `blockPrimeInd (opY N) = blockPrimeInd (2^{k'})`.  The `Kc` is
-this engine's own; the terminal `G-ASM` reconciles it against Close's via the RHS `Kc`-monotonicity
-(`gboxConst ≥ 0`). -/
-theorem gold_hmid_discharge : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+/-- `gold_hmid_discharge` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hmid_discharge_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
     ∀ (N : ℕ), x₁ ≤ N → ∀ (Q a Ps : ℕ) (ε₀ QR : ℝ) (Dlev D K : ℕ),
       Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
       (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
@@ -779,7 +795,7 @@ theorem gold_hmid_discharge : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
               goldSymSurvSum N Q a Ps ε₀ (QR * Dlev) 0 k' k i
                 ≤ ((4 : ℝ) ^ 12 * gboxConst) * Kc * (goldCut N (k + 1) : ℝ)
                     / (Real.log N) ^ 12 := by
-  obtain ⟨Kc, xe, hKce, hengine⟩ := gold_kerrY2_engine
+  obtain ⟨Kc, xe, hKce, hengine⟩ := (gold_kerrY2_engine_of_SW hSWall)
   obtain ⟨xg, hgeo⟩ := gold_kerrY2_geoN
   obtain ⟨xs2, hs2⟩ := gold_op_scales
   refine ⟨max Kc 1, max (max xe xg) xs2, le_max_right _ _, ?_⟩
@@ -851,5 +867,32 @@ theorem gold_hmid_discharge : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
       exact hEng
     exact hgeo N hxg k' k i K (2 ^ k') (max Kc 1)
       (goldSymSurvSum N Q a Ps ε₀ (QR * Dlev) 0 k' k i) hKc1 hi' hvan hkpy hbound
+
+/-- **`gold_hmid_discharge`.**  The missing supplier for `Close.gold_band_hsym_wide_at_op`'s `hmid`:
+on every dyadic-boundary sym MIDDLE survivor (`pieceN k' ≤ opY N < pieceM k'`, so the max collapses
+to `opY N`) the two-cutoff sym price grades to `(4^{12}·gboxConst)·Kc·goldCut N (k+1)/(log N)^{12}`.
+The interior (`2^{k'} ≤ opY N`) prices the `blockPrimeInd (opY N)` carrier at `y := opY N`; the
+one-point boundary (`opY N = 2^{k'}−1`, where `pieceM k' = 2·opY N + 1` breaks the pricer's
+`M ≤ 2N`) prices at `y := 2^{k'}` via `blockPrimeInd (opY N) = blockPrimeInd (2^{k'})`.  The `Kc` is
+this engine's own; the terminal `G-ASM` reconciles it against Close's via the RHS `Kc`-monotonicity
+(`gboxConst ≥ 0`). -/
+theorem gold_hmid_discharge : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N → ∀ (Q a Ps : ℕ) (ε₀ QR : ℝ) (Dlev D K : ℕ),
+      Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
+      (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
+      (∀ k ∈ Finset.range (Nat.log 2 N + 1),
+        (goldCut N (k + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ)) →
+      ∀ k' ∈ Finset.range (Nat.log 2 N + 1), pieceN k' ≤ opY N → opY N < pieceM k' →
+        ∀ k ∈ Finset.range (Nat.log 2 N + 1),
+          ∀ i ∈ dyadicBoundary (max (opY N) (pieceN k')) (pieceM k')
+            (goldCut N k) (goldCut N (k + 1)) (opZ N * opY N) K,
+            (D : ℝ)
+                  * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ)
+                      * (pieceM k' : ℝ))) ^ ((13 : ℝ) + 5)
+                ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ)) →
+              goldSymSurvSum N Q a Ps ε₀ (QR * Dlev) 0 k' k i
+                ≤ ((4 : ℝ) ^ 12 * gboxConst) * Kc * (goldCut N (k + 1) : ℝ)
+                    / (Real.log N) ^ 12 :=
+  gold_hmid_discharge_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

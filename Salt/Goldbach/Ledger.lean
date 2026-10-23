@@ -258,11 +258,9 @@ theorem gold_W_ge_twin (N a : ℕ) :
           (Finset.prod_nonneg fun q _ => hnn q)
     _ = ∏ q ∈ (goldOpP N).primeFactors, (1 - nuChen q) := one_mul _
 
-/-- **The crumbs transfer.**  The four twin ledger crumbs (`crumbs_le`) re-priced at the
-Goldbach `X_W`: `totalMass` is IDENTICAL on both sides (`= (ΣΛ)/φ(opQ)` — the
-singular-series cancellation), and `W` only grows under puncturing, so every crumb
-share can only shrink. -/
-theorem gold_crumbs_le : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ a : ℕ,
+/-- `gold_crumbs_le` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_crumbs_le_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ a : ℕ,
     0 < (goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N)
             (goldOpP_odd N)).totalMass
           * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
@@ -291,7 +289,7 @@ theorem gold_crumbs_le : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ a : ℕ
             * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
                 (goldOpP_squarefree N) (goldOpP_odd N)))
         ≤ 1 / 100000 := by
-  obtain ⟨xr, hr⟩ := crumbs_le
+  obtain ⟨xr, hr⟩ := (crumbs_le_of_SW hSWall)
   refine ⟨max xr (10 ^ 48), fun N hN a => ?_⟩
   have hxr : xr ≤ N := le_trans (le_max_left _ _) hN
   have hx48 : (10 : ℕ) ^ 48 ≤ N := le_trans (le_max_right _ _) hN
@@ -350,6 +348,41 @@ theorem gold_crumbs_le : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ a : ℕ
     le_trans (div_le_div_of_nonneg_left hcrumb2 hXWt hXW_le) hc2,
     le_trans (div_le_div_of_nonneg_left hcrumb3 hXWt hXW_le) hc3,
     le_trans (div_le_div_of_nonneg_left hcrumb4 hXWt hXW_le) hc4⟩
+
+/-- **The crumbs transfer.**  The four twin ledger crumbs (`crumbs_le`) re-priced at the
+Goldbach `X_W`: `totalMass` is IDENTICAL on both sides (`= (ΣΛ)/φ(opQ)` — the
+singular-series cancellation), and `W` only grows under puncturing, so every crumb
+share can only shrink. -/
+theorem gold_crumbs_le : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ a : ℕ,
+    0 < (goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N)
+            (goldOpP_odd N)).totalMass
+          * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
+              (goldOpP_squarefree N) (goldOpP_odd N))
+    ∧ ((N : ℝ) / (Real.log N) ^ 10 + Real.sqrt N * (Nat.log 2 N : ℝ) * Real.log N)
+          / ((goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N)
+                (goldOpP_odd N)).totalMass
+            * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
+                (goldOpP_squarefree N) (goldOpP_odd N)))
+        ≤ 2 / 100000
+    ∧ (N : ℝ) / (Real.log N) ^ 10
+          / ((goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N)
+                (goldOpP_odd N)).totalMass
+            * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
+                (goldOpP_squarefree N) (goldOpP_odd N)))
+        ≤ 1 / 100000
+    ∧ Real.log N * ((N : ℝ) / (Real.log N) ^ 10)
+          / ((goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N)
+                (goldOpP_odd N)).totalMass
+            * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
+                (goldOpP_squarefree N) (goldOpP_odd N)))
+        ≤ 1 / 100000
+    ∧ Real.log N * (N : ℝ) / ((opZ N : ℝ) - 1)
+          / ((goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N)
+                (goldOpP_odd N)).totalMass
+            * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
+                (goldOpP_squarefree N) (goldOpP_odd N)))
+        ≤ 1 / 100000 :=
+  gold_crumbs_le_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## §2 — the punctured `W`-ratio -/
 

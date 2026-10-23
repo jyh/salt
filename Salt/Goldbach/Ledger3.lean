@@ -31,17 +31,18 @@ open Finset ArithmeticFunction Salt.Chen Salt.BrunLower
 namespace Salt.Goldbach
 
 set_option maxHeartbeats 1000000 in -- deep op composition: normalized_package unifies 4 carriers
-/-- **`gold_hL_bundle`** — the F2 ledger positivity at the Goldbach carriers, uniformly
-in the admissible residue `a`.  The exact `hL` slot of `chen_goldbach_of_ledger`. -/
-theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_hL_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hL_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
     R ≤ Real.log N → Even N →
     ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
     0 < M1G N a - M2G N a / 2 - M3G N / 2
       - Real.log N * (N : ℝ) / ((opZ N : ℝ) - 1) / 2 := by
-  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := gold_hcount_seam
+  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := (gold_hcount_seam_of_SW hSWall)
   obtain ⟨xs1, hslack1⟩ := slack1_le
   obtain ⟨xag, hag⟩ := gold_aggSlack_le
-  obtain ⟨xcr, hcr⟩ := gold_crumbs_le
+  obtain ⟨xcr, hcr⟩ := (gold_crumbs_le_of_SW hSWall)
   obtain ⟨xa2, ha2⟩ := A2weight_le
   obtain ⟨xrh, hrh⟩ := gold_rho_le
   obtain ⟨xc1, hc1⟩ := gold_hcertA1_at_op
@@ -220,5 +221,14 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
   have he3 := e3_collapse cbar_pos.le (le_of_lt cbar_lt) hec_nn hec_le hrho_hi
     hs3_nn hs3_hi hR3XW
   linarith [hslack1 N (by omega), hR1XW, hwtail_bd, hagg_bd, hR2XW, he3, he4XW]
+
+/-- **`gold_hL_bundle`** — the F2 ledger positivity at the Goldbach carriers, uniformly
+in the admissible residue `a`.  The exact `hL` slot of `chen_goldbach_of_ledger`. -/
+theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
+    R ≤ Real.log N → Even N →
+    ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+    0 < M1G N a - M2G N a / 2 - M3G N / 2
+      - Real.log N * (N : ℝ) / ((opZ N : ℝ) - 1) / 2 :=
+  gold_hL_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

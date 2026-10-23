@@ -106,13 +106,15 @@ theorem gold_hPdiag_row : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
 
 /-! ## §C — the conversion-error price row (r10) -/
 
-/-- r10: the `hCE` budget row at op, with the exposed threshold real. -/
-theorem gold_hRCE_row : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_hRCE_row` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hRCE_row_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
     R ≤ Real.log N →
     nuChen opQ * (∑ d ∈ Nat.divisors (goldOpPs N), nuChen d)
         * goldTripleSum N (opZ N) (opY N) / ((opZ N : ℝ) - 1)
       ≤ (N : ℝ) / (Real.log N) ^ 11 := by
-  obtain ⟨Cs, xs, hCs0, hseam⟩ := gold_hcount_seam
+  obtain ⟨Cs, xs, hCs0, hseam⟩ := (gold_hcount_seam_of_SW hSWall)
   obtain ⟨xν, hν⟩ := gold_nu_sum_le_log
   obtain ⟨xsc, hsc⟩ := gold_op_scales
   obtain ⟨xk, hk⟩ := a12_logpow_le_rpow ((13 : ℕ) : ℝ) (1 / 16) (by positivity) (by norm_num)
@@ -270,6 +272,14 @@ theorem gold_hRCE_row : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
       mul_le_mul_of_nonneg_left e4 hNpos.le
     linarith [e5]
   exact le_trans hLHS hfold
+
+/-- r10: the `hCE` budget row at op, with the exposed threshold real. -/
+theorem gold_hRCE_row : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
+    R ≤ Real.log N →
+    nuChen opQ * (∑ d ∈ Nat.divisors (goldOpPs N), nuChen d)
+        * goldTripleSum N (opZ N) (opY N) / ((opZ N : ℝ) - 1)
+      ≤ (N : ℝ) / (Real.log N) ^ 11 :=
+  gold_hRCE_row_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## §D — the D-floor/scale rows (r1–r8) -/
 
@@ -455,10 +465,10 @@ theorem gold_op_rows : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁
 
 /-! ## §E — the terminal, closed -/
 
-/-- **`gold_hBVblocksW_at_op_closed`** — the A₃ block-BV terminal with every
-op-arithmetic row discharged: only the exposed threshold row and the residue-class
-witness `a` remain. -/
-theorem gold_hBVblocksW_at_op_closed : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
+/-- `gold_hBVblocksW_at_op_closed` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hBVblocksW_at_op_closed_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
     ∀ (N : ℕ), x₁ ≤ N → CT ≤ Real.log N →
       ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
       (∑ j ∈ Finset.range (maxBlock N (opZ N) (N : ℝ) + 1),
@@ -467,10 +477,10 @@ theorem gold_hBVblocksW_at_op_closed : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
               (goldOpPs_squarefree N) (goldOpPs_odd N))
             (1 * (opDlev N : ℝ)))
         ≤ (N : ℝ) / (Real.log N) ^ 10 := by
-  obtain ⟨CT, xF, hCT0, hfinal⟩ := gold_hBVblocksW_final
+  obtain ⟨CT, xF, hCT0, hfinal⟩ := (gold_hBVblocksW_final_of_SW hSWall)
   obtain ⟨RD, xD, hRD0, hrows⟩ := gold_op_rows
   obtain ⟨xP, hPdiag⟩ := gold_hPdiag_row
-  obtain ⟨RC, xC, hRC0, hRCE⟩ := gold_hRCE_row
+  obtain ⟨RC, xC, hRC0, hRCE⟩ := (gold_hRCE_row_of_SW hSWall)
   refine ⟨max CT (max RD RC), max (max xF xD) (max xP xC), ?_, ?_⟩
   · exact le_trans hCT0 (le_max_left _ _)
   intro N hN hthr a haN hQa hQNa
@@ -487,5 +497,19 @@ theorem gold_hBVblocksW_at_op_closed : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
     hrows N hxD hRDle
   exact hfinal N hxF hCTle a haN hQa hQNa hb1 hDbnd hDband hDgeB hDsc hbndsc hcount hiX
     (hPdiag N hxP) (hRCE N hxC hRCle) hN2 hz1
+
+/-- **`gold_hBVblocksW_at_op_closed`** — the A₃ block-BV terminal with every
+op-arithmetic row discharged: only the exposed threshold row and the residue-class
+witness `a` remain. -/
+theorem gold_hBVblocksW_at_op_closed : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
+    ∀ (N : ℕ), x₁ ≤ N → CT ≤ Real.log N →
+      ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+      (∑ j ∈ Finset.range (maxBlock N (opZ N) (N : ℝ) + 1),
+          rosserRemainder
+            (goldBlockSwitchSieveW N (opZ N) (opY N) (N : ℝ) j opQ a (goldOpPs N)
+              (goldOpPs_squarefree N) (goldOpPs_odd N))
+            (1 * (opDlev N : ℝ)))
+        ≤ (N : ℝ) / (Real.log N) ^ 10 :=
+  gold_hBVblocksW_at_op_closed_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

@@ -51,18 +51,15 @@ noncomputable def goldSeamC (Kcount Kmass : ℝ) : ℝ :=
     + 2 * (255 * Real.log 2 + 768) + 4 * cbar * Kmass + 2
 
 set_option maxRecDepth 8000 in
-/-- **`gold_hcount_seam` — the Goldbach count seam at `goldTripleSum / φ(opQ)`.**  Past a threshold,
-the Goldbach count line closes against the PNT window mass with leading constant `cbar` and an
-explicit `o(1)` budget `ecountOp C N = C / log(opZ N)`.  The Goldbach mirror of
-`Salt.Chen.hcount_seam` (`x := N`), but with the UNRESTRICTED `goldTripleSum` — no equidistribution
-crumb.  Composes `goldCount_bound_uniformK` + `gold_op_count_rows` (geometry) + `corr_le_at_op`
-(the boundary fold, reused) + `lambda_mass_lower` (the window mass). -/
-theorem gold_hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_hcount_seam` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hcount_seam_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ N : ℕ, x₁ ≤ N →
     Real.log N * (goldTripleSum N (opZ N) (opY N) / (opQ.totient : ℝ))
       ≤ (cbar + ecountOp C N)
           * ((∑ n ∈ twinWindow N, vonMangoldt n) / (opQ.totient : ℝ)) := by
-  obtain ⟨Kcount, hKc0, hpsi⟩ := psiTot_pnt
-  obtain ⟨Kmass, hKm0, hmass⟩ := lambda_mass_lower
+  obtain ⟨Kcount, hKc0, hpsi⟩ := (psiTot_pnt_of_SW hSWall)
+  obtain ⟨Kmass, hKm0, hmass⟩ := (lambda_mass_lower_of_SW hSWall)
   obtain ⟨xc, hrows⟩ := gold_op_count_rows
   obtain ⟨xcorr, hcorr⟩ := corr_le_at_op
   have hlog2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
@@ -289,5 +286,18 @@ theorem gold_hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ N : ℕ, 
         mul_le_mul_of_nonneg_right hmain hinv
     _ = (cbar + ec) * ((∑ n ∈ twinWindow N, vonMangoldt n) / (opQ.totient : ℝ)) := by
         rw [div_eq_mul_inv]; ring
+
+set_option maxRecDepth 8000 in
+/-- **`gold_hcount_seam` — the Goldbach count seam at `goldTripleSum / φ(opQ)`.**  Past a threshold,
+the Goldbach count line closes against the PNT window mass with leading constant `cbar` and an
+explicit `o(1)` budget `ecountOp C N = C / log(opZ N)`.  The Goldbach mirror of
+`Salt.Chen.hcount_seam` (`x := N`), but with the UNRESTRICTED `goldTripleSum` — no equidistribution
+crumb.  Composes `goldCount_bound_uniformK` + `gold_op_count_rows` (geometry) + `corr_le_at_op`
+(the boundary fold, reused) + `lambda_mass_lower` (the window mass). -/
+theorem gold_hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ N : ℕ, x₁ ≤ N →
+    Real.log N * (goldTripleSum N (opZ N) (opY N) / (opQ.totient : ℝ))
+      ≤ (cbar + ecountOp C N)
+          * ((∑ n ∈ twinWindow N, vonMangoldt n) / (opQ.totient : ℝ)) :=
+  gold_hcount_seam_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

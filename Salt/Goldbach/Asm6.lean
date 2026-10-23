@@ -81,12 +81,12 @@ noncomputable def M1G (N a : ℕ) : ℝ :=
     - Real.sqrt N * (Nat.log 2 N : ℝ) * Real.log N
 
 set_option linter.unusedVariables false in
-/-- **The general-`a` A₁ bundle** — `gold_a12_hA1` re-instantiated at the parametric
-residue (item 3 of the G-ASM job), composed with the Finding-6 bridge. -/
-theorem gold_hA1_bundle : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_hA1_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hA1_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     ∀ a : ℕ, Nat.Coprime opQ a →
     M1G N a ≤ goldA1PrimeSumW opQ a N (goldOpP N) := by
-  obtain ⟨B, C, hB, hC, hbvfun⟩ := gold_a12_hBV_A1
+  obtain ⟨B, C, hB, hC, hbvfun⟩ := (gold_a12_hBV_A1_of_SW hSWall)
   obtain ⟨x₂, hlev⟩ := a12_level B hB
   obtain ⟨x₃, hcl⟩ := a12_close C hC
   obtain ⟨xt, -, htower⟩ := opf_tower
@@ -113,14 +113,19 @@ theorem gold_hA1_bundle : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
   rw [M1G]
   linarith [hsup, hbridge]
 
+set_option linter.unusedVariables false in
+/-- **The general-`a` A₁ bundle** — `gold_a12_hA1` re-instantiated at the parametric
+residue (item 3 of the G-ASM job), composed with the Finding-6 bridge. -/
+theorem gold_hA1_bundle : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
+    ∀ a : ℕ, Nat.Coprime opQ a →
+    M1G N a ≤ goldA1PrimeSumW opQ a N (goldOpP N) :=
+  gold_hA1_bundle_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## §C — the final reduction: `chen_goldbach` from the F2 ledger -/
 
-/-- **The final reduction.**  The frozen D0 conclusion from ONE remaining analytic
-bundle: the F2-ledger positivity at the concrete carriers `M1G`/`M2G`/`M3G` (the
-`normalized_package`-mirror obligation).  All structural wiring — the three main
-bundles, the residue witness, the tower rows, the razor, the survivor — is
-discharged. -/
-theorem chen_goldbach_of_ledger
+/-- `chen_goldbach_of_ledger` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem chen_goldbach_of_ledger_of_SW (hSWall : Salt.BV.SiegelWalfisz)
     (hL : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N → R ≤ Real.log N → Even N →
         ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
         0 < M1G N a - M2G N a / 2 - M3G N / 2
@@ -128,9 +133,9 @@ theorem chen_goldbach_of_ledger
     ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even N →
       ∃ p q : ℕ, N = p + q ∧ p.Prime ∧ IsP2 2 q := by
   obtain ⟨R, xl, hR0, hld⟩ := hL
-  obtain ⟨x1, h1⟩ := gold_hA1_bundle
-  obtain ⟨x2, h2⟩ := gold_hA2_bundle
-  obtain ⟨CT, x3, hCT0, h3⟩ := gold_hA3_bundle
+  obtain ⟨x1, h1⟩ := (gold_hA1_bundle_of_SW hSWall)
+  obtain ⟨x2, h2⟩ := (gold_hA2_bundle_of_SW hSWall)
+  obtain ⟨CT, x3, hCT0, h3⟩ := (gold_hA3_bundle_of_SW hSWall)
   obtain ⟨xt, -, htower⟩ := opf_tower
   obtain ⟨xsc, hsc⟩ := gold_op_scales
   apply goldbach_of_hypotheses_W
@@ -168,5 +173,19 @@ theorem chen_goldbach_of_ledger
     hN2, (by omega : 2 ≤ opZ N), hcube, haN, hzN, opf_Qfull, goldOpP_full' N, hQNa,
     h1 N hx1 a hQa, h2 N hx2 a haN hQa hQNa, h3 N hx3 hCTle hEven a haN hQa hQNa,
     hld N hxl hRle hEven a haN hQa hQNa⟩
+
+/-- **The final reduction.**  The frozen D0 conclusion from ONE remaining analytic
+bundle: the F2-ledger positivity at the concrete carriers `M1G`/`M2G`/`M3G` (the
+`normalized_package`-mirror obligation).  All structural wiring — the three main
+bundles, the residue witness, the tower rows, the razor, the survivor — is
+discharged. -/
+theorem chen_goldbach_of_ledger
+    (hL : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N → R ≤ Real.log N → Even N →
+        ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+        0 < M1G N a - M2G N a / 2 - M3G N / 2
+          - Real.log N * (N : ℝ) / ((opZ N : ℝ) - 1) / 2) :
+    ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even N →
+      ∃ p q : ℕ, N = p + q ∧ p.Prime ∧ IsP2 2 q :=
+  chen_goldbach_of_ledger_of_SW Salt.SW.siegelWalfisz_holds hL
 
 end Salt.Goldbach

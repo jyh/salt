@@ -158,10 +158,11 @@ noncomputable def M1 (x : ℕ) : ℝ :=
     - (x : ℝ) / (Real.log x) ^ 10
     - Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x
 
-/-- **The A₁ bundle** — `M1 x ≤ A1primeSumW` past a threshold.  The landed `a12_hA1` with its
-~13 at-op hypotheses discharged from `opf_*` + `opf_tower`. -/
-theorem hA1_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x → M1 x ≤ A1primeSumW opQ opA x (opP x) := by
-  obtain ⟨x1, h⟩ := a12_hA1
+/-- `hA1_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hA1_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x → M1 x ≤ A1primeSumW opQ opA x (opP x) := by
+  obtain ⟨x1, h⟩ := (a12_hA1_of_SW hSWall)
   obtain ⟨xt, hxt8, htower⟩ := opf_tower
   refine ⟨max x1 xt, fun x hx => ?_⟩
   have hx1 : x1 ≤ x := le_trans (le_max_left _ _) hx
@@ -169,6 +170,11 @@ theorem hA1_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x → M1 x ≤ A1prim
   obtain ⟨hQlog, hwz, _, hz3, hzD, hD1, _, _, _, hStop, _⟩ := htower x hxt
   exact h x hx1 (opf_P_sq x) (opf_Podd x) (opf_Pz x) (opf_Plow x) (opf_QP x) opf_Qma
     hz3 hzD hD1 hStop hwz opf_Q2 hQlog
+
+/-- **The A₁ bundle** — `M1 x ≤ A1primeSumW` past a threshold.  The landed `a12_hA1` with its
+~13 at-op hypotheses discharged from `opf_*` + `opf_tower`. -/
+theorem hA1_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x → M1 x ≤ A1primeSumW opQ opA x (opP x) :=
+  hA1_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## F2/A₂ — the A₂ carrier `M2` and its bundle (from the landed `a12_hA2`) -/
 
@@ -184,11 +190,11 @@ noncomputable def M2 (x : ℕ) : ℝ :=
                     * hBJS (logRatio (opZ x) (cdiv (opD x) p))))
     + (x : ℝ) / (Real.log x) ^ 10
 
-/-- **The A₂ bundle** — `omegaPrimeSumW ≤ M2 x` past a threshold.  The landed `a12_hA2` with its
-~17 at-op hypotheses discharged; `hyD : opY x ≤ opD x` from the exponent monotonicity. -/
-theorem hA2_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `hA2_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hA2_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     omegaPrimeSumW opQ opA x (opP x) (opY x) ≤ M2 x := by
-  obtain ⟨x1, h⟩ := a12_hA2
+  obtain ⟨x1, h⟩ := (a12_hA2_of_SW hSWall)
   obtain ⟨xt, hxt8, htower⟩ := opf_tower
   refine ⟨max x1 xt, fun x hx => ?_⟩
   have hx1 : x1 ≤ x := le_trans (le_max_left _ _) hx
@@ -201,6 +207,12 @@ theorem hA2_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     exact Nat.floor_le_floor (Real.rpow_le_rpow_of_exponent_le hx1R (by norm_num))
   exact h x hx1 (opf_P_sq x) (opf_Podd x) (opf_Pz x) (opf_Plow x) (opf_QP x) opf_Qma
     opf_Qfull (opf_Pfull' x) opf_Qa2 (opf_QmPr x hw'z) hz3 hD1 hwz opf_Q2 hQlog hyD
+
+/-- **The A₂ bundle** — `omegaPrimeSumW ≤ M2 x` past a threshold.  The landed `a12_hA2` with its
+~17 at-op hypotheses discharged; `hyD : opY x ≤ opD x` from the exponent monotonicity. -/
+theorem hA2_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    omegaPrimeSumW opQ opA x (opP x) (opY x) ≤ M2 x :=
+  hA2_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## F1 — the A₃ carrier `M3` (the `mainA3_of_block_remainders_W` output shape)
 
@@ -231,6 +243,17 @@ Both are stated at the concrete carriers `M1`/`M2`/`M3`, so the next session sup
 these two bundles (F1 via `hBVblocksW_discharge'`; F2 via `normalized_package` + the certs +
 `hEbundle ≤ 1/200`) to obtain `chen_headline`. -/
 
+/-- `chen_headline_of_A3_ledger` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem chen_headline_of_A3_ledger_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    (hA3 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+        triplePrimeSumW opQ opA x (opP x) (opY x) ≤ M3 x)
+    (hL : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+        0 < M1 x - M2 x / 2 - M3 x / 2
+          - Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1) / 2) :
+    {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite :=
+  chen_headline_of_ops M1 M2 M3 (hA1_bundle_of_SW hSWall) (hA2_bundle_of_SW hSWall) hA3 hL
+
 /-- **The final wiring reduction.**  With the F1 A₃ bundle and the F2 ledger bundle at the
 concrete carriers `M1`/`M2`/`M3`, the Chen headline follows.  The A₁/A₂ legs (`hA1_bundle`/
 `hA2_bundle`) and the entire structural wiring (`chen_headline_of_ops`) are discharged. -/
@@ -241,7 +264,7 @@ theorem chen_headline_of_A3_ledger
         0 < M1 x - M2 x / 2 - M3 x / 2
           - Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1) / 2) :
     {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite :=
-  chen_headline_of_ops M1 M2 M3 hA1_bundle hA2_bundle hA3 hL
+  chen_headline_of_A3_ledger_of_SW Salt.SW.siegelWalfisz_holds hA3 hL
 
 /-! ## F2 raw-shape verification (de-risking `normalized_package`)
 

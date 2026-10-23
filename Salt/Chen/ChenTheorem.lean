@@ -27,9 +27,15 @@ No `sorry`, no `native_decide`; axioms exactly
 
 namespace Salt.Chen
 
+/-- `chen_headline` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem chen_headline_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite :=
+  (chen_headline_of_A3_ledger_of_SW hSWall) (hA3_bundle_of_SW hSWall) (hL_bundle_of_SW hSWall)
+
 /-- **Chen's theorem** (unconditional): there are infinitely many primes `p`
 with `p + 2` prime or a product of two primes. -/
 theorem chen_headline : {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite :=
-  chen_headline_of_A3_ledger hA3_bundle hL_bundle
+  chen_headline_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Chen

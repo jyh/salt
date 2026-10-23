@@ -592,16 +592,10 @@ private lemma fiberW_discrepancy_le
 
 /-! ## Section 5 — the equidistribution row -/
 
-/-- **The equidistribution row (D5/C6).**  For every saving `A > 0` and range exponent
-`C > 0` there are `K > 0` and a threshold `N₀` such that, under the named AP rows
-(the GLU-2W ledger in the header),
-
-  `|tripleSumW − tripleSum/φ(Q)| ≤ K·x/(log Lval)^A · Σ_{pairSet} 1/(p₁p₂) + 2·|pairSet|`.
-
-The `(K, N₀)` pair comes from ONE invocation of the landed fixed-modulus SW
-(`prime_indicator_SW`), threaded through every `p₃`-fiber (`fiberW_discrepancy_le`);
-the fiber decompositions are exact (`tripleSum_eq_fiberSum`, `tripleSumW_eq_fiberSum`). -/
-theorem tripleSumW_equidist {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `tripleSumW_equidist` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem tripleSumW_equidist_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧ ∀ Q a x z y : ℕ,
       0 < Q → Nat.Coprime Q (a + 2) → (∀ p : ℕ, p.Prime → p ∣ Q → p < z) →
       3 ≤ Lval x y → N₀ ≤ Lval x y →
@@ -610,7 +604,7 @@ theorem tripleSumW_equidist {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
         ≤ K * (x : ℝ) / (Real.log (Lval x y)) ^ A
             * (∑ q ∈ pairSet x z y, 1 / ((q.1 : ℝ) * q.2))
           + 2 * ((pairSet x z y).card : ℝ) := by
-  obtain ⟨K, N₀, hK, hSW⟩ := prime_indicator_SW hA hC
+  obtain ⟨K, N₀, hK, hSW⟩ := (prime_indicator_SW_of_SW hSWall) hA hC
   refine ⟨K, N₀, hK, fun Q a x z y hQ hQa2 hQz hLval3 hN₀ hQrange => ?_⟩
   rw [tripleSumW_eq_fiberSum, tripleSum_eq_fiberSum, Finset.sum_div,
     ← Finset.sum_sub_distrib]
@@ -628,6 +622,26 @@ theorem tripleSumW_equidist {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
         + 2 * ((pairSet x z y).card : ℝ) := by
         rw [Finset.sum_add_distrib, ← Finset.mul_sum, Finset.sum_const, nsmul_eq_mul]
         ring
+
+/-- **The equidistribution row (D5/C6).**  For every saving `A > 0` and range exponent
+`C > 0` there are `K > 0` and a threshold `N₀` such that, under the named AP rows
+(the GLU-2W ledger in the header),
+
+  `|tripleSumW − tripleSum/φ(Q)| ≤ K·x/(log Lval)^A · Σ_{pairSet} 1/(p₁p₂) + 2·|pairSet|`.
+
+The `(K, N₀)` pair comes from ONE invocation of the landed fixed-modulus SW
+(`prime_indicator_SW`), threaded through every `p₃`-fiber (`fiberW_discrepancy_le`);
+the fiber decompositions are exact (`tripleSum_eq_fiberSum`, `tripleSumW_eq_fiberSum`). -/
+theorem tripleSumW_equidist {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧ ∀ Q a x z y : ℕ,
+      0 < Q → Nat.Coprime Q (a + 2) → (∀ p : ℕ, p.Prime → p ∣ Q → p < z) →
+      3 ≤ Lval x y → N₀ ≤ Lval x y →
+      ((Q : ℝ) ≤ (Real.log (Lval x y)) ^ C) →
+      |tripleSumW Q a x z y - tripleSum x z y / (Q.totient : ℝ)|
+        ≤ K * (x : ℝ) / (Real.log (Lval x y)) ^ A
+            * (∑ q ∈ pairSet x z y, 1 / ((q.1 : ℝ) * q.2))
+          + 2 * ((pairSet x z y).card : ℝ) :=
+  tripleSumW_equidist_of_SW Salt.SW.siegelWalfisz_holds hA hC
 
 /-- **The Mertens-closed equidistribution row.**  Folding the windowed-Mertens product
 (`sum_inv_pairSet_le`, `C₃ = 19`) into the pair reciprocal sum: under the carrier rows

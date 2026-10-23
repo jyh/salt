@@ -723,11 +723,10 @@ theorem hErrSum_cutoff_discharge_sqrtD (α : ℕ → ℂ) (N X Y T D D0 : ℕ) (
 /-! ## 7. `general_BV_cutoff_closed_sqrtD` — the fed windowed BV at the √D floor -/
 
 open Classical in
-/-- **The √D `general_BV_cutoff_closed`.**  Byte-for-byte the landed
-`general_BV_cutoff_closed` with the single swap `D < N` → (`hDsq : D < (N+1)²` +
-`habs : 4(1+log D)·D ≤ N·M/L^A`), the β-crumb folded as `Kerr + 1`.  The `hMainEnergy` leg
-is UNCHANGED (STEP 0: it never used `D < N`). -/
-theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+/-- `general_BV_cutoff_closed_sqrtD` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem general_BV_cutoff_closed_sqrtD_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kerr B : ℝ)
         (G : ℕ → ℝ),
@@ -755,7 +754,7 @@ theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) 
         ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26) + (Kerr + 1))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
-  obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_final (A := A) (C0 := C0) hA hC0
+  obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_final_of_SW hSWall (A := A) (C0 := C0) hA hC0
   refine ⟨K, N₀, hK0, fun α X N M T D0 D k0 Klog Dset r Kβ Km Kerr B G hα hKβ hKm hN hM2N hD0N
     hDge1 hcop2 hLpos hD0 hD0N' hNM hscale hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0
     hD0D hKeq hDscale hD0lo hXsqrt hMsqrt hSmallCut hGlue hGsum => ?_⟩
@@ -800,22 +799,48 @@ theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) 
   exact hbody α X N M T D0 D Dset r Kβ (6 * (Km + 448 + 32 * Real.sqrt 26)) (Kerr + 1) hα hKβ hN
     hM2N hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM hscale hD1 hDsetD hMainEnergy hErrSum
 
+open Classical in
+/-- **The √D `general_BV_cutoff_closed`.**  Byte-for-byte the landed
+`general_BV_cutoff_closed` with the single swap `D < N` → (`hDsq : D < (N+1)²` +
+`habs : 4(1+log D)·D ≤ N·M/L^A`), the β-crumb folded as `Kerr + 1`.  The `hMainEnergy` leg
+is UNCHANGED (STEP 0: it never used `D < N`). -/
+theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kerr B : ℝ)
+        (G : ℕ → ℝ),
+        (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (0 < Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
+        ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
+        ((N : ℝ) ≤ (M : ℝ)) →
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
+        1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (N + 1) * (N + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ (N : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
+        2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
+        D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
+        (∑ f ∈ Finset.Icc 2 D0, (1 / (f.totient : ℝ)) * cutoffPrimEnergy α (blockPrimeInd N) X M T f
+            ≤ Km * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1)) →
+        (∀ e, 2 ≤ e → e ≤ D → cutoffEfoldTerm α N X M T D0 Dset e ≤ G e) →
+        (∑ e ∈ Finset.Icc 2 D, G e
+            ≤ Kerr * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
+          ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26) + (Kerr + 1))) * ((X : ℝ) * (M : ℝ))
+              / (Real.log ((X : ℝ) * (M : ℝ))) ^ A :=
+  general_BV_cutoff_closed_sqrtD_of_SW Salt.SW.siegelWalfisz_holds hA hC0
+
 /-! ## 8. `general_BV_cutoff_sqrtD` — the terminal variant (deliverable 2) -/
 
 open Classical in
-/-- **`general_BV_cutoff_sqrtD` (deliverable 2) — the terminal windowed BV at the √D
-floor.**  Byte-for-byte `general_BV_cutoff_unconditional` with the single swap
-`D < N` → (`hDsq : D < (N+1)²` + the ONE new named absorption row
-`habs : 4(1+log D)·D ≤ N·M/L^A`); conclusion IDENTICAL in shape, with
-`Kerr = 2^{A+5}·Kβ' + 15360 + 1` (the `+ 1` is the absorbed β-crumb).  This is the variant
-GBV4's feeders re-thread through — it covers the catch-#62 strip (high boxes at
-`√(x/(4z)) < N ≤ D` and ALL live band boxes), where `D < N` fails but `D < (N+1)²` holds
-with `x^{1/6}`-scale room.  The three dilated per-`e` rows (`herr_LEpos`/`herr_D0E`/`herr_scale`)
-are GUARDED to the live range `e ≤ X` (catch #69, node PRICE-0): for `e > X` we have
-`⌊X/e⌋ = 0`, so `log(⌊X/e⌋·M) = log 0 = 0` and the ungarded rows were FALSE (`0 < 0`); the
-glue splits the `e`-sum at `X` and lands `cutoffEfoldTerm_eq_zero_of_gt` (the term vanishes)
-on the `e > X` leg. -/
-theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+/-- `general_BV_cutoff_sqrtD` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem general_BV_cutoff_sqrtD_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
@@ -855,9 +880,11 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360 + 1))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
-  obtain ⟨K₃, N₀₃, hK3pos, hbody3⟩ := hSmallCut_discharge (A := A) (C0 := C0) hA hC0
-  obtain ⟨K₄, N₀₄, hK4pos, hbody4⟩ := hsmall_pere_discharge (A := A) (C0 := C0) hA hC0
-  obtain ⟨Kg, N₀g, hKgpos, hbodyg⟩ := general_BV_cutoff_closed_sqrtD (A := A) (C0 := C0) hA hC0
+  obtain ⟨K₃, N₀₃, hK3pos, hbody3⟩ := hSmallCut_discharge_of_SW hSWall (A := A) (C0 := C0) hA hC0
+  obtain ⟨K₄, N₀₄, hK4pos, hbody4⟩ :=
+      hsmall_pere_discharge_of_SW hSWall (A := A) (C0 := C0) hA hC0
+  obtain ⟨Kg, N₀g, hKgpos, hbodyg⟩ :=
+      general_BV_cutoff_closed_sqrtD_of_SW hSWall (A := A) (C0 := C0) hA hC0
   refine ⟨K₃ + K₄ + Kg, max (max N₀₃ N₀₄) N₀g, by positivity,
     fun α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
       hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale
@@ -936,6 +963,61 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale hD0lo_main hXsqrt
     hMsqrt hSmallCut hGlue hGsum
 
+open Classical in
+/-- **`general_BV_cutoff_sqrtD` (deliverable 2) — the terminal windowed BV at the √D
+floor.**  Byte-for-byte `general_BV_cutoff_unconditional` with the single swap
+`D < N` → (`hDsq : D < (N+1)²` + the ONE new named absorption row
+`habs : 4(1+log D)·D ≤ N·M/L^A`); conclusion IDENTICAL in shape, with
+`Kerr = 2^{A+5}·Kβ' + 15360 + 1` (the `+ 1` is the absorbed β-crumb).  This is the variant
+GBV4's feeders re-thread through — it covers the catch-#62 strip (high boxes at
+`√(x/(4z)) < N ≤ D` and ALL live band boxes), where `D < N` fails but `D < (N+1)²` holds
+with `x^{1/6}`-scale room.  The three dilated per-`e` rows (`herr_LEpos`/`herr_D0E`/`herr_scale`)
+are GUARDED to the live range `e ≤ X` (catch #69, node PRICE-0): for `e > X` we have
+`⌊X/e⌋ = 0`, so `log(⌊X/e⌋·M) = log 0 = 0` and the ungarded rows were FALSE (`0 < 0`); the
+glue splits the `e`-sum at `X` and lands `cutoffEfoldTerm_eq_zero_of_gt` (the term vanishes)
+on the `e > X` leg. -/
+theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
+        (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
+        ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
+        ((N : ℝ) ≤ (M : ℝ)) →
+        1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (N + 1) * (N + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ (N : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
+        2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
+        D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
+        -- error-side (`e`-fold) thresholds
+        ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 4) ≤ (D0 : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (M : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D →
+            (e.divisors.card : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (X : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
+        ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        -- SW couplings (in the exposed `K`)
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1 + 2 * C0) ≤ Km * (Real.log N) ^ (A + 2 * C0)) →
+        (∀ e, 2 ≤ e → e ≤ D →
+            K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
+              ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
+          ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
+                + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360 + 1))) * ((X : ℝ) * (M : ℝ))
+              / (Real.log ((X : ℝ) * (M : ℝ))) ^ A :=
+  general_BV_cutoff_sqrtD_of_SW Salt.SW.siegelWalfisz_holds hA hC0
+
 /-! ## 9. `medium_survivor_price_sqrtD` — the re-threaded per-survivor supplier
 (deliverable 3)
 
@@ -943,6 +1025,69 @@ STEP 0 finding: `medium_survivor_price` is the ONLY GBV4 feeder that carries `D 
 passes it verbatim to the terminal); `hHD_of_box_disc`, `Plo_sym_of_box_disc`,
 `Plo_low_of_box_disc` and `hNum_at_op` are price-abstract and `D < N`-FREE.  So the
 re-thread is: this variant + the `_sqrtD` re-exports below. -/
+
+open Classical in
+/-- `medium_survivor_price_sqrtD` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem medium_survivor_price_sqrtD_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (x Lb : ℝ) (F : ℕ) (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ)
+        (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
+        (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
+        ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
+        ((N : ℝ) ≤ (M : ℝ)) →
+        1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (N + 1) * (N + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ (N : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
+        2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
+        D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 4) ≤ (D0 : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (M : ℝ)) →
+        -- the m-scale floor discharge of `herr_div` (GBV4's `hdiv_direct` route, unchanged)
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt x) →
+        (Real.log ((X : ℝ) * (M : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ (A + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
+        ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1 + 2 * C0)
+            ≤ Km * (Real.log N) ^ (A + 2 * C0)) →
+        (∀ e, 2 ≤ e → e ≤ D →
+            K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
+              ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
+          ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
+                + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360 + 1))) * ((X : ℝ) * (M : ℝ))
+              / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
+  obtain ⟨K, N₀, hK0, hbody⟩ := (general_BV_cutoff_sqrtD_of_SW hSWall) hA hC0
+  refine ⟨K, N₀, hK0, fun x Lb F α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN
+    hM2N hD0N hDge1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0
+    hD0D hKlog hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb
+    hfloor herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
+  have herr_div : ∀ e, 2 ≤ e → e ≤ D →
+      (e.divisors.card : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5)
+        ≤ Real.sqrt (X : ℝ) :=
+    fun e he2 heD =>
+      hdiv_direct hA.le x Lb F X M D hFX (by omega) (by omega) hDx hLbb hfloor e (by omega) heD
+  exact hbody α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2
+    hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale
+    hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM
+    herr_scale hcoupG hcoup3 herr_book4
 
 open Classical in
 /-- **`medium_survivor_price_sqrtD` (deliverable 3).**  `medium_survivor_price` with
@@ -996,21 +1141,8 @@ theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360 + 1))) * ((X : ℝ) * (M : ℝ))
-              / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
-  obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_sqrtD hA hC0
-  refine ⟨K, N₀, hK0, fun x Lb F α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN
-    hM2N hD0N hDge1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0
-    hD0D hKlog hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb
-    hfloor herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
-  have herr_div : ∀ e, 2 ≤ e → e ≤ D →
-      (e.divisors.card : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5)
-        ≤ Real.sqrt (X : ℝ) :=
-    fun e he2 heD =>
-      hdiv_direct hA.le x Lb F X M D hFX (by omega) (by omega) hDx hLbb hfloor e (by omega) heD
-  exact hbody α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2
-    hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale
-    hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM
-    herr_scale hcoupG hcoup3 herr_book4
+              / (Real.log ((X : ℝ) * (M : ℝ))) ^ A :=
+  medium_survivor_price_sqrtD_of_SW Salt.SW.siegelWalfisz_holds hA hC0
 
 /-! ## 10. The carrier discharges of `hDsq` and the feeder re-exports (deliverable 3) -/
 

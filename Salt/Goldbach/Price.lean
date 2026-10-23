@@ -90,6 +90,75 @@ discharged downstream from the annulus geometry (the per-annulus `L`-scale). -/
 set_option maxHeartbeats 1000000 in
 -- The 43-hypothesis engine application elaborates a long rpow-bearing row list twice; the
 -- whnf/defeq checks on those atoms need headroom above the default heartbeat budget.
+/-- `gold_box_price_engine` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_price_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
+    ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+      ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (X M k D0 D k0 : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
+        (Kβ Km Kβ' : ℝ) (T₁ T₂ : ℕ),
+        2 ≤ k →
+        (∀ m, ‖β m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ 2 ^ k → M ≤ 2 * 2 ^ k → D0 ≤ 2 ^ k →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ (18 : ℝ)) →
+        ((D0 : ℝ) ≤ (Real.log ((2 ^ k : ℕ) : ℝ)) ^ (18 : ℝ)) →
+        (((2 ^ k : ℕ) : ℝ) ≤ (M : ℝ)) →
+        1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (2 ^ k + 1) * (2 ^ k + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ ((2 ^ k : ℕ) : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) →
+        2 ≤ X → 2 ≤ M →
+        D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (15 : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 2) ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (M : ℝ)) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 4) ≤ (D0 : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (M : ℝ)) →
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt x) →
+        (Real.log ((X : ℝ) * (M : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (18 : ℝ)) →
+        ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (Kc * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 18)
+            ≤ Kβ * (Real.log ((2 ^ k : ℕ) : ℝ)) ^ ((13 : ℝ) + 2 * 18)) →
+        (Kc * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 1 + 2 * 18)
+            ≤ Km * (Real.log ((2 ^ k : ℕ) : ℝ)) ^ ((13 : ℝ) + 2 * 18)) →
+        (∀ e, 2 ≤ e → e ≤ D →
+            Kc * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 1 + 1 + 2 * 18)
+              ≤ Kβ' * (Real.log ((2 ^ k : ℕ) : ℝ)) ^ ((13 : ℝ) + 1 + 2 * 18)) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN k)) X M (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN k)) X M (r d) d T₁‖)
+          ≤ 2 * ((Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
+                    + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
+              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) := by
+  obtain ⟨K, N₀, hK0, hbody⟩ :=
+    medium_survivor_price_sqrtD_of_SW hSWall (A := 13) (C0 := 18) (by norm_num) (by norm_num)
+  refine ⟨K, N₀, hK0, fun x Lb F β X M k D0 D k0 Dset r Kβ Km Kβ' T₁ T₂ hk hβ hKβ hKm hKβ' hN₀
+    hM2N hD0N hd1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hD0eq h2D0 hD0D hDscale
+    hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E
+    hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
+  have hone : ∀ T : ℕ,
+      (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN k)) X M (r d) d T‖)
+        ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
+              + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
+            * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ) := by
+    intro T
+    rw [sum_norm_apDiscBilinCutoff_pieceN hk]
+    exact hbody x Lb F β X (2 ^ k) M T D0 D k0 (Nat.log 2 D) Dset r Kβ Km Kβ' 15 hβ hKβ hKm hKβ'
+      hN₀ hM2N hD0N hd1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 (by norm_num)
+      (by norm_num) hD0eq h2D0 hD0D rfl hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo
+      herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4
+  rw [two_mul]
+  exact add_le_add (hone T₂) (hone T₁)
+
 /-- **`gold_box_price_engine` (§2).**  The two-cutoff (`T₂`, `T₁`) box price, `≤ 2·Kerr`, via
 `medium_survivor_price_sqrtD` twice on `blockPrimeInd (pieceN k)` (bridged to `2^k`).  The full
 engine row list at `A = 13`, `C0 = 18`, `B = 15`, `N = 2^k` (the "27 named analytic rows"). -/
@@ -139,26 +208,8 @@ theorem gold_box_price_engine :
           + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN k)) X M (r d) d T₁‖)
           ≤ 2 * ((Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                     + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
-              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) := by
-  obtain ⟨K, N₀, hK0, hbody⟩ :=
-    medium_survivor_price_sqrtD (A := 13) (C0 := 18) (by norm_num) (by norm_num)
-  refine ⟨K, N₀, hK0, fun x Lb F β X M k D0 D k0 Dset r Kβ Km Kβ' T₁ T₂ hk hβ hKβ hKm hKβ' hN₀
-    hM2N hD0N hd1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hD0eq h2D0 hD0D hDscale
-    hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E
-    hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
-  have hone : ∀ T : ℕ,
-      (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN k)) X M (r d) d T‖)
-        ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
-              + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
-            * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ) := by
-    intro T
-    rw [sum_norm_apDiscBilinCutoff_pieceN hk]
-    exact hbody x Lb F β X (2 ^ k) M T D0 D k0 (Nat.log 2 D) Dset r Kβ Km Kβ' 15 hβ hKβ hKm hKβ'
-      hN₀ hM2N hD0N hd1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 (by norm_num)
-      (by norm_num) hD0eq h2D0 hD0D rfl hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo
-      herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4
-  rw [two_mul]
-  exact add_le_add (hone T₂) (hone T₁)
+              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) :=
+  gold_box_price_engine_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## 3. Consumption sanity — how the engine supplies the three legs' per-box `hprice`
 
