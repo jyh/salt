@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `866377a2` · source digest `98f019d7669d1e6b` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `64b2e095` · source digest `575611fcf2365d68` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23262 · with a proof/definition body: 23262 · direct corpus references (edges): 87129 · audited results: 9025 · corpus Prop-valued names: 677.
+Declarations indexed: 23266 · with a proof/definition body: 23266 · direct corpus references (edges): 87132 · audited results: 9028 · corpus Prop-valued names: 678.
 
 ## Hypothesis status (Deliverable A)
 
@@ -14,8 +14,8 @@ Declarations indexed: 23262 · with a proof/definition body: 23262 · direct cor
 | DISCHARGED | 221 | 150 | 1039 |
 | STRUCTURAL | 4 | 4 | 89 |
 | FRAME | 47 | 24 | 151 |
-| OPEN | 405 | 190 | 631 |
-| **all** | 677 | 368 | 1531 |
+| OPEN | 406 | 191 | 632 |
+| **all** | 678 | 369 | 1532 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -277,9 +277,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 185 | `Salt.Parity.Z` | 1 | 2 | — | Salt/Parity/Z.lean:102 |
 | 186 | `Salt.Twelve.WinFrontierM` | 1 | 1 | — | Salt/Twelve/GapsFinal.lean:233 |
 | 187 | `Salt.TwinBar.Admissible` | 1 | 0 | — | Salt/TwinBar/Constrained.lean:179 |
-| 188 | `Salt.TwinBar.SieveAgreeCorr` | 1 | 0 | — | Salt/TwinBar/WallCorr.lean:77 |
-| 189 | `Salt.TwinBar.TwinTypeII` | 1 | 0 | — | Salt/TwinBar/TwinDoor.lean:182 |
-| 190 | `Salt.Vmvt.PairEqFracBound` | 1 | 0 | — | Salt/Vmvt/Holder.lean:199 |
+| 188 | `Salt.TwinBar.DirichletRealZeroGap` | 1 | 0 | — | Salt/TwinBar/RealZeroGapClaim.lean:51 |
+| 189 | `Salt.TwinBar.SieveAgreeCorr` | 1 | 0 | — | Salt/TwinBar/WallCorr.lean:77 |
+| 190 | `Salt.TwinBar.TwinTypeII` | 1 | 0 | — | Salt/TwinBar/TwinDoor.lean:182 |
+| 191 | `Salt.Vmvt.PairEqFracBound` | 1 | 0 | — | Salt/Vmvt/Holder.lean:199 |
 
 ## Item 1's payoff table, re-ranked by status
 
@@ -650,6 +651,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Parity.Z` | OPEN | 1 | — |
 | `Salt.Twelve.WinFrontierM` | OPEN | 1 | — |
 | `Salt.TwinBar.Admissible` | OPEN | 1 | — |
+| `Salt.TwinBar.DirichletRealZeroGap` | OPEN | 1 | — |
 | `Salt.TwinBar.SieveAgreeCorr` | OPEN | 1 | — |
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
@@ -975,10 +977,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | circle method / Fourier | 181 | 83 | 563 | 550 | 22 | 10 | 0 | 1145 | 1081 |
 | entropy decrement | 1389 | 525 | 525 | 409 | 78 | 38 | 0 | 1050 | 604 |
 | large sieve | 136 | 18 | 713 | 501 | 1 | 22 | 0 | 1237 | 1223 |
-| Selberg/Brun sieve | 5679 | 950 | 3746 | 1259 | 65 | 94 | 0 | 5164 | 4299 |
+| Selberg/Brun sieve | 5679 | 950 | 3746 | 1260 | 65 | 94 | 0 | 5165 | 4300 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1609 | 726 | 1483 | 622 | 4 | 19 | 0 | 2128 | 1496 |
-| zero-density / zero-free regions | 724 | 292 | 1020 | 651 | 2 | 20 | 0 | 1693 | 1440 |
-| character sums / L-functions | 4280 | 2153 | 1811 | 755 | 81 | 99 | 0 | 2746 | 894 |
+| zero-density / zero-free regions | 728 | 295 | 1020 | 652 | 2 | 20 | 0 | 1694 | 1440 |
+| character sums / L-functions | 4282 | 2155 | 1811 | 756 | 81 | 99 | 0 | 2747 | 895 |
 | exponential sums | 594 | 223 | 799 | 529 | 31 | 33 | 0 | 1392 | 1207 |
 | Mertens / PNT-type | 254 | 67 | 883 | 709 | 4 | 16 | 0 | 1612 | 1555 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
@@ -989,7 +991,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 ## The load-bearing methods — per family, top 10 audited members by transitive in-degree
 
-### Selberg/Brun sieve — 4299 external dependents
+### Selberg/Brun sieve — 4300 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1098,7 +1100,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.Aperron_representation` | 299 | Salt/MR/ParsevalAsm.lean:296 |
 | `Salt.MR.vtail_single_mean_sq_bound` | 291 | Salt/MR/ParsevalSingle.lean:161 |
 
-### character sums / L-functions — 894 external dependents
+### character sums / L-functions — 895 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1165,15 +1167,15 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 64 | 5346 | 9688 |
 | entropy decrement | 604 | 525 | 1389 |
-| character sums / L-functions | 894 | 2153 | 4280 |
+| character sums / L-functions | 895 | 2155 | 4282 |
 | circle method / Fourier | 1081 | 83 | 181 |
 | exponential sums | 1207 | 223 | 594 |
 | large sieve | 1223 | 18 | 136 |
 | explog/lognum numeral tactic | 1343 | 0 | 53 |
-| zero-density / zero-free regions | 1440 | 292 | 724 |
+| zero-density / zero-free regions | 1440 | 295 | 728 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1496 | 726 | 1609 |
 | Mertens / PNT-type | 1555 | 67 | 254 |
-| Selberg/Brun sieve | 4299 | 950 | 5679 |
+| Selberg/Brun sieve | 4300 | 950 | 5679 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 

@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `866377a2` · source digest `98f019d7669d1e6b` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `64b2e095` · source digest `575611fcf2365d68` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9081 | 9026 | 9025 | 1 | 0 | 55 |
+| 26 | 24 | 9084 | 9029 | 9028 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hypothesis universe): 677.
+Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6782 | 294 | 2072 | 4623 | 376 | 425 | 41 |
-| conditional | 1557 | 25 | 205 | 1352 | 94 | 24 | 13 |
+| unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
+| conditional | 1558 | 26 | 206 | 1352 | 94 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9026 | 319 | 2349 | 6539 | 529 | 466 | 55 |
+| **all** | 9029 | 322 | 2352 | 6541 | 529 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -474,6 +474,7 @@ Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hyp
 | `Salt.Twelve.WinFrontierM` | 1 |
 | `Salt.TwinBar.Admissible` | 1 |
 | `Salt.TwinBar.CorrWindowStrong` | 1 |
+| `Salt.TwinBar.DirichletRealZeroGap` | 1 |
 | `Salt.TwinBar.FourBar` | 1 |
 | `Salt.TwinBar.SieveAgree` | 1 |
 | `Salt.TwinBar.SieveAgreeCorr` | 1 |
@@ -491,7 +492,7 @@ Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6782)
+## unconditional (6784)
 
 | name | file:line | objects |
 |---|---|---|
@@ -6849,6 +6850,8 @@ Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.no_twin_certificate` | Salt/TwinBar/RationalTie.lean:527 | sieves |
 | `Salt.TwinBar.twin_certificate_example` | Salt/TwinBar/RationalTie.lean:542 | sieves |
 | `Salt.TwinBar.bridge_consistency` | Salt/TwinBar/RationalTie.lean:561 | sieves |
+| `Salt.TwinBar.im_eq_zero_of_sq_eq_one` | Salt/TwinBar/RealZeroGapClaim.lean:63 | zeros, sieves, characters |
+| `Salt.TwinBar.eq_one_of_modulus_two` | Salt/TwinBar/RealZeroGapClaim.lean:77 | zeros, sieves, characters |
 | `Salt.TwinBar.Sep.wall_of_indistinguishable` | Salt/TwinBar/Separation.lean:67 | sieves |
 | `Salt.TwinBar.Sep.parity_wall_via_master` | Salt/TwinBar/Separation.lean:120 | sieves |
 | `Salt.TwinBar.boxEntry_reduces` | Salt/TwinBar/SiegelCorrStrong.lean:59 | sieves |
@@ -7278,7 +7281,7 @@ Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1557)
+## conditional (1558)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8799,6 +8802,7 @@ Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.no_quad_weight_of_fourBar` | Salt/TwinBar/FourBar.lean:441 | sieves | `Salt.TwinBar.FourBar` |
 | `Salt.TwinBar.Mlambda_rate` | Salt/TwinBar/LambdaRate.lean:451 | sieves | `Salt.TwinBar.MmuRate` |
 | `Salt.TwinBar.LambdaSummatory_of_MmuRate` | Salt/TwinBar/LambdaRate.lean:582 | sieves | `Salt.TwinBar.MmuRate` |
+| `Salt.TwinBar.noSiegelZeros_of_realZeroGap` | Salt/TwinBar/RealZeroGapClaim.lean:90 | zeros, sieves | `Salt.TwinBar.DirichletRealZeroGap` |
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
 | `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
