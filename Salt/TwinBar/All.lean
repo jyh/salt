@@ -28,6 +28,7 @@ import Salt.TwinBar.WallUnconditional
 import Salt.TwinBar.WallCorr
 import Salt.TwinBar.SiegelTwin
 import Salt.TwinBar.SevenEighthsClaim
+import Salt.TwinBar.RealZeroGapClaim
 import Salt.TwinBar.SevenEighthsStandoff
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
@@ -796,3 +797,15 @@ open Salt.Tactic in
 #audit_axioms Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.TwinBar.three_primes_of_sevenEighths
   Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.TwinBar.gaps_le_600_of_sevenEighths
   Salt.TwinBar.chen_headline_of_sevenEighths Salt.TwinBar.chen_goldbach_of_sevenEighths
+
+-- OpenAI's real-zero gap statement, restated (RealZeroGapClaim), and its implication to
+-- `NoSiegelZeros`; the certificate: the implication reaches none of the three Siegel names.
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.im_eq_zero_of_sq_eq_one Salt.TwinBar.eq_one_of_modulus_two
+  Salt.TwinBar.noSiegelZeros_of_realZeroGap
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.siegel_theorem
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.siegel_L_one_exceptional
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.L1_lower_siegel
