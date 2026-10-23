@@ -26,8 +26,9 @@ at it.
   not use Siegel's theorem (each `_of_standoff` theorem carries that certificate).
 * `DirichletSevenEighths` is NOT OpenAI's theorem: the two mathlib versions agree on the
   definitions the statement names directly, and below them their equivalence is not checked.
-* Nothing here is effective in the sense of computing `N₀`: the standoff constant is explicit, and
-  the other constants in these proofs are not computed.
+* The standoff constant `(log 2)/8` is explicit; `N₀` and the other constants in these proofs are
+  not computed.
+* The mathematics is classical, and nothing here claims priority.
 -/
 
 open Complex DirichletCharacter
@@ -98,12 +99,25 @@ open Salt.SW.StandoffCert
 #assert_reaches Salt.ThreePrimes.three_primes Salt.SW.siegel_theorem
 #assert_reaches Salt.Chen.chen_headline Salt.SW.siegel_theorem
 
--- THE CERTIFICATE, for each composition.
+-- THE CERTIFICATE: the standoff lemma and each composition, against all three names.
+#assert_not_reaches Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.SW.L1_lower_siegel
 #assert_not_reaches Salt.TwinBar.three_primes_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.TwinBar.three_primes_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.TwinBar.three_primes_of_sevenEighths Salt.SW.L1_lower_siegel
 #assert_not_reaches Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.SW.L1_lower_siegel
 #assert_not_reaches Salt.TwinBar.gaps_le_600_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.TwinBar.gaps_le_600_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.TwinBar.gaps_le_600_of_sevenEighths Salt.SW.L1_lower_siegel
 #assert_not_reaches Salt.TwinBar.chen_headline_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.TwinBar.chen_headline_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.TwinBar.chen_headline_of_sevenEighths Salt.SW.L1_lower_siegel
 #assert_not_reaches Salt.TwinBar.chen_goldbach_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.TwinBar.chen_goldbach_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.TwinBar.chen_goldbach_of_sevenEighths Salt.SW.L1_lower_siegel
 
 -- TOKEN CHECKS: each conclusion is the landed statement (one binder, the hypothesis).
 #assert_conclusion_is Salt.TwinBar.three_primes_of_sevenEighths 1 Salt.ThreePrimes.three_primes
