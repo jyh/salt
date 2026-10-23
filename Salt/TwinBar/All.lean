@@ -27,6 +27,7 @@ import Salt.TwinBar.Wall
 import Salt.TwinBar.WallUnconditional
 import Salt.TwinBar.WallCorr
 import Salt.TwinBar.SiegelTwin
+import Salt.TwinBar.SevenEighthsClaim
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
 import Salt.TwinBar.TwistedSieve

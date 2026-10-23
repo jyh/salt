@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c484df5d` · source digest `b3c5178bba3989b6` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c484df5d` · source digest `77e3b81743820dfd` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9073 | 9018 | 9017 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23181 · corpus Prop-valued names (the hypothesis universe): 676.
+Declarations indexed across the tree: 23183 · corpus Prop-valued names (the hypothesis universe): 677.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
