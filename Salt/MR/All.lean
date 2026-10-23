@@ -454,6 +454,7 @@ import Salt.MR.StrideDoorAllGrades
 import Salt.MR.StrideSupplyAllStrides
 import Salt.MR.FlatDoorParityFloor
 import Salt.MR.FlatDoorUniform
+import Salt.MR.FlatDoorStandoff
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -11346,3 +11347,42 @@ open Salt.Tactic in
   Salt.MR.flat_chain_U
   Salt.MR.flatDoorUniformW_holds
   Salt.MR.flatDoorAllGradesW_of_uniform
+
+/-! ⟦O13 — THEOREM 4.25 UNDER THE STANDOFF⟧ (`FlatDoorStandoff`, 2026-10-23, math).  Additive only:
+no landed statement moves; the landed file edited is THIS one (one import and this block).
+
+`logChowla2_epsFamily_flatDoor_floor_of_standoff` is Theorem 4.25's conclusion under
+`NoSiegelZerosAt cS`.  The census at main `7290d90c` found exactly two direct users of
+`Salt.SW.siegel_theorem` in 4.25's closure, `siegel_real_carve` and `Salt.SW.psi1AP_main_bound`;
+the module replaces the first by `standoff_real_carve` (same statement), the second by the landed
+`Salt.SW.siegelWalfisz_of_standoff`, and re-states the 21 declarations between them and the root
+as `_of_standoff` twins, each checked token for token against its landed statement by
+`#assert_conclusion_is`.  The module's certificate: the root reaches none of `siegel_theorem` ·
+`siegel_L_one_exceptional` · `L1_lower_siegel`, nor the cut nodes `siegel_real_carve` ·
+`siegelWalfisz_holds` · `psi1AP_main_bound`.  ⚠ LIMIT: it is CONDITIONAL on the open hypothesis
+`NoSiegelZerosAt cS`, and a reach certificate, not a claim that the result is effective.  Nothing
+here bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.standoff_real_carve
+  Salt.MR.xiCarveWidth_of_siegel_of_standoff
+  Salt.MR.mmuChiRate_holds_gated_of_standoff
+  Salt.MR.s16_bandLaneWinL_holdsU_of_standoff
+  Salt.MR.twisted_rect_zero_free_siegel_bounded_of_standoff
+  Salt.MR.halasz_primes_chi_pair_of_gates_bounded_cs_of_standoff
+  Salt.MR.halaszPrimesChi_holds_gated_bounded_cs_of_standoff
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs_of_standoff
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_cs_of_standoff
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_cs_of_standoff
+  Salt.MR.m4_rowChi_capstone_perBlock_bounded_cs_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs_of_standoff
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin_of_standoff
+  Salt.Entropy.Chowla.primeWindow_sum_inv_ge_bounded_of_standoff
+  Salt.Entropy.Chowla.hbudget_holds_bounded_of_standoff
+  Salt.Entropy.Chowla.hreduce_holds_final_bounded_of_standoff
+  Salt.MR.flat_head_uniform_xceil_epsW_of_standoff
+  Salt.MR.flat_kswin_generic_epsW_of_standoff
+  Salt.MR.flat_v7_generic_epsW_of_standoff
+  Salt.MR.flat_chain_generic_epsW_of_standoff
+  Salt.MR.flatDoorEpsFamilyW_holds_of_standoff
+  Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_standoff
