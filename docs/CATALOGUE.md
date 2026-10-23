@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4c1aaf7b` · source digest `51829b84e2c331fd` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `fa9c0129` · source digest `5f613325e50b8070` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1630,14 +1630,14 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `ProbabilityTheory.uniformOn_real_singleton` | Salt/Entropy/Mathlib/UniformOn.lean:68 | entropy |
 | `ProbabilityTheory.measureEntropy_dirac` | Salt/Entropy/Measure.lean:272 | entropy |
 | `ProbabilityTheory.measureEntropy_le_log_card` | Salt/Entropy/Measure.lean:406 | entropy |
-| `Salt.ExpSum.norm_eR` | Salt/ExpSum/Basic.lean:45 | exponential sums |
-| `Salt.ExpSum.eR_mul_conj` | Salt/ExpSum/Basic.lean:60 | exponential sums |
-| `Salt.ExpSum.weyl_vdC_sq` | Salt/ExpSum/Basic.lean:131 | exponential sums |
-| `Salt.ExpSum.weyl_vdC_expSum` | Salt/ExpSum/Basic.lean:258 | exponential sums |
+| `Salt.ExpSum.norm_eR` | Salt/ExpSum/Basic.lean:47 | exponential sums |
+| `Salt.ExpSum.eR_mul_conj` | Salt/ExpSum/Basic.lean:65 | exponential sums |
+| `Salt.ExpSum.weyl_vdC_sq` | Salt/ExpSum/Basic.lean:136 | exponential sums |
+| `Salt.ExpSum.weyl_vdC_expSum` | Salt/ExpSum/Basic.lean:263 | exponential sums |
 | `Salt.ExpSum.vdC_2nd_ZR` | Salt/ExpSum/DerivTest.lean:63 | exponential sums |
 | `Salt.ExpSum.vdC_third_derivative` | Salt/ExpSum/DerivTest.lean:536 | exponential sums |
 | `Salt.ExpSum.vdC_kth_derivative` | Salt/ExpSum/DerivTestK.lean:667 | exponential sums |
-| `Salt.ExpSum.kusmin_landau` | Salt/ExpSum/Kusmin.lean:186 | exponential sums |
+| `Salt.ExpSum.kusmin_landau` | Salt/ExpSum/Kusmin.lean:198 | exponential sums |
 | `Salt.ExpSum.zeta_block_kusmin_prefix` | Salt/ExpSum/Strip.lean:48 | exponential sums |
 | `Salt.ExpSum.isVdCBound_16` | Salt/ExpSum/Strip.lean:182 | exponential sums |
 | `Salt.ExpSum.zeta_block_vdC_prefix` | Salt/ExpSum/Strip.lean:198 | exponential sums |
@@ -6128,11 +6128,11 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.SW.E_shape_bound` | Salt/SW/CharDispatch.lean:72 | sieves, characters |
 | `Salt.SW.psi1_char_bound` | Salt/SW/CharDispatch.lean:315 | sieves, characters |
 | `Salt.SW.psi1_trivchar_bound` | Salt/SW/CharDispatch.lean:562 | sieves, characters |
-| `Salt.SW.rectBI_eq_zero_of_differentiableOn` | Salt/SW/ContourShift.lean:104 | sieves |
-| `Salt.SW.rectBI_dslope_eq_zero` | Salt/SW/ContourShift.lean:116 | sieves |
-| `Salt.SW.rectBI_inv_eq_two_pi_I` | Salt/SW/ContourShift.lean:301 | sieves |
-| `Salt.SW.rectBI_cif_eq` | Salt/SW/ContourShift.lean:341 | sieves |
-| `Salt.SW.kernel_residue` | Salt/SW/ContourShift.lean:356 | sieves |
+| `Salt.SW.rectBI_eq_zero_of_differentiableOn` | Salt/SW/ContourShift.lean:106 | sieves |
+| `Salt.SW.rectBI_dslope_eq_zero` | Salt/SW/ContourShift.lean:118 | sieves |
+| `Salt.SW.rectBI_inv_eq_two_pi_I` | Salt/SW/ContourShift.lean:303 | sieves |
+| `Salt.SW.rectBI_cif_eq` | Salt/SW/ContourShift.lean:343 | sieves |
+| `Salt.SW.kernel_residue` | Salt/SW/ContourShift.lean:358 | sieves |
 | `Salt.SW.sum_coprime_eq_moebius_multiples` | Salt/SW/CoprimeBV.lean:98 | sieves, characters |
 | `Salt.SW.innerG_eq_coprime_sum` | Salt/SW/CoprimeBV.lean:184 | sieves, characters |
 | `Salt.SW.log_le_sum_inv_Icc_floor` | Salt/SW/CoprimeHarmonic.lean:41 | sieves |
@@ -6536,8 +6536,8 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.SW.sum_two_pow_card_primeFactors_le` | Salt/SW/JutilaResidue.lean:1700 | sieves |
 | `Salt.SW.sum_rFilter_abs_hCoef_le` | Salt/SW/JutilaResidue.lean:1794 | sieves |
 | `Salt.SW.norm_jutilaI_le` | Salt/SW/JutilaResidue.lean:1857 | sieves |
-| `Salt.SW.kernel_identity` | Salt/SW/Kernel.lean:195 | sieves |
-| `Salt.SW.kernel_sum_swap` | Salt/SW/Kernel.lean:254 | sieves |
+| `Salt.SW.kernel_identity` | Salt/SW/Kernel.lean:204 | sieves |
+| `Salt.SW.kernel_sum_swap` | Salt/SW/Kernel.lean:263 | sieves |
 | `Salt.SW.kern2_eq_sq_kern` | Salt/SW/Kernel2.lean:41 | sieves |
 | `Salt.SW.continuous_kern2` | Salt/SW/Kernel2.lean:44 | sieves |
 | `Salt.SW.hasMellin_kern2` | Salt/SW/Kernel2.lean:68 | sieves |
@@ -6767,11 +6767,11 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_anchor` | Salt/SW/ZetaLowerShallow.lean:105 | zeros, sieves |
 | `Salt.SW.zeta_deriv_bound` | Salt/SW/ZetaLowerShallow.lean:193 | zeros, sieves |
 | `Salt.SW.zeta_lower_shallow` | Salt/SW/ZetaLowerShallow.lean:328 | zeros, sieves |
-| `Salt.SW.neg_logDeriv_zeta_split` | Salt/SW/ZetaPartialFractions.lean:98 | zeros, sieves |
-| `Salt.SW.entire_zero_count_le` | Salt/SW/ZetaPartialFractions.lean:134 | zeros, sieves |
-| `Salt.SW.entire_norm_logDeriv_sub_sum'` | Salt/SW/ZetaPartialFractions.lean:171 | zeros, sieves |
-| `Salt.SW.Zc_growth` | Salt/SW/ZetaPartialFractions.lean:851 | zeros, sieves |
-| `Salt.SW.zeta_neg_re_logDeriv_le` | Salt/SW/ZetaPartialFractions.lean:942 | zeros, sieves |
+| `Salt.SW.neg_logDeriv_zeta_split` | Salt/SW/ZetaPartialFractions.lean:104 | zeros, sieves |
+| `Salt.SW.entire_zero_count_le` | Salt/SW/ZetaPartialFractions.lean:140 | zeros, sieves |
+| `Salt.SW.entire_norm_logDeriv_sub_sum'` | Salt/SW/ZetaPartialFractions.lean:177 | zeros, sieves |
+| `Salt.SW.Zc_growth` | Salt/SW/ZetaPartialFractions.lean:860 | zeros, sieves |
+| `Salt.SW.zeta_neg_re_logDeriv_le` | Salt/SW/ZetaPartialFractions.lean:952 | zeros, sieves |
 | `Salt.SW.neg_logDeriv_zeta_le` | Salt/SW/ZetaPole.lean:189 | zeros, sieves |
 | `Salt.SW.neg_logDeriv_LFunction_trivChar_le` | Salt/SW/ZetaPole.lean:351 | zeros, sieves, characters |
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | Salt/SW/ZetaZeroFree.lean:102 | zeros, sieves |
