@@ -197,6 +197,8 @@ consumer can choose its threshold as a function of `B, C`.  The body is
 `goldRosserRemainderW_le_split` + the shared `dispDiscW_filtered_le_Icc` /
 `convSumW_le` legs). -/
 set_option linter.unusedVariables false in
+/-- `gold_a12_hBV_A1` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem gold_a12_hBV_A1_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a N z D P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)

@@ -185,6 +185,8 @@ consumer (`gold_a12_hA2`) can choose its threshold as a function of the `N`-inde
 from `psi_BV_of_siegelWalfisz'`.  Body is `goldA2_hBVagg_W`'s composition verbatim (the punctured
 per-prime split `goldRosserRemainderW2_le_split` + the shared W2 dispersion/conversion legs). -/
 set_option linter.unusedVariables false in
+/-- `gold_a12_hBV_A2` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem gold_a12_hBV_A2_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a N z y Dtot P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q)
