@@ -271,6 +271,8 @@ byte-identical to `gold_box_price_engine_at_live_annulus`'s (the two-cutoff
 set_option maxHeartbeats 800000 in
 -- the base engine (`gold_box_price_engine`) application re-elaborates the ~43-hypothesis
 -- rpow-bearing row list; the whnf/defeq checks need headroom above the default budget.
+/-- `gold_box_price_engine_at_band` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem gold_box_price_engine_at_band_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
       ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (X M kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
@@ -409,6 +411,8 @@ composition supplies them from the band geometry). -/
 set_option maxHeartbeats 1600000 in
 -- the 39-hypothesis engine application re-elaborates the long rpow-bearing row list (incl. the
 -- RHS↔`boxPriceKerr` collapse); the whnf/defeq checks need headroom above the default budget.
+/-- `gold_band_box_kerr` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
 theorem gold_band_box_kerr_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
     ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
       (T₁ T₂ Ne z y K ka i : ℕ),
