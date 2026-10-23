@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `6af6607b` · source digest `dc076c742a92ac23` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `866377a2` · source digest `98f019d7669d1e6b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9075 | 9020 | 9019 | 1 | 0 | 55 |
+| 26 | 24 | 9081 | 9026 | 9025 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23255 · corpus Prop-valued names (the hypothesis universe): 677.
+Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hypothesis universe): 677.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6782 | 294 | 2072 | 4623 | 376 | 425 | 41 |
-| conditional | 1551 | 25 | 199 | 1352 | 94 | 24 | 13 |
+| conditional | 1557 | 25 | 205 | 1352 | 94 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9020 | 319 | 2343 | 6539 | 529 | 466 | 55 |
+| **all** | 9026 | 319 | 2349 | 6539 | 529 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -197,6 +197,7 @@ Declarations indexed across the tree: 23255 · corpus Prop-valued names (the hyp
 | `Salt.MR.SawtoothOdd` | 6 |
 | `Salt.MR.SieveBlockGate` | 6 |
 | `Salt.MR.TLBlockGates` | 6 |
+| `Salt.TwinBar.DirichletSevenEighths` | 6 |
 | `ProbabilityTheory.FiniteSupport` | 5 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2Set` | 5 |
 | `Salt.MR.DoorRowCarriedT0_L_gk` | 5 |
@@ -7277,7 +7278,7 @@ Declarations indexed across the tree: 23255 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1551)
+## conditional (1557)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8800,6 +8801,12 @@ Declarations indexed across the tree: 23255 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.LambdaSummatory_of_MmuRate` | Salt/TwinBar/LambdaRate.lean:582 | sieves | `Salt.TwinBar.MmuRate` |
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
+| `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:60 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:67 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:74 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:81 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:86 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.siegelSequence_implies_infinitely` | Salt/TwinBar/SiegelCorr.lean:64 | sieves | `Salt.TwinBar.SiegelSequence` |
 | `Salt.TwinBar.corrWindow_box` | Salt/TwinBar/SiegelCorr.lean:96 | sieves | `Salt.TwinBar.CorrWindow` |
 | `Salt.TwinBar.residue_lower` | Salt/TwinBar/SiegelCorr.lean:144 | sieves | `Salt.TwinBar.CorrWindow` |
