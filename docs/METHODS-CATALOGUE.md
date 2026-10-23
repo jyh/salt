@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e0702983` · source digest `c836e16dd6c26485` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `d1983d12` · source digest `e7fa3d8b7cf37873` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23266 · with a proof/definition body: 23266 · direct corpus references (edges): 87132 · audited results: 9028 · corpus Prop-valued names: 678.
+Declarations indexed: 23266 · with a proof/definition body: 23266 · direct corpus references (edges): 87132 · audited results: 9029 · corpus Prop-valued names: 678.
 
 ## Hypothesis status (Deliverable A)
 
@@ -14,8 +14,8 @@ Declarations indexed: 23266 · with a proof/definition body: 23266 · direct cor
 | DISCHARGED | 221 | 150 | 1039 |
 | STRUCTURAL | 4 | 4 | 89 |
 | FRAME | 47 | 24 | 151 |
-| OPEN | 406 | 191 | 632 |
-| **all** | 678 | 369 | 1532 |
+| OPEN | 406 | 191 | 633 |
+| **all** | 678 | 369 | 1533 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -119,10 +119,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 27 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | 7 | 6 | — | Salt/MR/M4RowSpineLinear.lean:1146 |
 | 28 | `Salt.MR.DoorRowZeroBase_L` | 7 | 0 | — | Salt/MR/M4RowLinear.lean:383 |
 | 29 | `Salt.SW.NoSiegelZerosAt` | 7 | 1 | — | Salt/SW/StandoffGate.lean:88 |
-| 30 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | 6 | 12 | `Salt.MR.mrtUniformityXiL2H_holds_flat`, `Salt.MR.mrtUniformityXiL2H_holds_flat_g` | Salt/Entropy/Chowla/ShiftFork.lean:545 |
-| 31 | `Salt.MR.DoorRowCarriedT0_L` | 6 | 0 | — | Salt/MR/M4RowLinear.lean:10180 |
-| 32 | `Salt.MR.TLBlockGates` | 6 | 0 | — | Salt/MR/USetBalance.lean:258 |
-| 33 | `Salt.TwinBar.DirichletSevenEighths` | 6 | 0 | — | Salt/TwinBar/SevenEighthsClaim.lean:37 |
+| 30 | `Salt.TwinBar.DirichletSevenEighths` | 7 | 0 | — | Salt/TwinBar/SevenEighthsClaim.lean:37 |
+| 31 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | 6 | 12 | `Salt.MR.mrtUniformityXiL2H_holds_flat`, `Salt.MR.mrtUniformityXiL2H_holds_flat_g` | Salt/Entropy/Chowla/ShiftFork.lean:545 |
+| 32 | `Salt.MR.DoorRowCarriedT0_L` | 6 | 0 | — | Salt/MR/M4RowLinear.lean:10180 |
+| 33 | `Salt.MR.TLBlockGates` | 6 | 0 | — | Salt/MR/USetBalance.lean:258 |
 | 34 | `Salt.Entropy.Chowla.MRTUniformityXiL2Set` | 5 | 4 | — | Salt/Entropy/Chowla/StridePair.lean:361 |
 | 35 | `Salt.MR.DoorRowCarriedT0_L_gk` | 5 | 0 | — | Salt/MR/M4RowLinear.lean:10433 |
 | 36 | `Salt.MR.DoorRowCarried_L_gk` | 5 | 1 | — | Salt/MR/M4RowLinear.lean:5799 |
@@ -493,10 +493,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | OPEN | 7 | — |
 | `Salt.MR.DoorRowZeroBase_L` | OPEN | 7 | — |
 | `Salt.SW.NoSiegelZerosAt` | OPEN | 7 | — |
+| `Salt.TwinBar.DirichletSevenEighths` | OPEN | 7 | — |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | OPEN | 6 | — |
 | `Salt.MR.DoorRowCarriedT0_L` | OPEN | 6 | — |
 | `Salt.MR.TLBlockGates` | OPEN | 6 | — |
-| `Salt.TwinBar.DirichletSevenEighths` | OPEN | 6 | — |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2Set` | OPEN | 5 | — |
 | `Salt.MR.DoorRowCarriedT0_L_gk` | OPEN | 5 | — |
 | `Salt.MR.DoorRowCarried_L_gk` | OPEN | 5 | — |

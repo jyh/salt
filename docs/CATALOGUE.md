@@ -1,13 +1,13 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e0702983` · source digest `c836e16dd6c26485` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `d1983d12` · source digest `e7fa3d8b7cf37873` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9084 | 9029 | 9028 | 1 | 0 | 55 |
+| 26 | 24 | 9085 | 9030 | 9029 | 1 | 0 | 55 |
 
 Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hypothesis universe): 678.
 
@@ -16,11 +16,11 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
-| conditional | 1558 | 26 | 206 | 1352 | 94 | 24 | 13 |
+| conditional | 1559 | 26 | 207 | 1352 | 94 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9029 | 322 | 2352 | 6541 | 529 | 466 | 55 |
+| **all** | 9030 | 322 | 2353 | 6541 | 529 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -186,6 +186,7 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.MR.VkTwistUB` | 7 |
 | `Salt.MR.XiCarveWidth` | 7 |
 | `Salt.SW.NoSiegelZerosAt` | 7 |
+| `Salt.TwinBar.DirichletSevenEighths` | 7 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | 6 |
 | `Salt.MR.CapFreeFloor` | 6 |
 | `Salt.MR.CaseASocketGen` | 6 |
@@ -197,7 +198,6 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.MR.SawtoothOdd` | 6 |
 | `Salt.MR.SieveBlockGate` | 6 |
 | `Salt.MR.TLBlockGates` | 6 |
-| `Salt.TwinBar.DirichletSevenEighths` | 6 |
 | `ProbabilityTheory.FiniteSupport` | 5 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2Set` | 5 |
 | `Salt.MR.DoorRowCarriedT0_L_gk` | 5 |
@@ -7281,7 +7281,7 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1558)
+## conditional (1559)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8805,6 +8805,7 @@ Declarations indexed across the tree: 23266 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.noSiegelZeros_of_realZeroGap` | Salt/TwinBar/RealZeroGapClaim.lean:90 | zeros, sieves | `Salt.TwinBar.DirichletRealZeroGap` |
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
+| `Salt.TwinBar.noSiegelZeros_of_sevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:42 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:60 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:67 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
