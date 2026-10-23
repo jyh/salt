@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `53d395ad` · source digest `7b52a3c2fca87fb4` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `866377a2` · source digest `98f019d7669d1e6b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -8801,12 +8801,12 @@ Declarations indexed across the tree: 23262 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.LambdaSummatory_of_MmuRate` | Salt/TwinBar/LambdaRate.lean:582 | sieves | `Salt.TwinBar.MmuRate` |
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
-| `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:40 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:59 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:66 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:73 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:80 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:85 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:60 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:67 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:74 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:81 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:86 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.siegelSequence_implies_infinitely` | Salt/TwinBar/SiegelCorr.lean:64 | sieves | `Salt.TwinBar.SiegelSequence` |
 | `Salt.TwinBar.corrWindow_box` | Salt/TwinBar/SiegelCorr.lean:96 | sieves | `Salt.TwinBar.CorrWindow` |
 | `Salt.TwinBar.residue_lower` | Salt/TwinBar/SiegelCorr.lean:144 | sieves | `Salt.TwinBar.CorrWindow` |
