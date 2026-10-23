@@ -18,14 +18,19 @@ and `Salt.SW.psi1AP_main_bound` (channel C, Siegel–Walfisz through `Salt.Chen.
 
 This module cuts both.  `standoff_real_carve` is `siegel_real_carve`'s statement under
 `NoSiegelZerosAt cS`; channel C takes the landed `Salt.SW.siegelWalfisz_of_standoff` through
-`Salt.Chen.lambda_mass_lower_of_SW`.  Every other ancestor is re-stated as a `_of_standoff` twin:
-its landed statement under three leading binders `{cS} (hcS) (hSieg)`, its landed proof verbatim
-with each cut child replaced by the child's twin.  No landed file is edited.
+`Salt.Chen.lambda_mass_lower_of_SW`.  The 21 declarations between them and the root are re-stated
+as `_of_standoff` twins: each landed statement under three leading binders `{cS} (hcS) (hSieg)`,
+its landed proof verbatim with each cut child replaced by the child's twin.  No landed file is
+edited.
 
-⚠ LIMIT, beside the verdict: the certificate lines at the foot say the root REACHES NONE OF
-`Salt.SW.siegel_theorem` · `Salt.SW.siegelWalfisz_holds` · `Salt.MR.siegel_real_carve`.  They do
-not say the result is effective: the standoff `cS` is a hypothesis, and the constants below it
-are those of the landed proofs.  Nothing here bears on twin primes.
+⚠ LIMIT, beside the verdict: the certificate lines at the foot say the root REACHES NONE OF the
+three Siegel names `Salt.SW.siegel_theorem` · `Salt.SW.siegel_L_one_exceptional` ·
+`Salt.SW.L1_lower_siegel`, and none of the three cut nodes `Salt.MR.siegel_real_carve` ·
+`Salt.SW.siegelWalfisz_holds` · `Salt.SW.psi1AP_main_bound`.  The result is CONDITIONAL on the
+open hypothesis `NoSiegelZerosAt cS`, and it is not a claim that the result is effective: the
+constants below it are those of the landed proofs.  The `file:line` locators in the twins'
+docstrings cite the landed sources at main `56559117` and will move.  Nothing here bears on
+twin primes.
 -/
 
 open private uniformCap_arc uniformCap_shuffle spine_False_core_xi_sq_uniform from

@@ -11358,8 +11358,10 @@ the module replaces the first by `standoff_real_carve` (same statement), the sec
 `Salt.SW.siegelWalfisz_of_standoff`, and re-states the 21 declarations between them and the root
 as `_of_standoff` twins, each checked token for token against its landed statement by
 `#assert_conclusion_is`.  The module's certificate: the root reaches none of `siegel_theorem` ·
-`siegel_L_one_exceptional` · `L1_lower_siegel`.  ⚠ LIMIT: that is a reach certificate, not a claim
-that the result is effective.  Nothing here bears on twin primes. -/
+`siegel_L_one_exceptional` · `L1_lower_siegel`, nor the cut nodes `siegel_real_carve` ·
+`siegelWalfisz_holds` · `psi1AP_main_bound`.  ⚠ LIMIT: it is CONDITIONAL on the open hypothesis
+`NoSiegelZerosAt cS`, and a reach certificate, not a claim that the result is effective.  Nothing
+here bears on twin primes. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.standoff_real_carve
   Salt.MR.xiCarveWidth_of_siegel_of_standoff
