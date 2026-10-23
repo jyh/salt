@@ -96,19 +96,16 @@ theorem cutoffTwist_le_sum_interval_twists (α : ℕ → ℂ) (N X M T f : ℕ)
 /-! ## 2. The per-`(m, ψ)` interval-SW bound -/
 
 open Classical in
-/-- **Item 2 (FULL) — the clean-interval χ-twisted prime SW bound.**  Each interval prime twist
-`bilinTwist (blockPrimeInd N) (min M ⌊T/m⌋) f ψ` (`ψ ≠ 1`, conductor `f ≤ (log N)^C`) obeys the
-LANDED `hβSW_of_prime_indicator` bound at the sub-interval `(N, min M ⌊T/m⌋]`.  The `bilinTwist`
-upper bound is a free parameter, so the landed per-`χ` SW form applies verbatim at the
-sub-interval (interval-inheritance); the degenerate case `min M ⌊T/m⌋ ≤ N` has an empty block, so
-the twist vanishes. -/
-theorem interval_prime_twist_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `interval_prime_twist_SW` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem interval_prime_twist_SW_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (N M T m f : ℕ) (ψ : DirichletCharacter ℂ f),
         N₀ ≤ N → M ≤ 2 * N → 2 ≤ f → ((f : ℝ) ≤ (Real.log N) ^ C) → ψ ≠ 1 →
         ‖bilinTwist (blockPrimeInd N) (min M (T / m)) f ψ‖
           ≤ (f : ℝ) * (K * N / (Real.log N) ^ A) := by
-  obtain ⟨K, N₀, hK0, hb⟩ := hβSW_of_prime_indicator hA hC
+  obtain ⟨K, N₀, hK0, hb⟩ := (hβSW_of_prime_indicator_of_SW hSWall) hA hC
   refine ⟨K, max N₀ 2, hK0, fun N M T m f ψ hN hM2N hf2 hflog hψ => ?_⟩
   have hN0 : N₀ ≤ N := le_trans (le_max_left _ _) hN
   have hN2 : 2 ≤ N := le_trans (le_max_right _ _) hN
@@ -130,6 +127,21 @@ theorem interval_prime_twist_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
       rw [if_neg (fun h => hnN h.1), zero_mul]
     rw [hzero, norm_zero]
     exact hbnn
+
+open Classical in
+/-- **Item 2 (FULL) — the clean-interval χ-twisted prime SW bound.**  Each interval prime twist
+`bilinTwist (blockPrimeInd N) (min M ⌊T/m⌋) f ψ` (`ψ ≠ 1`, conductor `f ≤ (log N)^C`) obeys the
+LANDED `hβSW_of_prime_indicator` bound at the sub-interval `(N, min M ⌊T/m⌋]`.  The `bilinTwist`
+upper bound is a free parameter, so the landed per-`χ` SW form applies verbatim at the
+sub-interval (interval-inheritance); the degenerate case `min M ⌊T/m⌋ ≤ N` has an empty block, so
+the twist vanishes. -/
+theorem interval_prime_twist_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (N M T m f : ℕ) (ψ : DirichletCharacter ℂ f),
+        N₀ ≤ N → M ≤ 2 * N → 2 ≤ f → ((f : ℝ) ≤ (Real.log N) ^ C) → ψ ≠ 1 →
+        ‖bilinTwist (blockPrimeInd N) (min M (T / m)) f ψ‖
+          ≤ (f : ℝ) * (K * N / (Real.log N) ^ A) :=
+  interval_prime_twist_SW_of_SW Salt.SW.siegelWalfisz_holds hA hC
 
 /-! ## 3. The summed `hSmallCut` discharge -/
 
@@ -162,13 +174,10 @@ private lemma cutoffTwist_prim_le {K A C : ℝ} {N₀ : ℕ}
         rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul]
 
 open Classical in
-/-- **Item 3 (FLOOR B, FULL) — the summed `hSmallCut` discharge.**  The χ-level transpose of
-`smallconductor_window_sum`: for each conductor `2 ≤ f ≤ D0`, `(1/φf)·cutoffPrimEnergy ≤ X·E` with
-`E = f·K·N/(log N)^{A+2C0}` (the primitive-count `#χ ≤ φf` collapse), then `f ≤ L^{C0}` and the SW
-bookkeeping `K·L^{A+1+2C0} ≤ Kβ·(log N)^{A+2C0}` (with `N ≤ M`) give `≤ Kβ·XM/L^{A+1+C0}`; summing
-over the `≤ D0 ≤ L^{C0}` conductors (the `D0`-absorption) lands `Kβ·XM/L^{A+1}` — exactly the
-`hSmallCut` slot of `general_BV_cutoff_closed`. -/
-theorem hSmallCut_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+/-- `hSmallCut_discharge` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hSmallCut_discharge_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M T D0 : ℕ) (Kβ : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N →
@@ -182,7 +191,7 @@ theorem hSmallCut_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
             (1 / (f.totient : ℝ)) * cutoffPrimEnergy α (blockPrimeInd N) X M T f
           ≤ Kβ * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1) := by
   obtain ⟨K, N₀, hK0, hint⟩ :=
-    interval_prime_twist_SW (A := A + 2 * C0) (C := C0) (by linarith) hC0
+    interval_prime_twist_SW_of_SW hSWall (A := A + 2 * C0) (C := C0) (by linarith) hC0
   refine ⟨K, max N₀ 3, hK0, fun α X N M T D0 Kβ hα hKβ hN hM2N hLpos hD0 hD0N hNM hscale => ?_⟩
   classical
   have hNN₀ : N₀ ≤ N := le_trans (le_max_left _ _) hN
@@ -284,17 +293,35 @@ theorem hSmallCut_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         rw [Real.rpow_add hLpos (A + 1) C0]
         field_simp
 
+open Classical in
+/-- **Item 3 (FLOOR B, FULL) — the summed `hSmallCut` discharge.**  The χ-level transpose of
+`smallconductor_window_sum`: for each conductor `2 ≤ f ≤ D0`, `(1/φf)·cutoffPrimEnergy ≤ X·E` with
+`E = f·K·N/(log N)^{A+2C0}` (the primitive-count `#χ ≤ φf` collapse), then `f ≤ L^{C0}` and the SW
+bookkeeping `K·L^{A+1+2C0} ≤ Kβ·(log N)^{A+2C0}` (with `N ≤ M`) give `≤ Kβ·XM/L^{A+1+C0}`; summing
+over the `≤ D0 ≤ L^{C0}` conductors (the `D0`-absorption) lands `Kβ·XM/L^{A+1}` — exactly the
+`hSmallCut` slot of `general_BV_cutoff_closed`. -/
+theorem hSmallCut_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (α : ℕ → ℂ) (X N M T D0 : ℕ) (Kβ : ℝ),
+        (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N →
+        (0 < Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
+        ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
+        ((N : ℝ) ≤ (M : ℝ)) →
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1 + 2 * C0)
+            ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
+        ∑ f ∈ Finset.Icc 2 D0,
+            (1 / (f.totient : ℝ)) * cutoffPrimEnergy α (blockPrimeInd N) X M T f
+          ≤ Kβ * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1) :=
+  hSmallCut_discharge_of_SW Salt.SW.siegelWalfisz_holds hA hC0
+
 /-! ## 4. The per-`e` `hsmall` discharge (dilated scale) -/
 
 open Classical in
-/-- **Item 4 (FULL) — the per-`e` `hsmall` discharge at the dilated scale.**  The χ-level
-transpose of `efold_small_discharge` (which discharges the bilinear `hsmall` via
-`efold_small_le`): fold `4/φ(lcm e f) ≤ 4/φf` into the `4(1+log D)` prefactor (`hstep1`), then
-`hSmallCut_discharge` (item 3, at the raised exponent `A+1` and the **dilated** scale
-`(⌊X/e⌋, M, ⌊T/e⌋)`) contracts the block energy to `Kβ·(⌊X/e⌋·M)/LE^{A+2}`; the identical scale
-conversion (`⌊X/e⌋·M ≤ XM/e`, `1+log D ≤ 2·log(XM)`, `log(⌊X/e⌋M) ≥ (1/2)log(XM)`) delivers the
-target with `Ksmall = 2^{A+5}·Kβ`.  Feeds `cutoffEfold_alpha_le`'s `hsmall` slot. -/
-theorem hsmall_pere_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+/-- `hsmall_pere_discharge` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hsmall_pere_discharge_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (N X M T D0 D e : ℕ) (Kβ : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N → 1 ≤ e → 1 ≤ D →
@@ -313,7 +340,8 @@ theorem hsmall_pere_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
               * cutoffPrimEnergy (fun m' => α (e * m')) (blockPrimeInd N) (X / e) M (T / e) f
           ≤ ((2 : ℝ) ^ (A + 5) * Kβ)
               * ((X : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1)) * (1 / (e : ℝ)) := by
-  obtain ⟨K, N₀, hK0, hbody⟩ := hSmallCut_discharge (A := A + 1) (C0 := C0) (by linarith) hC0
+  obtain ⟨K, N₀, hK0, hbody⟩ :=
+      hSmallCut_discharge_of_SW hSWall (A := A + 1) (C0 := C0) (by linarith) hC0
   refine ⟨K, N₀, hK0, fun α N X M T D0 D e Kβ hα hKβ hN hM2N he1 hD1 hLEpos hD0E hD0N hNM
     hL1 hDXM hscale hbook => ?_⟩
   set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
@@ -417,6 +445,35 @@ theorem hsmall_pere_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
   rw [hle]
   exact mul_le_mul_of_nonneg_left hLElo
     (mul_nonneg (mul_nonneg (Real.rpow_nonneg (by norm_num) _) hKβ) hXMnn)
+
+open Classical in
+/-- **Item 4 (FULL) — the per-`e` `hsmall` discharge at the dilated scale.**  The χ-level
+transpose of `efold_small_discharge` (which discharges the bilinear `hsmall` via
+`efold_small_le`): fold `4/φ(lcm e f) ≤ 4/φf` into the `4(1+log D)` prefactor (`hstep1`), then
+`hSmallCut_discharge` (item 3, at the raised exponent `A+1` and the **dilated** scale
+`(⌊X/e⌋, M, ⌊T/e⌋)`) contracts the block energy to `Kβ·(⌊X/e⌋·M)/LE^{A+2}`; the identical scale
+conversion (`⌊X/e⌋·M ≤ XM/e`, `1+log D ≤ 2·log(XM)`, `log(⌊X/e⌋M) ≥ (1/2)log(XM)`) delivers the
+target with `Ksmall = 2^{A+5}·Kβ`.  Feeds `cutoffEfold_alpha_le`'s `hsmall` slot. -/
+theorem hsmall_pere_discharge {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (α : ℕ → ℂ) (N X M T D0 D e : ℕ) (Kβ : ℝ),
+        (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N → 1 ≤ e → 1 ≤ D →
+        (0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
+        ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
+        ((N : ℝ) ≤ (M : ℝ)) →
+        (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
+        (Real.log ((X : ℝ) * (M : ℝ))
+            ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
+            ≤ Kβ * (Real.log N) ^ (A + 1 + 2 * C0)) →
+        ∑ f ∈ Finset.Icc 2 D0,
+            ((4 / ((Nat.lcm e f).totient : ℝ)) * (1 + Real.log D))
+              * cutoffPrimEnergy (fun m' => α (e * m')) (blockPrimeInd N) (X / e) M (T / e) f
+          ≤ ((2 : ℝ) ^ (A + 5) * Kβ)
+              * ((X : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1)) * (1 / (e : ℝ)) :=
+  hsmall_pere_discharge_of_SW Salt.SW.siegelWalfisz_holds hA hC0
 
 /-! ## 5. `general_BV_cutoff_unconditional` — the fully-closed windowed BV
 

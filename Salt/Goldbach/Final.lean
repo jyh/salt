@@ -259,6 +259,52 @@ noncomputable def goldPriceMin (Kc : ℝ) (N D Q : ℕ) (bnd : ℝ) (k' i : ℕ)
        else goldBtailMin Q bnd k' i)
 
 set_option maxHeartbeats 800000 in
+/-- `gold_box_hprice_at_min` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_hprice_at_min_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N → ∀ (ε₀ : ℝ) (j k' k i K Q a D Ps Dlev : ℕ) (QR : ℝ),
+      Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
+      1 ≤ QR * Dlev →
+      i ∈ dyadicBoundary (pieceN k') (pieceM k')
+        (goldCut N k) (goldCut N (k + 1)) (opZ N * opY N) K →
+      ((goldCut N (k + 1) : ℝ) / (8 * (opZ N : ℝ))) ^ ((1 : ℝ) / 2) ≤ (D : ℝ) →
+      (∀ d ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+          (fun d => Q * d), d ≤ D) →
+      (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image (fun d => Q * d),
+          ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha (opZ N) (opY N) ε₀ j) 0
+              (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
+              (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
+              (crtClassG Q (m / Q) N a) m (goldCut N (k + 1))‖)
+        + (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+              (fun d => Q * d),
+            ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha (opZ N) (opY N) ε₀ j) 0
+                (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
+                (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
+                (crtClassG Q (m / Q) N a) m (goldCut N k)‖)
+        ≤ goldPriceMin Kc N D Q (QR * Dlev) k' i := by
+  classical
+  obtain ⟨Kc, x₁, hKc, hop⟩ := (gold_box_hprice_op_of_SW hSWall)
+  refine ⟨Kc, x₁, hKc, ?_⟩
+  intro N hN ε₀ j k' k i K Q a D Ps Dlev QR hQPs hQNa hPsN hQ1 hb hi hDge hDsetD
+  unfold goldPriceMin
+  by_cases hcap : min (opZ N * pieceN k' + 1) (N / 2 + 1) ≤ 2 ^ i
+  · rw [if_pos hcap]
+    exact le_of_eq (gold_box_price_vanish hcap _)
+  · rw [if_neg hcap]
+    by_cases hwide : (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ)))
+        ^ ((13 : ℝ) + 5) ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ))
+    · rw [if_pos hwide, add_zero]
+      exact hop N hN ε₀ j k' k i K Q a D Ps Dlev QR k
+        hQPs hQNa hPsN hQ1 hi hDge hwide hDsetD
+    · rw [if_neg hwide]
+      have htail := gold_box_price_tail_min N (opZ N) (opY N) ε₀ j k' k Q a Ps QR Dlev i
+        hQPs hQNa hPsN hQ1 hb
+      have hnn : (0 : ℝ) ≤ boxPriceKerr Kc k' i :=
+        boxPriceKerr_nonneg (le_trans zero_le_one hKc) k' i
+      unfold goldBtailMin
+      linarith [htail]
+
 /-- **`gold_box_hprice_at_min` (item 1, the min-form `hprice` slot).**  The terminal's `hprice` slot
 (`gold_hBVblocksW_discharge'`, `PDiag.lean:511`) at `Price j k' k i := goldPriceMin Kc N D Q
 (QR·Dlev) k' i`, the 3-way case split compiled.  DEAD via `gold_box_price_vanish`; LIVE-HIGH via
@@ -284,28 +330,8 @@ theorem gold_box_hprice_at_min : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
                 (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
                 (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
                 (crtClassG Q (m / Q) N a) m (goldCut N k)‖)
-        ≤ goldPriceMin Kc N D Q (QR * Dlev) k' i := by
-  classical
-  obtain ⟨Kc, x₁, hKc, hop⟩ := gold_box_hprice_op
-  refine ⟨Kc, x₁, hKc, ?_⟩
-  intro N hN ε₀ j k' k i K Q a D Ps Dlev QR hQPs hQNa hPsN hQ1 hb hi hDge hDsetD
-  unfold goldPriceMin
-  by_cases hcap : min (opZ N * pieceN k' + 1) (N / 2 + 1) ≤ 2 ^ i
-  · rw [if_pos hcap]
-    exact le_of_eq (gold_box_price_vanish hcap _)
-  · rw [if_neg hcap]
-    by_cases hwide : (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ)))
-        ^ ((13 : ℝ) + 5) ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ))
-    · rw [if_pos hwide, add_zero]
-      exact hop N hN ε₀ j k' k i K Q a D Ps Dlev QR k
-        hQPs hQNa hPsN hQ1 hi hDge hwide hDsetD
-    · rw [if_neg hwide]
-      have htail := gold_box_price_tail_min N (opZ N) (opY N) ε₀ j k' k Q a Ps QR Dlev i
-        hQPs hQNa hPsN hQ1 hb
-      have hnn : (0 : ℝ) ≤ boxPriceKerr Kc k' i :=
-        boxPriceKerr_nonneg (le_trans zero_le_one hKc) k' i
-      unfold goldBtailMin
-      linarith [htail]
+        ≤ goldPriceMin Kc N D Q (QR * Dlev) k' i :=
+  gold_box_hprice_at_min_of_SW Salt.SW.siegelWalfisz_holds
 
 open Classical in
 /-- **`goldBtailMinSlot`** — the min-form tail contribution `gold_hSum_geo`'s `htail` slot consumes:

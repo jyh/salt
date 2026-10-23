@@ -166,6 +166,44 @@ theorem gold_box_hbox_geoN {Kc : ℝ} (hKc : 1 ≤ Kc) : ∃ x₁ : ℕ, ∀ N :
 set_option maxHeartbeats 800000 in
 -- the LIVE branch applies the ~19-hypothesis `gold_box_rows_wide` and the DEAD branch the empty-
 -- carrier collapse; the defeq checks on the two-cutoff carrier shape need headroom.
+/-- `gold_box_price_wide_or_dead` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_price_wide_or_dead_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N → ∀ (ε₀ : ℝ) (j k' k i K Q a D : ℕ) (Dset : Finset ℕ) (ka : ℕ),
+      i ∈ dyadicBoundary (pieceN k') (pieceM k') (goldCut N ka)
+        (goldCut N (ka + 1)) (opZ N * opY N) K →
+      ((goldCut N (ka + 1) : ℝ) / (8 * (opZ N : ℝ))) ^ ((1 : ℝ) / 2) ≤ (D : ℝ) →
+      (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ))) ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ)) →
+      (∀ d ∈ Dset, 1 ≤ d) →
+      (∀ d ∈ Dset, Nat.Coprime (crtClassG Q (d / Q) N a) d) →
+      (∀ d ∈ Dset, d ≤ D) →
+      (∑ m ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha
+            (blockAlpha (opZ N) (opY N) ε₀ j) 0 (min (opZ N * pieceN k' + 1) (N / 2 + 1)))
+            (2 ^ i) (2 ^ (i + 1))) (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
+            (crtClassG Q (m / Q) N a) m (goldCut N (k + 1))‖)
+        + (∑ m ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha
+              (blockAlpha (opZ N) (opY N) ε₀ j) 0 (min (opZ N * pieceN k' + 1) (N / 2 + 1)))
+              (2 ^ i) (2 ^ (i + 1))) (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
+              (crtClassG Q (m / Q) N a) m (goldCut N k)‖)
+        ≤ boxPriceKerr Kc k' i := by
+  obtain ⟨Kc₀, x₁, hKc₀, hwide⟩ := (gold_box_rows_wide_of_SW hSWall)
+  refine ⟨max Kc₀ 1, x₁, le_max_right _ _, ?_⟩
+  intro N hN ε₀ j k' k i K Q a D Dset ka hi hDge hDwide hd1 hcop2 hDsetD
+  by_cases hcap : min (opZ N * pieceN k' + 1) (N / 2 + 1) ≤ 2 ^ i
+  · exact gold_box_price_dead_kerr (le_trans zero_le_one (le_max_right _ _)) hcap Dset
+  · have hlive : 2 ^ i < opZ N * pieceN k' + 1 :=
+      lt_of_lt_of_le (not_le.mp hcap) (min_le_left _ _)
+    have hβ := norm_box_leg_le_one (opZ N) (opY N) ε₀ j
+      (min (opZ N * pieceN k' + 1) (N / 2 + 1)) i
+    have hbound := hwide N hN
+      (restrictAlpha (restrictAlpha (blockAlpha (opZ N) (opY N) ε₀ j) 0
+        (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
+      k' D Dset (fun m => crtClassG Q (m / Q) N a) (goldCut N k) (goldCut N (k + 1)) ka i K
+      hi hlive hDge hDwide hβ hd1 hcop2 hDsetD
+    exact le_trans hbound (boxPriceKerr_mono (le_max_left _ _) k' i)
+
 /-- **`gold_box_price_wide_or_dead`.**  For the terminal's exact two-cutoff box carrier at op
 (`z = opZ N`, `y = opY N`), the per-box price is `≤ boxPriceKerr Kc k' i` with `Kc := max Kc₀ 1 ≥ 1`
 (`Kc₀` the `gold_box_rows_wide` constant): DEAD (`min (opZ N·pieceN k'+1) (N/2+1) ≤ 2^i`) via
@@ -189,28 +227,53 @@ theorem gold_box_price_wide_or_dead : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
               (blockAlpha (opZ N) (opY N) ε₀ j) 0 (min (opZ N * pieceN k' + 1) (N / 2 + 1)))
               (2 ^ i) (2 ^ (i + 1))) (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
               (crtClassG Q (m / Q) N a) m (goldCut N k)‖)
-        ≤ boxPriceKerr Kc k' i := by
-  obtain ⟨Kc₀, x₁, hKc₀, hwide⟩ := gold_box_rows_wide
-  refine ⟨max Kc₀ 1, x₁, le_max_right _ _, ?_⟩
-  intro N hN ε₀ j k' k i K Q a D Dset ka hi hDge hDwide hd1 hcop2 hDsetD
-  by_cases hcap : min (opZ N * pieceN k' + 1) (N / 2 + 1) ≤ 2 ^ i
-  · exact gold_box_price_dead_kerr (le_trans zero_le_one (le_max_right _ _)) hcap Dset
-  · have hlive : 2 ^ i < opZ N * pieceN k' + 1 :=
-      lt_of_lt_of_le (not_le.mp hcap) (min_le_left _ _)
-    have hβ := norm_box_leg_le_one (opZ N) (opY N) ε₀ j
-      (min (opZ N * pieceN k' + 1) (N / 2 + 1)) i
-    have hbound := hwide N hN
-      (restrictAlpha (restrictAlpha (blockAlpha (opZ N) (opY N) ε₀ j) 0
-        (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
-      k' D Dset (fun m => crtClassG Q (m / Q) N a) (goldCut N k) (goldCut N (k + 1)) ka i K
-      hi hlive hDge hDwide hβ hd1 hcop2 hDsetD
-    exact le_trans hbound (boxPriceKerr_mono (le_max_left _ _) k' i)
+        ≤ boxPriceKerr Kc k' i :=
+  gold_box_price_wide_or_dead_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## 4. The terminal-facing per-box discharge at the QImage modulus set (`gold_box_hprice_op`) -/
 
 set_option maxHeartbeats 800000 in
 -- `gold_box_price_wide_or_dead` specialized to `Dset := QImage`; the `hcop2`/`hd1` divisor-image
 -- rows are discharged internally, so only the wide rows remain.  Carrier defeq needs headroom.
+/-- `gold_box_hprice_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_hprice_op_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N → ∀ (ε₀ : ℝ) (j k' k i K Q a D Ps Dlev : ℕ) (QR : ℝ) (ka : ℕ),
+      Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
+      i ∈ dyadicBoundary (pieceN k') (pieceM k') (goldCut N ka)
+        (goldCut N (ka + 1)) (opZ N * opY N) K →
+      ((goldCut N (ka + 1) : ℝ) / (8 * (opZ N : ℝ))) ^ ((1 : ℝ) / 2) ≤ (D : ℝ) →
+      (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ))) ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ)) →
+      (∀ d ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+          (fun d => Q * d), d ≤ D) →
+      (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image (fun d => Q * d),
+          ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha (opZ N) (opY N) ε₀ j) 0
+              (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
+              (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
+              (crtClassG Q (m / Q) N a) m (goldCut N (k + 1))‖)
+        + (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+              (fun d => Q * d),
+            ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha (opZ N) (opY N) ε₀ j) 0
+                (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
+                (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
+                (crtClassG Q (m / Q) N a) m (goldCut N k)‖)
+        ≤ boxPriceKerr Kc k' i := by
+  obtain ⟨Kc, x₁, hKc, hpd⟩ := (gold_box_price_wide_or_dead_of_SW hSWall)
+  refine ⟨Kc, x₁, hKc, ?_⟩
+  intro N hN ε₀ j k' k i K Q a D Ps Dlev QR ka hQPs hQNa hPsN hQ1 hi hDge hDwide hDsetD
+  have hd1 : ∀ d ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+      (fun d => Q * d), 1 ≤ d := by
+    intro d hd
+    rw [Finset.mem_image] at hd
+    obtain ⟨d', hd', rfl⟩ := hd
+    rw [Finset.mem_filter] at hd'
+    have hpos : 0 < d' := Nat.pos_of_mem_divisors hd'.1
+    have : 0 < Q * d' := Nat.mul_pos (by omega) hpos
+    omega
+  exact hpd N hN ε₀ j k' k i K Q a D _ ka hi hDge hDwide hd1
+    (fun m hm => gold_crtClassG_coprime_of_mem (QR * Dlev) hQ1 hQPs hQNa hPsN hm) hDsetD
+
 /-- **`gold_box_hprice_op` (item 4).**  `gold_box_price_wide_or_dead` at the terminal's QImage
 modulus set `Dset := (divisors Ps).filter (·< QR·Dlev) |>.image (Q·)` — the EXACT per-`(j,k',k,i)`
 `hprice` slot of `gold_hBVblocksW_discharge'` (`PDiag.lean:511`).  The coprimality row `hcop2`
@@ -238,21 +301,8 @@ theorem gold_box_hprice_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
                 (min (opZ N * pieceN k' + 1) (N / 2 + 1))) (2 ^ i) (2 ^ (i + 1)))
                 (blockPrimeInd (pieceN k')) (2 ^ (i + 1) - 1) (pieceM k')
                 (crtClassG Q (m / Q) N a) m (goldCut N k)‖)
-        ≤ boxPriceKerr Kc k' i := by
-  obtain ⟨Kc, x₁, hKc, hpd⟩ := gold_box_price_wide_or_dead
-  refine ⟨Kc, x₁, hKc, ?_⟩
-  intro N hN ε₀ j k' k i K Q a D Ps Dlev QR ka hQPs hQNa hPsN hQ1 hi hDge hDwide hDsetD
-  have hd1 : ∀ d ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), 1 ≤ d := by
-    intro d hd
-    rw [Finset.mem_image] at hd
-    obtain ⟨d', hd', rfl⟩ := hd
-    rw [Finset.mem_filter] at hd'
-    have hpos : 0 < d' := Nat.pos_of_mem_divisors hd'.1
-    have : 0 < Q * d' := Nat.mul_pos (by omega) hpos
-    omega
-  exact hpd N hN ε₀ j k' k i K Q a D _ ka hi hDge hDwide hd1
-    (fun m hm => gold_crtClassG_coprime_of_mem (QR * Dlev) hQ1 hQPs hQNa hPsN hm) hDsetD
+        ≤ boxPriceKerr Kc k' i :=
+  gold_box_hprice_op_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## 5. Byte-locks: the landed suppliers plug into the terminal's slots -/
 

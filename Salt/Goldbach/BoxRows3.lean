@@ -40,6 +40,93 @@ set_option maxHeartbeats 1600000 in
 -- the 39-hypothesis engine application (`gold_box_price_engine_at_live_z`) re-elaborates the long
 -- rpow-bearing row list; the whnf/defeq checks (incl. the RHS↔`boxPriceKerr` collapse) need
 -- headroom above the default heartbeat budget.
+/-- `gold_box_price_live_kerr` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_price_live_kerr_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+    ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
+      (T₁ T₂ Ne z y K ka i : ℕ),
+      2 ≤ Ne →
+      i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut Ne ka) (goldCut Ne (ka + 1)) (z * y) K →
+      2 ^ i < z * pieceN kp + 1 →
+      1 ≤ z →
+      6 * Real.log (8 * (z : ℝ)) + 15 ≤ Real.log (goldCut Ne (ka + 1) : ℝ) →
+      Real.exp (10 ^ 9) ≤ (goldCut Ne (ka + 1) : ℝ) →
+      ((goldCut Ne (ka + 1) : ℝ) / (8 * (z : ℝ))) ^ ((1 : ℝ) / 2) ≤ (D : ℝ) →
+      2 ≤ kp →
+      (∀ m, ‖β m‖ ≤ 1) → N₀ ≤ 2 ^ kp →
+      (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+      1 ≤ Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+      1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (2 ^ kp + 1) * (2 ^ kp + 1) →
+      (4 * (1 + Real.log D) * (D : ℝ)
+          ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ)
+              / (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ (13 : ℝ)) →
+      2 ≤ 2 ^ (i + 1) - 1 → 2 ≤ pieceM kp →
+      ((D : ℝ) ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
+          / (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ (15 : ℝ)) →
+      ((Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 3)
+          ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ)) →
+      ((Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 3)
+          ≤ Real.sqrt (pieceM kp : ℝ)) →
+      ((D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) →
+      ((Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (pieceM kp : ℝ)) →
+      F ≤ 2 ^ (i + 1) - 1 →
+      ((D : ℝ) ≤ Real.sqrt x) →
+      (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) ≤ Lb) →
+      (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (F : ℝ)) →
+      (∀ e, 2 ≤ e → e ≤ D → e ≤ 2 ^ (i + 1) - 1 →
+          0 < Real.log (((((2 ^ (i + 1) - 1) / e : ℕ)) : ℝ) * (pieceM kp : ℝ))) →
+      ((D : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+      (∀ e, 2 ≤ e → e ≤ D → e ≤ 2 ^ (i + 1) - 1 →
+          Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
+            ≤ 2 * Real.log (((((2 ^ (i + 1) - 1) / e : ℕ)) : ℝ) * (pieceM kp : ℝ))) →
+      (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+            (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
+        + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+              (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
+        ≤ boxPriceKerr Kc kp i := by
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_box_price_engine_at_live_z_of_SW hSWall)
+  refine ⟨Kc, N₀, hKc, ?_⟩
+  intro x Lb F β kp D Dset r T₁ T₂ Ne z y K ka i hNe hi hlive hz1 hz_ratio hx hDge hk hβ hN₀
+    hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
+    hLbb hfloor herr_LEpos hDXM herr_scale
+  set L : ℝ := Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) with hLdef
+  set logN : ℝ := Real.log ((2 ^ kp : ℕ) : ℝ) with hlogNdef
+  have hlogNpos : 0 < logN := by
+    rw [hlogNdef]
+    apply Real.log_pos
+    have : (2 : ℕ) ≤ 2 ^ kp := by
+      calc (2 : ℕ) = 2 ^ 1 := (pow_one 2).symm
+        _ ≤ 2 ^ kp := Nat.pow_le_pow_right (by norm_num) (by omega)
+    have h2 : (4 : ℕ) ≤ 2 ^ kp := by
+      calc (4 : ℕ) = 2 ^ 2 := by norm_num
+        _ ≤ 2 ^ kp := Nat.pow_le_pow_right (by norm_num) hk
+    exact_mod_cast (by omega : (1 : ℕ) < 2 ^ kp)
+  have hL0 : 0 ≤ L := le_trans (by norm_num) hL1
+  have hKβnn : 0 ≤ Kbeta_min Kc L logN 13 18 := Kbeta_min_nonneg hKc.le hL0 hlogNpos.le
+  have hKmnn : 0 ≤ Km_min Kc L logN 13 18 := Km_min_nonneg hKc.le hL0 hlogNpos.le
+  have hKβ'nn : 0 ≤ Kbeta'_min Kc L logN 13 18 := Kbeta'_min_nonneg hKc.le hL0 hlogNpos.le
+  have hcoupG : Kc * L ^ ((13 : ℝ) + 18)
+      ≤ Kbeta_min Kc L logN 13 18 * logN ^ ((13 : ℝ) + 2 * 18) := gold_box_hcoupG hlogNpos
+  have hcoup3 : Kc * L ^ ((13 : ℝ) + 1 + 2 * 18)
+      ≤ Km_min Kc L logN 13 18 * logN ^ ((13 : ℝ) + 2 * 18) := gold_box_hcoup3 hlogNpos
+  have herr_book4 : ∀ e, 2 ≤ e → e ≤ D →
+      Kc * (Real.log (((((2 ^ (i + 1) - 1) / e : ℕ)) : ℝ) * (pieceM kp : ℝ)))
+            ^ ((13 : ℝ) + 1 + 1 + 2 * 18)
+        ≤ Kbeta'_min Kc L logN 13 18 * logN ^ ((13 : ℝ) + 1 + 2 * 18) := fun e _ _ =>
+    gold_box_herr_book4 hKc.le hlogNpos (gold_box_efold_nonneg (2 ^ (i + 1) - 1) (pieceM kp) e)
+      (gold_box_efold_le (2 ^ (i + 1) - 1) (pieceM kp) e)
+  have hmain := hbody x Lb F β (2 ^ (i + 1) - 1) (pieceM kp) kp D Dset r
+    (Kbeta_min Kc L logN 13 18) (Km_min Kc L logN 13 18) (Kbeta'_min Kc L logN 13 18)
+    T₁ T₂ Ne z y K ka i hNe hi hlive hz1 hz_ratio hx rfl rfl hDge hk hβ hKβnn hKmnn hKβ'nn hN₀
+    hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
+    hLbb hfloor herr_LEpos hDXM herr_scale hcoupG hcoup3 herr_book4
+  -- the engine RHS at the Kerr minima IS `boxPriceKerr Kc kp i` (byte-for-byte the closed price)
+  exact hmain
+
 /-- **`gold_box_price_live_kerr` (§1).**  For a LIVE annulus box, the two-cutoff box price
 (`T₂`,`T₁`) is `≤ boxPriceKerr Kc kp i` — `gold_box_price_engine_at_live_z` at the Kerr minima, with
 the coupling rows discharged (BoxRows §1) and the RHS collapsed onto the twin's closed price.  The
@@ -89,45 +176,8 @@ theorem gold_box_price_live_kerr : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
             (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
         + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
               (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
-        ≤ boxPriceKerr Kc kp i := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_box_price_engine_at_live_z
-  refine ⟨Kc, N₀, hKc, ?_⟩
-  intro x Lb F β kp D Dset r T₁ T₂ Ne z y K ka i hNe hi hlive hz1 hz_ratio hx hDge hk hβ hN₀
-    hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
-    hLbb hfloor herr_LEpos hDXM herr_scale
-  set L : ℝ := Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) with hLdef
-  set logN : ℝ := Real.log ((2 ^ kp : ℕ) : ℝ) with hlogNdef
-  have hlogNpos : 0 < logN := by
-    rw [hlogNdef]
-    apply Real.log_pos
-    have : (2 : ℕ) ≤ 2 ^ kp := by
-      calc (2 : ℕ) = 2 ^ 1 := (pow_one 2).symm
-        _ ≤ 2 ^ kp := Nat.pow_le_pow_right (by norm_num) (by omega)
-    have h2 : (4 : ℕ) ≤ 2 ^ kp := by
-      calc (4 : ℕ) = 2 ^ 2 := by norm_num
-        _ ≤ 2 ^ kp := Nat.pow_le_pow_right (by norm_num) hk
-    exact_mod_cast (by omega : (1 : ℕ) < 2 ^ kp)
-  have hL0 : 0 ≤ L := le_trans (by norm_num) hL1
-  have hKβnn : 0 ≤ Kbeta_min Kc L logN 13 18 := Kbeta_min_nonneg hKc.le hL0 hlogNpos.le
-  have hKmnn : 0 ≤ Km_min Kc L logN 13 18 := Km_min_nonneg hKc.le hL0 hlogNpos.le
-  have hKβ'nn : 0 ≤ Kbeta'_min Kc L logN 13 18 := Kbeta'_min_nonneg hKc.le hL0 hlogNpos.le
-  have hcoupG : Kc * L ^ ((13 : ℝ) + 18)
-      ≤ Kbeta_min Kc L logN 13 18 * logN ^ ((13 : ℝ) + 2 * 18) := gold_box_hcoupG hlogNpos
-  have hcoup3 : Kc * L ^ ((13 : ℝ) + 1 + 2 * 18)
-      ≤ Km_min Kc L logN 13 18 * logN ^ ((13 : ℝ) + 2 * 18) := gold_box_hcoup3 hlogNpos
-  have herr_book4 : ∀ e, 2 ≤ e → e ≤ D →
-      Kc * (Real.log (((((2 ^ (i + 1) - 1) / e : ℕ)) : ℝ) * (pieceM kp : ℝ)))
-            ^ ((13 : ℝ) + 1 + 1 + 2 * 18)
-        ≤ Kbeta'_min Kc L logN 13 18 * logN ^ ((13 : ℝ) + 1 + 2 * 18) := fun e _ _ =>
-    gold_box_herr_book4 hKc.le hlogNpos (gold_box_efold_nonneg (2 ^ (i + 1) - 1) (pieceM kp) e)
-      (gold_box_efold_le (2 ^ (i + 1) - 1) (pieceM kp) e)
-  have hmain := hbody x Lb F β (2 ^ (i + 1) - 1) (pieceM kp) kp D Dset r
-    (Kbeta_min Kc L logN 13 18) (Km_min Kc L logN 13 18) (Kbeta'_min Kc L logN 13 18)
-    T₁ T₂ Ne z y K ka i hNe hi hlive hz1 hz_ratio hx rfl rfl hDge hk hβ hKβnn hKmnn hKβ'nn hN₀
-    hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
-    hLbb hfloor herr_LEpos hDXM herr_scale hcoupG hcoup3 herr_book4
-  -- the engine RHS at the Kerr minima IS `boxPriceKerr Kc kp i` (byte-for-byte the closed price)
-  exact hmain
+        ≤ boxPriceKerr Kc kp i :=
+  gold_box_price_live_kerr_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## 2. The DEAD-branch box-price collapse onto `boxPriceKerr` (deliverable 2, the DEAD half)
 

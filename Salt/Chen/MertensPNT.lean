@@ -255,13 +255,12 @@ theorem twinWindow_mass_eq {x : ℕ} (hx : 4 ≤ x) :
     unfold psiTot; rw [hunion, Finset.sum_union hdisj]
   linarith [hsum]
 
-/-- **M3, LOWER.**  `x/2 − 1 − 2K·x/log x ≤ ∑_{n ∈ twinWindow x} Λ n` for `8 ≤ x`, with the
-`psiTot_pnt` constant `K ≥ 0`.  From the endpoint subtraction `ψ(x−2) − ψ(x/2−1)`; the two
-`K··/log ·` errors are each `≤ K·x/log x` by `self_div_log_le`. -/
-theorem lambda_mass_lower :
+/-- `lambda_mass_lower` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem lambda_mass_lower_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ x : ℕ, 8 ≤ x →
       (x : ℝ) / 2 - 1 - 2 * K * x / Real.log x ≤ ∑ n ∈ twinWindow x, vonMangoldt n := by
-  obtain ⟨K, hK0, hK⟩ := psiTot_pnt
+  obtain ⟨K, hK0, hK⟩ := (psiTot_pnt_of_SW hSWall)
   refine ⟨K, hK0, fun x hx => ?_⟩
   have hx8R : (8:ℝ) ≤ (x:ℝ) := by exact_mod_cast hx
   have hU3 : 3 ≤ x - 2 := by omega
@@ -304,6 +303,14 @@ theorem lambda_mass_lower :
   have hmain : (x:ℝ)/2 - 1 ≤ ((x - 2:ℕ):ℝ) - ((x / 2 - 1:ℕ):ℝ) := by rw [hUx]; linarith [hLle]
   rw [hmass]
   linarith [hpU.1, hpL.2, herr, hmain]
+
+/-- **M3, LOWER.**  `x/2 − 1 − 2K·x/log x ≤ ∑_{n ∈ twinWindow x} Λ n` for `8 ≤ x`, with the
+`psiTot_pnt` constant `K ≥ 0`.  From the endpoint subtraction `ψ(x−2) − ψ(x/2−1)`; the two
+`K··/log ·` errors are each `≤ K·x/log x` by `self_div_log_le`. -/
+theorem lambda_mass_lower :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ x : ℕ, 8 ≤ x →
+      (x : ℝ) / 2 - 1 - 2 * K * x / Real.log x ≤ ∑ n ∈ twinWindow x, vonMangoldt n :=
+  lambda_mass_lower_of_SW Salt.SW.siegelWalfisz_holds
 
 /-- **M3, UPPER.**  `∑_{n ∈ twinWindow x} Λ n ≤ x/2 + 2K·x/log x` for `8 ≤ x`.  Same endpoint
 subtraction; the H-glue may want both sides. -/

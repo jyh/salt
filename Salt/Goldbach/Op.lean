@@ -197,7 +197,7 @@ consumer can choose its threshold as a function of `B, C`.  The body is
 `goldRosserRemainderW_le_split` + the shared `dispDiscW_filtered_le_Icc` /
 `convSumW_le` legs). -/
 set_option linter.unusedVariables false in
-theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+theorem gold_a12_hBV_A1_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a N z D P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)
       (hPz : ∀ p ∈ P.primeFactors, p < z)
@@ -214,7 +214,7 @@ theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
       rosserRemainder (goldA1SieveW Qm a N P hP hPodd) (Qlev * D)
         ≤ (N : ℝ) / (Real.log N) ^ 10 := by
   obtain ⟨B, C, hB, hC, hbv⟩ :=
-    psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11 (by norm_num)
+    psi_BV_of_siegelWalfisz' hSWall 11 (by norm_num)
   refine ⟨B, C, hB, hC, ?_⟩
   intro Qm a N z D P ε Qlev hP hPodd hPz hPlow hx hε hw0 hwz hQm1 hQmP hQma hPN hQlev hD
     hlevel hclose
@@ -257,6 +257,26 @@ theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     le_trans (convSumW_le Qm hP hPodd hQm1 hQmP hx hb1)
       (mul_le_mul_of_nonneg_left hMbound hconvfac)
   linarith [hsplit, hS1, hS2, hConv, hclose]
+
+set_option linter.unusedVariables false in
+/-- `gold_a12_hBV_A1_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+    ∀ (Qm a N z D P : ℕ) (ε Qlev : ℝ)
+      (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)
+      (hPz : ∀ p ∈ P.primeFactors, p < z)
+      (hPlow : ∀ p ∈ P.primeFactors, w0R ε ≤ (p : ℝ))
+      (hx : 4 ≤ N) (hε : 0 < ε) (hw0 : 3 ≤ w0R ε) (hwz : w0R ε ≤ (z : ℝ))
+      (hQm1 : 1 ≤ Qm) (hQmP : Nat.Coprime Qm P) (hQma : Nat.Coprime Qm a)
+      (hPN : Nat.Coprime P N) (hQlev : 1 ≤ Qlev) (hD : 1 ≤ D),
+      (Qm : ℝ) * (Qlev * D) ≤ Real.sqrt (N : ℝ) / (Real.log N) ^ B →
+      C * (N : ℝ) / (Real.log N) ^ (11 : ℝ) + C * (N : ℝ) / (Real.log N) ^ (11 : ℝ)
+          + 2 * Real.log N
+              * ((Qm.primeFactors.card : ℝ) + Real.log (Qlev * D) / Real.log 3)
+              * ((1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε))
+        ≤ (N : ℝ) / (Real.log N) ^ 10 →
+      rosserRemainder (goldA1SieveW Qm a N P hP hPodd) (Qlev * D)
+        ≤ (N : ℝ) / (Real.log N) ^ 10 :=
+  gold_a12_hBV_A1_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## Part 7 — the A₁ operating-point bundle (`gold_a12_hA1`)
 

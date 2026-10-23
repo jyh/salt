@@ -221,10 +221,9 @@ leg (`box_price_indep`); the low/sym legs follow the same template (see the repo
 
 set_option maxHeartbeats 1600000 in -- verbatim `box_price_at_op` body: deep per-box row bundle
 open Classical in
-/-- **`box_price_indep` — the arg-free box discharger.**  `box_price_at_op` with `Ps`/`K`/`D`
-moved inside the `∃ Kc x₁`, so `(Kc, x₁)` are genuinely x-independent handles (they come from the
-arg-free terminal `medium_box_price_at_op_lo`).  Body copied verbatim from `box_price_at_op`. -/
-theorem box_price_indep : ∃ (Kc x₁ : ℝ), 0 < Kc ∧
+/-- `box_price_indep` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem box_price_indep_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc x₁ : ℝ), 0 < Kc ∧
     ∀ (Ps : ℕ), 0 < Ps → Nat.Coprime opQ Ps → Nat.Coprime opQ (opA + 2) →
       (∀ p ∈ Ps.primeFactors, 3 ≤ p) → ∀ (K : ℕ) (QR : ℝ) (Dlev D : ℕ),
         (opQ : ℝ) * (QR * (Dlev : ℝ)) ≤ (D : ℝ) →
@@ -248,7 +247,7 @@ theorem box_price_indep : ∃ (Kc x₁ : ℝ), 0 < Kc ∧
                       (crtClassW opQ (m / opQ) opA) m (x / 2 + 1)‖)
               ≤ boxPriceKerr Kc k i := by
   classical
-  obtain ⟨Kc, N₀, hK0, hcore⟩ := medium_box_price_at_op_lo
+  obtain ⟨Kc, N₀, hK0, hcore⟩ := (medium_box_price_at_op_lo_of_SW hSWall)
   obtain ⟨xrows, hrows⟩ := box_rows_at_op
   have hQ1 : 1 ≤ opQ := opf_Q_pos
   refine ⟨Kc, max (max xrows (Real.exp (10 ^ 9))) (((8 * (N₀ + 4) : ℕ) : ℝ) ^ ((16 : ℝ) / 7)),
@@ -333,5 +332,34 @@ theorem box_price_indep : ∃ (Kc x₁ : ℝ), 0 < Kc ∧
       (hcore x (Real.log (4 * (x : ℝ))) (opZ x * opY x) K k i _ (2 ^ (i + 1) - 1) (x / 2 + 1) D _
         (fun m => crtClassW opQ (m / opQ) opA) hk hxt hi rfl hNfloor hα hd1 hcop2 hDsetD hN₀ hL2
         hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor hDXM)
+
+open Classical in
+/-- **`box_price_indep` — the arg-free box discharger.**  `box_price_at_op` with `Ps`/`K`/`D`
+moved inside the `∃ Kc x₁`, so `(Kc, x₁)` are genuinely x-independent handles (they come from the
+arg-free terminal `medium_box_price_at_op_lo`).  Body copied verbatim from `box_price_at_op`. -/
+theorem box_price_indep : ∃ (Kc x₁ : ℝ), 0 < Kc ∧
+    ∀ (Ps : ℕ), 0 < Ps → Nat.Coprime opQ Ps → Nat.Coprime opQ (opA + 2) →
+      (∀ p ∈ Ps.primeFactors, 3 ≤ p) → ∀ (K : ℕ) (QR : ℝ) (Dlev D : ℕ),
+        (opQ : ℝ) * (QR * (Dlev : ℝ)) ≤ (D : ℝ) →
+        ∀ (x : ℕ) (ε₀ : ℝ), x₁ ≤ (x : ℝ) →
+          (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+          (D : ℝ) ≤ (x : ℝ) ^ ((499 : ℝ) / 1000) →
+          ∀ (j k i : ℕ),
+            i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x (opZ x * opY x) K →
+            (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+                  (fun d => opQ * d),
+                ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha (opZ x) (opY x) ε₀ j) 0
+                      (min (opZ x * pieceN k + 1) (x + 1))) (2 ^ i) (2 ^ (i + 1)))
+                    (blockPrimeInd (pieceN k)) (2 ^ (i + 1) - 1) (pieceM k)
+                    (crtClassW opQ (m / opQ) opA) m x‖)
+              + (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+                    (fun d => opQ * d),
+                  ‖apDiscBilinCutoff
+                      (restrictAlpha (restrictAlpha (blockAlpha (opZ x) (opY x) ε₀ j) 0
+                        (min (opZ x * pieceN k + 1) (x + 1))) (2 ^ i) (2 ^ (i + 1)))
+                      (blockPrimeInd (pieceN k)) (2 ^ (i + 1) - 1) (pieceM k)
+                      (crtClassW opQ (m / opQ) opA) m (x / 2 + 1)‖)
+              ≤ boxPriceKerr Kc k i :=
+  box_price_indep_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Chen

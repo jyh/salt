@@ -720,23 +720,16 @@ multiplicative slack, `≤ cbar·(21K + 14 log 2)·x/log x`), `corr_le_at_op` (t
 `esw_main_le13`/`op_ls_facts` (the `E_SW` strip and the `x^{5/6}` boundary terms) into
 `(cbar + ecountOp C x)·massLo`.  The honest `C` is documented in the module header. -/
 
-/-- **`hcount_star_at_op` — HCOUNT-3, the `(★)` premise at op.**  For every mass constant
-`Kmass ≥ 0` (the `lambda_mass_lower` constant) there is an explicit `C ≥ 0` and a threshold past
-which the count line closes against the PNT lower window mass:
-
-  `log x · tripleSumW opQ opA x (opZ x)(opY x)
-      ≤ (cbar + ecountOp C x)·(massLo x Kmass / φ(opQ))`,   `massLo = x/2 − 1 − 2·Kmass·x/log x`.
-
-This is exactly `CountAtOp.hcount_at_op`'s `(★)` premise; the capstone `example` chains the two into
-the fully closed GlueNormalized `hcount` SLOT. -/
-theorem hcount_star_at_op (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
+/-- `hcount_star_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hcount_star_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz) (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
     ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
       Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
         ≤ (cbar + ecountOp C x)
             * (((x : ℝ) / 2 - 1 - 2 * Kmass * x / Real.log x) / (opQ.totient : ℝ)) := by
-  obtain ⟨K₀, hK0, hpsi₀⟩ := psiTot_pnt
+  obtain ⟨K₀, hK0, hpsi₀⟩ := (psiTot_pnt_of_SW hSWall)
   obtain ⟨Ksw, Nsw, hKsw, hEq⟩ :=
-    tripleSumW_equidist (A := 13) (C := 2) (by norm_num) (by norm_num)
+    tripleSumW_equidist_of_SW hSWall (A := 13) (C := 2) (by norm_num) (by norm_num)
   obtain ⟨xLv, hLvalrows⟩ := hcount_Lval_rows Nsw
   obtain ⟨xA, hAP3⟩ := hcount_op_AP3
   obtain ⟨xC, hCORR⟩ := corr_le_at_op
@@ -1003,7 +996,44 @@ theorem hcount_star_at_op (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
           + E * ((x : ℝ) / 2 - 1 - 2 * Kmass * x / L) from by ring]
   linarith only [hLtSWφ, hLtS, hWslack, hcbar_t, h7pw, hesw, h2L2pw, hident, hEml]
 
+/-- **`hcount_star_at_op` — HCOUNT-3, the `(★)` premise at op.**  For every mass constant
+`Kmass ≥ 0` (the `lambda_mass_lower` constant) there is an explicit `C ≥ 0` and a threshold past
+which the count line closes against the PNT lower window mass:
+
+  `log x · tripleSumW opQ opA x (opZ x)(opY x)
+      ≤ (cbar + ecountOp C x)·(massLo x Kmass / φ(opQ))`,   `massLo = x/2 − 1 − 2·Kmass·x/log x`.
+
+This is exactly `CountAtOp.hcount_at_op`'s `(★)` premise; the capstone `example` chains the two into
+the fully closed GlueNormalized `hcount` SLOT. -/
+theorem hcount_star_at_op (Kmass : ℝ) (hKmass : 0 ≤ Kmass) :
+    ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
+      Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
+        ≤ (cbar + ecountOp C x)
+            * (((x : ℝ) / 2 - 1 - 2 * Kmass * x / Real.log x) / (opQ.totient : ℝ)) :=
+  hcount_star_at_op_of_SW Salt.SW.siegelWalfisz_holds Kmass hKmass
+
 /-! ## Section H — the capstone: HCOUNT fully closed + the GlueNormalized chain -/
+
+/-- `hcount_slot_closed` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hcount_slot_closed_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
+    ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
+      Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
+        ≤ (cbar + ecountOp C x)
+            * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) := by
+  obtain ⟨Kmass, xB, hK0, hbridge⟩ := (hcount_massBridge_of_SW hSWall)
+  obtain ⟨C, xS, hC0, hstar⟩ := (hcount_star_at_op_of_SW hSWall) Kmass hK0
+  obtain ⟨xF, hF⟩ := op_at_facts
+  refine ⟨C, max (max xB xS) xF, hC0, fun x hx => ?_⟩
+  have hxB : xB ≤ x := by omega
+  have hxS : xS ≤ x := by omega
+  have hxF : xF ≤ x := by omega
+  obtain ⟨hL96, hZge, _, _, _, _, _, _, _⟩ := hF x hxF
+  have hlogopZ : 0 < Real.log (opZ x : ℝ) := Real.log_pos (by linarith only [hZge, hL96])
+  have hce : 0 ≤ cbar + ecountOp C x := by
+    have hecnn : 0 ≤ ecountOp C x := div_nonneg hC0 hlogopZ.le
+    linarith only [cbar_pos, hecnn]
+  exact hbridge x hxB (ecountOp C x) hce (hstar x hxS)
 
 /-- **`hcount_slot_closed` — HCOUNT COMPLETE.**  Chaining `hcount_star_at_op` (the `(★)` premise)
 with `hcount_massBridge` (the `/φ` normalisation + PNT lower-mass core of `CountAtOp.hcount_at_op`)
@@ -1018,20 +1048,8 @@ theorem hcount_slot_closed :
     ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
       Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
         ≤ (cbar + ecountOp C x)
-            * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) := by
-  obtain ⟨Kmass, xB, hK0, hbridge⟩ := hcount_massBridge
-  obtain ⟨C, xS, hC0, hstar⟩ := hcount_star_at_op Kmass hK0
-  obtain ⟨xF, hF⟩ := op_at_facts
-  refine ⟨C, max (max xB xS) xF, hC0, fun x hx => ?_⟩
-  have hxB : xB ≤ x := by omega
-  have hxS : xS ≤ x := by omega
-  have hxF : xF ≤ x := by omega
-  obtain ⟨hL96, hZge, _, _, _, _, _, _, _⟩ := hF x hxF
-  have hlogopZ : 0 < Real.log (opZ x : ℝ) := Real.log_pos (by linarith only [hZge, hL96])
-  have hce : 0 ≤ cbar + ecountOp C x := by
-    have hecnn : 0 ≤ ecountOp C x := div_nonneg hC0 hlogopZ.le
-    linarith only [cbar_pos, hecnn]
-  exact hbridge x hxB (ecountOp C x) hce (hstar x hxS)
+            * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) :=
+  hcount_slot_closed_of_SW Salt.SW.siegelWalfisz_holds
 
 /-- **The compiled chain into GlueNormalized.**  The discharged `hcount` slot (`hcount_slot_closed`)
 plugs verbatim into `GlueNormalized.hmA3_normalized` — the A₃ normalized package at the operating

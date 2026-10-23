@@ -90,19 +90,15 @@ theorem priceLowOp_le {x : ℕ} {Kb : ℝ} {KK k : ℕ}
 /-! ## §2 — the assembly: `hA3_bundle` -/
 
 set_option maxHeartbeats 1600000 in -- deep op-point composition: ~30 discharger hypotheses at op
-/-- **`hA3_bundle` — the A₃ carrier bundle.**  Instantiates `hBVblocksW_discharge' ∘
-`mainA3_of_block_remainders_W` (`PDiag`:782 template) at the operating witnesses.  The three
-arg-free price dischargers (`box_price_indep`/`low_price_indep`/`sym_price_indep`) are bumped to a
-single constant `Khat ≥ 1`; the box and low legs are routed to the piecewise `PriceBoxOp`/
-`PriceLowOp` (`0` in the vanish regimes), sym is `W`-uniform.  The aggregate closes via the tower
-(`hNum_close_of_tower` at `Cconst`, folded into the threshold). -/
-theorem hA3_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `hA3_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hA3_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     triplePrimeSumW opQ opA x (opP x) (opY x) ≤ M3 x := by
   classical
   -- the three arg-free price dischargers
-  obtain ⟨KcB, xB, hKcB, hboxbody⟩ := box_price_indep
-  obtain ⟨KbL, xL, hKbL, hlowbody⟩ := low_price_indep
-  obtain ⟨KbS, KmS, xS, hKbS, hKmS, hsymbody⟩ := sym_price_indep
+  obtain ⟨KcB, xB, hKcB, hboxbody⟩ := (box_price_indep_of_SW hSWall)
+  obtain ⟨KbL, xL, hKbL, hlowbody⟩ := (low_price_indep_of_SW hSWall)
+  obtain ⟨KbS, KmS, xS, hKbS, hKmS, hsymbody⟩ := (sym_price_indep_of_SW hSWall)
   -- the remaining ∃-threshold suppliers
   obtain ⟨xt, _hxt8, htower⟩ := opf_tower
   obtain ⟨xf, hfloors⟩ := op_floors
@@ -376,6 +372,16 @@ theorem hA3_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     hpriceSym hpriceLow (opPdiag x)
     ((9 * (6 * CconBox * Khat) + 1 / 2) * (1 : ℝ) * (x : ℝ) / (Real.log x) ^ 11)
     (Cconst * (1 : ℝ) * (x : ℝ) / (Real.log x) ^ 11) (hdiag_slot x hxd).1 hSum hCE hNum
+
+/-- **`hA3_bundle` — the A₃ carrier bundle.**  Instantiates `hBVblocksW_discharge' ∘
+`mainA3_of_block_remainders_W` (`PDiag`:782 template) at the operating witnesses.  The three
+arg-free price dischargers (`box_price_indep`/`low_price_indep`/`sym_price_indep`) are bumped to a
+single constant `Khat ≥ 1`; the box and low legs are routed to the piecewise `PriceBoxOp`/
+`PriceLowOp` (`0` in the vanish regimes), sym is `W`-uniform.  The aggregate closes via the tower
+(`hNum_close_of_tower` at `Cconst`, folded into the threshold). -/
+theorem hA3_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    triplePrimeSumW opQ opA x (opP x) (opY x) ≤ M3 x :=
+  hA3_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## §3 — the compiled headline (F1 consumed; F2 ledger hypothetical) -/
 

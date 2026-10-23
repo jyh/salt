@@ -66,6 +66,7 @@ import Salt.Goldbach.Ledger
 import Salt.Goldbach.Ledger2
 import Salt.Goldbach.Ledger3
 import Salt.Goldbach.ChenGoldbach
+import Salt.Goldbach.SiegelFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -239,3 +240,7 @@ open Salt.Tactic in
   Salt.Goldbach.gold_hcertA1_at_op Salt.Goldbach.gold_hcertA2_at_op
   Salt.Goldbach.gold_hcertA3_at_op Salt.Goldbach.gold_hL_bundle
   Salt.Goldbach.chen_goldbach
+
+-- From a Siegel standoff (SiegelFree), by a proof term that does not use Siegel's theorem.
+open Salt.Tactic in
+#audit_axioms Salt.Goldbach.chen_goldbach_of_standoff

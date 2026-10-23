@@ -207,14 +207,14 @@ lemma psiAP_sub_thetaAP_mem (x q a : ℕ) (haq : a < q) :
 
 /-! ## E_ψ — the ψ-level SW-regularity -/
 
-/-- **The ψ-level regularity.** `|ψ(x;q,a) − ψ(x)/φ(q)| ≤ 2K·x/(log x)^A` for a
-reduced residue `a`, `q ≤ (log x)^C`, `x ≥ 3`. The gate's main terms `x/φ(q)`
-cancel between `ψ(x;q,a)` and `ψ(x)/φ(q) = ψ(x;1,0)/φ(q)`. -/
-lemma psiAP_sub_psiTot_bound {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `psiAP_sub_psiTot_bound` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+lemma psiAP_sub_psiTot_bound_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ K : ℝ, 0 ≤ K ∧ ∀ x q a : ℕ, 3 ≤ x → 0 < q → a < q → Nat.Coprime a q →
       ((q : ℝ) ≤ (Real.log x) ^ C) →
       |psiAP x q a - psiTot x / (q.totient : ℝ)| ≤ 2 * K * x / (Real.log x) ^ A := by
-  obtain ⟨K, hK0, hK⟩ := Salt.SW.siegelWalfisz_holds A C hA hC
+  obtain ⟨K, hK0, hK⟩ := hSWall A C hA hC
   refine ⟨K, hK0, fun x q a hx hq haq hcop hqlog => ?_⟩
   have hx2 : 2 ≤ x := by omega
   have hxR : (3 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
@@ -255,19 +255,24 @@ lemma psiAP_sub_psiTot_bound {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     _ ≤ K * x / L + K * x / L := add_le_add hb1 hb0'
     _ = 2 * K * x / L := by ring
 
+/-- **The ψ-level regularity.** `|ψ(x;q,a) − ψ(x)/φ(q)| ≤ 2K·x/(log x)^A` for a
+reduced residue `a`, `q ≤ (log x)^C`, `x ≥ 3`. The gate's main terms `x/φ(q)`
+cancel between `ψ(x;q,a)` and `ψ(x)/φ(q) = ψ(x;1,0)/φ(q)`. -/
+lemma psiAP_sub_psiTot_bound {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ x q a : ℕ, 3 ≤ x → 0 < q → a < q → Nat.Coprime a q →
+      ((q : ℝ) ≤ (Real.log x) ^ C) →
+      |psiAP x q a - psiTot x / (q.totient : ℝ)| ≤ 2 * K * x / (Real.log x) ^ A :=
+  psiAP_sub_psiTot_bound_of_SW Salt.SW.siegelWalfisz_holds hA hC
+
 /-! ## θ-AP SW-regularity (cumulative) -/
 
-/-- **The θ-form Siegel–Walfisz regularity (cumulative).** For every saving `A`
-and range exponent `C`, there is `K > 0` and a threshold `x₀` with
-`|θ(x;q,a) − θ(x)/φ(q)| ≤ K·x/(log x)^A` for `x ≥ x₀`, `q ≤ (log x)^C`, and a
-reduced residue `a` coprime to `q`. Route: the ψ-level regularity
-`psiAP_sub_psiTot_bound` (main terms cancel) minus the two prime-power strips,
-each `≤ SP(x) ≤ √x·(1+log x) = o(x/(log x)^A)` (`stripMass_le` + `absorb_nat`). -/
-theorem thetaAP_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `thetaAP_SW` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem thetaAP_SW_of_SW (hSWall : Salt.BV.SiegelWalfisz) {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (x₀ : ℕ), 0 < K ∧ ∀ x q a : ℕ, x₀ ≤ x → 0 < q → a < q → Nat.Coprime a q →
       ((q : ℝ) ≤ (Real.log x) ^ C) →
       |thetaAP x q a - thetaTot x / (q.totient : ℝ)| ≤ K * x / (Real.log x) ^ A := by
-  obtain ⟨K, _hK0, hKb⟩ := psiAP_sub_psiTot_bound hA hC
+  obtain ⟨K, _hK0, hKb⟩ := (psiAP_sub_psiTot_bound_of_SW hSWall) hA hC
   obtain ⟨x₁, hx₁⟩ := Filter.eventually_atTop.mp
     (absorb_nat (θ := (1/2 : ℝ)) (k := (1 : ℝ)) (A := A) (M := (2 : ℝ))
       (by norm_num) (by norm_num) (by norm_num))
@@ -319,6 +324,18 @@ theorem thetaAP_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
   · rw [hRHS]; linarith [hElo, hs1hi, hs0φ_lo, hSPabs, hSPnn]
   · rw [hRHS]; linarith [hEhi, hs1lo, hs0φ_hi, hSPabs, hSPnn]
 
+/-- **The θ-form Siegel–Walfisz regularity (cumulative).** For every saving `A`
+and range exponent `C`, there is `K > 0` and a threshold `x₀` with
+`|θ(x;q,a) − θ(x)/φ(q)| ≤ K·x/(log x)^A` for `x ≥ x₀`, `q ≤ (log x)^C`, and a
+reduced residue `a` coprime to `q`. Route: the ψ-level regularity
+`psiAP_sub_psiTot_bound` (main terms cancel) minus the two prime-power strips,
+each `≤ SP(x) ≤ √x·(1+log x) = o(x/(log x)^A)` (`stripMass_le` + `absorb_nat`). -/
+theorem thetaAP_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ (K : ℝ) (x₀ : ℕ), 0 < K ∧ ∀ x q a : ℕ, x₀ ≤ x → 0 < q → a < q → Nat.Coprime a q →
+      ((q : ℝ) ≤ (Real.log x) ^ C) →
+      |thetaAP x q a - thetaTot x / (q.totient : ℝ)| ≤ K * x / (Real.log x) ^ A :=
+  thetaAP_SW_of_SW Salt.SW.siegelWalfisz_holds hA hC
+
 /-! ## The Abel log-removal (θ → π) -/
 
 /-- The inverse-log Abel weights telescope: `∑_{N < i ≤ M-1} ((log i)⁻¹ − (log(i+1))⁻¹)
@@ -351,27 +368,16 @@ private lemma inv_log_succ_le {i : ℕ} (hi : 2 ≤ i) :
       (by exact_mod_cast (show i ≤ i + 1 by omega))
   exact inv_anti₀ hli hmono
 
-/-- **The interval prime indicator is SW-regular (`prime_indicator_SW`).** For every
-saving `A` and range exponent `C`, there is `K > 0` and a threshold `N₀` with: for
-`N₀ ≤ N`, `N ≤ M ≤ 2N`, `q ≥ 1`, `a` coprime to `q`, and `q ≤ (log N)^C`, the count
-of primes in the block `(N, M]` in the class `a mod q` matches the `φ(q)`-share of
-the total prime count of `(N, M]`, up to `K·N/(log N)^A`:
-`|#{p ∈ (N,M] : p prime, p ≡ a mod q} − #{p ∈ (N,M] : p prime}/φ(q)| ≤ K·N/(log N)^A`.
-
-Route: discrete summation by parts (`Finset.sum_Ioc_by_parts`) with the weight
-`(log t)⁻¹` on `(N, M]`. Every point `t ∈ [N, M]` has `t ≥ N`, so the θ-form
-regularity `thetaAP_SW` applies uniformly (`q ≤ (log N)^C ≤ (log t)^C`), bounding
-each cumulative θ-discrepancy by `2·Kθ·N/(log N)^A`; the endpoint `(log M)⁻¹` and
-the telescoping inner weights recombine to `2·(log(N+1))⁻¹ ≤ 2·(log N)⁻¹`, yielding
-the extra log saving.  (The closed block `[N, M]` differs by at most one prime — the
-endpoint `N` — an `O(1)` term, immaterial for the fine-partition consumer.) -/
-theorem prime_indicator_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `prime_indicator_SW` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem prime_indicator_SW_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧ ∀ N M q a : ℕ, N₀ ≤ N → N ≤ M → M ≤ 2 * N →
       0 < q → Nat.Coprime a q → ((q : ℝ) ≤ (Real.log N) ^ C) →
       |(((Finset.Ioc N M).filter (fun p => p.Prime ∧ p % q = a % q)).card : ℝ)
         - (((Finset.Ioc N M).filter (fun p => p.Prime)).card : ℝ) / (q.totient : ℝ)|
         ≤ K * N / (Real.log N) ^ A := by
-  obtain ⟨Kθ, x₀θ, hKθ0, hθb⟩ := thetaAP_SW hA hC
+  obtain ⟨Kθ, x₀θ, hKθ0, hθb⟩ := (thetaAP_SW_of_SW hSWall) hA hC
   refine ⟨4 * Kθ, max x₀θ 3, by positivity, fun N M q a hN hNM hM2N hq hcop hqlog => ?_⟩
   classical
   set a' := a % q with ha'def
@@ -556,6 +562,28 @@ theorem prime_indicator_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
       zero_div, sub_zero, abs_zero]
     exact div_nonneg
       (mul_nonneg (mul_nonneg (by norm_num) hKθ0.le) (Nat.cast_nonneg N)) hLNApos.le
+
+/-- **The interval prime indicator is SW-regular (`prime_indicator_SW`).** For every
+saving `A` and range exponent `C`, there is `K > 0` and a threshold `N₀` with: for
+`N₀ ≤ N`, `N ≤ M ≤ 2N`, `q ≥ 1`, `a` coprime to `q`, and `q ≤ (log N)^C`, the count
+of primes in the block `(N, M]` in the class `a mod q` matches the `φ(q)`-share of
+the total prime count of `(N, M]`, up to `K·N/(log N)^A`:
+`|#{p ∈ (N,M] : p prime, p ≡ a mod q} − #{p ∈ (N,M] : p prime}/φ(q)| ≤ K·N/(log N)^A`.
+
+Route: discrete summation by parts (`Finset.sum_Ioc_by_parts`) with the weight
+`(log t)⁻¹` on `(N, M]`. Every point `t ∈ [N, M]` has `t ≥ N`, so the θ-form
+regularity `thetaAP_SW` applies uniformly (`q ≤ (log N)^C ≤ (log t)^C`), bounding
+each cumulative θ-discrepancy by `2·Kθ·N/(log N)^A`; the endpoint `(log M)⁻¹` and
+the telescoping inner weights recombine to `2·(log(N+1))⁻¹ ≤ 2·(log N)⁻¹`, yielding
+the extra log saving.  (The closed block `[N, M]` differs by at most one prime — the
+endpoint `N` — an `O(1)` term, immaterial for the fine-partition consumer.) -/
+theorem prime_indicator_SW {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧ ∀ N M q a : ℕ, N₀ ≤ N → N ≤ M → M ≤ 2 * N →
+      0 < q → Nat.Coprime a q → ((q : ℝ) ≤ (Real.log N) ^ C) →
+      |(((Finset.Ioc N M).filter (fun p => p.Prime ∧ p % q = a % q)).card : ℝ)
+        - (((Finset.Ioc N M).filter (fun p => p.Prime)).card : ℝ) / (q.totient : ℝ)|
+        ≤ K * N / (Real.log N) ^ A :=
+  prime_indicator_SW_of_SW Salt.SW.siegelWalfisz_holds hA hC
 
 /-! ## The coprimality-to-`s` insertion (Thm-16 hyp (25) shape) -/
 

@@ -35,11 +35,17 @@ open Salt.Chen
 
 namespace Salt.Goldbach
 
+/-- `chen_goldbach` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem chen_goldbach_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even N →
+    ∃ p q : ℕ, N = p + q ∧ p.Prime ∧ IsP2 2 q :=
+  (chen_goldbach_of_ledger_of_SW hSWall) (gold_hL_bundle_of_SW hSWall)
+
 /-- **Chen's second theorem** (unconditional, the Goldbach form): every
 sufficiently large even `N` is the sum `N = p + q` of a prime `p` and a `P₂`
 number `q` (a prime, or a product of two primes each `≥ 2`). -/
 theorem chen_goldbach : ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even N →
     ∃ p q : ℕ, N = p + q ∧ p.Prime ∧ IsP2 2 q :=
-  chen_goldbach_of_ledger gold_hL_bundle
+  chen_goldbach_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

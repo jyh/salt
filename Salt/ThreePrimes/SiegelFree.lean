@@ -30,7 +30,9 @@ real `L`-zero `β < 1` above `1 − c / log q`. It does not use Siegel's theorem
 * `N₀` is still a Lean `∃`, not a numeral. Removing Siegel's theorem removes the one input
   whose constant is ineffective in the classical sense; it does not make the other constants
   explicit, and this module does not claim it does.
-* The mathematics is classical: without an exceptional zero, Vinogradov's theorem is effective.
+* The mathematics is classical. Classically, a standoff with an EXPLICIT constant makes
+  Vinogradov's theorem effective; `NoSiegelZerosAt c` with an arbitrary `c`, as here, does not, and
+  this development computes no constant.
 -/
 
 namespace Salt.ThreePrimes

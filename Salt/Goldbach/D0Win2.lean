@@ -390,6 +390,85 @@ The FALSE `hz : z ≤ goldCut^{1/8}` is GONE; replaced by `hz1 : 1 ≤ z` (trivi
 `gold_live_annulus_lower`).  Every other slot is byte-identical to
 `gold_box_price_engine_at_live_annulus`. -/
 
+/-- `gold_box_price_engine_at_live_z` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_price_engine_at_live_z_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
+    ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+      ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (X M kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
+        (Kβ Km Kβ' : ℝ) (T₁ T₂ Ne z y K ka i : ℕ),
+        2 ≤ Ne →
+        i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut Ne ka) (goldCut Ne (ka + 1)) (z * y) K →
+        2 ^ i < z * pieceN kp + 1 →
+        1 ≤ z →
+        6 * Real.log (8 * (z : ℝ)) + 15 ≤ Real.log (goldCut Ne (ka + 1) : ℝ) →
+        Real.exp (10 ^ 9) ≤ (goldCut Ne (ka + 1) : ℝ) →
+        X = 2 ^ (i + 1) - 1 → M = pieceM kp →
+        ((goldCut Ne (ka + 1) : ℝ) / (8 * (z : ℝ))) ^ ((1 : ℝ) / 2) ≤ (D : ℝ) →
+        2 ≤ kp →
+        (∀ m, ‖β m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ 2 ^ kp →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
+        1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (2 ^ kp + 1) * (2 ^ kp + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ ((2 ^ kp : ℕ) : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) →
+        2 ≤ X → 2 ≤ M →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (15 : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (M : ℝ)) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (M : ℝ)) →
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt x) →
+        (Real.log ((X : ℝ) * (M : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (Kc * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 18)
+            ≤ Kβ * (Real.log ((2 ^ kp : ℕ) : ℝ)) ^ ((13 : ℝ) + 2 * 18)) →
+        (Kc * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 1 + 2 * 18)
+            ≤ Km * (Real.log ((2 ^ kp : ℕ) : ℝ)) ^ ((13 : ℝ) + 2 * 18)) →
+        (∀ e, 2 ≤ e → e ≤ D →
+            Kc * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 1 + 1 + 2 * 18)
+              ≤ Kβ' * (Real.log ((2 ^ kp : ℕ) : ℝ)) ^ ((13 : ℝ) + 1 + 2 * 18)) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp)) X M (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp)) X M (r d) d T₁‖)
+          ≤ 2 * ((Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
+                    + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
+              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) := by
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_box_price_engine_of_SW hSWall)
+  refine ⟨Kc, N₀, hKc, ?_⟩
+  intro x Lb F β X M kp D Dset r Kβ Km Kβ' T₁ T₂ Ne z y K ka i hNe hi hlive hz1 hz_ratio hx hXeq
+    hMeq hDge hk hβ hKβ hKm hKβ' hN₀ hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt
+    hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor herr_LEpos hDXM herr_scale hcoupG hcoup3
+    herr_book4
+  -- the two keystones: the z-dependent live floor, feeding the annulus D0-window.
+  have hfloorN := gold_kfloor_live_z hNe hi hlive
+  have hsc := gold_box_XM_scale hi
+  rw [← hXeq, ← hMeq] at hsc
+  obtain ⟨D0, k0, hd_eq, hd_2, hd_main, hd_lo, hd_hi, hd_N', hd_conj7, hd_scale, hd_N⟩ :=
+    gold_d0_window_z (Ne := Ne) (Nb := 2 ^ kp) (M := M) (X := X) (k := ka) (z := z)
+      hx hz1 hz_ratio hfloorN hsc.1 hsc.2
+  -- the x-generic geometry rows re-derived from the piece parameter.
+  have hM2N : M ≤ 2 * 2 ^ kp := by rw [hMeq]; exact pieceM_le_two_pow kp
+  have hNM : ((2 ^ kp : ℕ) : ℝ) ≤ (M : ℝ) := by rw [hMeq]; exact_mod_cast two_pow_le_pieceM kp
+  -- the D0 rows re-shaped to the engine's exponents / slots.
+  have hD0D : D0 ≤ D := Nat.cast_le.mp (le_trans hd_scale hDge)
+  have hD0lo_main : (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 2) ≤ 2 * (2 : ℝ) ^ k0 := by
+    rw [show ((13 : ℝ) + 2) = 15 by norm_num]; exact hd_main
+  have herr_D0lo : (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 4) ≤ (D0 : ℝ) := by
+    rw [show ((13 : ℝ) + 4) = 17 by norm_num]; exact hd_lo
+  have herr_D0E : ∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+      (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (18 : ℝ) :=
+    fun e he2 heD heX => hd_conj7 _ (herr_scale e he2 heD heX)
+  exact hbody x Lb F β X M kp D0 D k0 Dset r Kβ Km Kβ' T₁ T₂ hk hβ hKβ hKm hKβ' hN₀ hM2N hd_N
+    hd1 hcop2 hL1 hd_hi hd_N' hNM hD1 hDsetD hDsq habs hX2 hM2 hd_eq hd_2 hD0D hDscale hD0lo_main
+    hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E hDXM
+    herr_scale hcoupG hcoup3 herr_book4
+
 /-- **`gold_box_price_engine_at_live_z` (§3).**  `gold_box_price_engine` re-exported with its nine
 `hD0*` rows discharged from `gold_d0_window_z` (fed the `gold_kfloor_live_z` floor) at a live
 annulus box.  The z-dependent replacement for `gold_box_price_engine_at_live_annulus`: the false
@@ -441,36 +520,8 @@ theorem gold_box_price_engine_at_live_z :
           + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp)) X M (r d) d T₁‖)
           ≤ 2 * ((Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                     + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
-              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_box_price_engine
-  refine ⟨Kc, N₀, hKc, ?_⟩
-  intro x Lb F β X M kp D Dset r Kβ Km Kβ' T₁ T₂ Ne z y K ka i hNe hi hlive hz1 hz_ratio hx hXeq
-    hMeq hDge hk hβ hKβ hKm hKβ' hN₀ hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt
-    hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor herr_LEpos hDXM herr_scale hcoupG hcoup3
-    herr_book4
-  -- the two keystones: the z-dependent live floor, feeding the annulus D0-window.
-  have hfloorN := gold_kfloor_live_z hNe hi hlive
-  have hsc := gold_box_XM_scale hi
-  rw [← hXeq, ← hMeq] at hsc
-  obtain ⟨D0, k0, hd_eq, hd_2, hd_main, hd_lo, hd_hi, hd_N', hd_conj7, hd_scale, hd_N⟩ :=
-    gold_d0_window_z (Ne := Ne) (Nb := 2 ^ kp) (M := M) (X := X) (k := ka) (z := z)
-      hx hz1 hz_ratio hfloorN hsc.1 hsc.2
-  -- the x-generic geometry rows re-derived from the piece parameter.
-  have hM2N : M ≤ 2 * 2 ^ kp := by rw [hMeq]; exact pieceM_le_two_pow kp
-  have hNM : ((2 ^ kp : ℕ) : ℝ) ≤ (M : ℝ) := by rw [hMeq]; exact_mod_cast two_pow_le_pieceM kp
-  -- the D0 rows re-shaped to the engine's exponents / slots.
-  have hD0D : D0 ≤ D := Nat.cast_le.mp (le_trans hd_scale hDge)
-  have hD0lo_main : (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 2) ≤ 2 * (2 : ℝ) ^ k0 := by
-    rw [show ((13 : ℝ) + 2) = 15 by norm_num]; exact hd_main
-  have herr_D0lo : (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 4) ≤ (D0 : ℝ) := by
-    rw [show ((13 : ℝ) + 4) = 17 by norm_num]; exact hd_lo
-  have herr_D0E : ∀ e, 2 ≤ e → e ≤ D → e ≤ X →
-      (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (18 : ℝ) :=
-    fun e he2 heD heX => hd_conj7 _ (herr_scale e he2 heD heX)
-  exact hbody x Lb F β X M kp D0 D k0 Dset r Kβ Km Kβ' T₁ T₂ hk hβ hKβ hKm hKβ' hN₀ hM2N hd_N
-    hd1 hcop2 hL1 hd_hi hd_N' hNM hD1 hDsetD hDsq habs hX2 hM2 hd_eq hd_2 hD0D hDscale hD0lo_main
-    hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E hDXM
-    herr_scale hcoupG hcoup3 herr_book4
+              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) :=
+  gold_box_price_engine_at_live_z_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## 4. The BoxRows3 handoff — the z-dependent live/dead dichotomy + slot mapping (deliverable 4)
 

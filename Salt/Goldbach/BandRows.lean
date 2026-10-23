@@ -88,14 +88,10 @@ private theorem gold_Lpow_le_bw {N : ℕ} {L : ℝ} (hlogN1 : 1 ≤ Real.log N)
 set_option maxHeartbeats 4000000 in
 -- The ~24-row wide-geometry discharge elaborates a long rpow/sqrt-bearing chain and applies the
 -- 39-hypothesis `gold_band_box_kerr`; the whnf/defeq checks need headroom above the default.
-/-- **`gold_band_wide_price_at_op`.**  At a non-vanishing high-pass band survivor at op (the y-floor
-`opY N < pieceN kp`) with a per-annulus level in the WIDE window (`hDge : goldCut^{11/24}/8 ≤ D`,
-`hDwide : D·L^{18} ≤ √(X·M)`, `L := log((2^{i+1}−1)·pieceM kp)`), the two-cutoff band-box price is
-`≤ boxPriceKerr Kc kp i` — every residual analytic row of `gold_band_box_kerr` discharged at the
-y-floor.  Instantiable at `D := opD N` on the high annuli the band populates.  Only the
-carrier/`Dset` rows (`hβ`/`hd1`/`hcop2`/`hDsetD`) remain, supplied by the assembly.  This is `hbox`
-residual and — chained through `gold_band_survsum_geoN_floored` — Surv's `hwide`. -/
-theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+/-- `gold_band_wide_price_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_band_wide_price_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
     ∀ (N : ℕ), x₁ ≤ N →
       ∀ (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
         i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))
@@ -111,7 +107,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
           + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
                 (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
           ≤ boxPriceKerr Kc kp i := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_band_box_kerr
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_band_box_kerr_of_SW hSWall)
   obtain ⟨xs, hs⟩ := gold_op_scales
   obtain ⟨xp, hp⟩ := a12_logpow_le_rpow 18 (1 / 2000) (by norm_num) (by norm_num)
   obtain ⟨xh, hh⟩ := a12_log_ge (3 * 10 ^ 10 + 3)
@@ -512,5 +508,30 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   exact hbody (N : ℝ) (Real.log (4 * (N : ℝ))) (opZ N * opY N) β kp D Dset r T₁ T₂ N (opZ N)
     (opY N) K ka i hN2 hi hx hNfloor hDge hk hβ hN₀ hd1 hcop2 hL1 hD1 hDsetD hDsq habs
     hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor herr_LEpos hDXM herr_scale
+
+/-- **`gold_band_wide_price_at_op`.**  At a non-vanishing high-pass band survivor at op (the y-floor
+`opY N < pieceN kp`) with a per-annulus level in the WIDE window (`hDge : goldCut^{11/24}/8 ≤ D`,
+`hDwide : D·L^{18} ≤ √(X·M)`, `L := log((2^{i+1}−1)·pieceM kp)`), the two-cutoff band-box price is
+`≤ boxPriceKerr Kc kp i` — every residual analytic row of `gold_band_box_kerr` discharged at the
+y-floor.  Instantiable at `D := opD N` on the high annuli the band populates.  Only the
+carrier/`Dset` rows (`hβ`/`hd1`/`hcop2`/`hDsetD`) remain, supplied by the assembly.  This is `hbox`
+residual and — chained through `gold_band_survsum_geoN_floored` — Surv's `hwide`. -/
+theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N →
+      ∀ (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
+        i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))
+          (opZ N * opY N) K →
+        opY N < pieceN kp →
+        (goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+        (∀ m, ‖β m‖ ≤ 1) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) → (∀ d ∈ Dset, d ≤ D) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+              (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+                (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
+          ≤ boxPriceKerr Kc kp i :=
+  gold_band_wide_price_at_op_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

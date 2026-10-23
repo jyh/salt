@@ -145,22 +145,23 @@ machinery: `pairSum_le_at_op` (`Σ 1/(p₁p₂) ≤ 16`), `pairSet_card_le` (`|p
 equidist bound, the E_SW rows) and `nlinarith`/`field_simp` certificate elaboration over it
 exceeds the default recursion depth. -/
 set_option maxRecDepth 8000 in
-/-- **`hcount_seam` — the count slot at `tripleSum/φ(opQ)`.**  Past a threshold, for the widened
-`ecount = ecountOp C x + e` with `0 ≤ e ≤ 8/log x`, the ledger's A₃ count carrier is dominated by
-`(cbar + (ecountOp C x + e))·((∑Λ)/φ(opQ))`. -/
-theorem hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
+/-- `hcount_seam` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hcount_seam_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
     ∃ e : ℝ, 0 ≤ e ∧ e ≤ 8 / Real.log x ∧
       Real.log x * (tripleSum x (opZ x) (opY x) / (opQ.totient : ℝ))
         ≤ (cbar + (ecountOp C x + e))
             * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) := by
-  obtain ⟨C, xS, hC0, hslot⟩ := hcount_slot_closed
-  obtain ⟨K, N₀, hKpos, hequi⟩ := tripleSumW_equidist (A := 13) (C := 2) (by norm_num) (by norm_num)
+  obtain ⟨C, xS, hC0, hslot⟩ := (hcount_slot_closed_of_SW hSWall)
+  obtain ⟨K, N₀, hKpos, hequi⟩ :=
+      tripleSumW_equidist_of_SW hSWall (A := 13) (C := 2) (by norm_num) (by norm_num)
   obtain ⟨xAP, hAP⟩ := hcount_op_AP3
   obtain ⟨xLv, hLv⟩ := hcount_Lval_rows N₀
   obtain ⟨xF, hF⟩ := op_at_facts
   obtain ⟨xLS, hLS⟩ := op_ls_facts K
   obtain ⟨xP, hP16⟩ := pairSum_le_at_op
-  obtain ⟨Km, hKm0, hmass⟩ := lambda_mass_lower
+  obtain ⟨Km, hKm0, hmass⟩ := (lambda_mass_lower_of_SW hSWall)
   obtain ⟨xm, hm⟩ := a12_log_ge (16 * Km)
   obtain ⟨xt, -, htower⟩ := opf_tower
   refine ⟨C, max (xS + xAP + xLv + xF + xLS + xP + xm + xt + 8) (10 ^ 48), hC0, fun x hx => ?_⟩
@@ -297,6 +298,17 @@ theorem hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ 
     rw [heq]
     linarith [hslot', hstep1, hstep2]
 
+set_option maxRecDepth 8000 in
+/-- **`hcount_seam` — the count slot at `tripleSum/φ(opQ)`.**  Past a threshold, for the widened
+`ecount = ecountOp C x + e` with `0 ≤ e ≤ 8/log x`, the ledger's A₃ count carrier is dominated by
+`(cbar + (ecountOp C x + e))·((∑Λ)/φ(opQ))`. -/
+theorem hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ ≤ x →
+    ∃ e : ℝ, 0 ≤ e ∧ e ≤ 8 / Real.log x ∧
+      Real.log x * (tripleSum x (opZ x) (opY x) / (opQ.totient : ℝ))
+        ≤ (cbar + (ecountOp C x + e))
+            * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) :=
+  hcount_seam_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## Part D — the crude `X_W` lower bound (the ledger's R/strip-share denominator)
 
 `X_W = totalMass·W(twinA1SieveW) = (∑Λ/φ(opQ))·W`.  The sharp Chen `W`-lower `W_twinA1_ge`
@@ -306,13 +318,13 @@ theorem hcount_seam : ∃ (C : ℝ) (x₁ : ℕ), 0 ≤ C ∧ ∀ x : ℕ, x₁ 
 (`hEbundle`'s `e1`/`e4` and the `R_i/X_W` crumbs).  This is the reusable brick GLU-2's strip
 argument consumes; it is independent of the A₂ carrier (`hcertA2`). -/
 
-/-- **`XW_lower_at_op` — the crude ledger-normalisation lower bound.**  Past a threshold,
-`exp(−35)·x/(4·φ(opQ)·log(opZ x)) ≤ X_W`, with `X_W = totalMass·W(twinA1SieveW …)`. -/
-theorem XW_lower_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `XW_lower_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem XW_lower_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     Real.exp (-35) * (x : ℝ) / (4 * (opQ.totient : ℝ) * Real.log (opZ x))
       ≤ (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
         * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)) := by
-  obtain ⟨Km, hKm0, hmass⟩ := lambda_mass_lower
+  obtain ⟨Km, hKm0, hmass⟩ := (lambda_mass_lower_of_SW hSWall)
   obtain ⟨xm, hm⟩ := a12_log_ge (16 * Km)
   obtain ⟨xt, -, htower⟩ := opf_tower
   refine ⟨xm + xt + 8, fun x hx => ?_⟩
@@ -361,5 +373,13 @@ theorem XW_lower_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     field_simp
   rw [hLHSeq]
   exact hprod
+
+/-- **`XW_lower_at_op` — the crude ledger-normalisation lower bound.**  Past a threshold,
+`exp(−35)·x/(4·φ(opQ)·log(opZ x)) ≤ X_W`, with `X_W = totalMass·W(twinA1SieveW …)`. -/
+theorem XW_lower_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    Real.exp (-35) * (x : ℝ) / (4 * (opQ.totient : ℝ) * Real.log (opZ x))
+      ≤ (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+        * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)) :=
+  XW_lower_at_op_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Chen

@@ -46,12 +46,10 @@ theorem gold_norm_goldLowSub_le_one (N : ℕ) (ε₀ : ℝ) (j k' i : ℕ) :
     (norm_restrictAlpha_le_one (norm_blockAlphaLow_le_one (opZ N) (opY N) ε₀ j (pieceN k'))
       (min (opZ N * pieceN k' + 1) (N / 2 + 1)) (N / 2 + 1)) (2 ^ i) (2 ^ (i + 1))
 
-/-- **`gold_band_hlow_wide_at_op` (item 1, the low leg's `hwide`).**  For every dyadic-boundary low
-survivor at op, on the WIDE per-annulus level the low band price is graded to
-`(4^{12}·gboxConst)·Kc·goldCut N (k+1)/(log N)^{12}` — the exact `hwide` input of
-`gold_band_hlow_tail_discharge`.  `hDband` is the band wide floor `goldCut^{11/24}/8 ≤ D`;
-`hDbnd` the modulus cap `Q·(QR·Dlev) ≤ D`. -/
-theorem gold_band_hlow_wide_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+/-- `gold_band_hlow_wide_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_band_hlow_wide_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
     ∀ (N : ℕ), x₁ ≤ N → ∀ (Q a Ps : ℕ) (ε₀ QR : ℝ) (Dlev D K : ℕ),
       Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
       (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
@@ -67,7 +65,7 @@ theorem gold_band_hlow_wide_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
             goldLowSurvSum N Q a Ps ε₀ (QR * Dlev) 0 k' k i
               ≤ ((4 : ℝ) ^ 12 * gboxConst) * Kc * (goldCut N (k + 1) : ℝ)
                   / (Real.log N) ^ 12 := by
-  obtain ⟨Kce, xe, hKce, hengine⟩ := gold_band_wide_price_at_op
+  obtain ⟨Kce, xe, hKce, hengine⟩ := (gold_band_wide_price_at_op_of_SW hSWall)
   obtain ⟨xf, hfloored⟩ := gold_band_survsum_geoN_floored
   refine ⟨max Kce 1, max xe xf, le_max_right _ _, ?_⟩
   intro N hN Q a Ps ε₀ QR Dlev D K hQPs hQNa hPsN hQ1 hDbnd hDband k' hk' k hk i hi hDwide
@@ -105,6 +103,29 @@ theorem gold_band_hlow_wide_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
       exact hbox
     exact hfloored N hxf k' k i K (max Kce 1)
       (goldLowSurvSum N Q a Ps ε₀ (QR * Dlev) 0 k' k i) hKc1 hi hvan hbox'
+
+/-- **`gold_band_hlow_wide_at_op` (item 1, the low leg's `hwide`).**  For every dyadic-boundary low
+survivor at op, on the WIDE per-annulus level the low band price is graded to
+`(4^{12}·gboxConst)·Kc·goldCut N (k+1)/(log N)^{12}` — the exact `hwide` input of
+`gold_band_hlow_tail_discharge`.  `hDband` is the band wide floor `goldCut^{11/24}/8 ≤ D`;
+`hDbnd` the modulus cap `Q·(QR·Dlev) ≤ D`. -/
+theorem gold_band_hlow_wide_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N → ∀ (Q a Ps : ℕ) (ε₀ QR : ℝ) (Dlev D K : ℕ),
+      Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
+      (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
+      (∀ k ∈ Finset.range (Nat.log 2 N + 1),
+        (goldCut N (k + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ)) →
+      ∀ k' ∈ Finset.range (Nat.log 2 N + 1), ∀ k ∈ Finset.range (Nat.log 2 N + 1),
+        ∀ i ∈ dyadicBoundary (pieceN k') (pieceM k')
+          (goldCut N k) (goldCut N (k + 1)) (opZ N * opY N) K,
+          (D : ℝ)
+                * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ)
+                    * (pieceM k' : ℝ))) ^ ((13 : ℝ) + 5)
+              ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k' : ℝ)) →
+            goldLowSurvSum N Q a Ps ε₀ (QR * Dlev) 0 k' k i
+              ≤ ((4 : ℝ) ^ 12 * gboxConst) * Kc * (goldCut N (k + 1) : ℝ)
+                  / (Real.log N) ^ 12 :=
+  gold_band_hlow_wide_at_op_of_SW Salt.SW.siegelWalfisz_holds
 
 /-- The sym-band survivor carrier has norm `≤ 1` (one `restrictAlpha` over `blockAlphaSym`). -/
 theorem gold_norm_goldSymSub_le_one (N : ℕ) (ε₀ : ℝ) (j k' i : ℕ) :
@@ -209,6 +230,31 @@ theorem gold_band_hsym_wide_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
       rw [not_lt] at hcol
       exact hmid k' hk' hcol hvan k hk i hi hDwide
 
+/-- `gold_band_hlow_slot_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_band_hlow_slot_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N → ∀ (Q a Ps : ℕ) (ε₀ QR : ℝ) (Dlev D K : ℕ),
+      Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
+      1 ≤ QR * Dlev → (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
+      (∀ k ∈ Finset.range (Nat.log 2 N + 1),
+        (goldCut N (k + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ)) →
+      ∀ k' ∈ Finset.range (Nat.log 2 N + 1),
+        goldPlowK N K Q a Ps ε₀ (QR * Dlev) 0 k'
+          ≤ 24 * ((4 : ℝ) ^ 12 * gboxConst) * Kc * (N : ℝ) / (Real.log N) ^ 12
+            + ∑ k ∈ Finset.range (Nat.log 2 N + 1),
+                ∑ i ∈ dyadicBoundary (pieceN k') (pieceM k')
+                  (goldCut N k) (goldCut N (k + 1)) (opZ N * opY N) K,
+                  goldBandBtailSlot D Q (QR * Dlev) k' i := by
+  obtain ⟨Kc, x₁, hKc, hlow⟩ := (gold_band_hlow_wide_at_op_of_SW hSWall)
+  refine ⟨Kc, max x₁ 1, hKc, ?_⟩
+  intro N hN Q a Ps ε₀ QR Dlev D K hQPs hQNa hPsN hQ1 hb hDbnd hDband
+  have hx₁ : x₁ ≤ N := le_trans (le_max_left _ _) hN
+  have hN1 : 1 ≤ N := le_trans (le_max_right _ _) hN
+  exact gold_band_hlow_tail_discharge (K := K) ε₀ QR Dlev D hQPs hQNa hPsN hQ1 hb
+    (by have := gboxConst_nonneg; positivity) (le_trans zero_le_one hKc) hN1
+    (hlow N hx₁ Q a Ps ε₀ QR Dlev D K hQPs hQNa hPsN hQ1 hDbnd hDband)
+
 /-- **`gold_band_hlow_slot_at_op` (item 1 → the `hlow` slot).**  The LOW-leg `hwide`
 (`gold_band_hlow_wide_at_op`) fed to `Surv.gold_band_hlow_tail_discharge`: the low band leg
 `goldPlowK` absorbs to `Wband + BTlow k'`, `Wband := 24·(4^{12}·gboxConst)·Kc·N/(log N)^{12}`,
@@ -226,14 +272,7 @@ theorem gold_band_hlow_slot_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
             + ∑ k ∈ Finset.range (Nat.log 2 N + 1),
                 ∑ i ∈ dyadicBoundary (pieceN k') (pieceM k')
                   (goldCut N k) (goldCut N (k + 1)) (opZ N * opY N) K,
-                  goldBandBtailSlot D Q (QR * Dlev) k' i := by
-  obtain ⟨Kc, x₁, hKc, hlow⟩ := gold_band_hlow_wide_at_op
-  refine ⟨Kc, max x₁ 1, hKc, ?_⟩
-  intro N hN Q a Ps ε₀ QR Dlev D K hQPs hQNa hPsN hQ1 hb hDbnd hDband
-  have hx₁ : x₁ ≤ N := le_trans (le_max_left _ _) hN
-  have hN1 : 1 ≤ N := le_trans (le_max_right _ _) hN
-  exact gold_band_hlow_tail_discharge (K := K) ε₀ QR Dlev D hQPs hQNa hPsN hQ1 hb
-    (by have := gboxConst_nonneg; positivity) (le_trans zero_le_one hKc) hN1
-    (hlow N hx₁ Q a Ps ε₀ QR Dlev D K hQPs hQNa hPsN hQ1 hDbnd hDband)
+                  goldBandBtailSlot D Q (QR * Dlev) k' i :=
+  gold_band_hlow_slot_at_op_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

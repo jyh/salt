@@ -321,6 +321,78 @@ derived from the raised one.  The `x^{11/24}/8 ≤ D` row `hDge_x` is UNCHANGED 
 bundle's `x`-scale conjunct, kept at `x^{11/24}/8`).  Conclusion character-for-character identical
 to `medium_box_price_at_op(_lo)`. -/
 
+/-- `medium_box_price_at_op_band` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem medium_box_price_at_op_band_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (x : ℕ) (Lb : ℝ) (F Krange k i : ℕ) (α : ℕ → ℂ) (X T D : ℕ)
+        (Dset : Finset ℕ) (r : ℕ → ℕ),
+        2 ≤ k →
+        Real.exp (10 ^ 10) ≤ (x : ℝ) →
+        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
+        X = 2 ^ (i + 1) - 1 →
+        (x : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
+        (∀ m, ‖α m‖ ≤ 1) →
+        (∀ d ∈ Dset, 1 ≤ d) →
+        (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (∀ d ∈ Dset, d ≤ D) →
+        N₀ ≤ 2 ^ k →
+        2 ≤ Real.log ((X : ℝ) * (pieceM k : ℝ)) →
+        2 ≤ X →
+        1 ≤ D →
+        (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))
+            / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (15 : ℝ)) →
+        D < (2 ^ k + 1) * (2 ^ k + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ ((2 ^ k : ℕ) : ℝ) * (pieceM k : ℝ)
+                / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (pieceM k : ℝ)) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (pieceM k : ℝ)) →
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt (x : ℝ)) →
+        (Real.log ((X : ℝ) * (pieceM k : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * (x : ℝ) ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        ((D : ℝ) ≤ (X : ℝ) * (pieceM k : ℝ)) →
+        ∑ d ∈ Dset,
+            ‖apDiscBilinCutoff α (blockPrimeInd (pieceN k)) X (pieceM k) (r d) d T‖
+          ≤ (Kbeta_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                  (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18
+              + (6 * (Km_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                        (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 448 + 32 * Real.sqrt 26)
+                  + ((2 : ℝ) ^ ((13 : ℝ) + 5)
+                      * Kbeta'_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                          (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 15360 + 1)))
+            * ((X : ℝ) * (pieceM k : ℝ)) / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) := by
+  obtain ⟨K, N₀, hK0, hcore⟩ := (medium_box_price_core_of_SW hSWall)
+  refine ⟨K, N₀, hK0, fun x Lb F Krange k i α X T D Dset r hk hx hi hXsub hNfloor hα hd1 hcop2
+    hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
+    hLbb hfloor hDXM => ?_⟩
+  -- the core wants the `exp(10^9)` tower; the band floor demands `exp(10^{10})`.
+  have hx9 : Real.exp (10 ^ 9) ≤ (x : ℝ) :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hx
+  -- rebuild the band `D0`-window from the WEAK pieceN corner (catch #71, ratified (a)).
+  have hpk : pieceN k + 1 = 2 ^ k := by
+    have h1 : (1 : ℕ) ≤ 2 ^ k := Nat.one_le_pow _ _ (by norm_num)
+    unfold pieceN; omega
+  have hclause := hi
+  rw [dyadicBoundary, Finset.mem_filter] at hclause
+  obtain ⟨-, hcorner, -, hcutoff⟩ := hclause
+  rw [hpk] at hcorner
+  have hXMlo : x / 2 + 1 < X * pieceM k := by rw [hXsub]; exact hcutoff
+  have hXMhi : X * pieceM k ≤ 4 * x := by
+    have hXle : X ≤ 2 ^ (i + 1) := by rw [hXsub]; exact Nat.sub_le _ _
+    calc X * pieceM k ≤ 2 ^ (i + 1) * (2 * 2 ^ k) := Nat.mul_le_mul hXle (pieceM_le_two_pow k)
+      _ = 4 * (2 ^ i * 2 ^ k) := by rw [pow_succ]; ring
+      _ ≤ 4 * x := Nat.mul_le_mul (le_refl 4) hcorner
+  exact hcore x Lb F Krange k i α X T D Dset r hk hx9 hi hXsub hα hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1
+    hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor hDXM
+    (d0_window_of_XM_band (N := 2 ^ k) (M := pieceM k) hx hNfloor hXMlo hXMhi)
+
 /-- **`medium_box_price_at_op_band` (fin6 F0).**  `medium_box_price_at_op_lo` at the band floor
 `x^{1/3}/8 ≤ 2^k`, tower `exp(10^{10})`, routing through `medium_box_price_core` + the band D0
 window `d0_window_of_XM_band`.  Conclusion identical to PriceOne's `medium_box_price_at_op`. -/
@@ -368,31 +440,8 @@ theorem medium_box_price_at_op_band :
                   + ((2 : ℝ) ^ ((13 : ℝ) + 5)
                       * Kbeta'_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
                           (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 15360 + 1)))
-            * ((X : ℝ) * (pieceM k : ℝ)) / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) := by
-  obtain ⟨K, N₀, hK0, hcore⟩ := medium_box_price_core
-  refine ⟨K, N₀, hK0, fun x Lb F Krange k i α X T D Dset r hk hx hi hXsub hNfloor hα hd1 hcop2
-    hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
-    hLbb hfloor hDXM => ?_⟩
-  -- the core wants the `exp(10^9)` tower; the band floor demands `exp(10^{10})`.
-  have hx9 : Real.exp (10 ^ 9) ≤ (x : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hx
-  -- rebuild the band `D0`-window from the WEAK pieceN corner (catch #71, ratified (a)).
-  have hpk : pieceN k + 1 = 2 ^ k := by
-    have h1 : (1 : ℕ) ≤ 2 ^ k := Nat.one_le_pow _ _ (by norm_num)
-    unfold pieceN; omega
-  have hclause := hi
-  rw [dyadicBoundary, Finset.mem_filter] at hclause
-  obtain ⟨-, hcorner, -, hcutoff⟩ := hclause
-  rw [hpk] at hcorner
-  have hXMlo : x / 2 + 1 < X * pieceM k := by rw [hXsub]; exact hcutoff
-  have hXMhi : X * pieceM k ≤ 4 * x := by
-    have hXle : X ≤ 2 ^ (i + 1) := by rw [hXsub]; exact Nat.sub_le _ _
-    calc X * pieceM k ≤ 2 ^ (i + 1) * (2 * 2 ^ k) := Nat.mul_le_mul hXle (pieceM_le_two_pow k)
-      _ = 4 * (2 ^ i * 2 ^ k) := by rw [pow_succ]; ring
-      _ ≤ 4 * x := Nat.mul_le_mul (le_refl 4) hcorner
-  exact hcore x Lb F Krange k i α X T D Dset r hk hx9 hi hXsub hα hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1
-    hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor hDXM
-    (d0_window_of_XM_band (N := 2 ^ k) (M := pieceM k) hx hNfloor hXMlo hXMhi)
+            * ((X : ℝ) * (pieceM k : ℝ)) / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) :=
+  medium_box_price_at_op_band_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## §F0.4 — the band-leg per-box prices at the band floor (`_band` mirrors)
 

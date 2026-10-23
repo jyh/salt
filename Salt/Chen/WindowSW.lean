@@ -90,25 +90,17 @@ lemma windowed_blockPrimeInd_classCount (N M T m : ℕ) (hm : 1 ≤ m)
 /-! ## Item 6 — the per-`d` small-conductor windowed SW estimate -/
 
 open Classical in
-/-- **`smallconductor_window_perd` — the per-`d` windowed small-conductor SW bound (FULL,
-residue-generalized per H-AMENDMENT 2 C4).**  The genuinely new WBV estimate.  For `d ≤ N` below
-the SW range (`d ≤ (log N)^C`) and ANY residue `R₀` coprime to `d`, the windowed AP discrepancy
-at residue `R₀` is bounded by `X ·` (the interval SW error `K·N/(log N)^A`): expand
-`apDiscBilinCutoff` by fixed `m`, identify each inner `n`-discrepancy with the prime-AP
-discrepancy of the clean interval `(N, min M ⌊T/m⌋]` (priced by C3b's `prime_indicator_SW`), and
-sum over `m ≤ X` with `‖α‖ ≤ 1`.  For `(m, d) > 1` the inner discrepancy vanishes (`R₀` a unit
-forces `m` a unit); for `m` coprime to `d` the residue class `n ≡ R₀·m⁻¹ (mod d)` is a single
-unit class, and (since block primes `> N ≥ d` are automatically coprime to `d`) the unit-count is
-the total prime count — exactly the SW shape.  The residue enters ONLY through
-`IsUnit (R₀ : ZMod d)`; the landed consumers instantiate `R₀ = 2`. -/
-theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `smallconductor_window_perd` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem smallconductor_window_perd_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M T d R₀ : ℕ),
         (∀ m, ‖α m‖ ≤ 1) → N₀ ≤ N → M ≤ 2 * N → 1 ≤ d → d ≤ N →
         Nat.Coprime R₀ d → ((d : ℝ) ≤ (Real.log N) ^ C) →
         ‖apDiscBilinCutoff α (blockPrimeInd N) X M R₀ d T‖
           ≤ (X : ℝ) * (K * N / (Real.log N) ^ A) := by
-  obtain ⟨K, N₀sw, hK0, hb⟩ := prime_indicator_SW hA hC
+  obtain ⟨K, N₀sw, hK0, hb⟩ := (prime_indicator_SW_of_SW hSWall) hA hC
   refine ⟨K, max N₀sw 3, hK0, fun α X N M T d R₀ hα hN hM2N hd1 hdN hcop2 hdlog => ?_⟩
   classical
   haveI : NeZero d := ⟨by omega⟩
@@ -202,7 +194,7 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
         · intro hpr; exact ⟨hpr, hunit_all p hp.1 hpr⟩
       rw [hResCard, hUnitCard]
       by_cases hNU : N < U
-      · -- non-degenerate interval: apply `prime_indicator_SW`.
+      · -- non-degenerate interval: apply `(prime_indicator_SW_of_SW hSWall)`.
         have hU2N : U ≤ 2 * N := le_trans (min_le_left _ _) hM2N
         have hbound_sw := hb N U d rm.val hNsw (le_of_lt hNU) hU2N (by omega) hcop_rm hdlog
         have hconv :
@@ -289,17 +281,34 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     _ = (X : ℝ) * (K * N / (Real.log N) ^ A) := by
         rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul]
 
+open Classical in
+/-- **`smallconductor_window_perd` — the per-`d` windowed small-conductor SW bound (FULL,
+residue-generalized per H-AMENDMENT 2 C4).**  The genuinely new WBV estimate.  For `d ≤ N` below
+the SW range (`d ≤ (log N)^C`) and ANY residue `R₀` coprime to `d`, the windowed AP discrepancy
+at residue `R₀` is bounded by `X ·` (the interval SW error `K·N/(log N)^A`): expand
+`apDiscBilinCutoff` by fixed `m`, identify each inner `n`-discrepancy with the prime-AP
+discrepancy of the clean interval `(N, min M ⌊T/m⌋]` (priced by C3b's `prime_indicator_SW`), and
+sum over `m ≤ X` with `‖α‖ ≤ 1`.  For `(m, d) > 1` the inner discrepancy vanishes (`R₀` a unit
+forces `m` a unit); for `m` coprime to `d` the residue class `n ≡ R₀·m⁻¹ (mod d)` is a single
+unit class, and (since block primes `> N ≥ d` are automatically coprime to `d`) the unit-count is
+the total prime count — exactly the SW shape.  The residue enters ONLY through
+`IsUnit (R₀ : ZMod d)`; the landed consumers instantiate `R₀ = 2`. -/
+theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (α : ℕ → ℂ) (X N M T d R₀ : ℕ),
+        (∀ m, ‖α m‖ ≤ 1) → N₀ ≤ N → M ≤ 2 * N → 1 ≤ d → d ≤ N →
+        Nat.Coprime R₀ d → ((d : ℝ) ≤ (Real.log N) ^ C) →
+        ‖apDiscBilinCutoff α (blockPrimeInd N) X M R₀ d T‖
+          ≤ (X : ℝ) * (K * N / (Real.log N) ^ A) :=
+  smallconductor_window_perd_of_SW Salt.SW.siegelWalfisz_holds hA hC
+
 /-! ## Item 6 — the summed small-conductor form -/
 
 open Classical in
-/-- **`smallconductor_window_sum` — the summed small-conductor windowed SW form (FULL).**  Summing
-the per-`d` estimate over the small block `d ≤ D0` absorbs the `D0` factor into one `(log
-XM)^{C0}` (there are `≤ D0` conductors), and the scale bookkeeping `K·(log XM)^{A+C0} ≤ Kβ·(log
-N)^{A+2C0}` (`log XM`, `log N` the same order — the constant absorbs into `Kβ/K`; taken as a
-hypothesis per the recon's exponent bookkeeping) converts the `(log N)`-saving into the target
-`(log XM)^A`.  Mirrors `GeneralBV.general_BV_weak`'s small branch / `ConductorDescent`'s
-`general_BV_closed` scale step. -/
-theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+/-- `smallconductor_window_sum` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem smallconductor_window_sum_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M T D0 : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
@@ -313,7 +322,7 @@ theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
             ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ Kβ * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hperd⟩ :=
-    smallconductor_window_perd (A := A + 2 * C0) (C := C0) (by linarith) hC0
+    smallconductor_window_perd_of_SW hSWall (A := A + 2 * C0) (C := C0) (by linarith) hC0
   refine ⟨K, max N₀ 3, hK0, fun α X N M T D0 Dset r Kβ hα hKβ hN hM2N hD0N hDge1 hcopSet
     hLpos hD0 hD0N' hNM hscale => ?_⟩
   classical
@@ -379,6 +388,29 @@ theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         have hLC0' : L ^ C0 ≠ 0 := ne_of_gt (Real.rpow_pos_of_pos hLpos C0)
         rw [Real.rpow_add hLpos A C0]
         field_simp
+
+open Classical in
+/-- **`smallconductor_window_sum` — the summed small-conductor windowed SW form (FULL).**  Summing
+the per-`d` estimate over the small block `d ≤ D0` absorbs the `D0` factor into one `(log
+XM)^{C0}` (there are `≤ D0` conductors), and the scale bookkeeping `K·(log XM)^{A+C0} ≤ Kβ·(log
+N)^{A+2C0}` (`log XM`, `log N` the same order — the constant absorbs into `Kβ/K`; taken as a
+hypothesis per the recon's exponent bookkeeping) converts the `(log N)`-saving into the target
+`(log XM)^A`.  Mirrors `GeneralBV.general_BV_weak`'s small branch / `ConductorDescent`'s
+`general_BV_closed` scale step. -/
+theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (α : ℕ → ℂ) (X N M T D0 : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ : ℝ),
+        (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (0 < Real.log ((X : ℝ) * (M : ℝ))) →
+        ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
+        ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
+        ((N : ℝ) ≤ (M : ℝ)) →
+        (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
+        ∑ d ∈ Dset.filter (fun d => d ≤ D0),
+            ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
+          ≤ Kβ * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A :=
+  smallconductor_window_sum_of_SW Salt.SW.siegelWalfisz_holds hA hC0
 
 /-! ## Item 8 — the window-in-carrier identification
 
