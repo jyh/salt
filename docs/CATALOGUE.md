@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f4bfc0a1` · source digest `b2b170d3f86f499e` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `39c64dd4` · source digest `a10344e7cfbd5942` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9108 | 9053 | 9052 | 1 | 0 | 55 |
+| 26 | 24 | 9109 | 9054 | 9053 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23289 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
-| conditional | 1582 | 26 | 207 | 1375 | 94 | 24 | 13 |
+| conditional | 1583 | 26 | 207 | 1376 | 94 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9053 | 322 | 2353 | 6564 | 529 | 466 | 55 |
+| **all** | 9054 | 322 | 2353 | 6565 | 529 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -177,6 +177,7 @@ Declarations indexed across the tree: 23289 · corpus Prop-valued names (the hyp
 | `Salt.MR.M4DoorGates_L` | 8 |
 | `Salt.MR.MRTBands` | 8 |
 | `Salt.MR.PocketSocket` | 8 |
+| `Salt.TwinBar.DirichletSevenEighths` | 8 |
 | `FiniteRange` | 7 |
 | `Salt.Entropy.Chowla.PmNormalized` | 7 |
 | `Salt.HB.CoprimeSupport` | 7 |
@@ -186,7 +187,6 @@ Declarations indexed across the tree: 23289 · corpus Prop-valued names (the hyp
 | `Salt.MR.MSelect'_L_gk` | 7 |
 | `Salt.MR.VkTwistUB` | 7 |
 | `Salt.MR.XiCarveWidth` | 7 |
-| `Salt.TwinBar.DirichletSevenEighths` | 7 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | 6 |
 | `Salt.MR.CapFreeFloor` | 6 |
 | `Salt.MR.CaseASocketGen` | 6 |
@@ -7281,7 +7281,7 @@ Declarations indexed across the tree: 23289 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1582)
+## conditional (1583)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -7719,6 +7719,7 @@ Declarations indexed across the tree: 23289 · corpus Prop-valued names (the hyp
 | `Salt.MR.crownK6_grade_floor_at` | Salt/MR/FlatDoorParityFloor.lean:141 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.MR.crownK6_grade_floor` | Salt/MR/FlatDoorParityFloor.lean:163 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.MR.crownK6_Wdelta_regime_moves` | Salt/MR/FlatDoorParityFloor.lean:210 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
+| `Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_sevenEighths` | Salt/MR/FlatDoorSevenEighths.lean:39 | characters | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.MR.standoff_real_carve` | Salt/MR/FlatDoorStandoff.lean:54 | characters | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.MR.xiCarveWidth_of_siegel_of_standoff` | Salt/MR/FlatDoorStandoff.lean:158 | characters | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.MR.mmuChiRate_holds_gated_of_standoff` | Salt/MR/FlatDoorStandoff.lean:238 | characters | `Salt.SW.NoSiegelZerosAt` |
