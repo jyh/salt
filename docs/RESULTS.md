@@ -124,7 +124,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` | The dichotomy's unconditional half: `¬ FulcrumQualityMin C` yields `NoSiegelZeros` (for C > 0; some c > 0 with β ≤ 1 − c/log q for every real zero of every real primitive character; c is a bare existential reached by contradiction; no numeral is extracted). | Salt/Fulcrum/Dichotomy.lean:82 | 2026-07-19 | `c9f311e` | 3 (Salt/Fulcrum/All.lean:54) |
 | `Salt.Fulcrum.fulcrum_dichotomy` | **The Fulcrum dichotomy**: given the Heath-Brown engine at threshold `C` as a hypothesis, `TwinPrimeConjecture ∨ NoSiegelZeros`. | Salt/Fulcrum/Dichotomy.lean:102 | 2026-07-19 | `c9f311e` | 3 (Salt/Fulcrum/All.lean:54) |
 | `Salt.HB.hb_l2c_master_unconditional` | The L2c master, fully unconditional: the `hb_lemma2` conclusion from the bare four-hypothesis packet — no `hcount`, no `hLz0`, no residual. | Salt/HB/L2cMasterUncond.lean:85 | 2026-07-19 | `f8679a6` | 3 (Salt/HB/All.lean:85) |
-| `Salt.HB.neutrality_rate` | The exchange-rate wall: `0 ≤ S⁽²⁾_f − S⁽¹⁾` unconditionally, and the rate bound `≤ EngineBound` under the budget hypothesis. | Salt/HB/SignRate.lean:53 | 2026-07-19 | `7711bad` | 3 (Salt/HB/All.lean:85) |
+| `Salt.HB.neutrality_rate` | The exchange-rate wall: `0 ≤ S⁽²⁾_f − S⁽¹⁾` for every sign function `f`, proved without the budget hypothesis (the theorem's signature carries it for both conjuncts), and the rate bound `≤ EngineBound`, which is the budget hypothesis restated through the identity `S2Gen_sub_S1_eq`. | Salt/HB/SignRate.lean:53 | 2026-07-19 | `7711bad` | 3 (Salt/HB/All.lean:85) |
 
 ## 7. TwinBar / Parity
 
