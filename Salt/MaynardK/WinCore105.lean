@@ -162,10 +162,10 @@ private lemma wc105_log_ge_of_ceil_exp (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc
     _ ≤ Real.log R := Real.log_le_log hpos (le_trans h1 h2)
 
 omit [Salt.Maynard.TupleChoice] in
-/-- the tight `Qdiag` bound at general `n`, `A` before `∀ W'`: for `P : BPoly (n+1)` with
-`|yFg R W' P| ≤ 1`, some `A ≥ 0` such that for admissible `W'`, `D` (squarefree, `PhiUpperAtom`,
-`12(n+1)² ≤ D`, the primes `∤ W'` exceed `D`, `W'/φ(W') ≤ 5√D`), some `c ≥ 0`, `R₀` with, for
-`R ≥ R₀`, `1 ≤ log R`,
+/-- the tight `Qdiag` bound at general `n ≥ 1`, `A` before `∀ W'`: for `P : BPoly (n+1)` with
+`|yFg R W' P| ≤ 1`, some `A ≥ 0` such that for admissible `W'`, `D` (`W'` squarefree and
+positive, `PhiUpperAtom`, `12(n+1)² ≤ D`, the primes `∤ W'` exceed `D`, `W'/φ(W') ≤ 5√D`), some
+`c ≥ 0`, `R₀` with, for `R ≥ R₀`, `1 ≤ log R`,
 `|Qdiag_mW (n+1) R W' m (yFg R W' P) − (φ(W')/W' · log R)^(n+2) · ∫ (contractB m P)²|`
 `≤ (c/log R + A/√D) · (φ(W')/W' · log R)^(n+2)` (from `qdiag_bridge_gen`). -/
 theorem qdiag_err_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
@@ -324,9 +324,10 @@ theorem qdiag_err_split_105 (m : Fin 105) :
 
 /-! ## (4) `sharp_S1_upper_105` — the M-based sharp `S1` upper bound -/
 
-/-- `Salt/Twelve/GapsFinal.lean`'s sharp `S₁` upper bound at general `k` (`K₀ = 64`): for
-`|y| ≤ 1` supported on `kSieveIndex k R W'`, under `hsol` (a common residue `c ≡ ν₀ mod W'`
-for every non-colliding pair) and `12k² ≤ D`,
+/-- `Salt/Twelve/GapsFinal.lean`'s sharp `S₁` upper bound at general `k ≥ 1` (`K₀ = 64`): for
+`|y| ≤ 1` supported on `kSieveIndex k R W'`, with `W'` squarefree, every prime `∤ W'` above `D`,
+every `hSeq k i < D`, `12k² ≤ D` and `hsol` (a common residue `c ≡ ν₀ mod W'` for every
+non-colliding pair),
 `S1 ≤ (63·N/W') · (Σ_r y r²/Π_i φ(r i) + 12k²/D · Σ_r 1/Π_i φ(r i))`
 `+ 2^(k+1) · (Σ_d |lam d|)²`. -/
 theorem sharp_S1_upperM_k (k N R W' ν₀ D : ℕ) (hk : 1 ≤ k) (y : (Fin k → ℕ) → ℝ)
@@ -389,9 +390,11 @@ theorem sharp_S1_upper_105 (N R W' ν₀ D : ℕ)
 
 /-! ## (5) `win_core_105` — the sieve inequality `S₁ < Σ_m S₂ᵂ⁽ᵐ⁾` at k = 105 -/
 
-/-- the sieve inequality at k = 105: under the frontier's hypotheses (`hsol`; the per-`m` bounds
-`hDpi` · `hQlow` · `hS2low`) and the slack `hslack` — the right side of the sharp `S₁` bound
-`< Σ_m δ/φ(W') · cval m − Σ_m errEH m`, conjunct 7 of `WinFrontierMW105` —
+/-- the sieve inequality at k = 105: with `W'` squarefree, every prime `∤ W'` above `D`, every
+`hSeq 105 i < D` and `12·105² ≤ D`, under the frontier's hypotheses (`hsol`; `0 < φ(W')`,
+`0 ≤ cval`, `0 ≤ δ`; the per-`m` bounds `hDpi` · `hQlow` · `hS2low`) and the slack `hslack`
+— the right side of the sharp `S₁` bound `< Σ_m δ/φ(W') · cval m − Σ_m errEH m`, conjunct 7
+of `WinFrontierMW105` —
 `S1 105 64 N' R W' ν₀ (yFg R W' F1) < Σ_m S2mW 105 64 N' R ν₀ W' m (yFg R W' F1)`
 (`sharp_S1_upper_105`, then `S1_lt_sum_S2mW_k`). -/
 theorem win_core_105 (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 105 → ℝ)
