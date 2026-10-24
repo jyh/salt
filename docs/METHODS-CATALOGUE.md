@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b6a04f66` · source digest `cde9a42186034277` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `2f643089` · source digest `16d17f8fbb278a37` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -716,9 +716,9 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MaynardK.BasisEvalM` | DISCHARGED | `Salt.MaynardK.basisEvalM_holds` (Salt/MaynardK/BridgeM.lean:21) |
 | `Salt.MaynardK.BasisIntM` | DISCHARGED | `Salt.MaynardK.basisIntM_holds` (Salt/MaynardK/BridgeM.lean:25) |
 | `Salt.MaynardK.GMOneEq` | DISCHARGED | `Salt.MaynardK.gmOneEq_holds` (Salt/MaynardK/BridgeM.lean:31) |
-| `Salt.MaynardK.InnerContractRelGen` | DISCHARGED | `Salt.MaynardK.inner_contract_rel_gen` GUARDED (Salt/MaynardK/ICRel.lean:623) |
+| `Salt.MaynardK.InnerContractRelGen` | DISCHARGED | `Salt.MaynardK.inner_contract_rel_gen` GUARDED (Salt/MaynardK/ICRel.lean:636) |
 | `Salt.MaynardK.MvJMainSplitGen` | DISCHARGED | `Salt.MaynardK.mv_J_main_split_gen` GUARDED (Salt/MaynardK/JMainSplit.lean:835) |
-| `Salt.MaynardK.WinFrontierMW105` | DISCHARGED | `Salt.MaynardK.winFrontierMW105_of` GUARDED (Salt/MaynardK/Frontier105.lean:147) · `Salt.MaynardK.winFrontierMW105_all` GUARDED (Salt/MaynardK/Slack105.lean:749) |
+| `Salt.MaynardK.WinFrontierMW105` | DISCHARGED | `Salt.MaynardK.winFrontierMW105_of` GUARDED (Salt/MaynardK/Frontier105.lean:147) · `Salt.MaynardK.winFrontierMW105_all` GUARDED (Salt/MaynardK/Slack105.lean:757) |
 | `Salt.Parity.Completion` | DISCHARGED | `Salt.Parity.oneWeight_mem` ✓audited GUARDED (Salt/Parity/Z.lean:460) · `Salt.Parity.twinFree_mem` ✓audited GUARDED (Salt/Parity/Z.lean:618) |
 | `Salt.Parity.ParityInv` | DISCHARGED | `parityInv_S1_le_S2` ✓audited (Salt/Parity/Instances.lean:37) · `parityInv_twin_bar` ✓audited (Salt/Parity/Instances.lean:45) · `parityInv_twin_gate_fails` ✓audited (Salt/Parity/Instances.lean:53) · +8 |
 | `Salt.SW.EstermannInterface'` | DISCHARGED | `Salt.SW.estermannInterface'` ✓audited (Salt/SW/EstermannInterface.lean:231) |
