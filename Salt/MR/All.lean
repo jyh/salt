@@ -457,6 +457,7 @@ import Salt.MR.FlatDoorUniform
 import Salt.MR.FlatDoorStandoff
 import Salt.MR.FlatDoorSevenEighths
 import Salt.MR.V7SiegelFree
+import Salt.MR.V6SiegelFree
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -11419,3 +11420,38 @@ open Salt.Tactic in
   Salt.MR.logChowla2_ineffective_v7_g0_of_standoff
   Salt.MR.logChowla2_ineffective_v7_g0_of_sevenEighths Salt.MR.logChowla2_v7_rated_of_standoff
   Salt.MR.logChowla2_v7_rated_of_sevenEighths
+
+-- The v6 family of log-Chowla theorems under a Siegel standoff and from the 7/8 statement
+-- (V6SiegelFree), by proof terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.MR.logChowla2_witnessed_scale_flat_L_v2_of_standoff
+  Salt.MR.logChowla2_ineffective_v6_of_standoff Salt.MR.logChowla2_ineffective_v6_T0arm_of_standoff
+  Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_of_standoff
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_standoff
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_of_standoff
+  Salt.MR.m4_second_road_L2_gk_flatRoot_L_of_standoff Salt.MR.m4_fuse_hcap_of_capWS_gk_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_of_standoff
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_of_standoff
+  Salt.MR.m4_doorL2_close_split_sq_gk_flatRoot_L_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_gk_of_standoff Salt.MR.m4_rowChi_capstone_perBlock_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_of_standoff
+  Salt.MR.m4_exit_socket_split_sq_arc_flatRoot_of_standoff
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_of_standoff
+  Salt.MR.m4_rowChi_capstone_perBlock_bounded_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_of_standoff
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_of_standoff
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_of_standoff
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_of_standoff
+  Salt.MR.halaszPrimesChi_holds_gated_of_standoff
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_of_standoff
+  Salt.MR.halasz_primes_chi_pair_of_gates_of_standoff
+  Salt.MR.halaszPrimesChi_holds_gated_bounded_of_standoff
+  Salt.MR.twisted_rect_zero_free_siegel_of_standoff
+  Salt.MR.halasz_primes_chi_pair_of_gates_bounded_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v6_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v6_T0arm_of_sevenEighths
