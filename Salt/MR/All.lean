@@ -456,6 +456,7 @@ import Salt.MR.FlatDoorParityFloor
 import Salt.MR.FlatDoorUniform
 import Salt.MR.FlatDoorStandoff
 import Salt.MR.FlatDoorSevenEighths
+import Salt.MR.V7SiegelFree
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -11400,3 +11401,21 @@ conclusion is Theorem 4.25's, token for token.  ⚠ LIMIT: it is CONDITIONAL on
 result is effective. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_sevenEighths
+
+-- The v7 family of log-Chowla theorems under a Siegel standoff and from the 7/8 statement
+-- (V7SiegelFree), by proof terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_head_uniform_xceil_of_standoff
+  Salt.MR.flat_socket_uniform_xceil_of_standoff Salt.MR.flat_doorL2_uniform_xceil_khoist_of_standoff
+  Salt.MR.flat_road_uniform_xceil_khoist_of_standoff
+  Salt.MR.flat_capstone_uniform_win_xceil_kwide_khoist_of_standoff
+  Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_of_standoff
+  Salt.MR.logChowla2_ineffective_v6_csarm_of_standoff
+  Salt.MR.logChowla2_ineffective_v6_csarm_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v7_of_standoff Salt.MR.logChowla2_ineffective_v7_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v7_g0_of_standoff
+  Salt.MR.logChowla2_ineffective_v7_g0_of_sevenEighths Salt.MR.logChowla2_v7_rated_of_standoff
+  Salt.MR.logChowla2_v7_rated_of_sevenEighths
