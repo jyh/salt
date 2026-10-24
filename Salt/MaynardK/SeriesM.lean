@@ -38,9 +38,12 @@ def weight {M : ℕ} (j : Fin M → ℕ) : ℕ := ∑ m : Fin M, 2 * ((m : ℕ) 
 noncomputable def GM (M : ℕ) : MvPowerSeries (Fin M) ℚ :=
   fun j => (((weight ⇑j)! : ℕ) : ℚ) / ∏ m, (((j m)! : ℕ) : ℚ)
 
+/-- `[x^j] GM M = (weight j)! / Π_m (j m)!`, by definition (`rfl`). -/
 theorem coeff_GM {M : ℕ} (j : Fin M →₀ ℕ) :
     MvPowerSeries.coeff j (GM M) = (((weight ⇑j)! : ℕ) : ℚ) / ∏ m, (((j m)! : ℕ) : ℚ) := rfl
 
+/-- Each entry is at most half the weight, `2·C m ≤ weight C`: the `m`-th summand is
+`2(m+1)·C m ≥ 2·C m`. -/
 lemma two_mul_le_weight {M : ℕ} (C : Fin M → ℕ) (m : Fin M) : 2 * C m ≤ weight C := by
   have h : 2 * ((m : ℕ) + 1) * C m = 2 * C m + 2 * (m : ℕ) * C m := by ring
   calc 2 * C m ≤ 2 * ((m : ℕ) + 1) * C m := by rw [h]; exact Nat.le_add_right _ _
@@ -48,6 +51,7 @@ lemma two_mul_le_weight {M : ℕ} (C : Fin M → ℕ) (m : Fin M) : 2 * C m ≤ 
       Finset.single_le_sum (f := fun m : Fin M => 2 * ((m : ℕ) + 1) * C m)
         (fun _ _ => Nat.zero_le _) (mem_univ m)
 
+/-- `weight` is monotone entrywise: `A m ≤ C m` for all `m` gives `weight A ≤ weight C`. -/
 lemma weight_mono {M : ℕ} {A C : Fin M → ℕ} (h : ∀ m, A m ≤ C m) : weight A ≤ weight C :=
   Finset.sum_le_sum fun m _ => Nat.mul_le_mul_left _ (h m)
 
@@ -57,6 +61,7 @@ lemma weight_mono {M : ℕ} {A C : Fin M → ℕ} (h : ∀ m, A m ≤ C m) : wei
 noncomputable def trM {M k : ℕ} (e : Fin M → (Fin k →₀ ℕ)) : Fin k →₀ (Fin M →₀ ℕ) :=
   Finsupp.equivFunOnFinite.symm fun i => Finsupp.equivFunOnFinite.symm fun m => e m i
 
+/-- The transpose evaluated, `trM e i m = e m i` (`rfl`). -/
 lemma trM_apply {M k : ℕ} (e : Fin M → (Fin k →₀ ℕ)) (i : Fin k) (m : Fin M) :
     trM e i m = e m i := rfl
 
@@ -135,12 +140,14 @@ is `< 64` whenever `wmax ≤ 127` (at the certificate's `wmax = 46, 48`, `C m �
 digits below `64` determine the vector (`enc_injective`). -/
 def enc {M : ℕ} (C : Fin M → ℕ) : ℕ := ∑ m : Fin M, C m * 64 ^ ((m : ℕ) + 1)
 
+/-- `enc C = 64 · enc0 C`: the key is the position-`0` code shifted up one base-64 digit. -/
 lemma enc_eq {M : ℕ} (C : Fin M → ℕ) : enc C = 64 * enc0 C := by
   unfold enc enc0
   rw [Finset.mul_sum]
   refine Finset.sum_congr rfl fun m _ => ?_
   ring
 
+/-- `enc0` peels its lowest digit: `enc0 C = C 0 + 64 · enc0 (Fin.tail C)`. -/
 lemma enc0_succ {M : ℕ} (C : Fin (M + 1) → ℕ) : enc0 C = C 0 + 64 * enc0 (Fin.tail C) := by
   unfold enc0
   rw [Fin.sum_univ_succ, Finset.mul_sum]
@@ -149,6 +156,8 @@ lemma enc0_succ {M : ℕ} (C : Fin (M + 1) → ℕ) : enc0 C = C 0 + 64 * enc0 (
   refine Finset.sum_congr rfl fun m _ => ?_
   ring
 
+/-- Base-64 digits below `64` determine the vector: `enc0 C = enc0 D`, every entry of `C` and
+`D` below `64`, gives `C = D` (induction on `M`). -/
 lemma enc0_inj {M : ℕ} (C D : Fin M → ℕ) (hC : ∀ m, C m < 64) (hD : ∀ m, D m < 64)
     (h : enc0 C = enc0 D) : C = D := by
   induction M with
@@ -165,11 +174,14 @@ lemma enc0_inj {M : ℕ} (C D : Fin M → ℕ) (hC : ∀ m, C m < 64) (hD : ∀ 
     · exact h0
     · exact congrFun htail j
 
+/-- `weight C ≤ wmax ≤ 127` forces every entry `C m < 64`, from `2·C m ≤ weight C`. -/
 lemma lt_64_of_weight {M wmax : ℕ} (hw : wmax ≤ 127) {C : Fin M → ℕ} (hC : weight C ≤ wmax)
     (m : Fin M) : C m < 64 := by
   have := two_mul_le_weight C m
   omega
 
+/-- `enc` is injective on the table's keys: `enc C = enc D` with both weights `≤ wmax ≤ 127`
+gives `C = D`. -/
 theorem enc_injective {M wmax : ℕ} (hw : wmax ≤ 127) {C D : Fin M → ℕ}
     (hC : weight C ≤ wmax) (hD : weight D ≤ wmax) (h : enc C = enc D) : C = D := by
   rw [enc_eq, enc_eq] at h
@@ -181,6 +193,7 @@ def allLE : (M : ℕ) → ℕ → List (Fin M → ℕ)
   | M + 1, b => (List.range (b + 1)).flatMap fun c =>
       (allLE M b).map fun v => (Fin.cons c v : Fin (M + 1) → ℕ)
 
+/-- `allLE` is complete: a vector with every entry `≤ b` is a member of `allLE M b`. -/
 lemma mem_allLE {M b : ℕ} (C : Fin M → ℕ) (hC : ∀ m, C m ≤ b) : C ∈ allLE M b := by
   induction M with
   | zero =>
@@ -196,6 +209,7 @@ lemma mem_allLE {M b : ℕ} (C : Fin M → ℕ) (hC : ∀ m, C m ≤ b) : C ∈ 
 def keysM (M wmax : ℕ) : List (Fin M → ℕ) :=
   (allLE M (wmax / 2)).filter fun C => weight C ≤ wmax
 
+/-- Membership in the keys is the weight bound: `C ∈ keysM M wmax ↔ weight C ≤ wmax`. -/
 lemma mem_keysM {M wmax : ℕ} {C : Fin M → ℕ} : C ∈ keysM M wmax ↔ weight C ≤ wmax := by
   unfold keysM
   rw [List.mem_filter]
@@ -208,6 +222,8 @@ lemma mem_keysM {M wmax : ℕ} {C : Fin M → ℕ} : C ∈ keysM M wmax ↔ weig
 /-- `[x^B] GM` as a natural number: `(weight B)! / Π_m (B m)!` (an exact quotient, `gN_cast`). -/
 def gN {M : ℕ} (B : Fin M → ℕ) : ℕ := (weight B)! / ∏ m, (B m)!
 
+/-- The quotient in `gN` is exact: in `ℚ`, `gN B = (weight B)! / Π_m (B m)!`, since
+`Π_m (B m)! ∣ (weight B)!`. -/
 lemma gN_cast {M : ℕ} (B : Fin M → ℕ) :
     ((gN B : ℕ) : ℚ) = (((weight B)! : ℕ) : ℚ) / ∏ m, (((B m)! : ℕ) : ℚ) := by
   have hle : ∑ m, B m ≤ weight B := by
@@ -238,6 +254,8 @@ def TM (M : ℕ) : ℕ → ℕ → List (ℕ × ℕ)
   | 0, wmax => (keysM M wmax).map fun C => (enc C, if C = 0 then 1 else 0)
   | k + 1, wmax => (keysM M wmax).map fun C => (enc C, tstep (TM M k wmax) C)
 
+/-- Looking up `key x` in the table `(key y, f y)` over `l` gives `some (f x)` when `x ∈ l`
+and no other member of `l` shares its key. -/
 lemma lookup_map_key {α : Type*} (key : α → ℕ) (f : α → ℕ) (x : α) :
     ∀ l : List α, x ∈ l → (∀ y ∈ l, key y = key x → y = x) →
       (l.map fun y => (key y, f y)).lookup (key x) = some (f x)
@@ -255,16 +273,22 @@ lemma lookup_map_key {α : Type*} (key : α → ℕ) (f : α → ℕ) (x : α) :
       simp only [List.map_cons, List.lookup_cons, hne]
       exact lookup_map_key key f x l hx' fun z hz => hinj z (List.mem_cons_of_mem _ hz)
 
+/-- A table keyed by `enc` over `keysM M wmax` returns `some (f C)` at `enc C` when
+`weight C ≤ wmax ≤ 127`; `enc_injective` supplies the uniqueness of the key. -/
 lemma lookup_keysM {M wmax : ℕ} (hw : wmax ≤ 127) (f : (Fin M → ℕ) → ℕ) {C : Fin M → ℕ}
     (hC : weight C ≤ wmax) :
     ((keysM M wmax).map fun D => (enc D, f D)).lookup (enc C) = some (f C) :=
   lookup_map_key enc f C _ (mem_keysM.mpr hC)
     fun _ hD he => enc_injective hw (mem_keysM.mp hD) hC he
 
+/-- `TM M 0 wmax` at `enc C` is `some 1` for `C = 0` and `some 0` otherwise, when
+`weight C ≤ wmax ≤ 127` (the coefficients of `GM^0 = 1`). -/
 lemma TM_zero_lookup {M wmax : ℕ} (hw : wmax ≤ 127) {C : Fin M → ℕ} (hC : weight C ≤ wmax) :
     (TM M 0 wmax).lookup (enc C) = some (if C = 0 then 1 else 0) :=
   lookup_keysM hw (fun C => if C = 0 then 1 else 0) hC
 
+/-- `TM M (k+1) wmax` at `enc C` is `some (tstep (TM M k wmax) C)`: one truncated
+multiplication by `GM` on the previous table, when `weight C ≤ wmax ≤ 127`. -/
 lemma TM_succ_lookup {M k wmax : ℕ} (hw : wmax ≤ 127) {C : Fin M → ℕ} (hC : weight C ≤ wmax) :
     (TM M (k + 1) wmax).lookup (enc C) = some (tstep (TM M k wmax) C) :=
   lookup_keysM hw (fun C => tstep (TM M k wmax) C) hC

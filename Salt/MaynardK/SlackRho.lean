@@ -23,15 +23,19 @@ namespace Salt.MaynardK
 open Finset Filter Topology
 open Salt.Maynard Salt.MaynardK
 
+/-- `M ≤ log N'` eventually, for every real `M`: `log N' → ∞` along `N' : ℕ`. -/
 lemma eventually_logN_ge_rho (M : ℝ) : ∀ᶠ N' : ℕ in atTop, M ≤ Real.log N' :=
   (Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop).eventually_ge_atTop M
 
+/-- `b ≤ log R` eventually at `R = ⌊N'^{9999/40000}⌋₊`, for every real `b`, through the pin
+`(1/8)·log N' ≤ log R` (`eventually_logR_lower_rho`). -/
 lemma eventually_logR_ge_rho (b : ℝ) :
     ∀ᶠ N' : ℕ in atTop, b ≤ Real.log (⌊(N':ℝ) ^ (9999 / 40000 : ℝ)⌋₊ : ℝ) := by
   filter_upwards [eventually_logR_lower_rho (1/8) (by norm_num) (by norm_num),
     eventually_logN_ge_rho (8 * b)] with N' h1 h2
   linarith
 
+/-- `C / log R ≤ ε` eventually at `R = ⌊N'^{9999/40000}⌋₊`, for every real `C`, `ε > 0`. -/
 lemma eventually_div_logR_le_rho (C ε : ℝ) (hε : 0 < ε) :
     ∀ᶠ N' : ℕ in atTop,
       C / Real.log (⌊(N':ℝ) ^ (9999 / 40000 : ℝ)⌋₊ : ℝ) ≤ ε := by
@@ -46,6 +50,8 @@ lemma eventually_div_logR_le_rho (C ε : ℝ) (hε : 0 < ε) :
     _ ≤ L * ε := mul_le_mul_of_nonneg_right h2 hε.le
     _ = ε * L := by ring
 
+/-- `A·(1 + log R)^p / (log N')^q ≤ K` eventually when `p < q`, `K > 0` and `A ≥ 0`:
+a polylog in `R ≤ N'` of degree `p` loses to any positive multiple of `(log N')^q`. -/
 lemma eventually_polylog_ratio_le_rho (p q : ℕ) (A K : ℝ) (hpq : p < q)
     (hK : 0 < K) (hA : 0 ≤ A) :
     ∀ᶠ N' : ℕ in atTop,
@@ -92,6 +98,8 @@ lemma eventually_polylog_ratio_le_rho (p q : ℕ) (A K : ℝ) (hpq : p < q)
     _ ≤ K * ((Real.log N') ^ p * (Real.log N') ^ (q - p)) := hAle
     _ = K * (Real.log N') ^ q := by rw [← hsplit]
 
+/-- `C·R²·(1 + log R)^n ≤ K·N'` eventually at `R = ⌊N'^{9999/40000}⌋₊` (`K > 0`, `C ≥ 0`):
+`R² ≤ N'^{19998/40000}` (`R_sq_le_half`) leaves `N'^{20002/40000}` to beat the polylog. -/
 lemma eventually_poly_o_linear_rho (n : ℕ) (K C : ℝ) (hK : 0 < K) (hC : 0 ≤ C) :
     ∀ᶠ N' : ℕ in atTop,
       C * (⌊(N':ℝ) ^ (9999 / 40000 : ℝ)⌋₊ : ℝ) ^ 2
@@ -130,6 +138,7 @@ lemma eventually_poly_o_linear_rho (n : ℕ) (K C : ℝ) (hK : 0 < K) (hC : 0 �
     _ = K * ((N':ℝ) ^ (19998 / 40000 : ℝ) * (N':ℝ) ^ (20002 / 40000 : ℝ)) := by ring
     _ = K * (N':ℝ) := by rw [hrpow]
 
+/-- `Rb ≤ R` eventually at `R = ⌊N'^{9999/40000}⌋₊`, for every natural `Rb`: `R → ∞`. -/
 lemma eventually_R_ge_rho (Rb : ℕ) :
     ∀ᶠ N' : ℕ in atTop, Rb ≤ ⌊(N':ℝ) ^ (9999 / 40000 : ℝ)⌋₊ := by
   have htend : Tendsto (fun N' : ℕ => (N':ℝ) ^ (9999 / 40000 : ℝ)) atTop atTop :=
