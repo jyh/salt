@@ -42,7 +42,7 @@ The exact ratio the driver receives is **`c = 7/10`**.
 
 ## Honest scope of the hypotheses
 
-Everything geometric/analytic is genuinely derived.  Four side hypotheses
+Everything geometric/analytic is genuinely derived.  Seven side hypotheses
 isolate the largeness regime and are stated explicitly (never the conclusion):
 
 * `hT`   : the frozen `T = k^{1/8}/log k` (fixes `b·log R₀ ≤ k^{1/8}`);
@@ -52,7 +52,8 @@ isolate the largeness regime and are stated explicitly (never the conclusion):
   `Q = φW·b⁻¹ = φW·log R/(k log k)`, `Q·log k = φW·log R/k` grows in `R` while
   `errA1 k W`, `errB1 k W` are fixed `W`-only constants.
 * `hlogk` : `300 ≤ log k`, the `k`-large condition absorbing the `4Q log 2`
-  boundary term and the residual `+1/log k`.
+  boundary term and the residual `+1/log k`;
+* `hT1`, `hX` : the floors `1 ≤ T`, `4 ≤ R₀` the sharp transfer bounds take.
 
 See the PORT-BLOCKER note at the end for the one sub-step (reducing `hEA`/`hEB`
 to a raw `log R ≥ …` threshold) that is deferred.
@@ -64,8 +65,9 @@ namespace Salt.Maynard
 
 /-- **`hA11`.**  The transfer-ratio bound `A1_1 ≤ (7/10)·A1`, the explicit
 `c = 7/10 < 1` consumed by the Chebyshev overshoot.  Proved from
-`A1_1_upper_split` + `B1_upper_sharp` + `A1_lower_sharp`; `hT` fixes `T`, and the largeness
-hypotheses `hT1`/`hX`/`hlogk`/`hb4`/`hEA`/`hEB` are documented in the module header. -/
+`A1_1_upper_split` + `B1_upper_sharp` + `A1_lower_sharp`; `hT` fixes `T`; of the largeness
+hypotheses, `hb4`/`hEA`/`hEB`/`hlogk` are documented in the module header, and `hT1 : 1 ≤ T`,
+`hX : 4 ≤ R0 k R T` are the floors `B1_upper_sharp` and `A1_lower_sharp` take. -/
 theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     (hW : W ≠ 0) (hk : 3 ≤ k) (hR : 2 ≤ R)
     (hT : T = (k : ℝ) ^ ((1 : ℝ) / 8) / Real.log k) (hT1 : 1 ≤ T)
