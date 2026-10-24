@@ -86,6 +86,7 @@ import Salt.Entropy.Chowla.TowerFlatExport
 import Salt.Entropy.Chowla.TowerFlatBuilder
 import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.SpineEpsFence
+import Salt.Entropy.Chowla.SiegelFree
 import Salt.Entropy.Chowla.PinDichotomy
 import Salt.Entropy.Chowla.ShiftFork
 import Salt.Entropy.Chowla.SignSplit
@@ -1588,3 +1589,16 @@ while the stride lane reads the `Xi`-generic / affine door (`MRTUniformityXiL2Se
 `MRTUniformityXiL2AffW`), which none of the flat-door files names.  `MRTDoorAllGrades` still has NO
 producer.  Nothing bears on twin primes.
 -/
+
+-- The log-Chowla spine under a Siegel standoff and from the 7/8 statement (SiegelFree), by proof
+-- terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.hreduce_holds_final_of_standoff
+  Salt.Entropy.Chowla.primeWindow_sum_inv_ge_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_door_only_xi_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_door_only_of_standoff
+  Salt.Entropy.Chowla.spine_eps_constant_floor_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_of_sevenEighths
+  Salt.Entropy.Chowla.log_chowla_two_door_only_of_sevenEighths
+  Salt.Entropy.Chowla.spine_eps_constant_floor_of_sevenEighths

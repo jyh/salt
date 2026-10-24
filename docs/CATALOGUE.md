@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `54f66105` · source digest `bfebdd1244e8e223` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `02a6538c` · source digest `54d482894e74f589` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9111 | 9056 | 9055 | 1 | 0 | 55 |
+| 26 | 24 | 9120 | 9065 | 9064 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23304 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
-| conditional | 1585 | 26 | 209 | 1376 | 94 | 24 | 13 |
+| conditional | 1594 | 26 | 209 | 1377 | 103 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9056 | 322 | 2355 | 6565 | 529 | 466 | 55 |
+| **all** | 9065 | 322 | 2355 | 6566 | 538 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -120,11 +120,11 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MR.NearRatTight` | 44 |
 | `Salt.MR.DoorBaseFrame` | 41 |
 | `Salt.MR.TLBlockGates34` | 37 |
+| `Salt.SW.NoSiegelZerosAt` | 37 |
 | `Salt.MR.FibreWellSpaced` | 36 |
 | `Salt.MR.DoorRowZeroBase_L_gk` | 35 |
 | `Salt.MR.GRowsZeroGate'''_L_gk` | 31 |
 | `Salt.MR.SeamCoefW` | 31 |
-| `Salt.SW.NoSiegelZerosAt` | 31 |
 | `Salt.MR.collisionGate` | 29 |
 | `Salt.MR.XiFamily` | 28 |
 | `Salt.MR.SocketBase` | 27 |
@@ -137,10 +137,10 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MR.DoorFuseFrame` | 21 |
 | `Salt.MR.JointIntegrableAt` | 21 |
 | `Salt.MR.m4SmallGradeFits` | 21 |
+| `Salt.Entropy.Chowla.MRTUniformityXi` | 20 |
 | `Salt.HB.N9Regime` | 19 |
 | `Salt.MR.S15Sel''_L_gk` | 19 |
 | `Salt.MR.DoorFuseFrame_L_gk` | 18 |
-| `Salt.Entropy.Chowla.MRTUniformityXi` | 17 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` | 17 |
 | `Salt.MR.DoorArithFrameRho` | 16 |
 | `Salt.Entropy.Chowla.logChowla2Fails` | 15 |
@@ -150,15 +150,16 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MR.S16BandLaneCBoundedL_winU` | 14 |
 | `Salt.MR.DoorRowEndBase_L_gk` | 13 |
 | `Salt.MR.S16BandLaneCBoundedL` | 13 |
+| `Salt.Entropy.Chowla.MRTUniformity` | 12 |
 | `Salt.Entropy.Chowla.XCeilRiderStrict` | 12 |
 | `Salt.MR.DoorRowZeroBase` | 12 |
 | `Salt.MR.M4GradeGateSplit` | 12 |
 | `Salt.MR.M4SievedDoorSq` | 12 |
+| `Salt.TwinBar.DirichletSevenEighths` | 12 |
 | `Salt.Entropy.Chowla.XCeilRider` | 11 |
 | `Salt.MR.CaseASocket2` | 11 |
 | `Salt.MR.DoorBandBase` | 11 |
 | `Salt.MR.LevelGates` | 11 |
-| `Salt.Entropy.Chowla.MRTUniformity` | 10 |
 | `Salt.MR.M4ChiSummedFreeRowH_L_gk` | 10 |
 | `Salt.MR.S15CrossingBound_L_gk` | 10 |
 | `Salt.MR.S16BandLaneCBoundedL_win` | 10 |
@@ -169,7 +170,6 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MR.A2Frame` | 9 |
 | `Salt.MR.DoorCapBasePerBlock_L_gk` | 9 |
 | `Salt.MR.DoorRowCarriedT0` | 9 |
-| `Salt.TwinBar.DirichletSevenEighths` | 9 |
 | `Salt.BrunLower.chi` | 8 |
 | `Salt.Chen.StepHypWP` | 8 |
 | `Salt.Entropy.Chowla.PairCollapse` | 8 |
@@ -6058,9 +6058,9 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MaynardK.Jform_eq` | Salt/MaynardK/JMain.lean:275 | other |
 | `Salt.MaynardK.ratio_cert_105` | Salt/MaynardK/Ratio.lean:25 | other |
 | `Salt.MaynardK.winSlackM105_ev` | Salt/MaynardK/Slack105.lean:324 | other |
-| `Salt.MaynardK.Iform_eq` | Salt/MaynardK/Square.lean:124 | other |
-| `Salt.MaynardK.hSeq_engelsma_le_743` | Salt/MaynardK/Tuple600.lean:124 | other |
-| `Salt.MaynardK.hSeq_engelsma_diam_le_600` | Salt/MaynardK/Tuple600.lean:137 | other |
+| `Salt.MaynardK.Iform_eq` | Salt/MaynardK/Square.lean:102 | other |
+| `Salt.MaynardK.hSeq_engelsma_le_743` | Salt/MaynardK/Tuple600.lean:108 | other |
+| `Salt.MaynardK.hSeq_engelsma_diam_le_600` | Salt/MaynardK/Tuple600.lean:119 | other |
 | `Salt.Mertens.integral_exp_neg_log` | Salt/Mertens/GammaIntegral.lean:34 | sieves |
 | `Salt.Mertens.loglog_integral_asymp` | Salt/Mertens/GammaIntegral.lean:323 | sieves |
 | `Salt.Mertens.neg_log_prod_eq` | Salt/Mertens/PrimePower.lean:130 | sieves |
@@ -7281,7 +7281,7 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1585)
+## conditional (1594)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -7367,6 +7367,15 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiH` | Salt/Entropy/Chowla/ShiftFork.lean:345 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiH` |
 | `Salt.Entropy.Chowla.mrtUniformity_implies_xiH` | Salt/Entropy/Chowla/ShiftFork.lean:504 | entropy | `Salt.Entropy.Chowla.MRTUniformity` |
 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H` | Salt/Entropy/Chowla/ShiftFork.lean:579 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiL2H` |
+| `Salt.Entropy.Chowla.hreduce_holds_final_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:48 | characters, entropy | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.primeWindow_sum_inv_ge_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:71 | entropy | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:83 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_xi_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:168 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:179 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformity` |
+| `Salt.Entropy.Chowla.spine_eps_constant_floor_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:190 | entropy | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:204 | entropy | `Salt.TwinBar.DirichletSevenEighths`, `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:213 | entropy | `Salt.TwinBar.DirichletSevenEighths`, `Salt.Entropy.Chowla.MRTUniformity` |
+| `Salt.Entropy.Chowla.spine_eps_constant_floor_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:221 | entropy | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.Entropy.Chowla.sign_split_of_not_fails` | Salt/Entropy/Chowla/SignSplit.lean:209 | entropy | `¬Salt.Entropy.Chowla.logChowla2Fails` |
 | `Salt.Entropy.Chowla.sign_split_door_only` | Salt/Entropy/Chowla/SignSplit.lean:230 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
 | `Salt.Entropy.Chowla.sign_split_quarter_log` | Salt/Entropy/Chowla/SignSplit.lean:252 | entropy | `¬Salt.Entropy.Chowla.logChowla2Fails` |
@@ -9532,7 +9541,7 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MR.vkProfile_const_mul` | Salt/MR/VkTwistClose.lean:411 | characters |
 | `Salt.MR.vkDebitConst_vkEulerCorr` | Salt/MR/VkTwistClose.lean:478 | characters |
 | `Salt.MR.vkStripConst` | Salt/MR/VkTwistStrip.lean:239 | characters |
-| `Salt.MaynardK.engelsmaTuple` | Salt/MaynardK/Tuple600.lean:112 | other |
+| `Salt.MaynardK.engelsmaTuple` | Salt/MaynardK/Tuple600.lean:98 | other |
 | `Salt.SW.coprimeSeries_one` | Salt/SW/GrahamHard2.lean:120 | sieves |
 | `Salt.SW.selbergPsi_apply` | Salt/SW/PseudoChar.lean:122 | sieves, characters |
 | `Salt.SW.hCoef_apply` | Salt/SW/PseudoCharH.lean:81 | sieves, characters |
@@ -9571,5 +9580,5 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 
 | name | file:line | objects |
 |---|---|---|
-| `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1198 | entropy |
+| `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1199 | entropy |
 
