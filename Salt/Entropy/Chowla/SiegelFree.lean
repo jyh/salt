@@ -18,7 +18,7 @@ have standoff twins (`Salt/MR/FlatDoorStandoff.lean`), whose statements are the 
 one extra conjunct `1 / 4 ≤ c`; the two twins below drop it. The three heads, and
 `log_chowla_two_door_only_xi` between two of them, are then re-stated under three leading binders
 `{cS} (hcS) (hSieg)`, each landed proof verbatim with each producer replaced by its twin. No landed
-file is edited.
+proof is edited; the ledger `Salt/Entropy/All.lean` gains the import and the audit block.
 
 ## What this does and does not say
 
