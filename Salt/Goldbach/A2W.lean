@@ -66,10 +66,14 @@ membership of `n` (the sieve filters `n ≡ a (Q)`) fused with the reflected div
 def crtClassGA (Q a M N : ℕ) (h : Nat.Coprime Q M) : ℕ :=
   (Nat.chineseRemainder h a N : ℕ)
 
+/-- `crtClassGA Q a M N h ≡ a (mod Q)` (hypothesis `h : Nat.Coprime Q M`): the `Q`-side
+congruence of the A₂ fused class, `Nat.chineseRemainder`'s first component. -/
 lemma crtClassGA_mod_left (Q a M N : ℕ) (h : Nat.Coprime Q M) :
     crtClassGA Q a M N h % Q = a % Q :=
   (Nat.chineseRemainder h a N).2.1
 
+/-- `crtClassGA Q a M N h ≡ N (mod M)` (hypothesis `h : Nat.Coprime Q M`): the `M`-side
+congruence, `Nat.chineseRemainder`'s second component. -/
 lemma crtClassGA_mod_right (Q a M N : ℕ) (h : Nat.Coprime Q M) :
     crtClassGA Q a M N h % M = N % M :=
   (Nat.chineseRemainder h a N).2.2
@@ -126,14 +130,20 @@ noncomputable def goldA2SieveW (Q a N P p : ℕ) (hP : Squarefree P)
 
 section FactsW2
 
+/-- The `prodPrimes` field of `goldA2SieveW Q a N P p hP hPodd` is the sifting modulus `P`
+(`rfl`). -/
 @[simp] lemma goldA2SieveW_prodPrimes (Q a N P p : ℕ) (hP : Squarefree P)
     (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q) :
     (goldA2SieveW Q a N P p hP hPodd).prodPrimes = P := rfl
 
+/-- The `nu` field of `goldA2SieveW Q a N P p hP hPodd` is `nuChen` (`rfl`): the per-prime AP
+restriction leaves the density unchanged. -/
 @[simp] lemma goldA2SieveW_nu (Q a N P p : ℕ) (hP : Squarefree P)
     (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q) :
     (goldA2SieveW Q a N P p hP hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldA2SieveW Q a N P p hP hPodd` is the smooth
+`(Σ_{n ∈ twinWindow N} Λ(n)) / (φ(Q)·(p − 1))` (`rfl`). -/
 @[simp] lemma goldA2SieveW_totalMass (Q a N P p : ℕ) (hP : Squarefree P)
     (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q) :
     (goldA2SieveW Q a N P p hP hPodd).totalMass
