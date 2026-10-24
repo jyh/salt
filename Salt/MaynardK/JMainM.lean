@@ -41,6 +41,7 @@ def tuplesLE : (M : ℕ) → (Fin M → ℕ) → List (Fin M → ℕ)
   | M + 1, C => (List.range (C 0 + 1)).flatMap fun x =>
       (tuplesLE M fun m => C m.succ).map fun y => (Fin.cons x y : Fin (M + 1) → ℕ)
 
+/-- membership in `tuplesLE M C`: `j ∈ tuplesLE M C ↔ ∀ m, j m ≤ C m`. -/
 lemma mem_tuplesLE : ∀ {M : ℕ} (C j : Fin M → ℕ), j ∈ tuplesLE M C ↔ ∀ m, j m ≤ C m := by
   intro M
   induction M with
@@ -65,6 +66,7 @@ lemma mem_tuplesLE : ∀ {M : ℕ} (C j : Fin M → ℕ), j ∈ tuplesLE M C ↔
     · intro h
       exact ⟨j 0, by have := h 0; omega, Fin.tail j, fun m => h m.succ, Fin.cons_self_tail j⟩
 
+/-- `tuplesLE M C` has no duplicates: the enumeration lists each `j ≤ C` once. -/
 lemma nodup_tuplesLE : ∀ {M : ℕ} (C : Fin M → ℕ), (tuplesLE M C).Nodup := by
   intro M
   induction M with
@@ -84,6 +86,7 @@ lemma nodup_tuplesLE : ∀ {M : ℕ} (C : Fin M → ℕ), (tuplesLE M C).Nodup :
     simp only [Fin.cons_zero] at h0
     exact hne h0.symm
 
+/-- a sum over `tuplesLE M C` is the sum over the box `Π_m range (C m + 1)`. -/
 lemma sum_tuplesLE {M : ℕ} {γ : Type*} [AddCommMonoid γ] (C : Fin M → ℕ) (f : (Fin M → ℕ) → γ) :
     ((tuplesLE M C).map f).sum = ∑ j ∈ Fintype.piFinset (fun m => range (C m + 1)), f j := by
   rw [← List.sum_toFinset f (nodup_tuplesLE C)]
@@ -104,6 +107,9 @@ noncomputable def contractListM (M n a : ℕ) (C : Fin M → ℕ) : BPoly n :=
   (Fintype.piFinset fun m => range (C m + 1)).toList.flatMap fun j =>
     scale (wJ a C j) (basisPolyM M n (a + weight j + 1) (C - j))
 
+/-- splitting `multM` at coordinate `p`: for `e ∈ asgM M (n+1) C`,
+`multM e = Π_m C(C m, e m p) · multM (fun m => removeNth p (e m))`
+(one `multinomial_split` per `m`). -/
 lemma multM_split {M n : ℕ} (p : Fin (n + 1)) (C : Fin M → ℕ) (e : Fin M → Fin (n + 1) → ℕ)
     (he : e ∈ asgM M (n + 1) C) :
     multM e = (∏ m, (C m).choose (e m p)) * multM (fun m => Fin.removeNth p (e m)) := by
@@ -171,6 +177,9 @@ theorem sum_asgM_split {R : Type*} [CommSemiring R] {M n : ℕ} (p : Fin (n + 1)
     push_cast
     ring
 
+/-- `contractB p (basisPolyM M (n+1) a C)` term by term: one entry per `e ∈ asgM M (n+1) C`,
+with key `removeNth p (expoM e)`, exponent `expoM e p + a + 1` and coefficient
+`multM e · (expoM e p)!·a!/(expoM e p + a + 1)!`. -/
 lemma contractB_basisPolyM_eq {M n : ℕ} (p : Fin (n + 1)) (a : ℕ) (C : Fin M → ℕ) :
     contractB p (basisPolyM M (n + 1) a C) = (asgM M (n + 1) C).toList.map fun e =>
       (Fin.removeNth p (expoM e), expoM e p + a + 1,
@@ -211,15 +220,21 @@ theorem contractB_basisPolyM_lsum {R : Type*} [Field R] [CharZero R] {M n : ℕ}
   push_cast
   ring
 
+/-- the `eval` form of the contraction: `contractB p (basisPolyM M (n+1) a C)` and
+`contractListM M n a C` agree at every `t : Fin n → ℝ` (from `contractB_basisPolyM_lsum`). -/
 theorem contractB_basisPolyM_eval {M n : ℕ} (p : Fin (n + 1)) (a : ℕ) (C : Fin M → ℕ)
     (t : Fin n → ℝ) :
     eval (contractB p (basisPolyM M (n + 1) a C)) t = eval (contractListM M n a C) t := by
   rw [eval_eq_lsum, eval_eq_lsum, contractB_basisPolyM_lsum]
 
+/-- the `simplexInt` form of the contraction: `contractB p (basisPolyM M (n+1) a C)` and
+`contractListM M n a C` have the same simplex integral. -/
 theorem contractB_basisPolyM_simplexInt {M n : ℕ} (p : Fin (n + 1)) (a : ℕ) (C : Fin M → ℕ) :
     simplexInt (contractB p (basisPolyM M (n + 1) a C)) = simplexInt (contractListM M n a C) := by
   rw [simplexInt_eq_lsum, simplexInt_eq_lsum, contractB_basisPolyM_lsum]
 
+/-- `contractB p` distributes over append:
+`contractB p (P ++ Q) = contractB p P ++ contractB p Q`. -/
 lemma contractB_append' {n : ℕ} (p : Fin (n + 1)) (P Q : BPoly (n + 1)) :
     contractB p (P ++ Q) = contractB p P ++ contractB p Q := by
   unfold contractB
