@@ -20,8 +20,8 @@ This module cuts both.  `standoff_real_carve` is `siegel_real_carve`'s statement
 `NoSiegelZerosAt cS`; channel C takes the landed `Salt.SW.siegelWalfisz_of_standoff` through
 `Salt.Chen.lambda_mass_lower_of_SW`.  The 21 declarations between them and the root are re-stated
 as `_of_standoff` twins: each landed statement under three leading binders `{cS} (hcS) (hSieg)`,
-its landed proof verbatim with each cut child replaced by the child's twin.  No landed file is
-edited.
+its landed proof verbatim with each cut child replaced by the child's twin.  No landed proof is
+edited; the ledger `Salt/MR/All.lean` gains the import and the audit block.
 
 ⚠ LIMIT, beside the verdict: the certificate lines at the foot say the root REACHES NONE OF the
 three Siegel names `Salt.SW.siegel_theorem` · `Salt.SW.siegel_L_one_exceptional` ·
