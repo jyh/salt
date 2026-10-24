@@ -30,6 +30,7 @@ import Salt.TwinBar.SiegelTwin
 import Salt.TwinBar.SevenEighthsClaim
 import Salt.TwinBar.RealZeroGapClaim
 import Salt.TwinBar.SevenEighthsStandoff
+import Salt.TwinBar.SevenEighthsGaps
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
 import Salt.TwinBar.TwistedSieve
@@ -808,6 +809,7 @@ open Salt.Tactic in
 #audit_axioms Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.TwinBar.three_primes_of_sevenEighths
   Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.TwinBar.gaps_le_600_of_sevenEighths
   Salt.TwinBar.chen_headline_of_sevenEighths Salt.TwinBar.chen_goldbach_of_sevenEighths
+  Salt.TwinBar.bounded_gaps_of_sevenEighths
 
 -- OpenAI's real-zero gap statement, restated (RealZeroGapClaim), and its implication to
 -- `NoSiegelZeros`; the certificate: the implication reaches none of the three Siegel names.

@@ -109,6 +109,7 @@ import Salt.SW.DensityStrip
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.SW.StandoffCert
+import Salt.SW.GapsStandoff
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -935,3 +936,8 @@ open Salt.Tactic in
   Salt.SW.rpow_mul_le_rpow_of_le_150
   Salt.SW.zeroCountM_density_logfree_strip
   Salt.SW.zeroCountM_density_logfree
+
+-- Bounded gaps from a Siegel standoff (GapsStandoff), by a proof term that does not use Siegel's
+-- theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.SW.bounded_gaps_of_standoff
