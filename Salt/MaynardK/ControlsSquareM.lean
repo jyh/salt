@@ -39,6 +39,7 @@ def GMOneEq : Prop :=
 
 /-! ## The `M = 1` reindexing -/
 
+/-- A function on `Fin 1` is the constant at its value at `0`. -/
 private lemma fin_one_const (C : Fin 1 → ℕ) : C = fun _ => C 0 :=
   funext fun m => by rw [Fin.fin_one_eq_zero m]
 
@@ -68,6 +69,9 @@ lemma lsum_basisPolyM_one {k : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin
       simp [expoM]
     simp [multM, hexp]
 
+/-- `Fpoly k cs` and the general-`M` `FpolyM 1 k (rekey1 cs)` have the same coefficient-linear
+functionals: `lsum g` agrees on them (through `lsum_flatMap`, `lsum_scale` and
+`lsum_basisPolyM_one`). -/
 lemma lsum_Fpoly_one {k : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin k → ℕ) → ℕ → R)
     (cs : List ((ℕ × ℕ) × ℤ)) : lsum g (Fpoly k cs) = lsum g (FpolyM 1 k (rekey1 cs)) := by
   unfold Fpoly FpolyM rekey1
@@ -76,6 +80,8 @@ lemma lsum_Fpoly_one {k : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin k �
   refine congrArg List.sum (List.map_congr_left fun x _ => ?_)
   rw [lsum_scale, lsum_scale, lsum_basisPolyM_one]
 
+/-- `Fsq k cs` and the general-`M` `FsqM 1 k (rekey1 cs)` have the same coefficient-linear
+functionals: `lsum g` agrees on them (the pairwise `flatMap`s, then `lsum_basisPolyM_one`). -/
 lemma lsum_Fsq_one {k : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin k → ℕ) → ℕ → R)
     (cs : List ((ℕ × ℕ) × ℤ)) : lsum g (Fsq k cs) = lsum g (FsqM 1 k (rekey1 cs)) := by
   unfold Fsq FsqM rekey1
@@ -87,11 +93,17 @@ lemma lsum_Fsq_one {k : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin k → 
   rw [lsum_scale, lsum_scale, lsum_basisPolyM_one]
   rfl
 
+/-- Under `GMOneEq`, the general-`M` closed form at `M = 1` is the landed one:
+`closedM 1 k a (fun _ => c) = closed k a c` (`weight (fun _ => c) = 2 * c`; the `Fin 1` product
+is one factor). -/
 lemma closedM_one (hG : GMOneEq) (k a c : ℕ) : closedM 1 k a (fun _ => c) = closed k a c := by
   have hw : weight (fun _ : Fin 1 => c) = 2 * c := by simp [weight]
   unfold closedM closed
   rw [hG k c, hw, Fin.prod_univ_one]
 
+/-- Under `GMOneEq`, `BasisIntM 1 k` holds: every `basisPolyM 1 k a C` has the closed-form
+integral `closedM 1 k a C`, from `simplexInt_basisPoly` through `lsum_basisPolyM_one` and
+`closedM_one`. -/
 lemma basisIntM_one (hG : GMOneEq) (k : ℕ) : BasisIntM 1 k := by
   intro a C
   have h := simplexInt_basisPoly k a (C 0)
