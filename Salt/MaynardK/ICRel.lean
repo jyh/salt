@@ -549,10 +549,16 @@ private lemma inner_sum_estimate_brel (W' : ℕ) (hW' : Squarefree W') (hpos : 0
 
 /-! ## `eval` expansions and further list plumbing -/
 
+/-- `eval P t` written out: the sum over the entries `(a, b, c)` of `P` of `c · ∏ᵢ tᵢ^{aᵢ} · (1 − Σᵢ
+tᵢ)^b`, definitionally.
+-/
 private lemma eval_expand {k : ℕ} (P : BPoly k) (t : Fin k → ℝ) :
     eval P t = (P.map (fun a => (a.2.2 : ℝ) * (∏ i, t i ^ a.1 i) * (1 - ∑ i, t i) ^ a.2.1)).sum :=
   rfl
 
+/-- `eval (contractB m P) t` written out: each entry `(a, b, c)` of `P` contributes `c · aₘ! b! /
+(aₘ + b + 1)! · ∏ᵢ tᵢ^{a (m.succAbove i)} · (1 − Σᵢ tᵢ)^{aₘ + b + 1}`.
+-/
 private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t : Fin n → ℝ) :
     eval (contractB m P) t
       = (P.map (fun a => ((a.2.2 * (((a.1 m).factorial * a.2.1.factorial : ℕ) : ℚ)
@@ -560,6 +566,10 @@ private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t 
           * (∏ i, t i ^ a.1 (m.succAbove i)) * (1 - ∑ i, t i) ^ (a.1 m + a.2.1 + 1))).sum := by
   simp only [eval, contractB, List.map_map, Function.comp_def, Fin.removeNth_apply]
 
+/-- Splitting a product over `Fin (n + 1)` at the updated coordinate `m`: `∏ᵢ (log (r[m ↦ u] i) /
+RR)^{a i} = (log u / RR)^{a m} · ∏_{i : Fin n} (log (r (m.succAbove i)) / RR)^{a (m.succAbove
+i)}`.
+-/
 private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) (RR : ℝ)
     (a : Fin (n + 1) → ℕ) :
     ∏ i, (Real.log ((Function.update r m u) i) / RR) ^ a i
@@ -571,6 +581,9 @@ private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n 
   · exact Finset.prod_congr rfl
       (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
 
+/-- Splitting a sum of logarithms at the updated coordinate `m`: `Σⱼ log (r[m ↦ u] j) = log u + Σ_{i
+: Fin n} log (r (m.succAbove i))`.
+-/
 private lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) :
     ∑ j, Real.log ((Function.update r m u j : ℕ) : ℝ)
       = Real.log u + ∑ i : Fin n, Real.log (r (m.succAbove i)) := by

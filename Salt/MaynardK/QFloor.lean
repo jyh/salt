@@ -357,6 +357,12 @@ theorem J1_pos (m : Fin 105) : 0 < ((simplexInt (sq (contractB m F1)) : ℚ) : �
     rw [simplexInt_sq_contractB_F1 m]; exact div_pos hJform hQ
   exact_mod_cast this
 
+/-- The `Qdiag` floor at `k = 105`, coordinate `m`: a threshold `Dthr ≥ 12·105²` such that for
+squarefree `W' > 0` with `PhiUpperAtom W'`, `D ≥ Dthr` below every prime `p ∤ W'`, and `W'/φ(W')
+≤ 5√D`, from some `R₀` on (with `log R ≥ 1`), `(φ(W')/W' · log R)^{106} · simplexInt (sq
+(contractB m F1)) / 2 ≤ Qdiag_mW 105 R W' m (yFg R W' F1)`. `qdiag_floor_gen` at `n = 104`, `P =
+F1`, closed by `J1_pos`.
+-/
 theorem qdiag_floor_105 (m : Fin 105) :
     ∃ Dthr : ℕ, 12 * 105 ^ 2 ≤ Dthr ∧ ∀ W' D : ℕ,
       Squarefree W' → 0 < W' → PhiUpperAtom W' → Dthr ≤ D →
@@ -368,6 +374,11 @@ theorem qdiag_floor_105 (m : Fin 105) :
           ≤ Qdiag_mW 105 R W' m (yFg R W' F1) :=
   qdiag_floor_gen 104 (by norm_num) F1 m yFg_F1_abs_le_one (J1_pos m)
 
+/-- The `hQd` payload at `k = 105`, coordinate `m`: a `CF ≥ 0` and a threshold `Dthr ≥ 12·105²` such
+that for squarefree `W' > 0` with `PhiUpperAtom W'`, `D ≥ Dthr` below every prime `p ∤ W'`, and
+`W'/φ(W') ≤ 5√D`, from some `R₀` on (with `log R ≥ 1`), `(phiAtomSum R W' + lemma53Const · 105 ·
+log R / D)² · (2 · phiAtomSum R W')^{104} ≤ CF · Qdiag_gv 105 R W' m (yFg R W' F1)`.
+-/
 theorem qdiag_cmp_105 (m : Fin 105) :
     ∃ CF : ℝ, 0 ≤ CF ∧ ∃ Dthr : ℕ, 12 * 105 ^ 2 ≤ Dthr ∧ ∀ W' D : ℕ,
       Squarefree W' → 0 < W' → PhiUpperAtom W' → Dthr ≤ D →
@@ -382,6 +393,11 @@ theorem qdiag_cmp_105 (m : Fin 105) :
   rw [hc] at h
   exact h
 
+/-- The S₂ collision floor at `k = 105`, coordinate `m`: a `CF ≥ 0` and a threshold `Dthr ≥ 12·105²`
+such that under the same hypotheses as `qdiag_cmp_105` and `D ≥ 48·105²`, from some `R₀` on,
+`|Qdiag_mW 105 R W' m (yFg R W' F1) − s2CompatFormM 105 R W' m (yFg R W' F1)| ≤ (4 · Cs · CF ·
+105² / D) · Qdiag_mW 105 R W' m (yFg R W' F1)`.
+-/
 theorem s2_collision_floor_105 (m : Fin 105) :
     ∃ CF : ℝ, 0 ≤ CF ∧ ∃ Dthr : ℕ, 12 * 105 ^ 2 ≤ Dthr ∧ ∀ W' D : ℕ,
       Squarefree W' → 0 < W' → PhiUpperAtom W' → Dthr ≤ D →
