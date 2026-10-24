@@ -97,6 +97,9 @@ def FJg (cs : List ((ℕ × ℕ) × ℤ)) : List ((ℕ × ℕ) × ℚ) :=
         ((p.1.1 + 2 * j + 1).factorial : ℕ))
 
 omit [Salt.Maynard.TupleChoice] in
+/-- A `List.range` sum over `ℚ` is the `Finset.range` sum: `((List.range m).map f).sum = Σ_{i < m} f
+i`.
+-/
 lemma list_sum_range_q (f : ℕ → ℚ) (m : ℕ) :
     ((List.range m).map f).sum = ∑ i ∈ Finset.range m, f i := by
   induction m with
@@ -104,6 +107,9 @@ lemma list_sum_range_q (f : ℕ → ℚ) (m : ℕ) :
   | succ m ih => simp [List.range_succ, Finset.sum_range_succ, ih]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The sum over a `flatMap` is the sum of the inner sums: `((l.flatMap g).map f).sum = (l.map fun x
+=> ((g x).map f).sum).sum`.
+-/
 lemma list_sum_flatMap {α β : Type*} (l : List α) (g : α → List β) (f : β → ℚ) :
     ((l.flatMap g).map f).sum = (l.map fun x => ((g x).map f).sum).sum := by
   induction l with
@@ -111,6 +117,9 @@ lemma list_sum_flatMap {α β : Type*} (l : List α) (g : α → List β) (f : �
   | cons a l ih => simp [List.flatMap_cons, List.sum_append, ih]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- A `Finset` sum and a `List` sum commute: `Σ_{e ∈ S} (l.map (h e)).sum = (l.map fun y => Σ_{e ∈
+S} h e y).sum`.
+-/
 lemma finset_list_swap {α ι : Type*} (S : Finset ι) (l : List α) (h : ι → α → ℚ) :
     ∑ e ∈ S, (l.map (h e)).sum = (l.map fun y => ∑ e ∈ S, h e y).sum := by
   induction l with
@@ -257,6 +266,7 @@ theorem simplexInt_sq_contractB {n : ℕ} (m : Fin (n + 1)) (cs : List ((ℕ × 
   exact pair_closed m x.1.1 x.1.2 y.1.1 y.1.2 x.2 y.2
 
 omit [Salt.Maynard.TupleChoice] in
+/-- Every entry `((b, c), q)` of `FJ` has `c ≤ 5`, by `decide`. -/
 lemma FJ_c_le : ∀ u ∈ FJ, u.1.2 ≤ 5 := by decide
 
 omit [Salt.Maynard.TupleChoice] in
