@@ -2064,7 +2064,7 @@ theorem prop21_unconditional (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p�
     exact hg p hp
   have hyXh : y ≤ X + h := by
     have hsqrtle : Real.sqrt X ≤ X := by
-      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith)
+      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith only [hX])
       rwa [Real.sqrt_mul_self (by linarith)] at h1
     linarith
   obtain ⟨C_E, hCE⟩ := mult_shiu_MS_EXIT gtw hgtw
