@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `02a6538c` · source digest `54d482894e74f589` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `fe770de2` · source digest `a65ff008c935e6b6` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6058,9 +6058,9 @@ Declarations indexed across the tree: 23304 · corpus Prop-valued names (the hyp
 | `Salt.MaynardK.Jform_eq` | Salt/MaynardK/JMain.lean:275 | other |
 | `Salt.MaynardK.ratio_cert_105` | Salt/MaynardK/Ratio.lean:25 | other |
 | `Salt.MaynardK.winSlackM105_ev` | Salt/MaynardK/Slack105.lean:324 | other |
-| `Salt.MaynardK.Iform_eq` | Salt/MaynardK/Square.lean:102 | other |
-| `Salt.MaynardK.hSeq_engelsma_le_743` | Salt/MaynardK/Tuple600.lean:108 | other |
-| `Salt.MaynardK.hSeq_engelsma_diam_le_600` | Salt/MaynardK/Tuple600.lean:119 | other |
+| `Salt.MaynardK.Iform_eq` | Salt/MaynardK/Square.lean:124 | other |
+| `Salt.MaynardK.hSeq_engelsma_le_743` | Salt/MaynardK/Tuple600.lean:124 | other |
+| `Salt.MaynardK.hSeq_engelsma_diam_le_600` | Salt/MaynardK/Tuple600.lean:137 | other |
 | `Salt.Mertens.integral_exp_neg_log` | Salt/Mertens/GammaIntegral.lean:34 | sieves |
 | `Salt.Mertens.loglog_integral_asymp` | Salt/Mertens/GammaIntegral.lean:323 | sieves |
 | `Salt.Mertens.neg_log_prod_eq` | Salt/Mertens/PrimePower.lean:130 | sieves |
@@ -9541,7 +9541,7 @@ Declarations indexed across the tree: 23304 · corpus Prop-valued names (the hyp
 | `Salt.MR.vkProfile_const_mul` | Salt/MR/VkTwistClose.lean:411 | characters |
 | `Salt.MR.vkDebitConst_vkEulerCorr` | Salt/MR/VkTwistClose.lean:478 | characters |
 | `Salt.MR.vkStripConst` | Salt/MR/VkTwistStrip.lean:239 | characters |
-| `Salt.MaynardK.engelsmaTuple` | Salt/MaynardK/Tuple600.lean:98 | other |
+| `Salt.MaynardK.engelsmaTuple` | Salt/MaynardK/Tuple600.lean:112 | other |
 | `Salt.SW.coprimeSeries_one` | Salt/SW/GrahamHard2.lean:120 | sieves |
 | `Salt.SW.selbergPsi_apply` | Salt/SW/PseudoChar.lean:122 | sieves, characters |
 | `Salt.SW.hCoef_apply` | Salt/SW/PseudoCharH.lean:81 | sieves, characters |
