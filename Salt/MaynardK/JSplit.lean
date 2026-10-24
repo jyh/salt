@@ -916,7 +916,8 @@ admissible `W'`, `D` (`W'` squarefree and positive, `PhiUpperAtom`, `3 ≤ D`, e
 `∤ W'` above `D`), some `c ≥ 0` with, for `1 ≤ log R`,
 `|Σ_{r ∈ kSieveIndex (n+1) R W', r m = 1} (Σ_{u < R} yFg R W' P (update r m u)/φ(u))²`
 `/ Π_{i ≠ m} gMult (r i) − (φ(W')/W' · log R)^(n+2) · ∫ (contractB m P)²|`
-`≤ c · (1 + φ(W')/W' · log R)^(n+2) / log R`. -/
+`≤ c · (1 + φ(W')/W' · log R)^(n+2) / log R`
+`+ A · (1 + φ(W')/W' · log R + phiAtomSum R W')^(n+2) / D`. -/
 theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (hMain : MvJMainSplitGen n P m) (hIC : InnerContractRelGen n P m) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
