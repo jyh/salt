@@ -27,6 +27,7 @@ variable [Salt.Maynard.TupleChoice]
 def Qsum : ℚ := (F.map fun x => |(x.2 : ℚ)|).sum
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `0 < Qsum`, by `decide +kernel`. -/
 lemma Qsum_pos : 0 < Qsum := by decide +kernel
 
 /-- the normalised Maynard weight. -/
@@ -35,6 +36,8 @@ noncomputable def F1 : BPoly 105 := scale (1 / Qsum) (Fpoly 105 F)
 /-! ## the pointwise bound -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `eval (Fpoly k cs) t` is the sum over the entries `((b, c), a)` of `cs` of
+`a · (1 − Σ t)^b · (Σ t²)^c` (through `eval_flatMap`, `eval_scale` and `eval_basisPoly`). -/
 lemma eval_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k → ℝ) :
     eval (Fpoly k cs) t
       = (cs.map fun x => (x.2 : ℝ) * ((1 - ∑ i, t i) ^ x.1.1 * (∑ i, t i ^ 2) ^ x.1.2)).sum := by
@@ -44,6 +47,8 @@ lemma eval_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k → ℝ)
   rw [eval_scale, eval_basisPoly]; push_cast; ring
 
 omit [Salt.Maynard.TupleChoice] in
+/-- On the simplex (`tᵢ ≥ 0`, `Σ t ≤ 1`) each basis value `(1 − Σ t)^b · (Σ t²)^c` lies in
+`[0, 1]` (`Σ t² ≤ (Σ t)² ≤ 1`). -/
 lemma basis_val_bounds {k : ℕ} (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∑ i, t i ≤ 1) (b c : ℕ) :
     0 ≤ (1 - ∑ i, t i) ^ b * (∑ i, t i ^ 2) ^ c ∧ (1 - ∑ i, t i) ^ b * (∑ i, t i ^ 2) ^ c ≤ 1 := by
   have hs0 : 0 ≤ ∑ i, t i := Finset.sum_nonneg fun i _ => ht0 i
@@ -62,6 +67,8 @@ lemma basis_val_bounds {k : ℕ} (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i) (h
     mul_le_one₀ (pow_le_one₀ hb0 hb1) (pow_nonneg hq0 _) (pow_le_one₀ hq0 hq1)⟩
 
 omit [Salt.Maynard.TupleChoice] in
+/-- On the simplex, `|eval (Fpoly k cs) t| ≤ Σ |a|` over the entries of `cs` (the `ℓ¹` bound:
+each basis value is in `[0, 1]` by `basis_val_bounds`; induction on `cs`). -/
 lemma eval_Fpoly_abs_le {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i)
     (ht1 : ∑ i, t i ≤ 1) :
     |eval (Fpoly k cs) t| ≤ (cs.map fun x => |(x.2 : ℝ)|).sum := by
@@ -102,6 +109,8 @@ theorem eval_F1_abs_le_one (t : Fin 105 → ℝ) (ht0 : ∀ i, 0 ≤ t i) (ht1 :
 /-! ## the two integrals -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The Dirichlet integral of the list square of a scaled polynomial:
+`simplexInt (sq (scale a P)) = a ^ 2 * simplexInt (sq P)` (through `simplexInt_mul`). -/
 lemma simplexInt_sq_scale {k : ℕ} (a : ℚ) (P : BPoly k) :
     simplexInt (sq (scale a P)) = a ^ 2 * simplexInt (sq P) := by
   rw [Salt.Twelve.sq, Salt.Twelve.sq, simplexInt_mul, simplexInt_mul]
@@ -114,6 +123,8 @@ lemma simplexInt_sq_scale {k : ℕ} (a : ℚ) (P : BPoly k) :
   ring
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The `t_m`-contraction commutes with scaling:
+`contractB m (scale a P) = scale a (contractB m P)`. -/
 lemma contractB_scale {n : ℕ} (m : Fin (n + 1)) (a : ℚ) (P : BPoly (n + 1)) :
     contractB m (scale a P) = scale a (contractB m P) := by
   unfold contractB scale
@@ -123,6 +134,9 @@ lemma contractB_scale {n : ℕ} (m : Fin (n + 1)) (a : ℚ) (P : BPoly (n + 1)) 
   ring
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `Fpoly k cs` written out as one `flatMap`: for each entry `((b, c), a)` of `cs`, the
+monomials `(2e, b, a · multinomial e)` over `e ∈ piAntidiag univ c` (the `scale`/`basisPoly`
+composition, `rfl` after unfolding). -/
 lemma Fpoly_eq {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) :
     Fpoly k cs = cs.flatMap fun x => (piAntidiag (univ : Finset (Fin k)) x.1.2).toList.map fun e =>
       ((fun i => 2 * e i), x.1.1, (x.2 : ℚ) * (Nat.multinomial univ e : ℕ)) := by
@@ -158,12 +172,17 @@ theorem simplexInt_sq_Fpoly {k : ℕ} (cs : List ((ℕ × ℕ) × ℤ)) :
   rw [Finset.sum_congr rfl h1, ← Finset.mul_sum, hconv]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The first integral: `simplexInt (sq F1) = Iform / Qsum ^ 2`, through `simplexInt_sq_scale`,
+`simplexInt_sq_Fpoly` and `Iform_eq`. -/
 theorem simplexInt_sq_F1 : simplexInt (sq F1) = Iform / Qsum ^ 2 := by
   unfold F1
   rw [simplexInt_sq_scale, simplexInt_sq_Fpoly, ← Iform_eq]
   field_simp
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The second integral, at every `m : Fin 105`:
+`simplexInt (sq (contractB m F1)) = Jform / Qsum ^ 2`, through `contractB_scale`,
+`simplexInt_sq_scale` and `Jform_eq m`. -/
 theorem simplexInt_sq_contractB_F1 (m : Fin 105) :
     simplexInt (sq (contractB m F1)) = Jform / Qsum ^ 2 := by
   unfold F1

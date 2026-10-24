@@ -38,12 +38,18 @@ def pmul (a : List ℕ) : List ℕ :=
 /-- `T_k`. -/
 def T (k : ℕ) : List ℕ := Nat.iterate pmul k (1 :: List.replicate 11 0)
 
+/-- The table `T 105` as a literal: the twelve coefficients `[x^c] (Σ_j (2j)!/j! xʲ)^105`,
+`c ≤ 11`; `T105_eq` pins it to the computed `T 105`. -/
 def T105 : List ℕ := [1, 210, 23100, 1774360, 107061360, 5413048032, 238944301120, 9475939175040,
     344896263129600, 11717241583989760, 376857954396198912, 11621414455752192000]
+/-- The table `T 104` as a literal, the same twelve coefficients at `k = 104`; `T104_eq` pins
+it. -/
 def T104 : List ℕ := [1, 208, 22672, 1726400, 103309856, 5182611200, 227087148288, 8943434732544,
     323417467666176, 10922337815633920, 349406131256565760, 10724133611951718400]
 
+/-- The computed table equals its literal: `T 105 = T105`, by `decide +kernel`. -/
 theorem T105_eq : T 105 = T105 := by decide +kernel
+/-- The computed table equals its literal: `T 104 = T104`, by `decide +kernel`. -/
 theorem T104_eq : T 104 = T104 := by decide +kernel
 
 /-- `∫_{R_k} (1−P₁)^b P₂^c` given the table `t = T_k`. -/
@@ -74,6 +80,10 @@ def F : List ((ℕ × ℕ) × ℤ) := [((0, 0), -14878002984396692), ((1, 0), -7
     92334598300765250552037563595), ((0, 5), 5199130177018003171634154), ((1, 5),
     2014328343490094750760940898)]
 
+/-- `I = ∫_{R₁₀₅} F²` as the certificate computes it: the double sum, over pairs of entries
+`((b, c), a)`, `((b', c'), a')` of `F`, of `a·a' · intg T105 105 (b + b') (c + c')` — a rational
+the kernel evaluates in `M105_gt_four` (`Iform_eq` in `Square` identifies it with
+`simplexInt (Fsq 105 F)`). -/
 def Iform : ℚ :=
   (F.map fun p => (F.map fun p' =>
     ((p.2 * p'.2 : ℤ) : ℚ) * intg T105 105 (p.1.1 + p'.1.1) (p.1.2 + p'.1.2)).sum).sum
@@ -87,6 +97,9 @@ def innerF : List ((ℕ × ℕ) × ℚ) :=
           ((p.1.1 + 2 * j + 1).factorial : ℕ)
       else 0).sum).sum)
 
+/-- `J = ∫_{R₁₀₄} (∫ F dt₁₀₅)²` as the certificate computes it: the double sum, over pairs of
+entries `((e, g), q)`, `((e', g'), q')` of `innerF`, of `q·q' · intg T104 104 (e + e') (g + g')`
+— a rational the kernel evaluates in `M105_gt_four`. -/
 def Jform : ℚ :=
   (innerF.map fun p => (innerF.map fun p' =>
     p.2 * p'.2 * intg T104 104 (p.1.1 + p'.1.1) (p.1.2 + p'.1.2)).sum).sum
@@ -102,7 +115,9 @@ def H : List ℕ := [0, 2, 6, 8, 12, 18, 26, 30, 32, 42, 48, 50, 56, 62, 72, 86,
     450, 452, 468, 470, 476, 480, 488, 498, 506, 512, 516, 518, 536, 540, 546, 548, 552, 572, 576,
     578, 582, 590, 600, 602, 608, 618, 630, 636]
 
+/-- `H` has `105` entries, by `decide +kernel`. -/
 theorem H_length : H.length = 105 := by decide +kernel
+/-- `H` runs from `0` to `636` (its first entry is `0`, its last `636`), by `decide +kernel`. -/
 theorem H_diam : H.getLast? = some 636 ∧ H.head? = some 0 := by decide +kernel
 /-- admissible: for every prime `p ≤ 105` some residue class mod `p` is missed. -/
 theorem H_admissible : ∀ p ∈ (List.range 106).filter (fun p => decide (Nat.Prime p)),
@@ -120,7 +135,10 @@ def H600 : List ℕ := [
   442, 444, 450, 454, 462, 468, 472, 478, 484, 490, 492, 498, 504, 510, 528, 532, 534, 538,
   544, 558, 562, 570, 574, 580, 582, 588, 594, 598, 600]
 
+/-- `H600` has `105` entries, by `decide +kernel`. -/
 theorem H600_length : H600.length = 105 := by decide +kernel
+/-- `H600` runs from `0` to `600` (its first entry is `0`, its last `600`), by
+`decide +kernel`. -/
 theorem H600_diam : H600.getLast? = some 600 ∧ H600.head? = some 0 := by decide +kernel
 /-- admissible: for every prime `p ≤ 105` some residue class mod `p` is missed. -/
 theorem H600_admissible : ∀ p ∈ (List.range 106).filter (fun p => decide (Nat.Prime p)),
