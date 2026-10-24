@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `e3872b08` · source digest `9ed8e523f0c51b24` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `fb60fcc3` · source digest `55a27a2eb20d7383` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -184,7 +184,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.Chen.chen_weight_le_indicator` | Salt/Chen/WeightTrivia.lean:378 | `Salt.Chen.IsP2` |
 | case split `by_cases` | `Salt.Fulcrum.fulcrum_dichotomy` | Salt/Fulcrum/Dichotomy.lean:105 | `Salt.Fulcrum.FulcrumQualityMin` |
 | case split `by_cases` | `Salt.Goldbach.goldTriplePrimeSumW_le_sifted` | Salt/Goldbach/Asm5.lean:64 | `Salt.Chen.TripleP` |
-| case split `by_cases` | `Salt.Goldbach.goldSymRectCount_eq_card` | Salt/Goldbach/BandIdent.lean:720 | `Salt.Goldbach.goldCwin` |
+| case split `by_cases` | `Salt.Goldbach.goldSymRectCount_eq_card` | Salt/Goldbach/BandIdent.lean:723 | `Salt.Goldbach.goldCwin` |
 | case split `by_cases` | `Salt.Goldbach.gold_diagSum_eq_card` | Salt/Goldbach/PDiag.lean:70 | `Salt.Goldbach.goldCwin` |
 | case split `by_cases` | `Salt.Goldbach.gold_diagSum_le_diagSum_true` | Salt/Goldbach/PDiag.lean:79 | `Salt.Goldbach.goldCwin` |
 | case split `by_cases` | `Salt.Goldbach.gold_diagAggW_le_honest` | Salt/Goldbach/PDiag.lean:283 | `Salt.Goldbach.goldCwin` |
