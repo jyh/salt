@@ -78,7 +78,7 @@ theorem gold_nu_sum_le_log : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     linarith [hstep1, hy_le]
   have hprod : (0 : ℝ) ≤ Real.log N * (Real.log (w0R opEps) - 2 / 3) :=
     mul_nonneg hLnn (by linarith [hlogw2])
-  nlinarith [hnum, hprod]
+  linarith only [hprod, hstep1, hy_le]
 
 /-! ## §B — the diagonal price row (r9) -/
 
