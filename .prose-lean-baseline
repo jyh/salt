@@ -13,15 +13,6 @@ fdc8cbfdc3c2	docs/CAMPAIGNS.md	shape
 33cb5f27cb4e	docs/CERT-ANCHORS-0811.md	shape
 0d416d8694df	docs/METHODS.md	shape
 567cebd0fedc	docs/OPERATIONS.md	shape
-074fe98320df	docs/QUEUE.md	shape
-494a7bb1b561	docs/QUEUE.md	shape
-63d3846ace82	docs/QUEUE.md	shape
-6d9b512833a8	docs/QUEUE.md	shape
-8c34e5c60e64	docs/QUEUE.md	shape
-b3b9ec1b1fe1	docs/QUEUE.md	shape
-cd28d92ded6b	docs/QUEUE.md	shape
-d95dd56af6bb	docs/QUEUE.md	shape
-deca6e33fbf9	docs/QUEUE.md	shape
 25efb68194aa	docs/RESULTS.md	shape
 7ad4fca28a33	docs/RESULTS.md	shape
 bbcc2b509fbb	docs/RESULTS.md	shape
@@ -131,10 +122,6 @@ bfa308582879	scripts/search/README.md	predates
 1ccdafb07cd9	README.md	lexicon-e2
 9bac3a7764a9	README.md	lexicon-e2
 a91cf1f064a1	README.md	lexicon-e2
-15615b957b26	docs/QUEUE.md	lexicon-e2
-16072c4eccae	docs/QUEUE.md	lexicon-e2
-42fde0677e13	docs/QUEUE.md	lexicon-e2
-5eb888923e21	docs/QUEUE.md	lexicon-e2
 15a35870bd01	docs/RESULTS.md	lexicon-e2
 15f519d25290	docs/RESULTS.md	lexicon-e2
 19b57e1d1358	docs/RESULTS.md	lexicon-e2
