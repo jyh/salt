@@ -37,3 +37,5 @@ o13-2026-10-24-12	docs/RESULTS.md	b3efc31cdea4	Salt/Parity/Z.lean::sufficient_tr
 o13-2026-10-24-13	docs/RESULTS.md	a0cd1cc3701a	Salt/MR/ThmA2Rows.lean::thm_a2'	5f4d66b68a37	math	paper	2026-10-24
 o13-2026-10-24-14	docs/RESULTS.md	7bb09e185f13	Salt/MR/S16FlatFinal.lean::logChowla2_witnessed_scale_flat_L_v2	6285b2967c71	math	paper	2026-10-24
 o13-2026-10-24-15	docs/RESULTS.md	6514d710310a	Salt/MR/XThread.lean::logChowla2_ineffective_v5	63c50b216e47	math	paper	2026-10-24
+o13-2026-10-24-16	docs/RESULTS.md	62ac5f5b31ec	Salt/Chen/LinearSieve.lean::linear_sieve_upper_chain	23fe703616c5	math	paper	2026-10-24
+o13-2026-10-24-17	docs/RESULTS.md	b2d4e8f4dbd5	Salt/Chen/LinearSieve.lean::linear_sieve_lower_chain	19c1fb023fbb	math	paper	2026-10-24
