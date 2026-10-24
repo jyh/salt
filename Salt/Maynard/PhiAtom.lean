@@ -26,10 +26,10 @@ coprime harmonic sum, which is bounded below by block counting (`φ(B)` coprime
 residues per length-`B` block, via `Salt.Brun.CongruenceCounting.block_count`)
 plus `harmonic q ≥ log (q+1)`.
 
-Route (upper): the finite identity `r/φ(r) = ∑_{d ∣ r} μ²(d)/φ(d)` (squarefree
-`r`; proved via the powerset expansion `∏(1 + 1/(p−1))`) turns `1/φ(r)` into
-`∑_{de = r} 1/(d·e·φ(d))`; summing over `r` and relaxing the pair set to a
-product gives `phiAtomSum x B ≤ (∑_{d<x sqfree} 1/(dφ(d)))·(coprime harmonic)`.
+Route (upper): the bound `r/φ(r) ≤ ∑_{d ∣ r} 1/φ(d)` (squarefree `r`, `sum_divisors_inv_totient_ge`)
+bounds `1/φ(r)` by `∑_{de = r} 1/(d·e·φ(d))` (`inv_totient_le_sum_antidiag`); summing over `r`
+and relaxing the pair set to a product gives `phiAtomSum_le_mul`,
+`phiAtomSum x B ≤ (∑_{d ∈ sqfCop x B} 1/(dφ(d)))·(coprime harmonic)`.
 The first factor is `≤ 1 + 2√2 ≤ 4` since `d ≤ 2φ(d)²` for squarefree `d`
 (telescoping `∑ 1/(d√d) ≤ 2`), the second is `≤ (φ(B)/B)log x + C_B` by block
 counting. The exact-constant upper bound would need the tail cancellation
@@ -943,7 +943,7 @@ theorem phiAtom_upper_fallback (B : ℕ) (hB : B ≠ 0) :
 -- its own, out of scope for this probe.
 --
 -- What IS proved instead (this file): the same pair expansion kept *finite*
--- via the divisor identity `r/φ(r) = ∑_{d ∣ r} 1/φ(d)` (squarefree `r`),
+-- via `r/φ(r) ≤ ∑_{d ∣ r} 1/φ(d)` (squarefree `r`, `sum_divisors_inv_totient_ge`),
 -- giving the factorized bound
 -- `phiAtomSum x B ≤ (∑_{d<x sqfree} 1/(dφ(d))) · (∑_{e<x, (e,B)=1} 1/e)`
 -- with `∑ 1/(dφ(d)) ≤ 1 + 2√2 ≤ 4`.  The true value of that factor is

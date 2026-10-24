@@ -202,7 +202,7 @@ lemma omega_prime {p : ℕ} (hp : p.Prime) : omega p = 1 := by
 contributes at most a factor of `2` to `rho` (by `rho_two`/`rho_odd_prime`),
 and `rho` is multiplicative on the (pairwise coprime) distinct prime factors
 of a squarefree number. Part 1 (`|rem d| ≤ rho d`) is `progression_count_bound`
-above, once `rem` is instantiated against the eventual sieve (N2.6). -/
+above, once `rem` is instantiated against the sieve (N2.6, `Salt/Brun/Sieve.lean`). -/
 theorem rho_squarefree_le : ∀ d : ℕ, Squarefree d → rho d ≤ 2 ^ omega d := by
   intro d
   induction d using Nat.strong_induction_on with
@@ -231,8 +231,8 @@ theorem rho_squarefree_le : ∀ d : ℕ, Squarefree d → rho d ≤ 2 ^ omega d 
       exact Nat.mul_le_mul hrhop hind
 
 /-- The error in approximating the count of `n ∈ Icc 1 N` with `d ∣ n(n+2)`
-by its expected value `N * rho d / d` (the sieve's `rem`, before an actual
-`SelbergSieve` instance exists to state it via `s.rem` — see N2.6). -/
+by its expected value `N * rho d / d` (the sieve's `rem`, stated without the `SelbergSieve`
+instance that `Salt/Brun/Sieve.lean` (N2.6) builds later, so not via `s.rem`). -/
 noncomputable def rem (d N : ℕ) : ℝ :=
   (((Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2))).card : ℝ) - N * rho d / d
 
