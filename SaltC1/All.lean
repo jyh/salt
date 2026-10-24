@@ -8,6 +8,7 @@ import SaltC1.MaynardK.Bridge54
 import SaltC1.MaynardK.All
 import SaltC1.MaynardK.Tuple54
 import SaltC1.MaynardK.Gaps270
+import SaltC1.MaynardK.SiegelFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -24,3 +25,8 @@ Nothing here bears on twin primes.
 -- build here.
 open Salt.Tactic in
 #audit_axioms SaltC1.MaynardK.maynard_54_tuple270 SaltC1.MaynardK.gaps_le_270
+
+-- From a Siegel standoff and from the 7/8 statement (SiegelFree), by proof terms that do not use
+-- Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms SaltC1.MaynardK.gaps_le_270_of_standoff SaltC1.MaynardK.gaps_le_270_of_sevenEighths
