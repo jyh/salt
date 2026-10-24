@@ -208,7 +208,7 @@ lemma H1door_two {M : ℕ} (hM : 1 ≤ M) : 2 ≤ H1door M := by
     mul_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _)
   have hlog2le : Real.log 2 ≤ 1 := by linarith [Real.log_two_lt_d9]
   have hshrink : (8 : ℝ) * ((M : ℝ) * ((Adoor M : ℕ) : ℝ) * Real.log 2)
-      ≤ (8 : ℝ) * ((M : ℝ) * ((Adoor M : ℕ) : ℝ)) := by nlinarith
+      ≤ (8 : ℝ) * ((M : ℝ) * ((Adoor M : ℕ) : ℝ)) := by nlinarith only [hMA0, hlog2le]
   have hexpgrow : (2 : ℝ) ^ (2 * Nat.log 2 M + 41) ≤ (2 : ℝ) ^ Kdoor M :=
     pow_le_pow_right₀ (by norm_num) (by simp only [Kdoor]; omega)
   have hfinal : (2 : ℝ) ^ (3 : ℕ) * Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)
@@ -393,7 +393,7 @@ private lemma level1_shape {Ha Lq Pq R : ℝ} (hH2 : 2 ≤ Ha) (hLq : 1 ≤ Lq)
     have hc2 : (0 : ℝ) ≤ 60 * (Ha / (1 / 8 : ℝ)) := by linarith
     linarith [mul_nonneg hc1 (Real.exp_pos ((3 / 4 : ℝ) / Ha)).le,
       mul_nonneg hc2 (Real.exp_pos ((1 / 2 : ℝ) / Ha)).le]
-  have hHL : (1 : ℝ) ≤ Ha * Lq := by nlinarith
+  have hHL : (1 : ℝ) ≤ Ha * Lq := by nlinarith only [hH2, hLq]
   have key : 2 * (Ha * Lq + 1)
         * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
             + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha))
