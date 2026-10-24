@@ -140,6 +140,10 @@ def WinSlackM105 (D : ℕ) (C₀ : ℝ) (N' : ℕ) : Prop :=
 
 /-! ## `winFrontierMW105_of` — the discharge modulo the slack hypothesis (LEVEL route) -/
 
+/-- The frontier at `k = 105` and level `1/2`, discharged modulo the slack hypothesis: for a cutoff
+`D ≥ 744`, a tuple whose 105 entries are all `≤ 743`, and `WinSlackM105 D C₀ N'` holding
+eventually in `N'` for every `C₀ ≥ 0`, `WinFrontierMW105 D` holds.
+-/
 theorem winFrontierMW105_of (D : ℕ) (hD : 744 ≤ D) (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743)
     (hslackEv : ∀ C₀ : ℝ, 0 ≤ C₀ → ∀ᶠ N' : ℕ in atTop, WinSlackM105 D C₀ N') :
     WinFrontierMW105 D := by

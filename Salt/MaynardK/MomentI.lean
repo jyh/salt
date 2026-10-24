@@ -18,6 +18,12 @@ open Finset Salt.Twelve Salt.Maynard
 
 namespace Salt.MaynardK
 
+/-- The sieve's first moment of Maynard's `F²` at `k = 105`: for squarefree `W' > 0` with
+`PhiUpperAtom W'`, a `c ≥ 0` such that for `D ≥ 3` below every prime `p ∤ W'` and `log R ≥ 1`,
+the sieve sum of `F(log rᵢ / log R)² / ∏ φ(rᵢ)` is within `c (1 + φ(W')/W' · log R)^{105} (1/log
+R + 1/D)` of `(φ(W')/W' · log R)^{105} · Iform` — `mv_I_gen` on `Fsq 105 F`, rewritten by
+`eval_Fsq` and `Iform_eq`.
+-/
 theorem mv_I_105 (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (hUpper : PhiUpperAtom W') :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
       (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 1 ≤ Real.log R →

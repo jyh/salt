@@ -21,6 +21,11 @@ set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The S₁ collision bound for a bounded, sieve-supported weight at any `k ≥ 1`: with `|y| ≤ 1`, `y
+= 0` off `kSieveIndex k R W'`, every prime `p ∤ W'` above `D`, and `12k² ≤ D`, `|s1CollisionForm
+k R W' y| ≤ (12k²/D) · Σ_{r ∈ kSieveIndex k R W'} 1/∏ᵢ φ(rᵢ)`. `Salt.Twelve.collision_yF_M` (k =
+5) with its route to `|y| ≤ 1` replaced by the hypothesis.
+-/
 theorem collision_y_M (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (hk : 1 ≤ k)
     (hy1 : ∀ r, |y r| ≤ 1) (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
     (hDlt : ∀ p, p.Prime → ¬p ∣ W' → D < p) (hDk : 12 * k ^ 2 ≤ D) :
