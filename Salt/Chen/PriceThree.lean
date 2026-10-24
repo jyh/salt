@@ -161,7 +161,7 @@ theorem maxBlock_eq_zero_of_eps_self {x z : ℕ} (hz : 1 ≤ z) (hx : 1 ≤ x) :
   have hxz_pos : (0 : ℝ) < (x : ℝ) / (z : ℝ) := div_pos hxpos (by linarith)
   have hxz_le : (x : ℝ) / (z : ℝ) ≤ (x : ℝ) := by
     rw [div_le_iff₀ (by linarith : (0 : ℝ) < (z : ℝ))]
-    nlinarith [hxR, hzR]
+    nlinarith only [hzR, Mathlib.Tactic.Linarith.natCast_nonneg ℝ x]
   calc Real.log ((x : ℝ) / (z : ℝ)) ≤ Real.log (x : ℝ) := Real.log_le_log hxz_pos hxz_le
     _ < Real.log (1 + (x : ℝ)) := Real.log_lt_log hxpos (by linarith)
 

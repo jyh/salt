@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2f217766` · source digest `bfc106872d479ed7` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `9dc067c4` · source digest `f6391ee730f01bff` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9109 | 9054 | 9053 | 1 | 0 | 55 |
+| 26 | 24 | 9111 | 9056 | 9055 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
-| conditional | 1583 | 26 | 207 | 1376 | 94 | 24 | 13 |
+| conditional | 1585 | 26 | 209 | 1376 | 94 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9054 | 322 | 2353 | 6565 | 529 | 466 | 55 |
+| **all** | 9056 | 322 | 2355 | 6565 | 529 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -124,7 +124,7 @@ Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hyp
 | `Salt.MR.DoorRowZeroBase_L_gk` | 35 |
 | `Salt.MR.GRowsZeroGate'''_L_gk` | 31 |
 | `Salt.MR.SeamCoefW` | 31 |
-| `Salt.SW.NoSiegelZerosAt` | 30 |
+| `Salt.SW.NoSiegelZerosAt` | 31 |
 | `Salt.MR.collisionGate` | 29 |
 | `Salt.MR.XiFamily` | 28 |
 | `Salt.MR.SocketBase` | 27 |
@@ -169,6 +169,7 @@ Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hyp
 | `Salt.MR.A2Frame` | 9 |
 | `Salt.MR.DoorCapBasePerBlock_L_gk` | 9 |
 | `Salt.MR.DoorRowCarriedT0` | 9 |
+| `Salt.TwinBar.DirichletSevenEighths` | 9 |
 | `Salt.BrunLower.chi` | 8 |
 | `Salt.Chen.StepHypWP` | 8 |
 | `Salt.Entropy.Chowla.PairCollapse` | 8 |
@@ -177,7 +178,6 @@ Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hyp
 | `Salt.MR.M4DoorGates_L` | 8 |
 | `Salt.MR.MRTBands` | 8 |
 | `Salt.MR.PocketSocket` | 8 |
-| `Salt.TwinBar.DirichletSevenEighths` | 8 |
 | `FiniteRange` | 7 |
 | `Salt.Entropy.Chowla.PmNormalized` | 7 |
 | `Salt.HB.CoprimeSupport` | 7 |
@@ -7281,7 +7281,7 @@ Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1583)
+## conditional (1585)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -8806,6 +8806,7 @@ Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hyp
 | `Salt.Parity.sufficient_true_not_parityInv` | Salt/Parity/Z.lean:678 | sieves | `Salt.Parity.TwinSufficient` |
 | `Salt.Parity.Z_implies_TPC` | Salt/Parity/Z.lean:693 | sieves | `Salt.Parity.Z` |
 | `Salt.SW.estermannPositivity_of_interface` | Salt/SW/Estermann.lean:288 | sieves | `Salt.SW.EstermannInterface` |
+| `Salt.SW.bounded_gaps_of_standoff` | Salt/SW/GapsStandoff.lean:33 | sieves | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.SW.card_system_le_rpow` | Salt/SW/JutilaRatio.lean:347 | sieves, characters | `Salt.SW.WellSpacedAt` |
 | `Salt.SW.estermann_fourfold` | Salt/SW/Siegel.lean:190 | sieves, characters | `Salt.SW.EstermannPositivity` |
 | `Salt.SW.goldfeld_L_one_lower` | Salt/SW/Siegel.lean:286 | sieves, characters | `Salt.SW.EstermannPositivity` |
@@ -8830,12 +8831,13 @@ Declarations indexed across the tree: 23291 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
 | `Salt.TwinBar.noSiegelZeros_of_sevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:42 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.bounded_gaps_of_sevenEighths` | Salt/TwinBar/SevenEighthsGaps.lean:31 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:61 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:68 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:75 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:82 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:87 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:60 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:67 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:74 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:81 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:86 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.siegelSequence_implies_infinitely` | Salt/TwinBar/SiegelCorr.lean:64 | sieves | `Salt.TwinBar.SiegelSequence` |
 | `Salt.TwinBar.corrWindow_box` | Salt/TwinBar/SiegelCorr.lean:96 | sieves | `Salt.TwinBar.CorrWindow` |
 | `Salt.TwinBar.residue_lower` | Salt/TwinBar/SiegelCorr.lean:144 | sieves | `Salt.TwinBar.CorrWindow` |
