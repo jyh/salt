@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b6a04f66` · source digest `cde9a42186034277` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `2f643089` · source digest `16d17f8fbb278a37` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6055,9 +6055,9 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.MaynardK.gaps_le_600` | Salt/MaynardK/Gaps600.lean:41 | other |
 | `Salt.MaynardK.maynard_105` | Salt/MaynardK/Gaps636.lean:35 | other |
 | `Salt.MaynardK.gaps_le_636` | Salt/MaynardK/Gaps636.lean:40 | other |
-| `Salt.MaynardK.Jform_eq` | Salt/MaynardK/JMain.lean:265 | other |
-| `Salt.MaynardK.ratio_cert_105` | Salt/MaynardK/Ratio.lean:22 | other |
-| `Salt.MaynardK.winSlackM105_ev` | Salt/MaynardK/Slack105.lean:316 | other |
+| `Salt.MaynardK.Jform_eq` | Salt/MaynardK/JMain.lean:275 | other |
+| `Salt.MaynardK.ratio_cert_105` | Salt/MaynardK/Ratio.lean:25 | other |
+| `Salt.MaynardK.winSlackM105_ev` | Salt/MaynardK/Slack105.lean:324 | other |
 | `Salt.MaynardK.Iform_eq` | Salt/MaynardK/Square.lean:102 | other |
 | `Salt.MaynardK.hSeq_engelsma_le_743` | Salt/MaynardK/Tuple600.lean:108 | other |
 | `Salt.MaynardK.hSeq_engelsma_diam_le_600` | Salt/MaynardK/Tuple600.lean:119 | other |

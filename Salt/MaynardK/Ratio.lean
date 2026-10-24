@@ -19,10 +19,19 @@ ratio is `4.0010561`, the certificate gives `4.0015`. `Iform_pos`: `0 < Iform`.
 
 namespace Salt.MaynardK
 
+/-- The ratio certificate at `k = 105`: `40015 · Iform < 10000 · (105 · Jform)`, i.e. `M₁₀₅ =
+105·Jform/Iform > 4.0015`, by kernel reduction.
+-/
 theorem ratio_cert_105 : (40015 : ℚ) * Iform < 10000 * (105 * Jform) := by decide +kernel
 
+/-- `0 < Iform`, by kernel reduction. -/
 theorem Iform_pos : 0 < Iform := by decide +kernel
 
+/-- The window-PNT slack algebra at `k = 105`, over real atoms: from `0 < I`, the certificate `40015
+· I < 10000 · SJ`, the pin `15746/1000 · Nr ≤ δ · logR`, `0 < Nr` and `eps ≤ 1/100000`, `63 · Nr
+· (1 + eps) · I < δ · logR · SJ` (the ratio needed is `4.0010561`; the certificate gives
+`4.0015`).
+-/
 theorem win_ratio_core_105 (Nr δ logR I SJ eps : ℝ)
     (hIpos : 0 < I) (hSJcert : (40015 : ℝ) * I < 10000 * SJ)
     (hDL : (15746 / 1000 : ℝ) * Nr ≤ δ * logR)

@@ -28,9 +28,11 @@ variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 
+/-- `gMult 1 = 1`, in `ℝ`. -/
 private lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
   simp [gMult, Nat.primeFactors_one]
 
+/-- `phiAtomSum` is a sum of nonnegative terms. -/
 private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg (fun x _ => by positivity)
@@ -131,6 +133,9 @@ theorem absInn_le_pas_gen (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → �
         marked_sqf_phi_rel W' hW' hpos 0 1 R one_pos hR
     _ = Salt.Maynard.phiAtomSum R W' := by simp
 
+/-- A product over `Finset.univ.erase m` in `Fin (n + 1)` is the product over `Fin n` through
+`m.succAbove`: `∏_{i ≠ m} F i = ∏_{j : Fin n} F (m.succAbove j)`.
+-/
 private lemma erase_prod_removeNth_e4 {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1))
     (F : Fin (n + 1) → M) :
     ∏ i ∈ Finset.univ.erase m, F i = ∏ j : Fin n, F (m.succAbove j) := by

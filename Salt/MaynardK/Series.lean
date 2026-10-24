@@ -48,22 +48,30 @@ theorem symCollect (k b c : ℕ) :
 
 /-! ## B1(b): the C1 certificate's list table IS `[x^n] G^k` (n ≤ 11) -/
 
+/-- `((List.range m).map f).getD n d = f n` for `n < m`. -/
 lemma getD_map_range {β : Type*} (f : ℕ → β) (m n : ℕ) (d : β) (h : n < m) :
     ((List.range m).map f).getD n d = f n := by
   simp [List.getD_eq_getElem?_getD, h]
 
+/-- A `List.range` sum over `ℕ` is the `Finset.range` sum: `((List.range m).map f).sum = Σ_{i < m} f
+i`.
+-/
 lemma list_sum_range (f : ℕ → ℕ) (m : ℕ) :
     ((List.range m).map f).sum = ∑ i ∈ Finset.range m, f i := by
   induction m with
   | zero => simp
   | succ m ih => simp [List.range_succ, Finset.sum_range_succ, ih]
 
+/-- The table `g`'s entry at `j < 12`, in `ℚ`: `(2j)! / j!`. -/
 lemma g_getD (j : ℕ) (h : j < 12) :
     ((g.getD j 0 : ℕ) : ℚ) = (((2 * j)! : ℕ) : ℚ) / ((j ! : ℕ) : ℚ) := by
   unfold g
   rw [getD_map_range _ _ _ _ h, Nat.cast_div (Nat.factorial_dvd_factorial (by omega))
     (by exact_mod_cast (Nat.factorial_pos _).ne')]
 
+/-- B1(b): the certificate's list table is the power series' coefficient: `(T k).getD n 0 = [xⁿ]
+G^k` for `n < 12`.
+-/
 theorem T_eq_coeff (k : ℕ) : ∀ n, n < 12 → (((T k).getD n 0 : ℕ) : ℚ) = coeff n (G ^ k) := by
   induction k with
   | zero =>

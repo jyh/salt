@@ -37,10 +37,12 @@ open Salt.Maynard Salt.Twelve Salt.MaynardK
 def one105 : BPoly 105 := [(0, 0, 1)]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The constant budget polynomial `one105 = [(0, 0, 1)]` evaluates to `1`. -/
 lemma eval_one105 (t : Fin 105 → ℝ) : eval one105 t = 1 := by
   simp [eval, one105]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `0 ≤ simplexInt one105`, in `ℝ`. -/
 lemma simplexInt_one105_nonneg : (0 : ℝ) ≤ ((simplexInt one105 : ℚ) : ℝ) := by
   have h : (0 : ℚ) ≤ simplexInt one105 := by
     simp only [simplexInt, one105, DInt', List.map_cons, List.map_nil, List.sum_cons,
@@ -49,6 +51,7 @@ lemma simplexInt_one105_nonneg : (0 : ℝ) ≤ ((simplexInt one105 : ℚ) : ℝ)
   exact_mod_cast h
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `phiAtomSum` is a sum of nonnegative terms. -/
 lemma pas_nonneg105 (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg fun r _ => by positivity
@@ -313,6 +316,11 @@ set_option maxHeartbeats 10000000 in
 -- The endgame assembly threads ~40 named bounds into `slack_closure_105`; the large local
 -- context (105-indexed `choose`s, the `∀ᶠ` bundle) makes elaboration heartbeat-heavy. Same
 -- budget as the k = 5 template.
+/-- The slack discharge at `k = 105`: for a tuple whose 105 entries are all `≤ 743`, a cutoff `D₀ ≥
+744` such that for every `D ≥ D₀` and every `C₀ ≥ 0`, `WinSlackM105 D C₀ N'` holds for all large
+`N'`. Mirror of `winSlackM_ev` (k = 5) with window exponent `9999/40000`, level `1/2`, `c_DL =
+15746/1000`, `ε = 1/1000`, weight `F1`, certificate `ratio_cert_105`.
+-/
 theorem winSlackM105_ev (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) :
     ∃ D₀ : ℕ, 744 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D →
     ∀ C₀ : ℝ, 0 ≤ C₀ → ∀ᶠ N' : ℕ in atTop, WinSlackM105 D C₀ N' := by
