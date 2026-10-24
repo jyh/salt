@@ -2951,9 +2951,9 @@ theorem dh_repulsion_tall_of_floor {c₀ : ℝ} (hc₀pos : 0 < c₀) (hc₀le1 
 /-- **⟦B1a⟧ — THE DEURING–HEILBRONN REPULSION AT `k = 1`, OFF A ZERO-FREE-REGION FLOOR.**
 
 `dh_repulsion_tall` re-cut at the operating point `(a, m, b, k) = (51, 12, 215, 1)`: the
-`L₂ = log q(|Im ρ|+2) + 2` power in the denominator is **`k = 1`**, not `14`, at the price of the
-`Q`-exponent `b = 215` (up from `680`) — the S4 exchange, `log Q + 2 ≤ Q^{9/10}`, spent once per
-row through the four `_k1` twins.
+`L₂ = log q(|Im ρ|+2) + 2` power in the denominator is **`k = 1`**, not `14`, and the `Q`-exponent
+is `b = 215`, below `dh_repulsion_tall`'s `680` (a smaller `b` is the stronger bound) — the S4
+exchange, `log Q + 2 ≤ Q^{9/10}`, spent once per row through the four `_k1` twins.
 
 Two interface changes, both forced by the re-cut and both honest:
 
