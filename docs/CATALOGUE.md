@@ -1,26 +1,26 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c835fb1f` · source digest `9470b308b56ed64f` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `67476e60` · source digest `86120e52a157692e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9171 | 9116 | 9115 | 1 | 0 | 55 |
+| 26 | 24 | 9178 | 9123 | 9122 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
 | unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
-| conditional | 1645 | 26 | 213 | 1428 | 103 | 24 | 13 |
+| conditional | 1652 | 26 | 213 | 1435 | 103 | 24 | 13 |
 | statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
 | infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9116 | 322 | 2359 | 6617 | 538 | 466 | 55 |
+| **all** | 9123 | 322 | 2359 | 6624 | 538 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -110,7 +110,7 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.TannGate` | 169 |
 | `Salt.MR.SocketBaseLH` | 163 |
 | `Salt.MR.ShortIntervalDatum` | 98 |
-| `Salt.SW.NoSiegelZerosAt` | 81 |
+| `Salt.SW.NoSiegelZerosAt` | 87 |
 | `Salt.MR.DoorArithFrameRho_L` | 72 |
 | `Salt.MR.M4DoorGates` | 55 |
 | `Salt.MR.SocketBaseL` | 54 |
@@ -139,9 +139,9 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.JointIntegrableAt` | 21 |
 | `Salt.MR.S15Sel''_L_gk` | 21 |
 | `Salt.Entropy.Chowla.MRTUniformityXi` | 20 |
+| `Salt.TwinBar.DirichletSevenEighths` | 20 |
 | `Salt.HB.N9Regime` | 19 |
 | `Salt.MR.S16BandLaneCBoundedL_winU` | 19 |
-| `Salt.TwinBar.DirichletSevenEighths` | 19 |
 | `Salt.MR.DoorFuseFrame_L_gk` | 18 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` | 17 |
 | `Salt.MR.S16BandLaneCBoundedL` | 17 |
@@ -256,6 +256,7 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.DoorRowCarried` | 3 |
 | `Salt.MR.ExitClose` | 3 |
 | `Salt.MR.FlatDoorAllGradesW` | 3 |
+| `Salt.MR.FlatHeadForm` | 3 |
 | `Salt.MR.FlatHeadFormEpsW_band` | 3 |
 | `Salt.MR.FlatHeadFormH` | 3 |
 | `Salt.MR.FlatHeadFormHG` | 3 |
@@ -314,11 +315,12 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.DoorRowCarriedPool_L_gk` | 2 |
 | `Salt.MR.DoorRowCarried_L` | 2 |
 | `Salt.MR.FlatCapstoneFormHG_g12b_band` | 2 |
+| `Salt.MR.FlatConditionalForm` | 2 |
 | `Salt.MR.FlatConditionalFormEpsW` | 2 |
 | `Salt.MR.FlatConditionalFormHG_g12b_band` | 2 |
-| `Salt.MR.FlatHeadForm` | 2 |
 | `Salt.MR.FlatHeadFormEps` | 2 |
 | `Salt.MR.FlatHeadFormHG_g12b` | 2 |
+| `Salt.MR.FlatKswinForm` | 2 |
 | `Salt.MR.FlatKswinFormEpsW` | 2 |
 | `Salt.MR.FlatKswinFormHG_g12b_band` | 2 |
 | `Salt.MR.FlatRoadExitFormH` | 2 |
@@ -388,7 +390,6 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.FlatCapstoneFormHG_Z` | 1 |
 | `Salt.MR.FlatCapstoneFormHG_g12b` | 1 |
 | `Salt.MR.FlatCapstoneFormU` | 1 |
-| `Salt.MR.FlatConditionalForm` | 1 |
 | `Salt.MR.FlatConditionalFormEps` | 1 |
 | `Salt.MR.FlatConditionalFormEpsW_band` | 1 |
 | `Salt.MR.FlatConditionalFormH` | 1 |
@@ -404,7 +405,6 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.FlatDoorL2FormU` | 1 |
 | `Salt.MR.FlatDoorPayload` | 1 |
 | `Salt.MR.FlatDoorUniformW` | 1 |
-| `Salt.MR.FlatKswinForm` | 1 |
 | `Salt.MR.FlatKswinFormEps` | 1 |
 | `Salt.MR.FlatKswinFormEpsW_band` | 1 |
 | `Salt.MR.FlatKswinFormH` | 1 |
@@ -7281,7 +7281,7 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
 
-## conditional (1645)
+## conditional (1652)
 
 | name | file:line | objects | hypotheses |
 |---|---|---|---|
@@ -7631,6 +7631,13 @@ Declarations indexed across the tree: 23355 · corpus Prop-valued names (the hyp
 | `Salt.MR.flat_v7_generic` | Salt/MR/DoorReceipt.lean:873 | characters | `Salt.MR.FlatKswinForm` |
 | `Salt.MR.flat_chain_generic` | Salt/MR/DoorReceipt.lean:1076 | characters | `Salt.MR.FlatHeadForm` |
 | `Salt.MR.mrtUniformityXi_of_xiL2` | Salt/MR/DoorReceipt.lean:1128 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
+| `Salt.MR.flat_v7_generic_of_standoff` | Salt/MR/DoorReceiptSiegelFree.lean:48 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatKswinForm` |
+| `Salt.MR.flat_kswin_generic_of_standoff` | Salt/MR/DoorReceiptSiegelFree.lean:176 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatConditionalForm` |
+| `Salt.MR.flat_chain_generic_of_standoff` | Salt/MR/DoorReceiptSiegelFree.lean:260 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatHeadForm` |
+| `Salt.MR.mrtDoorReceipt_v7_form_of_standoff` | Salt/MR/DoorReceiptSiegelFree.lean:279 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MR.mrtUniformityXiL2_holds_flat_of_standoff` | Salt/MR/DoorReceiptSiegelFree.lean:294 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MR.mrtUniformityXi_holds_flat_of_standoff` | Salt/MR/DoorReceiptSiegelFree.lean:316 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MR.mrtUniformityXi_holds_flat_of_sevenEighths` | Salt/MR/DoorReceiptSiegelFree.lean:327 | characters | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.MR.door_absWindowSum_sq_le_strata` | Salt/MR/DoorRoadCompose.lean:73 | sieves, characters | `Salt.MR.NearRatTight` |
 | `Salt.MR.door_absWindowSum_sq_le_dyadic` | Salt/MR/DoorRoadCompose.lean:144 | sieves, characters | `Salt.MR.NearRatTight` |
 | `Salt.MR.logChowla2_epsFamily_of_allGrades` | Salt/MR/EpsFamilyReceipt.lean:42 | characters | `Salt.MR.MRTDoorAllGrades` |
