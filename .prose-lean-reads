@@ -63,5 +63,5 @@ o88-2026-10-24-12	Salt/Maynard/S2Tensor.lean	3babfeaf881d	Salt/Maynard/S2Tensor.
 o88-2026-10-24-13	Salt/Maynard/HMain.lean	60f870d49739	Salt/Maynard/HMain.lean::H_main_bound	c950c3834ad1	paper	math	2026-10-24
 o88-2026-10-24-14	Salt/Maynard/HOmit.lean	68a053d49525	Salt/Maynard/HOmit.lean::H_omit_bound_closed	2b606c38e063	paper	math	2026-10-24
 o88-2026-10-24-15	Salt/Maynard/HMain.lean	a7b1de7984d6	Salt/Maynard/HMain.lean::H_main_bound	c950c3834ad1	paper	math	2026-10-24
-o88-2026-10-24-16	Salt/Maynard/PhiAtom.lean	74c17da36a54	Salt/Maynard/PhiAtom.lean::phiAtomSum_le_mul	c19acbd0aff9	paper	math	2026-10-24
+o88-2026-10-24-16	Salt/Maynard/PhiAtom.lean	f0f328ec28b6	Salt/Maynard/PhiAtom.lean::phiAtomSum_le_mul	c19acbd0aff9	paper	math	2026-10-24
 o88-2026-10-24-17	Salt/Maynard/Transfer.lean	e764ff78c58c	Salt/Maynard/TransferSharp.lean::B1_lower_sharp	e8a9f04533f3	paper	math	2026-10-24
