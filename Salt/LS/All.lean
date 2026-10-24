@@ -112,8 +112,8 @@ piece (`Conductor` crude bound + character count `card_eq_totient`, closed by
 `regroup` (`χ ↦ ⟨conductor χ, χ.primitiveCharacter⟩`, left inverse `changeLevel`),
 the `(q,f)` swap (`Finset.sum_comm'` + `PhiSum.sum_inv_totient_dvd_le'`), and the
 dyadic block bound `dyadic` (fibre by `Nat.log 2 (f-1)`, per block `CharLS.char_LS`
-at level `2ʲ⁺¹` via the `psiChi ↔ range (x+1)` bridge `charLS_psi`). Verified
-numeral `≈ 5792 ≤ 6000`.
+at level `2ʲ⁺¹` via the `psiChi ↔ range (x+1)` bridge `charLS_psi`). Stated
+numeral `6000` (the chain's constants come to about `5792`, not a Lean statement).
 -/
 
 /-! ## ⭐ THE TRACK'S AXIOM GATE (added 2026-08-26, math)
