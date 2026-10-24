@@ -28,10 +28,15 @@ open Finset Salt.Maynard
 /-- The entries of `H600`, by index. -/
 def h600 (i : ℕ) : ℕ := H600.getD i 0
 
+/-- The entries of `H600` are pairwise distinct over `Fin 105`: `h600 i = h600 j → i = j`, by
+`decide +kernel`. -/
 theorem h600_injective : ∀ i j : Fin 105, h600 i = h600 j → i = j := by decide +kernel
 
+/-- Every entry of `H600` is `≤ 600` (its diameter), over `Fin 105`, by `decide +kernel`. -/
 theorem h600_le : ∀ i : Fin 105, h600 i ≤ 600 := by decide +kernel
 
+/-- `h600 i` is an element of `H600` for `i : Fin 105`: `getD` reads inside the list, whose
+length is `105` (`H600_length`). -/
 theorem h600_mem (i : Fin 105) : h600 i ∈ H600 := by
   have hi : (i : ℕ) < H600.length := by rw [H600_length]; exact i.isLt
   unfold h600
@@ -41,13 +46,17 @@ theorem h600_mem (i : Fin 105) : h600 i ∈ H600 := by
 /-- The tuple: `H600` at `k = 105`, the standard tuple at every other `k`. -/
 noncomputable def engelsmaSeq (k : ℕ) (i : Fin k) : ℕ := if k = 105 then h600 i else stdSeq k i
 
+/-- `engelsmaSeq` at `k = 105` is `h600` (the `if` fires). -/
 theorem engelsmaSeq_105 (i : Fin 105) : engelsmaSeq 105 i = h600 i := by
   rw [engelsmaSeq, if_pos rfl]
 
+/-- `engelsmaSeq k` at `k ≠ 105` is the standard tuple `stdSeq k` (the `if` does not fire). -/
 theorem engelsmaSeq_ne {k : ℕ} (hk : k ≠ 105) : engelsmaSeq k = stdSeq k := by
   funext i
   rw [engelsmaSeq, if_neg hk]
 
+/-- `engelsmaSeq k` is injective for every `k`: by `h600_injective` at `k = 105` and by
+`stdSeq_injective` elsewhere (the `inj` field of `engelsmaTuple`). -/
 theorem engelsmaSeq_injective (k : ℕ) : Function.Injective (engelsmaSeq k) := by
   by_cases hk : k = 105
   · subst hk
@@ -57,6 +66,9 @@ theorem engelsmaSeq_injective (k : ℕ) : Function.Injective (engelsmaSeq k) := 
   · rw [engelsmaSeq_ne hk]
     exact stdSeq_injective k
 
+/-- The image of `engelsmaSeq k` is `Admissible` for every `k`: at `k = 105` by
+`admissible_of_small_primes` from `H600_admissible` (every prime `p ≤ 105` misses a residue
+class mod `p`); elsewhere by `std_admissible` (the `admissible` field of `engelsmaTuple`). -/
 theorem engelsma_admissible (k : ℕ) :
     Admissible ((Finset.univ : Finset (Fin k)).image (engelsmaSeq k)) := by
   by_cases hk : k = 105
@@ -79,6 +91,8 @@ theorem engelsma_admissible (k : ℕ) :
   · rw [engelsmaSeq_ne hk]
     exact std_admissible k
 
+/-- For `k ≥ 20` the image of `engelsmaSeq k` has `sup id ≤ k ^ 3`: at `k = 105` from `h600_le`
+(`600 ≤ 105 ^ 3`); elsewhere by `std_sup_le_cube` (the `sup_cube` field of `engelsmaTuple`). -/
 theorem engelsma_sup_cube (k : ℕ) (hk20 : 20 ≤ k) :
     ((Finset.univ : Finset (Fin k)).image (engelsmaSeq k)).sup id ≤ k ^ 3 := by
   by_cases hk : k = 105
@@ -100,6 +114,8 @@ theorem engelsma_sup_cube (k : ℕ) (hk20 : 20 ≤ k) :
 
 /-! ## The facts the `k = 105` chain consumes -/
 
+/-- Under `engelsmaTuple`, `hSeq 105 i = h600 i` (`engelsmaSeq_105`, the `tup` field read
+back). -/
 theorem hSeq_engelsma_105 (i : Fin 105) : @hSeq engelsmaTuple 105 i = h600 i :=
   engelsmaSeq_105 i
 
@@ -110,6 +126,8 @@ theorem hSeq_engelsma_le_743 (i : Fin 105) : @hSeq engelsmaTuple 105 i ≤ 743 :
   have := h600_le i
   omega
 
+/-- Under `engelsmaTuple`, for a level `D ≥ 744` every entry of the `105`-tuple is `< D` (from
+`hSeq_engelsma_le_743`). -/
 theorem hSeq_engelsma_lt_D {D : ℕ} (hD : 744 ≤ D) (i : Fin 105) :
     @hSeq engelsmaTuple 105 i < D := by
   have := hSeq_engelsma_le_743 i
