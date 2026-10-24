@@ -22,6 +22,9 @@ open scoped Nat
 
 namespace Salt.MaynardK
 
+/-- Multivariate Vandermonde: `Σ_{e ⊨ a} ∏ᵢ C(gᵢ, eᵢ) = C(Σᵢ gᵢ, a)` — the coefficient of `Xᵃ` in
+`∏ᵢ (1 + X)^{gᵢ} = (1 + X)^{Σ g}`.
+-/
 theorem vandermonde_pi {k : ℕ} (g : Fin k → ℕ) (a : ℕ) :
     ∑ e ∈ piAntidiag (univ : Finset (Fin k)) a, ∏ i, (g i).choose (e i) = (∑ i, g i).choose a := by
   classical

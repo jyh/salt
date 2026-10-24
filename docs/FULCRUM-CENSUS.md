@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `9dc067c4` · source digest `f6391ee730f01bff` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `b6a04f66` · source digest `cde9a42186034277` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -89,7 +89,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 37 | `Salt.MR.M4SievedDoorSq_L_gk` | Salt/MR/M4LadderLinear.lean:894 | OPEN | 9 (9/0) | 5 | - | 7 | 0 | 0 | `Salt.MR.G2Scaffold.m4_door_contradiction_of_live_L_gk` (Salt/MR/M4RowLinear.lean:3305), `Salt.MR.G2Scaffold.m4_door_contradiction_of_live_split_L_gk` (Salt/MR/M4RowLinear.lean:2729), `Salt.MR.G2Scaffold.m4_hbd_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2445) +6 |
 | 38 | `Salt.MR.S15CrossingBound_gk` | Salt/MR/S15Compose.lean:2016 | OPEN | 9 (9/0) | 1 | `Salt.MR.s15_crossing_supplied_gk` (Salt/MR/S16Budget.lean:566), `Salt.MR.s15_crossing_supplied_bounded_gk` (Salt/MR/S16Budget.lean:1238) +1 | 0 | 0 | 0 | `Salt.MR.logChowla2_conditional_graded_gk` (Salt/MR/S15Compose.lean:2196), `Salt.MR.logChowla2_conditional_sharp2_atK_gk` (Salt/MR/S15Compose.lean:2631), `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned` (Salt/MR/S15Compose.lean:2757) +6 |
 | 39 | `Salt.Maynard.S1InnerBound` | Salt/Maynard/CollisionQuantW.lean:50 | OPEN | 9 (9/0) | 0 | - | 0 | 0 | 0 | `Salt.Maynard.S1_le_of` (Salt/Maynard/CollisionQuantW.lean:340), `Salt.Maynard.S1_upper_of` (Salt/Maynard/CollisionQuantW.lean:373), `Salt.Maynard.collision_lower_orderW_of` (Salt/Maynard/CollisionQuantW.lean:71) +6 |
-| 40 | `Salt.TwinBar.DirichletSevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:37 | OPEN | 9 (9/0) | 9 | - | 0 | 0 | 0 | `Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_sevenEighths` (Salt/MR/FlatDoorSevenEighths.lean:39), `Salt.TwinBar.bounded_gaps_of_sevenEighths` (Salt/TwinBar/SevenEighthsGaps.lean:31), `Salt.TwinBar.chen_goldbach_of_sevenEighths` (Salt/TwinBar/SevenEighthsStandoff.lean:86) +6 |
+| 40 | `Salt.TwinBar.DirichletSevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:37 | OPEN | 9 (9/0) | 9 | - | 0 | 0 | 0 | `Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_sevenEighths` (Salt/MR/FlatDoorSevenEighths.lean:39), `Salt.TwinBar.bounded_gaps_of_sevenEighths` (Salt/TwinBar/SevenEighthsGaps.lean:31), `Salt.TwinBar.chen_goldbach_of_sevenEighths` (Salt/TwinBar/SevenEighthsStandoff.lean:87) +6 |
 
 ## HALF-SHAPED FRAMES (40) — status FRAME (item 2's parameter-frame rule), no ¬F-consumer
 
@@ -243,7 +243,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.Maynard.s2CompatMainW_eq` | Salt/Maynard/S2Eh.lean:822 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.compat_pair_fiber_le` | Salt/Maynard/S2FiberCount.lean:430 | `Salt.Maynard.IsCollisionPair` |
 | theorem conclusion | `Salt.Maynard.shiu_class_cover` | Salt/Maynard/ShiuDecomp.lean:387 | `Salt.Maynard.shiuClassDeg`, `Salt.Maynard.shiuClassI`, `Salt.Maynard.shiuClassII`, `Salt.Maynard.shiuClassIIIIV` |
-| case split `by_cases` | `Salt.MaynardK.S2mW_ge_compatMain_half_uniform` | Salt/MaynardK/S2Half.lean:149 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.MaynardK.S2mW_ge_compatMain_half_uniform` | Salt/MaynardK/S2Half.lean:157 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Twelve.powerful_sum_bounded` | Salt/Twelve/PhiUpper.lean:432 | `Salt.Twelve.IsPowerful` |
 | case split `by_cases` | `Salt.Twelve.windowWeight_col_le` | Salt/Twelve/PhiUpperReindex.lean:220 | `Salt.Twelve.IsPowerful` |
 | case split `by_cases` | `Salt.Twelve.S2mW_ge_compatMain_theta_uniform` | Salt/Twelve/WinCore.lean:364 | `Salt.Maynard.IsCollisionPair` |

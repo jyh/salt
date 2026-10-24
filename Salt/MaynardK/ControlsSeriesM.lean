@@ -24,9 +24,15 @@ open Finset Nat Salt.Twelve
 
 namespace Salt.MaynardK
 
+/-- At `M = 1` the weight of the constant tuple is `2c`: `weight (fun _ : Fin 1 => c) = 2 * c`
+(`weight j = Σₘ 2(m+1)·jₘ`).
+-/
 lemma weight_one (c : ℕ) : weight (fun _ : Fin 1 => c) = 2 * c := by
   simp [weight]
 
+/-- The `M = 1` reindexing on the `Finsupp` side: `Finsupp.equivFunOnFinite.symm (fun _ : Fin 1 =>
+c) = Finsupp.single 0 c`.
+-/
 lemma equivFunOnFinite_symm_fin_one (c : ℕ) :
     Finsupp.equivFunOnFinite.symm (fun _ : Fin 1 => c) = Finsupp.single 0 c :=
   Finsupp.ext fun m => by rw [Fin.fin_one_eq_zero m]; simp

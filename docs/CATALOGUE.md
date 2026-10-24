@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `9dc067c4` · source digest `f6391ee730f01bff` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `b6a04f66` · source digest `cde9a42186034277` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -8833,11 +8833,11 @@ Declarations indexed across the tree: 23294 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.noSiegelZeros_of_sevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:42 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.bounded_gaps_of_sevenEighths` | Salt/TwinBar/SevenEighthsGaps.lean:31 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:60 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:67 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:74 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:81 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:86 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:61 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:68 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.gaps_le_600_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:75 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_headline_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:82 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.chen_goldbach_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:87 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.siegelSequence_implies_infinitely` | Salt/TwinBar/SiegelCorr.lean:64 | sieves | `Salt.TwinBar.SiegelSequence` |
 | `Salt.TwinBar.corrWindow_box` | Salt/TwinBar/SiegelCorr.lean:96 | sieves | `Salt.TwinBar.CorrWindow` |
 | `Salt.TwinBar.residue_lower` | Salt/TwinBar/SiegelCorr.lean:144 | sieves | `Salt.TwinBar.CorrWindow` |
