@@ -53,6 +53,7 @@ theorem noSiegelZerosAt_of_sevenEighths (h : DirichletSevenEighths) :
     linarith
   linarith
 
+/-- `0 < log 2 / 8`: the standoff constant of `noSiegelZerosAt_of_sevenEighths` is positive. -/
 private theorem log_two_div_eight_pos : 0 < Real.log 2 / 8 := by
   have := Real.log_pos (by norm_num : (1 : ℝ) < 2); positivity
 

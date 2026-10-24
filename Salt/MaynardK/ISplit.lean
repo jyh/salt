@@ -160,6 +160,11 @@ each of the five coordinate factors `∑_{g_k ∣ s} 1/φ(s)` is bounded by
 `marked_sqf_phi_rel` at `s = g k`, `a = 0`, `z = R`, giving `(1/φ(g_k))·PAS`
 with NO opaque constant. -/
 
+/-- The relative pairwise-collision bound at general `k`: for squarefree `W' > 0`, `R ≥ 2`, distinct
+coordinates `i ≠ j` and a prime `p`, the sum of `∏ₖ 1/φ(rₖ)` over the decimated box restricted
+to `p ∣ rᵢ ∧ p ∣ rⱼ` is at most `phiAtomSum R W' ^ k / (p − 1)²` — `Salt.Twelve.badpair_bound`
+truncated, with no opaque constant.
+-/
 private lemma badpair_bound_rel_gen (k : ℕ) (hk : 2 ≤ k) (W' : ℕ) (hW' : Squarefree W')
         (hpos : 0 < W')
     (R : ℕ) (hR2 : 2 ≤ R) (i j : Fin k) (hij : i ≠ j) (p : ℕ) (hp : Nat.Prime p) :
@@ -265,6 +270,12 @@ private lemma badpair_bound_rel_gen (k : ℕ) (hk : 2 ≤ k) (W' : ℕ) (hW' : S
 /-! ## `mv_I_split` -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `mv_I_split` at general `k ≥ 2` for a budget polynomial `P`: a constant `A ≥ 0` and, for
+squarefree `W' > 0` with `PhiUpperAtom W'` and `D ≥ 3` below every prime `p ∤ W'`, a `c ≥ 0`,
+such that for `log R ≥ 1` the sieve sum of `P(log rᵢ / log R) / ∏ φ(rᵢ)` over `kSieveIndex k R
+W'` is within `c (1 + φ(W')/W' · log R)^k / log R + A (1 + phiAtomSum R W')^k / D` of `(φ(W')/W'
+· log R)^k · simplexInt P`.
+-/
 theorem mv_I_split_gen (k : ℕ) (hk : 2 ≤ k) (P : BPoly k) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →

@@ -22,6 +22,7 @@ open Salt.Maynard
 open Finset Filter
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `⌊N'^{9999/40000}⌋² ≤ N'^{19998/40000}` for `N' ≥ 1`. -/
 lemma R_sq_le_half (N' : ℕ) (hN' : 1 ≤ N') :
     (⌊(N' : ℝ) ^ (9999 / 40000 : ℝ)⌋₊ : ℝ) ^ 2 ≤ (N' : ℝ) ^ (19998 / 40000 : ℝ) := by
   set x := (N' : ℝ) with hx
@@ -36,6 +37,10 @@ lemma R_sq_le_half (N' : ℕ) (hN' : 1 ≤ N') :
         rw [← Real.rpow_natCast (x ^ (9999 / 40000 : ℝ)) 2, ← Real.rpow_mul hxpos.le]; norm_num
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The level range at θ = 1/2: for `W' > 0` and `B' ≥ 0`, from some `Nr` on, `W' ·
+⌊N'^{9999/40000}⌋² ≤ ⌊N'^{1/2} / (log N')^{B'}⌋` — `Salt.Maynard.EH_range_theta` with the
+exponent slack `1/20000`.
+-/
 theorem level_range_half (W' : ℕ) (hW' : 0 < W') (B' : ℝ) (hB'0 : 0 ≤ B') :
     ∃ Nr : ℕ, ∀ N' : ℕ, Nr ≤ N' →
       W' * (⌊(N' : ℝ) ^ (9999 / 40000 : ℝ)⌋₊) ^ 2

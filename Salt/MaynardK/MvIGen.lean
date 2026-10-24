@@ -267,6 +267,12 @@ private lemma badpair_bound (W' : ℕ) (c₀ : ℝ) (hc₀0 : 0 ≤ c₀)
 
 /-! ## The keystone `mv_I` -/
 
+/-- The keystone `mv_I` at general `k ≥ 2` for an arbitrary budget polynomial `P`: for squarefree
+`W' > 0` with `PhiUpperAtom W'`, a `c ≥ 0` such that for `D ≥ 3` below every prime `p ∤ W'` and
+`log R ≥ 1`, the sieve sum of `P(log rᵢ / log R) / ∏ φ(rᵢ)` over `kSieveIndex k R W'` is within
+`c (1 + φ(W')/W' · log R)^k (1/log R + 1/D)` of `(φ(W')/W' · log R)^k · simplexInt P`.
+`Salt.Twelve.mv_I` with `k = 5 → k` and `sq (ofPoly F) → P`.
+-/
 theorem mv_I_gen (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (k : ℕ) (hk : 2 ≤ k) (P : BPoly k) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →

@@ -16,6 +16,12 @@ open Finset Salt.Twelve Salt.Maynard
 
 namespace Salt.MaynardK
 
+/-- The sieve's contracted second moment of Maynard's `F` at `k = 105`, at coordinate `m`: for
+squarefree `W' > 0` with `PhiUpperAtom W'`, a `c ≥ 0` such that for `D ≥ 3` below every prime `p
+∤ W'` and `log R ≥ 1`, the sum over `r` with `rₘ = 1` of `(Σ_{u < R} yFg R W' (Fpoly 105 F) (r[m
+↦ u]) / φ(u))² / ∏_{i ≠ m} gMult(rᵢ)` is within `c (1 + φ(W')/W' · log R)^{106} (1/log R + 1/D)`
+of `(φ(W')/W' · log R)^{106} · Jform` — `mv_J_gen` at `n + 1 = 105`, rewritten by `Jform_eq`.
+-/
 theorem mv_J_105 (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (hUpper : PhiUpperAtom W')
     (m : Fin 105) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →

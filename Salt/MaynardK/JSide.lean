@@ -28,6 +28,9 @@ def J2 : ℚ :=
   (FJ.map fun u => (FJ.map fun v =>
     u.2 * v.2 * intg T104 104 (u.1.1 + v.1.1) (u.1.2 + v.1.2)).sum).sum
 
+/-- The certificate's `Jform` and its uncollected regrouping `J2` are the same rational, by kernel
+reduction.
+-/
 theorem Jform_eq_J2 : Jform = J2 := by decide +kernel
 
 end Salt.MaynardK
