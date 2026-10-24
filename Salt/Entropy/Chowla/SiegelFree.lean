@@ -15,9 +15,10 @@ import Salt.TwinBar.SevenEighthsStandoff
 `primeWindow_sum_inv_ge`, both through `Salt.Chen.lambda_mass_lower`, that is through
 `siegelWalfisz_holds` (measured by the rung-4 census, 2026-10-24). Their `_bounded` forms already
 have standoff twins (`Salt/MR/FlatDoorStandoff.lean`), whose statements are the unbounded ones with
-one extra conjunct `1 / 4 ≤ c`; the two twins below drop it. The three heads are then re-stated
-under three leading binders `{cS} (hcS) (hSieg)`, each landed proof verbatim with each producer
-replaced by its twin. No landed file is edited.
+one extra conjunct `1 / 4 ≤ c`; the two twins below drop it. The three heads, and
+`log_chowla_two_door_only_xi` between two of them, are then re-stated under three leading binders
+`{cS} (hcS) (hSieg)`, each landed proof verbatim with each producer replaced by its twin. No landed
+file is edited.
 
 ## What this does and does not say
 
