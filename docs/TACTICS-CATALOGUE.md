@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `acfc7073` · source digest `acc8847748478b2b` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `babf1838` · source digest `7904e66487ddd941` (the same digest as items 1–3).
 > Receipt: files 1384 · decls 23355 · with_body 23355 · tactic_lines 319784 · runs 37262 · blocks 1611.
 
 ## LIMITS (read before any number below)
@@ -109,13 +109,13 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 3 | `exact` | 18145 | 5.7% |
 | 4 | `intro` | 14739 | 4.6% |
 | 5 | `refine` | 13290 | 4.2% |
-| 6 | `linarith` | 11329 | 3.5% |
+| 6 | `linarith` | 11330 | 3.5% |
 | 7 | `obtain` | 9165 | 2.9% |
 | 8 | `calc` | 8113 | 2.5% |
 | 9 | `set` | 5762 | 1.8% |
 | 10 | `simp` | 5255 | 1.6% |
 | 11 | `apply` | 4606 | 1.4% |
-| 12 | `nlinarith` | 3575 | 1.1% |
+| 12 | `nlinarith` | 3574 | 1.1% |
 | 13 | `unfold` | 2746 | 0.9% |
 | 14 | `exact_mod_cast` | 2617 | 0.8% |
 | 15 | `ring` | 2269 | 0.7% |
