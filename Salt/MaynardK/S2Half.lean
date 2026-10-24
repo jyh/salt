@@ -22,6 +22,14 @@ variable [Salt.Maynard.TupleChoice]
 open Salt.Maynard Salt.Twelve
 
 
+/-- The S₂ main-term lower bound at level `1/2`, uniform in the weight: under `HasLevel (1/2)`, for
+`k, K₀ ≥ 1`, squarefree `W'`, every prime `p ∤ W'` at least `D`, and all `hSeq k i < D`, there
+are `C₀, B' ≥ 0` and `N₀` such that for `R ≥ 2`, `|y| ≤ 1`, `ν₀ + h` coprime to `W'` on the
+tuple, `N ≥ N₀`, `R ≤ N` and `W' R² ≤ ⌊N^{1/2} / (log N)^{B'}⌋`, every coordinate `m` has `S2mW
+k K₀ N R ν₀ W' m y ≥ deltaPi k K₀ N m / φ(W') · s2CompatFormM k R W' m y − C₀ (1 + log R)^{2k+2}
+N / (log N)^{2k+4}`. `Salt.Twelve.S2mW_ge_compatMain_theta_uniform` with the level `3999/4000 →
+1/2`.
+-/
 theorem S2mW_ge_compatMain_half_uniform (k K₀ W' D : ℕ) (hk : 1 ≤ k) (hK₀ : 1 ≤ K₀)
     (hW' : Squarefree W') (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D ≤ p)
     (hlt : ∀ i : Fin k, hSeq k i < D) (hLoD : HasLevel (1 / 2)) :

@@ -89,6 +89,11 @@ per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
 partition of `Q` under `slot`. -/
 omit [Salt.Maynard.TupleChoice] in
+/-- The marked `g`-moment over the pinned box at general `k`: over `u ∈ kSieveIndex k R W'` with `uₘ
+= 1` and `p ∣ u (slot p)` for every marked prime `p ∈ Q` (all above `D`, slots `≠ m`), `Σ 1/∏_{i
+≠ m} gMult(uᵢ) ≤ (∏_{p ∈ Q} (p − 2)⁻¹) · (2 · phiAtomSum R W')^{k−1}`; the `Q = ∅` case is
+`gmoment4_le`.
+-/
 theorem box_marked_gmoment_gen (k R W' D : ℕ) (m : Fin k) (Q : Finset ℕ) (slot : ℕ → Fin k)
     (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
     (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
