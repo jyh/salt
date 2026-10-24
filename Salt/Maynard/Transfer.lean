@@ -417,12 +417,12 @@ theorem A1_upper_real (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hR : 2 ≤ R)
 -- `(φ(W)/W)(log R/k) ∫₀ᵀ (profile) du` — the N6.1 closed forms.
 --
 -- Formalizing this needs: (a) a Stieltjes/Abel summation lemma over `Finset`
--- (`Finset.sum_Ioc_by_parts` exists but pairing it to a Riemann–Stieltjes
--- integral of a `C¹` weight is not in mathlib in usable form); (b) the
--- monotone `fWt`/`fWt²·uⁱ` derivative bookkeeping; (c) a Riemann-sum ↔
--- `intervalIntegral` comparison for `w(t)/t` against the N6.1 integrals.
--- Each is a substantial C-node; together they are the genuine content of the
--- SHARP N3.3 and remain out of scope for this pass.
+-- (`Finset.sum_Ioc_by_parts` exists, but pairing it to a Riemann–Stieltjes integral
+-- of a `C¹` weight was not found in mathlib in usable form at this pass); (b) the
+-- monotone `fWt`/`fWt²·uⁱ` derivative bookkeeping; (c) a Riemann-sum ↔ `intervalIntegral`
+-- comparison for `w(t)/t` against the N6.1 integrals: together the content of SHARP N3.3,
+-- out of scope for this pass. `Salt/Maynard/TransferSharp.lean` later did it (mathlib's
+-- `sum_mul_eq_sub_integral_mul₁`), e.g. `B1_lower_sharp` and `A1_upper_sharp`.
 -/
 
 end Salt.Maynard
