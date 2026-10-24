@@ -38,7 +38,7 @@ structure — by `(Cs k²/D₀)·(nonneg S₂ diagonal yside)`.  It is the exact
   `m`-restricted contraction of `S2DiagRestricted.lean`.  This does NOT
   collapse to a single diagonal term (the `d/φ` weight prevents it — the
   S₂-vs-S₁ asymmetry), which is exactly why the per-assignment absolute
-  bound is the wall (`S2InnerControlled`, see below).
+  bound was the wall (`S2InnerControlled`); Node B below (`s2_inner_bound_N`) bounds it.
 
 ## Status
 
@@ -47,7 +47,7 @@ The per-assignment ABSOLUTE bound — the `∏φ(lcm)` analog of N4.4's
 `inner_abs_le`, whose S₁ proof crucially used the single-term collapse of the
 forced sum — is isolated as the precise `Prop` `S2InnerControlled` (strictly
 narrower than the collision bound) and the collision bound is assembled ON TOP
-of it (`s2_collision_lower_order`).
+of it (`s2_collision_lower_order`); `s2_collision_le_N`, below, needs no such hypothesis.
 -/
 
 open Finset
@@ -2103,8 +2103,8 @@ private theorem s2_term_majorant (k R : ℕ) (T : ℝ) (m : Fin k)
                 (((q : ℕ) : ℝ) - 2)) := by
         ring
 
-/-- **Node B — the proven per-assignment inner bound (RHS `Ndiag`).**  For a
-squarefree collision modulus `s` with all primes `> D₀ k` and any
+/-- **Node B — the proven per-assignment inner bound (RHS `Ndiag`).**  When `2 ≤ R` and
+`12k² ≤ D₀ k`, for a squarefree collision modulus `s` with all primes `> D₀ k` and any
 prime-to-slot assignment `α`, the signed `u`-sum produced by `inner_exact_S2`
 at `(σ,τ) = (slotProd fst, slotProd snd)` with the tensor weight `yTensor`
 satisfies
