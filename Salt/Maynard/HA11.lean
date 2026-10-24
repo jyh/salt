@@ -64,8 +64,8 @@ namespace Salt.Maynard
 
 /-- **`hA11`.**  The transfer-ratio bound `A1_1 ≤ (7/10)·A1`, the explicit
 `c = 7/10 < 1` consumed by the Chebyshev overshoot.  Proved from
-`A1_1_upper_split` + `B1_upper_sharp` + `A1_lower_sharp`; the four largeness
-hypotheses `hT`/`hb4`/`hEA`/`hEB`/`hlogk` are documented in the module header. -/
+`A1_1_upper_split` + `B1_upper_sharp` + `A1_lower_sharp`; `hT` fixes `T`, and the largeness
+hypotheses `hT1`/`hX`/`hlogk`/`hb4`/`hEA`/`hEB` are documented in the module header. -/
 theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     (hW : W ≠ 0) (hk : 3 ≤ k) (hR : 2 ≤ R)
     (hT : T = (k : ℝ) ^ ((1 : ℝ) / 8) / Real.log k) (hT1 : 1 ≤ T)
@@ -182,7 +182,7 @@ theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
 /-!
 ## PORT-BLOCKER — reducing `hEA`/`hEB` to a raw `log R` threshold
 
-The four largeness hypotheses of `A1_1_le_seven_tenths` are all genuine
+The largeness hypotheses of `A1_1_le_seven_tenths` are all genuine
 "`k`/`R` large" statements (never the conclusion `A1_1 ≤ (7/10)A1`).  Three of
 them — `hT` (frozen `T`), `hb4` (`b·log(R₀−1) ≥ 4`), `hlogk` (`log k ≥ 300`) —
 are already in the cleanest downstream-usable form.
