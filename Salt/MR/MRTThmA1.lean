@@ -184,7 +184,7 @@ theorem intervalIntegrable_mrtThmA1_integrand {f : ℕ → ℂ} (hf : ∀ n, ‖
     have hnn : (0 : ℝ) ≤ ((⌊2 * X + h⌋₊ : ℝ) + 1) / h := by positivity
     rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg (by positivity)]
     have h0 : (0 : ℝ) ≤ ‖mrtShortMean f h x‖ := norm_nonneg _
-    nlinarith [hb, h0, hnn]
+    nlinarith only [hb, h0, hnn]
 
 /-! ## The `j`-union's arithmetic half
 

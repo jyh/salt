@@ -296,11 +296,11 @@ theorem eq28_clears_of_M_basel {A G M : ℕ} (hA : 1 ≤ A) (hG : 1 ≤ G) (hM :
   have hsum := sum_ratioK_le_basel hA hG hM Jb
   have hMδ' : (4 : ℝ) ≤ (M : ℝ) * δ := by
     rw [div_le_iff₀ hδ] at hMδ; linarith
-  have hpi : Real.pi ^ 2 ≤ 10 := by nlinarith [Real.pi_lt_d2, Real.pi_pos]
+  have hpi : Real.pi ^ 2 ≤ 10 := by nlinarith only [Real.pi_lt_d2, Real.pi_pos]
   have hpi0 : (0 : ℝ) ≤ Real.pi ^ 2 := sq_nonneg _
   have hstep : Real.pi ^ 2 / (6 * (M : ℝ)) ≤ Real.pi ^ 2 * δ / 24 := by
     rw [div_le_div_iff₀ (by positivity) (by norm_num)]
-    nlinarith
-  nlinarith
+    nlinarith only [hMδ', sq_nonneg (Real.pi : ℝ)]
+  nlinarith only [hδ, hpi, hstep, hsum]
 
 end Salt.MR
