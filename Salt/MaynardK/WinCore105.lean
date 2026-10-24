@@ -40,6 +40,10 @@ standard tuple (the first 105 primes greater than 105, diameter 636).
 Nothing here bears on twin primes.
 -/
 
+/-- `Salt/Twelve/WinCore.lean`'s `S₁ < Σ_m S₂ᵂ⁽ᵐ⁾` at general `k`: the per-`m` lower bounds
+`δ/φ(W') · cval m − errEH m ≤ S2mW k K₀ N R ν₀ W' m y` (from `hDpi` · `hcompat` · `hEHres`) and
+the numeric hypothesis `hnum` on `S1` give
+`S1 k K₀ N R W' ν₀ y < Σ_m S2mW k K₀ N R ν₀ W' m y`. -/
 theorem S1_lt_sum_S2mW_k (k K₀ N R ν₀ W' : ℕ) (y : (Fin k → ℕ) → ℝ)
     (δ : ℝ) (errEH cval : Fin k → ℝ)
     (hφ : 0 < (Nat.totient W' : ℝ)) (hcval : ∀ m : Fin k, 0 ≤ cval m) (hδ0 : 0 ≤ δ)
@@ -70,6 +74,8 @@ theorem S1_lt_sum_S2mW_k (k K₀ N R ν₀ W' : ℕ) (y : (Fin k → ℕ) → �
 
 /-! ## (2) `deltaPi_upper_ev_105` — Chebyshev `Δπ ≤ 1000·N'/log N'` at `h_max = 743` -/
 
+/-- Chebyshev at k = 105, `K₀ = 64`: for `N'` large and every `m`,
+`deltaPi 105 64 N' m ≤ 1000·N'/log N'`, under `h_max ≤ 743` (`hle`). -/
 theorem deltaPi_upper_ev_105 (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) :
     ∀ᶠ N' : ℕ in atTop, ∀ m : Fin 105,
       deltaPi 105 64 N' m ≤ 1000 * (N' : ℝ) / Real.log N' := by
@@ -146,6 +152,7 @@ theorem deltaPi_upper_ev_105 (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) :
 
 /-! ## (3) `qdiag_err_split_gen` — the tight `Qdiag` bound at general `n` -/
 
+/-- `⌈exp Lc⌉₊ ≤ R` gives `Lc ≤ log R`. -/
 private lemma wc105_log_ge_of_ceil_exp (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc⌉₊ ≤ R) :
     Lc ≤ Real.log R := by
   have hpos : (0 : ℝ) < Real.exp Lc := Real.exp_pos Lc
@@ -155,6 +162,12 @@ private lemma wc105_log_ge_of_ceil_exp (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc
     _ ≤ Real.log R := Real.log_le_log hpos (le_trans h1 h2)
 
 omit [Salt.Maynard.TupleChoice] in
+/-- the tight `Qdiag` bound at general `n`, `A` before `∀ W'`: for `P : BPoly (n+1)` with
+`|yFg R W' P| ≤ 1`, some `A ≥ 0` such that for admissible `W'`, `D` (squarefree, `PhiUpperAtom`,
+`12(n+1)² ≤ D`, the primes `∤ W'` exceed `D`, `W'/φ(W') ≤ 5√D`), some `c ≥ 0`, `R₀` with, for
+`R ≥ R₀`, `1 ≤ log R`,
+`|Qdiag_mW (n+1) R W' m (yFg R W' P) − (φ(W')/W' · log R)^(n+2) · ∫ (contractB m P)²|`
+`≤ (c/log R + A/√D) · (φ(W')/W' · log R)^(n+2)` (from `qdiag_bridge_gen`). -/
 theorem qdiag_err_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (hy1 : ∀ R W' : ℕ, ∀ s, |yFg R W' P s| ≤ 1) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ,
@@ -311,6 +324,11 @@ theorem qdiag_err_split_105 (m : Fin 105) :
 
 /-! ## (4) `sharp_S1_upper_105` — the M-based sharp `S1` upper bound -/
 
+/-- `Salt/Twelve/GapsFinal.lean`'s sharp `S₁` upper bound at general `k` (`K₀ = 64`): for
+`|y| ≤ 1` supported on `kSieveIndex k R W'`, under `hsol` (a common residue `c ≡ ν₀ mod W'`
+for every non-colliding pair) and `12k² ≤ D`,
+`S1 ≤ (63·N/W') · (Σ_r y r²/Π_i φ(r i) + 12k²/D · Σ_r 1/Π_i φ(r i))`
+`+ 2^(k+1) · (Σ_d |lam d|)²`. -/
 theorem sharp_S1_upperM_k (k N R W' ν₀ D : ℕ) (hk : 1 ≤ k) (y : (Fin k → ℕ) → ℝ)
     (hy1 : ∀ r, |y r| ≤ 1) (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
     (hW' : Squarefree W')
@@ -344,11 +362,14 @@ theorem sharp_S1_upperM_k (k N R W' ν₀ D : ℕ) (hk : 1 ≤ k) (y : (Fin k �
         + 2 ^ (k + 1) * (∑ d ∈ kSieveIndex k R W', |lam k R W' y d|) ^ 2 :=
         add_le_add (mul_le_mul_of_nonneg_left hcompat_le hcoeff) (le_refl _)
 
+/-- `yFg R W' F1` vanishes off `kSieveIndex 105 R W'` (`yFg`'s `if`). -/
 private lemma wc105_yFg_F1_zero (R W' : ℕ) (r : Fin 105 → ℕ)
         (hr : r ∉ kSieveIndex 105 R W') :
     yFg R W' F1 r = 0 := by
   unfold yFg; exact if_neg hr
 
+/-- `sharp_S1_upperM_k` at k = 105 with `y = yFg R W' F1` (`|yFg| ≤ 1` by
+`yFg_F1_abs_le_one`, the support by `wc105_yFg_F1_zero`). -/
 theorem sharp_S1_upper_105 (N R W' ν₀ D : ℕ)
     (hW' : Squarefree W')
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hlt : ∀ i : Fin 105, hSeq 105 i < D)
@@ -368,6 +389,11 @@ theorem sharp_S1_upper_105 (N R W' ν₀ D : ℕ)
 
 /-! ## (5) `win_core_105` — the sieve inequality `S₁ < Σ_m S₂ᵂ⁽ᵐ⁾` at k = 105 -/
 
+/-- the sieve inequality at k = 105: under the frontier's hypotheses (`hsol`; the per-`m` bounds
+`hDpi` · `hQlow` · `hS2low`) and the slack `hslack` — the right side of the sharp `S₁` bound
+`< Σ_m δ/φ(W') · cval m − Σ_m errEH m`, conjunct 7 of `WinFrontierMW105` —
+`S1 105 64 N' R W' ν₀ (yFg R W' F1) < Σ_m S2mW 105 64 N' R ν₀ W' m (yFg R W' F1)`
+(`sharp_S1_upper_105`, then `S1_lt_sum_S2mW_k`). -/
 theorem win_core_105 (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 105 → ℝ)
     (hW' : Squarefree W')
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hlt : ∀ i : Fin 105, hSeq 105 i < D)
@@ -403,6 +429,10 @@ theorem win_core_105 (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 105 �
 
 /-! ## (6) `gaps_le_of_frontier105` — the frontier-conditional capstone at diameter `≤ d` -/
 
+/-- the frontier-conditional capstone: for `744 ≤ D`, `12·105² ≤ D`, `h_max ≤ 743` (`hle`) and
+diameter `≤ d` (`hdiam`), `WindowPNT`, `HasLevel (1/2)` and `WinFrontierMW105 D` give,
+beyond every `N`, two distinct primes `p, q > N` with `|q − p| ≤ d`
+(through `bounded_gaps_reduces_diam 105 … d hdiam`). -/
 theorem gaps_le_of_frontier105 (D : ℕ) (hD : 744 ≤ D) (hDk : 12 * 105 ^ 2 ≤ D)
     (hle : ∀ i : Fin 105, hSeq 105 i ≤ 743) (d : ℤ)
     (hdiam : ∀ i j : Fin 105, (hSeq 105 j : ℤ) - (hSeq 105 i : ℤ) ∈ Set.Icc (-d) d)
