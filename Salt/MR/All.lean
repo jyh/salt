@@ -3801,7 +3801,7 @@ open Salt.Tactic in
 
 -- ⟦THE SWAP⟧ (`M4Collapse`, 2026-07-28) — the M4 wave's SECOND carried analytic arm,
 -- discharged, and the exit re-composed around it.  `m4_wave_closed_T0_discharged` consumes
--- `M4CoprimeBlockMeanSq` (the interface ⟦COPRIME-SCOPE⟧ proved unsuppliable) INSIDE its own
+-- `M4CoprimeBlockMeanSq` (which ⟦COPRIME-SCOPE⟧ argued on paper no route supplies) INSIDE its own
 -- proof, and the narrowed twin does not imply the full one — so the swap is not a patch but
 -- an ADDITIVE re-run of the two compositions off the same three landed stones
 -- (`m4_wave_closed_of_dyadicRow`, `m4_dyadicRow_carried`, `doorRowCarried_of_t0free`), with
