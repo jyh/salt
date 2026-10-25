@@ -64,7 +64,8 @@ is T7 (excluded).
 **The duality:** this is the negative dual of the landed `M5_cert`
 (`2·Ical Fstar < Σ Jcal m Fstar`, k = 5) and `theta_ratio_cert`. Same
 framework, both directions machine-checked: what the method can do
-(gaps ≤ 12, ≤ C mod SW) and what it cannot (twins, ever).
+(gaps ≤ 12 given `EHall` alone, `WindowPNT` being proved; bounded gaps
+unconditionally) and what it cannot (twins, any continuous `F`).
 
 ## Doctrine
 
