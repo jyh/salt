@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Fulcrum.Basic
 import Salt.Fulcrum.Dichotomy
 import Salt.Fulcrum.ChenCorollary
+import Salt.Fulcrum.ChenCorollarySiegelFree
 import Salt.Fulcrum.CZeroNumeral
 import Salt.Tactic.AuditAxioms
 
@@ -46,6 +47,9 @@ Design: `docs/exploration/fulcrum-pass3.md` (verdict commission D1).
   threshold `C` as a hypothesis, `HeathBrownDichotomy` (`TPC ∨ NoSiegelZeros`).
 * `chen_omega_prod_le_three` — the A-class Chen corollary `Ω(p·(p+2)) ≤ 3`
   infinitely often (`Salt/Fulcrum/ChenCorollary.lean`).
+* `chen_omega_prod_le_three_of_standoff` / `_of_sevenEighths` — the same corollary from a Siegel
+  standoff or the 7/8 statement, by a proof that does not use Siegel's theorem
+  (`Salt/Fulcrum/ChenCorollarySiegelFree.lean`).
 -/
 
 -- Build-time axiom audit: a stray axiom in the fulcrum track fails `lake build`
@@ -56,5 +60,7 @@ open Salt.Tactic in
   Salt.Fulcrum.siegel_zeros_isolated_below Salt.Fulcrum.imsz_gives_fulcrum_witnesses
   Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros Salt.Fulcrum.fulcrum_dichotomy
   Salt.Fulcrum.chen_omega_prod_le_three
+  Salt.Fulcrum.chen_omega_prod_le_three_of_standoff
+  Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths
   Salt.Fulcrum.zero_free_region_all_numeral
   Salt.Fulcrum.fulcrum_zero_real_numeral
