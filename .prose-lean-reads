@@ -211,3 +211,7 @@ o88-2026-10-25-95	papers/witness/main.tex	8cb74ca284d8	Salt/MR/RegisterInhabit.l
 o88-2026-10-25-96	papers/witness/main.tex	7c9be37ffaef	Salt/MR/RegisterCompose.lean::logChowla2_ineffective_v6	a18a2f890585	paper	math	2026-10-25
 o88-2026-10-25-97	papers/witness/main.tex	9b230e54c06b	Salt/MR/RiderTrace.lean::cs_closed_form_ge_exp_neg_hundred	e13d1c3068ec	paper	math	2026-10-25
 o88-2026-10-25-98	papers/witness/main.tex	b7773ae83bc0	Salt/MR/SiegelArm.lean::LFunction_band_lower	c5a516424d7b	paper	math	2026-10-25
+o88-2026-10-25-99	papers/witness/main.tex	4b5fea26a019	Salt/Entropy/Chowla/TowerFlat.lean::towerDropSumFlat	f9626c060972	paper	math	2026-10-25
+o88-2026-10-25-100	papers/witness/main.tex	353bd3ad452d	Salt/Entropy/Chowla/TowerFlat.lean::flatStep_logMul_ge	976e0170b18e	paper	math	2026-10-25
+o88-2026-10-25-101	papers/witness/main.tex	c43d8932b70d	Salt/MR/S16FlatFinal.lean::logChowla2_witnessed_scale_flat_L_v2	6285b2967c71	paper	math	2026-10-25
+o88-2026-10-25-102	papers/witness/main.tex	d104f3efa312	Salt/MR/S13CapGateLinear.lean::S16BaseScaleCap96_L_gk	64475c4d527b	paper	math	2026-10-25
