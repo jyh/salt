@@ -343,7 +343,7 @@ own two-half route.  The design line, verified against the bytes:
 * the **max** half is FREE — the fibre injection into `n.primeFactors` never read `p ∣ m`, so
   `ramP2coeffEndMR_norm_div_le` is `ramP2coeffMR_norm_div_le` with the domain renamed and the
   conclusion `2·log₂(2X)/X` UNCHANGED;
-* the **Σ** half gains exactly `2·ω(X)/X`: the `∨`-filter splits by subset-sum (⟦AMENDMENT
+* the **Σ** half gains at most `2·ω(X)/X`: the `∨`-filter splits by subset-sum (⟦AMENDMENT
   8⟧ — over-counting the `p² ∣ X` overlap is a legal upper bound), and the endpoint half is a
   SINGLETON per prime `p ∣ X` (`p·m = X` determines `m`), so its whole domain injects into
   `X.primeFactors` and each of its terms is exactly `2/X`.  With `ω(X) ≤ log₂ X ≤ log₂(2X)`
