@@ -724,7 +724,6 @@ fcd0c72a7ec4	Salt/MR/All.lean	docstring
 2669758db597	Salt/MR/AnnHead.lean	docstring
 78a21181e0fa	Salt/MR/AnnHead.lean	docstring
 c4d6c32e8480	Salt/MR/AnnHead.lean	docstring
-d4cf999543f1	Salt/MR/ArithPageLinear.lean	docstring
 1beacfdb84dc	Salt/MR/BallSup.lean	docstring
 7b8d7fb8858e	Salt/MR/BallSup.lean	docstring
 6fcdd98a8e53	Salt/MR/BallSupChi.lean	docstring
@@ -753,7 +752,6 @@ f1250b32b6ce	Salt/MR/DoorFloor.lean	docstring
 5f6c7d671679	Salt/MR/DoorFrame.lean	docstring
 be6a84a3d0c6	Salt/MR/DoorFrameH1.lean	docstring
 f6af3207dc9a	Salt/MR/DoorFrameH1.lean	docstring
-b20eeabfed28	Salt/MR/DoorLinear.lean	docstring
 c5b4d309d7c3	Salt/MR/DoorReceipt.lean	docstring
 219a5a73d05b	Salt/MR/DoorRoadCompose.lean	docstring-cited
 29163fc17cae	Salt/MR/DoorRoadCompose.lean	docstring
@@ -858,7 +856,6 @@ afccdc2964bc	Salt/MR/HalaszSeam.lean	docstring
 c91b11a51ba1	Salt/MR/HalaszSeam.lean	docstring
 023a49beb404	Salt/MR/HeadGrade.lean	docstring
 6d9c2886352f	Salt/MR/HeadGrade.lean	docstring
-199c3e7ac488	Salt/MR/HloExportMRFlatRoot.lean	docstring
 19ff0f115268	Salt/MR/HybridMoments.lean	docstring
 2a62ed2e2e6b	Salt/MR/JFactor.lean	docstring
 31b0dad6bc1d	Salt/MR/JFactor.lean	docstring
@@ -887,10 +884,6 @@ b96acacce28d	Salt/MR/M4ArithPage.lean	docstring
 3dc6a9ebddfe	Salt/MR/M4ArithRho.lean	docstring
 1d49968eae7b	Salt/MR/M4ArithZero.lean	docstring
 e758cad83434	Salt/MR/M4ArithZero.lean	docstring
-09cb98af93ef	Salt/MR/M4ArithZeroLinear.lean	docstring
-46f705fc6883	Salt/MR/M4ArithZeroLinear.lean	docstring
-b86f6b312da3	Salt/MR/M4ArithZeroLinear.lean	docstring
-ebc2156dc5d1	Salt/MR/M4ArithZeroLinear.lean	docstring
 8bf2ea09731e	Salt/MR/M4AssemblyFrames.lean	docstring
 6b7eaa1046d8	Salt/MR/M4BaseNarrow.lean	docstring
 a9301d1b9225	Salt/MR/M4BridgeBlock.lean	docstring
@@ -931,15 +924,10 @@ af367317be93	Salt/MR/M4P2MR.lean	docstring
 d1fddbded1cd	Salt/MR/M4ParsevalStone.lean	docstring
 67fb089a242a	Salt/MR/M4Quality.lean	docstring
 c4116a224c6d	Salt/MR/M4RowAssemblyLinear.lean	docstring
-11e17e7d54e3	Salt/MR/M4RowLinear.lean	docstring
-16f00850cbd0	Salt/MR/M4RowLinear.lean	docstring-cited
-82269e1c1c17	Salt/MR/M4RowLinear.lean	docstring
 9ea3bfb2452c	Salt/MR/M4RowLinear.lean	docstring
-b7a8e4dbdda9	Salt/MR/M4RowLinear.lean	docstring
 13599df71c74	Salt/MR/M4RowsChi.lean	docstring
 47ae02a3705a	Salt/MR/M4RowsChiEnd.lean	docstring
 f3c9bcb20262	Salt/MR/M4RowsChiEnd.lean	docstring
-907f7e62b46e	Salt/MR/M4RowsChiPrimeLinear.lean	docstring
 259b95c3b53a	Salt/MR/M4RowsChiZero.lean	docstring
 8e9dcbae2254	Salt/MR/M4RowsChiZero.lean	docstring
 bf5ff0c54881	Salt/MR/M4RowsChiZero.lean	docstring
@@ -1079,7 +1067,6 @@ d766a7acfcc9	Salt/MR/S13FramesB.lean	docstring
 168d377222c7	Salt/MR/S15Compose.lean	docstring
 a5e2781020cf	Salt/MR/S15Compose.lean	docstring
 bf13055d5028	Salt/MR/S15Compose.lean	docstring
-c852ecb24bbe	Salt/MR/S15SelLinearWide.lean	docstring
 0df7641b3542	Salt/MR/S15Witness.lean	docstring
 12ca5a214f44	Salt/MR/S15Witness.lean	docstring
 7ba3c506d0af	Salt/MR/S15Witness.lean	docstring
@@ -1087,17 +1074,13 @@ c852ecb24bbe	Salt/MR/S15SelLinearWide.lean	docstring
 2cb8872062d1	Salt/MR/S16Budget.lean	docstring
 60ff0c7ef29d	Salt/MR/S16Budget.lean	docstring
 6b586e82aad8	Salt/MR/S16Budget.lean	docstring
-7e828d607ab2	Salt/MR/S16Budget.lean	docstring
 84199d63a614	Salt/MR/S16Budget.lean	docstring
 92db7574601c	Salt/MR/S16Budget.lean	docstring
 a80a25450a29	Salt/MR/S16Budget.lean	docstring
-bcc3c552f82c	Salt/MR/S16Budget.lean	docstring
 cb46b7038cbf	Salt/MR/S16Budget.lean	docstring
 ce75504618f4	Salt/MR/S16Budget.lean	docstring
 d12bef1ec0bf	Salt/MR/S16Budget.lean	docstring
-f6da76572ca3	Salt/MR/S16Budget.lean	docstring
 f98090c124fc	Salt/MR/S16Budget.lean	docstring
-50f3932dd00b	Salt/MR/S16BudgetFlat.lean	docstring
 819095b8260d	Salt/MR/S16Compose.lean	docstring
 9c15bc0e84e7	Salt/MR/S16Compose.lean	docstring
 caec171f1402	Salt/MR/S16Compose.lean	docstring
@@ -1118,10 +1101,7 @@ bdd6fc30293e	Salt/MR/S16ComposeLH.lean	docstring
 293e043543c6	Salt/MR/S16FlatFinal.lean	docstring
 64b81d42fd92	Salt/MR/S16FlatFinal.lean	docstring-cited
 b1c777805d3a	Salt/MR/S16FlatFinal.lean	docstring-cited
-e21eb483337b	Salt/MR/S16FlatTerminal.lean	docstring
-18e34fde8b93	Salt/MR/S16FlatTerminalLinear.lean	docstring
 ab3a2ad4f6bf	Salt/MR/S16FlatTerminalLinear.lean	docstring
-d106d3b1f693	Salt/MR/S16FlatTerminalLinear.lean	docstring
 e2aa60fe0803	Salt/MR/S16FlatTerminalLinearH.lean	docstring
 05214736ae89	Salt/MR/S16FlatTerminalLinearLH.lean	docstring
 18519d737012	Salt/MR/S16FlatTerminalLinearLH.lean	docstring
