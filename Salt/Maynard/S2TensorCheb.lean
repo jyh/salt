@@ -18,8 +18,8 @@ the **unprovable** transfer atom `hA11 : A₁⁽¹⁾ ≤ (1/4)·A₁`.  Here we
 route entirely, using the now-proven second-moment overshoot
 `overshoot_cheb_composed` (`overshoot ≤ (100·T²/k)·A₁^{k-1}`, `o(1)`):
 
-* `overshoot_le_eighth` — in the regime (`T = k^{1/8}/log k`, `log k ≥ 300`) the
-  Chebyshev overshoot is `≤ (1/8)·A₁^{k-1}` (since `100·T²/k ≤ 1/8`).
+* `overshoot_le_eighth` — in the regime (`T = k^{1/8}/log k`, `log k ≥ 300`, and the side
+  conditions of `overshoot_cheb_composed`) the Chebyshev overshoot is `≤ (1/8)·A₁^{k-1}`.
 * `H_main_cheb` — mirrors `H_main_bound_closed`'s `sum_sdiff` box assembly with the
   `(1/8, 1/8)` split (overshoot `1/8` from `overshoot_le_eighth`, coprimality `1/8`
   from `hCop_bound`), giving `Σ_Good ≥ (1/2)·A₁^{k-1}` with **no** `hA11`.
