@@ -474,7 +474,8 @@ declaration depends on exactly the axioms $\{\texttt{propext}, \texttt{Classical
 Where a theorem's wording says more than its declaration (the entries above), the declaration is what is proved.
 ```
 
-(The abstract, :150–153, carries the same sentence; this correction applies there too.)
+(The abstract, :150–153, carries the same sentence; this correction applies there too. So does the description of the
+Zenodo record 10.5281/zenodo.23106948, which reproduces the abstract; the record's metadata is left as published.)
 
 (Measured 2026-10-25 at salt `4fbea900`: the manuscript's 16 theorem, proposition and definition environments each
 name a declaration, and `#print axioms` on the 33 declarations its theorems and its prose name returns exactly those
