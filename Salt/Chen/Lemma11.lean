@@ -7,7 +7,7 @@ import Mathlib
 import Salt.Chen.TnInduction
 
 /-!
-# C1c‴ — The Lemma 11 analytic induction: discharging `hTbound` (BJS §2.4)
+# C1c‴ — The Lemma 11 analytic induction: reducing `hTbound` to `hlevel` and `htau` (BJS §2.4)
 
 This file narrows the last analytic gap of the two-sided explicit linear sieve keystone
 (BJS Theorem 6).  C1c″ (`TnInduction.lean`) reduced both `hmain` comparisons to the single
