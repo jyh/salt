@@ -232,6 +232,7 @@ noncomputable def blockBound (x y D F : ℕ) : ℝ :=
       * Real.sqrt ((D : ℝ))
       * (Real.sqrt (((y / D : ℕ) : ℝ)) * (1 + Real.log (x : ℝ))))
 
+/-- the per-`(D,F)`-block bound `blockBound x y D F` is nonnegative. -/
 lemma blockBound_nonneg (x y D F : ℕ) : 0 ≤ blockBound x y D F := by
   rw [blockBound]; positivity
 

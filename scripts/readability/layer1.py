@@ -247,7 +247,9 @@ def measure(files: list[tuple[str, str]]) -> dict:
     defs = [d for d in decls if d["kw"] in DEF_KW]
 
     def share(xs):
-        return round(sum(1 for d in xs if d["doc"]) / len(xs), 4) if xs else 0.0
+        # None, not 0.0, on an empty population: 0 of 0 is no share at all, and a 0.0 here
+        # would read as "nothing documented" for a file with no definitions (or no theorems).
+        return round(sum(1 for d in xs if d["doc"]) / len(xs), 4) if xs else None
 
     return {"files": len(files), "decls": len(decls), "theorems": len(thms), "definitions": len(defs),
             "depth": depth, "fanout_max": max(fan, default=0),
@@ -451,6 +453,15 @@ def selftest() -> int:
                 f"automation {base['automation']} -> {r['automation']}")
     arm("line-comment-tactic-ignored", _line_comment)
 
+    # an empty population has no share: 0 of 0 theorems is not "no role lines"
+    def _empty_population():
+        r1 = measure([("t.lean", "/-- Doc. -/\ntheorem t1 : True := trivial\n")])
+        r2 = measure([("d.lean", "/-- Doc. -/\ndef d1 : Nat := 0\n")])
+        return (r1["defs_documented"] is None and r2["role_lines"] is None
+                and r1["role_lines"] == 1.0 and r2["defs_documented"] == 1.0,
+                f"defs_documented(no defs) {r1['defs_documented']} · role_lines(no theorems) {r2['role_lines']}")
+    arm("empty-population-is-none", _empty_population)
+
     print(f"selftest: {len(fails)} FAIL")
     return 1 if fails else 0
 
@@ -486,7 +497,10 @@ def main() -> int:
         print(json.dumps(r, indent=1))
     else:
         for k, v in r.items():
-            print(f"  {k:22s} {v:.3f}" if isinstance(v, float) else f"  {k:22s} {v}")
+            if v is None:
+                print(f"  {k:22s} n/a (empty population)")
+            else:
+                print(f"  {k:22s} {v:.3f}" if isinstance(v, float) else f"  {k:22s} {v}")
     return 0
 
 
