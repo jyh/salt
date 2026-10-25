@@ -144,3 +144,7 @@ o88-2026-10-24-94	Salt/SW/Estermann.lean	0a07ada4443f	Salt/SW/Estermann.lean::es
 o88-2026-10-24-95	Salt/SW/Estermann.lean	4dcb41492dfa	Salt/SW/Estermann.lean::estermannPositivity_core	d2a93334ab35	paper	math	2026-10-24
 o88-2026-10-24-96	Salt/SW/Estermann.lean	592200ed2671	Salt/SW/Estermann.lean::estermannPositivity_core	d2a93334ab35	paper	math	2026-10-24
 o88-2026-10-24-97	Salt/SW/Estermann.lean	bd6c5f4e187b	Salt/SW/Estermann.lean::estermannPositivity_core	d2a93334ab35	paper	math	2026-10-24
+o88-2026-10-25-32	papers/flagship/main.tex	7852c27df3bc	Salt/Fulcrum/Dichotomy.lean::fulcrum_dichotomy	92b21ade8ff5	paper	math	2026-10-25
+o88-2026-10-25-33	papers/flagship/main.tex	efc7f6b182f1	Salt/Vk/Littlewood.lean::zeta_zero_free_region_littlewood	922e6464bc9f	paper	math	2026-10-25
+o88-2026-10-25-34	papers/flagship/main.tex	783bfbe00d27	Salt/SW/TBalTall.lean::dh_repulsion_tall	05df6acae00e	paper	math	2026-10-25
+o88-2026-10-25-35	papers/flagship/main.tex	45259a8f0a6b	Salt/Vk/Littlewood.lean::zeta_zero_free_region_littlewood	922e6464bc9f	paper	math	2026-10-25

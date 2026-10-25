@@ -478,5 +478,23 @@ Where a theorem's wording says more than its declaration (the entries above), th
 name a declaration, and `#print axioms` on the 33 declarations its theorems and its prose name returns exactly those
 three axioms for each.)
 
+**F29. :770–772, Definition def:z**. The sentence:
+```text
+No Dirichlet character, $L$-function, or exceptional-zero oracle appears in any of these inputs; in the formal
+corpus this is enforced syntactically---the defining file imports nothing from the Siegel-zero or sieve tracks,
+checkable by its import list alone.
+```
+
+Corrected:
+```text
+No Dirichlet character, $L$-function, or exceptional-zero oracle appears in any of these inputs; in the formal
+corpus this is enforced syntactically---the defining file imports nothing from the Siegel-zero tracks
+(\texttt{Salt.HB}, \texttt{Salt.TwinBar}), checkable by its import list alone. Its one corpus import beyond
+\texttt{Salt.Basic} is the Brun-sieve twin bound \texttt{Salt.Brun.M5BigO}.
+```
+
+(Measured 2026-10-25: `Salt/Parity/Z.lean` imports exactly `Mathlib`, `Salt.Basic` and `Salt.Brun.M5BigO`, at salt
+`514fd3c5`, the submitted manuscript's commit, and at `4fbea900`; its own header claims only the Siegel-zero half.)
+
 (The manuscript's own Appendix A, :1155–1157, already says *"no declaration in the corpus asserts the minimality
 claimed for it in §sec:fulcrum"*; F1, F3, F7, F8 and F10 are where the body contradicts it.)
