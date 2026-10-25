@@ -13,8 +13,8 @@ refuter ruling of 2026-07-24).  The landed `int_U` rows (`AnnHead.prop_A3_T1_row
 `Prop1Assembly.prop_A3_T1_row_moment`) carry the §8 eq-(24) seam as a NAMED EQUALITY binder
 `Itot = (annHead + Utail) + Imom`, and the 2026-07-24 audit (flags: "the hsplit/annHead
 object mismatch") showed that binder is unsatisfiable at the intended instantiation.  This
-file builds the honest replacement: a genuine, kernel-checked PARTITION of the annular mean
-square of the dyadic polynomial `spoly`,
+file builds a replacement whose ball leg diverges and whose centre is wrong (`SeamBallWeighted`
+repairs both): a kernel-checked PARTITION of the annular mean square of the dyadic `spoly`,
 
   `∫_{Ann} ‖spoly‖²  =  ∫_{Ann ∩ ball} ‖spoly‖²  +  ∫_{Ann \ ball} ‖spoly‖²`
                      `=  [ball leg]  +  ∫_{(Ann\ball) ∩ 𝒯tot}  +  ∫_{(Ann\ball) ∩ 𝒰}`,
