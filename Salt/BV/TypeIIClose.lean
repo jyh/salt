@@ -97,6 +97,7 @@ lemma sum_two_pow_Icc_le (a b Q : ℕ) (hb : 2 ^ b ≤ Q) :
 lemma sqrt_two_ge : (4 : ℝ) / 3 ≤ Real.sqrt 2 := by
   nlinarith only [Real.sqrt_nonneg (2 : ℝ), Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)]
 
+/-- `1 < √2`. -/
 lemma sqrt_two_gt_one : (1 : ℝ) < Real.sqrt 2 := by
   nlinarith only [Real.sqrt_nonneg (2 : ℝ), Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)]
 
@@ -450,6 +451,7 @@ private lemma final_le (c T Twin p : ℝ) (hc : c ≤ 2048) (hT : T ≤ Twin)
     (hTnn : 0 ≤ T) (hp : 0 ≤ p) : c * T * p ≤ 2048 * Twin * p :=
   mul_le_mul_of_nonneg_right (mul_le_mul hc hT hTnn (by norm_num)) hp
 
+/-- `√a ≤ b` for `0 ≤ b` and `a ≤ b²`. -/
 private lemma sqrtLe {a b : ℝ} (hb : 0 ≤ b) (h : a ≤ b ^ 2) : Real.sqrt a ≤ b := by
   rw [show b = Real.sqrt (b ^ 2) from (Real.sqrt_sq hb).symm]; exact Real.sqrt_le_sqrt h
 
