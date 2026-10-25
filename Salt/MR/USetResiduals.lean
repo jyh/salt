@@ -43,8 +43,8 @@ hypotheses riding in-statement (law #253).  This file prices them.
   bound, at `P ≥ P₈₃ = exp((log X)^{1−θ})`: `P83_ge_polylog` prices the super-polylog `P₈₃`
   against a polylog front constant, so the gate is free with ~2 powers of `log X` to spare.
 
-  **Zeno residual (stated, not proved here)** — and it is SHARPER than "find a `1/P` bound":
-  the corpus ALREADY has a `p²`-row mass page, `SmallStones.ramP2mass_le`
+  **Zeno residual (not proved here; since landed as `M4P2MR.ramP2massMR_L2_direct`, `24/(X·P)`)**
+  — SHARPER than "find a `1/P` bound": the corpus has a `p²`-row page, `SmallStones.ramP2mass_le`
   (`Σ_{n≤N} ‖ramP2coeffMR n‖²/n² ≤ 64/P²`, which is MR's `1/P` row and better), and it is
   **too lossy for §8.3**.  §8.3 multiplies the mass by `(2T + 20N) ≍ X`, so that route gives
   `EP2 ≍ X/P²`, while EVERY admissible `P` obeys the §8.3 pin `P ≤ Q ≤ Q₈₃ X`, whence
