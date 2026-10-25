@@ -54,7 +54,7 @@ integrated sense.
   scope for this node's tier/budget.
 
 The two theorems below are sorry-free and unblock the rung (C5 needs only the
-budget line); `cbar_lt` is left for a dedicated dilog session.
+budget line); `cbar_lt` was left for later and is now proved in `CbarCert.lean`.
 -/
 
 namespace Salt.Chen
