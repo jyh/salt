@@ -86,3 +86,7 @@ band lane, eight numeric riders on constants the theorem itself produces, and tw
 (`Salt/MR/S16Uniform.lean:933`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
 `budgetAFlat ε β = 2304·log 4/(ε⁶β²)` is computed from constants the theorem produces, and only `0 < β` is known of
 `β`, so that floor is not explicit.)
+
+(Copies, measured 2026-10-25: the same claim stands in `pi-overview-draft.md` beside this file, a draft, and in the
+description of the Zenodo record 10.5281/zenodo.22942698, which reproduces the abstract. W2's sentence stands in both
+too. This file corrects them; the record's metadata is left as published.)
