@@ -474,6 +474,8 @@ declaration depends on exactly the axioms $\{\texttt{propext}, \texttt{Classical
 Where a theorem's wording says more than its declaration (the entries above), the declaration is what is proved.
 ```
 
+(The abstract, :150–153, carries the same sentence; this correction applies there too.)
+
 (Measured 2026-10-25 at salt `4fbea900`: the manuscript's 16 theorem, proposition and definition environments each
 name a declaration, and `#print axioms` on the 33 declarations its theorems and its prose name returns exactly those
 three axioms for each.)
@@ -551,6 +553,21 @@ series' four refutations are ledger records (\S\ref{sec:walls}).
 
 (The manuscript's own §sec:walls, :684, says *"Three are ledger-grade records; the fourth is a theorem series,
 formalized here."*)
+
+**F33. :1553–1555, author contributions**. The sentence:
+```text
+Developed in collaboration with Claude (Anthropic's Fable~5 and Opus models); see \S\ref{sec:method} and the
+repository's commit ledger, in which every commit is co-authored.
+```
+
+Corrected:
+```text
+Developed in collaboration with Claude (Anthropic's Fable~5 and Opus models); see \S\ref{sec:method} and the
+repository's commit ledger, in which most commits carry a \texttt{Co-Authored-By} line naming Claude.
+```
+
+(Measured 2026-10-25 at salt `514fd3c5`, the submitted manuscript's commit: 1,962 of the 2,135 non-merge commits
+carry a `Co-Authored-By` line naming Claude; 173 carry none, 67 of them from July and 106 from August.)
 
 (The manuscript's own Appendix A, :1155–1157, already says *"no declaration in the corpus asserts the minimality
 claimed for it in §sec:fulcrum"*; F1, F3, F7, F8 and F10 are where the body contradicts it.)
