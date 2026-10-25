@@ -461,5 +461,22 @@ form reads:
 ```
 
 
+**F28. :187–189, overview, p. 1 [C1–C5]**. The sentence:
+```text
+Every theorem in this paper is verified by the Lean~4 kernel over \textsf{mathlib}, with axiom base exactly
+$\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$; nothing rests on informal argument.
+```
+
+Corrected:
+```text
+Every theorem in this paper names a Lean~4 declaration that the kernel checks over \textsf{mathlib}, and each named
+declaration depends on exactly the axioms $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$.
+Where a theorem's wording says more than its declaration (the entries above), the declaration is what is proved.
+```
+
+(Measured 2026-10-25 at salt `4fbea900`: the manuscript's 16 theorem, proposition and definition environments each
+name a declaration, and `#print axioms` on the 33 declarations its theorems and its prose name returns exactly those
+three axioms for each.)
+
 (The manuscript's own Appendix A, :1155–1157, already says *"no declaration in the corpus asserts the minimality
 claimed for it in §sec:fulcrum"*; F1, F3, F7, F8 and F10 are where the body contradicts it.)
