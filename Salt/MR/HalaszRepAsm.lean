@@ -504,7 +504,7 @@ floor use).  Nothing else in the statement changes.
 
 The LHS→contour leg is DISCHARGED (`prop21_contour_leg_unwindowed`, the V5-1 stone);
 the sole hypothesis
-`hfactor` was the residual (H-EXIT lands the conclusion without it) — factoring the seam Dirichlet
+`hfactor` is the residual (H-EXIT lands the `f = ellLin g` case) — factoring the seam Dirichlet
 series into the four-series product integrated over `(α,β)` against the CENTERED
 kernel, up to `E` (GHS Lemma 2.1/2.2 → Prop 2.1: the multivariable-Perron
 coefficient identity, the `n^{-it₀}` centering change-of-variables, and the
