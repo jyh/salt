@@ -26,6 +26,7 @@ reaches Siegel's theorem only through `chen_headline` (census addendum 7,
   `siegel_theorem`, `siegel_L_one_exceptional` and `L1_lower_siegel`.
 * `chen_omega_prod_le_three` itself is unchanged; the arithmetic step is restated here as
   `omega_le_three_of_chen`, so the merged proof is not edited.
+* Nothing here makes a constant explicit, and the mathematics is classical.
 -/
 
 open ArithmeticFunction
