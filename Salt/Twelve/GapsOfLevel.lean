@@ -34,7 +34,7 @@ is a `B ≥ 0` and a constant `C` with
   `gaps_le_twelve_of_hasLevel : WindowPNT → HasLevel (3999/4000) →`
   `  ∀ N, ∃ p ≠ q > N primes with |q − p| ≤ 12`,
 
-and the landed unconditional capstone `gaps_le_twelve` is recovered from it as
+and the landed capstone `gaps_le_twelve` (given `WindowPNT`, `EHall`) is recovered from it as
 the `EHall`-instance (`gaps_le_twelve_of_EHall` below), via the corpus's
 `EH_hasLevel ∘ EHall_hasEH` composition — the anti-vacuity check: the old
 theorem IS an instance of the new one.
@@ -301,7 +301,7 @@ theorem gaps_le_twelve_of_hasLevel (hPNT : WindowPNT) (hLoD : HasLevel (3999 / 4
     (primorial_sqf' D₀) (primorial_hDlt D₀) hSeqlt (by omega) hsol hφpos hcvnn hδ0 hDpi
     hQlow hS2low hslack
 
-/-- **Anti-vacuity check.**  The landed unconditional capstone `gaps_le_twelve`
+/-- **Anti-vacuity check.**  The landed capstone `gaps_le_twelve` (`WindowPNT`, `EHall`)
 (`Salt/Twelve/GapsUncond.lean`) is exactly the `EHall`-instance of the interface
 theorem: `EHall` gives `EH (3999/4000)` (`EHall_hasEH`), hence
 `HasLevel (3999/4000)` (`EH_hasLevel`), so `gaps_le_twelve_of_hasLevel` recovers
