@@ -265,7 +265,7 @@ theorem joint_supF_pin_trunc {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p�
 
 /-- **S-D — the TRUNCATED joint factoring at the pin (`joint_cs_trunc_pin`).**
 `joint_cs_factoring_trunc` with `hsupF` discharged by `S-C`: the joint head's `prop21RHS`
-against the pin's own `Fbound`, with the compact minimality as the ONLY frequency hypothesis.
+against the pin's own `Fbound`; the frequency hypotheses are the compact minimality and `hgate`.
 
 The far arm (`Ffar`, `Kfar` and the two binders `hFar`/`hKfar`) is `joint_cs_factoring_trunc`'s
 own — threaded verbatim, not invented here, and NOT discharged: `hFar` is the FREE `M = 0`
