@@ -33,6 +33,7 @@ noncomputable def primEnergyL1 (y f : ℕ) : ℝ :=
   ∑ χ ∈ Finset.univ.filter (fun χ : DirichletCharacter ℂ f => χ.IsPrimitive),
     ‖psiChi y χ‖
 
+/-- `primEnergyL1 y f ≥ 0`: a sum of norms `‖ψ(y,χ)‖` over the primitive characters mod `f`. -/
 lemma primEnergyL1_nonneg (y f : ℕ) : 0 ≤ primEnergyL1 y f :=
   Finset.sum_nonneg fun _ _ => norm_nonneg _
 
@@ -156,6 +157,8 @@ noncomputable def dispDisc (y q : ℕ) : ℝ :=
       psiChi y (1 : DirichletCharacter ℂ q) / (q.totient : ℂ)‖)
   else 0
 
+/-- `dispDisc y q ≥ 0`:
+a `sup'` of nonnegative norms over the reduced residues, or `0`. -/
 lemma dispDisc_nonneg (y q : ℕ) : 0 ≤ dispDisc y q := by
   rw [dispDisc]
   split_ifs with h
