@@ -1269,7 +1269,7 @@ claim in this campaign fires on **all three**:
 ```
   mrtUniformityXi_of_absWindowBound_twelve   M4Window.lean:268   CONCLUDES MRTUniformityXi R δ
   bigXiArcTight_twelve                       ExitClose.lean:773   NO HYPOTHESES — unconditional
-  both REGISTERED in Salt/MR/All.lean (lines 1710, 2000) ⇒ inside the axiom audit
+  both REGISTERED in Salt/MR/All.lean (lines 1821, 2111) ⇒ inside the axiom audit
 ```
 
 The adapter reduces the door to **one** remaining hypothesis — an `L¹` bound
@@ -3810,7 +3810,7 @@ composes in the kernel:
 * `hsplit` — **THE ONE OPEN PIECE**: their (A.5), the short-segment splitting, whose value is
   `(1 − 2/π)·log(log X / log Y)`.  *Assumed here, NOT proved.*
 
-⇒ **the remaining analytic content of A.4(ii)'s far arm is `hsplit` and nothing else.**  With
+⇒ **the far arm then owed `hsplit` alone** (its `O(1)` form since discharged, `A4FMidRange`).  With
 `mrt_exponent_gap_at_Y` supplying `log(log X/log Y) = (⅓ − ε)·loglog X` and
 `mrtA4ii_constant_decomposition` supplying `(½)·(1 − 2/π)·(⅓) = 1/6 − 1/(3π)`, the constant
 falls out of this bound by arithmetic alone.
