@@ -41,6 +41,7 @@ private lemma pas_mono {z z' W' : ℕ} (h : z ≤ z') :
     exact ⟨lt_of_lt_of_le hr.1 h, hr.2⟩
   · intro r _ _; positivity
 
+/-- the integer tail: `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D`. -/
 private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by
@@ -80,6 +81,7 @@ private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
         linarith
     _ = 1 / ((D:ℝ) - 1) := by simp [hφ]
 
+/-- the prime tail: `Σ_{p < R prime, D < p} 1/(p − 1)² ≤ 2/D` for `3 ≤ D`. -/
 private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
       ≤ 2 / (D:ℝ) := by
@@ -98,6 +100,7 @@ private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     linarith only [h3]
   linarith [int_tail D R hD, h1, h2]
 
+/-- the triangle inequality for a list sum: `|Σ (L.map f)| ≤ Σ (L.map |f|)`. -/
 private lemma ic_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
@@ -107,6 +110,7 @@ private lemma ic_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
       calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
+/-- a list sum is monotone termwise: `f ≤ g` on `L` gives `Σ (L.map f) ≤ Σ (L.map g)`. -/
 private lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
     (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
   induction L with
@@ -115,13 +119,16 @@ private lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
       simp only [List.map_cons, List.sum_cons]
       exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
+/-- `gMult p = p − 2` (in `ℝ`) for a prime `p`. -/
 private lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
   have : gMult p = p - 2 := by rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
   rw [this, Nat.cast_sub hp.two_le]; norm_num
 
+/-- `gMult 1 = 1` (in `ℝ`). -/
 private lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
+/-- `gMult (p·q) = (p − 2)·(q − 2)` (in `ℝ`) for distinct primes `p ≠ q`. -/
 private lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
   have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
@@ -130,6 +137,8 @@ private lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq :
       Finset.prod_union hcop.disjoint_primeFactors]
   rw [hmul, Nat.cast_mul, mjs_gMult_prime_cast hp, mjs_gMult_prime_cast hq]
 
+/-- for `x < R` coprime to `W'`, under `hD` (every prime `∤ W'` exceeds `D`), the prime factors
+of `x` lie in `{p < R : p prime, D < p}`. -/
 private lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
     {x : ℕ} (hxR : x < R) (hxcop : x.Coprime W') :
     x.primeFactors ⊆ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) := by
@@ -143,6 +152,7 @@ private lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬
     exact hpp.one_lt.ne' (Nat.dvd_one.mp h1)
   rw [Finset.mem_filter, Finset.mem_range]; exact ⟨hpltR, hpp, hD p hpp hnpW⟩
 
+/-- `Σ_{p ∣ m, p prime} 1/(p − 1) ≥ 0`. -/
 private lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
   apply Finset.sum_nonneg; intro p hp
   have hpp := Nat.prime_of_mem_primeFactors hp
@@ -150,6 +160,7 @@ private lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:
   have : (0:ℝ) < (p:ℝ) - 1 := by linarith
   positivity
 
+/-- a sum of a nonnegative `g` over a `biUnion` is at most the double sum over the pieces. -/
 private lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
     (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
     ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
@@ -168,6 +179,8 @@ private lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset
       linarith
     linarith [ih hgs]
 
+/-- on the simplex (`0 ≤ t i ≤ 1`, `Σ_i t i ≤ 1`), `|eval P t| ≤ Σ |c|` over the
+coefficients of `P`. -/
 private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
     |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
@@ -188,6 +201,9 @@ private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
 
 /-! ### Relative one-coordinate g-moments (`M0`, `MQ`, `MQ2`) over `sqfCop R W'` -/
 
+/-- the relative `M0` moment over `sqfCop R W'`: `Σ_x 1/gMult x ≤ 2 · phiAtomSum R W'`, for `W'`
+squarefree and positive, `3 ≤ D`, every prime `∤ W'` above `D`, `2 ≤ R` (`marked_sqf_g_rel` at
+`s = 1`). -/
 private lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 / (gMult x : ℝ)))
@@ -207,6 +223,10 @@ private lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   rw [hL] at hg1
   simpa using hg1
 
+/-- the opaque `M0` moment over `sqfCop R W'`: under the `hcg` bound on the marked g-sums
+(`Σ_{s ∣ r} 1/gMult r ≤ cg · log z / gMult s`), `Σ_x 1/gMult x ≤ cg · log R` for `3 ≤ D`, every
+prime `∤ W'` above `D`, `2 ≤ R` (the squarefree and positivity binders on `W'` are carried
+unused). -/
 private lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg : ℝ)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
@@ -231,6 +251,9 @@ private lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg :
   rw [hRw] at hg1
   exact hg1
 
+/-- the relative `MQ` moment over `sqfCop R W'`:
+`Σ_x (Σ_{p ∣ x} 1/(p − 1)) / gMult x ≤ 8 · phiAtomSum R W' / D`, under the five hypotheses of
+`mjs_M0_rel`. -/
 private lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
@@ -326,6 +349,9 @@ private lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         apply mul_le_mul_of_nonneg_left (prime_tail D R hD) (by norm_num)
     _ = 8 * PAS / (D : ℝ) := by ring
 
+/-- the relative `MQ2` moment over `sqfCop R W'`:
+`Σ_x (Σ_{p ∣ x} 1/(p − 1))² / gMult x ≤ 40 · phiAtomSum R W' / D`, under the five hypotheses of
+`mjs_M0_rel`. -/
 private lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
@@ -545,6 +571,7 @@ private lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ### The 4-dim aggregate g-moments `T0` (opaque), `T1`, `T2` (relative) -/
 
+/-- a product over `univ.erase m` is the product over `Fin n` through `m.succAbove`. -/
 private lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1)) (F : Fin
         (n + 1) → M) :
     ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin n, F (m.succAbove i) := by
@@ -554,6 +581,9 @@ private lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : F
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
 
 -- factor a single "marked" coordinate over the product box (n = 4)
+/-- factoring one marked coordinate out of the product box:
+`Σ_{ρ ∈ F_R^n} w (ρ i) · Π_k 1/gMult (ρ k)`
+`= (Σ_{x ∈ F_R} w x / gMult x) · (Σ_{x ∈ F_R} 1/gMult x)^(n−1)`. -/
 private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
     ∑ ρ ∈ Fintype.piFinset (fun _ : Fin n => F_R), w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
       = (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ (n - 1) := by
@@ -594,6 +624,9 @@ private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → �
   rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
     Fintype.card_fin]
 
+/-- subadditivity of `Σ_{p ∣ ·} 1/(p − 1)` over a product: for `ρ` with no zero coordinate,
+the sum over the prime factors of `Π_i ρ i` is at most `Σ_i` of the sums over the prime
+factors of `ρ i`. -/
 private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
     (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
       ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
@@ -625,6 +658,9 @@ private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) 
 
 -- common: enlarge a nonneg per-coordinate weighted sum from kSieveIndex4 (via decBox4)
 -- to the product box
+/-- enlarging `kSieveIndex n R W'` to the product box `(sqfCop R W')^n`: for `num ≥ 0`,
+`Σ_{ρ ∈ kSieveIndex} num ρ / Π_i gMult (ρ i) ≤ Σ_{ρ ∈ box} num ρ · Π_i 1/gMult (ρ i)`
+(`hD`, `hDW` carried unused). -/
 private lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀ p : ℕ,
         p.Prime → ¬ p ∣ W' → D < p)
     (num : (Fin n → ℕ) → ℝ) (hnum0 : ∀ ρ, 0 ≤ num ρ) :
@@ -660,9 +696,13 @@ private lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀
 
 /-! ## NEW: the general-`n` relative aggregate moments `T0`, `T1`, `T2` -/
 
+/-- `a^n = a · a^(n − 1)` for `1 ≤ n`. -/
 private lemma pow_split_g (n : ℕ) (hn : 1 ≤ n) (a : ℝ) : a ^ n = a * a ^ (n - 1) := by
   rw [← pow_succ']; congr 1; omega
 
+/-- the opaque aggregate `T0` at general `n ≥ 1`: under the `hcg` bound (as in `mjs_M0_op`),
+`W'` squarefree and positive, `3 ≤ D`, every prime `∤ W'` above `D`, `2 ≤ R`,
+`Σ_{ρ ∈ kSieveIndex n R W'} 1/Π_i gMult (ρ i) ≤ (cg · log R)^n` (`0 ≤ cg` carried unused). -/
 private lemma T0_op_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         (cg : ℝ) (_hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
@@ -683,6 +723,9 @@ private lemma T0_op_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W') 
       = M0 ^ n := by rw [pow_split_g n hn M0]
     _ ≤ (cg * Real.log R) ^ n := pow_le_pow_left₀ hM0nn hM0le n
 
+/-- the relative aggregate `T1` at general `n ≥ 1`, under the five hypotheses of `mjs_M0_rel`:
+`Σ_{ρ ∈ kSieveIndex n R W'} (Σ_{p ∣ Π ρ} 1/(p − 1)) / Π_i gMult (ρ i)`
+`≤ 8n · 2^(n−1) · (phiAtomSum R W')^n / D`. -/
 private lemma T1_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ ρ ∈ kSieveIndex n R W',
@@ -736,6 +779,9 @@ private lemma T1_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W')
     _ = (8 * (n:ℝ) * 2 ^ (n - 1)) * (PAS * PAS ^ (n - 1)) / (D:ℝ) := by rw [mul_pow]; ring
     _ = (8 * (n:ℝ) * 2 ^ (n - 1)) * PAS ^ n / (D:ℝ) := by rw [← pow_split_g n hn PAS]
 
+/-- the relative aggregate `T2` at general `n ≥ 1`, under the five hypotheses of `mjs_M0_rel`:
+`Σ_{ρ ∈ kSieveIndex n R W'} (Σ_{p ∣ Π ρ} 1/(p − 1))² / Π_i gMult (ρ i)`
+`≤ 40n² · 2^(n−1) · (phiAtomSum R W')^n / D`. -/
 private lemma T2_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ ρ ∈ kSieveIndex n R W',
@@ -864,6 +910,14 @@ private lemma absorb_g (n : ℕ) (κ L : ℝ) (hκ : 0 < κ) (hL : 1 ≤ L) :
 set_option maxHeartbeats 2000000 in
 -- the general-`n` square-expansion and absorption calc chains are long; the k = 5 template is too
 omit [Salt.Maynard.TupleChoice] in
+/-- the J-side split engine at general `n ≥ 1`, derived from the two `Prop`s
+`MvJMainSplitGen n P m` and `InnerContractRelGen n P m`: some `A ≥ 0` such that for
+admissible `W'`, `D` (`W'` squarefree and positive, `PhiUpperAtom`, `3 ≤ D`, every prime
+`∤ W'` above `D`), some `c ≥ 0` with, for `1 ≤ log R`,
+`|Σ_{r ∈ kSieveIndex (n+1) R W', r m = 1} (Σ_{u < R} yFg R W' P (update r m u)/φ(u))²`
+`/ Π_{i ≠ m} gMult (r i) − (φ(W')/W' · log R)^(n+2) · ∫ (contractB m P)²|`
+`≤ c · (1 + φ(W')/W' · log R)^(n+2) / log R`
+`+ A · (1 + φ(W')/W' · log R + phiAtomSum R W')^(n+2) / D`. -/
 theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin (n + 1))
     (hMain : MvJMainSplitGen n P m) (hIC : InnerContractRelGen n P m) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →

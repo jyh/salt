@@ -9,9 +9,9 @@ import Mathlib
 # M3 — main term, Mertens-free (blueprint milestone)
 
 Self-contained analytic facts feeding the `G(z) ≥ c(log z)²` bound. Facts that
-depend on the sieve's `nu`/`selbergTerms` (not yet built — see N2.6/N3.2) are
-deferred; only the divisor-count/prime-factor arithmetic that stands on its
-own is proved here.
+depend on the sieve's `nu`/`selbergTerms` are deferred to `Salt/Brun/Sieve.lean` (N2.6)
+and `Salt/Brun/M3Expansion.lean` (N3.2), written after this file; this file holds
+only the divisor-count/prime-factor arithmetic that stands on its own.
 -/
 
 open ArithmeticFunction Finset

@@ -5,7 +5,7 @@ Goal: make the capstone **Bombieri–Vinogradov-consumable**. Our
 `x^{1/2}`). Actual BV controls only `x^{1/2}/(log x)^B`. This rung adds
 the BV-shaped hypothesis and re-threads the one consumer, so that the
 day BV is formalized (Rung 5), unconditional bounded gaps is an
-instantiation. Additive only — iron rule 1: the landed `EH`,
+instantiation (BV has since landed: `hasLevel_half_of_siegelWalfisz`, `Salt/BV/AbelCore.lean`). Additive only — iron rule 1: the landed `EH`,
 `BoundedGapsFromEH`, `bounded_gaps_from_eh_complete`, and all proof
 files are untouched.
 

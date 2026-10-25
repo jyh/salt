@@ -458,6 +458,7 @@ import Salt.MR.FlatDoorStandoff
 import Salt.MR.FlatDoorSevenEighths
 import Salt.MR.V7SiegelFree
 import Salt.MR.V6SiegelFree
+import Salt.MR.DoorReceiptSiegelFree
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -11455,3 +11456,11 @@ open Salt.Tactic in
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_of_sevenEighths
   Salt.MR.logChowla2_ineffective_v6_of_sevenEighths
   Salt.MR.logChowla2_ineffective_v6_T0arm_of_sevenEighths
+
+-- The flat door's Ξ_H receipt under a Siegel standoff and from the 7/8 statement
+-- (DoorReceiptSiegelFree), by proof terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.MR.mrtUniformityXi_holds_flat_of_standoff
+  Salt.MR.mrtUniformityXiL2_holds_flat_of_standoff Salt.MR.mrtDoorReceipt_v7_form_of_standoff
+  Salt.MR.flat_chain_generic_of_standoff Salt.MR.flat_v7_generic_of_standoff
+  Salt.MR.flat_kswin_generic_of_standoff Salt.MR.mrtUniformityXi_holds_flat_of_sevenEighths
