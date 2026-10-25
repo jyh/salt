@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `ff1efe2c` · source digest `8ce2d02b0b2efb72` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `7f0ac22a` · source digest `6fa8d35584bb3d91` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -7440,8 +7440,8 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `ProbabilityTheory.measureMutualInfo_nonneg` | Salt/Entropy/Measure.lean:813 | entropy | `ProbabilityTheory.FiniteSupport` |
 | `Salt.ExpSum.isVdCBound_affine` | Salt/ExpSum/Twist.lean:143 | exponential sums | `Salt.ExpSum.IsVdCBound` |
 | `Salt.Fulcrum.imsz_implies_fulcrum_of_gadget` | Salt/Fulcrum/Basic.lean:193 | other | `Salt.Fulcrum.SiegelModulusUnbounded`, `Salt.TwinBar.InfinitelyManySiegelZeros` |
-| `Salt.Fulcrum.chen_omega_prod_le_three_of_standoff` | Salt/Fulcrum/ChenCorollarySiegelFree.lean:63 | other | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths` | Salt/Fulcrum/ChenCorollarySiegelFree.lean:69 | other | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.Fulcrum.chen_omega_prod_le_three_of_standoff` | Salt/Fulcrum/ChenCorollarySiegelFree.lean:64 | other | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths` | Salt/Fulcrum/ChenCorollarySiegelFree.lean:70 | other | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` | Salt/Fulcrum/Dichotomy.lean:82 | other | `¬Salt.Fulcrum.FulcrumQualityMin` |
 | `Salt.Fulcrum.fulcrum_dichotomy` | Salt/Fulcrum/Dichotomy.lean:102 | other | `TwinPrimeConjecture` |
 | `Salt.Fulcrum.imsz_gives_fulcrum_witnesses` | Salt/Fulcrum/Gadget.lean:128 | characters | `Salt.TwinBar.InfinitelyManySiegelZeros` |
