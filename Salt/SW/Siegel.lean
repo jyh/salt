@@ -44,8 +44,8 @@ Pairing any other `χ` against this fixed `χ₁` and feeding `f = L(·,χ)L(·,
 
 * `EstermannPositivity` — Estermann/Landau's quantitative positivity lemma, stated for an abstract
   `f` analytic on `ball 2 (3/2)`. This is the genuine analytic core of Goldfeld's proof (Cauchy
-  estimates on the pole-subtracted `ζ·f − f(1)/(s−1)`, plus a Landau summation). Its FULL
-  formalization is deferred; see `docs/blueprints/flags.md` (SW S4b).
+  estimates on the pole-subtracted `ζ·f − f(1)/(s−1)`, plus a Landau summation). Deferred here,
+  it is proved since as `estermannPositivity` (`EstermannInterface.lean`; flags.md SW S4b).
 
 The ineffectivity of `C(ε)` is intrinsic and *by construction*: the exceptional `χ₁, β₁` are
 selected by `Classical.choice` out of a `by_cases`, and cannot be produced by any finite
@@ -159,8 +159,8 @@ theorem lambda_pos {N : ℕ} [NeZero N] {χ₁ χ₂ : DirichletCharacter ℂ N}
 faithfully. It is Montgomery–Vaughan *Multiplicative Number Theory I*, Lemma 11.13 (a quantitative
 form of Landau's theorem on singularities of Dirichlet series with nonnegative coefficients). Its
 proof — Cauchy estimates on the pole-subtracted `ζ·f − f(1)/(s−1)` about `s = 2`, combined with a
-Landau truncation summation over the nonnegative Taylor coefficients — is deferred to a later wave;
-see `docs/blueprints/flags.md` (SW S4b). Everything below the abstraction is proven here. -/
+Landau truncation summation over the nonnegative Taylor coefficients — was deferred to a later wave
+(now `estermannPositivity`, in `EstermannInterface.lean`). Everything below it is proven here. -/
 
 open scoped ComplexOrder in
 /-- **Estermann's positivity lemma (abstract).** For an entire `f` bounded by `M ≥ 1` on the disk
@@ -306,7 +306,7 @@ choice). The **no-exceptional-zero branch is proven here, fully and effectively*
 if `L(·,χ)` never vanishes in `[1−ε, 1)` then every zero `β < 1` already satisfies `β < 1 − ε
 ≤ 1 − ε/qᵉ`. The exceptional branch — where `L(1,χ) ≫_ε q^{−ε}` (`goldfeld_L_one_lower` via
 `EstermannPositivity`) is converted to the zero-free bound by the derivative mean-value step — is
-the hypothesis `hHard`; discharging it is deferred (see `docs/blueprints/flags.md`, SW S4b). -/
+the hypothesis `hHard` here; the full statement is `siegel_theorem` (`SiegelClose.lean`). -/
 theorem siegel_zero_free_of_exceptional_case
     (hHard : ∀ ε : ℝ, 0 < ε →
       (∃ (q₁ : ℕ) (_ : NeZero q₁) (χ₁ : DirichletCharacter ℂ q₁) (β₁ : ℝ),

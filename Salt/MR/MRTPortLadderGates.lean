@@ -81,7 +81,7 @@ theorem m4_ladder_gates_lam (R : ChowlaRegime)
       have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
       have h1 : ((2 * R.ω * (R.Hhi + 2) : ℕ) : ℝ) ≤ (R.x : ℝ) := by exact_mod_cast harm1
       push_cast at h1
-      nlinarith
+      nlinarith only [hHle, h1, Mathlib.Tactic.Linarith.natCast_nonneg ℝ R.ω]
     exact (doorCount_gates hω1 hbig).1
   · -- ⟦hpow⟧ `2^{k+1} ≤ 8ω ≤ x`
     have h4 : 2 ^ (doorCount R.ω) ≤ 4 * R.ω :=

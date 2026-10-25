@@ -66,10 +66,13 @@ def expoM {M k : ℕ} (e : Fin M → Fin k → ℕ) : Fin k → ℕ :=
 /-- the coefficient of an assignment tuple: `Π_m multinomial (e m)`. -/
 def multM {M k : ℕ} (e : Fin M → Fin k → ℕ) : ℕ := ∏ m, Nat.multinomial univ (e m)
 
+/-- `basisPolyM M k a C` written out: one term `(expoM e, a, multM e)` per assignment
+`e ∈ asgM M k C` (by `rfl`). -/
 lemma basisPolyM_eq (M k a : ℕ) (C : Fin M → ℕ) :
     basisPolyM M k a C = (asgM M k C).toList.map fun e => (expoM e, a, ((multM e : ℕ) : ℚ)) :=
   rfl
 
+/-- `expoM` is additive: `expoM (e + f) = expoM e + expoM f`. -/
 lemma expoM_add {M k : ℕ} (e f : Fin M → Fin k → ℕ) : expoM (e + f) = expoM e + expoM f := by
   funext i
   simp only [expoM, Pi.add_apply, mul_add, Finset.sum_add_distrib]
@@ -81,11 +84,14 @@ are both of this form (`eval_eq_lsum`, `simplexInt_eq_lsum`). -/
 def lsum {n : ℕ} {R : Type*} [DivisionRing R] (g : (Fin n → ℕ) → ℕ → R) (P : BPoly n) : R :=
   (P.map fun u => (u.2.2 : R) * g u.1 u.2.1).sum
 
+/-- `lsum g` is additive over list append: `lsum g (p ++ q) = lsum g p + lsum g q`. -/
 lemma lsum_append {n : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin n → ℕ) → ℕ → R)
     (p q : BPoly n) :
     lsum g (p ++ q) = lsum g p + lsum g q := by
   simp only [lsum, List.map_append, List.sum_append]
 
+/-- `lsum g` over a `flatMap` is the sum of the pieces:
+`lsum g (l.flatMap f) = Σ_{x ∈ l} lsum g (f x)`. -/
 lemma lsum_flatMap {n : ℕ} {R : Type*} [Field R] [CharZero R] {γ : Type*}
     (g : (Fin n → ℕ) → ℕ → R) (l : List γ) (f : γ → BPoly n) :
     lsum g (l.flatMap f) = (l.map fun x => lsum g (f x)).sum := by
@@ -93,6 +99,7 @@ lemma lsum_flatMap {n : ℕ} {R : Type*} [Field R] [CharZero R] {γ : Type*}
   | nil => simp [lsum]
   | cons a l ih => rw [List.flatMap_cons, lsum_append, ih, List.map_cons, List.sum_cons]
 
+/-- `lsum g` is `ℚ`-homogeneous: `lsum g (scale c P) = c · lsum g P`. -/
 lemma lsum_scale {n : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin n → ℕ) → ℕ → R)
     (c : ℚ) (P : BPoly n) :
     lsum g (scale c P) = (c : R) * lsum g P := by
@@ -102,6 +109,8 @@ lemma lsum_scale {n : ℕ} {R : Type*} [Field R] [CharZero R] (g : (Fin n → �
   simp only [Function.comp_apply, Rat.cast_mul]
   ring
 
+/-- `lsum g` of one basis element (from `basisPolyM_eq`):
+`lsum g (basisPolyM M n a C) = Σ_{e ∈ asgM M n C} multM e · g (expoM e) a`. -/
 lemma lsum_basisPolyM {n : ℕ} {R : Type*} [Field R] [CharZero R] {M : ℕ}
     (g : (Fin n → ℕ) → ℕ → R) (a : ℕ) (C : Fin M → ℕ) :
     lsum g (basisPolyM M n a C) = ∑ e ∈ asgM M n C, ((multM e : ℕ) : R) * g (expoM e) a := by
@@ -111,6 +120,7 @@ lemma lsum_basisPolyM {n : ℕ} {R : Type*} [Field R] [CharZero R] {M : ℕ}
   refine Finset.sum_congr rfl fun e _ => ?_
   simp only [Function.comp_apply, Rat.cast_natCast]
 
+/-- two `flatMap`s whose pieces agree under `lsum g` on every `x ∈ l` have the same `lsum g`. -/
 lemma lsum_congr_flatMap {n : ℕ} {R : Type*} [Field R] [CharZero R] {γ : Type*}
     (g : (Fin n → ℕ) → ℕ → R) (l : List γ)
     (f f' : γ → BPoly n) (h : ∀ x ∈ l, lsum g (f x) = lsum g (f' x)) :
@@ -118,17 +128,22 @@ lemma lsum_congr_flatMap {n : ℕ} {R : Type*} [Field R] [CharZero R] {γ : Type
   rw [lsum_flatMap, lsum_flatMap]
   exact congrArg List.sum (List.map_congr_left h)
 
+/-- `eval P t` is the `lsum` of `P` against the monomial `Π_i t_i^{e i} · (1 − Σ_i t_i)^d`. -/
 lemma eval_eq_lsum {n : ℕ} (P : BPoly n) (t : Fin n → ℝ) :
     eval P t = lsum (fun e d => (∏ i, t i ^ e i) * (1 - ∑ i, t i) ^ d) P := by
   unfold eval lsum
   refine congrArg List.sum (List.map_congr_left fun u _ => ?_)
   ring
 
+/-- `simplexInt P` is the `lsum` of `P` against `DInt'`, the Dirichlet integral of one
+monomial. -/
 lemma simplexInt_eq_lsum {n : ℕ} (P : BPoly n) : simplexInt P = lsum (R := ℚ) DInt' P := by
   unfold simplexInt lsum
   refine congrArg List.sum (List.map_congr_left fun u _ => ?_)
   simp only [Rat.cast_id]
 
+/-- the integral of one basis element as a sum over assignments:
+`simplexInt (basisPolyM M k a C) = Σ_{e ∈ asgM M k C} multM e · DInt' (expoM e) a`. -/
 lemma simplexInt_basisPolyM_sum (M k a : ℕ) (C : Fin M → ℕ) :
     simplexInt (basisPolyM M k a C)
       = ∑ e ∈ asgM M k C, ((multM e : ℕ) : ℚ) * DInt' (expoM e) a := by
@@ -188,17 +203,22 @@ lemma sum_piFinset_cons {M : ℕ} {β γ : Type*} [AddCommMonoid γ]
   · intro e _
     simp only [Fin.cons_self_tail]
 
+/-- `multM` of a `Fin.cons`: `multM (Fin.cons x y) = multinomial x · multM y`
+(`Fin.prod_univ_succ`). -/
 lemma multM_cons {M k : ℕ} (x : Fin k → ℕ) (y : Fin M → Fin k → ℕ) :
     multM (Fin.cons x y : Fin (M + 1) → Fin k → ℕ) = Nat.multinomial univ x * multM y := by
   unfold multM
   rw [Fin.prod_univ_succ]
   simp
 
+/-- `Fin.cons` is additive: `Fin.cons x y + Fin.cons x' y' = Fin.cons (x + x') (y + y')`. -/
 lemma cons_add_cons' {M : ℕ} {β : Type*} [Add β] (x x' : β) (y y' : Fin M → β) :
     (Fin.cons x y : Fin (M + 1) → β) + Fin.cons x' y' = Fin.cons (x + x') (y + y') := by
   funext i
   refine Fin.cases ?_ (fun j => ?_) i <;> simp
 
+/-- at `M = 0` the assignment tuples are the one empty tuple:
+`asgM 0 k C = {fun m => Fin.elim0 m}`. -/
 lemma asgM_zero (k : ℕ) (C : Fin 0 → ℕ) : asgM 0 k C = {fun m => Fin.elim0 m} := by
   ext e
   rw [Finset.mem_singleton]
@@ -296,6 +316,7 @@ noncomputable def FsqM (M k : ℕ) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ))
   cs.flatMap fun x => cs.flatMap fun y =>
     scale ((x.2 * y.2 : ℤ) : ℚ) (basisPolyM M k (x.1.1 + y.1.1) (x.1.2 + y.1.2))
 
+/-- `FpolyM M k cs` is `FpolyQ M k` of the same list with its coefficients cast to `ℚ`. -/
 lemma FpolyM_eq_FpolyQ (M k : ℕ) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ)) :
     FpolyM M k cs = FpolyQ M k (cs.map fun x => (x.1, (x.2 : ℚ))) := by
   unfold FpolyM FpolyQ
@@ -303,6 +324,8 @@ lemma FpolyM_eq_FpolyQ (M k : ℕ) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ))
   | nil => rfl
   | cons x cs ih => simp only [List.flatMap_cons, List.map_cons, ih]
 
+/-- under `BasisEvalM M k`, `FsqM` evaluates to the square:
+`eval (FsqM M k cs) t = (eval (FpolyM M k cs) t)²`. -/
 theorem eval_FsqM {M k : ℕ} (hE : BasisEvalM M k) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ))
     (t : Fin k → ℝ) : eval (FsqM M k cs) t = eval (FpolyM M k cs) t ^ 2 := by
   unfold BasisEvalM at hE
@@ -320,6 +343,8 @@ noncomputable def IformM (M k : ℕ) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ
   (cs.map fun x => (cs.map fun y =>
     ((x.2 * y.2 : ℤ) : ℚ) * closedM M k (x.1.1 + y.1.1) (x.1.2 + y.1.2)).sum).sum
 
+/-- under `BasisIntM M k`, the integral of `FsqM M k cs` is the double sum of closed forms at
+the SUMMED exponents: `Σ_x Σ_y c_x · c_y · closedM M k (a_x + a_y) (C_x + C_y)`. -/
 theorem simplexInt_FsqM {M k : ℕ} (hS : BasisIntM M k) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ)) :
     simplexInt (FsqM M k cs) = (cs.map fun x => (cs.map fun y =>
       ((x.2 * y.2 : ℤ) : ℚ) * closedM M k (x.1.1 + y.1.1) (x.1.2 + y.1.2)).sum).sum := by
@@ -336,6 +361,8 @@ theorem IformM_eq {M k : ℕ} (hS : BasisIntM M k) (cs : List ((ℕ × (Fin M �
     IformM M k cs = simplexInt (FsqM M k cs) :=
   (simplexInt_FsqM hS cs).symm
 
+/-- `FpolyQ M k cs` written out: for each term `x` and each `e ∈ asgM M k (C x)`, the entry
+`(expoM e, a x, c x · multM e)`. -/
 lemma FpolyQ_eq (M k : ℕ) (cs : List ((ℕ × (Fin M → ℕ)) × ℚ)) :
     FpolyQ M k cs = cs.flatMap fun x => (asgM M k x.1.2).toList.map fun e =>
       (expoM e, x.1.1, x.2 * ((multM e : ℕ) : ℚ)) := by
@@ -379,6 +406,8 @@ theorem simplexInt_sq_FpolyM (M k : ℕ) (cs : List ((ℕ × (Fin M → ℕ)) ×
 /-- the `ℓ¹` norm of a coefficient list. -/
 def QsumM {M : ℕ} (cs : List ((ℕ × (Fin M → ℕ)) × ℤ)) : ℚ := (cs.map fun x => |(x.2 : ℚ)|).sum
 
+/-- on the simplex (`0 ≤ t`, `Σ_i t_i ≤ 1`) the basis value
+`(1 − Σ_i t_i)^a · Π_m (Σ_i t_i^{2(m+1)})^{C m}` lies in `[0, 1]`. -/
 lemma basisM_val_bounds {M k : ℕ} (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∑ i, t i ≤ 1)
     (a : ℕ) (C : Fin M → ℕ) :
     0 ≤ (1 - ∑ i, t i) ^ a * ∏ m : Fin M, (∑ i, t i ^ (2 * ((m : ℕ) + 1))) ^ (C m) ∧
@@ -403,6 +432,8 @@ lemma basisM_val_bounds {M k : ℕ} (t : Fin k → ℝ) (ht0 : ∀ i, 0 ≤ t i)
   exact ⟨mul_nonneg (pow_nonneg hb0 _) hprod0,
     mul_le_one₀ (pow_le_one₀ hb0 hb1) hprod0 hprod1⟩
 
+/-- under `BasisEvalM M k`, `eval (FpolyM M k cs) t` is
+`Σ_x c_x · (1 − Σ_i t_i)^{a_x} · Π_m (Σ_i t_i^{2(m+1)})^{C_x m}`. -/
 lemma eval_FpolyM {M k : ℕ} (hE : BasisEvalM M k) (cs : List ((ℕ × (Fin M → ℕ)) × ℤ))
     (t : Fin k → ℝ) :
     eval (FpolyM M k cs) t = (cs.map fun x => (x.2 : ℝ) * ((1 - ∑ i, t i) ^ x.1.1 *
