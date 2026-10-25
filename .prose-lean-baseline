@@ -716,10 +716,6 @@ fcd0c72a7ec4	Salt/MR/All.lean	docstring
 c4d6c32e8480	Salt/MR/AnnHead.lean	docstring
 d4cf999543f1	Salt/MR/ArithPageLinear.lean	docstring
 6fcdd98a8e53	Salt/MR/BallSupChi.lean	docstring
-2b37f393cd75	Salt/MR/BigXiArc.lean	docstring
-5655edfe9b8c	Salt/MR/BigXiArc.lean	docstring
-919118a415fa	Salt/MR/BigXiArc.lean	docstring
-baab529e11f3	Salt/MR/BigXiArc.lean	docstring
 184d553d2662	Salt/MR/CofactorGrade.lean	docstring
 06bdf004b39b	Salt/MR/ConstantsExposed.lean	docstring
 631e4ac5d875	Salt/MR/ConstantsExposed.lean	docstring
@@ -728,9 +724,6 @@ ece876c4e350	Salt/MR/ConstantsExposed.lean	docstring
 4f7168371baa	Salt/MR/DistSplit.lean	docstring-cited
 2d9f824a8aac	Salt/MR/DistWindow.lean	docstring
 063503512a9a	Salt/MR/DoorFloor.lean	docstring
-bfef630562d0	Salt/MR/DoorFloor.lean	docstring
-f1250b32b6ce	Salt/MR/DoorFloor.lean	docstring
-5f6c7d671679	Salt/MR/DoorFrame.lean	docstring
 be6a84a3d0c6	Salt/MR/DoorFrameH1.lean	docstring
 f6af3207dc9a	Salt/MR/DoorFrameH1.lean	docstring
 b20eeabfed28	Salt/MR/DoorLinear.lean	docstring
@@ -744,10 +737,6 @@ c5b4d309d7c3	Salt/MR/DoorReceipt.lean	docstring
 e8358da638d2	Salt/MR/DoorRoadCompose.lean	docstring
 fa36fcdeec9e	Salt/MR/DoorRoadCompose.lean	docstring-cited
 18f9723b71ac	Salt/MR/EpsFamilyReceipt.lean	docstring
-3b41bc8a3196	Salt/MR/Eq26Bridge.lean	docstring
-8ea9198341d1	Salt/MR/Eq26Bridge.lean	docstring
-0ec49293a806	Salt/MR/Eq26Compose.lean	docstring
-e7433b5f9383	Salt/MR/Eq26Compose.lean	docstring
 95b4a618abfa	Salt/MR/EvenChiAlgebra.lean	docstring
 9714f92fc1bb	Salt/MR/EvenChiAlgebra.lean	docstring
 ed98e3a255f2	Salt/MR/EvenChiAlgebra.lean	docstring
@@ -837,7 +826,6 @@ c91b11a51ba1	Salt/MR/HalaszSeam.lean	docstring
 3b88fe6e528e	Salt/MR/LambdaRateTwisted.lean	docstring
 a308d0cffffa	Salt/MR/LambdaRateTwisted.lean	docstring
 2e7ca45d6714	Salt/MR/LandauDescent.lean	docstring
-8be18f097820	Salt/MR/LandauL1.lean	docstring
 1cc339046e2c	Salt/MR/LandauOdd.lean	docstring
 7380928a8a8b	Salt/MR/LandauOdd.lean	docstring
 fe122661fb6a	Salt/MR/LandauOdd.lean	docstring
@@ -949,12 +937,7 @@ c9cba9e9718c	Salt/MR/MVCore.lean	docstring
 cf57351d5dad	Salt/MR/MVHilbert.lean	docstring
 2931b3dc5bfc	Salt/MR/MWindowBridge.lean	docstring
 01574fc60c14	Salt/MR/MWindowExtend.lean	docstring
-3e9181149400	Salt/MR/MinorArcCore.lean	docstring
-57207d274c12	Salt/MR/MinorArcCore.lean	docstring
-92a720bccf22	Salt/MR/MinorArcCore.lean	docstring
-085876d371f2	Salt/MR/MinorArcExit.lean	docstring
 0f3524ed911c	Salt/MR/MinorArcExit.lean	docstring
-7ee9a795ae18	Salt/MR/MinorArcVaughan.lean	docstring
 189d51bc77d6	Salt/MR/MobiusChiRamare.lean	docstring
 4e3fb29a8a5c	Salt/MR/MobiusChiRamareUnion.lean	docstring
 2aba675a978c	Salt/MR/ParsevalAsm.lean	docstring
@@ -966,7 +949,6 @@ e96fb72887ab	Salt/MR/Prop1Assembly.lean	docstring
 b08783fc6df0	Salt/MR/RamareWindows.lean	docstring
 5f957af6efc9	Salt/MR/RampSliver.lean	docstring
 92f852cfa49e	Salt/MR/RampSliver.lean	docstring
-37707f93d51c	Salt/MR/RegimeHead.lean	docstring
 5ebbb8e4b29d	Salt/MR/RegisterCompose.lean	docstring
 667f08513e28	Salt/MR/RegisterCompose.lean	docstring-cited
 fa69c9d2a38d	Salt/MR/RegisterCompose.lean	docstring-cited
@@ -1100,8 +1082,6 @@ ed79e366d672	Salt/MR/S16ProducersH.lean	docstring
 1de8d503e452	Salt/MR/S16UniformLH.lean	docstring
 9650218708e9	Salt/MR/SPartCore.lean	docstring
 65ffa689ccc1	Salt/MR/SPartStation.lean	docstring
-2ab3fe7338b2	Salt/MR/SieveGlue.lean	docstring
-72a5f41a6801	Salt/MR/SieveGlue.lean	docstring
 098792e510cf	Salt/MR/StrideDoorAllGrades.lean	docstring
 1615a41a1506	Salt/MR/StrideDoorAllGrades.lean	docstring-cited
 5d051a5bd185	Salt/MR/StrideDoorAllGrades.lean	docstring
