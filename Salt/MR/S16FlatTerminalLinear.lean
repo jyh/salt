@@ -65,7 +65,7 @@ def S16BandLaneCBoundedL (K : ℕ) : Prop :=
 
 /-! ## §1 — THE CONSTANT-POOL FUSE AT `0 ≤ C_p`, AT THE LINEAR LADDER -/
 
-/-- `S12ConstCompose.ftl_one_le_log_of_three_le`, re-proved (the landed lemma is `private`).
+/-- `S12ConstCompose.s12c_one_le_log_of_three_le`, re-proved (the landed lemma is `private`).
 Ladder-BLIND. -/
 private lemma ftl_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ)) :
     (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
