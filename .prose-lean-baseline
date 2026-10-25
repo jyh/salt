@@ -712,7 +712,6 @@ fcd0c72a7ec4	Salt/MR/All.lean	docstring
 78a21181e0fa	Salt/MR/AnnHead.lean	docstring
 c4d6c32e8480	Salt/MR/AnnHead.lean	docstring
 d4cf999543f1	Salt/MR/ArithPageLinear.lean	docstring
-6fcdd98a8e53	Salt/MR/BallSupChi.lean	docstring
 184d553d2662	Salt/MR/CofactorGrade.lean	docstring
 06bdf004b39b	Salt/MR/ConstantsExposed.lean	docstring
 631e4ac5d875	Salt/MR/ConstantsExposed.lean	docstring
@@ -721,7 +720,6 @@ ece876c4e350	Salt/MR/ConstantsExposed.lean	docstring
 4f7168371baa	Salt/MR/DistSplit.lean	docstring-cited
 2d9f824a8aac	Salt/MR/DistWindow.lean	docstring
 063503512a9a	Salt/MR/DoorFloor.lean	docstring
-f6af3207dc9a	Salt/MR/DoorFrameH1.lean	docstring
 b20eeabfed28	Salt/MR/DoorLinear.lean	docstring
 c5b4d309d7c3	Salt/MR/DoorReceipt.lean	docstring
 219a5a73d05b	Salt/MR/DoorRoadCompose.lean	docstring-cited
@@ -798,11 +796,8 @@ e5eaebbeb7c0	Salt/MR/HalaszCore.lean	docstring
 20689b4f9ff4	Salt/MR/HalaszHead.lean	docstring
 b6e65c9f740c	Salt/MR/HalaszIdentity.lean	docstring
 ce1cad76fec9	Salt/MR/HalaszIdentity.lean	docstring
-6ad9af09d313	Salt/MR/HalaszIntegersChiClose.lean	docstring
-e32b5956e3eb	Salt/MR/HalaszIntegersChiClose.lean	docstring
 cebf213aa84f	Salt/MR/HalaszKernel.lean	docstring
 bee43e180cf0	Salt/MR/HalaszPrimes.lean	docstring
-2744a45aad83	Salt/MR/HalaszPrimesChi.lean	docstring
 a33b767dc684	Salt/MR/HalaszPrimesCore.lean	docstring
 1b2ea77883d8	Salt/MR/HalaszRepAsm.lean	docstring
 1f29b673962e	Salt/MR/HalaszSeam.lean	docstring
@@ -812,12 +807,8 @@ c91b11a51ba1	Salt/MR/HalaszSeam.lean	docstring
 023a49beb404	Salt/MR/HeadGrade.lean	docstring
 6d9c2886352f	Salt/MR/HeadGrade.lean	docstring
 199c3e7ac488	Salt/MR/HloExportMRFlatRoot.lean	docstring
-19ff0f115268	Salt/MR/HybridMoments.lean	docstring
 4069052c31ed	Salt/MR/JointHead.lean	docstring
 8a288163de0d	Salt/MR/KLever.lean	docstring-cited
-25af1cc65282	Salt/MR/LambdaChiRamare.lean	docstring
-3b88fe6e528e	Salt/MR/LambdaRateTwisted.lean	docstring
-a308d0cffffa	Salt/MR/LambdaRateTwisted.lean	docstring
 a534d4bc1dab	Salt/MR/LargeValueCount.lean	docstring
 b9cbd1749886	Salt/MR/LargeValueCount.lean	docstring
 137646f474aa	Salt/MR/Lemma14Taylor.lean	docstring
@@ -833,9 +824,6 @@ e758cad83434	Salt/MR/M4ArithZero.lean	docstring
 b86f6b312da3	Salt/MR/M4ArithZeroLinear.lean	docstring
 ebc2156dc5d1	Salt/MR/M4ArithZeroLinear.lean	docstring
 8bf2ea09731e	Salt/MR/M4AssemblyFrames.lean	docstring
-a9301d1b9225	Salt/MR/M4BridgeBlock.lean	docstring
-4312bc153601	Salt/MR/M4ChiSocketWire.lean	docstring
-a3dbd2ad49f3	Salt/MR/M4ChiSocketWire.lean	docstring
 77dede19a19a	Salt/MR/M4Close.lean	docstring
 48ccd6df9653	Salt/MR/M4ClosureRepairLinear.lean	docstring
 2001a4f8dfa2	Salt/MR/M4DoorL2.lean	docstring
@@ -843,7 +831,6 @@ a3dbd2ad49f3	Salt/MR/M4ChiSocketWire.lean	docstring
 76f63572a225	Salt/MR/M4DoorL2.lean	docstring
 9e3d732c202b	Salt/MR/M4DoorL2.lean	docstring
 265a0af5828f	Salt/MR/M4LadderLinear.lean	docstring
-af367317be93	Salt/MR/M4P2MR.lean	docstring
 10bc9f0429c8	Salt/MR/M4ParsevalStone.lean	docstring
 d1fddbded1cd	Salt/MR/M4ParsevalStone.lean	docstring
 11e17e7d54e3	Salt/MR/M4RowLinear.lean	docstring
@@ -851,7 +838,6 @@ d1fddbded1cd	Salt/MR/M4ParsevalStone.lean	docstring
 82269e1c1c17	Salt/MR/M4RowLinear.lean	docstring
 9ea3bfb2452c	Salt/MR/M4RowLinear.lean	docstring
 b7a8e4dbdda9	Salt/MR/M4RowLinear.lean	docstring
-13599df71c74	Salt/MR/M4RowsChi.lean	docstring
 47ae02a3705a	Salt/MR/M4RowsChiEnd.lean	docstring
 f3c9bcb20262	Salt/MR/M4RowsChiEnd.lean	docstring
 907f7e62b46e	Salt/MR/M4RowsChiPrimeLinear.lean	docstring
@@ -859,7 +845,6 @@ f3c9bcb20262	Salt/MR/M4RowsChiEnd.lean	docstring
 8e9dcbae2254	Salt/MR/M4RowsChiZero.lean	docstring
 bf5ff0c54881	Salt/MR/M4RowsChiZero.lean	docstring
 6a7fcf250e44	Salt/MR/M4SecondRoad.lean	docstring
-fa6fb463eca3	Salt/MR/M4SecondRoad.lean	docstring
 ef024bf00acb	Salt/MR/M4Spine.lean	docstring
 d87b08bb7174	Salt/MR/M4Window.lean	docstring
 2241e9cd6053	Salt/MR/MRTPort.lean	docstring
@@ -887,10 +872,7 @@ d55b8edd47bc	Salt/MR/MRTQualityLam.lean	docstring-cited
 5993131b2118	Salt/MR/MRTThmA1.lean	docstring-cited
 c9cba9e9718c	Salt/MR/MVCore.lean	docstring
 cf57351d5dad	Salt/MR/MVHilbert.lean	docstring
-189d51bc77d6	Salt/MR/MobiusChiRamare.lean	docstring
-4e3fb29a8a5c	Salt/MR/MobiusChiRamareUnion.lean	docstring
 2aba675a978c	Salt/MR/ParsevalAsm.lean	docstring
-6e4cecafbfc9	Salt/MR/PortNonVacuous.lean	docstring
 1979ea05b602	Salt/MR/Prop1Assembly.lean	docstring
 71ed70ce10bc	Salt/MR/Prop1Assembly.lean	docstring
 e96fb72887ab	Salt/MR/Prop1Assembly.lean	docstring
@@ -1095,7 +1077,6 @@ ff03ccc25bf9	Salt/MR/TierSLadder.lean	docstring
 33a2eac4f95b	Salt/MR/V7RatedH.lean	docstring
 5022d4441078	Salt/MR/V7RatedH.lean	docstring
 83ef4ba92ace	Salt/MR/V7RatedH.lean	docstring
-991ff33b678e	Salt/MR/VkTwistRegion.lean	docstring
 6beb520e6b98	Salt/MR/XThread.lean	docstring
 a68f9dd1448f	Salt/MR/XThread.lean	docstring-cited
 b24b737cbf50	Salt/MR/ZetaPowLower.lean	docstring
