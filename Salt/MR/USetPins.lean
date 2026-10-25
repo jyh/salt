@@ -9,8 +9,8 @@ import Mathlib.Analysis.Complex.ExponentialBounds
 /-!
 # USetPins — the §8.3 pin arithmetic (U-9a)
 
-The `hU` ladder's parameter page.  Nothing analytic lives here: every statement is an
-inequality between the §8.3 parameters (`P₈₃`, `Q₈₃`, `H₈₃`, the `J`-cutoff, the balance
+The `hU` ladder's parameter page.  Nothing analytic lives here: the statements are inequalities,
+identities and negations about the §8.3 parameters (`P₈₃`, `Q₈₃`, `H₈₃`, the `J`-cutoff, the balance
 `θ = ρ/3`, the annulus height `Tann`), proved from explicit `X`-gates.  Scope pins:
 `docs/exploration/hsup-design.md`'s ⟦V4⟧ block (the U-9a bullet) and
 `docs/exploration/hu-scope-0724.md` (the ratified pins P-i/P-ii/P-iii).
