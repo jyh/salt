@@ -23,6 +23,9 @@ and $\frac{21}{20}\,4^{A}$ in doubly-logarithmic width, and both bounds are theo
 paper's Theorems thm:tollge and thm:tollle; no declaration states the price as exactly $4^{A}$. The manuscript's own
 bracket, eq:bracket at :490–493, says so.)
 
+(The same claim in short at :579–580, *"On the flat road the toll is a factor $4^{A}$ on the width"*: read it as the
+bracket above.)
+
 **W2. :97–100, abstract**. The sentence:
 ```text
 Every theorem in this paper is verified by the Lean~4 kernel over \textsf{mathlib}, with axiom base exactly
