@@ -1432,7 +1432,7 @@ theorem logChowla2_capstone_final_const'_graded_gk (K : ℕ) (hK : K ≤ 1700000
 ROAD
 
 ⟦WHY⟧ `REF-FINAL-SAT` (flags 2026-07-31) proved the summit terminal VACUOUS as landed: its
-`1/2^10 ≤ δ₀` rider is FALSE at the object's own constants (`s13Delta0 ≈ 2^{-19.68}`, 673×
+`1/2^10 ≤ δ₀` rider is FALSE at the object's own constants (`s13Delta0 ≈ 2^{-19.68}`, 818×
 short) and unreachable at ANY admissible `ε`.  The repair is to consume the road that
 already CARRIES its constants: `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (EPSPIN,
 landed) delivers three extra conjuncts — `Cg ≤ 2·10^{12}`, `1/500 ≤ ε`, `1/838400 ≤ δ₀` —
