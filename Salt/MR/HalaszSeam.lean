@@ -61,17 +61,17 @@ the landed kernel `((X+h)^{s+1} - X^{s+1}) / (h·s·(s+1))`.
 4. The center twist `n^{-it₀}` and window `g_J` are carried in the represented
    sum from the start (GHS folds them in only later, at the §2.3 shifted line).
 
-**RESIDUAL (S1' is THE campaign's single named residual, per the freeze).**  The
+**RESIDUAL AT THE FREEZE (S1' was then the campaign's single named residual).**  The
 `α,β` double-integral re-expression of `hat_contour_rep`'s integrand
 `(∑' n, a n / n^s) · hatKernel(s)` into the product form
 `𝒮(s-α-β)·𝓛(s+β)·P_(-β)·P_β` — i.e. the GHS Lemma 2.1/2.2 coefficient identity
-`∑_{ℓm=n} Λ_f(ℓ) f(m) = f(n) log n` integrated over `α,β` — requires (a) the
+`∑_{ℓm=n} Λ_f(ℓ) f(m) = f(n) log n` integrated over `α,β` — required (a) the
 shifted-Dirichlet-series integration `∫₀^η F'(s+α+β) dβ = 1 - F(s+α)` in the
 `ellLin`/`lambdaLin` product form, and (b) Fubini among the `(α,β)` double
 integral, the `tsum` over `n`, and the `t`-integral.  mathlib has no
 multivariable-Perron/Fubini apparatus for this; it is a multi-thousand-line
-formalization.  S1' therefore remains the named residual — the frozen statement
-above is its discharge (the residual is now precisely stated and reduced to
+formalization.  S1' therefore remained the named residual — the frozen statement
+above is its discharge (the residual was then precisely stated and reduced to
 (a)+(b)).  The LANDABLE seam pieces of S1' — the desmooth reduction
 (`prop21_desmooth_reduction`) and the `Λ`-window bound (`lambdaLin_window_bound`)
 — are proved below.
