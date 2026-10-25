@@ -61,3 +61,28 @@ removal is Siegel's ineffective constant, carried by the rider $e^{-100} \le K_s
 among its hypotheses: they are `x₀ ≤ e^{e^{3.2A}/10}` and `H_opq ≤ ⌈e^{e^{3.2A}}⌉`, and its statement binds no `x₀` or
 `H_opq`. The manuscript's own §sec:limit, :1278, opens the chain with "Step 1: the Siegel pair, by the limit", and
 :295–297 names the surviving pair as `K_s` and the cushion.)
+
+**W4. :119–126, abstract**. The sentence:
+```text
+The second theorem, the \emph{pearl}, is conditional and we name its conditionality at the statement: at every design
+constant $A$ above an explicit floor there is a Chowla regime whose window base is pinned at
+$\lceil e^{e^{3.2A}}\rceil$, and for that regime the logarithmically averaged two-point Chowla correlation does not
+fail at the witnessed scale, on a list of hypotheses given in full in \S\ref{sec:pearl}: one analytic constant of the
+band lane, eight numeric riders on constants the theorem itself produces, and two carried predicates.
+```
+
+Corrected:
+```text
+The second theorem, the \emph{pearl}, is conditional and we name its conditionality at the statement: for every
+floor $A_0 \ge 162$ there are a design constant $A \ge A_0$ and a Chowla regime whose window base is pinned at
+$\lceil e^{e^{3.2A}}\rceil$, and for that regime the logarithmically averaged two-point Chowla correlation does not
+fail at the witnessed scale, on a list of hypotheses given in full in \S\ref{sec:pearl}: one analytic constant of the
+band lane, eight numeric riders on constants the theorem itself produces, and two carried predicates.
+```
+
+(`logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:136`), Theorem thm:pearl, takes `A₀` with
+`162 ≤ A₀` and produces one `A` with `A₀ ≤ A`; the manuscript's own :1201–1202 says "the theorem produces, for every
+`A₀`, some `A ≥ A₀`". The hoisted form of §sec:limit, `logChowla2_witnessed_scale_flat_L_v2_uniform`
+(`Salt/MR/S16Uniform.lean:933`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
+`budgetAFlat ε β = 2304·log 4/(ε⁶β²)` is computed from constants the theorem produces, and only `0 < β` is known of
+`β`, so that floor is not explicit.)
