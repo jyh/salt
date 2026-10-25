@@ -50,7 +50,7 @@ that theorem's, verbatim.
 theorem is the `eps_pool` field, which §1's threshold now supplies at every `ε` (and the
 threshold IMPLIES `heps293` whenever `0 ≤ ε`).  Carrying it would leave a named binder unused.
 It IS carried, unchanged, by §3 and §4 — where the residue list is a specification and the
-verdict's certificate `constv_heps293_at_socket` discharges it directly.
+verdict's certificate `S15Compose.s15_heps293_at_socket` discharges it directly.
 
 ## §3 — ⟦PIECE 3⟧ THE FUSE AT `constPool`, `0 ≤ Cp`, POSITIVE `ε`
 
@@ -59,7 +59,7 @@ verdict's certificate `constv_heps293_at_socket` discharges it directly.
 * `0 < Cp` relaxed to `0 ≤ Cp` (the byte model is `S12FuseCompose.m4_closure_fuse_zero'_nonneg`:
   route through `m4_chiSummedFreeRow_of_doorAssembly_pool'_gated` + `m4_hrowsSlot_at_door_zero'`
   instead of through `..._pool_zero'_gated`'s strict wrapper) — ruling 8 enters the road at
-  `Cp := 0`, where the verdict's `constv_dens_at_zero` makes the `dens` slot FREE;
+  `Cp := 0`, where the verdict's `S15Compose.s15_dens_at_zero` makes the `dens` slot FREE;
 * `0 ≤ ρ` strengthened to `0 < ρ` (§1's stone reads the pool in exponential form);
 * the pool pin `∀ A, ε A ≤ 0` replaced by §1's per-socket-base threshold.
 
@@ -430,11 +430,11 @@ the prefix (the eleven constants, `x₀` and `Hcap` in the top block, `∀ Cp �
 * OUT — the decay `gP1`, the decay `GRowsZeroGate''' M (A+s) Cp (decayPool (A+s))` (FALSE at
   every socket base the road reaches: `S14Compose.s14_gRows_kill`), and the decay band
   threshold `4096 ≤ (log X_d)^{1−1/500−θ₂₉₃}`;
-* IN — `gP1` and the four-slot `GRowsZeroGate'''` at `constPool ρ R.Hhi` (base-FREE on the
-  right, and CONST-VERDICT's `constv_gate_base_transfer` makes the gate monotone UPWARD in the
-  base, which is the whole difference from the decay pool), `heps293` and `hband4096` — the
-  two base-LOWER thresholds `constv_heps293_at_socket`/`constv_hband4096_at_socket` certify at
-  every socket base;
+* IN — `gP1` and the four-slot `GRowsZeroGate'''` at `constPool ρ R.Hhi` (base-FREE on the right,
+  and CONST-VERDICT's `constv_gate_base_transfer` makes the gate monotone UPWARD in the base, which
+  is the whole difference from the decay pool), `heps293` and `hband4096` — the two base-LOWER
+  thresholds `S15Compose.s15_heps293_at_socket`/`s15_hband4096_at_socket` certify at every socket
+  base;
 * REPLACED — the pool pin `∀ A, epsrf A ≤ 0` becomes §1's threshold
   `14·loglog R.Hhi + log 376266 + log(1/ρ) ≤ (θ₂₉₃ − epsrf X_d)·loglog X_d`.
 
