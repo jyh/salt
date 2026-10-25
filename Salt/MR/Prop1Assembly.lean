@@ -475,9 +475,9 @@ threading through `shifted_support`/`shifted_count`).
 
 **Socket census after this stone.**  Head: CONCRETE, `T`-general.  Tail: CONCRETE,
 `T`-free.  Moment: CONCRETE, `T`-general.  Remaining ABSTRACT: `hfloor` (now the
-strengthened branch floor) and `hsplit` (the §8 eq-(24) seam) — both carried as hypotheses
-exactly as the landed row carries them.  The `T ≤ logX` gate is gone from the whole
-head/tail/moment column. -/
+strengthened branch floor) and `hsplit` (the §8 eq-(24) seam, `=` form, which flags 2026-07-24
+finds unsatisfiable at its intended use; the `≤` clone below is `T ≤ logX`-gated) — both carried
+as the landed row carries them.  The `T ≤ logX` gate is gone from the head/tail/moment column. -/
 theorem prop_A3_T1_row_moment_T_of_floor {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     (t₀ t : ℝ)
     (N₁ : ℕ) (a₁ : ℕ → ℂ)
