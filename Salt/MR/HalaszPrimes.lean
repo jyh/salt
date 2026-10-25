@@ -77,7 +77,7 @@ lemma prime_contour_decay {P p : ℕ} {δ : ℝ} (hP : 2 ≤ P) (hp : P ≤ p) (
   have hrw : (p : ℝ) ^ (-δ) = Real.exp (Real.log p * (-δ)) := Real.rpow_def_of_pos hp0 _
   rw [hrw]
   apply Real.exp_le_exp.mpr
-  nlinarith [hlog, hδ]
+  nlinarith only [hδ, hlog]
 
 /-- **R3 (frozen).**  The in-statement `exp(−log P / ((log T)^{3/4}(loglog T)⁴))` decay:
 substituting `δ = c / ((log T)^{3/4}(loglog T)⁴)` into `prime_contour_decay` exhibits the

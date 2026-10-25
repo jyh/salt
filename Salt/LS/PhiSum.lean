@@ -21,7 +21,7 @@ Route (mapped from L8.1's PB-floor flag).
    `(m:ℝ)/φ(m) ≤ ∑_{d ∣ m} μ²(d)/φ(d)` (`inv_totient_le_sum`, with `μ²(d)`
    realised as `if Squarefree d then 1 else 0`). Proved via the radical route:
    `m/φ(m) = rad(m)/φ(rad m)` (the ratio depends only on the prime factors,
-   `Nat.totient_eq_mul_prod_factors`), then the squarefree identity
+   `Nat.totient_eq_mul_prod_factors`), then the squarefree bound (`≤`)
    `Salt.Maynard.sum_divisors_inv_totient_ge` at the squarefree `rad m`, whose
    divisors are exactly the squarefree divisors of `m`.
 
@@ -73,7 +73,7 @@ lemma inv_totient_le_sum (m : ℕ) (hm : 1 ≤ m) :
     exact_mod_cast Nat.totient_pos.mpr (Nat.pos_of_ne_zero hrad0)
   have hratio : (m : ℝ) / (Nat.totient m : ℝ) = (rad m : ℝ) / (Nat.totient (rad m) : ℝ) := by
     rw [div_eq_div_iff hφm_pos.ne' hφr_pos.ne', hφm, hφr]; ring
-  -- squarefree identity at `rad m`
+  -- squarefree bound at `rad m`
   have hge : (rad m : ℝ) / (Nat.totient (rad m) : ℝ)
       ≤ ∑ d ∈ (rad m).divisors, (1 : ℝ) / (Nat.totient d : ℝ) :=
     sum_divisors_inv_totient_ge (rad_squarefree m)
@@ -91,7 +91,7 @@ lemma inv_totient_le_sum (m : ℕ) (hm : 1 ≤ m) :
     apply Finset.sum_le_sum_of_subset_of_nonneg (Nat.divisors_subset_of_dvd hm0 hraddvd)
     intro d _ _
     split_ifs <;> positivity
-  -- combine the ratio, the squarefree identity and the divisor conversion
+  -- combine the ratio, the squarefree bound and the divisor conversion
   have hstep : (m : ℝ) / (Nat.totient m : ℝ)
       ≤ ∑ d ∈ m.divisors, (if Squarefree d then (1 : ℝ) else 0) / (Nat.totient d : ℝ) := by
     rw [hratio]; exact hge.trans hconv

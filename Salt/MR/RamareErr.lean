@@ -58,7 +58,7 @@ NOTE (a structural finding).  MR's display carries TWO seam windows,
 `[Xe^{−1/H}, Xe^{1/H}]` (undercount) and `[2X, 2Xe^{1/H}]` (overcount).  Here only the first
 survives: the corpus's `ramRrange` upper endpoint is exactly `2Xe^{−j/H} ≥ 2X/p`, so every
 `m` that `R_{j,H}` overcounts has `pm > 2X` and its coefficient vanishes by `hwin`.  The
-second window is therefore identically zero in this formalisation.
+second window is therefore identically zero under `hwin`; R5 below drops `hwin` and keeps it.
 
 Source pins (D5): MR arXiv v4 (`1501.04585v4`), p.20 (Lemma 12's proof), rendered page.
 -/

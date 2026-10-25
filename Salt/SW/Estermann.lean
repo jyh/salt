@@ -266,10 +266,10 @@ theorem estermannPositivity_core (f : ℂ → ℂ) {M : ℝ} (hM : 1 ≤ M) {σ 
     hM hBlo hBM hcauchy hle
   rwa [show (2 : ℝ) - σ - 1 = 1 - σ from by ring] at hmain
 
-/-- **The analytic interface** deferred to the later Estermann wave: for each admissible input,
+/-- **The analytic interface**, deferred here to a later Estermann wave: for each admissible input,
 the pole-subtracted Taylor data (`a`, `B`) of `F = ζ·f` at `s = 2` together with its Cauchy bound,
-the sign `ζ(σ) ≤ 0`, and the ψ-series identity. Discharging this is the remaining formalization
-work (see the module docstring and `docs/blueprints/flags.md`, SW S4b′). -/
+the sign `ζ(σ) ≤ 0`, and the ψ-series identity. It is discharged in `EstermannInterface.lean`
+(`estermannInterface`; `docs/blueprints/flags.md`, SW S4b′). -/
 def EstermannInterface : Prop :=
   ∀ (f : ℂ → ℂ) (r : ℕ → ℂ) (M : ℝ), 1 ≤ M → Differentiable ℂ f →
     (∀ z ∈ Metric.ball (2 : ℂ) (3 / 2), ‖f z‖ ≤ M) →
