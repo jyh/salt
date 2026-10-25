@@ -20,7 +20,7 @@ MR-gate freeze rung S10b (`docs/exploration/mr-freeze.md:20`,
 > `ω·⌈exp exp(max(8 log⁵H₊, 10²⁴))⌉`, choice-extracted `x₀^{S5}(log⁵H₊)`, C-arm
 > `exp exp(4(M₀ + C(log⁵H₊)))`, `sup_{H ≤ H₊} X₀^{MR}`, ω-arm if staging demands).
 
-The landed `chowlaRegime_exists_param` (`Salt/Entropy/Chowla/RegimeParam.lean:380`)
+The landed `chowlaRegime_exists_param` (`Salt/Entropy/Chowla/RegimeParam.lean:474`)
 exposes only `R.eps = eps ∧ Hlo₀ ≤ R.Hlo`: the outer scale `x` it builds is
 internal and single-exponential in `H₊`, which is what the freeze's FLAW-2 records
 as insufficient for the A-arm (S5's `x₀(Q)` and `C(Q)` at `Q := log⁵H₊` are opaque
@@ -260,7 +260,7 @@ builder in HEAD shape: for ANY `ε ∈ (0, 1/2]`, ANY floor `Hlo₀`, and ANY
 `g : ℕ → ℕ → ℕ`, a `ChowlaRegime` exists with `R.eps = ε`, `Hlo₀ ≤ R.Hlo`, AND the
 outer-scale clearance `g R.Hhi R.ω ≤ R.x`.
 
-Proof: run the landed `chowlaRegime_exists_param` (`RegimeParam.lean:380`), then
+Proof: run the landed `chowlaRegime_exists_param` (`RegimeParam.lean:474`), then
 push the outer scale to `max R.x (g R.Hhi R.ω)` by `regimeEnlargeX` — legal because
 every `x`-constraint is a one-sided lower bound, and harmless because `eps`, `Hlo`,
 `Hhi`, `ω` are carried verbatim (so the `g`-argument does not move under the
@@ -275,7 +275,7 @@ theorem chowlaRegime_exists_param_head (eps : ℚ) (heps : 0 < eps) (heps1 : eps
   exact ⟨regimeEnlargeX R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRHlo, le_max_right _ _⟩
 
 /-- **The binder-position certificate.**  The head form recovers the landed
-`chowlaRegime_exists_param` (`RegimeParam.lean:380`) verbatim at the trivial demand
+`chowlaRegime_exists_param` (`RegimeParam.lean:474`) verbatim at the trivial demand
 `g := fun _ _ => 0` — so the head is a STRICT generalisation, drop-in at every
 existing call site (in particular `SpineFinal.lean:759`, inside `∀ extraFloor`,
 where `ε` is already fixed).  The compile is the check. -/
