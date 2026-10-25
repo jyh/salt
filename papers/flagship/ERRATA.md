@@ -496,5 +496,61 @@ corpus this is enforced syntactically---the defining file imports nothing from t
 (Measured 2026-10-25: `Salt/Parity/Z.lean` imports exactly `Mathlib`, `Salt.Basic` and `Salt.Brun.M5BigO`, at salt
 `514fd3c5`, the submitted manuscript's commit, and at `4fbea900`; its own header claims only the Siegel-zero half.)
 
+**F30. :1058–1063, Appendix A, reading convention**. The sentence:
+```text
+Each entry below pairs a numbered statement of \S\S\ref{sec:banners}--\ref{sec:spine} with the declaration that
+carries it, transcribed from the source at the cited \leaninline{file:line} with the proof body removed and nothing
+else changed: implicit binders, instance binders, coercions and numerals stand as Lean writes them, and where a
+section-level \leaninline{variable} supplies a binder the entry says so.
+```
+
+Corrected:
+```text
+Each entry below pairs a numbered statement of \S\S\ref{sec:banners}--\ref{sec:spine} with the declaration that
+carries it, transcribed from the source at the cited \leaninline{file:line} with the proof body removed and nothing
+else changed: implicit binders, instance binders, coercions and numerals stand as Lean writes them, and where a
+section-level \leaninline{variable} supplies a binder the entry says so, except in three entries: the sign function
+$f$ of \leaninline{S1\_le\_S2Gen} is the variable at \leaninline{Salt/HB/SignChain.lean:33}, and the modulus $q$ of
+\leaninline{l2cWindow} and of \leaninline{S2} is the variable at \leaninline{Salt/HB/L2cCore.lean:49} and
+\leaninline{Salt/HB/Transfer.lean:54}.
+```
+
+(Measured 2026-10-25 at salt `514fd3c5`, the submitted manuscript's commit: the 63 declarations in Appendix A's 24
+code blocks were compared with their source declarations after whitespace normalisation. 62 equal the source with
+the proof removed. `ChowlaRegime` shows its 8 data fields and omits its 19 proof fields, which its entry names and
+locates (`Regime.lean` lines 73–141, `hx` through `hxbig`). The three entries above use a section variable that their
+entries do not name.)
+
+**F31. :312–315, p. 3 [C1–C5]**. The sentence:
+```text
+One consequence for the reader: every numbered statement in this paper---theorem, proposition,
+corollary---is kernel-checked; the labels grade importance, never epistemic status.
+```
+
+Corrected:
+```text
+One consequence for the reader: every numbered statement in this paper---theorem, proposition,
+corollary---names a declaration the kernel checks, and where its wording says more than that declaration, the
+declaration is what is proved; the labels grade importance, never epistemic status.
+```
+
+(The same claim as F28's sentence, made a second time.)
+
+**F32. :264–268, the roadmap [C4]**. The sentence:
+```text
+Third, the \emph{negative space} (\S\S\ref{sec:walls}--\ref{sec:parity}): the exchange-rate wall and the parity gap,
+which together map---as theorems, not folklore---why the obvious routes die.
+```
+
+Corrected:
+```text
+Third, the \emph{negative space} (\S\S\ref{sec:walls}--\ref{sec:parity}): the exchange-rate wall and the parity gap.
+Each is stated as a theorem where it is formalized, with the scope F12 and F13 give the wall; three of the wall
+series' four refutations are ledger records (\S\ref{sec:walls}).
+```
+
+(The manuscript's own §sec:walls, :684, says *"Three are ledger-grade records; the fourth is a theorem series,
+formalized here."*)
+
 (The manuscript's own Appendix A, :1155–1157, already says *"no declaration in the corpus asserts the minimality
 claimed for it in §sec:fulcrum"*; F1, F3, F7, F8 and F10 are where the body contradicts it.)

@@ -148,3 +148,7 @@ o88-2026-10-25-32	papers/flagship/main.tex	7852c27df3bc	Salt/Fulcrum/Dichotomy.l
 o88-2026-10-25-33	papers/flagship/main.tex	efc7f6b182f1	Salt/Vk/Littlewood.lean::zeta_zero_free_region_littlewood	922e6464bc9f	paper	math	2026-10-25
 o88-2026-10-25-34	papers/flagship/main.tex	783bfbe00d27	Salt/SW/TBalTall.lean::dh_repulsion_tall	05df6acae00e	paper	math	2026-10-25
 o88-2026-10-25-35	papers/flagship/main.tex	45259a8f0a6b	Salt/Vk/Littlewood.lean::zeta_zero_free_region_littlewood	922e6464bc9f	paper	math	2026-10-25
+o88-2026-10-25-36	papers/flagship/main.tex	e66dd4a4680c	Salt/Fulcrum/CZeroNumeral.lean::fulcrum_zero_real_numeral	74822772cbaf	paper	math	2026-10-25
+o88-2026-10-25-37	papers/flagship/main.tex	1d9c235119ed	Salt/Fulcrum/Dichotomy.lean::fulcrum_dichotomy	92b21ade8ff5	paper	math	2026-10-25
+o88-2026-10-25-38	papers/flagship/main.tex	5d3dcbb4e8e5	Salt/Fulcrum/Dichotomy.lean::not_fulcrum_implies_noSiegelZeros	10d1caec028d	paper	math	2026-10-25
+o88-2026-10-25-39	papers/flagship/main.tex	e7747c11d333	Salt/HB/L2cGlue.lean::glue_master	52682609bc67	paper	math	2026-10-25
