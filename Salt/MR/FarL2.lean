@@ -60,9 +60,9 @@ which is WORSE than the standing `Tstar = L⁴·k^{1/(4 log L)}`.  The `20N` is 
 is the Montgomery–Vaughan constant at the UNIFORM spacing `δ = 1/N`, and the sharp
 per-frequency spacing `δₙ ≍ 1/n` is not what `MVCore2.mvHilbertUniform_holds` supplies.
 
-**THE REPAIR** (arithmetic verified, not yet in Lean): split the WINDOW dyadically first —
-`(y, k/y) = ⋃_j (2^j y, 2^{j+1} y)`, `J ≍ L/log 2` blocks — apply the mean value per block,
-and recombine by Cauchy–Schwarz over the blocks (cost: one factor `J`).  The `N`-term
+**THE REPAIR** (arithmetic verified at `σ ≍ 1`; in Lean since, `FarL2Dyadic`): split the WINDOW
+dyadically first — `(y, k/y) = ⋃_j (2^j y, 2^{j+1} y)`, `J ≍ L/log 2` blocks — apply the mean value
+per block, and recombine by Cauchy–Schwarz over the blocks (cost: one factor `J`).  The `N`-term
 becomes `J·∑_j M_j·A_j ≍ L·L³ = L⁴` in place of `N·A ≍ k·L^{−8}`, and the pricing then
 forces only
 
