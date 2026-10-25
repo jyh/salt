@@ -478,7 +478,7 @@ Where a theorem's wording says more than its declaration (the entries above), th
 name a declaration, and `#print axioms` on the 33 declarations its theorems and its prose name returns exactly those
 three axioms for each.)
 
-**F29. :770–772, Definition def:z**. The sentence:
+**F29. :777–780, Definition def:z**. The sentence:
 ```text
 No Dirichlet character, $L$-function, or exceptional-zero oracle appears in any of these inputs; in the formal
 corpus this is enforced syntactically---the defining file imports nothing from the Siegel-zero or sieve tracks,
