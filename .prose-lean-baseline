@@ -309,17 +309,8 @@ feca86efa07d	papers/witness/main.tex	lexicon-e2
 65287af30509	papers/witness/pi-overview-draft.md	lexicon-e2
 400f4b71e331	scripts/search/README.md	lexicon-e2
 # lexicon epoch 3 (R2, council 2026-10-22 item 3): Lean docstring claim sentences, gated from epoch 3 and accepted as debt by the WIDENING arm; class docstring-cited marks a declaration a public carrier names (read those first).
-1dc978db26f8	Salt/BV/AbelCore.lean	docstring
-e2a7902419c0	Salt/BV/AbelCore.lean	docstring
-0bd65117af7f	Salt/BrunLower/BlockDecomp.lean	docstring
-29d14ceb1122	Salt/BrunLower/Defs.lean	docstring
-fa660941053f	Salt/BrunLower/Defs.lean	docstring
 06291826c70b	Salt/BrunLower/Lemma3.lean	docstring
 57257a4c16ce	Salt/BrunLower/MertensDischarge.lean	docstring
-3f6c35b373f8	Salt/BrunLower/Pointwise.lean	docstring
-8425d26d016e	Salt/BrunLower/Pointwise.lean	docstring
-645392cb7259	Salt/BrunLower/Remainder.lean	docstring
-b81051c4a847	Salt/BrunLower/Remainder.lean	docstring
 4939b0e855dc	Salt/BrunLower/TwinInstance.lean	docstring
 70e3ce428f6a	Salt/Certs/All.lean	docstring
 773bbbd072df	Salt/Certs/All.lean	docstring
@@ -1330,7 +1321,6 @@ a7a20699787f	Salt/SW/EulerEff.lean	docstring
 904b3d324757	Salt/SW/GrahamHard2.lean	docstring
 ac7ff540f216	Salt/SW/JutilaHalasz.lean	docstring
 264a481dc1ee	Salt/SW/PseudoCharEuler.lean	docstring
-b071803b834a	Salt/SW/Psi1Identity.lean	docstring
 954ddef3bf48	Salt/SW/SelWeight.lean	docstring
 dd453397edb1	Salt/SW/SelWeight.lean	docstring
 151c9106990a	Salt/SW/ShiftAssembly.lean	docstring
@@ -1350,11 +1340,6 @@ ea4ace614664	Salt/SW/TBalR8.lean	docstring
 30cd27f5fe0c	Salt/SW/TBalTall.lean	docstring
 fdf58f3e5221	Salt/SW/TBalTall.lean	docstring
 95dbd4fd49b0	Salt/Tactic/All.lean	docstring
-2bc1ebd487b9	Salt/Tactic/CertEval.lean	docstring
-4a3440d45125	Salt/Tactic/CertEval.lean	docstring
-a68d996029a4	Salt/Tactic/CertEval.lean	docstring
-c6d662c44ddb	Salt/Tactic/CertEval.lean	docstring
-fcc3e2b317a1	Salt/Tactic/CertEval.lean	docstring
 400427ce433f	Salt/Tactic/ExpLogNum.lean	docstring
 ed186fb73c53	Salt/Tactic/LogNum.lean	docstring
 69c31706ede4	Salt/Tactic/NlinarithSuggest.lean	docstring
@@ -1380,11 +1365,9 @@ bee49fdacdb4	Salt/TwinBar/FourBar.lean	docstring
 67625f34a3ad	Salt/TwinBar/FourBarAsm.lean	docstring
 8629ae2fdac9	Salt/TwinBar/FourBarAsm.lean	docstring
 be831872d319	Salt/TwinBar/FourBarAsm.lean	docstring
-b6b177bc67f7	Salt/TwinBar/Impossibility.lean	docstring
 63adf6781514	Salt/TwinBar/LambdaRate.lean	docstring
 053afc21986f	Salt/TwinBar/LeastK.lean	docstring
 c1eafc3e160b	Salt/TwinBar/LeastK.lean	docstring
-1ee2010e4e26	Salt/TwinBar/RationalTie.lean	docstring
 239aa521a57e	Salt/TwinBar/Separation.lean	docstring
 61ba6facc471	Salt/TwinBar/Separation.lean	docstring
 cd4ac8e47da2	Salt/TwinBar/Separation.lean	docstring
@@ -1415,9 +1398,6 @@ beb39634e4cf	Salt/TwinBar/TwinDoor.lean	docstring
 dbfb9df7caf7	Salt/TwinBar/TwinParitySieve.lean	docstring
 ae4248975ff7	Salt/TwinBar/TwistedSieve.lean	docstring
 134f5e76c116	Salt/TwinBar/WallCorr.lean	docstring
-07a9b754f054	Salt/TwinBar/Witness.lean	docstring
-5fecb6c91392	Salt/TwinBar/Witness.lean	docstring
-e0764090b04d	Salt/TwinBar/Witness.lean	docstring
 360cd0e40a1f	Salt/Vk/All.lean	docstring
 de2c641e6a05	Salt/Vk/Block.lean	docstring
 06432c32e402	Salt/Vk/Core.lean	docstring

@@ -32,8 +32,8 @@ can cross it.
 
 **The duality.** This is the negative dual of the landed `M5_cert`
 (`2·Ical Fstar < Σ Jcal m Fstar`, `k = 5`) and `theta_ratio_cert`: same
-variational framework, both directions machine-checked — what the method CAN do
-(gaps ≤ 12, ≤ C modulo Siegel–Walfisz) and what it CANNOT (twins, ever). The
+variational framework, both directions machine-checked: what the method CAN do (gaps ≤ 12
+given `EHall`, `WindowPNT`; ≤ C modulo Siegel–Walfisz) and CANNOT (twins, any continuous `F`). The
 strict `<` guarded by `0 < I₂ F` in `no_twin_weight` is the exact `k = 2` analogue
 of `M5_cert`'s shape.
 
