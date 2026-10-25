@@ -921,7 +921,7 @@ theorem m4_arith_henv_rho_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ M₀ :
 
 /-- ⟦LOCAL BRIDGE, M4ArithPage-SIDE⟧ `M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated`
 at the lever, re-proved here because `M4ArithPage` is another group's file.  Private:
-it cannot collide with the public twin when that file grows one. -/
+it does not collide with the public twin that file has since grown (its `_gk` theorem). -/
 private theorem doorGradeGated_bridge_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ}
     {RSbig : ℕ → ℕ → ℝ}
     (hgrade : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
