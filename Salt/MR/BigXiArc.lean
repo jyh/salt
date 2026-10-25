@@ -667,10 +667,10 @@ def MinorArcBoundTight (B₅ : ℝ) : Prop :=
 /-! ### Stone 7c — the tight minor-arc extraction
 
 The tight counterparts of `exists_large_den_of_not_nearRat` and
-`exists_large_den_of_minor`.  Their *conclusions* are byte-identical to the
-sealed ones — the sealed statements already proved the tight radius — while their
-*hypotheses* are weaker (`¬ NearRatTight` in place of `¬ NearRat`).  So these
-stones strictly subsume their sealed originals, and the proofs are shorter. -/
+`exists_large_den_of_minor`.  The minor pair's conclusions are byte-identical (the sealed
+one already proved the tight radius) and its hypothesis is weaker (`¬ NearRatTight` for
+`¬ NearRat`), so it subsumes its original; the general form trades `hr` for `hfine` and
+concludes the radius `Q/(qH)`, which under `hfine` is no stronger than `1/(q(Q'+1))`. -/
 
 /-- **Tight minor-arc extraction, general form.**  If `α` is not tight-major at
 cap `Q` for window `H`, and the Dirichlet order `Q'` is fine enough
