@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `07e6a9f4` · source digest `c51e8d47e996c71e` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `6a335a24` · source digest `fff0b125bcabd497` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -512,9 +512,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BV.sup_div_log_pow_le` | Salt/BV/SWMaxY.lean:111 | sieves |
 | `Salt.BV.typeI_one_maxdisc_le` | Salt/BV/TypeI.lean:381 | sieves, characters |
 | `Salt.BV.typeI_two_maxdisc_le` | Salt/BV/TypeI.lean:463 | sieves, characters |
-| `Salt.BV.typeII_block_le` | Salt/BV/TypeII.lean:248 | sieves, characters |
-| `Salt.BV.typeII_disc_reduce` | Salt/BV/TypeII.lean:428 | sieves, characters |
-| `Salt.BV.typeII_disc_le` | Salt/BV/TypeIIClose.lean:606 | sieves, characters |
+| `Salt.BV.typeII_block_le` | Salt/BV/TypeII.lean:249 | sieves, characters |
+| `Salt.BV.typeII_disc_reduce` | Salt/BV/TypeII.lean:429 | sieves, characters |
+| `Salt.BV.typeII_disc_le` | Salt/BV/TypeIIClose.lean:608 | sieves, characters |
 | `Salt.BrunLower.esymm_le` | Salt/BrunLower/BlockDecomp.lean:96 | sieves |
 | `Salt.BrunLower.block_esymm_le` | Salt/BrunLower/BlockDecomp.lean:161 | sieves |
 | `Salt.BrunLower.mainSum_le_blockForm` | Salt/BrunLower/BlockDecomp.lean:173 | sieves |
@@ -7289,7 +7289,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BV.hasLevel_half_of_siegelWalfisz` | Salt/BV/AbelCore.lean:753 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.bounded_gaps_of_siegelWalfisz` | Salt/BV/AbelCore.lean:757 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.siegelWalfisz_psiTot` | Salt/BV/Defs.lean:76 | sieves | `Salt.BV.SiegelWalfisz` |
-| `Salt.BV.psi_BV_of_siegelWalfisz` | Salt/BV/Dispersion.lean:778 | sieves | `Salt.BV.SiegelWalfisz` |
+| `Salt.BV.psi_BV_of_siegelWalfisz` | Salt/BV/Dispersion.lean:781 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.psi_BV_of_siegelWalfisz'` | Salt/BV/DispersionClose.lean:439 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.bounded_gaps_of_siegelWalfisz_of_bridge` | Salt/BV/Headline.lean:26 | sieves | `Salt.BV.SiegelWalfisz`, `Salt.BV.PsiToPiTransfer` |
 | `Salt.BV.hasLevel_half_of_siegelWalfisz_of_bridge` | Salt/BV/PsiToPi.lean:139 | sieves | `Salt.BV.SiegelWalfisz`, `Salt.BV.PsiToPiTransfer` |

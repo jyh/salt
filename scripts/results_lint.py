@@ -12,6 +12,12 @@ kernel:
                         (regex over theorem/lemma/def/abbrev/structure/instance).
   3. date well-formed — the `Date landed` column is an ISO `YYYY-MM-DD`, and the
                         `Commit` column is a hex sha (7-40 chars).
+  4. commit resolves  — that sha names a commit in this repository, and the
+                        commit's author date is the row's date. Added 2026-10-25:
+                        65 of 87 cited shas were pre-2026-08-16 ids that resolve
+                        nowhere, and arm 3 passed every one. In a shallow clone
+                        or without git, arm 4 is reported NOT CHECKED beside the
+                        verdict, never passed silently.
 
 What this can NOT check: that the row's plain-English statement matches the Lean
 statement's meaning, that the date is the RIGHT date, or that the declaration is
@@ -28,6 +34,7 @@ from __future__ import annotations
 
 import os
 import re
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -70,6 +77,27 @@ def decl_regex(short_name: str) -> re.Pattern[str]:
     )
 
 
+def git_ok() -> str | None:
+    """None if arm 4 can run here, else the reason it cannot."""
+    try:
+        r = subprocess.run(["git", "-C", ROOT, "rev-parse", "--is-shallow-repository"],
+                           capture_output=True, text=True)
+    except OSError as e:
+        return f"git not runnable ({e})"
+    if r.returncode != 0:
+        return "not a git checkout"
+    if r.stdout.strip() == "true":
+        return "shallow clone (old commits absent)"
+    return None
+
+
+def commit_date(sha: str) -> str | None:
+    """The author date (YYYY-MM-DD) of `sha` if it names a commit here, else None."""
+    r = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%ad", "--date=short",
+                        sha + "^{commit}", "--"], capture_output=True, text=True)
+    return r.stdout.strip() if r.returncode == 0 and r.stdout.strip() else None
+
+
 def split_row(line: str) -> list[str]:
     """Split a markdown table row into cells, honouring `\\|` escapes."""
     body = line.strip()
@@ -108,6 +136,7 @@ def main() -> int:
     section = "(preamble)"
     seen_names: dict[str, int] = {}
     source_cache: dict[str, str] = {}
+    no_git = git_ok()
 
     for lineno, raw in enumerate(lines, start=1):
         if raw.startswith("## "):
@@ -189,6 +218,19 @@ def main() -> int:
                 f"RESULTS.md:{lineno}  [{section}]  `{full_name}`: commit "
                 f"{commit_cell!r} is not a 7-40 char hex sha"
             )
+        elif no_git is None:
+            # (d) the commit exists here and landed on the row's date
+            got = commit_date(commit)
+            if got is None:
+                violations.append(
+                    f"RESULTS.md:{lineno}  [{section}]  `{full_name}`: commit "
+                    f"{commit} does not resolve in this repository"
+                )
+            elif DATE_RE.match(date_cell) and got != date_cell:
+                violations.append(
+                    f"RESULTS.md:{lineno}  [{section}]  `{full_name}`: commit "
+                    f"{commit} is dated {got}, the row says {date_cell}"
+                )
 
     if violations:
         print(f"results_lint: {len(violations)} violation(s) over {checked} row(s)\n")
@@ -196,8 +238,10 @@ def main() -> int:
             print(f"  FAIL  {v}")
         return 1
 
+    arm4 = ("commit resolves, dated as the row" if no_git is None
+            else f"commit resolution NOT CHECKED: {no_git}")
     print(f"results_lint: OK — {checked} rows, all verified "
-          f"(file exists, declaration exists, date + commit well-formed)")
+          f"(file exists, declaration exists, date + commit well-formed; {arm4})")
     return 0
 
 
