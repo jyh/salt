@@ -81,7 +81,7 @@ that log-Chowla-2 does NOT fail as soon as three opaque-constant residuals hold
 and the door is small (`δ ≤ δ₀`):
 
 * `H₀ ≤ H`  — the combined producer floor is below the decrement level
-  [OPAQUE floor; believed trivially true, not provable for the `Hlo`-rigid
+  [OPAQUE floor; believed trivially true, not proved for the `Hlo`-rigid
   witness];
 * `ε ≤ cE/(32·log 4)`  — the fixed `ε = 1/2` clears the reduce coupling
   [OPAQUE `ε`-smallness];
