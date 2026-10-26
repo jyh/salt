@@ -252,6 +252,7 @@ def jutilaI (q : ℕ) [NeZero q] (R N M : ℝ) (s : ℂ) : ℂ :=
 
 /-! ## (i) The weight -/
 
+/-- `b_0 = 0`, the `n = 0` branch of the definition. -/
 theorem jutilaB_zero (q : ℕ) (R N M : ℝ) : jutilaB q R N M 0 = 0 := by
   simp [jutilaB]
 
@@ -264,6 +265,9 @@ theorem jutilaB_ofReal_eq (q : ℕ) (R N M : ℝ) {n : ℕ} (hn : n ≠ 0) :
   push_cast
   ring
 
+/-- `0 ≤ b_n` for `0 < M ≤ N` (`hM`, `hMN`): the bracket `K(n/N) − K(n/M)` is nonnegative
+because `n/N ≤ n/M` gives `max 0 (1 − n/M) ≤ max 0 (1 − n/N)`, and squaring keeps the order
+since both are `≥ 0` (`pow_le_pow_left₀`); the other factors are `n⁻¹ ≥ 0` and a square. -/
 theorem jutilaB_nonneg {N M : ℝ} (hM : 0 < M) (hMN : M ≤ N) (q : ℕ) (R : ℝ) (n : ℕ) :
     0 ≤ jutilaB q R N M n := by
   simp only [jutilaB]
@@ -277,6 +281,8 @@ theorem jutilaB_nonneg {N M : ℝ} (hM : 0 < M) (hMN : M ≤ N) (q : ℕ) (R : �
       pow_le_pow_left₀ (le_max_left _ _) hmax 2
     exact mul_nonneg (mul_nonneg (inv_nonneg.mpr hn0) (sq_nonneg _)) (by linarith)
 
+/-- `b_n = 0` once `N ≤ n` for `0 < M ≤ N` (`hM`, `hMN`, `hn`): both `max`es read `0`, so the
+bracket vanishes. -/
 theorem jutilaB_eq_zero_of_le {N M : ℝ} (hM : 0 < M) (hMN : M ≤ N) (q : ℕ) (R : ℝ) {n : ℕ}
     (hn : N ≤ n) : jutilaB q R N M n = 0 := by
   have hN : (0 : ℝ) < N := lt_of_lt_of_le hM hMN
@@ -301,6 +307,9 @@ theorem jutilaB_eq_of_le {N M : ℝ} (hM : 0 < M) (q : ℕ) (R : ℝ) {n : ℕ} 
     max_eq_left (by linarith : (1 : ℝ) - (n : ℝ) / M ≤ 0)]
   ring
 
+/-- `0 < b_n` on `M ≤ n < N` (`hM`, `hn`, `hnN`) when the detector sum `Σ'_r r⁻¹ ψ_r(n)` is
+nonzero (`hS`): the `n/M` term is gone (`jutilaB_eq_of_le`), the remaining bracket `(1 − n/N)²`
+is positive, and the square of a nonzero sum is positive. -/
 theorem jutilaB_pos {N M : ℝ} (hM : 0 < M) (q : ℕ) (R : ℝ) {n : ℕ} (hn : M ≤ n) (hnN : (n : ℝ) < N)
     (hS : ∑ r ∈ rFilter q R, (r : ℝ)⁻¹ * pseudoChar selbergPsi r n ≠ 0) :
     0 < jutilaB q R N M n := by
@@ -315,9 +324,13 @@ theorem jutilaB_pos {N M : ℝ} (hM : 0 < M) (q : ℕ) (R : ℝ) {n : ℕ} (hn :
 
 /-! ## (ii) The residue kernel -/
 
+/-- The kernel difference vanishes at `w = 0`: `N^0 − M^0 = 0`. -/
 theorem resKernelFun_zero (N M : ℝ) : resKernelFun N M 0 = 0 := by
   simp [resKernelFun]
 
+/-- For `s ≠ 0` (`hs`) the residue kernel is the plain quotient
+`2(N^{−s} − M^{−s})/((−s)(1 − s)(2 − s))`: `dslope` off the base point is the slope through `0`
+(`dslope_of_ne`, `slope_def_field`), `resKernelFun N M 0 = 0`, and the denominators regroup. -/
 theorem resKernel_of_ne_zero {s : ℂ} (hs : s ≠ 0) (N M : ℝ) :
     resKernel s N M = 2 * ((N : ℂ) ^ (-s) - (M : ℂ) ^ (-s)) / ((-s) * (1 - s) * (2 - s)) := by
   have hns : (-s) ≠ 0 := neg_ne_zero.mpr hs
@@ -327,6 +340,10 @@ theorem resKernel_of_ne_zero {s : ℂ} (hs : s ≠ 0) (N M : ℝ) :
   simp only [resKernelFun]
   rw [div_div, hden]
 
+/-- At `s = 0`, for `0 < M` and `0 < N` (`hM`, `hN`), the residue kernel is `log(N/M)`: `dslope`
+at the base point is the derivative (`dslope_same`), computed by the quotient rule — the
+numerator `2(N^w − M^w)` has derivative `2(log N − log M)` at `0`, and the denominator
+`(w + 1)(w + 2)` is `2` there with derivative `3`. -/
 theorem resKernel_zero {N M : ℝ} (hM : 0 < M) (hN : 0 < N) :
     resKernel 0 N M = (Real.log (N / M) : ℂ) := by
   have hNc : ((N : ℝ) : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hN.ne'
@@ -531,6 +548,8 @@ theorem cpow_mul_resKernel_div {d : ℕ} (hd : 0 < d) {N M : ℝ} (hM : 0 < M) (
 
 /-! ## (iii) The trivial character's growth on `Re ≥ 1/2` -/
 
+/-- `2^{ω(q)} ≤ q` for `1 ≤ q` (`hq`): each prime factor is `≥ 2` and their product divides `q`
+(`Nat.prod_primeFactors_dvd`). -/
 theorem two_pow_card_primeFactors_le {q : ℕ} (hq : 1 ≤ q) :
     (2 : ℝ) ^ q.primeFactors.card ≤ q := by
   have hle : (∏ p ∈ q.primeFactors, p) ≤ q := Nat.le_of_dvd hq (Nat.prod_primeFactors_dvd q)
@@ -596,6 +615,8 @@ theorem norm_riemannZeta_half_le (t : ℝ) :
   have h3 := norm_riemannZeta_le_of_half_le hre.ge h1
   linarith
 
+/-- `‖∏_{p ∣ q} (1 − 1/p)‖ ≤ 1`: each factor is a real number in `[0, 1]`
+(`Finset.prod_le_one`). -/
 theorem norm_prod_one_sub_inv_le_one (q : ℕ) :
     ‖∏ p ∈ q.primeFactors, (1 - (p : ℂ)⁻¹)‖ ≤ 1 := by
   rw [Complex.norm_prod]
@@ -613,6 +634,10 @@ theorem norm_prod_one_sub_inv_le_one (q : ℕ) :
 
 /-! ## (iv) The Mellin representation of the `m`-series -/
 
+/-- The majorant series of the `m`-sum's Mellin representation is summable, for `0 < N` (`hN`),
+`0 < d` (`hd`), `0 ≤ Re s` (`hs`) and `0 < c` (`hc`): termwise it is `(N/d)^c` times the norm of
+the trivial character's `L`-series term at `1 + Re s + c > 1`, whose series is summable
+(`DirichletCharacter.LSeriesSummable_of_one_lt_re`, `summable_norm_iff`). -/
 theorem summable_trivChar_kern2 (q : ℕ) [NeZero q] {N : ℝ} (hN : 0 < N) {d : ℕ} (hd : 0 < d)
     {s : ℂ} (hs : 0 ≤ s.re) {c : ℝ} (hc : 0 < c) :
     Summable (fun m : ℕ => ‖((1 : DirichletCharacter ℂ q) m) * ((m : ℕ) : ℂ) ^ (-(1 : ℂ) - s)‖
@@ -795,6 +820,10 @@ theorem tsum_trivChar_kern2_diff_eq_integral (q : ℕ) [NeZero q] {N M : ℝ} (h
 
 /-! ## (v) The contour node -/
 
+/-- The contour node's function `ψ` is differentiable on `Re w > −1`, for `0 < M`, `0 < N`
+(`hM`, `hN`) and `0 < d` (`hd`): the two `cpow`s with positive real bases are differentiable
+(`const_cpow`), the denominator `(w + 1)(w + 2)` is nonzero there, and `LFunctionTrivChar₁` is
+entire (`differentiable_LFunctionTrivChar₁`). -/
 theorem resPhi_differentiableOn (q : ℕ) [NeZero q] {N M : ℝ} (hM : 0 < M) (hN : 0 < N) {d : ℕ}
     (hd : 0 < d) (s : ℂ) :
     DifferentiableOn ℂ (resPhi q N M d s) {w : ℂ | -1 < w.re} := by
@@ -835,6 +864,7 @@ theorem resPhi_differentiableOn (q : ℕ) [NeZero q] {N M : ℝ} (hM : 0 < M) (h
         (differentiableAt_id.add (differentiableAt_const 2))) (mul_ne_zero hden1 hden2))
     (hLd w)
 
+/-- `ψ(0) = 0`: the kernel-difference factor vanishes at `0` (`resKernelFun_zero`). -/
 theorem resPhi_zero (q : ℕ) [NeZero q] (N M : ℝ) (d : ℕ) (s : ℂ) : resPhi q N M d s 0 = 0 := by
   simp only [resPhi, resKernelFun_zero, zero_mul]
 
@@ -1684,6 +1714,8 @@ theorem halaszBTsum_jutilaB_eq [NeZero q] (χ : DirichletCharacter ℂ q)
       * (((r : ℝ)⁻¹ * (r' : ℝ)⁻¹ : ℝ) : ℂ) * (Nat.totient r : ℂ)) hr]
   ring
 
+/-- `∑_{r ∈ rFilter} φ(r)/r² ≤ ∑_{r ∈ rFilter} 1/r`, termwise from `φ(r) ≤ r` (`Nat.totient_le`)
+on the `r ≥ 1` of the filter. -/
 theorem sum_rFilter_totient_div_sq_le (q : ℕ) (R : ℝ) :
     ∑ r ∈ rFilter q R, (Nat.totient r : ℝ) / (r : ℝ) ^ 2 ≤ ∑ r ∈ rFilter q R, (r : ℝ)⁻¹ := by
   refine Finset.sum_le_sum (fun r hr => ?_)

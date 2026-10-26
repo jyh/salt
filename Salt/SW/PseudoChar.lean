@@ -45,16 +45,22 @@ def pseudoChar (f : ArithmeticFunction ℝ) (r n : ℕ) : ℝ := f (Nat.gcd r n)
 
 variable {f : ArithmeticFunction ℝ}
 
+/-- `f_r(1) = 1` for multiplicative `f` (`hf`): `gcd(r, 1) = 1` and `f(1) = 1`. -/
 theorem pseudoChar_one_right (hf : f.IsMultiplicative) (r : ℕ) : pseudoChar f r 1 = 1 := by
   simp only [pseudoChar, Nat.gcd_one_right, hf.map_one]
 
+/-- `f_1(n) = 1` for multiplicative `f` (`hf`): `gcd(1, n) = 1` and `f(1) = 1`. -/
 theorem pseudoChar_one_left (hf : f.IsMultiplicative) (n : ℕ) : pseudoChar f 1 n = 1 := by
   simp only [pseudoChar, Nat.gcd_one_left, hf.map_one]
 
+/-- `f_r(n) = 1` on coprime `r, n` (`h`) for multiplicative `f` (`hf`): the gcd is `1`. -/
 theorem pseudoChar_of_coprime (hf : f.IsMultiplicative) {r n : ℕ} (h : Nat.Coprime r n) :
     pseudoChar f r n = 1 := by
   simp only [pseudoChar, h.gcd_eq_one, hf.map_one]
 
+/-- Multiplicativity in `n` on coprime pairs (`h`), for multiplicative `f` (`hf`):
+`gcd(r, mn) = gcd(r, m) · gcd(r, n)` (`Nat.Coprime.gcd_mul`) with the two gcds coprime, and `f`
+splits. -/
 theorem pseudoChar_mul_right_of_coprime (hf : f.IsMultiplicative) (r : ℕ) {m n : ℕ}
     (h : Nat.Coprime m n) : pseudoChar f r (m * n) = pseudoChar f r m * pseudoChar f r n := by
   have hcop : Nat.Coprime (Nat.gcd r m) (Nat.gcd r n) :=
@@ -62,6 +68,10 @@ theorem pseudoChar_mul_right_of_coprime (hf : f.IsMultiplicative) (r : ℕ) {m n
       (Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_right r n) h)
   simp only [pseudoChar, Nat.Coprime.gcd_mul r h, hf.map_mul_of_coprime hcop]
 
+/-- The gcd identity `gcd(r, dn) = gcd(r, d) · gcd(r/gcd(r, d), n)`, for EVERY `r`, `d`, `n` (no
+square-freeness; checked exhaustively over `[0, 60]³`): with `g = gcd(r, d)`, pull `g` out of
+both arguments (`Nat.gcd_mul_left`) and cancel the factor `d/g`, coprime to `r/g`; the `g = 0`
+case is `r = d = 0`. -/
 theorem gcd_mul_eq_gcd_mul_gcd_div (r d n : ℕ) :
     Nat.gcd r (d * n) = Nat.gcd r d * Nat.gcd (r / Nat.gcd r d) n := by
   rcases Nat.eq_zero_or_pos (Nat.gcd r d) with hg | hg
@@ -80,6 +90,11 @@ theorem gcd_mul_eq_gcd_mul_gcd_div (r d n : ℕ) :
       _ = Nat.gcd r d * Nat.gcd (r / Nat.gcd r d) n := by
             rw [Nat.Coprime.gcd_mul_left_cancel_right n hcop]
 
+/-- Jutila's p.48 detection input `f_r(dn) = f_r(d) · f_{r/(r,d)}(n)` for multiplicative `f`
+(`hf`) and square-free `r` (`hr`): the gcd identity `gcd_mul_eq_gcd_mul_gcd_div` splits the
+argument, and square-freeness makes `gcd(r, d)` coprime to `r/gcd(r, d)`
+(`Nat.squarefree_mul_iff`), so `f` splits. The hypothesis is load-bearing:
+`pseudoChar_selbergPsi_four_two_two`. -/
 theorem pseudoChar_mul_of_squarefree (hf : f.IsMultiplicative) {r : ℕ} (hr : Squarefree r)
     (d n : ℕ) :
     pseudoChar f r (d * n) = pseudoChar f r d * pseudoChar f (r / Nat.gcd r d) n := by
@@ -90,6 +105,8 @@ theorem pseudoChar_mul_of_squarefree (hf : f.IsMultiplicative) {r : ℕ} (hr : S
     Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left (r / Nat.gcd r d) n) hc
   simp only [pseudoChar, gcd_mul_eq_gcd_mul_gcd_div r d n, hf.map_mul_of_coprime hcop]
 
+/-- Multiplicativity in the level on coprime levels (`h`), for multiplicative `f` (`hf`):
+`gcd(r₁ r₂, n) = gcd(r₁, n) · gcd(r₂, n)` with the two gcds coprime, and `f` splits. -/
 theorem pseudoChar_mul_left_of_coprime (hf : f.IsMultiplicative) {r₁ r₂ : ℕ}
     (h : Nat.Coprime r₁ r₂) (n : ℕ) :
     pseudoChar f (r₁ * r₂) n = pseudoChar f r₁ n * pseudoChar f r₂ n := by
@@ -100,6 +117,8 @@ theorem pseudoChar_mul_left_of_coprime (hf : f.IsMultiplicative) {r₁ r₂ : �
       (Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left r₂ n) h)
   simp only [pseudoChar, hg, hf.map_mul_of_coprime hcop]
 
+/-- At a prime level `p` (`hp`), for multiplicative `f` (`hf`): `f_p(n) = f(p)` when `p ∣ n` and
+`1` otherwise (the gcd is `p` or `1`). -/
 theorem pseudoChar_prime_left (hf : f.IsMultiplicative) {p : ℕ} (hp : p.Prime) (n : ℕ) :
     pseudoChar f p n = if p ∣ n then f p else 1 := by
   by_cases hpn : p ∣ n
@@ -109,6 +128,8 @@ theorem pseudoChar_prime_left (hf : f.IsMultiplicative) {p : ℕ} (hp : p.Prime)
     simp only [pseudoChar,
       Nat.Coprime.gcd_eq_one ((Nat.Prime.coprime_iff_not_dvd hp).mpr hpn), hf.map_one]
 
+/-- `|f_r(n)| ≤ ∑_{e ∣ r} |f(e)|` for `r ≠ 0` (`hr`): `gcd(r, n)` is one of the divisors of `r`
+(`Finset.single_le_sum`). -/
 theorem abs_pseudoChar_le_sum_divisors {r : ℕ} (hr : r ≠ 0) (n : ℕ) :
     |pseudoChar f r n| ≤ ∑ e ∈ r.divisors, |f e| := by
   simp only [pseudoChar]
@@ -119,9 +140,12 @@ theorem abs_pseudoChar_le_sum_divisors {r : ℕ} (hr : r ≠ 0) (n : ℕ) :
 def selbergPsi : ArithmeticFunction ℝ :=
   ⟨fun n => (moebius n : ℝ) * (Nat.totient n : ℝ), by simp⟩
 
+/-- `ψ(n) = μ(n) φ(n)`, by `rfl`. -/
 theorem selbergPsi_apply (n : ℕ) : selbergPsi n = (moebius n : ℝ) * (Nat.totient n : ℝ) := by
   rfl
 
+/-- `ψ = μ · φ` is multiplicative: `ψ(1) = 1`, and on coprime pairs both `μ`
+(`isMultiplicative_moebius`) and `φ` (`Nat.totient_mul`) split. -/
 theorem selbergPsi_isMultiplicative : selbergPsi.IsMultiplicative := by
   refine ⟨by simp [selbergPsi_apply], fun {m n} h => ?_⟩
   simp only [selbergPsi_apply]
@@ -129,12 +153,14 @@ theorem selbergPsi_isMultiplicative : selbergPsi.IsMultiplicative := by
   push_cast
   ring
 
+/-- `ψ(p) = 1 − p` at a prime `p` (`hp`): `μ(p) = −1` and `φ(p) = p − 1`. -/
 theorem selbergPsi_apply_prime {p : ℕ} (hp : p.Prime) : selbergPsi p = 1 - (p : ℝ) := by
   rw [selbergPsi_apply, moebius_apply_prime hp, Nat.totient_prime hp,
     Nat.cast_sub hp.one_le]
   push_cast
   ring
 
+/-- `|ψ(n)| ≤ n`: `|μ(n)| ≤ 1` and `0 ≤ φ(n) ≤ n` (`Nat.totient_le`). -/
 theorem abs_selbergPsi_le (n : ℕ) : |selbergPsi n| ≤ (n : ℝ) := by
   have h1 : |((moebius n : ℤ) : ℝ)| ≤ 1 := by
     rw [← Int.cast_abs]
@@ -144,15 +170,22 @@ theorem abs_selbergPsi_le (n : ℕ) : |selbergPsi n| ≤ (n : ℝ) := by
   rw [selbergPsi_apply, abs_mul, abs_of_nonneg h2]
   nlinarith only [h1, h3, (Nat.cast_nonneg _ : 0 ≤ ↑n.totient)]
 
+/-- `|ψ_r(n)| ≤ gcd(r, n)`: `abs_selbergPsi_le` at `gcd(r, n)` (sharp: `max |ψ_r(n)|/r = 1`
+measured over `r ≤ 60`, `n ≤ 200`). -/
 theorem abs_pseudoChar_selbergPsi_le (r n : ℕ) :
     |pseudoChar selbergPsi r n| ≤ (Nat.gcd r n : ℝ) := by
   simpa only [pseudoChar] using abs_selbergPsi_le (Nat.gcd r n)
 
+/-- `ψ_r(p) = 1 − p` at a prime `p ∣ r` (`hp`, `hpr`): the gcd is `p`, and
+`selbergPsi_apply_prime` applies. -/
 theorem pseudoChar_selbergPsi_prime_of_dvd {r p : ℕ} (hp : p.Prime) (hpr : p ∣ r) :
     pseudoChar selbergPsi r p = 1 - (p : ℝ) := by
   simp only [pseudoChar, Nat.gcd_eq_right hpr]
   exact selbergPsi_apply_prime hp
 
+/-- **The non-square-free failure, as a `≠` row**: `ψ_4(4) = 0` (`μ(4) = 0`) while
+`ψ_4(2) · ψ_2(2) = (−1)(−1) = 1` — the first failure of the `f`-split over `r ∈ [1, 60]`,
+`d, n ∈ [1, 40]`, which is why `pseudoChar_mul_of_squarefree` carries `Squarefree r`. -/
 theorem pseudoChar_selbergPsi_four_two_two :
     pseudoChar selbergPsi 4 (2 * 2)
       ≠ pseudoChar selbergPsi 4 2 * pseudoChar selbergPsi (4 / Nat.gcd 4 2) 2 := by
