@@ -53,6 +53,11 @@ already uses `48k² = 4·12·k²` (design §"Endgame constants", line 1542) — 
 factor-4 is the `(p−2)→(p−1)` cost — so this `(p−2)⁻²` shape (⇒ `s2_collision_le_QdiagW_C`'s
 `48·CF·k²/D = 4·Cs·CF·k²/D`) is exactly what the endgame `D ≥ 7×10¹⁶` was
 calibrated for.  See `flags.md`. -/
+/-- **The correction-slotted S₂ inner atom.** For every square-free `s` and assignment `α` of
+its primes to coordinate pairs, the `g`-weighted bilinear contraction sum over the sieve box is
+at most `3^{ω(s)}·∏_{p ∣ s} (p − 2)⁻²·CF·Qdiag_gv`; the left side is `S2InnerBoundQ`'s, the
+right side gains the `CF` slot (the `(p − 2)⁻²` prefactor matches the `g`-weight,
+`g(p) = p − 2`). -/
 def S2InnerBoundQC (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (CF : ℝ) : Prop :=
   ∀ {s : ℕ}, Squarefree s → ∀ α ∈ assignments k s,
     |∑ u ∈ kSieveIndex k R W', (∏ i, (gMult (u i) : ℝ))
@@ -377,6 +382,15 @@ per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
 partition of `Q` under `slot`. -/
 omit [Salt.Maynard.TupleChoice] in
+/-- **The marked 4-dimensional `g`-moment** (the landed `gmoment4_le` is the case `Q = ∅`). For
+marked primes `Q` (`hQp`) above `D` (`hDlt`) with slots off `m` (`hslot`), square-free `W' > 0`
+(`hW'`, `hpos`), a cutoff `D ≥ 3` (`hD`) below every prime not dividing `W'` (`hDW`) and `R ≥ 2`
+(`hR2`): the `1/∏_{i ≠ m} g(u_i)`-moment over the pinned box `u_m = 1` with `p ∣ u_{slot p}` for
+every `p ∈ Q` is at most `∏_{p ∈ Q} (p − 2)⁻¹·(2·PAS)⁴`. The box lies in the product of
+per-coordinate sets forced by `sfun i = ∏_{slot p = i} p`, the sum factors coordinatewise
+(`Finset.prod_univ_sum`), each coordinate is bounded by `marked_sqf_g_rel` at exponent `0`
+(`g(sfun i)⁻¹·2·PAS`), and `∏_{i ≠ m} g(sfun i) = ∏_{p ∈ Q} (p − 2)` by the fiberwise partition
+of `Q` under `slot` (`gMult_cast`, `Finset.prod_fiberwise_of_maps_to`). -/
 theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : ℕ → Fin 5)
     (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
     (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
