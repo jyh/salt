@@ -16,7 +16,7 @@ Design: `docs/blueprints/chen.md`, "THE PE ARC" section, and `docs/blueprints/fl
 `hPerE` through the pointwise envelope `EfoldTerm e ≤ Kerr·(XM/(log XM)^A)·(1/e²)`.  That
 envelope is **numerically false**: `EfoldTerm` is a cancellation-free sum of norm-products
 and small-scale computation shows the honest decay is `~1/e`, not `1/e²` — no fixed `Kerr`
-works.  The landed `general_BV_final` (true, but resting on an *undischargeable* hypothesis)
+works.  The landed `general_BV_final` (true, but on a *numerically* undischargeable hypothesis)
 is left untouched and superseded; this file provides the **reshaped** composition at the
 honest `1/e` envelope.
 
@@ -63,8 +63,8 @@ collapses `(log XM)^{A+1}` back to `(log XM)^A`:
 So the OUTPUT shape and the whole `general_BV_final'` conclusion are **exactly** the landed
 `general_BV_final` conclusion; the only deltas SW3 sees are (a) the per-`e` hypothesis is now
 at exponent `A+1` (was `A`) with `1/e` (was `1/e²`), and (b) the new side condition `D < N`.
-This is the "A → A+1" absorption of catch #43's recon — a threshold-level shift, adversarially
-verified safe (no interaction with the fixed-margin E₁/S-row ledger).
+This is the "A → A+1" absorption of catch #43's recon — a threshold-level shift, checked safe
+outside Lean by an adversarial review (no interaction with the fixed-margin E₁/S-row ledger).
 
 All proofs are within default `maxHeartbeats`; no `native_decide`, no new axioms
 (`[propext, Classical.choice, Quot.sound]` only).
@@ -272,7 +272,7 @@ open Classical in
 /-- **PE1 — general BV, the reshaped keystone-2 composition (honest `1/e` envelope).**
 Mirror of the landed `general_BV_final` (in `PerEEngine.lean`) with the per-`e` slot at the
 HONEST envelope `EfoldTerm e ≤ Kerr·(XM/(log XM)^{A+1})·(1/e)` (catch #43: the landed
-`(1/e²)` at exponent `A` is undischargeable) and the NEW side condition `D < N` threaded
+`(1/e²)` at exponent `A` is numerically undischargeable) and the NEW side condition `D < N` threaded
 through.  The `D < N` gives `log D ≤ log(XM)` (from `D < N ≤ M ≤ XM`, `X ≥ 1` from `hXM1`),
 which absorbs the `log D` from the harmonic sum back into exponent `A` — so the CONCLUSION is
 byte-for-byte the landed `general_BV_final` conclusion, and this feeds `general_BV_closed`
