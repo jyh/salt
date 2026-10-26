@@ -325,11 +325,14 @@ lemma exists_sq_mul_cube_of_powerful {v : ℕ} (hv : v ≠ 0) (hpow : IsPowerful
             * (∏ p ∈ v.primeFactors, p ^ (cExp (v.factorization p))) ^ 3 := by
           rw [Finset.prod_mul_distrib, Finset.prod_pow, Finset.prod_pow]
 
+/-- `0 ≤ log n` for a natural `n`: `log 0 = 0`, and `log n ≥ 0` for `n ≥ 1`. -/
 lemma log_natCast_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `log x ≤ 2√x` for `0 ≤ x` (`hx`): `log x = 2 log √x ≤ 2(√x − 1)`
+(`Real.log_le_sub_one_of_pos`); `x = 0` reads `0 ≤ 0`. -/
 lemma log_le_two_sqrt {x : ℝ} (hx : 0 ≤ x) : Real.log x ≤ 2 * Real.sqrt x := by
   rcases hx.lt_or_eq with hx | hx
   · have hs : 0 < Real.sqrt x := Real.sqrt_pos.mpr hx
@@ -368,20 +371,28 @@ lemma summable_log_div_pow {k : ℕ} (hk : 2 ≤ k) :
 noncomputable def powFac (q : ℕ × ℕ) : ℝ :=
   (1 + Real.log ((q.1 ^ 2 * q.2 ^ 3 : ℕ))) / ((q.1 ^ 2 * q.2 ^ 3 : ℕ))
 
+/-- The `a`-factor of the `(a, c)`-plane majorant: `(1 + 2 log a)/a²`. -/
 noncomputable def powGa (a : ℕ) : ℝ := (1 + 2 * Real.log a) / (a : ℝ) ^ 2
+/-- The `c`-factor of the `(a, c)`-plane majorant: `(1 + 3 log c)/c³`. -/
 noncomputable def powHc (c : ℕ) : ℝ := (1 + 3 * Real.log c) / (c : ℝ) ^ 3
 
+/-- `0 ≤ powGa a` (`log_natCast_nonneg`). -/
 lemma powGa_nonneg (a : ℕ) : 0 ≤ powGa a := by
   rw [powGa]; apply div_nonneg _ (by positivity); linarith only [log_natCast_nonneg a]
+/-- `0 ≤ powHc c` (`log_natCast_nonneg`). -/
 lemma powHc_nonneg (c : ℕ) : 0 ≤ powHc c := by
   rw [powHc]; apply div_nonneg _ (by positivity); linarith only [log_natCast_nonneg c]
 
+/-- `Σ_a (1 + 2 log a)/a²` converges: the `p`-series at `2` plus twice the log-weighted series
+`summable_log_div_pow`. -/
 lemma summable_powGa : Summable powGa := by
   have h : powGa = fun a : ℕ => 1 / (a : ℝ) ^ 2 + 2 * (Real.log a / (a : ℝ) ^ 2) := by
     funext a; rw [powGa]; ring
   rw [h]
   exact (Real.summable_one_div_nat_pow.mpr one_lt_two).add
     ((summable_log_div_pow (le_refl 2)).mul_left 2)
+/-- `Σ_c (1 + 3 log c)/c³` converges: the `p`-series at `3` plus three times
+`summable_log_div_pow`. -/
 lemma summable_powHc : Summable powHc := by
   have h : powHc = fun c : ℕ => 1 / (c : ℝ) ^ 3 + 3 * (Real.log c / (c : ℝ) ^ 3) := by
     funext c; rw [powHc]; ring
@@ -389,10 +400,14 @@ lemma summable_powHc : Summable powHc := by
   exact (Real.summable_one_div_nat_pow.mpr (by norm_num)).add
     ((summable_log_div_pow (by norm_num)).mul_left 3)
 
+/-- `0 ≤ powFac q` (`log_natCast_nonneg`). -/
 lemma powFac_nonneg (q : ℕ × ℕ) : 0 ≤ powFac q := by
   rw [powFac]; apply div_nonneg _ (by positivity)
   linarith only [log_natCast_nonneg (q.1 ^ 2 * q.2 ^ 3)]
 
+/-- `powFac (a, c) ≤ powGa a · powHc c`: `log(a²c³) = 2 log a + 3 log c`, and
+`(1 + 2 log a)(1 + 3 log c) ≥ 1 + 2 log a + 3 log c`; the `a = 0` and `c = 0` cases read
+`0 ≤ 0`. -/
 lemma powFac_le (q : ℕ × ℕ) : powFac q ≤ powGa q.1 * powHc q.2 := by
   obtain ⟨a, c⟩ := q
   rcases Nat.eq_zero_or_pos a with ha | ha
@@ -416,6 +431,8 @@ lemma powFac_le (q : ℕ × ℕ) : powFac q ≤ powGa q.1 * powHc q.2 := by
     rw [powFac, powGa, powHc, hcast, hlogeq, div_mul_div_comm, div_le_div_iff_of_pos_right hden]
     linarith only [mul_nonneg hla hlc]
 
+/-- `powFac` is summable on `ℕ × ℕ`: dominated by the product `powGa a · powHc c` of two
+summable nonnegative series (`powFac_le`, `Summable.mul_of_nonneg`). -/
 lemma summable_powFac : Summable powFac :=
   Summable.of_nonneg_of_le powFac_nonneg powFac_le
     (Summable.mul_of_nonneg summable_powGa summable_powHc powGa_nonneg powHc_nonneg)
@@ -467,6 +484,8 @@ open Classical in
 noncomputable def powerfulWeight (v : ℕ) : ℝ :=
   if IsPowerful v ∧ v ≠ 0 then (1 + Real.log v) / (v : ℝ) else 0
 
+/-- `0 ≤ powerfulWeight v`: `(1 + log v)/v` on powerful nonzero `v` (`log_natCast_nonneg`), else
+`0`. -/
 lemma powerfulWeight_nonneg (v : ℕ) : 0 ≤ powerfulWeight v := by
   rw [powerfulWeight]
   split_ifs with h
