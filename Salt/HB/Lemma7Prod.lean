@@ -205,7 +205,7 @@ lemma log_hbEulerProd {q : ℕ} (χ : DirichletCharacter ℂ q) (z Y : ℝ) :
 noncomputable def hbLogF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : ℝ :=
   limUnder Filter.atTop (fun Y : ℝ => hbEulerLog χ z Y)
 
-/-- **`F = ∏_{p ≥ z}(1 − χ(p)/p)^{−1}`**, as a real number. -/
+/-- **`F = ∏_{p > z}(1 − χ(p)/p)^{−1}`**, as a real number. -/
 noncomputable def hbF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : ℝ :=
   Real.exp (hbLogF χ z)
 
