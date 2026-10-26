@@ -45,8 +45,8 @@ break the build.
   up from `w 1` and `w 2` over every index.
 * `pin_iff_detecting`, together with its two directions `pinned_door` and
   `pin_minimal` — the contrapositive: one pinned sign `w n = -1` at some `n ≥ 1` is
-  already equivalent to detection.  So the weakest pin is the bottom element of the
-  detection-sufficient hypotheses above the slots, dual to
+  already equivalent to detection.  So the weakest pin is implied by every
+  detection-sufficient hypothesis above the slots (`pin_minimal`), dual to
   `no_slot_derived_twin_linkage`.
 * `liouville_pinned` — the class is inhabited away from the constant weight: `λ`
   detects, at the separator `(m, n) = (3, 7)`, where `λ3·λ5 = +1` and `λ7·λ9 = -1`.
