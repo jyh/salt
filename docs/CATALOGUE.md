@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `833dc402` · source digest `adbe83b1d7f494b6` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `964e1136` · source digest `577200af2419e51d` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2424,8 +2424,8 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HardyLittlewood.Sel.twin_le_sel` | Salt/HardyLittlewood/Selberg16/Lev.lean:294 | sieves |
 | `Salt.HardyLittlewood.Sel.selbergBoundingSum_sel_ge` | Salt/HardyLittlewood/Selberg16/Lev.lean:307 | sieves |
 | `Salt.HardyLittlewood.Sel.mainTermSum_lower` | Salt/HardyLittlewood/Selberg16/M5.lean:134 | sieves |
-| `Salt.HardyLittlewood.sum_six_pow_omega_le` | Salt/HardyLittlewood/Sharp.lean:264 | sieves |
-| `Salt.HardyLittlewood.twinCounting_upper_sharp` | Salt/HardyLittlewood/Sharp.lean:790 | sieves |
+| `Salt.HardyLittlewood.sum_six_pow_omega_le` | Salt/HardyLittlewood/Sharp.lean:278 | sieves |
+| `Salt.HardyLittlewood.twinCounting_upper_sharp` | Salt/HardyLittlewood/Sharp.lean:806 | sieves |
 | `Keller.jacobian_det` | Salt/Keller/Counterexample.lean:84 | other |
 | `Keller.eval_point0` | Salt/Keller/Counterexample.lean:115 | other |
 | `Keller.eval_point1` | Salt/Keller/Counterexample.lean:120 | other |
