@@ -54,7 +54,7 @@ The `k = 5` slack is `δ★ = 241/95820 ≈ 2.515·10⁻³` (`191640 < 191881`).
 
 ## Companion notes (per A1)
 
-* **`H₁ ≤ 12` at BV-level distribution.** The `k = 5` certificate is what powers the landed
+* **`H₁ ≤ 12` at the BV-shaped level 3999/4000.** The `k = 5` certificate is what powers the landed
   explicit bounded-gaps result: `Salt.Twelve.gaps_le_twelve_of_hasLevel`
   (`Salt/Twelve/GapsOfLevel.lean`) — `WindowPNT → HasLevel (3999/4000) → ∀ N, ∃ p q > N`
   prime with `|q − p| ≤ 12`. This is the honest gap companion; it is a *pointer*, not

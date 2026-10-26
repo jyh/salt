@@ -162,9 +162,9 @@ hypotheses.  That is a proxy.  The real test is below: the ACTUAL lemmas, applie
 
 1. `Real.sign` is a THREE-valued object (`-1/0/1`) whose multiplicativity is not a
    `simp` lemma in mathlib and would have to be proved by a nine-way case split.
-   The two-valued test collapses that to a cast argument: `_mul` and `_one` are
-   proved by pushing `Int.cast` and using `map_mul`/`map_one` on the underlying
-   `MulChar`, never touching the `if` at all.
+   The two-valued test collapses that to a cast argument: `_mul` is proved
+   by pushing `Int.cast` and using `map_mul` on the underlying `MulChar` (the `if` is
+   met once, in `_cast`); `_one` is `map_one` and `if_pos`.
 2. `Real.sign` would make `_cast` FALSE at a non-unit (`Real.sign 0 = 0` casts to
    `0 = χ a` correctly, but the domain here is `(ZMod q)ˣ` where the value is never
    `0`, so the third branch is dead weight).  The test makes `e4a_signOf` total on

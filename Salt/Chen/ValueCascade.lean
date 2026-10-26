@@ -28,7 +28,7 @@ one-integration style on both its regions (`fseq_three_tail_le` on the tail wind
 ## The certification arithmetic (computed pre-code; the honest cascade design and its wall)
 
 `fchain N s = 1 − Σ_{n even ≤ N} fₙ(s)`; `Fchain N s = 1 + Σ_{n odd ≤ N} fₙ(s)`.  Numeric
-DDE-integration (rational-arithmetic verified against the C1b′ table) gives the two operating sums:
+DDE-integration outside Lean (rational arithmetic, checked on the C1b′ table) gives the two sums:
 
 * **A₁ even sum** (worst point `s = 39/10`, sup): `Σ_{even} = 0.027525` (`fchain = 0.972475`); at
   `s = 4`: `0.021646` (`fchain = 0.978354`).  Per-two-level ratio `→ 0.5224`.

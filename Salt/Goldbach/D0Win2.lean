@@ -12,7 +12,7 @@ Design: G-BOXROWS2's flag (the `z ≤ goldCut^{1/8}` blocker).  The landed
 `gold_kfloor_live_annulus`/`gold_d0_window_annulus` (D0Win) carry a `7/16` floor whose hypothesis
 `hz : (z : ℝ) ≤ (goldCut Ne (k+1))^{1/8}` is **FALSE at the operating point on every annulus**:
 `z = opZ N ≈ N^{1/8}` is GLOBAL, while `goldCut Ne (k+1) ≤ N/2`, so `z^8 > N/2 ≥ goldCut` always
-(G-BOXROWS2's verified arithmetic).  The house-adjudicated fix — NO operating-point change — is the
+(G-BOXROWS2's arithmetic, not Lean).  The house-adjudicated fix — NO operating-point change — is the
 **z-dependent floor**: instead of substituting the false `z ≤ x^{1/8}`, keep `z` and read the honest
 live-box geometry directly.
 

@@ -411,7 +411,7 @@ set_option maxHeartbeats 1600000 in
 /-- **THE M4 WAVE, THE COPRIME ARM DISCHARGED** (`m4_wave_closed_coprime_discharged_L`).
 
 `M4T0Discharge.m4_wave_closed_T0_discharged` with ARM 2 swapped: the coprime supply is no
-longer assumed at `M4CoprimeBlockMeanSq_L` (the interface ⟦COPRIME-SCOPE⟧ proved unsuppliable)
+longer assumed at `M4CoprimeBlockMeanSq_L` (⟦COPRIME-SCOPE⟧ argued on paper no route supplies it)
 but DERIVED, through `M4CoprimeSupply.m4_coprimeN_supplied` and
 `M4NonCoprime.m4_nonCoprime_classMeanSq_N`, from the free-base row datum
 `M4ChiFreeRowMeanSq_L R M MS` at the register's own grade `MS`.
