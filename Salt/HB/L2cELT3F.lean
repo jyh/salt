@@ -80,6 +80,8 @@ noncomputable def EL_T3F (χ : DirichletCharacter ℂ q) (z x : ℕ) : ℝ :=
   ∑ n ∈ T3FSet χ z x, (LamTilde χ n - Λ n) * LamTilde χ (n + 2)
 
 open Classical in
+/-- The guarded T3 slice is a filter of the window `l2cWindow χ z x`
+(`Finset.filter_subset`). -/
 lemma T3FSet_subset_window (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     T3FSet χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 

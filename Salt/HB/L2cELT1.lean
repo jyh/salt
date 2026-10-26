@@ -649,6 +649,7 @@ noncomputable def T1slice (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset �
     Odd n ∧ (nPlus χ n).Prime ∧ (nPlus χ (n + 2)).Prime ∧
     1 < nMinus χ n ∧ nMinus χ n < z ∧ nMinus χ (n + 2) < z)
 
+/-- The T1 family slice is a filter of the window `l2cWindow χ z x` (`Finset.filter_subset`). -/
 lemma T1slice_subset (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     T1slice χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 
@@ -784,6 +785,7 @@ lemma EL_T1_edge_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
     no dependence on `χ`, `z`, `x`). -/
 noncomputable def T1Cmain : ℝ := 2 ^ 30
 
+/-- `0 < Cmain = 2^30` (`positivity`). -/
 lemma T1Cmain_pos : 0 < T1Cmain := by rw [T1Cmain]; positivity
 
 /-- **`EL_T1_bound` — the frozen `J1` family budget** (freeze §S4, T1 row).  On the T1
