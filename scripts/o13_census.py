@@ -19,6 +19,7 @@ The build between them is `../saltbuild.sh <scratch>` (never bare lake, never pi
   python3 scripts/o13_census.py gen [--names FILE --import MOD ...] [--out Scratch.lean]
   ../saltbuild.sh Scratch.lean > census.log 2>&1
   python3 scripts/o13_census.py parse census.log [--manifest Scratch.lean.json]
+  python3 scripts/o13_census.py texnames papers/witness/main.tex > names.txt   (read it, then --names)
   python3 scripts/o13_census.py --self-test
 
 Classes, per root (the walk is `Salt.SW.StandoffCert.closureOf`, the relation behind
@@ -143,12 +144,14 @@ elab "#o13_census" : command => do
   let isFree (t : Name) : CommandElabM Bool := do
     let st ← closureOf t
     return targets.all (!st.visited.contains ·) && !st.visited.contains ``sorryAx
-  let mut nF := 0; let mut nT := 0; let mut nD := 0; let mut nO := 0; let mut nM := 0
+  let mut nF := 0; let mut nT := 0; let mut nD := 0; let mut nO := 0; let mut nM := 0; let mut nU := 0
   let mut nRoots := 0
   for (s, tag) in o13Roots do
     let hits := resolveS s
     if hits.isEmpty then
-      logInfo m!"O13 MISSING {s} [{tag}]"; nM := nM + 1; nRoots := nRoots + 1
+      nRoots := nRoots + 1
+      if tag == "NAMES" then logInfo m!"O13 UNRESOLVED {s} [{tag}]"; nU := nU + 1
+      else logInfo m!"O13 MISSING {s} [{tag}]"; nM := nM + 1
     for root in hits do
       nRoots := nRoots + 1
       let st ← closureOf root
@@ -185,13 +188,33 @@ elab "#o13_census" : command => do
           else
             logInfo m!"O13 REACHES-OWED {root} [{tag}] targets={render reached} sorryAx={sorryIn} path={first}"
             nO := nO + 1
-  logInfo m!"O13 TOTAL roots={nRoots} FREE={nF} TWIN-EXISTS={nT} REACHES-BY-DESIGN={nD} REACHES-OWED={nO} MISSING={nM}"
+  logInfo m!"O13 TOTAL roots={nRoots} FREE={nF} TWIN-EXISTS={nT} REACHES-BY-DESIGN={nD} REACHES-OWED={nO} MISSING={nM} UNRESOLVED={nU}"
 
 #assert_targets_exist
 #assert_reaches __CTRL_ROOT__ Salt.SW.siegel_theorem
 #assert_not_reaches __CTRL_TWIN__ Salt.SW.siegel_theorem
 #o13_census
 '''
+
+
+DECL = re.compile(r"^(?:@\[[^\]]*\]\s*)?(?:(?:private|protected|noncomputable|nonrec)\s+)*"
+                  r"(?:theorem|lemma|def|abbrev|structure|class|inductive|instance|opaque|axiom)\s+"
+                  r"([^\s:({\[]+)", re.M)
+
+
+def decl_index():
+    """Last name component -> the modules (Salt/, SaltC1/) whose source declares it."""
+    idx = {}
+    for top in ("Salt", "SaltC1"):
+        for d, _, fs in os.walk(os.path.join(ROOT, top)):
+            for f in fs:
+                if not f.endswith(".lean"):
+                    continue
+                path = os.path.join(d, f)
+                mod = os.path.relpath(path, ROOT)[:-5].replace(os.sep, ".")
+                for m in DECL.finditer(open(path, encoding="utf-8", errors="replace").read()):
+                    idx.setdefault(m.group(1).split(".")[-1], set()).add(mod)
+    return idx
 
 
 def gen(args):
@@ -209,15 +232,23 @@ def gen(args):
             sys.exit(f"o13_census gen: unknown argument {a}")
     rows = parse_results(open(RESULTS, encoding="utf-8").read())
     tm, unresolved = twin_map(rows)
-    mods = sorted({r["module"] for r in rows if r["module"]} | set(imports)
-                  | {"Salt.SW.StandoffCert"})
+    mods = {r["module"] for r in rows if r["module"]} | set(imports) | {"Salt.SW.StandoffCert"}
     roots = [(r["name"], f"RESULTS §{r['section']}" + (" SUPERSEDED" if r["superseded"] else ""))
              for r in rows]
+    unlocated = []
     if names_file:
+        idx = decl_index()
         for line in open(names_file, encoding="utf-8"):
             n = line.split("#", 1)[0].strip()
-            if n:
-                roots.append((n, "NAMES"))
+            if not n:
+                continue
+            roots.append((n, "NAMES"))
+            hit = idx.get(n.split(".")[-1])
+            if hit:
+                mods |= hit
+            else:
+                unlocated.append(n)
+    mods = sorted(mods)
     pairs = [(k, t) for k, ts in sorted(tm.items()) for t in ts]
     L = [f"import {m}" for m in mods]
     L.append("")
@@ -241,6 +272,9 @@ def gen(args):
         json.dump(manifest, f, indent=1)
     print(f"o13_census gen: {out}: {len(roots)} roots ({len(rows)} RESULTS rows), "
           f"{len(pairs)} §10 twin pairs, {len(mods)} imports")
+    if unlocated:
+        print(f"  --names with no declaring file found in source ({len(unlocated)}; they read UNRESOLVED "
+              f"unless an import brings them): {' '.join(unlocated)}")
     for name, x, cands in unresolved:
         print(f"  §10 UNRESOLVED: {name} names `{x}`; RESULTS matches {cands or 'none'}")
     if CONTROL_TWIN[1] not in tm.get(CONTROL_TWIN[0], []):
@@ -250,9 +284,10 @@ def gen(args):
 
 
 ERR = re.compile(r":[0-9]+:[0-9]+: error(\([^)]*\))?:|^error: .*:[0-9]+:[0-9]+:")
-LINE = re.compile(r"O13 (FREE|TWIN-EXISTS|REACHES-BY-DESIGN|REACHES-OWED|MISSING|MISSING-TWIN|TWIN-REACHES) ")
+LINE = re.compile(r"O13 (FREE|TWIN-EXISTS|REACHES-BY-DESIGN|REACHES-OWED|MISSING|MISSING-TWIN|TWIN-REACHES|"
+                  r"UNRESOLVED) ")
 TOTAL = re.compile(r"O13 TOTAL roots=(\d+) FREE=(\d+) TWIN-EXISTS=(\d+) REACHES-BY-DESIGN=(\d+) "
-                   r"REACHES-OWED=(\d+) MISSING=(\d+)")
+                   r"REACHES-OWED=(\d+) MISSING=(\d+) UNRESOLVED=(\d+)")
 
 
 def classify_log(text: str, manifest: dict):
@@ -283,7 +318,7 @@ def classify_log(text: str, manifest: dict):
         k = LINE.search(ln).group(1)
         counts[k] = counts.get(k, 0) + 1
     if totals:
-        n, f, t, d, o, m = map(int, totals[0])
+        n, f, t, d, o, m, u = map(int, totals[0])
         if n != manifest["roots"]:
             bad.append(f"TOTAL roots={n}, manifest {manifest['roots']}")
         per = (counts.get("FREE", 0), counts.get("TWIN-EXISTS", 0),
@@ -291,9 +326,10 @@ def classify_log(text: str, manifest: dict):
         if per != (f, t, d, o):
             bad.append(f"per-row counts {per} disagree with TOTAL {(f, t, d, o)}")
         out.append(f"TOTAL roots={n} FREE={f} TWIN-EXISTS={t} REACHES-BY-DESIGN={d} "
-                   f"REACHES-OWED={o} MISSING={m}")
-    for k in ("REACHES-OWED", "MISSING", "MISSING-TWIN", "TWIN-REACHES", "REACHES-BY-DESIGN",
-              "TWIN-EXISTS"):
+                   f"REACHES-OWED={o} MISSING={m} UNRESOLVED={u} (a --names entry that names no "
+                   f"declaration: a binder, a namespace, a tool; read the list)")
+    for k in ("REACHES-OWED", "MISSING", "MISSING-TWIN", "TWIN-REACHES", "UNRESOLVED",
+              "REACHES-BY-DESIGN", "TWIN-EXISTS"):
         for ln in lines:
             if ln.startswith(f"O13 {k} "):
                 out.append("  " + ln)
@@ -353,7 +389,7 @@ def self_test():
             f"twins={CONTROL_TWIN[1]} (§10)\n"
             "x.lean:1:0: info: O13 REACHES-BY-DESIGN Salt.X.old [RESULTS §8 SUPERSEDED] why=superseded row\n"
             "x.lean:1:0: info: O13 TOTAL roots=3 FREE=1 TWIN-EXISTS=1 REACHES-BY-DESIGN=1 "
-            "REACHES-OWED=0 MISSING=0\nsaltbuild EXIT=0\n")
+            "REACHES-OWED=0 MISSING=0 UNRESOLVED=0\nsaltbuild EXIT=0\n")
     check("a clean log reads rc 0", classify_log(good, man)[0] == 0)
     owed = good.replace("REACHES-BY-DESIGN Salt.X.old", "REACHES-OWED Salt.X.old").replace(
         "REACHES-BY-DESIGN=1 REACHES-OWED=0", "REACHES-BY-DESIGN=0 REACHES-OWED=1")
@@ -372,6 +408,28 @@ def self_test():
     return 0 if ok else 1
 
 
+TEXMACRO = re.compile(r"\\(?:leaninline|leanname)\{((?:[^{}]|\{[^{}]*\})*)\}")
+IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_.'₀-₉αβγδεζηθικλμνξπρστυφχψωΞΛΦΨΩ]*$")
+
+
+def texnames(args):
+    """Every identifier a .tex file cites in \\leaninline{} or \\leanname{}, one per line, deduped."""
+    if len(args) != 1:
+        sys.exit("o13_census texnames FILE.tex")
+    text = open(args[0], encoding="utf-8").read()
+    seen = []
+    for m in TEXMACRO.finditer(text):
+        body = re.sub(r"\\allowbreak\s*", "", m.group(1)).replace("\\_", "_")
+        body = re.sub(r"\([^)]*\.lean[^)]*\)", " ", body)
+        for tok in re.split(r"[\s,]+", body):
+            if IDENT.match(tok) and tok not in seen:
+                seen.append(tok)
+    print("\n".join(seen))
+    print(f"# texnames: {len(seen)} identifiers from {len(TEXMACRO.findall(text))} macros in {args[0]}; "
+          "an identifier outside the two macros is not read", file=sys.stderr)
+    return 0
+
+
 def main(argv):
     if not argv or argv[0] in ("-h", "--help"):
         print(__doc__)
@@ -382,6 +440,8 @@ def main(argv):
         return gen(argv[1:])
     if argv[0] == "parse":
         return parse(argv[1:])
+    if argv[0] == "texnames":
+        return texnames(argv[1:])
     sys.exit(f"o13_census: unknown command {argv[0]}")
 
 
