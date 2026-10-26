@@ -73,9 +73,13 @@ def ushiftN {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 2 * j) (z : ZMod (p ^ k)
       = 1 - ((p : ZMod (p ^ k)) ^ j) ^ 2 * z ^ 2 from by ring, pj_sq_eq_zero hkj, zero_mul,
       sub_zero]
 
+/-- The value of the shift unit: `(ushiftN hkj z : ZMod (p ^ k)) = 1 + p ^ j * z` (`rfl`;
+`hkj : k ≤ 2 * j`). -/
 @[simp] lemma ushiftN_val {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 2 * j) (z : ZMod (p ^ k)) :
     ((ushiftN hkj z : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) = 1 + (p : ZMod (p ^ k)) ^ j * z := rfl
 
+/-- The inverse of the shift unit: `(ushiftN hkj z)⁻¹ = 1 - p ^ j * z` in `ZMod (p ^ k)`
+(`rfl`); it is an inverse because `(p ^ j) ^ 2 = 0` under `hkj : k ≤ 2 * j`. -/
 @[simp] lemma ushiftN_inv_val {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 2 * j) (z : ZMod (p ^ k)) :
     (((ushiftN hkj z)⁻¹ : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) = 1 - (p : ZMod (p ^ k)) ^ j * z := rfl
 
