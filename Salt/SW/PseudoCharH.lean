@@ -78,21 +78,30 @@ def hCoef (f : ArithmeticFunction ℝ) (r r' : ℕ) : ArithmeticFunction ℝ :=
 
 variable {f : ArithmeticFunction ℝ} {r r' : ℕ}
 
+/-- `h(d; r, r')` unfolded: `∏_{p ∣ d} (f_r(p) f_{r'}(p) − 1)` for square-free `d` and `0`
+otherwise (`rfl`). -/
 theorem hCoef_apply (d : ℕ) :
     hCoef f r r' d = if Squarefree d then
       ∏ p ∈ d.primeFactors, (pseudoChar f r p * pseudoChar f r' p - 1) else 0 := by
   rfl
 
+/-- At square-free `d` (`hd`), `h(d; r, r') = ∏_{p ∣ d} (f_r(p) f_{r'}(p) − 1)`
+(`hCoef_apply`). -/
 theorem hCoef_of_squarefree {d : ℕ} (hd : Squarefree d) :
     hCoef f r r' d = ∏ p ∈ d.primeFactors, (pseudoChar f r p * pseudoChar f r' p - 1) := by
   rw [hCoef_apply, if_pos hd]
 
+/-- `h(d; r, r') = 0` when `d` is not square-free (`hd`) (`hCoef_apply`). -/
 theorem hCoef_of_not_squarefree {d : ℕ} (hd : ¬ Squarefree d) : hCoef f r r' d = 0 := by
   rw [hCoef_apply, if_neg hd]
 
+/-- `h(1; r, r') = 1`: the empty product over the prime factors of `1` (`hCoef_of_squarefree`,
+`Nat.primeFactors_one`). -/
 theorem hCoef_one : hCoef f r r' 1 = 1 := by
   rw [hCoef_of_squarefree squarefree_one, Nat.primeFactors_one, Finset.prod_empty]
 
+/-- At a prime `p` (`hp`), `h(p; r, r') = f_r(p) f_{r'}(p) − 1` — the single factor of the
+product (`hCoef_of_squarefree`, `Nat.Prime.primeFactors`). -/
 theorem hCoef_prime {p : ℕ} (hp : p.Prime) :
     hCoef f r r' p = pseudoChar f r p * pseudoChar f r' p - 1 := by
   rw [hCoef_of_squarefree hp.squarefree, hp.primeFactors, Finset.prod_singleton]
