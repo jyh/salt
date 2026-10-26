@@ -1020,3 +1020,4 @@ o88-2026-10-26-228	Salt/HB/Lemma10.lean	fbadd06c40ec	Salt/HB/Lemma10.lean::norm_
 o88-2026-10-26-229	Salt/HB/Lemma10.lean	95d07c6a3f3f	Salt/HB/Lemma10.lean::lem10ExpSum_attains_card	328945827041	paper	math	2026-10-26
 o88-2026-10-26-230	docs/CERT-ANCHORS-0811.md	33cb5f27cb4e	Salt/Certs/ChowlaSpine.lean::cert_log_chowla_door_only	07df3b76f789	paper	math	2026-10-26
 o88-2026-10-26-231	Salt/Weil/Sawtooth.lean	c5c40f477b45	Salt/Weil/Sawtooth.lean::norm_majorantCoeff_le_sq	f2bf6b97677f	paper	math	2026-10-26
+o88-2026-10-26-249	Salt/HB/Lemma7.lean	3bf8084f79f1	Salt/HB/Lemma7Kappa.lean::hb_hsing	d5542f235533	paper	math	2026-10-26
