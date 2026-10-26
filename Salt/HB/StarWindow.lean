@@ -408,9 +408,12 @@ theorem S2_sub_S3_window (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z x
 noncomputable def honestWindow (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset ℕ :=
   (Finset.Ioc x (2 * x)).filter (fun n => Nat.Coprime (n * (n + 2)) (excPrimorial χ z))
 
+/-- The honest HB support window is a filter of `Finset.Ioc x (2x)` (`Finset.filter_subset`). -/
 lemma honestWindow_subset (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     honestWindow χ z x ⊆ Finset.Ioc x (2 * x) := Finset.filter_subset _ _
 
+/-- Every member of the honest window has `n(n+2)` coprime to `excPrimorial χ z` — the filter's
+own predicate (`Finset.mem_filter`). -/
 lemma honestWindow_coprime (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     ∀ n ∈ honestWindow χ z x, Nat.Coprime (n * (n + 2)) (excPrimorial χ z) :=
   fun _ hn => (Finset.mem_filter.mp hn).2
