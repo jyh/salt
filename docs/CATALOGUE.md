@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `414c7940` · source digest `422d102d182ed531` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `653f2b50` · source digest `71206b0207724739` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2201,66 +2201,66 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.two_mul_pretenseSum_le_at_window` | Salt/HB/Lemma7F.lean:644 | characters |
 | `Salt.HB.hb_chiOne_kill_at_window` | Salt/HB/Lemma7F.lean:722 | sieves, characters |
 | `Salt.HB.hb_logF_at_split_point` | Salt/HB/Lemma7F.lean:779 | characters |
-| `Salt.HB.mem_Pz` | Salt/HB/Lemma7Kappa.lean:74 | characters |
-| `Salt.HB.hbG_prime` | Salt/HB/Lemma7Kappa.lean:92 | characters |
-| `Salt.HB.hbG_prime_dvd` | Salt/HB/Lemma7Kappa.lean:98 | characters |
-| `Salt.HB.hbG_le_four` | Salt/HB/Lemma7Kappa.lean:103 | characters |
-| `Salt.HB.one_sub_hbG_div_eq` | Salt/HB/Lemma7Kappa.lean:114 | characters |
-| `Salt.HB.hbSfac_le_one` | Salt/HB/Lemma7Kappa.lean:142 | characters |
-| `Salt.HB.one_sub_four_div_sq_le_hbSfac` | Salt/HB/Lemma7Kappa.lean:155 | characters |
-| `Salt.HB.hbSfac_pos` | Salt/HB/Lemma7Kappa.lean:176 | characters |
-| `Salt.HB.abs_log_hbSfac_le` | Salt/HB/Lemma7Kappa.lean:185 | characters |
-| `Salt.HB.tsum_tail_inv_sq_le` | Salt/HB/Lemma7Kappa.lean:223 | characters |
-| `Salt.HB.three_le_of_primesGt2` | Salt/HB/Lemma7Kappa.lean:263 | characters |
-| `Salt.HB.summable_eight_div_sq` | Salt/HB/Lemma7Kappa.lean:268 | characters |
-| `Salt.HB.abs_log_twinFactor_le` | Salt/HB/Lemma7Kappa.lean:276 | characters |
-| `Salt.HB.hbSfac_log_summable` | Salt/HB/Lemma7Kappa.lean:302 | characters |
-| `Salt.HB.hbWfac_pos` | Salt/HB/Lemma7Kappa.lean:307 | characters |
-| `Salt.HB.abs_log_hbWfac_le` | Salt/HB/Lemma7Kappa.lean:314 | characters |
-| `Salt.HB.hbWfac_log_summable` | Salt/HB/Lemma7Kappa.lean:322 | characters |
-| `Salt.HB.hbWfac_multipliable` | Salt/HB/Lemma7Kappa.lean:329 | characters |
-| `Salt.HB.hb_hsing` | Salt/HB/Lemma7Kappa.lean:371 | characters |
-| `Salt.HB.hb_rear_factor` | Salt/HB/Lemma7Kappa.lean:539 | characters |
-| `Salt.HB.hb_rear_factor_two` | Salt/HB/Lemma7Kappa.lean:607 | characters |
-| `Salt.HB.gt2Primes_eq_filter` | Salt/HB/Lemma7Kappa.lean:621 | characters |
-| `Salt.HB.hb_rear_prod_identity` | Salt/HB/Lemma7Kappa.lean:631 | characters |
-| `Salt.HB.hbCalpha_eq` | Salt/HB/Lemma7Kappa.lean:661 | characters |
-| `Salt.HB.alpha_primeFactors_prod_eq` | Salt/HB/Lemma7Kappa.lean:676 | characters |
-| `Salt.HB.qFactors_low_prod_eq` | Salt/HB/Lemma7Kappa.lean:692 | characters |
-| `Salt.HB.hbS1_eq` | Salt/HB/Lemma7Kappa.lean:708 | characters |
-| `Salt.HB.hbKappaTail_split` | Salt/HB/Lemma7Kappa.lean:721 | characters |
-| `Salt.HB.one_sub_sum_le_prod_one_sub` | Salt/HB/Lemma7Kappa.lean:797 | characters |
-| `Salt.HB.abs_prod_one_sub_two_div_sub_one_le` | Salt/HB/Lemma7Kappa.lean:823 | characters |
-| `Salt.HB.hb_hrear` | Salt/HB/Lemma7Kappa.lean:858 | characters |
-| `Salt.HB.hb_L2_at_split_point_concrete` | Salt/HB/Lemma7Kappa.lean:938 | characters |
+| `Salt.HB.mem_Pz` | Salt/HB/Lemma7Kappa.lean:75 | characters |
+| `Salt.HB.hbG_prime` | Salt/HB/Lemma7Kappa.lean:95 | characters |
+| `Salt.HB.hbG_prime_dvd` | Salt/HB/Lemma7Kappa.lean:101 | characters |
+| `Salt.HB.hbG_le_four` | Salt/HB/Lemma7Kappa.lean:106 | characters |
+| `Salt.HB.one_sub_hbG_div_eq` | Salt/HB/Lemma7Kappa.lean:117 | characters |
+| `Salt.HB.hbSfac_le_one` | Salt/HB/Lemma7Kappa.lean:148 | characters |
+| `Salt.HB.one_sub_four_div_sq_le_hbSfac` | Salt/HB/Lemma7Kappa.lean:164 | characters |
+| `Salt.HB.hbSfac_pos` | Salt/HB/Lemma7Kappa.lean:186 | characters |
+| `Salt.HB.abs_log_hbSfac_le` | Salt/HB/Lemma7Kappa.lean:195 | characters |
+| `Salt.HB.tsum_tail_inv_sq_le` | Salt/HB/Lemma7Kappa.lean:233 | characters |
+| `Salt.HB.three_le_of_primesGt2` | Salt/HB/Lemma7Kappa.lean:275 | characters |
+| `Salt.HB.summable_eight_div_sq` | Salt/HB/Lemma7Kappa.lean:280 | characters |
+| `Salt.HB.abs_log_twinFactor_le` | Salt/HB/Lemma7Kappa.lean:288 | characters |
+| `Salt.HB.hbSfac_log_summable` | Salt/HB/Lemma7Kappa.lean:317 | characters |
+| `Salt.HB.hbWfac_pos` | Salt/HB/Lemma7Kappa.lean:324 | characters |
+| `Salt.HB.abs_log_hbWfac_le` | Salt/HB/Lemma7Kappa.lean:333 | characters |
+| `Salt.HB.hbWfac_log_summable` | Salt/HB/Lemma7Kappa.lean:344 | characters |
+| `Salt.HB.hbWfac_multipliable` | Salt/HB/Lemma7Kappa.lean:351 | characters |
+| `Salt.HB.hb_hsing` | Salt/HB/Lemma7Kappa.lean:393 | characters |
+| `Salt.HB.hb_rear_factor` | Salt/HB/Lemma7Kappa.lean:561 | characters |
+| `Salt.HB.hb_rear_factor_two` | Salt/HB/Lemma7Kappa.lean:629 | characters |
+| `Salt.HB.gt2Primes_eq_filter` | Salt/HB/Lemma7Kappa.lean:645 | characters |
+| `Salt.HB.hb_rear_prod_identity` | Salt/HB/Lemma7Kappa.lean:655 | characters |
+| `Salt.HB.hbCalpha_eq` | Salt/HB/Lemma7Kappa.lean:689 | characters |
+| `Salt.HB.alpha_primeFactors_prod_eq` | Salt/HB/Lemma7Kappa.lean:707 | characters |
+| `Salt.HB.qFactors_low_prod_eq` | Salt/HB/Lemma7Kappa.lean:726 | characters |
+| `Salt.HB.hbS1_eq` | Salt/HB/Lemma7Kappa.lean:745 | characters |
+| `Salt.HB.hbKappaTail_split` | Salt/HB/Lemma7Kappa.lean:758 | characters |
+| `Salt.HB.one_sub_sum_le_prod_one_sub` | Salt/HB/Lemma7Kappa.lean:837 | characters |
+| `Salt.HB.abs_prod_one_sub_two_div_sub_one_le` | Salt/HB/Lemma7Kappa.lean:863 | characters |
+| `Salt.HB.hb_hrear` | Salt/HB/Lemma7Kappa.lean:898 | characters |
+| `Salt.HB.hb_L2_at_split_point_concrete` | Salt/HB/Lemma7Kappa.lean:978 | characters |
 | `Salt.HB.chiReTB_abs_le_one` | Salt/HB/Lemma7Prod.lean:79 | characters |
-| `Salt.HB.one_lt_log_three` | Salt/HB/Lemma7Prod.lean:95 | characters |
-| `Salt.HB.abs_log_log_floor_sub_le` | Salt/HB/Lemma7Prod.lean:103 | characters |
-| `Salt.HB.log_le_two_mul_log_floor` | Salt/HB/Lemma7Prod.lean:157 | characters |
-| `Salt.HB.hbEulerProd_pos` | Salt/HB/Lemma7Prod.lean:187 | characters |
-| `Salt.HB.log_hbEulerProd` | Salt/HB/Lemma7Prod.lean:192 | characters |
-| `Salt.HB.hbLogF_eq_of_tendsto` | Salt/HB/Lemma7Prod.lean:215 | characters |
-| `Salt.HB.tendsto_hbEulerProd_hbF` | Salt/HB/Lemma7Prod.lean:222 | characters |
-| `Salt.HB.abs_neg_log_one_sub_sub_self_le` | Salt/HB/Lemma7Prod.lean:238 | characters |
-| `Salt.HB.hbEulerLog_sub_primeSum_termwise` | Salt/HB/Lemma7Prod.lean:257 | characters |
-| `Salt.HB.sum_two_div_sq_windowPrimes_le` | Salt/HB/Lemma7Prod.lean:280 | characters |
-| `Salt.HB.ppDefect_nonneg` | Salt/HB/Lemma7Prod.lean:314 | characters |
-| `Salt.HB.logChiSum_re_eq_sum` | Salt/HB/Lemma7Prod.lean:323 | sieves, characters |
-| `Salt.HB.logChiSum_re_sub_primeSum_le` | Salt/HB/Lemma7Prod.lean:334 | characters |
-| `Salt.HB.sum_recip_windowPrimes_eq` | Salt/HB/Lemma7Prod.lean:373 | characters |
-| `Salt.HB.sum_recip_largePrimeFactors_le` | Salt/HB/Lemma7Prod.lean:401 | characters |
-| `Salt.HB.hb_coprime_segment` | Salt/HB/Lemma7Prod.lean:450 | characters |
-| `Salt.HB.hb_hseg` | Salt/HB/Lemma7Prod.lean:587 | sieves, characters |
-| `Salt.HB.hb_hcorr_finite` | Salt/HB/Lemma7Prod.lean:653 | characters |
-| `Salt.HB.hb_hcorr_at_limit` | Salt/HB/Lemma7Prod.lean:669 | characters |
-| `Salt.HB.sum_ppCoef_eq` | Salt/HB/Lemma7Prod.lean:694 | characters |
-| `Salt.HB.sum_ppCoef_nat_eq` | Salt/HB/Lemma7Prod.lean:709 | characters |
-| `Salt.HB.psi_sub_theta_nonneg` | Salt/HB/Lemma7Prod.lean:715 | characters |
-| `Salt.HB.abs_wLog'_mul_psi_sub_theta_le` | Salt/HB/Lemma7Prod.lean:720 | characters |
-| `Salt.HB.ppDefect_le` | Salt/HB/Lemma7Prod.lean:756 | characters |
-| `Salt.HB.ppDefect_le'` | Salt/HB/Lemma7Prod.lean:869 | characters |
-| `Salt.HB.hb_hcorr_closed` | Salt/HB/Lemma7Prod.lean:885 | characters |
-| `Salt.HB.hb_hseg_closed` | Salt/HB/Lemma7Prod.lean:895 | sieves, characters |
+| `Salt.HB.one_lt_log_three` | Salt/HB/Lemma7Prod.lean:99 | characters |
+| `Salt.HB.abs_log_log_floor_sub_le` | Salt/HB/Lemma7Prod.lean:107 | characters |
+| `Salt.HB.log_le_two_mul_log_floor` | Salt/HB/Lemma7Prod.lean:161 | characters |
+| `Salt.HB.hbEulerProd_pos` | Salt/HB/Lemma7Prod.lean:191 | characters |
+| `Salt.HB.log_hbEulerProd` | Salt/HB/Lemma7Prod.lean:196 | characters |
+| `Salt.HB.hbLogF_eq_of_tendsto` | Salt/HB/Lemma7Prod.lean:221 | characters |
+| `Salt.HB.tendsto_hbEulerProd_hbF` | Salt/HB/Lemma7Prod.lean:228 | characters |
+| `Salt.HB.abs_neg_log_one_sub_sub_self_le` | Salt/HB/Lemma7Prod.lean:244 | characters |
+| `Salt.HB.hbEulerLog_sub_primeSum_termwise` | Salt/HB/Lemma7Prod.lean:263 | characters |
+| `Salt.HB.sum_two_div_sq_windowPrimes_le` | Salt/HB/Lemma7Prod.lean:286 | characters |
+| `Salt.HB.ppDefect_nonneg` | Salt/HB/Lemma7Prod.lean:322 | characters |
+| `Salt.HB.logChiSum_re_eq_sum` | Salt/HB/Lemma7Prod.lean:331 | sieves, characters |
+| `Salt.HB.logChiSum_re_sub_primeSum_le` | Salt/HB/Lemma7Prod.lean:342 | characters |
+| `Salt.HB.sum_recip_windowPrimes_eq` | Salt/HB/Lemma7Prod.lean:381 | characters |
+| `Salt.HB.sum_recip_largePrimeFactors_le` | Salt/HB/Lemma7Prod.lean:409 | characters |
+| `Salt.HB.hb_coprime_segment` | Salt/HB/Lemma7Prod.lean:458 | characters |
+| `Salt.HB.hb_hseg` | Salt/HB/Lemma7Prod.lean:595 | sieves, characters |
+| `Salt.HB.hb_hcorr_finite` | Salt/HB/Lemma7Prod.lean:661 | characters |
+| `Salt.HB.hb_hcorr_at_limit` | Salt/HB/Lemma7Prod.lean:677 | characters |
+| `Salt.HB.sum_ppCoef_eq` | Salt/HB/Lemma7Prod.lean:705 | characters |
+| `Salt.HB.sum_ppCoef_nat_eq` | Salt/HB/Lemma7Prod.lean:722 | characters |
+| `Salt.HB.psi_sub_theta_nonneg` | Salt/HB/Lemma7Prod.lean:729 | characters |
+| `Salt.HB.abs_wLog'_mul_psi_sub_theta_le` | Salt/HB/Lemma7Prod.lean:734 | characters |
+| `Salt.HB.ppDefect_le` | Salt/HB/Lemma7Prod.lean:770 | characters |
+| `Salt.HB.ppDefect_le'` | Salt/HB/Lemma7Prod.lean:883 | characters |
+| `Salt.HB.hb_hcorr_closed` | Salt/HB/Lemma7Prod.lean:899 | characters |
+| `Salt.HB.hb_hseg_closed` | Salt/HB/Lemma7Prod.lean:909 | sieves, characters |
 | `Salt.HB.zeroMult_eq_one_of_window` | Salt/HB/MOne.lean:78 | characters |
 | `Salt.HB.zeroMult_eq_one_of_gap` | Salt/HB/MOne.lean:99 | characters |
 | `Salt.HB.zeroMult_eq_one_of_eta` | Salt/HB/MOne.lean:142 | characters |
@@ -2304,27 +2304,27 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.isQuadratic_of_int` | Salt/HB/RealPrimStructure.lean:63 | characters |
 | `Salt.HB.int_apply_unit` | Salt/HB/RealPrimStructure.lean:74 | characters |
 | `Salt.HB.chineseRemainder_apply` | Salt/HB/RealPrimStructure.lean:92 | characters |
-| `Salt.HB.crtFactor_apply` | Salt/HB/RealPrimStructure.lean:187 | characters |
-| `Salt.HB.crtFactor₁_unique` | Salt/HB/RealPrimStructure.lean:199 | characters |
-| `Salt.HB.crtFactor₂_unique` | Salt/HB/RealPrimStructure.lean:212 | characters |
-| `Salt.HB.crtFactor₁_isPrimitive` | Salt/HB/RealPrimStructure.lean:236 | characters |
-| `Salt.HB.crtFactor₂_isPrimitive` | Salt/HB/RealPrimStructure.lean:280 | characters |
-| `Salt.HB.not_isPrimitive_of_odd_prime_pow` | Salt/HB/RealPrimStructure.lean:335 | characters |
-| `Salt.HB.eq_quadraticChar_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:383 | characters |
-| `Salt.HB.not_isPrimitive_two` | Salt/HB/RealPrimStructure.lean:415 | characters |
-| `Salt.HB.exists_odd_sq_sub_dvd` | Salt/HB/RealPrimStructure.lean:427 | characters |
-| `Salt.HB.not_isPrimitive_two_pow` | Salt/HB/RealPrimStructure.lean:451 | characters |
-| `Salt.HB.isPrimitive_two_pow_of_not_factorsThrough` | Salt/HB/RealPrimStructure.lean:497 | characters |
-| `Salt.HB.isPrimitive_chi4` | Salt/HB/RealPrimStructure.lean:516 | characters |
-| `Salt.HB.isPrimitive_chi8` | Salt/HB/RealPrimStructure.lean:533 | characters |
-| `Salt.HB.isPrimitive_chi8'` | Salt/HB/RealPrimStructure.lean:550 | characters |
-| `Salt.HB.eq_chi4_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:567 | characters |
-| `Salt.HB.eq_chi8_or_chi8'_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:591 | characters |
-| `Salt.HB.squarefree_and_eq_jacobiChar_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:703 | characters |
-| `Salt.HB.exists_split_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:711 | characters |
-| `Salt.HB.structure_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:749 | characters |
-| `Salt.HB.sum_two_forms_le_gcd_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:775 | characters |
-| `Salt.HB.exists_split_of_isPrimitive_enumerated` | Salt/HB/RealPrimStructure.lean:791 | characters |
+| `Salt.HB.crtFactor_apply` | Salt/HB/RealPrimStructure.lean:175 | characters |
+| `Salt.HB.crtFactor₁_unique` | Salt/HB/RealPrimStructure.lean:187 | characters |
+| `Salt.HB.crtFactor₂_unique` | Salt/HB/RealPrimStructure.lean:200 | characters |
+| `Salt.HB.crtFactor₁_isPrimitive` | Salt/HB/RealPrimStructure.lean:224 | characters |
+| `Salt.HB.crtFactor₂_isPrimitive` | Salt/HB/RealPrimStructure.lean:268 | characters |
+| `Salt.HB.not_isPrimitive_of_odd_prime_pow` | Salt/HB/RealPrimStructure.lean:323 | characters |
+| `Salt.HB.eq_quadraticChar_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:371 | characters |
+| `Salt.HB.not_isPrimitive_two` | Salt/HB/RealPrimStructure.lean:403 | characters |
+| `Salt.HB.exists_odd_sq_sub_dvd` | Salt/HB/RealPrimStructure.lean:415 | characters |
+| `Salt.HB.not_isPrimitive_two_pow` | Salt/HB/RealPrimStructure.lean:439 | characters |
+| `Salt.HB.isPrimitive_two_pow_of_not_factorsThrough` | Salt/HB/RealPrimStructure.lean:485 | characters |
+| `Salt.HB.isPrimitive_chi4` | Salt/HB/RealPrimStructure.lean:504 | characters |
+| `Salt.HB.isPrimitive_chi8` | Salt/HB/RealPrimStructure.lean:521 | characters |
+| `Salt.HB.isPrimitive_chi8'` | Salt/HB/RealPrimStructure.lean:538 | characters |
+| `Salt.HB.eq_chi4_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:555 | characters |
+| `Salt.HB.eq_chi8_or_chi8'_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:579 | characters |
+| `Salt.HB.squarefree_and_eq_jacobiChar_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:691 | characters |
+| `Salt.HB.exists_split_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:699 | characters |
+| `Salt.HB.structure_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:737 | characters |
+| `Salt.HB.sum_two_forms_le_gcd_of_isPrimitive` | Salt/HB/RealPrimStructure.lean:763 | characters |
+| `Salt.HB.exists_split_of_isPrimitive_enumerated` | Salt/HB/RealPrimStructure.lean:779 | characters |
 | `Salt.HB.chi4_sum_two_forms_le_gcd` | Salt/HB/RealPrimitive.lean:73 | characters |
 | `Salt.HB.chi8_sum_two_forms_le_gcd` | Salt/HB/RealPrimitive.lean:82 | characters |
 | `Salt.HB.chi8'_sum_two_forms_le_gcd` | Salt/HB/RealPrimitive.lean:90 | characters |
@@ -2347,31 +2347,31 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.hMert_dim4` | Salt/HB/RosserDim4.lean:687 | sieves, characters |
 | `Salt.HB.brun_lower_dim4` | Salt/HB/RosserDim4.lean:764 | sieves, characters |
 | `Salt.HB.brun_upper_dim4` | Salt/HB/RosserDim4.lean:785 | sieves, characters |
-| `Salt.HB.fl_defect_le` | Salt/HB/RosserDim4FL.lean:228 | characters |
-| `Salt.HB.fl_defect_le_upper` | Salt/HB/RosserDim4FL.lean:268 | characters |
-| `Salt.HB.flConst_quarter_le` | Salt/HB/RosserDim4FL.lean:324 | characters |
-| `Salt.HB.fl_dim4_lower` | Salt/HB/RosserDim4FL.lean:373 | sieves, characters |
-| `Salt.HB.fl_dim4_upper` | Salt/HB/RosserDim4FL.lean:397 | sieves, characters |
-| `Salt.HB.failSet_unique` | Salt/HB/RosserDim4FL.lean:545 | characters |
-| `Salt.HB.firstFailure_decomposition` | Salt/HB/RosserDim4FL.lean:647 | characters |
-| `Salt.HB.failSet_le_rpow` | Salt/HB/RosserDim4FL.lean:689 | characters |
-| `Salt.HB.failSet_moebius` | Salt/HB/RosserDim4FL.lean:792 | characters |
-| `Salt.HB.firstFailure_decomposition_signed` | Salt/HB/RosserDim4FL.lean:829 | characters |
-| `Salt.HB.perDelta_transfer` | Salt/HB/RosserDim4FL.lean:862 | characters |
-| `Salt.HB.transfer_of_decomposition` | Salt/HB/RosserDim4FL.lean:875 | characters |
-| `Salt.HB.hb_perDelta_transfer` | Salt/HB/RosserDim4FL.lean:893 | characters |
-| `Salt.HB.nuG_isMultiplicative` | Salt/HB/RosserDim4Instance.lean:125 | characters |
-| `Salt.HB.hbP_squarefree` | Salt/HB/RosserDim4Instance.lean:224 | characters |
-| `Salt.HB.hbP_chi` | Salt/HB/RosserDim4Instance.lean:244 | characters |
-| `Salt.HB.hb_sandwich_upper` | Salt/HB/RosserDim4Instance.lean:407 | sieves, characters |
-| `Salt.HB.hb_sandwich_lower` | Salt/HB/RosserDim4Instance.lean:419 | sieves, characters |
-| `Salt.HB.moebSum_nu_eq_W` | Salt/HB/RosserDim4Instance.lean:436 | sieves, characters |
-| `Salt.HB.mainSum_chi_eq_W_sub_correction` | Salt/HB/RosserDim4Instance.lean:451 | sieves, characters |
-| `Salt.HB.hb_levelRatio_eq` | Salt/HB/RosserDim4Instance.lean:470 | characters |
-| `Salt.HB.hb_fl_lower` | Salt/HB/RosserDim4Instance.lean:483 | sieves, characters |
-| `Salt.HB.hb_fl_upper` | Salt/HB/RosserDim4Instance.lean:506 | sieves, characters |
-| `Salt.HB.hb_transfer` | Salt/HB/RosserDim4Instance.lean:531 | characters |
-| `Salt.HB.hbSieve_fl_sandwich` | Salt/HB/RosserDim4Instance.lean:564 | sieves, characters |
+| `Salt.HB.fl_defect_le` | Salt/HB/RosserDim4FL.lean:219 | characters |
+| `Salt.HB.fl_defect_le_upper` | Salt/HB/RosserDim4FL.lean:259 | characters |
+| `Salt.HB.flConst_quarter_le` | Salt/HB/RosserDim4FL.lean:315 | characters |
+| `Salt.HB.fl_dim4_lower` | Salt/HB/RosserDim4FL.lean:364 | sieves, characters |
+| `Salt.HB.fl_dim4_upper` | Salt/HB/RosserDim4FL.lean:388 | sieves, characters |
+| `Salt.HB.failSet_unique` | Salt/HB/RosserDim4FL.lean:526 | characters |
+| `Salt.HB.firstFailure_decomposition` | Salt/HB/RosserDim4FL.lean:628 | characters |
+| `Salt.HB.failSet_le_rpow` | Salt/HB/RosserDim4FL.lean:670 | characters |
+| `Salt.HB.failSet_moebius` | Salt/HB/RosserDim4FL.lean:773 | characters |
+| `Salt.HB.firstFailure_decomposition_signed` | Salt/HB/RosserDim4FL.lean:810 | characters |
+| `Salt.HB.perDelta_transfer` | Salt/HB/RosserDim4FL.lean:843 | characters |
+| `Salt.HB.transfer_of_decomposition` | Salt/HB/RosserDim4FL.lean:856 | characters |
+| `Salt.HB.hb_perDelta_transfer` | Salt/HB/RosserDim4FL.lean:874 | characters |
+| `Salt.HB.nuG_isMultiplicative` | Salt/HB/RosserDim4Instance.lean:127 | characters |
+| `Salt.HB.hbP_squarefree` | Salt/HB/RosserDim4Instance.lean:233 | characters |
+| `Salt.HB.hbP_chi` | Salt/HB/RosserDim4Instance.lean:261 | characters |
+| `Salt.HB.hb_sandwich_upper` | Salt/HB/RosserDim4Instance.lean:427 | sieves, characters |
+| `Salt.HB.hb_sandwich_lower` | Salt/HB/RosserDim4Instance.lean:439 | sieves, characters |
+| `Salt.HB.moebSum_nu_eq_W` | Salt/HB/RosserDim4Instance.lean:456 | sieves, characters |
+| `Salt.HB.mainSum_chi_eq_W_sub_correction` | Salt/HB/RosserDim4Instance.lean:471 | sieves, characters |
+| `Salt.HB.hb_levelRatio_eq` | Salt/HB/RosserDim4Instance.lean:490 | characters |
+| `Salt.HB.hb_fl_lower` | Salt/HB/RosserDim4Instance.lean:503 | sieves, characters |
+| `Salt.HB.hb_fl_upper` | Salt/HB/RosserDim4Instance.lean:526 | sieves, characters |
+| `Salt.HB.hb_transfer` | Salt/HB/RosserDim4Instance.lean:551 | characters |
+| `Salt.HB.hbSieve_fl_sandwich` | Salt/HB/RosserDim4Instance.lean:584 | sieves, characters |
 | `Salt.HB.chiReChar_apply` | Salt/HB/SieveWire.lean:87 | sieves, characters |
 | `Salt.HB.chiReChar_prime` | Salt/HB/SieveWire.lean:99 | sieves, characters |
 | `Salt.HB.hbSiftSet_chiReChar` | Salt/HB/SieveWire.lean:106 | sieves, characters |
@@ -2385,9 +2385,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.psiDefect_norm_le_raw` | Salt/HB/TailShells.lean:300 | characters |
 | `Salt.HB.psiDefect_norm_le_envelopeB3` | Salt/HB/TailShells.lean:379 | characters |
 | `Salt.HB.efEnvelopeB3_nonneg` | Salt/HB/TailShells.lean:447 | characters |
-| `Salt.HB.continuousOn_efEnvelopeB3_ceilFun` | Salt/HB/TailShells.lean:606 | characters |
-| `Salt.HB.efEnvelopeB3_le_ledger` | Salt/HB/TailShells.lean:645 | characters |
-| `Salt.HB.integral_rpow_div_log_tail_le` | Salt/HB/TailShells.lean:732 | characters |
+| `Salt.HB.continuousOn_efEnvelopeB3_ceilFun` | Salt/HB/TailShells.lean:583 | characters |
+| `Salt.HB.efEnvelopeB3_le_ledger` | Salt/HB/TailShells.lean:622 | characters |
+| `Salt.HB.integral_rpow_div_log_tail_le` | Salt/HB/TailShells.lean:709 | characters |
 | `Salt.HB.twin_termwise_le` | Salt/HB/Transfer.lean:158 | characters |
 | `Salt.HB.S1_le_S2` | Salt/HB/Transfer.lean:189 | characters |
 | `Salt.HB.overshoot_sum_nonneg` | Salt/HB/Transfer.lean:211 | characters |
@@ -7495,9 +7495,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.sum_two_forms_le_gcd_of_split` | Salt/HB/RealPrimitive.lean:383 | characters | `Salt.HB.HasTwoFormGcdBound` |
 | `Salt.HB.chi_log_le_level` | Salt/HB/RosserDim4.lean:186 | characters | `Salt.BrunLower.chi` |
 | `Salt.HB.chi_le_rpow_level` | Salt/HB/RosserDim4.lean:295 | characters | `Salt.BrunLower.chi` |
-| `Salt.HB.flB_level_bound` | Salt/HB/RosserDim4FL.lean:173 | characters | `Salt.BrunLower.chi` |
-| `Salt.HB.exists_firstFailure` | Salt/HB/RosserDim4FL.lean:576 | characters | `¬Salt.BrunLower.chi` |
-| `Salt.HB.failSet_forced_count` | Salt/HB/RosserDim4FL.lean:729 | characters | `¬Salt.BrunLower.chi`, `Salt.BrunLower.chi` |
+| `Salt.HB.flB_level_bound` | Salt/HB/RosserDim4FL.lean:168 | characters | `Salt.BrunLower.chi` |
+| `Salt.HB.exists_firstFailure` | Salt/HB/RosserDim4FL.lean:557 | characters | `¬Salt.BrunLower.chi` |
+| `Salt.HB.failSet_forced_count` | Salt/HB/RosserDim4FL.lean:710 | characters | `¬Salt.BrunLower.chi`, `Salt.BrunLower.chi` |
 | `Salt.HB.S1_le_S2Gen` | Salt/HB/SignChain.lean:511 | characters | `Salt.HB.IsSignFunction` |
 | `Salt.HB.neutrality_rate` | Salt/HB/SignRate.lean:53 | characters | `Salt.HB.IsSignFunction` |
 | `Salt.HB.S2_sub_S1_le` | Salt/HB/Transfer.lean:199 | characters | `Salt.HB.CoprimeSupport` |
@@ -9303,13 +9303,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.N7.hbT₁` | Salt/HB/Lemma5Bilinear.lean:2658 | characters |
 | `Salt.N7.hbT₂` | Salt/HB/Lemma5Bilinear.lean:2665 | characters |
 | `Salt.N7.kb5f_C` | Salt/HB/Lemma5Bilinear.lean:3181 | characters |
-| `Salt.HB.primeProdBelow_eq` | Salt/HB/Lemma7Kappa.lean:77 | characters |
+| `Salt.HB.primeProdBelow_eq` | Salt/HB/Lemma7Kappa.lean:80 | characters |
 | `Salt.HB.hbPairSieve` | Salt/HB/PairInstance.lean:85 | sieves, characters |
 | `Salt.HB.crtIn₁` | Salt/HB/RealPrimStructure.lean:103 | characters |
 | `Salt.HB.crtIn₂` | Salt/HB/RealPrimStructure.lean:107 | characters |
-| `Salt.HB.crtFactor₁` | Salt/HB/RealPrimStructure.lean:161 | characters |
-| `Salt.HB.crtFactor₂` | Salt/HB/RealPrimStructure.lean:169 | characters |
-| `Salt.HB.hbSieve` | Salt/HB/RosserDim4Instance.lean:161 | sieves, characters |
+| `Salt.HB.crtFactor₁` | Salt/HB/RealPrimStructure.lean:151 | characters |
+| `Salt.HB.crtFactor₂` | Salt/HB/RealPrimStructure.lean:159 | characters |
+| `Salt.HB.hbSieve` | Salt/HB/RosserDim4Instance.lean:163 | sieves, characters |
 | `Salt.HB.chiReChar` | Salt/HB/SieveWire.lean:80 | sieves, characters |
 | `Salt.HB.hbData` | Salt/HB/SieveWire.lean:130 | sieves, characters |
 | `Salt.HB.hbData_P` | Salt/HB/SieveWire.lean:138 | sieves, characters |
