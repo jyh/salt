@@ -30,5 +30,7 @@ reciprocals of twin primes converges — in contrast to
 def BrunStatement : Prop :=
   Summable (Set.indicator {p : ℕ | p.Prime ∧ (p + 2).Prime} fun n => (1 : ℝ) / n)
 
+/-- `twinPrimeCounting` is monotone in `n`: a `Nat.count` over a longer range
+(`Nat.count_monotone`). -/
 theorem twinPrimeCounting_monotone : Monotone twinPrimeCounting :=
   fun _ _ h => Nat.count_monotone _ (Nat.succ_le_succ h)

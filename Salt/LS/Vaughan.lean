@@ -60,6 +60,8 @@ private theorem sum_le_add_lt (P : ℕ) (s : Finset ℕ) (g : ℕ → ℝ) :
 private noncomputable def vmLE (V : ℕ) : ArithmeticFunction ℝ :=
   ⟨fun c => if c ≤ V then Λ c else 0, by simp⟩
 
+/-- `vmLE V c = if c ≤ V then Λ c else 0` (`rfl`): the truncated von Mangoldt function evaluated
+at `c`. -/
 @[simp] private theorem vmLE_apply (V c : ℕ) : vmLE V c = if c ≤ V then Λ c else 0 := rfl
 
 /-- Key convolution identity: `μ * (Λ_{≤V} * ζ) = Λ_{≤V}`, since `μ * ζ = 1`. -/

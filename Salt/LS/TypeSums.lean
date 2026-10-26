@@ -191,12 +191,16 @@ theorem typeIIData_le_log (V m : ℕ) : typeIIData V m ≤ Real.log m := by
 private noncomputable def muTr (U : ℕ) : ArithmeticFunction ℝ :=
   ⟨fun d => if d ≤ U then (μ d : ℝ) else 0, by simp⟩
 
+/-- `muTr U d = if d ≤ U then μ d else 0` (`rfl`): the truncated Möbius function evaluated at
+`d`. -/
 @[simp] private theorem muTr_apply (U d : ℕ) : muTr U d = if d ≤ U then (μ d : ℝ) else 0 := rfl
 
 /-- `Λ` truncated to `≤ V`, as an `ArithmeticFunction ℝ`. -/
 private noncomputable def vmTr (V : ℕ) : ArithmeticFunction ℝ :=
   ⟨fun c => if c ≤ V then Λ c else 0, by simp⟩
 
+/-- `vmTr V c = if c ≤ V then Λ c else 0` (`rfl`): the truncated von Mangoldt function evaluated
+at `c`. -/
 @[simp] private theorem vmTr_apply (V c : ℕ) : vmTr V c = if c ≤ V then Λ c else 0 := rfl
 
 /-- `(Λ_{≤V} * ζ) m = ∑_{c ∣ m, c ≤ V} Λ(c)`. -/
