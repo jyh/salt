@@ -61,6 +61,8 @@ noncomputable def artinSchreier : GaloisField p n →ₗ[ZMod p] GaloisField p n
     simp only [RingHom.id_apply, Algebra.smul_def, mul_pow, mul_sub]
     rw [← map_pow, ZMod.pow_card]
 
+/-- `artinSchreier p n x = x ^ p - x` (`rfl`): the linear map evaluates as the Artin–Schreier
+polynomial. -/
 @[simp] theorem artinSchreier_apply (x : GaloisField p n) :
     artinSchreier p n x = x ^ p - x := rfl
 
