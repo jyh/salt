@@ -56,8 +56,8 @@ is `≥ 3·2^{π(z)-ish}` (`tauSum_odd_ge`): **no usable `C₁`/`C₂` exists**,
 The slack `ε·Cᵢ·e²·h(σ)` then dwarfs the main term and the C0 ledger (S1/S2/S3 caps ≈ 0.002·M)
 fails by dozens of orders of magnitude.  A smaller `ε` does **not** help — it enlarges the
 forcing `cf/(ε·e²)` — so no ledger re-freeze (Table-1's 1/100000 row included) rescues it.  The
-numeric row genuinely requires the **sharp** BJS constants (`κ₃ < 1` via the `E₁` exponential
-integral, `c_f ∝ ε`), which are not elementary in mathlib.  This is the C1c⁵ `κ₃ = 1 ⟹ β ≥ 1`
+numeric row genuinely requires the **sharp** BJS constants (`κ₃ < 1`, `c_f ∝ ε`); `κ₃ = 49/50`
+needs no `E₁` (`SharpFuncbound`, landed later).  This is the C1c⁵ `κ₃ = 1 ⟹ β ≥ 1`
 finding made fully quantitative against the actually-landed `cf_const`/`ch_const`.
 
 ## What is proved here (sorry-free, axiom-clean)

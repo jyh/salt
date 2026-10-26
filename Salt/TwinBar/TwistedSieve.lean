@@ -38,7 +38,7 @@ re-derived here for the τ-bound (node b) — never `|λ| ≤ 1`, which is FALSE
   product with `L(1,χ)`·(twin singular series) needs a twisted-Mertens
   finite→infinite passage; class C/D, the analytic seam, left to a later wave.
 * **Node (a3) — the lower bound — is PROSE-ONLY [gate BLOCK-2].** The frozen
-  `∃ cLow > 0, cLow·(L(1,χ)).re ≤ twistedMainSum` is a proven `swat_vacuous` trap
+  `∃ cLow > 0, cLow·(L(1,χ)).re ≤ twistedMainSum` is a `swat_vacuous`-type trap
   (it follows from `0 < twistedMainSum` alone, with `cLow = M/(2L)`), so committing
   it as a Lean theorem would let O2/O3 masquerade as O1. It is therefore recorded
   ONLY as prose: the honest map is that the D-difficulty is the CONJUNCTION of
@@ -93,6 +93,7 @@ convolve with `ζ`, and read off multiplicativity from mathlib. -/
 noncomputable def chiReArith {q : ℕ} (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℝ :=
   ⟨fun n => if n = 0 then 0 else chiRe χ n, rfl⟩
 
+/-- `chiReArith χ n` unfolds (`rfl`) to `χ_ℝ(n)` guarded by `0` at `n = 0`. -/
 @[simp] lemma chiReArith_apply {q : ℕ} (χ : DirichletCharacter ℂ q) (n : ℕ) :
     chiReArith χ n = if n = 0 then 0 else chiRe χ n := rfl
 
@@ -100,6 +101,7 @@ noncomputable def chiReArith {q : ℕ} (χ : DirichletCharacter ℂ q) : Arithme
 noncomputable def lamChiArith {q : ℕ} (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℝ :=
   ζ * chiReArith χ
 
+/-- `χ_ℝ(1) = 1`: every Dirichlet character has `χ 1 = 1`, whose real part is `1`. -/
 @[simp] lemma chiRe_one {q : ℕ} (χ : DirichletCharacter ℂ q) : chiRe χ 1 = 1 := by
   simp [chiRe]
 
@@ -112,6 +114,8 @@ lemma chiRe_mul {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (a 
   rcases hQ ((a : ZMod q)) with h | h | h <;> rcases hQ ((b : ZMod q)) with h' | h' | h' <;>
     rw [h, h'] <;> simp
 
+/-- For a quadratic `χ` (hypothesis `hsq : χ ^ 2 = 1`) the bundled `χ_ℝ` is multiplicative:
+`chiReArith χ 1 = 1` by `chiRe_one`, and off `0` the product rule is `chiRe_mul`. -/
 lemma chiReArith_mult {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) :
     (chiReArith χ).IsMultiplicative := by
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
@@ -122,6 +126,9 @@ lemma chiReArith_mult {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 
         chiReArith_apply, if_neg hn]
     exact chiRe_mul χ hsq m n
 
+/-- For a quadratic `χ` (hypothesis `hsq : χ ^ 2 = 1`), `lamChiArith χ = ζ * chiReArith χ` is
+multiplicative as a Dirichlet convolution of multiplicative functions (`isMultiplicative_zeta`,
+`chiReArith_mult`). -/
 lemma lamChiArith_mult {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) :
     (lamChiArith χ).IsMultiplicative := by
   unfold lamChiArith

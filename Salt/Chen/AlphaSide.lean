@@ -59,7 +59,7 @@ under the `general_BV_final'` side-condition set plus the new threshold hypothes
 contribution — as a **named** hypothesis (exactly as the landed `bilinear_hLargeDisc` names
 `hMainEnergy`/`hErrSum` and `general_BV_final` named `hPerE`).  It is **not** dischargeable
 from the landed corpus, and the obstruction is a genuine Lean-level (and arguably
-math-level) finding, gate-verified below:
+math-level) finding, checked by the gate below, outside Lean:
 
 **The numeric sanity pass (exponent bookkeeping).**  Operating point `XM ≍ x`,
 `√(XM) ≍ x^{1/2}`, `D = x^{1/2−ε'}` (`ε' = 1e−4`), `2 ≤ e ≤ D`, `⌊X/e⌋·M ≍ x/e`.  PE3a's raw
@@ -88,7 +88,7 @@ for `e ∣ f` (then `φ(lcm) = φf`, forcing `φe ≤ C/4`).  Any single bound l
 mean value** (`∑_{f ≤ Q, δ∣f} (f/φf)·bilinPrimEnergy ≤ [shell with the `Q²/δ` diagonal]`),
 which is **not in the landed corpus** — it is the one genuinely missing analytic input.  This
 is a re-instantiation gap the design's Step 4 did not anticipate; recorded as a finding, not a
-failure (the envelope remains plausibly true; the gate verified the arithmetic, the Lean-level
+failure (the envelope remains plausibly true; the gate checked the sums outside Lean, the Lean-level
 tool is absent).
 
 `efold_alpha_reduce_dense` lands the honest reduction *up to* this `∑_f φ(gcd(e,f))/φf·E(f)`

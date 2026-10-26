@@ -61,7 +61,7 @@ twin's `box_rows_at_op` (`x`-generic reuse), the per-annulus `L`-scale, and the 
 
 ## What this file lands (sorry-free, NEW FILE — no edits to landed files)
 
-* §1 the x-generic reuse rows (`gold_box_hcoupG`/`_hcoup3`/`_herr_book4`/`_herr_scale`);
+* §1 the x-generic reuse rows (`gold_box_hcoupG`/`_hcoup3`/`_herr_book4`);
 * §2 the vanish lemmas (`gold_box_carrier_vanish`/`gold_box_price_vanish`, the dead-annulus floor);
 * §3 the per-annulus scale facts (`gold_box_XM_scale`, the D0-window's geometry input).
 

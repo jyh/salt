@@ -131,3 +131,5 @@ reported" — is met on all ten lines above.
 
 *— drafted by the Fable house session 2026-07-17; RATIFIED FINAL
 by JYH 2026-07-17 ("sprint-1 and sprint-2 reports lgtm").*
+
+*Note, 2026-10-26: this is a dated working record. Its priority statements ("first …", "never formalized …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*

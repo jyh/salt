@@ -142,8 +142,8 @@ an inline numeral. -/
 def kcap : ℕ := 4
 
 /-- **⟦THE RAISED LEVER⟧** (`KlevF`).  `KlevF A = ⌈kcap·e^{1.6A}⌉₊`, the lever at the flat
-design point.  Replaces the pinned `K = 32000000`, whose cap conditional CAP-SCOPE proved
-vacuous at the flat regime. -/
+design point.  Replaces the pinned `K = 32000000`, whose cap conditional CAP-SCOPE argued on
+paper is vacuous at the flat regime. -/
 noncomputable def KlevF (A : ℝ) : ℕ := ⌈(kcap : ℝ) * Real.exp (1.6 * A)⌉₊
 
 /-- `e^{1.6A} = e^{3.2A/2}` — the bridge to `S15SelLinear`'s spelling of the design point. -/

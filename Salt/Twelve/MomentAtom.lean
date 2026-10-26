@@ -17,7 +17,7 @@ polynomial-weight moment sum
 
 The density is `φW'/W'` (NOT a `6/π²`-polluted squarefree density — the
 coprimality restriction threads through and the classic Euler-product `6/π²`
-cancels against `ζ(2)` per-prime; see the reassembly note in
+cancels against `ζ(2)` per-prime; see the PORT-BLOCKER note at the end of
 `Salt/Maynard/PhiAtom.lean`).
 
 ## What lands here (sorry-free)
@@ -35,9 +35,9 @@ cancels against `ζ(2)` per-prime; see the reassembly note in
 The a=0 base is `phiAtomSum z W' = (φW'/W')·log z + O(1)`.  Its LOWER half is
 `Salt.Maynard.phiAtom_lower` (landed, exact constant, elementary block
 counting).  Its sharp UPPER half `phiAtom_upper` is a documented pre-existing
-blocker (`Salt/Maynard/PhiAtom.lean`, lines 918-953): a C-node requiring
-signed multiplicative-convolution + convergent Euler products
-(`∑_d h(d)/d = 1`), out of scope for this card.  It enters `moment_atom` as the
+blocker (`Salt/Maynard/PhiAtom.lean`, lines 918-953): a C-node requiring signed
+multiplicative-convolution + convergent Euler products (`∑_d h(d)/d = 1`), out of scope for
+this card, landed later as `phiUpperAtom_final`.  It enters `moment_atom` as the
 explicit hypothesis `PhiUpperAtom W'`.  The Abel lift — the mandated floor —
 lands unconditionally.
 -/
@@ -376,9 +376,9 @@ base `∑_{r<x, sqf, (r,W')=1} 1/φ(r) ≤ (φW'/W')·log x + C`.
 This is strictly narrower than `moment_atom` (a=0, upper direction only).  Its
 matching LOWER bound `Salt.Maynard.phiAtom_lower` is landed (elementary block
 counting, exact constant `φW'/W'`).  The sharp upper bound is the documented
-blocker in `Salt/Maynard/PhiAtom.lean` (lines 918-953): a C-node requiring
-signed multiplicative-convolution + convergent Euler products
-(`∑_d h(d)/d = 1`, per-prime cancellation of the `6/π²`), out of scope here.
+blocker in `Salt/Maynard/PhiAtom.lean` (lines 918-953): a C-node requiring signed
+multiplicative-convolution + convergent Euler products (`∑_d h(d)/d = 1`, per-prime
+cancellation of the `6/π²`), out of scope here; it landed later as `phiUpperAtom_final`.
 `phiAtom_upper_lossy` (4×-lossy) and `phiAtom_upper_fallback` are the landed
 non-sharp substitutes; neither is sharp enough for the O(1) a=0 error. -/
 def PhiUpperAtom (W' : ℕ) : Prop :=
