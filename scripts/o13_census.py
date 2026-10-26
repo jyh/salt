@@ -35,7 +35,9 @@ Classes, per root (the walk is `Salt.SW.StandoffCert.closureOf`, the relation be
   MISSING             the root (or a §10 twin) is not in the environment the scratch built
 
 LIMITS, printed with every verdict:
-  - The roots are RESULTS's table rows (and --names); a result with no row is not walked.
+  - The roots are RESULTS's table rows (and --names); a result with no row is not walked. An
+    undotted name resolves only to constants declared in a Salt/SaltC1/Keller module, so a bare
+    binder or a core axiom named in prose reads UNRESOLVED rather than walking a foreign constant.
   - "Reaches" is constant reference over types and values, the relation `#print axioms` uses. FREE
     means free of the three names only, not of any other hypothesis, and says nothing on effectivity.
   - `L1_lower_siegel` is effective; a REACHES row is not by itself a claim of ineffectivity.
@@ -129,12 +131,18 @@ open Lean Elab Command Salt.SW.StandoffCert
 elab "#o13_census" : command => do
   let env ← getEnv
   let all : Array Name := env.constants.fold (init := #[]) fun acc n _ => acc.push n
+  let ownMod (n : Name) : Bool := match env.getModuleIdxFor? n with
+    | some i => let m := env.header.moduleNames[i.toNat]!
+                (`Salt).isPrefixOf m || (`SaltC1).isPrefixOf m || (`Keller).isPrefixOf m
+    | none => false
   let resolveS (s : String) : List Name :=
     if s.contains '.' then
       let n := s.toName
       if (env.find? n).isSome then [n] else []
     else
-      (all.filter fun n => !n.isInternal && match n with
+      -- an undotted name resolves only to a constant DECLARED in this repository's modules
+      -- (never a Mathlib or core constant that happens to share the last component)
+      (all.filter fun n => !n.isInternal && ownMod n && match n with
         | .str _ t => t == s
         | _ => false).toList
   let nameTwins (root : Name) : List Name := Id.run do
@@ -151,7 +159,8 @@ elab "#o13_census" : command => do
     let st ← closureOf t
     return targets.all (!st.visited.contains ·) && !st.visited.contains ``sorryAx
   let mut nF : Nat := 0; let mut nT : Nat := 0; let mut nD : Nat := 0; let mut nO : Nat := 0
-  let mut nM : Nat := 0; let mut nU : Nat := 0; let mut nRoots : Nat := 0; let mut nEntries : Nat := 0
+  let mut nM : Nat := 0; let mut nU : Nat := 0; let mut nEntries : Nat := 0
+  let mut nRoots : Nat := 0  -- distinct constants walked; an entry resolving to nothing is not one
   let mut seen : NameSet := {}
   -- a RESULTS row marked SUPERSEDED is by design under any tag it is reached by
   let superseded : List Name := (o13Roots.filter fun (_, t) => (t.splitOn "SUPERSEDED").length > 1).map
@@ -160,7 +169,6 @@ elab "#o13_census" : command => do
     nEntries := nEntries + 1
     let hits := resolveS s
     if hits.isEmpty then
-      nRoots := nRoots + 1
       if tag == "NAMES" then
         logInfo m!"O13 UNRESOLVED {s} [{tag}]"
         nU := nU + 1
