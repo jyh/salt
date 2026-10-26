@@ -64,8 +64,8 @@ exactly as its docstring already declares.
 The residual is entirely INSIDE the dispatch's enumerated case space (M-vs-V
 regimes × gcd solvability × `r`-twist multiplicativity × `psiAP` endpoints × `q'=1`
 × tiny `x`).  Per III.3‴ it is a contained floor, NOT a chain-halting residual
-outside the space: there is no mathematical obstruction — the `r`-twist is
-resolved above by prime-power sparsity — only formalization volume.
+outside the space: no mathematical obstruction is known — the `r`-twist is
+resolved above, on paper, by prime-power sparsity — so the expected cost is volume.
 -/
 
 open Finset ArithmeticFunction
