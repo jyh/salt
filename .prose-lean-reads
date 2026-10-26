@@ -961,3 +961,5 @@ o88-math-2026-10-25-28	Salt/MR/MVHilbert.lean	1af8a0923da2	Salt/MR/MVCore2.lean:
 o88-math-2026-10-25-29	Salt/MR/MVHilbert.lean	cf57351d5dad	Salt/MR/MVHilbert.lean::dirichlet_poly_l2_mvt	a1061a8cd37a	math	paper	2026-10-25
 o88-math-2026-10-25-30	Salt/MR/RegisterCompose.lean	667f08513e28	Salt/MR/RegisterCompose.lean::logChowla2_ineffective_v6	a18a2f890585	math	paper	2026-10-25
 o88-math-2026-10-25-31	Salt/MR/RegisterRepair.lean	716096069c38	Salt/MR/RegisterRepair.lean::cofkR_cofactorSupply_L_gk	ef18a79acac7	math	paper	2026-10-25
+o88-2026-10-26-135	Salt/Vk/Core.lean	3cd08d241922	Salt/Vk/Core.lean::vk_block_core	dd703c5d5933	paper	math	2026-10-26
+o88-2026-10-26-136	Salt/Vk/Core.lean	0d97aaad5629	Salt/Vk/Core.lean::vk_block_core	dd703c5d5933	paper	math	2026-10-26

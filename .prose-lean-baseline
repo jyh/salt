@@ -524,8 +524,6 @@ eac4132b1857	Salt/TwinBar/ThreeBar.lean	docstring
 dbfb9df7caf7	Salt/TwinBar/TwinParitySieve.lean	docstring
 360cd0e40a1f	Salt/Vk/All.lean	docstring
 de2c641e6a05	Salt/Vk/Block.lean	docstring
-06432c32e402	Salt/Vk/Core.lean	docstring
-3d1133c26c85	Salt/Vk/Core.lean	docstring
 6da77fae5d4b	Salt/Vk/Core.lean	docstring
 deeebe1b053c	Salt/Vk/Core.lean	docstring
 66efda8324cc	Salt/Vk/GrowthPow.lean	docstring-cited
