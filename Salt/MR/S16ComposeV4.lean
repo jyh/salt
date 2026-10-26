@@ -9,9 +9,9 @@ import Salt.MR.KLever
 /-!
 # `S16ComposeV4` — ⟦THE `K`-HOIST⟧ AND `logChowla2_ineffective_v4`
 
-⟦THE 8/02 VACUITY, AND WHAT IT COST⟧  CAP-SCOPE proved `S16BaseScaleCap96_L_gk` **false at the
-flat terminals' own regime** when the lever is pinned at `K = 32000000`, which made the
-conclusion-side implication of `logChowla2_ineffective` `v1`/`v2`/`v3` VACUOUS.  CAP-RECUT
+⟦THE 8/02 VACUITY, AND WHAT IT COST⟧  CAP-SCOPE argued on paper that `S16BaseScaleCap96_L_gk` is
+**false at the flat terminals' own regime** when the lever is pinned at `K = 32000000`, which made
+the conclusion-side implication of `logChowla2_ineffective` `v1`/`v2`/`v3` VACUOUS.  CAP-RECUT
 repaired the arithmetic: `KLever.s16_baseScaleCap96_L_at_klevF` proves the cap **at the raised
 lever** `K = KlevF A = ⌈4·e^{1.6A}⌉₊` off two ceilings the flat builder exports.  KWIDE-65 then
 widened all 64 flat `K ≤ 1.7·10^8` binders on the `L`-chain so the raised lever can flow.
@@ -647,9 +647,9 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist (Awin : ℝ)
 
 /-! ## §4b — ⟦THE `T₀` RIDER, RESHAPED ONTO ITS CONSUMER'S TRUE TOLERANCE⟧
 
-RIDER-TRACE (2026-08-02) proved `T₀ ≤ e^{e^{100}}` UNREACHABLE along this proof — the `ζ` row's
-`T₀z` inherits `zeta_zero_free_region_pow`'s own threshold `e^{e^{A}}`, `A ≥ 1100`, so the
-corpus's own witness is `T₀ ≈ e^{e^{1251}}` — and diagnosed it as a MIS-SIZED NUMERAL rather
+RIDER-TRACE (2026-08-02) showed, partly in Lean, `T₀ ≤ e^{e^{100}}` UNREACHABLE along this proof —
+the `ζ` row's `T₀z` inherits `zeta_zero_free_region_pow`'s own threshold `e^{e^{A}}`, `A ≥ 1100`, so
+the corpus's own witness is `T₀ ≈ e^{e^{1251}}` — and diagnosed it as a MIS-SIZED NUMERAL rather
 than a wall: the SOLE consumer is `S13CapFloor.capfloor_T0_Tann` (:238), whose SHARP sibling
 `capfloor_T0_Tann_sharp` (:226) has been landed all along and asks only `T₀ ≤ e^{√H/2}` at the
 socket's own `H`.
@@ -944,15 +944,15 @@ set_option maxHeartbeats 800000 in
 with the base-scale cap **DISCHARGED INSIDE THE PROOF** at the raised lever.
 
 ⟦WHAT `v4` IS⟧ for every depth `A₀` there are a design constant `A ≥ max(162, A₀)` and a Chowla
-regime whose window base is `⌈e^{e^{3.2A}}⌉` — depth unbounded — such that, granted three
-numeric facts about three constants the theorem itself produces, the log-averaged two-point
-Chowla correlation does not fail at the witnessed scale.  No Siegel window, no `x₀` arm, no
-`Hopq` arm, no band-lane rider, no `Kc`/`Ct`/`Kq` numeral, and **no base-scale cap**.
+regime whose window base is `⌈e^{e^{3.2A}}⌉` — depth unbounded — such that, granted three numeric
+facts on three produced constants and the two conclusion-side antecedents below, the log-averaged
+two-point Chowla correlation does not fail at the witnessed scale.  No Siegel window, no `x₀` arm,
+no `Hopq` arm, no band-lane rider, no `Kc`/`Ct`/`Kq` numeral, and **no base-scale cap**.
 
-⟦WHAT CHANGED FROM `v3`, AND WHY⟧ CAP-SCOPE proved (8/02) that `v3`'s conclusion-side predicate
-`S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` is **FALSE at the very regime `v3` produces**
-— the socket pins the block scale AT the window endpoint and the Toll's landed LOWER bound puts
-`loglog(endpoint) ≈ 10^{1.76·10^{95}}` against a cap RHS of `10^{9.6·10^{6}}`.  `v3`'s
+⟦WHAT CHANGED FROM `v3`, AND WHY⟧ CAP-SCOPE argued on paper (8/02) that `v3`'s conclusion-side
+predicate `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` is **FALSE at the very regime `v3`
+produces** — the socket pins the block scale AT the window endpoint and the Toll's landed LOWER
+bound puts `loglog(endpoint) ≈ 10^{1.76·10^{95}}` against a cap RHS of `10^{9.6·10^{6}}`.  `v3`'s
 implication was therefore VACUOUS.  `v4` repairs it where the ruling said: the lever is raised
 to `K = KlevF A = ⌈4·e^{1.6A}⌉₊` (admissible with `137×` margin inside the register's own
 `1.7·10^8·flatDoorM A` ceiling, `KLever.KlevF_le_wideCeiling`), and at that lever the cap is a
@@ -967,10 +967,10 @@ Inner: three numeral riders on constants this theorem produces —
   `RiderTrace.cs_closed_form_ge_exp_neg_hundred`.  Carried, not discharged: the constant is
   minted behind eleven pass-throughs and the rethread is a separate wave.
 * `T₀ ≤ exp(√(flatDesignBase A)/2)` — **THE RESHAPED RIDER**, and the second of the 8/02
-  repairs.  RIDER-TRACE proved the landed numeral `T₀ ≤ e^{e^{100}}` UNREACHABLE along this
-  proof (`T₀ ≥ e^{e^{1100}}` off `zeta_zero_free_region_pow`'s own threshold; `e^{e^{1251}}` at
-  the corpus's own `K`) — a MIS-SIZED NUMERAL, not a wall, because the sole consumer
-  `capfloor_T0_Tann` has a SHARP sibling asking only `T₀ ≤ e^{√H/2}`.  §4b rethreads that
+  repairs.  RIDER-TRACE showed, partly in Lean, the landed numeral `T₀ ≤ e^{e^{100}}` UNREACHABLE
+  along this proof (`T₀ ≥ e^{e^{1100}}` off `zeta_zero_free_region_pow`'s own threshold;
+  `e^{e^{1251}}` at the corpus's own `K`) — a MIS-SIZED NUMERAL, not a wall, because the sole
+  consumer `capfloor_T0_Tann` has a SHARP sibling asking only `T₀ ≤ e^{√H/2}`.  §4b rethreads that
   sibling up all four hops, so `v4` asks the consumer's TRUE tolerance.  **Satisfiable at the
   corpus's own witness by two exponential levels**: `flatDesignBase A = ⌈e^{e^{3.2A}}⌉ ≥
   e^{e^{518.4}}` at `A ≥ 162`, so the rider allows `T₀ ≤ e^{½·e^{6.4·10^{224}}}` against a
