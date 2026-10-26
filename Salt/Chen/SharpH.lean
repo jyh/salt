@@ -35,7 +35,7 @@ log D'/log p`, `S := logRatio z D' = log D'/log z`.  Two structural facts:
   hypothesis (4) `Hyp4.vratio_prod_le`, NOT a per-dyadic-piece PM1 error — that is what makes the
   sharp constant reachable).
 
-The Fubini/FTC/IBP engine (`hh_sharp_engine`) then reconstructs
+The FTC/IBP engine (`SharpH2.hpush_core`) then reconstructs
 `Σ_p m_p·hBJS(u_p−1) ≤ (1+ε)(W/S)·∫_{S−1}^{U₀} h + ε·W·hBJS(S−1)` — the ideal pushforward plus the
 `z`-edge boundary defect — and `chSharpB ε = (1+ε)(49/50) + 4ε` absorbs the defect via
 `hBJS_shift_le` (`γ₃ʰ = sup hBJS(S−1)/hBJS(S) = (4/3)e ≤ 4`).
@@ -59,7 +59,7 @@ The Fubini/FTC/IBP engine (`hh_sharp_engine`) then reconstructs
   antitone + E₁a (`chSharp_h_contract`) + `hBJS_shift_le` compose the pushforward output into
   `chSharpB`, exactly as side' = 2 / side' = 1 (`S ≥ 3`) need.
 
-**NOT landed (the remaining analytic content, flagged):** the FTC/Fubini/IBP *assembly* that turns
+**NOT landed here (`SharpH2.hpush_core` lands it):** the FTC/Fubini/IBP *assembly* that turns
 `upset_mass_le` into the `hpush` integral bound of Part D — the honest discrete → integral
 pushforward `Σ_p m_p·hBJS(u_p−1) = ∫_{S−1}^{U₀} U(v)·(−hBJS'(v)) dv + hBJS(U₀)·M_tot`, then
 `U(v) ≤ ((1+ε)(v+1)/S−1)W` (Part B), then integration-by-parts against `−hBJS'` (kink-split at
