@@ -1473,7 +1473,7 @@ theorem compatFrontier_holds (k₀ : ℕ) (hk3072 : 3072 ≤ k₀) (hlogk : 300 
   have hreg := regime_discharge k₀ R T hk3072 hlogk hR hT1 hX hbLo hEBr
   exact s2CompatFormM_ge_sixteenth_K k₀ R T m hR hk3072 (le_max_left _ _) hB1pos hA1nn hcheb hreg
 
-/-! ## Part H — the unconditional capstone -/
+/-! ## Part H — the capstone `EH (1/2) → bounded gaps`, with no residual hypotheses -/
 
 omit [Salt.Maynard.TupleChoice] in
 /-- **The Maynard capstone.** `bounded_gaps_from_eh_complete : BoundedGapsFromEH`,

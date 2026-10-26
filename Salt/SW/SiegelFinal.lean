@@ -33,14 +33,14 @@ segment, `HasDerivAt.comp_ofReal`), `L(β) = 0`, and the Cauchy first-derivative
 on the radius-`1/4` disk, whose sphere stays in the growth region `Re z ∈ [1/2, 5/4]`,
 `LFunction_growth`).
 
-## Scope note (the ε-optimization is deferred — see `docs/blueprints/flags.md`, SW S4b‴)
+## Scope note (the ε-optimization was deferred here; `SiegelClose.lean` closes it, SW S4b⁗)
 
 The mean-value step above is intrinsically `q^{1/2}`-lossy (the growth bound is `≪ √q log q`); the
 imprimitive one-point bounds `B₁, B₂` fed to `goldfeld_L_one_lower` are `≪ 2^{ω(N)}`. Turning the
 concrete Goldfeld lower bound into the ε-quantified `L(1,χ) ≫_ε q^{−ε}` / `β ≤ 1 − C/q^ε` requires
 the sharp near-the-line growth `L(s,χ) ≪ log q` (`Re s ≥ 1 − c/log q`) and the divisor bound
-`2^{ω(N)} = N^{o(1)}`, neither of which is in mathlib or the salt SW stack. Those are the deferred
-inputs; everything below is the assembly around them.
+`2^{ω(N)} = N^{o(1)}`, neither then in mathlib or the salt SW stack. Those were the deferred
+inputs; `SiegelClose.lean` lands its forms of both and closes `siegel_theorem`.
 -/
 
 namespace Salt.SW

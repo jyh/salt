@@ -24,7 +24,7 @@ Design: `docs/blueprints/sw.md`, wave S5. This module assembles the landed resid
 partial-fraction numeric (`Salt/SW/MaxModulus.lean`), and the S3 zero-free region into the
 `ψ₁(x,χ)` contour-shift bound.
 
-## Progress note (SESSION IN PROGRESS — persisted before an outage)
+## Progress note (written mid-session before an outage; the assembly below has since landed)
 
 **Landed here (all sorry-free, axiom-clean, build-verified):**
 * `norm_logDeriv_le_of_re` — the c-line norm bound `‖L'/L(s,χ)‖ ≤ 1/(Re s − 1) + 1`

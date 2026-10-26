@@ -779,7 +779,7 @@ theorem analyticFrontier_holds' (k₀ : ℕ) (c : ℝ) (Nc : ℕ) (hEH : EH (1 /
   · -- herr2
     exact herr2'
 
-/-! ## The unconditional capstone (modulo the Part-A port-blocker) -/
+/-! ## The capstone `EH (1/2) → bounded gaps`, modulo the Part-A port-blocker `hCompat` -/
 
 /-- **M7 — bounded gaps from Elliott–Halberstam.**  Assembled from
 `analyticFrontier_holds'` via `bounded_gaps_reduces` + `win_core`, choosing the
