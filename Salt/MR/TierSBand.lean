@@ -17,8 +17,8 @@ open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 # ⟦TIER S — S-1⟧ THE `∀x'`-BANDED TWIN OF THE `2^12` CHAIN, WITH THE TIGHT CEILING EXPORTED
 (`TierSBand`)
 
-**PROVED AND KERNEL-AUDITED (S-1, salt QUEUE P3 item 11).  HONEST LABEL, FIRST LINE: NO NEW
-UNCONDITIONAL THEOREM.  S-1 restates the landed `2^12` chain with a scale quantifier and two more
+**PROVED AND KERNEL-AUDITED (S-1, salt QUEUE P3 item 11).  HONEST LABEL, FIRST LINE: NO
+NEW MATHEMATICS.  S-1 restates the landed `2^12` chain with a scale quantifier and two more
 exported inequalities.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands; E2
 is conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched.
 Nothing here bears on twin primes.**  Its consumer S-3 is unwritten, so this pays only if S-3
