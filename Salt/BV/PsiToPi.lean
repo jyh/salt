@@ -38,8 +38,8 @@ with `∑_{q ≤ √x/(log x)^B} dispDisc y q ≤ C·x/(log x)^A` for *every* `y
 the q-range fixed `x`-based) and returns the π-form BV dispersion family
 (`∑_{q ≤ √x/(log x)^B} maxDiscrepancy x q ≤ C·x/(log x)^A`, eventually in `x`).
 
-This is exactly the θ→π partial summation of node V4.2 on a polylog net of
-scales, whose faithful formalization is deferred (PB-floor). The mechanism, as
+This is exactly the θ→π partial summation of node V4.2 on a polylog net of scales; its faithful
+formalization, deferred here (PB-floor), landed as `psiToPiTransfer_holds`. The mechanism, as
 clarified during this landing (see `docs/blueprints/flags.md`, the V4/V5 entry):
 
 1. **θ-skip.** `maxDiscrepancy x q = sup'_a |π(x;q,a) − π(x)/φq|` is π-form

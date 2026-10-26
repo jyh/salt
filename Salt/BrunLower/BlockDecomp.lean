@@ -75,7 +75,7 @@ the Corollary's interval grouping + the (2.10) block interpretation — is taken
 interface hypothesis `hcorr` (stated in the paper's own elementary-symmetric form: the inner
 block sum is `Σ_{T ⊆ window n, |T| = 2b−ν+2n} ∏_{p∈T} ω(p)/p`).  It uses only B0/B2 carriers
 (the peel `peel_term_nonneg`, `nu` multiplicativity, the ladder) and NO input outside the frozen
-set, so it is a pure obligation for a follow-up; see `docs/blueprints/flags.md` (B3a).  The
+set; `Lemma3.lean` has since discharged it (`hcorr_upper`, `hcorr_lower`; flags.md B3a).  The
 `(2.16)` density inputs remain B3b's, exactly as before.
 -/
 

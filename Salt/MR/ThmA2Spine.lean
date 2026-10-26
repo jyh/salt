@@ -79,9 +79,9 @@ is sharper, and it is a theorem** (`seam_coef_contract_forces_vanishing`,
 
 The window and the factorization cannot both be global.  `RamareErr`'s own header
 already names the piece `hwin` is buying for free (it kills MR p.20's SECOND seam
-window, the overcount range `[2X, 2Xe^{1/H}]`, "identically zero in this
-formalisation").  **The repair is a `SeamNumber`/`RamareErr` statement change —
-maestro-tier, flagged, NOT taken here** (iron rule 1): relativize `hcoef`/`hwin` to the
+window, the overcount range `[2X, 2Xe^{1/H}]`, zero under `hwin` there).
+**The repair is a `SeamNumber`/`RamareErr` statement change, maestro-tier, NOT taken here
+(since taken: `SeamRowWindowed.SeamCoefW`)** (iron rule 1): relativize `hcoef`/`hwin` to the
 window (`X_d ≤ pm ≤ 2X_d →` as an antecedent) and price MR's second seam window as the
 fourth Lemma-12 row.  Consequently `thm_a2_spine` takes the seam row's bound as a
 hypothesis (the `SeamLemma14.lemma14_contour_seam_supplied` idiom — the row as a free

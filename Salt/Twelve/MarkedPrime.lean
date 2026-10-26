@@ -58,8 +58,8 @@ factors). The design doc's own fallback
 PORT-BLOCKER `marked_prime_g` and land `marked_prime_phi`"* — this file
 takes that fallback. The missing atom (a `D`-parameterized `g`-harmonic
 upper bound, or equivalently a `budget_moment_g`-style sandwich proved
-DIRECTLY at the sum level rather than per-term) is a wave-2 W2-1
-(`budget_moment_g`, Crux 2) / spine concern, not a W2-2 one.
+DIRECTLY at the sum level rather than per-term) was a wave-2 W2-1 / spine concern, not a
+W2-2 one; it landed as `budget_moment_g` in `Salt/Twelve/BudgetMomentG.lean`.
 -/
 
 open Finset

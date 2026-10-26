@@ -212,7 +212,7 @@ deliverable is `e4a_units_reindex` at one instantiation, by beta.
 
 **The bridge is needed one step EARLIER, at the caller**: `σ_b : ζ ↦ ζ^(b.val)` pushed
 through by probe 21 yields exponents `b.val * a.val` — an ℕ product, not a `ZMod` one.
-The executor proved that leg too rather than hand back an unusable deliverable.
+The executor proved that leg too, in `EvenChiCyclotomic.e4a_zeta_pow_val_mul`, not a stub.
 
 ⇒ NET: `σ_b` FIXES the full units-indexed product.  No χ-twist here — the twist appears
 only once the product is SPLIT INTO FIBRES, which is probe 24/26's territory.
@@ -357,7 +357,7 @@ theorem e4a_eta_fixed {G : Type*} [Fintype G] [Group G] {K : Type*} [Field K]
 
 η is written where the spine lives: in `K = ℚ⟮ζ⟯`, indexed by `(ZMod q)ˣ`, with the χ-fibres
 supplied by the landed `E4aChiBridge.e4a_signOf`.  Then the disjunction `σ η = η ∨ σ η = η⁻¹`
-— `e4a_spine`'s `hgal`, previously unsupplied — is proved for EVERY `σ : K ≃ₐ[ℚ] K`. -/
+— `e4a_spine`'s `hgal`, once unsupplied — is proved for EVERY `σ` (`EvenChiEta.e4a_eta_gal`). -/
 
 end
 

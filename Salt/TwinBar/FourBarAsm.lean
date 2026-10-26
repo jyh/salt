@@ -11,7 +11,7 @@ import Salt.TwinBar.Simplex4Inner
 **Exploration sprint work item** (`docs/exploration/q2b-asm-design.md`, node `N4-ASM-c`).
 This file is the finale of the `k = 4` Selberg assembly: it discharges the four per-peel
 bounds `J_m4 F ≤ log 4 · W_m` (each a triple-nested `integral_mono_of_nonneg` over the
-landed `sliceCS_m4`, plus the node-a/b region↔iterated reductions), combines the four
+landed `sliceCS₁₄`…`sliceCS₄₄`, plus the node-a/b region↔iterated reductions), combines the four
 weighted masses through the magic identity `w₁₄+w₂₄+w₃₄+w₄₄ ≡ 4/3` (`w_sum_four`) into
 `(4/3)·I₄`, and thereby lands
 
@@ -40,15 +40,27 @@ open MeasureTheory Set Function intervalIntegral
 
 /-! ## Continuity plumbing for the `k = 4` weights and the weighted squares -/
 
+/-- `w₁₄ (t₁,t₂,t₃,t₄) = (1 − t₂ − t₃ − t₄)/3 + t₁` is affine in the coordinates, hence
+continuous on `ℝ⁴` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn₄` takes for the
+weighted square `w₁₄ · F²`. -/
 theorem w₁₄_continuous : Continuous (fun p : ℝ × ℝ × ℝ × ℝ => w₁₄ p.1 p.2.1 p.2.2.1 p.2.2.2) := by
   unfold w₁₄; fun_prop
 
+/-- `w₂₄ (t₁,t₂,t₃,t₄) = (1 − t₁ − t₃ − t₄)/3 + t₂` is affine in the coordinates, hence
+continuous on `ℝ⁴` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn₄` takes for the
+weighted square `w₂₄ · F²`. -/
 theorem w₂₄_continuous : Continuous (fun p : ℝ × ℝ × ℝ × ℝ => w₂₄ p.1 p.2.1 p.2.2.1 p.2.2.2) := by
   unfold w₂₄; fun_prop
 
+/-- `w₃₄ (t₁,t₂,t₃,t₄) = (1 − t₁ − t₂ − t₄)/3 + t₃` is affine in the coordinates, hence
+continuous on `ℝ⁴` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn₄` takes for the
+weighted square `w₃₄ · F²`. -/
 theorem w₃₄_continuous : Continuous (fun p : ℝ × ℝ × ℝ × ℝ => w₃₄ p.1 p.2.1 p.2.2.1 p.2.2.2) := by
   unfold w₃₄; fun_prop
 
+/-- `w₄₄ (t₁,t₂,t₃,t₄) = (1 − t₁ − t₂ − t₃)/3 + t₄` is affine in the coordinates, hence
+continuous on `ℝ⁴` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn₄` takes for the
+weighted square `w₄₄ · F²`. -/
 theorem w₄₄_continuous : Continuous (fun p : ℝ × ℝ × ℝ × ℝ => w₄₄ p.1 p.2.1 p.2.2.1 p.2.2.2) := by
   unfold w₄₄; fun_prop
 

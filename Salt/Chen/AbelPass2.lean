@@ -31,7 +31,7 @@ transferred to `Ifun` by `HasDerivAt.congr_of_eventuallyEq` on the open band.  T
 monotonicity finding: writing `P = 2 − 3β`, `β = log u/log N ∈ [1/8, 1/3]` on `[z, y]`, the
 derivative sign reduces to `P log P ≤ 1 + P` for `P ∈ [1, 13/8]` — TRUE, so **`I` is globally
 antitone on `[z, y]`** and the antitone Abel pass (`prime_sum_abel_antitone`) applies directly.
-(Numerically verified: `I(u)` matches the closed form to ~1e−12; the derivative `< 0`
+(Checked numerically, outside Lean: `I(u)` matches the closed form to ~1e−12; the derivative `< 0`
 throughout the operating range.)
 
 No `sorry`, no `native_decide`, no new axioms.

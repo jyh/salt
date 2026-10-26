@@ -86,8 +86,8 @@ def PairCollapseShift2 (w : ℕ → ℝ) : Prop :=
 /-- **The linkage (twin-detection), honest minimal form.**  `w`'s pair-correlation
 `n ↦ w(n)·w(n+2)` separates at least one genuine twin pair from at least one
 non-twin pair.  A weight whose correlation cannot even do this cannot "see" twins,
-so this is a necessary condition for any real twin detector — the weakest honest
-clause, which makes the wall (that the slots cannot force it) the strongest. -/
+so this is a necessary condition for any real twin detector — a deliberately weak
+clause, so the wall (that the slots cannot force it) says more. -/
 def TwinDetecting (w : ℕ → ℝ) : Prop :=
   ∃ m n, (m.Prime ∧ (m + 2).Prime) ∧ ¬ (n.Prime ∧ (n + 2).Prime) ∧
     w m * w (m + 2) ≠ w n * w (n + 2)
@@ -150,7 +150,7 @@ theorem orthogonality_wall :
 *slot-derivable* (implied by the two slots) and *detection-sufficient* (implying
 `TwinDetecting`).  Any proposed transport door of the shape
 `slots ⟹ L ⟹ twin-detection` collapses, witnessed by the constant weight.  This is
-the orthogonality of the two only-ever-proven parity mechanisms, frozen: the
+the orthogonality of the two parity mechanisms, frozen: the
 entropy spine's PAIR-COLLAPSE slot cannot be composed into twin detection. -/
 theorem no_slot_derived_twin_linkage (L : (ℕ → ℝ) → Prop)
     (hderive : ∀ w, PmNormalized w → PairCollapse w → L w)

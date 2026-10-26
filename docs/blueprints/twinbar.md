@@ -4,7 +4,7 @@
 first-attempt).** The three frozen headliners are LANDED byte-faithful in
 `Salt/TwinBar/Impossibility.lean`: **`twin_bar`** (J₁+J₂ ≤ 2log2·I₂),
 **`twin_gate_fails`** (θ-form, all θ ≤ 1), **`no_twin_weight`** (the ¬∃
-headline) — the first machine-checked negative result about a sieve
+headline) — a machine-checked negative result about a sieve
 method, the exact dual of the landed `M5_cert`. Axiom-clean, 0 sorry,
 9 project headliners lint-audited. Chain as designed: `logWeight` (T2) →
 `interval_CS`/`sliceCS` (T3, the signed-safe discriminant CS — mathlib
@@ -24,7 +24,7 @@ The method's reach pinned to a 0.003-wide certified interval sitting
 honest — not a photo finish.
 
 *Fable, 2026-07-12. Ratified by the user as the flagship: NEW-mathematics
-artifact — the first machine-checked negative result about a sieve method.
+artifact — a machine-checked negative result about a sieve method.
 Design recon: the session's design memo (Polymath8b arXiv:1407.4897,
 Lemma 6.1 + Cor. 6.4 — NOT Maynard 1311.4600, which lacks the upper
 bound). Track branch `twinbar`. The statement chain hand-verified by
@@ -64,7 +64,8 @@ is T7 (excluded).
 **The duality:** this is the negative dual of the landed `M5_cert`
 (`2·Ical Fstar < Σ Jcal m Fstar`, k = 5) and `theta_ratio_cert`. Same
 framework, both directions machine-checked: what the method can do
-(gaps ≤ 12, ≤ C mod SW) and what it cannot (twins, ever).
+(gaps ≤ 12 given `EHall` alone, `WindowPNT` being proved; bounded gaps
+unconditionally) and what it cannot (twins, any continuous `F`).
 
 ## Doctrine
 

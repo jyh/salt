@@ -13,7 +13,7 @@ governed by `exp(−M)·M` — larger `M` is a stronger conclusion, so a lower b
 on the quality is what the hypothesis slot consumes.
 
 That supply is already landed: `Salt.MR.lambda_nonpret` (`NonPretClose.lean:49`)
-is unconditional and effective, and holds for every `|t| ≤ Q·x`.  This file does
+is unconditional (its constants existential), and holds for every `|t| ≤ Q·x`.  This file does
 the one thing that was missing — turning the per-`t` bound into a bound on the
 INFIMUM, which is what `mrtM` actually is.
 
@@ -70,7 +70,7 @@ theorem log3_shift_mono {a b : ℝ} (ha : 0 ≤ a) (hab : a ≤ b) :
 
 /-- **BLOCK C — the λ-quality lower bound in the shape `M(λ; X)` consumes.**
 `M(λ; X) ≥ (1/4)·loglog X − 4·logloglog(X + 16) − C` for all large `X`,
-unconditional and effective, obtained from `lambda_nonpret` at `Q = 1` by taking
+unconditional (the constants are existential), obtained from `lambda_nonpret` at `Q = 1` by taking
 the infimum against the worst admissible twist `|t| = X`. -/
 theorem mrtM_lam_lower :
     ∃ x0 C : ℝ, ∀ X : ℝ, x0 ≤ X →

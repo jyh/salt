@@ -47,7 +47,7 @@ by the Montgomery–Vaughan inequality, with `δ = 1/N` the (uniform) frequency 
 The entire reduction is landed sorry-free.  The single irreducible hard core — the
 Montgomery–Vaughan Hilbert inequality `‖H(x)‖ ≤ (π/δ)∑‖xₙ‖²` itself, which mathlib does
 **not** have and which admits no Schur-type elementary proof (the Schur norm is `≍ N log N`)
-— is carried as the explicit hypothesis `MVHilbertUniform` of `dirichlet_poly_l2_mvt`.
+— is the hypothesis `MVHilbertUniform` of `dirichlet_poly_l2_mvt`, since proved (`MVCore2.lean`).
 Also landed: `l2_duality`, the large-sieve duality principle (for the wave-2 consumer).
 -/
 
