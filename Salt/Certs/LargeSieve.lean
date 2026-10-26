@@ -14,7 +14,7 @@ import Salt.LS.CharLS
 PHRASE because line numbers into that file have rotted once already:
 
 * `:201` — *"no public artifact in any proof assistant proves … **the large sieve
-  inequality** …"*
+  inequality** …"* (fallen: the 2026-08-17 survey delta, row 7)
 * `:205` — the adversary sentence: *"the two live external Bombieri–Vinogradov
   formalization projects **take Siegel–Walfisz and the large sieve as axioms**"*
 

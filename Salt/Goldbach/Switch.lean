@@ -221,14 +221,22 @@ section Facts
 
 variable (N z y Ps : ℕ) (hPs : Squarefree Ps) (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p)
 
+/-- The `support` field of `goldSwitchSieve N z y Ps hPs hPodd` is `twinWindow N` (`rfl`): the
+window points `n` of the reflected switch `prod3 = N − n`. -/
 @[simp] lemma goldSwitchSieve_support :
     (goldSwitchSieve N z y Ps hPs hPodd).support = twinWindow N := rfl
 
+/-- The `prodPrimes` field of `goldSwitchSieve N z y Ps hPs hPodd` is the abstract sifting
+modulus `Ps` (`rfl`). -/
 @[simp] lemma goldSwitchSieve_prodPrimes :
     (goldSwitchSieve N z y Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- The `nu` field of `goldSwitchSieve N z y Ps hPs hPodd` is `nuChen` (`rfl`): the twin density
+`1/φ`, reused verbatim. -/
 @[simp] lemma goldSwitchSieve_nu : (goldSwitchSieve N z y Ps hPs hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldSwitchSieve N z y Ps hPs hPodd` is `goldTripleSum N z y`
+(`rfl`), the Goldbach triple count. -/
 @[simp] lemma goldSwitchSieve_totalMass :
     (goldSwitchSieve N z y Ps hPs hPodd).totalMass = goldTripleSum N z y := rfl
 
@@ -363,62 +371,97 @@ section WBlockFacts
 variable (N z y : ℕ) (ε₀ : ℝ) (j Q a Ps : ℕ) (hPs : Squarefree Ps)
   (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p)
 
+/-- The `support` field of `goldSwitchSieveW N z y Q a Ps hPs hPodd` is the window filtered to
+the residue class `n ≡ a (mod Q)` (`rfl`). -/
 @[simp] lemma goldSwitchSieveW_support :
     (goldSwitchSieveW N z y Q a Ps hPs hPodd).support
       = (twinWindow N).filter (fun n => n % Q = a % Q) := rfl
 
+/-- The `prodPrimes` field of `goldSwitchSieveW N z y Q a Ps hPs hPodd` is `Ps` (`rfl`): the AP
+restriction leaves the modulus unchanged. -/
 @[simp] lemma goldSwitchSieveW_prodPrimes :
     (goldSwitchSieveW N z y Q a Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- The `nu` field of `goldSwitchSieveW N z y Q a Ps hPs hPodd` is `nuChen` (`rfl`): the AP
+restriction leaves the density unchanged. -/
 @[simp] lemma goldSwitchSieveW_nu :
     (goldSwitchSieveW N z y Q a Ps hPs hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldSwitchSieveW N z y Q a Ps hPs hPodd` is
+`goldTripleSum N z y / φ(Q)` (`rfl`), the smooth AP mass. -/
 @[simp] lemma goldSwitchSieveW_totalMass :
     (goldSwitchSieveW N z y Q a Ps hPs hPodd).totalMass
       = goldTripleSum N z y / (Q.totient : ℝ) := rfl
 
+/-- The `siftedSum` of `goldSwitchSieveW N z y Q a Ps hPs hPodd` unfolds (`rfl`) to the sum over
+the window's class `n ≡ a (mod Q)` of `goldACount N z y n` on the `n` coprime to `Ps`, and `0`
+elsewhere. -/
 lemma goldSwitchSieveW_siftedSum :
     (goldSwitchSieveW N z y Q a Ps hPs hPodd).siftedSum
       = ∑ n ∈ (twinWindow N).filter (fun n => n % Q = a % Q),
           if Nat.Coprime Ps n then goldACount N z y n else 0 := rfl
 
+/-- The `support` field of `goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd` is `twinWindow N`
+(`rfl`): the block filter touches the weight, not the support. -/
 @[simp] lemma goldBlockSwitchSieve_support :
     (goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd).support = twinWindow N := rfl
 
+/-- The `prodPrimes` field of `goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd` is `Ps` (`rfl`):
+block-independent (the W-factoring premise). -/
 @[simp] lemma goldBlockSwitchSieve_prodPrimes :
     (goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- The `nu` field of `goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd` is `nuChen` (`rfl`):
+block-independent (the W-factoring premise). -/
 @[simp] lemma goldBlockSwitchSieve_nu :
     (goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd` is
+`goldBlockTripleSum N z y ε₀ j` (`rfl`), block `j`'s triple count. -/
 @[simp] lemma goldBlockSwitchSieve_totalMass :
     (goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd).totalMass
       = goldBlockTripleSum N z y ε₀ j := rfl
 
+/-- The `siftedSum` of `goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd` unfolds (`rfl`) to the
+window sum of `goldBlockACount N z y ε₀ j n` on the `n` coprime to `Ps`, and `0` elsewhere. -/
 lemma goldBlockSwitchSieve_siftedSum :
     (goldBlockSwitchSieve N z y ε₀ j Ps hPs hPodd).siftedSum
       = ∑ n ∈ twinWindow N,
           if Nat.Coprime Ps n then goldBlockACount N z y ε₀ j n else 0 := rfl
 
+/-- The `support` field of `goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd` is the window
+filtered to the residue class `n ≡ a (mod Q)` (`rfl`). -/
 @[simp] lemma goldBlockSwitchSieveW_support :
     (goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd).support
       = (twinWindow N).filter (fun n => n % Q = a % Q) := rfl
 
+/-- The `prodPrimes` field of `goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd` is `Ps`
+(`rfl`): neither the block nor the AP restriction touches the modulus. -/
 @[simp] lemma goldBlockSwitchSieveW_prodPrimes :
     (goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- The `nu` field of `goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd` is `nuChen` (`rfl`):
+neither the block nor the AP restriction touches the density. -/
 @[simp] lemma goldBlockSwitchSieveW_nu :
     (goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd` is
+`goldBlockTripleSum N z y ε₀ j / φ(Q)` (`rfl`), the smooth AP block mass. -/
 @[simp] lemma goldBlockSwitchSieveW_totalMass :
     (goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd).totalMass
       = goldBlockTripleSum N z y ε₀ j / (Q.totient : ℝ) := rfl
 
+/-- The `multSum d` of `goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd` unfolds (`rfl`) to
+the sum over the window's class `n ≡ a (mod Q)` of `goldBlockACount N z y ε₀ j n` on the `n`
+with `d ∣ n`, and `0` elsewhere. -/
 lemma goldBlockSwitchSieveW_multSum (d : ℕ) :
     (goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd).multSum d
       = ∑ n ∈ (twinWindow N).filter (fun n => n % Q = a % Q),
           if d ∣ n then goldBlockACount N z y ε₀ j n else 0 := rfl
 
+/-- The `siftedSum` of `goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd` unfolds (`rfl`) to
+the sum over the window's class `n ≡ a (mod Q)` of `goldBlockACount N z y ε₀ j n` on the `n`
+coprime to `Ps`, and `0` elsewhere. -/
 lemma goldBlockSwitchSieveW_siftedSum :
     (goldBlockSwitchSieveW N z y ε₀ j Q a Ps hPs hPodd).siftedSum
       = ∑ n ∈ (twinWindow N).filter (fun n => n % Q = a % Q),
