@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `30df5500` · source digest `4e377b223cda8565` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `d47578d3` · source digest `b490a3f3a5e04f50` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2045,105 +2045,105 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.N7.majorant_tsum_split` | Salt/HB/Lemma10Seal.lean:1485 | characters, exponential sums |
 | `Salt.N7.hb_lemma10` | Salt/HB/Lemma10Seal.lean:1559 | characters |
 | `Salt.HB.repulsion_floor_gives_lemma3_binders` | Salt/HB/Lemma3Floor.lean:83 | characters |
-| `Salt.N7.HBForms.alpha₁_ne_zero` | Salt/HB/Lemma5Bilinear.lean:86 | characters |
-| `Salt.N7.HBForms.alpha₂_ne_zero` | Salt/HB/Lemma5Bilinear.lean:99 | characters |
-| `Salt.N7.HBForms.two_le_α₁` | Salt/HB/Lemma5Bilinear.lean:112 | characters |
-| `Salt.N7.HBForms.two_le_α₂` | Salt/HB/Lemma5Bilinear.lean:115 | characters |
-| `Salt.N7.HBForms.one_le_β₁` | Salt/HB/Lemma5Bilinear.lean:119 | characters |
-| `Salt.N7.HBForms.one_le_β₂` | Salt/HB/Lemma5Bilinear.lean:131 | characters |
-| `Salt.N7.HBForms.one_le_l₁` | Salt/HB/Lemma5Bilinear.lean:146 | characters |
-| `Salt.N7.HBForms.one_le_l₂` | Salt/HB/Lemma5Bilinear.lean:151 | characters |
-| `Salt.N7.HBForms.odd_β₁` | Salt/HB/Lemma5Bilinear.lean:157 | characters |
-| `Salt.N7.HBForms.odd_β₂` | Salt/HB/Lemma5Bilinear.lean:166 | characters |
-| `Salt.N7.HBForms.odd_l₁` | Salt/HB/Lemma5Bilinear.lean:176 | characters |
-| `Salt.N7.HBForms.odd_l₂` | Salt/HB/Lemma5Bilinear.lean:183 | characters |
-| `Salt.N7.HBForms.coprime_l₁_α₁` | Salt/HB/Lemma5Bilinear.lean:191 | characters |
-| `Salt.N7.HBForms.coprime_l₂_α₂` | Salt/HB/Lemma5Bilinear.lean:196 | characters |
-| `Salt.N7.HBForms.l₁_mono` | Salt/HB/Lemma5Bilinear.lean:202 | characters |
-| `Salt.N7.HBForms.l₂_mono` | Salt/HB/Lemma5Bilinear.lean:206 | characters |
-| `Salt.N7.HBForms.coprime_l` | Salt/HB/Lemma5Bilinear.lean:215 | characters |
-| `Salt.N7.HBForms.coprime_α_iff` | Salt/HB/Lemma5Bilinear.lean:238 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_not_coprime_q₁` | Salt/HB/Lemma5Bilinear.lean:318 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_not_coprime_q₂` | Salt/HB/Lemma5Bilinear.lean:325 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_not_coprime_α₁` | Salt/HB/Lemma5Bilinear.lean:334 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_not_coprime_α₂` | Salt/HB/Lemma5Bilinear.lean:343 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_not_coprime_δ` | Salt/HB/Lemma5Bilinear.lean:353 | characters |
-| `Salt.N7.truncChiSum_eq_zero_of_le` | Salt/HB/Lemma5Bilinear.lean:365 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_le₁` | Salt/HB/Lemma5Bilinear.lean:373 | characters |
-| `Salt.N7.bilinearS_eq_zero_of_le₂` | Salt/HB/Lemma5Bilinear.lean:382 | characters |
-| `Salt.N7.coprime_hbQ_hbP` | Salt/HB/Lemma5Bilinear.lean:431 | characters |
-| `Salt.N7.chiRe_finset_prod` | Salt/HB/Lemma5Bilinear.lean:445 | characters |
-| `Salt.N7.chiRe_eq_one_of_dvd_hbP` | Salt/HB/Lemma5Bilinear.lean:454 | characters |
-| `Salt.N7.integral_Ioi_ite_inv` | Salt/HB/Lemma5Bilinear.lean:469 | characters |
-| `Salt.N7.integrable_term` | Salt/HB/Lemma5Bilinear.lean:489 | characters |
-| `Salt.N7.integrableOn_truncChiSum_div` | Salt/HB/Lemma5Bilinear.lean:512 | characters |
-| `Salt.N7.integral_Ioi_truncChiSum` | Salt/HB/Lemma5Bilinear.lean:527 | characters |
-| `Salt.N7.hbQ_squarefree` | Salt/HB/Lemma5Bilinear.lean:561 | characters |
-| `Salt.N7.hbQRad_squarefree` | Salt/HB/Lemma5Bilinear.lean:565 | characters |
-| `Salt.N7.hbQRad_dvd_hbQ` | Salt/HB/Lemma5Bilinear.lean:569 | characters |
-| `Salt.N7.prime_dvd_hbQ_iff` | Salt/HB/Lemma5Bilinear.lean:576 | characters |
-| `Salt.N7.prime_dvd_hbQRad_iff` | Salt/HB/Lemma5Bilinear.lean:589 | characters |
-| `Salt.N7.hbQRad_sq_dvd` | Salt/HB/Lemma5Bilinear.lean:605 | characters |
-| `Salt.N7.filter_divisors_hbQ` | Salt/HB/Lemma5Bilinear.lean:629 | characters |
-| `Salt.N7.hbQRad_eq_one_iff` | Salt/HB/Lemma5Bilinear.lean:652 | characters |
-| `Salt.N7.moebius_step` | Salt/HB/Lemma5Bilinear.lean:669 | characters |
-| `Salt.N7.chiRe_sq_of_dvd_hbQ` | Salt/HB/Lemma5Bilinear.lean:680 | characters |
-| `Salt.N7.chiRe_sq_mul` | Salt/HB/Lemma5Bilinear.lean:694 | characters |
-| `Salt.N7.LamStar_eq_moebius_hbQ` | Salt/HB/Lemma5Bilinear.lean:703 | characters |
-| `Salt.N7.nested_antidiag` | Salt/HB/Lemma5Bilinear.lean:773 | characters |
-| `Salt.N7.fiber_facts` | Salt/HB/Lemma5Bilinear.lean:785 | characters |
-| `Salt.N7.second_reindex` | Salt/HB/Lemma5Bilinear.lean:825 | characters |
-| `Salt.N7.fiber_reindex` | Salt/HB/Lemma5Bilinear.lean:849 | characters |
-| `Salt.N7.hyperbola_fiber` | Salt/HB/Lemma5Bilinear.lean:922 | characters |
-| `Salt.N7.LamPrime_eq_hyperbola` | Salt/HB/Lemma5Bilinear.lean:985 | characters |
-| `Salt.N7.bilinear_double_integral` | Salt/HB/Lemma5Bilinear.lean:1028 | characters |
-| `Salt.N7.inner_split` | Salt/HB/Lemma5Bilinear.lean:1068 | characters |
-| `Salt.N7.hb_lemma9_inner` | Salt/HB/Lemma5Bilinear.lean:1105 | characters |
-| `Salt.N7.hb_lemma9_general` | Salt/HB/Lemma5Bilinear.lean:1321 | characters |
-| `Salt.N7.hb_lemma9_trunc` | Salt/HB/Lemma5Bilinear.lean:1362 | characters |
-| `Salt.N7.hb_lemma9` | Salt/HB/Lemma5Bilinear.lean:1412 | characters |
-| `Salt.N7.hb_lemma9_trunc_P` | Salt/HB/Lemma5Bilinear.lean:1454 | characters |
-| `Salt.N7.cellCount_ne_zero_extract` | Salt/HB/Lemma5Bilinear.lean:1525 | characters |
-| `Salt.N7.exists_unique_dyadic` | Salt/HB/Lemma5Bilinear.lean:1552 | characters |
-| `Salt.N7.unitRep_modEq` | Salt/HB/Lemma5Bilinear.lean:1592 | characters |
-| `Salt.N7.unitRep_mem_Icc` | Salt/HB/Lemma5Bilinear.lean:1600 | characters |
-| `Salt.N7.unitRep_coprime` | Salt/HB/Lemma5Bilinear.lean:1608 | characters |
-| `Salt.N7.unitRep_unique` | Salt/HB/Lemma5Bilinear.lean:1619 | characters |
-| `Salt.N7.truncChiSum_eq_sum_cells` | Salt/HB/Lemma5Bilinear.lean:1650 | characters |
-| `Salt.N7.coprime_of_modEq` | Salt/HB/Lemma5Bilinear.lean:1775 | characters |
-| `Salt.N7.cell_card_eq_zero_of_not_coprime` | Salt/HB/Lemma5Bilinear.lean:1790 | characters |
-| `Salt.N7.not_coprime_of_not_mem_window` | Salt/HB/Lemma5Bilinear.lean:1808 | characters |
-| `Salt.N7.sum_pull₈` | Salt/HB/Lemma5Bilinear.lean:1823 | characters |
-| `Salt.N7.sum_swap_two_two` | Salt/HB/Lemma5Bilinear.lean:1873 | characters |
-| `Salt.N7.sum_cells_mul` | Salt/HB/Lemma5Bilinear.lean:1887 | characters |
-| `Salt.N7.bilinearS_eq_sum_cells` | Salt/HB/Lemma5Bilinear.lean:1912 | characters |
-| `Salt.N7.cellCount_ne_zero_bounds` | Salt/HB/Lemma5Bilinear.lean:2062 | characters |
-| `Salt.N7.cellCount_swap₁` | Salt/HB/Lemma5Bilinear.lean:2132 | characters |
-| `Salt.N7.cellCount_swap₂` | Salt/HB/Lemma5Bilinear.lean:2149 | characters |
-| `Salt.N7.gcd_lcm_distrib` | Salt/HB/Lemma5Bilinear.lean:2175 | characters |
-| `Salt.N7.cellCount_eq_zero_of_not_congr` | Salt/HB/Lemma5Bilinear.lean:2203 | characters |
-| `Salt.N7.crt_four` | Salt/HB/Lemma5Bilinear.lean:2277 | characters |
-| `Salt.N7.crt_collapse` | Salt/HB/Lemma5Bilinear.lean:2322 | characters |
-| `Salt.N7.nested` | Salt/HB/Lemma5Bilinear.lean:2629 | characters |
-| `Salt.N7.card_Ioc_filter_modEq_eq_sawtooth` | Salt/HB/Lemma5Bilinear.lean:2635 | characters |
-| `Salt.N7.modEq_mul_iff_modEq_invMod` | Salt/HB/Lemma5Bilinear.lean:2662 | characters |
-| `Salt.N7.card_count_eq_sawtooth` | Salt/HB/Lemma5Bilinear.lean:2682 | characters |
-| `Salt.N7.count_eq_zero_of_not_coprime` | Salt/HB/Lemma5Bilinear.lean:2704 | characters |
-| `Salt.N7.R₂_le_hbT₁` | Salt/HB/Lemma5Bilinear.lean:2723 | characters |
-| `Salt.N7.hbT₁_pos` | Salt/HB/Lemma5Bilinear.lean:2726 | characters |
-| `Salt.N7.hbT₂_le_two_R₂` | Salt/HB/Lemma5Bilinear.lean:2729 | characters |
-| `Salt.N7.mem_Ioc_floor_iff` | Salt/HB/Lemma5Bilinear.lean:2733 | characters |
-| `Salt.N7.Ioc_floor_eq_empty_of_neg` | Salt/HB/Lemma5Bilinear.lean:2753 | characters |
-| `Salt.N7.five_eight_iff` | Salt/HB/Lemma5Bilinear.lean:2763 | characters |
-| `Salt.N7.hbT_mem_iff` | Salt/HB/Lemma5Bilinear.lean:2795 | characters |
-| `Salt.N7.cellCount_eq_sum_w` | Salt/HB/Lemma5Bilinear.lean:2889 | characters |
-| `Salt.N7.coprime_w₁_of_count_ne_zero` | Salt/HB/Lemma5Bilinear.lean:3066 | characters |
-| `Salt.N7.kb5f_C_coprime` | Salt/HB/Lemma5Bilinear.lean:3150 | characters |
-| `Salt.N7.kb5f_C_iff` | Salt/HB/Lemma5Bilinear.lean:3173 | characters |
-| `Salt.N7.kb5f_k_pos` | Salt/HB/Lemma5Bilinear.lean:3197 | characters |
-| `Salt.N7.kb5f_k_two` | Salt/HB/Lemma5Bilinear.lean:3207 | characters |
-| `Salt.N7.kb5f_two_dvd_alpha` | Salt/HB/Lemma5Bilinear.lean:3222 | characters |
-| `Salt.N7.cellCount_eq_sum_sawtooth` | Salt/HB/Lemma5Bilinear.lean:3235 | characters |
+| `Salt.N7.HBForms.alpha₁_ne_zero` | Salt/HB/Lemma5Bilinear.lean:88 | characters |
+| `Salt.N7.HBForms.alpha₂_ne_zero` | Salt/HB/Lemma5Bilinear.lean:101 | characters |
+| `Salt.N7.HBForms.two_le_α₁` | Salt/HB/Lemma5Bilinear.lean:114 | characters |
+| `Salt.N7.HBForms.two_le_α₂` | Salt/HB/Lemma5Bilinear.lean:119 | characters |
+| `Salt.N7.HBForms.one_le_β₁` | Salt/HB/Lemma5Bilinear.lean:123 | characters |
+| `Salt.N7.HBForms.one_le_β₂` | Salt/HB/Lemma5Bilinear.lean:137 | characters |
+| `Salt.N7.HBForms.one_le_l₁` | Salt/HB/Lemma5Bilinear.lean:152 | characters |
+| `Salt.N7.HBForms.one_le_l₂` | Salt/HB/Lemma5Bilinear.lean:159 | characters |
+| `Salt.N7.HBForms.odd_β₁` | Salt/HB/Lemma5Bilinear.lean:165 | characters |
+| `Salt.N7.HBForms.odd_β₂` | Salt/HB/Lemma5Bilinear.lean:175 | characters |
+| `Salt.N7.HBForms.odd_l₁` | Salt/HB/Lemma5Bilinear.lean:185 | characters |
+| `Salt.N7.HBForms.odd_l₂` | Salt/HB/Lemma5Bilinear.lean:194 | characters |
+| `Salt.N7.HBForms.coprime_l₁_α₁` | Salt/HB/Lemma5Bilinear.lean:202 | characters |
+| `Salt.N7.HBForms.coprime_l₂_α₂` | Salt/HB/Lemma5Bilinear.lean:209 | characters |
+| `Salt.N7.HBForms.l₁_mono` | Salt/HB/Lemma5Bilinear.lean:215 | characters |
+| `Salt.N7.HBForms.l₂_mono` | Salt/HB/Lemma5Bilinear.lean:221 | characters |
+| `Salt.N7.HBForms.coprime_l` | Salt/HB/Lemma5Bilinear.lean:230 | characters |
+| `Salt.N7.HBForms.coprime_α_iff` | Salt/HB/Lemma5Bilinear.lean:253 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_not_coprime_q₁` | Salt/HB/Lemma5Bilinear.lean:337 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_not_coprime_q₂` | Salt/HB/Lemma5Bilinear.lean:347 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_not_coprime_α₁` | Salt/HB/Lemma5Bilinear.lean:356 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_not_coprime_α₂` | Salt/HB/Lemma5Bilinear.lean:368 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_not_coprime_δ` | Salt/HB/Lemma5Bilinear.lean:378 | characters |
+| `Salt.N7.truncChiSum_eq_zero_of_le` | Salt/HB/Lemma5Bilinear.lean:390 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_le₁` | Salt/HB/Lemma5Bilinear.lean:401 | characters |
+| `Salt.N7.bilinearS_eq_zero_of_le₂` | Salt/HB/Lemma5Bilinear.lean:413 | characters |
+| `Salt.N7.coprime_hbQ_hbP` | Salt/HB/Lemma5Bilinear.lean:462 | characters |
+| `Salt.N7.chiRe_finset_prod` | Salt/HB/Lemma5Bilinear.lean:476 | characters |
+| `Salt.N7.chiRe_eq_one_of_dvd_hbP` | Salt/HB/Lemma5Bilinear.lean:485 | characters |
+| `Salt.N7.integral_Ioi_ite_inv` | Salt/HB/Lemma5Bilinear.lean:500 | characters |
+| `Salt.N7.integrable_term` | Salt/HB/Lemma5Bilinear.lean:520 | characters |
+| `Salt.N7.integrableOn_truncChiSum_div` | Salt/HB/Lemma5Bilinear.lean:543 | characters |
+| `Salt.N7.integral_Ioi_truncChiSum` | Salt/HB/Lemma5Bilinear.lean:558 | characters |
+| `Salt.N7.hbQ_squarefree` | Salt/HB/Lemma5Bilinear.lean:592 | characters |
+| `Salt.N7.hbQRad_squarefree` | Salt/HB/Lemma5Bilinear.lean:596 | characters |
+| `Salt.N7.hbQRad_dvd_hbQ` | Salt/HB/Lemma5Bilinear.lean:600 | characters |
+| `Salt.N7.prime_dvd_hbQ_iff` | Salt/HB/Lemma5Bilinear.lean:607 | characters |
+| `Salt.N7.prime_dvd_hbQRad_iff` | Salt/HB/Lemma5Bilinear.lean:620 | characters |
+| `Salt.N7.hbQRad_sq_dvd` | Salt/HB/Lemma5Bilinear.lean:636 | characters |
+| `Salt.N7.filter_divisors_hbQ` | Salt/HB/Lemma5Bilinear.lean:660 | characters |
+| `Salt.N7.hbQRad_eq_one_iff` | Salt/HB/Lemma5Bilinear.lean:683 | characters |
+| `Salt.N7.moebius_step` | Salt/HB/Lemma5Bilinear.lean:700 | characters |
+| `Salt.N7.chiRe_sq_of_dvd_hbQ` | Salt/HB/Lemma5Bilinear.lean:711 | characters |
+| `Salt.N7.chiRe_sq_mul` | Salt/HB/Lemma5Bilinear.lean:725 | characters |
+| `Salt.N7.LamStar_eq_moebius_hbQ` | Salt/HB/Lemma5Bilinear.lean:734 | characters |
+| `Salt.N7.nested_antidiag` | Salt/HB/Lemma5Bilinear.lean:804 | characters |
+| `Salt.N7.fiber_facts` | Salt/HB/Lemma5Bilinear.lean:816 | characters |
+| `Salt.N7.second_reindex` | Salt/HB/Lemma5Bilinear.lean:856 | characters |
+| `Salt.N7.fiber_reindex` | Salt/HB/Lemma5Bilinear.lean:880 | characters |
+| `Salt.N7.hyperbola_fiber` | Salt/HB/Lemma5Bilinear.lean:953 | characters |
+| `Salt.N7.LamPrime_eq_hyperbola` | Salt/HB/Lemma5Bilinear.lean:1016 | characters |
+| `Salt.N7.bilinear_double_integral` | Salt/HB/Lemma5Bilinear.lean:1059 | characters |
+| `Salt.N7.inner_split` | Salt/HB/Lemma5Bilinear.lean:1099 | characters |
+| `Salt.N7.hb_lemma9_inner` | Salt/HB/Lemma5Bilinear.lean:1136 | characters |
+| `Salt.N7.hb_lemma9_general` | Salt/HB/Lemma5Bilinear.lean:1352 | characters |
+| `Salt.N7.hb_lemma9_trunc` | Salt/HB/Lemma5Bilinear.lean:1393 | characters |
+| `Salt.N7.hb_lemma9` | Salt/HB/Lemma5Bilinear.lean:1443 | characters |
+| `Salt.N7.hb_lemma9_trunc_P` | Salt/HB/Lemma5Bilinear.lean:1485 | characters |
+| `Salt.N7.cellCount_ne_zero_extract` | Salt/HB/Lemma5Bilinear.lean:1556 | characters |
+| `Salt.N7.exists_unique_dyadic` | Salt/HB/Lemma5Bilinear.lean:1583 | characters |
+| `Salt.N7.unitRep_modEq` | Salt/HB/Lemma5Bilinear.lean:1625 | characters |
+| `Salt.N7.unitRep_mem_Icc` | Salt/HB/Lemma5Bilinear.lean:1635 | characters |
+| `Salt.N7.unitRep_coprime` | Salt/HB/Lemma5Bilinear.lean:1645 | characters |
+| `Salt.N7.unitRep_unique` | Salt/HB/Lemma5Bilinear.lean:1659 | characters |
+| `Salt.N7.truncChiSum_eq_sum_cells` | Salt/HB/Lemma5Bilinear.lean:1690 | characters |
+| `Salt.N7.coprime_of_modEq` | Salt/HB/Lemma5Bilinear.lean:1815 | characters |
+| `Salt.N7.cell_card_eq_zero_of_not_coprime` | Salt/HB/Lemma5Bilinear.lean:1830 | characters |
+| `Salt.N7.not_coprime_of_not_mem_window` | Salt/HB/Lemma5Bilinear.lean:1848 | characters |
+| `Salt.N7.sum_pull₈` | Salt/HB/Lemma5Bilinear.lean:1863 | characters |
+| `Salt.N7.sum_swap_two_two` | Salt/HB/Lemma5Bilinear.lean:1913 | characters |
+| `Salt.N7.sum_cells_mul` | Salt/HB/Lemma5Bilinear.lean:1927 | characters |
+| `Salt.N7.bilinearS_eq_sum_cells` | Salt/HB/Lemma5Bilinear.lean:1952 | characters |
+| `Salt.N7.cellCount_ne_zero_bounds` | Salt/HB/Lemma5Bilinear.lean:2102 | characters |
+| `Salt.N7.cellCount_swap₁` | Salt/HB/Lemma5Bilinear.lean:2172 | characters |
+| `Salt.N7.cellCount_swap₂` | Salt/HB/Lemma5Bilinear.lean:2193 | characters |
+| `Salt.N7.gcd_lcm_distrib` | Salt/HB/Lemma5Bilinear.lean:2219 | characters |
+| `Salt.N7.cellCount_eq_zero_of_not_congr` | Salt/HB/Lemma5Bilinear.lean:2247 | characters |
+| `Salt.N7.crt_four` | Salt/HB/Lemma5Bilinear.lean:2321 | characters |
+| `Salt.N7.crt_collapse` | Salt/HB/Lemma5Bilinear.lean:2366 | characters |
+| `Salt.N7.nested` | Salt/HB/Lemma5Bilinear.lean:2673 | characters |
+| `Salt.N7.card_Ioc_filter_modEq_eq_sawtooth` | Salt/HB/Lemma5Bilinear.lean:2679 | characters |
+| `Salt.N7.modEq_mul_iff_modEq_invMod` | Salt/HB/Lemma5Bilinear.lean:2706 | characters |
+| `Salt.N7.card_count_eq_sawtooth` | Salt/HB/Lemma5Bilinear.lean:2726 | characters |
+| `Salt.N7.count_eq_zero_of_not_coprime` | Salt/HB/Lemma5Bilinear.lean:2748 | characters |
+| `Salt.N7.R₂_le_hbT₁` | Salt/HB/Lemma5Bilinear.lean:2768 | characters |
+| `Salt.N7.hbT₁_pos` | Salt/HB/Lemma5Bilinear.lean:2772 | characters |
+| `Salt.N7.hbT₂_le_two_R₂` | Salt/HB/Lemma5Bilinear.lean:2776 | characters |
+| `Salt.N7.mem_Ioc_floor_iff` | Salt/HB/Lemma5Bilinear.lean:2780 | characters |
+| `Salt.N7.Ioc_floor_eq_empty_of_neg` | Salt/HB/Lemma5Bilinear.lean:2800 | characters |
+| `Salt.N7.five_eight_iff` | Salt/HB/Lemma5Bilinear.lean:2810 | characters |
+| `Salt.N7.hbT_mem_iff` | Salt/HB/Lemma5Bilinear.lean:2842 | characters |
+| `Salt.N7.cellCount_eq_sum_w` | Salt/HB/Lemma5Bilinear.lean:2936 | characters |
+| `Salt.N7.coprime_w₁_of_count_ne_zero` | Salt/HB/Lemma5Bilinear.lean:3113 | characters |
+| `Salt.N7.kb5f_C_coprime` | Salt/HB/Lemma5Bilinear.lean:3202 | characters |
+| `Salt.N7.kb5f_C_iff` | Salt/HB/Lemma5Bilinear.lean:3225 | characters |
+| `Salt.N7.kb5f_k_pos` | Salt/HB/Lemma5Bilinear.lean:3249 | characters |
+| `Salt.N7.kb5f_k_two` | Salt/HB/Lemma5Bilinear.lean:3259 | characters |
+| `Salt.N7.kb5f_two_dvd_alpha` | Salt/HB/Lemma5Bilinear.lean:3274 | characters |
+| `Salt.N7.cellCount_eq_sum_sawtooth` | Salt/HB/Lemma5Bilinear.lean:3287 | characters |
 | `Salt.HB.exp_two_mul_log` | Salt/HB/Lemma7.lean:68 | characters |
 | `Salt.HB.sq_eq_exp_mul_one_add` | Salt/HB/Lemma7.lean:78 | characters |
 | `Salt.HB.abs_one_add_mul_sub_one_le` | Salt/HB/Lemma7.lean:94 | characters |
@@ -2201,66 +2201,66 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.two_mul_pretenseSum_le_at_window` | Salt/HB/Lemma7F.lean:644 | characters |
 | `Salt.HB.hb_chiOne_kill_at_window` | Salt/HB/Lemma7F.lean:722 | sieves, characters |
 | `Salt.HB.hb_logF_at_split_point` | Salt/HB/Lemma7F.lean:779 | characters |
-| `Salt.HB.mem_Pz` | Salt/HB/Lemma7Kappa.lean:75 | characters |
-| `Salt.HB.hbG_prime` | Salt/HB/Lemma7Kappa.lean:95 | characters |
-| `Salt.HB.hbG_prime_dvd` | Salt/HB/Lemma7Kappa.lean:101 | characters |
-| `Salt.HB.hbG_le_four` | Salt/HB/Lemma7Kappa.lean:106 | characters |
-| `Salt.HB.one_sub_hbG_div_eq` | Salt/HB/Lemma7Kappa.lean:117 | characters |
-| `Salt.HB.hbSfac_le_one` | Salt/HB/Lemma7Kappa.lean:148 | characters |
-| `Salt.HB.one_sub_four_div_sq_le_hbSfac` | Salt/HB/Lemma7Kappa.lean:164 | characters |
-| `Salt.HB.hbSfac_pos` | Salt/HB/Lemma7Kappa.lean:186 | characters |
-| `Salt.HB.abs_log_hbSfac_le` | Salt/HB/Lemma7Kappa.lean:195 | characters |
-| `Salt.HB.tsum_tail_inv_sq_le` | Salt/HB/Lemma7Kappa.lean:233 | characters |
-| `Salt.HB.three_le_of_primesGt2` | Salt/HB/Lemma7Kappa.lean:275 | characters |
-| `Salt.HB.summable_eight_div_sq` | Salt/HB/Lemma7Kappa.lean:280 | characters |
-| `Salt.HB.abs_log_twinFactor_le` | Salt/HB/Lemma7Kappa.lean:288 | characters |
-| `Salt.HB.hbSfac_log_summable` | Salt/HB/Lemma7Kappa.lean:317 | characters |
-| `Salt.HB.hbWfac_pos` | Salt/HB/Lemma7Kappa.lean:324 | characters |
-| `Salt.HB.abs_log_hbWfac_le` | Salt/HB/Lemma7Kappa.lean:333 | characters |
-| `Salt.HB.hbWfac_log_summable` | Salt/HB/Lemma7Kappa.lean:344 | characters |
-| `Salt.HB.hbWfac_multipliable` | Salt/HB/Lemma7Kappa.lean:351 | characters |
-| `Salt.HB.hb_hsing` | Salt/HB/Lemma7Kappa.lean:393 | characters |
-| `Salt.HB.hb_rear_factor` | Salt/HB/Lemma7Kappa.lean:561 | characters |
-| `Salt.HB.hb_rear_factor_two` | Salt/HB/Lemma7Kappa.lean:629 | characters |
-| `Salt.HB.gt2Primes_eq_filter` | Salt/HB/Lemma7Kappa.lean:645 | characters |
-| `Salt.HB.hb_rear_prod_identity` | Salt/HB/Lemma7Kappa.lean:655 | characters |
-| `Salt.HB.hbCalpha_eq` | Salt/HB/Lemma7Kappa.lean:689 | characters |
-| `Salt.HB.alpha_primeFactors_prod_eq` | Salt/HB/Lemma7Kappa.lean:707 | characters |
-| `Salt.HB.qFactors_low_prod_eq` | Salt/HB/Lemma7Kappa.lean:726 | characters |
-| `Salt.HB.hbS1_eq` | Salt/HB/Lemma7Kappa.lean:745 | characters |
-| `Salt.HB.hbKappaTail_split` | Salt/HB/Lemma7Kappa.lean:758 | characters |
-| `Salt.HB.one_sub_sum_le_prod_one_sub` | Salt/HB/Lemma7Kappa.lean:837 | characters |
-| `Salt.HB.abs_prod_one_sub_two_div_sub_one_le` | Salt/HB/Lemma7Kappa.lean:863 | characters |
-| `Salt.HB.hb_hrear` | Salt/HB/Lemma7Kappa.lean:898 | characters |
-| `Salt.HB.hb_L2_at_split_point_concrete` | Salt/HB/Lemma7Kappa.lean:978 | characters |
+| `Salt.HB.mem_Pz` | Salt/HB/Lemma7Kappa.lean:74 | characters |
+| `Salt.HB.hbG_prime` | Salt/HB/Lemma7Kappa.lean:92 | characters |
+| `Salt.HB.hbG_prime_dvd` | Salt/HB/Lemma7Kappa.lean:98 | characters |
+| `Salt.HB.hbG_le_four` | Salt/HB/Lemma7Kappa.lean:103 | characters |
+| `Salt.HB.one_sub_hbG_div_eq` | Salt/HB/Lemma7Kappa.lean:114 | characters |
+| `Salt.HB.hbSfac_le_one` | Salt/HB/Lemma7Kappa.lean:142 | characters |
+| `Salt.HB.one_sub_four_div_sq_le_hbSfac` | Salt/HB/Lemma7Kappa.lean:155 | characters |
+| `Salt.HB.hbSfac_pos` | Salt/HB/Lemma7Kappa.lean:176 | characters |
+| `Salt.HB.abs_log_hbSfac_le` | Salt/HB/Lemma7Kappa.lean:185 | characters |
+| `Salt.HB.tsum_tail_inv_sq_le` | Salt/HB/Lemma7Kappa.lean:223 | characters |
+| `Salt.HB.three_le_of_primesGt2` | Salt/HB/Lemma7Kappa.lean:263 | characters |
+| `Salt.HB.summable_eight_div_sq` | Salt/HB/Lemma7Kappa.lean:268 | characters |
+| `Salt.HB.abs_log_twinFactor_le` | Salt/HB/Lemma7Kappa.lean:276 | characters |
+| `Salt.HB.hbSfac_log_summable` | Salt/HB/Lemma7Kappa.lean:302 | characters |
+| `Salt.HB.hbWfac_pos` | Salt/HB/Lemma7Kappa.lean:307 | characters |
+| `Salt.HB.abs_log_hbWfac_le` | Salt/HB/Lemma7Kappa.lean:314 | characters |
+| `Salt.HB.hbWfac_log_summable` | Salt/HB/Lemma7Kappa.lean:322 | characters |
+| `Salt.HB.hbWfac_multipliable` | Salt/HB/Lemma7Kappa.lean:329 | characters |
+| `Salt.HB.hb_hsing` | Salt/HB/Lemma7Kappa.lean:371 | characters |
+| `Salt.HB.hb_rear_factor` | Salt/HB/Lemma7Kappa.lean:539 | characters |
+| `Salt.HB.hb_rear_factor_two` | Salt/HB/Lemma7Kappa.lean:607 | characters |
+| `Salt.HB.gt2Primes_eq_filter` | Salt/HB/Lemma7Kappa.lean:621 | characters |
+| `Salt.HB.hb_rear_prod_identity` | Salt/HB/Lemma7Kappa.lean:631 | characters |
+| `Salt.HB.hbCalpha_eq` | Salt/HB/Lemma7Kappa.lean:661 | characters |
+| `Salt.HB.alpha_primeFactors_prod_eq` | Salt/HB/Lemma7Kappa.lean:676 | characters |
+| `Salt.HB.qFactors_low_prod_eq` | Salt/HB/Lemma7Kappa.lean:692 | characters |
+| `Salt.HB.hbS1_eq` | Salt/HB/Lemma7Kappa.lean:708 | characters |
+| `Salt.HB.hbKappaTail_split` | Salt/HB/Lemma7Kappa.lean:721 | characters |
+| `Salt.HB.one_sub_sum_le_prod_one_sub` | Salt/HB/Lemma7Kappa.lean:797 | characters |
+| `Salt.HB.abs_prod_one_sub_two_div_sub_one_le` | Salt/HB/Lemma7Kappa.lean:823 | characters |
+| `Salt.HB.hb_hrear` | Salt/HB/Lemma7Kappa.lean:858 | characters |
+| `Salt.HB.hb_L2_at_split_point_concrete` | Salt/HB/Lemma7Kappa.lean:938 | characters |
 | `Salt.HB.chiReTB_abs_le_one` | Salt/HB/Lemma7Prod.lean:79 | characters |
-| `Salt.HB.one_lt_log_three` | Salt/HB/Lemma7Prod.lean:99 | characters |
-| `Salt.HB.abs_log_log_floor_sub_le` | Salt/HB/Lemma7Prod.lean:107 | characters |
-| `Salt.HB.log_le_two_mul_log_floor` | Salt/HB/Lemma7Prod.lean:161 | characters |
-| `Salt.HB.hbEulerProd_pos` | Salt/HB/Lemma7Prod.lean:191 | characters |
-| `Salt.HB.log_hbEulerProd` | Salt/HB/Lemma7Prod.lean:196 | characters |
-| `Salt.HB.hbLogF_eq_of_tendsto` | Salt/HB/Lemma7Prod.lean:221 | characters |
-| `Salt.HB.tendsto_hbEulerProd_hbF` | Salt/HB/Lemma7Prod.lean:228 | characters |
-| `Salt.HB.abs_neg_log_one_sub_sub_self_le` | Salt/HB/Lemma7Prod.lean:244 | characters |
-| `Salt.HB.hbEulerLog_sub_primeSum_termwise` | Salt/HB/Lemma7Prod.lean:263 | characters |
-| `Salt.HB.sum_two_div_sq_windowPrimes_le` | Salt/HB/Lemma7Prod.lean:286 | characters |
-| `Salt.HB.ppDefect_nonneg` | Salt/HB/Lemma7Prod.lean:322 | characters |
-| `Salt.HB.logChiSum_re_eq_sum` | Salt/HB/Lemma7Prod.lean:331 | sieves, characters |
-| `Salt.HB.logChiSum_re_sub_primeSum_le` | Salt/HB/Lemma7Prod.lean:342 | characters |
-| `Salt.HB.sum_recip_windowPrimes_eq` | Salt/HB/Lemma7Prod.lean:381 | characters |
-| `Salt.HB.sum_recip_largePrimeFactors_le` | Salt/HB/Lemma7Prod.lean:409 | characters |
-| `Salt.HB.hb_coprime_segment` | Salt/HB/Lemma7Prod.lean:458 | characters |
-| `Salt.HB.hb_hseg` | Salt/HB/Lemma7Prod.lean:595 | sieves, characters |
-| `Salt.HB.hb_hcorr_finite` | Salt/HB/Lemma7Prod.lean:661 | characters |
-| `Salt.HB.hb_hcorr_at_limit` | Salt/HB/Lemma7Prod.lean:677 | characters |
-| `Salt.HB.sum_ppCoef_eq` | Salt/HB/Lemma7Prod.lean:705 | characters |
-| `Salt.HB.sum_ppCoef_nat_eq` | Salt/HB/Lemma7Prod.lean:722 | characters |
-| `Salt.HB.psi_sub_theta_nonneg` | Salt/HB/Lemma7Prod.lean:729 | characters |
-| `Salt.HB.abs_wLog'_mul_psi_sub_theta_le` | Salt/HB/Lemma7Prod.lean:734 | characters |
-| `Salt.HB.ppDefect_le` | Salt/HB/Lemma7Prod.lean:770 | characters |
-| `Salt.HB.ppDefect_le'` | Salt/HB/Lemma7Prod.lean:883 | characters |
-| `Salt.HB.hb_hcorr_closed` | Salt/HB/Lemma7Prod.lean:899 | characters |
-| `Salt.HB.hb_hseg_closed` | Salt/HB/Lemma7Prod.lean:909 | sieves, characters |
+| `Salt.HB.one_lt_log_three` | Salt/HB/Lemma7Prod.lean:95 | characters |
+| `Salt.HB.abs_log_log_floor_sub_le` | Salt/HB/Lemma7Prod.lean:103 | characters |
+| `Salt.HB.log_le_two_mul_log_floor` | Salt/HB/Lemma7Prod.lean:157 | characters |
+| `Salt.HB.hbEulerProd_pos` | Salt/HB/Lemma7Prod.lean:187 | characters |
+| `Salt.HB.log_hbEulerProd` | Salt/HB/Lemma7Prod.lean:192 | characters |
+| `Salt.HB.hbLogF_eq_of_tendsto` | Salt/HB/Lemma7Prod.lean:215 | characters |
+| `Salt.HB.tendsto_hbEulerProd_hbF` | Salt/HB/Lemma7Prod.lean:222 | characters |
+| `Salt.HB.abs_neg_log_one_sub_sub_self_le` | Salt/HB/Lemma7Prod.lean:238 | characters |
+| `Salt.HB.hbEulerLog_sub_primeSum_termwise` | Salt/HB/Lemma7Prod.lean:257 | characters |
+| `Salt.HB.sum_two_div_sq_windowPrimes_le` | Salt/HB/Lemma7Prod.lean:280 | characters |
+| `Salt.HB.ppDefect_nonneg` | Salt/HB/Lemma7Prod.lean:314 | characters |
+| `Salt.HB.logChiSum_re_eq_sum` | Salt/HB/Lemma7Prod.lean:323 | sieves, characters |
+| `Salt.HB.logChiSum_re_sub_primeSum_le` | Salt/HB/Lemma7Prod.lean:334 | characters |
+| `Salt.HB.sum_recip_windowPrimes_eq` | Salt/HB/Lemma7Prod.lean:373 | characters |
+| `Salt.HB.sum_recip_largePrimeFactors_le` | Salt/HB/Lemma7Prod.lean:401 | characters |
+| `Salt.HB.hb_coprime_segment` | Salt/HB/Lemma7Prod.lean:450 | characters |
+| `Salt.HB.hb_hseg` | Salt/HB/Lemma7Prod.lean:587 | sieves, characters |
+| `Salt.HB.hb_hcorr_finite` | Salt/HB/Lemma7Prod.lean:653 | characters |
+| `Salt.HB.hb_hcorr_at_limit` | Salt/HB/Lemma7Prod.lean:669 | characters |
+| `Salt.HB.sum_ppCoef_eq` | Salt/HB/Lemma7Prod.lean:694 | characters |
+| `Salt.HB.sum_ppCoef_nat_eq` | Salt/HB/Lemma7Prod.lean:709 | characters |
+| `Salt.HB.psi_sub_theta_nonneg` | Salt/HB/Lemma7Prod.lean:715 | characters |
+| `Salt.HB.abs_wLog'_mul_psi_sub_theta_le` | Salt/HB/Lemma7Prod.lean:720 | characters |
+| `Salt.HB.ppDefect_le` | Salt/HB/Lemma7Prod.lean:756 | characters |
+| `Salt.HB.ppDefect_le'` | Salt/HB/Lemma7Prod.lean:869 | characters |
+| `Salt.HB.hb_hcorr_closed` | Salt/HB/Lemma7Prod.lean:885 | characters |
+| `Salt.HB.hb_hseg_closed` | Salt/HB/Lemma7Prod.lean:895 | sieves, characters |
 | `Salt.HB.zeroMult_eq_one_of_window` | Salt/HB/MOne.lean:78 | characters |
 | `Salt.HB.zeroMult_eq_one_of_gap` | Salt/HB/MOne.lean:99 | characters |
 | `Salt.HB.zeroMult_eq_one_of_eta` | Salt/HB/MOne.lean:142 | characters |
@@ -2360,18 +2360,18 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.perDelta_transfer` | Salt/HB/RosserDim4FL.lean:843 | characters |
 | `Salt.HB.transfer_of_decomposition` | Salt/HB/RosserDim4FL.lean:856 | characters |
 | `Salt.HB.hb_perDelta_transfer` | Salt/HB/RosserDim4FL.lean:874 | characters |
-| `Salt.HB.nuG_isMultiplicative` | Salt/HB/RosserDim4Instance.lean:127 | characters |
-| `Salt.HB.hbP_squarefree` | Salt/HB/RosserDim4Instance.lean:233 | characters |
-| `Salt.HB.hbP_chi` | Salt/HB/RosserDim4Instance.lean:261 | characters |
-| `Salt.HB.hb_sandwich_upper` | Salt/HB/RosserDim4Instance.lean:427 | sieves, characters |
-| `Salt.HB.hb_sandwich_lower` | Salt/HB/RosserDim4Instance.lean:439 | sieves, characters |
-| `Salt.HB.moebSum_nu_eq_W` | Salt/HB/RosserDim4Instance.lean:456 | sieves, characters |
-| `Salt.HB.mainSum_chi_eq_W_sub_correction` | Salt/HB/RosserDim4Instance.lean:471 | sieves, characters |
-| `Salt.HB.hb_levelRatio_eq` | Salt/HB/RosserDim4Instance.lean:490 | characters |
-| `Salt.HB.hb_fl_lower` | Salt/HB/RosserDim4Instance.lean:503 | sieves, characters |
-| `Salt.HB.hb_fl_upper` | Salt/HB/RosserDim4Instance.lean:526 | sieves, characters |
-| `Salt.HB.hb_transfer` | Salt/HB/RosserDim4Instance.lean:551 | characters |
-| `Salt.HB.hbSieve_fl_sandwich` | Salt/HB/RosserDim4Instance.lean:584 | sieves, characters |
+| `Salt.HB.nuG_isMultiplicative` | Salt/HB/RosserDim4Instance.lean:125 | characters |
+| `Salt.HB.hbP_squarefree` | Salt/HB/RosserDim4Instance.lean:224 | characters |
+| `Salt.HB.hbP_chi` | Salt/HB/RosserDim4Instance.lean:244 | characters |
+| `Salt.HB.hb_sandwich_upper` | Salt/HB/RosserDim4Instance.lean:407 | sieves, characters |
+| `Salt.HB.hb_sandwich_lower` | Salt/HB/RosserDim4Instance.lean:419 | sieves, characters |
+| `Salt.HB.moebSum_nu_eq_W` | Salt/HB/RosserDim4Instance.lean:436 | sieves, characters |
+| `Salt.HB.mainSum_chi_eq_W_sub_correction` | Salt/HB/RosserDim4Instance.lean:451 | sieves, characters |
+| `Salt.HB.hb_levelRatio_eq` | Salt/HB/RosserDim4Instance.lean:470 | characters |
+| `Salt.HB.hb_fl_lower` | Salt/HB/RosserDim4Instance.lean:483 | sieves, characters |
+| `Salt.HB.hb_fl_upper` | Salt/HB/RosserDim4Instance.lean:506 | sieves, characters |
+| `Salt.HB.hb_transfer` | Salt/HB/RosserDim4Instance.lean:531 | characters |
+| `Salt.HB.hbSieve_fl_sandwich` | Salt/HB/RosserDim4Instance.lean:564 | sieves, characters |
 | `Salt.HB.chiReChar_apply` | Salt/HB/SieveWire.lean:87 | sieves, characters |
 | `Salt.HB.chiReChar_prime` | Salt/HB/SieveWire.lean:99 | sieves, characters |
 | `Salt.HB.hbSiftSet_chiReChar` | Salt/HB/SieveWire.lean:106 | sieves, characters |
@@ -9286,30 +9286,30 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.N7.lem10PsiSum` | Salt/HB/Lemma10Seal.lean:76 | characters |
 | `Salt.N7.lem10ExpSumZ` | Salt/HB/Lemma10Seal.lean:82 | characters |
 | `Salt.N7.sealK` | Salt/HB/Lemma10Seal.lean:134 | characters |
-| `Salt.N7.HBForms.twin` | Salt/HB/Lemma5Bilinear.lean:263 | characters |
-| `Salt.N7.HBForms.twin_l₁` | Salt/HB/Lemma5Bilinear.lean:296 | characters |
-| `Salt.N7.HBForms.twin_l₂` | Salt/HB/Lemma5Bilinear.lean:297 | characters |
-| `Salt.N7.HBForms.twin_gcd_eq` | Salt/HB/Lemma5Bilinear.lean:298 | characters |
-| `Salt.N7.hbDataForms` | Salt/HB/Lemma5Bilinear.lean:395 | sieves, characters |
-| `Salt.N7.hbDataForms_S` | Salt/HB/Lemma5Bilinear.lean:404 | characters |
-| `Salt.N7.LamPrime` | Salt/HB/Lemma5Bilinear.lean:413 | characters |
-| `Salt.N7.hbQ` | Salt/HB/Lemma5Bilinear.lean:417 | characters |
-| `Salt.N7.logDivChiSum` | Salt/HB/Lemma5Bilinear.lean:421 | characters |
-| `Salt.N7.LamStarTrunc` | Salt/HB/Lemma5Bilinear.lean:426 | characters |
-| `Salt.N7.hbQRad` | Salt/HB/Lemma5Bilinear.lean:557 | characters |
-| `Salt.N7.cellCount` | Salt/HB/Lemma5Bilinear.lean:1511 | characters |
-| `Salt.N7.unitRep` | Salt/HB/Lemma5Bilinear.lean:1590 | characters |
-| `Salt.N7.chiRe_modEq` | Salt/HB/Lemma5Bilinear.lean:1640 | characters |
-| `Salt.N7.hbT₁` | Salt/HB/Lemma5Bilinear.lean:2614 | characters |
-| `Salt.N7.hbT₂` | Salt/HB/Lemma5Bilinear.lean:2621 | characters |
-| `Salt.N7.kb5f_C` | Salt/HB/Lemma5Bilinear.lean:3134 | characters |
-| `Salt.HB.primeProdBelow_eq` | Salt/HB/Lemma7Kappa.lean:80 | characters |
+| `Salt.N7.HBForms.twin` | Salt/HB/Lemma5Bilinear.lean:278 | characters |
+| `Salt.N7.HBForms.twin_l₁` | Salt/HB/Lemma5Bilinear.lean:312 | characters |
+| `Salt.N7.HBForms.twin_l₂` | Salt/HB/Lemma5Bilinear.lean:314 | characters |
+| `Salt.N7.HBForms.twin_gcd_eq` | Salt/HB/Lemma5Bilinear.lean:317 | characters |
+| `Salt.N7.hbDataForms` | Salt/HB/Lemma5Bilinear.lean:426 | sieves, characters |
+| `Salt.N7.hbDataForms_S` | Salt/HB/Lemma5Bilinear.lean:435 | characters |
+| `Salt.N7.LamPrime` | Salt/HB/Lemma5Bilinear.lean:444 | characters |
+| `Salt.N7.hbQ` | Salt/HB/Lemma5Bilinear.lean:448 | characters |
+| `Salt.N7.logDivChiSum` | Salt/HB/Lemma5Bilinear.lean:452 | characters |
+| `Salt.N7.LamStarTrunc` | Salt/HB/Lemma5Bilinear.lean:457 | characters |
+| `Salt.N7.hbQRad` | Salt/HB/Lemma5Bilinear.lean:588 | characters |
+| `Salt.N7.cellCount` | Salt/HB/Lemma5Bilinear.lean:1542 | characters |
+| `Salt.N7.unitRep` | Salt/HB/Lemma5Bilinear.lean:1621 | characters |
+| `Salt.N7.chiRe_modEq` | Salt/HB/Lemma5Bilinear.lean:1680 | characters |
+| `Salt.N7.hbT₁` | Salt/HB/Lemma5Bilinear.lean:2658 | characters |
+| `Salt.N7.hbT₂` | Salt/HB/Lemma5Bilinear.lean:2665 | characters |
+| `Salt.N7.kb5f_C` | Salt/HB/Lemma5Bilinear.lean:3181 | characters |
+| `Salt.HB.primeProdBelow_eq` | Salt/HB/Lemma7Kappa.lean:77 | characters |
 | `Salt.HB.hbPairSieve` | Salt/HB/PairInstance.lean:85 | sieves, characters |
 | `Salt.HB.crtIn₁` | Salt/HB/RealPrimStructure.lean:103 | characters |
 | `Salt.HB.crtIn₂` | Salt/HB/RealPrimStructure.lean:107 | characters |
 | `Salt.HB.crtFactor₁` | Salt/HB/RealPrimStructure.lean:151 | characters |
 | `Salt.HB.crtFactor₂` | Salt/HB/RealPrimStructure.lean:159 | characters |
-| `Salt.HB.hbSieve` | Salt/HB/RosserDim4Instance.lean:163 | sieves, characters |
+| `Salt.HB.hbSieve` | Salt/HB/RosserDim4Instance.lean:161 | sieves, characters |
 | `Salt.HB.chiReChar` | Salt/HB/SieveWire.lean:80 | sieves, characters |
 | `Salt.HB.hbData` | Salt/HB/SieveWire.lean:130 | sieves, characters |
 | `Salt.HB.hbData_P` | Salt/HB/SieveWire.lean:138 | sieves, characters |
