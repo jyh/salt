@@ -58,6 +58,8 @@ noncomputable def wLog (t : ℝ) : ℝ := (t * Real.log t)⁻¹
 /-- The derivative of `wLog`: `w'(t) = −(log t + 1)/(t log t)^2`. -/
 noncomputable def wLog' (t : ℝ) : ℝ := -(Real.log t + 1) / (t * Real.log t) ^ 2
 
+/-- `wLog` has derivative `wLog' t` at every `t > 1` (`ht`): the product rule on `s ↦ s · log s`
+(derivative `log t + 1`) and the inverse rule (`HasDerivAt.inv`), with `t · log t ≠ 0` there. -/
 lemma hasDerivAt_wLog {t : ℝ} (ht : 1 < t) : HasDerivAt wLog (wLog' t) t := by
   have ht0 : (0 : ℝ) < t := by linarith
   have hlog : 0 < Real.log t := Real.log_pos ht
@@ -73,19 +75,27 @@ lemma hasDerivAt_wLogC {t : ℝ} (ht : 1 < t) :
     HasDerivAt (fun s : ℝ => ((wLog s : ℝ) : ℂ)) ((wLog' t : ℝ) : ℂ) t :=
   (hasDerivAt_wLog ht).ofReal_comp
 
+/-- The complexified weight's `deriv` at `t > 1` (`ht`) is `(wLog' t : ℂ)`: `hasDerivAt_wLogC`
+read as a `deriv` equation (`HasDerivAt.deriv`). -/
 lemma deriv_wLogC {t : ℝ} (ht : 1 < t) :
     deriv (fun s : ℝ => ((wLog s : ℝ) : ℂ)) t = ((wLog' t : ℝ) : ℂ) :=
   (hasDerivAt_wLogC ht).deriv
 
+/-- `0 ≤ wLog t` for `1 ≤ t` (`ht`): `log t ≥ 0` there, so `(t · log t)⁻¹ ≥ 0` (at `t = 1` it is
+`0⁻¹ = 0`). -/
 lemma wLog_nonneg {t : ℝ} (ht : 1 ≤ t) : 0 ≤ wLog t := by
   have : 0 ≤ Real.log t := Real.log_nonneg ht
   rw [wLog]; positivity
 
+/-- `wLog' t ≤ 0` for `1 ≤ t` (`ht`): the numerator `−(log t + 1)` is nonpositive and the
+denominator `(t · log t)²` is a square. -/
 lemma wLog'_nonpos {t : ℝ} (ht : 1 ≤ t) : wLog' t ≤ 0 := by
   have h : 0 ≤ Real.log t := Real.log_nonneg ht
   rw [wLog']
   apply div_nonpos_of_nonpos_of_nonneg (by linarith) (sq_nonneg _)
 
+/-- `wLog` is continuous on any set `s` of reals `> 1` (`hs`): the inverse of the continuous
+`t · log t`, which is positive there (`ContinuousOn.inv₀`). -/
 lemma continuousOn_wLog {s : Set ℝ} (hs : ∀ t ∈ s, 1 < t) : ContinuousOn wLog s := by
   refine ContinuousOn.inv₀ (continuousOn_id.mul (Real.continuousOn_log.mono ?_)) ?_
   · intro t ht
@@ -95,6 +105,8 @@ lemma continuousOn_wLog {s : Set ℝ} (hs : ∀ t ∈ s, 1 < t) : ContinuousOn w
     have : 0 < Real.log t := Real.log_pos h1
     positivity
 
+/-- `wLog'` is continuous on any set `s` of reals `> 1` (`hs`): a quotient of the continuous
+`−(log t + 1)` by the continuous `(t · log t)²`, nonzero there. -/
 lemma continuousOn_wLog' {s : Set ℝ} (hs : ∀ t ∈ s, 1 < t) : ContinuousOn wLog' s := by
   have hc : ContinuousOn (fun t : ℝ => t * Real.log t) s :=
     continuousOn_id.mul (Real.continuousOn_log.mono
@@ -796,6 +808,8 @@ noncomputable def efT0 (q : ℕ) (u : ℝ) : ℝ := (Real.log ((q : ℝ) * u) + 
 /-- The de-smoothing step `h(u) = u/√(T₀(u)) = u/(log(q·u) + 2)^3`. -/
 noncomputable def efH (q : ℕ) (u : ℝ) : ℝ := u / (Real.log ((q : ℝ) * u) + 2) ^ 3
 
+/-- `2 ≤ T₀(u)` for `2 ≤ q` (`hq`) and `3 ≤ u` (`hu`): `q · u ≥ 6 > e` gives `log(q·u) ≥ 1`, so
+`(log(q·u) + 2)^6 ≥ 3^6`. -/
 lemma two_le_efT0 {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) : 2 ≤ efT0 q u := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith only [hu, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
@@ -807,6 +821,8 @@ lemma two_le_efT0 {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) : 2 ≤ efT0
   linarith only [pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 3)
       (by linarith : (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2) 6]
 
+/-- `0 < h(u)` for `2 ≤ q` (`hq`) and `3 ≤ u` (`hu`): `u > 0` over the positive
+`(log(q·u) + 2)^3` (`log(q·u) ≥ 0` there). -/
 lemma efH_pos {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) : 0 < efH q u := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith only [hu, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
@@ -897,10 +913,14 @@ theorem psiDefect_norm_le_envelope {q : ℕ} [NeZero q] (χ : DirichletCharacter
 
 /-! ### The envelope is continuous — the last hypothesis of the transfer -/
 
+/-- `x ↦ log (g x)` is continuous on `s` when `g` is continuous on `s` (`hg`) and never vanishes
+there (`h0`): `Real.continuousOn_log.comp`. -/
 private lemma cont_log_comp {s : Set ℝ} {g : ℝ → ℝ} (hg : ContinuousOn g s)
     (h0 : ∀ x ∈ s, g x ≠ 0) : ContinuousOn (fun x => Real.log (g x)) s :=
   Real.continuousOn_log.comp hg (fun x hx => by simpa using h0 x hx)
 
+/-- `u ↦ log(q·u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): `cont_log_comp`, with
+`q · u > 0` there. -/
 private lemma cont_logqu {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * u)) (Set.Ici (3 : ℝ)) := by
   have hq0 : (0 : ℝ) < (q : ℝ) := by
@@ -910,6 +930,8 @@ private lemma cont_logqu {q : ℕ} (hq : 2 ≤ q) :
   have h3 : (3 : ℝ) ≤ u := hu
   exact ne_of_gt (by positivity)
 
+/-- `3 ≤ log(q·u) + 2` — the scale `M` of §10 is at least `3` — for `2 ≤ q` (`hq`) and `3 ≤ u`
+(`hu`): `q · u ≥ 6 > e`, so `log(q·u) ≥ 1`. -/
 private lemma logqu_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
     (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -919,11 +941,15 @@ private lemma logqu_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
   have : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
   linarith
 
+/-- `u ↦ T₀(u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): the sixth power of the continuous
+`log(q·u) + 2` (`cont_logqu`). -/
 private lemma cont_efT0 {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => efT0 q u) (Set.Ici (3 : ℝ)) := by
   simp only [efT0]
   exact ((cont_logqu hq).add continuousOn_const).pow 6
 
+/-- `u ↦ h(u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): `u` over the cube of `log(q·u) + 2`
+(`cont_logqu`), which is at least `3` there (`logqu_ge`). -/
 private lemma cont_efH {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => efH q u) (Set.Ici (3 : ℝ)) := by
   simp only [efH]
@@ -931,6 +957,8 @@ private lemma cont_efH {q : ℕ} (hq : 2 ≤ q) :
   have h := logqu_ge hq (show (3:ℝ) ≤ u from hu)
   positivity
 
+/-- `u ↦ log(q · (T₀(u) + a))` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`) and `0 ≤ a` (`ha`):
+`cont_log_comp` over `cont_efT0`, the argument positive since `2 ≤ T₀(u)` (`two_le_efT0`). -/
 private lemma cont_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
     ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * (efT0 q u + a))) (Set.Ici (3 : ℝ)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -939,6 +967,10 @@ private lemma cont_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
   have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
   nlinarith only [h1, ha, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q), (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
+/-- `u ↦ efShiftB q (T₀(u)) σa σb` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): both factors of
+the edge constant are continuous in `u` through `T₀(u)` (`cont_efT0`), `log(q · (T₀(u) + 5))`
+(`cont_logQT`) and the outer logarithm (`cont_log_comp`, its argument positive by
+`two_le_efT0`); `σa`, `σb` are constants and need no hypothesis. -/
 private lemma cont_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
     ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb) (Set.Ici (3 : ℝ)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -966,6 +998,11 @@ private lemma cont_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
   simp only [efShiftB]
   exact hfac1.mul hfac2
 
+/-- `u ↦ efShiftBound q (T₀(u)) σa σb (φ u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`),
+`0 < σb + 1` (`hσb1`, for the `rpow` factor) and a continuous `φ` (`hφ`) with `3 ≤ φ u` there
+(`hφ3`): the three summands row by row — `log (φ u)` is continuous and nonzero
+(`cont_log_comp`), the edge constant is continuous (`cont_efShiftB`), and the powers of `T₀(u)`
+are continuous and positive (`cont_efT0`, `two_le_efT0`). -/
 private lemma cont_efShiftBound {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ}
     (hσb1 : 0 < σb + 1) {φ : ℝ → ℝ} (hφ : ContinuousOn φ (Set.Ici (3 : ℝ)))
     (hφ3 : ∀ u ∈ Set.Ici (3 : ℝ), 3 ≤ φ u) :
@@ -1047,6 +1084,9 @@ lemma continuousOn_efEnvelope {q : ℕ} (hq : 2 ≤ q) {β₀ bceil σa σb : �
 
 /-! ### Nonnegativity, and the end-to-end composite -/
 
+/-- `0 ≤ efShiftB q T₀ σa σb` for `2 ≤ q` (`hq`), `2 ≤ T₀` (`hT₀`) and `σa < σb` (`hσab`): both
+logarithms have arguments at least `1`, and the denominator `log(7/6) · (σb − σa)` is
+positive. -/
 lemma efShiftB_nonneg {q : ℕ} {T₀ σa σb : ℝ} (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀) (hσab : σa < σb) :
     0 ≤ efShiftB q T₀ σa σb := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -1072,6 +1112,10 @@ lemma efShiftB_nonneg {q : ℕ} {T₀ σa σb : ℝ} (hq : 2 ≤ q) (hT₀ : 2 �
   have := div_nonneg hnum (le_of_lt hden)
   linarith
 
+/-- `0 ≤ efShiftBound q T₀ σa σb x` for `2 ≤ q` (`hq`), `2 ≤ T₀` (`hT₀`), `0 < σa ≤ 1`
+(`hσa`, `hσa1`), `σa < σb` (`hσab`) and `3 ≤ x` (`hx`): each of the three summands is a
+product or quotient of nonnegative factors (`efShiftB_nonneg`; `1 + 1/log x − σa ≥ 0`
+because `σa ≤ 1`). -/
 lemma efShiftBound_nonneg {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀)
     (hσa : 0 < σa) (hσa1 : σa ≤ 1) (hσab : σa < σb) (hx : 3 ≤ x) :
     0 ≤ efShiftBound q T₀ σa σb x := by
@@ -1090,6 +1134,11 @@ lemma efShiftBound_nonneg {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT₀
       (by positivity [Real.pi_pos])
   · exact mul_nonneg (mul_nonneg (by linarith) (le_of_lt hex)) (by positivity)
 
+/-- `0 ≤ efEnvelope q β₀ bceil m σa σb u` for `2 ≤ q` (`hq`), `3 ≤ u` (`hu`), `0 < σa ≤ 1`
+(`hσa`, `hσa1`) and `σa < σb` (`hσab`): each of the four groups is nonnegative
+(`efShiftBound_nonneg` at `u` and `u + h(u)`, `efH_pos`, `two_le_efT0`, the `rpow`s positive for
+`u > 0`) and so is the final division by `u`; no hypothesis on `β₀`, `bceil` or `m` is
+needed. -/
 lemma efEnvelope_nonneg {q : ℕ} {β₀ bceil σa σb u : ℝ} {m : ℕ} (hq : 2 ≤ q) (hu : 3 ≤ u)
     (hσa : 0 < σa) (hσa1 : σa ≤ 1) (hσab : σa < σb) :
     0 ≤ efEnvelope q β₀ bceil m σa σb u := by
@@ -1423,12 +1472,16 @@ One numeric hypothesis is named and carried: `hgap : 1/20 ≤ σb − σa`.  At 
 `σb − σa ≥ 0.0779`); it is what turns the Borel–Carathéodory edge constant's `1/(σb − σa)` into a
 number. -/
 
+/-- `log u ≤ M − 2` at the scale `M = log(q·u) + 2` (`hM`) for `2 ≤ q` (`hq`) and `3 ≤ u`
+(`hu`): `log u ≤ log(q·u)`. -/
 private lemma log_u_le_scale {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
     (hM : M = Real.log ((q : ℝ) * u) + 2) : Real.log u ≤ M - 2 := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have h : Real.log u ≤ Real.log ((q : ℝ) * u) := Real.log_le_log (by linarith) (by nlinarith)
   rw [hM]; linarith
 
+/-- `log q ≤ M − 3` at the scale `M = log(q·u) + 2` (`hM`) for `2 ≤ q` (`hq`) and `3 ≤ u`
+(`hu`): `log(q·u) = log q + log u` with `log u ≥ 1` (`u ≥ 3 > e`). -/
 private lemma log_q_le_scale {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
     (hM : M = Real.log ((q : ℝ) * u) + 2) : Real.log q ≤ M - 3 := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -1440,6 +1493,7 @@ private lemma log_q_le_scale {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
     Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt (by linarith : (0:ℝ) < u))
   rw [hM, hsplit]; linarith
 
+/-- `3^n ≤ M^n` for `3 ≤ M` (`hM3`) and every `n` (`pow_le_pow_left₀`). -/
 private lemma scale_pow_ge {M : ℝ} (hM3 : 3 ≤ M) (n : ℕ) : (3 : ℝ) ^ n ≤ M ^ n :=
   pow_le_pow_left₀ (by norm_num) hM3 n
 
@@ -1953,12 +2007,17 @@ the constant. -/
 noncomputable def efZfrCeil (q : ℕ) (c₀ u : ℝ) : ℝ :=
   1 - c₀ / Real.log ((q : ℝ) * (efT0 q u + 3))
 
+/-- `0 < log(q · (T₀(u) + 3))` for `2 ≤ q` (`hq`) and `3 ≤ u` (`hu`): the argument is at least
+`2 · 5 > 1` (`two_le_efT0`). -/
 lemma log_q_efT0_add3_pos {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) :
     (0 : ℝ) < Real.log ((q : ℝ) * (efT0 q u + 3)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
   exact Real.log_pos (by nlinarith only [hT0, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)])
 
+/-- The Range-B ceiling never exceeds `1`: `efZfrCeil q c₀ u ≤ 1` for `2 ≤ q` (`hq`), `3 ≤ u`
+(`hu`) and `0 < c₀` (`hc₀`), since the subtracted `c₀ / log(q · (T₀(u) + 3))` is positive
+(`log_q_efT0_add3_pos`). -/
 lemma efZfrCeil_le_one {q : ℕ} {c₀ u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) (hc₀ : 0 < c₀) :
     efZfrCeil q c₀ u ≤ 1 := by
   have h := log_q_efT0_add3_pos hq hu
@@ -1966,6 +2025,9 @@ lemma efZfrCeil_le_one {q : ℕ} {c₀ u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) (h
   have : (0 : ℝ) < c₀ / Real.log ((q : ℝ) * (efT0 q u + 3)) := div_pos hc₀ h
   linarith
 
+/-- `u ↦ efZfrCeil q c₀ u` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`) and any `c₀`: `1` minus
+`c₀` over the continuous (`cont_logQT` at `a = 3`), positive (`log_q_efT0_add3_pos`)
+logarithm. -/
 lemma continuousOn_efZfrCeil {q : ℕ} (hq : 2 ≤ q) (c₀ : ℝ) :
     ContinuousOn (fun u : ℝ => efZfrCeil q c₀ u) (Set.Ici (3 : ℝ)) := by
   simp only [efZfrCeil]
@@ -2039,6 +2101,8 @@ decaying rows are priced.  The decay engine is the same in all three: `s^n e^{�
 `σb` row, the de-smoothing constant) and `s^n e^{−δ√s} → 0` (the Range-B row, where the ceiling
 itself creeps to `1` and only `log(q(T₀+3)) ≍ log q + 7 log M` keeps the exponent alive). -/
 
+/-- `r^n · e^{−δ·r} → 0` as `r → ∞` for `0 < δ` (`hδ`) and every `n`: mathlib's
+`Real.tendsto_pow_mul_exp_neg_atTop_nhds_zero` along `r ↦ δ·r`, rescaled by `δ^{−n}`. -/
 private lemma tendsto_pow_mul_exp_neg_const (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
     Tendsto (fun r : ℝ => r ^ n * Real.exp (-(δ * r))) atTop (𝓝 0) := by
   have hδ0 : δ ≠ 0 := ne_of_gt hδ
@@ -2052,6 +2116,9 @@ private lemma tendsto_pow_mul_exp_neg_const (n : ℕ) {δ : ℝ} (hδ : 0 < δ) 
   rw [mul_pow]
   field_simp
 
+/-- `s^n · e^{−δ·√s} → 0` as `s → ∞` for `0 < δ` (`hδ`) and every `n`:
+`tendsto_pow_mul_exp_neg_const` at `2n` composed with `√s → ∞` (`Real.tendsto_sqrt_atTop`),
+since `s^n = (√s)^{2n}` for `s ≥ 0`. -/
 private lemma tendsto_pow_mul_exp_neg_sqrt (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
     Tendsto (fun s : ℝ => s ^ n * Real.exp (-(δ * Real.sqrt s))) atTop (𝓝 0) := by
   have hc : Tendsto (fun s : ℝ => Real.sqrt s ^ (2 * n) * Real.exp (-(δ * Real.sqrt s)))
@@ -2060,6 +2127,8 @@ private lemma tendsto_pow_mul_exp_neg_sqrt (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
   filter_upwards [eventually_ge_atTop (0:ℝ)] with s hs
   rw [pow_mul, Real.sq_sqrt hs]
 
+/-- Eventually `C · (s^n · e^{−δ·s}) ≤ 1` as `s → ∞`, for any `C`, any `n` and `0 < δ` (`hδ`):
+the product tends to `0` (`tendsto_pow_mul_exp_neg_const`). -/
 private lemma eventually_pow_exp_le_one (C : ℝ) (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
     ∀ᶠ s : ℝ in atTop, C * (s ^ n * Real.exp (-(δ * s))) ≤ 1 := by
   have h : Tendsto (fun s : ℝ => C * (s ^ n * Real.exp (-(δ * s)))) atTop (𝓝 0) := by
@@ -2068,6 +2137,8 @@ private lemma eventually_pow_exp_le_one (C : ℝ) (n : ℕ) {δ : ℝ} (hδ : 0 
   filter_upwards [h.eventually (gt_mem_nhds (by norm_num : (0:ℝ) < 1))] with s hs
   linarith
 
+/-- Eventually `C · (s^n · e^{−δ·√s}) ≤ 1` as `s → ∞`, for any `C`, any `n` and `0 < δ` (`hδ`):
+the product tends to `0` (`tendsto_pow_mul_exp_neg_sqrt`). -/
 private lemma eventually_pow_exp_sqrt_le_one (C : ℝ) (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
     ∀ᶠ s : ℝ in atTop, C * (s ^ n * Real.exp (-(δ * Real.sqrt s))) ≤ 1 := by
   have h : Tendsto (fun s : ℝ => C * (s ^ n * Real.exp (-(δ * Real.sqrt s)))) atTop (𝓝 0) := by
@@ -2374,6 +2445,7 @@ the constant `4·10^8` to `2·10^6·N²/M²` — which §14 turns into a NUMBER 
 window's `q^{250} ≤ X` edge in (`log q ≤ M/250`, so `N/M` is genuinely small).  Everything here is
 additive: §10's rows are untouched and still serve every caller that does not have the window. -/
 
+/-- `1 ≤ log M` for `3 ≤ M` (`hM3`): `e < 3 ≤ M`. -/
 private lemma one_le_log_scale {M : ℝ} (hM3 : 3 ≤ M) : 1 ≤ Real.log M := by
   have h : Real.exp 1 ≤ M :=
     le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hM3
