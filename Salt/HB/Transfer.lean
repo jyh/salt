@@ -8,9 +8,9 @@ import Salt.HB.TwistChainC
 /-!
 # Heath-Brown's Lemma 2: the `S⁽¹⁾ → S⁽²⁾` transfer (HB-ENGINE, WP1, node HB-L2)
 
-Formalizes the twin-specialized transfer step of Heath-Brown 1983 §3 (Lemma 2,
-statement p.198, proof pp.201-203).  With `l₁ = n`, `l₂ = n + 2`, `q` the character
-modulus, and a support set `A` of integers `n` with `n` and `n + 2` both coprime to
+Formalizes rung 1 of the twin-specialized transfer step of Heath-Brown 1983 §3 (Lemma 2, statement
+p.198, proof pp.201-203): the transfer inequality (see Scope).  With `l₁ = n`, `l₂ = n + 2`, `q`
+the character modulus, and a support set `A` of integers `n` with `n` and `n + 2` both coprime to
 `q`, the two sums are
 
 * `S⁽¹⁾ = Σ_{n ∈ A} Λ(n)·Λ(n+2)`  (`S1`), and
