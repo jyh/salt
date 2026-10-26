@@ -12,7 +12,7 @@ import Salt.Vmvt.Summit2
 
 `vk_block_core` closes R4-assembly: the ζ-phase block sum has a pointwise Weyl bound
 `‖∑ eR(φ)‖ ≤ 8·P^{1−ρ}` derived from the machine-checked Vinogradov mean value theorem
-`Salt.Vmvt.vmvt`.  This is the first pointwise Weyl bound from a machine-checked mean value
+`Salt.Vmvt.vmvt`.  It is a pointwise Weyl bound from a machine-checked mean value
 theorem.
 
 The proof composes the landed analytic reduction
@@ -252,7 +252,7 @@ set_option maxHeartbeats 2000000 in
 -- closing `rpow` ledger in one theorem; the default heartbeat budget is insufficient.
 /-- **`vk_block_core` — THE BRIDGE.**  The ζ-phase block sum has a pointwise Weyl bound
 `‖∑ eR(φ)‖ ≤ 8·P^{1−ρ}` derived from the machine-checked Vinogradov mean value theorem
-`Salt.Vmvt.vmvt`.  The first pointwise Weyl bound from a machine-checked mean value theorem. -/
+`Salt.Vmvt.vmvt`.  A pointwise Weyl bound from a machine-checked mean value theorem. -/
 theorem vk_block_core {k r N₀ P P' Y : ℕ} {t ρbl : ℝ} (hk : 19 ≤ k)
     (hr : r = ⌈(k : ℝ) * Real.log (4 * (k : ℝ) ^ 2)⌉₊) (hρ : ρbl = 1 / (16 * (k : ℝ) * r))
     (hP' : P' ≤ P) (hY : Y = ⌈(P : ℝ) ^ ((1 : ℝ) / 2)⌉₊)
