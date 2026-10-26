@@ -290,7 +290,7 @@ private lemma eventually_logR_ge (b : ℝ) :
     eventually_logN_ge (4 * b)] with N' h1 h2
   linarith
 
-/-- `C/log R ≤ ε` for all large `N'`, for `0 < ε` (`hε`): `log R ≥ max C 1/ε` and `log R ≥ 1`
+/-- `C/log R ≤ ε` for all large `N'`, for `0 < ε` (`hε`): `log R ≥ (max C 1)/ε` and `log R ≥ 1`
 eventually (`eventually_logR_ge`). -/
 private lemma eventually_div_logR_le (C ε : ℝ) (hε : 0 < ε) :
     ∀ᶠ N' : ℕ in atTop,
@@ -308,8 +308,9 @@ private lemma eventually_div_logR_le (C ε : ℝ) (hε : 0 < ε) :
 
 /-- `A(1 + log R)^p/(log N')^q ≤ K` for all large `N'` when `p < q` (`hpq`), `0 < K` (`hK`) and
 `0 ≤ A` (`hA`): `1 + log R ≤ 2 log N'` (`R ≤ N'`, `R_le_N'_theta`), so the ratio is at most
-`2^p A/(log N')^{q − p} ≤ 2^p A/log N'`, and `log N' ≥ 2^p A/K` eventually
-(`eventually_logN_ge`). -/
+`2^p A/(log N')^{q − p} ≤ 2^p A/log N'`, and `log N' ≥ max 1 (2^p A/K)` eventually
+(`eventually_logN_ge`); the `1` in the threshold is what gives `1 + log R ≤ 2 log N'` and
+`(log N')^{q − p} ≥ log N'`. -/
 private lemma eventually_polylog_ratio_le (p q : ℕ) (A K : ℝ) (hpq : p < q)
     (hK : 0 < K) (hA : 0 ≤ A) :
     ∀ᶠ N' : ℕ in atTop,

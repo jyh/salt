@@ -257,8 +257,8 @@ bundle; its discharge (`win_ratio_core` + the vanishing `mv_I_split`/
 /-- **The pinned-numeral frontier** at the modulus `primorial Dfin`: `WindowPNT → EHall → ∀ N,`
 `∃ N' ≥ N` and witnesses `R, ν₀, δ, errEH, cval` with the six conjuncts of `WinFrontier` — CRT
 collision-solvability, `0 < φ`, `0 ≤ cval m`, `0 ≤ δ ≤ Δπ_m`, `cval m ≤ Qdiag_mW`, the `S2mW`
-lower bound — and the M-based S₁ ratio-slack as the seventh; `FrontierM`'s `WinFrontierMW Dfin`
-by definition. -/
+lower bound — and the M-based S₁ ratio-slack as the seventh; definitionally equal to
+`FrontierM`'s `WinFrontierMW Dfin` (`winFrontierM_of_W`). -/
 def WinFrontierM : Prop :=
   WindowPNT → EHall → ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ), N ≤ N' ∧

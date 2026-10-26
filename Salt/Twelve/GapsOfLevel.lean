@@ -122,7 +122,7 @@ the largeness bundle needs only `HasLevel (3999/4000)`, not `EHall`. -/
 `WinFrontierMW` — CRT collision-solvability, `0 < φ(primorial D)`, `0 ≤ cval m`, `0 ≤ δ ≤ Δπ_m`,
 `cval m ≤ Qdiag_mW`, the `S2mW` lower bound, and the M-based ratio-slack. `FrontierM`'s
 `WinFrontierMW D` with its leading `EHall →` deleted, so that `winFrontierMW_of_hasLevel` can
-discharge it from `HasLevel (3999/4000)` alone. -/
+discharge it from `HasLevel (3999/4000)` without `EHall` (given `300 ≤ D` and `hslackEv`). -/
 def WinFrontierMWL (D : ℕ) : Prop :=
   WindowPNT → ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ), N ≤ N' ∧
