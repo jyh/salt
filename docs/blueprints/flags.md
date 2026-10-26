@@ -1,4 +1,4 @@
-*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 18924 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 18924 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5). Its priority statements ("first …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*
 
 # Flags and claims
 
@@ -23178,8 +23178,8 @@ that `v6` is byte-untouched and remains citable. No `[SUPERSEDED → …]` mark 
 **Opus executor, docs only.** Authority: **T2-A Option A, the Captain's word at the 08/15
 sitting**. Both landed together at `7c82089`.
 
-**`Salt.TwinBar.parity_wall_corr_stable`** (`Salt/TwinBar/WallCorr.lean:220`, ledger
-`Salt/TwinBar/All.lean:178`) — the row is written as a **strengthening of a NEGATIVE
+**`Salt.TwinBar.parity_wall_corr_stable`** (`Salt/TwinBar/WallCorr.lean:231`, ledger
+`Salt/TwinBar/All.lean:180`) — the row is written as a **strengthening of a NEGATIVE
 theorem**: `parity_wall_unconditional`'s cap holds VERBATIM at `s₋ x` for the strictly larger
 class of certificates that need only be tolerant with respect to `SieveAgreeCorr`, so reading
 the sieves' shift-2 correlation field on top of the three main-term fields buys a certificate
@@ -25648,3 +25648,29 @@ hypothesis of the U-forms down to the capstone, or the head U-form's `K` tied to
 `bigXi_bounded_ceiling_eps` at `ε ≤ 1/500`); then the socket hop is the source's body with the
 count passed through.  **Owner:** the freeze author.  **Re-measure:** at the half-2 fire.
 RESOLVED 2026-09-25 (half 2): the head form's count moved to its conclusion side (ADDENDUM 2 §2); the hop landed at the first half-2 commit on `h2c/roadF-arm-U`, parent `ceda6db4` (a commit cannot name its own sha).
+
+## WALL-L2 -- `parity_wall_corr_stable` restates the wall; it does not strengthen it (2026-10-25)
+
+The 2026-08-15 REGISTRY DOCS SWEEP entry above registers `parity_wall_corr_stable` "as a
+strengthening of a NEGATIVE theorem" for "the strictly larger class of certificates" tolerant with
+respect to `SieveAgreeCorr`. The class is the same one. `SieveAgreeCorr s t D B B₂` is
+`SieveAgree s t D B ∧ |corr2 s - corr2 t| ≤ B₂`, and the theorem's `htol` quantifies over every
+`B₂`; at `B₂ := |corr2 s - corr2 t|` it is `SieveAgree`-tolerance, and `tolerant_corr_of_tolerant`
+(`WallCorr.lean:87`) gives the converse. So `parity_wall_corr_stable` follows from
+`parity_wall_unconditional` in one line (paper drove it on 2026-10-25 through `saltbuild`,
+EXIT=0, axioms `[propext, Classical.choice, Quot.sound]`; the file is not in this repository).
+The fixed-`B₂` form, with tolerance asked at one `(D, B, B₂)`, is `parity_wall_corr`, the per-`x`
+algebraic layer. `docs/RESULTS.md`'s row now says so (O88). The same reading is in the docstrings
+of `WallCorr.lean` (:39, :75-76, :205-215) and in the ledger block at `Salt/TwinBar/All.lean`;
+those are Salt/ comments and are routed to math, not edited here.
+
+## C3c⁗ -- `general_BV_final` keeps `hMainEnergy` as a named hypothesis (2026-10-25)
+
+The 2026-07-13 C3c⁗ entry above says `general_BV_final` is `general_BV_closed` + `bilinear_hLargeDisc`
+"with both cores, hMainEnergy_discharge + hErrSum_final". The theorem (`Salt/Chen/PerEEngine.lean`)
+composes `hErrSum_final` only: its main-energy bound is the named hypothesis `hMainEnergy`, and
+`hMainEnergy_discharge` (`Salt/Chen/EnergyClose.lean`) is not applied in that file. So
+`general_BV_final` is closed modulo the operating-scale side conditions, `‖α‖ ≤ 1`, `hMainEnergy`
+and `hPerE`, as the entry's own `general_BV_final` bullet already lists. The docstrings of
+`PerEEngine.lean` (module header and theorem), `ErrFold.lean` and `ConductorDescent.lean` now say
+so (O88).

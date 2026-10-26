@@ -31,7 +31,7 @@ Assembly (see the node card):
 
 Everything is a finite `Finset` sum; no integrability side goals. Constants are
 loose and explicit (track doctrine); the frozen numeral `6000` has ample headroom
-(the verified chain lands near `5792`).
+(the chain's constants come to about `5792`, a figure no Lean statement carries).
 -/
 
 open ArithmeticFunction Finset

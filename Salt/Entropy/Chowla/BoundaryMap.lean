@@ -43,7 +43,7 @@ Lemma 2.5 change of variables) — forces the harmonic weight up to scale.
 Logarithmic averaging is not a convenience; it is the *unique* weighting
 compatible with the multiplicative change of variables at the heart of the
 entropy argument.  Under natural (uniform) averaging this covariance fails
-constitutively — the first formally-localized obstruction to removing the log
+constitutively — a formally-localized obstruction to removing the log
 from log-Chowla (see the MB-1 boundary map, `docs/exploration/s3-a3-design.md`).
 
 The proof is a one-line specialization: read the covariance at `q := n, n := 1`,

@@ -224,12 +224,21 @@ private theorem R₃_measurableSet : MeasurableSet R₃ := R₃_isClosed.measura
 
 /-! ## Continuity of the weights and the weighted squares on `R₃` -/
 
+/-- `w₁₃ (t₁,t₂,t₃) = (1 − t₂ − t₃)/2 + t₁` is affine in the coordinates, hence continuous on
+`ℝ³` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn` takes for the weighted square
+`w₁₃ · F²`. -/
 theorem w₁₃_continuous : Continuous (fun p : ℝ × ℝ × ℝ => w₁₃ p.1 p.2.1 p.2.2) := by
   unfold w₁₃; fun_prop
 
+/-- `w₂₃ (t₁,t₂,t₃) = (1 − t₁ − t₃)/2 + t₂` is affine in the coordinates, hence continuous on
+`ℝ³` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn` takes for the weighted square
+`w₂₃ · F²`. -/
 theorem w₂₃_continuous : Continuous (fun p : ℝ × ℝ × ℝ => w₂₃ p.1 p.2.1 p.2.2) := by
   unfold w₂₃; fun_prop
 
+/-- `w₃₃ (t₁,t₂,t₃) = (1 − t₁ − t₂)/2 + t₃` is affine in the coordinates, hence continuous on
+`ℝ³` (`unfold`; `fun_prop`): the `hw` input `wsq_continuousOn` takes for the weighted square
+`w₃₃ · F²`. -/
 theorem w₃₃_continuous : Continuous (fun p : ℝ × ℝ × ℝ => w₃₃ p.1 p.2.1 p.2.2) := by
   unfold w₃₃; fun_prop
 
@@ -290,6 +299,10 @@ The size-`s` analogue of the landed `marginal₁_integrableOn`: for `G` continuo
 `Δ s`, the inner interval integral is integrable in the outer variable over `Ioc 0 s`.
 Routed through the 2-D indicator's Fubini marginal (`Integrable.integral_prod_left`),
 whose value on `Ioc 0 s` equals the interval integral (slice preimage = `Icc 0 (s−a)`). -/
+/-- **Scaled inner-marginal integrability.** For `G` continuous on the size-`s` simplex `Δ s`
+(hypothesis `hG`), `a ↦ ∫ b in 0..(s − a), G a b` is integrable on `Ioc 0 s`: the size-`s`
+analogue of `marginal₁_integrableOn`, routed through the Fubini marginal of the `Δ s`-indicator
+(`Integrable.integral_prod_left`), whose value on `Ioc 0 s` is the interval integral. -/
 theorem marginal_scaled {s : ℝ} {G : ℝ → ℝ → ℝ}
     (hG : ContinuousOn (Function.uncurry G) (Δ s)) :
     IntegrableOn (fun a => ∫ b in (0:ℝ)..(s - a), G a b) (Set.Ioc 0 s) volume := by

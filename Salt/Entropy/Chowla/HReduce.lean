@@ -98,8 +98,8 @@ conclusion `(1/2)·SP·H·|X| ≤ |∫F|` follows.
 
 This isolates the reduction's sole remaining residual as `hmain` (the main-term
 identification): with `|X| ≥ ε/2` the budget gives `ETOT ≤ (1/2)·SP·H·|X|`, so
-`main − err ≥ (1/2)·SP·H·|X|`.  `hmain` is the CARRIER-GAP residual (G1/G2, see the
-module note and `flags.md`); everything AROUND it closes here sorry-free. -/
+`main − err ≥ (1/2)·SP·H·|X|`.  `hmain` was the CARRIER-GAP residual (G1/G2); `HMainAssembly`
+(07-17) shows it free by the reverse triangle; everything AROUND it closes here sorry-free. -/
 theorem hreduce_close (eps : ℚ) (H : ℕ) {x ω : ℕ}
     (hseed : (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
               * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)|)

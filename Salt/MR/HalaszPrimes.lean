@@ -163,7 +163,7 @@ lemma primes_dual_iff (𝒯 : Finset ℝ) (S : Finset ℕ) {Δ : ℝ} (hΔ : 0 �
   l2_duality 𝒯 S (fun t p => (p : ℂ) ^ (-(t : ℂ) * I)) hΔ
 
 /-!
-## Resistance map (R1-core — the remaining blocker)
+## Resistance map (R1-core — then the remaining blocker; `halasz_primes_pow` has since landed)
 
 Landed tonight (all sorry-free): the four ladder sub-stones —
 `primes_dual_iff` (R1 gateway), `zeta_near_strip_growth` (R2 price = 400),

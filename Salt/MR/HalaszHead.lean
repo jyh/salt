@@ -58,8 +58,8 @@ available yet.  This file lands the pieces that consume ONLY landed inputs:
 is applied with its `f`-slot = `fgJ f t₀ y Y` (the seam's windowed–twisted `f`),
 1-bounded via `norm_fgJ_le` (non-multiplicative — but `ball_decay` needs only
 1-boundedness, so it type-checks), and its `g`-slot = the center character
-`costwist t` (1-bounded via `norm_costwist_le`).  The center squared-distance is
-`M = pretDistSq (fgJ f t₀ y Y) (costwist t) X`.  The analytic `hhead`/`htail`/`hsplit`
+`costwist t` (1-bounded via `norm_costwist_le`).  The squared distance is, since J0,
+`M = M_range (fgJ f t₀ y Y) X T` (was the center value).  The analytic `hhead`/`htail`/`hsplit`
 must be established FOR fgJ through the prop21 seam — exactly what the S1′ chain
 (Part 1) supplies; the scaffolding below is the socket into which H-EXIT plugs.
 -/

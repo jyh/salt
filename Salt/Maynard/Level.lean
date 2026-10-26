@@ -13,10 +13,10 @@ Design: `docs/blueprints/lod-interface-design.md`.  `HasLevel θ` is the
 Bombieri–Vinogradov-shaped hypothesis: for every log-power saving `A` there is a
 log-power *haircut* `B = B(A)` on the modulus range `x^θ/(log x)^B`.  The `∀A ∃B`
 order is BV's exact shape — a fixed-`B` or `∀B` variant would be strictly
-stronger than BV and unusable by the eventual BV instantiation.  `EH θ` is the
+stronger than BV and unusable by the BV instantiation.  `EH θ` is the
 `B = 0` special case (`EH_hasLevel`), so anything proved from `HasLevel (1/2)`
-specializes to the landed `EH (1/2)` results and becomes unconditional the day
-BV is formalized.
+specializes to the landed `EH (1/2)` results, and is unconditional through
+`hasLevel_half_of_siegelWalfisz` (`Salt/BV/AbelCore.lean`) and `siegelWalfisz_holds`.
 -/
 
 open Finset
