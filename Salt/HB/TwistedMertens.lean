@@ -90,7 +90,7 @@ optimizes, and `hbCoreRate_at_hb_optimum` collapses them at `a = (log η)^{1/2}`
 `(2 + 4Cs)·L(log η)^{−1/2}` — **the paper's rate, arrived at from this file's own
 constants** rather than assumed.
 
-## 🔴 WHAT IS STILL CARRIED (the exact residue, named)
+## 🔴 WHAT WAS STILL CARRIED (items 1–3 since discharged: `hb_lemma3_unconditional`, `Lemma3Uncond`)
 
 `hb_lemma3_final`'s hypotheses beyond the transfer-side data (`hsq`, `hA`, `hres`, `hcoef`,
 inherited verbatim from N3) are:
@@ -106,8 +106,8 @@ inherited verbatim from N3) are:
 2. **`hβZ`, `hmβ`** — `(β₀ : ℂ) ∈ Z` and `1 ≤ m β₀`: the Siegel zero is one of the disk
    zeros, with multiplicity ≥ 1.  True, but *not exported*: `LFunction_partialFraction`
    states only `∀ ρ ∈ Z, L ρ = 0` (one direction), never `L ρ = 0 → ρ ∈ Z`.  Closing this
-   needs a strengthened export of the factorization (`Z = support (divisor …)`), not new
-   mathematics.
+   needed a strengthened export of the factorization (`Z = support (divisor …)`), not new
+   mathematics; `Lemma3Uncond.lean` closes it.
 3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  Again true and again
    unexported: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
    which agrees with `analyticOrderNatAt` on the ball, but the existential hides it.
