@@ -219,7 +219,7 @@ theorem log_ballSupC_le : Real.log ballSupC ≤ 24 := by
 
 The ⟦φ(q) LEDGER⟧'s factor and the ceiling's `strataResidual` denominator travel together, and
 the whole of the second road's `H`-motion is this one product.  `strataResidual H = 1 + 12λ`
-and `1 + 12λ ≤ e^λ = log H` above `λ ≥ 44`, so the pair costs exactly two extra powers of
+and `1 + 12λ ≤ e^λ = log H` above `λ ≥ 44`, so the pair costs at most two extra powers of
 `log H` — which is why the ratified arm reads `7000λ` (`= 500·14λ`) and not `6000λ`. -/
 
 /-- `50 ≤ loglog y` forces `1 < log y` (`log` is nonpositive on `(0,1]`). -/
