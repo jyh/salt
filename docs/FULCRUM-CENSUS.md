@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `e903d00a` · source digest `a9583ffef1fb9eb0` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `a8e27e1a` · source digest `09c96167ae792e01` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -194,8 +194,8 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.HB.uncov_mem_cover` | Salt/HB/L2cMop.lean:399 | `Salt.HB.T2JunkBlock` |
 | case split `by_cases` | `Salt.HB.uncov_mem_cover` | Salt/HB/L2cMop.lean:425 | `Salt.HB.T3FJunkBlock` |
 | case split `by_cases` | `Salt.HB.uncov_mem_cover` | Salt/HB/L2cMop.lean:469 | `Salt.HB.TswJunkV` |
-| case split `by_cases` | `Salt.N7.moebius_step` | Salt/HB/Lemma5Bilinear.lean:704 | `Salt.HB.Admissible` |
-| case split `by_cases` | `Salt.N7.LamStar_eq_moebius_hbQ` | Salt/HB/Lemma5Bilinear.lean:748 | `Salt.HB.Admissible` |
+| case split `by_cases` | `Salt.N7.moebius_step` | Salt/HB/Lemma5Bilinear.lean:673 | `Salt.HB.Admissible` |
+| case split `by_cases` | `Salt.N7.LamStar_eq_moebius_hbQ` | Salt/HB/Lemma5Bilinear.lean:717 | `Salt.HB.Admissible` |
 | case split `by_cases` | `Salt.HB.exists_firstFailure` | Salt/HB/RosserDim4FL.lean:583 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.HB.firstFailure_decomposition` | Salt/HB/RosserDim4FL.lean:638 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.HB.LamStar_sub_LamTilde_eq_starDiff` | Salt/HB/StarStep.lean:100 | `Salt.HB.Admissible` |
