@@ -55,9 +55,9 @@ factor-4 is the `(p−2)→(p−1)` cost — so this `(p−2)⁻²` shape (⇒ `
 calibrated for.  See `flags.md`. -/
 /-- **The correction-slotted S₂ inner atom.** For every square-free `s` and assignment `α` of
 its primes to coordinate pairs, the `g`-weighted bilinear contraction sum over the sieve box is
-at most `3^{ω(s)}·∏_{p ∣ s} (p − 2)⁻²·CF·Qdiag_gv`; the left side is `S2InnerBoundQ`'s, the
-right side gains the `CF` slot (the `(p − 2)⁻²` prefactor matches the `g`-weight,
-`g(p) = p − 2`). -/
+at most `3^{ω(s)}·∏_{p ∣ s} (p − 2)⁻²·CF·Qdiag_gv`; the left side is `S2InnerBoundQ`'s, and the
+right side replaces `S2InnerBoundQ`'s `(p − 1)⁻²` by `(p − 2)⁻²`, matching the `g`-weight
+`g(p) = p − 2`, and gains the `CF` slot. -/
 def S2InnerBoundQC (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (CF : ℝ) : Prop :=
   ∀ {s : ℕ}, Squarefree s → ∀ α ∈ assignments k s,
     |∑ u ∈ kSieveIndex k R W', (∏ i, (gMult (u i) : ℝ))

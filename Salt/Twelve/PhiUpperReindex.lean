@@ -207,7 +207,7 @@ lemma windowWeight_of (x v u : ℕ)
   rw [windowWeight]; exact if_pos h
 
 /-- Off the window set (`hu : u ∉ windowSet x v`) the weight is `0`: the window conditions would
-put `u` in `windowSet x v` (`u < u·rad v < x`, since `rad v ≥ 1`). -/
+put `u` in `windowSet x v` (`u ≤ u·rad v < x`, since `rad v ≥ 1`). -/
 lemma windowWeight_supp (x v u : ℕ) (hu : u ∉ windowSet x v) :
     windowWeight x (v, u) = 0 := by
   rw [windowWeight]
