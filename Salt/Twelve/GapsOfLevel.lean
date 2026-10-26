@@ -34,7 +34,7 @@ is a `B ≥ 0` and a constant `C` with
   `gaps_le_twelve_of_hasLevel : WindowPNT → HasLevel (3999/4000) →`
   `  ∀ N, ∃ p ≠ q > N primes with |q − p| ≤ 12`,
 
-and the landed capstone `gaps_le_twelve` (given `WindowPNT`, `EHall`) is recovered from it as
+and the landed capstone `gaps_le_twelve` (it takes `WindowPNT`, `EHall`) is recovered as
 the `EHall`-instance (`gaps_le_twelve_of_EHall` below), via the corpus's
 `EH_hasLevel ∘ EHall_hasEH` composition — the anti-vacuity check: the old
 theorem IS an instance of the new one.
@@ -276,8 +276,8 @@ theorem winFrontierMW_of_hasLevel (D : ℕ) (hD : 300 ≤ D)
 every `N` there are two primes `p ≠ q > N` with `|q − p| ≤ 12`, assuming only
 `WindowPNT` and the single BV-shaped level hypothesis `HasLevel (3999/4000)`.
 
-This is the weakest precisely-stated equidistribution interface that the landed
-gaps ≤ 12 chain consumes: the whole chain touches `EHall` at exactly one point
+This is the equidistribution interface that the landed gaps ≤ 12 chain consumes
+(sufficient; not proved minimal): the chain touches `EHall` at exactly one point
 (`FrontierM.lean:171`), and that point needs only `HasLevel (3999/4000)`.
 
 **θ-caveat (see the module docstring):** `θ★ = 3999/4000` is near `1`, so this
@@ -301,7 +301,7 @@ theorem gaps_le_twelve_of_hasLevel (hPNT : WindowPNT) (hLoD : HasLevel (3999 / 4
     (primorial_sqf' D₀) (primorial_hDlt D₀) hSeqlt (by omega) hsol hφpos hcvnn hδ0 hDpi
     hQlow hS2low hslack
 
-/-- **Anti-vacuity check.**  The landed capstone `gaps_le_twelve` (`WindowPNT`, `EHall`)
+/-- **Anti-vacuity check.**  The landed capstone `gaps_le_twelve` (hypotheses `hPNT`, `hEH`)
 (`Salt/Twelve/GapsUncond.lean`) is exactly the `EHall`-instance of the interface
 theorem: `EHall` gives `EH (3999/4000)` (`EHall_hasEH`), hence
 `HasLevel (3999/4000)` (`EH_hasLevel`), so `gaps_le_twelve_of_hasLevel` recovers

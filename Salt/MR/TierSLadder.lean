@@ -15,7 +15,7 @@ import Mathlib
 non-author pass (NO KILL), each statement byte- and type-identical to freeze v1.1 under its
 three-arm guard; N, Sc, K, and — transcribed at v1.1 — math's `hah9` leaf and the CROWN TWIN P6
 were proved at the freeze.  7 names, 7 landed.  NO LANDED FILE TOUCHED.  HONEST LABEL, FIRST
-LINE: NO NEW UNCONDITIONAL THEOREM IS CLAIMED HERE, AND NOTHING BEARS ON TWIN PRIMES — at a fixed
+LINE: NO NEW TERMINAL IS CLAIMED HERE, AND NOTHING BEARS ON TWIN PRIMES — at a fixed
 stride `P ≤ 2310` the consumer D10 is a SECOND PROOF of a terminal the crown route already lands
 (QUEUE, the Tier S block).  THE EVIDENCE FOR THAT LABEL IS IN THIS FILE (the refuter's M11(a)):
 the landed unconditional statements of K's set are at `P = primorial z` only, so §6's crown twin
