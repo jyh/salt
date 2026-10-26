@@ -9571,8 +9571,8 @@ LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H�
 the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
 where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
 its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
-declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
-re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+declaration — no landed line touched, no `private` lifted).  The 3-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc` as `flatRootCapH_arc_u`.
 ⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
 conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
 that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.
