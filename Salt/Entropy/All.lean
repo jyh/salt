@@ -1570,7 +1570,7 @@ circle slot is obtained per class after `intro b` from `circle_method_estimate_s
 `gradedAffHeadAt_g12b_of_at_regime` (K1) is the conservativity control: H's conclusion, taken as a
 hypothesis, together with the landed head's own `hcrown` binder gives `GradedAffHeadAt_g12b a b h
 A₀` at every `A₀`; `flatDesignBase_mono` (M) is monotonicity of the design floor, what K1 and the
-bridge spend to lower a consumer's `A` to `A₁`.  NO NEW UNCONDITIONAL THEOREM (a restatement of
+bridge spend to lower a consumer's `A` to `A₁`.  NO NEW MATHEMATICS (a restatement of
 landed proofs); nothing here bears on twin primes.  2 obligations, 2 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.flatDesignBase_mono
