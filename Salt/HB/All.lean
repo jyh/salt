@@ -72,9 +72,9 @@ import Salt.HB.TailShells
 /-!
 # The Heath-Brown track (`HB`) — aggregate import
 
-HB-ENGINE: the formalization of Heath-Brown, *Prime twins and
-Siegel zeros* (Proc. LMS (3) 47 (1983) 193–224) — infinitely many
-Siegel zeros imply infinitely many prime twins. The campaign map
+HB-ENGINE: the campaign to formalize Heath-Brown, *Prime twins and
+Siegel zeros* (Proc. LMS (3) 47 (1983) 193–224), whose target is: infinitely
+many Siegel zeros imply infinitely many prime twins. The campaign map
 (seven work packages, re-frozen against the source PDF) lives in
 `docs/exploration/s3-hb3-design.md`; the WP2 L-function nodes land
 in `Salt/SW/`; the Kloosterman/Weil inputs are banked in
