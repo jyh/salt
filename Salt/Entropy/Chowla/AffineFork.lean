@@ -41,7 +41,7 @@ is NOT weakened — its vacuous inhabitation at `(0, 0)` is recorded here, not f
 
 Scope: definitional/foundational plus one elementary consumer chain.  No claim about Chowla,
 about the door, or about twins is made or moved by this file.  Import direction: this file is
-`Salt.Entropy`-internal (`Salt/Entropy` cannot import `Salt/MR` or `Salt/TwinBar`); the
+`Salt.Entropy`-internal (`Salt/Entropy` then imported neither `Salt/MR` nor `Salt/TwinBar`); the
 `a = 1` supply and the integration control live in `Salt/MR/AffineSupplyH.lean`.
 -/
 import Salt.Entropy.Chowla.ShiftFork
@@ -88,7 +88,7 @@ flat family (`R.Hlo = flatDesignBase A`, `162 ≤ A`, `A₀ ≤ A`) at which log
 fail at `(a, b, h)`.  The `ε` is the regime's own (`R.eps ≤ 1/2` by `R.heps1`), and that is
 enough for every consumer below — no upper pin on `ε` is demanded.
 
-Producers: at `(1, 0)` and every `h` with `log h ≤ 7`, `Salt.MR.logChowlaAffSupply_one_zero`
+Producers: at `(1, 0)` and every `0 < h` with `log h ≤ 7`, `Salt.MR.logChowlaAffSupply_one_zero`
 (from the landed `logChowla2_v7_rated_h`).  At `a ≥ 2`: NONE — that is wave 2-S.
 ⛔ At `(a, b) = (0, 0)` this Prop is inhabited VACUOUSLY (`liouville 0 = 0` makes every summand
 of `logChowlaFailsAff 0 0 h …` vanish); nothing consumes `a = 0`, and the consumers below
