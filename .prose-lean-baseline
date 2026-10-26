@@ -16,7 +16,6 @@ d3c480a741c6	docs/priority-survey-2026-08-11.md	shape
 4a78389d3a60	docs/priority-survey-2026-08-17-delta.md	shape
 9d8ae5373e2c	docs/priority-survey-2026-08-17-delta.md	shape
 a638a9de2821	docs/priority-survey-2026-08-17-delta.md	shape
-15372c7bb942	docs/reports/dichotomy-day-report.md	shape
 355b5958e274	docs/reports/dichotomy-day-report.md	shape
 759f34444819	docs/reports/gold-window-report.md	shape
 c7c26cc47230	docs/reports/gold-window-report.md	shape
@@ -90,7 +89,6 @@ b29d619a6809	papers/witness/main.tex	shape
 b4d1f3bc6aa6	papers/witness/main.tex	shape
 fc548e7304a8	papers/witness/main.tex	predates
 158a5ca8d0b2	papers/witness/pi-overview-draft.md	shape
-bfa308582879	scripts/search/README.md	predates
 # lexicon epoch 2 (R5, council 2026-10-22 item 3): sentences the epoch-1 lexicon did not see, accepted as debt by the WIDENING arm; each exists at the same path in the base tree.
 1b9491cecd72	README.md	lexicon-e2
 1ccdafb07cd9	README.md	lexicon-e2
@@ -200,7 +198,6 @@ fb3816d79759	papers/witness/main.tex	lexicon-e2
 fc67cdd8c5c9	papers/witness/main.tex	lexicon-e2
 feca86efa07d	papers/witness/main.tex	lexicon-e2
 65287af30509	papers/witness/pi-overview-draft.md	lexicon-e2
-400f4b71e331	scripts/search/README.md	lexicon-e2
 # lexicon epoch 3 (R2, council 2026-10-22 item 3): Lean docstring claim sentences, gated from epoch 3 and accepted as debt by the WIDENING arm; class docstring-cited marks a declaration a public carrier names (read those first).
 70e3ce428f6a	Salt/Certs/All.lean	docstring
 773bbbd072df	Salt/Certs/All.lean	docstring
@@ -277,14 +274,6 @@ f6cc88d6ace7	Salt/Chen/SwitchConstant.lean	docstring
 3df89ee61c3e	Salt/Chen/SwitchW2.lean	docstring
 78e103a000b9	Salt/Chen/TwinA1W.lean	docstring
 1f427e5cdfed	Salt/Chen/TwinA2W.lean	docstring
-2217a3647705	Salt/Entropy/All.lean	docstring
-666f8a9a8bfa	Salt/Entropy/All.lean	docstring
-8f235f3a89c3	Salt/Entropy/All.lean	docstring
-a16fa6e0a6fb	Salt/Entropy/All.lean	docstring
-a54ed30a1485	Salt/Entropy/All.lean	docstring
-adab270c96e2	Salt/Entropy/All.lean	docstring
-dfbd9ca646c5	Salt/Entropy/All.lean	docstring
-ea6f97ec0a04	Salt/Entropy/All.lean	docstring
 569c70c07763	Salt/Entropy/Chowla/AffineFork.lean	docstring-cited
 8e7bea3a4e74	Salt/Entropy/Chowla/AffineFork.lean	docstring-cited
 01c2d951b00a	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
@@ -297,9 +286,6 @@ b8886a3bc19c	Salt/Entropy/Chowla/HloExport.lean	docstring
 19ad79f3fa0d	Salt/Entropy/Chowla/HloExportFlatH.lean	docstring
 c53a9a9e2e51	Salt/Entropy/Chowla/HloExportFlatH.lean	docstring
 19a0e71ea4be	Salt/Entropy/Chowla/OuterCombine.lean	docstring-cited
-6899ec4e3229	Salt/Entropy/Chowla/PinDichotomy.lean	docstring
-70e38db475a4	Salt/Entropy/Chowla/PinDichotomy.lean	docstring
-ac14727405a0	Salt/Entropy/Chowla/PinDichotomy.lean	docstring
 7992e3837f84	Salt/Entropy/Chowla/Regime.lean	docstring
 2a173f1bc3c8	Salt/Entropy/Chowla/ShiftFork.lean	docstring-cited
 f03908e9f186	Salt/Entropy/Chowla/ShiftFork.lean	docstring-cited
@@ -307,15 +293,6 @@ f03908e9f186	Salt/Entropy/Chowla/ShiftFork.lean	docstring-cited
 ad3a37818077	Salt/Entropy/Chowla/SignSplit.lean	docstring
 f6ceeace46b2	Salt/Entropy/Chowla/SignSplit.lean	docstring
 6235aa31113c	Salt/Entropy/Chowla/SpineClose.lean	docstring
-37f6b3b1bc4a	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
-4843a8b100da	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
-66e79b5a5416	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
-7169476d478c	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
-88f531c8f7d2	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
-dc7d2fa0fa31	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
-7a75b644f01b	Salt/Entropy/Chowla/SpineEpsFence.lean	docstring
-9291206f328a	Salt/Entropy/Chowla/SpineEpsFence.lean	docstring
-94f7161a6693	Salt/Entropy/Chowla/SpineEpsFence.lean	docstring
 0423cff94ca5	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 569661e4df45	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 94dabbaf5bd0	Salt/Entropy/Chowla/SpineFinal.lean	docstring
@@ -343,7 +320,6 @@ fcf362a184fe	Salt/Entropy/Chowla/StrideReduce.lean	docstring
 60e8717bcf4c	Salt/ExpSum/ZetaBlock.lean	docstring
 eb1d8683e269	Salt/ExpSum/ZetaBlock.lean	docstring
 5ad627c9948c	Salt/ExpSum/ZetaGrowth.lean	docstring
-9562f732aa1b	Salt/Fulcrum/CZeroNumeral.lean	docstring
 8517a1b74ea7	Salt/Fulcrum/Dichotomy.lean	docstring
 de63f8d20b6b	Salt/Fulcrum/Dichotomy.lean	docstring
 e1eb41d0ab98	Salt/Fulcrum/Gadget.lean	docstring
@@ -363,7 +339,6 @@ d3e9bd15c6e7	Salt/HB/CrownChain.lean	docstring
 e34b83af88a0	Salt/HB/CrownTheorem1.lean	docstring-cited
 d3eda7818b0f	Salt/HB/DoorBridge.lean	docstring
 1a1ee04a25cf	Salt/HB/HSigmaComp.lean	docstring
-4a8a0cd48526	Salt/HB/L2cGlue.lean	docstring
 92f369ee03f3	Salt/HB/Lemma10.lean	docstring
 95d07c6a3f3f	Salt/HB/Lemma10.lean	docstring
 fbadd06c40ec	Salt/HB/Lemma10.lean	docstring
@@ -387,8 +362,6 @@ d43633a6be1e	Salt/HB/Lemma7F.lean	docstring
 614fbc5e2836	Salt/HB/Lemma7Kappa.lean	docstring
 f700b91b21b9	Salt/HB/Lemma7Prod.lean	docstring
 eff2f5a43260	Salt/HB/PairInstance.lean	docstring
-440c5ad278c0	Salt/HB/RosserDim4FL.lean	docstring
-57a1ce4403c0	Salt/HB/RosserDim4FL.lean	docstring
 87f6c805b141	Salt/HB/RosserDim4FL.lean	docstring
 f97a88973f61	Salt/HB/RosserDim4FL.lean	docstring
 16f1625511de	Salt/HB/TailShells.lean	docstring
@@ -396,10 +369,6 @@ f97a88973f61	Salt/HB/RosserDim4FL.lean	docstring
 bca2b655ac5e	Salt/HB/TwistedMertens.lean	docstring
 cba5dc83b18a	Salt/HB/TwistedMertens.lean	docstring
 efbe3132618e	Salt/HB/TwistedMertens.lean	docstring
-51ddf6210e5d	Salt/Keller/All.lean	docstring
-1ed8b51657ee	Salt/Keller/Counterexample.lean	docstring
-334709bbb781	Salt/Keller/Counterexample.lean	docstring
-e46f3fb3c088	Salt/Keller/Counterexample.lean	docstring
 004e67d1ac9d	Salt/MR/AnnHead.lean	docstring
 040eb0d5f24d	Salt/MR/AnnHead.lean	docstring
 2669758db597	Salt/MR/AnnHead.lean	docstring
@@ -490,7 +459,6 @@ fbc56e1a36cd	Salt/Vk/Littlewood.lean	docstring
 22023a480f65	Salt/Vk/PowRegion.lean	docstring
 8ee5e8481b6e	Salt/Vk/PowRegion.lean	docstring
 cb9df0b90469	Salt/Vk/Taylor.lean	docstring
-e1bd02b7976a	Salt/Vk/TwistLadder.lean	docstring
 6fd0b38226c4	Salt/Vmvt/Holder.lean	docstring
 5967ee9acce1	Salt/Vmvt/HolderTwo.lean	docstring
 7b3d3e18b736	Salt/Vmvt/HolderTwo.lean	docstring
