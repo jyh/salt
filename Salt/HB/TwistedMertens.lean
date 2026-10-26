@@ -108,9 +108,9 @@ inherited verbatim from N3) are:
    states only `∀ ρ ∈ Z, L ρ = 0` (one direction), never `L ρ = 0 → ρ ∈ Z`.  Closing this
    needed a strengthened export of the factorization (`Z = support (divisor …)`), not new
    mathematics; `Lemma3Uncond.lean` closes it.
-3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  Again true and again
-   unexported: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
-   which agrees with `analyticOrderNatAt` on the ball, but the existential hides it.
+3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  True, and unexported when
+   written: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
+   which agrees with `analyticOrderNatAt` on the ball, but the existential hid it.
 4. **`hfloor`** — the Deuring–Heilbronn repulsion floor `r₀ ≤ ‖ρ − 1‖` off `β₀`.  This is
    *supplied*, not owed: N3's `one_sub_ceiling_le_dist_one` turns
    `Salt.SW.boxZeros_re_le_unit_box` / `boxZeros_re_le_at_efHeight` into exactly this shape.
@@ -172,6 +172,8 @@ private lemma re_term_twist {f : ℕ} (χ : DirichletCharacter ℂ f) (σ : ℝ)
   rw [term_twist_real χ σ n, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
   simp [chiRe]
 
+/-- The real part of the untwisted `L`-series term at a real `σ` is `Λ(n) n^{−σ}`: the term is
+the cast of that real number (`term_vm_real`), so `Complex.ofReal_re` reads it off. -/
 private lemma re_term_vm (σ : ℝ) (n : ℕ) :
     (LSeries.term ↗vonMangoldt (σ : ℂ) n).re = Λ n * (n : ℝ) ^ (-σ) := by
   rw [term_vm_real σ n, Complex.ofReal_re]

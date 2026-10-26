@@ -699,9 +699,9 @@ lemma blockOf_le_minLevel {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) {p : ℕ} 
     blockOf Lam z p ≤ minLevel Lam z :=
   Nat.sInf_le ⟨(minLevel_mem hLam hz).1, le_trans (zLev_minLevel_le_two hLam hz) hp2⟩
 
-/-- Minimality of the block index: for a sifting prime `p < z` (`hpz`), the level just below
+/-- Minimality of the block index: for `2 ≤ p < z` (`hp2`, `hpz`), the level just below
 `blockOf Lam z p` still has `p < zLev Lam z (blockOf Lam z p - 1)` (`hLam : 0 < Lam`,
-`hz : 1 < z`, `hp2 : 2 ≤ p`), so `p` lies in the window `[z_n, z_{n−1})` of its block. -/
+`hz : 1 < z`), so `p` lies in the window `[z_n, z_{n−1})` of its block. -/
 lemma blockOf_pred {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) {p : ℕ} (hp2 : (2 : ℝ) ≤ p)
     (hpz : (p : ℝ) < z) : (p : ℝ) < zLev Lam z (blockOf Lam z p - 1) := by
   set k := blockOf Lam z p with hk
