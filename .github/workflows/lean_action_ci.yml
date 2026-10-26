@@ -105,7 +105,10 @@ jobs:
     #   zero output of any kind in the window — and only the wall ended it. No cap value
     #   fixes a stall; the cap is what bounds one. 300 clears the measured cold build
     #   with margin and still bounds a hang.
-    timeout-minutes: 300
+    # 2026-10-25: 300 -> 360, the GitHub-hosted maximum. main's cold-cone run 40165668608 (every Salt module
+    # rebuilt after root-module edits) was cancelled by the 300-min bound at job [9962/9966], four jobs
+    # from the save; a same-cone PR run took 3 h 43 m. Nothing but a completed main run saves the key.
+    timeout-minutes: 360
 
     steps:
       # Disk headroom: the corpus (~9,400 jobs) + mathlib cache (~5.7GB) +

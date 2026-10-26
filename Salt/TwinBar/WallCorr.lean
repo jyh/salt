@@ -12,6 +12,8 @@ Design provenance: the 08/14 wall-dream lens `L2-sieve-weight`, refuter verdict
 WOUNDED-BUT-ALIVE (the surviving organ (ii): "`parity_wall_corr_stable`'s core
 identity is correct … a genuine STRENGTHENING").  The dream's positive rung and its
 headline are DEAD and are not touched here; see the file's honesty block below.
+(2026-10-25: the eventual theorem `parity_wall_corr_stable` turned out to be a
+restatement of `parity_wall_unconditional`, not a strengthening; see its docstring.)
 
 ## What this file lands
 
@@ -34,17 +36,23 @@ first such widening, at the wall's own witnesses:
   controlled by the landed Liouville summatory rate (`Salt.SW.mmuRate_holds` through
   `LambdaSummatory_of_MmuRate`): `≤ 8·c_λ·x/(log x)^A` for every `A > 0`,
   unconditionally.  The widened interface is met at a *sublinear* budget, so the
-  strengthened hypothesis class is not being satisfied by slack.
-* `parity_wall_corr` / `parity_wall_corr_stable` — **the strengthening**: since
-  `SieveAgreeCorr → SieveAgree`, tolerance with respect to `SieveAgreeCorr` is a
-  WEAKER demand on `Φ`, and the identical cap still holds at `s₋ x`.  Adjoining a
-  shift-2 correlation field to the sieve interface does not unlock the certificate
-  cap.
+  widened relation is not being satisfied by slack.
+* `parity_wall_corr` — the per-`x` algebraic layer: at one `(D, B, B₂)` the pair
+  meets, tolerance with respect to `SieveAgreeCorr` is a weaker demand on `Φ` than
+  tolerance with respect to `SieveAgree` (since `SieveAgreeCorr → SieveAgree`), and
+  the identical cap still holds at `s₋ x`.
+* `parity_wall_corr_stable` — the eventual form.  Its tolerance hypothesis
+  quantifies over every `B₂`, and at `B₂ := |corr₂ s − corr₂ t|` that is
+  `SieveAgree`-tolerance itself (`tolerant_corr_of_tolerant` gives the converse), so
+  it is the same class of certificates as `parity_wall_unconditional`'s and the
+  theorem is a restatement of it, reached by a different proof route.
 
 ## Honesty block (read before quoting anything here)
 
-* This is a **wall strengthening at the real witnesses**, and nothing else.  It is
-  zero progress on twin primes, and it upgrades no positive sieve rung.
+* This is the wall **at correlation granularity, at the real witnesses**, and nothing
+  else: a strengthening only in the per-`x` layer (`parity_wall_corr`), a restatement
+  in the eventual form.  It is zero progress on twin primes, and it upgrades no
+  positive sieve rung.
 * Nothing here escapes, crosses, or evades the wall, and no object in this file may
   be described that way.  The parity-twisted certificates the L2 dream considered are
   *constant* on `SieveAgree` classes — they are the paradigm tolerant functionals —
@@ -72,8 +80,10 @@ noncomputable def corr2 (s : BoundingSieve) : ℝ :=
 /-- **`SieveAgreeCorr s t D B B₂`** — the sieve interface WIDENED by the shift-2
 correlation field: `SieveAgree s t D B` (equality on `prodPrimes`, `nu`, `totalMass`,
 shared Rosser budget `B` at level `D`) together with agreement on `corr₂` to within
-`B₂`.  It is a strictly stronger relation than `SieveAgree`, so tolerance with
-respect to it is a strictly weaker hypothesis on a certificate. -/
+`B₂`.  At one budget `B₂` it is a stronger relation than `SieveAgree`, so tolerance
+with respect to it at that budget is a weaker hypothesis on a certificate.  Quantified
+over every `B₂`, the two tolerance hypotheses are equivalent (see
+`parity_wall_corr_stable`). -/
 def SieveAgreeCorr (s t : BoundingSieve) (D : ℕ) (B B₂ : ℝ) : Prop :=
   SieveAgree s t D B ∧ |corr2 s - corr2 t| ≤ B₂
 
@@ -90,7 +100,7 @@ lemma tolerant_corr_of_tolerant {Φ : BoundingSieve → ℝ} {D : ℕ} {B : ℝ}
   fun _ s t h => htol s t h.1
 
 /-- The landed lower-Möbius floor is tolerant for the WIDENED relation too (the
-inhabitation witness, carried across the strengthening). -/
+inhabitation witness, carried across the widening). -/
 theorem phiLowerR_tolerant_corr (muMinus : ℕ → ℝ) (D : ℕ) (s t : BoundingSieve)
     (B B₂ : ℝ) (h : SieveAgreeCorr s t D B B₂) :
     |phiLowerR muMinus D s - phiLowerR muMinus D t| ≤ 2 * B :=
@@ -143,7 +153,7 @@ lemma corr2_witness_diff_Mlambda (x : ℕ) :
 saving `A > 0` there is a `C > 0` with
 `|corr₂(s₊ x) − corr₂(s₋ x)| ≤ C·x/(log x)^A` for all large `x`.  Unconditional: the
 one-point content is discharged by the landed `Salt.SW.mmuRate_holds` through
-`LambdaSummatory_of_MmuRate`.  This is what makes the strengthening below non-vacuous
+`LambdaSummatory_of_MmuRate`.  This is what makes the widened layer below non-vacuous
 — the pair `SieveAgreeCorr`s at a budget `o(x)`, not merely at a huge one. -/
 theorem corr2_witness_budget (A : ℝ) (hA : 0 < A) :
     ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ x : ℕ, x₀ ≤ x →
@@ -178,7 +188,7 @@ theorem corr2_witness_budget (A : ℝ) (hA : 0 < A) :
           gcongr
     _ = 8 * cLam * (x : ℝ) / (Real.log x) ^ A := by ring
 
-/-! ## The strengthening: the cap survives the widened interface -/
+/-! ## The cap survives the widened interface -/
 
 /-- **The parity wall at correlation granularity** (the algebraic layer, mirroring
 `parity_wall`).  For a level `D`, a Rosser budget `B` the pair both meets, and ANY
@@ -204,19 +214,20 @@ theorem parity_wall_corr (x : ℕ) (hx : 2 ≤ x) (D : ℕ) (B B₂ : ℝ)
 
 /-- **`parity_wall_corr_stable` — the wall is stable under adjoining the shift-2
 correlation field.**  The cap of `parity_wall_unconditional` holds VERBATIM at `s₋ x`
-for the strictly larger class of certificates that need only be tolerant with respect
-to `SieveAgreeCorr`: reading the sieves' shift-2 correlation, on top of the three
-main-term fields, buys a certificate nothing at the wall's own witnesses.
+for certificates tolerant with respect to `SieveAgreeCorr`.
 
-Why this is a strengthening and not a restatement: `SieveAgreeCorr → SieveAgree`, so
-`htol` here is a WEAKER hypothesis than the landed wall's.  It has content only
-because the witness pair really does agree in the widened field —
-`corr2_witness_diff_Mlambda` cancels the `λλ` cross-term and `corr2_witness_budget`
-puts the surviving one-point gap at `O(x/(log x)^A)` unconditionally.
+This is a restatement of `parity_wall_unconditional`, not a strengthening (corrected
+2026-10-25).  `htol` quantifies over every `B₂`; at `B₂ := |corr2 s - corr2 t|` it is
+`SieveAgree`-tolerance, and `tolerant_corr_of_tolerant` gives the converse, so the
+class of certificates is the same one and the theorem follows from
+`parity_wall_unconditional` in one line.  The proof below takes the other route: the
+witness pair agrees in the widened field (`corr2_witness_diff_Mlambda` cancels the
+`λλ` cross-term and `corr2_witness_budget` puts the surviving one-point gap at
+`O(x/(log x)^A)` unconditionally), and `parity_wall_corr` applies at that `B₂`.  The
+form that asks for tolerance at one `(D, B, B₂)` only is `parity_wall_corr`.
 
-Scope, stated plainly: this is a strengthening of a NEGATIVE theorem at the real
-witnesses.  It proves no lower bound, opens no positive rung, and says nothing about
-twin primes. -/
+Scope: a NEGATIVE theorem at the real witnesses.  It proves no lower bound, opens no
+positive rung, and says nothing about twin primes. -/
 theorem parity_wall_corr_stable (A : ℝ) (hA : 0 < A)
     (Φ : BoundingSieve → ℝ)
     (htol : ∀ (D : ℕ) (B B₂ : ℝ), ∀ s t, SieveAgreeCorr s t D B B₂ → |Φ s - Φ t| ≤ 2 * B)

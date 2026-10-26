@@ -680,8 +680,8 @@ The `hrowsSum` slot demands a constant `Mrow χ` UNIFORM over the whole height f
 `X/h ≤ T`, `2T ≤ X` (`ThmA2ChiSummed`'s ⟦A1⟧: `Mrow` is a scalar per character, never a
 function of `T`).  §7's row is `T`-linear in four places, and the weight `w = (X/h)/T` kills
 every one of them at the four numerals of `ThmA2Rows` §1 — `9`, `244`, `3`, `3/2` — which are
-CHARACTER-BLIND arithmetic.  Those helpers are `private` to `ThmA2Rows`, so the page is
-re-derived here at its own names; no content is re-proved (the arithmetic is
+CHARACTER-BLIND arithmetic.  Those helpers are `private` to `ThmA2Rows`, so the page is re-derived
+here at its own names; no content is re-proved that could have been imported (the arithmetic is
 `(X/h)/X_d ≤ 4/h` and `w ≤ 1`, twice each).
 
 ⟦THE LEVEL-1 TERM IS LEFT AT THE GENERAL LADDER⟧  `ThmA2Rows` weighs it against

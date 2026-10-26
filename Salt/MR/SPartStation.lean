@@ -76,7 +76,7 @@ its own scale, `X := k`), `far_supF_bound`, `far_kernel_bound_star`,
 (threshold on the SCALE).  The ONE genuinely `X`-anchored object is the distance floor
 `M₀ ≤ 𝔻²(…; X)`, and it is transported to the dilated scale EXPLICITLY by R4 at the price
 `dilGap X Xd`, which is stated in every conclusion.  No cap-shaped hypothesis (`hrow`,
-`hMcap`) is consumed anywhere in this file — the free-`M` face has none, and ⟦AMENDMENT E⟧'s
+`hMcap`) enters the free-`M` face; `seam_ball_leg_station_M_gen` takes `hMcap`, and ⟦AMENDMENT E⟧'s
 cap-free arm is verified `X`-free.
 
 ## The `D`-parameter
