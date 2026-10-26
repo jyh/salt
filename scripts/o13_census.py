@@ -111,7 +111,9 @@ def twin_map(rows):
         cands = [n for n in names if n == x or n.endswith("." + x)]
         cands = [n for n in cands if n != r["name"]]
         if len(cands) != 1:
+            # not a RESULTS row (or ambiguous): Lean matches it by the root's last component
             unresolved.append((r["name"], x, cands))
+            tm.setdefault(x, []).append(r["name"])
             continue
         tm.setdefault(cands[0], []).append(r["name"])
     return tm, unresolved
@@ -177,13 +179,21 @@ elab "#o13_census" : command => do
         logInfo m!"O13 FREE {root} [{tag}] closure={st.count} sorryAx={sorryIn}"
         nF := nF + 1
         continue
-      let mapped := (o13TwinMap.filter (·.1.toName == root)).map (·.2.toName)
+      let keyHit (k : String) : Bool :=
+        if k.contains '.' then k.toName == root else (match root with
+          | .str _ t => t == k
+          | _ => false)
+      let pairs := o13TwinMap.filter (keyHit ·.1)
+      let mut mapped : List Name := []
+      for (_, ts) in pairs do
+        let hs := resolveS ts
+        if hs.isEmpty then
+          logInfo m!"O13 MISSING-TWIN {ts} (§10, of {root})"
+          nM := nM + 1
+        mapped := mapped ++ hs
       let mut freeTw : List String := []
       for t in mapped do
-        if (env.find? t).isNone then
-          logInfo m!"O13 MISSING-TWIN {t} (§10, of {root})"
-          nM := nM + 1
-        else if ← isFree t then freeTw := freeTw ++ [s!"{t} (§10)"]
+        if ← isFree t then freeTw := freeTw ++ [s!"{t} (§10)"]
         else logInfo m!"O13 TWIN-REACHES {t} (§10, of {root})"
       for t in nameTwins root do
         if !mapped.contains t then
@@ -294,7 +304,8 @@ def gen(args):
         print(f"  --names with no declaring file found in source ({len(unlocated)}; they read UNRESOLVED "
               f"unless an import brings them): {' '.join(unlocated)}")
     for name, x, cands in unresolved:
-        print(f"  §10 UNRESOLVED: {name} names `{x}`; RESULTS matches {cands or 'none'}")
+        print(f"  §10 source not a RESULTS row: {name} names `{x}` (RESULTS matches {cands or 'none'}); "
+              f"paired by the root's last component")
     if CONTROL_TWIN[1] not in tm.get(CONTROL_TWIN[0], []):
         print(f"  CONTROL ABSENT from the map: {CONTROL_TWIN[0]} -> {CONTROL_TWIN[1]}")
         return 2
@@ -401,8 +412,9 @@ def self_test():
     check("module from File:line", rows[0]["module"] == "Salt.SW.A")
     check("an escaped pipe stays inside its cell", rows[2]["module"] == "Salt.SW.B")
     tm, unres = twin_map(rows)
-    check("§10 map pairs the control", tm == {CONTROL_TWIN[0]: [CONTROL_TWIN[1]]})
-    check("an unresolvable §10 source is reported, not dropped", [u[1] for u in unres] == ["nowhere"])
+    check("§10 map pairs the control", tm.get(CONTROL_TWIN[0]) == [CONTROL_TWIN[1]])
+    check("an unresolvable §10 source is reported", [u[1] for u in unres] == ["nowhere"])
+    check("... and still paired, by its short name", tm.get("nowhere") == ["Salt.SW.lost_of_standoff"])
     man = {"roots": 3, "control": list(CONTROL_TWIN)}
     good = ("CERT T  target present: a\nCERT T  target present: b\nCERT T  target present: c\n"
             f"CERT P+ {CONTROL_TWIN[0]} REACHES Salt.SW.siegel_theorem — path\n"
