@@ -53,12 +53,12 @@ and the H2 wave's H7c consumes H6e's main term AS `c0`. The frozen shape is kept
 one-line corollary `coprime_sum_moebius_div_kappa_log_exists`; `0 < c0` is the public
 `one_le_c0`.
 
-**Everything proved here is an UPPER bound or an exact identity** — no asymptotic and no
-lower bound anywhere. Where a constant is `∃`-bound it is **non-effective**: H5a and H5c
-pass through no rate at all (they are elementary, `C = 4` and `C = 250 + 39·C_{H5a}`), but
-the wave's remaining rows would pass through `mmuRate_holds` by way of H6a/H6b, whose `x₀`
-is not extracted anywhere in the corpus — so their constants, when they land, will print
-their DERIVATION and never a numeral.
+**Every estimate proved here is an UPPER bound or an exact identity** — no asymptotic, and no lower
+bound beyond the positivity and `1 ≤` facts they consume (`one_le_c0`). Where a constant is
+`∃`-bound it is **non-effective**: H5a and H5c pass through no rate at all (they are elementary, `C
+= 4` and `C = 250 + 39·C_{H5a}`), but the wave's remaining rows would pass through `mmuRate_holds`
+by way of H6a/H6b, whose `x₀` is not extracted anywhere in the corpus — so their constants, when
+they land, will print their DERIVATION and never a numeral.
 
 **`c0` is a SERIES, not a number.** It is `Σ'_n μ(n)²/(κ(n)φ(n))`; `c₀ = ζ(2)` is true and
 is never used, and `ρ₀·c₀ = 1` is true and is never used. T7 is stated at the series.

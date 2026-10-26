@@ -36,8 +36,8 @@ count in a length-`x` window), and the level is `z²`.
 
 ## What is proven here (sorry-free)
 
-* `Salt.HB.card_apResidues` — the CRT cardinality: the AP-pair + twin residues
-  mod `d·d₁·d₂` number exactly `ρ(d)` (mirrors `rho_mul_of_coprime`).
+* `Salt.HB.card_apResidues` — the CRT cardinality: for pairwise coprime positive `d, d₁, d₂`,
+  the AP-pair + twin residues mod `d·d₁·d₂` number exactly `ρ(d)` (mirrors `rho_mul_of_coprime`).
 * `Salt.HB.hbPairSieve` — the `SelbergSieve` instance.
 * `Salt.HB.hbPairSieve_siftedSum` — `siftedSum = S(d₁,d₂;z)` as an explicit
   `Finset.card`.
