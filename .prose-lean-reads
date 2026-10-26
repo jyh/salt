@@ -1058,3 +1058,4 @@ o88-2026-10-25-232	Salt/TwinBar/ThreeBar.lean	f2bd12248cf9	Salt/TwinBar/ThreeBar
 o88-math-2026-10-26-201	Salt/MR/DoorReceipt.lean	94492c35622c	Salt/MR/EpsFamilyReceipt.lean::logChowla2_epsFamily_of_allGrades	09dfc9f13a3e	math	paper	2026-10-26
 o88-math-2026-10-26-203	Salt/Entropy/Chowla/SpineFinal.lean	69444b2758a0	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	math	paper	2026-10-26
 o88-2026-10-26-192	Salt/Entropy/Chowla/SpineFinal.lean	569661e4df45	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	paper	math	2026-10-26
+o88-math-2026-10-26-204	Salt/MR/S13FramesA.lean	7a7bf4b3b391	Salt/MR/S13FramesA.lean::s13_b_floor_cert	5be5c48b86c4	math	paper	2026-10-26

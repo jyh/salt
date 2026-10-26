@@ -26,9 +26,9 @@ compose only at the call site:
 
 * §1 the numeral certificate `s13_b_floor_cert` — `24·CgExpr/s13Delta0 ≤ s13M`, proved from
   `ConstantsExposed.Cg_le` and the `c₀` chain, with `s13M` in the `m = 66` window;
-* §2 the assembly `s13_doorGates_of_arm`, which takes `24·Cg/δ ≤ M` as ONE hypothesis (that
-  is the field `hMδ` itself) and discharges the OTHER SEVEN fields of `M4DoorGates` from the
-  regime, the count, and the `g`-arm.
+* §2 the assembly `s13_doorGates_of_arm`, which takes `24·Cg/δ ≤ M` as a hypothesis (the field
+  `hMδ` itself), passes `hM` and `hδ` through, and discharges the other FIVE fields of
+  `M4DoorGates` from the regime, the count, and the `g`-arm.
 
 Likewise `λ₊` is an upper bound on the regime the compose HANDS us; `U1floor` controls only
 `λ₋` from below.  So §4/§5's pages carry the window ceiling as a named hypothesis

@@ -385,12 +385,9 @@ ffd3bfd5b129	Salt/MR/EvenChiSign.lean	docstring
 5199f19ce0a0	Salt/MR/EvenChiSine.lean	docstring
 7e634644d04f	Salt/MR/EvenChiSine.lean	docstring
 ac8600888773	Salt/MR/EvenChiSine.lean	docstring
-47ae02a3705a	Salt/MR/M4RowsChiEnd.lean	docstring
 5ebbb8e4b29d	Salt/MR/RegisterCompose.lean	docstring
 fa69c9d2a38d	Salt/MR/RegisterCompose.lean	docstring-cited
 091c9621fb0a	Salt/MR/RegisterInhabit.lean	docstring
-6246d60bd25a	Salt/MR/S13CapFloor.lean	docstring
-328fa6f4b500	Salt/MR/S13FramesA.lean	docstring
 439e87bb1435	Salt/MR/V7E.lean	docstring
 83e424288ba2	Salt/MR/V7Ks.lean	docstring
 6beb520e6b98	Salt/MR/XThread.lean	docstring
