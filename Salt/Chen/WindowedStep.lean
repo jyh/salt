@@ -39,10 +39,10 @@ This file executes the windowed redesign:
   re-threaded through `Lemma11.hmain_{upper,lower}_of_levels` to
   **`bjs_theorem6_windowed_{upper,lower}`** — BJS Theorem 6 (5)/(6) at the top operating
   point `logRatio zTop D`, with the per-step comparison now a *proven theorem*
-  (`stepHyp_pointwise`) rather than a named `∀`-hypothesis.  The only remaining named
-  hypotheses are the parametric τ-recursion `hτrec` and τ-sum `htau` (deferred per the C0
-  ledger), plus the structural sieve-class inputs (`hguard`/`hnu`/`h4`).  **Keystone 1 (the
-  linear-sieve per-step comparison, catch #27/#28) is analytically complete.**
+  (`stepHyp_pointwise`) rather than a named `∀`-hypothesis.  Remaining named inputs: `hτrec`,
+  `htau` and the sieve-class `hguard`/`hnu`/`h4`.  **Keystone 1 (the per-step comparison,
+  catch #27/#28) is analytically complete**; but `hτrec` is asked at every `n` with `tau 1 = 3`,
+  and `TauNumeric.hτrec_zero_impossible` refutes `n = 0` for `ε ≤ 1`: vacuous there.
 
 ## The below-window investigation (resolved: children never carry below-window mass)
 

@@ -64,8 +64,8 @@ loglog-density pushforward turning `Σ_p ν(p)V(p)h(σ_p)` into `∫ h`, closed 
 session" hypothesis — it is **not** obtainable by re-running the crude `decay_mass_le`
 endgame (which is all C1cσ's mandate re-runs).  Moreover, even the sharp *elementary*
 funcbound floors at `c_h ≈ (1+ε)·(99/100)·s/(s−1) ≈ 1.98 > 1` (the `s/(s−1)` density factor
-at `s = 2`); the genuine `κ₃ ≈ 0.96 < 1` needs the `3u⁻¹e⁻ᵘ`-tail exponential integral `E₁`,
-not elementary in mathlib.  So the numeric row genuinely requires the sharp BJS constants,
+at `s = 2`); BJS's `κ₃ ≈ 0.96` uses `E₁`, but `SharpFuncbound` gets `κ₃ = 49/50` without it.
+So the numeric row genuinely requires the sharp BJS constants,
 confirming the C1c⁵ `κ₃ = 1 ⟹ β ≥ 1` finding.
 
 ## What is proved here (sorry-free, axiom-clean)
