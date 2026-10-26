@@ -4,8 +4,11 @@
 The rung-4 census (docs/exploration/o13-rung4-census-2026-10-24.md) ran from an uncommitted Lean
 scratch with its roots typed by hand and one twin test, a NAME heuristic: a constant whose name
 extends the root's with `standoff` or `sevenEighths`. Addendum 4 found three twins that heuristic
-misses (`siegelWalfisz_holds` -> `siegelWalfisz_of_standoff` and two more). This script makes the
-census reproducible and reads the twins RESULTS already records:
+misses (`siegelWalfisz_holds` -> `siegelWalfisz_of_standoff` and two more), and at main 91c92dc0 it
+also over-matches: a prefix collision credits superseded `logChowla2_ineffective` with
+`logChowla2_ineffective_v7_of_standoff`, a twin of another statement. This script makes the census
+reproducible, reads the twins RESULTS already records, and narrows the name test to the exact
+suffixes `<root>_of_standoff` / `<root>_of_sevenEighths`:
 
   gen    read docs/RESULTS.md and write a Lean scratch: every table row's Lean name is a root, its
          File:line column gives the import, and RESULTS §10's "the conclusion of `X`" pairs each
@@ -37,7 +40,9 @@ LIMITS, printed with every verdict:
     means free of the three names only, not of any other hypothesis, and says nothing on effectivity.
   - `L1_lower_siegel` is effective; a REACHES row is not by itself a claim of ineffectivity.
   - A §10 twin is matched by its row's words; a row that names its source differently is missed and
-    the root reads REACHES (never the reverse: every claimed twin's closure is walked).
+    the root reads REACHES. A (name) twin is matched by the exact suffix only, and its STATEMENT is
+    not compared with the root's (the §10 rows' `#assert_conclusion_is` certificates do that for
+    §10 twins); every claimed twin's closure is walked.
 """
 from __future__ import annotations
 
@@ -135,36 +140,40 @@ elab "#o13_census" : command => do
     for n in all do
       match n with
       | .str _ s =>
-        if s != L && s.startsWith L && ((s.splitOn "standoff").length > 1 ||
-            (s.splitOn "Standoff").length > 1 || (s.splitOn "sevenEighths").length > 1 ||
-            (s.splitOn "SevenEighths").length > 1) then
+        if s == L ++ "_of_standoff" || s == L ++ "_of_sevenEighths" then
           r := n :: r
       | _ => pure ()
     return r
   let isFree (t : Name) : CommandElabM Bool := do
     let st ← closureOf t
     return targets.all (!st.visited.contains ·) && !st.visited.contains ``sorryAx
-  let mut nF := 0; let mut nT := 0; let mut nD := 0; let mut nO := 0; let mut nM := 0; let mut nU := 0
-  let mut nRoots := 0
+  let mut nF : Nat := 0; let mut nT : Nat := 0; let mut nD : Nat := 0; let mut nO : Nat := 0
+  let mut nM : Nat := 0; let mut nU : Nat := 0; let mut nRoots : Nat := 0
   for (s, tag) in o13Roots do
     let hits := resolveS s
     if hits.isEmpty then
       nRoots := nRoots + 1
-      if tag == "NAMES" then logInfo m!"O13 UNRESOLVED {s} [{tag}]"; nU := nU + 1
-      else logInfo m!"O13 MISSING {s} [{tag}]"; nM := nM + 1
+      if tag == "NAMES" then
+        logInfo m!"O13 UNRESOLVED {s} [{tag}]"
+        nU := nU + 1
+      else
+        logInfo m!"O13 MISSING {s} [{tag}]"
+        nM := nM + 1
     for root in hits do
       nRoots := nRoots + 1
       let st ← closureOf root
       let reached := targets.filter st.visited.contains
       let sorryIn := st.visited.contains ``sorryAx
       if reached.isEmpty then
-        logInfo m!"O13 FREE {root} [{tag}] closure={st.count} sorryAx={sorryIn}"; nF := nF + 1
+        logInfo m!"O13 FREE {root} [{tag}] closure={st.count} sorryAx={sorryIn}"
+        nF := nF + 1
         continue
       let mapped := (o13TwinMap.filter (·.1.toName == root)).map (·.2.toName)
       let mut freeTw : List String := []
       for t in mapped do
         if (env.find? t).isNone then
-          logInfo m!"O13 MISSING-TWIN {t} (§10, of {root})"; nM := nM + 1
+          logInfo m!"O13 MISSING-TWIN {t} (§10, of {root})"
+          nM := nM + 1
         else if ← isFree t then freeTw := freeTw ++ [s!"{t} (§10)"]
         else logInfo m!"O13 TWIN-REACHES {t} (§10, of {root})"
       for t in nameTwins root do
@@ -335,7 +344,8 @@ def classify_log(text: str, manifest: dict):
                 out.append("  " + ln)
     out.append("LIMITS: roots are RESULTS rows and --names only; FREE = free of the three Siegel "
                "names only, not of other hypotheses, and silent on effectivity; L1_lower_siegel is "
-               "effective; a §10 twin is matched by its row's words.")
+               "effective; a §10 twin is matched by its row's words; a (name) twin is the exact suffix "
+               "`<root>_of_standoff`/`_of_sevenEighths`, statement not compared.")
     if bad:
         return 2, ["NOT A CLEAN RUN: " + b for b in bad] + out
     owed = counts.get("REACHES-OWED", 0) + counts.get("MISSING", 0) \
