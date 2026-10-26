@@ -266,8 +266,8 @@ theorem jutilaB_ofReal_eq (q : ℕ) (R N M : ℝ) {n : ℕ} (hn : n ≠ 0) :
   ring
 
 /-- `0 ≤ b_n` for `0 < M ≤ N` (`hM`, `hMN`): the bracket `K(n/N) − K(n/M)` is nonnegative
-because `n/N ≤ n/M` gives `max 0 (1 − n/M) ≤ max 0 (1 − n/N)`, and the other factors are
-`n⁻¹ ≥ 0` and a square. -/
+because `n/N ≤ n/M` gives `max 0 (1 − n/M) ≤ max 0 (1 − n/N)`, and squaring keeps the order
+since both are `≥ 0` (`pow_le_pow_left₀`); the other factors are `n⁻¹ ≥ 0` and a square. -/
 theorem jutilaB_nonneg {N M : ℝ} (hM : 0 < M) (hMN : M ≤ N) (q : ℕ) (R : ℝ) (n : ℕ) :
     0 ≤ jutilaB q R N M n := by
   simp only [jutilaB]
