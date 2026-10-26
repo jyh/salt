@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b45c75ab` · source digest `dd0c9262e82cf64d` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `0cfe4ec0` · source digest `c1f5bce9ce1a0698` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2151,39 +2151,39 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HB.hb_mertens_third_real` | Salt/HB/Lemma7.lean:122 | characters |
 | `Salt.HB.hb_L2_core` | Salt/HB/Lemma7.lean:194 | characters |
 | `Salt.HB.hb_L2_at_split_point` | Salt/HB/Lemma7.lean:267 | characters |
-| `Salt.HB.hasDerivAt_wLog` | Salt/HB/Lemma7EF.lean:61 | characters |
-| `Salt.HB.wLog_nonneg` | Salt/HB/Lemma7EF.lean:80 | characters |
-| `Salt.HB.wLog'_nonpos` | Salt/HB/Lemma7EF.lean:84 | characters |
-| `Salt.HB.sum_Icc_zero_eq_psiChiR` | Salt/HB/Lemma7EF.lean:114 | sieves, characters |
-| `Salt.HB.abel_logChiSum` | Salt/HB/Lemma7EF.lean:140 | characters |
-| `Salt.HB.mainTerm_ibp` | Salt/HB/Lemma7EF.lean:172 | characters |
-| `Salt.HB.logChiSum_add_mainTerm_norm_le` | Salt/HB/Lemma7EF.lean:228 | characters |
-| `Salt.HB.psiDefect_norm_le_of_ef` | Salt/HB/Lemma7EF.lean:384 | characters |
-| `Salt.HB.rpow_c_add_one` | Salt/HB/Lemma7EF.lean:496 | characters |
-| `Salt.HB.efShiftError_le_efShiftBound` | Salt/HB/Lemma7EF.lean:530 | characters |
-| `Salt.HB.re_le_repulsionCeiling_of_ne` | Salt/HB/Lemma7EF.lean:661 | characters |
-| `Salt.HB.exists_repulsion_ceiling_of_ne` | Salt/HB/Lemma7EF.lean:696 | characters |
-| `Salt.HB.re_le_of_zeroFree_of_ne` | Salt/HB/Lemma7EF.lean:722 | characters |
-| `Salt.HB.psiDefect_norm_le_rangeA` | Salt/HB/Lemma7EF.lean:748 | characters |
-| `Salt.HB.two_le_efT0` | Salt/HB/Lemma7EF.lean:799 | characters |
-| `Salt.HB.efH_pos` | Salt/HB/Lemma7EF.lean:810 | characters |
-| `Salt.HB.psiDefect_norm_le_envelope` | Salt/HB/Lemma7EF.lean:838 | characters |
-| `Salt.HB.continuousOn_efEnvelope` | Salt/HB/Lemma7EF.lean:1007 | characters |
-| `Salt.HB.efShiftB_nonneg` | Salt/HB/Lemma7EF.lean:1050 | characters |
-| `Salt.HB.efShiftBound_nonneg` | Salt/HB/Lemma7EF.lean:1075 | characters |
-| `Salt.HB.efEnvelope_nonneg` | Salt/HB/Lemma7EF.lean:1093 | characters |
-| `Salt.HB.logChiSum_composite_of_ceiling` | Salt/HB/Lemma7EF.lean:1128 | characters |
-| `Salt.HB.logChiSum_add` | Salt/HB/Lemma7EF.lean:1155 | characters |
-| `Salt.HB.intervalIntegrable_rpow_div_log` | Salt/HB/Lemma7EF.lean:1168 | characters |
-| `Salt.HB.integrableOn_rpow_div_log` | Salt/HB/Lemma7EF.lean:1181 | characters |
-| `Salt.HB.logChiSum_tendsto_of_envelope` | Salt/HB/Lemma7EF.lean:1214 | characters |
-| `Salt.HB.efShiftB_le_scale_sharp` | Salt/HB/Lemma7EF.lean:2469 | characters |
-| `Salt.HB.efEnvelope_le_ledger_sharp` | Salt/HB/Lemma7EF.lean:2624 | characters |
-| `Salt.HB.ledger_const_le_of_window` | Salt/HB/Lemma7EF.lean:2842 | characters |
-| `Salt.HB.efEnvelope_zfr_eventually_le_sharp` | Salt/HB/Lemma7EF.lean:2904 | characters |
-| `Salt.HB.integral_inv_mul_log_sq` | Salt/HB/Lemma7EF.lean:3056 | characters |
-| `Salt.HB.tail_le_of_pointwise` | Salt/HB/Lemma7EF.lean:3084 | characters |
-| `Salt.HB.logChiSum_tendsto_zfr_hundred` | Salt/HB/Lemma7EF.lean:3136 | characters |
+| `Salt.HB.hasDerivAt_wLog` | Salt/HB/Lemma7EF.lean:63 | characters |
+| `Salt.HB.wLog_nonneg` | Salt/HB/Lemma7EF.lean:86 | characters |
+| `Salt.HB.wLog'_nonpos` | Salt/HB/Lemma7EF.lean:92 | characters |
+| `Salt.HB.sum_Icc_zero_eq_psiChiR` | Salt/HB/Lemma7EF.lean:126 | sieves, characters |
+| `Salt.HB.abel_logChiSum` | Salt/HB/Lemma7EF.lean:152 | characters |
+| `Salt.HB.mainTerm_ibp` | Salt/HB/Lemma7EF.lean:184 | characters |
+| `Salt.HB.logChiSum_add_mainTerm_norm_le` | Salt/HB/Lemma7EF.lean:240 | characters |
+| `Salt.HB.psiDefect_norm_le_of_ef` | Salt/HB/Lemma7EF.lean:396 | characters |
+| `Salt.HB.rpow_c_add_one` | Salt/HB/Lemma7EF.lean:508 | characters |
+| `Salt.HB.efShiftError_le_efShiftBound` | Salt/HB/Lemma7EF.lean:542 | characters |
+| `Salt.HB.re_le_repulsionCeiling_of_ne` | Salt/HB/Lemma7EF.lean:673 | characters |
+| `Salt.HB.exists_repulsion_ceiling_of_ne` | Salt/HB/Lemma7EF.lean:708 | characters |
+| `Salt.HB.re_le_of_zeroFree_of_ne` | Salt/HB/Lemma7EF.lean:734 | characters |
+| `Salt.HB.psiDefect_norm_le_rangeA` | Salt/HB/Lemma7EF.lean:760 | characters |
+| `Salt.HB.two_le_efT0` | Salt/HB/Lemma7EF.lean:813 | characters |
+| `Salt.HB.efH_pos` | Salt/HB/Lemma7EF.lean:826 | characters |
+| `Salt.HB.psiDefect_norm_le_envelope` | Salt/HB/Lemma7EF.lean:854 | characters |
+| `Salt.HB.continuousOn_efEnvelope` | Salt/HB/Lemma7EF.lean:1044 | characters |
+| `Salt.HB.efShiftB_nonneg` | Salt/HB/Lemma7EF.lean:1090 | characters |
+| `Salt.HB.efShiftBound_nonneg` | Salt/HB/Lemma7EF.lean:1119 | characters |
+| `Salt.HB.efEnvelope_nonneg` | Salt/HB/Lemma7EF.lean:1142 | characters |
+| `Salt.HB.logChiSum_composite_of_ceiling` | Salt/HB/Lemma7EF.lean:1177 | characters |
+| `Salt.HB.logChiSum_add` | Salt/HB/Lemma7EF.lean:1204 | characters |
+| `Salt.HB.intervalIntegrable_rpow_div_log` | Salt/HB/Lemma7EF.lean:1217 | characters |
+| `Salt.HB.integrableOn_rpow_div_log` | Salt/HB/Lemma7EF.lean:1230 | characters |
+| `Salt.HB.logChiSum_tendsto_of_envelope` | Salt/HB/Lemma7EF.lean:1263 | characters |
+| `Salt.HB.efShiftB_le_scale_sharp` | Salt/HB/Lemma7EF.lean:2541 | characters |
+| `Salt.HB.efEnvelope_le_ledger_sharp` | Salt/HB/Lemma7EF.lean:2696 | characters |
+| `Salt.HB.ledger_const_le_of_window` | Salt/HB/Lemma7EF.lean:2914 | characters |
+| `Salt.HB.efEnvelope_zfr_eventually_le_sharp` | Salt/HB/Lemma7EF.lean:2976 | characters |
+| `Salt.HB.integral_inv_mul_log_sq` | Salt/HB/Lemma7EF.lean:3128 | characters |
+| `Salt.HB.tail_le_of_pointwise` | Salt/HB/Lemma7EF.lean:3156 | characters |
+| `Salt.HB.logChiSum_tendsto_zfr_hundred` | Salt/HB/Lemma7EF.lean:3208 | characters |
 | `Salt.HB.integrableOn_expNeg_div_Ioi` | Salt/HB/Lemma7F.lean:92 | characters |
 | `Salt.HB.integrableOn_expNeg_mul_log_Ioi_zero` | Salt/HB/Lemma7F.lean:118 | characters |
 | `Salt.HB.hasDerivAt_expNeg_mul_log` | Salt/HB/Lemma7F.lean:165 | characters |
