@@ -216,7 +216,7 @@ python3 scripts/search/query.py "width law"           --no-vector -n 4
 |---|---|---|---|
 | a | `Matomäki` | `Salt/…/MRTDoor.lean`, `Salt/MR` | ✅ `MRTUniformityXiL2` / `MRTUniformityXi` / `MRTUniformity` at ranks 1–3 — **via the alias table alone**; the literal string appears nowhere in those files |
 | b | `Heath-Brown repulsion` | `dh_repulsion_ordered` | ✅ rank 3 (`Salt/SW/TBalR8.lean:1752`), under the ledger entry recording it landing and the `RESULTS.md` row naming it |
-| c | `parity barrier` | `Salt/Parity/Z.lean` theorems | ✅ `ParityBarrier` rank 1 (`Z.lean:107`); `Z`, `TwinPrimeConjecture`, `sufficient_true_not_parityInv` follow |
+| c | `parity barrier` | `Salt/Parity/Z.lean` theorems | ✅ `ParityBarrier` rank 1 (`Z.lean`, `def ParityBarrier`); `Z`, `TwinPrimeConjecture`, `sufficient_true_not_parityInv` follow |
 | d | `width law` | `towerFlat_width_ge` / `towerShape_width_ge` | ✅ ranks 2, 3, 4 (`towerFlat_width_ge`, `towerFlat_width_le`, `towerShape_width_ge`), under the ⟦THE TOLL CHRISTENED⟧ ruling that named them |
 
 Test (a) is the whole lane in one line: the alias table turns a name we only

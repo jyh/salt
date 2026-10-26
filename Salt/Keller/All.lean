@@ -9,7 +9,7 @@ import Salt.Tactic.AuditAxioms
 /-!
 # The Keller track (`Keller`) — aggregate import
 
-Topical verification (2026-07-21): the first kernel-certified check of the
+Topical verification (2026-07-21): a kernel-certified check of the
 counterexample to the Jacobian conjecture (Alpöge/Mathew/Fable preprint,
 2026-07-20). `Salt/Keller/Counterexample.lean` is fully self-contained
 (imports Mathlib only): the formal Jacobian determinant identity

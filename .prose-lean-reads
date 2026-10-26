@@ -989,5 +989,5 @@ o88-2026-10-26-197	Salt/Keller/Counterexample.lean	1ed8b51657ee	Salt/Keller/Coun
 o88-2026-10-26-198	Salt/Vk/TwistLadder.lean	e1bd02b7976a	Salt/Vk/TwistLadder.lean::vk_block_core_twist	8141216d3460	paper	math	2026-10-26
 o88-2026-10-26-199	Salt/HB/RosserDim4FL.lean	57a1ce4403c0	Salt/HB/RosserDim4.lean::chi_le_rpow_level	147083e57cd1	paper	math	2026-10-26
 o88-2026-10-26-200	Salt/HB/RosserDim4FL.lean	440c5ad278c0	Salt/HB/RosserDim4FL.lean::hb_perDelta_transfer	4aa73722e262	paper	math	2026-10-26
-o88-2026-10-26-201	scripts/search/README.md	400f4b71e331	Salt/Parity/Z.lean::ParityBarrier	3d406b47c683	paper	math	2026-10-26
+o88-2026-10-26-201	scripts/search/README.md	107a17fcff3c	Salt/Parity/Z.lean::ParityBarrier	3d406b47c683	paper	math	2026-10-26
 o88-2026-10-26-202	docs/reports/dichotomy-day-report.md	a3c2cb125db9	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only_xi	3c894103a88b	paper	math	2026-10-26
