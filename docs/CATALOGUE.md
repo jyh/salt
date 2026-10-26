@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `acb529c8` · source digest `24a02be2da285cd3` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `6b1b0f93` · source digest `54bec03676b6f79a` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6105,13 +6105,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_full_box_count` | Salt/SW/BoxCompose.lean:193 | sieves |
 | `Salt.SW.zeta_local_density` | Salt/SW/BoxCompose.lean:201 | sieves |
 | `Salt.SW.zeta_local_density_card` | Salt/SW/BoxCompose.lean:208 | zeros, sieves |
-| `Salt.SW.Zc_sphere_bound_wide` | Salt/SW/BoxCount.lean:81 | sieves |
-| `Salt.SW.zeta_box_divisor_le` | Salt/SW/BoxCount.lean:129 | sieves |
-| `Salt.SW.zeta_box_count_half` | Salt/SW/BoxCount.lean:174 | zeros, sieves |
+| `Salt.SW.Zc_sphere_bound_wide` | Salt/SW/BoxCount.lean:82 | sieves |
+| `Salt.SW.zeta_box_divisor_le` | Salt/SW/BoxCount.lean:131 | sieves |
+| `Salt.SW.zeta_box_count_half` | Salt/SW/BoxCount.lean:176 | zeros, sieves |
 | `Salt.SW.zeta_analyticOrderAt_one_sub` | Salt/SW/BoxFold.lean:112 | zeros, sieves |
 | `Salt.SW.zeta_zero_one_sub_iff` | Salt/SW/BoxFold.lean:124 | zeros, sieves |
 | `Salt.SW.zeta_fe_factor_ne_zero` | Salt/SW/BoxFold.lean:138 | sieves |
-| `Salt.SW.zeta_box_count_full` | Salt/SW/BoxFold.lean:206 | sieves |
+| `Salt.SW.zeta_box_count_full` | Salt/SW/BoxFold.lean:207 | sieves |
 | `Salt.SW.bvL_of_lt_one` | Salt/SW/BvL.lean:67 | sieves |
 | `Salt.SW.innerG_eq_bvL` | Salt/SW/BvL.lean:79 | sieves, characters |
 | `Salt.SW.abs_bvL_one_le` | Salt/SW/BvL.lean:178 | sieves |
@@ -6269,13 +6269,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.exists_contour_params` | Salt/SW/DensityCrude.lean:752 | sieves, characters |
 | `Salt.SW.psi_explicit_sharpM_perZero_unsep` | Salt/SW/DensityCrude.lean:863 | sieves, characters |
 | `Salt.SW.zeroCountM_density_logfree_low` | Salt/SW/DensityLogfree.lean:72 | zeros, sieves, characters |
-| `Salt.SW.boxRep_mem` | Salt/SW/DensityLogfree.lean:199 | sieves, characters |
-| `Salt.SW.boxIndex_mem_Icc` | Salt/SW/DensityLogfree.lean:207 | sieves, characters |
-| `Salt.SW.zeroCountM_eq_sum_boxFibre` | Salt/SW/DensityLogfree.lean:231 | zeros, sieves, characters |
-| `Salt.SW.boxFibre_subset_closedBall` | Salt/SW/DensityLogfree.lean:246 | sieves, characters |
-| `Salt.SW.efMultTotal_boxFibre_le` | Salt/SW/DensityLogfree.lean:292 | sieves, characters |
-| `Salt.SW.wellSpacedAt_parity_reps` | Salt/SW/DensityLogfree.lean:387 | sieves, characters |
-| `Salt.SW.zeroCountM_le_box_bound_mul` | Salt/SW/DensityLogfree.lean:431 | zeros, sieves, characters |
+| `Salt.SW.boxRep_mem` | Salt/SW/DensityLogfree.lean:201 | sieves, characters |
+| `Salt.SW.boxIndex_mem_Icc` | Salt/SW/DensityLogfree.lean:209 | sieves, characters |
+| `Salt.SW.zeroCountM_eq_sum_boxFibre` | Salt/SW/DensityLogfree.lean:233 | zeros, sieves, characters |
+| `Salt.SW.boxFibre_subset_closedBall` | Salt/SW/DensityLogfree.lean:248 | sieves, characters |
+| `Salt.SW.efMultTotal_boxFibre_le` | Salt/SW/DensityLogfree.lean:294 | sieves, characters |
+| `Salt.SW.wellSpacedAt_parity_reps` | Salt/SW/DensityLogfree.lean:389 | sieves, characters |
+| `Salt.SW.zeroCountM_le_box_bound_mul` | Salt/SW/DensityLogfree.lean:433 | zeros, sieves, characters |
 | `Salt.SW.zeroCountM_eq_zero_of_one_le` | Salt/SW/DensityStrip.lean:83 | zeros, sieves, characters |
 | `Salt.SW.zeroCountM_le_const_of_le` | Salt/SW/DensityStrip.lean:97 | zeros, sieves, characters |
 | `Salt.SW.rpow_mul_le_rpow_of_le_150` | Salt/SW/DensityStrip.lean:115 | sieves |
@@ -6410,19 +6410,19 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.coprime_sum_moebius_div_kappa_log_exists` | Salt/SW/GrahamHard2.lean:6607 | sieves |
 | `Salt.SW.sum_filter_side_eq_sqfLogPair_sub` | Salt/SW/GrahamHard3.lean:154 | sieves, characters |
 | `Salt.SW.sum_tailT_sq_eq_box` | Salt/SW/GrahamHard3.lean:336 | sieves, characters |
-| `Salt.SW.abs_sqfLogPair_sub_le` | Salt/SW/GrahamHard3.lean:474 | sieves |
-| `Salt.SW.abs_aKernel_sub_c0_le` | Salt/SW/GrahamHard3.lean:662 | sieves |
-| `Salt.SW.sum_inv_mul_abs_aKernel_le` | Salt/SW/GrahamHard3.lean:818 | sieves |
-| `Salt.SW.abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1070 | sieves |
-| `Salt.SW.sum_abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1317 | sieves |
-| `Salt.SW.sum_rpow_neg_half_sigmaQ_one_add_log_le` | Salt/SW/GrahamHard3.lean:1377 | sieves |
-| `Salt.SW.sum_sum_errUpper_le` | Salt/SW/GrahamHard3.lean:1426 | sieves |
-| `Salt.SW.sum_sum_errLower_le` | Salt/SW/GrahamHard3.lean:1595 | sieves |
-| `Salt.SW.sum_rpow_neg_three_half_le` | Salt/SW/GrahamHard3.lean:1813 | sieves |
-| `Salt.SW.sum_tailT_sq_le` | Salt/SW/GrahamHard3.lean:2194 | sieves |
-| `Salt.SW.grahamW_sum_le_full` | Salt/SW/GrahamHard3.lean:2400 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le_full` | Salt/SW/GrahamHard3.lean:2497 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le_low` | Salt/SW/GrahamHard3.lean:2558 | sieves |
+| `Salt.SW.abs_sqfLogPair_sub_le` | Salt/SW/GrahamHard3.lean:484 | sieves |
+| `Salt.SW.abs_aKernel_sub_c0_le` | Salt/SW/GrahamHard3.lean:680 | sieves |
+| `Salt.SW.sum_inv_mul_abs_aKernel_le` | Salt/SW/GrahamHard3.lean:836 | sieves |
+| `Salt.SW.abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1088 | sieves |
+| `Salt.SW.sum_abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1335 | sieves |
+| `Salt.SW.sum_rpow_neg_half_sigmaQ_one_add_log_le` | Salt/SW/GrahamHard3.lean:1395 | sieves |
+| `Salt.SW.sum_sum_errUpper_le` | Salt/SW/GrahamHard3.lean:1444 | sieves |
+| `Salt.SW.sum_sum_errLower_le` | Salt/SW/GrahamHard3.lean:1613 | sieves |
+| `Salt.SW.sum_rpow_neg_three_half_le` | Salt/SW/GrahamHard3.lean:1836 | sieves |
+| `Salt.SW.sum_tailT_sq_le` | Salt/SW/GrahamHard3.lean:2217 | sieves |
+| `Salt.SW.grahamW_sum_le_full` | Salt/SW/GrahamHard3.lean:2423 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le_full` | Salt/SW/GrahamHard3.lean:2520 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le_low` | Salt/SW/GrahamHard3.lean:2581 | sieves |
 | `Salt.SW.grahamW_eq_sum_grahamGc` | Salt/SW/GrahamL2.lean:82 | sieves |
 | `Salt.SW.abs_grahamGc_le` | Salt/SW/GrahamL2.lean:173 | sieves |
 | `Salt.SW.graham_diagonalisation` | Salt/SW/GrahamL2.lean:230 | sieves |
@@ -6499,43 +6499,43 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.continuous_halaszB_sum_exp` | Salt/SW/JutilaRatio.lean:97 | sieves, characters |
 | `Salt.SW.continuous_resKernel_exp` | Salt/SW/JutilaRatio.lean:107 | sieves |
 | `Salt.SW.const_mul_le_integral_integral_of_le` | Salt/SW/JutilaRatio.lean:136 | sieves |
-| `Salt.SW.jutilaB_zero` | Salt/SW/JutilaResidue.lean:255 | sieves |
-| `Salt.SW.jutilaB_ofReal_eq` | Salt/SW/JutilaResidue.lean:259 | sieves |
-| `Salt.SW.jutilaB_nonneg` | Salt/SW/JutilaResidue.lean:267 | sieves |
-| `Salt.SW.jutilaB_eq_zero_of_le` | Salt/SW/JutilaResidue.lean:280 | sieves |
-| `Salt.SW.jutilaB_eq_of_le` | Salt/SW/JutilaResidue.lean:293 | sieves |
-| `Salt.SW.jutilaB_pos` | Salt/SW/JutilaResidue.lean:304 | sieves |
-| `Salt.SW.resKernelFun_zero` | Salt/SW/JutilaResidue.lean:318 | sieves |
-| `Salt.SW.resKernel_of_ne_zero` | Salt/SW/JutilaResidue.lean:321 | sieves |
-| `Salt.SW.resKernel_zero` | Salt/SW/JutilaResidue.lean:330 | sieves |
-| `Salt.SW.norm_resKernel_le_div` | Salt/SW/JutilaResidue.lean:364 | sieves |
-| `Salt.SW.norm_resKernel_le_log` | Salt/SW/JutilaResidue.lean:415 | sieves |
-| `Salt.SW.cpow_mul_resKernel_div` | Salt/SW/JutilaResidue.lean:497 | sieves |
-| `Salt.SW.two_pow_card_primeFactors_le` | Salt/SW/JutilaResidue.lean:534 | sieves |
-| `Salt.SW.norm_LFunctionTrivChar_le` | Salt/SW/JutilaResidue.lean:545 | zeros, sieves |
-| `Salt.SW.norm_riemannZeta_le_of_half_le` | Salt/SW/JutilaResidue.lean:562 | zeros, sieves |
-| `Salt.SW.norm_riemannZeta_half_le` | Salt/SW/JutilaResidue.lean:583 | zeros, sieves |
-| `Salt.SW.norm_prod_one_sub_inv_le_one` | Salt/SW/JutilaResidue.lean:599 | sieves |
-| `Salt.SW.summable_trivChar_kern2` | Salt/SW/JutilaResidue.lean:616 | sieves, characters |
-| `Salt.SW.tsum_trivChar_mul_cpow_eq` | Salt/SW/JutilaResidue.lean:653 | sieves, characters |
-| `Salt.SW.tsum_trivChar_kern2_eq_integral` | Salt/SW/JutilaResidue.lean:677 | sieves, characters |
-| `Salt.SW.tsum_trivChar_kern2_diff_eq_integral` | Salt/SW/JutilaResidue.lean:748 | sieves, characters |
-| `Salt.SW.resPhi_differentiableOn` | Salt/SW/JutilaResidue.lean:798 | sieves |
-| `Salt.SW.resPhi_zero` | Salt/SW/JutilaResidue.lean:838 | sieves |
-| `Salt.SW.resIntegrand_eq_dslope_div` | Salt/SW/JutilaResidue.lean:842 | sieves |
-| `Salt.SW.dslope_resPhi_neg` | Salt/SW/JutilaResidue.lean:860 | sieves |
-| `Salt.SW.rectBI_resPhi_dslope_div_eq` | Salt/SW/JutilaResidue.lean:894 | sieves |
-| `Salt.SW.norm_resIntegrand_le` | Salt/SW/JutilaResidue.lean:938 | sieves |
-| `Salt.SW.norm_integral_resIntegrand_edge_le` | Salt/SW/JutilaResidue.lean:983 | sieves |
-| `Salt.SW.integrable_resIntegrand_line` | Salt/SW/JutilaResidue.lean:1085 | sieves |
-| `Salt.SW.integral_resIntegrand_shift` | Salt/SW/JutilaResidue.lean:1196 | sieves |
-| `Salt.SW.halaszBTsum_jutilaB_eq_sum` | Salt/SW/JutilaResidue.lean:1398 | sieves, characters |
-| `Salt.SW.halaszBTsum_jutilaB_expand` | Salt/SW/JutilaResidue.lean:1417 | sieves, characters |
-| `Salt.SW.halaszBTsum_jutilaB_eq` | Salt/SW/JutilaResidue.lean:1579 | sieves, characters |
-| `Salt.SW.sum_rFilter_totient_div_sq_le` | Salt/SW/JutilaResidue.lean:1687 | sieves |
-| `Salt.SW.sum_two_pow_card_primeFactors_le` | Salt/SW/JutilaResidue.lean:1700 | sieves |
-| `Salt.SW.sum_rFilter_abs_hCoef_le` | Salt/SW/JutilaResidue.lean:1794 | sieves |
-| `Salt.SW.norm_jutilaI_le` | Salt/SW/JutilaResidue.lean:1857 | sieves |
+| `Salt.SW.jutilaB_zero` | Salt/SW/JutilaResidue.lean:256 | sieves |
+| `Salt.SW.jutilaB_ofReal_eq` | Salt/SW/JutilaResidue.lean:260 | sieves |
+| `Salt.SW.jutilaB_nonneg` | Salt/SW/JutilaResidue.lean:271 | sieves |
+| `Salt.SW.jutilaB_eq_zero_of_le` | Salt/SW/JutilaResidue.lean:286 | sieves |
+| `Salt.SW.jutilaB_eq_of_le` | Salt/SW/JutilaResidue.lean:299 | sieves |
+| `Salt.SW.jutilaB_pos` | Salt/SW/JutilaResidue.lean:313 | sieves |
+| `Salt.SW.resKernelFun_zero` | Salt/SW/JutilaResidue.lean:328 | sieves |
+| `Salt.SW.resKernel_of_ne_zero` | Salt/SW/JutilaResidue.lean:334 | sieves |
+| `Salt.SW.resKernel_zero` | Salt/SW/JutilaResidue.lean:347 | sieves |
+| `Salt.SW.norm_resKernel_le_div` | Salt/SW/JutilaResidue.lean:381 | sieves |
+| `Salt.SW.norm_resKernel_le_log` | Salt/SW/JutilaResidue.lean:432 | sieves |
+| `Salt.SW.cpow_mul_resKernel_div` | Salt/SW/JutilaResidue.lean:514 | sieves |
+| `Salt.SW.two_pow_card_primeFactors_le` | Salt/SW/JutilaResidue.lean:553 | sieves |
+| `Salt.SW.norm_LFunctionTrivChar_le` | Salt/SW/JutilaResidue.lean:564 | zeros, sieves |
+| `Salt.SW.norm_riemannZeta_le_of_half_le` | Salt/SW/JutilaResidue.lean:581 | zeros, sieves |
+| `Salt.SW.norm_riemannZeta_half_le` | Salt/SW/JutilaResidue.lean:602 | zeros, sieves |
+| `Salt.SW.norm_prod_one_sub_inv_le_one` | Salt/SW/JutilaResidue.lean:620 | sieves |
+| `Salt.SW.summable_trivChar_kern2` | Salt/SW/JutilaResidue.lean:641 | sieves, characters |
+| `Salt.SW.tsum_trivChar_mul_cpow_eq` | Salt/SW/JutilaResidue.lean:678 | sieves, characters |
+| `Salt.SW.tsum_trivChar_kern2_eq_integral` | Salt/SW/JutilaResidue.lean:702 | sieves, characters |
+| `Salt.SW.tsum_trivChar_kern2_diff_eq_integral` | Salt/SW/JutilaResidue.lean:773 | sieves, characters |
+| `Salt.SW.resPhi_differentiableOn` | Salt/SW/JutilaResidue.lean:827 | sieves |
+| `Salt.SW.resPhi_zero` | Salt/SW/JutilaResidue.lean:868 | sieves |
+| `Salt.SW.resIntegrand_eq_dslope_div` | Salt/SW/JutilaResidue.lean:872 | sieves |
+| `Salt.SW.dslope_resPhi_neg` | Salt/SW/JutilaResidue.lean:890 | sieves |
+| `Salt.SW.rectBI_resPhi_dslope_div_eq` | Salt/SW/JutilaResidue.lean:924 | sieves |
+| `Salt.SW.norm_resIntegrand_le` | Salt/SW/JutilaResidue.lean:968 | sieves |
+| `Salt.SW.norm_integral_resIntegrand_edge_le` | Salt/SW/JutilaResidue.lean:1013 | sieves |
+| `Salt.SW.integrable_resIntegrand_line` | Salt/SW/JutilaResidue.lean:1115 | sieves |
+| `Salt.SW.integral_resIntegrand_shift` | Salt/SW/JutilaResidue.lean:1226 | sieves |
+| `Salt.SW.halaszBTsum_jutilaB_eq_sum` | Salt/SW/JutilaResidue.lean:1428 | sieves, characters |
+| `Salt.SW.halaszBTsum_jutilaB_expand` | Salt/SW/JutilaResidue.lean:1447 | sieves, characters |
+| `Salt.SW.halaszBTsum_jutilaB_eq` | Salt/SW/JutilaResidue.lean:1609 | sieves, characters |
+| `Salt.SW.sum_rFilter_totient_div_sq_le` | Salt/SW/JutilaResidue.lean:1719 | sieves |
+| `Salt.SW.sum_two_pow_card_primeFactors_le` | Salt/SW/JutilaResidue.lean:1732 | sieves |
+| `Salt.SW.sum_rFilter_abs_hCoef_le` | Salt/SW/JutilaResidue.lean:1826 | sieves |
+| `Salt.SW.norm_jutilaI_le` | Salt/SW/JutilaResidue.lean:1889 | sieves |
 | `Salt.SW.kernel_identity` | Salt/SW/Kernel.lean:204 | sieves |
 | `Salt.SW.kernel_sum_swap` | Salt/SW/Kernel.lean:263 | sieves |
 | `Salt.SW.kern2_eq_sq_kern` | Salt/SW/Kernel2.lean:42 | sieves |
