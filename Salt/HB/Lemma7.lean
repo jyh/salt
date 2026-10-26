@@ -28,8 +28,8 @@ multiplicity).
   (`hb_logF_at_split_point`).
 * `(4.4)`, the finite-product rearrangement of `κS₁` — **named binder** `hrear` here; the sieve
   side had no corpus definition when this file landed (since proved: `hb_hrear`, `W4.5` below).
-* `(4.5)` `𝔖(z,χ) = {1+O(z^{−1})}𝔖` — **named binder** `hsing`, stated against the corpus's
-  *own* `𝔖` (`Salt.HardyLittlewood.twinSingularSeries`).
+* `(4.5)` `𝔖(z,χ) = {1+O(z^{−1})}𝔖` — **named binder** `hsing` here (since proved: `hb_hsing`),
+  stated against the corpus's *own* `𝔖` (`Salt.HardyLittlewood.twinSingularSeries`).
 
 Nothing is hidden inside an `O(·)`: `hrear` and `hsing` each come with an explicit numeric bound
 (`a1`, `a2`) on their `{1+ε}` factor, and the conclusion's `δ` is bounded by
@@ -105,6 +105,7 @@ lemma abs_one_add_mul_sub_one_le {a b : ℝ} (ha : |a| ≤ 1) :
 noncomputable def primeProdBelow (z : ℝ) : ℝ :=
   ∏ p ∈ (Finset.range (⌊z⌋₊ + 1)).filter Nat.Prime, (1 - 1 / (p : ℝ))
 
+/-- `0 < ∏_{p ≤ ⌊z⌋} (1 − 1/p)`: every factor is `≥ 1/2`, since `p ≥ 2` (`Finset.prod_pos`). -/
 lemma primeProdBelow_pos {z : ℝ} : 0 < primeProdBelow z := by
   refine Finset.prod_pos (fun p hp => ?_)
   have hp2 : 2 ≤ p := (Finset.mem_filter.mp hp).2.two_le

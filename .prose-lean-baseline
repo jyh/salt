@@ -7,7 +7,6 @@ b4b8f122fea4	README.md	shape
 eb31babe7d79	README.md	predates
 f16d1f9c576a	README.md	shape
 bea119189e05	docs/CAMPAIGNS.md	shape
-33cb5f27cb4e	docs/CERT-ANCHORS-0811.md	shape
 567cebd0fedc	docs/OPERATIONS.md	shape
 f2d4e80a45a6	docs/RESULTS.md	shape
 31c803121d52	docs/priority-survey-2026-08-11.md	shape
@@ -298,18 +297,13 @@ d3e9bd15c6e7	Salt/HB/CrownChain.lean	docstring
 82d4534eb30a	Salt/HB/CrownTheorem1.lean	docstring-cited
 e34b83af88a0	Salt/HB/CrownTheorem1.lean	docstring-cited
 d3eda7818b0f	Salt/HB/DoorBridge.lean	docstring
-1a1ee04a25cf	Salt/HB/HSigmaComp.lean	docstring
 92f369ee03f3	Salt/HB/Lemma10.lean	docstring
-95d07c6a3f3f	Salt/HB/Lemma10.lean	docstring
-fbadd06c40ec	Salt/HB/Lemma10.lean	docstring
 ae8d8e978724	Salt/HB/Lemma10Chain.lean	docstring
 c7597e026028	Salt/HB/Lemma10Chain.lean	docstring
 cb5767a5fdac	Salt/HB/Lemma10Chain.lean	docstring
 d5deeb6ca9a6	Salt/HB/Lemma10Chain.lean	docstring
 7e338ef9420c	Salt/HB/Lemma10Seal.lean	docstring
 55b96b9d8463	Salt/HB/Lemma5Bilinear.lean	docstring
-861fd61e29cd	Salt/HB/Lemma7EF.lean	docstring
-a3ec124e8033	Salt/HB/Lemma7EF.lean	docstring
 eff2f5a43260	Salt/HB/PairInstance.lean	docstring
 16f1625511de	Salt/HB/TailShells.lean	docstring
 0565c84e23da	Salt/HB/Transfer.lean	docstring
@@ -366,7 +360,6 @@ dd453397edb1	Salt/SW/SelWeight.lean	docstring
 84368e5e7e1e	Salt/SW/TBalR8.lean	docstring
 86cb1ff9d490	Salt/SW/TBalR8.lean	docstring
 ea4ace614664	Salt/SW/TBalR8.lean	docstring
-fdf58f3e5221	Salt/SW/TBalTall.lean	docstring
 95dbd4fd49b0	Salt/Tactic/All.lean	docstring
 400427ce433f	Salt/Tactic/ExpLogNum.lean	docstring
 ed186fb73c53	Salt/Tactic/LogNum.lean	docstring
@@ -405,7 +398,4 @@ cb9df0b90469	Salt/Vk/Taylor.lean	docstring
 dbbe271609ed	Salt/Vmvt/Step.lean	docstring
 1deaf5c7c6f6	Salt/Vmvt/StepFull.lean	docstring
 40219aa972cc	Salt/Vmvt/StepFull.lean	docstring
-c0caf95fd446	Salt/Weil/Estermann.lean	docstring
-d391105fd48d	Salt/Weil/Estermann.lean	docstring
-cd3603b70116	Salt/Weil/Sawtooth.lean	docstring
 abb7a644b0c4	SaltC1/MaynardK/Tuple54.lean	docstring

@@ -83,26 +83,37 @@ Every family fibration consumes the same packet from `n ∈ l2cWindow χ z x`: `
 `(n, q) = 1`, `(n+2, q) = 1`, `n ≤ 2x`, `n+2 ≤ 2x+2`, and the two roughness facts (every
 `χ ≠ −1` prime of `n`, resp. `n+2`, is `≥ z`).  These pull the packet once. -/
 
+/-- A window element (`hn`) is nonzero — the first component of the window's `CoprimeSupport q`
+packet (`l2cWindow_coprimeSupport`). -/
 lemma l2cWindow_ne_zero (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : n ≠ 0 :=
   (l2cWindow_coprimeSupport χ z x n hn).1
 
+/-- A window element (`hn`) is coprime to `q` — the second component of the `CoprimeSupport q`
+packet (`l2cWindow_coprimeSupport`). -/
 lemma l2cWindow_coprime (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : Nat.Coprime n q :=
   (l2cWindow_coprimeSupport χ z x n hn).2.1
 
+/-- `n + 2` is coprime to `q` for a window element `n` (`hn`) — the third component of the
+`CoprimeSupport q` packet (`l2cWindow_coprimeSupport`). -/
 lemma l2cWindow_coprime_add_two (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : Nat.Coprime (n + 2) q :=
   (l2cWindow_coprimeSupport χ z x n hn).2.2
 
+/-- A window element (`hn`) is `≤ 2x`: the window is a filter of `Finset.Ioc x (2x)`
+(`l2cWindow_subset`). -/
 lemma l2cWindow_le (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : n ≤ 2 * x :=
   (Finset.mem_Ioc.mp (l2cWindow_subset χ z x hn)).2
 
+/-- A window element (`hn`) is `> x`: the window is a filter of `Finset.Ioc x (2x)`
+(`l2cWindow_subset`). -/
 lemma l2cWindow_lt (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : x < n :=
   (Finset.mem_Ioc.mp (l2cWindow_subset χ z x hn)).1
 
+/-- `n + 2 ≤ 2x + 2` for a window element `n` (`hn`), from `l2cWindow_le`. -/
 lemma l2cWindow_add_two_le (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : n + 2 ≤ 2 * x + 2 := by
   have := l2cWindow_le χ hn; omega
