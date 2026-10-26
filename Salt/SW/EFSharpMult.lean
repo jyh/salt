@@ -155,6 +155,8 @@ noncomputable def efMultTotal {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
     ℝ :=
   ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ)
 
+/-- `0 ≤ Σ_{ρ ∈ Z} m_ρ`: a sum of casts of natural numbers (`Finset.sum_nonneg`,
+`positivity`). -/
 lemma efMultTotal_nonneg {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (Z : Finset ℂ) :
     0 ≤ efMultTotal χ Z :=
   Finset.sum_nonneg fun _ _ => by positivity
