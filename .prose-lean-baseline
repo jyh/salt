@@ -314,7 +314,6 @@ dc7d2fa0fa31	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
 9291206f328a	Salt/Entropy/Chowla/SpineEpsFence.lean	docstring
 94f7161a6693	Salt/Entropy/Chowla/SpineEpsFence.lean	docstring
 0423cff94ca5	Salt/Entropy/Chowla/SpineFinal.lean	docstring
-3846fd044f68	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 569661e4df45	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 94dabbaf5bd0	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 9af8da6c297e	Salt/Entropy/Chowla/SpineFinal.lean	docstring
@@ -360,20 +359,6 @@ d3e9bd15c6e7	Salt/HB/CrownChain.lean	docstring
 e34b83af88a0	Salt/HB/CrownTheorem1.lean	docstring-cited
 d3eda7818b0f	Salt/HB/DoorBridge.lean	docstring
 1a1ee04a25cf	Salt/HB/HSigmaComp.lean	docstring
-c3a0cd85b41d	Salt/HB/L2cEL.lean	docstring
-8e4d4d84e36b	Salt/HB/L2cELJunk.lean	docstring
-abed87fa3013	Salt/HB/L2cELT1.lean	docstring
-ca59dd4a8ebd	Salt/HB/L2cELT3.lean	docstring
-26aa6df477d4	Salt/HB/L2cER.lean	docstring
-8b9bae571db5	Salt/HB/L2cER.lean	docstring
-ada5715ab412	Salt/HB/L2cERT1.lean	docstring
-0fb5f7e50a68	Salt/HB/L2cERT3.lean	docstring
-1469b8089213	Salt/HB/L2cEven.lean	docstring
-51b3bc1a2f23	Salt/HB/L2cEven.lean	docstring
-6fe5882f449b	Salt/HB/L2cEven.lean	docstring
-c17dfe3539ad	Salt/HB/L2cEven.lean	docstring
-ae4806c6c373	Salt/HB/L2cMaster.lean	docstring
-b8c02da474a4	Salt/HB/L2cMaster.lean	docstring
 92f369ee03f3	Salt/HB/Lemma10.lean	docstring
 95d07c6a3f3f	Salt/HB/Lemma10.lean	docstring
 fbadd06c40ec	Salt/HB/Lemma10.lean	docstring
@@ -399,10 +384,6 @@ f700b91b21b9	Salt/HB/Lemma7Prod.lean	docstring
 eff2f5a43260	Salt/HB/PairInstance.lean	docstring
 87f6c805b141	Salt/HB/RosserDim4FL.lean	docstring
 f97a88973f61	Salt/HB/RosserDim4FL.lean	docstring
-3bb67f35b422	Salt/HB/SignChain.lean	docstring
-193246aa0194	Salt/HB/SignLiouville.lean	docstring
-aa93f6eb9478	Salt/HB/SignLiouville.lean	docstring
-017b026cdd6c	Salt/HB/SignRate.lean	docstring
 16f1625511de	Salt/HB/TailShells.lean	docstring
 0565c84e23da	Salt/HB/Transfer.lean	docstring
 bca2b655ac5e	Salt/HB/TwistedMertens.lean	docstring
@@ -461,7 +442,6 @@ e4bb00c1f7ab	Salt/MaynardK/ControlsSeriesM.lean	docstring
 631e8507552c	Salt/MaynardK/ControlsSquareM.lean	docstring
 e3f9ce5225a2	Salt/MaynardK/ControlsSquareM.lean	docstring
 acd82913cf92	Salt/MaynardK/Tuple600.lean	docstring
-d3d2ff60cfd9	Salt/Parity/Instances.lean	docstring
 2c8289558560	Salt/SW/CoprimeHarmonic.lean	docstring
 9d9b8d805c0f	Salt/SW/CoprimeHarmonic.lean	docstring
 bc948538d108	Salt/SW/Crush.lean	docstring
