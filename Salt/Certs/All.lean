@@ -42,9 +42,9 @@ its docstring exactly what, if anything, was traded for readability.
   `Salt.Parity.sufficient_true_not_parityInv` (Pi `thm:gap`). Direction:
   **same proposition**, nothing traded. Carries the mechanism in one line (the witness
   is `twinFree`, whose twin mass is identically `0`) and **reports that TWO of the four
-  stated hypotheses are frozen and unused** in the landed proof — `1 ≤ A₀` and
-  `E oneWeight` — so the result is strictly stronger than it is written as. Flagged for
-  the design desk under iron rule 1; **not altered here.**
+  stated hypotheses were unused** in the landed proof — `1 ≤ A₀` and
+  `E oneWeight` — and were DROPPED at the 2026-08-11 re-cut (`f4188dfd`); the cert now
+  certifies the stronger, re-cut statement.
 
 * `Salt/Certs/ZetaPowRegion.lean` — `cert_zeta_zero_free_pow`, certifying
   `Salt.Vk.zeta_zero_free_region_pow` (Pi `thm:pow`). Direction: **contrapositive**,
@@ -119,9 +119,9 @@ its docstring exactly what, if anything, was traded for readability.
 ## OWED (target list v1, anchored rows remaining)
 `psiTot_pnt` [parked pending anchor ruling] — and NOTHING ELSE anchored.
 **THE WALL (`twin_bar`/`no_twin_weight`/`least_k_theorem`, anchor = Pi's `neutrality_rate`
-:1173) LANDED at `de7429b`, 2026-08-12, and moved to the roll-call above** — re-derived
-from the roll-call per this stanza's own warning, not edited on memory. — re-derived from the roll-call
-per this stanza's own warning, not edited on memory.
+:1315) LANDED at `de7429b`, 2026-08-12, and moved to the roll-call above** — re-derived
+from the roll-call per this stanza's own warning, not edited on memory.
+
 
 ⛔ **THIS LIST WENT STALE THE SAME WAY THE ANCHOR TABLE'S COUNT DID.** It named
 `siegelWalfisz_holds`, `analytic_LS + char_LS` and `norm_kloosterman_estermann` as OWED
@@ -164,7 +164,7 @@ open Salt.Tactic in
   -- and closes by `exact`, so the kernel certifies the paraphrase
   Salt.Certs.cert_siegel_walfisz
   -- row 8 (Nature :201 + :205, the adversary sentence): the anchor's point is that the
-  -- external BV projects take the large sieve as an AXIOM, so both certs carry their
+  -- external BV projects took the large sieve as an AXIOM (since fallen), so both certs carry their
   -- CONSTANTS in the statement — δ⁻¹ + 13N and Q² + 13N, explicit, no O(·)
   Salt.Certs.cert_analytic_large_sieve Salt.Certs.cert_char_large_sieve
   -- witnesses NAMED at the maestro's 11:05 ruling: a witness the census cannot see is a
