@@ -62,12 +62,12 @@ The frozen Axis-B question: is this value NEGATIVE with an explicit kernel-check
   TRIPLE mass from ABOVE; nothing in the corpus bounds the E2 mass from BELOW.  (Chen's own
   semiprime count would discharge it; that is genuinely new analytic content.)
 
-**The self-funding no-go (why the conditional form is forced).**  Every landed lower bound on
+**The self-funding obstruction (why the conditional form is taken).**  Every landed lower bound on
 `e2PrimeSum` routes through `e2 = p2 − p1 ≥ p2RazorLHS − p1` — the razor's own value minus the
 twin mass — and feeding that back gives `p1RazorValue ≤ p1PrimeSum`: nonnegative-capped, never
 negative.  Kernel-checked shape: `p1RazorValue_eq` + `deficit_floor_of_certs` (any deficit
-discharge needs `e2lo` strictly above the razor's whole certified margin).  The deficit therefore
-CANNOT be closed from the razor alone; it is equivalent to the genuinely-new comparison
+discharge needs `e2lo` strictly above the razor's whole certified margin).  So along this route the
+deficit is not closed from the razor; it is equivalent to the genuinely-new comparison
 `e2lo > a1up`, which the frozen deliverable `twin_razor_deficit` takes as its arithmetic gate.
 (GATE ERRATUM, 2026-07-17: this gate is VACUOUS as a target — `e2PrimeSum ≤ A1primeSum` always
 (`e2Ind ≤ 1` term-by-term), so `e2lo ≤ a1up` is forced and no operating point satisfies the gate
