@@ -38,6 +38,7 @@ lemma twinProd_injective : Function.Injective (fun n : ℕ => n * (n + 2)) := by
 noncomputable def nu : ArithmeticFunction ℝ :=
   ⟨fun d => (rho d : ℝ) / d, by simp [rho]⟩
 
+/-- `nu d = rho d / d` (`rfl`): evaluating the density function. -/
 @[simp] lemma nu_apply (d : ℕ) : nu d = (rho d : ℝ) / d := rfl
 
 /-- `ν` is multiplicative on coprime moduli (from N2.2). -/
@@ -95,8 +96,11 @@ noncomputable def sieve (N : ℕ) (P : ℕ) (hP : Squarefree P) : BoundingSieve 
 
 variable {N P : ℕ} {hP : Squarefree P}
 
+/-- The total mass of `sieve N P hP` is `N` (`rfl`). -/
 @[simp] lemma sieve_totalMass : (sieve N P hP).totalMass = N := rfl
+/-- The density of `sieve N P hP` is `nu` (`rfl`). -/
 @[simp] lemma sieve_nu : (sieve N P hP).nu = nu := rfl
+/-- The sifting modulus of `sieve N P hP` is `P` (`rfl`). -/
 @[simp] lemma sieve_prodPrimes : (sieve N P hP).prodPrimes = P := rfl
 
 /-- N2.5 (second half): `support` has cardinality exactly `N`. -/

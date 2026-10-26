@@ -37,6 +37,8 @@ the classical fundamental theorem (blueprint N1.3 convention). -/
 noncomputable def selbergBoundingSum : ℝ :=
   ∑ l ∈ s.prodPrimes.divisors, if (l : ℝ) ^ 2 ≤ s.level then s.selbergTerms l else 0
 
+/-- `0 < selbergBoundingSum s`: `ℓ = 1` qualifies (`1 ∣ P`, `1 ≤ level`) with term
+`selbergTerms 1 = 1`, and every term is nonnegative. -/
 theorem selbergBoundingSum_pos : 0 < selbergBoundingSum s := by
   rw [selbergBoundingSum, ← Finset.sum_filter]
   apply Finset.sum_pos
@@ -48,6 +50,7 @@ theorem selbergBoundingSum_pos : 0 < selbergBoundingSum s := by
     refine ⟨⟨one_dvd _, BoundingSieve.prodPrimes_ne_zero⟩, ?_⟩
     simpa using s.one_le_level
 
+/-- `selbergBoundingSum s ≠ 0` (`selbergBoundingSum_pos`). -/
 theorem selbergBoundingSum_ne_zero : selbergBoundingSum s ≠ 0 :=
   ne_of_gt (selbergBoundingSum_pos s)
 
@@ -62,6 +65,7 @@ noncomputable def selbergWeights : ℕ → ℝ := fun d =>
         if ((d * m : ℕ) : ℝ) ^ 2 ≤ s.level ∧ m.Coprime d then s.selbergTerms m else 0
   else 0
 
+/-- `selbergWeights s d = 0` when `d ∤ s.prodPrimes` (`hd`): the definition's `else` branch. -/
 theorem selbergWeights_eq_zero_of_not_dvd {d : ℕ} (hd : ¬d ∣ s.prodPrimes) :
     selbergWeights s d = 0 := by
   rw [selbergWeights, if_neg hd]
