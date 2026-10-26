@@ -28,8 +28,8 @@ multiplicity).
   (`hb_logF_at_split_point`).
 * `(4.4)`, the finite-product rearrangement of `κS₁` — **named binder** `hrear` here; the sieve
   side had no corpus definition when this file landed (since proved: `hb_hrear`, `W4.5` below).
-* `(4.5)` `𝔖(z,χ) = {1+O(z^{−1})}𝔖` — **named binder** `hsing`, stated against the corpus's
-  *own* `𝔖` (`Salt.HardyLittlewood.twinSingularSeries`).
+* `(4.5)` `𝔖(z,χ) = {1+O(z^{−1})}𝔖` — **named binder** `hsing` here (since proved: `hb_hsing`),
+  stated against the corpus's *own* `𝔖` (`Salt.HardyLittlewood.twinSingularSeries`).
 
 Nothing is hidden inside an `O(·)`: `hrear` and `hsing` each come with an explicit numeric bound
 (`a1`, `a2`) on their `{1+ε}` factor, and the conclusion's `δ` is bounded by
