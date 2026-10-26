@@ -191,8 +191,8 @@ theorem gold_op_Zpow9 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → (N : ℝ) < 
 first is `gold_opQ_squarefree`, the second is supplied by the (even) consumer,
 the third is the free tower fact `opQ ≤ log N ≤ N`. -/
 /-- **The residue witness at the operating point.** For even `N` (hypothesis `hN`) with
-`opQ ≤ N` (`hQN`), some `a < opQ` is coprime to `opQ` and to `N − a` and avoids `0` and `N`
-modulo every prime factor of `opQ`: `goldbach_residue_witness` at `gold_opQ_squarefree`. -/
+`opQ ≤ N` (`hQN`), some `a < opQ` has `a` and `N − a` both coprime to `opQ`, and avoids `0` and
+`N` modulo every prime factor of `opQ`: `goldbach_residue_witness` at `gold_opQ_squarefree`. -/
 theorem gold_op_residue (N : ℕ) (hN : Even N) (hQN : opQ ≤ N) :
     ∃ a, a < opQ ∧ Nat.Coprime opQ a ∧ Nat.Coprime opQ (N - a) ∧
       ∀ q ∈ opQ.primeFactors, a % q ≠ 0 ∧ a % q ≠ N % q :=
