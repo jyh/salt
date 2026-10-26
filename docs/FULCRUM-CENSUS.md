@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `d003c6eb` · source digest `b11b995416677a09` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `9f914967` · source digest `8ab1e75a53d403df` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -199,9 +199,9 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.HB.exists_firstFailure` | Salt/HB/RosserDim4FL.lean:602 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.HB.firstFailure_decomposition` | Salt/HB/RosserDim4FL.lean:657 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.HB.LamStar_sub_LamTilde_eq_starDiff` | Salt/HB/StarStep.lean:100 | `Salt.HB.Admissible` |
-| case split `by_cases` | `Salt.HB.starErrBound_nonneg` | Salt/HB/StarStep.lean:197 | `Salt.HB.HasExcSq` |
-| case split `by_cases` | `Salt.HB.abs_starDiff_le_starErrBound` | Salt/HB/StarStep.lean:207 | `Salt.HB.HasExcSq` |
-| case split `by_cases` | `Salt.HB.hChiArith_mult` | Salt/HB/TwistChain.lean:201 | `Salt.HB.Admissible` |
+| case split `by_cases` | `Salt.HB.starErrBound_nonneg` | Salt/HB/StarStep.lean:199 | `Salt.HB.HasExcSq` |
+| case split `by_cases` | `Salt.HB.abs_starDiff_le_starErrBound` | Salt/HB/StarStep.lean:209 | `Salt.HB.HasExcSq` |
+| case split `by_cases` | `Salt.HB.hChiArith_mult` | Salt/HB/TwistChain.lean:210 | `Salt.HB.Admissible` |
 | case split `by_cases` | `Salt.MR.indicator_mul_shift_up` | Salt/MR/M4Band.lean:126 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.errC_normSq_le` | Salt/MR/M4ParsevalStone.lean:75 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.indicator_mul_punct` | Salt/MR/M4Puncture.lean:141 | `Salt.MR.MemSPunct` |

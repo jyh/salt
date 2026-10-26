@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `d003c6eb` · source digest `b11b995416677a09` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `9f914967` · source digest `8ab1e75a53d403df` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -322,7 +322,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4ChiSummedFreeRow_L_gk` | DISCHARGED | 8 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:338) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3218) · `Salt.MR.m4_chiSummedFreeRow_trivial_L_gk` (Salt/MR/M4RowLinear.lean:8011) |
 | `FiniteRange` | DISCHARGED | 7 | `Salt.Entropy.Chowla.instFiniteRangeShift` (Salt/Entropy/Chowla/Invariance.lean:49) · `Salt.Entropy.Chowla.instFiniteRangeJointWindow` (Salt/Entropy/Chowla/InvarianceHead.lean:53) · `instFiniteRangeLiouvilleWindow` (Salt/Entropy/Chowla/Windows.lean:50) · +1 |
 | `Salt.Entropy.Chowla.PmNormalized` | DISCHARGED | 7 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:98) · `Salt.Entropy.Chowla.const_satisfies_slots` (Salt/Entropy/Chowla/TransportWall.lean:116) |
-| `Salt.HB.CoprimeSupport` | DISCHARGED | 7 | `Salt.HB.l2cWindow_coprimeSupport` (Salt/HB/L2cCore.lean:166) · `Salt.HB.coprimeSupport_window` ✓audited GUARDED (Salt/HB/Transfer.lean:223) |
+| `Salt.HB.CoprimeSupport` | DISCHARGED | 7 | `Salt.HB.l2cWindow_coprimeSupport` (Salt/HB/L2cCore.lean:170) · `Salt.HB.coprimeSupport_window` ✓audited GUARDED (Salt/HB/Transfer.lean:231) |
 | `Salt.MR.BigXiArcTight` | DISCHARGED | 7 | `Salt.MR.bigXiArcTight_twelve` ✓audited (Salt/MR/ExitClose.lean:773) |
 | `Salt.MR.MSelect'_L_gk` | DISCHARGED | 7 | `Salt.MR.s13_MSelect'_L_of_headroom_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:679) · `Salt.MR.s13_MSelect'_L_of_halfWindow_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:720) |
 | `Salt.MR.VkTwistUB` | DISCHARGED | 7 | `Salt.MR.plog_socket` GUARDED (Salt/MR/FarL2.lean:467) · `Salt.MR.vkTwistUB_of_primitive` ✓audited GUARDED (Salt/MR/VkTwistClose.lean:418) · `Salt.MR.vkTwistUB_holds` ✓audited GUARDED (Salt/MR/VkTwistLadder.lean:762) |
@@ -402,7 +402,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5461) |
 | `Salt.MR.XCeilRiderStrictAt` | DISCHARGED | 2 | `Salt.MR.xceilRiderStrictAt_zero` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:4758) |
 | `Salt.SW.EstermannPositivity` | DISCHARGED | 2 | `Salt.SW.estermannPositivity` ✓audited (Salt/SW/EstermannInterface.lean:468) |
-| `Salt.SW.WellSpacedAt` | DISCHARGED | 2 | `Salt.SW.wellSpacedAt_parity_reps` ✓audited GUARDED (Salt/SW/DensityLogfree.lean:389) |
+| `Salt.SW.WellSpacedAt` | DISCHARGED | 2 | `Salt.SW.wellSpacedAt_parity_reps` ✓audited GUARDED (Salt/SW/DensityLogfree.lean:387) |
 | `Salt.TwinBar.MmuRate` | DISCHARGED | 2 | `Salt.SW.mmuRate_of_smoothed` GUARDED (Salt/SW/MobiusRateClose.lean:924) · `Salt.SW.mmuRate_holds` ✓audited (Salt/SW/MobiusRateClose.lean:1059) |
 | `PieceObligationU` | DISCHARGED | 1 | `tail_obligation_vP1` ✓audited (Salt/Maynard/GehTail.lean:510) · `head_obligation` (Salt/Maynard/GehTypeI.lean:289) |
 | `SWAt` | DISCHARGED | 1 | `swat_zero_family` (Salt/Maynard/GehDoor.lean:258) |
@@ -668,7 +668,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.ProductInWindow` | DISCHARGED | `Salt.Chen.productInWindow_of_corners` ✓audited GUARDED (Salt/Chen/SwitchStrip.lean:247) |
 | `Salt.Chen.isViolPrefix` | DISCHARGED | `Salt.Chen.isViolPrefix_peel_iff` ✓audited GUARDED (Salt/Chen/Peeling.lean:223) · `Salt.Chen.isViolPrefix_prefixMap` (Salt/Chen/TnInduction.lean:357) |
 | `Salt.Entropy.Chowla.PairCollapseShift2` | DISCHARGED | `Salt.Entropy.Chowla.const_satisfies_shift2` (Salt/Entropy/Chowla/TransportWall.lean:124) |
-| `Salt.HB.Admissible` | DISCHARGED | `Salt.HB.admissible_of_squarefree` GUARDED (Salt/HB/StarStep.lean:78) · `Salt.HB.admissible_one` (Salt/HB/TwistChain.lean:155) · `Salt.HB.admissible_mul` GUARDED (Salt/HB/TwistChain.lean:160) |
+| `Salt.HB.Admissible` | DISCHARGED | `Salt.HB.admissible_of_squarefree` GUARDED (Salt/HB/StarStep.lean:78) · `Salt.HB.admissible_one` (Salt/HB/TwistChain.lean:164) · `Salt.HB.admissible_mul` GUARDED (Salt/HB/TwistChain.lean:169) |
 | `Salt.MR.BlockSmallG` | DISCHARGED | `Salt.MR.blockSmallG_of_mem_TsetG` ✓audited GUARDED (Salt/MR/TLegPreamble.lean:101) |
 | `Salt.MR.BlockSmooth` | DISCHARGED | `Salt.MR.blockSmooth_one` (Salt/MR/ShiuMoment.lean:69) · `Salt.MR.blockSmooth_blockPart` (Salt/MR/ShiuMoment.lean:340) |
 | `Salt.MR.G2Scaffold.M4BlockMeanSqSupQ_L` | DISCHARGED | `Salt.MR.G2Scaffold.m4_blockMeanSqSupQ_of_classPrice_L` GUARDED (Salt/MR/M4RowLinear.lean:2115) |
