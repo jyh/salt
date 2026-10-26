@@ -150,12 +150,12 @@ Reduces `S₁ᵐᵃⁱⁿ < Σ_m S₂ᵐᵃⁱⁿ` (after cancelling the common 
 the certified rational `1999·Σ J > 4003·I`, with the sharp-`S1` collision factor
 `(1 + 300/D)` and the level/prime-supply lower bound `δ·log R ≥ 31.465·N'`
 folded in.  Here `Nr = N'`, `δ`, `logR`, `I = I(F★₁)`, `SJ = Σ J(F★₁)`, and
-`eps = 300/D`.  The `31465/1000 = 31.465 > 63·1999/4003 = 31.4606` gives the
+`eps = 300/D`.  The `31465/1000 = 31.465 > 63·1999/4003 = 31.46065…` gives the
 strict margin; `M₅ = SJ/I > 4003/1999` supplies it. -/
 /-- **The ratio core.** For `0 < I` (`hIpos`), the certified ratio `4003·I < 1999·SJ`
 (`hSJcert`), the pin `(31465/1000)·Nr ≤ δ·logR` (`hDL`), `0 < Nr` (`hNr`) and `eps ≤ 1/100000`
 (`hepsle`): `63·Nr·(1 + eps)·I < δ·logR·SJ`. Two nonnegative products and the `eps` bound feed
-one `nlinarith`; the margin is `31.465 > 63·1999/4003 = 31.4606`, with `1/100000` of room for
+one `nlinarith`; the margin is `31.465 > 63·1999/4003 = 31.46065…`, with `1/100000` of room for
 `eps`. -/
 theorem win_ratio_core (Nr δ logR I SJ eps : ℝ)
     (hIpos : 0 < I) (hSJcert : (4003 : ℝ) * I < 1999 * SJ)
