@@ -1103,3 +1103,6 @@ o88-math-2026-10-26-286	Salt/Certs/Vaughan.lean	967d267c0080	Salt/Certs/Vaughan.
 o88-math-2026-10-26-287	Salt/Certs/Vaughan.lean	9f1ab21b2db9	Salt/Certs/Vaughan.lean::cert_vaughan	eda4b7db5ed2	math	paper	2026-10-26
 o88-math-2026-10-26-288	Salt/Certs/ZetaPowRegion.lean	67b73e078b9c	Salt/Certs/ZetaPowRegion.lean::cert_zeta_zero_free_pow	55788a5c106c	math	paper	2026-10-26
 o88-math-2026-10-26-289	Salt/Certs/ZetaPowRegion.lean	8a81371ac086	Salt/Certs/ZetaPowRegion.lean::cert_zeta_zero_free_pow	55788a5c106c	math	paper	2026-10-26
+o88-math-2026-10-26-297	Salt/Certs/ChenGoldbach.lean	ab4feeeded31	Salt/Certs/ChenGoldbach.lean::cert_chen_goldbach	2557e0c22e79	math	paper	2026-10-26
+o88-math-2026-10-26-298	Salt/Certs/ChenGoldbach.lean	ab8babdde3be	Salt/Certs/ChenGoldbach.lean::cert_chen_goldbach_isP2_iff	bdac0d719a8f	math	paper	2026-10-26
+o88-math-2026-10-26-299	Salt/Certs/Kloosterman.lean	2e80d9c57e1e	Salt/Certs/Kloosterman.lean::cert_kloosterman_estermann	dd3d4e5dfa50	math	paper	2026-10-26

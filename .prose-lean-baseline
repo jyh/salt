@@ -198,9 +198,6 @@ fc67cdd8c5c9	papers/witness/main.tex	lexicon-e2
 feca86efa07d	papers/witness/main.tex	lexicon-e2
 65287af30509	papers/witness/pi-overview-draft.md	lexicon-e2
 # lexicon epoch 3 (R2, council 2026-10-22 item 3): Lean docstring claim sentences, gated from epoch 3 and accepted as debt by the WIDENING arm; class docstring-cited marks a declaration a public carrier names (read those first).
-ab4feeeded31	Salt/Certs/ChenGoldbach.lean	docstring
-ab8babdde3be	Salt/Certs/ChenGoldbach.lean	docstring
-2e80d9c57e1e	Salt/Certs/Kloosterman.lean	docstring
 5c963c7d7033	Salt/Chen/ChenFinal.lean	docstring
 64674728b1dc	Salt/Chen/ChenHeadline.lean	docstring
 02b75b7d9927	Salt/Chen/CountW.lean	docstring
