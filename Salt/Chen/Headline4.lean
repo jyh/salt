@@ -31,7 +31,7 @@ The composition is organised as three floors over the frozen operating point
   operating-point analytic bundles `m1`/`m2`/`m3` (the A₁ lower / A₂ upper / A₃
   upper carriers) and the ledger positivity, discharging all eight *structural*
   conjuncts of `chen_of_hypotheses_W` from the `opf_*` facts.  This is pure
-  wiring and is proved unconditionally here.
+  wiring: the eight are discharged here, and the four bundles stay hypotheses.
 
 * **F2 ledger** (`normalized_package`, `Salt/Chen/GlueNormalized.lean`): the
   ledger positivity from the raw carrier bounds + the value/reconciliation certs

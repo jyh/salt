@@ -13,14 +13,14 @@ import Mathlib
 # ⟦TIER S — S-4⟧ THE BRIDGE: S-3's BAND THROUGH THE ARROW (`TierSBridge`)
 
 **S-4 (desk NE) — LANDED 2026-09-14 21:0x: H and C proved by the wave, so B and K2′ are now
-UNCONDITIONAL.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM (a composition of landed
+UNCONDITIONAL.  HONEST LABEL, FIRST LINE: NO NEW MATHEMATICS (a composition of landed
 proofs) — AND B and K2′ carry math's OWN construction (the refuter's P6 and P7, transcribed by
 the author): they had no non-author pass of their own.**  The one place both sides of Tier S are in
 scope: S-3's class-uniform crown band
 (`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU`, `TierSBandU.lean`, PROVED on `main`) is
 fed through S-4's arrow at every regime (`log_chowla_aff_of_door_at_regime_g12b`,
-`StrideShellBand.lean`, FROZEN) with the grade composed at each band regime
-(`affGrade_composes_g12b`, FROZEN), and the result is the sentence D12's `hwin` needs: for every
+`StrideShellBand.lean`, landed) with the grade composed at each band regime
+(`affGrade_composes_g12b`, landed), and the result is the sentence D12's `hwin` needs: for every
 class `b < a` with `gcd (b + h) a ∣ h` and every `y` in ONE band `[x₀, exp(31·Hhi₀/ε)/a]`,
 log-Chowla does not fail at `(a, b, h, ε, y, ω₀)` — and the band is LINKED to the threshold by
 `flatDesignBase A ≤ Hhi₀` (v1.1's one conjunct; without it math's re-pack showed the `A₀` export
@@ -72,7 +72,7 @@ theorem gradedAffHeadAt_g12b_of_at_regime_crowned (a b h : ℕ) (ha : 0 < a) (hh
 
 /-! ## §1 — THE BRIDGE: every class, every scale in one band, no failure -/
 
-/-- **⟦S-4 B⟧ (class A, THE BRIDGE — PROVED FROM H AND C; `sorryAx` through them until the wave)
+/-- **⟦S-4 B⟧ (class A, THE BRIDGE — PROVED FROM H AND C; both landed in the wave, no `sorryAx`)
 — S-3's BAND THROUGH THE ARROW.**  S-3's statement (`TierSBandU.lean` §2) with the per-regime door
 package replaced by its consequence under S-4 and the composition: `∃ ε A`, the band `∃ x₀ ω₀ Hhi₀`
 with its three ceilings, then `∀ b < a` (now carrying the entropy side's `hgcd`) and `∀ y` in the

@@ -11,7 +11,7 @@ import Salt.TwinBar.Simplex4Inner
 **Exploration sprint work item** (`docs/exploration/q2b-asm-design.md`, node `N4-ASM-c`).
 This file is the finale of the `k = 4` Selberg assembly: it discharges the four per-peel
 bounds `J_m4 F ≤ log 4 · W_m` (each a triple-nested `integral_mono_of_nonneg` over the
-landed `sliceCS_m4`, plus the node-a/b region↔iterated reductions), combines the four
+landed `sliceCS₁₄`…`sliceCS₄₄`, plus the node-a/b region↔iterated reductions), combines the four
 weighted masses through the magic identity `w₁₄+w₂₄+w₃₄+w₄₄ ≡ 4/3` (`w_sum_four`) into
 `(4/3)·I₄`, and thereby lands
 

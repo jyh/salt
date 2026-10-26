@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `6667ab69` · source digest `307a8697b504180c` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `6244ea8c` · source digest `934a5471b4608231` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -512,9 +512,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BV.sup_div_log_pow_le` | Salt/BV/SWMaxY.lean:111 | sieves |
 | `Salt.BV.typeI_one_maxdisc_le` | Salt/BV/TypeI.lean:381 | sieves, characters |
 | `Salt.BV.typeI_two_maxdisc_le` | Salt/BV/TypeI.lean:463 | sieves, characters |
-| `Salt.BV.typeII_block_le` | Salt/BV/TypeII.lean:248 | sieves, characters |
-| `Salt.BV.typeII_disc_reduce` | Salt/BV/TypeII.lean:428 | sieves, characters |
-| `Salt.BV.typeII_disc_le` | Salt/BV/TypeIIClose.lean:606 | sieves, characters |
+| `Salt.BV.typeII_block_le` | Salt/BV/TypeII.lean:249 | sieves, characters |
+| `Salt.BV.typeII_disc_reduce` | Salt/BV/TypeII.lean:429 | sieves, characters |
+| `Salt.BV.typeII_disc_le` | Salt/BV/TypeIIClose.lean:608 | sieves, characters |
 | `Salt.BrunLower.esymm_le` | Salt/BrunLower/BlockDecomp.lean:96 | sieves |
 | `Salt.BrunLower.block_esymm_le` | Salt/BrunLower/BlockDecomp.lean:161 | sieves |
 | `Salt.BrunLower.mainSum_le_blockForm` | Salt/BrunLower/BlockDecomp.lean:173 | sieves |
@@ -6973,11 +6973,11 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.phiLowerR_certificate` | Salt/TwinBar/Wall.lean:195 | sieves |
 | `Salt.TwinBar.sum_inv_Icc_le` | Salt/TwinBar/Wall.lean:220 | sieves |
 | `Salt.TwinBar.witness_rosserRemainder_le` | Salt/TwinBar/Wall.lean:255 | sieves |
-| `Salt.TwinBar.corr2_witness_diff` | Salt/TwinBar/WallCorr.lean:106 | sieves, characters |
-| `Salt.TwinBar.corr2_witness_diff_Mlambda` | Salt/TwinBar/WallCorr.lean:135 | sieves |
-| `Salt.TwinBar.corr2_witness_budget` | Salt/TwinBar/WallCorr.lean:148 | sieves |
-| `Salt.TwinBar.parity_wall_corr` | Salt/TwinBar/WallCorr.lean:188 | sieves |
-| `Salt.TwinBar.parity_wall_corr_stable` | Salt/TwinBar/WallCorr.lean:220 | sieves |
+| `Salt.TwinBar.corr2_witness_diff` | Salt/TwinBar/WallCorr.lean:116 | sieves, characters |
+| `Salt.TwinBar.corr2_witness_diff_Mlambda` | Salt/TwinBar/WallCorr.lean:145 | sieves |
+| `Salt.TwinBar.corr2_witness_budget` | Salt/TwinBar/WallCorr.lean:158 | sieves |
+| `Salt.TwinBar.parity_wall_corr` | Salt/TwinBar/WallCorr.lean:198 | sieves |
+| `Salt.TwinBar.parity_wall_corr_stable` | Salt/TwinBar/WallCorr.lean:231 | sieves |
 | `Salt.TwinBar.lambdaSummatory_holds` | Salt/TwinBar/WallUnconditional.lean:37 | sieves |
 | `Salt.TwinBar.parity_wall_unconditional` | Salt/TwinBar/WallUnconditional.lean:43 | sieves |
 | `Salt.TwinBar.no_parity_beating_certificate_unconditional` | Salt/TwinBar/WallUnconditional.lean:56 | sieves |
@@ -7289,7 +7289,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BV.hasLevel_half_of_siegelWalfisz` | Salt/BV/AbelCore.lean:753 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.bounded_gaps_of_siegelWalfisz` | Salt/BV/AbelCore.lean:757 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.siegelWalfisz_psiTot` | Salt/BV/Defs.lean:76 | sieves | `Salt.BV.SiegelWalfisz` |
-| `Salt.BV.psi_BV_of_siegelWalfisz` | Salt/BV/Dispersion.lean:778 | sieves | `Salt.BV.SiegelWalfisz` |
+| `Salt.BV.psi_BV_of_siegelWalfisz` | Salt/BV/Dispersion.lean:781 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.psi_BV_of_siegelWalfisz'` | Salt/BV/DispersionClose.lean:439 | sieves | `Salt.BV.SiegelWalfisz` |
 | `Salt.BV.bounded_gaps_of_siegelWalfisz_of_bridge` | Salt/BV/Headline.lean:26 | sieves | `Salt.BV.SiegelWalfisz`, `Salt.BV.PsiToPiTransfer` |
 | `Salt.BV.hasLevel_half_of_siegelWalfisz_of_bridge` | Salt/BV/PsiToPi.lean:139 | sieves | `Salt.BV.SiegelWalfisz`, `Salt.BV.PsiToPiTransfer` |
@@ -8932,7 +8932,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.rosserRemainder_sMinus_le` | Salt/TwinBar/Wall.lean:370 | sieves | `Salt.TwinBar.LambdaSummatory` |
 | `Salt.TwinBar.parity_wall_effective` | Salt/TwinBar/Wall.lean:393 | sieves | `Salt.TwinBar.LambdaSummatory` |
 | `Salt.TwinBar.no_parity_beating_certificate` | Salt/TwinBar/Wall.lean:533 | sieves | `Salt.TwinBar.LambdaSummatory` |
-| `Salt.TwinBar.phiLowerR_tolerant_corr` | Salt/TwinBar/WallCorr.lean:94 | sieves | `Salt.TwinBar.SieveAgreeCorr` |
+| `Salt.TwinBar.phiLowerR_tolerant_corr` | Salt/TwinBar/WallCorr.lean:104 | sieves | `Salt.TwinBar.SieveAgreeCorr` |
 | `Salt.Vk.zeta_zero_free_region_pow_of_growth` | Salt/Vk/PowRegion.lean:354 | zeros, exponential sums | `Salt.Vk.ZetaGrowthPow` |
 | `Salt.Vk.vk_orbit_fract_sep` | Salt/Vk/Spacing.lean:328 | zeros, exponential sums | `Salt.Vk.VkSpaced` |
 | `Salt.Vmvt.pairEqDominant_JkI_le_const` | Salt/Vmvt/Holder.lean:248 | exponential sums | `Salt.Vmvt.PairEqFracBound` |

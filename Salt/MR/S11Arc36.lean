@@ -149,7 +149,7 @@ numerals lifted and NOTHING else touched.
 ⛔ **BOTH numerals move and only ONE of them is forced.**  The cube bound is forced:
 `1202604³ = 1 739 273 708 594 844 864` against the landed `1096³ = 1 316 532 736`.  The floor is
 **CHOSEN**: `(128·1202604³·72^{36})² ≈ 2.649·10^{174}`, so `10^{175}` is the smallest round power
-that clears it — and `10^{174}` genuinely REFUSES (kernel-checked in both directions).
+that clears it, and `10^{174}` falls short (`2.649·10^{174} > 10^{174}`; arithmetic, not in Lean).
 ⭐ **THE LIFT IS FREE.**  `arc36_of_regime_h_14` pays this floor off `loglogFloor50` through the
 same `e³ ≥ 10` step the landed lane uses; at `10^{175}` the exponent it needs is `525` against
 `e^{50} ≈ 5.18·10^{21}`.  *Ask of every numeral: chosen, or forced?*  `10^{157}` was chosen, and

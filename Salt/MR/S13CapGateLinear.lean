@@ -92,7 +92,7 @@ only; the other thirty-two are the landed terms verbatim. -/
 structure S13CapGatePerBlock_L_gk (K : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (M Nd q P Q Hreg : ℕ)
     (Tann Rrad Rbd CR EP2 εr : ℝ) : Prop where
   -- ⟦THE SCALE FLOOR⟧
-  /-- `8 ≤ log X` — §3's `logX_four` strengthened by one octave (§8a's grid floor). -/
+  /-- `8 ≤ log X` — `S13FramesB` §3's `logX_four` strengthened one octave (its §8a grid floor). -/
   logX_eight : 8 ≤ Real.log ((Nd : ℕ) : ℝ)
   /-- `2 ≤ H₈₃ X θ₂₉₃` — ONE field for both bundles. -/
   H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293

@@ -12,7 +12,7 @@ import Salt.Chen.BetaSW
 Design: `docs/blueprints/chen.md`, the C3c row ("the fine-partition bookkeeping").
 This node reconciles C3b's **count-form** SW-regularity (`prime_indicator_SW`) with
 C3a's **twist-form** hypothesis slot (`hβSW` in `general_BV_weak`), and composes the
-two into the closed general Bombieri–Vinogradov for the interval prime indicator.
+two into `general_BV_closed`: general BV for the prime indicator, `hLargeDisc` still named.
 
 ## What this file lands (sorry-free, FULL)
 
