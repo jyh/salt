@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `b4b3865d` · source digest `000a9cec9a245b3f` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `72dbe30f` · source digest `fb892e4b90fabc9a` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -244,8 +244,8 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.Maynard.compat_pair_fiber_le` | Salt/Maynard/S2FiberCount.lean:430 | `Salt.Maynard.IsCollisionPair` |
 | theorem conclusion | `Salt.Maynard.shiu_class_cover` | Salt/Maynard/ShiuDecomp.lean:393 | `Salt.Maynard.shiuClassDeg`, `Salt.Maynard.shiuClassI`, `Salt.Maynard.shiuClassII`, `Salt.Maynard.shiuClassIIIIV` |
 | case split `by_cases` | `Salt.MaynardK.S2mW_ge_compatMain_half_uniform` | Salt/MaynardK/S2Half.lean:157 | `Salt.Maynard.IsCollisionPair` |
-| case split `by_cases` | `Salt.Twelve.powerful_sum_bounded` | Salt/Twelve/PhiUpper.lean:432 | `Salt.Twelve.IsPowerful` |
-| case split `by_cases` | `Salt.Twelve.windowWeight_col_le` | Salt/Twelve/PhiUpperReindex.lean:220 | `Salt.Twelve.IsPowerful` |
+| case split `by_cases` | `Salt.Twelve.powerful_sum_bounded` | Salt/Twelve/PhiUpper.lean:449 | `Salt.Twelve.IsPowerful` |
+| case split `by_cases` | `Salt.Twelve.windowWeight_col_le` | Salt/Twelve/PhiUpperReindex.lean:247 | `Salt.Twelve.IsPowerful` |
 | case split `by_cases` | `Salt.Twelve.S2mW_ge_compatMain_theta_uniform` | Salt/Twelve/WinCore.lean:364 | `Salt.Maynard.IsCollisionPair` |
 | prop-def body | `Salt.TwinBar.HeathBrownDichotomy` | Salt/TwinBar/SiegelTwin.lean:97 | `TwinPrimeConjecture`, `Salt.TwinBar.NoSiegelZeros` |
 | case split `by_cases` | `Salt.TwinBar.heathBrown_iff_dichotomy` | Salt/TwinBar/SiegelTwin.lean:142 | `Salt.TwinBar.NoSiegelZeros` |
