@@ -171,6 +171,7 @@ lemma zeta_fe_factor_ne_zero {ρ : ℂ} (h0 : 0 < ρ.re) (h1 : ρ.re < 1) :
 /-- Multiplicity of a `ζ`-zero (`0` at non-zeros), cast to `ℝ`; the divisor summand. -/
 noncomputable def zZeroMult (ρ : ℂ) : ℝ := ((analyticOrderAt riemannZeta ρ).toNat : ℝ)
 
+/-- `0 ≤ zZeroMult ρ`, the cast of a natural number (`Nat.cast_nonneg`). -/
 lemma zZeroMult_nonneg (ρ : ℂ) : 0 ≤ zZeroMult ρ := Nat.cast_nonneg _
 
 /-- The *low* half-box: `ζ`-zeros with `0 < Re ρ < 1/2`, `|Im ρ − t| ≤ 1`. -/

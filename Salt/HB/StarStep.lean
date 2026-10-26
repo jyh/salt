@@ -191,6 +191,8 @@ open Classical in
 noncomputable def starErrBound (χ : DirichletCharacter ℂ q) (z m : ℕ) : ℝ :=
   if HasExcSq χ z m then (m.divisors.card : ℝ) * Real.log m else 0
 
+/-- `0 ≤ starErrBound χ z m`: on the exceptional `m` it is `τ(m) log m ≥ 0` (`tauLog_nonneg`),
+and `0` otherwise. -/
 lemma starErrBound_nonneg (χ : DirichletCharacter ℂ q) (z m : ℕ) :
     0 ≤ starErrBound χ z m := by
   rw [starErrBound]
