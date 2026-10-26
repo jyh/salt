@@ -13,7 +13,7 @@ by path per M0, because this house has more than one:
 
 * **Nature draft**, `${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:201` — the
   surveyed-strength list: *"no public artifact in any proof assistant proves **the
-  Siegel–Walfisz theorem**, …"*
+  Siegel–Walfisz theorem**, …"* (not current: see the 2026-10-11 note heading the survey)
 * **Pi flagship**, `papers/flagship/main.tex:322` — *"Around these sit **an
   unconditional Siegel–Walfisz theorem**, …"* (prose; no `\label`, so quoted by line).
 
