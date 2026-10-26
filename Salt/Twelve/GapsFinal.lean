@@ -56,6 +56,8 @@ def Dfin : ℕ := 10 ^ 18
 
 /-! ## Modulus facts at `primorial Dfin` -/
 
+/-- A product of distinct primes (`hs`) is square-free: induction on the finset, the new prime
+coprime to the product of the rest (`Nat.Coprime.prod_right`, `Nat.squarefree_mul_iff`). -/
 private lemma prod_primes_sqf' {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     Squarefree (∏ p ∈ s, p) := by
   induction s using Finset.induction with
@@ -71,14 +73,18 @@ private lemma prod_primes_sqf' {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     rw [Nat.squarefree_mul_iff]
     exact ⟨hcop, hap.squarefree, ih hsp⟩
 
+/-- `primorial D` is square-free: it is the product of the primes `≤ D` (`prod_primes_sqf'`). -/
 lemma primorial_sqf' (D : ℕ) : Squarefree (primorial D) := by
   unfold primorial
   exact prod_primes_sqf' (fun p hp => (Finset.mem_filter.mp hp).2)
 
+/-- `0 < primorial D`: a product of primes (`Finset.prod_pos`). -/
 lemma primorial_pos'' (D : ℕ) : 0 < primorial D := by
   unfold primorial
   exact Finset.prod_pos (fun p hp => (Finset.mem_filter.mp hp).2.pos)
 
+/-- Each of the five shifts `h_i ≤ 19` is below `Dfin = 10¹⁸` (`hSeq_five_zero` …
+`hSeq_five_four`, by cases on `i`). -/
 private lemma hSeq_lt_Dfin (i : Fin 5) : hSeq 5 i < Dfin := by
   unfold Dfin
   fin_cases i <;>
@@ -91,6 +97,13 @@ private lemma hSeq_lt_Dfin (i : Fin 5) : hSeq 5 i < Dfin := by
 Mirror of `sharp_S1_upperW`, but the collision estimate is the *unconditional*
 NC-1 corollary `collision_yF_M` (`M`-based) instead of the `S1InnerBound`-fed
 `collision_lower_orderW_of` (yside-based).  Hence no `S1InnerBound` hypothesis. -/
+/-- **The M-based sharp `S₁` upper bound (the S₁ inner atom killed).** For `Qabs F ≤ 1` (`hQ`),
+square-free `W'` (`hW'`), a cutoff `D ≥ 12·5²` (`hDk`) below every prime not dividing `W'`
+(`hDlt`) and above the shifts (`hlt`), and CRT solvability of every non-collision pair (`hsol`):
+`S₁ ≤ (63N/W')·(yside + 12·5²/D·M) + 2⁶(Σ|λ_d|)²`. The main-plus-error form
+`S1_le_main_add_errorW`, with the compatible form `yside` minus the collision form
+(`s1_compat_eq`) and the collision form bounded by the unconditional `collision_yF_M`
+(`|s1CollisionForm| ≤ 12·5²/D·M`). -/
 theorem sharp_S1_upperM (N R W' ν₀ D : ℕ) (F : Poly) (hQ : Qabs F ≤ 1)
     (hW' : Squarefree W')
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hlt : ∀ i : Fin 5, hSeq 5 i < D)
@@ -131,6 +144,12 @@ theorem sharp_S1_upperM (N R W' ν₀ D : ℕ) (F : Poly) (hQ : Qabs F ≤ 1)
 Mirror of `win_core'` with the S₁ inner-atom hypothesis `hInner` removed: the
 sharp `S1` upper bound is `sharp_S1_upperM` (M-based, unconditional).  The slack
 `hslack` is the M-based ratio-slack (with the `M`-collision term explicit). -/
+/-- **The sieve inequality `S₁ < Σ_m S2mW` with the S₁ inner atom discharged.** Under the
+hypotheses of `sharp_S1_upperM` at `F = Fstar1` (`hW'`, `hDlt`, `hlt`, `hDk`, `hsol`;
+`Qabs Fstar1 = 1`), with `0 < φ(W')` (`hφpos`), `0 ≤ cval` (`hcval`), `0 ≤ δ ≤ Δπ_m` (`hδ0`,
+`hDpi`), `cval m ≤ Qdiag_mW` (`hQlow`), the `S2mW` lower bound (`hS2low`) and the M-based
+ratio-slack (`hslack`): `sharp_S1_upperM` puts `S₁` below the slack's right side, and
+`S1_lt_sum_S2mW` turns that into `S₁ < Σ_m S2mW`. -/
 theorem win_core_M (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ)
     (hW' : Squarefree W')
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hlt : ∀ i : Fin 5, hSeq 5 i < D)
@@ -171,6 +190,11 @@ The `Qdiag`-relative S₂ collision bound, CF-slotted.  Mirror of the landed
 and the count-weighted compatible form `s2CompatFormM` is exactly the collision
 form (`Qdiag_mW − s2CompatFormM = s2CollisionForm`), bounded by `4·Cs·CF·k²/D`
 times the diagonal. -/
+/-- **The `Qdiag`-relative S₂ collision bound, CF-slotted.** For `0 ≤ CF` (`hCF`), a cutoff
+`D ≥ 48·5²` (`hDk`) below every prime not dividing `W'` (`hDlt`) and the correction-slotted
+inner atom `S2InnerBoundQC` (`hInner`): `|Qdiag_mW − s2CompatFormM| ≤ (4·Cs·CF·5²/D)·Qdiag_mW`.
+The difference is exactly the collision form (`Qdiag_mW_eq_s2FullFormM`, `s2_compat_eq_M`),
+bounded by `s2_collision_le_QdiagW_C` against `Qdiag_gv = Qdiag_mW` (`s2FullFormM_eq_Qdiag`). -/
 theorem s2_collision_yF_C (R W' D : ℕ) (m : Fin 5) (F : Poly) (CF : ℝ) (hCF : 0 ≤ CF)
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hDk : 48 * 5 ^ 2 ≤ D)
     (hInner : S2InnerBoundQC 5 R W' m (yF R W' F) CF) :
@@ -230,6 +254,11 @@ M-based S₁ slack (conjunct 7).  Conjuncts 1–6 are IDENTICAL to `WinFrontier`
 (they never mention the S₁ collision).  This is the mechanical `∀ᶠ N` largeness
 bundle; its discharge (`win_ratio_core` + the vanishing `mv_I_split`/
 `qdiag_bridge`/`herr` budget) is FABLE-QUEUE'd — see the NC-3 / W5-7 flag. -/
+/-- **The pinned-numeral frontier** at the modulus `primorial Dfin`: `WindowPNT → EHall → ∀ N,`
+`∃ N' ≥ N` and witnesses `R, ν₀, δ, errEH, cval` with the six conjuncts of `WinFrontier` — CRT
+collision-solvability, `0 < φ`, `0 ≤ cval m`, `0 ≤ δ ≤ Δπ_m`, `cval m ≤ Qdiag_mW`, the `S2mW`
+lower bound — and the M-based S₁ ratio-slack as the seventh; `FrontierM`'s `WinFrontierMW Dfin`
+by definition. -/
 def WinFrontierM : Prop :=
   WindowPNT → EHall → ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ), N ≤ N' ∧
@@ -265,6 +294,12 @@ The frozen target's conclusion, matched verbatim; the S₁ inner
 atom is discharged (via `collision_yF_M` inside `win_core_M`).  It remains
 CONDITIONAL on the mechanical `WinFrontierM` largeness bundle (PB-floor #2 of the
 NC-3 card: the `∀ᶠ N` slack threading is carried explicitly and flagged). -/
+/-- **The frontier-conditional capstone.** Under `WindowPNT` (`hPNT`), `EHall` (`hEH`) and the
+largeness bundle `WinFrontierM` (`hFrontier`): for every `N` there are primes `p ≠ q > N` with
+`|q − p| ≤ 12`. `bounded_gaps_reduces_twelve` at the modulus `primorial Dfin` asks for one
+`N' ≥ N` with `S₁ < Σ_m S2mW` at the weight `yF R (primorial Dfin) Fstar1`, which `win_core_M`
+supplies from the bundle's witnesses (`primorial_sqf'`, `primorial_hDlt`, `hSeq_lt_Dfin`,
+`12·5² ≤ Dfin`). -/
 theorem gaps_le_twelve_of_frontierM (hPNT : WindowPNT) (hEH : EHall)
     (hFrontier : WinFrontierM) :
     ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
