@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `1a2f6851` · source digest `1eee2e5d39afa0b5` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `19a7f6fc` · source digest `008349af05516b26` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -529,14 +529,14 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BrunLower.chi_one` | Salt/BrunLower/Defs.lean:187 | sieves |
 | `Salt.BrunLower.chi_prime` | Salt/BrunLower/Defs.lean:214 | sieves |
 | `Salt.BrunLower.W_pos` | Salt/BrunLower/Defs.lean:278 | sieves |
-| `Salt.BrunLower.master_signed` | Salt/BrunLower/Lemma3.lean:388 | sieves |
-| `Salt.BrunLower.hcorr_upper` | Salt/BrunLower/Lemma3.lean:860 | sieves |
-| `Salt.BrunLower.hcorr_lower` | Salt/BrunLower/Lemma3.lean:873 | sieves |
-| `Salt.BrunLower.mainSum_le_blockForm'` | Salt/BrunLower/Lemma3.lean:890 | sieves |
-| `Salt.BrunLower.mainSum_ge_blockForm'` | Salt/BrunLower/Lemma3.lean:901 | sieves |
-| `Salt.BrunLower.blockTail_le` | Salt/BrunLower/MainTerm.lean:207 | sieves |
-| `Salt.BrunLower.mainSum_le_of_upper` | Salt/BrunLower/MainTerm.lean:254 | sieves |
-| `Salt.BrunLower.mainSum_ge_of_lower` | Salt/BrunLower/MainTerm.lean:291 | sieves |
+| `Salt.BrunLower.master_signed` | Salt/BrunLower/Lemma3.lean:391 | sieves |
+| `Salt.BrunLower.hcorr_upper` | Salt/BrunLower/Lemma3.lean:888 | sieves |
+| `Salt.BrunLower.hcorr_lower` | Salt/BrunLower/Lemma3.lean:906 | sieves |
+| `Salt.BrunLower.mainSum_le_blockForm'` | Salt/BrunLower/Lemma3.lean:923 | sieves |
+| `Salt.BrunLower.mainSum_ge_blockForm'` | Salt/BrunLower/Lemma3.lean:934 | sieves |
+| `Salt.BrunLower.blockTail_le` | Salt/BrunLower/MainTerm.lean:216 | sieves |
+| `Salt.BrunLower.mainSum_le_of_upper` | Salt/BrunLower/MainTerm.lean:263 | sieves |
+| `Salt.BrunLower.mainSum_ge_of_lower` | Salt/BrunLower/MainTerm.lean:300 | sieves |
 | `Salt.BrunLower.LamTwin_pos` | Salt/BrunLower/MertensDischarge.lean:124 | sieves |
 | `Salt.BrunLower.LamTwin_le_lam` | Salt/BrunLower/MertensDischarge.lean:134 | sieves |
 | `Salt.BrunLower.LamTwin_le_one` | Salt/BrunLower/MertensDischarge.lean:142 | sieves |
@@ -559,9 +559,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BrunLower.capSum_master` | Salt/BrunLower/Remainder.lean:192 | sieves |
 | `Salt.BrunLower.remainder_prod_bound` | Salt/BrunLower/Remainder.lean:499 | sieves |
 | `Salt.BrunLower.remainder_prod_bound_of_R` | Salt/BrunLower/Remainder.lean:568 | sieves |
-| `Salt.BrunLower.margin_ge` | Salt/BrunLower/TwinInstance.lean:360 | sieves |
-| `Salt.BrunLower.margin_ge_b1` | Salt/BrunLower/TwinInstance.lean:388 | sieves |
-| `Salt.BrunLower.twin_almost_prime` | Salt/BrunLower/TwinInstance.lean:792 | sieves |
+| `Salt.BrunLower.margin_ge` | Salt/BrunLower/TwinInstance.lean:363 | sieves |
+| `Salt.BrunLower.margin_ge_b1` | Salt/BrunLower/TwinInstance.lean:391 | sieves |
+| `Salt.BrunLower.twin_almost_prime` | Salt/BrunLower/TwinInstance.lean:795 | sieves |
 | `Salt.BrunLower.Wratio_pos` | Salt/BrunLower/WRatio.lean:109 | sieves |
 | `Salt.BrunLower.windowSum_nonneg` | Salt/BrunLower/WRatio.lean:115 | sieves |
 | `Salt.BrunLower.windowSum_le_log_Wratio` | Salt/BrunLower/WRatio.lean:135 | sieves |
