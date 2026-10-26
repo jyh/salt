@@ -69,8 +69,10 @@ respectively): `Σ_{p,q} p.2 · q.2 · ker p.1 q.1`. -/
 private def biQuad (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) : ℚ :=
   (F.map (fun p => (F.map (fun q => p.2 * q.2 * ker p.1 q.1)).sum)).sum
 
+/-- `Ical F` is `biQuad` at the kernel `DInt (a + b)` (`rfl`). -/
 private lemma Ical_eq_biQuad (F : Poly) : Ical F = biQuad (fun a b => DInt (a + b)) F := rfl
 
+/-- `Jcal m F` is `biQuad` at the kernel `JD · · m` (`rfl`). -/
 private lemma Jcal_eq_biQuad (m : Fin 5) (F : Poly) :
     Jcal m F = biQuad (fun a b => JD a b m) F := rfl
 
@@ -110,10 +112,13 @@ theorem Qabs_Fstar_eq : Qabs Fstar = 1227 := by
   norm_num [Qabs, Fstar]
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `0 < Qabs Fstar`: its value is `1227` (`Qabs_Fstar_eq`). -/
 theorem Qabs_Fstar_pos : 0 < Qabs Fstar := by rw [Qabs_Fstar_eq]; norm_num
 
 /-! ## `Fstar1` as a coefficient rescaling by `c = (Qabs Fstar)⁻¹` -/
 
+/-- `Fstar1` is `Fstar` with every coefficient multiplied by `(Qabs Fstar)⁻¹` — the definition
+with its division written as a product (`div_eq_mul_inv`). -/
 private lemma Fstar1_eq_scale : Fstar1 = Fstar.map (fun m => (m.1, m.2 * (Qabs Fstar)⁻¹)) := by
   unfold Fstar1
   simp only [div_eq_mul_inv]
