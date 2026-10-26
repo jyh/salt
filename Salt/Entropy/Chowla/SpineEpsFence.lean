@@ -85,7 +85,7 @@ theorem margin_not_forall_of_vanishing_demand (ε : ℚ) (hε : 0 < ε) (W : ℕ
 /-- **`spine_eps_constant_floor` — the spine head's margin is a CONSTANT, and no
 vanishing demand can cite it.**
 
-The first four components are `log_chowla_two_budget_head` verbatim: one `ε : ℚ`, one
+All but the last conjunct are `log_chowla_two_budget_head` verbatim: one `ε : ℚ`, one
 door threshold `δ₀ > 0`, and for every extra regime-floor demand a regime `R` at that
 same `ε` on which log-Chowla-2 does not fail, conditional only on the Ξ_H-restricted
 door.  The last component is the fence: for any consumer demand `W` with `W z → 0` —
