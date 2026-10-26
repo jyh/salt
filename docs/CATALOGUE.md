@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `6b1b0f93` · source digest `54bec03676b6f79a` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `458b52a8` · source digest `5cfdbbd38d0c6def` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6573,21 +6573,21 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.LFunction_exists_factorization` | Salt/SW/PartialFractions.lean:111 | sieves, characters |
 | `Salt.SW.LFunction_partialFraction` | Salt/SW/PartialFractions.lean:245 | sieves, characters |
 | `Salt.SW.norm_logDeriv_sub_sum_le` | Salt/SW/PartialFractions.lean:321 | sieves |
-| `Salt.SW.pseudoChar_one_right` | Salt/SW/PseudoChar.lean:49 | sieves, characters |
-| `Salt.SW.pseudoChar_one_left` | Salt/SW/PseudoChar.lean:53 | sieves, characters |
-| `Salt.SW.pseudoChar_of_coprime` | Salt/SW/PseudoChar.lean:57 | sieves, characters |
-| `Salt.SW.pseudoChar_mul_right_of_coprime` | Salt/SW/PseudoChar.lean:64 | sieves, characters |
-| `Salt.SW.gcd_mul_eq_gcd_mul_gcd_div` | Salt/SW/PseudoChar.lean:75 | sieves, characters |
-| `Salt.SW.pseudoChar_mul_of_squarefree` | Salt/SW/PseudoChar.lean:98 | sieves, characters |
-| `Salt.SW.pseudoChar_mul_left_of_coprime` | Salt/SW/PseudoChar.lean:110 | sieves, characters |
-| `Salt.SW.pseudoChar_prime_left` | Salt/SW/PseudoChar.lean:122 | sieves, characters |
-| `Salt.SW.abs_pseudoChar_le_sum_divisors` | Salt/SW/PseudoChar.lean:133 | sieves, characters |
-| `Salt.SW.selbergPsi_isMultiplicative` | Salt/SW/PseudoChar.lean:149 | sieves, characters |
-| `Salt.SW.selbergPsi_apply_prime` | Salt/SW/PseudoChar.lean:157 | sieves, characters |
-| `Salt.SW.abs_selbergPsi_le` | Salt/SW/PseudoChar.lean:164 | sieves, characters |
-| `Salt.SW.abs_pseudoChar_selbergPsi_le` | Salt/SW/PseudoChar.lean:175 | sieves, characters |
-| `Salt.SW.pseudoChar_selbergPsi_prime_of_dvd` | Salt/SW/PseudoChar.lean:181 | sieves, characters |
-| `Salt.SW.pseudoChar_selbergPsi_four_two_two` | Salt/SW/PseudoChar.lean:189 | sieves, characters |
+| `Salt.SW.pseudoChar_one_right` | Salt/SW/PseudoChar.lean:50 | sieves, characters |
+| `Salt.SW.pseudoChar_one_left` | Salt/SW/PseudoChar.lean:54 | sieves, characters |
+| `Salt.SW.pseudoChar_of_coprime` | Salt/SW/PseudoChar.lean:58 | sieves, characters |
+| `Salt.SW.pseudoChar_mul_right_of_coprime` | Salt/SW/PseudoChar.lean:65 | sieves, characters |
+| `Salt.SW.gcd_mul_eq_gcd_mul_gcd_div` | Salt/SW/PseudoChar.lean:76 | sieves, characters |
+| `Salt.SW.pseudoChar_mul_of_squarefree` | Salt/SW/PseudoChar.lean:99 | sieves, characters |
+| `Salt.SW.pseudoChar_mul_left_of_coprime` | Salt/SW/PseudoChar.lean:111 | sieves, characters |
+| `Salt.SW.pseudoChar_prime_left` | Salt/SW/PseudoChar.lean:123 | sieves, characters |
+| `Salt.SW.abs_pseudoChar_le_sum_divisors` | Salt/SW/PseudoChar.lean:134 | sieves, characters |
+| `Salt.SW.selbergPsi_isMultiplicative` | Salt/SW/PseudoChar.lean:150 | sieves, characters |
+| `Salt.SW.selbergPsi_apply_prime` | Salt/SW/PseudoChar.lean:158 | sieves, characters |
+| `Salt.SW.abs_selbergPsi_le` | Salt/SW/PseudoChar.lean:165 | sieves, characters |
+| `Salt.SW.abs_pseudoChar_selbergPsi_le` | Salt/SW/PseudoChar.lean:176 | sieves, characters |
+| `Salt.SW.pseudoChar_selbergPsi_prime_of_dvd` | Salt/SW/PseudoChar.lean:182 | sieves, characters |
+| `Salt.SW.pseudoChar_selbergPsi_four_two_two` | Salt/SW/PseudoChar.lean:190 | sieves, characters |
 | `Salt.SW.jutilaLocal_one` | Salt/SW/PseudoCharEuler.lean:70 | sieves, characters |
 | `Salt.SW.jutilaLocal_prime` | Salt/SW/PseudoCharEuler.lean:73 | sieves, characters |
 | `Salt.SW.jutilaLocal_mul_of_coprime` | Salt/SW/PseudoCharEuler.lean:77 | sieves, characters |
@@ -9601,7 +9601,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.MR.vkStripConst` | Salt/MR/VkTwistStrip.lean:239 | characters |
 | `Salt.MaynardK.engelsmaTuple` | Salt/MaynardK/Tuple600.lean:112 | other |
 | `Salt.SW.coprimeSeries_one` | Salt/SW/GrahamHard2.lean:120 | sieves |
-| `Salt.SW.selbergPsi_apply` | Salt/SW/PseudoChar.lean:144 | sieves, characters |
+| `Salt.SW.selbergPsi_apply` | Salt/SW/PseudoChar.lean:145 | sieves, characters |
 | `Salt.SW.hCoef_apply` | Salt/SW/PseudoCharH.lean:81 | sieves, characters |
 | `Salt.SW.noSiegelZeros_iff_exists_at` | Salt/SW/StandoffGate.lean:96 | sieves |
 | `Salt.TwinBar.w₁_add_w₂` | Salt/TwinBar/Defs.lean:91 | sieves |
