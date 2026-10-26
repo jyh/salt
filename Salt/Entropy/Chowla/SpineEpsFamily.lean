@@ -30,8 +30,8 @@ the produced one — the row's "exchange rate, not a wall" — and only the crow
 `spine_eps_constant_floor` (`SpineEpsFence.lean:102`) is UNTOUCHED: this head is added BESIDE
 the pinned one (QUEUE item 11, fence (2)), and the tripwire keeps guarding the `∃ ε` terminal.
 
-Honest label: no new unconditional theorem; a restatement whose value is the exported
-exchange rate.  Nothing bears on twin primes.  STATEMENT-ONLY at the freeze. ⚠ ERRATUM: END OF FILE.
+Honest label: no new unconditional theorem: the pinned head at every `ε ≤ 1/500`, still
+door-conditional, whose value is the exported exchange rate.  Nothing bears on twin primes.  STATEMENT-ONLY at the freeze. ⚠ ERRATUM: END OF FILE.
 -/
 
 -- The pinned head's core and the two cap helpers are `private` in `HloExport`; they are reached
