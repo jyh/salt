@@ -6,7 +6,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 integration control, λ-BV wave 2-W, 2026-09-03
 
 Two names, in `Salt/MR` because the producer is the landed prize `logChowla2_v7_rated_h`
-(`Salt/MR/V7RatedH.lean:1210`) and `Salt/Entropy` cannot import `Salt/MR`.
+(`Salt/MR/V7RatedH.lean:1210`) and `Salt/Entropy` did not import `Salt/MR`.
 
 * `logChowlaAffSupply_one_zero` — `LogChowlaAffSupply 1 0 h` at every `h` with `log h ≤ 7`,
   by reading three of the prize's conjuncts and transporting the failure Prop through

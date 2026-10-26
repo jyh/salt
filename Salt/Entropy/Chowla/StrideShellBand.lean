@@ -80,7 +80,7 @@ slot is discharged, so the class carries the entropy side's own binder `hgcd : g
 What it says that no landed statement says: the arrow does not depend on WHICH regime the crown
 built — any regime at the pin above the threshold that carries the door at the floor is a window
 where log-Chowla does not fail.  Composed with S-3's band (every `y ∈ [x₀, exp(31·Hhi₀/ε)/a]` at
-the same `ω₀`, every class) this is D12's `hwin` for every class over ONE band
+the same `ω₀`, every class) this is D12's `hwin` for every class with `hgcd` over ONE band
 (`Salt/MR/TierSBridge.lean`).
 
 Route (module header; not fired): the landed head's body with step (4) removed, `A ↦ A₁`, the
@@ -365,7 +365,7 @@ payload `hcrown` (the landed head's own binder, `StrideShellG.lean:334-343`, byt
 `GradedAffHeadAt_g12b a b h A₀` (`StridePrize.lean:295`) — the landed head's conclusion — at every
 `A₀`: obtain the crown at `max A₀ A₁`, lower its `flatDesignBase A ≤ Ra.Hlo` to `A₁` by
 `flatDesignBase_mono`, and take `δ₀ := floor`.  Stated with the hypothesis spelled out rather than
-through the `sorry` above, so its axiom audit is the kernel's three. -/
+through the arrow above, so its axiom audit is the kernel's three. -/
 theorem gradedAffHeadAt_g12b_of_at_regime (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (hgcd : Nat.gcd (b + h) a ∣ h)
     (hS4 : ∃ A₁ : ℝ, 162 ≤ A₁ ∧
