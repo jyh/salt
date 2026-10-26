@@ -126,6 +126,10 @@ def jutilaPhi [NeZero q] (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R x 
 
 /-! ## (i) The weight and the split (Lemma 6's first line) -/
 
+/-- `|λ_d| ≤ 1` for `2 ≤ z₁ < z₂` (`hz₁`, `hz`): `λ_d = μ(d)` for `d ≤ z₁`
+(`bvWeight_eq_moebius_of_le`), `μ(d)·log(z₂/d)/log(z₂/z₁)` on `z₁ < d ≤ z₂`
+(`bvWeight_eq_of_mem`) with the ratio of logarithms in `[0, 1]`, and `0` beyond `z₂`
+(`bvWeight_eq_zero_of_gt`); `|μ(d)| ≤ 1` (`abs_moebius_le_one`). -/
 theorem abs_bvWeight_le_one {z₁ z₂ d : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) :
     |bvWeight z₁ z₂ d| ≤ 1 := by
   have hmu : |((moebius d : ℤ) : ℝ)| ≤ 1 := by
@@ -153,6 +157,8 @@ theorem abs_bvWeight_le_one {z₁ z₂ d : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ 
   · rw [bvWeight_eq_zero_of_gt hz hd2, abs_zero]
     norm_num
 
+/-- `|a(n)| = |Σ_{d ∣ n} λ_d| ≤ τ(n)` for `2 ≤ z₁ < z₂` (`hz₁`, `hz`): the triangle inequality
+with `|λ_d| ≤ 1` (`abs_bvWeight_le_one`) on each of the `τ(n)` divisors. -/
 theorem abs_sum_bvWeight_divisors_le_card {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) (n : ℕ) :
     |∑ d ∈ n.divisors, bvWeight z₁ z₂ d| ≤ (n.divisors.card : ℝ) := by
   refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
@@ -160,10 +166,14 @@ theorem abs_sum_bvWeight_divisors_le_card {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁)
     Finset.sum_le_sum (fun d _ => abs_bvWeight_le_one hz₁ hz)
   simpa using h1
 
+/-- The detector coefficient vanishes at `n = 0`: `Nat.divisors 0 = ∅`, so `a(0) = 0`. -/
 theorem jutilaCoeff_zero (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R : ℝ) :
     jutilaCoeff χ z₁ z₂ R 0 = 0 := by
   simp [jutilaCoeff]
 
+/-- The `n = 1` coefficient is `Σ'_r r⁻¹`, for `2 ≤ z₁ < z₂` (`hz₁`, `hz`): `a(1) = 1`
+(`sum_bvWeight_divisors_one`), `χ(1) = 1`, and `ψ_r(1) = 1` at every level
+(`pseudoChar_one_right`, `selbergPsi_isMultiplicative`). -/
 theorem jutilaCoeff_one (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂)
     (R : ℝ) :
     jutilaCoeff χ z₁ z₂ R 1 = ((∑ r ∈ rFilter q R, (r : ℝ)⁻¹ : ℝ) : ℂ) := by
@@ -174,11 +184,17 @@ theorem jutilaCoeff_one (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁
     Complex.ofReal_one, one_mul, mul_one]
   rw [Finset.sum_congr rfl hps]
 
+/-- The coefficient vanishes on `2 ≤ n ≤ z₁` (`h1`, `h2`) for `z₁ < z₂` (`hz`): `a(n) = 0` there
+(`sum_bvWeight_divisors_eq_zero`, W6a's second identity). -/
 theorem jutilaCoeff_eq_zero_of_le (χ : DirichletCharacter ℂ q) {z₁ z₂ n : ℕ} (hz : z₁ < z₂)
     (h1 : 2 ≤ n) (h2 : n ≤ z₁) (R : ℝ) :
     jutilaCoeff χ z₁ z₂ R n = 0 := by
   simp [jutilaCoeff, sum_bvWeight_divisors_eq_zero hz h1 h2]
 
+/-- **Lemma 6's first line, the split.** For `2 ≤ z₁ < z₂` (`hz₁`, `hz`) and `1 ≤ x` (`hx`), the
+full sum is the `n = 1` term `(Σ'_r r⁻¹)·K(1/x)` plus the detector over `z₁ < n ≤ x`: the terms
+`2 ≤ n ≤ z₁` vanish (`jutilaCoeff_eq_zero_of_le`), so the sum over `Icc 1 ⌊x⌋` is the sum over
+`{1} ∪ Ioc z₁ ⌊x⌋` (`Finset.sum_subset`), and the `n = 1` coefficient is `jutilaCoeff_one`. -/
 theorem jutilaFull_eq_add_detector (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁)
     (hz : z₁ < z₂) (R : ℝ) {x : ℝ} (hx : 1 ≤ x) (s : ℂ) :
     jutilaFull χ z₁ z₂ R x s
@@ -216,19 +232,27 @@ theorem jutilaFull_eq_add_detector (χ : DirichletCharacter ℂ q) {z₁ z₂ : 
 
 /-! ### Product monotonicity helpers (nonnegative reals), used from (ii) on -/
 
+/-- Product monotonicity for two factors: `a₁ ≤ a₂` and `b₁ ≤ b₂` (`ha`, `hb`) with `0 ≤ a₁`,
+`0 ≤ b₁` (`ha0`, `hb0`) give `a₁b₁ ≤ a₂b₂` (`mul_le_mul`). -/
 private lemma mul2_le {a₁ a₂ b₁ b₂ : ℝ} (ha0 : 0 ≤ a₁) (hb0 : 0 ≤ b₁) (ha : a₁ ≤ a₂)
     (hb : b₁ ≤ b₂) : a₁ * b₁ ≤ a₂ * b₂ :=
   mul_le_mul ha hb hb0 (ha0.trans ha)
 
+/-- Product monotonicity for three nonnegative factors (`ha0`, `hb0`, `hc0`; `ha`, `hb`, `hc`):
+`mul2_le` on the first two, then once more. -/
 private lemma mul3_le {a₁ a₂ b₁ b₂ c₁ c₂ : ℝ} (ha0 : 0 ≤ a₁) (hb0 : 0 ≤ b₁) (hc0 : 0 ≤ c₁)
     (ha : a₁ ≤ a₂) (hb : b₁ ≤ b₂) (hc : c₁ ≤ c₂) : a₁ * b₁ * c₁ ≤ a₂ * b₂ * c₂ :=
   mul2_le (mul_nonneg ha0 hb0) hc0 (mul2_le ha0 hb0 ha hb) hc
 
+/-- Product monotonicity for four nonnegative factors (`ha0`–`hd0`; `ha`–`hd`): `mul2_le` on
+`mul3_le`. -/
 private lemma mul4_le {a₁ a₂ b₁ b₂ c₁ c₂ d₁ d₂ : ℝ} (ha0 : 0 ≤ a₁) (hb0 : 0 ≤ b₁)
     (hc0 : 0 ≤ c₁) (hd0 : 0 ≤ d₁) (ha : a₁ ≤ a₂) (hb : b₁ ≤ b₂) (hc : c₁ ≤ c₂)
     (hd : d₁ ≤ d₂) : a₁ * b₁ * c₁ * d₁ ≤ a₂ * b₂ * c₂ * d₂ :=
   mul2_le (mul_nonneg (mul_nonneg ha0 hb0) hc0) hd0 (mul3_le ha0 hb0 hc0 ha hb hc) hd
 
+/-- Product monotonicity for five nonnegative factors (`ha0`–`he0`; `ha`–`he`): `mul2_le` on
+`mul4_le`. -/
 private lemma mul5_le {a₁ a₂ b₁ b₂ c₁ c₂ d₁ d₂ e₁ e₂ : ℝ} (ha0 : 0 ≤ a₁) (hb0 : 0 ≤ b₁)
     (hc0 : 0 ≤ c₁) (hd0 : 0 ≤ d₁) (he0 : 0 ≤ e₁) (ha : a₁ ≤ a₂) (hb : b₁ ≤ b₂)
     (hc : c₁ ≤ c₂) (hd : d₁ ≤ d₂) (he : e₁ ≤ e₂) :
@@ -236,6 +260,8 @@ private lemma mul5_le {a₁ a₂ b₁ b₂ c₁ c₂ d₁ d₂ e₁ e₂ : ℝ} 
   mul2_le (mul_nonneg (mul_nonneg (mul_nonneg ha0 hb0) hc0) hd0) he0
     (mul4_le ha0 hb0 hc0 hd0 ha hb hc hd) he
 
+/-- Product monotonicity for six nonnegative factors (`ha0`–`hf0`; `ha`–`hf`): `mul2_le` on
+`mul5_le`. -/
 private lemma mul6_le {a₁ a₂ b₁ b₂ c₁ c₂ d₁ d₂ e₁ e₂ f₁ f₂ : ℝ} (ha0 : 0 ≤ a₁)
     (hb0 : 0 ≤ b₁) (hc0 : 0 ≤ c₁) (hd0 : 0 ≤ d₁) (he0 : 0 ≤ e₁) (hf0 : 0 ≤ f₁)
     (ha : a₁ ≤ a₂) (hb : b₁ ≤ b₂) (hc : c₁ ≤ c₂) (hd : d₁ ≤ d₂) (he : e₁ ≤ e₂)
@@ -245,6 +271,10 @@ private lemma mul6_le {a₁ a₂ b₁ b₂ c₁ c₂ d₁ d₂ e₁ e₂ f₁ f�
 
 /-! ## (ii) The sizes on the strip `Re s ≥ 1/2` -/
 
+/-- `‖jutilaLocal ψ χ t s‖ ≤ t^{3/2}` for `t ≠ 0` (`ht`) on `Re s ≥ 1/2` (`hs`):
+`norm_jutilaLocal_le` with `|ψ(p) − 1| = p` (`selbergPsi_apply_prime`), so each factor is
+`1 + p^{1 − Re s} ≤ 1 + √p ≤ p^{3/2}`, and the product of the prime factors divides `t`
+(`Nat.prod_primeFactors_dvd`). -/
 theorem norm_jutilaLocal_selbergPsi_le (χ : DirichletCharacter ℂ q) {t : ℕ} (ht : t ≠ 0) {s : ℂ}
     (hs : (1 : ℝ) / 2 ≤ s.re) :
     ‖jutilaLocal selbergPsi χ t s‖ ≤ (t : ℝ) ^ (3 / 2 : ℝ) := by
@@ -307,6 +337,8 @@ private lemma rpow_step_half_aux (t : ℝ) (ht : 0 ≤ t) :
   rw [inv_eq_one_div, div_le_iff₀ ha0]
   nlinarith [sq_nonneg (a - b), ha2, hb2]
 
+/-- `Σ_{d ≤ N} d^{−1/2} ≤ 2√N`: induction on `N` with the telescoping step `rpow_step_half_aux`,
+`(t + 1)^{−1/2} ≤ 2(t + 1)^{1/2} − 2t^{1/2}`. -/
 theorem sum_Icc_rpow_neg_half_le (N : ℕ) :
     ∑ d ∈ Finset.Icc 1 N, (d : ℝ) ^ (-(1 / 2) : ℝ) ≤ 2 * Real.sqrt N := by
   have key : ∀ M : ℕ, ∑ d ∈ Finset.Icc 1 M, (d : ℝ) ^ (-(1 / 2) : ℝ)
@@ -322,6 +354,11 @@ theorem sum_Icc_rpow_neg_half_le (N : ℕ) :
   rw [Real.sqrt_eq_rpow]
   exact key N
 
+/-- `‖M(s, χ, ψ_r)‖ ≤ 2√z₂·r^{3/2}` for `2 ≤ z₁ < z₂` (`hz₁`, `hz`), `r ≠ 0` (`hr`) and
+`Re s ≥ 1/2` (`hs`): termwise `|λ_d| ≤ 1` (`abs_bvWeight_le_one`), `‖χ(d)‖ ≤ 1`,
+`|ψ_r(d)| ≤ (r,d)` (`abs_pseudoChar_selbergPsi_le`), `d^{−Re s} ≤ d^{−1/2}`, and the local
+factor `≤ (r/(r,d))^{3/2}` (`norm_jutilaLocal_selbergPsi_le`), so each term is
+`≤ r^{3/2}·d^{−1/2}`; then `Σ_{d ≤ z₂} d^{−1/2} ≤ 2√z₂` (`sum_Icc_rpow_neg_half_le`). -/
 theorem norm_jutilaM_selbergPsi_le (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁)
     (hz : z₁ < z₂) {r : ℕ} (hr : r ≠ 0) {s : ℂ} (hs : (1 : ℝ) / 2 ≤ s.re) :
     ‖jutilaM (bvWeight z₁ z₂) z₂ selbergPsi χ r s‖
@@ -403,6 +440,8 @@ theorem norm_jutilaM_selbergPsi_le (χ : DirichletCharacter ℂ q) {z₁ z₂ : 
         mul_le_mul_of_nonneg_left (sum_Icc_rpow_neg_half_le z₂) (Real.rpow_nonneg hrR.le _)
     _ = 2 * Real.sqrt z₂ * (r : ℝ) ^ (3 / 2 : ℝ) := by ring
 
+/-- `Σ'_{r ≤ R} r⁻¹·r^{3/2} ≤ R^{3/2}` for `0 ≤ R` (`hR`): each term is `r^{1/2} ≤ R^{1/2}` and
+the filter has at most `⌊R⌋ ≤ R` elements; `R = 0` is the empty sum. -/
 theorem sum_rFilter_inv_mul_rpow_le (q : ℕ) {R : ℝ} (hR : 0 ≤ R) :
     ∑ r ∈ rFilter q R, (r : ℝ)⁻¹ * (r : ℝ) ^ (3 / 2 : ℝ) ≤ R ^ (3 / 2 : ℝ) := by
   rcases eq_or_lt_of_le hR with hR0 | hR0
@@ -443,6 +482,8 @@ theorem sum_rFilter_inv_mul_rpow_le (q : ℕ) {R : ℝ} (hR : 0 ≤ R) :
           rw [h]
           norm_num
 
+/-- `‖M(s)‖ ≤ 2√z₂·R^{3/2}` on `Re s ≥ 1/2` (`hs`), for `2 ≤ z₁ < z₂` (`hz₁`, `hz`) and `0 ≤ R`
+(`hR`): termwise `norm_jutilaM_selbergPsi_le`, then `sum_rFilter_inv_mul_rpow_le`. -/
 theorem norm_jutilaMollifier_le (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁)
     (hz : z₁ < z₂) {R : ℝ} (hR : 0 ≤ R) {s : ℂ} (hs : (1 : ℝ) / 2 ≤ s.re) :
     ‖jutilaMollifier χ z₁ z₂ R s‖ ≤ 2 * Real.sqrt z₂ * R ^ (3 / 2 : ℝ) := by
@@ -470,6 +511,10 @@ theorem norm_jutilaMollifier_le (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ
     _ ≤ 2 * Real.sqrt z₂ * R ^ (3 / 2 : ℝ) :=
         mul_le_mul_of_nonneg_left (sum_rFilter_inv_mul_rpow_le q hR) (by positivity)
 
+/-- `‖jutilaCoeff n‖ ≤ τ(n)·R` for `2 ≤ z₁ < z₂` (`hz₁`, `hz`) and `0 ≤ R` (`hR`):
+`|a(n)| ≤ τ(n)` (`abs_sum_bvWeight_divisors_le_card`), `‖χ(n)‖ ≤ 1`, and
+`|Σ'_r r⁻¹ψ_r(n)| ≤ |rFilter| ≤ R` since `|ψ_r(n)| ≤ (r,n) ≤ r`
+(`abs_pseudoChar_selbergPsi_le`). -/
 theorem norm_jutilaCoeff_le (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂)
     {R : ℝ} (hR : 0 ≤ R) (n : ℕ) :
     ‖jutilaCoeff χ z₁ z₂ R n‖ ≤ (n.divisors.card : ℝ) * R := by
@@ -517,6 +562,9 @@ private lemma bvWeight_eq_zero_of_max_lt {z₁ z₂ d : ℕ} (hd : max z₁ z₂
   have h2 : z₂ < d := lt_of_le_of_lt (le_max_right _ _) hd
   simp [bvWeight, grahamTheta_of_lt h1, grahamTheta_of_lt h2]
 
+/-- The detector coefficient's Dirichlet series converges for `Re s > 1` (`hs`): it is the
+`rFilter`-sum of the per-level series of (2.2), each summable (`LSeriesSummable_jutila_coeff`)
+with `λ` vanishing above `max z₁ z₂` (`bvWeight_eq_zero_of_max_lt`). -/
 theorem LSeriesSummable_jutilaCoeff (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R : ℝ) {s : ℂ}
     (hs : 1 < s.re) :
     LSeriesSummable (jutilaCoeff χ z₁ z₂ R) s := by
@@ -537,6 +585,10 @@ theorem LSeriesSummable_jutilaCoeff (χ : DirichletCharacter ℂ q) (z₁ z₂ :
   exact (LSeriesSummable_jutila_coeff χ selbergPsi hr0 (bvWeight z₁ z₂) (max z₁ z₂)
     (fun d hd => bvWeight_eq_zero_of_max_lt hd) hs).smul _
 
+/-- `Σ_n jutilaCoeff(n) n^{−s} = L(s,χ)·M(s)` for `z₁ < z₂` (`hz`) and `Re s > 1` (`hs`) — the
+`r`-summed (2.2) (`LSeries_jutila_coeff_sum_eq`) at `ξ = bvWeight z₁ z₂` (vanishing above `z₂`,
+`bvWeight_eq_zero_of_gt`), `f = ψ` (`selbergPsi_isMultiplicative`) and `S = rFilter q R`
+(square-free by construction). -/
 theorem LSeries_jutilaCoeff_eq [NeZero q] (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz : z₁ < z₂)
     (R : ℝ) {s : ℂ} (hs : 1 < s.re) :
     LSeries (jutilaCoeff χ z₁ z₂ R) s = LFunction χ s * jutilaMollifier χ z₁ z₂ R s := by
@@ -551,6 +603,8 @@ theorem LSeries_jutilaCoeff_eq [NeZero q] (χ : DirichletCharacter ℂ q) {z₁ 
   exact LSeries_jutila_coeff_sum_eq χ selbergPsi_isMultiplicative (rFilter q R) hS
     (bvWeight z₁ z₂) z₂ (fun d hd => bvWeight_eq_zero_of_gt hz hd) hs
 
+/-- Absorbing a power into the argument: `Σ_n f(n) n^{−ρ} n^{−s}` is `Σ_n f(n) n^{−(ρ + s)}`
+(`Complex.cpow_add`, termwise). -/
 theorem LSeries_mul_natCast_cpow_neg (f : ℕ → ℂ) (ρ s : ℂ) :
     LSeries (fun n => f n * (n : ℂ) ^ (-ρ)) s = LSeries f (ρ + s) := by
   simp only [LSeries]
@@ -561,6 +615,10 @@ theorem LSeries_mul_natCast_cpow_neg (f : ℕ → ℂ) (ρ s : ℂ) :
       Complex.cpow_add _ _ (Nat.cast_ne_zero.mpr hn), Complex.cpow_neg]
     ring
 
+/-- The majorant of the Mellin swap is summable for `0 < x` (`hx`), `0 < c` (`hc`) and
+`Re ρ + c > 1` (`hβc`): `‖jutilaCoeff(n) n^{−ρ}‖·(x/n)^c` is `x^c` times the norm of the series'
+term at `Re ρ + c`, and that series is summable past `1` (`LSeriesSummable_jutilaCoeff`,
+`summable_norm_iff`). -/
 theorem summable_jutilaCoeff_kernel (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R : ℝ) {x : ℝ}
     (hx : 0 < x) {ρ : ℂ} {c : ℝ} (hc : 0 < c) (hβc : 1 < ρ.re + c) :
     Summable (fun n : ℕ => ‖jutilaCoeff χ z₁ z₂ R n * (n : ℂ) ^ (-ρ)‖ * (x / n) ^ c) := by
@@ -585,6 +643,8 @@ theorem summable_jutilaCoeff_kernel (χ : DirichletCharacter ℂ q) (z₁ z₂ :
   rw [hEq]
   exact hnorm.mul_left (x ^ c)
 
+/-- The finite full sum is the `tsum` over all `n`, for `0 < x` (`hx`): off `Icc 1 ⌊x⌋` the term
+vanishes — `jutilaCoeff 0 = 0`, and `K(n/x) = 0` for `n > x` (`tsum_eq_sum`). -/
 theorem jutilaFull_eq_tsum (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R : ℝ) {x : ℝ} (hx : 0 < x)
     (s : ℂ) :
     jutilaFull χ z₁ z₂ R x s
@@ -603,6 +663,12 @@ theorem jutilaFull_eq_tsum (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R 
       norm_num
     rw [hk, mul_zero]
 
+/-- **The Mellin representation (2.11).** For `z₁ < z₂` (`hz`), `0 < x` (`hx`), `0 < c` (`hc`)
+and `Re ρ + c > 1` (`hβc`), `jutilaFull(ρ) = (1/2π)∫ F(c + it) dt` with `F = jutilaIntegrand`:
+`K(n/x)` is the kernel integral (`kernel_identity_2`), sum and integral swap under the majorant
+(`kernel_sum_swap_2`, `summable_jutilaCoeff_kernel`), the Riesz sum inside is the Dirichlet
+series at `ρ + w` (`riesz_tsum_eq`, `LSeries_mul_natCast_cpow_neg`), and that series is
+`L(ρ+w,χ)·M(ρ+w)` (`LSeries_jutilaCoeff_eq`). -/
 theorem jutilaFull_mellin [NeZero q] (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz : z₁ < z₂)
     (R : ℝ) {x : ℝ} (hx : 0 < x) {ρ : ℂ} {c : ℝ} (hc : 0 < c) (hβc : 1 < ρ.re + c) :
     jutilaFull χ z₁ z₂ R x ρ
@@ -653,6 +719,9 @@ theorem jutilaFull_mellin [NeZero q] (χ : DirichletCharacter ℂ q) {z₁ z₂ 
     rw [hpull, ← hker, Complex.real_smul]
     ring
 
+/-- The detector as the Mellin integral minus the `n = 1` term, for `2 ≤ z₁ < z₂` (`hz₁`, `hz`),
+`1 ≤ x` (`hx`), `0 < c` (`hc`) and `Re ρ + c > 1` (`hβc`): the split
+`jutilaFull_eq_add_detector` with `jutilaFull_mellin`. -/
 theorem jutilaDetector_mellin [NeZero q] (χ : DirichletCharacter ℂ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁)
     (hz : z₁ < z₂) (R : ℝ) {x : ℝ} (hx : 1 ≤ x) {ρ : ℂ} {c : ℝ} (hc : 0 < c)
     (hβc : 1 < ρ.re + c) :
@@ -667,6 +736,9 @@ theorem jutilaDetector_mellin [NeZero q] (χ : DirichletCharacter ℂ q) {z₁ z
 
 /-! ## (iv) The contour node: the shift across the removable singularity at `w = 0` -/
 
+/-- The `r`-averaged mollifier is entire: a finite sum of finite sums of products of constants,
+`d^{−s}` (`Differentiable.const_cpow`) and local factors, each a finite product of the same
+shape (`Differentiable.fun_finsetProd`, `Differentiable.fun_sum`). -/
 theorem jutilaMollifier_differentiable (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R : ℝ) :
     Differentiable ℂ (jutilaMollifier χ z₁ z₂ R) := by
   have hneg : Differentiable ℂ (fun s : ℂ => -s) := differentiable_id.neg
@@ -696,6 +768,10 @@ theorem jutilaMollifier_differentiable (χ : DirichletCharacter ℂ q) (z₁ z�
   have hd0 : (d : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
   exact ((differentiable_const _).mul (hneg.const_cpow (Or.inl hd0))).mul (hloc _)
 
+/-- `φ` is holomorphic on `Re w > −1` for `χ ≠ 1` (`hχ`) and `0 < x` (`hx`): `x^w` is entire,
+`L(·,χ)` is entire (`differentiable_LFunction`), `M` is entire
+(`jutilaMollifier_differentiable`), and the denominator `(w + 1)(w + 2)` does not vanish
+there. -/
 theorem jutilaPhi_differentiableOn [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1)
     (z₁ z₂ : ℕ) (R : ℝ) {x : ℝ} (hx : 0 < x) (ρ : ℂ) :
     DifferentiableOn ℂ (jutilaPhi χ z₁ z₂ R x ρ) {w : ℂ | -1 < w.re} := by
@@ -732,11 +808,14 @@ theorem jutilaPhi_differentiableOn [NeZero q] {χ : DirichletCharacter ℂ q} (h
     ((differentiableAt_id.add (differentiableAt_const 1)).mul
       (differentiableAt_id.add (differentiableAt_const 2))) (mul_ne_zero hd1 hd2)
 
+/-- `φ(0) = 0` at a zero `ρ` of `L(·,χ)` (`h0`): the factor `L(ρ,χ)` vanishes. -/
 theorem jutilaPhi_zero [NeZero q] (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R x : ℝ) {ρ : ℂ}
     (h0 : LFunction χ ρ = 0) :
     jutilaPhi χ z₁ z₂ R x ρ 0 = 0 := by
   simp [jutilaPhi, h0]
 
+/-- Off the base point (`hw`), `dslope φ 0 w = φ(w)/w = F(w)` at a zero `ρ` (`h0`):
+`dslope_of_ne`, `slope_def_field`, `jutilaPhi_zero`, and the denominators regroup. -/
 theorem dslope_jutilaPhi_eq [NeZero q] (χ : DirichletCharacter ℂ q) (z₁ z₂ : ℕ) (R x : ℝ) {ρ : ℂ}
     (h0 : LFunction χ ρ = 0) {w : ℂ} (hw : w ≠ 0) :
     dslope (jutilaPhi χ z₁ z₂ R x ρ) 0 w = jutilaIntegrand χ z₁ z₂ R x ρ w := by
@@ -745,6 +824,11 @@ theorem dslope_jutilaPhi_eq [NeZero q] (χ : DirichletCharacter ℂ q) (z₁ z�
   rw [div_div]
   ring
 
+/-- **The contour node.** The boundary integral of `dslope φ 0` over the rectangle
+`[σ₀, c] × [−T', T']` vanishes, for `χ ≠ 1` (`hχ`), `0 < x` (`hx`), `−1 < σ₀ < 0` (`hσ₀`,
+`hσ₀0`), `0 < c` (`hc`) and `0 < T'` (`hT'`): the landed `rectBI_dslope_eq_zero`, since `φ` is
+holomorphic on the closed rectangle (inside `Re w > −1`, `jutilaPhi_differentiableOn`) and `0`
+lies in its interior. -/
 theorem rectBI_dslope_jutilaPhi_eq_zero [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1)
     (z₁ z₂ : ℕ) (R : ℝ) {x : ℝ} (hx : 0 < x) (ρ : ℂ) {σ₀ c T' : ℝ} (hσ₀ : -1 < σ₀)
     (hσ₀0 : σ₀ < 0) (hc : 0 < c) (hT' : 0 < T') :
@@ -766,6 +850,10 @@ theorem rectBI_dslope_jutilaPhi_eq_zero [NeZero q] {χ : DirichletCharacter ℂ 
       min_eq_left (neg_le_self hT'.le), max_eq_right (neg_le_self hT'.le)]
     exact ⟨⟨hσ₀0, hc⟩, ⟨neg_lt_zero.mpr hT', hT'⟩⟩
 
+/-- The pointwise size of the integrand, for primitive `χ` (`hχ`) mod `q ≥ 2` (`hq`),
+`2 ≤ z₁ < z₂` (`hz₁`, `hz`), `0 ≤ R` (`hR`), `0 < x` (`hx`) and `1/2 ≤ Re(ρ + w) ≤ 4` (`hw1`,
+`hw2`): `‖F(w)‖ ≤ 2·x^{Re w}·(3(1 + ‖ρ + w‖)√q(1 + log q))·(2√z₂·R^{3/2})·‖(w(w+1)(w+2))⁻¹‖` —
+the growth bound `LFunction_growth` on `L` and `norm_jutilaMollifier_le` on `M`. -/
 theorem norm_jutilaIntegrand_le [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)
     (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {R : ℝ} (hR : 0 ≤ R) {x : ℝ}
     (hx : 0 < x) (ρ w : ℂ) (hw1 : (1 : ℝ) / 2 ≤ (ρ + w).re) (hw2 : (ρ + w).re ≤ 4) :
@@ -786,6 +874,8 @@ theorem norm_jutilaIntegrand_le [NeZero q] {χ : DirichletCharacter ℂ q} (hχ 
   exact mul4_le (by norm_num) (Real.rpow_nonneg hx.le _) (norm_nonneg _) (norm_nonneg _)
     le_rfl le_rfl hL hM
 
+/-- `‖(w(w+1)(w+2))⁻¹‖ ≤ |Im w|^{−3}` for `Im w ≠ 0` (`hw`): each of the three factors has norm
+`≥ |Im w|` (`Complex.abs_im_le_norm`). -/
 theorem norm_inv_denom2_le_abs_im_cube {w : ℂ} (hw : w.im ≠ 0) :
     ‖(w * (w + 1) * (w + 2))⁻¹‖ ≤ (|w.im| ^ 3)⁻¹ := by
   have him : 0 < |w.im| := abs_pos.mpr hw
@@ -805,6 +895,13 @@ theorem norm_inv_denom2_le_abs_im_cube {w : ℂ} (hw : w.im ≠ 0) :
     _ ≤ ‖w‖ * ‖w + 1‖ * ‖w + 2‖ :=
         mul3_le (abs_nonneg _) (abs_nonneg _) (abs_nonneg _) h0 h1 h2
 
+/-- **A horizontal edge** of the rectangle at height `τ ≠ 0` (`hτ`): `‖∫_{σ₀}^{c} F(u + iτ) du‖`
+is at most `(c − σ₀)` times `2x^c·3(1 + ‖ρ‖ + |σ₀| + |c| + |τ|)√q(1 + log q)·2√z₂R^{3/2}/|τ|³`,
+for primitive `χ` (`hχ`) mod `q ≥ 2` (`hq`), `2 ≤ z₁ < z₂` (`hz₁`, `hz`), `0 ≤ R` (`hR`),
+`1 ≤ x` (`hx`) and the edge inside the strip `1/2 ≤ Re(ρ + ·) ≤ 4` (`hσ₀`, `hc`, `hσc`): the
+pointwise bound `norm_jutilaIntegrand_le` with `x^u ≤ x^c`,
+`‖ρ + u + iτ‖ ≤ ‖ρ‖ + |σ₀| + |c| + |τ|` and the cubic decay `norm_inv_denom2_le_abs_im_cube`
+(`intervalIntegral.norm_integral_le_of_norm_le_const`). -/
 theorem norm_integral_jutilaIntegrand_edge_le [NeZero q] {χ : DirichletCharacter ℂ q}
     (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {R : ℝ}
     (hR : 0 ≤ R) {x : ℝ} (hx : 1 ≤ x) (ρ : ℂ) {σ₀ c τ : ℝ} (hσ₀ : (1 : ℝ) / 2 ≤ ρ.re + σ₀)
@@ -875,6 +972,9 @@ theorem norm_integral_jutilaIntegrand_edge_le [NeZero q] {χ : DirichletCharacte
   refine hmain.trans (le_of_eq ?_)
   ring
 
+/-- **The cubic decay on a vertical line** `Re w = σ` at distance `≥ m > 0` from `0, −1, −2`
+(`hm`, `h0`, `h1`, `h2`): `‖(w(w+1)(w+2))⁻¹‖ ≤ (m² + t²)^{−3/2}` at `w = σ + it`, since each
+factor has norm `√((σ + k)² + t²) ≥ √(m² + t²)`. -/
 theorem norm_inv_denom2_cubic_le_of_min {σ m : ℝ} (hm : 0 < m) (h0 : m ≤ |σ|) (h1 : m ≤ |σ + 1|)
     (h2 : m ≤ |σ + 2|) (t : ℝ) :
     ‖(((σ : ℂ) + (t : ℂ) * I) * ((σ : ℂ) + (t : ℂ) * I + 1) * ((σ : ℂ) + (t : ℂ) * I + 2))⁻¹‖
@@ -913,6 +1013,7 @@ theorem norm_inv_denom2_cubic_le_of_min {σ m : ℝ} (hm : 0 < m) (h0 : m ≤ |�
   rw [norm_inv]
   exact inv_anti₀ (Real.rpow_pos_of_pos hS0 _) hprod
 
+/-- `(m² + t²)^{−3/2} ≤ m⁻¹·(m² + t²)⁻¹` for `0 < m` (`hm`): split off `(m² + t²)^{1/2} ≥ m`. -/
 private lemma rpow_three_half_dom {m : ℝ} (hm : 0 < m) (t : ℝ) :
     ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹ ≤ m⁻¹ * (m ^ 2 + t ^ 2)⁻¹ := by
   have hS : 0 < m ^ 2 + t ^ 2 := add_pos_of_pos_of_nonneg (pow_pos hm 2) (sq_nonneg t)
@@ -928,6 +1029,7 @@ private lemma rpow_three_half_dom {m : ℝ} (hm : 0 < m) (t : ℝ) :
   rw [hsplit, mul_inv]
   exact mul_le_mul_of_nonneg_right (inv_anti₀ hm hge) (by positivity)
 
+/-- `|t|·(m² + t²)^{−3/2} ≤ (m² + t²)⁻¹` for `0 < m` (`hm`): `|t| ≤ (m² + t²)^{1/2}`. -/
 private lemma abs_mul_rpow_three_half_dom {m : ℝ} (hm : 0 < m) (t : ℝ) :
     |t| * ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹ ≤ (m ^ 2 + t ^ 2)⁻¹ := by
   have hS : 0 < m ^ 2 + t ^ 2 := add_pos_of_pos_of_nonneg (pow_pos hm 2) (sq_nonneg t)
@@ -950,6 +1052,8 @@ private lemma abs_mul_rpow_three_half_dom {m : ℝ} (hm : 0 < m) (t : ℝ) :
     _ ≤ 1 * (m ^ 2 + t ^ 2)⁻¹ := mul_le_mul_of_nonneg_right h1 (by positivity)
     _ = (m ^ 2 + t ^ 2)⁻¹ := one_mul _
 
+/-- `t ↦ (m² + t²)^{−3/2}` is continuous for `0 < m` (`hm`): the base is positive
+(`Continuous.inv₀`, `Continuous.rpow_const`). -/
 private lemma continuous_inv_sq_add_sq_rpow {m : ℝ} (hm : 0 < m) :
     Continuous (fun t : ℝ => ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹) := by
   refine Continuous.inv₀ ?_ ?_
@@ -958,6 +1062,8 @@ private lemma continuous_inv_sq_add_sq_rpow {m : ℝ} (hm : 0 < m) :
     exact (Real.rpow_pos_of_pos
       (add_pos_of_pos_of_nonneg (pow_pos hm 2) (sq_nonneg t)) _).ne'
 
+/-- `t ↦ (m² + t²)^{−3/2}` is integrable on `ℝ` for `0 < m` (`hm`): dominated by
+`m⁻¹(m² + t²)⁻¹` (`rpow_three_half_dom`), which is integrable (`integrable_inv_c_sq_add_sq`). -/
 theorem integrable_inv_sq_add_sq_rpow {m : ℝ} (hm : 0 < m) :
     Integrable (fun t : ℝ => ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹) := by
   refine ((integrable_inv_c_sq_add_sq hm).const_mul m⁻¹).mono' ?_ ?_
@@ -966,6 +1072,8 @@ theorem integrable_inv_sq_add_sq_rpow {m : ℝ} (hm : 0 < m) :
     rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
     exact rpow_three_half_dom hm t
 
+/-- `t ↦ |t|(m² + t²)^{−3/2}` is integrable on `ℝ` for `0 < m` (`hm`): dominated by
+`(m² + t²)⁻¹` (`abs_mul_rpow_three_half_dom`, `integrable_inv_c_sq_add_sq`). -/
 theorem integrable_abs_mul_inv_sq_add_sq_rpow {m : ℝ} (hm : 0 < m) :
     Integrable (fun t : ℝ => |t| * ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹) := by
   refine (integrable_inv_c_sq_add_sq hm).mono' ?_ ?_
@@ -974,6 +1082,14 @@ theorem integrable_abs_mul_inv_sq_add_sq_rpow {m : ℝ} (hm : 0 < m) :
     rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
     exact abs_mul_rpow_three_half_dom hm t
 
+/-- **The vertical line `Re w = σ` is integrable**, for primitive `χ` (`hχ`) mod `q ≥ 2` (`hq`),
+`2 ≤ z₁ < z₂` (`hz₁`, `hz`), `0 ≤ R` (`hR`), `0 < x` (`hx`), the line inside the strip
+`1/2 ≤ Re ρ + σ ≤ 4` (`hσ1`, `hσ2`) and at distance `≥ m > 0` from `0, −1, −2` (`hm`, `h0`,
+`h1`, `h2`): the integrand is continuous in `t` (`L` and `M` entire, the denominator
+nonvanishing), and `norm_jutilaIntegrand_le` with the cubic decay
+`norm_inv_denom2_cubic_le_of_min` dominates it by a combination of `(m² + t²)^{−3/2}` and
+`|t|(m² + t²)^{−3/2}` (`integrable_inv_sq_add_sq_rpow`,
+`integrable_abs_mul_inv_sq_add_sq_rpow`). -/
 theorem integrable_jutilaIntegrand_line [NeZero q] {χ : DirichletCharacter ℂ q}
     (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {R : ℝ}
     (hR : 0 ≤ R) {x : ℝ} (hx : 0 < x) (ρ : ℂ) {σ m : ℝ} (hσ1 : (1 : ℝ) / 2 ≤ ρ.re + σ)
@@ -1066,6 +1182,15 @@ theorem integrable_jutilaIntegrand_line [NeZero q] {χ : DirichletCharacter ℂ 
   refine (hbase.trans hstep).trans (le_of_eq ?_)
   ring
 
+/-- **The contour shift across the removable singularity.** At a zero `ρ` (`h0`) with
+`1/2 < Re ρ < 1` (`hβ`, `hβ1`), for primitive `χ` (`hχ`) mod `q ≥ 2` (`hq`), `2 ≤ z₁ < z₂`
+(`hz₁`, `hz`), `0 ≤ R` (`hR`) and `1 ≤ x` (`hx`), the integral of `F` on `Re w = 2 − Re ρ`
+equals the integral on `Re w = 1/2 − Re ρ`. Both lines are integrable
+(`integrable_jutilaIntegrand_line`), the truncated integrals converge to them
+(`intervalIntegral_tendsto_integral`), the rectangle's boundary integral vanishes
+(`rectBI_dslope_jutilaPhi_eq_zero`, `dslope_jutilaPhi_eq`), and the horizontal edges are
+`O(T'^{−2})` (`norm_integral_jutilaIntegrand_edge_le`), so the difference of the two verticals
+tends to `0`. -/
 theorem integral_jutilaIntegrand_shift [NeZero q] {χ : DirichletCharacter ℂ q}
     (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {R : ℝ}
     (hR : 0 ≤ R) {x : ℝ} (hx : 1 ≤ x) {ρ : ℂ} (h0 : LFunction χ ρ = 0)
@@ -1213,6 +1338,8 @@ theorem integral_jutilaIntegrand_shift [NeZero q] {χ : DirichletCharacter ℂ q
 
 /-! ## (v) The two integrals on the shifted line, and the bound at a zero -/
 
+/-- `∫_ℝ (m² + t²)⁻¹ dt = π/m` for `0 < m` (`hm`): the substitution `t = m·u` against
+`∫ (1 + u²)⁻¹ = π` (`integral_univ_inv_one_add_sq`). -/
 theorem integral_inv_sq_add_sq {m : ℝ} (hm : 0 < m) :
     ∫ t : ℝ, (m ^ 2 + t ^ 2)⁻¹ = Real.pi / m := by
   have hm0 : m ≠ 0 := hm.ne'
@@ -1227,6 +1354,8 @@ theorem integral_inv_sq_add_sq {m : ℝ} (hm : 0 < m) :
     integral_univ_inv_one_add_sq, inv_inv, smul_eq_mul, abs_of_pos hm]
   field_simp
 
+/-- `∫_ℝ (m² + t²)^{−3/2} dt ≤ π/m²` for `0 < m` (`hm`): `rpow_three_half_dom` under the
+integral (`MeasureTheory.integral_mono`) and `integral_inv_sq_add_sq`. -/
 theorem integral_inv_sq_add_sq_rpow_le {m : ℝ} (hm : 0 < m) :
     ∫ t : ℝ, ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹ ≤ Real.pi / m ^ 2 := by
   have hmono := MeasureTheory.integral_mono (integrable_inv_sq_add_sq_rpow hm)
@@ -1235,6 +1364,8 @@ theorem integral_inv_sq_add_sq_rpow_le {m : ℝ} (hm : 0 < m) :
   refine hmono.trans (le_of_eq ?_)
   field_simp
 
+/-- `∫_ℝ |t|(m² + t²)^{−3/2} dt ≤ π/m` for `0 < m` (`hm`): `abs_mul_rpow_three_half_dom` under
+the integral and `integral_inv_sq_add_sq`. -/
 theorem integral_abs_mul_inv_sq_add_sq_rpow_le {m : ℝ} (hm : 0 < m) :
     ∫ t : ℝ, |t| * ((m ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹ ≤ Real.pi / m := by
   have hmono := MeasureTheory.integral_mono (integrable_abs_mul_inv_sq_add_sq_rpow hm)
@@ -1242,6 +1373,14 @@ theorem integral_abs_mul_inv_sq_add_sq_rpow_le {m : ℝ} (hm : 0 < m) :
   rw [integral_inv_sq_add_sq hm] at hmono
   exact hmono
 
+/-- **The full sum at a zero is small.** At a zero `ρ` (`h0`) with `119/120 ≤ Re ρ < 1` (`hβ`,
+`hβ1`) and `|Im ρ| ≤ T` (`hρT`), for primitive `χ` (`hχ`) mod `q ≥ 2` (`hq`), `2 ≤ z₁ < z₂`
+(`hz₁`, `hz`), `0 ≤ R` (`hR`) and `1 ≤ x` (`hx`),
+`‖jutilaFull(ρ)‖ ≤ 25(T + 2)√q(1 + log q)√z₂R^{3/2}x^{1/2 − Re ρ}`: the Mellin integral
+(`jutilaFull_mellin`) shifted to `Re w = 1/2 − Re ρ` (`integral_jutilaIntegrand_shift`), bounded
+pointwise by `norm_jutilaIntegrand_le` with the cubic decay at `m = 59/120`
+(`norm_inv_denom2_cubic_le_of_min`), and the two integrals `∫(m² + t²)^{−3/2} ≤ π/m²`,
+`∫|t|(m² + t²)^{−3/2} ≤ π/m`; the constant is `6((3/2 + T)(120/59)² + 120/59) ≤ 25(T + 2)`. -/
 theorem norm_jutilaFull_le [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)
     (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {R : ℝ} (hR : 0 ≤ R) {x : ℝ}
     (hx : 1 ≤ x) {ρ : ℂ} (h0 : LFunction χ ρ = 0) (hβ : (119 : ℝ) / 120 ≤ ρ.re) (hβ1 : ρ.re < 1)
@@ -1390,6 +1529,13 @@ theorem norm_jutilaFull_le [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.
 
 /-! ## (vi) The floor (2.10) -/
 
+/-- **Jutila's (2.10).** `(1 − 1/x)²·(6/π²)(φ(q)/q)·log R − E ≤ ‖g(ρ,χ)‖` with
+`E = 25(T + 2)√q(1 + log q)√z₂R^{3/2}x^{1/2 − Re ρ}`, at a zero `ρ` (`h0`) with
+`119/120 ≤ Re ρ < 1` (`hβ`, `hβ1`) and `|Im ρ| ≤ T` (`hρT`), for primitive `χ` (`hχ`) mod
+`q ≥ 2` (`hq`), `2 ≤ z₁ < z₂` (`hz₁`, `hz`), `1 ≤ R` (`hR`) and `1 ≤ x` (`hx`): the reverse
+triangle inequality on the split `jutilaFull_eq_add_detector`, with the `n = 1` term
+`(Σ'_r r⁻¹)(1 − 1/x)²` bounded below by W2's uniform L5 (`sum_sf_coprime_inv_ge`) and the full
+sum bounded above by `norm_jutilaFull_le`. -/
 theorem jutilaDetector_floor_at_zero [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)
     (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {R : ℝ} (hR : 1 ≤ R) {x : ℝ}
     (hx : 1 ≤ x) {ρ : ℂ} (h0 : LFunction χ ρ = 0) (hβ : (119 : ℝ) / 120 ≤ ρ.re) (hβ1 : ρ.re < 1)
@@ -1476,6 +1622,9 @@ private lemma prod_prime_div_pred_le (S : Finset ℕ) :
             nlinarith [hca]
         _ = ((s.card + 1 : ℕ) : ℝ) + 1 := by push_cast; ring
 
+/-- `q/φ(q) ≤ ω(q) + 1`: `q/φ(q) = ∏_{p ∣ q} p/(p − 1)` (`Nat.totient_mul_prod_primeFactors`),
+and a product of `p/(p − 1)` over a set of primes is at most its size plus one
+(`prod_prime_div_pred_le`); `q = 0` reads `0 ≤ 1`. -/
 theorem div_totient_le_card_primeFactors_add_one (q : ℕ) :
     (q : ℝ) / Nat.totient q ≤ q.primeFactors.card + 1 := by
   rcases Nat.eq_zero_or_pos q with rfl | hq
@@ -1506,6 +1655,8 @@ theorem div_totient_le_card_primeFactors_add_one (q : ℕ) :
   rw [heq, ← Finset.prod_div_distrib]
   exact prod_prime_div_pred_le q.primeFactors hprimes
 
+/-- `ω(q) ≤ log q/log 2`: `2^{ω(q)} ≤ ∏_{p ∣ q} p ≤ q` (`Finset.pow_card_le_prod`,
+`Nat.prod_primeFactors_dvd`), then logarithms; `q = 0, 1` read `0 ≤ 0`. -/
 theorem card_primeFactors_le_log_div_log_two (q : ℕ) :
     (q.primeFactors.card : ℝ) ≤ Real.log q / Real.log 2 := by
   rcases Nat.eq_zero_or_pos q with rfl | hq
@@ -1522,6 +1673,9 @@ theorem card_primeFactors_le_log_div_log_two (q : ℕ) :
   rw [le_div_iff₀ (Real.log_pos one_lt_two)]
   linarith
 
+/-- `1/(log q/log 2 + 1) ≤ φ(q)/q` for `1 ≤ q` (`hq`): `q/φ(q) ≤ ω(q) + 1 ≤ log q/log 2 + 1`
+(`div_totient_le_card_primeFactors_add_one`, `card_primeFactors_le_log_div_log_two`),
+inverted. -/
 theorem inv_log_le_totient_div {q : ℕ} (hq : 1 ≤ q) :
     1 / (Real.log q / Real.log 2 + 1) ≤ (Nat.totient q : ℝ) / q := by
   have hq0 : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq
@@ -1534,6 +1688,12 @@ theorem inv_log_le_totient_div {q : ℕ} (hq : 1 ≤ q) :
   have h5 := one_div_le_one_div_of_le h4 h3
   rwa [one_div_div] at h5
 
+/-- **F5's error term under its table.** With `D = qT` (`hD`), `R = D^{1/10}` (`hR`),
+`z₂ ≤ D^{7/2}` (`hz₂`), `x ≥ D^{13/2}` (`hx`), `q ≥ 1` (`hq`), `T ≥ 1` (`hT`) and
+`119/120 ≤ β < 1` (`hβ`, `hβ1`), `E ≤ 75(1 + log D)·D^{−71/240}`: factor by factor
+`25(T + 2) ≤ 75T`, `√q ≤ q`, `1 + log q ≤ 1 + log D`, `√z₂ ≤ D^{7/4}`, `R^{3/2} = D^{3/20}`,
+`x^{1/2 − β} ≤ x^{−59/120} ≤ D^{−767/240}`, and `qT = D` (`hD`) contributes `D¹`, so
+`1 + 7/4 + 3/20 − 767/240` sums to `−71/240`. -/
 theorem f5_error_bound {q : ℕ} (hq : 1 ≤ q) {T D R x : ℝ} (hT : 1 ≤ T) (hD : D = q * T)
     (hR : R = D ^ ((1 : ℝ) / 10)) {z₂ : ℕ} (hz₂ : (z₂ : ℝ) ≤ D ^ ((7 : ℝ) / 2))
     (hx : D ^ ((13 : ℝ) / 2) ≤ x) {β : ℝ} (hβ : (119 : ℝ) / 120 ≤ β) (hβ1 : β < 1) :
@@ -1622,6 +1782,10 @@ private lemma le_log_ten_pow_twenty : (46 : ℝ) ≤ Real.log ((10 : ℝ) ^ 20) 
   rw [Real.le_log_iff_exp_le (by positivity)]
   exact h46
 
+/-- `5625u ≤ e^{71u/240}` for `u ≥ log 10²⁰` (`hu`): at `u = 46` the right side is `≥ 711,500`
+(`e^{13} ≥ 442,413` by `Salt.Tactic.le_exp_nat_of_le_pow`, `e^{73/120} ≥ 193/120`), and beyond
+it `e^{71(u − 46)/240} ≥ 1 + 71(u − 46)/240` (`Real.add_one_le_exp`); `46 ≤ log 10²⁰` is
+`le_log_ten_pow_twenty`. -/
 theorem f5_exp_dominates {u : ℝ} (hu : Real.log ((10 : ℝ) ^ 20) ≤ u) :
     5625 * u ≤ Real.exp (71 / 240 * u) := by
   have hu46 : (46 : ℝ) ≤ u := le_trans le_log_ten_pow_twenty hu
@@ -1650,6 +1814,10 @@ theorem f5_exp_dominates {u : ℝ} (hu : Real.log ((10 : ℝ) ^ 20) ≤ u) :
     exact mul_le_mul h46a hlin (by linarith) (Real.exp_pos _).le
   linarith [hprod, hu46]
 
+/-- **The error is below the main term's slack** for `D ≥ 10²⁰` (`hD`):
+`75(1 + log D)·D^{−71/240} ≤ (2/π²)·(1/(log D/log 2 + 1))·(log D/10)`. With `u = log D ≥ 46`,
+`D^{−71/240} = e^{−71u/240}` and `f5_exp_dominates` give
+`375π²(1 + u)(u/log 2 + 1) ≤ 5625u² ≤ u·e^{71u/240}` (`π² < 10`, `1/log 2 ≤ 1.4427`). -/
 theorem f5_error_le_main {D : ℝ} (hD : (10 : ℝ) ^ 20 ≤ D) :
     75 * (1 + Real.log D) * D ^ (-(71 / 240 : ℝ))
       ≤ 2 / Real.pi ^ 2 * (1 / (Real.log D / Real.log 2 + 1)) * (Real.log D / 10) := by
@@ -1700,6 +1868,15 @@ theorem f5_error_le_main {D : ℝ} (hD : (10 : ℝ) ^ 20 ≤ D) :
     div_le_div_iff₀ hE (mul_pos (by positivity) hden)]
   nlinarith [hkey]
 
+/-- **Lemma 6 under F5's table.** `(3/π²)(φ(q)/q)·log R ≤ ‖g(ρ,χ)‖` at a zero `ρ` (`h0`) with
+`119/120 ≤ Re ρ < 1` (`hβ`, `hβ1`) and `|Im ρ| ≤ T` (`hρT`), for primitive `χ` (`hχ`) mod
+`q ≥ 2` (`hq`), `2 ≤ z₁ < z₂` (`hz₁`, `hz`), `T ≥ 1` (`hT`), `D = qT ≥ 10²⁰` (`hD`, `hD0`),
+`R = D^{1/10}` (`hR`), `z₂ ≤ D^{7/2}` (`hz₂`) and `x ≥ D^{13/2}` (`hx`). The floor (2.10)
+(`jutilaDetector_floor_at_zero`) with `log R = log D/10`; the error is
+`≤ 75(1 + log D)D^{−71/240}` (`f5_error_bound`) `≤ (2/π²)(φ(q)/q)(log D/10)`
+(`f5_error_le_main`, then `inv_log_le_totient_div` since `q ≤ D` gives
+`1/(log D/log 2 + 1) ≤ 1/(log q/log 2 + 1)`); and `x ≥ 12` makes `(1 − 1/x)² ≥ 5/6`, so
+`(5/6)·6W − 2W ≥ 3W` with `W = (1/π²)(φ(q)/q)(log D/10)`. -/
 theorem jutilaDetector_floor_F5 [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)
     (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {T D R x : ℝ} (hT : 1 ≤ T)
     (hD : D = q * T) (hD0 : (10 : ℝ) ^ 20 ≤ D) (hR : R = D ^ ((1 : ℝ) / 10))
