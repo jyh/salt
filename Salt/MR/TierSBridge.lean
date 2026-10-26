@@ -13,7 +13,7 @@ import Mathlib
 # ⟦TIER S — S-4⟧ THE BRIDGE: S-3's BAND THROUGH THE ARROW (`TierSBridge`)
 
 **S-4 (desk NE) — LANDED 2026-09-14 21:0x: H and C proved by the wave, so B and K2′ are now
-UNCONDITIONAL.  HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM (a composition of landed
+UNCONDITIONAL.  HONEST LABEL, FIRST LINE: NO NEW MATHEMATICS (a composition of landed
 proofs) — AND B and K2′ carry math's OWN construction (the refuter's P6 and P7, transcribed by
 the author): they had no non-author pass of their own.**  The one place both sides of Tier S are in
 scope: S-3's class-uniform crown band
