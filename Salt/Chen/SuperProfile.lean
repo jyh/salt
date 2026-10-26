@@ -26,7 +26,7 @@ reusable **structural layer** those hypotheses factor through.
 * **Landed here (sorry-free):** the four reusable structural lemmas that the `∀ b` hypotheses and
   the head/tail bounds factor through (`hSE_reduce`, `hSO_reduce`, `fseq2_upper_of_log_lower`,
   `tail_integral_le`), plus the achieved-budget arithmetic (`budE_le`, `budO_le`).
-* **REMAINING (heavy-mechanical, flagged):** the generated per-panel transcription — 200 `Ebar`
+* **REMAINING here (`SuperPanelsO`/`E` carry it):** the per-panel transcription — 200 `Ebar`
   panels + 220 `Obar` panels, each a `norm_num`/`nlinarith` rational quadratic check, plus the
   PL trapezoid budget sums and the PL integrability/nonneg.  This is a multi-thousand-line
   code-generation grind that exceeds a single session's build budget; it is NOT below-floor math
