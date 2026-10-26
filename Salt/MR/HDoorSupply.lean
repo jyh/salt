@@ -555,8 +555,8 @@ discharged at the socket exit `cofkL_capFreeFloor_at_socket_rated_uniform_h` (re
 /-! ## §8 — the exit at the inflated socket, and where the tight margin goes
 
 ⭐⭐ **THE ×1.09 MARGIN NEVER BINDS HERE, AND THE REASON IS NOT AN ESCAPE.**  §4's budget is
-tight because the threshold page is stated at ITS OWN floor `Λ ≥ 1` — the weakest floor in the
-corpus.  The socket carries `hlo : 518 ≤ loglog H₋` **in its own landed binder list**, and
+tight because the threshold page is stated at ITS OWN floor `Λ ≥ 1`, a floor every application
+site exceeds.  The socket carries `hlo : 518 ≤ loglog H₋` **in its own landed binder list**, and
 `H₋ ≤ H`, so at every application site `Λ ≥ 518` and the budget clears by four orders of
 magnitude.
 

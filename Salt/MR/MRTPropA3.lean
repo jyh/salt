@@ -1890,7 +1890,7 @@ half came from.
 
 The step has three parts:
 * `(a+b)² ≤ 2a² + 2b²` — pointwise, proved below as `mrtA3_T0_pointwise_sq`;
-* `∫ dt/(1+|t−t₁|)² ≤ 2` over any interval — named, and proved later in this file;
+* `∫ dt/(1+|t−t₁|)² ≤ 2` over any interval centred at `t₁` — named, and proved later in this file;
 * `|T₀| ≤ 2(log X)^{1/16}` — the radius, available from `abs_sub_le_of_mem_mrtT0`.
 
 ⚠️ When written, only the first was landed; `integral_inv_one_add_abs_sub_sq_le_two` (:2128)
