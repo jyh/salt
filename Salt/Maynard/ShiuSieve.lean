@@ -45,6 +45,8 @@ Each prime `p ∤ q` sifts out `1/p` of the residue class `m ≡ a (q)` by CRT. 
 noncomputable def apNu : ArithmeticFunction ℝ :=
   ⟨fun d => (d : ℝ)⁻¹, by simp⟩
 
+/-- `apNu d = d⁻¹` in `ℝ` for every `d`, by `rfl` (`apNu 0 = 0⁻¹ = 0`, the arithmetic-function
+convention); the `simp` lemma every density computation in the file reduces through. -/
 @[simp] lemma apNu_apply (d : ℕ) : apNu d = (d : ℝ)⁻¹ := rfl
 
 /-- `ν(d) = 1/d` is (completely) multiplicative. -/
@@ -53,11 +55,15 @@ lemma apNu_mult : apNu.IsMultiplicative := by
   intro m n _
   simp only [apNu_apply, Nat.cast_mul, mul_inv]
 
+/-- `0 < apNu p` for a prime `p` (`hp`): `p⁻¹ > 0` since `0 < p` (`hp.pos`, `positivity`); the
+`nu_pos_of_prime` field of `apSieve`. -/
 lemma apNu_pos (p : ℕ) (hp : p.Prime) : 0 < apNu p := by
   rw [apNu_apply]
   have : (0 : ℝ) < p := by exact_mod_cast hp.pos
   positivity
 
+/-- `apNu p < 1` for a prime `p` (`hp`): `p⁻¹ < 1` since `1 < p` (`hp.one_lt`,
+`inv_lt_one_of_one_lt₀`); the `nu_lt_one_of_prime` field of `apSieve`. -/
 lemma apNu_lt_one (p : ℕ) (hp : p.Prime) : apNu p < 1 := by
   rw [apNu_apply]
   have : (1 : ℝ) < p := by exact_mod_cast hp.one_lt
@@ -83,11 +89,19 @@ noncomputable def apSieve (y q a P : ℕ) (L : ℝ) (hP : Squarefree P) (hL : 1 
 
 variable {y q a P : ℕ} {L : ℝ} {hP : Squarefree P} {hL : 1 ≤ L}
 
+/-- The sifting modulus of `apSieve y q a P L hP hL` is `P`, by `rfl` (`simp`). -/
 @[simp] lemma apSieve_prodPrimes : (apSieve y q a P L hP hL).prodPrimes = P := rfl
+/-- The level of `apSieve y q a P L hP hL` is `L`, by `rfl` (`simp`). -/
 @[simp] lemma apSieve_level : (apSieve y q a P L hP hL).level = L := rfl
+/-- The total mass of `apSieve y q a P L hP hL` is `y / q` in `ℝ`, by `rfl` (`simp`); the main
+term `totalMass / selbergBoundingSum` of `selberg_bound_simple` starts here. -/
 @[simp] lemma apSieve_totalMass : (apSieve y q a P L hP hL).totalMass = (y : ℝ) / q := rfl
+/-- The density of `apSieve y q a P L hP hL` is `apNu`, by `rfl` (`simp`); `apSieve_rem_abs_le`
+and `apSelbergTerms_eq` rewrite through it to `apNu_apply`. -/
 @[simp] lemma apSieve_nu : (apSieve y q a P L hP hL).nu = apNu := rfl
 
+/-- The weight of `apSieve y q a P L hP hL` at `n` is the indicator of `n % q = a` (`1` or `0`),
+by `rfl`; the first rewrite of `apSieve_multSum` and `apSieve_siftedSum`. -/
 lemma apSieve_weights (n : ℕ) :
     (apSieve y q a P L hP hL).weights n = if n % q = a then 1 else 0 := rfl
 
@@ -236,6 +250,8 @@ def roughPrimes (q t : ℕ) : Finset ℕ :=
 /-- The sifting modulus: the product of all primes `≤ t` not dividing `q`. -/
 def roughP (q t : ℕ) : ℕ := ∏ p ∈ roughPrimes q t, p
 
+/-- `p ∈ roughPrimes q t ↔ p ≤ t ∧ p.Prime ∧ ¬ p ∣ q`: the `filter` over `range (t + 1)`
+unfolded, with `p < t + 1 ↔ p ≤ t` by `omega`. -/
 lemma mem_roughPrimes {q t p : ℕ} :
     p ∈ roughPrimes q t ↔ p ≤ t ∧ p.Prime ∧ ¬ p ∣ q := by
   rw [roughPrimes, Finset.mem_filter, Finset.mem_range]
@@ -243,9 +259,14 @@ lemma mem_roughPrimes {q t p : ℕ} :
   · rintro ⟨h1, h2, h3⟩; exact ⟨by omega, h2, h3⟩
   · rintro ⟨h1, h2, h3⟩; exact ⟨by omega, h2, h3⟩
 
+/-- `roughP q t` is squarefree: a product of distinct primes (`prod_primes_squarefree` on the
+primality half of `mem_roughPrimes`); the `hP` argument of `roughSieve`. -/
 lemma roughP_squarefree (q t : ℕ) : Squarefree (roughP q t) :=
   prod_primes_squarefree (fun _p hp => (mem_roughPrimes.mp hp).2.1)
 
+/-- `roughP q t` is coprime to `q`: every prime `p` in the product has `¬ p ∣ q`
+(`mem_roughPrimes`), so `Nat.Prime.coprime_iff_not_dvd` under `Nat.Coprime.prod_left`; it
+supplies `(P, q) = 1` to `apSieve_rem_abs_le` and `apSieve_errSum_le` for `roughSieve`. -/
 lemma roughP_coprime (q t : ℕ) : Nat.Coprime (roughP q t) q := by
   apply Nat.Coprime.prod_left
   intro p hp
@@ -309,6 +330,10 @@ def coPart (q n : ℕ) : ℕ :=
 def qPart (q n : ℕ) : ℕ :=
   ∏ p ∈ n.primeFactors.filter (fun p => p ∣ q), p ^ (n.factorization p)
 
+/-- `coPart q n * qPart q n = n` for `n ≠ 0` (`hn`): `n = ∏_{p ∣ n} p^{v_p(n)}`
+(`Nat.prod_factorization_pow_eq_self`) and the product splits between the primes dividing `q`
+and the rest (`Finset.prod_filter_mul_prod_filter_not`). The unique factorisation into the
+coprime-to-`q` part and the `q`-smooth part that `coprime_factor_le` injects along. -/
 lemma coPart_mul_qPart {q n : ℕ} (hn : n ≠ 0) : coPart q n * qPart q n = n := by
   have hself : ∏ p ∈ n.primeFactors, p ^ (n.factorization p) = n := by
     rw [← Nat.support_factorization, ← Finsupp.prod]
@@ -317,6 +342,8 @@ lemma coPart_mul_qPart {q n : ℕ} (hn : n ≠ 0) : coPart q n * qPart q n = n :
     Finset.prod_filter_mul_prod_filter_not n.primeFactors (fun p => p ∣ q)]
   exact hself
 
+/-- `coPart q n` is coprime to `q`: each factor `p^{v_p(n)}` has `¬ p ∣ q` by its filter, so
+`Nat.Prime.coprime_iff_not_dvd` and `Nat.Coprime.pow_left`, under `Nat.Coprime.prod_left`. -/
 lemma coPart_coprime (q n : ℕ) : Nat.Coprime (coPart q n) q := by
   rw [coPart]
   apply Nat.Coprime.prod_left
@@ -325,6 +352,9 @@ lemma coPart_coprime (q n : ℕ) : Nat.Coprime (coPart q n) q := by
   have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp.1
   exact Nat.Coprime.pow_left _ ((Nat.Prime.coprime_iff_not_dvd hpp).mpr hp.2)
 
+/-- A prime `p` dividing `qPart q n` divides `q`: `p` divides one factor `r^{v_r(n)}` of the
+product (`Prime.dvd_finsetProd_iff`), hence `r` (`hp.dvd_of_dvd_pow`), so `p = r`
+(`Nat.prime_dvd_prime_iff_eq`) and `r ∣ q` by the filter. -/
 lemma qPart_prime_dvd {q n p : ℕ} (hp : p.Prime) (hdvd : p ∣ qPart q n) : p ∣ q := by
   rw [qPart] at hdvd
   obtain ⟨r, hr, hpr⟩ := (Prime.dvd_finsetProd_iff hp.prime _).mp hdvd
@@ -332,23 +362,31 @@ lemma qPart_prime_dvd {q n p : ℕ} (hp : p.Prime) (hdvd : p ∣ qPart q n) : p 
   have := hp.dvd_of_dvd_pow hpr
   exact (Nat.prime_dvd_prime_iff_eq hp (Nat.prime_of_mem_primeFactors hr.1)).mp this ▸ hr.2
 
+/-- `0 < coPart q n` for `n ≠ 0` (`hn`): were it `0`, `coPart_mul_qPart` would read `0 = n`. -/
 lemma coPart_pos {q n : ℕ} (hn : n ≠ 0) : 0 < coPart q n := by
   have := coPart_mul_qPart (q := q) hn
   rcases Nat.eq_zero_or_pos (coPart q n) with h | h
   · rw [h, zero_mul] at this; exact absurd this.symm hn
   · exact h
 
+/-- `0 < qPart q n` for `n ≠ 0` (`hn`): were it `0`, `coPart_mul_qPart` would read `0 = n`. -/
 lemma qPart_pos {q n : ℕ} (hn : n ≠ 0) : 0 < qPart q n := by
   have := coPart_mul_qPart (q := q) hn
   rcases Nat.eq_zero_or_pos (qPart q n) with h | h
   · rw [h, mul_zero] at this; exact absurd this.symm hn
   · exact h
 
+/-- `coPart q n ≤ n` for `n ≠ 0` (`hn`): `coPart q n ≤ coPart q n * qPart q n = n` since
+`0 < qPart q n` (`qPart_pos`, `Nat.le_mul_of_pos_right`); keeps `coprime_factor_le`'s image
+inside `range x`. -/
 lemma coPart_le {q n : ℕ} (hn : n ≠ 0) : coPart q n ≤ n := by
   have h := coPart_mul_qPart (q := q) hn
   calc coPart q n ≤ coPart q n * qPart q n := Nat.le_mul_of_pos_right _ (qPart_pos hn)
     _ = n := h
 
+/-- `qPart q n ≤ n` for `n ≠ 0` (`hn`): `qPart q n ≤ coPart q n * qPart q n = n` since
+`0 < coPart q n` (`coPart_pos`, `Nat.le_mul_of_pos_left`); keeps `coprime_factor_le`'s image
+inside `range x`. -/
 lemma qPart_le {q n : ℕ} (hn : n ≠ 0) : qPart q n ≤ n := by
   have h := coPart_mul_qPart (q := q) hn
   calc qPart q n ≤ coPart q n * qPart q n := Nat.le_mul_of_pos_left _ (coPart_pos hn)
@@ -595,23 +633,40 @@ noncomputable def roughSieve (y q a t : ℕ) (ht : 2 ≤ t) : SelbergSieve :=
     (by have h2 : (2 : ℝ) ≤ t := by exact_mod_cast ht
         nlinarith only [h2, (Nat.cast_nonneg _ : 0 ≤ ↑t)])
 
+/-- The sifting modulus of `roughSieve y q a t ht` is `roughP q t`, by `rfl` (`simp`);
+`rough_count_in_ap_le` rewrites `selberg_bound_simple`'s divisor sum through it. -/
 @[simp] lemma roughSieve_prodPrimes (y q a t : ℕ) (ht : 2 ≤ t) :
     (roughSieve y q a t ht).prodPrimes = roughP q t := rfl
+/-- The level of `roughSieve y q a t ht` is `t ^ 2` in `ℝ`, by `rfl` (`simp`); it is why the
+error sum is truncated at `d ≤ t²` and `hDbound` is met with `D = t ^ 2`. -/
 @[simp] lemma roughSieve_level (y q a t : ℕ) (ht : 2 ≤ t) :
     (roughSieve y q a t ht).level = (t : ℝ) ^ 2 := rfl
+/-- The total mass of `roughSieve y q a t ht` is `y / q` in `ℝ`, by `rfl` (`simp`); the main
+term `y / q / ((φ(q) / q) · log t) = y / φ(q) / log t` of the pole starts here. -/
 @[simp] lemma roughSieve_totalMass (y q a t : ℕ) (ht : 2 ≤ t) :
     (roughSieve y q a t ht).totalMass = (y : ℝ) / q := rfl
 
+/-- The sifted sum of `roughSieve y q a t ht` is the number of `n ∈ [1, y]` coprime to
+`roughP q t` with `n % q = a` — `apSieve_siftedSum` at `P = roughP q t`; the rough numbers of
+the pole's statement are a subset (`hsub` in `rough_count_in_ap_le`). -/
 lemma roughSieve_siftedSum (y q a t : ℕ) (ht : 2 ≤ t) :
     (roughSieve y q a t ht).siftedSum
       = (((Finset.Icc 1 y).filter
           (fun n => Nat.Coprime (roughP q t) n ∧ n % q = a)).card : ℝ) :=
   apSieve_siftedSum
 
+/-- `|rem d| ≤ 1` for `d ∣ roughP q t`, `1 ≤ q` and `a < q` (`hq`, `ha`): `apSieve_rem_abs_le`
+with `roughP_coprime` supplying `(P, q) = 1` — the CRT single-class count `congCount_bound` at
+modulus `d·q`. -/
 lemma roughSieve_rem_abs_le (y q a t : ℕ) (hq : 1 ≤ q) (ha : a < q) (ht : 2 ≤ t)
     {d : ℕ} (hd : d ∣ roughP q t) : |(roughSieve y q a t ht).rem d| ≤ 1 :=
   apSieve_rem_abs_le hq ha (roughP_coprime q t) hd
 
+/-- The truncated Selberg error sum of `roughSieve y q a t ht`,
+`Σ_{d ∣ roughP q t, d ≤ t²} 3^{ω d}·|rem d|`, is at most `D·(1 + log D)²` once every such `d` is
+`≤ D` (`hDbound`): `apSieve_errSum_le` with `roughP_coprime`, i.e. `|rem d| ≤ 1` and
+`sum_k_pow_omega_le` at `k = 3`. `rough_count_in_ap_le` takes `D = t ^ 2` and absorbs the bound
+into `25·t³` by `err_le_cube`. -/
 lemma roughSieve_errSum_le (y q a t : ℕ) (hq : 1 ≤ q) (ha : a < q) (ht : 2 ≤ t) (D : ℕ)
     (hDbound : ∀ d, d ∣ roughP q t → (d : ℝ) ≤ (t : ℝ) ^ 2 → d ≤ D) :
     ∑ d ∈ (roughP q t).divisors,
