@@ -875,7 +875,7 @@ private theorem absXh_le_one (h : ℕ) {x ω : ℕ} (hx : 2 ≤ x) (hω : 2 ≤ 
 /-- `λ(p)² = 1` for `p ≠ 0`.
 
 ⛔ DUPLICATION, REPORTED.  `DilationStability.lean` has `liouville_sq` and
-`collapse_identity`, and `ShiftFork.lean:434` has the gap-`h` identity itself
+`collapse_identity`, and `ShiftFork.lean:479` has the gap-`h` identity itself
 (`liouville_collapse_h`) — but the first two are `private` to their file and `ShiftFork`
 is NOT in this file's import closure (it imports `ChowlaFailure`, which this file also
 imports; neither imports the other).  Reaching the existing lemma would mean ADDING AN
