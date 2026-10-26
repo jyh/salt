@@ -16,6 +16,20 @@ on:
   push:
     branches: [main]
   pull_request:
+    # 2026-10-25 (the helm's queue item on h2c's cone measurement): a PR that touches no Lean source and
+    # none of this job's inputs SKIPS this workflow. The `build` check is required nowhere (measured at the
+    # branch protection: five scrub/docs contexts), so a skipped run blocks no merge; a docs-only PR
+    # otherwise costs a ~3.5 h cold Salt build and a runner slot that main's own run needs. The list is
+    # the job's inputs: Lean sources, lake's files, the blueprint lint's inputs and this file.
+    # Checked by `python3 scripts/lean_ci_paths_check.py --self-test` (fixtures both ways + a mutant).
+    paths:
+      - '**/*.lean'
+      - 'lakefile.*'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'docs/blueprints/**'
+      - 'scripts/blueprint_lint.py'
+      - '.github/workflows/lean_action_ci.yml'
   workflow_dispatch:
   schedule:
     # Nightly backstop build (09:00 UTC) so the badge never goes >24h stale.
