@@ -884,3 +884,4 @@ o88-2026-10-26-186	Salt/HB/SignLiouville.lean	aa93f6eb9478	Salt/HB/SignLiouville
 o88-2026-10-26-187	Salt/HB/SignLiouville.lean	193246aa0194	Salt/HB/SignLiouville.lean::S2Gen_lamR_eq_S1	9bf325589581	paper	math	2026-10-26
 o88-2026-10-26-188	Salt/HB/SignRate.lean	017b026cdd6c	Salt/HB/SignRate.lean::neutrality_rate	4e7bdab77171	paper	math	2026-10-26
 o88-2026-10-26-189	Salt/Parity/Instances.lean	d3d2ff60cfd9	Salt/Parity/Z.lean::parityInv_of_closed	2e60e7868c31	paper	math	2026-10-26
+o88-2026-10-26-174	Salt/HB/L2cEL.lean	1be008bf0998	Salt/HB/L2cMasterUncond.lean::EL_uncov_bound_unconditional	af0bb8525103	paper	math	2026-10-26
