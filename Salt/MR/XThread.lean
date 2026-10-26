@@ -1474,7 +1474,7 @@ ceiling **PROVEN INSIDE** instead of asked for.
 regime whose window base is `⌈e^{e^{3.2A}}⌉` — depth unbounded — such that, granted three
 numeric facts about three constants the theorem itself produces and ONE property of the caller's
 own outer-scale request `g`, the log-averaged two-point Chowla correlation does not fail at the
-witnessed scale unless the co-factor register is empty.  No Siegel window, no `x₀` arm, no
+witnessed scale provided `S16CofactorSupply_L_gk` holds.  No Siegel window, no `x₀` arm, no
 `Hopq` arm, no band-lane rider, no `Kc`/`Ct`/`Kq` numeral, **no base-scale cap**, and **no
 outer-scale ask**.
 

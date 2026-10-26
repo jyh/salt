@@ -108,9 +108,9 @@ inherited verbatim from N3) are:
    states only `∀ ρ ∈ Z, L ρ = 0` (one direction), never `L ρ = 0 → ρ ∈ Z`.  Closing this
    needed a strengthened export of the factorization (`Z = support (divisor …)`), not new
    mathematics; `Lemma3Uncond.lean` closes it.
-3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  Again true and again
-   unexported: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
-   which agrees with `analyticOrderNatAt` on the ball, but the existential hides it.
+3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  True, and unexported when
+   written: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
+   which agrees with `analyticOrderNatAt` on the ball, but the existential hid it.
 4. **`hfloor`** — the Deuring–Heilbronn repulsion floor `r₀ ≤ ‖ρ − 1‖` off `β₀`.  This is
    *supplied*, not owed: N3's `one_sub_ceiling_le_dist_one` turns
    `Salt.SW.boxZeros_re_le_unit_box` / `boxZeros_re_le_at_efHeight` into exactly this shape.
