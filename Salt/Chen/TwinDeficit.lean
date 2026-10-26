@@ -36,7 +36,7 @@ The frozen Axis-B question: is this value NEGATIVE with an explicit kernel-check
 
 ## The ledger: LANDED vs HYPOTHESIZED
 
-**Landed here (unconditional, from landed material only):**
+**Landed here (neither named gap assumed; Part G takes the certified bounds as hypotheses):**
 * the split `p2Ind_split` / `p2PrimeSum_split` (+ `_W` mirrors at the live H-AMENDMENT-2 carriers);
 * `p1_razor_reduction` (+`_W`): `p1RazorValue ≤ p1PrimeSum` — one inequality, two readings:
   (i) the P₁-razor honestly lower-bounds the twin carrier (the structural analogue LANDS), and
@@ -448,10 +448,10 @@ theorem p2RazorLHS_ge_of_certs {x z P y : ℕ} {XW mainA1 mainA2 mainA3 e1 e2 e3
 
 /-- **The razor-derived E2 lower bound is capped by its own source.**  Adding a twin-mass budget
 `hTwinUp : p1PrimeSum ≤ XW·tup` to the certified package yields `XW·(1/200 − tup) ≤ e2PrimeSum`
-— the ONLY lower bound on the two-factor mass the landed corpus can produce, and it is
+— the one lower bound on the two-factor mass found in the landed corpus, and it is
 structurally `≤` the razor's own value: feeding it back into the deficit gives
-`p1RazorValue ≤ XW·tup` (nonnegative for `tup ≥ 0`), never a negative bound.  This is the
-kernel-checked self-funding no-go: GAP-E cannot be discharged from the razor. -/
+`p1RazorValue ≤ XW·tup` (nonnegative for `tup ≥ 0`), never a negative bound.  That is the
+self-funding obstruction for this route; no theorem covers every route from the razor. -/
 theorem e2_lower_of_certs_twinup {x z P y : ℕ} {XW mainA1 mainA2 mainA3 e1 e2 e3 e4 tup : ℝ}
     (hx : 2 ≤ x) (hz : 2 ≤ z) (hyx : x < (y + 1) ^ 3)
     (hPfull : ∀ q, q.Prime → q < z → q ∣ P)
