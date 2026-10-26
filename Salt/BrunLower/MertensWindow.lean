@@ -91,6 +91,7 @@ private noncomputable def lsF (t : ℝ) : ℝ := Real.log t / t ^ 2
 /-- antiderivative `-(1+log t)/t`, with `(lsG)' = lsF`. -/
 private noncomputable def lsG (t : ℝ) : ℝ := -(1 + Real.log t) / t
 
+/-- `lsG = t ↦ −(1 + log t)/t` has derivative `lsF x = log x / x²` at `x > 0` (`hx`). -/
 private theorem hasDerivAt_lsG {x : ℝ} (hx : 0 < x) : HasDerivAt lsG (lsF x) x := by
   have hx0 : x ≠ 0 := hx.ne'
   have h1 : HasDerivAt (fun t => -(1 + Real.log t)) (-x⁻¹) x :=
@@ -105,6 +106,8 @@ private theorem hasDerivAt_lsG {x : ℝ} (hx : 0 < x) : HasDerivAt lsG (lsF x) x
     funext t; rw [lsG]; ring
   rw [hg]; exact hmain
 
+/-- The derivative of `lsF = t ↦ log t / t²` at `x > 0` (`hx`), in the quotient-rule form
+`(x⁻¹ · x² − log x · 2x) / (x²)²`. -/
 private theorem hasDerivAt_lsF {x : ℝ} (hx : 0 < x) :
     HasDerivAt lsF ((x⁻¹ * x ^ 2 - Real.log x * (2 * x)) / (x ^ 2) ^ 2) x := by
   have hc : HasDerivAt Real.log x⁻¹ x := Real.hasDerivAt_log hx.ne'
@@ -113,6 +116,8 @@ private theorem hasDerivAt_lsF {x : ℝ} (hx : 0 < x) :
   have hd0 : x ^ 2 ≠ 0 := by positivity
   exact hc.div hd hd0
 
+/-- `lsF = t ↦ log t / t²` is antitone on `[2, b]`: its derivative is `≤ 0` once `log x ≥ 1/2`,
+which holds from `x = 2` on. -/
 private theorem antitoneOn_lsF {b : ℝ} : AntitoneOn lsF (Set.Icc 2 b) := by
   apply antitoneOn_of_deriv_nonpos (convex_Icc 2 b)
   · apply ContinuousOn.div (continuousOn_id.log ?_) (continuousOn_id.pow 2) ?_
@@ -138,6 +143,8 @@ private theorem antitoneOn_lsF {b : ℝ} : AntitoneOn lsF (Set.Icc 2 b) := by
       linarith only [mul_pos hx0 (by linarith [hlog, hl2] : (0 : ℝ) < 2 * Real.log x - 1)]
     · positivity
 
+/-- `lsF` is continuous on `[2, b]` (`hb : 2 ≤ b`): a quotient of continuous functions with
+nonvanishing denominator. -/
 private theorem continuousOn_lsF {b : ℝ} (hb : 2 ≤ b) :
     ContinuousOn lsF (Set.uIcc 2 b) := by
   rw [Set.uIcc_of_le hb]
@@ -148,6 +155,8 @@ private theorem continuousOn_lsF {b : ℝ} (hb : 2 ≤ b) :
     have : (0:ℝ) < t := by linarith [ht.1]
     positivity
 
+/-- `∫_2^b lsF = lsG b − lsG 2` for `2 ≤ b` (`hb`): the fundamental theorem of calculus with the
+antiderivative `lsG` (`hasDerivAt_lsG`, `continuousOn_lsF`). -/
 private theorem integral_lsF {b : ℝ} (hb : 2 ≤ b) :
     ∫ x in (2:ℝ)..b, lsF x = lsG b - lsG 2 := by
   have hderiv : ∀ x ∈ Set.uIcc (2:ℝ) b, HasDerivAt lsG (lsF x) x := by
@@ -404,6 +413,8 @@ theorem integrableOn_deriv_mF_real {b : ℝ} (_hb : 2 ≤ b) :
   simp only [Set.mem_Icc] at ht
   rw [deriv_mF ht.1]
 
+/-- `t ↦ (t · log t)⁻¹` is continuous on `[a, b]` for `2 ≤ a ≤ b` (`ha`, `hab`): the denominator
+is continuous and positive there. -/
 theorem continuousOn_inv_tlog_real {a b : ℝ} (ha : 2 ≤ a) (hab : a ≤ b) :
     ContinuousOn (fun t : ℝ => (t * Real.log t)⁻¹) (Set.uIcc a b) := by
   rw [Set.uIcc_of_le hab]
@@ -417,6 +428,8 @@ theorem continuousOn_inv_tlog_real {a b : ℝ} (ha : 2 ≤ a) (hab : a ≤ b) :
   have ht0 : (0:ℝ) < t := by linarith [ht.1]
   exact mul_ne_zero ht0.ne' hlog
 
+/-- `t ↦ (t · (log t)²)⁻¹` is continuous on `[a, b]` for `2 ≤ a ≤ b` (`ha`, `hab`): the
+denominator is continuous and positive there. -/
 theorem continuousOn_inv_tlogsq_real {a b : ℝ} (ha : 2 ≤ a) (hab : a ≤ b) :
     ContinuousOn (fun t : ℝ => (t * Real.log t ^ 2)⁻¹) (Set.uIcc a b) := by
   rw [Set.uIcc_of_le hab]

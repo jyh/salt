@@ -24,6 +24,8 @@ import Salt.SW.GapsStandoff
 
 namespace Salt.TwinBar
 
+/-- `0 < log 2 / 8`: the positivity of the standoff constant `c = (log 2)/8` that
+`bounded_gaps_of_sevenEighths` hands to `Salt.SW.bounded_gaps_of_standoff`. -/
 private theorem log_two_div_eight_pos' : 0 < Real.log 2 / 8 := by
   have := Real.log_pos (by norm_num : (1 : ℝ) < 2); positivity
 

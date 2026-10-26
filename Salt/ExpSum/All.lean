@@ -24,8 +24,8 @@ The LITTLEWOOD campaign's toolkit (JYH ratified 2026-07-17: the
 staged power-region road — van der Corput machinery → the
 Littlewood zero-free region; VMVT registered as the summit
 beyond). Campaign map: `docs/exploration/s3-a3-design.md` (VK-R0
-adjudication). First anywhere: no proof assistant holds any of
-the van der Corput method.
+adjudication). No priority survey covers the van der Corput
+method, so no first is claimed here.
 -/
 
 open Salt.Tactic in

@@ -49,9 +49,11 @@ open scoped BigOperators
 `φ(t,·) + β·id` on a block. -/
 def twistCoef (β : ℝ) (c : ℕ → ℝ) (j : ℕ) : ℝ := c j + (if j = 1 then β else 0)
 
+/-- `twistCoef β c 1 = c 1 + β`: the degree-1 slot is the one the twist moves. -/
 @[simp] lemma twistCoef_one (β : ℝ) (c : ℕ → ℝ) : twistCoef β c 1 = c 1 + β := by
   simp [twistCoef]
 
+/-- `twistCoef β c j = c j` for `j ≠ 1` (`hj`): every other slot is untouched. -/
 lemma twistCoef_of_ne_one (β : ℝ) (c : ℕ → ℝ) {j : ℕ} (hj : j ≠ 1) :
     twistCoef β c j = c j := by
   simp [twistCoef, hj]
@@ -62,6 +64,8 @@ lemma twistCoef_of_two_le (β : ℝ) (c : ℕ → ℝ) {j : ℕ} (hj : 2 ≤ j) 
     twistCoef β c j = c j :=
   twistCoef_of_ne_one β c (by omega)
 
+/-- `twistCoef β c 0 = c 0`: the constant slot is untouched (the `j = 0` case of
+`twistCoef_of_ne_one`). -/
 @[simp] lemma twistCoef_zero (β : ℝ) (c : ℕ → ℝ) : twistCoef β c 0 = c 0 :=
   twistCoef_of_ne_one β c (by omega)
 

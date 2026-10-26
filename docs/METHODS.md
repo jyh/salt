@@ -44,7 +44,7 @@ what a wave produces, how it is verified, and what "done" means.
 The three research registers are one method at decreasing constraint,
 not three methods. Play discovers areas; brainstorm turns an area into
 questions; investigate turns a question into verdicts; proving turns a
-statement into a theorem. The twinbar flagship — the first
+statement into a theorem. The twinbar flagship — a
 machine-checked impossibility theorem about a sieve method — was born
 in the play register ("what would really set this apart is new math"),
 which is the canonical demonstration that the pipeline runs end to end.

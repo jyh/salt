@@ -78,11 +78,14 @@ noncomputable def chiSq : ArithmeticFunction ℤ where
   toFun n := if n ≠ 0 ∧ IsSquare n then (1 : ℤ) else 0
   map_zero' := by simp
 
+/-- For `n ≠ 0` (hypothesis `hn`), `chiSq n = if IsSquare n then 1 else 0`: the definition's
+`n ≠ 0` guard is discharged, leaving the square indicator. -/
 lemma chiSq_apply {n : ℕ} (hn : n ≠ 0) :
     chiSq n = if IsSquare n then (1 : ℤ) else 0 := by
   change (if n ≠ 0 ∧ IsSquare n then (1 : ℤ) else 0) = _
   simp [hn]
 
+/-- `chiSq 0 = 0` (`rfl`): the forced value of an `ArithmeticFunction` at `0`. -/
 lemma chiSq_zero : chiSq 0 = 0 := rfl
 
 /-- Coprime square extraction over `ℕ`: if `m*n` is a perfect square and `m, n` are

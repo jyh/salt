@@ -85,3 +85,5 @@ week. Queued hygiene: the CAMPAIGNS.md refresh + the stale-doc sweep
 narrative note (before HB lands). The in-flight coordination lessons
 of 8/2 (catch #104; the All.lean writer-slot law; /-! before
 #audit_axioms) are all banked.
+
+*Note, 2026-10-26: this is a dated working record. Its priority statements ("first …", "never formalized …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*

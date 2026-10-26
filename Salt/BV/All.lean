@@ -33,9 +33,9 @@ from the first commit so the bare `lake build` covers the track.
 
 **Headline (`bounded_gaps_of_siegelWalfisz`).** Bounded prime gaps —
 `∃ C, ∀ N, ∃ p q, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧ |q − p| ≤ C` —
-unconditional modulo the single named classical gate `SiegelWalfisz`, zero
-axioms, zero sorries; the first load-bearing Bombieri–Vinogradov chain in a
-proof assistant. The chain: `psi_BV_of_siegelWalfisz'` (ψ-form BV) →
+unconditional modulo the single named classical gate `SiegelWalfisz`, zero axioms, zero sorries;
+the first Bombieri–Vinogradov chain consumed by a downstream theorem, in any public artifact as
+of 2026-08-11 (priority survey row 2). The chain: `psi_BV_of_siegelWalfisz'` (ψ-form BV) →
 `psiToPiTransfer_holds` (the Abel ψ→π bridge) →
 `hasLevel_half_of_siegelWalfisz : HasLevel (1/2)` → the landed Rung-4b consumer
 `Salt.Maynard.bounded_gaps_from_level`. Firsts en route: Pólya–Vinogradov

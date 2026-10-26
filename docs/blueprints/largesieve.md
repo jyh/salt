@@ -16,8 +16,8 @@ primitive, composite-safe), **`bdh`** (pure-LS Barban form,
 throughout. Two Fable statement corrections mid-rung (both flagged): the
 7N→13N Gallagher constant (pre-dispatch adversarial pass) and the L8.4
 re-freeze to the Barban form (the sharp `Qx·logx` BDH is Siegel–Walfisz-
-gated → named target of the BV rung). First large sieve + BDH + Vaughan
-in any proof assistant.*
+gated → named target of the BV rung). Not a first: the 2026-08-17 priority survey delta records public Lean
+proofs, earlier than this rung, of the large sieve inequality (row 7) and Vaughan's identity (row 8).*
 
 ## Doctrine
 

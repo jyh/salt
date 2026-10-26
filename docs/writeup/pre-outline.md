@@ -268,9 +268,9 @@ anatomy-first framing now belongs to A′, the Notices piece.)* — sections:
    (#64/#69 — true estimates wearing false statements).
 5. The no-go theorem: M₂ ≤ 2 log 2 kernel-checked — the k = 2 instance of
    Polymath8b's M_k ≤ (k/(k−1))·log k, but formalized: the parity barrier
-   as a theorem about a precisely-delimited method class, and (pending a
-   literature sweep) the first machine-checked limitative theorem about a
-   named proof method. The formal class boundary is the research object.
+   as a theorem about a precisely-delimited method class, and a
+   machine-checked limitative theorem about a named proof method (uncontested at the 2026-08-11
+   priority survey, row 11, which retires the word "first"). The formal class boundary is the research object.
 6. What this changes — the four §1½ claims: the mechanism (instantiation
    catches what reading cannot), the worst-case terrain demonstration,
    the refutation engine as frontier instrument, the proof as queryable
