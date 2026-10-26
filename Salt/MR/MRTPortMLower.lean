@@ -20,8 +20,8 @@ brief; they are not the maestro's or this executor's paraphrase.
 | `mrtM_lamCoeff_loglog_floor` | the honest correction term absorbed: `(1/8)·loglog X ≤ M(λ; X)` |
 | `mrtM_lamCoeff_ge` | the same floor read as "eventually above any constant" |
 
-The landed supply is `mrtM_lam_lower` (`MRTQualityLam.lean:75`), unconditional and
-effective, in the shape
+The landed supply is `mrtM_lam_lower` (`MRTQualityLam.lean:75`), unconditional (its
+constants existential), in the shape
 
   `M(λ; X) ≥ (1/4)·loglog X − 4·logloglog(X + 16) − C`   (`X ≥ x0`),
 
