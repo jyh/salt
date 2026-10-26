@@ -274,10 +274,6 @@ f6cc88d6ace7	Salt/Chen/SwitchConstant.lean	docstring
 3df89ee61c3e	Salt/Chen/SwitchW2.lean	docstring
 78e103a000b9	Salt/Chen/TwinA1W.lean	docstring
 1f427e5cdfed	Salt/Chen/TwinA2W.lean	docstring
-01c2d951b00a	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
-6c62792d6327	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
-ca23b24298c6	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
-ed03915d6bc3	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring-cited
 28f45ffc5f07	Salt/Entropy/Chowla/HBudget.lean	docstring
 88bc56520c05	Salt/Entropy/Chowla/HReduce.lean	docstring
 b8886a3bc19c	Salt/Entropy/Chowla/HloExport.lean	docstring
@@ -293,9 +289,6 @@ f03908e9f186	Salt/Entropy/Chowla/ShiftFork.lean	docstring-cited
 e5911aab0972	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 e9b60128e242	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 f1cb5ef2d41a	Salt/Entropy/Chowla/SpineFinal.lean	docstring
-c0fb06e523f0	Salt/Entropy/Chowla/SpineFlat.lean	docstring
-8fc9dba8a01e	Salt/Entropy/Chowla/StrideCircle.lean	docstring-cited
-c7fb3c5e827e	Salt/Entropy/Chowla/StridePair.lean	docstring
 739e023b345a	Salt/Entropy/Chowla/TowerFlatExport.lean	docstring
 60e8717bcf4c	Salt/ExpSum/ZetaBlock.lean	docstring
 eb1d8683e269	Salt/ExpSum/ZetaBlock.lean	docstring
