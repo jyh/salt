@@ -110,7 +110,7 @@ BILINEAR large sieve** (new node V2.LS-bil). Type I via the plain sieve is
 also un-saved; Fable ruling: **Pólya–Vinogradov route** (Route B) — PV is
 within reach of the landed Gauss-sum toolkit (`dirichlet_inversion`,
 `gaussSum_normSq`, `dist₁`, geometric `e`-sums), keeps the V1a
-architecture uniform, and is a first-in-mathlib-world library theorem.
+architecture uniform, and is a library theorem.
 Verified budget (design report, Davenport/IK cross-checked): with these
 nodes the total closes at `B(A) = A+5` (Davenport form) or `2A+8`
 (thin-block form) — either satisfies V3.1's `∃B`.
