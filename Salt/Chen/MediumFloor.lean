@@ -66,8 +66,8 @@ does NOT yet close on EVERY above-floor survivor — two further thresholds bind
      below the `z·N` floor — the boundary is EMPTY, the box difference is `0`).
    This is a NEW finding (flag-worthy, reported to the house session): the `D < N` strip
    needs either a `D < N`-free e-fold kill or a rebalanced piece decomposition —
-   Fable/design tier.  Every lemma below keeps `D < N` as an explicit hypothesis (the house
-   parametrized form), so all statements here are unconditionally correct; the strip is a
+   Fable/design tier.  The lemma below that uses `D < N` takes it explicitly
+   (`medium_survivor_price`), so all statements here are unconditionally correct; the strip is a
    GLU-2/design discharge obligation, not a defect of these statements.
 
 ## GLU-2 discharge obligations (parametrized here, numeric there)
