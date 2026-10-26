@@ -35,8 +35,8 @@ price is `0` — `box_carrier_eq_zero_above_cap`), OR `2^i < c ≤ z·pieceN k +
 `z·y < 2^{i+1} = 2·2^i ≤ 2·z·(2^k−1)` gives `y < 2^{k+1}` (`y_lt_two_pow_succ_of_carrier`) —
 the genuine k-floor `2^k > y/2 ~ x^{1/3}/2`, comfortably clearing `hDsq`.  So the k-floor is
 real and the node still closes, but through the carrier split, not the boundary clauses.  The
-box price at the operating point is therefore the THREE-WAY split (vanishing / 2^k-boundary /
-edge box), NOT a direct `box_hprice_at_2pow` application over the pieceN-boundary.
+box price at the operating point was therefore the THREE-WAY split (vanishing / 2^k-boundary /
+edge box); PriceThree's catch-#71 corner relaxation later lets `box_hprice_at_2pow` price them all.
 
 ## What this file lands (sorry-free, NEW FILE — no edits to landed files)
 
