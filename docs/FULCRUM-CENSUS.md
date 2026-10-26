@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `a7782c7d` · source digest `0243a668772619b5` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `f9c27d55` · source digest `c064cbd976738271` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -34,7 +34,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 |---|---|---|---|---|---|---|---|---|---|
 | `Salt.MR.NearRatTight` | Salt/MR/BigXiArc.lean:566 | DISCHARGED | 54 (50/15) | 4 (4/0) | 2/9/0 | 0/0/0 | 0/0 | `Salt.MR.approx_reduced` (Salt/MR/MinorArcExit.lean:333), `Salt.MR.exists_large_den_of_minorTight` (Salt/MR/BigXiArc.lean:712), `Salt.MR.exists_large_den_of_not_nearRatTight` (Salt/MR/BigXiArc.lean:684) +1 | `Salt.MR.G2Scaffold.m4_hbd_of_live_L` (Salt/MR/M4RowLinear.lean:2335), `Salt.MR.G2Scaffold.m4_hbd_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2445), `Salt.MR.G2Scaffold.m4_hbd_of_live_split_L` (Salt/MR/M4RowLinear.lean:1616) +51 |
 | `Salt.MR.CapFreeFloor` | Salt/MR/CapFreeArm.lean:111 | DISCHARGED | 9 (9/0) | 6 (6/0) | 4/2/0 | 0/0/0 | 0/5 | `Salt.MR.a2Rows_of_cap` (Salt/MR/ThmA2Rows.lean:464), `Salt.MR.a2Rows_of_cap_L` (Salt/MR/ThmA2Linear.lean:1251), `Salt.MR.a2Rows_of_cap_L_gk` (Salt/MR/ThmA2Linear.lean:1958) +3 | `Salt.MR.a2Rows_of_capfree` (Salt/MR/ThmA2Rows.lean:306), `Salt.MR.a2Rows_of_capfree_L` (Salt/MR/ThmA2Linear.lean:1099), `Salt.MR.a2Rows_of_capfree_L_gk` (Salt/MR/ThmA2Linear.lean:1831) +6 |
-| `Salt.BrunLower.chi` | Salt/BrunLower/Defs.lean:149 | DISCHARGED | 10 (9/1) | 3 (3/0) | 3/2/0 | 0/0/0 | 0/8 | `Salt.BrunLower.forcing` (Salt/BrunLower/Lemma3.lean:468), `Salt.HB.exists_firstFailure` (Salt/HB/RosserDim4FL.lean:557), `Salt.HB.failSet_forced_count` (Salt/HB/RosserDim4FL.lean:710) | `Salt.BrunLower.chi_add_smaller_prime` (Salt/BrunLower/Defs.lean:235), `Salt.BrunLower.chi_dvd_closed` (Salt/BrunLower/Defs.lean:202), `Salt.BrunLower.chi_imp_windowed` (Salt/BrunLower/Defs.lean:177) +7 |
+| `Salt.BrunLower.chi` | Salt/BrunLower/Defs.lean:149 | DISCHARGED | 10 (9/1) | 3 (3/0) | 3/2/0 | 0/0/0 | 0/8 | `Salt.BrunLower.forcing` (Salt/BrunLower/Lemma3.lean:472), `Salt.HB.exists_firstFailure` (Salt/HB/RosserDim4FL.lean:557), `Salt.HB.failSet_forced_count` (Salt/HB/RosserDim4FL.lean:710) | `Salt.BrunLower.chi_add_smaller_prime` (Salt/BrunLower/Defs.lean:235), `Salt.BrunLower.chi_dvd_closed` (Salt/BrunLower/Defs.lean:202), `Salt.BrunLower.chi_imp_windowed` (Salt/BrunLower/Defs.lean:177) +7 |
 | `Salt.Entropy.Chowla.logChowla2Fails` | Salt/Entropy/Chowla/ChowlaFailure.lean:59 | OPEN | 3 (3/0) | 8 (5/3) | 0/0/0 | 0/214/24 | 0/0 | `Salt.Entropy.Chowla.sign_split_fifth` (Salt/Entropy/Chowla/SignSplit.lean:278), `Salt.Entropy.Chowla.sign_split_of_not_fails` (Salt/Entropy/Chowla/SignSplit.lean:209), `Salt.Entropy.Chowla.sign_split_quarter_log` (Salt/Entropy/Chowla/SignSplit.lean:252) +5 | `Salt.Entropy.Chowla.h211_of_logChowla2Fails` (Salt/Entropy/Chowla/ChowlaFailure.lean:120), `Salt.Entropy.Chowla.singleCorr_of_fails` (Salt/Entropy/Chowla/ChowlaFailure.lean:81), `Salt.Entropy.Chowla.singleCorr_of_fails_h_one` (Salt/Entropy/Chowla/ChowlaFailure.lean:239) |
 | `Salt.Entropy.Chowla.logChowlaFailsAff` | Salt/Entropy/Chowla/AffineFork.lean:69 | OPEN | 3 (3/0) | 5 (5/0) | 0/0/0 | 2/10/1 | 0/0 | `Salt.Entropy.Chowla.affWindow_survivorMass_ge` (Salt/Entropy/Chowla/AffineFork.lean:107), `Salt.Entropy.Chowla.exists_affSurvivor_of_not_failsAff` (Salt/Entropy/Chowla/AffineFork.lean:153), `Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime` (Salt/Entropy/Chowla/StrideShellBand.lean:369) +2 | `Salt.Entropy.Chowla.h211_aff` (Salt/Entropy/Chowla/StrideBridge.lean:665), `Salt.Entropy.Chowla.singleCorr_of_failsAff` (Salt/Entropy/Chowla/StrideFork.lean:138), `Salt.Entropy.Chowla.singleCorr_of_failsAff'` (Salt/Entropy/Chowla/StrideFork.lean:176) |
 | `Salt.Fulcrum.FulcrumQualityMin` | Salt/Fulcrum/Basic.lean:61 | OPEN | 3 (2/1) | 2 (2/0) | 0/2/0 | 0/0/0 | 0/1 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` (Salt/Fulcrum/Dichotomy.lean:82), `Salt.SW.not_fulcrum_siegelFree_SW` (Salt/SW/StandoffGate.lean:803) | `Salt.Fulcrum.fulcrum_dichotomy` (Salt/Fulcrum/Dichotomy.lean:102), `Salt.HB.crown_handover_k1` (Salt/HB/CrownTheorem1.lean:6577), `Salt.HB.hEngine_of_N7` (Salt/HB/CrownTheorem1.lean:6925) |
@@ -162,10 +162,10 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 
 | kind | declaration | file:line | P (polarity) |
 |---|---|---|---|
-| case split `by_cases` | `Salt.BrunLower.peel_term_eq` | Salt/BrunLower/Lemma3.lean:280 | `Salt.BrunLower.chi` |
-| case split `by_cases` | `Salt.BrunLower.peel_term_eq` | Salt/BrunLower/Lemma3.lean:285 | `Salt.BrunLower.chi` |
-| case split `by_cases` | `Salt.BrunLower.overcount` | Salt/BrunLower/Lemma3.lean:581 | `Salt.BrunLower.chi` |
-| case split `by_cases` | `Salt.BrunLower.overcount` | Salt/BrunLower/Lemma3.lean:582 | `Salt.BrunLower.chi` |
+| case split `by_cases` | `Salt.BrunLower.peel_term_eq` | Salt/BrunLower/Lemma3.lean:283 | `Salt.BrunLower.chi` |
+| case split `by_cases` | `Salt.BrunLower.peel_term_eq` | Salt/BrunLower/Lemma3.lean:288 | `Salt.BrunLower.chi` |
+| case split `by_cases` | `Salt.BrunLower.overcount` | Salt/BrunLower/Lemma3.lean:587 | `Salt.BrunLower.chi` |
+| case split `by_cases` | `Salt.BrunLower.overcount` | Salt/BrunLower/Lemma3.lean:588 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.BrunLower.errSum_le_remainder_prod` | Salt/BrunLower/Pair.lean:84 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.BrunLower.peel_term_nonneg` | Salt/BrunLower/Pointwise.lean:116 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.BrunLower.peel_term_nonneg` | Salt/BrunLower/Pointwise.lean:122 | `Salt.BrunLower.chi` |

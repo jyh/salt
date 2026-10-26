@@ -94,6 +94,8 @@ noncomputable def primEnergy (x f : ℕ) : ℝ :=
   ∑ ψ ∈ Finset.univ.filter (fun ψ : DirichletCharacter ℂ f => ψ.IsPrimitive),
     ‖psiChi x ψ‖ ^ 2
 
+/-- `0 ≤ primEnergy x f`: a sum of the squared norms `‖psiChi x ψ‖ ^ 2` over the primitive
+characters mod `f` is nonnegative. -/
 private lemma primEnergy_nonneg (x f : ℕ) : 0 ≤ primEnergy x f :=
   Finset.sum_nonneg fun _ _ => sq_nonneg _
 
