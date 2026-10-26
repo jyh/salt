@@ -274,9 +274,6 @@ c0fb06e523f0	Salt/Entropy/Chowla/SpineFlat.lean	docstring
 8fc9dba8a01e	Salt/Entropy/Chowla/StrideCircle.lean	docstring-cited
 c7fb3c5e827e	Salt/Entropy/Chowla/StridePair.lean	docstring
 739e023b345a	Salt/Entropy/Chowla/TowerFlatExport.lean	docstring
-60e8717bcf4c	Salt/ExpSum/ZetaBlock.lean	docstring
-eb1d8683e269	Salt/ExpSum/ZetaBlock.lean	docstring
-5ad627c9948c	Salt/ExpSum/ZetaGrowth.lean	docstring
 8517a1b74ea7	Salt/Fulcrum/Dichotomy.lean	docstring
 de63f8d20b6b	Salt/Fulcrum/Dichotomy.lean	docstring
 e1eb41d0ab98	Salt/Fulcrum/Gadget.lean	docstring
@@ -291,9 +288,7 @@ e34b83af88a0	Salt/HB/CrownTheorem1.lean	docstring-cited
 c7597e026028	Salt/HB/Lemma10Chain.lean	docstring
 7e338ef9420c	Salt/HB/Lemma10Seal.lean	docstring
 55b96b9d8463	Salt/HB/Lemma5Bilinear.lean	docstring
-eff2f5a43260	Salt/HB/PairInstance.lean	docstring
 16f1625511de	Salt/HB/TailShells.lean	docstring
-0565c84e23da	Salt/HB/Transfer.lean	docstring
 004e67d1ac9d	Salt/MR/AnnHead.lean	docstring
 040eb0d5f24d	Salt/MR/AnnHead.lean	docstring
 2669758db597	Salt/MR/AnnHead.lean	docstring
@@ -318,10 +313,7 @@ e96fb72887ab	Salt/MR/Prop1Assembly.lean	docstring
 7ad0989ebd33	Salt/MR/SupF.lean	docstring
 93949209c124	Salt/MR/SupF.lean	docstring
 d7bbdfb11a18	Salt/MR/SupF.lean	docstring
-3f38cb48fe54	Salt/Maynard/GehDecomp2.lean	docstring
-8f904c1c1d4e	Salt/Maynard/GehShiuWire.lean	docstring
 b885832f9943	Salt/Maynard/Lemma53Tight.lean	docstring
-87ba29590c9a	Salt/Maynard/ShiuClose.lean	docstring
 29923bec9bf4	Salt/Maynard/Tuple.lean	docstring
 e4bb00c1f7ab	Salt/MaynardK/ControlsSeriesM.lean	docstring
 631e8507552c	Salt/MaynardK/ControlsSquareM.lean	docstring
@@ -362,7 +354,6 @@ c4e2f6b2e5cd	Salt/TwinBar/ThreeBar.lean	docstring
 eac4132b1857	Salt/TwinBar/ThreeBar.lean	docstring
 7172f0fb7439	Salt/TwinBar/TwinParityAtomClasses.lean	docstring
 6f680cdd2a59	Salt/TwinBar/TwinParityCount.lean	docstring
-360cd0e40a1f	Salt/Vk/All.lean	docstring
 de2c641e6a05	Salt/Vk/Block.lean	docstring
 06432c32e402	Salt/Vk/Core.lean	docstring
 3d1133c26c85	Salt/Vk/Core.lean	docstring
@@ -372,11 +363,5 @@ deeebe1b053c	Salt/Vk/Core.lean	docstring
 fbc56e1a36cd	Salt/Vk/Littlewood.lean	docstring
 22023a480f65	Salt/Vk/PowRegion.lean	docstring
 8ee5e8481b6e	Salt/Vk/PowRegion.lean	docstring
-cb9df0b90469	Salt/Vk/Taylor.lean	docstring
-6fd0b38226c4	Salt/Vmvt/Holder.lean	docstring
-5967ee9acce1	Salt/Vmvt/HolderTwo.lean	docstring
-7b3d3e18b736	Salt/Vmvt/HolderTwo.lean	docstring
 dbbe271609ed	Salt/Vmvt/Step.lean	docstring
-1deaf5c7c6f6	Salt/Vmvt/StepFull.lean	docstring
-40219aa972cc	Salt/Vmvt/StepFull.lean	docstring
 abb7a644b0c4	SaltC1/MaynardK/Tuple54.lean	docstring
