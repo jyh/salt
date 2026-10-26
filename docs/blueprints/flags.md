@@ -23178,8 +23178,8 @@ that `v6` is byte-untouched and remains citable. No `[SUPERSEDED → …]` mark 
 **Opus executor, docs only.** Authority: **T2-A Option A, the Captain's word at the 08/15
 sitting**. Both landed together at `7c82089`.
 
-**`Salt.TwinBar.parity_wall_corr_stable`** (`Salt/TwinBar/WallCorr.lean:220`, ledger
-`Salt/TwinBar/All.lean:178`) — the row is written as a **strengthening of a NEGATIVE
+**`Salt.TwinBar.parity_wall_corr_stable`** (`Salt/TwinBar/WallCorr.lean:231`, ledger
+`Salt/TwinBar/All.lean:180`) — the row is written as a **strengthening of a NEGATIVE
 theorem**: `parity_wall_unconditional`'s cap holds VERBATIM at `s₋ x` for the strictly larger
 class of certificates that need only be tolerant with respect to `SieveAgreeCorr`, so reading
 the sieves' shift-2 correlation field on top of the three main-term fields buys a certificate
