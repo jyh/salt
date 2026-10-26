@@ -20,7 +20,7 @@ One Linnik step at level `r+1` produces, per transversal prime `p`,
 `Ncount(D₄(p)) ≤ p^{2kr}·(x^k·k!·p^{k(k−1)/2})·J_k(x/p+1, kr)`
 (`transBox_Ncount_le`).  Consuming the IH `J_k(x/p+1, kr) ≤ D(k,r)·(x/p+1)^{E(k,r)}`
 and collecting the `p`-powers into `x`-powers, the residual **prime** exponent is
-`B(k,r) = 2kr + k(k−1)/2 − E(k,r) = k² − η(k,r) ∈ [½k², k²)` (`vmvtResid_eq`),
+`B(k,r) = 2kr + k(k−1)/2 − E(k,r) = k² − η(k,r)` (`vmvtResid_eq`; Lean: `0 ≤ B ≤ k²`),
 and the `x`-exponent lands **exactly** on `E(k,r+1)` (`collector_rpow`, keyed to
 the kernel-verified `vmvtExp_succ`):
 

@@ -162,7 +162,7 @@ lemma rsum_tuned_le {A C₀ : ℝ} (hA : 1 ≤ A) (hC₀ : 0 ≤ C₀) :
 
 /-! ## The class-II → capped-power structural reduction (S5 ingredient) -/
 
-/-- **The class-II → capped-power reduction (verified verdict, catch #70 resolved).**
+/-- **The class-II → capped-power reduction (catch #70's verdict, proved here).**
 With budget `w ≥ W²` and secondary cut `W ≥ 2`, every class-II integer `n`
 (`ρ = d.minFac ≤ W`, `c = shiuC w n ≤ W`) is divisible by `cappedPow W ρ` — the
 minimal `ρ`-power exceeding `W`.  Greediness (`shiuC_mul_minFac_pow_gt`) gives
