@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `bcb93d47` · source digest `23588f2b6c29ec9a` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `5b7f47f8` · source digest `f993fc6c4afc84e4` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -529,14 +529,14 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BrunLower.chi_one` | Salt/BrunLower/Defs.lean:187 | sieves |
 | `Salt.BrunLower.chi_prime` | Salt/BrunLower/Defs.lean:214 | sieves |
 | `Salt.BrunLower.W_pos` | Salt/BrunLower/Defs.lean:278 | sieves |
-| `Salt.BrunLower.master_signed` | Salt/BrunLower/Lemma3.lean:388 | sieves |
-| `Salt.BrunLower.hcorr_upper` | Salt/BrunLower/Lemma3.lean:860 | sieves |
-| `Salt.BrunLower.hcorr_lower` | Salt/BrunLower/Lemma3.lean:873 | sieves |
-| `Salt.BrunLower.mainSum_le_blockForm'` | Salt/BrunLower/Lemma3.lean:890 | sieves |
-| `Salt.BrunLower.mainSum_ge_blockForm'` | Salt/BrunLower/Lemma3.lean:901 | sieves |
-| `Salt.BrunLower.blockTail_le` | Salt/BrunLower/MainTerm.lean:207 | sieves |
-| `Salt.BrunLower.mainSum_le_of_upper` | Salt/BrunLower/MainTerm.lean:254 | sieves |
-| `Salt.BrunLower.mainSum_ge_of_lower` | Salt/BrunLower/MainTerm.lean:291 | sieves |
+| `Salt.BrunLower.master_signed` | Salt/BrunLower/Lemma3.lean:391 | sieves |
+| `Salt.BrunLower.hcorr_upper` | Salt/BrunLower/Lemma3.lean:888 | sieves |
+| `Salt.BrunLower.hcorr_lower` | Salt/BrunLower/Lemma3.lean:906 | sieves |
+| `Salt.BrunLower.mainSum_le_blockForm'` | Salt/BrunLower/Lemma3.lean:923 | sieves |
+| `Salt.BrunLower.mainSum_ge_blockForm'` | Salt/BrunLower/Lemma3.lean:934 | sieves |
+| `Salt.BrunLower.blockTail_le` | Salt/BrunLower/MainTerm.lean:216 | sieves |
+| `Salt.BrunLower.mainSum_le_of_upper` | Salt/BrunLower/MainTerm.lean:263 | sieves |
+| `Salt.BrunLower.mainSum_ge_of_lower` | Salt/BrunLower/MainTerm.lean:300 | sieves |
 | `Salt.BrunLower.LamTwin_pos` | Salt/BrunLower/MertensDischarge.lean:124 | sieves |
 | `Salt.BrunLower.LamTwin_le_lam` | Salt/BrunLower/MertensDischarge.lean:134 | sieves |
 | `Salt.BrunLower.LamTwin_le_one` | Salt/BrunLower/MertensDischarge.lean:142 | sieves |
@@ -559,9 +559,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.BrunLower.capSum_master` | Salt/BrunLower/Remainder.lean:192 | sieves |
 | `Salt.BrunLower.remainder_prod_bound` | Salt/BrunLower/Remainder.lean:499 | sieves |
 | `Salt.BrunLower.remainder_prod_bound_of_R` | Salt/BrunLower/Remainder.lean:568 | sieves |
-| `Salt.BrunLower.margin_ge` | Salt/BrunLower/TwinInstance.lean:360 | sieves |
-| `Salt.BrunLower.margin_ge_b1` | Salt/BrunLower/TwinInstance.lean:388 | sieves |
-| `Salt.BrunLower.twin_almost_prime` | Salt/BrunLower/TwinInstance.lean:792 | sieves |
+| `Salt.BrunLower.margin_ge` | Salt/BrunLower/TwinInstance.lean:363 | sieves |
+| `Salt.BrunLower.margin_ge_b1` | Salt/BrunLower/TwinInstance.lean:391 | sieves |
+| `Salt.BrunLower.twin_almost_prime` | Salt/BrunLower/TwinInstance.lean:795 | sieves |
 | `Salt.BrunLower.Wratio_pos` | Salt/BrunLower/WRatio.lean:109 | sieves |
 | `Salt.BrunLower.windowSum_nonneg` | Salt/BrunLower/WRatio.lean:115 | sieves |
 | `Salt.BrunLower.windowSum_le_log_Wratio` | Salt/BrunLower/WRatio.lean:135 | sieves |
@@ -1689,23 +1689,23 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Fulcrum.fulcrum_zero_real_numeral` | Salt/Fulcrum/CZeroNumeral.lean:427 | zeros, characters |
 | `Salt.Fulcrum.chen_omega_prod_le_three` | Salt/Fulcrum/ChenCorollary.lean:34 | other |
 | `Salt.Fulcrum.siegel_zeros_isolated_below` | Salt/Fulcrum/Gadget.lean:93 | characters |
-| `Salt.Goldbach.gold_A1_lower` | Salt/Goldbach/A1.lean:191 | sieves |
-| `Salt.Goldbach.goldBVSum` | Salt/Goldbach/A1.lean:314 | sieves |
-| `Salt.Goldbach.W_goldA1_ge` | Salt/Goldbach/A1.lean:365 | sieves |
-| `Salt.Goldbach.gold_A1_lower_W` | Salt/Goldbach/A1W.lean:216 | sieves |
-| `Salt.Goldbach.goldRosserRemainderW_le_split` | Salt/Goldbach/A1W.lean:318 | sieves |
-| `Salt.Goldbach.goldBVSum_W` | Salt/Goldbach/A1W.lean:354 | sieves |
-| `Salt.Goldbach.goldApSumW_eq_psiAP` | Salt/Goldbach/A2W.lean:95 | sieves |
-| `Salt.Goldbach.goldA2W_rem_eq` | Salt/Goldbach/A2W.lean:215 | sieves |
-| `Salt.Goldbach.goldRosserRemainderW2_le_split` | Salt/Goldbach/A2W.lean:351 | sieves |
-| `Salt.Goldbach.goldA2_hBVagg_W` | Salt/Goldbach/A2W.lean:407 | sieves |
+| `Salt.Goldbach.gold_A1_lower` | Salt/Goldbach/A1.lean:195 | sieves |
+| `Salt.Goldbach.goldBVSum` | Salt/Goldbach/A1.lean:318 | sieves |
+| `Salt.Goldbach.W_goldA1_ge` | Salt/Goldbach/A1.lean:369 | sieves |
+| `Salt.Goldbach.gold_A1_lower_W` | Salt/Goldbach/A1W.lean:227 | sieves |
+| `Salt.Goldbach.goldRosserRemainderW_le_split` | Salt/Goldbach/A1W.lean:329 | sieves |
+| `Salt.Goldbach.goldBVSum_W` | Salt/Goldbach/A1W.lean:365 | sieves |
+| `Salt.Goldbach.goldApSumW_eq_psiAP` | Salt/Goldbach/A2W.lean:99 | sieves |
+| `Salt.Goldbach.goldA2W_rem_eq` | Salt/Goldbach/A2W.lean:225 | sieves |
+| `Salt.Goldbach.goldRosserRemainderW2_le_split` | Salt/Goldbach/A2W.lean:361 | sieves |
+| `Salt.Goldbach.goldA2_hBVagg_W` | Salt/Goldbach/A2W.lean:417 | sieves |
 | `Salt.Goldbach.gold_log_absorb` | Salt/Goldbach/Agg.lean:52 | sieves |
 | `Salt.Goldbach.gold_hSum_at_op` | Salt/Goldbach/Agg.lean:77 | sieves |
 | `Salt.Goldbach.gold_mainA3_of_block_remainders_W` | Salt/Goldbach/Agg2.lean:53 | sieves |
 | `Salt.Goldbach.gold_band_hsym_slot_full` | Salt/Goldbach/Asm.lean:178 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_final` | Salt/Goldbach/Asm2.lean:260 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_at_op_closed` | Salt/Goldbach/Asm3.lean:504 | sieves |
-| `Salt.Goldbach.goldbach_of_hypotheses_W` | Salt/Goldbach/Asm4.lean:355 | sieves |
+| `Salt.Goldbach.goldbach_of_hypotheses_W` | Salt/Goldbach/Asm4.lean:358 | sieves |
 | `Salt.Goldbach.goldTriplePrimeSumW_le_sifted` | Salt/Goldbach/Asm5.lean:34 | sieves |
 | `Salt.Goldbach.gold_hA2_bundle` | Salt/Goldbach/Asm5.lean:167 | sieves |
 | `Salt.Goldbach.gold_hA3_bundle` | Salt/Goldbach/Asm5.lean:229 | sieves |
@@ -1730,13 +1730,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.goldLowRect_eq` | Salt/Goldbach/BandIdent.lean:323 | sieves |
 | `Salt.Goldbach.goldBandLowDisc_eq_carrier` | Salt/Goldbach/BandIdent.lean:347 | sieves |
 | `Salt.Goldbach.goldBandLowDisc_le_annulus_sum` | Salt/Goldbach/BandIdent.lean:394 | sieves |
-| `Salt.Goldbach.goldBandDiagCount_le` | Salt/Goldbach/BandIdent.lean:494 | sieves |
-| `Salt.Goldbach.goldSymCard_two_mul` | Salt/Goldbach/BandIdent.lean:546 | sieves |
-| `Salt.Goldbach.goldBandCard_split` | Salt/Goldbach/BandIdent.lean:589 | sieves |
-| `Salt.Goldbach.goldBandDiscW_eq_three` | Salt/Goldbach/BandIdent.lean:653 | sieves |
-| `Salt.Goldbach.goldSymRect_windowDisc_eq` | Salt/Goldbach/BandIdent.lean:833 | sieves |
-| `Salt.Goldbach.goldSymRect_eq` | Salt/Goldbach/BandIdent.lean:900 | sieves |
-| `Salt.Goldbach.goldBandSymRectDisc_le_annulus_sum` | Salt/Goldbach/BandIdent.lean:933 | sieves |
+| `Salt.Goldbach.goldBandDiagCount_le` | Salt/Goldbach/BandIdent.lean:497 | sieves |
+| `Salt.Goldbach.goldSymCard_two_mul` | Salt/Goldbach/BandIdent.lean:549 | sieves |
+| `Salt.Goldbach.goldBandCard_split` | Salt/Goldbach/BandIdent.lean:592 | sieves |
+| `Salt.Goldbach.goldBandDiscW_eq_three` | Salt/Goldbach/BandIdent.lean:656 | sieves |
+| `Salt.Goldbach.goldSymRect_windowDisc_eq` | Salt/Goldbach/BandIdent.lean:836 | sieves |
+| `Salt.Goldbach.goldSymRect_eq` | Salt/Goldbach/BandIdent.lean:903 | sieves |
+| `Salt.Goldbach.goldBandSymRectDisc_le_annulus_sum` | Salt/Goldbach/BandIdent.lean:936 | sieves |
 | `Salt.Goldbach.gold_band_geo_absorb` | Salt/Goldbach/BandPrice.lean:47 | sieves |
 | `Salt.Goldbach.gold_band_hpriceLow` | Salt/Goldbach/BandPrice.lean:134 | sieves |
 | `Salt.Goldbach.gold_band_hlow` | Salt/Goldbach/BandPrice.lean:162 | sieves |
@@ -1753,15 +1753,15 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_d0_window_band` | Salt/Goldbach/BandWin.lean:56 | sieves |
 | `Salt.Goldbach.gold_box_price_engine_at_band` | Salt/Goldbach/BandWin.lean:353 | sieves |
 | `Salt.Goldbach.gold_band_box_kerr` | Salt/Goldbach/BandWin.lean:496 | sieves |
-| `Salt.Goldbach.gold_band_survsum_geoN` | Salt/Goldbach/BandWin.lean:551 | sieves |
+| `Salt.Goldbach.gold_band_survsum_geoN` | Salt/Goldbach/BandWin.lean:558 | sieves |
 | `Salt.Goldbach.gold_band_geo_absorb_tail` | Salt/Goldbach/BandWin2.lean:148 | sieves |
 | `Salt.Goldbach.gold_band_hlow_tail` | Salt/Goldbach/BandWin2.lean:207 | sieves |
 | `Salt.Goldbach.gold_band_hsym_tail` | Salt/Goldbach/BandWin2.lean:232 | sieves |
 | `Salt.Goldbach.gold_box_hcoupG` | Salt/Goldbach/BoxRows.lean:86 | sieves |
-| `Salt.Goldbach.gold_box_carrier_vanish` | Salt/Goldbach/BoxRows.lean:132 | sieves |
-| `Salt.Goldbach.gold_box_price_vanish` | Salt/Goldbach/BoxRows.lean:147 | sieves |
-| `Salt.Goldbach.gold_box_XM_scale` | Salt/Goldbach/BoxRows.lean:182 | sieves |
-| `Salt.Goldbach.gold_box_XMhi` | Salt/Goldbach/BoxRows.lean:212 | sieves |
+| `Salt.Goldbach.gold_box_carrier_vanish` | Salt/Goldbach/BoxRows.lean:134 | sieves |
+| `Salt.Goldbach.gold_box_price_vanish` | Salt/Goldbach/BoxRows.lean:149 | sieves |
+| `Salt.Goldbach.gold_box_XM_scale` | Salt/Goldbach/BoxRows.lean:184 | sieves |
+| `Salt.Goldbach.gold_box_XMhi` | Salt/Goldbach/BoxRows.lean:214 | sieves |
 | `Salt.Goldbach.gold_box_price_row_dead` | Salt/Goldbach/BoxRows2.lean:64 | sieves |
 | `Salt.Goldbach.gold_box_price_live_kerr` | Salt/Goldbach/BoxRows3.lean:135 | sieves |
 | `Salt.Goldbach.gold_box_price_dead_kerr` | Salt/Goldbach/BoxRows3.lean:193 | sieves |
@@ -1805,9 +1805,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_box_hprice_at_min` | Salt/Goldbach/Final.lean:313 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at_min` | Salt/Goldbach/Final.lean:351 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_at_op` | Salt/Goldbach/Final2.lean:55 | sieves |
-| `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:63 | sieves |
-| `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:173 | sieves |
-| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:203 | sieves |
+| `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:65 | sieves |
+| `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:175 | sieves |
+| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:205 | sieves |
 | `Salt.Goldbach.gold_boxPriceKerr_geoN` | Salt/Goldbach/GeoSum2.lean:52 | sieves |
 | `Salt.Goldbach.gold_box_hprice_at` | Salt/Goldbach/Glue.lean:69 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at` | Salt/Goldbach/Glue.lean:131 | sieves |
@@ -1815,8 +1815,8 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_kerrY_hbox_geoN` | Salt/Goldbach/KerrY.lean:253 | sieves |
 | `Salt.Goldbach.gold_kerrY_engine` | Salt/Goldbach/KerrY.lean:293 | sieves |
 | `Salt.Goldbach.gold_kerrY2_engine` | Salt/Goldbach/KerrY2.lean:628 | sieves |
-| `Salt.Goldbach.gold_kerrY2_geoN` | Salt/Goldbach/KerrY2.lean:657 | sieves |
-| `Salt.Goldbach.gold_hmid_discharge` | Salt/Goldbach/KerrY2.lean:879 | sieves |
+| `Salt.Goldbach.gold_kerrY2_geoN` | Salt/Goldbach/KerrY2.lean:662 | sieves |
+| `Salt.Goldbach.gold_hmid_discharge` | Salt/Goldbach/KerrY2.lean:884 | sieves |
 | `Salt.Goldbach.gold_W_ge_twin` | Salt/Goldbach/Ledger.lean:235 | sieves |
 | `Salt.Goldbach.gold_hWy_at_op` | Salt/Goldbach/Ledger.lean:434 | sieves |
 | `Salt.Goldbach.gold_hcertA1_at_op` | Salt/Goldbach/Ledger2.lean:34 | sieves |
@@ -1829,15 +1829,15 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_op_Yhalf` | Salt/Goldbach/Omega.lean:384 | sieves |
 | `Salt.Goldbach.goldOpP_pfull` | Salt/Goldbach/Omega.lean:418 | sieves |
 | `Salt.Goldbach.gold_a12_hA2` | Salt/Goldbach/Omega.lean:557 | sieves |
-| `Salt.Goldbach.gold_opQ_squarefree` | Salt/Goldbach/Op.lean:65 | sieves |
-| `Salt.Goldbach.gold_opQ_even` | Salt/Goldbach/Op.lean:71 | sieves |
-| `Salt.Goldbach.gold_opQ_coprime_P` | Salt/Goldbach/Op.lean:122 | sieves |
-| `Salt.Goldbach.gold_op_Zpow9` | Salt/Goldbach/Op.lean:151 | sieves |
-| `Salt.Goldbach.gold_op_residue` | Salt/Goldbach/Op.lean:186 | sieves |
-| `Salt.Goldbach.gold_a12_hBV_A1` | Salt/Goldbach/Op.lean:265 | sieves |
-| `Salt.Goldbach.gold_a12_hA1` | Salt/Goldbach/Op.lean:292 | sieves |
-| `Salt.Goldbach.gold_op_count_rows` | Salt/Goldbach/Op.lean:337 | sieves |
-| `Salt.Goldbach.gold_op_hCE` | Salt/Goldbach/Op.lean:399 | sieves |
+| `Salt.Goldbach.gold_opQ_squarefree` | Salt/Goldbach/Op.lean:69 | sieves |
+| `Salt.Goldbach.gold_opQ_even` | Salt/Goldbach/Op.lean:75 | sieves |
+| `Salt.Goldbach.gold_opQ_coprime_P` | Salt/Goldbach/Op.lean:126 | sieves |
+| `Salt.Goldbach.gold_op_Zpow9` | Salt/Goldbach/Op.lean:158 | sieves |
+| `Salt.Goldbach.gold_op_residue` | Salt/Goldbach/Op.lean:196 | sieves |
+| `Salt.Goldbach.gold_a12_hBV_A1` | Salt/Goldbach/Op.lean:275 | sieves |
+| `Salt.Goldbach.gold_a12_hA1` | Salt/Goldbach/Op.lean:308 | sieves |
+| `Salt.Goldbach.gold_op_count_rows` | Salt/Goldbach/Op.lean:359 | sieves |
+| `Salt.Goldbach.gold_op_hCE` | Salt/Goldbach/Op.lean:427 | sieves |
 | `Salt.Goldbach.gold_hcount_seam` | Salt/Goldbach/Op2.lean:297 | sieves |
 | `Salt.Goldbach.gold_box_live_ratios` | Salt/Goldbach/OpPlumb.lean:45 | sieves |
 | `Salt.Goldbach.gold_box_hbox_geoN` | Salt/Goldbach/OpPlumb.lean:148 | sieves |
@@ -1848,7 +1848,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_diagAggW_le_honest` | Salt/Goldbach/PDiag.lean:178 | sieves |
 | `Salt.Goldbach.gold_PloW_honest` | Salt/Goldbach/PDiag.lean:399 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_discharge'` | Salt/Goldbach/PDiag.lean:502 | sieves |
-| `Salt.Goldbach.goldPerPair_pi_upper` | Salt/Goldbach/PiUpper.lean:373 | sieves |
+| `Salt.Goldbach.goldPerPair_pi_upper` | Salt/Goldbach/PiUpper.lean:378 | sieves |
 | `Salt.Goldbach.gold_crtClassG_coprime_of_mem` | Salt/Goldbach/Price.lean:60 | sieves |
 | `Salt.Goldbach.gold_box_price_engine` | Salt/Goldbach/Price.lean:165 | sieves |
 | `Salt.Goldbach.gold_tower_budget` | Salt/Goldbach/PriceClose.lean:50 | sieves |
@@ -1856,10 +1856,10 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_mainA3_at_op` | Salt/Goldbach/PriceClose.lean:78 | sieves |
 | `Salt.Goldbach.exists_crt_finset` | Salt/Goldbach/Residue.lean:42 | sieves |
 | `Salt.Goldbach.goldbach_residue_witness` | Salt/Goldbach/Residue.lean:77 | sieves |
-| `Salt.Goldbach.crtClassG_modEq_left` | Salt/Goldbach/Residue.lean:129 | sieves |
-| `Salt.Goldbach.crtClassG_modEq_right` | Salt/Goldbach/Residue.lean:135 | sieves |
-| `Salt.Goldbach.crtClassG_coprime` | Salt/Goldbach/Residue.lean:144 | sieves |
-| `Salt.Goldbach.crt_class_coprimeG` | Salt/Goldbach/Residue.lean:170 | sieves |
+| `Salt.Goldbach.crtClassG_modEq_left` | Salt/Goldbach/Residue.lean:132 | sieves |
+| `Salt.Goldbach.crtClassG_modEq_right` | Salt/Goldbach/Residue.lean:140 | sieves |
+| `Salt.Goldbach.crtClassG_coprime` | Salt/Goldbach/Residue.lean:149 | sieves |
+| `Salt.Goldbach.crt_class_coprimeG` | Salt/Goldbach/Residue.lean:175 | sieves |
 | `Salt.Goldbach.gold_op_scales` | Salt/Goldbach/RowsLive.lean:72 | sieves |
 | `Salt.Goldbach.gold_box_zx_rows` | Salt/Goldbach/RowsLive.lean:141 | sieves |
 | `Salt.Goldbach.gold_box_Xfloor` | Salt/Goldbach/RowsLive.lean:261 | sieves |
@@ -1878,9 +1878,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_band_btail_slot_firing_le` | Salt/Goldbach/Surv.lean:158 | sieves |
 | `Salt.Goldbach.gold_band_hlow_tail_discharge` | Salt/Goldbach/Surv.lean:232 | sieves |
 | `Salt.Goldbach.gold_band_hsym_tail_discharge` | Salt/Goldbach/Surv.lean:259 | sieves |
-| `Salt.Goldbach.gold_switch_upper_B` | Salt/Goldbach/Switch.lean:277 | sieves |
-| `Salt.Goldbach.gold_block_switch_upper_B_W` | Salt/Goldbach/Switch.lean:520 | sieves |
-| `Salt.Goldbach.gold_mainA3_of_hBVswitch` | Salt/Goldbach/Switch.lean:608 | sieves |
+| `Salt.Goldbach.gold_switch_upper_B` | Salt/Goldbach/Switch.lean:285 | sieves |
+| `Salt.Goldbach.gold_block_switch_upper_B_W` | Salt/Goldbach/Switch.lean:563 | sieves |
+| `Salt.Goldbach.gold_mainA3_of_hBVswitch` | Salt/Goldbach/Switch.lean:651 | sieves |
 | `Salt.Goldbach.gold_switch_coprime_N` | Salt/Goldbach/SwitchBV.lean:49 | sieves |
 | `Salt.Goldbach.goldSwitchSieve_multSum_eq_apCount` | Salt/Goldbach/SwitchBV.lean:119 | sieves |
 | `Salt.Goldbach.norm_goldSemiprimeBlockInd_le_one` | Salt/Goldbach/SwitchBV.lean:150 | sieves |
@@ -2421,9 +2421,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HardyLittlewood.twinSingularSeries_lt_two` | Salt/HardyLittlewood/Frame.lean:117 | sieves |
 | `Salt.HardyLittlewood.twinCounting_upper_order` | Salt/HardyLittlewood/Frame.lean:131 | sieves |
 | `Salt.HardyLittlewood.Sel.twinCounting_upper_selberg` | Salt/HardyLittlewood/Selberg16/Crown.lean:21 | sieves |
-| `Salt.HardyLittlewood.Sel.twin_le_sel` | Salt/HardyLittlewood/Selberg16/Lev.lean:305 | sieves |
-| `Salt.HardyLittlewood.Sel.selbergBoundingSum_sel_ge` | Salt/HardyLittlewood/Selberg16/Lev.lean:318 | sieves |
-| `Salt.HardyLittlewood.Sel.mainTermSum_lower` | Salt/HardyLittlewood/Selberg16/M5.lean:137 | sieves |
+| `Salt.HardyLittlewood.Sel.twin_le_sel` | Salt/HardyLittlewood/Selberg16/Lev.lean:294 | sieves |
+| `Salt.HardyLittlewood.Sel.selbergBoundingSum_sel_ge` | Salt/HardyLittlewood/Selberg16/Lev.lean:307 | sieves |
+| `Salt.HardyLittlewood.Sel.mainTermSum_lower` | Salt/HardyLittlewood/Selberg16/M5.lean:134 | sieves |
 | `Salt.HardyLittlewood.sum_six_pow_omega_le` | Salt/HardyLittlewood/Sharp.lean:264 | sieves |
 | `Salt.HardyLittlewood.twinCounting_upper_sharp` | Salt/HardyLittlewood/Sharp.lean:790 | sieves |
 | `Keller.jacobian_det` | Salt/Keller/Counterexample.lean:84 | other |
@@ -2436,7 +2436,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Keller.keller_not_injective_C` | Salt/Keller/Counterexample.lean:185 | other |
 | `Salt.LS.arithmetic_LS` | Salt/LS/ArithmeticLS.lean:91 | sieves, exponential sums |
 | `Salt.LS.arithmetic_LS_one` | Salt/LS/ArithmeticLS.lean:147 | sieves, exponential sums |
-| `Salt.LS.bdh` | Salt/LS/BDH.lean:360 | sieves, characters |
+| `Salt.LS.bdh` | Salt/LS/BDH.lean:362 | sieves, characters |
 | `Salt.LS.char_LS_perQ` | Salt/LS/CharLS.lean:74 | sieves, characters, exponential sums |
 | `Salt.LS.char_LS` | Salt/LS/CharLS.lean:277 | sieves, characters |
 | `Salt.LS.farey_spacing_core` | Salt/LS/Farey.lean:36 | sieves |
@@ -6089,11 +6089,11 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `parityInv_N6_2` | Salt/Parity/Instances.lean:93 | sieves |
 | `parityInv_N5_3` | Salt/Parity/Instances.lean:99 | sieves |
 | `parityInv_chen_second` | Salt/Parity/Instances.lean:106 | sieves |
-| `Salt.Parity.parityInv_of_closed` | Salt/Parity/Z.lean:117 | sieves |
-| `Salt.Parity.twinFree_twinMass` | Salt/Parity/Z.lean:137 | sieves |
-| `Salt.Parity.twinMass_oneWeight_unbounded_iff` | Salt/Parity/Z.lean:149 | sieves |
-| `Salt.Parity.oneWeight_mem` | Salt/Parity/Z.lean:460 | sieves |
-| `Salt.Parity.twinFree_mem` | Salt/Parity/Z.lean:618 | sieves |
+| `Salt.Parity.parityInv_of_closed` | Salt/Parity/Z.lean:120 | sieves |
+| `Salt.Parity.twinFree_twinMass` | Salt/Parity/Z.lean:140 | sieves |
+| `Salt.Parity.twinMass_oneWeight_unbounded_iff` | Salt/Parity/Z.lean:152 | sieves |
+| `Salt.Parity.oneWeight_mem` | Salt/Parity/Z.lean:463 | sieves |
+| `Salt.Parity.twinFree_mem` | Salt/Parity/Z.lean:621 | sieves |
 | `Salt.SW.norm_logDeriv_sub_sum_of_blaschke` | Salt/SW/BCBound.lean:153 | sieves |
 | `Salt.SW.LFunction_norm_logDeriv_sub_sum` | Salt/SW/BCBound.lean:357 | sieves, characters |
 | `Salt.SW.neg_re_logDeriv_le` | Salt/SW/BCBound.lean:403 | sieves |
@@ -6821,13 +6821,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.sliceCS₂₄` | Salt/TwinBar/FourBar.lean:375 | sieves |
 | `Salt.TwinBar.sliceCS₃₄` | Salt/TwinBar/FourBar.lean:388 | sieves |
 | `Salt.TwinBar.sliceCS₄₄` | Salt/TwinBar/FourBar.lean:401 | sieves |
-| `Salt.TwinBar.J₄₄_bound` | Salt/TwinBar/FourBarAsm.lean:123 | sieves |
-| `Salt.TwinBar.J₁₄_bound` | Salt/TwinBar/FourBarAsm.lean:187 | sieves |
-| `Salt.TwinBar.J₃₄_bound` | Salt/TwinBar/FourBarAsm.lean:252 | sieves |
-| `Salt.TwinBar.J₂₄_bound` | Salt/TwinBar/FourBarAsm.lean:326 | sieves |
-| `Salt.TwinBar.four_bar` | Salt/TwinBar/FourBarAsm.lean:406 | sieves |
-| `Salt.TwinBar.fourBar_holds` | Salt/TwinBar/FourBarAsm.lean:482 | sieves |
-| `Salt.TwinBar.no_quad_weight` | Salt/TwinBar/FourBarAsm.lean:487 | sieves |
+| `Salt.TwinBar.J₄₄_bound` | Salt/TwinBar/FourBarAsm.lean:135 | sieves |
+| `Salt.TwinBar.J₁₄_bound` | Salt/TwinBar/FourBarAsm.lean:199 | sieves |
+| `Salt.TwinBar.J₃₄_bound` | Salt/TwinBar/FourBarAsm.lean:264 | sieves |
+| `Salt.TwinBar.J₂₄_bound` | Salt/TwinBar/FourBarAsm.lean:338 | sieves |
+| `Salt.TwinBar.four_bar` | Salt/TwinBar/FourBarAsm.lean:418 | sieves |
+| `Salt.TwinBar.fourBar_holds` | Salt/TwinBar/FourBarAsm.lean:494 | sieves |
+| `Salt.TwinBar.no_quad_weight` | Salt/TwinBar/FourBarAsm.lean:499 | sieves |
 | `Salt.TwinBar.twin_bar` | Salt/TwinBar/Impossibility.lean:173 | sieves |
 | `Salt.TwinBar.twin_gate_fails` | Salt/TwinBar/Impossibility.lean:262 | sieves |
 | `Salt.TwinBar.no_twin_weight` | Salt/TwinBar/Impossibility.lean:276 | sieves |
@@ -6891,9 +6891,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.sliceCS₂` | Salt/TwinBar/SliceCS.lean:148 | sieves |
 | `Salt.TwinBar.log_slice_CS` | Salt/TwinBar/ThreeBar.lean:242 | sieves |
 | `Salt.TwinBar.three_halves_log_three_lt_two` | Salt/TwinBar/ThreeBar.lean:317 | sieves |
-| `Salt.TwinBar.three_bar` | Salt/TwinBar/ThreeBarAsm.lean:678 | sieves |
-| `Salt.TwinBar.tripleBar_holds` | Salt/TwinBar/ThreeBarAsm.lean:730 | sieves |
-| `Salt.TwinBar.no_triple_weight` | Salt/TwinBar/ThreeBarAsm.lean:736 | sieves |
+| `Salt.TwinBar.three_bar` | Salt/TwinBar/ThreeBarAsm.lean:691 | sieves |
+| `Salt.TwinBar.tripleBar_holds` | Salt/TwinBar/ThreeBarAsm.lean:743 | sieves |
+| `Salt.TwinBar.no_triple_weight` | Salt/TwinBar/ThreeBarAsm.lean:749 | sieves |
 | `Salt.TwinBar.simplex_swap` | Salt/TwinBar/Tonelli.lean:83 | sieves |
 | `Salt.TwinBar.twinC2_multipliable` | Salt/TwinBar/TwinDoor.lean:160 | sieves |
 | `Salt.TwinBar.twinC2_pos` | Salt/TwinBar/TwinDoor.lean:171 | sieves |
@@ -6954,21 +6954,21 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.hdiv_of_log_growth` | Salt/TwinBar/TwinParitySieve.lean:1418 | sieves |
 | `Salt.TwinBar.twinLogWeight_support_infinite_of_rate` | Salt/TwinBar/TwinParitySieve.lean:1452 | sieves, characters |
 | `Salt.TwinBar.twinIdx_twinProd` | Salt/TwinBar/TwinParitySieveLog.lean:49 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_totalMass` | Salt/TwinBar/TwinParitySieveLog.lean:82 | sieves, characters |
-| `Salt.TwinBar.Llog_one` | Salt/TwinBar/TwinParitySieveLog.lean:103 | sieves, characters |
-| `Salt.TwinBar.Clog_one` | Salt/TwinBar/TwinParitySieveLog.lean:107 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_multSum` | Salt/TwinBar/TwinParitySieveLog.lean:111 | sieves |
-| `Salt.TwinBar.rem_split_log` | Salt/TwinBar/TwinParitySieveLog.lean:122 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_totalMass_nonneg` | Salt/TwinBar/TwinParitySieveLog.lean:138 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_hMert` | Salt/TwinBar/TwinParitySieveLog.lean:152 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_brun_lower_ell1` | Salt/TwinBar/TwinParitySieveLog.lean:164 | sieves |
-| `Salt.TwinBar.remLogCount_abs_le` | Salt/TwinBar/TwinParitySieveLog.lean:291 | sieves |
-| `Salt.TwinBar.twinRemLog_sum_le` | Salt/TwinBar/TwinParitySieveLog.lean:334 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_siftedSum_eq` | Salt/TwinBar/TwinParitySieveLog.lean:417 | sieves |
-| `Salt.TwinBar.lamChi_mult` | Salt/TwinBar/TwistedSieve.lean:149 | sieves, characters |
-| `Salt.TwinBar.abs_lamChi_le_tau` | Salt/TwinBar/TwistedSieve.lean:165 | sieves, characters |
-| `Salt.TwinBar.twistedErrSum_le_tauRemainder` | Salt/TwinBar/TwistedSieve.lean:181 | sieves, characters |
-| `Salt.TwinBar.twistedMainSum_euler` | Salt/TwinBar/TwistedSieve.lean:201 | sieves, characters |
+| `Salt.TwinBar.twinParitySieveLog_totalMass` | Salt/TwinBar/TwinParitySieveLog.lean:86 | sieves, characters |
+| `Salt.TwinBar.Llog_one` | Salt/TwinBar/TwinParitySieveLog.lean:110 | sieves, characters |
+| `Salt.TwinBar.Clog_one` | Salt/TwinBar/TwinParitySieveLog.lean:116 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_multSum` | Salt/TwinBar/TwinParitySieveLog.lean:120 | sieves |
+| `Salt.TwinBar.rem_split_log` | Salt/TwinBar/TwinParitySieveLog.lean:131 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_totalMass_nonneg` | Salt/TwinBar/TwinParitySieveLog.lean:147 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_hMert` | Salt/TwinBar/TwinParitySieveLog.lean:161 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_brun_lower_ell1` | Salt/TwinBar/TwinParitySieveLog.lean:173 | sieves |
+| `Salt.TwinBar.remLogCount_abs_le` | Salt/TwinBar/TwinParitySieveLog.lean:300 | sieves |
+| `Salt.TwinBar.twinRemLog_sum_le` | Salt/TwinBar/TwinParitySieveLog.lean:343 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_siftedSum_eq` | Salt/TwinBar/TwinParitySieveLog.lean:426 | sieves |
+| `Salt.TwinBar.lamChi_mult` | Salt/TwinBar/TwistedSieve.lean:156 | sieves, characters |
+| `Salt.TwinBar.abs_lamChi_le_tau` | Salt/TwinBar/TwistedSieve.lean:172 | sieves, characters |
+| `Salt.TwinBar.twistedErrSum_le_tauRemainder` | Salt/TwinBar/TwistedSieve.lean:188 | sieves, characters |
+| `Salt.TwinBar.twistedMainSum_euler` | Salt/TwinBar/TwistedSieve.lean:208 | sieves, characters |
 | `Salt.TwinBar.parity_wall` | Salt/TwinBar/Wall.lean:138 | sieves |
 | `Salt.TwinBar.phiLowerR_certificate` | Salt/TwinBar/Wall.lean:195 | sieves |
 | `Salt.TwinBar.sum_inv_Icc_le` | Salt/TwinBar/Wall.lean:220 | sieves |
@@ -7153,15 +7153,15 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Vmvt.mixBox_Ncount_le` | Salt/Vmvt/Transversal3.lean:706 | exponential sums |
 | `Salt.Vmvt.transBox_Ncount_le` | Salt/Vmvt/Transversal3.lean:743 | exponential sums |
 | `Salt.Weil.trace_surjective` | Salt/Weil/ArtinSchreier.lean:45 | exponential sums |
-| `Salt.Weil.range_artinSchreier_eq_ker_trace` | Salt/Weil/ArtinSchreier.lean:97 | exponential sums |
-| `Salt.Weil.card_artinSchreier_solutions` | Salt/Weil/ArtinSchreier.lean:133 | exponential sums |
+| `Salt.Weil.range_artinSchreier_eq_ker_trace` | Salt/Weil/ArtinSchreier.lean:99 | exponential sums |
+| `Salt.Weil.card_artinSchreier_solutions` | Salt/Weil/ArtinSchreier.lean:135 | exponential sums |
 | `Salt.Weil.kloosterman_mul_of_coprime` | Salt/Weil/Composite.lean:107 | exponential sums |
 | `Salt.Weil.norm_kloosterman_le_mul_of_coprime` | Salt/Weil/Composite.lean:190 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_pow_ge_two` | Salt/Weil/CompositeFull.lean:230 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_pow_odd` | Salt/Weil/CompositeFull.lean:299 | exponential sums |
-| `Salt.Weil.kloosterman_zero_right` | Salt/Weil/CompositeFull.lean:309 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_unit` | Salt/Weil/CompositeFull.lean:351 | exponential sums |
-| `Salt.Weil.norm_kloosterman_le_tau_sqrt` | Salt/Weil/CompositeFull.lean:384 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_pow_ge_two` | Salt/Weil/CompositeFull.lean:234 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_pow_odd` | Salt/Weil/CompositeFull.lean:303 | exponential sums |
+| `Salt.Weil.kloosterman_zero_right` | Salt/Weil/CompositeFull.lean:313 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_unit` | Salt/Weil/CompositeFull.lean:355 | exponential sums |
+| `Salt.Weil.norm_kloosterman_le_tau_sqrt` | Salt/Weil/CompositeFull.lean:388 | exponential sums |
 | `Salt.Weil.kloosterman_mul_of_coprime_unit_twist` | Salt/Weil/CompositeTail.lean:144 | exponential sums |
 | `Salt.Weil.kloosterman_mul_of_coprime_unit` | Salt/Weil/CompositeTail.lean:225 | exponential sums |
 | `Salt.Weil.norm_kloosterman_le_mul_of_coprime_unit` | Salt/Weil/CompositeTail.lean:250 | exponential sums |
@@ -7172,17 +7172,17 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Weil.sum_card_fiber_eq_pointCount` | Salt/Weil/CurveBridge.lean:244 | exponential sums |
 | `Salt.Weil.sum_kloostermanMoment_eq_pointCount` | Salt/Weil/CurveBridge.lean:277 | exponential sums |
 | `Salt.Weil.sum_kloostermanMoment_erase_zero_eq` | Salt/Weil/CurveBridge.lean:294 | exponential sums |
-| `Salt.Weil.norm_localRoots_eq_sqrt` | Salt/Weil/Descent.lean:194 | exponential sums |
-| `Salt.Weil.norm_kloosterman_le_two_sqrt` | Salt/Weil/Descent.lean:206 | exponential sums |
-| `Salt.Weil.norm_kloosterman_le_two_sqrt'` | Salt/Weil/Descent.lean:222 | exponential sums |
+| `Salt.Weil.norm_localRoots_eq_sqrt` | Salt/Weil/Descent.lean:198 | exponential sums |
+| `Salt.Weil.norm_kloosterman_le_two_sqrt` | Salt/Weil/Descent.lean:210 | exponential sums |
+| `Salt.Weil.norm_kloosterman_le_two_sqrt'` | Salt/Weil/Descent.lean:226 | exponential sums |
 | `Salt.Weil.pj_cube_eq_zero` | Salt/Weil/Estermann.lean:68 | exponential sums |
-| `Salt.Weil.klSummand_mul_ushift3` | Salt/Weil/Estermann.lean:131 | exponential sums |
-| `Salt.Weil.crit_mul_ushift3` | Salt/Weil/Estermann.lean:145 | exponential sums |
-| `Salt.Weil.norm_quadExpSum` | Salt/Weil/Estermann.lean:167 | exponential sums |
-| `Salt.Weil.castHom_eq_zero_iff_not_isUnit` | Salt/Weil/Estermann.lean:252 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_pow_odd_sharp` | Salt/Weil/Estermann.lean:268 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_pow_unit_sharp` | Salt/Weil/Estermann.lean:459 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_pow_gcd` | Salt/Weil/Estermann.lean:498 | exponential sums |
+| `Salt.Weil.klSummand_mul_ushift3` | Salt/Weil/Estermann.lean:138 | exponential sums |
+| `Salt.Weil.crit_mul_ushift3` | Salt/Weil/Estermann.lean:152 | exponential sums |
+| `Salt.Weil.norm_quadExpSum` | Salt/Weil/Estermann.lean:174 | exponential sums |
+| `Salt.Weil.castHom_eq_zero_iff_not_isUnit` | Salt/Weil/Estermann.lean:259 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_pow_odd_sharp` | Salt/Weil/Estermann.lean:275 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_pow_unit_sharp` | Salt/Weil/Estermann.lean:466 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_pow_gcd` | Salt/Weil/Estermann.lean:505 | exponential sums |
 | `Salt.Weil.natCast_chineseRemainder_fst` | Salt/Weil/EstermannGlobal.lean:75 | exponential sums |
 | `Salt.Weil.natCast_chineseRemainder_snd` | Salt/Weil/EstermannGlobal.lean:82 | exponential sums |
 | `Salt.Weil.gcd_unit_twist_nat` | Salt/Weil/EstermannGlobal.lean:93 | exponential sums |
@@ -7220,10 +7220,10 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Weil.kloosterman_conj` | Salt/Weil/Kloosterman.lean:79 | exponential sums |
 | `Salt.Weil.X_sub_C_pow_dvd_iff_hasseDeriv` | Salt/Weil/Kloosterman.lean:123 | exponential sums |
 | `Salt.Weil.galoisField_trace_eq_sum_frobenius` | Salt/Weil/Kloosterman.lean:157 | exponential sums |
-| `Salt.Weil.eta_mul` | Salt/Weil/LFunction.lean:55 | exponential sums |
-| `Salt.Weil.T5_a1` | Salt/Weil/LFunction.lean:160 | exponential sums |
-| `Salt.Weil.T5_ad` | Salt/Weil/LFunction.lean:209 | exponential sums |
-| `Salt.Weil.T5_a2` | Salt/Weil/LFunction.lean:254 | exponential sums |
+| `Salt.Weil.eta_mul` | Salt/Weil/LFunction.lean:58 | exponential sums |
+| `Salt.Weil.T5_a1` | Salt/Weil/LFunction.lean:173 | exponential sums |
+| `Salt.Weil.T5_ad` | Salt/Weil/LFunction.lean:222 | exponential sums |
+| `Salt.Weil.T5_a2` | Salt/Weil/LFunction.lean:267 | exponential sums |
 | `Salt.Weil.localPowerSum_rec` | Salt/Weil/LocalFactor.lean:96 | exponential sums |
 | `Salt.Weil.localPowerSum_im` | Salt/Weil/LocalFactor.lean:134 | exponential sums |
 | `Salt.Weil.abs_le_sqrt_of_powerSum_bound` | Salt/Weil/LocalFactor.lean:145 | exponential sums |
@@ -7236,47 +7236,47 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Weil.summable_majorantCoeff_mul_e` | Salt/Weil/MajorantExpansion.lean:172 | exponential sums |
 | `Salt.Weil.kloostermanMoment_eq_neg_localPowerSum` | Salt/Weil/MomentEigen.lean:146 | exponential sums |
 | `Salt.Weil.kloostermanMoment_eq_cCoeff` | Salt/Weil/MomentOrbit.lean:436 | exponential sums |
-| `Salt.Weil.kloostermanMoment_im` | Salt/Weil/Moments.lean:113 | exponential sums |
-| `Salt.Weil.kloostermanMoment_one` | Salt/Weil/Moments.lean:124 | exponential sums |
-| `Salt.Weil.sum_kloostermanMoment_twist` | Salt/Weil/Moments.lean:200 | exponential sums |
+| `Salt.Weil.kloostermanMoment_im` | Salt/Weil/Moments.lean:115 | exponential sums |
+| `Salt.Weil.kloostermanMoment_one` | Salt/Weil/Moments.lean:126 | exponential sums |
+| `Salt.Weil.sum_kloostermanMoment_twist` | Salt/Weil/Moments.lean:202 | exponential sums |
 | `Salt.Weil.forall_norm_le_of_powerSum_bound` | Salt/Weil/MultiExtract.lean:37 | exponential sums |
 | `Salt.Weil.norm_eq_sqrt_of_pair_of_le` | Salt/Weil/MultiExtract.lean:209 | exponential sums |
 | `Salt.Weil.norm_add_le_two_mul_sqrt` | Salt/Weil/MultiExtract.lean:228 | exponential sums |
-| `Salt.Weil.newton_bridge` | Salt/Weil/NewtonBridge.lean:339 | exponential sums |
+| `Salt.Weil.newton_bridge` | Salt/Weil/NewtonBridge.lean:347 | exponential sums |
 | `Salt.Weil.galoisField_minpoly_natDegree_dvd` | Salt/Weil/Orbits.lean:60 | exponential sums |
 | `Salt.Weil.squarefree_X_pow_card_pow_sub_X` | Salt/Weil/Orbits.lean:107 | exponential sums |
 | `Salt.Weil.irreducible_monic_dvd_X_pow_card_pow_sub_X_iff` | Salt/Weil/Orbits.lean:115 | exponential sums |
 | `Salt.Weil.exists_quotient_hasseDeriv_mul_pow` | Salt/Weil/PointCount.lean:42 | exponential sums |
 | `Salt.Weil.stepanov_locus_card_le` | Salt/Weil/PointCount.lean:141 | exponential sums |
 | `Salt.Weil.pointCount_sub_card` | Salt/Weil/PointCount.lean:187 | exponential sums |
-| `Salt.Weil.norm_kloosterman_prime_pow_even` | Salt/Weil/PrimePower.lean:228 | exponential sums |
+| `Salt.Weil.norm_kloosterman_prime_pow_even` | Salt/Weil/PrimePower.lean:231 | exponential sums |
 | `Salt.Weil.dvd_roadModulus` | Salt/Weil/RoadModulus.lean:65 | exponential sums |
 | `Salt.Weil.dvd_roadModulus_mul` | Salt/Weil/RoadModulus.lean:72 | exponential sums |
 | `Salt.Weil.dvd_roadModulus_left` | Salt/Weil/RoadModulus.lean:76 | exponential sums |
 | `Salt.Weil.factorization_two_roadModulus` | Salt/Weil/RoadModulus.lean:93 | exponential sums |
 | `Salt.Weil.factorization_two_roadModulus_le` | Salt/Weil/RoadModulus.lean:107 | exponential sums |
 | `Salt.Weil.dist₁_neg_zero` | Salt/Weil/Sawtooth.lean:63 | exponential sums |
-| `Salt.Weil.norm_sawtoothRem_le_linear` | Salt/Weil/Sawtooth.lean:240 | exponential sums |
-| `Salt.Weil.norm_sawtoothRem_le_dist` | Salt/Weil/Sawtooth.lean:345 | exponential sums |
-| `Salt.Weil.norm_sawtoothRem_le` | Salt/Weil/Sawtooth.lean:440 | exponential sums |
-| `Salt.Weil.sawtoothMajorant_eq_inv_max` | Salt/Weil/Sawtooth.lean:521 | exponential sums |
-| `Salt.Weil.integral_sawtoothMajorant_eq` | Salt/Weil/Sawtooth.lean:574 | exponential sums |
-| `Salt.Weil.integral_sawtoothMajorant_le` | Salt/Weil/Sawtooth.lean:648 | exponential sums |
-| `Salt.Weil.norm_majorantCoeff_le` | Salt/Weil/Sawtooth.lean:666 | exponential sums |
-| `Salt.Weil.norm_majorantCoeff_le_sq` | Salt/Weil/Sawtooth.lean:970 | exponential sums |
-| `Salt.Weil.norm_congrExpSum_le_length` | Salt/Weil/Sawtooth.lean:1119 | exponential sums |
-| `Salt.Weil.norm_congrExpSum_le_dist` | Salt/Weil/Sawtooth.lean:1187 | exponential sums |
-| `Salt.Weil.norm_congrExpSum_le` | Salt/Weil/Sawtooth.lean:1227 | exponential sums |
-| `Salt.Weil.dist₁_mul_div_eq_zero_iff` | Salt/Weil/Sawtooth.lean:1241 | exponential sums |
-| `Salt.Weil.summable_norm_majorantCoeff` | Salt/Weil/Sawtooth.lean:1428 | exponential sums |
-| `Salt.Weil.tsum_norm_majorantCoeff_le` | Salt/Weil/Sawtooth.lean:1434 | exponential sums |
-| `Salt.Weil.tsum_norm_majorantCoeff_le_log` | Salt/Weil/Sawtooth.lean:1444 | exponential sums |
+| `Salt.Weil.norm_sawtoothRem_le_linear` | Salt/Weil/Sawtooth.lean:246 | exponential sums |
+| `Salt.Weil.norm_sawtoothRem_le_dist` | Salt/Weil/Sawtooth.lean:351 | exponential sums |
+| `Salt.Weil.norm_sawtoothRem_le` | Salt/Weil/Sawtooth.lean:446 | exponential sums |
+| `Salt.Weil.sawtoothMajorant_eq_inv_max` | Salt/Weil/Sawtooth.lean:527 | exponential sums |
+| `Salt.Weil.integral_sawtoothMajorant_eq` | Salt/Weil/Sawtooth.lean:588 | exponential sums |
+| `Salt.Weil.integral_sawtoothMajorant_le` | Salt/Weil/Sawtooth.lean:662 | exponential sums |
+| `Salt.Weil.norm_majorantCoeff_le` | Salt/Weil/Sawtooth.lean:680 | exponential sums |
+| `Salt.Weil.norm_majorantCoeff_le_sq` | Salt/Weil/Sawtooth.lean:984 | exponential sums |
+| `Salt.Weil.norm_congrExpSum_le_length` | Salt/Weil/Sawtooth.lean:1133 | exponential sums |
+| `Salt.Weil.norm_congrExpSum_le_dist` | Salt/Weil/Sawtooth.lean:1201 | exponential sums |
+| `Salt.Weil.norm_congrExpSum_le` | Salt/Weil/Sawtooth.lean:1241 | exponential sums |
+| `Salt.Weil.dist₁_mul_div_eq_zero_iff` | Salt/Weil/Sawtooth.lean:1255 | exponential sums |
+| `Salt.Weil.summable_norm_majorantCoeff` | Salt/Weil/Sawtooth.lean:1446 | exponential sums |
+| `Salt.Weil.tsum_norm_majorantCoeff_le` | Salt/Weil/Sawtooth.lean:1452 | exponential sums |
+| `Salt.Weil.tsum_norm_majorantCoeff_le_log` | Salt/Weil/Sawtooth.lean:1462 | exponential sums |
 | `Salt.Weil.stepanovAux_natDegree_le` | Salt/Weil/Stepanov.lean:75 | exponential sums |
 | `Salt.Weil.X_pow_dvd_of_range_sum_eq_zero` | Salt/Weil/Stepanov.lean:94 | exponential sums |
 | `Salt.Weil.stepanovAux_ne_zero` | Salt/Weil/Stepanov.lean:129 | exponential sums |
 | `Salt.Weil.stepanov_dimension_count` | Salt/Weil/StepanovCore.lean:71 | exponential sums |
-| `Salt.Weil.stepanovAux_dvd_of_reduced_eval_zero` | Salt/Weil/StepanovCore.lean:234 | exponential sums |
-| `Salt.Weil.stepanov_multiplicity_card_le` | Salt/Weil/StepanovCore.lean:248 | exponential sums |
+| `Salt.Weil.stepanovAux_dvd_of_reduced_eval_zero` | Salt/Weil/StepanovCore.lean:237 | exponential sums |
+| `Salt.Weil.stepanov_multiplicity_card_le` | Salt/Weil/StepanovCore.lean:251 | exponential sums |
 | `Salt.Weil.stepanov_solution_exists` | Salt/Weil/StepanovSolve.lean:217 | exponential sums |
 | `Salt.Weil.stepanov_one_sided_card_le` | Salt/Weil/StepanovSolve.lean:254 | exponential sums |
 | `Salt.Weil.weil_stepanov` | Salt/Weil/WeilStepanov.lean:77 | exponential sums |
@@ -7443,9 +7443,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` | Salt/Fulcrum/Dichotomy.lean:82 | other | `¬Salt.Fulcrum.FulcrumQualityMin` |
 | `Salt.Fulcrum.fulcrum_dichotomy` | Salt/Fulcrum/Dichotomy.lean:102 | other | `TwinPrimeConjecture` |
 | `Salt.Fulcrum.imsz_gives_fulcrum_witnesses` | Salt/Fulcrum/Gadget.lean:128 | characters | `Salt.TwinBar.InfinitelyManySiegelZeros` |
-| `Salt.Goldbach.gold_A1_lower_B` | Salt/Goldbach/A1.lean:235 | sieves | `Salt.Chen.StepHypWPC` |
-| `Salt.Goldbach.gold_A1_lower_B_W` | Salt/Goldbach/A1W.lean:264 | sieves | `Salt.Chen.StepHypWPC` |
-| `Salt.Goldbach.gold_A2_per_prime_W` | Salt/Goldbach/A2W.lean:313 | sieves | `Salt.Chen.StepHypWPC` |
+| `Salt.Goldbach.gold_A1_lower_B` | Salt/Goldbach/A1.lean:239 | sieves | `Salt.Chen.StepHypWPC` |
+| `Salt.Goldbach.gold_A1_lower_B_W` | Salt/Goldbach/A1W.lean:275 | sieves | `Salt.Chen.StepHypWPC` |
+| `Salt.Goldbach.gold_A2_per_prime_W` | Salt/Goldbach/A2W.lean:323 | sieves | `Salt.Chen.StepHypWPC` |
 | `Salt.Goldbach.chen_goldbach_of_standoff` | Salt/Goldbach/SiegelFree.lean:39 | sieves | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.HB.deltaSum_nuG_mul_additive` | Salt/HB/CrownAssembly.lean:381 | characters | `Salt.HB.IsAdditiveOn` |
 | `Salt.HB.deltaSum_nuG_mul_additive_le` | Salt/HB/CrownAssembly.lean:523 | characters | `Salt.HB.IsAdditiveOn` |
@@ -8868,10 +8868,10 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.MaynardK.gaps_le_636_of_level` | Salt/MaynardK/Gaps636.lean:45 | other | `WindowPNT`, `HasLevel` |
 | `Salt.MaynardK.gaps_le_636_of_standoff` | Salt/MaynardK/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.MaynardK.gaps_le_600_of_standoff` | Salt/MaynardK/SiegelFree.lean:52 | other | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Parity.Z_trivial_of_not_completion` | Salt/Parity/Z.lean:125 | sieves | `¬Salt.Parity.Completion` |
-| `Salt.Parity.TPC_implies_Z` | Salt/Parity/Z.lean:216 | sieves | `TwinPrimeConjecture` |
-| `Salt.Parity.sufficient_true_not_parityInv` | Salt/Parity/Z.lean:678 | sieves | `Salt.Parity.TwinSufficient` |
-| `Salt.Parity.Z_implies_TPC` | Salt/Parity/Z.lean:693 | sieves | `Salt.Parity.Z` |
+| `Salt.Parity.Z_trivial_of_not_completion` | Salt/Parity/Z.lean:128 | sieves | `¬Salt.Parity.Completion` |
+| `Salt.Parity.TPC_implies_Z` | Salt/Parity/Z.lean:219 | sieves | `TwinPrimeConjecture` |
+| `Salt.Parity.sufficient_true_not_parityInv` | Salt/Parity/Z.lean:681 | sieves | `Salt.Parity.TwinSufficient` |
+| `Salt.Parity.Z_implies_TPC` | Salt/Parity/Z.lean:696 | sieves | `Salt.Parity.Z` |
 | `Salt.SW.estermannPositivity_of_interface` | Salt/SW/Estermann.lean:288 | sieves | `Salt.SW.EstermannInterface` |
 | `Salt.SW.bounded_gaps_of_standoff` | Salt/SW/GapsStandoff.lean:33 | sieves | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.SW.card_system_le_rpow` | Salt/SW/JutilaRatio.lean:347 | sieves, characters | `Salt.SW.WellSpacedAt` |
@@ -8898,7 +8898,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
 | `Salt.TwinBar.noSiegelZeros_of_sevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:42 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.bounded_gaps_of_sevenEighths` | Salt/TwinBar/SevenEighthsGaps.lean:31 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.bounded_gaps_of_sevenEighths` | Salt/TwinBar/SevenEighthsGaps.lean:33 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:61 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:68 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
@@ -8922,9 +8922,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.twin_parity_survivor_or_chowla_of_liouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:357 | sieves | `Salt.TwinBar.LiouvilleTwinDisp` |
 | `Salt.TwinBar.twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:410 | sieves | `Salt.TwinBar.LiouvilleTwinDisp` |
 | `Salt.TwinBar.twinParitySieve_siftedSum_pos_of_margin` | Salt/TwinBar/TwinParitySieve.lean:447 | sieves | `Salt.TwinBar.LiouvilleTwinDisp` |
-| `Salt.TwinBar.twinParitySieveLog_rosserRemainder_le` | Salt/TwinBar/TwinParitySieveLog.lean:372 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
-| `Salt.TwinBar.twinParitySieveLog_siftedSum_lower` | Salt/TwinBar/TwinParitySieveLog.lean:393 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
-| `Salt.TwinBar.twinParitySieveLog_support_infinite` | Salt/TwinBar/TwinParitySieveLog.lean:442 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
+| `Salt.TwinBar.twinParitySieveLog_rosserRemainder_le` | Salt/TwinBar/TwinParitySieveLog.lean:381 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
+| `Salt.TwinBar.twinParitySieveLog_siftedSum_lower` | Salt/TwinBar/TwinParitySieveLog.lean:402 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
+| `Salt.TwinBar.twinParitySieveLog_support_infinite` | Salt/TwinBar/TwinParitySieveLog.lean:451 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
 | `Salt.TwinBar.rosser_floor_undershoot` | Salt/TwinBar/Wall.lean:100 | sieves | `Salt.BrunLower.IsLowerMoebius` |
 | `Salt.TwinBar.rosser_floor_vs_prime_mass` | Salt/TwinBar/Wall.lean:118 | sieves | `Salt.BrunLower.IsLowerMoebius` |
 | `Salt.TwinBar.phiLowerR_tolerant` | Salt/TwinBar/Wall.lean:178 | sieves | `Salt.TwinBar.SieveAgree` |
@@ -9152,7 +9152,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.MR.S16BaseScaleCapEnd_LH_gk` | Salt/MR/V7RatedH.lean:152 | characters |
 | `Salt.SW.NoSiegelZerosAt` | Salt/SW/StandoffGate.lean:88 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:145 | sieves |
-| `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:133 | sieves |
+| `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:142 | sieves |
 
 ## infrastructure (475)
 
@@ -9239,8 +9239,8 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.goldBlockHonestDiscW_eq_sum_pieces` | Salt/Goldbach/SW2.lean:143 | sieves |
 | `Salt.Goldbach.goldBlockBoxHonestDisc_split_m` | Salt/Goldbach/SW2.lean:234 | sieves |
 | `Salt.Goldbach.goldTripleSum_eq_card` | Salt/Goldbach/Switch.lean:79 | sieves |
-| `Salt.Goldbach.goldSwitchSieveW_W_eq` | Salt/Goldbach/Switch.lean:445 | sieves |
-| `Salt.Goldbach.goldBlockSwitchSieveW_maxDepth_eq` | Salt/Goldbach/Switch.lean:475 | sieves |
+| `Salt.Goldbach.goldSwitchSieveW_W_eq` | Salt/Goldbach/Switch.lean:488 | sieves |
+| `Salt.Goldbach.goldBlockSwitchSieveW_maxDepth_eq` | Salt/Goldbach/Switch.lean:518 | sieves |
 | `Salt.HB.hbL1_eq` | Salt/HB/CharTrio.lean:128 | characters |
 | `Salt.HB.hbDataN8` | Salt/HB/CrownAssembly.lean:121 | sieves, characters |
 | `Salt.HB.hbDataN8_P` | Salt/HB/CrownAssembly.lean:129 | characters |
@@ -9617,12 +9617,12 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.Btwin` | Salt/TwinBar/TwinParitySieve.lean:242 | sieves |
 | `Salt.TwinBar.twinIdx` | Salt/TwinBar/TwinParitySieveLog.lean:46 | sieves |
 | `Salt.TwinBar.twinParitySieveLog` | Salt/TwinBar/TwinParitySieveLog.lean:56 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_prodPrimes` | Salt/TwinBar/TwinParitySieveLog.lean:73 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_nu` | Salt/TwinBar/TwinParitySieveLog.lean:76 | sieves |
-| `Salt.TwinBar.Llog` | Salt/TwinBar/TwinParitySieveLog.lean:92 | sieves |
-| `Salt.TwinBar.Clog` | Salt/TwinBar/TwinParitySieveLog.lean:97 | sieves |
-| `Salt.TwinBar.remLogCount` | Salt/TwinBar/TwinParitySieveLog.lean:101 | sieves |
-| `Salt.TwinBar.BtwinLog` | Salt/TwinBar/TwinParitySieveLog.lean:330 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_prodPrimes` | Salt/TwinBar/TwinParitySieveLog.lean:75 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_nu` | Salt/TwinBar/TwinParitySieveLog.lean:80 | sieves |
+| `Salt.TwinBar.Llog` | Salt/TwinBar/TwinParitySieveLog.lean:96 | sieves |
+| `Salt.TwinBar.Clog` | Salt/TwinBar/TwinParitySieveLog.lean:101 | sieves |
+| `Salt.TwinBar.remLogCount` | Salt/TwinBar/TwinParitySieveLog.lean:105 | sieves |
+| `Salt.TwinBar.BtwinLog` | Salt/TwinBar/TwinParitySieveLog.lean:339 | sieves |
 | `Salt.Vmvt.vmvtExp_succ` | Salt/Vmvt/MeanValue.lean:197 | exponential sums |
 | `Salt.Vmvt.vmvtExp_step_diff` | Salt/Vmvt/StepFull.lean:46 | exponential sums |
 | `Salt.Vmvt.vmvtResid_eq` | Salt/Vmvt/StepFull.lean:56 | exponential sums |
