@@ -25,6 +25,7 @@ open BoundingSieve
 /-- The "above-`p`" part of `d`: the product of the prime factors of `d` exceeding `p`. -/
 noncomputable def pAbove (p d : ℕ) : ℕ := ∏ q ∈ d.primeFactors.filter (fun q => p < q), q
 
+/-- `pAbove p 1 = 1`: `1` has no prime factors, so its above-`p` part is the empty product. -/
 @[simp] lemma pAbove_one (p : ℕ) : pAbove p 1 = 1 := by
   simp [pAbove, Nat.primeFactors_one]
 
@@ -128,6 +129,8 @@ lemma prod_subset_dvd (s : BoundingSieve) {S : Finset ℕ} (hS : S ⊆ s.prodPri
   rw [← Nat.prod_primeFactors_of_squarefree s.prodPrimes_squarefree]
   exact Finset.prod_dvd_prod_of_subset _ _ _ hS
 
+/-- A product over a subset `S` of the sifting primes `s.prodPrimes.primeFactors` (`hS`) is
+squarefree: distinct primes, each to the first power. -/
 lemma prod_subset_squarefree (s : BoundingSieve) {S : Finset ℕ}
     (hS : S ⊆ s.prodPrimes.primeFactors) : Squarefree (∏ q ∈ S, q) :=
   s.prodPrimes_squarefree.squarefree_of_dvd (prod_subset_dvd s hS)
@@ -459,6 +462,7 @@ lemma bigOmegaGe_prod {Lam z : ℝ} {S : Finset ℕ} (hSp : ∀ q ∈ S, q.Prime
   unfold bigOmegaGe
   rw [Nat.primeFactors_prod hSp]
 
+/-- The H-R block bound `2b − side + 2n − 1` is monotone in the level `n` (`h : n ≤ n'`). -/
 lemma blockBound_mono {side b : ℕ} {n n' : ℕ} (h : n ≤ n') :
     blockBound side b n ≤ blockBound side b n' := by
   unfold blockBound; omega
@@ -534,6 +538,8 @@ lemma forcing {Lam z : ℝ} {side b : ℕ} (hb : 1 ≤ b) (hs : side ≤ 2)
 
 /-! ## Layer 8 — the over-count (Corollary + (2.11)) -/
 
+/-- The window `[z_n, z)` is a subset of the sifting primes: `windowPrimes` is a `filter` of
+`s.prodPrimes.primeFactors`. -/
 theorem windowPrimes_subset (s : BoundingSieve) (Lam z : ℝ) (n : ℕ) :
     windowPrimes s Lam z n ⊆ s.prodPrimes.primeFactors := Finset.filter_subset _ _
 
@@ -673,18 +679,29 @@ lemma overcount (s : BoundingSieve) {Lam z : ℝ} {side b : ℕ} (hb : 1 ≤ b) 
 /-- The block index of a sifting prime `p`: the least level `n ≥ 1` with `z_n ≤ p`. -/
 noncomputable def blockOf (Lam z : ℝ) (p : ℕ) : ℕ := sInf {n : ℕ | 1 ≤ n ∧ zLev Lam z n ≤ (p : ℝ)}
 
+/-- The set defining `blockOf Lam z p` — levels `n ≥ 1` with `zLev Lam z n ≤ p` — is nonempty
+for `0 < Lam` (`hLam`), `1 < z` (`hz`) and `2 ≤ p` (`hp2`): `minLevel Lam z` is in it, since
+`z_r ≤ 2 ≤ p` at the bottom of the ladder. -/
 lemma blockOf_set_nonempty {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) {p : ℕ} (hp2 : (2 : ℝ) ≤ p) :
     {n : ℕ | 1 ≤ n ∧ zLev Lam z n ≤ (p : ℝ)}.Nonempty :=
   ⟨minLevel Lam z, (minLevel_mem hLam hz).1, le_trans (zLev_minLevel_le_two hLam hz) hp2⟩
 
+/-- `blockOf Lam z p` is a level `≥ 1` with `zLev Lam z (blockOf Lam z p) ≤ p`
+(`hLam : 0 < Lam`, `hz : 1 < z`, `hp2 : 2 ≤ p`): the `sInf` of a nonempty set of naturals is a
+member. -/
 lemma blockOf_mem {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) {p : ℕ} (hp2 : (2 : ℝ) ≤ p) :
     1 ≤ blockOf Lam z p ∧ zLev Lam z (blockOf Lam z p) ≤ (p : ℝ) :=
   Nat.sInf_mem (blockOf_set_nonempty hLam hz hp2)
 
+/-- `blockOf Lam z p ≤ minLevel Lam z` (`hLam : 0 < Lam`, `hz : 1 < z`, `hp2 : 2 ≤ p`): the
+bottom of the ladder is in the set `blockOf` takes the infimum of. -/
 lemma blockOf_le_minLevel {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) {p : ℕ} (hp2 : (2 : ℝ) ≤ p) :
     blockOf Lam z p ≤ minLevel Lam z :=
   Nat.sInf_le ⟨(minLevel_mem hLam hz).1, le_trans (zLev_minLevel_le_two hLam hz) hp2⟩
 
+/-- Minimality of the block index: for a sifting prime `p < z` (`hpz`), the level just below
+`blockOf Lam z p` still has `p < zLev Lam z (blockOf Lam z p - 1)` (`hLam : 0 < Lam`,
+`hz : 1 < z`, `hp2 : 2 ≤ p`), so `p` lies in the window `[z_n, z_{n−1})` of its block. -/
 lemma blockOf_pred {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) {p : ℕ} (hp2 : (2 : ℝ) ≤ p)
     (hpz : (p : ℝ) < z) : (p : ℝ) < zLev Lam z (blockOf Lam z p - 1) := by
   set k := blockOf Lam z p with hk
@@ -725,6 +742,8 @@ lemma blockInner_nonneg (s : BoundingSieve) {Lam z : ℝ} {side b p : ℕ} :
 noncomputable def Wbelow (s : BoundingSieve) (x : ℝ) : ℝ :=
   ∏ q ∈ s.prodPrimes.primeFactors.filter (fun q : ℕ => (q : ℝ) < x), (1 - s.nu q)
 
+/-- `0 ≤ Wbelow s x`: a product of the factors `1 − s.nu q`, each nonnegative since `s.nu q ≤ 1`
+on the sifting primes. -/
 lemma Wbelow_nonneg (s : BoundingSieve) (x : ℝ) : 0 ≤ Wbelow s x := by
   unfold Wbelow
   apply Finset.prod_nonneg
@@ -761,6 +780,8 @@ lemma Wbelow_anti (s : BoundingSieve) {x y : ℝ} (hxy : x ≤ y) : Wbelow s y �
       have := nu_nonneg_of_mem_primeFactors s hqP
       linarith
 
+/-- The density product over the sifting primes `q < p` is `Wbelow s p`: the two filters
+(`q < p` as naturals, `(q : ℝ) < p`) agree. -/
 lemma Wlt_eq (s : BoundingSieve) (p : ℕ) :
     (∏ q ∈ s.prodPrimes.primeFactors.filter (fun q => q < p), (1 - s.nu q)) = Wbelow s (p : ℝ) := by
   unfold Wbelow
@@ -771,6 +792,8 @@ lemma Wlt_eq (s : BoundingSieve) (p : ℕ) :
   · intro h; exact_mod_cast h
   · intro h; exact_mod_cast h
 
+/-- `W s * Wratio s Lam z n = Wbelow s (zLev Lam z n)`: multiplying the full density product by
+the window ratio `W(z_n)/W(z)` leaves the product over the primes below `z_n`. -/
 lemma Wzn_eq (s : BoundingSieve) (Lam z : ℝ) (n : ℕ) :
     W s * Wratio s Lam z n = Wbelow s (zLev Lam z n) := by
   unfold W Wratio Wbelow windowPrimes
@@ -857,6 +880,11 @@ lemma corr_bound (s : BoundingSieve) {Lam z : ℝ} {side b : ℕ}
 
 /-! ## The two `hcorr` endpoints (frozen shapes from `BlockDecomp.lean`) -/
 
+/-- H-R Lemma 3's upper endpoint (`hcorr`, side `ν = 1`): the block-truncated main sum
+`mainSum (μ · [χ₁ d])` is at most `W s` times
+`1 + ∑_{n=1}^{r} Wratio_n · e_{2b+2n−1}(ν on the window [z_n, z))`, the elementary symmetric
+sums over `powersetCard (2b − 1 + 2n)` of `windowPrimes` (`hLam : 0 < Lam`, `hz : 1 < z`,
+`hb : 1 ≤ b`, `hzprimes`: every sifting prime is `< z`). -/
 theorem hcorr_upper (s : BoundingSieve) {Lam z : ℝ} {b : ℕ}
     (hLam : 0 < Lam) (hz : 1 < z) (hb : 1 ≤ b)
     (hzprimes : ∀ p ∈ s.prodPrimes.primeFactors, (p : ℝ) < z) :
@@ -870,6 +898,11 @@ theorem hcorr_upper (s : BoundingSieve) {Lam z : ℝ} {b : ℕ}
   rw [mul_add, mul_one]
   linarith [hcb]
 
+/-- H-R Lemma 3's lower endpoint (`hcorr`, side `ν = 2`): the block-truncated main sum
+`mainSum (μ · [χ₂ d])` is at least `W s` times
+`1 − ∑_{n=1}^{r} Wratio_n · e_{2b+2n−2}(ν on the window [z_n, z))`, the elementary symmetric
+sums over `powersetCard (2b − 2 + 2n)` of `windowPrimes` (`hLam : 0 < Lam`, `hz : 1 < z`,
+`hb : 1 ≤ b`, `hzprimes`: every sifting prime is `< z`). -/
 theorem hcorr_lower (s : BoundingSieve) {Lam z : ℝ} {b : ℕ}
     (hLam : 0 < Lam) (hz : 1 < z) (hb : 1 ≤ b)
     (hzprimes : ∀ p ∈ s.prodPrimes.primeFactors, (p : ℝ) < z) :
