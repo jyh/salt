@@ -20,7 +20,7 @@ through the vP3 family `α i x = muBlock (aIdx i x) x`, `β i x = tiiBlock (bIdx
 ## What is delivered (sorry-free)
 
 * `sum_tiiBlock_eq` — the co-divisor dyadic blocks reconstruct `typeIIData`:
-  `∑_{b < dCount x} tiiBlock b x m = typeIIData (cbrt x) m` for `m ≤ x` (the
+  `∑_{b < dCount x} tiiBlock b x m = typeIIData (cbrt x) m` for `1 ≤ x`, `m ≤ x` (the
   `tiiBlock` analogue of `sum_muBlock_eq`, using `dyadic_cover` + the vanishing of
   `typeIIData` below its threshold).
 * `dconv_typeIIData_eq_sum_tiiBlock` — linearity of `dconv` in its 2nd argument:
