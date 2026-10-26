@@ -157,6 +157,8 @@ lemma integrableOn_expNeg_mul_log_Ioi_zero :
     rw [Real.norm_eq_abs, abs_mul, abs_of_pos hE0, abs_of_nonneg hlog0]
     nlinarith only [hE0, hlt]
 
+/-- `t ↦ e^{−t} log t` is integrable on `(t₀, ∞)` for `0 ≤ t₀` (`ht₀`): the `(0, ∞)` case
+(`integrableOn_expNeg_mul_log_Ioi_zero`) restricted to the subset (`IntegrableOn.mono_set`). -/
 lemma integrableOn_expNeg_mul_log_Ioi {t₀ : ℝ} (ht₀ : 0 ≤ t₀) :
     IntegrableOn (fun t : ℝ => Real.exp (-t) * Real.log t) (Ioi t₀) :=
   integrableOn_expNeg_mul_log_Ioi_zero.mono_set (Ioi_subset_Ioi ht₀)

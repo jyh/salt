@@ -101,9 +101,12 @@ private def ppRight (x : ℕ) : Finset ℕ :=
 /-- The union: every window point that can carry a nonzero `ppTail` term. -/
 private def ppBad (x : ℕ) : Finset ℕ := ppLeft x ∪ ppRight x
 
+/-- `#ppLeft x ≤ √(2x)`: it is literally the set `properPrimePow_count` counts. -/
 private lemma ppLeft_card_le (x : ℕ) : (ppLeft x).card ≤ Nat.sqrt (2 * x) :=
   properPrimePow_count x
 
+/-- `#ppRight x ≤ √(2(x+1))`: `n ↦ n + 2` injects `ppRight x` into the proper-prime-power set of
+the window `(x+1, 2(x+1)]`, which `properPrimePow_count (x + 1)` counts. -/
 private lemma ppRight_card_le (x : ℕ) : (ppRight x).card ≤ Nat.sqrt (2 * (x + 1)) := by
   refine le_trans ?_ (properPrimePow_count (x + 1))
   refine Finset.card_le_card_of_injOn (fun n => n + 2) ?_ ?_
@@ -121,6 +124,8 @@ private lemma ppRight_card_le (x : ℕ) : (ppRight x).card ≤ Nat.sqrt (2 * (x 
     have hab' : a + 2 = b + 2 := hab
     omega
 
+/-- A member of `ppBad x` (`h`) lies in the window `x < n ≤ 2x`: both halves of the union are
+filters of `Finset.Ioc x (2x)`. -/
 private lemma mem_ppBad_Ioc {x n : ℕ} (h : n ∈ ppBad x) : x < n ∧ n ≤ 2 * x := by
   unfold ppBad at h
   rcases Finset.mem_union.mp h with h | h

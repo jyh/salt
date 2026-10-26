@@ -70,11 +70,15 @@ noncomputable def overshootPP (χ : DirichletCharacter ℂ q) (n : ℕ) : ℝ :=
 noncomputable def overshoot (χ : DirichletCharacter ℂ q) (n : ℕ) : ℝ :=
   overshootLog χ n + overshootPP χ n
 
+/-- `D(n) = 2·(f(n) log n + (f(n₊) − 1) Λ(n₋))` — `overshootLog` and `overshootPP` unfolded and
+the `2` factored out (`ring`). -/
 lemma overshoot_eq (χ : DirichletCharacter ℂ q) (n : ℕ) :
     overshoot χ n
       = 2 * (fChiSum χ n * Real.log n + (fChiSum χ (nPlus χ n) - 1) * Λ (nMinus χ n)) := by
   unfold overshoot overshootLog overshootPP; ring
 
+/-- `0 ≤ 2 f(n) log n` for a real `χ` (`hsq : χ² = 1`): `f(n) ≥ 0` (`fChiArith_nonneg` through
+`fChiArith_eq_fChiSum`) and `log n ≥ 0` for `n ≥ 1`; at `n = 0` the term is `0`. -/
 lemma overshootLog_nonneg (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (n : ℕ) :
     0 ≤ overshootLog χ n := by
   rcases eq_or_ne n 0 with rfl | hn
@@ -86,6 +90,8 @@ lemma overshootLog_nonneg (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (n 
     rw [mul_assoc]
     exact mul_nonneg (by norm_num) (mul_nonneg hFn hlogn)
 
+/-- `0 ≤ 2 (f(n₊) − 1) Λ(n₋)` for a real `χ` (`hsq`): `f(n₊) ≥ 1` (`one_le_fChiSum_nPlus`) and
+`Λ ≥ 0`. -/
 lemma overshootPP_nonneg (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (n : ℕ) :
     0 ≤ overshootPP χ n := by
   have hFP1 : 0 ≤ fChiSum χ (nPlus χ n) - 1 := by linarith [one_le_fChiSum_nPlus χ hsq n]
@@ -93,6 +99,8 @@ lemma overshootPP_nonneg (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (n :
   rw [mul_assoc]
   exact mul_nonneg (by norm_num) (mul_nonneg hFP1 vonMangoldt_nonneg)
 
+/-- `0 ≤ D(n)` for a real `χ` (`hsq`): the sum of `overshootLog_nonneg` and
+`overshootPP_nonneg`. -/
 lemma overshoot_nonneg (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (n : ℕ) :
     0 ≤ overshoot χ n :=
   add_nonneg (overshootLog_nonneg χ hsq n) (overshootPP_nonneg χ hsq n)

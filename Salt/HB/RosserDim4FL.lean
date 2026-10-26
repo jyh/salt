@@ -115,13 +115,18 @@ open Salt.BrunLower
 `E(1/10) = 21.017…`; `E(Λ) ≈ 2/Λ + 1` for small `Λ`. -/
 noncomputable def levelE (Lam : ℝ) : ℝ := 2 * Real.exp Lam / (Real.exp Lam - 1)
 
+/-- Wave 1's level exponent splits as `2b − ν − 1` plus its `b`-free part `E(Λ)` (`levelE`), by
+`rfl`. -/
 lemma levelExp_eq_levelE (Lam : ℝ) (side b : ℕ) :
     levelExp Lam side b = 2 * b - side - 1 + levelE Lam := rfl
 
+/-- `1 < e^x` for `0 < x` (`hx`), from `Real.add_one_le_exp`. -/
 lemma one_lt_exp_of_pos {x : ℝ} (hx : 0 < x) : (1 : ℝ) < Real.exp x := by
   have := Real.add_one_le_exp x
   linarith
 
+/-- `0 < E(Λ)` for `0 < Λ` (`hLam`): the numerator `2e^Λ` and the denominator `e^Λ − 1` are both
+positive (`one_lt_exp_of_pos`). -/
 lemma levelE_pos {Lam : ℝ} (hLam : 0 < Lam) : 0 < levelE Lam := by
   have h1 : (1 : ℝ) < Real.exp Lam := one_lt_exp_of_pos hLam
   rw [levelE]
@@ -179,6 +184,7 @@ theorem flB_level_bound {Lam z sRatio : ℝ} {side d : ℕ}
 `c = log 4 = 1.3862…`. -/
 noncomputable def flRate (lam : ℝ) : ℝ := -Real.log lam
 
+/-- `0 < c = log(1/λ)` for `0 < λ < 1` (`hlam`, `hlam1`): `log λ < 0` (`Real.log_neg`). -/
 lemma flRate_pos {lam : ℝ} (hlam : 0 < lam) (hlam1 : lam < 1) : 0 < flRate lam := by
   rw [flRate, neg_pos]
   exact Real.log_neg hlam hlam1
@@ -207,6 +213,9 @@ lemma lam_lt_one {lam : ℝ} (hlam : 0 < lam) (h12 : lam * Real.exp (1 + lam) < 
   have h1 : (1 : ℝ) < Real.exp (1 + lam) := one_lt_exp_of_pos (by linarith)
   nlinarith only [hlam, h1, h12]
 
+/-- `0 < C` for `0 < λ` (`hlam`) under H-R's `(2.15)` side condition `λ e^{1+λ} < 1` (`h12`):
+the geometric denominator is positive (`one_sub_lam_sq_exp_pos`) and every other factor is an
+exponential. -/
 lemma flConst_pos {lam Lam : ℝ} (hlam : 0 < lam) (h12 : lam * Real.exp (1 + lam) < 1) :
     0 < flConst lam Lam := by
   have hden := one_sub_lam_sq_exp_pos hlam h12
@@ -422,26 +431,36 @@ characteristic function `σ_d` in [10, §3]). -/
 noncomputable def failSet (Lam z : ℝ) (side b P : ℕ) : Finset ℕ :=
   P.divisors.filter (fun δ => ¬ chi Lam z side b δ ∧ chi Lam z side b (δ / δ.minFac))
 
+/-- `e ∈ lowDiv P δ ↔ e ∣ P` (with `P ≠ 0`) and every prime of `e` is `< p(δ)` — the membership
+unfolding of `lowDiv` through `Nat.mem_divisors`. -/
 lemma mem_lowDiv {P δ e : ℕ} :
     e ∈ lowDiv P δ ↔ (e ∣ P ∧ P ≠ 0) ∧ ∀ p ∈ e.primeFactors, p < δ.minFac := by
   simp [lowDiv, Nat.mem_divisors, and_assoc]
 
+/-- `δ ∈ failSet Λ z ν b P ↔ δ ∣ P` (with `P ≠ 0`), `¬ χ_ν(δ)` and `χ_ν(δ/p(δ))` — the
+membership unfolding of `failSet` through `Nat.mem_divisors`. -/
 lemma mem_failSet {Lam z : ℝ} {side b P δ : ℕ} :
     δ ∈ failSet Lam z side b P ↔
       (δ ∣ P ∧ P ≠ 0) ∧ ¬ chi Lam z side b δ ∧ chi Lam z side b (δ / δ.minFac) := by
   simp [failSet, Nat.mem_divisors, and_assoc]
 
+/-- A first-failure element (`hδ`) is nonzero: `0 ∣ P` would force `P = 0`, against
+`mem_failSet`'s `P ≠ 0`. -/
 lemma failSet_ne_zero {Lam z : ℝ} {side b P δ : ℕ} (hδ : δ ∈ failSet Lam z side b P) :
     δ ≠ 0 := by
   rintro rfl
   obtain ⟨⟨hdvd, hP0⟩, _⟩ := mem_failSet.mp hδ
   exact hP0 (Nat.eq_zero_of_zero_dvd hdvd)
 
+/-- A first-failure element (`hδ`) is not `1`, for `1 ≤ b` (`hb`) and `ν ≤ 2` (`hside`):
+`χ_ν(1)` holds (`chi_one`), while `δ ∈ 𝒮` fails `χ_ν`. -/
 lemma failSet_ne_one {Lam z : ℝ} {side b P δ : ℕ} (hb : 1 ≤ b) (hside : side ≤ 2)
     (hδ : δ ∈ failSet Lam z side b P) : δ ≠ 1 := by
   rintro rfl
   exact (mem_failSet.mp hδ).2.1 (chi_one Lam z hb hside)
 
+/-- A first-failure element (`hδ`) of a squarefree `P` (`hP`) is squarefree: it divides `P`
+(`Squarefree.squarefree_of_dvd`). -/
 lemma failSet_squarefree {Lam z : ℝ} {side b P δ : ℕ} (hP : Squarefree P)
     (hδ : δ ∈ failSet Lam z side b P) : Squarefree δ :=
   Squarefree.squarefree_of_dvd (mem_failSet.mp hδ).1.1 hP
