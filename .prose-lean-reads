@@ -1077,3 +1077,4 @@ o88-2026-10-26-295	Salt/SW/TBalR8.lean	84368e5e7e1e	Salt/SW/TBalR8.lean::ray_pow
 o88-2026-10-26-296	Salt/SW/TBalR8.lean	ea4ace614664	Salt/SW/TBalR8.lean::C2Rho_le	dc2c99f7dc74	paper	math	2026-10-26
 o88-2026-10-26-297	Salt/TwinBar/TwinParityCount.lean	6f680cdd2a59	Salt/TwinBar/TwinParitySieveLog.lean::remLogCount_abs_le	8b91f0faddf3	paper	math	2026-10-26
 o88-2026-10-26-298	Salt/SW/GrahamHard2.lean	401936bf7322	Salt/SW/GrahamHard2.lean::coprime_sum_moebius_div_kappa_log_eq	cf84c165e334	paper	math	2026-10-26
+o88-2026-10-26-303	Salt/TwinBar/TwinParityAtomClasses.lean	7172f0fb7439	Salt/TwinBar/TwinParityAtomClasses.lean::coprime_twinProd_iff_mod	20f9cbbf07ef	paper	math	2026-10-26
