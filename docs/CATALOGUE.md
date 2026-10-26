@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c22760d7` · source digest `47efb5085e0c3809` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c57144e4` · source digest `1ecf4c258e14a423` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2421,9 +2421,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.HardyLittlewood.twinSingularSeries_lt_two` | Salt/HardyLittlewood/Frame.lean:117 | sieves |
 | `Salt.HardyLittlewood.twinCounting_upper_order` | Salt/HardyLittlewood/Frame.lean:131 | sieves |
 | `Salt.HardyLittlewood.Sel.twinCounting_upper_selberg` | Salt/HardyLittlewood/Selberg16/Crown.lean:21 | sieves |
-| `Salt.HardyLittlewood.Sel.twin_le_sel` | Salt/HardyLittlewood/Selberg16/Lev.lean:305 | sieves |
-| `Salt.HardyLittlewood.Sel.selbergBoundingSum_sel_ge` | Salt/HardyLittlewood/Selberg16/Lev.lean:318 | sieves |
-| `Salt.HardyLittlewood.Sel.mainTermSum_lower` | Salt/HardyLittlewood/Selberg16/M5.lean:137 | sieves |
+| `Salt.HardyLittlewood.Sel.twin_le_sel` | Salt/HardyLittlewood/Selberg16/Lev.lean:294 | sieves |
+| `Salt.HardyLittlewood.Sel.selbergBoundingSum_sel_ge` | Salt/HardyLittlewood/Selberg16/Lev.lean:307 | sieves |
+| `Salt.HardyLittlewood.Sel.mainTermSum_lower` | Salt/HardyLittlewood/Selberg16/M5.lean:134 | sieves |
 | `Salt.HardyLittlewood.sum_six_pow_omega_le` | Salt/HardyLittlewood/Sharp.lean:264 | sieves |
 | `Salt.HardyLittlewood.twinCounting_upper_sharp` | Salt/HardyLittlewood/Sharp.lean:790 | sieves |
 | `Keller.jacobian_det` | Salt/Keller/Counterexample.lean:84 | other |
