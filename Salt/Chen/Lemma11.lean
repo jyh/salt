@@ -7,12 +7,12 @@ import Mathlib
 import Salt.Chen.TnInduction
 
 /-!
-# C1c‴ — The Lemma 11 analytic induction: discharging `hTbound` (BJS §2.4)
+# C1c‴ — The Lemma 11 analytic induction: reducing `hTbound` to `hlevel` and `htau` (BJS §2.4)
 
-This file closes the last analytic gap of the two-sided explicit linear sieve keystone
+This file narrows the last analytic gap of the two-sided explicit linear sieve keystone
 (BJS Theorem 6).  C1c″ (`TnInduction.lean`) reduced both `hmain` comparisons to the single
 named hypothesis `hTbound` — the analytic bound on the Buchstab tail
-`Σ_{parity} Tₙ ≤ V(z)·(Fchain N ± εCᵢe²·hBJS)`.  Here we discharge it.
+`Σ_{parity} Tₙ ≤ V(z)·(Fchain N ± εCᵢe²·hBJS)`.  Here we reduce it to `hlevel` and `htau`.
 
 ## What is proved (sorry-free, axiom-clean)
 
