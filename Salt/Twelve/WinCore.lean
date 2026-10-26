@@ -53,14 +53,20 @@ certificate transports by the scale factor `(Qabs Fstar)⁻²` (a positive commo
 factor).  We replicate the `FstarNorm` scaling lemmas here (they are `private`
 there) rather than re-run the 3136-monomial `norm_num`. -/
 
+/-- The bilinear form `Σ_{p, q ∈ F} p₂ q₂·ker(p₁, q₁)` of a polynomial's coefficient list
+against a kernel on exponent vectors; the local replica of `FstarNorm`'s private `biQuad`. -/
 private def biQuadW (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) : ℚ :=
   (F.map (fun p => (F.map (fun q => p.2 * q.2 * ker p.1 q.1)).sum)).sum
 
+/-- `Ical F` is `biQuadW` at the kernel `DInt (a + b)` (`rfl`). -/
 private lemma Ical_eq_biQuadW (F : Poly) : Ical F = biQuadW (fun a b => DInt (a + b)) F := rfl
 
+/-- `Jcal m F` is `biQuadW` at the kernel `JD · · m` (`rfl`). -/
 private lemma Jcal_eq_biQuadW (m : Fin 5) (F : Poly) :
     Jcal m F = biQuadW (fun a b => JD a b m) F := rfl
 
+/-- Scaling every coefficient of `F` by `c` scales the bilinear form by `c²`: both sums pull the
+factor out (`List.sum_map_mul_left`). -/
 private lemma biQuadW_scale (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) (c : ℚ) :
     biQuadW ker (F.map (fun m => (m.1, m.2 * c))) = c ^ 2 * biQuadW ker F := by
   unfold biQuadW
@@ -72,20 +78,27 @@ private lemma biQuadW_scale (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) 
   dsimp only [Function.comp]
   ring
 
+/-- `Ical (c·F) = c²·Ical F` (`Ical_eq_biQuadW`, `biQuadW_scale`). -/
 private lemma Ical_scaleW (F : Poly) (c : ℚ) :
     Ical (F.map (fun m => (m.1, m.2 * c))) = c ^ 2 * Ical F := by
   rw [Ical_eq_biQuadW, Ical_eq_biQuadW]; exact biQuadW_scale _ F c
 
+/-- `Jcal m (c·F) = c²·Jcal m F` (`Jcal_eq_biQuadW`, `biQuadW_scale`). -/
 private lemma Jcal_scaleW (m : Fin 5) (F : Poly) (c : ℚ) :
     Jcal m (F.map (fun n => (n.1, n.2 * c))) = c ^ 2 * Jcal m F := by
   rw [Jcal_eq_biQuadW, Jcal_eq_biQuadW]; exact biQuadW_scale _ F c
 
+/-- `Fstar1` is `Fstar` with every coefficient multiplied by `(Qabs Fstar)⁻¹` — the definition
+with its division written as a product (`div_eq_mul_inv`). -/
 private lemma Fstar1_eq_scaleW : Fstar1 = Fstar.map (fun m => (m.1, m.2 * (Qabs Fstar)⁻¹)) := by
   unfold Fstar1; simp [div_eq_mul_inv]
 
+/-- `Ical Fstar1 = (Qabs Fstar)⁻²·Ical Fstar` (`Fstar1_eq_scaleW`, `Ical_scaleW`). -/
 private lemma Ical_Fstar1 : Ical Fstar1 = ((Qabs Fstar)⁻¹) ^ 2 * Ical Fstar := by
   rw [Fstar1_eq_scaleW]; exact Ical_scaleW Fstar _
 
+/-- `Σ_m Jcal m Fstar1 = (Qabs Fstar)⁻²·Σ_m Jcal m Fstar` (`Fstar1_eq_scaleW`, `Jcal_scaleW`
+termwise). -/
 private lemma Jsum_Fstar1 :
     (∑ m : Fin 5, Jcal m Fstar1) = ((Qabs Fstar)⁻¹) ^ 2 * ∑ m : Fin 5, Jcal m Fstar := by
   rw [Finset.mul_sum]
@@ -139,6 +152,11 @@ the certified rational `1999·Σ J > 4003·I`, with the sharp-`S1` collision fac
 folded in.  Here `Nr = N'`, `δ`, `logR`, `I = I(F★₁)`, `SJ = Σ J(F★₁)`, and
 `eps = 300/D`.  The `31465/1000 = 31.465 > 63·1999/4003 = 31.4606` gives the
 strict margin; `M₅ = SJ/I > 4003/1999` supplies it. -/
+/-- **The ratio core.** For `0 < I` (`hIpos`), the certified ratio `4003·I < 1999·SJ`
+(`hSJcert`), the pin `(31465/1000)·Nr ≤ δ·logR` (`hDL`), `0 < Nr` (`hNr`) and `eps ≤ 1/100000`
+(`hepsle`): `63·Nr·(1 + eps)·I < δ·logR·SJ`. Two nonnegative products and the `eps` bound feed
+one `nlinarith`; the margin is `31.465 > 63·1999/4003 = 31.4606`, with `1/100000` of room for
+`eps`. -/
 theorem win_ratio_core (Nr δ logR I SJ eps : ℝ)
     (hIpos : 0 < I) (hSJcert : (4003 : ℝ) * I < 1999 * SJ)
     (hDL : (31465 : ℝ) / 1000 * Nr ≤ δ * logR)
@@ -158,6 +176,11 @@ Mirror of `Salt.Maynard.S1_lt_sum_S2m` at the free modulus `W'` and the sharp
 `S2` diagonal `Qdiag_mW` (in place of `s2CompatFormM`), with per-`m` compat
 lower bounds `cval` and per-`m` EH residuals `errEH`.  The `S2mW_lower` output
 plugs directly into `hEHres`. -/
+/-- **The pigeonhole feeder**, the free-`W'`, `Qdiag`-form mirror of `S1_lt_sum_S2m`. For
+`0 < φ(W')` (`hφ`), `0 ≤ cval` (`hcval`), `0 ≤ δ ≤ Δπ_m` (`hδ0`, `hDpi`), `cval m ≤ Qdiag_mW`
+(`hcompat`), the per-`m` residual bound `Δπ_m/φ·Qdiag_mW − errEH m ≤ S2mW` (`hEHres`) and the
+numeric slack `S₁ < Σ_m δ/φ·cval m − Σ_m errEH m` (`hnum`): `S₁ < Σ_m S2mW`, since each
+`δ/φ·cval m − errEH m ≤ S2mW` (`δ ≤ Δπ_m` and `cval m ≤ Qdiag_mW`). -/
 theorem S1_lt_sum_S2mW (K₀ N R ν₀ W' : ℕ) (y : (Fin 5 → ℕ) → ℝ)
     (δ : ℝ) (errEH cval : Fin 5 → ℝ)
     (hφ : 0 < (Nat.totient W' : ℝ)) (hcval : ∀ m : Fin 5, 0 ≤ cval m) (hδ0 : 0 ≤ δ)
@@ -195,6 +218,14 @@ theorem S1_lt_sum_S2mW (K₀ N R ν₀ W' : ℕ) (y : (Fin 5 → ℕ) → ℝ)
 collision estimate `collision_lower_orderW_of` (which consumes `hInner`):
 `|s1CollisionForm| ≤ (12k²/D)·yside`.  Hence `s1CompatForm ≤ (1 + 12k²/D)·yside`
 — the factor tends to `1` as `D → ∞`, no factor of 2. -/
+/-- **The sharp `S₁` upper bound (the crude factor 2 killed).** For a weight `y` vanishing off
+the box (`hy0`) with the inner collision atom `S1InnerBound` (`hInner`), square-free `W'`
+(`hW'`), `1 ≤ K₀` (`hK₀`), a cutoff `D ≥ 12k²` (`hDk`) below every prime not dividing `W'`
+(`hDlt`) and above the shifts (`hlt`), `1 ≤ k` (`hk`) and CRT solvability of every non-collision
+pair (`hsol`): `S₁ ≤ ((K₀ − 1)N/W')·(1 + 12k²/D)·yside + 2^{k+1}(Σ|λ_d|)²`. The main-plus-error
+form `S1_le_main_add_errorW`, the compatible form `yside` minus the collision form
+(`s1_compat_eq`), and the collision form bounded by `collision_lower_orderW_of`
+(`|s1CollisionForm| ≤ 12k²/D·yside`). -/
 theorem sharp_S1_upperW (k K₀ N R W' ν₀ D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
     (hInner : S1InnerBound k R W' y)
@@ -237,6 +268,16 @@ W5-3 deferred this to the endgame; it is landed here.  It is the free-`W'`,
 (`LevelConsume.lean:326`), consuming `lod_error_pow_theta` (W5-2) at level
 `θ₊ = 3999/4000`, `abs_S2mW_sub_compatMainW_le_disc_R_uniform` and
 `compat_pair_fiber_leW` (W5-3), with `range_haircut_mono_theta` (W5-2). -/
+/-- **The coupled-EH lemma at level `θ₊ = 3999/4000`**, the free-`W'`, `|y| ≤ 1` mirror of
+`S2m_ge_compatMain_lod_uniform`. For `1 ≤ k` (`hk`), `1 ≤ K₀` (`hK₀`), square-free `W'` (`hW'`),
+a cutoff `D` at or below every prime not dividing `W'` (`hD`) and above the shifts (`hlt`), and
+`HasLevel (3999/4000)` (`hLoD`): there are `C₀, B' ≥ 0` and `N₀` such that for `R ≥ 2`,
+`|y| ≤ 1`, a residue base coprime to `W'` on the tuple, `N ≥ max N₀ R` and the range
+`W'R² ≤ ⌊N^{θ₊}/(log N)^{B'}⌋`, every `S2mW` is at least
+`Δπ_m/φ·s2CompatFormM − C₀(1 + log R)^{2k+2}N/(log N)^{2k+4}`. The discrepancy bound
+`abs_S2mW_sub_compatMainW_le_disc_R_uniform`, summed over the fibre (`compat_pair_fiber_leW`),
+against the level-`θ₊` error `lod_error_pow_theta`, the haircut monotone in the window
+(`range_haircut_mono_theta`). -/
 theorem S2mW_ge_compatMain_theta_uniform (k K₀ W' D : ℕ) (hk : 1 ≤ k) (hK₀ : 1 ≤ K₀)
     (hW' : Squarefree W') (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D ≤ p)
     (hlt : ∀ i : Fin k, hSeq k i < D) (hLoD : HasLevel (3999 / 4000)) :
@@ -404,6 +445,12 @@ main (with collision factor `1 + 300/D`) below `Σ_m (δ/φW')·cval m − Σ er
 budgeted `∀ᶠ N`.  Its discharge is the certified `win_ratio_core` (main
 comparison) plus the vanishing error budget (see the design's error-budget
 table); that `∀ᶠ`-largeness is the frontier assembly (STEP 6). -/
+/-- **The sieve inequality `S₁ < Σ_m S2mW`** at the weight `yF R W' Fstar1`, conditional on the
+inner atom (`hInner`). Under square-free `W'` (`hW'`), a cutoff `D ≥ 300` (`hDk`) below every
+prime not dividing `W'` (`hDlt`) and above the shifts (`hlt`), CRT solvability (`hsol`),
+`0 < φ(W')` (`hφpos`), `0 ≤ cval` (`hcval`), `0 ≤ δ ≤ Δπ_m` (`hδ0`, `hDpi`), `cval m ≤ Qdiag_mW`
+(`hQlow`), the `S2mW` lower bound (`hS2low`) and the ratio-slack (`hslack`): `sharp_S1_upperW`
+puts `S₁` below the slack's right side, and `S1_lt_sum_S2mW` finishes. -/
 theorem win_core' (N' R ν₀ W' D : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ)
     (hInner : S1InnerBound 5 R W' (yF R W' Fstar1))
     (hW' : Squarefree W')
@@ -446,8 +493,13 @@ sits inside `win_ratio_core`'s `eps`-budget.  The precise value is the
 `A`-constants of `mv_I_split`/`qdiag_bridge`); `3·10⁷` is a concrete value in
 that regime.  (The exact Archimedes step is part of the flagged frontier
 discharge — see the module note.) -/
+/-- The Archimedean primorial cutoff `3·10⁷`: at or above `300 = 12·5²` for the collision spine
+and `qdiag_bridge`, and with `300/Dstar ≤ 10⁻⁵` so the sharp-`S₁` collision factor sits inside
+`win_ratio_core`'s `eps` budget. -/
 def Dstar : ℕ := 30000000
 
+/-- A product of distinct primes (`hs`) is square-free: induction on the finset, the new prime
+coprime to the product of the rest (`Nat.Coprime.prod_right`, `Nat.squarefree_mul_iff`). -/
 private lemma prod_primes_squarefreeW {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     Squarefree (∏ p ∈ s, p) := by
   induction s using Finset.induction with
@@ -463,10 +515,14 @@ private lemma prod_primes_squarefreeW {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prim
     rw [Nat.squarefree_mul_iff]
     exact ⟨hcop, hap.squarefree, ih hsp⟩
 
+/-- `primorial D` is square-free: the product of the primes `≤ D`
+(`prod_primes_squarefreeW`). -/
 private lemma primorial_squarefreeW (D : ℕ) : Squarefree (primorial D) := by
   unfold primorial
   exact prod_primes_squarefreeW (fun p hp => (Finset.mem_filter.mp hp).2)
 
+/-- Each of the five shifts `h_i ≤ 19` is below `Dstar = 3·10⁷` (`hSeq_five_zero` …
+`hSeq_five_four`, by cases on `i`). -/
 private lemma hSeq_lt_Dstar (i : Fin 5) : hSeq 5 i < Dstar := by
   unfold Dstar
   fin_cases i <;>
