@@ -7579,9 +7579,9 @@ under `RegisterSupply`'s single explicit cushion `32·K_vt + 32·D ≤ log H₊/
 /-! ⟦CAP-RECUT — THE RAISED LEVER, THE `g`-RIDER, AND THE RE-CUT BASE-SCALE CAP⟧
 (`KLever` + the uniform hoists + the wide-ceiling twins, 2026-08-02).
 
-CAP-SCOPE proved `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` FALSE at the flat terminal's
-own regime, which made the flat-lane conditionals VACUOUS.  The Fable ruling's composite repair
-lands here in four parts.
+CAP-SCOPE argued on paper (no Lean theorem negates it) that `S16BaseScaleCap96_L_gk 32000000 R
+(flatDoorM A)` is FALSE at the flat terminal's own regime, which made the flat-lane conditionals
+VACUOUS.  The Fable ruling's composite repair lands here in four parts.
 
 **P1 — the uniform hoists.**  `∀K ∃C` → `∃C ∀K` at four sites, bodies verbatim: the piece rate,
 the `T₀`-band exit, the band slot, and the windowed band-lane rider.  BAND-K-PROBE traced the
@@ -7716,21 +7716,21 @@ immediately after it, so the `M` in scope is the terminal's own.  -/
 
 /-! ⟦COMPOSE-2 — THE `K`-HOIST AND `logChowla2_ineffective_v4`⟧ (`S16ComposeV4`, 2026-08-02).
 
-CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 widened every flat
-`K ≤ 1.7·10⁸` binder so the lever can flow.  What neither could reach is the BINDER ORDER: in
-`v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the conditional
-produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false circle —
-`flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the door/road
-merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE the
-`∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
+CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 gave every flat
+`K ≤ 1.7·10⁸` binder on the `L`-door chain a widened `_kwide` twin.  What neither could reach is the
+BINDER ORDER: in `v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the
+conditional produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false
+circle — `flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the
+door/road merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE
+the `∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
 constant-pool `Ct` and the crossing supply's six constants move with `K`, and the `A`-choice
 reads none of them.  §0 records the band rider in its witness-uniform shape (ONE `x₀`, ONE
 `Cband`, hence ONE `Mfl` and ONE `Awin`, for every lever) — the shape
 `m4_hband_at_door_slot_split_graded_L_gk_uniform` already mints.
 
-§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE proved
-`T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL: the sole
-consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
+§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE showed,
+partly in Lean, `T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL:
+the sole consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
 `T₀ ≤ e^{√H/2}`.  Four hops, uniform carrier `T₀ ≤ exp(√(R.Hlo)/2)` (every hop has the regime
 in scope and the socket puts `R.Hlo ≤ H`), one binder move (the crossing supply's rider goes
 INSIDE its own `∀ R`).  At `v4` the rider reads `T₀ ≤ exp(√(flatDesignBase A)/2)` — satisfiable
@@ -7738,8 +7738,8 @@ at the corpus's own witness by two exponential levels.
 
 §6's `logChowla2_ineffective_v4` chooses `A` FIRST, sets `K := KlevF A` SECOND, and discharges
 the base-scale cap inside the proof by `s16_baseScaleCap96_L_at_klevF`.  The cap predicate —
-the one CAP-SCOPE proved FALSE at the produced regime — is GONE from the statement.  What
-stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
+the one CAP-SCOPE argued on paper is FALSE at the produced regime — is GONE from the statement.
+What stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
 as a named antecedent: X-CEIL landed it at the builder and explicitly banked the uniform-lane
 threading, so the terminal cannot yet EXPORT it.  That is a repair, not a paper-over — the `v3`
 antecedent was false at the regime, this one is the builder's own landed law. -/
@@ -7941,7 +7941,7 @@ Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the
 /-! ⟦V7-C `T0-ARM` — THE `T₀` RIDER DISCHARGED, AND THE MARGIN MEASURED⟧ (`V7C`)
 
 `v6`'s second inner rider is `T₀ ≤ exp(√(flatDesignBase A)/2)` — the tolerance
-`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` proved `T₀` has **no
+`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` found on paper that `T₀` has **no
 effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_strip_height`,
 `RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
 

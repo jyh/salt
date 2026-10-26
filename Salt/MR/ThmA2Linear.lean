@@ -1091,7 +1091,7 @@ set_option maxHeartbeats 1000000 in
 door pin (`A = AdoorL M`, `G = 3072M`, `Jb = 2`, `H₁ = H1doorL M`, `η = 1/12`) — with the
 row's own constants `Cs`, `C` exposed for the interface's two grading gates.
 
-The four weighting numerals are `ThmA2`'s own (`a2Mrow_L`'s docstring), proved in §1 from
+The four weighting numerals are `ThmA2`'s own (`a2Mrow_L`'s docstring), proved in §0 from
 `X/h ≤ T`, `2T ≤ X`, `X ≤ 4X_d` (the row's `X ≤ N ≤ 4X_d`), `Q₁ ≤ h` (the `[P₁,Q₁] ⊆ [1,h]`
 gate) and `h ≥ 4`.  Nothing is conditional: on this branch the ball leg is VACUOUS
 (`t₁ := 0`, `S := 0`) inside the landed capstone, so no station, no produced centre, no
