@@ -205,8 +205,8 @@ theorem kern2_value {y : ℝ} (hy : 0 < y) :
 /-- **The twice-smoothed Riesz kernel identity**:
 `(1/2π) ∫ 2 y^{c+ti} / ((c+ti)(c+ti+1)(c+ti+2)) dt = (1 − 1/y)²` for `y ≥ 1` and `0` for `y < 1`
 (`hy : 0 < y`, `hc : 0 < c`) — Mellin inversion (`mellinInv_mellin_eq`) of `hasMellin_kern2` at
-the point `1/y`, with `kern2_value` reading off the left side and `reflect` turning the `1/y`
-powers into `y` powers. -/
+the point `1/y`, with `kern2_value` reading off the value `kern2(1/y)` (the right side) and
+`reflect` turning the `1/y` powers into `y` powers. -/
 theorem kernel_identity_2 {y : ℝ} (hy : 0 < y) {c : ℝ} (hc : 0 < c) :
     (1 / (2 * Real.pi)) • ∫ t : ℝ,
         2 * (y : ℂ) ^ ((c : ℂ) + (t : ℂ) * I) /
