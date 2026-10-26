@@ -20,8 +20,8 @@ with `A(z) = Σ_{n≤z} dhA χ n · n^{−β₀}`, `u = 1−β₀`. The first st
 (the radical-support superset, R5c); the second is the per-term crush `n^{−1} ≥ z^{−u}n^{−β₀}` on
 `n ≤ z` (R5d); the third is the two-sided lower Abel bound (R5e). The `z^{−u}·z^{1−β₀} = 1`
 collapse delivers `L₁/u`, which beats the target `L₁/(u(2−β₀))` by the `(2−β₀)` gap, absorbing the
-crush error under the coverage condition (R5f). Verified 0/2 by two refuter panels (the W=14
-retune; audit scripts `scripts/tbal_ledgers/refuter1_*.py`).
+crush error under the coverage condition (R5f). Checked outside Lean by two refuter panels (0/2;
+the W=14 retune; audit scripts `scripts/tbal_ledgers/refuter1_*.py`).
 
 Rungs: R5b `selG_ge_partial_geom`, R5c `selHSum_ge_dhA_div_sum`, R5d `crush_pointwise`,
 R5e `dhAbel_inner_ge`, R5f `R5_crush_wing`, R5h `H_lower`; grafts G1 `selHSum_le_primorial`,
