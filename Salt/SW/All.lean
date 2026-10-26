@@ -941,3 +941,19 @@ open Salt.Tactic in
 -- theorem (O13).
 open Salt.Tactic in
 #audit_axioms Salt.SW.bounded_gaps_of_standoff
+
+-- O88 batch 28/29 DH rows: the "axiom-clean" docstrings of DHFinal, DHMollified and DHTrunc
+-- name these declarations; audited here so the claim is checked at every build (math's #518 LOW).
+open Salt.Tactic in
+#audit_axioms Salt.SW.dhCoeff_one
+  Salt.SW.norm_dhDetectorShift_term
+  Salt.SW.dhDetectorShift_eq_add_tail
+  Salt.SW.norm_dhDetectorShift_ge
+  Salt.SW.dhGlin_one_eq
+  Salt.SW.norm_dhGlin_one_le
+  Salt.SW.norm_dhGpoly_one_le
+  Salt.SW.dvd_mul_iff_div_gcd_dvd
+  Salt.SW.sum_range_filter_dvd_char_eq
+  Salt.SW.norm_range_filter_dvd_partial_le
+  Salt.SW.norm_inner_mdiv_le
+  Salt.SW.partial_sum_at_zero_small
