@@ -1692,7 +1692,8 @@ theorem inv_log_le_totient_div {q : ℕ} (hq : 1 ≤ q) :
 `z₂ ≤ D^{7/2}` (`hz₂`), `x ≥ D^{13/2}` (`hx`), `q ≥ 1` (`hq`), `T ≥ 1` (`hT`) and
 `119/120 ≤ β < 1` (`hβ`, `hβ1`), `E ≤ 75(1 + log D)·D^{−71/240}`: factor by factor
 `25(T + 2) ≤ 75T`, `√q ≤ q`, `1 + log q ≤ 1 + log D`, `√z₂ ≤ D^{7/4}`, `R^{3/2} = D^{3/20}`,
-`x^{1/2 − β} ≤ x^{−59/120} ≤ D^{−767/240}`, and the exponents sum to `−71/240`. -/
+`x^{1/2 − β} ≤ x^{−59/120} ≤ D^{−767/240}`, and `qT = D` (`hD`) contributes `D¹`, so
+`1 + 7/4 + 3/20 − 767/240` sums to `−71/240`. -/
 theorem f5_error_bound {q : ℕ} (hq : 1 ≤ q) {T D R x : ℝ} (hT : 1 ≤ T) (hD : D = q * T)
     (hR : R = D ^ ((1 : ℝ) / 10)) {z₂ : ℕ} (hz₂ : (z₂ : ℝ) ≤ D ^ ((7 : ℝ) / 2))
     (hx : D ^ ((13 : ℝ) / 2) ≤ x) {β : ℝ} (hβ : (119 : ℝ) / 120 ≤ β) (hβ1 : β < 1) :
@@ -1873,7 +1874,8 @@ theorem f5_error_le_main {D : ℝ} (hD : (10 : ℝ) ^ 20 ≤ D) :
 `R = D^{1/10}` (`hR`), `z₂ ≤ D^{7/2}` (`hz₂`) and `x ≥ D^{13/2}` (`hx`). The floor (2.10)
 (`jutilaDetector_floor_at_zero`) with `log R = log D/10`; the error is
 `≤ 75(1 + log D)D^{−71/240}` (`f5_error_bound`) `≤ (2/π²)(φ(q)/q)(log D/10)`
-(`f5_error_le_main`, `inv_log_le_totient_div`); and `x ≥ 12` makes `(1 − 1/x)² ≥ 5/6`, so
+(`f5_error_le_main`, then `inv_log_le_totient_div` since `q ≤ D` gives
+`1/(log D/log 2 + 1) ≤ 1/(log q/log 2 + 1)`); and `x ≥ 12` makes `(1 − 1/x)² ≥ 5/6`, so
 `(5/6)·6W − 2W ≥ 3W` with `W = (1/π²)(φ(q)/q)(log D/10)`. -/
 theorem jutilaDetector_floor_F5 [NeZero q] {χ : DirichletCharacter ℂ q} (hχ : χ.IsPrimitive)
     (hq : 2 ≤ q) {z₁ z₂ : ℕ} (hz₁ : 2 ≤ z₁) (hz : z₁ < z₂) {T D R x : ℝ} (hT : 1 ≤ T)
