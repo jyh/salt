@@ -65,6 +65,7 @@ noncomputable def T2Set (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset ℕ
     Odd n ∧ 1 < nPlus χ n ∧ ¬ (nPlus χ n).Prime ∧ ¬ T2JunkBlock z (nMinus χ (n + 2)))
 
 open Classical in
+/-- The T2 slice is a filter of the window `l2cWindow χ z x` (`Finset.filter_subset`). -/
 lemma T2Set_subset_window (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     T2Set χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 
@@ -286,6 +287,8 @@ for EVERY window element: in the `ω(block) ≥ 2` cases both sides vanish (`Λ�
 /-- **The T2 family weight** (family-local): `Λ(u)` for `u ≠ 1`, `L'` for `u = 1`. -/
 noncomputable def T2Wt (x u : ℕ) : ℝ := if u = 1 then Lwin x else Λ u
 
+/-- `0 ≤ T2Wt x u`: `L' = log(2x+2) ≥ 0` on the degenerate block `u = 1` (`Lwin_nonneg`) and
+`Λ(u) ≥ 0` otherwise. -/
 lemma T2Wt_nonneg (x u : ℕ) : 0 ≤ T2Wt x u := by
   rw [T2Wt]; split
   · exact Lwin_nonneg x
