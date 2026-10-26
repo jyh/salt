@@ -17,7 +17,7 @@ full H-package of `chen_of_hypotheses` (`Salt/Chen/Assembly.lean`) at the operat
 `chen_headline`.  STEP 0 (the mandated obligation inventory, below) found the windowed-BV
 terminal's threshold list **jointly unsatisfiable at every boundary box of the operating
 point** (CATCH #64, machine-checked in Part 1), so the summit and the F2 floor
-(`hBVblocks_at_op` → the `hA3` line) are BLOCKED pending a Fable-tier statement repair.
+(`hBVblocks_at_op` → `hA3`) were BLOCKED on them; `SqrtDFold.d0_window_nonempty` decouples them.
 This file lands the catch as Lean theorems plus the F1 numeric-row bundle (Part 2).
 
 ## STEP 0 — the obligation inventory (from the LANDED docstrings, in mandate order)
@@ -98,7 +98,7 @@ repair.
 
 * **Part 1 — CATCH #64, machine-checked**: `catch64_D0_window_empty` (the pure-parameter
   pinch), `catch64_L_bound`/`catch64_logN_bound`/`catch64_ratio_at_op` (the boundary-box
-  scale extraction), `catch64_no_admissible_D0` (assembled), `zy_floor_ge`/`zy_floor_pos`
+  scale extraction), `catch64_no_admissible_D0` (assembled), `zy_floor_ge`
   (the operating `z·y` floor), and the headline `catch64_op_boundary_infeasible`: at the
   operating point, ANY `dyadicBoundary` application of the terminal's `D0` rows is `False`.
 * **Part 2 — the F1 numeric rows** (each its own lemma, explicit margins in comments):
