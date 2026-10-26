@@ -61,7 +61,7 @@ Key numeric findings driving the design:
 1. `geom_tail_ratio` — the **general geometric-tail summation**: `b (j+1) ≤ r·b j` on `[J,M)`
    with `0 ≤ r < 1` ⇒ `Σ_{[J,M)} b ≤ b J/(1−r)`.  The self-certified-tail machinery, keyed on
    an abstract contraction hypothesis (reusable by any cascade instantiation).
-2. `fseq_antitoneOn_tail` / `fseq_next_le_const` — the **piecewise-constant panel glue**: on
+2. `fseq_le_leftEndpoint` / `fseq_next_le_const` — the **piecewise-constant panel glue**: on
    the tail window `fseq (n+1)` is antitone (from the integral form), and a constant majorant
    `c` of the shifted iterate propagates through the engine to the **exact** rational bound
    `fseq (n+1) s ≤ c·(up − s)/s` (integrating a constant over a panel is rational — the
