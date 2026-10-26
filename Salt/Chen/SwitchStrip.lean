@@ -66,7 +66,7 @@ the distinct straddling `m` across the block are `≫ log x`).  The strip pricin
 `tripleSet ↔ (m,n)`-pair bijection `(p₁,p₂,p₃) ↦ (p₁p₂, p₃)` (the `semiprimeBlockInd`
 multiplicity), turning a `boxResCount`/`boxUnitCount` (a `tripleSet` filter) into the double sum
 `apDiscBilin` measures.  This bridge was NOT in the corpus when this file landed (`PairBijection`
-lands it later, for `BlockPricing`'s blocks); it is a prerequisite for ANY of this machinery.
+lands it later, for `BlockPricing`'s blocks); every `= apDiscBilin` step above needs it.
 
 ## What this file lands (sorry-free, NEW FILE — no edits to landed files)
 
