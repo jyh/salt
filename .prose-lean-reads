@@ -980,3 +980,4 @@ o88-math-2026-10-25-309	Salt/MR/EvenChiSine.lean	8bc49f5d836a	Salt/MR/EvenChiEta
 o88-math-2026-10-25-310	Salt/MR/EvenChiSine.lean	dcfa58d35997	Salt/MR/EvenChiTau.lean::e4a_gaussSum_real	cf92a5c5a676	math	paper	2026-10-25
 o88-math-2026-10-25-311	Salt/MR/EvenChiSine.lean	1daaee3edb44	Salt/MR/EvenChiTau.lean::e4a_gaussSum_real	cf92a5c5a676	math	paper	2026-10-25
 o88-math-2026-10-25-312	Salt/MR/EvenChiSign.lean	ffd3bfd5b129	Salt/MR/EvenChiSign.lean::e4a_fibre_swap	c0f5a86bac64	math	paper	2026-10-25
+o88-math-2026-10-26-202	Salt/MR/MRTPropA3.lean	78a58908ce25	Salt/MR/A4FMidRange.lean::mrtA4ii_far_mid34_unconditional	f39e7b591b82	math	paper	2026-10-26
