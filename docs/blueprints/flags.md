@@ -25663,3 +25663,14 @@ The fixed-`B₂` form, with tolerance asked at one `(D, B, B₂)`, is `parity_wa
 algebraic layer. `docs/RESULTS.md`'s row now says so (O88). The same reading is in the docstrings
 of `WallCorr.lean` (:39, :75-76, :205-215) and in the ledger block at `Salt/TwinBar/All.lean`;
 those are Salt/ comments and are routed to math, not edited here.
+
+## C3c⁗ -- `general_BV_final` keeps `hMainEnergy` as a named hypothesis (2026-10-25)
+
+The 2026-07-13 C3c⁗ entry above says `general_BV_final` is `general_BV_closed` + `bilinear_hLargeDisc`
+"with both cores, hMainEnergy_discharge + hErrSum_final". The theorem (`Salt/Chen/PerEEngine.lean`)
+composes `hErrSum_final` only: its main-energy bound is the named hypothesis `hMainEnergy`, and
+`hMainEnergy_discharge` (`Salt/Chen/EnergyClose.lean`) is not applied in that file. So
+`general_BV_final` is closed modulo the operating-scale side conditions, `‖α‖ ≤ 1`, `hMainEnergy`
+and `hPerE`, as the entry's own `general_BV_final` bullet already lists. The docstrings of
+`PerEEngine.lean` (module header and theorem), `ErrFold.lean` and `ConductorDescent.lean` now say
+so (O88).
