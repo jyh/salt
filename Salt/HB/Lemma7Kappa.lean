@@ -71,9 +71,12 @@ namespace Salt.HB
 set that `primeProdBelow` and `hbS1` already use). -/
 noncomputable def Pz (z : ℝ) : Finset ℕ := (Finset.range (⌊z⌋₊ + 1)).filter Nat.Prime
 
+/-- `p ∈ Pz z ↔ p ≤ ⌊z⌋₊ ∧ p` prime — the membership unfolding of `Pz`. -/
 lemma mem_Pz {z : ℝ} {p : ℕ} : p ∈ Pz z ↔ p ≤ ⌊z⌋₊ ∧ Nat.Prime p := by
   simp only [Pz, Finset.mem_filter, Finset.mem_range, Nat.lt_succ_iff]
 
+/-- `primeProdBelow z` (`Lemma7.lean`'s `(4.6)` product) is `∏_{p ∈ Pz z} (1 − 1/p)` — the same
+prime filter on `Finset.range (⌊z⌋₊ + 1)`, by `rfl`. -/
 lemma primeProdBelow_eq {z : ℝ} : primeProdBelow z = ∏ p ∈ Pz z, (1 - 1 / (p : ℝ)) := rfl
 
 /-! ## §1 — HB's `G` (p.199) and `C(α)` (p.195) -/
@@ -139,6 +142,9 @@ both carry the condition `p ∤ α`). -/
 noncomputable def hbWfac {q : ℕ} (χ : DirichletCharacter ℂ q) (α p : ℕ) : ℝ :=
   if p ∣ α then 1 else hbSfac χ p
 
+/-- `hbSfac χ p ≤ 1` for `3 ≤ p` (`hp`): on the `χ(p) = 1` branch `1 − 1/p² < 1`, on the
+`χ(p) = −1` branch `(1 − 2/p)(1 + 1/p)² = 1 − (3/p² + 2/p³) < 1`, and the third branch is
+`1`. -/
 lemma hbSfac_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) {p : ℕ} (hp : (3 : ℝ) ≤ (p : ℝ)) :
     hbSfac χ p ≤ 1 := by
   have hp0 : (0 : ℝ) < (p : ℝ) := by linarith
@@ -152,6 +158,9 @@ lemma hbSfac_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) {p : ℕ} (hp : (3
     linarith
   · exact le_rfl
 
+/-- `1 − 4/p² ≤ hbSfac χ p` for `3 ≤ p` (`hp`): the `χ(p) = 1` branch loses only `1/p²`, the
+`χ(p) = −1` branch loses `3/p² + 2/p³ ≤ 4/p²` (as `2/p³ ≤ 1/p²` for `p ≥ 2`), and the third
+branch is `1`. -/
 lemma one_sub_four_div_sq_le_hbSfac {q : ℕ} (χ : DirichletCharacter ℂ q) {p : ℕ}
     (hp : (3 : ℝ) ≤ (p : ℝ)) : 1 - 4 / (p : ℝ) ^ 2 ≤ hbSfac χ p := by
   have hp0 : (0 : ℝ) < (p : ℝ) := by linarith
@@ -173,6 +182,7 @@ lemma one_sub_four_div_sq_le_hbSfac {q : ℕ} (χ : DirichletCharacter ℂ q) {p
   · have : (0 : ℝ) < 4 / (p : ℝ) ^ 2 := by positivity
     linarith
 
+/-- `0 < hbSfac χ p` for `3 ≤ p` (`hp`): `one_sub_four_div_sq_le_hbSfac` with `4/p² ≤ 4/9`. -/
 lemma hbSfac_pos {q : ℕ} (χ : DirichletCharacter ℂ q) {p : ℕ} (hp : (3 : ℝ) ≤ (p : ℝ)) :
     0 < hbSfac χ p := by
   have h := one_sub_four_div_sq_le_hbSfac χ hp
@@ -260,6 +270,8 @@ lemma tsum_tail_inv_sq_le {ι : Type*} (e : ι → ℕ) (he : Function.Injective
 
 /-! ## §4 — the two log-tails are summable, and `κ`'s Euler product is genuine -/
 
+/-- A prime `> 2` is `≥ 3`, cast to `ℝ` — the form every `hp : 3 ≤ p` hypothesis of §2 takes at
+the `PrimesGt2` index type. -/
 lemma three_le_of_primesGt2 (p : Salt.TwinBar.PrimesGt2) : (3 : ℝ) ≤ (((p : ℕ)) : ℝ) := by
   have : 3 ≤ (p : ℕ) := p.2.2
   exact_mod_cast this
@@ -299,11 +311,16 @@ lemma abs_log_twinFactor_le (p : Salt.TwinBar.PrimesGt2) :
   rw [abs_of_nonpos hnonpos]
   linarith
 
+/-- The `𝔖`-tail log-series `∑_{p > 2} log hbSfac(p)` is summable: `|log hbSfac(p)| ≤ 8/p²`
+(`abs_log_hbSfac_le`) against the majorant `summable_eight_div_sq`, through
+`Summable.of_abs`. -/
 theorem hbSfac_log_summable {q : ℕ} (χ : DirichletCharacter ℂ q) :
     Summable (fun p : Salt.TwinBar.PrimesGt2 => Real.log (hbSfac χ (p : ℕ))) :=
   Summable.of_abs (Summable.of_nonneg_of_le (fun _ => abs_nonneg _)
     (fun p => abs_log_hbSfac_le χ (three_le_of_primesGt2 p)) summable_eight_div_sq)
 
+/-- `0 < hbWfac χ α p` for `3 ≤ p` (`hp`): the factor is `1` on `p ∣ α` and `hbSfac χ p > 0`
+(`hbSfac_pos`) off it. -/
 lemma hbWfac_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (α : ℕ) {p : ℕ}
     (hp : (3 : ℝ) ≤ (p : ℝ)) : 0 < hbWfac χ α p := by
   unfold hbWfac
@@ -311,6 +328,8 @@ lemma hbWfac_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (α : ℕ) {p : ℕ}
   · norm_num
   · exact hbSfac_pos χ hp
 
+/-- `|log hbWfac(p)| ≤ 8/p²` for `3 ≤ p` (`hp`): `log 1 = 0` on `p ∣ α`, and `abs_log_hbSfac_le`
+off it. -/
 lemma abs_log_hbWfac_le {q : ℕ} (χ : DirichletCharacter ℂ q) (α : ℕ) {p : ℕ}
     (hp : (3 : ℝ) ≤ (p : ℝ)) : |Real.log (hbWfac χ α p)| ≤ 8 / (p : ℝ) ^ 2 := by
   unfold hbWfac
@@ -319,6 +338,9 @@ lemma abs_log_hbWfac_le {q : ℕ} (χ : DirichletCharacter ℂ q) (α : ℕ) {p 
     positivity
   · exact abs_log_hbSfac_le χ hp
 
+/-- The log-series of `κ`'s Euler factors `∑_{p > 2} log hbWfac(p)` is summable:
+`abs_log_hbWfac_le` against `summable_eight_div_sq`, through `Summable.of_abs` — the input of
+`hbWfac_multipliable`. -/
 theorem hbWfac_log_summable {q : ℕ} (χ : DirichletCharacter ℂ q) (α : ℕ) :
     Summable (fun p : Salt.TwinBar.PrimesGt2 => Real.log (hbWfac χ α (p : ℕ))) :=
   Summable.of_abs (Summable.of_nonneg_of_le (fun _ => abs_nonneg _)
@@ -618,6 +640,8 @@ lemma hb_rear_factor_two {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} (h
       if_neg (by norm_num : ¬ (2 : ℕ) < 2)]
     norm_num
 
+/-- `Salt.Mertens.gt2Primes ⌊z⌋₊` — the primes `2 < p ≤ ⌊z⌋` — is `Pz z` filtered by `2 < p`:
+the index set of `𝔖(z,χ)`'s finite product and that of `hb_rear_prod_identity` coincide. -/
 lemma gt2Primes_eq_filter {z : ℝ} :
     Salt.Mertens.gt2Primes ⌊z⌋₊ = (Pz z).filter (fun p => 2 < p) := by
   ext p
@@ -658,6 +682,10 @@ lemma hb_rear_prod_identity {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ}
 
 /-! ### The index-set conversions -/
 
+/-- `C(α)` over the primes of `Pz z`: for `0 < α` (`hα0`) and `α < z` (`hαz`) every prime
+divisor of `α` is `≤ ⌊z⌋`, so `hbCalpha α = 2 ∏_{p ∈ Pz z} (1 − 2/p)^{−1}` with the factor
+restricted to `p ∣ α`, `p ≠ 2` by an `if` — the index-set conversion `hb_hrear`'s master
+identity reads it through. -/
 lemma hbCalpha_eq {α : ℕ} {z : ℝ} (hα0 : 0 < α) (hαz : (α : ℝ) < z) :
     hbCalpha α = 2 * ∏ p ∈ Pz z, (if p ∣ α ∧ p ≠ 2 then (1 - 2 / (p : ℝ))⁻¹ else 1) := by
   classical
@@ -673,6 +701,9 @@ lemma hbCalpha_eq {α : ℕ} {z : ℝ} (hα0 : 0 < α) (hαz : (α : ℝ) < z) :
       exact ⟨⟨hpp, hpα, hα0.ne'⟩, hp2⟩
   rw [hbCalpha, hset, Finset.prod_filter]
 
+/-- `κ`'s `∏_{p ∣ α} (1 − χ(p)/p)²` over the primes of `Pz z`: for `0 < α` (`hα0`) and `α < z`
+(`hαz`), `α.primeFactors` is `Pz z` filtered by `p ∣ α`, so the product is the `if`-product over
+`Pz z`. -/
 lemma alpha_primeFactors_prod_eq {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z : ℝ}
     (hα0 : 0 < α) (hαz : (α : ℝ) < z) :
     (∏ p ∈ α.primeFactors, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2)
@@ -689,6 +720,9 @@ lemma alpha_primeFactors_prod_eq {q : ℕ} (χ : DirichletCharacter ℂ q) {α :
       exact ⟨hpp, hpα, hα0.ne'⟩
   rw [hset, Finset.prod_filter]
 
+/-- HB's `∏_{p ∣ q, p ∤ α, p ≤ ⌊z⌋} (1 − 2/p)` — the `p ≤ ⌊z⌋` half of `κ`'s `q`-product — as an
+`if`-product over `Pz z`, for `0 < q` (`hq`): its index set is `Pz z` filtered by `p ∣ q` and
+`¬ p ∣ α`. -/
 lemma qFactors_low_prod_eq {q α : ℕ} {z : ℝ} (hq : 0 < q) :
     (∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => p ≤ ⌊z⌋₊),
         (1 - 2 / (p : ℝ)))
@@ -705,6 +739,9 @@ lemma qFactors_low_prod_eq {q α : ℕ} {z : ℝ} (hq : 0 < q) :
       exact ⟨⟨⟨hpp, hpq, hq.ne'⟩, hpα⟩, hpN⟩
   rw [hset, Finset.prod_filter]
 
+/-- `hbS1 χ α z` (`Lemma7.lean`'s `S₁`) as an `if`-product over `Pz z`: its own index set is
+`Pz z` filtered by `χ_ℝ(p) = 1 ∧ ¬ p ∣ α` (`Pz` and `hbS1` share the prime filter on
+`Finset.range (⌊z⌋₊ + 1)`). -/
 lemma hbS1_eq {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z : ℝ} :
     hbS1 χ α z = ∏ p ∈ Pz z, (if Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α then
       ((p : ℝ) - 1) * ((p : ℝ) - 2) / ((p : ℝ) * ((p : ℝ) + 1)) else 1) := by
@@ -794,6 +831,9 @@ lemma hbKappaTail_split {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z 
 
 /-! ### The one error: HB's `p ∣ q, p > z` truncation -/
 
+/-- The one-sided Weierstrass inequality `1 − ∑_{p ∈ S} g(p) ≤ ∏_{p ∈ S} (1 − g(p))` for
+`0 ≤ g ≤ 1` on `S` (the two hypotheses), by induction on `S`; the lower half of
+`abs_prod_one_sub_two_div_sub_one_le`. -/
 lemma one_sub_sum_le_prod_one_sub (g : ℕ → ℝ) :
     ∀ S : Finset ℕ, (∀ p ∈ S, 0 ≤ g p) → (∀ p ∈ S, g p ≤ 1) →
       1 - ∑ p ∈ S, g p ≤ ∏ p ∈ S, (1 - g p) := by
