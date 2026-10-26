@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a49f65ab` · source digest `95e12b6cbc0a6cee` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `1a2f6851` · source digest `1eee2e5d39afa0b5` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6840,12 +6840,12 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.maynard_open_at_five` | Salt/TwinBar/LeastK.lean:108 | sieves |
 | `Salt.TwinBar.least_k_theorem` | Salt/TwinBar/LeastK.lean:127 | sieves |
 | `Salt.TwinBar.logWeight` | Salt/TwinBar/LogWeight.lean:36 | sieves |
-| `Salt.TwinBar.siftedSum_sPlus` | Salt/TwinBar/ParityWall.lean:259 | sieves |
-| `Salt.TwinBar.siftedSum_sMinus` | Salt/TwinBar/ParityWall.lean:271 | sieves |
-| `Salt.TwinBar.lambda_mult_sum` | Salt/TwinBar/ParityWall.lean:309 | sieves, characters |
-| `Salt.TwinBar.sPlus_rem_bound` | Salt/TwinBar/ParityWall.lean:398 | sieves |
-| `Salt.TwinBar.sMinus_rem_bound` | Salt/TwinBar/ParityWall.lean:403 | sieves |
-| `Salt.TwinBar.sieveAgree_pair` | Salt/TwinBar/ParityWall.lean:422 | sieves |
+| `Salt.TwinBar.siftedSum_sPlus` | Salt/TwinBar/ParityWall.lean:285 | sieves |
+| `Salt.TwinBar.siftedSum_sMinus` | Salt/TwinBar/ParityWall.lean:297 | sieves |
+| `Salt.TwinBar.lambda_mult_sum` | Salt/TwinBar/ParityWall.lean:335 | sieves, characters |
+| `Salt.TwinBar.sPlus_rem_bound` | Salt/TwinBar/ParityWall.lean:426 | sieves |
+| `Salt.TwinBar.sMinus_rem_bound` | Salt/TwinBar/ParityWall.lean:431 | sieves |
+| `Salt.TwinBar.sieveAgree_pair` | Salt/TwinBar/ParityWall.lean:450 | sieves |
 | `Salt.TwinBar.dirichlet₂` | Salt/TwinBar/RationalTie.lean:185 | sieves |
 | `Salt.TwinBar.no_twin_certificate` | Salt/TwinBar/RationalTie.lean:527 | sieves |
 | `Salt.TwinBar.twin_certificate_example` | Salt/TwinBar/RationalTie.lean:542 | sieves |
