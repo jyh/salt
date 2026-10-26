@@ -12,7 +12,7 @@ For `Re s > 1`, a square-free level `t` and a multiplicative `f`,
 `Σ_n χ(n) f_t(n) n^{−s} = L(s,χ)·∏_{p ∣ t}(1 + (f(p) − 1)χ(p)p^{−s})` (the local factor
 `jutilaLocal`), and with it Lemma 1's (2.2), p.48:
 `L(s,χ)·M(s,χ,f_r) = Σ_n (Σ_{d∣n} ξ_d) χ(n) f_r(n) n^{−s}`, where `M` (`jutilaM`) is (2.1) with
-`ξ` supported on `[1, Z]` — a FINITE Dirichlet polynomial. Both are `LSeries` identities;
+`ξ` vanishing above `Z` — a FINITE Dirichlet polynomial. Both are `LSeries` identities;
 `LFunction χ s = LSeries (χ ·) s` on `Re s > 1` is mathlib's `LFunction_eq_LSeries`. The
 `r`-summed form of (2.2) over a finite set of square-free levels, with the per-level
 summability it needs, is what Lemma 6 (W7) consumes directly.
@@ -58,7 +58,7 @@ variable {q : ℕ}
 def jutilaLocal (f : ArithmeticFunction ℝ) (χ : DirichletCharacter ℂ q) (t : ℕ) (s : ℂ) : ℂ :=
   ∏ p ∈ t.primeFactors, (1 + (((f p : ℝ) : ℂ) - 1) * χ p * (p : ℂ) ^ (-s))
 
-/-- The mollifier (2.1) with coefficients `ξ` supported on `[1, Z]`:
+/-- The mollifier (2.1) with coefficients `ξ` vanishing above `Z`:
 `M(s,χ,f_r) = Σ_{d ≤ Z} ξ_d χ(d) f_r(d) d^{−s} ∏_{p ∣ r/(r,d)} (1 + (f(p) − 1)χ(p)p^{−s})`. -/
 def jutilaM (ξ : ℕ → ℝ) (Z : ℕ) (f : ArithmeticFunction ℝ) (χ : DirichletCharacter ℂ q)
     (r : ℕ) (s : ℂ) : ℂ :=
@@ -274,8 +274,8 @@ private theorem sum_divisors_eq_sum_Icc_ite (ξ : ℕ → ℝ) (Z : ℕ) (hξ : 
       exact hd' (Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨hd1, not_lt.mp hcon⟩, hdvd⟩)
     exact hξ d hZ
 
-/-- **Jutila's (2.2).** For multiplicative `f` (`hf`), square-free `r` (`hr`), `ξ` supported on
-`[1, Z]` (`hξ`) and `Re s > 1` (`hs`),
+/-- **Jutila's (2.2).** For multiplicative `f` (`hf`), square-free `r` (`hr`), `ξ` vanishing
+above `Z` (`hξ`) and `Re s > 1` (`hs`),
 `Σ_n (Σ_{d ∣ n} ξ_d) χ(n) f_r(n) n^{−s} = L(s,χ)·M(s,χ,f_r)`. The divisor sum becomes a sum over
 the fixed range `Icc 1 Z` with a divisibility detector (`sum_divisors_eq_sum_Icc_ite`), each
 `d`-series reindexes along the multiples of `d` (`LSeries_dvd_mul_eq`), and
@@ -358,7 +358,7 @@ private theorem abs_sum_divisors_le (ξ : ℕ → ℝ) (Z : ℕ) (hξ : ∀ d, Z
   · rw [if_neg hdn]
     exact abs_nonneg _
 
-/-- The series of (2.2) converges for `r ≠ 0` (`hr`), `ξ` supported on `[1, Z]` (`hξ`) and
+/-- The series of (2.2) converges for `r ≠ 0` (`hr`), `ξ` vanishing above `Z` (`hξ`) and
 `Re s > 1` (`hs`): its coefficient is bounded by `(Σ_{d ≤ Z} |ξ_d|)·Σ_{e ∣ r} |f(e)|`
 (`abs_sum_divisors_le`, `norm_pseudoChar_twist_le`, `abs_pseudoChar_le_sum_divisors`;
 `LSeriesSummable_of_bounded_of_one_lt_re`). -/
@@ -374,7 +374,7 @@ theorem LSeriesSummable_jutila_coeff (f : ArithmeticFunction ℝ) {r : ℕ} (hr 
     (norm_nonneg _) (Finset.sum_nonneg (fun d _ => abs_nonneg _))
 
 /-- **The `r`-summed form of (2.2)**, the shape Lemma 6 consumes: over a finite set `S` of
-square-free levels (`hS`), for multiplicative `f` (`hf`), `ξ` supported on `[1, Z]` (`hξ`) and
+square-free levels (`hS`), for multiplicative `f` (`hf`), `ξ` vanishing above `Z` (`hξ`) and
 `Re s > 1` (`hs`), the series with coefficient `(Σ_{d ∣ n} ξ_d) χ(n) Σ_{r ∈ S} r⁻¹ f_r(n)`
 equals `L(s,χ)·Σ_{r ∈ S} r⁻¹ M(s,χ,f_r)`. The coefficient is the `S`-sum of the per-level ones,
 each summable (`LSeriesSummable_jutila_coeff`), so `LSeries_sum` and (2.2) per level
