@@ -140,6 +140,8 @@ private lemma icc_erase_succ (K : ℕ) :
   simp only [Finset.mem_erase, Finset.mem_Icc, Finset.mem_insert]
   omega
 
+/-- Pairing `±m` in the truncated Fourier sum: `∑_{0 < |m| ≤ K} e(mθ)/(2πim)` equals the real
+sum `∑_{m ≤ K} sin(2πθm)/(πm)` cast to `ℂ` (the `m = 0` term of the range is `0`). -/
 private lemma sum_pair_eq (K : ℕ) (θ : ℝ) :
     ∑ m ∈ (Finset.Icc (-(K : ℤ)) (K : ℤ)).erase 0,
         e ((m : ℝ) * θ) / (2 * (Real.pi : ℂ) * Complex.I * (m : ℂ))
@@ -165,6 +167,8 @@ private lemma sum_pair_eq (K : ℕ) (θ : ℝ) :
       rw [← hpair]
       ring
 
+/-- `sawtoothFourier K θ` is the real sum `−∑_{m ≤ K} sin(2πθm)/(πm)` cast to `ℂ`
+(`sum_pair_eq`). -/
 private lemma sawtoothFourier_eq (K : ℕ) (θ : ℝ) :
     sawtoothFourier K θ
       = ((-∑ m ∈ Finset.range (K + 1),
@@ -178,6 +182,8 @@ private lemma sawtoothFourier_eq (K : ℕ) (θ : ℝ) :
 private noncomputable def remReal (K : ℕ) (θ : ℝ) : ℝ :=
   sawtooth θ + ∑ m ∈ Finset.range (K + 1), Real.sin (2 * Real.pi * θ * m) / (Real.pi * m)
 
+/-- `‖sawtoothRem K θ‖ = |remReal K θ|`: the remainder is the real number `remReal K θ` cast to
+`ℂ` (`sawtoothFourier_eq`). -/
 private lemma norm_sawtoothRem_eq (K : ℕ) (θ : ℝ) : ‖sawtoothRem K θ‖ = |remReal K θ| := by
   unfold sawtoothRem remReal
   rw [sawtoothFourier_eq]
@@ -550,17 +556,25 @@ private lemma sawtoothMajorant_one_sub (K : ℕ) (θ : ℝ) :
 /-- The continuous comparison function on the lower half-period. -/
 private noncomputable def majPiece (K : ℕ) (θ : ℝ) : ℝ := (max ((K : ℝ) * θ) 1)⁻¹
 
+/-- `majPiece K = θ ↦ (max (K θ) 1)⁻¹` is continuous: the denominator is continuous and never
+`0`. -/
 private lemma continuous_majPiece (K : ℕ) : Continuous (majPiece K) := by
   refine Continuous.inv₀ (by fun_prop) (fun θ => ?_)
   have : (1 : ℝ) ≤ max ((K : ℝ) * θ) 1 := le_max_right _ _
   linarith
 
+/-- On the lower half-period `[0, 1/2]`, `sawtoothMajorant K` agrees with the continuous
+`majPiece K` (`hK : 1 ≤ K`): there `dist₁ θ 0 = θ`, and the degenerate split at `θ = 0` gives
+`1` on both sides. -/
 private lemma majorant_eqOn_lower {K : ℕ} (hK : 1 ≤ K) :
     Set.EqOn (sawtoothMajorant K) (majPiece K) (Set.Icc (0 : ℝ) (1 / 2)) := by
   intro θ hθ
   rw [sawtoothMajorant_eq_inv_max hK, dist₁_eq_self hθ.1 hθ.2]
   rfl
 
+/-- `sawtoothMajorant K` is interval-integrable on `[a, b] ⊆ [0, 1/2]` (`ha : 0 ≤ a`,
+`hb : b ≤ 1 / 2`, `hab : a ≤ b`; `hK : 1 ≤ K`): it agrees there with the continuous `majPiece K`
+(`majorant_eqOn_lower`). -/
 private lemma intervalIntegrable_majorant_lower {K : ℕ} (hK : 1 ≤ K) {a b : ℝ}
     (ha : 0 ≤ a) (hb : b ≤ 1 / 2) (hab : a ≤ b) :
     IntervalIntegrable (sawtoothMajorant K) MeasureTheory.volume a b := by
@@ -1400,6 +1414,8 @@ private lemma four_div_pi_sq_lt : (4 : ℝ) / Real.pi ^ 2 < 0.406 := by
   rw [div_lt_iff₀ (by positivity)]
   nlinarith only [hpi]
 
+/-- Over any finite set `u` of frequencies, `∑_{m ∈ u} ‖majorantCoeff K m‖ ≤ 6 (1 + log K)` for
+`2 ≤ K` (`hK`). -/
 private lemma sum_norm_majorantCoeff_finset_le {K : ℕ} (hK : 2 ≤ K) (u : Finset ℤ) :
     ∑ m ∈ u, ‖majorantCoeff K m‖ ≤ 6 * (1 + Real.log K) := by
   have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
@@ -1408,6 +1424,8 @@ private lemma sum_norm_majorantCoeff_finset_le {K : ℕ} (hK : 2 ≤ K) (u : Fin
   have := four_div_pi_sq_lt
   linarith
 
+/-- The same sum in the `log K`-only form: `∑_{m ∈ u} ‖majorantCoeff K m‖ ≤ 13 log K` for
+`2 ≤ K` (`hK`). -/
 private lemma sum_norm_majorantCoeff_finset_le_log {K : ℕ} (hK : 2 ≤ K) (u : Finset ℤ) :
     ∑ m ∈ u, ‖majorantCoeff K m‖ ≤ 13 * Real.log K := by
   have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
