@@ -34,10 +34,10 @@ worth stating is what each horn *delivers*:
   rate. `NoSiegelZeros` is a gap currency (a bare existential constant); it does not cross the
   parity barrier `Z` (verdict §"THE CAMPAIGN RE-PRICED", horn `¬F`).
 
-* **Horn `F` — CONDITIONAL on the (unbuilt) Heath-Brown engine.** A fulcrum
-  witness family `FulcrumQualityMin C` manufactures twin primes only through the
-  Heath-Brown engine at threshold `C`, formalized here as the hypothesis
-  `hEngine : FulcrumQualityMin C → TwinPrimeConjecture`. That engine is NOT
+* **Horn `F` — CONDITIONAL on the Heath-Brown engine** (unbuilt when written; proved since only
+  conditional on N7, `hEngine_of_N7`). A fulcrum witness family `FulcrumQualityMin C` manufactures
+  twin primes only through the Heath-Brown engine at threshold `C`, formalized here as the
+  hypothesis `hEngine : FulcrumQualityMin C → TwinPrimeConjecture`. That engine is NOT
   proven — it is the future HB-L2c node (the analytic μ↔χ correlation at the
   fulcrum's one fixed strength; cf. `HeathBrownStatement`, the Siegel-side
   sibling `IMSZ → TPC`). So the composite below carries the engine as an explicit,
