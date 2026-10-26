@@ -40,7 +40,7 @@ The named obligations, each undischarged in-corpus and each priced:
   Siegel–Walfisz supplier); its steps 2–4 remain flagged.  Est 300–500k.
 
 `WindowPNT` (a trivial PNT consequence stated as an interface — mathlib has no
-PNT) is the one remaining analytic input, undischarged in-corpus.
+PNT) was the one remaining analytic input; `windowPNT_holds` discharges it since 07-17.
 
 ## (2) What IS proven unconditionally on the path (file pointers)
 
