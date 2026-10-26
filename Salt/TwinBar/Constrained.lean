@@ -34,8 +34,8 @@ predicate:
 The registration phrases the constraint as "the marginals vanish outside the UNIT
 simplex" (`marg₁ = 0` for `t₂ > 1`). The primary source
 (Tao, *Polymath8b VII*, `terrytao.wordpress.com/2014/01/28/...`, the `k = 2` GEH
-problem, verified this session) states the honest ε-trick class with a DIFFERENT
-threshold and a DIFFERENT numerator region:
+problem, read at the source this session, outside Lean) states the honest ε-trick
+class with a DIFFERENT threshold and a DIFFERENT numerator region:
   - marginal vanishing at `y ≥ 1 + ε` (NOT `y > 1`), and
   - the numerator `∫_{y ≤ 1−ε} (∫F dx)² dy + ∫_{x ≤ 1−ε} (∫F dy)² dx` (region `≤ 1−ε`),
   - denominator `∫_R F²` over the enlarged support, gate `> 2 ∫_R F²`.

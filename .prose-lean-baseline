@@ -8,7 +8,6 @@ eb31babe7d79	README.md	predates
 f16d1f9c576a	README.md	shape
 bea119189e05	docs/CAMPAIGNS.md	shape
 33cb5f27cb4e	docs/CERT-ANCHORS-0811.md	shape
-0d416d8694df	docs/METHODS.md	shape
 567cebd0fedc	docs/OPERATIONS.md	shape
 f2d4e80a45a6	docs/RESULTS.md	shape
 31c803121d52	docs/priority-survey-2026-08-11.md	shape
@@ -247,13 +246,9 @@ b493c1d42976	Salt/Certs/TwinBar.lean	docstring
 d5ba75ccbd1e	Salt/Certs/Vmvt.lean	docstring
 67b73e078b9c	Salt/Certs/ZetaPowRegion.lean	docstring
 8a81371ac086	Salt/Certs/ZetaPowRegion.lean	docstring
-023665eec1eb	Salt/Chen/A2Window.lean	docstring
 4ba70bbfedb7	Salt/Chen/AbelStep.lean	docstring
-979e4122816e	Salt/Chen/AggSum.lean	docstring
-6079c36657da	Salt/Chen/Assembly.lean	docstring
 5c963c7d7033	Salt/Chen/ChenFinal.lean	docstring
 64674728b1dc	Salt/Chen/ChenHeadline.lean	docstring
-42cefa7b5ac8	Salt/Chen/CountAtOp3.lean	docstring
 02b75b7d9927	Salt/Chen/CountW.lean	docstring
 b4f63628da4c	Salt/Chen/CountW.lean	docstring
 b477f6393ad6	Salt/Chen/DecayMass.lean	docstring
@@ -263,7 +258,6 @@ fed177460a7c	Salt/Chen/GlueFinal.lean	docstring
 3d39b650745f	Salt/Chen/Headline.lean	docstring
 482a2adc5de9	Salt/Chen/Headline.lean	docstring
 cc9c9e8b0411	Salt/Chen/Headline.lean	docstring
-c6443c76d64c	Salt/Chen/Headline4.lean	docstring
 359124842158	Salt/Chen/HeadlineW.lean	docstring
 7a997db3b88b	Salt/Chen/HeadlineW.lean	docstring
 ff82eaf19a64	Salt/Chen/HeadlineW.lean	docstring
@@ -276,7 +270,6 @@ f137c8f7e6a5	Salt/Chen/LinearSieve.lean	docstring
 28961196f5f0	Salt/Chen/MediumFloor.lean	docstring
 84e58831f463	Salt/Chen/MediumFloor.lean	docstring
 bc2bfa728b74	Salt/Chen/PDiag.lean	docstring
-64df5e1458f0	Salt/Chen/PackA.lean	docstring
 538f22ea127c	Salt/Chen/Peeling.lean	docstring
 6b7976f4859f	Salt/Chen/Peeling.lean	docstring
 a1c2927ee27d	Salt/Chen/Peeling.lean	docstring
@@ -308,9 +301,6 @@ ef0a72797330	Salt/Chen/TwinDeficit.lean	docstring
 e4b5f7a63bd5	Salt/Chen/WeightEscape.lean	docstring
 be5ee00dcc54	Salt/Chen/WeightFamily.lean	docstring
 3b387bb6c43f	Salt/Chen/WeightNoGo.lean	docstring
-00a89fc0296a	Salt/Chen/WindowedBVStatement.lean	docstring
-3aad127a88f3	Salt/Chen/WindowedBVStatement.lean	docstring
-d4ba980517c9	Salt/Chen/WindowedBVStatement.lean	docstring
 2217a3647705	Salt/Entropy/All.lean	docstring
 666f8a9a8bfa	Salt/Entropy/All.lean	docstring
 8f235f3a89c3	Salt/Entropy/All.lean	docstring
@@ -820,15 +810,9 @@ ed186fb73c53	Salt/Tactic/LogNum.lean	docstring
 69c31706ede4	Salt/Tactic/NlinarithSuggest.lean	docstring
 77b030f70bd2	Salt/ThreePrimes/SingularIntegral.lean	docstring
 e94318c381d7	Salt/Twelve/FrontierM.lean	docstring
-10a5760cf590	Salt/Twelve/GapsOfLevel.lean	docstring
-d5fe30645748	Salt/Twelve/GapsOfLevel.lean	docstring
-e022efd02f5c	Salt/Twelve/GapsOfLevel.lean	docstring
-f91904169b12	Salt/Twelve/GapsOfLevel.lean	docstring
 3c592c13851c	Salt/TwinBar/All.lean	docstring
 523402df5a14	Salt/TwinBar/All.lean	docstring
 89d86197022c	Salt/TwinBar/All.lean	docstring
-928c8d99736f	Salt/TwinBar/Constrained.lean	docstring
-a073f3d4111f	Salt/TwinBar/Constrained.lean	docstring
 3752c64be38e	Salt/TwinBar/Enlarged.lean	docstring
 97d08237b5a7	Salt/TwinBar/Enlarged.lean	docstring
 b819cf9c5caf	Salt/TwinBar/Enlarged.lean	docstring
@@ -856,10 +840,6 @@ ad7892a20371	Salt/TwinBar/SiegelTwin.lean	docstring
 13c3916cdb25	Salt/TwinBar/ThreeBar.lean	docstring
 c4e2f6b2e5cd	Salt/TwinBar/ThreeBar.lean	docstring
 eac4132b1857	Salt/TwinBar/ThreeBar.lean	docstring
-290a76631e35	Salt/TwinBar/ThreeBarAsm.lean	docstring
-7ef557de1066	Salt/TwinBar/ThreeBarAsm.lean	docstring
-c662cac16d69	Salt/TwinBar/ThreeBarAsm.lean	docstring
-d846d01595fb	Salt/TwinBar/ThreeBarAsm.lean	docstring
 1bcaa4fc5830	Salt/TwinBar/TwinDoor.lean	docstring
 633be6adbd95	Salt/TwinBar/TwinDoor.lean	docstring
 7689a64b55b8	Salt/TwinBar/TwinDoor.lean	docstring
