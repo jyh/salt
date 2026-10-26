@@ -50,8 +50,11 @@ namespace Salt.TwinBar
 noncomputable def nuDiv : ArithmeticFunction ℝ :=
   ⟨fun d => 1 / (d : ℝ), by simp⟩
 
+/-- `nuDiv d = 1 / d` (by `rfl`); at `d = 0` this reads `1 / 0 = 0`. -/
 @[simp] lemma nuDiv_apply (d : ℕ) : nuDiv d = 1 / (d : ℝ) := rfl
 
+/-- `nuDiv` is multiplicative: `nuDiv 1 = 1` and `nuDiv (m * n) = nuDiv m * nuDiv n` on coprime
+`m`, `n` (the identity `1/(mn) = (1/m)·(1/n)` needs no coprimality). -/
 lemma nuDiv_mult : nuDiv.IsMultiplicative := by
   constructor
   · simp [nuDiv_apply]
@@ -60,11 +63,13 @@ lemma nuDiv_mult : nuDiv.IsMultiplicative := by
     push_cast
     rw [one_div_mul_one_div]
 
+/-- `0 < nuDiv p = 1 / p` for a prime `p` (hypothesis `hp : p.Prime`). -/
 lemma nuDiv_pos_of_prime (p : ℕ) (hp : p.Prime) : 0 < nuDiv p := by
   rw [nuDiv_apply]
   have : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hp.pos
   positivity
 
+/-- `nuDiv p = 1 / p < 1` for a prime `p` (hypothesis `hp : p.Prime`, giving `1 < p`). -/
 lemma nuDiv_lt_one_of_prime (p : ℕ) (hp : p.Prime) : nuDiv p < 1 := by
   rw [nuDiv_apply, div_lt_one (by exact_mod_cast hp.pos)]
   exact_mod_cast hp.one_lt
@@ -161,16 +166,32 @@ noncomputable def sMinus (x : ℕ) : BoundingSieve where
   nu_pos_of_prime := fun p hp _ => nuDiv_pos_of_prime p hp
   nu_lt_one_of_prime := fun p hp _ => nuDiv_lt_one_of_prime p hp
 
+/-- The `support` field of `sPlus x` is `Finset.Icc 1 x` (`rfl`): the upper witness sifts
+`[1, x]`. -/
 @[simp] lemma sPlus_support (x : ℕ) : (sPlus x).support = Finset.Icc 1 x := rfl
+/-- The `prodPrimes` field of `sPlus x` is `primorial (Nat.sqrt x)` (`rfl`): the sifting primes
+are those `≤ ⌊√x⌋`. -/
 @[simp] lemma sPlus_prodPrimes (x : ℕ) : (sPlus x).prodPrimes = primorial (Nat.sqrt x) := rfl
+/-- The `weights` field of `sPlus x` at `n` is `1 + λ(n)` (`rfl`), the Liouville-twisted weight
+of the upper witness. -/
 @[simp] lemma sPlus_weights (x n : ℕ) : (sPlus x).weights n = 1 + (liouville n : ℝ) := rfl
+/-- The `totalMass` field of `sPlus x` is `x` (`rfl`). -/
 @[simp] lemma sPlus_totalMass (x : ℕ) : (sPlus x).totalMass = (x : ℝ) := rfl
+/-- The `nu` field of `sPlus x` is `nuDiv` (`rfl`): the density `ν(d) = 1/d`. -/
 @[simp] lemma sPlus_nu (x : ℕ) : (sPlus x).nu = nuDiv := rfl
 
+/-- The `support` field of `sMinus x` is `Finset.Icc 1 x` (`rfl`): the lower witness sifts
+`[1, x]`. -/
 @[simp] lemma sMinus_support (x : ℕ) : (sMinus x).support = Finset.Icc 1 x := rfl
+/-- The `prodPrimes` field of `sMinus x` is `primorial (Nat.sqrt x)` (`rfl`): the sifting primes
+are those `≤ ⌊√x⌋`. -/
 @[simp] lemma sMinus_prodPrimes (x : ℕ) : (sMinus x).prodPrimes = primorial (Nat.sqrt x) := rfl
+/-- The `weights` field of `sMinus x` at `n` is `1 - λ(n)` (`rfl`), the Liouville-twisted weight
+of the lower witness. -/
 @[simp] lemma sMinus_weights (x n : ℕ) : (sMinus x).weights n = 1 - (liouville n : ℝ) := rfl
+/-- The `totalMass` field of `sMinus x` is `x` (`rfl`). -/
 @[simp] lemma sMinus_totalMass (x : ℕ) : (sMinus x).totalMass = (x : ℝ) := rfl
+/-- The `nu` field of `sMinus x` is `nuDiv` (`rfl`): the density `ν(d) = 1/d`. -/
 @[simp] lemma sMinus_nu (x : ℕ) : (sMinus x).nu = nuDiv := rfl
 
 /-! ## The survivor analysis -/
@@ -178,15 +199,20 @@ noncomputable def sMinus (x : ℕ) : BoundingSieve where
 /-- The prime survivors: primes in `(⌊√x⌋, x]`. -/
 def survPrimes (x : ℕ) : Finset ℕ := Nat.primesLE x \ Nat.primesLE (Nat.sqrt x)
 
+/-- A member of `survPrimes x` is prime (hypothesis `hn : n ∈ survPrimes x`):
+`survPrimes x = Nat.primesLE x \ Nat.primesLE (Nat.sqrt x)`, a set of primes. -/
 lemma prime_of_mem_survPrimes {x n : ℕ} (hn : n ∈ survPrimes x) : n.Prime := by
   rw [survPrimes, Finset.mem_sdiff, Nat.mem_primesLE] at hn
   exact hn.1.2
 
+/-- `1 ∉ survPrimes x`: `1` is not prime, so it lies in no `Nat.primesLE`. -/
 lemma one_notMem_survPrimes (x : ℕ) : 1 ∉ survPrimes x := by
   rw [survPrimes, Finset.mem_sdiff, Nat.mem_primesLE]
   rintro ⟨⟨_, h⟩, _⟩
   exact Nat.not_prime_one h
 
+/-- `Nat.primesLE (Nat.sqrt x) ⊆ Nat.primesLE x`, since `⌊√x⌋ ≤ x` (`Nat.sqrt_le_self`); it is
+the nesting that lets `survPrimes_card` subtract the two prime counts. -/
 lemma primesLE_sqrt_subset (x : ℕ) : Nat.primesLE (Nat.sqrt x) ⊆ Nat.primesLE x := by
   intro p hp
   rw [Nat.mem_primesLE] at hp ⊢
@@ -375,6 +401,8 @@ lemma abs_add_mul_le {a b M : ℝ} (ha : |a| ≤ 1) (hb : |b| ≤ 1) :
   calc |a + b * M| ≤ |a| + |b * M| := abs_add_le _ _
     _ ≤ 1 + |M| := by linarith
 
+/-- `|a - b * M| ≤ 1 + |M|` when `|a| ≤ 1` and `|b| ≤ 1` (hypotheses `ha`, `hb`):
+`abs_add_mul_le` at `-b`. The lower witness's remainder bound `sMinus_rem_bound` uses it. -/
 lemma abs_sub_mul_le {a b M : ℝ} (ha : |a| ≤ 1) (hb : |b| ≤ 1) :
     |a - b * M| ≤ 1 + |M| := by
   rw [show a - b * M = a + (-b) * M from by ring]

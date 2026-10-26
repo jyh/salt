@@ -367,8 +367,8 @@ replacement proved irreplaceable.  Examining the assembly need:
   `X·(1+M)·e^{-M}` carries `M = 𝔻(f, p^{it₀}; X)²` at the CENTER directly — the
   `exp(-M(t₀)/2)` grade emerges from the centered Euler/`F` factor, NOT from a
   sup-over-ball argument that would require `M(t) ≥ M(t₀) − o(1)` uniformly.
-* The exit stone is verified center-`t₀`/infimum-free (`s8-freeze.md:25`), so no
-  `inf_{ball} M` machinery ("Wall 3") and no continuity-of-`M` estimate is invoked.
+* The exit stone was frozen center-`t₀`/infimum-free (`s8-freeze.md:25`); AMENDMENT J0 made
+  `M` the range-minimum `M_range` (an `sInf`), used only via `e^{−cM}`: no continuity-of-`M`.
 * The only distance-recentering the ladder needs (windowed `f·g_J → f`) is exactly
   `dist_mul_half` / `pretDist_triangle` (`R1.1`, `PretentiousTriangle`, LANDED),
   applied by H3's `R3.1`, not a Lipschitz bound.
@@ -378,10 +378,10 @@ seam's centered construction plus the landed R1.1 triangle.  GS[10] does NOT joi
 staging debt; there is NO second named residual `R2.4-Lipschitz`.
 
 **R2.5 conditionality.**  The full A.6/A.7 → exit-stone assembly consumes the S1'
-`α,β` Perron representation (the campaign's single NAMED RESIDUAL — a multi-thousand
-line formalization, `HalaszSeam` module docstring) and the S2' head
-(`contour_A13_A14_head`), itself CONDITIONAL on the K4' Plancherel leg
-(`dirichlet_plancherel`, the wave-I-1 named residual, mathlib-absent contour).
+`α,β` Perron representation (then the campaign's single NAMED RESIDUAL; it has since
+landed, `prop21_unconditional_final`, `HExit.lean`) and the S2' head
+(`contour_A13_A14_head`), then CONDITIONAL on the K4' Plancherel leg
+(`dirichlet_plancherel`, since landed in `HalaszContour.lean`).
 Per the freeze ("the K4'-conditional exit form is a legitimate landing"),
 `halasz_ball_decay` therefore lands as the ASSEMBLY of the seam contributions into
 the frozen shape, carrying those two analytic inputs as EXPLICIT hypotheses
