@@ -386,6 +386,8 @@ theorem sum_tailT_sq_eq_box {z : ℕ} (hz : 1 ≤ z) {u : ℝ} (hu : 1 ≤ u) :
 `GrahamHard2.lean` carries these as `private` lemmas, which cannot be consumed across a
 module boundary; each is re-derived here by its landed recipe. -/
 
+/-- `1 ≤ ∏_{p ∣ r} (1 + 1/p)`: every factor is `≥ 1` (`Finset.prod_le_prod` against the constant
+product `1`). -/
 private lemma one_le_prod_one_add (r : ℕ) :
     (1 : ℝ) ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
   calc (1 : ℝ) = ∏ _p ∈ r.primeFactors, (1 : ℝ) := by rw [Finset.prod_const_one]
@@ -394,18 +396,24 @@ private lemma one_le_prod_one_add (r : ℕ) :
         have : (0 : ℝ) ≤ 1 / (i : ℝ) := by positivity
         linarith
 
+/-- `r ≤ κ(r) = r · ∏_{p ∣ r} (1 + 1/p)`, since the product is `≥ 1` (`one_le_prod_one_add`). -/
 private lemma le_kappa (r : ℕ) : (r : ℝ) ≤ kappa r := by
   rw [kappa]
   nlinarith only [one_le_prod_one_add r, (Nat.cast_nonneg _ : 0 ≤ ↑r)]
 
+/-- `0 < κ(r)` for `1 ≤ r` (`hr`): `κ(r) ≥ r ≥ 1` (`le_kappa`). -/
 private lemma kappa_pos (r : ℕ) (hr : 1 ≤ r) : (0 : ℝ) < kappa r := by
   have h1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
   linarith [le_kappa r]
 
+/-- `r/κ(r) ≤ 1` for `1 ≤ r` (`hr`): `r ≤ κ(r)` (`le_kappa`) over the positive `κ(r)`
+(`kappa_pos`). -/
 private lemma div_kappa_le_one (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) / kappa r ≤ 1 := by
   rw [div_le_one (kappa_pos r hr)]
   exact le_kappa r
 
+/-- `1/κ(r) ≤ 1/r` for `1 ≤ r` (`hr`): the reciprocal of `r ≤ κ(r)` (`le_kappa`,
+`one_div_le_one_div_of_le`). -/
 private lemma inv_kappa_le_inv (r : ℕ) (hr : 1 ≤ r) : 1 / kappa r ≤ 1 / (r : ℝ) := by
   have h1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
   exact one_div_le_one_div_of_le (by linarith) (le_kappa r)
@@ -431,6 +439,8 @@ private lemma abs_rho0_le_two : |rho0| ≤ 2 := by
   rw [hr]
   linarith
 
+/-- `∑_{f = 1}^{m} 1/f ≤ 1 + log m` — mathlib's `harmonic_le_one_add_log`, with the harmonic
+number unfolded to the `Icc` sum (`harmonic_eq_sum_Icc`). -/
 private lemma sum_inv_le_one_add_log (m : ℕ) :
     ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
   have h := harmonic_le_one_add_log m
@@ -522,23 +532,31 @@ theorem abs_sqfLogPair_sub_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → 
 private lemma sigmaQ_nonneg (r : ℕ) : (0 : ℝ) ≤ sigmaQ r :=
   Finset.sum_nonneg fun _ _ => Real.rpow_nonneg (Nat.cast_nonneg _) _
 
+/-- `|μ(n)| ≤ 1` after the cast to `ℝ` (`ArithmeticFunction.abs_moebius_le_one`). -/
 private lemma abs_moebius_cast_le_one (n : ℕ) : |(moebius n : ℝ)| ≤ 1 := by
   rw [← Int.cast_abs]
   exact_mod_cast ArithmeticFunction.abs_moebius_le_one
 
+/-- `|x − y| ≤ |x| + |y|`: the triangle inequality on `x + (−y)`, with `|−y| = |y|`. -/
 private lemma abs_sub_le_add' (x y : ℝ) : |x - y| ≤ |x| + |y| := by
   rw [sub_eq_add_neg]
   refine le_trans (abs_add_le _ _) (le_of_eq ?_)
   rw [abs_neg]
 
+/-- `|x + y − z| ≤ |x − z| + |y|`: regroup as `(x − z) + y` and apply the triangle
+inequality. -/
 private lemma abs_add_sub_le (x y z : ℝ) : |x + y - z| ≤ |x - z| + |y| := by
   have h : x + y - z = x - z + y := by ring
   rw [h]
   exact abs_add_le _ _
 
+/-- The real power `log(2Q) ^ (4 : ℝ)` is the natural power `log(2Q) ^ 4`
+(`Real.rpow_natCast`). -/
 private lemma log_rpow_four_eq (Q : ℝ) : Real.log (2 * Q) ^ (4 : ℝ) = Real.log (2 * Q) ^ 4 := by
   rw [show (4 : ℝ) = ((4 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
 
+/-- The real power `log(2Q) ^ (2 : ℝ)` is the natural power `log(2Q) ^ 2`
+(`Real.rpow_natCast`). -/
 private lemma log_rpow_two_eq (Q : ℝ) : Real.log (2 * Q) ^ (2 : ℝ) = Real.log (2 * Q) ^ 2 := by
   rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
 
@@ -1719,6 +1737,8 @@ theorem sum_sum_errLower_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → �
     _ = 10 * C * (z : ℝ) ^ (1/2 : ℝ) * (Q ^ (1/2 : ℝ) * Q) := by ring
     _ = 10 * C * (z : ℝ) ^ (1/2 : ℝ) * Q ^ (3/2 : ℝ) := by rw [hQ32]
 
+/-- `(x ^ q) ^ k = x ^ (q · k)` for `0 ≤ x` (`hx`), a real exponent `q` and a natural `k`:
+`Real.rpow_natCast`, then `Real.rpow_mul`. -/
 private lemma rpow_pow_nat' {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
     (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
   rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
@@ -1773,6 +1793,9 @@ private lemma rpow_step_three_halves' (t : ℝ) (ht : 1 ≤ t) :
     nlinarith only [hab, ha0]
   exact le_of_mul_le_mul_left hkey hsum0
 
+/-- `∑_{D < n ≤ M} n^{−3/2} ≤ 2 D^{−1/2}` for `1 ≤ D` (`hD`): an empty range when `M ≤ D`;
+otherwise induction on `M` with the telescoping step `rpow_step_three_halves'` gives
+`≤ 2 D^{−1/2} − 2 M^{−1/2}`, and the subtracted term is positive. -/
 private lemma sum_Ioc_rpow_neg_three_halves_le' {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
     ∑ n ∈ Finset.Ioc D M, (n : ℝ) ^ (-(3/2) : ℝ) ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
   rcases le_or_gt M D with hMD | hMD
