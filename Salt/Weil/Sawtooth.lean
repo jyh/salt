@@ -680,7 +680,7 @@ theorem norm_majorantCoeff_le {K : ℕ} (hK : 2 ≤ K) (m : ℤ) :
 
 /-! ### The `K/m²` arm of (7.4)
 
-The route (verified numerically before it was formalised): `a_m` is real and even in `m`, so
+The route (checked numerically outside Lean, then formalised): `a_m` is real and even in `m`, so
 `a_m = 2∫₀^{1/2} M(θ)cos(2πmθ)dθ`.  Split at the corner `θ = 1/K`.  On `[0, 1/K]` the majorant
 is `≡ 1`, so that piece is the closed form `sin(2πm/K)/(πm)` — **no integration by parts**.  One
 IBP on `[1/K, 1/2]` produces a boundary term at `θ = 1/K` that **cancels that closed form
