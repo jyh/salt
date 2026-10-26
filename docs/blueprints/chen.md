@@ -210,8 +210,8 @@ an adaptation, not a copy).
 | C4b ✅ | LANDED FULL + the Lemma-11 casework (WeightTrivia.lean): the P₂ carrier `IsP2 z m` (prime ∨ semiprime both factors ≥ z — Tao's native form), `chen_weight_le_indicator` + `chen_weight_struct` (the FULL weight inequality: ¬IsP2 ⇒ Ω ≥ 3 ⇒ the ω-casework with the `large_mult_le_two` size lemma — C5 gets `chenWeight ≤ p2Ind` unconditionally on the window), `stripSum_le` (the coprimality-cut strip ≤ x·log x/(z−1) ≈ x^{7/8}log x), `window_two_thirds_lt` (validity automatic), `switch_loss_le` (the S7 bookkeeping) | A/B |
 | C5 | assembly → **`chen_of_siegelWalfisz`** | C |
 
-PB-floors: C1c alone is a standalone mathlib-first artifact (the first
-formal Rosser–Iwaniec linear sieve); C3a alone upgrades the BV corpus
+PB-floors: C1c alone is a standalone artifact (the first
+Rosser–Iwaniec linear sieve in any public artifact as of 2026-08-17, priority survey row 4); C3a alone upgrades the BV corpus
 to convolutions (serves any future E₂/E₃ work); if the razor assembly
 stalls, the floor is `p + 2 = P₄`-shape at the same architecture with
 slack margins (state honestly, flag). The optimality/parity section of

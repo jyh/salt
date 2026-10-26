@@ -27,9 +27,9 @@ import Salt.Tactic.AuditAxioms
 THE SUMMIT CAMPAIGN (JYH ratified 2026-07-17: "we go for full
 VMVT"): the Vinogradov mean value theorem via the elementary
 Linnik–Karatsuba p-adic route (porting target: Vaughan PSU
-Ch. 24, staged in the session scratchpad), toward the first
-power zero-free region in any proof assistant and, through it,
-the Matomäki–Radziwiłł gate and unconditional log-Chowla-2.
+Ch. 24, staged in the session scratchpad), toward a power zero-free region (the first in any
+public artifact as of 2026-08-17, `docs/priority-survey-2026-08-17-delta.md` row 5) and,
+through it, the Matomäki–Radziwiłł gate and unconditional log-Chowla-2.
 Campaign map: VMVT-R0's adjudication in
 `docs/exploration/s3-a3-design.md`. The gate node: Linnik's
 Lemma (VMVT-N3).
