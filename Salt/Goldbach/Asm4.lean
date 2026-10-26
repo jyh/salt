@@ -36,9 +36,12 @@ inlined keep of `goldOmegaPrimeSum` character-for-character. -/
 noncomputable def keepG (Q a P N n : ℕ) : ℝ :=
   if Nat.Prime n ∧ Nat.Coprime P (N - n) ∧ n % Q = a % Q then 1 else 0
 
+/-- `0 ≤ keepG Q a P N n`: the W-keep indicator takes only the values `0` and `1`. -/
 lemma keepG_nonneg (Q a P N n : ℕ) : 0 ≤ keepG Q a P N n := by
   unfold keepG; split_ifs <;> norm_num
 
+/-- `keepG Q a P N n = 1` exactly when `n` is prime, `Coprime P (N − n)` and `n ≡ a (mod Q)` —
+the indicator's three conditions, read back. -/
 lemma keepG_eq_one_iff {Q a P N n : ℕ} :
     keepG Q a P N n = 1 ↔ Nat.Prime n ∧ Nat.Coprime P (N - n) ∧ n % Q = a % Q := by
   unfold keepG
