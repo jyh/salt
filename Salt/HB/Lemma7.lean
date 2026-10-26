@@ -105,6 +105,7 @@ lemma abs_one_add_mul_sub_one_le {a b : ℝ} (ha : |a| ≤ 1) :
 noncomputable def primeProdBelow (z : ℝ) : ℝ :=
   ∏ p ∈ (Finset.range (⌊z⌋₊ + 1)).filter Nat.Prime, (1 - 1 / (p : ℝ))
 
+/-- `0 < ∏_{p ≤ ⌊z⌋} (1 − 1/p)`: every factor is `≥ 1/2`, since `p ≥ 2` (`Finset.prod_pos`). -/
 lemma primeProdBelow_pos {z : ℝ} : 0 < primeProdBelow z := by
   refine Finset.prod_pos (fun p hp => ?_)
   have hp2 : 2 ≤ p := (Finset.mem_filter.mp hp).2.two_le
