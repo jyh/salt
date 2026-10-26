@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `d311913c` · source digest `977df719bffb2758` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `a4508f65` · source digest `a813235d62db98e3` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2436,7 +2436,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Keller.keller_not_injective_C` | Salt/Keller/Counterexample.lean:185 | other |
 | `Salt.LS.arithmetic_LS` | Salt/LS/ArithmeticLS.lean:91 | sieves, exponential sums |
 | `Salt.LS.arithmetic_LS_one` | Salt/LS/ArithmeticLS.lean:147 | sieves, exponential sums |
-| `Salt.LS.bdh` | Salt/LS/BDH.lean:360 | sieves, characters |
+| `Salt.LS.bdh` | Salt/LS/BDH.lean:362 | sieves, characters |
 | `Salt.LS.char_LS_perQ` | Salt/LS/CharLS.lean:74 | sieves, characters, exponential sums |
 | `Salt.LS.char_LS` | Salt/LS/CharLS.lean:277 | sieves, characters |
 | `Salt.LS.farey_spacing_core` | Salt/LS/Farey.lean:36 | sieves |
@@ -6089,11 +6089,11 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `parityInv_N6_2` | Salt/Parity/Instances.lean:93 | sieves |
 | `parityInv_N5_3` | Salt/Parity/Instances.lean:99 | sieves |
 | `parityInv_chen_second` | Salt/Parity/Instances.lean:106 | sieves |
-| `Salt.Parity.parityInv_of_closed` | Salt/Parity/Z.lean:117 | sieves |
-| `Salt.Parity.twinFree_twinMass` | Salt/Parity/Z.lean:137 | sieves |
-| `Salt.Parity.twinMass_oneWeight_unbounded_iff` | Salt/Parity/Z.lean:149 | sieves |
-| `Salt.Parity.oneWeight_mem` | Salt/Parity/Z.lean:460 | sieves |
-| `Salt.Parity.twinFree_mem` | Salt/Parity/Z.lean:618 | sieves |
+| `Salt.Parity.parityInv_of_closed` | Salt/Parity/Z.lean:120 | sieves |
+| `Salt.Parity.twinFree_twinMass` | Salt/Parity/Z.lean:140 | sieves |
+| `Salt.Parity.twinMass_oneWeight_unbounded_iff` | Salt/Parity/Z.lean:152 | sieves |
+| `Salt.Parity.oneWeight_mem` | Salt/Parity/Z.lean:463 | sieves |
+| `Salt.Parity.twinFree_mem` | Salt/Parity/Z.lean:621 | sieves |
 | `Salt.SW.norm_logDeriv_sub_sum_of_blaschke` | Salt/SW/BCBound.lean:153 | sieves |
 | `Salt.SW.LFunction_norm_logDeriv_sub_sum` | Salt/SW/BCBound.lean:357 | sieves, characters |
 | `Salt.SW.neg_re_logDeriv_le` | Salt/SW/BCBound.lean:403 | sieves |
@@ -8868,10 +8868,10 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.MaynardK.gaps_le_636_of_level` | Salt/MaynardK/Gaps636.lean:45 | other | `WindowPNT`, `HasLevel` |
 | `Salt.MaynardK.gaps_le_636_of_standoff` | Salt/MaynardK/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.MaynardK.gaps_le_600_of_standoff` | Salt/MaynardK/SiegelFree.lean:52 | other | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Parity.Z_trivial_of_not_completion` | Salt/Parity/Z.lean:125 | sieves | `¬Salt.Parity.Completion` |
-| `Salt.Parity.TPC_implies_Z` | Salt/Parity/Z.lean:216 | sieves | `TwinPrimeConjecture` |
-| `Salt.Parity.sufficient_true_not_parityInv` | Salt/Parity/Z.lean:678 | sieves | `Salt.Parity.TwinSufficient` |
-| `Salt.Parity.Z_implies_TPC` | Salt/Parity/Z.lean:693 | sieves | `Salt.Parity.Z` |
+| `Salt.Parity.Z_trivial_of_not_completion` | Salt/Parity/Z.lean:128 | sieves | `¬Salt.Parity.Completion` |
+| `Salt.Parity.TPC_implies_Z` | Salt/Parity/Z.lean:219 | sieves | `TwinPrimeConjecture` |
+| `Salt.Parity.sufficient_true_not_parityInv` | Salt/Parity/Z.lean:681 | sieves | `Salt.Parity.TwinSufficient` |
+| `Salt.Parity.Z_implies_TPC` | Salt/Parity/Z.lean:696 | sieves | `Salt.Parity.Z` |
 | `Salt.SW.estermannPositivity_of_interface` | Salt/SW/Estermann.lean:288 | sieves | `Salt.SW.EstermannInterface` |
 | `Salt.SW.bounded_gaps_of_standoff` | Salt/SW/GapsStandoff.lean:33 | sieves | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.SW.card_system_le_rpow` | Salt/SW/JutilaRatio.lean:347 | sieves, characters | `Salt.SW.WellSpacedAt` |
