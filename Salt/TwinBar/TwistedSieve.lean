@@ -38,7 +38,7 @@ re-derived here for the τ-bound (node b) — never `|λ| ≤ 1`, which is FALSE
   product with `L(1,χ)`·(twin singular series) needs a twisted-Mertens
   finite→infinite passage; class C/D, the analytic seam, left to a later wave.
 * **Node (a3) — the lower bound — is PROSE-ONLY [gate BLOCK-2].** The frozen
-  `∃ cLow > 0, cLow·(L(1,χ)).re ≤ twistedMainSum` is a proven `swat_vacuous` trap
+  `∃ cLow > 0, cLow·(L(1,χ)).re ≤ twistedMainSum` is a `swat_vacuous`-type trap
   (it follows from `0 < twistedMainSum` alone, with `cLow = M/(2L)`), so committing
   it as a Lean theorem would let O2/O3 masquerade as O1. It is therefore recorded
   ONLY as prose: the honest map is that the D-difficulty is the CONJUNCTION of
