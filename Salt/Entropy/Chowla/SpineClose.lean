@@ -156,14 +156,14 @@ CONDITIONAL on exactly three families of inputs — this theorem certifies that 
 log-Chowla-2 FAILS on the regime then a contradiction follows, given:
 
 1. **The MRT uniformity theorem** (`hdoor : MRTUniformity R δ`): Tao's
-   Proposition 2.4, which is PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121
+   Proposition 2.4, which is PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121
    ("An averaged form of Chowla's conjecture"); it enters here as an explicit
    hypothesis (a published theorem-door, the strongest honesty class).
 2. **The tower-budget numerics** (`hbudget1`, `hbudget2` inside the ∀, plus the
    decrement budgets `ht`/`hg`/`hgle`/`hI` and the coupling `hepsc`): the
    tower/entropy machinery is expected to discharge these downstream; they stay
-   explicit at this node (the honest scope — see `docs/exploration/s3-a3-design.md`,
-   "THE HONEST SCOPE").  The obtained constants `c₁ = cD3/4`, `C`, `K`, `cE` are
+   explicit at this node (the honest scope; the design record is
+   `docs/exploration/s3-a3-design.md`).  The obtained constants `c₁ = cD3/4`, `C`, `K`, `cE` are
    the opaque outputs of the landed producer chains, so the statement is
    ∃-quantified over them and the combined regime floor `H₀`.
 3. **The stated regime range** (`R.Hlo ≤ H`, `H ≤ R.Hhi`, `H₀ ≤ H`): the tower's

@@ -503,7 +503,7 @@ factor at the untwisted `ξ` (`Theorem23Shell.lean:188-193`).  A door twisted to
 THE TRIPWIRE.  No `h = 1` compat can police that spelling — at `h = 1` the twist
 vanishes under `Nat.cast_one`, so `mrtUniformityXi_eq_xiH_one` is provable either way.
 `contradiction_of_mrtDoorXiH` is the `h`-GENERAL clone of the landed seam
-`contradiction_of_mrtDoorXi` (`MRTDoor.lean:127-157`); its termwise step fires the door
+`contradiction_of_mrtDoorXi` (`MRTDoor.lean:132-162`); its termwise step fires the door
 at `ξ` against the sum's own integrand, so it closes at general `h` under the untwisted
 door and cannot close under a twisted one.  It landed last, and it landed green.
 
@@ -576,7 +576,7 @@ certifies nothing about the door's spelling — `contradiction_of_mrtDoorXiH` re
 only tripwire that can.
 
 THE `L²` FORK.  `MRTUniformityXiL2H h` is the Ξ-summed `L²` door
-(`MRTDoor.lean:187-190`) over `bigXiH h R.eps H`, `mrtUniformityXiL2_eq_xiL2H_one` pins
+(`MRTDoor.lean:192-195`) over `bigXiH h R.eps H`, `mrtUniformityXiL2_eq_xiL2H_one` pins
 the landed door as its `h = 1` member, and `contradiction_of_mrtDoorXiL2H` is its seam
 with the lower bound transcribed from the landed one at the untwisted `−ξ.val/H`.  For
 `h ≥ 2` it binds the `μ_h`-PREIMAGE of `Ξ_H` — INCOMPARABLE to `Ξ_H` in general, of

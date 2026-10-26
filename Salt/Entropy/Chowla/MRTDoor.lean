@@ -47,7 +47,7 @@ noncomputable def windowExpSum (H n : ℕ) (α : ℝ) : ℂ :=
 
 THE `∀ α` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao 1509.05422
 (4.1), which is OPEN — moving this quantifier silently downgrades a theorem-door
-(Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open
+(Prop 2.4, PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open
 conjecture. Any edit must preserve the quantifier position; the kernel cannot
 police this. Fires once in the spine, at α := −ξ.val/H (Tao p. 24). -/
 noncomputable def MRTUniformity (R : ChowlaRegime) (δ : ℝ) : Prop :=
@@ -102,13 +102,13 @@ Tao-faithful Ξ_H-restricted surface).
 
 THE `∀ ξ ∈ Ξ_H` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao
 1509.05422 (4.1), which is OPEN — moving this quantifier silently downgrades a
-theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
+theorem-door (Prop 2.4, PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
 an open conjecture. Any edit must preserve the quantifier position; the kernel
 cannot police this. Fires once in the spine, at α := −ξ.val/H (Tao p. 24).
 
 This is the weakened, Tao-faithful surface: Tao's proof (p. 24) fires Prop 2.4
 only at the finitely many large-spectrum frequencies ξ ∈ Ξ_H; |Ξ_H| ≤ C is
-Lemma 3.5 (landed as `bigXi_bounded`). Note ξ = 0 ∈ Ξ_H always, and its instance
+Lemma 3.5 (landed as `bigXi_bounded`). Note ξ = 0 ∈ Ξ_H above a floor, and its instance
 is already full Matomäki–Radziwiłł short-interval strength — the weakening
 shrinks the door's surface, not its depth (see the W4-MAJOR-R0 RED verdict). -/
 noncomputable def MRTUniformityXi (R : ChowlaRegime) (δ : ℝ) : Prop :=
@@ -177,12 +177,12 @@ Additive: `MRTUniformityXi` and `contradiction_of_mrtDoorXi` are untouched, and
 the `L²` surface of the Ξ_H-restricted door).
 
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL — the same seam warning as
-`MRTUniformity`/`MRTUniformityXi` (`:43–47`, `:98–102`), re-stated here per the
+`MRTUniformity`/`MRTUniformityXi` (`:48–52`, `:103–107`), re-stated here per the
 REF-L2 mandate R4.  This predicate is a FINITE SUM OF INTEGRALS: the frequency
 quantifier has become a `∑` over `Ξ_H` sitting outside `∫`, and there is no `sup`
 anywhere inside the integral.  The sup-inside form is Tao 1509.05422 (4.1), which
 is OPEN — moving a quantifier inside silently downgrades a theorem-door (Prop
-2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open conjecture.
+2.4, PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open conjecture.
 Any edit must preserve the quantifier positions; the kernel cannot police this.
 Fires once in the spine, at `α := −ξ.val/H` (Tao p. 24).
 
