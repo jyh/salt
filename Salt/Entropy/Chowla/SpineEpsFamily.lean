@@ -56,7 +56,7 @@ rate is consumable at the L² grade only, so a consumer must not hunt for a `K`-
 
 Recipe: the pinned head's proof VERBATIM (`HloExport.lean:519–618`) with `hεdef : ε = 1/500`
 replaced by the hypothesis: `hεcE`, `hε_half_lt`, `hε_D3`, `hε_D3C`, `hε2`, `hεQ1` each by
-`le_trans`/`lt_of_le_of_lt` from `ε ≤ 1/500` and the pinned-leaf numerals (`hcEge`, `hcD3ge`,
+`linarith` (`nlinarith` for `hε2`) from `ε ≤ 1/500` and the pinned-leaf numerals (`hcEge`, `hcD3ge`,
 `hCnum`, `hlog4eq`); the exchange-rate conjunct from `hkey : 5/2096 ≤ cD3/(16·C)` (the landed
 line) by `nlinarith`/`linarith` on `ε ≥ 0`; the three `private` names of `HloExport`
 (`spine_False_core_xi_sq_cap`, `mutualInfo_window_comm_cap`, `hloCap_shuffle`) via
