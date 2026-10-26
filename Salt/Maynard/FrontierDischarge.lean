@@ -7,10 +7,10 @@ import Mathlib
 import Salt.Maynard.Final
 
 /-!
-# M7 discharge — the analytic frontier and the unconditional capstone
+# M7 discharge — the analytic frontier, toward the capstone `EH (1/2) → bounded gaps`
 
-This file discharges the `AnalyticFrontier` hypothesis of `bounded_gaps_from_eh`,
-producing the unconditional `bounded_gaps_from_eh_final : BoundedGapsFromEH`.
+This file discharges the `AnalyticFrontier` hypothesis of `bounded_gaps_from_eh`, toward
+`bounded_gaps_from_eh_final` (`FrontierFinal.lean`, which keeps `hCompat`; `Complete` drops it).
 
 The work is entirely quantifier-reordering plumbing plus regime-threshold real
 analysis (no new mathematics).  The heart is making the three error constants
