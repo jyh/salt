@@ -25648,3 +25648,18 @@ hypothesis of the U-forms down to the capstone, or the head U-form's `K` tied to
 `bigXi_bounded_ceiling_eps` at `ε ≤ 1/500`); then the socket hop is the source's body with the
 count passed through.  **Owner:** the freeze author.  **Re-measure:** at the half-2 fire.
 RESOLVED 2026-09-25 (half 2): the head form's count moved to its conclusion side (ADDENDUM 2 §2); the hop landed at the first half-2 commit on `h2c/roadF-arm-U`, parent `ceda6db4` (a commit cannot name its own sha).
+
+## WALL-L2 -- `parity_wall_corr_stable` restates the wall; it does not strengthen it (2026-10-25)
+
+The 2026-08-15 REGISTRY DOCS SWEEP entry above registers `parity_wall_corr_stable` "as a
+strengthening of a NEGATIVE theorem" for "the strictly larger class of certificates" tolerant with
+respect to `SieveAgreeCorr`. The class is the same one. `SieveAgreeCorr s t D B B₂` is
+`SieveAgree s t D B ∧ |corr2 s - corr2 t| ≤ B₂`, and the theorem's `htol` quantifies over every
+`B₂`; at `B₂ := |corr2 s - corr2 t|` it is `SieveAgree`-tolerance, and `tolerant_corr_of_tolerant`
+(`WallCorr.lean:87`) gives the converse. So `parity_wall_corr_stable` follows from
+`parity_wall_unconditional` in one line (paper drove it on 2026-10-25 through `saltbuild`,
+EXIT=0, axioms `[propext, Classical.choice, Quot.sound]`; the file is not in this repository).
+The fixed-`B₂` form, with tolerance asked at one `(D, B, B₂)`, is `parity_wall_corr`, the per-`x`
+algebraic layer. `docs/RESULTS.md`'s row now says so (O88). The same reading is in the docstrings
+of `WallCorr.lean` (:39, :75-76, :205-215) and in the ledger block at `Salt/TwinBar/All.lean`;
+those are Salt/ comments and are routed to math, not edited here.
