@@ -39,6 +39,7 @@ LIMITS, printed with every verdict:
   - "Reaches" is constant reference over types and values, the relation `#print axioms` uses. FREE
     means free of the three names only, not of any other hypothesis, and says nothing on effectivity.
   - `L1_lower_siegel` is effective; a REACHES row is not by itself a claim of ineffectivity.
+  - A FREE root whose closure holds `sorryAx` is reported (SORRY) and read as owed.
   - A §10 twin is matched by its row's words; a row that names its source differently is missed and
     the root reads REACHES. A (name) twin is matched by the exact suffix only, and its STATEMENT is
     not compared with the root's (the §10 rows' `#assert_conclusion_is` certificates do that for
@@ -148,8 +149,13 @@ elab "#o13_census" : command => do
     let st ← closureOf t
     return targets.all (!st.visited.contains ·) && !st.visited.contains ``sorryAx
   let mut nF : Nat := 0; let mut nT : Nat := 0; let mut nD : Nat := 0; let mut nO : Nat := 0
-  let mut nM : Nat := 0; let mut nU : Nat := 0; let mut nRoots : Nat := 0
+  let mut nM : Nat := 0; let mut nU : Nat := 0; let mut nRoots : Nat := 0; let mut nEntries : Nat := 0
+  let mut seen : NameSet := {}
+  -- a RESULTS row marked SUPERSEDED is by design under any tag it is reached by
+  let superseded : List Name := (o13Roots.filter fun (_, t) => (t.splitOn "SUPERSEDED").length > 1).map
+    fun (s, _) => s.toName
   for (s, tag) in o13Roots do
+    nEntries := nEntries + 1
     let hits := resolveS s
     if hits.isEmpty then
       nRoots := nRoots + 1
@@ -160,6 +166,9 @@ elab "#o13_census" : command => do
         logInfo m!"O13 MISSING {s} [{tag}]"
         nM := nM + 1
     for root in hits do
+      if seen.contains root then
+        continue
+      seen := seen.insert root
       nRoots := nRoots + 1
       let st ← closureOf root
       let reached := targets.filter st.visited.contains
@@ -191,13 +200,13 @@ elab "#o13_census" : command => do
           logInfo m!"O13 REACHES-BY-DESIGN {root} [{tag}] targets={render reached} why={why} path={first}"
           nD := nD + 1
         | none =>
-          if (tag.splitOn "SUPERSEDED").length > 1 then
+          if (tag.splitOn "SUPERSEDED").length > 1 || superseded.contains root then
             logInfo m!"O13 REACHES-BY-DESIGN {root} [{tag}] targets={render reached} why=superseded row path={first}"
             nD := nD + 1
           else
             logInfo m!"O13 REACHES-OWED {root} [{tag}] targets={render reached} sorryAx={sorryIn} path={first}"
             nO := nO + 1
-  logInfo m!"O13 TOTAL roots={nRoots} FREE={nF} TWIN-EXISTS={nT} REACHES-BY-DESIGN={nD} REACHES-OWED={nO} MISSING={nM} UNRESOLVED={nU}"
+  logInfo m!"O13 TOTAL entries={nEntries} roots={nRoots} FREE={nF} TWIN-EXISTS={nT} REACHES-BY-DESIGN={nD} REACHES-OWED={nO} MISSING={nM} UNRESOLVED={nU}"
 
 #assert_targets_exist
 #assert_reaches __CTRL_ROOT__ Salt.SW.siegel_theorem
@@ -295,7 +304,7 @@ def gen(args):
 ERR = re.compile(r":[0-9]+:[0-9]+: error(\([^)]*\))?:|^error: .*:[0-9]+:[0-9]+:")
 LINE = re.compile(r"O13 (FREE|TWIN-EXISTS|REACHES-BY-DESIGN|REACHES-OWED|MISSING|MISSING-TWIN|TWIN-REACHES|"
                   r"UNRESOLVED) ")
-TOTAL = re.compile(r"O13 TOTAL roots=(\d+) FREE=(\d+) TWIN-EXISTS=(\d+) REACHES-BY-DESIGN=(\d+) "
+TOTAL = re.compile(r"O13 TOTAL entries=(\d+) roots=(\d+) FREE=(\d+) TWIN-EXISTS=(\d+) REACHES-BY-DESIGN=(\d+) "
                    r"REACHES-OWED=(\d+) MISSING=(\d+) UNRESOLVED=(\d+)")
 
 
@@ -327,14 +336,14 @@ def classify_log(text: str, manifest: dict):
         k = LINE.search(ln).group(1)
         counts[k] = counts.get(k, 0) + 1
     if totals:
-        n, f, t, d, o, m, u = map(int, totals[0])
-        if n != manifest["roots"]:
-            bad.append(f"TOTAL roots={n}, manifest {manifest['roots']}")
+        e, n, f, t, d, o, m, u = map(int, totals[0])
+        if e != manifest["roots"]:
+            bad.append(f"TOTAL entries={e}, manifest {manifest['roots']}")
         per = (counts.get("FREE", 0), counts.get("TWIN-EXISTS", 0),
                counts.get("REACHES-BY-DESIGN", 0), counts.get("REACHES-OWED", 0))
         if per != (f, t, d, o):
             bad.append(f"per-row counts {per} disagree with TOTAL {(f, t, d, o)}")
-        out.append(f"TOTAL roots={n} FREE={f} TWIN-EXISTS={t} REACHES-BY-DESIGN={d} "
+        out.append(f"TOTAL entries={e} roots={n} (distinct constants walked) FREE={f} TWIN-EXISTS={t} REACHES-BY-DESIGN={d} "
                    f"REACHES-OWED={o} MISSING={m} UNRESOLVED={u} (a --names entry that names no "
                    f"declaration: a binder, a namespace, a tool; read the list)")
     for k in ("REACHES-OWED", "MISSING", "MISSING-TWIN", "TWIN-REACHES", "UNRESOLVED",
@@ -348,8 +357,12 @@ def classify_log(text: str, manifest: dict):
                "`<root>_of_standoff`/`_of_sevenEighths`, statement not compared.")
     if bad:
         return 2, ["NOT A CLEAN RUN: " + b for b in bad] + out
+    # a FREE closure holding sorryAx certifies nothing (the twin test already demands no sorryAx)
+    sorry_free = [ln for ln in lines if ln.startswith("O13 FREE ") and "sorryAx=true" in ln]
+    for ln in sorry_free:
+        out.insert(1, "  SORRY " + ln)
     owed = counts.get("REACHES-OWED", 0) + counts.get("MISSING", 0) \
-        + counts.get("MISSING-TWIN", 0) + counts.get("TWIN-REACHES", 0)
+        + counts.get("MISSING-TWIN", 0) + counts.get("TWIN-REACHES", 0) + len(sorry_free)
     return (1 if owed else 0), out
 
 
@@ -398,19 +411,21 @@ def self_test():
             f"x.lean:1:0: info: O13 TWIN-EXISTS {CONTROL_TWIN[0]} [RESULTS §3] targets=t "
             f"twins={CONTROL_TWIN[1]} (§10)\n"
             "x.lean:1:0: info: O13 REACHES-BY-DESIGN Salt.X.old [RESULTS §8 SUPERSEDED] why=superseded row\n"
-            "x.lean:1:0: info: O13 TOTAL roots=3 FREE=1 TWIN-EXISTS=1 REACHES-BY-DESIGN=1 "
+            "x.lean:1:0: info: O13 TOTAL entries=3 roots=3 FREE=1 TWIN-EXISTS=1 REACHES-BY-DESIGN=1 "
             "REACHES-OWED=0 MISSING=0 UNRESOLVED=0\nsaltbuild EXIT=0\n")
     check("a clean log reads rc 0", classify_log(good, man)[0] == 0)
     owed = good.replace("REACHES-BY-DESIGN Salt.X.old", "REACHES-OWED Salt.X.old").replace(
         "REACHES-BY-DESIGN=1 REACHES-OWED=0", "REACHES-BY-DESIGN=0 REACHES-OWED=1")
     check("an owed row reads rc 1", classify_log(owed, man)[0] == 1)
+    check("a FREE root holding sorryAx reads rc 1",
+          classify_log(good.replace("closure=3 sorryAx=false", "closure=3 sorryAx=true"), man)[0] == 1)
     for what, mut in [
         ("EXIT=1 reads rc 2", good.replace("EXIT=0", "EXIT=1")),
         ("a tagged error reads rc 2", good + "x.lean:3:4: error(lean.unknownIdentifier): no\n"),
         ("a lake-order error reads rc 2", good + "error: x.lean:3:4: no\n"),
         ("a missing positive control reads rc 2", good.replace("CERT P+", "CERT P-")),
         ("the control found by name only reads rc 2", good.replace(" (§10)", " (name)")),
-        ("a root count off the manifest reads rc 2", good.replace("TOTAL roots=3", "TOTAL roots=4")),
+        ("an entry count off the manifest reads rc 2", good.replace("entries=3", "entries=4")),
         ("per-row counts off the TOTAL read rc 2", good.replace("O13 FREE Salt.A.a", "O13 FREEX")),
     ]:
         check(what, classify_log(mut, man)[0] == 2)
