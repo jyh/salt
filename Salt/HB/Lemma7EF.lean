@@ -1112,9 +1112,10 @@ lemma efShiftB_nonneg {q : ℕ} {T₀ σa σb : ℝ} (hq : 2 ≤ q) (hT₀ : 2 �
   have := div_nonneg hnum (le_of_lt hden)
   linarith
 
-/-- `0 ≤ efShiftBound q T₀ σa σb x` for `2 ≤ q` (`hq`), `2 ≤ T₀` (`hT₀`), `0 < σa ≤ 1` (`hσa`,
-`hσa1`), `σa < σb` (`hσab`) and `3 ≤ x` (`hx`): each of the three summands is a product of
-nonnegative factors (`efShiftB_nonneg`; `1 + 1/log x − σa ≥ 0` because `σa ≤ 1`). -/
+/-- `0 ≤ efShiftBound q T₀ σa σb x` for `2 ≤ q` (`hq`), `2 ≤ T₀` (`hT₀`), `0 < σa ≤ 1`
+(`hσa`, `hσa1`), `σa < σb` (`hσab`) and `3 ≤ x` (`hx`): each of the three summands is a
+product or quotient of nonnegative factors (`efShiftB_nonneg`; `1 + 1/log x − σa ≥ 0`
+because `σa ≤ 1`). -/
 lemma efShiftBound_nonneg {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀)
     (hσa : 0 < σa) (hσa1 : σa ≤ 1) (hσab : σa < σb) (hx : 3 ≤ x) :
     0 ≤ efShiftBound q T₀ σa σb x := by
@@ -2024,8 +2025,9 @@ lemma efZfrCeil_le_one {q : ℕ} {c₀ u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) (h
   have : (0 : ℝ) < c₀ / Real.log ((q : ℝ) * (efT0 q u + 3)) := div_pos hc₀ h
   linarith
 
-/-- `u ↦ efZfrCeil q c₀ u` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`) and any `c₀`: `c₀` over
-the continuous (`cont_logQT` at `a = 3`), positive (`log_q_efT0_add3_pos`) logarithm. -/
+/-- `u ↦ efZfrCeil q c₀ u` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`) and any `c₀`: `1` minus
+`c₀` over the continuous (`cont_logQT` at `a = 3`), positive (`log_q_efT0_add3_pos`)
+logarithm. -/
 lemma continuousOn_efZfrCeil {q : ℕ} (hq : 2 ≤ q) (c₀ : ℝ) :
     ContinuousOn (fun u : ℝ => efZfrCeil q c₀ u) (Set.Ici (3 : ℝ)) := by
   simp only [efZfrCeil]
