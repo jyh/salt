@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `833dc402` · source digest `adbe83b1d7f494b6` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `d311913c` · source digest `977df719bffb2758` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1692,13 +1692,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_A1_lower` | Salt/Goldbach/A1.lean:191 | sieves |
 | `Salt.Goldbach.goldBVSum` | Salt/Goldbach/A1.lean:314 | sieves |
 | `Salt.Goldbach.W_goldA1_ge` | Salt/Goldbach/A1.lean:365 | sieves |
-| `Salt.Goldbach.gold_A1_lower_W` | Salt/Goldbach/A1W.lean:216 | sieves |
-| `Salt.Goldbach.goldRosserRemainderW_le_split` | Salt/Goldbach/A1W.lean:318 | sieves |
-| `Salt.Goldbach.goldBVSum_W` | Salt/Goldbach/A1W.lean:354 | sieves |
-| `Salt.Goldbach.goldApSumW_eq_psiAP` | Salt/Goldbach/A2W.lean:95 | sieves |
-| `Salt.Goldbach.goldA2W_rem_eq` | Salt/Goldbach/A2W.lean:215 | sieves |
-| `Salt.Goldbach.goldRosserRemainderW2_le_split` | Salt/Goldbach/A2W.lean:351 | sieves |
-| `Salt.Goldbach.goldA2_hBVagg_W` | Salt/Goldbach/A2W.lean:407 | sieves |
+| `Salt.Goldbach.gold_A1_lower_W` | Salt/Goldbach/A1W.lean:227 | sieves |
+| `Salt.Goldbach.goldRosserRemainderW_le_split` | Salt/Goldbach/A1W.lean:329 | sieves |
+| `Salt.Goldbach.goldBVSum_W` | Salt/Goldbach/A1W.lean:365 | sieves |
+| `Salt.Goldbach.goldApSumW_eq_psiAP` | Salt/Goldbach/A2W.lean:99 | sieves |
+| `Salt.Goldbach.goldA2W_rem_eq` | Salt/Goldbach/A2W.lean:225 | sieves |
+| `Salt.Goldbach.goldRosserRemainderW2_le_split` | Salt/Goldbach/A2W.lean:361 | sieves |
+| `Salt.Goldbach.goldA2_hBVagg_W` | Salt/Goldbach/A2W.lean:417 | sieves |
 | `Salt.Goldbach.gold_log_absorb` | Salt/Goldbach/Agg.lean:52 | sieves |
 | `Salt.Goldbach.gold_hSum_at_op` | Salt/Goldbach/Agg.lean:77 | sieves |
 | `Salt.Goldbach.gold_mainA3_of_block_remainders_W` | Salt/Goldbach/Agg2.lean:53 | sieves |
@@ -1829,15 +1829,15 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_op_Yhalf` | Salt/Goldbach/Omega.lean:384 | sieves |
 | `Salt.Goldbach.goldOpP_pfull` | Salt/Goldbach/Omega.lean:418 | sieves |
 | `Salt.Goldbach.gold_a12_hA2` | Salt/Goldbach/Omega.lean:557 | sieves |
-| `Salt.Goldbach.gold_opQ_squarefree` | Salt/Goldbach/Op.lean:65 | sieves |
-| `Salt.Goldbach.gold_opQ_even` | Salt/Goldbach/Op.lean:71 | sieves |
-| `Salt.Goldbach.gold_opQ_coprime_P` | Salt/Goldbach/Op.lean:122 | sieves |
-| `Salt.Goldbach.gold_op_Zpow9` | Salt/Goldbach/Op.lean:151 | sieves |
-| `Salt.Goldbach.gold_op_residue` | Salt/Goldbach/Op.lean:186 | sieves |
-| `Salt.Goldbach.gold_a12_hBV_A1` | Salt/Goldbach/Op.lean:265 | sieves |
-| `Salt.Goldbach.gold_a12_hA1` | Salt/Goldbach/Op.lean:292 | sieves |
-| `Salt.Goldbach.gold_op_count_rows` | Salt/Goldbach/Op.lean:337 | sieves |
-| `Salt.Goldbach.gold_op_hCE` | Salt/Goldbach/Op.lean:399 | sieves |
+| `Salt.Goldbach.gold_opQ_squarefree` | Salt/Goldbach/Op.lean:69 | sieves |
+| `Salt.Goldbach.gold_opQ_even` | Salt/Goldbach/Op.lean:75 | sieves |
+| `Salt.Goldbach.gold_opQ_coprime_P` | Salt/Goldbach/Op.lean:126 | sieves |
+| `Salt.Goldbach.gold_op_Zpow9` | Salt/Goldbach/Op.lean:158 | sieves |
+| `Salt.Goldbach.gold_op_residue` | Salt/Goldbach/Op.lean:196 | sieves |
+| `Salt.Goldbach.gold_a12_hBV_A1` | Salt/Goldbach/Op.lean:275 | sieves |
+| `Salt.Goldbach.gold_a12_hA1` | Salt/Goldbach/Op.lean:308 | sieves |
+| `Salt.Goldbach.gold_op_count_rows` | Salt/Goldbach/Op.lean:359 | sieves |
+| `Salt.Goldbach.gold_op_hCE` | Salt/Goldbach/Op.lean:427 | sieves |
 | `Salt.Goldbach.gold_hcount_seam` | Salt/Goldbach/Op2.lean:297 | sieves |
 | `Salt.Goldbach.gold_box_live_ratios` | Salt/Goldbach/OpPlumb.lean:45 | sieves |
 | `Salt.Goldbach.gold_box_hbox_geoN` | Salt/Goldbach/OpPlumb.lean:148 | sieves |
@@ -1848,7 +1848,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_diagAggW_le_honest` | Salt/Goldbach/PDiag.lean:178 | sieves |
 | `Salt.Goldbach.gold_PloW_honest` | Salt/Goldbach/PDiag.lean:399 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_discharge'` | Salt/Goldbach/PDiag.lean:502 | sieves |
-| `Salt.Goldbach.goldPerPair_pi_upper` | Salt/Goldbach/PiUpper.lean:373 | sieves |
+| `Salt.Goldbach.goldPerPair_pi_upper` | Salt/Goldbach/PiUpper.lean:378 | sieves |
 | `Salt.Goldbach.gold_crtClassG_coprime_of_mem` | Salt/Goldbach/Price.lean:60 | sieves |
 | `Salt.Goldbach.gold_box_price_engine` | Salt/Goldbach/Price.lean:165 | sieves |
 | `Salt.Goldbach.gold_tower_budget` | Salt/Goldbach/PriceClose.lean:50 | sieves |
@@ -7444,8 +7444,8 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Fulcrum.fulcrum_dichotomy` | Salt/Fulcrum/Dichotomy.lean:102 | other | `TwinPrimeConjecture` |
 | `Salt.Fulcrum.imsz_gives_fulcrum_witnesses` | Salt/Fulcrum/Gadget.lean:128 | characters | `Salt.TwinBar.InfinitelyManySiegelZeros` |
 | `Salt.Goldbach.gold_A1_lower_B` | Salt/Goldbach/A1.lean:235 | sieves | `Salt.Chen.StepHypWPC` |
-| `Salt.Goldbach.gold_A1_lower_B_W` | Salt/Goldbach/A1W.lean:264 | sieves | `Salt.Chen.StepHypWPC` |
-| `Salt.Goldbach.gold_A2_per_prime_W` | Salt/Goldbach/A2W.lean:313 | sieves | `Salt.Chen.StepHypWPC` |
+| `Salt.Goldbach.gold_A1_lower_B_W` | Salt/Goldbach/A1W.lean:275 | sieves | `Salt.Chen.StepHypWPC` |
+| `Salt.Goldbach.gold_A2_per_prime_W` | Salt/Goldbach/A2W.lean:323 | sieves | `Salt.Chen.StepHypWPC` |
 | `Salt.Goldbach.chen_goldbach_of_standoff` | Salt/Goldbach/SiegelFree.lean:39 | sieves | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.HB.deltaSum_nuG_mul_additive` | Salt/HB/CrownAssembly.lean:381 | characters | `Salt.HB.IsAdditiveOn` |
 | `Salt.HB.deltaSum_nuG_mul_additive_le` | Salt/HB/CrownAssembly.lean:523 | characters | `Salt.HB.IsAdditiveOn` |
