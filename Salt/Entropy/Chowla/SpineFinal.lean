@@ -976,8 +976,8 @@ theorem log_chowla_two_door_only_xi :
 `MRTUniformity R δ`, derived from the Ξ_H-restricted terminal via the landed
 kernel-checked implication `mrtUniformity_implies_xi` (MRTDoor).  The full door
 implies its Ξ_H restriction, so this is a strict corollary — no second core
-replay, no statement change.  Both Chowla terminals are now door-only-conditional
-with the `t`/`g`/`hbudget1` residual gone from every surface. -/
+replay, no statement change.  Both door-only terminals are free of the `t`/`g`/`hbudget1`
+residual; it survives only in the superseded `log_chowla_two_final(_xi)`. -/
 theorem log_chowla_two_door_only :
     ∃ (δ₀ : ℝ) (R : ChowlaRegime), 0 < δ₀ ∧
       ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformity R δ →

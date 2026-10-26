@@ -286,7 +286,6 @@ dc7d2fa0fa31	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
 94dabbaf5bd0	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 9af8da6c297e	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 ab5281088a61	Salt/Entropy/Chowla/SpineFinal.lean	docstring
-e5911aab0972	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 c0fb06e523f0	Salt/Entropy/Chowla/SpineFlat.lean	docstring
 378919b0a20d	Salt/Entropy/Chowla/StrideBridge.lean	docstring-cited
 5df2086833b2	Salt/Entropy/Chowla/StrideBridge.lean	docstring-cited
