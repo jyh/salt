@@ -4,8 +4,8 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # The composition: the entropy-decrement headline (Chowla / Liouville, Lemma 3.1)
 
-The wave-IV keystone of the A-R2 rung — the first information-theoretic argument
-in formalized analytic number theory.  It fuses the two frozen outputs of the
+The wave-IV keystone of the A-R2 rung — an information-theoretic argument in
+formalized analytic number theory.  It fuses the two frozen outputs of the
 spine into Tao arXiv:1509.05422v2 Lemma 3.1 (Liouville form):
 
 * wave III's telescope `tower_telescope` (`Salt/Entropy/Chowla/Tower.lean`): IF
