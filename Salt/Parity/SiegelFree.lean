@@ -24,7 +24,7 @@ through those two (O13 census addendum 7, the flagship paper's citations). This 
   `siegel_theorem`, `siegel_L_one_exceptional` and `L1_lower_siegel` (`Salt.SW.StandoffCert`).
 * As with the unconditional instances, `parityInv_of_closed` carries no arithmetic content: a
   closed proposition is parity-invariant. These exist so that every Lean name the paper cites
-  has a standoff form. ⚠️ Nothing here bears on twin primes.
+  that reaches `siegel_theorem` has a standoff form. ⚠️ Nothing here bears on twin primes.
 -/
 
 /-- `parityInv_chen_headline` from a Siegel standoff: `parityInv_of_closed` applied to
