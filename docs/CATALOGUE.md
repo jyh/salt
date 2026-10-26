@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `932c77d6` · source digest `f3bed0d66a4e73a8` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `1e3345f1` · source digest `1291848d3ee564a1` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6779,7 +6779,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_zero_free_region` | Salt/SW/ZetaZeroFree.lean:235 | zeros, sieves |
 | `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:800 | other |
 | `Salt.Twelve.M5_cert` | Salt/Twelve/Certificate.lean:265 | sieves |
-| `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:155 | sieves |
+| `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:164 | sieves |
 | `Salt.Twelve.collision_yF_M` | Salt/Twelve/InnerS1.lean:956 | sieves |
 | `Salt.Twelve.phiUpperAtom_final` | Salt/Twelve/PhiUpperReindex.lean:458 | sieves |
 | `Salt.Twelve.bounded_gaps_reduces_twelve` | Salt/Twelve/Pigeonhole12.lean:98 | sieves |
@@ -8882,8 +8882,8 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.not_fulcrum_siegelFree_SW` | Salt/SW/StandoffGate.lean:803 | sieves | `¬Salt.Fulcrum.FulcrumQualityMin` |
 | `Salt.SW.sum_inv_sq_sub_le_of_wellSpacedAt` | Salt/SW/WellSpacedAt.lean:93 | sieves | `Salt.SW.WellSpacedAt` |
 | `Salt.ThreePrimes.three_primes_of_standoff` | Salt/ThreePrimes/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:268 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
-| `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1061 | sieves | `WindowPNT`, `EHall` |
+| `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:303 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
+| `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1097 | sieves | `WindowPNT`, `EHall` |
 | `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1204 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:279 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2149 | sieves | `Salt.Twelve.PhiUpperAtom` |
