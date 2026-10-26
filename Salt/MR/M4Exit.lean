@@ -38,7 +38,7 @@ The last stone of the MRT §4 port (`docs/exploration/s9-freeze-0726.md`,
 3. **The `∀ξ`-outside preservation** (§4–§5).  The per-`(H, α)` bound is
    weakened to the pin (`absWindowBound_le_pin`) and handed to M4-0's adapter
    `mrtUniformityXi_of_absWindowBound_twelve` (`M4Window.lean:267`) unchanged.
-   The `∀ ξ` of `MRTUniformityXi` (`MRTDoor.lean:109–111`) stays OUTSIDE the
+   The `∀ ξ` of `MRTUniformityXi` (`MRTDoor.lean:114–116`) stays OUTSIDE the
    integral throughout: nothing in this file introduces a `sup`, and the only
    `intro` over `ξ` is the adapter's own.  `MRTDoor` lives in
    `Salt/Entropy/Chowla/`, not `Salt/MR/`.
@@ -295,7 +295,7 @@ theorem m4_exit_of_hbd (R : ChowlaRegime) (C : ℝ) (hC : 0 ≤ C)
   hadapt (doorGrade R.Hlo) (absWindowBound_le_pin R C hC hgate hbd)
 
 /-- **The collision at the pinned grade.**  `contradiction_of_mrtDoorXi`
-(`MRTDoor.lean:127`) fired at `δ := doorGrade R.Hlo`; its `0 ≤ δ` binder — the
+(`MRTDoor.lean:132`) fired at `δ := doorGrade R.Hlo`; its `0 ≤ δ` binder — the
 one obligation the `Ξ_H`-weakened door cannot derive for itself — is discharged
 by `doorGrade_regime_pos`. -/
 theorem m4_exit_collision (R : ChowlaRegime) {c₀ ε K : ℝ} {H : ℕ} [NeZero H]

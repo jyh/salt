@@ -212,8 +212,8 @@ theorem nearRat_neg {Q r α : ℝ} : NearRat Q r (-α) ↔ NearRat Q r α := by
 
 /-- **The trivial arm.**  `α = 0` is major on every arc system with cap `≥ 1`
 and nonnegative radius (take `a/q = 0/1`).  Together with `ZMod.val_zero` this
-is the `ξ = 0` instance of the frozen target — recall `0 ∈ Ξ_H` always
-(`MRTDoor.lean:106`), so this arm is never vacuous. -/
+is the `ξ = 0` instance of the frozen target — recall `0 ∈ Ξ_H` above a floor
+(`crownNV_zero_mem_bigXi`, `FlatDoorNonVacuity.lean:64`), so there this arm is not vacuous. -/
 theorem nearRat_zero {Q r : ℝ} (hQ : 1 ≤ Q) (hr : 0 ≤ r) : NearRat Q r 0 :=
   ⟨0, 1, Nat.one_pos, by simpa using hQ, by simpa using hr⟩
 
@@ -489,8 +489,8 @@ theorem bigXiArc_of_minorArc {B₅ : ℝ} (h : MinorArcBound B₅) : BigXiArc B�
   exact absurd (mem_bigXi_iff.mp hξ) (not_le.mpr (hH₀ H hle _ hneg))
 
 /-- **The `ξ = 0` instance of the frozen target**, unconditionally.  Recall
-`0 ∈ Ξ_H` always (`MRTDoor.lean:106`), so the target's first instance is never
-vacuous — and it is discharged with no analysis at all, `0` being `0/1`. -/
+`0 ∈ Ξ_H` above a floor (`crownNV_zero_mem_bigXi`, `FlatDoorNonVacuity.lean:64`), so there
+the first instance is not vacuous; it is discharged with no analysis at all, `0` being `0/1`. -/
 theorem nearRat_arc_zero {B₅ : ℝ} (hB : 0 ≤ B₅) {H : ℕ} (hH : 3 ≤ H) :
     NearRat (arcDen B₅ H) (arcRadius B₅ H) (((0 : ZMod H).val : ℝ) / (H : ℝ)) := by
   rw [ZMod.val_zero]
@@ -768,8 +768,8 @@ theorem minorArcBound_of_minorArcBoundTight {B₅ : ℝ} (h : MinorArcBoundTight
   exact hH₀ H hle α (fun ht => hnot (nearRatTight_imp_nearRat ht))
 
 /-- **The `ξ = 0` instance of the amended target**, unconditionally — the tight
-statement is no more vacuous than the flat one, and `0 ∈ Ξ_H` always
-(`MRTDoor.lean:106`). -/
+statement is no more vacuous than the flat one, and `0 ∈ Ξ_H` above a floor
+(`crownNV_zero_mem_bigXi`, `FlatDoorNonVacuity.lean:64`). -/
 theorem nearRatTight_arc_zero {B₅ : ℝ} (hB : 0 ≤ B₅) {H : ℕ} (hH : 3 ≤ H) :
     NearRatTight (arcDen B₅ H) H (((0 : ZMod H).val : ℝ) / (H : ℝ)) := by
   rw [ZMod.val_zero]

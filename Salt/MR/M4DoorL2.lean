@@ -28,7 +28,7 @@ import direction forbade closing it in either supplier's own file:
 * `sum_bigXi_norm_windowExpSum_sq_le_parseval` / `…_twelve` /
   `mrtUniformityXiL2_of_absWindowSqBound` / `l2_budget_line` (`M4Window` §5) — the
   `Ξ_H`-summed arc adapter, whose insert budget is the NAMED hypothesis `hins`;
-* `MRTUniformityXiL2` (`MRTDoor.lean:187`) — the `Ξ`-summed `L²` door predicate.
+* `MRTUniformityXiL2` (`MRTDoor.lean:192`) — the `Ξ`-summed `L²` door predicate.
 
 `M4Window` is UPSTREAM of `M4ParsevalStone`, so the adapter cannot cite the stone.  This
 file imports both, and §1 discharges `hins` from the stone — the mechanical fuse W3's report
@@ -359,7 +359,7 @@ Two things change on the `L²` route, and only these two:
 1. **the `√` is GONE** — the Cauchy–Schwarz descent of `m4_hbd_of_live` (`:494`) is DELETED,
    because the socket is natively `L²` and the door is now read at the squared scale;
 2. **the target is `c₀ε`, strictly** — the collision `contradiction_of_mrtDoorXiL2`
-   (`MRTDoor.lean:225`) is `K`-free and asks for `ρ < c₀·ε` directly, so no `δ₀` and no
+   (`MRTDoor.lean:205`) is `K`-free and asks for `ρ < c₀·ε` directly, so no `δ₀` and no
    `mrtDeliveredGrade` sits in between.
 
 The three summands are otherwise THE SAME three, at the same places, with the same meanings.
@@ -407,7 +407,7 @@ This section states the seam at the FREEZE's own budget line, `ρ < c₀·ε`, a
 head as `M4DoorL2HeadDemand`.  The shape is read off the landed pieces, not guessed:
 `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:361`, W1) consumes `MRTUniformityXiL2 R ρ`
 together with `hbudget2 : ρ < c₀·ε` and nothing else about the door;
-`contradiction_of_mrtDoorXiL2` (`MRTDoor.lean:225`) is `K`-free.  So the head's whole
+`contradiction_of_mrtDoorXiL2` (`MRTDoor.lean:205`) is `K`-free.  So the head's whole
 door-facing surface is exactly the pair (door predicate, strict budget) — which is what §1
 and §3 deliver.
 
