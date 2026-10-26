@@ -36,7 +36,7 @@ defs), independent value, review surface manageable.
 ## Tier 3 — the analytic-NT toolkit
 
 - `Salt.Mertens.mertens_third` (+ the M = γ − B chain) —
-  believed first-anywhere; explicit rate.
+  explicit rate.
 - `Salt.ExpSum.kusmin_landau` (C = 1), the vdC second/third/
   k-th derivative tests, `zeta_block_bound`,
   `zeta_strip_family` (post-VK, as a family).
