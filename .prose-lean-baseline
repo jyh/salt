@@ -375,10 +375,6 @@ e3f9ce5225a2	Salt/MaynardK/ControlsSquareM.lean	docstring
 acd82913cf92	Salt/MaynardK/Tuple600.lean	docstring
 2c8289558560	Salt/SW/CoprimeHarmonic.lean	docstring
 9d9b8d805c0f	Salt/SW/CoprimeHarmonic.lean	docstring
-944511bc3564	Salt/SW/DHFinal.lean	docstring
-e036d9386573	Salt/SW/DHMollified.lean	docstring
-e43586eb05e5	Salt/SW/DHMollified.lean	docstring
-b83fede5b42b	Salt/SW/DHTrunc.lean	docstring
 904b3d324757	Salt/SW/GrahamHard.lean	docstring
 944c06ec0b4a	Salt/SW/GrahamHard.lean	docstring
 904b3d324757	Salt/SW/GrahamHard2.lean	docstring
