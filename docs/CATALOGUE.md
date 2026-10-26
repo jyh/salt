@@ -1,13 +1,13 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `84ea6c37` · source digest `d7e8afaea79e9d72` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `3af3c53c` · source digest `58486240be5a265c` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9178 | 9123 | 9122 | 1 | 0 | 55 |
+| 26 | 24 | 9192 | 9137 | 9136 | 1 | 0 | 55 |
 
 Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hypothesis universe): 678.
 
@@ -15,12 +15,12 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6784 | 296 | 2074 | 4625 | 376 | 425 | 41 |
+| unconditional | 6796 | 296 | 2086 | 4633 | 376 | 425 | 41 |
 | conditional | 1652 | 26 | 213 | 1435 | 103 | 24 | 13 |
-| statement-only | 211 | 0 | 4 | 198 | 10 | 0 | 0 |
-| infrastructure | 475 | 0 | 68 | 366 | 48 | 17 | 1 |
+| statement-only | 212 | 0 | 5 | 198 | 10 | 0 | 0 |
+| infrastructure | 476 | 0 | 69 | 366 | 48 | 17 | 1 |
 | unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **all** | 9123 | 322 | 2359 | 6624 | 538 | 466 | 55 |
+| **all** | 9137 | 322 | 2373 | 6632 | 538 | 466 | 55 |
 
 ## LIMITS — read these beside every count above
 
@@ -492,7 +492,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6784)
+## unconditional (6796)
 
 | name | file:line | objects |
 |---|---|---|
@@ -6235,14 +6235,26 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.SW.sum_gcW_pairkernel_le` | Salt/SW/DHExtractW.lean:926 | sieves, characters |
 | `Salt.SW.dh_extraction_per_m` | Salt/SW/DHExtractW.lean:1010 | sieves, characters |
 | `Salt.SW.dh_extraction_upper_W` | Salt/SW/DHExtractW.lean:1163 | sieves, characters |
+| `Salt.SW.dhCoeff_one` | Salt/SW/DHFinal.lean:90 | sieves, characters |
+| `Salt.SW.norm_dhDetectorShift_term` | Salt/SW/DHFinal.lean:97 | sieves, characters |
+| `Salt.SW.dhDetectorShift_eq_add_tail` | Salt/SW/DHFinal.lean:109 | sieves, characters |
+| `Salt.SW.norm_dhDetectorShift_ge` | Salt/SW/DHFinal.lean:132 | sieves, characters |
+| `Salt.SW.dhGlin_one_eq` | Salt/SW/DHFinal.lean:163 | sieves |
+| `Salt.SW.norm_dhGlin_one_le` | Salt/SW/DHFinal.lean:175 | sieves |
+| `Salt.SW.norm_dhGpoly_one_le` | Salt/SW/DHFinal.lean:185 | sieves |
 | `Salt.SW.sum_moebius_mul_div_eq_one` | Salt/SW/DHMain.lean:61 | sieves, characters |
 | `Salt.SW.abs_mwWeighted_le_one` | Salt/SW/DHMain.lean:97 | sieves |
 | `Salt.SW.abs_sum_grahamTheta_div_le_one` | Salt/SW/DHMain.lean:218 | sieves |
+| `Salt.SW.dvd_mul_iff_div_gcd_dvd` | Salt/SW/DHMollified.lean:81 | sieves |
 | `Salt.SW.dhDetectorShift_regroup` | Salt/SW/DHMollified.lean:121 | sieves, characters |
+| `Salt.SW.sum_range_filter_dvd_char_eq` | Salt/SW/DHMollified.lean:166 | sieves, characters |
+| `Salt.SW.norm_range_filter_dvd_partial_le` | Salt/SW/DHMollified.lean:227 | sieves, characters |
+| `Salt.SW.norm_inner_mdiv_le` | Salt/SW/DHMollified.lean:259 | sieves, characters |
 | `Salt.SW.norm_shifted_detector_mollified_le` | Salt/SW/DHMollified.lean:356 | sieves, characters |
 | `Salt.SW.dhDetector_floor` | Salt/SW/DHRepulsion.lean:112 | sieves, characters |
 | `Salt.SW.dhDetector_mellin` | Salt/SW/DHRepulsion.lean:188 | sieves, characters |
 | `Salt.SW.dhLSeries_identity` | Salt/SW/DHRepulsion.lean:239 | zeros, sieves, characters |
+| `Salt.SW.partial_sum_at_zero_small` | Salt/SW/DHTrunc.lean:96 | sieves, characters |
 | `Salt.SW.psi1Chi_eq_sum_psi1AP` | Salt/SW/Defs.lean:83 | sieves, characters |
 | `Salt.SW.psi1_fold` | Salt/SW/Defs.lean:123 | sieves, characters |
 | `Salt.SW.psi1AP_nonneg` | Salt/SW/Defs.lean:177 | sieves |
@@ -8938,7 +8950,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.Vmvt.pairEqDominant_JkI_le_const` | Salt/Vmvt/Holder.lean:248 | exponential sums | `Salt.Vmvt.PairEqFracBound` |
 | `Salt.Vmvt.vmvt_step_transversal_large` | Salt/Vmvt/StepFull.lean:442 | exponential sums | `Salt.Vmvt.VmvtBound` |
 
-## statement-only (211)
+## statement-only (212)
 
 | name | file:line | objects |
 |---|---|---|
@@ -9151,10 +9163,11 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.MR.HalaszIntegersChi` | Salt/MR/USetChiTS.lean:124 | characters |
 | `Salt.MR.S16BaseScaleCapEnd_LH_gk` | Salt/MR/V7RatedH.lean:152 | characters |
 | `Salt.SW.NoSiegelZerosAt` | Salt/SW/StandoffGate.lean:88 | sieves |
+| `Salt.TwinBar.AffFullRangeAt` | Salt/TwinBar/TwinParityAtomClasses.lean:494 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:145 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:142 | sieves |
 
-## infrastructure (475)
+## infrastructure (476)
 
 | name | file:line | objects |
 |---|---|---|
@@ -9610,6 +9623,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.Δ₄_eq_R₄` | Salt/TwinBar/Simplex4.lean:51 | sieves |
 | `Salt.TwinBar.Δ₃_one_eq_R₃` | Salt/TwinBar/SimplexS.lean:44 | sieves |
 | `Salt.TwinBar.w_sum_three` | Salt/TwinBar/ThreeBar.lean:202 | sieves |
+| `Salt.TwinBar.admClasses` | Salt/TwinBar/TwinParityAtomClasses.lean:82 | sieves |
 | `Salt.TwinBar.twinParitySieve` | Salt/TwinBar/TwinParitySieve.lean:66 | sieves |
 | `Salt.TwinBar.twinParitySieve_prodPrimes` | Salt/TwinBar/TwinParitySieve.lean:82 | sieves |
 | `Salt.TwinBar.twinParitySieve_nu` | Salt/TwinBar/TwinParitySieve.lean:85 | sieves |
