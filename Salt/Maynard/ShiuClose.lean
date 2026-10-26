@@ -41,6 +41,7 @@ noncomputable def rsumTerm (A C₀ : ℝ) (r : ℕ) : ℝ :=
   A ^ r * Real.exp (-((r : ℝ) * Real.log r) / 8
     + (r : ℝ) ^ (1 / 4 : ℝ) * (Real.log r / 2 + C₀))
 
+/-- `0 ≤ rsumTerm A C₀ r` for `0 ≤ A` (`hA`): a nonnegative power times an exponential. -/
 lemma rsumTerm_nonneg {A C₀ : ℝ} (hA : 0 ≤ A) (r : ℕ) : 0 ≤ rsumTerm A C₀ r := by
   unfold rsumTerm
   exact mul_nonneg (pow_nonneg hA r) (Real.exp_nonneg _)
