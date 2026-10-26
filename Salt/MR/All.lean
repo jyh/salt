@@ -8068,10 +8068,10 @@ of record. -/
 
 /-! ⟦KS-RETHREAD — `logChowla2_ineffective_v7_ksarm`⟧ (`V7Ks`, 2026-08-14, waking review 08-15).
 
-⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A proved `Real.exp (-100) ≤ Ks` is not provable as a
-numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at `ε = 1/16` —
-and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field of
-`S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
+⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A argued on paper that `Real.exp (-100) ≤ Ks` cannot be
+proved as a numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at
+`ε = 1/16` — and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field
+of `S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
 The window is `A`-satisfiable and the numeral is not, so the rider is not discharged where it
 stands: the window is threaded DOWN to the leaf, and met at the top by a new arm of `A`'s `max`.
 
