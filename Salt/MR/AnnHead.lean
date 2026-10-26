@@ -455,7 +455,7 @@ But that hypothesis EXCEEDS `M_range`'s structural ceiling: `M_range` is an infi
 every term is `≤ 2/p` and Mertens gives `M_range ≤ 2·loglog X + O(1)` — the extreme value
 evaluated in `Dist.pretDistSq_principal_eval`.  Since `2e ≈ 5.44 > 2`, the strong floor is
 ASYMPTOTICALLY UNSATISFIABLE: those rows are true theorems and exact exchange-rate
-certificates, but they are NOT a usable socket.  Do not wire them.
+certificates, but NOT a usable socket (the ceiling is Mertens; no theorem here).  Do not wire them.
 
 **The residual, priced.**  With the best admissible floor `M ≥ 2·loglog X` the spare decay
 is only `e^{−(1/e)M} ≤ (logX)^{−2/e}`, so the crude measure×sup route falls short of the
@@ -638,7 +638,7 @@ raised from `1/32` to `2e`, a factor `64e ≈ 174`.
 ⚠ **NOT A USABLE SOCKET — the hypothesis exceeds `M_range`'s ceiling.**  `M_range` infimizes
 `pretDistSq` over 1-bounded data, whose every term is `≤ 2/p`, so `M_range ≤ 2·loglog X +
 O(1)` by Mertens (the extreme value is `Dist.pretDistSq_principal_eval`).  `2e ≈ 5.44 > 2`,
-so no `X` large satisfies this floor.  The theorem is true and is recorded as the exact
+so no large `X` satisfies it (Mertens; not a theorem here).  The theorem is true, the exact
 exchange-rate certificate for the `(logX)²`; it must NOT be wired into a chain.  The usable
 general-`T` statements are `annHead_le_socket_T` (polylog grade, no gate) and
 `annHead_le_socket_polyT` (bare `X`, gate `T ≤ (logX)^A`). -/
