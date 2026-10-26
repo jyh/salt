@@ -32,7 +32,8 @@ square-freeness (`gcd_mul_eq_gcd_mul_gcd_div` carries no hypothesis). The `f`-sp
 the `≠` row `pseudoChar_selbergPsi_four_two_two` at the end of this file, so the hypothesis
 `Squarefree r` on `pseudoChar_mul_of_squarefree` is recorded as load-bearing IN LEAN, not only
 in prose. Also measured: `ψ_6(6) = 2 = ψ_6(2)·ψ_3(3)` (the exit row below), `ψ_30(5) = −4`,
-`max |ψ_r(n)|/r = 1.000` over `r ≤ 60`, `n ≤ 200` (the sharpness of `abs_pseudoChar_selbergPsi_le`).
+`max |ψ_r(n)|/r = 1.000` over `r ≤ 60`, `n ≤ 200`, attained only at `r = 1` —
+`abs_pseudoChar_selbergPsi_le` is an equality exactly when `gcd(r, n) = 1`.
 -/
 
 open ArithmeticFunction
@@ -170,8 +171,8 @@ theorem abs_selbergPsi_le (n : ℕ) : |selbergPsi n| ≤ (n : ℝ) := by
   rw [selbergPsi_apply, abs_mul, abs_of_nonneg h2]
   nlinarith only [h1, h3, (Nat.cast_nonneg _ : 0 ≤ ↑n.totient)]
 
-/-- `|ψ_r(n)| ≤ gcd(r, n)`: `abs_selbergPsi_le` at `gcd(r, n)` (sharp: `max |ψ_r(n)|/r = 1`
-measured over `r ≤ 60`, `n ≤ 200`). -/
+/-- `|ψ_r(n)| ≤ gcd(r, n)`: `abs_selbergPsi_le` at `gcd(r, n)`; equality exactly when
+`gcd(r, n) = 1`. -/
 theorem abs_pseudoChar_selbergPsi_le (r n : ℕ) :
     |pseudoChar selbergPsi r n| ≤ (Nat.gcd r n : ℝ) := by
   simpa only [pseudoChar] using abs_selbergPsi_le (Nat.gcd r n)
