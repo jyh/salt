@@ -26,7 +26,7 @@ radius.  The landed GS 7.1 transfer (`BallSup.transfer_at_scale`) prices the twi
 sums at `√2/(1+|t−t₁*|)` times their value AT the pocket centre — and at the centre the
 TRIVIAL bound `‖∑_{n≤k} f(n)n^{−it₁*}‖ ≤ k` (S₀ = 1, `center_trivial_bound`) already
 suffices, because the transfer's own `1/(1+|t−t₁*|) ≤ 1/seamRad X = (log X)^{−1/46}` is
-already `6×` better (in the exponent) than the `(log X)^{−ρ}`, `ρ = 3θ ≈ 1/98`, the row
+already `2×` better (in the exponent) than the `(log X)^{−ρ}`, `ρ = 3θ ≈ 1/98`, the row
 needs.  **No Halász input, no `c`-generic grade, no window floor.**
 
 ## What is proved here

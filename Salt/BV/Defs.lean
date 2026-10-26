@@ -29,9 +29,9 @@ open Salt.LS
 namespace Salt.BV
 
 /-- Siegel–Walfisz: ψ(x; q, a) = x/φ(q) + O_A(x/(log x)^A) uniformly for
-q ≤ (log x)^C. The single assumed analytic input of this rung (absent from
-every Lean artifact as of 2026-07; supplied by future formalization or
-upstream). ψ-form, in this repo's carriers. -/
+q ≤ (log x)^C. The single analytic input this rung assumed (absent from
+every Lean artifact as of 2026-07; proved since as `siegelWalfisz_holds`,
+`Salt/SW/Gate.lean`). ψ-form, in this repo's carriers. -/
 def SiegelWalfisz : Prop :=
   ∀ A C : ℝ, 0 < A → 0 < C → ∃ K : ℝ, 0 ≤ K ∧ ∀ x q a : ℕ, 2 ≤ x →
     0 < q → ((q : ℝ) ≤ (Real.log x) ^ C) → Nat.Coprime a q →

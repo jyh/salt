@@ -13,10 +13,10 @@ Design: `docs/blueprints/chen.md`, the C3c row.  `Salt.Chen.hErrSum_discharge` (
 reorganised the α/β coprimality error of `bilinear_hLargeDisc`'s `hErrSum` slot into
 `∑_{e=2}^{D} EfoldTerm e` and exposed the single remaining analytic core as a named
 per-`e` glue.  This file lands the **density fold** it rests on, packages the glue into
-the `1/e²` convergence envelope, and **composes the entire keystone-2 stack** —
-`hErrSum_discharge` (C3c‴) + `hMainEnergy_discharge` (C3c″) + `bilinear_hLargeDisc`
-(C3c′) + `general_BV_closed` (C3c) — into `general_BV_final`, closed for
-`β = blockPrimeInd N` modulo the operating-scale side conditions, `‖α‖ ≤ 1`, and the
+the `1/e²` convergence envelope, and **composes** `hErrSum_discharge` (C3c‴) +
+`bilinear_hLargeDisc` (C3c′) + `general_BV_closed` (C3c) into `general_BV_final`, closed
+for `β = blockPrimeInd N` modulo the operating-scale side conditions, `‖α‖ ≤ 1`, the named
+main-energy bound `hMainEnergy` (`hMainEnergy_discharge` is not composed here), and the
 single named per-`e` energy glue `hPerE`.
 
 ## What this file lands (sorry-free)
@@ -61,9 +61,9 @@ close crudely: the α-side threshold `e ≷ X/(log)^{2A+6}` controls `⌊X/e⌋`
 leaves the β-side crude total `~ D·XY/e²` uncontrolled when `Y ≫ X` — the two sides need
 independent `X`- and `Y`-scale thresholds and their own energy engines.  The density fold
 (step 1 above, the reusable convergent weight) is landed; re-running both engines is the
-deferred research core.  Consequently `general_BV_final` closes modulo this single
-`hPerE` glue (all four structural layers — identity, reorganisation, envelope, and the
-full keystone composition — are landed).
+deferred research core.  Consequently `general_BV_final` closes modulo this `hPerE`
+glue and the named `hMainEnergy` (the four structural layers — identity, reorganisation,
+envelope, and the keystone composition — are landed).
 
 Only `[propext, Classical.choice, Quot.sound]` are used.
 -/
@@ -185,8 +185,8 @@ a fixed residue for the interval prime indicator is bounded by `(Kβ + (Kmain + 
 XM/(log XM)^A`, closed modulo: the operating-scale side conditions, `‖α‖ ≤ 1`, the named
 main-energy bound `hMainEnergy` (its own C3c″ discharge `hMainEnergy_discharge`), and the
 single named per-`e` energy glue `hPerE` (the deferred research core; see the module FLAG).
-This is the entire analytic stack of keystone 2 assembled — the last structural gap of the
-A₃ switch closed down to `hPerE`. -/
+This is keystone 2's analytic stack assembled, with two analytic inputs still named:
+`hMainEnergy` and `hPerE`. -/
 theorem general_BV_final {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M R₀ D0 D : ℕ) (Dset : Finset ℕ) (Kβ Kmain Kerr : ℝ),

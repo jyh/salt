@@ -35,7 +35,7 @@ comes from the LONG prime side (length `N`), NOT the `m`-side.  Summing `#ψ ≤
 `log N ∈ ((7/16)log x, (3/4)log x)` (so `L / log N ≤ 16/7`, costing an `(16/7)^{A+1+2C0}`
 constant absorbed into `Kβ`), lands `≤ Kβ·(X_sub·M)/L^{A+1}`.  **No `√X_sub` threshold appears.**
 So the small-conductor half is priced with cancellation on the prime side and closes verbatim at
-the short-`α` scales.  (Verified against `hSmallCut_discharge`'s hypotheses: `N₀ ≤ N` — `N ≫ 8√x`;
+the short-`α` scales.  (Read against `hSmallCut_discharge`'s hypotheses: `N₀ ≤ N` — `N ≫ 8√x`;
 `M ≤ 2N` — the re-index; `D0 ≤ (log N)^C0`; the SW coupling with `Kβ ~ (log N)`-scale.)
 
 ### (b) the large-conductor half (`D0 < d ≤ D`) — SPLITS into MainEnergy + ErrSum

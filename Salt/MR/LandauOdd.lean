@@ -63,7 +63,7 @@ no odd counterpart anywhere in mathlib (checked: `hurwitzZetaOdd` has no `_apply
 (`Mathlib/Analysis/Complex/AbelLimit.lean`) is present but does not by itself bridge to the
 analytic continuation.
 
-Everything downstream of the gap is therefore stated **conditionally on `SawtoothOdd`** and proved:
+Downstream of the gap, stated **conditionally on `SawtoothOdd`** (now proved: `sawtoothOdd`), are:
 `LFunction_apply_zero_eq_sum_of_sawtooth` (the finite formula), `exists_int_sum_val_mul`
 (integrality of `Σ a·χ(a)` at real `χ`), `L0_floor_of_sawtooth` (the `1/N` floor), and the
 interface instances `L1_lower_odd_primitive_of_sawtooth` (grade `3/2`, primitive `χ`) and

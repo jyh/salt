@@ -7,7 +7,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 **S-4 (desk NE, chartered by the helm 2026-09-14 19:4x under council ⑩'s tempo order) — LANDED
 2026-09-14 21:0x: H and C PROVED by ONE Opus executor at one attempt each, on the helm's word after
 math's non-author pass (NO KILL); M and K1 were proved at the freeze.  HONEST LABEL, FIRST LINE:
-NO NEW UNCONDITIONAL THEOREM (a restatement of landed proofs).**  S-4 restates the landed
+NO NEW MATHEMATICS (a restatement of landed proofs).**  S-4 restates the landed
 entropy head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier
 moved: the landed head proves `door Ra ρ' → ¬ logChowlaFailsAff` at the ONE regime `Ra` it obtains
 from the crown's payload `hcrown` (`∃ Ra`); S-4 states the same arrow at EVERY affine regime at the

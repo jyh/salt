@@ -15,7 +15,7 @@ import Salt.Maynard.EHLevelTheta
 import Salt.Maynard.FrontierDischarge
 
 /-!
-# R2b + R2c — the unconditional closure of the `explicit12` rung
+# R2b + R2c — the closure of the `explicit12` rung, conditional on `EHall`
 
 Design: `docs/blueprints/explicit12-design.md`, cards NC-3 / R2b / R2c; the W5-7
 flag in `docs/blueprints/flags.md`.
@@ -24,7 +24,7 @@ flag in `docs/blueprints/flags.md`.
   eventually in `N'`, for all `D` above an explicit (∃, F-only) cutoff `D₀`.
 * **R2c** (`gaps_le_twelve` — THE frozen capstone name) feeds `winSlackM_ev` through
   `winFrontierMW_of` (R2a) and mirrors `gaps_le_twelve_of_frontierM` at
-  `(D₀, primorial D₀)`, yielding the unconditional explicit bounded-gaps theorem.
+  `(D₀, primorial D₀)`, yielding explicit bounded gaps `≤ 12` given `EHall` (EH at every θ < 1).
 
 The slack anatomy (all at FIXED `(D, W' = primorial D)`, `N' → ∞`,
 `R = ⌊N'^{1999/4000}⌋₊`, `X = (φW'/W')·log R`):
@@ -1049,10 +1049,10 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
   -- === closure ===
   linarith only [hLHS_le, hmain_ge, hcoll_le, hp1, hp2, hp3, hpqe, hpcoll, hpTR, hpherr, hwin']
 
-/-! ## R2c — the unconditional capstone -/
+/-! ## R2c — the capstone, conditional on `EHall` -/
 
-/-- **R2c (THE RUNG CLOSES).**  Explicit bounded prime gaps `≤ 12`, unconditional
-apart from the standing analytic inputs `WindowPNT` and `EHall`: for every `N`
+/-- **R2c (THE RUNG CLOSES).**  Explicit bounded prime gaps `≤ 12`, given `EHall` (and
+`WindowPNT`, which `windowPNT_holds` proves): for every `N`
 there are two primes `p ≠ q > N` with `|q − p| ≤ 12`.  Assembles `winSlackM_ev`
 (R2b) through `winFrontierMW_of` (R2a) — discharging the largeness bundle
 `WinFrontierMW D₀` at the F-only cutoff `D₀` — and mirrors `gaps_le_twelve_of_frontierM`
