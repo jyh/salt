@@ -108,8 +108,8 @@ The one place this needs real care is block comments. The corpus has enormous
 `theorem` or `class`; a naive line regex invents ~40 declarations out of
 documentation. `comment_mask()` tracks nesting depth (Lean block comments
 nest) and string literals, and column 0 inside a comment is never a
-declaration. Verified: `grep` finds 27 lines starting with `class ` under
-`Salt/`, of which **2** are declarations and 25 are wrapped prose.
+declaration. Measured 2026-08-02: `grep` found 27 lines starting with `class ` under
+`Salt/`, of which **2** were declarations and 25 wrapped prose.
 
 `docs/sources/` is excluded: it holds external copyright-encumbered material.
 

@@ -16,7 +16,6 @@ d3c480a741c6	docs/priority-survey-2026-08-11.md	shape
 4a78389d3a60	docs/priority-survey-2026-08-17-delta.md	shape
 9d8ae5373e2c	docs/priority-survey-2026-08-17-delta.md	shape
 a638a9de2821	docs/priority-survey-2026-08-17-delta.md	shape
-15372c7bb942	docs/reports/dichotomy-day-report.md	shape
 355b5958e274	docs/reports/dichotomy-day-report.md	shape
 759f34444819	docs/reports/gold-window-report.md	shape
 c7c26cc47230	docs/reports/gold-window-report.md	shape
@@ -90,7 +89,6 @@ b29d619a6809	papers/witness/main.tex	shape
 b4d1f3bc6aa6	papers/witness/main.tex	shape
 fc548e7304a8	papers/witness/main.tex	predates
 158a5ca8d0b2	papers/witness/pi-overview-draft.md	shape
-bfa308582879	scripts/search/README.md	predates
 # lexicon epoch 2 (R5, council 2026-10-22 item 3): sentences the epoch-1 lexicon did not see, accepted as debt by the WIDENING arm; each exists at the same path in the base tree.
 1b9491cecd72	README.md	lexicon-e2
 1ccdafb07cd9	README.md	lexicon-e2
@@ -200,7 +198,6 @@ fb3816d79759	papers/witness/main.tex	lexicon-e2
 fc67cdd8c5c9	papers/witness/main.tex	lexicon-e2
 feca86efa07d	papers/witness/main.tex	lexicon-e2
 65287af30509	papers/witness/pi-overview-draft.md	lexicon-e2
-400f4b71e331	scripts/search/README.md	lexicon-e2
 # lexicon epoch 3 (R2, council 2026-10-22 item 3): Lean docstring claim sentences, gated from epoch 3 and accepted as debt by the WIDENING arm; class docstring-cited marks a declaration a public carrier names (read those first).
 70e3ce428f6a	Salt/Certs/All.lean	docstring
 773bbbd072df	Salt/Certs/All.lean	docstring
@@ -344,7 +341,6 @@ fcf362a184fe	Salt/Entropy/Chowla/StrideReduce.lean	docstring
 60e8717bcf4c	Salt/ExpSum/ZetaBlock.lean	docstring
 eb1d8683e269	Salt/ExpSum/ZetaBlock.lean	docstring
 5ad627c9948c	Salt/ExpSum/ZetaGrowth.lean	docstring
-9562f732aa1b	Salt/Fulcrum/CZeroNumeral.lean	docstring
 8517a1b74ea7	Salt/Fulcrum/Dichotomy.lean	docstring
 de63f8d20b6b	Salt/Fulcrum/Dichotomy.lean	docstring
 e1eb41d0ab98	Salt/Fulcrum/Gadget.lean	docstring
@@ -376,7 +372,6 @@ ada5715ab412	Salt/HB/L2cERT1.lean	docstring
 51b3bc1a2f23	Salt/HB/L2cEven.lean	docstring
 6fe5882f449b	Salt/HB/L2cEven.lean	docstring
 c17dfe3539ad	Salt/HB/L2cEven.lean	docstring
-4a8a0cd48526	Salt/HB/L2cGlue.lean	docstring
 ae4806c6c373	Salt/HB/L2cMaster.lean	docstring
 b8c02da474a4	Salt/HB/L2cMaster.lean	docstring
 92f369ee03f3	Salt/HB/Lemma10.lean	docstring
@@ -402,8 +397,6 @@ d43633a6be1e	Salt/HB/Lemma7F.lean	docstring
 614fbc5e2836	Salt/HB/Lemma7Kappa.lean	docstring
 f700b91b21b9	Salt/HB/Lemma7Prod.lean	docstring
 eff2f5a43260	Salt/HB/PairInstance.lean	docstring
-440c5ad278c0	Salt/HB/RosserDim4FL.lean	docstring
-57a1ce4403c0	Salt/HB/RosserDim4FL.lean	docstring
 87f6c805b141	Salt/HB/RosserDim4FL.lean	docstring
 f97a88973f61	Salt/HB/RosserDim4FL.lean	docstring
 3bb67f35b422	Salt/HB/SignChain.lean	docstring
@@ -415,10 +408,6 @@ aa93f6eb9478	Salt/HB/SignLiouville.lean	docstring
 bca2b655ac5e	Salt/HB/TwistedMertens.lean	docstring
 cba5dc83b18a	Salt/HB/TwistedMertens.lean	docstring
 efbe3132618e	Salt/HB/TwistedMertens.lean	docstring
-51ddf6210e5d	Salt/Keller/All.lean	docstring
-1ed8b51657ee	Salt/Keller/Counterexample.lean	docstring
-334709bbb781	Salt/Keller/Counterexample.lean	docstring
-e46f3fb3c088	Salt/Keller/Counterexample.lean	docstring
 01cb9c547d48	Salt/MR/All.lean	docstring
 c0e346641050	Salt/MR/All.lean	docstring
 d9149b320487	Salt/MR/All.lean	docstring
@@ -530,7 +519,6 @@ fbc56e1a36cd	Salt/Vk/Littlewood.lean	docstring
 22023a480f65	Salt/Vk/PowRegion.lean	docstring
 8ee5e8481b6e	Salt/Vk/PowRegion.lean	docstring
 cb9df0b90469	Salt/Vk/Taylor.lean	docstring
-e1bd02b7976a	Salt/Vk/TwistLadder.lean	docstring
 6fd0b38226c4	Salt/Vmvt/Holder.lean	docstring
 5967ee9acce1	Salt/Vmvt/HolderTwo.lean	docstring
 7b3d3e18b736	Salt/Vmvt/HolderTwo.lean	docstring

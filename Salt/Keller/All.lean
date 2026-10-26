@@ -15,8 +15,8 @@ counterexample to the Jacobian conjecture (Alpöge/Mathew/Fable preprint,
 (imports Mathlib only): the formal Jacobian determinant identity
 `det Jac F = −2` over ℚ and the three-point fiber collision
 `F(0,0,−1/4) = F(1,−3/2,13/2) = F(−1,3/2,13/2) = (−1/4,0,0)`, hence a
-non-injective Keller map over ℚ and over ℂ. Verified AS STATED in the
-preprint (double-entry transcription). NOT verified here: the preprint's
+non-injective Keller map over ℚ and over ℂ. The statements were transcribed from the
+preprint by double entry and checked against it outside Lean. NOT verified here: the preprint's
 global-geometry sections, properness at infinity, and the stabilization to
 dimensions > 3.
 -/
