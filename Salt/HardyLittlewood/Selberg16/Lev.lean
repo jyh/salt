@@ -42,8 +42,8 @@ noncomputable def twinSieveSel (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N
     unfold ySel
     exact Real.one_le_rpow (by exact_mod_cast hN) (by linarith)
 
-/-- The sifting primes of `twinSieveSel δ hδ N hN` are `PSel δ N` (`rfl`; `hδ : δ < 1`,
-`hN : 1 ≤ N`). -/
+/-- The product of the sifting primes of `twinSieveSel δ hδ N hN` is `PSel δ N` (`rfl`;
+`hδ : δ < 1`, `hN : 1 ≤ N`). -/
 @[simp] lemma twinSieveSel_prodPrimes (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSel δ hδ N hN).prodPrimes = PSel δ N := rfl
 

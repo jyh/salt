@@ -29,8 +29,8 @@ noncomputable def betaDiv : ArithmeticFunction ℝ :=
 /-- `betaDiv m = betaT m / m` (`rfl`): evaluating the arithmetic function. -/
 lemma betaDiv_apply (m : ℕ) : betaDiv m = betaT m / m := rfl
 
-/-- `betaDiv` is multiplicative: `betaT` is (`betaA_isMultiplicative`) and `m ↦ 1 / m` is
-completely multiplicative. -/
+/-- `betaDiv` is multiplicative: `betaT` multiplies on coprime odd arguments (`betaT_mul`) and
+vanishes off the odd ones (`betaT_of_not_odd`), and `m ↦ 1 / m` is completely multiplicative. -/
 lemma isMultiplicative_betaDiv : betaDiv.IsMultiplicative := by
   refine ⟨by simp [betaDiv_apply, betaT_one], ?_⟩
   intro a b hab
