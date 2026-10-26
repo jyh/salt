@@ -223,7 +223,6 @@ c0a6f4aa8de4	Salt/Certs/ChowlaSpine.lean	docstring
 fe7e57e76d60	Salt/Certs/ChowlaSpine.lean	docstring
 2e80d9c57e1e	Salt/Certs/Kloosterman.lean	docstring
 1fba702954ed	Salt/Certs/LargeSieve.lean	docstring
-46ab20a4bbee	Salt/Certs/LargeSieve.lean	docstring
 bdca8067a436	Salt/Certs/LargeSieve.lean	docstring
 072504aa0c73	Salt/Certs/ParityGap.lean	docstring
 56595dfc2b7e	Salt/Certs/ParityGap.lean	docstring
@@ -320,10 +319,8 @@ dc7d2fa0fa31	Salt/Entropy/Chowla/SpineEpsFamily.lean	docstring
 0423cff94ca5	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 3846fd044f68	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 569661e4df45	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
-5ed00d90fea4	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 94dabbaf5bd0	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 9af8da6c297e	Salt/Entropy/Chowla/SpineFinal.lean	docstring
-ab5281088a61	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 e5911aab0972	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 e9b60128e242	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 f1cb5ef2d41a	Salt/Entropy/Chowla/SpineFinal.lean	docstring
