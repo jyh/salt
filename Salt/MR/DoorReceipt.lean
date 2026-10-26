@@ -55,8 +55,8 @@ retired as an object: two consumers, both on the dead plain route, zero producer
 live cone), does not inhabit the class road's register, does not advance the E-ladder, and does
 not prove the crown.  Every landed name is byte-untouched; every declaration here is a sibling.
 Nothing here bears on twin primes: the door is one input of the log-Chowla-2 spine at ONE fixed
-`ε`, and the `∀ε` APEX is blocked at the spine (`log_chowla_two_budget_head` chooses one `ε`), not
-at the door.
+`ε`.  `EpsFamilyReceipt` (09-05) derives the `∀ε` arm, every `ε ≤ 1/500`, from the door at all
+grades (`MRTDoorAllGrades`), so that arm is priced at the door, not on the spine.
 -/
 
 -- The head reaches `uniformCap_shuffle` (and the socket `uniformCap_arc`) by `open private`, the
