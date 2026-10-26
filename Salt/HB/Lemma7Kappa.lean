@@ -38,7 +38,7 @@ definitions and **proves both rows**, with `a₁` and `a₂` explicit — no `O(
 Under HB's own side condition `z > α` every prime `p ≥ z` satisfies `p ∤ α`, so the `p ≥ z`
 halves of `κ`'s two infinite products are *literally* the two infinite products of `𝔖(z,χ)`.
 They cancel factor-by-factor.  What is left is a **finite** identity over the primes `p ≤ ⌊z⌋`
-(`hb_rear_master`), verified in five cases (`p = 2`; and for odd `p`: `p ∣ α`, `χ(p) = 0`,
+(`hb_rear_prod_identity`), proved in five cases (`p = 2`; and for odd `p`: `p ∣ α`, `χ(p) = 0`,
 `χ(p) = 1`, `χ(p) = −1`).  The *only* error in `(4.4)` is HB's own: the product
 `∏_{p∣q,p∤α}(1−2/p)` runs over prime divisors of `q` that may exceed `z`, and there are at most
 `z₀ = L/log z` of them (hb1983-notes:451, landed as `sum_recip_largePrimeFactors_le`).  Hence
