@@ -964,3 +964,4 @@ o88-2026-10-26-133	Salt/Vmvt/All.lean	82837c3effa4	Salt/Vmvt/Summit2.lean::vmvt	
 o88-2026-10-26-134	Salt/Certs/LargeSieve.lean	f68451205021	Salt/LS/AnalyticLS.lean::analytic_LS	90ca82d9bf41	paper	math	2026-10-26
 o88-2026-10-26-190	Salt/Entropy/Chowla/SpineFinal.lean	ab5281088a61	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_final	8ad20856cab9	paper	math	2026-10-26
 o88-2026-10-26-191	Salt/Entropy/Chowla/SpineFinal.lean	5ed00d90fea4	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only_xi	3c894103a88b	paper	math	2026-10-26
+o88-2026-10-26-192	Salt/Entropy/Chowla/SpineFinal.lean	569661e4df45	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only	cfe95b2a7546	paper	math	2026-10-26
