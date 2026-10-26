@@ -63,8 +63,8 @@ the effective-only route reaches C < 2 and is NOT the theorem).
 | S6 | **Orthogonality THEN de-smooth** (order fixed — error #14). DESIGN FROZEN (Fable, 2026-07-12 night, post-S5): parameters `L := log x`, `T := exp(√L)`, `q ≤ L^C`, so `log(f(T+2)) ≤ 2√L` eventually; base `σ₀ := 1 − c₀/(8√L)`, `w := c₀/(16√L)` (σ₀−w ≥ 9/10 eventually ✓). Sub-nodes: **S6a** the imprimitive ψ₁-transfer (`ψ₁(x,χ) = ψ₁(x,χ₁) + O(log q·(log x)·√x-shape)` — the p ∣ q prime-power strip; Dirichlet-series algebra); **S6b** the per-character dispatcher: EVERY χ mod q gets a shifted bound via the case split — (i) χ₀: S5d at hzfζ from S3f (c₃ ∃-composes); (ii) primitive χ ≠ 1, no exceptional zero in the box: S5b clean (hzf from zero_free_region_all: any zero has Re ≤ 1 − c₀/(2√L) < σ₀ − w ✓ 3/16 < 1/2); (iii) the Landau-exceptional β₁ ≥ σ₀ − w (real quadratic χ only; all OTHER real zeros ≤ 1 − c₁/((C+1) log L) ≪ σ₀ − w by S3e): the ADAPTIVE BOX — if β₁ < σ₀ − w clean, else re-base `σ₀'' := β₁ − 2w` (≥ σ₀ − 3w, still 1 − O(1/√L) ✓, and hβsep σ₀''+w = β₁−w ≤ β₁ ✓) and use S5c; **S6c** the fold (`psi1_fold`) + the exceptional-term Siegel bound (`x^{β₁+1}/(β₁(β₁+1)) ≤ x²exp(−(1−β₁)L)`; `siegel_theorem` at ε := 1/(4C): (1−β₁)L ≥ C_ε L^{3/4}` — beats every log power; Page/S4c: at most one exceptional modulus per range if needed for uniformity); **S6d** the REAL first-difference sandwich (`psi1AP_sandwich`) at `h := x/(log x)^{A+2}` + the gate-statement plumbing → **`siegelWalfisz_holds : SiegelWalfisz`** and `bounded_gaps` UNCONDITIONAL | B/C-cluster | S5b/S5c/S5d + S3d/S3e/S3f + S4b⁗/S4c + S0 |
 
 ## PB-floors
-- Every wave lands standalone value (S2/S3 are mathlib-first zero-theory;
-  S4 is the first Siegel anywhere). The rung is DONE at S6.
+- Every wave lands standalone value (S2/S3 extend mathlib's zero-theory;
+  S4 is Siegel's theorem). The rung is DONE at S6.
 - If S1's MellinInversion consumption fights: the direct two-pole contour
   for the FIXED kernel is the fallback (benign: quantitative arcs from
   1/|s|²).

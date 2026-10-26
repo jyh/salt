@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c18de053` · source digest `19ef3ceafafacecf` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `88281fa4` · source digest `f37d77daf13c6662` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -165,7 +165,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 73 | `Salt.MR.S16BandLaneCBounded` | 3 | 1 | — | Salt/MR/S16Budget.lean:1371 |
 | 74 | `Salt.MR.S16BandLaneCBoundedLH` | 3 | 0 | — | Salt/MR/S16FlatTerminalLinearLH.lean:82 |
 | 75 | `Salt.MR.TLBlockGatesLoc` | 3 | 0 | — | Salt/MR/USetGradedBalance.lean:333 |
-| 76 | `Salt.TwinBar.LiouvilleTwinDispLog` | 3 | 0 | — | Salt/TwinBar/TwinParitySieveLog.lean:142 |
+| 76 | `Salt.TwinBar.LiouvilleTwinDispLog` | 3 | 0 | — | Salt/TwinBar/TwinParitySieveLog.lean:133 |
 | 77 | `Salt.TwinBar.SiegelSequence` | 3 | 0 | — | Salt/TwinBar/SiegelCorr.lean:54 |
 | 78 | `GEH_min` | 2 | 1 | — | Salt/Maynard/GehDoor.lean:160 |
 | 79 | `Salt.Entropy.Chowla.MRTUniformityXiH` | 2 | 1 | — | Salt/Entropy/Chowla/ShiftFork.lean:303 |
@@ -431,9 +431,9 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.StrideSupplyAllStridesW` | DISCHARGED | 1 | `Salt.MR.strideSupplyAllStridesW_holds` ✓audited (Salt/MR/StrideSupplyAllStrides.lean:316) |
 | `Salt.MR.mrtGate` | DISCHARGED | 1 | `Salt.MR.mrtGate_of_sq_le` ✓audited GUARDED (Salt/MR/M4Exit.lean:173) · `Salt.MR.mrtGate_transfer` ✓audited GUARDED (Salt/MR/M4Exit.lean:212) |
 | `Salt.SW.EstermannInterface` | DISCHARGED | 1 | `Salt.SW.estermannInterface` ✓audited (Salt/SW/EstermannInterface.lean:463) |
-| `Salt.TwinBar.FourBar` | DISCHARGED | 1 | `Salt.TwinBar.fourBar_holds` ✓audited (Salt/TwinBar/FourBarAsm.lean:494) |
+| `Salt.TwinBar.FourBar` | DISCHARGED | 1 | `Salt.TwinBar.fourBar_holds` ✓audited (Salt/TwinBar/FourBarAsm.lean:482) |
 | `Salt.TwinBar.SieveAgree` | DISCHARGED | 1 | `Salt.TwinBar.sieveAgree_pair` ✓audited GUARDED (Salt/TwinBar/ParityWall.lean:450) |
-| `Salt.TwinBar.TripleBar` | DISCHARGED | 1 | `Salt.TwinBar.tripleBar_holds` ✓audited (Salt/TwinBar/ThreeBarAsm.lean:743) |
+| `Salt.TwinBar.TripleBar` | DISCHARGED | 1 | `Salt.TwinBar.tripleBar_holds` ✓audited (Salt/TwinBar/ThreeBarAsm.lean:730) |
 | `Salt.Vk.ZetaGrowthPow` | DISCHARGED | 1 | `Salt.Vk.zeta_growth_pow` ✓audited (Salt/Vk/GrowthPow.lean:975) |
 | `Salt.Vmvt.VmvtBound` | DISCHARGED | 1 | `Salt.Certs.cert_vmvt_witness` ✓audited (Salt/Certs/Vmvt.lean:157) · `Salt.Vmvt.vmvt_base` ✓audited GUARDED (Salt/Vmvt/MeanValue.lean:260) · `Salt.Vmvt.vmvt_step_degen_branch` GUARDED (Salt/Vmvt/Step.lean:213) · +2 |
 | `Salt.MR.WellSpaced` | STRUCTURAL | 53 | — |

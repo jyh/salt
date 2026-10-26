@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c18de053` · source digest `19ef3ceafafacecf` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `88281fa4` · source digest `f37d77daf13c6662` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6821,13 +6821,13 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.sliceCS₂₄` | Salt/TwinBar/FourBar.lean:375 | sieves |
 | `Salt.TwinBar.sliceCS₃₄` | Salt/TwinBar/FourBar.lean:388 | sieves |
 | `Salt.TwinBar.sliceCS₄₄` | Salt/TwinBar/FourBar.lean:401 | sieves |
-| `Salt.TwinBar.J₄₄_bound` | Salt/TwinBar/FourBarAsm.lean:135 | sieves |
-| `Salt.TwinBar.J₁₄_bound` | Salt/TwinBar/FourBarAsm.lean:199 | sieves |
-| `Salt.TwinBar.J₃₄_bound` | Salt/TwinBar/FourBarAsm.lean:264 | sieves |
-| `Salt.TwinBar.J₂₄_bound` | Salt/TwinBar/FourBarAsm.lean:338 | sieves |
-| `Salt.TwinBar.four_bar` | Salt/TwinBar/FourBarAsm.lean:418 | sieves |
-| `Salt.TwinBar.fourBar_holds` | Salt/TwinBar/FourBarAsm.lean:494 | sieves |
-| `Salt.TwinBar.no_quad_weight` | Salt/TwinBar/FourBarAsm.lean:499 | sieves |
+| `Salt.TwinBar.J₄₄_bound` | Salt/TwinBar/FourBarAsm.lean:123 | sieves |
+| `Salt.TwinBar.J₁₄_bound` | Salt/TwinBar/FourBarAsm.lean:187 | sieves |
+| `Salt.TwinBar.J₃₄_bound` | Salt/TwinBar/FourBarAsm.lean:252 | sieves |
+| `Salt.TwinBar.J₂₄_bound` | Salt/TwinBar/FourBarAsm.lean:326 | sieves |
+| `Salt.TwinBar.four_bar` | Salt/TwinBar/FourBarAsm.lean:406 | sieves |
+| `Salt.TwinBar.fourBar_holds` | Salt/TwinBar/FourBarAsm.lean:482 | sieves |
+| `Salt.TwinBar.no_quad_weight` | Salt/TwinBar/FourBarAsm.lean:487 | sieves |
 | `Salt.TwinBar.twin_bar` | Salt/TwinBar/Impossibility.lean:173 | sieves |
 | `Salt.TwinBar.twin_gate_fails` | Salt/TwinBar/Impossibility.lean:262 | sieves |
 | `Salt.TwinBar.no_twin_weight` | Salt/TwinBar/Impossibility.lean:276 | sieves |
@@ -6891,9 +6891,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.sliceCS₂` | Salt/TwinBar/SliceCS.lean:148 | sieves |
 | `Salt.TwinBar.log_slice_CS` | Salt/TwinBar/ThreeBar.lean:242 | sieves |
 | `Salt.TwinBar.three_halves_log_three_lt_two` | Salt/TwinBar/ThreeBar.lean:317 | sieves |
-| `Salt.TwinBar.three_bar` | Salt/TwinBar/ThreeBarAsm.lean:691 | sieves |
-| `Salt.TwinBar.tripleBar_holds` | Salt/TwinBar/ThreeBarAsm.lean:743 | sieves |
-| `Salt.TwinBar.no_triple_weight` | Salt/TwinBar/ThreeBarAsm.lean:749 | sieves |
+| `Salt.TwinBar.three_bar` | Salt/TwinBar/ThreeBarAsm.lean:678 | sieves |
+| `Salt.TwinBar.tripleBar_holds` | Salt/TwinBar/ThreeBarAsm.lean:730 | sieves |
+| `Salt.TwinBar.no_triple_weight` | Salt/TwinBar/ThreeBarAsm.lean:736 | sieves |
 | `Salt.TwinBar.simplex_swap` | Salt/TwinBar/Tonelli.lean:83 | sieves |
 | `Salt.TwinBar.twinC2_multipliable` | Salt/TwinBar/TwinDoor.lean:160 | sieves |
 | `Salt.TwinBar.twinC2_pos` | Salt/TwinBar/TwinDoor.lean:171 | sieves |
@@ -6954,21 +6954,21 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.hdiv_of_log_growth` | Salt/TwinBar/TwinParitySieve.lean:1418 | sieves |
 | `Salt.TwinBar.twinLogWeight_support_infinite_of_rate` | Salt/TwinBar/TwinParitySieve.lean:1452 | sieves, characters |
 | `Salt.TwinBar.twinIdx_twinProd` | Salt/TwinBar/TwinParitySieveLog.lean:49 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_totalMass` | Salt/TwinBar/TwinParitySieveLog.lean:86 | sieves, characters |
-| `Salt.TwinBar.Llog_one` | Salt/TwinBar/TwinParitySieveLog.lean:110 | sieves, characters |
-| `Salt.TwinBar.Clog_one` | Salt/TwinBar/TwinParitySieveLog.lean:116 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_multSum` | Salt/TwinBar/TwinParitySieveLog.lean:120 | sieves |
-| `Salt.TwinBar.rem_split_log` | Salt/TwinBar/TwinParitySieveLog.lean:131 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_totalMass_nonneg` | Salt/TwinBar/TwinParitySieveLog.lean:147 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_hMert` | Salt/TwinBar/TwinParitySieveLog.lean:161 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_brun_lower_ell1` | Salt/TwinBar/TwinParitySieveLog.lean:173 | sieves |
-| `Salt.TwinBar.remLogCount_abs_le` | Salt/TwinBar/TwinParitySieveLog.lean:300 | sieves |
-| `Salt.TwinBar.twinRemLog_sum_le` | Salt/TwinBar/TwinParitySieveLog.lean:343 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_siftedSum_eq` | Salt/TwinBar/TwinParitySieveLog.lean:426 | sieves |
-| `Salt.TwinBar.lamChi_mult` | Salt/TwinBar/TwistedSieve.lean:156 | sieves, characters |
-| `Salt.TwinBar.abs_lamChi_le_tau` | Salt/TwinBar/TwistedSieve.lean:172 | sieves, characters |
-| `Salt.TwinBar.twistedErrSum_le_tauRemainder` | Salt/TwinBar/TwistedSieve.lean:188 | sieves, characters |
-| `Salt.TwinBar.twistedMainSum_euler` | Salt/TwinBar/TwistedSieve.lean:208 | sieves, characters |
+| `Salt.TwinBar.twinParitySieveLog_totalMass` | Salt/TwinBar/TwinParitySieveLog.lean:82 | sieves, characters |
+| `Salt.TwinBar.Llog_one` | Salt/TwinBar/TwinParitySieveLog.lean:103 | sieves, characters |
+| `Salt.TwinBar.Clog_one` | Salt/TwinBar/TwinParitySieveLog.lean:107 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_multSum` | Salt/TwinBar/TwinParitySieveLog.lean:111 | sieves |
+| `Salt.TwinBar.rem_split_log` | Salt/TwinBar/TwinParitySieveLog.lean:122 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_totalMass_nonneg` | Salt/TwinBar/TwinParitySieveLog.lean:138 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_hMert` | Salt/TwinBar/TwinParitySieveLog.lean:152 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_brun_lower_ell1` | Salt/TwinBar/TwinParitySieveLog.lean:164 | sieves |
+| `Salt.TwinBar.remLogCount_abs_le` | Salt/TwinBar/TwinParitySieveLog.lean:291 | sieves |
+| `Salt.TwinBar.twinRemLog_sum_le` | Salt/TwinBar/TwinParitySieveLog.lean:334 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_siftedSum_eq` | Salt/TwinBar/TwinParitySieveLog.lean:417 | sieves |
+| `Salt.TwinBar.lamChi_mult` | Salt/TwinBar/TwistedSieve.lean:149 | sieves, characters |
+| `Salt.TwinBar.abs_lamChi_le_tau` | Salt/TwinBar/TwistedSieve.lean:165 | sieves, characters |
+| `Salt.TwinBar.twistedErrSum_le_tauRemainder` | Salt/TwinBar/TwistedSieve.lean:181 | sieves, characters |
+| `Salt.TwinBar.twistedMainSum_euler` | Salt/TwinBar/TwistedSieve.lean:201 | sieves, characters |
 | `Salt.TwinBar.parity_wall` | Salt/TwinBar/Wall.lean:138 | sieves |
 | `Salt.TwinBar.phiLowerR_certificate` | Salt/TwinBar/Wall.lean:195 | sieves |
 | `Salt.TwinBar.sum_inv_Icc_le` | Salt/TwinBar/Wall.lean:220 | sieves |
@@ -8898,7 +8898,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.Sep.no_readable_certificate_via_master` | Salt/TwinBar/Separation.lean:99 | sieves | `Salt.Chen.Feasible` |
 | `Salt.TwinBar.Sep.input_breaks_wall` | Salt/TwinBar/Separation.lean:229 | sieves | `Salt.TwinBar.TwinB_min` |
 | `Salt.TwinBar.noSiegelZeros_of_sevenEighths` | Salt/TwinBar/SevenEighthsClaim.lean:42 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
-| `Salt.TwinBar.bounded_gaps_of_sevenEighths` | Salt/TwinBar/SevenEighthsGaps.lean:33 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.TwinBar.bounded_gaps_of_sevenEighths` | Salt/TwinBar/SevenEighthsGaps.lean:31 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:41 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.three_primes_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:61 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.TwinBar.gaps_le_636_of_sevenEighths` | Salt/TwinBar/SevenEighthsStandoff.lean:68 | sieves | `Salt.TwinBar.DirichletSevenEighths` |
@@ -8922,9 +8922,9 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.twin_parity_survivor_or_chowla_of_liouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:357 | sieves | `Salt.TwinBar.LiouvilleTwinDisp` |
 | `Salt.TwinBar.twinParitySieve_siftedSum_lower_of_liouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:410 | sieves | `Salt.TwinBar.LiouvilleTwinDisp` |
 | `Salt.TwinBar.twinParitySieve_siftedSum_pos_of_margin` | Salt/TwinBar/TwinParitySieve.lean:447 | sieves | `Salt.TwinBar.LiouvilleTwinDisp` |
-| `Salt.TwinBar.twinParitySieveLog_rosserRemainder_le` | Salt/TwinBar/TwinParitySieveLog.lean:381 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
-| `Salt.TwinBar.twinParitySieveLog_siftedSum_lower` | Salt/TwinBar/TwinParitySieveLog.lean:402 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
-| `Salt.TwinBar.twinParitySieveLog_support_infinite` | Salt/TwinBar/TwinParitySieveLog.lean:451 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
+| `Salt.TwinBar.twinParitySieveLog_rosserRemainder_le` | Salt/TwinBar/TwinParitySieveLog.lean:372 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
+| `Salt.TwinBar.twinParitySieveLog_siftedSum_lower` | Salt/TwinBar/TwinParitySieveLog.lean:393 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
+| `Salt.TwinBar.twinParitySieveLog_support_infinite` | Salt/TwinBar/TwinParitySieveLog.lean:442 | sieves | `Salt.TwinBar.LiouvilleTwinDispLog` |
 | `Salt.TwinBar.rosser_floor_undershoot` | Salt/TwinBar/Wall.lean:100 | sieves | `Salt.BrunLower.IsLowerMoebius` |
 | `Salt.TwinBar.rosser_floor_vs_prime_mass` | Salt/TwinBar/Wall.lean:118 | sieves | `Salt.BrunLower.IsLowerMoebius` |
 | `Salt.TwinBar.phiLowerR_tolerant` | Salt/TwinBar/Wall.lean:178 | sieves | `Salt.TwinBar.SieveAgree` |
@@ -9152,7 +9152,7 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.MR.S16BaseScaleCapEnd_LH_gk` | Salt/MR/V7RatedH.lean:152 | characters |
 | `Salt.SW.NoSiegelZerosAt` | Salt/SW/StandoffGate.lean:88 | sieves |
 | `Salt.TwinBar.LiouvilleTwinDisp` | Salt/TwinBar/TwinParitySieve.lean:145 | sieves |
-| `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:142 | sieves |
+| `Salt.TwinBar.LiouvilleTwinDispLog` | Salt/TwinBar/TwinParitySieveLog.lean:133 | sieves |
 
 ## infrastructure (475)
 
@@ -9617,12 +9617,12 @@ Declarations indexed across the tree: 23362 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.Btwin` | Salt/TwinBar/TwinParitySieve.lean:242 | sieves |
 | `Salt.TwinBar.twinIdx` | Salt/TwinBar/TwinParitySieveLog.lean:46 | sieves |
 | `Salt.TwinBar.twinParitySieveLog` | Salt/TwinBar/TwinParitySieveLog.lean:56 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_prodPrimes` | Salt/TwinBar/TwinParitySieveLog.lean:75 | sieves |
-| `Salt.TwinBar.twinParitySieveLog_nu` | Salt/TwinBar/TwinParitySieveLog.lean:80 | sieves |
-| `Salt.TwinBar.Llog` | Salt/TwinBar/TwinParitySieveLog.lean:96 | sieves |
-| `Salt.TwinBar.Clog` | Salt/TwinBar/TwinParitySieveLog.lean:101 | sieves |
-| `Salt.TwinBar.remLogCount` | Salt/TwinBar/TwinParitySieveLog.lean:105 | sieves |
-| `Salt.TwinBar.BtwinLog` | Salt/TwinBar/TwinParitySieveLog.lean:339 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_prodPrimes` | Salt/TwinBar/TwinParitySieveLog.lean:73 | sieves |
+| `Salt.TwinBar.twinParitySieveLog_nu` | Salt/TwinBar/TwinParitySieveLog.lean:76 | sieves |
+| `Salt.TwinBar.Llog` | Salt/TwinBar/TwinParitySieveLog.lean:92 | sieves |
+| `Salt.TwinBar.Clog` | Salt/TwinBar/TwinParitySieveLog.lean:97 | sieves |
+| `Salt.TwinBar.remLogCount` | Salt/TwinBar/TwinParitySieveLog.lean:101 | sieves |
+| `Salt.TwinBar.BtwinLog` | Salt/TwinBar/TwinParitySieveLog.lean:330 | sieves |
 | `Salt.Vmvt.vmvtExp_succ` | Salt/Vmvt/MeanValue.lean:197 | exponential sums |
 | `Salt.Vmvt.vmvtExp_step_diff` | Salt/Vmvt/StepFull.lean:46 | exponential sums |
 | `Salt.Vmvt.vmvtResid_eq` | Salt/Vmvt/StepFull.lean:56 | exponential sums |

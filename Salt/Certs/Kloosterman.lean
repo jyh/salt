@@ -12,7 +12,7 @@ import Salt.Weil.EstermannGlobal
 `${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:203`, in its surveyed-strength list:
 
 > *"as of [survey date], no public artifact in any proof assistant proves … **the Weil
-> bound for Kloosterman sums** …"*
+> bound for Kloosterman sums** …"* (fallen: the 2026-08-17 survey delta, row 9)
 
 **Landed declaration certified:** `Salt.Weil.norm_kloosterman_estermann`
 (`Salt/Weil/EstermannGlobal.lean:318`).
