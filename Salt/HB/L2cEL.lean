@@ -271,11 +271,11 @@ freeze, over `W := l2cWindow χ z x` under the master hypotheses
 * `EL_corners_bound` — even-block `e`-split at `√x`, `m=1`, squarefull-`≥z`, `>x^{1/4}`
   corners: `≤ Cmain·exp(2·z0 z x)·((x:ℝ)^(9/10:ℝ))·(Lwin x)^3` (the junkExpr `x^{9/10}` row).
 
-RESIDUAL CATCH (LOUD): the freeze's "~380 ln / R5 [C]" sizing is not realistic for a
-sorry-free mathlib-rigor landing of these five — each family (fiber def + `(d₁,d₂)` legality
-discharge + `l2c_pair_count_clean` application + Mertens/pretense summation) is on the order of
-several hundred lines, and the freeze's own `R5/R6 COVER COMPLETENESS` open risk (a Lean-time
-disjoint cover may surface a micro-subclass ⇒ STOP-and-flag, iron rule 1) applies at Lean time.
-A focused multi-pass campaign per family is warranted; see the executor report. -/
+RESIDUAL CATCH (LOUD, at this file's landing): the freeze's "~380 ln / R5 [C]" sizing was not
+realistic for a sorry-free mathlib-rigor landing of these five — each family (fiber def + `(d₁,d₂)`
+legality discharge + `l2c_pair_count_clean` application + Mertens/pretense summation) ran to several
+hundred lines, and the freeze's own `R5/R6 COVER COMPLETENESS` open risk did surface at Lean time:
+the `E_L` residual `L2cELuncov`, later discharged by `EL_uncov_bound_unconditional`
+(`L2cMasterUncond.lean`). See the executor report. -/
 
 end Salt.HB
