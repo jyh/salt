@@ -66,8 +66,9 @@ jobs:
           echo "::notice::$(cat why.txt)"
   cert54:
     needs: freshness
-    # always(): if the freshness job itself fails, run anyway (today's behaviour), never skip silently.
-    if: ${{ always() && (needs.freshness.result != 'success' || needs.freshness.outputs.run == 'true') && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    # !cancelled(): if the freshness job itself fails, run anyway (today's behaviour), never skip
+    # silently; a cancelled workflow (a superseded pull-request run) stays cancelled.
+    if: ${{ !cancelled() && (needs.freshness.result != 'success' || needs.freshness.outputs.run == 'true') && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
