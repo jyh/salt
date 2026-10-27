@@ -22,6 +22,7 @@ import Salt.MR.V7C
 import Salt.MR.V7SiegelFree
 import Salt.TwinBar.SevenEighthsStandoff
 import Salt.MR.StrataBounds
+import Salt.MR.BlockLenDoor
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -782,20 +783,9 @@ theorem m4_second_road_L2_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     positivity
   have hcov := m4_cover_assembly_blk2_L_gk K hgates hBblk0 hblk2
   refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
-  refine m4_sievedDoorSq_of_blk2_L_gk K (ℓ := blockLen)
+  refine m4_sievedDoorSq_of_blk2_blockLen_L_gk K
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    harc ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
