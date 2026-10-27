@@ -2,7 +2,8 @@ name: C1 certificates
 
 # The k = 54 certificate (`SaltC1/Cert54/`, Mathlib-only) in its OWN job, so its ~30-45 min of
 # kernel work never rides on the main Lean job. It runs:
-#   * after every GREEN "Lean Action CI" run on main, on that run's own sha (workflow_run);
+#   * after every GREEN "Lean Action CI" run on main, on that run's own sha (workflow_run), unless
+#     main has moved past that sha by then: that run skips, named, and the newer head's run counts;
 #   * nightly, at the main job's cron hour;
 #   * on demand (workflow_dispatch, input `sha`);
 #   * on a pull request that touches the certificate, its scripts, the lakefile, the toolchain,
@@ -43,8 +44,29 @@ permissions:
   contents: read
 
 jobs:
+  # A workflow_run on a sha that is no longer main's head SKIPS, named (scripts/c1/should_run.py):
+  # cache retention keeps the newest main sha only, so that run's exact restore would miss, and the
+  # newer head's own run checks the certificate on main. Every other event runs.
+  freshness:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Is the commit under check still main's head?
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          python3 scripts/c1/should_run.py --self-test
+          head=$(git ls-remote "https://github.com/${{ github.repository }}" refs/heads/main | cut -f1)
+          python3 scripts/c1/should_run.py "$EVENT" "$RUN_SHA" "$head" > decision.txt 2> why.txt
+          cat decision.txt >> "$GITHUB_OUTPUT"
+          echo "::notice::$(cat why.txt)"
   cert54:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    needs: freshness
+    if: ${{ needs.freshness.outputs.run == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
