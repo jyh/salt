@@ -69,10 +69,18 @@ variable {q : ℕ}
 Nonnegative everywhere; positive for `t < 1`; the mollifier the detector rides on. -/
 def dhKernR (t : ℝ) : ℝ := max 0 (1 - t)
 
+/-- `0 ≤ (1 − t)₊` for every real `t`: `max 0 (1 − t)` dominates its first argument. A `simp`
+lemma; the kernel sign in `dhDetector_term_nonneg` and in the `w`-nonnegativity hypotheses of
+`DHBal`, `DHCore`, `DHMollified`, `DHTrunc` and `SelWeight`. -/
 @[simp] lemma dhKernR_nonneg (t : ℝ) : 0 ≤ dhKernR t := le_max_left _ _
 
+/-- `(1 − t)₊ = 1 − t` when `t ≤ 1` (`ht`): `max_eq_right`, since `0 ≤ 1 − t`. The unfolding on
+the support `n ≤ x` — `dhKernR_pos`, the `n ≤ x` branch of `dhKernR_eq_kernel_integral`, and the
+explicit-kernel sums of `DHClose`, `DHCore`, `DHExtractW` and `DHFinal`. -/
 lemma dhKernR_eq {t : ℝ} (ht : t ≤ 1) : dhKernR t = 1 - t := max_eq_right (by linarith)
 
+/-- `0 < (1 − t)₊` when `t < 1` (`ht`): `dhKernR_eq` at `t ≤ 1`, then `1 − t > 0`. The strict
+sign of the `n = 1` term in `dhDetector_pos`. -/
 lemma dhKernR_pos {t : ℝ} (ht : t < 1) : 0 < dhKernR t := by
   rw [dhKernR_eq ht.le]; linarith
 
@@ -86,8 +94,13 @@ lemma dhKernR_eq_re_kern (t : ℝ) : dhKernR t = (kern t).re := by
 positivity of the detector: a square, hence `≥ 0`, and `= 1` at `n = 1` (`θ₁ = 1`). -/
 noncomputable def dhWeightSq (z n : ℕ) : ℝ := (∑ d ∈ n.divisors, grahamTheta z d) ^ 2
 
+/-- `0 ≤ w_z(n)`: a square (`sq_nonneg`). A `simp` lemma; the weight sign in
+`dhDetector_term_nonneg`. -/
 @[simp] lemma dhWeightSq_nonneg (z n : ℕ) : 0 ≤ dhWeightSq z n := sq_nonneg _
 
+/-- `w_z(1) = 1` for `2 ≤ z` (`hz`): the divisors of `1` are `{1}` and `θ₁ = 1`, so the square
+is `1` — this is `grahamTheta_floor hz` verbatim. The `n = 1` seam of the floor
+`dhDetector_floor` and of `DHFinal`'s coefficient. -/
 lemma dhWeightSq_one {z : ℕ} (hz : 2 ≤ z) : dhWeightSq z 1 = 1 :=
   grahamTheta_floor hz
 
@@ -144,6 +157,9 @@ square). Its Dirichlet series is Benli's `F(s)G(s)` (the diagonal collapse). -/
 noncomputable def dhCoeff (χ : DirichletCharacter ℂ q) (z n : ℕ) : ℝ :=
   dhA χ n * dhWeightSq z n
 
+/-- `D(x,N) = Σ_{n≤N} c(n)·(1 − n/x)₊` with `c = dhCoeff χ z`: termwise `mul_assoc`, folding
+`a(n)·w_z(n)` into the coefficient. Step 1 of `dhDetector_mellin`, which then represents each
+`(1 − n/x)₊` by its kernel integral. -/
 lemma dhDetector_eq_coeff (χ : DirichletCharacter ℂ q) (z : ℕ) (x : ℝ) (N : ℕ) :
     dhDetector χ z x N
       = ∑ n ∈ Finset.Icc 1 N, dhCoeff χ z n * dhKernR ((n : ℝ) / x) := by
