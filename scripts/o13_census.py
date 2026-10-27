@@ -63,6 +63,8 @@ BY_DESIGN = {
         "Deuring-Heilbronn: a standoff form assumes away its subject (census addendum 6)",
     "Salt.HB.dh_repulsion_tall_at":
         "Deuring-Heilbronn: a standoff form assumes away its subject (census addendum 6)",
+    "Salt.SW.dh_repulsion_tall":
+        "Deuring-Heilbronn, the flagship paper's Theorem rep: as dh_repulsion_tall_at (addenda 6, 7, 10)",
     "Salt.HB.heathBrownDichotomy_of_N7":
         "the crown dichotomy, satisfied through its Siegel arm (O76; census addendum 4)",
 }
