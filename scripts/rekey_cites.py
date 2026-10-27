@@ -18,7 +18,9 @@ cite is classed:
   KEPT       its line(s) map to the same number
   RE-KEYED   its line(s) map to other numbers (rewritten with --apply)
   DONE       re-keyed already: at HEAD the citing file has the new cite and not the old
-  REPORTED   a cited line has no head line (edited or deleted): NEVER rewritten, read by hand
+  REPORTED   a cited line has no head line (edited or deleted), a range lost its interior
+             contiguity, or the target was RENAMED: NEVER rewritten, read by hand
+  PRE-STALE  the cite was past the base file's end already: printed, not this edit's
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
 
 --apply edits a citing file only where the same cite text is present at HEAD, in its base order;
@@ -85,9 +87,15 @@ def census(root, base, head):
     out = git(root, "diff", "--name-status", base, head)
     edited = [ln.split("\t")[1] for ln in out.splitlines()
               if ln.startswith("M\t") and ln.endswith(".lean")]
+    # a renamed .lean target: every cite of its OLD path is REPORTED (never skipped)
+    renamed = [ln.split("\t")[1] for ln in out.splitlines()
+               if ln.startswith("R") and ln.split("\t")[1].endswith(".lean")]
     files = git(root, "ls-tree", "-r", "--name-only", base).split()
     leaves = Counter(f.rsplit("/", 1)[-1] for f in files if f.endswith(".lean"))
     maps = {f: line_map(show(root, base, f), show(root, head, f)) for f in edited}
+    nbase = {f: show(root, base, f).count("\n") + 1 for f in edited + renamed}
+    for f in renamed:
+        maps[f] = {}
     rows, cls = [], Counter()
     for src in files:
         if src in GENERATED or not src.endswith(TEXT):
@@ -95,7 +103,7 @@ def census(root, base, head):
         text = show(root, base, src)
         if text is None:
             continue
-        for f in edited:
+        for f in edited + renamed:
             leaf = f.rsplit("/", 1)[-1]
             pat = r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?"
             for mt in re.finditer(pat, text):
@@ -105,10 +113,14 @@ def census(root, base, head):
                 if not pre and leaves[leaf] > 1:
                     cls["AMBIGUOUS"] += 1
                     continue
-                nums = [int(mt.group(2))] + ([int(mt.group(4))] if mt.group(4) else [])
+                lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
+                nums = [lo] + ([hi] if mt.group(4) else [])
+                span = [maps[f].get(n) for n in range(lo, hi + 1)]
                 new = [maps[f].get(n) for n in nums]
-                if any(x is None for x in new):
-                    c = "REPORTED"
+                if hi > nbase[f]:
+                    c, rep = "PRE-STALE", None            # past the base file's end: not this edit's
+                elif any(x is None for x in span) or (span and span[-1] - span[0] != hi - lo):
+                    c = "REPORTED"                          # an edited, deleted or inserted line inside
                     rep = None
                 elif new == nums:
                     c, rep = "KEPT", mt.group(0)
@@ -151,9 +163,10 @@ def apply(root, base, head, rows):
 def report(edited, rows, cls, applied):
     print(f"rekey_cites: edited {len(edited)} .lean file(s); cites KEPT {cls['KEPT']} · DONE at HEAD {cls['DONE']} · "
           f"RE-KEYED {cls['RE-KEYED']}{' (applied)' if applied else ''} · REPORTED {cls['REPORTED']} · "
+          f"PRE-STALE (past the base file's end, not this edit's) {cls['PRE-STALE']} · "
           f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']}")
     for r in rows:
-        if r["cls"] in ("RE-KEYED", "REPORTED"):
+        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
             print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or '(no head line: read by hand)'}"
                   + (f"  [{r['why']}]" if r.get("why") else ""))
     print(LIMITS)
@@ -174,7 +187,7 @@ def main(argv):
         apply(root, base, head, rows)
         cls = Counter(r["cls"] for r in rows) + Counter({"AMBIGUOUS": cls["AMBIGUOUS"]})
     report(edited, rows, cls, applied)
-    stale = cls["REPORTED"] + (0 if applied else cls["RE-KEYED"])
+    stale = cls["REPORTED"] + (0 if applied else cls["RE-KEYED"])   # PRE-STALE is printed, not counted
     return 1 if stale else 0
 
 
@@ -236,6 +249,32 @@ def self_test():
         by2 = {r["cite"]: r for r in rows2}
         check("an insertion AFTER a cited line keeps it (no off-by-one)", by2["Salt/A.lean:3"]["cls"] == "KEPT")
         check("... and moves the line below it", by2["A.lean:5"]["new"] == "A.lean:6")
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        for n in ("C", "E", "R"):
+            open(os.path.join(d, f"Salt/{n}.lean"), "w").write(ten)
+        open(os.path.join(d, "cites.md"), "w").write(
+            "C.lean:3–6 · E.lean:3–6 · R.lean:2 · C.lean:99\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        c = ten.split("\n"); c[4] = "line 5 EDITED"                      # interior edit of 3–6
+        open(os.path.join(d, "Salt/C.lean"), "w").write("\n".join(c))
+        e = ten.split("\n"); e = e[:4] + ["inserted"] + e[4:]             # interior insertion in 3–6
+        open(os.path.join(d, "Salt/E.lean"), "w").write("\n".join(e))
+        g("mv", "Salt/R.lean", "Salt/R2.lean")                              # a renamed target
+        g("commit", "-q", "-am", "head")
+        _, rows4, cls4 = census(d, "HEAD~1", "HEAD")
+        b4 = {r["cite"]: r for r in rows4}
+        check("a range whose INTERIOR line was edited is REPORTED (paper LOW 1)",
+              b4.get("C.lean:3–6", {}).get("cls") == "REPORTED")
+        check("a range that gained an INTERIOR line is REPORTED (paper LOW 1)",
+              b4.get("E.lean:3–6", {}).get("cls") == "REPORTED")
+        check("a cite into a RENAMED target is REPORTED, never skipped (paper LOW 2)",
+              b4.get("R.lean:2", {}).get("cls") == "REPORTED")
+        check("a cite past the base file's end is PRE-STALE, not this edit's",
+              b4.get("C.lean:99", {}).get("cls") == "PRE-STALE")
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
