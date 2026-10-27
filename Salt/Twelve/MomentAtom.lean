@@ -48,11 +48,13 @@ namespace Salt.Twelve
 
 /-! ## Cast/log monotonicity helpers -/
 
+/-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`). -/
 private lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `log m ≤ log n` for naturals `m ≤ n` (`h`), the case `m = 0` through `log_nat_nonneg`. -/
 private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
     Real.log (m : ℝ) ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos m with hm | hm
@@ -118,6 +120,13 @@ private lemma pow_sub_bounds (a : ℕ) {u v : ℝ} (hu : 0 ≤ u) (huv : u ≤ v
 gap `≤ log 2 · (log z)^a` (increments `log(r+1)−log r ≤ log 2`).  This is where
 the EXACT main constant `1/(a+1)` comes from. -/
 
+/-- **L2 — the left-Riemann sum against `∫_0^{log z} u^a du`.** For every `a` and `z`,
+`Afwd z = Σ_{r < z} (log r)^a·(log(r + 1) − log r)` lies below `(log z)^{a+1}/(a + 1)` by at
+most `log 2·(log z)^a`: each increment is bracketed by the mean-value bounds `pow_sub_bounds`
+(`u^a(v − u) ≤ (v^{a+1} − u^{a+1})/(a + 1) ≤ v^a(v − u)`), the middle terms telescope to
+`(log z)^{a+1}/(a + 1)` (`Finset.sum_range_sub`), and the gap `Σ (v^a − u^a)(v − u)` is at most
+`log 2·Σ (v^a − u^a) = log 2·(log z)^a` since every increment `log(r + 1) − log r ≤ log 2`. This
+is where the EXACT main constant `1/(a + 1)` comes from. -/
 private lemma afwd_bounds (a z : ℕ) :
     0 ≤ (Real.log (z : ℝ)) ^ (a + 1) / ((a : ℝ) + 1)
           - ∑ r ∈ Finset.range z,
@@ -204,6 +213,16 @@ Given a weight `w` with two-sided base `|∑_{i<n} w i − M·log n| ≤ C₀` f
 `a`-th log-moment, with the main constant `1/(a+1)` EXACT and an
 `(a`-uniform!) error constant `2·C₀ + M·log 2`. -/
 
+/-- **The Abel lift `a ↦ a + 1`** (the card's mandated floor, unconditional). For any weight `w`
+whose partial sums satisfy the two-sided base `|Σ_{i < n} w i − M·log n| ≤ C₀` for `n ≥ 2`
+(`hbase`) with `M ≥ 0` (`hM0`), and any `a` and `z ≥ 2` (`hz`): `Σ_{i < z} (log i)^a·w i` is
+within `(2·C₀ + M·log 2)·(1 + log z)^a` of `M·(log z)^{a+1}/(a + 1)`. Partial summation
+(`Finset.sum_range_by_parts`) against `(log ·)^a`, for `w` and for the increments
+`g i = log(i + 1) − log i` (whose partial sums are `log n`), gives the master identity
+`moment − M·Afwd = (log(z − 1))^a·E z − Σ_{i < z−1} ((log(i + 1))^a − (log i)^a)·E(i + 1)` with
+`E n = Σ_{i < n} w i − M·log n`; `|E| ≤ C₀` and the telescoping increments bound it by
+`2·C₀·(log z)^a`; `afwd_bounds` puts `M·Afwd` within `M·log 2·(log z)^a` of the main term; and
+`(log z)^a ≤ (1 + log z)^a`. The error constant is `a`-uniform. -/
 private lemma abel_lift (w : ℕ → ℝ) (M C₀ : ℝ) (hM0 : 0 ≤ M)
     (hbase : ∀ n : ℕ, 2 ≤ n → |(∑ i ∈ Finset.range n, w i) - M * Real.log (n : ℝ)| ≤ C₀)
     (a z : ℕ) (hz : 2 ≤ z) :
