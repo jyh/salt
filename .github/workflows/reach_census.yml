@@ -11,6 +11,10 @@ name: Reach census
 # Red on an owed row (parse rc 1) or on a run that is not clean (rc 2). It is not a required
 # check and blocks no merge. Not on workflow_run: one walk a night, not one per merge.
 # The build cache is RESTORED from main's Lean job and never saved here.
+# TIMEOUT: 150 min on main's runs, 300 on a pull request. A pull request that edits low modules misses
+# most of main's prefix cache and rebuilds the corpus inside this job (measured 10-27: #544's imports
+# took 146 min and the 150-min cap cancelled the walk). A cancelled run reaches no verdict; the
+# "No verdict" step below writes that to the summary, so a cancel never reads as a clean census.
 on:
   schedule:
     - cron: '0 11 * * *'
@@ -40,7 +44,7 @@ permissions:
 jobs:
   census:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: ${{ github.event_name == 'pull_request' && 300 || 150 }}
     env:
       PLANT: Salt.HB.heathBrownDichotomy_of_N7
     steps:
@@ -107,6 +111,13 @@ jobs:
           rc=0; lake env lean O13Plant.lean > plant.log 2>&1 || rc=$?
           echo "o13-ci EXIT=$rc" >> plant.log
           tail -3 plant.log
+      - name: No verdict (the run was cancelled)
+        if: ${{ cancelled() }}
+        run: |
+          { echo '## Reach census: NO VERDICT'; echo;
+            echo 'This run was cancelled (the job timeout, or a newer run on the same ref) before the Verdict step.';
+            echo 'It is not a clean census. Re-run it, or read the next run on this ref.'; } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning::Reach census cancelled before its verdict: NO VERDICT, not a pass"
       - name: Upload the logs
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
