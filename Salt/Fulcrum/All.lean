@@ -58,5 +58,6 @@ open Salt.Tactic in
   Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros Salt.Fulcrum.fulcrum_dichotomy
   Salt.Fulcrum.chen_omega_prod_le_three
   Salt.Fulcrum.chen_omega_prod_le_three_of_standoff
+  Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths
   Salt.Fulcrum.zero_free_region_all_numeral
   Salt.Fulcrum.fulcrum_zero_real_numeral
